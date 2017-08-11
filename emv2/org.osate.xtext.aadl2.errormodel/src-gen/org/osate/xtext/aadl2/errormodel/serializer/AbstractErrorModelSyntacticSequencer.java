@@ -63,11 +63,28 @@ public abstract class AbstractErrorModelSyntacticSequencer extends AbstractSynta
 	
 	@Override
 	protected String getUnassignedRuleCallToken(EObject semanticObject, RuleCall ruleCall, INode node) {
-		if (ruleCall.getRule() == grammarAccess.getIDRule())
+		if (ruleCall.getRule() == grammarAccess.getAppliesToKeywordsRule())
+			return getAppliesToKeywordsToken(semanticObject, ruleCall, node);
+		else if (ruleCall.getRule() == grammarAccess.getIDRule())
 			return getIDToken(semanticObject, ruleCall, node);
+		else if (ruleCall.getRule() == grammarAccess.getInBindingKeywordsRule())
+			return getInBindingKeywordsToken(semanticObject, ruleCall, node);
+		else if (ruleCall.getRule() == grammarAccess.getInModesKeywordsRule())
+			return getInModesKeywordsToken(semanticObject, ruleCall, node);
 		else if (ruleCall.getRule() == grammarAccess.getQEMREFRule())
 			return getQEMREFToken(semanticObject, ruleCall, node);
 		return "";
+	}
+	
+	/**
+	 * AppliesToKeywords:
+	 * 	'applies' 'to'
+	 * ;
+	 */
+	protected String getAppliesToKeywordsToken(EObject semanticObject, RuleCall ruleCall, INode node) {
+		if (node != null)
+			return getTokenText(node);
+		return "appliesto";
 	}
 	
 	/**
@@ -81,6 +98,28 @@ public abstract class AbstractErrorModelSyntacticSequencer extends AbstractSynta
 		if (node != null)
 			return getTokenText(node);
 		return "";
+	}
+	
+	/**
+	 * InBindingKeywords:
+	 * 	'in' 'binding'
+	 * ;
+	 */
+	protected String getInBindingKeywordsToken(EObject semanticObject, RuleCall ruleCall, INode node) {
+		if (node != null)
+			return getTokenText(node);
+		return "inbinding";
+	}
+	
+	/**
+	 * InModesKeywords:
+	 * 	'in' 'modes'
+	 * ;
+	 */
+	protected String getInModesKeywordsToken(EObject semanticObject, RuleCall ruleCall, INode node) {
+		if (node != null)
+			return getTokenText(node);
+		return "inmodes";
 	}
 	
 	/**

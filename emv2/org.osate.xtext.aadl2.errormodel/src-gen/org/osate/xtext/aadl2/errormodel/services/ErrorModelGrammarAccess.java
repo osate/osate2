@@ -2102,26 +2102,25 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 		private final Assignment cOwnedValuesAssignment_2_1_1 = (Assignment)cGroup_2_1.eContents().get(1);
 		private final RuleCall cOwnedValuesOptionalModalPropertyValueParserRuleCall_2_1_1_0 = (RuleCall)cOwnedValuesAssignment_2_1_1.eContents().get(0);
 		private final Group cGroup_3 = (Group)cGroup.eContents().get(3);
-		private final Keyword cAppliesKeyword_3_0 = (Keyword)cGroup_3.eContents().get(0);
-		private final Keyword cToKeyword_3_1 = (Keyword)cGroup_3.eContents().get(1);
-		private final Group cGroup_3_2 = (Group)cGroup_3.eContents().get(2);
-		private final Assignment cEmv2PathAssignment_3_2_0 = (Assignment)cGroup_3_2.eContents().get(0);
-		private final RuleCall cEmv2PathEMV2PathParserRuleCall_3_2_0_0 = (RuleCall)cEmv2PathAssignment_3_2_0.eContents().get(0);
-		private final Group cGroup_3_2_1 = (Group)cGroup_3_2.eContents().get(1);
-		private final Keyword cCommaKeyword_3_2_1_0 = (Keyword)cGroup_3_2_1.eContents().get(0);
-		private final Assignment cEmv2PathAssignment_3_2_1_1 = (Assignment)cGroup_3_2_1.eContents().get(1);
-		private final RuleCall cEmv2PathEMV2PathParserRuleCall_3_2_1_1_0 = (RuleCall)cEmv2PathAssignment_3_2_1_1.eContents().get(0);
+		private final RuleCall cAppliesToKeywordsParserRuleCall_3_0 = (RuleCall)cGroup_3.eContents().get(0);
+		private final Group cGroup_3_1 = (Group)cGroup_3.eContents().get(1);
+		private final Assignment cEmv2PathAssignment_3_1_0 = (Assignment)cGroup_3_1.eContents().get(0);
+		private final RuleCall cEmv2PathEMV2PathParserRuleCall_3_1_0_0 = (RuleCall)cEmv2PathAssignment_3_1_0.eContents().get(0);
+		private final Group cGroup_3_1_1 = (Group)cGroup_3_1.eContents().get(1);
+		private final Keyword cCommaKeyword_3_1_1_0 = (Keyword)cGroup_3_1_1.eContents().get(0);
+		private final Assignment cEmv2PathAssignment_3_1_1_1 = (Assignment)cGroup_3_1_1.eContents().get(1);
+		private final RuleCall cEmv2PathEMV2PathParserRuleCall_3_1_1_1_0 = (RuleCall)cEmv2PathAssignment_3_1_1_1.eContents().get(0);
 		private final Keyword cSemicolonKeyword_4 = (Keyword)cGroup.eContents().get(4);
 		
 		//EMV2PropertyAssociation:
 		//	property=[aadl2::Property|QPREF]
-		//	'=>' (ownedValues+=OptionalModalPropertyValue (',' ownedValues+=OptionalModalPropertyValue)*) ('applies' 'to'
+		//	'=>' (ownedValues+=OptionalModalPropertyValue (',' ownedValues+=OptionalModalPropertyValue)*) (AppliesToKeywords
 		//	(emv2Path+=EMV2Path (',' emv2Path+=EMV2Path)*))?
 		//	';';
 		@Override public ParserRule getRule() { return rule; }
 
 		//property=[aadl2::Property|QPREF] '=>' (ownedValues+=OptionalModalPropertyValue (','
-		//ownedValues+=OptionalModalPropertyValue)*) ('applies' 'to' (emv2Path+=EMV2Path (',' emv2Path+=EMV2Path)*))? ';'
+		//ownedValues+=OptionalModalPropertyValue)*) (AppliesToKeywords (emv2Path+=EMV2Path (',' emv2Path+=EMV2Path)*))? ';'
 		public Group getGroup() { return cGroup; }
 
 		//property=[aadl2::Property|QPREF]
@@ -2157,35 +2156,32 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 		//OptionalModalPropertyValue
 		public RuleCall getOwnedValuesOptionalModalPropertyValueParserRuleCall_2_1_1_0() { return cOwnedValuesOptionalModalPropertyValueParserRuleCall_2_1_1_0; }
 
-		//('applies' 'to' (emv2Path+=EMV2Path (',' emv2Path+=EMV2Path)*))?
+		//(AppliesToKeywords (emv2Path+=EMV2Path (',' emv2Path+=EMV2Path)*))?
 		public Group getGroup_3() { return cGroup_3; }
 
-		//'applies'
-		public Keyword getAppliesKeyword_3_0() { return cAppliesKeyword_3_0; }
-
-		//'to'
-		public Keyword getToKeyword_3_1() { return cToKeyword_3_1; }
+		//AppliesToKeywords
+		public RuleCall getAppliesToKeywordsParserRuleCall_3_0() { return cAppliesToKeywordsParserRuleCall_3_0; }
 
 		//emv2Path+=EMV2Path (',' emv2Path+=EMV2Path)*
-		public Group getGroup_3_2() { return cGroup_3_2; }
+		public Group getGroup_3_1() { return cGroup_3_1; }
 
 		//emv2Path+=EMV2Path
-		public Assignment getEmv2PathAssignment_3_2_0() { return cEmv2PathAssignment_3_2_0; }
+		public Assignment getEmv2PathAssignment_3_1_0() { return cEmv2PathAssignment_3_1_0; }
 
 		//EMV2Path
-		public RuleCall getEmv2PathEMV2PathParserRuleCall_3_2_0_0() { return cEmv2PathEMV2PathParserRuleCall_3_2_0_0; }
+		public RuleCall getEmv2PathEMV2PathParserRuleCall_3_1_0_0() { return cEmv2PathEMV2PathParserRuleCall_3_1_0_0; }
 
 		//(',' emv2Path+=EMV2Path)*
-		public Group getGroup_3_2_1() { return cGroup_3_2_1; }
+		public Group getGroup_3_1_1() { return cGroup_3_1_1; }
 
 		//','
-		public Keyword getCommaKeyword_3_2_1_0() { return cCommaKeyword_3_2_1_0; }
+		public Keyword getCommaKeyword_3_1_1_0() { return cCommaKeyword_3_1_1_0; }
 
 		//emv2Path+=EMV2Path
-		public Assignment getEmv2PathAssignment_3_2_1_1() { return cEmv2PathAssignment_3_2_1_1; }
+		public Assignment getEmv2PathAssignment_3_1_1_1() { return cEmv2PathAssignment_3_1_1_1; }
 
 		//EMV2Path
-		public RuleCall getEmv2PathEMV2PathParserRuleCall_3_2_1_1_0() { return cEmv2PathEMV2PathParserRuleCall_3_2_1_1_0; }
+		public RuleCall getEmv2PathEMV2PathParserRuleCall_3_1_1_1_0() { return cEmv2PathEMV2PathParserRuleCall_3_1_1_1_0; }
 
 		//';'
 		public Keyword getSemicolonKeyword_4() { return cSemicolonKeyword_4; }
@@ -2206,27 +2202,26 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 		private final Assignment cOwnedValuesAssignment_2_1_1 = (Assignment)cGroup_2_1.eContents().get(1);
 		private final RuleCall cOwnedValuesOptionalModalPropertyValueParserRuleCall_2_1_1_0 = (RuleCall)cOwnedValuesAssignment_2_1_1.eContents().get(0);
 		private final Group cGroup_3 = (Group)cGroup.eContents().get(3);
-		private final Keyword cAppliesKeyword_3_0 = (Keyword)cGroup_3.eContents().get(0);
-		private final Keyword cToKeyword_3_1 = (Keyword)cGroup_3.eContents().get(1);
-		private final Group cGroup_3_2 = (Group)cGroup_3.eContents().get(2);
-		private final Assignment cEmv2PathAssignment_3_2_0 = (Assignment)cGroup_3_2.eContents().get(0);
-		private final RuleCall cEmv2PathBasicEMV2PathParserRuleCall_3_2_0_0 = (RuleCall)cEmv2PathAssignment_3_2_0.eContents().get(0);
-		private final Group cGroup_3_2_1 = (Group)cGroup_3_2.eContents().get(1);
-		private final Keyword cCommaKeyword_3_2_1_0 = (Keyword)cGroup_3_2_1.eContents().get(0);
-		private final Assignment cEmv2PathAssignment_3_2_1_1 = (Assignment)cGroup_3_2_1.eContents().get(1);
-		private final RuleCall cEmv2PathBasicEMV2PathParserRuleCall_3_2_1_1_0 = (RuleCall)cEmv2PathAssignment_3_2_1_1.eContents().get(0);
+		private final RuleCall cAppliesToKeywordsParserRuleCall_3_0 = (RuleCall)cGroup_3.eContents().get(0);
+		private final Group cGroup_3_1 = (Group)cGroup_3.eContents().get(1);
+		private final Assignment cEmv2PathAssignment_3_1_0 = (Assignment)cGroup_3_1.eContents().get(0);
+		private final RuleCall cEmv2PathBasicEMV2PathParserRuleCall_3_1_0_0 = (RuleCall)cEmv2PathAssignment_3_1_0.eContents().get(0);
+		private final Group cGroup_3_1_1 = (Group)cGroup_3_1.eContents().get(1);
+		private final Keyword cCommaKeyword_3_1_1_0 = (Keyword)cGroup_3_1_1.eContents().get(0);
+		private final Assignment cEmv2PathAssignment_3_1_1_1 = (Assignment)cGroup_3_1_1.eContents().get(1);
+		private final RuleCall cEmv2PathBasicEMV2PathParserRuleCall_3_1_1_1_0 = (RuleCall)cEmv2PathAssignment_3_1_1_1.eContents().get(0);
 		private final Keyword cSemicolonKeyword_4 = (Keyword)cGroup.eContents().get(4);
 		
 		//BasicEMV2PropertyAssociation EMV2PropertyAssociation:
 		//	property=[aadl2::Property|QPREF]
-		//	'=>' (ownedValues+=OptionalModalPropertyValue (',' ownedValues+=OptionalModalPropertyValue)*) ('applies' 'to'
+		//	'=>' (ownedValues+=OptionalModalPropertyValue (',' ownedValues+=OptionalModalPropertyValue)*) (AppliesToKeywords
 		//	(emv2Path+=BasicEMV2Path (',' emv2Path+=BasicEMV2Path)*))?
 		//	';';
 		@Override public ParserRule getRule() { return rule; }
 
 		//property=[aadl2::Property|QPREF] '=>' (ownedValues+=OptionalModalPropertyValue (','
-		//ownedValues+=OptionalModalPropertyValue)*) ('applies' 'to' (emv2Path+=BasicEMV2Path (',' emv2Path+=BasicEMV2Path)*))?
-		//';'
+		//ownedValues+=OptionalModalPropertyValue)*) (AppliesToKeywords (emv2Path+=BasicEMV2Path (','
+		//emv2Path+=BasicEMV2Path)*))? ';'
 		public Group getGroup() { return cGroup; }
 
 		//property=[aadl2::Property|QPREF]
@@ -2262,35 +2257,32 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 		//OptionalModalPropertyValue
 		public RuleCall getOwnedValuesOptionalModalPropertyValueParserRuleCall_2_1_1_0() { return cOwnedValuesOptionalModalPropertyValueParserRuleCall_2_1_1_0; }
 
-		//('applies' 'to' (emv2Path+=BasicEMV2Path (',' emv2Path+=BasicEMV2Path)*))?
+		//(AppliesToKeywords (emv2Path+=BasicEMV2Path (',' emv2Path+=BasicEMV2Path)*))?
 		public Group getGroup_3() { return cGroup_3; }
 
-		//'applies'
-		public Keyword getAppliesKeyword_3_0() { return cAppliesKeyword_3_0; }
-
-		//'to'
-		public Keyword getToKeyword_3_1() { return cToKeyword_3_1; }
+		//AppliesToKeywords
+		public RuleCall getAppliesToKeywordsParserRuleCall_3_0() { return cAppliesToKeywordsParserRuleCall_3_0; }
 
 		//emv2Path+=BasicEMV2Path (',' emv2Path+=BasicEMV2Path)*
-		public Group getGroup_3_2() { return cGroup_3_2; }
+		public Group getGroup_3_1() { return cGroup_3_1; }
 
 		//emv2Path+=BasicEMV2Path
-		public Assignment getEmv2PathAssignment_3_2_0() { return cEmv2PathAssignment_3_2_0; }
+		public Assignment getEmv2PathAssignment_3_1_0() { return cEmv2PathAssignment_3_1_0; }
 
 		//BasicEMV2Path
-		public RuleCall getEmv2PathBasicEMV2PathParserRuleCall_3_2_0_0() { return cEmv2PathBasicEMV2PathParserRuleCall_3_2_0_0; }
+		public RuleCall getEmv2PathBasicEMV2PathParserRuleCall_3_1_0_0() { return cEmv2PathBasicEMV2PathParserRuleCall_3_1_0_0; }
 
 		//(',' emv2Path+=BasicEMV2Path)*
-		public Group getGroup_3_2_1() { return cGroup_3_2_1; }
+		public Group getGroup_3_1_1() { return cGroup_3_1_1; }
 
 		//','
-		public Keyword getCommaKeyword_3_2_1_0() { return cCommaKeyword_3_2_1_0; }
+		public Keyword getCommaKeyword_3_1_1_0() { return cCommaKeyword_3_1_1_0; }
 
 		//emv2Path+=BasicEMV2Path
-		public Assignment getEmv2PathAssignment_3_2_1_1() { return cEmv2PathAssignment_3_2_1_1; }
+		public Assignment getEmv2PathAssignment_3_1_1_1() { return cEmv2PathAssignment_3_1_1_1; }
 
 		//BasicEMV2Path
-		public RuleCall getEmv2PathBasicEMV2PathParserRuleCall_3_2_1_1_0() { return cEmv2PathBasicEMV2PathParserRuleCall_3_2_1_1_0; }
+		public RuleCall getEmv2PathBasicEMV2PathParserRuleCall_3_1_1_1_0() { return cEmv2PathBasicEMV2PathParserRuleCall_3_1_1_1_0; }
 
 		//';'
 		public Keyword getSemicolonKeyword_4() { return cSemicolonKeyword_4; }
@@ -5598,27 +5590,26 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cErrorStateErrorBehaviorStateIDTerminalRuleCall_0_0_1 = (RuleCall)cErrorStateErrorBehaviorStateCrossReference_0_0.eContents().get(1);
 		private final Assignment cTypeTokenAssignment_1 = (Assignment)cGroup.eContents().get(1);
 		private final RuleCall cTypeTokenTypeTokenParserRuleCall_1_0 = (RuleCall)cTypeTokenAssignment_1.eContents().get(0);
-		private final Keyword cInKeyword_2 = (Keyword)cGroup.eContents().get(2);
-		private final Keyword cModesKeyword_3 = (Keyword)cGroup.eContents().get(3);
-		private final Keyword cLeftParenthesisKeyword_4 = (Keyword)cGroup.eContents().get(4);
-		private final Assignment cMappedModesAssignment_5 = (Assignment)cGroup.eContents().get(5);
-		private final CrossReference cMappedModesModeCrossReference_5_0 = (CrossReference)cMappedModesAssignment_5.eContents().get(0);
-		private final RuleCall cMappedModesModeIDTerminalRuleCall_5_0_1 = (RuleCall)cMappedModesModeCrossReference_5_0.eContents().get(1);
-		private final Group cGroup_6 = (Group)cGroup.eContents().get(6);
-		private final Keyword cCommaKeyword_6_0 = (Keyword)cGroup_6.eContents().get(0);
-		private final Assignment cMappedModesAssignment_6_1 = (Assignment)cGroup_6.eContents().get(1);
-		private final CrossReference cMappedModesModeCrossReference_6_1_0 = (CrossReference)cMappedModesAssignment_6_1.eContents().get(0);
-		private final RuleCall cMappedModesModeIDTerminalRuleCall_6_1_0_1 = (RuleCall)cMappedModesModeCrossReference_6_1_0.eContents().get(1);
-		private final Keyword cRightParenthesisKeyword_7 = (Keyword)cGroup.eContents().get(7);
-		private final Keyword cSemicolonKeyword_8 = (Keyword)cGroup.eContents().get(8);
+		private final RuleCall cInModesKeywordsParserRuleCall_2 = (RuleCall)cGroup.eContents().get(2);
+		private final Keyword cLeftParenthesisKeyword_3 = (Keyword)cGroup.eContents().get(3);
+		private final Assignment cMappedModesAssignment_4 = (Assignment)cGroup.eContents().get(4);
+		private final CrossReference cMappedModesModeCrossReference_4_0 = (CrossReference)cMappedModesAssignment_4.eContents().get(0);
+		private final RuleCall cMappedModesModeIDTerminalRuleCall_4_0_1 = (RuleCall)cMappedModesModeCrossReference_4_0.eContents().get(1);
+		private final Group cGroup_5 = (Group)cGroup.eContents().get(5);
+		private final Keyword cCommaKeyword_5_0 = (Keyword)cGroup_5.eContents().get(0);
+		private final Assignment cMappedModesAssignment_5_1 = (Assignment)cGroup_5.eContents().get(1);
+		private final CrossReference cMappedModesModeCrossReference_5_1_0 = (CrossReference)cMappedModesAssignment_5_1.eContents().get(0);
+		private final RuleCall cMappedModesModeIDTerminalRuleCall_5_1_0_1 = (RuleCall)cMappedModesModeCrossReference_5_1_0.eContents().get(1);
+		private final Keyword cRightParenthesisKeyword_6 = (Keyword)cGroup.eContents().get(6);
+		private final Keyword cSemicolonKeyword_7 = (Keyword)cGroup.eContents().get(7);
 		
 		//ErrorStateToModeMapping:
 		//	errorState=[ErrorBehaviorState] typeToken=TypeToken?
-		//	'in' 'modes' '('
+		//	InModesKeywords '('
 		//	mappedModes+=[aadl2::Mode] (',' mappedModes+=[aadl2::Mode])* ')' ';';
 		@Override public ParserRule getRule() { return rule; }
 
-		//errorState=[ErrorBehaviorState] typeToken=TypeToken? 'in' 'modes' '(' mappedModes+=[aadl2::Mode] (','
+		//errorState=[ErrorBehaviorState] typeToken=TypeToken? InModesKeywords '(' mappedModes+=[aadl2::Mode] (','
 		//mappedModes+=[aadl2::Mode])* ')' ';'
 		public Group getGroup() { return cGroup; }
 
@@ -5637,44 +5628,41 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 		//TypeToken
 		public RuleCall getTypeTokenTypeTokenParserRuleCall_1_0() { return cTypeTokenTypeTokenParserRuleCall_1_0; }
 
-		//'in'
-		public Keyword getInKeyword_2() { return cInKeyword_2; }
-
-		//'modes'
-		public Keyword getModesKeyword_3() { return cModesKeyword_3; }
+		//InModesKeywords
+		public RuleCall getInModesKeywordsParserRuleCall_2() { return cInModesKeywordsParserRuleCall_2; }
 
 		//'('
-		public Keyword getLeftParenthesisKeyword_4() { return cLeftParenthesisKeyword_4; }
+		public Keyword getLeftParenthesisKeyword_3() { return cLeftParenthesisKeyword_3; }
 
 		//mappedModes+=[aadl2::Mode]
-		public Assignment getMappedModesAssignment_5() { return cMappedModesAssignment_5; }
+		public Assignment getMappedModesAssignment_4() { return cMappedModesAssignment_4; }
 
 		//[aadl2::Mode]
-		public CrossReference getMappedModesModeCrossReference_5_0() { return cMappedModesModeCrossReference_5_0; }
+		public CrossReference getMappedModesModeCrossReference_4_0() { return cMappedModesModeCrossReference_4_0; }
 
 		//ID
-		public RuleCall getMappedModesModeIDTerminalRuleCall_5_0_1() { return cMappedModesModeIDTerminalRuleCall_5_0_1; }
+		public RuleCall getMappedModesModeIDTerminalRuleCall_4_0_1() { return cMappedModesModeIDTerminalRuleCall_4_0_1; }
 
 		//(',' mappedModes+=[aadl2::Mode])*
-		public Group getGroup_6() { return cGroup_6; }
+		public Group getGroup_5() { return cGroup_5; }
 
 		//','
-		public Keyword getCommaKeyword_6_0() { return cCommaKeyword_6_0; }
+		public Keyword getCommaKeyword_5_0() { return cCommaKeyword_5_0; }
 
 		//mappedModes+=[aadl2::Mode]
-		public Assignment getMappedModesAssignment_6_1() { return cMappedModesAssignment_6_1; }
+		public Assignment getMappedModesAssignment_5_1() { return cMappedModesAssignment_5_1; }
 
 		//[aadl2::Mode]
-		public CrossReference getMappedModesModeCrossReference_6_1_0() { return cMappedModesModeCrossReference_6_1_0; }
+		public CrossReference getMappedModesModeCrossReference_5_1_0() { return cMappedModesModeCrossReference_5_1_0; }
 
 		//ID
-		public RuleCall getMappedModesModeIDTerminalRuleCall_6_1_0_1() { return cMappedModesModeIDTerminalRuleCall_6_1_0_1; }
+		public RuleCall getMappedModesModeIDTerminalRuleCall_5_1_0_1() { return cMappedModesModeIDTerminalRuleCall_5_1_0_1; }
 
 		//')'
-		public Keyword getRightParenthesisKeyword_7() { return cRightParenthesisKeyword_7; }
+		public Keyword getRightParenthesisKeyword_6() { return cRightParenthesisKeyword_6; }
 
 		//';'
-		public Keyword getSemicolonKeyword_8() { return cSemicolonKeyword_8; }
+		public Keyword getSemicolonKeyword_7() { return cSemicolonKeyword_7; }
 	}
 
 	public class CompositeStateElements extends AbstractParserRuleElementFinder {
@@ -6674,7 +6662,7 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 
 	//EMV2PropertyAssociation:
 	//	property=[aadl2::Property|QPREF]
-	//	'=>' (ownedValues+=OptionalModalPropertyValue (',' ownedValues+=OptionalModalPropertyValue)*) ('applies' 'to'
+	//	'=>' (ownedValues+=OptionalModalPropertyValue (',' ownedValues+=OptionalModalPropertyValue)*) (AppliesToKeywords
 	//	(emv2Path+=EMV2Path (',' emv2Path+=EMV2Path)*))?
 	//	';';
 	public EMV2PropertyAssociationElements getEMV2PropertyAssociationAccess() {
@@ -6687,7 +6675,7 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 
 	//BasicEMV2PropertyAssociation EMV2PropertyAssociation:
 	//	property=[aadl2::Property|QPREF]
-	//	'=>' (ownedValues+=OptionalModalPropertyValue (',' ownedValues+=OptionalModalPropertyValue)*) ('applies' 'to'
+	//	'=>' (ownedValues+=OptionalModalPropertyValue (',' ownedValues+=OptionalModalPropertyValue)*) (AppliesToKeywords
 	//	(emv2Path+=BasicEMV2Path (',' emv2Path+=BasicEMV2Path)*))?
 	//	';';
 	public BasicEMV2PropertyAssociationElements getBasicEMV2PropertyAssociationAccess() {
@@ -7335,7 +7323,7 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 
 	//ErrorStateToModeMapping:
 	//	errorState=[ErrorBehaviorState] typeToken=TypeToken?
-	//	'in' 'modes' '('
+	//	InModesKeywords '('
 	//	mappedModes+=[aadl2::Mode] (',' mappedModes+=[aadl2::Mode])* ')' ';';
 	public ErrorStateToModeMappingElements getErrorStateToModeMappingAccess() {
 		return pErrorStateToModeMapping;
@@ -7483,13 +7471,13 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 		return getCONDITIONAccess().getRule();
 	}
 
-	//terminal SL_COMMENT:
+	//@ Override terminal SL_COMMENT:
 	//	'--' !('\n' | '\r')* ('\r'? '\n')?;
 	public TerminalRule getSL_COMMENTRule() {
 		return tSL_COMMENT;
 	} 
 
-	//terminal INTEGER_LIT:
+	//@ Override terminal INTEGER_LIT:
 	//	'0'..'9'+;
 	public TerminalRule getINTEGER_LITRule() {
 		return tINTEGER_LIT;
@@ -7519,8 +7507,8 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 	//// Properties
 	//ContainedPropertyAssociation aadl2::PropertyAssociation:
 	//	property=[aadl2::Property|QPREF] ('=>' | append?='+=>') constant?='constant'? (ownedValue+=OptionalModalPropertyValue
-	//	(',' ownedValue+=OptionalModalPropertyValue)*) ('applies' 'to' appliesTo+=ContainmentPath (','
-	//	appliesTo+=ContainmentPath)*)? ('in' 'binding' '(' inBinding+=[aadl2::Classifier|QCREF] ')')?
+	//	(',' ownedValue+=OptionalModalPropertyValue)*) (AppliesToKeywords appliesTo+=ContainmentPath (','
+	//	appliesTo+=ContainmentPath)*)? (InBindingKeywords '(' inBinding+=[aadl2::Classifier|QCREF] ')')?
 	//	';';
 	public PropertiesGrammarAccess.ContainedPropertyAssociationElements getContainedPropertyAssociationAccess() {
 		return gaProperties.getContainedPropertyAssociationAccess();
@@ -7532,7 +7520,7 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 
 	//PropertyAssociation aadl2::PropertyAssociation:
 	//	property=[aadl2::Property|QPREF] ('=>' | append?='+=>') constant?='constant'? (ownedValue+=OptionalModalPropertyValue
-	//	(',' ownedValue+=OptionalModalPropertyValue)*) ('in' 'binding' '(' inBinding+=[aadl2::Classifier|QCREF] ')')?
+	//	(',' ownedValue+=OptionalModalPropertyValue)*) (InBindingKeywords '(' inBinding+=[aadl2::Classifier|QCREF] ')')?
 	//	';';
 	public PropertiesGrammarAccess.PropertyAssociationElements getPropertyAssociationAccess() {
 		return gaProperties.getPropertyAssociationAccess();
@@ -7569,7 +7557,7 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 	////	 namedElement=[aadl2::NamedElement|IDANNEXTEXT];
 	//ModalPropertyValue aadl2::ModalPropertyValue:
 	//	ownedValue=PropertyExpression
-	//	'in' 'modes' '('
+	//	InModesKeywords '('
 	//	inMode+=[aadl2::Mode] (',' inMode+=[aadl2::Mode])*
 	//	')';
 	public PropertiesGrammarAccess.ModalPropertyValueElements getModalPropertyValueAccess() {
@@ -7581,7 +7569,7 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//OptionalModalPropertyValue aadl2::ModalPropertyValue:
-	//	ownedValue=PropertyExpression ('in' 'modes' '('
+	//	ownedValue=PropertyExpression (InModesKeywords '('
 	//	inMode+=[aadl2::Mode] (',' inMode+=[aadl2::Mode])*
 	//	')')?;
 	public PropertiesGrammarAccess.OptionalModalPropertyValueElements getOptionalModalPropertyValueAccess() {
@@ -7872,6 +7860,36 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 	
 	public ParserRule getNumAltRule() {
 		return getNumAltAccess().getRule();
+	}
+
+	//AppliesToKeywords:
+	//	'applies' 'to';
+	public PropertiesGrammarAccess.AppliesToKeywordsElements getAppliesToKeywordsAccess() {
+		return gaProperties.getAppliesToKeywordsAccess();
+	}
+	
+	public ParserRule getAppliesToKeywordsRule() {
+		return getAppliesToKeywordsAccess().getRule();
+	}
+
+	//InBindingKeywords:
+	//	'in' 'binding';
+	public PropertiesGrammarAccess.InBindingKeywordsElements getInBindingKeywordsAccess() {
+		return gaProperties.getInBindingKeywordsAccess();
+	}
+	
+	public ParserRule getInBindingKeywordsRule() {
+		return getInBindingKeywordsAccess().getRule();
+	}
+
+	//InModesKeywords:
+	//	'in' 'modes';
+	public PropertiesGrammarAccess.InModesKeywordsElements getInModesKeywordsAccess() {
+		return gaProperties.getInModesKeywordsAccess();
+	}
+	
+	public ParserRule getInModesKeywordsRule() {
+		return getInModesKeywordsAccess().getRule();
 	}
 
 	//INTVALUE aadl2::Integer:

@@ -3946,11 +3946,11 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
                                 if ( (LA71_4==Type) ) {
                                     int LA71_6 = input.LA(4);
 
-                                    if ( (LA71_6==RULE_ID) ) {
-                                        alt71=1;
-                                    }
-                                    else if ( (LA71_6==Set) ) {
+                                    if ( (LA71_6==Set) ) {
                                         alt71=2;
+                                    }
+                                    else if ( (LA71_6==RULE_ID) ) {
+                                        alt71=1;
                                     }
 
 
@@ -4754,11 +4754,11 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
                                         if ( (LA82_3==Type) ) {
                                             int LA82_5 = input.LA(4);
 
-                                            if ( (LA82_5==Set) ) {
-                                                alt82=2;
-                                            }
-                                            else if ( (LA82_5==Extends||LA82_5==Semicolon) ) {
+                                            if ( (LA82_5==Extends||LA82_5==Semicolon) ) {
                                                 alt82=1;
+                                            }
+                                            else if ( (LA82_5==Set) ) {
+                                                alt82=2;
                                             }
 
 
@@ -4772,11 +4772,11 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
                                         if ( (LA82_4==Type) ) {
                                             int LA82_6 = input.LA(4);
 
-                                            if ( (LA82_6==RULE_ID) ) {
-                                                alt82=1;
-                                            }
-                                            else if ( (LA82_6==Set) ) {
+                                            if ( (LA82_6==Set) ) {
                                                 alt82=2;
+                                            }
+                                            else if ( (LA82_6==RULE_ID) ) {
+                                                alt82=1;
                                             }
 
 
@@ -5442,11 +5442,11 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
                                         if ( (LA93_3==Type) ) {
                                             int LA93_5 = input.LA(4);
 
-                                            if ( (LA93_5==Extends||LA93_5==Semicolon) ) {
-                                                alt93=1;
-                                            }
-                                            else if ( (LA93_5==Set) ) {
+                                            if ( (LA93_5==Set) ) {
                                                 alt93=2;
+                                            }
+                                            else if ( (LA93_5==Extends||LA93_5==Semicolon) ) {
+                                                alt93=1;
                                             }
 
 
@@ -5894,33 +5894,31 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleEMV2PropertyAssociation"
-    // InternalErrorModelParser.g:2314:1: ruleEMV2PropertyAssociation returns [EObject current=null] : ( ( ( ruleQPREF ) ) otherlv_1= EqualsSignGreaterThanSign ( ( (lv_ownedValues_2_0= ruleOptionalModalPropertyValue ) ) (otherlv_3= Comma ( (lv_ownedValues_4_0= ruleOptionalModalPropertyValue ) ) )* ) (otherlv_5= Applies otherlv_6= To ( ( (lv_emv2Path_7_0= ruleEMV2Path ) ) (otherlv_8= Comma ( (lv_emv2Path_9_0= ruleEMV2Path ) ) )* ) )? otherlv_10= Semicolon ) ;
+    // InternalErrorModelParser.g:2314:1: ruleEMV2PropertyAssociation returns [EObject current=null] : ( ( ( ruleQPREF ) ) otherlv_1= EqualsSignGreaterThanSign ( ( (lv_ownedValues_2_0= ruleOptionalModalPropertyValue ) ) (otherlv_3= Comma ( (lv_ownedValues_4_0= ruleOptionalModalPropertyValue ) ) )* ) ( ruleAppliesToKeywords ( ( (lv_emv2Path_6_0= ruleEMV2Path ) ) (otherlv_7= Comma ( (lv_emv2Path_8_0= ruleEMV2Path ) ) )* ) )? otherlv_9= Semicolon ) ;
     public final EObject ruleEMV2PropertyAssociation() throws RecognitionException {
         EObject current = null;
 
         Token otherlv_1=null;
         Token otherlv_3=null;
-        Token otherlv_5=null;
-        Token otherlv_6=null;
-        Token otherlv_8=null;
-        Token otherlv_10=null;
+        Token otherlv_7=null;
+        Token otherlv_9=null;
         EObject lv_ownedValues_2_0 = null;
 
         EObject lv_ownedValues_4_0 = null;
 
-        EObject lv_emv2Path_7_0 = null;
+        EObject lv_emv2Path_6_0 = null;
 
-        EObject lv_emv2Path_9_0 = null;
+        EObject lv_emv2Path_8_0 = null;
 
 
          enterRule(); 
             
         try {
-            // InternalErrorModelParser.g:2317:28: ( ( ( ( ruleQPREF ) ) otherlv_1= EqualsSignGreaterThanSign ( ( (lv_ownedValues_2_0= ruleOptionalModalPropertyValue ) ) (otherlv_3= Comma ( (lv_ownedValues_4_0= ruleOptionalModalPropertyValue ) ) )* ) (otherlv_5= Applies otherlv_6= To ( ( (lv_emv2Path_7_0= ruleEMV2Path ) ) (otherlv_8= Comma ( (lv_emv2Path_9_0= ruleEMV2Path ) ) )* ) )? otherlv_10= Semicolon ) )
-            // InternalErrorModelParser.g:2318:1: ( ( ( ruleQPREF ) ) otherlv_1= EqualsSignGreaterThanSign ( ( (lv_ownedValues_2_0= ruleOptionalModalPropertyValue ) ) (otherlv_3= Comma ( (lv_ownedValues_4_0= ruleOptionalModalPropertyValue ) ) )* ) (otherlv_5= Applies otherlv_6= To ( ( (lv_emv2Path_7_0= ruleEMV2Path ) ) (otherlv_8= Comma ( (lv_emv2Path_9_0= ruleEMV2Path ) ) )* ) )? otherlv_10= Semicolon )
+            // InternalErrorModelParser.g:2317:28: ( ( ( ( ruleQPREF ) ) otherlv_1= EqualsSignGreaterThanSign ( ( (lv_ownedValues_2_0= ruleOptionalModalPropertyValue ) ) (otherlv_3= Comma ( (lv_ownedValues_4_0= ruleOptionalModalPropertyValue ) ) )* ) ( ruleAppliesToKeywords ( ( (lv_emv2Path_6_0= ruleEMV2Path ) ) (otherlv_7= Comma ( (lv_emv2Path_8_0= ruleEMV2Path ) ) )* ) )? otherlv_9= Semicolon ) )
+            // InternalErrorModelParser.g:2318:1: ( ( ( ruleQPREF ) ) otherlv_1= EqualsSignGreaterThanSign ( ( (lv_ownedValues_2_0= ruleOptionalModalPropertyValue ) ) (otherlv_3= Comma ( (lv_ownedValues_4_0= ruleOptionalModalPropertyValue ) ) )* ) ( ruleAppliesToKeywords ( ( (lv_emv2Path_6_0= ruleEMV2Path ) ) (otherlv_7= Comma ( (lv_emv2Path_8_0= ruleEMV2Path ) ) )* ) )? otherlv_9= Semicolon )
             {
-            // InternalErrorModelParser.g:2318:1: ( ( ( ruleQPREF ) ) otherlv_1= EqualsSignGreaterThanSign ( ( (lv_ownedValues_2_0= ruleOptionalModalPropertyValue ) ) (otherlv_3= Comma ( (lv_ownedValues_4_0= ruleOptionalModalPropertyValue ) ) )* ) (otherlv_5= Applies otherlv_6= To ( ( (lv_emv2Path_7_0= ruleEMV2Path ) ) (otherlv_8= Comma ( (lv_emv2Path_9_0= ruleEMV2Path ) ) )* ) )? otherlv_10= Semicolon )
-            // InternalErrorModelParser.g:2318:2: ( ( ruleQPREF ) ) otherlv_1= EqualsSignGreaterThanSign ( ( (lv_ownedValues_2_0= ruleOptionalModalPropertyValue ) ) (otherlv_3= Comma ( (lv_ownedValues_4_0= ruleOptionalModalPropertyValue ) ) )* ) (otherlv_5= Applies otherlv_6= To ( ( (lv_emv2Path_7_0= ruleEMV2Path ) ) (otherlv_8= Comma ( (lv_emv2Path_9_0= ruleEMV2Path ) ) )* ) )? otherlv_10= Semicolon
+            // InternalErrorModelParser.g:2318:1: ( ( ( ruleQPREF ) ) otherlv_1= EqualsSignGreaterThanSign ( ( (lv_ownedValues_2_0= ruleOptionalModalPropertyValue ) ) (otherlv_3= Comma ( (lv_ownedValues_4_0= ruleOptionalModalPropertyValue ) ) )* ) ( ruleAppliesToKeywords ( ( (lv_emv2Path_6_0= ruleEMV2Path ) ) (otherlv_7= Comma ( (lv_emv2Path_8_0= ruleEMV2Path ) ) )* ) )? otherlv_9= Semicolon )
+            // InternalErrorModelParser.g:2318:2: ( ( ruleQPREF ) ) otherlv_1= EqualsSignGreaterThanSign ( ( (lv_ownedValues_2_0= ruleOptionalModalPropertyValue ) ) (otherlv_3= Comma ( (lv_ownedValues_4_0= ruleOptionalModalPropertyValue ) ) )* ) ( ruleAppliesToKeywords ( ( (lv_emv2Path_6_0= ruleEMV2Path ) ) (otherlv_7= Comma ( (lv_emv2Path_8_0= ruleEMV2Path ) ) )* ) )? otherlv_9= Semicolon
             {
             // InternalErrorModelParser.g:2318:2: ( ( ruleQPREF ) )
             // InternalErrorModelParser.g:2319:1: ( ruleQPREF )
@@ -6050,7 +6048,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
             }
 
-            // InternalErrorModelParser.g:2380:5: (otherlv_5= Applies otherlv_6= To ( ( (lv_emv2Path_7_0= ruleEMV2Path ) ) (otherlv_8= Comma ( (lv_emv2Path_9_0= ruleEMV2Path ) ) )* ) )?
+            // InternalErrorModelParser.g:2380:5: ( ruleAppliesToKeywords ( ( (lv_emv2Path_6_0= ruleEMV2Path ) ) (otherlv_7= Comma ( (lv_emv2Path_8_0= ruleEMV2Path ) ) )* ) )?
             int alt103=2;
             int LA103_0 = input.LA(1);
 
@@ -6059,30 +6057,33 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
             }
             switch (alt103) {
                 case 1 :
-                    // InternalErrorModelParser.g:2381:2: otherlv_5= Applies otherlv_6= To ( ( (lv_emv2Path_7_0= ruleEMV2Path ) ) (otherlv_8= Comma ( (lv_emv2Path_9_0= ruleEMV2Path ) ) )* )
-                    {
-                    otherlv_5=(Token)match(input,Applies,FOLLOW_63); 
-
-                        	newLeafNode(otherlv_5, grammarAccess.getEMV2PropertyAssociationAccess().getAppliesKeyword_3_0());
-                        
-                    otherlv_6=(Token)match(input,To,FOLLOW_64); 
-
-                        	newLeafNode(otherlv_6, grammarAccess.getEMV2PropertyAssociationAccess().getToKeyword_3_1());
-                        
-                    // InternalErrorModelParser.g:2390:1: ( ( (lv_emv2Path_7_0= ruleEMV2Path ) ) (otherlv_8= Comma ( (lv_emv2Path_9_0= ruleEMV2Path ) ) )* )
-                    // InternalErrorModelParser.g:2390:2: ( (lv_emv2Path_7_0= ruleEMV2Path ) ) (otherlv_8= Comma ( (lv_emv2Path_9_0= ruleEMV2Path ) ) )*
-                    {
-                    // InternalErrorModelParser.g:2390:2: ( (lv_emv2Path_7_0= ruleEMV2Path ) )
-                    // InternalErrorModelParser.g:2391:1: (lv_emv2Path_7_0= ruleEMV2Path )
-                    {
-                    // InternalErrorModelParser.g:2391:1: (lv_emv2Path_7_0= ruleEMV2Path )
-                    // InternalErrorModelParser.g:2392:3: lv_emv2Path_7_0= ruleEMV2Path
+                    // InternalErrorModelParser.g:2381:5: ruleAppliesToKeywords ( ( (lv_emv2Path_6_0= ruleEMV2Path ) ) (otherlv_7= Comma ( (lv_emv2Path_8_0= ruleEMV2Path ) ) )* )
                     {
                      
-                    	        newCompositeNode(grammarAccess.getEMV2PropertyAssociationAccess().getEmv2PathEMV2PathParserRuleCall_3_2_0_0()); 
+                            newCompositeNode(grammarAccess.getEMV2PropertyAssociationAccess().getAppliesToKeywordsParserRuleCall_3_0()); 
+                        
+                    pushFollow(FOLLOW_63);
+                    ruleAppliesToKeywords();
+
+                    state._fsp--;
+
+
+                            afterParserOrEnumRuleCall();
+                        
+                    // InternalErrorModelParser.g:2388:1: ( ( (lv_emv2Path_6_0= ruleEMV2Path ) ) (otherlv_7= Comma ( (lv_emv2Path_8_0= ruleEMV2Path ) ) )* )
+                    // InternalErrorModelParser.g:2388:2: ( (lv_emv2Path_6_0= ruleEMV2Path ) ) (otherlv_7= Comma ( (lv_emv2Path_8_0= ruleEMV2Path ) ) )*
+                    {
+                    // InternalErrorModelParser.g:2388:2: ( (lv_emv2Path_6_0= ruleEMV2Path ) )
+                    // InternalErrorModelParser.g:2389:1: (lv_emv2Path_6_0= ruleEMV2Path )
+                    {
+                    // InternalErrorModelParser.g:2389:1: (lv_emv2Path_6_0= ruleEMV2Path )
+                    // InternalErrorModelParser.g:2390:3: lv_emv2Path_6_0= ruleEMV2Path
+                    {
+                     
+                    	        newCompositeNode(grammarAccess.getEMV2PropertyAssociationAccess().getEmv2PathEMV2PathParserRuleCall_3_1_0_0()); 
                     	    
                     pushFollow(FOLLOW_6);
-                    lv_emv2Path_7_0=ruleEMV2Path();
+                    lv_emv2Path_6_0=ruleEMV2Path();
 
                     state._fsp--;
 
@@ -6093,7 +6094,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
                            		add(
                            			current, 
                            			"emv2Path",
-                            		lv_emv2Path_7_0, 
+                            		lv_emv2Path_6_0, 
                             		"org.osate.xtext.aadl2.errormodel.ErrorModel.EMV2Path");
                     	        afterParserOrEnumRuleCall();
                     	    
@@ -6103,7 +6104,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
                     }
 
-                    // InternalErrorModelParser.g:2408:2: (otherlv_8= Comma ( (lv_emv2Path_9_0= ruleEMV2Path ) ) )*
+                    // InternalErrorModelParser.g:2406:2: (otherlv_7= Comma ( (lv_emv2Path_8_0= ruleEMV2Path ) ) )*
                     loop102:
                     do {
                         int alt102=2;
@@ -6116,23 +6117,23 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
                         switch (alt102) {
                     	case 1 :
-                    	    // InternalErrorModelParser.g:2409:2: otherlv_8= Comma ( (lv_emv2Path_9_0= ruleEMV2Path ) )
+                    	    // InternalErrorModelParser.g:2407:2: otherlv_7= Comma ( (lv_emv2Path_8_0= ruleEMV2Path ) )
                     	    {
-                    	    otherlv_8=(Token)match(input,Comma,FOLLOW_64); 
+                    	    otherlv_7=(Token)match(input,Comma,FOLLOW_63); 
 
-                    	        	newLeafNode(otherlv_8, grammarAccess.getEMV2PropertyAssociationAccess().getCommaKeyword_3_2_1_0());
+                    	        	newLeafNode(otherlv_7, grammarAccess.getEMV2PropertyAssociationAccess().getCommaKeyword_3_1_1_0());
                     	        
-                    	    // InternalErrorModelParser.g:2413:1: ( (lv_emv2Path_9_0= ruleEMV2Path ) )
-                    	    // InternalErrorModelParser.g:2414:1: (lv_emv2Path_9_0= ruleEMV2Path )
+                    	    // InternalErrorModelParser.g:2411:1: ( (lv_emv2Path_8_0= ruleEMV2Path ) )
+                    	    // InternalErrorModelParser.g:2412:1: (lv_emv2Path_8_0= ruleEMV2Path )
                     	    {
-                    	    // InternalErrorModelParser.g:2414:1: (lv_emv2Path_9_0= ruleEMV2Path )
-                    	    // InternalErrorModelParser.g:2415:3: lv_emv2Path_9_0= ruleEMV2Path
+                    	    // InternalErrorModelParser.g:2412:1: (lv_emv2Path_8_0= ruleEMV2Path )
+                    	    // InternalErrorModelParser.g:2413:3: lv_emv2Path_8_0= ruleEMV2Path
                     	    {
                     	     
-                    	    	        newCompositeNode(grammarAccess.getEMV2PropertyAssociationAccess().getEmv2PathEMV2PathParserRuleCall_3_2_1_1_0()); 
+                    	    	        newCompositeNode(grammarAccess.getEMV2PropertyAssociationAccess().getEmv2PathEMV2PathParserRuleCall_3_1_1_1_0()); 
                     	    	    
                     	    pushFollow(FOLLOW_6);
-                    	    lv_emv2Path_9_0=ruleEMV2Path();
+                    	    lv_emv2Path_8_0=ruleEMV2Path();
 
                     	    state._fsp--;
 
@@ -6143,7 +6144,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
                     	           		add(
                     	           			current, 
                     	           			"emv2Path",
-                    	            		lv_emv2Path_9_0, 
+                    	            		lv_emv2Path_8_0, 
                     	            		"org.osate.xtext.aadl2.errormodel.ErrorModel.EMV2Path");
                     	    	        afterParserOrEnumRuleCall();
                     	    	    
@@ -6171,9 +6172,9 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
             }
 
-            otherlv_10=(Token)match(input,Semicolon,FOLLOW_2); 
+            otherlv_9=(Token)match(input,Semicolon,FOLLOW_2); 
 
-                	newLeafNode(otherlv_10, grammarAccess.getEMV2PropertyAssociationAccess().getSemicolonKeyword_4());
+                	newLeafNode(otherlv_9, grammarAccess.getEMV2PropertyAssociationAccess().getSemicolonKeyword_4());
                 
 
             }
@@ -6196,7 +6197,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleBasicEMV2PropertyAssociation"
-    // InternalErrorModelParser.g:2444:1: entryRuleBasicEMV2PropertyAssociation returns [EObject current=null] : iv_ruleBasicEMV2PropertyAssociation= ruleBasicEMV2PropertyAssociation EOF ;
+    // InternalErrorModelParser.g:2442:1: entryRuleBasicEMV2PropertyAssociation returns [EObject current=null] : iv_ruleBasicEMV2PropertyAssociation= ruleBasicEMV2PropertyAssociation EOF ;
     public final EObject entryRuleBasicEMV2PropertyAssociation() throws RecognitionException {
         EObject current = null;
 
@@ -6204,8 +6205,8 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // InternalErrorModelParser.g:2445:2: (iv_ruleBasicEMV2PropertyAssociation= ruleBasicEMV2PropertyAssociation EOF )
-            // InternalErrorModelParser.g:2446:2: iv_ruleBasicEMV2PropertyAssociation= ruleBasicEMV2PropertyAssociation EOF
+            // InternalErrorModelParser.g:2443:2: (iv_ruleBasicEMV2PropertyAssociation= ruleBasicEMV2PropertyAssociation EOF )
+            // InternalErrorModelParser.g:2444:2: iv_ruleBasicEMV2PropertyAssociation= ruleBasicEMV2PropertyAssociation EOF
             {
              newCompositeNode(grammarAccess.getBasicEMV2PropertyAssociationRule()); 
             pushFollow(FOLLOW_1);
@@ -6232,39 +6233,37 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleBasicEMV2PropertyAssociation"
-    // InternalErrorModelParser.g:2453:1: ruleBasicEMV2PropertyAssociation returns [EObject current=null] : ( ( ( ruleQPREF ) ) otherlv_1= EqualsSignGreaterThanSign ( ( (lv_ownedValues_2_0= ruleOptionalModalPropertyValue ) ) (otherlv_3= Comma ( (lv_ownedValues_4_0= ruleOptionalModalPropertyValue ) ) )* ) (otherlv_5= Applies otherlv_6= To ( ( (lv_emv2Path_7_0= ruleBasicEMV2Path ) ) (otherlv_8= Comma ( (lv_emv2Path_9_0= ruleBasicEMV2Path ) ) )* ) )? otherlv_10= Semicolon ) ;
+    // InternalErrorModelParser.g:2451:1: ruleBasicEMV2PropertyAssociation returns [EObject current=null] : ( ( ( ruleQPREF ) ) otherlv_1= EqualsSignGreaterThanSign ( ( (lv_ownedValues_2_0= ruleOptionalModalPropertyValue ) ) (otherlv_3= Comma ( (lv_ownedValues_4_0= ruleOptionalModalPropertyValue ) ) )* ) ( ruleAppliesToKeywords ( ( (lv_emv2Path_6_0= ruleBasicEMV2Path ) ) (otherlv_7= Comma ( (lv_emv2Path_8_0= ruleBasicEMV2Path ) ) )* ) )? otherlv_9= Semicolon ) ;
     public final EObject ruleBasicEMV2PropertyAssociation() throws RecognitionException {
         EObject current = null;
 
         Token otherlv_1=null;
         Token otherlv_3=null;
-        Token otherlv_5=null;
-        Token otherlv_6=null;
-        Token otherlv_8=null;
-        Token otherlv_10=null;
+        Token otherlv_7=null;
+        Token otherlv_9=null;
         EObject lv_ownedValues_2_0 = null;
 
         EObject lv_ownedValues_4_0 = null;
 
-        EObject lv_emv2Path_7_0 = null;
+        EObject lv_emv2Path_6_0 = null;
 
-        EObject lv_emv2Path_9_0 = null;
+        EObject lv_emv2Path_8_0 = null;
 
 
          enterRule(); 
             
         try {
-            // InternalErrorModelParser.g:2456:28: ( ( ( ( ruleQPREF ) ) otherlv_1= EqualsSignGreaterThanSign ( ( (lv_ownedValues_2_0= ruleOptionalModalPropertyValue ) ) (otherlv_3= Comma ( (lv_ownedValues_4_0= ruleOptionalModalPropertyValue ) ) )* ) (otherlv_5= Applies otherlv_6= To ( ( (lv_emv2Path_7_0= ruleBasicEMV2Path ) ) (otherlv_8= Comma ( (lv_emv2Path_9_0= ruleBasicEMV2Path ) ) )* ) )? otherlv_10= Semicolon ) )
-            // InternalErrorModelParser.g:2457:1: ( ( ( ruleQPREF ) ) otherlv_1= EqualsSignGreaterThanSign ( ( (lv_ownedValues_2_0= ruleOptionalModalPropertyValue ) ) (otherlv_3= Comma ( (lv_ownedValues_4_0= ruleOptionalModalPropertyValue ) ) )* ) (otherlv_5= Applies otherlv_6= To ( ( (lv_emv2Path_7_0= ruleBasicEMV2Path ) ) (otherlv_8= Comma ( (lv_emv2Path_9_0= ruleBasicEMV2Path ) ) )* ) )? otherlv_10= Semicolon )
+            // InternalErrorModelParser.g:2454:28: ( ( ( ( ruleQPREF ) ) otherlv_1= EqualsSignGreaterThanSign ( ( (lv_ownedValues_2_0= ruleOptionalModalPropertyValue ) ) (otherlv_3= Comma ( (lv_ownedValues_4_0= ruleOptionalModalPropertyValue ) ) )* ) ( ruleAppliesToKeywords ( ( (lv_emv2Path_6_0= ruleBasicEMV2Path ) ) (otherlv_7= Comma ( (lv_emv2Path_8_0= ruleBasicEMV2Path ) ) )* ) )? otherlv_9= Semicolon ) )
+            // InternalErrorModelParser.g:2455:1: ( ( ( ruleQPREF ) ) otherlv_1= EqualsSignGreaterThanSign ( ( (lv_ownedValues_2_0= ruleOptionalModalPropertyValue ) ) (otherlv_3= Comma ( (lv_ownedValues_4_0= ruleOptionalModalPropertyValue ) ) )* ) ( ruleAppliesToKeywords ( ( (lv_emv2Path_6_0= ruleBasicEMV2Path ) ) (otherlv_7= Comma ( (lv_emv2Path_8_0= ruleBasicEMV2Path ) ) )* ) )? otherlv_9= Semicolon )
             {
-            // InternalErrorModelParser.g:2457:1: ( ( ( ruleQPREF ) ) otherlv_1= EqualsSignGreaterThanSign ( ( (lv_ownedValues_2_0= ruleOptionalModalPropertyValue ) ) (otherlv_3= Comma ( (lv_ownedValues_4_0= ruleOptionalModalPropertyValue ) ) )* ) (otherlv_5= Applies otherlv_6= To ( ( (lv_emv2Path_7_0= ruleBasicEMV2Path ) ) (otherlv_8= Comma ( (lv_emv2Path_9_0= ruleBasicEMV2Path ) ) )* ) )? otherlv_10= Semicolon )
-            // InternalErrorModelParser.g:2457:2: ( ( ruleQPREF ) ) otherlv_1= EqualsSignGreaterThanSign ( ( (lv_ownedValues_2_0= ruleOptionalModalPropertyValue ) ) (otherlv_3= Comma ( (lv_ownedValues_4_0= ruleOptionalModalPropertyValue ) ) )* ) (otherlv_5= Applies otherlv_6= To ( ( (lv_emv2Path_7_0= ruleBasicEMV2Path ) ) (otherlv_8= Comma ( (lv_emv2Path_9_0= ruleBasicEMV2Path ) ) )* ) )? otherlv_10= Semicolon
+            // InternalErrorModelParser.g:2455:1: ( ( ( ruleQPREF ) ) otherlv_1= EqualsSignGreaterThanSign ( ( (lv_ownedValues_2_0= ruleOptionalModalPropertyValue ) ) (otherlv_3= Comma ( (lv_ownedValues_4_0= ruleOptionalModalPropertyValue ) ) )* ) ( ruleAppliesToKeywords ( ( (lv_emv2Path_6_0= ruleBasicEMV2Path ) ) (otherlv_7= Comma ( (lv_emv2Path_8_0= ruleBasicEMV2Path ) ) )* ) )? otherlv_9= Semicolon )
+            // InternalErrorModelParser.g:2455:2: ( ( ruleQPREF ) ) otherlv_1= EqualsSignGreaterThanSign ( ( (lv_ownedValues_2_0= ruleOptionalModalPropertyValue ) ) (otherlv_3= Comma ( (lv_ownedValues_4_0= ruleOptionalModalPropertyValue ) ) )* ) ( ruleAppliesToKeywords ( ( (lv_emv2Path_6_0= ruleBasicEMV2Path ) ) (otherlv_7= Comma ( (lv_emv2Path_8_0= ruleBasicEMV2Path ) ) )* ) )? otherlv_9= Semicolon
             {
-            // InternalErrorModelParser.g:2457:2: ( ( ruleQPREF ) )
-            // InternalErrorModelParser.g:2458:1: ( ruleQPREF )
+            // InternalErrorModelParser.g:2455:2: ( ( ruleQPREF ) )
+            // InternalErrorModelParser.g:2456:1: ( ruleQPREF )
             {
-            // InternalErrorModelParser.g:2458:1: ( ruleQPREF )
-            // InternalErrorModelParser.g:2459:3: ruleQPREF
+            // InternalErrorModelParser.g:2456:1: ( ruleQPREF )
+            // InternalErrorModelParser.g:2457:3: ruleQPREF
             {
 
             			if (current==null) {
@@ -6292,14 +6291,14 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
                 	newLeafNode(otherlv_1, grammarAccess.getBasicEMV2PropertyAssociationAccess().getEqualsSignGreaterThanSignKeyword_1());
                 
-            // InternalErrorModelParser.g:2478:1: ( ( (lv_ownedValues_2_0= ruleOptionalModalPropertyValue ) ) (otherlv_3= Comma ( (lv_ownedValues_4_0= ruleOptionalModalPropertyValue ) ) )* )
-            // InternalErrorModelParser.g:2478:2: ( (lv_ownedValues_2_0= ruleOptionalModalPropertyValue ) ) (otherlv_3= Comma ( (lv_ownedValues_4_0= ruleOptionalModalPropertyValue ) ) )*
+            // InternalErrorModelParser.g:2476:1: ( ( (lv_ownedValues_2_0= ruleOptionalModalPropertyValue ) ) (otherlv_3= Comma ( (lv_ownedValues_4_0= ruleOptionalModalPropertyValue ) ) )* )
+            // InternalErrorModelParser.g:2476:2: ( (lv_ownedValues_2_0= ruleOptionalModalPropertyValue ) ) (otherlv_3= Comma ( (lv_ownedValues_4_0= ruleOptionalModalPropertyValue ) ) )*
             {
-            // InternalErrorModelParser.g:2478:2: ( (lv_ownedValues_2_0= ruleOptionalModalPropertyValue ) )
-            // InternalErrorModelParser.g:2479:1: (lv_ownedValues_2_0= ruleOptionalModalPropertyValue )
+            // InternalErrorModelParser.g:2476:2: ( (lv_ownedValues_2_0= ruleOptionalModalPropertyValue ) )
+            // InternalErrorModelParser.g:2477:1: (lv_ownedValues_2_0= ruleOptionalModalPropertyValue )
             {
-            // InternalErrorModelParser.g:2479:1: (lv_ownedValues_2_0= ruleOptionalModalPropertyValue )
-            // InternalErrorModelParser.g:2480:3: lv_ownedValues_2_0= ruleOptionalModalPropertyValue
+            // InternalErrorModelParser.g:2477:1: (lv_ownedValues_2_0= ruleOptionalModalPropertyValue )
+            // InternalErrorModelParser.g:2478:3: lv_ownedValues_2_0= ruleOptionalModalPropertyValue
             {
              
             	        newCompositeNode(grammarAccess.getBasicEMV2PropertyAssociationAccess().getOwnedValuesOptionalModalPropertyValueParserRuleCall_2_0_0()); 
@@ -6326,7 +6325,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
             }
 
-            // InternalErrorModelParser.g:2496:2: (otherlv_3= Comma ( (lv_ownedValues_4_0= ruleOptionalModalPropertyValue ) ) )*
+            // InternalErrorModelParser.g:2494:2: (otherlv_3= Comma ( (lv_ownedValues_4_0= ruleOptionalModalPropertyValue ) ) )*
             loop104:
             do {
                 int alt104=2;
@@ -6339,17 +6338,17 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
                 switch (alt104) {
             	case 1 :
-            	    // InternalErrorModelParser.g:2497:2: otherlv_3= Comma ( (lv_ownedValues_4_0= ruleOptionalModalPropertyValue ) )
+            	    // InternalErrorModelParser.g:2495:2: otherlv_3= Comma ( (lv_ownedValues_4_0= ruleOptionalModalPropertyValue ) )
             	    {
             	    otherlv_3=(Token)match(input,Comma,FOLLOW_61); 
 
             	        	newLeafNode(otherlv_3, grammarAccess.getBasicEMV2PropertyAssociationAccess().getCommaKeyword_2_1_0());
             	        
-            	    // InternalErrorModelParser.g:2501:1: ( (lv_ownedValues_4_0= ruleOptionalModalPropertyValue ) )
-            	    // InternalErrorModelParser.g:2502:1: (lv_ownedValues_4_0= ruleOptionalModalPropertyValue )
+            	    // InternalErrorModelParser.g:2499:1: ( (lv_ownedValues_4_0= ruleOptionalModalPropertyValue ) )
+            	    // InternalErrorModelParser.g:2500:1: (lv_ownedValues_4_0= ruleOptionalModalPropertyValue )
             	    {
-            	    // InternalErrorModelParser.g:2502:1: (lv_ownedValues_4_0= ruleOptionalModalPropertyValue )
-            	    // InternalErrorModelParser.g:2503:3: lv_ownedValues_4_0= ruleOptionalModalPropertyValue
+            	    // InternalErrorModelParser.g:2500:1: (lv_ownedValues_4_0= ruleOptionalModalPropertyValue )
+            	    // InternalErrorModelParser.g:2501:3: lv_ownedValues_4_0= ruleOptionalModalPropertyValue
             	    {
             	     
             	    	        newCompositeNode(grammarAccess.getBasicEMV2PropertyAssociationAccess().getOwnedValuesOptionalModalPropertyValueParserRuleCall_2_1_1_0()); 
@@ -6388,7 +6387,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
             }
 
-            // InternalErrorModelParser.g:2519:5: (otherlv_5= Applies otherlv_6= To ( ( (lv_emv2Path_7_0= ruleBasicEMV2Path ) ) (otherlv_8= Comma ( (lv_emv2Path_9_0= ruleBasicEMV2Path ) ) )* ) )?
+            // InternalErrorModelParser.g:2517:5: ( ruleAppliesToKeywords ( ( (lv_emv2Path_6_0= ruleBasicEMV2Path ) ) (otherlv_7= Comma ( (lv_emv2Path_8_0= ruleBasicEMV2Path ) ) )* ) )?
             int alt106=2;
             int LA106_0 = input.LA(1);
 
@@ -6397,30 +6396,33 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
             }
             switch (alt106) {
                 case 1 :
-                    // InternalErrorModelParser.g:2520:2: otherlv_5= Applies otherlv_6= To ( ( (lv_emv2Path_7_0= ruleBasicEMV2Path ) ) (otherlv_8= Comma ( (lv_emv2Path_9_0= ruleBasicEMV2Path ) ) )* )
-                    {
-                    otherlv_5=(Token)match(input,Applies,FOLLOW_63); 
-
-                        	newLeafNode(otherlv_5, grammarAccess.getBasicEMV2PropertyAssociationAccess().getAppliesKeyword_3_0());
-                        
-                    otherlv_6=(Token)match(input,To,FOLLOW_64); 
-
-                        	newLeafNode(otherlv_6, grammarAccess.getBasicEMV2PropertyAssociationAccess().getToKeyword_3_1());
-                        
-                    // InternalErrorModelParser.g:2529:1: ( ( (lv_emv2Path_7_0= ruleBasicEMV2Path ) ) (otherlv_8= Comma ( (lv_emv2Path_9_0= ruleBasicEMV2Path ) ) )* )
-                    // InternalErrorModelParser.g:2529:2: ( (lv_emv2Path_7_0= ruleBasicEMV2Path ) ) (otherlv_8= Comma ( (lv_emv2Path_9_0= ruleBasicEMV2Path ) ) )*
-                    {
-                    // InternalErrorModelParser.g:2529:2: ( (lv_emv2Path_7_0= ruleBasicEMV2Path ) )
-                    // InternalErrorModelParser.g:2530:1: (lv_emv2Path_7_0= ruleBasicEMV2Path )
-                    {
-                    // InternalErrorModelParser.g:2530:1: (lv_emv2Path_7_0= ruleBasicEMV2Path )
-                    // InternalErrorModelParser.g:2531:3: lv_emv2Path_7_0= ruleBasicEMV2Path
+                    // InternalErrorModelParser.g:2518:5: ruleAppliesToKeywords ( ( (lv_emv2Path_6_0= ruleBasicEMV2Path ) ) (otherlv_7= Comma ( (lv_emv2Path_8_0= ruleBasicEMV2Path ) ) )* )
                     {
                      
-                    	        newCompositeNode(grammarAccess.getBasicEMV2PropertyAssociationAccess().getEmv2PathBasicEMV2PathParserRuleCall_3_2_0_0()); 
+                            newCompositeNode(grammarAccess.getBasicEMV2PropertyAssociationAccess().getAppliesToKeywordsParserRuleCall_3_0()); 
+                        
+                    pushFollow(FOLLOW_63);
+                    ruleAppliesToKeywords();
+
+                    state._fsp--;
+
+
+                            afterParserOrEnumRuleCall();
+                        
+                    // InternalErrorModelParser.g:2525:1: ( ( (lv_emv2Path_6_0= ruleBasicEMV2Path ) ) (otherlv_7= Comma ( (lv_emv2Path_8_0= ruleBasicEMV2Path ) ) )* )
+                    // InternalErrorModelParser.g:2525:2: ( (lv_emv2Path_6_0= ruleBasicEMV2Path ) ) (otherlv_7= Comma ( (lv_emv2Path_8_0= ruleBasicEMV2Path ) ) )*
+                    {
+                    // InternalErrorModelParser.g:2525:2: ( (lv_emv2Path_6_0= ruleBasicEMV2Path ) )
+                    // InternalErrorModelParser.g:2526:1: (lv_emv2Path_6_0= ruleBasicEMV2Path )
+                    {
+                    // InternalErrorModelParser.g:2526:1: (lv_emv2Path_6_0= ruleBasicEMV2Path )
+                    // InternalErrorModelParser.g:2527:3: lv_emv2Path_6_0= ruleBasicEMV2Path
+                    {
+                     
+                    	        newCompositeNode(grammarAccess.getBasicEMV2PropertyAssociationAccess().getEmv2PathBasicEMV2PathParserRuleCall_3_1_0_0()); 
                     	    
                     pushFollow(FOLLOW_6);
-                    lv_emv2Path_7_0=ruleBasicEMV2Path();
+                    lv_emv2Path_6_0=ruleBasicEMV2Path();
 
                     state._fsp--;
 
@@ -6431,7 +6433,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
                            		add(
                            			current, 
                            			"emv2Path",
-                            		lv_emv2Path_7_0, 
+                            		lv_emv2Path_6_0, 
                             		"org.osate.xtext.aadl2.errormodel.ErrorModel.BasicEMV2Path");
                     	        afterParserOrEnumRuleCall();
                     	    
@@ -6441,7 +6443,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
                     }
 
-                    // InternalErrorModelParser.g:2547:2: (otherlv_8= Comma ( (lv_emv2Path_9_0= ruleBasicEMV2Path ) ) )*
+                    // InternalErrorModelParser.g:2543:2: (otherlv_7= Comma ( (lv_emv2Path_8_0= ruleBasicEMV2Path ) ) )*
                     loop105:
                     do {
                         int alt105=2;
@@ -6454,23 +6456,23 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
                         switch (alt105) {
                     	case 1 :
-                    	    // InternalErrorModelParser.g:2548:2: otherlv_8= Comma ( (lv_emv2Path_9_0= ruleBasicEMV2Path ) )
+                    	    // InternalErrorModelParser.g:2544:2: otherlv_7= Comma ( (lv_emv2Path_8_0= ruleBasicEMV2Path ) )
                     	    {
-                    	    otherlv_8=(Token)match(input,Comma,FOLLOW_64); 
+                    	    otherlv_7=(Token)match(input,Comma,FOLLOW_63); 
 
-                    	        	newLeafNode(otherlv_8, grammarAccess.getBasicEMV2PropertyAssociationAccess().getCommaKeyword_3_2_1_0());
+                    	        	newLeafNode(otherlv_7, grammarAccess.getBasicEMV2PropertyAssociationAccess().getCommaKeyword_3_1_1_0());
                     	        
-                    	    // InternalErrorModelParser.g:2552:1: ( (lv_emv2Path_9_0= ruleBasicEMV2Path ) )
-                    	    // InternalErrorModelParser.g:2553:1: (lv_emv2Path_9_0= ruleBasicEMV2Path )
+                    	    // InternalErrorModelParser.g:2548:1: ( (lv_emv2Path_8_0= ruleBasicEMV2Path ) )
+                    	    // InternalErrorModelParser.g:2549:1: (lv_emv2Path_8_0= ruleBasicEMV2Path )
                     	    {
-                    	    // InternalErrorModelParser.g:2553:1: (lv_emv2Path_9_0= ruleBasicEMV2Path )
-                    	    // InternalErrorModelParser.g:2554:3: lv_emv2Path_9_0= ruleBasicEMV2Path
+                    	    // InternalErrorModelParser.g:2549:1: (lv_emv2Path_8_0= ruleBasicEMV2Path )
+                    	    // InternalErrorModelParser.g:2550:3: lv_emv2Path_8_0= ruleBasicEMV2Path
                     	    {
                     	     
-                    	    	        newCompositeNode(grammarAccess.getBasicEMV2PropertyAssociationAccess().getEmv2PathBasicEMV2PathParserRuleCall_3_2_1_1_0()); 
+                    	    	        newCompositeNode(grammarAccess.getBasicEMV2PropertyAssociationAccess().getEmv2PathBasicEMV2PathParserRuleCall_3_1_1_1_0()); 
                     	    	    
                     	    pushFollow(FOLLOW_6);
-                    	    lv_emv2Path_9_0=ruleBasicEMV2Path();
+                    	    lv_emv2Path_8_0=ruleBasicEMV2Path();
 
                     	    state._fsp--;
 
@@ -6481,7 +6483,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
                     	           		add(
                     	           			current, 
                     	           			"emv2Path",
-                    	            		lv_emv2Path_9_0, 
+                    	            		lv_emv2Path_8_0, 
                     	            		"org.osate.xtext.aadl2.errormodel.ErrorModel.BasicEMV2Path");
                     	    	        afterParserOrEnumRuleCall();
                     	    	    
@@ -6509,9 +6511,9 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
             }
 
-            otherlv_10=(Token)match(input,Semicolon,FOLLOW_2); 
+            otherlv_9=(Token)match(input,Semicolon,FOLLOW_2); 
 
-                	newLeafNode(otherlv_10, grammarAccess.getBasicEMV2PropertyAssociationAccess().getSemicolonKeyword_4());
+                	newLeafNode(otherlv_9, grammarAccess.getBasicEMV2PropertyAssociationAccess().getSemicolonKeyword_4());
                 
 
             }
@@ -6534,7 +6536,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleEMV2Path"
-    // InternalErrorModelParser.g:2583:1: entryRuleEMV2Path returns [EObject current=null] : iv_ruleEMV2Path= ruleEMV2Path EOF ;
+    // InternalErrorModelParser.g:2579:1: entryRuleEMV2Path returns [EObject current=null] : iv_ruleEMV2Path= ruleEMV2Path EOF ;
     public final EObject entryRuleEMV2Path() throws RecognitionException {
         EObject current = null;
 
@@ -6542,8 +6544,8 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // InternalErrorModelParser.g:2584:2: (iv_ruleEMV2Path= ruleEMV2Path EOF )
-            // InternalErrorModelParser.g:2585:2: iv_ruleEMV2Path= ruleEMV2Path EOF
+            // InternalErrorModelParser.g:2580:2: (iv_ruleEMV2Path= ruleEMV2Path EOF )
+            // InternalErrorModelParser.g:2581:2: iv_ruleEMV2Path= ruleEMV2Path EOF
             {
              newCompositeNode(grammarAccess.getEMV2PathRule()); 
             pushFollow(FOLLOW_1);
@@ -6570,7 +6572,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleEMV2Path"
-    // InternalErrorModelParser.g:2592:1: ruleEMV2Path returns [EObject current=null] : ( (otherlv_0= CircumflexAccent ( (lv_containmentPath_1_0= ruleContainmentPathElement ) ) otherlv_2= CommercialAt )? ( (lv_emv2Target_3_0= ruleEMV2PathElementOrKind ) ) ) ;
+    // InternalErrorModelParser.g:2588:1: ruleEMV2Path returns [EObject current=null] : ( (otherlv_0= CircumflexAccent ( (lv_containmentPath_1_0= ruleContainmentPathElement ) ) otherlv_2= CommercialAt )? ( (lv_emv2Target_3_0= ruleEMV2PathElementOrKind ) ) ) ;
     public final EObject ruleEMV2Path() throws RecognitionException {
         EObject current = null;
 
@@ -6584,13 +6586,13 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // InternalErrorModelParser.g:2595:28: ( ( (otherlv_0= CircumflexAccent ( (lv_containmentPath_1_0= ruleContainmentPathElement ) ) otherlv_2= CommercialAt )? ( (lv_emv2Target_3_0= ruleEMV2PathElementOrKind ) ) ) )
-            // InternalErrorModelParser.g:2596:1: ( (otherlv_0= CircumflexAccent ( (lv_containmentPath_1_0= ruleContainmentPathElement ) ) otherlv_2= CommercialAt )? ( (lv_emv2Target_3_0= ruleEMV2PathElementOrKind ) ) )
+            // InternalErrorModelParser.g:2591:28: ( ( (otherlv_0= CircumflexAccent ( (lv_containmentPath_1_0= ruleContainmentPathElement ) ) otherlv_2= CommercialAt )? ( (lv_emv2Target_3_0= ruleEMV2PathElementOrKind ) ) ) )
+            // InternalErrorModelParser.g:2592:1: ( (otherlv_0= CircumflexAccent ( (lv_containmentPath_1_0= ruleContainmentPathElement ) ) otherlv_2= CommercialAt )? ( (lv_emv2Target_3_0= ruleEMV2PathElementOrKind ) ) )
             {
-            // InternalErrorModelParser.g:2596:1: ( (otherlv_0= CircumflexAccent ( (lv_containmentPath_1_0= ruleContainmentPathElement ) ) otherlv_2= CommercialAt )? ( (lv_emv2Target_3_0= ruleEMV2PathElementOrKind ) ) )
-            // InternalErrorModelParser.g:2596:2: (otherlv_0= CircumflexAccent ( (lv_containmentPath_1_0= ruleContainmentPathElement ) ) otherlv_2= CommercialAt )? ( (lv_emv2Target_3_0= ruleEMV2PathElementOrKind ) )
+            // InternalErrorModelParser.g:2592:1: ( (otherlv_0= CircumflexAccent ( (lv_containmentPath_1_0= ruleContainmentPathElement ) ) otherlv_2= CommercialAt )? ( (lv_emv2Target_3_0= ruleEMV2PathElementOrKind ) ) )
+            // InternalErrorModelParser.g:2592:2: (otherlv_0= CircumflexAccent ( (lv_containmentPath_1_0= ruleContainmentPathElement ) ) otherlv_2= CommercialAt )? ( (lv_emv2Target_3_0= ruleEMV2PathElementOrKind ) )
             {
-            // InternalErrorModelParser.g:2596:2: (otherlv_0= CircumflexAccent ( (lv_containmentPath_1_0= ruleContainmentPathElement ) ) otherlv_2= CommercialAt )?
+            // InternalErrorModelParser.g:2592:2: (otherlv_0= CircumflexAccent ( (lv_containmentPath_1_0= ruleContainmentPathElement ) ) otherlv_2= CommercialAt )?
             int alt107=2;
             int LA107_0 = input.LA(1);
 
@@ -6599,22 +6601,22 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
             }
             switch (alt107) {
                 case 1 :
-                    // InternalErrorModelParser.g:2597:2: otherlv_0= CircumflexAccent ( (lv_containmentPath_1_0= ruleContainmentPathElement ) ) otherlv_2= CommercialAt
+                    // InternalErrorModelParser.g:2593:2: otherlv_0= CircumflexAccent ( (lv_containmentPath_1_0= ruleContainmentPathElement ) ) otherlv_2= CommercialAt
                     {
                     otherlv_0=(Token)match(input,CircumflexAccent,FOLLOW_5); 
 
                         	newLeafNode(otherlv_0, grammarAccess.getEMV2PathAccess().getCircumflexAccentKeyword_0_0());
                         
-                    // InternalErrorModelParser.g:2601:1: ( (lv_containmentPath_1_0= ruleContainmentPathElement ) )
-                    // InternalErrorModelParser.g:2602:1: (lv_containmentPath_1_0= ruleContainmentPathElement )
+                    // InternalErrorModelParser.g:2597:1: ( (lv_containmentPath_1_0= ruleContainmentPathElement ) )
+                    // InternalErrorModelParser.g:2598:1: (lv_containmentPath_1_0= ruleContainmentPathElement )
                     {
-                    // InternalErrorModelParser.g:2602:1: (lv_containmentPath_1_0= ruleContainmentPathElement )
-                    // InternalErrorModelParser.g:2603:3: lv_containmentPath_1_0= ruleContainmentPathElement
+                    // InternalErrorModelParser.g:2598:1: (lv_containmentPath_1_0= ruleContainmentPathElement )
+                    // InternalErrorModelParser.g:2599:3: lv_containmentPath_1_0= ruleContainmentPathElement
                     {
                      
                     	        newCompositeNode(grammarAccess.getEMV2PathAccess().getContainmentPathContainmentPathElementParserRuleCall_0_1_0()); 
                     	    
-                    pushFollow(FOLLOW_65);
+                    pushFollow(FOLLOW_64);
                     lv_containmentPath_1_0=ruleContainmentPathElement();
 
                     state._fsp--;
@@ -6636,7 +6638,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
                     }
 
-                    otherlv_2=(Token)match(input,CommercialAt,FOLLOW_64); 
+                    otherlv_2=(Token)match(input,CommercialAt,FOLLOW_63); 
 
                         	newLeafNode(otherlv_2, grammarAccess.getEMV2PathAccess().getCommercialAtKeyword_0_2());
                         
@@ -6646,11 +6648,11 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
             }
 
-            // InternalErrorModelParser.g:2624:3: ( (lv_emv2Target_3_0= ruleEMV2PathElementOrKind ) )
-            // InternalErrorModelParser.g:2625:1: (lv_emv2Target_3_0= ruleEMV2PathElementOrKind )
+            // InternalErrorModelParser.g:2620:3: ( (lv_emv2Target_3_0= ruleEMV2PathElementOrKind ) )
+            // InternalErrorModelParser.g:2621:1: (lv_emv2Target_3_0= ruleEMV2PathElementOrKind )
             {
-            // InternalErrorModelParser.g:2625:1: (lv_emv2Target_3_0= ruleEMV2PathElementOrKind )
-            // InternalErrorModelParser.g:2626:3: lv_emv2Target_3_0= ruleEMV2PathElementOrKind
+            // InternalErrorModelParser.g:2621:1: (lv_emv2Target_3_0= ruleEMV2PathElementOrKind )
+            // InternalErrorModelParser.g:2622:3: lv_emv2Target_3_0= ruleEMV2PathElementOrKind
             {
              
             	        newCompositeNode(grammarAccess.getEMV2PathAccess().getEmv2TargetEMV2PathElementOrKindParserRuleCall_1_0()); 
@@ -6698,7 +6700,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleBasicEMV2Path"
-    // InternalErrorModelParser.g:2650:1: entryRuleBasicEMV2Path returns [EObject current=null] : iv_ruleBasicEMV2Path= ruleBasicEMV2Path EOF ;
+    // InternalErrorModelParser.g:2646:1: entryRuleBasicEMV2Path returns [EObject current=null] : iv_ruleBasicEMV2Path= ruleBasicEMV2Path EOF ;
     public final EObject entryRuleBasicEMV2Path() throws RecognitionException {
         EObject current = null;
 
@@ -6706,8 +6708,8 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // InternalErrorModelParser.g:2651:2: (iv_ruleBasicEMV2Path= ruleBasicEMV2Path EOF )
-            // InternalErrorModelParser.g:2652:2: iv_ruleBasicEMV2Path= ruleBasicEMV2Path EOF
+            // InternalErrorModelParser.g:2647:2: (iv_ruleBasicEMV2Path= ruleBasicEMV2Path EOF )
+            // InternalErrorModelParser.g:2648:2: iv_ruleBasicEMV2Path= ruleBasicEMV2Path EOF
             {
              newCompositeNode(grammarAccess.getBasicEMV2PathRule()); 
             pushFollow(FOLLOW_1);
@@ -6734,7 +6736,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleBasicEMV2Path"
-    // InternalErrorModelParser.g:2659:1: ruleBasicEMV2Path returns [EObject current=null] : ( (lv_emv2Target_0_0= ruleEMV2PathElementOrKind ) ) ;
+    // InternalErrorModelParser.g:2655:1: ruleBasicEMV2Path returns [EObject current=null] : ( (lv_emv2Target_0_0= ruleEMV2PathElementOrKind ) ) ;
     public final EObject ruleBasicEMV2Path() throws RecognitionException {
         EObject current = null;
 
@@ -6744,14 +6746,14 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // InternalErrorModelParser.g:2662:28: ( ( (lv_emv2Target_0_0= ruleEMV2PathElementOrKind ) ) )
-            // InternalErrorModelParser.g:2663:1: ( (lv_emv2Target_0_0= ruleEMV2PathElementOrKind ) )
+            // InternalErrorModelParser.g:2658:28: ( ( (lv_emv2Target_0_0= ruleEMV2PathElementOrKind ) ) )
+            // InternalErrorModelParser.g:2659:1: ( (lv_emv2Target_0_0= ruleEMV2PathElementOrKind ) )
             {
-            // InternalErrorModelParser.g:2663:1: ( (lv_emv2Target_0_0= ruleEMV2PathElementOrKind ) )
-            // InternalErrorModelParser.g:2664:1: (lv_emv2Target_0_0= ruleEMV2PathElementOrKind )
+            // InternalErrorModelParser.g:2659:1: ( (lv_emv2Target_0_0= ruleEMV2PathElementOrKind ) )
+            // InternalErrorModelParser.g:2660:1: (lv_emv2Target_0_0= ruleEMV2PathElementOrKind )
             {
-            // InternalErrorModelParser.g:2664:1: (lv_emv2Target_0_0= ruleEMV2PathElementOrKind )
-            // InternalErrorModelParser.g:2665:3: lv_emv2Target_0_0= ruleEMV2PathElementOrKind
+            // InternalErrorModelParser.g:2660:1: (lv_emv2Target_0_0= ruleEMV2PathElementOrKind )
+            // InternalErrorModelParser.g:2661:3: lv_emv2Target_0_0= ruleEMV2PathElementOrKind
             {
              
             	        newCompositeNode(grammarAccess.getBasicEMV2PathAccess().getEmv2TargetEMV2PathElementOrKindParserRuleCall_0()); 
@@ -6796,7 +6798,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleEMV2PathElementOrKind"
-    // InternalErrorModelParser.g:2689:1: entryRuleEMV2PathElementOrKind returns [EObject current=null] : iv_ruleEMV2PathElementOrKind= ruleEMV2PathElementOrKind EOF ;
+    // InternalErrorModelParser.g:2685:1: entryRuleEMV2PathElementOrKind returns [EObject current=null] : iv_ruleEMV2PathElementOrKind= ruleEMV2PathElementOrKind EOF ;
     public final EObject entryRuleEMV2PathElementOrKind() throws RecognitionException {
         EObject current = null;
 
@@ -6804,8 +6806,8 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // InternalErrorModelParser.g:2690:2: (iv_ruleEMV2PathElementOrKind= ruleEMV2PathElementOrKind EOF )
-            // InternalErrorModelParser.g:2691:2: iv_ruleEMV2PathElementOrKind= ruleEMV2PathElementOrKind EOF
+            // InternalErrorModelParser.g:2686:2: (iv_ruleEMV2PathElementOrKind= ruleEMV2PathElementOrKind EOF )
+            // InternalErrorModelParser.g:2687:2: iv_ruleEMV2PathElementOrKind= ruleEMV2PathElementOrKind EOF
             {
              newCompositeNode(grammarAccess.getEMV2PathElementOrKindRule()); 
             pushFollow(FOLLOW_1);
@@ -6832,7 +6834,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleEMV2PathElementOrKind"
-    // InternalErrorModelParser.g:2698:1: ruleEMV2PathElementOrKind returns [EObject current=null] : ( ( ( (lv_emv2PropagationKind_0_0= rulePropagationKind ) ) (otherlv_1= FullStop ( (otherlv_2= RULE_ID ) ) )? ) | ( ( (otherlv_3= RULE_ID ) ) (otherlv_4= FullStop ( (lv_path_5_0= ruleEMV2PathElement ) ) )? ) ) ;
+    // InternalErrorModelParser.g:2694:1: ruleEMV2PathElementOrKind returns [EObject current=null] : ( ( ( (lv_emv2PropagationKind_0_0= rulePropagationKind ) ) (otherlv_1= FullStop ( (otherlv_2= RULE_ID ) ) )? ) | ( ( (otherlv_3= RULE_ID ) ) (otherlv_4= FullStop ( (lv_path_5_0= ruleEMV2PathElement ) ) )? ) ) ;
     public final EObject ruleEMV2PathElementOrKind() throws RecognitionException {
         EObject current = null;
 
@@ -6848,10 +6850,10 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // InternalErrorModelParser.g:2701:28: ( ( ( ( (lv_emv2PropagationKind_0_0= rulePropagationKind ) ) (otherlv_1= FullStop ( (otherlv_2= RULE_ID ) ) )? ) | ( ( (otherlv_3= RULE_ID ) ) (otherlv_4= FullStop ( (lv_path_5_0= ruleEMV2PathElement ) ) )? ) ) )
-            // InternalErrorModelParser.g:2702:1: ( ( ( (lv_emv2PropagationKind_0_0= rulePropagationKind ) ) (otherlv_1= FullStop ( (otherlv_2= RULE_ID ) ) )? ) | ( ( (otherlv_3= RULE_ID ) ) (otherlv_4= FullStop ( (lv_path_5_0= ruleEMV2PathElement ) ) )? ) )
+            // InternalErrorModelParser.g:2697:28: ( ( ( ( (lv_emv2PropagationKind_0_0= rulePropagationKind ) ) (otherlv_1= FullStop ( (otherlv_2= RULE_ID ) ) )? ) | ( ( (otherlv_3= RULE_ID ) ) (otherlv_4= FullStop ( (lv_path_5_0= ruleEMV2PathElement ) ) )? ) ) )
+            // InternalErrorModelParser.g:2698:1: ( ( ( (lv_emv2PropagationKind_0_0= rulePropagationKind ) ) (otherlv_1= FullStop ( (otherlv_2= RULE_ID ) ) )? ) | ( ( (otherlv_3= RULE_ID ) ) (otherlv_4= FullStop ( (lv_path_5_0= ruleEMV2PathElement ) ) )? ) )
             {
-            // InternalErrorModelParser.g:2702:1: ( ( ( (lv_emv2PropagationKind_0_0= rulePropagationKind ) ) (otherlv_1= FullStop ( (otherlv_2= RULE_ID ) ) )? ) | ( ( (otherlv_3= RULE_ID ) ) (otherlv_4= FullStop ( (lv_path_5_0= ruleEMV2PathElement ) ) )? ) )
+            // InternalErrorModelParser.g:2698:1: ( ( ( (lv_emv2PropagationKind_0_0= rulePropagationKind ) ) (otherlv_1= FullStop ( (otherlv_2= RULE_ID ) ) )? ) | ( ( (otherlv_3= RULE_ID ) ) (otherlv_4= FullStop ( (lv_path_5_0= ruleEMV2PathElement ) ) )? ) )
             int alt110=2;
             int LA110_0 = input.LA(1);
 
@@ -6869,21 +6871,21 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
             }
             switch (alt110) {
                 case 1 :
-                    // InternalErrorModelParser.g:2702:2: ( ( (lv_emv2PropagationKind_0_0= rulePropagationKind ) ) (otherlv_1= FullStop ( (otherlv_2= RULE_ID ) ) )? )
+                    // InternalErrorModelParser.g:2698:2: ( ( (lv_emv2PropagationKind_0_0= rulePropagationKind ) ) (otherlv_1= FullStop ( (otherlv_2= RULE_ID ) ) )? )
                     {
-                    // InternalErrorModelParser.g:2702:2: ( ( (lv_emv2PropagationKind_0_0= rulePropagationKind ) ) (otherlv_1= FullStop ( (otherlv_2= RULE_ID ) ) )? )
-                    // InternalErrorModelParser.g:2702:3: ( (lv_emv2PropagationKind_0_0= rulePropagationKind ) ) (otherlv_1= FullStop ( (otherlv_2= RULE_ID ) ) )?
+                    // InternalErrorModelParser.g:2698:2: ( ( (lv_emv2PropagationKind_0_0= rulePropagationKind ) ) (otherlv_1= FullStop ( (otherlv_2= RULE_ID ) ) )? )
+                    // InternalErrorModelParser.g:2698:3: ( (lv_emv2PropagationKind_0_0= rulePropagationKind ) ) (otherlv_1= FullStop ( (otherlv_2= RULE_ID ) ) )?
                     {
-                    // InternalErrorModelParser.g:2702:3: ( (lv_emv2PropagationKind_0_0= rulePropagationKind ) )
-                    // InternalErrorModelParser.g:2703:1: (lv_emv2PropagationKind_0_0= rulePropagationKind )
+                    // InternalErrorModelParser.g:2698:3: ( (lv_emv2PropagationKind_0_0= rulePropagationKind ) )
+                    // InternalErrorModelParser.g:2699:1: (lv_emv2PropagationKind_0_0= rulePropagationKind )
                     {
-                    // InternalErrorModelParser.g:2703:1: (lv_emv2PropagationKind_0_0= rulePropagationKind )
-                    // InternalErrorModelParser.g:2704:3: lv_emv2PropagationKind_0_0= rulePropagationKind
+                    // InternalErrorModelParser.g:2699:1: (lv_emv2PropagationKind_0_0= rulePropagationKind )
+                    // InternalErrorModelParser.g:2700:3: lv_emv2PropagationKind_0_0= rulePropagationKind
                     {
                      
                     	        newCompositeNode(grammarAccess.getEMV2PathElementOrKindAccess().getEmv2PropagationKindPropagationKindParserRuleCall_0_0_0()); 
                     	    
-                    pushFollow(FOLLOW_66);
+                    pushFollow(FOLLOW_65);
                     lv_emv2PropagationKind_0_0=rulePropagationKind();
 
                     state._fsp--;
@@ -6905,7 +6907,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
                     }
 
-                    // InternalErrorModelParser.g:2720:2: (otherlv_1= FullStop ( (otherlv_2= RULE_ID ) ) )?
+                    // InternalErrorModelParser.g:2716:2: (otherlv_1= FullStop ( (otherlv_2= RULE_ID ) ) )?
                     int alt108=2;
                     int LA108_0 = input.LA(1);
 
@@ -6914,17 +6916,17 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
                     }
                     switch (alt108) {
                         case 1 :
-                            // InternalErrorModelParser.g:2721:2: otherlv_1= FullStop ( (otherlv_2= RULE_ID ) )
+                            // InternalErrorModelParser.g:2717:2: otherlv_1= FullStop ( (otherlv_2= RULE_ID ) )
                             {
                             otherlv_1=(Token)match(input,FullStop,FOLLOW_5); 
 
                                 	newLeafNode(otherlv_1, grammarAccess.getEMV2PathElementOrKindAccess().getFullStopKeyword_0_1_0());
                                 
-                            // InternalErrorModelParser.g:2725:1: ( (otherlv_2= RULE_ID ) )
-                            // InternalErrorModelParser.g:2726:1: (otherlv_2= RULE_ID )
+                            // InternalErrorModelParser.g:2721:1: ( (otherlv_2= RULE_ID ) )
+                            // InternalErrorModelParser.g:2722:1: (otherlv_2= RULE_ID )
                             {
-                            // InternalErrorModelParser.g:2726:1: (otherlv_2= RULE_ID )
-                            // InternalErrorModelParser.g:2727:3: otherlv_2= RULE_ID
+                            // InternalErrorModelParser.g:2722:1: (otherlv_2= RULE_ID )
+                            // InternalErrorModelParser.g:2723:3: otherlv_2= RULE_ID
                             {
 
                             			if (current==null) {
@@ -6954,23 +6956,23 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 2 :
-                    // InternalErrorModelParser.g:2739:6: ( ( (otherlv_3= RULE_ID ) ) (otherlv_4= FullStop ( (lv_path_5_0= ruleEMV2PathElement ) ) )? )
+                    // InternalErrorModelParser.g:2735:6: ( ( (otherlv_3= RULE_ID ) ) (otherlv_4= FullStop ( (lv_path_5_0= ruleEMV2PathElement ) ) )? )
                     {
-                    // InternalErrorModelParser.g:2739:6: ( ( (otherlv_3= RULE_ID ) ) (otherlv_4= FullStop ( (lv_path_5_0= ruleEMV2PathElement ) ) )? )
-                    // InternalErrorModelParser.g:2739:7: ( (otherlv_3= RULE_ID ) ) (otherlv_4= FullStop ( (lv_path_5_0= ruleEMV2PathElement ) ) )?
+                    // InternalErrorModelParser.g:2735:6: ( ( (otherlv_3= RULE_ID ) ) (otherlv_4= FullStop ( (lv_path_5_0= ruleEMV2PathElement ) ) )? )
+                    // InternalErrorModelParser.g:2735:7: ( (otherlv_3= RULE_ID ) ) (otherlv_4= FullStop ( (lv_path_5_0= ruleEMV2PathElement ) ) )?
                     {
-                    // InternalErrorModelParser.g:2739:7: ( (otherlv_3= RULE_ID ) )
-                    // InternalErrorModelParser.g:2740:1: (otherlv_3= RULE_ID )
+                    // InternalErrorModelParser.g:2735:7: ( (otherlv_3= RULE_ID ) )
+                    // InternalErrorModelParser.g:2736:1: (otherlv_3= RULE_ID )
                     {
-                    // InternalErrorModelParser.g:2740:1: (otherlv_3= RULE_ID )
-                    // InternalErrorModelParser.g:2741:3: otherlv_3= RULE_ID
+                    // InternalErrorModelParser.g:2736:1: (otherlv_3= RULE_ID )
+                    // InternalErrorModelParser.g:2737:3: otherlv_3= RULE_ID
                     {
 
                     			if (current==null) {
                     	            current = createModelElement(grammarAccess.getEMV2PathElementOrKindRule());
                     	        }
                             
-                    otherlv_3=(Token)match(input,RULE_ID,FOLLOW_66); 
+                    otherlv_3=(Token)match(input,RULE_ID,FOLLOW_65); 
 
                     		newLeafNode(otherlv_3, grammarAccess.getEMV2PathElementOrKindAccess().getNamedElementNamedElementCrossReference_1_0_0()); 
                     	
@@ -6980,7 +6982,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
                     }
 
-                    // InternalErrorModelParser.g:2752:2: (otherlv_4= FullStop ( (lv_path_5_0= ruleEMV2PathElement ) ) )?
+                    // InternalErrorModelParser.g:2748:2: (otherlv_4= FullStop ( (lv_path_5_0= ruleEMV2PathElement ) ) )?
                     int alt109=2;
                     int LA109_0 = input.LA(1);
 
@@ -6989,17 +6991,17 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
                     }
                     switch (alt109) {
                         case 1 :
-                            // InternalErrorModelParser.g:2753:2: otherlv_4= FullStop ( (lv_path_5_0= ruleEMV2PathElement ) )
+                            // InternalErrorModelParser.g:2749:2: otherlv_4= FullStop ( (lv_path_5_0= ruleEMV2PathElement ) )
                             {
                             otherlv_4=(Token)match(input,FullStop,FOLLOW_5); 
 
                                 	newLeafNode(otherlv_4, grammarAccess.getEMV2PathElementOrKindAccess().getFullStopKeyword_1_1_0());
                                 
-                            // InternalErrorModelParser.g:2757:1: ( (lv_path_5_0= ruleEMV2PathElement ) )
-                            // InternalErrorModelParser.g:2758:1: (lv_path_5_0= ruleEMV2PathElement )
+                            // InternalErrorModelParser.g:2753:1: ( (lv_path_5_0= ruleEMV2PathElement ) )
+                            // InternalErrorModelParser.g:2754:1: (lv_path_5_0= ruleEMV2PathElement )
                             {
-                            // InternalErrorModelParser.g:2758:1: (lv_path_5_0= ruleEMV2PathElement )
-                            // InternalErrorModelParser.g:2759:3: lv_path_5_0= ruleEMV2PathElement
+                            // InternalErrorModelParser.g:2754:1: (lv_path_5_0= ruleEMV2PathElement )
+                            // InternalErrorModelParser.g:2755:3: lv_path_5_0= ruleEMV2PathElement
                             {
                              
                             	        newCompositeNode(grammarAccess.getEMV2PathElementOrKindAccess().getPathEMV2PathElementParserRuleCall_1_1_1_0()); 
@@ -7059,7 +7061,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleEMV2PathElement"
-    // InternalErrorModelParser.g:2783:1: entryRuleEMV2PathElement returns [EObject current=null] : iv_ruleEMV2PathElement= ruleEMV2PathElement EOF ;
+    // InternalErrorModelParser.g:2779:1: entryRuleEMV2PathElement returns [EObject current=null] : iv_ruleEMV2PathElement= ruleEMV2PathElement EOF ;
     public final EObject entryRuleEMV2PathElement() throws RecognitionException {
         EObject current = null;
 
@@ -7067,8 +7069,8 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // InternalErrorModelParser.g:2784:2: (iv_ruleEMV2PathElement= ruleEMV2PathElement EOF )
-            // InternalErrorModelParser.g:2785:2: iv_ruleEMV2PathElement= ruleEMV2PathElement EOF
+            // InternalErrorModelParser.g:2780:2: (iv_ruleEMV2PathElement= ruleEMV2PathElement EOF )
+            // InternalErrorModelParser.g:2781:2: iv_ruleEMV2PathElement= ruleEMV2PathElement EOF
             {
              newCompositeNode(grammarAccess.getEMV2PathElementRule()); 
             pushFollow(FOLLOW_1);
@@ -7095,7 +7097,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleEMV2PathElement"
-    // InternalErrorModelParser.g:2792:1: ruleEMV2PathElement returns [EObject current=null] : ( ( (otherlv_0= RULE_ID ) ) (otherlv_1= FullStop ( (lv_path_2_0= ruleEMV2PathElement ) ) )? ) ;
+    // InternalErrorModelParser.g:2788:1: ruleEMV2PathElement returns [EObject current=null] : ( ( (otherlv_0= RULE_ID ) ) (otherlv_1= FullStop ( (lv_path_2_0= ruleEMV2PathElement ) ) )? ) ;
     public final EObject ruleEMV2PathElement() throws RecognitionException {
         EObject current = null;
 
@@ -7107,24 +7109,24 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // InternalErrorModelParser.g:2795:28: ( ( ( (otherlv_0= RULE_ID ) ) (otherlv_1= FullStop ( (lv_path_2_0= ruleEMV2PathElement ) ) )? ) )
-            // InternalErrorModelParser.g:2796:1: ( ( (otherlv_0= RULE_ID ) ) (otherlv_1= FullStop ( (lv_path_2_0= ruleEMV2PathElement ) ) )? )
+            // InternalErrorModelParser.g:2791:28: ( ( ( (otherlv_0= RULE_ID ) ) (otherlv_1= FullStop ( (lv_path_2_0= ruleEMV2PathElement ) ) )? ) )
+            // InternalErrorModelParser.g:2792:1: ( ( (otherlv_0= RULE_ID ) ) (otherlv_1= FullStop ( (lv_path_2_0= ruleEMV2PathElement ) ) )? )
             {
-            // InternalErrorModelParser.g:2796:1: ( ( (otherlv_0= RULE_ID ) ) (otherlv_1= FullStop ( (lv_path_2_0= ruleEMV2PathElement ) ) )? )
-            // InternalErrorModelParser.g:2796:2: ( (otherlv_0= RULE_ID ) ) (otherlv_1= FullStop ( (lv_path_2_0= ruleEMV2PathElement ) ) )?
+            // InternalErrorModelParser.g:2792:1: ( ( (otherlv_0= RULE_ID ) ) (otherlv_1= FullStop ( (lv_path_2_0= ruleEMV2PathElement ) ) )? )
+            // InternalErrorModelParser.g:2792:2: ( (otherlv_0= RULE_ID ) ) (otherlv_1= FullStop ( (lv_path_2_0= ruleEMV2PathElement ) ) )?
             {
-            // InternalErrorModelParser.g:2796:2: ( (otherlv_0= RULE_ID ) )
-            // InternalErrorModelParser.g:2797:1: (otherlv_0= RULE_ID )
+            // InternalErrorModelParser.g:2792:2: ( (otherlv_0= RULE_ID ) )
+            // InternalErrorModelParser.g:2793:1: (otherlv_0= RULE_ID )
             {
-            // InternalErrorModelParser.g:2797:1: (otherlv_0= RULE_ID )
-            // InternalErrorModelParser.g:2798:3: otherlv_0= RULE_ID
+            // InternalErrorModelParser.g:2793:1: (otherlv_0= RULE_ID )
+            // InternalErrorModelParser.g:2794:3: otherlv_0= RULE_ID
             {
 
             			if (current==null) {
             	            current = createModelElement(grammarAccess.getEMV2PathElementRule());
             	        }
                     
-            otherlv_0=(Token)match(input,RULE_ID,FOLLOW_66); 
+            otherlv_0=(Token)match(input,RULE_ID,FOLLOW_65); 
 
             		newLeafNode(otherlv_0, grammarAccess.getEMV2PathElementAccess().getNamedElementNamedElementCrossReference_0_0()); 
             	
@@ -7134,7 +7136,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
             }
 
-            // InternalErrorModelParser.g:2809:2: (otherlv_1= FullStop ( (lv_path_2_0= ruleEMV2PathElement ) ) )?
+            // InternalErrorModelParser.g:2805:2: (otherlv_1= FullStop ( (lv_path_2_0= ruleEMV2PathElement ) ) )?
             int alt111=2;
             int LA111_0 = input.LA(1);
 
@@ -7143,17 +7145,17 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
             }
             switch (alt111) {
                 case 1 :
-                    // InternalErrorModelParser.g:2810:2: otherlv_1= FullStop ( (lv_path_2_0= ruleEMV2PathElement ) )
+                    // InternalErrorModelParser.g:2806:2: otherlv_1= FullStop ( (lv_path_2_0= ruleEMV2PathElement ) )
                     {
                     otherlv_1=(Token)match(input,FullStop,FOLLOW_5); 
 
                         	newLeafNode(otherlv_1, grammarAccess.getEMV2PathElementAccess().getFullStopKeyword_1_0());
                         
-                    // InternalErrorModelParser.g:2814:1: ( (lv_path_2_0= ruleEMV2PathElement ) )
-                    // InternalErrorModelParser.g:2815:1: (lv_path_2_0= ruleEMV2PathElement )
+                    // InternalErrorModelParser.g:2810:1: ( (lv_path_2_0= ruleEMV2PathElement ) )
+                    // InternalErrorModelParser.g:2811:1: (lv_path_2_0= ruleEMV2PathElement )
                     {
-                    // InternalErrorModelParser.g:2815:1: (lv_path_2_0= ruleEMV2PathElement )
-                    // InternalErrorModelParser.g:2816:3: lv_path_2_0= ruleEMV2PathElement
+                    // InternalErrorModelParser.g:2811:1: (lv_path_2_0= ruleEMV2PathElement )
+                    // InternalErrorModelParser.g:2812:3: lv_path_2_0= ruleEMV2PathElement
                     {
                      
                     	        newCompositeNode(grammarAccess.getEMV2PathElementAccess().getPathEMV2PathElementParserRuleCall_1_1_0()); 
@@ -7207,7 +7209,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleErrorTypes"
-    // InternalErrorModelParser.g:2840:1: entryRuleErrorTypes returns [EObject current=null] : iv_ruleErrorTypes= ruleErrorTypes EOF ;
+    // InternalErrorModelParser.g:2836:1: entryRuleErrorTypes returns [EObject current=null] : iv_ruleErrorTypes= ruleErrorTypes EOF ;
     public final EObject entryRuleErrorTypes() throws RecognitionException {
         EObject current = null;
 
@@ -7215,8 +7217,8 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // InternalErrorModelParser.g:2841:2: (iv_ruleErrorTypes= ruleErrorTypes EOF )
-            // InternalErrorModelParser.g:2842:2: iv_ruleErrorTypes= ruleErrorTypes EOF
+            // InternalErrorModelParser.g:2837:2: (iv_ruleErrorTypes= ruleErrorTypes EOF )
+            // InternalErrorModelParser.g:2838:2: iv_ruleErrorTypes= ruleErrorTypes EOF
             {
              newCompositeNode(grammarAccess.getErrorTypesRule()); 
             pushFollow(FOLLOW_1);
@@ -7243,7 +7245,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleErrorTypes"
-    // InternalErrorModelParser.g:2849:1: ruleErrorTypes returns [EObject current=null] : (this_TypeDefinition_0= ruleTypeDefinition | this_TypeSetDefinition_1= ruleTypeSetDefinition ) ;
+    // InternalErrorModelParser.g:2845:1: ruleErrorTypes returns [EObject current=null] : (this_TypeDefinition_0= ruleTypeDefinition | this_TypeSetDefinition_1= ruleTypeSetDefinition ) ;
     public final EObject ruleErrorTypes() throws RecognitionException {
         EObject current = null;
 
@@ -7255,10 +7257,10 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // InternalErrorModelParser.g:2852:28: ( (this_TypeDefinition_0= ruleTypeDefinition | this_TypeSetDefinition_1= ruleTypeSetDefinition ) )
-            // InternalErrorModelParser.g:2853:1: (this_TypeDefinition_0= ruleTypeDefinition | this_TypeSetDefinition_1= ruleTypeSetDefinition )
+            // InternalErrorModelParser.g:2848:28: ( (this_TypeDefinition_0= ruleTypeDefinition | this_TypeSetDefinition_1= ruleTypeSetDefinition ) )
+            // InternalErrorModelParser.g:2849:1: (this_TypeDefinition_0= ruleTypeDefinition | this_TypeSetDefinition_1= ruleTypeSetDefinition )
             {
-            // InternalErrorModelParser.g:2853:1: (this_TypeDefinition_0= ruleTypeDefinition | this_TypeSetDefinition_1= ruleTypeSetDefinition )
+            // InternalErrorModelParser.g:2849:1: (this_TypeDefinition_0= ruleTypeDefinition | this_TypeSetDefinition_1= ruleTypeSetDefinition )
             int alt112=2;
             int LA112_0 = input.LA(1);
 
@@ -7271,11 +7273,11 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
                     if ( (LA112_2==Type) ) {
                         int LA112_4 = input.LA(4);
 
-                        if ( (LA112_4==Set) ) {
-                            alt112=2;
-                        }
-                        else if ( (LA112_4==Extends||LA112_4==Semicolon) ) {
+                        if ( (LA112_4==Extends||LA112_4==Semicolon) ) {
                             alt112=1;
+                        }
+                        else if ( (LA112_4==Set) ) {
+                            alt112=2;
                         }
                         else {
                             NoViableAltException nvae =
@@ -7332,7 +7334,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
             }
             switch (alt112) {
                 case 1 :
-                    // InternalErrorModelParser.g:2854:5: this_TypeDefinition_0= ruleTypeDefinition
+                    // InternalErrorModelParser.g:2850:5: this_TypeDefinition_0= ruleTypeDefinition
                     {
                      
                             newCompositeNode(grammarAccess.getErrorTypesAccess().getTypeDefinitionParserRuleCall_0()); 
@@ -7350,7 +7352,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 2 :
-                    // InternalErrorModelParser.g:2864:5: this_TypeSetDefinition_1= ruleTypeSetDefinition
+                    // InternalErrorModelParser.g:2860:5: this_TypeSetDefinition_1= ruleTypeSetDefinition
                     {
                      
                             newCompositeNode(grammarAccess.getErrorTypesAccess().getTypeSetDefinitionParserRuleCall_1()); 
@@ -7388,7 +7390,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleTypeDefinition"
-    // InternalErrorModelParser.g:2880:1: entryRuleTypeDefinition returns [EObject current=null] : iv_ruleTypeDefinition= ruleTypeDefinition EOF ;
+    // InternalErrorModelParser.g:2876:1: entryRuleTypeDefinition returns [EObject current=null] : iv_ruleTypeDefinition= ruleTypeDefinition EOF ;
     public final EObject entryRuleTypeDefinition() throws RecognitionException {
         EObject current = null;
 
@@ -7396,8 +7398,8 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // InternalErrorModelParser.g:2881:2: (iv_ruleTypeDefinition= ruleTypeDefinition EOF )
-            // InternalErrorModelParser.g:2882:2: iv_ruleTypeDefinition= ruleTypeDefinition EOF
+            // InternalErrorModelParser.g:2877:2: (iv_ruleTypeDefinition= ruleTypeDefinition EOF )
+            // InternalErrorModelParser.g:2878:2: iv_ruleTypeDefinition= ruleTypeDefinition EOF
             {
              newCompositeNode(grammarAccess.getTypeDefinitionRule()); 
             pushFollow(FOLLOW_1);
@@ -7424,7 +7426,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleTypeDefinition"
-    // InternalErrorModelParser.g:2889:1: ruleTypeDefinition returns [EObject current=null] : ( ( (lv_name_0_0= RULE_ID ) ) ( (otherlv_1= Colon otherlv_2= Type ) | (otherlv_3= Colon otherlv_4= Type otherlv_5= Extends ( ( ruleQEMREF ) ) ) | (otherlv_7= Renames otherlv_8= Type ( ( ruleQEMREF ) ) ) ) otherlv_10= Semicolon ) ;
+    // InternalErrorModelParser.g:2885:1: ruleTypeDefinition returns [EObject current=null] : ( ( (lv_name_0_0= RULE_ID ) ) ( (otherlv_1= Colon otherlv_2= Type ) | (otherlv_3= Colon otherlv_4= Type otherlv_5= Extends ( ( ruleQEMREF ) ) ) | (otherlv_7= Renames otherlv_8= Type ( ( ruleQEMREF ) ) ) ) otherlv_10= Semicolon ) ;
     public final EObject ruleTypeDefinition() throws RecognitionException {
         EObject current = null;
 
@@ -7441,19 +7443,19 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // InternalErrorModelParser.g:2892:28: ( ( ( (lv_name_0_0= RULE_ID ) ) ( (otherlv_1= Colon otherlv_2= Type ) | (otherlv_3= Colon otherlv_4= Type otherlv_5= Extends ( ( ruleQEMREF ) ) ) | (otherlv_7= Renames otherlv_8= Type ( ( ruleQEMREF ) ) ) ) otherlv_10= Semicolon ) )
-            // InternalErrorModelParser.g:2893:1: ( ( (lv_name_0_0= RULE_ID ) ) ( (otherlv_1= Colon otherlv_2= Type ) | (otherlv_3= Colon otherlv_4= Type otherlv_5= Extends ( ( ruleQEMREF ) ) ) | (otherlv_7= Renames otherlv_8= Type ( ( ruleQEMREF ) ) ) ) otherlv_10= Semicolon )
+            // InternalErrorModelParser.g:2888:28: ( ( ( (lv_name_0_0= RULE_ID ) ) ( (otherlv_1= Colon otherlv_2= Type ) | (otherlv_3= Colon otherlv_4= Type otherlv_5= Extends ( ( ruleQEMREF ) ) ) | (otherlv_7= Renames otherlv_8= Type ( ( ruleQEMREF ) ) ) ) otherlv_10= Semicolon ) )
+            // InternalErrorModelParser.g:2889:1: ( ( (lv_name_0_0= RULE_ID ) ) ( (otherlv_1= Colon otherlv_2= Type ) | (otherlv_3= Colon otherlv_4= Type otherlv_5= Extends ( ( ruleQEMREF ) ) ) | (otherlv_7= Renames otherlv_8= Type ( ( ruleQEMREF ) ) ) ) otherlv_10= Semicolon )
             {
-            // InternalErrorModelParser.g:2893:1: ( ( (lv_name_0_0= RULE_ID ) ) ( (otherlv_1= Colon otherlv_2= Type ) | (otherlv_3= Colon otherlv_4= Type otherlv_5= Extends ( ( ruleQEMREF ) ) ) | (otherlv_7= Renames otherlv_8= Type ( ( ruleQEMREF ) ) ) ) otherlv_10= Semicolon )
-            // InternalErrorModelParser.g:2893:2: ( (lv_name_0_0= RULE_ID ) ) ( (otherlv_1= Colon otherlv_2= Type ) | (otherlv_3= Colon otherlv_4= Type otherlv_5= Extends ( ( ruleQEMREF ) ) ) | (otherlv_7= Renames otherlv_8= Type ( ( ruleQEMREF ) ) ) ) otherlv_10= Semicolon
+            // InternalErrorModelParser.g:2889:1: ( ( (lv_name_0_0= RULE_ID ) ) ( (otherlv_1= Colon otherlv_2= Type ) | (otherlv_3= Colon otherlv_4= Type otherlv_5= Extends ( ( ruleQEMREF ) ) ) | (otherlv_7= Renames otherlv_8= Type ( ( ruleQEMREF ) ) ) ) otherlv_10= Semicolon )
+            // InternalErrorModelParser.g:2889:2: ( (lv_name_0_0= RULE_ID ) ) ( (otherlv_1= Colon otherlv_2= Type ) | (otherlv_3= Colon otherlv_4= Type otherlv_5= Extends ( ( ruleQEMREF ) ) ) | (otherlv_7= Renames otherlv_8= Type ( ( ruleQEMREF ) ) ) ) otherlv_10= Semicolon
             {
-            // InternalErrorModelParser.g:2893:2: ( (lv_name_0_0= RULE_ID ) )
-            // InternalErrorModelParser.g:2894:1: (lv_name_0_0= RULE_ID )
+            // InternalErrorModelParser.g:2889:2: ( (lv_name_0_0= RULE_ID ) )
+            // InternalErrorModelParser.g:2890:1: (lv_name_0_0= RULE_ID )
             {
-            // InternalErrorModelParser.g:2894:1: (lv_name_0_0= RULE_ID )
-            // InternalErrorModelParser.g:2895:3: lv_name_0_0= RULE_ID
+            // InternalErrorModelParser.g:2890:1: (lv_name_0_0= RULE_ID )
+            // InternalErrorModelParser.g:2891:3: lv_name_0_0= RULE_ID
             {
-            lv_name_0_0=(Token)match(input,RULE_ID,FOLLOW_67); 
+            lv_name_0_0=(Token)match(input,RULE_ID,FOLLOW_66); 
 
             			newLeafNode(lv_name_0_0, grammarAccess.getTypeDefinitionAccess().getNameIDTerminalRuleCall_0_0()); 
             		
@@ -7473,7 +7475,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
             }
 
-            // InternalErrorModelParser.g:2911:2: ( (otherlv_1= Colon otherlv_2= Type ) | (otherlv_3= Colon otherlv_4= Type otherlv_5= Extends ( ( ruleQEMREF ) ) ) | (otherlv_7= Renames otherlv_8= Type ( ( ruleQEMREF ) ) ) )
+            // InternalErrorModelParser.g:2907:2: ( (otherlv_1= Colon otherlv_2= Type ) | (otherlv_3= Colon otherlv_4= Type otherlv_5= Extends ( ( ruleQEMREF ) ) ) | (otherlv_7= Renames otherlv_8= Type ( ( ruleQEMREF ) ) ) )
             int alt113=3;
             int LA113_0 = input.LA(1);
 
@@ -7483,11 +7485,11 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
                 if ( (LA113_1==Type) ) {
                     int LA113_3 = input.LA(3);
 
-                    if ( (LA113_3==Semicolon) ) {
-                        alt113=1;
-                    }
-                    else if ( (LA113_3==Extends) ) {
+                    if ( (LA113_3==Extends) ) {
                         alt113=2;
+                    }
+                    else if ( (LA113_3==Semicolon) ) {
+                        alt113=1;
                     }
                     else {
                         NoViableAltException nvae =
@@ -7514,10 +7516,10 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
             }
             switch (alt113) {
                 case 1 :
-                    // InternalErrorModelParser.g:2911:3: (otherlv_1= Colon otherlv_2= Type )
+                    // InternalErrorModelParser.g:2907:3: (otherlv_1= Colon otherlv_2= Type )
                     {
-                    // InternalErrorModelParser.g:2911:3: (otherlv_1= Colon otherlv_2= Type )
-                    // InternalErrorModelParser.g:2912:2: otherlv_1= Colon otherlv_2= Type
+                    // InternalErrorModelParser.g:2907:3: (otherlv_1= Colon otherlv_2= Type )
+                    // InternalErrorModelParser.g:2908:2: otherlv_1= Colon otherlv_2= Type
                     {
                     otherlv_1=(Token)match(input,Colon,FOLLOW_8); 
 
@@ -7534,16 +7536,16 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 2 :
-                    // InternalErrorModelParser.g:2922:6: (otherlv_3= Colon otherlv_4= Type otherlv_5= Extends ( ( ruleQEMREF ) ) )
+                    // InternalErrorModelParser.g:2918:6: (otherlv_3= Colon otherlv_4= Type otherlv_5= Extends ( ( ruleQEMREF ) ) )
                     {
-                    // InternalErrorModelParser.g:2922:6: (otherlv_3= Colon otherlv_4= Type otherlv_5= Extends ( ( ruleQEMREF ) ) )
-                    // InternalErrorModelParser.g:2923:2: otherlv_3= Colon otherlv_4= Type otherlv_5= Extends ( ( ruleQEMREF ) )
+                    // InternalErrorModelParser.g:2918:6: (otherlv_3= Colon otherlv_4= Type otherlv_5= Extends ( ( ruleQEMREF ) ) )
+                    // InternalErrorModelParser.g:2919:2: otherlv_3= Colon otherlv_4= Type otherlv_5= Extends ( ( ruleQEMREF ) )
                     {
                     otherlv_3=(Token)match(input,Colon,FOLLOW_8); 
 
                         	newLeafNode(otherlv_3, grammarAccess.getTypeDefinitionAccess().getColonKeyword_1_1_0());
                         
-                    otherlv_4=(Token)match(input,Type,FOLLOW_68); 
+                    otherlv_4=(Token)match(input,Type,FOLLOW_67); 
 
                         	newLeafNode(otherlv_4, grammarAccess.getTypeDefinitionAccess().getTypeKeyword_1_1_1());
                         
@@ -7551,11 +7553,11 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
                         	newLeafNode(otherlv_5, grammarAccess.getTypeDefinitionAccess().getExtendsKeyword_1_1_2());
                         
-                    // InternalErrorModelParser.g:2937:1: ( ( ruleQEMREF ) )
-                    // InternalErrorModelParser.g:2938:1: ( ruleQEMREF )
+                    // InternalErrorModelParser.g:2933:1: ( ( ruleQEMREF ) )
+                    // InternalErrorModelParser.g:2934:1: ( ruleQEMREF )
                     {
-                    // InternalErrorModelParser.g:2938:1: ( ruleQEMREF )
-                    // InternalErrorModelParser.g:2939:3: ruleQEMREF
+                    // InternalErrorModelParser.g:2934:1: ( ruleQEMREF )
+                    // InternalErrorModelParser.g:2935:3: ruleQEMREF
                     {
 
                     			if (current==null) {
@@ -7586,10 +7588,10 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 3 :
-                    // InternalErrorModelParser.g:2954:6: (otherlv_7= Renames otherlv_8= Type ( ( ruleQEMREF ) ) )
+                    // InternalErrorModelParser.g:2950:6: (otherlv_7= Renames otherlv_8= Type ( ( ruleQEMREF ) ) )
                     {
-                    // InternalErrorModelParser.g:2954:6: (otherlv_7= Renames otherlv_8= Type ( ( ruleQEMREF ) ) )
-                    // InternalErrorModelParser.g:2955:2: otherlv_7= Renames otherlv_8= Type ( ( ruleQEMREF ) )
+                    // InternalErrorModelParser.g:2950:6: (otherlv_7= Renames otherlv_8= Type ( ( ruleQEMREF ) ) )
+                    // InternalErrorModelParser.g:2951:2: otherlv_7= Renames otherlv_8= Type ( ( ruleQEMREF ) )
                     {
                     otherlv_7=(Token)match(input,Renames,FOLLOW_8); 
 
@@ -7599,11 +7601,11 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
                         	newLeafNode(otherlv_8, grammarAccess.getTypeDefinitionAccess().getTypeKeyword_1_2_1());
                         
-                    // InternalErrorModelParser.g:2964:1: ( ( ruleQEMREF ) )
-                    // InternalErrorModelParser.g:2965:1: ( ruleQEMREF )
+                    // InternalErrorModelParser.g:2960:1: ( ( ruleQEMREF ) )
+                    // InternalErrorModelParser.g:2961:1: ( ruleQEMREF )
                     {
-                    // InternalErrorModelParser.g:2965:1: ( ruleQEMREF )
-                    // InternalErrorModelParser.g:2966:3: ruleQEMREF
+                    // InternalErrorModelParser.g:2961:1: ( ruleQEMREF )
+                    // InternalErrorModelParser.g:2962:3: ruleQEMREF
                     {
 
                     			if (current==null) {
@@ -7661,7 +7663,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleTypeSetDefinition"
-    // InternalErrorModelParser.g:2993:1: entryRuleTypeSetDefinition returns [EObject current=null] : iv_ruleTypeSetDefinition= ruleTypeSetDefinition EOF ;
+    // InternalErrorModelParser.g:2989:1: entryRuleTypeSetDefinition returns [EObject current=null] : iv_ruleTypeSetDefinition= ruleTypeSetDefinition EOF ;
     public final EObject entryRuleTypeSetDefinition() throws RecognitionException {
         EObject current = null;
 
@@ -7669,8 +7671,8 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // InternalErrorModelParser.g:2994:2: (iv_ruleTypeSetDefinition= ruleTypeSetDefinition EOF )
-            // InternalErrorModelParser.g:2995:2: iv_ruleTypeSetDefinition= ruleTypeSetDefinition EOF
+            // InternalErrorModelParser.g:2990:2: (iv_ruleTypeSetDefinition= ruleTypeSetDefinition EOF )
+            // InternalErrorModelParser.g:2991:2: iv_ruleTypeSetDefinition= ruleTypeSetDefinition EOF
             {
              newCompositeNode(grammarAccess.getTypeSetDefinitionRule()); 
             pushFollow(FOLLOW_1);
@@ -7697,7 +7699,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleTypeSetDefinition"
-    // InternalErrorModelParser.g:3002:1: ruleTypeSetDefinition returns [EObject current=null] : ( ( (lv_name_0_0= RULE_ID ) ) ( (otherlv_1= Colon otherlv_2= Type otherlv_3= Set otherlv_4= LeftCurlyBracket ( (lv_typeTokens_5_0= ruleTypeSetElement ) ) (otherlv_6= Comma ( (lv_typeTokens_7_0= ruleTypeSetElement ) ) )* otherlv_8= RightCurlyBracket ) | (otherlv_9= Renames otherlv_10= Type otherlv_11= Set ( ( ruleQEMREF ) ) ) ) otherlv_13= Semicolon ) ;
+    // InternalErrorModelParser.g:2998:1: ruleTypeSetDefinition returns [EObject current=null] : ( ( (lv_name_0_0= RULE_ID ) ) ( (otherlv_1= Colon otherlv_2= Type otherlv_3= Set otherlv_4= LeftCurlyBracket ( (lv_typeTokens_5_0= ruleTypeSetElement ) ) (otherlv_6= Comma ( (lv_typeTokens_7_0= ruleTypeSetElement ) ) )* otherlv_8= RightCurlyBracket ) | (otherlv_9= Renames otherlv_10= Type otherlv_11= Set ( ( ruleQEMREF ) ) ) ) otherlv_13= Semicolon ) ;
     public final EObject ruleTypeSetDefinition() throws RecognitionException {
         EObject current = null;
 
@@ -7720,19 +7722,19 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // InternalErrorModelParser.g:3005:28: ( ( ( (lv_name_0_0= RULE_ID ) ) ( (otherlv_1= Colon otherlv_2= Type otherlv_3= Set otherlv_4= LeftCurlyBracket ( (lv_typeTokens_5_0= ruleTypeSetElement ) ) (otherlv_6= Comma ( (lv_typeTokens_7_0= ruleTypeSetElement ) ) )* otherlv_8= RightCurlyBracket ) | (otherlv_9= Renames otherlv_10= Type otherlv_11= Set ( ( ruleQEMREF ) ) ) ) otherlv_13= Semicolon ) )
-            // InternalErrorModelParser.g:3006:1: ( ( (lv_name_0_0= RULE_ID ) ) ( (otherlv_1= Colon otherlv_2= Type otherlv_3= Set otherlv_4= LeftCurlyBracket ( (lv_typeTokens_5_0= ruleTypeSetElement ) ) (otherlv_6= Comma ( (lv_typeTokens_7_0= ruleTypeSetElement ) ) )* otherlv_8= RightCurlyBracket ) | (otherlv_9= Renames otherlv_10= Type otherlv_11= Set ( ( ruleQEMREF ) ) ) ) otherlv_13= Semicolon )
+            // InternalErrorModelParser.g:3001:28: ( ( ( (lv_name_0_0= RULE_ID ) ) ( (otherlv_1= Colon otherlv_2= Type otherlv_3= Set otherlv_4= LeftCurlyBracket ( (lv_typeTokens_5_0= ruleTypeSetElement ) ) (otherlv_6= Comma ( (lv_typeTokens_7_0= ruleTypeSetElement ) ) )* otherlv_8= RightCurlyBracket ) | (otherlv_9= Renames otherlv_10= Type otherlv_11= Set ( ( ruleQEMREF ) ) ) ) otherlv_13= Semicolon ) )
+            // InternalErrorModelParser.g:3002:1: ( ( (lv_name_0_0= RULE_ID ) ) ( (otherlv_1= Colon otherlv_2= Type otherlv_3= Set otherlv_4= LeftCurlyBracket ( (lv_typeTokens_5_0= ruleTypeSetElement ) ) (otherlv_6= Comma ( (lv_typeTokens_7_0= ruleTypeSetElement ) ) )* otherlv_8= RightCurlyBracket ) | (otherlv_9= Renames otherlv_10= Type otherlv_11= Set ( ( ruleQEMREF ) ) ) ) otherlv_13= Semicolon )
             {
-            // InternalErrorModelParser.g:3006:1: ( ( (lv_name_0_0= RULE_ID ) ) ( (otherlv_1= Colon otherlv_2= Type otherlv_3= Set otherlv_4= LeftCurlyBracket ( (lv_typeTokens_5_0= ruleTypeSetElement ) ) (otherlv_6= Comma ( (lv_typeTokens_7_0= ruleTypeSetElement ) ) )* otherlv_8= RightCurlyBracket ) | (otherlv_9= Renames otherlv_10= Type otherlv_11= Set ( ( ruleQEMREF ) ) ) ) otherlv_13= Semicolon )
-            // InternalErrorModelParser.g:3006:2: ( (lv_name_0_0= RULE_ID ) ) ( (otherlv_1= Colon otherlv_2= Type otherlv_3= Set otherlv_4= LeftCurlyBracket ( (lv_typeTokens_5_0= ruleTypeSetElement ) ) (otherlv_6= Comma ( (lv_typeTokens_7_0= ruleTypeSetElement ) ) )* otherlv_8= RightCurlyBracket ) | (otherlv_9= Renames otherlv_10= Type otherlv_11= Set ( ( ruleQEMREF ) ) ) ) otherlv_13= Semicolon
+            // InternalErrorModelParser.g:3002:1: ( ( (lv_name_0_0= RULE_ID ) ) ( (otherlv_1= Colon otherlv_2= Type otherlv_3= Set otherlv_4= LeftCurlyBracket ( (lv_typeTokens_5_0= ruleTypeSetElement ) ) (otherlv_6= Comma ( (lv_typeTokens_7_0= ruleTypeSetElement ) ) )* otherlv_8= RightCurlyBracket ) | (otherlv_9= Renames otherlv_10= Type otherlv_11= Set ( ( ruleQEMREF ) ) ) ) otherlv_13= Semicolon )
+            // InternalErrorModelParser.g:3002:2: ( (lv_name_0_0= RULE_ID ) ) ( (otherlv_1= Colon otherlv_2= Type otherlv_3= Set otherlv_4= LeftCurlyBracket ( (lv_typeTokens_5_0= ruleTypeSetElement ) ) (otherlv_6= Comma ( (lv_typeTokens_7_0= ruleTypeSetElement ) ) )* otherlv_8= RightCurlyBracket ) | (otherlv_9= Renames otherlv_10= Type otherlv_11= Set ( ( ruleQEMREF ) ) ) ) otherlv_13= Semicolon
             {
-            // InternalErrorModelParser.g:3006:2: ( (lv_name_0_0= RULE_ID ) )
-            // InternalErrorModelParser.g:3007:1: (lv_name_0_0= RULE_ID )
+            // InternalErrorModelParser.g:3002:2: ( (lv_name_0_0= RULE_ID ) )
+            // InternalErrorModelParser.g:3003:1: (lv_name_0_0= RULE_ID )
             {
-            // InternalErrorModelParser.g:3007:1: (lv_name_0_0= RULE_ID )
-            // InternalErrorModelParser.g:3008:3: lv_name_0_0= RULE_ID
+            // InternalErrorModelParser.g:3003:1: (lv_name_0_0= RULE_ID )
+            // InternalErrorModelParser.g:3004:3: lv_name_0_0= RULE_ID
             {
-            lv_name_0_0=(Token)match(input,RULE_ID,FOLLOW_67); 
+            lv_name_0_0=(Token)match(input,RULE_ID,FOLLOW_66); 
 
             			newLeafNode(lv_name_0_0, grammarAccess.getTypeSetDefinitionAccess().getNameIDTerminalRuleCall_0_0()); 
             		
@@ -7752,7 +7754,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
             }
 
-            // InternalErrorModelParser.g:3024:2: ( (otherlv_1= Colon otherlv_2= Type otherlv_3= Set otherlv_4= LeftCurlyBracket ( (lv_typeTokens_5_0= ruleTypeSetElement ) ) (otherlv_6= Comma ( (lv_typeTokens_7_0= ruleTypeSetElement ) ) )* otherlv_8= RightCurlyBracket ) | (otherlv_9= Renames otherlv_10= Type otherlv_11= Set ( ( ruleQEMREF ) ) ) )
+            // InternalErrorModelParser.g:3020:2: ( (otherlv_1= Colon otherlv_2= Type otherlv_3= Set otherlv_4= LeftCurlyBracket ( (lv_typeTokens_5_0= ruleTypeSetElement ) ) (otherlv_6= Comma ( (lv_typeTokens_7_0= ruleTypeSetElement ) ) )* otherlv_8= RightCurlyBracket ) | (otherlv_9= Renames otherlv_10= Type otherlv_11= Set ( ( ruleQEMREF ) ) ) )
             int alt115=2;
             int LA115_0 = input.LA(1);
 
@@ -7770,20 +7772,20 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
             }
             switch (alt115) {
                 case 1 :
-                    // InternalErrorModelParser.g:3024:3: (otherlv_1= Colon otherlv_2= Type otherlv_3= Set otherlv_4= LeftCurlyBracket ( (lv_typeTokens_5_0= ruleTypeSetElement ) ) (otherlv_6= Comma ( (lv_typeTokens_7_0= ruleTypeSetElement ) ) )* otherlv_8= RightCurlyBracket )
+                    // InternalErrorModelParser.g:3020:3: (otherlv_1= Colon otherlv_2= Type otherlv_3= Set otherlv_4= LeftCurlyBracket ( (lv_typeTokens_5_0= ruleTypeSetElement ) ) (otherlv_6= Comma ( (lv_typeTokens_7_0= ruleTypeSetElement ) ) )* otherlv_8= RightCurlyBracket )
                     {
-                    // InternalErrorModelParser.g:3024:3: (otherlv_1= Colon otherlv_2= Type otherlv_3= Set otherlv_4= LeftCurlyBracket ( (lv_typeTokens_5_0= ruleTypeSetElement ) ) (otherlv_6= Comma ( (lv_typeTokens_7_0= ruleTypeSetElement ) ) )* otherlv_8= RightCurlyBracket )
-                    // InternalErrorModelParser.g:3025:2: otherlv_1= Colon otherlv_2= Type otherlv_3= Set otherlv_4= LeftCurlyBracket ( (lv_typeTokens_5_0= ruleTypeSetElement ) ) (otherlv_6= Comma ( (lv_typeTokens_7_0= ruleTypeSetElement ) ) )* otherlv_8= RightCurlyBracket
+                    // InternalErrorModelParser.g:3020:3: (otherlv_1= Colon otherlv_2= Type otherlv_3= Set otherlv_4= LeftCurlyBracket ( (lv_typeTokens_5_0= ruleTypeSetElement ) ) (otherlv_6= Comma ( (lv_typeTokens_7_0= ruleTypeSetElement ) ) )* otherlv_8= RightCurlyBracket )
+                    // InternalErrorModelParser.g:3021:2: otherlv_1= Colon otherlv_2= Type otherlv_3= Set otherlv_4= LeftCurlyBracket ( (lv_typeTokens_5_0= ruleTypeSetElement ) ) (otherlv_6= Comma ( (lv_typeTokens_7_0= ruleTypeSetElement ) ) )* otherlv_8= RightCurlyBracket
                     {
                     otherlv_1=(Token)match(input,Colon,FOLLOW_8); 
 
                         	newLeafNode(otherlv_1, grammarAccess.getTypeSetDefinitionAccess().getColonKeyword_1_0_0());
                         
-                    otherlv_2=(Token)match(input,Type,FOLLOW_69); 
+                    otherlv_2=(Token)match(input,Type,FOLLOW_68); 
 
                         	newLeafNode(otherlv_2, grammarAccess.getTypeSetDefinitionAccess().getTypeKeyword_1_0_1());
                         
-                    otherlv_3=(Token)match(input,Set,FOLLOW_70); 
+                    otherlv_3=(Token)match(input,Set,FOLLOW_69); 
 
                         	newLeafNode(otherlv_3, grammarAccess.getTypeSetDefinitionAccess().getSetKeyword_1_0_2());
                         
@@ -7791,16 +7793,16 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
                         	newLeafNode(otherlv_4, grammarAccess.getTypeSetDefinitionAccess().getLeftCurlyBracketKeyword_1_0_3());
                         
-                    // InternalErrorModelParser.g:3044:1: ( (lv_typeTokens_5_0= ruleTypeSetElement ) )
-                    // InternalErrorModelParser.g:3045:1: (lv_typeTokens_5_0= ruleTypeSetElement )
+                    // InternalErrorModelParser.g:3040:1: ( (lv_typeTokens_5_0= ruleTypeSetElement ) )
+                    // InternalErrorModelParser.g:3041:1: (lv_typeTokens_5_0= ruleTypeSetElement )
                     {
-                    // InternalErrorModelParser.g:3045:1: (lv_typeTokens_5_0= ruleTypeSetElement )
-                    // InternalErrorModelParser.g:3046:3: lv_typeTokens_5_0= ruleTypeSetElement
+                    // InternalErrorModelParser.g:3041:1: (lv_typeTokens_5_0= ruleTypeSetElement )
+                    // InternalErrorModelParser.g:3042:3: lv_typeTokens_5_0= ruleTypeSetElement
                     {
                      
                     	        newCompositeNode(grammarAccess.getTypeSetDefinitionAccess().getTypeTokensTypeSetElementParserRuleCall_1_0_4_0()); 
                     	    
-                    pushFollow(FOLLOW_71);
+                    pushFollow(FOLLOW_70);
                     lv_typeTokens_5_0=ruleTypeSetElement();
 
                     state._fsp--;
@@ -7822,7 +7824,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
                     }
 
-                    // InternalErrorModelParser.g:3062:2: (otherlv_6= Comma ( (lv_typeTokens_7_0= ruleTypeSetElement ) ) )*
+                    // InternalErrorModelParser.g:3058:2: (otherlv_6= Comma ( (lv_typeTokens_7_0= ruleTypeSetElement ) ) )*
                     loop114:
                     do {
                         int alt114=2;
@@ -7835,22 +7837,22 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
                         switch (alt114) {
                     	case 1 :
-                    	    // InternalErrorModelParser.g:3063:2: otherlv_6= Comma ( (lv_typeTokens_7_0= ruleTypeSetElement ) )
+                    	    // InternalErrorModelParser.g:3059:2: otherlv_6= Comma ( (lv_typeTokens_7_0= ruleTypeSetElement ) )
                     	    {
                     	    otherlv_6=(Token)match(input,Comma,FOLLOW_5); 
 
                     	        	newLeafNode(otherlv_6, grammarAccess.getTypeSetDefinitionAccess().getCommaKeyword_1_0_5_0());
                     	        
-                    	    // InternalErrorModelParser.g:3067:1: ( (lv_typeTokens_7_0= ruleTypeSetElement ) )
-                    	    // InternalErrorModelParser.g:3068:1: (lv_typeTokens_7_0= ruleTypeSetElement )
+                    	    // InternalErrorModelParser.g:3063:1: ( (lv_typeTokens_7_0= ruleTypeSetElement ) )
+                    	    // InternalErrorModelParser.g:3064:1: (lv_typeTokens_7_0= ruleTypeSetElement )
                     	    {
-                    	    // InternalErrorModelParser.g:3068:1: (lv_typeTokens_7_0= ruleTypeSetElement )
-                    	    // InternalErrorModelParser.g:3069:3: lv_typeTokens_7_0= ruleTypeSetElement
+                    	    // InternalErrorModelParser.g:3064:1: (lv_typeTokens_7_0= ruleTypeSetElement )
+                    	    // InternalErrorModelParser.g:3065:3: lv_typeTokens_7_0= ruleTypeSetElement
                     	    {
                     	     
                     	    	        newCompositeNode(grammarAccess.getTypeSetDefinitionAccess().getTypeTokensTypeSetElementParserRuleCall_1_0_5_1_0()); 
                     	    	    
-                    	    pushFollow(FOLLOW_71);
+                    	    pushFollow(FOLLOW_70);
                     	    lv_typeTokens_7_0=ruleTypeSetElement();
 
                     	    state._fsp--;
@@ -7892,16 +7894,16 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 2 :
-                    // InternalErrorModelParser.g:3091:6: (otherlv_9= Renames otherlv_10= Type otherlv_11= Set ( ( ruleQEMREF ) ) )
+                    // InternalErrorModelParser.g:3087:6: (otherlv_9= Renames otherlv_10= Type otherlv_11= Set ( ( ruleQEMREF ) ) )
                     {
-                    // InternalErrorModelParser.g:3091:6: (otherlv_9= Renames otherlv_10= Type otherlv_11= Set ( ( ruleQEMREF ) ) )
-                    // InternalErrorModelParser.g:3092:2: otherlv_9= Renames otherlv_10= Type otherlv_11= Set ( ( ruleQEMREF ) )
+                    // InternalErrorModelParser.g:3087:6: (otherlv_9= Renames otherlv_10= Type otherlv_11= Set ( ( ruleQEMREF ) ) )
+                    // InternalErrorModelParser.g:3088:2: otherlv_9= Renames otherlv_10= Type otherlv_11= Set ( ( ruleQEMREF ) )
                     {
                     otherlv_9=(Token)match(input,Renames,FOLLOW_8); 
 
                         	newLeafNode(otherlv_9, grammarAccess.getTypeSetDefinitionAccess().getRenamesKeyword_1_1_0());
                         
-                    otherlv_10=(Token)match(input,Type,FOLLOW_69); 
+                    otherlv_10=(Token)match(input,Type,FOLLOW_68); 
 
                         	newLeafNode(otherlv_10, grammarAccess.getTypeSetDefinitionAccess().getTypeKeyword_1_1_1());
                         
@@ -7909,11 +7911,11 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
                         	newLeafNode(otherlv_11, grammarAccess.getTypeSetDefinitionAccess().getSetKeyword_1_1_2());
                         
-                    // InternalErrorModelParser.g:3106:1: ( ( ruleQEMREF ) )
-                    // InternalErrorModelParser.g:3107:1: ( ruleQEMREF )
+                    // InternalErrorModelParser.g:3102:1: ( ( ruleQEMREF ) )
+                    // InternalErrorModelParser.g:3103:1: ( ruleQEMREF )
                     {
-                    // InternalErrorModelParser.g:3107:1: ( ruleQEMREF )
-                    // InternalErrorModelParser.g:3108:3: ruleQEMREF
+                    // InternalErrorModelParser.g:3103:1: ( ruleQEMREF )
+                    // InternalErrorModelParser.g:3104:3: ruleQEMREF
                     {
 
                     			if (current==null) {
@@ -7971,7 +7973,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleTypeSetConstructor"
-    // InternalErrorModelParser.g:3135:1: entryRuleTypeSetConstructor returns [EObject current=null] : iv_ruleTypeSetConstructor= ruleTypeSetConstructor EOF ;
+    // InternalErrorModelParser.g:3131:1: entryRuleTypeSetConstructor returns [EObject current=null] : iv_ruleTypeSetConstructor= ruleTypeSetConstructor EOF ;
     public final EObject entryRuleTypeSetConstructor() throws RecognitionException {
         EObject current = null;
 
@@ -7979,8 +7981,8 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // InternalErrorModelParser.g:3136:2: (iv_ruleTypeSetConstructor= ruleTypeSetConstructor EOF )
-            // InternalErrorModelParser.g:3137:2: iv_ruleTypeSetConstructor= ruleTypeSetConstructor EOF
+            // InternalErrorModelParser.g:3132:2: (iv_ruleTypeSetConstructor= ruleTypeSetConstructor EOF )
+            // InternalErrorModelParser.g:3133:2: iv_ruleTypeSetConstructor= ruleTypeSetConstructor EOF
             {
              newCompositeNode(grammarAccess.getTypeSetConstructorRule()); 
             pushFollow(FOLLOW_1);
@@ -8007,7 +8009,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleTypeSetConstructor"
-    // InternalErrorModelParser.g:3144:1: ruleTypeSetConstructor returns [EObject current=null] : (otherlv_0= LeftCurlyBracket ( (lv_typeTokens_1_0= ruleTypeSetElement ) ) (otherlv_2= Comma ( (lv_typeTokens_3_0= ruleTypeSetElement ) ) )* otherlv_4= RightCurlyBracket ) ;
+    // InternalErrorModelParser.g:3140:1: ruleTypeSetConstructor returns [EObject current=null] : (otherlv_0= LeftCurlyBracket ( (lv_typeTokens_1_0= ruleTypeSetElement ) ) (otherlv_2= Comma ( (lv_typeTokens_3_0= ruleTypeSetElement ) ) )* otherlv_4= RightCurlyBracket ) ;
     public final EObject ruleTypeSetConstructor() throws RecognitionException {
         EObject current = null;
 
@@ -8022,26 +8024,26 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // InternalErrorModelParser.g:3147:28: ( (otherlv_0= LeftCurlyBracket ( (lv_typeTokens_1_0= ruleTypeSetElement ) ) (otherlv_2= Comma ( (lv_typeTokens_3_0= ruleTypeSetElement ) ) )* otherlv_4= RightCurlyBracket ) )
-            // InternalErrorModelParser.g:3148:1: (otherlv_0= LeftCurlyBracket ( (lv_typeTokens_1_0= ruleTypeSetElement ) ) (otherlv_2= Comma ( (lv_typeTokens_3_0= ruleTypeSetElement ) ) )* otherlv_4= RightCurlyBracket )
+            // InternalErrorModelParser.g:3143:28: ( (otherlv_0= LeftCurlyBracket ( (lv_typeTokens_1_0= ruleTypeSetElement ) ) (otherlv_2= Comma ( (lv_typeTokens_3_0= ruleTypeSetElement ) ) )* otherlv_4= RightCurlyBracket ) )
+            // InternalErrorModelParser.g:3144:1: (otherlv_0= LeftCurlyBracket ( (lv_typeTokens_1_0= ruleTypeSetElement ) ) (otherlv_2= Comma ( (lv_typeTokens_3_0= ruleTypeSetElement ) ) )* otherlv_4= RightCurlyBracket )
             {
-            // InternalErrorModelParser.g:3148:1: (otherlv_0= LeftCurlyBracket ( (lv_typeTokens_1_0= ruleTypeSetElement ) ) (otherlv_2= Comma ( (lv_typeTokens_3_0= ruleTypeSetElement ) ) )* otherlv_4= RightCurlyBracket )
-            // InternalErrorModelParser.g:3149:2: otherlv_0= LeftCurlyBracket ( (lv_typeTokens_1_0= ruleTypeSetElement ) ) (otherlv_2= Comma ( (lv_typeTokens_3_0= ruleTypeSetElement ) ) )* otherlv_4= RightCurlyBracket
+            // InternalErrorModelParser.g:3144:1: (otherlv_0= LeftCurlyBracket ( (lv_typeTokens_1_0= ruleTypeSetElement ) ) (otherlv_2= Comma ( (lv_typeTokens_3_0= ruleTypeSetElement ) ) )* otherlv_4= RightCurlyBracket )
+            // InternalErrorModelParser.g:3145:2: otherlv_0= LeftCurlyBracket ( (lv_typeTokens_1_0= ruleTypeSetElement ) ) (otherlv_2= Comma ( (lv_typeTokens_3_0= ruleTypeSetElement ) ) )* otherlv_4= RightCurlyBracket
             {
             otherlv_0=(Token)match(input,LeftCurlyBracket,FOLLOW_5); 
 
                 	newLeafNode(otherlv_0, grammarAccess.getTypeSetConstructorAccess().getLeftCurlyBracketKeyword_0());
                 
-            // InternalErrorModelParser.g:3153:1: ( (lv_typeTokens_1_0= ruleTypeSetElement ) )
-            // InternalErrorModelParser.g:3154:1: (lv_typeTokens_1_0= ruleTypeSetElement )
+            // InternalErrorModelParser.g:3149:1: ( (lv_typeTokens_1_0= ruleTypeSetElement ) )
+            // InternalErrorModelParser.g:3150:1: (lv_typeTokens_1_0= ruleTypeSetElement )
             {
-            // InternalErrorModelParser.g:3154:1: (lv_typeTokens_1_0= ruleTypeSetElement )
-            // InternalErrorModelParser.g:3155:3: lv_typeTokens_1_0= ruleTypeSetElement
+            // InternalErrorModelParser.g:3150:1: (lv_typeTokens_1_0= ruleTypeSetElement )
+            // InternalErrorModelParser.g:3151:3: lv_typeTokens_1_0= ruleTypeSetElement
             {
              
             	        newCompositeNode(grammarAccess.getTypeSetConstructorAccess().getTypeTokensTypeSetElementParserRuleCall_1_0()); 
             	    
-            pushFollow(FOLLOW_71);
+            pushFollow(FOLLOW_70);
             lv_typeTokens_1_0=ruleTypeSetElement();
 
             state._fsp--;
@@ -8063,7 +8065,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
             }
 
-            // InternalErrorModelParser.g:3171:2: (otherlv_2= Comma ( (lv_typeTokens_3_0= ruleTypeSetElement ) ) )*
+            // InternalErrorModelParser.g:3167:2: (otherlv_2= Comma ( (lv_typeTokens_3_0= ruleTypeSetElement ) ) )*
             loop116:
             do {
                 int alt116=2;
@@ -8076,22 +8078,22 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
                 switch (alt116) {
             	case 1 :
-            	    // InternalErrorModelParser.g:3172:2: otherlv_2= Comma ( (lv_typeTokens_3_0= ruleTypeSetElement ) )
+            	    // InternalErrorModelParser.g:3168:2: otherlv_2= Comma ( (lv_typeTokens_3_0= ruleTypeSetElement ) )
             	    {
             	    otherlv_2=(Token)match(input,Comma,FOLLOW_5); 
 
             	        	newLeafNode(otherlv_2, grammarAccess.getTypeSetConstructorAccess().getCommaKeyword_2_0());
             	        
-            	    // InternalErrorModelParser.g:3176:1: ( (lv_typeTokens_3_0= ruleTypeSetElement ) )
-            	    // InternalErrorModelParser.g:3177:1: (lv_typeTokens_3_0= ruleTypeSetElement )
+            	    // InternalErrorModelParser.g:3172:1: ( (lv_typeTokens_3_0= ruleTypeSetElement ) )
+            	    // InternalErrorModelParser.g:3173:1: (lv_typeTokens_3_0= ruleTypeSetElement )
             	    {
-            	    // InternalErrorModelParser.g:3177:1: (lv_typeTokens_3_0= ruleTypeSetElement )
-            	    // InternalErrorModelParser.g:3178:3: lv_typeTokens_3_0= ruleTypeSetElement
+            	    // InternalErrorModelParser.g:3173:1: (lv_typeTokens_3_0= ruleTypeSetElement )
+            	    // InternalErrorModelParser.g:3174:3: lv_typeTokens_3_0= ruleTypeSetElement
             	    {
             	     
             	    	        newCompositeNode(grammarAccess.getTypeSetConstructorAccess().getTypeTokensTypeSetElementParserRuleCall_2_1_0()); 
             	    	    
-            	    pushFollow(FOLLOW_71);
+            	    pushFollow(FOLLOW_70);
             	    lv_typeTokens_3_0=ruleTypeSetElement();
 
             	    state._fsp--;
@@ -8147,7 +8149,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleTypeSetReference"
-    // InternalErrorModelParser.g:3207:1: entryRuleTypeSetReference returns [EObject current=null] : iv_ruleTypeSetReference= ruleTypeSetReference EOF ;
+    // InternalErrorModelParser.g:3203:1: entryRuleTypeSetReference returns [EObject current=null] : iv_ruleTypeSetReference= ruleTypeSetReference EOF ;
     public final EObject entryRuleTypeSetReference() throws RecognitionException {
         EObject current = null;
 
@@ -8155,8 +8157,8 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // InternalErrorModelParser.g:3208:2: (iv_ruleTypeSetReference= ruleTypeSetReference EOF )
-            // InternalErrorModelParser.g:3209:2: iv_ruleTypeSetReference= ruleTypeSetReference EOF
+            // InternalErrorModelParser.g:3204:2: (iv_ruleTypeSetReference= ruleTypeSetReference EOF )
+            // InternalErrorModelParser.g:3205:2: iv_ruleTypeSetReference= ruleTypeSetReference EOF
             {
              newCompositeNode(grammarAccess.getTypeSetReferenceRule()); 
             pushFollow(FOLLOW_1);
@@ -8183,7 +8185,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleTypeSetReference"
-    // InternalErrorModelParser.g:3216:1: ruleTypeSetReference returns [EObject current=null] : this_TypeSetConstructor_0= ruleTypeSetConstructor ;
+    // InternalErrorModelParser.g:3212:1: ruleTypeSetReference returns [EObject current=null] : this_TypeSetConstructor_0= ruleTypeSetConstructor ;
     public final EObject ruleTypeSetReference() throws RecognitionException {
         EObject current = null;
 
@@ -8193,8 +8195,8 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // InternalErrorModelParser.g:3219:28: (this_TypeSetConstructor_0= ruleTypeSetConstructor )
-            // InternalErrorModelParser.g:3221:5: this_TypeSetConstructor_0= ruleTypeSetConstructor
+            // InternalErrorModelParser.g:3215:28: (this_TypeSetConstructor_0= ruleTypeSetConstructor )
+            // InternalErrorModelParser.g:3217:5: this_TypeSetConstructor_0= ruleTypeSetConstructor
             {
              
                     newCompositeNode(grammarAccess.getTypeSetReferenceAccess().getTypeSetConstructorParserRuleCall()); 
@@ -8226,7 +8228,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleTypeSetElement"
-    // InternalErrorModelParser.g:3237:1: entryRuleTypeSetElement returns [EObject current=null] : iv_ruleTypeSetElement= ruleTypeSetElement EOF ;
+    // InternalErrorModelParser.g:3233:1: entryRuleTypeSetElement returns [EObject current=null] : iv_ruleTypeSetElement= ruleTypeSetElement EOF ;
     public final EObject entryRuleTypeSetElement() throws RecognitionException {
         EObject current = null;
 
@@ -8234,8 +8236,8 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // InternalErrorModelParser.g:3238:2: (iv_ruleTypeSetElement= ruleTypeSetElement EOF )
-            // InternalErrorModelParser.g:3239:2: iv_ruleTypeSetElement= ruleTypeSetElement EOF
+            // InternalErrorModelParser.g:3234:2: (iv_ruleTypeSetElement= ruleTypeSetElement EOF )
+            // InternalErrorModelParser.g:3235:2: iv_ruleTypeSetElement= ruleTypeSetElement EOF
             {
              newCompositeNode(grammarAccess.getTypeSetElementRule()); 
             pushFollow(FOLLOW_1);
@@ -8262,7 +8264,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleTypeSetElement"
-    // InternalErrorModelParser.g:3246:1: ruleTypeSetElement returns [EObject current=null] : ( ( ( ruleQEMREF ) ) (otherlv_1= Asterisk ( ( ruleQEMREF ) ) )* ) ;
+    // InternalErrorModelParser.g:3242:1: ruleTypeSetElement returns [EObject current=null] : ( ( ( ruleQEMREF ) ) (otherlv_1= Asterisk ( ( ruleQEMREF ) ) )* ) ;
     public final EObject ruleTypeSetElement() throws RecognitionException {
         EObject current = null;
 
@@ -8271,17 +8273,17 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // InternalErrorModelParser.g:3249:28: ( ( ( ( ruleQEMREF ) ) (otherlv_1= Asterisk ( ( ruleQEMREF ) ) )* ) )
-            // InternalErrorModelParser.g:3250:1: ( ( ( ruleQEMREF ) ) (otherlv_1= Asterisk ( ( ruleQEMREF ) ) )* )
+            // InternalErrorModelParser.g:3245:28: ( ( ( ( ruleQEMREF ) ) (otherlv_1= Asterisk ( ( ruleQEMREF ) ) )* ) )
+            // InternalErrorModelParser.g:3246:1: ( ( ( ruleQEMREF ) ) (otherlv_1= Asterisk ( ( ruleQEMREF ) ) )* )
             {
-            // InternalErrorModelParser.g:3250:1: ( ( ( ruleQEMREF ) ) (otherlv_1= Asterisk ( ( ruleQEMREF ) ) )* )
-            // InternalErrorModelParser.g:3250:2: ( ( ruleQEMREF ) ) (otherlv_1= Asterisk ( ( ruleQEMREF ) ) )*
+            // InternalErrorModelParser.g:3246:1: ( ( ( ruleQEMREF ) ) (otherlv_1= Asterisk ( ( ruleQEMREF ) ) )* )
+            // InternalErrorModelParser.g:3246:2: ( ( ruleQEMREF ) ) (otherlv_1= Asterisk ( ( ruleQEMREF ) ) )*
             {
-            // InternalErrorModelParser.g:3250:2: ( ( ruleQEMREF ) )
-            // InternalErrorModelParser.g:3251:1: ( ruleQEMREF )
+            // InternalErrorModelParser.g:3246:2: ( ( ruleQEMREF ) )
+            // InternalErrorModelParser.g:3247:1: ( ruleQEMREF )
             {
-            // InternalErrorModelParser.g:3251:1: ( ruleQEMREF )
-            // InternalErrorModelParser.g:3252:3: ruleQEMREF
+            // InternalErrorModelParser.g:3247:1: ( ruleQEMREF )
+            // InternalErrorModelParser.g:3248:3: ruleQEMREF
             {
 
             			if (current==null) {
@@ -8291,7 +8293,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
              
             	        newCompositeNode(grammarAccess.getTypeSetElementAccess().getTypeErrorTypesCrossReference_0_0()); 
             	    
-            pushFollow(FOLLOW_72);
+            pushFollow(FOLLOW_71);
             ruleQEMREF();
 
             state._fsp--;
@@ -8305,7 +8307,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
             }
 
-            // InternalErrorModelParser.g:3266:2: (otherlv_1= Asterisk ( ( ruleQEMREF ) ) )*
+            // InternalErrorModelParser.g:3262:2: (otherlv_1= Asterisk ( ( ruleQEMREF ) ) )*
             loop117:
             do {
                 int alt117=2;
@@ -8318,17 +8320,17 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
                 switch (alt117) {
             	case 1 :
-            	    // InternalErrorModelParser.g:3267:2: otherlv_1= Asterisk ( ( ruleQEMREF ) )
+            	    // InternalErrorModelParser.g:3263:2: otherlv_1= Asterisk ( ( ruleQEMREF ) )
             	    {
             	    otherlv_1=(Token)match(input,Asterisk,FOLLOW_5); 
 
             	        	newLeafNode(otherlv_1, grammarAccess.getTypeSetElementAccess().getAsteriskKeyword_1_0());
             	        
-            	    // InternalErrorModelParser.g:3271:1: ( ( ruleQEMREF ) )
-            	    // InternalErrorModelParser.g:3272:1: ( ruleQEMREF )
+            	    // InternalErrorModelParser.g:3267:1: ( ( ruleQEMREF ) )
+            	    // InternalErrorModelParser.g:3268:1: ( ruleQEMREF )
             	    {
-            	    // InternalErrorModelParser.g:3272:1: ( ruleQEMREF )
-            	    // InternalErrorModelParser.g:3273:3: ruleQEMREF
+            	    // InternalErrorModelParser.g:3268:1: ( ruleQEMREF )
+            	    // InternalErrorModelParser.g:3269:3: ruleQEMREF
             	    {
 
             	    			if (current==null) {
@@ -8338,7 +8340,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
             	     
             	    	        newCompositeNode(grammarAccess.getTypeSetElementAccess().getTypeErrorTypesCrossReference_1_1_0()); 
             	    	    
-            	    pushFollow(FOLLOW_72);
+            	    pushFollow(FOLLOW_71);
             	    ruleQEMREF();
 
             	    state._fsp--;
@@ -8382,7 +8384,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleNoErrorTypeSet"
-    // InternalErrorModelParser.g:3295:1: entryRuleNoErrorTypeSet returns [EObject current=null] : iv_ruleNoErrorTypeSet= ruleNoErrorTypeSet EOF ;
+    // InternalErrorModelParser.g:3291:1: entryRuleNoErrorTypeSet returns [EObject current=null] : iv_ruleNoErrorTypeSet= ruleNoErrorTypeSet EOF ;
     public final EObject entryRuleNoErrorTypeSet() throws RecognitionException {
         EObject current = null;
 
@@ -8390,8 +8392,8 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // InternalErrorModelParser.g:3296:2: (iv_ruleNoErrorTypeSet= ruleNoErrorTypeSet EOF )
-            // InternalErrorModelParser.g:3297:2: iv_ruleNoErrorTypeSet= ruleNoErrorTypeSet EOF
+            // InternalErrorModelParser.g:3292:2: (iv_ruleNoErrorTypeSet= ruleNoErrorTypeSet EOF )
+            // InternalErrorModelParser.g:3293:2: iv_ruleNoErrorTypeSet= ruleNoErrorTypeSet EOF
             {
              newCompositeNode(grammarAccess.getNoErrorTypeSetRule()); 
             pushFollow(FOLLOW_1);
@@ -8418,7 +8420,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleNoErrorTypeSet"
-    // InternalErrorModelParser.g:3304:1: ruleNoErrorTypeSet returns [EObject current=null] : ( () otherlv_1= LeftCurlyBracket ( (lv_typeTokens_2_0= ruleNoErrorTypeToken ) ) otherlv_3= RightCurlyBracket ) ;
+    // InternalErrorModelParser.g:3300:1: ruleNoErrorTypeSet returns [EObject current=null] : ( () otherlv_1= LeftCurlyBracket ( (lv_typeTokens_2_0= ruleNoErrorTypeToken ) ) otherlv_3= RightCurlyBracket ) ;
     public final EObject ruleNoErrorTypeSet() throws RecognitionException {
         EObject current = null;
 
@@ -8430,14 +8432,14 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // InternalErrorModelParser.g:3307:28: ( ( () otherlv_1= LeftCurlyBracket ( (lv_typeTokens_2_0= ruleNoErrorTypeToken ) ) otherlv_3= RightCurlyBracket ) )
-            // InternalErrorModelParser.g:3308:1: ( () otherlv_1= LeftCurlyBracket ( (lv_typeTokens_2_0= ruleNoErrorTypeToken ) ) otherlv_3= RightCurlyBracket )
+            // InternalErrorModelParser.g:3303:28: ( ( () otherlv_1= LeftCurlyBracket ( (lv_typeTokens_2_0= ruleNoErrorTypeToken ) ) otherlv_3= RightCurlyBracket ) )
+            // InternalErrorModelParser.g:3304:1: ( () otherlv_1= LeftCurlyBracket ( (lv_typeTokens_2_0= ruleNoErrorTypeToken ) ) otherlv_3= RightCurlyBracket )
             {
-            // InternalErrorModelParser.g:3308:1: ( () otherlv_1= LeftCurlyBracket ( (lv_typeTokens_2_0= ruleNoErrorTypeToken ) ) otherlv_3= RightCurlyBracket )
-            // InternalErrorModelParser.g:3308:2: () otherlv_1= LeftCurlyBracket ( (lv_typeTokens_2_0= ruleNoErrorTypeToken ) ) otherlv_3= RightCurlyBracket
+            // InternalErrorModelParser.g:3304:1: ( () otherlv_1= LeftCurlyBracket ( (lv_typeTokens_2_0= ruleNoErrorTypeToken ) ) otherlv_3= RightCurlyBracket )
+            // InternalErrorModelParser.g:3304:2: () otherlv_1= LeftCurlyBracket ( (lv_typeTokens_2_0= ruleNoErrorTypeToken ) ) otherlv_3= RightCurlyBracket
             {
-            // InternalErrorModelParser.g:3308:2: ()
-            // InternalErrorModelParser.g:3309:5: 
+            // InternalErrorModelParser.g:3304:2: ()
+            // InternalErrorModelParser.g:3305:5: 
             {
 
                     current = forceCreateModelElement(
@@ -8447,20 +8449,20 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
             }
 
-            otherlv_1=(Token)match(input,LeftCurlyBracket,FOLLOW_73); 
+            otherlv_1=(Token)match(input,LeftCurlyBracket,FOLLOW_72); 
 
                 	newLeafNode(otherlv_1, grammarAccess.getNoErrorTypeSetAccess().getLeftCurlyBracketKeyword_1());
                 
-            // InternalErrorModelParser.g:3319:1: ( (lv_typeTokens_2_0= ruleNoErrorTypeToken ) )
-            // InternalErrorModelParser.g:3320:1: (lv_typeTokens_2_0= ruleNoErrorTypeToken )
+            // InternalErrorModelParser.g:3315:1: ( (lv_typeTokens_2_0= ruleNoErrorTypeToken ) )
+            // InternalErrorModelParser.g:3316:1: (lv_typeTokens_2_0= ruleNoErrorTypeToken )
             {
-            // InternalErrorModelParser.g:3320:1: (lv_typeTokens_2_0= ruleNoErrorTypeToken )
-            // InternalErrorModelParser.g:3321:3: lv_typeTokens_2_0= ruleNoErrorTypeToken
+            // InternalErrorModelParser.g:3316:1: (lv_typeTokens_2_0= ruleNoErrorTypeToken )
+            // InternalErrorModelParser.g:3317:3: lv_typeTokens_2_0= ruleNoErrorTypeToken
             {
              
             	        newCompositeNode(grammarAccess.getNoErrorTypeSetAccess().getTypeTokensNoErrorTypeTokenParserRuleCall_2_0()); 
             	    
-            pushFollow(FOLLOW_74);
+            pushFollow(FOLLOW_73);
             lv_typeTokens_2_0=ruleNoErrorTypeToken();
 
             state._fsp--;
@@ -8507,7 +8509,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleNoErrorTypeToken"
-    // InternalErrorModelParser.g:3350:1: entryRuleNoErrorTypeToken returns [EObject current=null] : iv_ruleNoErrorTypeToken= ruleNoErrorTypeToken EOF ;
+    // InternalErrorModelParser.g:3346:1: entryRuleNoErrorTypeToken returns [EObject current=null] : iv_ruleNoErrorTypeToken= ruleNoErrorTypeToken EOF ;
     public final EObject entryRuleNoErrorTypeToken() throws RecognitionException {
         EObject current = null;
 
@@ -8515,8 +8517,8 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // InternalErrorModelParser.g:3351:2: (iv_ruleNoErrorTypeToken= ruleNoErrorTypeToken EOF )
-            // InternalErrorModelParser.g:3352:2: iv_ruleNoErrorTypeToken= ruleNoErrorTypeToken EOF
+            // InternalErrorModelParser.g:3347:2: (iv_ruleNoErrorTypeToken= ruleNoErrorTypeToken EOF )
+            // InternalErrorModelParser.g:3348:2: iv_ruleNoErrorTypeToken= ruleNoErrorTypeToken EOF
             {
              newCompositeNode(grammarAccess.getNoErrorTypeTokenRule()); 
             pushFollow(FOLLOW_1);
@@ -8543,7 +8545,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleNoErrorTypeToken"
-    // InternalErrorModelParser.g:3359:1: ruleNoErrorTypeToken returns [EObject current=null] : ( () ( (lv_noError_1_0= Noerror ) ) ) ;
+    // InternalErrorModelParser.g:3355:1: ruleNoErrorTypeToken returns [EObject current=null] : ( () ( (lv_noError_1_0= Noerror ) ) ) ;
     public final EObject ruleNoErrorTypeToken() throws RecognitionException {
         EObject current = null;
 
@@ -8552,14 +8554,14 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // InternalErrorModelParser.g:3362:28: ( ( () ( (lv_noError_1_0= Noerror ) ) ) )
-            // InternalErrorModelParser.g:3363:1: ( () ( (lv_noError_1_0= Noerror ) ) )
+            // InternalErrorModelParser.g:3358:28: ( ( () ( (lv_noError_1_0= Noerror ) ) ) )
+            // InternalErrorModelParser.g:3359:1: ( () ( (lv_noError_1_0= Noerror ) ) )
             {
-            // InternalErrorModelParser.g:3363:1: ( () ( (lv_noError_1_0= Noerror ) ) )
-            // InternalErrorModelParser.g:3363:2: () ( (lv_noError_1_0= Noerror ) )
+            // InternalErrorModelParser.g:3359:1: ( () ( (lv_noError_1_0= Noerror ) ) )
+            // InternalErrorModelParser.g:3359:2: () ( (lv_noError_1_0= Noerror ) )
             {
-            // InternalErrorModelParser.g:3363:2: ()
-            // InternalErrorModelParser.g:3364:5: 
+            // InternalErrorModelParser.g:3359:2: ()
+            // InternalErrorModelParser.g:3360:5: 
             {
 
                     current = forceCreateModelElement(
@@ -8569,11 +8571,11 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
             }
 
-            // InternalErrorModelParser.g:3369:2: ( (lv_noError_1_0= Noerror ) )
-            // InternalErrorModelParser.g:3370:1: (lv_noError_1_0= Noerror )
+            // InternalErrorModelParser.g:3365:2: ( (lv_noError_1_0= Noerror ) )
+            // InternalErrorModelParser.g:3366:1: (lv_noError_1_0= Noerror )
             {
-            // InternalErrorModelParser.g:3370:1: (lv_noError_1_0= Noerror )
-            // InternalErrorModelParser.g:3371:3: lv_noError_1_0= Noerror
+            // InternalErrorModelParser.g:3366:1: (lv_noError_1_0= Noerror )
+            // InternalErrorModelParser.g:3367:3: lv_noError_1_0= Noerror
             {
             lv_noError_1_0=(Token)match(input,Noerror,FOLLOW_2); 
 
@@ -8612,7 +8614,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleTypeToken"
-    // InternalErrorModelParser.g:3393:1: entryRuleTypeToken returns [EObject current=null] : iv_ruleTypeToken= ruleTypeToken EOF ;
+    // InternalErrorModelParser.g:3389:1: entryRuleTypeToken returns [EObject current=null] : iv_ruleTypeToken= ruleTypeToken EOF ;
     public final EObject entryRuleTypeToken() throws RecognitionException {
         EObject current = null;
 
@@ -8620,8 +8622,8 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // InternalErrorModelParser.g:3394:2: (iv_ruleTypeToken= ruleTypeToken EOF )
-            // InternalErrorModelParser.g:3395:2: iv_ruleTypeToken= ruleTypeToken EOF
+            // InternalErrorModelParser.g:3390:2: (iv_ruleTypeToken= ruleTypeToken EOF )
+            // InternalErrorModelParser.g:3391:2: iv_ruleTypeToken= ruleTypeToken EOF
             {
              newCompositeNode(grammarAccess.getTypeTokenRule()); 
             pushFollow(FOLLOW_1);
@@ -8648,7 +8650,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleTypeToken"
-    // InternalErrorModelParser.g:3402:1: ruleTypeToken returns [EObject current=null] : this_TypeSetReference_0= ruleTypeSetReference ;
+    // InternalErrorModelParser.g:3398:1: ruleTypeToken returns [EObject current=null] : this_TypeSetReference_0= ruleTypeSetReference ;
     public final EObject ruleTypeToken() throws RecognitionException {
         EObject current = null;
 
@@ -8658,8 +8660,8 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // InternalErrorModelParser.g:3405:28: (this_TypeSetReference_0= ruleTypeSetReference )
-            // InternalErrorModelParser.g:3407:5: this_TypeSetReference_0= ruleTypeSetReference
+            // InternalErrorModelParser.g:3401:28: (this_TypeSetReference_0= ruleTypeSetReference )
+            // InternalErrorModelParser.g:3403:5: this_TypeSetReference_0= ruleTypeSetReference
             {
              
                     newCompositeNode(grammarAccess.getTypeTokenAccess().getTypeSetReferenceParserRuleCall()); 
@@ -8691,7 +8693,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleTypeTokenOrNoError"
-    // InternalErrorModelParser.g:3423:1: entryRuleTypeTokenOrNoError returns [EObject current=null] : iv_ruleTypeTokenOrNoError= ruleTypeTokenOrNoError EOF ;
+    // InternalErrorModelParser.g:3419:1: entryRuleTypeTokenOrNoError returns [EObject current=null] : iv_ruleTypeTokenOrNoError= ruleTypeTokenOrNoError EOF ;
     public final EObject entryRuleTypeTokenOrNoError() throws RecognitionException {
         EObject current = null;
 
@@ -8699,8 +8701,8 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // InternalErrorModelParser.g:3424:2: (iv_ruleTypeTokenOrNoError= ruleTypeTokenOrNoError EOF )
-            // InternalErrorModelParser.g:3425:2: iv_ruleTypeTokenOrNoError= ruleTypeTokenOrNoError EOF
+            // InternalErrorModelParser.g:3420:2: (iv_ruleTypeTokenOrNoError= ruleTypeTokenOrNoError EOF )
+            // InternalErrorModelParser.g:3421:2: iv_ruleTypeTokenOrNoError= ruleTypeTokenOrNoError EOF
             {
              newCompositeNode(grammarAccess.getTypeTokenOrNoErrorRule()); 
             pushFollow(FOLLOW_1);
@@ -8727,7 +8729,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleTypeTokenOrNoError"
-    // InternalErrorModelParser.g:3432:1: ruleTypeTokenOrNoError returns [EObject current=null] : (this_TypeSetReference_0= ruleTypeSetReference | this_NoErrorTypeSet_1= ruleNoErrorTypeSet ) ;
+    // InternalErrorModelParser.g:3428:1: ruleTypeTokenOrNoError returns [EObject current=null] : (this_TypeSetReference_0= ruleTypeSetReference | this_NoErrorTypeSet_1= ruleNoErrorTypeSet ) ;
     public final EObject ruleTypeTokenOrNoError() throws RecognitionException {
         EObject current = null;
 
@@ -8739,21 +8741,21 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // InternalErrorModelParser.g:3435:28: ( (this_TypeSetReference_0= ruleTypeSetReference | this_NoErrorTypeSet_1= ruleNoErrorTypeSet ) )
-            // InternalErrorModelParser.g:3436:1: (this_TypeSetReference_0= ruleTypeSetReference | this_NoErrorTypeSet_1= ruleNoErrorTypeSet )
+            // InternalErrorModelParser.g:3431:28: ( (this_TypeSetReference_0= ruleTypeSetReference | this_NoErrorTypeSet_1= ruleNoErrorTypeSet ) )
+            // InternalErrorModelParser.g:3432:1: (this_TypeSetReference_0= ruleTypeSetReference | this_NoErrorTypeSet_1= ruleNoErrorTypeSet )
             {
-            // InternalErrorModelParser.g:3436:1: (this_TypeSetReference_0= ruleTypeSetReference | this_NoErrorTypeSet_1= ruleNoErrorTypeSet )
+            // InternalErrorModelParser.g:3432:1: (this_TypeSetReference_0= ruleTypeSetReference | this_NoErrorTypeSet_1= ruleNoErrorTypeSet )
             int alt118=2;
             int LA118_0 = input.LA(1);
 
             if ( (LA118_0==LeftCurlyBracket) ) {
                 int LA118_1 = input.LA(2);
 
-                if ( (LA118_1==RULE_ID) ) {
-                    alt118=1;
-                }
-                else if ( (LA118_1==Noerror) ) {
+                if ( (LA118_1==Noerror) ) {
                     alt118=2;
+                }
+                else if ( (LA118_1==RULE_ID) ) {
+                    alt118=1;
                 }
                 else {
                     NoViableAltException nvae =
@@ -8770,7 +8772,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
             }
             switch (alt118) {
                 case 1 :
-                    // InternalErrorModelParser.g:3437:5: this_TypeSetReference_0= ruleTypeSetReference
+                    // InternalErrorModelParser.g:3433:5: this_TypeSetReference_0= ruleTypeSetReference
                     {
                      
                             newCompositeNode(grammarAccess.getTypeTokenOrNoErrorAccess().getTypeSetReferenceParserRuleCall_0()); 
@@ -8788,7 +8790,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 2 :
-                    // InternalErrorModelParser.g:3447:5: this_NoErrorTypeSet_1= ruleNoErrorTypeSet
+                    // InternalErrorModelParser.g:3443:5: this_NoErrorTypeSet_1= ruleNoErrorTypeSet
                     {
                      
                             newCompositeNode(grammarAccess.getTypeTokenOrNoErrorAccess().getNoErrorTypeSetParserRuleCall_1()); 
@@ -8826,7 +8828,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleTypeTokenConstraint"
-    // InternalErrorModelParser.g:3463:1: entryRuleTypeTokenConstraint returns [EObject current=null] : iv_ruleTypeTokenConstraint= ruleTypeTokenConstraint EOF ;
+    // InternalErrorModelParser.g:3459:1: entryRuleTypeTokenConstraint returns [EObject current=null] : iv_ruleTypeTokenConstraint= ruleTypeTokenConstraint EOF ;
     public final EObject entryRuleTypeTokenConstraint() throws RecognitionException {
         EObject current = null;
 
@@ -8834,8 +8836,8 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // InternalErrorModelParser.g:3464:2: (iv_ruleTypeTokenConstraint= ruleTypeTokenConstraint EOF )
-            // InternalErrorModelParser.g:3465:2: iv_ruleTypeTokenConstraint= ruleTypeTokenConstraint EOF
+            // InternalErrorModelParser.g:3460:2: (iv_ruleTypeTokenConstraint= ruleTypeTokenConstraint EOF )
+            // InternalErrorModelParser.g:3461:2: iv_ruleTypeTokenConstraint= ruleTypeTokenConstraint EOF
             {
              newCompositeNode(grammarAccess.getTypeTokenConstraintRule()); 
             pushFollow(FOLLOW_1);
@@ -8862,7 +8864,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleTypeTokenConstraint"
-    // InternalErrorModelParser.g:3472:1: ruleTypeTokenConstraint returns [EObject current=null] : this_TypeSetReference_0= ruleTypeSetReference ;
+    // InternalErrorModelParser.g:3468:1: ruleTypeTokenConstraint returns [EObject current=null] : this_TypeSetReference_0= ruleTypeSetReference ;
     public final EObject ruleTypeTokenConstraint() throws RecognitionException {
         EObject current = null;
 
@@ -8872,8 +8874,8 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // InternalErrorModelParser.g:3475:28: (this_TypeSetReference_0= ruleTypeSetReference )
-            // InternalErrorModelParser.g:3477:5: this_TypeSetReference_0= ruleTypeSetReference
+            // InternalErrorModelParser.g:3471:28: (this_TypeSetReference_0= ruleTypeSetReference )
+            // InternalErrorModelParser.g:3473:5: this_TypeSetReference_0= ruleTypeSetReference
             {
              
                     newCompositeNode(grammarAccess.getTypeTokenConstraintAccess().getTypeSetReferenceParserRuleCall()); 
@@ -8905,7 +8907,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleTypeTokenConstraintNoError"
-    // InternalErrorModelParser.g:3493:1: entryRuleTypeTokenConstraintNoError returns [EObject current=null] : iv_ruleTypeTokenConstraintNoError= ruleTypeTokenConstraintNoError EOF ;
+    // InternalErrorModelParser.g:3489:1: entryRuleTypeTokenConstraintNoError returns [EObject current=null] : iv_ruleTypeTokenConstraintNoError= ruleTypeTokenConstraintNoError EOF ;
     public final EObject entryRuleTypeTokenConstraintNoError() throws RecognitionException {
         EObject current = null;
 
@@ -8913,8 +8915,8 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // InternalErrorModelParser.g:3494:2: (iv_ruleTypeTokenConstraintNoError= ruleTypeTokenConstraintNoError EOF )
-            // InternalErrorModelParser.g:3495:2: iv_ruleTypeTokenConstraintNoError= ruleTypeTokenConstraintNoError EOF
+            // InternalErrorModelParser.g:3490:2: (iv_ruleTypeTokenConstraintNoError= ruleTypeTokenConstraintNoError EOF )
+            // InternalErrorModelParser.g:3491:2: iv_ruleTypeTokenConstraintNoError= ruleTypeTokenConstraintNoError EOF
             {
              newCompositeNode(grammarAccess.getTypeTokenConstraintNoErrorRule()); 
             pushFollow(FOLLOW_1);
@@ -8941,7 +8943,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleTypeTokenConstraintNoError"
-    // InternalErrorModelParser.g:3502:1: ruleTypeTokenConstraintNoError returns [EObject current=null] : (this_TypeSetReference_0= ruleTypeSetReference | this_NoErrorTypeSet_1= ruleNoErrorTypeSet ) ;
+    // InternalErrorModelParser.g:3498:1: ruleTypeTokenConstraintNoError returns [EObject current=null] : (this_TypeSetReference_0= ruleTypeSetReference | this_NoErrorTypeSet_1= ruleNoErrorTypeSet ) ;
     public final EObject ruleTypeTokenConstraintNoError() throws RecognitionException {
         EObject current = null;
 
@@ -8953,10 +8955,10 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // InternalErrorModelParser.g:3505:28: ( (this_TypeSetReference_0= ruleTypeSetReference | this_NoErrorTypeSet_1= ruleNoErrorTypeSet ) )
-            // InternalErrorModelParser.g:3506:1: (this_TypeSetReference_0= ruleTypeSetReference | this_NoErrorTypeSet_1= ruleNoErrorTypeSet )
+            // InternalErrorModelParser.g:3501:28: ( (this_TypeSetReference_0= ruleTypeSetReference | this_NoErrorTypeSet_1= ruleNoErrorTypeSet ) )
+            // InternalErrorModelParser.g:3502:1: (this_TypeSetReference_0= ruleTypeSetReference | this_NoErrorTypeSet_1= ruleNoErrorTypeSet )
             {
-            // InternalErrorModelParser.g:3506:1: (this_TypeSetReference_0= ruleTypeSetReference | this_NoErrorTypeSet_1= ruleNoErrorTypeSet )
+            // InternalErrorModelParser.g:3502:1: (this_TypeSetReference_0= ruleTypeSetReference | this_NoErrorTypeSet_1= ruleNoErrorTypeSet )
             int alt119=2;
             int LA119_0 = input.LA(1);
 
@@ -8984,7 +8986,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
             }
             switch (alt119) {
                 case 1 :
-                    // InternalErrorModelParser.g:3507:5: this_TypeSetReference_0= ruleTypeSetReference
+                    // InternalErrorModelParser.g:3503:5: this_TypeSetReference_0= ruleTypeSetReference
                     {
                      
                             newCompositeNode(grammarAccess.getTypeTokenConstraintNoErrorAccess().getTypeSetReferenceParserRuleCall_0()); 
@@ -9002,7 +9004,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 2 :
-                    // InternalErrorModelParser.g:3517:5: this_NoErrorTypeSet_1= ruleNoErrorTypeSet
+                    // InternalErrorModelParser.g:3513:5: this_NoErrorTypeSet_1= ruleNoErrorTypeSet
                     {
                      
                             newCompositeNode(grammarAccess.getTypeTokenConstraintNoErrorAccess().getNoErrorTypeSetParserRuleCall_1()); 
@@ -9040,7 +9042,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleTypeTransformationSet"
-    // InternalErrorModelParser.g:3533:1: entryRuleTypeTransformationSet returns [EObject current=null] : iv_ruleTypeTransformationSet= ruleTypeTransformationSet EOF ;
+    // InternalErrorModelParser.g:3529:1: entryRuleTypeTransformationSet returns [EObject current=null] : iv_ruleTypeTransformationSet= ruleTypeTransformationSet EOF ;
     public final EObject entryRuleTypeTransformationSet() throws RecognitionException {
         EObject current = null;
 
@@ -9048,8 +9050,8 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // InternalErrorModelParser.g:3534:2: (iv_ruleTypeTransformationSet= ruleTypeTransformationSet EOF )
-            // InternalErrorModelParser.g:3535:2: iv_ruleTypeTransformationSet= ruleTypeTransformationSet EOF
+            // InternalErrorModelParser.g:3530:2: (iv_ruleTypeTransformationSet= ruleTypeTransformationSet EOF )
+            // InternalErrorModelParser.g:3531:2: iv_ruleTypeTransformationSet= ruleTypeTransformationSet EOF
             {
              newCompositeNode(grammarAccess.getTypeTransformationSetRule()); 
             pushFollow(FOLLOW_1);
@@ -9076,7 +9078,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleTypeTransformationSet"
-    // InternalErrorModelParser.g:3542:1: ruleTypeTransformationSet returns [EObject current=null] : (otherlv_0= Type otherlv_1= Transformations ( (lv_name_2_0= RULE_ID ) ) (otherlv_3= Use otherlv_4= Types ( ( ruleQEMREF ) ) (otherlv_6= Comma ( ( ruleQEMREF ) ) )* otherlv_8= Semicolon )? ( (lv_transformation_9_0= ruleTypeTransformation ) )+ otherlv_10= End otherlv_11= Transformations otherlv_12= Semicolon ) ;
+    // InternalErrorModelParser.g:3538:1: ruleTypeTransformationSet returns [EObject current=null] : (otherlv_0= Type otherlv_1= Transformations ( (lv_name_2_0= RULE_ID ) ) (otherlv_3= Use otherlv_4= Types ( ( ruleQEMREF ) ) (otherlv_6= Comma ( ( ruleQEMREF ) ) )* otherlv_8= Semicolon )? ( (lv_transformation_9_0= ruleTypeTransformation ) )+ otherlv_10= End otherlv_11= Transformations otherlv_12= Semicolon ) ;
     public final EObject ruleTypeTransformationSet() throws RecognitionException {
         EObject current = null;
 
@@ -9096,11 +9098,11 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // InternalErrorModelParser.g:3545:28: ( (otherlv_0= Type otherlv_1= Transformations ( (lv_name_2_0= RULE_ID ) ) (otherlv_3= Use otherlv_4= Types ( ( ruleQEMREF ) ) (otherlv_6= Comma ( ( ruleQEMREF ) ) )* otherlv_8= Semicolon )? ( (lv_transformation_9_0= ruleTypeTransformation ) )+ otherlv_10= End otherlv_11= Transformations otherlv_12= Semicolon ) )
-            // InternalErrorModelParser.g:3546:1: (otherlv_0= Type otherlv_1= Transformations ( (lv_name_2_0= RULE_ID ) ) (otherlv_3= Use otherlv_4= Types ( ( ruleQEMREF ) ) (otherlv_6= Comma ( ( ruleQEMREF ) ) )* otherlv_8= Semicolon )? ( (lv_transformation_9_0= ruleTypeTransformation ) )+ otherlv_10= End otherlv_11= Transformations otherlv_12= Semicolon )
+            // InternalErrorModelParser.g:3541:28: ( (otherlv_0= Type otherlv_1= Transformations ( (lv_name_2_0= RULE_ID ) ) (otherlv_3= Use otherlv_4= Types ( ( ruleQEMREF ) ) (otherlv_6= Comma ( ( ruleQEMREF ) ) )* otherlv_8= Semicolon )? ( (lv_transformation_9_0= ruleTypeTransformation ) )+ otherlv_10= End otherlv_11= Transformations otherlv_12= Semicolon ) )
+            // InternalErrorModelParser.g:3542:1: (otherlv_0= Type otherlv_1= Transformations ( (lv_name_2_0= RULE_ID ) ) (otherlv_3= Use otherlv_4= Types ( ( ruleQEMREF ) ) (otherlv_6= Comma ( ( ruleQEMREF ) ) )* otherlv_8= Semicolon )? ( (lv_transformation_9_0= ruleTypeTransformation ) )+ otherlv_10= End otherlv_11= Transformations otherlv_12= Semicolon )
             {
-            // InternalErrorModelParser.g:3546:1: (otherlv_0= Type otherlv_1= Transformations ( (lv_name_2_0= RULE_ID ) ) (otherlv_3= Use otherlv_4= Types ( ( ruleQEMREF ) ) (otherlv_6= Comma ( ( ruleQEMREF ) ) )* otherlv_8= Semicolon )? ( (lv_transformation_9_0= ruleTypeTransformation ) )+ otherlv_10= End otherlv_11= Transformations otherlv_12= Semicolon )
-            // InternalErrorModelParser.g:3547:2: otherlv_0= Type otherlv_1= Transformations ( (lv_name_2_0= RULE_ID ) ) (otherlv_3= Use otherlv_4= Types ( ( ruleQEMREF ) ) (otherlv_6= Comma ( ( ruleQEMREF ) ) )* otherlv_8= Semicolon )? ( (lv_transformation_9_0= ruleTypeTransformation ) )+ otherlv_10= End otherlv_11= Transformations otherlv_12= Semicolon
+            // InternalErrorModelParser.g:3542:1: (otherlv_0= Type otherlv_1= Transformations ( (lv_name_2_0= RULE_ID ) ) (otherlv_3= Use otherlv_4= Types ( ( ruleQEMREF ) ) (otherlv_6= Comma ( ( ruleQEMREF ) ) )* otherlv_8= Semicolon )? ( (lv_transformation_9_0= ruleTypeTransformation ) )+ otherlv_10= End otherlv_11= Transformations otherlv_12= Semicolon )
+            // InternalErrorModelParser.g:3543:2: otherlv_0= Type otherlv_1= Transformations ( (lv_name_2_0= RULE_ID ) ) (otherlv_3= Use otherlv_4= Types ( ( ruleQEMREF ) ) (otherlv_6= Comma ( ( ruleQEMREF ) ) )* otherlv_8= Semicolon )? ( (lv_transformation_9_0= ruleTypeTransformation ) )+ otherlv_10= End otherlv_11= Transformations otherlv_12= Semicolon
             {
             otherlv_0=(Token)match(input,Type,FOLLOW_20); 
 
@@ -9110,13 +9112,13 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
                 	newLeafNode(otherlv_1, grammarAccess.getTypeTransformationSetAccess().getTransformationsKeyword_1());
                 
-            // InternalErrorModelParser.g:3556:1: ( (lv_name_2_0= RULE_ID ) )
-            // InternalErrorModelParser.g:3557:1: (lv_name_2_0= RULE_ID )
+            // InternalErrorModelParser.g:3552:1: ( (lv_name_2_0= RULE_ID ) )
+            // InternalErrorModelParser.g:3553:1: (lv_name_2_0= RULE_ID )
             {
-            // InternalErrorModelParser.g:3557:1: (lv_name_2_0= RULE_ID )
-            // InternalErrorModelParser.g:3558:3: lv_name_2_0= RULE_ID
+            // InternalErrorModelParser.g:3553:1: (lv_name_2_0= RULE_ID )
+            // InternalErrorModelParser.g:3554:3: lv_name_2_0= RULE_ID
             {
-            lv_name_2_0=(Token)match(input,RULE_ID,FOLLOW_75); 
+            lv_name_2_0=(Token)match(input,RULE_ID,FOLLOW_74); 
 
             			newLeafNode(lv_name_2_0, grammarAccess.getTypeTransformationSetAccess().getNameIDTerminalRuleCall_2_0()); 
             		
@@ -9136,7 +9138,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
             }
 
-            // InternalErrorModelParser.g:3574:2: (otherlv_3= Use otherlv_4= Types ( ( ruleQEMREF ) ) (otherlv_6= Comma ( ( ruleQEMREF ) ) )* otherlv_8= Semicolon )?
+            // InternalErrorModelParser.g:3570:2: (otherlv_3= Use otherlv_4= Types ( ( ruleQEMREF ) ) (otherlv_6= Comma ( ( ruleQEMREF ) ) )* otherlv_8= Semicolon )?
             int alt121=2;
             int LA121_0 = input.LA(1);
 
@@ -9145,7 +9147,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
             }
             switch (alt121) {
                 case 1 :
-                    // InternalErrorModelParser.g:3575:2: otherlv_3= Use otherlv_4= Types ( ( ruleQEMREF ) ) (otherlv_6= Comma ( ( ruleQEMREF ) ) )* otherlv_8= Semicolon
+                    // InternalErrorModelParser.g:3571:2: otherlv_3= Use otherlv_4= Types ( ( ruleQEMREF ) ) (otherlv_6= Comma ( ( ruleQEMREF ) ) )* otherlv_8= Semicolon
                     {
                     otherlv_3=(Token)match(input,Use,FOLLOW_4); 
 
@@ -9155,11 +9157,11 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
                         	newLeafNode(otherlv_4, grammarAccess.getTypeTransformationSetAccess().getTypesKeyword_3_1());
                         
-                    // InternalErrorModelParser.g:3584:1: ( ( ruleQEMREF ) )
-                    // InternalErrorModelParser.g:3585:1: ( ruleQEMREF )
+                    // InternalErrorModelParser.g:3580:1: ( ( ruleQEMREF ) )
+                    // InternalErrorModelParser.g:3581:1: ( ruleQEMREF )
                     {
-                    // InternalErrorModelParser.g:3585:1: ( ruleQEMREF )
-                    // InternalErrorModelParser.g:3586:3: ruleQEMREF
+                    // InternalErrorModelParser.g:3581:1: ( ruleQEMREF )
+                    // InternalErrorModelParser.g:3582:3: ruleQEMREF
                     {
 
                     			if (current==null) {
@@ -9183,7 +9185,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
                     }
 
-                    // InternalErrorModelParser.g:3600:2: (otherlv_6= Comma ( ( ruleQEMREF ) ) )*
+                    // InternalErrorModelParser.g:3596:2: (otherlv_6= Comma ( ( ruleQEMREF ) ) )*
                     loop120:
                     do {
                         int alt120=2;
@@ -9196,17 +9198,17 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
                         switch (alt120) {
                     	case 1 :
-                    	    // InternalErrorModelParser.g:3601:2: otherlv_6= Comma ( ( ruleQEMREF ) )
+                    	    // InternalErrorModelParser.g:3597:2: otherlv_6= Comma ( ( ruleQEMREF ) )
                     	    {
                     	    otherlv_6=(Token)match(input,Comma,FOLLOW_5); 
 
                     	        	newLeafNode(otherlv_6, grammarAccess.getTypeTransformationSetAccess().getCommaKeyword_3_3_0());
                     	        
-                    	    // InternalErrorModelParser.g:3605:1: ( ( ruleQEMREF ) )
-                    	    // InternalErrorModelParser.g:3606:1: ( ruleQEMREF )
+                    	    // InternalErrorModelParser.g:3601:1: ( ( ruleQEMREF ) )
+                    	    // InternalErrorModelParser.g:3602:1: ( ruleQEMREF )
                     	    {
-                    	    // InternalErrorModelParser.g:3606:1: ( ruleQEMREF )
-                    	    // InternalErrorModelParser.g:3607:3: ruleQEMREF
+                    	    // InternalErrorModelParser.g:3602:1: ( ruleQEMREF )
+                    	    // InternalErrorModelParser.g:3603:3: ruleQEMREF
                     	    {
 
                     	    			if (current==null) {
@@ -9239,7 +9241,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
                         }
                     } while (true);
 
-                    otherlv_8=(Token)match(input,Semicolon,FOLLOW_75); 
+                    otherlv_8=(Token)match(input,Semicolon,FOLLOW_74); 
 
                         	newLeafNode(otherlv_8, grammarAccess.getTypeTransformationSetAccess().getSemicolonKeyword_3_4());
                         
@@ -9249,7 +9251,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
             }
 
-            // InternalErrorModelParser.g:3626:3: ( (lv_transformation_9_0= ruleTypeTransformation ) )+
+            // InternalErrorModelParser.g:3622:3: ( (lv_transformation_9_0= ruleTypeTransformation ) )+
             int cnt122=0;
             loop122:
             do {
@@ -9263,15 +9265,15 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
                 switch (alt122) {
             	case 1 :
-            	    // InternalErrorModelParser.g:3627:1: (lv_transformation_9_0= ruleTypeTransformation )
+            	    // InternalErrorModelParser.g:3623:1: (lv_transformation_9_0= ruleTypeTransformation )
             	    {
-            	    // InternalErrorModelParser.g:3627:1: (lv_transformation_9_0= ruleTypeTransformation )
-            	    // InternalErrorModelParser.g:3628:3: lv_transformation_9_0= ruleTypeTransformation
+            	    // InternalErrorModelParser.g:3623:1: (lv_transformation_9_0= ruleTypeTransformation )
+            	    // InternalErrorModelParser.g:3624:3: lv_transformation_9_0= ruleTypeTransformation
             	    {
             	     
             	    	        newCompositeNode(grammarAccess.getTypeTransformationSetAccess().getTransformationTypeTransformationParserRuleCall_4_0()); 
             	    	    
-            	    pushFollow(FOLLOW_76);
+            	    pushFollow(FOLLOW_75);
             	    lv_transformation_9_0=ruleTypeTransformation();
 
             	    state._fsp--;
@@ -9336,7 +9338,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleTypeTransformation"
-    // InternalErrorModelParser.g:3667:1: entryRuleTypeTransformation returns [EObject current=null] : iv_ruleTypeTransformation= ruleTypeTransformation EOF ;
+    // InternalErrorModelParser.g:3663:1: entryRuleTypeTransformation returns [EObject current=null] : iv_ruleTypeTransformation= ruleTypeTransformation EOF ;
     public final EObject entryRuleTypeTransformation() throws RecognitionException {
         EObject current = null;
 
@@ -9344,8 +9346,8 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // InternalErrorModelParser.g:3668:2: (iv_ruleTypeTransformation= ruleTypeTransformation EOF )
-            // InternalErrorModelParser.g:3669:2: iv_ruleTypeTransformation= ruleTypeTransformation EOF
+            // InternalErrorModelParser.g:3664:2: (iv_ruleTypeTransformation= ruleTypeTransformation EOF )
+            // InternalErrorModelParser.g:3665:2: iv_ruleTypeTransformation= ruleTypeTransformation EOF
             {
              newCompositeNode(grammarAccess.getTypeTransformationRule()); 
             pushFollow(FOLLOW_1);
@@ -9372,7 +9374,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleTypeTransformation"
-    // InternalErrorModelParser.g:3676:1: ruleTypeTransformation returns [EObject current=null] : ( ( ( (lv_source_0_0= ruleTypeTokenConstraintNoError ) ) | ( (lv_allSources_1_0= All ) ) ) otherlv_2= HyphenMinusLeftSquareBracket ( (lv_contributor_3_0= ruleTypeTokenConstraintNoError ) )? otherlv_4= RightSquareBracketHyphenMinusGreaterThanSign ( (lv_target_5_0= ruleTypeToken ) ) otherlv_6= Semicolon ) ;
+    // InternalErrorModelParser.g:3672:1: ruleTypeTransformation returns [EObject current=null] : ( ( ( (lv_source_0_0= ruleTypeTokenConstraintNoError ) ) | ( (lv_allSources_1_0= All ) ) ) otherlv_2= HyphenMinusLeftSquareBracket ( (lv_contributor_3_0= ruleTypeTokenConstraintNoError ) )? otherlv_4= RightSquareBracketHyphenMinusGreaterThanSign ( (lv_target_5_0= ruleTypeToken ) ) otherlv_6= Semicolon ) ;
     public final EObject ruleTypeTransformation() throws RecognitionException {
         EObject current = null;
 
@@ -9390,13 +9392,13 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // InternalErrorModelParser.g:3679:28: ( ( ( ( (lv_source_0_0= ruleTypeTokenConstraintNoError ) ) | ( (lv_allSources_1_0= All ) ) ) otherlv_2= HyphenMinusLeftSquareBracket ( (lv_contributor_3_0= ruleTypeTokenConstraintNoError ) )? otherlv_4= RightSquareBracketHyphenMinusGreaterThanSign ( (lv_target_5_0= ruleTypeToken ) ) otherlv_6= Semicolon ) )
-            // InternalErrorModelParser.g:3680:1: ( ( ( (lv_source_0_0= ruleTypeTokenConstraintNoError ) ) | ( (lv_allSources_1_0= All ) ) ) otherlv_2= HyphenMinusLeftSquareBracket ( (lv_contributor_3_0= ruleTypeTokenConstraintNoError ) )? otherlv_4= RightSquareBracketHyphenMinusGreaterThanSign ( (lv_target_5_0= ruleTypeToken ) ) otherlv_6= Semicolon )
+            // InternalErrorModelParser.g:3675:28: ( ( ( ( (lv_source_0_0= ruleTypeTokenConstraintNoError ) ) | ( (lv_allSources_1_0= All ) ) ) otherlv_2= HyphenMinusLeftSquareBracket ( (lv_contributor_3_0= ruleTypeTokenConstraintNoError ) )? otherlv_4= RightSquareBracketHyphenMinusGreaterThanSign ( (lv_target_5_0= ruleTypeToken ) ) otherlv_6= Semicolon ) )
+            // InternalErrorModelParser.g:3676:1: ( ( ( (lv_source_0_0= ruleTypeTokenConstraintNoError ) ) | ( (lv_allSources_1_0= All ) ) ) otherlv_2= HyphenMinusLeftSquareBracket ( (lv_contributor_3_0= ruleTypeTokenConstraintNoError ) )? otherlv_4= RightSquareBracketHyphenMinusGreaterThanSign ( (lv_target_5_0= ruleTypeToken ) ) otherlv_6= Semicolon )
             {
-            // InternalErrorModelParser.g:3680:1: ( ( ( (lv_source_0_0= ruleTypeTokenConstraintNoError ) ) | ( (lv_allSources_1_0= All ) ) ) otherlv_2= HyphenMinusLeftSquareBracket ( (lv_contributor_3_0= ruleTypeTokenConstraintNoError ) )? otherlv_4= RightSquareBracketHyphenMinusGreaterThanSign ( (lv_target_5_0= ruleTypeToken ) ) otherlv_6= Semicolon )
-            // InternalErrorModelParser.g:3680:2: ( ( (lv_source_0_0= ruleTypeTokenConstraintNoError ) ) | ( (lv_allSources_1_0= All ) ) ) otherlv_2= HyphenMinusLeftSquareBracket ( (lv_contributor_3_0= ruleTypeTokenConstraintNoError ) )? otherlv_4= RightSquareBracketHyphenMinusGreaterThanSign ( (lv_target_5_0= ruleTypeToken ) ) otherlv_6= Semicolon
+            // InternalErrorModelParser.g:3676:1: ( ( ( (lv_source_0_0= ruleTypeTokenConstraintNoError ) ) | ( (lv_allSources_1_0= All ) ) ) otherlv_2= HyphenMinusLeftSquareBracket ( (lv_contributor_3_0= ruleTypeTokenConstraintNoError ) )? otherlv_4= RightSquareBracketHyphenMinusGreaterThanSign ( (lv_target_5_0= ruleTypeToken ) ) otherlv_6= Semicolon )
+            // InternalErrorModelParser.g:3676:2: ( ( (lv_source_0_0= ruleTypeTokenConstraintNoError ) ) | ( (lv_allSources_1_0= All ) ) ) otherlv_2= HyphenMinusLeftSquareBracket ( (lv_contributor_3_0= ruleTypeTokenConstraintNoError ) )? otherlv_4= RightSquareBracketHyphenMinusGreaterThanSign ( (lv_target_5_0= ruleTypeToken ) ) otherlv_6= Semicolon
             {
-            // InternalErrorModelParser.g:3680:2: ( ( (lv_source_0_0= ruleTypeTokenConstraintNoError ) ) | ( (lv_allSources_1_0= All ) ) )
+            // InternalErrorModelParser.g:3676:2: ( ( (lv_source_0_0= ruleTypeTokenConstraintNoError ) ) | ( (lv_allSources_1_0= All ) ) )
             int alt123=2;
             int LA123_0 = input.LA(1);
 
@@ -9414,18 +9416,18 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
             }
             switch (alt123) {
                 case 1 :
-                    // InternalErrorModelParser.g:3680:3: ( (lv_source_0_0= ruleTypeTokenConstraintNoError ) )
+                    // InternalErrorModelParser.g:3676:3: ( (lv_source_0_0= ruleTypeTokenConstraintNoError ) )
                     {
-                    // InternalErrorModelParser.g:3680:3: ( (lv_source_0_0= ruleTypeTokenConstraintNoError ) )
-                    // InternalErrorModelParser.g:3681:1: (lv_source_0_0= ruleTypeTokenConstraintNoError )
+                    // InternalErrorModelParser.g:3676:3: ( (lv_source_0_0= ruleTypeTokenConstraintNoError ) )
+                    // InternalErrorModelParser.g:3677:1: (lv_source_0_0= ruleTypeTokenConstraintNoError )
                     {
-                    // InternalErrorModelParser.g:3681:1: (lv_source_0_0= ruleTypeTokenConstraintNoError )
-                    // InternalErrorModelParser.g:3682:3: lv_source_0_0= ruleTypeTokenConstraintNoError
+                    // InternalErrorModelParser.g:3677:1: (lv_source_0_0= ruleTypeTokenConstraintNoError )
+                    // InternalErrorModelParser.g:3678:3: lv_source_0_0= ruleTypeTokenConstraintNoError
                     {
                      
                     	        newCompositeNode(grammarAccess.getTypeTransformationAccess().getSourceTypeTokenConstraintNoErrorParserRuleCall_0_0_0()); 
                     	    
-                    pushFollow(FOLLOW_77);
+                    pushFollow(FOLLOW_76);
                     lv_source_0_0=ruleTypeTokenConstraintNoError();
 
                     state._fsp--;
@@ -9451,15 +9453,15 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 2 :
-                    // InternalErrorModelParser.g:3699:6: ( (lv_allSources_1_0= All ) )
+                    // InternalErrorModelParser.g:3695:6: ( (lv_allSources_1_0= All ) )
                     {
-                    // InternalErrorModelParser.g:3699:6: ( (lv_allSources_1_0= All ) )
-                    // InternalErrorModelParser.g:3700:1: (lv_allSources_1_0= All )
+                    // InternalErrorModelParser.g:3695:6: ( (lv_allSources_1_0= All ) )
+                    // InternalErrorModelParser.g:3696:1: (lv_allSources_1_0= All )
                     {
-                    // InternalErrorModelParser.g:3700:1: (lv_allSources_1_0= All )
-                    // InternalErrorModelParser.g:3701:3: lv_allSources_1_0= All
+                    // InternalErrorModelParser.g:3696:1: (lv_allSources_1_0= All )
+                    // InternalErrorModelParser.g:3697:3: lv_allSources_1_0= All
                     {
-                    lv_allSources_1_0=(Token)match(input,All,FOLLOW_77); 
+                    lv_allSources_1_0=(Token)match(input,All,FOLLOW_76); 
 
                             newLeafNode(lv_allSources_1_0, grammarAccess.getTypeTransformationAccess().getAllSourcesAllKeyword_0_1_0());
                         
@@ -9481,11 +9483,11 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
             }
 
-            otherlv_2=(Token)match(input,HyphenMinusLeftSquareBracket,FOLLOW_78); 
+            otherlv_2=(Token)match(input,HyphenMinusLeftSquareBracket,FOLLOW_77); 
 
                 	newLeafNode(otherlv_2, grammarAccess.getTypeTransformationAccess().getHyphenMinusLeftSquareBracketKeyword_1());
                 
-            // InternalErrorModelParser.g:3720:1: ( (lv_contributor_3_0= ruleTypeTokenConstraintNoError ) )?
+            // InternalErrorModelParser.g:3716:1: ( (lv_contributor_3_0= ruleTypeTokenConstraintNoError ) )?
             int alt124=2;
             int LA124_0 = input.LA(1);
 
@@ -9494,15 +9496,15 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
             }
             switch (alt124) {
                 case 1 :
-                    // InternalErrorModelParser.g:3721:1: (lv_contributor_3_0= ruleTypeTokenConstraintNoError )
+                    // InternalErrorModelParser.g:3717:1: (lv_contributor_3_0= ruleTypeTokenConstraintNoError )
                     {
-                    // InternalErrorModelParser.g:3721:1: (lv_contributor_3_0= ruleTypeTokenConstraintNoError )
-                    // InternalErrorModelParser.g:3722:3: lv_contributor_3_0= ruleTypeTokenConstraintNoError
+                    // InternalErrorModelParser.g:3717:1: (lv_contributor_3_0= ruleTypeTokenConstraintNoError )
+                    // InternalErrorModelParser.g:3718:3: lv_contributor_3_0= ruleTypeTokenConstraintNoError
                     {
                      
                     	        newCompositeNode(grammarAccess.getTypeTransformationAccess().getContributorTypeTokenConstraintNoErrorParserRuleCall_2_0()); 
                     	    
-                    pushFollow(FOLLOW_79);
+                    pushFollow(FOLLOW_78);
                     lv_contributor_3_0=ruleTypeTokenConstraintNoError();
 
                     state._fsp--;
@@ -9527,15 +9529,15 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
             }
 
-            otherlv_4=(Token)match(input,RightSquareBracketHyphenMinusGreaterThanSign,FOLLOW_70); 
+            otherlv_4=(Token)match(input,RightSquareBracketHyphenMinusGreaterThanSign,FOLLOW_69); 
 
                 	newLeafNode(otherlv_4, grammarAccess.getTypeTransformationAccess().getRightSquareBracketHyphenMinusGreaterThanSignKeyword_3());
                 
-            // InternalErrorModelParser.g:3743:1: ( (lv_target_5_0= ruleTypeToken ) )
-            // InternalErrorModelParser.g:3744:1: (lv_target_5_0= ruleTypeToken )
+            // InternalErrorModelParser.g:3739:1: ( (lv_target_5_0= ruleTypeToken ) )
+            // InternalErrorModelParser.g:3740:1: (lv_target_5_0= ruleTypeToken )
             {
-            // InternalErrorModelParser.g:3744:1: (lv_target_5_0= ruleTypeToken )
-            // InternalErrorModelParser.g:3745:3: lv_target_5_0= ruleTypeToken
+            // InternalErrorModelParser.g:3740:1: (lv_target_5_0= ruleTypeToken )
+            // InternalErrorModelParser.g:3741:3: lv_target_5_0= ruleTypeToken
             {
              
             	        newCompositeNode(grammarAccess.getTypeTransformationAccess().getTargetTypeTokenParserRuleCall_4_0()); 
@@ -9587,7 +9589,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleTypeMappingSet"
-    // InternalErrorModelParser.g:3774:1: entryRuleTypeMappingSet returns [EObject current=null] : iv_ruleTypeMappingSet= ruleTypeMappingSet EOF ;
+    // InternalErrorModelParser.g:3770:1: entryRuleTypeMappingSet returns [EObject current=null] : iv_ruleTypeMappingSet= ruleTypeMappingSet EOF ;
     public final EObject entryRuleTypeMappingSet() throws RecognitionException {
         EObject current = null;
 
@@ -9595,8 +9597,8 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // InternalErrorModelParser.g:3775:2: (iv_ruleTypeMappingSet= ruleTypeMappingSet EOF )
-            // InternalErrorModelParser.g:3776:2: iv_ruleTypeMappingSet= ruleTypeMappingSet EOF
+            // InternalErrorModelParser.g:3771:2: (iv_ruleTypeMappingSet= ruleTypeMappingSet EOF )
+            // InternalErrorModelParser.g:3772:2: iv_ruleTypeMappingSet= ruleTypeMappingSet EOF
             {
              newCompositeNode(grammarAccess.getTypeMappingSetRule()); 
             pushFollow(FOLLOW_1);
@@ -9623,7 +9625,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleTypeMappingSet"
-    // InternalErrorModelParser.g:3783:1: ruleTypeMappingSet returns [EObject current=null] : (otherlv_0= Type otherlv_1= Mappings ( (lv_name_2_0= RULE_ID ) ) (otherlv_3= Use otherlv_4= Types ( ( ruleQEMREF ) ) (otherlv_6= Comma ( ( ruleQEMREF ) ) )* otherlv_8= Semicolon )? ( (lv_mapping_9_0= ruleTypeMapping ) )+ otherlv_10= End otherlv_11= Mappings otherlv_12= Semicolon ) ;
+    // InternalErrorModelParser.g:3779:1: ruleTypeMappingSet returns [EObject current=null] : (otherlv_0= Type otherlv_1= Mappings ( (lv_name_2_0= RULE_ID ) ) (otherlv_3= Use otherlv_4= Types ( ( ruleQEMREF ) ) (otherlv_6= Comma ( ( ruleQEMREF ) ) )* otherlv_8= Semicolon )? ( (lv_mapping_9_0= ruleTypeMapping ) )+ otherlv_10= End otherlv_11= Mappings otherlv_12= Semicolon ) ;
     public final EObject ruleTypeMappingSet() throws RecognitionException {
         EObject current = null;
 
@@ -9643,11 +9645,11 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // InternalErrorModelParser.g:3786:28: ( (otherlv_0= Type otherlv_1= Mappings ( (lv_name_2_0= RULE_ID ) ) (otherlv_3= Use otherlv_4= Types ( ( ruleQEMREF ) ) (otherlv_6= Comma ( ( ruleQEMREF ) ) )* otherlv_8= Semicolon )? ( (lv_mapping_9_0= ruleTypeMapping ) )+ otherlv_10= End otherlv_11= Mappings otherlv_12= Semicolon ) )
-            // InternalErrorModelParser.g:3787:1: (otherlv_0= Type otherlv_1= Mappings ( (lv_name_2_0= RULE_ID ) ) (otherlv_3= Use otherlv_4= Types ( ( ruleQEMREF ) ) (otherlv_6= Comma ( ( ruleQEMREF ) ) )* otherlv_8= Semicolon )? ( (lv_mapping_9_0= ruleTypeMapping ) )+ otherlv_10= End otherlv_11= Mappings otherlv_12= Semicolon )
+            // InternalErrorModelParser.g:3782:28: ( (otherlv_0= Type otherlv_1= Mappings ( (lv_name_2_0= RULE_ID ) ) (otherlv_3= Use otherlv_4= Types ( ( ruleQEMREF ) ) (otherlv_6= Comma ( ( ruleQEMREF ) ) )* otherlv_8= Semicolon )? ( (lv_mapping_9_0= ruleTypeMapping ) )+ otherlv_10= End otherlv_11= Mappings otherlv_12= Semicolon ) )
+            // InternalErrorModelParser.g:3783:1: (otherlv_0= Type otherlv_1= Mappings ( (lv_name_2_0= RULE_ID ) ) (otherlv_3= Use otherlv_4= Types ( ( ruleQEMREF ) ) (otherlv_6= Comma ( ( ruleQEMREF ) ) )* otherlv_8= Semicolon )? ( (lv_mapping_9_0= ruleTypeMapping ) )+ otherlv_10= End otherlv_11= Mappings otherlv_12= Semicolon )
             {
-            // InternalErrorModelParser.g:3787:1: (otherlv_0= Type otherlv_1= Mappings ( (lv_name_2_0= RULE_ID ) ) (otherlv_3= Use otherlv_4= Types ( ( ruleQEMREF ) ) (otherlv_6= Comma ( ( ruleQEMREF ) ) )* otherlv_8= Semicolon )? ( (lv_mapping_9_0= ruleTypeMapping ) )+ otherlv_10= End otherlv_11= Mappings otherlv_12= Semicolon )
-            // InternalErrorModelParser.g:3788:2: otherlv_0= Type otherlv_1= Mappings ( (lv_name_2_0= RULE_ID ) ) (otherlv_3= Use otherlv_4= Types ( ( ruleQEMREF ) ) (otherlv_6= Comma ( ( ruleQEMREF ) ) )* otherlv_8= Semicolon )? ( (lv_mapping_9_0= ruleTypeMapping ) )+ otherlv_10= End otherlv_11= Mappings otherlv_12= Semicolon
+            // InternalErrorModelParser.g:3783:1: (otherlv_0= Type otherlv_1= Mappings ( (lv_name_2_0= RULE_ID ) ) (otherlv_3= Use otherlv_4= Types ( ( ruleQEMREF ) ) (otherlv_6= Comma ( ( ruleQEMREF ) ) )* otherlv_8= Semicolon )? ( (lv_mapping_9_0= ruleTypeMapping ) )+ otherlv_10= End otherlv_11= Mappings otherlv_12= Semicolon )
+            // InternalErrorModelParser.g:3784:2: otherlv_0= Type otherlv_1= Mappings ( (lv_name_2_0= RULE_ID ) ) (otherlv_3= Use otherlv_4= Types ( ( ruleQEMREF ) ) (otherlv_6= Comma ( ( ruleQEMREF ) ) )* otherlv_8= Semicolon )? ( (lv_mapping_9_0= ruleTypeMapping ) )+ otherlv_10= End otherlv_11= Mappings otherlv_12= Semicolon
             {
             otherlv_0=(Token)match(input,Type,FOLLOW_11); 
 
@@ -9657,13 +9659,13 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
                 	newLeafNode(otherlv_1, grammarAccess.getTypeMappingSetAccess().getMappingsKeyword_1());
                 
-            // InternalErrorModelParser.g:3797:1: ( (lv_name_2_0= RULE_ID ) )
-            // InternalErrorModelParser.g:3798:1: (lv_name_2_0= RULE_ID )
+            // InternalErrorModelParser.g:3793:1: ( (lv_name_2_0= RULE_ID ) )
+            // InternalErrorModelParser.g:3794:1: (lv_name_2_0= RULE_ID )
             {
-            // InternalErrorModelParser.g:3798:1: (lv_name_2_0= RULE_ID )
-            // InternalErrorModelParser.g:3799:3: lv_name_2_0= RULE_ID
+            // InternalErrorModelParser.g:3794:1: (lv_name_2_0= RULE_ID )
+            // InternalErrorModelParser.g:3795:3: lv_name_2_0= RULE_ID
             {
-            lv_name_2_0=(Token)match(input,RULE_ID,FOLLOW_80); 
+            lv_name_2_0=(Token)match(input,RULE_ID,FOLLOW_79); 
 
             			newLeafNode(lv_name_2_0, grammarAccess.getTypeMappingSetAccess().getNameIDTerminalRuleCall_2_0()); 
             		
@@ -9683,7 +9685,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
             }
 
-            // InternalErrorModelParser.g:3815:2: (otherlv_3= Use otherlv_4= Types ( ( ruleQEMREF ) ) (otherlv_6= Comma ( ( ruleQEMREF ) ) )* otherlv_8= Semicolon )?
+            // InternalErrorModelParser.g:3811:2: (otherlv_3= Use otherlv_4= Types ( ( ruleQEMREF ) ) (otherlv_6= Comma ( ( ruleQEMREF ) ) )* otherlv_8= Semicolon )?
             int alt126=2;
             int LA126_0 = input.LA(1);
 
@@ -9692,7 +9694,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
             }
             switch (alt126) {
                 case 1 :
-                    // InternalErrorModelParser.g:3816:2: otherlv_3= Use otherlv_4= Types ( ( ruleQEMREF ) ) (otherlv_6= Comma ( ( ruleQEMREF ) ) )* otherlv_8= Semicolon
+                    // InternalErrorModelParser.g:3812:2: otherlv_3= Use otherlv_4= Types ( ( ruleQEMREF ) ) (otherlv_6= Comma ( ( ruleQEMREF ) ) )* otherlv_8= Semicolon
                     {
                     otherlv_3=(Token)match(input,Use,FOLLOW_4); 
 
@@ -9702,11 +9704,11 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
                         	newLeafNode(otherlv_4, grammarAccess.getTypeMappingSetAccess().getTypesKeyword_3_1());
                         
-                    // InternalErrorModelParser.g:3825:1: ( ( ruleQEMREF ) )
-                    // InternalErrorModelParser.g:3826:1: ( ruleQEMREF )
+                    // InternalErrorModelParser.g:3821:1: ( ( ruleQEMREF ) )
+                    // InternalErrorModelParser.g:3822:1: ( ruleQEMREF )
                     {
-                    // InternalErrorModelParser.g:3826:1: ( ruleQEMREF )
-                    // InternalErrorModelParser.g:3827:3: ruleQEMREF
+                    // InternalErrorModelParser.g:3822:1: ( ruleQEMREF )
+                    // InternalErrorModelParser.g:3823:3: ruleQEMREF
                     {
 
                     			if (current==null) {
@@ -9730,7 +9732,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
                     }
 
-                    // InternalErrorModelParser.g:3841:2: (otherlv_6= Comma ( ( ruleQEMREF ) ) )*
+                    // InternalErrorModelParser.g:3837:2: (otherlv_6= Comma ( ( ruleQEMREF ) ) )*
                     loop125:
                     do {
                         int alt125=2;
@@ -9743,17 +9745,17 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
                         switch (alt125) {
                     	case 1 :
-                    	    // InternalErrorModelParser.g:3842:2: otherlv_6= Comma ( ( ruleQEMREF ) )
+                    	    // InternalErrorModelParser.g:3838:2: otherlv_6= Comma ( ( ruleQEMREF ) )
                     	    {
                     	    otherlv_6=(Token)match(input,Comma,FOLLOW_5); 
 
                     	        	newLeafNode(otherlv_6, grammarAccess.getTypeMappingSetAccess().getCommaKeyword_3_3_0());
                     	        
-                    	    // InternalErrorModelParser.g:3846:1: ( ( ruleQEMREF ) )
-                    	    // InternalErrorModelParser.g:3847:1: ( ruleQEMREF )
+                    	    // InternalErrorModelParser.g:3842:1: ( ( ruleQEMREF ) )
+                    	    // InternalErrorModelParser.g:3843:1: ( ruleQEMREF )
                     	    {
-                    	    // InternalErrorModelParser.g:3847:1: ( ruleQEMREF )
-                    	    // InternalErrorModelParser.g:3848:3: ruleQEMREF
+                    	    // InternalErrorModelParser.g:3843:1: ( ruleQEMREF )
+                    	    // InternalErrorModelParser.g:3844:3: ruleQEMREF
                     	    {
 
                     	    			if (current==null) {
@@ -9786,7 +9788,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
                         }
                     } while (true);
 
-                    otherlv_8=(Token)match(input,Semicolon,FOLLOW_80); 
+                    otherlv_8=(Token)match(input,Semicolon,FOLLOW_79); 
 
                         	newLeafNode(otherlv_8, grammarAccess.getTypeMappingSetAccess().getSemicolonKeyword_3_4());
                         
@@ -9796,7 +9798,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
             }
 
-            // InternalErrorModelParser.g:3867:3: ( (lv_mapping_9_0= ruleTypeMapping ) )+
+            // InternalErrorModelParser.g:3863:3: ( (lv_mapping_9_0= ruleTypeMapping ) )+
             int cnt127=0;
             loop127:
             do {
@@ -9810,15 +9812,15 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
                 switch (alt127) {
             	case 1 :
-            	    // InternalErrorModelParser.g:3868:1: (lv_mapping_9_0= ruleTypeMapping )
+            	    // InternalErrorModelParser.g:3864:1: (lv_mapping_9_0= ruleTypeMapping )
             	    {
-            	    // InternalErrorModelParser.g:3868:1: (lv_mapping_9_0= ruleTypeMapping )
-            	    // InternalErrorModelParser.g:3869:3: lv_mapping_9_0= ruleTypeMapping
+            	    // InternalErrorModelParser.g:3864:1: (lv_mapping_9_0= ruleTypeMapping )
+            	    // InternalErrorModelParser.g:3865:3: lv_mapping_9_0= ruleTypeMapping
             	    {
             	     
             	    	        newCompositeNode(grammarAccess.getTypeMappingSetAccess().getMappingTypeMappingParserRuleCall_4_0()); 
             	    	    
-            	    pushFollow(FOLLOW_81);
+            	    pushFollow(FOLLOW_80);
             	    lv_mapping_9_0=ruleTypeMapping();
 
             	    state._fsp--;
@@ -9883,7 +9885,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleTypeMapping"
-    // InternalErrorModelParser.g:3908:1: entryRuleTypeMapping returns [EObject current=null] : iv_ruleTypeMapping= ruleTypeMapping EOF ;
+    // InternalErrorModelParser.g:3904:1: entryRuleTypeMapping returns [EObject current=null] : iv_ruleTypeMapping= ruleTypeMapping EOF ;
     public final EObject entryRuleTypeMapping() throws RecognitionException {
         EObject current = null;
 
@@ -9891,8 +9893,8 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // InternalErrorModelParser.g:3909:2: (iv_ruleTypeMapping= ruleTypeMapping EOF )
-            // InternalErrorModelParser.g:3910:2: iv_ruleTypeMapping= ruleTypeMapping EOF
+            // InternalErrorModelParser.g:3905:2: (iv_ruleTypeMapping= ruleTypeMapping EOF )
+            // InternalErrorModelParser.g:3906:2: iv_ruleTypeMapping= ruleTypeMapping EOF
             {
              newCompositeNode(grammarAccess.getTypeMappingRule()); 
             pushFollow(FOLLOW_1);
@@ -9919,7 +9921,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleTypeMapping"
-    // InternalErrorModelParser.g:3917:1: ruleTypeMapping returns [EObject current=null] : ( ( (lv_source_0_0= ruleTypeTokenConstraint ) ) otherlv_1= HyphenMinusGreaterThanSign ( (lv_target_2_0= ruleTypeToken ) ) otherlv_3= Semicolon ) ;
+    // InternalErrorModelParser.g:3913:1: ruleTypeMapping returns [EObject current=null] : ( ( (lv_source_0_0= ruleTypeTokenConstraint ) ) otherlv_1= HyphenMinusGreaterThanSign ( (lv_target_2_0= ruleTypeToken ) ) otherlv_3= Semicolon ) ;
     public final EObject ruleTypeMapping() throws RecognitionException {
         EObject current = null;
 
@@ -9933,22 +9935,22 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // InternalErrorModelParser.g:3920:28: ( ( ( (lv_source_0_0= ruleTypeTokenConstraint ) ) otherlv_1= HyphenMinusGreaterThanSign ( (lv_target_2_0= ruleTypeToken ) ) otherlv_3= Semicolon ) )
-            // InternalErrorModelParser.g:3921:1: ( ( (lv_source_0_0= ruleTypeTokenConstraint ) ) otherlv_1= HyphenMinusGreaterThanSign ( (lv_target_2_0= ruleTypeToken ) ) otherlv_3= Semicolon )
+            // InternalErrorModelParser.g:3916:28: ( ( ( (lv_source_0_0= ruleTypeTokenConstraint ) ) otherlv_1= HyphenMinusGreaterThanSign ( (lv_target_2_0= ruleTypeToken ) ) otherlv_3= Semicolon ) )
+            // InternalErrorModelParser.g:3917:1: ( ( (lv_source_0_0= ruleTypeTokenConstraint ) ) otherlv_1= HyphenMinusGreaterThanSign ( (lv_target_2_0= ruleTypeToken ) ) otherlv_3= Semicolon )
             {
-            // InternalErrorModelParser.g:3921:1: ( ( (lv_source_0_0= ruleTypeTokenConstraint ) ) otherlv_1= HyphenMinusGreaterThanSign ( (lv_target_2_0= ruleTypeToken ) ) otherlv_3= Semicolon )
-            // InternalErrorModelParser.g:3921:2: ( (lv_source_0_0= ruleTypeTokenConstraint ) ) otherlv_1= HyphenMinusGreaterThanSign ( (lv_target_2_0= ruleTypeToken ) ) otherlv_3= Semicolon
+            // InternalErrorModelParser.g:3917:1: ( ( (lv_source_0_0= ruleTypeTokenConstraint ) ) otherlv_1= HyphenMinusGreaterThanSign ( (lv_target_2_0= ruleTypeToken ) ) otherlv_3= Semicolon )
+            // InternalErrorModelParser.g:3917:2: ( (lv_source_0_0= ruleTypeTokenConstraint ) ) otherlv_1= HyphenMinusGreaterThanSign ( (lv_target_2_0= ruleTypeToken ) ) otherlv_3= Semicolon
             {
-            // InternalErrorModelParser.g:3921:2: ( (lv_source_0_0= ruleTypeTokenConstraint ) )
-            // InternalErrorModelParser.g:3922:1: (lv_source_0_0= ruleTypeTokenConstraint )
+            // InternalErrorModelParser.g:3917:2: ( (lv_source_0_0= ruleTypeTokenConstraint ) )
+            // InternalErrorModelParser.g:3918:1: (lv_source_0_0= ruleTypeTokenConstraint )
             {
-            // InternalErrorModelParser.g:3922:1: (lv_source_0_0= ruleTypeTokenConstraint )
-            // InternalErrorModelParser.g:3923:3: lv_source_0_0= ruleTypeTokenConstraint
+            // InternalErrorModelParser.g:3918:1: (lv_source_0_0= ruleTypeTokenConstraint )
+            // InternalErrorModelParser.g:3919:3: lv_source_0_0= ruleTypeTokenConstraint
             {
              
             	        newCompositeNode(grammarAccess.getTypeMappingAccess().getSourceTypeTokenConstraintParserRuleCall_0_0()); 
             	    
-            pushFollow(FOLLOW_82);
+            pushFollow(FOLLOW_81);
             lv_source_0_0=ruleTypeTokenConstraint();
 
             state._fsp--;
@@ -9970,15 +9972,15 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
             }
 
-            otherlv_1=(Token)match(input,HyphenMinusGreaterThanSign,FOLLOW_70); 
+            otherlv_1=(Token)match(input,HyphenMinusGreaterThanSign,FOLLOW_69); 
 
                 	newLeafNode(otherlv_1, grammarAccess.getTypeMappingAccess().getHyphenMinusGreaterThanSignKeyword_1());
                 
-            // InternalErrorModelParser.g:3944:1: ( (lv_target_2_0= ruleTypeToken ) )
-            // InternalErrorModelParser.g:3945:1: (lv_target_2_0= ruleTypeToken )
+            // InternalErrorModelParser.g:3940:1: ( (lv_target_2_0= ruleTypeToken ) )
+            // InternalErrorModelParser.g:3941:1: (lv_target_2_0= ruleTypeToken )
             {
-            // InternalErrorModelParser.g:3945:1: (lv_target_2_0= ruleTypeToken )
-            // InternalErrorModelParser.g:3946:3: lv_target_2_0= ruleTypeToken
+            // InternalErrorModelParser.g:3941:1: (lv_target_2_0= ruleTypeToken )
+            // InternalErrorModelParser.g:3942:3: lv_target_2_0= ruleTypeToken
             {
              
             	        newCompositeNode(grammarAccess.getTypeMappingAccess().getTargetTypeTokenParserRuleCall_2_0()); 
@@ -10030,7 +10032,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleErrorPropagation"
-    // InternalErrorModelParser.g:3975:1: entryRuleErrorPropagation returns [EObject current=null] : iv_ruleErrorPropagation= ruleErrorPropagation EOF ;
+    // InternalErrorModelParser.g:3971:1: entryRuleErrorPropagation returns [EObject current=null] : iv_ruleErrorPropagation= ruleErrorPropagation EOF ;
     public final EObject entryRuleErrorPropagation() throws RecognitionException {
         EObject current = null;
 
@@ -10038,8 +10040,8 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // InternalErrorModelParser.g:3976:2: (iv_ruleErrorPropagation= ruleErrorPropagation EOF )
-            // InternalErrorModelParser.g:3977:2: iv_ruleErrorPropagation= ruleErrorPropagation EOF
+            // InternalErrorModelParser.g:3972:2: (iv_ruleErrorPropagation= ruleErrorPropagation EOF )
+            // InternalErrorModelParser.g:3973:2: iv_ruleErrorPropagation= ruleErrorPropagation EOF
             {
              newCompositeNode(grammarAccess.getErrorPropagationRule()); 
             pushFollow(FOLLOW_1);
@@ -10066,7 +10068,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleErrorPropagation"
-    // InternalErrorModelParser.g:3984:1: ruleErrorPropagation returns [EObject current=null] : ( () ( ( (lv_kind_1_0= rulePropagationKind ) ) | ( (lv_featureorPPRef_2_0= ruleFeatureorPPReference ) ) ) otherlv_3= Colon ( (lv_not_4_0= Not ) )? ( (lv_direction_5_0= rulePropagationDirection ) ) otherlv_6= Propagation ( (lv_typeSet_7_0= ruleTypeSetReference ) ) otherlv_8= Semicolon ) ;
+    // InternalErrorModelParser.g:3980:1: ruleErrorPropagation returns [EObject current=null] : ( () ( ( (lv_kind_1_0= rulePropagationKind ) ) | ( (lv_featureorPPRef_2_0= ruleFeatureorPPReference ) ) ) otherlv_3= Colon ( (lv_not_4_0= Not ) )? ( (lv_direction_5_0= rulePropagationDirection ) ) otherlv_6= Propagation ( (lv_typeSet_7_0= ruleTypeSetReference ) ) otherlv_8= Semicolon ) ;
     public final EObject ruleErrorPropagation() throws RecognitionException {
         EObject current = null;
 
@@ -10086,14 +10088,14 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // InternalErrorModelParser.g:3987:28: ( ( () ( ( (lv_kind_1_0= rulePropagationKind ) ) | ( (lv_featureorPPRef_2_0= ruleFeatureorPPReference ) ) ) otherlv_3= Colon ( (lv_not_4_0= Not ) )? ( (lv_direction_5_0= rulePropagationDirection ) ) otherlv_6= Propagation ( (lv_typeSet_7_0= ruleTypeSetReference ) ) otherlv_8= Semicolon ) )
-            // InternalErrorModelParser.g:3988:1: ( () ( ( (lv_kind_1_0= rulePropagationKind ) ) | ( (lv_featureorPPRef_2_0= ruleFeatureorPPReference ) ) ) otherlv_3= Colon ( (lv_not_4_0= Not ) )? ( (lv_direction_5_0= rulePropagationDirection ) ) otherlv_6= Propagation ( (lv_typeSet_7_0= ruleTypeSetReference ) ) otherlv_8= Semicolon )
+            // InternalErrorModelParser.g:3983:28: ( ( () ( ( (lv_kind_1_0= rulePropagationKind ) ) | ( (lv_featureorPPRef_2_0= ruleFeatureorPPReference ) ) ) otherlv_3= Colon ( (lv_not_4_0= Not ) )? ( (lv_direction_5_0= rulePropagationDirection ) ) otherlv_6= Propagation ( (lv_typeSet_7_0= ruleTypeSetReference ) ) otherlv_8= Semicolon ) )
+            // InternalErrorModelParser.g:3984:1: ( () ( ( (lv_kind_1_0= rulePropagationKind ) ) | ( (lv_featureorPPRef_2_0= ruleFeatureorPPReference ) ) ) otherlv_3= Colon ( (lv_not_4_0= Not ) )? ( (lv_direction_5_0= rulePropagationDirection ) ) otherlv_6= Propagation ( (lv_typeSet_7_0= ruleTypeSetReference ) ) otherlv_8= Semicolon )
             {
-            // InternalErrorModelParser.g:3988:1: ( () ( ( (lv_kind_1_0= rulePropagationKind ) ) | ( (lv_featureorPPRef_2_0= ruleFeatureorPPReference ) ) ) otherlv_3= Colon ( (lv_not_4_0= Not ) )? ( (lv_direction_5_0= rulePropagationDirection ) ) otherlv_6= Propagation ( (lv_typeSet_7_0= ruleTypeSetReference ) ) otherlv_8= Semicolon )
-            // InternalErrorModelParser.g:3988:2: () ( ( (lv_kind_1_0= rulePropagationKind ) ) | ( (lv_featureorPPRef_2_0= ruleFeatureorPPReference ) ) ) otherlv_3= Colon ( (lv_not_4_0= Not ) )? ( (lv_direction_5_0= rulePropagationDirection ) ) otherlv_6= Propagation ( (lv_typeSet_7_0= ruleTypeSetReference ) ) otherlv_8= Semicolon
+            // InternalErrorModelParser.g:3984:1: ( () ( ( (lv_kind_1_0= rulePropagationKind ) ) | ( (lv_featureorPPRef_2_0= ruleFeatureorPPReference ) ) ) otherlv_3= Colon ( (lv_not_4_0= Not ) )? ( (lv_direction_5_0= rulePropagationDirection ) ) otherlv_6= Propagation ( (lv_typeSet_7_0= ruleTypeSetReference ) ) otherlv_8= Semicolon )
+            // InternalErrorModelParser.g:3984:2: () ( ( (lv_kind_1_0= rulePropagationKind ) ) | ( (lv_featureorPPRef_2_0= ruleFeatureorPPReference ) ) ) otherlv_3= Colon ( (lv_not_4_0= Not ) )? ( (lv_direction_5_0= rulePropagationDirection ) ) otherlv_6= Propagation ( (lv_typeSet_7_0= ruleTypeSetReference ) ) otherlv_8= Semicolon
             {
-            // InternalErrorModelParser.g:3988:2: ()
-            // InternalErrorModelParser.g:3989:5: 
+            // InternalErrorModelParser.g:3984:2: ()
+            // InternalErrorModelParser.g:3985:5: 
             {
 
                     current = forceCreateModelElement(
@@ -10103,7 +10105,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
             }
 
-            // InternalErrorModelParser.g:3994:2: ( ( (lv_kind_1_0= rulePropagationKind ) ) | ( (lv_featureorPPRef_2_0= ruleFeatureorPPReference ) ) )
+            // InternalErrorModelParser.g:3990:2: ( ( (lv_kind_1_0= rulePropagationKind ) ) | ( (lv_featureorPPRef_2_0= ruleFeatureorPPReference ) ) )
             int alt128=2;
             int LA128_0 = input.LA(1);
 
@@ -10121,18 +10123,18 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
             }
             switch (alt128) {
                 case 1 :
-                    // InternalErrorModelParser.g:3994:3: ( (lv_kind_1_0= rulePropagationKind ) )
+                    // InternalErrorModelParser.g:3990:3: ( (lv_kind_1_0= rulePropagationKind ) )
                     {
-                    // InternalErrorModelParser.g:3994:3: ( (lv_kind_1_0= rulePropagationKind ) )
-                    // InternalErrorModelParser.g:3995:1: (lv_kind_1_0= rulePropagationKind )
+                    // InternalErrorModelParser.g:3990:3: ( (lv_kind_1_0= rulePropagationKind ) )
+                    // InternalErrorModelParser.g:3991:1: (lv_kind_1_0= rulePropagationKind )
                     {
-                    // InternalErrorModelParser.g:3995:1: (lv_kind_1_0= rulePropagationKind )
-                    // InternalErrorModelParser.g:3996:3: lv_kind_1_0= rulePropagationKind
+                    // InternalErrorModelParser.g:3991:1: (lv_kind_1_0= rulePropagationKind )
+                    // InternalErrorModelParser.g:3992:3: lv_kind_1_0= rulePropagationKind
                     {
                      
                     	        newCompositeNode(grammarAccess.getErrorPropagationAccess().getKindPropagationKindParserRuleCall_1_0_0()); 
                     	    
-                    pushFollow(FOLLOW_83);
+                    pushFollow(FOLLOW_82);
                     lv_kind_1_0=rulePropagationKind();
 
                     state._fsp--;
@@ -10158,18 +10160,18 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 2 :
-                    // InternalErrorModelParser.g:4013:6: ( (lv_featureorPPRef_2_0= ruleFeatureorPPReference ) )
+                    // InternalErrorModelParser.g:4009:6: ( (lv_featureorPPRef_2_0= ruleFeatureorPPReference ) )
                     {
-                    // InternalErrorModelParser.g:4013:6: ( (lv_featureorPPRef_2_0= ruleFeatureorPPReference ) )
-                    // InternalErrorModelParser.g:4014:1: (lv_featureorPPRef_2_0= ruleFeatureorPPReference )
+                    // InternalErrorModelParser.g:4009:6: ( (lv_featureorPPRef_2_0= ruleFeatureorPPReference ) )
+                    // InternalErrorModelParser.g:4010:1: (lv_featureorPPRef_2_0= ruleFeatureorPPReference )
                     {
-                    // InternalErrorModelParser.g:4014:1: (lv_featureorPPRef_2_0= ruleFeatureorPPReference )
-                    // InternalErrorModelParser.g:4015:3: lv_featureorPPRef_2_0= ruleFeatureorPPReference
+                    // InternalErrorModelParser.g:4010:1: (lv_featureorPPRef_2_0= ruleFeatureorPPReference )
+                    // InternalErrorModelParser.g:4011:3: lv_featureorPPRef_2_0= ruleFeatureorPPReference
                     {
                      
                     	        newCompositeNode(grammarAccess.getErrorPropagationAccess().getFeatureorPPRefFeatureorPPReferenceParserRuleCall_1_1_0()); 
                     	    
-                    pushFollow(FOLLOW_83);
+                    pushFollow(FOLLOW_82);
                     lv_featureorPPRef_2_0=ruleFeatureorPPReference();
 
                     state._fsp--;
@@ -10197,11 +10199,11 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
             }
 
-            otherlv_3=(Token)match(input,Colon,FOLLOW_84); 
+            otherlv_3=(Token)match(input,Colon,FOLLOW_83); 
 
                 	newLeafNode(otherlv_3, grammarAccess.getErrorPropagationAccess().getColonKeyword_2());
                 
-            // InternalErrorModelParser.g:4036:1: ( (lv_not_4_0= Not ) )?
+            // InternalErrorModelParser.g:4032:1: ( (lv_not_4_0= Not ) )?
             int alt129=2;
             int LA129_0 = input.LA(1);
 
@@ -10210,12 +10212,12 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
             }
             switch (alt129) {
                 case 1 :
-                    // InternalErrorModelParser.g:4037:1: (lv_not_4_0= Not )
+                    // InternalErrorModelParser.g:4033:1: (lv_not_4_0= Not )
                     {
-                    // InternalErrorModelParser.g:4037:1: (lv_not_4_0= Not )
-                    // InternalErrorModelParser.g:4038:3: lv_not_4_0= Not
+                    // InternalErrorModelParser.g:4033:1: (lv_not_4_0= Not )
+                    // InternalErrorModelParser.g:4034:3: lv_not_4_0= Not
                     {
-                    lv_not_4_0=(Token)match(input,Not,FOLLOW_84); 
+                    lv_not_4_0=(Token)match(input,Not,FOLLOW_83); 
 
                             newLeafNode(lv_not_4_0, grammarAccess.getErrorPropagationAccess().getNotNotKeyword_3_0());
                         
@@ -10234,16 +10236,16 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
             }
 
-            // InternalErrorModelParser.g:4052:3: ( (lv_direction_5_0= rulePropagationDirection ) )
-            // InternalErrorModelParser.g:4053:1: (lv_direction_5_0= rulePropagationDirection )
+            // InternalErrorModelParser.g:4048:3: ( (lv_direction_5_0= rulePropagationDirection ) )
+            // InternalErrorModelParser.g:4049:1: (lv_direction_5_0= rulePropagationDirection )
             {
-            // InternalErrorModelParser.g:4053:1: (lv_direction_5_0= rulePropagationDirection )
-            // InternalErrorModelParser.g:4054:3: lv_direction_5_0= rulePropagationDirection
+            // InternalErrorModelParser.g:4049:1: (lv_direction_5_0= rulePropagationDirection )
+            // InternalErrorModelParser.g:4050:3: lv_direction_5_0= rulePropagationDirection
             {
              
             	        newCompositeNode(grammarAccess.getErrorPropagationAccess().getDirectionPropagationDirectionParserRuleCall_4_0()); 
             	    
-            pushFollow(FOLLOW_85);
+            pushFollow(FOLLOW_84);
             lv_direction_5_0=rulePropagationDirection();
 
             state._fsp--;
@@ -10265,15 +10267,15 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
             }
 
-            otherlv_6=(Token)match(input,Propagation,FOLLOW_70); 
+            otherlv_6=(Token)match(input,Propagation,FOLLOW_69); 
 
                 	newLeafNode(otherlv_6, grammarAccess.getErrorPropagationAccess().getPropagationKeyword_5());
                 
-            // InternalErrorModelParser.g:4075:1: ( (lv_typeSet_7_0= ruleTypeSetReference ) )
-            // InternalErrorModelParser.g:4076:1: (lv_typeSet_7_0= ruleTypeSetReference )
+            // InternalErrorModelParser.g:4071:1: ( (lv_typeSet_7_0= ruleTypeSetReference ) )
+            // InternalErrorModelParser.g:4072:1: (lv_typeSet_7_0= ruleTypeSetReference )
             {
-            // InternalErrorModelParser.g:4076:1: (lv_typeSet_7_0= ruleTypeSetReference )
-            // InternalErrorModelParser.g:4077:3: lv_typeSet_7_0= ruleTypeSetReference
+            // InternalErrorModelParser.g:4072:1: (lv_typeSet_7_0= ruleTypeSetReference )
+            // InternalErrorModelParser.g:4073:3: lv_typeSet_7_0= ruleTypeSetReference
             {
              
             	        newCompositeNode(grammarAccess.getErrorPropagationAccess().getTypeSetTypeSetReferenceParserRuleCall_6_0()); 
@@ -10325,7 +10327,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleFeatureorPPReference"
-    // InternalErrorModelParser.g:4106:1: entryRuleFeatureorPPReference returns [EObject current=null] : iv_ruleFeatureorPPReference= ruleFeatureorPPReference EOF ;
+    // InternalErrorModelParser.g:4102:1: entryRuleFeatureorPPReference returns [EObject current=null] : iv_ruleFeatureorPPReference= ruleFeatureorPPReference EOF ;
     public final EObject entryRuleFeatureorPPReference() throws RecognitionException {
         EObject current = null;
 
@@ -10333,8 +10335,8 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // InternalErrorModelParser.g:4107:2: (iv_ruleFeatureorPPReference= ruleFeatureorPPReference EOF )
-            // InternalErrorModelParser.g:4108:2: iv_ruleFeatureorPPReference= ruleFeatureorPPReference EOF
+            // InternalErrorModelParser.g:4103:2: (iv_ruleFeatureorPPReference= ruleFeatureorPPReference EOF )
+            // InternalErrorModelParser.g:4104:2: iv_ruleFeatureorPPReference= ruleFeatureorPPReference EOF
             {
              newCompositeNode(grammarAccess.getFeatureorPPReferenceRule()); 
             pushFollow(FOLLOW_1);
@@ -10361,7 +10363,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleFeatureorPPReference"
-    // InternalErrorModelParser.g:4115:1: ruleFeatureorPPReference returns [EObject current=null] : ( ( (otherlv_0= RULE_ID ) ) (otherlv_1= FullStop ( (lv_next_2_0= ruleFeatureorPPReference ) ) )? ) ;
+    // InternalErrorModelParser.g:4111:1: ruleFeatureorPPReference returns [EObject current=null] : ( ( (otherlv_0= RULE_ID ) ) (otherlv_1= FullStop ( (lv_next_2_0= ruleFeatureorPPReference ) ) )? ) ;
     public final EObject ruleFeatureorPPReference() throws RecognitionException {
         EObject current = null;
 
@@ -10373,24 +10375,24 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // InternalErrorModelParser.g:4118:28: ( ( ( (otherlv_0= RULE_ID ) ) (otherlv_1= FullStop ( (lv_next_2_0= ruleFeatureorPPReference ) ) )? ) )
-            // InternalErrorModelParser.g:4119:1: ( ( (otherlv_0= RULE_ID ) ) (otherlv_1= FullStop ( (lv_next_2_0= ruleFeatureorPPReference ) ) )? )
+            // InternalErrorModelParser.g:4114:28: ( ( ( (otherlv_0= RULE_ID ) ) (otherlv_1= FullStop ( (lv_next_2_0= ruleFeatureorPPReference ) ) )? ) )
+            // InternalErrorModelParser.g:4115:1: ( ( (otherlv_0= RULE_ID ) ) (otherlv_1= FullStop ( (lv_next_2_0= ruleFeatureorPPReference ) ) )? )
             {
-            // InternalErrorModelParser.g:4119:1: ( ( (otherlv_0= RULE_ID ) ) (otherlv_1= FullStop ( (lv_next_2_0= ruleFeatureorPPReference ) ) )? )
-            // InternalErrorModelParser.g:4119:2: ( (otherlv_0= RULE_ID ) ) (otherlv_1= FullStop ( (lv_next_2_0= ruleFeatureorPPReference ) ) )?
+            // InternalErrorModelParser.g:4115:1: ( ( (otherlv_0= RULE_ID ) ) (otherlv_1= FullStop ( (lv_next_2_0= ruleFeatureorPPReference ) ) )? )
+            // InternalErrorModelParser.g:4115:2: ( (otherlv_0= RULE_ID ) ) (otherlv_1= FullStop ( (lv_next_2_0= ruleFeatureorPPReference ) ) )?
             {
-            // InternalErrorModelParser.g:4119:2: ( (otherlv_0= RULE_ID ) )
-            // InternalErrorModelParser.g:4120:1: (otherlv_0= RULE_ID )
+            // InternalErrorModelParser.g:4115:2: ( (otherlv_0= RULE_ID ) )
+            // InternalErrorModelParser.g:4116:1: (otherlv_0= RULE_ID )
             {
-            // InternalErrorModelParser.g:4120:1: (otherlv_0= RULE_ID )
-            // InternalErrorModelParser.g:4121:3: otherlv_0= RULE_ID
+            // InternalErrorModelParser.g:4116:1: (otherlv_0= RULE_ID )
+            // InternalErrorModelParser.g:4117:3: otherlv_0= RULE_ID
             {
 
             			if (current==null) {
             	            current = createModelElement(grammarAccess.getFeatureorPPReferenceRule());
             	        }
                     
-            otherlv_0=(Token)match(input,RULE_ID,FOLLOW_66); 
+            otherlv_0=(Token)match(input,RULE_ID,FOLLOW_65); 
 
             		newLeafNode(otherlv_0, grammarAccess.getFeatureorPPReferenceAccess().getFeatureorPPNamedElementCrossReference_0_0()); 
             	
@@ -10400,7 +10402,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
             }
 
-            // InternalErrorModelParser.g:4132:2: (otherlv_1= FullStop ( (lv_next_2_0= ruleFeatureorPPReference ) ) )?
+            // InternalErrorModelParser.g:4128:2: (otherlv_1= FullStop ( (lv_next_2_0= ruleFeatureorPPReference ) ) )?
             int alt130=2;
             int LA130_0 = input.LA(1);
 
@@ -10409,17 +10411,17 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
             }
             switch (alt130) {
                 case 1 :
-                    // InternalErrorModelParser.g:4133:2: otherlv_1= FullStop ( (lv_next_2_0= ruleFeatureorPPReference ) )
+                    // InternalErrorModelParser.g:4129:2: otherlv_1= FullStop ( (lv_next_2_0= ruleFeatureorPPReference ) )
                     {
-                    otherlv_1=(Token)match(input,FullStop,FOLLOW_86); 
+                    otherlv_1=(Token)match(input,FullStop,FOLLOW_85); 
 
                         	newLeafNode(otherlv_1, grammarAccess.getFeatureorPPReferenceAccess().getFullStopKeyword_1_0());
                         
-                    // InternalErrorModelParser.g:4137:1: ( (lv_next_2_0= ruleFeatureorPPReference ) )
-                    // InternalErrorModelParser.g:4138:1: (lv_next_2_0= ruleFeatureorPPReference )
+                    // InternalErrorModelParser.g:4133:1: ( (lv_next_2_0= ruleFeatureorPPReference ) )
+                    // InternalErrorModelParser.g:4134:1: (lv_next_2_0= ruleFeatureorPPReference )
                     {
-                    // InternalErrorModelParser.g:4138:1: (lv_next_2_0= ruleFeatureorPPReference )
-                    // InternalErrorModelParser.g:4139:3: lv_next_2_0= ruleFeatureorPPReference
+                    // InternalErrorModelParser.g:4134:1: (lv_next_2_0= ruleFeatureorPPReference )
+                    // InternalErrorModelParser.g:4135:3: lv_next_2_0= ruleFeatureorPPReference
                     {
                      
                     	        newCompositeNode(grammarAccess.getFeatureorPPReferenceAccess().getNextFeatureorPPReferenceParserRuleCall_1_1_0()); 
@@ -10473,7 +10475,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRulePropagationDirection"
-    // InternalErrorModelParser.g:4163:1: entryRulePropagationDirection returns [String current=null] : iv_rulePropagationDirection= rulePropagationDirection EOF ;
+    // InternalErrorModelParser.g:4159:1: entryRulePropagationDirection returns [String current=null] : iv_rulePropagationDirection= rulePropagationDirection EOF ;
     public final String entryRulePropagationDirection() throws RecognitionException {
         String current = null;
 
@@ -10481,8 +10483,8 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // InternalErrorModelParser.g:4164:1: (iv_rulePropagationDirection= rulePropagationDirection EOF )
-            // InternalErrorModelParser.g:4165:2: iv_rulePropagationDirection= rulePropagationDirection EOF
+            // InternalErrorModelParser.g:4160:1: (iv_rulePropagationDirection= rulePropagationDirection EOF )
+            // InternalErrorModelParser.g:4161:2: iv_rulePropagationDirection= rulePropagationDirection EOF
             {
              newCompositeNode(grammarAccess.getPropagationDirectionRule()); 
             pushFollow(FOLLOW_1);
@@ -10509,7 +10511,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "rulePropagationDirection"
-    // InternalErrorModelParser.g:4172:1: rulePropagationDirection returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()] : (kw= In | kw= Out ) ;
+    // InternalErrorModelParser.g:4168:1: rulePropagationDirection returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()] : (kw= In | kw= Out ) ;
     public final AntlrDatatypeRuleToken rulePropagationDirection() throws RecognitionException {
         AntlrDatatypeRuleToken current = new AntlrDatatypeRuleToken();
 
@@ -10518,10 +10520,10 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // InternalErrorModelParser.g:4176:6: ( (kw= In | kw= Out ) )
-            // InternalErrorModelParser.g:4177:1: (kw= In | kw= Out )
+            // InternalErrorModelParser.g:4172:6: ( (kw= In | kw= Out ) )
+            // InternalErrorModelParser.g:4173:1: (kw= In | kw= Out )
             {
-            // InternalErrorModelParser.g:4177:1: (kw= In | kw= Out )
+            // InternalErrorModelParser.g:4173:1: (kw= In | kw= Out )
             int alt131=2;
             int LA131_0 = input.LA(1);
 
@@ -10539,7 +10541,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
             }
             switch (alt131) {
                 case 1 :
-                    // InternalErrorModelParser.g:4178:2: kw= In
+                    // InternalErrorModelParser.g:4174:2: kw= In
                     {
                     kw=(Token)match(input,In,FOLLOW_2); 
 
@@ -10550,7 +10552,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 2 :
-                    // InternalErrorModelParser.g:4185:2: kw= Out
+                    // InternalErrorModelParser.g:4181:2: kw= Out
                     {
                     kw=(Token)match(input,Out,FOLLOW_2); 
 
@@ -10582,7 +10584,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRulePropagationKind"
-    // InternalErrorModelParser.g:4198:1: entryRulePropagationKind returns [String current=null] : iv_rulePropagationKind= rulePropagationKind EOF ;
+    // InternalErrorModelParser.g:4194:1: entryRulePropagationKind returns [String current=null] : iv_rulePropagationKind= rulePropagationKind EOF ;
     public final String entryRulePropagationKind() throws RecognitionException {
         String current = null;
 
@@ -10590,8 +10592,8 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // InternalErrorModelParser.g:4199:1: (iv_rulePropagationKind= rulePropagationKind EOF )
-            // InternalErrorModelParser.g:4200:2: iv_rulePropagationKind= rulePropagationKind EOF
+            // InternalErrorModelParser.g:4195:1: (iv_rulePropagationKind= rulePropagationKind EOF )
+            // InternalErrorModelParser.g:4196:2: iv_rulePropagationKind= rulePropagationKind EOF
             {
              newCompositeNode(grammarAccess.getPropagationKindRule()); 
             pushFollow(FOLLOW_1);
@@ -10618,7 +10620,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "rulePropagationKind"
-    // InternalErrorModelParser.g:4207:1: rulePropagationKind returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()] : (kw= Processor | kw= Memory | kw= Connection | kw= Binding | kw= Bindings | kw= Access ) ;
+    // InternalErrorModelParser.g:4203:1: rulePropagationKind returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()] : (kw= Processor | kw= Memory | kw= Connection | kw= Binding | kw= Bindings | kw= Access ) ;
     public final AntlrDatatypeRuleToken rulePropagationKind() throws RecognitionException {
         AntlrDatatypeRuleToken current = new AntlrDatatypeRuleToken();
 
@@ -10627,10 +10629,10 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // InternalErrorModelParser.g:4211:6: ( (kw= Processor | kw= Memory | kw= Connection | kw= Binding | kw= Bindings | kw= Access ) )
-            // InternalErrorModelParser.g:4212:1: (kw= Processor | kw= Memory | kw= Connection | kw= Binding | kw= Bindings | kw= Access )
+            // InternalErrorModelParser.g:4207:6: ( (kw= Processor | kw= Memory | kw= Connection | kw= Binding | kw= Bindings | kw= Access ) )
+            // InternalErrorModelParser.g:4208:1: (kw= Processor | kw= Memory | kw= Connection | kw= Binding | kw= Bindings | kw= Access )
             {
-            // InternalErrorModelParser.g:4212:1: (kw= Processor | kw= Memory | kw= Connection | kw= Binding | kw= Bindings | kw= Access )
+            // InternalErrorModelParser.g:4208:1: (kw= Processor | kw= Memory | kw= Connection | kw= Binding | kw= Bindings | kw= Access )
             int alt132=6;
             switch ( input.LA(1) ) {
             case Processor:
@@ -10672,7 +10674,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
             switch (alt132) {
                 case 1 :
-                    // InternalErrorModelParser.g:4213:2: kw= Processor
+                    // InternalErrorModelParser.g:4209:2: kw= Processor
                     {
                     kw=(Token)match(input,Processor,FOLLOW_2); 
 
@@ -10683,7 +10685,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 2 :
-                    // InternalErrorModelParser.g:4220:2: kw= Memory
+                    // InternalErrorModelParser.g:4216:2: kw= Memory
                     {
                     kw=(Token)match(input,Memory,FOLLOW_2); 
 
@@ -10694,7 +10696,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 3 :
-                    // InternalErrorModelParser.g:4227:2: kw= Connection
+                    // InternalErrorModelParser.g:4223:2: kw= Connection
                     {
                     kw=(Token)match(input,Connection,FOLLOW_2); 
 
@@ -10705,7 +10707,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 4 :
-                    // InternalErrorModelParser.g:4234:2: kw= Binding
+                    // InternalErrorModelParser.g:4230:2: kw= Binding
                     {
                     kw=(Token)match(input,Binding,FOLLOW_2); 
 
@@ -10716,7 +10718,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 5 :
-                    // InternalErrorModelParser.g:4241:2: kw= Bindings
+                    // InternalErrorModelParser.g:4237:2: kw= Bindings
                     {
                     kw=(Token)match(input,Bindings,FOLLOW_2); 
 
@@ -10727,7 +10729,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 6 :
-                    // InternalErrorModelParser.g:4248:2: kw= Access
+                    // InternalErrorModelParser.g:4244:2: kw= Access
                     {
                     kw=(Token)match(input,Access,FOLLOW_2); 
 
@@ -10759,7 +10761,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleErrorFlow"
-    // InternalErrorModelParser.g:4261:1: entryRuleErrorFlow returns [EObject current=null] : iv_ruleErrorFlow= ruleErrorFlow EOF ;
+    // InternalErrorModelParser.g:4257:1: entryRuleErrorFlow returns [EObject current=null] : iv_ruleErrorFlow= ruleErrorFlow EOF ;
     public final EObject entryRuleErrorFlow() throws RecognitionException {
         EObject current = null;
 
@@ -10767,8 +10769,8 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // InternalErrorModelParser.g:4262:2: (iv_ruleErrorFlow= ruleErrorFlow EOF )
-            // InternalErrorModelParser.g:4263:2: iv_ruleErrorFlow= ruleErrorFlow EOF
+            // InternalErrorModelParser.g:4258:2: (iv_ruleErrorFlow= ruleErrorFlow EOF )
+            // InternalErrorModelParser.g:4259:2: iv_ruleErrorFlow= ruleErrorFlow EOF
             {
              newCompositeNode(grammarAccess.getErrorFlowRule()); 
             pushFollow(FOLLOW_1);
@@ -10795,7 +10797,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleErrorFlow"
-    // InternalErrorModelParser.g:4270:1: ruleErrorFlow returns [EObject current=null] : (this_ErrorSource_0= ruleErrorSource | this_ErrorSink_1= ruleErrorSink | this_ErrorPath_2= ruleErrorPath ) ;
+    // InternalErrorModelParser.g:4266:1: ruleErrorFlow returns [EObject current=null] : (this_ErrorSource_0= ruleErrorSource | this_ErrorSink_1= ruleErrorSink | this_ErrorPath_2= ruleErrorPath ) ;
     public final EObject ruleErrorFlow() throws RecognitionException {
         EObject current = null;
 
@@ -10809,10 +10811,10 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // InternalErrorModelParser.g:4273:28: ( (this_ErrorSource_0= ruleErrorSource | this_ErrorSink_1= ruleErrorSink | this_ErrorPath_2= ruleErrorPath ) )
-            // InternalErrorModelParser.g:4274:1: (this_ErrorSource_0= ruleErrorSource | this_ErrorSink_1= ruleErrorSink | this_ErrorPath_2= ruleErrorPath )
+            // InternalErrorModelParser.g:4269:28: ( (this_ErrorSource_0= ruleErrorSource | this_ErrorSink_1= ruleErrorSink | this_ErrorPath_2= ruleErrorPath ) )
+            // InternalErrorModelParser.g:4270:1: (this_ErrorSource_0= ruleErrorSource | this_ErrorSink_1= ruleErrorSink | this_ErrorPath_2= ruleErrorPath )
             {
-            // InternalErrorModelParser.g:4274:1: (this_ErrorSource_0= ruleErrorSource | this_ErrorSink_1= ruleErrorSink | this_ErrorPath_2= ruleErrorPath )
+            // InternalErrorModelParser.g:4270:1: (this_ErrorSource_0= ruleErrorSource | this_ErrorSink_1= ruleErrorSink | this_ErrorPath_2= ruleErrorPath )
             int alt133=3;
             int LA133_0 = input.LA(1);
 
@@ -10869,7 +10871,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
             }
             switch (alt133) {
                 case 1 :
-                    // InternalErrorModelParser.g:4275:5: this_ErrorSource_0= ruleErrorSource
+                    // InternalErrorModelParser.g:4271:5: this_ErrorSource_0= ruleErrorSource
                     {
                      
                             newCompositeNode(grammarAccess.getErrorFlowAccess().getErrorSourceParserRuleCall_0()); 
@@ -10887,7 +10889,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 2 :
-                    // InternalErrorModelParser.g:4285:5: this_ErrorSink_1= ruleErrorSink
+                    // InternalErrorModelParser.g:4281:5: this_ErrorSink_1= ruleErrorSink
                     {
                      
                             newCompositeNode(grammarAccess.getErrorFlowAccess().getErrorSinkParserRuleCall_1()); 
@@ -10905,7 +10907,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 3 :
-                    // InternalErrorModelParser.g:4295:5: this_ErrorPath_2= ruleErrorPath
+                    // InternalErrorModelParser.g:4291:5: this_ErrorPath_2= ruleErrorPath
                     {
                      
                             newCompositeNode(grammarAccess.getErrorFlowAccess().getErrorPathParserRuleCall_2()); 
@@ -10943,7 +10945,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleErrorSource"
-    // InternalErrorModelParser.g:4311:1: entryRuleErrorSource returns [EObject current=null] : iv_ruleErrorSource= ruleErrorSource EOF ;
+    // InternalErrorModelParser.g:4307:1: entryRuleErrorSource returns [EObject current=null] : iv_ruleErrorSource= ruleErrorSource EOF ;
     public final EObject entryRuleErrorSource() throws RecognitionException {
         EObject current = null;
 
@@ -10951,8 +10953,8 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // InternalErrorModelParser.g:4312:2: (iv_ruleErrorSource= ruleErrorSource EOF )
-            // InternalErrorModelParser.g:4313:2: iv_ruleErrorSource= ruleErrorSource EOF
+            // InternalErrorModelParser.g:4308:2: (iv_ruleErrorSource= ruleErrorSource EOF )
+            // InternalErrorModelParser.g:4309:2: iv_ruleErrorSource= ruleErrorSource EOF
             {
              newCompositeNode(grammarAccess.getErrorSourceRule()); 
             pushFollow(FOLLOW_1);
@@ -10979,7 +10981,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleErrorSource"
-    // InternalErrorModelParser.g:4320:1: ruleErrorSource returns [EObject current=null] : ( ( (lv_name_0_0= RULE_ID ) ) otherlv_1= Colon otherlv_2= Error otherlv_3= Source ( ( ( ruleErrorPropagationPoint ) ) | ( (lv_allOutgoing_5_0= All ) ) ) ( (lv_typeTokenConstraint_6_0= ruleTypeTokenConstraint ) )? (otherlv_7= When ( ( ( (otherlv_8= RULE_ID ) ) ( (lv_failureModeType_9_0= ruleTypeSetReference ) )? ) | ( (lv_failureModeType_10_0= ruleTypeSetConstructor ) ) | ( (lv_failureModeDescription_11_0= RULE_STRING ) ) ) )? (otherlv_12= If ( (lv_condition_13_0= ruleCONDITION ) ) )? otherlv_14= Semicolon ) ;
+    // InternalErrorModelParser.g:4316:1: ruleErrorSource returns [EObject current=null] : ( ( (lv_name_0_0= RULE_ID ) ) otherlv_1= Colon otherlv_2= Error otherlv_3= Source ( ( ( ruleErrorPropagationPoint ) ) | ( (lv_allOutgoing_5_0= All ) ) ) ( (lv_typeTokenConstraint_6_0= ruleTypeTokenConstraint ) )? (otherlv_7= When ( ( ( (otherlv_8= RULE_ID ) ) ( (lv_failureModeType_9_0= ruleTypeSetReference ) )? ) | ( (lv_failureModeType_10_0= ruleTypeSetConstructor ) ) | ( (lv_failureModeDescription_11_0= RULE_STRING ) ) ) )? (otherlv_12= If ( (lv_condition_13_0= ruleCONDITION ) ) )? otherlv_14= Semicolon ) ;
     public final EObject ruleErrorSource() throws RecognitionException {
         EObject current = null;
 
@@ -11005,19 +11007,19 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // InternalErrorModelParser.g:4323:28: ( ( ( (lv_name_0_0= RULE_ID ) ) otherlv_1= Colon otherlv_2= Error otherlv_3= Source ( ( ( ruleErrorPropagationPoint ) ) | ( (lv_allOutgoing_5_0= All ) ) ) ( (lv_typeTokenConstraint_6_0= ruleTypeTokenConstraint ) )? (otherlv_7= When ( ( ( (otherlv_8= RULE_ID ) ) ( (lv_failureModeType_9_0= ruleTypeSetReference ) )? ) | ( (lv_failureModeType_10_0= ruleTypeSetConstructor ) ) | ( (lv_failureModeDescription_11_0= RULE_STRING ) ) ) )? (otherlv_12= If ( (lv_condition_13_0= ruleCONDITION ) ) )? otherlv_14= Semicolon ) )
-            // InternalErrorModelParser.g:4324:1: ( ( (lv_name_0_0= RULE_ID ) ) otherlv_1= Colon otherlv_2= Error otherlv_3= Source ( ( ( ruleErrorPropagationPoint ) ) | ( (lv_allOutgoing_5_0= All ) ) ) ( (lv_typeTokenConstraint_6_0= ruleTypeTokenConstraint ) )? (otherlv_7= When ( ( ( (otherlv_8= RULE_ID ) ) ( (lv_failureModeType_9_0= ruleTypeSetReference ) )? ) | ( (lv_failureModeType_10_0= ruleTypeSetConstructor ) ) | ( (lv_failureModeDescription_11_0= RULE_STRING ) ) ) )? (otherlv_12= If ( (lv_condition_13_0= ruleCONDITION ) ) )? otherlv_14= Semicolon )
+            // InternalErrorModelParser.g:4319:28: ( ( ( (lv_name_0_0= RULE_ID ) ) otherlv_1= Colon otherlv_2= Error otherlv_3= Source ( ( ( ruleErrorPropagationPoint ) ) | ( (lv_allOutgoing_5_0= All ) ) ) ( (lv_typeTokenConstraint_6_0= ruleTypeTokenConstraint ) )? (otherlv_7= When ( ( ( (otherlv_8= RULE_ID ) ) ( (lv_failureModeType_9_0= ruleTypeSetReference ) )? ) | ( (lv_failureModeType_10_0= ruleTypeSetConstructor ) ) | ( (lv_failureModeDescription_11_0= RULE_STRING ) ) ) )? (otherlv_12= If ( (lv_condition_13_0= ruleCONDITION ) ) )? otherlv_14= Semicolon ) )
+            // InternalErrorModelParser.g:4320:1: ( ( (lv_name_0_0= RULE_ID ) ) otherlv_1= Colon otherlv_2= Error otherlv_3= Source ( ( ( ruleErrorPropagationPoint ) ) | ( (lv_allOutgoing_5_0= All ) ) ) ( (lv_typeTokenConstraint_6_0= ruleTypeTokenConstraint ) )? (otherlv_7= When ( ( ( (otherlv_8= RULE_ID ) ) ( (lv_failureModeType_9_0= ruleTypeSetReference ) )? ) | ( (lv_failureModeType_10_0= ruleTypeSetConstructor ) ) | ( (lv_failureModeDescription_11_0= RULE_STRING ) ) ) )? (otherlv_12= If ( (lv_condition_13_0= ruleCONDITION ) ) )? otherlv_14= Semicolon )
             {
-            // InternalErrorModelParser.g:4324:1: ( ( (lv_name_0_0= RULE_ID ) ) otherlv_1= Colon otherlv_2= Error otherlv_3= Source ( ( ( ruleErrorPropagationPoint ) ) | ( (lv_allOutgoing_5_0= All ) ) ) ( (lv_typeTokenConstraint_6_0= ruleTypeTokenConstraint ) )? (otherlv_7= When ( ( ( (otherlv_8= RULE_ID ) ) ( (lv_failureModeType_9_0= ruleTypeSetReference ) )? ) | ( (lv_failureModeType_10_0= ruleTypeSetConstructor ) ) | ( (lv_failureModeDescription_11_0= RULE_STRING ) ) ) )? (otherlv_12= If ( (lv_condition_13_0= ruleCONDITION ) ) )? otherlv_14= Semicolon )
-            // InternalErrorModelParser.g:4324:2: ( (lv_name_0_0= RULE_ID ) ) otherlv_1= Colon otherlv_2= Error otherlv_3= Source ( ( ( ruleErrorPropagationPoint ) ) | ( (lv_allOutgoing_5_0= All ) ) ) ( (lv_typeTokenConstraint_6_0= ruleTypeTokenConstraint ) )? (otherlv_7= When ( ( ( (otherlv_8= RULE_ID ) ) ( (lv_failureModeType_9_0= ruleTypeSetReference ) )? ) | ( (lv_failureModeType_10_0= ruleTypeSetConstructor ) ) | ( (lv_failureModeDescription_11_0= RULE_STRING ) ) ) )? (otherlv_12= If ( (lv_condition_13_0= ruleCONDITION ) ) )? otherlv_14= Semicolon
+            // InternalErrorModelParser.g:4320:1: ( ( (lv_name_0_0= RULE_ID ) ) otherlv_1= Colon otherlv_2= Error otherlv_3= Source ( ( ( ruleErrorPropagationPoint ) ) | ( (lv_allOutgoing_5_0= All ) ) ) ( (lv_typeTokenConstraint_6_0= ruleTypeTokenConstraint ) )? (otherlv_7= When ( ( ( (otherlv_8= RULE_ID ) ) ( (lv_failureModeType_9_0= ruleTypeSetReference ) )? ) | ( (lv_failureModeType_10_0= ruleTypeSetConstructor ) ) | ( (lv_failureModeDescription_11_0= RULE_STRING ) ) ) )? (otherlv_12= If ( (lv_condition_13_0= ruleCONDITION ) ) )? otherlv_14= Semicolon )
+            // InternalErrorModelParser.g:4320:2: ( (lv_name_0_0= RULE_ID ) ) otherlv_1= Colon otherlv_2= Error otherlv_3= Source ( ( ( ruleErrorPropagationPoint ) ) | ( (lv_allOutgoing_5_0= All ) ) ) ( (lv_typeTokenConstraint_6_0= ruleTypeTokenConstraint ) )? (otherlv_7= When ( ( ( (otherlv_8= RULE_ID ) ) ( (lv_failureModeType_9_0= ruleTypeSetReference ) )? ) | ( (lv_failureModeType_10_0= ruleTypeSetConstructor ) ) | ( (lv_failureModeDescription_11_0= RULE_STRING ) ) ) )? (otherlv_12= If ( (lv_condition_13_0= ruleCONDITION ) ) )? otherlv_14= Semicolon
             {
-            // InternalErrorModelParser.g:4324:2: ( (lv_name_0_0= RULE_ID ) )
-            // InternalErrorModelParser.g:4325:1: (lv_name_0_0= RULE_ID )
+            // InternalErrorModelParser.g:4320:2: ( (lv_name_0_0= RULE_ID ) )
+            // InternalErrorModelParser.g:4321:1: (lv_name_0_0= RULE_ID )
             {
-            // InternalErrorModelParser.g:4325:1: (lv_name_0_0= RULE_ID )
-            // InternalErrorModelParser.g:4326:3: lv_name_0_0= RULE_ID
+            // InternalErrorModelParser.g:4321:1: (lv_name_0_0= RULE_ID )
+            // InternalErrorModelParser.g:4322:3: lv_name_0_0= RULE_ID
             {
-            lv_name_0_0=(Token)match(input,RULE_ID,FOLLOW_83); 
+            lv_name_0_0=(Token)match(input,RULE_ID,FOLLOW_82); 
 
             			newLeafNode(lv_name_0_0, grammarAccess.getErrorSourceAccess().getNameIDTerminalRuleCall_0_0()); 
             		
@@ -11041,15 +11043,15 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
                 	newLeafNode(otherlv_1, grammarAccess.getErrorSourceAccess().getColonKeyword_1());
                 
-            otherlv_2=(Token)match(input,Error,FOLLOW_87); 
+            otherlv_2=(Token)match(input,Error,FOLLOW_86); 
 
                 	newLeafNode(otherlv_2, grammarAccess.getErrorSourceAccess().getErrorKeyword_2());
                 
-            otherlv_3=(Token)match(input,Source,FOLLOW_88); 
+            otherlv_3=(Token)match(input,Source,FOLLOW_87); 
 
                 	newLeafNode(otherlv_3, grammarAccess.getErrorSourceAccess().getSourceKeyword_3());
                 
-            // InternalErrorModelParser.g:4357:1: ( ( ( ruleErrorPropagationPoint ) ) | ( (lv_allOutgoing_5_0= All ) ) )
+            // InternalErrorModelParser.g:4353:1: ( ( ( ruleErrorPropagationPoint ) ) | ( (lv_allOutgoing_5_0= All ) ) )
             int alt134=2;
             int LA134_0 = input.LA(1);
 
@@ -11067,13 +11069,13 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
             }
             switch (alt134) {
                 case 1 :
-                    // InternalErrorModelParser.g:4357:2: ( ( ruleErrorPropagationPoint ) )
+                    // InternalErrorModelParser.g:4353:2: ( ( ruleErrorPropagationPoint ) )
                     {
-                    // InternalErrorModelParser.g:4357:2: ( ( ruleErrorPropagationPoint ) )
-                    // InternalErrorModelParser.g:4358:1: ( ruleErrorPropagationPoint )
+                    // InternalErrorModelParser.g:4353:2: ( ( ruleErrorPropagationPoint ) )
+                    // InternalErrorModelParser.g:4354:1: ( ruleErrorPropagationPoint )
                     {
-                    // InternalErrorModelParser.g:4358:1: ( ruleErrorPropagationPoint )
-                    // InternalErrorModelParser.g:4359:3: ruleErrorPropagationPoint
+                    // InternalErrorModelParser.g:4354:1: ( ruleErrorPropagationPoint )
+                    // InternalErrorModelParser.g:4355:3: ruleErrorPropagationPoint
                     {
 
                     			if (current==null) {
@@ -11083,7 +11085,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
                      
                     	        newCompositeNode(grammarAccess.getErrorSourceAccess().getOutgoingErrorPropagationCrossReference_4_0_0()); 
                     	    
-                    pushFollow(FOLLOW_89);
+                    pushFollow(FOLLOW_88);
                     ruleErrorPropagationPoint();
 
                     state._fsp--;
@@ -11101,15 +11103,15 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 2 :
-                    // InternalErrorModelParser.g:4374:6: ( (lv_allOutgoing_5_0= All ) )
+                    // InternalErrorModelParser.g:4370:6: ( (lv_allOutgoing_5_0= All ) )
                     {
-                    // InternalErrorModelParser.g:4374:6: ( (lv_allOutgoing_5_0= All ) )
-                    // InternalErrorModelParser.g:4375:1: (lv_allOutgoing_5_0= All )
+                    // InternalErrorModelParser.g:4370:6: ( (lv_allOutgoing_5_0= All ) )
+                    // InternalErrorModelParser.g:4371:1: (lv_allOutgoing_5_0= All )
                     {
-                    // InternalErrorModelParser.g:4375:1: (lv_allOutgoing_5_0= All )
-                    // InternalErrorModelParser.g:4376:3: lv_allOutgoing_5_0= All
+                    // InternalErrorModelParser.g:4371:1: (lv_allOutgoing_5_0= All )
+                    // InternalErrorModelParser.g:4372:3: lv_allOutgoing_5_0= All
                     {
-                    lv_allOutgoing_5_0=(Token)match(input,All,FOLLOW_89); 
+                    lv_allOutgoing_5_0=(Token)match(input,All,FOLLOW_88); 
 
                             newLeafNode(lv_allOutgoing_5_0, grammarAccess.getErrorSourceAccess().getAllOutgoingAllKeyword_4_1_0());
                         
@@ -11131,7 +11133,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
             }
 
-            // InternalErrorModelParser.g:4390:3: ( (lv_typeTokenConstraint_6_0= ruleTypeTokenConstraint ) )?
+            // InternalErrorModelParser.g:4386:3: ( (lv_typeTokenConstraint_6_0= ruleTypeTokenConstraint ) )?
             int alt135=2;
             int LA135_0 = input.LA(1);
 
@@ -11140,15 +11142,15 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
             }
             switch (alt135) {
                 case 1 :
-                    // InternalErrorModelParser.g:4391:1: (lv_typeTokenConstraint_6_0= ruleTypeTokenConstraint )
+                    // InternalErrorModelParser.g:4387:1: (lv_typeTokenConstraint_6_0= ruleTypeTokenConstraint )
                     {
-                    // InternalErrorModelParser.g:4391:1: (lv_typeTokenConstraint_6_0= ruleTypeTokenConstraint )
-                    // InternalErrorModelParser.g:4392:3: lv_typeTokenConstraint_6_0= ruleTypeTokenConstraint
+                    // InternalErrorModelParser.g:4387:1: (lv_typeTokenConstraint_6_0= ruleTypeTokenConstraint )
+                    // InternalErrorModelParser.g:4388:3: lv_typeTokenConstraint_6_0= ruleTypeTokenConstraint
                     {
                      
                     	        newCompositeNode(grammarAccess.getErrorSourceAccess().getTypeTokenConstraintTypeTokenConstraintParserRuleCall_5_0()); 
                     	    
-                    pushFollow(FOLLOW_90);
+                    pushFollow(FOLLOW_89);
                     lv_typeTokenConstraint_6_0=ruleTypeTokenConstraint();
 
                     state._fsp--;
@@ -11173,7 +11175,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
             }
 
-            // InternalErrorModelParser.g:4408:3: (otherlv_7= When ( ( ( (otherlv_8= RULE_ID ) ) ( (lv_failureModeType_9_0= ruleTypeSetReference ) )? ) | ( (lv_failureModeType_10_0= ruleTypeSetConstructor ) ) | ( (lv_failureModeDescription_11_0= RULE_STRING ) ) ) )?
+            // InternalErrorModelParser.g:4404:3: (otherlv_7= When ( ( ( (otherlv_8= RULE_ID ) ) ( (lv_failureModeType_9_0= ruleTypeSetReference ) )? ) | ( (lv_failureModeType_10_0= ruleTypeSetConstructor ) ) | ( (lv_failureModeDescription_11_0= RULE_STRING ) ) ) )?
             int alt138=2;
             int LA138_0 = input.LA(1);
 
@@ -11182,13 +11184,13 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
             }
             switch (alt138) {
                 case 1 :
-                    // InternalErrorModelParser.g:4409:2: otherlv_7= When ( ( ( (otherlv_8= RULE_ID ) ) ( (lv_failureModeType_9_0= ruleTypeSetReference ) )? ) | ( (lv_failureModeType_10_0= ruleTypeSetConstructor ) ) | ( (lv_failureModeDescription_11_0= RULE_STRING ) ) )
+                    // InternalErrorModelParser.g:4405:2: otherlv_7= When ( ( ( (otherlv_8= RULE_ID ) ) ( (lv_failureModeType_9_0= ruleTypeSetReference ) )? ) | ( (lv_failureModeType_10_0= ruleTypeSetConstructor ) ) | ( (lv_failureModeDescription_11_0= RULE_STRING ) ) )
                     {
-                    otherlv_7=(Token)match(input,When,FOLLOW_91); 
+                    otherlv_7=(Token)match(input,When,FOLLOW_90); 
 
                         	newLeafNode(otherlv_7, grammarAccess.getErrorSourceAccess().getWhenKeyword_6_0());
                         
-                    // InternalErrorModelParser.g:4413:1: ( ( ( (otherlv_8= RULE_ID ) ) ( (lv_failureModeType_9_0= ruleTypeSetReference ) )? ) | ( (lv_failureModeType_10_0= ruleTypeSetConstructor ) ) | ( (lv_failureModeDescription_11_0= RULE_STRING ) ) )
+                    // InternalErrorModelParser.g:4409:1: ( ( ( (otherlv_8= RULE_ID ) ) ( (lv_failureModeType_9_0= ruleTypeSetReference ) )? ) | ( (lv_failureModeType_10_0= ruleTypeSetConstructor ) ) | ( (lv_failureModeDescription_11_0= RULE_STRING ) ) )
                     int alt137=3;
                     switch ( input.LA(1) ) {
                     case RULE_ID:
@@ -11215,23 +11217,23 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
                     switch (alt137) {
                         case 1 :
-                            // InternalErrorModelParser.g:4413:2: ( ( (otherlv_8= RULE_ID ) ) ( (lv_failureModeType_9_0= ruleTypeSetReference ) )? )
+                            // InternalErrorModelParser.g:4409:2: ( ( (otherlv_8= RULE_ID ) ) ( (lv_failureModeType_9_0= ruleTypeSetReference ) )? )
                             {
-                            // InternalErrorModelParser.g:4413:2: ( ( (otherlv_8= RULE_ID ) ) ( (lv_failureModeType_9_0= ruleTypeSetReference ) )? )
-                            // InternalErrorModelParser.g:4413:3: ( (otherlv_8= RULE_ID ) ) ( (lv_failureModeType_9_0= ruleTypeSetReference ) )?
+                            // InternalErrorModelParser.g:4409:2: ( ( (otherlv_8= RULE_ID ) ) ( (lv_failureModeType_9_0= ruleTypeSetReference ) )? )
+                            // InternalErrorModelParser.g:4409:3: ( (otherlv_8= RULE_ID ) ) ( (lv_failureModeType_9_0= ruleTypeSetReference ) )?
                             {
-                            // InternalErrorModelParser.g:4413:3: ( (otherlv_8= RULE_ID ) )
-                            // InternalErrorModelParser.g:4414:1: (otherlv_8= RULE_ID )
+                            // InternalErrorModelParser.g:4409:3: ( (otherlv_8= RULE_ID ) )
+                            // InternalErrorModelParser.g:4410:1: (otherlv_8= RULE_ID )
                             {
-                            // InternalErrorModelParser.g:4414:1: (otherlv_8= RULE_ID )
-                            // InternalErrorModelParser.g:4415:3: otherlv_8= RULE_ID
+                            // InternalErrorModelParser.g:4410:1: (otherlv_8= RULE_ID )
+                            // InternalErrorModelParser.g:4411:3: otherlv_8= RULE_ID
                             {
 
                             			if (current==null) {
                             	            current = createModelElement(grammarAccess.getErrorSourceRule());
                             	        }
                                     
-                            otherlv_8=(Token)match(input,RULE_ID,FOLLOW_92); 
+                            otherlv_8=(Token)match(input,RULE_ID,FOLLOW_91); 
 
                             		newLeafNode(otherlv_8, grammarAccess.getErrorSourceAccess().getFailureModeReferenceErrorBehaviorStateCrossReference_6_1_0_0_0()); 
                             	
@@ -11241,7 +11243,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
                             }
 
-                            // InternalErrorModelParser.g:4426:2: ( (lv_failureModeType_9_0= ruleTypeSetReference ) )?
+                            // InternalErrorModelParser.g:4422:2: ( (lv_failureModeType_9_0= ruleTypeSetReference ) )?
                             int alt136=2;
                             int LA136_0 = input.LA(1);
 
@@ -11250,15 +11252,15 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
                             }
                             switch (alt136) {
                                 case 1 :
-                                    // InternalErrorModelParser.g:4427:1: (lv_failureModeType_9_0= ruleTypeSetReference )
+                                    // InternalErrorModelParser.g:4423:1: (lv_failureModeType_9_0= ruleTypeSetReference )
                                     {
-                                    // InternalErrorModelParser.g:4427:1: (lv_failureModeType_9_0= ruleTypeSetReference )
-                                    // InternalErrorModelParser.g:4428:3: lv_failureModeType_9_0= ruleTypeSetReference
+                                    // InternalErrorModelParser.g:4423:1: (lv_failureModeType_9_0= ruleTypeSetReference )
+                                    // InternalErrorModelParser.g:4424:3: lv_failureModeType_9_0= ruleTypeSetReference
                                     {
                                      
                                     	        newCompositeNode(grammarAccess.getErrorSourceAccess().getFailureModeTypeTypeSetReferenceParserRuleCall_6_1_0_1_0()); 
                                     	    
-                                    pushFollow(FOLLOW_93);
+                                    pushFollow(FOLLOW_92);
                                     lv_failureModeType_9_0=ruleTypeSetReference();
 
                                     state._fsp--;
@@ -11290,18 +11292,18 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
                             }
                             break;
                         case 2 :
-                            // InternalErrorModelParser.g:4445:6: ( (lv_failureModeType_10_0= ruleTypeSetConstructor ) )
+                            // InternalErrorModelParser.g:4441:6: ( (lv_failureModeType_10_0= ruleTypeSetConstructor ) )
                             {
-                            // InternalErrorModelParser.g:4445:6: ( (lv_failureModeType_10_0= ruleTypeSetConstructor ) )
-                            // InternalErrorModelParser.g:4446:1: (lv_failureModeType_10_0= ruleTypeSetConstructor )
+                            // InternalErrorModelParser.g:4441:6: ( (lv_failureModeType_10_0= ruleTypeSetConstructor ) )
+                            // InternalErrorModelParser.g:4442:1: (lv_failureModeType_10_0= ruleTypeSetConstructor )
                             {
-                            // InternalErrorModelParser.g:4446:1: (lv_failureModeType_10_0= ruleTypeSetConstructor )
-                            // InternalErrorModelParser.g:4447:3: lv_failureModeType_10_0= ruleTypeSetConstructor
+                            // InternalErrorModelParser.g:4442:1: (lv_failureModeType_10_0= ruleTypeSetConstructor )
+                            // InternalErrorModelParser.g:4443:3: lv_failureModeType_10_0= ruleTypeSetConstructor
                             {
                              
                             	        newCompositeNode(grammarAccess.getErrorSourceAccess().getFailureModeTypeTypeSetConstructorParserRuleCall_6_1_1_0()); 
                             	    
-                            pushFollow(FOLLOW_93);
+                            pushFollow(FOLLOW_92);
                             lv_failureModeType_10_0=ruleTypeSetConstructor();
 
                             state._fsp--;
@@ -11327,15 +11329,15 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
                             }
                             break;
                         case 3 :
-                            // InternalErrorModelParser.g:4464:6: ( (lv_failureModeDescription_11_0= RULE_STRING ) )
+                            // InternalErrorModelParser.g:4460:6: ( (lv_failureModeDescription_11_0= RULE_STRING ) )
                             {
-                            // InternalErrorModelParser.g:4464:6: ( (lv_failureModeDescription_11_0= RULE_STRING ) )
-                            // InternalErrorModelParser.g:4465:1: (lv_failureModeDescription_11_0= RULE_STRING )
+                            // InternalErrorModelParser.g:4460:6: ( (lv_failureModeDescription_11_0= RULE_STRING ) )
+                            // InternalErrorModelParser.g:4461:1: (lv_failureModeDescription_11_0= RULE_STRING )
                             {
-                            // InternalErrorModelParser.g:4465:1: (lv_failureModeDescription_11_0= RULE_STRING )
-                            // InternalErrorModelParser.g:4466:3: lv_failureModeDescription_11_0= RULE_STRING
+                            // InternalErrorModelParser.g:4461:1: (lv_failureModeDescription_11_0= RULE_STRING )
+                            // InternalErrorModelParser.g:4462:3: lv_failureModeDescription_11_0= RULE_STRING
                             {
-                            lv_failureModeDescription_11_0=(Token)match(input,RULE_STRING,FOLLOW_93); 
+                            lv_failureModeDescription_11_0=(Token)match(input,RULE_STRING,FOLLOW_92); 
 
                             			newLeafNode(lv_failureModeDescription_11_0, grammarAccess.getErrorSourceAccess().getFailureModeDescriptionSTRINGTerminalRuleCall_6_1_2_0()); 
                             		
@@ -11367,7 +11369,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
             }
 
-            // InternalErrorModelParser.g:4482:5: (otherlv_12= If ( (lv_condition_13_0= ruleCONDITION ) ) )?
+            // InternalErrorModelParser.g:4478:5: (otherlv_12= If ( (lv_condition_13_0= ruleCONDITION ) ) )?
             int alt139=2;
             int LA139_0 = input.LA(1);
 
@@ -11376,17 +11378,17 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
             }
             switch (alt139) {
                 case 1 :
-                    // InternalErrorModelParser.g:4483:2: otherlv_12= If ( (lv_condition_13_0= ruleCONDITION ) )
+                    // InternalErrorModelParser.g:4479:2: otherlv_12= If ( (lv_condition_13_0= ruleCONDITION ) )
                     {
-                    otherlv_12=(Token)match(input,If,FOLLOW_94); 
+                    otherlv_12=(Token)match(input,If,FOLLOW_93); 
 
                         	newLeafNode(otherlv_12, grammarAccess.getErrorSourceAccess().getIfKeyword_7_0());
                         
-                    // InternalErrorModelParser.g:4487:1: ( (lv_condition_13_0= ruleCONDITION ) )
-                    // InternalErrorModelParser.g:4488:1: (lv_condition_13_0= ruleCONDITION )
+                    // InternalErrorModelParser.g:4483:1: ( (lv_condition_13_0= ruleCONDITION ) )
+                    // InternalErrorModelParser.g:4484:1: (lv_condition_13_0= ruleCONDITION )
                     {
-                    // InternalErrorModelParser.g:4488:1: (lv_condition_13_0= ruleCONDITION )
-                    // InternalErrorModelParser.g:4489:3: lv_condition_13_0= ruleCONDITION
+                    // InternalErrorModelParser.g:4484:1: (lv_condition_13_0= ruleCONDITION )
+                    // InternalErrorModelParser.g:4485:3: lv_condition_13_0= ruleCONDITION
                     {
                      
                     	        newCompositeNode(grammarAccess.getErrorSourceAccess().getConditionCONDITIONParserRuleCall_7_1_0()); 
@@ -11444,7 +11446,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleErrorSink"
-    // InternalErrorModelParser.g:4518:1: entryRuleErrorSink returns [EObject current=null] : iv_ruleErrorSink= ruleErrorSink EOF ;
+    // InternalErrorModelParser.g:4514:1: entryRuleErrorSink returns [EObject current=null] : iv_ruleErrorSink= ruleErrorSink EOF ;
     public final EObject entryRuleErrorSink() throws RecognitionException {
         EObject current = null;
 
@@ -11452,8 +11454,8 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // InternalErrorModelParser.g:4519:2: (iv_ruleErrorSink= ruleErrorSink EOF )
-            // InternalErrorModelParser.g:4520:2: iv_ruleErrorSink= ruleErrorSink EOF
+            // InternalErrorModelParser.g:4515:2: (iv_ruleErrorSink= ruleErrorSink EOF )
+            // InternalErrorModelParser.g:4516:2: iv_ruleErrorSink= ruleErrorSink EOF
             {
              newCompositeNode(grammarAccess.getErrorSinkRule()); 
             pushFollow(FOLLOW_1);
@@ -11480,7 +11482,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleErrorSink"
-    // InternalErrorModelParser.g:4527:1: ruleErrorSink returns [EObject current=null] : ( ( (lv_name_0_0= RULE_ID ) ) otherlv_1= Colon otherlv_2= Error otherlv_3= Sink ( ( ( ruleErrorPropagationPoint ) ) | ( (lv_allIncoming_5_0= All ) ) ) ( (lv_typeTokenConstraint_6_0= ruleTypeTokenConstraint ) )? otherlv_7= Semicolon ) ;
+    // InternalErrorModelParser.g:4523:1: ruleErrorSink returns [EObject current=null] : ( ( (lv_name_0_0= RULE_ID ) ) otherlv_1= Colon otherlv_2= Error otherlv_3= Sink ( ( ( ruleErrorPropagationPoint ) ) | ( (lv_allIncoming_5_0= All ) ) ) ( (lv_typeTokenConstraint_6_0= ruleTypeTokenConstraint ) )? otherlv_7= Semicolon ) ;
     public final EObject ruleErrorSink() throws RecognitionException {
         EObject current = null;
 
@@ -11496,19 +11498,19 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // InternalErrorModelParser.g:4530:28: ( ( ( (lv_name_0_0= RULE_ID ) ) otherlv_1= Colon otherlv_2= Error otherlv_3= Sink ( ( ( ruleErrorPropagationPoint ) ) | ( (lv_allIncoming_5_0= All ) ) ) ( (lv_typeTokenConstraint_6_0= ruleTypeTokenConstraint ) )? otherlv_7= Semicolon ) )
-            // InternalErrorModelParser.g:4531:1: ( ( (lv_name_0_0= RULE_ID ) ) otherlv_1= Colon otherlv_2= Error otherlv_3= Sink ( ( ( ruleErrorPropagationPoint ) ) | ( (lv_allIncoming_5_0= All ) ) ) ( (lv_typeTokenConstraint_6_0= ruleTypeTokenConstraint ) )? otherlv_7= Semicolon )
+            // InternalErrorModelParser.g:4526:28: ( ( ( (lv_name_0_0= RULE_ID ) ) otherlv_1= Colon otherlv_2= Error otherlv_3= Sink ( ( ( ruleErrorPropagationPoint ) ) | ( (lv_allIncoming_5_0= All ) ) ) ( (lv_typeTokenConstraint_6_0= ruleTypeTokenConstraint ) )? otherlv_7= Semicolon ) )
+            // InternalErrorModelParser.g:4527:1: ( ( (lv_name_0_0= RULE_ID ) ) otherlv_1= Colon otherlv_2= Error otherlv_3= Sink ( ( ( ruleErrorPropagationPoint ) ) | ( (lv_allIncoming_5_0= All ) ) ) ( (lv_typeTokenConstraint_6_0= ruleTypeTokenConstraint ) )? otherlv_7= Semicolon )
             {
-            // InternalErrorModelParser.g:4531:1: ( ( (lv_name_0_0= RULE_ID ) ) otherlv_1= Colon otherlv_2= Error otherlv_3= Sink ( ( ( ruleErrorPropagationPoint ) ) | ( (lv_allIncoming_5_0= All ) ) ) ( (lv_typeTokenConstraint_6_0= ruleTypeTokenConstraint ) )? otherlv_7= Semicolon )
-            // InternalErrorModelParser.g:4531:2: ( (lv_name_0_0= RULE_ID ) ) otherlv_1= Colon otherlv_2= Error otherlv_3= Sink ( ( ( ruleErrorPropagationPoint ) ) | ( (lv_allIncoming_5_0= All ) ) ) ( (lv_typeTokenConstraint_6_0= ruleTypeTokenConstraint ) )? otherlv_7= Semicolon
+            // InternalErrorModelParser.g:4527:1: ( ( (lv_name_0_0= RULE_ID ) ) otherlv_1= Colon otherlv_2= Error otherlv_3= Sink ( ( ( ruleErrorPropagationPoint ) ) | ( (lv_allIncoming_5_0= All ) ) ) ( (lv_typeTokenConstraint_6_0= ruleTypeTokenConstraint ) )? otherlv_7= Semicolon )
+            // InternalErrorModelParser.g:4527:2: ( (lv_name_0_0= RULE_ID ) ) otherlv_1= Colon otherlv_2= Error otherlv_3= Sink ( ( ( ruleErrorPropagationPoint ) ) | ( (lv_allIncoming_5_0= All ) ) ) ( (lv_typeTokenConstraint_6_0= ruleTypeTokenConstraint ) )? otherlv_7= Semicolon
             {
-            // InternalErrorModelParser.g:4531:2: ( (lv_name_0_0= RULE_ID ) )
-            // InternalErrorModelParser.g:4532:1: (lv_name_0_0= RULE_ID )
+            // InternalErrorModelParser.g:4527:2: ( (lv_name_0_0= RULE_ID ) )
+            // InternalErrorModelParser.g:4528:1: (lv_name_0_0= RULE_ID )
             {
-            // InternalErrorModelParser.g:4532:1: (lv_name_0_0= RULE_ID )
-            // InternalErrorModelParser.g:4533:3: lv_name_0_0= RULE_ID
+            // InternalErrorModelParser.g:4528:1: (lv_name_0_0= RULE_ID )
+            // InternalErrorModelParser.g:4529:3: lv_name_0_0= RULE_ID
             {
-            lv_name_0_0=(Token)match(input,RULE_ID,FOLLOW_83); 
+            lv_name_0_0=(Token)match(input,RULE_ID,FOLLOW_82); 
 
             			newLeafNode(lv_name_0_0, grammarAccess.getErrorSinkAccess().getNameIDTerminalRuleCall_0_0()); 
             		
@@ -11532,15 +11534,15 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
                 	newLeafNode(otherlv_1, grammarAccess.getErrorSinkAccess().getColonKeyword_1());
                 
-            otherlv_2=(Token)match(input,Error,FOLLOW_95); 
+            otherlv_2=(Token)match(input,Error,FOLLOW_94); 
 
                 	newLeafNode(otherlv_2, grammarAccess.getErrorSinkAccess().getErrorKeyword_2());
                 
-            otherlv_3=(Token)match(input,Sink,FOLLOW_88); 
+            otherlv_3=(Token)match(input,Sink,FOLLOW_87); 
 
                 	newLeafNode(otherlv_3, grammarAccess.getErrorSinkAccess().getSinkKeyword_3());
                 
-            // InternalErrorModelParser.g:4564:1: ( ( ( ruleErrorPropagationPoint ) ) | ( (lv_allIncoming_5_0= All ) ) )
+            // InternalErrorModelParser.g:4560:1: ( ( ( ruleErrorPropagationPoint ) ) | ( (lv_allIncoming_5_0= All ) ) )
             int alt140=2;
             int LA140_0 = input.LA(1);
 
@@ -11558,13 +11560,13 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
             }
             switch (alt140) {
                 case 1 :
-                    // InternalErrorModelParser.g:4564:2: ( ( ruleErrorPropagationPoint ) )
+                    // InternalErrorModelParser.g:4560:2: ( ( ruleErrorPropagationPoint ) )
                     {
-                    // InternalErrorModelParser.g:4564:2: ( ( ruleErrorPropagationPoint ) )
-                    // InternalErrorModelParser.g:4565:1: ( ruleErrorPropagationPoint )
+                    // InternalErrorModelParser.g:4560:2: ( ( ruleErrorPropagationPoint ) )
+                    // InternalErrorModelParser.g:4561:1: ( ruleErrorPropagationPoint )
                     {
-                    // InternalErrorModelParser.g:4565:1: ( ruleErrorPropagationPoint )
-                    // InternalErrorModelParser.g:4566:3: ruleErrorPropagationPoint
+                    // InternalErrorModelParser.g:4561:1: ( ruleErrorPropagationPoint )
+                    // InternalErrorModelParser.g:4562:3: ruleErrorPropagationPoint
                     {
 
                     			if (current==null) {
@@ -11574,7 +11576,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
                      
                     	        newCompositeNode(grammarAccess.getErrorSinkAccess().getIncomingErrorPropagationCrossReference_4_0_0()); 
                     	    
-                    pushFollow(FOLLOW_96);
+                    pushFollow(FOLLOW_95);
                     ruleErrorPropagationPoint();
 
                     state._fsp--;
@@ -11592,15 +11594,15 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 2 :
-                    // InternalErrorModelParser.g:4581:6: ( (lv_allIncoming_5_0= All ) )
+                    // InternalErrorModelParser.g:4577:6: ( (lv_allIncoming_5_0= All ) )
                     {
-                    // InternalErrorModelParser.g:4581:6: ( (lv_allIncoming_5_0= All ) )
-                    // InternalErrorModelParser.g:4582:1: (lv_allIncoming_5_0= All )
+                    // InternalErrorModelParser.g:4577:6: ( (lv_allIncoming_5_0= All ) )
+                    // InternalErrorModelParser.g:4578:1: (lv_allIncoming_5_0= All )
                     {
-                    // InternalErrorModelParser.g:4582:1: (lv_allIncoming_5_0= All )
-                    // InternalErrorModelParser.g:4583:3: lv_allIncoming_5_0= All
+                    // InternalErrorModelParser.g:4578:1: (lv_allIncoming_5_0= All )
+                    // InternalErrorModelParser.g:4579:3: lv_allIncoming_5_0= All
                     {
-                    lv_allIncoming_5_0=(Token)match(input,All,FOLLOW_96); 
+                    lv_allIncoming_5_0=(Token)match(input,All,FOLLOW_95); 
 
                             newLeafNode(lv_allIncoming_5_0, grammarAccess.getErrorSinkAccess().getAllIncomingAllKeyword_4_1_0());
                         
@@ -11622,7 +11624,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
             }
 
-            // InternalErrorModelParser.g:4597:3: ( (lv_typeTokenConstraint_6_0= ruleTypeTokenConstraint ) )?
+            // InternalErrorModelParser.g:4593:3: ( (lv_typeTokenConstraint_6_0= ruleTypeTokenConstraint ) )?
             int alt141=2;
             int LA141_0 = input.LA(1);
 
@@ -11631,10 +11633,10 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
             }
             switch (alt141) {
                 case 1 :
-                    // InternalErrorModelParser.g:4598:1: (lv_typeTokenConstraint_6_0= ruleTypeTokenConstraint )
+                    // InternalErrorModelParser.g:4594:1: (lv_typeTokenConstraint_6_0= ruleTypeTokenConstraint )
                     {
-                    // InternalErrorModelParser.g:4598:1: (lv_typeTokenConstraint_6_0= ruleTypeTokenConstraint )
-                    // InternalErrorModelParser.g:4599:3: lv_typeTokenConstraint_6_0= ruleTypeTokenConstraint
+                    // InternalErrorModelParser.g:4594:1: (lv_typeTokenConstraint_6_0= ruleTypeTokenConstraint )
+                    // InternalErrorModelParser.g:4595:3: lv_typeTokenConstraint_6_0= ruleTypeTokenConstraint
                     {
                      
                     	        newCompositeNode(grammarAccess.getErrorSinkAccess().getTypeTokenConstraintTypeTokenConstraintParserRuleCall_5_0()); 
@@ -11689,7 +11691,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleErrorPath"
-    // InternalErrorModelParser.g:4628:1: entryRuleErrorPath returns [EObject current=null] : iv_ruleErrorPath= ruleErrorPath EOF ;
+    // InternalErrorModelParser.g:4624:1: entryRuleErrorPath returns [EObject current=null] : iv_ruleErrorPath= ruleErrorPath EOF ;
     public final EObject entryRuleErrorPath() throws RecognitionException {
         EObject current = null;
 
@@ -11697,8 +11699,8 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // InternalErrorModelParser.g:4629:2: (iv_ruleErrorPath= ruleErrorPath EOF )
-            // InternalErrorModelParser.g:4630:2: iv_ruleErrorPath= ruleErrorPath EOF
+            // InternalErrorModelParser.g:4625:2: (iv_ruleErrorPath= ruleErrorPath EOF )
+            // InternalErrorModelParser.g:4626:2: iv_ruleErrorPath= ruleErrorPath EOF
             {
              newCompositeNode(grammarAccess.getErrorPathRule()); 
             pushFollow(FOLLOW_1);
@@ -11725,7 +11727,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleErrorPath"
-    // InternalErrorModelParser.g:4637:1: ruleErrorPath returns [EObject current=null] : ( ( (lv_name_0_0= RULE_ID ) ) otherlv_1= Colon otherlv_2= Error otherlv_3= Path ( ( ( ruleErrorPropagationPoint ) ) | ( (lv_allIncoming_5_0= All ) ) ) ( (lv_typeTokenConstraint_6_0= ruleTypeTokenConstraint ) )? otherlv_7= HyphenMinusGreaterThanSign ( ( ( ruleErrorPropagationPoint ) ) | ( (lv_allOutgoing_9_0= All ) ) ) ( ( (lv_targetToken_10_0= ruleTypeToken ) ) | (otherlv_11= Use otherlv_12= Mappings ( ( ruleQEMREF ) ) ) )? otherlv_14= Semicolon ) ;
+    // InternalErrorModelParser.g:4633:1: ruleErrorPath returns [EObject current=null] : ( ( (lv_name_0_0= RULE_ID ) ) otherlv_1= Colon otherlv_2= Error otherlv_3= Path ( ( ( ruleErrorPropagationPoint ) ) | ( (lv_allIncoming_5_0= All ) ) ) ( (lv_typeTokenConstraint_6_0= ruleTypeTokenConstraint ) )? otherlv_7= HyphenMinusGreaterThanSign ( ( ( ruleErrorPropagationPoint ) ) | ( (lv_allOutgoing_9_0= All ) ) ) ( ( (lv_targetToken_10_0= ruleTypeToken ) ) | (otherlv_11= Use otherlv_12= Mappings ( ( ruleQEMREF ) ) ) )? otherlv_14= Semicolon ) ;
     public final EObject ruleErrorPath() throws RecognitionException {
         EObject current = null;
 
@@ -11747,19 +11749,19 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // InternalErrorModelParser.g:4640:28: ( ( ( (lv_name_0_0= RULE_ID ) ) otherlv_1= Colon otherlv_2= Error otherlv_3= Path ( ( ( ruleErrorPropagationPoint ) ) | ( (lv_allIncoming_5_0= All ) ) ) ( (lv_typeTokenConstraint_6_0= ruleTypeTokenConstraint ) )? otherlv_7= HyphenMinusGreaterThanSign ( ( ( ruleErrorPropagationPoint ) ) | ( (lv_allOutgoing_9_0= All ) ) ) ( ( (lv_targetToken_10_0= ruleTypeToken ) ) | (otherlv_11= Use otherlv_12= Mappings ( ( ruleQEMREF ) ) ) )? otherlv_14= Semicolon ) )
-            // InternalErrorModelParser.g:4641:1: ( ( (lv_name_0_0= RULE_ID ) ) otherlv_1= Colon otherlv_2= Error otherlv_3= Path ( ( ( ruleErrorPropagationPoint ) ) | ( (lv_allIncoming_5_0= All ) ) ) ( (lv_typeTokenConstraint_6_0= ruleTypeTokenConstraint ) )? otherlv_7= HyphenMinusGreaterThanSign ( ( ( ruleErrorPropagationPoint ) ) | ( (lv_allOutgoing_9_0= All ) ) ) ( ( (lv_targetToken_10_0= ruleTypeToken ) ) | (otherlv_11= Use otherlv_12= Mappings ( ( ruleQEMREF ) ) ) )? otherlv_14= Semicolon )
+            // InternalErrorModelParser.g:4636:28: ( ( ( (lv_name_0_0= RULE_ID ) ) otherlv_1= Colon otherlv_2= Error otherlv_3= Path ( ( ( ruleErrorPropagationPoint ) ) | ( (lv_allIncoming_5_0= All ) ) ) ( (lv_typeTokenConstraint_6_0= ruleTypeTokenConstraint ) )? otherlv_7= HyphenMinusGreaterThanSign ( ( ( ruleErrorPropagationPoint ) ) | ( (lv_allOutgoing_9_0= All ) ) ) ( ( (lv_targetToken_10_0= ruleTypeToken ) ) | (otherlv_11= Use otherlv_12= Mappings ( ( ruleQEMREF ) ) ) )? otherlv_14= Semicolon ) )
+            // InternalErrorModelParser.g:4637:1: ( ( (lv_name_0_0= RULE_ID ) ) otherlv_1= Colon otherlv_2= Error otherlv_3= Path ( ( ( ruleErrorPropagationPoint ) ) | ( (lv_allIncoming_5_0= All ) ) ) ( (lv_typeTokenConstraint_6_0= ruleTypeTokenConstraint ) )? otherlv_7= HyphenMinusGreaterThanSign ( ( ( ruleErrorPropagationPoint ) ) | ( (lv_allOutgoing_9_0= All ) ) ) ( ( (lv_targetToken_10_0= ruleTypeToken ) ) | (otherlv_11= Use otherlv_12= Mappings ( ( ruleQEMREF ) ) ) )? otherlv_14= Semicolon )
             {
-            // InternalErrorModelParser.g:4641:1: ( ( (lv_name_0_0= RULE_ID ) ) otherlv_1= Colon otherlv_2= Error otherlv_3= Path ( ( ( ruleErrorPropagationPoint ) ) | ( (lv_allIncoming_5_0= All ) ) ) ( (lv_typeTokenConstraint_6_0= ruleTypeTokenConstraint ) )? otherlv_7= HyphenMinusGreaterThanSign ( ( ( ruleErrorPropagationPoint ) ) | ( (lv_allOutgoing_9_0= All ) ) ) ( ( (lv_targetToken_10_0= ruleTypeToken ) ) | (otherlv_11= Use otherlv_12= Mappings ( ( ruleQEMREF ) ) ) )? otherlv_14= Semicolon )
-            // InternalErrorModelParser.g:4641:2: ( (lv_name_0_0= RULE_ID ) ) otherlv_1= Colon otherlv_2= Error otherlv_3= Path ( ( ( ruleErrorPropagationPoint ) ) | ( (lv_allIncoming_5_0= All ) ) ) ( (lv_typeTokenConstraint_6_0= ruleTypeTokenConstraint ) )? otherlv_7= HyphenMinusGreaterThanSign ( ( ( ruleErrorPropagationPoint ) ) | ( (lv_allOutgoing_9_0= All ) ) ) ( ( (lv_targetToken_10_0= ruleTypeToken ) ) | (otherlv_11= Use otherlv_12= Mappings ( ( ruleQEMREF ) ) ) )? otherlv_14= Semicolon
+            // InternalErrorModelParser.g:4637:1: ( ( (lv_name_0_0= RULE_ID ) ) otherlv_1= Colon otherlv_2= Error otherlv_3= Path ( ( ( ruleErrorPropagationPoint ) ) | ( (lv_allIncoming_5_0= All ) ) ) ( (lv_typeTokenConstraint_6_0= ruleTypeTokenConstraint ) )? otherlv_7= HyphenMinusGreaterThanSign ( ( ( ruleErrorPropagationPoint ) ) | ( (lv_allOutgoing_9_0= All ) ) ) ( ( (lv_targetToken_10_0= ruleTypeToken ) ) | (otherlv_11= Use otherlv_12= Mappings ( ( ruleQEMREF ) ) ) )? otherlv_14= Semicolon )
+            // InternalErrorModelParser.g:4637:2: ( (lv_name_0_0= RULE_ID ) ) otherlv_1= Colon otherlv_2= Error otherlv_3= Path ( ( ( ruleErrorPropagationPoint ) ) | ( (lv_allIncoming_5_0= All ) ) ) ( (lv_typeTokenConstraint_6_0= ruleTypeTokenConstraint ) )? otherlv_7= HyphenMinusGreaterThanSign ( ( ( ruleErrorPropagationPoint ) ) | ( (lv_allOutgoing_9_0= All ) ) ) ( ( (lv_targetToken_10_0= ruleTypeToken ) ) | (otherlv_11= Use otherlv_12= Mappings ( ( ruleQEMREF ) ) ) )? otherlv_14= Semicolon
             {
-            // InternalErrorModelParser.g:4641:2: ( (lv_name_0_0= RULE_ID ) )
-            // InternalErrorModelParser.g:4642:1: (lv_name_0_0= RULE_ID )
+            // InternalErrorModelParser.g:4637:2: ( (lv_name_0_0= RULE_ID ) )
+            // InternalErrorModelParser.g:4638:1: (lv_name_0_0= RULE_ID )
             {
-            // InternalErrorModelParser.g:4642:1: (lv_name_0_0= RULE_ID )
-            // InternalErrorModelParser.g:4643:3: lv_name_0_0= RULE_ID
+            // InternalErrorModelParser.g:4638:1: (lv_name_0_0= RULE_ID )
+            // InternalErrorModelParser.g:4639:3: lv_name_0_0= RULE_ID
             {
-            lv_name_0_0=(Token)match(input,RULE_ID,FOLLOW_83); 
+            lv_name_0_0=(Token)match(input,RULE_ID,FOLLOW_82); 
 
             			newLeafNode(lv_name_0_0, grammarAccess.getErrorPathAccess().getNameIDTerminalRuleCall_0_0()); 
             		
@@ -11783,15 +11785,15 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
                 	newLeafNode(otherlv_1, grammarAccess.getErrorPathAccess().getColonKeyword_1());
                 
-            otherlv_2=(Token)match(input,Error,FOLLOW_97); 
+            otherlv_2=(Token)match(input,Error,FOLLOW_96); 
 
                 	newLeafNode(otherlv_2, grammarAccess.getErrorPathAccess().getErrorKeyword_2());
                 
-            otherlv_3=(Token)match(input,Path,FOLLOW_88); 
+            otherlv_3=(Token)match(input,Path,FOLLOW_87); 
 
                 	newLeafNode(otherlv_3, grammarAccess.getErrorPathAccess().getPathKeyword_3());
                 
-            // InternalErrorModelParser.g:4674:1: ( ( ( ruleErrorPropagationPoint ) ) | ( (lv_allIncoming_5_0= All ) ) )
+            // InternalErrorModelParser.g:4670:1: ( ( ( ruleErrorPropagationPoint ) ) | ( (lv_allIncoming_5_0= All ) ) )
             int alt142=2;
             int LA142_0 = input.LA(1);
 
@@ -11809,13 +11811,13 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
             }
             switch (alt142) {
                 case 1 :
-                    // InternalErrorModelParser.g:4674:2: ( ( ruleErrorPropagationPoint ) )
+                    // InternalErrorModelParser.g:4670:2: ( ( ruleErrorPropagationPoint ) )
                     {
-                    // InternalErrorModelParser.g:4674:2: ( ( ruleErrorPropagationPoint ) )
-                    // InternalErrorModelParser.g:4675:1: ( ruleErrorPropagationPoint )
+                    // InternalErrorModelParser.g:4670:2: ( ( ruleErrorPropagationPoint ) )
+                    // InternalErrorModelParser.g:4671:1: ( ruleErrorPropagationPoint )
                     {
-                    // InternalErrorModelParser.g:4675:1: ( ruleErrorPropagationPoint )
-                    // InternalErrorModelParser.g:4676:3: ruleErrorPropagationPoint
+                    // InternalErrorModelParser.g:4671:1: ( ruleErrorPropagationPoint )
+                    // InternalErrorModelParser.g:4672:3: ruleErrorPropagationPoint
                     {
 
                     			if (current==null) {
@@ -11825,7 +11827,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
                      
                     	        newCompositeNode(grammarAccess.getErrorPathAccess().getIncomingErrorPropagationCrossReference_4_0_0()); 
                     	    
-                    pushFollow(FOLLOW_98);
+                    pushFollow(FOLLOW_97);
                     ruleErrorPropagationPoint();
 
                     state._fsp--;
@@ -11843,15 +11845,15 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 2 :
-                    // InternalErrorModelParser.g:4691:6: ( (lv_allIncoming_5_0= All ) )
+                    // InternalErrorModelParser.g:4687:6: ( (lv_allIncoming_5_0= All ) )
                     {
-                    // InternalErrorModelParser.g:4691:6: ( (lv_allIncoming_5_0= All ) )
-                    // InternalErrorModelParser.g:4692:1: (lv_allIncoming_5_0= All )
+                    // InternalErrorModelParser.g:4687:6: ( (lv_allIncoming_5_0= All ) )
+                    // InternalErrorModelParser.g:4688:1: (lv_allIncoming_5_0= All )
                     {
-                    // InternalErrorModelParser.g:4692:1: (lv_allIncoming_5_0= All )
-                    // InternalErrorModelParser.g:4693:3: lv_allIncoming_5_0= All
+                    // InternalErrorModelParser.g:4688:1: (lv_allIncoming_5_0= All )
+                    // InternalErrorModelParser.g:4689:3: lv_allIncoming_5_0= All
                     {
-                    lv_allIncoming_5_0=(Token)match(input,All,FOLLOW_98); 
+                    lv_allIncoming_5_0=(Token)match(input,All,FOLLOW_97); 
 
                             newLeafNode(lv_allIncoming_5_0, grammarAccess.getErrorPathAccess().getAllIncomingAllKeyword_4_1_0());
                         
@@ -11873,7 +11875,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
             }
 
-            // InternalErrorModelParser.g:4707:3: ( (lv_typeTokenConstraint_6_0= ruleTypeTokenConstraint ) )?
+            // InternalErrorModelParser.g:4703:3: ( (lv_typeTokenConstraint_6_0= ruleTypeTokenConstraint ) )?
             int alt143=2;
             int LA143_0 = input.LA(1);
 
@@ -11882,15 +11884,15 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
             }
             switch (alt143) {
                 case 1 :
-                    // InternalErrorModelParser.g:4708:1: (lv_typeTokenConstraint_6_0= ruleTypeTokenConstraint )
+                    // InternalErrorModelParser.g:4704:1: (lv_typeTokenConstraint_6_0= ruleTypeTokenConstraint )
                     {
-                    // InternalErrorModelParser.g:4708:1: (lv_typeTokenConstraint_6_0= ruleTypeTokenConstraint )
-                    // InternalErrorModelParser.g:4709:3: lv_typeTokenConstraint_6_0= ruleTypeTokenConstraint
+                    // InternalErrorModelParser.g:4704:1: (lv_typeTokenConstraint_6_0= ruleTypeTokenConstraint )
+                    // InternalErrorModelParser.g:4705:3: lv_typeTokenConstraint_6_0= ruleTypeTokenConstraint
                     {
                      
                     	        newCompositeNode(grammarAccess.getErrorPathAccess().getTypeTokenConstraintTypeTokenConstraintParserRuleCall_5_0()); 
                     	    
-                    pushFollow(FOLLOW_82);
+                    pushFollow(FOLLOW_81);
                     lv_typeTokenConstraint_6_0=ruleTypeTokenConstraint();
 
                     state._fsp--;
@@ -11915,11 +11917,11 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
             }
 
-            otherlv_7=(Token)match(input,HyphenMinusGreaterThanSign,FOLLOW_88); 
+            otherlv_7=(Token)match(input,HyphenMinusGreaterThanSign,FOLLOW_87); 
 
                 	newLeafNode(otherlv_7, grammarAccess.getErrorPathAccess().getHyphenMinusGreaterThanSignKeyword_6());
                 
-            // InternalErrorModelParser.g:4730:1: ( ( ( ruleErrorPropagationPoint ) ) | ( (lv_allOutgoing_9_0= All ) ) )
+            // InternalErrorModelParser.g:4726:1: ( ( ( ruleErrorPropagationPoint ) ) | ( (lv_allOutgoing_9_0= All ) ) )
             int alt144=2;
             int LA144_0 = input.LA(1);
 
@@ -11937,13 +11939,13 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
             }
             switch (alt144) {
                 case 1 :
-                    // InternalErrorModelParser.g:4730:2: ( ( ruleErrorPropagationPoint ) )
+                    // InternalErrorModelParser.g:4726:2: ( ( ruleErrorPropagationPoint ) )
                     {
-                    // InternalErrorModelParser.g:4730:2: ( ( ruleErrorPropagationPoint ) )
-                    // InternalErrorModelParser.g:4731:1: ( ruleErrorPropagationPoint )
+                    // InternalErrorModelParser.g:4726:2: ( ( ruleErrorPropagationPoint ) )
+                    // InternalErrorModelParser.g:4727:1: ( ruleErrorPropagationPoint )
                     {
-                    // InternalErrorModelParser.g:4731:1: ( ruleErrorPropagationPoint )
-                    // InternalErrorModelParser.g:4732:3: ruleErrorPropagationPoint
+                    // InternalErrorModelParser.g:4727:1: ( ruleErrorPropagationPoint )
+                    // InternalErrorModelParser.g:4728:3: ruleErrorPropagationPoint
                     {
 
                     			if (current==null) {
@@ -11953,7 +11955,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
                      
                     	        newCompositeNode(grammarAccess.getErrorPathAccess().getOutgoingErrorPropagationCrossReference_7_0_0()); 
                     	    
-                    pushFollow(FOLLOW_96);
+                    pushFollow(FOLLOW_95);
                     ruleErrorPropagationPoint();
 
                     state._fsp--;
@@ -11971,15 +11973,15 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 2 :
-                    // InternalErrorModelParser.g:4747:6: ( (lv_allOutgoing_9_0= All ) )
+                    // InternalErrorModelParser.g:4743:6: ( (lv_allOutgoing_9_0= All ) )
                     {
-                    // InternalErrorModelParser.g:4747:6: ( (lv_allOutgoing_9_0= All ) )
-                    // InternalErrorModelParser.g:4748:1: (lv_allOutgoing_9_0= All )
+                    // InternalErrorModelParser.g:4743:6: ( (lv_allOutgoing_9_0= All ) )
+                    // InternalErrorModelParser.g:4744:1: (lv_allOutgoing_9_0= All )
                     {
-                    // InternalErrorModelParser.g:4748:1: (lv_allOutgoing_9_0= All )
-                    // InternalErrorModelParser.g:4749:3: lv_allOutgoing_9_0= All
+                    // InternalErrorModelParser.g:4744:1: (lv_allOutgoing_9_0= All )
+                    // InternalErrorModelParser.g:4745:3: lv_allOutgoing_9_0= All
                     {
-                    lv_allOutgoing_9_0=(Token)match(input,All,FOLLOW_96); 
+                    lv_allOutgoing_9_0=(Token)match(input,All,FOLLOW_95); 
 
                             newLeafNode(lv_allOutgoing_9_0, grammarAccess.getErrorPathAccess().getAllOutgoingAllKeyword_7_1_0());
                         
@@ -12001,7 +12003,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
             }
 
-            // InternalErrorModelParser.g:4763:3: ( ( (lv_targetToken_10_0= ruleTypeToken ) ) | (otherlv_11= Use otherlv_12= Mappings ( ( ruleQEMREF ) ) ) )?
+            // InternalErrorModelParser.g:4759:3: ( ( (lv_targetToken_10_0= ruleTypeToken ) ) | (otherlv_11= Use otherlv_12= Mappings ( ( ruleQEMREF ) ) ) )?
             int alt145=3;
             int LA145_0 = input.LA(1);
 
@@ -12013,13 +12015,13 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
             }
             switch (alt145) {
                 case 1 :
-                    // InternalErrorModelParser.g:4763:4: ( (lv_targetToken_10_0= ruleTypeToken ) )
+                    // InternalErrorModelParser.g:4759:4: ( (lv_targetToken_10_0= ruleTypeToken ) )
                     {
-                    // InternalErrorModelParser.g:4763:4: ( (lv_targetToken_10_0= ruleTypeToken ) )
-                    // InternalErrorModelParser.g:4764:1: (lv_targetToken_10_0= ruleTypeToken )
+                    // InternalErrorModelParser.g:4759:4: ( (lv_targetToken_10_0= ruleTypeToken ) )
+                    // InternalErrorModelParser.g:4760:1: (lv_targetToken_10_0= ruleTypeToken )
                     {
-                    // InternalErrorModelParser.g:4764:1: (lv_targetToken_10_0= ruleTypeToken )
-                    // InternalErrorModelParser.g:4765:3: lv_targetToken_10_0= ruleTypeToken
+                    // InternalErrorModelParser.g:4760:1: (lv_targetToken_10_0= ruleTypeToken )
+                    // InternalErrorModelParser.g:4761:3: lv_targetToken_10_0= ruleTypeToken
                     {
                      
                     	        newCompositeNode(grammarAccess.getErrorPathAccess().getTargetTokenTypeTokenParserRuleCall_8_0_0()); 
@@ -12050,10 +12052,10 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 2 :
-                    // InternalErrorModelParser.g:4782:6: (otherlv_11= Use otherlv_12= Mappings ( ( ruleQEMREF ) ) )
+                    // InternalErrorModelParser.g:4778:6: (otherlv_11= Use otherlv_12= Mappings ( ( ruleQEMREF ) ) )
                     {
-                    // InternalErrorModelParser.g:4782:6: (otherlv_11= Use otherlv_12= Mappings ( ( ruleQEMREF ) ) )
-                    // InternalErrorModelParser.g:4783:2: otherlv_11= Use otherlv_12= Mappings ( ( ruleQEMREF ) )
+                    // InternalErrorModelParser.g:4778:6: (otherlv_11= Use otherlv_12= Mappings ( ( ruleQEMREF ) ) )
+                    // InternalErrorModelParser.g:4779:2: otherlv_11= Use otherlv_12= Mappings ( ( ruleQEMREF ) )
                     {
                     otherlv_11=(Token)match(input,Use,FOLLOW_11); 
 
@@ -12063,11 +12065,11 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
                         	newLeafNode(otherlv_12, grammarAccess.getErrorPathAccess().getMappingsKeyword_8_1_1());
                         
-                    // InternalErrorModelParser.g:4792:1: ( ( ruleQEMREF ) )
-                    // InternalErrorModelParser.g:4793:1: ( ruleQEMREF )
+                    // InternalErrorModelParser.g:4788:1: ( ( ruleQEMREF ) )
+                    // InternalErrorModelParser.g:4789:1: ( ruleQEMREF )
                     {
-                    // InternalErrorModelParser.g:4793:1: ( ruleQEMREF )
-                    // InternalErrorModelParser.g:4794:3: ruleQEMREF
+                    // InternalErrorModelParser.g:4789:1: ( ruleQEMREF )
+                    // InternalErrorModelParser.g:4790:3: ruleQEMREF
                     {
 
                     			if (current==null) {
@@ -12125,7 +12127,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleErrorPropagationPoint"
-    // InternalErrorModelParser.g:4821:1: entryRuleErrorPropagationPoint returns [String current=null] : iv_ruleErrorPropagationPoint= ruleErrorPropagationPoint EOF ;
+    // InternalErrorModelParser.g:4817:1: entryRuleErrorPropagationPoint returns [String current=null] : iv_ruleErrorPropagationPoint= ruleErrorPropagationPoint EOF ;
     public final String entryRuleErrorPropagationPoint() throws RecognitionException {
         String current = null;
 
@@ -12133,8 +12135,8 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // InternalErrorModelParser.g:4822:1: (iv_ruleErrorPropagationPoint= ruleErrorPropagationPoint EOF )
-            // InternalErrorModelParser.g:4823:2: iv_ruleErrorPropagationPoint= ruleErrorPropagationPoint EOF
+            // InternalErrorModelParser.g:4818:1: (iv_ruleErrorPropagationPoint= ruleErrorPropagationPoint EOF )
+            // InternalErrorModelParser.g:4819:2: iv_ruleErrorPropagationPoint= ruleErrorPropagationPoint EOF
             {
              newCompositeNode(grammarAccess.getErrorPropagationPointRule()); 
             pushFollow(FOLLOW_1);
@@ -12161,7 +12163,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleErrorPropagationPoint"
-    // InternalErrorModelParser.g:4830:1: ruleErrorPropagationPoint returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()] : ( (this_ID_0= RULE_ID kw= FullStop )* (this_PropagationKind_2= rulePropagationKind | this_ID_3= RULE_ID ) ) ;
+    // InternalErrorModelParser.g:4826:1: ruleErrorPropagationPoint returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()] : ( (this_ID_0= RULE_ID kw= FullStop )* (this_PropagationKind_2= rulePropagationKind | this_ID_3= RULE_ID ) ) ;
     public final AntlrDatatypeRuleToken ruleErrorPropagationPoint() throws RecognitionException {
         AntlrDatatypeRuleToken current = new AntlrDatatypeRuleToken();
 
@@ -12174,13 +12176,13 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // InternalErrorModelParser.g:4834:6: ( ( (this_ID_0= RULE_ID kw= FullStop )* (this_PropagationKind_2= rulePropagationKind | this_ID_3= RULE_ID ) ) )
-            // InternalErrorModelParser.g:4835:1: ( (this_ID_0= RULE_ID kw= FullStop )* (this_PropagationKind_2= rulePropagationKind | this_ID_3= RULE_ID ) )
+            // InternalErrorModelParser.g:4830:6: ( ( (this_ID_0= RULE_ID kw= FullStop )* (this_PropagationKind_2= rulePropagationKind | this_ID_3= RULE_ID ) ) )
+            // InternalErrorModelParser.g:4831:1: ( (this_ID_0= RULE_ID kw= FullStop )* (this_PropagationKind_2= rulePropagationKind | this_ID_3= RULE_ID ) )
             {
-            // InternalErrorModelParser.g:4835:1: ( (this_ID_0= RULE_ID kw= FullStop )* (this_PropagationKind_2= rulePropagationKind | this_ID_3= RULE_ID ) )
-            // InternalErrorModelParser.g:4835:2: (this_ID_0= RULE_ID kw= FullStop )* (this_PropagationKind_2= rulePropagationKind | this_ID_3= RULE_ID )
+            // InternalErrorModelParser.g:4831:1: ( (this_ID_0= RULE_ID kw= FullStop )* (this_PropagationKind_2= rulePropagationKind | this_ID_3= RULE_ID ) )
+            // InternalErrorModelParser.g:4831:2: (this_ID_0= RULE_ID kw= FullStop )* (this_PropagationKind_2= rulePropagationKind | this_ID_3= RULE_ID )
             {
-            // InternalErrorModelParser.g:4835:2: (this_ID_0= RULE_ID kw= FullStop )*
+            // InternalErrorModelParser.g:4831:2: (this_ID_0= RULE_ID kw= FullStop )*
             loop146:
             do {
                 int alt146=2;
@@ -12199,16 +12201,16 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
                 switch (alt146) {
             	case 1 :
-            	    // InternalErrorModelParser.g:4835:7: this_ID_0= RULE_ID kw= FullStop
+            	    // InternalErrorModelParser.g:4831:7: this_ID_0= RULE_ID kw= FullStop
             	    {
-            	    this_ID_0=(Token)match(input,RULE_ID,FOLLOW_99); 
+            	    this_ID_0=(Token)match(input,RULE_ID,FOLLOW_98); 
 
             	    		current.merge(this_ID_0);
             	        
             	     
             	        newLeafNode(this_ID_0, grammarAccess.getErrorPropagationPointAccess().getIDTerminalRuleCall_0_0()); 
             	        
-            	    kw=(Token)match(input,FullStop,FOLLOW_86); 
+            	    kw=(Token)match(input,FullStop,FOLLOW_85); 
 
             	            current.merge(kw);
             	            newLeafNode(kw, grammarAccess.getErrorPropagationPointAccess().getFullStopKeyword_0_1()); 
@@ -12222,7 +12224,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
                 }
             } while (true);
 
-            // InternalErrorModelParser.g:4848:3: (this_PropagationKind_2= rulePropagationKind | this_ID_3= RULE_ID )
+            // InternalErrorModelParser.g:4844:3: (this_PropagationKind_2= rulePropagationKind | this_ID_3= RULE_ID )
             int alt147=2;
             int LA147_0 = input.LA(1);
 
@@ -12240,7 +12242,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
             }
             switch (alt147) {
                 case 1 :
-                    // InternalErrorModelParser.g:4849:5: this_PropagationKind_2= rulePropagationKind
+                    // InternalErrorModelParser.g:4845:5: this_PropagationKind_2= rulePropagationKind
                     {
                      
                             newCompositeNode(grammarAccess.getErrorPropagationPointAccess().getPropagationKindParserRuleCall_1_0()); 
@@ -12260,7 +12262,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 2 :
-                    // InternalErrorModelParser.g:4860:10: this_ID_3= RULE_ID
+                    // InternalErrorModelParser.g:4856:10: this_ID_3= RULE_ID
                     {
                     this_ID_3=(Token)match(input,RULE_ID,FOLLOW_2); 
 
@@ -12297,7 +12299,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRulePropagationPoint"
-    // InternalErrorModelParser.g:4875:1: entryRulePropagationPoint returns [EObject current=null] : iv_rulePropagationPoint= rulePropagationPoint EOF ;
+    // InternalErrorModelParser.g:4871:1: entryRulePropagationPoint returns [EObject current=null] : iv_rulePropagationPoint= rulePropagationPoint EOF ;
     public final EObject entryRulePropagationPoint() throws RecognitionException {
         EObject current = null;
 
@@ -12305,8 +12307,8 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // InternalErrorModelParser.g:4876:2: (iv_rulePropagationPoint= rulePropagationPoint EOF )
-            // InternalErrorModelParser.g:4877:2: iv_rulePropagationPoint= rulePropagationPoint EOF
+            // InternalErrorModelParser.g:4872:2: (iv_rulePropagationPoint= rulePropagationPoint EOF )
+            // InternalErrorModelParser.g:4873:2: iv_rulePropagationPoint= rulePropagationPoint EOF
             {
              newCompositeNode(grammarAccess.getPropagationPointRule()); 
             pushFollow(FOLLOW_1);
@@ -12333,7 +12335,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "rulePropagationPoint"
-    // InternalErrorModelParser.g:4884:1: rulePropagationPoint returns [EObject current=null] : ( ( (lv_name_0_0= RULE_ID ) ) otherlv_1= Colon otherlv_2= Propagation otherlv_3= Point otherlv_4= Semicolon ) ;
+    // InternalErrorModelParser.g:4880:1: rulePropagationPoint returns [EObject current=null] : ( ( (lv_name_0_0= RULE_ID ) ) otherlv_1= Colon otherlv_2= Propagation otherlv_3= Point otherlv_4= Semicolon ) ;
     public final EObject rulePropagationPoint() throws RecognitionException {
         EObject current = null;
 
@@ -12346,19 +12348,19 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // InternalErrorModelParser.g:4887:28: ( ( ( (lv_name_0_0= RULE_ID ) ) otherlv_1= Colon otherlv_2= Propagation otherlv_3= Point otherlv_4= Semicolon ) )
-            // InternalErrorModelParser.g:4888:1: ( ( (lv_name_0_0= RULE_ID ) ) otherlv_1= Colon otherlv_2= Propagation otherlv_3= Point otherlv_4= Semicolon )
+            // InternalErrorModelParser.g:4883:28: ( ( ( (lv_name_0_0= RULE_ID ) ) otherlv_1= Colon otherlv_2= Propagation otherlv_3= Point otherlv_4= Semicolon ) )
+            // InternalErrorModelParser.g:4884:1: ( ( (lv_name_0_0= RULE_ID ) ) otherlv_1= Colon otherlv_2= Propagation otherlv_3= Point otherlv_4= Semicolon )
             {
-            // InternalErrorModelParser.g:4888:1: ( ( (lv_name_0_0= RULE_ID ) ) otherlv_1= Colon otherlv_2= Propagation otherlv_3= Point otherlv_4= Semicolon )
-            // InternalErrorModelParser.g:4888:2: ( (lv_name_0_0= RULE_ID ) ) otherlv_1= Colon otherlv_2= Propagation otherlv_3= Point otherlv_4= Semicolon
+            // InternalErrorModelParser.g:4884:1: ( ( (lv_name_0_0= RULE_ID ) ) otherlv_1= Colon otherlv_2= Propagation otherlv_3= Point otherlv_4= Semicolon )
+            // InternalErrorModelParser.g:4884:2: ( (lv_name_0_0= RULE_ID ) ) otherlv_1= Colon otherlv_2= Propagation otherlv_3= Point otherlv_4= Semicolon
             {
-            // InternalErrorModelParser.g:4888:2: ( (lv_name_0_0= RULE_ID ) )
-            // InternalErrorModelParser.g:4889:1: (lv_name_0_0= RULE_ID )
+            // InternalErrorModelParser.g:4884:2: ( (lv_name_0_0= RULE_ID ) )
+            // InternalErrorModelParser.g:4885:1: (lv_name_0_0= RULE_ID )
             {
-            // InternalErrorModelParser.g:4889:1: (lv_name_0_0= RULE_ID )
-            // InternalErrorModelParser.g:4890:3: lv_name_0_0= RULE_ID
+            // InternalErrorModelParser.g:4885:1: (lv_name_0_0= RULE_ID )
+            // InternalErrorModelParser.g:4886:3: lv_name_0_0= RULE_ID
             {
-            lv_name_0_0=(Token)match(input,RULE_ID,FOLLOW_83); 
+            lv_name_0_0=(Token)match(input,RULE_ID,FOLLOW_82); 
 
             			newLeafNode(lv_name_0_0, grammarAccess.getPropagationPointAccess().getNameIDTerminalRuleCall_0_0()); 
             		
@@ -12378,11 +12380,11 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
             }
 
-            otherlv_1=(Token)match(input,Colon,FOLLOW_85); 
+            otherlv_1=(Token)match(input,Colon,FOLLOW_84); 
 
                 	newLeafNode(otherlv_1, grammarAccess.getPropagationPointAccess().getColonKeyword_1());
                 
-            otherlv_2=(Token)match(input,Propagation,FOLLOW_100); 
+            otherlv_2=(Token)match(input,Propagation,FOLLOW_99); 
 
                 	newLeafNode(otherlv_2, grammarAccess.getPropagationPointAccess().getPropagationKeyword_2());
                 
@@ -12415,7 +12417,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRulePropagationPath"
-    // InternalErrorModelParser.g:4934:1: entryRulePropagationPath returns [EObject current=null] : iv_rulePropagationPath= rulePropagationPath EOF ;
+    // InternalErrorModelParser.g:4930:1: entryRulePropagationPath returns [EObject current=null] : iv_rulePropagationPath= rulePropagationPath EOF ;
     public final EObject entryRulePropagationPath() throws RecognitionException {
         EObject current = null;
 
@@ -12423,8 +12425,8 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // InternalErrorModelParser.g:4935:2: (iv_rulePropagationPath= rulePropagationPath EOF )
-            // InternalErrorModelParser.g:4936:2: iv_rulePropagationPath= rulePropagationPath EOF
+            // InternalErrorModelParser.g:4931:2: (iv_rulePropagationPath= rulePropagationPath EOF )
+            // InternalErrorModelParser.g:4932:2: iv_rulePropagationPath= rulePropagationPath EOF
             {
              newCompositeNode(grammarAccess.getPropagationPathRule()); 
             pushFollow(FOLLOW_1);
@@ -12451,7 +12453,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "rulePropagationPath"
-    // InternalErrorModelParser.g:4943:1: rulePropagationPath returns [EObject current=null] : ( ( ( (lv_name_0_0= RULE_ID ) ) otherlv_1= Colon )? ( (lv_source_2_0= ruleQualifiedPropagationPoint ) ) otherlv_3= HyphenMinusGreaterThanSign ( (lv_target_4_0= ruleQualifiedPropagationPoint ) ) otherlv_5= Semicolon ) ;
+    // InternalErrorModelParser.g:4939:1: rulePropagationPath returns [EObject current=null] : ( ( ( (lv_name_0_0= RULE_ID ) ) otherlv_1= Colon )? ( (lv_source_2_0= ruleQualifiedPropagationPoint ) ) otherlv_3= HyphenMinusGreaterThanSign ( (lv_target_4_0= ruleQualifiedPropagationPoint ) ) otherlv_5= Semicolon ) ;
     public final EObject rulePropagationPath() throws RecognitionException {
         EObject current = null;
 
@@ -12467,13 +12469,13 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // InternalErrorModelParser.g:4946:28: ( ( ( ( (lv_name_0_0= RULE_ID ) ) otherlv_1= Colon )? ( (lv_source_2_0= ruleQualifiedPropagationPoint ) ) otherlv_3= HyphenMinusGreaterThanSign ( (lv_target_4_0= ruleQualifiedPropagationPoint ) ) otherlv_5= Semicolon ) )
-            // InternalErrorModelParser.g:4947:1: ( ( ( (lv_name_0_0= RULE_ID ) ) otherlv_1= Colon )? ( (lv_source_2_0= ruleQualifiedPropagationPoint ) ) otherlv_3= HyphenMinusGreaterThanSign ( (lv_target_4_0= ruleQualifiedPropagationPoint ) ) otherlv_5= Semicolon )
+            // InternalErrorModelParser.g:4942:28: ( ( ( ( (lv_name_0_0= RULE_ID ) ) otherlv_1= Colon )? ( (lv_source_2_0= ruleQualifiedPropagationPoint ) ) otherlv_3= HyphenMinusGreaterThanSign ( (lv_target_4_0= ruleQualifiedPropagationPoint ) ) otherlv_5= Semicolon ) )
+            // InternalErrorModelParser.g:4943:1: ( ( ( (lv_name_0_0= RULE_ID ) ) otherlv_1= Colon )? ( (lv_source_2_0= ruleQualifiedPropagationPoint ) ) otherlv_3= HyphenMinusGreaterThanSign ( (lv_target_4_0= ruleQualifiedPropagationPoint ) ) otherlv_5= Semicolon )
             {
-            // InternalErrorModelParser.g:4947:1: ( ( ( (lv_name_0_0= RULE_ID ) ) otherlv_1= Colon )? ( (lv_source_2_0= ruleQualifiedPropagationPoint ) ) otherlv_3= HyphenMinusGreaterThanSign ( (lv_target_4_0= ruleQualifiedPropagationPoint ) ) otherlv_5= Semicolon )
-            // InternalErrorModelParser.g:4947:2: ( ( (lv_name_0_0= RULE_ID ) ) otherlv_1= Colon )? ( (lv_source_2_0= ruleQualifiedPropagationPoint ) ) otherlv_3= HyphenMinusGreaterThanSign ( (lv_target_4_0= ruleQualifiedPropagationPoint ) ) otherlv_5= Semicolon
+            // InternalErrorModelParser.g:4943:1: ( ( ( (lv_name_0_0= RULE_ID ) ) otherlv_1= Colon )? ( (lv_source_2_0= ruleQualifiedPropagationPoint ) ) otherlv_3= HyphenMinusGreaterThanSign ( (lv_target_4_0= ruleQualifiedPropagationPoint ) ) otherlv_5= Semicolon )
+            // InternalErrorModelParser.g:4943:2: ( ( (lv_name_0_0= RULE_ID ) ) otherlv_1= Colon )? ( (lv_source_2_0= ruleQualifiedPropagationPoint ) ) otherlv_3= HyphenMinusGreaterThanSign ( (lv_target_4_0= ruleQualifiedPropagationPoint ) ) otherlv_5= Semicolon
             {
-            // InternalErrorModelParser.g:4947:2: ( ( (lv_name_0_0= RULE_ID ) ) otherlv_1= Colon )?
+            // InternalErrorModelParser.g:4943:2: ( ( (lv_name_0_0= RULE_ID ) ) otherlv_1= Colon )?
             int alt148=2;
             int LA148_0 = input.LA(1);
 
@@ -12486,15 +12488,15 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
             }
             switch (alt148) {
                 case 1 :
-                    // InternalErrorModelParser.g:4947:3: ( (lv_name_0_0= RULE_ID ) ) otherlv_1= Colon
+                    // InternalErrorModelParser.g:4943:3: ( (lv_name_0_0= RULE_ID ) ) otherlv_1= Colon
                     {
-                    // InternalErrorModelParser.g:4947:3: ( (lv_name_0_0= RULE_ID ) )
-                    // InternalErrorModelParser.g:4948:1: (lv_name_0_0= RULE_ID )
+                    // InternalErrorModelParser.g:4943:3: ( (lv_name_0_0= RULE_ID ) )
+                    // InternalErrorModelParser.g:4944:1: (lv_name_0_0= RULE_ID )
                     {
-                    // InternalErrorModelParser.g:4948:1: (lv_name_0_0= RULE_ID )
-                    // InternalErrorModelParser.g:4949:3: lv_name_0_0= RULE_ID
+                    // InternalErrorModelParser.g:4944:1: (lv_name_0_0= RULE_ID )
+                    // InternalErrorModelParser.g:4945:3: lv_name_0_0= RULE_ID
                     {
-                    lv_name_0_0=(Token)match(input,RULE_ID,FOLLOW_83); 
+                    lv_name_0_0=(Token)match(input,RULE_ID,FOLLOW_82); 
 
                     			newLeafNode(lv_name_0_0, grammarAccess.getPropagationPathAccess().getNameIDTerminalRuleCall_0_0_0()); 
                     		
@@ -12524,16 +12526,16 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
             }
 
-            // InternalErrorModelParser.g:4970:3: ( (lv_source_2_0= ruleQualifiedPropagationPoint ) )
-            // InternalErrorModelParser.g:4971:1: (lv_source_2_0= ruleQualifiedPropagationPoint )
+            // InternalErrorModelParser.g:4966:3: ( (lv_source_2_0= ruleQualifiedPropagationPoint ) )
+            // InternalErrorModelParser.g:4967:1: (lv_source_2_0= ruleQualifiedPropagationPoint )
             {
-            // InternalErrorModelParser.g:4971:1: (lv_source_2_0= ruleQualifiedPropagationPoint )
-            // InternalErrorModelParser.g:4972:3: lv_source_2_0= ruleQualifiedPropagationPoint
+            // InternalErrorModelParser.g:4967:1: (lv_source_2_0= ruleQualifiedPropagationPoint )
+            // InternalErrorModelParser.g:4968:3: lv_source_2_0= ruleQualifiedPropagationPoint
             {
              
             	        newCompositeNode(grammarAccess.getPropagationPathAccess().getSourceQualifiedPropagationPointParserRuleCall_1_0()); 
             	    
-            pushFollow(FOLLOW_82);
+            pushFollow(FOLLOW_81);
             lv_source_2_0=ruleQualifiedPropagationPoint();
 
             state._fsp--;
@@ -12559,11 +12561,11 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
                 	newLeafNode(otherlv_3, grammarAccess.getPropagationPathAccess().getHyphenMinusGreaterThanSignKeyword_2());
                 
-            // InternalErrorModelParser.g:4993:1: ( (lv_target_4_0= ruleQualifiedPropagationPoint ) )
-            // InternalErrorModelParser.g:4994:1: (lv_target_4_0= ruleQualifiedPropagationPoint )
+            // InternalErrorModelParser.g:4989:1: ( (lv_target_4_0= ruleQualifiedPropagationPoint ) )
+            // InternalErrorModelParser.g:4990:1: (lv_target_4_0= ruleQualifiedPropagationPoint )
             {
-            // InternalErrorModelParser.g:4994:1: (lv_target_4_0= ruleQualifiedPropagationPoint )
-            // InternalErrorModelParser.g:4995:3: lv_target_4_0= ruleQualifiedPropagationPoint
+            // InternalErrorModelParser.g:4990:1: (lv_target_4_0= ruleQualifiedPropagationPoint )
+            // InternalErrorModelParser.g:4991:3: lv_target_4_0= ruleQualifiedPropagationPoint
             {
              
             	        newCompositeNode(grammarAccess.getPropagationPathAccess().getTargetQualifiedPropagationPointParserRuleCall_3_0()); 
@@ -12615,7 +12617,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleQualifiedPropagationPoint"
-    // InternalErrorModelParser.g:5024:1: entryRuleQualifiedPropagationPoint returns [EObject current=null] : iv_ruleQualifiedPropagationPoint= ruleQualifiedPropagationPoint EOF ;
+    // InternalErrorModelParser.g:5020:1: entryRuleQualifiedPropagationPoint returns [EObject current=null] : iv_ruleQualifiedPropagationPoint= ruleQualifiedPropagationPoint EOF ;
     public final EObject entryRuleQualifiedPropagationPoint() throws RecognitionException {
         EObject current = null;
 
@@ -12623,8 +12625,8 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // InternalErrorModelParser.g:5025:2: (iv_ruleQualifiedPropagationPoint= ruleQualifiedPropagationPoint EOF )
-            // InternalErrorModelParser.g:5026:2: iv_ruleQualifiedPropagationPoint= ruleQualifiedPropagationPoint EOF
+            // InternalErrorModelParser.g:5021:2: (iv_ruleQualifiedPropagationPoint= ruleQualifiedPropagationPoint EOF )
+            // InternalErrorModelParser.g:5022:2: iv_ruleQualifiedPropagationPoint= ruleQualifiedPropagationPoint EOF
             {
              newCompositeNode(grammarAccess.getQualifiedPropagationPointRule()); 
             pushFollow(FOLLOW_1);
@@ -12651,7 +12653,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleQualifiedPropagationPoint"
-    // InternalErrorModelParser.g:5033:1: ruleQualifiedPropagationPoint returns [EObject current=null] : ( ( (lv_subcomponent_0_0= ruleSubcomponentElement ) ) otherlv_1= FullStop ( ( (lv_next_2_0= ruleQualifiedPropagationPoint ) ) | ( (otherlv_3= RULE_ID ) ) ) ) ;
+    // InternalErrorModelParser.g:5029:1: ruleQualifiedPropagationPoint returns [EObject current=null] : ( ( (lv_subcomponent_0_0= ruleSubcomponentElement ) ) otherlv_1= FullStop ( ( (lv_next_2_0= ruleQualifiedPropagationPoint ) ) | ( (otherlv_3= RULE_ID ) ) ) ) ;
     public final EObject ruleQualifiedPropagationPoint() throws RecognitionException {
         EObject current = null;
 
@@ -12665,22 +12667,22 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // InternalErrorModelParser.g:5036:28: ( ( ( (lv_subcomponent_0_0= ruleSubcomponentElement ) ) otherlv_1= FullStop ( ( (lv_next_2_0= ruleQualifiedPropagationPoint ) ) | ( (otherlv_3= RULE_ID ) ) ) ) )
-            // InternalErrorModelParser.g:5037:1: ( ( (lv_subcomponent_0_0= ruleSubcomponentElement ) ) otherlv_1= FullStop ( ( (lv_next_2_0= ruleQualifiedPropagationPoint ) ) | ( (otherlv_3= RULE_ID ) ) ) )
+            // InternalErrorModelParser.g:5032:28: ( ( ( (lv_subcomponent_0_0= ruleSubcomponentElement ) ) otherlv_1= FullStop ( ( (lv_next_2_0= ruleQualifiedPropagationPoint ) ) | ( (otherlv_3= RULE_ID ) ) ) ) )
+            // InternalErrorModelParser.g:5033:1: ( ( (lv_subcomponent_0_0= ruleSubcomponentElement ) ) otherlv_1= FullStop ( ( (lv_next_2_0= ruleQualifiedPropagationPoint ) ) | ( (otherlv_3= RULE_ID ) ) ) )
             {
-            // InternalErrorModelParser.g:5037:1: ( ( (lv_subcomponent_0_0= ruleSubcomponentElement ) ) otherlv_1= FullStop ( ( (lv_next_2_0= ruleQualifiedPropagationPoint ) ) | ( (otherlv_3= RULE_ID ) ) ) )
-            // InternalErrorModelParser.g:5037:2: ( (lv_subcomponent_0_0= ruleSubcomponentElement ) ) otherlv_1= FullStop ( ( (lv_next_2_0= ruleQualifiedPropagationPoint ) ) | ( (otherlv_3= RULE_ID ) ) )
+            // InternalErrorModelParser.g:5033:1: ( ( (lv_subcomponent_0_0= ruleSubcomponentElement ) ) otherlv_1= FullStop ( ( (lv_next_2_0= ruleQualifiedPropagationPoint ) ) | ( (otherlv_3= RULE_ID ) ) ) )
+            // InternalErrorModelParser.g:5033:2: ( (lv_subcomponent_0_0= ruleSubcomponentElement ) ) otherlv_1= FullStop ( ( (lv_next_2_0= ruleQualifiedPropagationPoint ) ) | ( (otherlv_3= RULE_ID ) ) )
             {
-            // InternalErrorModelParser.g:5037:2: ( (lv_subcomponent_0_0= ruleSubcomponentElement ) )
-            // InternalErrorModelParser.g:5038:1: (lv_subcomponent_0_0= ruleSubcomponentElement )
+            // InternalErrorModelParser.g:5033:2: ( (lv_subcomponent_0_0= ruleSubcomponentElement ) )
+            // InternalErrorModelParser.g:5034:1: (lv_subcomponent_0_0= ruleSubcomponentElement )
             {
-            // InternalErrorModelParser.g:5038:1: (lv_subcomponent_0_0= ruleSubcomponentElement )
-            // InternalErrorModelParser.g:5039:3: lv_subcomponent_0_0= ruleSubcomponentElement
+            // InternalErrorModelParser.g:5034:1: (lv_subcomponent_0_0= ruleSubcomponentElement )
+            // InternalErrorModelParser.g:5035:3: lv_subcomponent_0_0= ruleSubcomponentElement
             {
              
             	        newCompositeNode(grammarAccess.getQualifiedPropagationPointAccess().getSubcomponentSubcomponentElementParserRuleCall_0_0()); 
             	    
-            pushFollow(FOLLOW_99);
+            pushFollow(FOLLOW_98);
             lv_subcomponent_0_0=ruleSubcomponentElement();
 
             state._fsp--;
@@ -12706,7 +12708,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
                 	newLeafNode(otherlv_1, grammarAccess.getQualifiedPropagationPointAccess().getFullStopKeyword_1());
                 
-            // InternalErrorModelParser.g:5060:1: ( ( (lv_next_2_0= ruleQualifiedPropagationPoint ) ) | ( (otherlv_3= RULE_ID ) ) )
+            // InternalErrorModelParser.g:5056:1: ( ( (lv_next_2_0= ruleQualifiedPropagationPoint ) ) | ( (otherlv_3= RULE_ID ) ) )
             int alt149=2;
             int LA149_0 = input.LA(1);
 
@@ -12734,13 +12736,13 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
             }
             switch (alt149) {
                 case 1 :
-                    // InternalErrorModelParser.g:5060:2: ( (lv_next_2_0= ruleQualifiedPropagationPoint ) )
+                    // InternalErrorModelParser.g:5056:2: ( (lv_next_2_0= ruleQualifiedPropagationPoint ) )
                     {
-                    // InternalErrorModelParser.g:5060:2: ( (lv_next_2_0= ruleQualifiedPropagationPoint ) )
-                    // InternalErrorModelParser.g:5061:1: (lv_next_2_0= ruleQualifiedPropagationPoint )
+                    // InternalErrorModelParser.g:5056:2: ( (lv_next_2_0= ruleQualifiedPropagationPoint ) )
+                    // InternalErrorModelParser.g:5057:1: (lv_next_2_0= ruleQualifiedPropagationPoint )
                     {
-                    // InternalErrorModelParser.g:5061:1: (lv_next_2_0= ruleQualifiedPropagationPoint )
-                    // InternalErrorModelParser.g:5062:3: lv_next_2_0= ruleQualifiedPropagationPoint
+                    // InternalErrorModelParser.g:5057:1: (lv_next_2_0= ruleQualifiedPropagationPoint )
+                    // InternalErrorModelParser.g:5058:3: lv_next_2_0= ruleQualifiedPropagationPoint
                     {
                      
                     	        newCompositeNode(grammarAccess.getQualifiedPropagationPointAccess().getNextQualifiedPropagationPointParserRuleCall_2_0_0()); 
@@ -12771,13 +12773,13 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 2 :
-                    // InternalErrorModelParser.g:5079:6: ( (otherlv_3= RULE_ID ) )
+                    // InternalErrorModelParser.g:5075:6: ( (otherlv_3= RULE_ID ) )
                     {
-                    // InternalErrorModelParser.g:5079:6: ( (otherlv_3= RULE_ID ) )
-                    // InternalErrorModelParser.g:5080:1: (otherlv_3= RULE_ID )
+                    // InternalErrorModelParser.g:5075:6: ( (otherlv_3= RULE_ID ) )
+                    // InternalErrorModelParser.g:5076:1: (otherlv_3= RULE_ID )
                     {
-                    // InternalErrorModelParser.g:5080:1: (otherlv_3= RULE_ID )
-                    // InternalErrorModelParser.g:5081:3: otherlv_3= RULE_ID
+                    // InternalErrorModelParser.g:5076:1: (otherlv_3= RULE_ID )
+                    // InternalErrorModelParser.g:5077:3: otherlv_3= RULE_ID
                     {
 
                     			if (current==null) {
@@ -12821,7 +12823,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleErrorBehaviorStateMachine"
-    // InternalErrorModelParser.g:5100:1: entryRuleErrorBehaviorStateMachine returns [EObject current=null] : iv_ruleErrorBehaviorStateMachine= ruleErrorBehaviorStateMachine EOF ;
+    // InternalErrorModelParser.g:5096:1: entryRuleErrorBehaviorStateMachine returns [EObject current=null] : iv_ruleErrorBehaviorStateMachine= ruleErrorBehaviorStateMachine EOF ;
     public final EObject entryRuleErrorBehaviorStateMachine() throws RecognitionException {
         EObject current = null;
 
@@ -12829,8 +12831,8 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // InternalErrorModelParser.g:5101:2: (iv_ruleErrorBehaviorStateMachine= ruleErrorBehaviorStateMachine EOF )
-            // InternalErrorModelParser.g:5102:2: iv_ruleErrorBehaviorStateMachine= ruleErrorBehaviorStateMachine EOF
+            // InternalErrorModelParser.g:5097:2: (iv_ruleErrorBehaviorStateMachine= ruleErrorBehaviorStateMachine EOF )
+            // InternalErrorModelParser.g:5098:2: iv_ruleErrorBehaviorStateMachine= ruleErrorBehaviorStateMachine EOF
             {
              newCompositeNode(grammarAccess.getErrorBehaviorStateMachineRule()); 
             pushFollow(FOLLOW_1);
@@ -12857,7 +12859,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleErrorBehaviorStateMachine"
-    // InternalErrorModelParser.g:5109:1: ruleErrorBehaviorStateMachine returns [EObject current=null] : (otherlv_0= Error otherlv_1= Behavior ( (lv_name_2_0= RULE_ID ) ) (otherlv_3= Use otherlv_4= Types ( ( ruleQEMREF ) ) (otherlv_6= Comma ( ( ruleQEMREF ) ) )* otherlv_8= Semicolon )? (otherlv_9= Use otherlv_10= Transformations ( ( ruleQEMREF ) ) otherlv_12= Semicolon )? (otherlv_13= Events ( (lv_events_14_0= ruleErrorBehaviorEvent ) )+ )? (otherlv_15= States ( (lv_states_16_0= ruleErrorBehaviorState ) )+ )? (otherlv_17= Transitions ( (lv_transitions_18_0= ruleErrorBehaviorTransition ) )+ )? (otherlv_19= Properties ( (lv_properties_20_0= ruleBasicEMV2PropertyAssociation ) )+ )? otherlv_21= End otherlv_22= Behavior otherlv_23= Semicolon ) ;
+    // InternalErrorModelParser.g:5105:1: ruleErrorBehaviorStateMachine returns [EObject current=null] : (otherlv_0= Error otherlv_1= Behavior ( (lv_name_2_0= RULE_ID ) ) (otherlv_3= Use otherlv_4= Types ( ( ruleQEMREF ) ) (otherlv_6= Comma ( ( ruleQEMREF ) ) )* otherlv_8= Semicolon )? (otherlv_9= Use otherlv_10= Transformations ( ( ruleQEMREF ) ) otherlv_12= Semicolon )? (otherlv_13= Events ( (lv_events_14_0= ruleErrorBehaviorEvent ) )+ )? (otherlv_15= States ( (lv_states_16_0= ruleErrorBehaviorState ) )+ )? (otherlv_17= Transitions ( (lv_transitions_18_0= ruleErrorBehaviorTransition ) )+ )? (otherlv_19= Properties ( (lv_properties_20_0= ruleBasicEMV2PropertyAssociation ) )+ )? otherlv_21= End otherlv_22= Behavior otherlv_23= Semicolon ) ;
     public final EObject ruleErrorBehaviorStateMachine() throws RecognitionException {
         EObject current = null;
 
@@ -12890,11 +12892,11 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // InternalErrorModelParser.g:5112:28: ( (otherlv_0= Error otherlv_1= Behavior ( (lv_name_2_0= RULE_ID ) ) (otherlv_3= Use otherlv_4= Types ( ( ruleQEMREF ) ) (otherlv_6= Comma ( ( ruleQEMREF ) ) )* otherlv_8= Semicolon )? (otherlv_9= Use otherlv_10= Transformations ( ( ruleQEMREF ) ) otherlv_12= Semicolon )? (otherlv_13= Events ( (lv_events_14_0= ruleErrorBehaviorEvent ) )+ )? (otherlv_15= States ( (lv_states_16_0= ruleErrorBehaviorState ) )+ )? (otherlv_17= Transitions ( (lv_transitions_18_0= ruleErrorBehaviorTransition ) )+ )? (otherlv_19= Properties ( (lv_properties_20_0= ruleBasicEMV2PropertyAssociation ) )+ )? otherlv_21= End otherlv_22= Behavior otherlv_23= Semicolon ) )
-            // InternalErrorModelParser.g:5113:1: (otherlv_0= Error otherlv_1= Behavior ( (lv_name_2_0= RULE_ID ) ) (otherlv_3= Use otherlv_4= Types ( ( ruleQEMREF ) ) (otherlv_6= Comma ( ( ruleQEMREF ) ) )* otherlv_8= Semicolon )? (otherlv_9= Use otherlv_10= Transformations ( ( ruleQEMREF ) ) otherlv_12= Semicolon )? (otherlv_13= Events ( (lv_events_14_0= ruleErrorBehaviorEvent ) )+ )? (otherlv_15= States ( (lv_states_16_0= ruleErrorBehaviorState ) )+ )? (otherlv_17= Transitions ( (lv_transitions_18_0= ruleErrorBehaviorTransition ) )+ )? (otherlv_19= Properties ( (lv_properties_20_0= ruleBasicEMV2PropertyAssociation ) )+ )? otherlv_21= End otherlv_22= Behavior otherlv_23= Semicolon )
+            // InternalErrorModelParser.g:5108:28: ( (otherlv_0= Error otherlv_1= Behavior ( (lv_name_2_0= RULE_ID ) ) (otherlv_3= Use otherlv_4= Types ( ( ruleQEMREF ) ) (otherlv_6= Comma ( ( ruleQEMREF ) ) )* otherlv_8= Semicolon )? (otherlv_9= Use otherlv_10= Transformations ( ( ruleQEMREF ) ) otherlv_12= Semicolon )? (otherlv_13= Events ( (lv_events_14_0= ruleErrorBehaviorEvent ) )+ )? (otherlv_15= States ( (lv_states_16_0= ruleErrorBehaviorState ) )+ )? (otherlv_17= Transitions ( (lv_transitions_18_0= ruleErrorBehaviorTransition ) )+ )? (otherlv_19= Properties ( (lv_properties_20_0= ruleBasicEMV2PropertyAssociation ) )+ )? otherlv_21= End otherlv_22= Behavior otherlv_23= Semicolon ) )
+            // InternalErrorModelParser.g:5109:1: (otherlv_0= Error otherlv_1= Behavior ( (lv_name_2_0= RULE_ID ) ) (otherlv_3= Use otherlv_4= Types ( ( ruleQEMREF ) ) (otherlv_6= Comma ( ( ruleQEMREF ) ) )* otherlv_8= Semicolon )? (otherlv_9= Use otherlv_10= Transformations ( ( ruleQEMREF ) ) otherlv_12= Semicolon )? (otherlv_13= Events ( (lv_events_14_0= ruleErrorBehaviorEvent ) )+ )? (otherlv_15= States ( (lv_states_16_0= ruleErrorBehaviorState ) )+ )? (otherlv_17= Transitions ( (lv_transitions_18_0= ruleErrorBehaviorTransition ) )+ )? (otherlv_19= Properties ( (lv_properties_20_0= ruleBasicEMV2PropertyAssociation ) )+ )? otherlv_21= End otherlv_22= Behavior otherlv_23= Semicolon )
             {
-            // InternalErrorModelParser.g:5113:1: (otherlv_0= Error otherlv_1= Behavior ( (lv_name_2_0= RULE_ID ) ) (otherlv_3= Use otherlv_4= Types ( ( ruleQEMREF ) ) (otherlv_6= Comma ( ( ruleQEMREF ) ) )* otherlv_8= Semicolon )? (otherlv_9= Use otherlv_10= Transformations ( ( ruleQEMREF ) ) otherlv_12= Semicolon )? (otherlv_13= Events ( (lv_events_14_0= ruleErrorBehaviorEvent ) )+ )? (otherlv_15= States ( (lv_states_16_0= ruleErrorBehaviorState ) )+ )? (otherlv_17= Transitions ( (lv_transitions_18_0= ruleErrorBehaviorTransition ) )+ )? (otherlv_19= Properties ( (lv_properties_20_0= ruleBasicEMV2PropertyAssociation ) )+ )? otherlv_21= End otherlv_22= Behavior otherlv_23= Semicolon )
-            // InternalErrorModelParser.g:5114:2: otherlv_0= Error otherlv_1= Behavior ( (lv_name_2_0= RULE_ID ) ) (otherlv_3= Use otherlv_4= Types ( ( ruleQEMREF ) ) (otherlv_6= Comma ( ( ruleQEMREF ) ) )* otherlv_8= Semicolon )? (otherlv_9= Use otherlv_10= Transformations ( ( ruleQEMREF ) ) otherlv_12= Semicolon )? (otherlv_13= Events ( (lv_events_14_0= ruleErrorBehaviorEvent ) )+ )? (otherlv_15= States ( (lv_states_16_0= ruleErrorBehaviorState ) )+ )? (otherlv_17= Transitions ( (lv_transitions_18_0= ruleErrorBehaviorTransition ) )+ )? (otherlv_19= Properties ( (lv_properties_20_0= ruleBasicEMV2PropertyAssociation ) )+ )? otherlv_21= End otherlv_22= Behavior otherlv_23= Semicolon
+            // InternalErrorModelParser.g:5109:1: (otherlv_0= Error otherlv_1= Behavior ( (lv_name_2_0= RULE_ID ) ) (otherlv_3= Use otherlv_4= Types ( ( ruleQEMREF ) ) (otherlv_6= Comma ( ( ruleQEMREF ) ) )* otherlv_8= Semicolon )? (otherlv_9= Use otherlv_10= Transformations ( ( ruleQEMREF ) ) otherlv_12= Semicolon )? (otherlv_13= Events ( (lv_events_14_0= ruleErrorBehaviorEvent ) )+ )? (otherlv_15= States ( (lv_states_16_0= ruleErrorBehaviorState ) )+ )? (otherlv_17= Transitions ( (lv_transitions_18_0= ruleErrorBehaviorTransition ) )+ )? (otherlv_19= Properties ( (lv_properties_20_0= ruleBasicEMV2PropertyAssociation ) )+ )? otherlv_21= End otherlv_22= Behavior otherlv_23= Semicolon )
+            // InternalErrorModelParser.g:5110:2: otherlv_0= Error otherlv_1= Behavior ( (lv_name_2_0= RULE_ID ) ) (otherlv_3= Use otherlv_4= Types ( ( ruleQEMREF ) ) (otherlv_6= Comma ( ( ruleQEMREF ) ) )* otherlv_8= Semicolon )? (otherlv_9= Use otherlv_10= Transformations ( ( ruleQEMREF ) ) otherlv_12= Semicolon )? (otherlv_13= Events ( (lv_events_14_0= ruleErrorBehaviorEvent ) )+ )? (otherlv_15= States ( (lv_states_16_0= ruleErrorBehaviorState ) )+ )? (otherlv_17= Transitions ( (lv_transitions_18_0= ruleErrorBehaviorTransition ) )+ )? (otherlv_19= Properties ( (lv_properties_20_0= ruleBasicEMV2PropertyAssociation ) )+ )? otherlv_21= End otherlv_22= Behavior otherlv_23= Semicolon
             {
             otherlv_0=(Token)match(input,Error,FOLLOW_12); 
 
@@ -12904,13 +12906,13 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
                 	newLeafNode(otherlv_1, grammarAccess.getErrorBehaviorStateMachineAccess().getBehaviorKeyword_1());
                 
-            // InternalErrorModelParser.g:5123:1: ( (lv_name_2_0= RULE_ID ) )
-            // InternalErrorModelParser.g:5124:1: (lv_name_2_0= RULE_ID )
+            // InternalErrorModelParser.g:5119:1: ( (lv_name_2_0= RULE_ID ) )
+            // InternalErrorModelParser.g:5120:1: (lv_name_2_0= RULE_ID )
             {
-            // InternalErrorModelParser.g:5124:1: (lv_name_2_0= RULE_ID )
-            // InternalErrorModelParser.g:5125:3: lv_name_2_0= RULE_ID
+            // InternalErrorModelParser.g:5120:1: (lv_name_2_0= RULE_ID )
+            // InternalErrorModelParser.g:5121:3: lv_name_2_0= RULE_ID
             {
-            lv_name_2_0=(Token)match(input,RULE_ID,FOLLOW_101); 
+            lv_name_2_0=(Token)match(input,RULE_ID,FOLLOW_100); 
 
             			newLeafNode(lv_name_2_0, grammarAccess.getErrorBehaviorStateMachineAccess().getNameIDTerminalRuleCall_2_0()); 
             		
@@ -12930,7 +12932,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
             }
 
-            // InternalErrorModelParser.g:5141:2: (otherlv_3= Use otherlv_4= Types ( ( ruleQEMREF ) ) (otherlv_6= Comma ( ( ruleQEMREF ) ) )* otherlv_8= Semicolon )?
+            // InternalErrorModelParser.g:5137:2: (otherlv_3= Use otherlv_4= Types ( ( ruleQEMREF ) ) (otherlv_6= Comma ( ( ruleQEMREF ) ) )* otherlv_8= Semicolon )?
             int alt151=2;
             int LA151_0 = input.LA(1);
 
@@ -12943,7 +12945,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
             }
             switch (alt151) {
                 case 1 :
-                    // InternalErrorModelParser.g:5142:2: otherlv_3= Use otherlv_4= Types ( ( ruleQEMREF ) ) (otherlv_6= Comma ( ( ruleQEMREF ) ) )* otherlv_8= Semicolon
+                    // InternalErrorModelParser.g:5138:2: otherlv_3= Use otherlv_4= Types ( ( ruleQEMREF ) ) (otherlv_6= Comma ( ( ruleQEMREF ) ) )* otherlv_8= Semicolon
                     {
                     otherlv_3=(Token)match(input,Use,FOLLOW_4); 
 
@@ -12953,11 +12955,11 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
                         	newLeafNode(otherlv_4, grammarAccess.getErrorBehaviorStateMachineAccess().getTypesKeyword_3_1());
                         
-                    // InternalErrorModelParser.g:5151:1: ( ( ruleQEMREF ) )
-                    // InternalErrorModelParser.g:5152:1: ( ruleQEMREF )
+                    // InternalErrorModelParser.g:5147:1: ( ( ruleQEMREF ) )
+                    // InternalErrorModelParser.g:5148:1: ( ruleQEMREF )
                     {
-                    // InternalErrorModelParser.g:5152:1: ( ruleQEMREF )
-                    // InternalErrorModelParser.g:5153:3: ruleQEMREF
+                    // InternalErrorModelParser.g:5148:1: ( ruleQEMREF )
+                    // InternalErrorModelParser.g:5149:3: ruleQEMREF
                     {
 
                     			if (current==null) {
@@ -12981,7 +12983,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
                     }
 
-                    // InternalErrorModelParser.g:5167:2: (otherlv_6= Comma ( ( ruleQEMREF ) ) )*
+                    // InternalErrorModelParser.g:5163:2: (otherlv_6= Comma ( ( ruleQEMREF ) ) )*
                     loop150:
                     do {
                         int alt150=2;
@@ -12994,17 +12996,17 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
                         switch (alt150) {
                     	case 1 :
-                    	    // InternalErrorModelParser.g:5168:2: otherlv_6= Comma ( ( ruleQEMREF ) )
+                    	    // InternalErrorModelParser.g:5164:2: otherlv_6= Comma ( ( ruleQEMREF ) )
                     	    {
                     	    otherlv_6=(Token)match(input,Comma,FOLLOW_5); 
 
                     	        	newLeafNode(otherlv_6, grammarAccess.getErrorBehaviorStateMachineAccess().getCommaKeyword_3_3_0());
                     	        
-                    	    // InternalErrorModelParser.g:5172:1: ( ( ruleQEMREF ) )
-                    	    // InternalErrorModelParser.g:5173:1: ( ruleQEMREF )
+                    	    // InternalErrorModelParser.g:5168:1: ( ( ruleQEMREF ) )
+                    	    // InternalErrorModelParser.g:5169:1: ( ruleQEMREF )
                     	    {
-                    	    // InternalErrorModelParser.g:5173:1: ( ruleQEMREF )
-                    	    // InternalErrorModelParser.g:5174:3: ruleQEMREF
+                    	    // InternalErrorModelParser.g:5169:1: ( ruleQEMREF )
+                    	    // InternalErrorModelParser.g:5170:3: ruleQEMREF
                     	    {
 
                     	    			if (current==null) {
@@ -13037,7 +13039,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
                         }
                     } while (true);
 
-                    otherlv_8=(Token)match(input,Semicolon,FOLLOW_101); 
+                    otherlv_8=(Token)match(input,Semicolon,FOLLOW_100); 
 
                         	newLeafNode(otherlv_8, grammarAccess.getErrorBehaviorStateMachineAccess().getSemicolonKeyword_3_4());
                         
@@ -13047,7 +13049,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
             }
 
-            // InternalErrorModelParser.g:5193:3: (otherlv_9= Use otherlv_10= Transformations ( ( ruleQEMREF ) ) otherlv_12= Semicolon )?
+            // InternalErrorModelParser.g:5189:3: (otherlv_9= Use otherlv_10= Transformations ( ( ruleQEMREF ) ) otherlv_12= Semicolon )?
             int alt152=2;
             int LA152_0 = input.LA(1);
 
@@ -13056,7 +13058,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
             }
             switch (alt152) {
                 case 1 :
-                    // InternalErrorModelParser.g:5194:2: otherlv_9= Use otherlv_10= Transformations ( ( ruleQEMREF ) ) otherlv_12= Semicolon
+                    // InternalErrorModelParser.g:5190:2: otherlv_9= Use otherlv_10= Transformations ( ( ruleQEMREF ) ) otherlv_12= Semicolon
                     {
                     otherlv_9=(Token)match(input,Use,FOLLOW_20); 
 
@@ -13066,11 +13068,11 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
                         	newLeafNode(otherlv_10, grammarAccess.getErrorBehaviorStateMachineAccess().getTransformationsKeyword_4_1());
                         
-                    // InternalErrorModelParser.g:5203:1: ( ( ruleQEMREF ) )
-                    // InternalErrorModelParser.g:5204:1: ( ruleQEMREF )
+                    // InternalErrorModelParser.g:5199:1: ( ( ruleQEMREF ) )
+                    // InternalErrorModelParser.g:5200:1: ( ruleQEMREF )
                     {
-                    // InternalErrorModelParser.g:5204:1: ( ruleQEMREF )
-                    // InternalErrorModelParser.g:5205:3: ruleQEMREF
+                    // InternalErrorModelParser.g:5200:1: ( ruleQEMREF )
+                    // InternalErrorModelParser.g:5201:3: ruleQEMREF
                     {
 
                     			if (current==null) {
@@ -13094,7 +13096,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
                     }
 
-                    otherlv_12=(Token)match(input,Semicolon,FOLLOW_102); 
+                    otherlv_12=(Token)match(input,Semicolon,FOLLOW_101); 
 
                         	newLeafNode(otherlv_12, grammarAccess.getErrorBehaviorStateMachineAccess().getSemicolonKeyword_4_3());
                         
@@ -13104,7 +13106,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
             }
 
-            // InternalErrorModelParser.g:5224:3: (otherlv_13= Events ( (lv_events_14_0= ruleErrorBehaviorEvent ) )+ )?
+            // InternalErrorModelParser.g:5220:3: (otherlv_13= Events ( (lv_events_14_0= ruleErrorBehaviorEvent ) )+ )?
             int alt154=2;
             int LA154_0 = input.LA(1);
 
@@ -13113,13 +13115,13 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
             }
             switch (alt154) {
                 case 1 :
-                    // InternalErrorModelParser.g:5225:2: otherlv_13= Events ( (lv_events_14_0= ruleErrorBehaviorEvent ) )+
+                    // InternalErrorModelParser.g:5221:2: otherlv_13= Events ( (lv_events_14_0= ruleErrorBehaviorEvent ) )+
                     {
                     otherlv_13=(Token)match(input,Events,FOLLOW_5); 
 
                         	newLeafNode(otherlv_13, grammarAccess.getErrorBehaviorStateMachineAccess().getEventsKeyword_5_0());
                         
-                    // InternalErrorModelParser.g:5229:1: ( (lv_events_14_0= ruleErrorBehaviorEvent ) )+
+                    // InternalErrorModelParser.g:5225:1: ( (lv_events_14_0= ruleErrorBehaviorEvent ) )+
                     int cnt153=0;
                     loop153:
                     do {
@@ -13133,15 +13135,15 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
                         switch (alt153) {
                     	case 1 :
-                    	    // InternalErrorModelParser.g:5230:1: (lv_events_14_0= ruleErrorBehaviorEvent )
+                    	    // InternalErrorModelParser.g:5226:1: (lv_events_14_0= ruleErrorBehaviorEvent )
                     	    {
-                    	    // InternalErrorModelParser.g:5230:1: (lv_events_14_0= ruleErrorBehaviorEvent )
-                    	    // InternalErrorModelParser.g:5231:3: lv_events_14_0= ruleErrorBehaviorEvent
+                    	    // InternalErrorModelParser.g:5226:1: (lv_events_14_0= ruleErrorBehaviorEvent )
+                    	    // InternalErrorModelParser.g:5227:3: lv_events_14_0= ruleErrorBehaviorEvent
                     	    {
                     	     
                     	    	        newCompositeNode(grammarAccess.getErrorBehaviorStateMachineAccess().getEventsErrorBehaviorEventParserRuleCall_5_1_0()); 
                     	    	    
-                    	    pushFollow(FOLLOW_103);
+                    	    pushFollow(FOLLOW_102);
                     	    lv_events_14_0=ruleErrorBehaviorEvent();
 
                     	    state._fsp--;
@@ -13179,7 +13181,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
             }
 
-            // InternalErrorModelParser.g:5247:5: (otherlv_15= States ( (lv_states_16_0= ruleErrorBehaviorState ) )+ )?
+            // InternalErrorModelParser.g:5243:5: (otherlv_15= States ( (lv_states_16_0= ruleErrorBehaviorState ) )+ )?
             int alt156=2;
             int LA156_0 = input.LA(1);
 
@@ -13188,13 +13190,13 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
             }
             switch (alt156) {
                 case 1 :
-                    // InternalErrorModelParser.g:5248:2: otherlv_15= States ( (lv_states_16_0= ruleErrorBehaviorState ) )+
+                    // InternalErrorModelParser.g:5244:2: otherlv_15= States ( (lv_states_16_0= ruleErrorBehaviorState ) )+
                     {
                     otherlv_15=(Token)match(input,States,FOLLOW_5); 
 
                         	newLeafNode(otherlv_15, grammarAccess.getErrorBehaviorStateMachineAccess().getStatesKeyword_6_0());
                         
-                    // InternalErrorModelParser.g:5252:1: ( (lv_states_16_0= ruleErrorBehaviorState ) )+
+                    // InternalErrorModelParser.g:5248:1: ( (lv_states_16_0= ruleErrorBehaviorState ) )+
                     int cnt155=0;
                     loop155:
                     do {
@@ -13208,15 +13210,15 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
                         switch (alt155) {
                     	case 1 :
-                    	    // InternalErrorModelParser.g:5253:1: (lv_states_16_0= ruleErrorBehaviorState )
+                    	    // InternalErrorModelParser.g:5249:1: (lv_states_16_0= ruleErrorBehaviorState )
                     	    {
-                    	    // InternalErrorModelParser.g:5253:1: (lv_states_16_0= ruleErrorBehaviorState )
-                    	    // InternalErrorModelParser.g:5254:3: lv_states_16_0= ruleErrorBehaviorState
+                    	    // InternalErrorModelParser.g:5249:1: (lv_states_16_0= ruleErrorBehaviorState )
+                    	    // InternalErrorModelParser.g:5250:3: lv_states_16_0= ruleErrorBehaviorState
                     	    {
                     	     
                     	    	        newCompositeNode(grammarAccess.getErrorBehaviorStateMachineAccess().getStatesErrorBehaviorStateParserRuleCall_6_1_0()); 
                     	    	    
-                    	    pushFollow(FOLLOW_104);
+                    	    pushFollow(FOLLOW_103);
                     	    lv_states_16_0=ruleErrorBehaviorState();
 
                     	    state._fsp--;
@@ -13254,7 +13256,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
             }
 
-            // InternalErrorModelParser.g:5270:5: (otherlv_17= Transitions ( (lv_transitions_18_0= ruleErrorBehaviorTransition ) )+ )?
+            // InternalErrorModelParser.g:5266:5: (otherlv_17= Transitions ( (lv_transitions_18_0= ruleErrorBehaviorTransition ) )+ )?
             int alt158=2;
             int LA158_0 = input.LA(1);
 
@@ -13263,13 +13265,13 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
             }
             switch (alt158) {
                 case 1 :
-                    // InternalErrorModelParser.g:5271:2: otherlv_17= Transitions ( (lv_transitions_18_0= ruleErrorBehaviorTransition ) )+
+                    // InternalErrorModelParser.g:5267:2: otherlv_17= Transitions ( (lv_transitions_18_0= ruleErrorBehaviorTransition ) )+
                     {
                     otherlv_17=(Token)match(input,Transitions,FOLLOW_23); 
 
                         	newLeafNode(otherlv_17, grammarAccess.getErrorBehaviorStateMachineAccess().getTransitionsKeyword_7_0());
                         
-                    // InternalErrorModelParser.g:5275:1: ( (lv_transitions_18_0= ruleErrorBehaviorTransition ) )+
+                    // InternalErrorModelParser.g:5271:1: ( (lv_transitions_18_0= ruleErrorBehaviorTransition ) )+
                     int cnt157=0;
                     loop157:
                     do {
@@ -13283,15 +13285,15 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
                         switch (alt157) {
                     	case 1 :
-                    	    // InternalErrorModelParser.g:5276:1: (lv_transitions_18_0= ruleErrorBehaviorTransition )
+                    	    // InternalErrorModelParser.g:5272:1: (lv_transitions_18_0= ruleErrorBehaviorTransition )
                     	    {
-                    	    // InternalErrorModelParser.g:5276:1: (lv_transitions_18_0= ruleErrorBehaviorTransition )
-                    	    // InternalErrorModelParser.g:5277:3: lv_transitions_18_0= ruleErrorBehaviorTransition
+                    	    // InternalErrorModelParser.g:5272:1: (lv_transitions_18_0= ruleErrorBehaviorTransition )
+                    	    // InternalErrorModelParser.g:5273:3: lv_transitions_18_0= ruleErrorBehaviorTransition
                     	    {
                     	     
                     	    	        newCompositeNode(grammarAccess.getErrorBehaviorStateMachineAccess().getTransitionsErrorBehaviorTransitionParserRuleCall_7_1_0()); 
                     	    	    
-                    	    pushFollow(FOLLOW_105);
+                    	    pushFollow(FOLLOW_104);
                     	    lv_transitions_18_0=ruleErrorBehaviorTransition();
 
                     	    state._fsp--;
@@ -13329,7 +13331,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
             }
 
-            // InternalErrorModelParser.g:5293:5: (otherlv_19= Properties ( (lv_properties_20_0= ruleBasicEMV2PropertyAssociation ) )+ )?
+            // InternalErrorModelParser.g:5289:5: (otherlv_19= Properties ( (lv_properties_20_0= ruleBasicEMV2PropertyAssociation ) )+ )?
             int alt160=2;
             int LA160_0 = input.LA(1);
 
@@ -13338,13 +13340,13 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
             }
             switch (alt160) {
                 case 1 :
-                    // InternalErrorModelParser.g:5294:2: otherlv_19= Properties ( (lv_properties_20_0= ruleBasicEMV2PropertyAssociation ) )+
+                    // InternalErrorModelParser.g:5290:2: otherlv_19= Properties ( (lv_properties_20_0= ruleBasicEMV2PropertyAssociation ) )+
                     {
                     otherlv_19=(Token)match(input,Properties,FOLLOW_5); 
 
                         	newLeafNode(otherlv_19, grammarAccess.getErrorBehaviorStateMachineAccess().getPropertiesKeyword_8_0());
                         
-                    // InternalErrorModelParser.g:5298:1: ( (lv_properties_20_0= ruleBasicEMV2PropertyAssociation ) )+
+                    // InternalErrorModelParser.g:5294:1: ( (lv_properties_20_0= ruleBasicEMV2PropertyAssociation ) )+
                     int cnt159=0;
                     loop159:
                     do {
@@ -13358,10 +13360,10 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
                         switch (alt159) {
                     	case 1 :
-                    	    // InternalErrorModelParser.g:5299:1: (lv_properties_20_0= ruleBasicEMV2PropertyAssociation )
+                    	    // InternalErrorModelParser.g:5295:1: (lv_properties_20_0= ruleBasicEMV2PropertyAssociation )
                     	    {
-                    	    // InternalErrorModelParser.g:5299:1: (lv_properties_20_0= ruleBasicEMV2PropertyAssociation )
-                    	    // InternalErrorModelParser.g:5300:3: lv_properties_20_0= ruleBasicEMV2PropertyAssociation
+                    	    // InternalErrorModelParser.g:5295:1: (lv_properties_20_0= ruleBasicEMV2PropertyAssociation )
+                    	    // InternalErrorModelParser.g:5296:3: lv_properties_20_0= ruleBasicEMV2PropertyAssociation
                     	    {
                     	     
                     	    	        newCompositeNode(grammarAccess.getErrorBehaviorStateMachineAccess().getPropertiesBasicEMV2PropertyAssociationParserRuleCall_8_1_0()); 
@@ -13437,7 +13439,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleErrorBehaviorEvent"
-    // InternalErrorModelParser.g:5339:1: entryRuleErrorBehaviorEvent returns [EObject current=null] : iv_ruleErrorBehaviorEvent= ruleErrorBehaviorEvent EOF ;
+    // InternalErrorModelParser.g:5335:1: entryRuleErrorBehaviorEvent returns [EObject current=null] : iv_ruleErrorBehaviorEvent= ruleErrorBehaviorEvent EOF ;
     public final EObject entryRuleErrorBehaviorEvent() throws RecognitionException {
         EObject current = null;
 
@@ -13445,8 +13447,8 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // InternalErrorModelParser.g:5340:2: (iv_ruleErrorBehaviorEvent= ruleErrorBehaviorEvent EOF )
-            // InternalErrorModelParser.g:5341:2: iv_ruleErrorBehaviorEvent= ruleErrorBehaviorEvent EOF
+            // InternalErrorModelParser.g:5336:2: (iv_ruleErrorBehaviorEvent= ruleErrorBehaviorEvent EOF )
+            // InternalErrorModelParser.g:5337:2: iv_ruleErrorBehaviorEvent= ruleErrorBehaviorEvent EOF
             {
              newCompositeNode(grammarAccess.getErrorBehaviorEventRule()); 
             pushFollow(FOLLOW_1);
@@ -13473,7 +13475,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleErrorBehaviorEvent"
-    // InternalErrorModelParser.g:5348:1: ruleErrorBehaviorEvent returns [EObject current=null] : (this_ErrorEvent_0= ruleErrorEvent | this_RepairEvent_1= ruleRepairEvent | this_RecoverEvent_2= ruleRecoverEvent ) ;
+    // InternalErrorModelParser.g:5344:1: ruleErrorBehaviorEvent returns [EObject current=null] : (this_ErrorEvent_0= ruleErrorEvent | this_RepairEvent_1= ruleRepairEvent | this_RecoverEvent_2= ruleRecoverEvent ) ;
     public final EObject ruleErrorBehaviorEvent() throws RecognitionException {
         EObject current = null;
 
@@ -13487,10 +13489,10 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // InternalErrorModelParser.g:5351:28: ( (this_ErrorEvent_0= ruleErrorEvent | this_RepairEvent_1= ruleRepairEvent | this_RecoverEvent_2= ruleRecoverEvent ) )
-            // InternalErrorModelParser.g:5352:1: (this_ErrorEvent_0= ruleErrorEvent | this_RepairEvent_1= ruleRepairEvent | this_RecoverEvent_2= ruleRecoverEvent )
+            // InternalErrorModelParser.g:5347:28: ( (this_ErrorEvent_0= ruleErrorEvent | this_RepairEvent_1= ruleRepairEvent | this_RecoverEvent_2= ruleRecoverEvent ) )
+            // InternalErrorModelParser.g:5348:1: (this_ErrorEvent_0= ruleErrorEvent | this_RepairEvent_1= ruleRepairEvent | this_RecoverEvent_2= ruleRecoverEvent )
             {
-            // InternalErrorModelParser.g:5352:1: (this_ErrorEvent_0= ruleErrorEvent | this_RepairEvent_1= ruleRepairEvent | this_RecoverEvent_2= ruleRecoverEvent )
+            // InternalErrorModelParser.g:5348:1: (this_ErrorEvent_0= ruleErrorEvent | this_RepairEvent_1= ruleRepairEvent | this_RecoverEvent_2= ruleRecoverEvent )
             int alt161=3;
             int LA161_0 = input.LA(1);
 
@@ -13537,7 +13539,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
             }
             switch (alt161) {
                 case 1 :
-                    // InternalErrorModelParser.g:5353:5: this_ErrorEvent_0= ruleErrorEvent
+                    // InternalErrorModelParser.g:5349:5: this_ErrorEvent_0= ruleErrorEvent
                     {
                      
                             newCompositeNode(grammarAccess.getErrorBehaviorEventAccess().getErrorEventParserRuleCall_0()); 
@@ -13555,7 +13557,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 2 :
-                    // InternalErrorModelParser.g:5363:5: this_RepairEvent_1= ruleRepairEvent
+                    // InternalErrorModelParser.g:5359:5: this_RepairEvent_1= ruleRepairEvent
                     {
                      
                             newCompositeNode(grammarAccess.getErrorBehaviorEventAccess().getRepairEventParserRuleCall_1()); 
@@ -13573,7 +13575,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 3 :
-                    // InternalErrorModelParser.g:5373:5: this_RecoverEvent_2= ruleRecoverEvent
+                    // InternalErrorModelParser.g:5369:5: this_RecoverEvent_2= ruleRecoverEvent
                     {
                      
                             newCompositeNode(grammarAccess.getErrorBehaviorEventAccess().getRecoverEventParserRuleCall_2()); 
@@ -13611,7 +13613,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleErrorEvent"
-    // InternalErrorModelParser.g:5389:1: entryRuleErrorEvent returns [EObject current=null] : iv_ruleErrorEvent= ruleErrorEvent EOF ;
+    // InternalErrorModelParser.g:5385:1: entryRuleErrorEvent returns [EObject current=null] : iv_ruleErrorEvent= ruleErrorEvent EOF ;
     public final EObject entryRuleErrorEvent() throws RecognitionException {
         EObject current = null;
 
@@ -13619,8 +13621,8 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // InternalErrorModelParser.g:5390:2: (iv_ruleErrorEvent= ruleErrorEvent EOF )
-            // InternalErrorModelParser.g:5391:2: iv_ruleErrorEvent= ruleErrorEvent EOF
+            // InternalErrorModelParser.g:5386:2: (iv_ruleErrorEvent= ruleErrorEvent EOF )
+            // InternalErrorModelParser.g:5387:2: iv_ruleErrorEvent= ruleErrorEvent EOF
             {
              newCompositeNode(grammarAccess.getErrorEventRule()); 
             pushFollow(FOLLOW_1);
@@ -13647,7 +13649,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleErrorEvent"
-    // InternalErrorModelParser.g:5398:1: ruleErrorEvent returns [EObject current=null] : ( ( (lv_name_0_0= RULE_ID ) ) otherlv_1= Colon otherlv_2= Error otherlv_3= Event ( (lv_typeSet_4_0= ruleTypeSetReference ) )? (otherlv_5= If ( (lv_condition_6_0= ruleCONDITION ) ) )? otherlv_7= Semicolon ) ;
+    // InternalErrorModelParser.g:5394:1: ruleErrorEvent returns [EObject current=null] : ( ( (lv_name_0_0= RULE_ID ) ) otherlv_1= Colon otherlv_2= Error otherlv_3= Event ( (lv_typeSet_4_0= ruleTypeSetReference ) )? (otherlv_5= If ( (lv_condition_6_0= ruleCONDITION ) ) )? otherlv_7= Semicolon ) ;
     public final EObject ruleErrorEvent() throws RecognitionException {
         EObject current = null;
 
@@ -13665,19 +13667,19 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // InternalErrorModelParser.g:5401:28: ( ( ( (lv_name_0_0= RULE_ID ) ) otherlv_1= Colon otherlv_2= Error otherlv_3= Event ( (lv_typeSet_4_0= ruleTypeSetReference ) )? (otherlv_5= If ( (lv_condition_6_0= ruleCONDITION ) ) )? otherlv_7= Semicolon ) )
-            // InternalErrorModelParser.g:5402:1: ( ( (lv_name_0_0= RULE_ID ) ) otherlv_1= Colon otherlv_2= Error otherlv_3= Event ( (lv_typeSet_4_0= ruleTypeSetReference ) )? (otherlv_5= If ( (lv_condition_6_0= ruleCONDITION ) ) )? otherlv_7= Semicolon )
+            // InternalErrorModelParser.g:5397:28: ( ( ( (lv_name_0_0= RULE_ID ) ) otherlv_1= Colon otherlv_2= Error otherlv_3= Event ( (lv_typeSet_4_0= ruleTypeSetReference ) )? (otherlv_5= If ( (lv_condition_6_0= ruleCONDITION ) ) )? otherlv_7= Semicolon ) )
+            // InternalErrorModelParser.g:5398:1: ( ( (lv_name_0_0= RULE_ID ) ) otherlv_1= Colon otherlv_2= Error otherlv_3= Event ( (lv_typeSet_4_0= ruleTypeSetReference ) )? (otherlv_5= If ( (lv_condition_6_0= ruleCONDITION ) ) )? otherlv_7= Semicolon )
             {
-            // InternalErrorModelParser.g:5402:1: ( ( (lv_name_0_0= RULE_ID ) ) otherlv_1= Colon otherlv_2= Error otherlv_3= Event ( (lv_typeSet_4_0= ruleTypeSetReference ) )? (otherlv_5= If ( (lv_condition_6_0= ruleCONDITION ) ) )? otherlv_7= Semicolon )
-            // InternalErrorModelParser.g:5402:2: ( (lv_name_0_0= RULE_ID ) ) otherlv_1= Colon otherlv_2= Error otherlv_3= Event ( (lv_typeSet_4_0= ruleTypeSetReference ) )? (otherlv_5= If ( (lv_condition_6_0= ruleCONDITION ) ) )? otherlv_7= Semicolon
+            // InternalErrorModelParser.g:5398:1: ( ( (lv_name_0_0= RULE_ID ) ) otherlv_1= Colon otherlv_2= Error otherlv_3= Event ( (lv_typeSet_4_0= ruleTypeSetReference ) )? (otherlv_5= If ( (lv_condition_6_0= ruleCONDITION ) ) )? otherlv_7= Semicolon )
+            // InternalErrorModelParser.g:5398:2: ( (lv_name_0_0= RULE_ID ) ) otherlv_1= Colon otherlv_2= Error otherlv_3= Event ( (lv_typeSet_4_0= ruleTypeSetReference ) )? (otherlv_5= If ( (lv_condition_6_0= ruleCONDITION ) ) )? otherlv_7= Semicolon
             {
-            // InternalErrorModelParser.g:5402:2: ( (lv_name_0_0= RULE_ID ) )
-            // InternalErrorModelParser.g:5403:1: (lv_name_0_0= RULE_ID )
+            // InternalErrorModelParser.g:5398:2: ( (lv_name_0_0= RULE_ID ) )
+            // InternalErrorModelParser.g:5399:1: (lv_name_0_0= RULE_ID )
             {
-            // InternalErrorModelParser.g:5403:1: (lv_name_0_0= RULE_ID )
-            // InternalErrorModelParser.g:5404:3: lv_name_0_0= RULE_ID
+            // InternalErrorModelParser.g:5399:1: (lv_name_0_0= RULE_ID )
+            // InternalErrorModelParser.g:5400:3: lv_name_0_0= RULE_ID
             {
-            lv_name_0_0=(Token)match(input,RULE_ID,FOLLOW_83); 
+            lv_name_0_0=(Token)match(input,RULE_ID,FOLLOW_82); 
 
             			newLeafNode(lv_name_0_0, grammarAccess.getErrorEventAccess().getNameIDTerminalRuleCall_0_0()); 
             		
@@ -13701,15 +13703,15 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
                 	newLeafNode(otherlv_1, grammarAccess.getErrorEventAccess().getColonKeyword_1());
                 
-            otherlv_2=(Token)match(input,Error,FOLLOW_106); 
+            otherlv_2=(Token)match(input,Error,FOLLOW_105); 
 
                 	newLeafNode(otherlv_2, grammarAccess.getErrorEventAccess().getErrorKeyword_2());
                 
-            otherlv_3=(Token)match(input,Event,FOLLOW_92); 
+            otherlv_3=(Token)match(input,Event,FOLLOW_91); 
 
                 	newLeafNode(otherlv_3, grammarAccess.getErrorEventAccess().getEventKeyword_3());
                 
-            // InternalErrorModelParser.g:5435:1: ( (lv_typeSet_4_0= ruleTypeSetReference ) )?
+            // InternalErrorModelParser.g:5431:1: ( (lv_typeSet_4_0= ruleTypeSetReference ) )?
             int alt162=2;
             int LA162_0 = input.LA(1);
 
@@ -13718,15 +13720,15 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
             }
             switch (alt162) {
                 case 1 :
-                    // InternalErrorModelParser.g:5436:1: (lv_typeSet_4_0= ruleTypeSetReference )
+                    // InternalErrorModelParser.g:5432:1: (lv_typeSet_4_0= ruleTypeSetReference )
                     {
-                    // InternalErrorModelParser.g:5436:1: (lv_typeSet_4_0= ruleTypeSetReference )
-                    // InternalErrorModelParser.g:5437:3: lv_typeSet_4_0= ruleTypeSetReference
+                    // InternalErrorModelParser.g:5432:1: (lv_typeSet_4_0= ruleTypeSetReference )
+                    // InternalErrorModelParser.g:5433:3: lv_typeSet_4_0= ruleTypeSetReference
                     {
                      
                     	        newCompositeNode(grammarAccess.getErrorEventAccess().getTypeSetTypeSetReferenceParserRuleCall_4_0()); 
                     	    
-                    pushFollow(FOLLOW_93);
+                    pushFollow(FOLLOW_92);
                     lv_typeSet_4_0=ruleTypeSetReference();
 
                     state._fsp--;
@@ -13751,7 +13753,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
             }
 
-            // InternalErrorModelParser.g:5453:3: (otherlv_5= If ( (lv_condition_6_0= ruleCONDITION ) ) )?
+            // InternalErrorModelParser.g:5449:3: (otherlv_5= If ( (lv_condition_6_0= ruleCONDITION ) ) )?
             int alt163=2;
             int LA163_0 = input.LA(1);
 
@@ -13760,17 +13762,17 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
             }
             switch (alt163) {
                 case 1 :
-                    // InternalErrorModelParser.g:5454:2: otherlv_5= If ( (lv_condition_6_0= ruleCONDITION ) )
+                    // InternalErrorModelParser.g:5450:2: otherlv_5= If ( (lv_condition_6_0= ruleCONDITION ) )
                     {
-                    otherlv_5=(Token)match(input,If,FOLLOW_94); 
+                    otherlv_5=(Token)match(input,If,FOLLOW_93); 
 
                         	newLeafNode(otherlv_5, grammarAccess.getErrorEventAccess().getIfKeyword_5_0());
                         
-                    // InternalErrorModelParser.g:5458:1: ( (lv_condition_6_0= ruleCONDITION ) )
-                    // InternalErrorModelParser.g:5459:1: (lv_condition_6_0= ruleCONDITION )
+                    // InternalErrorModelParser.g:5454:1: ( (lv_condition_6_0= ruleCONDITION ) )
+                    // InternalErrorModelParser.g:5455:1: (lv_condition_6_0= ruleCONDITION )
                     {
-                    // InternalErrorModelParser.g:5459:1: (lv_condition_6_0= ruleCONDITION )
-                    // InternalErrorModelParser.g:5460:3: lv_condition_6_0= ruleCONDITION
+                    // InternalErrorModelParser.g:5455:1: (lv_condition_6_0= ruleCONDITION )
+                    // InternalErrorModelParser.g:5456:3: lv_condition_6_0= ruleCONDITION
                     {
                      
                     	        newCompositeNode(grammarAccess.getErrorEventAccess().getConditionCONDITIONParserRuleCall_5_1_0()); 
@@ -13828,7 +13830,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleRepairEvent"
-    // InternalErrorModelParser.g:5489:1: entryRuleRepairEvent returns [EObject current=null] : iv_ruleRepairEvent= ruleRepairEvent EOF ;
+    // InternalErrorModelParser.g:5485:1: entryRuleRepairEvent returns [EObject current=null] : iv_ruleRepairEvent= ruleRepairEvent EOF ;
     public final EObject entryRuleRepairEvent() throws RecognitionException {
         EObject current = null;
 
@@ -13836,8 +13838,8 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // InternalErrorModelParser.g:5490:2: (iv_ruleRepairEvent= ruleRepairEvent EOF )
-            // InternalErrorModelParser.g:5491:2: iv_ruleRepairEvent= ruleRepairEvent EOF
+            // InternalErrorModelParser.g:5486:2: (iv_ruleRepairEvent= ruleRepairEvent EOF )
+            // InternalErrorModelParser.g:5487:2: iv_ruleRepairEvent= ruleRepairEvent EOF
             {
              newCompositeNode(grammarAccess.getRepairEventRule()); 
             pushFollow(FOLLOW_1);
@@ -13864,7 +13866,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleRepairEvent"
-    // InternalErrorModelParser.g:5498:1: ruleRepairEvent returns [EObject current=null] : ( ( (lv_name_0_0= RULE_ID ) ) otherlv_1= Colon otherlv_2= Repair otherlv_3= Event (otherlv_4= When ( (otherlv_5= RULE_ID ) ) (otherlv_6= Comma ( (otherlv_7= RULE_ID ) ) )* )? otherlv_8= Semicolon ) ;
+    // InternalErrorModelParser.g:5494:1: ruleRepairEvent returns [EObject current=null] : ( ( (lv_name_0_0= RULE_ID ) ) otherlv_1= Colon otherlv_2= Repair otherlv_3= Event (otherlv_4= When ( (otherlv_5= RULE_ID ) ) (otherlv_6= Comma ( (otherlv_7= RULE_ID ) ) )* )? otherlv_8= Semicolon ) ;
     public final EObject ruleRepairEvent() throws RecognitionException {
         EObject current = null;
 
@@ -13881,19 +13883,19 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // InternalErrorModelParser.g:5501:28: ( ( ( (lv_name_0_0= RULE_ID ) ) otherlv_1= Colon otherlv_2= Repair otherlv_3= Event (otherlv_4= When ( (otherlv_5= RULE_ID ) ) (otherlv_6= Comma ( (otherlv_7= RULE_ID ) ) )* )? otherlv_8= Semicolon ) )
-            // InternalErrorModelParser.g:5502:1: ( ( (lv_name_0_0= RULE_ID ) ) otherlv_1= Colon otherlv_2= Repair otherlv_3= Event (otherlv_4= When ( (otherlv_5= RULE_ID ) ) (otherlv_6= Comma ( (otherlv_7= RULE_ID ) ) )* )? otherlv_8= Semicolon )
+            // InternalErrorModelParser.g:5497:28: ( ( ( (lv_name_0_0= RULE_ID ) ) otherlv_1= Colon otherlv_2= Repair otherlv_3= Event (otherlv_4= When ( (otherlv_5= RULE_ID ) ) (otherlv_6= Comma ( (otherlv_7= RULE_ID ) ) )* )? otherlv_8= Semicolon ) )
+            // InternalErrorModelParser.g:5498:1: ( ( (lv_name_0_0= RULE_ID ) ) otherlv_1= Colon otherlv_2= Repair otherlv_3= Event (otherlv_4= When ( (otherlv_5= RULE_ID ) ) (otherlv_6= Comma ( (otherlv_7= RULE_ID ) ) )* )? otherlv_8= Semicolon )
             {
-            // InternalErrorModelParser.g:5502:1: ( ( (lv_name_0_0= RULE_ID ) ) otherlv_1= Colon otherlv_2= Repair otherlv_3= Event (otherlv_4= When ( (otherlv_5= RULE_ID ) ) (otherlv_6= Comma ( (otherlv_7= RULE_ID ) ) )* )? otherlv_8= Semicolon )
-            // InternalErrorModelParser.g:5502:2: ( (lv_name_0_0= RULE_ID ) ) otherlv_1= Colon otherlv_2= Repair otherlv_3= Event (otherlv_4= When ( (otherlv_5= RULE_ID ) ) (otherlv_6= Comma ( (otherlv_7= RULE_ID ) ) )* )? otherlv_8= Semicolon
+            // InternalErrorModelParser.g:5498:1: ( ( (lv_name_0_0= RULE_ID ) ) otherlv_1= Colon otherlv_2= Repair otherlv_3= Event (otherlv_4= When ( (otherlv_5= RULE_ID ) ) (otherlv_6= Comma ( (otherlv_7= RULE_ID ) ) )* )? otherlv_8= Semicolon )
+            // InternalErrorModelParser.g:5498:2: ( (lv_name_0_0= RULE_ID ) ) otherlv_1= Colon otherlv_2= Repair otherlv_3= Event (otherlv_4= When ( (otherlv_5= RULE_ID ) ) (otherlv_6= Comma ( (otherlv_7= RULE_ID ) ) )* )? otherlv_8= Semicolon
             {
-            // InternalErrorModelParser.g:5502:2: ( (lv_name_0_0= RULE_ID ) )
-            // InternalErrorModelParser.g:5503:1: (lv_name_0_0= RULE_ID )
+            // InternalErrorModelParser.g:5498:2: ( (lv_name_0_0= RULE_ID ) )
+            // InternalErrorModelParser.g:5499:1: (lv_name_0_0= RULE_ID )
             {
-            // InternalErrorModelParser.g:5503:1: (lv_name_0_0= RULE_ID )
-            // InternalErrorModelParser.g:5504:3: lv_name_0_0= RULE_ID
+            // InternalErrorModelParser.g:5499:1: (lv_name_0_0= RULE_ID )
+            // InternalErrorModelParser.g:5500:3: lv_name_0_0= RULE_ID
             {
-            lv_name_0_0=(Token)match(input,RULE_ID,FOLLOW_83); 
+            lv_name_0_0=(Token)match(input,RULE_ID,FOLLOW_82); 
 
             			newLeafNode(lv_name_0_0, grammarAccess.getRepairEventAccess().getNameIDTerminalRuleCall_0_0()); 
             		
@@ -13913,19 +13915,19 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
             }
 
-            otherlv_1=(Token)match(input,Colon,FOLLOW_107); 
+            otherlv_1=(Token)match(input,Colon,FOLLOW_106); 
 
                 	newLeafNode(otherlv_1, grammarAccess.getRepairEventAccess().getColonKeyword_1());
                 
-            otherlv_2=(Token)match(input,Repair,FOLLOW_106); 
+            otherlv_2=(Token)match(input,Repair,FOLLOW_105); 
 
                 	newLeafNode(otherlv_2, grammarAccess.getRepairEventAccess().getRepairKeyword_2());
                 
-            otherlv_3=(Token)match(input,Event,FOLLOW_108); 
+            otherlv_3=(Token)match(input,Event,FOLLOW_107); 
 
                 	newLeafNode(otherlv_3, grammarAccess.getRepairEventAccess().getEventKeyword_3());
                 
-            // InternalErrorModelParser.g:5535:1: (otherlv_4= When ( (otherlv_5= RULE_ID ) ) (otherlv_6= Comma ( (otherlv_7= RULE_ID ) ) )* )?
+            // InternalErrorModelParser.g:5531:1: (otherlv_4= When ( (otherlv_5= RULE_ID ) ) (otherlv_6= Comma ( (otherlv_7= RULE_ID ) ) )* )?
             int alt165=2;
             int LA165_0 = input.LA(1);
 
@@ -13934,17 +13936,17 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
             }
             switch (alt165) {
                 case 1 :
-                    // InternalErrorModelParser.g:5536:2: otherlv_4= When ( (otherlv_5= RULE_ID ) ) (otherlv_6= Comma ( (otherlv_7= RULE_ID ) ) )*
+                    // InternalErrorModelParser.g:5532:2: otherlv_4= When ( (otherlv_5= RULE_ID ) ) (otherlv_6= Comma ( (otherlv_7= RULE_ID ) ) )*
                     {
                     otherlv_4=(Token)match(input,When,FOLLOW_5); 
 
                         	newLeafNode(otherlv_4, grammarAccess.getRepairEventAccess().getWhenKeyword_4_0());
                         
-                    // InternalErrorModelParser.g:5540:1: ( (otherlv_5= RULE_ID ) )
-                    // InternalErrorModelParser.g:5541:1: (otherlv_5= RULE_ID )
+                    // InternalErrorModelParser.g:5536:1: ( (otherlv_5= RULE_ID ) )
+                    // InternalErrorModelParser.g:5537:1: (otherlv_5= RULE_ID )
                     {
-                    // InternalErrorModelParser.g:5541:1: (otherlv_5= RULE_ID )
-                    // InternalErrorModelParser.g:5542:3: otherlv_5= RULE_ID
+                    // InternalErrorModelParser.g:5537:1: (otherlv_5= RULE_ID )
+                    // InternalErrorModelParser.g:5538:3: otherlv_5= RULE_ID
                     {
 
                     			if (current==null) {
@@ -13961,7 +13963,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
                     }
 
-                    // InternalErrorModelParser.g:5553:2: (otherlv_6= Comma ( (otherlv_7= RULE_ID ) ) )*
+                    // InternalErrorModelParser.g:5549:2: (otherlv_6= Comma ( (otherlv_7= RULE_ID ) ) )*
                     loop164:
                     do {
                         int alt164=2;
@@ -13974,17 +13976,17 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
                         switch (alt164) {
                     	case 1 :
-                    	    // InternalErrorModelParser.g:5554:2: otherlv_6= Comma ( (otherlv_7= RULE_ID ) )
+                    	    // InternalErrorModelParser.g:5550:2: otherlv_6= Comma ( (otherlv_7= RULE_ID ) )
                     	    {
                     	    otherlv_6=(Token)match(input,Comma,FOLLOW_5); 
 
                     	        	newLeafNode(otherlv_6, grammarAccess.getRepairEventAccess().getCommaKeyword_4_2_0());
                     	        
-                    	    // InternalErrorModelParser.g:5558:1: ( (otherlv_7= RULE_ID ) )
-                    	    // InternalErrorModelParser.g:5559:1: (otherlv_7= RULE_ID )
+                    	    // InternalErrorModelParser.g:5554:1: ( (otherlv_7= RULE_ID ) )
+                    	    // InternalErrorModelParser.g:5555:1: (otherlv_7= RULE_ID )
                     	    {
-                    	    // InternalErrorModelParser.g:5559:1: (otherlv_7= RULE_ID )
-                    	    // InternalErrorModelParser.g:5560:3: otherlv_7= RULE_ID
+                    	    // InternalErrorModelParser.g:5555:1: (otherlv_7= RULE_ID )
+                    	    // InternalErrorModelParser.g:5556:3: otherlv_7= RULE_ID
                     	    {
 
                     	    			if (current==null) {
@@ -14041,7 +14043,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleRecoverEvent"
-    // InternalErrorModelParser.g:5584:1: entryRuleRecoverEvent returns [EObject current=null] : iv_ruleRecoverEvent= ruleRecoverEvent EOF ;
+    // InternalErrorModelParser.g:5580:1: entryRuleRecoverEvent returns [EObject current=null] : iv_ruleRecoverEvent= ruleRecoverEvent EOF ;
     public final EObject entryRuleRecoverEvent() throws RecognitionException {
         EObject current = null;
 
@@ -14049,8 +14051,8 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // InternalErrorModelParser.g:5585:2: (iv_ruleRecoverEvent= ruleRecoverEvent EOF )
-            // InternalErrorModelParser.g:5586:2: iv_ruleRecoverEvent= ruleRecoverEvent EOF
+            // InternalErrorModelParser.g:5581:2: (iv_ruleRecoverEvent= ruleRecoverEvent EOF )
+            // InternalErrorModelParser.g:5582:2: iv_ruleRecoverEvent= ruleRecoverEvent EOF
             {
              newCompositeNode(grammarAccess.getRecoverEventRule()); 
             pushFollow(FOLLOW_1);
@@ -14077,7 +14079,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleRecoverEvent"
-    // InternalErrorModelParser.g:5593:1: ruleRecoverEvent returns [EObject current=null] : ( ( (lv_name_0_0= RULE_ID ) ) otherlv_1= Colon otherlv_2= Recover otherlv_3= Event (otherlv_4= When ( (otherlv_5= RULE_ID ) ) (otherlv_6= Comma ( (otherlv_7= RULE_ID ) ) )* )? (otherlv_8= If ( (lv_condition_9_0= ruleCONDITION ) ) )? otherlv_10= Semicolon ) ;
+    // InternalErrorModelParser.g:5589:1: ruleRecoverEvent returns [EObject current=null] : ( ( (lv_name_0_0= RULE_ID ) ) otherlv_1= Colon otherlv_2= Recover otherlv_3= Event (otherlv_4= When ( (otherlv_5= RULE_ID ) ) (otherlv_6= Comma ( (otherlv_7= RULE_ID ) ) )* )? (otherlv_8= If ( (lv_condition_9_0= ruleCONDITION ) ) )? otherlv_10= Semicolon ) ;
     public final EObject ruleRecoverEvent() throws RecognitionException {
         EObject current = null;
 
@@ -14097,19 +14099,19 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // InternalErrorModelParser.g:5596:28: ( ( ( (lv_name_0_0= RULE_ID ) ) otherlv_1= Colon otherlv_2= Recover otherlv_3= Event (otherlv_4= When ( (otherlv_5= RULE_ID ) ) (otherlv_6= Comma ( (otherlv_7= RULE_ID ) ) )* )? (otherlv_8= If ( (lv_condition_9_0= ruleCONDITION ) ) )? otherlv_10= Semicolon ) )
-            // InternalErrorModelParser.g:5597:1: ( ( (lv_name_0_0= RULE_ID ) ) otherlv_1= Colon otherlv_2= Recover otherlv_3= Event (otherlv_4= When ( (otherlv_5= RULE_ID ) ) (otherlv_6= Comma ( (otherlv_7= RULE_ID ) ) )* )? (otherlv_8= If ( (lv_condition_9_0= ruleCONDITION ) ) )? otherlv_10= Semicolon )
+            // InternalErrorModelParser.g:5592:28: ( ( ( (lv_name_0_0= RULE_ID ) ) otherlv_1= Colon otherlv_2= Recover otherlv_3= Event (otherlv_4= When ( (otherlv_5= RULE_ID ) ) (otherlv_6= Comma ( (otherlv_7= RULE_ID ) ) )* )? (otherlv_8= If ( (lv_condition_9_0= ruleCONDITION ) ) )? otherlv_10= Semicolon ) )
+            // InternalErrorModelParser.g:5593:1: ( ( (lv_name_0_0= RULE_ID ) ) otherlv_1= Colon otherlv_2= Recover otherlv_3= Event (otherlv_4= When ( (otherlv_5= RULE_ID ) ) (otherlv_6= Comma ( (otherlv_7= RULE_ID ) ) )* )? (otherlv_8= If ( (lv_condition_9_0= ruleCONDITION ) ) )? otherlv_10= Semicolon )
             {
-            // InternalErrorModelParser.g:5597:1: ( ( (lv_name_0_0= RULE_ID ) ) otherlv_1= Colon otherlv_2= Recover otherlv_3= Event (otherlv_4= When ( (otherlv_5= RULE_ID ) ) (otherlv_6= Comma ( (otherlv_7= RULE_ID ) ) )* )? (otherlv_8= If ( (lv_condition_9_0= ruleCONDITION ) ) )? otherlv_10= Semicolon )
-            // InternalErrorModelParser.g:5597:2: ( (lv_name_0_0= RULE_ID ) ) otherlv_1= Colon otherlv_2= Recover otherlv_3= Event (otherlv_4= When ( (otherlv_5= RULE_ID ) ) (otherlv_6= Comma ( (otherlv_7= RULE_ID ) ) )* )? (otherlv_8= If ( (lv_condition_9_0= ruleCONDITION ) ) )? otherlv_10= Semicolon
+            // InternalErrorModelParser.g:5593:1: ( ( (lv_name_0_0= RULE_ID ) ) otherlv_1= Colon otherlv_2= Recover otherlv_3= Event (otherlv_4= When ( (otherlv_5= RULE_ID ) ) (otherlv_6= Comma ( (otherlv_7= RULE_ID ) ) )* )? (otherlv_8= If ( (lv_condition_9_0= ruleCONDITION ) ) )? otherlv_10= Semicolon )
+            // InternalErrorModelParser.g:5593:2: ( (lv_name_0_0= RULE_ID ) ) otherlv_1= Colon otherlv_2= Recover otherlv_3= Event (otherlv_4= When ( (otherlv_5= RULE_ID ) ) (otherlv_6= Comma ( (otherlv_7= RULE_ID ) ) )* )? (otherlv_8= If ( (lv_condition_9_0= ruleCONDITION ) ) )? otherlv_10= Semicolon
             {
-            // InternalErrorModelParser.g:5597:2: ( (lv_name_0_0= RULE_ID ) )
-            // InternalErrorModelParser.g:5598:1: (lv_name_0_0= RULE_ID )
+            // InternalErrorModelParser.g:5593:2: ( (lv_name_0_0= RULE_ID ) )
+            // InternalErrorModelParser.g:5594:1: (lv_name_0_0= RULE_ID )
             {
-            // InternalErrorModelParser.g:5598:1: (lv_name_0_0= RULE_ID )
-            // InternalErrorModelParser.g:5599:3: lv_name_0_0= RULE_ID
+            // InternalErrorModelParser.g:5594:1: (lv_name_0_0= RULE_ID )
+            // InternalErrorModelParser.g:5595:3: lv_name_0_0= RULE_ID
             {
-            lv_name_0_0=(Token)match(input,RULE_ID,FOLLOW_83); 
+            lv_name_0_0=(Token)match(input,RULE_ID,FOLLOW_82); 
 
             			newLeafNode(lv_name_0_0, grammarAccess.getRecoverEventAccess().getNameIDTerminalRuleCall_0_0()); 
             		
@@ -14129,19 +14131,19 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
             }
 
-            otherlv_1=(Token)match(input,Colon,FOLLOW_109); 
+            otherlv_1=(Token)match(input,Colon,FOLLOW_108); 
 
                 	newLeafNode(otherlv_1, grammarAccess.getRecoverEventAccess().getColonKeyword_1());
                 
-            otherlv_2=(Token)match(input,Recover,FOLLOW_106); 
+            otherlv_2=(Token)match(input,Recover,FOLLOW_105); 
 
                 	newLeafNode(otherlv_2, grammarAccess.getRecoverEventAccess().getRecoverKeyword_2());
                 
-            otherlv_3=(Token)match(input,Event,FOLLOW_90); 
+            otherlv_3=(Token)match(input,Event,FOLLOW_89); 
 
                 	newLeafNode(otherlv_3, grammarAccess.getRecoverEventAccess().getEventKeyword_3());
                 
-            // InternalErrorModelParser.g:5630:1: (otherlv_4= When ( (otherlv_5= RULE_ID ) ) (otherlv_6= Comma ( (otherlv_7= RULE_ID ) ) )* )?
+            // InternalErrorModelParser.g:5626:1: (otherlv_4= When ( (otherlv_5= RULE_ID ) ) (otherlv_6= Comma ( (otherlv_7= RULE_ID ) ) )* )?
             int alt167=2;
             int LA167_0 = input.LA(1);
 
@@ -14150,24 +14152,24 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
             }
             switch (alt167) {
                 case 1 :
-                    // InternalErrorModelParser.g:5631:2: otherlv_4= When ( (otherlv_5= RULE_ID ) ) (otherlv_6= Comma ( (otherlv_7= RULE_ID ) ) )*
+                    // InternalErrorModelParser.g:5627:2: otherlv_4= When ( (otherlv_5= RULE_ID ) ) (otherlv_6= Comma ( (otherlv_7= RULE_ID ) ) )*
                     {
                     otherlv_4=(Token)match(input,When,FOLLOW_5); 
 
                         	newLeafNode(otherlv_4, grammarAccess.getRecoverEventAccess().getWhenKeyword_4_0());
                         
-                    // InternalErrorModelParser.g:5635:1: ( (otherlv_5= RULE_ID ) )
-                    // InternalErrorModelParser.g:5636:1: (otherlv_5= RULE_ID )
+                    // InternalErrorModelParser.g:5631:1: ( (otherlv_5= RULE_ID ) )
+                    // InternalErrorModelParser.g:5632:1: (otherlv_5= RULE_ID )
                     {
-                    // InternalErrorModelParser.g:5636:1: (otherlv_5= RULE_ID )
-                    // InternalErrorModelParser.g:5637:3: otherlv_5= RULE_ID
+                    // InternalErrorModelParser.g:5632:1: (otherlv_5= RULE_ID )
+                    // InternalErrorModelParser.g:5633:3: otherlv_5= RULE_ID
                     {
 
                     			if (current==null) {
                     	            current = createModelElement(grammarAccess.getRecoverEventRule());
                     	        }
                             
-                    otherlv_5=(Token)match(input,RULE_ID,FOLLOW_110); 
+                    otherlv_5=(Token)match(input,RULE_ID,FOLLOW_109); 
 
                     		newLeafNode(otherlv_5, grammarAccess.getRecoverEventAccess().getEventInitiatorNamedElementCrossReference_4_1_0()); 
                     	
@@ -14177,7 +14179,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
                     }
 
-                    // InternalErrorModelParser.g:5648:2: (otherlv_6= Comma ( (otherlv_7= RULE_ID ) ) )*
+                    // InternalErrorModelParser.g:5644:2: (otherlv_6= Comma ( (otherlv_7= RULE_ID ) ) )*
                     loop166:
                     do {
                         int alt166=2;
@@ -14190,24 +14192,24 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
                         switch (alt166) {
                     	case 1 :
-                    	    // InternalErrorModelParser.g:5649:2: otherlv_6= Comma ( (otherlv_7= RULE_ID ) )
+                    	    // InternalErrorModelParser.g:5645:2: otherlv_6= Comma ( (otherlv_7= RULE_ID ) )
                     	    {
                     	    otherlv_6=(Token)match(input,Comma,FOLLOW_5); 
 
                     	        	newLeafNode(otherlv_6, grammarAccess.getRecoverEventAccess().getCommaKeyword_4_2_0());
                     	        
-                    	    // InternalErrorModelParser.g:5653:1: ( (otherlv_7= RULE_ID ) )
-                    	    // InternalErrorModelParser.g:5654:1: (otherlv_7= RULE_ID )
+                    	    // InternalErrorModelParser.g:5649:1: ( (otherlv_7= RULE_ID ) )
+                    	    // InternalErrorModelParser.g:5650:1: (otherlv_7= RULE_ID )
                     	    {
-                    	    // InternalErrorModelParser.g:5654:1: (otherlv_7= RULE_ID )
-                    	    // InternalErrorModelParser.g:5655:3: otherlv_7= RULE_ID
+                    	    // InternalErrorModelParser.g:5650:1: (otherlv_7= RULE_ID )
+                    	    // InternalErrorModelParser.g:5651:3: otherlv_7= RULE_ID
                     	    {
 
                     	    			if (current==null) {
                     	    	            current = createModelElement(grammarAccess.getRecoverEventRule());
                     	    	        }
                     	            
-                    	    otherlv_7=(Token)match(input,RULE_ID,FOLLOW_110); 
+                    	    otherlv_7=(Token)match(input,RULE_ID,FOLLOW_109); 
 
                     	    		newLeafNode(otherlv_7, grammarAccess.getRecoverEventAccess().getEventInitiatorNamedElementCrossReference_4_2_1_0()); 
                     	    	
@@ -14232,7 +14234,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
             }
 
-            // InternalErrorModelParser.g:5666:6: (otherlv_8= If ( (lv_condition_9_0= ruleCONDITION ) ) )?
+            // InternalErrorModelParser.g:5662:6: (otherlv_8= If ( (lv_condition_9_0= ruleCONDITION ) ) )?
             int alt168=2;
             int LA168_0 = input.LA(1);
 
@@ -14241,17 +14243,17 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
             }
             switch (alt168) {
                 case 1 :
-                    // InternalErrorModelParser.g:5667:2: otherlv_8= If ( (lv_condition_9_0= ruleCONDITION ) )
+                    // InternalErrorModelParser.g:5663:2: otherlv_8= If ( (lv_condition_9_0= ruleCONDITION ) )
                     {
-                    otherlv_8=(Token)match(input,If,FOLLOW_94); 
+                    otherlv_8=(Token)match(input,If,FOLLOW_93); 
 
                         	newLeafNode(otherlv_8, grammarAccess.getRecoverEventAccess().getIfKeyword_5_0());
                         
-                    // InternalErrorModelParser.g:5671:1: ( (lv_condition_9_0= ruleCONDITION ) )
-                    // InternalErrorModelParser.g:5672:1: (lv_condition_9_0= ruleCONDITION )
+                    // InternalErrorModelParser.g:5667:1: ( (lv_condition_9_0= ruleCONDITION ) )
+                    // InternalErrorModelParser.g:5668:1: (lv_condition_9_0= ruleCONDITION )
                     {
-                    // InternalErrorModelParser.g:5672:1: (lv_condition_9_0= ruleCONDITION )
-                    // InternalErrorModelParser.g:5673:3: lv_condition_9_0= ruleCONDITION
+                    // InternalErrorModelParser.g:5668:1: (lv_condition_9_0= ruleCONDITION )
+                    // InternalErrorModelParser.g:5669:3: lv_condition_9_0= ruleCONDITION
                     {
                      
                     	        newCompositeNode(grammarAccess.getRecoverEventAccess().getConditionCONDITIONParserRuleCall_5_1_0()); 
@@ -14309,7 +14311,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleErrorBehaviorState"
-    // InternalErrorModelParser.g:5702:1: entryRuleErrorBehaviorState returns [EObject current=null] : iv_ruleErrorBehaviorState= ruleErrorBehaviorState EOF ;
+    // InternalErrorModelParser.g:5698:1: entryRuleErrorBehaviorState returns [EObject current=null] : iv_ruleErrorBehaviorState= ruleErrorBehaviorState EOF ;
     public final EObject entryRuleErrorBehaviorState() throws RecognitionException {
         EObject current = null;
 
@@ -14317,8 +14319,8 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // InternalErrorModelParser.g:5703:2: (iv_ruleErrorBehaviorState= ruleErrorBehaviorState EOF )
-            // InternalErrorModelParser.g:5704:2: iv_ruleErrorBehaviorState= ruleErrorBehaviorState EOF
+            // InternalErrorModelParser.g:5699:2: (iv_ruleErrorBehaviorState= ruleErrorBehaviorState EOF )
+            // InternalErrorModelParser.g:5700:2: iv_ruleErrorBehaviorState= ruleErrorBehaviorState EOF
             {
              newCompositeNode(grammarAccess.getErrorBehaviorStateRule()); 
             pushFollow(FOLLOW_1);
@@ -14345,7 +14347,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleErrorBehaviorState"
-    // InternalErrorModelParser.g:5711:1: ruleErrorBehaviorState returns [EObject current=null] : ( ( (lv_name_0_0= RULE_ID ) ) otherlv_1= Colon ( (lv_intial_2_0= Initial ) )? otherlv_3= State ( (lv_typeSet_4_0= ruleTypeSetReference ) )? otherlv_5= Semicolon ) ;
+    // InternalErrorModelParser.g:5707:1: ruleErrorBehaviorState returns [EObject current=null] : ( ( (lv_name_0_0= RULE_ID ) ) otherlv_1= Colon ( (lv_intial_2_0= Initial ) )? otherlv_3= State ( (lv_typeSet_4_0= ruleTypeSetReference ) )? otherlv_5= Semicolon ) ;
     public final EObject ruleErrorBehaviorState() throws RecognitionException {
         EObject current = null;
 
@@ -14360,19 +14362,19 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // InternalErrorModelParser.g:5714:28: ( ( ( (lv_name_0_0= RULE_ID ) ) otherlv_1= Colon ( (lv_intial_2_0= Initial ) )? otherlv_3= State ( (lv_typeSet_4_0= ruleTypeSetReference ) )? otherlv_5= Semicolon ) )
-            // InternalErrorModelParser.g:5715:1: ( ( (lv_name_0_0= RULE_ID ) ) otherlv_1= Colon ( (lv_intial_2_0= Initial ) )? otherlv_3= State ( (lv_typeSet_4_0= ruleTypeSetReference ) )? otherlv_5= Semicolon )
+            // InternalErrorModelParser.g:5710:28: ( ( ( (lv_name_0_0= RULE_ID ) ) otherlv_1= Colon ( (lv_intial_2_0= Initial ) )? otherlv_3= State ( (lv_typeSet_4_0= ruleTypeSetReference ) )? otherlv_5= Semicolon ) )
+            // InternalErrorModelParser.g:5711:1: ( ( (lv_name_0_0= RULE_ID ) ) otherlv_1= Colon ( (lv_intial_2_0= Initial ) )? otherlv_3= State ( (lv_typeSet_4_0= ruleTypeSetReference ) )? otherlv_5= Semicolon )
             {
-            // InternalErrorModelParser.g:5715:1: ( ( (lv_name_0_0= RULE_ID ) ) otherlv_1= Colon ( (lv_intial_2_0= Initial ) )? otherlv_3= State ( (lv_typeSet_4_0= ruleTypeSetReference ) )? otherlv_5= Semicolon )
-            // InternalErrorModelParser.g:5715:2: ( (lv_name_0_0= RULE_ID ) ) otherlv_1= Colon ( (lv_intial_2_0= Initial ) )? otherlv_3= State ( (lv_typeSet_4_0= ruleTypeSetReference ) )? otherlv_5= Semicolon
+            // InternalErrorModelParser.g:5711:1: ( ( (lv_name_0_0= RULE_ID ) ) otherlv_1= Colon ( (lv_intial_2_0= Initial ) )? otherlv_3= State ( (lv_typeSet_4_0= ruleTypeSetReference ) )? otherlv_5= Semicolon )
+            // InternalErrorModelParser.g:5711:2: ( (lv_name_0_0= RULE_ID ) ) otherlv_1= Colon ( (lv_intial_2_0= Initial ) )? otherlv_3= State ( (lv_typeSet_4_0= ruleTypeSetReference ) )? otherlv_5= Semicolon
             {
-            // InternalErrorModelParser.g:5715:2: ( (lv_name_0_0= RULE_ID ) )
-            // InternalErrorModelParser.g:5716:1: (lv_name_0_0= RULE_ID )
+            // InternalErrorModelParser.g:5711:2: ( (lv_name_0_0= RULE_ID ) )
+            // InternalErrorModelParser.g:5712:1: (lv_name_0_0= RULE_ID )
             {
-            // InternalErrorModelParser.g:5716:1: (lv_name_0_0= RULE_ID )
-            // InternalErrorModelParser.g:5717:3: lv_name_0_0= RULE_ID
+            // InternalErrorModelParser.g:5712:1: (lv_name_0_0= RULE_ID )
+            // InternalErrorModelParser.g:5713:3: lv_name_0_0= RULE_ID
             {
-            lv_name_0_0=(Token)match(input,RULE_ID,FOLLOW_83); 
+            lv_name_0_0=(Token)match(input,RULE_ID,FOLLOW_82); 
 
             			newLeafNode(lv_name_0_0, grammarAccess.getErrorBehaviorStateAccess().getNameIDTerminalRuleCall_0_0()); 
             		
@@ -14392,11 +14394,11 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
             }
 
-            otherlv_1=(Token)match(input,Colon,FOLLOW_111); 
+            otherlv_1=(Token)match(input,Colon,FOLLOW_110); 
 
                 	newLeafNode(otherlv_1, grammarAccess.getErrorBehaviorStateAccess().getColonKeyword_1());
                 
-            // InternalErrorModelParser.g:5738:1: ( (lv_intial_2_0= Initial ) )?
+            // InternalErrorModelParser.g:5734:1: ( (lv_intial_2_0= Initial ) )?
             int alt169=2;
             int LA169_0 = input.LA(1);
 
@@ -14405,12 +14407,12 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
             }
             switch (alt169) {
                 case 1 :
-                    // InternalErrorModelParser.g:5739:1: (lv_intial_2_0= Initial )
+                    // InternalErrorModelParser.g:5735:1: (lv_intial_2_0= Initial )
                     {
-                    // InternalErrorModelParser.g:5739:1: (lv_intial_2_0= Initial )
-                    // InternalErrorModelParser.g:5740:3: lv_intial_2_0= Initial
+                    // InternalErrorModelParser.g:5735:1: (lv_intial_2_0= Initial )
+                    // InternalErrorModelParser.g:5736:3: lv_intial_2_0= Initial
                     {
-                    lv_intial_2_0=(Token)match(input,Initial,FOLLOW_112); 
+                    lv_intial_2_0=(Token)match(input,Initial,FOLLOW_111); 
 
                             newLeafNode(lv_intial_2_0, grammarAccess.getErrorBehaviorStateAccess().getIntialInitialKeyword_2_0());
                         
@@ -14429,11 +14431,11 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
             }
 
-            otherlv_3=(Token)match(input,State,FOLLOW_113); 
+            otherlv_3=(Token)match(input,State,FOLLOW_112); 
 
                 	newLeafNode(otherlv_3, grammarAccess.getErrorBehaviorStateAccess().getStateKeyword_3());
                 
-            // InternalErrorModelParser.g:5759:1: ( (lv_typeSet_4_0= ruleTypeSetReference ) )?
+            // InternalErrorModelParser.g:5755:1: ( (lv_typeSet_4_0= ruleTypeSetReference ) )?
             int alt170=2;
             int LA170_0 = input.LA(1);
 
@@ -14442,10 +14444,10 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
             }
             switch (alt170) {
                 case 1 :
-                    // InternalErrorModelParser.g:5760:1: (lv_typeSet_4_0= ruleTypeSetReference )
+                    // InternalErrorModelParser.g:5756:1: (lv_typeSet_4_0= ruleTypeSetReference )
                     {
-                    // InternalErrorModelParser.g:5760:1: (lv_typeSet_4_0= ruleTypeSetReference )
-                    // InternalErrorModelParser.g:5761:3: lv_typeSet_4_0= ruleTypeSetReference
+                    // InternalErrorModelParser.g:5756:1: (lv_typeSet_4_0= ruleTypeSetReference )
+                    // InternalErrorModelParser.g:5757:3: lv_typeSet_4_0= ruleTypeSetReference
                     {
                      
                     	        newCompositeNode(grammarAccess.getErrorBehaviorStateAccess().getTypeSetTypeSetReferenceParserRuleCall_4_0()); 
@@ -14500,7 +14502,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleErrorBehaviorTransition"
-    // InternalErrorModelParser.g:5790:1: entryRuleErrorBehaviorTransition returns [EObject current=null] : iv_ruleErrorBehaviorTransition= ruleErrorBehaviorTransition EOF ;
+    // InternalErrorModelParser.g:5786:1: entryRuleErrorBehaviorTransition returns [EObject current=null] : iv_ruleErrorBehaviorTransition= ruleErrorBehaviorTransition EOF ;
     public final EObject entryRuleErrorBehaviorTransition() throws RecognitionException {
         EObject current = null;
 
@@ -14508,8 +14510,8 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // InternalErrorModelParser.g:5791:2: (iv_ruleErrorBehaviorTransition= ruleErrorBehaviorTransition EOF )
-            // InternalErrorModelParser.g:5792:2: iv_ruleErrorBehaviorTransition= ruleErrorBehaviorTransition EOF
+            // InternalErrorModelParser.g:5787:2: (iv_ruleErrorBehaviorTransition= ruleErrorBehaviorTransition EOF )
+            // InternalErrorModelParser.g:5788:2: iv_ruleErrorBehaviorTransition= ruleErrorBehaviorTransition EOF
             {
              newCompositeNode(grammarAccess.getErrorBehaviorTransitionRule()); 
             pushFollow(FOLLOW_1);
@@ -14536,7 +14538,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleErrorBehaviorTransition"
-    // InternalErrorModelParser.g:5799:1: ruleErrorBehaviorTransition returns [EObject current=null] : ( ( ( (lv_name_0_0= RULE_ID ) ) otherlv_1= Colon )? ( ( ( (otherlv_2= RULE_ID ) ) ( (lv_typeTokenConstraint_3_0= ruleTypeTokenConstraint ) )? ) | ( (lv_allStates_4_0= All ) ) ) otherlv_5= HyphenMinusLeftSquareBracket ( (lv_condition_6_0= ruleConditionExpression ) ) otherlv_7= RightSquareBracketHyphenMinusGreaterThanSign ( ( ( (otherlv_8= RULE_ID ) ) ( (lv_targetToken_9_0= ruleTypeToken ) )? ) | ( ( (lv_steadyState_10_0= Same ) ) otherlv_11= State ) | (otherlv_12= LeftParenthesis ( (lv_destinationBranches_13_0= ruleTransitionBranch ) ) (otherlv_14= Comma ( (lv_destinationBranches_15_0= ruleTransitionBranch ) ) )+ otherlv_16= RightParenthesis ) ) otherlv_17= Semicolon ) ;
+    // InternalErrorModelParser.g:5795:1: ruleErrorBehaviorTransition returns [EObject current=null] : ( ( ( (lv_name_0_0= RULE_ID ) ) otherlv_1= Colon )? ( ( ( (otherlv_2= RULE_ID ) ) ( (lv_typeTokenConstraint_3_0= ruleTypeTokenConstraint ) )? ) | ( (lv_allStates_4_0= All ) ) ) otherlv_5= HyphenMinusLeftSquareBracket ( (lv_condition_6_0= ruleConditionExpression ) ) otherlv_7= RightSquareBracketHyphenMinusGreaterThanSign ( ( ( (otherlv_8= RULE_ID ) ) ( (lv_targetToken_9_0= ruleTypeToken ) )? ) | ( ( (lv_steadyState_10_0= Same ) ) otherlv_11= State ) | (otherlv_12= LeftParenthesis ( (lv_destinationBranches_13_0= ruleTransitionBranch ) ) (otherlv_14= Comma ( (lv_destinationBranches_15_0= ruleTransitionBranch ) ) )+ otherlv_16= RightParenthesis ) ) otherlv_17= Semicolon ) ;
     public final EObject ruleErrorBehaviorTransition() throws RecognitionException {
         EObject current = null;
 
@@ -14567,13 +14569,13 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // InternalErrorModelParser.g:5802:28: ( ( ( ( (lv_name_0_0= RULE_ID ) ) otherlv_1= Colon )? ( ( ( (otherlv_2= RULE_ID ) ) ( (lv_typeTokenConstraint_3_0= ruleTypeTokenConstraint ) )? ) | ( (lv_allStates_4_0= All ) ) ) otherlv_5= HyphenMinusLeftSquareBracket ( (lv_condition_6_0= ruleConditionExpression ) ) otherlv_7= RightSquareBracketHyphenMinusGreaterThanSign ( ( ( (otherlv_8= RULE_ID ) ) ( (lv_targetToken_9_0= ruleTypeToken ) )? ) | ( ( (lv_steadyState_10_0= Same ) ) otherlv_11= State ) | (otherlv_12= LeftParenthesis ( (lv_destinationBranches_13_0= ruleTransitionBranch ) ) (otherlv_14= Comma ( (lv_destinationBranches_15_0= ruleTransitionBranch ) ) )+ otherlv_16= RightParenthesis ) ) otherlv_17= Semicolon ) )
-            // InternalErrorModelParser.g:5803:1: ( ( ( (lv_name_0_0= RULE_ID ) ) otherlv_1= Colon )? ( ( ( (otherlv_2= RULE_ID ) ) ( (lv_typeTokenConstraint_3_0= ruleTypeTokenConstraint ) )? ) | ( (lv_allStates_4_0= All ) ) ) otherlv_5= HyphenMinusLeftSquareBracket ( (lv_condition_6_0= ruleConditionExpression ) ) otherlv_7= RightSquareBracketHyphenMinusGreaterThanSign ( ( ( (otherlv_8= RULE_ID ) ) ( (lv_targetToken_9_0= ruleTypeToken ) )? ) | ( ( (lv_steadyState_10_0= Same ) ) otherlv_11= State ) | (otherlv_12= LeftParenthesis ( (lv_destinationBranches_13_0= ruleTransitionBranch ) ) (otherlv_14= Comma ( (lv_destinationBranches_15_0= ruleTransitionBranch ) ) )+ otherlv_16= RightParenthesis ) ) otherlv_17= Semicolon )
+            // InternalErrorModelParser.g:5798:28: ( ( ( ( (lv_name_0_0= RULE_ID ) ) otherlv_1= Colon )? ( ( ( (otherlv_2= RULE_ID ) ) ( (lv_typeTokenConstraint_3_0= ruleTypeTokenConstraint ) )? ) | ( (lv_allStates_4_0= All ) ) ) otherlv_5= HyphenMinusLeftSquareBracket ( (lv_condition_6_0= ruleConditionExpression ) ) otherlv_7= RightSquareBracketHyphenMinusGreaterThanSign ( ( ( (otherlv_8= RULE_ID ) ) ( (lv_targetToken_9_0= ruleTypeToken ) )? ) | ( ( (lv_steadyState_10_0= Same ) ) otherlv_11= State ) | (otherlv_12= LeftParenthesis ( (lv_destinationBranches_13_0= ruleTransitionBranch ) ) (otherlv_14= Comma ( (lv_destinationBranches_15_0= ruleTransitionBranch ) ) )+ otherlv_16= RightParenthesis ) ) otherlv_17= Semicolon ) )
+            // InternalErrorModelParser.g:5799:1: ( ( ( (lv_name_0_0= RULE_ID ) ) otherlv_1= Colon )? ( ( ( (otherlv_2= RULE_ID ) ) ( (lv_typeTokenConstraint_3_0= ruleTypeTokenConstraint ) )? ) | ( (lv_allStates_4_0= All ) ) ) otherlv_5= HyphenMinusLeftSquareBracket ( (lv_condition_6_0= ruleConditionExpression ) ) otherlv_7= RightSquareBracketHyphenMinusGreaterThanSign ( ( ( (otherlv_8= RULE_ID ) ) ( (lv_targetToken_9_0= ruleTypeToken ) )? ) | ( ( (lv_steadyState_10_0= Same ) ) otherlv_11= State ) | (otherlv_12= LeftParenthesis ( (lv_destinationBranches_13_0= ruleTransitionBranch ) ) (otherlv_14= Comma ( (lv_destinationBranches_15_0= ruleTransitionBranch ) ) )+ otherlv_16= RightParenthesis ) ) otherlv_17= Semicolon )
             {
-            // InternalErrorModelParser.g:5803:1: ( ( ( (lv_name_0_0= RULE_ID ) ) otherlv_1= Colon )? ( ( ( (otherlv_2= RULE_ID ) ) ( (lv_typeTokenConstraint_3_0= ruleTypeTokenConstraint ) )? ) | ( (lv_allStates_4_0= All ) ) ) otherlv_5= HyphenMinusLeftSquareBracket ( (lv_condition_6_0= ruleConditionExpression ) ) otherlv_7= RightSquareBracketHyphenMinusGreaterThanSign ( ( ( (otherlv_8= RULE_ID ) ) ( (lv_targetToken_9_0= ruleTypeToken ) )? ) | ( ( (lv_steadyState_10_0= Same ) ) otherlv_11= State ) | (otherlv_12= LeftParenthesis ( (lv_destinationBranches_13_0= ruleTransitionBranch ) ) (otherlv_14= Comma ( (lv_destinationBranches_15_0= ruleTransitionBranch ) ) )+ otherlv_16= RightParenthesis ) ) otherlv_17= Semicolon )
-            // InternalErrorModelParser.g:5803:2: ( ( (lv_name_0_0= RULE_ID ) ) otherlv_1= Colon )? ( ( ( (otherlv_2= RULE_ID ) ) ( (lv_typeTokenConstraint_3_0= ruleTypeTokenConstraint ) )? ) | ( (lv_allStates_4_0= All ) ) ) otherlv_5= HyphenMinusLeftSquareBracket ( (lv_condition_6_0= ruleConditionExpression ) ) otherlv_7= RightSquareBracketHyphenMinusGreaterThanSign ( ( ( (otherlv_8= RULE_ID ) ) ( (lv_targetToken_9_0= ruleTypeToken ) )? ) | ( ( (lv_steadyState_10_0= Same ) ) otherlv_11= State ) | (otherlv_12= LeftParenthesis ( (lv_destinationBranches_13_0= ruleTransitionBranch ) ) (otherlv_14= Comma ( (lv_destinationBranches_15_0= ruleTransitionBranch ) ) )+ otherlv_16= RightParenthesis ) ) otherlv_17= Semicolon
+            // InternalErrorModelParser.g:5799:1: ( ( ( (lv_name_0_0= RULE_ID ) ) otherlv_1= Colon )? ( ( ( (otherlv_2= RULE_ID ) ) ( (lv_typeTokenConstraint_3_0= ruleTypeTokenConstraint ) )? ) | ( (lv_allStates_4_0= All ) ) ) otherlv_5= HyphenMinusLeftSquareBracket ( (lv_condition_6_0= ruleConditionExpression ) ) otherlv_7= RightSquareBracketHyphenMinusGreaterThanSign ( ( ( (otherlv_8= RULE_ID ) ) ( (lv_targetToken_9_0= ruleTypeToken ) )? ) | ( ( (lv_steadyState_10_0= Same ) ) otherlv_11= State ) | (otherlv_12= LeftParenthesis ( (lv_destinationBranches_13_0= ruleTransitionBranch ) ) (otherlv_14= Comma ( (lv_destinationBranches_15_0= ruleTransitionBranch ) ) )+ otherlv_16= RightParenthesis ) ) otherlv_17= Semicolon )
+            // InternalErrorModelParser.g:5799:2: ( ( (lv_name_0_0= RULE_ID ) ) otherlv_1= Colon )? ( ( ( (otherlv_2= RULE_ID ) ) ( (lv_typeTokenConstraint_3_0= ruleTypeTokenConstraint ) )? ) | ( (lv_allStates_4_0= All ) ) ) otherlv_5= HyphenMinusLeftSquareBracket ( (lv_condition_6_0= ruleConditionExpression ) ) otherlv_7= RightSquareBracketHyphenMinusGreaterThanSign ( ( ( (otherlv_8= RULE_ID ) ) ( (lv_targetToken_9_0= ruleTypeToken ) )? ) | ( ( (lv_steadyState_10_0= Same ) ) otherlv_11= State ) | (otherlv_12= LeftParenthesis ( (lv_destinationBranches_13_0= ruleTransitionBranch ) ) (otherlv_14= Comma ( (lv_destinationBranches_15_0= ruleTransitionBranch ) ) )+ otherlv_16= RightParenthesis ) ) otherlv_17= Semicolon
             {
-            // InternalErrorModelParser.g:5803:2: ( ( (lv_name_0_0= RULE_ID ) ) otherlv_1= Colon )?
+            // InternalErrorModelParser.g:5799:2: ( ( (lv_name_0_0= RULE_ID ) ) otherlv_1= Colon )?
             int alt171=2;
             int LA171_0 = input.LA(1);
 
@@ -14586,15 +14588,15 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
             }
             switch (alt171) {
                 case 1 :
-                    // InternalErrorModelParser.g:5803:3: ( (lv_name_0_0= RULE_ID ) ) otherlv_1= Colon
+                    // InternalErrorModelParser.g:5799:3: ( (lv_name_0_0= RULE_ID ) ) otherlv_1= Colon
                     {
-                    // InternalErrorModelParser.g:5803:3: ( (lv_name_0_0= RULE_ID ) )
-                    // InternalErrorModelParser.g:5804:1: (lv_name_0_0= RULE_ID )
+                    // InternalErrorModelParser.g:5799:3: ( (lv_name_0_0= RULE_ID ) )
+                    // InternalErrorModelParser.g:5800:1: (lv_name_0_0= RULE_ID )
                     {
-                    // InternalErrorModelParser.g:5804:1: (lv_name_0_0= RULE_ID )
-                    // InternalErrorModelParser.g:5805:3: lv_name_0_0= RULE_ID
+                    // InternalErrorModelParser.g:5800:1: (lv_name_0_0= RULE_ID )
+                    // InternalErrorModelParser.g:5801:3: lv_name_0_0= RULE_ID
                     {
-                    lv_name_0_0=(Token)match(input,RULE_ID,FOLLOW_83); 
+                    lv_name_0_0=(Token)match(input,RULE_ID,FOLLOW_82); 
 
                     			newLeafNode(lv_name_0_0, grammarAccess.getErrorBehaviorTransitionAccess().getNameIDTerminalRuleCall_0_0_0()); 
                     		
@@ -14624,7 +14626,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
             }
 
-            // InternalErrorModelParser.g:5826:3: ( ( ( (otherlv_2= RULE_ID ) ) ( (lv_typeTokenConstraint_3_0= ruleTypeTokenConstraint ) )? ) | ( (lv_allStates_4_0= All ) ) )
+            // InternalErrorModelParser.g:5822:3: ( ( ( (otherlv_2= RULE_ID ) ) ( (lv_typeTokenConstraint_3_0= ruleTypeTokenConstraint ) )? ) | ( (lv_allStates_4_0= All ) ) )
             int alt173=2;
             int LA173_0 = input.LA(1);
 
@@ -14642,23 +14644,23 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
             }
             switch (alt173) {
                 case 1 :
-                    // InternalErrorModelParser.g:5826:4: ( ( (otherlv_2= RULE_ID ) ) ( (lv_typeTokenConstraint_3_0= ruleTypeTokenConstraint ) )? )
+                    // InternalErrorModelParser.g:5822:4: ( ( (otherlv_2= RULE_ID ) ) ( (lv_typeTokenConstraint_3_0= ruleTypeTokenConstraint ) )? )
                     {
-                    // InternalErrorModelParser.g:5826:4: ( ( (otherlv_2= RULE_ID ) ) ( (lv_typeTokenConstraint_3_0= ruleTypeTokenConstraint ) )? )
-                    // InternalErrorModelParser.g:5826:5: ( (otherlv_2= RULE_ID ) ) ( (lv_typeTokenConstraint_3_0= ruleTypeTokenConstraint ) )?
+                    // InternalErrorModelParser.g:5822:4: ( ( (otherlv_2= RULE_ID ) ) ( (lv_typeTokenConstraint_3_0= ruleTypeTokenConstraint ) )? )
+                    // InternalErrorModelParser.g:5822:5: ( (otherlv_2= RULE_ID ) ) ( (lv_typeTokenConstraint_3_0= ruleTypeTokenConstraint ) )?
                     {
-                    // InternalErrorModelParser.g:5826:5: ( (otherlv_2= RULE_ID ) )
-                    // InternalErrorModelParser.g:5827:1: (otherlv_2= RULE_ID )
+                    // InternalErrorModelParser.g:5822:5: ( (otherlv_2= RULE_ID ) )
+                    // InternalErrorModelParser.g:5823:1: (otherlv_2= RULE_ID )
                     {
-                    // InternalErrorModelParser.g:5827:1: (otherlv_2= RULE_ID )
-                    // InternalErrorModelParser.g:5828:3: otherlv_2= RULE_ID
+                    // InternalErrorModelParser.g:5823:1: (otherlv_2= RULE_ID )
+                    // InternalErrorModelParser.g:5824:3: otherlv_2= RULE_ID
                     {
 
                     			if (current==null) {
                     	            current = createModelElement(grammarAccess.getErrorBehaviorTransitionRule());
                     	        }
                             
-                    otherlv_2=(Token)match(input,RULE_ID,FOLLOW_114); 
+                    otherlv_2=(Token)match(input,RULE_ID,FOLLOW_113); 
 
                     		newLeafNode(otherlv_2, grammarAccess.getErrorBehaviorTransitionAccess().getSourceErrorBehaviorStateCrossReference_1_0_0_0()); 
                     	
@@ -14668,7 +14670,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
                     }
 
-                    // InternalErrorModelParser.g:5839:2: ( (lv_typeTokenConstraint_3_0= ruleTypeTokenConstraint ) )?
+                    // InternalErrorModelParser.g:5835:2: ( (lv_typeTokenConstraint_3_0= ruleTypeTokenConstraint ) )?
                     int alt172=2;
                     int LA172_0 = input.LA(1);
 
@@ -14677,15 +14679,15 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
                     }
                     switch (alt172) {
                         case 1 :
-                            // InternalErrorModelParser.g:5840:1: (lv_typeTokenConstraint_3_0= ruleTypeTokenConstraint )
+                            // InternalErrorModelParser.g:5836:1: (lv_typeTokenConstraint_3_0= ruleTypeTokenConstraint )
                             {
-                            // InternalErrorModelParser.g:5840:1: (lv_typeTokenConstraint_3_0= ruleTypeTokenConstraint )
-                            // InternalErrorModelParser.g:5841:3: lv_typeTokenConstraint_3_0= ruleTypeTokenConstraint
+                            // InternalErrorModelParser.g:5836:1: (lv_typeTokenConstraint_3_0= ruleTypeTokenConstraint )
+                            // InternalErrorModelParser.g:5837:3: lv_typeTokenConstraint_3_0= ruleTypeTokenConstraint
                             {
                              
                             	        newCompositeNode(grammarAccess.getErrorBehaviorTransitionAccess().getTypeTokenConstraintTypeTokenConstraintParserRuleCall_1_0_1_0()); 
                             	    
-                            pushFollow(FOLLOW_77);
+                            pushFollow(FOLLOW_76);
                             lv_typeTokenConstraint_3_0=ruleTypeTokenConstraint();
 
                             state._fsp--;
@@ -14717,15 +14719,15 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 2 :
-                    // InternalErrorModelParser.g:5858:6: ( (lv_allStates_4_0= All ) )
+                    // InternalErrorModelParser.g:5854:6: ( (lv_allStates_4_0= All ) )
                     {
-                    // InternalErrorModelParser.g:5858:6: ( (lv_allStates_4_0= All ) )
-                    // InternalErrorModelParser.g:5859:1: (lv_allStates_4_0= All )
+                    // InternalErrorModelParser.g:5854:6: ( (lv_allStates_4_0= All ) )
+                    // InternalErrorModelParser.g:5855:1: (lv_allStates_4_0= All )
                     {
-                    // InternalErrorModelParser.g:5859:1: (lv_allStates_4_0= All )
-                    // InternalErrorModelParser.g:5860:3: lv_allStates_4_0= All
+                    // InternalErrorModelParser.g:5855:1: (lv_allStates_4_0= All )
+                    // InternalErrorModelParser.g:5856:3: lv_allStates_4_0= All
                     {
-                    lv_allStates_4_0=(Token)match(input,All,FOLLOW_77); 
+                    lv_allStates_4_0=(Token)match(input,All,FOLLOW_76); 
 
                             newLeafNode(lv_allStates_4_0, grammarAccess.getErrorBehaviorTransitionAccess().getAllStatesAllKeyword_1_1_0());
                         
@@ -14747,20 +14749,20 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
             }
 
-            otherlv_5=(Token)match(input,HyphenMinusLeftSquareBracket,FOLLOW_115); 
+            otherlv_5=(Token)match(input,HyphenMinusLeftSquareBracket,FOLLOW_114); 
 
                 	newLeafNode(otherlv_5, grammarAccess.getErrorBehaviorTransitionAccess().getHyphenMinusLeftSquareBracketKeyword_2());
                 
-            // InternalErrorModelParser.g:5879:1: ( (lv_condition_6_0= ruleConditionExpression ) )
-            // InternalErrorModelParser.g:5880:1: (lv_condition_6_0= ruleConditionExpression )
+            // InternalErrorModelParser.g:5875:1: ( (lv_condition_6_0= ruleConditionExpression ) )
+            // InternalErrorModelParser.g:5876:1: (lv_condition_6_0= ruleConditionExpression )
             {
-            // InternalErrorModelParser.g:5880:1: (lv_condition_6_0= ruleConditionExpression )
-            // InternalErrorModelParser.g:5881:3: lv_condition_6_0= ruleConditionExpression
+            // InternalErrorModelParser.g:5876:1: (lv_condition_6_0= ruleConditionExpression )
+            // InternalErrorModelParser.g:5877:3: lv_condition_6_0= ruleConditionExpression
             {
              
             	        newCompositeNode(grammarAccess.getErrorBehaviorTransitionAccess().getConditionConditionExpressionParserRuleCall_3_0()); 
             	    
-            pushFollow(FOLLOW_79);
+            pushFollow(FOLLOW_78);
             lv_condition_6_0=ruleConditionExpression();
 
             state._fsp--;
@@ -14782,11 +14784,11 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
             }
 
-            otherlv_7=(Token)match(input,RightSquareBracketHyphenMinusGreaterThanSign,FOLLOW_116); 
+            otherlv_7=(Token)match(input,RightSquareBracketHyphenMinusGreaterThanSign,FOLLOW_115); 
 
                 	newLeafNode(otherlv_7, grammarAccess.getErrorBehaviorTransitionAccess().getRightSquareBracketHyphenMinusGreaterThanSignKeyword_4());
                 
-            // InternalErrorModelParser.g:5902:1: ( ( ( (otherlv_8= RULE_ID ) ) ( (lv_targetToken_9_0= ruleTypeToken ) )? ) | ( ( (lv_steadyState_10_0= Same ) ) otherlv_11= State ) | (otherlv_12= LeftParenthesis ( (lv_destinationBranches_13_0= ruleTransitionBranch ) ) (otherlv_14= Comma ( (lv_destinationBranches_15_0= ruleTransitionBranch ) ) )+ otherlv_16= RightParenthesis ) )
+            // InternalErrorModelParser.g:5898:1: ( ( ( (otherlv_8= RULE_ID ) ) ( (lv_targetToken_9_0= ruleTypeToken ) )? ) | ( ( (lv_steadyState_10_0= Same ) ) otherlv_11= State ) | (otherlv_12= LeftParenthesis ( (lv_destinationBranches_13_0= ruleTransitionBranch ) ) (otherlv_14= Comma ( (lv_destinationBranches_15_0= ruleTransitionBranch ) ) )+ otherlv_16= RightParenthesis ) )
             int alt176=3;
             switch ( input.LA(1) ) {
             case RULE_ID:
@@ -14813,23 +14815,23 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
             switch (alt176) {
                 case 1 :
-                    // InternalErrorModelParser.g:5902:2: ( ( (otherlv_8= RULE_ID ) ) ( (lv_targetToken_9_0= ruleTypeToken ) )? )
+                    // InternalErrorModelParser.g:5898:2: ( ( (otherlv_8= RULE_ID ) ) ( (lv_targetToken_9_0= ruleTypeToken ) )? )
                     {
-                    // InternalErrorModelParser.g:5902:2: ( ( (otherlv_8= RULE_ID ) ) ( (lv_targetToken_9_0= ruleTypeToken ) )? )
-                    // InternalErrorModelParser.g:5902:3: ( (otherlv_8= RULE_ID ) ) ( (lv_targetToken_9_0= ruleTypeToken ) )?
+                    // InternalErrorModelParser.g:5898:2: ( ( (otherlv_8= RULE_ID ) ) ( (lv_targetToken_9_0= ruleTypeToken ) )? )
+                    // InternalErrorModelParser.g:5898:3: ( (otherlv_8= RULE_ID ) ) ( (lv_targetToken_9_0= ruleTypeToken ) )?
                     {
-                    // InternalErrorModelParser.g:5902:3: ( (otherlv_8= RULE_ID ) )
-                    // InternalErrorModelParser.g:5903:1: (otherlv_8= RULE_ID )
+                    // InternalErrorModelParser.g:5898:3: ( (otherlv_8= RULE_ID ) )
+                    // InternalErrorModelParser.g:5899:1: (otherlv_8= RULE_ID )
                     {
-                    // InternalErrorModelParser.g:5903:1: (otherlv_8= RULE_ID )
-                    // InternalErrorModelParser.g:5904:3: otherlv_8= RULE_ID
+                    // InternalErrorModelParser.g:5899:1: (otherlv_8= RULE_ID )
+                    // InternalErrorModelParser.g:5900:3: otherlv_8= RULE_ID
                     {
 
                     			if (current==null) {
                     	            current = createModelElement(grammarAccess.getErrorBehaviorTransitionRule());
                     	        }
                             
-                    otherlv_8=(Token)match(input,RULE_ID,FOLLOW_113); 
+                    otherlv_8=(Token)match(input,RULE_ID,FOLLOW_112); 
 
                     		newLeafNode(otherlv_8, grammarAccess.getErrorBehaviorTransitionAccess().getTargetErrorBehaviorStateCrossReference_5_0_0_0()); 
                     	
@@ -14839,7 +14841,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
                     }
 
-                    // InternalErrorModelParser.g:5915:2: ( (lv_targetToken_9_0= ruleTypeToken ) )?
+                    // InternalErrorModelParser.g:5911:2: ( (lv_targetToken_9_0= ruleTypeToken ) )?
                     int alt174=2;
                     int LA174_0 = input.LA(1);
 
@@ -14848,10 +14850,10 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
                     }
                     switch (alt174) {
                         case 1 :
-                            // InternalErrorModelParser.g:5916:1: (lv_targetToken_9_0= ruleTypeToken )
+                            // InternalErrorModelParser.g:5912:1: (lv_targetToken_9_0= ruleTypeToken )
                             {
-                            // InternalErrorModelParser.g:5916:1: (lv_targetToken_9_0= ruleTypeToken )
-                            // InternalErrorModelParser.g:5917:3: lv_targetToken_9_0= ruleTypeToken
+                            // InternalErrorModelParser.g:5912:1: (lv_targetToken_9_0= ruleTypeToken )
+                            // InternalErrorModelParser.g:5913:3: lv_targetToken_9_0= ruleTypeToken
                             {
                              
                             	        newCompositeNode(grammarAccess.getErrorBehaviorTransitionAccess().getTargetTokenTypeTokenParserRuleCall_5_0_1_0()); 
@@ -14888,18 +14890,18 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 2 :
-                    // InternalErrorModelParser.g:5934:6: ( ( (lv_steadyState_10_0= Same ) ) otherlv_11= State )
+                    // InternalErrorModelParser.g:5930:6: ( ( (lv_steadyState_10_0= Same ) ) otherlv_11= State )
                     {
-                    // InternalErrorModelParser.g:5934:6: ( ( (lv_steadyState_10_0= Same ) ) otherlv_11= State )
-                    // InternalErrorModelParser.g:5934:7: ( (lv_steadyState_10_0= Same ) ) otherlv_11= State
+                    // InternalErrorModelParser.g:5930:6: ( ( (lv_steadyState_10_0= Same ) ) otherlv_11= State )
+                    // InternalErrorModelParser.g:5930:7: ( (lv_steadyState_10_0= Same ) ) otherlv_11= State
                     {
-                    // InternalErrorModelParser.g:5934:7: ( (lv_steadyState_10_0= Same ) )
-                    // InternalErrorModelParser.g:5935:1: (lv_steadyState_10_0= Same )
+                    // InternalErrorModelParser.g:5930:7: ( (lv_steadyState_10_0= Same ) )
+                    // InternalErrorModelParser.g:5931:1: (lv_steadyState_10_0= Same )
                     {
-                    // InternalErrorModelParser.g:5935:1: (lv_steadyState_10_0= Same )
-                    // InternalErrorModelParser.g:5936:3: lv_steadyState_10_0= Same
+                    // InternalErrorModelParser.g:5931:1: (lv_steadyState_10_0= Same )
+                    // InternalErrorModelParser.g:5932:3: lv_steadyState_10_0= Same
                     {
-                    lv_steadyState_10_0=(Token)match(input,Same,FOLLOW_112); 
+                    lv_steadyState_10_0=(Token)match(input,Same,FOLLOW_111); 
 
                             newLeafNode(lv_steadyState_10_0, grammarAccess.getErrorBehaviorTransitionAccess().getSteadyStateSameKeyword_5_1_0_0());
                         
@@ -14926,25 +14928,25 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 3 :
-                    // InternalErrorModelParser.g:5956:6: (otherlv_12= LeftParenthesis ( (lv_destinationBranches_13_0= ruleTransitionBranch ) ) (otherlv_14= Comma ( (lv_destinationBranches_15_0= ruleTransitionBranch ) ) )+ otherlv_16= RightParenthesis )
+                    // InternalErrorModelParser.g:5952:6: (otherlv_12= LeftParenthesis ( (lv_destinationBranches_13_0= ruleTransitionBranch ) ) (otherlv_14= Comma ( (lv_destinationBranches_15_0= ruleTransitionBranch ) ) )+ otherlv_16= RightParenthesis )
                     {
-                    // InternalErrorModelParser.g:5956:6: (otherlv_12= LeftParenthesis ( (lv_destinationBranches_13_0= ruleTransitionBranch ) ) (otherlv_14= Comma ( (lv_destinationBranches_15_0= ruleTransitionBranch ) ) )+ otherlv_16= RightParenthesis )
-                    // InternalErrorModelParser.g:5957:2: otherlv_12= LeftParenthesis ( (lv_destinationBranches_13_0= ruleTransitionBranch ) ) (otherlv_14= Comma ( (lv_destinationBranches_15_0= ruleTransitionBranch ) ) )+ otherlv_16= RightParenthesis
+                    // InternalErrorModelParser.g:5952:6: (otherlv_12= LeftParenthesis ( (lv_destinationBranches_13_0= ruleTransitionBranch ) ) (otherlv_14= Comma ( (lv_destinationBranches_15_0= ruleTransitionBranch ) ) )+ otherlv_16= RightParenthesis )
+                    // InternalErrorModelParser.g:5953:2: otherlv_12= LeftParenthesis ( (lv_destinationBranches_13_0= ruleTransitionBranch ) ) (otherlv_14= Comma ( (lv_destinationBranches_15_0= ruleTransitionBranch ) ) )+ otherlv_16= RightParenthesis
                     {
-                    otherlv_12=(Token)match(input,LeftParenthesis,FOLLOW_117); 
+                    otherlv_12=(Token)match(input,LeftParenthesis,FOLLOW_116); 
 
                         	newLeafNode(otherlv_12, grammarAccess.getErrorBehaviorTransitionAccess().getLeftParenthesisKeyword_5_2_0());
                         
-                    // InternalErrorModelParser.g:5961:1: ( (lv_destinationBranches_13_0= ruleTransitionBranch ) )
-                    // InternalErrorModelParser.g:5962:1: (lv_destinationBranches_13_0= ruleTransitionBranch )
+                    // InternalErrorModelParser.g:5957:1: ( (lv_destinationBranches_13_0= ruleTransitionBranch ) )
+                    // InternalErrorModelParser.g:5958:1: (lv_destinationBranches_13_0= ruleTransitionBranch )
                     {
-                    // InternalErrorModelParser.g:5962:1: (lv_destinationBranches_13_0= ruleTransitionBranch )
-                    // InternalErrorModelParser.g:5963:3: lv_destinationBranches_13_0= ruleTransitionBranch
+                    // InternalErrorModelParser.g:5958:1: (lv_destinationBranches_13_0= ruleTransitionBranch )
+                    // InternalErrorModelParser.g:5959:3: lv_destinationBranches_13_0= ruleTransitionBranch
                     {
                      
                     	        newCompositeNode(grammarAccess.getErrorBehaviorTransitionAccess().getDestinationBranchesTransitionBranchParserRuleCall_5_2_1_0()); 
                     	    
-                    pushFollow(FOLLOW_118);
+                    pushFollow(FOLLOW_117);
                     lv_destinationBranches_13_0=ruleTransitionBranch();
 
                     state._fsp--;
@@ -14966,7 +14968,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
                     }
 
-                    // InternalErrorModelParser.g:5979:2: (otherlv_14= Comma ( (lv_destinationBranches_15_0= ruleTransitionBranch ) ) )+
+                    // InternalErrorModelParser.g:5975:2: (otherlv_14= Comma ( (lv_destinationBranches_15_0= ruleTransitionBranch ) ) )+
                     int cnt175=0;
                     loop175:
                     do {
@@ -14980,22 +14982,22 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
                         switch (alt175) {
                     	case 1 :
-                    	    // InternalErrorModelParser.g:5980:2: otherlv_14= Comma ( (lv_destinationBranches_15_0= ruleTransitionBranch ) )
+                    	    // InternalErrorModelParser.g:5976:2: otherlv_14= Comma ( (lv_destinationBranches_15_0= ruleTransitionBranch ) )
                     	    {
-                    	    otherlv_14=(Token)match(input,Comma,FOLLOW_117); 
+                    	    otherlv_14=(Token)match(input,Comma,FOLLOW_116); 
 
                     	        	newLeafNode(otherlv_14, grammarAccess.getErrorBehaviorTransitionAccess().getCommaKeyword_5_2_2_0());
                     	        
-                    	    // InternalErrorModelParser.g:5984:1: ( (lv_destinationBranches_15_0= ruleTransitionBranch ) )
-                    	    // InternalErrorModelParser.g:5985:1: (lv_destinationBranches_15_0= ruleTransitionBranch )
+                    	    // InternalErrorModelParser.g:5980:1: ( (lv_destinationBranches_15_0= ruleTransitionBranch ) )
+                    	    // InternalErrorModelParser.g:5981:1: (lv_destinationBranches_15_0= ruleTransitionBranch )
                     	    {
-                    	    // InternalErrorModelParser.g:5985:1: (lv_destinationBranches_15_0= ruleTransitionBranch )
-                    	    // InternalErrorModelParser.g:5986:3: lv_destinationBranches_15_0= ruleTransitionBranch
+                    	    // InternalErrorModelParser.g:5981:1: (lv_destinationBranches_15_0= ruleTransitionBranch )
+                    	    // InternalErrorModelParser.g:5982:3: lv_destinationBranches_15_0= ruleTransitionBranch
                     	    {
                     	     
                     	    	        newCompositeNode(grammarAccess.getErrorBehaviorTransitionAccess().getDestinationBranchesTransitionBranchParserRuleCall_5_2_2_1_0()); 
                     	    	    
-                    	    pushFollow(FOLLOW_119);
+                    	    pushFollow(FOLLOW_118);
                     	    lv_destinationBranches_15_0=ruleTransitionBranch();
 
                     	    state._fsp--;
@@ -15068,7 +15070,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleTransitionBranch"
-    // InternalErrorModelParser.g:6020:1: entryRuleTransitionBranch returns [EObject current=null] : iv_ruleTransitionBranch= ruleTransitionBranch EOF ;
+    // InternalErrorModelParser.g:6016:1: entryRuleTransitionBranch returns [EObject current=null] : iv_ruleTransitionBranch= ruleTransitionBranch EOF ;
     public final EObject entryRuleTransitionBranch() throws RecognitionException {
         EObject current = null;
 
@@ -15076,8 +15078,8 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // InternalErrorModelParser.g:6021:2: (iv_ruleTransitionBranch= ruleTransitionBranch EOF )
-            // InternalErrorModelParser.g:6022:2: iv_ruleTransitionBranch= ruleTransitionBranch EOF
+            // InternalErrorModelParser.g:6017:2: (iv_ruleTransitionBranch= ruleTransitionBranch EOF )
+            // InternalErrorModelParser.g:6018:2: iv_ruleTransitionBranch= ruleTransitionBranch EOF
             {
              newCompositeNode(grammarAccess.getTransitionBranchRule()); 
             pushFollow(FOLLOW_1);
@@ -15104,7 +15106,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleTransitionBranch"
-    // InternalErrorModelParser.g:6029:1: ruleTransitionBranch returns [EObject current=null] : ( ( ( ( (otherlv_0= RULE_ID ) ) ( (lv_targetToken_1_0= ruleTypeToken ) )? ) | ( ( (lv_steadyState_2_0= Same ) ) otherlv_3= State ) ) otherlv_4= With ( (lv_value_5_0= ruleBranchValue ) ) ) ;
+    // InternalErrorModelParser.g:6025:1: ruleTransitionBranch returns [EObject current=null] : ( ( ( ( (otherlv_0= RULE_ID ) ) ( (lv_targetToken_1_0= ruleTypeToken ) )? ) | ( ( (lv_steadyState_2_0= Same ) ) otherlv_3= State ) ) otherlv_4= With ( (lv_value_5_0= ruleBranchValue ) ) ) ;
     public final EObject ruleTransitionBranch() throws RecognitionException {
         EObject current = null;
 
@@ -15120,13 +15122,13 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // InternalErrorModelParser.g:6032:28: ( ( ( ( ( (otherlv_0= RULE_ID ) ) ( (lv_targetToken_1_0= ruleTypeToken ) )? ) | ( ( (lv_steadyState_2_0= Same ) ) otherlv_3= State ) ) otherlv_4= With ( (lv_value_5_0= ruleBranchValue ) ) ) )
-            // InternalErrorModelParser.g:6033:1: ( ( ( ( (otherlv_0= RULE_ID ) ) ( (lv_targetToken_1_0= ruleTypeToken ) )? ) | ( ( (lv_steadyState_2_0= Same ) ) otherlv_3= State ) ) otherlv_4= With ( (lv_value_5_0= ruleBranchValue ) ) )
+            // InternalErrorModelParser.g:6028:28: ( ( ( ( ( (otherlv_0= RULE_ID ) ) ( (lv_targetToken_1_0= ruleTypeToken ) )? ) | ( ( (lv_steadyState_2_0= Same ) ) otherlv_3= State ) ) otherlv_4= With ( (lv_value_5_0= ruleBranchValue ) ) ) )
+            // InternalErrorModelParser.g:6029:1: ( ( ( ( (otherlv_0= RULE_ID ) ) ( (lv_targetToken_1_0= ruleTypeToken ) )? ) | ( ( (lv_steadyState_2_0= Same ) ) otherlv_3= State ) ) otherlv_4= With ( (lv_value_5_0= ruleBranchValue ) ) )
             {
-            // InternalErrorModelParser.g:6033:1: ( ( ( ( (otherlv_0= RULE_ID ) ) ( (lv_targetToken_1_0= ruleTypeToken ) )? ) | ( ( (lv_steadyState_2_0= Same ) ) otherlv_3= State ) ) otherlv_4= With ( (lv_value_5_0= ruleBranchValue ) ) )
-            // InternalErrorModelParser.g:6033:2: ( ( ( (otherlv_0= RULE_ID ) ) ( (lv_targetToken_1_0= ruleTypeToken ) )? ) | ( ( (lv_steadyState_2_0= Same ) ) otherlv_3= State ) ) otherlv_4= With ( (lv_value_5_0= ruleBranchValue ) )
+            // InternalErrorModelParser.g:6029:1: ( ( ( ( (otherlv_0= RULE_ID ) ) ( (lv_targetToken_1_0= ruleTypeToken ) )? ) | ( ( (lv_steadyState_2_0= Same ) ) otherlv_3= State ) ) otherlv_4= With ( (lv_value_5_0= ruleBranchValue ) ) )
+            // InternalErrorModelParser.g:6029:2: ( ( ( (otherlv_0= RULE_ID ) ) ( (lv_targetToken_1_0= ruleTypeToken ) )? ) | ( ( (lv_steadyState_2_0= Same ) ) otherlv_3= State ) ) otherlv_4= With ( (lv_value_5_0= ruleBranchValue ) )
             {
-            // InternalErrorModelParser.g:6033:2: ( ( ( (otherlv_0= RULE_ID ) ) ( (lv_targetToken_1_0= ruleTypeToken ) )? ) | ( ( (lv_steadyState_2_0= Same ) ) otherlv_3= State ) )
+            // InternalErrorModelParser.g:6029:2: ( ( ( (otherlv_0= RULE_ID ) ) ( (lv_targetToken_1_0= ruleTypeToken ) )? ) | ( ( (lv_steadyState_2_0= Same ) ) otherlv_3= State ) )
             int alt178=2;
             int LA178_0 = input.LA(1);
 
@@ -15144,23 +15146,23 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
             }
             switch (alt178) {
                 case 1 :
-                    // InternalErrorModelParser.g:6033:3: ( ( (otherlv_0= RULE_ID ) ) ( (lv_targetToken_1_0= ruleTypeToken ) )? )
+                    // InternalErrorModelParser.g:6029:3: ( ( (otherlv_0= RULE_ID ) ) ( (lv_targetToken_1_0= ruleTypeToken ) )? )
                     {
-                    // InternalErrorModelParser.g:6033:3: ( ( (otherlv_0= RULE_ID ) ) ( (lv_targetToken_1_0= ruleTypeToken ) )? )
-                    // InternalErrorModelParser.g:6033:4: ( (otherlv_0= RULE_ID ) ) ( (lv_targetToken_1_0= ruleTypeToken ) )?
+                    // InternalErrorModelParser.g:6029:3: ( ( (otherlv_0= RULE_ID ) ) ( (lv_targetToken_1_0= ruleTypeToken ) )? )
+                    // InternalErrorModelParser.g:6029:4: ( (otherlv_0= RULE_ID ) ) ( (lv_targetToken_1_0= ruleTypeToken ) )?
                     {
-                    // InternalErrorModelParser.g:6033:4: ( (otherlv_0= RULE_ID ) )
-                    // InternalErrorModelParser.g:6034:1: (otherlv_0= RULE_ID )
+                    // InternalErrorModelParser.g:6029:4: ( (otherlv_0= RULE_ID ) )
+                    // InternalErrorModelParser.g:6030:1: (otherlv_0= RULE_ID )
                     {
-                    // InternalErrorModelParser.g:6034:1: (otherlv_0= RULE_ID )
-                    // InternalErrorModelParser.g:6035:3: otherlv_0= RULE_ID
+                    // InternalErrorModelParser.g:6030:1: (otherlv_0= RULE_ID )
+                    // InternalErrorModelParser.g:6031:3: otherlv_0= RULE_ID
                     {
 
                     			if (current==null) {
                     	            current = createModelElement(grammarAccess.getTransitionBranchRule());
                     	        }
                             
-                    otherlv_0=(Token)match(input,RULE_ID,FOLLOW_120); 
+                    otherlv_0=(Token)match(input,RULE_ID,FOLLOW_119); 
 
                     		newLeafNode(otherlv_0, grammarAccess.getTransitionBranchAccess().getTargetErrorBehaviorStateCrossReference_0_0_0_0()); 
                     	
@@ -15170,7 +15172,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
                     }
 
-                    // InternalErrorModelParser.g:6046:2: ( (lv_targetToken_1_0= ruleTypeToken ) )?
+                    // InternalErrorModelParser.g:6042:2: ( (lv_targetToken_1_0= ruleTypeToken ) )?
                     int alt177=2;
                     int LA177_0 = input.LA(1);
 
@@ -15179,15 +15181,15 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
                     }
                     switch (alt177) {
                         case 1 :
-                            // InternalErrorModelParser.g:6047:1: (lv_targetToken_1_0= ruleTypeToken )
+                            // InternalErrorModelParser.g:6043:1: (lv_targetToken_1_0= ruleTypeToken )
                             {
-                            // InternalErrorModelParser.g:6047:1: (lv_targetToken_1_0= ruleTypeToken )
-                            // InternalErrorModelParser.g:6048:3: lv_targetToken_1_0= ruleTypeToken
+                            // InternalErrorModelParser.g:6043:1: (lv_targetToken_1_0= ruleTypeToken )
+                            // InternalErrorModelParser.g:6044:3: lv_targetToken_1_0= ruleTypeToken
                             {
                              
                             	        newCompositeNode(grammarAccess.getTransitionBranchAccess().getTargetTokenTypeTokenParserRuleCall_0_0_1_0()); 
                             	    
-                            pushFollow(FOLLOW_121);
+                            pushFollow(FOLLOW_120);
                             lv_targetToken_1_0=ruleTypeToken();
 
                             state._fsp--;
@@ -15219,18 +15221,18 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 2 :
-                    // InternalErrorModelParser.g:6065:6: ( ( (lv_steadyState_2_0= Same ) ) otherlv_3= State )
+                    // InternalErrorModelParser.g:6061:6: ( ( (lv_steadyState_2_0= Same ) ) otherlv_3= State )
                     {
-                    // InternalErrorModelParser.g:6065:6: ( ( (lv_steadyState_2_0= Same ) ) otherlv_3= State )
-                    // InternalErrorModelParser.g:6065:7: ( (lv_steadyState_2_0= Same ) ) otherlv_3= State
+                    // InternalErrorModelParser.g:6061:6: ( ( (lv_steadyState_2_0= Same ) ) otherlv_3= State )
+                    // InternalErrorModelParser.g:6061:7: ( (lv_steadyState_2_0= Same ) ) otherlv_3= State
                     {
-                    // InternalErrorModelParser.g:6065:7: ( (lv_steadyState_2_0= Same ) )
-                    // InternalErrorModelParser.g:6066:1: (lv_steadyState_2_0= Same )
+                    // InternalErrorModelParser.g:6061:7: ( (lv_steadyState_2_0= Same ) )
+                    // InternalErrorModelParser.g:6062:1: (lv_steadyState_2_0= Same )
                     {
-                    // InternalErrorModelParser.g:6066:1: (lv_steadyState_2_0= Same )
-                    // InternalErrorModelParser.g:6067:3: lv_steadyState_2_0= Same
+                    // InternalErrorModelParser.g:6062:1: (lv_steadyState_2_0= Same )
+                    // InternalErrorModelParser.g:6063:3: lv_steadyState_2_0= Same
                     {
-                    lv_steadyState_2_0=(Token)match(input,Same,FOLLOW_112); 
+                    lv_steadyState_2_0=(Token)match(input,Same,FOLLOW_111); 
 
                             newLeafNode(lv_steadyState_2_0, grammarAccess.getTransitionBranchAccess().getSteadyStateSameKeyword_0_1_0_0());
                         
@@ -15246,7 +15248,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
                     }
 
-                    otherlv_3=(Token)match(input,State,FOLLOW_121); 
+                    otherlv_3=(Token)match(input,State,FOLLOW_120); 
 
                         	newLeafNode(otherlv_3, grammarAccess.getTransitionBranchAccess().getStateKeyword_0_1_1());
                         
@@ -15259,15 +15261,15 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
             }
 
-            otherlv_4=(Token)match(input,With,FOLLOW_122); 
+            otherlv_4=(Token)match(input,With,FOLLOW_121); 
 
                 	newLeafNode(otherlv_4, grammarAccess.getTransitionBranchAccess().getWithKeyword_1());
                 
-            // InternalErrorModelParser.g:6091:1: ( (lv_value_5_0= ruleBranchValue ) )
-            // InternalErrorModelParser.g:6092:1: (lv_value_5_0= ruleBranchValue )
+            // InternalErrorModelParser.g:6087:1: ( (lv_value_5_0= ruleBranchValue ) )
+            // InternalErrorModelParser.g:6088:1: (lv_value_5_0= ruleBranchValue )
             {
-            // InternalErrorModelParser.g:6092:1: (lv_value_5_0= ruleBranchValue )
-            // InternalErrorModelParser.g:6093:3: lv_value_5_0= ruleBranchValue
+            // InternalErrorModelParser.g:6088:1: (lv_value_5_0= ruleBranchValue )
+            // InternalErrorModelParser.g:6089:3: lv_value_5_0= ruleBranchValue
             {
              
             	        newCompositeNode(grammarAccess.getTransitionBranchAccess().getValueBranchValueParserRuleCall_2_0()); 
@@ -15315,7 +15317,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleBranchValue"
-    // InternalErrorModelParser.g:6117:1: entryRuleBranchValue returns [EObject current=null] : iv_ruleBranchValue= ruleBranchValue EOF ;
+    // InternalErrorModelParser.g:6113:1: entryRuleBranchValue returns [EObject current=null] : iv_ruleBranchValue= ruleBranchValue EOF ;
     public final EObject entryRuleBranchValue() throws RecognitionException {
         EObject current = null;
 
@@ -15323,8 +15325,8 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // InternalErrorModelParser.g:6118:2: (iv_ruleBranchValue= ruleBranchValue EOF )
-            // InternalErrorModelParser.g:6119:2: iv_ruleBranchValue= ruleBranchValue EOF
+            // InternalErrorModelParser.g:6114:2: (iv_ruleBranchValue= ruleBranchValue EOF )
+            // InternalErrorModelParser.g:6115:2: iv_ruleBranchValue= ruleBranchValue EOF
             {
              newCompositeNode(grammarAccess.getBranchValueRule()); 
             pushFollow(FOLLOW_1);
@@ -15351,7 +15353,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleBranchValue"
-    // InternalErrorModelParser.g:6126:1: ruleBranchValue returns [EObject current=null] : ( () ( ( (lv_realvalue_1_0= RULE_REAL_LIT ) ) | ( ( ruleQEMREF ) ) | ( (lv_others_3_0= Others ) ) ) ) ;
+    // InternalErrorModelParser.g:6122:1: ruleBranchValue returns [EObject current=null] : ( () ( ( (lv_realvalue_1_0= RULE_REAL_LIT ) ) | ( ( ruleQEMREF ) ) | ( (lv_others_3_0= Others ) ) ) ) ;
     public final EObject ruleBranchValue() throws RecognitionException {
         EObject current = null;
 
@@ -15361,14 +15363,14 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // InternalErrorModelParser.g:6129:28: ( ( () ( ( (lv_realvalue_1_0= RULE_REAL_LIT ) ) | ( ( ruleQEMREF ) ) | ( (lv_others_3_0= Others ) ) ) ) )
-            // InternalErrorModelParser.g:6130:1: ( () ( ( (lv_realvalue_1_0= RULE_REAL_LIT ) ) | ( ( ruleQEMREF ) ) | ( (lv_others_3_0= Others ) ) ) )
+            // InternalErrorModelParser.g:6125:28: ( ( () ( ( (lv_realvalue_1_0= RULE_REAL_LIT ) ) | ( ( ruleQEMREF ) ) | ( (lv_others_3_0= Others ) ) ) ) )
+            // InternalErrorModelParser.g:6126:1: ( () ( ( (lv_realvalue_1_0= RULE_REAL_LIT ) ) | ( ( ruleQEMREF ) ) | ( (lv_others_3_0= Others ) ) ) )
             {
-            // InternalErrorModelParser.g:6130:1: ( () ( ( (lv_realvalue_1_0= RULE_REAL_LIT ) ) | ( ( ruleQEMREF ) ) | ( (lv_others_3_0= Others ) ) ) )
-            // InternalErrorModelParser.g:6130:2: () ( ( (lv_realvalue_1_0= RULE_REAL_LIT ) ) | ( ( ruleQEMREF ) ) | ( (lv_others_3_0= Others ) ) )
+            // InternalErrorModelParser.g:6126:1: ( () ( ( (lv_realvalue_1_0= RULE_REAL_LIT ) ) | ( ( ruleQEMREF ) ) | ( (lv_others_3_0= Others ) ) ) )
+            // InternalErrorModelParser.g:6126:2: () ( ( (lv_realvalue_1_0= RULE_REAL_LIT ) ) | ( ( ruleQEMREF ) ) | ( (lv_others_3_0= Others ) ) )
             {
-            // InternalErrorModelParser.g:6130:2: ()
-            // InternalErrorModelParser.g:6131:5: 
+            // InternalErrorModelParser.g:6126:2: ()
+            // InternalErrorModelParser.g:6127:5: 
             {
 
                     current = forceCreateModelElement(
@@ -15378,7 +15380,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
             }
 
-            // InternalErrorModelParser.g:6136:2: ( ( (lv_realvalue_1_0= RULE_REAL_LIT ) ) | ( ( ruleQEMREF ) ) | ( (lv_others_3_0= Others ) ) )
+            // InternalErrorModelParser.g:6132:2: ( ( (lv_realvalue_1_0= RULE_REAL_LIT ) ) | ( ( ruleQEMREF ) ) | ( (lv_others_3_0= Others ) ) )
             int alt179=3;
             switch ( input.LA(1) ) {
             case RULE_REAL_LIT:
@@ -15405,13 +15407,13 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
             switch (alt179) {
                 case 1 :
-                    // InternalErrorModelParser.g:6136:3: ( (lv_realvalue_1_0= RULE_REAL_LIT ) )
+                    // InternalErrorModelParser.g:6132:3: ( (lv_realvalue_1_0= RULE_REAL_LIT ) )
                     {
-                    // InternalErrorModelParser.g:6136:3: ( (lv_realvalue_1_0= RULE_REAL_LIT ) )
-                    // InternalErrorModelParser.g:6137:1: (lv_realvalue_1_0= RULE_REAL_LIT )
+                    // InternalErrorModelParser.g:6132:3: ( (lv_realvalue_1_0= RULE_REAL_LIT ) )
+                    // InternalErrorModelParser.g:6133:1: (lv_realvalue_1_0= RULE_REAL_LIT )
                     {
-                    // InternalErrorModelParser.g:6137:1: (lv_realvalue_1_0= RULE_REAL_LIT )
-                    // InternalErrorModelParser.g:6138:3: lv_realvalue_1_0= RULE_REAL_LIT
+                    // InternalErrorModelParser.g:6133:1: (lv_realvalue_1_0= RULE_REAL_LIT )
+                    // InternalErrorModelParser.g:6134:3: lv_realvalue_1_0= RULE_REAL_LIT
                     {
                     lv_realvalue_1_0=(Token)match(input,RULE_REAL_LIT,FOLLOW_2); 
 
@@ -15437,13 +15439,13 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 2 :
-                    // InternalErrorModelParser.g:6155:6: ( ( ruleQEMREF ) )
+                    // InternalErrorModelParser.g:6151:6: ( ( ruleQEMREF ) )
                     {
-                    // InternalErrorModelParser.g:6155:6: ( ( ruleQEMREF ) )
-                    // InternalErrorModelParser.g:6156:1: ( ruleQEMREF )
+                    // InternalErrorModelParser.g:6151:6: ( ( ruleQEMREF ) )
+                    // InternalErrorModelParser.g:6152:1: ( ruleQEMREF )
                     {
-                    // InternalErrorModelParser.g:6156:1: ( ruleQEMREF )
-                    // InternalErrorModelParser.g:6157:3: ruleQEMREF
+                    // InternalErrorModelParser.g:6152:1: ( ruleQEMREF )
+                    // InternalErrorModelParser.g:6153:3: ruleQEMREF
                     {
 
                     			if (current==null) {
@@ -15471,13 +15473,13 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 3 :
-                    // InternalErrorModelParser.g:6172:6: ( (lv_others_3_0= Others ) )
+                    // InternalErrorModelParser.g:6168:6: ( (lv_others_3_0= Others ) )
                     {
-                    // InternalErrorModelParser.g:6172:6: ( (lv_others_3_0= Others ) )
-                    // InternalErrorModelParser.g:6173:1: (lv_others_3_0= Others )
+                    // InternalErrorModelParser.g:6168:6: ( (lv_others_3_0= Others ) )
+                    // InternalErrorModelParser.g:6169:1: (lv_others_3_0= Others )
                     {
-                    // InternalErrorModelParser.g:6173:1: (lv_others_3_0= Others )
-                    // InternalErrorModelParser.g:6174:3: lv_others_3_0= Others
+                    // InternalErrorModelParser.g:6169:1: (lv_others_3_0= Others )
+                    // InternalErrorModelParser.g:6170:3: lv_others_3_0= Others
                     {
                     lv_others_3_0=(Token)match(input,Others,FOLLOW_2); 
 
@@ -15522,7 +15524,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleConnectionErrorSource"
-    // InternalErrorModelParser.g:6196:1: entryRuleConnectionErrorSource returns [EObject current=null] : iv_ruleConnectionErrorSource= ruleConnectionErrorSource EOF ;
+    // InternalErrorModelParser.g:6192:1: entryRuleConnectionErrorSource returns [EObject current=null] : iv_ruleConnectionErrorSource= ruleConnectionErrorSource EOF ;
     public final EObject entryRuleConnectionErrorSource() throws RecognitionException {
         EObject current = null;
 
@@ -15530,8 +15532,8 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // InternalErrorModelParser.g:6197:2: (iv_ruleConnectionErrorSource= ruleConnectionErrorSource EOF )
-            // InternalErrorModelParser.g:6198:2: iv_ruleConnectionErrorSource= ruleConnectionErrorSource EOF
+            // InternalErrorModelParser.g:6193:2: (iv_ruleConnectionErrorSource= ruleConnectionErrorSource EOF )
+            // InternalErrorModelParser.g:6194:2: iv_ruleConnectionErrorSource= ruleConnectionErrorSource EOF
             {
              newCompositeNode(grammarAccess.getConnectionErrorSourceRule()); 
             pushFollow(FOLLOW_1);
@@ -15558,7 +15560,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleConnectionErrorSource"
-    // InternalErrorModelParser.g:6205:1: ruleConnectionErrorSource returns [EObject current=null] : ( ( (lv_name_0_0= RULE_ID ) ) otherlv_1= Colon otherlv_2= Error otherlv_3= Source ( ( (otherlv_4= RULE_ID ) ) | ( (lv_all_5_0= All ) ) ) ( (lv_typeTokenConstraint_6_0= ruleTypeTokenConstraint ) )? (otherlv_7= When ( ( (lv_failureModeType_8_0= ruleTypeSetConstructor ) ) | ( (lv_failureModeDescription_9_0= RULE_STRING ) ) ) )? (otherlv_10= If ( (lv_condition_11_0= ruleCONDITION ) ) )? otherlv_12= Semicolon ) ;
+    // InternalErrorModelParser.g:6201:1: ruleConnectionErrorSource returns [EObject current=null] : ( ( (lv_name_0_0= RULE_ID ) ) otherlv_1= Colon otherlv_2= Error otherlv_3= Source ( ( (otherlv_4= RULE_ID ) ) | ( (lv_all_5_0= All ) ) ) ( (lv_typeTokenConstraint_6_0= ruleTypeTokenConstraint ) )? (otherlv_7= When ( ( (lv_failureModeType_8_0= ruleTypeSetConstructor ) ) | ( (lv_failureModeDescription_9_0= RULE_STRING ) ) ) )? (otherlv_10= If ( (lv_condition_11_0= ruleCONDITION ) ) )? otherlv_12= Semicolon ) ;
     public final EObject ruleConnectionErrorSource() throws RecognitionException {
         EObject current = null;
 
@@ -15582,19 +15584,19 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // InternalErrorModelParser.g:6208:28: ( ( ( (lv_name_0_0= RULE_ID ) ) otherlv_1= Colon otherlv_2= Error otherlv_3= Source ( ( (otherlv_4= RULE_ID ) ) | ( (lv_all_5_0= All ) ) ) ( (lv_typeTokenConstraint_6_0= ruleTypeTokenConstraint ) )? (otherlv_7= When ( ( (lv_failureModeType_8_0= ruleTypeSetConstructor ) ) | ( (lv_failureModeDescription_9_0= RULE_STRING ) ) ) )? (otherlv_10= If ( (lv_condition_11_0= ruleCONDITION ) ) )? otherlv_12= Semicolon ) )
-            // InternalErrorModelParser.g:6209:1: ( ( (lv_name_0_0= RULE_ID ) ) otherlv_1= Colon otherlv_2= Error otherlv_3= Source ( ( (otherlv_4= RULE_ID ) ) | ( (lv_all_5_0= All ) ) ) ( (lv_typeTokenConstraint_6_0= ruleTypeTokenConstraint ) )? (otherlv_7= When ( ( (lv_failureModeType_8_0= ruleTypeSetConstructor ) ) | ( (lv_failureModeDescription_9_0= RULE_STRING ) ) ) )? (otherlv_10= If ( (lv_condition_11_0= ruleCONDITION ) ) )? otherlv_12= Semicolon )
+            // InternalErrorModelParser.g:6204:28: ( ( ( (lv_name_0_0= RULE_ID ) ) otherlv_1= Colon otherlv_2= Error otherlv_3= Source ( ( (otherlv_4= RULE_ID ) ) | ( (lv_all_5_0= All ) ) ) ( (lv_typeTokenConstraint_6_0= ruleTypeTokenConstraint ) )? (otherlv_7= When ( ( (lv_failureModeType_8_0= ruleTypeSetConstructor ) ) | ( (lv_failureModeDescription_9_0= RULE_STRING ) ) ) )? (otherlv_10= If ( (lv_condition_11_0= ruleCONDITION ) ) )? otherlv_12= Semicolon ) )
+            // InternalErrorModelParser.g:6205:1: ( ( (lv_name_0_0= RULE_ID ) ) otherlv_1= Colon otherlv_2= Error otherlv_3= Source ( ( (otherlv_4= RULE_ID ) ) | ( (lv_all_5_0= All ) ) ) ( (lv_typeTokenConstraint_6_0= ruleTypeTokenConstraint ) )? (otherlv_7= When ( ( (lv_failureModeType_8_0= ruleTypeSetConstructor ) ) | ( (lv_failureModeDescription_9_0= RULE_STRING ) ) ) )? (otherlv_10= If ( (lv_condition_11_0= ruleCONDITION ) ) )? otherlv_12= Semicolon )
             {
-            // InternalErrorModelParser.g:6209:1: ( ( (lv_name_0_0= RULE_ID ) ) otherlv_1= Colon otherlv_2= Error otherlv_3= Source ( ( (otherlv_4= RULE_ID ) ) | ( (lv_all_5_0= All ) ) ) ( (lv_typeTokenConstraint_6_0= ruleTypeTokenConstraint ) )? (otherlv_7= When ( ( (lv_failureModeType_8_0= ruleTypeSetConstructor ) ) | ( (lv_failureModeDescription_9_0= RULE_STRING ) ) ) )? (otherlv_10= If ( (lv_condition_11_0= ruleCONDITION ) ) )? otherlv_12= Semicolon )
-            // InternalErrorModelParser.g:6209:2: ( (lv_name_0_0= RULE_ID ) ) otherlv_1= Colon otherlv_2= Error otherlv_3= Source ( ( (otherlv_4= RULE_ID ) ) | ( (lv_all_5_0= All ) ) ) ( (lv_typeTokenConstraint_6_0= ruleTypeTokenConstraint ) )? (otherlv_7= When ( ( (lv_failureModeType_8_0= ruleTypeSetConstructor ) ) | ( (lv_failureModeDescription_9_0= RULE_STRING ) ) ) )? (otherlv_10= If ( (lv_condition_11_0= ruleCONDITION ) ) )? otherlv_12= Semicolon
+            // InternalErrorModelParser.g:6205:1: ( ( (lv_name_0_0= RULE_ID ) ) otherlv_1= Colon otherlv_2= Error otherlv_3= Source ( ( (otherlv_4= RULE_ID ) ) | ( (lv_all_5_0= All ) ) ) ( (lv_typeTokenConstraint_6_0= ruleTypeTokenConstraint ) )? (otherlv_7= When ( ( (lv_failureModeType_8_0= ruleTypeSetConstructor ) ) | ( (lv_failureModeDescription_9_0= RULE_STRING ) ) ) )? (otherlv_10= If ( (lv_condition_11_0= ruleCONDITION ) ) )? otherlv_12= Semicolon )
+            // InternalErrorModelParser.g:6205:2: ( (lv_name_0_0= RULE_ID ) ) otherlv_1= Colon otherlv_2= Error otherlv_3= Source ( ( (otherlv_4= RULE_ID ) ) | ( (lv_all_5_0= All ) ) ) ( (lv_typeTokenConstraint_6_0= ruleTypeTokenConstraint ) )? (otherlv_7= When ( ( (lv_failureModeType_8_0= ruleTypeSetConstructor ) ) | ( (lv_failureModeDescription_9_0= RULE_STRING ) ) ) )? (otherlv_10= If ( (lv_condition_11_0= ruleCONDITION ) ) )? otherlv_12= Semicolon
             {
-            // InternalErrorModelParser.g:6209:2: ( (lv_name_0_0= RULE_ID ) )
-            // InternalErrorModelParser.g:6210:1: (lv_name_0_0= RULE_ID )
+            // InternalErrorModelParser.g:6205:2: ( (lv_name_0_0= RULE_ID ) )
+            // InternalErrorModelParser.g:6206:1: (lv_name_0_0= RULE_ID )
             {
-            // InternalErrorModelParser.g:6210:1: (lv_name_0_0= RULE_ID )
-            // InternalErrorModelParser.g:6211:3: lv_name_0_0= RULE_ID
+            // InternalErrorModelParser.g:6206:1: (lv_name_0_0= RULE_ID )
+            // InternalErrorModelParser.g:6207:3: lv_name_0_0= RULE_ID
             {
-            lv_name_0_0=(Token)match(input,RULE_ID,FOLLOW_83); 
+            lv_name_0_0=(Token)match(input,RULE_ID,FOLLOW_82); 
 
             			newLeafNode(lv_name_0_0, grammarAccess.getConnectionErrorSourceAccess().getNameIDTerminalRuleCall_0_0()); 
             		
@@ -15618,7 +15620,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
                 	newLeafNode(otherlv_1, grammarAccess.getConnectionErrorSourceAccess().getColonKeyword_1());
                 
-            otherlv_2=(Token)match(input,Error,FOLLOW_87); 
+            otherlv_2=(Token)match(input,Error,FOLLOW_86); 
 
                 	newLeafNode(otherlv_2, grammarAccess.getConnectionErrorSourceAccess().getErrorKeyword_2());
                 
@@ -15626,7 +15628,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
                 	newLeafNode(otherlv_3, grammarAccess.getConnectionErrorSourceAccess().getSourceKeyword_3());
                 
-            // InternalErrorModelParser.g:6242:1: ( ( (otherlv_4= RULE_ID ) ) | ( (lv_all_5_0= All ) ) )
+            // InternalErrorModelParser.g:6238:1: ( ( (otherlv_4= RULE_ID ) ) | ( (lv_all_5_0= All ) ) )
             int alt180=2;
             int LA180_0 = input.LA(1);
 
@@ -15644,20 +15646,20 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
             }
             switch (alt180) {
                 case 1 :
-                    // InternalErrorModelParser.g:6242:2: ( (otherlv_4= RULE_ID ) )
+                    // InternalErrorModelParser.g:6238:2: ( (otherlv_4= RULE_ID ) )
                     {
-                    // InternalErrorModelParser.g:6242:2: ( (otherlv_4= RULE_ID ) )
-                    // InternalErrorModelParser.g:6243:1: (otherlv_4= RULE_ID )
+                    // InternalErrorModelParser.g:6238:2: ( (otherlv_4= RULE_ID ) )
+                    // InternalErrorModelParser.g:6239:1: (otherlv_4= RULE_ID )
                     {
-                    // InternalErrorModelParser.g:6243:1: (otherlv_4= RULE_ID )
-                    // InternalErrorModelParser.g:6244:3: otherlv_4= RULE_ID
+                    // InternalErrorModelParser.g:6239:1: (otherlv_4= RULE_ID )
+                    // InternalErrorModelParser.g:6240:3: otherlv_4= RULE_ID
                     {
 
                     			if (current==null) {
                     	            current = createModelElement(grammarAccess.getConnectionErrorSourceRule());
                     	        }
                             
-                    otherlv_4=(Token)match(input,RULE_ID,FOLLOW_89); 
+                    otherlv_4=(Token)match(input,RULE_ID,FOLLOW_88); 
 
                     		newLeafNode(otherlv_4, grammarAccess.getConnectionErrorSourceAccess().getConnectionConnectionCrossReference_4_0_0()); 
                     	
@@ -15671,15 +15673,15 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 2 :
-                    // InternalErrorModelParser.g:6256:6: ( (lv_all_5_0= All ) )
+                    // InternalErrorModelParser.g:6252:6: ( (lv_all_5_0= All ) )
                     {
-                    // InternalErrorModelParser.g:6256:6: ( (lv_all_5_0= All ) )
-                    // InternalErrorModelParser.g:6257:1: (lv_all_5_0= All )
+                    // InternalErrorModelParser.g:6252:6: ( (lv_all_5_0= All ) )
+                    // InternalErrorModelParser.g:6253:1: (lv_all_5_0= All )
                     {
-                    // InternalErrorModelParser.g:6257:1: (lv_all_5_0= All )
-                    // InternalErrorModelParser.g:6258:3: lv_all_5_0= All
+                    // InternalErrorModelParser.g:6253:1: (lv_all_5_0= All )
+                    // InternalErrorModelParser.g:6254:3: lv_all_5_0= All
                     {
-                    lv_all_5_0=(Token)match(input,All,FOLLOW_89); 
+                    lv_all_5_0=(Token)match(input,All,FOLLOW_88); 
 
                             newLeafNode(lv_all_5_0, grammarAccess.getConnectionErrorSourceAccess().getAllAllKeyword_4_1_0());
                         
@@ -15701,7 +15703,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
             }
 
-            // InternalErrorModelParser.g:6272:3: ( (lv_typeTokenConstraint_6_0= ruleTypeTokenConstraint ) )?
+            // InternalErrorModelParser.g:6268:3: ( (lv_typeTokenConstraint_6_0= ruleTypeTokenConstraint ) )?
             int alt181=2;
             int LA181_0 = input.LA(1);
 
@@ -15710,15 +15712,15 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
             }
             switch (alt181) {
                 case 1 :
-                    // InternalErrorModelParser.g:6273:1: (lv_typeTokenConstraint_6_0= ruleTypeTokenConstraint )
+                    // InternalErrorModelParser.g:6269:1: (lv_typeTokenConstraint_6_0= ruleTypeTokenConstraint )
                     {
-                    // InternalErrorModelParser.g:6273:1: (lv_typeTokenConstraint_6_0= ruleTypeTokenConstraint )
-                    // InternalErrorModelParser.g:6274:3: lv_typeTokenConstraint_6_0= ruleTypeTokenConstraint
+                    // InternalErrorModelParser.g:6269:1: (lv_typeTokenConstraint_6_0= ruleTypeTokenConstraint )
+                    // InternalErrorModelParser.g:6270:3: lv_typeTokenConstraint_6_0= ruleTypeTokenConstraint
                     {
                      
                     	        newCompositeNode(grammarAccess.getConnectionErrorSourceAccess().getTypeTokenConstraintTypeTokenConstraintParserRuleCall_5_0()); 
                     	    
-                    pushFollow(FOLLOW_90);
+                    pushFollow(FOLLOW_89);
                     lv_typeTokenConstraint_6_0=ruleTypeTokenConstraint();
 
                     state._fsp--;
@@ -15743,7 +15745,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
             }
 
-            // InternalErrorModelParser.g:6290:3: (otherlv_7= When ( ( (lv_failureModeType_8_0= ruleTypeSetConstructor ) ) | ( (lv_failureModeDescription_9_0= RULE_STRING ) ) ) )?
+            // InternalErrorModelParser.g:6286:3: (otherlv_7= When ( ( (lv_failureModeType_8_0= ruleTypeSetConstructor ) ) | ( (lv_failureModeDescription_9_0= RULE_STRING ) ) ) )?
             int alt183=2;
             int LA183_0 = input.LA(1);
 
@@ -15752,13 +15754,13 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
             }
             switch (alt183) {
                 case 1 :
-                    // InternalErrorModelParser.g:6291:2: otherlv_7= When ( ( (lv_failureModeType_8_0= ruleTypeSetConstructor ) ) | ( (lv_failureModeDescription_9_0= RULE_STRING ) ) )
+                    // InternalErrorModelParser.g:6287:2: otherlv_7= When ( ( (lv_failureModeType_8_0= ruleTypeSetConstructor ) ) | ( (lv_failureModeDescription_9_0= RULE_STRING ) ) )
                     {
-                    otherlv_7=(Token)match(input,When,FOLLOW_123); 
+                    otherlv_7=(Token)match(input,When,FOLLOW_122); 
 
                         	newLeafNode(otherlv_7, grammarAccess.getConnectionErrorSourceAccess().getWhenKeyword_6_0());
                         
-                    // InternalErrorModelParser.g:6295:1: ( ( (lv_failureModeType_8_0= ruleTypeSetConstructor ) ) | ( (lv_failureModeDescription_9_0= RULE_STRING ) ) )
+                    // InternalErrorModelParser.g:6291:1: ( ( (lv_failureModeType_8_0= ruleTypeSetConstructor ) ) | ( (lv_failureModeDescription_9_0= RULE_STRING ) ) )
                     int alt182=2;
                     int LA182_0 = input.LA(1);
 
@@ -15776,18 +15778,18 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
                     }
                     switch (alt182) {
                         case 1 :
-                            // InternalErrorModelParser.g:6295:2: ( (lv_failureModeType_8_0= ruleTypeSetConstructor ) )
+                            // InternalErrorModelParser.g:6291:2: ( (lv_failureModeType_8_0= ruleTypeSetConstructor ) )
                             {
-                            // InternalErrorModelParser.g:6295:2: ( (lv_failureModeType_8_0= ruleTypeSetConstructor ) )
-                            // InternalErrorModelParser.g:6296:1: (lv_failureModeType_8_0= ruleTypeSetConstructor )
+                            // InternalErrorModelParser.g:6291:2: ( (lv_failureModeType_8_0= ruleTypeSetConstructor ) )
+                            // InternalErrorModelParser.g:6292:1: (lv_failureModeType_8_0= ruleTypeSetConstructor )
                             {
-                            // InternalErrorModelParser.g:6296:1: (lv_failureModeType_8_0= ruleTypeSetConstructor )
-                            // InternalErrorModelParser.g:6297:3: lv_failureModeType_8_0= ruleTypeSetConstructor
+                            // InternalErrorModelParser.g:6292:1: (lv_failureModeType_8_0= ruleTypeSetConstructor )
+                            // InternalErrorModelParser.g:6293:3: lv_failureModeType_8_0= ruleTypeSetConstructor
                             {
                              
                             	        newCompositeNode(grammarAccess.getConnectionErrorSourceAccess().getFailureModeTypeTypeSetConstructorParserRuleCall_6_1_0_0()); 
                             	    
-                            pushFollow(FOLLOW_93);
+                            pushFollow(FOLLOW_92);
                             lv_failureModeType_8_0=ruleTypeSetConstructor();
 
                             state._fsp--;
@@ -15813,15 +15815,15 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
                             }
                             break;
                         case 2 :
-                            // InternalErrorModelParser.g:6314:6: ( (lv_failureModeDescription_9_0= RULE_STRING ) )
+                            // InternalErrorModelParser.g:6310:6: ( (lv_failureModeDescription_9_0= RULE_STRING ) )
                             {
-                            // InternalErrorModelParser.g:6314:6: ( (lv_failureModeDescription_9_0= RULE_STRING ) )
-                            // InternalErrorModelParser.g:6315:1: (lv_failureModeDescription_9_0= RULE_STRING )
+                            // InternalErrorModelParser.g:6310:6: ( (lv_failureModeDescription_9_0= RULE_STRING ) )
+                            // InternalErrorModelParser.g:6311:1: (lv_failureModeDescription_9_0= RULE_STRING )
                             {
-                            // InternalErrorModelParser.g:6315:1: (lv_failureModeDescription_9_0= RULE_STRING )
-                            // InternalErrorModelParser.g:6316:3: lv_failureModeDescription_9_0= RULE_STRING
+                            // InternalErrorModelParser.g:6311:1: (lv_failureModeDescription_9_0= RULE_STRING )
+                            // InternalErrorModelParser.g:6312:3: lv_failureModeDescription_9_0= RULE_STRING
                             {
-                            lv_failureModeDescription_9_0=(Token)match(input,RULE_STRING,FOLLOW_93); 
+                            lv_failureModeDescription_9_0=(Token)match(input,RULE_STRING,FOLLOW_92); 
 
                             			newLeafNode(lv_failureModeDescription_9_0, grammarAccess.getConnectionErrorSourceAccess().getFailureModeDescriptionSTRINGTerminalRuleCall_6_1_1_0()); 
                             		
@@ -15853,7 +15855,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
             }
 
-            // InternalErrorModelParser.g:6332:5: (otherlv_10= If ( (lv_condition_11_0= ruleCONDITION ) ) )?
+            // InternalErrorModelParser.g:6328:5: (otherlv_10= If ( (lv_condition_11_0= ruleCONDITION ) ) )?
             int alt184=2;
             int LA184_0 = input.LA(1);
 
@@ -15862,17 +15864,17 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
             }
             switch (alt184) {
                 case 1 :
-                    // InternalErrorModelParser.g:6333:2: otherlv_10= If ( (lv_condition_11_0= ruleCONDITION ) )
+                    // InternalErrorModelParser.g:6329:2: otherlv_10= If ( (lv_condition_11_0= ruleCONDITION ) )
                     {
-                    otherlv_10=(Token)match(input,If,FOLLOW_94); 
+                    otherlv_10=(Token)match(input,If,FOLLOW_93); 
 
                         	newLeafNode(otherlv_10, grammarAccess.getConnectionErrorSourceAccess().getIfKeyword_7_0());
                         
-                    // InternalErrorModelParser.g:6337:1: ( (lv_condition_11_0= ruleCONDITION ) )
-                    // InternalErrorModelParser.g:6338:1: (lv_condition_11_0= ruleCONDITION )
+                    // InternalErrorModelParser.g:6333:1: ( (lv_condition_11_0= ruleCONDITION ) )
+                    // InternalErrorModelParser.g:6334:1: (lv_condition_11_0= ruleCONDITION )
                     {
-                    // InternalErrorModelParser.g:6338:1: (lv_condition_11_0= ruleCONDITION )
-                    // InternalErrorModelParser.g:6339:3: lv_condition_11_0= ruleCONDITION
+                    // InternalErrorModelParser.g:6334:1: (lv_condition_11_0= ruleCONDITION )
+                    // InternalErrorModelParser.g:6335:3: lv_condition_11_0= ruleCONDITION
                     {
                      
                     	        newCompositeNode(grammarAccess.getConnectionErrorSourceAccess().getConditionCONDITIONParserRuleCall_7_1_0()); 
@@ -15930,7 +15932,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleConditionExpression"
-    // InternalErrorModelParser.g:6368:1: entryRuleConditionExpression returns [EObject current=null] : iv_ruleConditionExpression= ruleConditionExpression EOF ;
+    // InternalErrorModelParser.g:6364:1: entryRuleConditionExpression returns [EObject current=null] : iv_ruleConditionExpression= ruleConditionExpression EOF ;
     public final EObject entryRuleConditionExpression() throws RecognitionException {
         EObject current = null;
 
@@ -15938,8 +15940,8 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // InternalErrorModelParser.g:6369:2: (iv_ruleConditionExpression= ruleConditionExpression EOF )
-            // InternalErrorModelParser.g:6370:2: iv_ruleConditionExpression= ruleConditionExpression EOF
+            // InternalErrorModelParser.g:6365:2: (iv_ruleConditionExpression= ruleConditionExpression EOF )
+            // InternalErrorModelParser.g:6366:2: iv_ruleConditionExpression= ruleConditionExpression EOF
             {
              newCompositeNode(grammarAccess.getConditionExpressionRule()); 
             pushFollow(FOLLOW_1);
@@ -15966,7 +15968,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleConditionExpression"
-    // InternalErrorModelParser.g:6377:1: ruleConditionExpression returns [EObject current=null] : (this_AndExpression_0= ruleAndExpression ( () otherlv_2= Or ( (lv_operands_3_0= ruleAndExpression ) ) )* ) ;
+    // InternalErrorModelParser.g:6373:1: ruleConditionExpression returns [EObject current=null] : (this_AndExpression_0= ruleAndExpression ( () otherlv_2= Or ( (lv_operands_3_0= ruleAndExpression ) ) )* ) ;
     public final EObject ruleConditionExpression() throws RecognitionException {
         EObject current = null;
 
@@ -15979,16 +15981,16 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // InternalErrorModelParser.g:6380:28: ( (this_AndExpression_0= ruleAndExpression ( () otherlv_2= Or ( (lv_operands_3_0= ruleAndExpression ) ) )* ) )
-            // InternalErrorModelParser.g:6381:1: (this_AndExpression_0= ruleAndExpression ( () otherlv_2= Or ( (lv_operands_3_0= ruleAndExpression ) ) )* )
+            // InternalErrorModelParser.g:6376:28: ( (this_AndExpression_0= ruleAndExpression ( () otherlv_2= Or ( (lv_operands_3_0= ruleAndExpression ) ) )* ) )
+            // InternalErrorModelParser.g:6377:1: (this_AndExpression_0= ruleAndExpression ( () otherlv_2= Or ( (lv_operands_3_0= ruleAndExpression ) ) )* )
             {
-            // InternalErrorModelParser.g:6381:1: (this_AndExpression_0= ruleAndExpression ( () otherlv_2= Or ( (lv_operands_3_0= ruleAndExpression ) ) )* )
-            // InternalErrorModelParser.g:6382:5: this_AndExpression_0= ruleAndExpression ( () otherlv_2= Or ( (lv_operands_3_0= ruleAndExpression ) ) )*
+            // InternalErrorModelParser.g:6377:1: (this_AndExpression_0= ruleAndExpression ( () otherlv_2= Or ( (lv_operands_3_0= ruleAndExpression ) ) )* )
+            // InternalErrorModelParser.g:6378:5: this_AndExpression_0= ruleAndExpression ( () otherlv_2= Or ( (lv_operands_3_0= ruleAndExpression ) ) )*
             {
              
                     newCompositeNode(grammarAccess.getConditionExpressionAccess().getAndExpressionParserRuleCall_0()); 
                 
-            pushFollow(FOLLOW_124);
+            pushFollow(FOLLOW_123);
             this_AndExpression_0=ruleAndExpression();
 
             state._fsp--;
@@ -15997,7 +15999,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
                     current = this_AndExpression_0;
                     afterParserOrEnumRuleCall();
                 
-            // InternalErrorModelParser.g:6390:1: ( () otherlv_2= Or ( (lv_operands_3_0= ruleAndExpression ) ) )*
+            // InternalErrorModelParser.g:6386:1: ( () otherlv_2= Or ( (lv_operands_3_0= ruleAndExpression ) ) )*
             loop185:
             do {
                 int alt185=2;
@@ -16010,10 +16012,10 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
                 switch (alt185) {
             	case 1 :
-            	    // InternalErrorModelParser.g:6390:2: () otherlv_2= Or ( (lv_operands_3_0= ruleAndExpression ) )
+            	    // InternalErrorModelParser.g:6386:2: () otherlv_2= Or ( (lv_operands_3_0= ruleAndExpression ) )
             	    {
-            	    // InternalErrorModelParser.g:6390:2: ()
-            	    // InternalErrorModelParser.g:6391:5: 
+            	    // InternalErrorModelParser.g:6386:2: ()
+            	    // InternalErrorModelParser.g:6387:5: 
             	    {
 
             	            current = forceCreateModelElementAndAdd(
@@ -16023,20 +16025,20 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
             	    }
 
-            	    otherlv_2=(Token)match(input,Or,FOLLOW_115); 
+            	    otherlv_2=(Token)match(input,Or,FOLLOW_114); 
 
             	        	newLeafNode(otherlv_2, grammarAccess.getConditionExpressionAccess().getOrKeyword_1_1());
             	        
-            	    // InternalErrorModelParser.g:6401:1: ( (lv_operands_3_0= ruleAndExpression ) )
-            	    // InternalErrorModelParser.g:6402:1: (lv_operands_3_0= ruleAndExpression )
+            	    // InternalErrorModelParser.g:6397:1: ( (lv_operands_3_0= ruleAndExpression ) )
+            	    // InternalErrorModelParser.g:6398:1: (lv_operands_3_0= ruleAndExpression )
             	    {
-            	    // InternalErrorModelParser.g:6402:1: (lv_operands_3_0= ruleAndExpression )
-            	    // InternalErrorModelParser.g:6403:3: lv_operands_3_0= ruleAndExpression
+            	    // InternalErrorModelParser.g:6398:1: (lv_operands_3_0= ruleAndExpression )
+            	    // InternalErrorModelParser.g:6399:3: lv_operands_3_0= ruleAndExpression
             	    {
             	     
             	    	        newCompositeNode(grammarAccess.getConditionExpressionAccess().getOperandsAndExpressionParserRuleCall_1_2_0()); 
             	    	    
-            	    pushFollow(FOLLOW_124);
+            	    pushFollow(FOLLOW_123);
             	    lv_operands_3_0=ruleAndExpression();
 
             	    state._fsp--;
@@ -16088,7 +16090,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleAndExpression"
-    // InternalErrorModelParser.g:6427:1: entryRuleAndExpression returns [EObject current=null] : iv_ruleAndExpression= ruleAndExpression EOF ;
+    // InternalErrorModelParser.g:6423:1: entryRuleAndExpression returns [EObject current=null] : iv_ruleAndExpression= ruleAndExpression EOF ;
     public final EObject entryRuleAndExpression() throws RecognitionException {
         EObject current = null;
 
@@ -16096,8 +16098,8 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // InternalErrorModelParser.g:6428:2: (iv_ruleAndExpression= ruleAndExpression EOF )
-            // InternalErrorModelParser.g:6429:2: iv_ruleAndExpression= ruleAndExpression EOF
+            // InternalErrorModelParser.g:6424:2: (iv_ruleAndExpression= ruleAndExpression EOF )
+            // InternalErrorModelParser.g:6425:2: iv_ruleAndExpression= ruleAndExpression EOF
             {
              newCompositeNode(grammarAccess.getAndExpressionRule()); 
             pushFollow(FOLLOW_1);
@@ -16124,7 +16126,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleAndExpression"
-    // InternalErrorModelParser.g:6436:1: ruleAndExpression returns [EObject current=null] : (this_ConditionTerm_0= ruleConditionTerm ( () otherlv_2= And ( (lv_operands_3_0= ruleConditionTerm ) ) )* ) ;
+    // InternalErrorModelParser.g:6432:1: ruleAndExpression returns [EObject current=null] : (this_ConditionTerm_0= ruleConditionTerm ( () otherlv_2= And ( (lv_operands_3_0= ruleConditionTerm ) ) )* ) ;
     public final EObject ruleAndExpression() throws RecognitionException {
         EObject current = null;
 
@@ -16137,16 +16139,16 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // InternalErrorModelParser.g:6439:28: ( (this_ConditionTerm_0= ruleConditionTerm ( () otherlv_2= And ( (lv_operands_3_0= ruleConditionTerm ) ) )* ) )
-            // InternalErrorModelParser.g:6440:1: (this_ConditionTerm_0= ruleConditionTerm ( () otherlv_2= And ( (lv_operands_3_0= ruleConditionTerm ) ) )* )
+            // InternalErrorModelParser.g:6435:28: ( (this_ConditionTerm_0= ruleConditionTerm ( () otherlv_2= And ( (lv_operands_3_0= ruleConditionTerm ) ) )* ) )
+            // InternalErrorModelParser.g:6436:1: (this_ConditionTerm_0= ruleConditionTerm ( () otherlv_2= And ( (lv_operands_3_0= ruleConditionTerm ) ) )* )
             {
-            // InternalErrorModelParser.g:6440:1: (this_ConditionTerm_0= ruleConditionTerm ( () otherlv_2= And ( (lv_operands_3_0= ruleConditionTerm ) ) )* )
-            // InternalErrorModelParser.g:6441:5: this_ConditionTerm_0= ruleConditionTerm ( () otherlv_2= And ( (lv_operands_3_0= ruleConditionTerm ) ) )*
+            // InternalErrorModelParser.g:6436:1: (this_ConditionTerm_0= ruleConditionTerm ( () otherlv_2= And ( (lv_operands_3_0= ruleConditionTerm ) ) )* )
+            // InternalErrorModelParser.g:6437:5: this_ConditionTerm_0= ruleConditionTerm ( () otherlv_2= And ( (lv_operands_3_0= ruleConditionTerm ) ) )*
             {
              
                     newCompositeNode(grammarAccess.getAndExpressionAccess().getConditionTermParserRuleCall_0()); 
                 
-            pushFollow(FOLLOW_125);
+            pushFollow(FOLLOW_124);
             this_ConditionTerm_0=ruleConditionTerm();
 
             state._fsp--;
@@ -16155,7 +16157,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
                     current = this_ConditionTerm_0;
                     afterParserOrEnumRuleCall();
                 
-            // InternalErrorModelParser.g:6449:1: ( () otherlv_2= And ( (lv_operands_3_0= ruleConditionTerm ) ) )*
+            // InternalErrorModelParser.g:6445:1: ( () otherlv_2= And ( (lv_operands_3_0= ruleConditionTerm ) ) )*
             loop186:
             do {
                 int alt186=2;
@@ -16168,10 +16170,10 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
                 switch (alt186) {
             	case 1 :
-            	    // InternalErrorModelParser.g:6449:2: () otherlv_2= And ( (lv_operands_3_0= ruleConditionTerm ) )
+            	    // InternalErrorModelParser.g:6445:2: () otherlv_2= And ( (lv_operands_3_0= ruleConditionTerm ) )
             	    {
-            	    // InternalErrorModelParser.g:6449:2: ()
-            	    // InternalErrorModelParser.g:6450:5: 
+            	    // InternalErrorModelParser.g:6445:2: ()
+            	    // InternalErrorModelParser.g:6446:5: 
             	    {
 
             	            current = forceCreateModelElementAndAdd(
@@ -16181,20 +16183,20 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
             	    }
 
-            	    otherlv_2=(Token)match(input,And,FOLLOW_115); 
+            	    otherlv_2=(Token)match(input,And,FOLLOW_114); 
 
             	        	newLeafNode(otherlv_2, grammarAccess.getAndExpressionAccess().getAndKeyword_1_1());
             	        
-            	    // InternalErrorModelParser.g:6460:1: ( (lv_operands_3_0= ruleConditionTerm ) )
-            	    // InternalErrorModelParser.g:6461:1: (lv_operands_3_0= ruleConditionTerm )
+            	    // InternalErrorModelParser.g:6456:1: ( (lv_operands_3_0= ruleConditionTerm ) )
+            	    // InternalErrorModelParser.g:6457:1: (lv_operands_3_0= ruleConditionTerm )
             	    {
-            	    // InternalErrorModelParser.g:6461:1: (lv_operands_3_0= ruleConditionTerm )
-            	    // InternalErrorModelParser.g:6462:3: lv_operands_3_0= ruleConditionTerm
+            	    // InternalErrorModelParser.g:6457:1: (lv_operands_3_0= ruleConditionTerm )
+            	    // InternalErrorModelParser.g:6458:3: lv_operands_3_0= ruleConditionTerm
             	    {
             	     
             	    	        newCompositeNode(grammarAccess.getAndExpressionAccess().getOperandsConditionTermParserRuleCall_1_2_0()); 
             	    	    
-            	    pushFollow(FOLLOW_125);
+            	    pushFollow(FOLLOW_124);
             	    lv_operands_3_0=ruleConditionTerm();
 
             	    state._fsp--;
@@ -16246,7 +16248,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleAllExpression"
-    // InternalErrorModelParser.g:6486:1: entryRuleAllExpression returns [EObject current=null] : iv_ruleAllExpression= ruleAllExpression EOF ;
+    // InternalErrorModelParser.g:6482:1: entryRuleAllExpression returns [EObject current=null] : iv_ruleAllExpression= ruleAllExpression EOF ;
     public final EObject entryRuleAllExpression() throws RecognitionException {
         EObject current = null;
 
@@ -16254,8 +16256,8 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // InternalErrorModelParser.g:6487:2: (iv_ruleAllExpression= ruleAllExpression EOF )
-            // InternalErrorModelParser.g:6488:2: iv_ruleAllExpression= ruleAllExpression EOF
+            // InternalErrorModelParser.g:6483:2: (iv_ruleAllExpression= ruleAllExpression EOF )
+            // InternalErrorModelParser.g:6484:2: iv_ruleAllExpression= ruleAllExpression EOF
             {
              newCompositeNode(grammarAccess.getAllExpressionRule()); 
             pushFollow(FOLLOW_1);
@@ -16282,7 +16284,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleAllExpression"
-    // InternalErrorModelParser.g:6495:1: ruleAllExpression returns [EObject current=null] : ( () otherlv_1= All (otherlv_2= HyphenMinus ( (lv_count_3_0= ruleINTVALUE ) ) )? otherlv_4= LeftParenthesis ( (lv_operands_5_0= ruleConditionElement ) ) (otherlv_6= Comma ( (lv_operands_7_0= ruleConditionElement ) ) )* otherlv_8= RightParenthesis ) ;
+    // InternalErrorModelParser.g:6491:1: ruleAllExpression returns [EObject current=null] : ( () otherlv_1= All (otherlv_2= HyphenMinus ( (lv_count_3_0= ruleINTVALUE ) ) )? otherlv_4= LeftParenthesis ( (lv_operands_5_0= ruleConditionElement ) ) (otherlv_6= Comma ( (lv_operands_7_0= ruleConditionElement ) ) )* otherlv_8= RightParenthesis ) ;
     public final EObject ruleAllExpression() throws RecognitionException {
         EObject current = null;
 
@@ -16301,14 +16303,14 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // InternalErrorModelParser.g:6498:28: ( ( () otherlv_1= All (otherlv_2= HyphenMinus ( (lv_count_3_0= ruleINTVALUE ) ) )? otherlv_4= LeftParenthesis ( (lv_operands_5_0= ruleConditionElement ) ) (otherlv_6= Comma ( (lv_operands_7_0= ruleConditionElement ) ) )* otherlv_8= RightParenthesis ) )
-            // InternalErrorModelParser.g:6499:1: ( () otherlv_1= All (otherlv_2= HyphenMinus ( (lv_count_3_0= ruleINTVALUE ) ) )? otherlv_4= LeftParenthesis ( (lv_operands_5_0= ruleConditionElement ) ) (otherlv_6= Comma ( (lv_operands_7_0= ruleConditionElement ) ) )* otherlv_8= RightParenthesis )
+            // InternalErrorModelParser.g:6494:28: ( ( () otherlv_1= All (otherlv_2= HyphenMinus ( (lv_count_3_0= ruleINTVALUE ) ) )? otherlv_4= LeftParenthesis ( (lv_operands_5_0= ruleConditionElement ) ) (otherlv_6= Comma ( (lv_operands_7_0= ruleConditionElement ) ) )* otherlv_8= RightParenthesis ) )
+            // InternalErrorModelParser.g:6495:1: ( () otherlv_1= All (otherlv_2= HyphenMinus ( (lv_count_3_0= ruleINTVALUE ) ) )? otherlv_4= LeftParenthesis ( (lv_operands_5_0= ruleConditionElement ) ) (otherlv_6= Comma ( (lv_operands_7_0= ruleConditionElement ) ) )* otherlv_8= RightParenthesis )
             {
-            // InternalErrorModelParser.g:6499:1: ( () otherlv_1= All (otherlv_2= HyphenMinus ( (lv_count_3_0= ruleINTVALUE ) ) )? otherlv_4= LeftParenthesis ( (lv_operands_5_0= ruleConditionElement ) ) (otherlv_6= Comma ( (lv_operands_7_0= ruleConditionElement ) ) )* otherlv_8= RightParenthesis )
-            // InternalErrorModelParser.g:6499:2: () otherlv_1= All (otherlv_2= HyphenMinus ( (lv_count_3_0= ruleINTVALUE ) ) )? otherlv_4= LeftParenthesis ( (lv_operands_5_0= ruleConditionElement ) ) (otherlv_6= Comma ( (lv_operands_7_0= ruleConditionElement ) ) )* otherlv_8= RightParenthesis
+            // InternalErrorModelParser.g:6495:1: ( () otherlv_1= All (otherlv_2= HyphenMinus ( (lv_count_3_0= ruleINTVALUE ) ) )? otherlv_4= LeftParenthesis ( (lv_operands_5_0= ruleConditionElement ) ) (otherlv_6= Comma ( (lv_operands_7_0= ruleConditionElement ) ) )* otherlv_8= RightParenthesis )
+            // InternalErrorModelParser.g:6495:2: () otherlv_1= All (otherlv_2= HyphenMinus ( (lv_count_3_0= ruleINTVALUE ) ) )? otherlv_4= LeftParenthesis ( (lv_operands_5_0= ruleConditionElement ) ) (otherlv_6= Comma ( (lv_operands_7_0= ruleConditionElement ) ) )* otherlv_8= RightParenthesis
             {
-            // InternalErrorModelParser.g:6499:2: ()
-            // InternalErrorModelParser.g:6500:5: 
+            // InternalErrorModelParser.g:6495:2: ()
+            // InternalErrorModelParser.g:6496:5: 
             {
 
                     current = forceCreateModelElement(
@@ -16318,11 +16320,11 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
             }
 
-            otherlv_1=(Token)match(input,All,FOLLOW_126); 
+            otherlv_1=(Token)match(input,All,FOLLOW_125); 
 
                 	newLeafNode(otherlv_1, grammarAccess.getAllExpressionAccess().getAllKeyword_1());
                 
-            // InternalErrorModelParser.g:6510:1: (otherlv_2= HyphenMinus ( (lv_count_3_0= ruleINTVALUE ) ) )?
+            // InternalErrorModelParser.g:6506:1: (otherlv_2= HyphenMinus ( (lv_count_3_0= ruleINTVALUE ) ) )?
             int alt187=2;
             int LA187_0 = input.LA(1);
 
@@ -16331,22 +16333,22 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
             }
             switch (alt187) {
                 case 1 :
-                    // InternalErrorModelParser.g:6511:2: otherlv_2= HyphenMinus ( (lv_count_3_0= ruleINTVALUE ) )
+                    // InternalErrorModelParser.g:6507:2: otherlv_2= HyphenMinus ( (lv_count_3_0= ruleINTVALUE ) )
                     {
-                    otherlv_2=(Token)match(input,HyphenMinus,FOLLOW_127); 
+                    otherlv_2=(Token)match(input,HyphenMinus,FOLLOW_126); 
 
                         	newLeafNode(otherlv_2, grammarAccess.getAllExpressionAccess().getHyphenMinusKeyword_2_0());
                         
-                    // InternalErrorModelParser.g:6515:1: ( (lv_count_3_0= ruleINTVALUE ) )
-                    // InternalErrorModelParser.g:6516:1: (lv_count_3_0= ruleINTVALUE )
+                    // InternalErrorModelParser.g:6511:1: ( (lv_count_3_0= ruleINTVALUE ) )
+                    // InternalErrorModelParser.g:6512:1: (lv_count_3_0= ruleINTVALUE )
                     {
-                    // InternalErrorModelParser.g:6516:1: (lv_count_3_0= ruleINTVALUE )
-                    // InternalErrorModelParser.g:6517:3: lv_count_3_0= ruleINTVALUE
+                    // InternalErrorModelParser.g:6512:1: (lv_count_3_0= ruleINTVALUE )
+                    // InternalErrorModelParser.g:6513:3: lv_count_3_0= ruleINTVALUE
                     {
                      
                     	        newCompositeNode(grammarAccess.getAllExpressionAccess().getCountINTVALUEParserRuleCall_2_1_0()); 
                     	    
-                    pushFollow(FOLLOW_128);
+                    pushFollow(FOLLOW_127);
                     lv_count_3_0=ruleINTVALUE();
 
                     state._fsp--;
@@ -16374,20 +16376,20 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
             }
 
-            otherlv_4=(Token)match(input,LeftParenthesis,FOLLOW_86); 
+            otherlv_4=(Token)match(input,LeftParenthesis,FOLLOW_85); 
 
                 	newLeafNode(otherlv_4, grammarAccess.getAllExpressionAccess().getLeftParenthesisKeyword_3());
                 
-            // InternalErrorModelParser.g:6538:1: ( (lv_operands_5_0= ruleConditionElement ) )
-            // InternalErrorModelParser.g:6539:1: (lv_operands_5_0= ruleConditionElement )
+            // InternalErrorModelParser.g:6534:1: ( (lv_operands_5_0= ruleConditionElement ) )
+            // InternalErrorModelParser.g:6535:1: (lv_operands_5_0= ruleConditionElement )
             {
-            // InternalErrorModelParser.g:6539:1: (lv_operands_5_0= ruleConditionElement )
-            // InternalErrorModelParser.g:6540:3: lv_operands_5_0= ruleConditionElement
+            // InternalErrorModelParser.g:6535:1: (lv_operands_5_0= ruleConditionElement )
+            // InternalErrorModelParser.g:6536:3: lv_operands_5_0= ruleConditionElement
             {
              
             	        newCompositeNode(grammarAccess.getAllExpressionAccess().getOperandsConditionElementParserRuleCall_4_0()); 
             	    
-            pushFollow(FOLLOW_119);
+            pushFollow(FOLLOW_118);
             lv_operands_5_0=ruleConditionElement();
 
             state._fsp--;
@@ -16409,7 +16411,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
             }
 
-            // InternalErrorModelParser.g:6556:2: (otherlv_6= Comma ( (lv_operands_7_0= ruleConditionElement ) ) )*
+            // InternalErrorModelParser.g:6552:2: (otherlv_6= Comma ( (lv_operands_7_0= ruleConditionElement ) ) )*
             loop188:
             do {
                 int alt188=2;
@@ -16422,22 +16424,22 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
                 switch (alt188) {
             	case 1 :
-            	    // InternalErrorModelParser.g:6557:2: otherlv_6= Comma ( (lv_operands_7_0= ruleConditionElement ) )
+            	    // InternalErrorModelParser.g:6553:2: otherlv_6= Comma ( (lv_operands_7_0= ruleConditionElement ) )
             	    {
-            	    otherlv_6=(Token)match(input,Comma,FOLLOW_86); 
+            	    otherlv_6=(Token)match(input,Comma,FOLLOW_85); 
 
             	        	newLeafNode(otherlv_6, grammarAccess.getAllExpressionAccess().getCommaKeyword_5_0());
             	        
-            	    // InternalErrorModelParser.g:6561:1: ( (lv_operands_7_0= ruleConditionElement ) )
-            	    // InternalErrorModelParser.g:6562:1: (lv_operands_7_0= ruleConditionElement )
+            	    // InternalErrorModelParser.g:6557:1: ( (lv_operands_7_0= ruleConditionElement ) )
+            	    // InternalErrorModelParser.g:6558:1: (lv_operands_7_0= ruleConditionElement )
             	    {
-            	    // InternalErrorModelParser.g:6562:1: (lv_operands_7_0= ruleConditionElement )
-            	    // InternalErrorModelParser.g:6563:3: lv_operands_7_0= ruleConditionElement
+            	    // InternalErrorModelParser.g:6558:1: (lv_operands_7_0= ruleConditionElement )
+            	    // InternalErrorModelParser.g:6559:3: lv_operands_7_0= ruleConditionElement
             	    {
             	     
             	    	        newCompositeNode(grammarAccess.getAllExpressionAccess().getOperandsConditionElementParserRuleCall_5_1_0()); 
             	    	    
-            	    pushFollow(FOLLOW_119);
+            	    pushFollow(FOLLOW_118);
             	    lv_operands_7_0=ruleConditionElement();
 
             	    state._fsp--;
@@ -16493,7 +16495,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleOrmoreExpression"
-    // InternalErrorModelParser.g:6592:1: entryRuleOrmoreExpression returns [EObject current=null] : iv_ruleOrmoreExpression= ruleOrmoreExpression EOF ;
+    // InternalErrorModelParser.g:6588:1: entryRuleOrmoreExpression returns [EObject current=null] : iv_ruleOrmoreExpression= ruleOrmoreExpression EOF ;
     public final EObject entryRuleOrmoreExpression() throws RecognitionException {
         EObject current = null;
 
@@ -16501,8 +16503,8 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // InternalErrorModelParser.g:6593:2: (iv_ruleOrmoreExpression= ruleOrmoreExpression EOF )
-            // InternalErrorModelParser.g:6594:2: iv_ruleOrmoreExpression= ruleOrmoreExpression EOF
+            // InternalErrorModelParser.g:6589:2: (iv_ruleOrmoreExpression= ruleOrmoreExpression EOF )
+            // InternalErrorModelParser.g:6590:2: iv_ruleOrmoreExpression= ruleOrmoreExpression EOF
             {
              newCompositeNode(grammarAccess.getOrmoreExpressionRule()); 
             pushFollow(FOLLOW_1);
@@ -16529,7 +16531,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleOrmoreExpression"
-    // InternalErrorModelParser.g:6601:1: ruleOrmoreExpression returns [EObject current=null] : ( ( (lv_count_0_0= ruleINTVALUE ) ) otherlv_1= Ormore otherlv_2= LeftParenthesis ( (lv_operands_3_0= ruleConditionExpression ) ) (otherlv_4= Comma ( (lv_operands_5_0= ruleConditionExpression ) ) )* otherlv_6= RightParenthesis ) ;
+    // InternalErrorModelParser.g:6597:1: ruleOrmoreExpression returns [EObject current=null] : ( ( (lv_count_0_0= ruleINTVALUE ) ) otherlv_1= Ormore otherlv_2= LeftParenthesis ( (lv_operands_3_0= ruleConditionExpression ) ) (otherlv_4= Comma ( (lv_operands_5_0= ruleConditionExpression ) ) )* otherlv_6= RightParenthesis ) ;
     public final EObject ruleOrmoreExpression() throws RecognitionException {
         EObject current = null;
 
@@ -16547,22 +16549,22 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // InternalErrorModelParser.g:6604:28: ( ( ( (lv_count_0_0= ruleINTVALUE ) ) otherlv_1= Ormore otherlv_2= LeftParenthesis ( (lv_operands_3_0= ruleConditionExpression ) ) (otherlv_4= Comma ( (lv_operands_5_0= ruleConditionExpression ) ) )* otherlv_6= RightParenthesis ) )
-            // InternalErrorModelParser.g:6605:1: ( ( (lv_count_0_0= ruleINTVALUE ) ) otherlv_1= Ormore otherlv_2= LeftParenthesis ( (lv_operands_3_0= ruleConditionExpression ) ) (otherlv_4= Comma ( (lv_operands_5_0= ruleConditionExpression ) ) )* otherlv_6= RightParenthesis )
+            // InternalErrorModelParser.g:6600:28: ( ( ( (lv_count_0_0= ruleINTVALUE ) ) otherlv_1= Ormore otherlv_2= LeftParenthesis ( (lv_operands_3_0= ruleConditionExpression ) ) (otherlv_4= Comma ( (lv_operands_5_0= ruleConditionExpression ) ) )* otherlv_6= RightParenthesis ) )
+            // InternalErrorModelParser.g:6601:1: ( ( (lv_count_0_0= ruleINTVALUE ) ) otherlv_1= Ormore otherlv_2= LeftParenthesis ( (lv_operands_3_0= ruleConditionExpression ) ) (otherlv_4= Comma ( (lv_operands_5_0= ruleConditionExpression ) ) )* otherlv_6= RightParenthesis )
             {
-            // InternalErrorModelParser.g:6605:1: ( ( (lv_count_0_0= ruleINTVALUE ) ) otherlv_1= Ormore otherlv_2= LeftParenthesis ( (lv_operands_3_0= ruleConditionExpression ) ) (otherlv_4= Comma ( (lv_operands_5_0= ruleConditionExpression ) ) )* otherlv_6= RightParenthesis )
-            // InternalErrorModelParser.g:6605:2: ( (lv_count_0_0= ruleINTVALUE ) ) otherlv_1= Ormore otherlv_2= LeftParenthesis ( (lv_operands_3_0= ruleConditionExpression ) ) (otherlv_4= Comma ( (lv_operands_5_0= ruleConditionExpression ) ) )* otherlv_6= RightParenthesis
+            // InternalErrorModelParser.g:6601:1: ( ( (lv_count_0_0= ruleINTVALUE ) ) otherlv_1= Ormore otherlv_2= LeftParenthesis ( (lv_operands_3_0= ruleConditionExpression ) ) (otherlv_4= Comma ( (lv_operands_5_0= ruleConditionExpression ) ) )* otherlv_6= RightParenthesis )
+            // InternalErrorModelParser.g:6601:2: ( (lv_count_0_0= ruleINTVALUE ) ) otherlv_1= Ormore otherlv_2= LeftParenthesis ( (lv_operands_3_0= ruleConditionExpression ) ) (otherlv_4= Comma ( (lv_operands_5_0= ruleConditionExpression ) ) )* otherlv_6= RightParenthesis
             {
-            // InternalErrorModelParser.g:6605:2: ( (lv_count_0_0= ruleINTVALUE ) )
-            // InternalErrorModelParser.g:6606:1: (lv_count_0_0= ruleINTVALUE )
+            // InternalErrorModelParser.g:6601:2: ( (lv_count_0_0= ruleINTVALUE ) )
+            // InternalErrorModelParser.g:6602:1: (lv_count_0_0= ruleINTVALUE )
             {
-            // InternalErrorModelParser.g:6606:1: (lv_count_0_0= ruleINTVALUE )
-            // InternalErrorModelParser.g:6607:3: lv_count_0_0= ruleINTVALUE
+            // InternalErrorModelParser.g:6602:1: (lv_count_0_0= ruleINTVALUE )
+            // InternalErrorModelParser.g:6603:3: lv_count_0_0= ruleINTVALUE
             {
              
             	        newCompositeNode(grammarAccess.getOrmoreExpressionAccess().getCountINTVALUEParserRuleCall_0_0()); 
             	    
-            pushFollow(FOLLOW_129);
+            pushFollow(FOLLOW_128);
             lv_count_0_0=ruleINTVALUE();
 
             state._fsp--;
@@ -16584,24 +16586,24 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
             }
 
-            otherlv_1=(Token)match(input,Ormore,FOLLOW_128); 
+            otherlv_1=(Token)match(input,Ormore,FOLLOW_127); 
 
                 	newLeafNode(otherlv_1, grammarAccess.getOrmoreExpressionAccess().getOrmoreKeyword_1());
                 
-            otherlv_2=(Token)match(input,LeftParenthesis,FOLLOW_115); 
+            otherlv_2=(Token)match(input,LeftParenthesis,FOLLOW_114); 
 
                 	newLeafNode(otherlv_2, grammarAccess.getOrmoreExpressionAccess().getLeftParenthesisKeyword_2());
                 
-            // InternalErrorModelParser.g:6633:1: ( (lv_operands_3_0= ruleConditionExpression ) )
-            // InternalErrorModelParser.g:6634:1: (lv_operands_3_0= ruleConditionExpression )
+            // InternalErrorModelParser.g:6629:1: ( (lv_operands_3_0= ruleConditionExpression ) )
+            // InternalErrorModelParser.g:6630:1: (lv_operands_3_0= ruleConditionExpression )
             {
-            // InternalErrorModelParser.g:6634:1: (lv_operands_3_0= ruleConditionExpression )
-            // InternalErrorModelParser.g:6635:3: lv_operands_3_0= ruleConditionExpression
+            // InternalErrorModelParser.g:6630:1: (lv_operands_3_0= ruleConditionExpression )
+            // InternalErrorModelParser.g:6631:3: lv_operands_3_0= ruleConditionExpression
             {
              
             	        newCompositeNode(grammarAccess.getOrmoreExpressionAccess().getOperandsConditionExpressionParserRuleCall_3_0()); 
             	    
-            pushFollow(FOLLOW_119);
+            pushFollow(FOLLOW_118);
             lv_operands_3_0=ruleConditionExpression();
 
             state._fsp--;
@@ -16623,7 +16625,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
             }
 
-            // InternalErrorModelParser.g:6651:2: (otherlv_4= Comma ( (lv_operands_5_0= ruleConditionExpression ) ) )*
+            // InternalErrorModelParser.g:6647:2: (otherlv_4= Comma ( (lv_operands_5_0= ruleConditionExpression ) ) )*
             loop189:
             do {
                 int alt189=2;
@@ -16636,22 +16638,22 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
                 switch (alt189) {
             	case 1 :
-            	    // InternalErrorModelParser.g:6652:2: otherlv_4= Comma ( (lv_operands_5_0= ruleConditionExpression ) )
+            	    // InternalErrorModelParser.g:6648:2: otherlv_4= Comma ( (lv_operands_5_0= ruleConditionExpression ) )
             	    {
-            	    otherlv_4=(Token)match(input,Comma,FOLLOW_115); 
+            	    otherlv_4=(Token)match(input,Comma,FOLLOW_114); 
 
             	        	newLeafNode(otherlv_4, grammarAccess.getOrmoreExpressionAccess().getCommaKeyword_4_0());
             	        
-            	    // InternalErrorModelParser.g:6656:1: ( (lv_operands_5_0= ruleConditionExpression ) )
-            	    // InternalErrorModelParser.g:6657:1: (lv_operands_5_0= ruleConditionExpression )
+            	    // InternalErrorModelParser.g:6652:1: ( (lv_operands_5_0= ruleConditionExpression ) )
+            	    // InternalErrorModelParser.g:6653:1: (lv_operands_5_0= ruleConditionExpression )
             	    {
-            	    // InternalErrorModelParser.g:6657:1: (lv_operands_5_0= ruleConditionExpression )
-            	    // InternalErrorModelParser.g:6658:3: lv_operands_5_0= ruleConditionExpression
+            	    // InternalErrorModelParser.g:6653:1: (lv_operands_5_0= ruleConditionExpression )
+            	    // InternalErrorModelParser.g:6654:3: lv_operands_5_0= ruleConditionExpression
             	    {
             	     
             	    	        newCompositeNode(grammarAccess.getOrmoreExpressionAccess().getOperandsConditionExpressionParserRuleCall_4_1_0()); 
             	    	    
-            	    pushFollow(FOLLOW_119);
+            	    pushFollow(FOLLOW_118);
             	    lv_operands_5_0=ruleConditionExpression();
 
             	    state._fsp--;
@@ -16707,7 +16709,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleOrlessExpression"
-    // InternalErrorModelParser.g:6687:1: entryRuleOrlessExpression returns [EObject current=null] : iv_ruleOrlessExpression= ruleOrlessExpression EOF ;
+    // InternalErrorModelParser.g:6683:1: entryRuleOrlessExpression returns [EObject current=null] : iv_ruleOrlessExpression= ruleOrlessExpression EOF ;
     public final EObject entryRuleOrlessExpression() throws RecognitionException {
         EObject current = null;
 
@@ -16715,8 +16717,8 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // InternalErrorModelParser.g:6688:2: (iv_ruleOrlessExpression= ruleOrlessExpression EOF )
-            // InternalErrorModelParser.g:6689:2: iv_ruleOrlessExpression= ruleOrlessExpression EOF
+            // InternalErrorModelParser.g:6684:2: (iv_ruleOrlessExpression= ruleOrlessExpression EOF )
+            // InternalErrorModelParser.g:6685:2: iv_ruleOrlessExpression= ruleOrlessExpression EOF
             {
              newCompositeNode(grammarAccess.getOrlessExpressionRule()); 
             pushFollow(FOLLOW_1);
@@ -16743,7 +16745,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleOrlessExpression"
-    // InternalErrorModelParser.g:6696:1: ruleOrlessExpression returns [EObject current=null] : ( ( (lv_count_0_0= ruleINTVALUE ) ) otherlv_1= Orless otherlv_2= LeftParenthesis ( (lv_operands_3_0= ruleConditionExpression ) ) (otherlv_4= Comma ( (lv_operands_5_0= ruleConditionExpression ) ) )* otherlv_6= RightParenthesis ) ;
+    // InternalErrorModelParser.g:6692:1: ruleOrlessExpression returns [EObject current=null] : ( ( (lv_count_0_0= ruleINTVALUE ) ) otherlv_1= Orless otherlv_2= LeftParenthesis ( (lv_operands_3_0= ruleConditionExpression ) ) (otherlv_4= Comma ( (lv_operands_5_0= ruleConditionExpression ) ) )* otherlv_6= RightParenthesis ) ;
     public final EObject ruleOrlessExpression() throws RecognitionException {
         EObject current = null;
 
@@ -16761,22 +16763,22 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // InternalErrorModelParser.g:6699:28: ( ( ( (lv_count_0_0= ruleINTVALUE ) ) otherlv_1= Orless otherlv_2= LeftParenthesis ( (lv_operands_3_0= ruleConditionExpression ) ) (otherlv_4= Comma ( (lv_operands_5_0= ruleConditionExpression ) ) )* otherlv_6= RightParenthesis ) )
-            // InternalErrorModelParser.g:6700:1: ( ( (lv_count_0_0= ruleINTVALUE ) ) otherlv_1= Orless otherlv_2= LeftParenthesis ( (lv_operands_3_0= ruleConditionExpression ) ) (otherlv_4= Comma ( (lv_operands_5_0= ruleConditionExpression ) ) )* otherlv_6= RightParenthesis )
+            // InternalErrorModelParser.g:6695:28: ( ( ( (lv_count_0_0= ruleINTVALUE ) ) otherlv_1= Orless otherlv_2= LeftParenthesis ( (lv_operands_3_0= ruleConditionExpression ) ) (otherlv_4= Comma ( (lv_operands_5_0= ruleConditionExpression ) ) )* otherlv_6= RightParenthesis ) )
+            // InternalErrorModelParser.g:6696:1: ( ( (lv_count_0_0= ruleINTVALUE ) ) otherlv_1= Orless otherlv_2= LeftParenthesis ( (lv_operands_3_0= ruleConditionExpression ) ) (otherlv_4= Comma ( (lv_operands_5_0= ruleConditionExpression ) ) )* otherlv_6= RightParenthesis )
             {
-            // InternalErrorModelParser.g:6700:1: ( ( (lv_count_0_0= ruleINTVALUE ) ) otherlv_1= Orless otherlv_2= LeftParenthesis ( (lv_operands_3_0= ruleConditionExpression ) ) (otherlv_4= Comma ( (lv_operands_5_0= ruleConditionExpression ) ) )* otherlv_6= RightParenthesis )
-            // InternalErrorModelParser.g:6700:2: ( (lv_count_0_0= ruleINTVALUE ) ) otherlv_1= Orless otherlv_2= LeftParenthesis ( (lv_operands_3_0= ruleConditionExpression ) ) (otherlv_4= Comma ( (lv_operands_5_0= ruleConditionExpression ) ) )* otherlv_6= RightParenthesis
+            // InternalErrorModelParser.g:6696:1: ( ( (lv_count_0_0= ruleINTVALUE ) ) otherlv_1= Orless otherlv_2= LeftParenthesis ( (lv_operands_3_0= ruleConditionExpression ) ) (otherlv_4= Comma ( (lv_operands_5_0= ruleConditionExpression ) ) )* otherlv_6= RightParenthesis )
+            // InternalErrorModelParser.g:6696:2: ( (lv_count_0_0= ruleINTVALUE ) ) otherlv_1= Orless otherlv_2= LeftParenthesis ( (lv_operands_3_0= ruleConditionExpression ) ) (otherlv_4= Comma ( (lv_operands_5_0= ruleConditionExpression ) ) )* otherlv_6= RightParenthesis
             {
-            // InternalErrorModelParser.g:6700:2: ( (lv_count_0_0= ruleINTVALUE ) )
-            // InternalErrorModelParser.g:6701:1: (lv_count_0_0= ruleINTVALUE )
+            // InternalErrorModelParser.g:6696:2: ( (lv_count_0_0= ruleINTVALUE ) )
+            // InternalErrorModelParser.g:6697:1: (lv_count_0_0= ruleINTVALUE )
             {
-            // InternalErrorModelParser.g:6701:1: (lv_count_0_0= ruleINTVALUE )
-            // InternalErrorModelParser.g:6702:3: lv_count_0_0= ruleINTVALUE
+            // InternalErrorModelParser.g:6697:1: (lv_count_0_0= ruleINTVALUE )
+            // InternalErrorModelParser.g:6698:3: lv_count_0_0= ruleINTVALUE
             {
              
             	        newCompositeNode(grammarAccess.getOrlessExpressionAccess().getCountINTVALUEParserRuleCall_0_0()); 
             	    
-            pushFollow(FOLLOW_130);
+            pushFollow(FOLLOW_129);
             lv_count_0_0=ruleINTVALUE();
 
             state._fsp--;
@@ -16798,24 +16800,24 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
             }
 
-            otherlv_1=(Token)match(input,Orless,FOLLOW_128); 
+            otherlv_1=(Token)match(input,Orless,FOLLOW_127); 
 
                 	newLeafNode(otherlv_1, grammarAccess.getOrlessExpressionAccess().getOrlessKeyword_1());
                 
-            otherlv_2=(Token)match(input,LeftParenthesis,FOLLOW_115); 
+            otherlv_2=(Token)match(input,LeftParenthesis,FOLLOW_114); 
 
                 	newLeafNode(otherlv_2, grammarAccess.getOrlessExpressionAccess().getLeftParenthesisKeyword_2());
                 
-            // InternalErrorModelParser.g:6728:1: ( (lv_operands_3_0= ruleConditionExpression ) )
-            // InternalErrorModelParser.g:6729:1: (lv_operands_3_0= ruleConditionExpression )
+            // InternalErrorModelParser.g:6724:1: ( (lv_operands_3_0= ruleConditionExpression ) )
+            // InternalErrorModelParser.g:6725:1: (lv_operands_3_0= ruleConditionExpression )
             {
-            // InternalErrorModelParser.g:6729:1: (lv_operands_3_0= ruleConditionExpression )
-            // InternalErrorModelParser.g:6730:3: lv_operands_3_0= ruleConditionExpression
+            // InternalErrorModelParser.g:6725:1: (lv_operands_3_0= ruleConditionExpression )
+            // InternalErrorModelParser.g:6726:3: lv_operands_3_0= ruleConditionExpression
             {
              
             	        newCompositeNode(grammarAccess.getOrlessExpressionAccess().getOperandsConditionExpressionParserRuleCall_3_0()); 
             	    
-            pushFollow(FOLLOW_119);
+            pushFollow(FOLLOW_118);
             lv_operands_3_0=ruleConditionExpression();
 
             state._fsp--;
@@ -16837,7 +16839,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
             }
 
-            // InternalErrorModelParser.g:6746:2: (otherlv_4= Comma ( (lv_operands_5_0= ruleConditionExpression ) ) )*
+            // InternalErrorModelParser.g:6742:2: (otherlv_4= Comma ( (lv_operands_5_0= ruleConditionExpression ) ) )*
             loop190:
             do {
                 int alt190=2;
@@ -16850,22 +16852,22 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
                 switch (alt190) {
             	case 1 :
-            	    // InternalErrorModelParser.g:6747:2: otherlv_4= Comma ( (lv_operands_5_0= ruleConditionExpression ) )
+            	    // InternalErrorModelParser.g:6743:2: otherlv_4= Comma ( (lv_operands_5_0= ruleConditionExpression ) )
             	    {
-            	    otherlv_4=(Token)match(input,Comma,FOLLOW_115); 
+            	    otherlv_4=(Token)match(input,Comma,FOLLOW_114); 
 
             	        	newLeafNode(otherlv_4, grammarAccess.getOrlessExpressionAccess().getCommaKeyword_4_0());
             	        
-            	    // InternalErrorModelParser.g:6751:1: ( (lv_operands_5_0= ruleConditionExpression ) )
-            	    // InternalErrorModelParser.g:6752:1: (lv_operands_5_0= ruleConditionExpression )
+            	    // InternalErrorModelParser.g:6747:1: ( (lv_operands_5_0= ruleConditionExpression ) )
+            	    // InternalErrorModelParser.g:6748:1: (lv_operands_5_0= ruleConditionExpression )
             	    {
-            	    // InternalErrorModelParser.g:6752:1: (lv_operands_5_0= ruleConditionExpression )
-            	    // InternalErrorModelParser.g:6753:3: lv_operands_5_0= ruleConditionExpression
+            	    // InternalErrorModelParser.g:6748:1: (lv_operands_5_0= ruleConditionExpression )
+            	    // InternalErrorModelParser.g:6749:3: lv_operands_5_0= ruleConditionExpression
             	    {
             	     
             	    	        newCompositeNode(grammarAccess.getOrlessExpressionAccess().getOperandsConditionExpressionParserRuleCall_4_1_0()); 
             	    	    
-            	    pushFollow(FOLLOW_119);
+            	    pushFollow(FOLLOW_118);
             	    lv_operands_5_0=ruleConditionExpression();
 
             	    state._fsp--;
@@ -16921,7 +16923,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleConditionTerm"
-    // InternalErrorModelParser.g:6782:1: entryRuleConditionTerm returns [EObject current=null] : iv_ruleConditionTerm= ruleConditionTerm EOF ;
+    // InternalErrorModelParser.g:6778:1: entryRuleConditionTerm returns [EObject current=null] : iv_ruleConditionTerm= ruleConditionTerm EOF ;
     public final EObject entryRuleConditionTerm() throws RecognitionException {
         EObject current = null;
 
@@ -16929,8 +16931,8 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // InternalErrorModelParser.g:6783:2: (iv_ruleConditionTerm= ruleConditionTerm EOF )
-            // InternalErrorModelParser.g:6784:2: iv_ruleConditionTerm= ruleConditionTerm EOF
+            // InternalErrorModelParser.g:6779:2: (iv_ruleConditionTerm= ruleConditionTerm EOF )
+            // InternalErrorModelParser.g:6780:2: iv_ruleConditionTerm= ruleConditionTerm EOF
             {
              newCompositeNode(grammarAccess.getConditionTermRule()); 
             pushFollow(FOLLOW_1);
@@ -16957,7 +16959,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleConditionTerm"
-    // InternalErrorModelParser.g:6791:1: ruleConditionTerm returns [EObject current=null] : (this_ConditionElement_0= ruleConditionElement | this_OrmoreExpression_1= ruleOrmoreExpression | this_OrlessExpression_2= ruleOrlessExpression | this_AllExpression_3= ruleAllExpression | (otherlv_4= LeftParenthesis this_ConditionExpression_5= ruleConditionExpression otherlv_6= RightParenthesis ) ) ;
+    // InternalErrorModelParser.g:6787:1: ruleConditionTerm returns [EObject current=null] : (this_ConditionElement_0= ruleConditionElement | this_OrmoreExpression_1= ruleOrmoreExpression | this_OrlessExpression_2= ruleOrlessExpression | this_AllExpression_3= ruleAllExpression | (otherlv_4= LeftParenthesis this_ConditionExpression_5= ruleConditionExpression otherlv_6= RightParenthesis ) ) ;
     public final EObject ruleConditionTerm() throws RecognitionException {
         EObject current = null;
 
@@ -16977,10 +16979,10 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // InternalErrorModelParser.g:6794:28: ( (this_ConditionElement_0= ruleConditionElement | this_OrmoreExpression_1= ruleOrmoreExpression | this_OrlessExpression_2= ruleOrlessExpression | this_AllExpression_3= ruleAllExpression | (otherlv_4= LeftParenthesis this_ConditionExpression_5= ruleConditionExpression otherlv_6= RightParenthesis ) ) )
-            // InternalErrorModelParser.g:6795:1: (this_ConditionElement_0= ruleConditionElement | this_OrmoreExpression_1= ruleOrmoreExpression | this_OrlessExpression_2= ruleOrlessExpression | this_AllExpression_3= ruleAllExpression | (otherlv_4= LeftParenthesis this_ConditionExpression_5= ruleConditionExpression otherlv_6= RightParenthesis ) )
+            // InternalErrorModelParser.g:6790:28: ( (this_ConditionElement_0= ruleConditionElement | this_OrmoreExpression_1= ruleOrmoreExpression | this_OrlessExpression_2= ruleOrlessExpression | this_AllExpression_3= ruleAllExpression | (otherlv_4= LeftParenthesis this_ConditionExpression_5= ruleConditionExpression otherlv_6= RightParenthesis ) ) )
+            // InternalErrorModelParser.g:6791:1: (this_ConditionElement_0= ruleConditionElement | this_OrmoreExpression_1= ruleOrmoreExpression | this_OrlessExpression_2= ruleOrlessExpression | this_AllExpression_3= ruleAllExpression | (otherlv_4= LeftParenthesis this_ConditionExpression_5= ruleConditionExpression otherlv_6= RightParenthesis ) )
             {
-            // InternalErrorModelParser.g:6795:1: (this_ConditionElement_0= ruleConditionElement | this_OrmoreExpression_1= ruleOrmoreExpression | this_OrlessExpression_2= ruleOrlessExpression | this_AllExpression_3= ruleAllExpression | (otherlv_4= LeftParenthesis this_ConditionExpression_5= ruleConditionExpression otherlv_6= RightParenthesis ) )
+            // InternalErrorModelParser.g:6791:1: (this_ConditionElement_0= ruleConditionElement | this_OrmoreExpression_1= ruleOrmoreExpression | this_OrlessExpression_2= ruleOrlessExpression | this_AllExpression_3= ruleAllExpression | (otherlv_4= LeftParenthesis this_ConditionExpression_5= ruleConditionExpression otherlv_6= RightParenthesis ) )
             int alt191=5;
             switch ( input.LA(1) ) {
             case Connection:
@@ -17031,7 +17033,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
             switch (alt191) {
                 case 1 :
-                    // InternalErrorModelParser.g:6796:5: this_ConditionElement_0= ruleConditionElement
+                    // InternalErrorModelParser.g:6792:5: this_ConditionElement_0= ruleConditionElement
                     {
                      
                             newCompositeNode(grammarAccess.getConditionTermAccess().getConditionElementParserRuleCall_0()); 
@@ -17049,7 +17051,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 2 :
-                    // InternalErrorModelParser.g:6806:5: this_OrmoreExpression_1= ruleOrmoreExpression
+                    // InternalErrorModelParser.g:6802:5: this_OrmoreExpression_1= ruleOrmoreExpression
                     {
                      
                             newCompositeNode(grammarAccess.getConditionTermAccess().getOrmoreExpressionParserRuleCall_1()); 
@@ -17067,7 +17069,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 3 :
-                    // InternalErrorModelParser.g:6816:5: this_OrlessExpression_2= ruleOrlessExpression
+                    // InternalErrorModelParser.g:6812:5: this_OrlessExpression_2= ruleOrlessExpression
                     {
                      
                             newCompositeNode(grammarAccess.getConditionTermAccess().getOrlessExpressionParserRuleCall_2()); 
@@ -17085,7 +17087,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 4 :
-                    // InternalErrorModelParser.g:6826:5: this_AllExpression_3= ruleAllExpression
+                    // InternalErrorModelParser.g:6822:5: this_AllExpression_3= ruleAllExpression
                     {
                      
                             newCompositeNode(grammarAccess.getConditionTermAccess().getAllExpressionParserRuleCall_3()); 
@@ -17103,19 +17105,19 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 5 :
-                    // InternalErrorModelParser.g:6835:6: (otherlv_4= LeftParenthesis this_ConditionExpression_5= ruleConditionExpression otherlv_6= RightParenthesis )
+                    // InternalErrorModelParser.g:6831:6: (otherlv_4= LeftParenthesis this_ConditionExpression_5= ruleConditionExpression otherlv_6= RightParenthesis )
                     {
-                    // InternalErrorModelParser.g:6835:6: (otherlv_4= LeftParenthesis this_ConditionExpression_5= ruleConditionExpression otherlv_6= RightParenthesis )
-                    // InternalErrorModelParser.g:6836:2: otherlv_4= LeftParenthesis this_ConditionExpression_5= ruleConditionExpression otherlv_6= RightParenthesis
+                    // InternalErrorModelParser.g:6831:6: (otherlv_4= LeftParenthesis this_ConditionExpression_5= ruleConditionExpression otherlv_6= RightParenthesis )
+                    // InternalErrorModelParser.g:6832:2: otherlv_4= LeftParenthesis this_ConditionExpression_5= ruleConditionExpression otherlv_6= RightParenthesis
                     {
-                    otherlv_4=(Token)match(input,LeftParenthesis,FOLLOW_115); 
+                    otherlv_4=(Token)match(input,LeftParenthesis,FOLLOW_114); 
 
                         	newLeafNode(otherlv_4, grammarAccess.getConditionTermAccess().getLeftParenthesisKeyword_4_0());
                         
                      
                             newCompositeNode(grammarAccess.getConditionTermAccess().getConditionExpressionParserRuleCall_4_1()); 
                         
-                    pushFollow(FOLLOW_131);
+                    pushFollow(FOLLOW_130);
                     this_ConditionExpression_5=ruleConditionExpression();
 
                     state._fsp--;
@@ -17155,7 +17157,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleConditionElement"
-    // InternalErrorModelParser.g:6862:1: entryRuleConditionElement returns [EObject current=null] : iv_ruleConditionElement= ruleConditionElement EOF ;
+    // InternalErrorModelParser.g:6858:1: entryRuleConditionElement returns [EObject current=null] : iv_ruleConditionElement= ruleConditionElement EOF ;
     public final EObject entryRuleConditionElement() throws RecognitionException {
         EObject current = null;
 
@@ -17163,8 +17165,8 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // InternalErrorModelParser.g:6863:2: (iv_ruleConditionElement= ruleConditionElement EOF )
-            // InternalErrorModelParser.g:6864:2: iv_ruleConditionElement= ruleConditionElement EOF
+            // InternalErrorModelParser.g:6859:2: (iv_ruleConditionElement= ruleConditionElement EOF )
+            // InternalErrorModelParser.g:6860:2: iv_ruleConditionElement= ruleConditionElement EOF
             {
              newCompositeNode(grammarAccess.getConditionElementRule()); 
             pushFollow(FOLLOW_1);
@@ -17191,7 +17193,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleConditionElement"
-    // InternalErrorModelParser.g:6871:1: ruleConditionElement returns [EObject current=null] : ( ( (lv_qualifiedErrorPropagationReference_0_0= ruleQualifiedErrorEventOrPropagation ) ) ( (lv_constraint_1_0= ruleTypeTokenConstraintNoError ) )? ) ;
+    // InternalErrorModelParser.g:6867:1: ruleConditionElement returns [EObject current=null] : ( ( (lv_qualifiedErrorPropagationReference_0_0= ruleQualifiedErrorEventOrPropagation ) ) ( (lv_constraint_1_0= ruleTypeTokenConstraintNoError ) )? ) ;
     public final EObject ruleConditionElement() throws RecognitionException {
         EObject current = null;
 
@@ -17203,22 +17205,22 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // InternalErrorModelParser.g:6874:28: ( ( ( (lv_qualifiedErrorPropagationReference_0_0= ruleQualifiedErrorEventOrPropagation ) ) ( (lv_constraint_1_0= ruleTypeTokenConstraintNoError ) )? ) )
-            // InternalErrorModelParser.g:6875:1: ( ( (lv_qualifiedErrorPropagationReference_0_0= ruleQualifiedErrorEventOrPropagation ) ) ( (lv_constraint_1_0= ruleTypeTokenConstraintNoError ) )? )
+            // InternalErrorModelParser.g:6870:28: ( ( ( (lv_qualifiedErrorPropagationReference_0_0= ruleQualifiedErrorEventOrPropagation ) ) ( (lv_constraint_1_0= ruleTypeTokenConstraintNoError ) )? ) )
+            // InternalErrorModelParser.g:6871:1: ( ( (lv_qualifiedErrorPropagationReference_0_0= ruleQualifiedErrorEventOrPropagation ) ) ( (lv_constraint_1_0= ruleTypeTokenConstraintNoError ) )? )
             {
-            // InternalErrorModelParser.g:6875:1: ( ( (lv_qualifiedErrorPropagationReference_0_0= ruleQualifiedErrorEventOrPropagation ) ) ( (lv_constraint_1_0= ruleTypeTokenConstraintNoError ) )? )
-            // InternalErrorModelParser.g:6875:2: ( (lv_qualifiedErrorPropagationReference_0_0= ruleQualifiedErrorEventOrPropagation ) ) ( (lv_constraint_1_0= ruleTypeTokenConstraintNoError ) )?
+            // InternalErrorModelParser.g:6871:1: ( ( (lv_qualifiedErrorPropagationReference_0_0= ruleQualifiedErrorEventOrPropagation ) ) ( (lv_constraint_1_0= ruleTypeTokenConstraintNoError ) )? )
+            // InternalErrorModelParser.g:6871:2: ( (lv_qualifiedErrorPropagationReference_0_0= ruleQualifiedErrorEventOrPropagation ) ) ( (lv_constraint_1_0= ruleTypeTokenConstraintNoError ) )?
             {
-            // InternalErrorModelParser.g:6875:2: ( (lv_qualifiedErrorPropagationReference_0_0= ruleQualifiedErrorEventOrPropagation ) )
-            // InternalErrorModelParser.g:6876:1: (lv_qualifiedErrorPropagationReference_0_0= ruleQualifiedErrorEventOrPropagation )
+            // InternalErrorModelParser.g:6871:2: ( (lv_qualifiedErrorPropagationReference_0_0= ruleQualifiedErrorEventOrPropagation ) )
+            // InternalErrorModelParser.g:6872:1: (lv_qualifiedErrorPropagationReference_0_0= ruleQualifiedErrorEventOrPropagation )
             {
-            // InternalErrorModelParser.g:6876:1: (lv_qualifiedErrorPropagationReference_0_0= ruleQualifiedErrorEventOrPropagation )
-            // InternalErrorModelParser.g:6877:3: lv_qualifiedErrorPropagationReference_0_0= ruleQualifiedErrorEventOrPropagation
+            // InternalErrorModelParser.g:6872:1: (lv_qualifiedErrorPropagationReference_0_0= ruleQualifiedErrorEventOrPropagation )
+            // InternalErrorModelParser.g:6873:3: lv_qualifiedErrorPropagationReference_0_0= ruleQualifiedErrorEventOrPropagation
             {
              
             	        newCompositeNode(grammarAccess.getConditionElementAccess().getQualifiedErrorPropagationReferenceQualifiedErrorEventOrPropagationParserRuleCall_0_0()); 
             	    
-            pushFollow(FOLLOW_132);
+            pushFollow(FOLLOW_131);
             lv_qualifiedErrorPropagationReference_0_0=ruleQualifiedErrorEventOrPropagation();
 
             state._fsp--;
@@ -17240,7 +17242,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
             }
 
-            // InternalErrorModelParser.g:6893:2: ( (lv_constraint_1_0= ruleTypeTokenConstraintNoError ) )?
+            // InternalErrorModelParser.g:6889:2: ( (lv_constraint_1_0= ruleTypeTokenConstraintNoError ) )?
             int alt192=2;
             int LA192_0 = input.LA(1);
 
@@ -17249,10 +17251,10 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
             }
             switch (alt192) {
                 case 1 :
-                    // InternalErrorModelParser.g:6894:1: (lv_constraint_1_0= ruleTypeTokenConstraintNoError )
+                    // InternalErrorModelParser.g:6890:1: (lv_constraint_1_0= ruleTypeTokenConstraintNoError )
                     {
-                    // InternalErrorModelParser.g:6894:1: (lv_constraint_1_0= ruleTypeTokenConstraintNoError )
-                    // InternalErrorModelParser.g:6895:3: lv_constraint_1_0= ruleTypeTokenConstraintNoError
+                    // InternalErrorModelParser.g:6890:1: (lv_constraint_1_0= ruleTypeTokenConstraintNoError )
+                    // InternalErrorModelParser.g:6891:3: lv_constraint_1_0= ruleTypeTokenConstraintNoError
                     {
                      
                     	        newCompositeNode(grammarAccess.getConditionElementAccess().getConstraintTypeTokenConstraintNoErrorParserRuleCall_1_0()); 
@@ -17303,7 +17305,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleQualifiedErrorEventOrPropagation"
-    // InternalErrorModelParser.g:6919:1: entryRuleQualifiedErrorEventOrPropagation returns [EObject current=null] : iv_ruleQualifiedErrorEventOrPropagation= ruleQualifiedErrorEventOrPropagation EOF ;
+    // InternalErrorModelParser.g:6915:1: entryRuleQualifiedErrorEventOrPropagation returns [EObject current=null] : iv_ruleQualifiedErrorEventOrPropagation= ruleQualifiedErrorEventOrPropagation EOF ;
     public final EObject entryRuleQualifiedErrorEventOrPropagation() throws RecognitionException {
         EObject current = null;
 
@@ -17311,8 +17313,8 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // InternalErrorModelParser.g:6920:2: (iv_ruleQualifiedErrorEventOrPropagation= ruleQualifiedErrorEventOrPropagation EOF )
-            // InternalErrorModelParser.g:6921:2: iv_ruleQualifiedErrorEventOrPropagation= ruleQualifiedErrorEventOrPropagation EOF
+            // InternalErrorModelParser.g:6916:2: (iv_ruleQualifiedErrorEventOrPropagation= ruleQualifiedErrorEventOrPropagation EOF )
+            // InternalErrorModelParser.g:6917:2: iv_ruleQualifiedErrorEventOrPropagation= ruleQualifiedErrorEventOrPropagation EOF
             {
              newCompositeNode(grammarAccess.getQualifiedErrorEventOrPropagationRule()); 
             pushFollow(FOLLOW_1);
@@ -17339,7 +17341,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleQualifiedErrorEventOrPropagation"
-    // InternalErrorModelParser.g:6928:1: ruleQualifiedErrorEventOrPropagation returns [EObject current=null] : ( () ( (lv_emv2Target_1_0= ruleEMV2ErrorPropagationPath ) ) ) ;
+    // InternalErrorModelParser.g:6924:1: ruleQualifiedErrorEventOrPropagation returns [EObject current=null] : ( () ( (lv_emv2Target_1_0= ruleEMV2ErrorPropagationPath ) ) ) ;
     public final EObject ruleQualifiedErrorEventOrPropagation() throws RecognitionException {
         EObject current = null;
 
@@ -17349,14 +17351,14 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // InternalErrorModelParser.g:6931:28: ( ( () ( (lv_emv2Target_1_0= ruleEMV2ErrorPropagationPath ) ) ) )
-            // InternalErrorModelParser.g:6932:1: ( () ( (lv_emv2Target_1_0= ruleEMV2ErrorPropagationPath ) ) )
+            // InternalErrorModelParser.g:6927:28: ( ( () ( (lv_emv2Target_1_0= ruleEMV2ErrorPropagationPath ) ) ) )
+            // InternalErrorModelParser.g:6928:1: ( () ( (lv_emv2Target_1_0= ruleEMV2ErrorPropagationPath ) ) )
             {
-            // InternalErrorModelParser.g:6932:1: ( () ( (lv_emv2Target_1_0= ruleEMV2ErrorPropagationPath ) ) )
-            // InternalErrorModelParser.g:6932:2: () ( (lv_emv2Target_1_0= ruleEMV2ErrorPropagationPath ) )
+            // InternalErrorModelParser.g:6928:1: ( () ( (lv_emv2Target_1_0= ruleEMV2ErrorPropagationPath ) ) )
+            // InternalErrorModelParser.g:6928:2: () ( (lv_emv2Target_1_0= ruleEMV2ErrorPropagationPath ) )
             {
-            // InternalErrorModelParser.g:6932:2: ()
-            // InternalErrorModelParser.g:6933:5: 
+            // InternalErrorModelParser.g:6928:2: ()
+            // InternalErrorModelParser.g:6929:5: 
             {
 
                     current = forceCreateModelElement(
@@ -17366,11 +17368,11 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
             }
 
-            // InternalErrorModelParser.g:6938:2: ( (lv_emv2Target_1_0= ruleEMV2ErrorPropagationPath ) )
-            // InternalErrorModelParser.g:6939:1: (lv_emv2Target_1_0= ruleEMV2ErrorPropagationPath )
+            // InternalErrorModelParser.g:6934:2: ( (lv_emv2Target_1_0= ruleEMV2ErrorPropagationPath ) )
+            // InternalErrorModelParser.g:6935:1: (lv_emv2Target_1_0= ruleEMV2ErrorPropagationPath )
             {
-            // InternalErrorModelParser.g:6939:1: (lv_emv2Target_1_0= ruleEMV2ErrorPropagationPath )
-            // InternalErrorModelParser.g:6940:3: lv_emv2Target_1_0= ruleEMV2ErrorPropagationPath
+            // InternalErrorModelParser.g:6935:1: (lv_emv2Target_1_0= ruleEMV2ErrorPropagationPath )
+            // InternalErrorModelParser.g:6936:3: lv_emv2Target_1_0= ruleEMV2ErrorPropagationPath
             {
              
             	        newCompositeNode(grammarAccess.getQualifiedErrorEventOrPropagationAccess().getEmv2TargetEMV2ErrorPropagationPathParserRuleCall_1_0()); 
@@ -17418,7 +17420,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleEMV2ErrorPropagationPath"
-    // InternalErrorModelParser.g:6964:1: entryRuleEMV2ErrorPropagationPath returns [EObject current=null] : iv_ruleEMV2ErrorPropagationPath= ruleEMV2ErrorPropagationPath EOF ;
+    // InternalErrorModelParser.g:6960:1: entryRuleEMV2ErrorPropagationPath returns [EObject current=null] : iv_ruleEMV2ErrorPropagationPath= ruleEMV2ErrorPropagationPath EOF ;
     public final EObject entryRuleEMV2ErrorPropagationPath() throws RecognitionException {
         EObject current = null;
 
@@ -17426,8 +17428,8 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // InternalErrorModelParser.g:6965:2: (iv_ruleEMV2ErrorPropagationPath= ruleEMV2ErrorPropagationPath EOF )
-            // InternalErrorModelParser.g:6966:2: iv_ruleEMV2ErrorPropagationPath= ruleEMV2ErrorPropagationPath EOF
+            // InternalErrorModelParser.g:6961:2: (iv_ruleEMV2ErrorPropagationPath= ruleEMV2ErrorPropagationPath EOF )
+            // InternalErrorModelParser.g:6962:2: iv_ruleEMV2ErrorPropagationPath= ruleEMV2ErrorPropagationPath EOF
             {
              newCompositeNode(grammarAccess.getEMV2ErrorPropagationPathRule()); 
             pushFollow(FOLLOW_1);
@@ -17454,7 +17456,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleEMV2ErrorPropagationPath"
-    // InternalErrorModelParser.g:6973:1: ruleEMV2ErrorPropagationPath returns [EObject current=null] : ( ( (lv_emv2PropagationKind_0_0= rulePropagationKind ) ) | ( ( (otherlv_1= RULE_ID ) ) (otherlv_2= FullStop ( (lv_path_3_0= ruleEMV2ErrorPropagationPath ) ) )? ) ) ;
+    // InternalErrorModelParser.g:6969:1: ruleEMV2ErrorPropagationPath returns [EObject current=null] : ( ( (lv_emv2PropagationKind_0_0= rulePropagationKind ) ) | ( ( (otherlv_1= RULE_ID ) ) (otherlv_2= FullStop ( (lv_path_3_0= ruleEMV2ErrorPropagationPath ) ) )? ) ) ;
     public final EObject ruleEMV2ErrorPropagationPath() throws RecognitionException {
         EObject current = null;
 
@@ -17468,10 +17470,10 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // InternalErrorModelParser.g:6976:28: ( ( ( (lv_emv2PropagationKind_0_0= rulePropagationKind ) ) | ( ( (otherlv_1= RULE_ID ) ) (otherlv_2= FullStop ( (lv_path_3_0= ruleEMV2ErrorPropagationPath ) ) )? ) ) )
-            // InternalErrorModelParser.g:6977:1: ( ( (lv_emv2PropagationKind_0_0= rulePropagationKind ) ) | ( ( (otherlv_1= RULE_ID ) ) (otherlv_2= FullStop ( (lv_path_3_0= ruleEMV2ErrorPropagationPath ) ) )? ) )
+            // InternalErrorModelParser.g:6972:28: ( ( ( (lv_emv2PropagationKind_0_0= rulePropagationKind ) ) | ( ( (otherlv_1= RULE_ID ) ) (otherlv_2= FullStop ( (lv_path_3_0= ruleEMV2ErrorPropagationPath ) ) )? ) ) )
+            // InternalErrorModelParser.g:6973:1: ( ( (lv_emv2PropagationKind_0_0= rulePropagationKind ) ) | ( ( (otherlv_1= RULE_ID ) ) (otherlv_2= FullStop ( (lv_path_3_0= ruleEMV2ErrorPropagationPath ) ) )? ) )
             {
-            // InternalErrorModelParser.g:6977:1: ( ( (lv_emv2PropagationKind_0_0= rulePropagationKind ) ) | ( ( (otherlv_1= RULE_ID ) ) (otherlv_2= FullStop ( (lv_path_3_0= ruleEMV2ErrorPropagationPath ) ) )? ) )
+            // InternalErrorModelParser.g:6973:1: ( ( (lv_emv2PropagationKind_0_0= rulePropagationKind ) ) | ( ( (otherlv_1= RULE_ID ) ) (otherlv_2= FullStop ( (lv_path_3_0= ruleEMV2ErrorPropagationPath ) ) )? ) )
             int alt194=2;
             int LA194_0 = input.LA(1);
 
@@ -17489,13 +17491,13 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
             }
             switch (alt194) {
                 case 1 :
-                    // InternalErrorModelParser.g:6977:2: ( (lv_emv2PropagationKind_0_0= rulePropagationKind ) )
+                    // InternalErrorModelParser.g:6973:2: ( (lv_emv2PropagationKind_0_0= rulePropagationKind ) )
                     {
-                    // InternalErrorModelParser.g:6977:2: ( (lv_emv2PropagationKind_0_0= rulePropagationKind ) )
-                    // InternalErrorModelParser.g:6978:1: (lv_emv2PropagationKind_0_0= rulePropagationKind )
+                    // InternalErrorModelParser.g:6973:2: ( (lv_emv2PropagationKind_0_0= rulePropagationKind ) )
+                    // InternalErrorModelParser.g:6974:1: (lv_emv2PropagationKind_0_0= rulePropagationKind )
                     {
-                    // InternalErrorModelParser.g:6978:1: (lv_emv2PropagationKind_0_0= rulePropagationKind )
-                    // InternalErrorModelParser.g:6979:3: lv_emv2PropagationKind_0_0= rulePropagationKind
+                    // InternalErrorModelParser.g:6974:1: (lv_emv2PropagationKind_0_0= rulePropagationKind )
+                    // InternalErrorModelParser.g:6975:3: lv_emv2PropagationKind_0_0= rulePropagationKind
                     {
                      
                     	        newCompositeNode(grammarAccess.getEMV2ErrorPropagationPathAccess().getEmv2PropagationKindPropagationKindParserRuleCall_0_0()); 
@@ -17526,23 +17528,23 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 2 :
-                    // InternalErrorModelParser.g:6996:6: ( ( (otherlv_1= RULE_ID ) ) (otherlv_2= FullStop ( (lv_path_3_0= ruleEMV2ErrorPropagationPath ) ) )? )
+                    // InternalErrorModelParser.g:6992:6: ( ( (otherlv_1= RULE_ID ) ) (otherlv_2= FullStop ( (lv_path_3_0= ruleEMV2ErrorPropagationPath ) ) )? )
                     {
-                    // InternalErrorModelParser.g:6996:6: ( ( (otherlv_1= RULE_ID ) ) (otherlv_2= FullStop ( (lv_path_3_0= ruleEMV2ErrorPropagationPath ) ) )? )
-                    // InternalErrorModelParser.g:6996:7: ( (otherlv_1= RULE_ID ) ) (otherlv_2= FullStop ( (lv_path_3_0= ruleEMV2ErrorPropagationPath ) ) )?
+                    // InternalErrorModelParser.g:6992:6: ( ( (otherlv_1= RULE_ID ) ) (otherlv_2= FullStop ( (lv_path_3_0= ruleEMV2ErrorPropagationPath ) ) )? )
+                    // InternalErrorModelParser.g:6992:7: ( (otherlv_1= RULE_ID ) ) (otherlv_2= FullStop ( (lv_path_3_0= ruleEMV2ErrorPropagationPath ) ) )?
                     {
-                    // InternalErrorModelParser.g:6996:7: ( (otherlv_1= RULE_ID ) )
-                    // InternalErrorModelParser.g:6997:1: (otherlv_1= RULE_ID )
+                    // InternalErrorModelParser.g:6992:7: ( (otherlv_1= RULE_ID ) )
+                    // InternalErrorModelParser.g:6993:1: (otherlv_1= RULE_ID )
                     {
-                    // InternalErrorModelParser.g:6997:1: (otherlv_1= RULE_ID )
-                    // InternalErrorModelParser.g:6998:3: otherlv_1= RULE_ID
+                    // InternalErrorModelParser.g:6993:1: (otherlv_1= RULE_ID )
+                    // InternalErrorModelParser.g:6994:3: otherlv_1= RULE_ID
                     {
 
                     			if (current==null) {
                     	            current = createModelElement(grammarAccess.getEMV2ErrorPropagationPathRule());
                     	        }
                             
-                    otherlv_1=(Token)match(input,RULE_ID,FOLLOW_66); 
+                    otherlv_1=(Token)match(input,RULE_ID,FOLLOW_65); 
 
                     		newLeafNode(otherlv_1, grammarAccess.getEMV2ErrorPropagationPathAccess().getNamedElementNamedElementCrossReference_1_0_0()); 
                     	
@@ -17552,7 +17554,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
                     }
 
-                    // InternalErrorModelParser.g:7009:2: (otherlv_2= FullStop ( (lv_path_3_0= ruleEMV2ErrorPropagationPath ) ) )?
+                    // InternalErrorModelParser.g:7005:2: (otherlv_2= FullStop ( (lv_path_3_0= ruleEMV2ErrorPropagationPath ) ) )?
                     int alt193=2;
                     int LA193_0 = input.LA(1);
 
@@ -17561,17 +17563,17 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
                     }
                     switch (alt193) {
                         case 1 :
-                            // InternalErrorModelParser.g:7010:2: otherlv_2= FullStop ( (lv_path_3_0= ruleEMV2ErrorPropagationPath ) )
+                            // InternalErrorModelParser.g:7006:2: otherlv_2= FullStop ( (lv_path_3_0= ruleEMV2ErrorPropagationPath ) )
                             {
-                            otherlv_2=(Token)match(input,FullStop,FOLLOW_86); 
+                            otherlv_2=(Token)match(input,FullStop,FOLLOW_85); 
 
                                 	newLeafNode(otherlv_2, grammarAccess.getEMV2ErrorPropagationPathAccess().getFullStopKeyword_1_1_0());
                                 
-                            // InternalErrorModelParser.g:7014:1: ( (lv_path_3_0= ruleEMV2ErrorPropagationPath ) )
-                            // InternalErrorModelParser.g:7015:1: (lv_path_3_0= ruleEMV2ErrorPropagationPath )
+                            // InternalErrorModelParser.g:7010:1: ( (lv_path_3_0= ruleEMV2ErrorPropagationPath ) )
+                            // InternalErrorModelParser.g:7011:1: (lv_path_3_0= ruleEMV2ErrorPropagationPath )
                             {
-                            // InternalErrorModelParser.g:7015:1: (lv_path_3_0= ruleEMV2ErrorPropagationPath )
-                            // InternalErrorModelParser.g:7016:3: lv_path_3_0= ruleEMV2ErrorPropagationPath
+                            // InternalErrorModelParser.g:7011:1: (lv_path_3_0= ruleEMV2ErrorPropagationPath )
+                            // InternalErrorModelParser.g:7012:3: lv_path_3_0= ruleEMV2ErrorPropagationPath
                             {
                              
                             	        newCompositeNode(grammarAccess.getEMV2ErrorPropagationPathAccess().getPathEMV2ErrorPropagationPathParserRuleCall_1_1_1_0()); 
@@ -17631,7 +17633,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleEventOrPropagation"
-    // InternalErrorModelParser.g:7040:1: entryRuleEventOrPropagation returns [EObject current=null] : iv_ruleEventOrPropagation= ruleEventOrPropagation EOF ;
+    // InternalErrorModelParser.g:7036:1: entryRuleEventOrPropagation returns [EObject current=null] : iv_ruleEventOrPropagation= ruleEventOrPropagation EOF ;
     public final EObject entryRuleEventOrPropagation() throws RecognitionException {
         EObject current = null;
 
@@ -17639,8 +17641,8 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // InternalErrorModelParser.g:7041:2: (iv_ruleEventOrPropagation= ruleEventOrPropagation EOF )
-            // InternalErrorModelParser.g:7042:2: iv_ruleEventOrPropagation= ruleEventOrPropagation EOF
+            // InternalErrorModelParser.g:7037:2: (iv_ruleEventOrPropagation= ruleEventOrPropagation EOF )
+            // InternalErrorModelParser.g:7038:2: iv_ruleEventOrPropagation= ruleEventOrPropagation EOF
             {
              newCompositeNode(grammarAccess.getEventOrPropagationRule()); 
             pushFollow(FOLLOW_1);
@@ -17667,7 +17669,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleEventOrPropagation"
-    // InternalErrorModelParser.g:7049:1: ruleEventOrPropagation returns [EObject current=null] : (this_ErrorBehaviorEvent_0= ruleErrorBehaviorEvent | this_ErrorPropagation_1= ruleErrorPropagation ) ;
+    // InternalErrorModelParser.g:7045:1: ruleEventOrPropagation returns [EObject current=null] : (this_ErrorBehaviorEvent_0= ruleErrorBehaviorEvent | this_ErrorPropagation_1= ruleErrorPropagation ) ;
     public final EObject ruleEventOrPropagation() throws RecognitionException {
         EObject current = null;
 
@@ -17679,10 +17681,10 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // InternalErrorModelParser.g:7052:28: ( (this_ErrorBehaviorEvent_0= ruleErrorBehaviorEvent | this_ErrorPropagation_1= ruleErrorPropagation ) )
-            // InternalErrorModelParser.g:7053:1: (this_ErrorBehaviorEvent_0= ruleErrorBehaviorEvent | this_ErrorPropagation_1= ruleErrorPropagation )
+            // InternalErrorModelParser.g:7048:28: ( (this_ErrorBehaviorEvent_0= ruleErrorBehaviorEvent | this_ErrorPropagation_1= ruleErrorPropagation ) )
+            // InternalErrorModelParser.g:7049:1: (this_ErrorBehaviorEvent_0= ruleErrorBehaviorEvent | this_ErrorPropagation_1= ruleErrorPropagation )
             {
-            // InternalErrorModelParser.g:7053:1: (this_ErrorBehaviorEvent_0= ruleErrorBehaviorEvent | this_ErrorPropagation_1= ruleErrorPropagation )
+            // InternalErrorModelParser.g:7049:1: (this_ErrorBehaviorEvent_0= ruleErrorBehaviorEvent | this_ErrorPropagation_1= ruleErrorPropagation )
             int alt195=2;
             int LA195_0 = input.LA(1);
 
@@ -17726,7 +17728,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
             }
             switch (alt195) {
                 case 1 :
-                    // InternalErrorModelParser.g:7054:5: this_ErrorBehaviorEvent_0= ruleErrorBehaviorEvent
+                    // InternalErrorModelParser.g:7050:5: this_ErrorBehaviorEvent_0= ruleErrorBehaviorEvent
                     {
                      
                             newCompositeNode(grammarAccess.getEventOrPropagationAccess().getErrorBehaviorEventParserRuleCall_0()); 
@@ -17744,7 +17746,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 2 :
-                    // InternalErrorModelParser.g:7064:5: this_ErrorPropagation_1= ruleErrorPropagation
+                    // InternalErrorModelParser.g:7060:5: this_ErrorPropagation_1= ruleErrorPropagation
                     {
                      
                             newCompositeNode(grammarAccess.getEventOrPropagationAccess().getErrorPropagationParserRuleCall_1()); 
@@ -17782,7 +17784,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleOutgoingPropagationCondition"
-    // InternalErrorModelParser.g:7080:1: entryRuleOutgoingPropagationCondition returns [EObject current=null] : iv_ruleOutgoingPropagationCondition= ruleOutgoingPropagationCondition EOF ;
+    // InternalErrorModelParser.g:7076:1: entryRuleOutgoingPropagationCondition returns [EObject current=null] : iv_ruleOutgoingPropagationCondition= ruleOutgoingPropagationCondition EOF ;
     public final EObject entryRuleOutgoingPropagationCondition() throws RecognitionException {
         EObject current = null;
 
@@ -17790,8 +17792,8 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // InternalErrorModelParser.g:7081:2: (iv_ruleOutgoingPropagationCondition= ruleOutgoingPropagationCondition EOF )
-            // InternalErrorModelParser.g:7082:2: iv_ruleOutgoingPropagationCondition= ruleOutgoingPropagationCondition EOF
+            // InternalErrorModelParser.g:7077:2: (iv_ruleOutgoingPropagationCondition= ruleOutgoingPropagationCondition EOF )
+            // InternalErrorModelParser.g:7078:2: iv_ruleOutgoingPropagationCondition= ruleOutgoingPropagationCondition EOF
             {
              newCompositeNode(grammarAccess.getOutgoingPropagationConditionRule()); 
             pushFollow(FOLLOW_1);
@@ -17818,7 +17820,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleOutgoingPropagationCondition"
-    // InternalErrorModelParser.g:7089:1: ruleOutgoingPropagationCondition returns [EObject current=null] : ( ( ( (lv_name_0_0= RULE_ID ) ) otherlv_1= Colon )? ( ( ( (otherlv_2= RULE_ID ) ) ( (lv_typeTokenConstraint_3_0= ruleTypeTokenConstraint ) )? ) | ( (lv_allStates_4_0= All ) ) ) otherlv_5= HyphenMinusLeftSquareBracket ( (lv_condition_6_0= ruleConditionExpression ) )? otherlv_7= RightSquareBracketHyphenMinusGreaterThanSign ( ( ( ( ruleErrorPropagationPoint ) ) | ( (lv_allPropagations_9_0= All ) ) ) ( (lv_typeToken_10_0= ruleTypeTokenOrNoError ) )? ) otherlv_11= Semicolon ) ;
+    // InternalErrorModelParser.g:7085:1: ruleOutgoingPropagationCondition returns [EObject current=null] : ( ( ( (lv_name_0_0= RULE_ID ) ) otherlv_1= Colon )? ( ( ( (otherlv_2= RULE_ID ) ) ( (lv_typeTokenConstraint_3_0= ruleTypeTokenConstraint ) )? ) | ( (lv_allStates_4_0= All ) ) ) otherlv_5= HyphenMinusLeftSquareBracket ( (lv_condition_6_0= ruleConditionExpression ) )? otherlv_7= RightSquareBracketHyphenMinusGreaterThanSign ( ( ( ( ruleErrorPropagationPoint ) ) | ( (lv_allPropagations_9_0= All ) ) ) ( (lv_typeToken_10_0= ruleTypeTokenOrNoError ) )? ) otherlv_11= Semicolon ) ;
     public final EObject ruleOutgoingPropagationCondition() throws RecognitionException {
         EObject current = null;
 
@@ -17840,13 +17842,13 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // InternalErrorModelParser.g:7092:28: ( ( ( ( (lv_name_0_0= RULE_ID ) ) otherlv_1= Colon )? ( ( ( (otherlv_2= RULE_ID ) ) ( (lv_typeTokenConstraint_3_0= ruleTypeTokenConstraint ) )? ) | ( (lv_allStates_4_0= All ) ) ) otherlv_5= HyphenMinusLeftSquareBracket ( (lv_condition_6_0= ruleConditionExpression ) )? otherlv_7= RightSquareBracketHyphenMinusGreaterThanSign ( ( ( ( ruleErrorPropagationPoint ) ) | ( (lv_allPropagations_9_0= All ) ) ) ( (lv_typeToken_10_0= ruleTypeTokenOrNoError ) )? ) otherlv_11= Semicolon ) )
-            // InternalErrorModelParser.g:7093:1: ( ( ( (lv_name_0_0= RULE_ID ) ) otherlv_1= Colon )? ( ( ( (otherlv_2= RULE_ID ) ) ( (lv_typeTokenConstraint_3_0= ruleTypeTokenConstraint ) )? ) | ( (lv_allStates_4_0= All ) ) ) otherlv_5= HyphenMinusLeftSquareBracket ( (lv_condition_6_0= ruleConditionExpression ) )? otherlv_7= RightSquareBracketHyphenMinusGreaterThanSign ( ( ( ( ruleErrorPropagationPoint ) ) | ( (lv_allPropagations_9_0= All ) ) ) ( (lv_typeToken_10_0= ruleTypeTokenOrNoError ) )? ) otherlv_11= Semicolon )
+            // InternalErrorModelParser.g:7088:28: ( ( ( ( (lv_name_0_0= RULE_ID ) ) otherlv_1= Colon )? ( ( ( (otherlv_2= RULE_ID ) ) ( (lv_typeTokenConstraint_3_0= ruleTypeTokenConstraint ) )? ) | ( (lv_allStates_4_0= All ) ) ) otherlv_5= HyphenMinusLeftSquareBracket ( (lv_condition_6_0= ruleConditionExpression ) )? otherlv_7= RightSquareBracketHyphenMinusGreaterThanSign ( ( ( ( ruleErrorPropagationPoint ) ) | ( (lv_allPropagations_9_0= All ) ) ) ( (lv_typeToken_10_0= ruleTypeTokenOrNoError ) )? ) otherlv_11= Semicolon ) )
+            // InternalErrorModelParser.g:7089:1: ( ( ( (lv_name_0_0= RULE_ID ) ) otherlv_1= Colon )? ( ( ( (otherlv_2= RULE_ID ) ) ( (lv_typeTokenConstraint_3_0= ruleTypeTokenConstraint ) )? ) | ( (lv_allStates_4_0= All ) ) ) otherlv_5= HyphenMinusLeftSquareBracket ( (lv_condition_6_0= ruleConditionExpression ) )? otherlv_7= RightSquareBracketHyphenMinusGreaterThanSign ( ( ( ( ruleErrorPropagationPoint ) ) | ( (lv_allPropagations_9_0= All ) ) ) ( (lv_typeToken_10_0= ruleTypeTokenOrNoError ) )? ) otherlv_11= Semicolon )
             {
-            // InternalErrorModelParser.g:7093:1: ( ( ( (lv_name_0_0= RULE_ID ) ) otherlv_1= Colon )? ( ( ( (otherlv_2= RULE_ID ) ) ( (lv_typeTokenConstraint_3_0= ruleTypeTokenConstraint ) )? ) | ( (lv_allStates_4_0= All ) ) ) otherlv_5= HyphenMinusLeftSquareBracket ( (lv_condition_6_0= ruleConditionExpression ) )? otherlv_7= RightSquareBracketHyphenMinusGreaterThanSign ( ( ( ( ruleErrorPropagationPoint ) ) | ( (lv_allPropagations_9_0= All ) ) ) ( (lv_typeToken_10_0= ruleTypeTokenOrNoError ) )? ) otherlv_11= Semicolon )
-            // InternalErrorModelParser.g:7093:2: ( ( (lv_name_0_0= RULE_ID ) ) otherlv_1= Colon )? ( ( ( (otherlv_2= RULE_ID ) ) ( (lv_typeTokenConstraint_3_0= ruleTypeTokenConstraint ) )? ) | ( (lv_allStates_4_0= All ) ) ) otherlv_5= HyphenMinusLeftSquareBracket ( (lv_condition_6_0= ruleConditionExpression ) )? otherlv_7= RightSquareBracketHyphenMinusGreaterThanSign ( ( ( ( ruleErrorPropagationPoint ) ) | ( (lv_allPropagations_9_0= All ) ) ) ( (lv_typeToken_10_0= ruleTypeTokenOrNoError ) )? ) otherlv_11= Semicolon
+            // InternalErrorModelParser.g:7089:1: ( ( ( (lv_name_0_0= RULE_ID ) ) otherlv_1= Colon )? ( ( ( (otherlv_2= RULE_ID ) ) ( (lv_typeTokenConstraint_3_0= ruleTypeTokenConstraint ) )? ) | ( (lv_allStates_4_0= All ) ) ) otherlv_5= HyphenMinusLeftSquareBracket ( (lv_condition_6_0= ruleConditionExpression ) )? otherlv_7= RightSquareBracketHyphenMinusGreaterThanSign ( ( ( ( ruleErrorPropagationPoint ) ) | ( (lv_allPropagations_9_0= All ) ) ) ( (lv_typeToken_10_0= ruleTypeTokenOrNoError ) )? ) otherlv_11= Semicolon )
+            // InternalErrorModelParser.g:7089:2: ( ( (lv_name_0_0= RULE_ID ) ) otherlv_1= Colon )? ( ( ( (otherlv_2= RULE_ID ) ) ( (lv_typeTokenConstraint_3_0= ruleTypeTokenConstraint ) )? ) | ( (lv_allStates_4_0= All ) ) ) otherlv_5= HyphenMinusLeftSquareBracket ( (lv_condition_6_0= ruleConditionExpression ) )? otherlv_7= RightSquareBracketHyphenMinusGreaterThanSign ( ( ( ( ruleErrorPropagationPoint ) ) | ( (lv_allPropagations_9_0= All ) ) ) ( (lv_typeToken_10_0= ruleTypeTokenOrNoError ) )? ) otherlv_11= Semicolon
             {
-            // InternalErrorModelParser.g:7093:2: ( ( (lv_name_0_0= RULE_ID ) ) otherlv_1= Colon )?
+            // InternalErrorModelParser.g:7089:2: ( ( (lv_name_0_0= RULE_ID ) ) otherlv_1= Colon )?
             int alt196=2;
             int LA196_0 = input.LA(1);
 
@@ -17859,15 +17861,15 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
             }
             switch (alt196) {
                 case 1 :
-                    // InternalErrorModelParser.g:7093:3: ( (lv_name_0_0= RULE_ID ) ) otherlv_1= Colon
+                    // InternalErrorModelParser.g:7089:3: ( (lv_name_0_0= RULE_ID ) ) otherlv_1= Colon
                     {
-                    // InternalErrorModelParser.g:7093:3: ( (lv_name_0_0= RULE_ID ) )
-                    // InternalErrorModelParser.g:7094:1: (lv_name_0_0= RULE_ID )
+                    // InternalErrorModelParser.g:7089:3: ( (lv_name_0_0= RULE_ID ) )
+                    // InternalErrorModelParser.g:7090:1: (lv_name_0_0= RULE_ID )
                     {
-                    // InternalErrorModelParser.g:7094:1: (lv_name_0_0= RULE_ID )
-                    // InternalErrorModelParser.g:7095:3: lv_name_0_0= RULE_ID
+                    // InternalErrorModelParser.g:7090:1: (lv_name_0_0= RULE_ID )
+                    // InternalErrorModelParser.g:7091:3: lv_name_0_0= RULE_ID
                     {
-                    lv_name_0_0=(Token)match(input,RULE_ID,FOLLOW_83); 
+                    lv_name_0_0=(Token)match(input,RULE_ID,FOLLOW_82); 
 
                     			newLeafNode(lv_name_0_0, grammarAccess.getOutgoingPropagationConditionAccess().getNameIDTerminalRuleCall_0_0_0()); 
                     		
@@ -17897,7 +17899,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
             }
 
-            // InternalErrorModelParser.g:7116:3: ( ( ( (otherlv_2= RULE_ID ) ) ( (lv_typeTokenConstraint_3_0= ruleTypeTokenConstraint ) )? ) | ( (lv_allStates_4_0= All ) ) )
+            // InternalErrorModelParser.g:7112:3: ( ( ( (otherlv_2= RULE_ID ) ) ( (lv_typeTokenConstraint_3_0= ruleTypeTokenConstraint ) )? ) | ( (lv_allStates_4_0= All ) ) )
             int alt198=2;
             int LA198_0 = input.LA(1);
 
@@ -17915,23 +17917,23 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
             }
             switch (alt198) {
                 case 1 :
-                    // InternalErrorModelParser.g:7116:4: ( ( (otherlv_2= RULE_ID ) ) ( (lv_typeTokenConstraint_3_0= ruleTypeTokenConstraint ) )? )
+                    // InternalErrorModelParser.g:7112:4: ( ( (otherlv_2= RULE_ID ) ) ( (lv_typeTokenConstraint_3_0= ruleTypeTokenConstraint ) )? )
                     {
-                    // InternalErrorModelParser.g:7116:4: ( ( (otherlv_2= RULE_ID ) ) ( (lv_typeTokenConstraint_3_0= ruleTypeTokenConstraint ) )? )
-                    // InternalErrorModelParser.g:7116:5: ( (otherlv_2= RULE_ID ) ) ( (lv_typeTokenConstraint_3_0= ruleTypeTokenConstraint ) )?
+                    // InternalErrorModelParser.g:7112:4: ( ( (otherlv_2= RULE_ID ) ) ( (lv_typeTokenConstraint_3_0= ruleTypeTokenConstraint ) )? )
+                    // InternalErrorModelParser.g:7112:5: ( (otherlv_2= RULE_ID ) ) ( (lv_typeTokenConstraint_3_0= ruleTypeTokenConstraint ) )?
                     {
-                    // InternalErrorModelParser.g:7116:5: ( (otherlv_2= RULE_ID ) )
-                    // InternalErrorModelParser.g:7117:1: (otherlv_2= RULE_ID )
+                    // InternalErrorModelParser.g:7112:5: ( (otherlv_2= RULE_ID ) )
+                    // InternalErrorModelParser.g:7113:1: (otherlv_2= RULE_ID )
                     {
-                    // InternalErrorModelParser.g:7117:1: (otherlv_2= RULE_ID )
-                    // InternalErrorModelParser.g:7118:3: otherlv_2= RULE_ID
+                    // InternalErrorModelParser.g:7113:1: (otherlv_2= RULE_ID )
+                    // InternalErrorModelParser.g:7114:3: otherlv_2= RULE_ID
                     {
 
                     			if (current==null) {
                     	            current = createModelElement(grammarAccess.getOutgoingPropagationConditionRule());
                     	        }
                             
-                    otherlv_2=(Token)match(input,RULE_ID,FOLLOW_114); 
+                    otherlv_2=(Token)match(input,RULE_ID,FOLLOW_113); 
 
                     		newLeafNode(otherlv_2, grammarAccess.getOutgoingPropagationConditionAccess().getStateErrorBehaviorStateCrossReference_1_0_0_0()); 
                     	
@@ -17941,7 +17943,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
                     }
 
-                    // InternalErrorModelParser.g:7129:2: ( (lv_typeTokenConstraint_3_0= ruleTypeTokenConstraint ) )?
+                    // InternalErrorModelParser.g:7125:2: ( (lv_typeTokenConstraint_3_0= ruleTypeTokenConstraint ) )?
                     int alt197=2;
                     int LA197_0 = input.LA(1);
 
@@ -17950,15 +17952,15 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
                     }
                     switch (alt197) {
                         case 1 :
-                            // InternalErrorModelParser.g:7130:1: (lv_typeTokenConstraint_3_0= ruleTypeTokenConstraint )
+                            // InternalErrorModelParser.g:7126:1: (lv_typeTokenConstraint_3_0= ruleTypeTokenConstraint )
                             {
-                            // InternalErrorModelParser.g:7130:1: (lv_typeTokenConstraint_3_0= ruleTypeTokenConstraint )
-                            // InternalErrorModelParser.g:7131:3: lv_typeTokenConstraint_3_0= ruleTypeTokenConstraint
+                            // InternalErrorModelParser.g:7126:1: (lv_typeTokenConstraint_3_0= ruleTypeTokenConstraint )
+                            // InternalErrorModelParser.g:7127:3: lv_typeTokenConstraint_3_0= ruleTypeTokenConstraint
                             {
                              
                             	        newCompositeNode(grammarAccess.getOutgoingPropagationConditionAccess().getTypeTokenConstraintTypeTokenConstraintParserRuleCall_1_0_1_0()); 
                             	    
-                            pushFollow(FOLLOW_77);
+                            pushFollow(FOLLOW_76);
                             lv_typeTokenConstraint_3_0=ruleTypeTokenConstraint();
 
                             state._fsp--;
@@ -17990,15 +17992,15 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 2 :
-                    // InternalErrorModelParser.g:7148:6: ( (lv_allStates_4_0= All ) )
+                    // InternalErrorModelParser.g:7144:6: ( (lv_allStates_4_0= All ) )
                     {
-                    // InternalErrorModelParser.g:7148:6: ( (lv_allStates_4_0= All ) )
-                    // InternalErrorModelParser.g:7149:1: (lv_allStates_4_0= All )
+                    // InternalErrorModelParser.g:7144:6: ( (lv_allStates_4_0= All ) )
+                    // InternalErrorModelParser.g:7145:1: (lv_allStates_4_0= All )
                     {
-                    // InternalErrorModelParser.g:7149:1: (lv_allStates_4_0= All )
-                    // InternalErrorModelParser.g:7150:3: lv_allStates_4_0= All
+                    // InternalErrorModelParser.g:7145:1: (lv_allStates_4_0= All )
+                    // InternalErrorModelParser.g:7146:3: lv_allStates_4_0= All
                     {
-                    lv_allStates_4_0=(Token)match(input,All,FOLLOW_77); 
+                    lv_allStates_4_0=(Token)match(input,All,FOLLOW_76); 
 
                             newLeafNode(lv_allStates_4_0, grammarAccess.getOutgoingPropagationConditionAccess().getAllStatesAllKeyword_1_1_0());
                         
@@ -18020,11 +18022,11 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
             }
 
-            otherlv_5=(Token)match(input,HyphenMinusLeftSquareBracket,FOLLOW_133); 
+            otherlv_5=(Token)match(input,HyphenMinusLeftSquareBracket,FOLLOW_132); 
 
                 	newLeafNode(otherlv_5, grammarAccess.getOutgoingPropagationConditionAccess().getHyphenMinusLeftSquareBracketKeyword_2());
                 
-            // InternalErrorModelParser.g:7169:1: ( (lv_condition_6_0= ruleConditionExpression ) )?
+            // InternalErrorModelParser.g:7165:1: ( (lv_condition_6_0= ruleConditionExpression ) )?
             int alt199=2;
             int LA199_0 = input.LA(1);
 
@@ -18033,15 +18035,15 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
             }
             switch (alt199) {
                 case 1 :
-                    // InternalErrorModelParser.g:7170:1: (lv_condition_6_0= ruleConditionExpression )
+                    // InternalErrorModelParser.g:7166:1: (lv_condition_6_0= ruleConditionExpression )
                     {
-                    // InternalErrorModelParser.g:7170:1: (lv_condition_6_0= ruleConditionExpression )
-                    // InternalErrorModelParser.g:7171:3: lv_condition_6_0= ruleConditionExpression
+                    // InternalErrorModelParser.g:7166:1: (lv_condition_6_0= ruleConditionExpression )
+                    // InternalErrorModelParser.g:7167:3: lv_condition_6_0= ruleConditionExpression
                     {
                      
                     	        newCompositeNode(grammarAccess.getOutgoingPropagationConditionAccess().getConditionConditionExpressionParserRuleCall_3_0()); 
                     	    
-                    pushFollow(FOLLOW_79);
+                    pushFollow(FOLLOW_78);
                     lv_condition_6_0=ruleConditionExpression();
 
                     state._fsp--;
@@ -18066,14 +18068,14 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
             }
 
-            otherlv_7=(Token)match(input,RightSquareBracketHyphenMinusGreaterThanSign,FOLLOW_88); 
+            otherlv_7=(Token)match(input,RightSquareBracketHyphenMinusGreaterThanSign,FOLLOW_87); 
 
                 	newLeafNode(otherlv_7, grammarAccess.getOutgoingPropagationConditionAccess().getRightSquareBracketHyphenMinusGreaterThanSignKeyword_4());
                 
-            // InternalErrorModelParser.g:7192:1: ( ( ( ( ruleErrorPropagationPoint ) ) | ( (lv_allPropagations_9_0= All ) ) ) ( (lv_typeToken_10_0= ruleTypeTokenOrNoError ) )? )
-            // InternalErrorModelParser.g:7192:2: ( ( ( ruleErrorPropagationPoint ) ) | ( (lv_allPropagations_9_0= All ) ) ) ( (lv_typeToken_10_0= ruleTypeTokenOrNoError ) )?
+            // InternalErrorModelParser.g:7188:1: ( ( ( ( ruleErrorPropagationPoint ) ) | ( (lv_allPropagations_9_0= All ) ) ) ( (lv_typeToken_10_0= ruleTypeTokenOrNoError ) )? )
+            // InternalErrorModelParser.g:7188:2: ( ( ( ruleErrorPropagationPoint ) ) | ( (lv_allPropagations_9_0= All ) ) ) ( (lv_typeToken_10_0= ruleTypeTokenOrNoError ) )?
             {
-            // InternalErrorModelParser.g:7192:2: ( ( ( ruleErrorPropagationPoint ) ) | ( (lv_allPropagations_9_0= All ) ) )
+            // InternalErrorModelParser.g:7188:2: ( ( ( ruleErrorPropagationPoint ) ) | ( (lv_allPropagations_9_0= All ) ) )
             int alt200=2;
             int LA200_0 = input.LA(1);
 
@@ -18091,13 +18093,13 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
             }
             switch (alt200) {
                 case 1 :
-                    // InternalErrorModelParser.g:7192:3: ( ( ruleErrorPropagationPoint ) )
+                    // InternalErrorModelParser.g:7188:3: ( ( ruleErrorPropagationPoint ) )
                     {
-                    // InternalErrorModelParser.g:7192:3: ( ( ruleErrorPropagationPoint ) )
-                    // InternalErrorModelParser.g:7193:1: ( ruleErrorPropagationPoint )
+                    // InternalErrorModelParser.g:7188:3: ( ( ruleErrorPropagationPoint ) )
+                    // InternalErrorModelParser.g:7189:1: ( ruleErrorPropagationPoint )
                     {
-                    // InternalErrorModelParser.g:7193:1: ( ruleErrorPropagationPoint )
-                    // InternalErrorModelParser.g:7194:3: ruleErrorPropagationPoint
+                    // InternalErrorModelParser.g:7189:1: ( ruleErrorPropagationPoint )
+                    // InternalErrorModelParser.g:7190:3: ruleErrorPropagationPoint
                     {
 
                     			if (current==null) {
@@ -18107,7 +18109,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
                      
                     	        newCompositeNode(grammarAccess.getOutgoingPropagationConditionAccess().getOutgoingErrorPropagationCrossReference_5_0_0_0()); 
                     	    
-                    pushFollow(FOLLOW_113);
+                    pushFollow(FOLLOW_112);
                     ruleErrorPropagationPoint();
 
                     state._fsp--;
@@ -18125,15 +18127,15 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 2 :
-                    // InternalErrorModelParser.g:7209:6: ( (lv_allPropagations_9_0= All ) )
+                    // InternalErrorModelParser.g:7205:6: ( (lv_allPropagations_9_0= All ) )
                     {
-                    // InternalErrorModelParser.g:7209:6: ( (lv_allPropagations_9_0= All ) )
-                    // InternalErrorModelParser.g:7210:1: (lv_allPropagations_9_0= All )
+                    // InternalErrorModelParser.g:7205:6: ( (lv_allPropagations_9_0= All ) )
+                    // InternalErrorModelParser.g:7206:1: (lv_allPropagations_9_0= All )
                     {
-                    // InternalErrorModelParser.g:7210:1: (lv_allPropagations_9_0= All )
-                    // InternalErrorModelParser.g:7211:3: lv_allPropagations_9_0= All
+                    // InternalErrorModelParser.g:7206:1: (lv_allPropagations_9_0= All )
+                    // InternalErrorModelParser.g:7207:3: lv_allPropagations_9_0= All
                     {
-                    lv_allPropagations_9_0=(Token)match(input,All,FOLLOW_113); 
+                    lv_allPropagations_9_0=(Token)match(input,All,FOLLOW_112); 
 
                             newLeafNode(lv_allPropagations_9_0, grammarAccess.getOutgoingPropagationConditionAccess().getAllPropagationsAllKeyword_5_0_1_0());
                         
@@ -18155,7 +18157,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
             }
 
-            // InternalErrorModelParser.g:7225:3: ( (lv_typeToken_10_0= ruleTypeTokenOrNoError ) )?
+            // InternalErrorModelParser.g:7221:3: ( (lv_typeToken_10_0= ruleTypeTokenOrNoError ) )?
             int alt201=2;
             int LA201_0 = input.LA(1);
 
@@ -18164,10 +18166,10 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
             }
             switch (alt201) {
                 case 1 :
-                    // InternalErrorModelParser.g:7226:1: (lv_typeToken_10_0= ruleTypeTokenOrNoError )
+                    // InternalErrorModelParser.g:7222:1: (lv_typeToken_10_0= ruleTypeTokenOrNoError )
                     {
-                    // InternalErrorModelParser.g:7226:1: (lv_typeToken_10_0= ruleTypeTokenOrNoError )
-                    // InternalErrorModelParser.g:7227:3: lv_typeToken_10_0= ruleTypeTokenOrNoError
+                    // InternalErrorModelParser.g:7222:1: (lv_typeToken_10_0= ruleTypeTokenOrNoError )
+                    // InternalErrorModelParser.g:7223:3: lv_typeToken_10_0= ruleTypeTokenOrNoError
                     {
                      
                     	        newCompositeNode(grammarAccess.getOutgoingPropagationConditionAccess().getTypeTokenTypeTokenOrNoErrorParserRuleCall_5_1_0()); 
@@ -18225,7 +18227,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleErrorDetection"
-    // InternalErrorModelParser.g:7256:1: entryRuleErrorDetection returns [EObject current=null] : iv_ruleErrorDetection= ruleErrorDetection EOF ;
+    // InternalErrorModelParser.g:7252:1: entryRuleErrorDetection returns [EObject current=null] : iv_ruleErrorDetection= ruleErrorDetection EOF ;
     public final EObject entryRuleErrorDetection() throws RecognitionException {
         EObject current = null;
 
@@ -18233,8 +18235,8 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // InternalErrorModelParser.g:7257:2: (iv_ruleErrorDetection= ruleErrorDetection EOF )
-            // InternalErrorModelParser.g:7258:2: iv_ruleErrorDetection= ruleErrorDetection EOF
+            // InternalErrorModelParser.g:7253:2: (iv_ruleErrorDetection= ruleErrorDetection EOF )
+            // InternalErrorModelParser.g:7254:2: iv_ruleErrorDetection= ruleErrorDetection EOF
             {
              newCompositeNode(grammarAccess.getErrorDetectionRule()); 
             pushFollow(FOLLOW_1);
@@ -18261,7 +18263,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleErrorDetection"
-    // InternalErrorModelParser.g:7265:1: ruleErrorDetection returns [EObject current=null] : ( ( ( (lv_name_0_0= RULE_ID ) ) otherlv_1= Colon )? ( ( ( (otherlv_2= RULE_ID ) ) ( (lv_typeTokenConstraint_3_0= ruleTypeTokenConstraint ) )? ) | ( (lv_allStates_4_0= All ) ) ) otherlv_5= HyphenMinusLeftSquareBracket ( (lv_condition_6_0= ruleConditionExpression ) )? otherlv_7= RightSquareBracketHyphenMinusGreaterThanSign ( (otherlv_8= RULE_ID ) ) otherlv_9= ExclamationMark (otherlv_10= LeftParenthesis ( (lv_errorCode_11_0= ruleErrorCodeValue ) ) otherlv_12= RightParenthesis )? otherlv_13= Semicolon ) ;
+    // InternalErrorModelParser.g:7261:1: ruleErrorDetection returns [EObject current=null] : ( ( ( (lv_name_0_0= RULE_ID ) ) otherlv_1= Colon )? ( ( ( (otherlv_2= RULE_ID ) ) ( (lv_typeTokenConstraint_3_0= ruleTypeTokenConstraint ) )? ) | ( (lv_allStates_4_0= All ) ) ) otherlv_5= HyphenMinusLeftSquareBracket ( (lv_condition_6_0= ruleConditionExpression ) )? otherlv_7= RightSquareBracketHyphenMinusGreaterThanSign ( (otherlv_8= RULE_ID ) ) otherlv_9= ExclamationMark (otherlv_10= LeftParenthesis ( (lv_errorCode_11_0= ruleErrorCodeValue ) ) otherlv_12= RightParenthesis )? otherlv_13= Semicolon ) ;
     public final EObject ruleErrorDetection() throws RecognitionException {
         EObject current = null;
 
@@ -18286,13 +18288,13 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // InternalErrorModelParser.g:7268:28: ( ( ( ( (lv_name_0_0= RULE_ID ) ) otherlv_1= Colon )? ( ( ( (otherlv_2= RULE_ID ) ) ( (lv_typeTokenConstraint_3_0= ruleTypeTokenConstraint ) )? ) | ( (lv_allStates_4_0= All ) ) ) otherlv_5= HyphenMinusLeftSquareBracket ( (lv_condition_6_0= ruleConditionExpression ) )? otherlv_7= RightSquareBracketHyphenMinusGreaterThanSign ( (otherlv_8= RULE_ID ) ) otherlv_9= ExclamationMark (otherlv_10= LeftParenthesis ( (lv_errorCode_11_0= ruleErrorCodeValue ) ) otherlv_12= RightParenthesis )? otherlv_13= Semicolon ) )
-            // InternalErrorModelParser.g:7269:1: ( ( ( (lv_name_0_0= RULE_ID ) ) otherlv_1= Colon )? ( ( ( (otherlv_2= RULE_ID ) ) ( (lv_typeTokenConstraint_3_0= ruleTypeTokenConstraint ) )? ) | ( (lv_allStates_4_0= All ) ) ) otherlv_5= HyphenMinusLeftSquareBracket ( (lv_condition_6_0= ruleConditionExpression ) )? otherlv_7= RightSquareBracketHyphenMinusGreaterThanSign ( (otherlv_8= RULE_ID ) ) otherlv_9= ExclamationMark (otherlv_10= LeftParenthesis ( (lv_errorCode_11_0= ruleErrorCodeValue ) ) otherlv_12= RightParenthesis )? otherlv_13= Semicolon )
+            // InternalErrorModelParser.g:7264:28: ( ( ( ( (lv_name_0_0= RULE_ID ) ) otherlv_1= Colon )? ( ( ( (otherlv_2= RULE_ID ) ) ( (lv_typeTokenConstraint_3_0= ruleTypeTokenConstraint ) )? ) | ( (lv_allStates_4_0= All ) ) ) otherlv_5= HyphenMinusLeftSquareBracket ( (lv_condition_6_0= ruleConditionExpression ) )? otherlv_7= RightSquareBracketHyphenMinusGreaterThanSign ( (otherlv_8= RULE_ID ) ) otherlv_9= ExclamationMark (otherlv_10= LeftParenthesis ( (lv_errorCode_11_0= ruleErrorCodeValue ) ) otherlv_12= RightParenthesis )? otherlv_13= Semicolon ) )
+            // InternalErrorModelParser.g:7265:1: ( ( ( (lv_name_0_0= RULE_ID ) ) otherlv_1= Colon )? ( ( ( (otherlv_2= RULE_ID ) ) ( (lv_typeTokenConstraint_3_0= ruleTypeTokenConstraint ) )? ) | ( (lv_allStates_4_0= All ) ) ) otherlv_5= HyphenMinusLeftSquareBracket ( (lv_condition_6_0= ruleConditionExpression ) )? otherlv_7= RightSquareBracketHyphenMinusGreaterThanSign ( (otherlv_8= RULE_ID ) ) otherlv_9= ExclamationMark (otherlv_10= LeftParenthesis ( (lv_errorCode_11_0= ruleErrorCodeValue ) ) otherlv_12= RightParenthesis )? otherlv_13= Semicolon )
             {
-            // InternalErrorModelParser.g:7269:1: ( ( ( (lv_name_0_0= RULE_ID ) ) otherlv_1= Colon )? ( ( ( (otherlv_2= RULE_ID ) ) ( (lv_typeTokenConstraint_3_0= ruleTypeTokenConstraint ) )? ) | ( (lv_allStates_4_0= All ) ) ) otherlv_5= HyphenMinusLeftSquareBracket ( (lv_condition_6_0= ruleConditionExpression ) )? otherlv_7= RightSquareBracketHyphenMinusGreaterThanSign ( (otherlv_8= RULE_ID ) ) otherlv_9= ExclamationMark (otherlv_10= LeftParenthesis ( (lv_errorCode_11_0= ruleErrorCodeValue ) ) otherlv_12= RightParenthesis )? otherlv_13= Semicolon )
-            // InternalErrorModelParser.g:7269:2: ( ( (lv_name_0_0= RULE_ID ) ) otherlv_1= Colon )? ( ( ( (otherlv_2= RULE_ID ) ) ( (lv_typeTokenConstraint_3_0= ruleTypeTokenConstraint ) )? ) | ( (lv_allStates_4_0= All ) ) ) otherlv_5= HyphenMinusLeftSquareBracket ( (lv_condition_6_0= ruleConditionExpression ) )? otherlv_7= RightSquareBracketHyphenMinusGreaterThanSign ( (otherlv_8= RULE_ID ) ) otherlv_9= ExclamationMark (otherlv_10= LeftParenthesis ( (lv_errorCode_11_0= ruleErrorCodeValue ) ) otherlv_12= RightParenthesis )? otherlv_13= Semicolon
+            // InternalErrorModelParser.g:7265:1: ( ( ( (lv_name_0_0= RULE_ID ) ) otherlv_1= Colon )? ( ( ( (otherlv_2= RULE_ID ) ) ( (lv_typeTokenConstraint_3_0= ruleTypeTokenConstraint ) )? ) | ( (lv_allStates_4_0= All ) ) ) otherlv_5= HyphenMinusLeftSquareBracket ( (lv_condition_6_0= ruleConditionExpression ) )? otherlv_7= RightSquareBracketHyphenMinusGreaterThanSign ( (otherlv_8= RULE_ID ) ) otherlv_9= ExclamationMark (otherlv_10= LeftParenthesis ( (lv_errorCode_11_0= ruleErrorCodeValue ) ) otherlv_12= RightParenthesis )? otherlv_13= Semicolon )
+            // InternalErrorModelParser.g:7265:2: ( ( (lv_name_0_0= RULE_ID ) ) otherlv_1= Colon )? ( ( ( (otherlv_2= RULE_ID ) ) ( (lv_typeTokenConstraint_3_0= ruleTypeTokenConstraint ) )? ) | ( (lv_allStates_4_0= All ) ) ) otherlv_5= HyphenMinusLeftSquareBracket ( (lv_condition_6_0= ruleConditionExpression ) )? otherlv_7= RightSquareBracketHyphenMinusGreaterThanSign ( (otherlv_8= RULE_ID ) ) otherlv_9= ExclamationMark (otherlv_10= LeftParenthesis ( (lv_errorCode_11_0= ruleErrorCodeValue ) ) otherlv_12= RightParenthesis )? otherlv_13= Semicolon
             {
-            // InternalErrorModelParser.g:7269:2: ( ( (lv_name_0_0= RULE_ID ) ) otherlv_1= Colon )?
+            // InternalErrorModelParser.g:7265:2: ( ( (lv_name_0_0= RULE_ID ) ) otherlv_1= Colon )?
             int alt202=2;
             int LA202_0 = input.LA(1);
 
@@ -18305,15 +18307,15 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
             }
             switch (alt202) {
                 case 1 :
-                    // InternalErrorModelParser.g:7269:3: ( (lv_name_0_0= RULE_ID ) ) otherlv_1= Colon
+                    // InternalErrorModelParser.g:7265:3: ( (lv_name_0_0= RULE_ID ) ) otherlv_1= Colon
                     {
-                    // InternalErrorModelParser.g:7269:3: ( (lv_name_0_0= RULE_ID ) )
-                    // InternalErrorModelParser.g:7270:1: (lv_name_0_0= RULE_ID )
+                    // InternalErrorModelParser.g:7265:3: ( (lv_name_0_0= RULE_ID ) )
+                    // InternalErrorModelParser.g:7266:1: (lv_name_0_0= RULE_ID )
                     {
-                    // InternalErrorModelParser.g:7270:1: (lv_name_0_0= RULE_ID )
-                    // InternalErrorModelParser.g:7271:3: lv_name_0_0= RULE_ID
+                    // InternalErrorModelParser.g:7266:1: (lv_name_0_0= RULE_ID )
+                    // InternalErrorModelParser.g:7267:3: lv_name_0_0= RULE_ID
                     {
-                    lv_name_0_0=(Token)match(input,RULE_ID,FOLLOW_83); 
+                    lv_name_0_0=(Token)match(input,RULE_ID,FOLLOW_82); 
 
                     			newLeafNode(lv_name_0_0, grammarAccess.getErrorDetectionAccess().getNameIDTerminalRuleCall_0_0_0()); 
                     		
@@ -18343,7 +18345,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
             }
 
-            // InternalErrorModelParser.g:7292:3: ( ( ( (otherlv_2= RULE_ID ) ) ( (lv_typeTokenConstraint_3_0= ruleTypeTokenConstraint ) )? ) | ( (lv_allStates_4_0= All ) ) )
+            // InternalErrorModelParser.g:7288:3: ( ( ( (otherlv_2= RULE_ID ) ) ( (lv_typeTokenConstraint_3_0= ruleTypeTokenConstraint ) )? ) | ( (lv_allStates_4_0= All ) ) )
             int alt204=2;
             int LA204_0 = input.LA(1);
 
@@ -18361,23 +18363,23 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
             }
             switch (alt204) {
                 case 1 :
-                    // InternalErrorModelParser.g:7292:4: ( ( (otherlv_2= RULE_ID ) ) ( (lv_typeTokenConstraint_3_0= ruleTypeTokenConstraint ) )? )
+                    // InternalErrorModelParser.g:7288:4: ( ( (otherlv_2= RULE_ID ) ) ( (lv_typeTokenConstraint_3_0= ruleTypeTokenConstraint ) )? )
                     {
-                    // InternalErrorModelParser.g:7292:4: ( ( (otherlv_2= RULE_ID ) ) ( (lv_typeTokenConstraint_3_0= ruleTypeTokenConstraint ) )? )
-                    // InternalErrorModelParser.g:7292:5: ( (otherlv_2= RULE_ID ) ) ( (lv_typeTokenConstraint_3_0= ruleTypeTokenConstraint ) )?
+                    // InternalErrorModelParser.g:7288:4: ( ( (otherlv_2= RULE_ID ) ) ( (lv_typeTokenConstraint_3_0= ruleTypeTokenConstraint ) )? )
+                    // InternalErrorModelParser.g:7288:5: ( (otherlv_2= RULE_ID ) ) ( (lv_typeTokenConstraint_3_0= ruleTypeTokenConstraint ) )?
                     {
-                    // InternalErrorModelParser.g:7292:5: ( (otherlv_2= RULE_ID ) )
-                    // InternalErrorModelParser.g:7293:1: (otherlv_2= RULE_ID )
+                    // InternalErrorModelParser.g:7288:5: ( (otherlv_2= RULE_ID ) )
+                    // InternalErrorModelParser.g:7289:1: (otherlv_2= RULE_ID )
                     {
-                    // InternalErrorModelParser.g:7293:1: (otherlv_2= RULE_ID )
-                    // InternalErrorModelParser.g:7294:3: otherlv_2= RULE_ID
+                    // InternalErrorModelParser.g:7289:1: (otherlv_2= RULE_ID )
+                    // InternalErrorModelParser.g:7290:3: otherlv_2= RULE_ID
                     {
 
                     			if (current==null) {
                     	            current = createModelElement(grammarAccess.getErrorDetectionRule());
                     	        }
                             
-                    otherlv_2=(Token)match(input,RULE_ID,FOLLOW_114); 
+                    otherlv_2=(Token)match(input,RULE_ID,FOLLOW_113); 
 
                     		newLeafNode(otherlv_2, grammarAccess.getErrorDetectionAccess().getStateErrorBehaviorStateCrossReference_1_0_0_0()); 
                     	
@@ -18387,7 +18389,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
                     }
 
-                    // InternalErrorModelParser.g:7305:2: ( (lv_typeTokenConstraint_3_0= ruleTypeTokenConstraint ) )?
+                    // InternalErrorModelParser.g:7301:2: ( (lv_typeTokenConstraint_3_0= ruleTypeTokenConstraint ) )?
                     int alt203=2;
                     int LA203_0 = input.LA(1);
 
@@ -18396,15 +18398,15 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
                     }
                     switch (alt203) {
                         case 1 :
-                            // InternalErrorModelParser.g:7306:1: (lv_typeTokenConstraint_3_0= ruleTypeTokenConstraint )
+                            // InternalErrorModelParser.g:7302:1: (lv_typeTokenConstraint_3_0= ruleTypeTokenConstraint )
                             {
-                            // InternalErrorModelParser.g:7306:1: (lv_typeTokenConstraint_3_0= ruleTypeTokenConstraint )
-                            // InternalErrorModelParser.g:7307:3: lv_typeTokenConstraint_3_0= ruleTypeTokenConstraint
+                            // InternalErrorModelParser.g:7302:1: (lv_typeTokenConstraint_3_0= ruleTypeTokenConstraint )
+                            // InternalErrorModelParser.g:7303:3: lv_typeTokenConstraint_3_0= ruleTypeTokenConstraint
                             {
                              
                             	        newCompositeNode(grammarAccess.getErrorDetectionAccess().getTypeTokenConstraintTypeTokenConstraintParserRuleCall_1_0_1_0()); 
                             	    
-                            pushFollow(FOLLOW_77);
+                            pushFollow(FOLLOW_76);
                             lv_typeTokenConstraint_3_0=ruleTypeTokenConstraint();
 
                             state._fsp--;
@@ -18436,15 +18438,15 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 2 :
-                    // InternalErrorModelParser.g:7324:6: ( (lv_allStates_4_0= All ) )
+                    // InternalErrorModelParser.g:7320:6: ( (lv_allStates_4_0= All ) )
                     {
-                    // InternalErrorModelParser.g:7324:6: ( (lv_allStates_4_0= All ) )
-                    // InternalErrorModelParser.g:7325:1: (lv_allStates_4_0= All )
+                    // InternalErrorModelParser.g:7320:6: ( (lv_allStates_4_0= All ) )
+                    // InternalErrorModelParser.g:7321:1: (lv_allStates_4_0= All )
                     {
-                    // InternalErrorModelParser.g:7325:1: (lv_allStates_4_0= All )
-                    // InternalErrorModelParser.g:7326:3: lv_allStates_4_0= All
+                    // InternalErrorModelParser.g:7321:1: (lv_allStates_4_0= All )
+                    // InternalErrorModelParser.g:7322:3: lv_allStates_4_0= All
                     {
-                    lv_allStates_4_0=(Token)match(input,All,FOLLOW_77); 
+                    lv_allStates_4_0=(Token)match(input,All,FOLLOW_76); 
 
                             newLeafNode(lv_allStates_4_0, grammarAccess.getErrorDetectionAccess().getAllStatesAllKeyword_1_1_0());
                         
@@ -18466,11 +18468,11 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
             }
 
-            otherlv_5=(Token)match(input,HyphenMinusLeftSquareBracket,FOLLOW_133); 
+            otherlv_5=(Token)match(input,HyphenMinusLeftSquareBracket,FOLLOW_132); 
 
                 	newLeafNode(otherlv_5, grammarAccess.getErrorDetectionAccess().getHyphenMinusLeftSquareBracketKeyword_2());
                 
-            // InternalErrorModelParser.g:7345:1: ( (lv_condition_6_0= ruleConditionExpression ) )?
+            // InternalErrorModelParser.g:7341:1: ( (lv_condition_6_0= ruleConditionExpression ) )?
             int alt205=2;
             int LA205_0 = input.LA(1);
 
@@ -18479,15 +18481,15 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
             }
             switch (alt205) {
                 case 1 :
-                    // InternalErrorModelParser.g:7346:1: (lv_condition_6_0= ruleConditionExpression )
+                    // InternalErrorModelParser.g:7342:1: (lv_condition_6_0= ruleConditionExpression )
                     {
-                    // InternalErrorModelParser.g:7346:1: (lv_condition_6_0= ruleConditionExpression )
-                    // InternalErrorModelParser.g:7347:3: lv_condition_6_0= ruleConditionExpression
+                    // InternalErrorModelParser.g:7342:1: (lv_condition_6_0= ruleConditionExpression )
+                    // InternalErrorModelParser.g:7343:3: lv_condition_6_0= ruleConditionExpression
                     {
                      
                     	        newCompositeNode(grammarAccess.getErrorDetectionAccess().getConditionConditionExpressionParserRuleCall_3_0()); 
                     	    
-                    pushFollow(FOLLOW_79);
+                    pushFollow(FOLLOW_78);
                     lv_condition_6_0=ruleConditionExpression();
 
                     state._fsp--;
@@ -18516,18 +18518,18 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
                 	newLeafNode(otherlv_7, grammarAccess.getErrorDetectionAccess().getRightSquareBracketHyphenMinusGreaterThanSignKeyword_4());
                 
-            // InternalErrorModelParser.g:7368:1: ( (otherlv_8= RULE_ID ) )
-            // InternalErrorModelParser.g:7369:1: (otherlv_8= RULE_ID )
+            // InternalErrorModelParser.g:7364:1: ( (otherlv_8= RULE_ID ) )
+            // InternalErrorModelParser.g:7365:1: (otherlv_8= RULE_ID )
             {
-            // InternalErrorModelParser.g:7369:1: (otherlv_8= RULE_ID )
-            // InternalErrorModelParser.g:7370:3: otherlv_8= RULE_ID
+            // InternalErrorModelParser.g:7365:1: (otherlv_8= RULE_ID )
+            // InternalErrorModelParser.g:7366:3: otherlv_8= RULE_ID
             {
 
             			if (current==null) {
             	            current = createModelElement(grammarAccess.getErrorDetectionRule());
             	        }
                     
-            otherlv_8=(Token)match(input,RULE_ID,FOLLOW_134); 
+            otherlv_8=(Token)match(input,RULE_ID,FOLLOW_133); 
 
             		newLeafNode(otherlv_8, grammarAccess.getErrorDetectionAccess().getDetectionReportingPortTriggerPortCrossReference_5_0()); 
             	
@@ -18537,11 +18539,11 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
             }
 
-            otherlv_9=(Token)match(input,ExclamationMark,FOLLOW_135); 
+            otherlv_9=(Token)match(input,ExclamationMark,FOLLOW_134); 
 
                 	newLeafNode(otherlv_9, grammarAccess.getErrorDetectionAccess().getExclamationMarkKeyword_6());
                 
-            // InternalErrorModelParser.g:7386:1: (otherlv_10= LeftParenthesis ( (lv_errorCode_11_0= ruleErrorCodeValue ) ) otherlv_12= RightParenthesis )?
+            // InternalErrorModelParser.g:7382:1: (otherlv_10= LeftParenthesis ( (lv_errorCode_11_0= ruleErrorCodeValue ) ) otherlv_12= RightParenthesis )?
             int alt206=2;
             int LA206_0 = input.LA(1);
 
@@ -18550,22 +18552,22 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
             }
             switch (alt206) {
                 case 1 :
-                    // InternalErrorModelParser.g:7387:2: otherlv_10= LeftParenthesis ( (lv_errorCode_11_0= ruleErrorCodeValue ) ) otherlv_12= RightParenthesis
+                    // InternalErrorModelParser.g:7383:2: otherlv_10= LeftParenthesis ( (lv_errorCode_11_0= ruleErrorCodeValue ) ) otherlv_12= RightParenthesis
                     {
-                    otherlv_10=(Token)match(input,LeftParenthesis,FOLLOW_136); 
+                    otherlv_10=(Token)match(input,LeftParenthesis,FOLLOW_135); 
 
                         	newLeafNode(otherlv_10, grammarAccess.getErrorDetectionAccess().getLeftParenthesisKeyword_7_0());
                         
-                    // InternalErrorModelParser.g:7391:1: ( (lv_errorCode_11_0= ruleErrorCodeValue ) )
-                    // InternalErrorModelParser.g:7392:1: (lv_errorCode_11_0= ruleErrorCodeValue )
+                    // InternalErrorModelParser.g:7387:1: ( (lv_errorCode_11_0= ruleErrorCodeValue ) )
+                    // InternalErrorModelParser.g:7388:1: (lv_errorCode_11_0= ruleErrorCodeValue )
                     {
-                    // InternalErrorModelParser.g:7392:1: (lv_errorCode_11_0= ruleErrorCodeValue )
-                    // InternalErrorModelParser.g:7393:3: lv_errorCode_11_0= ruleErrorCodeValue
+                    // InternalErrorModelParser.g:7388:1: (lv_errorCode_11_0= ruleErrorCodeValue )
+                    // InternalErrorModelParser.g:7389:3: lv_errorCode_11_0= ruleErrorCodeValue
                     {
                      
                     	        newCompositeNode(grammarAccess.getErrorDetectionAccess().getErrorCodeErrorCodeValueParserRuleCall_7_1_0()); 
                     	    
-                    pushFollow(FOLLOW_131);
+                    pushFollow(FOLLOW_130);
                     lv_errorCode_11_0=ruleErrorCodeValue();
 
                     state._fsp--;
@@ -18622,7 +18624,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleErrorCodeValue"
-    // InternalErrorModelParser.g:7427:1: entryRuleErrorCodeValue returns [EObject current=null] : iv_ruleErrorCodeValue= ruleErrorCodeValue EOF ;
+    // InternalErrorModelParser.g:7423:1: entryRuleErrorCodeValue returns [EObject current=null] : iv_ruleErrorCodeValue= ruleErrorCodeValue EOF ;
     public final EObject entryRuleErrorCodeValue() throws RecognitionException {
         EObject current = null;
 
@@ -18630,8 +18632,8 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // InternalErrorModelParser.g:7428:2: (iv_ruleErrorCodeValue= ruleErrorCodeValue EOF )
-            // InternalErrorModelParser.g:7429:2: iv_ruleErrorCodeValue= ruleErrorCodeValue EOF
+            // InternalErrorModelParser.g:7424:2: (iv_ruleErrorCodeValue= ruleErrorCodeValue EOF )
+            // InternalErrorModelParser.g:7425:2: iv_ruleErrorCodeValue= ruleErrorCodeValue EOF
             {
              newCompositeNode(grammarAccess.getErrorCodeValueRule()); 
             pushFollow(FOLLOW_1);
@@ -18658,7 +18660,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleErrorCodeValue"
-    // InternalErrorModelParser.g:7436:1: ruleErrorCodeValue returns [EObject current=null] : ( ( (lv_intValue_0_0= RULE_INTEGER_LIT ) ) | ( ( ruleQPREF ) ) | ( (lv_enumLiteral_2_0= RULE_STRING ) ) ) ;
+    // InternalErrorModelParser.g:7432:1: ruleErrorCodeValue returns [EObject current=null] : ( ( (lv_intValue_0_0= RULE_INTEGER_LIT ) ) | ( ( ruleQPREF ) ) | ( (lv_enumLiteral_2_0= RULE_STRING ) ) ) ;
     public final EObject ruleErrorCodeValue() throws RecognitionException {
         EObject current = null;
 
@@ -18668,10 +18670,10 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // InternalErrorModelParser.g:7439:28: ( ( ( (lv_intValue_0_0= RULE_INTEGER_LIT ) ) | ( ( ruleQPREF ) ) | ( (lv_enumLiteral_2_0= RULE_STRING ) ) ) )
-            // InternalErrorModelParser.g:7440:1: ( ( (lv_intValue_0_0= RULE_INTEGER_LIT ) ) | ( ( ruleQPREF ) ) | ( (lv_enumLiteral_2_0= RULE_STRING ) ) )
+            // InternalErrorModelParser.g:7435:28: ( ( ( (lv_intValue_0_0= RULE_INTEGER_LIT ) ) | ( ( ruleQPREF ) ) | ( (lv_enumLiteral_2_0= RULE_STRING ) ) ) )
+            // InternalErrorModelParser.g:7436:1: ( ( (lv_intValue_0_0= RULE_INTEGER_LIT ) ) | ( ( ruleQPREF ) ) | ( (lv_enumLiteral_2_0= RULE_STRING ) ) )
             {
-            // InternalErrorModelParser.g:7440:1: ( ( (lv_intValue_0_0= RULE_INTEGER_LIT ) ) | ( ( ruleQPREF ) ) | ( (lv_enumLiteral_2_0= RULE_STRING ) ) )
+            // InternalErrorModelParser.g:7436:1: ( ( (lv_intValue_0_0= RULE_INTEGER_LIT ) ) | ( ( ruleQPREF ) ) | ( (lv_enumLiteral_2_0= RULE_STRING ) ) )
             int alt207=3;
             switch ( input.LA(1) ) {
             case RULE_INTEGER_LIT:
@@ -18698,13 +18700,13 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
             switch (alt207) {
                 case 1 :
-                    // InternalErrorModelParser.g:7440:2: ( (lv_intValue_0_0= RULE_INTEGER_LIT ) )
+                    // InternalErrorModelParser.g:7436:2: ( (lv_intValue_0_0= RULE_INTEGER_LIT ) )
                     {
-                    // InternalErrorModelParser.g:7440:2: ( (lv_intValue_0_0= RULE_INTEGER_LIT ) )
-                    // InternalErrorModelParser.g:7441:1: (lv_intValue_0_0= RULE_INTEGER_LIT )
+                    // InternalErrorModelParser.g:7436:2: ( (lv_intValue_0_0= RULE_INTEGER_LIT ) )
+                    // InternalErrorModelParser.g:7437:1: (lv_intValue_0_0= RULE_INTEGER_LIT )
                     {
-                    // InternalErrorModelParser.g:7441:1: (lv_intValue_0_0= RULE_INTEGER_LIT )
-                    // InternalErrorModelParser.g:7442:3: lv_intValue_0_0= RULE_INTEGER_LIT
+                    // InternalErrorModelParser.g:7437:1: (lv_intValue_0_0= RULE_INTEGER_LIT )
+                    // InternalErrorModelParser.g:7438:3: lv_intValue_0_0= RULE_INTEGER_LIT
                     {
                     lv_intValue_0_0=(Token)match(input,RULE_INTEGER_LIT,FOLLOW_2); 
 
@@ -18730,13 +18732,13 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 2 :
-                    // InternalErrorModelParser.g:7459:6: ( ( ruleQPREF ) )
+                    // InternalErrorModelParser.g:7455:6: ( ( ruleQPREF ) )
                     {
-                    // InternalErrorModelParser.g:7459:6: ( ( ruleQPREF ) )
-                    // InternalErrorModelParser.g:7460:1: ( ruleQPREF )
+                    // InternalErrorModelParser.g:7455:6: ( ( ruleQPREF ) )
+                    // InternalErrorModelParser.g:7456:1: ( ruleQPREF )
                     {
-                    // InternalErrorModelParser.g:7460:1: ( ruleQPREF )
-                    // InternalErrorModelParser.g:7461:3: ruleQPREF
+                    // InternalErrorModelParser.g:7456:1: ( ruleQPREF )
+                    // InternalErrorModelParser.g:7457:3: ruleQPREF
                     {
 
                     			if (current==null) {
@@ -18764,13 +18766,13 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 3 :
-                    // InternalErrorModelParser.g:7476:6: ( (lv_enumLiteral_2_0= RULE_STRING ) )
+                    // InternalErrorModelParser.g:7472:6: ( (lv_enumLiteral_2_0= RULE_STRING ) )
                     {
-                    // InternalErrorModelParser.g:7476:6: ( (lv_enumLiteral_2_0= RULE_STRING ) )
-                    // InternalErrorModelParser.g:7477:1: (lv_enumLiteral_2_0= RULE_STRING )
+                    // InternalErrorModelParser.g:7472:6: ( (lv_enumLiteral_2_0= RULE_STRING ) )
+                    // InternalErrorModelParser.g:7473:1: (lv_enumLiteral_2_0= RULE_STRING )
                     {
-                    // InternalErrorModelParser.g:7477:1: (lv_enumLiteral_2_0= RULE_STRING )
-                    // InternalErrorModelParser.g:7478:3: lv_enumLiteral_2_0= RULE_STRING
+                    // InternalErrorModelParser.g:7473:1: (lv_enumLiteral_2_0= RULE_STRING )
+                    // InternalErrorModelParser.g:7474:3: lv_enumLiteral_2_0= RULE_STRING
                     {
                     lv_enumLiteral_2_0=(Token)match(input,RULE_STRING,FOLLOW_2); 
 
@@ -18816,7 +18818,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleErrorStateToModeMapping"
-    // InternalErrorModelParser.g:7502:1: entryRuleErrorStateToModeMapping returns [EObject current=null] : iv_ruleErrorStateToModeMapping= ruleErrorStateToModeMapping EOF ;
+    // InternalErrorModelParser.g:7498:1: entryRuleErrorStateToModeMapping returns [EObject current=null] : iv_ruleErrorStateToModeMapping= ruleErrorStateToModeMapping EOF ;
     public final EObject entryRuleErrorStateToModeMapping() throws RecognitionException {
         EObject current = null;
 
@@ -18824,8 +18826,8 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // InternalErrorModelParser.g:7503:2: (iv_ruleErrorStateToModeMapping= ruleErrorStateToModeMapping EOF )
-            // InternalErrorModelParser.g:7504:2: iv_ruleErrorStateToModeMapping= ruleErrorStateToModeMapping EOF
+            // InternalErrorModelParser.g:7499:2: (iv_ruleErrorStateToModeMapping= ruleErrorStateToModeMapping EOF )
+            // InternalErrorModelParser.g:7500:2: iv_ruleErrorStateToModeMapping= ruleErrorStateToModeMapping EOF
             {
              newCompositeNode(grammarAccess.getErrorStateToModeMappingRule()); 
             pushFollow(FOLLOW_1);
@@ -18852,43 +18854,41 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleErrorStateToModeMapping"
-    // InternalErrorModelParser.g:7511:1: ruleErrorStateToModeMapping returns [EObject current=null] : ( ( (otherlv_0= RULE_ID ) ) ( (lv_typeToken_1_0= ruleTypeToken ) )? otherlv_2= In otherlv_3= Modes otherlv_4= LeftParenthesis ( (otherlv_5= RULE_ID ) ) (otherlv_6= Comma ( (otherlv_7= RULE_ID ) ) )* otherlv_8= RightParenthesis otherlv_9= Semicolon ) ;
+    // InternalErrorModelParser.g:7507:1: ruleErrorStateToModeMapping returns [EObject current=null] : ( ( (otherlv_0= RULE_ID ) ) ( (lv_typeToken_1_0= ruleTypeToken ) )? ruleInModesKeywords otherlv_3= LeftParenthesis ( (otherlv_4= RULE_ID ) ) (otherlv_5= Comma ( (otherlv_6= RULE_ID ) ) )* otherlv_7= RightParenthesis otherlv_8= Semicolon ) ;
     public final EObject ruleErrorStateToModeMapping() throws RecognitionException {
         EObject current = null;
 
         Token otherlv_0=null;
-        Token otherlv_2=null;
         Token otherlv_3=null;
         Token otherlv_4=null;
         Token otherlv_5=null;
         Token otherlv_6=null;
         Token otherlv_7=null;
         Token otherlv_8=null;
-        Token otherlv_9=null;
         EObject lv_typeToken_1_0 = null;
 
 
          enterRule(); 
             
         try {
-            // InternalErrorModelParser.g:7514:28: ( ( ( (otherlv_0= RULE_ID ) ) ( (lv_typeToken_1_0= ruleTypeToken ) )? otherlv_2= In otherlv_3= Modes otherlv_4= LeftParenthesis ( (otherlv_5= RULE_ID ) ) (otherlv_6= Comma ( (otherlv_7= RULE_ID ) ) )* otherlv_8= RightParenthesis otherlv_9= Semicolon ) )
-            // InternalErrorModelParser.g:7515:1: ( ( (otherlv_0= RULE_ID ) ) ( (lv_typeToken_1_0= ruleTypeToken ) )? otherlv_2= In otherlv_3= Modes otherlv_4= LeftParenthesis ( (otherlv_5= RULE_ID ) ) (otherlv_6= Comma ( (otherlv_7= RULE_ID ) ) )* otherlv_8= RightParenthesis otherlv_9= Semicolon )
+            // InternalErrorModelParser.g:7510:28: ( ( ( (otherlv_0= RULE_ID ) ) ( (lv_typeToken_1_0= ruleTypeToken ) )? ruleInModesKeywords otherlv_3= LeftParenthesis ( (otherlv_4= RULE_ID ) ) (otherlv_5= Comma ( (otherlv_6= RULE_ID ) ) )* otherlv_7= RightParenthesis otherlv_8= Semicolon ) )
+            // InternalErrorModelParser.g:7511:1: ( ( (otherlv_0= RULE_ID ) ) ( (lv_typeToken_1_0= ruleTypeToken ) )? ruleInModesKeywords otherlv_3= LeftParenthesis ( (otherlv_4= RULE_ID ) ) (otherlv_5= Comma ( (otherlv_6= RULE_ID ) ) )* otherlv_7= RightParenthesis otherlv_8= Semicolon )
             {
-            // InternalErrorModelParser.g:7515:1: ( ( (otherlv_0= RULE_ID ) ) ( (lv_typeToken_1_0= ruleTypeToken ) )? otherlv_2= In otherlv_3= Modes otherlv_4= LeftParenthesis ( (otherlv_5= RULE_ID ) ) (otherlv_6= Comma ( (otherlv_7= RULE_ID ) ) )* otherlv_8= RightParenthesis otherlv_9= Semicolon )
-            // InternalErrorModelParser.g:7515:2: ( (otherlv_0= RULE_ID ) ) ( (lv_typeToken_1_0= ruleTypeToken ) )? otherlv_2= In otherlv_3= Modes otherlv_4= LeftParenthesis ( (otherlv_5= RULE_ID ) ) (otherlv_6= Comma ( (otherlv_7= RULE_ID ) ) )* otherlv_8= RightParenthesis otherlv_9= Semicolon
+            // InternalErrorModelParser.g:7511:1: ( ( (otherlv_0= RULE_ID ) ) ( (lv_typeToken_1_0= ruleTypeToken ) )? ruleInModesKeywords otherlv_3= LeftParenthesis ( (otherlv_4= RULE_ID ) ) (otherlv_5= Comma ( (otherlv_6= RULE_ID ) ) )* otherlv_7= RightParenthesis otherlv_8= Semicolon )
+            // InternalErrorModelParser.g:7511:2: ( (otherlv_0= RULE_ID ) ) ( (lv_typeToken_1_0= ruleTypeToken ) )? ruleInModesKeywords otherlv_3= LeftParenthesis ( (otherlv_4= RULE_ID ) ) (otherlv_5= Comma ( (otherlv_6= RULE_ID ) ) )* otherlv_7= RightParenthesis otherlv_8= Semicolon
             {
-            // InternalErrorModelParser.g:7515:2: ( (otherlv_0= RULE_ID ) )
-            // InternalErrorModelParser.g:7516:1: (otherlv_0= RULE_ID )
+            // InternalErrorModelParser.g:7511:2: ( (otherlv_0= RULE_ID ) )
+            // InternalErrorModelParser.g:7512:1: (otherlv_0= RULE_ID )
             {
-            // InternalErrorModelParser.g:7516:1: (otherlv_0= RULE_ID )
-            // InternalErrorModelParser.g:7517:3: otherlv_0= RULE_ID
+            // InternalErrorModelParser.g:7512:1: (otherlv_0= RULE_ID )
+            // InternalErrorModelParser.g:7513:3: otherlv_0= RULE_ID
             {
 
             			if (current==null) {
             	            current = createModelElement(grammarAccess.getErrorStateToModeMappingRule());
             	        }
                     
-            otherlv_0=(Token)match(input,RULE_ID,FOLLOW_137); 
+            otherlv_0=(Token)match(input,RULE_ID,FOLLOW_136); 
 
             		newLeafNode(otherlv_0, grammarAccess.getErrorStateToModeMappingAccess().getErrorStateErrorBehaviorStateCrossReference_0_0()); 
             	
@@ -18898,7 +18898,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
             }
 
-            // InternalErrorModelParser.g:7528:2: ( (lv_typeToken_1_0= ruleTypeToken ) )?
+            // InternalErrorModelParser.g:7524:2: ( (lv_typeToken_1_0= ruleTypeToken ) )?
             int alt208=2;
             int LA208_0 = input.LA(1);
 
@@ -18907,15 +18907,15 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
             }
             switch (alt208) {
                 case 1 :
-                    // InternalErrorModelParser.g:7529:1: (lv_typeToken_1_0= ruleTypeToken )
+                    // InternalErrorModelParser.g:7525:1: (lv_typeToken_1_0= ruleTypeToken )
                     {
-                    // InternalErrorModelParser.g:7529:1: (lv_typeToken_1_0= ruleTypeToken )
-                    // InternalErrorModelParser.g:7530:3: lv_typeToken_1_0= ruleTypeToken
+                    // InternalErrorModelParser.g:7525:1: (lv_typeToken_1_0= ruleTypeToken )
+                    // InternalErrorModelParser.g:7526:3: lv_typeToken_1_0= ruleTypeToken
                     {
                      
                     	        newCompositeNode(grammarAccess.getErrorStateToModeMappingAccess().getTypeTokenTypeTokenParserRuleCall_1_0()); 
                     	    
-                    pushFollow(FOLLOW_138);
+                    pushFollow(FOLLOW_136);
                     lv_typeToken_1_0=ruleTypeToken();
 
                     state._fsp--;
@@ -18940,32 +18940,35 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
             }
 
-            otherlv_2=(Token)match(input,In,FOLLOW_139); 
-
-                	newLeafNode(otherlv_2, grammarAccess.getErrorStateToModeMappingAccess().getInKeyword_2());
+             
+                    newCompositeNode(grammarAccess.getErrorStateToModeMappingAccess().getInModesKeywordsParserRuleCall_2()); 
                 
-            otherlv_3=(Token)match(input,Modes,FOLLOW_128); 
+            pushFollow(FOLLOW_127);
+            ruleInModesKeywords();
 
-                	newLeafNode(otherlv_3, grammarAccess.getErrorStateToModeMappingAccess().getModesKeyword_3());
-                
-            otherlv_4=(Token)match(input,LeftParenthesis,FOLLOW_5); 
+            state._fsp--;
 
-                	newLeafNode(otherlv_4, grammarAccess.getErrorStateToModeMappingAccess().getLeftParenthesisKeyword_4());
+
+                    afterParserOrEnumRuleCall();
                 
-            // InternalErrorModelParser.g:7561:1: ( (otherlv_5= RULE_ID ) )
-            // InternalErrorModelParser.g:7562:1: (otherlv_5= RULE_ID )
+            otherlv_3=(Token)match(input,LeftParenthesis,FOLLOW_5); 
+
+                	newLeafNode(otherlv_3, grammarAccess.getErrorStateToModeMappingAccess().getLeftParenthesisKeyword_3());
+                
+            // InternalErrorModelParser.g:7555:1: ( (otherlv_4= RULE_ID ) )
+            // InternalErrorModelParser.g:7556:1: (otherlv_4= RULE_ID )
             {
-            // InternalErrorModelParser.g:7562:1: (otherlv_5= RULE_ID )
-            // InternalErrorModelParser.g:7563:3: otherlv_5= RULE_ID
+            // InternalErrorModelParser.g:7556:1: (otherlv_4= RULE_ID )
+            // InternalErrorModelParser.g:7557:3: otherlv_4= RULE_ID
             {
 
             			if (current==null) {
             	            current = createModelElement(grammarAccess.getErrorStateToModeMappingRule());
             	        }
                     
-            otherlv_5=(Token)match(input,RULE_ID,FOLLOW_119); 
+            otherlv_4=(Token)match(input,RULE_ID,FOLLOW_118); 
 
-            		newLeafNode(otherlv_5, grammarAccess.getErrorStateToModeMappingAccess().getMappedModesModeCrossReference_5_0()); 
+            		newLeafNode(otherlv_4, grammarAccess.getErrorStateToModeMappingAccess().getMappedModesModeCrossReference_4_0()); 
             	
 
             }
@@ -18973,7 +18976,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
             }
 
-            // InternalErrorModelParser.g:7574:2: (otherlv_6= Comma ( (otherlv_7= RULE_ID ) ) )*
+            // InternalErrorModelParser.g:7568:2: (otherlv_5= Comma ( (otherlv_6= RULE_ID ) ) )*
             loop209:
             do {
                 int alt209=2;
@@ -18986,26 +18989,26 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
                 switch (alt209) {
             	case 1 :
-            	    // InternalErrorModelParser.g:7575:2: otherlv_6= Comma ( (otherlv_7= RULE_ID ) )
+            	    // InternalErrorModelParser.g:7569:2: otherlv_5= Comma ( (otherlv_6= RULE_ID ) )
             	    {
-            	    otherlv_6=(Token)match(input,Comma,FOLLOW_5); 
+            	    otherlv_5=(Token)match(input,Comma,FOLLOW_5); 
 
-            	        	newLeafNode(otherlv_6, grammarAccess.getErrorStateToModeMappingAccess().getCommaKeyword_6_0());
+            	        	newLeafNode(otherlv_5, grammarAccess.getErrorStateToModeMappingAccess().getCommaKeyword_5_0());
             	        
-            	    // InternalErrorModelParser.g:7579:1: ( (otherlv_7= RULE_ID ) )
-            	    // InternalErrorModelParser.g:7580:1: (otherlv_7= RULE_ID )
+            	    // InternalErrorModelParser.g:7573:1: ( (otherlv_6= RULE_ID ) )
+            	    // InternalErrorModelParser.g:7574:1: (otherlv_6= RULE_ID )
             	    {
-            	    // InternalErrorModelParser.g:7580:1: (otherlv_7= RULE_ID )
-            	    // InternalErrorModelParser.g:7581:3: otherlv_7= RULE_ID
+            	    // InternalErrorModelParser.g:7574:1: (otherlv_6= RULE_ID )
+            	    // InternalErrorModelParser.g:7575:3: otherlv_6= RULE_ID
             	    {
 
             	    			if (current==null) {
             	    	            current = createModelElement(grammarAccess.getErrorStateToModeMappingRule());
             	    	        }
             	            
-            	    otherlv_7=(Token)match(input,RULE_ID,FOLLOW_119); 
+            	    otherlv_6=(Token)match(input,RULE_ID,FOLLOW_118); 
 
-            	    		newLeafNode(otherlv_7, grammarAccess.getErrorStateToModeMappingAccess().getMappedModesModeCrossReference_6_1_0()); 
+            	    		newLeafNode(otherlv_6, grammarAccess.getErrorStateToModeMappingAccess().getMappedModesModeCrossReference_5_1_0()); 
             	    	
 
             	    }
@@ -19022,13 +19025,13 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
                 }
             } while (true);
 
-            otherlv_8=(Token)match(input,RightParenthesis,FOLLOW_10); 
+            otherlv_7=(Token)match(input,RightParenthesis,FOLLOW_10); 
 
-                	newLeafNode(otherlv_8, grammarAccess.getErrorStateToModeMappingAccess().getRightParenthesisKeyword_7());
+                	newLeafNode(otherlv_7, grammarAccess.getErrorStateToModeMappingAccess().getRightParenthesisKeyword_6());
                 
-            otherlv_9=(Token)match(input,Semicolon,FOLLOW_2); 
+            otherlv_8=(Token)match(input,Semicolon,FOLLOW_2); 
 
-                	newLeafNode(otherlv_9, grammarAccess.getErrorStateToModeMappingAccess().getSemicolonKeyword_8());
+                	newLeafNode(otherlv_8, grammarAccess.getErrorStateToModeMappingAccess().getSemicolonKeyword_7());
                 
 
             }
@@ -19051,7 +19054,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleCompositeState"
-    // InternalErrorModelParser.g:7610:1: entryRuleCompositeState returns [EObject current=null] : iv_ruleCompositeState= ruleCompositeState EOF ;
+    // InternalErrorModelParser.g:7604:1: entryRuleCompositeState returns [EObject current=null] : iv_ruleCompositeState= ruleCompositeState EOF ;
     public final EObject entryRuleCompositeState() throws RecognitionException {
         EObject current = null;
 
@@ -19059,8 +19062,8 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // InternalErrorModelParser.g:7611:2: (iv_ruleCompositeState= ruleCompositeState EOF )
-            // InternalErrorModelParser.g:7612:2: iv_ruleCompositeState= ruleCompositeState EOF
+            // InternalErrorModelParser.g:7605:2: (iv_ruleCompositeState= ruleCompositeState EOF )
+            // InternalErrorModelParser.g:7606:2: iv_ruleCompositeState= ruleCompositeState EOF
             {
              newCompositeNode(grammarAccess.getCompositeStateRule()); 
             pushFollow(FOLLOW_1);
@@ -19087,7 +19090,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleCompositeState"
-    // InternalErrorModelParser.g:7619:1: ruleCompositeState returns [EObject current=null] : ( ( ( (lv_name_0_0= RULE_ID ) ) otherlv_1= Colon )? otherlv_2= LeftSquareBracket ( ( (lv_condition_3_0= ruleSConditionExpression ) ) | ( (lv_others_4_0= Others ) ) ) otherlv_5= RightSquareBracketHyphenMinusGreaterThanSign ( (otherlv_6= RULE_ID ) ) ( (lv_typedToken_7_0= ruleTypeToken ) )? otherlv_8= Semicolon ) ;
+    // InternalErrorModelParser.g:7613:1: ruleCompositeState returns [EObject current=null] : ( ( ( (lv_name_0_0= RULE_ID ) ) otherlv_1= Colon )? otherlv_2= LeftSquareBracket ( ( (lv_condition_3_0= ruleSConditionExpression ) ) | ( (lv_others_4_0= Others ) ) ) otherlv_5= RightSquareBracketHyphenMinusGreaterThanSign ( (otherlv_6= RULE_ID ) ) ( (lv_typedToken_7_0= ruleTypeToken ) )? otherlv_8= Semicolon ) ;
     public final EObject ruleCompositeState() throws RecognitionException {
         EObject current = null;
 
@@ -19106,13 +19109,13 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // InternalErrorModelParser.g:7622:28: ( ( ( ( (lv_name_0_0= RULE_ID ) ) otherlv_1= Colon )? otherlv_2= LeftSquareBracket ( ( (lv_condition_3_0= ruleSConditionExpression ) ) | ( (lv_others_4_0= Others ) ) ) otherlv_5= RightSquareBracketHyphenMinusGreaterThanSign ( (otherlv_6= RULE_ID ) ) ( (lv_typedToken_7_0= ruleTypeToken ) )? otherlv_8= Semicolon ) )
-            // InternalErrorModelParser.g:7623:1: ( ( ( (lv_name_0_0= RULE_ID ) ) otherlv_1= Colon )? otherlv_2= LeftSquareBracket ( ( (lv_condition_3_0= ruleSConditionExpression ) ) | ( (lv_others_4_0= Others ) ) ) otherlv_5= RightSquareBracketHyphenMinusGreaterThanSign ( (otherlv_6= RULE_ID ) ) ( (lv_typedToken_7_0= ruleTypeToken ) )? otherlv_8= Semicolon )
+            // InternalErrorModelParser.g:7616:28: ( ( ( ( (lv_name_0_0= RULE_ID ) ) otherlv_1= Colon )? otherlv_2= LeftSquareBracket ( ( (lv_condition_3_0= ruleSConditionExpression ) ) | ( (lv_others_4_0= Others ) ) ) otherlv_5= RightSquareBracketHyphenMinusGreaterThanSign ( (otherlv_6= RULE_ID ) ) ( (lv_typedToken_7_0= ruleTypeToken ) )? otherlv_8= Semicolon ) )
+            // InternalErrorModelParser.g:7617:1: ( ( ( (lv_name_0_0= RULE_ID ) ) otherlv_1= Colon )? otherlv_2= LeftSquareBracket ( ( (lv_condition_3_0= ruleSConditionExpression ) ) | ( (lv_others_4_0= Others ) ) ) otherlv_5= RightSquareBracketHyphenMinusGreaterThanSign ( (otherlv_6= RULE_ID ) ) ( (lv_typedToken_7_0= ruleTypeToken ) )? otherlv_8= Semicolon )
             {
-            // InternalErrorModelParser.g:7623:1: ( ( ( (lv_name_0_0= RULE_ID ) ) otherlv_1= Colon )? otherlv_2= LeftSquareBracket ( ( (lv_condition_3_0= ruleSConditionExpression ) ) | ( (lv_others_4_0= Others ) ) ) otherlv_5= RightSquareBracketHyphenMinusGreaterThanSign ( (otherlv_6= RULE_ID ) ) ( (lv_typedToken_7_0= ruleTypeToken ) )? otherlv_8= Semicolon )
-            // InternalErrorModelParser.g:7623:2: ( ( (lv_name_0_0= RULE_ID ) ) otherlv_1= Colon )? otherlv_2= LeftSquareBracket ( ( (lv_condition_3_0= ruleSConditionExpression ) ) | ( (lv_others_4_0= Others ) ) ) otherlv_5= RightSquareBracketHyphenMinusGreaterThanSign ( (otherlv_6= RULE_ID ) ) ( (lv_typedToken_7_0= ruleTypeToken ) )? otherlv_8= Semicolon
+            // InternalErrorModelParser.g:7617:1: ( ( ( (lv_name_0_0= RULE_ID ) ) otherlv_1= Colon )? otherlv_2= LeftSquareBracket ( ( (lv_condition_3_0= ruleSConditionExpression ) ) | ( (lv_others_4_0= Others ) ) ) otherlv_5= RightSquareBracketHyphenMinusGreaterThanSign ( (otherlv_6= RULE_ID ) ) ( (lv_typedToken_7_0= ruleTypeToken ) )? otherlv_8= Semicolon )
+            // InternalErrorModelParser.g:7617:2: ( ( (lv_name_0_0= RULE_ID ) ) otherlv_1= Colon )? otherlv_2= LeftSquareBracket ( ( (lv_condition_3_0= ruleSConditionExpression ) ) | ( (lv_others_4_0= Others ) ) ) otherlv_5= RightSquareBracketHyphenMinusGreaterThanSign ( (otherlv_6= RULE_ID ) ) ( (lv_typedToken_7_0= ruleTypeToken ) )? otherlv_8= Semicolon
             {
-            // InternalErrorModelParser.g:7623:2: ( ( (lv_name_0_0= RULE_ID ) ) otherlv_1= Colon )?
+            // InternalErrorModelParser.g:7617:2: ( ( (lv_name_0_0= RULE_ID ) ) otherlv_1= Colon )?
             int alt210=2;
             int LA210_0 = input.LA(1);
 
@@ -19121,15 +19124,15 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
             }
             switch (alt210) {
                 case 1 :
-                    // InternalErrorModelParser.g:7623:3: ( (lv_name_0_0= RULE_ID ) ) otherlv_1= Colon
+                    // InternalErrorModelParser.g:7617:3: ( (lv_name_0_0= RULE_ID ) ) otherlv_1= Colon
                     {
-                    // InternalErrorModelParser.g:7623:3: ( (lv_name_0_0= RULE_ID ) )
-                    // InternalErrorModelParser.g:7624:1: (lv_name_0_0= RULE_ID )
+                    // InternalErrorModelParser.g:7617:3: ( (lv_name_0_0= RULE_ID ) )
+                    // InternalErrorModelParser.g:7618:1: (lv_name_0_0= RULE_ID )
                     {
-                    // InternalErrorModelParser.g:7624:1: (lv_name_0_0= RULE_ID )
-                    // InternalErrorModelParser.g:7625:3: lv_name_0_0= RULE_ID
+                    // InternalErrorModelParser.g:7618:1: (lv_name_0_0= RULE_ID )
+                    // InternalErrorModelParser.g:7619:3: lv_name_0_0= RULE_ID
                     {
-                    lv_name_0_0=(Token)match(input,RULE_ID,FOLLOW_83); 
+                    lv_name_0_0=(Token)match(input,RULE_ID,FOLLOW_82); 
 
                     			newLeafNode(lv_name_0_0, grammarAccess.getCompositeStateAccess().getNameIDTerminalRuleCall_0_0_0()); 
                     		
@@ -19149,7 +19152,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
                     }
 
-                    otherlv_1=(Token)match(input,Colon,FOLLOW_140); 
+                    otherlv_1=(Token)match(input,Colon,FOLLOW_137); 
 
                         	newLeafNode(otherlv_1, grammarAccess.getCompositeStateAccess().getColonKeyword_0_1());
                         
@@ -19159,11 +19162,11 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
             }
 
-            otherlv_2=(Token)match(input,LeftSquareBracket,FOLLOW_141); 
+            otherlv_2=(Token)match(input,LeftSquareBracket,FOLLOW_138); 
 
                 	newLeafNode(otherlv_2, grammarAccess.getCompositeStateAccess().getLeftSquareBracketKeyword_1());
                 
-            // InternalErrorModelParser.g:7651:1: ( ( (lv_condition_3_0= ruleSConditionExpression ) ) | ( (lv_others_4_0= Others ) ) )
+            // InternalErrorModelParser.g:7645:1: ( ( (lv_condition_3_0= ruleSConditionExpression ) ) | ( (lv_others_4_0= Others ) ) )
             int alt211=2;
             int LA211_0 = input.LA(1);
 
@@ -19181,18 +19184,18 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
             }
             switch (alt211) {
                 case 1 :
-                    // InternalErrorModelParser.g:7651:2: ( (lv_condition_3_0= ruleSConditionExpression ) )
+                    // InternalErrorModelParser.g:7645:2: ( (lv_condition_3_0= ruleSConditionExpression ) )
                     {
-                    // InternalErrorModelParser.g:7651:2: ( (lv_condition_3_0= ruleSConditionExpression ) )
-                    // InternalErrorModelParser.g:7652:1: (lv_condition_3_0= ruleSConditionExpression )
+                    // InternalErrorModelParser.g:7645:2: ( (lv_condition_3_0= ruleSConditionExpression ) )
+                    // InternalErrorModelParser.g:7646:1: (lv_condition_3_0= ruleSConditionExpression )
                     {
-                    // InternalErrorModelParser.g:7652:1: (lv_condition_3_0= ruleSConditionExpression )
-                    // InternalErrorModelParser.g:7653:3: lv_condition_3_0= ruleSConditionExpression
+                    // InternalErrorModelParser.g:7646:1: (lv_condition_3_0= ruleSConditionExpression )
+                    // InternalErrorModelParser.g:7647:3: lv_condition_3_0= ruleSConditionExpression
                     {
                      
                     	        newCompositeNode(grammarAccess.getCompositeStateAccess().getConditionSConditionExpressionParserRuleCall_2_0_0()); 
                     	    
-                    pushFollow(FOLLOW_79);
+                    pushFollow(FOLLOW_78);
                     lv_condition_3_0=ruleSConditionExpression();
 
                     state._fsp--;
@@ -19218,15 +19221,15 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 2 :
-                    // InternalErrorModelParser.g:7670:6: ( (lv_others_4_0= Others ) )
+                    // InternalErrorModelParser.g:7664:6: ( (lv_others_4_0= Others ) )
                     {
-                    // InternalErrorModelParser.g:7670:6: ( (lv_others_4_0= Others ) )
-                    // InternalErrorModelParser.g:7671:1: (lv_others_4_0= Others )
+                    // InternalErrorModelParser.g:7664:6: ( (lv_others_4_0= Others ) )
+                    // InternalErrorModelParser.g:7665:1: (lv_others_4_0= Others )
                     {
-                    // InternalErrorModelParser.g:7671:1: (lv_others_4_0= Others )
-                    // InternalErrorModelParser.g:7672:3: lv_others_4_0= Others
+                    // InternalErrorModelParser.g:7665:1: (lv_others_4_0= Others )
+                    // InternalErrorModelParser.g:7666:3: lv_others_4_0= Others
                     {
-                    lv_others_4_0=(Token)match(input,Others,FOLLOW_79); 
+                    lv_others_4_0=(Token)match(input,Others,FOLLOW_78); 
 
                             newLeafNode(lv_others_4_0, grammarAccess.getCompositeStateAccess().getOthersOthersKeyword_2_1_0());
                         
@@ -19252,18 +19255,18 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
                 	newLeafNode(otherlv_5, grammarAccess.getCompositeStateAccess().getRightSquareBracketHyphenMinusGreaterThanSignKeyword_3());
                 
-            // InternalErrorModelParser.g:7691:1: ( (otherlv_6= RULE_ID ) )
-            // InternalErrorModelParser.g:7692:1: (otherlv_6= RULE_ID )
+            // InternalErrorModelParser.g:7685:1: ( (otherlv_6= RULE_ID ) )
+            // InternalErrorModelParser.g:7686:1: (otherlv_6= RULE_ID )
             {
-            // InternalErrorModelParser.g:7692:1: (otherlv_6= RULE_ID )
-            // InternalErrorModelParser.g:7693:3: otherlv_6= RULE_ID
+            // InternalErrorModelParser.g:7686:1: (otherlv_6= RULE_ID )
+            // InternalErrorModelParser.g:7687:3: otherlv_6= RULE_ID
             {
 
             			if (current==null) {
             	            current = createModelElement(grammarAccess.getCompositeStateRule());
             	        }
                     
-            otherlv_6=(Token)match(input,RULE_ID,FOLLOW_113); 
+            otherlv_6=(Token)match(input,RULE_ID,FOLLOW_112); 
 
             		newLeafNode(otherlv_6, grammarAccess.getCompositeStateAccess().getStateErrorBehaviorStateCrossReference_4_0()); 
             	
@@ -19273,7 +19276,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
             }
 
-            // InternalErrorModelParser.g:7704:2: ( (lv_typedToken_7_0= ruleTypeToken ) )?
+            // InternalErrorModelParser.g:7698:2: ( (lv_typedToken_7_0= ruleTypeToken ) )?
             int alt212=2;
             int LA212_0 = input.LA(1);
 
@@ -19282,10 +19285,10 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
             }
             switch (alt212) {
                 case 1 :
-                    // InternalErrorModelParser.g:7705:1: (lv_typedToken_7_0= ruleTypeToken )
+                    // InternalErrorModelParser.g:7699:1: (lv_typedToken_7_0= ruleTypeToken )
                     {
-                    // InternalErrorModelParser.g:7705:1: (lv_typedToken_7_0= ruleTypeToken )
-                    // InternalErrorModelParser.g:7706:3: lv_typedToken_7_0= ruleTypeToken
+                    // InternalErrorModelParser.g:7699:1: (lv_typedToken_7_0= ruleTypeToken )
+                    // InternalErrorModelParser.g:7700:3: lv_typedToken_7_0= ruleTypeToken
                     {
                      
                     	        newCompositeNode(grammarAccess.getCompositeStateAccess().getTypedTokenTypeTokenParserRuleCall_5_0()); 
@@ -19340,7 +19343,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleSConditionExpression"
-    // InternalErrorModelParser.g:7735:1: entryRuleSConditionExpression returns [EObject current=null] : iv_ruleSConditionExpression= ruleSConditionExpression EOF ;
+    // InternalErrorModelParser.g:7729:1: entryRuleSConditionExpression returns [EObject current=null] : iv_ruleSConditionExpression= ruleSConditionExpression EOF ;
     public final EObject entryRuleSConditionExpression() throws RecognitionException {
         EObject current = null;
 
@@ -19348,8 +19351,8 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // InternalErrorModelParser.g:7736:2: (iv_ruleSConditionExpression= ruleSConditionExpression EOF )
-            // InternalErrorModelParser.g:7737:2: iv_ruleSConditionExpression= ruleSConditionExpression EOF
+            // InternalErrorModelParser.g:7730:2: (iv_ruleSConditionExpression= ruleSConditionExpression EOF )
+            // InternalErrorModelParser.g:7731:2: iv_ruleSConditionExpression= ruleSConditionExpression EOF
             {
              newCompositeNode(grammarAccess.getSConditionExpressionRule()); 
             pushFollow(FOLLOW_1);
@@ -19376,7 +19379,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleSConditionExpression"
-    // InternalErrorModelParser.g:7744:1: ruleSConditionExpression returns [EObject current=null] : (this_SAndExpression_0= ruleSAndExpression ( () otherlv_2= Or ( (lv_operands_3_0= ruleSAndExpression ) ) )* ) ;
+    // InternalErrorModelParser.g:7738:1: ruleSConditionExpression returns [EObject current=null] : (this_SAndExpression_0= ruleSAndExpression ( () otherlv_2= Or ( (lv_operands_3_0= ruleSAndExpression ) ) )* ) ;
     public final EObject ruleSConditionExpression() throws RecognitionException {
         EObject current = null;
 
@@ -19389,16 +19392,16 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // InternalErrorModelParser.g:7747:28: ( (this_SAndExpression_0= ruleSAndExpression ( () otherlv_2= Or ( (lv_operands_3_0= ruleSAndExpression ) ) )* ) )
-            // InternalErrorModelParser.g:7748:1: (this_SAndExpression_0= ruleSAndExpression ( () otherlv_2= Or ( (lv_operands_3_0= ruleSAndExpression ) ) )* )
+            // InternalErrorModelParser.g:7741:28: ( (this_SAndExpression_0= ruleSAndExpression ( () otherlv_2= Or ( (lv_operands_3_0= ruleSAndExpression ) ) )* ) )
+            // InternalErrorModelParser.g:7742:1: (this_SAndExpression_0= ruleSAndExpression ( () otherlv_2= Or ( (lv_operands_3_0= ruleSAndExpression ) ) )* )
             {
-            // InternalErrorModelParser.g:7748:1: (this_SAndExpression_0= ruleSAndExpression ( () otherlv_2= Or ( (lv_operands_3_0= ruleSAndExpression ) ) )* )
-            // InternalErrorModelParser.g:7749:5: this_SAndExpression_0= ruleSAndExpression ( () otherlv_2= Or ( (lv_operands_3_0= ruleSAndExpression ) ) )*
+            // InternalErrorModelParser.g:7742:1: (this_SAndExpression_0= ruleSAndExpression ( () otherlv_2= Or ( (lv_operands_3_0= ruleSAndExpression ) ) )* )
+            // InternalErrorModelParser.g:7743:5: this_SAndExpression_0= ruleSAndExpression ( () otherlv_2= Or ( (lv_operands_3_0= ruleSAndExpression ) ) )*
             {
              
                     newCompositeNode(grammarAccess.getSConditionExpressionAccess().getSAndExpressionParserRuleCall_0()); 
                 
-            pushFollow(FOLLOW_124);
+            pushFollow(FOLLOW_123);
             this_SAndExpression_0=ruleSAndExpression();
 
             state._fsp--;
@@ -19407,7 +19410,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
                     current = this_SAndExpression_0;
                     afterParserOrEnumRuleCall();
                 
-            // InternalErrorModelParser.g:7757:1: ( () otherlv_2= Or ( (lv_operands_3_0= ruleSAndExpression ) ) )*
+            // InternalErrorModelParser.g:7751:1: ( () otherlv_2= Or ( (lv_operands_3_0= ruleSAndExpression ) ) )*
             loop213:
             do {
                 int alt213=2;
@@ -19420,10 +19423,10 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
                 switch (alt213) {
             	case 1 :
-            	    // InternalErrorModelParser.g:7757:2: () otherlv_2= Or ( (lv_operands_3_0= ruleSAndExpression ) )
+            	    // InternalErrorModelParser.g:7751:2: () otherlv_2= Or ( (lv_operands_3_0= ruleSAndExpression ) )
             	    {
-            	    // InternalErrorModelParser.g:7757:2: ()
-            	    // InternalErrorModelParser.g:7758:5: 
+            	    // InternalErrorModelParser.g:7751:2: ()
+            	    // InternalErrorModelParser.g:7752:5: 
             	    {
 
             	            current = forceCreateModelElementAndAdd(
@@ -19433,20 +19436,20 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
             	    }
 
-            	    otherlv_2=(Token)match(input,Or,FOLLOW_142); 
+            	    otherlv_2=(Token)match(input,Or,FOLLOW_139); 
 
             	        	newLeafNode(otherlv_2, grammarAccess.getSConditionExpressionAccess().getOrKeyword_1_1());
             	        
-            	    // InternalErrorModelParser.g:7768:1: ( (lv_operands_3_0= ruleSAndExpression ) )
-            	    // InternalErrorModelParser.g:7769:1: (lv_operands_3_0= ruleSAndExpression )
+            	    // InternalErrorModelParser.g:7762:1: ( (lv_operands_3_0= ruleSAndExpression ) )
+            	    // InternalErrorModelParser.g:7763:1: (lv_operands_3_0= ruleSAndExpression )
             	    {
-            	    // InternalErrorModelParser.g:7769:1: (lv_operands_3_0= ruleSAndExpression )
-            	    // InternalErrorModelParser.g:7770:3: lv_operands_3_0= ruleSAndExpression
+            	    // InternalErrorModelParser.g:7763:1: (lv_operands_3_0= ruleSAndExpression )
+            	    // InternalErrorModelParser.g:7764:3: lv_operands_3_0= ruleSAndExpression
             	    {
             	     
             	    	        newCompositeNode(grammarAccess.getSConditionExpressionAccess().getOperandsSAndExpressionParserRuleCall_1_2_0()); 
             	    	    
-            	    pushFollow(FOLLOW_124);
+            	    pushFollow(FOLLOW_123);
             	    lv_operands_3_0=ruleSAndExpression();
 
             	    state._fsp--;
@@ -19498,7 +19501,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleSAndExpression"
-    // InternalErrorModelParser.g:7794:1: entryRuleSAndExpression returns [EObject current=null] : iv_ruleSAndExpression= ruleSAndExpression EOF ;
+    // InternalErrorModelParser.g:7788:1: entryRuleSAndExpression returns [EObject current=null] : iv_ruleSAndExpression= ruleSAndExpression EOF ;
     public final EObject entryRuleSAndExpression() throws RecognitionException {
         EObject current = null;
 
@@ -19506,8 +19509,8 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // InternalErrorModelParser.g:7795:2: (iv_ruleSAndExpression= ruleSAndExpression EOF )
-            // InternalErrorModelParser.g:7796:2: iv_ruleSAndExpression= ruleSAndExpression EOF
+            // InternalErrorModelParser.g:7789:2: (iv_ruleSAndExpression= ruleSAndExpression EOF )
+            // InternalErrorModelParser.g:7790:2: iv_ruleSAndExpression= ruleSAndExpression EOF
             {
              newCompositeNode(grammarAccess.getSAndExpressionRule()); 
             pushFollow(FOLLOW_1);
@@ -19534,7 +19537,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleSAndExpression"
-    // InternalErrorModelParser.g:7803:1: ruleSAndExpression returns [EObject current=null] : (this_SConditionTerm_0= ruleSConditionTerm ( () otherlv_2= And ( (lv_operands_3_0= ruleSConditionTerm ) ) )* ) ;
+    // InternalErrorModelParser.g:7797:1: ruleSAndExpression returns [EObject current=null] : (this_SConditionTerm_0= ruleSConditionTerm ( () otherlv_2= And ( (lv_operands_3_0= ruleSConditionTerm ) ) )* ) ;
     public final EObject ruleSAndExpression() throws RecognitionException {
         EObject current = null;
 
@@ -19547,16 +19550,16 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // InternalErrorModelParser.g:7806:28: ( (this_SConditionTerm_0= ruleSConditionTerm ( () otherlv_2= And ( (lv_operands_3_0= ruleSConditionTerm ) ) )* ) )
-            // InternalErrorModelParser.g:7807:1: (this_SConditionTerm_0= ruleSConditionTerm ( () otherlv_2= And ( (lv_operands_3_0= ruleSConditionTerm ) ) )* )
+            // InternalErrorModelParser.g:7800:28: ( (this_SConditionTerm_0= ruleSConditionTerm ( () otherlv_2= And ( (lv_operands_3_0= ruleSConditionTerm ) ) )* ) )
+            // InternalErrorModelParser.g:7801:1: (this_SConditionTerm_0= ruleSConditionTerm ( () otherlv_2= And ( (lv_operands_3_0= ruleSConditionTerm ) ) )* )
             {
-            // InternalErrorModelParser.g:7807:1: (this_SConditionTerm_0= ruleSConditionTerm ( () otherlv_2= And ( (lv_operands_3_0= ruleSConditionTerm ) ) )* )
-            // InternalErrorModelParser.g:7808:5: this_SConditionTerm_0= ruleSConditionTerm ( () otherlv_2= And ( (lv_operands_3_0= ruleSConditionTerm ) ) )*
+            // InternalErrorModelParser.g:7801:1: (this_SConditionTerm_0= ruleSConditionTerm ( () otherlv_2= And ( (lv_operands_3_0= ruleSConditionTerm ) ) )* )
+            // InternalErrorModelParser.g:7802:5: this_SConditionTerm_0= ruleSConditionTerm ( () otherlv_2= And ( (lv_operands_3_0= ruleSConditionTerm ) ) )*
             {
              
                     newCompositeNode(grammarAccess.getSAndExpressionAccess().getSConditionTermParserRuleCall_0()); 
                 
-            pushFollow(FOLLOW_125);
+            pushFollow(FOLLOW_124);
             this_SConditionTerm_0=ruleSConditionTerm();
 
             state._fsp--;
@@ -19565,7 +19568,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
                     current = this_SConditionTerm_0;
                     afterParserOrEnumRuleCall();
                 
-            // InternalErrorModelParser.g:7816:1: ( () otherlv_2= And ( (lv_operands_3_0= ruleSConditionTerm ) ) )*
+            // InternalErrorModelParser.g:7810:1: ( () otherlv_2= And ( (lv_operands_3_0= ruleSConditionTerm ) ) )*
             loop214:
             do {
                 int alt214=2;
@@ -19578,10 +19581,10 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
                 switch (alt214) {
             	case 1 :
-            	    // InternalErrorModelParser.g:7816:2: () otherlv_2= And ( (lv_operands_3_0= ruleSConditionTerm ) )
+            	    // InternalErrorModelParser.g:7810:2: () otherlv_2= And ( (lv_operands_3_0= ruleSConditionTerm ) )
             	    {
-            	    // InternalErrorModelParser.g:7816:2: ()
-            	    // InternalErrorModelParser.g:7817:5: 
+            	    // InternalErrorModelParser.g:7810:2: ()
+            	    // InternalErrorModelParser.g:7811:5: 
             	    {
 
             	            current = forceCreateModelElementAndAdd(
@@ -19591,20 +19594,20 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
             	    }
 
-            	    otherlv_2=(Token)match(input,And,FOLLOW_142); 
+            	    otherlv_2=(Token)match(input,And,FOLLOW_139); 
 
             	        	newLeafNode(otherlv_2, grammarAccess.getSAndExpressionAccess().getAndKeyword_1_1());
             	        
-            	    // InternalErrorModelParser.g:7827:1: ( (lv_operands_3_0= ruleSConditionTerm ) )
-            	    // InternalErrorModelParser.g:7828:1: (lv_operands_3_0= ruleSConditionTerm )
+            	    // InternalErrorModelParser.g:7821:1: ( (lv_operands_3_0= ruleSConditionTerm ) )
+            	    // InternalErrorModelParser.g:7822:1: (lv_operands_3_0= ruleSConditionTerm )
             	    {
-            	    // InternalErrorModelParser.g:7828:1: (lv_operands_3_0= ruleSConditionTerm )
-            	    // InternalErrorModelParser.g:7829:3: lv_operands_3_0= ruleSConditionTerm
+            	    // InternalErrorModelParser.g:7822:1: (lv_operands_3_0= ruleSConditionTerm )
+            	    // InternalErrorModelParser.g:7823:3: lv_operands_3_0= ruleSConditionTerm
             	    {
             	     
             	    	        newCompositeNode(grammarAccess.getSAndExpressionAccess().getOperandsSConditionTermParserRuleCall_1_2_0()); 
             	    	    
-            	    pushFollow(FOLLOW_125);
+            	    pushFollow(FOLLOW_124);
             	    lv_operands_3_0=ruleSConditionTerm();
 
             	    state._fsp--;
@@ -19656,7 +19659,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleSOrmoreExpression"
-    // InternalErrorModelParser.g:7853:1: entryRuleSOrmoreExpression returns [EObject current=null] : iv_ruleSOrmoreExpression= ruleSOrmoreExpression EOF ;
+    // InternalErrorModelParser.g:7847:1: entryRuleSOrmoreExpression returns [EObject current=null] : iv_ruleSOrmoreExpression= ruleSOrmoreExpression EOF ;
     public final EObject entryRuleSOrmoreExpression() throws RecognitionException {
         EObject current = null;
 
@@ -19664,8 +19667,8 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // InternalErrorModelParser.g:7854:2: (iv_ruleSOrmoreExpression= ruleSOrmoreExpression EOF )
-            // InternalErrorModelParser.g:7855:2: iv_ruleSOrmoreExpression= ruleSOrmoreExpression EOF
+            // InternalErrorModelParser.g:7848:2: (iv_ruleSOrmoreExpression= ruleSOrmoreExpression EOF )
+            // InternalErrorModelParser.g:7849:2: iv_ruleSOrmoreExpression= ruleSOrmoreExpression EOF
             {
              newCompositeNode(grammarAccess.getSOrmoreExpressionRule()); 
             pushFollow(FOLLOW_1);
@@ -19692,7 +19695,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleSOrmoreExpression"
-    // InternalErrorModelParser.g:7862:1: ruleSOrmoreExpression returns [EObject current=null] : ( ( (lv_count_0_0= ruleINTVALUE ) ) otherlv_1= Ormore otherlv_2= LeftParenthesis ( (lv_operands_3_0= ruleSConditionExpression ) ) (otherlv_4= Comma ( (lv_operands_5_0= ruleSConditionExpression ) ) )* otherlv_6= RightParenthesis ) ;
+    // InternalErrorModelParser.g:7856:1: ruleSOrmoreExpression returns [EObject current=null] : ( ( (lv_count_0_0= ruleINTVALUE ) ) otherlv_1= Ormore otherlv_2= LeftParenthesis ( (lv_operands_3_0= ruleSConditionExpression ) ) (otherlv_4= Comma ( (lv_operands_5_0= ruleSConditionExpression ) ) )* otherlv_6= RightParenthesis ) ;
     public final EObject ruleSOrmoreExpression() throws RecognitionException {
         EObject current = null;
 
@@ -19710,22 +19713,22 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // InternalErrorModelParser.g:7865:28: ( ( ( (lv_count_0_0= ruleINTVALUE ) ) otherlv_1= Ormore otherlv_2= LeftParenthesis ( (lv_operands_3_0= ruleSConditionExpression ) ) (otherlv_4= Comma ( (lv_operands_5_0= ruleSConditionExpression ) ) )* otherlv_6= RightParenthesis ) )
-            // InternalErrorModelParser.g:7866:1: ( ( (lv_count_0_0= ruleINTVALUE ) ) otherlv_1= Ormore otherlv_2= LeftParenthesis ( (lv_operands_3_0= ruleSConditionExpression ) ) (otherlv_4= Comma ( (lv_operands_5_0= ruleSConditionExpression ) ) )* otherlv_6= RightParenthesis )
+            // InternalErrorModelParser.g:7859:28: ( ( ( (lv_count_0_0= ruleINTVALUE ) ) otherlv_1= Ormore otherlv_2= LeftParenthesis ( (lv_operands_3_0= ruleSConditionExpression ) ) (otherlv_4= Comma ( (lv_operands_5_0= ruleSConditionExpression ) ) )* otherlv_6= RightParenthesis ) )
+            // InternalErrorModelParser.g:7860:1: ( ( (lv_count_0_0= ruleINTVALUE ) ) otherlv_1= Ormore otherlv_2= LeftParenthesis ( (lv_operands_3_0= ruleSConditionExpression ) ) (otherlv_4= Comma ( (lv_operands_5_0= ruleSConditionExpression ) ) )* otherlv_6= RightParenthesis )
             {
-            // InternalErrorModelParser.g:7866:1: ( ( (lv_count_0_0= ruleINTVALUE ) ) otherlv_1= Ormore otherlv_2= LeftParenthesis ( (lv_operands_3_0= ruleSConditionExpression ) ) (otherlv_4= Comma ( (lv_operands_5_0= ruleSConditionExpression ) ) )* otherlv_6= RightParenthesis )
-            // InternalErrorModelParser.g:7866:2: ( (lv_count_0_0= ruleINTVALUE ) ) otherlv_1= Ormore otherlv_2= LeftParenthesis ( (lv_operands_3_0= ruleSConditionExpression ) ) (otherlv_4= Comma ( (lv_operands_5_0= ruleSConditionExpression ) ) )* otherlv_6= RightParenthesis
+            // InternalErrorModelParser.g:7860:1: ( ( (lv_count_0_0= ruleINTVALUE ) ) otherlv_1= Ormore otherlv_2= LeftParenthesis ( (lv_operands_3_0= ruleSConditionExpression ) ) (otherlv_4= Comma ( (lv_operands_5_0= ruleSConditionExpression ) ) )* otherlv_6= RightParenthesis )
+            // InternalErrorModelParser.g:7860:2: ( (lv_count_0_0= ruleINTVALUE ) ) otherlv_1= Ormore otherlv_2= LeftParenthesis ( (lv_operands_3_0= ruleSConditionExpression ) ) (otherlv_4= Comma ( (lv_operands_5_0= ruleSConditionExpression ) ) )* otherlv_6= RightParenthesis
             {
-            // InternalErrorModelParser.g:7866:2: ( (lv_count_0_0= ruleINTVALUE ) )
-            // InternalErrorModelParser.g:7867:1: (lv_count_0_0= ruleINTVALUE )
+            // InternalErrorModelParser.g:7860:2: ( (lv_count_0_0= ruleINTVALUE ) )
+            // InternalErrorModelParser.g:7861:1: (lv_count_0_0= ruleINTVALUE )
             {
-            // InternalErrorModelParser.g:7867:1: (lv_count_0_0= ruleINTVALUE )
-            // InternalErrorModelParser.g:7868:3: lv_count_0_0= ruleINTVALUE
+            // InternalErrorModelParser.g:7861:1: (lv_count_0_0= ruleINTVALUE )
+            // InternalErrorModelParser.g:7862:3: lv_count_0_0= ruleINTVALUE
             {
              
             	        newCompositeNode(grammarAccess.getSOrmoreExpressionAccess().getCountINTVALUEParserRuleCall_0_0()); 
             	    
-            pushFollow(FOLLOW_129);
+            pushFollow(FOLLOW_128);
             lv_count_0_0=ruleINTVALUE();
 
             state._fsp--;
@@ -19747,24 +19750,24 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
             }
 
-            otherlv_1=(Token)match(input,Ormore,FOLLOW_128); 
+            otherlv_1=(Token)match(input,Ormore,FOLLOW_127); 
 
                 	newLeafNode(otherlv_1, grammarAccess.getSOrmoreExpressionAccess().getOrmoreKeyword_1());
                 
-            otherlv_2=(Token)match(input,LeftParenthesis,FOLLOW_142); 
+            otherlv_2=(Token)match(input,LeftParenthesis,FOLLOW_139); 
 
                 	newLeafNode(otherlv_2, grammarAccess.getSOrmoreExpressionAccess().getLeftParenthesisKeyword_2());
                 
-            // InternalErrorModelParser.g:7894:1: ( (lv_operands_3_0= ruleSConditionExpression ) )
-            // InternalErrorModelParser.g:7895:1: (lv_operands_3_0= ruleSConditionExpression )
+            // InternalErrorModelParser.g:7888:1: ( (lv_operands_3_0= ruleSConditionExpression ) )
+            // InternalErrorModelParser.g:7889:1: (lv_operands_3_0= ruleSConditionExpression )
             {
-            // InternalErrorModelParser.g:7895:1: (lv_operands_3_0= ruleSConditionExpression )
-            // InternalErrorModelParser.g:7896:3: lv_operands_3_0= ruleSConditionExpression
+            // InternalErrorModelParser.g:7889:1: (lv_operands_3_0= ruleSConditionExpression )
+            // InternalErrorModelParser.g:7890:3: lv_operands_3_0= ruleSConditionExpression
             {
              
             	        newCompositeNode(grammarAccess.getSOrmoreExpressionAccess().getOperandsSConditionExpressionParserRuleCall_3_0()); 
             	    
-            pushFollow(FOLLOW_119);
+            pushFollow(FOLLOW_118);
             lv_operands_3_0=ruleSConditionExpression();
 
             state._fsp--;
@@ -19786,7 +19789,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
             }
 
-            // InternalErrorModelParser.g:7912:2: (otherlv_4= Comma ( (lv_operands_5_0= ruleSConditionExpression ) ) )*
+            // InternalErrorModelParser.g:7906:2: (otherlv_4= Comma ( (lv_operands_5_0= ruleSConditionExpression ) ) )*
             loop215:
             do {
                 int alt215=2;
@@ -19799,22 +19802,22 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
                 switch (alt215) {
             	case 1 :
-            	    // InternalErrorModelParser.g:7913:2: otherlv_4= Comma ( (lv_operands_5_0= ruleSConditionExpression ) )
+            	    // InternalErrorModelParser.g:7907:2: otherlv_4= Comma ( (lv_operands_5_0= ruleSConditionExpression ) )
             	    {
-            	    otherlv_4=(Token)match(input,Comma,FOLLOW_142); 
+            	    otherlv_4=(Token)match(input,Comma,FOLLOW_139); 
 
             	        	newLeafNode(otherlv_4, grammarAccess.getSOrmoreExpressionAccess().getCommaKeyword_4_0());
             	        
-            	    // InternalErrorModelParser.g:7917:1: ( (lv_operands_5_0= ruleSConditionExpression ) )
-            	    // InternalErrorModelParser.g:7918:1: (lv_operands_5_0= ruleSConditionExpression )
+            	    // InternalErrorModelParser.g:7911:1: ( (lv_operands_5_0= ruleSConditionExpression ) )
+            	    // InternalErrorModelParser.g:7912:1: (lv_operands_5_0= ruleSConditionExpression )
             	    {
-            	    // InternalErrorModelParser.g:7918:1: (lv_operands_5_0= ruleSConditionExpression )
-            	    // InternalErrorModelParser.g:7919:3: lv_operands_5_0= ruleSConditionExpression
+            	    // InternalErrorModelParser.g:7912:1: (lv_operands_5_0= ruleSConditionExpression )
+            	    // InternalErrorModelParser.g:7913:3: lv_operands_5_0= ruleSConditionExpression
             	    {
             	     
             	    	        newCompositeNode(grammarAccess.getSOrmoreExpressionAccess().getOperandsSConditionExpressionParserRuleCall_4_1_0()); 
             	    	    
-            	    pushFollow(FOLLOW_119);
+            	    pushFollow(FOLLOW_118);
             	    lv_operands_5_0=ruleSConditionExpression();
 
             	    state._fsp--;
@@ -19870,7 +19873,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleSOrlessExpression"
-    // InternalErrorModelParser.g:7948:1: entryRuleSOrlessExpression returns [EObject current=null] : iv_ruleSOrlessExpression= ruleSOrlessExpression EOF ;
+    // InternalErrorModelParser.g:7942:1: entryRuleSOrlessExpression returns [EObject current=null] : iv_ruleSOrlessExpression= ruleSOrlessExpression EOF ;
     public final EObject entryRuleSOrlessExpression() throws RecognitionException {
         EObject current = null;
 
@@ -19878,8 +19881,8 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // InternalErrorModelParser.g:7949:2: (iv_ruleSOrlessExpression= ruleSOrlessExpression EOF )
-            // InternalErrorModelParser.g:7950:2: iv_ruleSOrlessExpression= ruleSOrlessExpression EOF
+            // InternalErrorModelParser.g:7943:2: (iv_ruleSOrlessExpression= ruleSOrlessExpression EOF )
+            // InternalErrorModelParser.g:7944:2: iv_ruleSOrlessExpression= ruleSOrlessExpression EOF
             {
              newCompositeNode(grammarAccess.getSOrlessExpressionRule()); 
             pushFollow(FOLLOW_1);
@@ -19906,7 +19909,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleSOrlessExpression"
-    // InternalErrorModelParser.g:7957:1: ruleSOrlessExpression returns [EObject current=null] : ( ( (lv_count_0_0= ruleINTVALUE ) ) otherlv_1= Orless otherlv_2= LeftParenthesis ( (lv_operands_3_0= ruleSConditionExpression ) ) (otherlv_4= Comma ( (lv_operands_5_0= ruleSConditionExpression ) ) )* otherlv_6= RightParenthesis ) ;
+    // InternalErrorModelParser.g:7951:1: ruleSOrlessExpression returns [EObject current=null] : ( ( (lv_count_0_0= ruleINTVALUE ) ) otherlv_1= Orless otherlv_2= LeftParenthesis ( (lv_operands_3_0= ruleSConditionExpression ) ) (otherlv_4= Comma ( (lv_operands_5_0= ruleSConditionExpression ) ) )* otherlv_6= RightParenthesis ) ;
     public final EObject ruleSOrlessExpression() throws RecognitionException {
         EObject current = null;
 
@@ -19924,22 +19927,22 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // InternalErrorModelParser.g:7960:28: ( ( ( (lv_count_0_0= ruleINTVALUE ) ) otherlv_1= Orless otherlv_2= LeftParenthesis ( (lv_operands_3_0= ruleSConditionExpression ) ) (otherlv_4= Comma ( (lv_operands_5_0= ruleSConditionExpression ) ) )* otherlv_6= RightParenthesis ) )
-            // InternalErrorModelParser.g:7961:1: ( ( (lv_count_0_0= ruleINTVALUE ) ) otherlv_1= Orless otherlv_2= LeftParenthesis ( (lv_operands_3_0= ruleSConditionExpression ) ) (otherlv_4= Comma ( (lv_operands_5_0= ruleSConditionExpression ) ) )* otherlv_6= RightParenthesis )
+            // InternalErrorModelParser.g:7954:28: ( ( ( (lv_count_0_0= ruleINTVALUE ) ) otherlv_1= Orless otherlv_2= LeftParenthesis ( (lv_operands_3_0= ruleSConditionExpression ) ) (otherlv_4= Comma ( (lv_operands_5_0= ruleSConditionExpression ) ) )* otherlv_6= RightParenthesis ) )
+            // InternalErrorModelParser.g:7955:1: ( ( (lv_count_0_0= ruleINTVALUE ) ) otherlv_1= Orless otherlv_2= LeftParenthesis ( (lv_operands_3_0= ruleSConditionExpression ) ) (otherlv_4= Comma ( (lv_operands_5_0= ruleSConditionExpression ) ) )* otherlv_6= RightParenthesis )
             {
-            // InternalErrorModelParser.g:7961:1: ( ( (lv_count_0_0= ruleINTVALUE ) ) otherlv_1= Orless otherlv_2= LeftParenthesis ( (lv_operands_3_0= ruleSConditionExpression ) ) (otherlv_4= Comma ( (lv_operands_5_0= ruleSConditionExpression ) ) )* otherlv_6= RightParenthesis )
-            // InternalErrorModelParser.g:7961:2: ( (lv_count_0_0= ruleINTVALUE ) ) otherlv_1= Orless otherlv_2= LeftParenthesis ( (lv_operands_3_0= ruleSConditionExpression ) ) (otherlv_4= Comma ( (lv_operands_5_0= ruleSConditionExpression ) ) )* otherlv_6= RightParenthesis
+            // InternalErrorModelParser.g:7955:1: ( ( (lv_count_0_0= ruleINTVALUE ) ) otherlv_1= Orless otherlv_2= LeftParenthesis ( (lv_operands_3_0= ruleSConditionExpression ) ) (otherlv_4= Comma ( (lv_operands_5_0= ruleSConditionExpression ) ) )* otherlv_6= RightParenthesis )
+            // InternalErrorModelParser.g:7955:2: ( (lv_count_0_0= ruleINTVALUE ) ) otherlv_1= Orless otherlv_2= LeftParenthesis ( (lv_operands_3_0= ruleSConditionExpression ) ) (otherlv_4= Comma ( (lv_operands_5_0= ruleSConditionExpression ) ) )* otherlv_6= RightParenthesis
             {
-            // InternalErrorModelParser.g:7961:2: ( (lv_count_0_0= ruleINTVALUE ) )
-            // InternalErrorModelParser.g:7962:1: (lv_count_0_0= ruleINTVALUE )
+            // InternalErrorModelParser.g:7955:2: ( (lv_count_0_0= ruleINTVALUE ) )
+            // InternalErrorModelParser.g:7956:1: (lv_count_0_0= ruleINTVALUE )
             {
-            // InternalErrorModelParser.g:7962:1: (lv_count_0_0= ruleINTVALUE )
-            // InternalErrorModelParser.g:7963:3: lv_count_0_0= ruleINTVALUE
+            // InternalErrorModelParser.g:7956:1: (lv_count_0_0= ruleINTVALUE )
+            // InternalErrorModelParser.g:7957:3: lv_count_0_0= ruleINTVALUE
             {
              
             	        newCompositeNode(grammarAccess.getSOrlessExpressionAccess().getCountINTVALUEParserRuleCall_0_0()); 
             	    
-            pushFollow(FOLLOW_130);
+            pushFollow(FOLLOW_129);
             lv_count_0_0=ruleINTVALUE();
 
             state._fsp--;
@@ -19961,24 +19964,24 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
             }
 
-            otherlv_1=(Token)match(input,Orless,FOLLOW_128); 
+            otherlv_1=(Token)match(input,Orless,FOLLOW_127); 
 
                 	newLeafNode(otherlv_1, grammarAccess.getSOrlessExpressionAccess().getOrlessKeyword_1());
                 
-            otherlv_2=(Token)match(input,LeftParenthesis,FOLLOW_142); 
+            otherlv_2=(Token)match(input,LeftParenthesis,FOLLOW_139); 
 
                 	newLeafNode(otherlv_2, grammarAccess.getSOrlessExpressionAccess().getLeftParenthesisKeyword_2());
                 
-            // InternalErrorModelParser.g:7989:1: ( (lv_operands_3_0= ruleSConditionExpression ) )
-            // InternalErrorModelParser.g:7990:1: (lv_operands_3_0= ruleSConditionExpression )
+            // InternalErrorModelParser.g:7983:1: ( (lv_operands_3_0= ruleSConditionExpression ) )
+            // InternalErrorModelParser.g:7984:1: (lv_operands_3_0= ruleSConditionExpression )
             {
-            // InternalErrorModelParser.g:7990:1: (lv_operands_3_0= ruleSConditionExpression )
-            // InternalErrorModelParser.g:7991:3: lv_operands_3_0= ruleSConditionExpression
+            // InternalErrorModelParser.g:7984:1: (lv_operands_3_0= ruleSConditionExpression )
+            // InternalErrorModelParser.g:7985:3: lv_operands_3_0= ruleSConditionExpression
             {
              
             	        newCompositeNode(grammarAccess.getSOrlessExpressionAccess().getOperandsSConditionExpressionParserRuleCall_3_0()); 
             	    
-            pushFollow(FOLLOW_119);
+            pushFollow(FOLLOW_118);
             lv_operands_3_0=ruleSConditionExpression();
 
             state._fsp--;
@@ -20000,7 +20003,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
             }
 
-            // InternalErrorModelParser.g:8007:2: (otherlv_4= Comma ( (lv_operands_5_0= ruleSConditionExpression ) ) )*
+            // InternalErrorModelParser.g:8001:2: (otherlv_4= Comma ( (lv_operands_5_0= ruleSConditionExpression ) ) )*
             loop216:
             do {
                 int alt216=2;
@@ -20013,22 +20016,22 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
                 switch (alt216) {
             	case 1 :
-            	    // InternalErrorModelParser.g:8008:2: otherlv_4= Comma ( (lv_operands_5_0= ruleSConditionExpression ) )
+            	    // InternalErrorModelParser.g:8002:2: otherlv_4= Comma ( (lv_operands_5_0= ruleSConditionExpression ) )
             	    {
-            	    otherlv_4=(Token)match(input,Comma,FOLLOW_142); 
+            	    otherlv_4=(Token)match(input,Comma,FOLLOW_139); 
 
             	        	newLeafNode(otherlv_4, grammarAccess.getSOrlessExpressionAccess().getCommaKeyword_4_0());
             	        
-            	    // InternalErrorModelParser.g:8012:1: ( (lv_operands_5_0= ruleSConditionExpression ) )
-            	    // InternalErrorModelParser.g:8013:1: (lv_operands_5_0= ruleSConditionExpression )
+            	    // InternalErrorModelParser.g:8006:1: ( (lv_operands_5_0= ruleSConditionExpression ) )
+            	    // InternalErrorModelParser.g:8007:1: (lv_operands_5_0= ruleSConditionExpression )
             	    {
-            	    // InternalErrorModelParser.g:8013:1: (lv_operands_5_0= ruleSConditionExpression )
-            	    // InternalErrorModelParser.g:8014:3: lv_operands_5_0= ruleSConditionExpression
+            	    // InternalErrorModelParser.g:8007:1: (lv_operands_5_0= ruleSConditionExpression )
+            	    // InternalErrorModelParser.g:8008:3: lv_operands_5_0= ruleSConditionExpression
             	    {
             	     
             	    	        newCompositeNode(grammarAccess.getSOrlessExpressionAccess().getOperandsSConditionExpressionParserRuleCall_4_1_0()); 
             	    	    
-            	    pushFollow(FOLLOW_119);
+            	    pushFollow(FOLLOW_118);
             	    lv_operands_5_0=ruleSConditionExpression();
 
             	    state._fsp--;
@@ -20084,7 +20087,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleSAllExpression"
-    // InternalErrorModelParser.g:8043:1: entryRuleSAllExpression returns [EObject current=null] : iv_ruleSAllExpression= ruleSAllExpression EOF ;
+    // InternalErrorModelParser.g:8037:1: entryRuleSAllExpression returns [EObject current=null] : iv_ruleSAllExpression= ruleSAllExpression EOF ;
     public final EObject entryRuleSAllExpression() throws RecognitionException {
         EObject current = null;
 
@@ -20092,8 +20095,8 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // InternalErrorModelParser.g:8044:2: (iv_ruleSAllExpression= ruleSAllExpression EOF )
-            // InternalErrorModelParser.g:8045:2: iv_ruleSAllExpression= ruleSAllExpression EOF
+            // InternalErrorModelParser.g:8038:2: (iv_ruleSAllExpression= ruleSAllExpression EOF )
+            // InternalErrorModelParser.g:8039:2: iv_ruleSAllExpression= ruleSAllExpression EOF
             {
              newCompositeNode(grammarAccess.getSAllExpressionRule()); 
             pushFollow(FOLLOW_1);
@@ -20120,7 +20123,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleSAllExpression"
-    // InternalErrorModelParser.g:8052:1: ruleSAllExpression returns [EObject current=null] : ( () otherlv_1= All (otherlv_2= HyphenMinus ( (lv_count_3_0= ruleINTVALUE ) ) )? otherlv_4= LeftParenthesis ( (lv_operands_5_0= ruleSConditionElement ) ) (otherlv_6= Comma ( (lv_operands_7_0= ruleSConditionElement ) ) )* otherlv_8= RightParenthesis ) ;
+    // InternalErrorModelParser.g:8046:1: ruleSAllExpression returns [EObject current=null] : ( () otherlv_1= All (otherlv_2= HyphenMinus ( (lv_count_3_0= ruleINTVALUE ) ) )? otherlv_4= LeftParenthesis ( (lv_operands_5_0= ruleSConditionElement ) ) (otherlv_6= Comma ( (lv_operands_7_0= ruleSConditionElement ) ) )* otherlv_8= RightParenthesis ) ;
     public final EObject ruleSAllExpression() throws RecognitionException {
         EObject current = null;
 
@@ -20139,14 +20142,14 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // InternalErrorModelParser.g:8055:28: ( ( () otherlv_1= All (otherlv_2= HyphenMinus ( (lv_count_3_0= ruleINTVALUE ) ) )? otherlv_4= LeftParenthesis ( (lv_operands_5_0= ruleSConditionElement ) ) (otherlv_6= Comma ( (lv_operands_7_0= ruleSConditionElement ) ) )* otherlv_8= RightParenthesis ) )
-            // InternalErrorModelParser.g:8056:1: ( () otherlv_1= All (otherlv_2= HyphenMinus ( (lv_count_3_0= ruleINTVALUE ) ) )? otherlv_4= LeftParenthesis ( (lv_operands_5_0= ruleSConditionElement ) ) (otherlv_6= Comma ( (lv_operands_7_0= ruleSConditionElement ) ) )* otherlv_8= RightParenthesis )
+            // InternalErrorModelParser.g:8049:28: ( ( () otherlv_1= All (otherlv_2= HyphenMinus ( (lv_count_3_0= ruleINTVALUE ) ) )? otherlv_4= LeftParenthesis ( (lv_operands_5_0= ruleSConditionElement ) ) (otherlv_6= Comma ( (lv_operands_7_0= ruleSConditionElement ) ) )* otherlv_8= RightParenthesis ) )
+            // InternalErrorModelParser.g:8050:1: ( () otherlv_1= All (otherlv_2= HyphenMinus ( (lv_count_3_0= ruleINTVALUE ) ) )? otherlv_4= LeftParenthesis ( (lv_operands_5_0= ruleSConditionElement ) ) (otherlv_6= Comma ( (lv_operands_7_0= ruleSConditionElement ) ) )* otherlv_8= RightParenthesis )
             {
-            // InternalErrorModelParser.g:8056:1: ( () otherlv_1= All (otherlv_2= HyphenMinus ( (lv_count_3_0= ruleINTVALUE ) ) )? otherlv_4= LeftParenthesis ( (lv_operands_5_0= ruleSConditionElement ) ) (otherlv_6= Comma ( (lv_operands_7_0= ruleSConditionElement ) ) )* otherlv_8= RightParenthesis )
-            // InternalErrorModelParser.g:8056:2: () otherlv_1= All (otherlv_2= HyphenMinus ( (lv_count_3_0= ruleINTVALUE ) ) )? otherlv_4= LeftParenthesis ( (lv_operands_5_0= ruleSConditionElement ) ) (otherlv_6= Comma ( (lv_operands_7_0= ruleSConditionElement ) ) )* otherlv_8= RightParenthesis
+            // InternalErrorModelParser.g:8050:1: ( () otherlv_1= All (otherlv_2= HyphenMinus ( (lv_count_3_0= ruleINTVALUE ) ) )? otherlv_4= LeftParenthesis ( (lv_operands_5_0= ruleSConditionElement ) ) (otherlv_6= Comma ( (lv_operands_7_0= ruleSConditionElement ) ) )* otherlv_8= RightParenthesis )
+            // InternalErrorModelParser.g:8050:2: () otherlv_1= All (otherlv_2= HyphenMinus ( (lv_count_3_0= ruleINTVALUE ) ) )? otherlv_4= LeftParenthesis ( (lv_operands_5_0= ruleSConditionElement ) ) (otherlv_6= Comma ( (lv_operands_7_0= ruleSConditionElement ) ) )* otherlv_8= RightParenthesis
             {
-            // InternalErrorModelParser.g:8056:2: ()
-            // InternalErrorModelParser.g:8057:5: 
+            // InternalErrorModelParser.g:8050:2: ()
+            // InternalErrorModelParser.g:8051:5: 
             {
 
                     current = forceCreateModelElement(
@@ -20156,11 +20159,11 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
             }
 
-            otherlv_1=(Token)match(input,All,FOLLOW_126); 
+            otherlv_1=(Token)match(input,All,FOLLOW_125); 
 
                 	newLeafNode(otherlv_1, grammarAccess.getSAllExpressionAccess().getAllKeyword_1());
                 
-            // InternalErrorModelParser.g:8067:1: (otherlv_2= HyphenMinus ( (lv_count_3_0= ruleINTVALUE ) ) )?
+            // InternalErrorModelParser.g:8061:1: (otherlv_2= HyphenMinus ( (lv_count_3_0= ruleINTVALUE ) ) )?
             int alt217=2;
             int LA217_0 = input.LA(1);
 
@@ -20169,22 +20172,22 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
             }
             switch (alt217) {
                 case 1 :
-                    // InternalErrorModelParser.g:8068:2: otherlv_2= HyphenMinus ( (lv_count_3_0= ruleINTVALUE ) )
+                    // InternalErrorModelParser.g:8062:2: otherlv_2= HyphenMinus ( (lv_count_3_0= ruleINTVALUE ) )
                     {
-                    otherlv_2=(Token)match(input,HyphenMinus,FOLLOW_127); 
+                    otherlv_2=(Token)match(input,HyphenMinus,FOLLOW_126); 
 
                         	newLeafNode(otherlv_2, grammarAccess.getSAllExpressionAccess().getHyphenMinusKeyword_2_0());
                         
-                    // InternalErrorModelParser.g:8072:1: ( (lv_count_3_0= ruleINTVALUE ) )
-                    // InternalErrorModelParser.g:8073:1: (lv_count_3_0= ruleINTVALUE )
+                    // InternalErrorModelParser.g:8066:1: ( (lv_count_3_0= ruleINTVALUE ) )
+                    // InternalErrorModelParser.g:8067:1: (lv_count_3_0= ruleINTVALUE )
                     {
-                    // InternalErrorModelParser.g:8073:1: (lv_count_3_0= ruleINTVALUE )
-                    // InternalErrorModelParser.g:8074:3: lv_count_3_0= ruleINTVALUE
+                    // InternalErrorModelParser.g:8067:1: (lv_count_3_0= ruleINTVALUE )
+                    // InternalErrorModelParser.g:8068:3: lv_count_3_0= ruleINTVALUE
                     {
                      
                     	        newCompositeNode(grammarAccess.getSAllExpressionAccess().getCountINTVALUEParserRuleCall_2_1_0()); 
                     	    
-                    pushFollow(FOLLOW_128);
+                    pushFollow(FOLLOW_127);
                     lv_count_3_0=ruleINTVALUE();
 
                     state._fsp--;
@@ -20212,20 +20215,20 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
             }
 
-            otherlv_4=(Token)match(input,LeftParenthesis,FOLLOW_143); 
+            otherlv_4=(Token)match(input,LeftParenthesis,FOLLOW_140); 
 
                 	newLeafNode(otherlv_4, grammarAccess.getSAllExpressionAccess().getLeftParenthesisKeyword_3());
                 
-            // InternalErrorModelParser.g:8095:1: ( (lv_operands_5_0= ruleSConditionElement ) )
-            // InternalErrorModelParser.g:8096:1: (lv_operands_5_0= ruleSConditionElement )
+            // InternalErrorModelParser.g:8089:1: ( (lv_operands_5_0= ruleSConditionElement ) )
+            // InternalErrorModelParser.g:8090:1: (lv_operands_5_0= ruleSConditionElement )
             {
-            // InternalErrorModelParser.g:8096:1: (lv_operands_5_0= ruleSConditionElement )
-            // InternalErrorModelParser.g:8097:3: lv_operands_5_0= ruleSConditionElement
+            // InternalErrorModelParser.g:8090:1: (lv_operands_5_0= ruleSConditionElement )
+            // InternalErrorModelParser.g:8091:3: lv_operands_5_0= ruleSConditionElement
             {
              
             	        newCompositeNode(grammarAccess.getSAllExpressionAccess().getOperandsSConditionElementParserRuleCall_4_0()); 
             	    
-            pushFollow(FOLLOW_119);
+            pushFollow(FOLLOW_118);
             lv_operands_5_0=ruleSConditionElement();
 
             state._fsp--;
@@ -20247,7 +20250,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
             }
 
-            // InternalErrorModelParser.g:8113:2: (otherlv_6= Comma ( (lv_operands_7_0= ruleSConditionElement ) ) )*
+            // InternalErrorModelParser.g:8107:2: (otherlv_6= Comma ( (lv_operands_7_0= ruleSConditionElement ) ) )*
             loop218:
             do {
                 int alt218=2;
@@ -20260,22 +20263,22 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
                 switch (alt218) {
             	case 1 :
-            	    // InternalErrorModelParser.g:8114:2: otherlv_6= Comma ( (lv_operands_7_0= ruleSConditionElement ) )
+            	    // InternalErrorModelParser.g:8108:2: otherlv_6= Comma ( (lv_operands_7_0= ruleSConditionElement ) )
             	    {
-            	    otherlv_6=(Token)match(input,Comma,FOLLOW_143); 
+            	    otherlv_6=(Token)match(input,Comma,FOLLOW_140); 
 
             	        	newLeafNode(otherlv_6, grammarAccess.getSAllExpressionAccess().getCommaKeyword_5_0());
             	        
-            	    // InternalErrorModelParser.g:8118:1: ( (lv_operands_7_0= ruleSConditionElement ) )
-            	    // InternalErrorModelParser.g:8119:1: (lv_operands_7_0= ruleSConditionElement )
+            	    // InternalErrorModelParser.g:8112:1: ( (lv_operands_7_0= ruleSConditionElement ) )
+            	    // InternalErrorModelParser.g:8113:1: (lv_operands_7_0= ruleSConditionElement )
             	    {
-            	    // InternalErrorModelParser.g:8119:1: (lv_operands_7_0= ruleSConditionElement )
-            	    // InternalErrorModelParser.g:8120:3: lv_operands_7_0= ruleSConditionElement
+            	    // InternalErrorModelParser.g:8113:1: (lv_operands_7_0= ruleSConditionElement )
+            	    // InternalErrorModelParser.g:8114:3: lv_operands_7_0= ruleSConditionElement
             	    {
             	     
             	    	        newCompositeNode(grammarAccess.getSAllExpressionAccess().getOperandsSConditionElementParserRuleCall_5_1_0()); 
             	    	    
-            	    pushFollow(FOLLOW_119);
+            	    pushFollow(FOLLOW_118);
             	    lv_operands_7_0=ruleSConditionElement();
 
             	    state._fsp--;
@@ -20331,7 +20334,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleSConditionTerm"
-    // InternalErrorModelParser.g:8149:1: entryRuleSConditionTerm returns [EObject current=null] : iv_ruleSConditionTerm= ruleSConditionTerm EOF ;
+    // InternalErrorModelParser.g:8143:1: entryRuleSConditionTerm returns [EObject current=null] : iv_ruleSConditionTerm= ruleSConditionTerm EOF ;
     public final EObject entryRuleSConditionTerm() throws RecognitionException {
         EObject current = null;
 
@@ -20339,8 +20342,8 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // InternalErrorModelParser.g:8150:2: (iv_ruleSConditionTerm= ruleSConditionTerm EOF )
-            // InternalErrorModelParser.g:8151:2: iv_ruleSConditionTerm= ruleSConditionTerm EOF
+            // InternalErrorModelParser.g:8144:2: (iv_ruleSConditionTerm= ruleSConditionTerm EOF )
+            // InternalErrorModelParser.g:8145:2: iv_ruleSConditionTerm= ruleSConditionTerm EOF
             {
              newCompositeNode(grammarAccess.getSConditionTermRule()); 
             pushFollow(FOLLOW_1);
@@ -20367,7 +20370,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleSConditionTerm"
-    // InternalErrorModelParser.g:8158:1: ruleSConditionTerm returns [EObject current=null] : (this_SConditionElement_0= ruleSConditionElement | this_SOrmoreExpression_1= ruleSOrmoreExpression | this_SOrlessExpression_2= ruleSOrlessExpression | this_SAllExpression_3= ruleSAllExpression | (otherlv_4= LeftParenthesis this_SConditionExpression_5= ruleSConditionExpression otherlv_6= RightParenthesis ) ) ;
+    // InternalErrorModelParser.g:8152:1: ruleSConditionTerm returns [EObject current=null] : (this_SConditionElement_0= ruleSConditionElement | this_SOrmoreExpression_1= ruleSOrmoreExpression | this_SOrlessExpression_2= ruleSOrlessExpression | this_SAllExpression_3= ruleSAllExpression | (otherlv_4= LeftParenthesis this_SConditionExpression_5= ruleSConditionExpression otherlv_6= RightParenthesis ) ) ;
     public final EObject ruleSConditionTerm() throws RecognitionException {
         EObject current = null;
 
@@ -20387,10 +20390,10 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // InternalErrorModelParser.g:8161:28: ( (this_SConditionElement_0= ruleSConditionElement | this_SOrmoreExpression_1= ruleSOrmoreExpression | this_SOrlessExpression_2= ruleSOrlessExpression | this_SAllExpression_3= ruleSAllExpression | (otherlv_4= LeftParenthesis this_SConditionExpression_5= ruleSConditionExpression otherlv_6= RightParenthesis ) ) )
-            // InternalErrorModelParser.g:8162:1: (this_SConditionElement_0= ruleSConditionElement | this_SOrmoreExpression_1= ruleSOrmoreExpression | this_SOrlessExpression_2= ruleSOrlessExpression | this_SAllExpression_3= ruleSAllExpression | (otherlv_4= LeftParenthesis this_SConditionExpression_5= ruleSConditionExpression otherlv_6= RightParenthesis ) )
+            // InternalErrorModelParser.g:8155:28: ( (this_SConditionElement_0= ruleSConditionElement | this_SOrmoreExpression_1= ruleSOrmoreExpression | this_SOrlessExpression_2= ruleSOrlessExpression | this_SAllExpression_3= ruleSAllExpression | (otherlv_4= LeftParenthesis this_SConditionExpression_5= ruleSConditionExpression otherlv_6= RightParenthesis ) ) )
+            // InternalErrorModelParser.g:8156:1: (this_SConditionElement_0= ruleSConditionElement | this_SOrmoreExpression_1= ruleSOrmoreExpression | this_SOrlessExpression_2= ruleSOrlessExpression | this_SAllExpression_3= ruleSAllExpression | (otherlv_4= LeftParenthesis this_SConditionExpression_5= ruleSConditionExpression otherlv_6= RightParenthesis ) )
             {
-            // InternalErrorModelParser.g:8162:1: (this_SConditionElement_0= ruleSConditionElement | this_SOrmoreExpression_1= ruleSOrmoreExpression | this_SOrlessExpression_2= ruleSOrlessExpression | this_SAllExpression_3= ruleSAllExpression | (otherlv_4= LeftParenthesis this_SConditionExpression_5= ruleSConditionExpression otherlv_6= RightParenthesis ) )
+            // InternalErrorModelParser.g:8156:1: (this_SConditionElement_0= ruleSConditionElement | this_SOrmoreExpression_1= ruleSOrmoreExpression | this_SOrlessExpression_2= ruleSOrlessExpression | this_SAllExpression_3= ruleSAllExpression | (otherlv_4= LeftParenthesis this_SConditionExpression_5= ruleSConditionExpression otherlv_6= RightParenthesis ) )
             int alt219=5;
             switch ( input.LA(1) ) {
             case In:
@@ -20436,7 +20439,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
             switch (alt219) {
                 case 1 :
-                    // InternalErrorModelParser.g:8163:5: this_SConditionElement_0= ruleSConditionElement
+                    // InternalErrorModelParser.g:8157:5: this_SConditionElement_0= ruleSConditionElement
                     {
                      
                             newCompositeNode(grammarAccess.getSConditionTermAccess().getSConditionElementParserRuleCall_0()); 
@@ -20454,7 +20457,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 2 :
-                    // InternalErrorModelParser.g:8173:5: this_SOrmoreExpression_1= ruleSOrmoreExpression
+                    // InternalErrorModelParser.g:8167:5: this_SOrmoreExpression_1= ruleSOrmoreExpression
                     {
                      
                             newCompositeNode(grammarAccess.getSConditionTermAccess().getSOrmoreExpressionParserRuleCall_1()); 
@@ -20472,7 +20475,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 3 :
-                    // InternalErrorModelParser.g:8183:5: this_SOrlessExpression_2= ruleSOrlessExpression
+                    // InternalErrorModelParser.g:8177:5: this_SOrlessExpression_2= ruleSOrlessExpression
                     {
                      
                             newCompositeNode(grammarAccess.getSConditionTermAccess().getSOrlessExpressionParserRuleCall_2()); 
@@ -20490,7 +20493,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 4 :
-                    // InternalErrorModelParser.g:8193:5: this_SAllExpression_3= ruleSAllExpression
+                    // InternalErrorModelParser.g:8187:5: this_SAllExpression_3= ruleSAllExpression
                     {
                      
                             newCompositeNode(grammarAccess.getSConditionTermAccess().getSAllExpressionParserRuleCall_3()); 
@@ -20508,19 +20511,19 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 5 :
-                    // InternalErrorModelParser.g:8202:6: (otherlv_4= LeftParenthesis this_SConditionExpression_5= ruleSConditionExpression otherlv_6= RightParenthesis )
+                    // InternalErrorModelParser.g:8196:6: (otherlv_4= LeftParenthesis this_SConditionExpression_5= ruleSConditionExpression otherlv_6= RightParenthesis )
                     {
-                    // InternalErrorModelParser.g:8202:6: (otherlv_4= LeftParenthesis this_SConditionExpression_5= ruleSConditionExpression otherlv_6= RightParenthesis )
-                    // InternalErrorModelParser.g:8203:2: otherlv_4= LeftParenthesis this_SConditionExpression_5= ruleSConditionExpression otherlv_6= RightParenthesis
+                    // InternalErrorModelParser.g:8196:6: (otherlv_4= LeftParenthesis this_SConditionExpression_5= ruleSConditionExpression otherlv_6= RightParenthesis )
+                    // InternalErrorModelParser.g:8197:2: otherlv_4= LeftParenthesis this_SConditionExpression_5= ruleSConditionExpression otherlv_6= RightParenthesis
                     {
-                    otherlv_4=(Token)match(input,LeftParenthesis,FOLLOW_142); 
+                    otherlv_4=(Token)match(input,LeftParenthesis,FOLLOW_139); 
 
                         	newLeafNode(otherlv_4, grammarAccess.getSConditionTermAccess().getLeftParenthesisKeyword_4_0());
                         
                      
                             newCompositeNode(grammarAccess.getSConditionTermAccess().getSConditionExpressionParserRuleCall_4_1()); 
                         
-                    pushFollow(FOLLOW_131);
+                    pushFollow(FOLLOW_130);
                     this_SConditionExpression_5=ruleSConditionExpression();
 
                     state._fsp--;
@@ -20560,7 +20563,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleQualifiedErrorPropagation"
-    // InternalErrorModelParser.g:8229:1: entryRuleQualifiedErrorPropagation returns [EObject current=null] : iv_ruleQualifiedErrorPropagation= ruleQualifiedErrorPropagation EOF ;
+    // InternalErrorModelParser.g:8223:1: entryRuleQualifiedErrorPropagation returns [EObject current=null] : iv_ruleQualifiedErrorPropagation= ruleQualifiedErrorPropagation EOF ;
     public final EObject entryRuleQualifiedErrorPropagation() throws RecognitionException {
         EObject current = null;
 
@@ -20568,8 +20571,8 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // InternalErrorModelParser.g:8230:2: (iv_ruleQualifiedErrorPropagation= ruleQualifiedErrorPropagation EOF )
-            // InternalErrorModelParser.g:8231:2: iv_ruleQualifiedErrorPropagation= ruleQualifiedErrorPropagation EOF
+            // InternalErrorModelParser.g:8224:2: (iv_ruleQualifiedErrorPropagation= ruleQualifiedErrorPropagation EOF )
+            // InternalErrorModelParser.g:8225:2: iv_ruleQualifiedErrorPropagation= ruleQualifiedErrorPropagation EOF
             {
              newCompositeNode(grammarAccess.getQualifiedErrorPropagationRule()); 
             pushFollow(FOLLOW_1);
@@ -20596,7 +20599,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleQualifiedErrorPropagation"
-    // InternalErrorModelParser.g:8238:1: ruleQualifiedErrorPropagation returns [EObject current=null] : ( () ( (lv_emv2Target_1_0= ruleEMV2ErrorPropagationPath ) ) ) ;
+    // InternalErrorModelParser.g:8232:1: ruleQualifiedErrorPropagation returns [EObject current=null] : ( () ( (lv_emv2Target_1_0= ruleEMV2ErrorPropagationPath ) ) ) ;
     public final EObject ruleQualifiedErrorPropagation() throws RecognitionException {
         EObject current = null;
 
@@ -20606,14 +20609,14 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // InternalErrorModelParser.g:8241:28: ( ( () ( (lv_emv2Target_1_0= ruleEMV2ErrorPropagationPath ) ) ) )
-            // InternalErrorModelParser.g:8242:1: ( () ( (lv_emv2Target_1_0= ruleEMV2ErrorPropagationPath ) ) )
+            // InternalErrorModelParser.g:8235:28: ( ( () ( (lv_emv2Target_1_0= ruleEMV2ErrorPropagationPath ) ) ) )
+            // InternalErrorModelParser.g:8236:1: ( () ( (lv_emv2Target_1_0= ruleEMV2ErrorPropagationPath ) ) )
             {
-            // InternalErrorModelParser.g:8242:1: ( () ( (lv_emv2Target_1_0= ruleEMV2ErrorPropagationPath ) ) )
-            // InternalErrorModelParser.g:8242:2: () ( (lv_emv2Target_1_0= ruleEMV2ErrorPropagationPath ) )
+            // InternalErrorModelParser.g:8236:1: ( () ( (lv_emv2Target_1_0= ruleEMV2ErrorPropagationPath ) ) )
+            // InternalErrorModelParser.g:8236:2: () ( (lv_emv2Target_1_0= ruleEMV2ErrorPropagationPath ) )
             {
-            // InternalErrorModelParser.g:8242:2: ()
-            // InternalErrorModelParser.g:8243:5: 
+            // InternalErrorModelParser.g:8236:2: ()
+            // InternalErrorModelParser.g:8237:5: 
             {
 
                     current = forceCreateModelElement(
@@ -20623,11 +20626,11 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
             }
 
-            // InternalErrorModelParser.g:8248:2: ( (lv_emv2Target_1_0= ruleEMV2ErrorPropagationPath ) )
-            // InternalErrorModelParser.g:8249:1: (lv_emv2Target_1_0= ruleEMV2ErrorPropagationPath )
+            // InternalErrorModelParser.g:8242:2: ( (lv_emv2Target_1_0= ruleEMV2ErrorPropagationPath ) )
+            // InternalErrorModelParser.g:8243:1: (lv_emv2Target_1_0= ruleEMV2ErrorPropagationPath )
             {
-            // InternalErrorModelParser.g:8249:1: (lv_emv2Target_1_0= ruleEMV2ErrorPropagationPath )
-            // InternalErrorModelParser.g:8250:3: lv_emv2Target_1_0= ruleEMV2ErrorPropagationPath
+            // InternalErrorModelParser.g:8243:1: (lv_emv2Target_1_0= ruleEMV2ErrorPropagationPath )
+            // InternalErrorModelParser.g:8244:3: lv_emv2Target_1_0= ruleEMV2ErrorPropagationPath
             {
              
             	        newCompositeNode(grammarAccess.getQualifiedErrorPropagationAccess().getEmv2TargetEMV2ErrorPropagationPathParserRuleCall_1_0()); 
@@ -20675,7 +20678,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleSConditionElement"
-    // InternalErrorModelParser.g:8274:1: entryRuleSConditionElement returns [EObject current=null] : iv_ruleSConditionElement= ruleSConditionElement EOF ;
+    // InternalErrorModelParser.g:8268:1: entryRuleSConditionElement returns [EObject current=null] : iv_ruleSConditionElement= ruleSConditionElement EOF ;
     public final EObject entryRuleSConditionElement() throws RecognitionException {
         EObject current = null;
 
@@ -20683,8 +20686,8 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // InternalErrorModelParser.g:8275:2: (iv_ruleSConditionElement= ruleSConditionElement EOF )
-            // InternalErrorModelParser.g:8276:2: iv_ruleSConditionElement= ruleSConditionElement EOF
+            // InternalErrorModelParser.g:8269:2: (iv_ruleSConditionElement= ruleSConditionElement EOF )
+            // InternalErrorModelParser.g:8270:2: iv_ruleSConditionElement= ruleSConditionElement EOF
             {
              newCompositeNode(grammarAccess.getSConditionElementRule()); 
             pushFollow(FOLLOW_1);
@@ -20711,7 +20714,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleSConditionElement"
-    // InternalErrorModelParser.g:8283:1: ruleSConditionElement returns [EObject current=null] : ( () ( ( ( (lv_qualifiedState_1_0= ruleQualifiedErrorBehaviorState ) ) ( (lv_constraint_2_0= ruleTypeTokenConstraint ) )? ) | (otherlv_3= In ( ( (lv_qualifiedErrorPropagationReference_4_0= ruleQualifiedErrorPropagation ) ) ( (lv_constraint_5_0= ruleTypeTokenConstraintNoError ) )? ) ) ) ) ;
+    // InternalErrorModelParser.g:8277:1: ruleSConditionElement returns [EObject current=null] : ( () ( ( ( (lv_qualifiedState_1_0= ruleQualifiedErrorBehaviorState ) ) ( (lv_constraint_2_0= ruleTypeTokenConstraint ) )? ) | (otherlv_3= In ( ( (lv_qualifiedErrorPropagationReference_4_0= ruleQualifiedErrorPropagation ) ) ( (lv_constraint_5_0= ruleTypeTokenConstraintNoError ) )? ) ) ) ) ;
     public final EObject ruleSConditionElement() throws RecognitionException {
         EObject current = null;
 
@@ -20728,14 +20731,14 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // InternalErrorModelParser.g:8286:28: ( ( () ( ( ( (lv_qualifiedState_1_0= ruleQualifiedErrorBehaviorState ) ) ( (lv_constraint_2_0= ruleTypeTokenConstraint ) )? ) | (otherlv_3= In ( ( (lv_qualifiedErrorPropagationReference_4_0= ruleQualifiedErrorPropagation ) ) ( (lv_constraint_5_0= ruleTypeTokenConstraintNoError ) )? ) ) ) ) )
-            // InternalErrorModelParser.g:8287:1: ( () ( ( ( (lv_qualifiedState_1_0= ruleQualifiedErrorBehaviorState ) ) ( (lv_constraint_2_0= ruleTypeTokenConstraint ) )? ) | (otherlv_3= In ( ( (lv_qualifiedErrorPropagationReference_4_0= ruleQualifiedErrorPropagation ) ) ( (lv_constraint_5_0= ruleTypeTokenConstraintNoError ) )? ) ) ) )
+            // InternalErrorModelParser.g:8280:28: ( ( () ( ( ( (lv_qualifiedState_1_0= ruleQualifiedErrorBehaviorState ) ) ( (lv_constraint_2_0= ruleTypeTokenConstraint ) )? ) | (otherlv_3= In ( ( (lv_qualifiedErrorPropagationReference_4_0= ruleQualifiedErrorPropagation ) ) ( (lv_constraint_5_0= ruleTypeTokenConstraintNoError ) )? ) ) ) ) )
+            // InternalErrorModelParser.g:8281:1: ( () ( ( ( (lv_qualifiedState_1_0= ruleQualifiedErrorBehaviorState ) ) ( (lv_constraint_2_0= ruleTypeTokenConstraint ) )? ) | (otherlv_3= In ( ( (lv_qualifiedErrorPropagationReference_4_0= ruleQualifiedErrorPropagation ) ) ( (lv_constraint_5_0= ruleTypeTokenConstraintNoError ) )? ) ) ) )
             {
-            // InternalErrorModelParser.g:8287:1: ( () ( ( ( (lv_qualifiedState_1_0= ruleQualifiedErrorBehaviorState ) ) ( (lv_constraint_2_0= ruleTypeTokenConstraint ) )? ) | (otherlv_3= In ( ( (lv_qualifiedErrorPropagationReference_4_0= ruleQualifiedErrorPropagation ) ) ( (lv_constraint_5_0= ruleTypeTokenConstraintNoError ) )? ) ) ) )
-            // InternalErrorModelParser.g:8287:2: () ( ( ( (lv_qualifiedState_1_0= ruleQualifiedErrorBehaviorState ) ) ( (lv_constraint_2_0= ruleTypeTokenConstraint ) )? ) | (otherlv_3= In ( ( (lv_qualifiedErrorPropagationReference_4_0= ruleQualifiedErrorPropagation ) ) ( (lv_constraint_5_0= ruleTypeTokenConstraintNoError ) )? ) ) )
+            // InternalErrorModelParser.g:8281:1: ( () ( ( ( (lv_qualifiedState_1_0= ruleQualifiedErrorBehaviorState ) ) ( (lv_constraint_2_0= ruleTypeTokenConstraint ) )? ) | (otherlv_3= In ( ( (lv_qualifiedErrorPropagationReference_4_0= ruleQualifiedErrorPropagation ) ) ( (lv_constraint_5_0= ruleTypeTokenConstraintNoError ) )? ) ) ) )
+            // InternalErrorModelParser.g:8281:2: () ( ( ( (lv_qualifiedState_1_0= ruleQualifiedErrorBehaviorState ) ) ( (lv_constraint_2_0= ruleTypeTokenConstraint ) )? ) | (otherlv_3= In ( ( (lv_qualifiedErrorPropagationReference_4_0= ruleQualifiedErrorPropagation ) ) ( (lv_constraint_5_0= ruleTypeTokenConstraintNoError ) )? ) ) )
             {
-            // InternalErrorModelParser.g:8287:2: ()
-            // InternalErrorModelParser.g:8288:5: 
+            // InternalErrorModelParser.g:8281:2: ()
+            // InternalErrorModelParser.g:8282:5: 
             {
 
                     current = forceCreateModelElement(
@@ -20745,7 +20748,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
             }
 
-            // InternalErrorModelParser.g:8293:2: ( ( ( (lv_qualifiedState_1_0= ruleQualifiedErrorBehaviorState ) ) ( (lv_constraint_2_0= ruleTypeTokenConstraint ) )? ) | (otherlv_3= In ( ( (lv_qualifiedErrorPropagationReference_4_0= ruleQualifiedErrorPropagation ) ) ( (lv_constraint_5_0= ruleTypeTokenConstraintNoError ) )? ) ) )
+            // InternalErrorModelParser.g:8287:2: ( ( ( (lv_qualifiedState_1_0= ruleQualifiedErrorBehaviorState ) ) ( (lv_constraint_2_0= ruleTypeTokenConstraint ) )? ) | (otherlv_3= In ( ( (lv_qualifiedErrorPropagationReference_4_0= ruleQualifiedErrorPropagation ) ) ( (lv_constraint_5_0= ruleTypeTokenConstraintNoError ) )? ) ) )
             int alt222=2;
             int LA222_0 = input.LA(1);
 
@@ -20763,21 +20766,21 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
             }
             switch (alt222) {
                 case 1 :
-                    // InternalErrorModelParser.g:8293:3: ( ( (lv_qualifiedState_1_0= ruleQualifiedErrorBehaviorState ) ) ( (lv_constraint_2_0= ruleTypeTokenConstraint ) )? )
+                    // InternalErrorModelParser.g:8287:3: ( ( (lv_qualifiedState_1_0= ruleQualifiedErrorBehaviorState ) ) ( (lv_constraint_2_0= ruleTypeTokenConstraint ) )? )
                     {
-                    // InternalErrorModelParser.g:8293:3: ( ( (lv_qualifiedState_1_0= ruleQualifiedErrorBehaviorState ) ) ( (lv_constraint_2_0= ruleTypeTokenConstraint ) )? )
-                    // InternalErrorModelParser.g:8293:4: ( (lv_qualifiedState_1_0= ruleQualifiedErrorBehaviorState ) ) ( (lv_constraint_2_0= ruleTypeTokenConstraint ) )?
+                    // InternalErrorModelParser.g:8287:3: ( ( (lv_qualifiedState_1_0= ruleQualifiedErrorBehaviorState ) ) ( (lv_constraint_2_0= ruleTypeTokenConstraint ) )? )
+                    // InternalErrorModelParser.g:8287:4: ( (lv_qualifiedState_1_0= ruleQualifiedErrorBehaviorState ) ) ( (lv_constraint_2_0= ruleTypeTokenConstraint ) )?
                     {
-                    // InternalErrorModelParser.g:8293:4: ( (lv_qualifiedState_1_0= ruleQualifiedErrorBehaviorState ) )
-                    // InternalErrorModelParser.g:8294:1: (lv_qualifiedState_1_0= ruleQualifiedErrorBehaviorState )
+                    // InternalErrorModelParser.g:8287:4: ( (lv_qualifiedState_1_0= ruleQualifiedErrorBehaviorState ) )
+                    // InternalErrorModelParser.g:8288:1: (lv_qualifiedState_1_0= ruleQualifiedErrorBehaviorState )
                     {
-                    // InternalErrorModelParser.g:8294:1: (lv_qualifiedState_1_0= ruleQualifiedErrorBehaviorState )
-                    // InternalErrorModelParser.g:8295:3: lv_qualifiedState_1_0= ruleQualifiedErrorBehaviorState
+                    // InternalErrorModelParser.g:8288:1: (lv_qualifiedState_1_0= ruleQualifiedErrorBehaviorState )
+                    // InternalErrorModelParser.g:8289:3: lv_qualifiedState_1_0= ruleQualifiedErrorBehaviorState
                     {
                      
                     	        newCompositeNode(grammarAccess.getSConditionElementAccess().getQualifiedStateQualifiedErrorBehaviorStateParserRuleCall_1_0_0_0()); 
                     	    
-                    pushFollow(FOLLOW_144);
+                    pushFollow(FOLLOW_141);
                     lv_qualifiedState_1_0=ruleQualifiedErrorBehaviorState();
 
                     state._fsp--;
@@ -20799,7 +20802,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
                     }
 
-                    // InternalErrorModelParser.g:8311:2: ( (lv_constraint_2_0= ruleTypeTokenConstraint ) )?
+                    // InternalErrorModelParser.g:8305:2: ( (lv_constraint_2_0= ruleTypeTokenConstraint ) )?
                     int alt220=2;
                     int LA220_0 = input.LA(1);
 
@@ -20808,10 +20811,10 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
                     }
                     switch (alt220) {
                         case 1 :
-                            // InternalErrorModelParser.g:8312:1: (lv_constraint_2_0= ruleTypeTokenConstraint )
+                            // InternalErrorModelParser.g:8306:1: (lv_constraint_2_0= ruleTypeTokenConstraint )
                             {
-                            // InternalErrorModelParser.g:8312:1: (lv_constraint_2_0= ruleTypeTokenConstraint )
-                            // InternalErrorModelParser.g:8313:3: lv_constraint_2_0= ruleTypeTokenConstraint
+                            // InternalErrorModelParser.g:8306:1: (lv_constraint_2_0= ruleTypeTokenConstraint )
+                            // InternalErrorModelParser.g:8307:3: lv_constraint_2_0= ruleTypeTokenConstraint
                             {
                              
                             	        newCompositeNode(grammarAccess.getSConditionElementAccess().getConstraintTypeTokenConstraintParserRuleCall_1_0_1_0()); 
@@ -20848,28 +20851,28 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 2 :
-                    // InternalErrorModelParser.g:8330:6: (otherlv_3= In ( ( (lv_qualifiedErrorPropagationReference_4_0= ruleQualifiedErrorPropagation ) ) ( (lv_constraint_5_0= ruleTypeTokenConstraintNoError ) )? ) )
+                    // InternalErrorModelParser.g:8324:6: (otherlv_3= In ( ( (lv_qualifiedErrorPropagationReference_4_0= ruleQualifiedErrorPropagation ) ) ( (lv_constraint_5_0= ruleTypeTokenConstraintNoError ) )? ) )
                     {
-                    // InternalErrorModelParser.g:8330:6: (otherlv_3= In ( ( (lv_qualifiedErrorPropagationReference_4_0= ruleQualifiedErrorPropagation ) ) ( (lv_constraint_5_0= ruleTypeTokenConstraintNoError ) )? ) )
-                    // InternalErrorModelParser.g:8331:2: otherlv_3= In ( ( (lv_qualifiedErrorPropagationReference_4_0= ruleQualifiedErrorPropagation ) ) ( (lv_constraint_5_0= ruleTypeTokenConstraintNoError ) )? )
+                    // InternalErrorModelParser.g:8324:6: (otherlv_3= In ( ( (lv_qualifiedErrorPropagationReference_4_0= ruleQualifiedErrorPropagation ) ) ( (lv_constraint_5_0= ruleTypeTokenConstraintNoError ) )? ) )
+                    // InternalErrorModelParser.g:8325:2: otherlv_3= In ( ( (lv_qualifiedErrorPropagationReference_4_0= ruleQualifiedErrorPropagation ) ) ( (lv_constraint_5_0= ruleTypeTokenConstraintNoError ) )? )
                     {
-                    otherlv_3=(Token)match(input,In,FOLLOW_86); 
+                    otherlv_3=(Token)match(input,In,FOLLOW_85); 
 
                         	newLeafNode(otherlv_3, grammarAccess.getSConditionElementAccess().getInKeyword_1_1_0());
                         
-                    // InternalErrorModelParser.g:8335:1: ( ( (lv_qualifiedErrorPropagationReference_4_0= ruleQualifiedErrorPropagation ) ) ( (lv_constraint_5_0= ruleTypeTokenConstraintNoError ) )? )
-                    // InternalErrorModelParser.g:8335:2: ( (lv_qualifiedErrorPropagationReference_4_0= ruleQualifiedErrorPropagation ) ) ( (lv_constraint_5_0= ruleTypeTokenConstraintNoError ) )?
+                    // InternalErrorModelParser.g:8329:1: ( ( (lv_qualifiedErrorPropagationReference_4_0= ruleQualifiedErrorPropagation ) ) ( (lv_constraint_5_0= ruleTypeTokenConstraintNoError ) )? )
+                    // InternalErrorModelParser.g:8329:2: ( (lv_qualifiedErrorPropagationReference_4_0= ruleQualifiedErrorPropagation ) ) ( (lv_constraint_5_0= ruleTypeTokenConstraintNoError ) )?
                     {
-                    // InternalErrorModelParser.g:8335:2: ( (lv_qualifiedErrorPropagationReference_4_0= ruleQualifiedErrorPropagation ) )
-                    // InternalErrorModelParser.g:8336:1: (lv_qualifiedErrorPropagationReference_4_0= ruleQualifiedErrorPropagation )
+                    // InternalErrorModelParser.g:8329:2: ( (lv_qualifiedErrorPropagationReference_4_0= ruleQualifiedErrorPropagation ) )
+                    // InternalErrorModelParser.g:8330:1: (lv_qualifiedErrorPropagationReference_4_0= ruleQualifiedErrorPropagation )
                     {
-                    // InternalErrorModelParser.g:8336:1: (lv_qualifiedErrorPropagationReference_4_0= ruleQualifiedErrorPropagation )
-                    // InternalErrorModelParser.g:8337:3: lv_qualifiedErrorPropagationReference_4_0= ruleQualifiedErrorPropagation
+                    // InternalErrorModelParser.g:8330:1: (lv_qualifiedErrorPropagationReference_4_0= ruleQualifiedErrorPropagation )
+                    // InternalErrorModelParser.g:8331:3: lv_qualifiedErrorPropagationReference_4_0= ruleQualifiedErrorPropagation
                     {
                      
                     	        newCompositeNode(grammarAccess.getSConditionElementAccess().getQualifiedErrorPropagationReferenceQualifiedErrorPropagationParserRuleCall_1_1_1_0_0()); 
                     	    
-                    pushFollow(FOLLOW_132);
+                    pushFollow(FOLLOW_131);
                     lv_qualifiedErrorPropagationReference_4_0=ruleQualifiedErrorPropagation();
 
                     state._fsp--;
@@ -20891,7 +20894,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
                     }
 
-                    // InternalErrorModelParser.g:8353:2: ( (lv_constraint_5_0= ruleTypeTokenConstraintNoError ) )?
+                    // InternalErrorModelParser.g:8347:2: ( (lv_constraint_5_0= ruleTypeTokenConstraintNoError ) )?
                     int alt221=2;
                     int LA221_0 = input.LA(1);
 
@@ -20900,10 +20903,10 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
                     }
                     switch (alt221) {
                         case 1 :
-                            // InternalErrorModelParser.g:8354:1: (lv_constraint_5_0= ruleTypeTokenConstraintNoError )
+                            // InternalErrorModelParser.g:8348:1: (lv_constraint_5_0= ruleTypeTokenConstraintNoError )
                             {
-                            // InternalErrorModelParser.g:8354:1: (lv_constraint_5_0= ruleTypeTokenConstraintNoError )
-                            // InternalErrorModelParser.g:8355:3: lv_constraint_5_0= ruleTypeTokenConstraintNoError
+                            // InternalErrorModelParser.g:8348:1: (lv_constraint_5_0= ruleTypeTokenConstraintNoError )
+                            // InternalErrorModelParser.g:8349:3: lv_constraint_5_0= ruleTypeTokenConstraintNoError
                             {
                              
                             	        newCompositeNode(grammarAccess.getSConditionElementAccess().getConstraintTypeTokenConstraintNoErrorParserRuleCall_1_1_1_1_0()); 
@@ -20966,7 +20969,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleQualifiedErrorBehaviorState"
-    // InternalErrorModelParser.g:8379:1: entryRuleQualifiedErrorBehaviorState returns [EObject current=null] : iv_ruleQualifiedErrorBehaviorState= ruleQualifiedErrorBehaviorState EOF ;
+    // InternalErrorModelParser.g:8373:1: entryRuleQualifiedErrorBehaviorState returns [EObject current=null] : iv_ruleQualifiedErrorBehaviorState= ruleQualifiedErrorBehaviorState EOF ;
     public final EObject entryRuleQualifiedErrorBehaviorState() throws RecognitionException {
         EObject current = null;
 
@@ -20974,8 +20977,8 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // InternalErrorModelParser.g:8380:2: (iv_ruleQualifiedErrorBehaviorState= ruleQualifiedErrorBehaviorState EOF )
-            // InternalErrorModelParser.g:8381:2: iv_ruleQualifiedErrorBehaviorState= ruleQualifiedErrorBehaviorState EOF
+            // InternalErrorModelParser.g:8374:2: (iv_ruleQualifiedErrorBehaviorState= ruleQualifiedErrorBehaviorState EOF )
+            // InternalErrorModelParser.g:8375:2: iv_ruleQualifiedErrorBehaviorState= ruleQualifiedErrorBehaviorState EOF
             {
              newCompositeNode(grammarAccess.getQualifiedErrorBehaviorStateRule()); 
             pushFollow(FOLLOW_1);
@@ -21002,7 +21005,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleQualifiedErrorBehaviorState"
-    // InternalErrorModelParser.g:8388:1: ruleQualifiedErrorBehaviorState returns [EObject current=null] : ( ( (lv_subcomponent_0_0= ruleSubcomponentElement ) ) otherlv_1= FullStop ( ( (lv_next_2_0= ruleQualifiedErrorBehaviorState ) ) | ( (otherlv_3= RULE_ID ) ) ) ) ;
+    // InternalErrorModelParser.g:8382:1: ruleQualifiedErrorBehaviorState returns [EObject current=null] : ( ( (lv_subcomponent_0_0= ruleSubcomponentElement ) ) otherlv_1= FullStop ( ( (lv_next_2_0= ruleQualifiedErrorBehaviorState ) ) | ( (otherlv_3= RULE_ID ) ) ) ) ;
     public final EObject ruleQualifiedErrorBehaviorState() throws RecognitionException {
         EObject current = null;
 
@@ -21016,22 +21019,22 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // InternalErrorModelParser.g:8391:28: ( ( ( (lv_subcomponent_0_0= ruleSubcomponentElement ) ) otherlv_1= FullStop ( ( (lv_next_2_0= ruleQualifiedErrorBehaviorState ) ) | ( (otherlv_3= RULE_ID ) ) ) ) )
-            // InternalErrorModelParser.g:8392:1: ( ( (lv_subcomponent_0_0= ruleSubcomponentElement ) ) otherlv_1= FullStop ( ( (lv_next_2_0= ruleQualifiedErrorBehaviorState ) ) | ( (otherlv_3= RULE_ID ) ) ) )
+            // InternalErrorModelParser.g:8385:28: ( ( ( (lv_subcomponent_0_0= ruleSubcomponentElement ) ) otherlv_1= FullStop ( ( (lv_next_2_0= ruleQualifiedErrorBehaviorState ) ) | ( (otherlv_3= RULE_ID ) ) ) ) )
+            // InternalErrorModelParser.g:8386:1: ( ( (lv_subcomponent_0_0= ruleSubcomponentElement ) ) otherlv_1= FullStop ( ( (lv_next_2_0= ruleQualifiedErrorBehaviorState ) ) | ( (otherlv_3= RULE_ID ) ) ) )
             {
-            // InternalErrorModelParser.g:8392:1: ( ( (lv_subcomponent_0_0= ruleSubcomponentElement ) ) otherlv_1= FullStop ( ( (lv_next_2_0= ruleQualifiedErrorBehaviorState ) ) | ( (otherlv_3= RULE_ID ) ) ) )
-            // InternalErrorModelParser.g:8392:2: ( (lv_subcomponent_0_0= ruleSubcomponentElement ) ) otherlv_1= FullStop ( ( (lv_next_2_0= ruleQualifiedErrorBehaviorState ) ) | ( (otherlv_3= RULE_ID ) ) )
+            // InternalErrorModelParser.g:8386:1: ( ( (lv_subcomponent_0_0= ruleSubcomponentElement ) ) otherlv_1= FullStop ( ( (lv_next_2_0= ruleQualifiedErrorBehaviorState ) ) | ( (otherlv_3= RULE_ID ) ) ) )
+            // InternalErrorModelParser.g:8386:2: ( (lv_subcomponent_0_0= ruleSubcomponentElement ) ) otherlv_1= FullStop ( ( (lv_next_2_0= ruleQualifiedErrorBehaviorState ) ) | ( (otherlv_3= RULE_ID ) ) )
             {
-            // InternalErrorModelParser.g:8392:2: ( (lv_subcomponent_0_0= ruleSubcomponentElement ) )
-            // InternalErrorModelParser.g:8393:1: (lv_subcomponent_0_0= ruleSubcomponentElement )
+            // InternalErrorModelParser.g:8386:2: ( (lv_subcomponent_0_0= ruleSubcomponentElement ) )
+            // InternalErrorModelParser.g:8387:1: (lv_subcomponent_0_0= ruleSubcomponentElement )
             {
-            // InternalErrorModelParser.g:8393:1: (lv_subcomponent_0_0= ruleSubcomponentElement )
-            // InternalErrorModelParser.g:8394:3: lv_subcomponent_0_0= ruleSubcomponentElement
+            // InternalErrorModelParser.g:8387:1: (lv_subcomponent_0_0= ruleSubcomponentElement )
+            // InternalErrorModelParser.g:8388:3: lv_subcomponent_0_0= ruleSubcomponentElement
             {
              
             	        newCompositeNode(grammarAccess.getQualifiedErrorBehaviorStateAccess().getSubcomponentSubcomponentElementParserRuleCall_0_0()); 
             	    
-            pushFollow(FOLLOW_99);
+            pushFollow(FOLLOW_98);
             lv_subcomponent_0_0=ruleSubcomponentElement();
 
             state._fsp--;
@@ -21057,7 +21060,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
                 	newLeafNode(otherlv_1, grammarAccess.getQualifiedErrorBehaviorStateAccess().getFullStopKeyword_1());
                 
-            // InternalErrorModelParser.g:8415:1: ( ( (lv_next_2_0= ruleQualifiedErrorBehaviorState ) ) | ( (otherlv_3= RULE_ID ) ) )
+            // InternalErrorModelParser.g:8409:1: ( ( (lv_next_2_0= ruleQualifiedErrorBehaviorState ) ) | ( (otherlv_3= RULE_ID ) ) )
             int alt223=2;
             int LA223_0 = input.LA(1);
 
@@ -21085,13 +21088,13 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
             }
             switch (alt223) {
                 case 1 :
-                    // InternalErrorModelParser.g:8415:2: ( (lv_next_2_0= ruleQualifiedErrorBehaviorState ) )
+                    // InternalErrorModelParser.g:8409:2: ( (lv_next_2_0= ruleQualifiedErrorBehaviorState ) )
                     {
-                    // InternalErrorModelParser.g:8415:2: ( (lv_next_2_0= ruleQualifiedErrorBehaviorState ) )
-                    // InternalErrorModelParser.g:8416:1: (lv_next_2_0= ruleQualifiedErrorBehaviorState )
+                    // InternalErrorModelParser.g:8409:2: ( (lv_next_2_0= ruleQualifiedErrorBehaviorState ) )
+                    // InternalErrorModelParser.g:8410:1: (lv_next_2_0= ruleQualifiedErrorBehaviorState )
                     {
-                    // InternalErrorModelParser.g:8416:1: (lv_next_2_0= ruleQualifiedErrorBehaviorState )
-                    // InternalErrorModelParser.g:8417:3: lv_next_2_0= ruleQualifiedErrorBehaviorState
+                    // InternalErrorModelParser.g:8410:1: (lv_next_2_0= ruleQualifiedErrorBehaviorState )
+                    // InternalErrorModelParser.g:8411:3: lv_next_2_0= ruleQualifiedErrorBehaviorState
                     {
                      
                     	        newCompositeNode(grammarAccess.getQualifiedErrorBehaviorStateAccess().getNextQualifiedErrorBehaviorStateParserRuleCall_2_0_0()); 
@@ -21122,13 +21125,13 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 2 :
-                    // InternalErrorModelParser.g:8434:6: ( (otherlv_3= RULE_ID ) )
+                    // InternalErrorModelParser.g:8428:6: ( (otherlv_3= RULE_ID ) )
                     {
-                    // InternalErrorModelParser.g:8434:6: ( (otherlv_3= RULE_ID ) )
-                    // InternalErrorModelParser.g:8435:1: (otherlv_3= RULE_ID )
+                    // InternalErrorModelParser.g:8428:6: ( (otherlv_3= RULE_ID ) )
+                    // InternalErrorModelParser.g:8429:1: (otherlv_3= RULE_ID )
                     {
-                    // InternalErrorModelParser.g:8435:1: (otherlv_3= RULE_ID )
-                    // InternalErrorModelParser.g:8436:3: otherlv_3= RULE_ID
+                    // InternalErrorModelParser.g:8429:1: (otherlv_3= RULE_ID )
+                    // InternalErrorModelParser.g:8430:3: otherlv_3= RULE_ID
                     {
 
                     			if (current==null) {
@@ -21172,7 +21175,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleSubcomponentElement"
-    // InternalErrorModelParser.g:8455:1: entryRuleSubcomponentElement returns [EObject current=null] : iv_ruleSubcomponentElement= ruleSubcomponentElement EOF ;
+    // InternalErrorModelParser.g:8449:1: entryRuleSubcomponentElement returns [EObject current=null] : iv_ruleSubcomponentElement= ruleSubcomponentElement EOF ;
     public final EObject entryRuleSubcomponentElement() throws RecognitionException {
         EObject current = null;
 
@@ -21180,8 +21183,8 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // InternalErrorModelParser.g:8456:2: (iv_ruleSubcomponentElement= ruleSubcomponentElement EOF )
-            // InternalErrorModelParser.g:8457:2: iv_ruleSubcomponentElement= ruleSubcomponentElement EOF
+            // InternalErrorModelParser.g:8450:2: (iv_ruleSubcomponentElement= ruleSubcomponentElement EOF )
+            // InternalErrorModelParser.g:8451:2: iv_ruleSubcomponentElement= ruleSubcomponentElement EOF
             {
              newCompositeNode(grammarAccess.getSubcomponentElementRule()); 
             pushFollow(FOLLOW_1);
@@ -21208,7 +21211,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleSubcomponentElement"
-    // InternalErrorModelParser.g:8464:1: ruleSubcomponentElement returns [EObject current=null] : ( (otherlv_0= RULE_ID ) ) ;
+    // InternalErrorModelParser.g:8458:1: ruleSubcomponentElement returns [EObject current=null] : ( (otherlv_0= RULE_ID ) ) ;
     public final EObject ruleSubcomponentElement() throws RecognitionException {
         EObject current = null;
 
@@ -21217,14 +21220,14 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // InternalErrorModelParser.g:8467:28: ( ( (otherlv_0= RULE_ID ) ) )
-            // InternalErrorModelParser.g:8468:1: ( (otherlv_0= RULE_ID ) )
+            // InternalErrorModelParser.g:8461:28: ( ( (otherlv_0= RULE_ID ) ) )
+            // InternalErrorModelParser.g:8462:1: ( (otherlv_0= RULE_ID ) )
             {
-            // InternalErrorModelParser.g:8468:1: ( (otherlv_0= RULE_ID ) )
-            // InternalErrorModelParser.g:8469:1: (otherlv_0= RULE_ID )
+            // InternalErrorModelParser.g:8462:1: ( (otherlv_0= RULE_ID ) )
+            // InternalErrorModelParser.g:8463:1: (otherlv_0= RULE_ID )
             {
-            // InternalErrorModelParser.g:8469:1: (otherlv_0= RULE_ID )
-            // InternalErrorModelParser.g:8470:3: otherlv_0= RULE_ID
+            // InternalErrorModelParser.g:8463:1: (otherlv_0= RULE_ID )
+            // InternalErrorModelParser.g:8464:3: otherlv_0= RULE_ID
             {
 
             			if (current==null) {
@@ -21259,7 +21262,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleCONDITION"
-    // InternalErrorModelParser.g:8489:1: entryRuleCONDITION returns [String current=null] : iv_ruleCONDITION= ruleCONDITION EOF ;
+    // InternalErrorModelParser.g:8483:1: entryRuleCONDITION returns [String current=null] : iv_ruleCONDITION= ruleCONDITION EOF ;
     public final String entryRuleCONDITION() throws RecognitionException {
         String current = null;
 
@@ -21267,8 +21270,8 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // InternalErrorModelParser.g:8490:1: (iv_ruleCONDITION= ruleCONDITION EOF )
-            // InternalErrorModelParser.g:8491:2: iv_ruleCONDITION= ruleCONDITION EOF
+            // InternalErrorModelParser.g:8484:1: (iv_ruleCONDITION= ruleCONDITION EOF )
+            // InternalErrorModelParser.g:8485:2: iv_ruleCONDITION= ruleCONDITION EOF
             {
              newCompositeNode(grammarAccess.getCONDITIONRule()); 
             pushFollow(FOLLOW_1);
@@ -21295,7 +21298,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleCONDITION"
-    // InternalErrorModelParser.g:8498:1: ruleCONDITION returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()] : this_STRING_0= RULE_STRING ;
+    // InternalErrorModelParser.g:8492:1: ruleCONDITION returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()] : this_STRING_0= RULE_STRING ;
     public final AntlrDatatypeRuleToken ruleCONDITION() throws RecognitionException {
         AntlrDatatypeRuleToken current = new AntlrDatatypeRuleToken();
 
@@ -21304,8 +21307,8 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // InternalErrorModelParser.g:8502:6: (this_STRING_0= RULE_STRING )
-            // InternalErrorModelParser.g:8503:5: this_STRING_0= RULE_STRING
+            // InternalErrorModelParser.g:8496:6: (this_STRING_0= RULE_STRING )
+            // InternalErrorModelParser.g:8497:5: this_STRING_0= RULE_STRING
             {
             this_STRING_0=(Token)match(input,RULE_STRING,FOLLOW_2); 
 
@@ -21333,7 +21336,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleQEMREF"
-    // InternalErrorModelParser.g:8518:1: entryRuleQEMREF returns [String current=null] : iv_ruleQEMREF= ruleQEMREF EOF ;
+    // InternalErrorModelParser.g:8512:1: entryRuleQEMREF returns [String current=null] : iv_ruleQEMREF= ruleQEMREF EOF ;
     public final String entryRuleQEMREF() throws RecognitionException {
         String current = null;
 
@@ -21341,8 +21344,8 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // InternalErrorModelParser.g:8519:1: (iv_ruleQEMREF= ruleQEMREF EOF )
-            // InternalErrorModelParser.g:8520:2: iv_ruleQEMREF= ruleQEMREF EOF
+            // InternalErrorModelParser.g:8513:1: (iv_ruleQEMREF= ruleQEMREF EOF )
+            // InternalErrorModelParser.g:8514:2: iv_ruleQEMREF= ruleQEMREF EOF
             {
              newCompositeNode(grammarAccess.getQEMREFRule()); 
             pushFollow(FOLLOW_1);
@@ -21369,7 +21372,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleQEMREF"
-    // InternalErrorModelParser.g:8527:1: ruleQEMREF returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()] : (this_ID_0= RULE_ID (kw= ColonColon this_ID_2= RULE_ID )* ) ;
+    // InternalErrorModelParser.g:8521:1: ruleQEMREF returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()] : (this_ID_0= RULE_ID (kw= ColonColon this_ID_2= RULE_ID )* ) ;
     public final AntlrDatatypeRuleToken ruleQEMREF() throws RecognitionException {
         AntlrDatatypeRuleToken current = new AntlrDatatypeRuleToken();
 
@@ -21380,20 +21383,20 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // InternalErrorModelParser.g:8531:6: ( (this_ID_0= RULE_ID (kw= ColonColon this_ID_2= RULE_ID )* ) )
-            // InternalErrorModelParser.g:8532:1: (this_ID_0= RULE_ID (kw= ColonColon this_ID_2= RULE_ID )* )
+            // InternalErrorModelParser.g:8525:6: ( (this_ID_0= RULE_ID (kw= ColonColon this_ID_2= RULE_ID )* ) )
+            // InternalErrorModelParser.g:8526:1: (this_ID_0= RULE_ID (kw= ColonColon this_ID_2= RULE_ID )* )
             {
-            // InternalErrorModelParser.g:8532:1: (this_ID_0= RULE_ID (kw= ColonColon this_ID_2= RULE_ID )* )
-            // InternalErrorModelParser.g:8532:6: this_ID_0= RULE_ID (kw= ColonColon this_ID_2= RULE_ID )*
+            // InternalErrorModelParser.g:8526:1: (this_ID_0= RULE_ID (kw= ColonColon this_ID_2= RULE_ID )* )
+            // InternalErrorModelParser.g:8526:6: this_ID_0= RULE_ID (kw= ColonColon this_ID_2= RULE_ID )*
             {
-            this_ID_0=(Token)match(input,RULE_ID,FOLLOW_145); 
+            this_ID_0=(Token)match(input,RULE_ID,FOLLOW_142); 
 
             		current.merge(this_ID_0);
                 
              
                 newLeafNode(this_ID_0, grammarAccess.getQEMREFAccess().getIDTerminalRuleCall_0()); 
                 
-            // InternalErrorModelParser.g:8539:1: (kw= ColonColon this_ID_2= RULE_ID )*
+            // InternalErrorModelParser.g:8533:1: (kw= ColonColon this_ID_2= RULE_ID )*
             loop224:
             do {
                 int alt224=2;
@@ -21406,14 +21409,14 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
                 switch (alt224) {
             	case 1 :
-            	    // InternalErrorModelParser.g:8540:2: kw= ColonColon this_ID_2= RULE_ID
+            	    // InternalErrorModelParser.g:8534:2: kw= ColonColon this_ID_2= RULE_ID
             	    {
             	    kw=(Token)match(input,ColonColon,FOLLOW_5); 
 
             	            current.merge(kw);
             	            newLeafNode(kw, grammarAccess.getQEMREFAccess().getColonColonKeyword_1_0()); 
             	        
-            	    this_ID_2=(Token)match(input,RULE_ID,FOLLOW_145); 
+            	    this_ID_2=(Token)match(input,RULE_ID,FOLLOW_142); 
 
             	    		current.merge(this_ID_2);
             	        
@@ -21451,7 +21454,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleContainedPropertyAssociation"
-    // InternalErrorModelParser.g:8562:1: entryRuleContainedPropertyAssociation returns [EObject current=null] : iv_ruleContainedPropertyAssociation= ruleContainedPropertyAssociation EOF ;
+    // InternalErrorModelParser.g:8556:1: entryRuleContainedPropertyAssociation returns [EObject current=null] : iv_ruleContainedPropertyAssociation= ruleContainedPropertyAssociation EOF ;
     public final EObject entryRuleContainedPropertyAssociation() throws RecognitionException {
         EObject current = null;
 
@@ -21459,8 +21462,8 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // InternalErrorModelParser.g:8563:2: (iv_ruleContainedPropertyAssociation= ruleContainedPropertyAssociation EOF )
-            // InternalErrorModelParser.g:8564:2: iv_ruleContainedPropertyAssociation= ruleContainedPropertyAssociation EOF
+            // InternalErrorModelParser.g:8557:2: (iv_ruleContainedPropertyAssociation= ruleContainedPropertyAssociation EOF )
+            // InternalErrorModelParser.g:8558:2: iv_ruleContainedPropertyAssociation= ruleContainedPropertyAssociation EOF
             {
              newCompositeNode(grammarAccess.getContainedPropertyAssociationRule()); 
             pushFollow(FOLLOW_1);
@@ -21487,7 +21490,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleContainedPropertyAssociation"
-    // InternalErrorModelParser.g:8571:1: ruleContainedPropertyAssociation returns [EObject current=null] : ( ( ( ruleQPREF ) ) (otherlv_1= EqualsSignGreaterThanSign | ( (lv_append_2_0= PlusSignEqualsSignGreaterThanSign ) ) ) ( (lv_constant_3_0= Constant ) )? ( ( (lv_ownedValue_4_0= ruleOptionalModalPropertyValue ) ) (otherlv_5= Comma ( (lv_ownedValue_6_0= ruleOptionalModalPropertyValue ) ) )* ) (otherlv_7= Applies otherlv_8= To ( (lv_appliesTo_9_0= ruleContainmentPath ) ) (otherlv_10= Comma ( (lv_appliesTo_11_0= ruleContainmentPath ) ) )* )? (otherlv_12= In otherlv_13= Binding otherlv_14= LeftParenthesis ( ( ruleQCREF ) ) otherlv_16= RightParenthesis )? otherlv_17= Semicolon ) ;
+    // InternalErrorModelParser.g:8565:1: ruleContainedPropertyAssociation returns [EObject current=null] : ( ( ( ruleQPREF ) ) (otherlv_1= EqualsSignGreaterThanSign | ( (lv_append_2_0= PlusSignEqualsSignGreaterThanSign ) ) ) ( (lv_constant_3_0= Constant ) )? ( ( (lv_ownedValue_4_0= ruleOptionalModalPropertyValue ) ) (otherlv_5= Comma ( (lv_ownedValue_6_0= ruleOptionalModalPropertyValue ) ) )* ) ( ruleAppliesToKeywords ( (lv_appliesTo_8_0= ruleContainmentPath ) ) (otherlv_9= Comma ( (lv_appliesTo_10_0= ruleContainmentPath ) ) )* )? ( ruleInBindingKeywords otherlv_12= LeftParenthesis ( ( ruleQCREF ) ) otherlv_14= RightParenthesis )? otherlv_15= Semicolon ) ;
     public final EObject ruleContainedPropertyAssociation() throws RecognitionException {
         EObject current = null;
 
@@ -21495,37 +21498,33 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
         Token lv_append_2_0=null;
         Token lv_constant_3_0=null;
         Token otherlv_5=null;
-        Token otherlv_7=null;
-        Token otherlv_8=null;
-        Token otherlv_10=null;
+        Token otherlv_9=null;
         Token otherlv_12=null;
-        Token otherlv_13=null;
         Token otherlv_14=null;
-        Token otherlv_16=null;
-        Token otherlv_17=null;
+        Token otherlv_15=null;
         EObject lv_ownedValue_4_0 = null;
 
         EObject lv_ownedValue_6_0 = null;
 
-        EObject lv_appliesTo_9_0 = null;
+        EObject lv_appliesTo_8_0 = null;
 
-        EObject lv_appliesTo_11_0 = null;
+        EObject lv_appliesTo_10_0 = null;
 
 
          enterRule(); 
             
         try {
-            // InternalErrorModelParser.g:8574:28: ( ( ( ( ruleQPREF ) ) (otherlv_1= EqualsSignGreaterThanSign | ( (lv_append_2_0= PlusSignEqualsSignGreaterThanSign ) ) ) ( (lv_constant_3_0= Constant ) )? ( ( (lv_ownedValue_4_0= ruleOptionalModalPropertyValue ) ) (otherlv_5= Comma ( (lv_ownedValue_6_0= ruleOptionalModalPropertyValue ) ) )* ) (otherlv_7= Applies otherlv_8= To ( (lv_appliesTo_9_0= ruleContainmentPath ) ) (otherlv_10= Comma ( (lv_appliesTo_11_0= ruleContainmentPath ) ) )* )? (otherlv_12= In otherlv_13= Binding otherlv_14= LeftParenthesis ( ( ruleQCREF ) ) otherlv_16= RightParenthesis )? otherlv_17= Semicolon ) )
-            // InternalErrorModelParser.g:8575:1: ( ( ( ruleQPREF ) ) (otherlv_1= EqualsSignGreaterThanSign | ( (lv_append_2_0= PlusSignEqualsSignGreaterThanSign ) ) ) ( (lv_constant_3_0= Constant ) )? ( ( (lv_ownedValue_4_0= ruleOptionalModalPropertyValue ) ) (otherlv_5= Comma ( (lv_ownedValue_6_0= ruleOptionalModalPropertyValue ) ) )* ) (otherlv_7= Applies otherlv_8= To ( (lv_appliesTo_9_0= ruleContainmentPath ) ) (otherlv_10= Comma ( (lv_appliesTo_11_0= ruleContainmentPath ) ) )* )? (otherlv_12= In otherlv_13= Binding otherlv_14= LeftParenthesis ( ( ruleQCREF ) ) otherlv_16= RightParenthesis )? otherlv_17= Semicolon )
+            // InternalErrorModelParser.g:8568:28: ( ( ( ( ruleQPREF ) ) (otherlv_1= EqualsSignGreaterThanSign | ( (lv_append_2_0= PlusSignEqualsSignGreaterThanSign ) ) ) ( (lv_constant_3_0= Constant ) )? ( ( (lv_ownedValue_4_0= ruleOptionalModalPropertyValue ) ) (otherlv_5= Comma ( (lv_ownedValue_6_0= ruleOptionalModalPropertyValue ) ) )* ) ( ruleAppliesToKeywords ( (lv_appliesTo_8_0= ruleContainmentPath ) ) (otherlv_9= Comma ( (lv_appliesTo_10_0= ruleContainmentPath ) ) )* )? ( ruleInBindingKeywords otherlv_12= LeftParenthesis ( ( ruleQCREF ) ) otherlv_14= RightParenthesis )? otherlv_15= Semicolon ) )
+            // InternalErrorModelParser.g:8569:1: ( ( ( ruleQPREF ) ) (otherlv_1= EqualsSignGreaterThanSign | ( (lv_append_2_0= PlusSignEqualsSignGreaterThanSign ) ) ) ( (lv_constant_3_0= Constant ) )? ( ( (lv_ownedValue_4_0= ruleOptionalModalPropertyValue ) ) (otherlv_5= Comma ( (lv_ownedValue_6_0= ruleOptionalModalPropertyValue ) ) )* ) ( ruleAppliesToKeywords ( (lv_appliesTo_8_0= ruleContainmentPath ) ) (otherlv_9= Comma ( (lv_appliesTo_10_0= ruleContainmentPath ) ) )* )? ( ruleInBindingKeywords otherlv_12= LeftParenthesis ( ( ruleQCREF ) ) otherlv_14= RightParenthesis )? otherlv_15= Semicolon )
             {
-            // InternalErrorModelParser.g:8575:1: ( ( ( ruleQPREF ) ) (otherlv_1= EqualsSignGreaterThanSign | ( (lv_append_2_0= PlusSignEqualsSignGreaterThanSign ) ) ) ( (lv_constant_3_0= Constant ) )? ( ( (lv_ownedValue_4_0= ruleOptionalModalPropertyValue ) ) (otherlv_5= Comma ( (lv_ownedValue_6_0= ruleOptionalModalPropertyValue ) ) )* ) (otherlv_7= Applies otherlv_8= To ( (lv_appliesTo_9_0= ruleContainmentPath ) ) (otherlv_10= Comma ( (lv_appliesTo_11_0= ruleContainmentPath ) ) )* )? (otherlv_12= In otherlv_13= Binding otherlv_14= LeftParenthesis ( ( ruleQCREF ) ) otherlv_16= RightParenthesis )? otherlv_17= Semicolon )
-            // InternalErrorModelParser.g:8575:2: ( ( ruleQPREF ) ) (otherlv_1= EqualsSignGreaterThanSign | ( (lv_append_2_0= PlusSignEqualsSignGreaterThanSign ) ) ) ( (lv_constant_3_0= Constant ) )? ( ( (lv_ownedValue_4_0= ruleOptionalModalPropertyValue ) ) (otherlv_5= Comma ( (lv_ownedValue_6_0= ruleOptionalModalPropertyValue ) ) )* ) (otherlv_7= Applies otherlv_8= To ( (lv_appliesTo_9_0= ruleContainmentPath ) ) (otherlv_10= Comma ( (lv_appliesTo_11_0= ruleContainmentPath ) ) )* )? (otherlv_12= In otherlv_13= Binding otherlv_14= LeftParenthesis ( ( ruleQCREF ) ) otherlv_16= RightParenthesis )? otherlv_17= Semicolon
+            // InternalErrorModelParser.g:8569:1: ( ( ( ruleQPREF ) ) (otherlv_1= EqualsSignGreaterThanSign | ( (lv_append_2_0= PlusSignEqualsSignGreaterThanSign ) ) ) ( (lv_constant_3_0= Constant ) )? ( ( (lv_ownedValue_4_0= ruleOptionalModalPropertyValue ) ) (otherlv_5= Comma ( (lv_ownedValue_6_0= ruleOptionalModalPropertyValue ) ) )* ) ( ruleAppliesToKeywords ( (lv_appliesTo_8_0= ruleContainmentPath ) ) (otherlv_9= Comma ( (lv_appliesTo_10_0= ruleContainmentPath ) ) )* )? ( ruleInBindingKeywords otherlv_12= LeftParenthesis ( ( ruleQCREF ) ) otherlv_14= RightParenthesis )? otherlv_15= Semicolon )
+            // InternalErrorModelParser.g:8569:2: ( ( ruleQPREF ) ) (otherlv_1= EqualsSignGreaterThanSign | ( (lv_append_2_0= PlusSignEqualsSignGreaterThanSign ) ) ) ( (lv_constant_3_0= Constant ) )? ( ( (lv_ownedValue_4_0= ruleOptionalModalPropertyValue ) ) (otherlv_5= Comma ( (lv_ownedValue_6_0= ruleOptionalModalPropertyValue ) ) )* ) ( ruleAppliesToKeywords ( (lv_appliesTo_8_0= ruleContainmentPath ) ) (otherlv_9= Comma ( (lv_appliesTo_10_0= ruleContainmentPath ) ) )* )? ( ruleInBindingKeywords otherlv_12= LeftParenthesis ( ( ruleQCREF ) ) otherlv_14= RightParenthesis )? otherlv_15= Semicolon
             {
-            // InternalErrorModelParser.g:8575:2: ( ( ruleQPREF ) )
-            // InternalErrorModelParser.g:8576:1: ( ruleQPREF )
+            // InternalErrorModelParser.g:8569:2: ( ( ruleQPREF ) )
+            // InternalErrorModelParser.g:8570:1: ( ruleQPREF )
             {
-            // InternalErrorModelParser.g:8576:1: ( ruleQPREF )
-            // InternalErrorModelParser.g:8577:3: ruleQPREF
+            // InternalErrorModelParser.g:8570:1: ( ruleQPREF )
+            // InternalErrorModelParser.g:8571:3: ruleQPREF
             {
 
             			if (current==null) {
@@ -21535,7 +21534,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
              
             	        newCompositeNode(grammarAccess.getContainedPropertyAssociationAccess().getPropertyPropertyCrossReference_0_0()); 
             	    
-            pushFollow(FOLLOW_146);
+            pushFollow(FOLLOW_143);
             ruleQPREF();
 
             state._fsp--;
@@ -21549,7 +21548,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
             }
 
-            // InternalErrorModelParser.g:8591:2: (otherlv_1= EqualsSignGreaterThanSign | ( (lv_append_2_0= PlusSignEqualsSignGreaterThanSign ) ) )
+            // InternalErrorModelParser.g:8585:2: (otherlv_1= EqualsSignGreaterThanSign | ( (lv_append_2_0= PlusSignEqualsSignGreaterThanSign ) ) )
             int alt225=2;
             int LA225_0 = input.LA(1);
 
@@ -21567,9 +21566,9 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
             }
             switch (alt225) {
                 case 1 :
-                    // InternalErrorModelParser.g:8592:2: otherlv_1= EqualsSignGreaterThanSign
+                    // InternalErrorModelParser.g:8586:2: otherlv_1= EqualsSignGreaterThanSign
                     {
-                    otherlv_1=(Token)match(input,EqualsSignGreaterThanSign,FOLLOW_147); 
+                    otherlv_1=(Token)match(input,EqualsSignGreaterThanSign,FOLLOW_144); 
 
                         	newLeafNode(otherlv_1, grammarAccess.getContainedPropertyAssociationAccess().getEqualsSignGreaterThanSignKeyword_1_0());
                         
@@ -21577,15 +21576,15 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 2 :
-                    // InternalErrorModelParser.g:8597:6: ( (lv_append_2_0= PlusSignEqualsSignGreaterThanSign ) )
+                    // InternalErrorModelParser.g:8591:6: ( (lv_append_2_0= PlusSignEqualsSignGreaterThanSign ) )
                     {
-                    // InternalErrorModelParser.g:8597:6: ( (lv_append_2_0= PlusSignEqualsSignGreaterThanSign ) )
-                    // InternalErrorModelParser.g:8598:1: (lv_append_2_0= PlusSignEqualsSignGreaterThanSign )
+                    // InternalErrorModelParser.g:8591:6: ( (lv_append_2_0= PlusSignEqualsSignGreaterThanSign ) )
+                    // InternalErrorModelParser.g:8592:1: (lv_append_2_0= PlusSignEqualsSignGreaterThanSign )
                     {
-                    // InternalErrorModelParser.g:8598:1: (lv_append_2_0= PlusSignEqualsSignGreaterThanSign )
-                    // InternalErrorModelParser.g:8599:3: lv_append_2_0= PlusSignEqualsSignGreaterThanSign
+                    // InternalErrorModelParser.g:8592:1: (lv_append_2_0= PlusSignEqualsSignGreaterThanSign )
+                    // InternalErrorModelParser.g:8593:3: lv_append_2_0= PlusSignEqualsSignGreaterThanSign
                     {
-                    lv_append_2_0=(Token)match(input,PlusSignEqualsSignGreaterThanSign,FOLLOW_147); 
+                    lv_append_2_0=(Token)match(input,PlusSignEqualsSignGreaterThanSign,FOLLOW_144); 
 
                             newLeafNode(lv_append_2_0, grammarAccess.getContainedPropertyAssociationAccess().getAppendPlusSignEqualsSignGreaterThanSignKeyword_1_1_0());
                         
@@ -21607,7 +21606,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
             }
 
-            // InternalErrorModelParser.g:8613:3: ( (lv_constant_3_0= Constant ) )?
+            // InternalErrorModelParser.g:8607:3: ( (lv_constant_3_0= Constant ) )?
             int alt226=2;
             int LA226_0 = input.LA(1);
 
@@ -21616,10 +21615,10 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
             }
             switch (alt226) {
                 case 1 :
-                    // InternalErrorModelParser.g:8614:1: (lv_constant_3_0= Constant )
+                    // InternalErrorModelParser.g:8608:1: (lv_constant_3_0= Constant )
                     {
-                    // InternalErrorModelParser.g:8614:1: (lv_constant_3_0= Constant )
-                    // InternalErrorModelParser.g:8615:3: lv_constant_3_0= Constant
+                    // InternalErrorModelParser.g:8608:1: (lv_constant_3_0= Constant )
+                    // InternalErrorModelParser.g:8609:3: lv_constant_3_0= Constant
                     {
                     lv_constant_3_0=(Token)match(input,Constant,FOLLOW_61); 
 
@@ -21640,19 +21639,19 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
             }
 
-            // InternalErrorModelParser.g:8629:3: ( ( (lv_ownedValue_4_0= ruleOptionalModalPropertyValue ) ) (otherlv_5= Comma ( (lv_ownedValue_6_0= ruleOptionalModalPropertyValue ) ) )* )
-            // InternalErrorModelParser.g:8629:4: ( (lv_ownedValue_4_0= ruleOptionalModalPropertyValue ) ) (otherlv_5= Comma ( (lv_ownedValue_6_0= ruleOptionalModalPropertyValue ) ) )*
+            // InternalErrorModelParser.g:8623:3: ( ( (lv_ownedValue_4_0= ruleOptionalModalPropertyValue ) ) (otherlv_5= Comma ( (lv_ownedValue_6_0= ruleOptionalModalPropertyValue ) ) )* )
+            // InternalErrorModelParser.g:8623:4: ( (lv_ownedValue_4_0= ruleOptionalModalPropertyValue ) ) (otherlv_5= Comma ( (lv_ownedValue_6_0= ruleOptionalModalPropertyValue ) ) )*
             {
-            // InternalErrorModelParser.g:8629:4: ( (lv_ownedValue_4_0= ruleOptionalModalPropertyValue ) )
-            // InternalErrorModelParser.g:8630:1: (lv_ownedValue_4_0= ruleOptionalModalPropertyValue )
+            // InternalErrorModelParser.g:8623:4: ( (lv_ownedValue_4_0= ruleOptionalModalPropertyValue ) )
+            // InternalErrorModelParser.g:8624:1: (lv_ownedValue_4_0= ruleOptionalModalPropertyValue )
             {
-            // InternalErrorModelParser.g:8630:1: (lv_ownedValue_4_0= ruleOptionalModalPropertyValue )
-            // InternalErrorModelParser.g:8631:3: lv_ownedValue_4_0= ruleOptionalModalPropertyValue
+            // InternalErrorModelParser.g:8624:1: (lv_ownedValue_4_0= ruleOptionalModalPropertyValue )
+            // InternalErrorModelParser.g:8625:3: lv_ownedValue_4_0= ruleOptionalModalPropertyValue
             {
              
             	        newCompositeNode(grammarAccess.getContainedPropertyAssociationAccess().getOwnedValueOptionalModalPropertyValueParserRuleCall_3_0_0()); 
             	    
-            pushFollow(FOLLOW_148);
+            pushFollow(FOLLOW_145);
             lv_ownedValue_4_0=ruleOptionalModalPropertyValue();
 
             state._fsp--;
@@ -21674,7 +21673,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
             }
 
-            // InternalErrorModelParser.g:8647:2: (otherlv_5= Comma ( (lv_ownedValue_6_0= ruleOptionalModalPropertyValue ) ) )*
+            // InternalErrorModelParser.g:8641:2: (otherlv_5= Comma ( (lv_ownedValue_6_0= ruleOptionalModalPropertyValue ) ) )*
             loop227:
             do {
                 int alt227=2;
@@ -21687,22 +21686,22 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
                 switch (alt227) {
             	case 1 :
-            	    // InternalErrorModelParser.g:8648:2: otherlv_5= Comma ( (lv_ownedValue_6_0= ruleOptionalModalPropertyValue ) )
+            	    // InternalErrorModelParser.g:8642:2: otherlv_5= Comma ( (lv_ownedValue_6_0= ruleOptionalModalPropertyValue ) )
             	    {
             	    otherlv_5=(Token)match(input,Comma,FOLLOW_61); 
 
             	        	newLeafNode(otherlv_5, grammarAccess.getContainedPropertyAssociationAccess().getCommaKeyword_3_1_0());
             	        
-            	    // InternalErrorModelParser.g:8652:1: ( (lv_ownedValue_6_0= ruleOptionalModalPropertyValue ) )
-            	    // InternalErrorModelParser.g:8653:1: (lv_ownedValue_6_0= ruleOptionalModalPropertyValue )
+            	    // InternalErrorModelParser.g:8646:1: ( (lv_ownedValue_6_0= ruleOptionalModalPropertyValue ) )
+            	    // InternalErrorModelParser.g:8647:1: (lv_ownedValue_6_0= ruleOptionalModalPropertyValue )
             	    {
-            	    // InternalErrorModelParser.g:8653:1: (lv_ownedValue_6_0= ruleOptionalModalPropertyValue )
-            	    // InternalErrorModelParser.g:8654:3: lv_ownedValue_6_0= ruleOptionalModalPropertyValue
+            	    // InternalErrorModelParser.g:8647:1: (lv_ownedValue_6_0= ruleOptionalModalPropertyValue )
+            	    // InternalErrorModelParser.g:8648:3: lv_ownedValue_6_0= ruleOptionalModalPropertyValue
             	    {
             	     
             	    	        newCompositeNode(grammarAccess.getContainedPropertyAssociationAccess().getOwnedValueOptionalModalPropertyValueParserRuleCall_3_1_1_0()); 
             	    	    
-            	    pushFollow(FOLLOW_148);
+            	    pushFollow(FOLLOW_145);
             	    lv_ownedValue_6_0=ruleOptionalModalPropertyValue();
 
             	    state._fsp--;
@@ -21736,7 +21735,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
             }
 
-            // InternalErrorModelParser.g:8670:5: (otherlv_7= Applies otherlv_8= To ( (lv_appliesTo_9_0= ruleContainmentPath ) ) (otherlv_10= Comma ( (lv_appliesTo_11_0= ruleContainmentPath ) ) )* )?
+            // InternalErrorModelParser.g:8664:5: ( ruleAppliesToKeywords ( (lv_appliesTo_8_0= ruleContainmentPath ) ) (otherlv_9= Comma ( (lv_appliesTo_10_0= ruleContainmentPath ) ) )* )?
             int alt229=2;
             int LA229_0 = input.LA(1);
 
@@ -21745,27 +21744,30 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
             }
             switch (alt229) {
                 case 1 :
-                    // InternalErrorModelParser.g:8671:2: otherlv_7= Applies otherlv_8= To ( (lv_appliesTo_9_0= ruleContainmentPath ) ) (otherlv_10= Comma ( (lv_appliesTo_11_0= ruleContainmentPath ) ) )*
-                    {
-                    otherlv_7=(Token)match(input,Applies,FOLLOW_63); 
-
-                        	newLeafNode(otherlv_7, grammarAccess.getContainedPropertyAssociationAccess().getAppliesKeyword_4_0());
-                        
-                    otherlv_8=(Token)match(input,To,FOLLOW_5); 
-
-                        	newLeafNode(otherlv_8, grammarAccess.getContainedPropertyAssociationAccess().getToKeyword_4_1());
-                        
-                    // InternalErrorModelParser.g:8680:1: ( (lv_appliesTo_9_0= ruleContainmentPath ) )
-                    // InternalErrorModelParser.g:8681:1: (lv_appliesTo_9_0= ruleContainmentPath )
-                    {
-                    // InternalErrorModelParser.g:8681:1: (lv_appliesTo_9_0= ruleContainmentPath )
-                    // InternalErrorModelParser.g:8682:3: lv_appliesTo_9_0= ruleContainmentPath
+                    // InternalErrorModelParser.g:8665:5: ruleAppliesToKeywords ( (lv_appliesTo_8_0= ruleContainmentPath ) ) (otherlv_9= Comma ( (lv_appliesTo_10_0= ruleContainmentPath ) ) )*
                     {
                      
-                    	        newCompositeNode(grammarAccess.getContainedPropertyAssociationAccess().getAppliesToContainmentPathParserRuleCall_4_2_0()); 
+                            newCompositeNode(grammarAccess.getContainedPropertyAssociationAccess().getAppliesToKeywordsParserRuleCall_4_0()); 
+                        
+                    pushFollow(FOLLOW_5);
+                    ruleAppliesToKeywords();
+
+                    state._fsp--;
+
+
+                            afterParserOrEnumRuleCall();
+                        
+                    // InternalErrorModelParser.g:8672:1: ( (lv_appliesTo_8_0= ruleContainmentPath ) )
+                    // InternalErrorModelParser.g:8673:1: (lv_appliesTo_8_0= ruleContainmentPath )
+                    {
+                    // InternalErrorModelParser.g:8673:1: (lv_appliesTo_8_0= ruleContainmentPath )
+                    // InternalErrorModelParser.g:8674:3: lv_appliesTo_8_0= ruleContainmentPath
+                    {
+                     
+                    	        newCompositeNode(grammarAccess.getContainedPropertyAssociationAccess().getAppliesToContainmentPathParserRuleCall_4_1_0()); 
                     	    
-                    pushFollow(FOLLOW_149);
-                    lv_appliesTo_9_0=ruleContainmentPath();
+                    pushFollow(FOLLOW_146);
+                    lv_appliesTo_8_0=ruleContainmentPath();
 
                     state._fsp--;
 
@@ -21776,7 +21778,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
                            		add(
                            			current, 
                            			"appliesTo",
-                            		lv_appliesTo_9_0, 
+                            		lv_appliesTo_8_0, 
                             		"org.osate.xtext.aadl2.properties.Properties.ContainmentPath");
                     	        afterParserOrEnumRuleCall();
                     	    
@@ -21786,7 +21788,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
                     }
 
-                    // InternalErrorModelParser.g:8698:2: (otherlv_10= Comma ( (lv_appliesTo_11_0= ruleContainmentPath ) ) )*
+                    // InternalErrorModelParser.g:8690:2: (otherlv_9= Comma ( (lv_appliesTo_10_0= ruleContainmentPath ) ) )*
                     loop228:
                     do {
                         int alt228=2;
@@ -21799,23 +21801,23 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
                         switch (alt228) {
                     	case 1 :
-                    	    // InternalErrorModelParser.g:8699:2: otherlv_10= Comma ( (lv_appliesTo_11_0= ruleContainmentPath ) )
+                    	    // InternalErrorModelParser.g:8691:2: otherlv_9= Comma ( (lv_appliesTo_10_0= ruleContainmentPath ) )
                     	    {
-                    	    otherlv_10=(Token)match(input,Comma,FOLLOW_5); 
+                    	    otherlv_9=(Token)match(input,Comma,FOLLOW_5); 
 
-                    	        	newLeafNode(otherlv_10, grammarAccess.getContainedPropertyAssociationAccess().getCommaKeyword_4_3_0());
+                    	        	newLeafNode(otherlv_9, grammarAccess.getContainedPropertyAssociationAccess().getCommaKeyword_4_2_0());
                     	        
-                    	    // InternalErrorModelParser.g:8703:1: ( (lv_appliesTo_11_0= ruleContainmentPath ) )
-                    	    // InternalErrorModelParser.g:8704:1: (lv_appliesTo_11_0= ruleContainmentPath )
+                    	    // InternalErrorModelParser.g:8695:1: ( (lv_appliesTo_10_0= ruleContainmentPath ) )
+                    	    // InternalErrorModelParser.g:8696:1: (lv_appliesTo_10_0= ruleContainmentPath )
                     	    {
-                    	    // InternalErrorModelParser.g:8704:1: (lv_appliesTo_11_0= ruleContainmentPath )
-                    	    // InternalErrorModelParser.g:8705:3: lv_appliesTo_11_0= ruleContainmentPath
+                    	    // InternalErrorModelParser.g:8696:1: (lv_appliesTo_10_0= ruleContainmentPath )
+                    	    // InternalErrorModelParser.g:8697:3: lv_appliesTo_10_0= ruleContainmentPath
                     	    {
                     	     
-                    	    	        newCompositeNode(grammarAccess.getContainedPropertyAssociationAccess().getAppliesToContainmentPathParserRuleCall_4_3_1_0()); 
+                    	    	        newCompositeNode(grammarAccess.getContainedPropertyAssociationAccess().getAppliesToContainmentPathParserRuleCall_4_2_1_0()); 
                     	    	    
-                    	    pushFollow(FOLLOW_149);
-                    	    lv_appliesTo_11_0=ruleContainmentPath();
+                    	    pushFollow(FOLLOW_146);
+                    	    lv_appliesTo_10_0=ruleContainmentPath();
 
                     	    state._fsp--;
 
@@ -21826,7 +21828,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
                     	           		add(
                     	           			current, 
                     	           			"appliesTo",
-                    	            		lv_appliesTo_11_0, 
+                    	            		lv_appliesTo_10_0, 
                     	            		"org.osate.xtext.aadl2.properties.Properties.ContainmentPath");
                     	    	        afterParserOrEnumRuleCall();
                     	    	    
@@ -21851,7 +21853,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
             }
 
-            // InternalErrorModelParser.g:8721:6: (otherlv_12= In otherlv_13= Binding otherlv_14= LeftParenthesis ( ( ruleQCREF ) ) otherlv_16= RightParenthesis )?
+            // InternalErrorModelParser.g:8713:6: ( ruleInBindingKeywords otherlv_12= LeftParenthesis ( ( ruleQCREF ) ) otherlv_14= RightParenthesis )?
             int alt230=2;
             int LA230_0 = input.LA(1);
 
@@ -21860,25 +21862,28 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
             }
             switch (alt230) {
                 case 1 :
-                    // InternalErrorModelParser.g:8722:2: otherlv_12= In otherlv_13= Binding otherlv_14= LeftParenthesis ( ( ruleQCREF ) ) otherlv_16= RightParenthesis
+                    // InternalErrorModelParser.g:8714:5: ruleInBindingKeywords otherlv_12= LeftParenthesis ( ( ruleQCREF ) ) otherlv_14= RightParenthesis
                     {
-                    otherlv_12=(Token)match(input,In,FOLLOW_150); 
-
-                        	newLeafNode(otherlv_12, grammarAccess.getContainedPropertyAssociationAccess().getInKeyword_5_0());
+                     
+                            newCompositeNode(grammarAccess.getContainedPropertyAssociationAccess().getInBindingKeywordsParserRuleCall_5_0()); 
                         
-                    otherlv_13=(Token)match(input,Binding,FOLLOW_128); 
+                    pushFollow(FOLLOW_127);
+                    ruleInBindingKeywords();
 
-                        	newLeafNode(otherlv_13, grammarAccess.getContainedPropertyAssociationAccess().getBindingKeyword_5_1());
-                        
-                    otherlv_14=(Token)match(input,LeftParenthesis,FOLLOW_5); 
+                    state._fsp--;
 
-                        	newLeafNode(otherlv_14, grammarAccess.getContainedPropertyAssociationAccess().getLeftParenthesisKeyword_5_2());
+
+                            afterParserOrEnumRuleCall();
                         
-                    // InternalErrorModelParser.g:8736:1: ( ( ruleQCREF ) )
-                    // InternalErrorModelParser.g:8737:1: ( ruleQCREF )
+                    otherlv_12=(Token)match(input,LeftParenthesis,FOLLOW_5); 
+
+                        	newLeafNode(otherlv_12, grammarAccess.getContainedPropertyAssociationAccess().getLeftParenthesisKeyword_5_1());
+                        
+                    // InternalErrorModelParser.g:8726:1: ( ( ruleQCREF ) )
+                    // InternalErrorModelParser.g:8727:1: ( ruleQCREF )
                     {
-                    // InternalErrorModelParser.g:8737:1: ( ruleQCREF )
-                    // InternalErrorModelParser.g:8738:3: ruleQCREF
+                    // InternalErrorModelParser.g:8727:1: ( ruleQCREF )
+                    // InternalErrorModelParser.g:8728:3: ruleQCREF
                     {
 
                     			if (current==null) {
@@ -21886,9 +21891,9 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
                     	        }
                             
                      
-                    	        newCompositeNode(grammarAccess.getContainedPropertyAssociationAccess().getInBindingClassifierCrossReference_5_3_0()); 
+                    	        newCompositeNode(grammarAccess.getContainedPropertyAssociationAccess().getInBindingClassifierCrossReference_5_2_0()); 
                     	    
-                    pushFollow(FOLLOW_131);
+                    pushFollow(FOLLOW_130);
                     ruleQCREF();
 
                     state._fsp--;
@@ -21902,9 +21907,9 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
                     }
 
-                    otherlv_16=(Token)match(input,RightParenthesis,FOLLOW_10); 
+                    otherlv_14=(Token)match(input,RightParenthesis,FOLLOW_10); 
 
-                        	newLeafNode(otherlv_16, grammarAccess.getContainedPropertyAssociationAccess().getRightParenthesisKeyword_5_4());
+                        	newLeafNode(otherlv_14, grammarAccess.getContainedPropertyAssociationAccess().getRightParenthesisKeyword_5_3());
                         
 
                     }
@@ -21912,9 +21917,9 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
             }
 
-            otherlv_17=(Token)match(input,Semicolon,FOLLOW_2); 
+            otherlv_15=(Token)match(input,Semicolon,FOLLOW_2); 
 
-                	newLeafNode(otherlv_17, grammarAccess.getContainedPropertyAssociationAccess().getSemicolonKeyword_6());
+                	newLeafNode(otherlv_15, grammarAccess.getContainedPropertyAssociationAccess().getSemicolonKeyword_6());
                 
 
             }
@@ -21937,7 +21942,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleContainmentPath"
-    // InternalErrorModelParser.g:8774:1: entryRuleContainmentPath returns [EObject current=null] : iv_ruleContainmentPath= ruleContainmentPath EOF ;
+    // InternalErrorModelParser.g:8764:1: entryRuleContainmentPath returns [EObject current=null] : iv_ruleContainmentPath= ruleContainmentPath EOF ;
     public final EObject entryRuleContainmentPath() throws RecognitionException {
         EObject current = null;
 
@@ -21945,8 +21950,8 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // InternalErrorModelParser.g:8775:2: (iv_ruleContainmentPath= ruleContainmentPath EOF )
-            // InternalErrorModelParser.g:8776:2: iv_ruleContainmentPath= ruleContainmentPath EOF
+            // InternalErrorModelParser.g:8765:2: (iv_ruleContainmentPath= ruleContainmentPath EOF )
+            // InternalErrorModelParser.g:8766:2: iv_ruleContainmentPath= ruleContainmentPath EOF
             {
              newCompositeNode(grammarAccess.getContainmentPathRule()); 
             pushFollow(FOLLOW_1);
@@ -21973,7 +21978,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleContainmentPath"
-    // InternalErrorModelParser.g:8783:1: ruleContainmentPath returns [EObject current=null] : ( (lv_path_0_0= ruleContainmentPathElement ) ) ;
+    // InternalErrorModelParser.g:8773:1: ruleContainmentPath returns [EObject current=null] : ( (lv_path_0_0= ruleContainmentPathElement ) ) ;
     public final EObject ruleContainmentPath() throws RecognitionException {
         EObject current = null;
 
@@ -21983,14 +21988,14 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // InternalErrorModelParser.g:8786:28: ( ( (lv_path_0_0= ruleContainmentPathElement ) ) )
-            // InternalErrorModelParser.g:8787:1: ( (lv_path_0_0= ruleContainmentPathElement ) )
+            // InternalErrorModelParser.g:8776:28: ( ( (lv_path_0_0= ruleContainmentPathElement ) ) )
+            // InternalErrorModelParser.g:8777:1: ( (lv_path_0_0= ruleContainmentPathElement ) )
             {
-            // InternalErrorModelParser.g:8787:1: ( (lv_path_0_0= ruleContainmentPathElement ) )
-            // InternalErrorModelParser.g:8788:1: (lv_path_0_0= ruleContainmentPathElement )
+            // InternalErrorModelParser.g:8777:1: ( (lv_path_0_0= ruleContainmentPathElement ) )
+            // InternalErrorModelParser.g:8778:1: (lv_path_0_0= ruleContainmentPathElement )
             {
-            // InternalErrorModelParser.g:8788:1: (lv_path_0_0= ruleContainmentPathElement )
-            // InternalErrorModelParser.g:8789:3: lv_path_0_0= ruleContainmentPathElement
+            // InternalErrorModelParser.g:8778:1: (lv_path_0_0= ruleContainmentPathElement )
+            // InternalErrorModelParser.g:8779:3: lv_path_0_0= ruleContainmentPathElement
             {
              
             	        newCompositeNode(grammarAccess.getContainmentPathAccess().getPathContainmentPathElementParserRuleCall_0()); 
@@ -22035,7 +22040,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleOptionalModalPropertyValue"
-    // InternalErrorModelParser.g:8815:1: entryRuleOptionalModalPropertyValue returns [EObject current=null] : iv_ruleOptionalModalPropertyValue= ruleOptionalModalPropertyValue EOF ;
+    // InternalErrorModelParser.g:8805:1: entryRuleOptionalModalPropertyValue returns [EObject current=null] : iv_ruleOptionalModalPropertyValue= ruleOptionalModalPropertyValue EOF ;
     public final EObject entryRuleOptionalModalPropertyValue() throws RecognitionException {
         EObject current = null;
 
@@ -22043,8 +22048,8 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // InternalErrorModelParser.g:8816:2: (iv_ruleOptionalModalPropertyValue= ruleOptionalModalPropertyValue EOF )
-            // InternalErrorModelParser.g:8817:2: iv_ruleOptionalModalPropertyValue= ruleOptionalModalPropertyValue EOF
+            // InternalErrorModelParser.g:8806:2: (iv_ruleOptionalModalPropertyValue= ruleOptionalModalPropertyValue EOF )
+            // InternalErrorModelParser.g:8807:2: iv_ruleOptionalModalPropertyValue= ruleOptionalModalPropertyValue EOF
             {
              newCompositeNode(grammarAccess.getOptionalModalPropertyValueRule()); 
             pushFollow(FOLLOW_1);
@@ -22071,39 +22076,37 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleOptionalModalPropertyValue"
-    // InternalErrorModelParser.g:8824:1: ruleOptionalModalPropertyValue returns [EObject current=null] : ( ( (lv_ownedValue_0_0= rulePropertyExpression ) ) (otherlv_1= In otherlv_2= Modes otherlv_3= LeftParenthesis ( (otherlv_4= RULE_ID ) ) (otherlv_5= Comma ( (otherlv_6= RULE_ID ) ) )* otherlv_7= RightParenthesis )? ) ;
+    // InternalErrorModelParser.g:8814:1: ruleOptionalModalPropertyValue returns [EObject current=null] : ( ( (lv_ownedValue_0_0= rulePropertyExpression ) ) ( ruleInModesKeywords otherlv_2= LeftParenthesis ( (otherlv_3= RULE_ID ) ) (otherlv_4= Comma ( (otherlv_5= RULE_ID ) ) )* otherlv_6= RightParenthesis )? ) ;
     public final EObject ruleOptionalModalPropertyValue() throws RecognitionException {
         EObject current = null;
 
-        Token otherlv_1=null;
         Token otherlv_2=null;
         Token otherlv_3=null;
         Token otherlv_4=null;
         Token otherlv_5=null;
         Token otherlv_6=null;
-        Token otherlv_7=null;
         EObject lv_ownedValue_0_0 = null;
 
 
          enterRule(); 
             
         try {
-            // InternalErrorModelParser.g:8827:28: ( ( ( (lv_ownedValue_0_0= rulePropertyExpression ) ) (otherlv_1= In otherlv_2= Modes otherlv_3= LeftParenthesis ( (otherlv_4= RULE_ID ) ) (otherlv_5= Comma ( (otherlv_6= RULE_ID ) ) )* otherlv_7= RightParenthesis )? ) )
-            // InternalErrorModelParser.g:8828:1: ( ( (lv_ownedValue_0_0= rulePropertyExpression ) ) (otherlv_1= In otherlv_2= Modes otherlv_3= LeftParenthesis ( (otherlv_4= RULE_ID ) ) (otherlv_5= Comma ( (otherlv_6= RULE_ID ) ) )* otherlv_7= RightParenthesis )? )
+            // InternalErrorModelParser.g:8817:28: ( ( ( (lv_ownedValue_0_0= rulePropertyExpression ) ) ( ruleInModesKeywords otherlv_2= LeftParenthesis ( (otherlv_3= RULE_ID ) ) (otherlv_4= Comma ( (otherlv_5= RULE_ID ) ) )* otherlv_6= RightParenthesis )? ) )
+            // InternalErrorModelParser.g:8818:1: ( ( (lv_ownedValue_0_0= rulePropertyExpression ) ) ( ruleInModesKeywords otherlv_2= LeftParenthesis ( (otherlv_3= RULE_ID ) ) (otherlv_4= Comma ( (otherlv_5= RULE_ID ) ) )* otherlv_6= RightParenthesis )? )
             {
-            // InternalErrorModelParser.g:8828:1: ( ( (lv_ownedValue_0_0= rulePropertyExpression ) ) (otherlv_1= In otherlv_2= Modes otherlv_3= LeftParenthesis ( (otherlv_4= RULE_ID ) ) (otherlv_5= Comma ( (otherlv_6= RULE_ID ) ) )* otherlv_7= RightParenthesis )? )
-            // InternalErrorModelParser.g:8828:2: ( (lv_ownedValue_0_0= rulePropertyExpression ) ) (otherlv_1= In otherlv_2= Modes otherlv_3= LeftParenthesis ( (otherlv_4= RULE_ID ) ) (otherlv_5= Comma ( (otherlv_6= RULE_ID ) ) )* otherlv_7= RightParenthesis )?
+            // InternalErrorModelParser.g:8818:1: ( ( (lv_ownedValue_0_0= rulePropertyExpression ) ) ( ruleInModesKeywords otherlv_2= LeftParenthesis ( (otherlv_3= RULE_ID ) ) (otherlv_4= Comma ( (otherlv_5= RULE_ID ) ) )* otherlv_6= RightParenthesis )? )
+            // InternalErrorModelParser.g:8818:2: ( (lv_ownedValue_0_0= rulePropertyExpression ) ) ( ruleInModesKeywords otherlv_2= LeftParenthesis ( (otherlv_3= RULE_ID ) ) (otherlv_4= Comma ( (otherlv_5= RULE_ID ) ) )* otherlv_6= RightParenthesis )?
             {
-            // InternalErrorModelParser.g:8828:2: ( (lv_ownedValue_0_0= rulePropertyExpression ) )
-            // InternalErrorModelParser.g:8829:1: (lv_ownedValue_0_0= rulePropertyExpression )
+            // InternalErrorModelParser.g:8818:2: ( (lv_ownedValue_0_0= rulePropertyExpression ) )
+            // InternalErrorModelParser.g:8819:1: (lv_ownedValue_0_0= rulePropertyExpression )
             {
-            // InternalErrorModelParser.g:8829:1: (lv_ownedValue_0_0= rulePropertyExpression )
-            // InternalErrorModelParser.g:8830:3: lv_ownedValue_0_0= rulePropertyExpression
+            // InternalErrorModelParser.g:8819:1: (lv_ownedValue_0_0= rulePropertyExpression )
+            // InternalErrorModelParser.g:8820:3: lv_ownedValue_0_0= rulePropertyExpression
             {
              
             	        newCompositeNode(grammarAccess.getOptionalModalPropertyValueAccess().getOwnedValuePropertyExpressionParserRuleCall_0_0()); 
             	    
-            pushFollow(FOLLOW_151);
+            pushFollow(FOLLOW_147);
             lv_ownedValue_0_0=rulePropertyExpression();
 
             state._fsp--;
@@ -22125,7 +22128,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
             }
 
-            // InternalErrorModelParser.g:8846:2: (otherlv_1= In otherlv_2= Modes otherlv_3= LeftParenthesis ( (otherlv_4= RULE_ID ) ) (otherlv_5= Comma ( (otherlv_6= RULE_ID ) ) )* otherlv_7= RightParenthesis )?
+            // InternalErrorModelParser.g:8836:2: ( ruleInModesKeywords otherlv_2= LeftParenthesis ( (otherlv_3= RULE_ID ) ) (otherlv_4= Comma ( (otherlv_5= RULE_ID ) ) )* otherlv_6= RightParenthesis )?
             int alt232=2;
             int LA232_0 = input.LA(1);
 
@@ -22138,34 +22141,37 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
             }
             switch (alt232) {
                 case 1 :
-                    // InternalErrorModelParser.g:8847:2: otherlv_1= In otherlv_2= Modes otherlv_3= LeftParenthesis ( (otherlv_4= RULE_ID ) ) (otherlv_5= Comma ( (otherlv_6= RULE_ID ) ) )* otherlv_7= RightParenthesis
+                    // InternalErrorModelParser.g:8837:5: ruleInModesKeywords otherlv_2= LeftParenthesis ( (otherlv_3= RULE_ID ) ) (otherlv_4= Comma ( (otherlv_5= RULE_ID ) ) )* otherlv_6= RightParenthesis
                     {
-                    otherlv_1=(Token)match(input,In,FOLLOW_139); 
-
-                        	newLeafNode(otherlv_1, grammarAccess.getOptionalModalPropertyValueAccess().getInKeyword_1_0());
+                     
+                            newCompositeNode(grammarAccess.getOptionalModalPropertyValueAccess().getInModesKeywordsParserRuleCall_1_0()); 
                         
-                    otherlv_2=(Token)match(input,Modes,FOLLOW_128); 
+                    pushFollow(FOLLOW_127);
+                    ruleInModesKeywords();
 
-                        	newLeafNode(otherlv_2, grammarAccess.getOptionalModalPropertyValueAccess().getModesKeyword_1_1());
-                        
-                    otherlv_3=(Token)match(input,LeftParenthesis,FOLLOW_5); 
+                    state._fsp--;
 
-                        	newLeafNode(otherlv_3, grammarAccess.getOptionalModalPropertyValueAccess().getLeftParenthesisKeyword_1_2());
+
+                            afterParserOrEnumRuleCall();
                         
-                    // InternalErrorModelParser.g:8861:1: ( (otherlv_4= RULE_ID ) )
-                    // InternalErrorModelParser.g:8862:1: (otherlv_4= RULE_ID )
+                    otherlv_2=(Token)match(input,LeftParenthesis,FOLLOW_5); 
+
+                        	newLeafNode(otherlv_2, grammarAccess.getOptionalModalPropertyValueAccess().getLeftParenthesisKeyword_1_1());
+                        
+                    // InternalErrorModelParser.g:8849:1: ( (otherlv_3= RULE_ID ) )
+                    // InternalErrorModelParser.g:8850:1: (otherlv_3= RULE_ID )
                     {
-                    // InternalErrorModelParser.g:8862:1: (otherlv_4= RULE_ID )
-                    // InternalErrorModelParser.g:8863:3: otherlv_4= RULE_ID
+                    // InternalErrorModelParser.g:8850:1: (otherlv_3= RULE_ID )
+                    // InternalErrorModelParser.g:8851:3: otherlv_3= RULE_ID
                     {
 
                     			if (current==null) {
                     	            current = createModelElement(grammarAccess.getOptionalModalPropertyValueRule());
                     	        }
                             
-                    otherlv_4=(Token)match(input,RULE_ID,FOLLOW_119); 
+                    otherlv_3=(Token)match(input,RULE_ID,FOLLOW_118); 
 
-                    		newLeafNode(otherlv_4, grammarAccess.getOptionalModalPropertyValueAccess().getInModeModeCrossReference_1_3_0()); 
+                    		newLeafNode(otherlv_3, grammarAccess.getOptionalModalPropertyValueAccess().getInModeModeCrossReference_1_2_0()); 
                     	
 
                     }
@@ -22173,7 +22179,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
                     }
 
-                    // InternalErrorModelParser.g:8874:2: (otherlv_5= Comma ( (otherlv_6= RULE_ID ) ) )*
+                    // InternalErrorModelParser.g:8862:2: (otherlv_4= Comma ( (otherlv_5= RULE_ID ) ) )*
                     loop231:
                     do {
                         int alt231=2;
@@ -22186,26 +22192,26 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
                         switch (alt231) {
                     	case 1 :
-                    	    // InternalErrorModelParser.g:8875:2: otherlv_5= Comma ( (otherlv_6= RULE_ID ) )
+                    	    // InternalErrorModelParser.g:8863:2: otherlv_4= Comma ( (otherlv_5= RULE_ID ) )
                     	    {
-                    	    otherlv_5=(Token)match(input,Comma,FOLLOW_5); 
+                    	    otherlv_4=(Token)match(input,Comma,FOLLOW_5); 
 
-                    	        	newLeafNode(otherlv_5, grammarAccess.getOptionalModalPropertyValueAccess().getCommaKeyword_1_4_0());
+                    	        	newLeafNode(otherlv_4, grammarAccess.getOptionalModalPropertyValueAccess().getCommaKeyword_1_3_0());
                     	        
-                    	    // InternalErrorModelParser.g:8879:1: ( (otherlv_6= RULE_ID ) )
-                    	    // InternalErrorModelParser.g:8880:1: (otherlv_6= RULE_ID )
+                    	    // InternalErrorModelParser.g:8867:1: ( (otherlv_5= RULE_ID ) )
+                    	    // InternalErrorModelParser.g:8868:1: (otherlv_5= RULE_ID )
                     	    {
-                    	    // InternalErrorModelParser.g:8880:1: (otherlv_6= RULE_ID )
-                    	    // InternalErrorModelParser.g:8881:3: otherlv_6= RULE_ID
+                    	    // InternalErrorModelParser.g:8868:1: (otherlv_5= RULE_ID )
+                    	    // InternalErrorModelParser.g:8869:3: otherlv_5= RULE_ID
                     	    {
 
                     	    			if (current==null) {
                     	    	            current = createModelElement(grammarAccess.getOptionalModalPropertyValueRule());
                     	    	        }
                     	            
-                    	    otherlv_6=(Token)match(input,RULE_ID,FOLLOW_119); 
+                    	    otherlv_5=(Token)match(input,RULE_ID,FOLLOW_118); 
 
-                    	    		newLeafNode(otherlv_6, grammarAccess.getOptionalModalPropertyValueAccess().getInModeModeCrossReference_1_4_1_0()); 
+                    	    		newLeafNode(otherlv_5, grammarAccess.getOptionalModalPropertyValueAccess().getInModeModeCrossReference_1_3_1_0()); 
                     	    	
 
                     	    }
@@ -22222,9 +22228,9 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
                         }
                     } while (true);
 
-                    otherlv_7=(Token)match(input,RightParenthesis,FOLLOW_2); 
+                    otherlv_6=(Token)match(input,RightParenthesis,FOLLOW_2); 
 
-                        	newLeafNode(otherlv_7, grammarAccess.getOptionalModalPropertyValueAccess().getRightParenthesisKeyword_1_5());
+                        	newLeafNode(otherlv_6, grammarAccess.getOptionalModalPropertyValueAccess().getRightParenthesisKeyword_1_4());
                         
 
                     }
@@ -22253,7 +22259,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRulePropertyValue"
-    // InternalErrorModelParser.g:8905:1: entryRulePropertyValue returns [EObject current=null] : iv_rulePropertyValue= rulePropertyValue EOF ;
+    // InternalErrorModelParser.g:8893:1: entryRulePropertyValue returns [EObject current=null] : iv_rulePropertyValue= rulePropertyValue EOF ;
     public final EObject entryRulePropertyValue() throws RecognitionException {
         EObject current = null;
 
@@ -22261,8 +22267,8 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // InternalErrorModelParser.g:8906:2: (iv_rulePropertyValue= rulePropertyValue EOF )
-            // InternalErrorModelParser.g:8907:2: iv_rulePropertyValue= rulePropertyValue EOF
+            // InternalErrorModelParser.g:8894:2: (iv_rulePropertyValue= rulePropertyValue EOF )
+            // InternalErrorModelParser.g:8895:2: iv_rulePropertyValue= rulePropertyValue EOF
             {
              newCompositeNode(grammarAccess.getPropertyValueRule()); 
             pushFollow(FOLLOW_1);
@@ -22289,7 +22295,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "rulePropertyValue"
-    // InternalErrorModelParser.g:8914:1: rulePropertyValue returns [EObject current=null] : ( (lv_ownedValue_0_0= rulePropertyExpression ) ) ;
+    // InternalErrorModelParser.g:8902:1: rulePropertyValue returns [EObject current=null] : ( (lv_ownedValue_0_0= rulePropertyExpression ) ) ;
     public final EObject rulePropertyValue() throws RecognitionException {
         EObject current = null;
 
@@ -22299,14 +22305,14 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // InternalErrorModelParser.g:8917:28: ( ( (lv_ownedValue_0_0= rulePropertyExpression ) ) )
-            // InternalErrorModelParser.g:8918:1: ( (lv_ownedValue_0_0= rulePropertyExpression ) )
+            // InternalErrorModelParser.g:8905:28: ( ( (lv_ownedValue_0_0= rulePropertyExpression ) ) )
+            // InternalErrorModelParser.g:8906:1: ( (lv_ownedValue_0_0= rulePropertyExpression ) )
             {
-            // InternalErrorModelParser.g:8918:1: ( (lv_ownedValue_0_0= rulePropertyExpression ) )
-            // InternalErrorModelParser.g:8919:1: (lv_ownedValue_0_0= rulePropertyExpression )
+            // InternalErrorModelParser.g:8906:1: ( (lv_ownedValue_0_0= rulePropertyExpression ) )
+            // InternalErrorModelParser.g:8907:1: (lv_ownedValue_0_0= rulePropertyExpression )
             {
-            // InternalErrorModelParser.g:8919:1: (lv_ownedValue_0_0= rulePropertyExpression )
-            // InternalErrorModelParser.g:8920:3: lv_ownedValue_0_0= rulePropertyExpression
+            // InternalErrorModelParser.g:8907:1: (lv_ownedValue_0_0= rulePropertyExpression )
+            // InternalErrorModelParser.g:8908:3: lv_ownedValue_0_0= rulePropertyExpression
             {
              
             	        newCompositeNode(grammarAccess.getPropertyValueAccess().getOwnedValuePropertyExpressionParserRuleCall_0()); 
@@ -22351,7 +22357,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRulePropertyExpression"
-    // InternalErrorModelParser.g:8944:1: entryRulePropertyExpression returns [EObject current=null] : iv_rulePropertyExpression= rulePropertyExpression EOF ;
+    // InternalErrorModelParser.g:8932:1: entryRulePropertyExpression returns [EObject current=null] : iv_rulePropertyExpression= rulePropertyExpression EOF ;
     public final EObject entryRulePropertyExpression() throws RecognitionException {
         EObject current = null;
 
@@ -22359,8 +22365,8 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // InternalErrorModelParser.g:8945:2: (iv_rulePropertyExpression= rulePropertyExpression EOF )
-            // InternalErrorModelParser.g:8946:2: iv_rulePropertyExpression= rulePropertyExpression EOF
+            // InternalErrorModelParser.g:8933:2: (iv_rulePropertyExpression= rulePropertyExpression EOF )
+            // InternalErrorModelParser.g:8934:2: iv_rulePropertyExpression= rulePropertyExpression EOF
             {
              newCompositeNode(grammarAccess.getPropertyExpressionRule()); 
             pushFollow(FOLLOW_1);
@@ -22387,7 +22393,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "rulePropertyExpression"
-    // InternalErrorModelParser.g:8953:1: rulePropertyExpression returns [EObject current=null] : (this_RecordTerm_0= ruleRecordTerm | this_ReferenceTerm_1= ruleReferenceTerm | this_ComponentClassifierTerm_2= ruleComponentClassifierTerm | this_ComputedTerm_3= ruleComputedTerm | this_StringTerm_4= ruleStringTerm | this_NumericRangeTerm_5= ruleNumericRangeTerm | this_RealTerm_6= ruleRealTerm | this_IntegerTerm_7= ruleIntegerTerm | this_ListTerm_8= ruleListTerm | this_BooleanLiteral_9= ruleBooleanLiteral | this_LiteralorReferenceTerm_10= ruleLiteralorReferenceTerm ) ;
+    // InternalErrorModelParser.g:8941:1: rulePropertyExpression returns [EObject current=null] : (this_RecordTerm_0= ruleRecordTerm | this_ReferenceTerm_1= ruleReferenceTerm | this_ComponentClassifierTerm_2= ruleComponentClassifierTerm | this_ComputedTerm_3= ruleComputedTerm | this_StringTerm_4= ruleStringTerm | this_NumericRangeTerm_5= ruleNumericRangeTerm | this_RealTerm_6= ruleRealTerm | this_IntegerTerm_7= ruleIntegerTerm | this_ListTerm_8= ruleListTerm | this_BooleanLiteral_9= ruleBooleanLiteral | this_LiteralorReferenceTerm_10= ruleLiteralorReferenceTerm ) ;
     public final EObject rulePropertyExpression() throws RecognitionException {
         EObject current = null;
 
@@ -22417,15 +22423,15 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // InternalErrorModelParser.g:8956:28: ( (this_RecordTerm_0= ruleRecordTerm | this_ReferenceTerm_1= ruleReferenceTerm | this_ComponentClassifierTerm_2= ruleComponentClassifierTerm | this_ComputedTerm_3= ruleComputedTerm | this_StringTerm_4= ruleStringTerm | this_NumericRangeTerm_5= ruleNumericRangeTerm | this_RealTerm_6= ruleRealTerm | this_IntegerTerm_7= ruleIntegerTerm | this_ListTerm_8= ruleListTerm | this_BooleanLiteral_9= ruleBooleanLiteral | this_LiteralorReferenceTerm_10= ruleLiteralorReferenceTerm ) )
-            // InternalErrorModelParser.g:8957:1: (this_RecordTerm_0= ruleRecordTerm | this_ReferenceTerm_1= ruleReferenceTerm | this_ComponentClassifierTerm_2= ruleComponentClassifierTerm | this_ComputedTerm_3= ruleComputedTerm | this_StringTerm_4= ruleStringTerm | this_NumericRangeTerm_5= ruleNumericRangeTerm | this_RealTerm_6= ruleRealTerm | this_IntegerTerm_7= ruleIntegerTerm | this_ListTerm_8= ruleListTerm | this_BooleanLiteral_9= ruleBooleanLiteral | this_LiteralorReferenceTerm_10= ruleLiteralorReferenceTerm )
+            // InternalErrorModelParser.g:8944:28: ( (this_RecordTerm_0= ruleRecordTerm | this_ReferenceTerm_1= ruleReferenceTerm | this_ComponentClassifierTerm_2= ruleComponentClassifierTerm | this_ComputedTerm_3= ruleComputedTerm | this_StringTerm_4= ruleStringTerm | this_NumericRangeTerm_5= ruleNumericRangeTerm | this_RealTerm_6= ruleRealTerm | this_IntegerTerm_7= ruleIntegerTerm | this_ListTerm_8= ruleListTerm | this_BooleanLiteral_9= ruleBooleanLiteral | this_LiteralorReferenceTerm_10= ruleLiteralorReferenceTerm ) )
+            // InternalErrorModelParser.g:8945:1: (this_RecordTerm_0= ruleRecordTerm | this_ReferenceTerm_1= ruleReferenceTerm | this_ComponentClassifierTerm_2= ruleComponentClassifierTerm | this_ComputedTerm_3= ruleComputedTerm | this_StringTerm_4= ruleStringTerm | this_NumericRangeTerm_5= ruleNumericRangeTerm | this_RealTerm_6= ruleRealTerm | this_IntegerTerm_7= ruleIntegerTerm | this_ListTerm_8= ruleListTerm | this_BooleanLiteral_9= ruleBooleanLiteral | this_LiteralorReferenceTerm_10= ruleLiteralorReferenceTerm )
             {
-            // InternalErrorModelParser.g:8957:1: (this_RecordTerm_0= ruleRecordTerm | this_ReferenceTerm_1= ruleReferenceTerm | this_ComponentClassifierTerm_2= ruleComponentClassifierTerm | this_ComputedTerm_3= ruleComputedTerm | this_StringTerm_4= ruleStringTerm | this_NumericRangeTerm_5= ruleNumericRangeTerm | this_RealTerm_6= ruleRealTerm | this_IntegerTerm_7= ruleIntegerTerm | this_ListTerm_8= ruleListTerm | this_BooleanLiteral_9= ruleBooleanLiteral | this_LiteralorReferenceTerm_10= ruleLiteralorReferenceTerm )
+            // InternalErrorModelParser.g:8945:1: (this_RecordTerm_0= ruleRecordTerm | this_ReferenceTerm_1= ruleReferenceTerm | this_ComponentClassifierTerm_2= ruleComponentClassifierTerm | this_ComputedTerm_3= ruleComputedTerm | this_StringTerm_4= ruleStringTerm | this_NumericRangeTerm_5= ruleNumericRangeTerm | this_RealTerm_6= ruleRealTerm | this_IntegerTerm_7= ruleIntegerTerm | this_ListTerm_8= ruleListTerm | this_BooleanLiteral_9= ruleBooleanLiteral | this_LiteralorReferenceTerm_10= ruleLiteralorReferenceTerm )
             int alt233=11;
             alt233 = dfa233.predict(input);
             switch (alt233) {
                 case 1 :
-                    // InternalErrorModelParser.g:8958:5: this_RecordTerm_0= ruleRecordTerm
+                    // InternalErrorModelParser.g:8946:5: this_RecordTerm_0= ruleRecordTerm
                     {
                      
                             newCompositeNode(grammarAccess.getPropertyExpressionAccess().getRecordTermParserRuleCall_0()); 
@@ -22443,7 +22449,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 2 :
-                    // InternalErrorModelParser.g:8968:5: this_ReferenceTerm_1= ruleReferenceTerm
+                    // InternalErrorModelParser.g:8956:5: this_ReferenceTerm_1= ruleReferenceTerm
                     {
                      
                             newCompositeNode(grammarAccess.getPropertyExpressionAccess().getReferenceTermParserRuleCall_1()); 
@@ -22461,7 +22467,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 3 :
-                    // InternalErrorModelParser.g:8978:5: this_ComponentClassifierTerm_2= ruleComponentClassifierTerm
+                    // InternalErrorModelParser.g:8966:5: this_ComponentClassifierTerm_2= ruleComponentClassifierTerm
                     {
                      
                             newCompositeNode(grammarAccess.getPropertyExpressionAccess().getComponentClassifierTermParserRuleCall_2()); 
@@ -22479,7 +22485,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 4 :
-                    // InternalErrorModelParser.g:8988:5: this_ComputedTerm_3= ruleComputedTerm
+                    // InternalErrorModelParser.g:8976:5: this_ComputedTerm_3= ruleComputedTerm
                     {
                      
                             newCompositeNode(grammarAccess.getPropertyExpressionAccess().getComputedTermParserRuleCall_3()); 
@@ -22497,7 +22503,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 5 :
-                    // InternalErrorModelParser.g:8998:5: this_StringTerm_4= ruleStringTerm
+                    // InternalErrorModelParser.g:8986:5: this_StringTerm_4= ruleStringTerm
                     {
                      
                             newCompositeNode(grammarAccess.getPropertyExpressionAccess().getStringTermParserRuleCall_4()); 
@@ -22515,7 +22521,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 6 :
-                    // InternalErrorModelParser.g:9008:5: this_NumericRangeTerm_5= ruleNumericRangeTerm
+                    // InternalErrorModelParser.g:8996:5: this_NumericRangeTerm_5= ruleNumericRangeTerm
                     {
                      
                             newCompositeNode(grammarAccess.getPropertyExpressionAccess().getNumericRangeTermParserRuleCall_5()); 
@@ -22533,7 +22539,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 7 :
-                    // InternalErrorModelParser.g:9018:5: this_RealTerm_6= ruleRealTerm
+                    // InternalErrorModelParser.g:9006:5: this_RealTerm_6= ruleRealTerm
                     {
                      
                             newCompositeNode(grammarAccess.getPropertyExpressionAccess().getRealTermParserRuleCall_6()); 
@@ -22551,7 +22557,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 8 :
-                    // InternalErrorModelParser.g:9028:5: this_IntegerTerm_7= ruleIntegerTerm
+                    // InternalErrorModelParser.g:9016:5: this_IntegerTerm_7= ruleIntegerTerm
                     {
                      
                             newCompositeNode(grammarAccess.getPropertyExpressionAccess().getIntegerTermParserRuleCall_7()); 
@@ -22569,7 +22575,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 9 :
-                    // InternalErrorModelParser.g:9038:5: this_ListTerm_8= ruleListTerm
+                    // InternalErrorModelParser.g:9026:5: this_ListTerm_8= ruleListTerm
                     {
                      
                             newCompositeNode(grammarAccess.getPropertyExpressionAccess().getListTermParserRuleCall_8()); 
@@ -22587,7 +22593,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 10 :
-                    // InternalErrorModelParser.g:9048:5: this_BooleanLiteral_9= ruleBooleanLiteral
+                    // InternalErrorModelParser.g:9036:5: this_BooleanLiteral_9= ruleBooleanLiteral
                     {
                      
                             newCompositeNode(grammarAccess.getPropertyExpressionAccess().getBooleanLiteralParserRuleCall_9()); 
@@ -22605,7 +22611,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 11 :
-                    // InternalErrorModelParser.g:9058:5: this_LiteralorReferenceTerm_10= ruleLiteralorReferenceTerm
+                    // InternalErrorModelParser.g:9046:5: this_LiteralorReferenceTerm_10= ruleLiteralorReferenceTerm
                     {
                      
                             newCompositeNode(grammarAccess.getPropertyExpressionAccess().getLiteralorReferenceTermParserRuleCall_10()); 
@@ -22643,7 +22649,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleLiteralorReferenceTerm"
-    // InternalErrorModelParser.g:9074:1: entryRuleLiteralorReferenceTerm returns [EObject current=null] : iv_ruleLiteralorReferenceTerm= ruleLiteralorReferenceTerm EOF ;
+    // InternalErrorModelParser.g:9062:1: entryRuleLiteralorReferenceTerm returns [EObject current=null] : iv_ruleLiteralorReferenceTerm= ruleLiteralorReferenceTerm EOF ;
     public final EObject entryRuleLiteralorReferenceTerm() throws RecognitionException {
         EObject current = null;
 
@@ -22651,8 +22657,8 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // InternalErrorModelParser.g:9075:2: (iv_ruleLiteralorReferenceTerm= ruleLiteralorReferenceTerm EOF )
-            // InternalErrorModelParser.g:9076:2: iv_ruleLiteralorReferenceTerm= ruleLiteralorReferenceTerm EOF
+            // InternalErrorModelParser.g:9063:2: (iv_ruleLiteralorReferenceTerm= ruleLiteralorReferenceTerm EOF )
+            // InternalErrorModelParser.g:9064:2: iv_ruleLiteralorReferenceTerm= ruleLiteralorReferenceTerm EOF
             {
              newCompositeNode(grammarAccess.getLiteralorReferenceTermRule()); 
             pushFollow(FOLLOW_1);
@@ -22679,21 +22685,21 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleLiteralorReferenceTerm"
-    // InternalErrorModelParser.g:9083:1: ruleLiteralorReferenceTerm returns [EObject current=null] : ( ( ruleQPREF ) ) ;
+    // InternalErrorModelParser.g:9071:1: ruleLiteralorReferenceTerm returns [EObject current=null] : ( ( ruleQPREF ) ) ;
     public final EObject ruleLiteralorReferenceTerm() throws RecognitionException {
         EObject current = null;
 
          enterRule(); 
             
         try {
-            // InternalErrorModelParser.g:9086:28: ( ( ( ruleQPREF ) ) )
-            // InternalErrorModelParser.g:9087:1: ( ( ruleQPREF ) )
+            // InternalErrorModelParser.g:9074:28: ( ( ( ruleQPREF ) ) )
+            // InternalErrorModelParser.g:9075:1: ( ( ruleQPREF ) )
             {
-            // InternalErrorModelParser.g:9087:1: ( ( ruleQPREF ) )
-            // InternalErrorModelParser.g:9088:1: ( ruleQPREF )
+            // InternalErrorModelParser.g:9075:1: ( ( ruleQPREF ) )
+            // InternalErrorModelParser.g:9076:1: ( ruleQPREF )
             {
-            // InternalErrorModelParser.g:9088:1: ( ruleQPREF )
-            // InternalErrorModelParser.g:9089:3: ruleQPREF
+            // InternalErrorModelParser.g:9076:1: ( ruleQPREF )
+            // InternalErrorModelParser.g:9077:3: ruleQPREF
             {
 
             			if (current==null) {
@@ -22735,7 +22741,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleBooleanLiteral"
-    // InternalErrorModelParser.g:9111:1: entryRuleBooleanLiteral returns [EObject current=null] : iv_ruleBooleanLiteral= ruleBooleanLiteral EOF ;
+    // InternalErrorModelParser.g:9099:1: entryRuleBooleanLiteral returns [EObject current=null] : iv_ruleBooleanLiteral= ruleBooleanLiteral EOF ;
     public final EObject entryRuleBooleanLiteral() throws RecognitionException {
         EObject current = null;
 
@@ -22743,8 +22749,8 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // InternalErrorModelParser.g:9112:2: (iv_ruleBooleanLiteral= ruleBooleanLiteral EOF )
-            // InternalErrorModelParser.g:9113:2: iv_ruleBooleanLiteral= ruleBooleanLiteral EOF
+            // InternalErrorModelParser.g:9100:2: (iv_ruleBooleanLiteral= ruleBooleanLiteral EOF )
+            // InternalErrorModelParser.g:9101:2: iv_ruleBooleanLiteral= ruleBooleanLiteral EOF
             {
              newCompositeNode(grammarAccess.getBooleanLiteralRule()); 
             pushFollow(FOLLOW_1);
@@ -22771,7 +22777,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleBooleanLiteral"
-    // InternalErrorModelParser.g:9120:1: ruleBooleanLiteral returns [EObject current=null] : ( () ( ( (lv_value_1_0= True ) ) | otherlv_2= False ) ) ;
+    // InternalErrorModelParser.g:9108:1: ruleBooleanLiteral returns [EObject current=null] : ( () ( ( (lv_value_1_0= True ) ) | otherlv_2= False ) ) ;
     public final EObject ruleBooleanLiteral() throws RecognitionException {
         EObject current = null;
 
@@ -22781,14 +22787,14 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // InternalErrorModelParser.g:9123:28: ( ( () ( ( (lv_value_1_0= True ) ) | otherlv_2= False ) ) )
-            // InternalErrorModelParser.g:9124:1: ( () ( ( (lv_value_1_0= True ) ) | otherlv_2= False ) )
+            // InternalErrorModelParser.g:9111:28: ( ( () ( ( (lv_value_1_0= True ) ) | otherlv_2= False ) ) )
+            // InternalErrorModelParser.g:9112:1: ( () ( ( (lv_value_1_0= True ) ) | otherlv_2= False ) )
             {
-            // InternalErrorModelParser.g:9124:1: ( () ( ( (lv_value_1_0= True ) ) | otherlv_2= False ) )
-            // InternalErrorModelParser.g:9124:2: () ( ( (lv_value_1_0= True ) ) | otherlv_2= False )
+            // InternalErrorModelParser.g:9112:1: ( () ( ( (lv_value_1_0= True ) ) | otherlv_2= False ) )
+            // InternalErrorModelParser.g:9112:2: () ( ( (lv_value_1_0= True ) ) | otherlv_2= False )
             {
-            // InternalErrorModelParser.g:9124:2: ()
-            // InternalErrorModelParser.g:9125:5: 
+            // InternalErrorModelParser.g:9112:2: ()
+            // InternalErrorModelParser.g:9113:5: 
             {
 
                     current = forceCreateModelElement(
@@ -22798,7 +22804,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
             }
 
-            // InternalErrorModelParser.g:9130:2: ( ( (lv_value_1_0= True ) ) | otherlv_2= False )
+            // InternalErrorModelParser.g:9118:2: ( ( (lv_value_1_0= True ) ) | otherlv_2= False )
             int alt234=2;
             int LA234_0 = input.LA(1);
 
@@ -22816,13 +22822,13 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
             }
             switch (alt234) {
                 case 1 :
-                    // InternalErrorModelParser.g:9130:3: ( (lv_value_1_0= True ) )
+                    // InternalErrorModelParser.g:9118:3: ( (lv_value_1_0= True ) )
                     {
-                    // InternalErrorModelParser.g:9130:3: ( (lv_value_1_0= True ) )
-                    // InternalErrorModelParser.g:9131:1: (lv_value_1_0= True )
+                    // InternalErrorModelParser.g:9118:3: ( (lv_value_1_0= True ) )
+                    // InternalErrorModelParser.g:9119:1: (lv_value_1_0= True )
                     {
-                    // InternalErrorModelParser.g:9131:1: (lv_value_1_0= True )
-                    // InternalErrorModelParser.g:9132:3: lv_value_1_0= True
+                    // InternalErrorModelParser.g:9119:1: (lv_value_1_0= True )
+                    // InternalErrorModelParser.g:9120:3: lv_value_1_0= True
                     {
                     lv_value_1_0=(Token)match(input,True,FOLLOW_2); 
 
@@ -22844,7 +22850,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 2 :
-                    // InternalErrorModelParser.g:9148:2: otherlv_2= False
+                    // InternalErrorModelParser.g:9136:2: otherlv_2= False
                     {
                     otherlv_2=(Token)match(input,False,FOLLOW_2); 
 
@@ -22877,7 +22883,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleConstantValue"
-    // InternalErrorModelParser.g:9160:1: entryRuleConstantValue returns [EObject current=null] : iv_ruleConstantValue= ruleConstantValue EOF ;
+    // InternalErrorModelParser.g:9148:1: entryRuleConstantValue returns [EObject current=null] : iv_ruleConstantValue= ruleConstantValue EOF ;
     public final EObject entryRuleConstantValue() throws RecognitionException {
         EObject current = null;
 
@@ -22885,8 +22891,8 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // InternalErrorModelParser.g:9161:2: (iv_ruleConstantValue= ruleConstantValue EOF )
-            // InternalErrorModelParser.g:9162:2: iv_ruleConstantValue= ruleConstantValue EOF
+            // InternalErrorModelParser.g:9149:2: (iv_ruleConstantValue= ruleConstantValue EOF )
+            // InternalErrorModelParser.g:9150:2: iv_ruleConstantValue= ruleConstantValue EOF
             {
              newCompositeNode(grammarAccess.getConstantValueRule()); 
             pushFollow(FOLLOW_1);
@@ -22913,21 +22919,21 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleConstantValue"
-    // InternalErrorModelParser.g:9169:1: ruleConstantValue returns [EObject current=null] : ( ( ruleQPREF ) ) ;
+    // InternalErrorModelParser.g:9157:1: ruleConstantValue returns [EObject current=null] : ( ( ruleQPREF ) ) ;
     public final EObject ruleConstantValue() throws RecognitionException {
         EObject current = null;
 
          enterRule(); 
             
         try {
-            // InternalErrorModelParser.g:9172:28: ( ( ( ruleQPREF ) ) )
-            // InternalErrorModelParser.g:9173:1: ( ( ruleQPREF ) )
+            // InternalErrorModelParser.g:9160:28: ( ( ( ruleQPREF ) ) )
+            // InternalErrorModelParser.g:9161:1: ( ( ruleQPREF ) )
             {
-            // InternalErrorModelParser.g:9173:1: ( ( ruleQPREF ) )
-            // InternalErrorModelParser.g:9174:1: ( ruleQPREF )
+            // InternalErrorModelParser.g:9161:1: ( ( ruleQPREF ) )
+            // InternalErrorModelParser.g:9162:1: ( ruleQPREF )
             {
-            // InternalErrorModelParser.g:9174:1: ( ruleQPREF )
-            // InternalErrorModelParser.g:9175:3: ruleQPREF
+            // InternalErrorModelParser.g:9162:1: ( ruleQPREF )
+            // InternalErrorModelParser.g:9163:3: ruleQPREF
             {
 
             			if (current==null) {
@@ -22969,7 +22975,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleReferenceTerm"
-    // InternalErrorModelParser.g:9197:1: entryRuleReferenceTerm returns [EObject current=null] : iv_ruleReferenceTerm= ruleReferenceTerm EOF ;
+    // InternalErrorModelParser.g:9185:1: entryRuleReferenceTerm returns [EObject current=null] : iv_ruleReferenceTerm= ruleReferenceTerm EOF ;
     public final EObject entryRuleReferenceTerm() throws RecognitionException {
         EObject current = null;
 
@@ -22977,8 +22983,8 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // InternalErrorModelParser.g:9198:2: (iv_ruleReferenceTerm= ruleReferenceTerm EOF )
-            // InternalErrorModelParser.g:9199:2: iv_ruleReferenceTerm= ruleReferenceTerm EOF
+            // InternalErrorModelParser.g:9186:2: (iv_ruleReferenceTerm= ruleReferenceTerm EOF )
+            // InternalErrorModelParser.g:9187:2: iv_ruleReferenceTerm= ruleReferenceTerm EOF
             {
              newCompositeNode(grammarAccess.getReferenceTermRule()); 
             pushFollow(FOLLOW_1);
@@ -23005,7 +23011,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleReferenceTerm"
-    // InternalErrorModelParser.g:9206:1: ruleReferenceTerm returns [EObject current=null] : (otherlv_0= Reference otherlv_1= LeftParenthesis ( (lv_path_2_0= ruleContainmentPathElement ) ) otherlv_3= RightParenthesis ) ;
+    // InternalErrorModelParser.g:9194:1: ruleReferenceTerm returns [EObject current=null] : (otherlv_0= Reference otherlv_1= LeftParenthesis ( (lv_path_2_0= ruleContainmentPathElement ) ) otherlv_3= RightParenthesis ) ;
     public final EObject ruleReferenceTerm() throws RecognitionException {
         EObject current = null;
 
@@ -23018,13 +23024,13 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // InternalErrorModelParser.g:9209:28: ( (otherlv_0= Reference otherlv_1= LeftParenthesis ( (lv_path_2_0= ruleContainmentPathElement ) ) otherlv_3= RightParenthesis ) )
-            // InternalErrorModelParser.g:9210:1: (otherlv_0= Reference otherlv_1= LeftParenthesis ( (lv_path_2_0= ruleContainmentPathElement ) ) otherlv_3= RightParenthesis )
+            // InternalErrorModelParser.g:9197:28: ( (otherlv_0= Reference otherlv_1= LeftParenthesis ( (lv_path_2_0= ruleContainmentPathElement ) ) otherlv_3= RightParenthesis ) )
+            // InternalErrorModelParser.g:9198:1: (otherlv_0= Reference otherlv_1= LeftParenthesis ( (lv_path_2_0= ruleContainmentPathElement ) ) otherlv_3= RightParenthesis )
             {
-            // InternalErrorModelParser.g:9210:1: (otherlv_0= Reference otherlv_1= LeftParenthesis ( (lv_path_2_0= ruleContainmentPathElement ) ) otherlv_3= RightParenthesis )
-            // InternalErrorModelParser.g:9211:2: otherlv_0= Reference otherlv_1= LeftParenthesis ( (lv_path_2_0= ruleContainmentPathElement ) ) otherlv_3= RightParenthesis
+            // InternalErrorModelParser.g:9198:1: (otherlv_0= Reference otherlv_1= LeftParenthesis ( (lv_path_2_0= ruleContainmentPathElement ) ) otherlv_3= RightParenthesis )
+            // InternalErrorModelParser.g:9199:2: otherlv_0= Reference otherlv_1= LeftParenthesis ( (lv_path_2_0= ruleContainmentPathElement ) ) otherlv_3= RightParenthesis
             {
-            otherlv_0=(Token)match(input,Reference,FOLLOW_128); 
+            otherlv_0=(Token)match(input,Reference,FOLLOW_127); 
 
                 	newLeafNode(otherlv_0, grammarAccess.getReferenceTermAccess().getReferenceKeyword_0());
                 
@@ -23032,16 +23038,16 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
                 	newLeafNode(otherlv_1, grammarAccess.getReferenceTermAccess().getLeftParenthesisKeyword_1());
                 
-            // InternalErrorModelParser.g:9220:1: ( (lv_path_2_0= ruleContainmentPathElement ) )
-            // InternalErrorModelParser.g:9221:1: (lv_path_2_0= ruleContainmentPathElement )
+            // InternalErrorModelParser.g:9208:1: ( (lv_path_2_0= ruleContainmentPathElement ) )
+            // InternalErrorModelParser.g:9209:1: (lv_path_2_0= ruleContainmentPathElement )
             {
-            // InternalErrorModelParser.g:9221:1: (lv_path_2_0= ruleContainmentPathElement )
-            // InternalErrorModelParser.g:9222:3: lv_path_2_0= ruleContainmentPathElement
+            // InternalErrorModelParser.g:9209:1: (lv_path_2_0= ruleContainmentPathElement )
+            // InternalErrorModelParser.g:9210:3: lv_path_2_0= ruleContainmentPathElement
             {
              
             	        newCompositeNode(grammarAccess.getReferenceTermAccess().getPathContainmentPathElementParserRuleCall_2_0()); 
             	    
-            pushFollow(FOLLOW_131);
+            pushFollow(FOLLOW_130);
             lv_path_2_0=ruleContainmentPathElement();
 
             state._fsp--;
@@ -23088,7 +23094,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleRecordTerm"
-    // InternalErrorModelParser.g:9251:1: entryRuleRecordTerm returns [EObject current=null] : iv_ruleRecordTerm= ruleRecordTerm EOF ;
+    // InternalErrorModelParser.g:9239:1: entryRuleRecordTerm returns [EObject current=null] : iv_ruleRecordTerm= ruleRecordTerm EOF ;
     public final EObject entryRuleRecordTerm() throws RecognitionException {
         EObject current = null;
 
@@ -23096,8 +23102,8 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // InternalErrorModelParser.g:9252:2: (iv_ruleRecordTerm= ruleRecordTerm EOF )
-            // InternalErrorModelParser.g:9253:2: iv_ruleRecordTerm= ruleRecordTerm EOF
+            // InternalErrorModelParser.g:9240:2: (iv_ruleRecordTerm= ruleRecordTerm EOF )
+            // InternalErrorModelParser.g:9241:2: iv_ruleRecordTerm= ruleRecordTerm EOF
             {
              newCompositeNode(grammarAccess.getRecordTermRule()); 
             pushFollow(FOLLOW_1);
@@ -23124,7 +23130,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleRecordTerm"
-    // InternalErrorModelParser.g:9260:1: ruleRecordTerm returns [EObject current=null] : (otherlv_0= LeftSquareBracket ( (lv_ownedFieldValue_1_0= ruleFieldPropertyAssociation ) )+ otherlv_2= RightSquareBracket ) ;
+    // InternalErrorModelParser.g:9248:1: ruleRecordTerm returns [EObject current=null] : (otherlv_0= LeftSquareBracket ( (lv_ownedFieldValue_1_0= ruleFieldPropertyAssociation ) )+ otherlv_2= RightSquareBracket ) ;
     public final EObject ruleRecordTerm() throws RecognitionException {
         EObject current = null;
 
@@ -23136,17 +23142,17 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // InternalErrorModelParser.g:9263:28: ( (otherlv_0= LeftSquareBracket ( (lv_ownedFieldValue_1_0= ruleFieldPropertyAssociation ) )+ otherlv_2= RightSquareBracket ) )
-            // InternalErrorModelParser.g:9264:1: (otherlv_0= LeftSquareBracket ( (lv_ownedFieldValue_1_0= ruleFieldPropertyAssociation ) )+ otherlv_2= RightSquareBracket )
+            // InternalErrorModelParser.g:9251:28: ( (otherlv_0= LeftSquareBracket ( (lv_ownedFieldValue_1_0= ruleFieldPropertyAssociation ) )+ otherlv_2= RightSquareBracket ) )
+            // InternalErrorModelParser.g:9252:1: (otherlv_0= LeftSquareBracket ( (lv_ownedFieldValue_1_0= ruleFieldPropertyAssociation ) )+ otherlv_2= RightSquareBracket )
             {
-            // InternalErrorModelParser.g:9264:1: (otherlv_0= LeftSquareBracket ( (lv_ownedFieldValue_1_0= ruleFieldPropertyAssociation ) )+ otherlv_2= RightSquareBracket )
-            // InternalErrorModelParser.g:9265:2: otherlv_0= LeftSquareBracket ( (lv_ownedFieldValue_1_0= ruleFieldPropertyAssociation ) )+ otherlv_2= RightSquareBracket
+            // InternalErrorModelParser.g:9252:1: (otherlv_0= LeftSquareBracket ( (lv_ownedFieldValue_1_0= ruleFieldPropertyAssociation ) )+ otherlv_2= RightSquareBracket )
+            // InternalErrorModelParser.g:9253:2: otherlv_0= LeftSquareBracket ( (lv_ownedFieldValue_1_0= ruleFieldPropertyAssociation ) )+ otherlv_2= RightSquareBracket
             {
             otherlv_0=(Token)match(input,LeftSquareBracket,FOLLOW_5); 
 
                 	newLeafNode(otherlv_0, grammarAccess.getRecordTermAccess().getLeftSquareBracketKeyword_0());
                 
-            // InternalErrorModelParser.g:9269:1: ( (lv_ownedFieldValue_1_0= ruleFieldPropertyAssociation ) )+
+            // InternalErrorModelParser.g:9257:1: ( (lv_ownedFieldValue_1_0= ruleFieldPropertyAssociation ) )+
             int cnt235=0;
             loop235:
             do {
@@ -23160,15 +23166,15 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
                 switch (alt235) {
             	case 1 :
-            	    // InternalErrorModelParser.g:9270:1: (lv_ownedFieldValue_1_0= ruleFieldPropertyAssociation )
+            	    // InternalErrorModelParser.g:9258:1: (lv_ownedFieldValue_1_0= ruleFieldPropertyAssociation )
             	    {
-            	    // InternalErrorModelParser.g:9270:1: (lv_ownedFieldValue_1_0= ruleFieldPropertyAssociation )
-            	    // InternalErrorModelParser.g:9271:3: lv_ownedFieldValue_1_0= ruleFieldPropertyAssociation
+            	    // InternalErrorModelParser.g:9258:1: (lv_ownedFieldValue_1_0= ruleFieldPropertyAssociation )
+            	    // InternalErrorModelParser.g:9259:3: lv_ownedFieldValue_1_0= ruleFieldPropertyAssociation
             	    {
             	     
             	    	        newCompositeNode(grammarAccess.getRecordTermAccess().getOwnedFieldValueFieldPropertyAssociationParserRuleCall_1_0()); 
             	    	    
-            	    pushFollow(FOLLOW_152);
+            	    pushFollow(FOLLOW_148);
             	    lv_ownedFieldValue_1_0=ruleFieldPropertyAssociation();
 
             	    state._fsp--;
@@ -23225,7 +23231,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleComputedTerm"
-    // InternalErrorModelParser.g:9302:1: entryRuleComputedTerm returns [EObject current=null] : iv_ruleComputedTerm= ruleComputedTerm EOF ;
+    // InternalErrorModelParser.g:9290:1: entryRuleComputedTerm returns [EObject current=null] : iv_ruleComputedTerm= ruleComputedTerm EOF ;
     public final EObject entryRuleComputedTerm() throws RecognitionException {
         EObject current = null;
 
@@ -23233,8 +23239,8 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // InternalErrorModelParser.g:9303:2: (iv_ruleComputedTerm= ruleComputedTerm EOF )
-            // InternalErrorModelParser.g:9304:2: iv_ruleComputedTerm= ruleComputedTerm EOF
+            // InternalErrorModelParser.g:9291:2: (iv_ruleComputedTerm= ruleComputedTerm EOF )
+            // InternalErrorModelParser.g:9292:2: iv_ruleComputedTerm= ruleComputedTerm EOF
             {
              newCompositeNode(grammarAccess.getComputedTermRule()); 
             pushFollow(FOLLOW_1);
@@ -23261,7 +23267,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleComputedTerm"
-    // InternalErrorModelParser.g:9311:1: ruleComputedTerm returns [EObject current=null] : (otherlv_0= Compute otherlv_1= LeftParenthesis ( (lv_function_2_0= RULE_ID ) ) otherlv_3= RightParenthesis ) ;
+    // InternalErrorModelParser.g:9299:1: ruleComputedTerm returns [EObject current=null] : (otherlv_0= Compute otherlv_1= LeftParenthesis ( (lv_function_2_0= RULE_ID ) ) otherlv_3= RightParenthesis ) ;
     public final EObject ruleComputedTerm() throws RecognitionException {
         EObject current = null;
 
@@ -23273,13 +23279,13 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // InternalErrorModelParser.g:9314:28: ( (otherlv_0= Compute otherlv_1= LeftParenthesis ( (lv_function_2_0= RULE_ID ) ) otherlv_3= RightParenthesis ) )
-            // InternalErrorModelParser.g:9315:1: (otherlv_0= Compute otherlv_1= LeftParenthesis ( (lv_function_2_0= RULE_ID ) ) otherlv_3= RightParenthesis )
+            // InternalErrorModelParser.g:9302:28: ( (otherlv_0= Compute otherlv_1= LeftParenthesis ( (lv_function_2_0= RULE_ID ) ) otherlv_3= RightParenthesis ) )
+            // InternalErrorModelParser.g:9303:1: (otherlv_0= Compute otherlv_1= LeftParenthesis ( (lv_function_2_0= RULE_ID ) ) otherlv_3= RightParenthesis )
             {
-            // InternalErrorModelParser.g:9315:1: (otherlv_0= Compute otherlv_1= LeftParenthesis ( (lv_function_2_0= RULE_ID ) ) otherlv_3= RightParenthesis )
-            // InternalErrorModelParser.g:9316:2: otherlv_0= Compute otherlv_1= LeftParenthesis ( (lv_function_2_0= RULE_ID ) ) otherlv_3= RightParenthesis
+            // InternalErrorModelParser.g:9303:1: (otherlv_0= Compute otherlv_1= LeftParenthesis ( (lv_function_2_0= RULE_ID ) ) otherlv_3= RightParenthesis )
+            // InternalErrorModelParser.g:9304:2: otherlv_0= Compute otherlv_1= LeftParenthesis ( (lv_function_2_0= RULE_ID ) ) otherlv_3= RightParenthesis
             {
-            otherlv_0=(Token)match(input,Compute,FOLLOW_128); 
+            otherlv_0=(Token)match(input,Compute,FOLLOW_127); 
 
                 	newLeafNode(otherlv_0, grammarAccess.getComputedTermAccess().getComputeKeyword_0());
                 
@@ -23287,13 +23293,13 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
                 	newLeafNode(otherlv_1, grammarAccess.getComputedTermAccess().getLeftParenthesisKeyword_1());
                 
-            // InternalErrorModelParser.g:9325:1: ( (lv_function_2_0= RULE_ID ) )
-            // InternalErrorModelParser.g:9326:1: (lv_function_2_0= RULE_ID )
+            // InternalErrorModelParser.g:9313:1: ( (lv_function_2_0= RULE_ID ) )
+            // InternalErrorModelParser.g:9314:1: (lv_function_2_0= RULE_ID )
             {
-            // InternalErrorModelParser.g:9326:1: (lv_function_2_0= RULE_ID )
-            // InternalErrorModelParser.g:9327:3: lv_function_2_0= RULE_ID
+            // InternalErrorModelParser.g:9314:1: (lv_function_2_0= RULE_ID )
+            // InternalErrorModelParser.g:9315:3: lv_function_2_0= RULE_ID
             {
-            lv_function_2_0=(Token)match(input,RULE_ID,FOLLOW_131); 
+            lv_function_2_0=(Token)match(input,RULE_ID,FOLLOW_130); 
 
             			newLeafNode(lv_function_2_0, grammarAccess.getComputedTermAccess().getFunctionIDTerminalRuleCall_2_0()); 
             		
@@ -23338,7 +23344,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleComponentClassifierTerm"
-    // InternalErrorModelParser.g:9356:1: entryRuleComponentClassifierTerm returns [EObject current=null] : iv_ruleComponentClassifierTerm= ruleComponentClassifierTerm EOF ;
+    // InternalErrorModelParser.g:9344:1: entryRuleComponentClassifierTerm returns [EObject current=null] : iv_ruleComponentClassifierTerm= ruleComponentClassifierTerm EOF ;
     public final EObject entryRuleComponentClassifierTerm() throws RecognitionException {
         EObject current = null;
 
@@ -23346,8 +23352,8 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // InternalErrorModelParser.g:9357:2: (iv_ruleComponentClassifierTerm= ruleComponentClassifierTerm EOF )
-            // InternalErrorModelParser.g:9358:2: iv_ruleComponentClassifierTerm= ruleComponentClassifierTerm EOF
+            // InternalErrorModelParser.g:9345:2: (iv_ruleComponentClassifierTerm= ruleComponentClassifierTerm EOF )
+            // InternalErrorModelParser.g:9346:2: iv_ruleComponentClassifierTerm= ruleComponentClassifierTerm EOF
             {
              newCompositeNode(grammarAccess.getComponentClassifierTermRule()); 
             pushFollow(FOLLOW_1);
@@ -23374,7 +23380,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleComponentClassifierTerm"
-    // InternalErrorModelParser.g:9365:1: ruleComponentClassifierTerm returns [EObject current=null] : (otherlv_0= Classifier otherlv_1= LeftParenthesis ( ( ruleQCREF ) ) otherlv_3= RightParenthesis ) ;
+    // InternalErrorModelParser.g:9353:1: ruleComponentClassifierTerm returns [EObject current=null] : (otherlv_0= Classifier otherlv_1= LeftParenthesis ( ( ruleQCREF ) ) otherlv_3= RightParenthesis ) ;
     public final EObject ruleComponentClassifierTerm() throws RecognitionException {
         EObject current = null;
 
@@ -23385,13 +23391,13 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // InternalErrorModelParser.g:9368:28: ( (otherlv_0= Classifier otherlv_1= LeftParenthesis ( ( ruleQCREF ) ) otherlv_3= RightParenthesis ) )
-            // InternalErrorModelParser.g:9369:1: (otherlv_0= Classifier otherlv_1= LeftParenthesis ( ( ruleQCREF ) ) otherlv_3= RightParenthesis )
+            // InternalErrorModelParser.g:9356:28: ( (otherlv_0= Classifier otherlv_1= LeftParenthesis ( ( ruleQCREF ) ) otherlv_3= RightParenthesis ) )
+            // InternalErrorModelParser.g:9357:1: (otherlv_0= Classifier otherlv_1= LeftParenthesis ( ( ruleQCREF ) ) otherlv_3= RightParenthesis )
             {
-            // InternalErrorModelParser.g:9369:1: (otherlv_0= Classifier otherlv_1= LeftParenthesis ( ( ruleQCREF ) ) otherlv_3= RightParenthesis )
-            // InternalErrorModelParser.g:9370:2: otherlv_0= Classifier otherlv_1= LeftParenthesis ( ( ruleQCREF ) ) otherlv_3= RightParenthesis
+            // InternalErrorModelParser.g:9357:1: (otherlv_0= Classifier otherlv_1= LeftParenthesis ( ( ruleQCREF ) ) otherlv_3= RightParenthesis )
+            // InternalErrorModelParser.g:9358:2: otherlv_0= Classifier otherlv_1= LeftParenthesis ( ( ruleQCREF ) ) otherlv_3= RightParenthesis
             {
-            otherlv_0=(Token)match(input,Classifier,FOLLOW_128); 
+            otherlv_0=(Token)match(input,Classifier,FOLLOW_127); 
 
                 	newLeafNode(otherlv_0, grammarAccess.getComponentClassifierTermAccess().getClassifierKeyword_0());
                 
@@ -23399,11 +23405,11 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
                 	newLeafNode(otherlv_1, grammarAccess.getComponentClassifierTermAccess().getLeftParenthesisKeyword_1());
                 
-            // InternalErrorModelParser.g:9379:1: ( ( ruleQCREF ) )
-            // InternalErrorModelParser.g:9380:1: ( ruleQCREF )
+            // InternalErrorModelParser.g:9367:1: ( ( ruleQCREF ) )
+            // InternalErrorModelParser.g:9368:1: ( ruleQCREF )
             {
-            // InternalErrorModelParser.g:9380:1: ( ruleQCREF )
-            // InternalErrorModelParser.g:9381:3: ruleQCREF
+            // InternalErrorModelParser.g:9368:1: ( ruleQCREF )
+            // InternalErrorModelParser.g:9369:3: ruleQCREF
             {
 
             			if (current==null) {
@@ -23413,7 +23419,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
              
             	        newCompositeNode(grammarAccess.getComponentClassifierTermAccess().getClassifierComponentClassifierCrossReference_2_0()); 
             	    
-            pushFollow(FOLLOW_131);
+            pushFollow(FOLLOW_130);
             ruleQCREF();
 
             state._fsp--;
@@ -23452,7 +23458,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleListTerm"
-    // InternalErrorModelParser.g:9408:1: entryRuleListTerm returns [EObject current=null] : iv_ruleListTerm= ruleListTerm EOF ;
+    // InternalErrorModelParser.g:9396:1: entryRuleListTerm returns [EObject current=null] : iv_ruleListTerm= ruleListTerm EOF ;
     public final EObject entryRuleListTerm() throws RecognitionException {
         EObject current = null;
 
@@ -23460,8 +23466,8 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // InternalErrorModelParser.g:9409:2: (iv_ruleListTerm= ruleListTerm EOF )
-            // InternalErrorModelParser.g:9410:2: iv_ruleListTerm= ruleListTerm EOF
+            // InternalErrorModelParser.g:9397:2: (iv_ruleListTerm= ruleListTerm EOF )
+            // InternalErrorModelParser.g:9398:2: iv_ruleListTerm= ruleListTerm EOF
             {
              newCompositeNode(grammarAccess.getListTermRule()); 
             pushFollow(FOLLOW_1);
@@ -23488,7 +23494,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleListTerm"
-    // InternalErrorModelParser.g:9417:1: ruleListTerm returns [EObject current=null] : ( () otherlv_1= LeftParenthesis ( ( (lv_ownedListElement_2_0= rulePropertyExpression ) ) (otherlv_3= Comma ( (lv_ownedListElement_4_0= rulePropertyExpression ) ) )* )? otherlv_5= RightParenthesis ) ;
+    // InternalErrorModelParser.g:9405:1: ruleListTerm returns [EObject current=null] : ( () otherlv_1= LeftParenthesis ( ( (lv_ownedListElement_2_0= rulePropertyExpression ) ) (otherlv_3= Comma ( (lv_ownedListElement_4_0= rulePropertyExpression ) ) )* )? otherlv_5= RightParenthesis ) ;
     public final EObject ruleListTerm() throws RecognitionException {
         EObject current = null;
 
@@ -23503,14 +23509,14 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // InternalErrorModelParser.g:9420:28: ( ( () otherlv_1= LeftParenthesis ( ( (lv_ownedListElement_2_0= rulePropertyExpression ) ) (otherlv_3= Comma ( (lv_ownedListElement_4_0= rulePropertyExpression ) ) )* )? otherlv_5= RightParenthesis ) )
-            // InternalErrorModelParser.g:9421:1: ( () otherlv_1= LeftParenthesis ( ( (lv_ownedListElement_2_0= rulePropertyExpression ) ) (otherlv_3= Comma ( (lv_ownedListElement_4_0= rulePropertyExpression ) ) )* )? otherlv_5= RightParenthesis )
+            // InternalErrorModelParser.g:9408:28: ( ( () otherlv_1= LeftParenthesis ( ( (lv_ownedListElement_2_0= rulePropertyExpression ) ) (otherlv_3= Comma ( (lv_ownedListElement_4_0= rulePropertyExpression ) ) )* )? otherlv_5= RightParenthesis ) )
+            // InternalErrorModelParser.g:9409:1: ( () otherlv_1= LeftParenthesis ( ( (lv_ownedListElement_2_0= rulePropertyExpression ) ) (otherlv_3= Comma ( (lv_ownedListElement_4_0= rulePropertyExpression ) ) )* )? otherlv_5= RightParenthesis )
             {
-            // InternalErrorModelParser.g:9421:1: ( () otherlv_1= LeftParenthesis ( ( (lv_ownedListElement_2_0= rulePropertyExpression ) ) (otherlv_3= Comma ( (lv_ownedListElement_4_0= rulePropertyExpression ) ) )* )? otherlv_5= RightParenthesis )
-            // InternalErrorModelParser.g:9421:2: () otherlv_1= LeftParenthesis ( ( (lv_ownedListElement_2_0= rulePropertyExpression ) ) (otherlv_3= Comma ( (lv_ownedListElement_4_0= rulePropertyExpression ) ) )* )? otherlv_5= RightParenthesis
+            // InternalErrorModelParser.g:9409:1: ( () otherlv_1= LeftParenthesis ( ( (lv_ownedListElement_2_0= rulePropertyExpression ) ) (otherlv_3= Comma ( (lv_ownedListElement_4_0= rulePropertyExpression ) ) )* )? otherlv_5= RightParenthesis )
+            // InternalErrorModelParser.g:9409:2: () otherlv_1= LeftParenthesis ( ( (lv_ownedListElement_2_0= rulePropertyExpression ) ) (otherlv_3= Comma ( (lv_ownedListElement_4_0= rulePropertyExpression ) ) )* )? otherlv_5= RightParenthesis
             {
-            // InternalErrorModelParser.g:9421:2: ()
-            // InternalErrorModelParser.g:9422:5: 
+            // InternalErrorModelParser.g:9409:2: ()
+            // InternalErrorModelParser.g:9410:5: 
             {
 
                     current = forceCreateModelElement(
@@ -23520,11 +23526,11 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
             }
 
-            otherlv_1=(Token)match(input,LeftParenthesis,FOLLOW_153); 
+            otherlv_1=(Token)match(input,LeftParenthesis,FOLLOW_149); 
 
                 	newLeafNode(otherlv_1, grammarAccess.getListTermAccess().getLeftParenthesisKeyword_1());
                 
-            // InternalErrorModelParser.g:9432:1: ( ( (lv_ownedListElement_2_0= rulePropertyExpression ) ) (otherlv_3= Comma ( (lv_ownedListElement_4_0= rulePropertyExpression ) ) )* )?
+            // InternalErrorModelParser.g:9420:1: ( ( (lv_ownedListElement_2_0= rulePropertyExpression ) ) (otherlv_3= Comma ( (lv_ownedListElement_4_0= rulePropertyExpression ) ) )* )?
             int alt237=2;
             int LA237_0 = input.LA(1);
 
@@ -23533,18 +23539,18 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
             }
             switch (alt237) {
                 case 1 :
-                    // InternalErrorModelParser.g:9432:2: ( (lv_ownedListElement_2_0= rulePropertyExpression ) ) (otherlv_3= Comma ( (lv_ownedListElement_4_0= rulePropertyExpression ) ) )*
+                    // InternalErrorModelParser.g:9420:2: ( (lv_ownedListElement_2_0= rulePropertyExpression ) ) (otherlv_3= Comma ( (lv_ownedListElement_4_0= rulePropertyExpression ) ) )*
                     {
-                    // InternalErrorModelParser.g:9432:2: ( (lv_ownedListElement_2_0= rulePropertyExpression ) )
-                    // InternalErrorModelParser.g:9433:1: (lv_ownedListElement_2_0= rulePropertyExpression )
+                    // InternalErrorModelParser.g:9420:2: ( (lv_ownedListElement_2_0= rulePropertyExpression ) )
+                    // InternalErrorModelParser.g:9421:1: (lv_ownedListElement_2_0= rulePropertyExpression )
                     {
-                    // InternalErrorModelParser.g:9433:1: (lv_ownedListElement_2_0= rulePropertyExpression )
-                    // InternalErrorModelParser.g:9434:3: lv_ownedListElement_2_0= rulePropertyExpression
+                    // InternalErrorModelParser.g:9421:1: (lv_ownedListElement_2_0= rulePropertyExpression )
+                    // InternalErrorModelParser.g:9422:3: lv_ownedListElement_2_0= rulePropertyExpression
                     {
                      
                     	        newCompositeNode(grammarAccess.getListTermAccess().getOwnedListElementPropertyExpressionParserRuleCall_2_0_0()); 
                     	    
-                    pushFollow(FOLLOW_119);
+                    pushFollow(FOLLOW_118);
                     lv_ownedListElement_2_0=rulePropertyExpression();
 
                     state._fsp--;
@@ -23566,7 +23572,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
                     }
 
-                    // InternalErrorModelParser.g:9450:2: (otherlv_3= Comma ( (lv_ownedListElement_4_0= rulePropertyExpression ) ) )*
+                    // InternalErrorModelParser.g:9438:2: (otherlv_3= Comma ( (lv_ownedListElement_4_0= rulePropertyExpression ) ) )*
                     loop236:
                     do {
                         int alt236=2;
@@ -23579,22 +23585,22 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
                         switch (alt236) {
                     	case 1 :
-                    	    // InternalErrorModelParser.g:9451:2: otherlv_3= Comma ( (lv_ownedListElement_4_0= rulePropertyExpression ) )
+                    	    // InternalErrorModelParser.g:9439:2: otherlv_3= Comma ( (lv_ownedListElement_4_0= rulePropertyExpression ) )
                     	    {
                     	    otherlv_3=(Token)match(input,Comma,FOLLOW_61); 
 
                     	        	newLeafNode(otherlv_3, grammarAccess.getListTermAccess().getCommaKeyword_2_1_0());
                     	        
-                    	    // InternalErrorModelParser.g:9455:1: ( (lv_ownedListElement_4_0= rulePropertyExpression ) )
-                    	    // InternalErrorModelParser.g:9456:1: (lv_ownedListElement_4_0= rulePropertyExpression )
+                    	    // InternalErrorModelParser.g:9443:1: ( (lv_ownedListElement_4_0= rulePropertyExpression ) )
+                    	    // InternalErrorModelParser.g:9444:1: (lv_ownedListElement_4_0= rulePropertyExpression )
                     	    {
-                    	    // InternalErrorModelParser.g:9456:1: (lv_ownedListElement_4_0= rulePropertyExpression )
-                    	    // InternalErrorModelParser.g:9457:3: lv_ownedListElement_4_0= rulePropertyExpression
+                    	    // InternalErrorModelParser.g:9444:1: (lv_ownedListElement_4_0= rulePropertyExpression )
+                    	    // InternalErrorModelParser.g:9445:3: lv_ownedListElement_4_0= rulePropertyExpression
                     	    {
                     	     
                     	    	        newCompositeNode(grammarAccess.getListTermAccess().getOwnedListElementPropertyExpressionParserRuleCall_2_1_1_0()); 
                     	    	    
-                    	    pushFollow(FOLLOW_119);
+                    	    pushFollow(FOLLOW_118);
                     	    lv_ownedListElement_4_0=rulePropertyExpression();
 
                     	    state._fsp--;
@@ -23656,7 +23662,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleFieldPropertyAssociation"
-    // InternalErrorModelParser.g:9486:1: entryRuleFieldPropertyAssociation returns [EObject current=null] : iv_ruleFieldPropertyAssociation= ruleFieldPropertyAssociation EOF ;
+    // InternalErrorModelParser.g:9474:1: entryRuleFieldPropertyAssociation returns [EObject current=null] : iv_ruleFieldPropertyAssociation= ruleFieldPropertyAssociation EOF ;
     public final EObject entryRuleFieldPropertyAssociation() throws RecognitionException {
         EObject current = null;
 
@@ -23664,8 +23670,8 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // InternalErrorModelParser.g:9487:2: (iv_ruleFieldPropertyAssociation= ruleFieldPropertyAssociation EOF )
-            // InternalErrorModelParser.g:9488:2: iv_ruleFieldPropertyAssociation= ruleFieldPropertyAssociation EOF
+            // InternalErrorModelParser.g:9475:2: (iv_ruleFieldPropertyAssociation= ruleFieldPropertyAssociation EOF )
+            // InternalErrorModelParser.g:9476:2: iv_ruleFieldPropertyAssociation= ruleFieldPropertyAssociation EOF
             {
              newCompositeNode(grammarAccess.getFieldPropertyAssociationRule()); 
             pushFollow(FOLLOW_1);
@@ -23692,7 +23698,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleFieldPropertyAssociation"
-    // InternalErrorModelParser.g:9495:1: ruleFieldPropertyAssociation returns [EObject current=null] : ( ( (otherlv_0= RULE_ID ) ) otherlv_1= EqualsSignGreaterThanSign ( (lv_ownedValue_2_0= rulePropertyExpression ) ) otherlv_3= Semicolon ) ;
+    // InternalErrorModelParser.g:9483:1: ruleFieldPropertyAssociation returns [EObject current=null] : ( ( (otherlv_0= RULE_ID ) ) otherlv_1= EqualsSignGreaterThanSign ( (lv_ownedValue_2_0= rulePropertyExpression ) ) otherlv_3= Semicolon ) ;
     public final EObject ruleFieldPropertyAssociation() throws RecognitionException {
         EObject current = null;
 
@@ -23705,17 +23711,17 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // InternalErrorModelParser.g:9498:28: ( ( ( (otherlv_0= RULE_ID ) ) otherlv_1= EqualsSignGreaterThanSign ( (lv_ownedValue_2_0= rulePropertyExpression ) ) otherlv_3= Semicolon ) )
-            // InternalErrorModelParser.g:9499:1: ( ( (otherlv_0= RULE_ID ) ) otherlv_1= EqualsSignGreaterThanSign ( (lv_ownedValue_2_0= rulePropertyExpression ) ) otherlv_3= Semicolon )
+            // InternalErrorModelParser.g:9486:28: ( ( ( (otherlv_0= RULE_ID ) ) otherlv_1= EqualsSignGreaterThanSign ( (lv_ownedValue_2_0= rulePropertyExpression ) ) otherlv_3= Semicolon ) )
+            // InternalErrorModelParser.g:9487:1: ( ( (otherlv_0= RULE_ID ) ) otherlv_1= EqualsSignGreaterThanSign ( (lv_ownedValue_2_0= rulePropertyExpression ) ) otherlv_3= Semicolon )
             {
-            // InternalErrorModelParser.g:9499:1: ( ( (otherlv_0= RULE_ID ) ) otherlv_1= EqualsSignGreaterThanSign ( (lv_ownedValue_2_0= rulePropertyExpression ) ) otherlv_3= Semicolon )
-            // InternalErrorModelParser.g:9499:2: ( (otherlv_0= RULE_ID ) ) otherlv_1= EqualsSignGreaterThanSign ( (lv_ownedValue_2_0= rulePropertyExpression ) ) otherlv_3= Semicolon
+            // InternalErrorModelParser.g:9487:1: ( ( (otherlv_0= RULE_ID ) ) otherlv_1= EqualsSignGreaterThanSign ( (lv_ownedValue_2_0= rulePropertyExpression ) ) otherlv_3= Semicolon )
+            // InternalErrorModelParser.g:9487:2: ( (otherlv_0= RULE_ID ) ) otherlv_1= EqualsSignGreaterThanSign ( (lv_ownedValue_2_0= rulePropertyExpression ) ) otherlv_3= Semicolon
             {
-            // InternalErrorModelParser.g:9499:2: ( (otherlv_0= RULE_ID ) )
-            // InternalErrorModelParser.g:9500:1: (otherlv_0= RULE_ID )
+            // InternalErrorModelParser.g:9487:2: ( (otherlv_0= RULE_ID ) )
+            // InternalErrorModelParser.g:9488:1: (otherlv_0= RULE_ID )
             {
-            // InternalErrorModelParser.g:9500:1: (otherlv_0= RULE_ID )
-            // InternalErrorModelParser.g:9501:3: otherlv_0= RULE_ID
+            // InternalErrorModelParser.g:9488:1: (otherlv_0= RULE_ID )
+            // InternalErrorModelParser.g:9489:3: otherlv_0= RULE_ID
             {
 
             			if (current==null) {
@@ -23736,11 +23742,11 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
                 	newLeafNode(otherlv_1, grammarAccess.getFieldPropertyAssociationAccess().getEqualsSignGreaterThanSignKeyword_1());
                 
-            // InternalErrorModelParser.g:9517:1: ( (lv_ownedValue_2_0= rulePropertyExpression ) )
-            // InternalErrorModelParser.g:9518:1: (lv_ownedValue_2_0= rulePropertyExpression )
+            // InternalErrorModelParser.g:9505:1: ( (lv_ownedValue_2_0= rulePropertyExpression ) )
+            // InternalErrorModelParser.g:9506:1: (lv_ownedValue_2_0= rulePropertyExpression )
             {
-            // InternalErrorModelParser.g:9518:1: (lv_ownedValue_2_0= rulePropertyExpression )
-            // InternalErrorModelParser.g:9519:3: lv_ownedValue_2_0= rulePropertyExpression
+            // InternalErrorModelParser.g:9506:1: (lv_ownedValue_2_0= rulePropertyExpression )
+            // InternalErrorModelParser.g:9507:3: lv_ownedValue_2_0= rulePropertyExpression
             {
              
             	        newCompositeNode(grammarAccess.getFieldPropertyAssociationAccess().getOwnedValuePropertyExpressionParserRuleCall_2_0()); 
@@ -23792,7 +23798,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleContainmentPathElement"
-    // InternalErrorModelParser.g:9548:1: entryRuleContainmentPathElement returns [EObject current=null] : iv_ruleContainmentPathElement= ruleContainmentPathElement EOF ;
+    // InternalErrorModelParser.g:9536:1: entryRuleContainmentPathElement returns [EObject current=null] : iv_ruleContainmentPathElement= ruleContainmentPathElement EOF ;
     public final EObject entryRuleContainmentPathElement() throws RecognitionException {
         EObject current = null;
 
@@ -23800,8 +23806,8 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // InternalErrorModelParser.g:9549:2: (iv_ruleContainmentPathElement= ruleContainmentPathElement EOF )
-            // InternalErrorModelParser.g:9550:2: iv_ruleContainmentPathElement= ruleContainmentPathElement EOF
+            // InternalErrorModelParser.g:9537:2: (iv_ruleContainmentPathElement= ruleContainmentPathElement EOF )
+            // InternalErrorModelParser.g:9538:2: iv_ruleContainmentPathElement= ruleContainmentPathElement EOF
             {
              newCompositeNode(grammarAccess.getContainmentPathElementRule()); 
             pushFollow(FOLLOW_1);
@@ -23828,7 +23834,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleContainmentPathElement"
-    // InternalErrorModelParser.g:9557:1: ruleContainmentPathElement returns [EObject current=null] : ( ( ( (otherlv_0= RULE_ID ) ) ( (lv_arrayRange_1_0= ruleArrayRange ) )* ) (otherlv_2= FullStop ( (lv_path_3_0= ruleContainmentPathElement ) ) )? ) ;
+    // InternalErrorModelParser.g:9545:1: ruleContainmentPathElement returns [EObject current=null] : ( ( ( (otherlv_0= RULE_ID ) ) ( (lv_arrayRange_1_0= ruleArrayRange ) )* ) (otherlv_2= FullStop ( (lv_path_3_0= ruleContainmentPathElement ) ) )? ) ;
     public final EObject ruleContainmentPathElement() throws RecognitionException {
         EObject current = null;
 
@@ -23842,27 +23848,27 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // InternalErrorModelParser.g:9560:28: ( ( ( ( (otherlv_0= RULE_ID ) ) ( (lv_arrayRange_1_0= ruleArrayRange ) )* ) (otherlv_2= FullStop ( (lv_path_3_0= ruleContainmentPathElement ) ) )? ) )
-            // InternalErrorModelParser.g:9561:1: ( ( ( (otherlv_0= RULE_ID ) ) ( (lv_arrayRange_1_0= ruleArrayRange ) )* ) (otherlv_2= FullStop ( (lv_path_3_0= ruleContainmentPathElement ) ) )? )
+            // InternalErrorModelParser.g:9548:28: ( ( ( ( (otherlv_0= RULE_ID ) ) ( (lv_arrayRange_1_0= ruleArrayRange ) )* ) (otherlv_2= FullStop ( (lv_path_3_0= ruleContainmentPathElement ) ) )? ) )
+            // InternalErrorModelParser.g:9549:1: ( ( ( (otherlv_0= RULE_ID ) ) ( (lv_arrayRange_1_0= ruleArrayRange ) )* ) (otherlv_2= FullStop ( (lv_path_3_0= ruleContainmentPathElement ) ) )? )
             {
-            // InternalErrorModelParser.g:9561:1: ( ( ( (otherlv_0= RULE_ID ) ) ( (lv_arrayRange_1_0= ruleArrayRange ) )* ) (otherlv_2= FullStop ( (lv_path_3_0= ruleContainmentPathElement ) ) )? )
-            // InternalErrorModelParser.g:9561:2: ( ( (otherlv_0= RULE_ID ) ) ( (lv_arrayRange_1_0= ruleArrayRange ) )* ) (otherlv_2= FullStop ( (lv_path_3_0= ruleContainmentPathElement ) ) )?
+            // InternalErrorModelParser.g:9549:1: ( ( ( (otherlv_0= RULE_ID ) ) ( (lv_arrayRange_1_0= ruleArrayRange ) )* ) (otherlv_2= FullStop ( (lv_path_3_0= ruleContainmentPathElement ) ) )? )
+            // InternalErrorModelParser.g:9549:2: ( ( (otherlv_0= RULE_ID ) ) ( (lv_arrayRange_1_0= ruleArrayRange ) )* ) (otherlv_2= FullStop ( (lv_path_3_0= ruleContainmentPathElement ) ) )?
             {
-            // InternalErrorModelParser.g:9561:2: ( ( (otherlv_0= RULE_ID ) ) ( (lv_arrayRange_1_0= ruleArrayRange ) )* )
-            // InternalErrorModelParser.g:9561:3: ( (otherlv_0= RULE_ID ) ) ( (lv_arrayRange_1_0= ruleArrayRange ) )*
+            // InternalErrorModelParser.g:9549:2: ( ( (otherlv_0= RULE_ID ) ) ( (lv_arrayRange_1_0= ruleArrayRange ) )* )
+            // InternalErrorModelParser.g:9549:3: ( (otherlv_0= RULE_ID ) ) ( (lv_arrayRange_1_0= ruleArrayRange ) )*
             {
-            // InternalErrorModelParser.g:9561:3: ( (otherlv_0= RULE_ID ) )
-            // InternalErrorModelParser.g:9562:1: (otherlv_0= RULE_ID )
+            // InternalErrorModelParser.g:9549:3: ( (otherlv_0= RULE_ID ) )
+            // InternalErrorModelParser.g:9550:1: (otherlv_0= RULE_ID )
             {
-            // InternalErrorModelParser.g:9562:1: (otherlv_0= RULE_ID )
-            // InternalErrorModelParser.g:9563:3: otherlv_0= RULE_ID
+            // InternalErrorModelParser.g:9550:1: (otherlv_0= RULE_ID )
+            // InternalErrorModelParser.g:9551:3: otherlv_0= RULE_ID
             {
 
             			if (current==null) {
             	            current = createModelElement(grammarAccess.getContainmentPathElementRule());
             	        }
                     
-            otherlv_0=(Token)match(input,RULE_ID,FOLLOW_154); 
+            otherlv_0=(Token)match(input,RULE_ID,FOLLOW_150); 
 
             		newLeafNode(otherlv_0, grammarAccess.getContainmentPathElementAccess().getNamedElementNamedElementCrossReference_0_0_0()); 
             	
@@ -23872,7 +23878,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
             }
 
-            // InternalErrorModelParser.g:9574:2: ( (lv_arrayRange_1_0= ruleArrayRange ) )*
+            // InternalErrorModelParser.g:9562:2: ( (lv_arrayRange_1_0= ruleArrayRange ) )*
             loop238:
             do {
                 int alt238=2;
@@ -23885,15 +23891,15 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
                 switch (alt238) {
             	case 1 :
-            	    // InternalErrorModelParser.g:9575:1: (lv_arrayRange_1_0= ruleArrayRange )
+            	    // InternalErrorModelParser.g:9563:1: (lv_arrayRange_1_0= ruleArrayRange )
             	    {
-            	    // InternalErrorModelParser.g:9575:1: (lv_arrayRange_1_0= ruleArrayRange )
-            	    // InternalErrorModelParser.g:9576:3: lv_arrayRange_1_0= ruleArrayRange
+            	    // InternalErrorModelParser.g:9563:1: (lv_arrayRange_1_0= ruleArrayRange )
+            	    // InternalErrorModelParser.g:9564:3: lv_arrayRange_1_0= ruleArrayRange
             	    {
             	     
             	    	        newCompositeNode(grammarAccess.getContainmentPathElementAccess().getArrayRangeArrayRangeParserRuleCall_0_1_0()); 
             	    	    
-            	    pushFollow(FOLLOW_154);
+            	    pushFollow(FOLLOW_150);
             	    lv_arrayRange_1_0=ruleArrayRange();
 
             	    state._fsp--;
@@ -23924,7 +23930,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
             }
 
-            // InternalErrorModelParser.g:9592:4: (otherlv_2= FullStop ( (lv_path_3_0= ruleContainmentPathElement ) ) )?
+            // InternalErrorModelParser.g:9580:4: (otherlv_2= FullStop ( (lv_path_3_0= ruleContainmentPathElement ) ) )?
             int alt239=2;
             int LA239_0 = input.LA(1);
 
@@ -23933,17 +23939,17 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
             }
             switch (alt239) {
                 case 1 :
-                    // InternalErrorModelParser.g:9593:2: otherlv_2= FullStop ( (lv_path_3_0= ruleContainmentPathElement ) )
+                    // InternalErrorModelParser.g:9581:2: otherlv_2= FullStop ( (lv_path_3_0= ruleContainmentPathElement ) )
                     {
                     otherlv_2=(Token)match(input,FullStop,FOLLOW_5); 
 
                         	newLeafNode(otherlv_2, grammarAccess.getContainmentPathElementAccess().getFullStopKeyword_1_0());
                         
-                    // InternalErrorModelParser.g:9597:1: ( (lv_path_3_0= ruleContainmentPathElement ) )
-                    // InternalErrorModelParser.g:9598:1: (lv_path_3_0= ruleContainmentPathElement )
+                    // InternalErrorModelParser.g:9585:1: ( (lv_path_3_0= ruleContainmentPathElement ) )
+                    // InternalErrorModelParser.g:9586:1: (lv_path_3_0= ruleContainmentPathElement )
                     {
-                    // InternalErrorModelParser.g:9598:1: (lv_path_3_0= ruleContainmentPathElement )
-                    // InternalErrorModelParser.g:9599:3: lv_path_3_0= ruleContainmentPathElement
+                    // InternalErrorModelParser.g:9586:1: (lv_path_3_0= ruleContainmentPathElement )
+                    // InternalErrorModelParser.g:9587:3: lv_path_3_0= ruleContainmentPathElement
                     {
                      
                     	        newCompositeNode(grammarAccess.getContainmentPathElementAccess().getPathContainmentPathElementParserRuleCall_1_1_0()); 
@@ -23997,7 +24003,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRulePlusMinus"
-    // InternalErrorModelParser.g:9625:1: entryRulePlusMinus returns [String current=null] : iv_rulePlusMinus= rulePlusMinus EOF ;
+    // InternalErrorModelParser.g:9613:1: entryRulePlusMinus returns [String current=null] : iv_rulePlusMinus= rulePlusMinus EOF ;
     public final String entryRulePlusMinus() throws RecognitionException {
         String current = null;
 
@@ -24005,8 +24011,8 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // InternalErrorModelParser.g:9626:1: (iv_rulePlusMinus= rulePlusMinus EOF )
-            // InternalErrorModelParser.g:9627:2: iv_rulePlusMinus= rulePlusMinus EOF
+            // InternalErrorModelParser.g:9614:1: (iv_rulePlusMinus= rulePlusMinus EOF )
+            // InternalErrorModelParser.g:9615:2: iv_rulePlusMinus= rulePlusMinus EOF
             {
              newCompositeNode(grammarAccess.getPlusMinusRule()); 
             pushFollow(FOLLOW_1);
@@ -24033,7 +24039,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "rulePlusMinus"
-    // InternalErrorModelParser.g:9634:1: rulePlusMinus returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()] : (kw= PlusSign | kw= HyphenMinus ) ;
+    // InternalErrorModelParser.g:9622:1: rulePlusMinus returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()] : (kw= PlusSign | kw= HyphenMinus ) ;
     public final AntlrDatatypeRuleToken rulePlusMinus() throws RecognitionException {
         AntlrDatatypeRuleToken current = new AntlrDatatypeRuleToken();
 
@@ -24042,10 +24048,10 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // InternalErrorModelParser.g:9638:6: ( (kw= PlusSign | kw= HyphenMinus ) )
-            // InternalErrorModelParser.g:9639:1: (kw= PlusSign | kw= HyphenMinus )
+            // InternalErrorModelParser.g:9626:6: ( (kw= PlusSign | kw= HyphenMinus ) )
+            // InternalErrorModelParser.g:9627:1: (kw= PlusSign | kw= HyphenMinus )
             {
-            // InternalErrorModelParser.g:9639:1: (kw= PlusSign | kw= HyphenMinus )
+            // InternalErrorModelParser.g:9627:1: (kw= PlusSign | kw= HyphenMinus )
             int alt240=2;
             int LA240_0 = input.LA(1);
 
@@ -24063,7 +24069,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
             }
             switch (alt240) {
                 case 1 :
-                    // InternalErrorModelParser.g:9640:2: kw= PlusSign
+                    // InternalErrorModelParser.g:9628:2: kw= PlusSign
                     {
                     kw=(Token)match(input,PlusSign,FOLLOW_2); 
 
@@ -24074,7 +24080,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 2 :
-                    // InternalErrorModelParser.g:9647:2: kw= HyphenMinus
+                    // InternalErrorModelParser.g:9635:2: kw= HyphenMinus
                     {
                     kw=(Token)match(input,HyphenMinus,FOLLOW_2); 
 
@@ -24106,7 +24112,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleStringTerm"
-    // InternalErrorModelParser.g:9660:1: entryRuleStringTerm returns [EObject current=null] : iv_ruleStringTerm= ruleStringTerm EOF ;
+    // InternalErrorModelParser.g:9648:1: entryRuleStringTerm returns [EObject current=null] : iv_ruleStringTerm= ruleStringTerm EOF ;
     public final EObject entryRuleStringTerm() throws RecognitionException {
         EObject current = null;
 
@@ -24114,8 +24120,8 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // InternalErrorModelParser.g:9661:2: (iv_ruleStringTerm= ruleStringTerm EOF )
-            // InternalErrorModelParser.g:9662:2: iv_ruleStringTerm= ruleStringTerm EOF
+            // InternalErrorModelParser.g:9649:2: (iv_ruleStringTerm= ruleStringTerm EOF )
+            // InternalErrorModelParser.g:9650:2: iv_ruleStringTerm= ruleStringTerm EOF
             {
              newCompositeNode(grammarAccess.getStringTermRule()); 
             pushFollow(FOLLOW_1);
@@ -24142,7 +24148,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleStringTerm"
-    // InternalErrorModelParser.g:9669:1: ruleStringTerm returns [EObject current=null] : ( (lv_value_0_0= ruleNoQuoteString ) ) ;
+    // InternalErrorModelParser.g:9657:1: ruleStringTerm returns [EObject current=null] : ( (lv_value_0_0= ruleNoQuoteString ) ) ;
     public final EObject ruleStringTerm() throws RecognitionException {
         EObject current = null;
 
@@ -24152,14 +24158,14 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // InternalErrorModelParser.g:9672:28: ( ( (lv_value_0_0= ruleNoQuoteString ) ) )
-            // InternalErrorModelParser.g:9673:1: ( (lv_value_0_0= ruleNoQuoteString ) )
+            // InternalErrorModelParser.g:9660:28: ( ( (lv_value_0_0= ruleNoQuoteString ) ) )
+            // InternalErrorModelParser.g:9661:1: ( (lv_value_0_0= ruleNoQuoteString ) )
             {
-            // InternalErrorModelParser.g:9673:1: ( (lv_value_0_0= ruleNoQuoteString ) )
-            // InternalErrorModelParser.g:9674:1: (lv_value_0_0= ruleNoQuoteString )
+            // InternalErrorModelParser.g:9661:1: ( (lv_value_0_0= ruleNoQuoteString ) )
+            // InternalErrorModelParser.g:9662:1: (lv_value_0_0= ruleNoQuoteString )
             {
-            // InternalErrorModelParser.g:9674:1: (lv_value_0_0= ruleNoQuoteString )
-            // InternalErrorModelParser.g:9675:3: lv_value_0_0= ruleNoQuoteString
+            // InternalErrorModelParser.g:9662:1: (lv_value_0_0= ruleNoQuoteString )
+            // InternalErrorModelParser.g:9663:3: lv_value_0_0= ruleNoQuoteString
             {
              
             	        newCompositeNode(grammarAccess.getStringTermAccess().getValueNoQuoteStringParserRuleCall_0()); 
@@ -24204,7 +24210,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleNoQuoteString"
-    // InternalErrorModelParser.g:9699:1: entryRuleNoQuoteString returns [String current=null] : iv_ruleNoQuoteString= ruleNoQuoteString EOF ;
+    // InternalErrorModelParser.g:9687:1: entryRuleNoQuoteString returns [String current=null] : iv_ruleNoQuoteString= ruleNoQuoteString EOF ;
     public final String entryRuleNoQuoteString() throws RecognitionException {
         String current = null;
 
@@ -24212,8 +24218,8 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // InternalErrorModelParser.g:9700:1: (iv_ruleNoQuoteString= ruleNoQuoteString EOF )
-            // InternalErrorModelParser.g:9701:2: iv_ruleNoQuoteString= ruleNoQuoteString EOF
+            // InternalErrorModelParser.g:9688:1: (iv_ruleNoQuoteString= ruleNoQuoteString EOF )
+            // InternalErrorModelParser.g:9689:2: iv_ruleNoQuoteString= ruleNoQuoteString EOF
             {
              newCompositeNode(grammarAccess.getNoQuoteStringRule()); 
             pushFollow(FOLLOW_1);
@@ -24240,7 +24246,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleNoQuoteString"
-    // InternalErrorModelParser.g:9708:1: ruleNoQuoteString returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()] : this_STRING_0= RULE_STRING ;
+    // InternalErrorModelParser.g:9696:1: ruleNoQuoteString returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()] : this_STRING_0= RULE_STRING ;
     public final AntlrDatatypeRuleToken ruleNoQuoteString() throws RecognitionException {
         AntlrDatatypeRuleToken current = new AntlrDatatypeRuleToken();
 
@@ -24249,8 +24255,8 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // InternalErrorModelParser.g:9712:6: (this_STRING_0= RULE_STRING )
-            // InternalErrorModelParser.g:9713:5: this_STRING_0= RULE_STRING
+            // InternalErrorModelParser.g:9700:6: (this_STRING_0= RULE_STRING )
+            // InternalErrorModelParser.g:9701:5: this_STRING_0= RULE_STRING
             {
             this_STRING_0=(Token)match(input,RULE_STRING,FOLLOW_2); 
 
@@ -24278,7 +24284,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleArrayRange"
-    // InternalErrorModelParser.g:9728:1: entryRuleArrayRange returns [EObject current=null] : iv_ruleArrayRange= ruleArrayRange EOF ;
+    // InternalErrorModelParser.g:9716:1: entryRuleArrayRange returns [EObject current=null] : iv_ruleArrayRange= ruleArrayRange EOF ;
     public final EObject entryRuleArrayRange() throws RecognitionException {
         EObject current = null;
 
@@ -24286,8 +24292,8 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // InternalErrorModelParser.g:9729:2: (iv_ruleArrayRange= ruleArrayRange EOF )
-            // InternalErrorModelParser.g:9730:2: iv_ruleArrayRange= ruleArrayRange EOF
+            // InternalErrorModelParser.g:9717:2: (iv_ruleArrayRange= ruleArrayRange EOF )
+            // InternalErrorModelParser.g:9718:2: iv_ruleArrayRange= ruleArrayRange EOF
             {
              newCompositeNode(grammarAccess.getArrayRangeRule()); 
             pushFollow(FOLLOW_1);
@@ -24314,7 +24320,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleArrayRange"
-    // InternalErrorModelParser.g:9737:1: ruleArrayRange returns [EObject current=null] : ( () otherlv_1= LeftSquareBracket ( (lv_lowerBound_2_0= ruleINTVALUE ) ) (otherlv_3= FullStopFullStop ( (lv_upperBound_4_0= ruleINTVALUE ) ) )? otherlv_5= RightSquareBracket ) ;
+    // InternalErrorModelParser.g:9725:1: ruleArrayRange returns [EObject current=null] : ( () otherlv_1= LeftSquareBracket ( (lv_lowerBound_2_0= ruleINTVALUE ) ) (otherlv_3= FullStopFullStop ( (lv_upperBound_4_0= ruleINTVALUE ) ) )? otherlv_5= RightSquareBracket ) ;
     public final EObject ruleArrayRange() throws RecognitionException {
         EObject current = null;
 
@@ -24329,14 +24335,14 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // InternalErrorModelParser.g:9740:28: ( ( () otherlv_1= LeftSquareBracket ( (lv_lowerBound_2_0= ruleINTVALUE ) ) (otherlv_3= FullStopFullStop ( (lv_upperBound_4_0= ruleINTVALUE ) ) )? otherlv_5= RightSquareBracket ) )
-            // InternalErrorModelParser.g:9741:1: ( () otherlv_1= LeftSquareBracket ( (lv_lowerBound_2_0= ruleINTVALUE ) ) (otherlv_3= FullStopFullStop ( (lv_upperBound_4_0= ruleINTVALUE ) ) )? otherlv_5= RightSquareBracket )
+            // InternalErrorModelParser.g:9728:28: ( ( () otherlv_1= LeftSquareBracket ( (lv_lowerBound_2_0= ruleINTVALUE ) ) (otherlv_3= FullStopFullStop ( (lv_upperBound_4_0= ruleINTVALUE ) ) )? otherlv_5= RightSquareBracket ) )
+            // InternalErrorModelParser.g:9729:1: ( () otherlv_1= LeftSquareBracket ( (lv_lowerBound_2_0= ruleINTVALUE ) ) (otherlv_3= FullStopFullStop ( (lv_upperBound_4_0= ruleINTVALUE ) ) )? otherlv_5= RightSquareBracket )
             {
-            // InternalErrorModelParser.g:9741:1: ( () otherlv_1= LeftSquareBracket ( (lv_lowerBound_2_0= ruleINTVALUE ) ) (otherlv_3= FullStopFullStop ( (lv_upperBound_4_0= ruleINTVALUE ) ) )? otherlv_5= RightSquareBracket )
-            // InternalErrorModelParser.g:9741:2: () otherlv_1= LeftSquareBracket ( (lv_lowerBound_2_0= ruleINTVALUE ) ) (otherlv_3= FullStopFullStop ( (lv_upperBound_4_0= ruleINTVALUE ) ) )? otherlv_5= RightSquareBracket
+            // InternalErrorModelParser.g:9729:1: ( () otherlv_1= LeftSquareBracket ( (lv_lowerBound_2_0= ruleINTVALUE ) ) (otherlv_3= FullStopFullStop ( (lv_upperBound_4_0= ruleINTVALUE ) ) )? otherlv_5= RightSquareBracket )
+            // InternalErrorModelParser.g:9729:2: () otherlv_1= LeftSquareBracket ( (lv_lowerBound_2_0= ruleINTVALUE ) ) (otherlv_3= FullStopFullStop ( (lv_upperBound_4_0= ruleINTVALUE ) ) )? otherlv_5= RightSquareBracket
             {
-            // InternalErrorModelParser.g:9741:2: ()
-            // InternalErrorModelParser.g:9742:5: 
+            // InternalErrorModelParser.g:9729:2: ()
+            // InternalErrorModelParser.g:9730:5: 
             {
 
                     current = forceCreateModelElement(
@@ -24346,20 +24352,20 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
             }
 
-            otherlv_1=(Token)match(input,LeftSquareBracket,FOLLOW_127); 
+            otherlv_1=(Token)match(input,LeftSquareBracket,FOLLOW_126); 
 
                 	newLeafNode(otherlv_1, grammarAccess.getArrayRangeAccess().getLeftSquareBracketKeyword_1());
                 
-            // InternalErrorModelParser.g:9752:1: ( (lv_lowerBound_2_0= ruleINTVALUE ) )
-            // InternalErrorModelParser.g:9753:1: (lv_lowerBound_2_0= ruleINTVALUE )
+            // InternalErrorModelParser.g:9740:1: ( (lv_lowerBound_2_0= ruleINTVALUE ) )
+            // InternalErrorModelParser.g:9741:1: (lv_lowerBound_2_0= ruleINTVALUE )
             {
-            // InternalErrorModelParser.g:9753:1: (lv_lowerBound_2_0= ruleINTVALUE )
-            // InternalErrorModelParser.g:9754:3: lv_lowerBound_2_0= ruleINTVALUE
+            // InternalErrorModelParser.g:9741:1: (lv_lowerBound_2_0= ruleINTVALUE )
+            // InternalErrorModelParser.g:9742:3: lv_lowerBound_2_0= ruleINTVALUE
             {
              
             	        newCompositeNode(grammarAccess.getArrayRangeAccess().getLowerBoundINTVALUEParserRuleCall_2_0()); 
             	    
-            pushFollow(FOLLOW_155);
+            pushFollow(FOLLOW_151);
             lv_lowerBound_2_0=ruleINTVALUE();
 
             state._fsp--;
@@ -24381,7 +24387,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
             }
 
-            // InternalErrorModelParser.g:9770:2: (otherlv_3= FullStopFullStop ( (lv_upperBound_4_0= ruleINTVALUE ) ) )?
+            // InternalErrorModelParser.g:9758:2: (otherlv_3= FullStopFullStop ( (lv_upperBound_4_0= ruleINTVALUE ) ) )?
             int alt241=2;
             int LA241_0 = input.LA(1);
 
@@ -24390,22 +24396,22 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
             }
             switch (alt241) {
                 case 1 :
-                    // InternalErrorModelParser.g:9771:2: otherlv_3= FullStopFullStop ( (lv_upperBound_4_0= ruleINTVALUE ) )
+                    // InternalErrorModelParser.g:9759:2: otherlv_3= FullStopFullStop ( (lv_upperBound_4_0= ruleINTVALUE ) )
                     {
-                    otherlv_3=(Token)match(input,FullStopFullStop,FOLLOW_127); 
+                    otherlv_3=(Token)match(input,FullStopFullStop,FOLLOW_126); 
 
                         	newLeafNode(otherlv_3, grammarAccess.getArrayRangeAccess().getFullStopFullStopKeyword_3_0());
                         
-                    // InternalErrorModelParser.g:9775:1: ( (lv_upperBound_4_0= ruleINTVALUE ) )
-                    // InternalErrorModelParser.g:9776:1: (lv_upperBound_4_0= ruleINTVALUE )
+                    // InternalErrorModelParser.g:9763:1: ( (lv_upperBound_4_0= ruleINTVALUE ) )
+                    // InternalErrorModelParser.g:9764:1: (lv_upperBound_4_0= ruleINTVALUE )
                     {
-                    // InternalErrorModelParser.g:9776:1: (lv_upperBound_4_0= ruleINTVALUE )
-                    // InternalErrorModelParser.g:9777:3: lv_upperBound_4_0= ruleINTVALUE
+                    // InternalErrorModelParser.g:9764:1: (lv_upperBound_4_0= ruleINTVALUE )
+                    // InternalErrorModelParser.g:9765:3: lv_upperBound_4_0= ruleINTVALUE
                     {
                      
                     	        newCompositeNode(grammarAccess.getArrayRangeAccess().getUpperBoundINTVALUEParserRuleCall_3_1_0()); 
                     	    
-                    pushFollow(FOLLOW_156);
+                    pushFollow(FOLLOW_152);
                     lv_upperBound_4_0=ruleINTVALUE();
 
                     state._fsp--;
@@ -24458,7 +24464,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleSignedConstant"
-    // InternalErrorModelParser.g:9806:1: entryRuleSignedConstant returns [EObject current=null] : iv_ruleSignedConstant= ruleSignedConstant EOF ;
+    // InternalErrorModelParser.g:9794:1: entryRuleSignedConstant returns [EObject current=null] : iv_ruleSignedConstant= ruleSignedConstant EOF ;
     public final EObject entryRuleSignedConstant() throws RecognitionException {
         EObject current = null;
 
@@ -24466,8 +24472,8 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // InternalErrorModelParser.g:9807:2: (iv_ruleSignedConstant= ruleSignedConstant EOF )
-            // InternalErrorModelParser.g:9808:2: iv_ruleSignedConstant= ruleSignedConstant EOF
+            // InternalErrorModelParser.g:9795:2: (iv_ruleSignedConstant= ruleSignedConstant EOF )
+            // InternalErrorModelParser.g:9796:2: iv_ruleSignedConstant= ruleSignedConstant EOF
             {
              newCompositeNode(grammarAccess.getSignedConstantRule()); 
             pushFollow(FOLLOW_1);
@@ -24494,7 +24500,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleSignedConstant"
-    // InternalErrorModelParser.g:9815:1: ruleSignedConstant returns [EObject current=null] : ( ( (lv_op_0_0= rulePlusMinus ) ) ( (lv_ownedPropertyExpression_1_0= ruleConstantValue ) ) ) ;
+    // InternalErrorModelParser.g:9803:1: ruleSignedConstant returns [EObject current=null] : ( ( (lv_op_0_0= rulePlusMinus ) ) ( (lv_ownedPropertyExpression_1_0= ruleConstantValue ) ) ) ;
     public final EObject ruleSignedConstant() throws RecognitionException {
         EObject current = null;
 
@@ -24506,22 +24512,22 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // InternalErrorModelParser.g:9818:28: ( ( ( (lv_op_0_0= rulePlusMinus ) ) ( (lv_ownedPropertyExpression_1_0= ruleConstantValue ) ) ) )
-            // InternalErrorModelParser.g:9819:1: ( ( (lv_op_0_0= rulePlusMinus ) ) ( (lv_ownedPropertyExpression_1_0= ruleConstantValue ) ) )
+            // InternalErrorModelParser.g:9806:28: ( ( ( (lv_op_0_0= rulePlusMinus ) ) ( (lv_ownedPropertyExpression_1_0= ruleConstantValue ) ) ) )
+            // InternalErrorModelParser.g:9807:1: ( ( (lv_op_0_0= rulePlusMinus ) ) ( (lv_ownedPropertyExpression_1_0= ruleConstantValue ) ) )
             {
-            // InternalErrorModelParser.g:9819:1: ( ( (lv_op_0_0= rulePlusMinus ) ) ( (lv_ownedPropertyExpression_1_0= ruleConstantValue ) ) )
-            // InternalErrorModelParser.g:9819:2: ( (lv_op_0_0= rulePlusMinus ) ) ( (lv_ownedPropertyExpression_1_0= ruleConstantValue ) )
+            // InternalErrorModelParser.g:9807:1: ( ( (lv_op_0_0= rulePlusMinus ) ) ( (lv_ownedPropertyExpression_1_0= ruleConstantValue ) ) )
+            // InternalErrorModelParser.g:9807:2: ( (lv_op_0_0= rulePlusMinus ) ) ( (lv_ownedPropertyExpression_1_0= ruleConstantValue ) )
             {
-            // InternalErrorModelParser.g:9819:2: ( (lv_op_0_0= rulePlusMinus ) )
-            // InternalErrorModelParser.g:9820:1: (lv_op_0_0= rulePlusMinus )
+            // InternalErrorModelParser.g:9807:2: ( (lv_op_0_0= rulePlusMinus ) )
+            // InternalErrorModelParser.g:9808:1: (lv_op_0_0= rulePlusMinus )
             {
-            // InternalErrorModelParser.g:9820:1: (lv_op_0_0= rulePlusMinus )
-            // InternalErrorModelParser.g:9821:3: lv_op_0_0= rulePlusMinus
+            // InternalErrorModelParser.g:9808:1: (lv_op_0_0= rulePlusMinus )
+            // InternalErrorModelParser.g:9809:3: lv_op_0_0= rulePlusMinus
             {
              
             	        newCompositeNode(grammarAccess.getSignedConstantAccess().getOpPlusMinusParserRuleCall_0_0()); 
             	    
-            pushFollow(FOLLOW_157);
+            pushFollow(FOLLOW_153);
             lv_op_0_0=rulePlusMinus();
 
             state._fsp--;
@@ -24543,11 +24549,11 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
             }
 
-            // InternalErrorModelParser.g:9837:2: ( (lv_ownedPropertyExpression_1_0= ruleConstantValue ) )
-            // InternalErrorModelParser.g:9838:1: (lv_ownedPropertyExpression_1_0= ruleConstantValue )
+            // InternalErrorModelParser.g:9825:2: ( (lv_ownedPropertyExpression_1_0= ruleConstantValue ) )
+            // InternalErrorModelParser.g:9826:1: (lv_ownedPropertyExpression_1_0= ruleConstantValue )
             {
-            // InternalErrorModelParser.g:9838:1: (lv_ownedPropertyExpression_1_0= ruleConstantValue )
-            // InternalErrorModelParser.g:9839:3: lv_ownedPropertyExpression_1_0= ruleConstantValue
+            // InternalErrorModelParser.g:9826:1: (lv_ownedPropertyExpression_1_0= ruleConstantValue )
+            // InternalErrorModelParser.g:9827:3: lv_ownedPropertyExpression_1_0= ruleConstantValue
             {
              
             	        newCompositeNode(grammarAccess.getSignedConstantAccess().getOwnedPropertyExpressionConstantValueParserRuleCall_1_0()); 
@@ -24595,7 +24601,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleIntegerTerm"
-    // InternalErrorModelParser.g:9863:1: entryRuleIntegerTerm returns [EObject current=null] : iv_ruleIntegerTerm= ruleIntegerTerm EOF ;
+    // InternalErrorModelParser.g:9851:1: entryRuleIntegerTerm returns [EObject current=null] : iv_ruleIntegerTerm= ruleIntegerTerm EOF ;
     public final EObject entryRuleIntegerTerm() throws RecognitionException {
         EObject current = null;
 
@@ -24603,8 +24609,8 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // InternalErrorModelParser.g:9864:2: (iv_ruleIntegerTerm= ruleIntegerTerm EOF )
-            // InternalErrorModelParser.g:9865:2: iv_ruleIntegerTerm= ruleIntegerTerm EOF
+            // InternalErrorModelParser.g:9852:2: (iv_ruleIntegerTerm= ruleIntegerTerm EOF )
+            // InternalErrorModelParser.g:9853:2: iv_ruleIntegerTerm= ruleIntegerTerm EOF
             {
              newCompositeNode(grammarAccess.getIntegerTermRule()); 
             pushFollow(FOLLOW_1);
@@ -24631,7 +24637,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleIntegerTerm"
-    // InternalErrorModelParser.g:9872:1: ruleIntegerTerm returns [EObject current=null] : ( ( (lv_value_0_0= ruleSignedInt ) ) ( (otherlv_1= RULE_ID ) )? ) ;
+    // InternalErrorModelParser.g:9860:1: ruleIntegerTerm returns [EObject current=null] : ( ( (lv_value_0_0= ruleSignedInt ) ) ( (otherlv_1= RULE_ID ) )? ) ;
     public final EObject ruleIntegerTerm() throws RecognitionException {
         EObject current = null;
 
@@ -24642,17 +24648,17 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // InternalErrorModelParser.g:9875:28: ( ( ( (lv_value_0_0= ruleSignedInt ) ) ( (otherlv_1= RULE_ID ) )? ) )
-            // InternalErrorModelParser.g:9876:1: ( ( (lv_value_0_0= ruleSignedInt ) ) ( (otherlv_1= RULE_ID ) )? )
+            // InternalErrorModelParser.g:9863:28: ( ( ( (lv_value_0_0= ruleSignedInt ) ) ( (otherlv_1= RULE_ID ) )? ) )
+            // InternalErrorModelParser.g:9864:1: ( ( (lv_value_0_0= ruleSignedInt ) ) ( (otherlv_1= RULE_ID ) )? )
             {
-            // InternalErrorModelParser.g:9876:1: ( ( (lv_value_0_0= ruleSignedInt ) ) ( (otherlv_1= RULE_ID ) )? )
-            // InternalErrorModelParser.g:9876:2: ( (lv_value_0_0= ruleSignedInt ) ) ( (otherlv_1= RULE_ID ) )?
+            // InternalErrorModelParser.g:9864:1: ( ( (lv_value_0_0= ruleSignedInt ) ) ( (otherlv_1= RULE_ID ) )? )
+            // InternalErrorModelParser.g:9864:2: ( (lv_value_0_0= ruleSignedInt ) ) ( (otherlv_1= RULE_ID ) )?
             {
-            // InternalErrorModelParser.g:9876:2: ( (lv_value_0_0= ruleSignedInt ) )
-            // InternalErrorModelParser.g:9877:1: (lv_value_0_0= ruleSignedInt )
+            // InternalErrorModelParser.g:9864:2: ( (lv_value_0_0= ruleSignedInt ) )
+            // InternalErrorModelParser.g:9865:1: (lv_value_0_0= ruleSignedInt )
             {
-            // InternalErrorModelParser.g:9877:1: (lv_value_0_0= ruleSignedInt )
-            // InternalErrorModelParser.g:9878:3: lv_value_0_0= ruleSignedInt
+            // InternalErrorModelParser.g:9865:1: (lv_value_0_0= ruleSignedInt )
+            // InternalErrorModelParser.g:9866:3: lv_value_0_0= ruleSignedInt
             {
              
             	        newCompositeNode(grammarAccess.getIntegerTermAccess().getValueSignedIntParserRuleCall_0_0()); 
@@ -24679,7 +24685,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
             }
 
-            // InternalErrorModelParser.g:9894:2: ( (otherlv_1= RULE_ID ) )?
+            // InternalErrorModelParser.g:9882:2: ( (otherlv_1= RULE_ID ) )?
             int alt242=2;
             int LA242_0 = input.LA(1);
 
@@ -24688,10 +24694,10 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
             }
             switch (alt242) {
                 case 1 :
-                    // InternalErrorModelParser.g:9895:1: (otherlv_1= RULE_ID )
+                    // InternalErrorModelParser.g:9883:1: (otherlv_1= RULE_ID )
                     {
-                    // InternalErrorModelParser.g:9895:1: (otherlv_1= RULE_ID )
-                    // InternalErrorModelParser.g:9896:3: otherlv_1= RULE_ID
+                    // InternalErrorModelParser.g:9883:1: (otherlv_1= RULE_ID )
+                    // InternalErrorModelParser.g:9884:3: otherlv_1= RULE_ID
                     {
 
                     			if (current==null) {
@@ -24732,7 +24738,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleSignedInt"
-    // InternalErrorModelParser.g:9915:1: entryRuleSignedInt returns [String current=null] : iv_ruleSignedInt= ruleSignedInt EOF ;
+    // InternalErrorModelParser.g:9903:1: entryRuleSignedInt returns [String current=null] : iv_ruleSignedInt= ruleSignedInt EOF ;
     public final String entryRuleSignedInt() throws RecognitionException {
         String current = null;
 
@@ -24740,8 +24746,8 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // InternalErrorModelParser.g:9916:1: (iv_ruleSignedInt= ruleSignedInt EOF )
-            // InternalErrorModelParser.g:9917:2: iv_ruleSignedInt= ruleSignedInt EOF
+            // InternalErrorModelParser.g:9904:1: (iv_ruleSignedInt= ruleSignedInt EOF )
+            // InternalErrorModelParser.g:9905:2: iv_ruleSignedInt= ruleSignedInt EOF
             {
              newCompositeNode(grammarAccess.getSignedIntRule()); 
             pushFollow(FOLLOW_1);
@@ -24768,7 +24774,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleSignedInt"
-    // InternalErrorModelParser.g:9924:1: ruleSignedInt returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()] : ( (kw= PlusSign | kw= HyphenMinus )? this_INTEGER_LIT_2= RULE_INTEGER_LIT ) ;
+    // InternalErrorModelParser.g:9912:1: ruleSignedInt returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()] : ( (kw= PlusSign | kw= HyphenMinus )? this_INTEGER_LIT_2= RULE_INTEGER_LIT ) ;
     public final AntlrDatatypeRuleToken ruleSignedInt() throws RecognitionException {
         AntlrDatatypeRuleToken current = new AntlrDatatypeRuleToken();
 
@@ -24778,13 +24784,13 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // InternalErrorModelParser.g:9928:6: ( ( (kw= PlusSign | kw= HyphenMinus )? this_INTEGER_LIT_2= RULE_INTEGER_LIT ) )
-            // InternalErrorModelParser.g:9929:1: ( (kw= PlusSign | kw= HyphenMinus )? this_INTEGER_LIT_2= RULE_INTEGER_LIT )
+            // InternalErrorModelParser.g:9916:6: ( ( (kw= PlusSign | kw= HyphenMinus )? this_INTEGER_LIT_2= RULE_INTEGER_LIT ) )
+            // InternalErrorModelParser.g:9917:1: ( (kw= PlusSign | kw= HyphenMinus )? this_INTEGER_LIT_2= RULE_INTEGER_LIT )
             {
-            // InternalErrorModelParser.g:9929:1: ( (kw= PlusSign | kw= HyphenMinus )? this_INTEGER_LIT_2= RULE_INTEGER_LIT )
-            // InternalErrorModelParser.g:9929:2: (kw= PlusSign | kw= HyphenMinus )? this_INTEGER_LIT_2= RULE_INTEGER_LIT
+            // InternalErrorModelParser.g:9917:1: ( (kw= PlusSign | kw= HyphenMinus )? this_INTEGER_LIT_2= RULE_INTEGER_LIT )
+            // InternalErrorModelParser.g:9917:2: (kw= PlusSign | kw= HyphenMinus )? this_INTEGER_LIT_2= RULE_INTEGER_LIT
             {
-            // InternalErrorModelParser.g:9929:2: (kw= PlusSign | kw= HyphenMinus )?
+            // InternalErrorModelParser.g:9917:2: (kw= PlusSign | kw= HyphenMinus )?
             int alt243=3;
             int LA243_0 = input.LA(1);
 
@@ -24796,9 +24802,9 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
             }
             switch (alt243) {
                 case 1 :
-                    // InternalErrorModelParser.g:9930:2: kw= PlusSign
+                    // InternalErrorModelParser.g:9918:2: kw= PlusSign
                     {
-                    kw=(Token)match(input,PlusSign,FOLLOW_127); 
+                    kw=(Token)match(input,PlusSign,FOLLOW_126); 
 
                             current.merge(kw);
                             newLeafNode(kw, grammarAccess.getSignedIntAccess().getPlusSignKeyword_0_0()); 
@@ -24807,9 +24813,9 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 2 :
-                    // InternalErrorModelParser.g:9937:2: kw= HyphenMinus
+                    // InternalErrorModelParser.g:9925:2: kw= HyphenMinus
                     {
-                    kw=(Token)match(input,HyphenMinus,FOLLOW_127); 
+                    kw=(Token)match(input,HyphenMinus,FOLLOW_126); 
 
                             current.merge(kw);
                             newLeafNode(kw, grammarAccess.getSignedIntAccess().getHyphenMinusKeyword_0_1()); 
@@ -24849,7 +24855,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleRealTerm"
-    // InternalErrorModelParser.g:9957:1: entryRuleRealTerm returns [EObject current=null] : iv_ruleRealTerm= ruleRealTerm EOF ;
+    // InternalErrorModelParser.g:9945:1: entryRuleRealTerm returns [EObject current=null] : iv_ruleRealTerm= ruleRealTerm EOF ;
     public final EObject entryRuleRealTerm() throws RecognitionException {
         EObject current = null;
 
@@ -24857,8 +24863,8 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // InternalErrorModelParser.g:9958:2: (iv_ruleRealTerm= ruleRealTerm EOF )
-            // InternalErrorModelParser.g:9959:2: iv_ruleRealTerm= ruleRealTerm EOF
+            // InternalErrorModelParser.g:9946:2: (iv_ruleRealTerm= ruleRealTerm EOF )
+            // InternalErrorModelParser.g:9947:2: iv_ruleRealTerm= ruleRealTerm EOF
             {
              newCompositeNode(grammarAccess.getRealTermRule()); 
             pushFollow(FOLLOW_1);
@@ -24885,7 +24891,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleRealTerm"
-    // InternalErrorModelParser.g:9966:1: ruleRealTerm returns [EObject current=null] : ( ( (lv_value_0_0= ruleSignedReal ) ) ( (otherlv_1= RULE_ID ) )? ) ;
+    // InternalErrorModelParser.g:9954:1: ruleRealTerm returns [EObject current=null] : ( ( (lv_value_0_0= ruleSignedReal ) ) ( (otherlv_1= RULE_ID ) )? ) ;
     public final EObject ruleRealTerm() throws RecognitionException {
         EObject current = null;
 
@@ -24896,17 +24902,17 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // InternalErrorModelParser.g:9969:28: ( ( ( (lv_value_0_0= ruleSignedReal ) ) ( (otherlv_1= RULE_ID ) )? ) )
-            // InternalErrorModelParser.g:9970:1: ( ( (lv_value_0_0= ruleSignedReal ) ) ( (otherlv_1= RULE_ID ) )? )
+            // InternalErrorModelParser.g:9957:28: ( ( ( (lv_value_0_0= ruleSignedReal ) ) ( (otherlv_1= RULE_ID ) )? ) )
+            // InternalErrorModelParser.g:9958:1: ( ( (lv_value_0_0= ruleSignedReal ) ) ( (otherlv_1= RULE_ID ) )? )
             {
-            // InternalErrorModelParser.g:9970:1: ( ( (lv_value_0_0= ruleSignedReal ) ) ( (otherlv_1= RULE_ID ) )? )
-            // InternalErrorModelParser.g:9970:2: ( (lv_value_0_0= ruleSignedReal ) ) ( (otherlv_1= RULE_ID ) )?
+            // InternalErrorModelParser.g:9958:1: ( ( (lv_value_0_0= ruleSignedReal ) ) ( (otherlv_1= RULE_ID ) )? )
+            // InternalErrorModelParser.g:9958:2: ( (lv_value_0_0= ruleSignedReal ) ) ( (otherlv_1= RULE_ID ) )?
             {
-            // InternalErrorModelParser.g:9970:2: ( (lv_value_0_0= ruleSignedReal ) )
-            // InternalErrorModelParser.g:9971:1: (lv_value_0_0= ruleSignedReal )
+            // InternalErrorModelParser.g:9958:2: ( (lv_value_0_0= ruleSignedReal ) )
+            // InternalErrorModelParser.g:9959:1: (lv_value_0_0= ruleSignedReal )
             {
-            // InternalErrorModelParser.g:9971:1: (lv_value_0_0= ruleSignedReal )
-            // InternalErrorModelParser.g:9972:3: lv_value_0_0= ruleSignedReal
+            // InternalErrorModelParser.g:9959:1: (lv_value_0_0= ruleSignedReal )
+            // InternalErrorModelParser.g:9960:3: lv_value_0_0= ruleSignedReal
             {
              
             	        newCompositeNode(grammarAccess.getRealTermAccess().getValueSignedRealParserRuleCall_0_0()); 
@@ -24933,7 +24939,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
             }
 
-            // InternalErrorModelParser.g:9988:2: ( (otherlv_1= RULE_ID ) )?
+            // InternalErrorModelParser.g:9976:2: ( (otherlv_1= RULE_ID ) )?
             int alt244=2;
             int LA244_0 = input.LA(1);
 
@@ -24942,10 +24948,10 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
             }
             switch (alt244) {
                 case 1 :
-                    // InternalErrorModelParser.g:9989:1: (otherlv_1= RULE_ID )
+                    // InternalErrorModelParser.g:9977:1: (otherlv_1= RULE_ID )
                     {
-                    // InternalErrorModelParser.g:9989:1: (otherlv_1= RULE_ID )
-                    // InternalErrorModelParser.g:9990:3: otherlv_1= RULE_ID
+                    // InternalErrorModelParser.g:9977:1: (otherlv_1= RULE_ID )
+                    // InternalErrorModelParser.g:9978:3: otherlv_1= RULE_ID
                     {
 
                     			if (current==null) {
@@ -24986,7 +24992,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleSignedReal"
-    // InternalErrorModelParser.g:10009:1: entryRuleSignedReal returns [String current=null] : iv_ruleSignedReal= ruleSignedReal EOF ;
+    // InternalErrorModelParser.g:9997:1: entryRuleSignedReal returns [String current=null] : iv_ruleSignedReal= ruleSignedReal EOF ;
     public final String entryRuleSignedReal() throws RecognitionException {
         String current = null;
 
@@ -24994,8 +25000,8 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // InternalErrorModelParser.g:10010:1: (iv_ruleSignedReal= ruleSignedReal EOF )
-            // InternalErrorModelParser.g:10011:2: iv_ruleSignedReal= ruleSignedReal EOF
+            // InternalErrorModelParser.g:9998:1: (iv_ruleSignedReal= ruleSignedReal EOF )
+            // InternalErrorModelParser.g:9999:2: iv_ruleSignedReal= ruleSignedReal EOF
             {
              newCompositeNode(grammarAccess.getSignedRealRule()); 
             pushFollow(FOLLOW_1);
@@ -25022,7 +25028,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleSignedReal"
-    // InternalErrorModelParser.g:10018:1: ruleSignedReal returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()] : ( (kw= PlusSign | kw= HyphenMinus )? this_REAL_LIT_2= RULE_REAL_LIT ) ;
+    // InternalErrorModelParser.g:10006:1: ruleSignedReal returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()] : ( (kw= PlusSign | kw= HyphenMinus )? this_REAL_LIT_2= RULE_REAL_LIT ) ;
     public final AntlrDatatypeRuleToken ruleSignedReal() throws RecognitionException {
         AntlrDatatypeRuleToken current = new AntlrDatatypeRuleToken();
 
@@ -25032,13 +25038,13 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // InternalErrorModelParser.g:10022:6: ( ( (kw= PlusSign | kw= HyphenMinus )? this_REAL_LIT_2= RULE_REAL_LIT ) )
-            // InternalErrorModelParser.g:10023:1: ( (kw= PlusSign | kw= HyphenMinus )? this_REAL_LIT_2= RULE_REAL_LIT )
+            // InternalErrorModelParser.g:10010:6: ( ( (kw= PlusSign | kw= HyphenMinus )? this_REAL_LIT_2= RULE_REAL_LIT ) )
+            // InternalErrorModelParser.g:10011:1: ( (kw= PlusSign | kw= HyphenMinus )? this_REAL_LIT_2= RULE_REAL_LIT )
             {
-            // InternalErrorModelParser.g:10023:1: ( (kw= PlusSign | kw= HyphenMinus )? this_REAL_LIT_2= RULE_REAL_LIT )
-            // InternalErrorModelParser.g:10023:2: (kw= PlusSign | kw= HyphenMinus )? this_REAL_LIT_2= RULE_REAL_LIT
+            // InternalErrorModelParser.g:10011:1: ( (kw= PlusSign | kw= HyphenMinus )? this_REAL_LIT_2= RULE_REAL_LIT )
+            // InternalErrorModelParser.g:10011:2: (kw= PlusSign | kw= HyphenMinus )? this_REAL_LIT_2= RULE_REAL_LIT
             {
-            // InternalErrorModelParser.g:10023:2: (kw= PlusSign | kw= HyphenMinus )?
+            // InternalErrorModelParser.g:10011:2: (kw= PlusSign | kw= HyphenMinus )?
             int alt245=3;
             int LA245_0 = input.LA(1);
 
@@ -25050,9 +25056,9 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
             }
             switch (alt245) {
                 case 1 :
-                    // InternalErrorModelParser.g:10024:2: kw= PlusSign
+                    // InternalErrorModelParser.g:10012:2: kw= PlusSign
                     {
-                    kw=(Token)match(input,PlusSign,FOLLOW_158); 
+                    kw=(Token)match(input,PlusSign,FOLLOW_154); 
 
                             current.merge(kw);
                             newLeafNode(kw, grammarAccess.getSignedRealAccess().getPlusSignKeyword_0_0()); 
@@ -25061,9 +25067,9 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 2 :
-                    // InternalErrorModelParser.g:10031:2: kw= HyphenMinus
+                    // InternalErrorModelParser.g:10019:2: kw= HyphenMinus
                     {
-                    kw=(Token)match(input,HyphenMinus,FOLLOW_158); 
+                    kw=(Token)match(input,HyphenMinus,FOLLOW_154); 
 
                             current.merge(kw);
                             newLeafNode(kw, grammarAccess.getSignedRealAccess().getHyphenMinusKeyword_0_1()); 
@@ -25103,7 +25109,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleNumericRangeTerm"
-    // InternalErrorModelParser.g:10051:1: entryRuleNumericRangeTerm returns [EObject current=null] : iv_ruleNumericRangeTerm= ruleNumericRangeTerm EOF ;
+    // InternalErrorModelParser.g:10039:1: entryRuleNumericRangeTerm returns [EObject current=null] : iv_ruleNumericRangeTerm= ruleNumericRangeTerm EOF ;
     public final EObject entryRuleNumericRangeTerm() throws RecognitionException {
         EObject current = null;
 
@@ -25111,8 +25117,8 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // InternalErrorModelParser.g:10052:2: (iv_ruleNumericRangeTerm= ruleNumericRangeTerm EOF )
-            // InternalErrorModelParser.g:10053:2: iv_ruleNumericRangeTerm= ruleNumericRangeTerm EOF
+            // InternalErrorModelParser.g:10040:2: (iv_ruleNumericRangeTerm= ruleNumericRangeTerm EOF )
+            // InternalErrorModelParser.g:10041:2: iv_ruleNumericRangeTerm= ruleNumericRangeTerm EOF
             {
              newCompositeNode(grammarAccess.getNumericRangeTermRule()); 
             pushFollow(FOLLOW_1);
@@ -25139,7 +25145,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleNumericRangeTerm"
-    // InternalErrorModelParser.g:10060:1: ruleNumericRangeTerm returns [EObject current=null] : ( ( (lv_minimum_0_0= ruleNumAlt ) ) otherlv_1= FullStopFullStop ( (lv_maximum_2_0= ruleNumAlt ) ) (otherlv_3= Delta ( (lv_delta_4_0= ruleNumAlt ) ) )? ) ;
+    // InternalErrorModelParser.g:10048:1: ruleNumericRangeTerm returns [EObject current=null] : ( ( (lv_minimum_0_0= ruleNumAlt ) ) otherlv_1= FullStopFullStop ( (lv_maximum_2_0= ruleNumAlt ) ) (otherlv_3= Delta ( (lv_delta_4_0= ruleNumAlt ) ) )? ) ;
     public final EObject ruleNumericRangeTerm() throws RecognitionException {
         EObject current = null;
 
@@ -25155,22 +25161,22 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // InternalErrorModelParser.g:10063:28: ( ( ( (lv_minimum_0_0= ruleNumAlt ) ) otherlv_1= FullStopFullStop ( (lv_maximum_2_0= ruleNumAlt ) ) (otherlv_3= Delta ( (lv_delta_4_0= ruleNumAlt ) ) )? ) )
-            // InternalErrorModelParser.g:10064:1: ( ( (lv_minimum_0_0= ruleNumAlt ) ) otherlv_1= FullStopFullStop ( (lv_maximum_2_0= ruleNumAlt ) ) (otherlv_3= Delta ( (lv_delta_4_0= ruleNumAlt ) ) )? )
+            // InternalErrorModelParser.g:10051:28: ( ( ( (lv_minimum_0_0= ruleNumAlt ) ) otherlv_1= FullStopFullStop ( (lv_maximum_2_0= ruleNumAlt ) ) (otherlv_3= Delta ( (lv_delta_4_0= ruleNumAlt ) ) )? ) )
+            // InternalErrorModelParser.g:10052:1: ( ( (lv_minimum_0_0= ruleNumAlt ) ) otherlv_1= FullStopFullStop ( (lv_maximum_2_0= ruleNumAlt ) ) (otherlv_3= Delta ( (lv_delta_4_0= ruleNumAlt ) ) )? )
             {
-            // InternalErrorModelParser.g:10064:1: ( ( (lv_minimum_0_0= ruleNumAlt ) ) otherlv_1= FullStopFullStop ( (lv_maximum_2_0= ruleNumAlt ) ) (otherlv_3= Delta ( (lv_delta_4_0= ruleNumAlt ) ) )? )
-            // InternalErrorModelParser.g:10064:2: ( (lv_minimum_0_0= ruleNumAlt ) ) otherlv_1= FullStopFullStop ( (lv_maximum_2_0= ruleNumAlt ) ) (otherlv_3= Delta ( (lv_delta_4_0= ruleNumAlt ) ) )?
+            // InternalErrorModelParser.g:10052:1: ( ( (lv_minimum_0_0= ruleNumAlt ) ) otherlv_1= FullStopFullStop ( (lv_maximum_2_0= ruleNumAlt ) ) (otherlv_3= Delta ( (lv_delta_4_0= ruleNumAlt ) ) )? )
+            // InternalErrorModelParser.g:10052:2: ( (lv_minimum_0_0= ruleNumAlt ) ) otherlv_1= FullStopFullStop ( (lv_maximum_2_0= ruleNumAlt ) ) (otherlv_3= Delta ( (lv_delta_4_0= ruleNumAlt ) ) )?
             {
-            // InternalErrorModelParser.g:10064:2: ( (lv_minimum_0_0= ruleNumAlt ) )
-            // InternalErrorModelParser.g:10065:1: (lv_minimum_0_0= ruleNumAlt )
+            // InternalErrorModelParser.g:10052:2: ( (lv_minimum_0_0= ruleNumAlt ) )
+            // InternalErrorModelParser.g:10053:1: (lv_minimum_0_0= ruleNumAlt )
             {
-            // InternalErrorModelParser.g:10065:1: (lv_minimum_0_0= ruleNumAlt )
-            // InternalErrorModelParser.g:10066:3: lv_minimum_0_0= ruleNumAlt
+            // InternalErrorModelParser.g:10053:1: (lv_minimum_0_0= ruleNumAlt )
+            // InternalErrorModelParser.g:10054:3: lv_minimum_0_0= ruleNumAlt
             {
              
             	        newCompositeNode(grammarAccess.getNumericRangeTermAccess().getMinimumNumAltParserRuleCall_0_0()); 
             	    
-            pushFollow(FOLLOW_159);
+            pushFollow(FOLLOW_155);
             lv_minimum_0_0=ruleNumAlt();
 
             state._fsp--;
@@ -25192,20 +25198,20 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
             }
 
-            otherlv_1=(Token)match(input,FullStopFullStop,FOLLOW_157); 
+            otherlv_1=(Token)match(input,FullStopFullStop,FOLLOW_153); 
 
                 	newLeafNode(otherlv_1, grammarAccess.getNumericRangeTermAccess().getFullStopFullStopKeyword_1());
                 
-            // InternalErrorModelParser.g:10087:1: ( (lv_maximum_2_0= ruleNumAlt ) )
-            // InternalErrorModelParser.g:10088:1: (lv_maximum_2_0= ruleNumAlt )
+            // InternalErrorModelParser.g:10075:1: ( (lv_maximum_2_0= ruleNumAlt ) )
+            // InternalErrorModelParser.g:10076:1: (lv_maximum_2_0= ruleNumAlt )
             {
-            // InternalErrorModelParser.g:10088:1: (lv_maximum_2_0= ruleNumAlt )
-            // InternalErrorModelParser.g:10089:3: lv_maximum_2_0= ruleNumAlt
+            // InternalErrorModelParser.g:10076:1: (lv_maximum_2_0= ruleNumAlt )
+            // InternalErrorModelParser.g:10077:3: lv_maximum_2_0= ruleNumAlt
             {
              
             	        newCompositeNode(grammarAccess.getNumericRangeTermAccess().getMaximumNumAltParserRuleCall_2_0()); 
             	    
-            pushFollow(FOLLOW_160);
+            pushFollow(FOLLOW_156);
             lv_maximum_2_0=ruleNumAlt();
 
             state._fsp--;
@@ -25227,7 +25233,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
             }
 
-            // InternalErrorModelParser.g:10105:2: (otherlv_3= Delta ( (lv_delta_4_0= ruleNumAlt ) ) )?
+            // InternalErrorModelParser.g:10093:2: (otherlv_3= Delta ( (lv_delta_4_0= ruleNumAlt ) ) )?
             int alt246=2;
             int LA246_0 = input.LA(1);
 
@@ -25236,17 +25242,17 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
             }
             switch (alt246) {
                 case 1 :
-                    // InternalErrorModelParser.g:10106:2: otherlv_3= Delta ( (lv_delta_4_0= ruleNumAlt ) )
+                    // InternalErrorModelParser.g:10094:2: otherlv_3= Delta ( (lv_delta_4_0= ruleNumAlt ) )
                     {
-                    otherlv_3=(Token)match(input,Delta,FOLLOW_157); 
+                    otherlv_3=(Token)match(input,Delta,FOLLOW_153); 
 
                         	newLeafNode(otherlv_3, grammarAccess.getNumericRangeTermAccess().getDeltaKeyword_3_0());
                         
-                    // InternalErrorModelParser.g:10110:1: ( (lv_delta_4_0= ruleNumAlt ) )
-                    // InternalErrorModelParser.g:10111:1: (lv_delta_4_0= ruleNumAlt )
+                    // InternalErrorModelParser.g:10098:1: ( (lv_delta_4_0= ruleNumAlt ) )
+                    // InternalErrorModelParser.g:10099:1: (lv_delta_4_0= ruleNumAlt )
                     {
-                    // InternalErrorModelParser.g:10111:1: (lv_delta_4_0= ruleNumAlt )
-                    // InternalErrorModelParser.g:10112:3: lv_delta_4_0= ruleNumAlt
+                    // InternalErrorModelParser.g:10099:1: (lv_delta_4_0= ruleNumAlt )
+                    // InternalErrorModelParser.g:10100:3: lv_delta_4_0= ruleNumAlt
                     {
                      
                     	        newCompositeNode(grammarAccess.getNumericRangeTermAccess().getDeltaNumAltParserRuleCall_3_1_0()); 
@@ -25300,7 +25306,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleNumAlt"
-    // InternalErrorModelParser.g:10136:1: entryRuleNumAlt returns [EObject current=null] : iv_ruleNumAlt= ruleNumAlt EOF ;
+    // InternalErrorModelParser.g:10124:1: entryRuleNumAlt returns [EObject current=null] : iv_ruleNumAlt= ruleNumAlt EOF ;
     public final EObject entryRuleNumAlt() throws RecognitionException {
         EObject current = null;
 
@@ -25308,8 +25314,8 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // InternalErrorModelParser.g:10137:2: (iv_ruleNumAlt= ruleNumAlt EOF )
-            // InternalErrorModelParser.g:10138:2: iv_ruleNumAlt= ruleNumAlt EOF
+            // InternalErrorModelParser.g:10125:2: (iv_ruleNumAlt= ruleNumAlt EOF )
+            // InternalErrorModelParser.g:10126:2: iv_ruleNumAlt= ruleNumAlt EOF
             {
              newCompositeNode(grammarAccess.getNumAltRule()); 
             pushFollow(FOLLOW_1);
@@ -25336,7 +25342,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleNumAlt"
-    // InternalErrorModelParser.g:10145:1: ruleNumAlt returns [EObject current=null] : (this_RealTerm_0= ruleRealTerm | this_IntegerTerm_1= ruleIntegerTerm | this_SignedConstant_2= ruleSignedConstant | this_ConstantValue_3= ruleConstantValue ) ;
+    // InternalErrorModelParser.g:10133:1: ruleNumAlt returns [EObject current=null] : (this_RealTerm_0= ruleRealTerm | this_IntegerTerm_1= ruleIntegerTerm | this_SignedConstant_2= ruleSignedConstant | this_ConstantValue_3= ruleConstantValue ) ;
     public final EObject ruleNumAlt() throws RecognitionException {
         EObject current = null;
 
@@ -25352,20 +25358,15 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // InternalErrorModelParser.g:10148:28: ( (this_RealTerm_0= ruleRealTerm | this_IntegerTerm_1= ruleIntegerTerm | this_SignedConstant_2= ruleSignedConstant | this_ConstantValue_3= ruleConstantValue ) )
-            // InternalErrorModelParser.g:10149:1: (this_RealTerm_0= ruleRealTerm | this_IntegerTerm_1= ruleIntegerTerm | this_SignedConstant_2= ruleSignedConstant | this_ConstantValue_3= ruleConstantValue )
+            // InternalErrorModelParser.g:10136:28: ( (this_RealTerm_0= ruleRealTerm | this_IntegerTerm_1= ruleIntegerTerm | this_SignedConstant_2= ruleSignedConstant | this_ConstantValue_3= ruleConstantValue ) )
+            // InternalErrorModelParser.g:10137:1: (this_RealTerm_0= ruleRealTerm | this_IntegerTerm_1= ruleIntegerTerm | this_SignedConstant_2= ruleSignedConstant | this_ConstantValue_3= ruleConstantValue )
             {
-            // InternalErrorModelParser.g:10149:1: (this_RealTerm_0= ruleRealTerm | this_IntegerTerm_1= ruleIntegerTerm | this_SignedConstant_2= ruleSignedConstant | this_ConstantValue_3= ruleConstantValue )
+            // InternalErrorModelParser.g:10137:1: (this_RealTerm_0= ruleRealTerm | this_IntegerTerm_1= ruleIntegerTerm | this_SignedConstant_2= ruleSignedConstant | this_ConstantValue_3= ruleConstantValue )
             int alt247=4;
             switch ( input.LA(1) ) {
             case PlusSign:
                 {
                 switch ( input.LA(2) ) {
-                case RULE_ID:
-                    {
-                    alt247=3;
-                    }
-                    break;
                 case RULE_REAL_LIT:
                     {
                     alt247=1;
@@ -25374,6 +25375,11 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
                 case RULE_INTEGER_LIT:
                     {
                     alt247=2;
+                    }
+                    break;
+                case RULE_ID:
+                    {
+                    alt247=3;
                     }
                     break;
                 default:
@@ -25388,11 +25394,6 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
             case HyphenMinus:
                 {
                 switch ( input.LA(2) ) {
-                case RULE_ID:
-                    {
-                    alt247=3;
-                    }
-                    break;
                 case RULE_REAL_LIT:
                     {
                     alt247=1;
@@ -25401,6 +25402,11 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
                 case RULE_INTEGER_LIT:
                     {
                     alt247=2;
+                    }
+                    break;
+                case RULE_ID:
+                    {
+                    alt247=3;
                     }
                     break;
                 default:
@@ -25436,7 +25442,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
             switch (alt247) {
                 case 1 :
-                    // InternalErrorModelParser.g:10150:5: this_RealTerm_0= ruleRealTerm
+                    // InternalErrorModelParser.g:10138:5: this_RealTerm_0= ruleRealTerm
                     {
                      
                             newCompositeNode(grammarAccess.getNumAltAccess().getRealTermParserRuleCall_0()); 
@@ -25454,7 +25460,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 2 :
-                    // InternalErrorModelParser.g:10160:5: this_IntegerTerm_1= ruleIntegerTerm
+                    // InternalErrorModelParser.g:10148:5: this_IntegerTerm_1= ruleIntegerTerm
                     {
                      
                             newCompositeNode(grammarAccess.getNumAltAccess().getIntegerTermParserRuleCall_1()); 
@@ -25472,7 +25478,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 3 :
-                    // InternalErrorModelParser.g:10170:5: this_SignedConstant_2= ruleSignedConstant
+                    // InternalErrorModelParser.g:10158:5: this_SignedConstant_2= ruleSignedConstant
                     {
                      
                             newCompositeNode(grammarAccess.getNumAltAccess().getSignedConstantParserRuleCall_2()); 
@@ -25490,7 +25496,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 4 :
-                    // InternalErrorModelParser.g:10180:5: this_ConstantValue_3= ruleConstantValue
+                    // InternalErrorModelParser.g:10168:5: this_ConstantValue_3= ruleConstantValue
                     {
                      
                             newCompositeNode(grammarAccess.getNumAltAccess().getConstantValueParserRuleCall_3()); 
@@ -25527,8 +25533,257 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
     // $ANTLR end "ruleNumAlt"
 
 
+    // $ANTLR start "entryRuleAppliesToKeywords"
+    // InternalErrorModelParser.g:10184:1: entryRuleAppliesToKeywords returns [String current=null] : iv_ruleAppliesToKeywords= ruleAppliesToKeywords EOF ;
+    public final String entryRuleAppliesToKeywords() throws RecognitionException {
+        String current = null;
+
+        AntlrDatatypeRuleToken iv_ruleAppliesToKeywords = null;
+
+
+        try {
+            // InternalErrorModelParser.g:10185:1: (iv_ruleAppliesToKeywords= ruleAppliesToKeywords EOF )
+            // InternalErrorModelParser.g:10186:2: iv_ruleAppliesToKeywords= ruleAppliesToKeywords EOF
+            {
+             newCompositeNode(grammarAccess.getAppliesToKeywordsRule()); 
+            pushFollow(FOLLOW_1);
+            iv_ruleAppliesToKeywords=ruleAppliesToKeywords();
+
+            state._fsp--;
+
+             current =iv_ruleAppliesToKeywords.getText(); 
+            match(input,EOF,FOLLOW_2); 
+
+            }
+
+        }
+         
+        	catch (RecognitionException re) { 
+        	    recover(input,re); 
+        	    appendSkippedTokens();
+        	}
+        finally {
+        }
+        return current;
+    }
+    // $ANTLR end "entryRuleAppliesToKeywords"
+
+
+    // $ANTLR start "ruleAppliesToKeywords"
+    // InternalErrorModelParser.g:10193:1: ruleAppliesToKeywords returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()] : (kw= Applies kw= To ) ;
+    public final AntlrDatatypeRuleToken ruleAppliesToKeywords() throws RecognitionException {
+        AntlrDatatypeRuleToken current = new AntlrDatatypeRuleToken();
+
+        Token kw=null;
+
+         enterRule(); 
+            
+        try {
+            // InternalErrorModelParser.g:10197:6: ( (kw= Applies kw= To ) )
+            // InternalErrorModelParser.g:10198:1: (kw= Applies kw= To )
+            {
+            // InternalErrorModelParser.g:10198:1: (kw= Applies kw= To )
+            // InternalErrorModelParser.g:10199:2: kw= Applies kw= To
+            {
+            kw=(Token)match(input,Applies,FOLLOW_157); 
+
+                    current.merge(kw);
+                    newLeafNode(kw, grammarAccess.getAppliesToKeywordsAccess().getAppliesKeyword_0()); 
+                
+            kw=(Token)match(input,To,FOLLOW_2); 
+
+                    current.merge(kw);
+                    newLeafNode(kw, grammarAccess.getAppliesToKeywordsAccess().getToKeyword_1()); 
+                
+
+            }
+
+
+            }
+
+             leaveRule();
+                
+        }
+         
+        	catch (RecognitionException re) { 
+        	    recover(input,re); 
+        	    appendSkippedTokens();
+        	}
+        finally {
+        }
+        return current;
+    }
+    // $ANTLR end "ruleAppliesToKeywords"
+
+
+    // $ANTLR start "entryRuleInBindingKeywords"
+    // InternalErrorModelParser.g:10218:1: entryRuleInBindingKeywords returns [String current=null] : iv_ruleInBindingKeywords= ruleInBindingKeywords EOF ;
+    public final String entryRuleInBindingKeywords() throws RecognitionException {
+        String current = null;
+
+        AntlrDatatypeRuleToken iv_ruleInBindingKeywords = null;
+
+
+        try {
+            // InternalErrorModelParser.g:10219:1: (iv_ruleInBindingKeywords= ruleInBindingKeywords EOF )
+            // InternalErrorModelParser.g:10220:2: iv_ruleInBindingKeywords= ruleInBindingKeywords EOF
+            {
+             newCompositeNode(grammarAccess.getInBindingKeywordsRule()); 
+            pushFollow(FOLLOW_1);
+            iv_ruleInBindingKeywords=ruleInBindingKeywords();
+
+            state._fsp--;
+
+             current =iv_ruleInBindingKeywords.getText(); 
+            match(input,EOF,FOLLOW_2); 
+
+            }
+
+        }
+         
+        	catch (RecognitionException re) { 
+        	    recover(input,re); 
+        	    appendSkippedTokens();
+        	}
+        finally {
+        }
+        return current;
+    }
+    // $ANTLR end "entryRuleInBindingKeywords"
+
+
+    // $ANTLR start "ruleInBindingKeywords"
+    // InternalErrorModelParser.g:10227:1: ruleInBindingKeywords returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()] : (kw= In kw= Binding ) ;
+    public final AntlrDatatypeRuleToken ruleInBindingKeywords() throws RecognitionException {
+        AntlrDatatypeRuleToken current = new AntlrDatatypeRuleToken();
+
+        Token kw=null;
+
+         enterRule(); 
+            
+        try {
+            // InternalErrorModelParser.g:10231:6: ( (kw= In kw= Binding ) )
+            // InternalErrorModelParser.g:10232:1: (kw= In kw= Binding )
+            {
+            // InternalErrorModelParser.g:10232:1: (kw= In kw= Binding )
+            // InternalErrorModelParser.g:10233:2: kw= In kw= Binding
+            {
+            kw=(Token)match(input,In,FOLLOW_158); 
+
+                    current.merge(kw);
+                    newLeafNode(kw, grammarAccess.getInBindingKeywordsAccess().getInKeyword_0()); 
+                
+            kw=(Token)match(input,Binding,FOLLOW_2); 
+
+                    current.merge(kw);
+                    newLeafNode(kw, grammarAccess.getInBindingKeywordsAccess().getBindingKeyword_1()); 
+                
+
+            }
+
+
+            }
+
+             leaveRule();
+                
+        }
+         
+        	catch (RecognitionException re) { 
+        	    recover(input,re); 
+        	    appendSkippedTokens();
+        	}
+        finally {
+        }
+        return current;
+    }
+    // $ANTLR end "ruleInBindingKeywords"
+
+
+    // $ANTLR start "entryRuleInModesKeywords"
+    // InternalErrorModelParser.g:10252:1: entryRuleInModesKeywords returns [String current=null] : iv_ruleInModesKeywords= ruleInModesKeywords EOF ;
+    public final String entryRuleInModesKeywords() throws RecognitionException {
+        String current = null;
+
+        AntlrDatatypeRuleToken iv_ruleInModesKeywords = null;
+
+
+        try {
+            // InternalErrorModelParser.g:10253:1: (iv_ruleInModesKeywords= ruleInModesKeywords EOF )
+            // InternalErrorModelParser.g:10254:2: iv_ruleInModesKeywords= ruleInModesKeywords EOF
+            {
+             newCompositeNode(grammarAccess.getInModesKeywordsRule()); 
+            pushFollow(FOLLOW_1);
+            iv_ruleInModesKeywords=ruleInModesKeywords();
+
+            state._fsp--;
+
+             current =iv_ruleInModesKeywords.getText(); 
+            match(input,EOF,FOLLOW_2); 
+
+            }
+
+        }
+         
+        	catch (RecognitionException re) { 
+        	    recover(input,re); 
+        	    appendSkippedTokens();
+        	}
+        finally {
+        }
+        return current;
+    }
+    // $ANTLR end "entryRuleInModesKeywords"
+
+
+    // $ANTLR start "ruleInModesKeywords"
+    // InternalErrorModelParser.g:10261:1: ruleInModesKeywords returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()] : (kw= In kw= Modes ) ;
+    public final AntlrDatatypeRuleToken ruleInModesKeywords() throws RecognitionException {
+        AntlrDatatypeRuleToken current = new AntlrDatatypeRuleToken();
+
+        Token kw=null;
+
+         enterRule(); 
+            
+        try {
+            // InternalErrorModelParser.g:10265:6: ( (kw= In kw= Modes ) )
+            // InternalErrorModelParser.g:10266:1: (kw= In kw= Modes )
+            {
+            // InternalErrorModelParser.g:10266:1: (kw= In kw= Modes )
+            // InternalErrorModelParser.g:10267:2: kw= In kw= Modes
+            {
+            kw=(Token)match(input,In,FOLLOW_159); 
+
+                    current.merge(kw);
+                    newLeafNode(kw, grammarAccess.getInModesKeywordsAccess().getInKeyword_0()); 
+                
+            kw=(Token)match(input,Modes,FOLLOW_2); 
+
+                    current.merge(kw);
+                    newLeafNode(kw, grammarAccess.getInModesKeywordsAccess().getModesKeyword_1()); 
+                
+
+            }
+
+
+            }
+
+             leaveRule();
+                
+        }
+         
+        	catch (RecognitionException re) { 
+        	    recover(input,re); 
+        	    appendSkippedTokens();
+        	}
+        finally {
+        }
+        return current;
+    }
+    // $ANTLR end "ruleInModesKeywords"
+
+
     // $ANTLR start "entryRuleINTVALUE"
-    // InternalErrorModelParser.g:10196:1: entryRuleINTVALUE returns [String current=null] : iv_ruleINTVALUE= ruleINTVALUE EOF ;
+    // InternalErrorModelParser.g:10286:1: entryRuleINTVALUE returns [String current=null] : iv_ruleINTVALUE= ruleINTVALUE EOF ;
     public final String entryRuleINTVALUE() throws RecognitionException {
         String current = null;
 
@@ -25536,8 +25791,8 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // InternalErrorModelParser.g:10197:1: (iv_ruleINTVALUE= ruleINTVALUE EOF )
-            // InternalErrorModelParser.g:10198:2: iv_ruleINTVALUE= ruleINTVALUE EOF
+            // InternalErrorModelParser.g:10287:1: (iv_ruleINTVALUE= ruleINTVALUE EOF )
+            // InternalErrorModelParser.g:10288:2: iv_ruleINTVALUE= ruleINTVALUE EOF
             {
              newCompositeNode(grammarAccess.getINTVALUERule()); 
             pushFollow(FOLLOW_1);
@@ -25564,7 +25819,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleINTVALUE"
-    // InternalErrorModelParser.g:10205:1: ruleINTVALUE returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()] : this_INTEGER_LIT_0= RULE_INTEGER_LIT ;
+    // InternalErrorModelParser.g:10295:1: ruleINTVALUE returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()] : this_INTEGER_LIT_0= RULE_INTEGER_LIT ;
     public final AntlrDatatypeRuleToken ruleINTVALUE() throws RecognitionException {
         AntlrDatatypeRuleToken current = new AntlrDatatypeRuleToken();
 
@@ -25573,8 +25828,8 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // InternalErrorModelParser.g:10209:6: (this_INTEGER_LIT_0= RULE_INTEGER_LIT )
-            // InternalErrorModelParser.g:10210:5: this_INTEGER_LIT_0= RULE_INTEGER_LIT
+            // InternalErrorModelParser.g:10299:6: (this_INTEGER_LIT_0= RULE_INTEGER_LIT )
+            // InternalErrorModelParser.g:10300:5: this_INTEGER_LIT_0= RULE_INTEGER_LIT
             {
             this_INTEGER_LIT_0=(Token)match(input,RULE_INTEGER_LIT,FOLLOW_2); 
 
@@ -25602,7 +25857,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleQPREF"
-    // InternalErrorModelParser.g:10227:1: entryRuleQPREF returns [String current=null] : iv_ruleQPREF= ruleQPREF EOF ;
+    // InternalErrorModelParser.g:10317:1: entryRuleQPREF returns [String current=null] : iv_ruleQPREF= ruleQPREF EOF ;
     public final String entryRuleQPREF() throws RecognitionException {
         String current = null;
 
@@ -25610,8 +25865,8 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // InternalErrorModelParser.g:10228:1: (iv_ruleQPREF= ruleQPREF EOF )
-            // InternalErrorModelParser.g:10229:2: iv_ruleQPREF= ruleQPREF EOF
+            // InternalErrorModelParser.g:10318:1: (iv_ruleQPREF= ruleQPREF EOF )
+            // InternalErrorModelParser.g:10319:2: iv_ruleQPREF= ruleQPREF EOF
             {
              newCompositeNode(grammarAccess.getQPREFRule()); 
             pushFollow(FOLLOW_1);
@@ -25638,7 +25893,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleQPREF"
-    // InternalErrorModelParser.g:10236:1: ruleQPREF returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()] : (this_ID_0= RULE_ID (kw= ColonColon this_ID_2= RULE_ID )? ) ;
+    // InternalErrorModelParser.g:10326:1: ruleQPREF returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()] : (this_ID_0= RULE_ID (kw= ColonColon this_ID_2= RULE_ID )? ) ;
     public final AntlrDatatypeRuleToken ruleQPREF() throws RecognitionException {
         AntlrDatatypeRuleToken current = new AntlrDatatypeRuleToken();
 
@@ -25649,20 +25904,20 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // InternalErrorModelParser.g:10240:6: ( (this_ID_0= RULE_ID (kw= ColonColon this_ID_2= RULE_ID )? ) )
-            // InternalErrorModelParser.g:10241:1: (this_ID_0= RULE_ID (kw= ColonColon this_ID_2= RULE_ID )? )
+            // InternalErrorModelParser.g:10330:6: ( (this_ID_0= RULE_ID (kw= ColonColon this_ID_2= RULE_ID )? ) )
+            // InternalErrorModelParser.g:10331:1: (this_ID_0= RULE_ID (kw= ColonColon this_ID_2= RULE_ID )? )
             {
-            // InternalErrorModelParser.g:10241:1: (this_ID_0= RULE_ID (kw= ColonColon this_ID_2= RULE_ID )? )
-            // InternalErrorModelParser.g:10241:6: this_ID_0= RULE_ID (kw= ColonColon this_ID_2= RULE_ID )?
+            // InternalErrorModelParser.g:10331:1: (this_ID_0= RULE_ID (kw= ColonColon this_ID_2= RULE_ID )? )
+            // InternalErrorModelParser.g:10331:6: this_ID_0= RULE_ID (kw= ColonColon this_ID_2= RULE_ID )?
             {
-            this_ID_0=(Token)match(input,RULE_ID,FOLLOW_145); 
+            this_ID_0=(Token)match(input,RULE_ID,FOLLOW_142); 
 
             		current.merge(this_ID_0);
                 
              
                 newLeafNode(this_ID_0, grammarAccess.getQPREFAccess().getIDTerminalRuleCall_0()); 
                 
-            // InternalErrorModelParser.g:10248:1: (kw= ColonColon this_ID_2= RULE_ID )?
+            // InternalErrorModelParser.g:10338:1: (kw= ColonColon this_ID_2= RULE_ID )?
             int alt248=2;
             int LA248_0 = input.LA(1);
 
@@ -25671,7 +25926,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
             }
             switch (alt248) {
                 case 1 :
-                    // InternalErrorModelParser.g:10249:2: kw= ColonColon this_ID_2= RULE_ID
+                    // InternalErrorModelParser.g:10339:2: kw= ColonColon this_ID_2= RULE_ID
                     {
                     kw=(Token)match(input,ColonColon,FOLLOW_5); 
 
@@ -25713,7 +25968,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleQCREF"
-    // InternalErrorModelParser.g:10269:1: entryRuleQCREF returns [String current=null] : iv_ruleQCREF= ruleQCREF EOF ;
+    // InternalErrorModelParser.g:10359:1: entryRuleQCREF returns [String current=null] : iv_ruleQCREF= ruleQCREF EOF ;
     public final String entryRuleQCREF() throws RecognitionException {
         String current = null;
 
@@ -25721,8 +25976,8 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // InternalErrorModelParser.g:10270:1: (iv_ruleQCREF= ruleQCREF EOF )
-            // InternalErrorModelParser.g:10271:2: iv_ruleQCREF= ruleQCREF EOF
+            // InternalErrorModelParser.g:10360:1: (iv_ruleQCREF= ruleQCREF EOF )
+            // InternalErrorModelParser.g:10361:2: iv_ruleQCREF= ruleQCREF EOF
             {
              newCompositeNode(grammarAccess.getQCREFRule()); 
             pushFollow(FOLLOW_1);
@@ -25749,7 +26004,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleQCREF"
-    // InternalErrorModelParser.g:10278:1: ruleQCREF returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()] : ( (this_ID_0= RULE_ID kw= ColonColon )* this_ID_2= RULE_ID (kw= FullStop this_ID_4= RULE_ID )? ) ;
+    // InternalErrorModelParser.g:10368:1: ruleQCREF returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()] : ( (this_ID_0= RULE_ID kw= ColonColon )* this_ID_2= RULE_ID (kw= FullStop this_ID_4= RULE_ID )? ) ;
     public final AntlrDatatypeRuleToken ruleQCREF() throws RecognitionException {
         AntlrDatatypeRuleToken current = new AntlrDatatypeRuleToken();
 
@@ -25761,13 +26016,13 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // InternalErrorModelParser.g:10282:6: ( ( (this_ID_0= RULE_ID kw= ColonColon )* this_ID_2= RULE_ID (kw= FullStop this_ID_4= RULE_ID )? ) )
-            // InternalErrorModelParser.g:10283:1: ( (this_ID_0= RULE_ID kw= ColonColon )* this_ID_2= RULE_ID (kw= FullStop this_ID_4= RULE_ID )? )
+            // InternalErrorModelParser.g:10372:6: ( ( (this_ID_0= RULE_ID kw= ColonColon )* this_ID_2= RULE_ID (kw= FullStop this_ID_4= RULE_ID )? ) )
+            // InternalErrorModelParser.g:10373:1: ( (this_ID_0= RULE_ID kw= ColonColon )* this_ID_2= RULE_ID (kw= FullStop this_ID_4= RULE_ID )? )
             {
-            // InternalErrorModelParser.g:10283:1: ( (this_ID_0= RULE_ID kw= ColonColon )* this_ID_2= RULE_ID (kw= FullStop this_ID_4= RULE_ID )? )
-            // InternalErrorModelParser.g:10283:2: (this_ID_0= RULE_ID kw= ColonColon )* this_ID_2= RULE_ID (kw= FullStop this_ID_4= RULE_ID )?
+            // InternalErrorModelParser.g:10373:1: ( (this_ID_0= RULE_ID kw= ColonColon )* this_ID_2= RULE_ID (kw= FullStop this_ID_4= RULE_ID )? )
+            // InternalErrorModelParser.g:10373:2: (this_ID_0= RULE_ID kw= ColonColon )* this_ID_2= RULE_ID (kw= FullStop this_ID_4= RULE_ID )?
             {
-            // InternalErrorModelParser.g:10283:2: (this_ID_0= RULE_ID kw= ColonColon )*
+            // InternalErrorModelParser.g:10373:2: (this_ID_0= RULE_ID kw= ColonColon )*
             loop249:
             do {
                 int alt249=2;
@@ -25786,9 +26041,9 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
                 switch (alt249) {
             	case 1 :
-            	    // InternalErrorModelParser.g:10283:7: this_ID_0= RULE_ID kw= ColonColon
+            	    // InternalErrorModelParser.g:10373:7: this_ID_0= RULE_ID kw= ColonColon
             	    {
-            	    this_ID_0=(Token)match(input,RULE_ID,FOLLOW_161); 
+            	    this_ID_0=(Token)match(input,RULE_ID,FOLLOW_160); 
 
             	    		current.merge(this_ID_0);
             	        
@@ -25809,14 +26064,14 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
                 }
             } while (true);
 
-            this_ID_2=(Token)match(input,RULE_ID,FOLLOW_66); 
+            this_ID_2=(Token)match(input,RULE_ID,FOLLOW_65); 
 
             		current.merge(this_ID_2);
                 
              
                 newLeafNode(this_ID_2, grammarAccess.getQCREFAccess().getIDTerminalRuleCall_1()); 
                 
-            // InternalErrorModelParser.g:10303:1: (kw= FullStop this_ID_4= RULE_ID )?
+            // InternalErrorModelParser.g:10393:1: (kw= FullStop this_ID_4= RULE_ID )?
             int alt250=2;
             int LA250_0 = input.LA(1);
 
@@ -25825,7 +26080,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
             }
             switch (alt250) {
                 case 1 :
-                    // InternalErrorModelParser.g:10304:2: kw= FullStop this_ID_4= RULE_ID
+                    // InternalErrorModelParser.g:10394:2: kw= FullStop this_ID_4= RULE_ID
                     {
                     kw=(Token)match(input,FullStop,FOLLOW_5); 
 
@@ -25867,7 +26122,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleSTAR"
-    // InternalErrorModelParser.g:10324:1: entryRuleSTAR returns [String current=null] : iv_ruleSTAR= ruleSTAR EOF ;
+    // InternalErrorModelParser.g:10414:1: entryRuleSTAR returns [String current=null] : iv_ruleSTAR= ruleSTAR EOF ;
     public final String entryRuleSTAR() throws RecognitionException {
         String current = null;
 
@@ -25875,8 +26130,8 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // InternalErrorModelParser.g:10325:1: (iv_ruleSTAR= ruleSTAR EOF )
-            // InternalErrorModelParser.g:10326:2: iv_ruleSTAR= ruleSTAR EOF
+            // InternalErrorModelParser.g:10415:1: (iv_ruleSTAR= ruleSTAR EOF )
+            // InternalErrorModelParser.g:10416:2: iv_ruleSTAR= ruleSTAR EOF
             {
              newCompositeNode(grammarAccess.getSTARRule()); 
             pushFollow(FOLLOW_1);
@@ -25903,7 +26158,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleSTAR"
-    // InternalErrorModelParser.g:10333:1: ruleSTAR returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()] : kw= Asterisk ;
+    // InternalErrorModelParser.g:10423:1: ruleSTAR returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()] : kw= Asterisk ;
     public final AntlrDatatypeRuleToken ruleSTAR() throws RecognitionException {
         AntlrDatatypeRuleToken current = new AntlrDatatypeRuleToken();
 
@@ -25912,8 +26167,8 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // InternalErrorModelParser.g:10337:6: (kw= Asterisk )
-            // InternalErrorModelParser.g:10339:2: kw= Asterisk
+            // InternalErrorModelParser.g:10427:6: (kw= Asterisk )
+            // InternalErrorModelParser.g:10429:2: kw= Asterisk
             {
             kw=(Token)match(input,Asterisk,FOLLOW_2); 
 
@@ -25993,7 +26248,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
             this.transition = dfa_7;
         }
         public String getDescription() {
-            return "8957:1: (this_RecordTerm_0= ruleRecordTerm | this_ReferenceTerm_1= ruleReferenceTerm | this_ComponentClassifierTerm_2= ruleComponentClassifierTerm | this_ComputedTerm_3= ruleComputedTerm | this_StringTerm_4= ruleStringTerm | this_NumericRangeTerm_5= ruleNumericRangeTerm | this_RealTerm_6= ruleRealTerm | this_IntegerTerm_7= ruleIntegerTerm | this_ListTerm_8= ruleListTerm | this_BooleanLiteral_9= ruleBooleanLiteral | this_LiteralorReferenceTerm_10= ruleLiteralorReferenceTerm )";
+            return "8945:1: (this_RecordTerm_0= ruleRecordTerm | this_ReferenceTerm_1= ruleReferenceTerm | this_ComponentClassifierTerm_2= ruleComponentClassifierTerm | this_ComputedTerm_3= ruleComputedTerm | this_StringTerm_4= ruleStringTerm | this_NumericRangeTerm_5= ruleNumericRangeTerm | this_RealTerm_6= ruleRealTerm | this_IntegerTerm_7= ruleIntegerTerm | this_ListTerm_8= ruleListTerm | this_BooleanLiteral_9= ruleBooleanLiteral | this_LiteralorReferenceTerm_10= ruleLiteralorReferenceTerm )";
         }
     }
  
@@ -26060,104 +26315,103 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
     public static final BitSet FOLLOW_60 = new BitSet(new long[]{0x0000000000000000L,0x0000000000001000L});
     public static final BitSet FOLLOW_61 = new BitSet(new long[]{0x0200400001010200L,0x0000064410A40000L});
     public static final BitSet FOLLOW_62 = new BitSet(new long[]{0x0000000000400000L,0x0000000004400000L});
-    public static final BitSet FOLLOW_63 = new BitSet(new long[]{0x0000000000000000L,0x0000000000010000L});
-    public static final BitSet FOLLOW_64 = new BitSet(new long[]{0x0000000500888400L,0x0000040040000000L});
-    public static final BitSet FOLLOW_65 = new BitSet(new long[]{0x0000000000000000L,0x0000000008000000L});
-    public static final BitSet FOLLOW_66 = new BitSet(new long[]{0x0000000000000002L,0x0000000001000000L});
-    public static final BitSet FOLLOW_67 = new BitSet(new long[]{0x0000000080000000L,0x0000000002000000L});
-    public static final BitSet FOLLOW_68 = new BitSet(new long[]{0x0000000002000000L});
-    public static final BitSet FOLLOW_69 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000020L});
-    public static final BitSet FOLLOW_70 = new BitSet(new long[]{0x0000000000000000L,0x0000000080000000L});
-    public static final BitSet FOLLOW_71 = new BitSet(new long[]{0x0000000000000000L,0x0000000100400000L});
-    public static final BitSet FOLLOW_72 = new BitSet(new long[]{0x0000000000000002L,0x0000000000100000L});
-    public static final BitSet FOLLOW_73 = new BitSet(new long[]{0x0000000010000000L});
-    public static final BitSet FOLLOW_74 = new BitSet(new long[]{0x0000000000000000L,0x0000000100000000L});
-    public static final BitSet FOLLOW_75 = new BitSet(new long[]{0x0000000000000000L,0x0000000080000041L});
-    public static final BitSet FOLLOW_76 = new BitSet(new long[]{0x0000000000000000L,0x0000000080000045L});
-    public static final BitSet FOLLOW_77 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000200L});
-    public static final BitSet FOLLOW_78 = new BitSet(new long[]{0x8000000000000000L,0x0000000080000000L});
-    public static final BitSet FOLLOW_79 = new BitSet(new long[]{0x8000000000000000L});
-    public static final BitSet FOLLOW_80 = new BitSet(new long[]{0x0000000000000000L,0x0000000080000040L});
-    public static final BitSet FOLLOW_81 = new BitSet(new long[]{0x0000000000000000L,0x0000000080000044L});
-    public static final BitSet FOLLOW_82 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000100L});
-    public static final BitSet FOLLOW_83 = new BitSet(new long[]{0x0000000000000000L,0x0000000002000000L});
-    public static final BitSet FOLLOW_84 = new BitSet(new long[]{0x0000000000000000L,0x0000000000004018L});
-    public static final BitSet FOLLOW_85 = new BitSet(new long[]{0x0000000000000080L});
-    public static final BitSet FOLLOW_86 = new BitSet(new long[]{0x0000000500888400L,0x0000040000000000L});
-    public static final BitSet FOLLOW_87 = new BitSet(new long[]{0x0000010000000000L});
-    public static final BitSet FOLLOW_88 = new BitSet(new long[]{0x0000000500888400L,0x0000040000000001L});
-    public static final BitSet FOLLOW_89 = new BitSet(new long[]{0x0800000000000000L,0x0000000084002040L});
-    public static final BitSet FOLLOW_90 = new BitSet(new long[]{0x0800000000000000L,0x0000000004002000L});
-    public static final BitSet FOLLOW_91 = new BitSet(new long[]{0x0000000000000000L,0x0000060080000000L});
-    public static final BitSet FOLLOW_92 = new BitSet(new long[]{0x0000000000000000L,0x0000000084002000L});
-    public static final BitSet FOLLOW_93 = new BitSet(new long[]{0x0000000000000000L,0x0000000004002000L});
-    public static final BitSet FOLLOW_94 = new BitSet(new long[]{0x0000000000000000L,0x0000020000000000L});
-    public static final BitSet FOLLOW_95 = new BitSet(new long[]{0x0100000000000000L});
-    public static final BitSet FOLLOW_96 = new BitSet(new long[]{0x0000000000000000L,0x0000000084000040L});
-    public static final BitSet FOLLOW_97 = new BitSet(new long[]{0x0040000000000000L});
-    public static final BitSet FOLLOW_98 = new BitSet(new long[]{0x0000000000000000L,0x0000000080000140L});
-    public static final BitSet FOLLOW_99 = new BitSet(new long[]{0x0000000000000000L,0x0000000001000000L});
-    public static final BitSet FOLLOW_100 = new BitSet(new long[]{0x0004000000000000L});
-    public static final BitSet FOLLOW_101 = new BitSet(new long[]{0x0000020200001100L,0x0000000000000044L});
-    public static final BitSet FOLLOW_102 = new BitSet(new long[]{0x0000020200001100L,0x0000000000000004L});
-    public static final BitSet FOLLOW_103 = new BitSet(new long[]{0x0000020000001100L,0x0000040000000004L});
-    public static final BitSet FOLLOW_104 = new BitSet(new long[]{0x0000000000001100L,0x0000040000000004L});
-    public static final BitSet FOLLOW_105 = new BitSet(new long[]{0x0000000000001000L,0x0000040000000005L});
-    public static final BitSet FOLLOW_106 = new BitSet(new long[]{0x0000200000000000L});
-    public static final BitSet FOLLOW_107 = new BitSet(new long[]{0x0000008000000000L});
-    public static final BitSet FOLLOW_108 = new BitSet(new long[]{0x0800000000000000L,0x0000000004000000L});
-    public static final BitSet FOLLOW_109 = new BitSet(new long[]{0x0000000040000000L});
-    public static final BitSet FOLLOW_110 = new BitSet(new long[]{0x0000000000000000L,0x0000000004402000L});
-    public static final BitSet FOLLOW_111 = new BitSet(new long[]{0x0008000004000000L});
-    public static final BitSet FOLLOW_112 = new BitSet(new long[]{0x0008000000000000L});
-    public static final BitSet FOLLOW_113 = new BitSet(new long[]{0x0000000000000000L,0x0000000084000000L});
-    public static final BitSet FOLLOW_114 = new BitSet(new long[]{0x0000000000000000L,0x0000000080000240L});
-    public static final BitSet FOLLOW_115 = new BitSet(new long[]{0x0000000500888400L,0x0000040400040001L});
-    public static final BitSet FOLLOW_116 = new BitSet(new long[]{0x0080000000000000L,0x0000040000040000L});
-    public static final BitSet FOLLOW_117 = new BitSet(new long[]{0x0080000000000000L,0x0000040000000000L});
-    public static final BitSet FOLLOW_118 = new BitSet(new long[]{0x0000000000000000L,0x0000000000400000L});
-    public static final BitSet FOLLOW_119 = new BitSet(new long[]{0x0000000000000000L,0x0000000000480000L});
-    public static final BitSet FOLLOW_120 = new BitSet(new long[]{0x1000000000000000L,0x0000000080000000L});
-    public static final BitSet FOLLOW_121 = new BitSet(new long[]{0x1000000000000000L});
-    public static final BitSet FOLLOW_122 = new BitSet(new long[]{0x0000002000000000L,0x0000044000000000L});
-    public static final BitSet FOLLOW_123 = new BitSet(new long[]{0x0000000000000000L,0x0000020080000000L});
-    public static final BitSet FOLLOW_124 = new BitSet(new long[]{0x0000000000000002L,0x0000000000008000L});
-    public static final BitSet FOLLOW_125 = new BitSet(new long[]{0x0000000000000002L,0x0000000000000002L});
-    public static final BitSet FOLLOW_126 = new BitSet(new long[]{0x0000000000000000L,0x0000000000840000L});
-    public static final BitSet FOLLOW_127 = new BitSet(new long[]{0x0000000000000000L,0x0000000400000000L});
-    public static final BitSet FOLLOW_128 = new BitSet(new long[]{0x0000000000000000L,0x0000000000040000L});
-    public static final BitSet FOLLOW_129 = new BitSet(new long[]{0x0000001000000000L});
-    public static final BitSet FOLLOW_130 = new BitSet(new long[]{0x0000000800000000L});
-    public static final BitSet FOLLOW_131 = new BitSet(new long[]{0x0000000000000000L,0x0000000000080000L});
-    public static final BitSet FOLLOW_132 = new BitSet(new long[]{0x0000000000000002L,0x0000000080000000L});
-    public static final BitSet FOLLOW_133 = new BitSet(new long[]{0x8000000500888400L,0x0000040400040001L});
-    public static final BitSet FOLLOW_134 = new BitSet(new long[]{0x0000000000000000L,0x0000000000020000L});
-    public static final BitSet FOLLOW_135 = new BitSet(new long[]{0x0000000000000000L,0x0000000004040000L});
-    public static final BitSet FOLLOW_136 = new BitSet(new long[]{0x0000000000000000L,0x0000060400000000L});
-    public static final BitSet FOLLOW_137 = new BitSet(new long[]{0x0000000000000000L,0x0000000080004000L});
-    public static final BitSet FOLLOW_138 = new BitSet(new long[]{0x0000000000000000L,0x0000000000004000L});
-    public static final BitSet FOLLOW_139 = new BitSet(new long[]{0x0001000000000000L});
-    public static final BitSet FOLLOW_140 = new BitSet(new long[]{0x0000000000000000L,0x0000000010000000L});
-    public static final BitSet FOLLOW_141 = new BitSet(new long[]{0x0000002000000000L,0x0000040400044001L});
-    public static final BitSet FOLLOW_142 = new BitSet(new long[]{0x0000000000000000L,0x0000040400044001L});
-    public static final BitSet FOLLOW_143 = new BitSet(new long[]{0x0000000000000000L,0x0000040000004000L});
-    public static final BitSet FOLLOW_144 = new BitSet(new long[]{0x0000000000000002L,0x0000000080000040L});
-    public static final BitSet FOLLOW_145 = new BitSet(new long[]{0x0000000000000002L,0x0000000000000800L});
-    public static final BitSet FOLLOW_146 = new BitSet(new long[]{0x4000000000000000L,0x0000000000001000L});
-    public static final BitSet FOLLOW_147 = new BitSet(new long[]{0x0200400001110200L,0x0000064410A40000L});
-    public static final BitSet FOLLOW_148 = new BitSet(new long[]{0x0000000000400000L,0x0000000004404000L});
-    public static final BitSet FOLLOW_149 = new BitSet(new long[]{0x0000000000000000L,0x0000000004404000L});
-    public static final BitSet FOLLOW_150 = new BitSet(new long[]{0x0000000000800000L});
-    public static final BitSet FOLLOW_151 = new BitSet(new long[]{0x0000000000000002L,0x0000000000004000L});
-    public static final BitSet FOLLOW_152 = new BitSet(new long[]{0x0000000000000000L,0x0000040020000000L});
-    public static final BitSet FOLLOW_153 = new BitSet(new long[]{0x0200400001010200L,0x0000064410AC0000L});
-    public static final BitSet FOLLOW_154 = new BitSet(new long[]{0x0000000000000002L,0x0000000011000000L});
-    public static final BitSet FOLLOW_155 = new BitSet(new long[]{0x0000000000000000L,0x0000000020000400L});
-    public static final BitSet FOLLOW_156 = new BitSet(new long[]{0x0000000000000000L,0x0000000020000000L});
-    public static final BitSet FOLLOW_157 = new BitSet(new long[]{0x0000000000000000L,0x0000044400A00000L});
-    public static final BitSet FOLLOW_158 = new BitSet(new long[]{0x0000000000000000L,0x0000004000000000L});
-    public static final BitSet FOLLOW_159 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000400L});
-    public static final BitSet FOLLOW_160 = new BitSet(new long[]{0x0000080000000002L});
-    public static final BitSet FOLLOW_161 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000800L});
+    public static final BitSet FOLLOW_63 = new BitSet(new long[]{0x0000000500888400L,0x0000040040000000L});
+    public static final BitSet FOLLOW_64 = new BitSet(new long[]{0x0000000000000000L,0x0000000008000000L});
+    public static final BitSet FOLLOW_65 = new BitSet(new long[]{0x0000000000000002L,0x0000000001000000L});
+    public static final BitSet FOLLOW_66 = new BitSet(new long[]{0x0000000080000000L,0x0000000002000000L});
+    public static final BitSet FOLLOW_67 = new BitSet(new long[]{0x0000000002000000L});
+    public static final BitSet FOLLOW_68 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000020L});
+    public static final BitSet FOLLOW_69 = new BitSet(new long[]{0x0000000000000000L,0x0000000080000000L});
+    public static final BitSet FOLLOW_70 = new BitSet(new long[]{0x0000000000000000L,0x0000000100400000L});
+    public static final BitSet FOLLOW_71 = new BitSet(new long[]{0x0000000000000002L,0x0000000000100000L});
+    public static final BitSet FOLLOW_72 = new BitSet(new long[]{0x0000000010000000L});
+    public static final BitSet FOLLOW_73 = new BitSet(new long[]{0x0000000000000000L,0x0000000100000000L});
+    public static final BitSet FOLLOW_74 = new BitSet(new long[]{0x0000000000000000L,0x0000000080000041L});
+    public static final BitSet FOLLOW_75 = new BitSet(new long[]{0x0000000000000000L,0x0000000080000045L});
+    public static final BitSet FOLLOW_76 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000200L});
+    public static final BitSet FOLLOW_77 = new BitSet(new long[]{0x8000000000000000L,0x0000000080000000L});
+    public static final BitSet FOLLOW_78 = new BitSet(new long[]{0x8000000000000000L});
+    public static final BitSet FOLLOW_79 = new BitSet(new long[]{0x0000000000000000L,0x0000000080000040L});
+    public static final BitSet FOLLOW_80 = new BitSet(new long[]{0x0000000000000000L,0x0000000080000044L});
+    public static final BitSet FOLLOW_81 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000100L});
+    public static final BitSet FOLLOW_82 = new BitSet(new long[]{0x0000000000000000L,0x0000000002000000L});
+    public static final BitSet FOLLOW_83 = new BitSet(new long[]{0x0000000000000000L,0x0000000000004018L});
+    public static final BitSet FOLLOW_84 = new BitSet(new long[]{0x0000000000000080L});
+    public static final BitSet FOLLOW_85 = new BitSet(new long[]{0x0000000500888400L,0x0000040000000000L});
+    public static final BitSet FOLLOW_86 = new BitSet(new long[]{0x0000010000000000L});
+    public static final BitSet FOLLOW_87 = new BitSet(new long[]{0x0000000500888400L,0x0000040000000001L});
+    public static final BitSet FOLLOW_88 = new BitSet(new long[]{0x0800000000000000L,0x0000000084002040L});
+    public static final BitSet FOLLOW_89 = new BitSet(new long[]{0x0800000000000000L,0x0000000004002000L});
+    public static final BitSet FOLLOW_90 = new BitSet(new long[]{0x0000000000000000L,0x0000060080000000L});
+    public static final BitSet FOLLOW_91 = new BitSet(new long[]{0x0000000000000000L,0x0000000084002000L});
+    public static final BitSet FOLLOW_92 = new BitSet(new long[]{0x0000000000000000L,0x0000000004002000L});
+    public static final BitSet FOLLOW_93 = new BitSet(new long[]{0x0000000000000000L,0x0000020000000000L});
+    public static final BitSet FOLLOW_94 = new BitSet(new long[]{0x0100000000000000L});
+    public static final BitSet FOLLOW_95 = new BitSet(new long[]{0x0000000000000000L,0x0000000084000040L});
+    public static final BitSet FOLLOW_96 = new BitSet(new long[]{0x0040000000000000L});
+    public static final BitSet FOLLOW_97 = new BitSet(new long[]{0x0000000000000000L,0x0000000080000140L});
+    public static final BitSet FOLLOW_98 = new BitSet(new long[]{0x0000000000000000L,0x0000000001000000L});
+    public static final BitSet FOLLOW_99 = new BitSet(new long[]{0x0004000000000000L});
+    public static final BitSet FOLLOW_100 = new BitSet(new long[]{0x0000020200001100L,0x0000000000000044L});
+    public static final BitSet FOLLOW_101 = new BitSet(new long[]{0x0000020200001100L,0x0000000000000004L});
+    public static final BitSet FOLLOW_102 = new BitSet(new long[]{0x0000020000001100L,0x0000040000000004L});
+    public static final BitSet FOLLOW_103 = new BitSet(new long[]{0x0000000000001100L,0x0000040000000004L});
+    public static final BitSet FOLLOW_104 = new BitSet(new long[]{0x0000000000001000L,0x0000040000000005L});
+    public static final BitSet FOLLOW_105 = new BitSet(new long[]{0x0000200000000000L});
+    public static final BitSet FOLLOW_106 = new BitSet(new long[]{0x0000008000000000L});
+    public static final BitSet FOLLOW_107 = new BitSet(new long[]{0x0800000000000000L,0x0000000004000000L});
+    public static final BitSet FOLLOW_108 = new BitSet(new long[]{0x0000000040000000L});
+    public static final BitSet FOLLOW_109 = new BitSet(new long[]{0x0000000000000000L,0x0000000004402000L});
+    public static final BitSet FOLLOW_110 = new BitSet(new long[]{0x0008000004000000L});
+    public static final BitSet FOLLOW_111 = new BitSet(new long[]{0x0008000000000000L});
+    public static final BitSet FOLLOW_112 = new BitSet(new long[]{0x0000000000000000L,0x0000000084000000L});
+    public static final BitSet FOLLOW_113 = new BitSet(new long[]{0x0000000000000000L,0x0000000080000240L});
+    public static final BitSet FOLLOW_114 = new BitSet(new long[]{0x0000000500888400L,0x0000040400040001L});
+    public static final BitSet FOLLOW_115 = new BitSet(new long[]{0x0080000000000000L,0x0000040000040000L});
+    public static final BitSet FOLLOW_116 = new BitSet(new long[]{0x0080000000000000L,0x0000040000000000L});
+    public static final BitSet FOLLOW_117 = new BitSet(new long[]{0x0000000000000000L,0x0000000000400000L});
+    public static final BitSet FOLLOW_118 = new BitSet(new long[]{0x0000000000000000L,0x0000000000480000L});
+    public static final BitSet FOLLOW_119 = new BitSet(new long[]{0x1000000000000000L,0x0000000080000000L});
+    public static final BitSet FOLLOW_120 = new BitSet(new long[]{0x1000000000000000L});
+    public static final BitSet FOLLOW_121 = new BitSet(new long[]{0x0000002000000000L,0x0000044000000000L});
+    public static final BitSet FOLLOW_122 = new BitSet(new long[]{0x0000000000000000L,0x0000020080000000L});
+    public static final BitSet FOLLOW_123 = new BitSet(new long[]{0x0000000000000002L,0x0000000000008000L});
+    public static final BitSet FOLLOW_124 = new BitSet(new long[]{0x0000000000000002L,0x0000000000000002L});
+    public static final BitSet FOLLOW_125 = new BitSet(new long[]{0x0000000000000000L,0x0000000000840000L});
+    public static final BitSet FOLLOW_126 = new BitSet(new long[]{0x0000000000000000L,0x0000000400000000L});
+    public static final BitSet FOLLOW_127 = new BitSet(new long[]{0x0000000000000000L,0x0000000000040000L});
+    public static final BitSet FOLLOW_128 = new BitSet(new long[]{0x0000001000000000L});
+    public static final BitSet FOLLOW_129 = new BitSet(new long[]{0x0000000800000000L});
+    public static final BitSet FOLLOW_130 = new BitSet(new long[]{0x0000000000000000L,0x0000000000080000L});
+    public static final BitSet FOLLOW_131 = new BitSet(new long[]{0x0000000000000002L,0x0000000080000000L});
+    public static final BitSet FOLLOW_132 = new BitSet(new long[]{0x8000000500888400L,0x0000040400040001L});
+    public static final BitSet FOLLOW_133 = new BitSet(new long[]{0x0000000000000000L,0x0000000000020000L});
+    public static final BitSet FOLLOW_134 = new BitSet(new long[]{0x0000000000000000L,0x0000000004040000L});
+    public static final BitSet FOLLOW_135 = new BitSet(new long[]{0x0000000000000000L,0x0000060400000000L});
+    public static final BitSet FOLLOW_136 = new BitSet(new long[]{0x0000000000000000L,0x0000000080004000L});
+    public static final BitSet FOLLOW_137 = new BitSet(new long[]{0x0000000000000000L,0x0000000010000000L});
+    public static final BitSet FOLLOW_138 = new BitSet(new long[]{0x0000002000000000L,0x0000040400044001L});
+    public static final BitSet FOLLOW_139 = new BitSet(new long[]{0x0000000000000000L,0x0000040400044001L});
+    public static final BitSet FOLLOW_140 = new BitSet(new long[]{0x0000000000000000L,0x0000040000004000L});
+    public static final BitSet FOLLOW_141 = new BitSet(new long[]{0x0000000000000002L,0x0000000080000040L});
+    public static final BitSet FOLLOW_142 = new BitSet(new long[]{0x0000000000000002L,0x0000000000000800L});
+    public static final BitSet FOLLOW_143 = new BitSet(new long[]{0x4000000000000000L,0x0000000000001000L});
+    public static final BitSet FOLLOW_144 = new BitSet(new long[]{0x0200400001110200L,0x0000064410A40000L});
+    public static final BitSet FOLLOW_145 = new BitSet(new long[]{0x0000000000400000L,0x0000000004404000L});
+    public static final BitSet FOLLOW_146 = new BitSet(new long[]{0x0000000000000000L,0x0000000004404000L});
+    public static final BitSet FOLLOW_147 = new BitSet(new long[]{0x0000000000000002L,0x0000000080004000L});
+    public static final BitSet FOLLOW_148 = new BitSet(new long[]{0x0000000000000000L,0x0000040020000000L});
+    public static final BitSet FOLLOW_149 = new BitSet(new long[]{0x0200400001010200L,0x0000064410AC0000L});
+    public static final BitSet FOLLOW_150 = new BitSet(new long[]{0x0000000000000002L,0x0000000011000000L});
+    public static final BitSet FOLLOW_151 = new BitSet(new long[]{0x0000000000000000L,0x0000000020000400L});
+    public static final BitSet FOLLOW_152 = new BitSet(new long[]{0x0000000000000000L,0x0000000020000000L});
+    public static final BitSet FOLLOW_153 = new BitSet(new long[]{0x0000000000000000L,0x0000044400A00000L});
+    public static final BitSet FOLLOW_154 = new BitSet(new long[]{0x0000000000000000L,0x0000004000000000L});
+    public static final BitSet FOLLOW_155 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000400L});
+    public static final BitSet FOLLOW_156 = new BitSet(new long[]{0x0000080000000002L});
+    public static final BitSet FOLLOW_157 = new BitSet(new long[]{0x0000000000000000L,0x0000000000010000L});
+    public static final BitSet FOLLOW_158 = new BitSet(new long[]{0x0000000000800000L});
+    public static final BitSet FOLLOW_159 = new BitSet(new long[]{0x0001000000000000L});
+    public static final BitSet FOLLOW_160 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000800L});
 
 }
