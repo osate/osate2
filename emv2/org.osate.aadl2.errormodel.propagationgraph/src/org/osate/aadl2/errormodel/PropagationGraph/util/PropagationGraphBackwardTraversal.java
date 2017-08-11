@@ -37,7 +37,6 @@ import org.osate.xtext.aadl2.errormodel.errorModel.OutgoingPropagationCondition;
 import org.osate.xtext.aadl2.errormodel.errorModel.QualifiedErrorBehaviorState;
 import org.osate.xtext.aadl2.errormodel.errorModel.SConditionElement;
 import org.osate.xtext.aadl2.errormodel.errorModel.TransitionBranch;
-import org.osate.xtext.aadl2.errormodel.errorModel.TypeSet;
 import org.osate.xtext.aadl2.errormodel.util.EM2TypeSetUtil;
 import org.osate.xtext.aadl2.errormodel.util.EMV2Properties;
 import org.osate.xtext.aadl2.errormodel.util.EMV2Util;
@@ -127,7 +126,7 @@ public class PropagationGraphBackwardTraversal {
 
 				if (EMV2Util.isSame(errorSource.getOutgoing(), errorPropagation)) {
 					if (EM2TypeSetUtil.contains(errorSource.getTypeTokenConstraint(), type)) {
-						EObject newEvent = processErrorSource(component, errorSource, ef.getTypeTokenConstraint());
+						EObject newEvent = processErrorSource(component, errorSource, type);
 						if (newEvent != null) {
 							subResults.add(newEvent);
 						}
@@ -608,8 +607,7 @@ public class PropagationGraphBackwardTraversal {
 	 * @param typeTokenConstraint
 	 * @return EObject (can be null)
 	 */
-	protected EObject processErrorSource(ComponentInstance component, ErrorSource errorSource,
-			TypeSet typeTokenConstraint) {
+	protected EObject processErrorSource(ComponentInstance component, ErrorSource errorSource, ErrorTypes type) {
 //		OsateDebug.osateDebug("processErrorSource " + component.getName() + " error source " + errorSource.getName());
 		return null;
 	}
