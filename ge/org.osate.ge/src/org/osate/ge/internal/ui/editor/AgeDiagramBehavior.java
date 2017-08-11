@@ -67,7 +67,6 @@ import org.eclipse.graphiti.services.Graphiti;
 import org.eclipse.graphiti.ui.editor.DefaultPaletteBehavior;
 import org.eclipse.graphiti.ui.editor.DefaultPersistencyBehavior;
 import org.eclipse.graphiti.ui.editor.DefaultRefreshBehavior;
-import org.eclipse.graphiti.ui.editor.DefaultUpdateBehavior;
 import org.eclipse.graphiti.ui.editor.DiagramBehavior;
 import org.eclipse.graphiti.ui.editor.DiagramEditorContextMenuProvider;
 import org.eclipse.graphiti.ui.editor.IDiagramContainerUI;
@@ -104,6 +103,7 @@ import org.osate.ge.internal.diagram.runtime.DiagramSerialization;
 import org.osate.ge.internal.graphiti.AgeDiagramTypeProvider;
 import org.osate.ge.internal.graphiti.AgeFeatureProvider;
 import org.osate.ge.internal.graphiti.GraphitiAgeDiagramProvider;
+import org.osate.ge.internal.graphiti.LegacyDiagramUtil;
 import org.osate.ge.internal.graphiti.LegacyGraphitiDiagramConverter;
 import org.osate.ge.internal.graphiti.diagram.ColoringProvider;
 import org.osate.ge.internal.graphiti.diagram.GraphitiAgeDiagram;
@@ -114,7 +114,6 @@ import org.osate.ge.internal.services.DiagramService;
 import org.osate.ge.internal.services.ExtensionService;
 import org.osate.ge.internal.services.ModelChangeNotifier;
 import org.osate.ge.internal.services.ModelChangeNotifier.ChangeListener;
-import org.osate.ge.internal.util.DiagramUtil;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
@@ -562,11 +561,6 @@ public class AgeDiagramBehavior extends DiagramBehavior implements GraphitiAgeDi
 	}
 	
 	@Override
-	protected DefaultUpdateBehavior createUpdateBehavior() {
-		return new AgeUpdateBehavior(this);
-	}	
-	
-	@Override
 	protected DefaultPaletteBehavior createPaletteBehaviour() {
 		return new DefaultPaletteBehavior(this) {
 			@Override
@@ -796,7 +790,7 @@ public class AgeDiagramBehavior extends DiagramBehavior implements GraphitiAgeDi
 				throw new RuntimeException("Unable to retrieve file for resource.");
 			}
 
-			if(DiagramUtil.isLegacy((IFile)resource)) {
+			if(LegacyDiagramUtil.isLegacy((IFile)resource)) {
 				// Only prompt for converting if the workbench window is already visible. 
 				// The primary purpose is to be prevent confusion by not prompting for conversion on the first load of the workspace after upgrading.
 				if(PlatformUI.getWorkbench() !=  null &&
@@ -978,7 +972,7 @@ public class AgeDiagramBehavior extends DiagramBehavior implements GraphitiAgeDi
 		fp.getDiagramUpdater().updateDiagram(ageDiagram);
 		
 		// Perform incremental layout
-		ageDiagram.modify(new DiagramModifier() {
+		ageDiagram.modify("Incremental Layout", new DiagramModifier() {
 			@Override
 			public void modify(final DiagramModification m) {
 				DiagramLayoutUtil.layout(ageDiagram, m, false);	
@@ -1036,8 +1030,4 @@ public class AgeDiagramBehavior extends DiagramBehavior implements GraphitiAgeDi
 	private static Path getPath(final URI uri) {
 		return new Path(uri.toPlatformString(true));
 	}
-	
-	public void clearSelection() {
-		selectPictogramElements(new PictogramElement[0]);
-	}	
 }

@@ -29,12 +29,17 @@ ARISING FROM, OUT OF OR IN CONNECTION WITH THE DATA OR THE USE OR OTHER DEALINGS
  *******************************************************************************/
 package org.osate.ge.internal.ui.editor;
 
+import java.util.Objects;
+
 import org.eclipse.emf.common.util.URI;
+import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.ui.editor.DiagramBehavior;
 import org.eclipse.graphiti.ui.editor.DiagramEditor;
 import org.eclipse.graphiti.ui.editor.IDiagramEditorInput;
+import org.eclipse.jface.action.IAction;
 import org.eclipse.ui.views.contentoutline.IContentOutlinePage;
 import org.osate.ge.GraphicalEditor;
+import org.osate.ge.internal.diagram.runtime.AgeDiagram;
 import org.osate.ge.internal.graphiti.diagram.GraphitiAgeDiagram;
 
 public class AgeDiagramEditor extends DiagramEditor implements GraphicalEditor {
@@ -109,5 +114,27 @@ public class AgeDiagramEditor extends DiagramEditor implements GraphicalEditor {
 	
 	public GraphitiAgeDiagram getGraphitiAgeDiagram() {
 		return ((AgeDiagramBehavior)getDiagramBehavior()).getGraphitiAgeDiagram();
+	}
+	
+	public AgeDiagram getAgeDiagram() {
+		return ((AgeDiagramBehavior)getDiagramBehavior()).getAgeDiagram();
+	}
+	
+	/**
+	 * Throws exception if the action for the specified tool cannot be found.
+	 * @param toolId
+	 * @return
+	 */
+	public IAction getActivateToolAction(final String toolId) {
+		Objects.requireNonNull(toolId, "toolId must not be null");
+		return ((AgeDiagramBehavior)getDiagramBehavior()).getActivateToolAction(toolId);
+	}
+	
+	public void deactivateActiveTool() {
+		((AgeDiagramBehavior)getDiagramBehavior()).deactivateActiveTool();
+	}
+	
+	public void clearSelection() {
+		selectPictogramElements(new PictogramElement[0]);
 	}
 }

@@ -25,7 +25,7 @@ public class AgeFeatureUtil {
 	public static void undoModification(final GraphitiAgeDiagram graphitiAgeDiagram, final IContext context) {
 		final DiagramModification previousModification = (DiagramModification)context.getProperty(PROPERTY_MODIFICATION);
 		if(previousModification != null) {
-			graphitiAgeDiagram.modify(new DiagramModifier() {
+			graphitiAgeDiagram.modify("Undo", new DiagramModifier() {
 				@Override
 				public void modify(final DiagramModification m) {
 					((DiagramModification)m).undoModification(previousModification);
@@ -42,7 +42,7 @@ public class AgeFeatureUtil {
 	public static void redoModification(final GraphitiAgeDiagram graphitiAgeDiagram, final IContext context) {
 		final DiagramModification previousModification = (DiagramModification)context.getProperty(PROPERTY_MODIFICATION);
 		if(previousModification != null) {
-			graphitiAgeDiagram.modify(new DiagramModifier() {
+			graphitiAgeDiagram.modify("Redo", new DiagramModifier() {
 				@Override
 				public void modify(final DiagramModification m) {
 					((DiagramModification)m).redoModification(previousModification);

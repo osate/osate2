@@ -73,7 +73,7 @@ public class AgeResizeShapeFeature extends DefaultResizeShapeFeature implements 
 	public void resizeShape(final IResizeShapeContext context) {
 		final GraphitiAgeDiagram graphitiAgeDiagram = graphitiAgeDiagramProvider.getGraphitiAgeDiagram();
 		final DiagramElement diagramElement = graphitiAgeDiagram.getDiagramElement(context.getShape());
-		graphitiAgeDiagram.modify(new DiagramModifier() {
+		graphitiAgeDiagram.modify("Resize Shape", new DiagramModifier() {
 			@Override
 			public void modify(DiagramModification m) {
 				m.setPosition(diagramElement, new Point(context.getX(), context.getY()));

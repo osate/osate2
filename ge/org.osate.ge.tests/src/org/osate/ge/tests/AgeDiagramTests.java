@@ -81,7 +81,7 @@ public class AgeDiagramTests {
 	public void testElementAddedEvent() {
 		// Test an add event
 		final DiagramElement newElement = new DiagramElement(diagram, 1, dummyBoh, new RelativeBusinessObjectReference("1"));
-		diagram.modify(new DiagramModifier() {			
+		diagram.modify("Add Element", new DiagramModifier() {			
 			@Override
 			public void modify(final DiagramModification m) {
 				m.addElement(newElement);
@@ -99,7 +99,7 @@ public class AgeDiagramTests {
 		final DiagramElement e = addRootElementAndResetCounter(1);
 		
 		// Test a remove event
-		diagram.modify(new DiagramModifier() {			
+		diagram.modify("Remove Element", new DiagramModifier() {			
 			@Override
 			public void modify(final DiagramModification m) {
 				m.removeElement(e);
@@ -117,7 +117,7 @@ public class AgeDiagramTests {
 		final DiagramElement e = addRootElementAndResetCounter(1);
 		
 		// Test the update event
-		diagram.modify(new DiagramModifier() {			
+		diagram.modify("Set Position", new DiagramModifier() {			
 			@Override
 			public void modify(final DiagramModification m) {
 				m.setPosition(e, new Point(100, 100));
@@ -136,7 +136,7 @@ public class AgeDiagramTests {
 		final DiagramElement e = addRootElementAndResetCounter(1);
 		
 		// Test the update event
-		diagram.modify(new DiagramModifier() {			
+		diagram.modify("Set Dock Area nd Position", new DiagramModifier() {			
 			@Override
 			public void modify(final DiagramModification m) {
 				m.setDockArea(e, DockArea.TOP);
@@ -152,7 +152,7 @@ public class AgeDiagramTests {
 	
 	private DiagramElement addRootElementAndResetCounter(final int id) {
 		final DiagramElement newElement = new DiagramElement(diagram, id, dummyBoh, new RelativeBusinessObjectReference(Integer.toString(id)));
-		diagram.modify(new DiagramModifier() {			
+		diagram.modify("Add Element", new DiagramModifier() {			
 			@Override
 			public void modify(final DiagramModification m) {
 				m.addElement(newElement);

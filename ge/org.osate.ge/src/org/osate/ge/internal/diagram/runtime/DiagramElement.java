@@ -12,7 +12,6 @@ import org.osate.ge.graphics.Graphic;
 import org.osate.ge.internal.AgeGraphicalConfiguration;
 import org.osate.ge.internal.DockArea;
 import org.osate.ge.internal.diagram.runtime.boTree.Completeness;
-import org.osate.ge.internal.graphics.AgeShape;
 import org.osate.ge.internal.labels.AgeLabelConfiguration;
 import org.osate.ge.internal.query.Queryable;
 
@@ -198,16 +197,7 @@ public class DiagramElement implements DiagramNode, ModifiableDiagramElementCont
 	public final void setPositionInternal(final int x, final int y) {
 		this.position = new Point(x, y);
 	}
-	
-	
-	public final boolean isSizeable() {
-		if(graphicalConfig.graphic instanceof AgeShape) {
-			return ((AgeShape)graphicalConfig.graphic).isResizeable();
-		}
-		
-		return false;
-	}
-		
+			
 	public boolean hasSize() {
 		return size != null;
 	}

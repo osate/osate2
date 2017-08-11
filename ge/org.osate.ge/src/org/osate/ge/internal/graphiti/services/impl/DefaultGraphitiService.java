@@ -19,6 +19,7 @@ import org.osate.ge.internal.diagram.runtime.AgeDiagram;
 import org.osate.ge.internal.graphiti.diagram.GraphitiAgeDiagram;
 import org.osate.ge.internal.graphiti.services.GraphitiService;
 import org.osate.ge.internal.ui.editor.AgeDiagramBehavior;
+import org.osate.ge.internal.ui.editor.AgeDiagramEditor;
 
 public class DefaultGraphitiService implements GraphitiService {
 	private final IDiagramTypeProvider dtp;
@@ -62,5 +63,10 @@ public class DefaultGraphitiService implements GraphitiService {
 	@Override
 	public AgeDiagram getAgeDiagram() {
 		return ((AgeDiagramBehavior)dtp.getDiagramBehavior()).getAgeDiagram();
+	}
+
+	@Override
+	public AgeDiagramEditor getEditor() {
+		return (AgeDiagramEditor)((AgeDiagramBehavior)dtp.getDiagramBehavior()).getDiagramContainer();
 	}
 }

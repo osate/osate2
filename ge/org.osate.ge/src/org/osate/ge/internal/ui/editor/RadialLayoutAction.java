@@ -1,33 +1,18 @@
-/*******************************************************************************
- * Copyright (C) 2016 University of Alabama in Huntsville (UAH)
- * All rights reserved. This program and the accompanying materials
- * are made available under the terms of the Eclipse Public License v1.0
- * which accompanies this distribution, and is available at
- * http://www.eclipse.org/legal/epl-v10.html
- * The US Government has unlimited rights in this work in accordance with W31P4Q-10-D-0092 DO 0105.
- *******************************************************************************/
 package org.osate.ge.internal.ui.editor;
 
-import java.math.BigDecimal;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
 import java.util.List;
 import java.util.Objects;
-
-import org.eclipse.emf.transaction.RecordingCommand;
 import org.eclipse.gef.ui.actions.SelectionAction;
-import org.eclipse.graphiti.features.IFeatureProvider;
-import org.eclipse.graphiti.features.IMoveShapeFeature;
-import org.eclipse.graphiti.features.context.impl.MoveShapeContext;
-import org.eclipse.graphiti.mm.algorithms.GraphicsAlgorithm;
-import org.eclipse.graphiti.mm.pictograms.ContainerShape;
-import org.eclipse.graphiti.mm.pictograms.PictogramElement;
-import org.eclipse.graphiti.mm.pictograms.Shape;
 import org.eclipse.jface.resource.ImageDescriptor;
-import org.eclipse.swt.graphics.Point;
 import org.eclipse.ui.IWorkbenchPart;
 import org.osate.ge.internal.Activator;
+import org.osate.ge.internal.diagram.runtime.AgeDiagram;
+import org.osate.ge.internal.diagram.runtime.DiagramElement;
+import org.osate.ge.internal.diagram.runtime.DiagramElementPredicates;
+import org.osate.ge.internal.diagram.runtime.DiagramModification;
+import org.osate.ge.internal.diagram.runtime.DiagramModifier;
+import org.osate.ge.internal.diagram.runtime.Point;
 
 public class RadialLayoutAction extends SelectionAction {
 	private AgeDiagramEditor editor;
@@ -44,131 +29,108 @@ public class RadialLayoutAction extends SelectionAction {
 	}
 
 	/**
+	 * Updates whether action is available based on if shapes selected are valid
+	 */
+	@Override
+	protected boolean calculateEnabled() {
+		final List<DiagramElement> selectedDiagramElements = ContributionHelper.getSelectedDiagramElements(editor, getSelectedObjects());
+		if(selectedDiagramElements == null) {
+			return false;
+		}
+		
+		if(selectedDiagramElements.size() < 2) {
+			return false;
+		}
+		
+		if(!ContributionHelper.allHaveSameParent(selectedDiagramElements)) {
+			return false;
+		}
+		
+		return selectedDiagramElements.stream().allMatch(RadialLayoutAction::isSupported);
+	}
+
+	private static boolean isSupported(final DiagramElement de) {
+		return DiagramElementPredicates.isUndocked(de) && DiagramElementPredicates.isMoveable(de);
+	}
+	
+	/**
 	 * Lays out selected shapes in a radial pattern
 	 */
 	@Override
 	public void run(){
-		editor.getEditingDomain().getCommandStack().execute(new RecordingCommand(editor.getEditingDomain(), "Radial Layout") {
+		final AgeDiagram ageDiagram = editor.getAgeDiagram();
+		if(ageDiagram == null) {
+			throw new RuntimeException("Unable to get diagram");
+		}
+		
+		final List<DiagramElement> selectedDiagramElements = ContributionHelper.getSelectedDiagramElements(editor, getSelectedObjects());
+		ageDiagram.modify("Radial Layout", new DiagramModifier() {			
 			@Override
-			protected void doExecute() {
-				final Collection<MoveShapeContext> ctxs = getMoveShapeContextsFromEditorSelection();
-				if(ctxs != null) {
-					for (final MoveShapeContext ctx : ctxs) {
-						final IFeatureProvider fp = editor.getDiagramTypeProvider().getFeatureProvider();
-						final IMoveShapeFeature feature = fp.getMoveShapeFeature(ctx);
-						feature.execute(ctx);
-					}	
+			public void modify(final DiagramModification m) {
+				// Calculate and sets the position of the selected shapes into a radial layout.
+				final List<Double> angles = new ArrayList<>();
+				final double padding = 25;
+				double radius = 0;
+				double sizeOfShapes = 0;
+				double circumference = -1;
+				
+				// Find appropriate radius for shapes
+				while((sizeOfShapes > circumference) || (Double.isNaN(sizeOfShapes))) {
+					sizeOfShapes = 0;
+					angles.clear();
+					radius++;
+					circumference = 2*Math.PI*radius;
+					
+					for(final DiagramElement e : selectedDiagramElements) {
+						// Get largest dimension of shape
+						final double shapeDimension = ((e.getWidth() > e.getHeight() ? e.getWidth() : e.getHeight()) + padding) / 2;
+
+						// Calculate diagonal of shape
+						final double shapeSize = Math.sqrt((Math.pow(shapeDimension, 2) + Math.pow(shapeDimension, 2)));
+
+						// Calculate angle for shape diagonal using Law of Cosines and double it
+						final double angle = Math.acos((Math.pow(radius, 2) + Math.pow(radius, 2) - Math.pow(shapeSize, 2)) / (2*radius*radius)) * 2;
+
+						angles.add(angle);
+						sizeOfShapes += (circumference * (angle/(2*Math.PI)));
+					}
+				}
+
+				final Point center = getCenter(selectedDiagramElements, radius);
+				double placementAngle = 0;
+				int i = 0;
+				for(final DiagramElement e : selectedDiagramElements) {
+					double spacingAngle = angles.get(i++);
+
+					// Center of placement
+					placementAngle += spacingAngle/2;
+
+					// Calculate where to place shape
+					final long x = Math.round(center.x + radius * Math.cos(placementAngle) - e.getWidth()/2);
+					final long y = Math.round(center.y + radius * Math.sin(placementAngle) - e.getHeight()/2);
+
+					// End of placement
+					placementAngle += spacingAngle/2;
+
+					m.setPosition(e, new Point((int)x, (int)y));
 				}
 			}
 		});
 	}
 
-	/**
-	 * Updates whether action is available based on if shapes selected are valid
-	 */
-	@Override
-	protected boolean calculateEnabled() {
-		return getMoveShapeContextsFromEditorSelection() != null;
-	}
-
-	/**
-	 * Performs validation, builds, and returns a collection of contexts
-	 * @return the contexts. Returns null if validation fails.
-	 */
-	private Collection<MoveShapeContext> getMoveShapeContextsFromEditorSelection() {
-		final PictogramElement[] pes = editor.getSelectedPictogramElements();
-		if(pes.length < 2) {
-			return null;
-		}
-
-		if(!LayoutUtil.areAllUndockedMoveableShapes(pes, editor.getGraphitiAgeDiagram())) {
-			return null;
-		}
-
-		final Shape[] shapes = Arrays.copyOf(editor.getSelectedPictogramElements(), pes.length, Shape[].class);
-		if(!LayoutUtil.haveSameContainerShapes(shapes)) {
-			return null;
-		}
-
-		final Collection<MoveShapeContext> moveShapeCtxs = getMoveShapeContexts(shapes);
-		return moveShapeCtxs;
-	}
-
-	/**
-	 * Calculate the selected shapes new radial layout location information
-	 * @param shapes the selected shapes
-	 * @return the list contexts that contain the shapes new locations
-	 */
-	private static Collection<MoveShapeContext> getMoveShapeContexts(final Shape[] shapes) {
-		final Collection<MoveShapeContext> results = new ArrayList<MoveShapeContext>();
-		final List<Double> angles = new ArrayList<>();
-		final ContainerShape container = shapes[0].getContainer();
-		final double padding = 25;
-		double radius = 0;
-		double sizeOfShapes = 0;
-		double circumference = -1;
-		
-		// Find appropriate radius for shapes
-		while((sizeOfShapes > circumference) || (Double.isNaN(sizeOfShapes))) {
-			sizeOfShapes = 0;
-			angles.clear();
-			radius++;
-			circumference = 2*Math.PI*radius;
-			
-			for(final Shape shape : shapes) {
-				final GraphicsAlgorithm shapeGA = shape.getGraphicsAlgorithm();
-				// Get largest dimension of shape
-				final double shapeDimension = ((shapeGA.getWidth() > shapeGA.getHeight() ? shapeGA.getWidth() : shapeGA.getHeight()) + padding) / 2;
-
-				// Calculate diagonal of shape
-				final double shapeSize = Math.sqrt((Math.pow(shapeDimension, 2) + Math.pow(shapeDimension, 2)));
-
-				// Calculate angle for shape diagonal using Law of Cosines and double it
-				final double angle = Math.acos((Math.pow(radius, 2) + Math.pow(radius, 2) - Math.pow(shapeSize, 2)) / (2*radius*radius)) * 2;
-
-				angles.add(angle);
-				sizeOfShapes += (circumference * (angle/(2*Math.PI)));
-			}
-		}
-
-		final Point center = getCenter(shapes, radius);
-		double placementAngle = 0;
-		int i = 0;
-		for(final Shape shape : shapes) {
-			final GraphicsAlgorithm shapeGA = shape.getGraphicsAlgorithm();
-			double spacingAngle = angles.get(i++);
-
-			// Center of placement
-			placementAngle += spacingAngle/2;
-
-			// Calculate where to place shape
-			long x = Math.round(center.x + radius * Math.cos(placementAngle) - shapeGA.getWidth()/2);
-			long y = Math.round(center.y + radius * Math.sin(placementAngle) - shapeGA.getHeight()/2);
-
-			// End of placement
-			placementAngle += spacingAngle/2;
-
-			results.add(LayoutUtil.getDistributeMoveShapeContext(shape, new BigDecimal(x).intValue(), new BigDecimal(y).intValue(), container));
-		}
-
-		return results;
-	}
-
-	private static Point getCenter(final Shape[] shapes, final double radius) {
+	private static Point getCenter(final List<DiagramElement> diagramElements, final double radius) {
 		final int boarderPadding = 10;
 		int xMin = Integer.MAX_VALUE, xMax = Integer.MIN_VALUE, yMin = Integer.MAX_VALUE, yMax = Integer.MIN_VALUE;
 		int maxWidth = Integer.MIN_VALUE, maxHeight = Integer.MIN_VALUE;
 
 		// Get min and max values for x and y axis.
 		// Get max dimension of shapes
-		for(final Shape shape : shapes) {
-			final GraphicsAlgorithm shapeGA = shape.getGraphicsAlgorithm();
-
-			final int width = shapeGA.getWidth()/2;
-			final int height = shapeGA.getHeight()/2;
+		for(final DiagramElement diagramElement : diagramElements) {
+			final int width = diagramElement.getWidth()/2;
+			final int height = diagramElement.getHeight()/2;
 			
-			final int x = shapeGA.getX() + width;
-			final int y = shapeGA.getY() + height;
+			final int x = diagramElement.getX() + width;
+			final int y = diagramElement.getY() + height;
 			
 			if(x < xMin) {
 				xMin = x;

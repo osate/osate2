@@ -95,7 +95,11 @@ public class FlowContributionItem extends ComboContributionItem {
 			// Clear the combo box		
 			comboViewer.setInput(null);
 
-			final AgeDiagram diagram = ContributionHelper.getDiagram(editor);
+			if(editor != null) {
+				return;
+			}
+			
+			final AgeDiagram diagram = editor.getAgeDiagram();			
 			if(diagram != null) {
 				final QueryService queryService = ContributionHelper.getQueryService(editor);
 				if(queryService != null) {

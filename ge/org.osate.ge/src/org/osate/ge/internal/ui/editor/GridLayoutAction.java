@@ -1,23 +1,17 @@
 package org.osate.ge.internal.ui.editor;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
+import java.util.List;
 import java.util.Objects;
-
-import org.eclipse.emf.transaction.RecordingCommand;
 import org.eclipse.gef.ui.actions.SelectionAction;
-import org.eclipse.graphiti.features.IFeatureProvider;
-import org.eclipse.graphiti.features.IMoveShapeFeature;
-import org.eclipse.graphiti.features.context.impl.MoveShapeContext;
-import org.eclipse.graphiti.mm.algorithms.GraphicsAlgorithm;
-import org.eclipse.graphiti.mm.pictograms.ContainerShape;
-import org.eclipse.graphiti.mm.pictograms.PictogramElement;
-import org.eclipse.graphiti.mm.pictograms.Shape;
 import org.eclipse.jface.resource.ImageDescriptor;
-import org.eclipse.swt.graphics.Point;
 import org.eclipse.ui.IWorkbenchPart;
 import org.osate.ge.internal.Activator;
+import org.osate.ge.internal.diagram.runtime.AgeDiagram;
+import org.osate.ge.internal.diagram.runtime.DiagramElement;
+import org.osate.ge.internal.diagram.runtime.DiagramElementPredicates;
+import org.osate.ge.internal.diagram.runtime.DiagramModification;
+import org.osate.ge.internal.diagram.runtime.DiagramModifier;
+import org.osate.ge.internal.diagram.runtime.Point;
 
 public class GridLayoutAction extends SelectionAction {
 	private AgeDiagramEditor editor;
@@ -38,119 +32,99 @@ public class GridLayoutAction extends SelectionAction {
 	 */
 	@Override
 	protected boolean calculateEnabled() {
-		return getMoveShapeContextsFromEditorSelection() != null;
+		final List<DiagramElement> selectedDiagramElements = ContributionHelper.getSelectedDiagramElements(editor, getSelectedObjects());
+		if(selectedDiagramElements == null) {
+			return false;
+		}
+		
+		if(selectedDiagramElements.size() < 2) {
+			return false;
+		}
+		
+		if(!ContributionHelper.allHaveSameParent(selectedDiagramElements)) {
+			return false;
+		}
+		
+		return selectedDiagramElements.stream().allMatch(GridLayoutAction::isSupported);
 	}
 
+	private static boolean isSupported(final DiagramElement de) {
+		return DiagramElementPredicates.isUndocked(de) && DiagramElementPredicates.isMoveable(de);
+	}
+	
 	/**
 	 * Lays out selected shapes in a grid pattern
 	 */
 	@Override
 	public void run(){
-		editor.getEditingDomain().getCommandStack().execute(new RecordingCommand(editor.getEditingDomain(), "Grid Layout") {
+		final AgeDiagram ageDiagram = editor.getAgeDiagram();
+		if(ageDiagram == null) {
+			throw new RuntimeException("Unable to get diagram");
+		}
+		
+		final List<DiagramElement> selectedDiagramElements = ContributionHelper.getSelectedDiagramElements(editor, getSelectedObjects());
+		ageDiagram.modify("Grid Layout", new DiagramModifier() {			
 			@Override
-			protected void doExecute() {
-				final Collection<MoveShapeContext> ctxs = getMoveShapeContextsFromEditorSelection();
-				if(ctxs != null) {
-					for (final MoveShapeContext ctx : ctxs) {
-						final IFeatureProvider fp = editor.getDiagramTypeProvider().getFeatureProvider();
-						final IMoveShapeFeature feature = fp.getMoveShapeFeature(ctx);
-						feature.execute(ctx);
-					}	
+			public void modify(final DiagramModification m) {
+				// Calculate and sets the selected diagram elements into a grid layout.
+				final int padding = 25;
+				
+				final int numOfCols = (int)Math.ceil(Math.sqrt(selectedDiagramElements.size()));
+				final int numOfRows = (int)Math.ceil(selectedDiagramElements.size()/(double)numOfCols);
+
+				final int[] colSizes = new int[numOfCols-1];
+				final int[] rowSizes = new int[numOfRows-1];
+
+				// Assign column and row width for grid
+				for(int i = 0 ; i < selectedDiagramElements.size() ; i++) {
+					final DiagramElement de = selectedDiagramElements.get(i);
+					int col = i % numOfCols;
+					int row = i / numOfCols;
+					
+					if(col < colSizes.length) {
+						colSizes[col] = Math.max(colSizes[col], de.getWidth() + padding);
+					}
+
+					if(row < rowSizes.length) {
+						rowSizes[row] = Math.max(rowSizes[row], de.getHeight() + padding);
+					}
+				}
+
+				// Calculate grid position and place first shape
+				final Point gridPosition = getGridPosition(selectedDiagramElements);
+				int x = gridPosition.x;
+				int y = gridPosition.y;
+				
+				// Position the elements
+				m.setPosition(selectedDiagramElements.get(0), new Point(x, y));
+
+				// Place the rest of the shapes
+				for(int i = 1 ; i < selectedDiagramElements.size(); i++) {
+					if(i % numOfCols == 0) {
+						x = gridPosition.x;
+						if(rowSizes.length != 0) {
+							y += rowSizes[i / numOfCols - 1];
+						}
+					} else {
+						x += colSizes[i % numOfCols - 1];
+					}
+
+					m.setPosition(selectedDiagramElements.get(i), new Point(x,y));
 				}
 			}
 		});
 	}
 
 	/**
-	 * Performs validation, builds, and returns a collection of contexts
-	 * @return the contexts. Returns null if validation fails.
-	 */
-	private Collection<MoveShapeContext> getMoveShapeContextsFromEditorSelection() {
-		final PictogramElement[] pes = editor.getSelectedPictogramElements();
-		if(pes.length < 2) {
-			return null;
-		}
-
-		if(!LayoutUtil.areAllUndockedMoveableShapes(pes, editor.getGraphitiAgeDiagram())) {
-			return null;
-		}
-
-		final Shape[] shapes = Arrays.copyOf(editor.getSelectedPictogramElements(), pes.length, Shape[].class);
-		if(!LayoutUtil.haveSameContainerShapes(shapes)) {
-			return null;
-		}
-
-		final Collection<MoveShapeContext> moveShapeCtxs = getMoveShapeContexts(shapes);
-		return moveShapeCtxs;
-	}
-	
-	/**
-	 * Calculate the selected shapes new grid layout location information
-	 * @param shapes the selected shapes
-	 * @return the list contexts that contain the shapes new locations
-	 */
-	private static Collection<MoveShapeContext> getMoveShapeContexts(final Shape[] shapes) {
-		final Collection<MoveShapeContext> results = new ArrayList<MoveShapeContext>();
-		final ContainerShape container = shapes[0].getContainer();
-		final int padding = 25;
-		
-		final int numOfCols = (int)Math.ceil(Math.sqrt(shapes.length));
-		final int numOfRows = (int)Math.ceil(shapes.length/(double)numOfCols);
-
-		final int[] colSizes = new int[numOfCols-1];
-		final int[] rowSizes = new int[numOfRows-1];
-
-		// Assign column and row width for grid
-		for(int i = 0 ; i < shapes.length ; i++) {
-			final GraphicsAlgorithm shapeGA = shapes[i].getGraphicsAlgorithm();
-			int col = i % numOfCols;
-			int row = i / numOfCols;
-			
-			if(col < colSizes.length) {
-				colSizes[col] = Math.max(colSizes[col], shapeGA.getWidth() + padding);
-			}
-
-			if(row < rowSizes.length) {
-				rowSizes[row] = Math.max(rowSizes[row], shapeGA.getHeight() + padding);
-			}
-		}
-
-		// Calculate grid position and place first shape
-		final Point gridPosition = getGridPosition(shapes);
-		int x = gridPosition.x;
-		int y = gridPosition.y;
-		
-		results.add(LayoutUtil.getDistributeMoveShapeContext(shapes[0], x, y, container));
-
-		// Place the rest of the shapes
-		for(int i = 1 ; i < shapes.length ; i++) {
-			if(i % numOfCols == 0) {
-				x = gridPosition.x;
-				if(rowSizes.length != 0) {
-					y += rowSizes[i / numOfCols - 1];
-				}
-			} else {
-				x += colSizes[i % numOfCols - 1];
-			}
-
-			results.add(LayoutUtil.getDistributeMoveShapeContext(shapes[i], x, y, container));
-		}
-
-		return results;
-	}
-	
-	/**
 	 * Get grid placement coordinate
 	 */
-	private static Point getGridPosition(final Shape[] shapes) {
+	private static Point getGridPosition(final List<DiagramElement> diagramElements) {
 		int xMin = Integer.MAX_VALUE, yMin = Integer.MAX_VALUE;
 
 		// Get min values for x and y axis.
-		for(final Shape shape : shapes) {
-			final GraphicsAlgorithm shapeGA = shape.getGraphicsAlgorithm();
-
-			final int x = shapeGA.getX();
-			final int y = shapeGA.getY();
+		for(final DiagramElement e : diagramElements) {
+			final int x = e.getX();
+			final int y = e.getY();
 			
 			if(x < xMin) {
 				xMin = x;

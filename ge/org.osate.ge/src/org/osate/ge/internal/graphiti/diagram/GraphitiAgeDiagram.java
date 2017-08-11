@@ -192,8 +192,8 @@ public class GraphitiAgeDiagram implements NodePictogramBiMap, AutoCloseable {
 		ageDiagram.removeModificationListener(modificationListener);		
 	};
 	
-	public void modify(final DiagramModifier modifier) {
-		this.ageDiagram.modify(modifier); 
+	public void modify(final String label, final DiagramModifier modifier) {
+		this.ageDiagram.modify(label, modifier); 
 	}
 	
 	/**
@@ -202,13 +202,13 @@ public class GraphitiAgeDiagram implements NodePictogramBiMap, AutoCloseable {
 	 * @param modifier
 	 * @param updateGraphitiDiagram
 	 */
-	public void modify(final DiagramModifier modifier, final boolean updateGraphitiDiagram) {
+	public void modify(final String label, final DiagramModifier modifier, final boolean updateGraphitiDiagram) {
 		try {
 			if(!updateGraphitiDiagram){ 
 				modificationListener.disable();
 			}
 		
-			this.ageDiagram.modify(modifier);
+			this.ageDiagram.modify(label, modifier);
 		} finally {
 			if(!updateGraphitiDiagram) {
 				modificationListener.enable();

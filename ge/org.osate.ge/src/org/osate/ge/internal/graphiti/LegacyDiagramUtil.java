@@ -1,4 +1,4 @@
-package org.osate.ge.internal.util;
+package org.osate.ge.internal.graphiti;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -11,7 +11,7 @@ import org.eclipse.graphiti.services.Graphiti;
 import org.osate.ge.internal.diagram.runtime.CanonicalBusinessObjectReference;
 import org.osate.ge.internal.services.impl.ReferenceEncoder;
 
-public class DiagramUtil {
+public class LegacyDiagramUtil {
 	private static final String legacyReferenceKey = "independentObject";	
 	private static final String legacyDiagramIndicator = "graphiti";
 	

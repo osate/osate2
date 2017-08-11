@@ -126,7 +126,7 @@ public class DiagramUpdaterTests {
 
 		final DiagramElement e = diagram.getByRelativeReference(owner.getRelativeReference()).
 				getByRelativeReference(newBusinessObject.getRelativeReference());
-		diagram.modify(new DiagramModifier() {
+		diagram.modify("Set Position", new DiagramModifier() {
 			@Override
 			public void modify(final DiagramModification m) {
 				// Set the position of the element
@@ -178,7 +178,7 @@ public class DiagramUpdaterTests {
 		assertThat(dockableDiagramElement.getDockArea(), is(equalTo(testBo.defaultDockingPosition.getDockArea())));
 		final DockArea newDockArea = DockingPosition.RIGHT.getDockArea();
 		
-		diagram.modify(new DiagramModifier() {
+		diagram.modify("Set Dock Area", new DiagramModifier() {
 			@Override
 			public void modify(final DiagramModification m) {
 				m.setDockArea(dockableDiagramElement, newDockArea);
@@ -257,7 +257,7 @@ public class DiagramUpdaterTests {
 	}
 
 	private void assignPositions(final Collection<DiagramElement> elements) {
-		diagram.modify(new DiagramModifier() {
+		diagram.modify("Assign Positions", new DiagramModifier() {
 			@Override
 			public void modify(final DiagramModification m) {
 				assignPositions(m, elements);

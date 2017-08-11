@@ -7,8 +7,6 @@ import java.util.EnumSet;
 import java.util.List;
 import java.util.Objects;
 import java.util.concurrent.CopyOnWriteArrayList;
-
-import org.eclipse.swt.widgets.Display;
 import org.osate.ge.internal.AgeGraphicalConfiguration;
 import org.osate.ge.internal.DockArea;
 import org.osate.ge.internal.diagram.runtime.DiagramTransactionHandler.TransactionOperation;
@@ -26,6 +24,7 @@ public class AgeDiagram implements DiagramNode, ModifiableDiagramElementContaine
 	private DiagramConfiguration diagramConfiguration;
 	private final DiagramElementCollection elements = new DiagramElementCollection();
 	private DiagramTransactionHandler transactionHandler;
+	private DiagramModification currentModification;
 	
 	/**
 	 * 
@@ -91,55 +90,65 @@ public class AgeDiagram implements DiagramNode, ModifiableDiagramElementContaine
 		this.transactionHandler = value;
 	}
 	
-	public void modify(final DiagramModifier modifier) {
-		final AgeDiagramModification m = new AgeDiagramModification();
-		
-		// TODO: Don't create this object.. Just have a helper function
-		final Runnable runnable = new Runnable() {			
-			@Override
-			public void run() {
-				modifier.modify(m);
-				m.completeModification();
-			}
-		};
-
-		// TODO: Should label be part of transaction operation?
-		if(transactionHandler != null) {
-			transactionHandler.modify("TODO", new TransactionOperation() {
-				@Override
-				public void run() {
+	public synchronized void modify(final String label, final DiagramModifier modifier) {
+		final boolean modificationInProgress = currentModification != null;
+		if(modificationInProgress) {
+			modifier.modify(currentModification);
+		} else {
+			try {
+				final AgeDiagramModification m = new AgeDiagramModification();
+				currentModification = m;
+				
+				// TODO: Don't create this object.. Just have a helper function
+				final Runnable runnable = new Runnable() {			
+					@Override
+					public void run() {
+						modifier.modify(m);
+						m.completeModification();
+					}
+				};
+	
+				// TODO: Should label be part of transaction operation?
+				if(transactionHandler != null) {
+					transactionHandler.modify(label, new TransactionOperation() {
+						@Override
+						public void run() {
+							runnable.run();
+						}
+						
+						@Override
+						public void undo() {
+							modify("Undo " + label, new DiagramModifier() {
+								@Override
+								public void modify(DiagramModification newMod) {
+									System.err.println("UNDO");
+									newMod.undoModification(m);
+								}						
+							});					
+						}
+						
+						@Override
+						public boolean canUndo() {
+							return m.isUndoable();
+						}
+						
+						@Override
+						public void redo() {
+							modify("Redo " + label, new DiagramModifier() {
+								@Override
+								public void modify(DiagramModification newMod) {
+									newMod.redoModification(m);
+								}						
+							});	
+						}
+					});
+				} else {
 					runnable.run();
 				}
-				
-				@Override
-				public void undo() {
-					modify(new DiagramModifier() {
-						@Override
-						public void modify(DiagramModification newMod) {
-							newMod.undoModification(m);
-						}						
-					});					
-				}
-				
-				@Override
-				public boolean canUndo() {
-					return m.isUndoable();
-				}
-				
-				@Override
-				public void redo() {
-					modify(new DiagramModifier() {
-						@Override
-						public void modify(DiagramModification newMod) {
-							newMod.redoModification(m);
-						}						
-					});	
-				}
-			});
-		} else {
-			runnable.run();
+			} finally {
+				currentModification = null;
+			}
 		}
-		
 	}
 	
 	@Override

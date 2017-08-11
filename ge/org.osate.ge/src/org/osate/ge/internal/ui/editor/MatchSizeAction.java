@@ -1,33 +1,17 @@
-/*******************************************************************************
- * Copyright (C) 2016 University of Alabama in Huntsville (UAH)
- * All rights reserved. This program and the accompanying materials
- * are made available under the terms of the Eclipse Public License v1.0
- * which accompanies this distribution, and is available at
- * http://www.eclipse.org/legal/epl-v10.html
- * The US Government has unlimited rights in this work in accordance with W31P4Q-10-D-0092 DO 0105.
- *******************************************************************************/
 package org.osate.ge.internal.ui.editor;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
 import java.util.List;
 import java.util.Objects;
-
-import org.eclipse.emf.transaction.RecordingCommand;
 import org.eclipse.gef.ui.actions.SelectionAction;
-import org.eclipse.graphiti.mm.pictograms.PictogramElement;
-import org.eclipse.graphiti.mm.pictograms.Shape;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.ui.IWorkbenchPart;
-import org.osate.ge.diagram.DiagramElement;
 import org.osate.ge.internal.Activator;
 import org.osate.ge.internal.diagram.runtime.AgeDiagram;
+import org.osate.ge.internal.diagram.runtime.DiagramElement;
+import org.osate.ge.internal.diagram.runtime.DiagramElementPredicates;
 import org.osate.ge.internal.diagram.runtime.DiagramModification;
 import org.osate.ge.internal.diagram.runtime.DiagramModifier;
-import org.eclipse.graphiti.features.IFeatureProvider;
-import org.eclipse.graphiti.features.IResizeShapeFeature;
-import org.eclipse.graphiti.features.context.impl.ResizeShapeContext;
+import org.osate.ge.internal.diagram.runtime.Dimension;
 
 public class MatchSizeAction extends SelectionAction {	
 	final private AgeDiagramEditor editor;
@@ -41,84 +25,44 @@ public class MatchSizeAction extends SelectionAction {
 		setHoverImageDescriptor(matchSizeImageDescriptor);
 		setDisabledImageDescriptor(matchSizeDisabledImageDescriptor);
 		setId(MATCH_SIZE);
-	}
+	}	
 
-	//Matches the height and width of every shape selected with the final shape selected.   
-	@Override 
-	public void run(){
-		for(final Object selectedObject : getSelectedObjects()) {
-			System.err.println("SELECTED OBJECT: " + selectedObject);
+	// Updates action being available based on selection
+	@Override
+	protected boolean calculateEnabled() {
+		final List<DiagramElement> selectedDiagramElements = ContributionHelper.getSelectedDiagramElements(editor, getSelectedObjects());
+		if(selectedDiagramElements == null) {
+			return false;
 		}
 		
-		final AgeDiagram ageDiagram = ContributionHelper.getDiagram(editor);
+		if(selectedDiagramElements.size() < 2) {
+			return false;
+		}
+		
+		return selectedDiagramElements.stream().allMatch(MatchSizeAction::isSupported);
+	}
+	
+	private static boolean isSupported(final DiagramElement de) {
+		return DiagramElementPredicates.isResizeable(de);
+	}
+
+	// Matches the height and width of every shape selected with the final shape selected.   
+	@Override 
+	public void run(){
+		final AgeDiagram ageDiagram = editor.getAgeDiagram();
 		if(ageDiagram == null) {
 			throw new RuntimeException("Unable to get diagram");
 		}
 		
-		ageDiagram.modify(new DiagramModifier() {			
+		final List<DiagramElement> selectedDiagramElements = ContributionHelper.getSelectedDiagramElements(editor, getSelectedObjects());
+		ageDiagram.modify("Match Size", new DiagramModifier() {			
 			@Override
 			public void modify(DiagramModification m) {
-				final Collection<ResizeShapeContext> ctxs = getResizeContextsFromEditorSelection();
-				if(ctxs != null) {
-					final IFeatureProvider fp = editor.getDiagramTypeProvider().getFeatureProvider();
-					for(final ResizeShapeContext ctx : ctxs) {
-						final IResizeShapeFeature feature = fp.getResizeShapeFeature(ctx);
-						feature.execute(ctx);
-					}
+				final Dimension newSize = selectedDiagramElements.get(selectedDiagramElements.size()-1).getSize();
+				for(final DiagramElement tmpElement : selectedDiagramElements) {
+					m.setSize(tmpElement, newSize);
 				}
 			}
 		});
-	}
-
-	// Updates action being available based on how many pictograms are selected
-	@Override
-	protected boolean calculateEnabled() {
-		return getResizeContextsFromEditorSelection() != null;
-	}
-	
-	/**
-	 * Performs validation and builds and returns a collection of contexts
-	 * @return the contexts. Returns null if validation fails.
-	 */
-	private Collection<ResizeShapeContext> getResizeContextsFromEditorSelection() {
-		final PictogramElement[] pes = editor.getSelectedPictogramElements();
-		if(pes.length < 2) {
-			return null;
-		}
-		
-		if(!LayoutUtil.areAllResizableShapes(pes, editor.getGraphitiAgeDiagram())) {
-			return null;
-		}
-				
-		final Shape[] shapes = Arrays.copyOf(pes, pes.length, Shape[].class);
-		if(!LayoutUtil.haveSameContainerShapes(shapes)) {
-			return null;
-		}
-			
-		final Collection<ResizeShapeContext> resizeContexts = getResizeContexts(shapes);
-		final IFeatureProvider fp = editor.getDiagramTypeProvider().getFeatureProvider();
-		for(final ResizeShapeContext ctx : resizeContexts) {
-			final IResizeShapeFeature feature = fp.getResizeShapeFeature(ctx);
-			if(feature == null || !feature.canExecute(ctx)) {
-				return null;
-			}
-		}
-		
-		return resizeContexts;
-	}
-	
-	private static Collection<ResizeShapeContext> getResizeContexts(final Shape[] shapes) {
-		final Collection<ResizeShapeContext> result = new ArrayList<ResizeShapeContext>(); 
-		
-		for (final Shape shape : shapes) {
-			final ResizeShapeContext newResizeContext = new ResizeShapeContext(shape);
-			newResizeContext.setLocation(shape.getGraphicsAlgorithm().getX(), shape.getGraphicsAlgorithm().getY());
-			newResizeContext.setHeight(shapes[shapes.length-1].getGraphicsAlgorithm().getHeight());
-			newResizeContext.setWidth(shapes[shapes.length-1].getGraphicsAlgorithm().getWidth());
-			
-			result.add(newResizeContext);
-		}
-		
-		return result;
 	}
 }

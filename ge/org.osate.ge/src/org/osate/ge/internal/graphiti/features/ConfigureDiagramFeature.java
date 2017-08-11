@@ -102,7 +102,7 @@ public class ConfigureDiagramFeature extends AbstractCustomFeature implements IC
 				diagramUpdater.clearGhosts();
 				
 				// Perform the layout as a separate operation because the sizes for the shapes are assigned by the Graphiti modification listener.
-				diagram.modify(new DiagramModifier() {
+				diagram.modify("Layout", new DiagramModifier() {
 					@Override
 					public void modify(final DiagramModification m) {
 						DiagramLayoutUtil.layout(diagram, m, false);

@@ -75,7 +75,7 @@ public class DiagramSerialization {
 		}
 		
 		//  Read elements
-		ageDiagram.modify(new DiagramModifier() {
+		ageDiagram.modify("Read from File", new DiagramModifier() {
 			@Override
 			public void modify(final DiagramModification m) {
 				readElements(m, ageDiagram, mmDiagram);
@@ -270,7 +270,7 @@ public class DiagramSerialization {
 			newElement.setPosition(e.getPosition().toMetamodel());
 		}
 		
-		if(e.hasSize() && e.isSizeable()) {
+		if(e.hasSize() && DiagramElementPredicates.isResizeable(e)) {
 			newElement.setSize(e.getSize().toMetamodel());
 		}
 		

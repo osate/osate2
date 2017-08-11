@@ -42,7 +42,7 @@ public class LayoutDiagramFeature extends AbstractCustomFeature implements ICust
 	@Override
 	public void execute(final ICustomContext context) {
 		final AgeDiagram ageDiagram = graphitiAgeDiagramProvider.getGraphitiAgeDiagram().getAgeDiagram();
-		ageDiagram.modify(new DiagramModifier() {
+		ageDiagram.modify("Layout Diagram", new DiagramModifier() {
 			@Override
 			public void modify(final DiagramModification m) {
 				DiagramLayoutUtil.layout(ageDiagram, m, true);	

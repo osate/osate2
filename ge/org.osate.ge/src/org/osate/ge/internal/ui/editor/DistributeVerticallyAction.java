@@ -1,29 +1,17 @@
-/*******************************************************************************
- * Copyright (C) 2016 University of Alabama in Huntsville (UAH)
- * All rights reserved. This program and the accompanying materials
- * are made available under the terms of the Eclipse Public License v1.0
- * which accompanies this distribution, and is available at
- * http://www.eclipse.org/legal/epl-v10.html
- * The US Government has unlimited rights in this work in accordance with W31P4Q-10-D-0092 DO 0105.
- *******************************************************************************/
 package org.osate.ge.internal.ui.editor;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
 import java.util.Comparator;
-import org.eclipse.emf.transaction.RecordingCommand;
+import java.util.List;
 import org.eclipse.gef.ui.actions.SelectionAction;
-import org.eclipse.graphiti.features.IFeatureProvider;
-import org.eclipse.graphiti.features.IMoveShapeFeature;
-import org.eclipse.graphiti.features.context.impl.MoveShapeContext;
-import org.eclipse.graphiti.mm.algorithms.GraphicsAlgorithm;
-import org.eclipse.graphiti.mm.pictograms.ContainerShape;
-import org.eclipse.graphiti.mm.pictograms.PictogramElement;
-import org.eclipse.graphiti.mm.pictograms.Shape;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.ui.IWorkbenchPart;
 import org.osate.ge.internal.Activator;
+import org.osate.ge.internal.diagram.runtime.AgeDiagram;
+import org.osate.ge.internal.diagram.runtime.DiagramElement;
+import org.osate.ge.internal.diagram.runtime.DiagramElementPredicates;
+import org.osate.ge.internal.diagram.runtime.DiagramModification;
+import org.osate.ge.internal.diagram.runtime.DiagramModifier;
+import org.osate.ge.internal.diagram.runtime.Point;
 
 public class DistributeVerticallyAction extends SelectionAction {
 	private AgeDiagramEditor editor;
@@ -40,106 +28,76 @@ public class DistributeVerticallyAction extends SelectionAction {
 	}
 	
 	/**
-	 * Distributes shapes along the Y axis so each shape has an equal distance between them
-	 */
-	@Override
-	public void run() {
-		if (editor != null && editor.getSelectedPictogramElements().length >= 3){
-			editor.getEditingDomain().getCommandStack().execute(new RecordingCommand(editor.getEditingDomain(), "Distribute Vertically") {
-				@Override
-				protected void doExecute() {
-					final Collection<MoveShapeContext> ctxs = getMoveShapeContextsFromEditorSelection();
-					if(ctxs != null) {
-						for (final MoveShapeContext ctx : ctxs) {
-							final IFeatureProvider fp = editor.getDiagramTypeProvider().getFeatureProvider();
-							final IMoveShapeFeature feature = fp.getMoveShapeFeature(ctx);
-							feature.execute(ctx);
-						}	
-					}
-				}
-			});
-		}
-	}
-
-	/**
 	 * Updates whether action is available based on if shapes selected are valid
 	 */
 	@Override
 	protected boolean calculateEnabled() {
-		return getMoveShapeContextsFromEditorSelection() != null;
+		final List<DiagramElement> selectedDiagramElements = ContributionHelper.getSelectedDiagramElements(editor, getSelectedObjects());
+		if(selectedDiagramElements == null) {
+			return false;
+		}
+		
+		if(selectedDiagramElements.size() < 3) {
+			return false;
+		}
+		
+		if(!ContributionHelper.allHaveSameParent(selectedDiagramElements)) {
+			return false;
+		}
+		
+		return selectedDiagramElements.stream().allMatch(DistributeVerticallyAction::isSupported);
 	}
 
-	/**
-	 * Performs validation, builds, and returns a collection of contexts
-	 * @return the contexts. Returns null if validation fails.
-	 */
-	private Collection<MoveShapeContext> getMoveShapeContextsFromEditorSelection() {
-		final PictogramElement[] pes = editor.getSelectedPictogramElements();
-		if(pes.length<3) {
-			return null;
-		}
-		
-		if(!LayoutUtil.areAllUndockedMoveableShapes(pes, editor.getGraphitiAgeDiagram())) {
-			return null;
-		}
-		
-		final Shape[] shapes = Arrays.copyOf(pes, pes.length, Shape[].class);
-		if(!LayoutUtil.haveSameContainerShapes(shapes)) {
-			return null;
-		}
-		
-		Arrays.sort(shapes, YValueComparator);
-		
-		final Collection<MoveShapeContext> moveShapeCtxs = getMoveShapeContext(shapes);
-		final IFeatureProvider fp = editor.getDiagramTypeProvider().getFeatureProvider();
-		for (final MoveShapeContext ctx : moveShapeCtxs) {
-			final IMoveShapeFeature moveFeature = fp.getMoveShapeFeature(ctx);
-			if (moveFeature == null || !moveFeature.canExecute(ctx)) {
-				return null;
-			}
-		}
-		
-		return moveShapeCtxs;
-	}
-
-	private Collection<MoveShapeContext> getMoveShapeContext(final Shape[] shapes) {
-		final Collection<MoveShapeContext> result = new ArrayList<MoveShapeContext>();
-		final int yDistribution = getYDistribution(shapes);
-		for (int i=1;i<shapes.length-1;i++) {
-			final Shape shape = shapes[i];
-			final int xValue = shape.getGraphicsAlgorithm().getX();
-			final int yValue = getYValue(shapes[i-1].getGraphicsAlgorithm(), yDistribution);
-			final ContainerShape container = shape.getContainer();
-
-			result.add(LayoutUtil.getDistributeMoveShapeContext(shape, xValue, yValue, container));
-		}
-		
-		return result;
+	private static boolean isSupported(final DiagramElement de) {
+		return DiagramElementPredicates.isUndocked(de) && DiagramElementPredicates.isMoveable(de);
 	}
 	
 	/**
-	 * Calculate the height of the middle shapes, used for distribution calculations
+	 * Distributes shapes along the Y axis so each shape has an equal distance between them
+	 */
+	@Override
+	public void run(){
+		final AgeDiagram ageDiagram = editor.getAgeDiagram();
+		if(ageDiagram == null) {
+			throw new RuntimeException("Unable to get diagram");
+		}
+		
+		final List<DiagramElement> selectedDiagramElements = ContributionHelper.getSelectedDiagramElements(editor, getSelectedObjects());
+		ageDiagram.modify("Distribute Horizontally", new DiagramModifier() {			
+			@Override
+			public void modify(final DiagramModification m) {
+				selectedDiagramElements.sort(YValueComparator);
+
+				// Distribute the shapes horizontally
+				final int xDistribution = getYDistribution(selectedDiagramElements);
+				for(int i = 1; i < selectedDiagramElements.size()-1; i++) {
+					final DiagramElement de = selectedDiagramElements.get(i);
+					final int x = de.getX();
+					final int y = getYValue(selectedDiagramElements.get(i-1), xDistribution);
+
+					m.setPosition(de, new Point(x, y));
+				}
+			}
+		});
+	}
+	
+	/**
+	 * Calculate the height of the all shapes, used for distribution calculations
 	 * @param shapes the selected shapes
 	 * @return the height of the middle shapes
 	 */
-	private static int getHeightOfShapes(final Shape[] shapes) {
-		int result = 0;
-		//Iterate on shapes between first and last shape selected
-		for (int i=shapes.length-2;i>0;i--) {
-			result = shapes[i].getGraphicsAlgorithm().getHeight()+result;
-		}
-		
-		return result;
+	private static int getHeightOfShapes(final List<DiagramElement> diagramElements) {
+		return (int)diagramElements.stream().mapToDouble(de -> de.getHeight()).sum();
 	}
-	
+		
 	/**
 	 * Calculate the Y-coordinate value for the shape being evaluated
-	 * @param prevShapeGA the GraphicsAlgorithm of the shape just before the current shape being evaluated
+	 * @param prevElement the GraphicsAlgorithm of the shape just before the current shape being evaluated
 	 * @param yDistribution the Y-coordinate distance that needs to be between each shape
 	 * @return the Y-coordinate value for the shape being evaluated
 	 */
-	private static int getYValue(final GraphicsAlgorithm prevShapeGA, final int yDistribution) {
-		return prevShapeGA.getY()+prevShapeGA.getHeight()+yDistribution;
+	private static int getYValue(final DiagramElement prevElement, final int yDistribution) {
+		return prevElement.getY()+prevElement.getHeight()+yDistribution;
 	}
 	
 	/**
@@ -147,23 +105,21 @@ public class DistributeVerticallyAction extends SelectionAction {
 	 * @param shapes the selected shapes
 	 * @return the distance between each shape after distribution
 	 */
-	private static int getYDistribution(final Shape[] shapes) {
-		final int arrayLength = shapes.length-1;
-		final int heightOfShapes = getHeightOfShapes(shapes);
-		final GraphicsAlgorithm firstShapeGA = shapes[0].getGraphicsAlgorithm();
-		final GraphicsAlgorithm lastShapeGA = shapes[arrayLength].getGraphicsAlgorithm();
-		
-		return (lastShapeGA.getY()-(firstShapeGA.getY()+firstShapeGA.getHeight())-heightOfShapes)/arrayLength;
+	private static int getYDistribution(final List<DiagramElement> diagramElements) {
+		final int lastIndex = diagramElements.size()-1;
+		final int heightOfShapes = getHeightOfShapes(diagramElements);
+		final DiagramElement firstElement = diagramElements.get(0);
+		final DiagramElement lastElement = diagramElements.get(lastIndex);
+		return (lastElement.getY()+lastElement.getHeight()-firstElement.getY()-heightOfShapes)/lastIndex;
 	}
 	
 	/**
 	 * Sort the selected shapes based on Y-coordinate value
 	 */
-	private static final Comparator<Shape> YValueComparator 
-	= new Comparator<Shape>() {
+	private static final Comparator<DiagramElement> YValueComparator = new Comparator<DiagramElement>() {
 		@Override
-		public int compare(final Shape yShape1, final Shape yShape2) {
-			return Integer.valueOf(yShape1.getGraphicsAlgorithm().getY()).compareTo(yShape2.getGraphicsAlgorithm().getY());
+		public int compare(final DiagramElement de1, final DiagramElement de2) {
+			return Integer.valueOf(de1.getY()).compareTo(de2.getY());
 		}
 	};
 }
