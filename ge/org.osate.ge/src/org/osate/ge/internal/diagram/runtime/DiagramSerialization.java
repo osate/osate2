@@ -19,6 +19,8 @@ import org.osate.ge.internal.DockArea;
  *
  */
 public class DiagramSerialization {
+	public final static int FORMAT_VERSION = 1;
+	
 	private static Comparator<DiagramElement> elementComparator = new Comparator<DiagramElement>() {
 		@Override
 		public int compare(final DiagramElement e1, final DiagramElement e2) {
@@ -26,13 +28,13 @@ public class DiagramSerialization {
 		}
 	};
 	
-	public static void read(final AgeDiagram ageDiagram,
-			final URI uri) {
+	public static org.osate.ge.diagram.Diagram readMetaModelDiagram(final URI uri) {
 		Objects.requireNonNull(uri, "uri must not be null");
 		
 		// Load the resource
 		final ResourceSet rs = new ResourceSetImpl();
 		final Resource resource = rs.createResource(uri);
+		
 		try {
 			resource.load(Collections.singletonMap(XMLResource.OPTION_RECORD_UNKNOWN_FEATURE, true));
 			if(resource.getContents().size() == 0 || !(resource.getContents().get(0) instanceof org.osate.ge.diagram.Diagram)) {
@@ -40,39 +42,47 @@ public class DiagramSerialization {
 			}
 			
 			final org.osate.ge.diagram.Diagram mmDiagram = (org.osate.ge.diagram.Diagram)resource.getContents().get(0);
-			
-			// Read the diagram configuration
-			final DiagramConfigurationBuilder configBuilder = new DiagramConfigurationBuilder(ageDiagram.getConfiguration());
-
-			if(mmDiagram.getConfig() != null) {
-				final org.osate.ge.diagram.DiagramConfiguration mmDiagramConfig = mmDiagram.getConfig();
-				configBuilder.setContextBoReference(convert(mmDiagramConfig.getContext()));
-				
-				final org.osate.ge.diagram.AadlPropertiesSet enabledAadlProperties = mmDiagramConfig.getEnabledAadlProperties();
-				if(enabledAadlProperties != null) {
-					for(final String enabledProperty : enabledAadlProperties.getProperty()) {
-						configBuilder.addAadlProperty(enabledProperty);
-					}
-				}				
-			}
-			
-			ageDiagram.setDiagramConfiguration(configBuilder.build());
-			
-			// Require a context business object
-			if(ageDiagram.getConfiguration().getContextBoReference() == null) {
-				throw new RuntimeException("Contextless diagrams are not supported");
-			}
-			
-			//  Read elements
-			ageDiagram.modify(new DiagramModifier() {
-				@Override
-				public void modify(final DiagramModification m) {
-					readElements(m, ageDiagram, mmDiagram);
-				}
-			});
+			return mmDiagram;
 		} catch (final IOException e) {
 			throw new RuntimeException(e);
+		}		
+	}
+	
+	public static AgeDiagram createAgeDiagram(final org.osate.ge.diagram.Diagram mmDiagram) {
+		// Set the id which should be used for new diagram elements.
+		final AgeDiagram ageDiagram = new AgeDiagram(getMaxIdForChildren(mmDiagram)+1);
+		
+		// Read the diagram configuration
+		final DiagramConfigurationBuilder configBuilder = new DiagramConfigurationBuilder(ageDiagram.getConfiguration());
+
+		if(mmDiagram.getConfig() != null) {
+			final org.osate.ge.diagram.DiagramConfiguration mmDiagramConfig = mmDiagram.getConfig();
+			configBuilder.setContextBoReference(convert(mmDiagramConfig.getContext()));
+			
+			final org.osate.ge.diagram.AadlPropertiesSet enabledAadlProperties = mmDiagramConfig.getEnabledAadlProperties();
+			if(enabledAadlProperties != null) {
+				for(final String enabledProperty : enabledAadlProperties.getProperty()) {
+					configBuilder.addAadlProperty(enabledProperty);
+				}
+			}				
 		}
+		
+		ageDiagram.setDiagramConfiguration(configBuilder.build());
+		
+		// Require a context business object
+		if(ageDiagram.getConfiguration().getContextBoReference() == null) {
+			throw new RuntimeException("Contextless diagrams are not supported");
+		}
+		
+		//  Read elements
+		ageDiagram.modify(new DiagramModifier() {
+			@Override
+			public void modify(final DiagramModification m) {
+				readElements(m, ageDiagram, mmDiagram);
+			}
+		});
+		
+		return ageDiagram;
 	}
 	
 	public static RelativeBusinessObjectReference convert(final org.osate.ge.diagram.RelativeBusinessObjectReference ref) {
@@ -88,6 +98,28 @@ public class DiagramSerialization {
 	private static String[] toReferenceSegments(final org.osate.ge.diagram.Reference ref) {
 		return ref == null || ref.getSeg().size() == 0 ? null : ref.getSeg().toArray(new String[ref.getSeg().size()]);
 	}
+	
+	private static long getMaxIdForChildren(final org.osate.ge.diagram.DiagramNode dn) {
+		long max = -1;
+
+		// Check children
+		for(final org.osate.ge.diagram.DiagramElement child : dn.getElement()) {
+			max = Math.max(getMaxId(child), max);
+		}
+		
+		return max;
+	}	
+
+	private static long getMaxId(final org.osate.ge.diagram.DiagramElement de) {
+		long max = -1;
+		if(de.getId() != null) {
+			max = Math.max(max, de.getId());
+		}
+		
+		max = Math.max(max, getMaxIdForChildren(de));
+		
+		return max;
+	}	
 	
 	private static void readElements(final DiagramModification m, 
 			final DiagramNode container, 
@@ -107,7 +139,13 @@ public class DiagramSerialization {
 		}
 		
 		final RelativeBusinessObjectReference relReference = new RelativeBusinessObjectReference(refSegs);
-		final DiagramElement newElement = new DiagramElement(container, null, null, relReference, null);
+		final DiagramElement newElement = new DiagramElement(container, null, null, relReference);
+		
+		// Set the ID
+		if(mmChild.getId() != null) {
+			newElement.setId(mmChild.getId().intValue());
+		}
+		
 		final String autoContentsFilterId = mmChild.getAutoContentsFilter();
 		if(autoContentsFilterId != null) {
 			final BuiltinContentsFilter autoContentsFilter = BuiltinContentsFilter.getById(autoContentsFilterId);
@@ -165,6 +203,7 @@ public class DiagramSerialization {
 	public static void write(final AgeDiagram diagram, final URI uri) {
 		// Convert from the runtime format to the metamodel format which is stored
 		final org.osate.ge.diagram.Diagram mmDiagram = new Diagram();
+		mmDiagram.setFormatVersion(FORMAT_VERSION);
 		final org.osate.ge.diagram.DiagramConfiguration mmConfig = new org.osate.ge.diagram.DiagramConfiguration();		
 		mmDiagram.setConfig(mmConfig);
 		
@@ -197,9 +236,8 @@ public class DiagramSerialization {
 	 * @param elements
 	 */
 	private static void convertElementsToMetamodel(final org.osate.ge.diagram.DiagramNode mmContainer, Collection<DiagramElement> elements) {
-		// Filter out decorations which don't have applicable fields set. For example non-moveable decorators.
 		// Sort elements to ensure a consistent ordering after serialization
-		elements = elements.stream().filter(e -> !e.isDecoration() || e.hasPosition()).sorted(elementComparator).collect(Collectors.toList());
+		elements = elements.stream().sorted(elementComparator).collect(Collectors.toList());
 
 		if(elements.size() > 0) {
 			for(final DiagramElement e : elements) {
@@ -212,6 +250,11 @@ public class DiagramSerialization {
 		// Write BO Reference
 		final org.osate.ge.diagram.DiagramElement newElement = new org.osate.ge.diagram.DiagramElement();
 		mmContainer.getElement().add(newElement);
+		
+		// Set ID
+		if(e.hasId()) {
+			newElement.setId(e.getId());
+		}
 		
 		newElement.setBo(e.getRelativeReference() == null ? null : e.getRelativeReference().toMetamodel());
 		if(e.getAutoContentsFilter() != null) {
@@ -227,7 +270,7 @@ public class DiagramSerialization {
 			newElement.setPosition(e.getPosition().toMetamodel());
 		}
 		
-		if(e.hasSize()) {
+		if(e.hasSize() && e.isSizeable()) {
 			newElement.setSize(e.getSize().toMetamodel());
 		}
 		

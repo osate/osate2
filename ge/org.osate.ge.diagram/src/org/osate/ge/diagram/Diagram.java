@@ -20,6 +20,7 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
  * </p>
  * <ul>
  *   <li>{@link org.osate.ge.diagram.Diagram#getConfig <em>Config</em>}</li>
+ *   <li>{@link org.osate.ge.diagram.Diagram#getFormatVersion <em>Format Version</em>}</li>
  * </ul>
  *
  * @see org.osate.ge.diagram.DiagramPackage#getDiagram()
@@ -36,6 +37,25 @@ public class Diagram extends DiagramNode {
 	 * @ordered
 	 */
 	protected DiagramConfiguration config;
+
+	/**
+	 * The default value of the '{@link #getFormatVersion() <em>Format Version</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getFormatVersion()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final int FORMAT_VERSION_EDEFAULT = 0;
+	/**
+	 * The cached value of the '{@link #getFormatVersion() <em>Format Version</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getFormatVersion()
+	 * @generated
+	 * @ordered
+	 */
+	protected int formatVersion = FORMAT_VERSION_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -112,6 +132,40 @@ public class Diagram extends DiagramNode {
 	}
 
 	/**
+	 * Returns the value of the '<em><b>Format Version</b></em>' attribute.
+	 * The default value is <code>"0"</code>.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Format Version</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Format Version</em>' attribute.
+	 * @see #setFormatVersion(int)
+	 * @see org.osate.ge.diagram.DiagramPackage#getDiagram_FormatVersion()
+	 * @model default="0" dataType="org.eclipse.emf.ecore.xml.type.Int"
+	 * @generated
+	 */
+	public int getFormatVersion() {
+		return formatVersion;
+	}
+
+	/**
+	 * Sets the value of the '{@link org.osate.ge.diagram.Diagram#getFormatVersion <em>Format Version</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Format Version</em>' attribute.
+	 * @see #getFormatVersion()
+	 * @generated
+	 */
+	public void setFormatVersion(int newFormatVersion) {
+		int oldFormatVersion = formatVersion;
+		formatVersion = newFormatVersion;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, DiagramPackage.DIAGRAM__FORMAT_VERSION, oldFormatVersion, formatVersion));
+	}
+
+	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -135,6 +189,8 @@ public class Diagram extends DiagramNode {
 		switch (featureID) {
 			case DiagramPackage.DIAGRAM__CONFIG:
 				return getConfig();
+			case DiagramPackage.DIAGRAM__FORMAT_VERSION:
+				return getFormatVersion();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -149,6 +205,9 @@ public class Diagram extends DiagramNode {
 		switch (featureID) {
 			case DiagramPackage.DIAGRAM__CONFIG:
 				setConfig((DiagramConfiguration)newValue);
+				return;
+			case DiagramPackage.DIAGRAM__FORMAT_VERSION:
+				setFormatVersion((Integer)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -165,6 +224,9 @@ public class Diagram extends DiagramNode {
 			case DiagramPackage.DIAGRAM__CONFIG:
 				setConfig((DiagramConfiguration)null);
 				return;
+			case DiagramPackage.DIAGRAM__FORMAT_VERSION:
+				setFormatVersion(FORMAT_VERSION_EDEFAULT);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -179,8 +241,26 @@ public class Diagram extends DiagramNode {
 		switch (featureID) {
 			case DiagramPackage.DIAGRAM__CONFIG:
 				return config != null;
+			case DiagramPackage.DIAGRAM__FORMAT_VERSION:
+				return formatVersion != FORMAT_VERSION_EDEFAULT;
 		}
 		return super.eIsSet(featureID);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public String toString() {
+		if (eIsProxy()) return super.toString();
+
+		StringBuffer result = new StringBuffer(super.toString());
+		result.append(" (formatVersion: ");
+		result.append(formatVersion);
+		result.append(')');
+		return result.toString();
 	}
 
 } // Diagram

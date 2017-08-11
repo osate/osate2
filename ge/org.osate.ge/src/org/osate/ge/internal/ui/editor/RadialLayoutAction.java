@@ -81,7 +81,7 @@ public class RadialLayoutAction extends SelectionAction {
 			return null;
 		}
 
-		if(!LayoutUtil.areAllShapes(pes)) {
+		if(!LayoutUtil.areAllUndockedMoveableShapes(pes, editor.getGraphitiAgeDiagram())) {
 			return null;
 		}
 
@@ -91,16 +91,6 @@ public class RadialLayoutAction extends SelectionAction {
 		}
 
 		final Collection<MoveShapeContext> moveShapeCtxs = getMoveShapeContexts(shapes);
-
-		// TODO: Disabling for now to allow diagram to expand
-		/*final IFeatureProvider fp = editor.getDiagramTypeProvider().getFeatureProvider();
-		for (final MoveShapeContext ctx : moveShapeCtxs) {
-			final IMoveShapeFeature moveFeature = fp.getMoveShapeFeature(ctx);
-			if (moveFeature == null || !moveFeature.canExecute(ctx)) {
-				return null;
-			}
-		}*/
-
 		return moveShapeCtxs;
 	}
 

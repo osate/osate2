@@ -3,6 +3,7 @@ package org.osate.ge.internal.commands;
 import javax.inject.Named;
 
 import org.eclipse.core.resources.IFile;
+import org.osate.aadl2.AadlPackage;
 import org.osate.aadl2.Classifier;
 import org.osate.ge.di.Activate;
 import org.osate.ge.di.GetLabel;
@@ -14,12 +15,12 @@ import org.osate.ge.internal.ui.util.EditorUtil;
 public class CreateNewDiagramCommand {
 	@GetLabel
 	public String getLabel() {
-		return "Create New Diagram...";
+		return "Create Diagram...";
 	}
 
 	@IsAvailable
 	public boolean isAvailable(@Named(Names.BUSINESS_OBJECT) final Object bo) {
-		return bo instanceof Classifier;
+		return bo instanceof Classifier || bo instanceof AadlPackage;
 	}
 
 	@Activate

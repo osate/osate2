@@ -789,7 +789,8 @@ public class GraphitiAgeDiagram implements NodePictogramBiMap, AutoCloseable {
 		@Override
 		public void elementUpdated(final ElementUpdatedEvent e) {
 			// Don't store updated elements when an element has been added. The add will trigger a complete update.
-			if(enabled && !elementAdded) {
+			// Ignore elements which don't have a graphical configuration.
+			if(enabled && !elementAdded && e.element.getGraphicalConfiguration() != null) {
 				// If the pictogram element type and the graphic type do not agree on whether the element is a connection, treat the update as an addition.
 				// This ensures the the pictogram element is recreated.
 				final boolean peIsConnection = getPictogramElement(e.element) instanceof Connection;
@@ -806,7 +807,7 @@ public class GraphitiAgeDiagram implements NodePictogramBiMap, AutoCloseable {
 					}
 				} else {
 					onElementAdded(e.element);
-				}
+				}			
 			}
 		}
 

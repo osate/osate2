@@ -45,7 +45,7 @@ An existing AADL model can be opened in the graphical editor. Changes made to ei
    *Open Diagram* opens the package diagram for the selected package. The diagram will be created if one does
    not already exist. The appropriate diagram will appear in the graphical editor.
 	
-4. You can also use the keyboard shortcut ***Ctrl+Shift+V*** to switch between the selected element in the
+4. You can also use the keyboard shortcut *Ctrl+Shift+V* to switch between the selected element in the
    diagram and the selected element in the source file.
    
 # Navigating Between Diagrams
@@ -55,6 +55,9 @@ The graphical editor supports navigating between related diagrams in several way
 Diagrams associated with a particular element can be opened by double-clicking on the model element. For example, double-clicking a classifier inside a package diagram will open that classifier's diagram. Alternatively, the associated diagram can be open by right-clicking on the element and selecting *Open Associated Diagram* from the context menu.
 
 ![](../images/OpenAssociatedDiagram.png)
+
+## Creating a New Diagram
+AADL model elements may be represented by multiple diagrams. To create a new diagram right-click on an AADL package or classifier and select *Create Diagram...*.
 
 ## Opening an Element's Package Diagram
 When viewing a diagram, the package diagram associated with an element can be opened by right-clicking inside the diagram or element and selecting *Go to Package Diagram* from the context menu.
@@ -73,16 +76,52 @@ An AADL instance model can be viewed in the graphical editor. The instance model
 
 2. Select *Open Diagram* to open the diagram for the selected component instance. The diagram will be created if one does not already exist.
 
-# Editing AADL Models
+# Editing AADL Diagrams
 The graphical editor allows editing AADL models graphically. As changes are made to the diagram, the AADL model is updated automatically. Additionally, as the textual AADL model is editing using OSATE, the diagram is updated to reflect changes.
-
-Contents
 
 ## Basics
 Many of the operations in the graphical editor apply to multiple types of elements.
 
+### Diagram Configuration
+Configuring a diagram allows customizing the contents of the diagram. To configure a diagram, right-click in the diagram and select *Configure Diagram...*. The diagram configuration dialog allows enabling specific diagram elements. Child elements may be enabled automatically based on the *Auto Children* setting of their container. 
+
+|Auto Children Setting | Description|
+|------------|------------------------------------|
+| *Minimal* | Enables a minimum set of children. This includes generalizations. |
+| *Type* | Enables children which are related to classifier types. These include generalizations, features, flow specifications, mode, mode transitions, and subcomponent type labels. |
+| *App* | Enables all children. | 
+
+Table: Auto Children Setting {#tbl:auto_children_setting}
+
+The diagram configuration dialog also allows selecting which AADL properties will be included in the diagram. The *communication_properties::timing* property is implicitly enabled and is represented by specialized graphical indicators. Delayed connections have a double bar indicator in the middle. Immediate connections have a double arrow in the middle.
+
+### Showing and Hiding Diagram Element Contents
+Menu options available in a diagram element's context menu will modify the diagram configuration to show and hide contents of a selected element. Access the context menu by right-clicking on a diagram element.
+
+|Menu Option | Description|
+|------------|------------------------|
+| *Hide Contents* | Hides all contents. |
+| *Show Type Contents* | Sets the Auto Children setting to *Type*. |
+| *Show Contents* | Sets the Auto Children setting to *All*. | 
+
+Table: Menu items for Showing and Hiding Diagram Elements Contents {#tbl:show_hide_menu_items}
+
+### Hidden Children
+Diagram elements which have children that are hidden have an asterisk appended to their labels.
+
+### Abstracted Connections
+In some cases a connection between diagram elements will be represented by a dotted connection. This indicates that the connection is an abstraction of one or more AADL model elements. A tooltip will provide additional information about the abstracted model elements. Cases in which this occurs are listed below. 
+
+- An AADL connection between subcomponents where one or more of the referenced features are hidden.
+- A flow specification which references a hidden feature which is contained in a feature group.
+- A AADL property reference value for which the model element to which the property value applies is hidden.
+- A AADL property reference value for which the referenced model element is hidden.
+
+### Inherited Element
+Elements which are inherited from another model element have a gray color. This indicates that any changes made to the model element will result in a change to model element other than the one in which it is contained in graphically. Modifying inherited elements directly is not supported at this time. To modify an inherited model element, modify the element in the context of its owner. For example, to modify an AADL feature which is inherited from another classifier, find the diagram element of the classifier which defines the feature and modify the feature. 
+
 ### Deleting
-An element can be deleted from the AADL model by selecting it and pressing the ***Delete*** key. An element can also be deleted by right-clicking on it and selecting *Delete* from the context menu.
+An element can be deleted from the AADL model by selecting it and pressing the *Delete* key. An element can also be deleted by right-clicking on it and selecting *Delete* from the context menu.
 
 ![](../images/Delete.png)
 
@@ -99,9 +138,11 @@ An element can be renamed using the graphical editor.
 
 3. Adjust the name as desired.
 
-4. Press the ***Enter*** key.
+4. Press the *Enter* key.
 
 Elements can only be renamed when viewing the element which contains it. For example, a feature defined in a system type cannot be renamed while editing the diagram of a system implementation.
+
+When renaming a model element from the AADL text editor, one should use the *Rename Element* menu option. Manually renaming model elements will result in broken linkages between AADL diagrams and the AADL model.
 
 ### Refining
 Appropriate elements can be refined by right-clicking on them and selecting *Refine* from the context menu. Once an element is refined. Deleting a refined element will only delete the refinement.
@@ -111,17 +152,14 @@ When viewing a package diagram, component implementations can be instantiated by
 
 ![](../images/Instantiate.png)
 
-### Editing Property Associations
-Property associations can be edited using OSATE's *AADL Property Values* view. Selecting an element in the diagram updates the view to show property values for that element.
-
 ### Moving Shapes Using Arrow Keys
 1. Select the item to be moved.
 
-2. Press the ***.*** key.
+2. Press the **.** key.
 
-3. Using the ***Arrow*** keys, move the item to desired location.
+3. Using the *Arrow* keys, move the item to desired location.
 
-4. Press the ***Enter*** key.
+4. Press the *Enter* key.
 
 ### Selecting a Diagram Element's Container
 Under some circumstances, it is difficult to select the desired diagram element due to the location of child diagram elements. The desired shape can be selected using the following steps.

@@ -40,7 +40,7 @@ import org.osate.ge.internal.layout.LayoutAlgorithm;
 import org.osate.ge.internal.layout.SimpleLayoutAlgorithm;
 
 /**
- * Lays out diagram elements included in a diagram using an algorithm.
+ * Lays out diagram elements included in a diagram.
  */
 public class DiagramLayoutUtil {	
 	public static boolean layout(final AgeDiagram diagram, final DiagramModification mod, final boolean fullLayout) {
@@ -117,7 +117,7 @@ public class DiagramLayoutUtil {
 		// Determine whether the shape may be moved 			
 		// Don't change the position of shapes that have already been positioned if not repositioning all shapes
 		final boolean locked;
-		if(((shapeElement.hasSize() && shapeElement.hasPosition()) && !fullLayout)) {
+		if((((shapeElement.hasSize() || !shapeElement.isSizeable()) && shapeElement.hasPosition()) && !fullLayout)) {
 			locked = true;			
 		} else {
 			locked = false;

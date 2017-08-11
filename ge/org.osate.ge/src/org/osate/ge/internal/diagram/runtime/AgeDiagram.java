@@ -21,12 +21,18 @@ import org.osate.ge.internal.query.Queryable;
  */
 public class AgeDiagram implements DiagramNode, ModifiableDiagramElementContainer {
 	private final List<DiagramModificationListener> modificationListeners = new CopyOnWriteArrayList<>();
+	private long maxElementId; // Next automatically assigned element id
 	private DiagramConfiguration diagramConfiguration;
 	private final DiagramElementCollection elements = new DiagramElementCollection();
 	private DiagramTransactionHandler transactionHandler;
 	
-	public AgeDiagram() {
+	/**
+	 * 
+	 * @param startingElementId is the id of the first diagram element which has an id automatically assigned to it.
+	 */
+	public AgeDiagram(final long startingElementId) {
 		this.diagramConfiguration = new DiagramConfiguration(null, Collections.emptySet());
+		this.maxElementId = startingElementId-1; // The max element id is set to the specified value - 1 because the value is incremented before it is assigned as an id.
 	}
 		
 	/**
@@ -63,6 +69,10 @@ public class AgeDiagram implements DiagramNode, ModifiableDiagramElementContaine
 	@Override
 	public DiagramElement getByRelativeReference(final RelativeBusinessObjectReference ref) {
 		return elements.getByRelativeReference(ref);
+	}
+	
+	public long getMaxElementId() {
+		return maxElementId;
 	}
 	
 	public void addModificationListener(final DiagramModificationListener listener) {
@@ -173,6 +183,19 @@ public class AgeDiagram implements DiagramNode, ModifiableDiagramElementContaine
 		public void setBusinessObjectHandler(final DiagramElement e, final Object boh) {
 			e.setBusinessObjectHandler(boh);
 			// Do not notify listeners
+		}
+		
+		@Override
+		public void setId(final DiagramElement e, final Long value) {
+			if(value == null && !e.hasId()) {
+				return;
+			}
+			
+			if(value == null || !value.equals(e.getId())) { 
+				storeChange(e, DiagramElementField.ID, e.getId(), value);
+				e.setId(value);
+				afterUpdate(e, DiagramElementField.ID);
+			}
 		}
 		
 		@Override
@@ -327,6 +350,14 @@ public class AgeDiagram implements DiagramNode, ModifiableDiagramElementContaine
 				notifyListeners();
 			}			
 			
+			// Assign the id
+			if(e.hasId()) {
+				maxElementId = Math.max(e.getId(), maxElementId);
+			} else {			
+				maxElementId++;
+				e.setId(maxElementId);
+			}
+			
 			e.getModifiableContainer().getModifiableDiagramElements().add(e);			
 			addedElement = e;
 			undoable = false;
@@ -430,6 +461,10 @@ public class AgeDiagram implements DiagramNode, ModifiableDiagramElementContaine
 		@SuppressWarnings("unchecked")
 		private void setValue(final AgeDiagramModification m, final DiagramElement element, final DiagramElementField field, final Object value) {
 			switch(field) {
+			case ID:
+				m.setId(element, (Long)value);
+				break;
+				
 			case MANUAL:
 				m.setManual(element, (boolean)value);
 				break;
@@ -495,6 +530,25 @@ public class AgeDiagram implements DiagramNode, ModifiableDiagramElementContaine
 	// The diagram does not have a business object. However, the diagram configuration may provide a business object to scope the diagram.
 	@Override
 	public Object getBusinessObject() {
+		return null;
+	}
+	
+	public DiagramElement findElementById(final long id) {
+		return findDescendantById(this, id);
+	}
+	
+	private static DiagramElement findDescendantById(final DiagramNode container, final long id) {
+		for(final DiagramElement child : container.getDiagramElements()) {
+			if(child.hasId() && id == child.getId()) {
+				return child;
+			}
+			
+			final DiagramElement result = findDescendantById(child, id);
+			if(result != null) {
+				return result;
+			}
+		}
+		
 		return null;
 	}
 }

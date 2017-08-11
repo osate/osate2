@@ -37,7 +37,7 @@ public class FlowSourceSinkSpecificationHandler extends FlowSpecificationHandler
 			destinationTerminator(OrthogonalLineBuilder.create().build()).
 			build();
 	private static final Graphic partialFlowSourceGraphic = FlowIndicatorBuilder.create().
-			dashed().
+			dotted().
 			sourceTerminator(ArrowBuilder.create().small().build()).
 			destinationTerminator(OrthogonalLineBuilder.create().build()).
 			build();
@@ -46,7 +46,7 @@ public class FlowSourceSinkSpecificationHandler extends FlowSpecificationHandler
 			destinationTerminator(OrthogonalLineBuilder.create().build()).
 			build();
 	private static final Graphic partialFlowSinkGraphic = FlowIndicatorBuilder.create().
-			dashed().
+			dotted().
 			sourceTerminator(ArrowBuilder.create().small().reverse().build()).
 			destinationTerminator(OrthogonalLineBuilder.create().build()).
 			build();

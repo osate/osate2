@@ -23,6 +23,11 @@ public class DefaultQueryService implements QueryService {
 	}
 	
 	@Override
+	public final BusinessObjectContext getFirstResult(StandaloneQuery query, Queryable q, final Object arg) {
+		return (BusinessObjectContext)((DefaultStandaloneQuery)query).getFirstResult(queryRunner, q, arg);
+	}
+	
+	@Override
 	public final Object getFirstBusinessObject(final StandaloneQuery query, final BusinessObjectContext boc, final Object arg) {
 		final Queryable result = ((DefaultStandaloneQuery)query).getFirstResult(queryRunner, boc, arg);
 		return result == null ? null : result.getBusinessObject();

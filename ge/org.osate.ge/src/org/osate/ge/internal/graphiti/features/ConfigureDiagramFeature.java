@@ -17,7 +17,7 @@ import org.osate.ge.internal.diagram.runtime.DiagramModifier;
 import org.osate.ge.internal.diagram.runtime.DiagramNode;
 import org.osate.ge.internal.diagram.runtime.boTree.BusinessObjectNode;
 import org.osate.ge.internal.diagram.runtime.boTree.DiagramToBusinessObjectTreeConverter;
-import org.osate.ge.internal.diagram.runtime.boTree.TreeExpander;
+import org.osate.ge.internal.diagram.runtime.boTree.TreeUpdater;
 import org.osate.ge.internal.diagram.runtime.updating.DiagramUpdater;
 import org.osate.ge.internal.graphiti.GraphitiAgeDiagramProvider;
 import org.osate.ge.internal.graphiti.diagram.GraphitiAgeDiagram;
@@ -28,7 +28,7 @@ import org.osate.ge.internal.ui.dialogs.DefaultDiagramConfigurationDialogModel;
 import org.osate.ge.internal.ui.dialogs.DiagramConfigurationDialog;
 
 public class ConfigureDiagramFeature extends AbstractCustomFeature implements ICustomUndoRedoFeature {
-	private final TreeExpander boTreeExpander;
+	private final TreeUpdater boTreeExpander;
 	private final DiagramUpdater diagramUpdater;
 	private final GraphitiAgeDiagramProvider graphitiAgeDiagramProvider;
 	private final ProjectReferenceService referenceService;
@@ -37,7 +37,7 @@ public class ConfigureDiagramFeature extends AbstractCustomFeature implements IC
 	
 	@Inject
 	public ConfigureDiagramFeature(final IFeatureProvider fp, 
-			final TreeExpander boTreeExpander,
+			final TreeUpdater boTreeExpander,
 			final DiagramUpdater diagramUpdater,
 			final GraphitiAgeDiagramProvider graphitiAgeDiagramProvider,
 			final ProjectReferenceService referenceService,
@@ -65,8 +65,16 @@ public class ConfigureDiagramFeature extends AbstractCustomFeature implements IC
 	@Override
 	public void execute(final ICustomContext context) {
 		final GraphitiAgeDiagram graphitiAgeDiagram = graphitiAgeDiagramProvider.getGraphitiAgeDiagram();
-				
-		try(final DefaultDiagramConfigurationDialogModel model = new DefaultDiagramConfigurationDialogModel(referenceService, extService, projectProvider)) {
+		final AgeDiagram diagram = graphitiAgeDiagram.getAgeDiagram();
+		
+		BusinessObjectNode boTree = DiagramToBusinessObjectTreeConverter.createBusinessObjectNode(diagram);
+		
+		// Update the tree so that it's business objects are refreshed
+		boTree = boTreeExpander.expandTree(diagram.getConfiguration(), boTree, diagram.getMaxElementId() + 1);
+		
+		final long nextElementId = BusinessObjectNode.getMaxId(boTree) + 1; 
+		
+		try(final DefaultDiagramConfigurationDialogModel model = new DefaultDiagramConfigurationDialogModel(referenceService, extService, projectProvider, nextElementId)) {
 			// Create a BO path for the initial selection
 			Object[] initialSelectionBoPath = null;
 			if(context.getPictogramElements() != null && context.getPictogramElements().length == 1) {
@@ -85,17 +93,14 @@ public class ConfigureDiagramFeature extends AbstractCustomFeature implements IC
 			}			
 			
 		    // Show the dialog
-			final AgeDiagram diagram = graphitiAgeDiagram.getAgeDiagram();
-			BusinessObjectNode boTree = DiagramToBusinessObjectTreeConverter.createBusinessObjectNode(diagram);
-			
-			// Expand the tree so that it's business objects are refreshed
-			boTree = BusinessObjectNode.pruneAutomaticBranches(boTree);		
-			boTree = boTreeExpander.expandTree(diagram.getConfiguration(), boTree);
 			final DiagramConfigurationDialog.Result result = DiagramConfigurationDialog.show(null, model, diagram.getConfiguration(), boTree, initialSelectionBoPath);
 			if(result != null) {
 				diagram.setDiagramConfiguration(result.getDiagramConfiguration());
 				diagramUpdater.updateDiagram(diagram, result.getBusinessObjectTree());
 	
+				// Clear ghosts triggered by this update to prevent them from being unghosted during the next update.
+				diagramUpdater.clearGhosts();
+				
 				// Perform the layout as a separate operation because the sizes for the shapes are assigned by the Graphiti modification listener.
 				diagram.modify(new DiagramModifier() {
 					@Override

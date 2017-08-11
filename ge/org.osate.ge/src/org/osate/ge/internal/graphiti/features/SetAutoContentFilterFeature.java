@@ -18,7 +18,7 @@ import org.osate.ge.internal.diagram.runtime.DiagramElement;
 import org.osate.ge.internal.diagram.runtime.DiagramModification;
 import org.osate.ge.internal.diagram.runtime.DiagramModifier;
 import org.osate.ge.internal.graphiti.GraphitiAgeDiagramProvider;
-import org.osate.ge.internal.model.PropertyResultValue;
+import org.osate.ge.internal.model.PropertyValueGroup;
 
 /**
  * Sets the auto contents filter for a diagram element and then updates the diagram.
@@ -75,7 +75,7 @@ public class SetAutoContentFilterFeature extends AbstractCustomFeature implement
 	
 	private boolean isContentFilterApplicable(final Object bo) {
 		return (newFilterValue != BuiltinContentsFilter.ALLOW_TYPE || (bo instanceof Subcomponent || bo instanceof Classifier)) &&
-				!(bo instanceof PropertyResultValue); // Don't allow setting the content filter for property values
+				!(bo instanceof PropertyValueGroup); // Don't allow setting the content filter for property values
 	}
 	
 	@Override

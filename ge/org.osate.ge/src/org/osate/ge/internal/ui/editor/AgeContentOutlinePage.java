@@ -8,6 +8,10 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
+import org.eclipse.core.runtime.preferences.IEclipsePreferences;
+import org.eclipse.core.runtime.preferences.IEclipsePreferences.IPreferenceChangeListener;
+import org.eclipse.core.runtime.preferences.IEclipsePreferences.PreferenceChangeEvent;
+import org.eclipse.core.runtime.preferences.InstanceScope;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.graphiti.dt.IDiagramTypeProvider;
 import org.eclipse.graphiti.features.IDeleteFeature;
@@ -55,6 +59,7 @@ import org.eclipse.ui.IPropertyListener;
 import org.eclipse.ui.ISharedImages;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.views.contentoutline.ContentOutlinePage;
+import org.osate.ge.internal.Activator;
 import org.osate.ge.internal.diagram.runtime.DiagramElement;
 import org.osate.ge.internal.diagram.runtime.DiagramNode;
 import org.osate.ge.internal.graphiti.diagram.GraphitiAgeDiagram;
@@ -62,11 +67,39 @@ import org.osate.ge.internal.ui.util.ImageUiHelper;
 import org.osate.ge.internal.util.StringUtil;
 
 public class AgeContentOutlinePage extends ContentOutlinePage {
+	private static final String PREFERENCE_OUTLINE_LINK_WITH_EDITOR = "outline.linkWithEditor";
+	private IEclipsePreferences preferences = InstanceScope.INSTANCE.getNode(Activator.PLUGIN_ID);
+	
 	private AgeDiagramEditor editor;
+	
+	// Flag for indicating the the outline and editor selection is being synchronized. 
+	// Used to avoid adjusting either selection in response to a change to itself.
+	// This is important to allow selecting items in the editor which aren't contained in the outline.
+	private boolean synchronizingSelection = false;
 	
 	public AgeContentOutlinePage(final AgeDiagramEditor editor) {
 		this.editor = Objects.requireNonNull(editor, "editor must not be null");
+		preferences.addPreferenceChangeListener(preferenceChangeListener);
 	}
+	
+	@Override
+	public void dispose() {
+		preferences.removePreferenceChangeListener(preferenceChangeListener);
+		super.dispose();
+	}
+	
+	private final IPreferenceChangeListener preferenceChangeListener = new IPreferenceChangeListener() {
+		@Override
+		public void preferenceChange(final PreferenceChangeEvent event) {
+			// Update the state of the button based on the new property value. 
+			// This will not trigger a synchronization.
+			if(PREFERENCE_OUTLINE_LINK_WITH_EDITOR.equals(event.getKey())) {
+				if(event.getNewValue() != null) {
+					linkWithEditorAction.setChecked(Boolean.parseBoolean(event.getNewValue().toString()));
+				}
+			}
+		}
+	};	
 
 	public void createControl(final Composite parent) {
 		super.createControl(parent);
@@ -264,25 +297,7 @@ public class AgeContentOutlinePage extends ContentOutlinePage {
 			editor.getGraphicalViewer().addSelectionChangedListener(new ISelectionChangedListener() {
 				@Override
 				public void selectionChanged(final SelectionChangedEvent event) {
-					if(linkWithEditorAction.isChecked()) {
-						final TreeViewer treeViewer = getTreeViewer();
-						final Set<DiagramNode> outlineNodes = getCurrentlySelectedDiagramNodes();			
-						if(treeViewer != null && 
-								treeViewer.getContentProvider() != null && 
-								!outlineNodes.equals(getSelectedDiagramNodesFromEditor())) {
-							treeViewer.setSelection(buildDiagramNodeTreeSelectionFromEditor());
-						}
-					}
-				}
-				
-				private TreeSelection buildDiagramNodeTreeSelectionFromEditor() {
-					final Set<DiagramNode> selectedDiagramNodes = getSelectedDiagramNodesFromEditor();
-					if(selectedDiagramNodes == null) {
-						return TreeSelection.EMPTY;
-					}
-					
-					final TreePath[] treePaths = selectedDiagramNodes.stream().map((dn) -> new TreePath(new Object[] { dn } )).toArray(TreePath[]::new);
-					return new TreeSelection(treePaths);
+					updateOutlineSelectionIfLinked();
 				}
 			});
 	
@@ -304,15 +319,46 @@ public class AgeContentOutlinePage extends ContentOutlinePage {
 	@Override
 	public void makeContributions(final IMenuManager menuManager, final IToolBarManager toolBarManager,
 			final IStatusLineManager statusLineManager) {
-		// Default Link With Editor enabled
-		linkWithEditorAction.setChecked(true);
-		linkWithEditorAction.setImageDescriptor(PlatformUI.getWorkbench().getSharedImages().getImageDescriptor(ISharedImages.IMG_ELCL_SYNCED));
 		toolBarManager.add(linkWithEditorAction);
 	}
 
-	@Override
-	public void dispose() {
-		super.dispose();
+	private void updateOutlineSelectionIfLinked() {
+		if(!synchronizingSelection && linkWithEditorAction.isChecked()) {
+			try {
+				synchronizingSelection = true;
+				final TreeViewer treeViewer = getTreeViewer();
+				final Set<DiagramNode> outlineNodes = getCurrentlySelectedDiagramNodes();			
+				if(treeViewer != null && 
+						treeViewer.getContentProvider() != null && 
+						!outlineNodes.equals(getSelectedDiagramNodesFromEditor())) {
+					treeViewer.setSelection(buildDiagramNodeTreeSelectionFromEditor());
+				}
+			} finally {
+				synchronizingSelection = false;
+			}
+		}
+	}
+	
+	private TreeSelection buildDiagramNodeTreeSelectionFromEditor() {
+		final Set<DiagramNode> selectedDiagramNodes = getSelectedDiagramNodesFromEditor();
+		if(selectedDiagramNodes == null) {
+			return TreeSelection.EMPTY;
+		}
+		
+		final TreePath[] treePaths = selectedDiagramNodes.stream().map((dn) -> new TreePath(new Object[] { dn } )).toArray(TreePath[]::new);
+		return new TreeSelection(treePaths);
+	}
+	
+	private void updateEditorSelectionIfLinked() {
+		try {
+			if(!synchronizingSelection && linkWithEditorAction.isChecked() && !getSelection().isEmpty()) {
+				// Select TreeItems on editor
+				synchronizingSelection = true;
+				selectEditorPictogramElements();
+			}
+		} finally {
+			synchronizingSelection = false;
+		}
 	}
 	
 	private void selectEditorPictogramElements() {
@@ -329,10 +375,8 @@ public class AgeContentOutlinePage extends ContentOutlinePage {
 
 	@Override
 	public void selectionChanged(final SelectionChangedEvent event) {
-		if(linkWithEditorAction.isChecked() && !getSelection().isEmpty()) {
-			// Select TreeItems on editor
-			selectEditorPictogramElements();
-		}
+		updateEditorSelectionIfLinked();
+		super.selectionChanged(event);
 	};
 
 	/**
@@ -368,16 +412,28 @@ public class AgeContentOutlinePage extends ContentOutlinePage {
 		return null;
 	}
 	
-	private final Action linkWithEditorAction = new Action("Link With Editor", SWT.TOGGLE) {
+	private class ToggleLinkWithEditorAction extends Action {
+		public ToggleLinkWithEditorAction() {
+			super("Link With Editor", SWT.TOGGLE);
+			
+			// Default Link With Editor enabled
+			setChecked(getEnabledFromPreferenceStore());
+			setImageDescriptor(PlatformUI.getWorkbench().getSharedImages().getImageDescriptor(ISharedImages.IMG_ELCL_SYNCED));
+		}
+		
 		@Override
 		public void run() {
-			// Select elements in editor if TreeItems are selected
-			if(linkWithEditorAction.isChecked() && !getSelection().isEmpty()) {
-				selectEditorPictogramElements();
-			}
+			preferences.putBoolean(PREFERENCE_OUTLINE_LINK_WITH_EDITOR, isChecked());			
+			updateOutlineSelectionIfLinked();
+		}
+		
+		private boolean getEnabledFromPreferenceStore() {
+			return preferences.getBoolean(PREFERENCE_OUTLINE_LINK_WITH_EDITOR, true);
 		}
 	};
-
+	
+	final Action linkWithEditorAction = new ToggleLinkWithEditorAction();
+	
 	private PictogramElement[] getCurrentlySelectedPictogramElements() {
 		final Object[] outlineSelection = ((IStructuredSelection)getSelection()).toArray();
 		final List<PictogramElement> pes = new ArrayList<>();
@@ -430,8 +486,7 @@ public class AgeContentOutlinePage extends ContentOutlinePage {
 		}
 		
 		return selectedDiagramNodes;
-	}
-	
+	}	
 	
 	// Rename Dialog
 	private static class RenameDialog extends InputDialog {

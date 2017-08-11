@@ -4,12 +4,16 @@
   <eClassifiers xsi:type="ecore:EClass" name="Diagram" eSuperTypes="#//DiagramNode">
     <eStructuralFeatures xsi:type="ecore:EReference" name="config" eType="#//DiagramConfiguration"
         containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="formatVersion" eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//Int"
+        defaultValueLiteral="0"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="DiagramNode">
     <eStructuralFeatures xsi:type="ecore:EReference" name="element" upperBound="-1"
         eType="#//DiagramElement" containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="DiagramElement" eSuperTypes="#//DiagramNode">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="id" eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//LongObject"
+        iD="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="bo" eType="#//RelativeBusinessObjectReference"
         containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="manual" eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//Boolean"

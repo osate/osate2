@@ -91,7 +91,6 @@ public enum BuiltinContentsFilter implements ContentsFilter {
 	
 	private static boolean isInType(final Object bo) {
 		if(isFundamental(bo) ||
-				bo instanceof Generalization || 
 				bo instanceof Feature || 
 				bo instanceof FlowSpecification || 
 				bo instanceof Mode || 

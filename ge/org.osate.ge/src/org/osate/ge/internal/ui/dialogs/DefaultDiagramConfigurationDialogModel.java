@@ -18,7 +18,7 @@ import org.osate.ge.internal.diagram.runtime.BuiltinContentsFilter;
 import org.osate.ge.internal.diagram.runtime.CanonicalBusinessObjectReference;
 import org.osate.ge.internal.diagram.runtime.ContentsFilter;
 import org.osate.ge.internal.diagram.runtime.RelativeBusinessObjectReference;
-import org.osate.ge.internal.model.PropertyResultValue;
+import org.osate.ge.internal.model.PropertyValueGroup;
 import org.osate.ge.internal.model.Tag;
 import org.osate.ge.internal.query.Queryable;
 import org.osate.ge.internal.services.ExtensionService;
@@ -36,15 +36,18 @@ public class DefaultDiagramConfigurationDialogModel implements DiagramConfigurat
 	private final ProjectProvider projectProvider;
 	private final BusinessObjectProviderHelper bopHelper;
 	private final BusinessObjectContextHelper bocHelper;
-
+	private long nextNodeId;
+	
 	public DefaultDiagramConfigurationDialogModel(final ProjectReferenceService referenceService,
 			final ExtensionService extService,
-			final ProjectProvider projectProvider) {
+			final ProjectProvider projectProvider,
+			final long nextNodeId) {
 		this.referenceService = Objects.requireNonNull(referenceService, "referenceService must not be null");
 		this.extService = Objects.requireNonNull(extService, "extService must not be null");
 		this.projectProvider = Objects.requireNonNull(projectProvider, "projectProvider must not be null");
 		this.bopHelper = new BusinessObjectProviderHelper(extService);
 		this.bocHelper = new BusinessObjectContextHelper(extService);
+		this.nextNodeId = nextNodeId;
 	}
 	
 
@@ -161,11 +164,16 @@ public class DefaultDiagramConfigurationDialogModel implements DiagramConfigurat
 	
 	@Override
 	public boolean showBusinessObject(final Object bo) {
-		return !(BuiltinContentsFilter.ALLOW_FUNDAMENTAL.test(bo) || bo instanceof PropertyResultValue);
+		return !(BuiltinContentsFilter.ALLOW_FUNDAMENTAL.test(bo) || bo instanceof PropertyValueGroup);
 	}
 
 	@Override
 	public Image getImage(final Object bo) {
 		return ImageUiHelper.getImage(bo);
+	}
+
+	@Override
+	public long getNewNodeId() {
+		return nextNodeId++;
 	}
 }

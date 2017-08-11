@@ -32,6 +32,7 @@ public interface DiagramModification {
 	 */
 	void setBusinessObjectHandler(final DiagramElement e, final Object boh);
 	
+	void setId(final DiagramElement e, final Long value);
 	void setManual(final DiagramElement e, final boolean value);
 	void setAutoContentsFilter(final DiagramElement e, final ContentsFilter value);
 	void setCompleteness(final DiagramElement e, final Completeness value);
