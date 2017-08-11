@@ -79,8 +79,6 @@ An AADL instance model can be viewed in the graphical editor. The instance model
 # Editing AADL Diagrams
 The graphical editor allows editing AADL models graphically. As changes are made to the diagram, the AADL model is updated automatically. Additionally, as the textual AADL model is editing using OSATE, the diagram is updated to reflect changes.
 
-Contents
-
 ## Basics
 Many of the operations in the graphical editor apply to multiple types of elements.
 
