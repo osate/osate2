@@ -32,7 +32,6 @@ import org.osate.xtext.aadl2.errormodel.errorModel.ErrorPropagation;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorSource;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorTypes;
 import org.osate.xtext.aadl2.errormodel.errorModel.OutgoingPropagationCondition;
-import org.osate.xtext.aadl2.errormodel.errorModel.TypeSet;
 import org.osate.xtext.aadl2.errormodel.util.EMV2Util;
 
 public class FTAGenerator extends PropagationGraphBackwardTraversal {
@@ -1084,10 +1083,9 @@ public class FTAGenerator extends PropagationGraphBackwardTraversal {
 	}
 
 	@Override
-	protected EObject processErrorSource(ComponentInstance component, ErrorSource errorSource,
-			TypeSet typeTokenConstraint) {
-		Event newEvent = this.createBasicEvent(component, errorSource, errorSource.getTypeTokenConstraint());
-		FaultTreeUtils.fillProperties(newEvent, component, errorSource, errorSource.getTypeTokenConstraint());
+	protected EObject processErrorSource(ComponentInstance component, ErrorSource errorSource, ErrorTypes type) {
+		Event newEvent = this.createBasicEvent(component, errorSource, type);
+		FaultTreeUtils.fillProperties(newEvent, component, errorSource, type);
 		return newEvent;
 	}
 
@@ -1171,7 +1169,7 @@ public class FTAGenerator extends PropagationGraphBackwardTraversal {
 	@Override
 	protected EObject processErrorEvent(ComponentInstance component, ErrorEvent errorEvent, ErrorTypes type,
 			double scale) {
-		Event emftaEvent = this.createBasicEvent(component, errorEvent, errorEvent.getTypeSet());
+		Event emftaEvent = this.createBasicEvent(component, errorEvent, type);
 		FaultTreeUtils.fillProperties(emftaEvent, component, errorEvent, type, scale);
 
 		return emftaEvent;
