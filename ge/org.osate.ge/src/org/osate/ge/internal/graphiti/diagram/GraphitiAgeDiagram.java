@@ -15,6 +15,7 @@ import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.edit.domain.EditingDomain;
+import org.eclipse.emf.transaction.impl.InternalTransactionalEditingDomain;
 import org.eclipse.graphiti.datatypes.IDimension;
 import org.eclipse.graphiti.mm.GraphicsAlgorithmContainer;
 import org.eclipse.graphiti.mm.algorithms.GraphicsAlgorithm;
@@ -137,35 +138,41 @@ public class GraphitiAgeDiagram implements NodePictogramBiMap, AutoCloseable {
 		ageDiagram.addModificationListener(modificationListener); // Listen for updates
 		ageDiagram.setTransactionHandler(new DiagramTransactionHandler() {			
 			@Override
-			public void modify(final String label, final Runnable modifier) {
-				//editingDomain.isReadOnly(resource)
-				// TODO: Don't create a transaction if already in one.				
-				
-				editingDomain.getCommandStack().execute(new AbstractCommand(label) {
-					@Override
-					protected boolean prepare() {
-						return true;
-					}					
-
-					@Override
-					public void execute() {
-						modifier.run();
-					}
-
-					@Override
-					public boolean canUndo() {
-						return false;
-					}
-					
-					@Override
-					public void undo() {
+			public void modify(final String label, final TransactionOperation op) {
+				final boolean inTransaction = ((InternalTransactionalEditingDomain)editingDomain).getActiveTransaction() != null;
+		
+				// TODO: Don't create a transaction if already in one.
+				System.err.println("IN TRANSACTION : " + inTransaction);
+				if(inTransaction) {
+					op.run();
+				} else {
+					editingDomain.getCommandStack().execute(new AbstractCommand(label) {
+						@Override
+						protected boolean prepare() {
+							return true;
+						}					
+	
+						@Override
+						public void execute() {
+							op.run();
+						}
+	
+						@Override
+						public boolean canUndo() {
+							return op.canUndo();
+						}
 						
-					}
-					
-					@Override
-					public void redo() {
-					}						
-				});
+						@Override
+						public void undo() {
+							op.undo();
+						}
+						
+						@Override
+						public void redo() {
+							op.redo();
+						}						
+					});
+				}
 			}
 		});
 	}

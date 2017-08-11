@@ -22,6 +22,9 @@ import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.ui.IWorkbenchPart;
 import org.osate.ge.diagram.DiagramElement;
 import org.osate.ge.internal.Activator;
+import org.osate.ge.internal.diagram.runtime.AgeDiagram;
+import org.osate.ge.internal.diagram.runtime.DiagramModification;
+import org.osate.ge.internal.diagram.runtime.DiagramModifier;
 import org.eclipse.graphiti.features.IFeatureProvider;
 import org.eclipse.graphiti.features.IResizeShapeFeature;
 import org.eclipse.graphiti.features.context.impl.ResizeShapeContext;
@@ -47,13 +50,14 @@ public class MatchSizeAction extends SelectionAction {
 			System.err.println("SELECTED OBJECT: " + selectedObject);
 		}
 		
-		// TODO: Should use diagram modification here...
+		final AgeDiagram ageDiagram = ContributionHelper.getDiagram(editor);
+		if(ageDiagram == null) {
+			throw new RuntimeException("Unable to get diagram");
+		}
 		
-		/*
-		editor.getEditingDomain().getCommandStack().execute(new RecordingCommand(editor.getEditingDomain(), "Match Height and Width") {
+		ageDiagram.modify(new DiagramModifier() {			
 			@Override
-			protected void doExecute() {
-			*/
+			public void modify(DiagramModification m) {
 				final Collection<ResizeShapeContext> ctxs = getResizeContextsFromEditorSelection();
 				if(ctxs != null) {
 					final IFeatureProvider fp = editor.getDiagramTypeProvider().getFeatureProvider();
@@ -62,16 +66,11 @@ public class MatchSizeAction extends SelectionAction {
 						feature.execute(ctx);
 					}
 				}
-			/*}
+			}
 		});
-		*/
-	}
-	
-	private DiagramElement[] getDiagramElements(final List<?> object) {
-		
 	}
 
-	//Updates action being available based on how many pictograms are selected
+	// Updates action being available based on how many pictograms are selected
 	@Override
 	protected boolean calculateEnabled() {
 		return getResizeContextsFromEditorSelection() != null;

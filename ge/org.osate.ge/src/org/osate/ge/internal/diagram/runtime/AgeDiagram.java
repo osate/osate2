@@ -11,6 +11,7 @@ import java.util.concurrent.CopyOnWriteArrayList;
 import org.eclipse.swt.widgets.Display;
 import org.osate.ge.internal.AgeGraphicalConfiguration;
 import org.osate.ge.internal.DockArea;
+import org.osate.ge.internal.diagram.runtime.DiagramTransactionHandler.TransactionOperation;
 import org.osate.ge.internal.diagram.runtime.boTree.Completeness;
 import org.osate.ge.internal.query.Queryable;
 
@@ -91,17 +92,50 @@ public class AgeDiagram implements DiagramNode, ModifiableDiagramElementContaine
 	}
 	
 	public void modify(final DiagramModifier modifier) {
+		final AgeDiagramModification m = new AgeDiagramModification();
+		
+		// TODO: Don't create this object.. Just have a helper function
 		final Runnable runnable = new Runnable() {			
 			@Override
 			public void run() {
-				final AgeDiagramModification m = new AgeDiagramModification();
 				modifier.modify(m);
 				m.completeModification();
 			}
 		};
 
+		// TODO: Should label be part of transaction operation?
 		if(transactionHandler != null) {
-			transactionHandler.modify("TODO", runnable);
+			transactionHandler.modify("TODO", new TransactionOperation() {
+				@Override
+				public void run() {
+					runnable.run();
+				}
+				
+				@Override
+				public void undo() {
+					modify(new DiagramModifier() {
+						@Override
+						public void modify(DiagramModification newMod) {
+							newMod.undoModification(m);
+						}						
+					});					
+				}
+				
+				@Override
+				public boolean canUndo() {
+					return m.isUndoable();
+				}
+				
+				@Override
+				public void redo() {
+					modify(new DiagramModifier() {
+						@Override
+						public void modify(DiagramModification newMod) {
+							newMod.redoModification(m);
+						}						
+					});	
+				}
+			});
 		} else {
 			runnable.run();
 		}
