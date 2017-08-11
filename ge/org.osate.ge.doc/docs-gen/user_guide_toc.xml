@@ -9,6 +9,8 @@
 	<topic label="Navigating Between Diagrams" href="docs-gen/user_guide.html#navigating-between-diagrams">
 		<topic label="Opening an Associated Diagram" href="docs-gen/user_guide.html#opening-an-associated-diagram">
 		</topic>
+		<topic label="Creating a New Diagram" href="docs-gen/user_guide.html#creating-a-new-diagram">
+		</topic>
 		<topic label="Opening an Element&#39;s Package Diagram" href="docs-gen/user_guide.html#opening-an-elements-package-diagram">
 		</topic>
 		<topic label="Opening the Type Diagram for a Component Implementation" href="docs-gen/user_guide.html#opening-the-type-diagram-for-a-component-implementation">
@@ -16,8 +18,18 @@
 		<topic label="Opening an AADL Instance Model" href="docs-gen/user_guide.html#opening-an-aadl-instance-model">
 		</topic>
 	</topic>
-	<topic label="Editing AADL Models" href="docs-gen/user_guide.html#editing-aadl-models">
+	<topic label="Editing AADL Diagrams" href="docs-gen/user_guide.html#editing-aadl-diagrams">
 		<topic label="Basics" href="docs-gen/user_guide.html#basics">
+			<topic label="Diagram Configuration" href="docs-gen/user_guide.html#diagram-configuration">
+			</topic>
+			<topic label="Showing and Hiding Diagram Element Contents" href="docs-gen/user_guide.html#showing-and-hiding-diagram-element-contents">
+			</topic>
+			<topic label="Hidden Children" href="docs-gen/user_guide.html#hidden-children">
+			</topic>
+			<topic label="Abstracted Connections" href="docs-gen/user_guide.html#abstracted-connections">
+			</topic>
+			<topic label="Inherited Element" href="docs-gen/user_guide.html#inherited-element">
+			</topic>
 			<topic label="Deleting" href="docs-gen/user_guide.html#deleting">
 			</topic>
 			<topic label="Renaming" href="docs-gen/user_guide.html#renaming">
@@ -25,8 +37,6 @@
 			<topic label="Refining" href="docs-gen/user_guide.html#refining">
 			</topic>
 			<topic label="Instantiating" href="docs-gen/user_guide.html#instantiating">
-			</topic>
-			<topic label="Editing Property Associations" href="docs-gen/user_guide.html#editing-property-associations">
 			</topic>
 			<topic label="Moving Shapes Using Arrow Keys" href="docs-gen/user_guide.html#moving-shapes-using-arrow-keys">
 			</topic>

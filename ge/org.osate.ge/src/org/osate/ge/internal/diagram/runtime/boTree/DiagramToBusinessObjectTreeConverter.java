@@ -27,9 +27,9 @@ public class DiagramToBusinessObjectTreeConverter {
 	public static BusinessObjectNode createBusinessObjectNode(final AgeDiagram diagram, 
 			final Map<DiagramNode, Map<RelativeBusinessObjectReference, Point>> futureElementPositionMap,
 			final Map<DiagramNode, Map<RelativeBusinessObjectReference, DiagramElement>> containerToRelativeReferenceToGhostMap) {
-		BusinessObjectNode rootNode = new BusinessObjectNode(null, null, null, false, null, Completeness.UNKNOWN);
+		BusinessObjectNode rootNode = new BusinessObjectNode(null, null, null, null, false, null, Completeness.UNKNOWN);
 		createBusinessObjectNodesForElements(rootNode, diagram.getDiagramElements(), futureElementPositionMap, containerToRelativeReferenceToGhostMap);
-		createBusnessObjectNodesForFutureElements(rootNode, diagram, futureElementPositionMap);
+		createBusinessObjectNodesForFutureElements(rootNode, diagram, futureElementPositionMap);
 		
 		return rootNode;
 	}
@@ -50,10 +50,10 @@ public class DiagramToBusinessObjectTreeConverter {
 			final Map<DiagramNode, Map<RelativeBusinessObjectReference, DiagramElement>> containerToRelativeReferenceToGhostMap) {
 		// Don't keep the business object when building the business object tree. This will ensure that tree expander or other user of the tree updates
 		// the business object based on the model.,
-		final BusinessObjectNode childNode = new BusinessObjectNode(parent, e.getRelativeReference(), null, e.isManual(), e.getAutoContentsFilter(), Completeness.UNKNOWN);
+		final BusinessObjectNode childNode = new BusinessObjectNode(parent, e.getId(), e.getRelativeReference(), null, e.isManual(), e.getAutoContentsFilter(), Completeness.UNKNOWN);
 		createBusinessObjectNodesForElements(childNode, e.getDiagramElements(), futureElementPositionMap, containerToRelativeReferenceToGhostMap);
 		createBusinessObjectNodesForGhostedElements(childNode, e, futureElementPositionMap, containerToRelativeReferenceToGhostMap);			
-		createBusnessObjectNodesForFutureElements(childNode, e, futureElementPositionMap);		
+		createBusinessObjectNodesForFutureElements(childNode, e, futureElementPositionMap);		
 	}
 	
 	private static void createBusinessObjectNodesForGhostedElements(final BusinessObjectNode parent, 
@@ -69,7 +69,7 @@ public class DiagramToBusinessObjectTreeConverter {
 		}
 	}
 	
-	public static void createBusnessObjectNodesForFutureElements(final BusinessObjectNode parent, 
+	public static void createBusinessObjectNodesForFutureElements(final BusinessObjectNode parent, 
 			final DiagramNode diagramNode,
 			final Map<DiagramNode, Map<RelativeBusinessObjectReference, Point>> futureElementPositionMap) {
 		final Map<RelativeBusinessObjectReference, Point> futureElements = futureElementPositionMap.get(diagramNode);
@@ -77,7 +77,7 @@ public class DiagramToBusinessObjectTreeConverter {
 			for(final RelativeBusinessObjectReference ref : futureElements.keySet()) {
 				// An incomplete node is created. The tree expander will fill in missing fields.
 				if(parent.getChild(ref) == null) {
-					new BusinessObjectNode(parent, ref, null, true, null, Completeness.UNKNOWN);
+					new BusinessObjectNode(parent, null, ref, null, true, null, Completeness.UNKNOWN);
 				}
 			}
 		}

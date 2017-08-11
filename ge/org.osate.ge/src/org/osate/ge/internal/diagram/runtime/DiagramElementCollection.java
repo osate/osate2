@@ -14,7 +14,7 @@ import java.util.concurrent.ConcurrentHashMap;
 class DiagramElementCollection extends AbstractCollection<DiagramElement> {
 	private Map<RelativeBusinessObjectReference, DiagramElement> relativeReferenceToDiagramElementMap; // Initialized lazily.
 	
-	// Internal. Only used by the DiagramUpdater.
+	// Internal
 	@Override
 	public boolean add(final DiagramElement e) {
 		if(relativeReferenceToDiagramElementMap == null) {

@@ -79,7 +79,7 @@ public class DistributeVerticallyAction extends SelectionAction {
 			return null;
 		}
 		
-		if(!LayoutUtil.areAllShapes(pes)) {
+		if(!LayoutUtil.areAllUndockedMoveableShapes(pes, editor.getGraphitiAgeDiagram())) {
 			return null;
 		}
 		

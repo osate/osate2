@@ -1,7 +1,6 @@
 package org.osate.ge.internal.diagram.runtime.boTree;
 
 import java.util.ArrayDeque;
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Deque;
@@ -14,6 +13,7 @@ import org.osate.ge.internal.diagram.runtime.RelativeBusinessObjectReference;
 
 public class BusinessObjectNode implements BusinessObjectContext {
 	private BusinessObjectNode parent;
+	private final Long id;
 	private final RelativeBusinessObjectReference relativeReference; // May be null only for root nodes.
 	private Object bo; // May be null for root nodes
 	private boolean manual = false; // Species whether the object was manually specified(true) or if it was created automatically based on the auto contents filter or other mechanism.
@@ -21,13 +21,15 @@ public class BusinessObjectNode implements BusinessObjectContext {
 	private Map<RelativeBusinessObjectReference, BusinessObjectNode> children;
 	private Completeness completeness = Completeness.UNKNOWN; // DefaultTreeExpander populates this field.
 	
-	public BusinessObjectNode(final BusinessObjectNode parent, 
-			final RelativeBusinessObjectReference relativeReference, 
+	public BusinessObjectNode(final BusinessObjectNode parent,
+			final Long id,
+			final RelativeBusinessObjectReference relativeReference,
 			final Object bo,
 			final boolean manual,
 			final ContentsFilter autoContentsFilter,
 			final Completeness completeness) {
 		this.parent = parent;
+		this.id = id;
 		this.relativeReference = relativeReference;
 		this.bo = bo;
 		this.manual = manual;
@@ -55,6 +57,10 @@ public class BusinessObjectNode implements BusinessObjectContext {
 	
 	public void setBusinessObject(final Object value) {
 		this.bo = value;
+	}
+	
+	public final Long getId() {
+		return id;
 	}
 	
 	public boolean isManual() {
@@ -133,7 +139,7 @@ public class BusinessObjectNode implements BusinessObjectContext {
 	 * @return
 	 */
 	private BusinessObjectNode copy(final BusinessObjectNode newParent) {
-		final BusinessObjectNode newNode = new BusinessObjectNode(newParent, relativeReference, bo, manual, autoContentsFilter, completeness);
+		final BusinessObjectNode newNode = new BusinessObjectNode(newParent, id, relativeReference, bo, manual, autoContentsFilter, completeness);
 		for(final BusinessObjectNode child : getChildren()) {
 			child.copy(newNode);
 		}
@@ -179,53 +185,25 @@ public class BusinessObjectNode implements BusinessObjectContext {
 		return false;
 	}
 	
-	/**
-	 * Creates a copy of the specified node.
-	 * The copy is the root of a new tree.
-	 * Removes leaf nodes which are not manual.
-	 * Resets the completeness state of all nodes
-	 * @param n
-	 * @return
-	 */
-	public static BusinessObjectNode pruneAutomaticBranches(final BusinessObjectNode n) {		
-		final BusinessObjectNode newNode = new BusinessObjectNode(null, n.relativeReference, n.bo, n.manual, n.autoContentsFilter, Completeness.UNKNOWN);
-		
-		// Prune and add children
+	private static long getMaxIdForChildren(final BusinessObjectNode n) {
+		long max = -1;
+
+		// Check children
 		for(final BusinessObjectNode child : n.getChildren()) {
-			final BusinessObjectNode prunedChild = pruneAutomaticChild(child);
-			if(prunedChild != null) {
-				prunedChild.parent = newNode;
-				newNode.addChild(prunedChild);
-			}
+			max = Math.max(getMaxId(child), max);
 		}
 		
-		return newNode;
-		
-	}
-	
-	private static BusinessObjectNode pruneAutomaticChild(final BusinessObjectNode n) {
-		// Prune Children
-		final Collection<BusinessObjectNode> prunedChildren = new ArrayList<>();		
-		for(final BusinessObjectNode child : n.getChildren()) {
-			final BusinessObjectNode prunedChild = pruneAutomaticChild(child);
-			if(prunedChild != null) {
-				prunedChildren.add(prunedChild);
-			}
+		return max;
+	}	
+
+	public static long getMaxId(final BusinessObjectNode n) {
+		long max = -1;
+		if(n.getId() != null) {
+			max = Math.max(max, n.getId());
 		}
 		
-		// Create a new node if the original node was manual or if any of its descendants were manual
-		if(prunedChildren.size() > 0 || n.manual) {
-			final BusinessObjectNode newNode = new BusinessObjectNode(null, n.relativeReference, n.bo, n.manual, n.autoContentsFilter, Completeness.UNKNOWN);
-			
-			// Add the pruned children to the node
-			for(final BusinessObjectNode newChild : prunedChildren) {
-				newChild.parent = newNode;
-				newNode.addChild(newChild);
-			}
-			
-			return newNode;
-		}
+		Math.max(max, getMaxIdForChildren(n));
 		
-		return null;
-	}
+		return max;
+	}	
 }

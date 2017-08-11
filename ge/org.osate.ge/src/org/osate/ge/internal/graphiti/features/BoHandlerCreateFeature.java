@@ -104,7 +104,6 @@ public class BoHandlerCreateFeature extends AbstractCreateFeature implements Cat
 		}
 
 		final DockingPosition targetDockingPosition = AgeDiagramUtil.determineDockingPosition(targetNode, context.getX(), context.getY(), 0, 0);
-		
 		// Modify the AADL model
 		final Object newBo = aadlModService.modify((EObject)ownerNode.getBusinessObject(), new AbstractModifier<EObject, Object>() {
 			@Override

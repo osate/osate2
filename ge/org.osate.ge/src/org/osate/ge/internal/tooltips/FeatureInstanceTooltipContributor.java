@@ -21,10 +21,9 @@ ARISING FROM, OUT OF OR IN CONNECTION WITH THE DATA OR THE USE OR OTHER DEALINGS
 package org.osate.ge.internal.tooltips;
 
 import javax.inject.Named;
-
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Composite;
-import org.eclipse.swt.widgets.Text;
+import org.eclipse.swt.widgets.Label;
 import org.osate.aadl2.Classifier;
 import org.osate.aadl2.ComponentClassifier;
 import org.osate.aadl2.EventDataSource;
@@ -78,8 +77,8 @@ public class FeatureInstanceTooltipContributor {
 			}	    	
 
 			// Create the styled text describing the feature
-			final Text text = new Text(parent, SWT.NONE);
-			text.setText(tooltipContents.toString());
+			final Label lbl = new Label(parent, SWT.NONE);
+			lbl.setText(tooltipContents.toString());
 		}
 	}
 }

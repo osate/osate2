@@ -19,6 +19,7 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
  * The following features are supported:
  * </p>
  * <ul>
+ *   <li>{@link org.osate.ge.diagram.DiagramElement#getId <em>Id</em>}</li>
  *   <li>{@link org.osate.ge.diagram.DiagramElement#getBo <em>Bo</em>}</li>
  *   <li>{@link org.osate.ge.diagram.DiagramElement#isManual <em>Manual</em>}</li>
  *   <li>{@link org.osate.ge.diagram.DiagramElement#getAutoContentsFilter <em>Auto Contents Filter</em>}</li>
@@ -34,6 +35,26 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
  * @generated
  */
 public class DiagramElement extends DiagramNode {
+	/**
+	 * The default value of the '{@link #getId() <em>Id</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getId()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final Long ID_EDEFAULT = null;
+
+	/**
+	 * The cached value of the '{@link #getId() <em>Id</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getId()
+	 * @generated
+	 * @ordered
+	 */
+	protected Long id = ID_EDEFAULT;
+
 	/**
 	 * The cached value of the '{@link #getBo() <em>Bo</em>}' containment reference.
 	 * <!-- begin-user-doc -->
@@ -538,6 +559,39 @@ public class DiagramElement extends DiagramNode {
 	}
 
 	/**
+	 * Returns the value of the '<em><b>Id</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Id</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Id</em>' attribute.
+	 * @see #setId(Long)
+	 * @see org.osate.ge.diagram.DiagramPackage#getDiagramElement_Id()
+	 * @model id="true" dataType="org.eclipse.emf.ecore.xml.type.LongObject"
+	 * @generated
+	 */
+	public Long getId() {
+		return id;
+	}
+
+	/**
+	 * Sets the value of the '{@link org.osate.ge.diagram.DiagramElement#getId <em>Id</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Id</em>' attribute.
+	 * @see #getId()
+	 * @generated
+	 */
+	public void setId(Long newId) {
+		Long oldId = id;
+		id = newId;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, DiagramPackage.DIAGRAM_ELEMENT__ID, oldId, id));
+	}
+
+	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -567,6 +621,8 @@ public class DiagramElement extends DiagramNode {
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
+			case DiagramPackage.DIAGRAM_ELEMENT__ID:
+				return getId();
 			case DiagramPackage.DIAGRAM_ELEMENT__BO:
 				return getBo();
 			case DiagramPackage.DIAGRAM_ELEMENT__MANUAL:
@@ -595,6 +651,9 @@ public class DiagramElement extends DiagramNode {
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
+			case DiagramPackage.DIAGRAM_ELEMENT__ID:
+				setId((Long)newValue);
+				return;
 			case DiagramPackage.DIAGRAM_ELEMENT__BO:
 				setBo((RelativeBusinessObjectReference)newValue);
 				return;
@@ -631,6 +690,9 @@ public class DiagramElement extends DiagramNode {
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
+			case DiagramPackage.DIAGRAM_ELEMENT__ID:
+				setId(ID_EDEFAULT);
+				return;
 			case DiagramPackage.DIAGRAM_ELEMENT__BO:
 				setBo((RelativeBusinessObjectReference)null);
 				return;
@@ -667,6 +729,8 @@ public class DiagramElement extends DiagramNode {
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
+			case DiagramPackage.DIAGRAM_ELEMENT__ID:
+				return ID_EDEFAULT == null ? id != null : !ID_EDEFAULT.equals(id);
 			case DiagramPackage.DIAGRAM_ELEMENT__BO:
 				return bo != null;
 			case DiagramPackage.DIAGRAM_ELEMENT__MANUAL:
@@ -697,7 +761,9 @@ public class DiagramElement extends DiagramNode {
 		if (eIsProxy()) return super.toString();
 
 		StringBuffer result = new StringBuffer(super.toString());
-		result.append(" (manual: ");
+		result.append(" (id: ");
+		result.append(id);
+		result.append(", manual: ");
 		result.append(manual);
 		result.append(", autoContentsFilter: ");
 		result.append(autoContentsFilter);

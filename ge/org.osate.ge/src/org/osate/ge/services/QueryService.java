@@ -3,6 +3,7 @@ package org.osate.ge.services;
 import java.util.List;
 
 import org.osate.ge.BusinessObjectContext;
+import org.osate.ge.internal.query.Queryable;
 import org.osate.ge.query.StandaloneQuery;
 
 public interface QueryService {
@@ -12,6 +13,7 @@ public interface QueryService {
 	}
 	
 	BusinessObjectContext getFirstResult(StandaloneQuery query, BusinessObjectContext boc, final Object arg);
+	BusinessObjectContext getFirstResult(StandaloneQuery query, Queryable boc, final Object arg);
 	
 	// boc's BO will be query argument
 	default Object getFirstBusinessObject(final StandaloneQuery query, final BusinessObjectContext boc) {

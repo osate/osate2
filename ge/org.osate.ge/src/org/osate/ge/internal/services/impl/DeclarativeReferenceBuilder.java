@@ -341,8 +341,6 @@ public class DeclarativeReferenceBuilder {
 			return -1;
 		}
 		
-		System.err.println(annexSubclause.eContainer());
-		
 		// Get all related classifiers
 		final Classifier cl = annexSubclause.getContainingClassifier();
 		final EList<Classifier> classifiers = cl.getSelfPlusAllExtended();
@@ -357,7 +355,6 @@ public class DeclarativeReferenceBuilder {
 		// Use reversed view of list so that base classifiers will be first. This is needed to ensure subclauses have unique indices
 		for (final Classifier tmpClassifier : Lists.reverse(classifiers)) { 
 			for(final AnnexSubclause tmpSubclause : tmpClassifier.getOwnedAnnexSubclauses()) {
-				//System.err.println(tmpSubclause + " : " + annexSubclause);
 				if(tmpSubclause == annexSubclause) {
 					return index;
 				} else if(annexName.equalsIgnoreCase(tmpSubclause.getName())) {

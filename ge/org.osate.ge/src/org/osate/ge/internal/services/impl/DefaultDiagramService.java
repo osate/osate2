@@ -250,7 +250,7 @@ public class DefaultDiagramService implements DiagramService {
 	@Override
 	public IFile createDiagram(final Object contextBo) {
 		// Create an AgeDiagram object. This object doesn't have to be completely valid. It just needs to be able to be written.
-		final AgeDiagram diagram = new AgeDiagram();
+		final AgeDiagram diagram = new AgeDiagram(0);
 		
 		// Build diagram configuration
 		final CanonicalBusinessObjectReference contextBoCanonicalRef = Objects.requireNonNull(referenceService.getCanonicalReference(contextBo), "Unable to build canonical reference for business object: " + contextBo);
@@ -262,7 +262,7 @@ public class DefaultDiagramService implements DiagramService {
 		diagram.modify(new DiagramModifier() {			
 			@Override
 			public void modify(final DiagramModification m) {
-				final DiagramElement contextElement = new DiagramElement(diagram, contextBo, null, contextBoRelRef, null);
+				final DiagramElement contextElement = new DiagramElement(diagram, contextBo, null, contextBoRelRef);
 				m.setManual(contextElement, true);
 				m.addElement(contextElement);
 			}

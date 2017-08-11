@@ -10,6 +10,10 @@ public interface AgeShape extends Graphic {
 	// which have the same graphical representation as other features.
 	default String getAnnotation() { return null; }
 	
+	default boolean isMoveable() {
+		return true;
+	}
+	
 	default boolean isResizeable() {
 		return true;
 	}

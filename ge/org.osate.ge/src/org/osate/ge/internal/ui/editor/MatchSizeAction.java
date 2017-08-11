@@ -72,7 +72,7 @@ public class MatchSizeAction extends SelectionAction {
 			return null;
 		}
 		
-		if(!LayoutUtil.areAllShapes(pes)) {
+		if(!LayoutUtil.areAllResizableShapes(pes, editor.getGraphitiAgeDiagram())) {
 			return null;
 		}
 				

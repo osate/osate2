@@ -24,16 +24,16 @@ import org.osate.ge.internal.diagram.runtime.RelativeBusinessObjectReference;
 import org.osate.ge.internal.diagram.runtime.boTree.BusinessObjectNode;
 import org.osate.ge.internal.diagram.runtime.boTree.Completeness;
 import org.osate.ge.internal.diagram.runtime.boTree.DiagramToBusinessObjectTreeConverter;
-import org.osate.ge.internal.diagram.runtime.boTree.TreeExpander;
+import org.osate.ge.internal.diagram.runtime.boTree.TreeUpdater;
 import org.osate.ge.internal.graphics.AgeConnection;
-import org.osate.ge.internal.model.PropertyResultValue;
+import org.osate.ge.internal.model.PropertyValueGroup;
 
 /**
  * Updates the diagram's elements based on the diagram configuration.
  * The DiagramUpdater updates the diagram using information provided by objects passed into the constructor.
  */
 public class DiagramUpdater {	
-	private final TreeExpander boTreeExpander;
+	private final TreeUpdater boTreeExpander;
 	private final DiagramElementInformationProvider infoProvider;
 	
 	private final Map<DiagramNode, Map<RelativeBusinessObjectReference, DiagramElement>> containerToRelativeReferenceToGhostMap = new HashMap<>();
@@ -42,7 +42,7 @@ public class DiagramUpdater {
 	// The Point is the position. It may be null to indicate that an element should be added as a manually added element but that a position hasn't been specified.
 	private final Map<DiagramNode, Map<RelativeBusinessObjectReference, Point>> futureElementPositionMap = new HashMap<>(); 
 
-	public DiagramUpdater(final TreeExpander boTreeExpander, 
+	public DiagramUpdater(final TreeUpdater boTreeExpander, 
 			final DiagramElementInformationProvider infoProvider) {
 		this.boTreeExpander = Objects.requireNonNull(boTreeExpander, "boTreeExpander must not be null");
 		this.infoProvider = Objects.requireNonNull(infoProvider, "infoProvider must not be null"); // Adjust message after rename
@@ -76,11 +76,11 @@ public class DiagramUpdater {
 	/**
 	 * 
 	 * @param diagram
-	 * @param inputTree is the input business object tree. A copy will be made and automatic branches will be pruned and then the tree will be expanded before updating the diagram.
+	 * @param inputTree is the input business object tree. The input tree is not modified.
 	 */
 	public void updateDiagram(final AgeDiagram diagram, final BusinessObjectNode inputTree) {
-		final BusinessObjectNode tmpTree = BusinessObjectNode.pruneAutomaticBranches(inputTree);		
-		final BusinessObjectNode tree = boTreeExpander.expandTree(diagram.getConfiguration(), tmpTree);
+		// Create a tree by updating the input tree.
+		final BusinessObjectNode tree = boTreeExpander.expandTree(diagram.getConfiguration(), inputTree, diagram.getMaxElementId()+1);
 		final List<DiagramElement> connectionElements = new LinkedList<>();
 		
 		diagram.modify(new DiagramModifier() {
@@ -107,7 +107,6 @@ public class DiagramUpdater {
 	 * @param bos
 	 */
 	private void updateStructure(final DiagramModification m, final DiagramNode container, final Collection<BusinessObjectNode> bos) {
-		final Map<RelativeBusinessObjectReference, Point> futureElementPositions = futureElementPositionMap.get(container);
 		for(final BusinessObjectNode n : bos) {
 			// Get existing element if it exists.
 			DiagramElement element = container.getByRelativeReference(n.getRelativeReference());
@@ -115,14 +114,13 @@ public class DiagramUpdater {
 			// Create the element if it does not exist
 			if(element == null) {
 				final DiagramElement removedGhost = removeGhost(container, n.getRelativeReference());
-				final Point initialPosition = futureElementPositions == null ? null : futureElementPositions.get(n.getRelativeReference());
 				if(removedGhost == null) {
 					final Object boh = infoProvider.getApplicableBusinessObjectHandler(n.getBusinessObject());
 					if(boh == null) {
 						// TODO: Proper way of handling?
 						continue;
 					}
-					element = new DiagramElement(container, n.getBusinessObject(), boh, n.getRelativeReference(), initialPosition);
+					element = new DiagramElement(container, n.getBusinessObject(), boh, n.getRelativeReference());
 					
 					// Set the size of the new element if it is the only top level element. This prevents having a tiny initial diagram area.
 					if(bos.size() == 1 && container instanceof AgeDiagram) {
@@ -131,11 +129,11 @@ public class DiagramUpdater {
 				} else {
 					element = removedGhost;
 					m.updateBusinessObjectWithSameRelativeReference(element, n.getBusinessObject());
-					
-					// There may be a ghosted element with the same name as a new element. In that case, set the unghosted element's position to the one specified by future elmeent positions
-					if(initialPosition != null) {
-						m.setPosition(element, initialPosition);
-					}
+				}
+
+				// Update the element's ID
+				if(n.getId() != null) {
+					m.setId(element, n.getId());
 				}
 				
 				m.addElement(element);
@@ -184,7 +182,7 @@ public class DiagramUpdater {
 		addGhost(e);
 		m.removeElement(e);
 		// Ignore property result values when determining if an element completeness
-		if(e.getParent() instanceof DiagramElement && !(e.getBusinessObject() instanceof PropertyResultValue)) {
+		if(e.getParent() instanceof DiagramElement && !(e.getBusinessObject() instanceof PropertyValueGroup)) {
 			m.setCompleteness((DiagramElement)e.getParent(), Completeness.INCOMPLETE);
 		}
 	}
@@ -232,6 +230,14 @@ public class DiagramUpdater {
 					// Ensure the dock area is null
 					m.setDockArea(element, null);
 				}		
+				
+				// Set the initial position if there is a value in the future element position map
+				// Set the position after the dock area so that setPosition() will know whether the element is dockable.
+				final Map<RelativeBusinessObjectReference, Point> futureElementPositions = futureElementPositionMap.get(container);
+				final Point initialPosition = futureElementPositions == null ? null : futureElementPositions.get(n.getRelativeReference());
+				if(initialPosition != null) {
+					m.setPosition(element, initialPosition);
+				}				
 							
 				if(element.getGraphic() instanceof AgeConnection) {
 					// Add connection elements to the list so that they can be access later.
