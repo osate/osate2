@@ -1,4 +1,4 @@
-package org.osate.xtext.aadl2.errormodel.legacy;
+package org.osate.xtext.aadl2.errormodel.util;
 
 import java.util.Collection;
 import java.util.LinkedList;
@@ -35,9 +35,6 @@ import org.osate.xtext.aadl2.errormodel.errorModel.QualifiedErrorBehaviorState;
 import org.osate.xtext.aadl2.errormodel.errorModel.SConditionElement;
 import org.osate.xtext.aadl2.errormodel.errorModel.TransitionBranch;
 import org.osate.xtext.aadl2.errormodel.errorModel.TypeSet;
-import org.osate.xtext.aadl2.errormodel.util.EM2TypeSetUtil;
-import org.osate.xtext.aadl2.errormodel.util.EMV2Properties;
-import org.osate.xtext.aadl2.errormodel.util.EMV2Util;
 
 public class PropagationGraphBackwardTraversal {
 

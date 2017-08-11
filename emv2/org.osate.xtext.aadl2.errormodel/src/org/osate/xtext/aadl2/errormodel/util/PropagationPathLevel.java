@@ -1,4 +1,4 @@
-package org.osate.xtext.aadl2.errormodel.legacy;
+package org.osate.xtext.aadl2.errormodel.util;
 
 public enum PropagationPathLevel {
 	LEAF, // only the lowest component instances with Error Propagations
