@@ -2064,6 +2064,24 @@ public class EMV2Util {
 		return "";
 	}
 
+	public static String getName(Element el) {
+		if (el instanceof ErrorPropagation) {
+			ErrorPropagation ep = (ErrorPropagation) el;
+			return getPropagationName(ep);
+		}
+		if (el instanceof TypeSet) {
+			TypeSet ts = (TypeSet) el;
+			return getName(ts);
+		}
+		if (el instanceof NamedElement) {
+			NamedElement ne = (NamedElement) el;
+			if (ne.getName() != null) {
+				return ne.getName();
+			}
+		}
+		return "";
+	}
+
 	/**
 	 * get printName of Error Propagation
 	 * @param ep
@@ -2378,6 +2396,17 @@ public class EMV2Util {
 		return getPrintName(tel);
 	}
 
+	public static String getName(TypeSet ts) {
+		if (ts == null) {
+			return "";
+		}
+		if (ts.getName() != null) {
+			return ts.getName();
+		}
+		EList<TypeToken> tel = ts.getTypeTokens();
+		return getName(tel);
+	}
+
 	public static String getPrintName(ErrorModelLibrary eml) {
 		return AadlUtil.getContainingPackage(eml).getName();
 	}
@@ -2403,6 +2432,31 @@ public class EMV2Util {
 				dostar = true;
 			}
 			res = res + et.getName();
+		}
+		return res;
+	}
+
+	public static String getName(EList<TypeToken> tul) {
+		boolean docomma = false;
+		String res = "";
+		for (TypeToken typeSetElement : tul) {
+			EList<ErrorTypes> et = typeSetElement.getType();
+			if (docomma) {
+				res = res + ',';
+			} else {
+				docomma = true;
+			}
+			if (et != null && !et.isEmpty()) {
+				boolean doproduct = false;
+				for (ErrorTypes errorType : et) {
+					if (doproduct) {
+						res = res + "*";
+					} else {
+						doproduct = true;
+					}
+					res = res + errorType.getName();
+				}
+			}
 		}
 		return res;
 	}
