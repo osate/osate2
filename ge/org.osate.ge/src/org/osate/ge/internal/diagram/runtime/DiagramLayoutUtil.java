@@ -40,7 +40,7 @@ import org.osate.ge.internal.layout.LayoutAlgorithm;
 import org.osate.ge.internal.layout.SimpleLayoutAlgorithm;
 
 /**
- * Lays out diagram elements included in a diagram using an algorithm.
+ * Lays out diagram elements included in a diagram.
  */
 public class DiagramLayoutUtil {	
 	public static boolean layout(final AgeDiagram diagram, final DiagramModification mod, final boolean fullLayout) {

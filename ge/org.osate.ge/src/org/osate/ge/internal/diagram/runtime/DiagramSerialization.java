@@ -271,7 +271,7 @@ public class DiagramSerialization {
 			newElement.setPosition(e.getPosition().toMetamodel());
 		}
 		
-		if(e.hasSize()) {
+		if(e.hasSize() && e.isSizeable()) {
 			newElement.setSize(e.getSize().toMetamodel());
 		}
 		
