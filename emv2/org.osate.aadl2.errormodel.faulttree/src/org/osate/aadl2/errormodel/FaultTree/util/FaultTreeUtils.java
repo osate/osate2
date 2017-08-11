@@ -28,14 +28,12 @@ public class FaultTreeUtils {
 	 */
 
 	public static void fillProperties(Event event, InstanceObject io, NamedElement ne, ErrorTypes type, double scale) {
-		String propertyDescription;
-		propertyDescription = EMV2Properties.getDescription(ne, io);
-
-		if (propertyDescription == null && io instanceof ComponentInstance) {
+		if (io instanceof ComponentInstance) {
 			event.setDescription(getDescription((ComponentInstance) io, ne, type));
 		} else {
-			event.setDescription(propertyDescription + "(connection "
-					+ ((ConnectionErrorSource) ne).getConnection().getName() + ")");
+			String hazardDescription = EMV2Properties.getDescription(ne, io);
+			event.setDescription("Connection " + ((ConnectionErrorSource) ne).getConnection().getName() + " Hazard "
+					+ hazardDescription);
 		}
 
 		event.setProbability(EMV2Properties.getProbability(io, ne, type) * scale);
@@ -61,47 +59,53 @@ public class FaultTreeUtils {
 
 		if (errorModelArtifact instanceof ErrorSource) {
 			ErrorSource errorSource = (ErrorSource) errorModelArtifact;
-
-			description += "Error source";
-
-			if (errorSource.getName() != null) {
-				description += " " + errorSource.getName();
+			description += "Component '"
+					+ (component instanceof SystemInstance ? component.getComponentClassifier().getName()
+							: component.getComponentInstancePath())
+					+ "'";
+			if (errorSource.getFailureModeType() != null) {
+				description += " Failure Source '" + EMV2Util.getName(errorSource.getFailureModeType()) + "'";
 			}
-			description += " on component " + (component instanceof SystemInstance ? component.getName()
-					: component.getComponentInstancePath());
-
-			if ((errorSource.getOutgoing().getFeatureorPPRef() != null)
-					&& (errorSource.getOutgoing().getFeatureorPPRef().getFeatureorPP() != null)) {
-				NamedElement el = errorSource.getOutgoing().getFeatureorPPRef().getFeatureorPP();
-				description += " from ";
-				description += el.getName();
+			if (errorSource.getFailureModeReference() != null) {
+				description += " Failure mode '" + errorSource.getFailureModeReference().getName() + "'";
+			}
+			if (errorSource.getFailureModeDescription() != null) {
+				description += " Failure '" + errorSource.getFailureModeDescription() + "'";
 			}
 			if (type != null) {
-				description += " with types " + EMV2Util.getPrintName(type);
+				description += " Propagates '" + EMV2Util.getName(type) + "'";
+			}
+			if ((errorSource.getOutgoing() != null && errorSource.getOutgoing().getFeatureorPPRef() != null)
+					&& (errorSource.getOutgoing().getFeatureorPPRef().getFeatureorPP() != null)) {
+				NamedElement el = errorSource.getOutgoing().getFeatureorPPRef().getFeatureorPP();
+				description += " via '";
+				description += el.getName() + "'";
 			}
 
 		}
 
 		if (errorModelArtifact instanceof ErrorEvent) {
-			ErrorEvent errorEvent = (ErrorEvent) errorModelArtifact;
-			description += "Error";
-			description += " event " + errorEvent.getName();
+			description += "Component '" + component.getName() + "'";
 			if (type != null) {
-				description += " with types " + EMV2Util.getPrintName(type);
+				description += " failure event " + EMV2Util.getName(type);
 			}
-			description += " on component " + component.getName();
-
 		}
 
 		if (errorModelArtifact instanceof ErrorBehaviorState) {
 			ErrorBehaviorState ebs = (ErrorBehaviorState) errorModelArtifact;
-			description = "component " + component.getName() + " in state " + ebs.getName();
+			description = "Component '" + component.getName() + "' in failure mode '" + ebs.getName() + "'";
+			if (type != null) {
+				description += " Type '" + EMV2Util.getName(type) + "'";
+			}
 		}
 
 		if (errorModelArtifact instanceof ErrorPropagation) {
 			ErrorPropagation ep = (ErrorPropagation) errorModelArtifact;
-			description = "component " + component.getName() + " with " + ep.getDirection() + " propagation "
-					+ EMV2Util.getPropagationName(ep);
+			description = "Component '" + component.getName() + "' with " + ep.getDirection();
+			// + " propagation " + EMV2Util.getPropagationName(ep);
+			if (type != null) {
+				description += " Propagated Failure '" + EMV2Util.getName(type) + "'";
+			}
 		}
 
 		return description;
