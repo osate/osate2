@@ -261,7 +261,6 @@ public class DiagramSerialization {
 			newElement.setAutoContentsFilter(e.getAutoContentsFilter().id());
 		}
 		
-		//if(e.isDecoration()) {
 		if(e.isManual()) {
 			newElement.setManual(true);
 		}
