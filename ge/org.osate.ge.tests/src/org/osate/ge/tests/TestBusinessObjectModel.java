@@ -11,24 +11,26 @@ import org.osate.ge.internal.diagram.runtime.DiagramConfiguration;
 import org.osate.ge.internal.diagram.runtime.DiagramElement;
 import org.osate.ge.internal.diagram.runtime.boTree.BusinessObjectNode;
 import org.osate.ge.internal.diagram.runtime.boTree.Completeness;
-import org.osate.ge.internal.diagram.runtime.boTree.TreeExpander;
+import org.osate.ge.internal.diagram.runtime.boTree.TreeUpdater;
 import org.osate.ge.internal.diagram.runtime.updating.DiagramElementInformationProvider;
 import org.osate.ge.internal.labels.AgeLabelConfiguration;
 
-public class TestBusinessObjectModel implements DiagramElementInformationProvider, TreeExpander {
+public class TestBusinessObjectModel implements DiagramElementInformationProvider, TreeUpdater {
 	public TestBusinessObject model;
 		
-	// BusinessObjectTreeFactory
+	long nextNodeId;
+	
 	@Override
-	public BusinessObjectNode expandTree(final DiagramConfiguration configuration, final BusinessObjectNode tree) {
-		final BusinessObjectNode newTree = new BusinessObjectNode(null, null, null, false, BuiltinContentsFilter.ALLOW_FUNDAMENTAL, Completeness.UNKNOWN);
+	public BusinessObjectNode expandTree(DiagramConfiguration configuration, BusinessObjectNode tree, long nextNodeId) {
+		final BusinessObjectNode newTree = new BusinessObjectNode(null, nextNodeId, null, null, false, BuiltinContentsFilter.ALLOW_FUNDAMENTAL, Completeness.UNKNOWN);
+		this.nextNodeId = nextNodeId;
 		createNodes(newTree, model.children);
 		return newTree;
 	}
 	
 	private void createNodes(final BusinessObjectNode parent, final TestBusinessObject[] bos) {
 		for(final TestBusinessObject bo : bos) {
-			final BusinessObjectNode newNode = new BusinessObjectNode(parent, bo.getRelativeReference(), bo, false, BuiltinContentsFilter.ALLOW_ALL, Completeness.UNKNOWN);
+			final BusinessObjectNode newNode = new BusinessObjectNode(parent, ++nextNodeId, bo.getRelativeReference(), bo, false, BuiltinContentsFilter.ALLOW_ALL, Completeness.UNKNOWN);
 			createNodes(newNode, bo.children);
 		}
 	}
