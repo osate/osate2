@@ -10,9 +10,9 @@ import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.modelsupport.WriteToFile;
 import org.osate.aadl2.util.OsateDebug;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorTypes;
-import org.osate.xtext.aadl2.errormodel.legacy.AnalysisModel;
-import org.osate.xtext.aadl2.errormodel.legacy.PropagationPathEnd;
+import org.osate.xtext.aadl2.errormodel.util.AnalysisModel;
 import org.osate.xtext.aadl2.errormodel.util.EMV2Util;
+import org.osate.xtext.aadl2.errormodel.util.PropagationPathEnd;
 
 /**
  * Class that implement a full PRISM model containing

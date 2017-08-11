@@ -41,10 +41,10 @@ import org.osate.aadl2.instance.InstanceObject;
 import org.osate.aadl2.instance.SystemInstance;
 import org.osate.ui.handlers.AaxlReadOnlyHandlerAsJob;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorPropagation;
-import org.osate.xtext.aadl2.errormodel.legacy.AnalysisModel;
-import org.osate.xtext.aadl2.errormodel.legacy.PropagationPathRecord;
+import org.osate.xtext.aadl2.errormodel.util.AnalysisModel;
 import org.osate.xtext.aadl2.errormodel.util.EM2TypeSetUtil;
 import org.osate.xtext.aadl2.errormodel.util.EMV2Util;
+import org.osate.xtext.aadl2.errormodel.util.PropagationPathRecord;
 
 public class UnhandledFaultsHandler extends AaxlReadOnlyHandlerAsJob {
 	AnalysisModel model;
