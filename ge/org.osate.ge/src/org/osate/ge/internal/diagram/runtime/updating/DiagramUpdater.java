@@ -107,7 +107,6 @@ public class DiagramUpdater {
 	 * @param bos
 	 */
 	private void updateStructure(final DiagramModification m, final DiagramNode container, final Collection<BusinessObjectNode> bos) {
-		final Map<RelativeBusinessObjectReference, Point> futureElementPositions = futureElementPositionMap.get(container);
 		for(final BusinessObjectNode n : bos) {
 			// Get existing element if it exists.
 			DiagramElement element = container.getByRelativeReference(n.getRelativeReference());
@@ -115,14 +114,13 @@ public class DiagramUpdater {
 			// Create the element if it does not exist
 			if(element == null) {
 				final DiagramElement removedGhost = removeGhost(container, n.getRelativeReference());
-				final Point initialPosition = futureElementPositions == null ? null : futureElementPositions.get(n.getRelativeReference());
 				if(removedGhost == null) {
 					final Object boh = infoProvider.getApplicableBusinessObjectHandler(n.getBusinessObject());
 					if(boh == null) {
 						// TODO: Proper way of handling?
 						continue;
 					}
-					element = new DiagramElement(container, n.getBusinessObject(), boh, n.getRelativeReference(), initialPosition);
+					element = new DiagramElement(container, n.getBusinessObject(), boh, n.getRelativeReference());
 					
 					// Set the size of the new element if it is the only top level element. This prevents having a tiny initial diagram area.
 					if(bos.size() == 1 && container instanceof AgeDiagram) {
@@ -131,13 +129,8 @@ public class DiagramUpdater {
 				} else {
 					element = removedGhost;
 					m.updateBusinessObjectWithSameRelativeReference(element, n.getBusinessObject());
-					
-					// There may be a ghosted element with the same name as a new element. In that case, set the unghosted element's position to the one specified by future elmeent positions
-					if(initialPosition != null) {
-						m.setPosition(element, initialPosition);
-					}
 				}
-				
+
 				// Update the element's ID
 				if(n.getId() != null) {
 					m.setId(element, n.getId());
@@ -237,6 +230,14 @@ public class DiagramUpdater {
 					// Ensure the dock area is null
 					m.setDockArea(element, null);
 				}		
+				
+				// Set the initial position if there is a value in the future element position map
+				// Set the position after the dock area so that setPosition() will know whether the element is dockable.
+				final Map<RelativeBusinessObjectReference, Point> futureElementPositions = futureElementPositionMap.get(container);
+				final Point initialPosition = futureElementPositions == null ? null : futureElementPositions.get(n.getRelativeReference());
+				if(initialPosition != null) {
+					m.setPosition(element, initialPosition);
+				}				
 							
 				if(element.getGraphic() instanceof AgeConnection) {
 					// Add connection elements to the list so that they can be access later.

@@ -139,7 +139,7 @@ public class DiagramSerialization {
 		}
 		
 		final RelativeBusinessObjectReference relReference = new RelativeBusinessObjectReference(refSegs);
-		final DiagramElement newElement = new DiagramElement(container, null, null, relReference, null);
+		final DiagramElement newElement = new DiagramElement(container, null, null, relReference);
 		
 		// Set the ID
 		if(mmChild.getId() != null) {

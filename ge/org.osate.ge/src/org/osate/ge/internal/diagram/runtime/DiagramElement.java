@@ -46,18 +46,15 @@ public class DiagramElement implements DiagramNode, ModifiableDiagramElementCont
 	 * @param bo
 	 * @param boHandler
 	 * @param boRelReference
-	 * @param position
 	 */
 	public DiagramElement(final DiagramNode container,
 			final Object bo, 
 			final Object boHandler,
-			final RelativeBusinessObjectReference boRelReference,
-			final Point position) {
+			final RelativeBusinessObjectReference boRelReference) {
 		this.container = Objects.requireNonNull(container, "container must not be null");
 		this.bo = bo;
 		this.boHandler = boHandler;
 		this.boRelReference = Objects.requireNonNull(boRelReference, "boRelReference must not be null");
-		this.position = position;
 	}
 
 	@Override

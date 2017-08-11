@@ -262,7 +262,7 @@ public class DefaultDiagramService implements DiagramService {
 		diagram.modify(new DiagramModifier() {			
 			@Override
 			public void modify(final DiagramModification m) {
-				final DiagramElement contextElement = new DiagramElement(diagram, contextBo, null, contextBoRelRef, null);
+				final DiagramElement contextElement = new DiagramElement(diagram, contextBo, null, contextBoRelRef);
 				m.setManual(contextElement, true);
 				m.addElement(contextElement);
 			}
