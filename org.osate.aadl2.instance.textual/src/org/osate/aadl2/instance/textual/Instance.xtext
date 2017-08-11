@@ -122,15 +122,18 @@ PropertyAssociationInstance returns instance::PropertyAssociationInstance:
 	':' propertyAssociation=[aadl2::PropertyAssociation|PropertyAssociationRef]
 ;
 
+@Override 
 OptionalModalPropertyValue returns aadl2::ModalPropertyValue:
 	ownedValue=PropertyExpression ('in' 'modes' '(' inMode+=[aadl2::Mode] (',' inMode+=[aadl2::Mode])* ')')?
 ;
 
+@Override 
 PropertyExpression returns aadl2::PropertyExpression:
 	RecordTerm | ReferenceTerm | InstanceReferenceValue | ComponentClassifierTerm | ComputedTerm | StringTerm |
 	NumericRangeTerm | RealTerm | IntegerTerm | ListTerm | BooleanLiteral | LiteralorReferenceTerm
 ;
 
+@Override 
 ContainmentPathElement returns aadl2::ContainmentPathElement:
 	namedElement=[aadl2::NamedElement|DeclarativeRef] (arrayRange+=ArrayRange)? ('/' path=ContainmentPathElement)?
 ;
