@@ -102,7 +102,7 @@ public class EMV2Properties {
 	 * @param relatedComponent - the component (instance, subcomponent or classifier that have the property association
 	 * @return - the text related to the description part of the hazards property. Null if not defined
 	 */
-	public static String getDescription(NamedElement element, NamedElement relatedComponent) {
+	public static String getHazardDescription(NamedElement element, NamedElement relatedComponent) {
 		TypeSet ts = null;
 
 		if (element instanceof ErrorBehaviorState) {
@@ -119,7 +119,10 @@ public class EMV2Properties {
 		if (element instanceof ConnectionErrorSource) {
 			ts = ((ConnectionErrorSource) element).getTypeTokenConstraint();
 		}
+		return getHazardDescription(element, relatedComponent, ts);
+	}
 
+	public static String getHazardDescription(NamedElement element, NamedElement relatedComponent, ErrorTypes ts) {
 		List<EMV2PropertyAssociation> PA = EMV2Properties.getHazardsProperty(relatedComponent, element, ts);
 
 		if (PA.isEmpty()) {
@@ -246,6 +249,18 @@ public class EMV2Properties {
 	public static List<EMV2PropertyAssociation> getMILSTD882HazardsProperty(NamedElement ci, NamedElement target,
 			TypeSet ts) {
 		List<EMV2PropertyAssociation> result = getProperty("MILSTD882::hazards", ci, target, ts);
+		return result;
+	}
+
+	public static List<EMV2PropertyAssociation> getHazardsProperty(NamedElement ci, NamedElement target,
+			ErrorTypes ts) {
+		List<EMV2PropertyAssociation> result = getProperty("EMV2::hazards", ci, target, ts);
+		if (result.isEmpty()) {
+			result = getProperty("ARP4761::hazards", ci, target, ts);
+		}
+		if (result.isEmpty()) {
+			result = getProperty("MILSTD882::hazards", ci, target, ts);
+		}
 		return result;
 	}
 
