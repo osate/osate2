@@ -81,7 +81,7 @@
               </style>
             </conditionnalStyles>
           </borderedNodeMappings>
-          <style xsi:type="style:SquareDescription" showIcon="false" labelExpression="service:ProbabilityToString()" tooltipExpression="feature:description" sizeComputationExpression="-1" labelPosition="node" resizeKind="NSEW" width="15" height="4" color="//@userColorsPalettes[name='FaultTreeColors']/@entries[name='VeryLightGrey']">
+          <style xsi:type="style:SquareDescription" showIcon="false" labelExpression="service:getDescriptionAndProbability()" tooltipExpression="service:getHazardDescriptionAndProbability()" sizeComputationExpression="-1" labelPosition="node" resizeKind="NSEW" width="15" height="4" color="//@userColorsPalettes[name='FaultTreeColors']/@entries[name='VeryLightGrey']">
             <borderColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
             <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
           </style>
@@ -116,7 +116,7 @@
       </diagramInitialisation>
       <defaultLayer name="Default">
         <nodeMappings name="EventBox" semanticCandidatesExpression="feature:events" domainClass="FaultTree::Event">
-          <style xsi:type="style:SquareDescription" labelExpression="service:ProbabilityToString()" tooltipExpression="feature:description" sizeComputationExpression="-1" labelPosition="node" resizeKind="NSEW" width="15" height="4" color="//@userColorsPalettes[name='FaultTreeColors']/@entries[name='VeryLightGrey']">
+          <style xsi:type="style:SquareDescription" labelExpression="service:getDescriptionAndProbability()" tooltipExpression="service:getHazardDescriptionAndProbability()" sizeComputationExpression="-1" labelPosition="node" resizeKind="NSEW" width="15" height="4" color="//@userColorsPalettes[name='FaultTreeColors']/@entries[name='VeryLightGrey']">
             <borderColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
             <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
           </style>
