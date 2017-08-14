@@ -114,8 +114,8 @@ In some cases a connection between diagram elements will be represented by a dot
 
 - An AADL connection between subcomponents where one or more of the referenced features are hidden.
 - A flow specification which references a hidden feature which is contained in a feature group.
-- A AADL property reference value for which the model element to which the property value applies is hidden.
-- A AADL property reference value for which the referenced model element is hidden.
+- An AADL property reference value for which the model element to which the property value applies is hidden.
+- An AADL property reference value for which the referenced model element is hidden.
 
 ### Inherited Element
 Elements which are inherited from another model element have a gray color. This indicates that any changes made to the model element will result in a change to model element other than the one in which it is contained in graphically. Modifying inherited elements directly is not supported at this time. To modify an inherited model element, modify the element in the context of its owner. For example, to modify an AADL feature which is inherited from another classifier, find the diagram element of the classifier which defines the feature and modify the feature. 
