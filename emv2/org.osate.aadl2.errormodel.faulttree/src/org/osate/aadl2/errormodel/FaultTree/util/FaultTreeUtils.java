@@ -31,7 +31,7 @@ public class FaultTreeUtils {
 		if (io instanceof ComponentInstance) {
 			event.setDescription(getDescription((ComponentInstance) io, ne, type));
 		} else {
-			String hazardDescription = EMV2Properties.getDescription(ne, io);
+			String hazardDescription = EMV2Properties.getHazardDescription(ne, io);
 			event.setDescription("Connection " + ((ConnectionErrorSource) ne).getConnection().getName() + " Hazard "
 					+ hazardDescription);
 		}
@@ -53,58 +53,68 @@ public class FaultTreeUtils {
 		fillProperties(event, conni, ces, type, 1);
 	}
 
+	public static String getName(ComponentInstance component) {
+		return (component instanceof SystemInstance ? component.getComponentClassifier().getName()
+				: component.getComponentInstancePath());
+	}
+
 	public static String getDescription(ComponentInstance component, NamedElement errorModelArtifact, ErrorTypes type) {
 		String description;
 		description = "";
-
 		if (errorModelArtifact instanceof ErrorSource) {
 			ErrorSource errorSource = (ErrorSource) errorModelArtifact;
-			description += "Component '"
-					+ (component instanceof SystemInstance ? component.getComponentClassifier().getName()
-							: component.getComponentInstancePath())
-					+ "'";
+			description += "Component '" + getName(component) + "'";
 			if (errorSource.getFailureModeType() != null) {
-				description += " Failure Source '" + EMV2Util.getName(errorSource.getFailureModeType()) + "'";
-			}
-			if (errorSource.getFailureModeReference() != null) {
-				description += " Failure mode '" + errorSource.getFailureModeReference().getName() + "'";
+				description += " failure source '" + EMV2Util.getName(errorSource.getFailureModeType()) + "'";
+			} else if (errorSource.getFailureModeReference() != null) {
+				description += " failure mode '" + errorSource.getFailureModeReference().getName() + "'";
 			}
 			if (errorSource.getFailureModeDescription() != null) {
-				description += " Failure '" + errorSource.getFailureModeDescription() + "'";
+				description += " failure '" + errorSource.getFailureModeDescription() + "'";
 			}
 			if (type != null) {
-				description += " Propagates '" + EMV2Util.getName(type) + "'";
+				if (errorSource.getFailureModeType() == null && errorSource.getFailureModeReference() == null
+						&& errorSource.getFailureModeDescription() == null) {
+					description += " failure source '" + EMV2Util.getName(type) + "'";
+				} else {
+					description += " propagates '" + EMV2Util.getName(type) + "'";
+				}
 			}
-			if ((errorSource.getOutgoing() != null && errorSource.getOutgoing().getFeatureorPPRef() != null)
-					&& (errorSource.getOutgoing().getFeatureorPPRef().getFeatureorPP() != null)) {
-				NamedElement el = errorSource.getOutgoing().getFeatureorPPRef().getFeatureorPP();
-				description += " via '";
-				description += el.getName() + "'";
-			}
+//			if ((errorSource.getOutgoing() != null && errorSource.getOutgoing().getFeatureorPPRef() != null)
+//					&& (errorSource.getOutgoing().getFeatureorPPRef().getFeatureorPP() != null)) {
+//				NamedElement el = errorSource.getOutgoing().getFeatureorPPRef().getFeatureorPP();
+//				description += " via '";
+//				description += el.getName() + "'";
+//			}
 
 		}
 
 		if (errorModelArtifact instanceof ErrorEvent) {
-			description += "Component '" + component.getName() + "'";
+			description += "Component '" + getName(component) + "'";
 			if (type != null) {
-				description += " failure event " + EMV2Util.getName(type);
+				description += " failure event '" + EMV2Util.getName(type) + "'";
 			}
 		}
 
 		if (errorModelArtifact instanceof ErrorBehaviorState) {
 			ErrorBehaviorState ebs = (ErrorBehaviorState) errorModelArtifact;
-			description = "Component '" + component.getName() + "' in failure mode '" + ebs.getName() + "'";
+			description = "Component '" + getName(component) + "' in failure mode '" + ebs.getName() + "'";
 			if (type != null) {
-				description += " Type '" + EMV2Util.getName(type) + "'";
+				description += " type '" + EMV2Util.getName(type) + "'";
 			}
 		}
 
 		if (errorModelArtifact instanceof ErrorPropagation) {
 			ErrorPropagation ep = (ErrorPropagation) errorModelArtifact;
-			description = "Component '" + component.getName() + "' with " + ep.getDirection();
-			// + " propagation " + EMV2Util.getPropagationName(ep);
+			String boundaryLabel = "";
+			if (component instanceof SystemInstance) {
+				boundaryLabel = " external ";
+			} else {
+				boundaryLabel = " undeveloped ";
+			}
+			description = "Component '" + getName(component) + "' with " + boundaryLabel + ep.getDirection();
 			if (type != null) {
-				description += " Propagated Failure '" + EMV2Util.getName(type) + "'";
+				description += " failure '" + EMV2Util.getName(type) + "'";
 			}
 		}
 
