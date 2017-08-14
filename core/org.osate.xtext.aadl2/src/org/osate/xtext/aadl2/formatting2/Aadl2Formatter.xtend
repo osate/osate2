@@ -618,8 +618,7 @@ class Aadl2Formatter extends AbstractFormatter2 {
 		property.defaultValue.format(document)
 		
 		//Applies to
-		//TODO Uncomment and fix after figuring out how to get the semantic region for keywords in a rule call.
-//		property.regionFor.keyword(propertyDefinitionAccess.appliesKeyword_5).surround[oneSpace]
+		property.regionFor.keyword(appliesToKeywordsAccess.appliesKeyword_0).surround[oneSpace]
 		val leftParenthesis = property.regionFor.keyword(propertyDefinitionAccess.leftParenthesisKeyword_6)
 		val rightParenthesis = property.regionFor.keyword(propertyDefinitionAccess.rightParenthesisKeyword_8)
 		interior(leftParenthesis, rightParenthesis, [indent; indent; indent])
@@ -670,10 +669,8 @@ class Aadl2Formatter extends AbstractFormatter2 {
 		propertyAssociation.regionFor.keywords(",").forEach[prepend[noSpace].append[oneSpace]]
 		
 		//Applies to
-		//TODO Uncomment and fix after figuring out how to get the semantic region for keywords in a rule call.
-//		propertyAssociation.regionFor.keyword(containedPropertyAssociationAccess.appliesKeyword_4_0).surround[oneSpace]
-		//TODO Uncomment and fix after figuring out how to get the semantic region for keywords in a rule call.
-//		propertyAssociation.regionFor.keyword(containedPropertyAssociationAccess.toKeyword_4_1).append[oneSpace]
+		propertyAssociation.regionFor.keyword(appliesToKeywordsAccess.appliesKeyword_0).surround[oneSpace]
+		propertyAssociation.regionFor.keyword(appliesToKeywordsAccess.toKeyword_1).append[oneSpace]
 		propertyAssociation.appliesTos.forEach[it.format(document)]
 		
 		//In binding
@@ -691,8 +688,7 @@ class Aadl2Formatter extends AbstractFormatter2 {
 		val leftParenthesis = modalPropertyValue.regionFor.keyword(optionalModalPropertyValueAccess.leftParenthesisKeyword_1_1)
 		val rightParenthesis = modalPropertyValue.regionFor.keyword(optionalModalPropertyValueAccess.rightParenthesisKeyword_1_4)
 		if (leftParenthesis !== null && rightParenthesis !== null) {
-			//TODO Uncomment and fix after figuring out how to get the semantic region for keywords in a rule call.
-//			modalPropertyValue.regionFor.keyword(optionalModalPropertyValueAccess.inKeyword_1_0).surround[oneSpace]
+			modalPropertyValue.regionFor.keyword(inModesKeywordsAccess.inKeyword_0).surround[oneSpace]
 			interior(leftParenthesis, rightParenthesis, [indent; indent; indent])
 			leftParenthesis.prepend[oneSpace].append[noSpace; setNewLines(0, 0, 1); autowrap]
 			modalPropertyValue.regionFor.keywords(optionalModalPropertyValueAccess.commaKeyword_1_3_0).forEach[
@@ -1566,8 +1562,7 @@ class Aadl2Formatter extends AbstractFormatter2 {
 		val leftParenthesis = defaultAnnexSubclause.regionFor.keyword(defaultAnnexSubclauseAccess.leftParenthesisKeyword_3_1)
 		val rightParenthesis = defaultAnnexSubclause.regionFor.keyword(defaultAnnexSubclauseAccess.rightParenthesisKeyword_3_3)
 		if (leftParenthesis !== null && rightParenthesis !== null) {
-			//TODO Uncomment and fix after figuring out how to get the semantic region for keywords in a rule call.
-//			defaultAnnexSubclause.regionFor.keyword(defaultAnnexSubclauseAccess.inKeyword_3_0).surround[oneSpace]
+			defaultAnnexSubclause.regionFor.keyword(inModesKeywordsAccess.inKeyword_0).surround[oneSpace]
 			interior(leftParenthesis, rightParenthesis, [indent; indent; indent])
 			leftParenthesis.prepend[oneSpace].append[noSpace; setNewLines(0, 0, 1); autowrap]
 			defaultAnnexSubclause.regionFor.keywords(defaultAnnexSubclauseAccess.commaKeyword_3_2_1_0).forEach[
@@ -1919,8 +1914,7 @@ class Aadl2Formatter extends AbstractFormatter2 {
 		val leftParenthesis = subprogramCallSequence.regionFor.keyword(subprogramCallSequenceAccess.leftParenthesisKeyword_6_1)
 		val rightParenthesis = subprogramCallSequence.regionFor.keyword(subprogramCallSequenceAccess.rightParenthesisKeyword_6_3)
 		if (leftParenthesis !== null && rightParenthesis !== null) {
-			//TODO Uncomment and fix after figuring out how to get the semantic region for keywords in a rule call.
-//			subprogramCallSequence.regionFor.keyword(subprogramCallSequenceAccess.inKeyword_6_0).surround[oneSpace]
+			subprogramCallSequence.regionFor.keyword(inModesKeywordsAccess.inKeyword_0).surround[oneSpace]
 			interior(leftParenthesis, rightParenthesis, [indent; indent; indent])
 			leftParenthesis.prepend[oneSpace].append[noSpace; setNewLines(0, 0, 1); autowrap]
 			subprogramCallSequence.regionFor.keywords(subprogramCallSequenceAccess.commaKeyword_6_2_1_0).forEach[
@@ -2262,8 +2256,7 @@ class Aadl2Formatter extends AbstractFormatter2 {
 		val leftParenthesis = endToEndFlow.regionFor.keyword(endToEndFlowAccess.leftParenthesisKeyword_2_1)
 		val rightParenthesis = endToEndFlow.regionFor.keyword(endToEndFlowAccess.rightParenthesisKeyword_2_4)
 		if (leftParenthesis !== null && rightParenthesis !== null) {
-			//TODO Uncomment and fix after figuring out how to get the semantic region for keywords in a rule call.
-//			endToEndFlow.regionFor.keyword(endToEndFlowAccess.inKeyword_2_0).surround[oneSpace]
+			endToEndFlow.regionFor.keyword(inModesKeywordsAccess.inKeyword_0).surround[oneSpace]
 			interior(leftParenthesis, rightParenthesis, [indent; indent; indent])
 			leftParenthesis.prepend[oneSpace].append[noSpace; setNewLines(0, 0, 1); autowrap]
 			endToEndFlow.regionFor.keywords(endToEndFlowAccess.commaKeyword_2_3_0).forEach[
