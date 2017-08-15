@@ -74,7 +74,7 @@ public class BaStateHandler {
 		} else if (modifyBo instanceof BehaviorAnnex) {
 			ba = (BehaviorAnnex) modifyBo;
 		} else {
-			throw new RuntimeException("Owner is not of expected type. Owner: " + modifyBo);
+			throw new RuntimeException("Modify business object is not of expected type. BO: " + modifyBo);
 		}
 
 		// Create the state
