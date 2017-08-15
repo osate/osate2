@@ -38,7 +38,7 @@ public final class PaletteEntryBuilder {
 	 * Configures the palette entry builder to create a palette entry for creating a business object based on an owner business object.
 	 * Such a palette entry is most often used to create business objects represented by shapes.
 	 * @return this builder to allow method chaining.
-	 * @see org.osate.ge.di.Names#OWNER_BO
+	 * @see org.osate.ge.di.Names#MODIFY_BO
 	 * @see org.osate.ge.di.GetCreateOwner
 	 * @see org.osate.ge.di.CanCreate
 	 * @see org.osate.ge.di.Create

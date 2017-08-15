@@ -110,7 +110,7 @@ public class SubcomponentHandler {
 	}
 	
 	@Create
-	public Subcomponent createBusinessObject(@Named(Names.OWNER_BO) final ComponentImplementation owner,
+	public Subcomponent createBusinessObject(@Named(Names.MODIFY_BO) final ComponentImplementation owner,
 			final @Named(Names.PALETTE_ENTRY_CONTEXT) EClass subcomponentType, 
 			final NamingService namingService) {
 		

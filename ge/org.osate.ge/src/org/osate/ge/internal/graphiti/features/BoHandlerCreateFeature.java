@@ -1,6 +1,7 @@
 package org.osate.ge.internal.graphiti.features;
 
 import java.util.Objects;
+
 import org.eclipse.e4.core.contexts.ContextInjectionFactory;
 import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.emf.ecore.EObject;
@@ -10,6 +11,12 @@ import org.eclipse.graphiti.features.IFeatureProvider;
 import org.eclipse.graphiti.features.context.IContext;
 import org.eclipse.graphiti.features.context.ICreateContext;
 import org.eclipse.graphiti.features.impl.AbstractCreateFeature;
+import org.osate.ge.BusinessObjectContext;
+import org.osate.ge.di.CanCreate;
+import org.osate.ge.di.Create;
+import org.osate.ge.di.GetBusinessObjectToModify;
+import org.osate.ge.di.GetCreateOwner;
+import org.osate.ge.di.Names;
 import org.osate.ge.internal.Categorized;
 import org.osate.ge.internal.DockingPosition;
 import org.osate.ge.internal.SimplePaletteEntry;
@@ -20,14 +27,9 @@ import org.osate.ge.internal.diagram.runtime.Point;
 import org.osate.ge.internal.diagram.runtime.RelativeBusinessObjectReference;
 import org.osate.ge.internal.diagram.runtime.updating.DiagramUpdater;
 import org.osate.ge.internal.graphiti.services.GraphitiService;
-import org.osate.ge.BusinessObjectContext;
-import org.osate.ge.di.CanCreate;
-import org.osate.ge.di.Create;
-import org.osate.ge.di.GetCreateOwner;
-import org.osate.ge.di.Names;
 import org.osate.ge.internal.services.AadlModificationService;
-import org.osate.ge.internal.services.ExtensionService;
 import org.osate.ge.internal.services.AadlModificationService.AbstractModifier;
+import org.osate.ge.internal.services.ExtensionService;
 import org.osate.ge.services.ReferenceBuilderService;
 
 // ICreateFeature implementation that delegates behavior to a business object handler
@@ -39,14 +41,14 @@ public class BoHandlerCreateFeature extends AbstractCreateFeature implements Cat
 	private final ReferenceBuilderService refBuilder;
 	private final SimplePaletteEntry paletteEntry;
 	private final Object handler;
-	
+
 	public BoHandlerCreateFeature(final GraphitiService graphitiService,
-			final ExtensionService extService, 
+			final ExtensionService extService,
 			final AadlModificationService aadlModService,
 			final DiagramUpdater diagramUpdater,
 			final ReferenceBuilderService refBuilder,
-			final IFeatureProvider fp, 
-			final SimplePaletteEntry paletteEntry, 
+			final IFeatureProvider fp,
+			final SimplePaletteEntry paletteEntry,
 			final Object boHandler) {
 		super(fp, paletteEntry.getLabel(), "");
 		this.graphitiService = Objects.requireNonNull(graphitiService, "graphitiAgeDiagramProvider must not be null");
@@ -67,19 +69,19 @@ public class BoHandlerCreateFeature extends AbstractCreateFeature implements Cat
 	public String getCreateImageId() {
 		return paletteEntry.getImageId();
 	}
-	
+
 	@Override
 	public boolean canCreate(final ICreateContext context) {
 		final DiagramNode targetNode = graphitiService.getGraphitiAgeDiagram().getClosestDiagramNode(context.getTargetContainer());
 		if(targetNode == null) {
 			return false;
 		}
-		
+
 		final Object targetBo = targetNode.getBusinessObject();
 		if(targetBo == null) {
 			return false;
 		}
-		
+
 		final IEclipseContext eclipseCtx = extService.createChildContext();
 		try {
 			eclipseCtx.set(Names.PALETTE_ENTRY_CONTEXT, paletteEntry.getContext());
@@ -90,28 +92,26 @@ public class BoHandlerCreateFeature extends AbstractCreateFeature implements Cat
 			eclipseCtx.dispose();
 		}
 	}
-	
+
 	@Override
 	public Object[] create(final ICreateContext context) {
 		final DiagramNode targetNode = graphitiService.getGraphitiAgeDiagram().getClosestDiagramNode(context.getTargetContainer());
 		if(targetNode == null) {
 			return EMPTY;
 		}
-		
+
 		final DiagramNode ownerNode = getOwnerDiagramNode(targetNode);
-		if(ownerNode == null) {
-			return EMPTY;
-		}
+		final EObject boToModify = getBusinessObjectToModify(targetNode, ownerNode.getBusinessObject());
 
 		final DockingPosition targetDockingPosition = AgeDiagramUtil.determineDockingPosition(targetNode, context.getX(), context.getY(), 0, 0);
 		// Modify the AADL model
-		final Object newBo = aadlModService.modify((EObject)ownerNode.getBusinessObject(), new AbstractModifier<EObject, Object>() {
+		final Object newBo = aadlModService.modify(boToModify, new AbstractModifier<EObject, Object>() {
 			@Override
-			public Object modify(Resource resource, EObject ownerBo) {
+			public Object modify(Resource resource, EObject boToModify) {
 				final IEclipseContext eclipseCtx = extService.createChildContext();
 				try {
 					eclipseCtx.set(Names.PALETTE_ENTRY_CONTEXT, paletteEntry.getContext());
-					eclipseCtx.set(Names.OWNER_BO, ownerBo);
+					eclipseCtx.set(Names.MODIFY_BO, boToModify);
 					eclipseCtx.set(Names.TARGET_BO, targetNode.getBusinessObject());
 					eclipseCtx.set(InternalNames.PROJECT, graphitiService.getProject());
 					eclipseCtx.set(Names.DOCKING_POSITION, targetDockingPosition); // Specify even if the shape will not be docked.
@@ -127,41 +127,60 @@ public class BoHandlerCreateFeature extends AbstractCreateFeature implements Cat
 							}
 						}
 					}
-					
+
 					return newBo == null ? EMPTY : newBo;
 				} finally {
 					eclipseCtx.dispose();
 				}
 			}
 		});
-		
+
 		return newBo == null ? EMPTY : new Object[] {newBo};
 	}
-	
-	// Returns null if the owner business object context's business object is not an EObject
+
 	private DiagramNode getOwnerDiagramNode(final DiagramNode targetNode) {
 		final IEclipseContext eclipseCtx = extService.createChildContext();
 		try {
 			eclipseCtx.set(Names.PALETTE_ENTRY_CONTEXT, paletteEntry.getContext());
 			eclipseCtx.set(Names.TARGET_BO, targetNode.getBusinessObject());
 			eclipseCtx.set(Names.TARGET_BUSINESS_OBJECT_CONTEXT, targetNode);
-			final BusinessObjectContext ownerBoc = (BusinessObjectContext)ContextInjectionFactory.invoke(handler, GetCreateOwner.class, eclipseCtx, targetNode);
-			if(ownerBoc instanceof DiagramNode && ownerBoc.getBusinessObject() instanceof EObject) {
-				return (DiagramNode)ownerBoc;
+			final BusinessObjectContext ownerBoc = (BusinessObjectContext) ContextInjectionFactory.invoke(handler,
+					GetCreateOwner.class, eclipseCtx, targetNode);
+			if (!(ownerBoc instanceof DiagramNode)) {
+				throw new RuntimeException("Expected diagram node");
 			}
+
+			return (DiagramNode) ownerBoc;
 		} finally {
 			eclipseCtx.dispose();
 		}
-		
-		return null;
 	}
-	
+
+	// Returns null if the business object to be modified is not an EObject
+	private EObject getBusinessObjectToModify(final DiagramNode targetNode, final Object defaultValue) {
+		final IEclipseContext eclipseCtx = extService.createChildContext();
+		try {
+			eclipseCtx.set(Names.PALETTE_ENTRY_CONTEXT, paletteEntry.getContext());
+			eclipseCtx.set(Names.TARGET_BO, targetNode.getBusinessObject());
+			eclipseCtx.set(Names.TARGET_BUSINESS_OBJECT_CONTEXT, targetNode);
+			final Object boToModify = ContextInjectionFactory.invoke(handler,
+					GetBusinessObjectToModify.class, eclipseCtx, defaultValue);
+			if (!(boToModify instanceof EObject)) {
+				throw new RuntimeException("Business object being modified must be an EObject");
+			}
+
+			return (EObject) boToModify;
+		} finally {
+			eclipseCtx.dispose();
+		}
+	}
+
 	// ICustomUndoRedoFeature
 	@Override
 	public boolean canUndo(final IContext context) {
 		return false;
 	}
-	
+
 	@Override
 	public void preUndo(IContext context) {
 	}

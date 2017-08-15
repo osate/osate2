@@ -27,7 +27,7 @@ import java.lang.annotation.Target;
  * <table summary="Named Parameters">
  *   <tr><th>Parameter</th><th>Usage</th><th>Description</th></tr>
  *   <tr><td>{@link org.osate.ge.di.Names#BUSINESS_OBJECT}</td><td>Business Object handler</td><td>The business object being deleted.</td></tr>
- *   <tr><td>{@link org.osate.ge.di.Names#OWNER_BO}</td><td>Business Object handler</td><td>The owner of the business object as returned by its {@link org.osate.ge.EmfContainerProvider#getEmfContainer()} implementation.</td></tr>
+ *   <tr><td>{@link org.osate.ge.di.Names#MODIFY_BO}</td><td>Business Object handler</td><td>The owner of the business object as returned by its {@link org.osate.ge.EmfContainerProvider#getEmfContainer()} implementation.</td></tr>
  * </table>
  * @see CanDelete
  * @see org.osate.ge.EmfContainerProvider

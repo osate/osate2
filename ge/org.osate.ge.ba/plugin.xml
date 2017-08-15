@@ -13,7 +13,7 @@
             class="org.osate.ge.ba.businessObjectHandlers.BehaviorAnnexHandler">
       </handler>
       <handler
-            class="org.osate.ge.ba.businessObjectHandlers.StateHandler">
+            class="org.osate.ge.ba.businessObjectHandlers.BaStateHandler">
       </handler>
    </extension>
    <extension

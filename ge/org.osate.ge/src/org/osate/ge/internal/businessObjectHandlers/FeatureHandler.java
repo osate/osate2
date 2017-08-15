@@ -109,7 +109,7 @@ public class FeatureHandler {
 	}
 	
 	@Create
-	public NamedElement createBusinessObject(@Named(Names.OWNER_BO) final Classifier classifier, final @Named(Names.PALETTE_ENTRY_CONTEXT) EClass featureType, final @Named(Names.DOCKING_POSITION) DockingPosition dockingPosition, final NamingService namingService) {
+	public NamedElement createBusinessObject(@Named(Names.MODIFY_BO) final Classifier classifier, final @Named(Names.PALETTE_ENTRY_CONTEXT) EClass featureType, final @Named(Names.DOCKING_POSITION) DockingPosition dockingPosition, final NamingService namingService) {
 		final String newFeatureName = namingService.buildUniqueIdentifier(classifier, "new_feature");
 		
 		final NamedElement newFeature = AadlFeatureUtil.createFeature(classifier, featureType);
