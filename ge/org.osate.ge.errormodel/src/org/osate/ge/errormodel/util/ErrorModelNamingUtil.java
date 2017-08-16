@@ -1,11 +1,3 @@
-/*******************************************************************************
- * Copyright (C) 2016 University of Alabama in Huntsville (UAH)
- * All rights reserved. This program and the accompanying materials
- * are made available under the terms of the Eclipse Public License v1.0
- * which accompanies this distribution, and is available at
- * http://www.eclipse.org/legal/epl-v10.html
- * The US Government has unlimited rights in this work in accordance with W31P4Q-10-D-0092 DO 0105.
- *******************************************************************************/
 package org.osate.ge.errormodel.util;
 
 import java.util.Collection;
@@ -17,7 +9,7 @@ import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorStateMachine;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelLibrary;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelSubclause;
 
-public class ErrorModelNamingHelper {
+public class ErrorModelNamingUtil {
 	public static String buildUniqueIdentifier(final ErrorModelLibrary lib, final String baseIdentifier) {
 		final Set<String> existingIdentifiers = buildNameSet(lib);
 		return buildUniqueIdentifier(existingIdentifiers, baseIdentifier);		
@@ -110,9 +102,9 @@ public class ErrorModelNamingHelper {
 	
 	private static Set<String> buildNameSet(final ErrorBehaviorStateMachine sm) {
 		final Set<String> names = new HashSet<String>();
-		ErrorModelNamingHelper.addToNameSet(names, sm.getEvents());
-		ErrorModelNamingHelper.addToNameSet(names, sm.getStates());
-		ErrorModelNamingHelper.addToNameSet(names, sm.getTransitions());
+		ErrorModelNamingUtil.addToNameSet(names, sm.getEvents());
+		ErrorModelNamingUtil.addToNameSet(names, sm.getStates());
+		ErrorModelNamingUtil.addToNameSet(names, sm.getTransitions());
 		return names;
 	}
 		

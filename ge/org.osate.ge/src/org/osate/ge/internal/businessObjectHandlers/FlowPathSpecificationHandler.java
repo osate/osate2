@@ -109,7 +109,7 @@ public class FlowPathSpecificationHandler extends FlowSpecificationHandler {
 	}	
 	
 	@Create
-	public FlowSpecification createFlowPath(final @Named(Names.OWNER_BO) ComponentType ct,
+	public FlowSpecification createFlowPath(final @Named(Names.MODIFY_BO) ComponentType ct,
 			final @Named(Names.SOURCE_BO) Feature srcFeature,
 			final @Named(Names.SOURCE_BUSINESS_OBJECT_CONTEXT) BusinessObjectContext srcBoc,
 			final @Named(Names.DESTINATION_BO) Feature dstFeature,

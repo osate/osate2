@@ -129,7 +129,7 @@ public class BoHandlerDeleteFeature extends AbstractFeature implements IDeleteFe
 					final IEclipseContext eclipseCtx = extService.createChildContext();
 					try {
 						eclipseCtx.set(Names.BUSINESS_OBJECT, bo);
-						eclipseCtx.set(Names.OWNER_BO, ownerBo);
+						eclipseCtx.set(Names.MODIFY_BO, ownerBo);
 						final Object boHandler = de.getBusinessObjectHandler();
 						ContextInjectionFactory.invoke(boHandler, Delete.class, eclipseCtx);						
 					} finally {

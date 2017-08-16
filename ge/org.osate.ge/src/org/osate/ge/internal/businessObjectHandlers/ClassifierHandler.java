@@ -208,7 +208,7 @@ public class ClassifierHandler {
 	}
 
 	@Create
-	public Classifier createBusinessObject(@Named(Names.OWNER_BO) final AadlPackage pkg, @Named(Names.TARGET_BO) final EObject targetBo, 
+	public Classifier createBusinessObject(@Named(Names.MODIFY_BO) final AadlPackage pkg, @Named(Names.TARGET_BO) final EObject targetBo, 
 			final @Named(Names.PALETTE_ENTRY_CONTEXT) EClass classifierType, final @Named(InternalNames.PROJECT) IProject project,
 			final NamingService namingService) {
 		final EObject baseClassifier = determineBaseClassifier(targetBo, classifierType, project);

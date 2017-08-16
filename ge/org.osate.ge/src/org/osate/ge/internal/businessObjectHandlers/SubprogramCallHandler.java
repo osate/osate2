@@ -94,7 +94,7 @@ public class SubprogramCallHandler {
 	}
 	
 	@Create
-	public SubprogramCall createBusinessObject(@Named(Names.OWNER_BO) SubprogramCallSequence cs, 
+	public SubprogramCall createBusinessObject(@Named(Names.MODIFY_BO) SubprogramCallSequence cs, 
 			final @Named(Names.TARGET_BUSINESS_OBJECT_CONTEXT) BusinessObjectContext targetBoc,
 			final NamingService namingService,
 			final QueryService queryService) {
