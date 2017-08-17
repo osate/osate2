@@ -387,7 +387,7 @@
   <setupTask
       xsi:type="setup:VariableTask"
       name="osate.target.location"
-      value="${git.clone.osate2-core.location/osate2-core/org.osate.build.target/osate2-development.target}"/>
+      value="${git.clone.osate2-core.location/org.osate.build.target/osate2-development.target}"/>
   <setupTask
       xsi:type="setup.p2:P2Task">
     <requirement
