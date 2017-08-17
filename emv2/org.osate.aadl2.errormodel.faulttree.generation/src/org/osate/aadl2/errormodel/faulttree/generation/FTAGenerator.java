@@ -116,6 +116,14 @@ public class FTAGenerator extends PropagationGraphBackwardTraversal {
 			}
 			redoCount();
 			removeOrphans();
+			for (Event event : ftaModel.getEvents()) {
+				EObject element = event.getRelatedEMV2Object();
+				if (element instanceof NamedElement) {
+					FaultTreeUtils.fillProperties(event, (ComponentInstance) event.getRelatedInstanceObject(),
+							(NamedElement) element,
+							(ErrorTypes) event.getRelatedErrorType());
+				}
+			}
 			if (transformTree || minimalCutSet || !hasDependentEvents) {
 				FaultTreeUtils.performUpdate(ftaModel.getRoot());
 			}
@@ -230,7 +238,7 @@ public class FTAGenerator extends PropagationGraphBackwardTraversal {
 		newEvent.setRelatedInstanceObject(component);
 		newEvent.setRelatedEMV2Object(namedElement);
 		newEvent.setRelatedErrorType(type);
-		FaultTreeUtils.fillProperties(newEvent, component, namedElement, type);
+//		FaultTreeUtils.fillProperties(newEvent, component, namedElement, type);
 		return newEvent;
 	}
 
@@ -247,7 +255,7 @@ public class FTAGenerator extends PropagationGraphBackwardTraversal {
 		newEvent.setRelatedInstanceObject(conni);
 		newEvent.setRelatedEMV2Object(namedElement);
 		newEvent.setRelatedErrorType(type);
-		FaultTreeUtils.fillProperties(newEvent, conni, namedElement, type);
+//		FaultTreeUtils.fillProperties(newEvent, conni, namedElement, type);
 		return newEvent;
 	}
 
@@ -285,9 +293,9 @@ public class FTAGenerator extends PropagationGraphBackwardTraversal {
 		newEvent.setRelatedInstanceObject(component);
 		newEvent.setRelatedEMV2Object(element);
 		newEvent.setRelatedErrorType(type);
-		if (element instanceof NamedElement) {
-			FaultTreeUtils.fillProperties(newEvent, component, (NamedElement) element, type);
-		}
+//		if (element instanceof NamedElement) {
+//			FaultTreeUtils.fillProperties(newEvent, component, (NamedElement) element, type);
+//		}
 		return newEvent;
 	}
 
@@ -1111,14 +1119,14 @@ public class FTAGenerator extends PropagationGraphBackwardTraversal {
 	protected EObject processOutgoingErrorPropagation(ComponentInstance component, ErrorPropagation errorPropagation,
 			ErrorTypes targetType) {
 		Event newEvent = createBasicEvent(component, errorPropagation, targetType);
-		FaultTreeUtils.fillProperties(newEvent, component, errorPropagation, targetType);
+//		FaultTreeUtils.fillProperties(newEvent, component, errorPropagation, targetType);
 		return newEvent;
 	}
 
 	@Override
 	protected EObject processErrorSource(ComponentInstance component, ErrorSource errorSource, ErrorTypes type) {
 		Event newEvent = this.createBasicEvent(component, errorSource, type);
-		FaultTreeUtils.fillProperties(newEvent, component, errorSource, type);
+//		FaultTreeUtils.fillProperties(newEvent, component, errorSource, type);
 		return newEvent;
 	}
 
@@ -1127,7 +1135,7 @@ public class FTAGenerator extends PropagationGraphBackwardTraversal {
 			ErrorTypes typeTokenConstraint) {
 		// InstanceUtil.findConnectionContext(ppr.getConnection(), ces.getConnection())
 		Event newEvent = this.createBasicEvent(conni, errorSource, typeTokenConstraint);
-		FaultTreeUtils.fillProperties(newEvent, conni, errorSource, typeTokenConstraint);
+//		FaultTreeUtils.fillProperties(newEvent, conni, errorSource, typeTokenConstraint);
 		return newEvent;
 	}
 
@@ -1140,7 +1148,7 @@ public class FTAGenerator extends PropagationGraphBackwardTraversal {
 		} else {
 			res.setType(EventType.UNDEVELOPED);
 		}
-		FaultTreeUtils.fillProperties(res, component, incoming, type);
+//		FaultTreeUtils.fillProperties(res, component, incoming, type);
 		return res;
 	}
 
@@ -1164,7 +1172,7 @@ public class FTAGenerator extends PropagationGraphBackwardTraversal {
 		Event result = finalizeAsOrEvents(component, state, targetType, subResults);
 		if (result == null) {
 			Event newEvent = createBasicEvent(component, state, targetType);
-			FaultTreeUtils.fillProperties(newEvent, component, state, targetType);
+//			FaultTreeUtils.fillProperties(newEvent, component, state, targetType);
 			return newEvent;
 		}
 		return result;
@@ -1174,7 +1182,7 @@ public class FTAGenerator extends PropagationGraphBackwardTraversal {
 	protected EObject processErrorBehaviorState(ComponentInstance component, ErrorBehaviorState state,
 			ErrorTypes type) {
 		Event newEvent = createBasicEvent(component, state, type);
-		FaultTreeUtils.fillProperties(newEvent, component, state, type);
+//		FaultTreeUtils.fillProperties(newEvent, component, state, type);
 		return newEvent;
 	}
 
@@ -1200,7 +1208,7 @@ public class FTAGenerator extends PropagationGraphBackwardTraversal {
 	protected EObject processErrorEvent(ComponentInstance component, ErrorEvent errorEvent, ErrorTypes type,
 			double scale) {
 		Event emftaEvent = this.createBasicEvent(component, errorEvent, type);
-		FaultTreeUtils.fillProperties(emftaEvent, component, errorEvent, type, scale);
+//		FaultTreeUtils.fillProperties(emftaEvent, component, errorEvent, type, scale);
 
 		return emftaEvent;
 	}
