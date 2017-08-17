@@ -1,7 +1,9 @@
 package org.osate.aadl2.errormodel.FaultTree.util;
 
+import org.osate.aadl2.DirectionType;
 import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.errormodel.FaultTree.Event;
+import org.osate.aadl2.errormodel.FaultTree.EventType;
 import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.ConnectionInstance;
 import org.osate.aadl2.instance.InstanceObject;
@@ -29,7 +31,7 @@ public class FaultTreeUtils {
 
 	public static void fillProperties(Event event, InstanceObject io, NamedElement ne, ErrorTypes type, double scale) {
 		if (io instanceof ComponentInstance) {
-			event.setDescription(getDescription((ComponentInstance) io, ne, type));
+			event.setDescription(getDescription(event, (ComponentInstance) io, ne, type));
 		} else {
 			String hazardDescription = EMV2Properties.getHazardDescription(ne, io);
 			event.setDescription("Connection " + ((ConnectionErrorSource) ne).getConnection().getName() + " Hazard "
@@ -58,7 +60,8 @@ public class FaultTreeUtils {
 				: component.getComponentInstancePath());
 	}
 
-	public static String getDescription(ComponentInstance component, NamedElement errorModelArtifact, ErrorTypes type) {
+	public static String getDescription(Event event, ComponentInstance component, NamedElement errorModelArtifact,
+			ErrorTypes type) {
 		String description;
 		description = "";
 		if (errorModelArtifact instanceof ErrorSource) {
@@ -107,12 +110,13 @@ public class FaultTreeUtils {
 		if (errorModelArtifact instanceof ErrorPropagation) {
 			ErrorPropagation ep = (ErrorPropagation) errorModelArtifact;
 			String boundaryLabel = "";
-			if (component instanceof SystemInstance) {
-				boundaryLabel = " external ";
-			} else {
-				boundaryLabel = " undeveloped ";
+			if (event.getType() == EventType.EXTERNAL) {
+				boundaryLabel = "external ";
+			} else if (event.getType() == EventType.UNDEVELOPED) {
+				boundaryLabel = "undeveloped ";
 			}
-			description = "Component '" + getName(component) + "' with " + boundaryLabel + ep.getDirection();
+			String directionLabel = ep.getDirection() == DirectionType.IN ? "incoming " : "outgoing ";
+			description = "Component '" + getName(component) + "' with " + boundaryLabel + directionLabel;
 			if (type != null) {
 				description += " failure '" + EMV2Util.getName(type) + "'";
 			}

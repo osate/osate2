@@ -12,6 +12,7 @@ import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.UniqueEList;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.util.EcoreUtil;
+import org.osate.aadl2.Element;
 import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.errormodel.FaultTree.Event;
 import org.osate.aadl2.errormodel.FaultTree.EventType;
@@ -155,25 +156,25 @@ public class FTAGenerator extends PropagationGraphBackwardTraversal {
 
 		identifier = component instanceof SystemInstance
 				? component.getComponentClassifier().getQualifiedName().replaceAll("::", "_").replaceAll("\\.", "_")
-				: component.getComponentInstancePath();
-		identifier += "-";
+						: component.getComponentInstancePath();
+				identifier += "-";
 
-		if (namedElement == null) {
-			identifier += "unidentified";
+				if (namedElement == null) {
+					identifier += "unidentified";
 
-		} else {
-			identifier += EMV2Util.getPrintName(namedElement);
-		}
+				} else {
+					identifier += EMV2Util.getPrintName(namedElement);
+				}
 
-		if (type == null) {
+				if (type == null) {
 //			identifier+="-notypes";
-		} else if (type.getName() != null) {
-			identifier += "-" + type.getName();
-		} else {
-			identifier += "-" + EMV2Util.getPrintName(type);
-		}
-		identifier = identifier.replaceAll("\\{", "").replaceAll("\\}", "").toLowerCase();
-		return identifier;
+				} else if (type.getName() != null) {
+					identifier += "-" + type.getName();
+				} else {
+					identifier += "-" + EMV2Util.getPrintName(type);
+				}
+				identifier = identifier.replaceAll("\\{", "").replaceAll("\\}", "").toLowerCase();
+				return identifier;
 	}
 
 	private void redoCount() {
@@ -219,8 +220,9 @@ public class FTAGenerator extends PropagationGraphBackwardTraversal {
 	private Event createBasicEvent(ComponentInstance component, NamedElement namedElement, ErrorTypes type) {
 		String name = buildName(component, namedElement, type);
 		Event result = findEvent(name);
-		if (result != null)
+		if (result != null) {
 			return result;
+		}
 		Event newEvent = FaultTreeFactory.eINSTANCE.createEvent();
 		ftaModel.getEvents().add(newEvent);
 		newEvent.setName(name);
@@ -235,8 +237,9 @@ public class FTAGenerator extends PropagationGraphBackwardTraversal {
 	private Event createBasicEvent(ConnectionInstance conni, NamedElement namedElement, ErrorTypes type) {
 		String name = buildName(conni, namedElement, type);
 		Event result = findEvent(name);
-		if (result != null)
+		if (result != null) {
 			return result;
+		}
 		Event newEvent = FaultTreeFactory.eINSTANCE.createEvent();
 		ftaModel.getEvents().add(newEvent);
 		newEvent.setName(name);
@@ -255,19 +258,36 @@ public class FTAGenerator extends PropagationGraphBackwardTraversal {
 	 * @param type
 	 * @return Event
 	 */
-	private Event createIntermediateEvent(ComponentInstance component, NamedElement namedElement, ErrorTypes type) {
-		String name = buildName(component, namedElement, type);
-		Event result = findEvent(name);
-		if (result != null)
-			return result;
+	private Event createIntermediateEvent(ComponentInstance component, Element element, ErrorTypes type) {
+		return createIntermediateEvent(component, element, type, false);
+	}
+
+	private Event createUniqueIntermediateEvent(ComponentInstance component, Element element, ErrorTypes type) {
+		return createIntermediateEvent(component, element, type, true);
+	}
+
+	private Event createIntermediateEvent(ComponentInstance component, Element element, ErrorTypes type,
+			boolean unique) {
+		String name;
+		if (element instanceof NamedElement && !unique) {
+			name = buildName(component, (NamedElement) element, type);
+			Event result = findEvent(name);
+			if (result != null) {
+				return result;
+			}
+		} else {
+			name = "Intermediate" + count++;
+		}
 		Event newEvent = FaultTreeFactory.eINSTANCE.createEvent();
 		ftaModel.getEvents().add(newEvent);
 		newEvent.setName(name);
 		newEvent.setType(EventType.INTERMEDIATE);
 		newEvent.setRelatedInstanceObject(component);
-		newEvent.setRelatedEMV2Object(namedElement);
+		newEvent.setRelatedEMV2Object(element);
 		newEvent.setRelatedErrorType(type);
-		FaultTreeUtils.fillProperties(newEvent, component, namedElement, type);
+		if (element instanceof NamedElement) {
+			FaultTreeUtils.fillProperties(newEvent, component, (NamedElement) element, type);
+		}
 		return newEvent;
 	}
 
@@ -276,21 +296,6 @@ public class FTAGenerator extends PropagationGraphBackwardTraversal {
 	 * @return
 	 */
 	private int count = 1;
-
-	private Event createIntermediateEvent(String eventname) {
-		if (eventname.isEmpty()) {
-			eventname = "Intermediate" + count++;
-		} else {
-			Event result = findEvent(eventname);
-			if (result != null)
-				return result;
-		}
-		Event newEvent = FaultTreeFactory.eINSTANCE.createEvent();
-		newEvent.setType(EventType.INTERMEDIATE);
-		newEvent.setName(eventname);
-		ftaModel.getEvents().add(newEvent);
-		return newEvent;
-	}
 
 	private Event findEvent(String eventName) {
 		for (Event event : ftaModel.getEvents()) {
@@ -331,9 +336,11 @@ public class FTAGenerator extends PropagationGraphBackwardTraversal {
 	 * @param subEvents List<Event>
 	 * @return Event (or null if empty list)
 	 */
-	private Event finalizeAsXOrEvents(List<EObject> subEvents, String eventname) {
-		if (subEvents.size() == 0)
+	private Event finalizeAsXOrEvents(ComponentInstance component, Element el, ErrorTypes type,
+			List<EObject> subEvents) {
+		if (subEvents.size() == 0) {
 			return null;
+		}
 		if (subEvents.size() == 1) {
 			return (Event) subEvents.get(0);
 		}
@@ -341,7 +348,7 @@ public class FTAGenerator extends PropagationGraphBackwardTraversal {
 		if (combined != null) {
 			return combined;
 		}
-		combined = this.createIntermediateEvent(eventname);
+		combined = this.createIntermediateEvent(component, el, type);
 		combined.setSubEventLogic(LogicOperation.XOR);
 		for (Object seobj : subEvents) {
 			Event se = (Event) seobj;
@@ -351,9 +358,11 @@ public class FTAGenerator extends PropagationGraphBackwardTraversal {
 
 	}
 
-	private Event finalizeAsOrEvents(List<EObject> subEvents, String eventName) {
-		if (subEvents.size() == 0)
+	private Event finalizeAsOrEvents(ComponentInstance component, Element ne, ErrorTypes type,
+			List<EObject> subEvents) {
+		if (subEvents.size() == 0) {
 			return null;
+		}
 		if (subEvents.size() == 1) {
 			return (Event) subEvents.get(0);
 		}
@@ -361,7 +370,7 @@ public class FTAGenerator extends PropagationGraphBackwardTraversal {
 		if (combined != null) {
 			return combined;
 		}
-		combined = this.createIntermediateEvent(eventName);
+		combined = this.createIntermediateEvent(component, ne, type);
 		combined.setSubEventLogic(LogicOperation.OR);
 
 		for (Object seobj : subEvents) {
@@ -372,9 +381,11 @@ public class FTAGenerator extends PropagationGraphBackwardTraversal {
 
 	}
 
-	private Event finalizeAsAndEvents(List<EObject> subEvents, String eventname) {
-		if (subEvents.size() == 0)
+	private Event finalizeAsAndEvents(ComponentInstance component, Element ne, ErrorTypes type,
+			List<EObject> subEvents) {
+		if (subEvents.size() == 0) {
 			return null;
+		}
 		if (subEvents.size() == 1) {
 			return (Event) subEvents.get(0);
 		}
@@ -382,7 +393,7 @@ public class FTAGenerator extends PropagationGraphBackwardTraversal {
 		if (combined != null) {
 			return combined;
 		}
-		combined = this.createIntermediateEvent(eventname);
+		combined = this.createIntermediateEvent(component, ne, type);
 		combined.setSubEventLogic(LogicOperation.AND);
 
 		for (Object seobj : subEvents) {
@@ -392,9 +403,11 @@ public class FTAGenerator extends PropagationGraphBackwardTraversal {
 		return combined;
 	}
 
-	private Event finalizeAsPriorityAndEvents(List<EObject> subEvents, String eventname) {
-		if (subEvents.size() == 0)
+	private Event finalizeAsPriorityAndEvents(ComponentInstance component, Element ne, ErrorTypes type,
+			List<EObject> subEvents, String eventname) {
+		if (subEvents.size() == 0) {
 			return null;
+		}
 		if (subEvents.size() == 1) {
 			return (Event) subEvents.get(0);
 		}
@@ -402,7 +415,7 @@ public class FTAGenerator extends PropagationGraphBackwardTraversal {
 		if (combined != null) {
 			return combined;
 		}
-		combined = this.createIntermediateEvent(eventname);
+		combined = this.createIntermediateEvent(component, ne, type);
 		combined.setSubEventLogic(LogicOperation.PRIORITY_AND);
 		for (Object seobj : subEvents) {
 			Event se = (Event) seobj;
@@ -420,8 +433,9 @@ public class FTAGenerator extends PropagationGraphBackwardTraversal {
 	 * @param topgate
 	 */
 	private void removeZeroOneEventSubGates(Event topEvent) {
-		if (topEvent.getSubEvents().isEmpty())
+		if (topEvent.getSubEvents().isEmpty()) {
 			return;
+		}
 		List<Event> subEvents = topEvent.getSubEvents();
 		List<Event> toRemove = new LinkedList<Event>();
 		List<Event> toAdd = new LinkedList<Event>();
@@ -449,8 +463,9 @@ public class FTAGenerator extends PropagationGraphBackwardTraversal {
 	 * @param gate
 	 */
 	private void flattenSubgates(Event event) {
-		if (event.getSubEvents().isEmpty())
+		if (event.getSubEvents().isEmpty()) {
 			return;
+		}
 		EventType mytype = event.getType();
 		EList<Event> subEvents = event.getSubEvents();
 		List<Event> toAdd = new LinkedList<Event>();
@@ -496,10 +511,13 @@ public class FTAGenerator extends PropagationGraphBackwardTraversal {
 	 */
 
 	private Event minimalCutSet(Event rootevent) {
-		if (rootevent.getSubEvents().isEmpty())
+		if (rootevent.getSubEvents().isEmpty()) {
 			return rootevent;
+		}
 		List<Event> toAdd = new LinkedList<Event>();
-		Event alternatives = createIntermediateEvent("alternatives");
+		Event alternatives = createIntermediateEvent((ComponentInstance) rootevent.getRelatedInstanceObject(),
+				(NamedElement) rootevent.getRelatedEMV2Object(), (ErrorTypes) rootevent.getRelatedErrorType());
+		alternatives.setName("Alternatives");
 		if (rootevent.getSubEventLogic() == LogicOperation.XOR) {
 			alternatives.setSubEventLogic(LogicOperation.XOR);
 		} else {
@@ -509,7 +527,9 @@ public class FTAGenerator extends PropagationGraphBackwardTraversal {
 				|| rootevent.getSubEventLogic() == LogicOperation.KORMORE
 				|| rootevent.getType() == EventType.INTERMEDIATE) {
 			for (Event alt : rootevent.getSubEvents()) {
-				Event alternative = createIntermediateEvent("");
+				Event alternative = createUniqueIntermediateEvent(
+						(ComponentInstance) rootevent.getRelatedInstanceObject(),
+						(NamedElement) rootevent.getRelatedEMV2Object(), (ErrorTypes) rootevent.getRelatedErrorType());
 				alternative.setSubEventLogic(LogicOperation.AND);
 				toAdd.add(alternative);
 				normalizeEvent(alt, toAdd);
@@ -520,7 +540,8 @@ public class FTAGenerator extends PropagationGraphBackwardTraversal {
 			}
 		} else if (rootevent.getSubEventLogic() == LogicOperation.AND
 				|| rootevent.getSubEventLogic() == LogicOperation.PRIORITY_AND) {
-			Event alternative = createIntermediateEvent("");
+			Event alternative = createUniqueIntermediateEvent((ComponentInstance) rootevent.getRelatedInstanceObject(),
+					(NamedElement) rootevent.getRelatedEMV2Object(), (ErrorTypes) rootevent.getRelatedErrorType());
 			alternative.setSubEventLogic(LogicOperation.AND);
 			toAdd.add(alternative);
 			normalizeEvent(rootevent, toAdd);
@@ -802,12 +823,13 @@ public class FTAGenerator extends PropagationGraphBackwardTraversal {
 	 * Distributive Law 3a and 3b (se NRC Fault Tree Handbook page 80.
 	 * @param topevent
 	 * @param gt
-	 * @return Event 
+	 * @return Event
 	 */
 	private Event transformSubgates(Event topevent, LogicOperation gt, LogicOperation topgt) {
 		List<Event> subEvents = topevent.getSubEvents();
-		if (subEvents.isEmpty())
+		if (subEvents.isEmpty()) {
 			return topevent;
+		}
 		if (subEvents.size() == 1) {
 			return topevent;// (Event) subEvents.get(0);
 		}
@@ -832,7 +854,10 @@ public class FTAGenerator extends PropagationGraphBackwardTraversal {
 				if (subEvents.size() == todo.size()) {
 					// all subgates are involved
 					// remove from lower OR and create an OR above top gate
-					Event newtopevent = this.createIntermediateEvent("");
+					Event newtopevent = this.createIntermediateEvent(
+							(ComponentInstance) topevent.getRelatedInstanceObject(),
+							(NamedElement) topevent.getRelatedEMV2Object(),
+							(ErrorTypes) topevent.getRelatedErrorType());
 					if (!topevent.getName().startsWith("Intermediate")) {
 						String newname = newtopevent.getName();
 						newtopevent.setName(topevent.getName());
@@ -854,7 +879,10 @@ public class FTAGenerator extends PropagationGraphBackwardTraversal {
 					return newtopevent;
 				} else {
 					// transformed subtree to top gate replacing subset of events involved in transformation
-					Event newtopevent = this.createIntermediateEvent("");
+					Event newtopevent = this.createIntermediateEvent(
+							(ComponentInstance) topevent.getRelatedInstanceObject(),
+							(NamedElement) topevent.getRelatedEMV2Object(),
+							(ErrorTypes) topevent.getRelatedErrorType());
 					newtopevent.setSubEventLogic(gt);
 					topevent.getSubEvents().add(newtopevent);
 					// remove intersection fro subset of gates
@@ -866,7 +894,10 @@ public class FTAGenerator extends PropagationGraphBackwardTraversal {
 						rem.removeAll(intersection);
 					}
 					// create intermediate topgate for subset of gates and remove from original top gate
-					Event newsubtopevent = this.createIntermediateEvent("");
+					Event newsubtopevent = this.createIntermediateEvent(
+							(ComponentInstance) topevent.getRelatedInstanceObject(),
+							(NamedElement) topevent.getRelatedEMV2Object(),
+							(ErrorTypes) topevent.getRelatedErrorType());
 					newsubtopevent.setSubEventLogic(topgt);
 					newsubtopevent.getSubEvents().addAll(todo);
 					topevent.getSubEvents().removeAll(todo);
@@ -905,12 +936,13 @@ public class FTAGenerator extends PropagationGraphBackwardTraversal {
 	 * Distributive Law 3a and 3b (se NRC Fault Tree Handbook page 80.
 	 * @param topevent
 	 * @param gt
-	 * @return Event 
+	 * @return Event
 	 */
 	private void removeCommonEventsFromSubgates(Event topevent, LogicOperation gt) {
 		List<Event> subEvents = topevent.getSubEvents();
-		if (subEvents.isEmpty())
+		if (subEvents.isEmpty()) {
 			return;
+		}
 		if (subEvents.size() == 1) {
 			return;
 		}
@@ -963,12 +995,13 @@ public class FTAGenerator extends PropagationGraphBackwardTraversal {
 	 * remove shared OR from AND if also as subevent of XOR
 	 * @param topevent
 	 * @param gt
-	 * @return Event 
+	 * @return Event
 	 */
 	private void doXformXORtoOR(Event topevent) {
 		List<Event> subEvents = topevent.getSubEvents();
-		if (subEvents.isEmpty())
+		if (subEvents.isEmpty()) {
 			return;
+		}
 		if (subEvents.size() == 1) {
 			return;
 		}
@@ -997,12 +1030,13 @@ public class FTAGenerator extends PropagationGraphBackwardTraversal {
 	 * Law of Absorption
 	 * @param topevent
 	 * @param gt
-	 * @return Event topevent 
+	 * @return Event topevent
 	 */
 	private Event removeSubEventsCommonWithEnclosingEvents(Event topevent, LogicOperation gt) {
 		List<Event> subEvents = topevent.getSubEvents();
-		if (subEvents.isEmpty())
+		if (subEvents.isEmpty()) {
 			return null;
+		}
 		LinkedList<Event> toRemove = new LinkedList<Event>();
 		for (Event se : subEvents) {
 			for (Event subse : subEvents) {
@@ -1026,13 +1060,14 @@ public class FTAGenerator extends PropagationGraphBackwardTraversal {
 	 * @param conditionEvent Event representing the condition of a transition or outgoing propagation condition
 	 * @return Event or null
 	 */
-	private Event consolidateAsPriorityAnd(Event stateEvent, Event conditionEvent, String eventname) {
+	private Event consolidateAsPriorityAnd(Event stateEvent, Event conditionEvent, ComponentInstance component,
+			NamedElement ne, ErrorTypes targetType) {
 		if (stateEvent == null && conditionEvent != null) {
 			return conditionEvent;
 		} else if (stateEvent != null && conditionEvent == null) {
 			return stateEvent;
 		} else if (stateEvent != null && conditionEvent != null) {
-			Event inter = createIntermediateEvent(eventname);
+			Event inter = createIntermediateEvent(component, ne, targetType);
 			inter.setSubEventLogic(LogicOperation.PRIORITY_AND);
 			if (!stateEvent.getSubEvents().isEmpty() && stateEvent.getSubEventLogic() == LogicOperation.PRIORITY_AND) {
 				inter.getSubEvents().addAll(stateEvent.getSubEvents());
@@ -1055,8 +1090,7 @@ public class FTAGenerator extends PropagationGraphBackwardTraversal {
 	@Override
 	protected EObject postProcessOutgoingErrorPropagation(ComponentInstance component,
 			ErrorPropagation errorPropagation, ErrorTypes targetType, List<EObject> subResults) {
-		String name = buildName(component, errorPropagation, targetType);
-		Event result = finalizeAsOrEvents(subResults, name);
+		Event result = finalizeAsOrEvents(component, errorPropagation, targetType, subResults);
 		if (result != null && result.getType() == EventType.INTERMEDIATE) {
 			result.setName(buildName(component, errorPropagation, targetType));
 		}
@@ -1066,8 +1100,7 @@ public class FTAGenerator extends PropagationGraphBackwardTraversal {
 	@Override
 	protected EObject postProcessErrorFlows(ComponentInstance component, ErrorPropagation errorPropagation,
 			ErrorTypes targetType, List<EObject> subResults) {
-		String name = buildName(component, errorPropagation, targetType);
-		Event result = finalizeAsOrEvents(subResults, name);
+		Event result = finalizeAsOrEvents(component, errorPropagation, targetType, subResults);
 		if (result != null && result.getType() == EventType.INTERMEDIATE) {
 			result.setName(buildName(component, errorPropagation, targetType));
 		}
@@ -1114,23 +1147,21 @@ public class FTAGenerator extends PropagationGraphBackwardTraversal {
 	@Override
 	protected EObject postProcessIncomingErrorPropagation(ComponentInstance component,
 			ErrorPropagation errorPropagation, ErrorTypes targetType, List<EObject> subResults) {
-		String name = buildName(component, errorPropagation, targetType);
-		return finalizeAsOrEvents(subResults, name);
+		return finalizeAsOrEvents(component, errorPropagation, targetType, subResults);
 	}
 
 	@Override
 	protected EObject processOutgoingErrorPropagationCondition(ComponentInstance component,
 			OutgoingPropagationCondition opc, ErrorTypes type, EObject conditionResult, EObject stateResult) {
 		Event consolidated = consolidateAsPriorityAnd((Event) stateResult, (Event) conditionResult,
-				buildName(component, opc, type));
+				component, opc, type);
 		return consolidated;
 	}
 
 	@Override
 	protected EObject postProcessCompositeErrorStates(ComponentInstance component, ErrorBehaviorState state,
 			ErrorTypes targetType, List<EObject> subResults) {
-		String name = buildName(component, state, targetType);
-		Event result = finalizeAsOrEvents(subResults, name);
+		Event result = finalizeAsOrEvents(component, state, targetType, subResults);
 		if (result == null) {
 			Event newEvent = createBasicEvent(component, state, targetType);
 			FaultTreeUtils.fillProperties(newEvent, component, state, targetType);
@@ -1150,8 +1181,7 @@ public class FTAGenerator extends PropagationGraphBackwardTraversal {
 	@Override
 	protected EObject postProcessErrorBehaviorState(ComponentInstance component, ErrorBehaviorState state,
 			ErrorTypes type, List<EObject> subResults) {
-		String name = buildName(component, state, type);
-		Event result = finalizeAsOrEvents(subResults, name);
+		Event result = finalizeAsOrEvents(component, state, type, subResults);
 		if (result != null && result.getType() == EventType.INTERMEDIATE) {
 			result.setName(buildName(component, state, type));
 		}
@@ -1162,7 +1192,7 @@ public class FTAGenerator extends PropagationGraphBackwardTraversal {
 	protected EObject processTransitionCondition(ComponentInstance component, ErrorBehaviorState source,
 			ErrorTypes type, EObject conditionResult, EObject stateResult) {
 		Event consolidated = consolidateAsPriorityAnd((Event) stateResult, (Event) conditionResult,
-				buildName(component, source, type));
+				component, source, type);
 		return consolidated;
 	}
 
@@ -1178,19 +1208,19 @@ public class FTAGenerator extends PropagationGraphBackwardTraversal {
 	@Override
 	protected EObject postProcessAnd(ComponentInstance component, ConditionExpression condition, ErrorTypes type,
 			double scale, List<EObject> subResults) {
-		return finalizeAsAndEvents(subResults, "");
+		return finalizeAsAndEvents(component, condition, type, subResults);
 	}
 
 	@Override
 	protected EObject postProcessXor(ComponentInstance component, ConditionExpression condition, ErrorTypes type,
 			double scale, List<EObject> subResults) {
-		return finalizeAsXOrEvents(subResults, "");
+		return finalizeAsXOrEvents(component, condition, type, subResults);
 	}
 
 	@Override
 	protected EObject postProcessOr(ComponentInstance component, ConditionExpression condition, ErrorTypes type,
 			double scale, List<EObject> subResults) {
-		return finalizeAsOrEvents(subResults, "");
+		return finalizeAsOrEvents(component, condition, type, subResults);
 	}
 
 }
