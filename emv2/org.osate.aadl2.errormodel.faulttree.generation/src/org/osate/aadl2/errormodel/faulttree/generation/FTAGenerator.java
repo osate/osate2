@@ -341,9 +341,9 @@ public class FTAGenerator extends PropagationGraphBackwardTraversal {
 		if (subEvents.size() == 0) {
 			return null;
 		}
-		if (subEvents.size() == 1) {
-			return (Event) subEvents.get(0);
-		}
+//		if (subEvents.size() == 1) {
+//			return (Event) subEvents.get(0);
+//		}
 		Event combined = findSharedSubtree(subEvents, LogicOperation.XOR);
 		if (combined != null) {
 			return combined;
@@ -363,9 +363,9 @@ public class FTAGenerator extends PropagationGraphBackwardTraversal {
 		if (subEvents.size() == 0) {
 			return null;
 		}
-		if (subEvents.size() == 1) {
-			return (Event) subEvents.get(0);
-		}
+//		if (subEvents.size() == 1) {
+//			return (Event) subEvents.get(0);
+//		}
 		Event combined = findSharedSubtree(subEvents, LogicOperation.OR);
 		if (combined != null) {
 			return combined;
@@ -386,9 +386,9 @@ public class FTAGenerator extends PropagationGraphBackwardTraversal {
 		if (subEvents.size() == 0) {
 			return null;
 		}
-		if (subEvents.size() == 1) {
-			return (Event) subEvents.get(0);
-		}
+//		if (subEvents.size() == 1) {
+//			return (Event) subEvents.get(0);
+//		}
 		Event combined = findSharedSubtree(subEvents, LogicOperation.AND);
 		if (combined != null) {
 			return combined;
@@ -408,9 +408,9 @@ public class FTAGenerator extends PropagationGraphBackwardTraversal {
 		if (subEvents.size() == 0) {
 			return null;
 		}
-		if (subEvents.size() == 1) {
-			return (Event) subEvents.get(0);
-		}
+//		if (subEvents.size() == 1) {
+//			return (Event) subEvents.get(0);
+//		}
 		Event combined = findSharedSubtree(subEvents, LogicOperation.PRIORITY_AND);
 		if (combined != null) {
 			return combined;
