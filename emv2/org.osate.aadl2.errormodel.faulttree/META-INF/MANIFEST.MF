@@ -13,5 +13,6 @@ Export-Package: org.osate.aadl2.errormodel.FaultTree,
 Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.emf.ecore;visibility:=reexport,
  org.osate.aadl2;bundle-version="1.0.0";visibility:=reexport,
- org.osate.xtext.aadl2.errormodel;bundle-version="1.0.0";visibility:=reexport
+ org.osate.xtext.aadl2.errormodel;bundle-version="1.0.0";visibility:=reexport,
+ org.osate.aadl2.modelsupport
 Bundle-ActivationPolicy: lazy
