@@ -122,6 +122,16 @@ public class EMV2Properties {
 		return getHazardDescription(element, relatedComponent, ts);
 	}
 
+	@Deprecated
+	public static String getDescription(NamedElement element, NamedElement relatedComponent) {
+		return getHazardDescription(element, relatedComponent);
+	}
+
+	@Deprecated
+	public static String getDescription(NamedElement element, NamedElement relatedComponent, ErrorTypes ts) {
+		return getHazardDescription(element, relatedComponent, ts);
+	}
+
 	public static String getHazardDescription(NamedElement element, NamedElement relatedComponent, ErrorTypes ts) {
 		List<EMV2PropertyAssociation> PA = EMV2Properties.getHazardsProperty(relatedComponent, element, ts);
 
@@ -351,7 +361,7 @@ public class EMV2Properties {
 	}
 
 	/**
-	 * 
+	 *
 	 */
 	public static double getRealValue(final EMV2PropertyAssociation PA) {
 		if (PA == null) {
@@ -516,8 +526,9 @@ public class EMV2Properties {
 			return true;
 		}
 		if (cp == null && (ciStack != null && !ciStack.isEmpty())
-				|| cp != null && (ciStack == null || ciStack.isEmpty()))
+				|| cp != null && (ciStack == null || ciStack.isEmpty())) {
 			return false;
+		}
 		ContainmentPathElement emv2ce = cp;
 		for (NamedElement namedElement : ciStack) {
 			if (emv2ce == null || !namedElement.getName().equalsIgnoreCase(emv2ce.getNamedElement().getName())) {
@@ -669,8 +680,9 @@ public class EMV2Properties {
 	 */
 	public static List<EMV2PropertyAssociation> getPropertyInInstanceHierarchy(String propertyName, NamedElement ci,
 			NamedElement target, ErrorTypes ts) {
-		if (ci == null)
+		if (ci == null) {
 			return Collections.emptyList();
+		}
 		Stack<NamedElement> ciStack = new Stack<NamedElement>();
 		ComponentClassifier cl = null;
 		if (ci instanceof ComponentInstance) {
