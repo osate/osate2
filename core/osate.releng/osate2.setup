@@ -948,6 +948,8 @@
             url="http://dl.bintray.com/itemis/generic/xtext-testing/updates/"/>
         <repository
             url="http://download.itemis.de/updates/"/>
+        <repository
+            url="http://download.eclipse.org/sirius/updates/releases/5.0.1/oxygen"/>
       </repositoryList>
     </targlet>
     <targlet
