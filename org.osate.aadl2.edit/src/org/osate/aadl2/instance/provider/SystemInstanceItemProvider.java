@@ -89,12 +89,12 @@ public class SystemInstanceItemProvider extends ComponentInstanceItemProvider {
 	 */
 	protected void addComponentImplementationPropertyDescriptor(Object object) {
 		itemPropertyDescriptors
-				.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
-						getResourceLocator(), getString("_UI_SystemInstance_componentImplementation_feature"), //$NON-NLS-1$
-						getString("_UI_PropertyDescriptor_description", //$NON-NLS-1$
-								"_UI_SystemInstance_componentImplementation_feature", "_UI_SystemInstance_type"), //$NON-NLS-1$ //$NON-NLS-2$
-						InstancePackage.Literals.SYSTEM_INSTANCE__COMPONENT_IMPLEMENTATION, true, false, true, null,
-						null, null));
+		.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+				getResourceLocator(), getString("_UI_SystemInstance_componentImplementation_feature"), //$NON-NLS-1$
+				getString("_UI_PropertyDescriptor_description", //$NON-NLS-1$
+						"_UI_SystemInstance_componentImplementation_feature", "_UI_SystemInstance_type"), //$NON-NLS-1$ //$NON-NLS-2$
+				InstancePackage.Literals.SYSTEM_INSTANCE__COMPONENT_IMPLEMENTATION, true, false, true, null,
+				null, null));
 	}
 
 	/**
@@ -138,19 +138,19 @@ public class SystemInstanceItemProvider extends ComponentInstanceItemProvider {
 		return overlayImage(object, getResourceLocator().getImage("full/obj16/SystemInstance")); //$NON-NLS-1$
 	}
 
-	/**
-	 * This returns the label text for the adapted class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public String getText(Object object) {
-		String label = ((SystemInstance) object).getName();
-		return label == null || label.length() == 0 ? getString("_UI_SystemInstance_type") : //$NON-NLS-1$
-				getString("_UI_SystemInstance_type") + " " + label; //$NON-NLS-1$ //$NON-NLS-2$
-	}
-
+//	/**
+//	 * This returns the label text for the adapted class.
+//	 * <!-- begin-user-doc -->
+//	 * <!-- end-user-doc -->
+//	 * @generated
+//	 */
+//	@Override
+//	public String getText(Object object) {
+//		String label = ((SystemInstance) object).getName();
+//		return label == null || label.length() == 0 ? getString("_UI_SystemInstance_type") : //$NON-NLS-1$
+//				getString("_UI_SystemInstance_type") + " " + label; //$NON-NLS-1$ //$NON-NLS-2$
+//	}
+// Drop through to the ComponentInstance label provider for the icons
 	/**
 	 * This handles model notifications by calling {@link #updateChildren} to update any cached
 	 * children and by creating a viewer notification, which it passes to {@link #fireNotifyChanged}.
