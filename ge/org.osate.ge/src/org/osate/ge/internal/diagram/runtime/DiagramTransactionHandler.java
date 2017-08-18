@@ -7,6 +7,6 @@ public interface DiagramTransactionHandler {
 		void undo();
 		void redo();
 	}
-	
+
 	void modify(final String label, final TransactionOperation op);
 }

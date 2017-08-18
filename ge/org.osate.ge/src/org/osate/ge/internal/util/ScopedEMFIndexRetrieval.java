@@ -26,7 +26,7 @@ import org.eclipse.xtext.resource.IResourceDescriptions;
 import org.eclipse.xtext.resource.XtextResourceSet;
 import org.eclipse.xtext.resource.impl.ResourceDescriptionsProvider;
 import org.osate.core.OsateCorePlugin;
-import org.osate.ge.internal.ui.util.SelectionHelper;
+import org.osate.ge.internal.ui.util.SelectionUtil;
 
 import com.google.inject.Injector;
 
@@ -35,7 +35,7 @@ public class ScopedEMFIndexRetrieval {
 	* Gets a collection containing all EObjects of a specified type which may be directly referenced from the project containing the specified resource.
 	*/
 	public static Collection<IEObjectDescription> getAllEObjectsByType(final Resource resource, final EClass type) {
-		return getAllEObjectsByType(SelectionHelper.getProject(resource), type);
+		return getAllEObjectsByType(SelectionUtil.getProject(resource), type);
 	}
 	
 	/**

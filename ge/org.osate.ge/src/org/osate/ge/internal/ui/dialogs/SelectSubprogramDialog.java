@@ -15,10 +15,9 @@ import org.eclipse.jface.dialogs.IDialogConstants;
 import org.eclipse.jface.dialogs.TitleAreaDialog;
 import org.eclipse.jface.viewers.ArrayContentProvider;
 import org.eclipse.jface.viewers.ComboViewer;
-import org.eclipse.jface.viewers.ISelectionChangedListener;
 import org.eclipse.jface.viewers.LabelProvider;
-import org.eclipse.jface.viewers.SelectionChangedEvent;
 import org.eclipse.jface.viewers.StructuredSelection;
+import org.eclipse.jface.viewers.ViewerComparator;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
@@ -38,56 +37,56 @@ public class SelectSubprogramDialog extends TitleAreaDialog {
 	private ComboViewer subprogramCmb;
 	private Object selectedContext; // Valid after the OK button has been selected
 	private Object selectedSubprogram; // Valid after the OK button has been selected
-	
+
 	private LabelProvider labelProvider = new LabelProvider() {
 		@Override
 		public String getText(final Object value) {
 			return model.getLabel(value);
 		}
 	};
-	
+
 	/**
 	 * Interface for providing data to the SelectSubprogramDialog class.
 	 *
 	 */
 	public static interface Model {
 		// Lists may be read only
-		// Null objects are not allowed		
+		// Null objects are not allowed
 		public List<Object> getContexts();
 		public List<Object> getSubprograms(final Object context);
 		public String getLabel(final Object obj);
 	}
-	
+
 	public SelectSubprogramDialog(final Shell parentShell, final Model model) {
 		super(parentShell);
 		this.model = model;
 		setHelpAvailable(false);
 		setShellStyle(getShellStyle() | SWT.RESIZE);
-	}	
-	
+	}
+
 	@Override
 	protected void configureShell(final Shell newShell) {
 		super.configureShell(newShell);
 		newShell.setText("Select Subprogram");
 		newShell.setMinimumSize(650, 190);
 	}
-	
+
 	@Override
 	public void create() {
-		super.create();		
+		super.create();
 		setTitle("Select Subprogram");
 		validate();
 	}
-	
+
 	@Override
-  	protected Control createDialogArea(final Composite parent) {
-	    final Composite area = (Composite)super.createDialogArea(parent);
-	       
-	    final Composite container = new Composite(area, SWT.NONE);
-	    container.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, false));
-	    container.setLayout(new GridLayout(3, false));
-	    
-	    // Context Combo
+	protected Control createDialogArea(final Composite parent) {
+		final Composite area = (Composite)super.createDialogArea(parent);
+
+		final Composite container = new Composite(area, SWT.NONE);
+		container.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, false));
+		container.setLayout(new GridLayout(3, false));
+
+		// Context Combo
 		final List<Object> contexts = model.getContexts();
 		contextCmb = new ComboViewer(container, SWT.DROP_DOWN | SWT.READ_ONLY);
 		final GridData contextsCmbGridData = new GridData(SWT.FILL, SWT.BOTTOM, true, false);
@@ -96,63 +95,55 @@ public class SelectSubprogramDialog extends TitleAreaDialog {
 		contextCmb.setContentProvider(new ArrayContentProvider());
 		contextCmb.setLabelProvider(labelProvider);
 		contextCmb.setInput(contexts);
-		contextCmb.setSorter(new LabelViewerSorter());
-		
+		contextCmb.setComparator(new ViewerComparator());
+
 		// Separator Label
 		final Label separatorLabel = new Label(container, SWT.NONE);
 		separatorLabel.setLayoutData(new GridData(SWT.CENTER, SWT.BOTTOM, false, false));
 		separatorLabel.setText(".");
-		
-	    // Subprogram Combo
+
+		// Subprogram Combo
 		subprogramCmb = new ComboViewer(container, SWT.DROP_DOWN | SWT.READ_ONLY);
 		final GridData subprogramCmbGridData = new GridData(SWT.FILL, SWT.BOTTOM, true, false);
 		subprogramCmbGridData.minimumWidth = 300;
 		subprogramCmb.getControl().setLayoutData(subprogramCmbGridData);
 		subprogramCmb.setContentProvider(new ArrayContentProvider());
 		subprogramCmb.setLabelProvider(labelProvider);
-		subprogramCmb.setSorter(new LabelViewerSorter());
+		subprogramCmb.setComparator(new ViewerComparator());
 
-		contextCmb.addSelectionChangedListener(new ISelectionChangedListener() {
-			@Override
-			public void selectionChanged(final SelectionChangedEvent event) {
-				if(event.getSelection() instanceof StructuredSelection) {
-					final StructuredSelection ss = (StructuredSelection)event.getSelection();
-					if(!ss.isEmpty()) {
-						subprogramCmb.setInput(model.getSubprograms(ss.getFirstElement()));						
-					}
+		contextCmb.addSelectionChangedListener(event -> {
+			if(event.getSelection() instanceof StructuredSelection) {
+				final StructuredSelection ss = (StructuredSelection)event.getSelection();
+				if(!ss.isEmpty()) {
+					subprogramCmb.setInput(model.getSubprograms(ss.getFirstElement()));
 				}
+			}
 
-				validate();
-			}			
+			validate();
 		});
-		
-		subprogramCmb.addSelectionChangedListener(new ISelectionChangedListener() {
-			@Override
-			public void selectionChanged(final SelectionChangedEvent event) {
-				validate();
-			}			
-		});
-		
+
+		subprogramCmb.addSelectionChangedListener(event -> validate());
+
 		// Set the initially selected context to the first one in the (sroted) list
 		final Object initialContext = contextCmb.getElementAt(0);
 		if(initialContext != null) {
 			contextCmb.setSelection(new StructuredSelection(initialContext));
 		}
-		
-	    return area;
+
+		return area;
 	}
-	
+
 	@Override
 	public void okPressed() {
 		// Store references to the selected items
 		final StructuredSelection contextSelection = (StructuredSelection) contextCmb.getSelection();
 		final StructuredSelection subprogramSelection = (StructuredSelection) subprogramCmb.getSelection();
 		selectedContext = contextSelection.getFirstElement();
-		selectedSubprogram = subprogramSelection.getFirstElement();		
-		
+		selectedSubprogram = subprogramSelection.getFirstElement();
+
 		super.okPressed();
 	}
-	
+
 	private void validate() {
 		final Button okButton = getButton(IDialogConstants.OK_ID);
 		if(okButton != null) {
@@ -161,15 +152,15 @@ public class SelectSubprogramDialog extends TitleAreaDialog {
 			setMessage(subprogramSelection.isEmpty() ? "No subprogram selected" : "");
 		}
 	}
-	
+
 	public Object getSelectedContext() {
 		return selectedContext;
 	}
-	
+
 	public Object getSelectedSubprogram() {
 		return selectedSubprogram;
 	}
-	
+
 	public static void main (String [] args) {
 		final SelectSubprogramDialog dlg = new SelectSubprogramDialog(null, new Model() {
 			@Override
@@ -192,7 +183,7 @@ public class SelectSubprogramDialog extends TitleAreaDialog {
 					retVal.add("sp1");
 					retVal.add("sp2");
 				}
-				
+
 				return retVal;
 			}
 
@@ -200,7 +191,7 @@ public class SelectSubprogramDialog extends TitleAreaDialog {
 			public String getLabel(final Object obj) {
 				return obj.toString();
 			}
-			
+
 		});
 		dlg.open();
 	}

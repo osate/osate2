@@ -1,11 +1,3 @@
-/*******************************************************************************
- * Copyright (C) 2016 University of Alabama in Huntsville (UAH)
- * All rights reserved. This program and the accompanying materials
- * are made available under the terms of the Eclipse Public License v1.0
- * which accompanies this distribution, and is available at
- * http://www.eclipse.org/legal/epl-v10.html
- * The US Government has unlimited rights in this work in accordance with W31P4Q-10-D-0092 DO 0105.
- *******************************************************************************/
 package org.osate.ge.internal.ui.tools;
 
 import java.awt.Color;
@@ -13,12 +5,13 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
+
 import javax.inject.Named;
+
 import org.eclipse.emf.ecore.resource.Resource;
-import org.eclipse.jface.dialogs.Dialog;
 import org.eclipse.jface.dialogs.IDialogConstants;
 import org.eclipse.jface.dialogs.TitleAreaDialog;
-import org.eclipse.jface.resource.ImageDescriptor;
+import org.eclipse.jface.window.Window;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.StyleRange;
 import org.eclipse.swt.custom.StyledText;
@@ -45,19 +38,14 @@ import org.osate.aadl2.ModeFeature;
 import org.osate.aadl2.NamedElement;
 import org.osate.ge.BusinessObjectContext;
 import org.osate.ge.di.Activate;
-import org.osate.ge.di.CanActivate;
-import org.osate.ge.internal.Activator;
 import org.osate.ge.internal.di.Deactivate;
-import org.osate.ge.internal.di.Description;
-import org.osate.ge.internal.di.Icon;
-import org.osate.ge.internal.di.Id;
 import org.osate.ge.internal.di.InternalNames;
 import org.osate.ge.internal.di.SelectionChanged;
 import org.osate.ge.internal.diagram.runtime.DiagramElement;
 import org.osate.ge.internal.services.AadlModificationService;
+import org.osate.ge.internal.services.AadlModificationService.AbstractModifier;
 import org.osate.ge.internal.services.ColoringService;
 import org.osate.ge.internal.services.UiService;
-import org.osate.ge.internal.services.AadlModificationService.AbstractModifier;
 import org.osate.ge.internal.ui.util.DialogPlacementHelper;
 
 public class CreateFlowImplementationTool {
@@ -65,22 +53,7 @@ public class CreateFlowImplementationTool {
 	private BusinessObjectContext ciBoc;
 	private ComponentImplementation ci;
 	private CreateFlowImplementationDialog dlg;
-	boolean canActivate = true;
 	
-	@Id
-	public final static String ID = "org.osate.ge.ui.tools.CreateFlowImplementationTool";
-
-	@Description
-	public final static String DESCRIPTION = "Create Flow Implementation";
-
-	@Icon
-	public final static ImageDescriptor ICON = Activator.getImageDescriptor("icons/CreateFlowImplementation.gif");
-
-	@CanActivate
-	public boolean canActivate(@Named(InternalNames.SELECTED_DIAGRAM_ELEMENT) BusinessObjectContext boc) {
-		return ToolUtil.findComponentImplementationBoc(boc) != null	&& canActivate;
-	}
-
 	@Activate
 	public void activate(@Named(InternalNames.SELECTED_DIAGRAM_ELEMENT) final BusinessObjectContext selectedBoc,
 			final AadlModificationService aadlModService,
@@ -92,10 +65,9 @@ public class CreateFlowImplementationTool {
 				this.ci = (ComponentImplementation)ciBoc.getBusinessObject();
 				this.coloring = coloringService.adjustColors();
 				
-				canActivate = false;
 				uiService.clearSelection();
 				dlg = new CreateFlowImplementationDialog(Display.getCurrent().getActiveShell(), coloring, uiService);
-				if (dlg.open() == Dialog.CANCEL) {
+				if (dlg.open() == Window.CANCEL) {
 					return;
 				}
 	
@@ -131,7 +103,6 @@ public class CreateFlowImplementationTool {
 		
 		this.ciBoc = null;
 		this.ci = null;
-		canActivate = true;
 	}
 
 	@SelectionChanged
@@ -448,7 +419,6 @@ public class CreateFlowImplementationTool {
 			newShell.setText("Create Flow Implementation");
 			newShell.setLocation(DialogPlacementHelper.getOffsetRectangleLocation(Display.getCurrent().getActiveShell().getBounds(), 50, 50));
 			newShell.setSize(540, 250);
-			newShell.setImage(ICON.createImage());
 			newShell.setMinimumSize(300, 215);
 		}
 

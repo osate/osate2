@@ -3,13 +3,20 @@
 <plugin>
    <extension-point id="org.osate.ge.tooltips" name="Tooltips" schema="schema/org.osate.ge.tooltips.exsd"/>
    <extension-point id="org.osate.ge.commands" name="Tools" schema="schema/org.osate.ge.commands.exsd"/>
-   <extension-point id="org.osate.ge.tools" name="Tools" schema="schema/org.osate.ge.tools.exsd"/>
    <extension-point id="org.osate.ge.categories" name="Categories" schema="schema/org.osate.ge.categories.exsd"/>
    <extension-point id="org.osate.ge.images" name="Images" schema="schema/org.osate.ge.images.exsd"/>
    <extension-point id="org.osate.ge.references" name="Reference Handling" schema="schema/org.osate.ge.references.exsd"/>
    <extension-point id="org.osate.ge.businessObjectHandlers" name="Business Object Handlers" schema="schema/org.osate.ge.businessObjectHandlers.exsd"/>
    <extension-point id="org.osate.ge.businessObjectProviders" name="Business Object Providers" schema="schema/org.osate.ge.businessObjectProviders.exsd"/>
 	<extension point="org.eclipse.ui.commands">
+    <category
+          id="org.osate.ge.commands.categories.tool"
+          name="Tool">
+    </category>
+    <category
+          id="org.osate.ge.commands.categories.layout"
+          name="Layout">
+    </category>
 	   <command id="org.osate.ge.commands.opendiagram" name="Open Diagram" defaultHandler="org.osate.ge.internal.ui.handlers.OpenDiagramHandler"></command>
 	   <command id="org.osate.ge.commands.creatediagram" name="Create Diagram..." defaultHandler="org.osate.ge.internal.ui.handlers.CreateDiagramHandler"></command>
 	   <command 
@@ -22,12 +29,309 @@
 			name="Create Diagram..." 
 			description="Create Diagram">
 		</command>
+      <command
+            categoryId="org.osate.ge.commands.categories.layout"
+            id="org.osate.ge.commands.gridLayout"
+            name="Grid Layout">
+      </command>
+      <command
+            categoryId="org.osate.ge.commands.categories.layout"
+            id="org.osate.ge.commands.radialLayout"
+            name="Radial Layout">
+      </command>
+      <command
+            categoryId="org.osate.ge.commands.categories.layout"
+            id="org.osate.ge.commands.distributeVertically"
+            name="Distribute Shapes Vertically">
+      </command>
+      <command
+            categoryId="org.osate.ge.commands.categories.layout"
+            id="org.osate.ge.commands.distributeHorizontally"
+            name="Distribute Shapes Horizontally">
+      </command>
+      <command
+            categoryId="org.osate.ge.commands.categories.layout"
+            id="org.osate.ge.commands.matchWidth"
+            name="Match Width">
+      </command>
+      <command
+            categoryId="org.osate.ge.commands.categories.layout"
+            id="org.osate.ge.commands.matchHeight"
+            name="Match Height">
+      </command>
+      <command
+            categoryId="org.osate.ge.commands.categories.layout"
+            id="org.osate.ge.commands.matchSize"
+            name="Match Size">
+      </command>
+      <command
+            categoryId="org.osate.ge.commands.categories.tool"
+            id="org.osate.ge.commands.bind"
+            name="Bind...">
+      </command>
+      <command
+            categoryId="org.osate.ge.commands.categories.tool"
+            id="org.osate.ge.commands.createFlowImplementation"
+            name="Create Flow Implementation">
+      </command>
+      <command
+            categoryId="org.osate.ge.commands.categories.tool"
+            id="org.osate.ge.commands.createEndToEndFlowSpecification"
+            name="Create End to End Flow Specification">
+      </command>
+      <command
+            categoryId="org.osate.ge.commands.categories.layout"
+            id="org.osate.ge.commands.alignLeft"
+            name="Align Left">
+      </command>
+      <command
+            categoryId="org.osate.ge.commands.categories.layout"
+            id="org.osate.ge.commands.alignCenter"
+            name="Align Center">
+      </command>
+      <command
+            categoryId="org.osate.ge.commands.categories.layout"
+            id="org.osate.ge.commands.alignRight"
+            name="Align Right">
+      </command>
+            <command
+            categoryId="org.osate.ge.commands.categories.layout"
+            id="org.osate.ge.commands.alignTop"
+            name="Align Top">
+      </command>
+      <command
+            categoryId="org.osate.ge.commands.categories.layout"
+            id="org.osate.ge.commands.alignMiddle"
+            name="Align Middle">
+      </command>
+      <command
+            categoryId="org.osate.ge.commands.categories.layout"
+            id="org.osate.ge.commands.alignBottom"
+            name="Align Bottom">
+      </command>
+      <command
+            id="org.osate.ge.commands.properties"
+            name="Properties...">
+      </command>
    </extension>
+ <extension
+       point="org.eclipse.ui.handlers">
+    <handler
+          class="org.osate.ge.internal.ui.handlers.GridLayoutHandler"
+          commandId="org.osate.ge.commands.gridLayout">
+       <enabledWhen>
+          <reference
+                definitionId="org.osate.ge.expresions.undockedMoveableShapesWithSameParent">
+          </reference>
+       </enabledWhen>
+    </handler>
+    <handler
+          class="org.osate.ge.internal.ui.handlers.RadialLayoutHandler"
+          commandId="org.osate.ge.commands.radialLayout">
+       <enabledWhen>
+          <reference
+                definitionId="org.osate.ge.expresions.undockedMoveableShapesWithSameParent">
+          </reference>
+       </enabledWhen>
+    </handler>
+    <handler
+          class="org.osate.ge.internal.ui.handlers.DistributeHorizontallyHandler"
+          commandId="org.osate.ge.commands.distributeHorizontally">
+       <enabledWhen>
+          <reference
+                definitionId="org.osate.ge.expresions.canDistribute">
+          </reference>
+       </enabledWhen>
+    </handler>
+    <handler
+          class="org.osate.ge.internal.ui.handlers.DistributeVerticallyHandler"
+          commandId="org.osate.ge.commands.distributeVertically">
+       <enabledWhen>
+          <reference
+                definitionId="org.osate.ge.expresions.canDistribute">
+          </reference>
+       </enabledWhen>
+    </handler>
+    <handler
+          class="org.osate.ge.internal.ui.handlers.MatchWidthHandler"
+          commandId="org.osate.ge.commands.matchWidth">
+       <enabledWhen>
+          <with
+                variable="selection">
+             <and>
+                <count
+                      value="(1-">
+                </count>
+                <iterate
+                      operator="and">
+                   <adapt
+                         type="org.osate.ge.internal.diagram.runtime.DiagramElement">
+                      <test
+                            property="org.osate.ge.isResizable">
+                      </test>
+                   </adapt>
+                </iterate>
+             </and>
+          </with>
+       </enabledWhen>
+    </handler>
+    <handler
+          class="org.osate.ge.internal.ui.handlers.MatchHeightHandler"
+          commandId="org.osate.ge.commands.matchHeight">
+       <enabledWhen>
+          <with
+                variable="selection">
+             <and>
+                <count
+                      value="(1-">
+                </count>
+                <iterate
+                      operator="and">
+                   <adapt
+                         type="org.osate.ge.internal.diagram.runtime.DiagramElement">
+                      <test
+                            property="org.osate.ge.isResizable">
+                      </test>
+                   </adapt>
+                </iterate>
+             </and>
+          </with>
+       </enabledWhen>
+    </handler>
+    <handler
+          class="org.osate.ge.internal.ui.handlers.MatchSizeHandler"
+          commandId="org.osate.ge.commands.matchSize">
+       <enabledWhen>
+          <with
+                variable="selection">
+             <and>
+                <count
+                      value="(1-">
+                </count>
+                <iterate
+                      operator="and">
+                   <adapt
+                         type="org.osate.ge.internal.diagram.runtime.DiagramElement">
+                      <test
+                            property="org.osate.ge.isResizable">
+                      </test>
+                   </adapt>
+                </iterate>
+             </and>
+          </with>
+       </enabledWhen>
+    </handler>
+    <handler
+          class="org.osate.ge.internal.ui.handlers.SetBindingHandler"
+          commandId="org.osate.ge.commands.bind">
+       <enabledWhen>
+          <with
+                variable="selection">
+             <test
+                   property="org.osate.ge.singleNamedElementInComponentImplementation">
+             </test>
+          </with></enabledWhen>
+    </handler>
+    <handler
+          class="org.osate.ge.internal.ui.handlers.CreateEndToEndFlowSpecificationHandler"
+          commandId="org.osate.ge.commands.createEndToEndFlowSpecification">
+       <enabledWhen>
+          <with
+                variable="selection">
+             <test
+                   property="org.osate.ge.singleNamedElementInComponentImplementation">
+             </test>
+          </with>
+       </enabledWhen>
+    </handler>
+    <handler
+          class="org.osate.ge.internal.ui.handlers.CreateFlowImplementationHandler"
+          commandId="org.osate.ge.commands.createFlowImplementation">
+       <enabledWhen>
+          <with
+                variable="selection">
+             <test
+                   property="org.osate.ge.singleNamedElementInComponentImplementation">
+             </test>
+          </with></enabledWhen>
+    </handler>
+    <handler
+          class="org.osate.ge.internal.ui.handlers.AlignLeftHandler"
+          commandId="org.osate.ge.commands.alignLeft">
+       <enabledWhen>
+          <reference
+                definitionId="org.osate.ge.expresions.undockedMoveableShapesWithSameParent">
+          </reference>
+       </enabledWhen>
+    </handler>
+    <handler
+          class="org.osate.ge.internal.ui.handlers.AlignCenterHandler"
+          commandId="org.osate.ge.commands.alignCenter">
+       <enabledWhen>
+          <reference
+                definitionId="org.osate.ge.expresions.undockedMoveableShapesWithSameParent">
+          </reference>
+       </enabledWhen>
+    </handler>
+    <handler
+          class="org.osate.ge.internal.ui.handlers.AlignRightHandler"
+          commandId="org.osate.ge.commands.alignRight">
+       <enabledWhen>
+          <reference
+                definitionId="org.osate.ge.expresions.undockedMoveableShapesWithSameParent">
+          </reference>
+       </enabledWhen>
+    </handler>
+    <handler
+          class="org.osate.ge.internal.ui.handlers.AlignTopHandler"
+          commandId="org.osate.ge.commands.alignTop">
+       <enabledWhen>
+          <reference
+                definitionId="org.osate.ge.expresions.undockedMoveableShapesWithSameParent">
+          </reference>
+       </enabledWhen>
+    </handler>
+    <handler
+          class="org.osate.ge.internal.ui.handlers.AlignMiddleHandler"
+          commandId="org.osate.ge.commands.alignMiddle">
+       <enabledWhen>
+          <reference
+                definitionId="org.osate.ge.expresions.undockedMoveableShapesWithSameParent">
+          </reference>
+       </enabledWhen>
+    </handler>
+    <handler
+          class="org.osate.ge.internal.ui.handlers.AlignBottomHandler"
+          commandId="org.osate.ge.commands.alignBottom">
+       <enabledWhen>
+          <reference
+                definitionId="org.osate.ge.expresions.undockedMoveableShapesWithSameParent">
+          </reference>
+       </enabledWhen>
+    </handler>
+    <handler
+          class="org.osate.ge.internal.ui.handlers.OpenPropertiesHandler"
+          commandId="org.osate.ge.commands.properties">
+    </handler>
+ </extension>
        
-   <extension point="org.eclipse.ui.menus">
+   <extension
+         point="org.eclipse.ui.menus">
 		<menuContribution allPopups="false" locationURI="popup:#TextEditorContext?after=additions">
-			<command commandId="org.osate.ge.commands.opendiagram" style="push"/>
-			<command commandId="org.osate.ge.commands.creatediagram" style="push"/>
+			<command commandId="org.osate.ge.commands.opendiagram" style="push">
+			         <visibleWhen checkEnabled="false">
+               <reference
+                     definitionId="org.osate.xtext.aadl2.Aadl2.Editor.opened">
+               </reference>
+         </visibleWhen>
+			</command>
+			<command commandId="org.osate.ge.commands.creatediagram" style="push">
+			         <visibleWhen checkEnabled="false">
+               <reference
+                     definitionId="org.osate.xtext.aadl2.Aadl2.Editor.opened">
+               </reference>
+         </visibleWhen>
+         </command>
 		</menuContribution>
 		<menuContribution allPopups="false" locationURI="popup:org.osate.xtext.aadl2.ui.outline?after=additions">
 			<command commandId="org.osate.ge.commands.opendiagram" style="push"/>
@@ -59,6 +363,233 @@
          </visibleWhen>
          </command>
       </menuContribution>
+	<menuContribution
+             allPopups="false"
+             locationURI="toolbar:org.eclipse.ui.main.toolbar?after=org.osate.ui.toolbar">
+          <toolbar
+                id="org.osate.ge.toolbars.layout"
+                label="Layout">
+             <command
+                   commandId="org.osate.ge.commands.alignLeft"
+                   icon="./icons/gef/alignleft.gif"
+                   disabledIcon="./icons/gef/alignleft_d.gif"
+                   style="push">
+				<visibleWhen
+	                   checkEnabled="false">
+                       <reference
+                             definitionId="org.osate.ge.expresions.editorIsActive">
+                       </reference>
+	        	</visibleWhen>
+             </command>
+             <command
+                   commandId="org.osate.ge.commands.alignCenter"
+                   icon="./icons/gef/aligncenter.gif"
+                   disabledIcon="./icons/gef/aligncenter_d.gif"
+                   style="push">
+				<visibleWhen
+	                   checkEnabled="false">
+                       <reference
+                             definitionId="org.osate.ge.expresions.editorIsActive">
+                       </reference>
+	        	</visibleWhen>
+             </command>
+             <command
+                   commandId="org.osate.ge.commands.alignRight"
+                   icon="./icons/gef/alignright.gif"
+                   disabledIcon="./icons/gef/alignright_d.gif"
+                   style="push">
+				<visibleWhen
+	                   checkEnabled="false">
+                       <reference
+                             definitionId="org.osate.ge.expresions.editorIsActive">
+                       </reference>
+	        	</visibleWhen>
+             </command>
+             <separator
+                   name="org.osate.ge.separator1" visible="true">
+             </separator>
+             <command
+                   commandId="org.osate.ge.commands.alignTop"
+                   icon="./icons/gef/aligntop.gif"
+                   disabledIcon="./icons/gef/aligntop_d.gif"
+                   style="push">
+				<visibleWhen
+	                   checkEnabled="false">
+                       <reference
+                             definitionId="org.osate.ge.expresions.editorIsActive">
+                       </reference>
+	        	</visibleWhen>
+             </command>
+             <command
+                   commandId="org.osate.ge.commands.alignMiddle"
+                   icon="./icons/gef/alignmid.gif"
+                   disabledIcon="./icons/gef/alignmid_d.gif"
+                   style="push">
+				<visibleWhen
+	                   checkEnabled="false">
+                       <reference
+                             definitionId="org.osate.ge.expresions.editorIsActive">
+                       </reference>
+	        	</visibleWhen>
+             </command>
+             <command
+                   commandId="org.osate.ge.commands.alignBottom"
+                   icon="./icons/gef/alignbottom.gif"
+                   disabledIcon="./icons/gef/alignbottom_d.gif"
+                   style="push">
+				<visibleWhen
+	                   checkEnabled="false">
+                       <reference
+                             definitionId="org.osate.ge.expresions.editorIsActive">
+                       </reference>
+	        	</visibleWhen>
+             </command>
+             <separator
+                   name="org.osate.ge.separator2" visible="true">
+             </separator>
+             <command
+                   commandId="org.osate.ge.commands.distributeHorizontally"
+                   disabledIcon="icons/DistributeHorizontally_Disabled.gif"
+                   icon="icons/DistributeHorizontally.gif"
+                   style="push">
+                <visibleWhen
+                      checkEnabled="false">
+                   <reference
+                         definitionId="org.osate.ge.expresions.editorIsActive">
+                   </reference>
+                </visibleWhen>
+             </command>
+             <command
+                   commandId="org.osate.ge.commands.distributeVertically"
+                   disabledIcon="icons/DistributeVertically_Disabled.gif"
+                   icon="icons/DistributeVertically.gif"
+                   style="push">
+                <visibleWhen
+                      checkEnabled="false">
+                   <reference
+                         definitionId="org.osate.ge.expresions.editorIsActive">
+                   </reference>
+                </visibleWhen>
+             </command>
+             <separator
+                   name="org.osate.ge.separator3" visible="true">
+             </separator>
+             <command
+                   commandId="org.osate.ge.commands.gridLayout"
+                   disabledIcon="icons/GridLayout_Disabled.gif"
+                   icon="icons/GridLayout.gif"
+                   style="push">
+                <visibleWhen
+                      checkEnabled="false">
+                   <reference
+                         definitionId="org.osate.ge.expresions.editorIsActive">
+                   </reference>
+                </visibleWhen>
+             </command>
+             <command
+                   commandId="org.osate.ge.commands.radialLayout"
+                   disabledIcon="icons/RadialLayout_Disabled.gif"
+                   icon="icons/RadialLayout.gif"
+                   style="push">
+                    <visibleWhen
+	                   checkEnabled="false">
+                       <reference
+                             definitionId="org.osate.ge.expresions.editorIsActive">
+                       </reference>
+	        	</visibleWhen>
+             </command>
+             <separator
+                   name="org.osate.ge.separator4" visible="true">
+             </separator>
+             <command
+                   commandId="org.osate.ge.commands.matchWidth"
+                   icon="./icons/gef/matchwidth.gif"
+                   disabledIcon="./icons/gef/matchwidth_d.gif"
+                   style="push">
+                <visibleWhen
+                      checkEnabled="false">
+                   <reference
+                         definitionId="org.osate.ge.expresions.editorIsActive">
+                   </reference>
+                </visibleWhen>
+             </command>
+             <command
+                   commandId="org.osate.ge.commands.matchHeight"
+                   icon="./icons/gef/matchheight.gif"
+                   disabledIcon="./icons/gef/matchheight_d.gif"
+                   style="push">
+                <visibleWhen
+                      checkEnabled="false">
+                   <reference
+                         definitionId="org.osate.ge.expresions.editorIsActive">
+                   </reference>
+                </visibleWhen>
+             </command>
+             <command
+                   commandId="org.osate.ge.commands.matchSize"
+                   icon="./icons/gef/matchsize.gif"
+                   disabledIcon="./icons/gef/matchsize_d.gif"
+                   style="push">
+                <visibleWhen
+                      checkEnabled="false">
+                   <reference
+                         definitionId="org.osate.ge.expresions.editorIsActive">
+                   </reference>
+                </visibleWhen>
+             </command>
+          </toolbar>
+          <toolbar
+                id="org.osate.ge.toolbars.tools"
+                label="Tools">
+             <command
+                   commandId="org.osate.ge.commands.createEndToEndFlowSpecification"
+                   icon="icons/CreateEndToEndFlowSpecification.gif"
+                   style="push">
+                <visibleWhen
+                      checkEnabled="false">
+                   <reference
+                         definitionId="org.osate.ge.expresions.editorIsActive">
+                   </reference>
+                </visibleWhen>
+             </command>
+             <command
+                   commandId="org.osate.ge.commands.createFlowImplementation"
+                   icon="icons/CreateFlowImplementation.gif"
+                   style="push">
+                <visibleWhen
+                      checkEnabled="false">
+                   <reference
+                         definitionId="org.osate.ge.expresions.editorIsActive">
+                   </reference>
+                </visibleWhen>
+             </command>
+             <command
+                   commandId="org.osate.ge.commands.bind"
+                   icon="icons/SetBinding.gif"
+                   style="push">
+                <visibleWhen
+                      checkEnabled="false">
+                   <reference
+                         definitionId="org.osate.ge.expresions.editorIsActive">
+                   </reference>
+                </visibleWhen>
+             </command>
+             <separator
+                   name="org.osate.ge.separator2">
+             </separator>
+             <separator
+                   name="org.osate.ge.separator2">
+             </separator>
+          </toolbar>
+       </menuContribution>
+ <menuContribution
+       allPopups="false"
+       locationURI="popup:org.osate.ge.editor.AgeDiagramEditor">
+    <command
+          commandId="org.osate.ge.commands.properties"
+          style="push">
+    </command>
+ </menuContribution>
    </extension>
 	   
    <extension point="org.eclipse.graphiti.ui.diagramTypes">      
@@ -101,14 +632,22 @@
    </extension>
    
 	<extension point="org.eclipse.core.runtime.adapters">
-		<factory adaptableType="org.eclipse.graphiti.ui.platform.GraphitiShapeEditPart" class="org.osate.ge.internal.ui.editor.GraphitiEditPartAdapterFactory">
+		<factory adaptableType="org.eclipse.gef.EditPart" class="org.osate.ge.internal.ui.editor.GraphitiEditPartAdapterFactory">
 			<adapter type="org.osate.xtext.aadl2.ui.propertyview.IAadlPropertySource"/>
-			<adapter type="org.eclipse.ui.views.properties.IPropertySource"/>
+		   <adapter
+		         type="org.osate.ge.internal.diagram.runtime.DiagramElement">
+		   </adapter>
+     <adapter
+           type="org.osate.ge.BusinessObjectContext">
+     </adapter>
 		</factory>
-		<factory adaptableType="org.eclipse.graphiti.ui.platform.GraphitiConnectionEditPart" class="org.osate.ge.internal.ui.editor.GraphitiEditPartAdapterFactory">
-			<adapter type="org.osate.xtext.aadl2.ui.propertyview.IAadlPropertySource"/>
-			<adapter type="org.eclipse.ui.views.properties.IPropertySource"/>
-		</factory>
+  <factory
+        adaptableType="org.eclipse.jface.viewers.ISelection"
+        class="org.osate.ge.internal.ui.properties.AgeBusinessObjectSelectionAdapterFactory">
+     <adapter
+           type="org.osate.ge.internal.ui.properties.BusinessObjectSelection">
+     </adapter>
+  </factory>
 	</extension>
 
   <extension
@@ -118,7 +657,7 @@
            contentProvider="org.osate.ge.internal.ui.navigator.ContentProvider"
            id="org.osate.ge.navigatorContent"
            labelProvider="org.osate.ge.internal.ui.navigator.LabelProvider"
-           name="AADL Diagrams"
+           name="AADL Diagrams (Legacy)"
            priority="highest">
         <enablement>
            <or>
@@ -153,30 +692,6 @@
   </extension>
   
   <extension
-        point="org.eclipse.ui.navigator.navigatorContent">
-     <navigatorContent
-           activeByDefault="true"
-           id="org.osate.ge.navigatorContent2"
-           name="Sort by Label (AGE)"
-           priority="highest"
-           sortOnly="true">
-        <commonSorter
-              class="org.osate.ge.internal.ui.navigator.Sorter"
-              id="org.osate.ge.navigatorContent.sorter">
-           <parentExpression>
-              <or>
-                 <adapt
-                       type="org.eclipse.core.resources.IFolder">
-                    <test
-                          property="org.osate.ge.name"
-                          value="diagrams">
-                    </test>
-                 </adapt></or>
-           </parentExpression>
-        </commonSorter>
-     </navigatorContent>
-  </extension>
-  <extension
         point="org.eclipse.ui.navigator.linkHelper">
      <linkHelper
            class="org.osate.ge.internal.ui.navigator.LinkHelper"
@@ -199,11 +714,25 @@
   <extension
         point="org.eclipse.core.expressions.propertyTesters">
      <propertyTester
-           class="org.osate.ge.internal.ui.navigator.PropertyTester"
+           class="org.osate.ge.internal.expressions.ResourcePropertyTester"
            id="org.osate.ge.navigator.propertyTester"
            namespace="org.osate.ge"
            properties="name,isAadlPackage"
            type="org.eclipse.core.resources.IResource">
+     </propertyTester>
+     <propertyTester
+           class="org.osate.ge.internal.expressions.DiagramElementPropertyTester"
+           id="org.osate.ge.expressions.diagramElementPropertyTester"
+           namespace="org.osate.ge"
+           properties="isUndocked,isMoveable,isResizable"
+           type="org.osate.ge.internal.diagram.runtime.DiagramElement">
+     </propertyTester>
+     <propertyTester
+           class="org.osate.ge.internal.expressions.SelectionPropertyTester"
+           id="org.osate.ge.expressions.selectionPropertyTester"
+           namespace="org.osate.ge"
+           properties="allAreDiagramElementsWithSameParent,singleNamedElementInComponentImplementation"
+           type="org.eclipse.jface.viewers.ISelection">
      </propertyTester>
   </extension>
   
@@ -320,14 +849,7 @@
         </and>    
        </definition>
     </extension>
-    
-    <extension
-          point="org.osate.ge.tools">
-       <tool class="org.osate.ge.internal.ui.tools.CreateEndToEndFlowSpecificationTool"/>
-       <tool class="org.osate.ge.internal.ui.tools.CreateFlowImplementationTool"/>
-       <tool class="org.osate.ge.internal.ui.tools.SetBindingTool"/>
-    </extension>
-    
+        
     <extension
           point="org.osate.ge.tooltips">
        <tooltipContributor 
@@ -903,12 +1425,6 @@
        <commandContributor
              class="org.osate.ge.internal.commands.SetFeatureGroupInverseCommandContributor">
        </commandContributor>
-        <commandContributor
-             class="org.osate.ge.internal.commands.SetFeatureKindCommandContributor">
-       </commandContributor>
-       <commandContributor
-             class="org.osate.ge.internal.commands.SetFeatureDirectionCommandContributor">
-       </commandContributor>
        <commandContributor
              class="org.osate.ge.internal.commands.ChangeSubcomponentTypeCommandContributor">
        </commandContributor>
@@ -940,4 +1456,114 @@
              </with></enablement>
        </renameParticipant>
     </extension>
+    
+    <extension
+         point="org.eclipse.ui.views.properties.tabbed.propertyContributor">
+      <propertyContributor
+            contributorId="org.osate.ge.editor.AgeDiagramEditor">
+         <propertyCategory
+               category="AADL"></propertyCategory>
+      </propertyContributor>
+   </extension>
+   <extension
+         point="org.eclipse.ui.views.properties.tabbed.propertyTabs">
+      <propertyTabs
+            contributorId="org.osate.ge.editor.AgeDiagramEditor">
+         <propertyTab
+               category="AADL"
+               id="org.osate.ge.ui.properties.aadlTab"
+               label="AADL">
+         </propertyTab>
+      </propertyTabs>
+   </extension>
+   <extension
+         point="org.eclipse.ui.views.properties.tabbed.propertySections">
+      <propertySections
+            contributorId="org.osate.ge.editor.AgeDiagramEditor">
+         <propertySection
+               class="org.osate.ge.internal.ui.properties.InheritedElementNoticePropertySection"
+               filter="org.osate.ge.internal.ui.properties.InheritedElementNoticePropertySection$Filter"
+               id="org.osate.ge.ui.properties.inheritedElementOwnerNoticeSection"
+               tab="org.osate.ge.ui.properties.aadlTab">
+         </propertySection>
+         <propertySection
+               afterSection="org.osate.ge.ui.properties.inheritedElementOwnerNoticeSection"
+               class="org.osate.ge.internal.ui.properties.DirectionalFeaturePropertySection"
+               filter="org.osate.ge.internal.ui.properties.DirectionalFeaturePropertySection$Filter"
+               id="org.osate.ge.ui.properties.elementOwnerWarningSection"
+               tab="org.osate.ge.ui.properties.aadlTab">
+         </propertySection>
+         <propertySection
+               afterSection="org.osate.ge.ui.properties.inheritedElementOwnerNoticeSection"
+               class="org.osate.ge.internal.ui.properties.AccessPropertySection"
+               filter="org.osate.ge.internal.ui.properties.AccessPropertySection$Filter"
+               id="org.osate.ge.ui.properties.accessSection"
+               tab="org.osate.ge.ui.properties.aadlTab">
+         </propertySection>
+      </propertySections>
+   </extension>
+   <extension
+         point="org.eclipse.core.expressions.definitions">
+      <definition
+            id="org.osate.ge.expresions.undockedMoveableShapesWithSameParent">
+         <with
+               variable="selection">
+            <and>
+               <count
+                     value="(1-">
+               </count>
+               <test
+                     property="org.osate.ge.allAreDiagramElementsWithSameParent">
+               </test>
+               <iterate
+                     operator="and">
+                  <adapt
+                        type="org.osate.ge.internal.diagram.runtime.DiagramElement">
+                     <test
+                           property="org.osate.ge.isMoveable">
+                     </test>
+                     <test
+                           property="org.osate.ge.isUndocked">
+                     </test>
+                  </adapt>
+               </iterate>
+            </and>
+         </with>
+      </definition>
+      <definition
+            id="org.osate.ge.expresions.canDistribute">
+         <with
+               variable="selection">
+            <and>
+               <count
+                     value="(2-">
+               </count>
+               <test
+                     property="org.osate.ge.allAreDiagramElementsWithSameParent">
+               </test>
+               <iterate
+                     operator="and">
+                  <adapt
+                        type="org.osate.ge.internal.diagram.runtime.DiagramElement">
+                     <test
+                           property="org.osate.ge.isMoveable">
+                     </test>
+                     <test
+                           property="org.osate.ge.isUndocked">
+                     </test>
+                  </adapt>
+               </iterate>
+            </and>
+         </with>
+      </definition>
+      <definition
+            id="org.osate.ge.expresions.editorIsActive">
+         <with
+               variable="activeEditorId">
+            <equals
+                  value="org.osate.ge.editor.AgeDiagramEditor">
+            </equals>
+         </with>
+      </definition>
+   </extension>
 </plugin>

@@ -13,8 +13,6 @@ import org.eclipse.graphiti.mm.algorithms.GraphicsAlgorithm;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.eclipse.graphiti.mm.pictograms.Shape;
 import org.osate.ge.internal.diagram.runtime.DiagramElement;
-import org.osate.ge.internal.diagram.runtime.DiagramModification;
-import org.osate.ge.internal.diagram.runtime.DiagramModifier;
 import org.osate.ge.internal.diagram.runtime.Dimension;
 import org.osate.ge.internal.diagram.runtime.Point;
 import org.osate.ge.internal.graphics.AgeShape;
@@ -27,7 +25,7 @@ import org.osate.ge.internal.graphiti.diagram.GraphitiAgeDiagram;
  */
 public class AgeResizeShapeFeature extends DefaultResizeShapeFeature implements ICustomUndoRedoFeature {
 	private final GraphitiAgeDiagramProvider graphitiAgeDiagramProvider;
-	
+
 	@Inject
 	public AgeResizeShapeFeature(
 			final GraphitiAgeDiagramProvider graphitiAgeDiagramProvider,
@@ -35,59 +33,56 @@ public class AgeResizeShapeFeature extends DefaultResizeShapeFeature implements 
 		super(fp);
 		this.graphitiAgeDiagramProvider = Objects.requireNonNull(graphitiAgeDiagramProvider, "graphitiAgeDiagramProvider must not be null");
 	}
-	
+
 	@Override
 	public boolean canResizeShape(final IResizeShapeContext ctx) {
 		final DiagramElement element = graphitiAgeDiagramProvider.getGraphitiAgeDiagram().getDiagramElement(ctx.getShape());
 		if(element == null) {
 			return false;
 		}
-		
+
 		if(!(element.getGraphic() instanceof AgeShape)) {
 			return false;
 		}
-		
+
 		if(!((AgeShape)element.getGraphic()).isResizeable()) {
 			return false;
 		}
-		
+
 		// Ensure that the resize won't move the shape outside of its container
 		final Shape shape = ctx.getShape();
 		final Shape container = shape.getContainer();
 		if(!(container instanceof Diagram) && ctx.getDirection() != IResizeShapeContext.DIRECTION_UNSPECIFIED) {
 			final GraphicsAlgorithm containerInnerGa = container.getGraphicsAlgorithm().getGraphicsAlgorithmChildren().get(0);
 			if((ctx.getX() != shape.getGraphicsAlgorithm().getX() &&
-					(ctx.getX() < containerInnerGa.getX() || 
-					ctx.getX() > containerInnerGa.getX() + containerInnerGa.getWidth())) ||
-				(ctx.getY() != shape.getGraphicsAlgorithm().getY() &&
+					(ctx.getX() < containerInnerGa.getX() ||
+							ctx.getX() > containerInnerGa.getX() + containerInnerGa.getWidth())) ||
+					(ctx.getY() != shape.getGraphicsAlgorithm().getY() &&
 					(ctx.getY() < containerInnerGa.getY() ||
-					ctx.getY() > containerInnerGa.getY() + containerInnerGa.getHeight()))) {
+							ctx.getY() > containerInnerGa.getY() + containerInnerGa.getHeight()))) {
 				return false;
 			}
 		}
-		
+
 		return super.canResizeShape(ctx);
 	}
-	
+
 	@Override
 	public void resizeShape(final IResizeShapeContext context) {
 		final GraphitiAgeDiagram graphitiAgeDiagram = graphitiAgeDiagramProvider.getGraphitiAgeDiagram();
 		final DiagramElement diagramElement = graphitiAgeDiagram.getDiagramElement(context.getShape());
-		graphitiAgeDiagram.modify("Resize Shape", new DiagramModifier() {
-			@Override
-			public void modify(DiagramModification m) {
-				m.setPosition(diagramElement, new Point(context.getX(), context.getY()));
-				m.setSize(diagramElement, new Dimension(context.getWidth(), context.getHeight()));
-				AgeFeatureUtil.storeModificationInContext(context, m);
-			}				
-		});	
+		graphitiAgeDiagram.modify("Resize Shape", m -> {
+			m.setPosition(diagramElement, new Point(context.getX(), context.getY()));
+			m.setSize(diagramElement, new Dimension(context.getWidth(), context.getHeight()));
+			AgeFeatureUtil.storeModificationInContext(context, m);
+		});
 	}
-	
+
 	@Override
 	public boolean canUndo(final IContext context) {
 		return AgeFeatureUtil.canUndo(context);
 	}
-	
+
 	@Override
 	public void preUndo(final IContext context) {
 	}

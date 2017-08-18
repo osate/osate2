@@ -9,6 +9,7 @@
 package org.osate.ge.internal.graphiti;
 
 import java.util.Objects;
+
 import org.eclipse.e4.core.contexts.ContextInjectionFactory;
 import org.eclipse.e4.core.contexts.EclipseContextFactory;
 import org.eclipse.e4.core.contexts.IEclipseContext;
@@ -19,18 +20,15 @@ import org.osate.ge.internal.AgeDiagramProvider;
 import org.osate.ge.internal.graphiti.services.GraphitiService;
 import org.osate.ge.internal.graphiti.services.impl.DefaultColoringService;
 import org.osate.ge.internal.graphiti.services.impl.DefaultGraphitiService;
-import org.osate.ge.internal.services.AadlModificationService;
 import org.osate.ge.internal.services.ColoringService;
 import org.osate.ge.internal.services.EditorProvider;
 import org.osate.ge.internal.services.ExtensionRegistryService;
 import org.osate.ge.internal.services.ExtensionService;
 import org.osate.ge.internal.services.NamingService;
 import org.osate.ge.internal.services.ProjectProvider;
-import org.osate.ge.internal.services.ReferenceService;
-import org.osate.ge.internal.services.SavedAadlResourceService;
 import org.osate.ge.internal.services.ProjectReferenceService;
+import org.osate.ge.internal.services.ReferenceService;
 import org.osate.ge.internal.services.UiService;
-import org.osate.ge.internal.services.impl.DefaultAadlModificationService;
 import org.osate.ge.internal.services.impl.DefaultExtensionService;
 import org.osate.ge.internal.services.impl.DefaultNamingService;
 import org.osate.ge.internal.services.impl.DefaultUiService;
@@ -62,9 +60,7 @@ public class AgeDiagramTypeProvider extends AbstractDiagramTypeProvider {
 		
 		// Create objects for the context
 		final ReferenceService globalReferenceService = Objects.requireNonNull(context.get(ReferenceService.class), "Unable to retrieve global reference service");
-		final SavedAadlResourceService savedAadlResourceService = Objects.requireNonNull(context.get(SavedAadlResourceService.class), "Unable to retrieve SavedAadlResourceService");
 		final DefaultNamingService namingService = new DefaultNamingService();
-		final DefaultAadlModificationService modificationService = new DefaultAadlModificationService(savedAadlResourceService);
 		final ExtensionService extensionService = new DefaultExtensionService(Objects.requireNonNull(context.get(ExtensionRegistryService.class), "Unable to retrieve ExtensionRegistryService"), context);
 		
 		final DefaultGraphitiService graphitiService = new DefaultGraphitiService(this, fp);
@@ -80,7 +76,6 @@ public class AgeDiagramTypeProvider extends AbstractDiagramTypeProvider {
 		context.set(UiService.class, uiService);
 		context.set(ProjectReferenceService.class, projectReferenceService);
 		context.set(NamingService.class, namingService);
-		context.set(AadlModificationService.class, modificationService);
 		context.set(ColoringService.class, coloringService);
 		context.set(GraphitiService.class, graphitiService);
 		context.set(ProjectProvider.class, graphitiService);

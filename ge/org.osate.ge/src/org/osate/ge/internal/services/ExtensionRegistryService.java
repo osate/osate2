@@ -36,25 +36,12 @@ import org.osate.ge.internal.businessObjectHandlers.BusinessObjectHandlerProvide
 
 public interface ExtensionRegistryService extends BusinessObjectHandlerProvider {
 	/**
-	 * Tools are objects that allow the user to perform a specific action using the editor. Only a single tool may be active at a time and tools should have their own 
-	 * user interface to provide feedback to the user. 
-	 * The following annotations are used with tools:
-	 * Activate - Required
-	 * CanActivate - Optional
-	 * Deactivate - Required
-	 * Description - Required
-	 * Icon - Required
-	 * Id - Required
-	 * SelectionChanged - Optional
-	 */
-    Collection<Object> getTools();
-
-	/**
 	 * Business object handlers are extension which provide  
 	 */
     Collection<Object> getBusinessObjectHandlers();
 
-    Object getApplicableBusinessObjectHandler(Object bo);
+    @Override
+	Object getApplicableBusinessObjectHandler(Object bo);
     
     /**
      * @return an ordered collection of tooltip contributors.

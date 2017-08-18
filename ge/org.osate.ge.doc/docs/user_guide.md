@@ -52,7 +52,7 @@ An existing AADL model can be opened in the graphical editor. Changes made to ei
 The graphical editor supports navigating between related diagrams in several ways.
 
 ## Opening an Associated Diagram
-Diagrams associated with a particular element can be opened by double-clicking on the model element. For example, double-clicking a classifier inside a package diagram will open that classifier's diagram. Alternatively, the associated diagram can be open by right-clicking on the element and selecting *Open Associated Diagram* from the context menu.
+Diagrams associated with a particular element can be opened by right-clicking on the element and selecting *Open Associated Diagram* from the context menu. 
 
 ![](../images/OpenAssociatedDiagram.png)
 
@@ -117,8 +117,11 @@ In some cases a connection between diagram elements will be represented by a dot
 - An AADL property reference value for which the model element to which the property value applies is hidden.
 - An AADL property reference value for which the referenced model element is hidden.
 
-### Inherited Element
+### Inherited Elements
 Elements which are inherited from another model element have a gray color. This indicates that any changes made to the model element will result in a change to model element other than the one in which it is contained in graphically. Modifying inherited elements directly is not supported at this time. To modify an inherited model element, modify the element in the context of its owner. For example, to modify an AADL feature which is inherited from another classifier, find the diagram element of the classifier which defines the feature and modify the feature. 
+
+### Editing Properties
+The properties sheet contains properties for the currently selected diagram elements. The properties sheet can be opened by double-clicking on a diagram element in the diagram or in the outline. Alternatively, the properties sheet can be opened by right-clicking on a diagram element in the diagram or outline and selecting *Properties...* from the context menu.
 
 ### Deleting
 An element can be deleted from the AADL model by selecting it and pressing the *Delete* key. An element can also be deleted by right-clicking on it and selecting *Delete* from the context menu.

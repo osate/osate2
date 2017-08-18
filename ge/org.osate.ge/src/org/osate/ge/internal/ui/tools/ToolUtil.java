@@ -5,9 +5,9 @@ import org.osate.aadl2.Context;
 import org.osate.aadl2.NamedElement;
 import org.osate.ge.BusinessObjectContext;
 
-class ToolUtil {
+public class ToolUtil {
 	/**
-	 * Looks in ancestors and returns the first BOC which is associated with a ComponentImplementation. 
+	 * Looks in ancestors and returns the first BOC which is associated with a ComponentImplementation.
 	 * Returns null if any ancestor is not associated with a NamedElement.
 	 * @param boc
 	 * @return
@@ -20,26 +20,26 @@ class ToolUtil {
 			} else if(!(tmp.getBusinessObject() instanceof NamedElement)) {
 				return null;
 			}
-			
+
 			tmp = tmp.getParent();
 		}
-		
+
 		return null;
 	}
-	
+
 	public static BusinessObjectContext findContextAncestorBoc(final BusinessObjectContext boc) {
 		BusinessObjectContext tmp = boc.getParent();
 		while(tmp != null) {
 			if(tmp.getBusinessObject() instanceof Context) {
 				return tmp;
 			}
-			
+
 			tmp = tmp.getParent();
 		}
-		
+
 		return null;
 	}
-	
+
 	public static Context findContext(final BusinessObjectContext boc) {
 		final BusinessObjectContext contextBoc = findContextAncestorBoc(boc);
 		return contextBoc == null ? null : (Context)contextBoc.getBusinessObject();

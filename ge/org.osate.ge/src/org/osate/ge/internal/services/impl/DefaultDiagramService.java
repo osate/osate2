@@ -55,7 +55,7 @@ import org.osate.ge.internal.services.ReferenceService;
 import org.osate.ge.internal.ui.editor.AgeDiagramBehavior;
 import org.osate.ge.internal.ui.editor.AgeDiagramEditor;
 import org.osate.ge.internal.ui.util.EditorUtil;
-import org.osate.ge.internal.ui.util.SelectionHelper;
+import org.osate.ge.internal.ui.util.SelectionUtil;
 import org.osate.ge.internal.util.BusinessObjectProviderHelper;
 import org.osate.ge.internal.util.Log;
 import org.osate.ge.internal.util.NonUndoableToolCommand;
@@ -395,7 +395,7 @@ public class DefaultDiagramService implements DiagramService {
 		if(resource != null) {
 			final URI uri = resource.getURI();
 			if(uri != null) {
-				return SelectionHelper.getProject(uri);
+				return SelectionUtil.getProject(uri);
 			}
 		}
 		

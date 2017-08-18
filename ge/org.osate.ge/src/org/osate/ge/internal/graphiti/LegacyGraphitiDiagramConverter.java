@@ -50,7 +50,7 @@ import org.osate.ge.internal.graphiti.diagram.PropertyUtil;
 import org.osate.ge.internal.model.SubprogramCallOrder;
 import org.osate.ge.internal.services.ReferenceService;
 import org.osate.ge.internal.services.ProjectReferenceService;
-import org.osate.ge.internal.ui.util.SelectionHelper;
+import org.osate.ge.internal.ui.util.SelectionUtil;
 import org.osate.ge.services.ReferenceBuilderService;
 import org.osgi.framework.Bundle;
 import org.osgi.framework.FrameworkUtil;
@@ -98,7 +98,7 @@ public class LegacyGraphitiDiagramConverter {
 			throw new RuntimeException("Unable to get context business object reference from legacy diagram.");
 		}
 		
-		final IProject project = SelectionHelper.getProject(legacyDiagram.eResource());
+		final IProject project = SelectionUtil.getProject(legacyDiagram.eResource());
 		
 		// Create objects for the context
 		final Bundle bundle = FrameworkUtil.getBundle(getClass());	

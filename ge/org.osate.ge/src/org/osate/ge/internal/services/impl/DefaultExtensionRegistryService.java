@@ -34,6 +34,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IConfigurationElement;
 import org.eclipse.core.runtime.IExtension;
@@ -77,14 +78,12 @@ public class DefaultExtensionRegistryService implements ExtensionRegistryService
 		}
 	}
 	
-	private static final String TOOL_EXTENSION_POINT_ID = "org.osate.ge.tools";
 	private static final String BUSINESS_OBJECT_HANDLERS_EXTENSION_POINT_ID = "org.osate.ge.businessObjectHandlers";
 	private static final String TOOLTIP_EXTENSION_POINT_ID = "org.osate.ge.tooltips";
 	private static final String COMMAND_EXTENSION_POINT_ID = "org.osate.ge.commands";
 	private static final String CATEGORIES_EXTENSION_POINT_ID = "org.osate.ge.categories";
 	private static final String BUSINESS_OBJECT_PROVIDERS_EXTENSION_POINT_ID = "org.osate.ge.businessObjectProviders";
 	
-	private final Collection<Object> tools;
 	private final Collection<Object> boHandlers;
 	private final Collection<Object> commands;	
 	private final List<Category> categories;
@@ -93,7 +92,6 @@ public class DefaultExtensionRegistryService implements ExtensionRegistryService
 	
 	public DefaultExtensionRegistryService() {
 		final IExtensionRegistry registry = Platform.getExtensionRegistry();		
-		tools = instantiateTools(registry);
 		boHandlers = instantiateBusinessObjectHandlers(registry);
 		tooltipContributors = instantiateTooltipContributors(registry);
 		commands = instantiateCommands(registry);
@@ -101,11 +99,6 @@ public class DefaultExtensionRegistryService implements ExtensionRegistryService
 		businessObjectProviders = instantiateBusinessObjectProviders(registry);
 	}
 
-	@Override
-	public Collection<Object> getTools() {
-		return tools;
-	}
-	
 	@Override
 	public Collection<Object> getBusinessObjectHandlers() {
     	return boHandlers;
@@ -154,10 +147,6 @@ public class DefaultExtensionRegistryService implements ExtensionRegistryService
 		return businessObjectProviders;
 	}
 	
-	private static Collection<Object> instantiateTools(final IExtensionRegistry registry) {
-		return Collections.unmodifiableCollection(instantiateSimpleExtensions(registry, TOOL_EXTENSION_POINT_ID, "tool"));
-	}
-	
 	private static Collection<Object> instantiateBusinessObjectHandlers(final IExtensionRegistry registry) {
 		return Collections.unmodifiableCollection(instantiatePrioritizedExtensions(registry, BUSINESS_OBJECT_HANDLERS_EXTENSION_POINT_ID, "handler"));
 	}
@@ -202,7 +191,7 @@ public class DefaultExtensionRegistryService implements ExtensionRegistryService
 				for(final IConfigurationElement ce : extension.getConfigurationElements()) {
 					if(ce.getName().equals(elementName)) {
 						try {								
-							final Object ext = (Object)ce.createExecutableExtension("class");
+							final Object ext = ce.createExecutableExtension("class");
 							extensions.add(ext);
 						} catch(final CoreException ex) {
 							throw new RuntimeException(ex);
@@ -219,12 +208,7 @@ public class DefaultExtensionRegistryService implements ExtensionRegistryService
 	private static Collection<Object> instantiatePrioritizedExtensions(final IExtensionRegistry registry, 
 			final String extensionPointId, 
 			final String elementName) {
-		final Comparator<PrioritizedExtensionInfo> priorityComparator = new Comparator<PrioritizedExtensionInfo>() {
-			@Override
-			public int compare(final PrioritizedExtensionInfo tooltipContributor1, final PrioritizedExtensionInfo tooltipContributor2) {
-				return Integer.compare(tooltipContributor1.getPriority(), tooltipContributor2.getPriority());
-			}
-		};
+		final Comparator<PrioritizedExtensionInfo> priorityComparator = (tooltipContributor1, tooltipContributor2) -> Integer.compare(tooltipContributor1.getPriority(), tooltipContributor2.getPriority());
 		
 		final Collection<Object> extensions = new ArrayList<Object>();
 		final IExtensionPoint extPoint = registry.getExtensionPoint(extensionPointId);
@@ -236,7 +220,7 @@ public class DefaultExtensionRegistryService implements ExtensionRegistryService
 						final String priorityStr = ce.getAttribute("priority");
 						final int priority = priorityStr == null ? Integer.MAX_VALUE : Integer.parseInt(priorityStr);
 						try {
-							final Object contributor = (Object)ce.createExecutableExtension("class");
+							final Object contributor = ce.createExecutableExtension("class");
 							final PrioritizedExtensionInfo tooltipContributerInfo = new PrioritizedExtensionInfo(priority, contributor);
 							prioritizedExtensionInfos.add(tooltipContributerInfo);
 						} catch (final CoreException e) {
@@ -286,12 +270,7 @@ public class DefaultExtensionRegistryService implements ExtensionRegistryService
 	}
 	
 	private static final Comparator<IConfigurationElement> orderComparator 
-	= new Comparator<IConfigurationElement>() {
-		@Override
-		public int compare(final IConfigurationElement ce1, final IConfigurationElement ce2) {
-			return Integer.valueOf(ce1.getAttribute("order")).compareTo(Integer.valueOf(ce2.getAttribute("order")));
-		}
-	};
+	= (ce1, ce2) -> Integer.valueOf(ce1.getAttribute("order")).compareTo(Integer.valueOf(ce2.getAttribute("order")));
 	
 	private static class SimpleCategory implements Category {
 		private String id;
