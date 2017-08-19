@@ -3,6 +3,7 @@ package org.osate.aadl2.errormodel.faulttree.generation;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.URI;
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
@@ -68,6 +69,11 @@ public class CreateFTAModel {
 			}
 		}
 		PropagationGraph currentPropagationGraph = Util.generatePropagationGraph(selection.getSystemInstance(), false);
+		String pgname = selection.getSystemInstance().getName();
+		URI pgURI = EcoreUtil.getURI(selection).trimFragment().trimSegments(1).appendSegment("reports")
+				.appendSegment("propagationgraph").appendSegment(pgname + ".propagationgraph");
+		AadlUtil.makeSureFoldersExist(new Path(pgURI.toPlatformString(true)));
+		serializeEMFModel(currentPropagationGraph, pgURI);
 		FTAGenerator wrapper = null;
 		if ((errorState != null) || (errorPropagation != null)) {
 			if (errorState != null) {
@@ -81,24 +87,23 @@ public class CreateFTAModel {
 					+ (graph ? "_graph" : "");
 			ftamodel.setName(rootname);
 
-			URI newURI = EcoreUtil.getURI(selection).trimFragment().trimSegments(1).appendSegment("reports")
+			URI ftaURI = EcoreUtil.getURI(selection).trimFragment().trimSegments(1).appendSegment("reports")
 					.appendSegment("fta").appendSegment(rootname + ".faulttree");
-			AadlUtil.makeSureFoldersExist(new Path(newURI.toPlatformString(true)));
-			URI ftauri = serializeEmftaModel(ftamodel, newURI);
+			AadlUtil.makeSureFoldersExist(new Path(ftaURI.toPlatformString(true)));
+			URI ftauri = serializeEMFModel(ftamodel, ftaURI);
 			return ftauri;
 		} else {
 			return null;
 		}
 	}
 
-	private static URI serializeEmftaModel(FaultTree emftaModel, final URI newURI) {
-
+	private static URI serializeEMFModel(EObject root, final URI newURI) {
 		try {
 			ResourceSet set = new ResourceSetImpl();
 			Resource res = set.createResource(newURI);
-			res.getContents().add(emftaModel);
+			res.getContents().add(root);
 			res.save(null);
-			return EcoreUtil.getURI(emftaModel);
+			return EcoreUtil.getURI(root);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
