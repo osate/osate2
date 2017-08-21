@@ -17,12 +17,14 @@
  */
 package org.osate.xtext.aadl2.errormodel.ui.contentassist;
 
+import com.google.inject.Inject
 import java.util.ArrayList
 import java.util.List
 import org.eclipse.emf.ecore.EObject
 import org.eclipse.emf.ecore.util.EcoreUtil
 import org.eclipse.xtext.Assignment
 import org.eclipse.xtext.CrossReference
+import org.eclipse.xtext.RuleCall
 import org.eclipse.xtext.ui.editor.contentassist.ContentAssistContext
 import org.eclipse.xtext.ui.editor.contentassist.ICompletionProposalAcceptor
 import org.osate.xtext.aadl2.errormodel.errorModel.ConditionElement
@@ -36,14 +38,16 @@ import org.osate.xtext.aadl2.errormodel.errorModel.ErrorSource
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorType
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorTypes
 import org.osate.xtext.aadl2.errormodel.errorModel.TypeSet
+import org.osate.xtext.aadl2.errormodel.services.ErrorModelGrammarAccess
+import org.osate.xtext.aadl2.errormodel.util.EMV2Util
 
 import static extension org.eclipse.xtext.EcoreUtil2.getContainerOfType
-import org.osate.xtext.aadl2.errormodel.util.EMV2Util
 
 /**
  * see http://www.eclipse.org/Xtext/documentation/latest/xtext.html#contentAssist on how to customize content assistant
  */
 class ErrorModelProposalProvider extends AbstractErrorModelProposalProvider {
+	@Inject extension ErrorModelGrammarAccess
 	
 	override completeErrorModelLibrary_Extends(EObject model, Assignment assignment, ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
 		lookupCrossReference(assignment.getTerminal() as CrossReference, context, acceptor,
@@ -141,5 +145,140 @@ class ErrorModelProposalProvider extends AbstractErrorModelProposalProvider {
 		if (et instanceof ErrorType){et.superType?.getProposedObjectSuperTypes(results, proposedObj)}
 		results
 	}
-
+	
+	override complete_ComponentErrorBehaviorKeywords(EObject model, RuleCall ruleCall, ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
+		componentErrorBehaviorKeywordsAccess.group.createKeywordProposal(context, acceptor)
+	}
+	
+	override complete_CompositeErrorBehaviorKeywords(EObject model, RuleCall ruleCall, ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
+		compositeErrorBehaviorKeywordsAccess.group.createKeywordProposal(context, acceptor)
+	}
+	
+	override complete_ConnectionErrorKeywords(EObject model, RuleCall ruleCall, ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
+		connectionErrorKeywordsAccess.group.createKeywordProposal(context, acceptor)
+	}
+	
+	override complete_EndBehaviorKeywords(EObject model, RuleCall ruleCall, ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
+		endBehaviorKeywordsAccess.group.createKeywordProposal(context, acceptor)
+	}
+	
+	override complete_EndComponentKeywords(EObject model, RuleCall ruleCall, ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
+		endComponentKeywordsAccess.group.createKeywordProposal(context, acceptor)
+	}
+	
+	override complete_EndCompositeKeywords(EObject model, RuleCall ruleCall, ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
+		endCompositeKeywordsAccess.group.createKeywordProposal(context, acceptor)
+	}
+	
+	override complete_EndConnectionKeywords(EObject model, RuleCall ruleCall, ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
+		endConnectionKeywordsAccess.group.createKeywordProposal(context, acceptor)
+	}
+	
+	override complete_EndMappingsKeywords(EObject model, RuleCall ruleCall, ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
+		endMappingsKeywordsAccess.group.createKeywordProposal(context, acceptor)
+	}
+	
+	override complete_EndPathsKeywords(EObject model, RuleCall ruleCall, ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
+		endPathsKeywordsAccess.group.createKeywordProposal(context, acceptor)
+	}
+	
+	override complete_EndPropagationsKeywords(EObject model, RuleCall ruleCall, ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
+		endPropagationsKeywordsAccess.group.createKeywordProposal(context, acceptor)
+	}
+	
+	override complete_EndSubclauseKeywords(EObject model, RuleCall ruleCall, ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
+		endSubclauseKeywordsAccess.group.createKeywordProposal(context, acceptor)
+	}
+	
+	override complete_EndTransformationsKeywords(EObject model, RuleCall ruleCall, ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
+		endTransformationsKeywordsAccess.group.createKeywordProposal(context, acceptor)
+	}
+	
+	override complete_EndTypesKeywords(EObject model, RuleCall ruleCall, ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
+		endTypesKeywordsAccess.group.createKeywordProposal(context, acceptor)
+	}
+	
+	override complete_ErrorBehaviorKeywords(EObject model, RuleCall ruleCall, ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
+		errorBehaviorKeywordsAccess.group.createKeywordProposal(context, acceptor)
+	}
+	
+	override complete_ErrorEventKeywords(EObject model, RuleCall ruleCall, ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
+		errorEventKeywordsAccess.group.createKeywordProposal(context, acceptor)
+	}
+	
+	override complete_ErrorPathKeywords(EObject model, RuleCall ruleCall, ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
+		errorPathKeywordsAccess.group.createKeywordProposal(context, acceptor)
+	}
+	
+	override complete_ErrorPropagationsKeywords(EObject model, RuleCall ruleCall, ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
+		errorPropagationsKeywordsAccess.group.createKeywordProposal(context, acceptor)
+	}
+	
+	override complete_ErrorSinkKeywords(EObject model, RuleCall ruleCall, ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
+		errorSinkKeywordsAccess.group.createKeywordProposal(context, acceptor)
+	}
+	
+	override complete_ErrorSourceKeywords(EObject model, RuleCall ruleCall, ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
+		errorSourceKeywordsAccess.group.createKeywordProposal(context, acceptor)
+	}
+	
+	override complete_ErrorTypesKeywords(EObject model, RuleCall ruleCall, ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
+		errorTypesKeywordsAccess.group.createKeywordProposal(context, acceptor)
+	}
+	
+	override complete_ModeMappingsKeywords(EObject model, RuleCall ruleCall, ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
+		modeMappingsKeywordsAccess.group.createKeywordProposal(context, acceptor)
+	}
+	
+	override complete_PropagationPathsKeywords(EObject model, RuleCall ruleCall, ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
+		propagationPathsKeywordsAccess.group.createKeywordProposal(context, acceptor)
+	}
+	
+	override complete_PropagationPointKeywords(EObject model, RuleCall ruleCall, ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
+		propagationPointKeywordsAccess.group.createKeywordProposal(context, acceptor)
+	}
+	
+	override complete_RecoverEventKeywords(EObject model, RuleCall ruleCall, ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
+		recoverEventKeywordsAccess.group.createKeywordProposal(context, acceptor)
+	}
+	
+	override complete_RepairEventKeywords(EObject model, RuleCall ruleCall, ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
+		repairEventKeywordsAccess.group.createKeywordProposal(context, acceptor)
+	}
+	
+	override complete_SameStateKeywords(EObject model, RuleCall ruleCall, ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
+		sameStateKeywordsAccess.group.createKeywordProposal(context, acceptor)
+	}
+	
+	override complete_TypeMappingsKeywords(EObject model, RuleCall ruleCall, ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
+		typeMappingsKeywordsAccess.group.createKeywordProposal(context, acceptor)
+	}
+	
+	override complete_TypeSetKeywords(EObject model, RuleCall ruleCall, ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
+		typeSetKeywordsAccess.group.createKeywordProposal(context, acceptor)
+	}
+	
+	override complete_TypeTransformationsKeywords(EObject model, RuleCall ruleCall, ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
+		typeTransformationsKeywordsAccess.group.createKeywordProposal(context, acceptor)
+	}
+	
+	override complete_UseBehaviorKeywords(EObject model, RuleCall ruleCall, ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
+		useBehaviorKeywordsAccess.group.createKeywordProposal(context, acceptor)
+	}
+	
+	override complete_UseMappingsKeywords(EObject model, RuleCall ruleCall, ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
+		useMappingsKeywordsAccess.group.createKeywordProposal(context, acceptor)
+	}
+	
+	override complete_UseTransformationsKeywords(EObject model, RuleCall ruleCall, ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
+		useTransformationsKeywordsAccess.group.createKeywordProposal(context, acceptor)
+	}
+	
+	override complete_UseTypeEquivalenceKeywords(EObject model, RuleCall ruleCall, ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
+		useTypeEquivalenceKeywordsAccess.group.createKeywordProposal(context, acceptor)
+	}
+	
+	override complete_UseTypesKeywords(EObject model, RuleCall ruleCall, ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
+		useTypesKeywordsAccess.group.createKeywordProposal(context, acceptor)
+	}
 }
