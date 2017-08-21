@@ -709,8 +709,8 @@ public class Appearance extends AbstractPropertySection {
 												m.setStyle(diagramElement, styleCmd.getStyle(diagramElement, value));
 											} else if((StyleType.FONTCOLOR == styleType || StyleType.FONTSIZE == styleType) && !(bo instanceof Realization || bo instanceof ModeTransitionTrigger)) {
 												m.setStyle(diagramElement, styleCmd.getStyle(diagramElement, value));
-											} else if(StyleType.LINEWIDTH == styleType && bo instanceof Connection &&
-													bo instanceof ModeTransition &&	bo instanceof ModeTransitionTrigger	&& bo instanceof Realization) {
+											} else if(StyleType.LINEWIDTH == styleType && (bo instanceof Connection ||
+													bo instanceof ModeTransition ||	bo instanceof ModeTransitionTrigger	|| bo instanceof Realization)) {
 												m.setStyle(diagramElement, styleCmd.getStyle(diagramElement, value));
 											} else if(StyleType.OUTLINE == styleType) {
 												m.setStyle(diagramElement, styleCmd.getStyle(diagramElement, value));

@@ -750,7 +750,7 @@ class LayoutUtil {
 		final Color background = Graphiti.getGaService().manageColor(graphitiDiagram, awtBackground.getRed(), awtBackground.getGreen(), awtBackground.getBlue());
 		final Color fontColor = Graphiti.getGaService().manageColor(graphitiDiagram, awtFontColor.getRed(), awtFontColor.getGreen(), awtFontColor.getBlue());
 
-		ColoringUtil.overrideForeground(pe, background, foreground, fontColor, lineWidth);
+		ColoringUtil.overrideElementStyle(pe, background, foreground, fontColor, lineWidth);
 	}
 
 	public static java.awt.Color getFinalBackgroundColor(final DiagramElement de, final ColoringProvider coloringProvider) {

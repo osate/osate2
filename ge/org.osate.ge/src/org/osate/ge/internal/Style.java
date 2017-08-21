@@ -6,7 +6,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Style {
-	public static final Style NULLSTYLE = new Style();
+	public static final Style NULLSTYLE = create();
 	
 	private Style() {}
 	
