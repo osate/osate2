@@ -208,7 +208,7 @@ public class ConnectionHandler {
 	}
 
 	@Create
-	public Connection createBusinessObject(@Named(Names.OWNER_BO) final ComponentImplementation ci, 
+	public Connection createBusinessObject(@Named(Names.MODIFY_BO) final ComponentImplementation ci, 
 			@Named(Names.SOURCE_BUSINESS_OBJECT_CONTEXT) final BusinessObjectContext srcBoc, 
 			@Named(Names.DESTINATION_BUSINESS_OBJECT_CONTEXT) final BusinessObjectContext dstBoc, 
 			final @Named(Names.PALETTE_ENTRY_CONTEXT) EClass connectionType,

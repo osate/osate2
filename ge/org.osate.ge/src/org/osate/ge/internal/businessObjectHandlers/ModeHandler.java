@@ -84,7 +84,7 @@ public class ModeHandler {
 	}
 
 	@Create
-	public Mode createBusinessObject(@Named(Names.OWNER_BO) final ComponentClassifier classifier, final NamingService namingService) {
+	public Mode createBusinessObject(@Named(Names.MODIFY_BO) final ComponentClassifier classifier, final NamingService namingService) {
 		// Check if modes have been created in extended type
 		if(classifier instanceof ComponentImplementation) {
 			final ComponentImplementation ci = (ComponentImplementation)classifier;

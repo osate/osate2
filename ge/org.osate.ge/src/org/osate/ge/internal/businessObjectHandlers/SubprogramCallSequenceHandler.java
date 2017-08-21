@@ -99,7 +99,7 @@ public class SubprogramCallSequenceHandler {
 	}
 	
 	@Create
-	public SubprogramCallSequence createBusinessObject(@Named(Names.OWNER_BO) BehavioredImplementation bi, final NamingService namingService) {
+	public SubprogramCallSequence createBusinessObject(@Named(Names.MODIFY_BO) BehavioredImplementation bi, final NamingService namingService) {
 		final DefaultSelectSubprogramDialogModel subprogramSelectionModel = new DefaultSelectSubprogramDialogModel(bi);
 		final SelectSubprogramDialog dlg = new SelectSubprogramDialog(Display.getCurrent().getActiveShell(), subprogramSelectionModel);
 		if(dlg.open() == Dialog.CANCEL) {

@@ -114,7 +114,7 @@ public class ModeTransitionHandler {
 	}
 
 	@Create
-	public ModeTransition createBusinessObject(@Named(Names.OWNER_BO) final ComponentClassifier cc, 
+	public ModeTransition createBusinessObject(@Named(Names.MODIFY_BO) final ComponentClassifier cc, 
 			@Named(Names.SOURCE_BO) final Mode srcMode, 
 			@Named(Names.DESTINATION_BO) final Mode dstMode, 
 			final NamingService namingService) {

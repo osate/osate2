@@ -92,7 +92,7 @@ public class AnnexHandler {
 	 * @param newAnnexName the name of the new AnnexLibrary or AnnexSubclause
 	 */
 	@Create
-	public Object createAnnex(@Named(Names.OWNER_BO) final NamedElement owner, final @Named(Names.PALETTE_ENTRY_CONTEXT) EClass annexType, final NamingService namingService) {
+	public Object createAnnex(@Named(Names.MODIFY_BO) final NamedElement owner, final @Named(Names.PALETTE_ENTRY_CONTEXT) EClass annexType, final NamingService namingService) {
 		final AnnexNameDialog annexNameDialog = new AnnexNameDialog(Display.getCurrent().getActiveShell(), owner, namingService, getDialogTitleAndMessage(annexType));
 		if (annexNameDialog.open() == Dialog.CANCEL || annexNameDialog.getValue() == null) {
 			return null;
