@@ -131,26 +131,26 @@ public class SystemInstanceItemProvider extends ComponentInstanceItemProvider {
 	 * This returns SystemInstance.gif.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @generated NOT
 	 */
 	@Override
 	public Object getImage(Object object) {
-		return overlayImage(object, getResourceLocator().getImage("full/obj16/SystemInstance")); //$NON-NLS-1$
+		return super.getImage(object);
 	}
 
-//	/**
-//	 * This returns the label text for the adapted class.
-//	 * <!-- begin-user-doc -->
-//	 * <!-- end-user-doc -->
-//	 * @generated
-//	 */
-//	@Override
-//	public String getText(Object object) {
-//		String label = ((SystemInstance) object).getName();
-//		return label == null || label.length() == 0 ? getString("_UI_SystemInstance_type") : //$NON-NLS-1$
-//				getString("_UI_SystemInstance_type") + " " + label; //$NON-NLS-1$ //$NON-NLS-2$
-//	}
-// Drop through to the ComponentInstance label provider for the icons
+	/**
+	 * This returns the label text for the adapted class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public String getText(Object object) {
+		String label = ((SystemInstance) object).getName();
+		return label == null || label.length() == 0 ? getString("_UI_SystemInstance_type") : //$NON-NLS-1$
+			getString("_UI_SystemInstance_type") + " " + label; //$NON-NLS-1$ //$NON-NLS-2$
+	}
+
 	/**
 	 * This handles model notifications by calling {@link #updateChildren} to update any cached
 	 * children and by creating a viewer notification, which it passes to {@link #fireNotifyChanged}.
