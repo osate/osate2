@@ -11,6 +11,9 @@ import org.osate.ge.BusinessObjectContext;
 import org.osate.ge.graphics.Graphic;
 import org.osate.ge.internal.AgeGraphicalConfiguration;
 import org.osate.ge.internal.DockArea;
+import org.osate.ge.internal.Style;
+import org.osate.ge.internal.Style.FontSize;
+import org.osate.ge.internal.Style.LineWidth;
 import org.osate.ge.internal.diagram.runtime.boTree.Completeness;
 import org.osate.ge.internal.graphics.AgeShape;
 import org.osate.ge.internal.labels.AgeLabelConfiguration;
@@ -34,7 +37,8 @@ public class DiagramElement implements DiagramNode, ModifiableDiagramElementCont
 	private Point position; // Optional. Relative to container.
 	private Dimension size; // Optional
 	private DockArea dockArea; // Optional
-	
+	private Style style = Style.NULLSTYLE;
+
 	// Connection Specific
 	private List<Point> bendpoints; // Optional. Diagram coordinate system.
 	private Point connectionPrimaryLabelPosition; // Optional. Position of the connection label.
@@ -212,6 +216,14 @@ public class DiagramElement implements DiagramNode, ModifiableDiagramElementCont
 		return size != null;
 	}
 	
+	public final Style getStyle() {
+		return style;
+	}
+	
+	public final void setStyle(final Style style) {
+		this.style = style;
+	}
+	
 	/**
 	 * 
 	 * @return copy of the element's size or null.
@@ -268,6 +280,18 @@ public class DiagramElement implements DiagramNode, ModifiableDiagramElementCont
 
 	public final boolean isDecoration() {
 		return graphicalConfig != null && graphicalConfig.isDecoration;
+	}
+	
+	public final Color getDefaultBackground() {
+		return graphicalConfig.defaultBackground;
+	}
+	
+	public final Color getOutline() {
+		return style.getOutline();
+	}
+	
+	public final Color getBackground() {
+		return style.getBackground();
 	}
 	
 	public final DockArea getDockArea() {
@@ -366,12 +390,64 @@ public class DiagramElement implements DiagramNode, ModifiableDiagramElementCont
 			sb.append(System.lineSeparator());
 		}
 		
-		if(children.size() > 0) { 
+		if(style != null) {
+			final java.awt.Color awtBackground = style.getBackground();
+			if(awtBackground != null) {
+				sb.append(innerIndention);
+				sb.append("background: ");
+				sb.append(awtBackground);
+				sb.append(System.lineSeparator());
+			}
+			
+			final java.awt.Color awtOutline= style.getOutline();
+			if(style.getOutline() != null) {
+				sb.append(innerIndention);
+				sb.append("outline: ");
+				sb.append(awtOutline);
+				sb.append(System.lineSeparator());
+			}
+			
+			final java.awt.Color awtFontColor = style.getFontColor();
+			if(awtFontColor != null) {
+				sb.append(innerIndention);
+				sb.append("fontcolor: ");
+				sb.append(awtFontColor);
+				sb.append(System.lineSeparator());
+			}
+			
+			if(style.getFontSize() != null) {
+				sb.append(innerIndention);
+				sb.append("fontsize: ");
+				sb.append(style.getFontSize());
+				sb.append(System.lineSeparator());
+			}
+			
+			if(style.getLineWidth() != null) {
+				sb.append(innerIndention);
+				sb.append("linewidth: ");
+				sb.append(style.getLineWidth());
+				sb.append(System.lineSeparator());
+			}
+		}
+		
+		if(children.size() > 0) {
 			children.toString(sb, innerIndention);
 		}
 		
 		sb.append(indention);
 		sb.append('}');
 		sb.append(System.lineSeparator());
+	}
+	
+	public FontSize getFontSize() {
+		return style.getFontSize();
+	}
+	
+	public Color getFontColor() {
+		return style.getFontColor();
+	}
+
+	public LineWidth getLineWidth() {
+		return style.getLineWidth();
 	}
 }

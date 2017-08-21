@@ -104,10 +104,14 @@
 		<factory adaptableType="org.eclipse.graphiti.ui.platform.GraphitiShapeEditPart" class="org.osate.ge.internal.ui.editor.GraphitiEditPartAdapterFactory">
 			<adapter type="org.osate.xtext.aadl2.ui.propertyview.IAadlPropertySource"/>
 			<adapter type="org.eclipse.ui.views.properties.IPropertySource"/>
+			<adapter type="org.osate.ge.internal.diagram.runtime.DiagramElement"></adapter>
+   			<adapter type="org.osate.ge.internal.ui.editor.AgeDiagramEditor"></adapter>
 		</factory>
 		<factory adaptableType="org.eclipse.graphiti.ui.platform.GraphitiConnectionEditPart" class="org.osate.ge.internal.ui.editor.GraphitiEditPartAdapterFactory">
 			<adapter type="org.osate.xtext.aadl2.ui.propertyview.IAadlPropertySource"/>
 			<adapter type="org.eclipse.ui.views.properties.IPropertySource"/>
+			<adapter type="org.osate.ge.internal.diagram.runtime.DiagramElement"></adapter>
+   			<adapter type="org.osate.ge.internal.ui.editor.AgeDiagramEditor"></adapter>
 		</factory>
 	</extension>
 
@@ -252,6 +256,27 @@
         <propertyCategory category="org.osate.ge"> 
         </propertyCategory> 
     </propertyContributor> 
+</extension>
+
+<extension point="org.eclipse.ui.views.properties.tabbed.propertyTabs">
+	<propertyTabs contributorId="org.osate.ge.editor.AgeDiagramEditor">
+		<propertyTab
+            category="org.osate.ge"
+            id="org.osate.ge.Style"
+            label="Appearance"/>
+	</propertyTabs>
+</extension>
+
+<extension point="org.eclipse.ui.views.properties.tabbed.propertySections">
+	<propertySections contributorId="org.osate.ge.editor.AgeDiagramEditor">
+		<propertySection
+			class="org.osate.ge.internal.views.Appearance"
+			id="org.osate.ge.Appearance"
+			tab="org.osate.ge.Style">
+        <input
+              type="org.eclipse.gef.EditPart"/>
+     </propertySection>
+	</propertySections>
 </extension>
        
  <extension

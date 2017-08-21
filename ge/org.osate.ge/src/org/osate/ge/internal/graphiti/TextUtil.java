@@ -10,13 +10,13 @@ import org.eclipse.swt.graphics.Device;
 import org.eclipse.swt.widgets.Display;
 
 public class TextUtil {
-	public static void setDefaultStyle(final Diagram diagram, final Text text) {
+	public static void setDefaultStyle(final Diagram diagram, final Text text, final double fontSize) {
 		final IGaService gaService = Graphiti.getGaService();
 		text.setForeground(gaService.manageColor(diagram, IColorConstant.BLACK));
 		text.setFilled(false);
 		text.setHorizontalAlignment(Orientation.ALIGNMENT_CENTER);
 		text.setVerticalAlignment(Orientation.ALIGNMENT_CENTER);
-		text.setFont(gaService.manageFont(diagram, "Arial", getScaledFontPointSize(10.0), false, true));
+		text.setFont(gaService.manageFont(diagram, "Arial", getScaledFontPointSize(fontSize), false, true));
 	}
 	
 	private static int getScaledFontPointSize(final double unscaledFontSize) {

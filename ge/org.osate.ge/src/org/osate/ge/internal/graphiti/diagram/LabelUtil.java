@@ -19,14 +19,15 @@ import org.eclipse.graphiti.services.IGaService;
 import org.eclipse.graphiti.services.IPeCreateService;
 import org.eclipse.graphiti.ui.services.GraphitiUi;
 import org.eclipse.graphiti.util.IColorConstant;
+import org.osate.ge.internal.Style.FontSize;
 import org.osate.ge.internal.graphiti.TextUtil;
 
 public class LabelUtil {
 	public static Shape createLabelShape(final Diagram diagram, final ContainerShape container, final String shapeName, final String labelValue) {
-		return createLabelShape(diagram, container, shapeName, labelValue, true);
+		return createLabelShape(diagram, container, shapeName, labelValue, true, FontSize.Default.getValue());
 	}
 	
-	public static Shape createLabelShape(final Diagram diagram, final ContainerShape container, final String shapeName, final String labelValue, final boolean includeBackground) {
+	public static Shape createLabelShape(final Diagram diagram, final ContainerShape container, final String shapeName, final String labelValue, final boolean includeBackground, final double fontSize) {
 		final IPeCreateService peCreateService = Graphiti.getPeCreateService();
         final Shape labelShape = peCreateService.createShape(container, true);
         PropertyUtil.setName(labelShape, shapeName);
@@ -37,10 +38,10 @@ public class LabelUtil {
         final Text labelText;
         if(includeBackground) {
         	labelBackground = createTextBackground(diagram, labelShape);
-        	labelText = createLabelGraphicsAlgorithm(diagram, labelBackground, labelValue);
+        	labelText = createLabelGraphicsAlgorithm(diagram, labelBackground, labelValue, fontSize);
         } else {
         	labelBackground = null;
-        	labelText = createLabelGraphicsAlgorithm(diagram, labelShape, labelValue);
+        	labelText = createLabelGraphicsAlgorithm(diagram, labelShape, labelValue, fontSize);
         }   
         
         // Get sizes of text graphics algorithms
@@ -59,7 +60,7 @@ public class LabelUtil {
 	}
 		
 	public static void setStyle(final Diagram diagram, final Text text) {
-		TextUtil.setDefaultStyle(diagram, text);
+		TextUtil.setDefaultStyle(diagram, text, FontSize.Default.getValue());
 	}
 
 	private static GraphicsAlgorithm createTextBackground(final Diagram diagram, final GraphicsAlgorithmContainer container) {
@@ -74,10 +75,10 @@ public class LabelUtil {
 		return background;
 	}
 	
-	private static Text createLabelGraphicsAlgorithm(final Diagram diagram, final GraphicsAlgorithmContainer container, final String labelTxt) {
+	private static Text createLabelGraphicsAlgorithm(final Diagram diagram, final GraphicsAlgorithmContainer container, final String labelTxt, final double fontSize) {
 		final IGaService gaService = Graphiti.getGaService();
 		final Text text = gaService.createPlainText(container, labelTxt);
-		TextUtil.setDefaultStyle(diagram, text);
+		TextUtil.setDefaultStyle(diagram, text, fontSize);
         PropertyUtil.setIsColoringChild(text, true);
         
         return text;

@@ -16,6 +16,7 @@ import org.osate.ge.internal.labels.LabelConfigurationBuilder;
  */
 public class GraphicalConfigurationBuilder {
 	private final static AgeLabelConfiguration defaultDefaultLabelConfiguration = (AgeLabelConfiguration) LabelConfigurationBuilder.create().build();	
+	private final static java.awt.Color defaultDefaultBackground = Color.WHITE;
 	private final static java.awt.Color defaultDefaultForeground = Color.BLACK;
 	
 	private Graphic graphic;
@@ -23,6 +24,7 @@ public class GraphicalConfigurationBuilder {
 	private AgeLabelConfiguration defaultLabelConfiguration = defaultDefaultLabelConfiguration;
 	private DiagramElement connectionSource;
 	private DiagramElement connectionDestination;
+	private java.awt.Color defaultBackground = defaultDefaultBackground;
 	private java.awt.Color defaultForeground = defaultDefaultForeground;
 	private boolean isDecoration = false;
 	
@@ -68,6 +70,6 @@ public class GraphicalConfigurationBuilder {
 	}
 	
 	public GraphicalConfiguration build() {
-		return new AgeGraphicalConfiguration(graphic, defaultDockingPosition, defaultLabelConfiguration, connectionSource, connectionDestination, defaultForeground, isDecoration);
+		return new AgeGraphicalConfiguration(graphic, defaultDockingPosition, defaultLabelConfiguration, connectionSource, connectionDestination, defaultBackground, defaultForeground, isDecoration);
 	}
 }

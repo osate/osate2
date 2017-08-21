@@ -14,6 +14,7 @@ public class AgeGraphicalConfiguration implements GraphicalConfiguration {
 	public final AgeLabelConfiguration defaultLabelConfiguration;
 	public final DiagramElement connectionSource;
 	public final DiagramElement connectionDestination;
+	public final Color defaultBackground;
 	public final Color defaultForeground;
 	public final boolean isDecoration;
 	
@@ -22,6 +23,7 @@ public class AgeGraphicalConfiguration implements GraphicalConfiguration {
 			final AgeLabelConfiguration defaultLabelConfiguration,
 			final DiagramElement connectionSource,
 			final DiagramElement connectionDestination,
+			final Color defaultBackground,
 			final Color defaultForeground,
 			final boolean isDecoration) {
 		this.graphic = Objects.requireNonNull(graphic, "graphic must not be null");
@@ -29,6 +31,7 @@ public class AgeGraphicalConfiguration implements GraphicalConfiguration {
 		this.defaultLabelConfiguration = defaultLabelConfiguration;
 		this.connectionSource = connectionSource;
 		this.connectionDestination = connectionDestination;
+		this.defaultBackground = Objects.requireNonNull(defaultBackground, "background must not be null");
 		this.defaultForeground = Objects.requireNonNull(defaultForeground, "foreground must not be null");
 		this.isDecoration = isDecoration;
 	}

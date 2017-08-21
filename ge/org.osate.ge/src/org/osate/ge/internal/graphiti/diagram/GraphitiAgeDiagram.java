@@ -55,6 +55,7 @@ import org.osate.ge.internal.graphics.Label;
 import org.osate.ge.internal.graphics.Poly;
 import org.osate.ge.internal.graphiti.AnchorNames;
 import org.osate.ge.internal.graphiti.ShapeNames;
+import org.osate.ge.internal.graphiti.TextUtil;
 import org.osate.ge.internal.graphiti.graphics.AgeGraphitiGraphicsUtil;
 
 /**
@@ -268,7 +269,7 @@ public class GraphitiAgeDiagram implements NodePictogramBiMap, AutoCloseable {
 	 */
 	private void updateDiagramElement(final DiagramElement de, final boolean recursive) {
 		final Graphic g = de.getGraphic();
-		
+
 		final PictogramElement pe = getPictogramElement(de);
 		if(pe == null) {
 			return;
@@ -277,7 +278,7 @@ public class GraphitiAgeDiagram implements NodePictogramBiMap, AutoCloseable {
 		// Configure PE if one exists
 		if(pe instanceof Shape) {										
 			final Shape shape = ((Shape) pe);
-			
+
 			// Remove all unnamed non-chopbox anchors that do not have an incoming or outgoing connection
 			final Iterator<Anchor> it = shape.getAnchors().iterator();
 			while(it.hasNext()) {
@@ -290,7 +291,7 @@ public class GraphitiAgeDiagram implements NodePictogramBiMap, AutoCloseable {
 			}
 
 			PropertyUtil.setDockArea(pe, de.getDockArea());		
-			
+
 			// Delete Transient Shapes
 			if(shape instanceof ContainerShape) {
 				List<Shape> shapesToDelete = null; // Shapes that should be deleted
@@ -300,11 +301,11 @@ public class GraphitiAgeDiagram implements NodePictogramBiMap, AutoCloseable {
 						if(shapesToDelete == null) {
 							shapesToDelete = new ArrayList<Shape>();
 						}
-						
+
 						shapesToDelete.add(childShape);
 					}
 				}
-				
+
 				// Delete all shapes that were marked for deletion
 				if(shapesToDelete != null) {
 					for(final Shape s : shapesToDelete) {
@@ -317,7 +318,7 @@ public class GraphitiAgeDiagram implements NodePictogramBiMap, AutoCloseable {
 			final AgeConnection ac = ((AgeConnection)g);
 			// Set Anchors
 			connection.setStart(getAnchor(de.getStartElement()));
-			
+
 			if(ac.isFlowIndicator) {
 				// If it is a flow indicator, get the appropriate anchor from the start element
 				final PictogramElement startPe = diagramNodeToPictogramElementMap.get(de.getStartElement());
@@ -326,57 +327,62 @@ public class GraphitiAgeDiagram implements NodePictogramBiMap, AutoCloseable {
 				connection.setEnd(getAnchor(de.getEndElement()));
 			}
 
-	        final GraphicsAlgorithm ga = connection.getGraphicsAlgorithm();
-	        ga.setStyle(null);
-	        ga.setLineStyle(AgeGraphitiGraphicsUtil.toGraphitiLineStyle(ac.lineStyle));
-	        ga.setLineWidth(2);
-	        ga.setForeground(Graphiti.getGaService().manageColor(graphitiDiagram, IColorConstant.BLACK));
-	        
-	        if(pe instanceof CurvedConnection) {
-	        	ConnectionUtil.updateControlPoints((CurvedConnection)pe);
+			final GraphicsAlgorithm ga = connection.getGraphicsAlgorithm();
+			ga.setStyle(null);
+			ga.setLineStyle(AgeGraphitiGraphicsUtil.toGraphitiLineStyle(ac.lineStyle));
+			ga.setLineWidth(2);
+			ga.setForeground(Graphiti.getGaService().manageColor(graphitiDiagram, IColorConstant.BLACK));
+
+			if(pe instanceof CurvedConnection) {
+				ConnectionUtil.updateControlPoints((CurvedConnection)pe);
 			}
-	        
-	        if(pe instanceof FreeFormConnection) {
-	        	final FreeFormConnection ffc = (FreeFormConnection)pe;
-	        	final List<org.eclipse.graphiti.mm.algorithms.styles.Point> graphitiBendpoints = ffc.getBendpoints();
-	        	graphitiBendpoints.clear();
-	        	for(final org.osate.ge.internal.diagram.runtime.Point bendpoint : de.getBendpoints()) {
-	        		graphitiBendpoints.add(Graphiti.getGaService().createPoint(bendpoint.x, bendpoint.y));
-	        	}
-	        }
+
+			if(pe instanceof FreeFormConnection) {
+				final FreeFormConnection ffc = (FreeFormConnection)pe;
+				final List<org.eclipse.graphiti.mm.algorithms.styles.Point> graphitiBendpoints = ffc.getBendpoints();
+				graphitiBendpoints.clear();
+				for(final org.osate.ge.internal.diagram.runtime.Point bendpoint : de.getBendpoints()) {
+					graphitiBendpoints.add(Graphiti.getGaService().createPoint(bendpoint.x, bendpoint.y));
+				}
+			}
 		}
 
 		// Update Children
 		if(recursive) {
 			updateChildren(de, recursive);
 		}
-		
+
 		// Build the primary label which includes the element's name
 		final String completenessSuffix = de.getCompleteness() == Completeness.INCOMPLETE ? incompleteIndicator : "";
 		final String primaryLabelStr = de.getName() == null ? null : (de.getName() + completenessSuffix);
-		
+
 		if(pe instanceof ContainerShape) {
 			// Create Labels
 			if(primaryLabelStr != null) {
-				final Shape labelShape = LabelUtil.createLabelShape(graphitiDiagram, (ContainerShape)pe, ShapeNames.primaryLabelShapeName, primaryLabelStr, true);
+				final Shape labelShape;
+				if(de.getFontSize() != null) {
+					labelShape = LabelUtil.createLabelShape(graphitiDiagram, (ContainerShape)pe, ShapeNames.primaryLabelShapeName, primaryLabelStr, true, de.getFontSize().getValue());
+				} else {
+					labelShape = LabelUtil.createLabelShape(graphitiDiagram, (ContainerShape)pe, ShapeNames.primaryLabelShapeName, primaryLabelStr);
+				}
 				labelShape.setActive(false);
 			}
 
 			final AgeShape ageShape = (AgeShape)de.getGraphic();
 			final String annotation = ageShape.getAnnotation();
 			if(annotation != null) {
-				final Shape annotationShape = LabelUtil.createLabelShape(graphitiDiagram, (ContainerShape)pe, ShapeNames.annotationShapeName, annotation, true);
+				final Shape annotationShape = LabelUtil.createLabelShape(graphitiDiagram, (ContainerShape)pe, ShapeNames.annotationShapeName, annotation);
 				annotationShape.setActive(false);
 			}
 		} else if(pe instanceof Connection) {
 			final Connection connection = (Connection)pe;
-		    final AgeConnection ageConnection = (AgeConnection)de.getGraphic();
-		    
+			final AgeConnection ageConnection = (AgeConnection)de.getGraphic();
+
 			// Clear all decorators which are not associated with a diagram node
 			connection.getConnectionDecorators().removeIf((cd) -> getDiagramNode(cd) == null);
-			
+
 			final IGaService gaService = Graphiti.getGaService();
-			
+
 			// Create label decorator
 			int labelX = 0;
 			int labelY = 0;
@@ -385,31 +391,35 @@ public class GraphitiAgeDiagram implements NodePictogramBiMap, AutoCloseable {
 				final ConnectionDecorator textDecorator = peCreateService.createConnectionDecorator(connection, true, ageConnection.isFlowIndicator ? 1.0 : 0.5, true);
 				final Text text = gaService.createDefaultText(graphitiDiagram, textDecorator);
 				PropertyUtil.setIsColoringChild(text, true);
-				LabelUtil.setStyle(graphitiDiagram, text);
+				if(de.getFontSize() != null) {
+					TextUtil.setDefaultStyle(graphitiDiagram, text, de.getFontSize().getValue());
+				} else {
+					LabelUtil.setStyle(graphitiDiagram, text);
+				}
 				PropertyUtil.setName(textDecorator, ShapeNames.primaryLabelShapeName);						
-			    text.setValue(primaryLabelStr);
+				text.setValue(primaryLabelStr);
 
-			    final org.osate.ge.internal.diagram.runtime.Point primaryLabelPosition = de.getConnectionPrimaryLabelPosition();
-			    if(primaryLabelPosition == null) {
-			    	// Set default position
-			    	final IDimension labelTextSize = GraphitiUi.getUiLayoutService().calculateTextSize(primaryLabelStr, text.getFont());
-			    	if(ageConnection.isFlowIndicator) { // Special default position for flow indicator labels
-			    		labelX = -28; // Position the label such that it the default text does not intersect with the border when docked on the left or on the right
-			    		labelY = 5;
-			    	} else {
-			    		labelX = -labelTextSize.getWidth()/2;
-			    		labelY = -labelTextSize.getHeight() - 2;
-			    	}
-			    } else {
-			    	labelX = primaryLabelPosition.x;
-			    	labelY = primaryLabelPosition.y;
-			    }
-			    gaService.setLocation(text, labelX, labelY);
+				final org.osate.ge.internal.diagram.runtime.Point primaryLabelPosition = de.getConnectionPrimaryLabelPosition();
+				if(primaryLabelPosition == null) {
+					// Set default position
+					final IDimension labelTextSize = GraphitiUi.getUiLayoutService().calculateTextSize(primaryLabelStr, text.getFont());
+					if(ageConnection.isFlowIndicator) { // Special default position for flow indicator labels
+						labelX = -28; // Position the label such that it the default text does not intersect with the border when docked on the left or on the right
+						labelY = 5;
+					} else {
+						labelX = -labelTextSize.getWidth()/2;
+						labelY = -labelTextSize.getHeight() - 2;
+					}
+				} else {
+					labelX = primaryLabelPosition.x;
+					labelY = primaryLabelPosition.y;
+				}
+				gaService.setLocation(text, labelX, labelY);
 			}
-			
+
 			// Create Graphiti decorators for connection terminators
-		    createDecorator(connection, ageConnection.srcTerminator, 0.0);
-		    createDecorator(connection, ageConnection.dstTerminator, 1.0);
+			createDecorator(connection, ageConnection.srcTerminator, 0.0);
+			createDecorator(connection, ageConnection.dstTerminator, 1.0);
 		}
 
 		// Refresh the Top Level Graphics Algorithm. Connections do not have their graphics algorithms recreated because they all have the same type of GraphicsAlgorithm
@@ -423,10 +433,10 @@ public class GraphitiAgeDiagram implements NodePictogramBiMap, AutoCloseable {
 			final IGaService gaService = Graphiti.getGaService();
 			final GraphicsAlgorithm newGa = gaService.createInvisibleRectangle(shape);
 			PropertyUtil.setIsColoringContainer(newGa, true);
-			
+
 			// Set Size
 			gaService.setSize(newGa, width, height);
-			
+
 			// Set Position
 			final org.osate.ge.internal.diagram.runtime.Point position = de.getPosition();
 			if(position != null) {
@@ -596,7 +606,7 @@ public class GraphitiAgeDiagram implements NodePictogramBiMap, AutoCloseable {
 	public final void refreshGraphicColoring(final DiagramElement de) {
 		final PictogramElement pe = getPictogramElement(de);
 		if(pe != null) {
-			LayoutUtil.refreshGraphicColoring(graphitiDiagram, pe, LayoutUtil.getFinalColor(de, coloringProvider));
+			LayoutUtil.refreshGraphicColoring(graphitiDiagram, pe, LayoutUtil.getFinalBackgroundColor(de, coloringProvider), LayoutUtil.getOutlineColor(de, coloringProvider), LayoutUtil.getFinalFontColor(de, coloringProvider), LayoutUtil.getFinalLineWidth(de));
 		}
 	}
 	
@@ -746,6 +756,7 @@ public class GraphitiAgeDiagram implements NodePictogramBiMap, AutoCloseable {
 		public void elementRemoved(final ElementRemovedEvent e) {
 			if(enabled) {
 				elementsToRemove.add(e.element);
+				//TODO: REMOVE
 				//elementsToAdd.remove(e.element);
 				elementsToUpdate.remove(e.element);
 			}
@@ -856,6 +867,7 @@ public class GraphitiAgeDiagram implements NodePictogramBiMap, AutoCloseable {
 					}
 				} finally {
 					elementAdded = false;
+					//TODO: remove
 					//elementsToAdd.clear();
 					elementsToRemove.clear();
 					elementsToUpdate.clear();
