@@ -523,7 +523,7 @@ public class FTAGenerator extends PropagationGraphBackwardTraversal {
 			return rootevent;
 		}
 		List<Event> toAdd = new LinkedList<Event>();
-		Event alternatives = createIntermediateEvent((ComponentInstance) rootevent.getRelatedInstanceObject(),
+		Event alternatives = createUniqueIntermediateEvent((ComponentInstance) rootevent.getRelatedInstanceObject(),
 				(NamedElement) rootevent.getRelatedEMV2Object(), (ErrorTypes) rootevent.getRelatedErrorType());
 		alternatives.setName("Alternatives");
 		if (rootevent.getSubEventLogic() == LogicOperation.XOR) {
