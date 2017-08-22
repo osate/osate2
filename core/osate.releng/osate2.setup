@@ -744,9 +744,11 @@
       <requirement
           name="org.eclipse.gef.fx.sdk.feature.group"/>
       <requirement
-          name="org.eclipse.gef.mvc.sdk.feature.group"/>
+          name="org.eclipse.gef.mvc.sdk.feature.group"/>          
       <requirement
           name="org.eclipse.elk.sdk.feature.feature.group"/>
+      <requirement
+          name="org.eclipse.elk.ui.feature.feature.group"/>
       <repository
           url="http://download.eclipse.org/releases/oxygen/201706281000"/>
       <repository
