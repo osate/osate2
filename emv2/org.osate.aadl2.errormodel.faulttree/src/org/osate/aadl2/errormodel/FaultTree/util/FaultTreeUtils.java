@@ -109,16 +109,18 @@ public class FaultTreeUtils {
 
 		if (errorModelArtifact instanceof ErrorPropagation) {
 			ErrorPropagation ep = (ErrorPropagation) errorModelArtifact;
-			String boundaryLabel = "";
+			String boundaryLabel = null;
+			String epname = EMV2Util.getPrintName(ep);
 			if (event.getType() == EventType.EXTERNAL) {
 				boundaryLabel = "external ";
 			} else if (event.getType() == EventType.UNDEVELOPED) {
 				boundaryLabel = "undeveloped ";
 			}
 			String directionLabel = ep.getDirection() == DirectionType.IN ? "incoming " : "outgoing ";
-			description = "Component '" + getName(component) + "' with " + boundaryLabel + directionLabel;
+			description = "Component '" + getName(component) + "' with " + directionLabel;
 			if (type != null) {
-				description += " failure '" + EMV2Util.getName(type) + "'";
+				description += " failure '" + EMV2Util.getName(type)
+						+ (boundaryLabel == null ? "" : ("' from " + boundaryLabel + "'" + epname + "'"));
 			}
 		}
 
