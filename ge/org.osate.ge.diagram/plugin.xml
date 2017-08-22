@@ -14,12 +14,4 @@
             genModel="model/diagram.genmodel"/>
    </extension>
 
-   <extension point="org.eclipse.emf.ecore.generated_package">
-      <!-- @generated diagram -->
-      <package
-            uri="http://osate.org/diagram"
-            class="org.osate.ge.diagram.DiagramPackage"
-            genModel="model/diagram.genmodel"/>
-   </extension>
-
 </plugin>
