@@ -128,7 +128,7 @@ public class FlowSourceSinkSpecificationHandler extends FlowSpecificationHandler
 
 	@Create
 	public FlowSpecification createFlowSpecification(final @Named(Names.MODIFY_BO) ComponentType ct,
-			final @Named(Names.MODIFY_BO) Feature feature,
+			final @Named(Names.TARGET_BO) Feature feature,
 			final @Named(Names.TARGET_BUSINESS_OBJECT_CONTEXT) BusinessObjectContext featureBoc,
 			final @Named(Names.PALETTE_ENTRY_CONTEXT) FlowKind flowKind,
 			final NamingService namingService,
