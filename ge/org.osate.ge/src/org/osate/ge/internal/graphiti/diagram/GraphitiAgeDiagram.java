@@ -719,6 +719,24 @@ public class GraphitiAgeDiagram implements NodePictogramBiMap, AutoCloseable {
 		throw new RuntimeException("Unsupported connection terminator size: " + size);
 	}
 
+	private GraphicsAlgorithm createPolylineArrow(final GraphicsAlgorithmContainer gaContainer, final ConnectionTerminatorSize size) {
+		final IGaService gaService = Graphiti.getGaService();
+		switch(size) {
+		case REGULAR:
+			return gaService.createPlainPolyline(gaContainer, new int[] {
+					-14, 8,
+					2, 0,
+					-14, -8});
+		case SMALL:
+			return gaService.createPlainPolyline(gaContainer, new int[] {
+					-6, 4,
+					2, 0,
+					-6, -4});
+		}
+
+		throw new RuntimeException("Unsupported connection terminator size: " + size);
+	}
+
 	private DiagramNode getUndockedDiagramNode(DiagramNode n) {
 		while(n instanceof DiagramElement) {
 			final DiagramElement e = ((DiagramElement) n);

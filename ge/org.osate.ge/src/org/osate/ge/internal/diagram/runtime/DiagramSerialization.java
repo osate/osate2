@@ -5,7 +5,9 @@ import java.io.IOException;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import org.eclipse.emf.common.util.URI;
@@ -76,7 +78,7 @@ public class DiagramSerialization {
 		}
 
 		// Read elements
-		ageDiagram.modify(m -> readElements(m, ageDiagram, mmDiagram));
+		ageDiagram.modify(m -> readElements(m, ageDiagram, mmDiagram, new HashSet<>()));
 
 		return ageDiagram;
 	}
@@ -120,14 +122,15 @@ public class DiagramSerialization {
 	}
 
 	private static void readElements(final DiagramModification m, final DiagramNode container,
-			final org.osate.ge.diagram.DiagramNode mmContainer) {
+			final org.osate.ge.diagram.DiagramNode mmContainer, final Set<Long> usedIdSet) {
 		for (final org.osate.ge.diagram.DiagramElement mmElement : mmContainer.getElement()) {
-			createElement(m, container, mmContainer, mmElement);
+			createElement(m, container, mmContainer, mmElement, usedIdSet);
 		}
 	}
 
 	private static void createElement(final DiagramModification m, final DiagramNode container,
-			final org.osate.ge.diagram.DiagramNode mmContainer, final org.osate.ge.diagram.DiagramElement mmChild) {
+			final org.osate.ge.diagram.DiagramNode mmContainer, final org.osate.ge.diagram.DiagramElement mmChild,
+			final Set<Long> usedIdSet) {
 		final String[] refSegs = toReferenceSegments(mmChild.getBo());
 		if (refSegs == null) {
 			throw new RuntimeException("Invalid element. Business Object not specified");
@@ -138,7 +141,10 @@ public class DiagramSerialization {
 
 		// Set the ID
 		if (mmChild.getId() != null) {
-			newElement.setId(mmChild.getId().intValue());
+			// OSATE 2.2.3 contained an issue that resulted in duplicate IDs. This checks for and removed duplicate ID's
+			if(!usedIdSet.contains(mmChild.getId())) {
+				newElement.setId(mmChild.getId().intValue());
+			}
 		}
 
 		final String autoContentsFilterId = mmChild.getAutoContentsFilter();
@@ -186,8 +192,12 @@ public class DiagramSerialization {
 		// Add the element
 		m.addElement(newElement);
 
+		if(newElement.getId() != null) {
+			usedIdSet.add(newElement.getId());
+		}
+
 		// Create children
-		readElements(m, newElement, mmChild);
+		readElements(m, newElement, mmChild, usedIdSet);
 	}
 
 	private static Point convertPoint(final org.osate.ge.diagram.Point mmPoint) {
