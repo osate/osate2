@@ -6,8 +6,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Style {
-	public static final Style NULLSTYLE = create();
-	
 	private Style() {}
 	
 	public static Style create() {
@@ -40,31 +38,31 @@ public class Style {
 		return this;
 	}
 
-	public Style styleFontColor(final Color fontColor) {
-		this.fontColor = fontColor;
-		return this;
-	}
-
 	public Color getFontColor() {
 		return fontColor;
 	}
 
+	public Style styleFontColor(final Color fontColor) {
+		this.fontColor = fontColor;
+		return this;
+	}
+	
+	public FontSize getFontSize() {
+		return fontSize;
+	}
+	
 	public Style styleFontSize(final FontSize fontSize) {
 		this.fontSize = fontSize;
 		return this;
 	}
 
-	public FontSize getFontSize() {
-		return fontSize;
+	public LineWidth getLineWidth() {
+		return lineWidth;
 	}
 
 	public Style styleLineWidth(final LineWidth lineWidth) {
 		this.lineWidth = lineWidth;
 		return this;
-	}
-
-	public LineWidth getLineWidth() {
-		return lineWidth;
 	}
 	
 	public Style build() {
@@ -76,13 +74,13 @@ public class Style {
 		Default(10.0),
 		Large(12.0);
 
-		private static final Map<Double, FontSize> idToFontSize;
+		private static final Map<Double, FontSize> valueToFontSize;
 		static {
 			final Map<Double, FontSize> modifiableMap = new HashMap<Double, FontSize>();
 			for(final FontSize fontSize : FontSize.values()) {
 				modifiableMap.put(fontSize.getValue(), fontSize);
 			}
-			idToFontSize = Collections.unmodifiableMap(modifiableMap);
+			valueToFontSize = Collections.unmodifiableMap(modifiableMap);
 		}
 
 		private FontSize(final double value) {
@@ -94,7 +92,7 @@ public class Style {
 		}
 
 		public static FontSize getByValue(final Double fontSizeId) {
-			return idToFontSize.get(fontSizeId);
+			return valueToFontSize.get(fontSizeId);
 		}
 
 		private final Double value;
@@ -105,13 +103,13 @@ public class Style {
 		Default(2),
 		Large(3);
 
-		private static final Map<Integer, LineWidth> idToLineWidth;
+		private static final Map<Integer, LineWidth> valueToLineWidth;
 		static {
 			final Map<Integer, LineWidth> modifiableMap = new HashMap<Integer, LineWidth>();
 			for(final LineWidth lineWidth : LineWidth.values()) {
 				modifiableMap.put(lineWidth.getValue(), lineWidth);
 			}
-			idToLineWidth = Collections.unmodifiableMap(modifiableMap);
+			valueToLineWidth = Collections.unmodifiableMap(modifiableMap);
 		}
 
 		private LineWidth(final int value) {
@@ -122,11 +120,11 @@ public class Style {
 			return value;
 		}
 
-		private final int value;
-
 		public static LineWidth getByValue(final int lineWidthId) {
-			return idToLineWidth.get(lineWidthId);
+			return valueToLineWidth.get(lineWidthId);
 		}
+
+		private final int value;
 	}
 	
 	/* (non-Javadoc)
@@ -178,6 +176,7 @@ public class Style {
 		return true;
 	}
 
+	public static final Style defaultStyle = create();
 	private Color background;
 	private Color outline;
 	private Color fontColor;

@@ -32,17 +32,17 @@ public class DiagramElement implements DiagramNode, ModifiableDiagramElementCont
 	private final DiagramElementCollection children = new DiagramElementCollection();
 	private String name;
 	private AgeGraphicalConfiguration graphicalConfig; // Required after initialization.
-	
+	private Style style = Style.defaultStyle;
+
 	// Shape Specific
 	private Point position; // Optional. Relative to container.
 	private Dimension size; // Optional
 	private DockArea dockArea; // Optional
-	private Style style = Style.NULLSTYLE;
 
 	// Connection Specific
 	private List<Point> bendpoints; // Optional. Diagram coordinate system.
 	private Point connectionPrimaryLabelPosition; // Optional. Position of the connection label.
-	
+
 	/**
 	 * It is intended that bo and boHandler will not be null except for during the diagram loading process. 
 	 * Once the diagram is updated, these fields should be non-null 
@@ -65,38 +65,38 @@ public class DiagramElement implements DiagramNode, ModifiableDiagramElementCont
 	public final DiagramNode getContainer() {
 		return container;
 	}
-		
+
 	public final ModifiableDiagramElementContainer getModifiableContainer() {
 		return (ModifiableDiagramElementContainer)container;
 	}
-	
+
 	@Override
 	public final Collection<DiagramElement> getDiagramElements() {
 		return Collections.unmodifiableCollection(children);
 	}
-	
+
 	public final Collection<Queryable> getChildren() {
 		return Collections.unmodifiableCollection(children);
 	}
-	
+
 	@Override
 	public final DiagramElementCollection getModifiableDiagramElements() {
 		return children;
 	}
-	
+
 	@Override
 	public final DiagramElement getByRelativeReference(final RelativeBusinessObjectReference ref) {
 		return children.getByRelativeReference(ref);
 	}
-	
+
 	public final boolean hasId() {
 		return id != null;
 	}
-	
+
 	public final Long getId() {
 		return id;
 	}
-	
+
 	/**
 	 * Intended for use by diagram class and during diagram deserialization.
 	 * @param value
@@ -104,67 +104,67 @@ public class DiagramElement implements DiagramNode, ModifiableDiagramElementCont
 	public final void setId(final long value) {
 		this.id = value;
 	}
-	
+
 	public final Object getBusinessObject() {
 		return bo;
 	}
-	
+
 	public final boolean isManual() {
 		return manual;
 	}
-	
+
 	final void setManual(final boolean value) {
 		this.manual = value;
 	}
-	
+
 	public final ContentsFilter getAutoContentsFilter() {
 		return autoContentsFilter;
 	}
-	
+
 	final void setAutoContentsFilter(final ContentsFilter value) {
 		this.autoContentsFilter = value;
 	}
-	
+
 	public final Completeness getCompleteness() {
 		return completeness;
 	}
-	
+
 	final void setCompleteness(final Completeness value) {
 		this.completeness = Objects.requireNonNull(value, "value must not be null");
 	}
-	
+
 	public final Object getBusinessObjectHandler() {
 		return boHandler;
 	}
-	
+
 	final void setBusinessObject(final Object value) {		
 		this.bo = Objects.requireNonNull(value, "value must not be null");
 	}
-	
+
 	final void setRelativeReference(final RelativeBusinessObjectReference value) {
 		this.boRelReference = Objects.requireNonNull(value, "value must not be null");
 	}
-	
+
 	public final void setBusinessObjectHandler(final Object value) {
 		this.boHandler = value;
 	}
-	
+
 	public final RelativeBusinessObjectReference getRelativeReference() {
 		return boRelReference;
 	}
-	
+
 	public final String getName() {
 		return name;
 	}
-	
+
 	final void setName(final String value) {
 		this.name = value;
 	}
-	
+
 	public final boolean hasPosition() {
 		return position != null;
 	}	
-	
+
 	/**
 	 * 
 	 * @return copy of the element's position or null.
@@ -172,7 +172,7 @@ public class DiagramElement implements DiagramNode, ModifiableDiagramElementCont
 	public final Point getPosition() {
 		return position;
 	}
-	
+
 	/**
 	 * 
 	 * @return 0 if the element does not have a position
@@ -180,7 +180,7 @@ public class DiagramElement implements DiagramNode, ModifiableDiagramElementCont
 	public final int getX() {
 		return position == null ? 0 : position.x;
 	}
-	
+
 	/**
 	 * 
 	 * @return 0 if the element does not have a position
@@ -188,11 +188,11 @@ public class DiagramElement implements DiagramNode, ModifiableDiagramElementCont
 	public final int getY() {
 		return position == null ? 0 : position.y;
 	}
-	
+
 	final void setPosition(final Point value) {
 		this.position = value;
 	}
-	
+
 	/**
 	 * Intended for internal use by platform specific code in order to update the element's position to reflect the actual position after layout.
 	 * Using this method prevents notifications from being sent.
@@ -202,28 +202,28 @@ public class DiagramElement implements DiagramNode, ModifiableDiagramElementCont
 	public final void setPositionInternal(final int x, final int y) {
 		this.position = new Point(x, y);
 	}
-	
-	
+
+
 	public final boolean isSizeable() {
 		if(graphicalConfig.graphic instanceof AgeShape) {
 			return ((AgeShape)graphicalConfig.graphic).isResizeable();
 		}
-		
+
 		return false;
 	}
-		
+
 	public boolean hasSize() {
 		return size != null;
 	}
-	
+
 	public final Style getStyle() {
 		return style;
 	}
-	
+
 	public final void setStyle(final Style style) {
 		this.style = style;
 	}
-	
+
 	/**
 	 * 
 	 * @return copy of the element's size or null.
@@ -231,7 +231,7 @@ public class DiagramElement implements DiagramNode, ModifiableDiagramElementCont
 	public final Dimension getSize() {
 		return size;
 	}
-	
+
 	/**
 	 * 
 	 * @return 0 if the element does not have a size
@@ -239,7 +239,7 @@ public class DiagramElement implements DiagramNode, ModifiableDiagramElementCont
 	public final int getWidth() {
 		return size == null ? 0 : size.width;
 	}
-	
+
 	/**
 	 * 
 	 * @return 0 if the element does not have a size
@@ -247,11 +247,11 @@ public class DiagramElement implements DiagramNode, ModifiableDiagramElementCont
 	public final int getHeight() {
 		return size == null ? 0 : size.height;
 	}
-		
+
 	final void setSize(final Dimension value) {
 		this.size = value;
 	}
-	
+
 	/**
 	 * Intended for internal use by platform specific code in order to update the element's size to reflect the actual size after layout.
 	 * Using this method prevents notifications from being sent.
@@ -261,7 +261,7 @@ public class DiagramElement implements DiagramNode, ModifiableDiagramElementCont
 	public final void setSizeInternal(final int width, final int height) {
 		this.size = new Dimension(width, height);
 	}
-	
+
 	public final AgeGraphicalConfiguration getGraphicalConfiguration() {
 		return graphicalConfig;
 	}
@@ -269,11 +269,15 @@ public class DiagramElement implements DiagramNode, ModifiableDiagramElementCont
 	final void setGraphicalConfiguration(final AgeGraphicalConfiguration value) {
 		this.graphicalConfig = Objects.requireNonNull(value, "value must not be null");
 	}
-	
+
 	public final Graphic getGraphic() {
 		return graphicalConfig.graphic;
 	}
-	
+
+	public final Color getDefaultBackground() {
+		return graphicalConfig.defaultBackground;
+	}
+
 	public final Color getDefaultForeground() {
 		return graphicalConfig.defaultForeground;
 	}
@@ -281,23 +285,51 @@ public class DiagramElement implements DiagramNode, ModifiableDiagramElementCont
 	public final boolean isDecoration() {
 		return graphicalConfig != null && graphicalConfig.isDecoration;
 	}
-	
-	public final Color getDefaultBackground() {
-		return graphicalConfig.defaultBackground;
-	}
-	
+
+	/**
+	 * 
+	 * @return copy of the element's outline color or null.
+	 */
 	public final Color getOutline() {
 		return style.getOutline();
 	}
-	
+
+	/**
+	 * 
+	 * @return copy of the element's background color or null.
+	 */
 	public final Color getBackground() {
 		return style.getBackground();
 	}
-	
+
+	/**
+	 * 
+	 * @return copy of the element's font size or null.
+	 */
+	public FontSize getFontSize() {
+		return style.getFontSize();
+	}
+
+	/**
+	 * 
+	 * @return copy of the element's font color or null.
+	 */
+	public Color getFontColor() {
+		return style.getFontColor();
+	}
+
+	/**
+	 * 
+	 * @return copy of the element's line width or null.
+	 */
+	public LineWidth getLineWidth() {
+		return style.getLineWidth();
+	}
+
 	public final DockArea getDockArea() {
 		return dockArea;
 	}
-	
+
 	final void setDockArea(final DockArea value) {
 		this.dockArea = value;
 	}
@@ -305,15 +337,15 @@ public class DiagramElement implements DiagramNode, ModifiableDiagramElementCont
 	public final AgeLabelConfiguration getLabelConfiguration() {
 		return graphicalConfig.defaultLabelConfiguration;
 	}
-	
+
 	public final DiagramElement getStartElement() {
 		return graphicalConfig.connectionSource;
 	}
-	
+
 	public final DiagramElement getEndElement() {
 		return graphicalConfig.connectionDestination;
 	}
-	
+
 	/**
 	 * Returns an unmodifiable list of the element's bendpoints. The returned list is not guaranteed to be updated to reflect changes.
 	 * Bendpoints are specified in diagram coordinates rather than relative to the diagram element.
@@ -322,11 +354,11 @@ public class DiagramElement implements DiagramNode, ModifiableDiagramElementCont
 	public final List<Point> getBendpoints() {
 		return bendpoints == null ? Collections.emptyList() : Collections.unmodifiableList(bendpoints);
 	}
-	
+
 	final void setBendpoints(final List<Point> value) {
 		bendpoints = value == null ? null : new ArrayList<>(value);
 	}
-	
+
 	/**
 	 * 
 	 * @return will return null if the position has not been set.
@@ -334,120 +366,106 @@ public class DiagramElement implements DiagramNode, ModifiableDiagramElementCont
 	public final Point getConnectionPrimaryLabelPosition() {
 		return connectionPrimaryLabelPosition;
 	}
-	
+
 	final void setConnectionPrimaryLabelPosition(final Point value) {
 		this.connectionPrimaryLabelPosition = value;
 	}
-	
+
 	@Override
 	public String toString() {
 		final StringBuilder sb = new StringBuilder();
 		toString(sb, "");
 		return sb.toString();
 	}
-	
+
 	void toString(final StringBuilder sb, final String indention) {
 		sb.append(indention);
 		sb.append('{');
 		sb.append(System.lineSeparator());
-		
+
 		final String innerIndention = indention + '\t';
 		sb.append(innerIndention);
 		sb.append("relative reference: ");
 		sb.append(boRelReference);
 		sb.append(System.lineSeparator());
-				
+
 		sb.append(innerIndention);
 		sb.append("graphicalConfig: ");
 		sb.append(graphicalConfig);
 		sb.append(System.lineSeparator());
-		
+
 		if(position != null) {
 			sb.append(innerIndention);
 			sb.append("position: ");
 			sb.append(position);
 			sb.append(System.lineSeparator());
 		}
-		
+
 		if(size != null) {
 			sb.append(innerIndention);
 			sb.append("size: ");
 			sb.append(size);
 			sb.append(System.lineSeparator());
 		}
-		
+
 		if(dockArea != null) {
 			sb.append(innerIndention);
 			sb.append("dock area: ");
 			sb.append(dockArea);
 			sb.append(System.lineSeparator());
 		}
-		
+
 		if(bendpoints != null) {
 			sb.append(innerIndention);
 			sb.append("bendpoints: ");
 			sb.append(Arrays.toString(bendpoints.toArray(new Point[bendpoints.size()])));
 			sb.append(System.lineSeparator());
 		}
-		
-		if(style != null) {
-			final java.awt.Color awtBackground = style.getBackground();
-			if(awtBackground != null) {
-				sb.append(innerIndention);
-				sb.append("background: ");
-				sb.append(awtBackground);
-				sb.append(System.lineSeparator());
-			}
-			
-			final java.awt.Color awtOutline= style.getOutline();
-			if(style.getOutline() != null) {
-				sb.append(innerIndention);
-				sb.append("outline: ");
-				sb.append(awtOutline);
-				sb.append(System.lineSeparator());
-			}
-			
-			final java.awt.Color awtFontColor = style.getFontColor();
-			if(awtFontColor != null) {
-				sb.append(innerIndention);
-				sb.append("fontcolor: ");
-				sb.append(awtFontColor);
-				sb.append(System.lineSeparator());
-			}
-			
-			if(style.getFontSize() != null) {
-				sb.append(innerIndention);
-				sb.append("fontsize: ");
-				sb.append(style.getFontSize());
-				sb.append(System.lineSeparator());
-			}
-			
-			if(style.getLineWidth() != null) {
-				sb.append(innerIndention);
-				sb.append("linewidth: ");
-				sb.append(style.getLineWidth());
-				sb.append(System.lineSeparator());
-			}
+
+		final java.awt.Color awtBackground = style.getBackground();
+		if(awtBackground != null) {
+			sb.append(innerIndention);
+			sb.append("background: ");
+			sb.append(awtBackground);
+			sb.append(System.lineSeparator());
 		}
-		
+
+		final java.awt.Color awtOutline= style.getOutline();
+		if(style.getOutline() != null) {
+			sb.append(innerIndention);
+			sb.append("outline: ");
+			sb.append(awtOutline);
+			sb.append(System.lineSeparator());
+		}
+
+		final java.awt.Color awtFontColor = style.getFontColor();
+		if(awtFontColor != null) {
+			sb.append(innerIndention);
+			sb.append("fontcolor: ");
+			sb.append(awtFontColor);
+			sb.append(System.lineSeparator());
+		}
+
+		if(style.getFontSize() != null) {
+			sb.append(innerIndention);
+			sb.append("fontsize: ");
+			sb.append(style.getFontSize());
+			sb.append(System.lineSeparator());
+		}
+
+		if(style.getLineWidth() != null) {
+			sb.append(innerIndention);
+			sb.append("linewidth: ");
+			sb.append(style.getLineWidth());
+			sb.append(System.lineSeparator());
+		}
+
 		if(children.size() > 0) {
 			children.toString(sb, innerIndention);
 		}
-		
+
 		sb.append(indention);
 		sb.append('}');
 		sb.append(System.lineSeparator());
-	}
-	
-	public FontSize getFontSize() {
-		return style.getFontSize();
-	}
-	
-	public Color getFontColor() {
-		return style.getFontColor();
-	}
-
-	public LineWidth getLineWidth() {
-		return style.getLineWidth();
 	}
 }

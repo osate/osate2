@@ -271,10 +271,9 @@
 	<propertySections contributorId="org.osate.ge.editor.AgeDiagramEditor">
 		<propertySection
 			class="org.osate.ge.internal.views.Appearance"
+			filter="org.osate.ge.internal.views.Appearance$SelectionFilter"
 			id="org.osate.ge.Appearance"
 			tab="org.osate.ge.Style">
-        <input
-              type="org.eclipse.gef.EditPart"/>
      </propertySection>
 	</propertySections>
 </extension>

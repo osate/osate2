@@ -60,7 +60,7 @@ public class LabelUtil {
 	}
 		
 	public static void setStyle(final Diagram diagram, final Text text) {
-		TextUtil.setDefaultStyle(diagram, text, FontSize.Default.getValue());
+		TextUtil.setDefaultStyle(diagram, text);
 	}
 
 	private static GraphicsAlgorithm createTextBackground(final Diagram diagram, final GraphicsAlgorithmContainer container) {
@@ -78,7 +78,7 @@ public class LabelUtil {
 	private static Text createLabelGraphicsAlgorithm(final Diagram diagram, final GraphicsAlgorithmContainer container, final String labelTxt, final double fontSize) {
 		final IGaService gaService = Graphiti.getGaService();
 		final Text text = gaService.createPlainText(container, labelTxt);
-		TextUtil.setDefaultStyle(diagram, text, fontSize);
+		TextUtil.setStyle(diagram, text, fontSize);
         PropertyUtil.setIsColoringChild(text, true);
         
         return text;

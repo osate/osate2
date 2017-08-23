@@ -172,7 +172,6 @@ public class DiagramSerialization {
 			}
 		}
 
-		//TODO use builder no setters
 		final Color background = mmChild.getBackground() != null ? parseColor(mmChild.getBackground()) : null;
 		final Color fontColor = mmChild.getFontColor() != null ? parseColor(mmChild.getFontColor()) : null;
 		final Color outline = mmChild.getOutline() != null ? parseColor(mmChild.getOutline()) : null;
@@ -302,14 +301,14 @@ public class DiagramSerialization {
 			newElement.setBackground(awtColorToHex(awtBackground));
 		}
 
-		final java.awt.Color awtOutline = e.getOutline();
-		if(awtOutline != null) {
-			newElement.setOutline(awtColorToHex(awtOutline));
-		}
-
 		final java.awt.Color awtFontColor = e.getFontColor();
 		if(awtFontColor != null) {
 			newElement.setFontColor(awtColorToHex(awtFontColor));
+		}
+		
+		final java.awt.Color awtOutline = e.getOutline();
+		if(awtOutline != null) {
+			newElement.setOutline(awtColorToHex(awtOutline));
 		}
 
 		final FontSize fontSize = e.getFontSize();
@@ -339,10 +338,12 @@ public class DiagramSerialization {
 		convertElementsToMetamodel(newElement, e.getDiagramElements());
 	}
 	
+	// Create hex string from color
 	private static String awtColorToHex(final java.awt.Color color) {
 		return "#" + String.format("%02x", color.getRed()) + String.format("%02x", color.getGreen()) + String.format("%02x", color.getBlue());
 	}
 
+	// Create color from hex string
 	private static Color parseColor(final String color) {
 		return new Color(Integer.parseInt(color.substring(1, 3), 16), Integer.parseInt(color.substring(3, 5), 16), Integer.parseInt(color.substring(5), 16));
 	}

@@ -8,9 +8,14 @@ import org.eclipse.graphiti.services.IGaService;
 import org.eclipse.graphiti.util.IColorConstant;
 import org.eclipse.swt.graphics.Device;
 import org.eclipse.swt.widgets.Display;
+import org.osate.ge.internal.Style.FontSize;
 
 public class TextUtil {
-	public static void setDefaultStyle(final Diagram diagram, final Text text, final double fontSize) {
+	public static void setDefaultStyle(final Diagram diagram, final Text text) {
+		setStyle(diagram, text, FontSize.Default.getValue());
+	}
+	
+	public static void setStyle(final Diagram diagram, final Text text, final double fontSize) {
 		final IGaService gaService = Graphiti.getGaService();
 		text.setForeground(gaService.manageColor(diagram, IColorConstant.BLACK));
 		text.setFilled(false);

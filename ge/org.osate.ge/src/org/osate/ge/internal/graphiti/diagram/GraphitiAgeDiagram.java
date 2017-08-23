@@ -392,7 +392,7 @@ public class GraphitiAgeDiagram implements NodePictogramBiMap, AutoCloseable {
 				final Text text = gaService.createDefaultText(graphitiDiagram, textDecorator);
 				PropertyUtil.setIsColoringChild(text, true);
 				if(de.getFontSize() != null) {
-					TextUtil.setDefaultStyle(graphitiDiagram, text, de.getFontSize().getValue());
+					TextUtil.setStyle(graphitiDiagram, text, de.getFontSize().getValue());
 				} else {
 					LabelUtil.setStyle(graphitiDiagram, text);
 				}
