@@ -28668,7 +28668,7 @@ ruleAbstractFeature returns [EObject current=null]
 	    }
 
 )
-)?)
+))
     |(
 	otherlv_10=Feature
     {

@@ -98483,7 +98483,7 @@ rule__AbstractFeature__Group_2_0__1__Impl
 :
 (
 { before(grammarAccess.getAbstractFeatureAccess().getFeaturePrototypeAssignment_2_0_1()); }
-(rule__AbstractFeature__FeaturePrototypeAssignment_2_0_1)?
+(rule__AbstractFeature__FeaturePrototypeAssignment_2_0_1)
 { after(grammarAccess.getAbstractFeatureAccess().getFeaturePrototypeAssignment_2_0_1()); }
 )
 

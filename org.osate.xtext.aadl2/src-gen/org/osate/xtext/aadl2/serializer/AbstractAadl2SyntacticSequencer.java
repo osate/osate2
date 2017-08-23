@@ -10,7 +10,6 @@ import org.eclipse.xtext.IGrammarAccess;
 import org.eclipse.xtext.RuleCall;
 import org.eclipse.xtext.nodemodel.INode;
 import org.eclipse.xtext.serializer.analysis.GrammarAlias.AbstractElementAlias;
-import org.eclipse.xtext.serializer.analysis.GrammarAlias.AlternativeAlias;
 import org.eclipse.xtext.serializer.analysis.GrammarAlias.GroupAlias;
 import org.eclipse.xtext.serializer.analysis.GrammarAlias.TokenAlias;
 import org.eclipse.xtext.serializer.analysis.ISyntacticSequencerPDAProvider.ISynNavigable;
@@ -23,13 +22,11 @@ public abstract class AbstractAadl2SyntacticSequencer extends AbstractSyntacticS
 
 	protected Aadl2GrammarAccess grammarAccess;
 	protected AbstractElementAlias match_AadlPackage___PropertiesKeyword_3_0_NoneKeyword_3_1_1_0_SemicolonKeyword_3_1_1_1__q;
-	protected AbstractElementAlias match_AbstractFeature_FeatureKeyword_2_1_0_or_PrototypeKeyword_2_0_0;
 	
 	@Inject
 	protected void init(IGrammarAccess access) {
 		grammarAccess = (Aadl2GrammarAccess) access;
 		match_AadlPackage___PropertiesKeyword_3_0_NoneKeyword_3_1_1_0_SemicolonKeyword_3_1_1_1__q = new GroupAlias(false, true, new TokenAlias(false, false, grammarAccess.getAadlPackageAccess().getPropertiesKeyword_3_0()), new TokenAlias(false, false, grammarAccess.getAadlPackageAccess().getNoneKeyword_3_1_1_0()), new TokenAlias(false, false, grammarAccess.getAadlPackageAccess().getSemicolonKeyword_3_1_1_1()));
-		match_AbstractFeature_FeatureKeyword_2_1_0_or_PrototypeKeyword_2_0_0 = new AlternativeAlias(false, false, new TokenAlias(false, false, grammarAccess.getAbstractFeatureAccess().getFeatureKeyword_2_1_0()), new TokenAlias(false, false, grammarAccess.getAbstractFeatureAccess().getPrototypeKeyword_2_0_0()));
 	}
 	
 	@Override
@@ -95,8 +92,6 @@ public abstract class AbstractAadl2SyntacticSequencer extends AbstractSyntacticS
 			List<INode> syntaxNodes = getNodesFor(transitionNodes, syntax);
 			if (match_AadlPackage___PropertiesKeyword_3_0_NoneKeyword_3_1_1_0_SemicolonKeyword_3_1_1_1__q.equals(syntax))
 				emit_AadlPackage___PropertiesKeyword_3_0_NoneKeyword_3_1_1_0_SemicolonKeyword_3_1_1_1__q(semanticObject, getLastNavigableState(), syntaxNodes);
-			else if (match_AbstractFeature_FeatureKeyword_2_1_0_or_PrototypeKeyword_2_0_0.equals(syntax))
-				emit_AbstractFeature_FeatureKeyword_2_1_0_or_PrototypeKeyword_2_0_0(semanticObject, getLastNavigableState(), syntaxNodes);
 			else acceptNodes(getLastNavigableState(), syntaxNodes);
 		}
 	}
@@ -110,28 +105,6 @@ public abstract class AbstractAadl2SyntacticSequencer extends AbstractSyntacticS
 	 *     ownedPublicSection=PublicPackageSection (ambiguity) 'end' PNAME ';' (rule end)
 	 */
 	protected void emit_AadlPackage___PropertiesKeyword_3_0_NoneKeyword_3_1_1_0_SemicolonKeyword_3_1_1_1__q(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
-		acceptNodes(transition, nodes);
-	}
-	
-	/**
-	 * Ambiguous syntax:
-	 *     'prototype' | 'feature'
-	 *
-	 * This ambiguous syntax occurs at:
-	 *     in?='in' (ambiguity) ';' (rule end)
-	 *     in?='in' (ambiguity) '{' ownedPropertyAssociation+=PropertyAssociation
-	 *     in?='in' (ambiguity) arrayDimension+=ArrayDimension
-	 *     name=ID ':' (ambiguity) ';' (rule end)
-	 *     name=ID ':' (ambiguity) '{' ownedPropertyAssociation+=PropertyAssociation
-	 *     name=ID ':' (ambiguity) arrayDimension+=ArrayDimension
-	 *     out?='out' (ambiguity) ';' (rule end)
-	 *     out?='out' (ambiguity) '{' ownedPropertyAssociation+=PropertyAssociation
-	 *     out?='out' (ambiguity) arrayDimension+=ArrayDimension
-	 *     refined=[AbstractFeature|REFINEDNAME] ':' 'refined' 'to' (ambiguity) ';' (rule end)
-	 *     refined=[AbstractFeature|REFINEDNAME] ':' 'refined' 'to' (ambiguity) '{' ownedPropertyAssociation+=PropertyAssociation
-	 *     refined=[AbstractFeature|REFINEDNAME] ':' 'refined' 'to' (ambiguity) arrayDimension+=ArrayDimension
-	 */
-	protected void emit_AbstractFeature_FeatureKeyword_2_1_0_or_PrototypeKeyword_2_0_0(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
 		acceptNodes(transition, nodes);
 	}
 	
