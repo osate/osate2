@@ -328,7 +328,7 @@
       xsi:type="setup:EclipseIniTask"
       excludedTriggers="STARTUP MANUAL"
       option="-Xmx"
-      value="2048m"
+      value="1g"
       vm="true">
     <description>Set the heap space needed to work with the projects of ${scope.project.label}</description>
   </setupTask>
