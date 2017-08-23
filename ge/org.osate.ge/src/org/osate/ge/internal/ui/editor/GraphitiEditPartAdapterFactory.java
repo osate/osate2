@@ -61,10 +61,6 @@ public class GraphitiEditPartAdapterFactory implements IAdapterFactory {
 		}
 
 		final AgeDiagramEditor diagramEditor = (AgeDiagramEditor)editorPart;
-		if(AgeDiagramEditor.class.equals(adapterType)) {
-			return diagramEditor;
-		}
-		
 		final AgeDiagram ageDiagram = diagramEditor.getGraphitiAgeDiagram().getAgeDiagram();
 		if(ageDiagram == null) {
 			return null;
