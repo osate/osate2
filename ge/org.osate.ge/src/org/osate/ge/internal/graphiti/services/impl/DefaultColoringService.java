@@ -92,7 +92,7 @@ public class DefaultColoringService implements ColoringService {
 				public void execute() {
 					// Refresh Coloring
 					for(final DiagramElement de : diagramElements) {
-						graphitiService.getGraphitiAgeDiagram().refreshGraphicColoring(de);
+						graphitiService.getGraphitiAgeDiagram().refreshStyle(de);
 					}
 				}
 				

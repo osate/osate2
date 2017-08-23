@@ -8,13 +8,14 @@ import org.eclipse.graphiti.services.IGaService;
 import org.eclipse.graphiti.util.IColorConstant;
 import org.eclipse.swt.graphics.Device;
 import org.eclipse.swt.widgets.Display;
-import org.osate.ge.internal.Style.FontSize;
+import org.osate.ge.internal.diagram.runtime.FontSize;
 
 public class TextUtil {
-	public static void setDefaultStyle(final Diagram diagram, final Text text) {
-		setStyle(diagram, text, FontSize.Default.getValue());
+	// Default font size will be used if specified font size is null.
+	public static void setStyle(final Diagram diagram, final Text text, final FontSize fontSize) {
+		setStyle(diagram, text, fontSize == null ? FontSize.Default.getValue() : fontSize.getValue());
 	}
-	
+
 	public static void setStyle(final Diagram diagram, final Text text, final double fontSize) {
 		final IGaService gaService = Graphiti.getGaService();
 		text.setForeground(gaService.manageColor(diagram, IColorConstant.BLACK));
@@ -23,10 +24,10 @@ public class TextUtil {
 		text.setVerticalAlignment(Orientation.ALIGNMENT_CENTER);
 		text.setFont(gaService.manageFont(diagram, "Arial", getScaledFontPointSize(fontSize), false, true));
 	}
-	
+
 	private static int getScaledFontPointSize(final double unscaledFontSize) {
 		final Device device = Display.getCurrent();
-		// Round to 1 decimal point before casting to int. 
+		// Round to 1 decimal point before casting to int.
 		// This ensures that the value is rounded up only in cases where the value is within .1 of a whole number
 		final int fontSizeInPoints = (int)(Math.round(unscaledFontSize*96.0/device.getDPI().y*10.0)/10.0);
 		return fontSizeInPoints;

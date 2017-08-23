@@ -7,13 +7,11 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
+
 import org.osate.ge.BusinessObjectContext;
 import org.osate.ge.graphics.Graphic;
 import org.osate.ge.internal.AgeGraphicalConfiguration;
 import org.osate.ge.internal.DockArea;
-import org.osate.ge.internal.Style;
-import org.osate.ge.internal.Style.FontSize;
-import org.osate.ge.internal.Style.LineWidth;
 import org.osate.ge.internal.diagram.runtime.boTree.Completeness;
 import org.osate.ge.internal.graphics.AgeShape;
 import org.osate.ge.internal.labels.AgeLabelConfiguration;
@@ -32,7 +30,7 @@ public class DiagramElement implements DiagramNode, ModifiableDiagramElementCont
 	private final DiagramElementCollection children = new DiagramElementCollection();
 	private String name;
 	private AgeGraphicalConfiguration graphicalConfig; // Required after initialization.
-	private Style style = Style.defaultStyle;
+	private Style style = Style.defaultStyle; // Will never be null
 
 	// Shape Specific
 	private Point position; // Optional. Relative to container.
@@ -44,15 +42,15 @@ public class DiagramElement implements DiagramNode, ModifiableDiagramElementCont
 	private Point connectionPrimaryLabelPosition; // Optional. Position of the connection label.
 
 	/**
-	 * It is intended that bo and boHandler will not be null except for during the diagram loading process. 
-	 * Once the diagram is updated, these fields should be non-null 
+	 * It is intended that bo and boHandler will not be null except for during the diagram loading process.
+	 * Once the diagram is updated, these fields should be non-null
 	 * @param container
 	 * @param bo
 	 * @param boHandler
 	 * @param boRelReference
 	 */
 	public DiagramElement(final DiagramNode container,
-			final Object bo, 
+			final Object bo,
 			final Object boHandler,
 			final RelativeBusinessObjectReference boRelReference) {
 		this.container = Objects.requireNonNull(container, "container must not be null");
@@ -75,6 +73,7 @@ public class DiagramElement implements DiagramNode, ModifiableDiagramElementCont
 		return Collections.unmodifiableCollection(children);
 	}
 
+	@Override
 	public final Collection<Queryable> getChildren() {
 		return Collections.unmodifiableCollection(children);
 	}
@@ -105,6 +104,7 @@ public class DiagramElement implements DiagramNode, ModifiableDiagramElementCont
 		this.id = value;
 	}
 
+	@Override
 	public final Object getBusinessObject() {
 		return bo;
 	}
@@ -137,7 +137,7 @@ public class DiagramElement implements DiagramNode, ModifiableDiagramElementCont
 		return boHandler;
 	}
 
-	final void setBusinessObject(final Object value) {		
+	final void setBusinessObject(final Object value) {
 		this.bo = Objects.requireNonNull(value, "value must not be null");
 	}
 
@@ -163,10 +163,10 @@ public class DiagramElement implements DiagramNode, ModifiableDiagramElementCont
 
 	public final boolean hasPosition() {
 		return position != null;
-	}	
+	}
 
 	/**
-	 * 
+	 *
 	 * @return copy of the element's position or null.
 	 */
 	public final Point getPosition() {
@@ -174,7 +174,7 @@ public class DiagramElement implements DiagramNode, ModifiableDiagramElementCont
 	}
 
 	/**
-	 * 
+	 *
 	 * @return 0 if the element does not have a position
 	 */
 	public final int getX() {
@@ -182,7 +182,7 @@ public class DiagramElement implements DiagramNode, ModifiableDiagramElementCont
 	}
 
 	/**
-	 * 
+	 *
 	 * @return 0 if the element does not have a position
 	 */
 	public final int getY() {
@@ -220,12 +220,12 @@ public class DiagramElement implements DiagramNode, ModifiableDiagramElementCont
 		return style;
 	}
 
-	public final void setStyle(final Style style) {
-		this.style = style;
+	public final void setStyle(final Style value) {
+		this.style = Objects.requireNonNull(value, "value must not be null");
 	}
 
 	/**
-	 * 
+	 *
 	 * @return copy of the element's size or null.
 	 */
 	public final Dimension getSize() {
@@ -233,7 +233,7 @@ public class DiagramElement implements DiagramNode, ModifiableDiagramElementCont
 	}
 
 	/**
-	 * 
+	 *
 	 * @return 0 if the element does not have a size
 	 */
 	public final int getWidth() {
@@ -241,7 +241,7 @@ public class DiagramElement implements DiagramNode, ModifiableDiagramElementCont
 	}
 
 	/**
-	 * 
+	 *
 	 * @return 0 if the element does not have a size
 	 */
 	public final int getHeight() {
@@ -274,56 +274,20 @@ public class DiagramElement implements DiagramNode, ModifiableDiagramElementCont
 		return graphicalConfig.graphic;
 	}
 
-	public final Color getDefaultBackground() {
-		return graphicalConfig.defaultBackground;
+	public final Color getDefaultBackgroundColor() {
+		return graphicalConfig.defaultBackgroundColor;
 	}
 
-	public final Color getDefaultForeground() {
-		return graphicalConfig.defaultForeground;
+	public final Color getDefaultOutlineColor() {
+		return graphicalConfig.defaultOutlineColor;
+	}
+
+	public final Color getDefaultFontColor() {
+		return graphicalConfig.defaultFontColor;
 	}
 
 	public final boolean isDecoration() {
 		return graphicalConfig != null && graphicalConfig.isDecoration;
-	}
-
-	/**
-	 * 
-	 * @return copy of the element's outline color or null.
-	 */
-	public final Color getOutline() {
-		return style.getOutline();
-	}
-
-	/**
-	 * 
-	 * @return copy of the element's background color or null.
-	 */
-	public final Color getBackground() {
-		return style.getBackground();
-	}
-
-	/**
-	 * 
-	 * @return copy of the element's font size or null.
-	 */
-	public FontSize getFontSize() {
-		return style.getFontSize();
-	}
-
-	/**
-	 * 
-	 * @return copy of the element's font color or null.
-	 */
-	public Color getFontColor() {
-		return style.getFontColor();
-	}
-
-	/**
-	 * 
-	 * @return copy of the element's line width or null.
-	 */
-	public LineWidth getLineWidth() {
-		return style.getLineWidth();
 	}
 
 	public final DockArea getDockArea() {
@@ -360,7 +324,7 @@ public class DiagramElement implements DiagramNode, ModifiableDiagramElementCont
 	}
 
 	/**
-	 * 
+	 *
 	 * @return will return null if the position has not been set.
 	 */
 	public final Point getConnectionPrimaryLabelPosition() {
@@ -422,7 +386,7 @@ public class DiagramElement implements DiagramNode, ModifiableDiagramElementCont
 			sb.append(System.lineSeparator());
 		}
 
-		final java.awt.Color awtBackground = style.getBackground();
+		final java.awt.Color awtBackground = style.getBackgroundColor();
 		if(awtBackground != null) {
 			sb.append(innerIndention);
 			sb.append("background: ");
@@ -430,8 +394,8 @@ public class DiagramElement implements DiagramNode, ModifiableDiagramElementCont
 			sb.append(System.lineSeparator());
 		}
 
-		final java.awt.Color awtOutline= style.getOutline();
-		if(style.getOutline() != null) {
+		final java.awt.Color awtOutline= style.getOutlineColor();
+		if(style.getOutlineColor() != null) {
 			sb.append(innerIndention);
 			sb.append("outline: ");
 			sb.append(awtOutline);

@@ -19,48 +19,45 @@ import org.eclipse.graphiti.services.IGaService;
 import org.eclipse.graphiti.services.IPeCreateService;
 import org.eclipse.graphiti.ui.services.GraphitiUi;
 import org.eclipse.graphiti.util.IColorConstant;
-import org.osate.ge.internal.Style.FontSize;
 import org.osate.ge.internal.graphiti.TextUtil;
 
 public class LabelUtil {
-	public static Shape createLabelShape(final Diagram diagram, final ContainerShape container, final String shapeName, final String labelValue) {
-		return createLabelShape(diagram, container, shapeName, labelValue, true, FontSize.Default.getValue());
+	public static Shape createLabelShape(final Diagram diagram, final ContainerShape container, final String shapeName,
+			final String labelValue, final double fontSize) {
+		return createLabelShape(diagram, container, shapeName, labelValue, true, fontSize);
 	}
-	
-	public static Shape createLabelShape(final Diagram diagram, final ContainerShape container, final String shapeName, final String labelValue, final boolean includeBackground, final double fontSize) {
-		final IPeCreateService peCreateService = Graphiti.getPeCreateService();
-        final Shape labelShape = peCreateService.createShape(container, true);
-        PropertyUtil.setName(labelShape, shapeName);
-        PropertyUtil.setIsManuallyPositioned(labelShape, true);
-        PropertyUtil.setIsTransient(labelShape, true);
-        
-        final GraphicsAlgorithm labelBackground;
-        final Text labelText;
-        if(includeBackground) {
-        	labelBackground = createTextBackground(diagram, labelShape);
-        	labelText = createLabelGraphicsAlgorithm(diagram, labelBackground, labelValue, fontSize);
-        } else {
-        	labelBackground = null;
-        	labelText = createLabelGraphicsAlgorithm(diagram, labelShape, labelValue, fontSize);
-        }   
-        
-        // Get sizes of text graphics algorithms
-        final IDimension labelTextSize = GraphitiUi.getUiLayoutService().calculateTextSize(labelText.getValue(), labelText.getFont());
 
-        // Add padding to the text size to account for rounding issues in GEF3/Graphiti
-        final int paddedLabelTextWidth = labelTextSize.getWidth() + Math.max(15, labelText.getValue().length());
-        final int paddedLabelTextHeight = labelTextSize.getHeight() + 5;
-        final IGaService gaService = Graphiti.getGaService();
-        if(labelBackground != null) {
-        	gaService.setSize(labelBackground, paddedLabelTextWidth, paddedLabelTextHeight);
-        }
+	private static Shape createLabelShape(final Diagram diagram, final ContainerShape container, final String shapeName,
+			final String labelValue, final boolean includeBackground, final double fontSize) {
+		final IPeCreateService peCreateService = Graphiti.getPeCreateService();
+		final Shape labelShape = peCreateService.createShape(container, true);
+		PropertyUtil.setName(labelShape, shapeName);
+		PropertyUtil.setIsManuallyPositioned(labelShape, true);
+		PropertyUtil.setIsTransient(labelShape, true);
+
+		final GraphicsAlgorithm labelBackground;
+		final Text labelText;
+		if(includeBackground) {
+			labelBackground = createTextBackground(diagram, labelShape);
+			labelText = createLabelGraphicsAlgorithm(diagram, labelBackground, labelValue, fontSize);
+		} else {
+			labelBackground = null;
+			labelText = createLabelGraphicsAlgorithm(diagram, labelShape, labelValue, fontSize);
+		}
+
+		// Get sizes of text graphics algorithms
+		final IDimension labelTextSize = GraphitiUi.getUiLayoutService().calculateTextSize(labelText.getValue(), labelText.getFont());
+
+		// Add padding to the text size to account for rounding issues in GEF3/Graphiti
+		final int paddedLabelTextWidth = labelTextSize.getWidth() + Math.max(15, labelText.getValue().length());
+		final int paddedLabelTextHeight = labelTextSize.getHeight() + 5;
+		final IGaService gaService = Graphiti.getGaService();
+		if(labelBackground != null) {
+			gaService.setSize(labelBackground, paddedLabelTextWidth, paddedLabelTextHeight);
+		}
 		gaService.setSize(labelText, paddedLabelTextWidth, paddedLabelTextHeight);
-		
-        return labelShape;
-	}
-		
-	public static void setStyle(final Diagram diagram, final Text text) {
-		TextUtil.setDefaultStyle(diagram, text);
+
+		return labelShape;
 	}
 
 	private static GraphicsAlgorithm createTextBackground(final Diagram diagram, final GraphicsAlgorithmContainer container) {
@@ -70,17 +67,17 @@ public class LabelUtil {
 		background.setLineVisible(false);
 		background.setFilled(true);
 		background.setTransparency(0.2);
-        PropertyUtil.setIsColoringContainer(background, true);
-        
+		PropertyUtil.setIsColoringContainer(background, true);
+
 		return background;
 	}
-	
+
 	private static Text createLabelGraphicsAlgorithm(final Diagram diagram, final GraphicsAlgorithmContainer container, final String labelTxt, final double fontSize) {
 		final IGaService gaService = Graphiti.getGaService();
 		final Text text = gaService.createPlainText(container, labelTxt);
 		TextUtil.setStyle(diagram, text, fontSize);
-        PropertyUtil.setIsColoringChild(text, true);
-        
-        return text;
+		PropertyUtil.setIsColoringChild(text, true);
+
+		return text;
 	}
 }

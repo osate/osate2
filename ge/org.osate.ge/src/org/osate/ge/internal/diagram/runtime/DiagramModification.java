@@ -4,7 +4,6 @@ import java.util.List;
 
 import org.osate.ge.internal.AgeGraphicalConfiguration;
 import org.osate.ge.internal.DockArea;
-import org.osate.ge.internal.Style;
 import org.osate.ge.internal.diagram.runtime.boTree.Completeness;
 
 /**

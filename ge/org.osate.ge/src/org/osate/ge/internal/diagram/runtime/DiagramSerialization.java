@@ -7,6 +7,7 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.Objects;
 import java.util.stream.Collectors;
+
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
@@ -14,9 +15,6 @@ import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.emf.ecore.xmi.XMLResource;
 import org.osate.ge.diagram.Diagram;
 import org.osate.ge.internal.DockArea;
-import org.osate.ge.internal.Style;
-import org.osate.ge.internal.Style.FontSize;
-import org.osate.ge.internal.Style.LineWidth;
 
 /**
  * Class to help read and write the native diagram format used by the editor.
@@ -25,12 +23,7 @@ import org.osate.ge.internal.Style.LineWidth;
 public class DiagramSerialization {
 	public final static int FORMAT_VERSION = 1;
 
-	private static Comparator<DiagramElement> elementComparator = new Comparator<DiagramElement>() {
-		@Override
-		public int compare(final DiagramElement e1, final DiagramElement e2) {
-			return e1.getRelativeReference().compareTo(e2.getRelativeReference());
-		}
-	};
+	private static Comparator<DiagramElement> elementComparator = (e1, e2) -> e1.getRelativeReference().compareTo(e2.getRelativeReference());
 
 	public static org.osate.ge.diagram.Diagram readMetaModelDiagram(final URI uri) {
 		Objects.requireNonNull(uri, "uri must not be null");
@@ -49,7 +42,7 @@ public class DiagramSerialization {
 			return mmDiagram;
 		} catch (final IOException e) {
 			throw new RuntimeException(e);
-		}		
+		}
 	}
 
 	public static AgeDiagram createAgeDiagram(final org.osate.ge.diagram.Diagram mmDiagram) {
@@ -68,7 +61,7 @@ public class DiagramSerialization {
 				for(final String enabledProperty : enabledAadlProperties.getProperty()) {
 					configBuilder.addAadlProperty(enabledProperty);
 				}
-			}				
+			}
 		}
 
 		ageDiagram.setDiagramConfiguration(configBuilder.build());
@@ -79,12 +72,7 @@ public class DiagramSerialization {
 		}
 
 		//  Read elements
-		ageDiagram.modify(new DiagramModifier() {
-			@Override
-			public void modify(final DiagramModification m) {
-				readElements(m, ageDiagram, mmDiagram);
-			}
-		});
+		ageDiagram.modify(m -> readElements(m, ageDiagram, mmDiagram));
 
 		return ageDiagram;
 	}
@@ -112,7 +100,7 @@ public class DiagramSerialization {
 		}
 
 		return max;
-	}	
+	}
 
 	private static long getMaxId(final org.osate.ge.diagram.DiagramElement de) {
 		long max = -1;
@@ -123,18 +111,18 @@ public class DiagramSerialization {
 		max = Math.max(max, getMaxIdForChildren(de));
 
 		return max;
-	}	
+	}
 
-	private static void readElements(final DiagramModification m, 
-			final DiagramNode container, 
+	private static void readElements(final DiagramModification m,
+			final DiagramNode container,
 			final org.osate.ge.diagram.DiagramNode mmContainer) {
 		for(final org.osate.ge.diagram.DiagramElement mmElement : mmContainer.getElement()) {
 			createElement(m, container, mmContainer, mmElement);
 		}
-	}	
+	}
 
-	private static void createElement(final DiagramModification m, 
-			final DiagramNode container, 
+	private static void createElement(final DiagramModification m,
+			final DiagramNode container,
 			final org.osate.ge.diagram.DiagramNode mmContainer,
 			final org.osate.ge.diagram.DiagramElement mmChild) {
 		final String[] refSegs = toReferenceSegments(mmChild.getBo());
@@ -179,14 +167,14 @@ public class DiagramSerialization {
 		final int lineWidth = mmChild.getLineWidth();
 		final double fontSize = mmChild.getFontSize();
 
-		newElement.setStyle(Style.create().
-		styleBackground(background).
-		styleFontColor(fontColor).
-		styleOutline(outline).
-		styleFontSize(FontSize.getByValue(fontSize)).
-		styleLineWidth(LineWidth.getByValue(lineWidth)).
-		build());
-				
+		newElement.setStyle(StyleBuilder.create().
+				backgroundColor(background).
+				fontColor(fontColor).
+				outlineColor(outline).
+				fontSize(FontSize.getByValue(fontSize)).
+				lineWidth(LineWidth.getByValue(lineWidth)).
+				build());
+
 		// Bendpoints
 		final org.osate.ge.diagram.BendpointList mmBendpoints = mmChild.getBendpoints();
 		if(mmBendpoints != null) {
@@ -197,7 +185,7 @@ public class DiagramSerialization {
 		newElement.setConnectionPrimaryLabelPosition(convertPoint(mmChild.getPrimaryLabelPosition()));
 
 		// Add the element
-		m.addElement(newElement);		
+		m.addElement(newElement);
 
 		// Create children
 		readElements(m, newElement, mmChild);
@@ -223,7 +211,7 @@ public class DiagramSerialization {
 		// Convert from the runtime format to the metamodel format which is stored
 		final org.osate.ge.diagram.Diagram mmDiagram = new Diagram();
 		mmDiagram.setFormatVersion(FORMAT_VERSION);
-		final org.osate.ge.diagram.DiagramConfiguration mmConfig = new org.osate.ge.diagram.DiagramConfiguration();		
+		final org.osate.ge.diagram.DiagramConfiguration mmConfig = new org.osate.ge.diagram.DiagramConfiguration();
 		mmDiagram.setConfig(mmConfig);
 
 		// Populate the diagram configuration
@@ -236,7 +224,7 @@ public class DiagramSerialization {
 			enabledProperties.getProperty().add(enabledPropertyName);
 		}
 
-		convertElementsToMetamodel(mmDiagram, diagram.getDiagramElements());			
+		convertElementsToMetamodel(mmDiagram, diagram.getDiagramElements());
 
 		// Save the resource
 		final ResourceSet rs = new ResourceSetImpl();
@@ -297,27 +285,28 @@ public class DiagramSerialization {
 			newElement.setDockArea(e.getDockArea().id);
 		}
 
-		final java.awt.Color awtBackground = e.getBackground();
+		final Style currentStyle = e.getStyle();
+		final java.awt.Color awtBackground = currentStyle.getBackgroundColor();
 		if(awtBackground != null) {
 			newElement.setBackground(awtColorToHex(awtBackground));
 		}
 
-		final java.awt.Color awtFontColor = e.getFontColor();
+		final java.awt.Color awtFontColor = currentStyle.getFontColor();
 		if(awtFontColor != null) {
 			newElement.setFontColor(awtColorToHex(awtFontColor));
 		}
-		
-		final java.awt.Color awtOutline = e.getOutline();
+
+		final java.awt.Color awtOutline = currentStyle.getOutlineColor();
 		if(awtOutline != null) {
 			newElement.setOutline(awtColorToHex(awtOutline));
 		}
 
-		final FontSize fontSize = e.getFontSize();
+		final FontSize fontSize = currentStyle.getFontSize();
 		if(fontSize != null) {
 			newElement.setFontSize(fontSize.getValue());
 		}
-		
-		final LineWidth lineWidth = e.getLineWidth();
+
+		final LineWidth lineWidth = currentStyle.getLineWidth();
 		if(lineWidth != null) {
 			newElement.setLineWidth(lineWidth.getValue());
 		}
@@ -338,7 +327,7 @@ public class DiagramSerialization {
 
 		convertElementsToMetamodel(newElement, e.getDiagramElements());
 	}
-	
+
 	// Create hex string from color
 	private static String awtColorToHex(final java.awt.Color color) {
 		return "#" + String.format("%02x", color.getRed()) + String.format("%02x", color.getGreen()) + String.format("%02x", color.getBlue());

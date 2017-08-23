@@ -7,6 +7,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.OptionalInt;
 
 import org.eclipse.graphiti.datatypes.IDimension;
 import org.eclipse.graphiti.mm.algorithms.GraphicsAlgorithm;
@@ -31,13 +32,14 @@ import org.osate.ge.internal.graphics.Label;
 import org.osate.ge.internal.graphics.Poly;
 import org.osate.ge.internal.graphiti.AnchorNames;
 import org.osate.ge.internal.graphiti.ShapeNames;
+import org.osate.ge.internal.graphiti.TextUtil;
 import org.osate.ge.internal.graphiti.graphics.AgeGraphitiGraphicsUtil;
 import org.osate.ge.internal.labels.AgeLabelConfiguration;
 import org.osate.ge.internal.labels.LabelConfigurationBuilder;
 import org.osate.ge.internal.labels.LabelPosition;
 
 /**
- * Helper class for performing layout. Layout includes positioning child shapes and updating the graphics algorithm. 
+ * Helper class for performing layout. Layout includes positioning child shapes and updating the graphics algorithm.
  *
  */
 class LayoutUtil {
@@ -69,21 +71,21 @@ class LayoutUtil {
 		}
 	}
 
-	public static void layoutDepthFirst(final Diagram graphitiDiagram, 
-			final AgeDiagram ageDiagram, 
+	public static void layoutDepthFirst(final Diagram graphitiDiagram,
+			final AgeDiagram ageDiagram,
 			final NodePictogramBiMap mapping,
 			final ColoringProvider coloringProvider) {
 		for(final DiagramElement child : ageDiagram.getDiagramElements()) {
-			layoutDepthFirst(graphitiDiagram, child, mapping, coloringProvider);				
+			layoutDepthFirst(graphitiDiagram, child, mapping, coloringProvider);
 		}
 	}
 
-	public static void layoutDepthFirst(final Diagram graphitiDiagram, 
-			final DiagramElement element, 
+	public static void layoutDepthFirst(final Diagram graphitiDiagram,
+			final DiagramElement element,
 			final NodePictogramBiMap mapping,
 			final ColoringProvider coloringProvider) {
 		for(final DiagramElement child : element.getDiagramElements()) {
-			layoutDepthFirst(graphitiDiagram, child, mapping, coloringProvider);				
+			layoutDepthFirst(graphitiDiagram, child, mapping, coloringProvider);
 		}
 
 		// Get the pictogram element and lay it out if it is a shape
@@ -105,12 +107,12 @@ class LayoutUtil {
 						final Poly poly = (Poly)decorationElement.getGraphic();
 						AgeGraphitiGraphicsUtil.createGraphicsAlgorithm(graphitiDiagram, cd, decorationElement.getGraphic(), 1, 1, true);
 						totalNonLabelWidth += poly.right + nonLabelDecorationSpacing; // Extra padding is added to space decorations apart from each other
-					} 
+					}
 				}
 			}
 
 			int nonLabelShiftX = -totalNonLabelWidth/2;
-			int labelY = 10;			
+			int labelY = 10;
 			for(final ConnectionDecorator cd : connection.getConnectionDecorators()) {
 				final DiagramNode decoratorNode = mapping.getDiagramNode(cd);
 				if(decoratorNode instanceof DiagramElement) {
@@ -122,7 +124,7 @@ class LayoutUtil {
 						if(decorationElement.getName() != null) {
 							final Text text = gaService.createDefaultText(graphitiDiagram, cd);
 							PropertyUtil.setIsColoringChild(text, true);
-							LabelUtil.setStyle(graphitiDiagram, text);
+							TextUtil.setStyle(graphitiDiagram, text, decorationElement.getStyle().getFontSize());
 							text.setValue(decorationElement.getName());
 							if(decorationElement.hasPosition()) {
 								gaService.setLocation(text, decorationElement.getX(), decorationElement.getY());
@@ -146,11 +148,11 @@ class LayoutUtil {
 					} else {
 						throw new RuntimeException("Unsupported connection child graphic: " + decorationElement.getGraphic());
 					}
-				}				
+				}
 			}
-			
+
 			// Set the color
-			refreshGraphicColoring(graphitiDiagram, pe, getFinalBackgroundColor(element, coloringProvider), getOutlineColor(element, coloringProvider), getFinalFontColor(element, coloringProvider), getFinalLineWidth(element));
+			refreshStyle(graphitiDiagram, pe, element, coloringProvider);
 		}
 	}
 
@@ -162,11 +164,11 @@ class LayoutUtil {
 	 * @param shape
 	 * @param diagramNodeProvider
 	 */
-	public static void layout(final Diagram graphitiDiagram, 
-			final DiagramElement element, 
+	public static void layout(final Diagram graphitiDiagram,
+			final DiagramElement element,
 			final ContainerShape shape,
 			final NodePictogramBiMap diagramNodeProvider,
-			final ColoringProvider coloringProvider) {		
+			final ColoringProvider coloringProvider) {
 		final AgeLabelConfiguration labelConfiguration = element.getLabelConfiguration() == null ? defaultLabelConfiguration : element.getLabelConfiguration();
 		final GraphicsAlgorithm shapeGa = shape.getGraphicsAlgorithm();
 		shapeGa.setStyle(null); // Remove reference to Graphiti style.
@@ -234,9 +236,9 @@ class LayoutUtil {
 					}
 				}
 			}
-		}			
+		}
 
-		// Group feature shapes based on docking area	
+		// Group feature shapes based on docking area
 		final Map<DockArea, List<Shape>> dockAreaToShapesMap = buildDockAreaToChildrenMap(shape);
 
 		// Adjust shapes so they do not overlap
@@ -258,8 +260,8 @@ class LayoutUtil {
 						break;
 
 					default:
-						break;						
-					}						
+						break;
+					}
 				}
 			}
 		}
@@ -271,13 +273,13 @@ class LayoutUtil {
 		lm.innerWidth = Math.max(lm.innerWidth, minSizeForChildren[0]);
 		lm.innerHeight = Math.max(lm.innerHeight, minSizeForChildren[1]);
 
-		// Create the graphics algorithm					
+		// Create the graphics algorithm
 		shapeGa.getGraphicsAlgorithmChildren().clear();
 
 		final GraphicsAlgorithm innerGa;
 		// Adjust the size of the graphics algorithm based on the rotation implied by the dock area
 		if(shapeDockArea == DockArea.TOP || shapeDockArea == DockArea.BOTTOM) {
-			innerGa = AgeGraphitiGraphicsUtil.createGraphicsAlgorithm(graphitiDiagram, shapeGa, gr, lm.innerHeight, lm.innerWidth, true);	
+			innerGa = AgeGraphitiGraphicsUtil.createGraphicsAlgorithm(graphitiDiagram, shapeGa, gr, lm.innerHeight, lm.innerWidth, true);
 		} else {
 			innerGa = AgeGraphitiGraphicsUtil.createGraphicsAlgorithm(graphitiDiagram, shapeGa, gr, lm.innerWidth, lm.innerHeight, true);
 		}
@@ -378,8 +380,8 @@ class LayoutUtil {
 				break;
 			}
 
-			AnchorUtil.createOrUpdateFixPointAnchor(shape, AnchorNames.FLOW_SPECIFICATION, 
-					flowSpecAnchorX, 
+			AnchorUtil.createOrUpdateFixPointAnchor(shape, AnchorNames.FLOW_SPECIFICATION,
+					flowSpecAnchorX,
 					innerGa.getY() + (innerGa.getHeight()/2) + flowSpecAnchorOffsetY, true);
 
 		}
@@ -389,7 +391,7 @@ class LayoutUtil {
 		switch(nameVerticalPosition) {
 		case BEFORE_GRAPHIC:
 			labelsY = 0;
-			break;	
+			break;
 
 		case DEFAULT:
 		case GRAPHIC_BEGINNING:
@@ -402,17 +404,17 @@ class LayoutUtil {
 			labelsY = lm.topOuterPadding + centeringOffsetY + ((lm.innerHeight - centeringOffsetY) - totalLabelsHeight)/2;
 			break;
 
-		case GRAPHIC_END:						
+		case GRAPHIC_END:
 			labelsY = innerBottom - totalLabelsHeight - actualLabelPaddingY;
 			break;
 
 		case AFTER_GRAPHIC:
 			labelsY = innerBottom;
-			break;			
+			break;
 		}
 
-		// Position Labels 
-		// All labels are positioned together on separate lines. 
+		// Position Labels
+		// All labels are positioned together on separate lines.
 		// Labels are positioned horizontally based on the name label configuration.
 		for(final Shape labelShape : decorationShapes) {
 			final GraphicsAlgorithm labelGa = labelShape.getGraphicsAlgorithm();
@@ -434,24 +436,7 @@ class LayoutUtil {
 		}
 
 		// Set the color
-		refreshGraphicColoring(graphitiDiagram, shape, getFinalBackgroundColor(element, coloringProvider), getOutlineColor(element, coloringProvider), getFinalFontColor(element, coloringProvider), getFinalLineWidth(element));
-	}
-
-	public static java.awt.Color getFinalFontColor(final DiagramElement de, final ColoringProvider coloringProvider) {
-		java.awt.Color awtColor = coloringProvider.getForegroundColor(de);
-		if(awtColor == null) {
-			if(de.getFontColor() != null) {
-				awtColor = de.getFontColor();
-			} else {
-				awtColor = de.getDefaultForeground();
-			}
-		}
-
-		return awtColor;
-	}
-
-	public static Integer getFinalLineWidth(final DiagramElement element) {
-		return element.getLineWidth() != null ? element.getLineWidth().getValue() : 0;
+		refreshStyle(graphitiDiagram, shape, element, coloringProvider);
 	}
 
 	/**
@@ -474,11 +459,11 @@ class LayoutUtil {
 		case GRAPHIC_CENTER:
 			return lm.leftOuterPadding + (lm.innerWidth - labelWidth)/2;
 
-		case GRAPHIC_END:						
+		case GRAPHIC_END:
 			return lm.getInnerRight() - labelWidth - labelPadding;
 
 		case AFTER_GRAPHIC:
-			return lm.getInnerRight();			
+			return lm.getInnerRight();
 		}
 	}
 
@@ -487,7 +472,7 @@ class LayoutUtil {
 		switch(nameHorizontalPosition) {
 		case BEFORE_GRAPHIC:
 			lm.leftOuterPadding = Math.max(lm.leftOuterPadding, totalLabelsWidth);
-			break;	
+			break;
 
 		case DEFAULT:
 		case GRAPHIC_BEGINNING:
@@ -499,16 +484,16 @@ class LayoutUtil {
 
 		case AFTER_GRAPHIC:
 			lm.rightOuterPadding = Math.max(lm.rightOuterPadding, totalLabelsWidth);
-			break;			
-		}					
+			break;
+		}
 
 		// Set Y value based on the label configuration
 		switch(nameVerticalPosition) {
 		case BEFORE_GRAPHIC:
 			lm.topOuterPadding = Math.max(lm.topOuterPadding, totalLabelsHeight);
-			break;	
+			break;
 
-		case DEFAULT:					
+		case DEFAULT:
 		case GRAPHIC_BEGINNING:
 		case GRAPHIC_CENTER:
 		case GRAPHIC_END:
@@ -518,14 +503,14 @@ class LayoutUtil {
 
 		case AFTER_GRAPHIC:
 			lm.bottomOuterPadding = Math.max(lm.bottomOuterPadding, totalLabelsHeight);
-			break;			
+			break;
 		}
 	}
 
 	// Determines the horizontal label position. Transforms the positions specified by the business object handler based on the dock area.
 	private static LabelPosition getHorizontalLabelPosition(final LabelPosition horizontalPosition, final LabelPosition verticalPosition, final DockArea shapeDockArea) {
 		if(shapeDockArea == null) {
-			return horizontalPosition;			
+			return horizontalPosition;
 		}
 
 		switch(shapeDockArea) {
@@ -542,14 +527,14 @@ class LayoutUtil {
 			return verticalPosition;
 
 		default:
-			return horizontalPosition;		
+			return horizontalPosition;
 		}
 	}
 
 	// Determines the vertical label position. Transforms the positions specified by the business object handler based on the dock area.
 	private static LabelPosition getVerticalLabelPosition(final LabelPosition horizontalPosition, final LabelPosition verticalPosition, final DockArea shapeDockArea) {
 		if(shapeDockArea == null) {
-			return verticalPosition;			
+			return verticalPosition;
 		}
 
 		switch(shapeDockArea) {
@@ -566,7 +551,7 @@ class LayoutUtil {
 			return horizontalPosition.mirror();
 
 		default:
-			return verticalPosition;		
+			return verticalPosition;
 		}
 	}
 
@@ -579,7 +564,7 @@ class LayoutUtil {
 				if(!PropertyUtil.isManuallyPositioned(childShape) && PropertyUtil.isLayedOut(childShape)) {
 					final GraphicsAlgorithm childGa = childShape.getGraphicsAlgorithm();
 					final DockArea childDockArea = PropertyUtil.getDockArea(childShape);
-					if(childDockArea == null || childDockArea == DockArea.GROUP) {	
+					if(childDockArea == null || childDockArea == DockArea.GROUP) {
 						maxRight = Math.max(maxRight, childGa.getX() + childGa.getWidth());
 						maxBottom = Math.max(maxBottom, childGa.getY() + childGa.getHeight());
 					} else {
@@ -587,7 +572,7 @@ class LayoutUtil {
 						case LEFT:
 						case RIGHT:
 							maxRight = Math.max(maxRight, innerLeftX + childGa.getWidth());
-							maxBottom = Math.max(maxBottom, childGa.getY() + childGa.getHeight());						
+							maxBottom = Math.max(maxBottom, childGa.getY() + childGa.getHeight());
 							break;
 						case TOP:
 						case BOTTOM:
@@ -595,7 +580,7 @@ class LayoutUtil {
 							maxBottom = Math.max(maxBottom, innerTopY + childGa.getHeight());
 							break;
 						default:
-							break;						
+							break;
 						}
 					}
 				}
@@ -625,30 +610,24 @@ class LayoutUtil {
 		return result;
 	}
 
-	private final static Comparator<Shape> xComparator = new Comparator<Shape>() {
-		@Override
-		public int compare(final Shape s1, final Shape s2) {
-			if(s1.getGraphicsAlgorithm() == null) {
-				return -1;
-			} else if(s2.getGraphicsAlgorithm() == null) {
-				return 1;
-			}
+	private final static Comparator<Shape> xComparator = (s1, s2) -> {
+		if(s1.getGraphicsAlgorithm() == null) {
+			return -1;
+		} else if(s2.getGraphicsAlgorithm() == null) {
+			return 1;
+		}
 
-			return Integer.compare(s1.getGraphicsAlgorithm().getX(), s2.getGraphicsAlgorithm().getX());
-		}		
+		return Integer.compare(s1.getGraphicsAlgorithm().getX(), s2.getGraphicsAlgorithm().getX());
 	};
 
-	private final static Comparator<Shape> yComparator = new Comparator<Shape>() {
-		@Override
-		public int compare(final Shape s1, final Shape s2) {
-			if(s1.getGraphicsAlgorithm() == null) {
-				return -1;
-			} else if(s2.getGraphicsAlgorithm() == null) {
-				return 1;
-			}
+	private final static Comparator<Shape> yComparator = (s1, s2) -> {
+		if(s1.getGraphicsAlgorithm() == null) {
+			return -1;
+		} else if(s2.getGraphicsAlgorithm() == null) {
+			return 1;
+		}
 
-			return Integer.compare(s1.getGraphicsAlgorithm().getY(), s2.getGraphicsAlgorithm().getY());
-		}		
+		return Integer.compare(s1.getGraphicsAlgorithm().getY(), s2.getGraphicsAlgorithm().getY());
 	};
 
 	private static void cleanupOverlappingDockedShapes(final DockArea parentNonGroupDockArea, final Map<DockArea, List<Shape>> dockAreaToShapesMap) {
@@ -694,7 +673,7 @@ class LayoutUtil {
 					}
 				}
 			}
-		}		
+		}
 	}
 
 	/**
@@ -744,38 +723,65 @@ class LayoutUtil {
 		return results;
 	}
 
-	public static void refreshGraphicColoring(final Diagram graphitiDiagram, final PictogramElement pe, final java.awt.Color awtBackground, final java.awt.Color awtOutline, final java.awt.Color awtFontColor, final int lineWidth) {		
+	public static void refreshStyle(final Diagram graphitiDiagram, final PictogramElement pe,
+			final DiagramElement element, final ColoringProvider coloringProvider) {
+		refreshStyle(graphitiDiagram, pe, getFinalBackgroundColor(element, coloringProvider),
+				getFinalOutlineColor(element, coloringProvider), getFinalFontColor(element, coloringProvider),
+				getFinalLineWidth(element));
+	}
+
+	private static void refreshStyle(final Diagram graphitiDiagram, final PictogramElement pe,
+			final java.awt.Color awtBackground, final java.awt.Color awtOutline, final java.awt.Color awtFontColor,
+			final OptionalInt lineWidth) {
 		final Color foreground = Graphiti.getGaService().manageColor(graphitiDiagram, awtOutline.getRed(), awtOutline.getGreen(), awtOutline.getBlue());
 		final Color background = Graphiti.getGaService().manageColor(graphitiDiagram, awtBackground.getRed(), awtBackground.getGreen(), awtBackground.getBlue());
 		final Color fontColor = Graphiti.getGaService().manageColor(graphitiDiagram, awtFontColor.getRed(), awtFontColor.getGreen(), awtFontColor.getBlue());
 
-		ColoringUtil.overrideElementGraphics(pe, background, foreground, fontColor, lineWidth);
+		StyleUtil.overrideStyle(pe, background, foreground, fontColor, lineWidth);
 	}
 
-	public static java.awt.Color getFinalBackgroundColor(final DiagramElement de, final ColoringProvider coloringProvider) {
+	private static java.awt.Color getFinalBackgroundColor(final DiagramElement de,
+			final ColoringProvider coloringProvider) {
+		final java.awt.Color awtColor;
+		if (de.getStyle().getBackgroundColor() != null) {
+			awtColor = de.getStyle().getBackgroundColor();
+		} else {
+			awtColor = de.getDefaultBackgroundColor();
+		}
+
+		return awtColor;
+	}
+
+	private static java.awt.Color getFinalOutlineColor(final DiagramElement de,
+			final ColoringProvider coloringProvider) {
 		java.awt.Color awtColor = coloringProvider.getForegroundColor(de);
+
 		if(awtColor == null) {
-			if(de.getBackground() != null) {
-				awtColor = de.getBackground();
+			if (de.getStyle().getOutlineColor() != null) {
+				awtColor = de.getStyle().getOutlineColor();
 			} else {
-				awtColor = de.getDefaultBackground();
+				awtColor = de.getDefaultOutlineColor();
 			}
 		}
 
 		return awtColor;
 	}
 
-	public static java.awt.Color getOutlineColor(final DiagramElement de, final ColoringProvider coloringProvider) {
+	private static java.awt.Color getFinalFontColor(final DiagramElement de, final ColoringProvider coloringProvider) {
 		java.awt.Color awtColor = coloringProvider.getForegroundColor(de);
-
-		if(awtColor == null) {
-			if(de.getOutline() != null) {
-				awtColor = de.getOutline();
+		if (awtColor == null) {
+			if (de.getStyle().getFontColor() != null) {
+				awtColor = de.getStyle().getFontColor();
 			} else {
-				awtColor = de.getDefaultForeground();
+				awtColor = de.getDefaultFontColor();
 			}
 		}
 
 		return awtColor;
+	}
+
+	private static OptionalInt getFinalLineWidth(final DiagramElement element) {
+		return element.getStyle().getLineWidth() != null ? OptionalInt.of(element.getStyle().getLineWidth().getValue())
+				: OptionalInt.empty();
 	}
 }

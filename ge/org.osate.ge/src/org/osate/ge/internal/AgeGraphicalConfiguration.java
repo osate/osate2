@@ -14,25 +14,25 @@ public class AgeGraphicalConfiguration implements GraphicalConfiguration {
 	public final AgeLabelConfiguration defaultLabelConfiguration;
 	public final DiagramElement connectionSource;
 	public final DiagramElement connectionDestination;
-	public final Color defaultBackground;
-	public final Color defaultForeground;
+	public final Color defaultBackgroundColor;
+	public final Color defaultOutlineColor;
+	public final Color defaultFontColor;
 	public final boolean isDecoration;
-	
-	public AgeGraphicalConfiguration(final Graphic graphic,
-			final DockingPosition defaultDockingPosition,
-			final AgeLabelConfiguration defaultLabelConfiguration,
-			final DiagramElement connectionSource,
-			final DiagramElement connectionDestination,
-			final Color defaultBackground,
-			final Color defaultForeground,
-			final boolean isDecoration) {
+
+	public AgeGraphicalConfiguration(final Graphic graphic, final DockingPosition defaultDockingPosition,
+			final AgeLabelConfiguration defaultLabelConfiguration, final DiagramElement connectionSource,
+			final DiagramElement connectionDestination, final Color defaultBackgroundColor,
+			final Color defaultOutlineColor, final Color defaultFontColor, final boolean isDecoration) {
 		this.graphic = Objects.requireNonNull(graphic, "graphic must not be null");
 		this.defaultDockingPosition = defaultDockingPosition;
 		this.defaultLabelConfiguration = defaultLabelConfiguration;
 		this.connectionSource = connectionSource;
 		this.connectionDestination = connectionDestination;
-		this.defaultBackground = Objects.requireNonNull(defaultBackground, "background must not be null");
-		this.defaultForeground = Objects.requireNonNull(defaultForeground, "foreground must not be null");
+		this.defaultBackgroundColor = Objects.requireNonNull(defaultBackgroundColor,
+				"defaultBackgroundColor must not be null");
+		this.defaultOutlineColor = Objects.requireNonNull(defaultOutlineColor,
+				"defaultOutlineColor must not be null");
+		this.defaultFontColor = Objects.requireNonNull(defaultFontColor, "defaultFontColor must not be null");
 		this.isDecoration = isDecoration;
 	}
 }
