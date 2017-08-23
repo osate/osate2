@@ -62,7 +62,7 @@ import org.eclipse.swt.widgets.ColorDialog;
 import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.Shell;
 
-public class Appearance extends AbstractPropertySection {
+public class AppearanceViewTab extends AbstractPropertySection {
 	public static class SelectionFilter implements IFilter {
 		@Override
 		public boolean select(final Object o) {
