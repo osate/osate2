@@ -24,7 +24,6 @@ import org.eclipse.graphiti.services.IGaService;
 import org.eclipse.graphiti.ui.services.GraphitiUi;
 import org.osate.ge.graphics.Graphic;
 import org.osate.ge.internal.DockArea;
-import org.osate.ge.internal.Style.LineWidth;
 import org.osate.ge.internal.diagram.runtime.AgeDiagram;
 import org.osate.ge.internal.diagram.runtime.DiagramElement;
 import org.osate.ge.internal.diagram.runtime.DiagramNode;
@@ -452,7 +451,7 @@ class LayoutUtil {
 	}
 
 	public static Integer getFinalLineWidth(final DiagramElement element) {
-		return element.getLineWidth() != null ? element.getLineWidth().getValue() : LineWidth.Default.getValue();
+		return element.getLineWidth() != null ? element.getLineWidth().getValue() : 0;
 	}
 
 	/**
@@ -750,7 +749,7 @@ class LayoutUtil {
 		final Color background = Graphiti.getGaService().manageColor(graphitiDiagram, awtBackground.getRed(), awtBackground.getGreen(), awtBackground.getBlue());
 		final Color fontColor = Graphiti.getGaService().manageColor(graphitiDiagram, awtFontColor.getRed(), awtFontColor.getGreen(), awtFontColor.getBlue());
 
-		ColoringUtil.overrideElementStyle(pe, background, foreground, fontColor, lineWidth);
+		ColoringUtil.overrideElementGraphics(pe, background, foreground, fontColor, lineWidth);
 	}
 
 	public static java.awt.Color getFinalBackgroundColor(final DiagramElement de, final ColoringProvider coloringProvider) {

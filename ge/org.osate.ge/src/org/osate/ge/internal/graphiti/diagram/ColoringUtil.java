@@ -9,9 +9,9 @@ import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.mm.pictograms.Shape;
 
 class ColoringUtil {
-	public static void overrideElementStyle(final PictogramElement pe, final org.eclipse.graphiti.mm.algorithms.styles.Color background, final org.eclipse.graphiti.mm.algorithms.styles.Color outline, final org.eclipse.graphiti.mm.algorithms.styles.Color fontColor, final int lineWidth) {
+	public static void overrideElementGraphics(final PictogramElement pe, final org.eclipse.graphiti.mm.algorithms.styles.Color background, final org.eclipse.graphiti.mm.algorithms.styles.Color outline, final org.eclipse.graphiti.mm.algorithms.styles.Color fontColor, final int lineWidth) {
 		if(pe.getGraphicsAlgorithm() != null) {
-			overrideElementStyle(pe.getGraphicsAlgorithm(), background, outline, fontColor, lineWidth);
+			overrideElementGraphics(pe.getGraphicsAlgorithm(), background, outline, fontColor, lineWidth);
 		}
 
 		// Handle coloring containers
@@ -19,18 +19,18 @@ class ColoringUtil {
 			for(final Shape childShape : ((ContainerShape)pe).getChildren()) {
 				// Only update child shapes which are transient. Transient shapes are typically and inherent part of the shape rather than being an independent object. 
 				if(PropertyUtil.isTransient(childShape)) {
-					overrideElementStyle(childShape, background, outline, fontColor, 0);
+					overrideElementGraphics(childShape, background, outline, fontColor, lineWidth);
 				}
 			}
 		} else if(pe instanceof Connection) {			
 			// Color connection decorators
 			for(final ConnectionDecorator cd : ((Connection) pe).getConnectionDecorators()) {
-				overrideElementStyle(cd, background, outline, fontColor, lineWidth);
+				overrideElementGraphics(cd, background, outline, fontColor, lineWidth);
 			}
 		}
 	}
 
-	private static void overrideElementStyle(final GraphicsAlgorithm ga, final org.eclipse.graphiti.mm.algorithms.styles.Color background, final org.eclipse.graphiti.mm.algorithms.styles.Color outline, final org.eclipse.graphiti.mm.algorithms.styles.Color fontColor, final int lineWidth) {
+	private static void overrideElementGraphics(final GraphicsAlgorithm ga, final org.eclipse.graphiti.mm.algorithms.styles.Color background, final org.eclipse.graphiti.mm.algorithms.styles.Color outline, final org.eclipse.graphiti.mm.algorithms.styles.Color fontColor, final int lineWidth) {
 		final boolean isColoringContainer = PropertyUtil.isColoringContainer(ga);
 		final boolean isColoringChild = PropertyUtil.isColoringChild(ga);
 
@@ -53,7 +53,7 @@ class ColoringUtil {
 
 		if(isColoringContainer) {
 			for(final GraphicsAlgorithm childGa : ga.getGraphicsAlgorithmChildren()) {
-				overrideElementStyle(childGa, background, outline, fontColor, lineWidth);
+				overrideElementGraphics(childGa, background, outline, fontColor, lineWidth);
 			}
 		}
 	}

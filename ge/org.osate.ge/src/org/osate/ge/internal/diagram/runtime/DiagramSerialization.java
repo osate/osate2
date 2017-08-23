@@ -172,6 +172,7 @@ public class DiagramSerialization {
 			}
 		}
 
+		// Style
 		final Color background = mmChild.getBackground() != null ? parseColor(mmChild.getBackground()) : null;
 		final Color fontColor = mmChild.getFontColor() != null ? parseColor(mmChild.getFontColor()) : null;
 		final Color outline = mmChild.getOutline() != null ? parseColor(mmChild.getOutline()) : null;
