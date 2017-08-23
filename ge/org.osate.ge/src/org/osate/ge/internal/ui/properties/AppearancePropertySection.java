@@ -1,4 +1,4 @@
-package org.osate.ge.internal.views;
+package org.osate.ge.internal.ui.properties;
 
 
 import java.util.ArrayList;
@@ -62,7 +62,7 @@ import org.eclipse.swt.widgets.ColorDialog;
 import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.Shell;
 
-public class AppearanceViewTab extends AbstractPropertySection {
+public class AppearancePropertySection extends AbstractPropertySection {
 	public static class SelectionFilter implements IFilter {
 		@Override
 		public boolean select(final Object o) {
