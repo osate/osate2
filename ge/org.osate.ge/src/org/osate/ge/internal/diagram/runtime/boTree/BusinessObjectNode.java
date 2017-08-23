@@ -7,6 +7,7 @@ import java.util.Deque;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
+
 import org.osate.ge.BusinessObjectContext;
 import org.osate.ge.internal.diagram.runtime.ContentsFilter;
 import org.osate.ge.internal.diagram.runtime.RelativeBusinessObjectReference;
@@ -20,7 +21,7 @@ public class BusinessObjectNode implements BusinessObjectContext {
 	private ContentsFilter autoContentsFilter;
 	private Map<RelativeBusinessObjectReference, BusinessObjectNode> children;
 	private Completeness completeness = Completeness.UNKNOWN; // DefaultTreeExpander populates this field.
-	
+
 	public BusinessObjectNode(final BusinessObjectNode parent,
 			final Long id,
 			final RelativeBusinessObjectReference relativeReference,
@@ -35,7 +36,7 @@ public class BusinessObjectNode implements BusinessObjectContext {
 		this.manual = manual;
 		this.autoContentsFilter = autoContentsFilter;
 		this.completeness = Objects.requireNonNull(completeness, "completeness must not be null");
-		
+
 		if(parent != null) {
 			parent.addChild(this);
 		}
@@ -44,7 +45,7 @@ public class BusinessObjectNode implements BusinessObjectContext {
 	public RelativeBusinessObjectReference getRelativeReference() {
 		return relativeReference;
 	}
-	
+
 	@Override
 	public BusinessObjectNode getParent() {
 		return parent;
@@ -54,15 +55,15 @@ public class BusinessObjectNode implements BusinessObjectContext {
 	public Object getBusinessObject() {
 		return bo;
 	}
-	
+
 	public void setBusinessObject(final Object value) {
 		this.bo = value;
 	}
-	
+
 	public final Long getId() {
 		return id;
 	}
-	
+
 	public boolean isManual() {
 		return manual;
 	}
@@ -70,11 +71,11 @@ public class BusinessObjectNode implements BusinessObjectContext {
 	public void setManual(final boolean value) {
 		this.manual = value;
 	}
-	
+
 	public ContentsFilter getAutoContentsFilter() {
 		return autoContentsFilter;
 	}
-	
+
 	public void setAutoContentsFilter(final ContentsFilter value) {
 		this.autoContentsFilter = value;
 	}
@@ -82,19 +83,20 @@ public class BusinessObjectNode implements BusinessObjectContext {
 	public Completeness getCompleteness() {
 		return completeness;
 	}
-	
+
 	public void setCompleteness(final Completeness value) {
 		this.completeness = Objects.requireNonNull(value, "value must not be null");
 	}
-	
+
 	/**
 	 * Returns an unmodifiable map. Never null.
 	 * @return
 	 */
+	@Override
 	public Collection<BusinessObjectNode> getChildren() {
 		return children == null ? Collections.emptyList() : Collections.unmodifiableCollection(children.values());
 	}
-	
+
 	/**
 	 * Returns an unmodifiable map. Never null.
 	 * @return
@@ -102,37 +104,37 @@ public class BusinessObjectNode implements BusinessObjectContext {
 	public Map<RelativeBusinessObjectReference, BusinessObjectNode> getChildrenMap() {
 		return children == null ? Collections.emptyMap() : Collections.unmodifiableMap(children);
 	}
-	
+
 	public BusinessObjectNode getChild(final RelativeBusinessObjectReference ref) {
 		if(children == null) {
 			return null;
 		}
-		
+
 		return children.get(ref);
 	}
-	
+
 	private void addChild(final BusinessObjectNode node) {
 		Objects.requireNonNull(node.relativeReference, "relativeReference must not be null");
-		
+
 		if(children == null) {
 			children = new HashMap<>();
 		}
 
-		if(children.containsKey(node)) {
+		if (children.containsKey(node.getRelativeReference())) {
 			throw new RuntimeException("Node already has a child with reference: " + node.relativeReference);
 		}
-		
+
 		children.put(node.relativeReference, node);
 	}
-	
+
 	/**
 	 * Copies the node. The new node will be the root of a new tree
 	 * @return
 	 */
-	public BusinessObjectNode copy() {		
+	public BusinessObjectNode copy() {
 		return copy(null);
 	}
-	
+
 	/**
 	 * Copies the node. The new node will be a child of the specified parent.
 	 * @param newParent
@@ -146,7 +148,7 @@ public class BusinessObjectNode implements BusinessObjectContext {
 
 		return newNode;
 	}
-	
+
 	/**
 	 * Looks for a node in tree which has the same relative reference path as searchNode.
 	 * @param tree
@@ -159,17 +161,17 @@ public class BusinessObjectNode implements BusinessObjectContext {
 		for(BusinessObjectNode t = searchNode; t.getParent() != null; t = t.getParent()) {
 			path.push(t.relativeReference);
 		}
-		
+
 		// Pop the path from the stack and find it in the specified tree
 		BusinessObjectNode t = tree;
 		while(t != null && !path.isEmpty()) {
 			final RelativeBusinessObjectReference pathSegment = path.pop();
 			t = t.getChild(pathSegment);
 		}
-		
+
 		return t;
 	}
-	
+
 	/**
 	 * Returns true if any of the descendants of the node are manual.
 	 * @param n
@@ -181,10 +183,10 @@ public class BusinessObjectNode implements BusinessObjectContext {
 				return true;
 			}
 		}
-		
+
 		return false;
 	}
-	
+
 	private static long getMaxIdForChildren(final BusinessObjectNode n) {
 		long max = -1;
 
@@ -192,18 +194,18 @@ public class BusinessObjectNode implements BusinessObjectContext {
 		for(final BusinessObjectNode child : n.getChildren()) {
 			max = Math.max(getMaxId(child), max);
 		}
-		
+
 		return max;
-	}	
+	}
 
 	public static long getMaxId(final BusinessObjectNode n) {
 		long max = -1;
 		if(n.getId() != null) {
 			max = Math.max(max, n.getId());
 		}
-		
-		Math.max(max, getMaxIdForChildren(n));
-		
+
+		max = Math.max(max, getMaxIdForChildren(n));
+
 		return max;
-	}	
+	}
 }
