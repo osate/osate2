@@ -115,7 +115,7 @@ public class AgeGraphitiGraphicsUtil {
 			ga = gaService.createPlainRectangle(containerGa);
 		}
 
-		PropertyUtil.setIsColoringChild(ga, true);
+		PropertyUtil.setIsStylingChild(ga, true);
 		ga.setLineWidth(r.lineWidth);
 		ga.setLineStyle(AgeGraphitiGraphicsUtil.toGraphitiLineStyle(r.lineStyle));
 		ga.setForeground(gaService.manageColor(diagram, IColorConstant.BLACK));
@@ -130,7 +130,7 @@ public class AgeGraphitiGraphicsUtil {
 		final IGaService gaService = Graphiti.getGaService();
 		final GraphicsAlgorithm ga = gaService.createPlainEllipse(containerGa);
 
-		PropertyUtil.setIsColoringChild(ga, true);
+		PropertyUtil.setIsStylingChild(ga, true);
 		ga.setLineWidth(ellipse.lineWidth);
 		ga.setLineStyle(AgeGraphitiGraphicsUtil.toGraphitiLineStyle(ellipse.lineStyle));
 		ga.setForeground(gaService.manageColor(diagram, IColorConstant.BLACK));
@@ -166,7 +166,7 @@ public class AgeGraphitiGraphicsUtil {
 			throw new RuntimeException("Unexpected type: " + poly.type);
 		}
 
-		PropertyUtil.setIsColoringChild(ga, true);
+		PropertyUtil.setIsStylingChild(ga, true);
 		ga.setLineWidth(poly.lineWidth);
 		ga.setLineStyle(AgeGraphitiGraphicsUtil.toGraphitiLineStyle(poly.lineStyle));
 		ga.setForeground(gaService.manageColor(diagram, IColorConstant.BLACK));
@@ -185,7 +185,7 @@ public class AgeGraphitiGraphicsUtil {
 						width-parallelogram.horizontalOffset, height,
 						0, height});
 
-		PropertyUtil.setIsColoringChild(ga, true);
+		PropertyUtil.setIsStylingChild(ga, true);
 		ga.setLineWidth(parallelogram.lineWidth);
 		ga.setLineStyle(AgeGraphitiGraphicsUtil.toGraphitiLineStyle(parallelogram.lineStyle));
 		ga.setForeground(gaService.manageColor(diagram, IColorConstant.BLACK));
@@ -202,7 +202,7 @@ public class AgeGraphitiGraphicsUtil {
 		gaService.setSize(ga, width, height);
 		ga.setLineVisible(false);
 		ga.setFilled(false);
-		PropertyUtil.setIsColoringContainer(ga, true);
+		PropertyUtil.setIsStylingContainer(ga, true);
 
 		return ga;
 	}
@@ -218,8 +218,8 @@ public class AgeGraphitiGraphicsUtil {
 
 		// Create outer outline
 		final GraphicsAlgorithm outline = gaService.createPlainRectangle(containerGa);
-		PropertyUtil.setIsColoringContainer(outline, true);
-		PropertyUtil.setIsColoringChild(outline, true);
+		PropertyUtil.setIsStylingContainer(outline, true);
+		PropertyUtil.setIsStylingChild(outline, true);
 		outline.setLineWidth(dg.lineWidth);
 		outline.setBackground(white);
 		outline.setForeground(black);
@@ -252,7 +252,7 @@ public class AgeGraphitiGraphicsUtil {
 		inner.setLineWidth(dg.lineWidth);
 		inner.setForeground(black);
 		inner.setFilled(false);
-		PropertyUtil.setIsColoringChild(inner, true);
+		PropertyUtil.setIsStylingChild(inner, true);
 
 		// Create additional line segments
 		ga = gaService.createPlainPolyline(outline, new int[] {
@@ -260,28 +260,28 @@ public class AgeGraphitiGraphicsUtil {
 				padding+1, padding+1});
 		ga.setLineWidth(dg.lineWidth);
 		ga.setForeground(black);
-		PropertyUtil.setIsColoringChild(ga, true);
+		PropertyUtil.setIsStylingChild(ga, true);
 
 		ga = gaService.createPlainPolyline(outline, new int[] {
 				width, 0,
 				width-padding-1, padding+1});
 		ga.setLineWidth(dg.lineWidth);
 		ga.setForeground(black);
-		PropertyUtil.setIsColoringChild(ga, true);
+		PropertyUtil.setIsStylingChild(ga, true);
 
 		ga = gaService.createPlainPolyline(outline, new int[] {
 				width-padding-1, height-padding-1,
 				width, height});
 		ga.setLineWidth(dg.lineWidth);
 		ga.setForeground(black);
-		PropertyUtil.setIsColoringChild(ga, true);
+		PropertyUtil.setIsStylingChild(ga, true);
 
 		ga = gaService.createPlainPolyline(outline, new int[] {
 				0, height,
 				padding+1, height-padding-1});
 		ga.setLineWidth(dg.lineWidth);
 		ga.setForeground(black);
-		PropertyUtil.setIsColoringChild(ga, true);
+		PropertyUtil.setIsStylingChild(ga, true);
 
 		gaService.setSize(outline, width, height);
 		return outline;
@@ -305,7 +305,7 @@ public class AgeGraphitiGraphicsUtil {
 						arrowHeadWidth, height-arrowHeadVerticalExtensionSize,
 						arrowHeadWidth, height});
 
-		PropertyUtil.setIsColoringChild(ga, true);
+		PropertyUtil.setIsStylingChild(ga, true);
 		ga.setLineWidth(bg.lineWidth);
 		ga.setLineStyle(AgeGraphitiGraphicsUtil.toGraphitiLineStyle(bg.lineStyle));
 		ga.setForeground(gaService.manageColor(diagram, IColorConstant.BLACK));
@@ -335,7 +335,7 @@ public class AgeGraphitiGraphicsUtil {
 						width, height-depth,
 						width-horizontalOffset, height});
 
-		PropertyUtil.setIsColoringChild(outlinePolygon, true);
+		PropertyUtil.setIsStylingChild(outlinePolygon, true);
 		outlinePolygon.setLineWidth(pg.lineWidth);
 		outlinePolygon.setLineStyle(lineStyle);
 		outlinePolygon.setBackground(white);
@@ -373,7 +373,7 @@ public class AgeGraphitiGraphicsUtil {
 		final int ellipseHeight = 20;
 		final double halfEllipseHeight = ellipseHeight / 2.0;
 		final GraphicsAlgorithm ga = gaService.createPlainRectangle(containerGa);
-		PropertyUtil.setIsColoringChild(ga, true);
+		PropertyUtil.setIsStylingChild(ga, true);
 		ga.setLineVisible(false);
 		ga.setBackground(white);
 		ga.setFilled(fillBackground);
@@ -437,7 +437,7 @@ public class AgeGraphitiGraphicsUtil {
 		final int innerCircleX = (int)Math.round(halfCircleOuterWidth - innerCircleWidth/2.0);
 		final int innerCircleY = (int)Math.round(halfCircleOuterHeight - innerCircleHeight/2.0);
 
-		PropertyUtil.setIsColoringContainer(ga, true);
+		PropertyUtil.setIsStylingContainer(ga, true);
 		ga.setLineVisible(false);
 		ga.setFilled(false);
 
@@ -469,7 +469,7 @@ public class AgeGraphitiGraphicsUtil {
 		halfCircle.setForeground(black);
 		halfCircle.setLineWidth(2);
 		halfCircle.setFilled(fillBackground);
-		PropertyUtil.setIsColoringChild(halfCircle, true);
+		PropertyUtil.setIsStylingChild(halfCircle, true);
 
 		// Inner Circle
 		final GraphicsAlgorithm innerCircle = gaService.createPlainEllipse(ga);
@@ -478,7 +478,7 @@ public class AgeGraphitiGraphicsUtil {
 		innerCircle.setForeground(black);
 		innerCircle.setLineWidth(2);
 		innerCircle.setFilled(fillBackground);
-		PropertyUtil.setIsColoringChild(innerCircle, true);
+		PropertyUtil.setIsStylingChild(innerCircle, true);
 
 		gaService.setSize(ga, requestedWidth, requestedHeight);
 		return ga;
@@ -501,7 +501,7 @@ public class AgeGraphitiGraphicsUtil {
 						width, folderTabHeight,
 						width, height});
 
-		PropertyUtil.setIsColoringChild(ga, true);
+		PropertyUtil.setIsStylingChild(ga, true);
 		ga.setForeground(gaService.manageColor(diagram, IColorConstant.BLACK));
 		ga.setBackground(gaService.manageColor(diagram, IColorConstant.WHITE));
 		ga.setLineWidth(folderGraphic.lineWidth);
@@ -518,7 +518,7 @@ public class AgeGraphitiGraphicsUtil {
 		final Color white = gaService.manageColor(diagram, IColorConstant.WHITE);
 
 		final GraphicsAlgorithm ga = gaService.createPlainRectangle(containerGa);
-		PropertyUtil.setIsColoringContainer(ga, true);
+		PropertyUtil.setIsStylingContainer(ga, true);
 		ga.setLineVisible(false);
 		ga.setFilled(false);
 
@@ -542,7 +542,7 @@ public class AgeGraphitiGraphicsUtil {
 				(int)(requestedWidth * 1.0),  (int)(modeHeight * 0.5),
 				(int)(requestedWidth * 0.75), (int)(modeHeight * 1.0),
 				(int)(requestedWidth * 0.25), (int)(modeHeight * 1.0)});
-		PropertyUtil.setIsColoringChild(modeGa, true);
+		PropertyUtil.setIsStylingChild(modeGa, true);
 		modeGa.setLineWidth(mg.lineWidth);
 		modeGa.setLineStyle(AgeGraphitiGraphicsUtil.toGraphitiLineStyle(mg.lineStyle));
 		modeGa.setBackground(white);
@@ -653,13 +653,13 @@ public class AgeGraphitiGraphicsUtil {
 		final Color black = gaService.manageColor(diagram, IColorConstant.BLACK);
 
 		final GraphicsAlgorithm ga = gaService.createPlainRectangle(containerGa);
-		PropertyUtil.setIsColoringContainer(ga, true);
+		PropertyUtil.setIsStylingContainer(ga, true);
 		ga.setFilled(false);
 		ga.setLineVisible(false);
 		gaService.setSize(ga,  25,  20);
 
 		final GraphicsAlgorithm circleGa = gaService.createPlainEllipse(ga);
-		PropertyUtil.setIsColoringChild(circleGa, true);
+		PropertyUtil.setIsStylingChild(circleGa, true);
 		circleGa.setBackground(black);
 		circleGa.setForeground(black);
 		circleGa.setLineWidth(featureLineWidth);
@@ -672,7 +672,7 @@ public class AgeGraphitiGraphicsUtil {
 					0, 0,
 					25, 10,
 					0, 20});
-			PropertyUtil.setIsColoringChild(directionGa, true);
+			PropertyUtil.setIsStylingChild(directionGa, true);
 			directionGa.setBackground(black);
 			directionGa.setForeground(black);
 			directionGa.setLineWidth(featureLineWidth);
@@ -681,7 +681,7 @@ public class AgeGraphitiGraphicsUtil {
 					25, 0,
 					0, 10,
 					25, 20});
-			PropertyUtil.setIsColoringChild(directionGa, true);
+			PropertyUtil.setIsStylingChild(directionGa, true);
 			gaService.setLocation(circleGa, ga.getWidth()-circleGa.getWidth(), 5);
 			directionGa.setForeground(black);
 			directionGa.setLineWidth(featureLineWidth);
@@ -696,7 +696,7 @@ public class AgeGraphitiGraphicsUtil {
 		final Color black = gaService.manageColor(diagram, IColorConstant.BLACK);
 
 		final GraphicsAlgorithm ga = gaService.createPlainRectangle(containerGa);
-		PropertyUtil.setIsColoringContainer(ga, true);
+		PropertyUtil.setIsStylingContainer(ga, true);
 		ga.setFilled(false);
 		ga.setLineVisible(false);
 
@@ -769,14 +769,14 @@ public class AgeGraphitiGraphicsUtil {
 		}
 
 		if(dataGa != null) {
-			PropertyUtil.setIsColoringChild(dataGa, true);
+			PropertyUtil.setIsStylingChild(dataGa, true);
 			dataGa.setBackground(black);
 			dataGa.setForeground(black);
 			dataGa.setLineWidth(featureLineWidth);
 		}
 
 		if(eventGa != null) {
-			PropertyUtil.setIsColoringChild(eventGa, true);
+			PropertyUtil.setIsStylingChild(eventGa, true);
 			eventGa.setBackground(black);
 			eventGa.setForeground(black);
 			eventGa.setLineWidth(featureLineWidth);
@@ -818,7 +818,7 @@ public class AgeGraphitiGraphicsUtil {
 			throw new RuntimeException("Access graphic is not an input or an output.");
 		}
 
-		PropertyUtil.setIsColoringChild(ga, true);
+		PropertyUtil.setIsStylingChild(ga, true);
 		ga.setBackground(white);
 		ga.setForeground(black);
 		ga.setLineWidth(featureLineWidth);
@@ -843,7 +843,7 @@ public class AgeGraphitiGraphicsUtil {
 		ga.setBackground(background);
 		ga.setForeground(black);
 		ga.setLineWidth(featureLineWidth);
-		PropertyUtil.setIsColoringChild(ga, true);
+		PropertyUtil.setIsStylingChild(ga, true);
 
 		final int arrowWidth = 10;
 		final int arrowHeight = height - 2*vPadding;
@@ -891,21 +891,21 @@ public class AgeGraphitiGraphicsUtil {
 		gaService.setSize(ga, width, height);
 		ga.setLineVisible(false);
 		ga.setFilled(false);
-		PropertyUtil.setIsColoringContainer(ga, true);
+		PropertyUtil.setIsStylingContainer(ga, true);
 
 		// Circle
 		final GraphicsAlgorithm circle = gaService.createPlainEllipse(ga);
 		gaService.setLocationAndSize(circle, 0, height/2-circleSize/2, circleSize, circleSize);
 		circle.setBackground(black);
 		circle.setForeground(black);
-		PropertyUtil.setIsColoringChild(circle, true);
+		PropertyUtil.setIsStylingChild(circle, true);
 
 		// Bar
 		final GraphicsAlgorithm bar = gaService.createPlainRectangle(ga);
 		gaService.setLocationAndSize(bar, circleSize, 0, barWidth, height);
 		bar.setBackground(black);
 		bar.setForeground(black);
-		PropertyUtil.setIsColoringChild(bar, true);
+		PropertyUtil.setIsStylingChild(bar, true);
 
 		return ga;
 	}

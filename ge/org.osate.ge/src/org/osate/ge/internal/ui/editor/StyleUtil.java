@@ -1,4 +1,4 @@
-package org.osate.ge.internal.graphiti.diagram;
+package org.osate.ge.internal.ui.editor;
 
 import java.util.OptionalInt;
 
@@ -9,14 +9,21 @@ import org.eclipse.graphiti.mm.pictograms.ConnectionDecorator;
 import org.eclipse.graphiti.mm.pictograms.ContainerShape;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.mm.pictograms.Shape;
+import org.osate.ge.internal.graphiti.ShapeNames;
+import org.osate.ge.internal.graphiti.diagram.PropertyUtil;
 
-class StyleUtil {
+public class StyleUtil {
 	public static void overrideStyle(final PictogramElement pe,
 			final org.eclipse.graphiti.mm.algorithms.styles.Color background,
 			final org.eclipse.graphiti.mm.algorithms.styles.Color outline,
-			final org.eclipse.graphiti.mm.algorithms.styles.Color fontColor, final OptionalInt lineWidth) {
+			final org.eclipse.graphiti.mm.algorithms.styles.Color labelBackground,
+			final org.eclipse.graphiti.mm.algorithms.styles.Color fontColor, final OptionalInt lineWidth,
+			final boolean inLabel) {
 		if (pe.getGraphicsAlgorithm() != null) {
-			overrideStyle(pe.getGraphicsAlgorithm(), background, outline, fontColor, lineWidth);
+			final org.eclipse.graphiti.mm.algorithms.styles.Color childBackground = inLabel ? labelBackground
+					: background;
+
+			overrideStyle(pe.getGraphicsAlgorithm(), childBackground, outline, fontColor, lineWidth);
 		}
 
 		// Handle coloring containers
@@ -24,26 +31,34 @@ class StyleUtil {
 			for (final Shape childShape : ((ContainerShape) pe).getChildren()) {
 				// Only update child shapes which are transient. Transient shapes are typically and inherent part of the shape rather than being an independent
 				// object.
-				if (PropertyUtil.isTransient(childShape)) {
-					overrideStyle(childShape, background, outline, fontColor, lineWidth);
+				if (inLabel || isPrimaryLabelOrAnnotation(childShape)) {
+					overrideStyle(childShape, background, outline, labelBackground,
+							fontColor, lineWidth, true);
 				}
 			}
 		} else if (pe instanceof Connection) {
 			// Color connection decorators
 			for (final ConnectionDecorator cd : ((Connection) pe).getConnectionDecorators()) {
-				overrideStyle(cd, background, outline, fontColor, lineWidth);
+				if (inLabel || isPrimaryLabelOrAnnotation(cd)) {
+					overrideStyle(cd, background, outline, labelBackground, fontColor, lineWidth, true);
+				}
 			}
 		}
+	}
+
+	private static boolean isPrimaryLabelOrAnnotation(final PictogramElement pe) {
+		final String name = PropertyUtil.getName(pe);
+		return ShapeNames.primaryLabelShapeName.equals(name) || ShapeNames.annotationShapeName.equals(name);
 	}
 
 	private static void overrideStyle(final GraphicsAlgorithm ga,
 			final org.eclipse.graphiti.mm.algorithms.styles.Color background,
 			final org.eclipse.graphiti.mm.algorithms.styles.Color outline,
 			final org.eclipse.graphiti.mm.algorithms.styles.Color fontColor, final OptionalInt lineWidth) {
-		final boolean isColoringContainer = PropertyUtil.isColoringContainer(ga);
-		final boolean isColoringChild = PropertyUtil.isColoringChild(ga);
+		final boolean isStylingContainer = PropertyUtil.isStylingContainer(ga);
+		final boolean isStylingChild = PropertyUtil.isStylingChild(ga);
 
-		if (isColoringChild) {
+		if (isStylingChild) {
 			if (ga.getForeground() != null) {
 				if (ga instanceof Text) {
 					ga.setForeground(fontColor);
@@ -62,7 +77,7 @@ class StyleUtil {
 			}
 		}
 
-		if (isColoringContainer) {
+		if (isStylingContainer) {
 			for (final GraphicsAlgorithm childGa : ga.getGraphicsAlgorithmChildren()) {
 				overrideStyle(childGa, background, outline, fontColor, lineWidth);
 			}

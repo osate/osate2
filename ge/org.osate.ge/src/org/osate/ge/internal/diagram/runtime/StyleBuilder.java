@@ -15,6 +15,11 @@ public class StyleBuilder {
 		return new StyleBuilder();
 	}
 
+	public static StyleBuilder create(final Style style) {
+		return new StyleBuilder().backgroundColor(style.getBackgroundColor()).fontColor(style.getFontColor())
+				.outlineColor(style.getOutlineColor()).fontSize(style.getFontSize()).lineWidth(style.getLineWidth());
+	}
+
 	public StyleBuilder backgroundColor(final Color background) {
 		this.background = background;
 		return this;

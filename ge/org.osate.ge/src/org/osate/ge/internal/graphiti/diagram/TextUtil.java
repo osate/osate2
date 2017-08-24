@@ -1,4 +1,4 @@
-package org.osate.ge.internal.graphiti;
+package org.osate.ge.internal.graphiti.diagram;
 
 import org.eclipse.graphiti.mm.algorithms.Text;
 import org.eclipse.graphiti.mm.algorithms.styles.Orientation;

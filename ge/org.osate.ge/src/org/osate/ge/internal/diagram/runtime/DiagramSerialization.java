@@ -23,7 +23,7 @@ import org.osate.ge.internal.DockArea;
  *
  */
 public class DiagramSerialization {
-	public final static int FORMAT_VERSION = 1;
+	public final static int FORMAT_VERSION = 2;
 
 	private static Comparator<DiagramElement> elementComparator = (e1, e2) -> e1.getRelativeReference()
 			.compareTo(e2.getRelativeReference());

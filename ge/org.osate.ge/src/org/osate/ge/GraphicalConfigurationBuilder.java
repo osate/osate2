@@ -1,6 +1,7 @@
 package org.osate.ge;
 
 import java.awt.Color;
+import java.util.Objects;
 
 import org.osate.ge.graphics.Graphic;
 import org.osate.ge.internal.AgeGraphicalConfiguration;
@@ -48,7 +49,8 @@ public class GraphicalConfigurationBuilder {
 	}
 
 	public GraphicalConfigurationBuilder defaultLabelConfiguration(final LabelConfiguration value) {
-		this.defaultLabelConfiguration = (AgeLabelConfiguration)value;
+		this.defaultLabelConfiguration = Objects.requireNonNull((AgeLabelConfiguration) value,
+				"value must not be null");
 		return this;
 	}
 

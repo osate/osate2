@@ -19,7 +19,6 @@ import org.eclipse.graphiti.services.IGaService;
 import org.eclipse.graphiti.services.IPeCreateService;
 import org.eclipse.graphiti.ui.services.GraphitiUi;
 import org.eclipse.graphiti.util.IColorConstant;
-import org.osate.ge.internal.graphiti.TextUtil;
 
 public class LabelUtil {
 	public static Shape createLabelShape(final Diagram diagram, final ContainerShape container, final String shapeName,
@@ -67,7 +66,8 @@ public class LabelUtil {
 		background.setLineVisible(false);
 		background.setFilled(true);
 		background.setTransparency(0.2);
-		PropertyUtil.setIsColoringContainer(background, true);
+		PropertyUtil.setIsStylingContainer(background, true);
+		PropertyUtil.setIsStylingChild(background, true);
 
 		return background;
 	}
@@ -76,7 +76,7 @@ public class LabelUtil {
 		final IGaService gaService = Graphiti.getGaService();
 		final Text text = gaService.createPlainText(container, labelTxt);
 		TextUtil.setStyle(diagram, text, fontSize);
-		PropertyUtil.setIsColoringChild(text, true);
+		PropertyUtil.setIsStylingChild(text, true);
 
 		return text;
 	}

@@ -28,15 +28,16 @@ import org.osate.ge.internal.DockArea;
 import org.osate.ge.internal.diagram.runtime.AgeDiagram;
 import org.osate.ge.internal.diagram.runtime.DiagramElement;
 import org.osate.ge.internal.diagram.runtime.DiagramNode;
+import org.osate.ge.internal.graphics.AgeShape;
 import org.osate.ge.internal.graphics.Label;
 import org.osate.ge.internal.graphics.Poly;
 import org.osate.ge.internal.graphiti.AnchorNames;
 import org.osate.ge.internal.graphiti.ShapeNames;
-import org.osate.ge.internal.graphiti.TextUtil;
 import org.osate.ge.internal.graphiti.graphics.AgeGraphitiGraphicsUtil;
 import org.osate.ge.internal.labels.AgeLabelConfiguration;
 import org.osate.ge.internal.labels.LabelConfigurationBuilder;
 import org.osate.ge.internal.labels.LabelPosition;
+import org.osate.ge.internal.ui.editor.StyleUtil;
 
 /**
  * Helper class for performing layout. Layout includes positioning child shapes and updating the graphics algorithm.
@@ -123,7 +124,7 @@ class LayoutUtil {
 					if(decorationElement.getGraphic() instanceof Label) {
 						if(decorationElement.getName() != null) {
 							final Text text = gaService.createDefaultText(graphitiDiagram, cd);
-							PropertyUtil.setIsColoringChild(text, true);
+							PropertyUtil.setIsStylingChild(text, true);
 							TextUtil.setStyle(graphitiDiagram, text, decorationElement.getStyle().getFontSize());
 							text.setValue(decorationElement.getName());
 							if(decorationElement.hasPosition()) {
@@ -148,11 +149,13 @@ class LayoutUtil {
 					} else {
 						throw new RuntimeException("Unsupported connection child graphic: " + decorationElement.getGraphic());
 					}
+
+					refreshStyle(graphitiDiagram, cd, decorationElement, coloringProvider, mapping);
 				}
 			}
 
 			// Set the color
-			refreshStyle(graphitiDiagram, pe, element, coloringProvider);
+			refreshStyle(graphitiDiagram, pe, element, coloringProvider, mapping);
 		}
 	}
 
@@ -195,7 +198,7 @@ class LayoutUtil {
 			if(childElement.isDecoration()) {
 				final PictogramElement decorationPictogramElement = diagramNodeProvider.getPictogramElement(childElement);
 				if(decorationPictogramElement instanceof Shape) {
-					decorationShapes.add((Shape)decorationPictogramElement);
+					decorationShapes.add((Shape) decorationPictogramElement);
 				}
 			}
 		}
@@ -436,7 +439,7 @@ class LayoutUtil {
 		}
 
 		// Set the color
-		refreshStyle(graphitiDiagram, shape, element, coloringProvider);
+		refreshStyle(graphitiDiagram, shape, element, coloringProvider, diagramNodeProvider);
 	}
 
 	/**
@@ -724,20 +727,53 @@ class LayoutUtil {
 	}
 
 	public static void refreshStyle(final Diagram graphitiDiagram, final PictogramElement pe,
-			final DiagramElement element, final ColoringProvider coloringProvider) {
-		refreshStyle(graphitiDiagram, pe, getFinalBackgroundColor(element, coloringProvider),
-				getFinalOutlineColor(element, coloringProvider), getFinalFontColor(element, coloringProvider),
-				getFinalLineWidth(element));
+			final DiagramElement element, final ColoringProvider coloringProvider, final NodePictogramBiMap mapping) {
+		final java.awt.Color awtBackground = getFinalBackgroundColor(element, coloringProvider);
+		final java.awt.Color awtOutline = getFinalOutlineColor(element, coloringProvider);
+		final java.awt.Color awtFontColor = getFinalFontColor(element, coloringProvider);
+		final OptionalInt lineWidth = getFinalLineWidth(element);
+
+		final Color foreground = Graphiti.getGaService().manageColor(graphitiDiagram, awtOutline.getRed(),
+				awtOutline.getGreen(), awtOutline.getBlue());
+		final Color background = Graphiti.getGaService().manageColor(graphitiDiagram, awtBackground.getRed(),
+				awtBackground.getGreen(), awtBackground.getBlue());
+		final Color fontColor = Graphiti.getGaService().manageColor(graphitiDiagram, awtFontColor.getRed(),
+				awtFontColor.getGreen(), awtFontColor.getBlue());
+
+		// Background color is not supported for label diagram elements. Get the first containing diagram element that is represented by a shape
+		final DiagramElement labelContainerShape = element.getGraphic() instanceof Label ? getContainingShapeDiagramElement(element) : element;
+
+		Color labelBackground = background;
+		if (labelContainerShape != null) {
+			final AgeLabelConfiguration labelConfig = labelContainerShape.getLabelConfiguration();
+
+			final boolean labelsAreOutside = labelConfig.horizontalPosition.isOutside()
+					|| labelConfig.verticalPosition.isOutside();
+
+			// Get the diagram element which is behind the label.
+			final DiagramElement labelBackgroundDiagramElement = labelsAreOutside ? getContainingShapeDiagramElement(labelContainerShape)
+					: labelContainerShape;
+
+			if (labelBackgroundDiagramElement != null) {
+				final java.awt.Color awtLabelBackground = getFinalBackgroundColor(labelBackgroundDiagramElement, coloringProvider);
+				labelBackground = Graphiti.getGaService().manageColor(graphitiDiagram, awtLabelBackground.getRed(),
+						awtLabelBackground.getGreen(), awtLabelBackground.getBlue());
+			}
+		}
+
+		StyleUtil.overrideStyle(pe, background, foreground, labelBackground, fontColor, lineWidth,
+				element.getGraphic() instanceof Label);
 	}
 
-	private static void refreshStyle(final Diagram graphitiDiagram, final PictogramElement pe,
-			final java.awt.Color awtBackground, final java.awt.Color awtOutline, final java.awt.Color awtFontColor,
-			final OptionalInt lineWidth) {
-		final Color foreground = Graphiti.getGaService().manageColor(graphitiDiagram, awtOutline.getRed(), awtOutline.getGreen(), awtOutline.getBlue());
-		final Color background = Graphiti.getGaService().manageColor(graphitiDiagram, awtBackground.getRed(), awtBackground.getGreen(), awtBackground.getBlue());
-		final Color fontColor = Graphiti.getGaService().manageColor(graphitiDiagram, awtFontColor.getRed(), awtFontColor.getGreen(), awtFontColor.getBlue());
+	private static DiagramElement getContainingShapeDiagramElement(final DiagramElement de) {
+		for (DiagramNode tmp = de.getParent(); tmp instanceof DiagramElement; tmp = tmp.getParent()) {
+			final DiagramElement tmpElement = (DiagramElement) tmp;
+			if (tmpElement.getGraphic() instanceof AgeShape) {
+				return tmpElement;
+			}
+		}
 
-		StyleUtil.overrideStyle(pe, background, foreground, fontColor, lineWidth);
+		return null;
 	}
 
 	private static java.awt.Color getFinalBackgroundColor(final DiagramElement de,

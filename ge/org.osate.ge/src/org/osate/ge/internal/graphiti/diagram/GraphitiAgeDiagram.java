@@ -57,7 +57,6 @@ import org.osate.ge.internal.graphics.Label;
 import org.osate.ge.internal.graphics.Poly;
 import org.osate.ge.internal.graphiti.AnchorNames;
 import org.osate.ge.internal.graphiti.ShapeNames;
-import org.osate.ge.internal.graphiti.TextUtil;
 import org.osate.ge.internal.graphiti.graphics.AgeGraphitiGraphicsUtil;
 
 /**
@@ -394,7 +393,7 @@ public class GraphitiAgeDiagram implements NodePictogramBiMap, AutoCloseable {
 				final IPeCreateService peCreateService = Graphiti.getPeCreateService();
 				final ConnectionDecorator textDecorator = peCreateService.createConnectionDecorator(connection, true, ageConnection.isFlowIndicator ? 1.0 : 0.5, true);
 				final Text text = gaService.createDefaultText(graphitiDiagram, textDecorator);
-				PropertyUtil.setIsColoringChild(text, true);
+				PropertyUtil.setIsStylingChild(text, true);
 				TextUtil.setStyle(graphitiDiagram, text, de.getStyle().getFontSize());
 				PropertyUtil.setName(textDecorator, ShapeNames.primaryLabelShapeName);
 				text.setValue(primaryLabelStr);
@@ -432,7 +431,7 @@ public class GraphitiAgeDiagram implements NodePictogramBiMap, AutoCloseable {
 			// Set the position of the refreshed graphics algorithm
 			final IGaService gaService = Graphiti.getGaService();
 			final GraphicsAlgorithm newGa = gaService.createInvisibleRectangle(shape);
-			PropertyUtil.setIsColoringContainer(newGa, true);
+			PropertyUtil.setIsStylingContainer(newGa, true);
 
 			// Set Size
 			gaService.setSize(newGa, width, height);
@@ -514,8 +513,8 @@ public class GraphitiAgeDiagram implements NodePictogramBiMap, AutoCloseable {
 				}
 
 				final GraphicsAlgorithm ga = Graphiti.getGaService().createPlainPolyline(pe);
-				PropertyUtil.setIsColoringContainer(ga, true);
-				PropertyUtil.setIsColoringChild(ga, true);
+				PropertyUtil.setIsStylingContainer(ga, true);
+				PropertyUtil.setIsStylingChild(ga, true);
 			}
 
 		} else if(graphic instanceof AgeShape) {
@@ -607,7 +606,7 @@ public class GraphitiAgeDiagram implements NodePictogramBiMap, AutoCloseable {
 	public final void refreshStyle(final DiagramElement de) {
 		final PictogramElement pe = getPictogramElement(de);
 		if(pe != null) {
-			LayoutUtil.refreshStyle(graphitiDiagram, pe, de, coloringProvider);
+			LayoutUtil.refreshStyle(graphitiDiagram, pe, de, coloringProvider, this);
 		}
 	}
 
@@ -641,31 +640,33 @@ public class GraphitiAgeDiagram implements NodePictogramBiMap, AutoCloseable {
 				ga = createPolygonArrow(cd, terminator.size);
 				ga.setForeground(black);
 				ga.setBackground(black);
+				PropertyUtil.setIsStylingChild(ga, true);
 				break;
 
 			case OPEN_ARROW:
 				ga = createPolygonArrow(cd, terminator.size);
 				ga.setForeground(black);
 				ga.setBackground(white);
+				PropertyUtil.setIsStylingChild(ga, false);
 				break;
 
 			case LINE_ARROW:
 				ga = createLineArrow(cd, terminator.size);
 				ga.setForeground(black);
 				ga.setBackground(white);
+				PropertyUtil.setIsStylingChild(ga, true);
 				break;
 
 			case ORTHOGONAL_LINE:
 				ga = createOrthogonalLine(cd);
 				ga.setForeground(black);
 				ga.setBackground(white);
+				PropertyUtil.setIsStylingChild(ga, true);
 				break;
 
 			default:
 				throw new RuntimeException("Unsupported terminator type: " + terminator.type);
 			}
-
-			PropertyUtil.setIsColoringChild(ga, true);
 
 			if(terminator.reversed) {
 				AgeGraphitiGraphicsUtil.mirrorX(ga);
@@ -719,24 +720,6 @@ public class GraphitiAgeDiagram implements NodePictogramBiMap, AutoCloseable {
 		throw new RuntimeException("Unsupported connection terminator size: " + size);
 	}
 
-	private GraphicsAlgorithm createPolylineArrow(final GraphicsAlgorithmContainer gaContainer, final ConnectionTerminatorSize size) {
-		final IGaService gaService = Graphiti.getGaService();
-		switch(size) {
-		case REGULAR:
-			return gaService.createPlainPolyline(gaContainer, new int[] {
-					-14, 8,
-					2, 0,
-					-14, -8});
-		case SMALL:
-			return gaService.createPlainPolyline(gaContainer, new int[] {
-					-6, 4,
-					2, 0,
-					-6, -4});
-		}
-
-		throw new RuntimeException("Unsupported connection terminator size: " + size);
-	}
-
 	private DiagramNode getUndockedDiagramNode(DiagramNode n) {
 		while(n instanceof DiagramElement) {
 			final DiagramElement e = ((DiagramElement) n);
@@ -753,10 +736,9 @@ public class GraphitiAgeDiagram implements NodePictogramBiMap, AutoCloseable {
 	// OPTIMIZE: This uses a simple algorithm where a diagram update is performed when a new item is added. Ideally, it would only update the affected items.
 	private class GraphitiDiagramModificationListener implements DiagramModificationListener {
 		private boolean enabled = true;
-
-		boolean elementAdded = false;
-		final Set<DiagramElement> elementsToUpdate = new LinkedHashSet<>();
-		final Set<DiagramElement> elementsToRemove = new LinkedHashSet<>();
+		private boolean elementAdded = false;
+		private final Set<DiagramElement> elementsToUpdate = new LinkedHashSet<>();
+		private final Set<DiagramElement> elementsToRemove = new LinkedHashSet<>();
 
 		@Override
 		public void elementAdded(final ElementAddedEvent e) {
@@ -828,48 +810,57 @@ public class GraphitiAgeDiagram implements NodePictogramBiMap, AutoCloseable {
 						final Set<DiagramNode> nodesToLayout = new HashSet<>();
 
 						// Update modified elements
-						for(final DiagramElement element : elementsToUpdate) {
+						for (final DiagramElement element : elementsToUpdate) {
 							final PictogramElement pe = getPictogramElement(element);
 							updateDiagramElement(element, false);
 
-							if(pe instanceof ContainerShape || pe instanceof ConnectionDecorator) {
+							if (pe instanceof ContainerShape || pe instanceof ConnectionDecorator) {
 								final DiagramNode undockedContainer = getUndockedDiagramNode(element.getContainer());
 								nodesToLayout.add(undockedContainer);
-							} else if(pe instanceof Connection) { // Relayout connections
-								nodesToLayout.add(getUndockedDiagramNode(element));
+							} else if (pe instanceof Connection) { // Relayout connections
+								// Relayout the entire diagram. This is needed because line width of connection do not
+								// update visually until the diagram layout. Unsure what actually triggers the update of the UI
+								nodesToLayout.add(getAgeDiagram()); //
+								// nodesToLayout.add(getUndockedDiagramNode(element));
 							}
 						}
 
 						// Layout Nodes
-						// OPTIMIZE: It would be more efficient to only layout the nodes that need to be layed out instead of laying out all descendants of the container.
-						nodesToLayout.removeIf((n) -> collectionContainsAnyAncestor(nodesToLayout, n)); // Filter out elements whose parents are in the collection of nodes to layout
+						// OPTIMIZE: It would be more efficient to only layout the nodes that need to be layed out instead of laying out all descendants of
+						// the container.
+						nodesToLayout.removeIf((n) -> collectionContainsAnyAncestor(nodesToLayout, n)); // Filter out elements whose parents are in the
+						// collection of nodes to layout
 
-						Set<DiagramElement> elementsToCheckParentsForLayout = new HashSet<>(); // Contains the set of diagram elements whose parents need to be checked to see if they should be layed out
-						for(final DiagramNode n : nodesToLayout) {
-							if(n instanceof AgeDiagram) {
-								LayoutUtil.layoutDepthFirst(graphitiDiagram, (AgeDiagram)n, GraphitiAgeDiagram.this, coloringProvider);
-							} else if(n instanceof DiagramElement) {
-								LayoutUtil.layoutDepthFirst(graphitiDiagram, (DiagramElement)n, GraphitiAgeDiagram.this, coloringProvider);
-								elementsToCheckParentsForLayout.add((DiagramElement)n);
+						Set<DiagramElement> elementsToCheckParentsForLayout = new HashSet<>(); // Contains the set of diagram elements whose parents need to
+						// be checked to see if they should be layed out
+						for (final DiagramNode n : nodesToLayout) {
+							if (n instanceof AgeDiagram) {
+								LayoutUtil.layoutDepthFirst(graphitiDiagram, (AgeDiagram) n, GraphitiAgeDiagram.this,
+										coloringProvider);
+							} else if (n instanceof DiagramElement) {
+								LayoutUtil.layoutDepthFirst(graphitiDiagram, (DiagramElement) n,
+										GraphitiAgeDiagram.this, coloringProvider);
+								elementsToCheckParentsForLayout.add((DiagramElement) n);
 							}
 						}
 
 						// Check the elements to see if their parents need to be layed out
-						while(elementsToCheckParentsForLayout.size() > 0) {
+						while (elementsToCheckParentsForLayout.size() > 0) {
 							final HashSet<DiagramElement> parentsToLayout = new HashSet<>();
-							for(final DiagramElement e : elementsToCheckParentsForLayout) {
+							for (final DiagramElement e : elementsToCheckParentsForLayout) {
 								// Check if the element's parent needs to be layed out.
-								if(parentNeedsLayout(e)) {
-									parentsToLayout.add((DiagramElement)e.getParent());
+								if (parentNeedsLayout(e)) {
+									parentsToLayout.add((DiagramElement) e.getParent());
 								}
 							}
 
 							// Layout the parents
-							for(final DiagramElement parentToLayout : parentsToLayout) {
+							for (final DiagramElement parentToLayout : parentsToLayout) {
 								// Get the pictogram element and lay it out if it is a shape
 								final PictogramElement parentPe = getPictogramElement(parentToLayout);
-								if(parentPe instanceof ContainerShape) {
-									LayoutUtil.layout(graphitiDiagram, parentToLayout, (ContainerShape)parentPe, GraphitiAgeDiagram.this, coloringProvider);
+								if (parentPe instanceof ContainerShape) {
+									LayoutUtil.layout(graphitiDiagram, parentToLayout, (ContainerShape) parentPe,
+											GraphitiAgeDiagram.this, coloringProvider);
 								}
 							}
 
@@ -878,7 +869,7 @@ public class GraphitiAgeDiagram implements NodePictogramBiMap, AutoCloseable {
 						}
 
 						// Update affected connections
-						for(final DiagramElement element : elementsToUpdate) {
+						for (final DiagramElement element : elementsToUpdate) {
 							finishUpdating(element);
 						}
 					}

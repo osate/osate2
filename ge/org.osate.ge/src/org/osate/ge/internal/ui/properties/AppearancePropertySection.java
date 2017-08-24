@@ -8,7 +8,9 @@ import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.emf.transaction.RecordingCommand;
 import org.eclipse.jface.layout.GridDataFactory;
 import org.eclipse.jface.layout.GridLayoutFactory;
+import org.eclipse.jface.resource.DeviceResourceManager;
 import org.eclipse.jface.resource.ImageDescriptor;
+import org.eclipse.jface.resource.ResourceManager;
 import org.eclipse.jface.viewers.ArrayContentProvider;
 import org.eclipse.jface.viewers.ComboViewer;
 import org.eclipse.jface.viewers.IFilter;
@@ -18,14 +20,11 @@ import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.SelectionChangedEvent;
 import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.SWTException;
 import org.eclipse.swt.events.PaintEvent;
 import org.eclipse.swt.events.PaintListener;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.graphics.Color;
-import org.eclipse.swt.graphics.Device;
-import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.graphics.ImageData;
 import org.eclipse.swt.graphics.PaletteData;
 import org.eclipse.swt.graphics.Point;
@@ -41,20 +40,14 @@ import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.IWorkbenchPart;
 import org.eclipse.ui.views.properties.tabbed.AbstractPropertySection;
 import org.eclipse.ui.views.properties.tabbed.TabbedPropertySheetPage;
-import org.osate.aadl2.Connection;
-import org.osate.aadl2.Flow;
-import org.osate.aadl2.Generalization;
-import org.osate.aadl2.ModeTransition;
-import org.osate.aadl2.ModeTransitionTrigger;
 import org.osate.ge.internal.Activator;
-import org.osate.ge.internal.di.Icon;
 import org.osate.ge.internal.diagram.runtime.AgeDiagram;
 import org.osate.ge.internal.diagram.runtime.DiagramElement;
-import org.osate.ge.internal.diagram.runtime.DiagramLayoutUtil;
 import org.osate.ge.internal.diagram.runtime.FontSize;
 import org.osate.ge.internal.diagram.runtime.LineWidth;
 import org.osate.ge.internal.diagram.runtime.Style;
 import org.osate.ge.internal.diagram.runtime.StyleBuilder;
+import org.osate.ge.internal.graphics.AgeConnection;
 import org.osate.ge.internal.graphics.Label;
 import org.osate.ge.internal.ui.editor.AgeDiagramEditor;
 
@@ -72,21 +65,24 @@ public class AppearancePropertySection extends AbstractPropertySection {
 		}
 	}
 
-	@Icon
-	public final static ImageDescriptor OutlineIcon = Activator.getImageDescriptor("icons/Outline.gif");
+	private final static ImageDescriptor outlineIcon = Activator.getImageDescriptor("icons/Outline.gif");
+	private final static ImageDescriptor backgroundIcon = Activator.getImageDescriptor("icons/Background.gif");
+	private final static ImageDescriptor fontColorIcon = Activator.getImageDescriptor("icons/FontColor.gif");
 
-	@Icon
-	public final static ImageDescriptor BackgroundIcon = Activator.getImageDescriptor("icons/Background.gif");
-
-	@Icon
-	public final static ImageDescriptor FontColorIcon = Activator.getImageDescriptor("icons/FontColor.gif");
+	private ResourceManager resourceMgr;
 
 	@Override
 	public void createControls(final Composite parent, final TabbedPropertySheetPage aTabbedPropertySheetPage) {
 		super.createControls(parent, aTabbedPropertySheetPage);
+		resourceMgr = new DeviceResourceManager(Display.getCurrent());
 		final Composite containerComposite = getWidgetFactory().createFlatFormComposite(parent);
 		createComboViewerSection(containerComposite);
 		createButtonSection(containerComposite);
+	}
+
+	@Override
+	public void dispose() {
+		resourceMgr.dispose();
 	}
 
 	private void createComboViewerSection(final Composite parent) {
@@ -96,8 +92,7 @@ public class AppearancePropertySection extends AbstractPropertySection {
 		fd.left = new FormAttachment(0, 10);
 		fontSizeLabel.setLayoutData(fd);
 
-		fontSizeComboViewer = createComboViewer(parent,
-				new FontSize[] { FontSize.Small, FontSize.Default, FontSize.Large });
+		fontSizeComboViewer = createComboViewer(parent, FontSize.values());
 		fd = new FormData();
 		fd.top = new FormAttachment(fontSizeLabel, 0, SWT.TOP);
 		fd.left = new FormAttachment(fontSizeLabel, 20);
@@ -109,8 +104,7 @@ public class AppearancePropertySection extends AbstractPropertySection {
 		fd.left = new FormAttachment(0, 10);
 		lineWidthLabel.setLayoutData(fd);
 
-		lineWidthComboViewer = createComboViewer(parent,
-				new LineWidth[] { LineWidth.Small, LineWidth.Default, LineWidth.Large });
+		lineWidthComboViewer = createComboViewer(parent, LineWidth.values());
 		fd = new FormData();
 		fd.top = new FormAttachment(lineWidthLabel, 0, SWT.TOP);
 		fd.left = new FormAttachment(lineWidthLabel, 10);
@@ -118,66 +112,43 @@ public class AppearancePropertySection extends AbstractPropertySection {
 	}
 
 	private void createButtonSection(final Composite parent) {
-		final Button outlineButton = createButton(parent, OutlineIcon);
+		final Button outlineButton = createButton(parent, outlineIcon);
 		FormData fd = new FormData();
 		fd.top = new FormAttachment(lineWidthLabel, 10);
 		fd.left = new FormAttachment(0, 30);
 		outlineButton.setLayoutData(fd);
 		outlinePaintListener = new StylePaintListener(outlineButton,
-				new StyleCommand("Set Outline", StyleType.OUTLINE, (diagramElement, value) -> {
-					final java.awt.Color awtOutline = (java.awt.Color) value;
-					final Style currentStyle = diagramElement.getStyle();
-					if (!awtOutline.equals(diagramElement.getDefaultOutlineColor())) {
-						return StyleBuilder.create().backgroundColor(currentStyle.getBackgroundColor())
-								.fontColor(currentStyle.getFontColor()).outlineColor(awtOutline)
-								.fontSize(currentStyle.getFontSize()).lineWidth(currentStyle.getLineWidth()).build();
+				new StyleCommand("Set Outline", (diagramElement, sb, value) -> {
+					if (supportsOutline(diagramElement)) {
+						final java.awt.Color awtOutline = (java.awt.Color) value;
+						sb.outlineColor(awtOutline);
 					}
-
-					return StyleBuilder.create().backgroundColor(currentStyle.getBackgroundColor())
-							.fontColor(currentStyle.getFontColor()).fontSize(currentStyle.getFontSize())
-							.lineWidth(currentStyle.getLineWidth()).build();
 				}));
 
-		final Button fontColorButton = createButton(parent, FontColorIcon);
+		final Button fontColorButton = createButton(parent, fontColorIcon);
 		fd = new FormData();
 		fd.top = new FormAttachment(outlineButton, 0, SWT.TOP);
 		fd.left = new FormAttachment(outlineButton, 0);
 		fontColorButton.setLayoutData(fd);
 		fontColorPaintListener = new StylePaintListener(fontColorButton,
-				new StyleCommand("Set Font Color", StyleType.FONTCOLOR, (diagramElement, value) -> {
-					final java.awt.Color awtFontColor = (java.awt.Color) value;
-					final Style currentStyle = diagramElement.getStyle();
-					if (!awtFontColor.equals(diagramElement.getDefaultFontColor())) {
-						return StyleBuilder.create().backgroundColor(currentStyle.getBackgroundColor())
-								.fontColor(awtFontColor).outlineColor(currentStyle.getOutlineColor())
-								.fontSize(currentStyle.getFontSize()).lineWidth(currentStyle.getLineWidth())
-								.build();
+				new StyleCommand("Set Font Color", (diagramElement, sb, value) -> {
+					if (supportsFontOptions(diagramElement)) {
+						final java.awt.Color awtFontColor = (java.awt.Color) value;
+						sb.fontColor(awtFontColor);
 					}
-
-					return StyleBuilder.create().backgroundColor(currentStyle.getBackgroundColor())
-							.outlineColor(currentStyle.getOutlineColor()).fontSize(currentStyle.getFontSize())
-							.lineWidth(currentStyle.getLineWidth()).build();
 				}));
 
-		final Button backgroundButton = createButton(parent, BackgroundIcon);
+		final Button backgroundButton = createButton(parent, backgroundIcon);
 		fd = new FormData();
 		fd.top = new FormAttachment(fontColorButton, 0, SWT.TOP);
 		fd.left = new FormAttachment(fontColorButton, 0);
 		backgroundButton.setLayoutData(fd);
 		backgroundPaintListener = new StylePaintListener(backgroundButton,
-				new StyleCommand("Set Background", StyleType.BACKGROUND, (diagramElement, value) -> {
-					final java.awt.Color awtBackground = (java.awt.Color) value;
-					final Style currentStyle = diagramElement.getStyle();
-					if (!awtBackground.equals(diagramElement.getDefaultBackgroundColor())) {
-						return StyleBuilder.create().backgroundColor(awtBackground)
-								.fontColor(currentStyle.getFontColor()).outlineColor(currentStyle.getOutlineColor())
-								.fontSize(currentStyle.getFontSize()).lineWidth(currentStyle.getLineWidth())
-								.build();
+				new StyleCommand("Set Background", (diagramElement, sb, value) -> {
+					if (supportsBackground(diagramElement)) {
+						final java.awt.Color awtBackground = (java.awt.Color) value;
+						sb.backgroundColor(awtBackground);
 					}
-
-					return StyleBuilder.create().fontColor(currentStyle.getFontColor())
-							.outlineColor(currentStyle.getOutlineColor()).fontSize(currentStyle.getFontSize())
-							.lineWidth(currentStyle.getLineWidth()).build();
 				}));
 	}
 
@@ -188,39 +159,34 @@ public class AppearancePropertySection extends AbstractPropertySection {
 		selectedDiagramElements.clear();
 
 		final IStructuredSelection ss = (IStructuredSelection) selection;
-		final Color disableColor = lightGray.color;
-		boolean showFontOptions = false;
-		boolean showLineWidth = false;
-		boolean showBackground = false;
-		boolean showOutlineOption = false;
+		final RGB disableColor = lightGray.rgb;
+		boolean enableFontOptions = false;
+		boolean enableLineWidth = false;
+		boolean enableBackground = false;
+		boolean enableOutlineOption = false;
 		final Iterator<?> itr = ss.iterator();
 		while (itr.hasNext()) {
 			final Object o = itr.next();
 			final DiagramElement diagramElement = ((IAdaptable) o).getAdapter(DiagramElement.class);
 			selectedDiagramElements.add(diagramElement);
 
-			final Object bo = diagramElement.getBusinessObject();
-			boolean isLabel = diagramElement.getGraphic() instanceof Label;
-			boolean isGeneralization = bo instanceof Generalization;
-			boolean isModeTransitionTrigger = bo instanceof ModeTransitionTrigger;
 			// Font options
-			if (!(isModeTransitionTrigger || isGeneralization) || isLabel) {
-				showFontOptions = true;
+			if (supportsFontOptions(diagramElement)) {
+				enableFontOptions = true;
 			}
 
 			// Shape/Connection options
-			if (isGeneralization || bo instanceof ModeTransition || bo instanceof Flow) {
-				showLineWidth = true;
-				showOutlineOption = true;
-				showBackground = true;
-			} else if (bo instanceof Connection || isModeTransitionTrigger) {
-				showLineWidth = true;
-				showOutlineOption = true;
-			} else if (!isLabel) {
-				showBackground = true;
-				showOutlineOption = true;
+			if (supportsLineWidth(diagramElement)) {
+				enableLineWidth = true;
 			}
 
+			if (supportsBackground(diagramElement)) {
+				enableBackground = true;
+			}
+
+			if (supportsOutline(diagramElement)) {
+				enableOutlineOption = true;
+			}
 		}
 
 		// Set options to match last selected element
@@ -233,42 +199,63 @@ public class AppearancePropertySection extends AbstractPropertySection {
 				: LineWidth.Default;
 
 		final Button backgroundButton = backgroundPaintListener.getButton();
-		backgroundButton.setEnabled(showBackground);
+		backgroundButton.setEnabled(enableBackground);
 
 		final Button fontColorButton = fontColorPaintListener.getButton();
-		fontColorButton.setEnabled(showFontOptions);
+		fontColorButton.setEnabled(enableFontOptions);
 
 		final Button outlineButton = outlinePaintListener.getButton();
-		outlineButton.setEnabled(showOutlineOption);
+		outlineButton.setEnabled(enableOutlineOption);
 
-		final Object background;
-		if (showBackground) {
-			background = currentStyle.getBackgroundColor() != null ? currentStyle.getBackgroundColor()
-					: diagramElement.getDefaultBackgroundColor();
+		backgroundPaintListener.setDefaultColor(toRGB(diagramElement.getDefaultBackgroundColor()));
+		fontColorPaintListener.setDefaultColor(toRGB(diagramElement.getDefaultFontColor()));
+		outlinePaintListener.setDefaultColor(toRGB(diagramElement.getDefaultOutlineColor()));
+
+		final RGB background;
+		if (enableBackground) {
+			background = currentStyle.getBackgroundColor() == null ? null : toRGB(currentStyle.getBackgroundColor());
 		} else {
 			background = disableColor;
 		}
 
-		final Object fontColor;
-		if (showFontOptions) {
-			fontColor = currentStyle.getFontColor() != null ? currentStyle.getFontColor()
-					: diagramElement.getDefaultFontColor();
+		final RGB fontColor;
+		if (enableFontOptions) {
+			fontColor = currentStyle.getFontColor() == null ? null : toRGB(currentStyle.getFontColor());
 		} else {
 			fontColor = disableColor;
 		}
 
-		final Object outline;
-		if (showOutlineOption) {
-			outline = currentStyle.getOutlineColor() != null ? currentStyle.getOutlineColor()
-					: diagramElement.getDefaultOutlineColor();
+		final RGB outline;
+		if (enableOutlineOption) {
+			outline = currentStyle.getOutlineColor() == null ? null : toRGB(currentStyle.getOutlineColor());
 		} else {
 			outline = disableColor;
 		}
 
 		// Update UI
-		setComboViewersEnabled(showFontOptions, showLineWidth);
+		setComboViewersEnabled(enableFontOptions, enableLineWidth);
 		setStructuredSelection(lastFontSizeSelected, lastLineWidthSelected);
 		setPaintListenerColors(background, fontColor, outline);
+	}
+
+	private boolean supportsFontOptions(final DiagramElement de) {
+		return de.getName() != null || de.getGraphic() instanceof Label;
+	}
+
+	private boolean supportsLineWidth(final DiagramElement de) {
+		return de.getGraphic() instanceof AgeConnection;
+	}
+
+	private boolean supportsBackground(final DiagramElement de) {
+		return !(de.getGraphic() instanceof Label);
+	}
+
+	private boolean supportsOutline(final DiagramElement de) {
+		return !(de.getGraphic() instanceof Label);
+	}
+
+	private static RGB toRGB(final java.awt.Color color) {
+		return new RGB(color.getRed(), color.getGreen(), color.getBlue());
 	}
 
 	private static ComboViewer createComboViewer(final Composite parent, final Object[] input) {
@@ -301,7 +288,7 @@ public class AppearancePropertySection extends AbstractPropertySection {
 		lineWidthComboViewer.getControl().setEnabled(showLineWidth);
 	}
 
-	private void setPaintListenerColors(final Object background, final Object fontColor, final Object outline) {
+	private void setPaintListenerColors(final RGB background, final RGB fontColor, final RGB outline) {
 		backgroundPaintListener.setColor(background);
 		fontColorPaintListener.setColor(fontColor);
 		outlinePaintListener.setColor(outline);
@@ -317,10 +304,19 @@ public class AppearancePropertySection extends AbstractPropertySection {
 		lineWidthComboViewer.addSelectionChangedListener(lineWidthSelectionListener);
 	}
 
-	private class ColorSelection extends SelectionAdapter {
-		private ColorSelection(final StylePaintListener paintListener, final StyleCommand styleCmd) {
+	private class ColorSelectionListener extends SelectionAdapter {
+		private ColorSelectionListener(final StylePaintListener paintListener, final StyleCommand styleCmd) {
 			this.paintListener = paintListener;
 			this.styleCmd = styleCmd;
+		}
+
+		private Button createColorButton(final Composite parent, final ImageDescriptor imgDescriptor) {
+			final Button btn = new Button(parent, SWT.PUSH);
+			btn.setImage(imgDescriptor.createImage());
+			btn.addDisposeListener(e -> {
+				btn.getImage().dispose();
+			});
+			return btn;
 		}
 
 		@Override
@@ -330,24 +326,17 @@ public class AppearancePropertySection extends AbstractPropertySection {
 
 			// Create preset color buttons
 			for (final PresetColor pc : colors) {
-				final Button btn = new Button(shell, SWT.PUSH);
-				btn.setImage(pc.image);
-				btn.addSelectionListener(new ColorSelectionAdapter(shell, paintListener, pc.color, styleCmd));
+				final Button btn = createColorButton(shell, pc.imageDescriptor);
+				btn.addSelectionListener(new ColorSelectionAdapter(shell, paintListener, pc.rgb, styleCmd));
 			}
 
 			// Create custom color button
-			final Button pcBtn = new Button(shell, SWT.PUSH);
-			final Color color;
-			if (customPC == null) {
-				pcBtn.setEnabled(false);
-				pcBtn.setImage(white.image);
-				color = white.color;
-			} else {
-				pcBtn.setEnabled(true);
-				pcBtn.setImage(customPC.image);
-				color = customPC.color;
-			}
-			pcBtn.addSelectionListener(new ColorSelectionAdapter(shell, paintListener, color, styleCmd));
+			final boolean hasCustomColor = customPC != null;
+			final PresetColor customPresetColor = hasCustomColor ? customPC : white;
+			final Button customColorBtn = createButton(shell, customPresetColor.imageDescriptor);
+			customColorBtn.setEnabled(hasCustomColor);
+			customColorBtn.addSelectionListener(
+					new ColorSelectionAdapter(shell, paintListener, customPresetColor.rgb, styleCmd));
 
 			// Custom color dialog
 			final Button colorDlgBtn = new Button(shell, SWT.PUSH);
@@ -369,10 +358,22 @@ public class AppearancePropertySection extends AbstractPropertySection {
 						} else {
 							customPC.setColor(rgb);
 						}
-						final Color color = customPC.color;
-						paintListener.setColor(color);
-						runStyleCommand(createAWTColor(color), styleCmd);
+						paintListener.setColor(customPC.rgb);
+						runStyleCommand(createAWTColor(customPC.rgb), styleCmd);
 					}
+				}
+			});
+
+			// Default button
+			final Button defaultColorBtn = new Button(shell, SWT.PUSH);
+			defaultColorBtn.setText("Default");
+			GridDataFactory.fillDefaults().grab(true, true).span(6, 0).applyTo(defaultColorBtn);
+			defaultColorBtn.addSelectionListener(new SelectionAdapter() {
+				@Override
+				public void widgetSelected(final SelectionEvent e) {
+					shell.dispose();
+					paintListener.setColor(null);
+					runStyleCommand(null, styleCmd);
 				}
 			});
 
@@ -401,10 +402,15 @@ public class AppearancePropertySection extends AbstractPropertySection {
 	}
 
 	private class StylePaintListener implements PaintListener {
+		private final Button button;
+		private RGB rgb;
+		private RGB defaultRgb;
+		private Color color;
+
 		private StylePaintListener(final Button button, final StyleCommand styleCmd) {
 			this.button = button;
 			this.button.addPaintListener(this);
-			this.button.addSelectionListener(new ColorSelection(this, styleCmd));
+			this.button.addSelectionListener(new ColorSelectionListener(this, styleCmd));
 		}
 
 		@Override
@@ -421,17 +427,17 @@ public class AppearancePropertySection extends AbstractPropertySection {
 			}
 		}
 
-		private void setColor(final Object color) {
-			if (color instanceof Color) {
-				setColor((Color) color);
-			} else if (color instanceof java.awt.Color) {
-				final java.awt.Color awtColor = (java.awt.Color) color;
-				setColor(new Color(Display.getDefault(), awtColor.getRed(), awtColor.getGreen(), awtColor.getBlue()));
-			}
+		private void setDefaultColor(final RGB defaultRgb) {
+			this.defaultRgb = defaultRgb;
 		}
 
-		private void setColor(final Color color) {
-			this.color = color;
+		private void setColor(final RGB newRgb) {
+			if (rgb != null) {
+				resourceMgr.destroyColor(rgb);
+			}
+
+			this.rgb = newRgb == null ? defaultRgb : newRgb;
+			this.color = resourceMgr.createColor(rgb);
 			button.redraw();
 		}
 
@@ -439,18 +445,15 @@ public class AppearancePropertySection extends AbstractPropertySection {
 			return button;
 		}
 
-		private final Button button;
-		private Color color;
 	}
 
 	private static interface CreateStyle {
-		Style getStyle(final DiagramElement diagramElement, final Object value);
+		void createStyle(final DiagramElement diagramElement, final StyleBuilder sb, final Object value);
 	}
 
 	private static class StyleCommand {
-		public StyleCommand(final String desc, final StyleType styleType, final CreateStyle createStyle) {
+		public StyleCommand(final String desc, final CreateStyle createStyle) {
 			this.desc = desc;
-			this.styleType = styleType;
 			this.createStyle = createStyle;
 		}
 
@@ -459,15 +462,12 @@ public class AppearancePropertySection extends AbstractPropertySection {
 		}
 
 		private Style getStyle(final DiagramElement diagramElement, final Object value) {
-			return createStyle.getStyle(diagramElement, value);
-		}
-
-		private StyleType getStyleType() {
-			return styleType;
+			final StyleBuilder sb = StyleBuilder.create(diagramElement.getStyle());
+			createStyle.createStyle(diagramElement, sb, value);
+			return sb.build();
 		}
 
 		private final String desc;
-		private final StyleType styleType;
 		private final CreateStyle createStyle;
 	}
 
@@ -481,61 +481,27 @@ public class AppearancePropertySection extends AbstractPropertySection {
 			if (!selectedDiagramElements.isEmpty()) {
 				final IStructuredSelection selection = (IStructuredSelection) event.getSelection();
 				runStyleCommand(selection.getFirstElement(), styleCmd);
-				// Update needed so show line width change
-				Display.getDefault().asyncExec(() -> ageDiagramEditor.updateDiagramWhenVisible());
 			}
 		}
 
 		private final StyleCommand styleCmd;
 	}
 
-	private static Object createAWTColor(final Color color) {
-		return new java.awt.Color(color.getRed(), color.getGreen(), color.getBlue());
+	private static Object createAWTColor(final RGB color) {
+		return new java.awt.Color(color.red, color.green, color.blue);
 	}
 
 	private void runStyleCommand(final Object value, final StyleCommand styleCmd) {
-		Display.getDefault().asyncExec(() -> {
+		Display.getDefault().syncExec(() -> {
 			final AgeDiagram ageDiagram = ageDiagramEditor.getGraphitiAgeDiagram().getAgeDiagram();
 			ageDiagramEditor.getEditingDomain().getCommandStack()
 			.execute(new RecordingCommand(ageDiagramEditor.getEditingDomain(), styleCmd.getDescription()) {
 				@Override
 				protected void doExecute() {
 					ageDiagram.modify(m -> {
-						final StyleType styleType = styleCmd.getStyleType();
 						for (final DiagramElement diagramElement : selectedDiagramElements) {
-							if (!(diagramElement.getGraphic() instanceof Label)) {
-								final Object bo = diagramElement.getBusinessObject();
-								if (StyleType.BACKGROUND == styleType
-										&& !(bo instanceof Connection || bo instanceof ModeTransitionTrigger)) {
-									m.setStyle(diagramElement, styleCmd.getStyle(diagramElement, value));
-								} else if ((StyleType.FONTCOLOR == styleType || StyleType.FONTSIZE == styleType)
-										&& !(bo instanceof Generalization
-												|| bo instanceof ModeTransitionTrigger)) {
-									m.setStyle(diagramElement, styleCmd.getStyle(diagramElement, value));
-								} else if (StyleType.LINEWIDTH == styleType && (bo instanceof Connection
-										|| bo instanceof ModeTransition || bo instanceof ModeTransitionTrigger
-										|| bo instanceof Generalization || bo instanceof Flow)) {
-									m.setStyle(diagramElement, styleCmd.getStyle(diagramElement, value));
-								} else if (StyleType.OUTLINE == styleType) {
-									m.setStyle(diagramElement, styleCmd.getStyle(diagramElement, value));
-								}
-
-								// Allow background and font options to change for contained labels
-								for (final DiagramElement de : diagramElement.getDiagramElements()) {
-									if (de.getGraphic() instanceof Label && (styleType == StyleType.BACKGROUND
-											|| styleType == StyleType.FONTSIZE
-											|| styleType == StyleType.FONTCOLOR)) {
-										m.setStyle(de, styleCmd.getStyle(diagramElement, value));
-									}
-								}
-							} else if (styleCmd.styleType == StyleType.FONTCOLOR
-									|| styleCmd.styleType == StyleType.FONTSIZE) {
-								// Allow font options for selected labels
-								m.setStyle(diagramElement, styleCmd.getStyle(diagramElement, value));
-							}
+							m.setStyle(diagramElement, styleCmd.getStyle(diagramElement, value));
 						}
-
-						DiagramLayoutUtil.layout(ageDiagram, m, false);
 					});
 				}
 			});
@@ -543,7 +509,7 @@ public class AppearancePropertySection extends AbstractPropertySection {
 	}
 
 	private class ColorSelectionAdapter extends SelectionAdapter {
-		public ColorSelectionAdapter(final Shell shell, final StylePaintListener paintListener, final Color color,
+		public ColorSelectionAdapter(final Shell shell, final StylePaintListener paintListener, final RGB color,
 				final StyleCommand styleCmd) {
 			this.shell = shell;
 			this.paintListener = paintListener;
@@ -558,107 +524,66 @@ public class AppearancePropertySection extends AbstractPropertySection {
 			runStyleCommand(createAWTColor(color), styleCmd);
 		}
 
-		private final Color color;
+		private final RGB color;
 		private final StylePaintListener paintListener;
 		private final StyleCommand styleCmd;
 		private final Shell shell;
 	}
 
-	private enum StyleType {
-		BACKGROUND, FONTCOLOR, OUTLINE, FONTSIZE, LINEWIDTH
-	}
+	private static final Point COLOR_ICON_SIZE = new Point(18, 18);
 
-	private static class PresetColor extends ImageDescriptor {
+	private static class PresetColor {
+		private RGB rgb;
+		private ImageDescriptor imageDescriptor;
+
 		private PresetColor(final RGB rgb) {
-			this.color = new Color(Display.getDefault(), rgb);
-			this.image = createImage();
+			setColor(rgb);
 		}
 
-		private void setColor(final RGB rgb) {
-			this.color = new Color(Display.getDefault(), rgb);
-			this.image = createImage();
+		private void setColor(final RGB newRgb) {
+			this.rgb = newRgb;
+			final ImageData data = getImageData(rgb);
+			this.imageDescriptor = ImageDescriptor.createFromImageDataProvider(zoom -> zoom == 100 ? data : null);
 		}
 
-		@Override
-		public Image createImage() {
-			final Device device = Display.getCurrent();
-			ImageData data = getImageData();
-			if (data == null) {
-				data = DEFAULT_IMAGE_DATA;
-			}
+		private static ImageData getImageData(final RGB rgb) {
+			final ImageData data = new ImageData(COLOR_ICON_SIZE.x, COLOR_ICON_SIZE.y, 1,
+					new PaletteData(new RGB[] { rgb }));
 
-			try {
-				if (data.transparentPixel >= 0) {
-					final ImageData maskData = data.getTransparencyMask();
-					return new Image(device, data, maskData);
-				}
-				return new Image(device, data);
-			} catch (final SWTException exception) {
-				try {
-					return new Image(device, DEFAULT_IMAGE_DATA);
-				} catch (final SWTException nextException) {
-					return null;
-				}
-			}
-		}
-
-		@Override
-		public ImageData getImageData() {
-			final ImageData data = new ImageData(ICON_SIZE.x, ICON_SIZE.y, 1,
-					new PaletteData(new RGB[] { color.getRGB() }));
-
-			for (int i = 0; i < ICON_SIZE.y; i++) {
+			for (int i = 0; i < COLOR_ICON_SIZE.y; i++) {
 				data.setPixel(0, i, 1);
 			}
 
-			for (int i = 0; i < ICON_SIZE.y; i++) {
-				data.setPixel(ICON_SIZE.x - 1, i, 1);
+			for (int i = 0; i < COLOR_ICON_SIZE.y; i++) {
+				data.setPixel(COLOR_ICON_SIZE.x - 1, i, 1);
 			}
 
-			for (int i = 0; i < ICON_SIZE.x; i++) {
+			for (int i = 0; i < COLOR_ICON_SIZE.x; i++) {
 				data.setPixel(i, 0, 1);
 			}
 
-			for (int i = 0; i < ICON_SIZE.x; i++) {
-				data.setPixel(i, ICON_SIZE.y - 1, 1);
+			for (int i = 0; i < COLOR_ICON_SIZE.x; i++) {
+				data.setPixel(i, COLOR_ICON_SIZE.y - 1, 1);
 			}
 
 			return data;
 		}
-
-		private static final Point ICON_SIZE = new Point(18, 18);
-		private Color color;
-		private Image image;
 	}
 
 	private ComboViewerSelection lineWidthSelectionListener = new ComboViewerSelection(
-			new StyleCommand("Set Line Width", StyleType.LINEWIDTH, (diagramElement, value) -> {
-				final LineWidth lineWidth = (LineWidth) value;
-				final Style currentStyle = diagramElement.getStyle();
-				if (lineWidth != LineWidth.Default) {
-					return StyleBuilder.create().backgroundColor(currentStyle.getBackgroundColor())
-							.fontColor(currentStyle.getFontColor()).outlineColor(currentStyle.getOutlineColor())
-							.fontSize(currentStyle.getFontSize()).lineWidth(lineWidth).build();
+			new StyleCommand("Set Line Width", (diagramElement, sb, value) -> {
+				if(supportsLineWidth(diagramElement)) {
+					final LineWidth lineWidth = (LineWidth) value;
+					sb.lineWidth(lineWidth == LineWidth.Default ? null : lineWidth);
 				}
-
-				return StyleBuilder.create().backgroundColor(currentStyle.getBackgroundColor())
-						.fontColor(currentStyle.getFontColor()).outlineColor(currentStyle.getOutlineColor())
-						.fontSize(currentStyle.getFontSize()).build();
 			}));
 
 	private ComboViewerSelection fontSizeSelectionListener = new ComboViewerSelection(
-			new StyleCommand("Set Font Size", StyleType.FONTSIZE, (diagramElement, value) -> {
-				final FontSize fontSize = (FontSize) value;
-				final Style currentStyle = diagramElement.getStyle();
-				if (fontSize != FontSize.Default) {
-					return StyleBuilder.create().backgroundColor(currentStyle.getBackgroundColor())
-							.fontColor(currentStyle.getFontColor()).outlineColor(currentStyle.getOutlineColor())
-							.fontSize(fontSize).lineWidth(currentStyle.getLineWidth()).build();
+			new StyleCommand("Set Font Size", (diagramElement, sb, value) -> {
+				if (supportsFontOptions(diagramElement)) {
+					final FontSize fontSize = (FontSize) value;
+					sb.fontSize(fontSize == FontSize.Default ? null : fontSize);
 				}
-
-				return StyleBuilder.create().backgroundColor(currentStyle.getBackgroundColor())
-						.fontColor(currentStyle.getFontColor()).outlineColor(currentStyle.getOutlineColor())
-						.lineWidth(currentStyle.getLineWidth()).build();
 			}));
 
 	private List<DiagramElement> selectedDiagramElements = new ArrayList<>();
@@ -707,7 +632,7 @@ public class AppearancePropertySection extends AbstractPropertySection {
 	private final PresetColor gray = new PresetColor(new RGB(160, 160, 160));
 	private final PresetColor black = new PresetColor(new RGB(0, 0, 0));
 
-	final List<PresetColor> colors = new ArrayList<>();
+	private final List<PresetColor> colors = new ArrayList<>();
 	{
 		// Lighter Colors
 		colors.add(lighterRed);
