@@ -13,9 +13,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import org.eclipse.emf.transaction.RecordingCommand;
-import org.eclipse.graphiti.features.IUpdateFeature;
-import org.eclipse.graphiti.features.context.impl.UpdateContext;
 import org.eclipse.jface.viewers.ComboViewer;
 import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.swt.widgets.Composite;
@@ -178,19 +175,6 @@ public class FlowContributionItem extends ComboContributionItem {
 	protected void onSelection(final Object value) {
 		// Notify coloring service of the selection
 		ContributionHelper.getColoringService(editor).setHighlightedFlow(value == getNullValue() ? null : (NamedElement)value);
-
-		final UpdateContext ctx = new UpdateContext(editor.getDiagramTypeProvider().getDiagram());
-		final IUpdateFeature feature = editor.getDiagramTypeProvider().getFeatureProvider().getUpdateFeature(ctx);
-
-		// Set the selected mode property on the diagram and update the diagram
-		editor.getEditingDomain().getCommandStack().execute(new RecordingCommand(editor.getEditingDomain()) {
-			@Override
-			protected void doExecute() {
-				if(feature != null && feature.canUpdate(ctx)) {
-					editor.getDiagramBehavior().executeFeature(feature, ctx);
-				}
-			}
-		});
 	}
 
 	@Override
