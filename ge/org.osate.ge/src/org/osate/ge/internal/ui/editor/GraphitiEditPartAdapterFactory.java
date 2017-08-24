@@ -24,7 +24,7 @@ public class GraphitiEditPartAdapterFactory implements IAdapterFactory {
 	@Override
 	public <T> T getAdapter(Object adaptableObject, Class<T> adapterType) {
 		// Get the business object
-		final PictogramElement pe;
+		final PictogramElement pe;		
 		final EditPart editPart;
 		if (adaptableObject instanceof GraphitiShapeEditPart) {
 			final GraphitiShapeEditPart part = (GraphitiShapeEditPart)adaptableObject;
@@ -37,12 +37,12 @@ public class GraphitiEditPartAdapterFactory implements IAdapterFactory {
 		} else {
 			return null;
 		}
-
+		
 		final EditDomain editDomain = editPart.getViewer().getEditDomain();
 		if(!(editDomain instanceof DefaultEditDomain)){
 			return null;
 		}
-
+						
 		final DefaultEditDomain defaultEditDomain = (DefaultEditDomain)editDomain;
 		final IEditorPart editorPart = defaultEditDomain.getEditorPart();
 		if(!(editorPart instanceof AgeDiagramEditor)) {
@@ -50,10 +50,6 @@ public class GraphitiEditPartAdapterFactory implements IAdapterFactory {
 		}
 
 		final AgeDiagramEditor diagramEditor = (AgeDiagramEditor)editorPart;
-		if(AgeDiagramEditor.class.equals(adapterType)) {
-			return adapterType.cast(diagramEditor);
-		}
-
 		final AgeDiagram ageDiagram = diagramEditor.getGraphitiAgeDiagram().getAgeDiagram();
 		if(ageDiagram == null) {
 			return null;
@@ -88,7 +84,7 @@ public class GraphitiEditPartAdapterFactory implements IAdapterFactory {
 		} else if (BusinessObjectContext.class.equals(adapterType)) {
 			return adapterType.cast(de);
 		}
-
+		
 		return null;
 	}
 

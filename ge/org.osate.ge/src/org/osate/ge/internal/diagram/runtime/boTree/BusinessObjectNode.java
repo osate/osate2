@@ -42,21 +42,21 @@ public class BusinessObjectNode implements BusinessObjectContext {
 		}
 	}
 
-	public RelativeBusinessObjectReference getRelativeReference() {
+	public final RelativeBusinessObjectReference getRelativeReference() {
 		return relativeReference;
 	}
 
 	@Override
-	public BusinessObjectNode getParent() {
+	public final BusinessObjectNode getParent() {
 		return parent;
 	}
 
 	@Override
-	public Object getBusinessObject() {
+	public final Object getBusinessObject() {
 		return bo;
 	}
 
-	public void setBusinessObject(final Object value) {
+	public final void setBusinessObject(final Object value) {
 		this.bo = value;
 	}
 
@@ -64,27 +64,27 @@ public class BusinessObjectNode implements BusinessObjectContext {
 		return id;
 	}
 
-	public boolean isManual() {
+	public final boolean isManual() {
 		return manual;
 	}
 
-	public void setManual(final boolean value) {
+	public final void setManual(final boolean value) {
 		this.manual = value;
 	}
 
-	public ContentsFilter getAutoContentsFilter() {
+	public final ContentsFilter getAutoContentsFilter() {
 		return autoContentsFilter;
 	}
 
-	public void setAutoContentsFilter(final ContentsFilter value) {
+	public final void setAutoContentsFilter(final ContentsFilter value) {
 		this.autoContentsFilter = value;
 	}
 
-	public Completeness getCompleteness() {
+	public final Completeness getCompleteness() {
 		return completeness;
 	}
 
-	public void setCompleteness(final Completeness value) {
+	public final void setCompleteness(final Completeness value) {
 		this.completeness = Objects.requireNonNull(value, "value must not be null");
 	}
 
@@ -93,7 +93,7 @@ public class BusinessObjectNode implements BusinessObjectContext {
 	 * @return
 	 */
 	@Override
-	public Collection<BusinessObjectNode> getChildren() {
+	public final Collection<BusinessObjectNode> getChildren() {
 		return children == null ? Collections.emptyList() : Collections.unmodifiableCollection(children.values());
 	}
 
@@ -101,11 +101,11 @@ public class BusinessObjectNode implements BusinessObjectContext {
 	 * Returns an unmodifiable map. Never null.
 	 * @return
 	 */
-	public Map<RelativeBusinessObjectReference, BusinessObjectNode> getChildrenMap() {
+	public final Map<RelativeBusinessObjectReference, BusinessObjectNode> getChildrenMap() {
 		return children == null ? Collections.emptyMap() : Collections.unmodifiableMap(children);
 	}
 
-	public BusinessObjectNode getChild(final RelativeBusinessObjectReference ref) {
+	public final BusinessObjectNode getChild(final RelativeBusinessObjectReference ref) {
 		if(children == null) {
 			return null;
 		}
@@ -204,7 +204,7 @@ public class BusinessObjectNode implements BusinessObjectContext {
 			max = Math.max(max, n.getId());
 		}
 
-		Math.max(max, getMaxIdForChildren(n));
+		max = Math.max(max, getMaxIdForChildren(n));
 
 		return max;
 	}

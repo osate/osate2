@@ -7,6 +7,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
+
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.xtext.naming.QualifiedName;
@@ -37,7 +38,7 @@ public class DefaultDiagramConfigurationDialogModel implements DiagramConfigurat
 	private final BusinessObjectProviderHelper bopHelper;
 	private final BusinessObjectContextHelper bocHelper;
 	private long nextNodeId;
-	
+
 	public DefaultDiagramConfigurationDialogModel(final ProjectReferenceService referenceService,
 			final ExtensionService extService,
 			final ProjectProvider projectProvider,
@@ -49,25 +50,25 @@ public class DefaultDiagramConfigurationDialogModel implements DiagramConfigurat
 		this.bocHelper = new BusinessObjectContextHelper(extService);
 		this.nextNodeId = nextNodeId;
 	}
-	
+
 
 	@Override
 	public void close() {
 		bocHelper.close();
 		bopHelper.close();
 	}
-	
+
 	@Override
 	public RelativeBusinessObjectReference getRelativeBusinessObjectReference(final Object bo) {
 		final RelativeBusinessObjectReference result = referenceService.getRelativeReference(bo);
 		return result;
 	}
-	
+
 	@Override
 	public Collection<Object> getChildBusinessObjects(final BusinessObjectContext boc) {
 		return bopHelper.getChildBusinessObjects(boc);
 	}
-	
+
 	@Override
 	public String getName(final BusinessObjectContext boc) {
 		// Build a prefix based on the business object type
@@ -80,23 +81,23 @@ public class DefaultDiagramConfigurationDialogModel implements DiagramConfigurat
 		} else {
 			prefix ="";
 		}
-		
+
 		// Call the business object handler's GetName method
 		final Object boh = extService.getApplicableBusinessObjectHandler(bo);
-		
+
 		String baseName = bocHelper.getName(boc, boh);
 		if(baseName == null) {
 			if(bo instanceof NamedElement) {
 				baseName = ((NamedElement) bo).getName();
-			} 
-			
+			}
+
 			if(baseName == null) {
 				return "<Unnamed " + bo.getClass() + ">";
 			} else {
 				return baseName;
 			}
 		}
-		
+
 		return prefix + baseName;
 	}
 
@@ -104,12 +105,12 @@ public class DefaultDiagramConfigurationDialogModel implements DiagramConfigurat
 	public Collection<ContentsFilter> getContentsFilters() {
 		return Arrays.asList(BuiltinContentsFilter.values());
 	}
-	
+
 	@Override
 	public ContentsFilter getDefaultContentsFilter(final Object bo) {
 		return BuiltinContentsFilter.getDefault(bo);
 	}
-	
+
 	@Override
 	public Map<String, Collection<String>> getAadlProperties() {
 		// Retrieve properties from the EMF Index
@@ -124,36 +125,36 @@ public class DefaultDiagramConfigurationDialogModel implements DiagramConfigurat
 					propertySetProperties = new ArrayList<>();
 					result.put(propertySetName, propertySetProperties);
 				}
-				
+
 				propertySetProperties.add(propertyName);
 			}
 		}
 		return result;
 	}
-	
+
 	@Override
 	public Object getBusinessObject(final CanonicalBusinessObjectReference ref) {
 		return referenceService.resolve(ref);
 	}
-	
-	@Override 
+
+	@Override
 	public String getContextDescription(final Object contextBo) {
 		if(contextBo instanceof NamedElement) {
 			final NamedElement ne = (NamedElement)contextBo;
 			return ne.getQualifiedName() + " (" + StringUtil.camelCaseToUser(ne.eClass().getName()) + ")";
 		} else {
 			// Create a business object context and use getName() to return the type.
-			return getName(new BusinessObjectContext() {				
+			return getName(new BusinessObjectContext() {
 				@Override
 				public Collection<? extends Queryable> getChildren() {
 					return Collections.emptyList();
 				}
-				
+
 				@Override
 				public BusinessObjectContext getParent() {
 					return null;
 				}
-				
+
 				@Override
 				public Object getBusinessObject() {
 					return contextBo;
@@ -161,7 +162,7 @@ public class DefaultDiagramConfigurationDialogModel implements DiagramConfigurat
 			});
 		}
 	}
-	
+
 	@Override
 	public boolean showBusinessObject(final Object bo) {
 		return !(BuiltinContentsFilter.ALLOW_FUNDAMENTAL.test(bo) || bo instanceof PropertyValueGroup);

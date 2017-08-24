@@ -782,6 +782,26 @@
         </propertyCategory> 
     </propertyContributor> 
 </extension>
+
+<extension point="org.eclipse.ui.views.properties.tabbed.propertyTabs">
+	<propertyTabs contributorId="org.osate.ge.editor.AgeDiagramEditor">
+		<propertyTab
+            category="org.osate.ge"
+            id="org.osate.ge.Style"
+            label="Appearance"/>
+	</propertyTabs>
+</extension>
+
+<extension point="org.eclipse.ui.views.properties.tabbed.propertySections">
+	<propertySections contributorId="org.osate.ge.editor.AgeDiagramEditor">
+		<propertySection
+			class="org.osate.ge.internal.ui.properties.AppearancePropertySection"
+			filter="org.osate.ge.internal.ui.properties.AppearancePropertySection$SelectionFilter"
+			id="org.osate.ge.Appearance"
+			tab="org.osate.ge.Style">
+     </propertySection>
+	</propertySections>
+</extension>
        
  <extension
        point="org.eclipse.core.expressions.definitions">

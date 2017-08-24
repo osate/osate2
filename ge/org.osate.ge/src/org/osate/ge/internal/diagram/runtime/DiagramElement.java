@@ -29,6 +29,7 @@ public class DiagramElement implements DiagramNode, ModifiableDiagramElementCont
 	private final DiagramElementCollection children = new DiagramElementCollection();
 	private String name;
 	private AgeGraphicalConfiguration graphicalConfig; // Required after initialization.
+	private Style style = Style.defaultStyle; // Will never be null
 
 	// Shape Specific
 	private Point position; // Optional. Relative to container.
@@ -195,6 +196,14 @@ public class DiagramElement implements DiagramNode, ModifiableDiagramElementCont
 		return size != null;
 	}
 
+	public final Style getStyle() {
+		return style;
+	}
+
+	public final void setStyle(final Style value) {
+		this.style = Objects.requireNonNull(value, "value must not be null");
+	}
+
 	/**
 	 *
 	 * @return copy of the element's size or null.
@@ -235,8 +244,16 @@ public class DiagramElement implements DiagramNode, ModifiableDiagramElementCont
 		return graphicalConfig.graphic;
 	}
 
-	public final Color getDefaultForeground() {
-		return graphicalConfig.defaultForeground;
+	public final Color getDefaultBackgroundColor() {
+		return graphicalConfig.defaultBackgroundColor;
+	}
+
+	public final Color getDefaultOutlineColor() {
+		return graphicalConfig.defaultOutlineColor;
+	}
+
+	public final Color getDefaultFontColor() {
+		return graphicalConfig.defaultFontColor;
 	}
 
 	public final boolean isDecoration() {
@@ -336,6 +353,44 @@ public class DiagramElement implements DiagramNode, ModifiableDiagramElementCont
 			sb.append(innerIndention);
 			sb.append("bendpoints: ");
 			sb.append(Arrays.toString(bendpoints.toArray(new Point[bendpoints.size()])));
+			sb.append(System.lineSeparator());
+		}
+
+		final java.awt.Color awtBackground = style.getBackgroundColor();
+		if(awtBackground != null) {
+			sb.append(innerIndention);
+			sb.append("background: ");
+			sb.append(awtBackground);
+			sb.append(System.lineSeparator());
+		}
+
+		final java.awt.Color awtOutline= style.getOutlineColor();
+		if(style.getOutlineColor() != null) {
+			sb.append(innerIndention);
+			sb.append("outline: ");
+			sb.append(awtOutline);
+			sb.append(System.lineSeparator());
+		}
+
+		final java.awt.Color awtFontColor = style.getFontColor();
+		if(awtFontColor != null) {
+			sb.append(innerIndention);
+			sb.append("fontcolor: ");
+			sb.append(awtFontColor);
+			sb.append(System.lineSeparator());
+		}
+
+		if(style.getFontSize() != null) {
+			sb.append(innerIndention);
+			sb.append("fontsize: ");
+			sb.append(style.getFontSize());
+			sb.append(System.lineSeparator());
+		}
+
+		if(style.getLineWidth() != null) {
+			sb.append(innerIndention);
+			sb.append("linewidth: ");
+			sb.append(style.getLineWidth());
 			sb.append(System.lineSeparator());
 		}
 

@@ -50,6 +50,7 @@ import org.osate.ge.internal.diagram.runtime.DiagramNode;
 import org.osate.ge.internal.diagram.runtime.ElementAddedEvent;
 import org.osate.ge.internal.diagram.runtime.ElementRemovedEvent;
 import org.osate.ge.internal.diagram.runtime.ElementUpdatedEvent;
+import org.osate.ge.internal.diagram.runtime.FontSize;
 import org.osate.ge.internal.diagram.runtime.ModificationsCompletedEvent;
 import org.osate.ge.internal.diagram.runtime.boTree.Completeness;
 import org.osate.ge.internal.graphics.AgeConnection;
@@ -96,12 +97,9 @@ public class GraphitiAgeDiagram implements NodePictogramBiMap, AutoCloseable {
 	 * It is a parameter rather than creating it in the constructor to work around initializing sequence issues.
 	 * @param editingDomain is the editing domain to use to make modifications to the diagram. It must not contain any other diagrams.
 	 */
-	public GraphitiAgeDiagram(final AgeDiagram ageDiagram,
-			final Diagram graphitiDiagram,
-			final EditingDomain editingDomain,
-			final CommandExecutor cmdExecutor,
-			final ColoringProvider coloringProvider,
-			final UpdaterListener updateListener) {
+	public GraphitiAgeDiagram(final AgeDiagram ageDiagram, final Diagram graphitiDiagram,
+			final EditingDomain editingDomain, final CommandExecutor cmdExecutor,
+			final ColoringProvider coloringProvider, final UpdaterListener updateListener) {
 		this.ageDiagram = Objects.requireNonNull(ageDiagram, "ageDiagram must not be null");
 		Objects.requireNonNull(editingDomain, "editingDomain must not be null");
 		this.coloringProvider = Objects.requireNonNull(coloringProvider, "coloringProvider must not be null");
@@ -111,12 +109,8 @@ public class GraphitiAgeDiagram implements NodePictogramBiMap, AutoCloseable {
 
 		// Create a URI to use for the resource. This resource uses a scheme which does not have a registered handler.
 		// A handler is not needed the resource's save() should not be called. The URI just serves as a unique identifier in the resource set.
-		final URI ignoredUri = URI.createHierarchicalURI("osate_ge_ignore",
-				null,
-				null,
-				new String[] { "internal.aadl_diagram" },
-				null,
-				null);
+		final URI ignoredUri = URI.createHierarchicalURI("osate_ge_ignore", null, null,
+				new String[] { "internal.aadl_diagram" }, null, null);
 
 		// Create the diagram resource and add the diagram to it.
 		final Resource diagramResource = editingDomain.getResourceSet().createResource(ignoredUri);
@@ -144,7 +138,8 @@ public class GraphitiAgeDiagram implements NodePictogramBiMap, AutoCloseable {
 
 		ageDiagram.addModificationListener(modificationListener); // Listen for updates
 		ageDiagram.setTransactionHandler((label, op) -> {
-			final boolean inTransaction = ((InternalTransactionalEditingDomain)editingDomain).getActiveTransaction() != null;
+			final boolean inTransaction = ((InternalTransactionalEditingDomain) editingDomain)
+					.getActiveTransaction() != null;
 
 			// Don't create a transaction if already in one or if the modification listener is disabled. In the latter case, the graphiti diagram will not be
 			// updated.
@@ -222,13 +217,13 @@ public class GraphitiAgeDiagram implements NodePictogramBiMap, AutoCloseable {
 	 */
 	public void modify(final String label, final DiagramModifier modifier, final boolean updateGraphitiDiagram) {
 		try {
-			if(!updateGraphitiDiagram){
+			if (!updateGraphitiDiagram) {
 				modificationListener.disable();
 			}
 
 			this.ageDiagram.modify(label, modifier);
 		} finally {
-			if(!updateGraphitiDiagram) {
+			if (!updateGraphitiDiagram) {
 				modificationListener.enable();
 			}
 		}
@@ -250,7 +245,7 @@ public class GraphitiAgeDiagram implements NodePictogramBiMap, AutoCloseable {
 	 */
 	private void removeMappingForBranch(final DiagramNode dn) {
 		// Remove mapping for children
-		for(final DiagramNode child : dn.getDiagramElements()) {
+		for (final DiagramNode child : dn.getDiagramElements()) {
 			removeMappingForBranch(child);
 		}
 
@@ -266,7 +261,7 @@ public class GraphitiAgeDiagram implements NodePictogramBiMap, AutoCloseable {
 	 * @param containerShape
 	 */
 	private void ensureCreatedChildren(final DiagramNode dn, final PictogramElement containerPe) {
-		for(final DiagramElement e : dn.getDiagramElements()) {
+		for (final DiagramElement e : dn.getDiagramElements()) {
 			ensureCreatedDiagramElement(e, containerPe);
 		}
 	}
@@ -280,19 +275,20 @@ public class GraphitiAgeDiagram implements NodePictogramBiMap, AutoCloseable {
 		final Graphic g = de.getGraphic();
 
 		// Create/Update the pictogram Element
-		final PictogramElement pe = createUpdatePictogramElementForGraphic(graphitiDiagram, g, containerPe, getPictogramElement(de));
+		final PictogramElement pe = createUpdatePictogramElementForGraphic(graphitiDiagram, g, containerPe,
+				getPictogramElement(de));
 		Objects.requireNonNull(pe, "pe must not be null");
 
 		// Set whether the pictogram element is active based if the graphic is a decoration
-		if(de.getGraphicalConfiguration().isDecoration) {
+		if (de.getGraphicalConfiguration().isDecoration) {
 			pe.setActive(!(containerPe instanceof Connection) || g instanceof Label);
 
-			if(containerPe instanceof Connection) {
-				if(!(g instanceof Label || g instanceof Poly)) {
+			if (containerPe instanceof Connection) {
+				if (!(g instanceof Label || g instanceof Poly)) {
 					throw new RuntimeException("Unsupported connection decoration graphic: " + g);
 				}
 			} else {
-				if(!(g instanceof Label)) {
+				if (!(g instanceof Label)) {
 					throw new RuntimeException("Unsupported shape decoration graphic: " + g);
 				}
 			}
@@ -301,11 +297,11 @@ public class GraphitiAgeDiagram implements NodePictogramBiMap, AutoCloseable {
 		addMapping(de, pe);
 
 		// Configure PE if one exists
-		if(pe instanceof Shape) {
-			final Shape shape = ((Shape)pe);
+		if (pe instanceof Shape) {
+			final Shape shape = ((Shape) pe);
 			AnchorUtil.createOrUpdateChopboxAnchor(shape);
 
-			if(de.getDockArea() != null) {
+			if (de.getDockArea() != null) {
 				// Create/update the flow specification anchor for all docked shapes
 				AnchorUtil.createOrUpdateFixPointAnchor(shape, AnchorNames.FLOW_SPECIFICATION, 0, 0, false);
 			}
@@ -316,7 +312,7 @@ public class GraphitiAgeDiagram implements NodePictogramBiMap, AutoCloseable {
 	}
 
 	private void updateChildren(final DiagramNode elementContainer, final boolean recursive) {
-		for(final DiagramElement e : elementContainer.getDiagramElements()) {
+		for (final DiagramElement e : elementContainer.getDiagramElements()) {
 			updateDiagramElement(e, recursive);
 		}
 	}
@@ -330,21 +326,21 @@ public class GraphitiAgeDiagram implements NodePictogramBiMap, AutoCloseable {
 		final Graphic g = de.getGraphic();
 
 		final PictogramElement pe = getPictogramElement(de);
-		if(pe == null) {
+		if (pe == null) {
 			return;
 		}
 
 		// Configure PE if one exists
-		if(pe instanceof Shape) {
+		if (pe instanceof Shape) {
 			final Shape shape = ((Shape) pe);
 
 			// Remove all unnamed non-chopbox anchors that do not have an incoming or outgoing connection
 			final Iterator<Anchor> it = shape.getAnchors().iterator();
-			while(it.hasNext()) {
+			while (it.hasNext()) {
 				final Anchor anchor = it.next();
-				if(!(anchor instanceof ChopboxAnchor) &&
-						(anchor.getIncomingConnections().size() + anchor.getOutgoingConnections().size()) == 0 &&
-						PropertyUtil.getName(anchor) == null) {
+				if (!(anchor instanceof ChopboxAnchor)
+						&& (anchor.getIncomingConnections().size() + anchor.getOutgoingConnections().size()) == 0
+						&& PropertyUtil.getName(anchor) == null) {
 					it.remove();
 				}
 			}
@@ -352,12 +348,12 @@ public class GraphitiAgeDiagram implements NodePictogramBiMap, AutoCloseable {
 			PropertyUtil.setDockArea(pe, de.getDockArea());
 
 			// Delete Transient Shapes
-			if(shape instanceof ContainerShape) {
+			if (shape instanceof ContainerShape) {
 				List<Shape> shapesToDelete = null; // Shapes that should be deleted
-				final ContainerShape containerShape = (ContainerShape)shape;
-				for(final Shape childShape : containerShape.getChildren()) {
-					if(PropertyUtil.isTransient(childShape)) {
-						if(shapesToDelete == null) {
+				final ContainerShape containerShape = (ContainerShape) shape;
+				for (final Shape childShape : containerShape.getChildren()) {
+					if (PropertyUtil.isTransient(childShape)) {
+						if (shapesToDelete == null) {
 							shapesToDelete = new ArrayList<Shape>();
 						}
 
@@ -366,19 +362,19 @@ public class GraphitiAgeDiagram implements NodePictogramBiMap, AutoCloseable {
 				}
 
 				// Delete all shapes that were marked for deletion
-				if(shapesToDelete != null) {
-					for(final Shape s : shapesToDelete) {
+				if (shapesToDelete != null) {
+					for (final Shape s : shapesToDelete) {
 						EcoreUtil.delete(s, true);
 					}
 				}
 			}
-		} else if(pe instanceof Connection) {
-			final Connection connection = (Connection)pe;
-			final AgeConnection ac = ((AgeConnection)g);
+		} else if (pe instanceof Connection) {
+			final Connection connection = (Connection) pe;
+			final AgeConnection ac = ((AgeConnection) g);
 			// Set Anchors
 			connection.setStart(getAnchor(de.getStartElement()));
 
-			if(ac.isFlowIndicator) {
+			if (ac.isFlowIndicator) {
 				// If it is a flow indicator, get the appropriate anchor from the start element
 				final PictogramElement startPe = diagramNodeToPictogramElementMap.get(de.getStartElement());
 				connection.setEnd(AnchorUtil.getAnchorByName(startPe, AnchorNames.FLOW_SPECIFICATION));
@@ -392,22 +388,22 @@ public class GraphitiAgeDiagram implements NodePictogramBiMap, AutoCloseable {
 			ga.setLineWidth(2);
 			ga.setForeground(Graphiti.getGaService().manageColor(graphitiDiagram, IColorConstant.BLACK));
 
-			if(pe instanceof CurvedConnection) {
-				ConnectionUtil.updateControlPoints((CurvedConnection)pe);
+			if (pe instanceof CurvedConnection) {
+				ConnectionUtil.updateControlPoints((CurvedConnection) pe);
 			}
 
-			if(pe instanceof FreeFormConnection) {
-				final FreeFormConnection ffc = (FreeFormConnection)pe;
+			if (pe instanceof FreeFormConnection) {
+				final FreeFormConnection ffc = (FreeFormConnection) pe;
 				final List<org.eclipse.graphiti.mm.algorithms.styles.Point> graphitiBendpoints = ffc.getBendpoints();
 				graphitiBendpoints.clear();
-				for(final org.osate.ge.internal.diagram.runtime.Point bendpoint : de.getBendpoints()) {
+				for (final org.osate.ge.internal.diagram.runtime.Point bendpoint : de.getBendpoints()) {
 					graphitiBendpoints.add(Graphiti.getGaService().createPoint(bendpoint.x, bendpoint.y));
 				}
 			}
 		}
 
 		// Update Children
-		if(recursive) {
+		if (recursive) {
 			updateChildren(de, recursive);
 		}
 
@@ -415,22 +411,29 @@ public class GraphitiAgeDiagram implements NodePictogramBiMap, AutoCloseable {
 		final String completenessSuffix = de.getCompleteness() == Completeness.INCOMPLETE ? incompleteIndicator : "";
 		final String primaryLabelStr = de.getName() == null ? null : (de.getName() + completenessSuffix);
 
-		if(pe instanceof ContainerShape) {
+		if (pe instanceof ContainerShape) {
+			final FontSize fontSize = de.getStyle().getFontSize() == null ? FontSize.Default
+					: de.getStyle().getFontSize();
+
 			// Create Labels
-			if(primaryLabelStr != null) {
-				final Shape labelShape = LabelUtil.createLabelShape(graphitiDiagram, (ContainerShape)pe, ShapeNames.primaryLabelShapeName, primaryLabelStr, true);
+			if (primaryLabelStr != null) {
+				final Shape labelShape;
+				labelShape = LabelUtil.createLabelShape(graphitiDiagram, (ContainerShape) pe,
+						ShapeNames.primaryLabelShapeName, primaryLabelStr, fontSize.getValue());
+
 				labelShape.setActive(false);
 			}
 
-			final AgeShape ageShape = (AgeShape)de.getGraphic();
+			final AgeShape ageShape = (AgeShape) de.getGraphic();
 			final String annotation = ageShape.getAnnotation();
-			if(annotation != null) {
-				final Shape annotationShape = LabelUtil.createLabelShape(graphitiDiagram, (ContainerShape)pe, ShapeNames.annotationShapeName, annotation, true);
+			if (annotation != null) {
+				final Shape annotationShape = LabelUtil.createLabelShape(graphitiDiagram, (ContainerShape) pe,
+						ShapeNames.annotationShapeName, annotation, fontSize.getValue());
 				annotationShape.setActive(false);
 			}
-		} else if(pe instanceof Connection) {
-			final Connection connection = (Connection)pe;
-			final AgeConnection ageConnection = (AgeConnection)de.getGraphic();
+		} else if (pe instanceof Connection) {
+			final Connection connection = (Connection) pe;
+			final AgeConnection ageConnection = (AgeConnection) de.getGraphic();
 
 			// Clear all decorators which are not associated with a diagram node
 			connection.getConnectionDecorators().removeIf((cd) -> getDiagramNode(cd) == null);
@@ -440,24 +443,29 @@ public class GraphitiAgeDiagram implements NodePictogramBiMap, AutoCloseable {
 			// Create label decorator
 			int labelX = 0;
 			int labelY = 0;
-			if(primaryLabelStr != null) {
+			if (primaryLabelStr != null) {
 				final IPeCreateService peCreateService = Graphiti.getPeCreateService();
-				final ConnectionDecorator textDecorator = peCreateService.createConnectionDecorator(connection, true, ageConnection.isFlowIndicator ? 1.0 : 0.5, true);
+				final ConnectionDecorator textDecorator = peCreateService.createConnectionDecorator(connection, true,
+						ageConnection.isFlowIndicator ? 1.0 : 0.5, true);
 				final Text text = gaService.createDefaultText(graphitiDiagram, textDecorator);
-				PropertyUtil.setIsColoringChild(text, true);
-				LabelUtil.setStyle(graphitiDiagram, text);
+				PropertyUtil.setIsStylingChild(text, true);
+				TextUtil.setStyle(graphitiDiagram, text, de.getStyle().getFontSize());
+
 				PropertyUtil.setName(textDecorator, ShapeNames.primaryLabelShapeName);
 				text.setValue(primaryLabelStr);
 
-				final org.osate.ge.internal.diagram.runtime.Point primaryLabelPosition = de.getConnectionPrimaryLabelPosition();
-				if(primaryLabelPosition == null) {
+				final org.osate.ge.internal.diagram.runtime.Point primaryLabelPosition = de
+						.getConnectionPrimaryLabelPosition();
+				if (primaryLabelPosition == null) {
 					// Set default position
-					final IDimension labelTextSize = GraphitiUi.getUiLayoutService().calculateTextSize(primaryLabelStr, text.getFont());
-					if(ageConnection.isFlowIndicator) { // Special default position for flow indicator labels
-						labelX = -28; // Position the label such that it the default text does not intersect with the border when docked on the left or on the right
+					final IDimension labelTextSize = GraphitiUi.getUiLayoutService().calculateTextSize(primaryLabelStr,
+							text.getFont());
+					if (ageConnection.isFlowIndicator) { // Special default position for flow indicator labels
+						labelX = -28; // Position the label such that it the default text does not intersect with the border when docked on the left or on the
+						// right
 						labelY = 5;
 					} else {
-						labelX = -labelTextSize.getWidth()/2;
+						labelX = -labelTextSize.getWidth() / 2;
 						labelY = -labelTextSize.getHeight() - 2;
 					}
 				} else {
@@ -472,24 +480,25 @@ public class GraphitiAgeDiagram implements NodePictogramBiMap, AutoCloseable {
 			createDecorator(connection, ageConnection.dstTerminator, 1.0);
 		}
 
-		// Refresh the Top Level Graphics Algorithm. Connections do not have their graphics algorithms recreated because they all have the same type of GraphicsAlgorithm
+		// Refresh the Top Level Graphics Algorithm. Connections do not have their graphics algorithms recreated because they all have the same type of
+		// GraphicsAlgorithm
 		// and because there are issues when recreating the graphics algorithm of connections. Upon update, the connections may disappear.
-		if(pe instanceof Shape) {
-			final Shape shape = (Shape)pe;
+		if (pe instanceof Shape) {
+			final Shape shape = (Shape) pe;
 			final int width = Math.max(10, de.getWidth());
 			final int height = Math.max(10, de.getHeight());
 
 			// Set the position of the refreshed graphics algorithm
 			final IGaService gaService = Graphiti.getGaService();
 			final GraphicsAlgorithm newGa = gaService.createInvisibleRectangle(shape);
-			PropertyUtil.setIsColoringContainer(newGa, true);
+			PropertyUtil.setIsStylingContainer(newGa, true);
 
 			// Set Size
 			gaService.setSize(newGa, width, height);
 
 			// Set Position
 			final org.osate.ge.internal.diagram.runtime.Point position = de.getPosition();
-			if(position != null) {
+			if (position != null) {
 				gaService.setLocation(newGa, position.x, position.y);
 				PropertyUtil.setIsLayedOut(pe, true);
 			}
@@ -500,7 +509,7 @@ public class GraphitiAgeDiagram implements NodePictogramBiMap, AutoCloseable {
 	 * Finishes updating all elements contained in the diagram.
 	 */
 	private void finishUpdating(final AgeDiagram diagram) {
-		for(final DiagramElement element : diagram.getDiagramElements()) {
+		for (final DiagramElement element : diagram.getDiagramElements()) {
 			finishUpdating(element);
 		}
 	}
@@ -513,21 +522,21 @@ public class GraphitiAgeDiagram implements NodePictogramBiMap, AutoCloseable {
 	 */
 	private void finishUpdating(final DiagramElement element) {
 		final PictogramElement pe = getPictogramElement(element);
-		if(pe instanceof Shape) {
-			final Shape shape = ((Shape)pe);
+		if (pe instanceof Shape) {
+			final Shape shape = ((Shape) pe);
 
 			// Update control points of curved connections which are connected to the shape.
-			for(final Anchor anchor : shape.getAnchors()) {
+			for (final Anchor anchor : shape.getAnchors()) {
 				ConnectionUtil.updateControlPoints(anchor.getIncomingConnections());
 				ConnectionUtil.updateControlPoints(anchor.getOutgoingConnections());
 			}
 
 			AnchorUtil.updateConnectionAnchors(shape, GraphitiAgeDiagram.this);
-		} else if(pe instanceof Connection) {
-			AnchorUtil.updateConnectionAnchor(element, (Connection)pe, GraphitiAgeDiagram.this);
+		} else if (pe instanceof Connection) {
+			AnchorUtil.updateConnectionAnchor(element, (Connection) pe, GraphitiAgeDiagram.this);
 		}
 
-		for(final DiagramElement child : element.getDiagramElements()) {
+		for (final DiagramElement child : element.getDiagramElements()) {
 			finishUpdating(child);
 		}
 	}
@@ -540,49 +549,51 @@ public class GraphitiAgeDiagram implements NodePictogramBiMap, AutoCloseable {
 	 * @param pe is the current pictogram element for the graphic.
 	 * @return
 	 */
-	private static PictogramElement createUpdatePictogramElementForGraphic(final Diagram graphitiDiagram, final Graphic graphic, final PictogramElement containerPe, PictogramElement pe) {
+	private static PictogramElement createUpdatePictogramElementForGraphic(final Diagram graphitiDiagram,
+			final Graphic graphic, final PictogramElement containerPe, PictogramElement pe) {
 		final IPeCreateService peCreateService = Graphiti.getPeCreateService();
 
 		// Create/Change Pictogram Element Based on the Graphic
-		if(graphic instanceof AgeConnection) {
-			final AgeConnection ac = (AgeConnection)graphic;
+		if (graphic instanceof AgeConnection) {
+			final AgeConnection ac = (AgeConnection) graphic;
 
 			// Remove the PE If it is of the wrong type...
-			if(pe != null) {
-				if(!(pe instanceof Connection) || (ac.isCurved && !(pe instanceof CurvedConnection)) || (!ac.isCurved && !(pe instanceof FreeFormConnection))) {
+			if (pe != null) {
+				if (!(pe instanceof Connection) || (ac.isCurved && !(pe instanceof CurvedConnection))
+						|| (!ac.isCurved && !(pe instanceof FreeFormConnection))) {
 					EcoreUtil.delete(pe, true);
 					pe = null;
 				}
 			}
 
-			if(pe == null) {
+			if (pe == null) {
 				// Create the connection
-				if(ac.isCurved) {
-					pe = peCreateService.createCurvedConnection(new double[] {0.0, 0.0}, graphitiDiagram);
+				if (ac.isCurved) {
+					pe = peCreateService.createCurvedConnection(new double[] { 0.0, 0.0 }, graphitiDiagram);
 				} else {
 					pe = peCreateService.createFreeFormConnection(graphitiDiagram);
 				}
 
 				final GraphicsAlgorithm ga = Graphiti.getGaService().createPlainPolyline(pe);
-				PropertyUtil.setIsColoringContainer(ga, true);
-				PropertyUtil.setIsColoringChild(ga, true);
+				PropertyUtil.setIsStylingContainer(ga, true);
+				PropertyUtil.setIsStylingChild(ga, true);
 			}
 
-		} else if(graphic instanceof AgeShape) {
+		} else if (graphic instanceof AgeShape) {
 			// Remove the PE If it is of the wrong type...
-			if(pe != null) {
-				if(!(pe instanceof Shape)) {
+			if (pe != null) {
+				if (!(pe instanceof Shape)) {
 					EcoreUtil.delete(pe, true);
 					pe = null;
 				}
 			}
 
-			if(pe == null) {
-				if(containerPe instanceof ContainerShape) {
+			if (pe == null) {
+				if (containerPe instanceof ContainerShape) {
 					// Create the container shape
-					pe = peCreateService.createContainerShape((ContainerShape)containerPe, true);
-				} else if(containerPe instanceof Connection) {
-					pe = peCreateService.createConnectionDecorator((Connection)containerPe, true, 0.5, true);
+					pe = peCreateService.createContainerShape((ContainerShape) containerPe, true);
+				} else if (containerPe instanceof Connection) {
+					pe = peCreateService.createConnectionDecorator((Connection) containerPe, true, 0.5, true);
 				} else {
 					throw new RuntimeException("Unsupported container: " + containerPe);
 				}
@@ -602,7 +613,7 @@ public class GraphitiAgeDiagram implements NodePictogramBiMap, AutoCloseable {
 
 	public final DiagramElement getDiagramElement(final PictogramElement pe) {
 		final DiagramNode dn = getDiagramNode(pe);
-		return dn instanceof DiagramElement ? (DiagramElement)dn : null;
+		return dn instanceof DiagramElement ? (DiagramElement) dn : null;
 	}
 
 	@Override
@@ -617,7 +628,7 @@ public class GraphitiAgeDiagram implements NodePictogramBiMap, AutoCloseable {
 	 */
 	public DiagramElement getClosestDiagramElement(final PictogramElement pe) {
 		final DiagramNode dn = getClosestDiagramNode(pe);
-		return dn instanceof DiagramElement ? (DiagramElement)dn : null;
+		return dn instanceof DiagramElement ? (DiagramElement) dn : null;
 	}
 
 	/**
@@ -628,10 +639,10 @@ public class GraphitiAgeDiagram implements NodePictogramBiMap, AutoCloseable {
 	 */
 	public DiagramNode getClosestDiagramNode(PictogramElement pe) {
 		DiagramNode result = getDiagramNode(pe);
-		while(result == null) {
-			if(pe instanceof ConnectionDecorator) {
+		while (result == null) {
+			if (pe instanceof ConnectionDecorator) {
 				pe = ((ConnectionDecorator) pe).getConnection();
-			} else if(pe instanceof Shape) {
+			} else if (pe instanceof Shape) {
 				pe = ((Shape) pe).getContainer();
 			} else {
 				break;
@@ -654,31 +665,32 @@ public class GraphitiAgeDiagram implements NodePictogramBiMap, AutoCloseable {
 	// This function assumes that the foreground color of all applicable graphics algorithms is black by default.
 	// When the coloring is disabled, the foreground colors are reverted to black.
 	// Must be called within a transaction
-	public final void refreshGraphicColoring(final DiagramElement de) {
+	public final void refreshStyle(final DiagramElement de) {
 		final PictogramElement pe = getPictogramElement(de);
-		if(pe != null) {
-			LayoutUtil.refreshGraphicColoring(graphitiDiagram, pe, LayoutUtil.getFinalColor(de, coloringProvider));
+		if (pe != null) {
+			LayoutUtil.refreshStyle(graphitiDiagram, pe, de, coloringProvider, this);
 		}
 	}
 
 	private Anchor getAnchor(final DiagramElement de) {
 		final PictogramElement pe = diagramNodeToPictogramElementMap.get(de);
-		if(pe == null) {
+		if (pe == null) {
 			return null;
 		}
 
-		if(pe instanceof Connection) {
-			return AnchorUtil.getOrCreateConnectionAnchor(de, (Connection)pe, this);
-		} else if(pe instanceof AnchorContainer) {
-			final AnchorContainer anchorContainer = (AnchorContainer)pe;
+		if (pe instanceof Connection) {
+			return AnchorUtil.getOrCreateConnectionAnchor(de, (Connection) pe, this);
+		} else if (pe instanceof AnchorContainer) {
+			final AnchorContainer anchorContainer = (AnchorContainer) pe;
 			return Graphiti.getPeService().getChopboxAnchor(anchorContainer);
 		} else {
 			return null;
 		}
 	}
 
-	private void createDecorator(final Connection connection, final AgeConnectionTerminator terminator, final double position) {
-		if(terminator != null) {
+	private void createDecorator(final Connection connection, final AgeConnectionTerminator terminator,
+			final double position) {
+		if (terminator != null) {
 			final IPeCreateService peCreateService = Graphiti.getPeCreateService();
 			final ConnectionDecorator cd = peCreateService.createConnectionDecorator(connection, false, position, true);
 			final Diagram diagram = connection.getParent();
@@ -686,38 +698,40 @@ public class GraphitiAgeDiagram implements NodePictogramBiMap, AutoCloseable {
 			final Color white = Graphiti.getGaService().manageColor(diagram, IColorConstant.WHITE);
 
 			final GraphicsAlgorithm ga;
-			switch(terminator.type) {
+			switch (terminator.type) {
 			case FILLED_ARROW:
 				ga = createPolygonArrow(cd, terminator.size);
 				ga.setForeground(black);
 				ga.setBackground(black);
+				PropertyUtil.setIsStylingChild(ga, true);
 				break;
 
 			case OPEN_ARROW:
 				ga = createPolygonArrow(cd, terminator.size);
 				ga.setForeground(black);
 				ga.setBackground(white);
+				PropertyUtil.setIsStylingChild(ga, false);
 				break;
 
 			case LINE_ARROW:
 				ga = createLineArrow(cd, terminator.size);
 				ga.setForeground(black);
 				ga.setBackground(white);
+				PropertyUtil.setIsStylingChild(ga, true);
 				break;
 
 			case ORTHOGONAL_LINE:
 				ga = createOrthogonalLine(cd);
 				ga.setForeground(black);
 				ga.setBackground(white);
+				PropertyUtil.setIsStylingChild(ga, true);
 				break;
 
 			default:
 				throw new RuntimeException("Unsupported terminator type: " + terminator.type);
 			}
 
-			PropertyUtil.setIsColoringChild(ga, true);
-
-			if(terminator.reversed) {
+			if (terminator.reversed) {
 				AgeGraphitiGraphicsUtil.mirrorX(ga);
 			}
 		}
@@ -725,54 +739,42 @@ public class GraphitiAgeDiagram implements NodePictogramBiMap, AutoCloseable {
 
 	private GraphicsAlgorithm createOrthogonalLine(final GraphicsAlgorithmContainer gaContainer) {
 		final IGaService gaService = Graphiti.getGaService();
-		final GraphicsAlgorithm ga = gaService.createPlainPolyline(gaContainer, new int[] {
-				0, 8,
-				0, -8});
+		final GraphicsAlgorithm ga = gaService.createPlainPolyline(gaContainer, new int[] { 0, 8, 0, -8 });
 		ga.setLineWidth(2);
 
 		return ga;
 	}
 
-	private GraphicsAlgorithm createLineArrow(final GraphicsAlgorithmContainer gaContainer, final ConnectionTerminatorSize size) {
+	private GraphicsAlgorithm createLineArrow(final GraphicsAlgorithmContainer gaContainer,
+			final ConnectionTerminatorSize size) {
 		final IGaService gaService = Graphiti.getGaService();
-		switch(size) {
+		switch (size) {
 		case REGULAR:
-			return gaService.createPlainPolyline(gaContainer, new int[] {
-					-14, 8,
-					2, 0,
-					-14, -8});
+			return gaService.createPlainPolyline(gaContainer, new int[] { -14, 8, 2, 0, -14, -8 });
 		case SMALL:
-			return gaService.createPlainPolyline(gaContainer, new int[] {
-					-6, 5,
-					2, 0,
-					-6, -5});
+			return gaService.createPlainPolyline(gaContainer, new int[] { -6, 5, 2, 0, -6, -5 });
 		}
 
 		throw new RuntimeException("Unsupported connection terminator size: " + size);
 	}
 
-	private GraphicsAlgorithm createPolygonArrow(final GraphicsAlgorithmContainer gaContainer, final ConnectionTerminatorSize size) {
+	private GraphicsAlgorithm createPolygonArrow(final GraphicsAlgorithmContainer gaContainer,
+			final ConnectionTerminatorSize size) {
 		final IGaService gaService = Graphiti.getGaService();
-		switch(size) {
+		switch (size) {
 		case REGULAR:
-			return gaService.createPlainPolygon(gaContainer, new int[] {
-					-14, 8,
-					2, 0,
-					-14, -8});
+			return gaService.createPlainPolygon(gaContainer, new int[] { -14, 8, 2, 0, -14, -8 });
 		case SMALL:
-			return gaService.createPlainPolygon(gaContainer, new int[] {
-					-6, 4,
-					2, 0,
-					-6, -4});
+			return gaService.createPlainPolygon(gaContainer, new int[] { -6, 4, 2, 0, -6, -4 });
 		}
 
 		throw new RuntimeException("Unsupported connection terminator size: " + size);
 	}
 
 	private DiagramNode getUndockedDiagramNode(DiagramNode n) {
-		while(n instanceof DiagramElement) {
+		while (n instanceof DiagramElement) {
 			final DiagramElement e = ((DiagramElement) n);
-			if(e.getDockArea() == null) {
+			if (e.getDockArea() == null) {
 				return e;
 			}
 
@@ -807,7 +809,6 @@ public class GraphitiAgeDiagram implements NodePictogramBiMap, AutoCloseable {
 		public void elementRemoved(final ElementRemovedEvent e) {
 			if (enabled && !inBeforeModificationsCompleted) {
 				elementsToRemove.add(e.element);
-				//elementsToAdd.remove(e.element);
 				elementsToUpdate.remove(e.element);
 			}
 		}
@@ -822,11 +823,11 @@ public class GraphitiAgeDiagram implements NodePictogramBiMap, AutoCloseable {
 				// This ensures the the pictogram element is recreated.
 				final boolean peIsConnection = getPictogramElement(e.element) instanceof Connection;
 				final boolean graphicIsConnection = e.element.getGraphic() instanceof AgeConnection;
-				if(peIsConnection == graphicIsConnection) {
+				if (peIsConnection == graphicIsConnection) {
 					// All updates are treated the same at this point. Each element is updated and containers are layed out.
-					if(!elementsToRemove.contains(e.element)) {
+					if (!elementsToRemove.contains(e.element)) {
 						// If the element is already in the elements to update set, remove it so that it will be inserted at the end of the set
-						if(elementsToUpdate.contains(e.element)) {
+						if (elementsToUpdate.contains(e.element)) {
 							elementsToUpdate.remove(e.element);
 						}
 
@@ -840,7 +841,7 @@ public class GraphitiAgeDiagram implements NodePictogramBiMap, AutoCloseable {
 
 		@Override
 		public void beforeModificationsCompleted(BeforeModificationsCompletedEvent event) {
-			if(enabled) {
+			if (enabled) {
 				try {
 					inBeforeModificationsCompleted = true;
 
@@ -873,7 +874,10 @@ public class GraphitiAgeDiagram implements NodePictogramBiMap, AutoCloseable {
 								final DiagramNode undockedContainer = getUndockedDiagramNode(element.getContainer());
 								nodesToLayout.add(undockedContainer);
 							} else if (pe instanceof Connection) { // Relayout connections
-								nodesToLayout.add(getUndockedDiagramNode(element));
+								// Relayout the entire diagram. This is needed because line width of connection do not
+								// update visually until the diagram layout. Unsure what actually triggers the update of the UI
+								nodesToLayout.add(getAgeDiagram()); //
+								// nodesToLayout.add(getUndockedDiagramNode(element));
 							}
 						}
 
@@ -935,7 +939,6 @@ public class GraphitiAgeDiagram implements NodePictogramBiMap, AutoCloseable {
 		@Override
 		public void modificationsCompleted(final ModificationsCompletedEvent event) {
 			elementAdded = false;
-			// elementsToAdd.clear();
 			elementsToRemove.clear();
 			elementsToUpdate.clear();
 
@@ -951,13 +954,11 @@ public class GraphitiAgeDiagram implements NodePictogramBiMap, AutoCloseable {
 		 */
 		private boolean parentNeedsLayout(final DiagramElement de) {
 			// Check if the element's parent needs to be layed out.
-			if(de.getContainer() instanceof DiagramElement) {
-				final DiagramElement parent = (DiagramElement)de.getContainer();
-				if(!(parent.getGraphic() instanceof AgeConnection) &&
-						(de.getX() < 0 ||
-								de.getY() < 0 ||
-								parent.getWidth() < de.getX() + de.getWidth() ||
-								parent.getHeight() < de.getY() + de.getHeight())) {
+			if (de.getContainer() instanceof DiagramElement) {
+				final DiagramElement parent = (DiagramElement) de.getContainer();
+				if (!(parent.getGraphic() instanceof AgeConnection)
+						&& (de.getX() < 0 || de.getY() < 0 || parent.getWidth() < de.getX() + de.getWidth()
+						|| parent.getHeight() < de.getY() + de.getHeight())) {
 					return true;
 				}
 			}
@@ -967,8 +968,8 @@ public class GraphitiAgeDiagram implements NodePictogramBiMap, AutoCloseable {
 
 		private boolean collectionContainsAnyAncestor(final Collection<?> collection, final DiagramNode n) {
 			DiagramNode t = n.getContainer();
-			while(t != null) {
-				if(collection.contains(t)) {
+			while (t != null) {
+				if (collection.contains(t)) {
 					return true;
 				}
 				t = t.getContainer();
@@ -980,11 +981,11 @@ public class GraphitiAgeDiagram implements NodePictogramBiMap, AutoCloseable {
 		 * Removes all connections contained in the specified element or its descendants.
 		 */
 		private void removeContainedConnections(final DiagramElement e) {
-			for(final DiagramElement element : e.getDiagramElements()) {
+			for (final DiagramElement element : e.getDiagramElements()) {
 				final PictogramElement pe = getPictogramElement(element);
 				removeContainedConnections(element);
 
-				if(pe instanceof Connection) {
+				if (pe instanceof Connection) {
 					EcoreUtil.delete(pe, true);
 				}
 			}
