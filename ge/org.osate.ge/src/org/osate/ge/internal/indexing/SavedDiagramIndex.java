@@ -9,9 +9,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
-import java.util.function.Function;
-import java.util.stream.Collectors;
 import java.util.stream.Stream;
+
 import org.eclipse.core.resources.IContainer;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
@@ -37,53 +36,53 @@ import org.osate.ge.internal.util.Log;
 public class SavedDiagramIndex {
 	public static class IndexEntry {
 		public final IFile diagramFile;
-		public final CanonicalBusinessObjectReference reference; 
+		public final CanonicalBusinessObjectReference reference;
 		public final URI elementUri;
-		
+
 		public IndexEntry(final IFile diagramFile, final CanonicalBusinessObjectReference reference) {
 			this(diagramFile, reference, null);
 		}
-		
+
 		public IndexEntry(final IFile diagramFile, final CanonicalBusinessObjectReference reference, final URI elementUri) {
 			this.diagramFile = Objects.requireNonNull(diagramFile, "diagramFile must not be null");
 			this.reference = reference;
 			this.elementUri = elementUri;
-			
+
 			if(elementUri != null && reference == null) {
 				throw new RuntimeException("Reference must be set for elmeent index entries.");
 			}
 		}
 	}
-	
+
 	private class DiagramFileIndex {
 		public final ProjectDiagramIndex projectDiagramIndex;
 		public final IFile diagramFile;
 		public boolean valid = false;
 		public CanonicalBusinessObjectReference context;
 		public Map<CanonicalBusinessObjectReference, URI> refToElementUriMap;
-		
+
 		public DiagramFileIndex(final ProjectDiagramIndex projectDiagramIndex, final IFile diagramFile) {
 			this.projectDiagramIndex = Objects.requireNonNull(projectDiagramIndex, "projectDiagramIndex must not be null");
 			this.diagramFile = Objects.requireNonNull(diagramFile, "diagramFile must not be null");
 		}
-		
+
 		public CanonicalBusinessObjectReference getContext() {
 			ensureValid();
 			return context;
 		}
-		
+
 		public Map<CanonicalBusinessObjectReference, URI> getReferenceToElementUriMap() {
 			ensureValid();
 			return refToElementUriMap;
 		}
-		
+
 		// Ensure valid. Populate fields as necessary
 		private void ensureValid() {
 			if(!valid) {
-				valid = true;			
+				valid = true;
 				context = null;
-				refToElementUriMap = new HashMap<>();			
-				
+				refToElementUriMap = new HashMap<>();
+
 				final ProjectReferenceService projectReferenceService = referenceService.getProjectReferenceService(projectDiagramIndex.project);
 
 				// Index the diagram file
@@ -102,18 +101,18 @@ public class SavedDiagramIndex {
 							Object contextBo = null;
 							if(config != null) {
 								context = DiagramSerialization.convert(config.getContext());
-								
+
 								// Get the busines object for the context reference.
-								if(context != null) {									
+								if(context != null) {
 									contextBo = projectReferenceService.resolve(context);
 								}
 							}
-							
+
 							// Contextless diagrams are not supported
 							if(contextBo != null) {
 								indexChildElements(this, mmDiagram, new SimpleUnqueryableBusinessObjectContext(null, null), Collections.singleton(contextBo), bopHelper, projectReferenceService);
 							}
-						}		
+						}
 					}
 				} catch (IOException e) {
 					// Ignore.
@@ -121,34 +120,39 @@ public class SavedDiagramIndex {
 					// Unload the resource
 					if(diagramResource.isLoaded()) {
 						diagramResource.unload();
-					}					
+					}
 				}
 			}
 		}
-		
+
 		private void indexChildElements(final DiagramFileIndex diagramFileIndex,
 				final org.osate.ge.diagram.DiagramNode node,
 				final BusinessObjectContext parentBoc,
 				final Collection<Object> potentialBusinessObjects,
 				final BusinessObjectProviderHelper bopHelper,
 				final ProjectReferenceService projectReferenceService) {
-			
-			final Map<RelativeBusinessObjectReference, Object> relativeReferencetToPotentialBo = potentialBusinessObjects.
-					stream().
-					collect(Collectors.toMap(bo -> projectReferenceService.getRelativeReference(bo), Function.identity()));
-			
+
+			// Build a mapping from relative business object references to business objects. Do not include null references.
+			final Map<RelativeBusinessObjectReference, Object> relativeReferenceToPotentialBo = new HashMap<>();
+			for (final Object bo : potentialBusinessObjects) {
+				final RelativeBusinessObjectReference relRef = projectReferenceService.getRelativeReference(bo);
+				if (relRef != null) {
+					relativeReferenceToPotentialBo.put(relRef, bo);
+				}
+			}
+
 			// Process children
 			for(final org.osate.ge.diagram.DiagramElement child : node.getElement()) {
 				final RelativeBusinessObjectReference childRef = DiagramSerialization.convert(child.getBo());
 				if(childRef == null) {
 					continue;
 				}
-				
-				final Object childBo = relativeReferencetToPotentialBo.get(childRef);
+
+				final Object childBo = relativeReferenceToPotentialBo.get(childRef);
 				if(childBo == null) {
 					continue;
 				}
-				
+
 				final CanonicalBusinessObjectReference childCanonicalRef = projectReferenceService.getCanonicalReference(childBo);
 				if(childCanonicalRef == null) {
 					continue;
@@ -156,35 +160,35 @@ public class SavedDiagramIndex {
 
 				// Store the element's URI in the map
 				diagramFileIndex.refToElementUriMap.put(childCanonicalRef, EcoreUtil.getURI(child));
-				
+
 				final BusinessObjectContext childBoc = new SimpleUnqueryableBusinessObjectContext(parentBoc, childBo);
 				final Collection<Object> potentialChildBusinessObjects = bopHelper.getChildBusinessObjects(childBoc);
 				indexChildElements(diagramFileIndex, child, childBoc, potentialChildBusinessObjects, bopHelper, projectReferenceService);
 			}
 		}
 	}
-	
+
 	private class ProjectDiagramIndex {
 		public final IProject project;
 		public Map<IFile, DiagramFileIndex> fileToIndexMap;
-		
+
 		public ProjectDiagramIndex(final IProject project) {
 			this.project = Objects.requireNonNull(project, "project must not be null");
 		}
-		
+
 		public Map<IFile, DiagramFileIndex> getOrCreateFileToIndexMap() {
 			if(fileToIndexMap == null) {
 				fileToIndexMap = new HashMap<>();
-						
+
 				// Create diagram references as appropriate
 				for(final IFile diagramFile : findDiagramFiles(project, null)) {
 					createDiagramFileIndex(this, diagramFile);
 				}
 			}
-			
+
 			return fileToIndexMap;
 		}
-		
+
 		/**
 		 * Finds all files with the diagram extension in the specified container and its children
 		 * @param container the container in which to look for diagrams
@@ -195,49 +199,49 @@ public class SavedDiagramIndex {
 			if(diagramFiles == null) {
 				diagramFiles = new ArrayList<IFile>();
 			}
-			
+
 			try {
 				if(container.isAccessible()) {
 					for(final IResource resource : container.members()) {
-						 if (resource instanceof IContainer) {
-					         findDiagramFiles((IContainer)resource, diagramFiles);
-					     } else if (resource instanceof IFile) {
-					         final IFile file = (IFile) resource;
-					         if (isDiagram(file)) {
-					              diagramFiles.add(file);
-					         }
-					     }
+						if (resource instanceof IContainer) {
+							findDiagramFiles((IContainer)resource, diagramFiles);
+						} else if (resource instanceof IFile) {
+							final IFile file = (IFile) resource;
+							if (isDiagram(file)) {
+								diagramFiles.add(file);
+							}
+						}
 					}
 				}
 			} catch (CoreException e) {
 				Log.error("Error finding diagrams", e);
 				throw new RuntimeException(e);
 			}
-			
+
 			return diagramFiles;
 		}
 	}
-	
+
 	private final Map<IProject, ProjectDiagramIndex> projectToIndexMap = new HashMap<>();
 	private final ReferenceService referenceService;
 	private final BusinessObjectProviderHelper bopHelper;
-	
+
 	public SavedDiagramIndex(final ReferenceService referenceService,
 			BusinessObjectProviderHelper bopHelper) {
 		this.referenceService = Objects.requireNonNull(referenceService, "referenceService must not be null");
 		this.bopHelper = Objects.requireNonNull(bopHelper, "bopHelper must not be null");
 	}
-	
+
 	public Stream<IndexEntry> getDiagramsByProject(final Stream<IProject> projects) {
 		Objects.requireNonNull(projects, "projects must not be null");
 		return projects.flatMap(p -> getOrCreateProjectIndex(p).fileToIndexMap.entrySet().stream()).
 				map(e -> new IndexEntry(e.getKey(), e.getValue().context, null));
-	}	
-	
+	}
+
 	public Stream<IndexEntry> getDiagramsByContext(final Stream<IProject> projects, final CanonicalBusinessObjectReference context) {
 		return getDiagramsByContexts(projects, Collections.singleton(context));
 	}
-	
+
 	public Stream<IndexEntry> getDiagramsByContexts(final Stream<IProject> projects, final Set<CanonicalBusinessObjectReference> contexts) {
 		Objects.requireNonNull(projects, "projects must not be null");
 		Objects.requireNonNull(contexts, "contexts must not be null");
@@ -246,46 +250,46 @@ public class SavedDiagramIndex {
 				filter(e -> contexts.contains(e.getValue().getContext())).
 				map(e -> new IndexEntry(e.getKey(), e.getValue().getContext(), null));
 	}
-	
+
 	public Stream<IndexEntry> getElementUrisByReferences(final Stream<IProject> projects, final Set<CanonicalBusinessObjectReference> refs) {
 		Objects.requireNonNull(projects, "projects must not be null");
 		Objects.requireNonNull(refs, "refs must not be null");
 		return projects.flatMap(p -> getOrCreateProjectIndex(p).getOrCreateFileToIndexMap().
-			entrySet().
-			stream().
-			flatMap(i -> i.getValue().getReferenceToElementUriMap().
 				entrySet().
 				stream().
-				filter(e -> refs.contains(e.getKey())).
-				map(e -> new IndexEntry(i.getKey(), e.getKey(), e.getValue()))
-			)
-		);
+				flatMap(i -> i.getValue().getReferenceToElementUriMap().
+						entrySet().
+						stream().
+						filter(e -> refs.contains(e.getKey())).
+						map(e -> new IndexEntry(i.getKey(), e.getKey(), e.getValue()))
+						)
+				);
 	}
-		
+
 	public void remove(final IProject project) {
 		projectToIndexMap.remove(project);
 	}
-	
+
 	public void remove(final IFile file) {
 		final ProjectDiagramIndex projectDiagramIndex = projectToIndexMap.get(file.getProject());
 		if(projectDiagramIndex != null) {
 			projectDiagramIndex.fileToIndexMap.remove(file);
-			
+
 			if(file.exists()) {
 				createDiagramFileIndex(projectDiagramIndex, file);
 			}
 		}
-	}	
+	}
 
 	private ProjectDiagramIndex getOrCreateProjectIndex(final IProject project) {
 		Objects.requireNonNull(project, "project must not be null");
-		
+
 		ProjectDiagramIndex projectDiagramIndex = projectToIndexMap.get(project);
 		if(projectDiagramIndex == null) {
 			projectDiagramIndex = new ProjectDiagramIndex(project);
 			projectToIndexMap.put(project, projectDiagramIndex);
 		}
-		
+
 		return projectDiagramIndex;
 	}
 
@@ -294,21 +298,21 @@ public class SavedDiagramIndex {
 		projectDiagramIndex.fileToIndexMap.put(diagramFile, diagramFileIndex);
 		return diagramFileIndex;
 	}
-		
+
 	private static boolean isDiagram(final IFile file) {
-        return file.getName().endsWith(AgeDiagramEditor.EXTENSION);
+		return file.getName().endsWith(AgeDiagramEditor.EXTENSION);
 	}
-	
+
 	private static class SimpleUnqueryableBusinessObjectContext implements BusinessObjectContext {
 		private final BusinessObjectContext parent;
 		private final Object bo;
-		
+
 		public SimpleUnqueryableBusinessObjectContext(final BusinessObjectContext parent,
 				final Object bo) {
 			this.parent = parent;
 			this.bo = bo;
 		}
-		
+
 		@Override
 		public Collection<? extends Queryable> getChildren() {
 			// This should not be called since business object providers are not given access to the business object context's children
@@ -324,5 +328,5 @@ public class SavedDiagramIndex {
 		public Object getBusinessObject() {
 			return bo;
 		}
-	}			
+	}
 }
