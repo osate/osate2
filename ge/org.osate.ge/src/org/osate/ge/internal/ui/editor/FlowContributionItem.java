@@ -168,7 +168,7 @@ public class FlowContributionItem extends ComboContributionItem {
 			}
 		}
 
-		return null;
+		return name;
 	}
 
 	@Override
