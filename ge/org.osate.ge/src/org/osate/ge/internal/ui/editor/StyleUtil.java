@@ -39,7 +39,7 @@ public class StyleUtil {
 		} else if (pe instanceof Connection) {
 			// Color connection decorators
 			for (final ConnectionDecorator cd : ((Connection) pe).getConnectionDecorators()) {
-				if (inLabel || isPrimaryLabelOrAnnotation(cd)) {
+				if (inLabel || isPrimaryLabelOrAnnotation(cd) || PropertyUtil.isStylingContainer(cd)) {
 					overrideStyle(cd, background, outline, labelBackground, fontColor, lineWidth, true);
 				}
 			}
@@ -57,13 +57,20 @@ public class StyleUtil {
 			final org.eclipse.graphiti.mm.algorithms.styles.Color fontColor, final OptionalInt lineWidth) {
 		final boolean isStylingContainer = PropertyUtil.isStylingContainer(ga);
 		final boolean isStylingChild = PropertyUtil.isStylingChild(ga);
+		final boolean isStylingOutlineEnabled = PropertyUtil.isStylingOutlineEnabled(ga);
+
+		if(isStylingOutlineEnabled) {
+			if(ga.getForeground() != null && !(ga instanceof Text)) {
+				if (outline != null) {
+					ga.setForeground(outline);
+				}
+			}
+		}
 
 		if (isStylingChild) {
 			if (ga.getForeground() != null) {
 				if (ga instanceof Text) {
 					ga.setForeground(fontColor);
-				} else if (outline != null) {
-					ga.setForeground(outline);
 				}
 			}
 

@@ -594,6 +594,7 @@ public class GraphitiAgeDiagram implements NodePictogramBiMap, AutoCloseable {
 					pe = peCreateService.createContainerShape((ContainerShape) containerPe, true);
 				} else if (containerPe instanceof Connection) {
 					pe = peCreateService.createConnectionDecorator((Connection) containerPe, true, 0.5, true);
+					PropertyUtil.setIsStylingContainer(pe, !(graphic instanceof Label));
 				} else {
 					throw new RuntimeException("Unsupported container: " + containerPe);
 				}
@@ -693,6 +694,7 @@ public class GraphitiAgeDiagram implements NodePictogramBiMap, AutoCloseable {
 		if (terminator != null) {
 			final IPeCreateService peCreateService = Graphiti.getPeCreateService();
 			final ConnectionDecorator cd = peCreateService.createConnectionDecorator(connection, false, position, true);
+			PropertyUtil.setIsStylingContainer(cd, true);
 			final Diagram diagram = connection.getParent();
 			final Color black = Graphiti.getGaService().manageColor(diagram, IColorConstant.BLACK);
 			final Color white = Graphiti.getGaService().manageColor(diagram, IColorConstant.WHITE);
@@ -711,6 +713,7 @@ public class GraphitiAgeDiagram implements NodePictogramBiMap, AutoCloseable {
 				ga.setForeground(black);
 				ga.setBackground(white);
 				PropertyUtil.setIsStylingChild(ga, false);
+				PropertyUtil.setIsStylingOutlineEnabled(ga, true);
 				break;
 
 			case LINE_ARROW:

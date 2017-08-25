@@ -241,7 +241,7 @@ public class DiagramElement implements DiagramNode, ModifiableDiagramElementCont
 	}
 
 	public final Graphic getGraphic() {
-		return graphicalConfig.graphic;
+		return graphicalConfig == null ? null : graphicalConfig.graphic;
 	}
 
 	public final Color getDefaultBackgroundColor() {
