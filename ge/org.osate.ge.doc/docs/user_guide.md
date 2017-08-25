@@ -176,6 +176,39 @@ When creating a new diagram from an AADL model, the editor lays out the diagram 
 
 ![](../images/LayoutDiagram.png)
 
+### Editing a Diagram Element's Appearance
+The appearance of diagram elements can be edited by using the *Appearance* tab of the *Properties* view.
+
+An element's appearance can be changed using the following steps.
+
+1. Open the *Properties* view by double-clicking on an element or by selecting *Properties...* from the context menu..
+
+2. Select the diagram element(s) to be edited.
+
+3. Select the *Appearance* tab.
+
+4. Select desired appearance options.
+
+Font size can be edited by selecting the font size drop-down menu.
+
+![](../images/FontSize.png)
+
+Line width can be edited by selecting the line width drop-down menu.
+
+![](../images/LineWidth.png)
+
+Outline color can be edited by clicking the outline button and selecting the desired color.
+
+![](../images/OutlineColor.png)
+
+Font color can be edited by clicking the font color button and selecting the desired color.
+
+![](../images/FontColor.png)
+
+Background color can be edited by clicking the background color button and selecting the desired color.
+
+![](../images/BackgroundColor.png)
+
 ## Connections
 The graphical editor allows editing AADL connections such as access, feature, feature group, parameter, and port.
 
