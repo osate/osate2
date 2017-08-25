@@ -18,7 +18,7 @@ import java.awt.Color;
  *
  */
 public interface ColoringService {
-	// TODO: Should have a way to batch these changes before making API. Implementation currently creates a Graphiti command for each update.
+	// TODO: Should have a way to batch these changes before making API.
 	interface Coloring {
 		void dispose();
 		

@@ -110,7 +110,7 @@ public class SetAutoContentFilterFeature extends AbstractCustomFeature implement
 		final AgeDiagram ageDiagram = graphitiAgeDiagramProvider.getGraphitiAgeDiagram().getAgeDiagram();
 		final DiagramElement[] elements = getDiagramElements(context.getPictogramElements());
 		if(elements != null) {
-			ageDiagram.modify(new DiagramModifier() {
+			ageDiagram.modify("Set Auto Children", new DiagramModifier() {
 				@Override
 				public void modify(final DiagramModification m) {
 					// If setting to allow fundamental "Hide Contents", mark all descendants as automatic. This will ensure that the contents are hidden.

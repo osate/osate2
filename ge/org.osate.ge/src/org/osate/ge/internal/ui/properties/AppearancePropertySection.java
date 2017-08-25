@@ -3,9 +3,9 @@ package org.osate.ge.internal.ui.properties;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Objects;
 
-import org.eclipse.core.runtime.IAdaptable;
-import org.eclipse.emf.transaction.RecordingCommand;
+import org.eclipse.core.runtime.Adapters;
 import org.eclipse.jface.layout.GridDataFactory;
 import org.eclipse.jface.layout.GridLayoutFactory;
 import org.eclipse.jface.resource.DeviceResourceManager;
@@ -49,27 +49,15 @@ import org.osate.ge.internal.diagram.runtime.Style;
 import org.osate.ge.internal.diagram.runtime.StyleBuilder;
 import org.osate.ge.internal.graphics.AgeConnection;
 import org.osate.ge.internal.graphics.Label;
-import org.osate.ge.internal.ui.editor.AgeDiagramEditor;
+import org.osate.ge.internal.ui.util.UiUtil;
 
 public class AppearancePropertySection extends AbstractPropertySection {
 	public static class SelectionFilter implements IFilter {
 		@Override
 		public boolean select(final Object o) {
-			if (o instanceof IAdaptable) {
-				final IAdaptable adaptable = (IAdaptable) o;
-				final DiagramElement diagramElement = adaptable.getAdapter(DiagramElement.class);
-				return diagramElement != null;
-			}
-
-			return false;
+			return Adapters.adapt(o, DiagramElement.class) != null;
 		}
 	}
-
-	private final static ImageDescriptor outlineIcon = Activator.getImageDescriptor("icons/Outline.gif");
-	private final static ImageDescriptor backgroundIcon = Activator.getImageDescriptor("icons/Background.gif");
-	private final static ImageDescriptor fontColorIcon = Activator.getImageDescriptor("icons/FontColor.gif");
-
-	private ResourceManager resourceMgr;
 
 	@Override
 	public void createControls(final Composite parent, final TabbedPropertySheetPage aTabbedPropertySheetPage) {
@@ -155,7 +143,6 @@ public class AppearancePropertySection extends AbstractPropertySection {
 	@Override
 	public void setInput(final IWorkbenchPart part, final ISelection selection) {
 		super.setInput(part, selection);
-		this.ageDiagramEditor = (AgeDiagramEditor) part;
 		selectedDiagramElements.clear();
 
 		final IStructuredSelection ss = (IStructuredSelection) selection;
@@ -167,7 +154,7 @@ public class AppearancePropertySection extends AbstractPropertySection {
 		final Iterator<?> itr = ss.iterator();
 		while (itr.hasNext()) {
 			final Object o = itr.next();
-			final DiagramElement diagramElement = ((IAdaptable) o).getAdapter(DiagramElement.class);
+			final DiagramElement diagramElement = Adapters.adapt(o, DiagramElement.class);
 			selectedDiagramElements.add(diagramElement);
 
 			// Font options
@@ -188,6 +175,9 @@ public class AppearancePropertySection extends AbstractPropertySection {
 				enableOutlineOption = true;
 			}
 		}
+
+		// Get the editor from the selected diagram elements
+		ageDiagram = Objects.requireNonNull(UiUtil.getDiagram(selectedDiagramElements), "Unable to retrieve diagram");
 
 		// Set options to match last selected element
 		final DiagramElement diagramElement = selectedDiagramElements.get(selectedDiagramElements.size() - 1);
@@ -380,11 +370,22 @@ public class AppearancePropertySection extends AbstractPropertySection {
 			// Close shell if user clicks off of the shell
 			shell.addListener(SWT.Deactivate, e1 -> shell.setVisible(false));
 
-			// Original button selected
-			final Button button = (Button) e.getSource();
-			shell.setLocation(Display.getDefault().map(button.getParent(), null, button.getLocation().x,
-					button.getLocation().y + button.getSize().y));
 			shell.pack();
+
+			// Position the shell
+			final int minSpacingFromDisplayRightAndBottom = 50;
+			final Button button = (Button) e.getSource(); // Original button selected
+			final Point unclampedShellPosition = Display.getCurrent().map(button.getParent(), null,
+					button.getLocation().x,
+					button.getLocation().y + button.getSize().y);
+			final Rectangle clientArea = Display.getCurrent().getClientArea();
+			final Point shellPosition = new Point(
+					Math.min(unclampedShellPosition.x,
+							clientArea.width - shell.getSize().x - minSpacingFromDisplayRightAndBottom),
+					Math.min(unclampedShellPosition.y,
+							clientArea.height - shell.getSize().y - minSpacingFromDisplayRightAndBottom));
+			shell.setLocation(shellPosition);
+
 			shell.open();
 			shell.setFocus();
 
@@ -492,19 +493,10 @@ public class AppearancePropertySection extends AbstractPropertySection {
 	}
 
 	private void runStyleCommand(final Object value, final StyleCommand styleCmd) {
-		Display.getDefault().syncExec(() -> {
-			final AgeDiagram ageDiagram = ageDiagramEditor.getGraphitiAgeDiagram().getAgeDiagram();
-			ageDiagramEditor.getEditingDomain().getCommandStack()
-			.execute(new RecordingCommand(ageDiagramEditor.getEditingDomain(), styleCmd.getDescription()) {
-				@Override
-				protected void doExecute() {
-					ageDiagram.modify(m -> {
-						for (final DiagramElement diagramElement : selectedDiagramElements) {
-							m.setStyle(diagramElement, styleCmd.getStyle(diagramElement, value));
-						}
-					});
-				}
-			});
+		ageDiagram.modify(styleCmd.getDescription(), m -> {
+			for (final DiagramElement diagramElement : selectedDiagramElements) {
+				m.setStyle(diagramElement, styleCmd.getStyle(diagramElement, value));
+			}
 		});
 	}
 
@@ -586,8 +578,12 @@ public class AppearancePropertySection extends AbstractPropertySection {
 				}
 			}));
 
+	private final static ImageDescriptor outlineIcon = Activator.getImageDescriptor("icons/Outline.gif");
+	private final static ImageDescriptor backgroundIcon = Activator.getImageDescriptor("icons/Background.gif");
+	private final static ImageDescriptor fontColorIcon = Activator.getImageDescriptor("icons/FontColor.gif");
+	private AgeDiagram ageDiagram;
+	private ResourceManager resourceMgr;
 	private List<DiagramElement> selectedDiagramElements = new ArrayList<>();
-	private AgeDiagramEditor ageDiagramEditor;
 	private org.eclipse.swt.widgets.Label fontSizeLabel;
 	private org.eclipse.swt.widgets.Label lineWidthLabel;
 	private ComboViewer fontSizeComboViewer;

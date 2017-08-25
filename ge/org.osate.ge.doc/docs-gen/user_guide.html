@@ -34,15 +34,16 @@
 <li><a href="#showing-and-hiding-diagram-element-contents"><span class="toc-section-number">3.1.2</span> Showing and Hiding Diagram Element Contents</a></li>
 <li><a href="#hidden-children"><span class="toc-section-number">3.1.3</span> Hidden Children</a></li>
 <li><a href="#abstracted-connections"><span class="toc-section-number">3.1.4</span> Abstracted Connections</a></li>
-<li><a href="#inherited-element"><span class="toc-section-number">3.1.5</span> Inherited Element</a></li>
-<li><a href="#deleting"><span class="toc-section-number">3.1.6</span> Deleting</a></li>
-<li><a href="#renaming"><span class="toc-section-number">3.1.7</span> Renaming</a></li>
-<li><a href="#refining"><span class="toc-section-number">3.1.8</span> Refining</a></li>
-<li><a href="#instantiating"><span class="toc-section-number">3.1.9</span> Instantiating</a></li>
-<li><a href="#moving-shapes-using-arrow-keys"><span class="toc-section-number">3.1.10</span> Moving Shapes Using Arrow Keys</a></li>
-<li><a href="#selecting-a-diagram-elements-container"><span class="toc-section-number">3.1.11</span> Selecting a Diagram Element's Container</a></li>
-<li><a href="#performing-diagram-layout"><span class="toc-section-number">3.1.12</span> Performing Diagram Layout</a></li>
-<li><a href="#editing-a-diagram-elements-appearance"><span class="toc-section-number">3.1.13</span> Editing a Diagram Element's Appearance</a></li>
+<li><a href="#inherited-elements"><span class="toc-section-number">3.1.5</span> Inherited Elements</a></li>
+<li><a href="#editing-properties"><span class="toc-section-number">3.1.6</span> Editing Properties</a></li>
+<li><a href="#deleting"><span class="toc-section-number">3.1.7</span> Deleting</a></li>
+<li><a href="#renaming"><span class="toc-section-number">3.1.8</span> Renaming</a></li>
+<li><a href="#refining"><span class="toc-section-number">3.1.9</span> Refining</a></li>
+<li><a href="#instantiating"><span class="toc-section-number">3.1.10</span> Instantiating</a></li>
+<li><a href="#moving-shapes-using-arrow-keys"><span class="toc-section-number">3.1.11</span> Moving Shapes Using Arrow Keys</a></li>
+<li><a href="#selecting-a-diagram-elements-container"><span class="toc-section-number">3.1.12</span> Selecting a Diagram Element's Container</a></li>
+<li><a href="#performing-diagram-layout"><span class="toc-section-number">3.1.13</span> Performing Diagram Layout</a></li>
+<li><a href="#editing-a-diagram-elements-appearance"><span class="toc-section-number">3.1.14</span> Editing a Diagram Element's Appearance</a></li>
 </ul></li>
 <li><a href="#connections"><span class="toc-section-number">3.2</span> Connections</a><ul>
 <li><a href="#creating-connections"><span class="toc-section-number">3.2.1</span> Creating Connections</a></li>
@@ -145,7 +146,7 @@
 <h1 id="navigating-between-diagrams"><span class="header-section-number">2</span> Navigating Between Diagrams</h1>
 <p>The graphical editor supports navigating between related diagrams in several ways.</p>
 <h2 id="opening-an-associated-diagram"><span class="header-section-number">2.1</span> Opening an Associated Diagram</h2>
-<p>Diagrams associated with a particular element can be opened by double-clicking on the model element. For example, double-clicking a classifier inside a package diagram will open that classifier's diagram. Alternatively, the associated diagram can be open by right-clicking on the element and selecting <em>Open Associated Diagram</em> from the context menu.</p>
+<p>Diagrams associated with a particular element can be opened by right-clicking on the element and selecting <em>Open Associated Diagram</em> from the context menu.</p>
 <figure>
 <img src="../images/OpenAssociatedDiagram.png" />
 </figure>
@@ -240,15 +241,17 @@
 <li>An AADL property reference value for which the model element to which the property value applies is hidden.</li>
 <li>An AADL property reference value for which the referenced model element is hidden.</li>
 </ul>
-<h3 id="inherited-element"><span class="header-section-number">3.1.5</span> Inherited Element</h3>
+<h3 id="inherited-elements"><span class="header-section-number">3.1.5</span> Inherited Elements</h3>
 <p>Elements which are inherited from another model element have a gray color. This indicates that any changes made to the model element will result in a change to model element other than the one in which it is contained in graphically. Modifying inherited elements directly is not supported at this time. To modify an inherited model element, modify the element in the context of its owner. For example, to modify an AADL feature which is inherited from another classifier, find the diagram element of the classifier which defines the feature and modify the feature.</p>
-<h3 id="deleting"><span class="header-section-number">3.1.6</span> Deleting</h3>
+<h3 id="editing-properties"><span class="header-section-number">3.1.6</span> Editing Properties</h3>
+<p>The properties sheet contains properties for the currently selected diagram elements. The properties sheet can be opened by double-clicking on a diagram element in the diagram or in the outline. Alternatively, the properties sheet can be opened by right-clicking on a diagram element in the diagram or outline and selecting <em>Properties...</em> from the context menu.</p>
+<h3 id="deleting"><span class="header-section-number">3.1.7</span> Deleting</h3>
 <p>An element can be deleted from the AADL model by selecting it and pressing the <em>Delete</em> key. An element can also be deleted by right-clicking on it and selecting <em>Delete</em> from the context menu.</p>
 <figure>
 <img src="../images/Delete.png" />
 </figure>
 <p>Elements can only be deleted when viewing the element which contains it. For example, a feature defined in a system type cannot be deleted while editing the diagram of a system implementation.</p>
-<h3 id="renaming"><span class="header-section-number">3.1.7</span> Renaming</h3>
+<h3 id="renaming"><span class="header-section-number">3.1.8</span> Renaming</h3>
 <p>An element can be renamed using the graphical editor.</p>
 <ol type="1">
 <li><p>Select the item to be renamed.</p></li>
@@ -263,33 +266,40 @@
 </ol>
 <p>Elements can only be renamed when viewing the element which contains it. For example, a feature defined in a system type cannot be renamed while editing the diagram of a system implementation.</p>
 <p>When renaming a model element from the AADL text editor, one should use the <em>Rename Element</em> menu option. Manually renaming model elements will result in broken linkages between AADL diagrams and the AADL model.</p>
-<h3 id="refining"><span class="header-section-number">3.1.8</span> Refining</h3>
+<h3 id="refining"><span class="header-section-number">3.1.9</span> Refining</h3>
 <p>Appropriate elements can be refined by right-clicking on them and selecting <em>Refine</em> from the context menu. Once an element is refined. Deleting a refined element will only delete the refinement.</p>
-<h3 id="instantiating"><span class="header-section-number">3.1.9</span> Instantiating</h3>
+<h3 id="instantiating"><span class="header-section-number">3.1.10</span> Instantiating</h3>
 <p>When viewing a package diagram, component implementations can be instantiated by right-clicking on them and selecting <em>Instantiate</em> from the context menu. The instance model will be created in that projects <em>instances</em> folder in the AADL Navigator.</p>
 <figure>
 <img src="../images/Instantiate.png" />
 </figure>
-<h3 id="moving-shapes-using-arrow-keys"><span class="header-section-number">3.1.10</span> Moving Shapes Using Arrow Keys</h3>
+<h3 id="moving-shapes-using-arrow-keys"><span class="header-section-number">3.1.11</span> Moving Shapes Using Arrow Keys</h3>
 <ol type="1">
 <li><p>Select the item to be moved.</p></li>
 <li><p>Press the <strong>.</strong> key.</p></li>
 <li><p>Using the <em>Arrow</em> keys, move the item to desired location.</p></li>
 <li><p>Press the <em>Enter</em> key.</p></li>
 </ol>
-<h3 id="selecting-a-diagram-elements-container"><span class="header-section-number">3.1.11</span> Selecting a Diagram Element's Container</h3>
+<h3 id="selecting-a-diagram-elements-container"><span class="header-section-number">3.1.12</span> Selecting a Diagram Element's Container</h3>
 <p>Under some circumstances, it is difficult to select the desired diagram element due to the location of child diagram elements. The desired shape can be selected using the following steps.</p>
 <ol type="1">
 <li><p>Right-click on the child of the diagram element to be selected.</p></li>
 <li><p>Select <em>Select Container</em> from the context menu.</p></li>
 </ol>
-<h3 id="performing-diagram-layout"><span class="header-section-number">3.1.12</span> Performing Diagram Layout</h3>
+<h3 id="performing-diagram-layout"><span class="header-section-number">3.1.13</span> Performing Diagram Layout</h3>
 <p>When creating a new diagram from an AADL model, the editor lays out the diagram automatically. The layout of the diagram can be redone by right-clicking inside the diagram and select <em>Layout Diagram</em>. Doing so will adjust the positions of all the shapes in the diagram.</p>
 <figure>
 <img src="../images/LayoutDiagram.png" />
 </figure>
-<h3 id="editing-a-diagram-elements-appearance"><span class="header-section-number">3.1.13</span> Editing a Diagram Element's Appearance</h3>
-<p>The appearance of appropriate diagram elements can be edited by using the <em>Appearance</em> tab of the <em>Properties</em> view.</p>
+<h3 id="editing-a-diagram-elements-appearance"><span class="header-section-number">3.1.14</span> Editing a Diagram Element's Appearance</h3>
+<p>The appearance of diagram elements can be edited by using the <em>Appearance</em> tab of the <em>Properties</em> view.</p>
+<p>An element's appearance can be changed using the following steps.</p>
+<ol type="1">
+<li><p>Open the <em>Properties</em> view by double-clicking on an element or by selecting <em>Properties...</em> from the context menu..</p></li>
+<li><p>Select the diagram element(s) to be edited.</p></li>
+<li><p>Select the <em>Appearance</em> tab.</p></li>
+<li><p>Select desired appearance options.</p></li>
+</ol>
 <p>Font size can be edited by selecting the font size drop-down menu.</p>
 <figure>
 <img src="../images/FontSize.png" />
@@ -298,25 +308,18 @@
 <figure>
 <img src="../images/LineWidth.png" />
 </figure>
-<p>Outline color can be edited by clicking the outline button and selecting a color.</p>
+<p>Outline color can be edited by clicking the outline button and selecting the desired color.</p>
 <figure>
 <img src="../images/OutlineColor.png" />
 </figure>
-<p>Font color can be edited by clicking the font color button and selecting a color.</p>
+<p>Font color can be edited by clicking the font color button and selecting the desired color.</p>
 <figure>
 <img src="../images/FontColor.png" />
 </figure>
-<p>Background color can be edited by clicking the background color button and selecting a color.</p>
+<p>Background color can be edited by clicking the background color button and selecting the desired color.</p>
 <figure>
 <img src="../images/BackgroundColor.png" />
 </figure>
-<p>The element's appearance can be changed using the following steps.</p>
-<ol type="1">
-<li><p>Open the <em>Properties</em> view.</p></li>
-<li><p>Select the diagram element(s) to be edited.</p></li>
-<li><p>Select the <em>Appearance</em> tab.</p></li>
-<li><p>Select desired appearance options.</p></li>
-</ol>
 <h2 id="connections"><span class="header-section-number">3.2</span> Connections</h2>
 <p>The graphical editor allows editing AADL connections such as access, feature, feature group, parameter, and port.</p>
 <h3 id="creating-connections"><span class="header-section-number">3.2.1</span> Creating Connections</h3>

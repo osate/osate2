@@ -77,8 +77,8 @@ public class DiagramSerialization {
 			throw new RuntimeException("Contextless diagrams are not supported");
 		}
 
-		// Read elements
-		ageDiagram.modify(m -> readElements(m, ageDiagram, mmDiagram, new HashSet<>()));
+		//  Read elements
+		ageDiagram.modify("Read from File", m -> readElements(m, ageDiagram, mmDiagram, new HashSet<>()));
 
 		return ageDiagram;
 	}
@@ -288,8 +288,7 @@ public class DiagramSerialization {
 		if (e.hasPosition()) {
 			newElement.setPosition(e.getPosition().toMetamodel());
 		}
-
-		if (e.hasSize() && e.isSizeable()) {
+		if (e.hasSize() && DiagramElementPredicates.isResizeable(e)) {
 			newElement.setSize(e.getSize().toMetamodel());
 		}
 

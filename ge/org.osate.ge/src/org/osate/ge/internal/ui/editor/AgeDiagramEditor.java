@@ -1,24 +1,24 @@
-// Based on OSATE Graphical Editor. Modifications are: 
+// Based on OSATE Graphical Editor. Modifications are:
 /*
 Copyright (c) 2016, Rockwell Collins.
 Developed with the sponsorship of Defense Advanced Research Projects Agency (DARPA).
 
-Permission is hereby granted, free of charge, to any person obtaining a copy of this data, 
-including any software or models in source or binary form, as well as any drawings, specifications, 
+Permission is hereby granted, free of charge, to any person obtaining a copy of this data,
+including any software or models in source or binary form, as well as any drawings, specifications,
 and documentation (collectively "the Data"), to deal in the Data without restriction, including
-without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, 
-and/or sell copies of the Data, and to permit persons to whom the Data is furnished to do so, 
+without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense,
+and/or sell copies of the Data, and to permit persons to whom the Data is furnished to do so,
 subject to the following conditions:
 
-The above copyright notice and this permission notice shall be included in all copies or 
+The above copyright notice and this permission notice shall be included in all copies or
 substantial portions of the Data.
 
-THE DATA IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT 
-LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. 
-IN NO EVENT SHALL THE AUTHORS, SPONSORS, DEVELOPERS, CONTRIBUTORS, OR COPYRIGHT HOLDERS BE LIABLE 
-FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, 
+THE DATA IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT
+LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+IN NO EVENT SHALL THE AUTHORS, SPONSORS, DEVELOPERS, CONTRIBUTORS, OR COPYRIGHT HOLDERS BE LIABLE
+FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
 ARISING FROM, OUT OF OR IN CONNECTION WITH THE DATA OR THE USE OR OTHER DEALINGS IN THE DATA.
-*/
+ */
 /*******************************************************************************
  * Copyright (C) 2013 University of Alabama in Huntsville (UAH)
  * All rights reserved. This program and the accompanying materials
@@ -30,11 +30,13 @@ ARISING FROM, OUT OF OR IN CONNECTION WITH THE DATA OR THE USE OR OTHER DEALINGS
 package org.osate.ge.internal.ui.editor;
 
 import org.eclipse.emf.common.util.URI;
+import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.ui.editor.DiagramBehavior;
 import org.eclipse.graphiti.ui.editor.DiagramEditor;
 import org.eclipse.graphiti.ui.editor.IDiagramEditorInput;
 import org.eclipse.ui.views.contentoutline.IContentOutlinePage;
 import org.osate.ge.GraphicalEditor;
+import org.osate.ge.internal.diagram.runtime.AgeDiagram;
 import org.osate.ge.internal.graphiti.diagram.GraphitiAgeDiagram;
 
 public class AgeDiagramEditor extends DiagramEditor implements GraphicalEditor {
@@ -42,36 +44,37 @@ public class AgeDiagramEditor extends DiagramEditor implements GraphicalEditor {
 	public static final String EXTENSION_NO_DOT = "aadl_diagram";
 	public static final String EXTENSION = "." + EXTENSION_NO_DOT;
 	private AgeContentOutlinePage outlinePage = null;
-	
+
 	public AgeDiagramEditor() {
 	}
-	
+
+	@Override
 	protected DiagramBehavior createDiagramBehavior() {
 		return new AgeDiagramBehavior(this);
 	}
-	
+
 	// Update the diagram. This call is synchronous and will switch to display thread as necessary.
 	public void updateNowIfModelHasChanged() {
 		((AgeDiagramBehavior)getDiagramBehavior()).updateNowIfModelHasChanged();
 	}
-	
+
 	/*
 	 * Calls the Update feature to update the diagram from the model if the editor is visible. If it is not, it will do so the next time the editor is made visible.
 	 */
 	public void updateDiagramWhenVisible() {
 		((AgeDiagramBehavior)getDiagramBehavior()).updateDiagramWhenVisible();
 	}
-	
+
 	public void forceDiagramUpdateOnNextModelChange() {
 		((AgeDiagramBehavior)getDiagramBehavior()).forceDiagramUpdateOnNextModelChange();
 	}
-	
+
 	@Override
 	public void selectDiagramElementsForBusinessObject(final Object bo) {
 		// Select all pictogram elements associated with the business object
 		selectPictogramElements(getDiagramTypeProvider().getFeatureProvider().getAllPictogramElementsForBusinessObject(bo));
 	}
-	
+
 	@Override
 	public Object getAdapter(@SuppressWarnings("rawtypes") Class required) {
 		if(IContentOutlinePage.class.equals(required)) {
@@ -85,10 +88,10 @@ public class AgeDiagramEditor extends DiagramEditor implements GraphicalEditor {
 				return null;
 			}
 		};
-		
+
 		return super.getAdapter(required);
 	}
-	
+
 	@Override
 	public void refreshTitle() {
 		final IDiagramEditorInput input = getDiagramEditorInput();
@@ -99,15 +102,31 @@ public class AgeDiagramEditor extends DiagramEditor implements GraphicalEditor {
 				name = URI.decode(uri.lastSegment());
 			}
 		}
-		
+
 		if(name == null) {
 			name = "";
 		}
 
 		setPartName(name);
 	}
-	
+
 	public GraphitiAgeDiagram getGraphitiAgeDiagram() {
 		return ((AgeDiagramBehavior)getDiagramBehavior()).getGraphitiAgeDiagram();
+	}
+
+	public AgeDiagram getAgeDiagram() {
+		return ((AgeDiagramBehavior)getDiagramBehavior()).getAgeDiagram();
+	}
+
+	public void activateTool(final Object tool) {
+		((AgeDiagramBehavior) getDiagramBehavior()).activateTool(tool);
+	}
+
+	public void deactivateActiveTool() {
+		((AgeDiagramBehavior)getDiagramBehavior()).deactivateActiveTool();
+	}
+
+	public void clearSelection() {
+		selectPictogramElements(new PictogramElement[0]);
 	}
 }

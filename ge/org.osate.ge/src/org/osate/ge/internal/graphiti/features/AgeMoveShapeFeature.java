@@ -1,8 +1,6 @@
 package org.osate.ge.internal.graphiti.features;
 
-import java.util.List;
 import java.util.Objects;
-import java.util.stream.Collectors;
 
 import javax.inject.Inject;
 
@@ -15,12 +13,9 @@ import org.eclipse.graphiti.mm.algorithms.GraphicsAlgorithm;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.eclipse.graphiti.mm.pictograms.Shape;
 import org.osate.ge.internal.diagram.runtime.DiagramElement;
-import org.osate.ge.internal.diagram.runtime.DiagramModification;
-import org.osate.ge.internal.diagram.runtime.DiagramModifier;
+import org.osate.ge.internal.diagram.runtime.DiagramElementPredicates;
 import org.osate.ge.internal.diagram.runtime.Point;
-import org.osate.ge.internal.graphics.AgeConnection;
 import org.osate.ge.internal.graphics.AgeShape;
-import org.osate.ge.internal.graphics.GraphicUtil;
 import org.osate.ge.internal.graphiti.GraphitiAgeDiagramProvider;
 import org.osate.ge.internal.graphiti.diagram.GraphitiAgeDiagram;
 import org.osate.ge.internal.graphiti.graphics.AgeGraphitiGraphicsUtil;
@@ -52,7 +47,7 @@ public class AgeMoveShapeFeature extends AbstractMoveShapeFeature implements ICu
 			return false;
 		}
 		
-		if(!GraphicUtil.isMoveableShape(element.getGraphic())) {
+		if(!DiagramElementPredicates.isMoveable(element)) {
 			return false;
 		}
 		
@@ -79,34 +74,10 @@ public class AgeMoveShapeFeature extends AbstractMoveShapeFeature implements ICu
 		final GraphitiAgeDiagram graphitiAgeDiagram = graphitiAgeDiagramProvider.getGraphitiAgeDiagram();
 
 		final DiagramElement diagramElement = graphitiAgeDiagram.getDiagramElement(context.getShape());
-		graphitiAgeDiagram.modify(new DiagramModifier() {
-			@Override
-			public void modify(final DiagramModification m) {
-				final int dx = context.getX() - diagramElement.getX();
-				final int dy = context.getY() - diagramElement.getY();
-				
-				m.setPosition(diagramElement, new Point(context.getX(), context.getY()));
-				updateBendpointsForContainedConnections(m, diagramElement, dx, dy);
-				AgeFeatureUtil.storeModificationInContext(context, m);
-			}				
+		graphitiAgeDiagram.modify("Move Shape", m -> {
+			m.setPosition(diagramElement, new Point(context.getX(), context.getY()));
+			AgeFeatureUtil.storeModificationInContext(context, m);
 		});	
-	}
-
-	void updateBendpointsForContainedConnections(final DiagramModification m, 
-			final DiagramElement shapeDiagramElement, 
-			final int dx, 
-			final int dy) {
-		for(final DiagramElement child : shapeDiagramElement.getDiagramElements()) {
-			if(child.getGraphic() instanceof AgeConnection) {
-				final List<Point> bendpoints = child.getBendpoints();
-				if(bendpoints.size() > 0) {
-					final List<Point> newBendpoints = bendpoints.stream().map((p) -> new Point(p.x+dx, p.y+dy)).collect(Collectors.toList());
-					m.setBendpoints(child, newBendpoints);
-				}
-			}
-			
-			updateBendpointsForContainedConnections(m, child, dx, dy);
-		}
 	}
 	
 	@Override

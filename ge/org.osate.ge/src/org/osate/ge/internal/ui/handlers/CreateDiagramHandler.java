@@ -21,7 +21,7 @@ import org.osate.aadl2.Element;
 import org.osate.ge.internal.Activator;
 import org.osate.ge.internal.services.DiagramService;
 import org.osate.ge.internal.ui.util.EditorUtil;
-import org.osate.ge.internal.ui.util.SelectionHelper;
+import org.osate.ge.internal.ui.util.SelectionUtil;
 import org.osate.ge.internal.util.Log;
 
 /**
@@ -64,7 +64,7 @@ public class CreateDiagramHandler extends AbstractHandler {
 	}
 	
 	private Classifier getSelectedClassifier() {
-		EObject obj = SelectionHelper.getSelectedObject();
+		EObject obj = SelectionUtil.getSelectedObject();
 		while(obj instanceof Element) {
 			if(obj instanceof Classifier) {
 				return (Classifier)obj;
@@ -77,7 +77,7 @@ public class CreateDiagramHandler extends AbstractHandler {
 	}
 	private static AadlPackage getSelectedPackage() {
 
-		final EObject obj = SelectionHelper.getSelectedObject();
+		final EObject obj = SelectionUtil.getSelectedObject();
 		if(obj instanceof Element) {
 			Element root = ((Element)obj).getElementRoot();
 			if(root instanceof AadlPackage) {

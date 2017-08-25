@@ -13,7 +13,6 @@ import org.osate.ge.graphics.Graphic;
 import org.osate.ge.internal.AgeGraphicalConfiguration;
 import org.osate.ge.internal.DockArea;
 import org.osate.ge.internal.diagram.runtime.boTree.Completeness;
-import org.osate.ge.internal.graphics.AgeShape;
 import org.osate.ge.internal.labels.AgeLabelConfiguration;
 import org.osate.ge.internal.query.Queryable;
 
@@ -100,7 +99,7 @@ public class DiagramElement implements DiagramNode, ModifiableDiagramElementCont
 	 * Intended for use by diagram class and during diagram deserialization.
 	 * @param value
 	 */
-	public final void setId(final long value) {
+	final void setId(final long value) {
 		this.id = value;
 	}
 
@@ -193,25 +192,6 @@ public class DiagramElement implements DiagramNode, ModifiableDiagramElementCont
 		this.position = value;
 	}
 
-	/**
-	 * Intended for internal use by platform specific code in order to update the element's position to reflect the actual position after layout.
-	 * Using this method prevents notifications from being sent.
-	 * @param x
-	 * @param y
-	 */
-	public final void setPositionInternal(final int x, final int y) {
-		this.position = new Point(x, y);
-	}
-
-
-	public final boolean isSizeable() {
-		if(graphicalConfig.graphic instanceof AgeShape) {
-			return ((AgeShape)graphicalConfig.graphic).isResizeable();
-		}
-
-		return false;
-	}
-
 	public boolean hasSize() {
 		return size != null;
 	}
@@ -250,16 +230,6 @@ public class DiagramElement implements DiagramNode, ModifiableDiagramElementCont
 
 	final void setSize(final Dimension value) {
 		this.size = value;
-	}
-
-	/**
-	 * Intended for internal use by platform specific code in order to update the element's size to reflect the actual size after layout.
-	 * Using this method prevents notifications from being sent.
-	 * @param width
-	 * @param height
-	 */
-	public final void setSizeInternal(final int width, final int height) {
-		this.size = new Dimension(width, height);
 	}
 
 	public final AgeGraphicalConfiguration getGraphicalConfiguration() {

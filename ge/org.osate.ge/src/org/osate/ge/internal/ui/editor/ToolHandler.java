@@ -8,21 +8,18 @@
  *******************************************************************************/
 package org.osate.ge.internal.ui.editor;
 
+import java.util.Arrays;
+import java.util.List;
 import java.util.Objects;
 
 import org.eclipse.e4.core.contexts.ContextInjectionFactory;
 import org.eclipse.e4.core.contexts.IEclipseContext;
-import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.ui.editor.DefaultPaletteBehavior;
 import org.osate.ge.di.Activate;
-import org.osate.ge.di.CanActivate;
 import org.osate.ge.internal.di.Deactivate;
 import org.osate.ge.internal.di.InternalNames;
 import org.osate.ge.internal.di.SelectionChanged;
 import org.osate.ge.internal.diagram.runtime.DiagramElement;
-import org.osate.ge.internal.diagram.runtime.DiagramNode;
-import org.osate.ge.internal.graphiti.GraphitiAgeDiagramProvider;
-import org.osate.ge.internal.graphiti.diagram.GraphitiAgeDiagram;
 import org.osate.ge.internal.services.ExtensionService;
 
 /**
@@ -30,94 +27,80 @@ import org.osate.ge.internal.services.ExtensionService;
  *
  */
 public class ToolHandler {
-	private final GraphitiAgeDiagramProvider graphitiAgeDiagramProvider;
 	private final DefaultPaletteBehavior paletteBehavior;
 	private final IEclipseContext context;
 	private Object activeTool = null;
-	private ActivateToolAction activeToolAction = null; // Action that was used to activate the active tool
 	private DiagramElement[] diagramElements = null;
-	
-	public ToolHandler(final GraphitiAgeDiagramProvider graphitiAgeDiagramProvider,
-			final ExtensionService extensionService, 
+
+	public ToolHandler(final ExtensionService extensionService,
 			final DefaultPaletteBehavior paletteBehavior) {
-		this.graphitiAgeDiagramProvider = Objects.requireNonNull(graphitiAgeDiagramProvider, "graphitiAgeDiagramProvider must not be null");
+
 		this.paletteBehavior = paletteBehavior;
-		this.context = Objects.requireNonNull(extensionService, "extensionService must not be null").createChildContext();
+		this.context = Objects.requireNonNull(extensionService, "extensionService must not be null")
+				.createChildContext();
 	}
-	
+
 	public void dispose() {
 		this.context.dispose();
 		diagramElements = null;
 	}
-	
+
 	public boolean isToolActive() {
 		return activeTool != null;
 	}
 
-	public boolean canActivate(final Object tool) {
-		if(diagramElements == null) {
-			return false;
-		}
-		
-		try {
-			populateContext();			
-			final Object result = ContextInjectionFactory.invoke(tool, CanActivate.class, context, Boolean.FALSE);
-			if(!(result instanceof Boolean)) {
-				throw new RuntimeException("CanActivate method must return a Boolean value");
-			}
-			return ((Boolean) result).booleanValue();
-		} finally {
-			resetContext();
-		}
-	}
-		
-	public void activate(final Object tool, final ActivateToolAction action) {
+	public void activate(final Object tool) {
+		Objects.requireNonNull(tool, "tool must not be null");
+
 		// Deactivate the current tool
-		if(activeTool != null) {
-			deactivate(activeTool);
+		if (activeTool != null) {
+			deactivateActiveTool();
 		}
 
 		activeTool = tool;
-		activeToolAction = action;
-		
 		paletteBehavior.refreshPalette();
-		
+
 		try {
-			populateContext();	
-			ContextInjectionFactory.invoke(tool, Activate.class, context);
+			populateContext();
+			ContextInjectionFactory.invoke(activeTool, Activate.class, context);
 		} finally {
 			resetContext();
 		}
 	}
-	
+
 	public void deactivateActiveTool() {
 		if(activeTool != null) {
 			deactivate(activeTool);
 		}
 	}
-	
+
 	public void deactivate(final Object tool) {
 		try {
-			populateContext();	
+			populateContext();
 			ContextInjectionFactory.invoke(tool, Deactivate.class, context);
 		} finally {
 			resetContext();
 		}
-		
+
 		activeTool = null;
 		paletteBehavior.refreshPalette();
-		
-		activeToolAction.update();
-		activeToolAction = null;
 	}
-	
-	
-	public void setSelectedPictogramElements(final PictogramElement[] pes) {
-		this.diagramElements = getDiagramElements(graphitiAgeDiagramProvider.getGraphitiAgeDiagram(), pes);
-		if(diagramElements == null) {
+
+
+	public void setSelectedDiagramElements(final List<DiagramElement> diagramElements) {
+		if (diagramElements.size() == 0) {
 			return;
 		}
-		
+
+		final DiagramElement[] newDiagramElements = diagramElements.toArray(new DiagramElement[diagramElements.size()]);
+
+		// Ignore the selection if nothing has changed
+		if (Arrays.equals(this.diagramElements, newDiagramElements)) {
+			return;
+		}
+
+		this.diagramElements = newDiagramElements;
+
 		// Notify the active tool
 		if(activeTool != null) {
 			try {
@@ -129,39 +112,19 @@ public class ToolHandler {
 			}
 		}
 	}
-	
+
 	private void populateContext() {
 		if(diagramElements != null) {
 			// Update the context
 			if(diagramElements.length == 1) {
-				context.set(InternalNames.SELECTED_DIAGRAM_ELEMENT, diagramElements[0]);	
-			}			
+				context.set(InternalNames.SELECTED_DIAGRAM_ELEMENT, diagramElements[0]);
+			}
 			context.set(InternalNames.SELECTED_DIAGRAM_ELEMENTS, diagramElements);
 		}
 	}
-	
+
 	private void resetContext() {
 		context.remove(InternalNames.SELECTED_DIAGRAM_ELEMENT);
 		context.remove(InternalNames.SELECTED_DIAGRAM_ELEMENTS);
-	}
-	
-	/**
-	 * Returns null if it is unable get the diagram element for any pictogram element
-	 * @param pes
-	 * @return
-	 */
-	private static DiagramElement[] getDiagramElements(final GraphitiAgeDiagram graphitiAgeDiagram, final PictogramElement[] pes) {
-		final DiagramElement[] diagramElements = new DiagramElement[pes.length];
-		for(int i = 0; i < pes.length; i++) {
-			final DiagramNode dn = graphitiAgeDiagram.getClosestDiagramNode(pes[i]);
-			// Return null if we are unable to get the diagram element for any passed in pictogram element
-			if(!(dn instanceof DiagramElement)) {
-				return null;
-			}
-
-			diagramElements[i] = (DiagramElement)dn;
-		}
-
-		return diagramElements;
 	}
 }

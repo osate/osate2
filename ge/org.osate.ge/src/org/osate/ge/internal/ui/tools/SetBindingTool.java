@@ -1,11 +1,3 @@
-/*******************************************************************************
- * Copyright (C) 2016 University of Alabama in Huntsville (UAH)
- * All rights reserved. This program and the accompanying materials
- * are made available under the terms of the Eclipse Public License v1.0
- * which accompanies this distribution, and is available at
- * http://www.eclipse.org/legal/epl-v10.html
- * The US Government has unlimited rights in this work in accordance with W31P4Q-10-D-0092 DO 0105.
- *******************************************************************************/
 package org.osate.ge.internal.ui.tools;
 
 import java.util.ArrayList;
@@ -18,17 +10,14 @@ import javax.inject.Named;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.util.EcoreUtil;
-import org.eclipse.jface.dialogs.Dialog;
 import org.eclipse.jface.dialogs.IDialogConstants;
 import org.eclipse.jface.dialogs.TitleAreaDialog;
-import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.jface.viewers.ArrayContentProvider;
 import org.eclipse.jface.viewers.ComboViewer;
-import org.eclipse.jface.viewers.ISelectionChangedListener;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.LabelProvider;
-import org.eclipse.jface.viewers.SelectionChangedEvent;
 import org.eclipse.jface.viewers.StructuredSelection;
+import org.eclipse.jface.window.Window;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
@@ -57,21 +46,16 @@ import org.osate.aadl2.ReferenceType;
 import org.osate.aadl2.ReferenceValue;
 import org.osate.ge.BusinessObjectContext;
 import org.osate.ge.di.Activate;
-import org.osate.ge.di.CanActivate;
-import org.osate.ge.internal.Activator;
 import org.osate.ge.internal.AgeDiagramProvider;
 import org.osate.ge.internal.di.Deactivate;
-import org.osate.ge.internal.di.Description;
-import org.osate.ge.internal.di.Icon;
-import org.osate.ge.internal.di.Id;
 import org.osate.ge.internal.di.InternalNames;
 import org.osate.ge.internal.di.SelectionChanged;
 import org.osate.ge.internal.diagram.runtime.AgeDiagram;
 import org.osate.ge.internal.diagram.runtime.DiagramConfigurationBuilder;
 import org.osate.ge.internal.diagram.runtime.DiagramElement;
 import org.osate.ge.internal.services.AadlModificationService;
-import org.osate.ge.internal.services.UiService;
 import org.osate.ge.internal.services.AadlModificationService.AbstractModifier;
+import org.osate.ge.internal.services.UiService;
 import org.osate.xtext.aadl2.properties.util.DeploymentProperties;
 import org.osate.xtext.aadl2.properties.util.GetProperties;
 
@@ -82,20 +66,6 @@ import org.osate.xtext.aadl2.properties.util.GetProperties;
 public class SetBindingTool {
 	private SetBindingWindow currentWindow = null;
 
-	@Id
-	public final static String ID = "org.osate.ge.ui.tools.SetBindingTool";
-	
-	@Description
-	public final static String DESCRIPTION = "Bind...";
-
-	@Icon
-	public final static ImageDescriptor ICON = Activator.getImageDescriptor("icons/SetBinding.gif");
-
-	@CanActivate
-	public boolean canActivate(@Named(InternalNames.SELECTED_DIAGRAM_ELEMENT) BusinessObjectContext boc) {
-		return currentWindow == null && boc.getBusinessObject() instanceof NamedElement && ToolUtil.findComponentImplementationBoc(boc) != null;
-	}
-	
 	@Activate
 	public void activate(@Named(InternalNames.SELECTED_DIAGRAM_ELEMENT) final BusinessObjectContext selectedBoc, 
 			final AgeDiagramProvider diagramProvider,
@@ -107,7 +77,7 @@ public class SetBindingTool {
 			// Open Dialog
 			if(currentWindow == null && componentImplementationBoc != null) {
 				currentWindow = new SetBindingWindow(Display.getCurrent().getActiveShell(), componentImplementationBoc, selectedBoc);
-				if(currentWindow.open() == Dialog.OK) {					
+				if(currentWindow.open() == Window.OK) {					
 					// Ensure the diagram is configured to show the specified binding property
 					final AgeDiagram diagram = diagramProvider.getAgeDiagram();
 					diagram.setDiagramConfiguration(new DiagramConfigurationBuilder(diagram.getConfiguration()).
@@ -214,12 +184,9 @@ public class SetBindingTool {
 			bindingPropertyCombo.setContentProvider(new ArrayContentProvider());
 			bindingPropertyCombo.setLabelProvider(propertyLabelProvider);
 			bindingPropertyCombo.setInput(bindingProperties);
-			bindingPropertyCombo.addSelectionChangedListener(new ISelectionChangedListener() {
-				@Override
-				public void selectionChanged(SelectionChangedEvent event) {
-					setSelectedProperty((IStructuredSelection) bindingPropertyCombo.getSelection());
-					validate();
-				}
+			bindingPropertyCombo.addSelectionChangedListener(event -> {
+				setSelectedProperty((IStructuredSelection) bindingPropertyCombo.getSelection());
+				validate();
 			});
 
 			selectionStatusLabel = new Label(container, SWT.WRAP);

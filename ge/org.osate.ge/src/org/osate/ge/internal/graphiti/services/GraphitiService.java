@@ -14,6 +14,7 @@ import org.eclipse.graphiti.features.IFeatureProvider;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.osate.ge.internal.AgeDiagramProvider;
 import org.osate.ge.internal.graphiti.GraphitiAgeDiagramProvider;
+import org.osate.ge.internal.services.EditorProvider;
 import org.osate.ge.internal.services.ProjectProvider;
 
 /**
@@ -21,7 +22,7 @@ import org.osate.ge.internal.services.ProjectProvider;
  * capabilities via generic services. The purpose of this is to avoid adding graphiti objects to the context and thus exposing them
  * to extensions.
  */
-public interface GraphitiService extends GraphitiAgeDiagramProvider, AgeDiagramProvider, ProjectProvider {
+public interface GraphitiService extends GraphitiAgeDiagramProvider, AgeDiagramProvider, ProjectProvider, EditorProvider {
 	Diagram getDiagram();
 	IDiagramTypeProvider getDiagramTypeProvider();
 	IFeatureProvider getFeatureProvider();

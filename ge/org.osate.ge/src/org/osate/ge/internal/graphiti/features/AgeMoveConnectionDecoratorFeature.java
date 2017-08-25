@@ -47,7 +47,7 @@ public class AgeMoveConnectionDecoratorFeature extends DefaultMoveConnectionDeco
 		final DiagramElement decoratorDiagramElement = graphitiAgeDiagram.getDiagramElement(context.getConnectionDecorator());
 		if(decoratorDiagramElement == null) {
 			final DiagramElement connectionElement = graphitiAgeDiagram.getDiagramElement(context.getConnectionDecorator().getConnection());		
-			graphitiAgeDiagram.modify(new DiagramModifier() {					
+			graphitiAgeDiagram.modify("Move Connection Decorator", new DiagramModifier() {					
 				@Override
 				public void modify(final DiagramModification m) {
 					m.setConnectionPrimaryLabelPosition(connectionElement, new Point(context.getX(), context.getY()));
@@ -55,7 +55,7 @@ public class AgeMoveConnectionDecoratorFeature extends DefaultMoveConnectionDeco
 				}
 			});
 		} else {
-			graphitiAgeDiagram.modify(new DiagramModifier() {					
+			graphitiAgeDiagram.modify("Move Connection Decorator", new DiagramModifier() {					
 				@Override
 				public void modify(final DiagramModification m) {
 					m.setPosition(decoratorDiagramElement, new Point(context.getX(), context.getY()));

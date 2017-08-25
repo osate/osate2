@@ -31,7 +31,7 @@ public class AgeAddBendpointFeature extends DefaultAddBendpointFeature implement
 		final GraphitiAgeDiagram graphitiAgeDiagram = graphitiAgeDiagramProvider.getGraphitiAgeDiagram();
 		final DiagramElement connectionElement = graphitiAgeDiagram.getDiagramElement(ctx.getConnection());
 		if(connectionElement != null) {
-			graphitiAgeDiagram.modify(new DiagramModifier() {					
+			graphitiAgeDiagram.modify("Add Bendpoint", new DiagramModifier() {					
 				@Override
 				public void modify(final DiagramModification m) {
 					// Update the bendpoints

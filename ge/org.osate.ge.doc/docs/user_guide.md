@@ -52,7 +52,7 @@ An existing AADL model can be opened in the graphical editor. Changes made to ei
 The graphical editor supports navigating between related diagrams in several ways.
 
 ## Opening an Associated Diagram
-Diagrams associated with a particular element can be opened by double-clicking on the model element. For example, double-clicking a classifier inside a package diagram will open that classifier's diagram. Alternatively, the associated diagram can be open by right-clicking on the element and selecting *Open Associated Diagram* from the context menu.
+Diagrams associated with a particular element can be opened by right-clicking on the element and selecting *Open Associated Diagram* from the context menu. 
 
 ![](../images/OpenAssociatedDiagram.png)
 
@@ -117,8 +117,11 @@ In some cases a connection between diagram elements will be represented by a dot
 - An AADL property reference value for which the model element to which the property value applies is hidden.
 - An AADL property reference value for which the referenced model element is hidden.
 
-### Inherited Element
+### Inherited Elements
 Elements which are inherited from another model element have a gray color. This indicates that any changes made to the model element will result in a change to model element other than the one in which it is contained in graphically. Modifying inherited elements directly is not supported at this time. To modify an inherited model element, modify the element in the context of its owner. For example, to modify an AADL feature which is inherited from another classifier, find the diagram element of the classifier which defines the feature and modify the feature. 
+
+### Editing Properties
+The properties sheet contains properties for the currently selected diagram elements. The properties sheet can be opened by double-clicking on a diagram element in the diagram or in the outline. Alternatively, the properties sheet can be opened by right-clicking on a diagram element in the diagram or outline and selecting *Properties...* from the context menu.
 
 ### Deleting
 An element can be deleted from the AADL model by selecting it and pressing the *Delete* key. An element can also be deleted by right-clicking on it and selecting *Delete* from the context menu.
@@ -174,7 +177,17 @@ When creating a new diagram from an AADL model, the editor lays out the diagram 
 ![](../images/LayoutDiagram.png)
 
 ### Editing a Diagram Element's Appearance
-The appearance of appropriate diagram elements can be edited by using the *Appearance* tab of the *Properties* view.
+The appearance of diagram elements can be edited by using the *Appearance* tab of the *Properties* view.
+
+An element's appearance can be changed using the following steps.
+
+1. Open the *Properties* view by double-clicking on an element or by selecting *Properties...* from the context menu..
+
+2. Select the diagram element(s) to be edited.
+
+3. Select the *Appearance* tab.
+
+4. Select desired appearance options.
 
 Font size can be edited by selecting the font size drop-down menu.
 
@@ -195,16 +208,6 @@ Font color can be edited by clicking the font color button and selecting the des
 Background color can be edited by clicking the background color button and selecting the desired color.
 
 ![](../images/BackgroundColor.png)
-
-The element's appearance can be changed using the following steps.
-
-1. Open the *Properties* view.
-
-2. Select the diagram element(s) to be edited.
-
-3. Select the *Appearance* tab.
-
-4. Select desired appearance options.
 
 ## Connections
 The graphical editor allows editing AADL connections such as access, feature, feature group, parameter, and port.

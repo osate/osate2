@@ -50,8 +50,7 @@ import org.osate.ge.internal.graphiti.diagram.PropertyUtil;
 import org.osate.ge.internal.model.SubprogramCallOrder;
 import org.osate.ge.internal.services.ReferenceService;
 import org.osate.ge.internal.services.ProjectReferenceService;
-import org.osate.ge.internal.ui.util.SelectionHelper;
-import org.osate.ge.internal.util.DiagramUtil;
+import org.osate.ge.internal.ui.util.SelectionUtil;
 import org.osate.ge.services.ReferenceBuilderService;
 import org.osgi.framework.Bundle;
 import org.osgi.framework.FrameworkUtil;
@@ -94,12 +93,12 @@ public class LegacyGraphitiDiagramConverter {
 	}
 	
 	public void convertLegacyDiagram(final Diagram legacyDiagram, final URI uri) {
-		final org.osate.ge.internal.diagram.runtime.CanonicalBusinessObjectReference contextBoRef = DiagramUtil.getLegacyReference(legacyDiagram);
+		final org.osate.ge.internal.diagram.runtime.CanonicalBusinessObjectReference contextBoRef = LegacyDiagramUtil.getLegacyReference(legacyDiagram);
 		if(contextBoRef == null) {
 			throw new RuntimeException("Unable to get context business object reference from legacy diagram.");
 		}
 		
-		final IProject project = SelectionHelper.getProject(legacyDiagram.eResource());
+		final IProject project = SelectionUtil.getProject(legacyDiagram.eResource());
 		
 		// Create objects for the context
 		final Bundle bundle = FrameworkUtil.getBundle(getClass());	
@@ -162,7 +161,7 @@ public class LegacyGraphitiDiagramConverter {
 				}
 				
 				// Get canonical reference
-				final org.osate.ge.internal.diagram.runtime.CanonicalBusinessObjectReference canonicalRef = DiagramUtil.getLegacyReference(c);
+				final org.osate.ge.internal.diagram.runtime.CanonicalBusinessObjectReference canonicalRef = LegacyDiagramUtil.getLegacyReference(c);
 				if(canonicalRef == null) {
 					// Skip
 					continue;
@@ -354,7 +353,7 @@ public class LegacyGraphitiDiagramConverter {
 			}
 
 			// Get canonical reference
-			final org.osate.ge.internal.diagram.runtime.CanonicalBusinessObjectReference canonicalRef = DiagramUtil.getLegacyReference(child);
+			final org.osate.ge.internal.diagram.runtime.CanonicalBusinessObjectReference canonicalRef = LegacyDiagramUtil.getLegacyReference(child);
 			if(canonicalRef == null) {
 				// Ignore shapes for which a reference cannot be retrieved.
 				continue;

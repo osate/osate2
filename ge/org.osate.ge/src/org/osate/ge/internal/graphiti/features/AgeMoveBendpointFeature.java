@@ -31,7 +31,7 @@ public class AgeMoveBendpointFeature extends DefaultMoveBendpointFeature impleme
 		final GraphitiAgeDiagram graphitiAgeDiagram = graphitiAgeDiagramProvider.getGraphitiAgeDiagram();
 		final DiagramElement connectionElement = graphitiAgeDiagram.getDiagramElement(ctx.getConnection());
 		if(connectionElement != null) {
-			graphitiAgeDiagram.modify(new DiagramModifier() {					
+			graphitiAgeDiagram.modify("Move Bendpoint", new DiagramModifier() {					
 				@Override
 				public void modify(final DiagramModification m) {					
 					// Update the bendpoint

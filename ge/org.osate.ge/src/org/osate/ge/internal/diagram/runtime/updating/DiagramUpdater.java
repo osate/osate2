@@ -83,7 +83,7 @@ public class DiagramUpdater {
 		final BusinessObjectNode tree = boTreeExpander.expandTree(diagram.getConfiguration(), inputTree, diagram.getMaxElementId()+1);
 		final List<DiagramElement> connectionElements = new LinkedList<>();
 		
-		diagram.modify(new DiagramModifier() {
+		diagram.modify("Update Diagram", new DiagramModifier() {
 			@Override
 			public void modify(final DiagramModification m) {
 				// Update the structure. By doing this in a separate pass, updateElements() will have access to the complete diagram structure. 

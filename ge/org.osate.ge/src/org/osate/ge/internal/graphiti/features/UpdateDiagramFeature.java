@@ -50,7 +50,7 @@ public class UpdateDiagramFeature extends AbstractUpdateFeature implements ICust
 		diagramUpdater.updateDiagram(ageDiagram);		
 		
 		// Perform the layout as a separate operation because the sizes for the shapes are assigned by the Graphiti modification listener.
-		ageDiagram.modify(new DiagramModifier() {
+		ageDiagram.modify("Update Diagram", new DiagramModifier() {
 			@Override
 			public void modify(final DiagramModification m) {
 				DiagramLayoutUtil.layout(ageDiagram, m, false);

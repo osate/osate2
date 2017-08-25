@@ -65,7 +65,7 @@ public class AadlBusinessObjectProvider {
 		/*
 		if(bo == null) { // Special handling for project
 			Stream.Builder<Object> packages = Stream.builder();
-			for(final IEObjectDescription desc : ScopedEMFIndexRetrieval.getAllEObjectsByType(graphitiService.getProject(), Aadl2Factory.eINSTANCE.getAadl2Package().getAadlPackage())) {
+			for(final IEObjectDescription desc : ScopedEMFIndexRetrieval.getAllEObjectsByType(projectProvider.getProject(), Aadl2Factory.eINSTANCE.getAadl2Package().getAadlPackage())) {
 				final String pkgQualifiedName = desc.getQualifiedName().toString("::");
 				final Object resolvedPackage = refService.resolve(DeclarativeReferenceBuilder.buildPackageCanonicalReference(pkgQualifiedName));
 				if(resolvedPackage != null) {

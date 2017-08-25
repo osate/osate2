@@ -55,7 +55,7 @@ import org.osate.ge.internal.services.ReferenceService;
 import org.osate.ge.internal.ui.editor.AgeDiagramBehavior;
 import org.osate.ge.internal.ui.editor.AgeDiagramEditor;
 import org.osate.ge.internal.ui.util.EditorUtil;
-import org.osate.ge.internal.ui.util.SelectionHelper;
+import org.osate.ge.internal.ui.util.SelectionUtil;
 import org.osate.ge.internal.util.BusinessObjectProviderHelper;
 import org.osate.ge.internal.util.Log;
 import org.osate.ge.internal.util.NonUndoableToolCommand;
@@ -259,7 +259,7 @@ public class DefaultDiagramService implements DiagramService {
 		// Create a root diagram element for the context which will be set to manual.
 		// This has the benefit that the root element will be checked when the user configures the diagram.
 		final RelativeBusinessObjectReference contextBoRelRef = Objects.requireNonNull(referenceService.getRelativeReference(contextBo), "Unable to build relative reference for business object: " + contextBo);
-		diagram.modify(new DiagramModifier() {			
+		diagram.modify("Set Context as Manual", new DiagramModifier() {			
 			@Override
 			public void modify(final DiagramModification m) {
 				final DiagramElement contextElement = new DiagramElement(diagram, contextBo, null, contextBoRelRef);
@@ -395,7 +395,7 @@ public class DefaultDiagramService implements DiagramService {
 		if(resource != null) {
 			final URI uri = resource.getURI();
 			if(uri != null) {
-				return SelectionHelper.getProject(uri);
+				return SelectionUtil.getProject(uri);
 			}
 		}
 		
@@ -450,7 +450,7 @@ public class DefaultDiagramService implements DiagramService {
 					editor.getEditingDomain().getCommandStack().execute(new NonUndoableToolCommand() {	
 						@Override
 						public void execute() {
-							diagram.modify(new DiagramModifier() {					
+							diagram.modify("Update References", new DiagramModifier() {					
 								@Override
 								public void modify(final DiagramModification m) {
 									updateReferences(updatedReferenceValues, originalCanonicalRefToReferenceMap, null, m);

@@ -99,7 +99,6 @@ Business object handlers are classes which provide business object specific func
 ##### General
 * [GetGraphicalConfiguration](../api/org/osate/ge/GetGraphicalConfiguration.html)
 * [GetChildren](../api/org/osate/ge/di/GetChildren.html)
-* [HandleDoubleClick](../api/org/osate/ge/di/HandleDoubleClick.html)
 
 ##### Business Object Creation
 * [GetPaletteEntries](../api/org/osate/ge/di/GetPaletteEntries.html)
