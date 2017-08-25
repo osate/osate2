@@ -1,5 +1,6 @@
 package org.osate.ge.internal.diagram.runtime;
 
+import java.awt.Color;
 import java.io.IOException;
 import java.util.Collection;
 import java.util.Collections;
@@ -22,7 +23,7 @@ import org.osate.ge.internal.DockArea;
  *
  */
 public class DiagramSerialization {
-	public final static int FORMAT_VERSION = 1;
+	public final static int FORMAT_VERSION = 2;
 
 	private static Comparator<DiagramElement> elementComparator = (e1, e2) -> e1.getRelativeReference()
 			.compareTo(e2.getRelativeReference());
@@ -168,6 +169,16 @@ public class DiagramSerialization {
 			}
 		}
 
+		// Style
+		final Color background = mmChild.getBackground() != null ? parseColor(mmChild.getBackground()) : null;
+		final Color fontColor = mmChild.getFontColor() != null ? parseColor(mmChild.getFontColor()) : null;
+		final Color outline = mmChild.getOutline() != null ? parseColor(mmChild.getOutline()) : null;
+		final int lineWidth = mmChild.getLineWidth();
+		final double fontSize = mmChild.getFontSize();
+
+		newElement.setStyle(StyleBuilder.create().backgroundColor(background).fontColor(fontColor).outlineColor(outline)
+				.fontSize(FontSize.getByValue(fontSize)).lineWidth(LineWidth.getByValue(lineWidth)).build());
+
 		// Bendpoints
 		final org.osate.ge.diagram.BendpointList mmBendpoints = mmChild.getBendpoints();
 		if (mmBendpoints != null) {
@@ -286,6 +297,32 @@ public class DiagramSerialization {
 			newElement.setDockArea(e.getDockArea().id);
 		}
 
+		final Style currentStyle = e.getStyle();
+		final java.awt.Color awtBackground = currentStyle.getBackgroundColor();
+		if (awtBackground != null) {
+			newElement.setBackground(awtColorToHex(awtBackground));
+		}
+
+		final java.awt.Color awtFontColor = currentStyle.getFontColor();
+		if (awtFontColor != null) {
+			newElement.setFontColor(awtColorToHex(awtFontColor));
+		}
+
+		final java.awt.Color awtOutline = currentStyle.getOutlineColor();
+		if (awtOutline != null) {
+			newElement.setOutline(awtColorToHex(awtOutline));
+		}
+
+		final FontSize fontSize = currentStyle.getFontSize();
+		if (fontSize != null) {
+			newElement.setFontSize(fontSize.getValue());
+		}
+
+		final LineWidth lineWidth = currentStyle.getLineWidth();
+		if (lineWidth != null) {
+			newElement.setLineWidth(lineWidth.getValue());
+		}
+
 		// Connection Specific
 		if (e.getBendpoints().size() > 0) {
 			final org.osate.ge.diagram.BendpointList mmBendpoints = new org.osate.ge.diagram.BendpointList();
@@ -301,5 +338,17 @@ public class DiagramSerialization {
 		}
 
 		convertElementsToMetamodel(newElement, e.getDiagramElements());
+	}
+
+	// Create hex string from color
+	private static String awtColorToHex(final java.awt.Color color) {
+		return "#" + String.format("%02x", color.getRed()) + String.format("%02x", color.getGreen())
+		+ String.format("%02x", color.getBlue());
+	}
+
+	// Create color from hex string
+	private static Color parseColor(final String color) {
+		return new Color(Integer.parseInt(color.substring(1, 3), 16), Integer.parseInt(color.substring(3, 5), 16),
+				Integer.parseInt(color.substring(5), 16));
 	}
 }

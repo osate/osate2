@@ -43,6 +43,8 @@ public interface DiagramModification {
 	void setDockArea(final DiagramElement e, final DockArea value);
 	void setBendpoints(final DiagramElement e, final List<Point> bendpoints);
 	void setConnectionPrimaryLabelPosition(final DiagramElement e, final Point value);
+	void setStyle(final DiagramElement e, final Style value);
+
 	
 	/**
 	 * Undoes a previous modification. The specified modification must be the most recently performed modification.

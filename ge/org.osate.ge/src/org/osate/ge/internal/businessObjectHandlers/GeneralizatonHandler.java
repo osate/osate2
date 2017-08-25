@@ -1,6 +1,9 @@
 package org.osate.ge.internal.businessObjectHandlers;
 
+import java.awt.Color;
+
 import javax.inject.Named;
+
 import org.osate.aadl2.Aadl2Factory;
 import org.osate.aadl2.AadlPackage;
 import org.osate.aadl2.AbstractImplementation;
@@ -15,6 +18,7 @@ import org.osate.aadl2.ImplementationExtension;
 import org.osate.aadl2.PackageSection;
 import org.osate.aadl2.Realization;
 import org.osate.aadl2.TypeExtension;
+import org.osate.ge.BusinessObjectContext;
 import org.osate.ge.Categories;
 import org.osate.ge.GraphicalConfiguration;
 import org.osate.ge.GraphicalConfigurationBuilder;
@@ -33,7 +37,6 @@ import org.osate.ge.di.Names;
 import org.osate.ge.graphics.ArrowBuilder;
 import org.osate.ge.graphics.ConnectionBuilder;
 import org.osate.ge.graphics.Graphic;
-import org.osate.ge.BusinessObjectContext;
 import org.osate.ge.internal.graphics.LabelBuilder;
 import org.osate.ge.internal.util.AadlImportsUtil;
 import org.osate.ge.internal.util.ImageHelper;
@@ -43,32 +46,32 @@ import org.osate.ge.services.QueryService;
 public class GeneralizatonHandler {
 	private static final Graphic extendsGraphic = ConnectionBuilder.create().destinationTerminator(ArrowBuilder.create().open().build()).build();
 	private static final Graphic implementsGraphic = ConnectionBuilder.create().destinationTerminator(ArrowBuilder.create().open().build()).dashed().build();
-	private static final Graphic labelGraphic = LabelBuilder.create().build();	
+	private static final Graphic labelGraphic = LabelBuilder.create().build();
 	private static StandaloneQuery nestedClassifierQuery = StandaloneQuery.create((rootQuery) -> rootQuery.descendantsByBusinessObjectsRelativeReference((Generalization g) -> getBusinessObjectPath(g.getGeneral())));
-	
+
 	@GetPaletteEntries
 	public PaletteEntry[] getPaletteEntries(final @Named(Names.DIAGRAM_BO) AadlPackage pkg) {
-		return new PaletteEntry[] { 
-			PaletteEntryBuilder.create().connectionCreation().label("Extension").icon(ImageHelper.getImage(Aadl2Factory.eINSTANCE.getAadl2Package().getGeneralization().getName())).category(Categories.CLASSIFIERS).build()
+		return new PaletteEntry[] {
+				PaletteEntryBuilder.create().connectionCreation().label("Extension").icon(ImageHelper.getImage(Aadl2Factory.eINSTANCE.getAadl2Package().getGeneralization().getName())).category(Categories.CLASSIFIERS).build()
 		};
 	}
-	
+
 	@IsApplicable
 	public boolean isApplicable(final @Named(Names.BUSINESS_OBJECT) Object bo) {
 		return bo instanceof Realization || bo instanceof TypeExtension || bo instanceof ImplementationExtension || bo instanceof GroupExtension;
 	}
-	
+
 	@CanDelete
 	public boolean canDeleteGeneralization() {
 		return true;
 	}
-	
+
 	@GetGraphicalConfiguration
 	public GraphicalConfiguration getGraphicalConfiguration(final @Named(Names.BUSINESS_OBJECT) Object bo,
-			final @Named(Names.BUSINESS_OBJECT_CONTEXT) BusinessObjectContext boc, 
+			final @Named(Names.BUSINESS_OBJECT_CONTEXT) BusinessObjectContext boc,
 			final QueryService queryService) {
 		final BusinessObjectContext destination = getDestination(boc, queryService);
-		
+
 		if(destination == null) {
 			return GraphicalConfigurationBuilder.create().
 					graphic(labelGraphic).
@@ -79,58 +82,59 @@ public class GeneralizatonHandler {
 					graphic(getConnectionGraphicalRepresentation(bo)).
 					source(boc.getParent()). // Source is the owner of the BO
 					destination(getDestination(boc, queryService)).
+					defaultBackgroundColor(Color.BLACK).
 					build();
 		}
 	}
-	
+
 	private Graphic getConnectionGraphicalRepresentation(final Object bo) {
 		return bo instanceof Realization ? implementsGraphic : extendsGraphic;
 	}
-	
-	private BusinessObjectContext getDestination(final BusinessObjectContext boc, 
-			final QueryService queryService) {	
+
+	private BusinessObjectContext getDestination(final BusinessObjectContext boc,
+			final QueryService queryService) {
 		final BusinessObjectContext pkgBoc = boc.getParent().getParent();
 		if(pkgBoc == null) {
 			return null;
 		}
-		
+
 		final BusinessObjectContext packageParentBoc = pkgBoc.getParent();
 
 		// Showing generalizations as connections is only supported on diagrams which contain package symbols
 		if(packageParentBoc == null) {
 			return null;
 		}
-		
+
 		return queryService.getFirstResult(nestedClassifierQuery, packageParentBoc, boc.getBusinessObject());
-	}	
-		
+	}
+
 	private static Object[] getBusinessObjectPath(final Classifier c) {
 		return new Object[] { c.getElementRoot(), c };
-	}	
-	
+	}
+
 	@GetName
 	public String getName(final @Named(Names.BUSINESS_OBJECT) Generalization generalization,
-			final @Named(Names.BUSINESS_OBJECT_CONTEXT) BusinessObjectContext boc, 
+			final @Named(Names.BUSINESS_OBJECT_CONTEXT) BusinessObjectContext boc,
 			final QueryService queryService) {
 		// Don't show the name when displaying as a connection
 		if(getDestination(boc, queryService) != null) {
 			return null;
 		}
-		
+
 		final Classifier general = generalization.getGeneral();
 		if(general == null) {
 			return null;
 		}
-		
+
 		return (generalization instanceof Realization ? "Implements " : "Extends ") + general.getQualifiedName();
 	}
-	
+
 	@GetCreateOwner
-	public BusinessObjectContext getCreateConnectionOwner(@Named(Names.SOURCE_BO) final Classifier subtype, 
+	public BusinessObjectContext getCreateConnectionOwner(@Named(Names.SOURCE_BO) final Classifier subtype,
 			@Named(Names.SOURCE_BUSINESS_OBJECT_CONTEXT) final BusinessObjectContext subtypeBoc) {
 		return subtypeBoc;
 	}
-	
+
 	@CanStartConnection
 	public boolean canStartConnection(@Named(Names.SOURCE_BO) final Classifier subtype) {
 		// Determine whether it is a valid starting object
@@ -144,10 +148,10 @@ public class GeneralizatonHandler {
 			final FeatureGroupType fgt = (FeatureGroupType) subtype;
 			return fgt.getOwnedExtension() == null;
 		}
-		
+
 		return false;
-	}	
-	
+	}
+
 	@CanCreate
 	public boolean canCreateGeneralization(@Named(Names.SOURCE_BO) final Object subtype, @Named(Names.DESTINATION_BO) final Classifier supertype) {
 		// Ensure they are valid and are not the same
@@ -180,7 +184,7 @@ public class GeneralizatonHandler {
 			final AadlPackage supertypePackage = (AadlPackage)supertype.getNamespace().getOwner();
 			AadlImportsUtil.addImportIfNeeded(subtypeSection, supertypePackage);
 		}
-		
+
 		// Create the generalization
 		if(subtype instanceof ComponentType) {
 			final ComponentType ct = (ComponentType)subtype;

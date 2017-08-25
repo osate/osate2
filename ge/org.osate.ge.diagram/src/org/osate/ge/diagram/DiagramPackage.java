@@ -4,6 +4,7 @@ package org.osate.ge.diagram;
 
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EDataType;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
 
@@ -253,13 +254,58 @@ public class DiagramPackage extends EPackageImpl {
 	public static final int DIAGRAM_ELEMENT__PRIMARY_LABEL_POSITION = DiagramPackage.DIAGRAM_NODE_FEATURE_COUNT + 8;
 
 	/**
+	 * The feature id for the '<em><b>Background</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	public static final int DIAGRAM_ELEMENT__BACKGROUND = DiagramPackage.DIAGRAM_NODE_FEATURE_COUNT + 9;
+
+	/**
+	 * The feature id for the '<em><b>Outline</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	public static final int DIAGRAM_ELEMENT__OUTLINE = DiagramPackage.DIAGRAM_NODE_FEATURE_COUNT + 10;
+
+	/**
+	 * The feature id for the '<em><b>Font Color</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	public static final int DIAGRAM_ELEMENT__FONT_COLOR = DiagramPackage.DIAGRAM_NODE_FEATURE_COUNT + 11;
+
+	/**
+	 * The feature id for the '<em><b>Font Size</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	public static final int DIAGRAM_ELEMENT__FONT_SIZE = DiagramPackage.DIAGRAM_NODE_FEATURE_COUNT + 12;
+
+	/**
+	 * The feature id for the '<em><b>Line Width</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	public static final int DIAGRAM_ELEMENT__LINE_WIDTH = DiagramPackage.DIAGRAM_NODE_FEATURE_COUNT + 13;
+
+	/**
 	 * The number of structural features of the '<em>Element</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	public static final int DIAGRAM_ELEMENT_FEATURE_COUNT = DiagramPackage.DIAGRAM_NODE_FEATURE_COUNT + 9;
+	public static final int DIAGRAM_ELEMENT_FEATURE_COUNT = DiagramPackage.DIAGRAM_NODE_FEATURE_COUNT + 14;
 
 	/**
 	 * The number of operations of the '<em>Element</em>' class.
@@ -477,6 +523,16 @@ public class DiagramPackage extends EPackageImpl {
 	public static final int DIAGRAM_CONFIGURATION = 9;
 
 	/**
+	 * The meta object id for the '<em>Color</em>' data type.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see java.lang.String
+	 * @see org.osate.ge.diagram.DiagramPackage#getColor()
+	 * @generated
+	 */
+	public static final int COLOR = 11;
+
+	/**
 	 * The feature id for the '<em><b>Seg</b></em>' attribute list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -669,6 +725,13 @@ public class DiagramPackage extends EPackageImpl {
 	 * @generated
 	 */
 	private EClass referenceEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EDataType colorEDataType = null;
 
 	/**
 	 * Creates an instance of the model <b>Package</b>, registered with
@@ -921,6 +984,76 @@ public class DiagramPackage extends EPackageImpl {
 	}
 
 	/**
+	 * Returns the meta object for the attribute '{@link org.osate.ge.diagram.DiagramElement#getBackground <em>Background</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Background</em>'.
+	 * @see org.osate.ge.diagram.DiagramElement#getBackground()
+	 * @see #getDiagramElement()
+	 * @generated
+	 */
+	public EAttribute getDiagramElement_Background() {
+		return (EAttribute)diagramElementEClass.getEStructuralFeatures().get(9);
+	}
+
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.osate.ge.diagram.DiagramElement#getOutline <em>Outline</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Outline</em>'.
+	 * @see org.osate.ge.diagram.DiagramElement#getOutline()
+	 * @see #getDiagramElement()
+	 * @generated
+	 */
+	public EAttribute getDiagramElement_Outline() {
+		return (EAttribute)diagramElementEClass.getEStructuralFeatures().get(10);
+	}
+
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.osate.ge.diagram.DiagramElement#getFontColor <em>Font Color</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Font Color</em>'.
+	 * @see org.osate.ge.diagram.DiagramElement#getFontColor()
+	 * @see #getDiagramElement()
+	 * @generated
+	 */
+	public EAttribute getDiagramElement_FontColor() {
+		return (EAttribute)diagramElementEClass.getEStructuralFeatures().get(11);
+	}
+
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.osate.ge.diagram.DiagramElement#getFontSize <em>Font Size</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Font Size</em>'.
+	 * @see org.osate.ge.diagram.DiagramElement#getFontSize()
+	 * @see #getDiagramElement()
+	 * @generated
+	 */
+	public EAttribute getDiagramElement_FontSize() {
+		return (EAttribute)diagramElementEClass.getEStructuralFeatures().get(12);
+	}
+
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.osate.ge.diagram.DiagramElement#getLineWidth <em>Line Width</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Line Width</em>'.
+	 * @see org.osate.ge.diagram.DiagramElement#getLineWidth()
+	 * @see #getDiagramElement()
+	 * @generated
+	 */
+	public EAttribute getDiagramElement_LineWidth() {
+		return (EAttribute)diagramElementEClass.getEStructuralFeatures().get(13);
+	}
+
+
+	/**
 	 * Returns the meta object for the attribute '{@link org.osate.ge.diagram.DiagramElement#getId <em>Id</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1148,6 +1281,20 @@ public class DiagramPackage extends EPackageImpl {
 	}
 
 	/**
+	 * Returns the meta object for data type '{@link java.lang.String <em>Color</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for data type '<em>Color</em>'.
+	 * @see java.lang.String
+	 * @model instanceClass="java.lang.String"
+	 * @generated
+	 */
+	public EDataType getColor() {
+		return colorEDataType;
+	}
+
+
+	/**
 	 * Returns the factory that creates the instances of the model.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1194,6 +1341,11 @@ public class DiagramPackage extends EPackageImpl {
 		createEAttribute(diagramElementEClass, DIAGRAM_ELEMENT__DOCK_AREA);
 		createEReference(diagramElementEClass, DIAGRAM_ELEMENT__BENDPOINTS);
 		createEReference(diagramElementEClass, DIAGRAM_ELEMENT__PRIMARY_LABEL_POSITION);
+		createEAttribute(diagramElementEClass, DIAGRAM_ELEMENT__BACKGROUND);
+		createEAttribute(diagramElementEClass, DIAGRAM_ELEMENT__OUTLINE);
+		createEAttribute(diagramElementEClass, DIAGRAM_ELEMENT__FONT_COLOR);
+		createEAttribute(diagramElementEClass, DIAGRAM_ELEMENT__FONT_SIZE);
+		createEAttribute(diagramElementEClass, DIAGRAM_ELEMENT__LINE_WIDTH);
 
 		pointEClass = createEClass(POINT);
 		createEAttribute(pointEClass, POINT__X);
@@ -1219,6 +1371,9 @@ public class DiagramPackage extends EPackageImpl {
 
 		referenceEClass = createEClass(REFERENCE);
 		createEAttribute(referenceEClass, REFERENCE__SEG);
+
+		// Create data types
+		colorEDataType = createEDataType(COLOR);
 	}
 
 	/**
@@ -1276,6 +1431,11 @@ public class DiagramPackage extends EPackageImpl {
 		initEAttribute(getDiagramElement_DockArea(), theXMLTypePackage.getString(), "dockArea", null, 0, 1, DiagramElement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getDiagramElement_Bendpoints(), theDiagramPackage_1.getBendpointList(), null, "bendpoints", null, 0, 1, DiagramElement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getDiagramElement_PrimaryLabelPosition(), theDiagramPackage_1.getPoint(), null, "primaryLabelPosition", null, 0, 1, DiagramElement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getDiagramElement_Background(), theDiagramPackage_1.getColor(), "background", null, 0, 1, DiagramElement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getDiagramElement_Outline(), theDiagramPackage_1.getColor(), "outline", null, 0, 1, DiagramElement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getDiagramElement_FontColor(), theDiagramPackage_1.getColor(), "fontColor", null, 0, 1, DiagramElement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getDiagramElement_FontSize(), theXMLTypePackage.getDouble(), "fontSize", null, 0, 1, DiagramElement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getDiagramElement_LineWidth(), theXMLTypePackage.getInt(), "lineWidth", "0", 0, 1, DiagramElement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(pointEClass, Point.class, "Point", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getPoint_X(), theXMLTypePackage.getInt(), "x", null, 0, 1, Point.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -1301,6 +1461,9 @@ public class DiagramPackage extends EPackageImpl {
 
 		initEClass(referenceEClass, Reference.class, "Reference", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getReference_Seg(), theXMLTypePackage.getString(), "seg", null, 0, -1, Reference.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		// Initialize data types
+		initEDataType(colorEDataType, String.class, "Color", IS_SERIALIZABLE, !IS_GENERATED_INSTANCE_CLASS);
 	}
 
 	/**
@@ -1434,6 +1597,46 @@ public class DiagramPackage extends EPackageImpl {
 		 * @generated
 		 */
 		public static final EReference DIAGRAM_ELEMENT__PRIMARY_LABEL_POSITION = eINSTANCE.getDiagramElement_PrimaryLabelPosition();
+
+		/**
+		 * The meta object literal for the '<em><b>Background</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		public static final EAttribute DIAGRAM_ELEMENT__BACKGROUND = eINSTANCE.getDiagramElement_Background();
+
+		/**
+		 * The meta object literal for the '<em><b>Outline</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		public static final EAttribute DIAGRAM_ELEMENT__OUTLINE = eINSTANCE.getDiagramElement_Outline();
+
+		/**
+		 * The meta object literal for the '<em><b>Font Color</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		public static final EAttribute DIAGRAM_ELEMENT__FONT_COLOR = eINSTANCE.getDiagramElement_FontColor();
+
+		/**
+		 * The meta object literal for the '<em><b>Font Size</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		public static final EAttribute DIAGRAM_ELEMENT__FONT_SIZE = eINSTANCE.getDiagramElement_FontSize();
+
+		/**
+		 * The meta object literal for the '<em><b>Line Width</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		public static final EAttribute DIAGRAM_ELEMENT__LINE_WIDTH = eINSTANCE.getDiagramElement_LineWidth();
 
 		/**
 		 * The meta object literal for the '<em><b>Id</b></em>' attribute feature.
@@ -1594,6 +1797,16 @@ public class DiagramPackage extends EPackageImpl {
 		 * @generated
 		 */
 		public static final EAttribute REFERENCE__SEG = eINSTANCE.getReference_Seg();
+
+		/**
+		 * The meta object literal for the '<em>Color</em>' data type.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see java.lang.String
+		 * @see org.osate.ge.diagram.DiagramPackage#getColor()
+		 * @generated
+		 */
+		public static final EDataType COLOR = eINSTANCE.getColor();
 
 	}
 

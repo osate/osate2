@@ -291,6 +291,13 @@ public class AgeDiagram implements DiagramNode, ModifiableDiagramElementContaine
 			}
 		}
 		
+		@Override
+		public void setStyle(final DiagramElement e, final Style value) {
+			storeChange(e, DiagramElementField.STYLE, e.getStyle(), value);
+			e.setStyle(value);
+			afterUpdate(e, DiagramElementField.STYLE);
+		}
+		
 		// Notifies listeners and manages change tracking state after a field has been updated.
 		private void afterUpdate(final DiagramElement e, final DiagramElementField c) {
 			// Notify listeners of the previous modification
@@ -481,6 +488,10 @@ public class AgeDiagram implements DiagramNode, ModifiableDiagramElementContaine
 				
 			case CONNECTION_PRIMARY_LABEL_POSITION:
 				m.setConnectionPrimaryLabelPosition(element, (Point)value);
+				break;
+				
+			case STYLE:
+				m.setStyle(element, (Style)value);
 				break;
 				
 			case RELATIVE_REFERENCE:
