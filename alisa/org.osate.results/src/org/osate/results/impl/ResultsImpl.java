@@ -16,7 +16,7 @@ import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 
-import org.eclipse.emf.ecore.util.EDataTypeUniqueEList;
+import org.eclipse.emf.ecore.util.EDataTypeEList;
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 
@@ -126,7 +126,7 @@ public class ResultsImpl extends MinimalEObjectImpl.Container implements Results
 	 * @generated
 	 * @ordered
 	 */
-	protected EList<Object> values;
+	protected EList<Double> values;
 
 	/**
 	 * The cached value of the '{@link #getDataSpec() <em>Data Spec</em>}' containment reference list.
@@ -293,9 +293,9 @@ public class ResultsImpl extends MinimalEObjectImpl.Container implements Results
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EList<Object> getValues() {
+	public EList<Double> getValues() {
 		if (values == null) {
-			values = new EDataTypeUniqueEList<Object>(Object.class, this, ResultsPackage.RESULTS__VALUES);
+			values = new EDataTypeEList<Double>(Double.class, this, ResultsPackage.RESULTS__VALUES);
 		}
 		return values;
 	}
@@ -422,7 +422,7 @@ public class ResultsImpl extends MinimalEObjectImpl.Container implements Results
 				return;
 			case ResultsPackage.RESULTS__VALUES:
 				getValues().clear();
-				getValues().addAll((Collection<? extends Object>)newValue);
+				getValues().addAll((Collection<? extends Double>)newValue);
 				return;
 			case ResultsPackage.RESULTS__DATA_SPEC:
 				getDataSpec().clear();

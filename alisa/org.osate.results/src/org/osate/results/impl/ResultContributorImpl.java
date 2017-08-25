@@ -16,7 +16,7 @@ import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 
-import org.eclipse.emf.ecore.util.EDataTypeUniqueEList;
+import org.eclipse.emf.ecore.util.EDataTypeEList;
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 
@@ -157,7 +157,7 @@ public class ResultContributorImpl extends MinimalEObjectImpl.Container implemen
 	 */
 	public EList<Object> getValues() {
 		if (values == null) {
-			values = new EDataTypeUniqueEList<Object>(Object.class, this, ResultsPackage.RESULT_CONTRIBUTOR__VALUES);
+			values = new EDataTypeEList<Object>(Object.class, this, ResultsPackage.RESULT_CONTRIBUTOR__VALUES);
 		}
 		return values;
 	}

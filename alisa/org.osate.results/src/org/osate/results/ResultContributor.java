@@ -64,7 +64,7 @@ public interface ResultContributor extends EObject {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Values</em>' attribute list.
 	 * @see org.osate.results.ResultsPackage#getResultContributor_Values()
-	 * @model
+	 * @model unique="false"
 	 * @generated
 	 */
 	EList<Object> getValues();

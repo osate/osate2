@@ -137,7 +137,7 @@ public interface Results extends EObject {
 
 	/**
 	 * Returns the value of the '<em><b>Values</b></em>' attribute list.
-	 * The list contents are of type {@link java.lang.Object}.
+	 * The list contents are of type {@link java.lang.Double}.
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Values</em>' attribute list isn't clear,
@@ -146,10 +146,10 @@ public interface Results extends EObject {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Values</em>' attribute list.
 	 * @see org.osate.results.ResultsPackage#getResults_Values()
-	 * @model
+	 * @model unique="false"
 	 * @generated
 	 */
-	EList<Object> getValues();
+	EList<Double> getValues();
 
 	/**
 	 * Returns the value of the '<em><b>Data Spec</b></em>' containment reference list.
