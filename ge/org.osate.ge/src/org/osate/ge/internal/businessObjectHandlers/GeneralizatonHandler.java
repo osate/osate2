@@ -62,8 +62,8 @@ public class GeneralizatonHandler {
 	}
 
 	@CanDelete
-	public boolean canDeleteGeneralization() {
-		return true;
+	public boolean canDeleteGeneralization(final @Named(Names.BUSINESS_OBJECT) Object bo) {
+		return bo instanceof TypeExtension || bo instanceof ImplementationExtension || bo instanceof GroupExtension;
 	}
 
 	@GetGraphicalConfiguration
