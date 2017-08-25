@@ -3,15 +3,12 @@ package org.osate.aadl2.errormodel.faulttree.generation;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.URI;
-import org.eclipse.emf.ecore.EObject;
-import org.eclipse.emf.ecore.resource.Resource;
-import org.eclipse.emf.ecore.resource.ResourceSet;
-import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.osate.aadl2.errormodel.FaultTree.FaultTree;
 import org.osate.aadl2.errormodel.PropagationGraph.PropagationGraph;
 import org.osate.aadl2.errormodel.PropagationGraph.util.Util;
 import org.osate.aadl2.instance.ComponentInstance;
+import org.osate.aadl2.modelsupport.resources.OsateResourceUtil;
 import org.osate.aadl2.modelsupport.util.AadlUtil;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorState;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorPropagation;
@@ -69,11 +66,6 @@ public class CreateFTAModel {
 			}
 		}
 		PropagationGraph currentPropagationGraph = Util.generatePropagationGraph(selection.getSystemInstance(), false);
-		String pgname = selection.getSystemInstance().getName();
-		URI pgURI = EcoreUtil.getURI(selection).trimFragment().trimSegments(1).appendSegment("reports")
-				.appendSegment("propagationgraph").appendSegment(pgname + ".propagationgraph");
-		AadlUtil.makeSureFoldersExist(new Path(pgURI.toPlatformString(true)));
-		serializeEMFModel(currentPropagationGraph, pgURI);
 		FTAGenerator wrapper = null;
 		if ((errorState != null) || (errorPropagation != null)) {
 			if (errorState != null) {
@@ -90,25 +82,11 @@ public class CreateFTAModel {
 			URI ftaURI = EcoreUtil.getURI(selection).trimFragment().trimSegments(1).appendSegment("reports")
 					.appendSegment("fta").appendSegment(rootname + ".faulttree");
 			AadlUtil.makeSureFoldersExist(new Path(ftaURI.toPlatformString(true)));
-			URI ftauri = serializeEMFModel(ftamodel, ftaURI);
+			URI ftauri = OsateResourceUtil.saveEMFModel(ftamodel, ftaURI, selection);
 			return ftauri;
 		} else {
 			return null;
 		}
-	}
-
-	private static URI serializeEMFModel(EObject root, final URI newURI) {
-		try {
-			ResourceSet set = new ResourceSetImpl();
-			Resource res = set.createResource(newURI);
-			res.getContents().add(root);
-			res.save(null);
-			return EcoreUtil.getURI(root);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return newURI;
-
 	}
 
 }

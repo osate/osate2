@@ -3,8 +3,11 @@ package org.osate.aadl2.errormodel.PropagationGraph.util;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.eclipse.core.runtime.Path;
 import org.eclipse.emf.common.util.BasicEList;
 import org.eclipse.emf.common.util.EList;
+import org.eclipse.emf.common.util.URI;
+import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.xtext.EcoreUtil2;
 import org.osate.aadl2.VirtualBus;
 import org.osate.aadl2.VirtualProcessor;
@@ -19,6 +22,8 @@ import org.osate.aadl2.instance.ConnectionReference;
 import org.osate.aadl2.instance.FeatureInstance;
 import org.osate.aadl2.instance.InstanceObject;
 import org.osate.aadl2.instance.SystemOperationMode;
+import org.osate.aadl2.modelsupport.resources.OsateResourceUtil;
+import org.osate.aadl2.modelsupport.util.AadlUtil;
 import org.osate.aadl2.util.Aadl2InstanceUtil;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorPropagation;
 import org.osate.xtext.aadl2.errormodel.util.EMV2Util;
@@ -38,6 +43,11 @@ public class Util {
 
 			}
 		}
+		String pgname = root.getName();
+		URI pgURI = EcoreUtil.getURI(root).trimFragment().trimSegments(1).appendSegment("reports")
+				.appendSegment("propagationgraph").appendSegment(pgname + ".propagationgraph");
+		AadlUtil.makeSureFoldersExist(new Path(pgURI.toPlatformString(true)));
+		OsateResourceUtil.saveEMFModel(pg, pgURI, root);
 		return pg;
 	}
 
@@ -334,7 +344,7 @@ public class Util {
 
 	/**
 	 * populate direct bindings from the specified component to its resources
-	 * 
+	 *
 	 * @param ci
 	 */
 	protected static void populateBindingPaths(PropagationGraph pg, InstanceObject obj) {
@@ -405,7 +415,7 @@ public class Util {
 	 * This is made to support the binding between connection and components.
 	 * Here, the first argument is the connection bound to a resource and the
 	 * boundResource argument the associated resources (e.g. a bus).
-	 * 
+	 *
 	 * @param conn
 	 * @param boundResource
 	 */
@@ -436,7 +446,7 @@ public class Util {
 	/**
 	 * return all propagation paths out of the outgoing error propagation we
 	 * assume that any type token to be propagated meets the ep type constraint
-	 * 
+	 *
 	 * @param ci
 	 * @param outEP
 	 * @return
