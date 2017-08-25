@@ -241,8 +241,26 @@ public class ResultsPackageImpl extends EPackageImpl implements ResultsPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EAttribute getResultContributor_Values() {
+		return (EAttribute)resultContributorEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getResultContributor_DataSpec() {
+		return (EReference)resultContributorEClass.getEStructuralFeatures().get(2);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EReference getResultContributor_Issues() {
-		return (EReference)resultContributorEClass.getEStructuralFeatures().get(1);
+		return (EReference)resultContributorEClass.getEStructuralFeatures().get(3);
 	}
 
 	/**
@@ -251,7 +269,7 @@ public class ResultsPackageImpl extends EPackageImpl implements ResultsPackage {
 	 * @generated
 	 */
 	public EReference getResultContributor_Subcontributor() {
-		return (EReference)resultContributorEClass.getEStructuralFeatures().get(2);
+		return (EReference)resultContributorEClass.getEStructuralFeatures().get(4);
 	}
 
 	/**
@@ -394,6 +412,8 @@ public class ResultsPackageImpl extends EPackageImpl implements ResultsPackage {
 
 		resultContributorEClass = createEClass(RESULT_CONTRIBUTOR);
 		createEReference(resultContributorEClass, RESULT_CONTRIBUTOR__TARGET);
+		createEAttribute(resultContributorEClass, RESULT_CONTRIBUTOR__VALUES);
+		createEReference(resultContributorEClass, RESULT_CONTRIBUTOR__DATA_SPEC);
 		createEReference(resultContributorEClass, RESULT_CONTRIBUTOR__ISSUES);
 		createEReference(resultContributorEClass, RESULT_CONTRIBUTOR__SUBCONTRIBUTOR);
 
@@ -459,6 +479,8 @@ public class ResultsPackageImpl extends EPackageImpl implements ResultsPackage {
 
 		initEClass(resultContributorEClass, ResultContributor.class, "ResultContributor", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getResultContributor_Target(), theEcorePackage.getEObject(), null, "target", null, 0, 1, ResultContributor.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getResultContributor_Values(), ecorePackage.getEJavaObject(), "values", null, 0, -1, ResultContributor.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getResultContributor_DataSpec(), this.getResultDataSpec(), null, "dataSpec", null, 0, -1, ResultContributor.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getResultContributor_Issues(), this.getResultIssue(), null, "issues", null, 0, -1, ResultContributor.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getResultContributor_Subcontributor(), this.getResultContributor(), null, "subcontributor", null, 0, -1, ResultContributor.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 

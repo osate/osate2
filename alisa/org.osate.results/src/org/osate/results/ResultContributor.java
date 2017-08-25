@@ -16,6 +16,8 @@ import org.eclipse.emf.ecore.EObject;
  * </p>
  * <ul>
  *   <li>{@link org.osate.results.ResultContributor#getTarget <em>Target</em>}</li>
+ *   <li>{@link org.osate.results.ResultContributor#getValues <em>Values</em>}</li>
+ *   <li>{@link org.osate.results.ResultContributor#getDataSpec <em>Data Spec</em>}</li>
  *   <li>{@link org.osate.results.ResultContributor#getIssues <em>Issues</em>}</li>
  *   <li>{@link org.osate.results.ResultContributor#getSubcontributor <em>Subcontributor</em>}</li>
  * </ul>
@@ -50,6 +52,38 @@ public interface ResultContributor extends EObject {
 	 * @generated
 	 */
 	void setTarget(EObject value);
+
+	/**
+	 * Returns the value of the '<em><b>Values</b></em>' attribute list.
+	 * The list contents are of type {@link java.lang.Object}.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Values</em>' attribute list isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Values</em>' attribute list.
+	 * @see org.osate.results.ResultsPackage#getResultContributor_Values()
+	 * @model
+	 * @generated
+	 */
+	EList<Object> getValues();
+
+	/**
+	 * Returns the value of the '<em><b>Data Spec</b></em>' containment reference list.
+	 * The list contents are of type {@link org.osate.results.ResultDataSpec}.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Data Spec</em>' containment reference list isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Data Spec</em>' containment reference list.
+	 * @see org.osate.results.ResultsPackage#getResultContributor_DataSpec()
+	 * @model containment="true"
+	 * @generated
+	 */
+	EList<ResultDataSpec> getDataSpec();
 
 	/**
 	 * Returns the value of the '<em><b>Issues</b></em>' containment reference list.

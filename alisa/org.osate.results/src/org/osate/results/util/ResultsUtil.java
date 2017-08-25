@@ -3,6 +3,7 @@ package org.osate.results.util;
 import org.eclipse.emf.ecore.EObject;
 import org.osate.results.ResultIssue;
 import org.osate.results.ResultIssueType;
+import org.osate.results.Results;
 import org.osate.results.ResultsFactory;
 
 public class ResultsUtil {
@@ -38,6 +39,13 @@ public class ResultsUtil {
 		issue.setIssueType(rit);
 		issue.setDiagnosticId(diagnosticId);
 		return issue;
+	}
+
+	public static Results createResults(String name, EObject target) {
+		Results results = ResultsFactory.eINSTANCE.createResults();
+		results.setTarget(target);
+		results.setName(name);
+		return results;
 	}
 
 }

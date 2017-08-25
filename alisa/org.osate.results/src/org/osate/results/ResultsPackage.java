@@ -186,13 +186,31 @@ public interface ResultsPackage extends EPackage {
 	int RESULT_CONTRIBUTOR__TARGET = 0;
 
 	/**
+	 * The feature id for the '<em><b>Values</b></em>' attribute list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int RESULT_CONTRIBUTOR__VALUES = 1;
+
+	/**
+	 * The feature id for the '<em><b>Data Spec</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int RESULT_CONTRIBUTOR__DATA_SPEC = 2;
+
+	/**
 	 * The feature id for the '<em><b>Issues</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int RESULT_CONTRIBUTOR__ISSUES = 1;
+	int RESULT_CONTRIBUTOR__ISSUES = 3;
 
 	/**
 	 * The feature id for the '<em><b>Subcontributor</b></em>' containment reference list.
@@ -201,7 +219,7 @@ public interface ResultsPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int RESULT_CONTRIBUTOR__SUBCONTRIBUTOR = 2;
+	int RESULT_CONTRIBUTOR__SUBCONTRIBUTOR = 4;
 
 	/**
 	 * The number of structural features of the '<em>Result Contributor</em>' class.
@@ -210,7 +228,7 @@ public interface ResultsPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int RESULT_CONTRIBUTOR_FEATURE_COUNT = 3;
+	int RESULT_CONTRIBUTOR_FEATURE_COUNT = 5;
 
 	/**
 	 * The number of operations of the '<em>Result Contributor</em>' class.
@@ -491,6 +509,28 @@ public interface ResultsPackage extends EPackage {
 	EReference getResultContributor_Target();
 
 	/**
+	 * Returns the meta object for the attribute list '{@link org.osate.results.ResultContributor#getValues <em>Values</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute list '<em>Values</em>'.
+	 * @see org.osate.results.ResultContributor#getValues()
+	 * @see #getResultContributor()
+	 * @generated
+	 */
+	EAttribute getResultContributor_Values();
+
+	/**
+	 * Returns the meta object for the containment reference list '{@link org.osate.results.ResultContributor#getDataSpec <em>Data Spec</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference list '<em>Data Spec</em>'.
+	 * @see org.osate.results.ResultContributor#getDataSpec()
+	 * @see #getResultContributor()
+	 * @generated
+	 */
+	EReference getResultContributor_DataSpec();
+
+	/**
 	 * Returns the meta object for the containment reference list '{@link org.osate.results.ResultContributor#getIssues <em>Issues</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -752,6 +792,22 @@ public interface ResultsPackage extends EPackage {
 		 * @generated
 		 */
 		EReference RESULT_CONTRIBUTOR__TARGET = eINSTANCE.getResultContributor_Target();
+
+		/**
+		 * The meta object literal for the '<em><b>Values</b></em>' attribute list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute RESULT_CONTRIBUTOR__VALUES = eINSTANCE.getResultContributor_Values();
+
+		/**
+		 * The meta object literal for the '<em><b>Data Spec</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference RESULT_CONTRIBUTOR__DATA_SPEC = eINSTANCE.getResultContributor_DataSpec();
 
 		/**
 		 * The meta object literal for the '<em><b>Issues</b></em>' containment reference list feature.

@@ -16,10 +16,12 @@ import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 
+import org.eclipse.emf.ecore.util.EDataTypeUniqueEList;
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 
 import org.osate.results.ResultContributor;
+import org.osate.results.ResultDataSpec;
 import org.osate.results.ResultIssue;
 import org.osate.results.ResultsPackage;
 
@@ -32,6 +34,8 @@ import org.osate.results.ResultsPackage;
  * </p>
  * <ul>
  *   <li>{@link org.osate.results.impl.ResultContributorImpl#getTarget <em>Target</em>}</li>
+ *   <li>{@link org.osate.results.impl.ResultContributorImpl#getValues <em>Values</em>}</li>
+ *   <li>{@link org.osate.results.impl.ResultContributorImpl#getDataSpec <em>Data Spec</em>}</li>
  *   <li>{@link org.osate.results.impl.ResultContributorImpl#getIssues <em>Issues</em>}</li>
  *   <li>{@link org.osate.results.impl.ResultContributorImpl#getSubcontributor <em>Subcontributor</em>}</li>
  * </ul>
@@ -48,6 +52,26 @@ public class ResultContributorImpl extends MinimalEObjectImpl.Container implemen
 	 * @ordered
 	 */
 	protected EObject target;
+
+	/**
+	 * The cached value of the '{@link #getValues() <em>Values</em>}' attribute list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getValues()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<Object> values;
+
+	/**
+	 * The cached value of the '{@link #getDataSpec() <em>Data Spec</em>}' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getDataSpec()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<ResultDataSpec> dataSpec;
 
 	/**
 	 * The cached value of the '{@link #getIssues() <em>Issues</em>}' containment reference list.
@@ -131,6 +155,30 @@ public class ResultContributorImpl extends MinimalEObjectImpl.Container implemen
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EList<Object> getValues() {
+		if (values == null) {
+			values = new EDataTypeUniqueEList<Object>(Object.class, this, ResultsPackage.RESULT_CONTRIBUTOR__VALUES);
+		}
+		return values;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EList<ResultDataSpec> getDataSpec() {
+		if (dataSpec == null) {
+			dataSpec = new EObjectContainmentEList<ResultDataSpec>(ResultDataSpec.class, this, ResultsPackage.RESULT_CONTRIBUTOR__DATA_SPEC);
+		}
+		return dataSpec;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EList<ResultIssue> getIssues() {
 		if (issues == null) {
 			issues = new EObjectContainmentEList<ResultIssue>(ResultIssue.class, this, ResultsPackage.RESULT_CONTRIBUTOR__ISSUES);
@@ -158,6 +206,8 @@ public class ResultContributorImpl extends MinimalEObjectImpl.Container implemen
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
+			case ResultsPackage.RESULT_CONTRIBUTOR__DATA_SPEC:
+				return ((InternalEList<?>)getDataSpec()).basicRemove(otherEnd, msgs);
 			case ResultsPackage.RESULT_CONTRIBUTOR__ISSUES:
 				return ((InternalEList<?>)getIssues()).basicRemove(otherEnd, msgs);
 			case ResultsPackage.RESULT_CONTRIBUTOR__SUBCONTRIBUTOR:
@@ -177,6 +227,10 @@ public class ResultContributorImpl extends MinimalEObjectImpl.Container implemen
 			case ResultsPackage.RESULT_CONTRIBUTOR__TARGET:
 				if (resolve) return getTarget();
 				return basicGetTarget();
+			case ResultsPackage.RESULT_CONTRIBUTOR__VALUES:
+				return getValues();
+			case ResultsPackage.RESULT_CONTRIBUTOR__DATA_SPEC:
+				return getDataSpec();
 			case ResultsPackage.RESULT_CONTRIBUTOR__ISSUES:
 				return getIssues();
 			case ResultsPackage.RESULT_CONTRIBUTOR__SUBCONTRIBUTOR:
@@ -196,6 +250,14 @@ public class ResultContributorImpl extends MinimalEObjectImpl.Container implemen
 		switch (featureID) {
 			case ResultsPackage.RESULT_CONTRIBUTOR__TARGET:
 				setTarget((EObject)newValue);
+				return;
+			case ResultsPackage.RESULT_CONTRIBUTOR__VALUES:
+				getValues().clear();
+				getValues().addAll((Collection<? extends Object>)newValue);
+				return;
+			case ResultsPackage.RESULT_CONTRIBUTOR__DATA_SPEC:
+				getDataSpec().clear();
+				getDataSpec().addAll((Collection<? extends ResultDataSpec>)newValue);
 				return;
 			case ResultsPackage.RESULT_CONTRIBUTOR__ISSUES:
 				getIssues().clear();
@@ -220,6 +282,12 @@ public class ResultContributorImpl extends MinimalEObjectImpl.Container implemen
 			case ResultsPackage.RESULT_CONTRIBUTOR__TARGET:
 				setTarget((EObject)null);
 				return;
+			case ResultsPackage.RESULT_CONTRIBUTOR__VALUES:
+				getValues().clear();
+				return;
+			case ResultsPackage.RESULT_CONTRIBUTOR__DATA_SPEC:
+				getDataSpec().clear();
+				return;
 			case ResultsPackage.RESULT_CONTRIBUTOR__ISSUES:
 				getIssues().clear();
 				return;
@@ -240,12 +308,32 @@ public class ResultContributorImpl extends MinimalEObjectImpl.Container implemen
 		switch (featureID) {
 			case ResultsPackage.RESULT_CONTRIBUTOR__TARGET:
 				return target != null;
+			case ResultsPackage.RESULT_CONTRIBUTOR__VALUES:
+				return values != null && !values.isEmpty();
+			case ResultsPackage.RESULT_CONTRIBUTOR__DATA_SPEC:
+				return dataSpec != null && !dataSpec.isEmpty();
 			case ResultsPackage.RESULT_CONTRIBUTOR__ISSUES:
 				return issues != null && !issues.isEmpty();
 			case ResultsPackage.RESULT_CONTRIBUTOR__SUBCONTRIBUTOR:
 				return subcontributor != null && !subcontributor.isEmpty();
 		}
 		return super.eIsSet(featureID);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public String toString() {
+		if (eIsProxy()) return super.toString();
+
+		StringBuffer result = new StringBuffer(super.toString());
+		result.append(" (values: ");
+		result.append(values);
+		result.append(')');
+		return result.toString();
 	}
 
 } //ResultContributorImpl

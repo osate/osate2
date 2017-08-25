@@ -19,6 +19,10 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="ResultContributor">
     <eStructuralFeatures xsi:type="ecore:EReference" name="target" eType="ecore:EClass ../../org.eclipse.emf.ecore/model/Ecore.ecore#//EObject"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="values" upperBound="-1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EJavaObject"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="dataSpec" upperBound="-1"
+        eType="#//ResultDataSpec" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="issues" upperBound="-1"
         eType="#//ResultIssue" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="subcontributor" upperBound="-1"
