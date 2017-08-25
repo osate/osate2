@@ -370,11 +370,22 @@ public class AppearancePropertySection extends AbstractPropertySection {
 			// Close shell if user clicks off of the shell
 			shell.addListener(SWT.Deactivate, e1 -> shell.setVisible(false));
 
-			// Original button selected
-			final Button button = (Button) e.getSource();
-			shell.setLocation(Display.getDefault().map(button.getParent(), null, button.getLocation().x,
-					button.getLocation().y + button.getSize().y));
 			shell.pack();
+
+			// Position the shell
+			final int minSpacingFromDisplayRightAndBottom = 50;
+			final Button button = (Button) e.getSource(); // Original button selected
+			final Point unclampedShellPosition = Display.getCurrent().map(button.getParent(), null,
+					button.getLocation().x,
+					button.getLocation().y + button.getSize().y);
+			final Rectangle clientArea = Display.getCurrent().getClientArea();
+			final Point shellPosition = new Point(
+					Math.min(unclampedShellPosition.x,
+							clientArea.width - shell.getSize().x - minSpacingFromDisplayRightAndBottom),
+					Math.min(unclampedShellPosition.y,
+							clientArea.height - shell.getSize().y - minSpacingFromDisplayRightAndBottom));
+			shell.setLocation(shellPosition);
+
 			shell.open();
 			shell.setFocus();
 
