@@ -3,6 +3,9 @@ package org.osate.analysis.flows.reporting.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.osate.results.ResultIssue;
+import org.osate.results.ResultIssueType;
+
 public class Line {
 	private List<ReportedCell> content;
 	private ReportSeverity type;
@@ -25,23 +28,25 @@ public class Line {
 	}
 
 	public void addError(String s) {
-		this.content.add(new ReportedCell(ReportSeverity.ERROR, s));
+		this.content.add(new ReportedCell(ResultIssueType.ERROR, s));
 	}
 
 	public void addSuccess(String s) {
-		this.content.add(new ReportedCell(ReportSeverity.SUCCESS, s));
+		this.content.add(new ReportedCell(ResultIssueType.SUCCESS, s));
 	}
 
 	public void addHeaderContent(String s) {
-		this.content.add(new ReportedCell(ReportSeverity.HEADER, s));
+		this.content.add(new ReportedCell(ResultIssueType.TBD, s));
 	}
 
 	public void addCell(ReportedCell cell) {
 		this.content.add(cell);
 	}
 
-	public void addCells(List<ReportedCell> cells) {
-		this.content.addAll(cells);
+	public void addCells(List<ResultIssue> cells) {
+		for (ResultIssue resultIssue : cells) {
+			this.content.add(new ReportedCell(resultIssue.getIssueType(), resultIssue.getMessage()));
+		}
 	}
 
 	public List<ReportedCell> getContent() {

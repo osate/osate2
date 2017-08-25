@@ -3,6 +3,16 @@ package org.osate.analysis.flows.reporting.exporters;
 import java.io.IOException;
 import java.util.Locale;
 
+import org.eclipse.core.resources.IFile;
+import org.eclipse.core.resources.IResource;
+import org.eclipse.core.resources.ResourcesPlugin;
+import org.eclipse.core.runtime.CoreException;
+import org.osate.aadl2.modelsupport.util.AadlUtil;
+import org.osate.analysis.flows.reporting.model.Line;
+import org.osate.analysis.flows.reporting.model.Report;
+import org.osate.analysis.flows.reporting.model.ReportedCell;
+import org.osate.analysis.flows.reporting.model.Section;
+
 import jxl.Workbook;
 import jxl.WorkbookSettings;
 import jxl.format.Colour;
@@ -14,16 +24,6 @@ import jxl.write.WritableSheet;
 import jxl.write.WritableWorkbook;
 import jxl.write.WriteException;
 import jxl.write.biff.RowsExceededException;
-
-import org.eclipse.core.resources.IFile;
-import org.eclipse.core.resources.IResource;
-import org.eclipse.core.resources.ResourcesPlugin;
-import org.eclipse.core.runtime.CoreException;
-import org.osate.aadl2.modelsupport.util.AadlUtil;
-import org.osate.analysis.flows.reporting.model.Line;
-import org.osate.analysis.flows.reporting.model.Report;
-import org.osate.analysis.flows.reporting.model.ReportedCell;
-import org.osate.analysis.flows.reporting.model.Section;
 
 public class ExcelExport extends GenericExport {
 	private WritableCellFormat normal;
@@ -111,14 +111,15 @@ public class ExcelExport extends GenericExport {
 			return warningBold;
 		case SUCCESS:
 			return successBold;
-		case HEADER:
-			return normalBold;
-		default:
+		case INFO:
 			return normal;
+		default:
+			return normalBold;
 		}
 
 	}
 
+	@Override
 	public void save() {
 
 		WritableSheet excelSheet;

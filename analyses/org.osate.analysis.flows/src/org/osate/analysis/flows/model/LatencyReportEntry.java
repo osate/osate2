@@ -18,6 +18,10 @@ import org.osate.analysis.flows.reporting.model.Line;
 import org.osate.analysis.flows.reporting.model.ReportSeverity;
 import org.osate.analysis.flows.reporting.model.ReportedCell;
 import org.osate.analysis.flows.reporting.model.Section;
+import org.osate.results.ResultIssue;
+import org.osate.results.ResultIssueType;
+import org.osate.results.Results;
+import org.osate.results.util.ResultsUtil;
 import org.osate.xtext.aadl2.properties.util.GetProperties;
 
 /*
@@ -30,12 +34,16 @@ public class LatencyReportEntry {
 
 	List<LatencyContributor> contributors;
 	EndToEndFlowInstance relatedEndToEndFlow;
-	List<ReportedCell> issues;
+	List<ResultIssue> issues;
 	// lastSampled may be a task, partition if no tasks inside the partition, sampling bus, or a sampling device/system
 	LatencyContributor lastSampled = null;
 	SystemOperationMode som = null;
 	double expectedMaxLatency = 0;
 	double expectedMinLatency = 0;
+	double minValue = 0;
+	double maxValue = 0;
+	double minSpecifiedValue = 0;
+	double maxSpecifiedValue = 0;
 
 	public LatencyReportEntry(EndToEndFlowInstance etef, SystemOperationMode som) {
 		this.contributors = new ArrayList<LatencyContributor>();
@@ -44,6 +52,15 @@ public class LatencyReportEntry {
 
 		expectedMaxLatency = GetProperties.getMaximumLatencyinMilliSec(this.relatedEndToEndFlow);
 		expectedMinLatency = GetProperties.getMinimumLatencyinMilliSec(this.relatedEndToEndFlow);
+
+	}
+
+	public void finalizeReportEntry() {
+		minValue = getActualLatency(false);
+		maxValue = getActualLatency(true);
+
+		minSpecifiedValue = getMinimumSpecifiedLatency();
+		maxSpecifiedValue = getMaximumSpecifiedLatency();
 
 	}
 
@@ -84,7 +101,7 @@ public class LatencyReportEntry {
 		return result;
 	}
 
-	/** 
+	/**
 	 * get cumulative latency since last sampled component. Ignore any sampling contributors.
 	 * do not include current.
 	 * @param current LatencyContributor
@@ -92,10 +109,11 @@ public class LatencyReportEntry {
 	 * @return sum of latencies
 	 */
 	public double getCumLatency(LatencyContributor current, boolean doMax) {
-		if (doMax)
+		if (doMax) {
 			return getMaximumCumLatency(current);
-		else
+		} else {
 			return getMinimumCumLatency(current);
+		}
 	}
 
 	public double getMaximumCumLatency(LatencyContributor current) {
@@ -105,8 +123,9 @@ public class LatencyReportEntry {
 		}
 		int idx = this.contributors.indexOf(lastSampled);
 		int me = this.contributors.indexOf(current);
-		if (idx < 0 || me < 0)
+		if (idx < 0 || me < 0) {
 			return 0;
+		}
 		for (int i = idx + 1; i < me; i++) {
 			LatencyContributor lc = this.contributors.get(i);
 			result = result + lc.getTotalMaximum();
@@ -190,7 +209,7 @@ public class LatencyReportEntry {
 						lc.reportSubtotal(res, doMaximum);
 						lc.reportInfoOnce(doMaximum, "Sampling period " + lc.getSamplingPeriod() + "ms");
 					} else if ( // XXX added check for > 0
-					lc.getSamplingPeriod() > 0 && lc.getSamplingPeriod() < last.getSamplingPeriod()) {
+							lc.getSamplingPeriod() > 0 && lc.getSamplingPeriod() < last.getSamplingPeriod()) {
 						lc.reportWarningOnce(doMaximum, "Task period smaller than partition period");
 					} else {
 						lc.reportInfoOnce(doMaximum, "Latency accounted for in partition latency");
@@ -442,38 +461,24 @@ public class LatencyReportEntry {
 	}
 
 	private void reportSummaryError(String str) {
-		issues.add(new ReportedCell(ReportSeverity.ERROR, str));
+		issues.add(ResultsUtil.createError(str, relatedEndToEndFlow, ""));
 	}
 
 	private void reportSummarySuccess(String str) {
-		issues.add(new ReportedCell(ReportSeverity.SUCCESS, str));
+		issues.add(ResultsUtil.createSuccess(str, relatedEndToEndFlow, ""));
 	}
 
 	private void reportSummaryWarning(String str) {
-		issues.add(new ReportedCell(ReportSeverity.WARNING, str));
+		issues.add(ResultsUtil.createWarning(str, relatedEndToEndFlow, ""));
 	}
 
 	public Section export() {
 
 		Section section;
 		Line line;
-		double minValue;
-		double maxValue;
-		double minSpecifiedValue;
-		double maxSpecifiedValue;
-		double expectedMaxLatency;
-		double expectedMinLatency;
 		String sectionName;
 
-		minValue = 0.0;
-		maxValue = 0.0;
-		minSpecifiedValue = 0.0;
-		maxSpecifiedValue = 0.0;
-
-		issues = new ArrayList<ReportedCell>();
-
-		expectedMaxLatency = this.expectedMaxLatency;
-		expectedMinLatency = this.expectedMinLatency;
+		issues = new ArrayList<ResultIssue>();
 
 		if (relatedEndToEndFlow != null) {
 			sectionName = relatedEndToEndFlow.getComponentInstancePath();
@@ -510,13 +515,7 @@ public class LatencyReportEntry {
 		line.addHeaderContent("Max Method");
 		line.addHeaderContent("Comments");
 		section.addLine(line);
-
 		// will populate the comments section
-		minValue = getActualLatency(false);
-		maxValue = getActualLatency(true);
-
-		minSpecifiedValue = getMinimumSpecifiedLatency();
-		maxSpecifiedValue = getMaximumSpecifiedLatency();
 
 		// reporting each entry
 		for (LatencyContributor lc : this.contributors) {
@@ -558,41 +557,41 @@ public class LatencyReportEntry {
 		if (expectedMaxLatency > 0) {
 			if (minSpecifiedValue > expectedMaxLatency) {
 				reportSummaryError("Minimum specified flow latency total " + BestDecPoint(minSpecifiedValue)
-						+ "ms exceeds expected maximum latency " + BestDecPoint(expectedMaxLatency) + "ms");
+				+ "ms exceeds expected maximum latency " + BestDecPoint(expectedMaxLatency) + "ms");
 			} else if (minSpecifiedValue < expectedMinLatency) {
 				reportSummaryWarning("Minimum specified flow latency total " + BestDecPoint(minSpecifiedValue)
-						+ "ms less than expected minimum end to end latency " + BestDecPoint(expectedMinLatency)
-						+ "ms (better response time)");
+				+ "ms less than expected minimum end to end latency " + BestDecPoint(expectedMinLatency)
+				+ "ms (better response time)");
 			}
 
 			if (minValue > expectedMaxLatency) {
 				reportSummaryError("Minimum actual latency total " + BestDecPoint(minValue)
-						+ "ms exceeds expected maximum end to end latency " + BestDecPoint(expectedMaxLatency) + "ms");
+				+ "ms exceeds expected maximum end to end latency " + BestDecPoint(expectedMaxLatency) + "ms");
 			} else if (minValue < expectedMinLatency) {
 				reportSummaryWarning("Minimum actual latency total " + BestDecPoint(minValue)
-						+ "ms less than expected minimum end to end latency " + BestDecPoint(expectedMinLatency)
-						+ "ms (faster actual minimum response time)");
+				+ "ms less than expected minimum end to end latency " + BestDecPoint(expectedMinLatency)
+				+ "ms (faster actual minimum response time)");
 			} else {
 				reportSummarySuccess("Minimum actual latency total " + BestDecPoint(minValue)
-						+ "ms is greater or equal to expected minimum end to end latency "
-						+ BestDecPoint(expectedMinLatency) + "ms");
+				+ "ms is greater or equal to expected minimum end to end latency "
+				+ BestDecPoint(expectedMinLatency) + "ms");
 			}
 
 			if (maxValue > 0) {
 				if (expectedMaxLatency < maxSpecifiedValue) {
 					reportSummaryError("Maximum specified flow latency total " + BestDecPoint(maxSpecifiedValue)
-							+ "ms exceeds expected maximum end to end latency " + BestDecPoint(expectedMaxLatency)
-							+ "ms");
+					+ "ms exceeds expected maximum end to end latency " + BestDecPoint(expectedMaxLatency)
+					+ "ms");
 				}
 
 				if (expectedMaxLatency < maxValue) {
 					reportSummaryError("Maximum actual latency total " + BestDecPoint(maxValue)
-							+ "ms exceeds expected maximum end to end latency " + BestDecPoint(expectedMaxLatency)
-							+ "ms");
+					+ "ms exceeds expected maximum end to end latency " + BestDecPoint(expectedMaxLatency)
+					+ "ms");
 				} else {
 					reportSummarySuccess("Maximum actual latency total " + BestDecPoint(maxValue)
-							+ "ms is less or equal to expected maximum end to end latency "
-							+ BestDecPoint(expectedMaxLatency) + "ms");
+					+ "ms is less or equal to expected maximum end to end latency "
+					+ BestDecPoint(expectedMaxLatency) + "ms");
 				}
 				// do jitter analysis
 				if (maxSpecifiedValue - minSpecifiedValue > expectedMaxLatency - expectedMinLatency) {
@@ -621,10 +620,10 @@ public class LatencyReportEntry {
 			line = new Line();
 			line.addHeaderContent("End to end Latency Summary");
 			section.addLine(line);
-			for (ReportedCell issue : issues) {
+			for (ResultIssue issue : issues) {
 				line = new Line();
 				String msg = issue.getMessage();
-				ReportedCell issueLabel = new ReportedCell(issue.getSeverity(), issue.getSeverity().toString());
+				ReportedCell issueLabel = new ReportedCell(issue.getIssueType(), issue.getIssueType().toString());
 				line.addCell(issueLabel);
 				line.addContent(msg);
 				section.addLine(line);
@@ -647,15 +646,15 @@ public class LatencyReportEntry {
 	}
 
 	public void generateMarkers(AnalysisErrorReporterManager errManager) {
-		List<ReportedCell> doIssues = this.issues;
-		for (ReportedCell reportedCell : doIssues) {
-			if (reportedCell.getSeverity() == ReportSeverity.INFO) {
+		List<ResultIssue> doIssues = this.issues;
+		for (ResultIssue reportedCell : doIssues) {
+			if (reportedCell.getIssueType() == ResultIssueType.INFO) {
 				errManager.info(this.relatedEndToEndFlow, reportedCell.getMessage());
-			} else if (reportedCell.getSeverity() == ReportSeverity.SUCCESS) {
+			} else if (reportedCell.getIssueType() == ResultIssueType.SUCCESS) {
 				errManager.info(this.relatedEndToEndFlow, getRelatedObjectLabel() + reportedCell.getMessage());
-			} else if (reportedCell.getSeverity() == ReportSeverity.WARNING) {
+			} else if (reportedCell.getIssueType() == ResultIssueType.WARNING) {
 				errManager.warning(this.relatedEndToEndFlow, getRelatedObjectLabel() + reportedCell.getMessage());
-			} else if (reportedCell.getSeverity() == ReportSeverity.ERROR) {
+			} else if (reportedCell.getIssueType() == ResultIssueType.ERROR) {
 				errManager.error(this.relatedEndToEndFlow, getRelatedObjectLabel() + reportedCell.getMessage());
 			}
 		}
@@ -665,4 +664,104 @@ public class LatencyReportEntry {
 			}
 		}
 	}
+
+	public Results genResults() {
+		String reportName;
+
+		issues = new ArrayList<ResultIssue>();
+
+		if (relatedEndToEndFlow != null) {
+			reportName = relatedEndToEndFlow.getComponentInstancePath();
+		} else {
+			reportName = "Unnamed flow";
+		}
+		SystemInstance si = (SystemInstance) relatedEndToEndFlow.getElementRoot();
+		String systemName = si.getComponentClassifier().getName();
+		String inMode = Aadl2Util.isPrintableSOMName(som) ? " in mode " + som.getName() : "";
+
+		Results results = ResultsUtil.createResults(reportName + inMode, relatedEndToEndFlow);
+		String dspostfix = Values.getDataSetProcessingLabel();
+		String description = "Latency analysis for end-to-end flow '" + reportName + "' of system '" + systemName + "'"
+				+ inMode + " with preference settings " + Values.getSynchronousSystemLabel() + "-"
+				+ Values.getMajorFrameDelayLabel() + "-" + Values.getWorstCaseDeadlineLabel() + "-"
+				+ Values.getBestcaseEmptyQueueLabel() + (dspostfix.isEmpty() ? "" : "-" + dspostfix);
+		results.setDescription(description);
+
+		results.getValues().add(minValue);
+		results.getValues().add(maxValue);
+		results.getValues().add(minSpecifiedValue);
+		results.getValues().add(maxSpecifiedValue);
+		results.getValues().add(expectedMinLatency);
+		results.getValues().add(expectedMaxLatency);
+
+		/*
+		 * In that case, the end to end flow has a minimum latency
+		 */
+		if (expectedMaxLatency > 0) {
+			if (minSpecifiedValue > expectedMaxLatency) {
+				reportSummaryError("Minimum specified flow latency total " + BestDecPoint(minSpecifiedValue)
+				+ "ms exceeds expected maximum latency " + BestDecPoint(expectedMaxLatency) + "ms");
+			} else if (minSpecifiedValue < expectedMinLatency) {
+				reportSummaryWarning("Minimum specified flow latency total " + BestDecPoint(minSpecifiedValue)
+				+ "ms less than expected minimum end to end latency " + BestDecPoint(expectedMinLatency)
+				+ "ms (better response time)");
+			}
+
+			if (minValue > expectedMaxLatency) {
+				reportSummaryError("Minimum actual latency total " + BestDecPoint(minValue)
+				+ "ms exceeds expected maximum end to end latency " + BestDecPoint(expectedMaxLatency) + "ms");
+			} else if (minValue < expectedMinLatency) {
+				reportSummaryWarning("Minimum actual latency total " + BestDecPoint(minValue)
+				+ "ms less than expected minimum end to end latency " + BestDecPoint(expectedMinLatency)
+				+ "ms (faster actual minimum response time)");
+			} else {
+				reportSummarySuccess("Minimum actual latency total " + BestDecPoint(minValue)
+				+ "ms is greater or equal to expected minimum end to end latency "
+				+ BestDecPoint(expectedMinLatency) + "ms");
+			}
+
+			if (maxValue > 0) {
+				if (expectedMaxLatency < maxSpecifiedValue) {
+					reportSummaryError("Maximum specified flow latency total " + BestDecPoint(maxSpecifiedValue)
+					+ "ms exceeds expected maximum end to end latency " + BestDecPoint(expectedMaxLatency)
+					+ "ms");
+				}
+
+				if (expectedMaxLatency < maxValue) {
+					reportSummaryError("Maximum actual latency total " + BestDecPoint(maxValue)
+					+ "ms exceeds expected maximum end to end latency " + BestDecPoint(expectedMaxLatency)
+					+ "ms");
+				} else {
+					reportSummarySuccess("Maximum actual latency total " + BestDecPoint(maxValue)
+					+ "ms is less or equal to expected maximum end to end latency "
+					+ BestDecPoint(expectedMaxLatency) + "ms");
+				}
+				// do jitter analysis
+				if (maxSpecifiedValue - minSpecifiedValue > expectedMaxLatency - expectedMinLatency) {
+					reportSummaryWarning("Jitter of specified latency total " + BestDecPoint(minSpecifiedValue) + ".."
+							+ BestDecPoint(maxSpecifiedValue) + "ms exceeds expected end to end latency jitter "
+							+ BestDecPoint(expectedMinLatency) + ".." + BestDecPoint(expectedMaxLatency) + "ms");
+				}
+				if (maxValue - minValue > expectedMaxLatency - expectedMinLatency) {
+					reportSummaryWarning("Jitter of actual latency total " + BestDecPoint(minValue) + ".."
+							+ BestDecPoint(maxValue) + "ms exceeds expected end to end latency jitter "
+							+ BestDecPoint(expectedMinLatency) + ".." + BestDecPoint(expectedMaxLatency) + "ms");
+				}
+				if ((minValue > expectedMinLatency) && (expectedMaxLatency > maxValue)) {
+					reportSummarySuccess("Jitter of actual flow latency " + BestDecPoint(minValue) + ".."
+							+ BestDecPoint(maxValue) + "ms is within expected end to end latency jitter "
+							+ BestDecPoint(expectedMinLatency) + ".." + BestDecPoint(expectedMaxLatency) + "ms");
+				}
+			}
+		} else {
+			reportSummaryWarning("Expected end to end latency is not specified");
+		}
+
+		for (LatencyContributor latencyContributor : contributors) {
+			results.getContributors().add(latencyContributor.genResults());
+		}
+
+		return results;
+	}
+
 }

@@ -71,6 +71,7 @@ public class FlowLatencyAnalysisSwitch extends AadlProcessingSwitchWithProgress 
 //		return this.report;
 //	}
 
+	@Override
 	protected final void initSwitches() {
 		/* here we are creating the connection checking switches */
 
@@ -78,6 +79,7 @@ public class FlowLatencyAnalysisSwitch extends AadlProcessingSwitchWithProgress 
 			/**
 			 * check flow latency
 			 */
+			@Override
 			public String caseComponentInstance(final ComponentInstance ci) {
 //				monitor.subTask("Checking flows in " + ci.getName());
 ////				processEList(ci.getEndToEndFlows());
@@ -85,6 +87,7 @@ public class FlowLatencyAnalysisSwitch extends AadlProcessingSwitchWithProgress 
 				return DONE;
 			}
 
+			@Override
 			public String caseEndToEndFlowInstance(final EndToEndFlowInstance etef) {
 				LatencyReportEntry entry;
 
@@ -96,6 +99,7 @@ public class FlowLatencyAnalysisSwitch extends AadlProcessingSwitchWithProgress 
 				for (FlowElementInstance fei : etef.getFlowElements()) {
 					FlowLatencyLogic.mapFlowElementInstance(etef, fei, entry);
 				}
+				entry.finalizeReportEntry();
 				report.addEntry(entry);
 				return DONE;
 			}
