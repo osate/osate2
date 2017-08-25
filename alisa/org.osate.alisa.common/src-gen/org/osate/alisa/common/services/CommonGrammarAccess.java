@@ -202,110 +202,6 @@ public class CommonGrammarAccess extends AbstractGrammarElementFinder {
 		public Keyword getRightSquareBracketKeyword_3() { return cRightSquareBracketKeyword_3; }
 	}
 
-	public class ResultIssueElements extends AbstractParserRuleElementFinder {
-		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "org.osate.alisa.common.Common.ResultIssue");
-		private final Group cGroup = (Group)rule.eContents().get(1);
-		private final Assignment cIssueTypeAssignment_0 = (Assignment)cGroup.eContents().get(0);
-		private final RuleCall cIssueTypeResultIssueTypeEnumRuleCall_0_0 = (RuleCall)cIssueTypeAssignment_0.eContents().get(0);
-		private final Assignment cMessageAssignment_1 = (Assignment)cGroup.eContents().get(1);
-		private final RuleCall cMessageSTRINGTerminalRuleCall_1_0 = (RuleCall)cMessageAssignment_1.eContents().get(0);
-		private final Group cGroup_2 = (Group)cGroup.eContents().get(2);
-		private final Keyword cTargetKeyword_2_0 = (Keyword)cGroup_2.eContents().get(0);
-		private final Assignment cTargetAssignment_2_1 = (Assignment)cGroup_2.eContents().get(1);
-		private final CrossReference cTargetEObjectCrossReference_2_1_0 = (CrossReference)cTargetAssignment_2_1.eContents().get(0);
-		private final RuleCall cTargetEObjectNoQuoteStringParserRuleCall_2_1_0_1 = (RuleCall)cTargetEObjectCrossReference_2_1_0.eContents().get(1);
-		private final Group cGroup_3 = (Group)cGroup.eContents().get(3);
-		private final Keyword cExceptionKeyword_3_0 = (Keyword)cGroup_3.eContents().get(0);
-		private final Assignment cExceptionTypeAssignment_3_1 = (Assignment)cGroup_3.eContents().get(1);
-		private final RuleCall cExceptionTypeSTRINGTerminalRuleCall_3_1_0 = (RuleCall)cExceptionTypeAssignment_3_1.eContents().get(0);
-		private final Group cGroup_4 = (Group)cGroup.eContents().get(4);
-		private final Keyword cDiagnosticIdKeyword_4_0 = (Keyword)cGroup_4.eContents().get(0);
-		private final Assignment cDiagnosticIdAssignment_4_1 = (Assignment)cGroup_4.eContents().get(1);
-		private final RuleCall cDiagnosticIdSTRINGTerminalRuleCall_4_1_0 = (RuleCall)cDiagnosticIdAssignment_4_1.eContents().get(0);
-		private final Group cGroup_5 = (Group)cGroup.eContents().get(5);
-		private final Keyword cLeftSquareBracketKeyword_5_0 = (Keyword)cGroup_5.eContents().get(0);
-		private final Assignment cIssuesAssignment_5_1 = (Assignment)cGroup_5.eContents().get(1);
-		private final RuleCall cIssuesResultIssueParserRuleCall_5_1_0 = (RuleCall)cIssuesAssignment_5_1.eContents().get(0);
-		private final Keyword cRightSquareBracketKeyword_5_2 = (Keyword)cGroup_5.eContents().get(2);
-		
-		//// This is similar to diagnostics
-		//ResultIssue:
-		//	issueType=ResultIssueType
-		//	message=STRING ('target' target=[ecore::EObject|NoQuoteString])? ('exception' exceptionType=STRING)? ('diagnosticId'
-		//	diagnosticId=STRING)? ('[' issues+=ResultIssue* ']')?;
-		@Override public ParserRule getRule() { return rule; }
-
-		//issueType=ResultIssueType message=STRING ('target' target=[ecore::EObject|NoQuoteString])? ('exception'
-		//exceptionType=STRING)? ('diagnosticId' diagnosticId=STRING)? ('[' issues+=ResultIssue* ']')?
-		public Group getGroup() { return cGroup; }
-
-		//issueType=ResultIssueType
-		public Assignment getIssueTypeAssignment_0() { return cIssueTypeAssignment_0; }
-
-		//ResultIssueType
-		public RuleCall getIssueTypeResultIssueTypeEnumRuleCall_0_0() { return cIssueTypeResultIssueTypeEnumRuleCall_0_0; }
-
-		//message=STRING
-		public Assignment getMessageAssignment_1() { return cMessageAssignment_1; }
-
-		//STRING
-		public RuleCall getMessageSTRINGTerminalRuleCall_1_0() { return cMessageSTRINGTerminalRuleCall_1_0; }
-
-		//('target' target=[ecore::EObject|NoQuoteString])?
-		public Group getGroup_2() { return cGroup_2; }
-
-		//'target'
-		public Keyword getTargetKeyword_2_0() { return cTargetKeyword_2_0; }
-
-		//target=[ecore::EObject|NoQuoteString]
-		public Assignment getTargetAssignment_2_1() { return cTargetAssignment_2_1; }
-
-		//[ecore::EObject|NoQuoteString]
-		public CrossReference getTargetEObjectCrossReference_2_1_0() { return cTargetEObjectCrossReference_2_1_0; }
-
-		//NoQuoteString
-		public RuleCall getTargetEObjectNoQuoteStringParserRuleCall_2_1_0_1() { return cTargetEObjectNoQuoteStringParserRuleCall_2_1_0_1; }
-
-		//('exception' exceptionType=STRING)?
-		public Group getGroup_3() { return cGroup_3; }
-
-		//'exception'
-		public Keyword getExceptionKeyword_3_0() { return cExceptionKeyword_3_0; }
-
-		//exceptionType=STRING
-		public Assignment getExceptionTypeAssignment_3_1() { return cExceptionTypeAssignment_3_1; }
-
-		//STRING
-		public RuleCall getExceptionTypeSTRINGTerminalRuleCall_3_1_0() { return cExceptionTypeSTRINGTerminalRuleCall_3_1_0; }
-
-		//('diagnosticId' diagnosticId=STRING)?
-		public Group getGroup_4() { return cGroup_4; }
-
-		//'diagnosticId'
-		public Keyword getDiagnosticIdKeyword_4_0() { return cDiagnosticIdKeyword_4_0; }
-
-		//diagnosticId=STRING
-		public Assignment getDiagnosticIdAssignment_4_1() { return cDiagnosticIdAssignment_4_1; }
-
-		//STRING
-		public RuleCall getDiagnosticIdSTRINGTerminalRuleCall_4_1_0() { return cDiagnosticIdSTRINGTerminalRuleCall_4_1_0; }
-
-		//('[' issues+=ResultIssue* ']')?
-		public Group getGroup_5() { return cGroup_5; }
-
-		//'['
-		public Keyword getLeftSquareBracketKeyword_5_0() { return cLeftSquareBracketKeyword_5_0; }
-
-		//issues+=ResultIssue*
-		public Assignment getIssuesAssignment_5_1() { return cIssuesAssignment_5_1; }
-
-		//ResultIssue
-		public RuleCall getIssuesResultIssueParserRuleCall_5_1_0() { return cIssuesResultIssueParserRuleCall_5_1_0; }
-
-		//']'
-		public Keyword getRightSquareBracketKeyword_5_2() { return cRightSquareBracketKeyword_5_2; }
-	}
-
 	public class TypeRefElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "org.osate.alisa.common.Common.TypeRef");
 		private final Alternatives cAlternatives = (Alternatives)rule.eContents().get(1);
@@ -2201,66 +2097,6 @@ public class CommonGrammarAccess extends AbstractGrammarElementFinder {
 	}
 	
 	
-	public class ResultIssueTypeElements extends AbstractEnumRuleElementFinder {
-		private final EnumRule rule = (EnumRule) GrammarUtil.findRuleForName(getGrammar(), "org.osate.alisa.common.Common.ResultIssueType");
-		private final Alternatives cAlternatives = (Alternatives)rule.eContents().get(1);
-		private final EnumLiteralDeclaration cTBDEnumLiteralDeclaration_0 = (EnumLiteralDeclaration)cAlternatives.eContents().get(0);
-		private final Keyword cTBDTbdKeyword_0_0 = (Keyword)cTBDEnumLiteralDeclaration_0.eContents().get(0);
-		private final EnumLiteralDeclaration cERROREnumLiteralDeclaration_1 = (EnumLiteralDeclaration)cAlternatives.eContents().get(1);
-		private final Keyword cERRORErrorKeyword_1_0 = (Keyword)cERROREnumLiteralDeclaration_1.eContents().get(0);
-		private final EnumLiteralDeclaration cWARNINGEnumLiteralDeclaration_2 = (EnumLiteralDeclaration)cAlternatives.eContents().get(2);
-		private final Keyword cWARNINGWarningKeyword_2_0 = (Keyword)cWARNINGEnumLiteralDeclaration_2.eContents().get(0);
-		private final EnumLiteralDeclaration cINFOEnumLiteralDeclaration_3 = (EnumLiteralDeclaration)cAlternatives.eContents().get(3);
-		private final Keyword cINFOInfoKeyword_3_0 = (Keyword)cINFOEnumLiteralDeclaration_3.eContents().get(0);
-		private final EnumLiteralDeclaration cSUCCESSEnumLiteralDeclaration_4 = (EnumLiteralDeclaration)cAlternatives.eContents().get(4);
-		private final Keyword cSUCCESSSuccessKeyword_4_0 = (Keyword)cSUCCESSEnumLiteralDeclaration_4.eContents().get(0);
-		private final EnumLiteralDeclaration cFAILEnumLiteralDeclaration_5 = (EnumLiteralDeclaration)cAlternatives.eContents().get(5);
-		private final Keyword cFAILFailKeyword_5_0 = (Keyword)cFAILEnumLiteralDeclaration_5.eContents().get(0);
-		
-		//enum ResultIssueType:
-		//	TBD='tbd' | ERROR='error' | WARNING='warning' | INFO='info' | SUCCESS='success' | FAIL='fail';
-		public EnumRule getRule() { return rule; }
-
-		//TBD='tbd' | ERROR='error' | WARNING='warning' | INFO='info' | SUCCESS='success' | FAIL='fail'
-		public Alternatives getAlternatives() { return cAlternatives; }
-
-		//TBD='tbd'
-		public EnumLiteralDeclaration getTBDEnumLiteralDeclaration_0() { return cTBDEnumLiteralDeclaration_0; }
-
-		//'tbd'
-		public Keyword getTBDTbdKeyword_0_0() { return cTBDTbdKeyword_0_0; }
-
-		//ERROR='error'
-		public EnumLiteralDeclaration getERROREnumLiteralDeclaration_1() { return cERROREnumLiteralDeclaration_1; }
-
-		//'error'
-		public Keyword getERRORErrorKeyword_1_0() { return cERRORErrorKeyword_1_0; }
-
-		//WARNING='warning'
-		public EnumLiteralDeclaration getWARNINGEnumLiteralDeclaration_2() { return cWARNINGEnumLiteralDeclaration_2; }
-
-		//'warning'
-		public Keyword getWARNINGWarningKeyword_2_0() { return cWARNINGWarningKeyword_2_0; }
-
-		//INFO='info'
-		public EnumLiteralDeclaration getINFOEnumLiteralDeclaration_3() { return cINFOEnumLiteralDeclaration_3; }
-
-		//'info'
-		public Keyword getINFOInfoKeyword_3_0() { return cINFOInfoKeyword_3_0; }
-
-		//SUCCESS='success'
-		public EnumLiteralDeclaration getSUCCESSEnumLiteralDeclaration_4() { return cSUCCESSEnumLiteralDeclaration_4; }
-
-		//'success'
-		public Keyword getSUCCESSSuccessKeyword_4_0() { return cSUCCESSSuccessKeyword_4_0; }
-
-		//FAIL='fail'
-		public EnumLiteralDeclaration getFAILEnumLiteralDeclaration_5() { return cFAILEnumLiteralDeclaration_5; }
-
-		//'fail'
-		public Keyword getFAILFailKeyword_5_0() { return cFAILFailKeyword_5_0; }
-	}
-
 	public class OperationElements extends AbstractEnumRuleElementFinder {
 		private final EnumRule rule = (EnumRule) GrammarUtil.findRuleForName(getGrammar(), "org.osate.alisa.common.Common.Operation");
 		private final Alternatives cAlternatives = (Alternatives)rule.eContents().get(1);
@@ -2428,8 +2264,6 @@ public class CommonGrammarAccess extends AbstractGrammarElementFinder {
 	private final DescriptionElementElements pDescriptionElement;
 	private final RationaleElements pRationale;
 	private final UncertaintyElements pUncertainty;
-	private final ResultIssueElements pResultIssue;
-	private final ResultIssueTypeElements eResultIssueType;
 	private final TypeRefElements pTypeRef;
 	private final PropertyRefElements pPropertyRef;
 	private final ValDeclarationElements pValDeclaration;
@@ -2497,8 +2331,6 @@ public class CommonGrammarAccess extends AbstractGrammarElementFinder {
 		this.pDescriptionElement = new DescriptionElementElements();
 		this.pRationale = new RationaleElements();
 		this.pUncertainty = new UncertaintyElements();
-		this.pResultIssue = new ResultIssueElements();
-		this.eResultIssueType = new ResultIssueTypeElements();
 		this.pTypeRef = new TypeRefElements();
 		this.pPropertyRef = new PropertyRefElements();
 		this.pValDeclaration = new ValDeclarationElements();
@@ -2623,29 +2455,6 @@ public class CommonGrammarAccess extends AbstractGrammarElementFinder {
 	
 	public ParserRule getUncertaintyRule() {
 		return getUncertaintyAccess().getRule();
-	}
-
-	//// This is similar to diagnostics
-	//ResultIssue:
-	//	issueType=ResultIssueType
-	//	message=STRING ('target' target=[ecore::EObject|NoQuoteString])? ('exception' exceptionType=STRING)? ('diagnosticId'
-	//	diagnosticId=STRING)? ('[' issues+=ResultIssue* ']')?;
-	public ResultIssueElements getResultIssueAccess() {
-		return pResultIssue;
-	}
-	
-	public ParserRule getResultIssueRule() {
-		return getResultIssueAccess().getRule();
-	}
-
-	//enum ResultIssueType:
-	//	TBD='tbd' | ERROR='error' | WARNING='warning' | INFO='info' | SUCCESS='success' | FAIL='fail';
-	public ResultIssueTypeElements getResultIssueTypeAccess() {
-		return eResultIssueType;
-	}
-	
-	public EnumRule getResultIssueTypeRule() {
-		return getResultIssueTypeAccess().getRule();
 	}
 
 	//TypeRef aadl2::PropertyType:
@@ -3212,8 +3021,7 @@ public class CommonGrammarAccess extends AbstractGrammarElementFinder {
 	} 
 
 	//terminal STRING:
-	//	'"' ('\\' . | !('\\' | '"'))* '"' |
-	//	"'" ('\\' . | !('\\' | "'"))* "'";
+	//	'"' ('\\' . | !('\\' | '"'))* '"' | "'" ('\\' . | !('\\' | "'"))* "'";
 	public TerminalRule getSTRINGRule() {
 		return gaTerminals.getSTRINGRule();
 	} 

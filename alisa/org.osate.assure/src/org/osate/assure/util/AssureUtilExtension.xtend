@@ -51,9 +51,8 @@ import org.osate.aadl2.instance.SystemInstance
 import org.osate.aadl2.modelsupport.AadlConstants
 import org.osate.aadl2.modelsupport.resources.OsateResourceUtil
 import org.osate.aadl2.util.Aadl2Util
-import org.osate.alisa.common.common.CommonFactory
-import org.osate.alisa.common.common.ResultIssue
-import org.osate.alisa.common.common.ResultIssueType
+import org.osate.results.ResultIssue
+import org.osate.results.ResultIssueType
 import org.osate.assure.assure.AssuranceCaseResult
 import org.osate.assure.assure.AssureResult
 import org.osate.assure.assure.ClaimResult
@@ -87,6 +86,7 @@ import static extension org.osate.reqspec.util.ReqSpecUtilExtension.*
 import static extension org.osate.verify.util.VerifyUtilExtension.*
 import org.eclipse.xtext.resource.XtextResource
 import org.osate.reqspec.reqSpec.InformalPredicate
+import org.osate.results.ResultsFactory
 
 class AssureUtilExtension {
 
@@ -315,7 +315,7 @@ class AssureUtilExtension {
 
 	def static ResultIssue addErrorIssue(VerificationResult vr, EObject target, String message, String issueSource,
 		String diagnosticId) {
-		val issue = CommonFactory.eINSTANCE.createResultIssue
+		val issue = ResultsFactory.eINSTANCE.createResultIssue
 		issue.message = message ?: "no message"
 		issue.issueType = ResultIssueType.ERROR;
 		issue.exceptionType = issueSource
@@ -331,7 +331,7 @@ class AssureUtilExtension {
 
 	def static ResultIssue addFailIssue(VerificationResult vr, EObject target, String message, String issueSource,
 		String diagnosticId) {
-		val issue = CommonFactory.eINSTANCE.createResultIssue
+		val issue = ResultsFactory.eINSTANCE.createResultIssue
 		issue.message = message ?: "no message"
 		issue.issueType = ResultIssueType.FAIL;
 		issue.exceptionType = issueSource
@@ -347,7 +347,7 @@ class AssureUtilExtension {
 
 	def static ResultIssue addInfoIssue(VerificationResult vr, EObject target, String message, String issueSource,
 		String diagnosticId) {
-		val issue = CommonFactory.eINSTANCE.createResultIssue
+		val issue = ResultsFactory.eINSTANCE.createResultIssue
 		issue.message = message
 		issue.issueType = ResultIssueType.INFO;
 		issue.exceptionType = issueSource
@@ -362,7 +362,7 @@ class AssureUtilExtension {
 
 	def static ResultIssue addSuccessIssue(VerificationResult vr, EObject target, String message, String issueSource,
 		String diagnosticId) {
-		val issue = CommonFactory.eINSTANCE.createResultIssue
+		val issue = ResultsFactory.eINSTANCE.createResultIssue
 		issue.message = message
 		issue.issueType = ResultIssueType.SUCCESS;
 		issue.exceptionType = issueSource
@@ -378,7 +378,7 @@ class AssureUtilExtension {
 
 	def static ResultIssue addWarningIssue(VerificationResult vr, EObject target, String message, String issueSource,
 		String diagnosticId) {
-		val issue = CommonFactory.eINSTANCE.createResultIssue
+		val issue = ResultsFactory.eINSTANCE.createResultIssue
 		issue.message = message
 		issue.issueType = ResultIssueType.WARNING;
 		issue.exceptionType = issueSource
@@ -423,7 +423,7 @@ class AssureUtilExtension {
 
 	def static ResultIssue addIssue(ResultIssue ri, ResultIssueType type, EObject target, String message,
 		String issueSource, String diagnosticId) {
-		val issue = CommonFactory.eINSTANCE.createResultIssue
+		val issue = ResultsFactory.eINSTANCE.createResultIssue
 		issue.message = message
 		issue.issueType = type;
 		issue.exceptionType = issueSource

@@ -23,7 +23,7 @@ import org.osate.assure.assure.VerificationActivityResult
 import org.osate.assure.assure.PreconditionResult
 import org.osate.assure.assure.ValidationResult
 import org.osate.assure.assure.AssuranceCaseResult
-import org.osate.alisa.common.common.ResultIssue
+import org.osate.results.ResultIssue
 
 class AssureEObjectHoverProvider extends DefaultEObjectHoverProvider {
 	override getHoverInfoAsHtml(EObject o){

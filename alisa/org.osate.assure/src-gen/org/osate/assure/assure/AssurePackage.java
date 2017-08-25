@@ -428,13 +428,13 @@ public interface AssurePackage extends EPackage
   int VERIFICATION_RESULT__ISSUES = ASSURE_RESULT_FEATURE_COUNT + 2;
 
   /**
-   * The feature id for the '<em><b>Result Report</b></em>' reference.
+   * The feature id for the '<em><b>Results</b></em>' reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int VERIFICATION_RESULT__RESULT_REPORT = ASSURE_RESULT_FEATURE_COUNT + 3;
+  int VERIFICATION_RESULT__RESULTS = ASSURE_RESULT_FEATURE_COUNT + 3;
 
   /**
    * The feature id for the '<em><b>Message</b></em>' attribute.
@@ -1031,13 +1031,13 @@ public interface AssurePackage extends EPackage
   int PRECONDITION_RESULT__ISSUES = VERIFICATION_RESULT__ISSUES;
 
   /**
-   * The feature id for the '<em><b>Result Report</b></em>' reference.
+   * The feature id for the '<em><b>Results</b></em>' reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int PRECONDITION_RESULT__RESULT_REPORT = VERIFICATION_RESULT__RESULT_REPORT;
+  int PRECONDITION_RESULT__RESULTS = VERIFICATION_RESULT__RESULTS;
 
   /**
    * The feature id for the '<em><b>Message</b></em>' attribute.
@@ -1113,13 +1113,13 @@ public interface AssurePackage extends EPackage
   int VALIDATION_RESULT__ISSUES = VERIFICATION_RESULT__ISSUES;
 
   /**
-   * The feature id for the '<em><b>Result Report</b></em>' reference.
+   * The feature id for the '<em><b>Results</b></em>' reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int VALIDATION_RESULT__RESULT_REPORT = VERIFICATION_RESULT__RESULT_REPORT;
+  int VALIDATION_RESULT__RESULTS = VERIFICATION_RESULT__RESULTS;
 
   /**
    * The feature id for the '<em><b>Message</b></em>' attribute.
@@ -1195,13 +1195,13 @@ public interface AssurePackage extends EPackage
   int VERIFICATION_ACTIVITY_RESULT__ISSUES = VERIFICATION_RESULT__ISSUES;
 
   /**
-   * The feature id for the '<em><b>Result Report</b></em>' reference.
+   * The feature id for the '<em><b>Results</b></em>' reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int VERIFICATION_ACTIVITY_RESULT__RESULT_REPORT = VERIFICATION_RESULT__RESULT_REPORT;
+  int VERIFICATION_ACTIVITY_RESULT__RESULTS = VERIFICATION_RESULT__RESULTS;
 
   /**
    * The feature id for the '<em><b>Message</b></em>' attribute.
@@ -1295,13 +1295,13 @@ public interface AssurePackage extends EPackage
   int PREDICATE_RESULT__ISSUES = VERIFICATION_RESULT__ISSUES;
 
   /**
-   * The feature id for the '<em><b>Result Report</b></em>' reference.
+   * The feature id for the '<em><b>Results</b></em>' reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int PREDICATE_RESULT__RESULT_REPORT = VERIFICATION_RESULT__RESULT_REPORT;
+  int PREDICATE_RESULT__RESULTS = VERIFICATION_RESULT__RESULTS;
 
   /**
    * The feature id for the '<em><b>Message</b></em>' attribute.
@@ -1654,15 +1654,15 @@ public interface AssurePackage extends EPackage
   EReference getVerificationResult_Issues();
 
   /**
-   * Returns the meta object for the reference '{@link org.osate.assure.assure.VerificationResult#getResultReport <em>Result Report</em>}'.
+   * Returns the meta object for the reference '{@link org.osate.assure.assure.VerificationResult#getResults <em>Results</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for the reference '<em>Result Report</em>'.
-   * @see org.osate.assure.assure.VerificationResult#getResultReport()
+   * @return the meta object for the reference '<em>Results</em>'.
+   * @see org.osate.assure.assure.VerificationResult#getResults()
    * @see #getVerificationResult()
    * @generated
    */
-  EReference getVerificationResult_ResultReport();
+  EReference getVerificationResult_Results();
 
   /**
    * Returns the meta object for the attribute '{@link org.osate.assure.assure.VerificationResult#getMessage <em>Message</em>}'.
@@ -2547,12 +2547,12 @@ public interface AssurePackage extends EPackage
     EReference VERIFICATION_RESULT__ISSUES = eINSTANCE.getVerificationResult_Issues();
 
     /**
-     * The meta object literal for the '<em><b>Result Report</b></em>' reference feature.
+     * The meta object literal for the '<em><b>Results</b></em>' reference feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    EReference VERIFICATION_RESULT__RESULT_REPORT = eINSTANCE.getVerificationResult_ResultReport();
+    EReference VERIFICATION_RESULT__RESULTS = eINSTANCE.getVerificationResult_Results();
 
     /**
      * The meta object literal for the '<em><b>Message</b></em>' attribute feature.

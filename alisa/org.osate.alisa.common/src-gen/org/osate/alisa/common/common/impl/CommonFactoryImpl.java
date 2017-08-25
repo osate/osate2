@@ -82,7 +82,6 @@ public class CommonFactoryImpl extends EFactoryImpl implements CommonFactory
       case CommonPackage.DESCRIPTION_ELEMENT: return createDescriptionElement();
       case CommonPackage.RATIONALE: return createRationale();
       case CommonPackage.UNCERTAINTY: return createUncertainty();
-      case CommonPackage.RESULT_ISSUE: return createResultIssue();
       case CommonPackage.AVARIABLE_DECLARATION: return createAVariableDeclaration();
       case CommonPackage.AEXPRESSION: return createAExpression();
       case CommonPackage.AMODEL_REFERENCE: return createAModelReference();
@@ -115,8 +114,6 @@ public class CommonFactoryImpl extends EFactoryImpl implements CommonFactory
   {
     switch (eDataType.getClassifierID())
     {
-      case CommonPackage.RESULT_ISSUE_TYPE:
-        return createResultIssueTypeFromString(eDataType, initialValue);
       case CommonPackage.OPERATION:
         return createOperationFromString(eDataType, initialValue);
       default:
@@ -134,8 +131,6 @@ public class CommonFactoryImpl extends EFactoryImpl implements CommonFactory
   {
     switch (eDataType.getClassifierID())
     {
-      case CommonPackage.RESULT_ISSUE_TYPE:
-        return convertResultIssueTypeToString(eDataType, instanceValue);
       case CommonPackage.OPERATION:
         return convertOperationToString(eDataType, instanceValue);
       default:
@@ -185,17 +180,6 @@ public class CommonFactoryImpl extends EFactoryImpl implements CommonFactory
   {
     UncertaintyImpl uncertainty = new UncertaintyImpl();
     return uncertainty;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public ResultIssue createResultIssue()
-  {
-    ResultIssueImpl resultIssue = new ResultIssueImpl();
-    return resultIssue;
   }
 
   /**
@@ -383,28 +367,6 @@ public class CommonFactoryImpl extends EFactoryImpl implements CommonFactory
   {
     AConditionalImpl aConditional = new AConditionalImpl();
     return aConditional;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public ResultIssueType createResultIssueTypeFromString(EDataType eDataType, String initialValue)
-  {
-    ResultIssueType result = ResultIssueType.get(initialValue);
-    if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
-    return result;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public String convertResultIssueTypeToString(EDataType eDataType, Object instanceValue)
-  {
-    return instanceValue == null ? null : instanceValue.toString();
   }
 
   /**

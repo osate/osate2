@@ -28,8 +28,6 @@ import org.eclipse.xtext.parser.antlr.Lexer;
 
 
 
-DiagnosticId : 'diagnosticId';
-
 Requirements : 'requirements';
 
 Connections : 'connections';
@@ -55,8 +53,6 @@ Volatility : 'volatility';
 Conflicts : 'conflicts';
 
 Constants : 'constants';
-
-Exception : 'exception';
 
 Mitigates : 'mitigates';
 
@@ -96,11 +92,7 @@ Refines : 'refines';
 
 Section : 'section';
 
-Success : 'success';
-
 Virtual : 'virtual';
-
-Warning : 'warning';
 
 Device : 'device';
 
@@ -117,8 +109,6 @@ Memory : 'memory';
 String : 'string';
 
 KW_System : 'system';
-
-Target : 'target';
 
 Thread : 'thread';
 
@@ -148,11 +138,7 @@ Data : 'data';
 
 Else : 'else';
 
-Fail : 'fail';
-
 Goal : 'goal';
-
-Info : 'info';
 
 Mode : 'mode';
 
@@ -187,8 +173,6 @@ Mod : 'mod';
 Not : 'not';
 
 See : 'see';
-
-Tbd : 'tbd';
 
 Use : 'use';
 

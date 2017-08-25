@@ -27,8 +27,8 @@ import org.osate.assure.assure.AssuranceCaseResult
 import org.osate.assure.assure.ValidationResult
 import org.osate.assure.assure.ThenResult
 import org.osate.assure.assure.ElseResult
-import org.osate.alisa.common.common.ResultIssue
-import org.osate.alisa.common.common.ResultIssueType
+import org.osate.results.ResultIssue
+import org.osate.results.ResultIssueType
 import org.osate.assure.assure.ModelResult
 import org.osate.assure.assure.SubsystemResult
 import org.osate.assure.assure.PreconditionResult

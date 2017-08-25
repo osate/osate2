@@ -29,7 +29,7 @@ import org.osate.aadl2.Property;
 import org.osate.aadl2.PropertyConstant;
 import org.osate.aadl2.PropertyType;
 import org.osate.aadl2.modelsupport.util.AadlUtil;
-import org.osate.alisa.common.common.ResultIssue;
+import org.osate.results.ResultIssue;
 
 public class AssureCrossReferenceSerializer extends CrossReferenceSerializer {
 

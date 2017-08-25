@@ -15,6 +15,8 @@
  */
 package org.osate.assure.assure.impl;
 
+import com.rockwellcollins.atc.resolute.resolute.ResolutePackage;
+
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EEnum;
@@ -54,11 +56,17 @@ import org.osate.assure.assure.VerificationExpr;
 import org.osate.assure.assure.VerificationResult;
 import org.osate.assure.assure.VerificationResultState;
 
+import org.osate.categories.categories.CategoriesPackage;
+
+import org.osate.organization.organization.OrganizationPackage;
+
 import org.osate.reqspec.reqSpec.ReqSpecPackage;
 
-import org.osate.results.results.ResultsPackage;
+import org.osate.results.ResultsPackage;
 
 import org.osate.verify.verify.VerifyPackage;
+
+import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelPackage;
 
 /**
  * <!-- begin-user-doc -->
@@ -264,8 +272,17 @@ public class AssurePackageImpl extends EPackageImpl implements AssurePackage
     isInited = true;
 
     // Initialize simple dependencies
+    EcorePackage.eINSTANCE.eClass();
+    Aadl2Package.eINSTANCE.eClass();
     AlisaPackage.eINSTANCE.eClass();
+    ReqSpecPackage.eINSTANCE.eClass();
     ResultsPackage.eINSTANCE.eClass();
+    VerifyPackage.eINSTANCE.eClass();
+    CommonPackage.eINSTANCE.eClass();
+    CategoriesPackage.eINSTANCE.eClass();
+    OrganizationPackage.eINSTANCE.eClass();
+    ErrorModelPackage.eINSTANCE.eClass();
+    ResolutePackage.eINSTANCE.eClass();
 
     // Create package meta-data objects
     theAssurePackage.createPackageContents();
@@ -557,7 +574,7 @@ public class AssurePackageImpl extends EPackageImpl implements AssurePackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getVerificationResult_ResultReport()
+  public EReference getVerificationResult_Results()
   {
     return (EReference)verificationResultEClass.getEStructuralFeatures().get(3);
   }
@@ -1213,7 +1230,7 @@ public class AssurePackageImpl extends EPackageImpl implements AssurePackage
     createEAttribute(verificationResultEClass, VERIFICATION_RESULT__EXECUTION_STATE);
     createEAttribute(verificationResultEClass, VERIFICATION_RESULT__RESULT_STATE);
     createEReference(verificationResultEClass, VERIFICATION_RESULT__ISSUES);
-    createEReference(verificationResultEClass, VERIFICATION_RESULT__RESULT_REPORT);
+    createEReference(verificationResultEClass, VERIFICATION_RESULT__RESULTS);
     createEAttribute(verificationResultEClass, VERIFICATION_RESULT__MESSAGE);
 
     assureResultEClass = createEClass(ASSURE_RESULT);
@@ -1318,7 +1335,6 @@ public class AssurePackageImpl extends EPackageImpl implements AssurePackage
     EcorePackage theEcorePackage = (EcorePackage)EPackage.Registry.INSTANCE.getEPackage(EcorePackage.eNS_URI);
     AlisaPackage theAlisaPackage = (AlisaPackage)EPackage.Registry.INSTANCE.getEPackage(AlisaPackage.eNS_URI);
     Aadl2Package theAadl2Package = (Aadl2Package)EPackage.Registry.INSTANCE.getEPackage(Aadl2Package.eNS_URI);
-    CommonPackage theCommonPackage = (CommonPackage)EPackage.Registry.INSTANCE.getEPackage(CommonPackage.eNS_URI);
     ResultsPackage theResultsPackage = (ResultsPackage)EPackage.Registry.INSTANCE.getEPackage(ResultsPackage.eNS_URI);
     VerifyPackage theVerifyPackage = (VerifyPackage)EPackage.Registry.INSTANCE.getEPackage(VerifyPackage.eNS_URI);
     ReqSpecPackage theReqSpecPackage = (ReqSpecPackage)EPackage.Registry.INSTANCE.getEPackage(ReqSpecPackage.eNS_URI);
@@ -1375,8 +1391,8 @@ public class AssurePackageImpl extends EPackageImpl implements AssurePackage
     initEClass(verificationResultEClass, VerificationResult.class, "VerificationResult", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEAttribute(getVerificationResult_ExecutionState(), this.getVerificationExecutionState(), "executionState", null, 0, 1, VerificationResult.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEAttribute(getVerificationResult_ResultState(), this.getVerificationResultState(), "resultState", null, 0, 1, VerificationResult.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getVerificationResult_Issues(), theCommonPackage.getResultIssue(), null, "issues", null, 0, -1, VerificationResult.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getVerificationResult_ResultReport(), theResultsPackage.getResultReport(), null, "resultReport", null, 0, 1, VerificationResult.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getVerificationResult_Issues(), theResultsPackage.getResultIssue(), null, "issues", null, 0, -1, VerificationResult.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getVerificationResult_Results(), theResultsPackage.getResults(), null, "results", null, 0, 1, VerificationResult.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEAttribute(getVerificationResult_Message(), theEcorePackage.getEString(), "message", null, 0, 1, VerificationResult.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(assureResultEClass, AssureResult.class, "AssureResult", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);

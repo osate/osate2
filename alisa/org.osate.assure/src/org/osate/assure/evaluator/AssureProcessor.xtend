@@ -67,7 +67,6 @@ import org.osate.assure.assure.VerificationExecutionState
 import org.osate.assure.assure.VerificationResult
 import org.osate.assure.util.AssureUtilExtension
 import org.osate.categories.categories.CategoryFilter
-import org.osate.results.results.ResultReport
 import org.osate.verify.util.VerificationMethodDispatchers
 import org.osate.verify.verify.AgreeMethod
 import org.osate.verify.verify.FormalParameter
@@ -83,6 +82,8 @@ import static extension org.eclipse.emf.ecore.util.EcoreUtil.getURI
 import static extension org.osate.alisa.common.util.CommonUtilExtension.*
 import static extension org.osate.assure.util.AssureUtilExtension.*
 import static extension org.osate.verify.util.VerifyUtilExtension.*
+import org.osate.results.Results
+import org.osate.results.ResultsFactory
 
 @ImplementedBy(AssureProcessor)
 interface IAssureProcessor {
@@ -417,7 +418,7 @@ class AssureProcessor implements IAssureProcessor {
 
 						// using com.rockwellcollins.atc.resolute.analysis.results.ClaimResult
 						val ClaimResult proof = interpreter.evaluateProveStatement(provecall) as ClaimResult
-							val proveri = CommonFactory.eINSTANCE.createResultIssue
+							val proveri = ResultsFactory.eINSTANCE.createResultIssue
 							proof.doResoluteResults(proveri)
 						if (proof.valid) {
 							setToSuccess(verificationResult)
@@ -452,7 +453,7 @@ class AssureProcessor implements IAssureProcessor {
 					if (result.failureCount == 0) {
 						setToSuccess(verificationResult)
 					} else {
-						val proveri = CommonFactory.eINSTANCE.createResultIssue
+						val proveri = ResultsFactory.eINSTANCE.createResultIssue
 						result.doJUnitResults(proveri)
 						setToFail(verificationResult, proveri.issues)
 					}
@@ -567,14 +568,14 @@ class AssureProcessor implements IAssureProcessor {
 				}
 				new HashMap
 			} else if (returned instanceof HashMap<?, ?>) {
-				val report = returned.get("_result_report_") as ResultReport
+				val report = returned.get("_result_report_") as Results
 				if (report !== null) {
-					verificationResult.resultReport = report
+					verificationResult.results = report
 				} else {
 					setToSuccess(verificationResult, "", target)
 				}
 				returned
-			} else if (returned instanceof ResultReport) {
+			} else if (returned instanceof Results) {
 //				verificationResult.resultReport = returned
 				if (returned.issues.empty){
 				setToSuccess(verificationResult,"",target)

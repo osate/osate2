@@ -1,4 +1,4 @@
-grammar org.osate.assure.Assure with org.osate.alisa.common.Common//org.osate.results.Results//org.eclipse.xtext.common.Terminals
+grammar org.osate.assure.Assure with org.osate.alisa.common.Common//org.eclipse.xtext.common.Terminals
 
 generate assure "http://www.osate.org/assure/Assure"
 import "http://aadl.info/AADL/2.0" as aadl2
@@ -68,7 +68,7 @@ PreconditionResult returns VerificationResult:
 		issues+=ResultIssue*
 		']'
 	)?
-	('report' resultReport=[results::ResultReport|QualifiedName])? // pointer to separate report
+	('results' results=[results::Results|QualifiedName])? // pointer to separate report
 	metrics=Metrics
 	('message' message= STRING)?
 	']'  
@@ -84,7 +84,7 @@ ValidationResult returns VerificationResult:
 		issues+=ResultIssue*
 		']'
 	)?
-	('report' resultReport=[results::ResultReport|QualifiedName])? // pointer to separate report
+	('results' results=[results::Results|QualifiedName])? // pointer to separate report
 	metrics=Metrics
 	('message' message= STRING)?
 	']'  
@@ -101,7 +101,7 @@ VerificationActivityResult returns VerificationResult:
 		issues+=ResultIssue*
 		']'
 	)?
-	('report' resultReport=[results::ResultReport|QualifiedName])? 
+	('results' results=[results::Results|QualifiedName])? 
 	metrics=Metrics
 	('message' message= STRING)?
 	preconditionResult= PreconditionResult?
@@ -119,7 +119,7 @@ PredicateResult returns VerificationResult:
 		issues+=ResultIssue*
 		']'
 	)?
-	('report' resultReport=[results::ResultReport|QualifiedName])? 
+	('results' results=[results::Results|QualifiedName])? 
 	metrics=Metrics
 	('message' message= STRING)?
 	']'  
@@ -203,5 +203,19 @@ QualifiedVAReference:
 ;
 NestedClaimReference:
 	requirement=[ReqSpec::Requirement|ID] ('.' sub=NestedClaimReference)?
+;
+
+ResultIssue returns results::ResultIssue:
+	issueType=ResultIssueType
+	message=STRING
+	('target' target=[ecore::EObject|NoQuoteString])?
+	('exception' exceptionType = STRING)?
+	('diagnosticId' diagnosticId = STRING)?
+	('[' issues+=ResultIssue*']')?
+;
+
+
+enum ResultIssueType returns results::ResultIssueType:
+	TBD = 'tbd'| ERROR='error' |  WARNING='warning' | INFO='info' | SUCCESS='success' | FAIL='fail' 
 ;
 
