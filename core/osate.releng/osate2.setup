@@ -918,26 +918,19 @@
       <requirement
           name="*"/>
       <sourceLocator
-          rootFolder="${git.clone.osate2-core.location}"
-          locateNestedProjects="true"/>
+          rootFolder="${git.clone.osate2-core.location}"/>
       <sourceLocator
-          rootFolder="${git.clone.emv2.location}"
-          locateNestedProjects="true"/>
+          rootFolder="${git.clone.emv2.location}"/>
       <sourceLocator
-          rootFolder="${git.clone.osate2-plugins.location}"
-          locateNestedProjects="true"/>
+          rootFolder="${git.clone.osate2-plugins.location}"/>
       <sourceLocator
-          rootFolder="${git.clone.osate2-ba.location}"
-          locateNestedProjects="true"/>
+          rootFolder="${git.clone.osate2-ba.location}"/>
       <sourceLocator
-          rootFolder="${git.clone.osate-ge.location}"
-          locateNestedProjects="true"/>
+          rootFolder="${git.clone.osate-ge.location}"/>
       <sourceLocator
-          rootFolder="${git.clone.ocarina.location}"
-          locateNestedProjects="true"/>
+          rootFolder="${git.clone.ocarina.location}"/>
       <sourceLocator
-          rootFolder="${git.clone.emfta.location}"
-          locateNestedProjects="true"/>
+          rootFolder="${git.clone.emfta.location}"/>
       <repositoryList
           name="Oxygen">
         <repository
@@ -985,26 +978,22 @@
       <requirement
           name="*"/>
       <sourceLocator
-          rootFolder="${git.clone.smaccm.location/fm-workbench/agree}"
-          locateNestedProjects="true">
+          rootFolder="${git.clone.smaccm.location/fm-workbench/agree}">
         <excludedPath>edu.umn.cs.crisys.agree.realtime</excludedPath>
       </sourceLocator>
       <sourceLocator
-          rootFolder="${git.clone.smaccm.location/fm-workbench/resolute}"
-          locateNestedProjects="true"/>
+          rootFolder="${git.clone.smaccm.location/fm-workbench/resolute}"/>
       <sourceLocator
           rootFolder="${git.clone.smaccm.location/fm-workbench/simulator}">
         <excludedPath>edu.uah.rsesc.aadlsimulator.agree.eval.test</excludedPath>
       </sourceLocator>
       <sourceLocator
-          rootFolder="${git.clone.smaccm.location/fm-workbench/tcg}"
-          locateNestedProjects="true">
+          rootFolder="${git.clone.smaccm.location/fm-workbench/tcg}">
         <excludedPath>com.rockwellcollins.atc.tcg.feature</excludedPath>
         <excludedPath>com.rockwellcollins.atc.tcg.standalone</excludedPath>
       </sourceLocator>
       <sourceLocator
-          rootFolder="${git.clone.smaccm.location/fm-workbench/z3}"
-          locateNestedProjects="true"/>
+          rootFolder="${git.clone.smaccm.location/fm-workbench/z3}"/>
       <repositoryList
           name="Oxygen">
         <repository
@@ -1052,8 +1041,7 @@
       <requirement
           name="*"/>
       <sourceLocator
-          rootFolder="${git.clone.alisa.location}"
-          locateNestedProjects="true"/>
+          rootFolder="${git.clone.alisa.location}"/>
       <repositoryList
           name="Oxygen">
         <repository
