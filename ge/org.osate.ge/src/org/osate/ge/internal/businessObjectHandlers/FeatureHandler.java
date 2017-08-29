@@ -54,8 +54,6 @@ import org.osate.ge.graphics.StyleBuilder;
 import org.osate.ge.internal.DockingPosition;
 import org.osate.ge.internal.di.CanRename;
 import org.osate.ge.internal.graphics.AadlGraphics;
-import org.osate.ge.internal.labels.LabelConfiguration;
-import org.osate.ge.internal.labels.LabelConfigurationBuilder;
 import org.osate.ge.internal.services.NamingService;
 import org.osate.ge.internal.util.AadlArrayUtil;
 import org.osate.ge.internal.util.AadlFeatureUtil;
@@ -68,7 +66,6 @@ import org.osate.ge.services.QueryService;
 
 public class FeatureHandler {
 	private static final StandaloneQuery parentQuery = StandaloneQuery.create((root) -> root.ancestors().first());
-	private static final LabelConfiguration labelConfiguration = LabelConfigurationBuilder.create().aboveTop().left().build();
 
 	@IsApplicable
 	public boolean isApplicable(final @Named(Names.BUSINESS_OBJECT) Object bo) {
@@ -145,12 +142,11 @@ public class FeatureHandler {
 			final @Named(Names.BUSINESS_OBJECT_CONTEXT) BusinessObjectContext featureBoc) {
 		return GraphicalConfigurationBuilder.create().
 				graphic(getGraphicalRepresentation(feature, featureBoc)).
-				defaultStyle(StyleBuilder.create(
+				style(StyleBuilder.create(
 						AadlInheritanceUtil.isInherited(featureBoc) ? Styles.INHERITED_ELEMENT_STYLE : Style.EMPTY)
-						.backgroundColor(Color.BLACK).build())
+						.backgroundColor(Color.BLACK).labelsAboveTop().labelsLeft().build())
 				.
 				defaultDockingPosition(getDefaultDockingPosition(feature, featureBoc)).
-				defaultLabelConfiguration(labelConfiguration).
 				build();
 	}
 

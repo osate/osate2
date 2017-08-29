@@ -11,5 +11,4 @@ public class Styles {
 
 	public final static Style INHERITED_ELEMENT_STYLE = StyleBuilder.create().foregroundColor(INHERITED_ELEMENT_COLOR)
 			.build();
-
 }

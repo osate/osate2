@@ -76,7 +76,7 @@ public class FlowPathSpecificationHandler extends FlowSpecificationHandler {
 
 		return GraphicalConfigurationBuilder.create().
 				graphic(graphic).
-				defaultStyle(sb.build()).
+				style(sb.build()).
 				source(src).
 				destination(dst).
 				build();

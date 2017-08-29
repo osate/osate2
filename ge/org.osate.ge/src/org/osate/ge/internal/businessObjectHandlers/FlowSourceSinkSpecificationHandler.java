@@ -72,7 +72,7 @@ public class FlowSourceSinkSpecificationHandler extends FlowSpecificationHandler
 
 		return GraphicalConfigurationBuilder.create().
 				graphic(getGraphicalRepresentation(fs)).
-				defaultStyle(sb.build()).
+				style(sb.build()).
 				source(src).
 				build();
 	}

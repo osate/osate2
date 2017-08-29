@@ -36,7 +36,7 @@ public class SubprogramCallOrderHandler {
 			final QueryService queryService) {
 		return GraphicalConfigurationBuilder.create().
 				graphic(getGraphicalRepresentation(bo)).
-				defaultStyle(style).
+				style(style).
 				source(getSource(boc, queryService)).
 				destination(getDestination(boc, queryService)).
 				build();

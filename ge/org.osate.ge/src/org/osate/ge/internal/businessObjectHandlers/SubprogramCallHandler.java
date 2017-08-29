@@ -31,8 +31,6 @@ import org.osate.ge.graphics.Graphic;
 import org.osate.ge.graphics.Style;
 import org.osate.ge.graphics.StyleBuilder;
 import org.osate.ge.internal.di.CanRename;
-import org.osate.ge.internal.labels.LabelConfiguration;
-import org.osate.ge.internal.labels.LabelConfigurationBuilder;
 import org.osate.ge.internal.services.NamingService;
 import org.osate.ge.internal.ui.dialogs.DefaultSelectSubprogramDialogModel;
 import org.osate.ge.internal.ui.dialogs.SelectSubprogramDialog;
@@ -44,8 +42,7 @@ import org.osate.ge.services.QueryService;
 public class SubprogramCallHandler {
 	private static final StandaloneQuery behavioredImplementationQuery = StandaloneQuery.create((root) -> root.ancestors().filter((fa) -> fa.getBusinessObject() instanceof BehavioredImplementation).first());
 	private Graphic graphic = EllipseBuilder.create().build();
-	private Style style = StyleBuilder.create().dashed().build();
-	private LabelConfiguration labelConfiguration = LabelConfigurationBuilder.create().center().build();
+	private Style style = StyleBuilder.create().dashed().labelsCenter().build();
 
 	@IsApplicable
 	public boolean isApplicable(final @Named(Names.BUSINESS_OBJECT) SubprogramCall call) {
@@ -68,8 +65,7 @@ public class SubprogramCallHandler {
 	public GraphicalConfiguration getGraphicalConfiguration() {
 		return GraphicalConfigurationBuilder.create().
 				graphic(graphic).
-				defaultStyle(style).
-				defaultLabelConfiguration(labelConfiguration).
+				style(style).
 				build();
 	}
 

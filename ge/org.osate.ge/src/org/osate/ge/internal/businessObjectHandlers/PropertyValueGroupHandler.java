@@ -51,7 +51,7 @@ public class PropertyValueGroupHandler {
 			}
 
 			return GraphicalConfigurationBuilder.create().
-					graphic(graphic).defaultStyle(pvg.isAbstract() ? abstractStyle : referenceStyle)
+					graphic(graphic).style(pvg.isAbstract() ? abstractStyle : referenceStyle)
 					.
 					source(boc.getParent()).
 					destination(referencedElement).

@@ -32,8 +32,6 @@ import org.osate.ge.graphics.RectangleBuilder;
 import org.osate.ge.graphics.Style;
 import org.osate.ge.graphics.StyleBuilder;
 import org.osate.ge.internal.di.CanRename;
-import org.osate.ge.internal.labels.LabelConfiguration;
-import org.osate.ge.internal.labels.LabelConfigurationBuilder;
 import org.osate.ge.internal.services.NamingService;
 import org.osate.ge.internal.ui.dialogs.DefaultSelectSubprogramDialogModel;
 import org.osate.ge.internal.ui.dialogs.SelectSubprogramDialog;
@@ -46,7 +44,6 @@ import org.osate.ge.services.QueryService;
 public class SubprogramCallSequenceHandler {
 	private static final StandaloneQuery componentImplementationQuery = StandaloneQuery.create((root) -> root.ancestors().filter((fa) -> fa.getBusinessObject() instanceof ComponentImplementation).first());
 	private Graphic graphic = RectangleBuilder.create().build();
-	private LabelConfiguration labelConfiguration = LabelConfigurationBuilder.create().top().horizontalCenter().build();
 
 	@IsApplicable
 	public boolean isApplicable(final @Named(Names.BUSINESS_OBJECT) SubprogramCallSequence cs) {
@@ -69,11 +66,10 @@ public class SubprogramCallSequenceHandler {
 	public GraphicalConfiguration getGraphicalConfiguration(final @Named(Names.BUSINESS_OBJECT_CONTEXT) BusinessObjectContext boc) {
 		return GraphicalConfigurationBuilder.create().
 				graphic(graphic).
-				defaultStyle(StyleBuilder.create(
+				style(StyleBuilder.create(
 						AadlInheritanceUtil.isInherited(boc) ? Styles.INHERITED_ELEMENT_STYLE : Style.EMPTY).dashed()
-						.build())
-				.defaultLabelConfiguration(labelConfiguration).
-				build();
+						.labelsTop().labelsHorizontalCenter().build())
+				.build();
 	}
 
 	@GetName

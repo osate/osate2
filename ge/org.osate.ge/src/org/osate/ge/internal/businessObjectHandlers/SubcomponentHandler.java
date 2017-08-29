@@ -30,8 +30,6 @@ import org.osate.ge.graphics.Style;
 import org.osate.ge.graphics.StyleBuilder;
 import org.osate.ge.internal.di.CanRename;
 import org.osate.ge.internal.graphics.AadlGraphics;
-import org.osate.ge.internal.labels.LabelConfiguration;
-import org.osate.ge.internal.labels.LabelConfigurationBuilder;
 import org.osate.ge.internal.services.NamingService;
 import org.osate.ge.internal.util.AadlArrayUtil;
 import org.osate.ge.internal.util.AadlInheritanceUtil;
@@ -44,7 +42,6 @@ import org.osate.ge.services.QueryService;
 
 public class SubcomponentHandler {
 	private static final StandaloneQuery componentImplementationQuery = StandaloneQuery.create((root) -> root.ancestors().filter((fa) -> fa.getBusinessObject() instanceof ComponentImplementation).first());
-	private LabelConfiguration labelConfiguration = LabelConfigurationBuilder.create().top().horizontalCenter().build();
 
 	@IsApplicable
 	public boolean isApplicable(final @Named(Names.BUSINESS_OBJECT) Subcomponent sc) {
@@ -56,12 +53,12 @@ public class SubcomponentHandler {
 			final @Named(Names.BUSINESS_OBJECT_CONTEXT) BusinessObjectContext scBoc) {
 		return GraphicalConfigurationBuilder.create().
 				graphic(getGraphicalRepresentation(sc, scBoc)).
-				defaultStyle(StyleBuilder.create(
+				style(StyleBuilder.create(
 						AadlInheritanceUtil.isInherited(scBoc) ? Styles.INHERITED_ELEMENT_STYLE : Style.EMPTY,
-						getClassifierStyle(sc, scBoc))
+								getClassifierStyle(sc, scBoc))
+						.labelsTop().labelsHorizontalCenter()
 						.build())
 				.
-				defaultLabelConfiguration(labelConfiguration).
 				build();
 	}
 

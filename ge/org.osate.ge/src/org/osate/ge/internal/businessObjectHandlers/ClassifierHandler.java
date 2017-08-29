@@ -56,8 +56,6 @@ import org.osate.ge.internal.di.CanRename;
 import org.osate.ge.internal.di.GetNameForEditing;
 import org.osate.ge.internal.di.InternalNames;
 import org.osate.ge.internal.graphics.AadlGraphics;
-import org.osate.ge.internal.labels.LabelConfiguration;
-import org.osate.ge.internal.labels.LabelConfigurationBuilder;
 import org.osate.ge.internal.services.NamingService;
 import org.osate.ge.internal.ui.dialogs.ElementSelectionDialog;
 import org.osate.ge.internal.util.AadlImportsUtil;
@@ -69,7 +67,6 @@ import org.osate.ge.query.StandaloneQuery;
 import org.osate.ge.services.QueryService;
 
 public class ClassifierHandler {
-	private static final LabelConfiguration labelConfiguration = LabelConfigurationBuilder.create().top().horizontalCenter().build();
 	private static final StandaloneQuery packageQuery = StandaloneQuery.create((root) -> root.ancestors().filter((fa) -> fa.getBusinessObject() instanceof AadlPackage));
 
 	@IsApplicable
@@ -344,8 +341,7 @@ public class ClassifierHandler {
 	public GraphicalConfiguration getGraphicalConfiguration(final @Named(Names.BUSINESS_OBJECT) Classifier bo) {
 		return GraphicalConfigurationBuilder.create().
 				graphic(AadlGraphics.getGraphic(bo)).
-				defaultStyle(AadlGraphics.getStyle(bo)).
-				defaultLabelConfiguration(labelConfiguration).
+				style(AadlGraphics.getStyle(bo)).
 				build();
 	}
 

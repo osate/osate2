@@ -29,8 +29,6 @@ import org.osate.ge.graphics.Style;
 import org.osate.ge.graphics.StyleBuilder;
 import org.osate.ge.internal.di.CanRename;
 import org.osate.ge.internal.graphics.ModeGraphicBuilder;
-import org.osate.ge.internal.labels.LabelConfiguration;
-import org.osate.ge.internal.labels.LabelConfigurationBuilder;
 import org.osate.ge.internal.services.NamingService;
 import org.osate.ge.internal.util.AadlInheritanceUtil;
 import org.osate.ge.internal.util.ImageHelper;
@@ -42,7 +40,6 @@ public class ModeHandler {
 
 	private Graphic initialModeGraphic = ModeGraphicBuilder.create().initialMode().build();
 	private Graphic modeGraphic = ModeGraphicBuilder.create().build();
-	private LabelConfiguration labelConfiguration = LabelConfigurationBuilder.create().center().build();
 
 	@IsApplicable
 	public boolean isApplicable(final @Named(Names.BUSINESS_OBJECT) Mode mode) {
@@ -66,11 +63,10 @@ public class ModeHandler {
 			final @Named(Names.BUSINESS_OBJECT_CONTEXT) BusinessObjectContext boc) {
 		return GraphicalConfigurationBuilder.create().
 				graphic(getGraphicalRepresentation(mode)).
-				defaultStyle(StyleBuilder.create(
+				style(StyleBuilder.create(
 						AadlInheritanceUtil.isInherited(boc) ? Styles.INHERITED_ELEMENT_STYLE : Style.EMPTY)
-						.build())
+						.labelsCenter().build())
 				.
-				defaultLabelConfiguration(labelConfiguration).
 				build();
 	}
 

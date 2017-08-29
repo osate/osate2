@@ -39,8 +39,11 @@ public class AadlGraphics {
 	private static final Graphic virtualBusGraphic = BusGraphicBuilder.create().build();
 	private static final Graphic virtualProcessorGraphic = ProcessorGraphicBuilder.create().build();
 	private static final Graphic featureGroupTypeGraphic = FeatureGroupTypeGraphicBuilder.create().build();
-	private final static Style dashedStyle = StyleBuilder.create().dashed().build();
-	private final static Style implStyle = StyleBuilder.create().lineWidth(LineWidth.Medium).build();
+	private static final Style topCenteredLabelStyle = StyleBuilder.create().labelsTop().labelsHorizontalCenter()
+			.build();
+	private final static Style dashedStyle = StyleBuilder.create(topCenteredLabelStyle).dashed().build();
+	private final static Style implStyle = StyleBuilder.create(topCenteredLabelStyle).lineWidth(LineWidth.Medium)
+			.build();
 	private final static Style dashedImplStyle = StyleBuilder.create(dashedStyle, implStyle).build();
 
 	public static Graphic getGraphic(final Classifier classifier) {
@@ -58,7 +61,7 @@ public class AadlGraphics {
 			return getStyle((ComponentClassifier) classifier);
 		}
 
-		return Style.EMPTY;
+		return topCenteredLabelStyle;
 	}
 
 	public static Graphic getFeatureGraphic(final EClass featureClass, DirectionType direction) {

@@ -34,8 +34,8 @@ import org.osate.ge.di.GetName;
 import org.osate.ge.di.GetPaletteEntries;
 import org.osate.ge.di.IsApplicable;
 import org.osate.ge.di.Names;
+import org.osate.ge.graphics.StyleBuilder;
 import org.osate.ge.internal.graphics.FolderGraphicBuilder;
-import org.osate.ge.internal.labels.LabelConfigurationBuilder;
 import org.osate.ge.internal.services.NamingService;
 import org.osate.ge.internal.util.ImageHelper;
 import org.osate.ge.query.StandaloneQuery;
@@ -45,8 +45,7 @@ public class AnnexHandler {
 	private static final StandaloneQuery parentQuery = StandaloneQuery.create((root) -> root.ancestors().first());
 	private static final GraphicalConfiguration graphicalConfig = GraphicalConfigurationBuilder.create().
 			graphic(FolderGraphicBuilder.create().build())
-			.
-			defaultLabelConfiguration(LabelConfigurationBuilder.create().center().build()).
+			.style(StyleBuilder.create().labelsCenter().build()).
 			build();
 
 	@IsApplicable

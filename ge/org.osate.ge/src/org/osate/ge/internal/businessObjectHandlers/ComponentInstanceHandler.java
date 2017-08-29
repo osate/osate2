@@ -10,12 +10,8 @@ import org.osate.ge.di.GetName;
 import org.osate.ge.di.IsApplicable;
 import org.osate.ge.di.Names;
 import org.osate.ge.internal.graphics.AadlGraphics;
-import org.osate.ge.internal.labels.LabelConfiguration;
-import org.osate.ge.internal.labels.LabelConfigurationBuilder;
 
 public class ComponentInstanceHandler {
-	private static final LabelConfiguration labelConfiguration = LabelConfigurationBuilder.create().top().horizontalCenter().build();
-
 	@IsApplicable
 	public boolean isApplicable(final @Named(Names.BUSINESS_OBJECT) ComponentInstance ci) {
 		return true;
@@ -25,9 +21,8 @@ public class ComponentInstanceHandler {
 	public GraphicalConfiguration getGraphicalConGraphic(final @Named(Names.BUSINESS_OBJECT) ComponentInstance ci) {
 		return GraphicalConfigurationBuilder.create().
 				graphic(AadlGraphics.getGraphic(ci.getComponentClassifier())).
-				defaultStyle(AadlGraphics.getStyle(ci.getComponentClassifier()))
+				style(AadlGraphics.getStyle(ci.getComponentClassifier()))
 				.
-				defaultLabelConfiguration(labelConfiguration).
 				build();
 	}
 

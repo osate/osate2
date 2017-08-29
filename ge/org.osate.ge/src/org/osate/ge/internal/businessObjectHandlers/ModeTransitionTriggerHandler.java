@@ -38,7 +38,7 @@ public class ModeTransitionTriggerHandler {
 			final QueryService queryService) {
 		return GraphicalConfigurationBuilder.create().
 				graphic(graphic).
-				defaultStyle(style).
+				style(style).
 				source(getSource(boc)).
 				destination(getDestination(boc, queryService)).
 				build();

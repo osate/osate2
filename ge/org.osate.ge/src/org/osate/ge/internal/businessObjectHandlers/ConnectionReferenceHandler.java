@@ -56,7 +56,7 @@ public class ConnectionReferenceHandler {
 
 		return GraphicalConfigurationBuilder.create().
 				graphic(graphic).
-				defaultStyle(partial ? partialStyle : style).
+				style(partial ? partialStyle : style).
 				source(src).
 				destination(dst).
 				build();

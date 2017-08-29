@@ -13,7 +13,6 @@ import org.osate.ge.internal.diagram.runtime.boTree.BusinessObjectNode;
 import org.osate.ge.internal.diagram.runtime.boTree.Completeness;
 import org.osate.ge.internal.diagram.runtime.boTree.TreeUpdater;
 import org.osate.ge.internal.diagram.runtime.updating.DiagramElementInformationProvider;
-import org.osate.ge.internal.labels.AgeLabelConfiguration;
 
 public class TestBusinessObjectModel implements DiagramElementInformationProvider, TreeUpdater {
 	public TestBusinessObject model;
@@ -45,7 +44,6 @@ public class TestBusinessObjectModel implements DiagramElementInformationProvide
 	public AgeGraphicalConfiguration getGraphicalConfiguration(final DiagramElement element) {
 		return (AgeGraphicalConfiguration)GraphicalConfigurationBuilder.create().
 			graphic(getGraphic(element)).
-			defaultLabelConfiguration(getDefaultLabelConfiguration(element)).
 			defaultDockingPosition(getDefaultDockingPosition(element)).
 			source(getConnectionStart(element)).
 			destination(getConnectionEnd(element)).
@@ -59,10 +57,6 @@ public class TestBusinessObjectModel implements DiagramElementInformationProvide
 		} else {
 			return RectangleBuilder.create().build();
 		}
-	}
-	
-	private AgeLabelConfiguration getDefaultLabelConfiguration(DiagramElement element) {
-		return model.labelConfiguration;
 	}
 	
 	private DockingPosition getDefaultDockingPosition(final DiagramElement element) {

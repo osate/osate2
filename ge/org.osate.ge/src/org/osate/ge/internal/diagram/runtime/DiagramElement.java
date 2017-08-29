@@ -13,7 +13,6 @@ import org.osate.ge.graphics.Style;
 import org.osate.ge.internal.AgeGraphicalConfiguration;
 import org.osate.ge.internal.DockArea;
 import org.osate.ge.internal.diagram.runtime.boTree.Completeness;
-import org.osate.ge.internal.labels.AgeLabelConfiguration;
 import org.osate.ge.internal.query.Queryable;
 
 public class DiagramElement implements DiagramNode, ModifiableDiagramElementContainer, BusinessObjectContext {
@@ -254,10 +253,6 @@ public class DiagramElement implements DiagramNode, ModifiableDiagramElementCont
 
 	final void setDockArea(final DockArea value) {
 		this.dockArea = value;
-	}
-
-	public final AgeLabelConfiguration getLabelConfiguration() {
-		return graphicalConfig.defaultLabelConfiguration;
 	}
 
 	public final DiagramElement getStartElement() {

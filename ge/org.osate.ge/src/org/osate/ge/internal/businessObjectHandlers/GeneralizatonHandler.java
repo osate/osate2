@@ -85,7 +85,7 @@ public class GeneralizatonHandler {
 		} else {
 			return GraphicalConfigurationBuilder.create().
 					graphic(getConnectionGraphicalRepresentation(bo)).
-					defaultStyle(getStyle(bo)).
+					style(getStyle(bo)).
 					source(boc.getParent()). // Source is the owner of the BO
 					destination(getDestination(boc, queryService)).
 					build();

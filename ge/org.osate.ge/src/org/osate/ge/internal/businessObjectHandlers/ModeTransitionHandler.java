@@ -72,7 +72,7 @@ public class ModeTransitionHandler {
 				graphic(graphic).
 				source(getSource(boc, queryService)).
 				destination(getDestination(boc, queryService)).
-				defaultStyle(StyleBuilder.create(
+				style(StyleBuilder.create(
 						AadlInheritanceUtil.isInherited(boc) ? Styles.INHERITED_ELEMENT_STYLE : Style.EMPTY)
 						.backgroundColor(Color.BLACK)
 						.build())
