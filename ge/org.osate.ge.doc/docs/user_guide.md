@@ -89,7 +89,7 @@ Configuring a diagram allows customizing the contents of the diagram. To configu
 |------------|------------------------------------|
 | *Minimal* | Enables a minimum set of children. This includes generalizations. |
 | *Type* | Enables children which are related to classifier types. These include generalizations, features, flow specifications, mode, mode transitions, and subcomponent type labels. |
-| *App* | Enables all children. | 
+| *All* | Enables all children. | 
 
 Table: Auto Children Setting {#tbl:auto_children_setting}
 
