@@ -993,8 +993,7 @@
           rootFolder="${git.clone.smaccm.location/fm-workbench/resolute}"
           locateNestedProjects="true"/>
       <sourceLocator
-          rootFolder="${git.clone.smaccm.location/fm-workbench/simulator}"
-          locateNestedProjects="true">
+          rootFolder="${git.clone.smaccm.location/fm-workbench/simulator}">
         <excludedPath>edu.uah.rsesc.aadlsimulator.agree.eval.test</excludedPath>
       </sourceLocator>
       <sourceLocator
