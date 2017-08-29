@@ -9,7 +9,6 @@
 package org.osate.ge.graphics;
 
 import org.osate.ge.internal.graphics.Ellipse;
-import org.osate.ge.internal.graphics.LineStyle;
 
 /**
  * Builder for creating ellipse graphics.
@@ -17,11 +16,8 @@ import org.osate.ge.internal.graphics.LineStyle;
  * @see Graphic
  */
 public class EllipseBuilder {
-	private int lineWidth = 1;
-	private LineStyle lineStyle = LineStyle.SOLID;
-	
 	private EllipseBuilder() {}
-	
+
 	/**
 	 * Creates an ellipse builder.
 	 * @return an ellipse builder
@@ -29,40 +25,12 @@ public class EllipseBuilder {
 	public static EllipseBuilder create() {
 		return new EllipseBuilder();
 	}
-	
-	/**
-	 * Sets the line width to use to create the ellipse
-	 * @param value the new value for the line width.
-	 * @return this builder to allow method chaining.
-	 */
-	public EllipseBuilder lineWidth(int value) {
-		this.lineWidth = value;
-		return this;
-	}
-	
-	/**
-	 * Configures the ellipse builder to use dashed lines.
-	 * @return this builder to allow method chaining.
-	 */
-	public EllipseBuilder dashed() {
-		this.lineStyle = LineStyle.DASHED;
-		return this;
-	}
-	
-	/**
-	 * Configures the ellipse builder to use dotted lines.
-	 * @return this builder to allow method chaining.
-	 */
-	public EllipseBuilder dotted() {
-		this.lineStyle = LineStyle.DOTTED;
-		return this;
-	}
-	
+
 	/**
 	 * Creates an ellipse graphic based on the current state of the builder.
 	 * @return the newly created graphic
 	 */
 	public Graphic build() {
-		return new Ellipse(lineWidth, lineStyle);
+		return new Ellipse();
 	}
 }

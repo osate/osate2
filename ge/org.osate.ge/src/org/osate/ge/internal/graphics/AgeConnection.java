@@ -1,27 +1,24 @@
 package org.osate.ge.internal.graphics;
 
-import java.util.Objects;
-
 import org.osate.ge.graphics.Graphic;
 
 /**
  * Graphic which will be used to represent connections. Not public API.
  */
 public class AgeConnection implements Graphic {
-	public final LineStyle lineStyle;
 	public final AgeConnectionTerminator srcTerminator;
 	public final AgeConnectionTerminator dstTerminator;
 	public final boolean isCurved;
 	public final boolean isFlowIndicator;
-	
-	private AgeConnection(final LineStyle lineStyle, final AgeConnectionTerminator srcTerminator, final AgeConnectionTerminator dstTerminator, final boolean isCurved, final boolean isFlowIndicator) {
-		this.lineStyle = Objects.requireNonNull(lineStyle, "lineStyle must not be null");
+
+	private AgeConnection(final AgeConnectionTerminator srcTerminator, final AgeConnectionTerminator dstTerminator,
+			final boolean isCurved, final boolean isFlowIndicator) {
 		this.srcTerminator = srcTerminator;
 		this.dstTerminator = dstTerminator;
 		this.isCurved = isCurved;
 		this.isFlowIndicator = isFlowIndicator;
 	}
-	
+
 	/**
 	 * Create a connection which is not a flow indicator.
 	 * @param lineStyle
@@ -30,12 +27,14 @@ public class AgeConnection implements Graphic {
 	 * @param isCurved
 	 * @return
 	 */
-	public static AgeConnection createNormal(final LineStyle lineStyle, final AgeConnectionTerminator srcTerminator, final AgeConnectionTerminator dstTerminator, final boolean isCurved) {
-		return new AgeConnection(lineStyle, srcTerminator, dstTerminator, isCurved, false);
+	public static AgeConnection createNormal(final AgeConnectionTerminator srcTerminator,
+			final AgeConnectionTerminator dstTerminator, final boolean isCurved) {
+		return new AgeConnection(srcTerminator, dstTerminator, isCurved, false);
 	}
-	
-	public static AgeConnection createFlowIndicator(final LineStyle lineStyle, final AgeConnectionTerminator srcTerminator, final AgeConnectionTerminator dstTerminator) {
-		return new AgeConnection(lineStyle, srcTerminator, dstTerminator, false, true);
+
+	public static AgeConnection createFlowIndicator(final AgeConnectionTerminator srcTerminator,
+			final AgeConnectionTerminator dstTerminator) {
+		return new AgeConnection(srcTerminator, dstTerminator, false, true);
 	}
 
 	@Override
@@ -45,7 +44,6 @@ public class AgeConnection implements Graphic {
 		result = prime * result + ((dstTerminator == null) ? 0 : dstTerminator.hashCode());
 		result = prime * result + (isCurved ? 1231 : 1237);
 		result = prime * result + (isFlowIndicator ? 1231 : 1237);
-		result = prime * result + ((lineStyle == null) ? 0 : lineStyle.hashCode());
 		result = prime * result + ((srcTerminator == null) ? 0 : srcTerminator.hashCode());
 		return result;
 	}
@@ -73,9 +71,6 @@ public class AgeConnection implements Graphic {
 			return false;
 		}
 		if (isFlowIndicator != other.isFlowIndicator) {
-			return false;
-		}
-		if (lineStyle != other.lineStyle) {
 			return false;
 		}
 		if (srcTerminator == null) {

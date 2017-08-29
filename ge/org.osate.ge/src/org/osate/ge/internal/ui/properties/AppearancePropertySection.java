@@ -40,16 +40,18 @@ import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.IWorkbenchPart;
 import org.eclipse.ui.views.properties.tabbed.AbstractPropertySection;
 import org.eclipse.ui.views.properties.tabbed.TabbedPropertySheetPage;
+import org.osate.ge.graphics.FontSize;
+import org.osate.ge.graphics.LineWidth;
+import org.osate.ge.graphics.Style;
+import org.osate.ge.graphics.StyleBuilder;
 import org.osate.ge.internal.Activator;
 import org.osate.ge.internal.diagram.runtime.AgeDiagram;
 import org.osate.ge.internal.diagram.runtime.DiagramElement;
-import org.osate.ge.internal.diagram.runtime.FontSize;
-import org.osate.ge.internal.diagram.runtime.LineWidth;
-import org.osate.ge.internal.diagram.runtime.Style;
-import org.osate.ge.internal.diagram.runtime.StyleBuilder;
 import org.osate.ge.internal.graphics.AgeConnection;
 import org.osate.ge.internal.graphics.Label;
 import org.osate.ge.internal.ui.util.UiUtil;
+
+import com.google.common.collect.ObjectArrays;
 
 public class AppearancePropertySection extends AbstractPropertySection {
 	public static class SelectionFilter implements IFilter {
@@ -80,7 +82,8 @@ public class AppearancePropertySection extends AbstractPropertySection {
 		fd.left = new FormAttachment(0, 10);
 		fontSizeLabel.setLayoutData(fd);
 
-		fontSizeComboViewer = createComboViewer(parent, FontSize.values());
+		fontSizeComboViewer = createComboViewer(parent,
+				ObjectArrays.concat(new Object[] { defaultValue }, FontSize.values(), Object.class));
 		fd = new FormData();
 		fd.top = new FormAttachment(fontSizeLabel, 0, SWT.TOP);
 		fd.left = new FormAttachment(fontSizeLabel, 20);
@@ -92,7 +95,8 @@ public class AppearancePropertySection extends AbstractPropertySection {
 		fd.left = new FormAttachment(0, 10);
 		lineWidthLabel.setLayoutData(fd);
 
-		lineWidthComboViewer = createComboViewer(parent, LineWidth.values());
+		lineWidthComboViewer = createComboViewer(parent,
+				ObjectArrays.concat(new Object[] { defaultValue }, LineWidth.values(), Object.class));
 		fd = new FormData();
 		fd.top = new FormAttachment(lineWidthLabel, 0, SWT.TOP);
 		fd.left = new FormAttachment(lineWidthLabel, 10);
@@ -183,10 +187,8 @@ public class AppearancePropertySection extends AbstractPropertySection {
 		final DiagramElement diagramElement = selectedDiagramElements.get(selectedDiagramElements.size() - 1);
 		final Style currentStyle = diagramElement.getStyle();
 
-		final FontSize lastFontSizeSelected = currentStyle.getFontSize() != null ? currentStyle.getFontSize()
-				: FontSize.Default;
-		final LineWidth lastLineWidthSelected = currentStyle.getLineWidth() != null ? currentStyle.getLineWidth()
-				: LineWidth.Default;
+		final FontSize lastFontSizeSelected = currentStyle.getFontSize();
+		final LineWidth lastLineWidthSelected = currentStyle.getLineWidth();
 
 		final Button backgroundButton = backgroundPaintListener.getButton();
 		backgroundButton.setEnabled(enableBackground);
@@ -197,9 +199,11 @@ public class AppearancePropertySection extends AbstractPropertySection {
 		final Button outlineButton = outlinePaintListener.getButton();
 		outlineButton.setEnabled(enableOutlineOption);
 
-		backgroundPaintListener.setDefaultColor(toRGB(diagramElement.getDefaultBackgroundColor()));
-		fontColorPaintListener.setDefaultColor(toRGB(diagramElement.getDefaultFontColor()));
-		outlinePaintListener.setDefaultColor(toRGB(diagramElement.getDefaultOutlineColor()));
+		final Style defaultStyle = StyleBuilder
+				.create(diagramElement.getGraphicalConfiguration().style, Style.DEFAULT).build();
+		backgroundPaintListener.setDefaultColor(toRGB(defaultStyle.getBackgroundColor()));
+		fontColorPaintListener.setDefaultColor(toRGB(defaultStyle.getFontColor()));
+		outlinePaintListener.setDefaultColor(toRGB(defaultStyle.getOutlineColor()));
 
 		final RGB background;
 		if (enableBackground) {
@@ -252,7 +256,6 @@ public class AppearancePropertySection extends AbstractPropertySection {
 		final ComboViewer comboViewer = new ComboViewer(parent, SWT.DROP_DOWN | SWT.READ_ONLY | SWT.BORDER);
 		comboViewer.setContentProvider(ArrayContentProvider.getInstance());
 		comboViewer.setInput(input);
-
 		return comboViewer;
 	}
 
@@ -286,11 +289,13 @@ public class AppearancePropertySection extends AbstractPropertySection {
 
 	private void setStructuredSelection(final FontSize fontSize, final LineWidth lineWidth) {
 		fontSizeComboViewer.removeSelectionChangedListener(fontSizeSelectionListener);
-		fontSizeComboViewer.setSelection(new StructuredSelection(fontSize));
+		fontSizeComboViewer
+		.setSelection(new StructuredSelection(fontSize == null ? defaultValue : fontSize));
 		fontSizeComboViewer.addSelectionChangedListener(fontSizeSelectionListener);
 
 		lineWidthComboViewer.removeSelectionChangedListener(lineWidthSelectionListener);
-		lineWidthComboViewer.setSelection(new StructuredSelection(lineWidth));
+		lineWidthComboViewer
+		.setSelection(new StructuredSelection(lineWidth == null ? defaultValue : lineWidth));
 		lineWidthComboViewer.addSelectionChangedListener(lineWidthSelectionListener);
 	}
 
@@ -376,8 +381,7 @@ public class AppearancePropertySection extends AbstractPropertySection {
 			final int minSpacingFromDisplayRightAndBottom = 50;
 			final Button button = (Button) e.getSource(); // Original button selected
 			final Point unclampedShellPosition = Display.getCurrent().map(button.getParent(), null,
-					button.getLocation().x,
-					button.getLocation().y + button.getSize().y);
+					button.getLocation().x, button.getLocation().y + button.getSize().y);
 			final Rectangle clientArea = Display.getCurrent().getClientArea();
 			final Point shellPosition = new Point(
 					Math.min(unclampedShellPosition.x,
@@ -523,6 +527,7 @@ public class AppearancePropertySection extends AbstractPropertySection {
 	}
 
 	private static final Point COLOR_ICON_SIZE = new Point(18, 18);
+	private static final Object defaultValue = "Default";
 
 	private static class PresetColor {
 		private RGB rgb;
@@ -564,17 +569,15 @@ public class AppearancePropertySection extends AbstractPropertySection {
 
 	private ComboViewerSelection lineWidthSelectionListener = new ComboViewerSelection(
 			new StyleCommand("Set Line Width", (diagramElement, sb, value) -> {
-				if(supportsLineWidth(diagramElement)) {
-					final LineWidth lineWidth = (LineWidth) value;
-					sb.lineWidth(lineWidth == LineWidth.Default ? null : lineWidth);
+				if (supportsLineWidth(diagramElement)) {
+					sb.lineWidth(value == defaultValue ? null : (LineWidth) value);
 				}
 			}));
 
 	private ComboViewerSelection fontSizeSelectionListener = new ComboViewerSelection(
 			new StyleCommand("Set Font Size", (diagramElement, sb, value) -> {
 				if (supportsFontOptions(diagramElement)) {
-					final FontSize fontSize = (FontSize) value;
-					sb.fontSize(fontSize == FontSize.Default ? null : fontSize);
+					sb.fontSize(value == defaultValue ? null : (FontSize) value);
 				}
 			}));
 

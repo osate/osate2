@@ -9,7 +9,6 @@
 package org.osate.ge.internal.graphics;
 
 import org.osate.ge.graphics.Graphic;
-import org.osate.ge.internal.graphics.LineStyle;
 
 /**
  * Builder for creating parallelogram graphics.
@@ -17,12 +16,10 @@ import org.osate.ge.internal.graphics.LineStyle;
  * @see Graphic
  */
 public class ParallelogramBuilder {
-	private int lineWidth = 1;
-	private LineStyle lineStyle = LineStyle.SOLID;
 	private int horizontalOffset = 0;
-	
+
 	private ParallelogramBuilder() {}
-	
+
 	/**
 	 * Creates a parallelogram builder.
 	 * @return a parallelogram builder
@@ -30,26 +27,7 @@ public class ParallelogramBuilder {
 	public static ParallelogramBuilder create() {
 		return new ParallelogramBuilder();
 	}
-		
-	/**
-	 * Sets the line width to use to create the parallelogram.
-	 * @param value the new value for the line width.
-	 * @return this builder to allow method chaining.
-	 */
-	public ParallelogramBuilder lineWidth(int value) {
-		this.lineWidth = value;
-		return this;
-	}
-	
-	/**
-	 * Configures the parallelogram builder to use dashed lines.
-	 * @return this builder to allow method chaining.
-	 */
-	public ParallelogramBuilder dashed() {
-		this.lineStyle = LineStyle.DASHED;
-		return this;
-	}
-	
+
 	/**
 	 * Sets the horizontal offset to use to create the parallelogram.
 	 * @param value the new value for the horizontal offset
@@ -58,13 +36,13 @@ public class ParallelogramBuilder {
 	public ParallelogramBuilder horizontalOffset(int value) {
 		this.horizontalOffset = value;
 		return this;
-	}	
-	
+	}
+
 	/**
 	 * Creates a parallelogram graphic based on the current state of the builder.
 	 * @return the newly created graphic
 	 */
 	public Graphic build() {
-		return new Parallelogram(lineWidth, lineStyle, horizontalOffset);
+		return new Parallelogram(horizontalOffset);
 	}
 }

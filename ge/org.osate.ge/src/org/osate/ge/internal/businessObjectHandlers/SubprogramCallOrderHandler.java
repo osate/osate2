@@ -13,12 +13,15 @@ import org.osate.ge.di.Names;
 import org.osate.ge.graphics.ArrowBuilder;
 import org.osate.ge.graphics.ConnectionBuilder;
 import org.osate.ge.graphics.Graphic;
+import org.osate.ge.graphics.Style;
+import org.osate.ge.graphics.StyleBuilder;
 import org.osate.ge.internal.model.SubprogramCallOrder;
 import org.osate.ge.query.StandaloneQuery;
 import org.osate.ge.services.QueryService;
 
 public class SubprogramCallOrderHandler {
 	private static final Graphic graphic = ConnectionBuilder.create().destinationTerminator(ArrowBuilder.create().line().build()).build();
+	private static final Style style = StyleBuilder.create().backgroundColor(Color.BLACK).build();
 	private static StandaloneQuery srcQuery = StandaloneQuery.create((rootQuery) -> rootQuery.parent().children().filterByBusinessObjectRelativeReference(sco->((SubprogramCallOrder)sco).previousSubprogramCall));
 	private static StandaloneQuery dstQuery = StandaloneQuery.create((rootQuery) -> rootQuery.parent().children().filterByBusinessObjectRelativeReference(sco->((SubprogramCallOrder)sco).subprogramCall));
 
@@ -33,9 +36,9 @@ public class SubprogramCallOrderHandler {
 			final QueryService queryService) {
 		return GraphicalConfigurationBuilder.create().
 				graphic(getGraphicalRepresentation(bo)).
+				defaultStyle(style).
 				source(getSource(boc, queryService)).
 				destination(getDestination(boc, queryService)).
-				defaultBackgroundColor(Color.BLACK).
 				build();
 	}
 

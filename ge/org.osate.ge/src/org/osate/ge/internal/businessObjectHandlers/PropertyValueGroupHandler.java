@@ -14,6 +14,8 @@ import org.osate.ge.di.Names;
 import org.osate.ge.graphics.ArrowBuilder;
 import org.osate.ge.graphics.ConnectionBuilder;
 import org.osate.ge.graphics.Graphic;
+import org.osate.ge.graphics.Style;
+import org.osate.ge.graphics.StyleBuilder;
 import org.osate.ge.internal.AgeDiagramProvider;
 import org.osate.ge.internal.diagram.runtime.DiagramElement;
 import org.osate.ge.internal.graphics.LabelBuilder;
@@ -23,14 +25,11 @@ import org.osate.ge.services.QueryService;
 
 public class PropertyValueGroupHandler {
 	private final Graphic labelGraphic = LabelBuilder.create().build();
-	private static final Graphic referenceGraphic = ConnectionBuilder.create().
-			dashed().
+	private static final Graphic graphic = ConnectionBuilder.create().
 			destinationTerminator(ArrowBuilder.create().filled().small().build()).
 			build();
-	private static final Graphic abstractGraphic = ConnectionBuilder.create().
-			dotted().
-			destinationTerminator(ArrowBuilder.create().filled().small().build()).
-			build();
+	private static final Style referenceStyle = StyleBuilder.create().backgroundColor(Color.BLACK).dashed().build();
+	private static final Style abstractStyle = StyleBuilder.create().backgroundColor(Color.BLACK).dotted().build();
 
 	@IsApplicable
 	public boolean isApplicable(final @Named(Names.BUSINESS_OBJECT) PropertyValueGroup pvg) {
@@ -52,10 +51,10 @@ public class PropertyValueGroupHandler {
 			}
 
 			return GraphicalConfigurationBuilder.create().
-					graphic(pvg.isAbstract() ? abstractGraphic : referenceGraphic).
+					graphic(graphic).defaultStyle(pvg.isAbstract() ? abstractStyle : referenceStyle)
+					.
 					source(boc.getParent()).
 					destination(referencedElement).
-					defaultBackgroundColor(Color.BLACK).
 					build();
 		}
 	}

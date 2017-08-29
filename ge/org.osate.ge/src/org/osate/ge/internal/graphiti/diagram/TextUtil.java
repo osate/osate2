@@ -8,12 +8,13 @@ import org.eclipse.graphiti.services.IGaService;
 import org.eclipse.graphiti.util.IColorConstant;
 import org.eclipse.swt.graphics.Device;
 import org.eclipse.swt.widgets.Display;
-import org.osate.ge.internal.diagram.runtime.FontSize;
+import org.osate.ge.graphics.FontSize;
+import org.osate.ge.graphics.Style;
 
 public class TextUtil {
 	// Default font size will be used if specified font size is null.
 	public static void setStyle(final Diagram diagram, final Text text, final FontSize fontSize) {
-		setStyle(diagram, text, fontSize == null ? FontSize.Default.getValue() : fontSize.getValue());
+		setStyle(diagram, text, fontSize == null ? Style.DEFAULT.getFontSize().getValue() : fontSize.getValue());
 	}
 
 	public static void setStyle(final Diagram diagram, final Text text, final double fontSize) {

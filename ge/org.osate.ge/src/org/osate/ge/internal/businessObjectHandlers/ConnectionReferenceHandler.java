@@ -18,12 +18,15 @@ import org.osate.ge.di.IsApplicable;
 import org.osate.ge.di.Names;
 import org.osate.ge.graphics.ConnectionBuilder;
 import org.osate.ge.graphics.Graphic;
+import org.osate.ge.graphics.Style;
+import org.osate.ge.graphics.StyleBuilder;
 import org.osate.ge.query.StandaloneQuery;
 import org.osate.ge.services.QueryService;
 
 public class ConnectionReferenceHandler {
 	private static final Graphic graphic = ConnectionBuilder.create().build();
-	private static final Graphic partialGraphic = ConnectionBuilder.create().dotted().build();
+	private static final Style style = StyleBuilder.create().backgroundColor(Color.BLACK).build();
+	private static final Style partialStyle = StyleBuilder.create().backgroundColor(Color.BLACK).dotted().build();
 	private static StandaloneQuery srcQuery = StandaloneQuery.create((rootQuery) -> rootQuery.parent().descendantsByBusinessObjectsRelativeReference((ConnectionReference cr) -> getBusinessObjectsPathToConnectionInstanceEnd(cr.getComponentInstance(), cr.getSource())).first());
 	private static StandaloneQuery partialSrcQuery = StandaloneQuery.create((rootQuery) -> rootQuery.parent().descendantsByBusinessObjectsRelativeReference((ConnectionReference cr) -> getBusinessObjectsPathToConnectionInstanceEnd(cr.getComponentInstance(), cr.getSource()), 1).first());
 	private static StandaloneQuery dstQuery = StandaloneQuery.create((rootQuery) -> rootQuery.parent().descendantsByBusinessObjectsRelativeReference((ConnectionReference cr) -> getBusinessObjectsPathToConnectionInstanceEnd(cr.getComponentInstance(), cr.getDestination())).first());
@@ -52,10 +55,10 @@ public class ConnectionReferenceHandler {
 		}
 
 		return GraphicalConfigurationBuilder.create().
-				graphic(partial ? partialGraphic : graphic).
+				graphic(graphic).
+				defaultStyle(partial ? partialStyle : style).
 				source(src).
 				destination(dst).
-				defaultBackgroundColor(Color.BLACK).
 				build();
 	}
 

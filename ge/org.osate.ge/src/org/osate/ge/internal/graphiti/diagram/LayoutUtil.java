@@ -7,7 +7,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
-import java.util.OptionalInt;
 
 import org.eclipse.graphiti.datatypes.IDimension;
 import org.eclipse.graphiti.mm.algorithms.GraphicsAlgorithm;
@@ -23,7 +22,11 @@ import org.eclipse.graphiti.mm.pictograms.Shape;
 import org.eclipse.graphiti.services.Graphiti;
 import org.eclipse.graphiti.services.IGaService;
 import org.eclipse.graphiti.ui.services.GraphitiUi;
+import org.osate.ge.graphics.FontSize;
 import org.osate.ge.graphics.Graphic;
+import org.osate.ge.graphics.LineWidth;
+import org.osate.ge.graphics.Style;
+import org.osate.ge.graphics.StyleBuilder;
 import org.osate.ge.internal.DockArea;
 import org.osate.ge.internal.diagram.runtime.AgeDiagram;
 import org.osate.ge.internal.diagram.runtime.DiagramElement;
@@ -31,6 +34,7 @@ import org.osate.ge.internal.diagram.runtime.DiagramModification;
 import org.osate.ge.internal.diagram.runtime.DiagramNode;
 import org.osate.ge.internal.graphics.AgeShape;
 import org.osate.ge.internal.graphics.Label;
+import org.osate.ge.internal.graphics.LineStyle;
 import org.osate.ge.internal.graphics.Poly;
 import org.osate.ge.internal.graphiti.AnchorNames;
 import org.osate.ge.internal.graphiti.ShapeNames;
@@ -48,6 +52,9 @@ class LayoutUtil {
 	private final static int labelPadding = 3;
 	private final static AgeLabelConfiguration defaultLabelConfiguration = (AgeLabelConfiguration) LabelConfigurationBuilder
 			.create().build();
+	private final static Style defaultStyle = StyleBuilder.create().backgroundColor(java.awt.Color.WHITE)
+			.foregroundColor(java.awt.Color.BLACK).fontSize(FontSize.Medium).lineWidth(LineWidth.Small)
+			.lineStyle(LineStyle.SOLID).build();
 
 	private static class LayoutMetrics {
 		int innerWidth = 30;
@@ -105,7 +112,7 @@ class LayoutUtil {
 					if (decorationElement.getGraphic() instanceof Poly) {
 						final Poly poly = (Poly) decorationElement.getGraphic();
 						AgeGraphitiGraphicsUtil.createGraphicsAlgorithm(graphitiDiagram, cd,
-								decorationElement.getGraphic(), 1, 1, true);
+								decorationElement.getGraphic(), 1, 1, true, decorationElement.getStyle());
 						totalNonLabelWidth += poly.right + nonLabelDecorationSpacing; // Extra padding is added to space decorations apart from each other
 					}
 				}
@@ -142,7 +149,7 @@ class LayoutUtil {
 						final Poly poly = (Poly) decorationElement.getGraphic();
 						final org.eclipse.graphiti.mm.algorithms.Polyline polyline = (org.eclipse.graphiti.mm.algorithms.Polyline) AgeGraphitiGraphicsUtil
 								.createGraphicsAlgorithm(graphitiDiagram, cd, decorationElement.getGraphic(), 1, 1,
-										true);
+										true, decorationElement.getStyle());
 						for (Point p : polyline.getPoints()) {
 							p.setX(p.getX() + nonLabelShiftX);
 						}
@@ -293,10 +300,10 @@ class LayoutUtil {
 		// Adjust the size of the graphics algorithm based on the rotation implied by the dock area
 		if (shapeDockArea == DockArea.TOP || shapeDockArea == DockArea.BOTTOM) {
 			innerGa = AgeGraphitiGraphicsUtil.createGraphicsAlgorithm(graphitiDiagram, shapeGa, gr, lm.innerHeight,
-					lm.innerWidth, true);
+					lm.innerWidth, true, element.getGraphicalConfiguration().style);
 		} else {
 			innerGa = AgeGraphitiGraphicsUtil.createGraphicsAlgorithm(graphitiDiagram, shapeGa, gr, lm.innerWidth,
-					lm.innerHeight, true);
+					lm.innerHeight, true, element.getGraphicalConfiguration().style);
 		}
 
 		// Rotate shape
@@ -747,10 +754,10 @@ class LayoutUtil {
 
 	public static void refreshStyle(final Diagram graphitiDiagram, final PictogramElement pe,
 			final DiagramElement element, final ColoringProvider coloringProvider, final NodePictogramBiMap mapping) {
-		final java.awt.Color awtBackground = getFinalBackgroundColor(element, coloringProvider);
-		final java.awt.Color awtOutline = getFinalOutlineColor(element, coloringProvider);
-		final java.awt.Color awtFontColor = getFinalFontColor(element, coloringProvider);
-		final OptionalInt lineWidth = getFinalLineWidth(element);
+		final Style finalStyle = getFinalStyle(element, coloringProvider);
+		final java.awt.Color awtOutline = finalStyle.getOutlineColor();
+		final java.awt.Color awtBackground = finalStyle.getBackgroundColor();
+		final java.awt.Color awtFontColor = finalStyle.getFontColor();
 
 		final Color foreground = Graphiti.getGaService().manageColor(graphitiDiagram, awtOutline.getRed(),
 				awtOutline.getGreen(), awtOutline.getBlue());
@@ -777,14 +784,15 @@ class LayoutUtil {
 									: labelContainerShape;
 
 							if (labelBackgroundDiagramElement != null) {
-								final java.awt.Color awtLabelBackground = getFinalBackgroundColor(labelBackgroundDiagramElement,
-										coloringProvider);
+								final java.awt.Color awtLabelBackground = getFinalStyle(labelBackgroundDiagramElement, coloringProvider)
+										.getBackgroundColor();
 								labelBackground = Graphiti.getGaService().manageColor(graphitiDiagram, awtLabelBackground.getRed(),
 										awtLabelBackground.getGreen(), awtLabelBackground.getBlue());
 							}
 				}
 
-				StyleUtil.overrideStyle(pe, background, foreground, labelBackground, fontColor, lineWidth,
+				StyleUtil.overrideStyle(pe, background, foreground, labelBackground, fontColor,
+						finalStyle.getLineWidth().getValue(),
 						element.getGraphic() instanceof Label);
 	}
 
@@ -799,48 +807,14 @@ class LayoutUtil {
 		return null;
 	}
 
-	private static java.awt.Color getFinalBackgroundColor(final DiagramElement de,
-			final ColoringProvider coloringProvider) {
-		final java.awt.Color awtColor;
-		if (de.getStyle().getBackgroundColor() != null) {
-			awtColor = de.getStyle().getBackgroundColor();
-		} else {
-			awtColor = de.getDefaultBackgroundColor();
-		}
+	private static Style getFinalStyle(final DiagramElement de, final ColoringProvider coloringProvider) {
+		final StyleBuilder sb = StyleBuilder.create(de.getStyle(), de.getGraphicalConfiguration().style, defaultStyle);
 
-		return awtColor;
-	}
-
-	private static java.awt.Color getFinalOutlineColor(final DiagramElement de,
-			final ColoringProvider coloringProvider) {
 		java.awt.Color awtColor = coloringProvider.getForegroundColor(de);
-
-		if (awtColor == null) {
-			if (de.getStyle().getOutlineColor() != null) {
-				awtColor = de.getStyle().getOutlineColor();
-			} else {
-				awtColor = de.getDefaultOutlineColor();
-			}
+		if (awtColor != null) {
+			sb.foregroundColor(awtColor);
 		}
 
-		return awtColor;
-	}
-
-	private static java.awt.Color getFinalFontColor(final DiagramElement de, final ColoringProvider coloringProvider) {
-		java.awt.Color awtColor = coloringProvider.getForegroundColor(de);
-		if (awtColor == null) {
-			if (de.getStyle().getFontColor() != null) {
-				awtColor = de.getStyle().getFontColor();
-			} else {
-				awtColor = de.getDefaultFontColor();
-			}
-		}
-
-		return awtColor;
-	}
-
-	private static OptionalInt getFinalLineWidth(final DiagramElement element) {
-		return element.getStyle().getLineWidth() != null ? OptionalInt.of(element.getStyle().getLineWidth().getValue())
-				: OptionalInt.empty();
+		return sb.build();
 	}
 }

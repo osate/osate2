@@ -16,10 +16,8 @@ import org.osate.ge.graphics.Graphic;
  * @see Graphic
  */
 public class MemoryGraphicBuilder {
-	private int lineWidth = 1;
-	
 	private MemoryGraphicBuilder() {}
-	
+
 	/**
 	 * Creates a memory graphic builder.
 	 * @return a memory graphic builder
@@ -27,22 +25,12 @@ public class MemoryGraphicBuilder {
 	public static MemoryGraphicBuilder create() {
 		return new MemoryGraphicBuilder();
 	}
-		
-	/**
-	 * Sets the line width to use to create the memory graphic.
-	 * @param value the new value for the line width.
-	 * @return this builder to allow method chaining.
-	 */
-	public MemoryGraphicBuilder lineWidth(int value) {
-		this.lineWidth = value;
-		return this;
-	}
-		
+
 	/**
 	 * Creates a memory graphic based on the current state of the builder.
 	 * @return the newly created graphic
 	 */
 	public Graphic build() {
-		return new MemoryGraphic(lineWidth);
+		return new MemoryGraphic();
 	}
 }

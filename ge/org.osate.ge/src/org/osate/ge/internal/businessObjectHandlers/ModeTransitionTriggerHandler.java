@@ -13,11 +13,14 @@ import org.osate.ge.di.IsApplicable;
 import org.osate.ge.di.Names;
 import org.osate.ge.graphics.ConnectionBuilder;
 import org.osate.ge.graphics.Graphic;
+import org.osate.ge.graphics.Style;
+import org.osate.ge.graphics.StyleBuilder;
 import org.osate.ge.query.StandaloneQuery;
 import org.osate.ge.services.QueryService;
 
 public class ModeTransitionTriggerHandler {
-	private static final Graphic graphic = ConnectionBuilder.create().dashed().build();
+	private static final Graphic graphic = ConnectionBuilder.create().build();
+	private static final Style style = StyleBuilder.create().backgroundColor(Color.BLACK).dashed().build();
 
 	// If context is null look for the port under the trigger's ancestor. if context is not null use ancestor(1).children().filterByBo(context);
 	private static StandaloneQuery dstQuery = StandaloneQuery.create((rootQuery) -> rootQuery.ancestor(2).ifElse((ca) -> ((ModeTransitionTrigger)ca.getQueryArgument()).getContext() == null,
@@ -35,9 +38,9 @@ public class ModeTransitionTriggerHandler {
 			final QueryService queryService) {
 		return GraphicalConfigurationBuilder.create().
 				graphic(graphic).
+				defaultStyle(style).
 				source(getSource(boc)).
 				destination(getDestination(boc, queryService)).
-				defaultBackgroundColor(Color.BLACK).
 				build();
 	}
 

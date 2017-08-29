@@ -1,9 +1,9 @@
 package org.osate.ge;
 
-import java.awt.Color;
 import java.util.Objects;
 
 import org.osate.ge.graphics.Graphic;
+import org.osate.ge.graphics.Style;
 import org.osate.ge.internal.AgeGraphicalConfiguration;
 import org.osate.ge.internal.DockingPosition;
 import org.osate.ge.internal.diagram.runtime.DiagramElement;
@@ -18,18 +18,13 @@ import org.osate.ge.internal.labels.LabelConfigurationBuilder;
  */
 public class GraphicalConfigurationBuilder {
 	private final static AgeLabelConfiguration defaultDefaultLabelConfiguration = (AgeLabelConfiguration) LabelConfigurationBuilder.create().build();
-	private final static java.awt.Color defaultDefaultBackgroundColor = Color.WHITE;
-	private final static java.awt.Color defaultDefaultOutlineColor = Color.BLACK;
-	private final static java.awt.Color defaultDefaultFontColor = Color.BLACK;
 
 	private Graphic graphic;
+	private Style style = Style.EMPTY;
 	private DockingPosition defaultDockingPosition = DockingPosition.NOT_DOCKABLE;
 	private AgeLabelConfiguration defaultLabelConfiguration = defaultDefaultLabelConfiguration;
 	private DiagramElement connectionSource;
 	private DiagramElement connectionDestination;
-	private java.awt.Color defaultBackgroundColor = defaultDefaultBackgroundColor;
-	private java.awt.Color defaultOutlineColor = defaultDefaultOutlineColor;
-	private java.awt.Color defaultFontColor = defaultDefaultFontColor;
 	private boolean isDecoration = false;
 
 	private GraphicalConfigurationBuilder() {}
@@ -64,23 +59,8 @@ public class GraphicalConfigurationBuilder {
 		return this;
 	}
 
-	// Sets both the font and outline colors
-	public GraphicalConfigurationBuilder defaultForeground(final Color value) {
-		return defaultOutlineColor(value).defaultFontColor(value);
-	}
-
-	public GraphicalConfigurationBuilder defaultBackgroundColor(final Color value) {
-		this.defaultBackgroundColor = value == null ? defaultBackgroundColor : value;
-		return this;
-	}
-
-	public GraphicalConfigurationBuilder defaultOutlineColor(final Color value) {
-		this.defaultOutlineColor = value == null ? defaultOutlineColor : value;
-		return this;
-	}
-
-	public GraphicalConfigurationBuilder defaultFontColor(final Color value) {
-		this.defaultFontColor = value == null ? defaultFontColor : value;
+	public GraphicalConfigurationBuilder defaultStyle(final Style value) {
+		this.style = value;
 		return this;
 	}
 
@@ -91,7 +71,7 @@ public class GraphicalConfigurationBuilder {
 
 	public GraphicalConfiguration build() {
 		return new AgeGraphicalConfiguration(graphic, defaultDockingPosition, defaultLabelConfiguration,
-				connectionSource, connectionDestination, defaultBackgroundColor, defaultOutlineColor, defaultFontColor,
+				connectionSource, connectionDestination, style,
 				isDecoration);
 	}
 }

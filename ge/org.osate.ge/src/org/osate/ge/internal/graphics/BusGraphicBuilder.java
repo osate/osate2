@@ -9,7 +9,6 @@
 package org.osate.ge.internal.graphics;
 
 import org.osate.ge.graphics.Graphic;
-import org.osate.ge.internal.graphics.LineStyle;
 
 /**
  * Builder for creating bus graphics.
@@ -17,11 +16,8 @@ import org.osate.ge.internal.graphics.LineStyle;
  * @see Graphic
  */
 public class BusGraphicBuilder {
-	private int lineWidth = 1;
-	private LineStyle lineStyle = LineStyle.SOLID;
-	
 	private BusGraphicBuilder() {}
-	
+
 	/**
 	 * Creates a bus graphic builder.
 	 * @return a bus graphic builder
@@ -29,31 +25,12 @@ public class BusGraphicBuilder {
 	public static BusGraphicBuilder create() {
 		return new BusGraphicBuilder();
 	}
-		
-	/**
-	 * Sets the line width to use to create the bus graphic.
-	 * @param value the new value for the line width.
-	 * @return this builder to allow method chaining.
-	 */
-	public BusGraphicBuilder lineWidth(int value) {
-		this.lineWidth = value;
-		return this;
-	}
-	
-	/**
-	 * Configures the bus graphic builder to use dashed lines.
-	 * @return this builder to allow method chaining.
-	 */
-	public BusGraphicBuilder dashed() {
-		this.lineStyle = LineStyle.DASHED;
-		return this;
-	}
-	
+
 	/**
 	 * Creates a bus graphic based on the current state of the builder.
 	 * @return the newly created graphic
 	 */
 	public Graphic build() {
-		return new BusGraphic(lineWidth, lineStyle);
+		return new BusGraphic();
 	}
 }

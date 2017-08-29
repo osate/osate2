@@ -49,6 +49,8 @@ import org.osate.ge.di.IsApplicable;
 import org.osate.ge.di.Names;
 import org.osate.ge.di.ValidateName;
 import org.osate.ge.graphics.Graphic;
+import org.osate.ge.graphics.Style;
+import org.osate.ge.graphics.StyleBuilder;
 import org.osate.ge.internal.DockingPosition;
 import org.osate.ge.internal.di.CanRename;
 import org.osate.ge.internal.graphics.AadlGraphics;
@@ -143,10 +145,12 @@ public class FeatureHandler {
 			final @Named(Names.BUSINESS_OBJECT_CONTEXT) BusinessObjectContext featureBoc) {
 		return GraphicalConfigurationBuilder.create().
 				graphic(getGraphicalRepresentation(feature, featureBoc)).
+				defaultStyle(StyleBuilder.create(
+						AadlInheritanceUtil.isInherited(featureBoc) ? Styles.INHERITED_ELEMENT_STYLE : Style.EMPTY)
+						.backgroundColor(Color.BLACK).build())
+				.
 				defaultDockingPosition(getDefaultDockingPosition(feature, featureBoc)).
 				defaultLabelConfiguration(labelConfiguration).
-				defaultForeground(AadlInheritanceUtil.isInherited(featureBoc) ? Colors.INHERITED_ELEMENT_COLOR : null)
-				.defaultBackgroundColor(Color.BLACK).
 				build();
 	}
 

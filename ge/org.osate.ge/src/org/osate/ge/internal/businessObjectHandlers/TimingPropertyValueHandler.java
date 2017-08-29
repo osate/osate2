@@ -1,7 +1,9 @@
 package org.osate.ge.internal.businessObjectHandlers;
 
 import java.awt.geom.Point2D;
+
 import javax.inject.Named;
+
 import org.osate.aadl2.Connection;
 import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.NamedValue;
@@ -25,7 +27,6 @@ public class TimingPropertyValueHandler {
 	
 	private static final Graphic immediateGraphic = PolyBuilder.create().
 			polyline().
-			lineWidth(2).
 			points(
 			new Point2D.Double(8.0, -6), 
 			new Point2D.Double(0.0, 0.0), 
@@ -41,7 +42,6 @@ public class TimingPropertyValueHandler {
 	
 	private static final Graphic delayedGraphic = PolyBuilder.create().
 			polyline().
-			lineWidth(2).
 			points(
 			new Point2D.Double(0.0, -10), 
 			new Point2D.Double(0.0, 10.0),

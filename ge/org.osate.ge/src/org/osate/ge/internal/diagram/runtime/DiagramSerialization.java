@@ -16,6 +16,10 @@ import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.emf.ecore.xmi.XMLResource;
 import org.osate.ge.diagram.Diagram;
+import org.osate.ge.graphics.FontSize;
+import org.osate.ge.graphics.LineWidth;
+import org.osate.ge.graphics.Style;
+import org.osate.ge.graphics.StyleBuilder;
 import org.osate.ge.internal.DockArea;
 
 /**

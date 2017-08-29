@@ -20,9 +20,10 @@ import org.osate.ge.internal.query.Queryable;
 
 public class TagHandler {
 	private final Graphic defaultGraphic = LabelBuilder.create().build();
-	private static final Graphic directionIndicator = PolyBuilder.create().lineWidth(2).polyline().points(
-			new Point2D.Double(8.0, 6.0), 
-			new Point2D.Double(0.0, 0.0), 
+	private static final Graphic directionIndicator = PolyBuilder.create().polyline()
+			.points(
+			new Point2D.Double(8.0, 6.0),
+			new Point2D.Double(0.0, 0.0),
 			new Point2D.Double(8.0, -6.0)
 			).build();
 
@@ -30,7 +31,7 @@ public class TagHandler {
 	public boolean isApplicable(final @Named(Names.BUSINESS_OBJECT) Tag tv) {
 		return true;
 	}
-	
+
 	@GetGraphicalConfiguration
 	public GraphicalConfiguration getGraphicalConfiguration(final @Named(Names.BUSINESS_OBJECT_CONTEXT) BusinessObjectContext boc,
 			final @Named(Names.BUSINESS_OBJECT) Tag tv) {
@@ -43,20 +44,20 @@ public class TagHandler {
 					return null;
 				}
 			}
-			
+
 			graphic = directionIndicator;
 			break;
-			
+
 		default:
-			graphic = defaultGraphic;				
+			graphic = defaultGraphic;
 		}
-		
+
 		return GraphicalConfigurationBuilder.create().
 				graphic(graphic).
 				decoration().
 				build();
 	}
-	
+
 	@GetName
 	public String getName(final @Named(Names.BUSINESS_OBJECT) Tag tv) {
 		return Objects.toString(tv.value, null);

@@ -1,13 +1,11 @@
-package org.osate.ge.internal.diagram.runtime;
+package org.osate.ge.graphics;
 
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
 public enum LineWidth {
-	Small(1),
-	Default(2),
-	Large(3);
+	Small(2), Medium(4), Large(6);
 
 	private static final Map<Integer, LineWidth> valueToLineWidth;
 	static {

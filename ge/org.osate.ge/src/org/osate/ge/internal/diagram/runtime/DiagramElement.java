@@ -1,6 +1,5 @@
 package org.osate.ge.internal.diagram.runtime;
 
-import java.awt.Color;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -10,6 +9,7 @@ import java.util.Objects;
 
 import org.osate.ge.BusinessObjectContext;
 import org.osate.ge.graphics.Graphic;
+import org.osate.ge.graphics.Style;
 import org.osate.ge.internal.AgeGraphicalConfiguration;
 import org.osate.ge.internal.DockArea;
 import org.osate.ge.internal.diagram.runtime.boTree.Completeness;
@@ -29,7 +29,7 @@ public class DiagramElement implements DiagramNode, ModifiableDiagramElementCont
 	private final DiagramElementCollection children = new DiagramElementCollection();
 	private String name;
 	private AgeGraphicalConfiguration graphicalConfig; // Required after initialization.
-	private Style style = Style.defaultStyle; // Will never be null
+	private Style style = Style.EMPTY; // Will never be null
 
 	// Shape Specific
 	private Point position; // Optional. Relative to container.
@@ -242,18 +242,6 @@ public class DiagramElement implements DiagramNode, ModifiableDiagramElementCont
 
 	public final Graphic getGraphic() {
 		return graphicalConfig == null ? null : graphicalConfig.graphic;
-	}
-
-	public final Color getDefaultBackgroundColor() {
-		return graphicalConfig.defaultBackgroundColor;
-	}
-
-	public final Color getDefaultOutlineColor() {
-		return graphicalConfig.defaultOutlineColor;
-	}
-
-	public final Color getDefaultFontColor() {
-		return graphicalConfig.defaultFontColor;
 	}
 
 	public final boolean isDecoration() {

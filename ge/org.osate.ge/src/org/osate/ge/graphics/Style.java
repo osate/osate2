@@ -1,22 +1,30 @@
-package org.osate.ge.internal.diagram.runtime;
+package org.osate.ge.graphics;
 
 import java.awt.Color;
 
+import org.osate.ge.internal.graphics.LineStyle;
+
 public class Style {
-	public static final Style defaultStyle = StyleBuilder.create().build();
+	public static final Style EMPTY = StyleBuilder.create().build();
+	public final static Style DEFAULT = StyleBuilder.create().backgroundColor(java.awt.Color.WHITE)
+			.foregroundColor(java.awt.Color.BLACK).fontSize(FontSize.Medium).lineWidth(LineWidth.Small)
+			.lineStyle(LineStyle.SOLID).build();
+
 	private final Color background;
 	private final Color outline;
 	private final Color fontColor;
 	private final FontSize fontSize;
 	private final LineWidth lineWidth;
+	private final LineStyle lineStyle;
 
 	Style(final Color background, final Color fontColor, final Color outline, final FontSize fontSize,
-			final LineWidth lineWidth) {
+			final LineWidth lineWidth, final LineStyle lineStyle) {
 		this.background = background;
 		this.fontColor = fontColor;
 		this.outline = outline;
 		this.fontSize = fontSize;
 		this.lineWidth = lineWidth;
+		this.lineStyle = lineStyle;
 	}
 
 	public final Color getBackgroundColor() {
@@ -39,9 +47,10 @@ public class Style {
 		return lineWidth;
 	}
 
-	/* (non-Javadoc)
-	 * @see java.lang.Object#hashCode()
-	 */
+	public final LineStyle getLineStyle() {
+		return lineStyle;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -49,14 +58,12 @@ public class Style {
 		result = prime * result + ((background == null) ? 0 : background.hashCode());
 		result = prime * result + ((fontColor == null) ? 0 : fontColor.hashCode());
 		result = prime * result + ((fontSize == null) ? 0 : fontSize.hashCode());
+		result = prime * result + ((lineStyle == null) ? 0 : lineStyle.hashCode());
 		result = prime * result + ((lineWidth == null) ? 0 : lineWidth.hashCode());
 		result = prime * result + ((outline == null) ? 0 : outline.hashCode());
 		return result;
 	}
 
-	/* (non-Javadoc)
-	 * @see java.lang.Object#equals(java.lang.Object)
-	 */
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj) {
@@ -65,7 +72,7 @@ public class Style {
 		if (obj == null) {
 			return false;
 		}
-		if (!(obj instanceof Style)) {
+		if (getClass() != obj.getClass()) {
 			return false;
 		}
 		Style other = (Style) obj;
@@ -84,6 +91,9 @@ public class Style {
 			return false;
 		}
 		if (fontSize != other.fontSize) {
+			return false;
+		}
+		if (lineStyle != other.lineStyle) {
 			return false;
 		}
 		if (lineWidth != other.lineWidth) {

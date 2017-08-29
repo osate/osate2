@@ -344,6 +344,7 @@ public class ClassifierHandler {
 	public GraphicalConfiguration getGraphicalConfiguration(final @Named(Names.BUSINESS_OBJECT) Classifier bo) {
 		return GraphicalConfigurationBuilder.create().
 				graphic(AadlGraphics.getGraphic(bo)).
+				defaultStyle(AadlGraphics.getStyle(bo)).
 				defaultLabelConfiguration(labelConfiguration).
 				build();
 	}

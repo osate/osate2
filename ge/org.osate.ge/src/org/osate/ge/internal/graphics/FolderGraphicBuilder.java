@@ -16,10 +16,8 @@ import org.osate.ge.graphics.Graphic;
  * @see Graphic
  */
 public class FolderGraphicBuilder {
-	private int lineWidth = 1;
-	
 	private FolderGraphicBuilder() {}
-	
+
 	/**
 	 * Creates a folder graphic builder.
 	 * @return a folder graphic builder
@@ -27,22 +25,12 @@ public class FolderGraphicBuilder {
 	public static FolderGraphicBuilder create() {
 		return new FolderGraphicBuilder();
 	}
-		
-	/**
-	 * Sets the line width to use to create the folder graphic.
-	 * @param value the new value for the line width.
-	 * @return this builder to allow method chaining.
-	 */
-	public FolderGraphicBuilder lineWidth(int value) {
-		this.lineWidth = value;
-		return this;
-	}
-		
+
 	/**
 	 * Creates a folder graphic based on the current state of the builder.
 	 * @return the newly created graphic
 	 */
 	public Graphic build() {
-		return new FolderGraphic(lineWidth);
+		return new FolderGraphic();
 	}
 }

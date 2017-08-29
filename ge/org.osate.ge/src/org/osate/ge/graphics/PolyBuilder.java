@@ -11,7 +11,6 @@ package org.osate.ge.graphics;
 import java.awt.geom.Point2D;
 import java.util.Objects;
 
-import org.osate.ge.internal.graphics.LineStyle;
 import org.osate.ge.internal.graphics.Poly;
 import org.osate.ge.internal.graphics.Poly.Type;
 
@@ -22,12 +21,10 @@ import org.osate.ge.internal.graphics.Poly.Type;
  */
 public class PolyBuilder {
 	private Point2D.Double[] points;
-	private int lineWidth = 1;
-	private LineStyle lineStyle = LineStyle.SOLID;
 	private Type type = Type.POLYGON;
-	
+
 	private PolyBuilder() {}
-	
+
 	/**
 	 * Creates a poly builder.
 	 * @return a poly builder
@@ -35,7 +32,7 @@ public class PolyBuilder {
 	public static PolyBuilder create() {
 		return new PolyBuilder();
 	}
-	
+
 	/**
 	 * Configures the poly builder to build a poly composed of the specified points.
 	 * @param points the points to use when creating the poly. All coordinates must be in the range of [0.0, 1.0]. Polylines are scaled by the editor.
@@ -45,35 +42,7 @@ public class PolyBuilder {
 		this.points = Objects.requireNonNull(points, "points must not be null").clone();
 		return this;
 	}
-	
-	/**
-	 * Sets the line width to use to create the poly
-	 * @param value the new value for the line width.
-	 * @return this builder to allow method chaining.
-	 */
-	public PolyBuilder lineWidth(int value) {
-		this.lineWidth = value;
-		return this;
-	}
-	
-	/**
-	 * Configures the poly builder to use dashed lines.
-	 * @return this builder to allow method chaining.
-	 */
-	public PolyBuilder dashed() {
-		this.lineStyle = LineStyle.DASHED;
-		return this;
-	}
-	
-	/**
-	 * Configures the poly builder to use dotted lines.
-	 * @return this builder to allow method chaining.
-	 */
-	public PolyBuilder dotted() {
-		this.lineStyle = LineStyle.DOTTED;
-		return this;
-	}
-	
+
 	/**
 	 * Configures the poly builder to build a polygon
 	 * @return this builder to allow method chaining.
@@ -82,7 +51,7 @@ public class PolyBuilder {
 		this.type = Type.POLYGON;
 		return this;
 	}
-	
+
 	/**
 	 * Configures the poly builder to build a polyline
 	 * @return this builder to allow method chaining.
@@ -91,12 +60,12 @@ public class PolyBuilder {
 		this.type = Type.POLYLINE;
 		return this;
 	}
-	
+
 	/**
 	 * Creates a poly graphic based on the current state of the builder.
 	 * @return the newly created graphic
 	 */
 	public Graphic build() {
-		return new Poly(points, lineWidth, lineStyle, type);
+		return new Poly(points, type);
 	}
 }

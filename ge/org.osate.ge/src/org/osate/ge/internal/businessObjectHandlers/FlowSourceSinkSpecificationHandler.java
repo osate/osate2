@@ -23,6 +23,8 @@ import org.osate.ge.di.IsApplicable;
 import org.osate.ge.di.Names;
 import org.osate.ge.graphics.ArrowBuilder;
 import org.osate.ge.graphics.Graphic;
+import org.osate.ge.graphics.Style;
+import org.osate.ge.graphics.StyleBuilder;
 import org.osate.ge.internal.graphics.FlowIndicatorBuilder;
 import org.osate.ge.internal.graphics.OrthogonalLineBuilder;
 import org.osate.ge.internal.services.NamingService;
@@ -36,17 +38,7 @@ public class FlowSourceSinkSpecificationHandler extends FlowSpecificationHandler
 			sourceTerminator(ArrowBuilder.create().small().build()).
 			destinationTerminator(OrthogonalLineBuilder.create().build()).
 			build();
-	private static final Graphic partialFlowSourceGraphic = FlowIndicatorBuilder.create().
-			dotted().
-			sourceTerminator(ArrowBuilder.create().small().build()).
-			destinationTerminator(OrthogonalLineBuilder.create().build()).
-			build();
 	private static final Graphic flowSinkGraphic = FlowIndicatorBuilder.create().
-			sourceTerminator(ArrowBuilder.create().small().reverse().build()).
-			destinationTerminator(OrthogonalLineBuilder.create().build()).
-			build();
-	private static final Graphic partialFlowSinkGraphic = FlowIndicatorBuilder.create().
-			dotted().
 			sourceTerminator(ArrowBuilder.create().small().reverse().build()).
 			destinationTerminator(OrthogonalLineBuilder.create().build()).
 			build();
@@ -72,20 +64,26 @@ public class FlowSourceSinkSpecificationHandler extends FlowSpecificationHandler
 			partial = true;
 		}
 
+		final StyleBuilder sb = StyleBuilder.create(
+				AadlInheritanceUtil.isInherited(boc) ? Styles.INHERITED_ELEMENT_STYLE : Style.EMPTY);
+		if (partial) {
+			sb.dotted();
+		}
+
 		return GraphicalConfigurationBuilder.create().
-				graphic(getGraphicalRepresentation(fs, partial)).
+				graphic(getGraphicalRepresentation(fs)).
+				defaultStyle(sb.build()).
 				source(src).
-				defaultForeground(AadlInheritanceUtil.isInherited(boc) ? Colors.INHERITED_ELEMENT_COLOR : null).
 				build();
 	}
 
-	private Graphic getGraphicalRepresentation(final @Named(Names.BUSINESS_OBJECT) FlowSpecification fs, final boolean partial) {
+	private Graphic getGraphicalRepresentation(final @Named(Names.BUSINESS_OBJECT) FlowSpecification fs) {
 		switch(fs.getKind()) {
 		case SOURCE:
-			return partial ? partialFlowSourceGraphic : flowSourceGraphic;
+			return flowSourceGraphic;
 
 		case SINK:
-			return partial ? partialFlowSinkGraphic : flowSinkGraphic;
+			return flowSinkGraphic;
 
 		default:
 			return null;

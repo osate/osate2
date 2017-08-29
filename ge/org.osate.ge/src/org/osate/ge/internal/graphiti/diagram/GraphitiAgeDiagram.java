@@ -39,7 +39,9 @@ import org.eclipse.graphiti.services.IGaService;
 import org.eclipse.graphiti.services.IPeCreateService;
 import org.eclipse.graphiti.ui.services.GraphitiUi;
 import org.eclipse.graphiti.util.IColorConstant;
+import org.osate.ge.graphics.FontSize;
 import org.osate.ge.graphics.Graphic;
+import org.osate.ge.graphics.Style;
 import org.osate.ge.internal.diagram.runtime.AgeDiagram;
 import org.osate.ge.internal.diagram.runtime.BeforeModificationsCompletedEvent;
 import org.osate.ge.internal.diagram.runtime.DiagramElement;
@@ -50,7 +52,6 @@ import org.osate.ge.internal.diagram.runtime.DiagramNode;
 import org.osate.ge.internal.diagram.runtime.ElementAddedEvent;
 import org.osate.ge.internal.diagram.runtime.ElementRemovedEvent;
 import org.osate.ge.internal.diagram.runtime.ElementUpdatedEvent;
-import org.osate.ge.internal.diagram.runtime.FontSize;
 import org.osate.ge.internal.diagram.runtime.ModificationsCompletedEvent;
 import org.osate.ge.internal.diagram.runtime.boTree.Completeness;
 import org.osate.ge.internal.graphics.AgeConnection;
@@ -384,7 +385,8 @@ public class GraphitiAgeDiagram implements NodePictogramBiMap, AutoCloseable {
 
 			final GraphicsAlgorithm ga = connection.getGraphicsAlgorithm();
 			ga.setStyle(null);
-			ga.setLineStyle(AgeGraphitiGraphicsUtil.toGraphitiLineStyle(ac.lineStyle));
+			ga.setLineStyle(
+					AgeGraphitiGraphicsUtil.toGraphitiLineStyle(de.getGraphicalConfiguration().style.getLineStyle()));
 			ga.setLineWidth(2);
 			ga.setForeground(Graphiti.getGaService().manageColor(graphitiDiagram, IColorConstant.BLACK));
 
@@ -412,7 +414,7 @@ public class GraphitiAgeDiagram implements NodePictogramBiMap, AutoCloseable {
 		final String primaryLabelStr = de.getName() == null ? null : (de.getName() + completenessSuffix);
 
 		if (pe instanceof ContainerShape) {
-			final FontSize fontSize = de.getStyle().getFontSize() == null ? FontSize.Default
+			final FontSize fontSize = de.getStyle().getFontSize() == null ? Style.DEFAULT.getFontSize()
 					: de.getStyle().getFontSize();
 
 			// Create Labels
