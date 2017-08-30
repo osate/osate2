@@ -14,7 +14,7 @@ import org.eclipse.graphiti.services.IGaService;
 import org.eclipse.graphiti.util.IColorConstant;
 import org.osate.ge.graphics.Graphic;
 import org.osate.ge.graphics.Style;
-import org.osate.ge.internal.DockArea;
+import org.osate.ge.internal.diagram.runtime.DockArea;
 import org.osate.ge.internal.graphics.BusGraphic;
 import org.osate.ge.internal.graphics.DeviceGraphic;
 import org.osate.ge.internal.graphics.Direction;

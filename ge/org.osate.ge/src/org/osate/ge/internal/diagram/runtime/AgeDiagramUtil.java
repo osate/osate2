@@ -1,6 +1,6 @@
 package org.osate.ge.internal.diagram.runtime;
 
-import org.osate.ge.internal.DockingPosition;
+import org.osate.ge.DockingPosition;
 import org.osate.ge.internal.services.ProjectReferenceService;
 
 public class AgeDiagramUtil {

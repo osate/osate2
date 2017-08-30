@@ -53,11 +53,11 @@ public class StyleBuilder {
 			}
 
 			if (s.getHorizontalLabelPosition() != null) {
-				sb.horizontalLabelPosition(s.getHorizontalLabelPosition());
+				sb.labelsHorizontalPosition(s.getHorizontalLabelPosition());
 			}
 
 			if (s.getVerticalLabelPosition() != null) {
-				sb.verticalLabelPosition(s.getVerticalLabelPosition());
+				sb.labelsVerticalPosition(s.getVerticalLabelPosition());
 			}
 		}
 
@@ -117,12 +117,12 @@ public class StyleBuilder {
 		return this;
 	}
 
-	public StyleBuilder horizontalLabelPosition(final LabelPosition value) {
+	public StyleBuilder labelsHorizontalPosition(final LabelPosition value) {
 		this.horizontalLabelPosition = value;
 		return this;
 	}
 
-	public StyleBuilder verticalLabelPosition(final LabelPosition value) {
+	public StyleBuilder labelsVerticalPosition(final LabelPosition value) {
 		this.verticalLabelPosition = value;
 		return this;
 	}

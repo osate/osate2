@@ -19,7 +19,6 @@ import org.osate.ge.graphics.Color;
 import org.osate.ge.graphics.Point;
 import org.osate.ge.graphics.Style;
 import org.osate.ge.graphics.StyleBuilder;
-import org.osate.ge.internal.DockArea;
 
 /**
  * Class to help read and write the native diagram format used by the editor.

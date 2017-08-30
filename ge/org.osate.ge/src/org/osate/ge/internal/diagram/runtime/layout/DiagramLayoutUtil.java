@@ -27,7 +27,7 @@ ARISING FROM, OUT OF OR IN CONNECTION WITH THE DATA OR THE USE OR OTHER DEALINGS
  * http://www.eclipse.org/legal/epl-v10.html
  * The US Government has unlimited rights in this work in accordance with W31P4Q-10-D-0092 DO 0073.
  *******************************************************************************/
-package org.osate.ge.internal.diagram.runtime;
+package org.osate.ge.internal.diagram.runtime.layout;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -36,6 +36,11 @@ import java.util.List;
 import java.util.Map;
 
 import org.osate.ge.graphics.Point;
+import org.osate.ge.internal.diagram.runtime.AgeDiagram;
+import org.osate.ge.internal.diagram.runtime.DiagramElement;
+import org.osate.ge.internal.diagram.runtime.DiagramElementPredicates;
+import org.osate.ge.internal.diagram.runtime.DiagramModification;
+import org.osate.ge.internal.diagram.runtime.Dimension;
 import org.osate.ge.internal.graphics.AgeConnection;
 import org.osate.ge.internal.graphics.AgeShape;
 import org.osate.ge.internal.layout.LayoutAlgorithm;

@@ -1,7 +1,8 @@
-package org.osate.ge.internal;
+package org.osate.ge.internal.graphics;
 
 import java.util.Objects;
 
+import org.osate.ge.DockingPosition;
 import org.osate.ge.GraphicalConfiguration;
 import org.osate.ge.graphics.Graphic;
 import org.osate.ge.graphics.Style;

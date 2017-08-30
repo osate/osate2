@@ -11,22 +11,22 @@ import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import org.osate.ge.DockingPosition;
 import org.osate.ge.graphics.Point;
-import org.osate.ge.internal.AgeGraphicalConfiguration;
-import org.osate.ge.internal.DockArea;
-import org.osate.ge.internal.DockingPosition;
 import org.osate.ge.internal.diagram.runtime.AgeDiagram;
 import org.osate.ge.internal.diagram.runtime.DiagramElement;
 import org.osate.ge.internal.diagram.runtime.DiagramModification;
 import org.osate.ge.internal.diagram.runtime.DiagramModifier;
 import org.osate.ge.internal.diagram.runtime.DiagramNode;
 import org.osate.ge.internal.diagram.runtime.Dimension;
+import org.osate.ge.internal.diagram.runtime.DockArea;
 import org.osate.ge.internal.diagram.runtime.RelativeBusinessObjectReference;
 import org.osate.ge.internal.diagram.runtime.boTree.BusinessObjectNode;
 import org.osate.ge.internal.diagram.runtime.boTree.Completeness;
 import org.osate.ge.internal.diagram.runtime.boTree.DiagramToBusinessObjectTreeConverter;
 import org.osate.ge.internal.diagram.runtime.boTree.TreeUpdater;
 import org.osate.ge.internal.graphics.AgeConnection;
+import org.osate.ge.internal.graphics.AgeGraphicalConfiguration;
 import org.osate.ge.internal.model.PropertyValueGroup;
 
 /**

@@ -6,6 +6,7 @@ import org.osate.aadl2.Access;
 import org.osate.aadl2.AccessType;
 import org.osate.aadl2.DirectionType;
 import org.osate.aadl2.instance.FeatureInstance;
+import org.osate.ge.DockingPosition;
 import org.osate.ge.GraphicalConfiguration;
 import org.osate.ge.GraphicalConfigurationBuilder;
 import org.osate.ge.di.GetGraphicalConfiguration;
@@ -15,7 +16,6 @@ import org.osate.ge.di.Names;
 import org.osate.ge.graphics.Graphic;
 import org.osate.ge.graphics.Style;
 import org.osate.ge.graphics.StyleBuilder;
-import org.osate.ge.internal.DockingPosition;
 import org.osate.ge.internal.graphics.AadlGraphics;
 
 public class FeatureInstanceHandler {

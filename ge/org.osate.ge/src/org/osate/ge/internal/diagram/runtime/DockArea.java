@@ -1,4 +1,4 @@
-package org.osate.ge.internal;
+package org.osate.ge.internal.diagram.runtime;
 
 import java.util.Collections;
 import java.util.HashMap;

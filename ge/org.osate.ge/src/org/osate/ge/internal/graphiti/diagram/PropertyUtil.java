@@ -4,7 +4,7 @@ import org.eclipse.graphiti.mm.PropertyContainer;
 import org.eclipse.graphiti.mm.algorithms.GraphicsAlgorithm;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.services.Graphiti;
-import org.osate.ge.internal.DockArea;
+import org.osate.ge.internal.diagram.runtime.DockArea;
 
 public class PropertyUtil {
 	private static final String NAME_KEY = "name";

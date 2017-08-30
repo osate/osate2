@@ -67,6 +67,7 @@ import org.osate.ge.internal.graphiti.graphics.AgeGraphitiGraphicsUtil;
  * Class that integrates AgeDiagram with Graphiti.
  * Handles updating the Graphiti diagram to reflect changes in the AgeDiagram.
  * The Graphiti diagram must not be modified directly.
+ * Not all styl fields are supported as both the graphical configuration or diagram element style.
  *
  */
 public class GraphitiAgeDiagram implements NodePictogramBiMap, AutoCloseable {

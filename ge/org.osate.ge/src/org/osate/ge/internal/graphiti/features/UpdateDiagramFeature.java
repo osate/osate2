@@ -13,9 +13,9 @@ import org.eclipse.graphiti.features.impl.AbstractUpdateFeature;
 import org.eclipse.graphiti.features.impl.Reason;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.osate.ge.internal.diagram.runtime.AgeDiagram;
-import org.osate.ge.internal.diagram.runtime.DiagramLayoutUtil;
 import org.osate.ge.internal.diagram.runtime.DiagramModification;
 import org.osate.ge.internal.diagram.runtime.DiagramModifier;
+import org.osate.ge.internal.diagram.runtime.layout.DiagramLayoutUtil;
 import org.osate.ge.internal.diagram.runtime.updating.DiagramUpdater;
 import org.osate.ge.internal.graphiti.GraphitiAgeDiagramProvider;
 

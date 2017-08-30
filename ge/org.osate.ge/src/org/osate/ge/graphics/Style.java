@@ -6,8 +6,8 @@ public class Style {
 	public static final Style EMPTY = StyleBuilder.create().build();
 	public final static Style DEFAULT = StyleBuilder.create().backgroundColor(Color.WHITE).foregroundColor(Color.BLACK)
 			.fontSize(10.0).lineWidth(2.0)
-			.lineStyle(LineStyle.SOLID).horizontalLabelPosition(LabelPosition.GRAPHIC_BEGINNING)
-			.verticalLabelPosition(LabelPosition.GRAPHIC_BEGINNING).build();
+			.lineStyle(LineStyle.SOLID).labelsHorizontalPosition(LabelPosition.GRAPHIC_BEGINNING)
+			.labelsVerticalPosition(LabelPosition.GRAPHIC_BEGINNING).build();
 
 	private final Color background;
 	private final Color outline;
