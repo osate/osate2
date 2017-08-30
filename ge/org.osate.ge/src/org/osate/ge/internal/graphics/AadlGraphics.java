@@ -13,7 +13,6 @@ import org.osate.aadl2.FeatureGroupType;
 import org.osate.aadl2.PortCategory;
 import org.osate.ge.graphics.EllipseBuilder;
 import org.osate.ge.graphics.Graphic;
-import org.osate.ge.graphics.LineWidth;
 import org.osate.ge.graphics.RectangleBuilder;
 import org.osate.ge.graphics.Style;
 import org.osate.ge.graphics.StyleBuilder;
@@ -42,7 +41,7 @@ public class AadlGraphics {
 	private static final Style topCenteredLabelStyle = StyleBuilder.create().labelsTop().labelsHorizontalCenter()
 			.build();
 	private final static Style dashedStyle = StyleBuilder.create(topCenteredLabelStyle).dashed().build();
-	private final static Style implStyle = StyleBuilder.create(topCenteredLabelStyle).lineWidth(LineWidth.Medium)
+	private final static Style implStyle = StyleBuilder.create(topCenteredLabelStyle).lineWidth(4.0)
 			.build();
 	private final static Style dashedImplStyle = StyleBuilder.create(dashedStyle, implStyle).build();
 

@@ -238,7 +238,7 @@ public class DiagramElement extends DiagramNode {
 	 * @generated
 	 * @ordered
 	 */
-	protected static final double FONT_SIZE_EDEFAULT = 0.0;
+	protected static final Double FONT_SIZE_EDEFAULT = null;
 
 	/**
 	 * The cached value of the '{@link #getFontSize() <em>Font Size</em>}' attribute.
@@ -248,7 +248,7 @@ public class DiagramElement extends DiagramNode {
 	 * @generated
 	 * @ordered
 	 */
-	protected double fontSize = FONT_SIZE_EDEFAULT;
+	protected Double fontSize = FONT_SIZE_EDEFAULT;
 
 	/**
 	 * The default value of the '{@link #getLineWidth() <em>Line Width</em>}' attribute.
@@ -258,7 +258,7 @@ public class DiagramElement extends DiagramNode {
 	 * @generated
 	 * @ordered
 	 */
-	protected static final int LINE_WIDTH_EDEFAULT = 0;
+	protected static final Double LINE_WIDTH_EDEFAULT = null;
 
 	/**
 	 * The cached value of the '{@link #getLineWidth() <em>Line Width</em>}' attribute.
@@ -268,7 +268,7 @@ public class DiagramElement extends DiagramNode {
 	 * @generated
 	 * @ordered
 	 */
-	protected int lineWidth = LINE_WIDTH_EDEFAULT;
+	protected Double lineWidth = LINE_WIDTH_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -771,12 +771,12 @@ public class DiagramElement extends DiagramNode {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Font Size</em>' attribute.
-	 * @see #setFontSize(double)
+	 * @see #setFontSize(Double)
 	 * @see org.osate.ge.diagram.DiagramPackage#getDiagramElement_FontSize()
-	 * @model dataType="org.eclipse.emf.ecore.xml.type.Double"
+	 * @model dataType="org.eclipse.emf.ecore.xml.type.DoubleObject"
 	 * @generated
 	 */
-	public double getFontSize() {
+	public Double getFontSize() {
 		return fontSize;
 	}
 
@@ -788,8 +788,8 @@ public class DiagramElement extends DiagramNode {
 	 * @see #getFontSize()
 	 * @generated
 	 */
-	public void setFontSize(double newFontSize) {
-		double oldFontSize = fontSize;
+	public void setFontSize(Double newFontSize) {
+		Double oldFontSize = fontSize;
 		fontSize = newFontSize;
 		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, DiagramPackage.DIAGRAM_ELEMENT__FONT_SIZE, oldFontSize, fontSize));
@@ -797,7 +797,6 @@ public class DiagramElement extends DiagramNode {
 
 	/**
 	 * Returns the value of the '<em><b>Line Width</b></em>' attribute.
-	 * The default value is <code>"0"</code>.
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Line Width</em>' attribute isn't clear,
@@ -805,12 +804,12 @@ public class DiagramElement extends DiagramNode {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Line Width</em>' attribute.
-	 * @see #setLineWidth(int)
+	 * @see #setLineWidth(Double)
 	 * @see org.osate.ge.diagram.DiagramPackage#getDiagramElement_LineWidth()
-	 * @model default="0" dataType="org.eclipse.emf.ecore.xml.type.Int"
+	 * @model dataType="org.eclipse.emf.ecore.xml.type.DoubleObject"
 	 * @generated
 	 */
-	public int getLineWidth() {
+	public Double getLineWidth() {
 		return lineWidth;
 	}
 
@@ -822,8 +821,8 @@ public class DiagramElement extends DiagramNode {
 	 * @see #getLineWidth()
 	 * @generated
 	 */
-	public void setLineWidth(int newLineWidth) {
-		int oldLineWidth = lineWidth;
+	public void setLineWidth(Double newLineWidth) {
+		Double oldLineWidth = lineWidth;
 		lineWidth = newLineWidth;
 		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, DiagramPackage.DIAGRAM_ELEMENT__LINE_WIDTH, oldLineWidth, lineWidth));
@@ -972,7 +971,7 @@ public class DiagramElement extends DiagramNode {
 				setFontSize((Double)newValue);
 				return;
 			case DiagramPackage.DIAGRAM_ELEMENT__LINE_WIDTH:
-				setLineWidth((Integer)newValue);
+				setLineWidth((Double)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -1065,9 +1064,9 @@ public class DiagramElement extends DiagramNode {
 			case DiagramPackage.DIAGRAM_ELEMENT__FONT_COLOR:
 				return FONT_COLOR_EDEFAULT == null ? fontColor != null : !FONT_COLOR_EDEFAULT.equals(fontColor);
 			case DiagramPackage.DIAGRAM_ELEMENT__FONT_SIZE:
-				return fontSize != FONT_SIZE_EDEFAULT;
+				return FONT_SIZE_EDEFAULT == null ? fontSize != null : !FONT_SIZE_EDEFAULT.equals(fontSize);
 			case DiagramPackage.DIAGRAM_ELEMENT__LINE_WIDTH:
-				return lineWidth != LINE_WIDTH_EDEFAULT;
+				return LINE_WIDTH_EDEFAULT == null ? lineWidth != null : !LINE_WIDTH_EDEFAULT.equals(lineWidth);
 		}
 		return super.eIsSet(featureID);
 	}

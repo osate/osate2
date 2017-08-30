@@ -782,7 +782,7 @@ class LayoutUtil {
 				}
 
 				StyleUtil.overrideStyle(pe, background, foreground, labelBackground, fontColor,
-						finalStyle.getLineWidth().getValue(), element.getGraphic() instanceof Label);
+				(int) Math.round(finalStyle.getLineWidth()), element.getGraphic() instanceof Label);
 	}
 
 	private static DiagramElement getContainingShapeDiagramElement(final DiagramElement de) {

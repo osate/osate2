@@ -39,7 +39,6 @@ import org.eclipse.graphiti.services.IGaService;
 import org.eclipse.graphiti.services.IPeCreateService;
 import org.eclipse.graphiti.ui.services.GraphitiUi;
 import org.eclipse.graphiti.util.IColorConstant;
-import org.osate.ge.graphics.FontSize;
 import org.osate.ge.graphics.Graphic;
 import org.osate.ge.graphics.Style;
 import org.osate.ge.internal.diagram.runtime.AgeDiagram;
@@ -113,6 +112,7 @@ public class GraphitiAgeDiagram implements NodePictogramBiMap, AutoCloseable {
 		final URI ignoredUri = URI.createHierarchicalURI("osate_ge_ignore", null, null,
 				new String[] { "internal.aadl_diagram" }, null, null);
 
+
 		// Create the diagram resource and add the diagram to it.
 		final Resource diagramResource = editingDomain.getResourceSet().createResource(ignoredUri);
 		editingDomain.getCommandStack().execute(new AbstractCommand() {
@@ -125,6 +125,7 @@ public class GraphitiAgeDiagram implements NodePictogramBiMap, AutoCloseable {
 			public void execute() {
 				diagramResource.getContents().add(graphitiDiagram);
 				ageDiagram.modify("Initial Update", m -> createUpdateElementsFromAgeDiagram(m));
+
 			}
 
 			@Override
@@ -416,14 +417,14 @@ public class GraphitiAgeDiagram implements NodePictogramBiMap, AutoCloseable {
 		final String primaryLabelStr = de.getName() == null ? null : (de.getName() + completenessSuffix);
 
 		if (pe instanceof ContainerShape) {
-			final FontSize fontSize = de.getStyle().getFontSize() == null ? Style.DEFAULT.getFontSize()
+			final double fontSize = de.getStyle().getFontSize() == null ? Style.DEFAULT.getFontSize()
 					: de.getStyle().getFontSize();
 
 			// Create Labels
 			if (primaryLabelStr != null) {
 				final Shape labelShape;
 				labelShape = LabelUtil.createLabelShape(graphitiDiagram, (ContainerShape) pe,
-						ShapeNames.primaryLabelShapeName, primaryLabelStr, fontSize.getValue());
+						ShapeNames.primaryLabelShapeName, primaryLabelStr, fontSize);
 
 				labelShape.setActive(false);
 			}
@@ -432,7 +433,7 @@ public class GraphitiAgeDiagram implements NodePictogramBiMap, AutoCloseable {
 			final String annotation = ageShape.getAnnotation();
 			if (annotation != null) {
 				final Shape annotationShape = LabelUtil.createLabelShape(graphitiDiagram, (ContainerShape) pe,
-						ShapeNames.annotationShapeName, annotation, fontSize.getValue());
+						ShapeNames.annotationShapeName, annotation, fontSize);
 				annotationShape.setActive(false);
 			}
 		} else if (pe instanceof Connection) {

@@ -5,21 +5,21 @@ import org.osate.ge.internal.graphics.LineStyle;
 public class Style {
 	public static final Style EMPTY = StyleBuilder.create().build();
 	public final static Style DEFAULT = StyleBuilder.create().backgroundColor(Color.WHITE).foregroundColor(Color.BLACK)
-			.fontSize(FontSize.Medium).lineWidth(LineWidth.Small)
+			.fontSize(10.0).lineWidth(2.0)
 			.lineStyle(LineStyle.SOLID).horizontalLabelPosition(LabelPosition.GRAPHIC_BEGINNING)
 			.verticalLabelPosition(LabelPosition.GRAPHIC_BEGINNING).build();
 
 	private final Color background;
 	private final Color outline;
 	private final Color fontColor;
-	private final FontSize fontSize;
-	private final LineWidth lineWidth;
+	private final Double fontSize;
+	private final Double lineWidth;
 	private final LineStyle lineStyle;
 	private final LabelPosition horizontalLabelPosition;
 	private final LabelPosition verticalLabelPosition;
 
-	Style(final Color background, final Color fontColor, final Color outline, final FontSize fontSize,
-			final LineWidth lineWidth, final LineStyle lineStyle, final LabelPosition horizontalLabelPosition,
+	Style(final Color background, final Color fontColor, final Color outline, final Double fontSize,
+			final Double lineWidth, final LineStyle lineStyle, final LabelPosition horizontalLabelPosition,
 			final LabelPosition verticalLabelPosition) {
 		this.background = background;
 		this.fontColor = fontColor;
@@ -43,11 +43,11 @@ public class Style {
 		return fontColor;
 	}
 
-	public final FontSize getFontSize() {
+	public final Double getFontSize() {
 		return fontSize;
 	}
 
-	public final LineWidth getLineWidth() {
+	public final Double getLineWidth() {
 		return lineWidth;
 	}
 
@@ -104,7 +104,11 @@ public class Style {
 		} else if (!fontColor.equals(other.fontColor)) {
 			return false;
 		}
-		if (fontSize != other.fontSize) {
+		if (fontSize == null) {
+			if (other.fontSize != null) {
+				return false;
+			}
+		} else if (!fontSize.equals(other.fontSize)) {
 			return false;
 		}
 		if (horizontalLabelPosition != other.horizontalLabelPosition) {
@@ -113,7 +117,11 @@ public class Style {
 		if (lineStyle != other.lineStyle) {
 			return false;
 		}
-		if (lineWidth != other.lineWidth) {
+		if (lineWidth == null) {
+			if (other.lineWidth != null) {
+				return false;
+			}
+		} else if (!lineWidth.equals(other.lineWidth)) {
 			return false;
 		}
 		if (outline == null) {
@@ -128,4 +136,5 @@ public class Style {
 		}
 		return true;
 	}
+
 }

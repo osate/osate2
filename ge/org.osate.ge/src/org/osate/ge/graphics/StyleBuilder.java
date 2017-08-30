@@ -6,8 +6,8 @@ public class StyleBuilder {
 	private Color background;
 	private Color outline;
 	private Color fontColor;
-	private FontSize fontSize;
-	private LineWidth lineWidth;
+	private Double fontSize;
+	private Double lineWidth;
 	private LineStyle lineStyle;
 	private LabelPosition horizontalLabelPosition;
 	private LabelPosition verticalLabelPosition;
@@ -84,12 +84,12 @@ public class StyleBuilder {
 		return this;
 	}
 
-	public StyleBuilder fontSize(final FontSize fontSize) {
+	public StyleBuilder fontSize(final Double fontSize) {
 		this.fontSize = fontSize;
 		return this;
 	}
 
-	public StyleBuilder lineWidth(final LineWidth lineWidth) {
+	public StyleBuilder lineWidth(final Double lineWidth) {
 		this.lineWidth = lineWidth;
 		return this;
 	}

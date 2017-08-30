@@ -16,8 +16,6 @@ import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.emf.ecore.xmi.XMLResource;
 import org.osate.ge.diagram.Diagram;
 import org.osate.ge.graphics.Color;
-import org.osate.ge.graphics.FontSize;
-import org.osate.ge.graphics.LineWidth;
 import org.osate.ge.graphics.Point;
 import org.osate.ge.graphics.Style;
 import org.osate.ge.graphics.StyleBuilder;
@@ -178,11 +176,11 @@ public class DiagramSerialization {
 		final Color background = mmChild.getBackground() != null ? parseColor(mmChild.getBackground()) : null;
 		final Color fontColor = mmChild.getFontColor() != null ? parseColor(mmChild.getFontColor()) : null;
 		final Color outline = mmChild.getOutline() != null ? parseColor(mmChild.getOutline()) : null;
-		final int lineWidth = mmChild.getLineWidth();
-		final double fontSize = mmChild.getFontSize();
+		final Double lineWidth = mmChild.getLineWidth();
+		final Double fontSize = mmChild.getFontSize();
 
 		newElement.setStyle(StyleBuilder.create().backgroundColor(background).fontColor(fontColor).outlineColor(outline)
-				.fontSize(FontSize.getByValue(fontSize)).lineWidth(LineWidth.getByValue(lineWidth)).build());
+				.fontSize(fontSize).lineWidth(lineWidth).build());
 
 		// Bendpoints
 		final org.osate.ge.diagram.BendpointList mmBendpoints = mmChild.getBendpoints();
@@ -317,14 +315,14 @@ public class DiagramSerialization {
 			newElement.setOutline(colorToHex(outlineColor));
 		}
 
-		final FontSize fontSize = currentStyle.getFontSize();
+		final Double fontSize = currentStyle.getFontSize();
 		if (fontSize != null) {
-			newElement.setFontSize(fontSize.getValue());
+			newElement.setFontSize(fontSize);
 		}
 
-		final LineWidth lineWidth = currentStyle.getLineWidth();
+		final Double lineWidth = currentStyle.getLineWidth();
 		if (lineWidth != null) {
-			newElement.setLineWidth(lineWidth.getValue());
+			newElement.setLineWidth(lineWidth);
 		}
 
 		// Connection Specific

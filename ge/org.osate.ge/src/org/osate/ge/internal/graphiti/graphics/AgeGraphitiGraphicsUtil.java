@@ -113,8 +113,8 @@ public class AgeGraphitiGraphicsUtil {
 			throw new RuntimeException("Unsupported object: " + graphic);
 		}
 
-		final int lineWidth = (style.getLineWidth() == null ? Style.DEFAULT.getLineWidth() : style.getLineWidth())
-				.getValue();
+		final int lineWidth = (int) Math
+				.round(style.getLineWidth() == null ? Style.DEFAULT.getLineWidth() : style.getLineWidth());
 		final LineStyle lineStyle = style.getLineStyle() == null ? Style.DEFAULT.getLineStyle() : style.getLineStyle();
 		return c.createGraphicsAlgorithm(diagram, gaContainer, graphic, width, height, fillBackground, lineWidth,
 				lineStyle);

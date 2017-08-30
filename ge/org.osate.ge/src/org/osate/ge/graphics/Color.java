@@ -46,4 +46,45 @@ public class Color {
 				(int) Math.max(Math.min(green / colorScaling, 255.0), minBrighterColor),
 				(int) Math.max(Math.min(blue / colorScaling, 255.0), minBrighterColor));
 	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + blue;
+		result = prime * result + green;
+		long temp;
+		temp = Double.doubleToLongBits(minBrighterColor);
+		result = prime * result + (int) (temp ^ (temp >>> 32));
+		result = prime * result + red;
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj) {
+			return true;
+		}
+		if (obj == null) {
+			return false;
+		}
+		if (getClass() != obj.getClass()) {
+			return false;
+		}
+		Color other = (Color) obj;
+		if (blue != other.blue) {
+			return false;
+		}
+		if (green != other.green) {
+			return false;
+		}
+		if (Double.doubleToLongBits(minBrighterColor) != Double.doubleToLongBits(other.minBrighterColor)) {
+			return false;
+		}
+		if (red != other.red) {
+			return false;
+		}
+		return true;
+	}
+
 }

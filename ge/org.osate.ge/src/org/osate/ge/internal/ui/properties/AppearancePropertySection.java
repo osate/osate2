@@ -1,8 +1,11 @@
 package org.osate.ge.internal.ui.properties;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 
 import org.eclipse.core.runtime.Adapters;
@@ -40,8 +43,6 @@ import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.IWorkbenchPart;
 import org.eclipse.ui.views.properties.tabbed.AbstractPropertySection;
 import org.eclipse.ui.views.properties.tabbed.TabbedPropertySheetPage;
-import org.osate.ge.graphics.FontSize;
-import org.osate.ge.graphics.LineWidth;
 import org.osate.ge.graphics.Style;
 import org.osate.ge.graphics.StyleBuilder;
 import org.osate.ge.internal.Activator;
@@ -50,8 +51,7 @@ import org.osate.ge.internal.diagram.runtime.DiagramElement;
 import org.osate.ge.internal.graphics.AgeConnection;
 import org.osate.ge.internal.graphics.Label;
 import org.osate.ge.internal.ui.util.UiUtil;
-
-import com.google.common.collect.ObjectArrays;
+import org.osate.ge.internal.util.StringUtil;
 
 public class AppearancePropertySection extends AbstractPropertySection {
 	public static class SelectionFilter implements IFilter {
@@ -82,8 +82,7 @@ public class AppearancePropertySection extends AbstractPropertySection {
 		fd.left = new FormAttachment(0, 10);
 		fontSizeLabel.setLayoutData(fd);
 
-		fontSizeComboViewer = createComboViewer(parent,
-				ObjectArrays.concat(new Object[] { defaultValue }, FontSize.values(), Object.class));
+		fontSizeComboViewer = createComboViewer(parent, FontSize.values());
 		fd = new FormData();
 		fd.top = new FormAttachment(fontSizeLabel, 0, SWT.TOP);
 		fd.left = new FormAttachment(fontSizeLabel, 20);
@@ -95,8 +94,7 @@ public class AppearancePropertySection extends AbstractPropertySection {
 		fd.left = new FormAttachment(0, 10);
 		lineWidthLabel.setLayoutData(fd);
 
-		lineWidthComboViewer = createComboViewer(parent,
-				ObjectArrays.concat(new Object[] { defaultValue }, LineWidth.values(), Object.class));
+		lineWidthComboViewer = createComboViewer(parent, LineWidth.values());
 		fd = new FormData();
 		fd.top = new FormAttachment(lineWidthLabel, 0, SWT.TOP);
 		fd.left = new FormAttachment(lineWidthLabel, 10);
@@ -187,8 +185,8 @@ public class AppearancePropertySection extends AbstractPropertySection {
 		final DiagramElement diagramElement = selectedDiagramElements.get(selectedDiagramElements.size() - 1);
 		final Style currentStyle = diagramElement.getStyle();
 
-		final FontSize lastFontSizeSelected = currentStyle.getFontSize();
-		final LineWidth lastLineWidthSelected = currentStyle.getLineWidth();
+		final FontSize lastFontSizeSelected = FontSize.getByValue(currentStyle.getFontSize());
+		final LineWidth lastLineWidthSelected = LineWidth.getByValue(currentStyle.getLineWidth());
 
 		final Button backgroundButton = backgroundPaintListener.getButton();
 		backgroundButton.setEnabled(enableBackground);
@@ -290,12 +288,12 @@ public class AppearancePropertySection extends AbstractPropertySection {
 	private void setStructuredSelection(final FontSize fontSize, final LineWidth lineWidth) {
 		fontSizeComboViewer.removeSelectionChangedListener(fontSizeSelectionListener);
 		fontSizeComboViewer
-		.setSelection(new StructuredSelection(fontSize == null ? defaultValue : fontSize));
+		.setSelection(fontSize == null ? StructuredSelection.EMPTY : new StructuredSelection(fontSize));
 		fontSizeComboViewer.addSelectionChangedListener(fontSizeSelectionListener);
 
 		lineWidthComboViewer.removeSelectionChangedListener(lineWidthSelectionListener);
 		lineWidthComboViewer
-		.setSelection(new StructuredSelection(lineWidth == null ? defaultValue : lineWidth));
+		.setSelection(lineWidth == null ? StructuredSelection.EMPTY : new StructuredSelection(lineWidth));
 		lineWidthComboViewer.addSelectionChangedListener(lineWidthSelectionListener);
 	}
 
@@ -527,7 +525,6 @@ public class AppearancePropertySection extends AbstractPropertySection {
 	}
 
 	private static final Point COLOR_ICON_SIZE = new Point(18, 18);
-	private static final Object defaultValue = "Default";
 
 	private static class PresetColor {
 		private RGB rgb;
@@ -569,15 +566,15 @@ public class AppearancePropertySection extends AbstractPropertySection {
 
 	private ComboViewerSelection lineWidthSelectionListener = new ComboViewerSelection(
 			new StyleCommand("Set Line Width", (diagramElement, sb, value) -> {
-				if (supportsLineWidth(diagramElement)) {
-					sb.lineWidth(value == defaultValue ? null : (LineWidth) value);
+				if (supportsLineWidth(diagramElement) && value != null) {
+					sb.lineWidth(((LineWidth) value).getValue());
 				}
 			}));
 
 	private ComboViewerSelection fontSizeSelectionListener = new ComboViewerSelection(
 			new StyleCommand("Set Font Size", (diagramElement, sb, value) -> {
-				if (supportsFontOptions(diagramElement)) {
-					sb.fontSize(value == defaultValue ? null : (FontSize) value);
+				if (supportsFontOptions(diagramElement) && value != null) {
+					sb.fontSize(((FontSize) value).getValue());
 				}
 			}));
 
@@ -664,5 +661,64 @@ public class AppearancePropertySection extends AbstractPropertySection {
 		colors.add(darkYellow);
 		colors.add(darkGreen);
 		colors.add(black);
+	}
+
+	private static enum LineWidth {
+		Default(null), Small(2.0), Medium(4.0), Large(6.0);
+
+		private static final Map<Double, LineWidth> valueToLineWidth;
+		static {
+			final Map<Double, LineWidth> modifiableMap = new HashMap<>();
+			for(final LineWidth lineWidth : LineWidth.values()) {
+				modifiableMap.put(lineWidth.getValue(), lineWidth);
+			}
+			valueToLineWidth = Collections.unmodifiableMap(modifiableMap);
+		}
+
+		private LineWidth(final Double value) {
+			this.value = value;
+		}
+
+		public Double getValue() {
+			return value;
+		}
+
+		public static LineWidth getByValue(final Double lineWidthId) {
+			return valueToLineWidth.get(lineWidthId);
+		}
+
+		private final Double value;
+	}
+
+	private static enum FontSize {
+		Default(null), Small(8.0), Medium(10.0), Large(16.0), ExtraLarge(20.0);
+
+		private static final Map<Double, FontSize> valueToFontSize;
+		static {
+			final Map<Double, FontSize> modifiableMap = new HashMap<>();
+			for (final FontSize fontSize : FontSize.values()) {
+				modifiableMap.put(fontSize.getValue(), fontSize);
+			}
+			valueToFontSize = Collections.unmodifiableMap(modifiableMap);
+		}
+
+		private FontSize(final Double value) {
+			this.value = value;
+		}
+
+		@Override
+		public String toString() {
+			return StringUtil.camelCaseToUser(super.toString());
+		}
+
+		public Double getValue() {
+			return value;
+		}
+
+		public static FontSize getByValue(final Double fontSizeId) {
+			return valueToFontSize.get(fontSizeId);
+		}
+
+		private final Double value;
 	}
 }
