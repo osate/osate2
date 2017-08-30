@@ -288,10 +288,6 @@
           xsi:type="setup:PreferenceTask"
           key="/instance/org.eclipse.ui/defaultPerspectiveId"
           value="org.eclipse.jdt.ui.JavaPerspective"/>
-      <setupTask
-          xsi:type="setup:PreferenceTask"
-          key="/instance/org.eclipse.ui/SHOW_MEMORY_MONITOR"
-          value="true"/>
     </setupTask>
     <setupTask
         xsi:type="setup:CompoundTask"
