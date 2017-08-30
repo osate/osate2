@@ -100,9 +100,9 @@ public class ErrorModelFormatter extends AbstractDeclarativeFormatter {
 			c.setIndentationDecrement().before(end);
 			c.setLinewrap().before(end);
 		}
-		c.setIndentationIncrement().after(f.getErrorModelLibraryAccess().getTypesKeyword_1_1());
-		c.setLinewrap().after(f.getErrorModelLibraryAccess().getTypesKeyword_1_1());
-		c.setIndentationIncrement().after(f.getErrorBehaviorStateMachineAccess().getBehaviorKeyword_1());
+		c.setIndentationIncrement().after(f.getErrorTypesKeywordsAccess().getTypesKeyword_1());
+		c.setLinewrap().after(f.getErrorTypesKeywordsAccess().getTypesKeyword_1());
+		c.setIndentationIncrement().after(f.getErrorBehaviorKeywordsAccess().getBehaviorKeyword_1());
 //	      c.setLinewrap().after(f.getErrorBehaviorStateMachineAccess().getBehaviorKeyword_1());
 
 //	      c.setLinewrap().after(f.getErrorPropagationsAccess().getPropagationsKeyword_1());
