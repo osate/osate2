@@ -5,9 +5,9 @@ import java.util.List;
 import org.eclipse.core.commands.AbstractHandler;
 import org.eclipse.core.commands.ExecutionEvent;
 import org.eclipse.core.commands.ExecutionException;
+import org.osate.ge.graphics.Point;
 import org.osate.ge.internal.diagram.runtime.AgeDiagram;
 import org.osate.ge.internal.diagram.runtime.DiagramElement;
-import org.osate.ge.internal.diagram.runtime.Point;
 import org.osate.ge.internal.ui.util.UiUtil;
 
 public class GridLayoutHandler extends AbstractHandler {
@@ -27,8 +27,8 @@ public class GridLayoutHandler extends AbstractHandler {
 			final int numOfCols = (int)Math.ceil(Math.sqrt(selectedDiagramElements.size()));
 			final int numOfRows = (int)Math.ceil(selectedDiagramElements.size()/(double)numOfCols);
 
-			final int[] colSizes = new int[numOfCols-1];
-			final int[] rowSizes = new int[numOfRows-1];
+			final double[] colSizes = new double[numOfCols - 1];
+			final double[] rowSizes = new double[numOfRows - 1];
 
 			// Assign column and row width for grid
 			for(int i1 = 0 ; i1 < selectedDiagramElements.size() ; i1++) {
@@ -47,8 +47,8 @@ public class GridLayoutHandler extends AbstractHandler {
 
 			// Calculate grid position and place first shape
 			final Point gridPosition = getGridPosition(selectedDiagramElements);
-			int x = gridPosition.x;
-			int y = gridPosition.y;
+			double x = gridPosition.x;
+			double y = gridPosition.y;
 
 			// Position the elements
 			m.setPosition(selectedDiagramElements.get(0), new Point(x, y));
@@ -75,12 +75,12 @@ public class GridLayoutHandler extends AbstractHandler {
 	 * Get grid placement coordinate
 	 */
 	private static Point getGridPosition(final List<DiagramElement> diagramElements) {
-		int xMin = Integer.MAX_VALUE, yMin = Integer.MAX_VALUE;
+		double xMin = Double.MAX_VALUE, yMin = Double.MAX_VALUE;
 
 		// Get min values for x and y axis.
 		for (final DiagramElement e : diagramElements) {
-			final int x = e.getX();
-			final int y = e.getY();
+			final double x = e.getX();
+			final double y = e.getY();
 
 			if (x < xMin) {
 				xMin = x;

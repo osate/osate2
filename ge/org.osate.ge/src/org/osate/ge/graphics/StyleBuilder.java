@@ -1,9 +1,6 @@
 package org.osate.ge.graphics;
 
-import java.awt.Color;
-
 import org.osate.ge.internal.graphics.LineStyle;
-import org.osate.ge.internal.labels.LabelPosition;
 
 public class StyleBuilder {
 	private Color background;

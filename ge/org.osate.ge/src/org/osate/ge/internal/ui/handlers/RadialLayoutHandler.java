@@ -6,9 +6,9 @@ import java.util.List;
 import org.eclipse.core.commands.AbstractHandler;
 import org.eclipse.core.commands.ExecutionEvent;
 import org.eclipse.core.commands.ExecutionException;
+import org.osate.ge.graphics.Point;
 import org.osate.ge.internal.diagram.runtime.AgeDiagram;
 import org.osate.ge.internal.diagram.runtime.DiagramElement;
-import org.osate.ge.internal.diagram.runtime.Point;
 import org.osate.ge.internal.ui.util.UiUtil;
 
 public class RadialLayoutHandler extends AbstractHandler {
@@ -77,17 +77,17 @@ public class RadialLayoutHandler extends AbstractHandler {
 
 	private static Point getCenter(final List<DiagramElement> diagramElements, final double radius) {
 		final int boarderPadding = 10;
-		int xMin = Integer.MAX_VALUE, xMax = Integer.MIN_VALUE, yMin = Integer.MAX_VALUE, yMax = Integer.MIN_VALUE;
-		int maxWidth = Integer.MIN_VALUE, maxHeight = Integer.MIN_VALUE;
+		double xMin = Double.MAX_VALUE, xMax = Double.MIN_VALUE, yMin = Double.MAX_VALUE, yMax = Double.MIN_VALUE;
+		double maxWidth = Double.MIN_VALUE, maxHeight = Double.MIN_VALUE;
 
 		// Get min and max values for x and y axis.
 		// Get max dimension of shapes
 		for (final DiagramElement diagramElement : diagramElements) {
-			final int width = diagramElement.getWidth() / 2;
-			final int height = diagramElement.getHeight() / 2;
+			final double width = diagramElement.getWidth() / 2;
+			final double height = diagramElement.getHeight() / 2;
 
-			final int x = diagramElement.getX() + width;
-			final int y = diagramElement.getY() + height;
+			final double x = diagramElement.getX() + width;
+			final double y = diagramElement.getY() + height;
 
 			if (x < xMin) {
 				xMin = x;
@@ -115,8 +115,8 @@ public class RadialLayoutHandler extends AbstractHandler {
 		}
 
 		// Calculate center point
-		int xCenter = (xMin + xMax) / 2;
-		int yCenter = (yMax + yMin) / 2;
+		double xCenter = (xMin + xMax) / 2;
+		double yCenter = (yMax + yMin) / 2;
 
 		// Move center point to appropriate location if necessary
 		if (xCenter - radius - maxWidth < 0) {

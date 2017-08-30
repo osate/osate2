@@ -1,6 +1,5 @@
 package org.osate.ge.internal.diagram.runtime;
 
-import java.awt.Color;
 import java.io.IOException;
 import java.util.Collection;
 import java.util.Collections;
@@ -16,8 +15,10 @@ import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.emf.ecore.xmi.XMLResource;
 import org.osate.ge.diagram.Diagram;
+import org.osate.ge.graphics.Color;
 import org.osate.ge.graphics.FontSize;
 import org.osate.ge.graphics.LineWidth;
+import org.osate.ge.graphics.Point;
 import org.osate.ge.graphics.Style;
 import org.osate.ge.graphics.StyleBuilder;
 import org.osate.ge.internal.DockArea;
@@ -301,19 +302,19 @@ public class DiagramSerialization {
 		}
 
 		final Style currentStyle = e.getStyle();
-		final java.awt.Color awtBackground = currentStyle.getBackgroundColor();
-		if (awtBackground != null) {
-			newElement.setBackground(awtColorToHex(awtBackground));
+		final org.osate.ge.graphics.Color backgroundColor = currentStyle.getBackgroundColor();
+		if (backgroundColor != null) {
+			newElement.setBackground(colorToHex(backgroundColor));
 		}
 
-		final java.awt.Color awtFontColor = currentStyle.getFontColor();
-		if (awtFontColor != null) {
-			newElement.setFontColor(awtColorToHex(awtFontColor));
+		final org.osate.ge.graphics.Color fontColor = currentStyle.getFontColor();
+		if (fontColor != null) {
+			newElement.setFontColor(colorToHex(fontColor));
 		}
 
-		final java.awt.Color awtOutline = currentStyle.getOutlineColor();
-		if (awtOutline != null) {
-			newElement.setOutline(awtColorToHex(awtOutline));
+		final org.osate.ge.graphics.Color outlineColor = currentStyle.getOutlineColor();
+		if (outlineColor != null) {
+			newElement.setOutline(colorToHex(outlineColor));
 		}
 
 		final FontSize fontSize = currentStyle.getFontSize();
@@ -344,7 +345,7 @@ public class DiagramSerialization {
 	}
 
 	// Create hex string from color
-	private static String awtColorToHex(final java.awt.Color color) {
+	private static String colorToHex(final org.osate.ge.graphics.Color color) {
 		return "#" + String.format("%02x", color.getRed()) + String.format("%02x", color.getGreen())
 		+ String.format("%02x", color.getBlue());
 	}

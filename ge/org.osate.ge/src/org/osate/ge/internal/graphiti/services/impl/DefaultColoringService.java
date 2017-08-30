@@ -1,14 +1,5 @@
-/*******************************************************************************
- * Copyright (C) 2013 University of Alabama in Huntsville (UAH)
- * All rights reserved. This program and the accompanying materials
- * are made available under the terms of the Eclipse Public License v1.0
- * which accompanies this distribution, and is available at
- * http://www.eclipse.org/legal/epl-v10.html
- * The US Government has unlimited rights in this work in accordance with W31P4Q-10-D-0092 DO 0073.
- *******************************************************************************/
 package org.osate.ge.internal.graphiti.services.impl;
 
-import java.awt.Color;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -33,6 +24,7 @@ import org.osate.aadl2.ModeBinding;
 import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.Subcomponent;
 import org.osate.ge.BusinessObjectContext;
+import org.osate.ge.graphics.Color;
 import org.osate.ge.internal.diagram.runtime.DiagramElement;
 import org.osate.ge.internal.diagram.runtime.DiagramNode;
 import org.osate.ge.internal.graphiti.diagram.GraphitiAgeDiagram;
@@ -41,17 +33,20 @@ import org.osate.ge.internal.services.ColoringService;
 import org.osate.ge.internal.util.AadlHelper;
 
 public class DefaultColoringService implements ColoringService {
+	private static final Color inSelectedModeColor = Color.PURPLE;
+	private static final Color inSelectedFlowColor = new Color(0, 100, 0);
+	private static final Color inSelectedModeAndFlowColor = Color.CYAN.darker();
 	private final GraphitiService graphitiService;
 	private final LinkedList<ColoringCalculator> coloringCalculators = new LinkedList<ColoringCalculator>();
 	private String highlightedModeQualifiedName; // Qualified name of the highlighted mode/mode transition
 	private NamedElement highlightedFlow; // Highlighted flow implementation/end to end flow
 
 	private static interface ColoringCalculator {
-		java.awt.Color getForegroundColor(final DiagramElement de);
+		Color getForegroundColor(final DiagramElement de);
 	}
 
 	private class SimpleColoring implements Coloring, ColoringCalculator {
-		private final Map<DiagramElement, java.awt.Color> foregroundColors = new HashMap<>();
+		private final Map<DiagramElement, Color> foregroundColors = new HashMap<>();
 
 		@Override
 		public void dispose() {
@@ -60,7 +55,7 @@ public class DefaultColoringService implements ColoringService {
 		}
 
 		@Override
-		public void setForeground(final DiagramElement de, final java.awt.Color color) {
+		public void setForeground(final DiagramElement de, final Color color) {
 			if(color == null) {
 				foregroundColors.remove(de);
 			} else {
@@ -80,7 +75,7 @@ public class DefaultColoringService implements ColoringService {
 		}
 
 		@Override
-		public java.awt.Color getForegroundColor(final DiagramElement de) {
+		public Color getForegroundColor(final DiagramElement de) {
 			return foregroundColors.get(de);
 		}
 
@@ -113,7 +108,7 @@ public class DefaultColoringService implements ColoringService {
 
 	private class SelectedModeFlowColoringCalculator implements ColoringCalculator {
 		@Override
-		public java.awt.Color getForegroundColor(final DiagramElement de) {
+		public Color getForegroundColor(final DiagramElement de) {
 			final Object bo = de.getBusinessObject();
 
 			final BusinessObjectContext possibleContextBoc;
@@ -275,7 +270,7 @@ public class DefaultColoringService implements ColoringService {
 	@Override
 	public Color getForegroundColor(final DiagramElement de) {
 		// Determine the appropriate color
-		java.awt.Color foregroundColor = null;
+		Color foregroundColor = null;
 		for(final ColoringCalculator coloring : coloringCalculators) {
 			foregroundColor = coloring.getForegroundColor(de);
 			if(foregroundColor != null) {
@@ -339,16 +334,16 @@ public class DefaultColoringService implements ColoringService {
 		return false;
 	}
 
-	private java.awt.Color getInSelectedModeColor() {
-		return java.awt.Color.BLUE;
+	private Color getInSelectedModeColor() {
+		return inSelectedModeColor;
 	}
 
-	private java.awt.Color getInSelectedFlowColor() {
-		return java.awt.Color.GREEN.darker();
+	private Color getInSelectedFlowColor() {
+		return inSelectedFlowColor;
 	}
 
-	private java.awt.Color getInSelectedModeAndFlowColor() {
-		return java.awt.Color.CYAN;
+	private Color getInSelectedModeAndFlowColor() {
+		return inSelectedModeAndFlowColor;
 	}
 
 	private void refreshDiagramColoring() {

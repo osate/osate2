@@ -1,7 +1,5 @@
 package org.osate.ge.internal.businessObjectHandlers;
 
-import java.awt.Color;
-
 import javax.inject.Named;
 
 import org.osate.aadl2.ComponentType;
@@ -25,6 +23,7 @@ import org.osate.ge.di.GetPaletteEntries;
 import org.osate.ge.di.IsApplicable;
 import org.osate.ge.di.Names;
 import org.osate.ge.graphics.ArrowBuilder;
+import org.osate.ge.graphics.Color;
 import org.osate.ge.graphics.ConnectionBuilder;
 import org.osate.ge.graphics.Graphic;
 import org.osate.ge.graphics.Style;
@@ -66,7 +65,7 @@ public class FlowPathSpecificationHandler extends FlowSpecificationHandler {
 		}
 
 		final StyleBuilder sb = StyleBuilder
-				.create(AadlInheritanceUtil.isInherited(boc) ? Styles.INHERITED_ELEMENT_STYLE : Style.EMPTY)
+				.create(AadlInheritanceUtil.isInherited(boc) ? Styles.INHERITED_ELEMENT : Style.EMPTY)
 				.
 				backgroundColor(Color.BLACK);
 

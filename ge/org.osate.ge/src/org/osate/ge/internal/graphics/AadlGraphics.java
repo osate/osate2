@@ -259,7 +259,7 @@ public class AadlGraphics {
 		if (isImplementation) {
 			return isDashed ? dashedImplStyle : implStyle;
 		} else {
-			return isDashed ? dashedStyle : Style.EMPTY;
+			return isDashed ? dashedStyle : topCenteredLabelStyle;
 		}
 
 	}

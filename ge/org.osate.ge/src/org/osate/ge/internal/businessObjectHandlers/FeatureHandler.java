@@ -1,6 +1,5 @@
 package org.osate.ge.internal.businessObjectHandlers;
 
-import java.awt.Color;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -48,6 +47,7 @@ import org.osate.ge.di.GetPaletteEntries;
 import org.osate.ge.di.IsApplicable;
 import org.osate.ge.di.Names;
 import org.osate.ge.di.ValidateName;
+import org.osate.ge.graphics.Color;
 import org.osate.ge.graphics.Graphic;
 import org.osate.ge.graphics.Style;
 import org.osate.ge.graphics.StyleBuilder;
@@ -143,7 +143,7 @@ public class FeatureHandler {
 		return GraphicalConfigurationBuilder.create().
 				graphic(getGraphicalRepresentation(feature, featureBoc)).
 				style(StyleBuilder.create(
-						AadlInheritanceUtil.isInherited(featureBoc) ? Styles.INHERITED_ELEMENT_STYLE : Style.EMPTY)
+						AadlInheritanceUtil.isInherited(featureBoc) ? Styles.INHERITED_ELEMENT : Style.EMPTY)
 						.backgroundColor(Color.BLACK).labelsAboveTop().labelsLeft().build())
 				.
 				defaultDockingPosition(getDefaultDockingPosition(feature, featureBoc)).

@@ -1,6 +1,5 @@
 package org.osate.ge.internal.ui.tools;
 
-import java.awt.Color;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -47,6 +46,7 @@ import org.osate.aadl2.RefinableElement;
 import org.osate.aadl2.Subcomponent;
 import org.osate.ge.BusinessObjectContext;
 import org.osate.ge.di.Activate;
+import org.osate.ge.graphics.Color;
 import org.osate.ge.internal.di.Deactivate;
 import org.osate.ge.internal.di.InternalNames;
 import org.osate.ge.internal.di.SelectionChanged;
@@ -71,19 +71,19 @@ public class CreateEndToEndFlowSpecificationTool {
 			final UiService uiService,
 			final ColoringService coloringService,
 			final NamingService namingService) {
-		try {	
+		try {
 			ciBoc = ToolUtil.findComponentImplementationBoc(selectedBoc);
 			if (ciBoc != null) {
 				this.ci = (ComponentImplementation)ciBoc.getBusinessObject();
 				coloring = coloringService.adjustColors(); // Create a coloring object that will allow adjustment of pictogram
-				
+
 				uiService.clearSelection();
 				final Display display = Display.getCurrent();
 				dlg = new CreateFlowsToolsDialog(display.getActiveShell(), namingService, uiService);
 				if (dlg.open() == Window.CANCEL) {
 					return;
 				}
-	
+
 				if (dlg != null && !dlg.getFlows().isEmpty()) {
 					aadlModService.modify(ci, new AbstractModifier<ComponentImplementation, Object>() {
 						@Override
@@ -109,12 +109,12 @@ public class CreateEndToEndFlowSpecificationTool {
 			coloring.dispose();
 			coloring = null;
 		}
-		
+
 		if (dlg != null) {
 			dlg.close();
 			dlg = null;
 		}
-		
+
 		this.ciBoc = null;
 		this.ci = null;
 		this.previouslySelectedDiagramElements.clear();
@@ -130,8 +130,8 @@ public class CreateEndToEndFlowSpecificationTool {
 				} else if(selectedDiagramElements.length == 1) {
 					// Get the selected diagram element
 					final DiagramElement selectedDiagramElement = selectedDiagramElements[0];
-					
-					final Object bo = selectedDiagramElement.getBusinessObject();									
+
+					final Object bo = selectedDiagramElement.getBusinessObject();
 					final Context context = ToolUtil.findContext(selectedDiagramElement);
 
 					if (bo instanceof Element) {
@@ -148,7 +148,7 @@ public class CreateEndToEndFlowSpecificationTool {
 						} else {
 							error = "Invalid element selected. ";
 						}
-						
+
 						if(error == null) {
 							dlg.setErrorMessage(null);
 							dlg.setMessage(getDialogMessage());
@@ -181,12 +181,12 @@ public class CreateEndToEndFlowSpecificationTool {
 		} else {
 			msg = "Select a starting flow specification.";
 		}
-				
+
 		if(msg.length() != 0) {
 			msg += "\n";
 		}
 		msg += "Optionally, select a mode or mode transition.";
-		
+
 		return msg;
 	}
 
@@ -202,8 +202,8 @@ public class CreateEndToEndFlowSpecificationTool {
 		final List<String> segmentList = new ArrayList<String>();
 		final List<String> modeList = new ArrayList<String>();
 		private final EndToEndFlow eTEFlow = (EndToEndFlow) pkg.getEFactoryInstance().create(pkg.getEndToEndFlow());
-		
-		public CreateFlowsToolsDialog(final Shell parentShell, 
+
+		public CreateFlowsToolsDialog(final Shell parentShell,
 				final NamingService namingService,
 				final UiService uiService) {
 			super(parentShell);
@@ -382,7 +382,7 @@ public class CreateEndToEndFlowSpecificationTool {
 							&& (selectedEle instanceof FlowSpecification) && isValidSubcomponent((Context) getRefinedElement(context))) {
 						final FlowSpecification segFs = (FlowSpecification)selectedEle;
 						final org.osate.aadl2.Connection con = (org.osate.aadl2.Connection)prevEle;
-						final Element flowInFeature = getRefinedElement(segFs.getInEnd().getFeature());	
+						final Element flowInFeature = getRefinedElement(segFs.getInEnd().getFeature());
 						if (segFs.getKind() == FlowKind.SINK || segFs.getKind() == FlowKind.PATH) {
 							if (con.isBidirectional()) {
 								if (areEquivalent(con.getDestination().getConnectionEnd(), flowInFeature)
@@ -478,7 +478,7 @@ public class CreateEndToEndFlowSpecificationTool {
 			GridLayout layout = (GridLayout)flowSegmentComposite.getLayout();
 			layout.marginLeft = 10;
 			layout.marginTop = 5;
-			
+
 			flowSegmentLabel = new StyledText(flowSegmentComposite, SWT.BORDER | SWT.WRAP | SWT.V_SCROLL | SWT.MULTI);
 			flowSegmentLabel.setEditable(false);
 			flowSegmentLabel.setEnabled(false);
@@ -517,13 +517,13 @@ public class CreateEndToEndFlowSpecificationTool {
 				public void keyReleased(final KeyEvent e) {
 					final String errorMsg;
 					if(!namingService.isValidIdentifier(newETEFlowName.getText())) {
-						errorMsg = "Name is not a valid identifier";	
+						errorMsg = "Name is not a valid identifier";
 					} else if(namingService.isNameInUse(ci, newETEFlowName.getText())) {
 						errorMsg = "The specified name is already is use.";
 					} else {
 						errorMsg = null;
 					}
-					
+
 					dlg.setErrorMessage(errorMsg);
 					eTEFlow.setName(newETEFlowName.getText());
 					updateWidgets();
@@ -541,7 +541,7 @@ public class CreateEndToEndFlowSpecificationTool {
 						final DiagramElement removedDiagramElement = previouslySelectedDiagramElements.get(prevDiagramElementsSize-1);
 						previouslySelectedDiagramElements.remove(prevDiagramElementsSize-1);
 						coloring.setForeground(removedDiagramElement, null);
-						
+
 						final Object removedDiagramElementBo = removedDiagramElement.getBusinessObject();
 						if (removedDiagramElementBo instanceof ModeFeature)  {
 							eTEFlow.getInModeOrTransitions().remove(eTEFlow.getInModeOrTransitions().size()-1);
@@ -550,7 +550,7 @@ public class CreateEndToEndFlowSpecificationTool {
 							eTEFlow.getAllFlowSegments().remove(flowSegment);
 							EcoreUtil.remove(flowSegment);
 						}
-						
+
 						//Clear strings for refresh
 						segmentList.clear();
 						modeList.clear();
@@ -595,12 +595,12 @@ public class CreateEndToEndFlowSpecificationTool {
 			return buttonBar;
 		}
 	}
-	
+
 	private static boolean areEquivalent(final Object bo1, final Object bo2) {
 		if(!(bo1 instanceof NamedElement && bo2 instanceof NamedElement)) {
 			return false;
 		}
-		
+
 		final String n1 = ((NamedElement)bo1).getName();
 		final String n2 = ((NamedElement)bo2).getName();
 		return n1 != null && n1.equalsIgnoreCase(n2);

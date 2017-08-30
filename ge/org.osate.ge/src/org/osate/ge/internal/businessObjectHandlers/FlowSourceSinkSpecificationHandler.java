@@ -65,7 +65,7 @@ public class FlowSourceSinkSpecificationHandler extends FlowSpecificationHandler
 		}
 
 		final StyleBuilder sb = StyleBuilder.create(
-				AadlInheritanceUtil.isInherited(boc) ? Styles.INHERITED_ELEMENT_STYLE : Style.EMPTY);
+				AadlInheritanceUtil.isInherited(boc) ? Styles.INHERITED_ELEMENT : Style.EMPTY);
 		if (partial) {
 			sb.dotted();
 		}

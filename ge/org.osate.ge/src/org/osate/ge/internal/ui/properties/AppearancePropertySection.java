@@ -112,8 +112,8 @@ public class AppearancePropertySection extends AbstractPropertySection {
 		outlinePaintListener = new StylePaintListener(outlineButton,
 				new StyleCommand("Set Outline", (diagramElement, sb, value) -> {
 					if (supportsOutline(diagramElement)) {
-						final java.awt.Color awtOutline = (java.awt.Color) value;
-						sb.outlineColor(awtOutline);
+						final org.osate.ge.graphics.Color outline = (org.osate.ge.graphics.Color) value;
+						sb.outlineColor(outline);
 					}
 				}));
 
@@ -125,8 +125,8 @@ public class AppearancePropertySection extends AbstractPropertySection {
 		fontColorPaintListener = new StylePaintListener(fontColorButton,
 				new StyleCommand("Set Font Color", (diagramElement, sb, value) -> {
 					if (supportsFontOptions(diagramElement)) {
-						final java.awt.Color awtFontColor = (java.awt.Color) value;
-						sb.fontColor(awtFontColor);
+						final org.osate.ge.graphics.Color fontColor = (org.osate.ge.graphics.Color) value;
+						sb.fontColor(fontColor);
 					}
 				}));
 
@@ -138,8 +138,8 @@ public class AppearancePropertySection extends AbstractPropertySection {
 		backgroundPaintListener = new StylePaintListener(backgroundButton,
 				new StyleCommand("Set Background", (diagramElement, sb, value) -> {
 					if (supportsBackground(diagramElement)) {
-						final java.awt.Color awtBackground = (java.awt.Color) value;
-						sb.backgroundColor(awtBackground);
+						final org.osate.ge.graphics.Color background = (org.osate.ge.graphics.Color) value;
+						sb.backgroundColor(background);
 					}
 				}));
 	}
@@ -248,7 +248,7 @@ public class AppearancePropertySection extends AbstractPropertySection {
 		return !(de.getGraphic() instanceof Label);
 	}
 
-	private static RGB toRGB(final java.awt.Color color) {
+	private static RGB toRGB(final org.osate.ge.graphics.Color color) {
 		return new RGB(color.getRed(), color.getGreen(), color.getBlue());
 	}
 
@@ -354,7 +354,7 @@ public class AppearancePropertySection extends AbstractPropertySection {
 							customPC.setColor(rgb);
 						}
 						paintListener.setColor(customPC.rgb);
-						runStyleCommand(createAWTColor(customPC.rgb), styleCmd);
+						runStyleCommand(createGeColor(customPC.rgb), styleCmd);
 					}
 				}
 			});
@@ -492,8 +492,8 @@ public class AppearancePropertySection extends AbstractPropertySection {
 		private final StyleCommand styleCmd;
 	}
 
-	private static Object createAWTColor(final RGB color) {
-		return new java.awt.Color(color.red, color.green, color.blue);
+	private static org.osate.ge.graphics.Color createGeColor(final RGB color) {
+		return new org.osate.ge.graphics.Color(color.red, color.green, color.blue);
 	}
 
 	private void runStyleCommand(final Object value, final StyleCommand styleCmd) {
@@ -517,7 +517,7 @@ public class AppearancePropertySection extends AbstractPropertySection {
 		public void widgetSelected(final SelectionEvent e) {
 			paintListener.setColor(color);
 			shell.dispose();
-			runStyleCommand(createAWTColor(color), styleCmd);
+			runStyleCommand(createGeColor(color), styleCmd);
 		}
 
 		private final RGB color;

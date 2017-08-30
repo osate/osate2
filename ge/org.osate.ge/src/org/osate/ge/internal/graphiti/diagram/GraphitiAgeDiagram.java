@@ -398,8 +398,10 @@ public class GraphitiAgeDiagram implements NodePictogramBiMap, AutoCloseable {
 				final FreeFormConnection ffc = (FreeFormConnection) pe;
 				final List<org.eclipse.graphiti.mm.algorithms.styles.Point> graphitiBendpoints = ffc.getBendpoints();
 				graphitiBendpoints.clear();
-				for (final org.osate.ge.internal.diagram.runtime.Point bendpoint : de.getBendpoints()) {
-					graphitiBendpoints.add(Graphiti.getGaService().createPoint(bendpoint.x, bendpoint.y));
+				for (final org.osate.ge.graphics.Point bendpoint : de.getBendpoints()) {
+					graphitiBendpoints
+					.add(Graphiti.getGaService().createPoint((int) Math.round(bendpoint.x),
+							(int) Math.round(bendpoint.y)));
 				}
 			}
 		}
@@ -443,8 +445,8 @@ public class GraphitiAgeDiagram implements NodePictogramBiMap, AutoCloseable {
 			final IGaService gaService = Graphiti.getGaService();
 
 			// Create label decorator
-			int labelX = 0;
-			int labelY = 0;
+			double labelX = 0;
+			double labelY = 0;
 			if (primaryLabelStr != null) {
 				final IPeCreateService peCreateService = Graphiti.getPeCreateService();
 				final ConnectionDecorator textDecorator = peCreateService.createConnectionDecorator(connection, true,
@@ -456,7 +458,7 @@ public class GraphitiAgeDiagram implements NodePictogramBiMap, AutoCloseable {
 				PropertyUtil.setName(textDecorator, ShapeNames.primaryLabelShapeName);
 				text.setValue(primaryLabelStr);
 
-				final org.osate.ge.internal.diagram.runtime.Point primaryLabelPosition = de
+				final org.osate.ge.graphics.Point primaryLabelPosition = de
 						.getConnectionPrimaryLabelPosition();
 				if (primaryLabelPosition == null) {
 					// Set default position
@@ -474,7 +476,7 @@ public class GraphitiAgeDiagram implements NodePictogramBiMap, AutoCloseable {
 					labelX = primaryLabelPosition.x;
 					labelY = primaryLabelPosition.y;
 				}
-				gaService.setLocation(text, labelX, labelY);
+				gaService.setLocation(text, (int) Math.round(labelX), (int) Math.round(labelY));
 			}
 
 			// Create Graphiti decorators for connection terminators
@@ -487,8 +489,8 @@ public class GraphitiAgeDiagram implements NodePictogramBiMap, AutoCloseable {
 		// and because there are issues when recreating the graphics algorithm of connections. Upon update, the connections may disappear.
 		if (pe instanceof Shape) {
 			final Shape shape = (Shape) pe;
-			final int width = Math.max(10, de.getWidth());
-			final int height = Math.max(10, de.getHeight());
+			final int width = Math.max(10, (int) Math.round(de.getWidth()));
+			final int height = Math.max(10, (int) Math.round(de.getHeight()));
 
 			// Set the position of the refreshed graphics algorithm
 			final IGaService gaService = Graphiti.getGaService();
@@ -499,9 +501,9 @@ public class GraphitiAgeDiagram implements NodePictogramBiMap, AutoCloseable {
 			gaService.setSize(newGa, width, height);
 
 			// Set Position
-			final org.osate.ge.internal.diagram.runtime.Point position = de.getPosition();
+			final org.osate.ge.graphics.Point position = de.getPosition();
 			if (position != null) {
-				gaService.setLocation(newGa, position.x, position.y);
+				gaService.setLocation(newGa, (int) Math.round(position.x), (int) Math.round(position.y));
 				PropertyUtil.setIsLayedOut(pe, true);
 			}
 		}

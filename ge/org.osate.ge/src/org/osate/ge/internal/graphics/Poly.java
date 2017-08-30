@@ -1,31 +1,32 @@
 package org.osate.ge.internal.graphics;
 
-import java.awt.geom.Point2D;
 import java.util.Arrays;
 import java.util.Objects;
+
+import org.osate.ge.graphics.Point;
 
 public class Poly implements AgeShape {
 	public enum Type {
 		POLYGON, POLYLINE
 	}
 
-	private final Point2D.Double[] points;
+	private final Point[] points;
 	public final Type type;
 	public final double right;
 
-	public Poly(final Point2D.Double[] points, final Type type) {
+	public Poly(final Point[] points, final Type type) {
 		this.points = Objects.requireNonNull(points, "points must not be null").clone();
 		this.type = Objects.requireNonNull(type, "type must not be null");
 
 		// Calculate bounds
 		double tmpRight = 0;
-		for (final Point2D.Double p : points) {
+		for (final Point p : points) {
 			tmpRight = Math.max(tmpRight, p.x);
 		}
 		right = tmpRight;
 	}
 
-	public final Point2D.Double[] getPoints() {
+	public final Point[] getPoints() {
 		return this.points;
 	}
 

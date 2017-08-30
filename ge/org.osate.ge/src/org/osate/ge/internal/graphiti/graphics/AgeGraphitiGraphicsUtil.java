@@ -1,6 +1,5 @@
 package org.osate.ge.internal.graphiti.graphics;
 
-import java.awt.geom.Point2D;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
@@ -175,7 +174,7 @@ public class AgeGraphitiGraphicsUtil {
 		int i = 0;
 
 		// Build points based on the specified size
-		for (final Point2D.Double p : poly.getPoints()) {
+		for (final org.osate.ge.graphics.Point p : poly.getPoints()) {
 			coords[i++] = (int) (p.x * width);
 			coords[i++] = (int) (p.y * height);
 		}

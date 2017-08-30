@@ -1,4 +1,4 @@
-package org.osate.ge.internal.diagram.runtime;
+package org.osate.ge.graphics;
 
 import java.util.Objects;
 
@@ -7,23 +7,29 @@ import java.util.Objects;
  *
  */
 public class Point {
-	public Point(final int x, final int y) {
+	public final double x;
+	public final double y;
+
+	public Point(final double x, final double y) {
 		this.x = x;
 		this.y = y;
 	}
-	
+
 	public Point(final Point p) {
 		Objects.requireNonNull(p, "p must not be null");
 		this.x = p.x;
 		this.y = p.y;
 	}
-	
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + x;
-		result = prime * result + y;
+		long temp;
+		temp = Double.doubleToLongBits(x);
+		result = prime * result + (int) (temp ^ (temp >>> 32));
+		temp = Double.doubleToLongBits(y);
+		result = prime * result + (int) (temp ^ (temp >>> 32));
 		return result;
 	}
 
@@ -39,10 +45,10 @@ public class Point {
 			return false;
 		}
 		Point other = (Point) obj;
-		if (x != other.x) {
+		if (Double.doubleToLongBits(x) != Double.doubleToLongBits(other.x)) {
 			return false;
 		}
-		if (y != other.y) {
+		if (Double.doubleToLongBits(y) != Double.doubleToLongBits(other.y)) {
 			return false;
 		}
 		return true;
@@ -52,14 +58,11 @@ public class Point {
 	public String toString() {
 		return "(" + x + "," + y + ")";
 	}
-	
+
 	public org.osate.ge.diagram.Point toMetamodel() {
 		final org.osate.ge.diagram.Point newPoint = new org.osate.ge.diagram.Point();
 		newPoint.setX(x);
 		newPoint.setY(y);
 		return newPoint;
 	}
-	
-	public final int x;
-	public final int y;
 }

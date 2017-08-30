@@ -5,9 +5,9 @@ import java.util.List;
 import org.eclipse.core.commands.AbstractHandler;
 import org.eclipse.core.commands.ExecutionEvent;
 import org.eclipse.core.commands.ExecutionException;
+import org.osate.ge.graphics.Point;
 import org.osate.ge.internal.diagram.runtime.AgeDiagram;
 import org.osate.ge.internal.diagram.runtime.DiagramElement;
-import org.osate.ge.internal.diagram.runtime.Point;
 import org.osate.ge.internal.ui.util.UiUtil;
 
 public class AlignBottomHandler extends AbstractHandler {
@@ -24,7 +24,7 @@ public class AlignBottomHandler extends AbstractHandler {
 
 		diagram.modify("Align Bottom", m -> {
 			final DiagramElement primaryElement = AgeHandlerUtil.getPrimaryDiagramElement(selectedDiagramElements);
-			final int bottom = primaryElement.getY() + primaryElement.getHeight();
+			final double bottom = primaryElement.getY() + primaryElement.getHeight();
 			for (final DiagramElement de : selectedDiagramElements) {
 				m.setPosition(de, new Point(de.getX(), bottom - de.getHeight()));
 			}

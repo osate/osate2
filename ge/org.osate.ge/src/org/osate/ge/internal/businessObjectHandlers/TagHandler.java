@@ -1,6 +1,5 @@
 package org.osate.ge.internal.businessObjectHandlers;
 
-import java.awt.geom.Point2D;
 import java.util.Objects;
 
 import javax.inject.Named;
@@ -13,6 +12,7 @@ import org.osate.ge.di.GetName;
 import org.osate.ge.di.IsApplicable;
 import org.osate.ge.di.Names;
 import org.osate.ge.graphics.Graphic;
+import org.osate.ge.graphics.Point;
 import org.osate.ge.graphics.PolyBuilder;
 import org.osate.ge.internal.graphics.LabelBuilder;
 import org.osate.ge.internal.model.Tag;
@@ -22,10 +22,8 @@ public class TagHandler {
 	private final Graphic defaultGraphic = LabelBuilder.create().build();
 	private static final Graphic directionIndicator = PolyBuilder.create().polyline()
 			.points(
-			new Point2D.Double(8.0, 6.0),
-			new Point2D.Double(0.0, 0.0),
-			new Point2D.Double(8.0, -6.0)
-			).build();
+					new Point(12.0, 9.0), new Point(0.0, 0.0), new Point(12.0, -9.0)
+					).build();
 
 	@IsApplicable
 	public boolean isApplicable(final @Named(Names.BUSINESS_OBJECT) Tag tv) {

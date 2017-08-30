@@ -36,7 +36,7 @@ public class Point extends MinimalEObjectImpl.Container implements EObject {
 	 * @generated
 	 * @ordered
 	 */
-	protected static final int X_EDEFAULT = 0;
+	protected static final double X_EDEFAULT = 0.0;
 
 	/**
 	 * The cached value of the '{@link #getX() <em>X</em>}' attribute.
@@ -46,7 +46,7 @@ public class Point extends MinimalEObjectImpl.Container implements EObject {
 	 * @generated
 	 * @ordered
 	 */
-	protected int x = X_EDEFAULT;
+	protected double x = X_EDEFAULT;
 
 	/**
 	 * The default value of the '{@link #getY() <em>Y</em>}' attribute.
@@ -56,7 +56,7 @@ public class Point extends MinimalEObjectImpl.Container implements EObject {
 	 * @generated
 	 * @ordered
 	 */
-	protected static final int Y_EDEFAULT = 0;
+	protected static final double Y_EDEFAULT = 0.0;
 
 	/**
 	 * The cached value of the '{@link #getY() <em>Y</em>}' attribute.
@@ -66,7 +66,7 @@ public class Point extends MinimalEObjectImpl.Container implements EObject {
 	 * @generated
 	 * @ordered
 	 */
-	protected int y = Y_EDEFAULT;
+	protected double y = Y_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -96,12 +96,12 @@ public class Point extends MinimalEObjectImpl.Container implements EObject {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>X</em>' attribute.
-	 * @see #setX(int)
+	 * @see #setX(double)
 	 * @see org.osate.ge.diagram.DiagramPackage#getPoint_X()
-	 * @model dataType="org.eclipse.emf.ecore.xml.type.Int"
+	 * @model dataType="org.eclipse.emf.ecore.xml.type.Double"
 	 * @generated
 	 */
-	public int getX() {
+	public double getX() {
 		return x;
 	}
 
@@ -113,8 +113,8 @@ public class Point extends MinimalEObjectImpl.Container implements EObject {
 	 * @see #getX()
 	 * @generated
 	 */
-	public void setX(int newX) {
-		int oldX = x;
+	public void setX(double newX) {
+		double oldX = x;
 		x = newX;
 		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, DiagramPackage.POINT__X, oldX, x));
@@ -129,12 +129,12 @@ public class Point extends MinimalEObjectImpl.Container implements EObject {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Y</em>' attribute.
-	 * @see #setY(int)
+	 * @see #setY(double)
 	 * @see org.osate.ge.diagram.DiagramPackage#getPoint_Y()
-	 * @model dataType="org.eclipse.emf.ecore.xml.type.Int"
+	 * @model dataType="org.eclipse.emf.ecore.xml.type.Double"
 	 * @generated
 	 */
-	public int getY() {
+	public double getY() {
 		return y;
 	}
 
@@ -146,8 +146,8 @@ public class Point extends MinimalEObjectImpl.Container implements EObject {
 	 * @see #getY()
 	 * @generated
 	 */
-	public void setY(int newY) {
-		int oldY = y;
+	public void setY(double newY) {
+		double oldY = y;
 		y = newY;
 		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, DiagramPackage.POINT__Y, oldY, y));
@@ -178,10 +178,10 @@ public class Point extends MinimalEObjectImpl.Container implements EObject {
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case DiagramPackage.POINT__X:
-				setX((Integer)newValue);
+				setX((Double)newValue);
 				return;
 			case DiagramPackage.POINT__Y:
-				setY((Integer)newValue);
+				setY((Double)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);

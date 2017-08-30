@@ -64,7 +64,7 @@ public class ModeHandler {
 		return GraphicalConfigurationBuilder.create().
 				graphic(getGraphicalRepresentation(mode)).
 				style(StyleBuilder.create(
-						AadlInheritanceUtil.isInherited(boc) ? Styles.INHERITED_ELEMENT_STYLE : Style.EMPTY)
+						AadlInheritanceUtil.isInherited(boc) ? Styles.INHERITED_ELEMENT : Style.EMPTY)
 						.labelsCenter().build())
 				.
 				build();

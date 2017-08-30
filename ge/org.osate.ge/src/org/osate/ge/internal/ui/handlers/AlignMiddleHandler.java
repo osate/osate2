@@ -5,9 +5,9 @@ import java.util.List;
 import org.eclipse.core.commands.AbstractHandler;
 import org.eclipse.core.commands.ExecutionEvent;
 import org.eclipse.core.commands.ExecutionException;
+import org.osate.ge.graphics.Point;
 import org.osate.ge.internal.diagram.runtime.AgeDiagram;
 import org.osate.ge.internal.diagram.runtime.DiagramElement;
-import org.osate.ge.internal.diagram.runtime.Point;
 import org.osate.ge.internal.ui.util.UiUtil;
 
 public class AlignMiddleHandler extends AbstractHandler {
@@ -24,7 +24,7 @@ public class AlignMiddleHandler extends AbstractHandler {
 
 		diagram.modify("Align Middle", m -> {
 			final DiagramElement primaryElement = AgeHandlerUtil.getPrimaryDiagramElement(selectedDiagramElements);
-			final int middle = primaryElement.getY() + primaryElement.getHeight() / 2;
+			final double middle = primaryElement.getY() + primaryElement.getHeight() / 2;
 
 			for (final DiagramElement de : selectedDiagramElements) {
 				m.setPosition(de, new Point(de.getX(), middle - de.getHeight() / 2));

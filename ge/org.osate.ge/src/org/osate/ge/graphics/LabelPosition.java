@@ -1,4 +1,4 @@
-package org.osate.ge.internal.labels;
+package org.osate.ge.graphics;
 
 public enum LabelPosition {
 	GRAPHIC_BEGINNING,

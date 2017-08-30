@@ -9,6 +9,7 @@ import java.util.Objects;
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.stream.Collectors;
 
+import org.osate.ge.graphics.Point;
 import org.osate.ge.graphics.Style;
 import org.osate.ge.internal.AgeGraphicalConfiguration;
 import org.osate.ge.internal.DockArea;
@@ -293,8 +294,8 @@ public class AgeDiagram implements DiagramNode, ModifiableDiagramElementContaine
 		public void setPosition(final DiagramElement e, final Point value) {
 			if(!value.equals(e.getPosition())) {
 				// Determine the different between X and Y
-				final int dx = value.x - e.getX();
-				final int dy = value.y - e.getY();
+				final double dx = value.x - e.getX();
+				final double dy = value.y - e.getY();
 
 				storeChange(e, DiagramElementField.POSITION, e.getPosition(), value);
 				e.setPosition(value);
@@ -312,8 +313,8 @@ public class AgeDiagram implements DiagramNode, ModifiableDiagramElementContaine
 			}
 		}
 
-		private void updateBendpointsForContainedConnections(final DiagramElement shapeDiagramElement, final int dx,
-				final int dy) {
+		private void updateBendpointsForContainedConnections(final DiagramElement shapeDiagramElement, final double dx,
+				final double dy) {
 			for (final DiagramElement child : shapeDiagramElement.getDiagramElements()) {
 				if (child.getGraphic() instanceof AgeConnection) {
 					final List<Point> bendpoints = child.getBendpoints();

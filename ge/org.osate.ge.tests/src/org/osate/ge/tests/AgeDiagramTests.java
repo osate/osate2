@@ -8,6 +8,7 @@ import java.util.EnumSet;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.osate.ge.graphics.Point;
 import org.osate.ge.internal.DockArea;
 import org.osate.ge.internal.diagram.runtime.AgeDiagram;
 import org.osate.ge.internal.diagram.runtime.BeforeModificationsCompletedEvent;
@@ -18,7 +19,6 @@ import org.osate.ge.internal.diagram.runtime.ElementAddedEvent;
 import org.osate.ge.internal.diagram.runtime.ElementRemovedEvent;
 import org.osate.ge.internal.diagram.runtime.ElementUpdatedEvent;
 import org.osate.ge.internal.diagram.runtime.ModificationsCompletedEvent;
-import org.osate.ge.internal.diagram.runtime.Point;
 import org.osate.ge.internal.diagram.runtime.RelativeBusinessObjectReference;
 
 /**

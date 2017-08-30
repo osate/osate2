@@ -23,6 +23,7 @@ import org.eclipse.graphiti.services.Graphiti;
 import org.eclipse.graphiti.services.IGaService;
 import org.eclipse.graphiti.ui.services.GraphitiUi;
 import org.osate.ge.graphics.Graphic;
+import org.osate.ge.graphics.LabelPosition;
 import org.osate.ge.graphics.Style;
 import org.osate.ge.graphics.StyleBuilder;
 import org.osate.ge.internal.DockArea;
@@ -36,7 +37,6 @@ import org.osate.ge.internal.graphics.Poly;
 import org.osate.ge.internal.graphiti.AnchorNames;
 import org.osate.ge.internal.graphiti.ShapeNames;
 import org.osate.ge.internal.graphiti.graphics.AgeGraphitiGraphicsUtil;
-import org.osate.ge.internal.labels.LabelPosition;
 import org.osate.ge.internal.ui.editor.StyleUtil;
 
 /**
@@ -124,7 +124,8 @@ class LayoutUtil {
 							TextUtil.setStyle(graphitiDiagram, text, decorationElement.getStyle().getFontSize());
 							text.setValue(decorationElement.getName());
 							if (decorationElement.hasPosition()) {
-								gaService.setLocation(text, decorationElement.getX(), decorationElement.getY());
+								gaService.setLocation(text, (int) Math.round(decorationElement.getX()),
+										(int) Math.round(decorationElement.getY()));
 							} else {
 								final IDimension labelTextSize = GraphitiUi.getUiLayoutService()
 										.calculateTextSize(decorationElement.getName(), text.getFont());
@@ -446,7 +447,7 @@ class LayoutUtil {
 							// Only update the child's position if it already has a position. Otherwise, it may not have been layed out yet.
 							if (child.hasPosition() && childPe instanceof Shape && childPe.getGraphicsAlgorithm() != null) {
 								final GraphicsAlgorithm childGa = childPe.getGraphicsAlgorithm();
-								mod.setPosition(child, new org.osate.ge.internal.diagram.runtime.Point(childGa.getX(), childGa.getY()));
+								mod.setPosition(child, new org.osate.ge.graphics.Point(childGa.getX(), childGa.getY()));
 							}
 						}
 
@@ -745,16 +746,16 @@ class LayoutUtil {
 	public static void refreshStyle(final Diagram graphitiDiagram, final PictogramElement pe,
 			final DiagramElement element, final ColoringProvider coloringProvider, final NodePictogramBiMap mapping) {
 		final Style finalStyle = getFinalStyle(element, coloringProvider);
-		final java.awt.Color awtOutline = finalStyle.getOutlineColor();
-		final java.awt.Color awtBackground = finalStyle.getBackgroundColor();
-		final java.awt.Color awtFontColor = finalStyle.getFontColor();
+		final org.osate.ge.graphics.Color finalOutline = finalStyle.getOutlineColor();
+		final org.osate.ge.graphics.Color finalBackground = finalStyle.getBackgroundColor();
+		final org.osate.ge.graphics.Color finalFontColor = finalStyle.getFontColor();
 
-		final Color foreground = Graphiti.getGaService().manageColor(graphitiDiagram, awtOutline.getRed(),
-				awtOutline.getGreen(), awtOutline.getBlue());
-		final Color background = Graphiti.getGaService().manageColor(graphitiDiagram, awtBackground.getRed(),
-				awtBackground.getGreen(), awtBackground.getBlue());
-		final Color fontColor = Graphiti.getGaService().manageColor(graphitiDiagram, awtFontColor.getRed(),
-				awtFontColor.getGreen(), awtFontColor.getBlue());
+		final Color foreground = Graphiti.getGaService().manageColor(graphitiDiagram, finalOutline.getRed(),
+				finalOutline.getGreen(), finalOutline.getBlue());
+		final Color background = Graphiti.getGaService().manageColor(graphitiDiagram, finalBackground.getRed(),
+				finalBackground.getGreen(), finalBackground.getBlue());
+		final Color fontColor = Graphiti.getGaService().manageColor(graphitiDiagram, finalFontColor.getRed(),
+				finalFontColor.getGreen(), finalFontColor.getBlue());
 
 		// Background color is not supported for label diagram elements. Get the first containing diagram element that is represented by a shape
 		final DiagramElement labelContainerShape = element.getGraphic() instanceof Label
@@ -772,10 +773,11 @@ class LayoutUtil {
 									: labelContainerShape;
 
 							if (labelBackgroundDiagramElement != null) {
-								final java.awt.Color awtLabelBackground = getFinalStyle(labelBackgroundDiagramElement, coloringProvider)
+								final org.osate.ge.graphics.Color geLabelBackground = getFinalStyle(labelBackgroundDiagramElement,
+										coloringProvider)
 										.getBackgroundColor();
-								labelBackground = Graphiti.getGaService().manageColor(graphitiDiagram, awtLabelBackground.getRed(),
-										awtLabelBackground.getGreen(), awtLabelBackground.getBlue());
+								labelBackground = Graphiti.getGaService().manageColor(graphitiDiagram, geLabelBackground.getRed(),
+										geLabelBackground.getGreen(), geLabelBackground.getBlue());
 							}
 				}
 
@@ -797,9 +799,9 @@ class LayoutUtil {
 	private static Style getFinalStyle(final DiagramElement de, final ColoringProvider coloringProvider) {
 		final StyleBuilder sb = StyleBuilder.create(de.getStyle(), de.getGraphicalConfiguration().style, Style.DEFAULT);
 
-		java.awt.Color awtColor = coloringProvider.getForegroundColor(de);
-		if (awtColor != null) {
-			sb.foregroundColor(awtColor);
+		org.osate.ge.graphics.Color foregroundColor = coloringProvider.getForegroundColor(de);
+		if (foregroundColor != null) {
+			sb.foregroundColor(foregroundColor);
 		}
 
 		return sb.build();

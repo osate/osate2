@@ -4,17 +4,19 @@ import org.osate.ge.internal.DockingPosition;
 import org.osate.ge.internal.services.ProjectReferenceService;
 
 public class AgeDiagramUtil {
-	public static DockingPosition determineDockingPosition(final DiagramNode container, final int x, final int y, final int width, final int height) {
+	public static DockingPosition determineDockingPosition(final DiagramNode container, final double x, final double y,
+			final double width, final double height) {
 		if(!(container instanceof DiagramElement)) {
 			return DockingPosition.ANY;
-		}		
-		
+		}
+
 		final DiagramElement containerElement = (DiagramElement)container;
-		
-		final int distanceToLeft = Math.max(0, x);
-		final int distanceToRight = containerElement.getWidth() - Math.min(x + width, containerElement.getWidth());
-		final int distanceToTop = Math.max(0, y);
-		final int distanceToBottom = containerElement.getHeight() - Math.min(y + height, containerElement.getHeight());
+
+		final double distanceToLeft = Math.max(0, x);
+		final double distanceToRight = containerElement.getWidth() - Math.min(x + width, containerElement.getWidth());
+		final double distanceToTop = Math.max(0, y);
+		final double distanceToBottom = containerElement.getHeight()
+				- Math.min(y + height, containerElement.getHeight());
 
 		// Find the closest dock area while giving priority to the left, right, top, and bottom.
 		if(distanceToLeft <= distanceToRight && distanceToLeft <= distanceToTop && distanceToLeft <= distanceToBottom) {
@@ -40,7 +42,7 @@ public class AgeDiagramUtil {
 		} else {
 			diagramBo = referenceService.resolve(contextBoReference);
 		}
-		
+
 		return diagramBo;
 	}
 }

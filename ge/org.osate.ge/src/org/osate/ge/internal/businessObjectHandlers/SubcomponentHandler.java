@@ -54,7 +54,7 @@ public class SubcomponentHandler {
 		return GraphicalConfigurationBuilder.create().
 				graphic(getGraphicalRepresentation(sc, scBoc)).
 				style(StyleBuilder.create(
-						AadlInheritanceUtil.isInherited(scBoc) ? Styles.INHERITED_ELEMENT_STYLE : Style.EMPTY,
+						AadlInheritanceUtil.isInherited(scBoc) ? Styles.INHERITED_ELEMENT : Style.EMPTY,
 								getClassifierStyle(sc, scBoc))
 						.labelsTop().labelsHorizontalCenter()
 						.build())

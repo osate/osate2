@@ -1,14 +1,11 @@
 package org.osate.ge.graphics;
 
-import java.awt.Color;
-
 import org.osate.ge.internal.graphics.LineStyle;
-import org.osate.ge.internal.labels.LabelPosition;
 
 public class Style {
 	public static final Style EMPTY = StyleBuilder.create().build();
-	public final static Style DEFAULT = StyleBuilder.create().backgroundColor(java.awt.Color.WHITE)
-			.foregroundColor(java.awt.Color.BLACK).fontSize(FontSize.Medium).lineWidth(LineWidth.Small)
+	public final static Style DEFAULT = StyleBuilder.create().backgroundColor(Color.WHITE).foregroundColor(Color.BLACK)
+			.fontSize(FontSize.Medium).lineWidth(LineWidth.Small)
 			.lineStyle(LineStyle.SOLID).horizontalLabelPosition(LabelPosition.GRAPHIC_BEGINNING)
 			.verticalLabelPosition(LabelPosition.GRAPHIC_BEGINNING).build();
 

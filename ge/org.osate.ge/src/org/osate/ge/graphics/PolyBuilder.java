@@ -8,7 +8,6 @@
  *******************************************************************************/
 package org.osate.ge.graphics;
 
-import java.awt.geom.Point2D;
 import java.util.Objects;
 
 import org.osate.ge.internal.graphics.Poly;
@@ -20,7 +19,7 @@ import org.osate.ge.internal.graphics.Poly.Type;
  * @see Graphic
  */
 public class PolyBuilder {
-	private Point2D.Double[] points;
+	private Point[] points;
 	private Type type = Type.POLYGON;
 
 	private PolyBuilder() {}
@@ -38,7 +37,7 @@ public class PolyBuilder {
 	 * @param points the points to use when creating the poly. All coordinates must be in the range of [0.0, 1.0]. Polylines are scaled by the editor.
 	 * @return this builder to allow method chaining.
 	 */
-	public PolyBuilder points(final Point2D.Double... points) {
+	public PolyBuilder points(final Point... points) {
 		this.points = Objects.requireNonNull(points, "points must not be null").clone();
 		return this;
 	}

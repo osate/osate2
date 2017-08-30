@@ -67,7 +67,7 @@ public class SubprogramCallSequenceHandler {
 		return GraphicalConfigurationBuilder.create().
 				graphic(graphic).
 				style(StyleBuilder.create(
-						AadlInheritanceUtil.isInherited(boc) ? Styles.INHERITED_ELEMENT_STYLE : Style.EMPTY).dashed()
+						AadlInheritanceUtil.isInherited(boc) ? Styles.INHERITED_ELEMENT : Style.EMPTY).dashed()
 						.labelsTop().labelsHorizontalCenter().build())
 				.build();
 	}
