@@ -725,8 +725,24 @@
           name="org.eclipse.graphiti.sdk.plus.feature.feature.group"/>
       <requirement
           name="org.eclipse.zest.sdk.feature.group"/>
+      <requirement
+          name="org.eclipse.fx.ide.pde.feature.feature.group"/>
+      <requirement
+          name="org.eclipse.gef.common.sdk.feature.group"/>
+      <requirement
+          name="org.eclipse.gef.geometry.sdk.feature.group"/>
+      <requirement
+          name="org.eclipse.gef.fx.sdk.feature.group"/>
+      <requirement
+          name="org.eclipse.gef.mvc.sdk.feature.group"/>          
+      <requirement
+          name="org.eclipse.elk.sdk.feature.feature.group"/>
+      <requirement
+          name="org.eclipse.elk.ui.feature.feature.group"/>
       <repository
           url="http://download.eclipse.org/releases/oxygen/201706281000"/>
+      <repository
+          url="http://download.eclipse.org/elk/updates/releases/0.2.2/"/>
     </setupTask>
   </setupTask>
   <setupTask
@@ -898,6 +914,22 @@
       <requirement
           name="com.itemis.xtext.testing.feature.feature.group"/>
       <requirement
+          name="org.eclipse.elk.feature.feature.group"/>
+      <requirement
+          name="org.eclipse.fx.runtime.min.feature.feature.group"/>
+      <requirement
+          name="org.eclipse.gef.common.feature.group"/>
+      <requirement
+          name="org.eclipse.gef.geometry.feature.group"/>
+      <requirement
+          name="org.eclipse.gef.geometry.convert.fx.feature.group"/>
+      <requirement
+          name="org.eclipse.gef.fx.feature.group"/>
+      <requirement
+          name="org.eclipse.gef.mvc.fx.feature.group"/>
+      <requirement
+          name="org.eclipse.gef.mvc.fx.ui.feature.group"/>
+      <requirement
           name="*"/>
       <sourceLocator
           rootFolder="${git.clone.osate2-core.location}"/>
@@ -925,6 +957,8 @@
             url="http://download.itemis.de/updates/"/>
         <repository
             url="http://download.eclipse.org/sirius/updates/releases/5.0.1/oxygen"/>
+        <repository
+            url="http://download.eclipse.org/elk/updates/releases/0.2.2/"/>
       </repositoryList>
     </targlet>
     <targlet
