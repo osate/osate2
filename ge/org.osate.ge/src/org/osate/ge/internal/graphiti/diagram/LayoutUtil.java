@@ -759,7 +759,7 @@ class LayoutUtil {
 
 		// Background color is not supported for label diagram elements. Get the first containing diagram element that is represented by a shape
 		final DiagramElement labelContainerShape = element.getGraphic() instanceof Label
-				? getContainingShapeDiagramElement(element)
+				? getContainingUndockedShapeDiagramElement(element)
 						: element;
 
 				Color labelBackground = background;
@@ -769,7 +769,7 @@ class LayoutUtil {
 
 					// Get the diagram element which is behind the label.
 					final DiagramElement labelBackgroundDiagramElement = labelsAreOutside
-							? getContainingShapeDiagramElement(labelContainerShape)
+							? getContainingUndockedShapeDiagramElement(labelContainerShape)
 									: labelContainerShape;
 
 							if (labelBackgroundDiagramElement != null) {
@@ -782,13 +782,13 @@ class LayoutUtil {
 				}
 
 				StyleUtil.overrideStyle(pe, background, foreground, labelBackground, fontColor,
-				(int) Math.round(finalStyle.getLineWidth()), element.getGraphic() instanceof Label);
+						(int) Math.round(finalStyle.getLineWidth()), element.getGraphic() instanceof Label);
 	}
 
-	private static DiagramElement getContainingShapeDiagramElement(final DiagramElement de) {
+	private static DiagramElement getContainingUndockedShapeDiagramElement(final DiagramElement de) {
 		for (DiagramNode tmp = de.getParent(); tmp instanceof DiagramElement; tmp = tmp.getParent()) {
 			final DiagramElement tmpElement = (DiagramElement) tmp;
-			if (tmpElement.getGraphic() instanceof AgeShape) {
+			if (tmpElement.getGraphic() instanceof AgeShape && tmpElement.getDockArea() == null) {
 				return tmpElement;
 			}
 		}
