@@ -368,15 +368,15 @@ class Aadl2Formatter extends AbstractFormatter2 {
 	
 	def dispatch void format(RangeType rangeType, extension IFormattableDocument document) {
 		if (rangeType.name === null) {
-			rangeType.regionFor.keyword(unnamedRangeTypeAccess.rangeKeyword_1).append[oneSpace]
+			rangeType.regionFor.keyword(rangeOfKeywordsAccess.rangeKeyword_0).append[oneSpace]
 			
-			formatRangeTypeCommon(rangeType, document, rangeType.regionFor.assignment(unnamedRangeTypeAccess.referencedNumberTypeAssignment_3_1))
+			formatRangeTypeCommon(rangeType, document, rangeType.regionFor.assignment(unnamedRangeTypeAccess.referencedNumberTypeAssignment_2_1))
 		} else {
 			rangeType.surround[indent].append[newLines = 1]
 			rangeType.regionFor.keyword(rangeTypeAccess.colonKeyword_1).prepend[noSpace].append[oneSpace]
-			rangeType.regionFor.keyword(rangeTypeAccess.rangeKeyword_3).surround[oneSpace]
+			rangeType.regionFor.keyword(rangeOfKeywordsAccess.rangeKeyword_0).surround[oneSpace]
 			
-			formatRangeTypeCommon(rangeType, document, rangeType.regionFor.assignment(rangeTypeAccess.referencedNumberTypeAssignment_5_1))
+			formatRangeTypeCommon(rangeType, document, rangeType.regionFor.assignment(rangeTypeAccess.referencedNumberTypeAssignment_4_1))
 			
 			rangeType.regionFor.keyword(propertyTypeAccess.semicolonKeyword_1).prepend[noSpace]
 		}
@@ -508,7 +508,7 @@ class Aadl2Formatter extends AbstractFormatter2 {
 	}
 	
 	def dispatch void format(ListType listType, extension IFormattableDocument document) {
-		listType.regionFor.keyword(listTypeAccess.ofKeyword_1).surround[oneSpace]
+		listType.regionFor.keyword(listOfKeywordsAccess.ofKeyword_1).surround[oneSpace]
 	}
 	
 	def dispatch void format(PropertyConstant propertyConstant, extension IFormattableDocument document) {
@@ -618,12 +618,12 @@ class Aadl2Formatter extends AbstractFormatter2 {
 		property.defaultValue.format(document)
 		
 		//Applies to
-		property.regionFor.keyword(propertyDefinitionAccess.appliesKeyword_5).surround[oneSpace]
-		val leftParenthesis = property.regionFor.keyword(propertyDefinitionAccess.leftParenthesisKeyword_7)
-		val rightParenthesis = property.regionFor.keyword(propertyDefinitionAccess.rightParenthesisKeyword_9)
+		property.regionFor.keyword(appliesToKeywordsAccess.appliesKeyword_0).surround[oneSpace]
+		val leftParenthesis = property.regionFor.keyword(propertyDefinitionAccess.leftParenthesisKeyword_6)
+		val rightParenthesis = property.regionFor.keyword(propertyDefinitionAccess.rightParenthesisKeyword_8)
 		interior(leftParenthesis, rightParenthesis, [indent; indent; indent])
 		leftParenthesis.prepend[oneSpace].append[noSpace; setNewLines(0, 0, 1); autowrap]
-		property.regionFor.keywords(propertyDefinitionAccess.commaKeyword_8_0_1_0).forEach[
+		property.regionFor.keywords(propertyDefinitionAccess.commaKeyword_7_0_1_0).forEach[
 			prepend[noSpace].append[oneSpace; setNewLines(0, 0, 1); autowrap]
 		]
 		property.appliesTos.forEach[it.format(document)]
@@ -669,8 +669,8 @@ class Aadl2Formatter extends AbstractFormatter2 {
 		propertyAssociation.regionFor.keywords(",").forEach[prepend[noSpace].append[oneSpace]]
 		
 		//Applies to
-		propertyAssociation.regionFor.keyword(containedPropertyAssociationAccess.appliesKeyword_4_0).surround[oneSpace]
-		propertyAssociation.regionFor.keyword(containedPropertyAssociationAccess.toKeyword_4_1).append[oneSpace]
+		propertyAssociation.regionFor.keyword(appliesToKeywordsAccess.appliesKeyword_0).surround[oneSpace]
+		propertyAssociation.regionFor.keyword(appliesToKeywordsAccess.toKeyword_1).append[oneSpace]
 		propertyAssociation.appliesTos.forEach[it.format(document)]
 		
 		//In binding
@@ -685,13 +685,13 @@ class Aadl2Formatter extends AbstractFormatter2 {
 		modalPropertyValue.ownedValue.format(document)
 		
 		//OptionalModalPropertyValue
-		val leftParenthesis = modalPropertyValue.regionFor.keyword(optionalModalPropertyValueAccess.leftParenthesisKeyword_1_2)
-		val rightParenthesis = modalPropertyValue.regionFor.keyword(optionalModalPropertyValueAccess.rightParenthesisKeyword_1_5)
+		val leftParenthesis = modalPropertyValue.regionFor.keyword(optionalModalPropertyValueAccess.leftParenthesisKeyword_1_1)
+		val rightParenthesis = modalPropertyValue.regionFor.keyword(optionalModalPropertyValueAccess.rightParenthesisKeyword_1_4)
 		if (leftParenthesis !== null && rightParenthesis !== null) {
-			modalPropertyValue.regionFor.keyword(optionalModalPropertyValueAccess.inKeyword_1_0).surround[oneSpace]
+			modalPropertyValue.regionFor.keyword(inModesKeywordsAccess.inKeyword_0).surround[oneSpace]
 			interior(leftParenthesis, rightParenthesis, [indent; indent; indent])
 			leftParenthesis.prepend[oneSpace].append[noSpace; setNewLines(0, 0, 1); autowrap]
-			modalPropertyValue.regionFor.keywords(optionalModalPropertyValueAccess.commaKeyword_1_4_0).forEach[
+			modalPropertyValue.regionFor.keywords(optionalModalPropertyValueAccess.commaKeyword_1_3_0).forEach[
 				prepend[noSpace].append[oneSpace; setNewLines(0, 0, 1); autowrap]
 			]
 			if (rightParenthesis.previousHiddenRegion.multiline) {
@@ -779,9 +779,9 @@ class Aadl2Formatter extends AbstractFormatter2 {
 		}
 		featureGroupTypeRename.surround[indent].append[newLines = newLineCount]
 		featureGroupTypeRename.regionFor.assignment(FGTRenameAccess.nameAssignment_0).append[oneSpace]
-		featureGroupTypeRename.regionFor.keyword(FGTRenameAccess.featureKeyword_2).surround[oneSpace]
-		featureGroupTypeRename.regionFor.keyword(FGTRenameAccess.groupKeyword_3).append[oneSpace]
-		featureGroupTypeRename.regionFor.keyword(FGTRenameAccess.semicolonKeyword_5).prepend[noSpace]
+		featureGroupTypeRename.regionFor.keyword(featureGroupKeywordsAccess.featureKeyword_0).surround[oneSpace]
+		featureGroupTypeRename.regionFor.keyword(featureGroupKeywordsAccess.groupKeyword_1).append[oneSpace]
+		featureGroupTypeRename.regionFor.keyword(FGTRenameAccess.semicolonKeyword_4).prepend[noSpace]
 	}
 	
 	def dispatch void format(ComponentTypeRename componentTypeRename, extension IFormattableDocument document) {
@@ -812,7 +812,6 @@ class Aadl2Formatter extends AbstractFormatter2 {
 	def dispatch void format(AbstractType abstractType, extension IFormattableDocument document) {
 		abstractType.regionFor.keyword(abstractTypeAccess.abstractKeyword_0).append[oneSpace]
 		formatComponentTypeCommon(abstractType, document, abstractType.regionFor.assignment(abstractTypeAccess.nameAssignment_1),
-			abstractType.regionFor.keyword(abstractTypeAccess.modesKeyword_6_0_1),
 			abstractType.regionFor.keyword(abstractTypeAccess.modesKeyword_6_1_0)
 		)
 	}
@@ -820,7 +819,6 @@ class Aadl2Formatter extends AbstractFormatter2 {
 	def dispatch void format(SystemType systemType, extension IFormattableDocument document) {
 		systemType.regionFor.keyword(systemTypeAccess.systemKeyword_0).append[oneSpace]
 		formatComponentTypeCommon(systemType, document, systemType.regionFor.assignment(systemTypeAccess.nameAssignment_1),
-			systemType.regionFor.keyword(systemTypeAccess.modesKeyword_6_0_1),
 			systemType.regionFor.keyword(systemTypeAccess.modesKeyword_6_1_0)
 		)
 	}
@@ -828,23 +826,20 @@ class Aadl2Formatter extends AbstractFormatter2 {
 	def dispatch void format(ProcessType processType, extension IFormattableDocument document) {
 		processType.regionFor.keyword(processTypeAccess.processKeyword_0).append[oneSpace]
 		formatComponentTypeCommon(processType, document, processType.regionFor.assignment(processTypeAccess.nameAssignment_1),
-			processType.regionFor.keyword(processTypeAccess.modesKeyword_6_0_1),
 			processType.regionFor.keyword(processTypeAccess.modesKeyword_6_1_0)
 		)
 	}
 	
 	def dispatch void format(ThreadGroupType threadGroupType, extension IFormattableDocument document) {
-		threadGroupType.regionFor.keyword(threadGroupTypeAccess.groupKeyword_1).surround[oneSpace]
-		formatComponentTypeCommon(threadGroupType, document, threadGroupType.regionFor.assignment(threadGroupTypeAccess.nameAssignment_2),
-			threadGroupType.regionFor.keyword(threadGroupTypeAccess.modesKeyword_7_0_1),
-			threadGroupType.regionFor.keyword(threadGroupTypeAccess.modesKeyword_7_1_0)
+		threadGroupType.regionFor.keyword(threadGroupKeywordsAccess.groupKeyword_1).surround[oneSpace]
+		formatComponentTypeCommon(threadGroupType, document, threadGroupType.regionFor.assignment(threadGroupTypeAccess.nameAssignment_1),
+			threadGroupType.regionFor.keyword(threadGroupTypeAccess.modesKeyword_6_1_0)
 		)
 	}
 	
 	def dispatch void format(ThreadType threadType, extension IFormattableDocument document) {
 		threadType.regionFor.keyword(threadTypeAccess.threadKeyword_0).append[oneSpace]
 		formatComponentTypeCommon(threadType, document, threadType.regionFor.assignment(threadTypeAccess.nameAssignment_1),
-			threadType.regionFor.keyword(threadTypeAccess.modesKeyword_6_0_1),
 			threadType.regionFor.keyword(threadTypeAccess.modesKeyword_6_1_0)
 		)
 	}
@@ -852,22 +847,20 @@ class Aadl2Formatter extends AbstractFormatter2 {
 	def dispatch void format(SubprogramType subprogramType, extension IFormattableDocument document) {
 		subprogramType.regionFor.keyword(subprogramTypeAccess.subprogramKeyword_0).append[oneSpace]
 		formatComponentTypeCommon(subprogramType, document, subprogramType.regionFor.assignment(subprogramTypeAccess.nameAssignment_1),
-			subprogramType.regionFor.keyword(subprogramTypeAccess.modesKeyword_6_0_1),
 			subprogramType.regionFor.keyword(subprogramTypeAccess.modesKeyword_6_1_0)
 		)
 	}
 	
 	def dispatch void format(SubprogramGroupType subprogramGroupType, extension IFormattableDocument document) {
-		subprogramGroupType.regionFor.keyword(subprogramGroupTypeAccess.groupKeyword_1).surround[oneSpace]
+		subprogramGroupType.regionFor.keyword(subprogramGroupKeywordsAccess.groupKeyword_1).surround[oneSpace]
 		formatComponentTypeCommon(subprogramGroupType, document,
-			subprogramGroupType.regionFor.assignment(subprogramGroupTypeAccess.nameAssignment_2), null, null
+			subprogramGroupType.regionFor.assignment(subprogramGroupTypeAccess.nameAssignment_1), null
 		)
 	}
 	
 	def dispatch void format(ProcessorType processorType, extension IFormattableDocument document) {
 		processorType.regionFor.keyword(processorTypeAccess.processorKeyword_0).append[oneSpace]
 		formatComponentTypeCommon(processorType, document, processorType.regionFor.assignment(processorTypeAccess.nameAssignment_1),
-			processorType.regionFor.keyword(processorTypeAccess.modesKeyword_6_0_1),
 			processorType.regionFor.keyword(processorTypeAccess.modesKeyword_6_1_0)
 		)
 	}
@@ -875,7 +868,6 @@ class Aadl2Formatter extends AbstractFormatter2 {
 	def dispatch void format(DeviceType deviceType, extension IFormattableDocument document) {
 		deviceType.regionFor.keyword(deviceTypeAccess.deviceKeyword_0).append[oneSpace]
 		formatComponentTypeCommon(deviceType, document, deviceType.regionFor.assignment(deviceTypeAccess.nameAssignment_1),
-			deviceType.regionFor.keyword(deviceTypeAccess.modesKeyword_6_0_1),
 			deviceType.regionFor.keyword(deviceTypeAccess.modesKeyword_6_1_0)
 		)
 	}
@@ -883,7 +875,6 @@ class Aadl2Formatter extends AbstractFormatter2 {
 	def dispatch void format(MemoryType memoryType, extension IFormattableDocument document) {
 		memoryType.regionFor.keyword(memoryTypeAccess.memoryKeyword_0).append[oneSpace]
 		formatComponentTypeCommon(memoryType, document, memoryType.regionFor.assignment(memoryTypeAccess.nameAssignment_1),
-			memoryType.regionFor.keyword(memoryTypeAccess.modesKeyword_5_0_1),
 			memoryType.regionFor.keyword(memoryTypeAccess.modesKeyword_5_1_0)
 		)
 	}
@@ -891,38 +882,34 @@ class Aadl2Formatter extends AbstractFormatter2 {
 	def dispatch void format(BusType busType, extension IFormattableDocument document) {
 		busType.regionFor.keyword(busTypeAccess.busKeyword_0).append[oneSpace]
 		formatComponentTypeCommon(busType, document, busType.regionFor.assignment(busTypeAccess.nameAssignment_1),
-			busType.regionFor.keyword(busTypeAccess.modesKeyword_5_0_1),
 			busType.regionFor.keyword(busTypeAccess.modesKeyword_5_1_0)
 		)
 	}
 	
 	def dispatch void format(VirtualBusType virtualBusType, extension IFormattableDocument document) {
-		virtualBusType.regionFor.keyword(virtualBusTypeAccess.busKeyword_1).surround[oneSpace]
-		formatComponentTypeCommon(virtualBusType, document, virtualBusType.regionFor.assignment(virtualBusTypeAccess.nameAssignment_2),
-			virtualBusType.regionFor.keyword(virtualBusTypeAccess.modesKeyword_6_0_1),
-			virtualBusType.regionFor.keyword(virtualBusTypeAccess.modesKeyword_6_1_0)
+		virtualBusType.regionFor.keyword(virtualBusKeywordsAccess.busKeyword_1).surround[oneSpace]
+		formatComponentTypeCommon(virtualBusType, document, virtualBusType.regionFor.assignment(virtualBusTypeAccess.nameAssignment_1),
+			virtualBusType.regionFor.keyword(virtualBusTypeAccess.modesKeyword_5_1_0)
 		)
 	}
 	
 	def dispatch void format(VirtualProcessorType virtualProcessorType, extension IFormattableDocument document) {
-		virtualProcessorType.regionFor.keyword(virtualProcessorTypeAccess.processorKeyword_1).surround[oneSpace]
+		virtualProcessorType.regionFor.keyword(virtualProcessorKeywordsAccess.processorKeyword_1).surround[oneSpace]
 		formatComponentTypeCommon(virtualProcessorType, document,
-			virtualProcessorType.regionFor.assignment(virtualProcessorTypeAccess.nameAssignment_2),
-			virtualProcessorType.regionFor.keyword(virtualProcessorTypeAccess.modesKeyword_7_0_1),
-			virtualProcessorType.regionFor.keyword(virtualProcessorTypeAccess.modesKeyword_7_1_0)
+			virtualProcessorType.regionFor.assignment(virtualProcessorTypeAccess.nameAssignment_1),
+			virtualProcessorType.regionFor.keyword(virtualProcessorTypeAccess.modesKeyword_6_1_0)
 		)
 	}
 	
 	def dispatch void format(DataType dataType, extension IFormattableDocument document) {
 		dataType.regionFor.keyword(dataTypeAccess.dataKeyword_0).append[oneSpace]
 		formatComponentTypeCommon(dataType, document, dataType.regionFor.assignment(dataTypeAccess.nameAssignment_1),
-			dataType.regionFor.keyword(dataTypeAccess.modesKeyword_6_0_1),
 			dataType.regionFor.keyword(dataTypeAccess.modesKeyword_6_1_0)
 		)
 	}
 	
 	def private formatComponentTypeCommon(ComponentType componentType, extension IFormattableDocument document,
-		ISemanticRegion nameAssignment, ISemanticRegion requiresModesKeyword, ISemanticRegion modesKeyword
+		ISemanticRegion nameAssignment, ISemanticRegion modesKeyword
 	) {
 		val newLineCount = switch componentType.regionForEObject?.nextSemanticRegion?.semanticElement {
 			Classifier,
@@ -968,8 +955,8 @@ class Aadl2Formatter extends AbstractFormatter2 {
 		}
 		
 		//Requires modes
-		componentType.regionFor.keyword("requires").surround[indent].append[oneSpace]
-		requiresModesKeyword.append[newLines = 1]
+		componentType.regionFor.keyword(requiresModesKeywordsAccess.requiresKeyword_0).surround[indent].append[oneSpace]
+		componentType.regionFor.keyword(requiresModesKeywordsAccess.modesKeyword_1).append[newLines = 1]
 		
 		//Modes
 		modesKeyword.surround[indent].append[newLines = 1]
@@ -1000,7 +987,7 @@ class Aadl2Formatter extends AbstractFormatter2 {
 	
 	def dispatch void format(FeatureGroupPrototypeBinding featureGroupPrototypeBinding, extension IFormattableDocument document) {
 		featureGroupPrototypeBinding.regionFor.keyword(featureGroupPrototypeBindingAccess.equalsSignGreaterThanSignKeyword_1).surround[oneSpace]
-		featureGroupPrototypeBinding.regionFor.keyword(featureGroupPrototypeBindingAccess.groupKeyword_3).surround[oneSpace]
+		featureGroupPrototypeBinding.regionFor.keyword(featureGroupKeywordsAccess.groupKeyword_1).surround[oneSpace]
 		featureGroupPrototypeBinding.actual.format(document)
 	}
 	
@@ -1092,24 +1079,24 @@ class Aadl2Formatter extends AbstractFormatter2 {
 		
 		//Refined
 		dataPort.regionFor.keyword(dataPortAccess.colonKeyword_1_1_1).prepend[noSpace].append[oneSpace]
-		dataPort.regionFor.keyword(dataPortAccess.toKeyword_1_1_3).surround[oneSpace]
+		dataPort.regionFor.keyword(refinedToKeywordsAccess.toKeyword_1).surround[oneSpace]
 		
 		//Direction
 		dataPort.regionFor.keyword(dataPortAccess.inInKeyword_2_0_0_0).append[oneSpace]
 		dataPort.regionFor.keyword(dataPortAccess.outOutKeyword_2_0_1_0).append[oneSpace]
 		dataPort.regionFor.keyword(dataPortAccess.outOutKeyword_2_1_0).append[oneSpace]
 		
-		dataPort.regionFor.keyword(dataPortAccess.dataKeyword_3).append[oneSpace]
-		dataPort.regionFor.assignment(dataPortAccess.dataFeatureClassifierAssignment_5).prepend[oneSpace]
+		dataPort.regionFor.keyword(dataPortKeywordsAccess.dataKeyword_0).append[oneSpace]
+		dataPort.regionFor.assignment(dataPortAccess.dataFeatureClassifierAssignment_4).prepend[oneSpace]
 		dataPort.arrayDimensions.forEach[
 			prepend[noSpace]
 			it.format(document)
 		]
 		
-		formatCurlyProperties(dataPort, document, dataPort.regionFor.keyword(dataPortAccess.leftCurlyBracketKeyword_7_0),
-			dataPort.regionFor.keyword(dataPortAccess.rightCurlyBracketKeyword_7_2)
+		formatCurlyProperties(dataPort, document, dataPort.regionFor.keyword(dataPortAccess.leftCurlyBracketKeyword_6_0),
+			dataPort.regionFor.keyword(dataPortAccess.rightCurlyBracketKeyword_6_2)
 		)
-		dataPort.regionFor.keyword(dataPortAccess.semicolonKeyword_8).prepend[noSpace]
+		dataPort.regionFor.keyword(dataPortAccess.semicolonKeyword_7).prepend[noSpace]
 	}
 	
 	def dispatch void format(ArrayDimension arrayDimension, extension IFormattableDocument document) {
@@ -1126,24 +1113,24 @@ class Aadl2Formatter extends AbstractFormatter2 {
 		
 		//Refined
 		eventDataPort.regionFor.keyword(eventDataPortAccess.colonKeyword_1_1_1).prepend[noSpace].append[oneSpace]
-		eventDataPort.regionFor.keyword(eventDataPortAccess.toKeyword_1_1_3).surround[oneSpace]
+		eventDataPort.regionFor.keyword(refinedToKeywordsAccess.toKeyword_1).surround[oneSpace]
 		
 		//Direction
 		eventDataPort.regionFor.keyword(eventDataPortAccess.inInKeyword_2_0_0_0).append[oneSpace]
 		eventDataPort.regionFor.keyword(eventDataPortAccess.outOutKeyword_2_0_1_0).append[oneSpace]
 		eventDataPort.regionFor.keyword(eventDataPortAccess.outOutKeyword_2_1_0).append[oneSpace]
 		
-		eventDataPort.regionFor.keyword(eventDataPortAccess.dataKeyword_4).surround[oneSpace]
-		eventDataPort.regionFor.assignment(eventDataPortAccess.dataFeatureClassifierAssignment_6).prepend[oneSpace]
+		eventDataPort.regionFor.keyword(eventDataPortKeywordsAccess.dataKeyword_1).surround[oneSpace]
+		eventDataPort.regionFor.assignment(eventDataPortAccess.dataFeatureClassifierAssignment_4).prepend[oneSpace]
 		eventDataPort.arrayDimensions.forEach[
 			prepend[noSpace]
 			it.format(document)
 		]
 		
-		formatCurlyProperties(eventDataPort, document, eventDataPort.regionFor.keyword(eventDataPortAccess.leftCurlyBracketKeyword_8_0),
-			eventDataPort.regionFor.keyword(eventDataPortAccess.rightCurlyBracketKeyword_8_2)
+		formatCurlyProperties(eventDataPort, document, eventDataPort.regionFor.keyword(eventDataPortAccess.leftCurlyBracketKeyword_6_0),
+			eventDataPort.regionFor.keyword(eventDataPortAccess.rightCurlyBracketKeyword_6_2)
 		)
-		eventDataPort.regionFor.keyword(eventDataPortAccess.semicolonKeyword_9).prepend[noSpace]
+		eventDataPort.regionFor.keyword(eventDataPortAccess.semicolonKeyword_7).prepend[noSpace]
 	}
 	
 	def dispatch void format(EventPort eventPort, extension IFormattableDocument document) {
@@ -1154,23 +1141,23 @@ class Aadl2Formatter extends AbstractFormatter2 {
 		
 		//Refined
 		eventPort.regionFor.keyword(eventPortAccess.colonKeyword_1_1_1).prepend[noSpace].append[oneSpace]
-		eventPort.regionFor.keyword(eventPortAccess.toKeyword_1_1_3).surround[oneSpace]
+		eventPort.regionFor.keyword(refinedToKeywordsAccess.toKeyword_1).surround[oneSpace]
 		
 		//Direction
 		eventPort.regionFor.keyword(eventPortAccess.inInKeyword_2_0_0_0).append[oneSpace]
 		eventPort.regionFor.keyword(eventPortAccess.outOutKeyword_2_0_1_0).append[oneSpace]
 		eventPort.regionFor.keyword(eventPortAccess.outOutKeyword_2_1_0).append[oneSpace]
 		
-		eventPort.regionFor.keyword(eventPortAccess.eventKeyword_3).append[oneSpace]
+		eventPort.regionFor.keyword(eventPortKeywordsAccess.eventKeyword_0).append[oneSpace]
 		eventPort.arrayDimensions.forEach[
 			prepend[noSpace]
 			it.format(document)
 		]
 		
-		formatCurlyProperties(eventPort, document, eventPort.regionFor.keyword(eventPortAccess.leftCurlyBracketKeyword_6_0),
-			eventPort.regionFor.keyword(eventPortAccess.rightCurlyBracketKeyword_6_2)
+		formatCurlyProperties(eventPort, document, eventPort.regionFor.keyword(eventPortAccess.leftCurlyBracketKeyword_5_0),
+			eventPort.regionFor.keyword(eventPortAccess.rightCurlyBracketKeyword_5_2)
 		)
-		eventPort.regionFor.keyword(eventPortAccess.semicolonKeyword_7).prepend[noSpace]
+		eventPort.regionFor.keyword(eventPortAccess.semicolonKeyword_6).prepend[noSpace]
 	}
 	
 	def dispatch void format(FeatureGroup featureGroup, extension IFormattableDocument document) {
@@ -1181,24 +1168,24 @@ class Aadl2Formatter extends AbstractFormatter2 {
 		
 		//Refined
 		featureGroup.regionFor.keyword(featureGroupAccess.colonKeyword_0_1_1).prepend[noSpace].append[oneSpace]
-		featureGroup.regionFor.keyword(featureGroupAccess.toKeyword_0_1_3).surround[oneSpace]
+		featureGroup.regionFor.keyword(refinedToKeywordsAccess.toKeyword_1).surround[oneSpace]
 		
 		//Direction
 		featureGroup.regionFor.keyword(featureGroupAccess.inInKeyword_1_0_0).append[oneSpace]
 		featureGroup.regionFor.keyword(featureGroupAccess.outOutKeyword_1_1_0).append[oneSpace]
 		
-		featureGroup.regionFor.keyword(featureGroupAccess.featureKeyword_2).append[oneSpace]
-		featureGroup.regionFor.keyword(featureGroupAccess.inverseInverseKeyword_4_0_0_0).surround[oneSpace]
-		featureGroup.regionFor.assignment(featureGroupAccess.featureTypeAssignment_4_1).prepend[oneSpace]
+		featureGroup.regionFor.keyword(featureGroupKeywordsAccess.featureKeyword_0).append[oneSpace]
+		featureGroup.regionFor.keyword(inverseOfKeywordsAccess.inverseKeyword_0).surround[oneSpace]
+		featureGroup.regionFor.assignment(featureGroupAccess.featureTypeAssignment_3_1).prepend[oneSpace]
 		featureGroup.arrayDimensions.forEach[
 			prepend[noSpace]
 			it.format(document)
 		]
 		
-		formatCurlyProperties(featureGroup, document, featureGroup.regionFor.keyword(featureGroupAccess.leftCurlyBracketKeyword_6_0),
-			featureGroup.regionFor.keyword(featureGroupAccess.rightCurlyBracketKeyword_6_2)
+		formatCurlyProperties(featureGroup, document, featureGroup.regionFor.keyword(featureGroupAccess.leftCurlyBracketKeyword_5_0),
+			featureGroup.regionFor.keyword(featureGroupAccess.rightCurlyBracketKeyword_5_2)
 		)
-		featureGroup.regionFor.keyword(featureGroupAccess.semicolonKeyword_7).prepend[noSpace]
+		featureGroup.regionFor.keyword(featureGroupAccess.semicolonKeyword_6).prepend[noSpace]
 	}
 	
 	def dispatch void format(ContainedNamedElement containedNamedElement, extension IFormattableDocument document) {
@@ -1213,7 +1200,7 @@ class Aadl2Formatter extends AbstractFormatter2 {
 		
 		//Refined
 		parameter.regionFor.keyword(parameterAccess.colonKeyword_0_1_1).prepend[noSpace].append[oneSpace]
-		parameter.regionFor.keyword(parameterAccess.toKeyword_0_1_3).surround[oneSpace]
+		parameter.regionFor.keyword(refinedToKeywordsAccess.toKeyword_1).surround[oneSpace]
 		
 		//Direction
 		parameter.regionFor.keyword(parameterAccess.inInKeyword_1_0_0_0).append[oneSpace]
@@ -1240,19 +1227,19 @@ class Aadl2Formatter extends AbstractFormatter2 {
 		
 		//Refined
 		subprogramAccess.regionFor.keyword(subprogramAccessAccess.colonKeyword_0_1_1).prepend[noSpace].append[oneSpace]
-		subprogramAccess.regionFor.keyword(subprogramAccessAccess.toKeyword_0_1_3).surround[oneSpace]
+		subprogramAccess.regionFor.keyword(refinedToKeywordsAccess.toKeyword_1).surround[oneSpace]
 		
-		subprogramAccess.regionFor.keyword(subprogramAccessAccess.subprogramKeyword_2).surround[oneSpace]
-		subprogramAccess.regionFor.assignment(subprogramAccessAccess.subprogramFeatureClassifierAssignment_4).prepend[oneSpace]
+		subprogramAccess.regionFor.keyword(subprogramAccessKeywordsAccess.subprogramKeyword_0).surround[oneSpace]
+		subprogramAccess.regionFor.assignment(subprogramAccessAccess.subprogramFeatureClassifierAssignment_3).prepend[oneSpace]
 		subprogramAccess.arrayDimensions.forEach[
 			prepend[noSpace]
 			it.format(document)
 		]
 		
-		formatCurlyProperties(subprogramAccess, document, subprogramAccess.regionFor.keyword(subprogramAccessAccess.leftCurlyBracketKeyword_6_0),
-			subprogramAccess.regionFor.keyword(subprogramAccessAccess.rightCurlyBracketKeyword_6_2)
+		formatCurlyProperties(subprogramAccess, document, subprogramAccess.regionFor.keyword(subprogramAccessAccess.leftCurlyBracketKeyword_5_0),
+			subprogramAccess.regionFor.keyword(subprogramAccessAccess.rightCurlyBracketKeyword_5_2)
 		)
-		subprogramAccess.regionFor.keyword(subprogramAccessAccess.semicolonKeyword_7).prepend[noSpace]
+		subprogramAccess.regionFor.keyword(subprogramAccessAccess.semicolonKeyword_6).prepend[noSpace]
 	}
 	
 	def dispatch void format(SubprogramGroupAccess subprogramGroupAccess, extension IFormattableDocument document) {
@@ -1263,21 +1250,21 @@ class Aadl2Formatter extends AbstractFormatter2 {
 		
 		//Refined
 		subprogramGroupAccess.regionFor.keyword(subprogramGroupAccessAccess.colonKeyword_0_1_1).prepend[noSpace].append[oneSpace]
-		subprogramGroupAccess.regionFor.keyword(subprogramGroupAccessAccess.toKeyword_0_1_3).surround[oneSpace]
+		subprogramGroupAccess.regionFor.keyword(refinedToKeywordsAccess.toKeyword_1).surround[oneSpace]
 		
-		subprogramGroupAccess.regionFor.keyword(subprogramGroupAccessAccess.subprogramKeyword_2).surround[oneSpace]
-		subprogramGroupAccess.regionFor.keyword(subprogramGroupAccessAccess.groupKeyword_3).append[oneSpace]
-		subprogramGroupAccess.regionFor.assignment(subprogramGroupAccessAccess.subprogramGroupFeatureClassifierAssignment_5).prepend[oneSpace]
+		subprogramGroupAccess.regionFor.keyword(subprogramGroupAccessKeywordsAccess.subprogramKeyword_0).surround[oneSpace]
+		subprogramGroupAccess.regionFor.keyword(subprogramGroupAccessKeywordsAccess.groupKeyword_1).append[oneSpace]
+		subprogramGroupAccess.regionFor.assignment(subprogramGroupAccessAccess.subprogramGroupFeatureClassifierAssignment_3).prepend[oneSpace]
 		subprogramGroupAccess.arrayDimensions.forEach[
 			prepend[noSpace]
 			it.format(document)
 		]
 		
 		formatCurlyProperties(subprogramGroupAccess, document,
-			subprogramGroupAccess.regionFor.keyword(subprogramGroupAccessAccess.leftCurlyBracketKeyword_7_0),
-			subprogramGroupAccess.regionFor.keyword(subprogramGroupAccessAccess.rightCurlyBracketKeyword_7_2)
+			subprogramGroupAccess.regionFor.keyword(subprogramGroupAccessAccess.leftCurlyBracketKeyword_5_0),
+			subprogramGroupAccess.regionFor.keyword(subprogramGroupAccessAccess.rightCurlyBracketKeyword_5_2)
 		)
-		subprogramGroupAccess.regionFor.keyword(subprogramGroupAccessAccess.semicolonKeyword_8).prepend[noSpace]
+		subprogramGroupAccess.regionFor.keyword(subprogramGroupAccessAccess.semicolonKeyword_6).prepend[noSpace]
 	}
 	
 	def dispatch void format(BusAccess busAccess, extension IFormattableDocument document) {
@@ -1288,20 +1275,20 @@ class Aadl2Formatter extends AbstractFormatter2 {
 		
 		//Refined
 		busAccess.regionFor.keyword(busAccessAccess.colonKeyword_0_1_1).prepend[noSpace].append[oneSpace]
-		busAccess.regionFor.keyword(busAccessAccess.toKeyword_0_1_3).surround[oneSpace]
+		busAccess.regionFor.keyword(refinedToKeywordsAccess.toKeyword_1).surround[oneSpace]
 		
 		busAccess.regionFor.keyword(busAccessAccess.virtualVirtualKeyword_2_0).prepend[oneSpace]
-		busAccess.regionFor.keyword(busAccessAccess.busKeyword_3).surround[oneSpace]
-		busAccess.regionFor.assignment(busAccessAccess.busFeatureClassifierAssignment_5).prepend[oneSpace]
+		busAccess.regionFor.keyword(busAccessKeywordsAccess.busKeyword_0).surround[oneSpace]
+		busAccess.regionFor.assignment(busAccessAccess.busFeatureClassifierAssignment_4).prepend[oneSpace]
 		busAccess.arrayDimensions.forEach[
 			prepend[noSpace]
 			it.format(document)
 		]
 		
-		formatCurlyProperties(busAccess, document, busAccess.regionFor.keyword(busAccessAccess.leftCurlyBracketKeyword_7_0),
-			busAccess.regionFor.keyword(busAccessAccess.rightCurlyBracketKeyword_7_2)
+		formatCurlyProperties(busAccess, document, busAccess.regionFor.keyword(busAccessAccess.leftCurlyBracketKeyword_6_0),
+			busAccess.regionFor.keyword(busAccessAccess.rightCurlyBracketKeyword_6_2)
 		)
-		busAccess.regionFor.keyword(busAccessAccess.semicolonKeyword_8).prepend[noSpace]
+		busAccess.regionFor.keyword(busAccessAccess.semicolonKeyword_7).prepend[noSpace]
 	}
 	
 	def dispatch void format(DataAccess dataAccess, extension IFormattableDocument document) {
@@ -1312,19 +1299,19 @@ class Aadl2Formatter extends AbstractFormatter2 {
 		
 		//Refined
 		dataAccess.regionFor.keyword(dataAccessAccess.colonKeyword_0_1_1).prepend[noSpace].append[oneSpace]
-		dataAccess.regionFor.keyword(dataAccessAccess.toKeyword_0_1_3).surround[oneSpace]
+		dataAccess.regionFor.keyword(refinedToKeywordsAccess.toKeyword_1).surround[oneSpace]
 		
-		dataAccess.regionFor.keyword(dataAccessAccess.dataKeyword_2).surround[oneSpace]
-		dataAccess.regionFor.assignment(dataAccessAccess.dataFeatureClassifierAssignment_4).prepend[oneSpace]
+		dataAccess.regionFor.keyword(dataAccessKeywordsAccess.dataKeyword_0).surround[oneSpace]
+		dataAccess.regionFor.assignment(dataAccessAccess.dataFeatureClassifierAssignment_3).prepend[oneSpace]
 		dataAccess.arrayDimensions.forEach[
 			prepend[noSpace]
 			it.format(document)
 		]
 		
-		formatCurlyProperties(dataAccess, document, dataAccess.regionFor.keyword(dataAccessAccess.leftCurlyBracketKeyword_6_0),
-			dataAccess.regionFor.keyword(dataAccessAccess.rightCurlyBracketKeyword_6_2)
+		formatCurlyProperties(dataAccess, document, dataAccess.regionFor.keyword(dataAccessAccess.leftCurlyBracketKeyword_5_0),
+			dataAccess.regionFor.keyword(dataAccessAccess.rightCurlyBracketKeyword_5_2)
 		)
-		dataAccess.regionFor.keyword(dataAccessAccess.semicolonKeyword_7).prepend[noSpace]
+		dataAccess.regionFor.keyword(dataAccessAccess.semicolonKeyword_6).prepend[noSpace]
 	}
 	
 	def dispatch void format(AbstractFeature abstractFeature, extension IFormattableDocument document) {
@@ -1335,7 +1322,7 @@ class Aadl2Formatter extends AbstractFormatter2 {
 		
 		//Refined
 		abstractFeature.regionFor.keyword(abstractFeatureAccess.colonKeyword_0_1_1).prepend[noSpace].append[oneSpace]
-		abstractFeature.regionFor.keyword(abstractFeatureAccess.toKeyword_0_1_3).surround[oneSpace]
+		abstractFeature.regionFor.keyword(refinedToKeywordsAccess.toKeyword_1).surround[oneSpace]
 		
 		//Direction
 		abstractFeature.regionFor.keyword(abstractFeatureAccess.inInKeyword_1_0_0).append[oneSpace]
@@ -1377,7 +1364,8 @@ class Aadl2Formatter extends AbstractFormatter2 {
 		modeTransition.regionFor.keywords(modeTransitionAccess.commaKeyword_4_0).forEach[
 			prepend[noSpace].append[oneSpace; setNewLines(0, 0, 1); autowrap]
 		]
-		if (rightMarker.previousHiddenRegion.multiline) {
+		
+		if (rightMarker?.previousHiddenRegion?.multiline) {
 			rightMarker.prepend[newLines = 1].append[oneSpace].surround[indent; indent]
 		} else {
 			rightMarker.prepend[noSpace].append[oneSpace]
@@ -1419,15 +1407,15 @@ class Aadl2Formatter extends AbstractFormatter2 {
 		
 		//Refined
 		featureGroupPrototype.regionFor.keyword(featureGroupPrototypeAccess.colonKeyword_0_1_1).prepend[noSpace].append[oneSpace]
-		featureGroupPrototype.regionFor.keyword(featureGroupPrototypeAccess.toKeyword_0_1_3).surround[oneSpace]
+		featureGroupPrototype.regionFor.keyword(refinedToKeywordsAccess.toKeyword_1).surround[oneSpace]
 		
-		featureGroupPrototype.regionFor.keyword(featureGroupPrototypeAccess.featureKeyword_1).append[oneSpace]
-		featureGroupPrototype.regionFor.assignment(featureGroupPrototypeAccess.constrainingFeatureGroupTypeAssignment_3).prepend[oneSpace]
+		featureGroupPrototype.regionFor.keyword(featureGroupKeywordsAccess.featureKeyword_0).append[oneSpace]
+		featureGroupPrototype.regionFor.assignment(featureGroupPrototypeAccess.constrainingFeatureGroupTypeAssignment_2).prepend[oneSpace]
 		formatCurlyProperties(featureGroupPrototype, document,
-			featureGroupPrototype.regionFor.keyword(featureGroupPrototypeAccess.leftCurlyBracketKeyword_4_0),
-			featureGroupPrototype.regionFor.keyword(featureGroupPrototypeAccess.rightCurlyBracketKeyword_4_2)
+			featureGroupPrototype.regionFor.keyword(featureGroupPrototypeAccess.leftCurlyBracketKeyword_3_0),
+			featureGroupPrototype.regionFor.keyword(featureGroupPrototypeAccess.rightCurlyBracketKeyword_3_2)
 		)
-		featureGroupPrototype.regionFor.keyword(featureGroupPrototypeAccess.semicolonKeyword_5).prepend[noSpace]
+		featureGroupPrototype.regionFor.keyword(featureGroupPrototypeAccess.semicolonKeyword_4).prepend[noSpace]
 	}
 	
 	def dispatch void format(FeaturePrototype featurePrototype, extension IFormattableDocument document) {
@@ -1438,7 +1426,7 @@ class Aadl2Formatter extends AbstractFormatter2 {
 		
 		//Refined
 		featurePrototype.regionFor.keyword(featurePrototypeAccess.colonKeyword_0_1_1).prepend[noSpace].append[oneSpace]
-		featurePrototype.regionFor.keyword(featurePrototypeAccess.toKeyword_0_1_3).surround[oneSpace]
+		featurePrototype.regionFor.keyword(refinedToKeywordsAccess.toKeyword_1).surround[oneSpace]
 		
 		//Direction
 		featurePrototype.regionFor.keyword(featurePrototypeAccess.inInKeyword_1_0_0).append[oneSpace]
@@ -1456,7 +1444,7 @@ class Aadl2Formatter extends AbstractFormatter2 {
 		
 		//Named and refined
 		componentPrototype.regionFor.keyword(":").prepend[noSpace].append[oneSpace]
-		componentPrototype.regionFor.keyword("to").append[oneSpace]
+		componentPrototype.regionFor.keyword("to").surround[oneSpace]
 		
 		constrainingClassifierAssignment.prepend[oneSpace]
 		componentPrototype.regionFor.keyword("[").surround[noSpace]
@@ -1516,9 +1504,9 @@ class Aadl2Formatter extends AbstractFormatter2 {
 	
 	def dispatch void format(SubprogramGroupPrototype subprogramGroupPrototype, extension IFormattableDocument document) {
 		formatComponentPrototypeCommon(subprogramGroupPrototype, document,
-			subprogramGroupPrototype.regionFor.assignment(subprogramGroupPrototypeAccess.constrainingClassifierAssignment_3)
+			subprogramGroupPrototype.regionFor.assignment(subprogramGroupPrototypeAccess.constrainingClassifierAssignment_2)
 		)
-		subprogramGroupPrototype.regionFor.keyword(subprogramGroupPrototypeAccess.subprogramKeyword_1).append[oneSpace]
+		subprogramGroupPrototype.regionFor.keyword(subprogramGroupKeywordsAccess.subprogramKeyword_0).append[oneSpace]
 	}
 	
 	def dispatch void format(SystemPrototype systemPrototype, extension IFormattableDocument document) {
@@ -1535,23 +1523,23 @@ class Aadl2Formatter extends AbstractFormatter2 {
 	
 	def dispatch void format(ThreadGroupPrototype threadGroupPrototype, extension IFormattableDocument document) {
 		formatComponentPrototypeCommon(threadGroupPrototype, document,
-			threadGroupPrototype.regionFor.assignment(threadGroupPrototypeAccess.constrainingClassifierAssignment_3)
+			threadGroupPrototype.regionFor.assignment(threadGroupPrototypeAccess.constrainingClassifierAssignment_2)
 		)
-		threadGroupPrototype.regionFor.keyword(threadGroupPrototypeAccess.threadKeyword_1).append[oneSpace]
+		threadGroupPrototype.regionFor.keyword(threadGroupKeywordsAccess.threadKeyword_0).append[oneSpace]
 	}
 	
 	def dispatch void format(VirtualBusPrototype virtualBusPrototype, extension IFormattableDocument document) {
 		formatComponentPrototypeCommon(virtualBusPrototype, document,
-			virtualBusPrototype.regionFor.assignment(virtualBusPrototypeAccess.constrainingClassifierAssignment_3)
+			virtualBusPrototype.regionFor.assignment(virtualBusPrototypeAccess.constrainingClassifierAssignment_2)
 		)
-		virtualBusPrototype.regionFor.keyword(virtualBusPrototypeAccess.virtualKeyword_1).append[oneSpace]
+		virtualBusPrototype.regionFor.keyword(virtualBusKeywordsAccess.virtualKeyword_0).append[oneSpace]
 	}
 	
 	def dispatch void format(VirtualProcessorPrototype virtualProcessorPrototype, extension IFormattableDocument document) {
 		formatComponentPrototypeCommon(virtualProcessorPrototype, document,
-			virtualProcessorPrototype.regionFor.assignment(virtualProcessorPrototypeAccess.constrainingClassifierAssignment_3)
+			virtualProcessorPrototype.regionFor.assignment(virtualProcessorPrototypeAccess.constrainingClassifierAssignment_2)
 		)
-		virtualProcessorPrototype.regionFor.keyword(virtualProcessorPrototypeAccess.virtualKeyword_1).append[oneSpace]
+		virtualProcessorPrototype.regionFor.keyword(virtualProcessorKeywordsAccess.virtualKeyword_0).append[oneSpace]
 	}
 	
 	def dispatch void format(DefaultAnnexSubclause defaultAnnexSubclause, extension IFormattableDocument document) {
@@ -1559,13 +1547,13 @@ class Aadl2Formatter extends AbstractFormatter2 {
 		defaultAnnexSubclause.regionFor.assignment(defaultAnnexSubclauseAccess.nameAssignment_1).surround[oneSpace]
 		
 		//In modes
-		val leftParenthesis = defaultAnnexSubclause.regionFor.keyword(defaultAnnexSubclauseAccess.leftParenthesisKeyword_3_2)
-		val rightParenthesis = defaultAnnexSubclause.regionFor.keyword(defaultAnnexSubclauseAccess.rightParenthesisKeyword_3_4)
+		val leftParenthesis = defaultAnnexSubclause.regionFor.keyword(defaultAnnexSubclauseAccess.leftParenthesisKeyword_3_1)
+		val rightParenthesis = defaultAnnexSubclause.regionFor.keyword(defaultAnnexSubclauseAccess.rightParenthesisKeyword_3_3)
 		if (leftParenthesis !== null && rightParenthesis !== null) {
-			defaultAnnexSubclause.regionFor.keyword(defaultAnnexSubclauseAccess.inKeyword_3_0).surround[oneSpace]
+			defaultAnnexSubclause.regionFor.keyword(inModesKeywordsAccess.inKeyword_0).surround[oneSpace]
 			interior(leftParenthesis, rightParenthesis, [indent; indent; indent])
 			leftParenthesis.prepend[oneSpace].append[noSpace; setNewLines(0, 0, 1); autowrap]
-			defaultAnnexSubclause.regionFor.keywords(defaultAnnexSubclauseAccess.commaKeyword_3_3_1_0).forEach[
+			defaultAnnexSubclause.regionFor.keywords(defaultAnnexSubclauseAccess.commaKeyword_3_2_1_0).forEach[
 				prepend[noSpace].append[oneSpace; setNewLines(0, 0, 1); autowrap]
 			]
 			if (rightParenthesis.previousHiddenRegion.multiline) {
@@ -1587,10 +1575,10 @@ class Aadl2Formatter extends AbstractFormatter2 {
 		}
 		featureGroupType.surround[indent].append[newLines = newLineCount]
 		
-		featureGroupType.regionFor.keyword(featureGroupTypeAccess.groupKeyword_1).surround[oneSpace]
+		featureGroupType.regionFor.keyword(featureGroupKeywordsAccess.groupKeyword_1).surround[oneSpace]
 		
 		//Declaration line
-		val nameAssignment = featureGroupType.regionFor.assignment(featureGroupTypeAccess.nameAssignment_2)
+		val nameAssignment = featureGroupType.regionFor.assignment(featureGroupTypeAccess.nameAssignment_1)
 		if (featureGroupType.ownedExtension === null) {
 			nameAssignment.append[newLines = 1]
 		} else {
@@ -1599,11 +1587,11 @@ class Aadl2Formatter extends AbstractFormatter2 {
 			if (featureGroupType.ownedPrototypeBindings.empty) {
 				featureGroupType.ownedExtension.append[newLines = 1]
 			} else {
-				val leftParenthesis = featureGroupType.regionFor.keyword(featureGroupTypeAccess.leftParenthesisKeyword_3_1_0)
-				val rightParenthesis = featureGroupType.regionFor.keyword(featureGroupTypeAccess.rightParenthesisKeyword_3_1_3)
+				val leftParenthesis = featureGroupType.regionFor.keyword(featureGroupTypeAccess.leftParenthesisKeyword_2_1_0)
+				val rightParenthesis = featureGroupType.regionFor.keyword(featureGroupTypeAccess.rightParenthesisKeyword_2_1_3)
 				interior(leftParenthesis, rightParenthesis, [indent; indent; indent])
 				leftParenthesis.prepend[oneSpace].append[noSpace; setNewLines(0, 0, 1); autowrap]
-				featureGroupType.regionFor.keywords(featureGroupTypeAccess.commaKeyword_3_1_2_0).forEach[
+				featureGroupType.regionFor.keywords(featureGroupTypeAccess.commaKeyword_2_1_2_0).forEach[
 					prepend[noSpace].append[oneSpace; setNewLines(0, 0, 1); autowrap]
 				]
 				featureGroupType.ownedPrototypeBindings.forEach[it.format(document)]
@@ -1616,14 +1604,14 @@ class Aadl2Formatter extends AbstractFormatter2 {
 		}
 		
 		//Section headings
-		featureGroupType.regionFor.keywords(featureGroupTypeAccess.prototypesKeyword_4_0,
-			featureGroupTypeAccess.featuresKeyword_5_0,
-			featureGroupTypeAccess.propertiesKeyword_7_0
+		featureGroupType.regionFor.keywords(featureGroupTypeAccess.prototypesKeyword_3_0,
+			featureGroupTypeAccess.featuresKeyword_4_0,
+			featureGroupTypeAccess.propertiesKeyword_6_0
 		).forEach[surround[indent].append[newLines = 1]]
 		
 		//None keywords
-		featureGroupType.regionFor.keywords(featureGroupTypeAccess.noPrototypesNoneKeyword_4_1_0_0_0,
-			featureGroupTypeAccess.noPropertiesNoneKeyword_7_1_1_0_0
+		featureGroupType.regionFor.keywords(featureGroupTypeAccess.noPrototypesNoneKeyword_3_1_0_0_0,
+			featureGroupTypeAccess.noPropertiesNoneKeyword_6_1_1_0_0
 		).forEach[surround[indent; indent].append[noSpace]]
 		
 		//Semicolons after none keywords
@@ -1639,8 +1627,8 @@ class Aadl2Formatter extends AbstractFormatter2 {
 		).forEach[it.format(document)]
 		
 		//Inverse of
-		featureGroupType.regionFor.keyword(featureGroupTypeAccess.inverseKeyword_6_0).surround[indent].append[oneSpace]
-		featureGroupType.regionFor.assignment(featureGroupTypeAccess.inverseAssignment_6_2).prepend[oneSpace].append[newLines = 1]
+		featureGroupType.regionFor.keyword(inverseOfKeywordsAccess.inverseKeyword_0).surround[indent].append[oneSpace]
+		featureGroupType.regionFor.assignment(featureGroupTypeAccess.inverseAssignment_5_1).prepend[oneSpace].append[newLines = 1]
 		
 		//Properties
 		featureGroupType.ownedPropertyAssociations.forEach[
@@ -1649,7 +1637,7 @@ class Aadl2Formatter extends AbstractFormatter2 {
 		]
 		
 		//End line
-		featureGroupType.regionFor.keyword(featureGroupTypeAccess.endKeyword_9).append[oneSpace]
+		featureGroupType.regionFor.keyword(featureGroupTypeAccess.endKeyword_8).append[oneSpace]
 		semicolons.last.prepend[noSpace]
 	}
 	
@@ -1658,7 +1646,7 @@ class Aadl2Formatter extends AbstractFormatter2 {
 	}
 	
 	def private formatComponentImplementationCommon(ComponentImplementation componentImplementation, extension IFormattableDocument document,
-		ISemanticRegion nameAssignment, ISemanticRegion processorFeaturesKeyword
+		ISemanticRegion nameAssignment
 	) {
 		val newLineCount = switch componentImplementation.regionForEObject?.nextSemanticRegion?.semanticElement {
 			Classifier,
@@ -1701,7 +1689,7 @@ class Aadl2Formatter extends AbstractFormatter2 {
 		
 		//Internal and processor features
 		componentImplementation.regionFor.keyword("internal").surround[indent].append[oneSpace]
-		processorFeaturesKeyword.surround[indent].append[oneSpace]
+		componentImplementation.regionFor.keyword(processorFeaturesKeywordsAccess.processorKeyword_0).surround[indent].append[oneSpace]
 		componentImplementation.regionFor.keywords("features").forEach[append[newLines = 1]]
 		
 		//None keywords
@@ -1738,117 +1726,108 @@ class Aadl2Formatter extends AbstractFormatter2 {
 	}
 	
 	def private formatBehavioredImplementationCommon(BehavioredImplementation behavioredImplementation, extension IFormattableDocument document,
-		ISemanticRegion nameAssignment, ISemanticRegion processorFeaturesKeyword
+		ISemanticRegion nameAssignment
 	) {
 		behavioredImplementation.regionFor.keyword("calls").surround[indent].append[newLines = 1]
 		behavioredImplementation.ownedSubprogramCallSequences.forEach[it.format(document)]
-		formatComponentImplementationCommon(behavioredImplementation, document, nameAssignment, processorFeaturesKeyword)
+		formatComponentImplementationCommon(behavioredImplementation, document, nameAssignment)
 	}
 	
 	def dispatch void format(AbstractImplementation abstractImplementation, extension IFormattableDocument document) {
-		abstractImplementation.regionFor.keyword(abstractImplementationAccess.abstractKeyword_0).append[oneSpace]
+		abstractImplementation.regionFor.keyword(abstractImplementationKeywordsAccess.abstractKeyword_0).append[oneSpace]
 		formatBehavioredImplementationCommon(abstractImplementation, document,
-			abstractImplementation.regionFor.assignment(abstractImplementationAccess.nameAssignment_4),
-			abstractImplementation.regionFor.keyword(abstractImplementationAccess.processorKeyword_10_0)
+			abstractImplementation.regionFor.assignment(abstractImplementationAccess.nameAssignment_3)
 		)
 	}
 	
 	def dispatch void format(ThreadImplementation threadImplementation, extension IFormattableDocument document) {
-		threadImplementation.regionFor.keyword(threadImplementationAccess.threadKeyword_0).append[oneSpace]
+		threadImplementation.regionFor.keyword(threadImplementationKeywordsAccess.threadKeyword_0).append[oneSpace]
 		formatBehavioredImplementationCommon(threadImplementation, document,
-			threadImplementation.regionFor.assignment(threadImplementationAccess.nameAssignment_4),
-			threadImplementation.regionFor.keyword(threadImplementationAccess.processorKeyword_10_0)
+			threadImplementation.regionFor.assignment(threadImplementationAccess.nameAssignment_3)
 		)
 	}
 	
 	def dispatch void format(SubprogramImplementation subprogramImplementation, extension IFormattableDocument document) {
-		subprogramImplementation.regionFor.keyword(subprogramImplementationAccess.subprogramKeyword_0).append[oneSpace]
+		subprogramImplementation.regionFor.keyword(subprogramImplementationKeywordsAccess.subprogramKeyword_0).append[oneSpace]
 		formatBehavioredImplementationCommon(subprogramImplementation, document,
-			subprogramImplementation.regionFor.assignment(subprogramImplementationAccess.nameAssignment_4),
-			subprogramImplementation.regionFor.keyword(subprogramImplementationAccess.processorKeyword_10_0)
+			subprogramImplementation.regionFor.assignment(subprogramImplementationAccess.nameAssignment_3)
 		)
 	}
 	
 	def dispatch void format(SystemImplementation systemImplementation, extension IFormattableDocument document) {
-		systemImplementation.regionFor.keyword(systemImplementationAccess.systemKeyword_0).append[oneSpace]
+		systemImplementation.regionFor.keyword(systemImplementationKeywordsAccess.systemKeyword_0).append[oneSpace]
 		formatComponentImplementationCommon(systemImplementation, document,
-			systemImplementation.regionFor.assignment(systemImplementationAccess.nameAssignment_4),
-			systemImplementation.regionFor.keyword(systemImplementationAccess.processorKeyword_10_0)
+			systemImplementation.regionFor.assignment(systemImplementationAccess.nameAssignment_3)
 		)
 	}
 	
 	def dispatch void format(ProcessImplementation processImplementation, extension IFormattableDocument document) {
-		processImplementation.regionFor.keyword(processImplementationAccess.processKeyword_0).append[oneSpace]
+		processImplementation.regionFor.keyword(processImplementationKeywordsAccess.processKeyword_0).append[oneSpace]
 		formatComponentImplementationCommon(processImplementation, document,
-			processImplementation.regionFor.assignment(processImplementationAccess.nameAssignment_4),
-			processImplementation.regionFor.keyword(processImplementationAccess.processorKeyword_10_0)
+			processImplementation.regionFor.assignment(processImplementationAccess.nameAssignment_3)
 		)
 	}
 	
 	def dispatch void format(ThreadGroupImplementation threadGroupImplementation, extension IFormattableDocument document) {
-		threadGroupImplementation.regionFor.keyword(threadGroupImplementationAccess.groupKeyword_1).surround[oneSpace]
+		threadGroupImplementation.regionFor.keyword(threadGroupImplementationKeywordsAccess.groupKeyword_1).surround[oneSpace]
 		formatComponentImplementationCommon(threadGroupImplementation, document,
-			threadGroupImplementation.regionFor.assignment(threadGroupImplementationAccess.nameAssignment_5),
-			threadGroupImplementation.regionFor.keyword(threadGroupImplementationAccess.processorKeyword_11_0)
+			threadGroupImplementation.regionFor.assignment(threadGroupImplementationAccess.nameAssignment_3)
 		)
 	}
 	
 	def dispatch void format(SubprogramGroupImplementation subprogramGroupImplementation, extension IFormattableDocument document) {
-		subprogramGroupImplementation.regionFor.keyword(subprogramGroupImplementationAccess.groupKeyword_1).surround[oneSpace]
+		subprogramGroupImplementation.regionFor.keyword(subprogramGroupImplementationKeywordsAccess.groupKeyword_1).surround[oneSpace]
 		formatComponentImplementationCommon(subprogramGroupImplementation, document,
-			subprogramGroupImplementation.regionFor.assignment(subprogramGroupImplementationAccess.nameAssignment_5),
-			subprogramGroupImplementation.regionFor.keyword(subprogramGroupImplementationAccess.processorKeyword_11_0)
+			subprogramGroupImplementation.regionFor.assignment(subprogramGroupImplementationAccess.nameAssignment_3)
 		)
 	}
 	
 	def dispatch void format(ProcessorImplementation processorImplementation, extension IFormattableDocument document) {
-		processorImplementation.regionFor.keyword(processorImplementationAccess.processorKeyword_0).append[oneSpace]
+		processorImplementation.regionFor.keyword(processorImplementationKeywordsAccess.processorKeyword_0).append[oneSpace]
 		formatComponentImplementationCommon(processorImplementation, document,
-			processorImplementation.regionFor.assignment(processorImplementationAccess.nameAssignment_4), null
+			processorImplementation.regionFor.assignment(processorImplementationAccess.nameAssignment_3)
 		)
 	}
 	
 	def dispatch void format(VirtualProcessorImplementation virtualProcessorImplementation, extension IFormattableDocument document) {
-		virtualProcessorImplementation.regionFor.keyword(virtualProcessorImplementationAccess.processorKeyword_1).surround[oneSpace]
+		virtualProcessorImplementation.regionFor.keyword(virtualProcessorImplementationKeywordsAccess.processorKeyword_1).surround[oneSpace]
 		formatComponentImplementationCommon(virtualProcessorImplementation, document,
-			virtualProcessorImplementation.regionFor.assignment(virtualProcessorImplementationAccess.nameAssignment_5),
-			virtualProcessorImplementation.regionFor.keyword(virtualProcessorImplementationAccess.processorKeyword_11_0)
+			virtualProcessorImplementation.regionFor.assignment(virtualProcessorImplementationAccess.nameAssignment_3)
 		)
 	}
 	
 	def dispatch void format(DeviceImplementation deviceImplementation, extension IFormattableDocument document) {
-		deviceImplementation.regionFor.keyword(deviceImplementationAccess.deviceKeyword_0).append[oneSpace]
+		deviceImplementation.regionFor.keyword(deviceImplementationKeywordsAccess.deviceKeyword_0).append[oneSpace]
 		formatComponentImplementationCommon(deviceImplementation, document,
-			deviceImplementation.regionFor.assignment(deviceImplementationAccess.nameAssignment_4),
-			deviceImplementation.regionFor.keyword(deviceImplementationAccess.processorKeyword_10_0)
+			deviceImplementation.regionFor.assignment(deviceImplementationAccess.nameAssignment_3)
 		)
 	}
 	
 	def dispatch void format(MemoryImplementation memoryImplementation, extension IFormattableDocument document) {
-		memoryImplementation.regionFor.keyword(memoryImplementationAccess.memoryKeyword_0).append[oneSpace]
+		memoryImplementation.regionFor.keyword(memoryImplementationKeywordsAccess.memoryKeyword_0).append[oneSpace]
 		formatComponentImplementationCommon(memoryImplementation, document,
-			memoryImplementation.regionFor.assignment(memoryImplementationAccess.nameAssignment_4), null
+			memoryImplementation.regionFor.assignment(memoryImplementationAccess.nameAssignment_3)
 		)
 	}
 	
 	def dispatch void format(BusImplementation busImplementation, extension IFormattableDocument document) {
-		busImplementation.regionFor.keyword(busImplementationAccess.busKeyword_0).append[oneSpace]
+		busImplementation.regionFor.keyword(busImplementationKeywordsAccess.busKeyword_0).append[oneSpace]
 		formatComponentImplementationCommon(busImplementation, document,
-			busImplementation.regionFor.assignment(busImplementationAccess.nameAssignment_4), null
+			busImplementation.regionFor.assignment(busImplementationAccess.nameAssignment_3)
 		)
 	}
 	
 	def dispatch void format(VirtualBusImplementation virtualBusImplementation, extension IFormattableDocument document) {
-		virtualBusImplementation.regionFor.keyword(virtualBusImplementationAccess.busKeyword_1).surround[oneSpace]
+		virtualBusImplementation.regionFor.keyword(virtualBusImplementationKeywordsAccess.busKeyword_1).surround[oneSpace]
 		formatComponentImplementationCommon(virtualBusImplementation, document,
-			virtualBusImplementation.regionFor.assignment(virtualBusImplementationAccess.nameAssignment_5), null
+			virtualBusImplementation.regionFor.assignment(virtualBusImplementationAccess.nameAssignment_3)
 		)
 	}
 	
 	def dispatch void format(DataImplementation dataImplementation, extension IFormattableDocument document) {
-		dataImplementation.regionFor.keyword(dataImplementationAccess.dataKeyword_1).append[oneSpace]
+		dataImplementation.regionFor.keyword(dataImplementationKeywordsAccess.dataKeyword_0).append[oneSpace]
 		formatComponentImplementationCommon(dataImplementation, document,
-			dataImplementation.regionFor.assignment(dataImplementationAccess.nameAssignment_5), null
+			dataImplementation.regionFor.assignment(dataImplementationAccess.nameAssignment_4)
 		)
 	}
 	
@@ -1869,13 +1848,13 @@ class Aadl2Formatter extends AbstractFormatter2 {
 	def dispatch void format(EventDataSource eventDataSource, extension IFormattableDocument document) {
 		eventDataSource.surround[indent; indent].append[newLines = 1]
 		eventDataSource.regionFor.keyword(eventDataSourceAccess.colonKeyword_1).prepend[noSpace].append[oneSpace]
-		eventDataSource.regionFor.keyword(eventDataSourceAccess.eventKeyword_2).append[oneSpace]
-		eventDataSource.regionFor.assignment(eventDataSourceAccess.dataClassifierAssignment_4).prepend[oneSpace]
+		eventDataSource.regionFor.keyword(eventDataKeywordsAccess.eventKeyword_0).append[oneSpace]
+		eventDataSource.regionFor.assignment(eventDataSourceAccess.dataClassifierAssignment_3).prepend[oneSpace]
 		formatCurlyProperties(eventDataSource, document,
-			eventDataSource.regionFor.keyword(eventDataSourceAccess.leftCurlyBracketKeyword_5_0),
-			eventDataSource.regionFor.keyword(eventDataSourceAccess.rightCurlyBracketKeyword_5_2)
+			eventDataSource.regionFor.keyword(eventDataSourceAccess.leftCurlyBracketKeyword_4_0),
+			eventDataSource.regionFor.keyword(eventDataSourceAccess.rightCurlyBracketKeyword_4_2)
 		)
-		eventDataSource.regionFor.keyword(eventDataSourceAccess.semicolonKeyword_6).prepend[noSpace]
+		eventDataSource.regionFor.keyword(eventDataSourceAccess.semicolonKeyword_5).prepend[noSpace]
 	}
 	
 	def dispatch void format(PortProxy portProxy, extension IFormattableDocument document) {
@@ -1911,13 +1890,13 @@ class Aadl2Formatter extends AbstractFormatter2 {
 		)
 		
 		//In modes
-		val leftParenthesis = subprogramCallSequence.regionFor.keyword(subprogramCallSequenceAccess.leftParenthesisKeyword_6_2)
-		val rightParenthesis = subprogramCallSequence.regionFor.keyword(subprogramCallSequenceAccess.rightParenthesisKeyword_6_4)
+		val leftParenthesis = subprogramCallSequence.regionFor.keyword(subprogramCallSequenceAccess.leftParenthesisKeyword_6_1)
+		val rightParenthesis = subprogramCallSequence.regionFor.keyword(subprogramCallSequenceAccess.rightParenthesisKeyword_6_3)
 		if (leftParenthesis !== null && rightParenthesis !== null) {
-			subprogramCallSequence.regionFor.keyword(subprogramCallSequenceAccess.inKeyword_6_0).surround[oneSpace]
+			subprogramCallSequence.regionFor.keyword(inModesKeywordsAccess.inKeyword_0).surround[oneSpace]
 			interior(leftParenthesis, rightParenthesis, [indent; indent; indent])
 			leftParenthesis.prepend[oneSpace].append[noSpace; setNewLines(0, 0, 1); autowrap]
-			subprogramCallSequence.regionFor.keywords(subprogramCallSequenceAccess.commaKeyword_6_3_1_0).forEach[
+			subprogramCallSequence.regionFor.keywords(subprogramCallSequenceAccess.commaKeyword_6_2_1_0).forEach[
 				prepend[noSpace].append[oneSpace; setNewLines(0, 0, 1); autowrap]
 			]
 			if (rightParenthesis.previousHiddenRegion.multiline) {
@@ -2002,9 +1981,9 @@ class Aadl2Formatter extends AbstractFormatter2 {
 	}
 	
 	def dispatch void format(ThreadGroupSubcomponent threadGroupSubcomponent, extension IFormattableDocument document) {
-		threadGroupSubcomponent.regionFor.keyword(threadGroupSubcomponentAccess.threadKeyword_1).append[oneSpace]
+		threadGroupSubcomponent.regionFor.keyword(threadGroupKeywordsAccess.threadKeyword_0).append[oneSpace]
 		formatSubcomponentCommon(threadGroupSubcomponent, document,
-			threadGroupSubcomponent.regionFor.assignment(threadGroupSubcomponentAccess.threadGroupSubcomponentTypeAssignment_3_0)
+			threadGroupSubcomponent.regionFor.assignment(threadGroupSubcomponentAccess.threadGroupSubcomponentTypeAssignment_2_0)
 		)
 	}
 	
@@ -2021,9 +2000,9 @@ class Aadl2Formatter extends AbstractFormatter2 {
 	}
 	
 	def dispatch void format(SubprogramGroupSubcomponent subprogramGroupSubcomponent, extension IFormattableDocument document) {
-		subprogramGroupSubcomponent.regionFor.keyword(subprogramGroupSubcomponentAccess.subprogramKeyword_1).append[oneSpace]
+		subprogramGroupSubcomponent.regionFor.keyword(subprogramGroupKeywordsAccess.subprogramKeyword_0).append[oneSpace]
 		formatSubcomponentCommon(subprogramGroupSubcomponent, document,
-			subprogramGroupSubcomponent.regionFor.assignment(subprogramGroupSubcomponentAccess.subprogramGroupSubcomponentTypeAssignment_3_0)
+			subprogramGroupSubcomponent.regionFor.assignment(subprogramGroupSubcomponentAccess.subprogramGroupSubcomponentTypeAssignment_2_0)
 		)
 	}
 	
@@ -2034,9 +2013,9 @@ class Aadl2Formatter extends AbstractFormatter2 {
 	}
 	
 	def dispatch void format(VirtualProcessorSubcomponent virtualProcessorSubcomponent, extension IFormattableDocument document) {
-		virtualProcessorSubcomponent.regionFor.keyword(virtualProcessorSubcomponentAccess.virtualKeyword_1).append[oneSpace]
+		virtualProcessorSubcomponent.regionFor.keyword(virtualProcessorKeywordsAccess.virtualKeyword_0).append[oneSpace]
 		formatSubcomponentCommon(virtualProcessorSubcomponent, document,
-			virtualProcessorSubcomponent.regionFor.assignment(virtualProcessorSubcomponentAccess.virtualProcessorSubcomponentTypeAssignment_3_0)
+			virtualProcessorSubcomponent.regionFor.assignment(virtualProcessorSubcomponentAccess.virtualProcessorSubcomponentTypeAssignment_2_0)
 		)
 	}
 	
@@ -2059,9 +2038,9 @@ class Aadl2Formatter extends AbstractFormatter2 {
 	}
 	
 	def dispatch void format(VirtualBusSubcomponent virtualBusSubcomponent, extension IFormattableDocument document) {
-		virtualBusSubcomponent.regionFor.keyword(virtualBusSubcomponentAccess.virtualKeyword_1).append[oneSpace]
+		virtualBusSubcomponent.regionFor.keyword(virtualBusKeywordsAccess.virtualKeyword_0).append[oneSpace]
 		formatSubcomponentCommon(virtualBusSubcomponent, document,
-			virtualBusSubcomponent.regionFor.assignment(virtualBusSubcomponentAccess.virtualBusSubcomponentTypeAssignment_3_0)
+			virtualBusSubcomponent.regionFor.assignment(virtualBusSubcomponentAccess.virtualBusSubcomponentTypeAssignment_2_0)
 		)
 	}
 	
@@ -2157,7 +2136,7 @@ class Aadl2Formatter extends AbstractFormatter2 {
 		
 		//Named and refined to
 		flowSpecification.regionFor.keyword(":").prepend[noSpace].append[oneSpace]
-		flowSpecification.regionFor.keyword(flowSpecRefinementAccess.toKeyword_3).surround[oneSpace]
+		flowSpecification.regionFor.keyword(refinedToKeywordsAccess.toKeyword_1).surround[oneSpace]
 		
 		flowSpecification.regionFor.keyword("flow").append[oneSpace]
 		
@@ -2234,18 +2213,20 @@ class Aadl2Formatter extends AbstractFormatter2 {
 	def dispatch void format(EndToEndFlow endToEndFlow, extension IFormattableDocument document) {
 		endToEndFlow.surround[indent; indent].append[newLines = 1]
 		
-		//Named
-		endToEndFlow.regionFor.keyword(endToEndFlowAccess.colonKeyword_0_0_1).prepend[noSpace].append[oneSpace]
-		endToEndFlow.regionFor.keyword(endToEndFlowAccess.toKeyword_0_0_3).surround[oneSpace]
-		endToEndFlow.regionFor.keyword(endToEndFlowAccess.flowKeyword_0_0_5).surround[oneSpace]
-		endToEndFlow.ownedEndToEndFlowSegments.forEach[it.format(document)]
-		endToEndFlow.regionFor.keywords("->").forEach[surround[oneSpace]]
-		
-		//Refined to
-		endToEndFlow.regionFor.keyword(endToEndFlowAccess.colonKeyword_0_1_1).prepend[noSpace].append[oneSpace]
-		endToEndFlow.regionFor.keyword(endToEndFlowAccess.toKeyword_0_1_3).surround[oneSpace]
-		endToEndFlow.regionFor.keyword(endToEndFlowAccess.toKeyword_0_1_5).surround[oneSpace]
-		endToEndFlow.regionFor.keyword(endToEndFlowAccess.flowKeyword_0_1_7).prepend[oneSpace]
+		if (endToEndFlow.refined === null) {
+			//Named
+			endToEndFlow.regionFor.keyword(endToEndFlowAccess.colonKeyword_0_0_1).prepend[noSpace].append[oneSpace]
+			endToEndFlow.regionFor.keyword(endToEndFlowKeywordsAccess.toKeyword_1).surround[oneSpace]
+			endToEndFlow.regionFor.keyword(endToEndFlowKeywordsAccess.flowKeyword_3).surround[oneSpace]
+			endToEndFlow.ownedEndToEndFlowSegments.forEach[it.format(document)]
+			endToEndFlow.regionFor.keywords("->").forEach[surround[oneSpace]]
+		} else {
+			//Refined to
+			endToEndFlow.regionFor.keyword(endToEndFlowAccess.colonKeyword_0_1_1).prepend[noSpace].append[oneSpace]
+			endToEndFlow.regionFor.keyword(refinedToKeywordsAccess.toKeyword_1).surround[oneSpace]
+			endToEndFlow.regionFor.keyword(endToEndFlowKeywordsAccess.toKeyword_1).surround[oneSpace]
+			endToEndFlow.regionFor.keyword(endToEndFlowKeywordsAccess.flowKeyword_3).prepend[oneSpace]
+		}
 		
 		formatCurlyProperties(endToEndFlow, document,
 			endToEndFlow.regionFor.keyword(endToEndFlowAccess.leftCurlyBracketKeyword_1_0),
@@ -2253,13 +2234,13 @@ class Aadl2Formatter extends AbstractFormatter2 {
 		)
 		
 		//In modes
-		val leftParenthesis = endToEndFlow.regionFor.keyword(endToEndFlowAccess.leftParenthesisKeyword_2_2)
-		val rightParenthesis = endToEndFlow.regionFor.keyword(endToEndFlowAccess.rightParenthesisKeyword_2_5)
+		val leftParenthesis = endToEndFlow.regionFor.keyword(endToEndFlowAccess.leftParenthesisKeyword_2_1)
+		val rightParenthesis = endToEndFlow.regionFor.keyword(endToEndFlowAccess.rightParenthesisKeyword_2_4)
 		if (leftParenthesis !== null && rightParenthesis !== null) {
-			endToEndFlow.regionFor.keyword(endToEndFlowAccess.inKeyword_2_0).surround[oneSpace]
+			endToEndFlow.regionFor.keyword(inModesKeywordsAccess.inKeyword_0).surround[oneSpace]
 			interior(leftParenthesis, rightParenthesis, [indent; indent; indent])
 			leftParenthesis.prepend[oneSpace].append[noSpace; setNewLines(0, 0, 1); autowrap]
-			endToEndFlow.regionFor.keywords(endToEndFlowAccess.commaKeyword_2_4_0).forEach[
+			endToEndFlow.regionFor.keywords(endToEndFlowAccess.commaKeyword_2_3_0).forEach[
 				prepend[noSpace].append[oneSpace; setNewLines(0, 0, 1); autowrap]
 			]
 			if (rightParenthesis.previousHiddenRegion.multiline) {
