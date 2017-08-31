@@ -48,7 +48,7 @@ import org.eclipse.xtext.serializer.sequencer.AbstractSyntacticSequencer;
 import org.osate.aadl2.instance.textual.services.InstanceGrammarAccess;
 
 @SuppressWarnings("all")
-public class InstanceSyntacticSequencer extends AbstractSyntacticSequencer {
+public abstract class AbstractInstanceSyntacticSequencer extends AbstractSyntacticSequencer {
 
 	protected InstanceGrammarAccess grammarAccess;
 	protected AbstractElementAlias match_ComponentInstance___LeftCurlyBracketKeyword_7_0_RightCurlyBracketKeyword_7_2__q;
