@@ -1608,7 +1608,7 @@ public class InstanceGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cInModeModeIDTerminalRuleCall_1_4_1_0_1 = (RuleCall)cInModeModeCrossReference_1_4_1_0.eContents().get(1);
 		private final Keyword cRightParenthesisKeyword_1_5 = (Keyword)cGroup_1.eContents().get(5);
 		
-		//OptionalModalPropertyValue aadl2::ModalPropertyValue:
+		//@ Override OptionalModalPropertyValue aadl2::ModalPropertyValue:
 		//	ownedValue=PropertyExpression ('in' 'modes' '(' inMode+=[aadl2::Mode] (',' inMode+=[aadl2::Mode])* ')')?;
 		@Override public ParserRule getRule() { return rule; }
 
@@ -1677,7 +1677,7 @@ public class InstanceGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cBooleanLiteralParserRuleCall_10 = (RuleCall)cAlternatives.eContents().get(10);
 		private final RuleCall cLiteralorReferenceTermParserRuleCall_11 = (RuleCall)cAlternatives.eContents().get(11);
 		
-		//PropertyExpression aadl2::PropertyExpression:
+		//@ Override PropertyExpression aadl2::PropertyExpression:
 		//	RecordTerm | ReferenceTerm | InstanceReferenceValue | ComponentClassifierTerm | ComputedTerm | StringTerm |
 		//	NumericRangeTerm | RealTerm | IntegerTerm | ListTerm | BooleanLiteral | LiteralorReferenceTerm;
 		@Override public ParserRule getRule() { return rule; }
@@ -1736,7 +1736,7 @@ public class InstanceGrammarAccess extends AbstractGrammarElementFinder {
 		private final Assignment cPathAssignment_2_1 = (Assignment)cGroup_2.eContents().get(1);
 		private final RuleCall cPathContainmentPathElementParserRuleCall_2_1_0 = (RuleCall)cPathAssignment_2_1.eContents().get(0);
 		
-		//ContainmentPathElement aadl2::ContainmentPathElement:
+		//@ Override ContainmentPathElement aadl2::ContainmentPathElement:
 		//	namedElement=[aadl2::NamedElement|DeclarativeRef] arrayRange+=ArrayRange? ('/' path=ContainmentPathElement)?;
 		@Override public ParserRule getRule() { return rule; }
 
@@ -2665,7 +2665,7 @@ public class InstanceGrammarAccess extends AbstractGrammarElementFinder {
 		return getPropertyAssociationInstanceAccess().getRule();
 	}
 
-	//OptionalModalPropertyValue aadl2::ModalPropertyValue:
+	//@ Override OptionalModalPropertyValue aadl2::ModalPropertyValue:
 	//	ownedValue=PropertyExpression ('in' 'modes' '(' inMode+=[aadl2::Mode] (',' inMode+=[aadl2::Mode])* ')')?;
 	public OptionalModalPropertyValueElements getOptionalModalPropertyValueAccess() {
 		return pOptionalModalPropertyValue;
@@ -2675,7 +2675,7 @@ public class InstanceGrammarAccess extends AbstractGrammarElementFinder {
 		return getOptionalModalPropertyValueAccess().getRule();
 	}
 
-	//PropertyExpression aadl2::PropertyExpression:
+	//@ Override PropertyExpression aadl2::PropertyExpression:
 	//	RecordTerm | ReferenceTerm | InstanceReferenceValue | ComponentClassifierTerm | ComputedTerm | StringTerm |
 	//	NumericRangeTerm | RealTerm | IntegerTerm | ListTerm | BooleanLiteral | LiteralorReferenceTerm;
 	public PropertyExpressionElements getPropertyExpressionAccess() {
@@ -2686,7 +2686,7 @@ public class InstanceGrammarAccess extends AbstractGrammarElementFinder {
 		return getPropertyExpressionAccess().getRule();
 	}
 
-	//ContainmentPathElement aadl2::ContainmentPathElement:
+	//@ Override ContainmentPathElement aadl2::ContainmentPathElement:
 	//	namedElement=[aadl2::NamedElement|DeclarativeRef] arrayRange+=ArrayRange? ('/' path=ContainmentPathElement)?;
 	public ContainmentPathElementElements getContainmentPathElementAccess() {
 		return pContainmentPathElement;
@@ -2846,8 +2846,8 @@ public class InstanceGrammarAccess extends AbstractGrammarElementFinder {
 	//// Properties
 	//ContainedPropertyAssociation aadl2::PropertyAssociation:
 	//	property=[aadl2::Property|QPREF] ('=>' | append?='+=>') constant?='constant'?
-	//	(ownedValue+=super::OptionalModalPropertyValue (',' ownedValue+=super::OptionalModalPropertyValue)*) ('applies' 'to'
-	//	appliesTo+=ContainmentPath (',' appliesTo+=ContainmentPath)*)? ('in' 'binding' '('
+	//	(ownedValue+=super::OptionalModalPropertyValue (',' ownedValue+=super::OptionalModalPropertyValue)*)
+	//	(AppliesToKeywords appliesTo+=ContainmentPath (',' appliesTo+=ContainmentPath)*)? (InBindingKeywords '('
 	//	inBinding+=[aadl2::Classifier|QCREF] ')')?
 	//	';';
 	public PropertiesGrammarAccess.ContainedPropertyAssociationElements getContainedPropertyAssociationAccess() {
@@ -2860,8 +2860,8 @@ public class InstanceGrammarAccess extends AbstractGrammarElementFinder {
 
 	//PropertyAssociation aadl2::PropertyAssociation:
 	//	property=[aadl2::Property|QPREF] ('=>' | append?='+=>') constant?='constant'?
-	//	(ownedValue+=super::OptionalModalPropertyValue (',' ownedValue+=super::OptionalModalPropertyValue)*) ('in' 'binding'
-	//	'(' inBinding+=[aadl2::Classifier|QCREF] ')')?
+	//	(ownedValue+=super::OptionalModalPropertyValue (',' ownedValue+=super::OptionalModalPropertyValue)*)
+	//	(InBindingKeywords '(' inBinding+=[aadl2::Classifier|QCREF] ')')?
 	//	';';
 	public PropertiesGrammarAccess.PropertyAssociationElements getPropertyAssociationAccess() {
 		return gaProperties.getPropertyAssociationAccess();
@@ -2898,7 +2898,7 @@ public class InstanceGrammarAccess extends AbstractGrammarElementFinder {
 	////	 namedElement=[aadl2::NamedElement|IDANNEXTEXT];
 	//ModalPropertyValue aadl2::ModalPropertyValue:
 	//	ownedValue=super::PropertyExpression
-	//	'in' 'modes' '('
+	//	InModesKeywords '('
 	//	inMode+=[aadl2::Mode] (',' inMode+=[aadl2::Mode])*
 	//	')';
 	public PropertiesGrammarAccess.ModalPropertyValueElements getModalPropertyValueAccess() {
@@ -3161,6 +3161,36 @@ public class InstanceGrammarAccess extends AbstractGrammarElementFinder {
 	
 	public ParserRule getNumAltRule() {
 		return getNumAltAccess().getRule();
+	}
+
+	//AppliesToKeywords:
+	//	'applies' 'to';
+	public PropertiesGrammarAccess.AppliesToKeywordsElements getAppliesToKeywordsAccess() {
+		return gaProperties.getAppliesToKeywordsAccess();
+	}
+	
+	public ParserRule getAppliesToKeywordsRule() {
+		return getAppliesToKeywordsAccess().getRule();
+	}
+
+	//InBindingKeywords:
+	//	'in' 'binding';
+	public PropertiesGrammarAccess.InBindingKeywordsElements getInBindingKeywordsAccess() {
+		return gaProperties.getInBindingKeywordsAccess();
+	}
+	
+	public ParserRule getInBindingKeywordsRule() {
+		return getInBindingKeywordsAccess().getRule();
+	}
+
+	//InModesKeywords:
+	//	'in' 'modes';
+	public PropertiesGrammarAccess.InModesKeywordsElements getInModesKeywordsAccess() {
+		return gaProperties.getInModesKeywordsAccess();
+	}
+	
+	public ParserRule getInModesKeywordsRule() {
+		return getInModesKeywordsAccess().getRule();
 	}
 
 	//terminal SL_COMMENT:

@@ -9,6 +9,13 @@ import org.junit.runner.RunWith
 import org.osate.core.test.Aadl2UiInjectorProvider
 import org.osate.core.test.OsateTest
 
+/*
+ * Some of the tests have useSerializer set to false. This has to do with the customizations done in
+ * Aadl2TextRegionAccessBuilder. In that class, we customize the node model version to create hidden regions in
+ * keyword-only parser rules. We did not customize the serializer version. For formatter tests that include these
+ * keyword-only rules, useSerializer must be set to false or a comparison failure will occur because the text region
+ * from the node model doesn't match the text region from the serializer.
+ */
 @RunWith(XtextRunner)
 @InjectWith(Aadl2UiInjectorProvider)
 class FormatterTest extends OsateTest {
@@ -306,6 +313,7 @@ class FormatterTest extends OsateTest {
 	def void testRangeType() {
 		//Referenced number type
 		assertFormatted[
+			useSerializer = false
 			expectation = '''
 				property set ps1 is
 					type1: type range of ps1::type2;
@@ -315,6 +323,7 @@ class FormatterTest extends OsateTest {
 		
 		//Owned integer type
 		assertFormatted[
+			useSerializer = false
 			expectation = '''
 				property set ps1 is
 					type1: type range of aadlinteger;
@@ -324,6 +333,7 @@ class FormatterTest extends OsateTest {
 		
 		//Owned integer type with range
 		assertFormatted[
+			useSerializer = false
 			expectation = '''
 				property set ps1 is
 					type1: type range of aadlinteger 1 .. 10;
@@ -333,6 +343,7 @@ class FormatterTest extends OsateTest {
 		
 		//Owned integer type with referenced units
 		assertFormatted[
+			useSerializer = false
 			expectation = '''
 				property set ps1 is
 					type1: type range of aadlinteger units ps1::units1;
@@ -342,6 +353,7 @@ class FormatterTest extends OsateTest {
 		
 		//Owned integer type with range and referenced units
 		assertFormatted[
+			useSerializer = false
 			expectation = '''
 				property set ps1 is
 					type1: type range of aadlinteger 1m .. 10m units ps1::units1;
@@ -351,6 +363,7 @@ class FormatterTest extends OsateTest {
 		
 		//Owned integer type with owned units
 		assertFormatted[
+			useSerializer = false
 			expectation = '''
 				property set ps1 is
 					type1: type range of aadlinteger units (unit1, unit2 => unit1 * 10);
@@ -360,6 +373,7 @@ class FormatterTest extends OsateTest {
 		
 		//Owned integer type with range and owned units
 		assertFormatted[
+			useSerializer = false
 			expectation = '''
 				property set ps1 is
 					type1: type range of aadlinteger 1m .. 1km units (m, km => m * 1000);
@@ -369,6 +383,7 @@ class FormatterTest extends OsateTest {
 		
 		//Owned real type
 		assertFormatted[
+			useSerializer = false
 			expectation = '''
 				property set ps1 is
 					type1: type range of aadlreal;
@@ -378,6 +393,7 @@ class FormatterTest extends OsateTest {
 		
 		//Owned real type with range
 		assertFormatted[
+			useSerializer = false
 			expectation = '''
 				property set ps1 is
 					type1: type range of aadlreal 1.0 .. 10.0;
@@ -387,6 +403,7 @@ class FormatterTest extends OsateTest {
 		
 		//Owned real type with referenced units
 		assertFormatted[
+			useSerializer = false
 			expectation = '''
 				property set ps1 is
 					type1: type range of aadlreal units ps1::units1;
@@ -396,6 +413,7 @@ class FormatterTest extends OsateTest {
 		
 		//Owned real type with range and referenced units
 		assertFormatted[
+			useSerializer = false
 			expectation = '''
 				property set ps1 is
 					type1: type range of aadlreal 1.0m .. 10.0m units ps1::units1;
@@ -405,6 +423,7 @@ class FormatterTest extends OsateTest {
 		
 		//Owned real type with owned units
 		assertFormatted[
+			useSerializer = false
 			expectation = '''
 				property set ps1 is
 					type1: type range of aadlreal units (unit1, unit2 => unit1 * 10);
@@ -414,6 +433,7 @@ class FormatterTest extends OsateTest {
 		
 		//Owned real type with range and owned units
 		assertFormatted[
+			useSerializer = false
 			expectation = '''
 				property set ps1 is
 					type1: type range of aadlreal 1.0m .. 1.0km units (m, km => m * 1000);
@@ -511,6 +531,7 @@ class FormatterTest extends OsateTest {
 	def void testListType() {
 		//Referenced element type
 		assertFormatted[
+			useSerializer = false
 			expectation = '''
 				property set ps1 is
 					type1: type record (field1: list of ps1::type2;);
@@ -520,6 +541,7 @@ class FormatterTest extends OsateTest {
 		
 		//Owned element type
 		assertFormatted[
+			useSerializer = false
 			expectation = '''
 				property set ps1 is
 					type1: type record (field1: list of aadlinteger;);
