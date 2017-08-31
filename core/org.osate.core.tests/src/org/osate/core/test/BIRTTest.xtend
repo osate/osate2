@@ -33,6 +33,6 @@ abstract class BIRTTest extends OsateTest {
 		]
 		workspaceRoot.refreshLocal(IResource.DEPTH_INFINITE, null)
 		val actualReport = Files.readStreamIntoString(workspaceRoot.getProject(projectName).getFile(reportResultFileName).contents)
-		Assert.assertEquals(expectedReport, actualReport.replaceAll('AUTOGENBOOKMARK[^"]*', "").replaceAll("\\p{Alpha}* \\d{1,2}, \\d{4}, \\d{1,2}:\\d{2} (A|P)M", ""))
+		Assert.assertEquals(expectedReport, actualReport.replaceAll('''AUTOGENBOOKMARK[^"]*''', '').replaceAll('''\p{Alpha}* \d{1,2}, \d{4}.{1,2}\d{1,2}:\d{2} (A|P)M''', ''))
 	}
 }

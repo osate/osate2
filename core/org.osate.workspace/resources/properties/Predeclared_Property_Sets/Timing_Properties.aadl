@@ -19,7 +19,7 @@ property set Timing_Properties is
 	Client_Subprogram_Execution_Time: Time_Range
 		applies to (subprogram);
 	
-	Deactivate_Dealing: Time
+	Deactivate_Deadline: Time
 		applies to (thread);
 	
 	Deactivate_Execution_Time: Time_Range
