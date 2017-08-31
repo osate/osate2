@@ -79,7 +79,7 @@ import org.osate.aadl2.instance.textual.services.InstanceGrammarAccess;
 import org.osate.xtext.aadl2.properties.serializer.PropertiesSemanticSequencer;
 
 @SuppressWarnings("all")
-public class InstanceSemanticSequencer extends PropertiesSemanticSequencer {
+public abstract class AbstractInstanceSemanticSequencer extends PropertiesSemanticSequencer {
 
 	@Inject
 	private InstanceGrammarAccess grammarAccess;
