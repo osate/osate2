@@ -1364,7 +1364,8 @@ class Aadl2Formatter extends AbstractFormatter2 {
 		modeTransition.regionFor.keywords(modeTransitionAccess.commaKeyword_4_0).forEach[
 			prepend[noSpace].append[oneSpace; setNewLines(0, 0, 1); autowrap]
 		]
-		if (rightMarker.previousHiddenRegion.multiline) {
+		
+		if (rightMarker?.previousHiddenRegion?.multiline) {
 			rightMarker.prepend[newLines = 1].append[oneSpace].surround[indent; indent]
 		} else {
 			rightMarker.prepend[noSpace].append[oneSpace]
