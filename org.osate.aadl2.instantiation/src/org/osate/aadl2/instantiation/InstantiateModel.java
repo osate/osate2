@@ -566,8 +566,13 @@ public class InstantiateModel {
 			mi.setMode(m);
 			mi.setName(m.getName());
 			mi.setInitial(m.isInitial());
-			mi.setDerived(m.isDerived());
-			if (m.isDerived()) {
+			/*
+			 * If ci is the root object, ignore derived. This means that we are instantiating an implementation that
+			 * contains derived modes. In this case, treat the derived modes as normal modes since there is no
+			 * containing component to provide a parent mode.
+			 */
+			if (m.isDerived() && !(ci instanceof SystemInstance)) {
+				mi.setDerived(true);
 				Subcomponent sub = ci.getSubcomponent();
 				ComponentInstance parentci = ci.getContainingComponentInstance();
 
