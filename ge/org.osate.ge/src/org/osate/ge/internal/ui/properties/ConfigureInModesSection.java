@@ -19,6 +19,7 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.SelectionListener;
+import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
@@ -148,6 +149,13 @@ public class ConfigureInModesSection extends AbstractPropertySection {
 		} else {
 			System.err.println("DISABLE DROPDOWNS");
 		}
+
+		final Button allModesBtn = getWidgetFactory().createButton(composite, "All Modes", SWT.CHECK);
+		final GridData allModesGridData = new GridData();
+		allModesBtn.setLayoutData(allModesGridData);
+		final Label modeSeparator = new Label(composite, SWT.HORIZONTAL | SWT.SEPARATOR);
+		final GridData modeSeparatorLayoutData = new GridData(GridData.FILL_HORIZONTAL);
+		modeSeparator.setLayoutData(modeSeparatorLayoutData);
 
 		modeBtnCtrls = new HashMap<ModeButton, ComboViewer>();
 		modeControls = new ArrayList<>();
