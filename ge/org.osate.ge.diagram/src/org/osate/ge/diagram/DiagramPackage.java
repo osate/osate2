@@ -87,51 +87,6 @@ public class DiagramPackage extends EPackageImpl {
 	 * @generated
 	 * @ordered
 	 */
-	public static final int DIAGRAM__ELEMENT = DiagramPackage.DIAGRAM_NODE__ELEMENT;
-
-	/**
-	 * The feature id for the '<em><b>Config</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	public static final int DIAGRAM__CONFIG = DiagramPackage.DIAGRAM_NODE_FEATURE_COUNT + 0;
-
-	/**
-	 * The feature id for the '<em><b>Format Version</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	public static final int DIAGRAM__FORMAT_VERSION = DiagramPackage.DIAGRAM_NODE_FEATURE_COUNT + 1;
-
-	/**
-	 * The number of structural features of the '<em>Diagram</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	public static final int DIAGRAM_FEATURE_COUNT = DiagramPackage.DIAGRAM_NODE_FEATURE_COUNT + 2;
-
-	/**
-	 * The number of operations of the '<em>Diagram</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	public static final int DIAGRAM_OPERATION_COUNT = DiagramPackage.DIAGRAM_NODE_OPERATION_COUNT + 0;
-
-	/**
-	 * The feature id for the '<em><b>Element</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
 	public static final int DIAGRAM_NODE__ELEMENT = 0;
 
 	/**
@@ -153,6 +108,51 @@ public class DiagramPackage extends EPackageImpl {
 	public static final int DIAGRAM_NODE_OPERATION_COUNT = 0;
 
 	/**
+	 * The feature id for the '<em><b>Element</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	public static final int DIAGRAM__ELEMENT = DIAGRAM_NODE__ELEMENT;
+
+	/**
+	 * The feature id for the '<em><b>Config</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	public static final int DIAGRAM__CONFIG = DIAGRAM_NODE_FEATURE_COUNT + 0;
+
+	/**
+	 * The feature id for the '<em><b>Format Version</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	public static final int DIAGRAM__FORMAT_VERSION = DIAGRAM_NODE_FEATURE_COUNT + 1;
+
+	/**
+	 * The number of structural features of the '<em>Diagram</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	public static final int DIAGRAM_FEATURE_COUNT = DIAGRAM_NODE_FEATURE_COUNT + 2;
+
+	/**
+	 * The number of operations of the '<em>Diagram</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	public static final int DIAGRAM_OPERATION_COUNT = DIAGRAM_NODE_OPERATION_COUNT + 0;
+
+	/**
 	 * The meta object id for the '{@link org.osate.ge.diagram.DiagramElement <em>Element</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -169,7 +169,7 @@ public class DiagramPackage extends EPackageImpl {
 	 * @generated
 	 * @ordered
 	 */
-	public static final int DIAGRAM_ELEMENT__ELEMENT = DiagramPackage.DIAGRAM_NODE__ELEMENT;
+	public static final int DIAGRAM_ELEMENT__ELEMENT = DIAGRAM_NODE__ELEMENT;
 
 	/**
 	 * The feature id for the '<em><b>Id</b></em>' attribute.
@@ -178,7 +178,7 @@ public class DiagramPackage extends EPackageImpl {
 	 * @generated
 	 * @ordered
 	 */
-	public static final int DIAGRAM_ELEMENT__ID = DiagramPackage.DIAGRAM_NODE_FEATURE_COUNT + 0;
+	public static final int DIAGRAM_ELEMENT__ID = DIAGRAM_NODE_FEATURE_COUNT + 0;
 
 	/**
 	 * The feature id for the '<em><b>Bo</b></em>' containment reference.
@@ -187,7 +187,7 @@ public class DiagramPackage extends EPackageImpl {
 	 * @generated
 	 * @ordered
 	 */
-	public static final int DIAGRAM_ELEMENT__BO = DiagramPackage.DIAGRAM_NODE_FEATURE_COUNT + 1;
+	public static final int DIAGRAM_ELEMENT__BO = DIAGRAM_NODE_FEATURE_COUNT + 1;
 
 	/**
 	 * The feature id for the '<em><b>Manual</b></em>' attribute.
@@ -196,7 +196,7 @@ public class DiagramPackage extends EPackageImpl {
 	 * @generated
 	 * @ordered
 	 */
-	public static final int DIAGRAM_ELEMENT__MANUAL = DiagramPackage.DIAGRAM_NODE_FEATURE_COUNT + 2;
+	public static final int DIAGRAM_ELEMENT__MANUAL = DIAGRAM_NODE_FEATURE_COUNT + 2;
 
 	/**
 	 * The feature id for the '<em><b>Auto Contents Filter</b></em>' attribute.
@@ -205,7 +205,7 @@ public class DiagramPackage extends EPackageImpl {
 	 * @generated
 	 * @ordered
 	 */
-	public static final int DIAGRAM_ELEMENT__AUTO_CONTENTS_FILTER = DiagramPackage.DIAGRAM_NODE_FEATURE_COUNT + 3;
+	public static final int DIAGRAM_ELEMENT__AUTO_CONTENTS_FILTER = DIAGRAM_NODE_FEATURE_COUNT + 3;
 
 	/**
 	 * The feature id for the '<em><b>Position</b></em>' containment reference.
@@ -214,7 +214,7 @@ public class DiagramPackage extends EPackageImpl {
 	 * @generated
 	 * @ordered
 	 */
-	public static final int DIAGRAM_ELEMENT__POSITION = DiagramPackage.DIAGRAM_NODE_FEATURE_COUNT + 4;
+	public static final int DIAGRAM_ELEMENT__POSITION = DIAGRAM_NODE_FEATURE_COUNT + 4;
 
 	/**
 	 * The feature id for the '<em><b>Size</b></em>' containment reference.
@@ -223,7 +223,7 @@ public class DiagramPackage extends EPackageImpl {
 	 * @generated
 	 * @ordered
 	 */
-	public static final int DIAGRAM_ELEMENT__SIZE = DiagramPackage.DIAGRAM_NODE_FEATURE_COUNT + 5;
+	public static final int DIAGRAM_ELEMENT__SIZE = DIAGRAM_NODE_FEATURE_COUNT + 5;
 
 	/**
 	 * The feature id for the '<em><b>Dock Area</b></em>' attribute.
@@ -232,7 +232,7 @@ public class DiagramPackage extends EPackageImpl {
 	 * @generated
 	 * @ordered
 	 */
-	public static final int DIAGRAM_ELEMENT__DOCK_AREA = DiagramPackage.DIAGRAM_NODE_FEATURE_COUNT + 6;
+	public static final int DIAGRAM_ELEMENT__DOCK_AREA = DIAGRAM_NODE_FEATURE_COUNT + 6;
 
 	/**
 	 * The feature id for the '<em><b>Bendpoints</b></em>' containment reference.
@@ -241,7 +241,7 @@ public class DiagramPackage extends EPackageImpl {
 	 * @generated
 	 * @ordered
 	 */
-	public static final int DIAGRAM_ELEMENT__BENDPOINTS = DiagramPackage.DIAGRAM_NODE_FEATURE_COUNT + 7;
+	public static final int DIAGRAM_ELEMENT__BENDPOINTS = DIAGRAM_NODE_FEATURE_COUNT + 7;
 
 	/**
 	 * The feature id for the '<em><b>Primary Label Position</b></em>' containment reference.
@@ -250,7 +250,7 @@ public class DiagramPackage extends EPackageImpl {
 	 * @generated
 	 * @ordered
 	 */
-	public static final int DIAGRAM_ELEMENT__PRIMARY_LABEL_POSITION = DiagramPackage.DIAGRAM_NODE_FEATURE_COUNT + 8;
+	public static final int DIAGRAM_ELEMENT__PRIMARY_LABEL_POSITION = DIAGRAM_NODE_FEATURE_COUNT + 8;
 
 	/**
 	 * The number of structural features of the '<em>Element</em>' class.
@@ -259,7 +259,7 @@ public class DiagramPackage extends EPackageImpl {
 	 * @generated
 	 * @ordered
 	 */
-	public static final int DIAGRAM_ELEMENT_FEATURE_COUNT = DiagramPackage.DIAGRAM_NODE_FEATURE_COUNT + 9;
+	public static final int DIAGRAM_ELEMENT_FEATURE_COUNT = DIAGRAM_NODE_FEATURE_COUNT + 9;
 
 	/**
 	 * The number of operations of the '<em>Element</em>' class.
@@ -268,7 +268,7 @@ public class DiagramPackage extends EPackageImpl {
 	 * @generated
 	 * @ordered
 	 */
-	public static final int DIAGRAM_ELEMENT_OPERATION_COUNT = DiagramPackage.DIAGRAM_NODE_OPERATION_COUNT + 0;
+	public static final int DIAGRAM_ELEMENT_OPERATION_COUNT = DIAGRAM_NODE_OPERATION_COUNT + 0;
 
 	/**
 	 * The meta object id for the '{@link org.osate.ge.diagram.Point <em>Point</em>}' class.
@@ -483,25 +483,25 @@ public class DiagramPackage extends EPackageImpl {
 	 * @generated
 	 * @ordered
 	 */
-	public static final int CANONICAL_BUSINESS_OBJECT_REFERENCE__SEG = DiagramPackage.REFERENCE__SEG;
+	public static final int REFERENCE__SEG = 0;
 
 	/**
-	 * The number of structural features of the '<em>Canonical Business Object Reference</em>' class.
+	 * The number of structural features of the '<em>Reference</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	public static final int CANONICAL_BUSINESS_OBJECT_REFERENCE_FEATURE_COUNT = DiagramPackage.REFERENCE_FEATURE_COUNT + 0;
+	public static final int REFERENCE_FEATURE_COUNT = 1;
 
 	/**
-	 * The number of operations of the '<em>Canonical Business Object Reference</em>' class.
+	 * The number of operations of the '<em>Reference</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	public static final int CANONICAL_BUSINESS_OBJECT_REFERENCE_OPERATION_COUNT = DiagramPackage.REFERENCE_OPERATION_COUNT + 0;
+	public static final int REFERENCE_OPERATION_COUNT = 0;
 
 	/**
 	 * The feature id for the '<em><b>Seg</b></em>' attribute list.
@@ -510,7 +510,34 @@ public class DiagramPackage extends EPackageImpl {
 	 * @generated
 	 * @ordered
 	 */
-	public static final int RELATIVE_BUSINESS_OBJECT_REFERENCE__SEG = DiagramPackage.REFERENCE__SEG;
+	public static final int CANONICAL_BUSINESS_OBJECT_REFERENCE__SEG = REFERENCE__SEG;
+
+	/**
+	 * The number of structural features of the '<em>Canonical Business Object Reference</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	public static final int CANONICAL_BUSINESS_OBJECT_REFERENCE_FEATURE_COUNT = REFERENCE_FEATURE_COUNT + 0;
+
+	/**
+	 * The number of operations of the '<em>Canonical Business Object Reference</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	public static final int CANONICAL_BUSINESS_OBJECT_REFERENCE_OPERATION_COUNT = REFERENCE_OPERATION_COUNT + 0;
+
+	/**
+	 * The feature id for the '<em><b>Seg</b></em>' attribute list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	public static final int RELATIVE_BUSINESS_OBJECT_REFERENCE__SEG = REFERENCE__SEG;
 
 	/**
 	 * The number of structural features of the '<em>Relative Business Object Reference</em>' class.
@@ -519,7 +546,7 @@ public class DiagramPackage extends EPackageImpl {
 	 * @generated
 	 * @ordered
 	 */
-	public static final int RELATIVE_BUSINESS_OBJECT_REFERENCE_FEATURE_COUNT = DiagramPackage.REFERENCE_FEATURE_COUNT + 0;
+	public static final int RELATIVE_BUSINESS_OBJECT_REFERENCE_FEATURE_COUNT = REFERENCE_FEATURE_COUNT + 0;
 
 	/**
 	 * The number of operations of the '<em>Relative Business Object Reference</em>' class.
@@ -528,7 +555,7 @@ public class DiagramPackage extends EPackageImpl {
 	 * @generated
 	 * @ordered
 	 */
-	public static final int RELATIVE_BUSINESS_OBJECT_REFERENCE_OPERATION_COUNT = DiagramPackage.REFERENCE_OPERATION_COUNT + 0;
+	public static final int RELATIVE_BUSINESS_OBJECT_REFERENCE_OPERATION_COUNT = REFERENCE_OPERATION_COUNT + 0;
 
 	/**
 	 * The feature id for the '<em><b>Enabled Aadl Properties</b></em>' containment reference.
@@ -565,33 +592,6 @@ public class DiagramPackage extends EPackageImpl {
 	 * @ordered
 	 */
 	public static final int DIAGRAM_CONFIGURATION_OPERATION_COUNT = 0;
-
-	/**
-	 * The feature id for the '<em><b>Seg</b></em>' attribute list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	public static final int REFERENCE__SEG = 0;
-
-	/**
-	 * The number of structural features of the '<em>Reference</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	public static final int REFERENCE_FEATURE_COUNT = 1;
-
-	/**
-	 * The number of operations of the '<em>Reference</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	public static final int REFERENCE_OPERATION_COUNT = 0;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -719,16 +719,11 @@ public class DiagramPackage extends EPackageImpl {
 		// Initialize simple dependencies
 		XMLTypePackage.eINSTANCE.eClass();
 
-		// Obtain or create and register interdependencies
-		DiagramPackage theDiagramPackage_1 = (DiagramPackage)(EPackage.Registry.INSTANCE.getEPackage(DiagramPackage.eNS_URI) instanceof DiagramPackage ? EPackage.Registry.INSTANCE.getEPackage(DiagramPackage.eNS_URI) : DiagramPackage.eINSTANCE);
-
 		// Create package meta-data objects
 		theDiagramPackage.createPackageContents();
-		theDiagramPackage_1.createPackageContents();
 
 		// Initialize created meta-data
 		theDiagramPackage.initializePackageContents();
-		theDiagramPackage_1.initializePackageContents();
 
 		// Mark meta-data to indicate it can't be changed
 		theDiagramPackage.freeze();
@@ -1245,7 +1240,6 @@ public class DiagramPackage extends EPackageImpl {
 		setNsURI(eNS_URI);
 
 		// Obtain other dependent packages
-		DiagramPackage theDiagramPackage_1 = (DiagramPackage)EPackage.Registry.INSTANCE.getEPackage(DiagramPackage.eNS_URI);
 		XMLTypePackage theXMLTypePackage = (XMLTypePackage)EPackage.Registry.INSTANCE.getEPackage(XMLTypePackage.eNS_URI);
 
 		// Create type parameters
@@ -1253,40 +1247,40 @@ public class DiagramPackage extends EPackageImpl {
 		// Set bounds for type parameters
 
 		// Add supertypes to classes
-		diagramEClass.getESuperTypes().add(theDiagramPackage_1.getDiagramNode());
-		diagramElementEClass.getESuperTypes().add(theDiagramPackage_1.getDiagramNode());
-		canonicalBusinessObjectReferenceEClass.getESuperTypes().add(theDiagramPackage_1.getReference());
-		relativeBusinessObjectReferenceEClass.getESuperTypes().add(theDiagramPackage_1.getReference());
+		diagramEClass.getESuperTypes().add(this.getDiagramNode());
+		diagramElementEClass.getESuperTypes().add(this.getDiagramNode());
+		canonicalBusinessObjectReferenceEClass.getESuperTypes().add(this.getReference());
+		relativeBusinessObjectReferenceEClass.getESuperTypes().add(this.getReference());
 
 		// Initialize classes, features, and operations; add parameters
 		initEClass(diagramEClass, Diagram.class, "Diagram", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getDiagram_Config(), theDiagramPackage_1.getDiagramConfiguration(), null, "config", null, 0, 1, Diagram.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getDiagram_Config(), this.getDiagramConfiguration(), null, "config", null, 0, 1, Diagram.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getDiagram_FormatVersion(), theXMLTypePackage.getInt(), "formatVersion", "0", 0, 1, Diagram.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(diagramNodeEClass, DiagramNode.class, "DiagramNode", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getDiagramNode_Element(), theDiagramPackage_1.getDiagramElement(), null, "element", null, 0, -1, DiagramNode.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getDiagramNode_Element(), this.getDiagramElement(), null, "element", null, 0, -1, DiagramNode.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(diagramElementEClass, DiagramElement.class, "DiagramElement", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getDiagramElement_Id(), theXMLTypePackage.getLongObject(), "id", null, 0, 1, DiagramElement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getDiagramElement_Bo(), theDiagramPackage_1.getRelativeBusinessObjectReference(), null, "bo", null, 0, 1, DiagramElement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getDiagramElement_Bo(), this.getRelativeBusinessObjectReference(), null, "bo", null, 0, 1, DiagramElement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getDiagramElement_Manual(), theXMLTypePackage.getBoolean(), "manual", "false", 0, 1, DiagramElement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getDiagramElement_AutoContentsFilter(), theXMLTypePackage.getString(), "autoContentsFilter", null, 0, 1, DiagramElement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getDiagramElement_Position(), theDiagramPackage_1.getPoint(), null, "position", null, 0, 1, DiagramElement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getDiagramElement_Size(), theDiagramPackage_1.getDimension(), null, "size", null, 0, 1, DiagramElement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getDiagramElement_Position(), this.getPoint(), null, "position", null, 0, 1, DiagramElement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getDiagramElement_Size(), this.getDimension(), null, "size", null, 0, 1, DiagramElement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getDiagramElement_DockArea(), theXMLTypePackage.getString(), "dockArea", null, 0, 1, DiagramElement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getDiagramElement_Bendpoints(), theDiagramPackage_1.getBendpointList(), null, "bendpoints", null, 0, 1, DiagramElement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getDiagramElement_PrimaryLabelPosition(), theDiagramPackage_1.getPoint(), null, "primaryLabelPosition", null, 0, 1, DiagramElement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getDiagramElement_Bendpoints(), this.getBendpointList(), null, "bendpoints", null, 0, 1, DiagramElement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getDiagramElement_PrimaryLabelPosition(), this.getPoint(), null, "primaryLabelPosition", null, 0, 1, DiagramElement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(pointEClass, Point.class, "Point", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEAttribute(getPoint_X(), theXMLTypePackage.getInt(), "x", null, 0, 1, Point.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getPoint_Y(), theXMLTypePackage.getInt(), "y", null, 0, 1, Point.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getPoint_X(), theXMLTypePackage.getDouble(), "x", null, 0, 1, Point.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getPoint_Y(), theXMLTypePackage.getDouble(), "y", null, 0, 1, Point.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(dimensionEClass, Dimension.class, "Dimension", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEAttribute(getDimension_Width(), theXMLTypePackage.getInt(), "width", null, 0, 1, Dimension.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getDimension_Height(), theXMLTypePackage.getInt(), "height", null, 0, 1, Dimension.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getDimension_Width(), theXMLTypePackage.getDouble(), "width", null, 0, 1, Dimension.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getDimension_Height(), theXMLTypePackage.getDouble(), "height", null, 0, 1, Dimension.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(bendpointListEClass, BendpointList.class, "BendpointList", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getBendpointList_Point(), theDiagramPackage_1.getPoint(), null, "point", null, 0, -1, BendpointList.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getBendpointList_Point(), this.getPoint(), null, "point", null, 0, -1, BendpointList.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(aadlPropertiesSetEClass, AadlPropertiesSet.class, "AadlPropertiesSet", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getAadlPropertiesSet_Property(), theXMLTypePackage.getString(), "property", null, 0, -1, AadlPropertiesSet.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
@@ -1296,11 +1290,14 @@ public class DiagramPackage extends EPackageImpl {
 		initEClass(relativeBusinessObjectReferenceEClass, RelativeBusinessObjectReference.class, "RelativeBusinessObjectReference", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
 		initEClass(diagramConfigurationEClass, DiagramConfiguration.class, "DiagramConfiguration", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getDiagramConfiguration_EnabledAadlProperties(), theDiagramPackage_1.getAadlPropertiesSet(), null, "enabledAadlProperties", null, 0, 1, DiagramConfiguration.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getDiagramConfiguration_Context(), theDiagramPackage_1.getCanonicalBusinessObjectReference(), null, "context", null, 0, 1, DiagramConfiguration.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getDiagramConfiguration_EnabledAadlProperties(), this.getAadlPropertiesSet(), null, "enabledAadlProperties", null, 0, 1, DiagramConfiguration.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getDiagramConfiguration_Context(), this.getCanonicalBusinessObjectReference(), null, "context", null, 0, 1, DiagramConfiguration.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(referenceEClass, Reference.class, "Reference", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getReference_Seg(), theXMLTypePackage.getString(), "seg", null, 0, -1, Reference.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		// Create resource
+		createResource(eNS_URI);
 	}
 
 	/**
