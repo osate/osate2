@@ -34,7 +34,6 @@ public class DiagramSerialization {
 		// Load the resource
 		final ResourceSet rs = new ResourceSetImpl();
 		final Resource resource = rs.createResource(uri);
-
 		try {
 			resource.load(Collections.singletonMap(XMLResource.OPTION_RECORD_UNKNOWN_FEATURE, true));
 			if (resource.getContents().size() == 0
@@ -205,7 +204,7 @@ public class DiagramSerialization {
 			return null;
 		}
 
-		return new Point(mmPoint.getX(), mmPoint.getY());
+		return new Point((int) Math.round(mmPoint.getX()), (int) Math.round(mmPoint.getY()));
 	}
 
 	private static Dimension convertDimension(final org.osate.ge.diagram.Dimension mmDimension) {
@@ -213,7 +212,7 @@ public class DiagramSerialization {
 			return null;
 		}
 
-		return new Dimension(mmDimension.getWidth(), mmDimension.getHeight());
+		return new Dimension((int) Math.round(mmDimension.getWidth()), (int) Math.round(mmDimension.getHeight()));
 	}
 
 	public static void write(final AgeDiagram diagram, final URI uri) {
