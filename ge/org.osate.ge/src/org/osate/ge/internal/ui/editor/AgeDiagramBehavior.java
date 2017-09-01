@@ -58,9 +58,11 @@ import org.eclipse.graphiti.ui.editor.DiagramBehavior;
 import org.eclipse.graphiti.ui.editor.DiagramEditorContextMenuProvider;
 import org.eclipse.graphiti.ui.editor.IDiagramContainerUI;
 import org.eclipse.graphiti.ui.editor.IDiagramEditorInput;
+import org.eclipse.graphiti.ui.platform.IConfigurationProvider;
 import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.jface.dialogs.ErrorDialog;
 import org.eclipse.jface.dialogs.MessageDialog;
+import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.MouseEvent;
 import org.eclipse.swt.events.MouseMoveListener;
@@ -75,6 +77,9 @@ import org.eclipse.ui.IPartListener;
 import org.eclipse.ui.IWorkbenchPart;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.part.EditorPart;
+import org.eclipse.ui.views.properties.IPropertySheetPage;
+import org.eclipse.ui.views.properties.tabbed.ITabbedPropertySheetPageContributor;
+import org.eclipse.ui.views.properties.tabbed.TabbedPropertySheetPage;
 import org.osate.ge.di.Names;
 import org.osate.ge.graphics.Color;
 import org.osate.ge.internal.Activator;
@@ -112,6 +117,7 @@ public class AgeDiagramBehavior extends DiagramBehavior implements GraphitiAgeDi
 	private ToolHandler toolHandler;
 	private IResourceChangeListener resourceChangeListener;
 	private AgeDiagram ageDiagram;
+	private AgeTabbedPropertySheetPage propertySheetPage;
 	private PaintListener paintListener = e -> {
 		if(updateWhenVisible) {
 			updateDiagram(true);
@@ -917,5 +923,52 @@ public class AgeDiagramBehavior extends DiagramBehavior implements GraphitiAgeDi
 
 	private static Path getPath(final URI uri) {
 		return new Path(uri.toPlatformString(true));
+	}
+
+	@Override
+	public Object getAdapter(@SuppressWarnings("rawtypes") Class type) {
+		if (type == IPropertySheetPage.class) {
+			final IConfigurationProvider cfgProvider = getConfigurationProvider();
+			if (cfgProvider != null && getDiagramContainer() instanceof ITabbedPropertySheetPageContributor) {
+				ITabbedPropertySheetPageContributor contributor = (ITabbedPropertySheetPageContributor) getDiagramContainer();
+				if (contributor.getContributorId() != null) {
+					propertySheetPage = new AgeTabbedPropertySheetPage(contributor);
+					return propertySheetPage;
+				}
+			}
+			return null; // not yet initialized
+		}
+
+		return super.getAdapter(type);
+	}
+
+	private static class AgeTabbedPropertySheetPage extends TabbedPropertySheetPage {
+		private IWorkbenchPart part;
+
+		public AgeTabbedPropertySheetPage(
+				final ITabbedPropertySheetPageContributor tabbedPropertySheetPageContributor) {
+			super(tabbedPropertySheetPageContributor);
+		}
+
+		@Override
+		public void selectionChanged(final IWorkbenchPart part, final ISelection selection) {
+			super.selectionChanged(part, selection);
+			this.part = part;
+		}
+	}
+
+	// Update the property sheet selection if it has changed and the part the property sheet is interested in is the editor.
+	// This check is needed to avoid problems with outline selection.
+	@Override
+	public void selectPictogramElements(final PictogramElement[] pes) {
+		super.selectPictogramElements(pes);
+
+		final IWorkbenchPart parentPart = getParentPart();
+		if (parentPart != null && propertySheetPage != null && propertySheetPage.part == parentPart
+				&& parentPart.getSite() != null
+				&& parentPart.getSite().getSelectionProvider() != null) {
+			propertySheetPage.selectionChanged(parentPart,
+					parentPart.getSite().getSelectionProvider().getSelection());
+		}
 	}
 }
