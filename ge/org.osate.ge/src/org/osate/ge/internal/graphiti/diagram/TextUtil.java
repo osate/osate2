@@ -8,21 +8,18 @@ import org.eclipse.graphiti.services.IGaService;
 import org.eclipse.graphiti.util.IColorConstant;
 import org.eclipse.swt.graphics.Device;
 import org.eclipse.swt.widgets.Display;
-import org.osate.ge.internal.diagram.runtime.FontSize;
+import org.osate.ge.graphics.Style;
 
 public class TextUtil {
 	// Default font size will be used if specified font size is null.
-	public static void setStyle(final Diagram diagram, final Text text, final FontSize fontSize) {
-		setStyle(diagram, text, fontSize == null ? FontSize.Default.getValue() : fontSize.getValue());
-	}
-
-	public static void setStyle(final Diagram diagram, final Text text, final double fontSize) {
+	public static void setStyle(final Diagram diagram, final Text text, final Double fontSize) {
 		final IGaService gaService = Graphiti.getGaService();
 		text.setForeground(gaService.manageColor(diagram, IColorConstant.BLACK));
 		text.setFilled(false);
 		text.setHorizontalAlignment(Orientation.ALIGNMENT_CENTER);
 		text.setVerticalAlignment(Orientation.ALIGNMENT_CENTER);
-		text.setFont(gaService.manageFont(diagram, "Arial", getScaledFontPointSize(fontSize), false, true));
+		text.setFont(gaService.manageFont(diagram, "Arial",
+				getScaledFontPointSize(fontSize == null ? Style.DEFAULT.getFontSize() : fontSize), false, true));
 	}
 
 	private static int getScaledFontPointSize(final double unscaledFontSize) {

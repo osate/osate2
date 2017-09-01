@@ -1,7 +1,6 @@
-package org.osate.ge.internal.labels;
+package org.osate.ge.graphics;
 
 public enum LabelPosition {
-	DEFAULT,
 	GRAPHIC_BEGINNING,
 	GRAPHIC_CENTER,
 	GRAPHIC_END,
@@ -24,9 +23,6 @@ public enum LabelPosition {
 
 		case GRAPHIC_END:
 			return GRAPHIC_BEGINNING;
-
-		case DEFAULT:
-			return DEFAULT;
 
 		default:
 			return this;

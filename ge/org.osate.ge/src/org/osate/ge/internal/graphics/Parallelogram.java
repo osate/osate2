@@ -1,13 +1,9 @@
 package org.osate.ge.internal.graphics;
 
 public class Parallelogram implements AgeShape {
-	public final int lineWidth;
-	public final LineStyle lineStyle;
 	public final int horizontalOffset;
-	
-	public Parallelogram(final int lineWidth, final LineStyle lineStyle, final int horizontalOffset) {
-		this.lineWidth = lineWidth;
-		this.lineStyle = lineStyle;
+
+	public Parallelogram(final int horizontalOffset) {
 		this.horizontalOffset = horizontalOffset;
 	}
 
@@ -16,8 +12,6 @@ public class Parallelogram implements AgeShape {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + horizontalOffset;
-		result = prime * result + ((lineStyle == null) ? 0 : lineStyle.hashCode());
-		result = prime * result + lineWidth;
 		return result;
 	}
 
@@ -34,12 +28,6 @@ public class Parallelogram implements AgeShape {
 		}
 		Parallelogram other = (Parallelogram) obj;
 		if (horizontalOffset != other.horizontalOffset) {
-			return false;
-		}
-		if (lineStyle != other.lineStyle) {
-			return false;
-		}
-		if (lineWidth != other.lineWidth) {
 			return false;
 		}
 		return true;

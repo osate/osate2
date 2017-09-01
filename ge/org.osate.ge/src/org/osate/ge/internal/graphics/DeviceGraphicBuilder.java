@@ -16,10 +16,8 @@ import org.osate.ge.graphics.Graphic;
  * @see Graphic
  */
 public class DeviceGraphicBuilder {
-	private int lineWidth = 1;
-	
 	private DeviceGraphicBuilder() {}
-	
+
 	/**
 	 * Creates a device graphic builder.
 	 * @return a device graphic builder
@@ -27,22 +25,12 @@ public class DeviceGraphicBuilder {
 	public static DeviceGraphicBuilder create() {
 		return new DeviceGraphicBuilder();
 	}
-		
-	/**
-	 * Sets the line width to use to create the device graphic.
-	 * @param value the new value for the line width.
-	 * @return this builder to allow method chaining.
-	 */
-	public DeviceGraphicBuilder lineWidth(int value) {
-		this.lineWidth = value;
-		return this;
-	}
-		
+
 	/**
 	 * Creates a device graphic based on the current state of the builder.
 	 * @return the newly created graphic
 	 */
 	public Graphic build() {
-		return new DeviceGraphic(lineWidth);
+		return new DeviceGraphic();
 	}
 }

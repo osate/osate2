@@ -3,10 +3,11 @@ package org.osate.ge.internal.diagram.runtime.boTree;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Map;
+
+import org.osate.ge.graphics.Point;
 import org.osate.ge.internal.diagram.runtime.AgeDiagram;
 import org.osate.ge.internal.diagram.runtime.DiagramElement;
 import org.osate.ge.internal.diagram.runtime.DiagramNode;
-import org.osate.ge.internal.diagram.runtime.Point;
 import org.osate.ge.internal.diagram.runtime.RelativeBusinessObjectReference;
 
 /**

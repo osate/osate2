@@ -1,6 +1,5 @@
 package org.osate.ge.internal.diagram.runtime;
 
-import java.awt.Color;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -10,10 +9,10 @@ import java.util.Objects;
 
 import org.osate.ge.BusinessObjectContext;
 import org.osate.ge.graphics.Graphic;
-import org.osate.ge.internal.AgeGraphicalConfiguration;
-import org.osate.ge.internal.DockArea;
+import org.osate.ge.graphics.Point;
+import org.osate.ge.graphics.Style;
 import org.osate.ge.internal.diagram.runtime.boTree.Completeness;
-import org.osate.ge.internal.labels.AgeLabelConfiguration;
+import org.osate.ge.internal.graphics.AgeGraphicalConfiguration;
 import org.osate.ge.internal.query.Queryable;
 
 public class DiagramElement implements DiagramNode, ModifiableDiagramElementContainer, BusinessObjectContext {
@@ -29,7 +28,7 @@ public class DiagramElement implements DiagramNode, ModifiableDiagramElementCont
 	private final DiagramElementCollection children = new DiagramElementCollection();
 	private String name;
 	private AgeGraphicalConfiguration graphicalConfig; // Required after initialization.
-	private Style style = Style.defaultStyle; // Will never be null
+	private Style style = Style.EMPTY; // Will never be null
 
 	// Shape Specific
 	private Point position; // Optional. Relative to container.
@@ -176,7 +175,7 @@ public class DiagramElement implements DiagramNode, ModifiableDiagramElementCont
 	 *
 	 * @return 0 if the element does not have a position
 	 */
-	public final int getX() {
+	public final double getX() {
 		return position == null ? 0 : position.x;
 	}
 
@@ -184,7 +183,7 @@ public class DiagramElement implements DiagramNode, ModifiableDiagramElementCont
 	 *
 	 * @return 0 if the element does not have a position
 	 */
-	public final int getY() {
+	public final double getY() {
 		return position == null ? 0 : position.y;
 	}
 
@@ -216,7 +215,7 @@ public class DiagramElement implements DiagramNode, ModifiableDiagramElementCont
 	 *
 	 * @return 0 if the element does not have a size
 	 */
-	public final int getWidth() {
+	public final double getWidth() {
 		return size == null ? 0 : size.width;
 	}
 
@@ -224,7 +223,7 @@ public class DiagramElement implements DiagramNode, ModifiableDiagramElementCont
 	 *
 	 * @return 0 if the element does not have a size
 	 */
-	public final int getHeight() {
+	public final double getHeight() {
 		return size == null ? 0 : size.height;
 	}
 
@@ -244,18 +243,6 @@ public class DiagramElement implements DiagramNode, ModifiableDiagramElementCont
 		return graphicalConfig == null ? null : graphicalConfig.graphic;
 	}
 
-	public final Color getDefaultBackgroundColor() {
-		return graphicalConfig.defaultBackgroundColor;
-	}
-
-	public final Color getDefaultOutlineColor() {
-		return graphicalConfig.defaultOutlineColor;
-	}
-
-	public final Color getDefaultFontColor() {
-		return graphicalConfig.defaultFontColor;
-	}
-
 	public final boolean isDecoration() {
 		return graphicalConfig != null && graphicalConfig.isDecoration;
 	}
@@ -266,10 +253,6 @@ public class DiagramElement implements DiagramNode, ModifiableDiagramElementCont
 
 	final void setDockArea(final DockArea value) {
 		this.dockArea = value;
-	}
-
-	public final AgeLabelConfiguration getLabelConfiguration() {
-		return graphicalConfig.defaultLabelConfiguration;
 	}
 
 	public final DiagramElement getStartElement() {
@@ -356,41 +339,10 @@ public class DiagramElement implements DiagramNode, ModifiableDiagramElementCont
 			sb.append(System.lineSeparator());
 		}
 
-		final java.awt.Color awtBackground = style.getBackgroundColor();
-		if(awtBackground != null) {
+		if (style != null) {
 			sb.append(innerIndention);
-			sb.append("background: ");
-			sb.append(awtBackground);
-			sb.append(System.lineSeparator());
-		}
-
-		final java.awt.Color awtOutline= style.getOutlineColor();
-		if(style.getOutlineColor() != null) {
-			sb.append(innerIndention);
-			sb.append("outline: ");
-			sb.append(awtOutline);
-			sb.append(System.lineSeparator());
-		}
-
-		final java.awt.Color awtFontColor = style.getFontColor();
-		if(awtFontColor != null) {
-			sb.append(innerIndention);
-			sb.append("fontcolor: ");
-			sb.append(awtFontColor);
-			sb.append(System.lineSeparator());
-		}
-
-		if(style.getFontSize() != null) {
-			sb.append(innerIndention);
-			sb.append("fontsize: ");
-			sb.append(style.getFontSize());
-			sb.append(System.lineSeparator());
-		}
-
-		if(style.getLineWidth() != null) {
-			sb.append(innerIndention);
-			sb.append("linewidth: ");
-			sb.append(style.getLineWidth());
+			sb.append("style: ");
+			sb.append(style);
 			sb.append(System.lineSeparator());
 		}
 

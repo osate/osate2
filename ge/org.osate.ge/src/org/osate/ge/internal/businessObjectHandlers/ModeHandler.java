@@ -9,6 +9,7 @@ import org.osate.aadl2.AadlPackage;
 import org.osate.aadl2.ComponentClassifier;
 import org.osate.aadl2.ComponentImplementation;
 import org.osate.aadl2.Mode;
+import org.osate.ge.BusinessObjectContext;
 import org.osate.ge.Categories;
 import org.osate.ge.GraphicalConfiguration;
 import org.osate.ge.GraphicalConfigurationBuilder;
@@ -24,23 +25,21 @@ import org.osate.ge.di.IsApplicable;
 import org.osate.ge.di.Names;
 import org.osate.ge.di.ValidateName;
 import org.osate.ge.graphics.Graphic;
-import org.osate.ge.BusinessObjectContext;
+import org.osate.ge.graphics.Style;
+import org.osate.ge.graphics.StyleBuilder;
 import org.osate.ge.internal.di.CanRename;
 import org.osate.ge.internal.graphics.ModeGraphicBuilder;
-import org.osate.ge.internal.labels.LabelConfiguration;
-import org.osate.ge.internal.labels.LabelConfigurationBuilder;
 import org.osate.ge.internal.services.NamingService;
-import org.osate.ge.internal.util.ImageHelper;
 import org.osate.ge.internal.util.AadlInheritanceUtil;
+import org.osate.ge.internal.util.ImageHelper;
 import org.osate.ge.query.StandaloneQuery;
 import org.osate.ge.services.QueryService;
 
 public class ModeHandler {
-	private static final StandaloneQuery parentQuery = StandaloneQuery.create((root) -> root.ancestor(1).first());	
+	private static final StandaloneQuery parentQuery = StandaloneQuery.create((root) -> root.ancestor(1).first());
 
-	private Graphic initialModeGraphic = ModeGraphicBuilder.create().initialMode().lineWidth(2).build();
-	private Graphic modeGraphic = ModeGraphicBuilder.create().lineWidth(2).build();	
-	private LabelConfiguration labelConfiguration = LabelConfigurationBuilder.create().center().build();
+	private Graphic initialModeGraphic = ModeGraphicBuilder.create().initialMode().build();
+	private Graphic modeGraphic = ModeGraphicBuilder.create().build();
 
 	@IsApplicable
 	public boolean isApplicable(final @Named(Names.BUSINESS_OBJECT) Mode mode) {
@@ -64,8 +63,10 @@ public class ModeHandler {
 			final @Named(Names.BUSINESS_OBJECT_CONTEXT) BusinessObjectContext boc) {
 		return GraphicalConfigurationBuilder.create().
 				graphic(getGraphicalRepresentation(mode)).
-				defaultLabelConfiguration(labelConfiguration).
-				defaultForeground(AadlInheritanceUtil.isInherited(boc) ? Colors.INHERITED_ELEMENT_COLOR : null).
+				style(StyleBuilder.create(
+						AadlInheritanceUtil.isInherited(boc) ? Styles.INHERITED_ELEMENT : Style.EMPTY)
+						.labelsCenter().build())
+				.
 				build();
 	}
 

@@ -2,12 +2,13 @@ package org.osate.ge.internal.businessObjectHandlers;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import javax.inject.Named;
+
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
-import org.eclipse.jface.dialogs.Dialog;
-import org.eclipse.jface.dialogs.IInputValidator;
 import org.eclipse.jface.dialogs.InputDialog;
+import org.eclipse.jface.window.Window;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
@@ -33,8 +34,8 @@ import org.osate.ge.di.GetName;
 import org.osate.ge.di.GetPaletteEntries;
 import org.osate.ge.di.IsApplicable;
 import org.osate.ge.di.Names;
+import org.osate.ge.graphics.StyleBuilder;
 import org.osate.ge.internal.graphics.FolderGraphicBuilder;
-import org.osate.ge.internal.labels.LabelConfigurationBuilder;
 import org.osate.ge.internal.services.NamingService;
 import org.osate.ge.internal.util.ImageHelper;
 import org.osate.ge.query.StandaloneQuery;
@@ -43,49 +44,49 @@ import org.osate.ge.services.QueryService;
 public class AnnexHandler {
 	private static final StandaloneQuery parentQuery = StandaloneQuery.create((root) -> root.ancestors().first());
 	private static final GraphicalConfiguration graphicalConfig = GraphicalConfigurationBuilder.create().
-			graphic(FolderGraphicBuilder.create().lineWidth(2).build()).
-			defaultLabelConfiguration(LabelConfigurationBuilder.create().center().build()).
+			graphic(FolderGraphicBuilder.create().build())
+			.style(StyleBuilder.create().labelsCenter().build()).
 			build();
-	
+
 	@IsApplicable
 	@CanDelete
 	public boolean isApplicable(final @Named(Names.BUSINESS_OBJECT) DefaultAnnexLibrary bo) {
 		return true;
 	}
-	
+
 	@IsApplicable
 	public boolean isApplicable(final @Named(Names.BUSINESS_OBJECT) DefaultAnnexSubclause bo) {
 		return true;
 	}
-	
+
 	@CanDelete
-    public boolean canDelete(final @Named(Names.BUSINESS_OBJECT) DefaultAnnexSubclause bo, 
-    		final @Named(Names.BUSINESS_OBJECT_CONTEXT) BusinessObjectContext boc, final QueryService queryService) {
+	public boolean canDelete(final @Named(Names.BUSINESS_OBJECT) DefaultAnnexSubclause bo,
+			final @Named(Names.BUSINESS_OBJECT_CONTEXT) BusinessObjectContext boc, final QueryService queryService) {
 		return bo.getContainingClassifier() == queryService.getFirstBusinessObject(parentQuery, boc);
-    }
-	
+	}
+
 	@GetGraphicalConfiguration
 	public GraphicalConfiguration getGraphicalRepresentation() {
 		return graphicalConfig;
 	}
-	
+
 	@GetPaletteEntries
 	public PaletteEntry[] getPaletteEntries(final @Named(Names.DIAGRAM_BO) Object diagramBo) {
 		final List<PaletteEntry> entries = new ArrayList<>();
 		if(diagramBo == null || diagramBo instanceof AadlPackage) {
 			entries.add(PaletteEntryBuilder.create().label("Annex Library").icon(ImageHelper.getImage(getDefaultAnnexLibrary().getName())).category(Categories.MISC).context(getDefaultAnnexLibrary()).build());
 		}
-		
+
 		entries.add(PaletteEntryBuilder.create().label("Annex Subclause").icon(ImageHelper.getImage(getDefaultAnnexSubclause().getName())).category(Categories.MISC).context(getDefaultAnnexSubclause()).build());
-		
+
 		return entries.toArray(new PaletteEntry[entries.size()]);
 	}
-	
+
 	@CanCreate
 	public boolean canCreate(final @Named(Names.TARGET_BO) EObject targetBo, final @Named(Names.PALETTE_ENTRY_CONTEXT) EClass annexType) {
 		return (annexType == getDefaultAnnexLibrary() && targetBo instanceof AadlPackage) || (annexType == getDefaultAnnexSubclause() && targetBo instanceof Classifier);
 	}
-	
+
 	/**
 	 * Determine which type of Annex to create then return the new Annex
 	 * @param targetContainer the element the new AnnexLibrary or AnnexSubclause will be added to
@@ -94,14 +95,14 @@ public class AnnexHandler {
 	@Create
 	public Object createAnnex(@Named(Names.MODIFY_BO) final NamedElement owner, final @Named(Names.PALETTE_ENTRY_CONTEXT) EClass annexType, final NamingService namingService) {
 		final AnnexNameDialog annexNameDialog = new AnnexNameDialog(Display.getCurrent().getActiveShell(), owner, namingService, getDialogTitleAndMessage(annexType));
-		if (annexNameDialog.open() == Dialog.CANCEL || annexNameDialog.getValue() == null) {
+		if (annexNameDialog.open() == Window.CANCEL || annexNameDialog.getValue() == null) {
 			return null;
 		}
-		
+
 		final String newAnnexName = annexNameDialog.getValue();
 		return annexType == getDefaultAnnexLibrary() ? createAnnexLibrary(owner, newAnnexName) : createAnnexSubclause(owner, newAnnexName);
 	}
-	
+
 	/**
 	 * Creating the new AnnexLibrary
 	 * @param neContainer the element the new AnnexSubclause is being added to
@@ -129,7 +130,7 @@ public class AnnexHandler {
 
 		return annexSubclause;
 	}
-	
+
 	/**
 	 * Determine title and message for input dialog
 	 * @param annexType AnnexLibrary or AnnexSubclause
@@ -149,11 +150,11 @@ public class AnnexHandler {
 
 		return dialogTitleAndMessage;
 	}
-	
+
 	private static RuntimeException throwUnhandledTypeRuntimeException() {
 		return new RuntimeException("Unhandled case.  Must be DefaultAnnexLibrary or DefaultAnnexSubclause.");
 	}
-	
+
 	private static EClass getDefaultAnnexLibrary() {
 		return Aadl2Factory.eINSTANCE.getAadl2Package().getDefaultAnnexLibrary();
 	}
@@ -161,30 +162,25 @@ public class AnnexHandler {
 	private static EClass getDefaultAnnexSubclause() {
 		return Aadl2Factory.eINSTANCE.getAadl2Package().getDefaultAnnexSubclause();
 	}
-	
+
 	/**
 	 * The dialog for naming the new AnnexLibrary or AnnexSubclause
 	 */
 	private static class AnnexNameDialog extends InputDialog {
 		public AnnexNameDialog(final Shell parentShell, final NamedElement targetContainer, final NamingService namingService, final String[] dialogTitleAndMessage) {
-			super(parentShell, dialogTitleAndMessage[0], dialogTitleAndMessage[1], "", new IInputValidator() {
-				@Override
-				public String isValid(final String newName) {
-					return isValidAnnexName(newName, namingService) ? "The specified name is not valid." : null;
-				}
-			});
+			super(parentShell, dialogTitleAndMessage[0], dialogTitleAndMessage[1], "", newName -> isValidAnnexName(newName, namingService) ? "The specified name is not valid." : null);
 			setShellStyle(getShellStyle() | SWT.RESIZE);
 		}
-		
+
 		@Override
 		protected void configureShell(Shell shell) {
 			super.configureShell(shell);
-		    shell.setMinimumSize(225, 185);
+			shell.setMinimumSize(225, 185);
 		}
-		
+
 
 		/**
-		 * 
+		 *
 		 * @param newAnnexName
 		 * @param namingService
 		 * @return
@@ -194,11 +190,11 @@ public class AnnexHandler {
 			if(!namingService.isValidIdentifier(newAnnexName)) {
 				invalid = true;
 			}
-			
+
 			return invalid;
 		}
 	}
-	
+
 	/**
 	 * Create the label text
 	 * @param annexName the name of the AnnexLibrary or AnnexSubclause
@@ -206,6 +202,6 @@ public class AnnexHandler {
 	 */
 	@GetName
 	public String getName(final @Named(Names.BUSINESS_OBJECT) NamedElement annex) {
-		return "{**" + annex.getName() + "**}"; 
+		return "{**" + annex.getName() + "**}";
 	}
 }

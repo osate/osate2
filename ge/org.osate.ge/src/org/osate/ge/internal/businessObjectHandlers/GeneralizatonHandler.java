@@ -1,7 +1,5 @@
 package org.osate.ge.internal.businessObjectHandlers;
 
-import java.awt.Color;
-
 import javax.inject.Named;
 
 import org.osate.aadl2.Aadl2Factory;
@@ -35,8 +33,11 @@ import org.osate.ge.di.GetPaletteEntries;
 import org.osate.ge.di.IsApplicable;
 import org.osate.ge.di.Names;
 import org.osate.ge.graphics.ArrowBuilder;
+import org.osate.ge.graphics.Color;
 import org.osate.ge.graphics.ConnectionBuilder;
 import org.osate.ge.graphics.Graphic;
+import org.osate.ge.graphics.Style;
+import org.osate.ge.graphics.StyleBuilder;
 import org.osate.ge.internal.graphics.LabelBuilder;
 import org.osate.ge.internal.util.AadlImportsUtil;
 import org.osate.ge.internal.util.ImageHelper;
@@ -45,7 +46,10 @@ import org.osate.ge.services.QueryService;
 
 public class GeneralizatonHandler {
 	private static final Graphic extendsGraphic = ConnectionBuilder.create().destinationTerminator(ArrowBuilder.create().open().build()).build();
-	private static final Graphic implementsGraphic = ConnectionBuilder.create().destinationTerminator(ArrowBuilder.create().open().build()).dashed().build();
+	private static final Style extendsStyle = StyleBuilder.create().backgroundColor(Color.BLACK).build();
+	private static final Graphic implementsGraphic = ConnectionBuilder.create()
+			.destinationTerminator(ArrowBuilder.create().open().build()).build();
+	private static final Style implementsStyle = StyleBuilder.create().backgroundColor(Color.BLACK).dashed().build();
 	private static final Graphic labelGraphic = LabelBuilder.create().build();
 	private static StandaloneQuery nestedClassifierQuery = StandaloneQuery.create((rootQuery) -> rootQuery.descendantsByBusinessObjectsRelativeReference((Generalization g) -> getBusinessObjectPath(g.getGeneral())));
 
@@ -80,15 +84,19 @@ public class GeneralizatonHandler {
 		} else {
 			return GraphicalConfigurationBuilder.create().
 					graphic(getConnectionGraphicalRepresentation(bo)).
+					style(getStyle(bo)).
 					source(boc.getParent()). // Source is the owner of the BO
 					destination(getDestination(boc, queryService)).
-					defaultBackgroundColor(Color.BLACK).
 					build();
 		}
 	}
 
 	private Graphic getConnectionGraphicalRepresentation(final Object bo) {
 		return bo instanceof Realization ? implementsGraphic : extendsGraphic;
+	}
+
+	private Style getStyle(final Object bo) {
+		return bo instanceof Realization ? implementsStyle : extendsStyle;
 	}
 
 	private BusinessObjectContext getDestination(final BusinessObjectContext boc,

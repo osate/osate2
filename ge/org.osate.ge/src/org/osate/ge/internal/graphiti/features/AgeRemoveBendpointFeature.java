@@ -35,7 +35,7 @@ public class AgeRemoveBendpointFeature extends DefaultRemoveBendpointFeature imp
 				@Override
 				public void modify(final DiagramModification m) {
 					// Update the bendpoints
-					final List<org.osate.ge.internal.diagram.runtime.Point> newBendpoints = new ArrayList<>(connectionElement.getBendpoints());
+					final List<org.osate.ge.graphics.Point> newBendpoints = new ArrayList<>(connectionElement.getBendpoints());
 					newBendpoints.remove(ctx.getBendpointIndex());
 					m.setBendpoints(connectionElement, newBendpoints);
 					AgeFeatureUtil.storeModificationInContext(ctx, m);

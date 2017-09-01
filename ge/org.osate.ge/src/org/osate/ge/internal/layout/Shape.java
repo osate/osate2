@@ -14,21 +14,21 @@ import java.util.List;
  * Positions are relative to parent unless otherwise stated.
  *
  */
-public final class Shape 
+public final class Shape
 {
 	private Shape parent;
-	private int x;
-	private int y;
-	private int width;
-	private int height;
+	private double x;
+	private double y;
+	private double width;
+	private double height;
 	private boolean minimumSizeIsSet = false;
-	private int minimumWidth;
-	private int minimumHeight;
+	private double minimumWidth;
+	private double minimumHeight;
 	private final boolean resizable;
 	private final boolean locked; // Whether the shape is locked
 	private final boolean positionOnEdge; // Whether the shape should be positioned on the edge of the parent.
 	private final List<Shape> children = new ArrayList<Shape>();
-	
+
 	/**
 	 * The constructor automatically adds the shape the the parent's list of children
 	 * @param parent
@@ -38,7 +38,8 @@ public final class Shape
 	 * @param height
 	 * @param positionMode
 	 */
-	public Shape(final Shape parent, final int x, final int y, final int width, final int height, final boolean resizable, final boolean locked, final boolean positionOnEdge) 
+	public Shape(final Shape parent, final double x, final double y, final double width, final double height,
+			final boolean resizable, final boolean locked, final boolean positionOnEdge)
 	{
 		this.parent = parent;
 		this.setX(x);
@@ -58,82 +59,82 @@ public final class Shape
 	{
 		return locked;
 	}
-	
+
 	public final boolean isUnlocked()
 	{
 		return !locked;
 	}
-	
+
 	public final Shape getParent() {
 		return parent;
 	}
-	
-	public final int getHeight() {
+
+	public final double getHeight() {
 		return height;
 	}
-	
-	public final void setWidth(int value) {
+
+	public final void setWidth(double value) {
 		this.width = value;
 	}
 
-	public final int getWidth() {
+	public final double getWidth() {
 		return width;
 	}
-	
-	public final void setHeight(int value) {
+
+	public final void setHeight(double value) {
 		this.height = value;
 	}
 
-	public final int getX() {
+	public final double getX() {
 		return x;
 	}
 
-	public final void setX(int x) {
+	public final void setX(double x) {
 		this.x = x;
 	}
 
-	public final int getY() {
+	public final double getY() {
 		return y;
 	}
 
-	public final void setY(int y) {
+	public final void setY(double y) {
 		this.y = y;
 	}
-	
+
 	public final boolean isResizable() {
 		return this.resizable;
 	}
-	
+
 	public final boolean hasMinimumSize() {
 		return this.minimumSizeIsSet;
 	}
-	
-	public final int getMinimumWidth() {
+
+	public final double getMinimumWidth() {
 		return minimumWidth;
 	}
-	
-	public final int getMinimumHeight() {
+
+	public final double getMinimumHeight() {
 		return minimumHeight;
 	}
-	
-	public final void setMinimumSize(final int width, final int height) {
+
+	public final void setMinimumSize(final double width, final double height) {
 		this.minimumWidth = width;
 		this.minimumHeight = height;
 		this.minimumSizeIsSet = true;
 	}
-	
+
 	public final List<Shape> getChildren() {
 		return children;
 	}
-	
-	public final int getAbsoluteX() {
-		return ((parent == null) ? 0 : parent.getAbsoluteX()) + x;		
+
+	public final double getAbsoluteX() {
+		return ((parent == null) ? 0 : parent.getAbsoluteX()) + x;
 	}
-	
-	public final int getAbsoluteY() {
-		return ((parent == null) ? 0 : parent.getAbsoluteY()) + y;		
+
+	public final double getAbsoluteY() {
+		return ((parent == null) ? 0 : parent.getAbsoluteY()) + y;
 	}
-	
+
 	public final boolean positionOnEdge() {
 		return positionOnEdge;
 	}

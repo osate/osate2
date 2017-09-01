@@ -1,6 +1,5 @@
 package org.osate.ge.internal.businessObjectHandlers;
 
-import java.awt.Color;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
@@ -47,8 +46,11 @@ import org.osate.ge.di.GetPaletteEntries;
 import org.osate.ge.di.IsApplicable;
 import org.osate.ge.di.Names;
 import org.osate.ge.di.ValidateName;
+import org.osate.ge.graphics.Color;
 import org.osate.ge.graphics.ConnectionBuilder;
 import org.osate.ge.graphics.Graphic;
+import org.osate.ge.graphics.Style;
+import org.osate.ge.graphics.StyleBuilder;
 import org.osate.ge.internal.di.CanRename;
 import org.osate.ge.internal.services.NamingService;
 import org.osate.ge.internal.util.AadlConnectionUtil;
@@ -61,7 +63,6 @@ import org.osate.ge.services.QueryService;
 public class ConnectionHandler {
 	private static final StandaloneQuery componentImplementationQuery = StandaloneQuery.create((root) -> root.ancestors().filter((fa) -> fa.getBusinessObject() instanceof ComponentImplementation).first());
 	private static final Graphic graphic = ConnectionBuilder.create().build();
-	private static final Graphic partialGraphic = ConnectionBuilder.create().dotted().build();
 	private static StandaloneQuery srcQuery = StandaloneQuery.create((rootQuery) -> rootQuery.parent().descendantsByBusinessObjectsRelativeReference((Connection c) -> getBusinessObjectsPathToConnectedElement(c.getAllSourceContext(), c.getRootConnection().getSource())).first());
 	private static StandaloneQuery partialSrcQuery = StandaloneQuery.create((rootQuery) -> rootQuery.parent().descendantsByBusinessObjectsRelativeReference((Connection c) -> getBusinessObjectsPathToConnectedElement(c.getAllSourceContext(), c.getRootConnection().getSource()), 1).first());
 	private static StandaloneQuery dstQuery = StandaloneQuery.create((rootQuery) -> rootQuery.parent().descendantsByBusinessObjectsRelativeReference((Connection c) -> getBusinessObjectsPathToConnectedElement(c.getAllDestinationContext(), c.getRootConnection().getDestination())).first());
@@ -90,12 +91,18 @@ public class ConnectionHandler {
 			partial = true;
 		}
 
+		final StyleBuilder sb = StyleBuilder
+				.create(AadlInheritanceUtil.isInherited(boc) ? Styles.INHERITED_ELEMENT : Style.EMPTY)
+				.backgroundColor(Color.BLACK);
+		if (partial) {
+			sb.dotted();
+		}
+
 		return GraphicalConfigurationBuilder.create().
-				graphic(partial ? partialGraphic : graphic).
+				graphic(graphic).
+				style(sb.build()).
 				source(src).
 				destination(dst).
-				defaultForeground(AadlInheritanceUtil.isInherited(boc) ? Colors.INHERITED_ELEMENT_COLOR : null).
-				defaultBackgroundColor(Color.BLACK).
 				build();
 	}
 

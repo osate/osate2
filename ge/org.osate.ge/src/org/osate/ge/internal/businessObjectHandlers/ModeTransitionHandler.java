@@ -1,7 +1,5 @@
 package org.osate.ge.internal.businessObjectHandlers;
 
-import java.awt.Color;
-
 import javax.inject.Named;
 
 import org.osate.aadl2.Aadl2Factory;
@@ -28,8 +26,11 @@ import org.osate.ge.di.IsApplicable;
 import org.osate.ge.di.Names;
 import org.osate.ge.di.ValidateName;
 import org.osate.ge.graphics.ArrowBuilder;
+import org.osate.ge.graphics.Color;
 import org.osate.ge.graphics.ConnectionBuilder;
 import org.osate.ge.graphics.Graphic;
+import org.osate.ge.graphics.Style;
+import org.osate.ge.graphics.StyleBuilder;
 import org.osate.ge.internal.di.CanRename;
 import org.osate.ge.internal.services.NamingService;
 import org.osate.ge.internal.ui.dialogs.ModeTransitionTriggerSelectionDialog;
@@ -70,9 +71,11 @@ public class ModeTransitionHandler {
 				graphic(graphic).
 				source(getSource(boc, queryService)).
 				destination(getDestination(boc, queryService)).
-				defaultForeground(AadlInheritanceUtil.isInherited(boc) ? Colors.INHERITED_ELEMENT_COLOR : null).
-				defaultBackgroundColor(Color.BLACK).
-				build();
+				style(StyleBuilder.create(
+						AadlInheritanceUtil.isInherited(boc) ? Styles.INHERITED_ELEMENT : Style.EMPTY)
+						.backgroundColor(Color.BLACK)
+						.build())
+				.build();
 	}
 
 	private BusinessObjectContext getSource(final BusinessObjectContext boc,

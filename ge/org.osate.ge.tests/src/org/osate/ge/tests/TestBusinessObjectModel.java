@@ -1,11 +1,10 @@
 package org.osate.ge.tests;
 
+import org.osate.ge.DockingPosition;
 import org.osate.ge.GraphicalConfigurationBuilder;
 import org.osate.ge.graphics.ConnectionBuilder;
 import org.osate.ge.graphics.Graphic;
 import org.osate.ge.graphics.RectangleBuilder;
-import org.osate.ge.internal.AgeGraphicalConfiguration;
-import org.osate.ge.internal.DockingPosition;
 import org.osate.ge.internal.diagram.runtime.BuiltinContentsFilter;
 import org.osate.ge.internal.diagram.runtime.DiagramConfiguration;
 import org.osate.ge.internal.diagram.runtime.DiagramElement;
@@ -13,7 +12,7 @@ import org.osate.ge.internal.diagram.runtime.boTree.BusinessObjectNode;
 import org.osate.ge.internal.diagram.runtime.boTree.Completeness;
 import org.osate.ge.internal.diagram.runtime.boTree.TreeUpdater;
 import org.osate.ge.internal.diagram.runtime.updating.DiagramElementInformationProvider;
-import org.osate.ge.internal.labels.AgeLabelConfiguration;
+import org.osate.ge.internal.graphics.AgeGraphicalConfiguration;
 
 public class TestBusinessObjectModel implements DiagramElementInformationProvider, TreeUpdater {
 	public TestBusinessObject model;
@@ -45,7 +44,6 @@ public class TestBusinessObjectModel implements DiagramElementInformationProvide
 	public AgeGraphicalConfiguration getGraphicalConfiguration(final DiagramElement element) {
 		return (AgeGraphicalConfiguration)GraphicalConfigurationBuilder.create().
 			graphic(getGraphic(element)).
-			defaultLabelConfiguration(getDefaultLabelConfiguration(element)).
 			defaultDockingPosition(getDefaultDockingPosition(element)).
 			source(getConnectionStart(element)).
 			destination(getConnectionEnd(element)).
@@ -59,10 +57,6 @@ public class TestBusinessObjectModel implements DiagramElementInformationProvide
 		} else {
 			return RectangleBuilder.create().build();
 		}
-	}
-	
-	private AgeLabelConfiguration getDefaultLabelConfiguration(DiagramElement element) {
-		return model.labelConfiguration;
 	}
 	
 	private DockingPosition getDefaultDockingPosition(final DiagramElement element) {

@@ -6,9 +6,9 @@ import java.util.List;
 import org.eclipse.core.commands.AbstractHandler;
 import org.eclipse.core.commands.ExecutionEvent;
 import org.eclipse.core.commands.ExecutionException;
+import org.osate.ge.graphics.Point;
 import org.osate.ge.internal.diagram.runtime.AgeDiagram;
 import org.osate.ge.internal.diagram.runtime.DiagramElement;
-import org.osate.ge.internal.diagram.runtime.Point;
 import org.osate.ge.internal.ui.util.UiUtil;
 
 public class DistributeVerticallyHandler extends AbstractHandler {
@@ -28,11 +28,11 @@ public class DistributeVerticallyHandler extends AbstractHandler {
 			selectedDiagramElements.sort(YValueComparator);
 
 			// Distribute the shapes horizontally
-			final int xDistribution = getYDistribution(selectedDiagramElements);
+			final double yDistribution = getYDistribution(selectedDiagramElements);
 			for (int i = 1; i < selectedDiagramElements.size() - 1; i++) {
 				final DiagramElement de = selectedDiagramElements.get(i);
-				final int x = de.getX();
-				final int y = getYValue(selectedDiagramElements.get(i - 1), xDistribution);
+				final double x = de.getX();
+				final double y = getYValue(selectedDiagramElements.get(i - 1), yDistribution);
 
 				m.setPosition(de, new Point(x, y));
 			}
@@ -46,8 +46,8 @@ public class DistributeVerticallyHandler extends AbstractHandler {
 	 * @param shapes the selected shapes
 	 * @return the height of the middle shapes
 	 */
-	private static int getHeightOfShapes(final List<DiagramElement> diagramElements) {
-		return (int) diagramElements.stream().mapToDouble(de -> de.getHeight()).sum();
+	private static double getHeightOfShapes(final List<DiagramElement> diagramElements) {
+		return diagramElements.stream().mapToDouble(de -> de.getHeight()).sum();
 	}
 
 	/**
@@ -56,7 +56,7 @@ public class DistributeVerticallyHandler extends AbstractHandler {
 	 * @param yDistribution the Y-coordinate distance that needs to be between each shape
 	 * @return the Y-coordinate value for the shape being evaluated
 	 */
-	private static int getYValue(final DiagramElement prevElement, final int yDistribution) {
+	private static double getYValue(final DiagramElement prevElement, final double yDistribution) {
 		return prevElement.getY() + prevElement.getHeight() + yDistribution;
 	}
 
@@ -65,9 +65,9 @@ public class DistributeVerticallyHandler extends AbstractHandler {
 	 * @param shapes the selected shapes
 	 * @return the distance between each shape after distribution
 	 */
-	private static int getYDistribution(final List<DiagramElement> diagramElements) {
+	private static double getYDistribution(final List<DiagramElement> diagramElements) {
 		final int lastIndex = diagramElements.size() - 1;
-		final int heightOfShapes = getHeightOfShapes(diagramElements);
+		final double heightOfShapes = getHeightOfShapes(diagramElements);
 		final DiagramElement firstElement = diagramElements.get(0);
 		final DiagramElement lastElement = diagramElements.get(lastIndex);
 		return (lastElement.getY() + lastElement.getHeight() - firstElement.getY() - heightOfShapes) / lastIndex;
@@ -76,6 +76,6 @@ public class DistributeVerticallyHandler extends AbstractHandler {
 	/**
 	 * Sort the selected shapes based on Y-coordinate value
 	 */
-	private static final Comparator<DiagramElement> YValueComparator = (de1, de2) -> Integer.valueOf(de1.getY())
-			.compareTo(de2.getY());
+	private static final Comparator<DiagramElement> YValueComparator = (de1, de2) -> Double.compare(de1.getY(),
+			de2.getY());
 }

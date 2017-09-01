@@ -2,9 +2,10 @@ package org.osate.ge.internal.diagram.runtime;
 
 import java.util.List;
 
-import org.osate.ge.internal.AgeGraphicalConfiguration;
-import org.osate.ge.internal.DockArea;
+import org.osate.ge.graphics.Point;
+import org.osate.ge.graphics.Style;
 import org.osate.ge.internal.diagram.runtime.boTree.Completeness;
+import org.osate.ge.internal.graphics.AgeGraphicalConfiguration;
 
 /**
  * Interface provided to Modifier objects to allow making changes to an AgeDiagram. 
