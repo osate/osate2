@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import org.eclipse.core.resources.IContainer;
@@ -232,26 +233,29 @@ public class SavedDiagramIndex {
 		this.bopHelper = Objects.requireNonNull(bopHelper, "bopHelper must not be null");
 	}
 
-	public Stream<IndexEntry> getDiagramsByProject(final Stream<IProject> projects) {
+	public synchronized List<IndexEntry> getDiagramsByProject(final Stream<IProject> projects) {
 		Objects.requireNonNull(projects, "projects must not be null");
 		return projects.flatMap(p -> getOrCreateProjectIndex(p).fileToIndexMap.entrySet().stream()).
-				map(e -> new IndexEntry(e.getKey(), e.getValue().context, null));
+				map(e -> new IndexEntry(e.getKey(), e.getValue().context, null)).collect(Collectors.toList());
 	}
 
-	public Stream<IndexEntry> getDiagramsByContext(final Stream<IProject> projects, final CanonicalBusinessObjectReference context) {
+	public synchronized List<IndexEntry> getDiagramsByContext(final Stream<IProject> projects,
+			final CanonicalBusinessObjectReference context) {
 		return getDiagramsByContexts(projects, Collections.singleton(context));
 	}
 
-	public Stream<IndexEntry> getDiagramsByContexts(final Stream<IProject> projects, final Set<CanonicalBusinessObjectReference> contexts) {
+	public synchronized List<IndexEntry> getDiagramsByContexts(final Stream<IProject> projects,
+			final Set<CanonicalBusinessObjectReference> contexts) {
 		Objects.requireNonNull(projects, "projects must not be null");
 		Objects.requireNonNull(contexts, "contexts must not be null");
 
 		return projects.flatMap(p -> getOrCreateProjectIndex(p).getOrCreateFileToIndexMap().entrySet().stream()).
 				filter(e -> contexts.contains(e.getValue().getContext())).
-				map(e -> new IndexEntry(e.getKey(), e.getValue().getContext(), null));
+				map(e -> new IndexEntry(e.getKey(), e.getValue().getContext(), null)).collect(Collectors.toList());
 	}
 
-	public Stream<IndexEntry> getElementUrisByReferences(final Stream<IProject> projects, final Set<CanonicalBusinessObjectReference> refs) {
+	public synchronized List<IndexEntry> getElementUrisByReferences(final Stream<IProject> projects,
+			final Set<CanonicalBusinessObjectReference> refs) {
 		Objects.requireNonNull(projects, "projects must not be null");
 		Objects.requireNonNull(refs, "refs must not be null");
 		return projects.flatMap(p -> getOrCreateProjectIndex(p).getOrCreateFileToIndexMap().
@@ -263,14 +267,14 @@ public class SavedDiagramIndex {
 						filter(e -> refs.contains(e.getKey())).
 						map(e -> new IndexEntry(i.getKey(), e.getKey(), e.getValue()))
 						)
-				);
+				).collect(Collectors.toList());
 	}
 
-	public void remove(final IProject project) {
+	public synchronized void remove(final IProject project) {
 		projectToIndexMap.remove(project);
 	}
 
-	public void remove(final IFile file) {
+	public synchronized void remove(final IFile file) {
 		final ProjectDiagramIndex projectDiagramIndex = projectToIndexMap.get(file.getProject());
 		if(projectDiagramIndex != null) {
 			projectDiagramIndex.fileToIndexMap.remove(file);
@@ -293,7 +297,8 @@ public class SavedDiagramIndex {
 		return projectDiagramIndex;
 	}
 
-	private DiagramFileIndex createDiagramFileIndex(final ProjectDiagramIndex projectDiagramIndex, final IFile diagramFile) {
+	private DiagramFileIndex createDiagramFileIndex(final ProjectDiagramIndex projectDiagramIndex,
+			final IFile diagramFile) {
 		final DiagramFileIndex diagramFileIndex = new DiagramFileIndex(projectDiagramIndex, diagramFile);
 		projectDiagramIndex.fileToIndexMap.put(diagramFile, diagramFileIndex);
 		return diagramFileIndex;

@@ -162,8 +162,9 @@ public class DefaultDiagramService implements DiagramService {
 		final Map<IFile, AgeDiagramEditor> fileToEditorMap = getOpenEditorsMap(relevantProjects);
 
 		// Add saved diagram files if they are not open
-		return savedDiagramIndex.getDiagramsByContext(relevantProjects.stream(), boReference).
-				map(e -> new InternalDiagramReference(e.diagramFile, fileToEditorMap.get(e.diagramFile))).
+		return savedDiagramIndex.getDiagramsByContext(relevantProjects.stream(), boReference).stream()
+				.map(e -> new InternalDiagramReference(e.diagramFile, fileToEditorMap.get(e.diagramFile)))
+				.
 				collect(Collectors.toList());
 	}
 
@@ -295,7 +296,8 @@ public class DefaultDiagramService implements DiagramService {
 
 		// Add saved diagram files if they are not open
 		return savedDiagramIndex.getDiagramsByProject(projects.stream()).
-				map(e -> new InternalDiagramReference(e.diagramFile, fileToEditorMap.get(e.diagramFile))).
+				stream().map(e -> new InternalDiagramReference(e.diagramFile, fileToEditorMap.get(e.diagramFile)))
+				.
 				collect(Collectors.toList());
 	}
 
@@ -661,13 +663,11 @@ public class DefaultDiagramService implements DiagramService {
 
 				// Create updateable references for saved diagrams
 				savedDiagramIndex.getDiagramsByContexts(relevantProjects.stream(), originalCanonicalReferences).
-				sequential().
 				forEach(e -> {
 					references.addReference(e.diagramFile, e.reference, new SavedDiagramContextReference());
 				});
 
 				savedDiagramIndex.getElementUrisByReferences(relevantProjects.stream(), originalCanonicalReferences).
-				sequential().
 				forEach(e -> {
 					references.addReference(e.diagramFile, e.reference, new SavedDiagramElementReference(e.elementUri));
 				});
