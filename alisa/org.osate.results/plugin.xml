@@ -6,19 +6,12 @@
   <extension point="org.eclipse.emf.ecore.generated_package">
     <package 
        uri = "http://www.osate.org/results/Results" 
-       class = "org.osate.results.results.ResultsPackage"
+       class = "org.osate.results.ResultsPackage"
        genModel = "model/Results.genmodel" /> 
 	
   </extension>
 
 
 
-   <extension point="org.eclipse.emf.ecore.generated_package">
-      <!-- @generated Results -->
-      <package
-            uri="http://www.osate.org/results/Results"
-            class="org.osate.results.ResultsPackage"
-            genModel="model/Results.genmodel"/>
-   </extension>
-
+null
 </plugin>

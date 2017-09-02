@@ -25,7 +25,6 @@
 				<module>../../org.osate.assure</module>
 				<module>../../org.osate.assure.ui</module>
 				<module>../../org.osate.results</module>
-				<module>../../org.osate.results.ui</module>
 				<module>../../org.osate.verify</module>
 				<module>../../org.osate.verify.ui</module>
 			</modules>
