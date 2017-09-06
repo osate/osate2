@@ -14,8 +14,8 @@ import org.osate.ge.di.IsApplicable;
 import org.osate.ge.di.Names;
 import org.osate.ge.di.ValidateName;
 import org.osate.ge.graphics.Graphic;
+import org.osate.ge.graphics.internal.FolderGraphicBuilder;
 import org.osate.ge.internal.di.InternalNames;
-import org.osate.ge.internal.graphics.FolderGraphicBuilder;
 import org.osate.ge.internal.services.NamingService;
 import org.osate.ge.internal.util.ScopedEMFIndexRetrieval;
 

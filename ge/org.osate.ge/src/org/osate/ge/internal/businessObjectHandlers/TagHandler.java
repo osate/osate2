@@ -14,7 +14,7 @@ import org.osate.ge.di.Names;
 import org.osate.ge.graphics.Graphic;
 import org.osate.ge.graphics.Point;
 import org.osate.ge.graphics.PolyBuilder;
-import org.osate.ge.internal.graphics.LabelBuilder;
+import org.osate.ge.graphics.internal.LabelBuilder;
 import org.osate.ge.internal.model.Tag;
 import org.osate.ge.internal.query.Queryable;
 

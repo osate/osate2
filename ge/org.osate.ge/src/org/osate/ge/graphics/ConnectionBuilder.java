@@ -8,8 +8,8 @@
  *******************************************************************************/
 package org.osate.ge.graphics;
 
-import org.osate.ge.internal.graphics.AgeConnection;
-import org.osate.ge.internal.graphics.AgeConnectionTerminator;
+import org.osate.ge.graphics.internal.AgeConnection;
+import org.osate.ge.graphics.internal.AgeConnectionTerminator;
 
 /**
  * Builder for creating connection graphics. Currently all connections are straight line connections which do not support bend-points.

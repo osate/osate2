@@ -1,8 +1,8 @@
 package org.osate.ge.internal.diagram.runtime.updating;
 
+import org.osate.ge.graphics.internal.AgeGraphicalConfiguration;
 import org.osate.ge.internal.businessObjectHandlers.BusinessObjectHandlerProvider;
 import org.osate.ge.internal.diagram.runtime.DiagramElement;
-import org.osate.ge.internal.graphics.AgeGraphicalConfiguration;
 
 /**
  * Provides values used to configure diagram elements during an update.

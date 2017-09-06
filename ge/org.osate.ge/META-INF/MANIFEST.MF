@@ -52,6 +52,7 @@ Service-Component: components/DefaultExtensionRegistryService.xml,
 Export-Package: org.osate.ge,
  org.osate.ge.di,
  org.osate.ge.graphics,
+ org.osate.ge.graphics.internal;x-internal:=true,
  org.osate.ge.query,
  org.osate.ge.services
 Bundle-ClassPath: .

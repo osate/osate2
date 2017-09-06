@@ -36,13 +36,13 @@ import java.util.List;
 import java.util.Map;
 
 import org.osate.ge.graphics.Point;
+import org.osate.ge.graphics.internal.AgeConnection;
+import org.osate.ge.graphics.internal.AgeShape;
 import org.osate.ge.internal.diagram.runtime.AgeDiagram;
 import org.osate.ge.internal.diagram.runtime.DiagramElement;
 import org.osate.ge.internal.diagram.runtime.DiagramElementPredicates;
 import org.osate.ge.internal.diagram.runtime.DiagramModification;
 import org.osate.ge.internal.diagram.runtime.Dimension;
-import org.osate.ge.internal.graphics.AgeConnection;
-import org.osate.ge.internal.graphics.AgeShape;
 import org.osate.ge.internal.layout.LayoutAlgorithm;
 import org.osate.ge.internal.layout.SimpleLayoutAlgorithm;
 

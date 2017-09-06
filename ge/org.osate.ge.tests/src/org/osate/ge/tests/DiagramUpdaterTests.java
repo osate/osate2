@@ -7,6 +7,7 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 import org.osate.ge.DockingPosition;
+import org.osate.ge.graphics.internal.AgeConnection;
 import org.osate.ge.internal.diagram.runtime.AgeDiagram;
 import org.osate.ge.internal.diagram.runtime.DiagramElement;
 import org.osate.ge.internal.diagram.runtime.DiagramModification;
@@ -14,7 +15,6 @@ import org.osate.ge.internal.diagram.runtime.DiagramModifier;
 import org.osate.ge.internal.diagram.runtime.DockArea;
 import org.osate.ge.internal.diagram.runtime.RelativeBusinessObjectReference;
 import org.osate.ge.internal.diagram.runtime.updating.DiagramUpdater;
-import org.osate.ge.internal.graphics.AgeConnection;
 
 import static org.osate.ge.tests.TestBusinessObject.newBO;
 

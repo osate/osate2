@@ -1,7 +1,7 @@
 package org.osate.ge.internal.diagram.runtime;
 
 import org.osate.ge.graphics.Graphic;
-import org.osate.ge.internal.graphics.AgeShape;
+import org.osate.ge.graphics.internal.AgeShape;
 
 public class DiagramElementPredicates {
 	public static boolean isResizeable(final DiagramElement de) {

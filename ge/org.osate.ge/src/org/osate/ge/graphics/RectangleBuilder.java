@@ -8,7 +8,7 @@
  *******************************************************************************/
 package org.osate.ge.graphics;
 
-import org.osate.ge.internal.graphics.Rectangle;
+import org.osate.ge.graphics.internal.Rectangle;
 
 /**
  * Builder for creating rectangle graphics.

@@ -2,8 +2,8 @@ package org.osate.ge;
 
 import org.osate.ge.graphics.Graphic;
 import org.osate.ge.graphics.Style;
+import org.osate.ge.graphics.internal.AgeGraphicalConfiguration;
 import org.osate.ge.internal.diagram.runtime.DiagramElement;
-import org.osate.ge.internal.graphics.AgeGraphicalConfiguration;
 
 /**
  * Builder for creating graphical configurations.

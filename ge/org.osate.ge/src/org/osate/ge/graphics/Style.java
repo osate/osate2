@@ -1,6 +1,6 @@
 package org.osate.ge.graphics;
 
-import org.osate.ge.internal.graphics.LineStyle;
+import org.osate.ge.graphics.internal.LineStyle;
 
 public class Style {
 	public static final Style EMPTY = StyleBuilder.create().build();

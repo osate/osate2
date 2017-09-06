@@ -16,6 +16,13 @@ import org.osate.ge.graphics.Graphic;
 import org.osate.ge.graphics.RectangleBuilder;
 import org.osate.ge.graphics.Style;
 import org.osate.ge.graphics.StyleBuilder;
+import org.osate.ge.graphics.internal.BusGraphicBuilder;
+import org.osate.ge.graphics.internal.DeviceGraphicBuilder;
+import org.osate.ge.graphics.internal.FeatureGraphicBuilder;
+import org.osate.ge.graphics.internal.FeatureGroupTypeGraphicBuilder;
+import org.osate.ge.graphics.internal.MemoryGraphicBuilder;
+import org.osate.ge.graphics.internal.ParallelogramBuilder;
+import org.osate.ge.graphics.internal.ProcessorGraphicBuilder;
 
 /**
  * Helper class for retrieving the appropriate graphic for an AADL element

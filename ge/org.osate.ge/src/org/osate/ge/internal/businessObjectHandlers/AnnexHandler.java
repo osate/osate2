@@ -35,7 +35,7 @@ import org.osate.ge.di.GetPaletteEntries;
 import org.osate.ge.di.IsApplicable;
 import org.osate.ge.di.Names;
 import org.osate.ge.graphics.StyleBuilder;
-import org.osate.ge.internal.graphics.FolderGraphicBuilder;
+import org.osate.ge.graphics.internal.FolderGraphicBuilder;
 import org.osate.ge.internal.services.NamingService;
 import org.osate.ge.internal.util.ImageHelper;
 import org.osate.ge.query.StandaloneQuery;

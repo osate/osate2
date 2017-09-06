@@ -10,8 +10,8 @@ package org.osate.ge.graphics;
 
 import java.util.Objects;
 
-import org.osate.ge.internal.graphics.Poly;
-import org.osate.ge.internal.graphics.Poly.Type;
+import org.osate.ge.graphics.internal.Poly;
+import org.osate.ge.graphics.internal.Poly.Type;
 
 /**
  * Builder for creating polygon or polyline graphics. Builds polygon by default.

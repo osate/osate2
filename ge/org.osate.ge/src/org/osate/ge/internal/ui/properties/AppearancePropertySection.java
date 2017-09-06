@@ -45,11 +45,11 @@ import org.eclipse.ui.views.properties.tabbed.AbstractPropertySection;
 import org.eclipse.ui.views.properties.tabbed.TabbedPropertySheetPage;
 import org.osate.ge.graphics.Style;
 import org.osate.ge.graphics.StyleBuilder;
+import org.osate.ge.graphics.internal.AgeConnection;
+import org.osate.ge.graphics.internal.Label;
 import org.osate.ge.internal.Activator;
 import org.osate.ge.internal.diagram.runtime.AgeDiagram;
 import org.osate.ge.internal.diagram.runtime.DiagramElement;
-import org.osate.ge.internal.graphics.AgeConnection;
-import org.osate.ge.internal.graphics.Label;
 import org.osate.ge.internal.ui.util.UiUtil;
 import org.osate.ge.internal.util.StringUtil;
 

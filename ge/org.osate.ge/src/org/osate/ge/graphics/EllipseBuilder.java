@@ -8,7 +8,7 @@
  *******************************************************************************/
 package org.osate.ge.graphics;
 
-import org.osate.ge.internal.graphics.Ellipse;
+import org.osate.ge.graphics.internal.Ellipse;
 
 /**
  * Builder for creating ellipse graphics.
