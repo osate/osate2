@@ -760,7 +760,7 @@ rulePreconditionResult returns [EObject current=null]
 	        }
         }
 		{ 
-	        newCompositeNode(grammarAccess.getPreconditionResultAccess().getResultsResultsCrossReference_9_1_0()); 
+	        newCompositeNode(grammarAccess.getPreconditionResultAccess().getResultsResultCrossReference_9_1_0()); 
 	    }
 		ruleQualifiedName		{ 
 	        afterParserOrEnumRuleCall();
@@ -947,7 +947,7 @@ ruleValidationResult returns [EObject current=null]
 	        }
         }
 		{ 
-	        newCompositeNode(grammarAccess.getValidationResultAccess().getResultsResultsCrossReference_9_1_0()); 
+	        newCompositeNode(grammarAccess.getValidationResultAccess().getResultsResultCrossReference_9_1_0()); 
 	    }
 		ruleQualifiedName		{ 
 	        afterParserOrEnumRuleCall();
@@ -1137,7 +1137,7 @@ ruleVerificationActivityResult returns [EObject current=null]
 	        }
         }
 		{ 
-	        newCompositeNode(grammarAccess.getVerificationActivityResultAccess().getResultsResultsCrossReference_9_1_0()); 
+	        newCompositeNode(grammarAccess.getVerificationActivityResultAccess().getResultsResultCrossReference_9_1_0()); 
 	    }
 		ruleQualifiedName		{ 
 	        afterParserOrEnumRuleCall();
@@ -1363,7 +1363,7 @@ rulePredicateResult returns [EObject current=null]
 	        }
         }
 		{ 
-	        newCompositeNode(grammarAccess.getPredicateResultAccess().getResultsResultsCrossReference_9_1_0()); 
+	        newCompositeNode(grammarAccess.getPredicateResultAccess().getResultsResultCrossReference_9_1_0()); 
 	    }
 		ruleQualifiedName		{ 
 	        afterParserOrEnumRuleCall();
@@ -2484,9 +2484,9 @@ ruleResultIssue returns [EObject current=null]
 	    }
 
 )
-)(	otherlv_2='target' 
+)(	otherlv_2='source' 
     {
-    	newLeafNode(otherlv_2, grammarAccess.getResultIssueAccess().getTargetKeyword_2_0());
+    	newLeafNode(otherlv_2, grammarAccess.getResultIssueAccess().getSourceKeyword_2_0());
     }
 (
 (
@@ -2496,7 +2496,7 @@ ruleResultIssue returns [EObject current=null]
 	        }
         }
 		{ 
-	        newCompositeNode(grammarAccess.getResultIssueAccess().getTargetEObjectCrossReference_2_1_0()); 
+	        newCompositeNode(grammarAccess.getResultIssueAccess().getSourceReferenceEObjectCrossReference_2_1_0()); 
 	    }
 		ruleNoQuoteString		{ 
 	        afterParserOrEnumRuleCall();
@@ -2525,15 +2525,15 @@ ruleResultIssue returns [EObject current=null]
 	    }
 
 )
-))?(	otherlv_6='diagnosticId' 
+))?(	otherlv_6='diagnostic' 
     {
-    	newLeafNode(otherlv_6, grammarAccess.getResultIssueAccess().getDiagnosticIdKeyword_4_0());
+    	newLeafNode(otherlv_6, grammarAccess.getResultIssueAccess().getDiagnosticKeyword_4_0());
     }
 (
 (
-		lv_diagnosticId_7_0=RULE_STRING
+		lv_diagnostic_7_0=RULE_STRING
 		{
-			newLeafNode(lv_diagnosticId_7_0, grammarAccess.getResultIssueAccess().getDiagnosticIdSTRINGTerminalRuleCall_4_1_0()); 
+			newLeafNode(lv_diagnostic_7_0, grammarAccess.getResultIssueAccess().getDiagnosticSTRINGTerminalRuleCall_4_1_0()); 
 		}
 		{
 	        if ($current==null) {
@@ -2541,8 +2541,8 @@ ruleResultIssue returns [EObject current=null]
 	        }
        		setWithLastConsumed(
        			$current, 
-       			"diagnosticId",
-        		lv_diagnosticId_7_0, 
+       			"diagnostic",
+        		lv_diagnostic_7_0, 
         		"org.eclipse.xtext.common.Terminals.STRING");
 	    }
 
@@ -5189,10 +5189,10 @@ ruleVerificationExecutionState returns [Enumerator current=null]
 ruleResultIssueType returns [Enumerator current=null] 
     @init { enterRule(); }
     @after { leaveRule(); }:
-((	enumLiteral_0='tbd' 
+((	enumLiteral_0='none' 
 	{
-        $current = grammarAccess.getResultIssueTypeAccess().getTBDEnumLiteralDeclaration_0().getEnumLiteral().getInstance();
-        newLeafNode(enumLiteral_0, grammarAccess.getResultIssueTypeAccess().getTBDEnumLiteralDeclaration_0()); 
+        $current = grammarAccess.getResultIssueTypeAccess().getNONEEnumLiteralDeclaration_0().getEnumLiteral().getInstance();
+        newLeafNode(enumLiteral_0, grammarAccess.getResultIssueTypeAccess().getNONEEnumLiteralDeclaration_0()); 
     }
 )
     |(	enumLiteral_1='error' 

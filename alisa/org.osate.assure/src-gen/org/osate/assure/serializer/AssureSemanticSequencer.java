@@ -71,8 +71,8 @@ import org.osate.assure.assure.ThenResult;
 import org.osate.assure.assure.ValidationResult;
 import org.osate.assure.assure.VerificationActivityResult;
 import org.osate.assure.services.AssureGrammarAccess;
-import org.osate.results.ResultIssue;
-import org.osate.results.ResultsPackage;
+import org.osate.result.Issue;
+import org.osate.result.ResultPackage;
 
 @SuppressWarnings("all")
 public class AssureSemanticSequencer extends CommonSemanticSequencer {
@@ -267,10 +267,10 @@ public class AssureSemanticSequencer extends CommonSemanticSequencer {
 				sequence_ValDeclaration(context, (ValDeclaration) semanticObject); 
 				return; 
 			}
-		else if (epackage == ResultsPackage.eINSTANCE)
+		else if (epackage == ResultPackage.eINSTANCE)
 			switch (semanticObject.eClass().getClassifierID()) {
-			case ResultsPackage.RESULT_ISSUE:
-				sequence_ResultIssue(context, (ResultIssue) semanticObject); 
+			case ResultPackage.ISSUE:
+				sequence_ResultIssue(context, (Issue) semanticObject); 
 				return; 
 			}
 		if (errorAcceptor != null)
@@ -410,7 +410,7 @@ public class AssureSemanticSequencer extends CommonSemanticSequencer {
 	 *         executionState=VerificationExecutionState 
 	 *         resultState=VerificationResultState 
 	 *         issues+=ResultIssue* 
-	 *         results=[Results|QualifiedName]? 
+	 *         results=[Result|QualifiedName]? 
 	 *         metrics=Metrics 
 	 *         message=STRING?
 	 *     )
@@ -431,7 +431,7 @@ public class AssureSemanticSequencer extends CommonSemanticSequencer {
 	 *         executionState=VerificationExecutionState 
 	 *         resultState=VerificationResultState 
 	 *         issues+=ResultIssue* 
-	 *         results=[Results|QualifiedName]? 
+	 *         results=[Result|QualifiedName]? 
 	 *         metrics=Metrics 
 	 *         message=STRING?
 	 *     )
@@ -490,19 +490,19 @@ public class AssureSemanticSequencer extends CommonSemanticSequencer {
 	
 	/**
 	 * Contexts:
-	 *     ResultIssue returns ResultIssue
+	 *     ResultIssue returns Issue
 	 *
 	 * Constraint:
 	 *     (
 	 *         issueType=ResultIssueType 
 	 *         message=STRING 
-	 *         target=[EObject|NoQuoteString]? 
+	 *         sourceReference=[EObject|NoQuoteString]? 
 	 *         exceptionType=STRING? 
-	 *         diagnosticId=STRING? 
+	 *         diagnostic=STRING? 
 	 *         issues+=ResultIssue*
 	 *     )
 	 */
-	protected void sequence_ResultIssue(ISerializationContext context, ResultIssue semanticObject) {
+	protected void sequence_ResultIssue(ISerializationContext context, Issue semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	
@@ -545,7 +545,7 @@ public class AssureSemanticSequencer extends CommonSemanticSequencer {
 	 *         executionState=VerificationExecutionState 
 	 *         resultState=VerificationResultState 
 	 *         issues+=ResultIssue* 
-	 *         results=[Results|QualifiedName]? 
+	 *         results=[Result|QualifiedName]? 
 	 *         metrics=Metrics 
 	 *         message=STRING?
 	 *     )
@@ -567,7 +567,7 @@ public class AssureSemanticSequencer extends CommonSemanticSequencer {
 	 *         executionState=VerificationExecutionState 
 	 *         resultState=VerificationResultState 
 	 *         issues+=ResultIssue* 
-	 *         results=[Results|QualifiedName]? 
+	 *         results=[Result|QualifiedName]? 
 	 *         metrics=Metrics 
 	 *         message=STRING? 
 	 *         preconditionResult=PreconditionResult? 

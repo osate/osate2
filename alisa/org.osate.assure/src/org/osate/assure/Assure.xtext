@@ -6,7 +6,7 @@ import "http://www.osate.org/reqspec/ReqSpec" as ReqSpec
 import "http://www.osate.org/alisa/common/Common" as Common
 import "http://www.osate.org/alisa/workbench/Alisa" as Alisa
 import "http://www.osate.org/verify/Verify" as Verify 
-import  "http://www.osate.org/results/Results" as results
+import  "http://www.osate.org/result/Result" as results
 import "http://www.eclipse.org/emf/2002/Ecore" as ecore
 
  
@@ -68,7 +68,7 @@ PreconditionResult returns VerificationResult:
 		issues+=ResultIssue*
 		']'
 	)?
-	('results' results=[results::Results|QualifiedName])? // pointer to separate report
+	('results' results=[results::Result|QualifiedName])? // pointer to separate report
 	metrics=Metrics
 	('message' message= STRING)?
 	']'  
@@ -84,7 +84,7 @@ ValidationResult returns VerificationResult:
 		issues+=ResultIssue*
 		']'
 	)?
-	('results' results=[results::Results|QualifiedName])? // pointer to separate report
+	('results' results=[results::Result|QualifiedName])? // pointer to separate report
 	metrics=Metrics
 	('message' message= STRING)?
 	']'  
@@ -101,7 +101,7 @@ VerificationActivityResult returns VerificationResult:
 		issues+=ResultIssue*
 		']'
 	)?
-	('results' results=[results::Results|QualifiedName])? 
+	('results' results=[results::Result|QualifiedName])? 
 	metrics=Metrics
 	('message' message= STRING)?
 	preconditionResult= PreconditionResult?
@@ -119,7 +119,7 @@ PredicateResult returns VerificationResult:
 		issues+=ResultIssue*
 		']'
 	)?
-	('results' results=[results::Results|QualifiedName])? 
+	('results' results=[results::Result|QualifiedName])? 
 	metrics=Metrics
 	('message' message= STRING)?
 	']'  
@@ -205,17 +205,17 @@ NestedClaimReference:
 	requirement=[ReqSpec::Requirement|ID] ('.' sub=NestedClaimReference)?
 ;
 
-ResultIssue returns results::ResultIssue:
+ResultIssue returns results::Issue:
 	issueType=ResultIssueType
 	message=STRING
-	('target' target=[ecore::EObject|NoQuoteString])?
+	('source' sourceReference=[ecore::EObject|NoQuoteString])?
 	('exception' exceptionType = STRING)?
-	('diagnosticId' diagnosticId = STRING)?
+	('diagnostic' diagnostic = STRING)?
 	('[' issues+=ResultIssue*']')?
 ;
 
 
-enum ResultIssueType returns results::ResultIssueType:
-	TBD = 'tbd'| ERROR='error' |  WARNING='warning' | INFO='info' | SUCCESS='success' | FAIL='fail' 
+enum ResultIssueType returns results::IssueType:
+	NONE = 'none'| ERROR='error' |  WARNING='warning' | INFO='info' | SUCCESS='success' | FAIL='fail' 
 ;
 

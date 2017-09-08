@@ -140,7 +140,7 @@ public class AssureSyntacticSequencer extends AbstractSyntacticSequencer {
 	 *     ('issues' '[' ']')?
 	 *
 	 * This ambiguous syntax occurs at:
-	 *     resultState=VerificationResultState (ambiguity) 'results' results=[Results|QualifiedName]
+	 *     resultState=VerificationResultState (ambiguity) 'results' results=[Result|QualifiedName]
 	 *     resultState=VerificationResultState (ambiguity) metrics=Metrics
 	 */
 	protected void emit_PreconditionResult___IssuesKeyword_8_0_LeftSquareBracketKeyword_8_1_RightSquareBracketKeyword_8_3__q(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
@@ -152,7 +152,7 @@ public class AssureSyntacticSequencer extends AbstractSyntacticSequencer {
 	 *     ('issues' '[' ']')?
 	 *
 	 * This ambiguous syntax occurs at:
-	 *     resultState=VerificationResultState (ambiguity) 'results' results=[Results|QualifiedName]
+	 *     resultState=VerificationResultState (ambiguity) 'results' results=[Result|QualifiedName]
 	 *     resultState=VerificationResultState (ambiguity) metrics=Metrics
 	 */
 	protected void emit_PredicateResult___IssuesKeyword_8_0_LeftSquareBracketKeyword_8_1_RightSquareBracketKeyword_8_3__q(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
@@ -164,10 +164,10 @@ public class AssureSyntacticSequencer extends AbstractSyntacticSequencer {
 	 *     ('[' ']')?
 	 *
 	 * This ambiguous syntax occurs at:
-	 *     diagnosticId=STRING (ambiguity) (rule end)
+	 *     diagnostic=STRING (ambiguity) (rule end)
 	 *     exceptionType=STRING (ambiguity) (rule end)
 	 *     message=STRING (ambiguity) (rule end)
-	 *     target=[EObject|NoQuoteString] (ambiguity) (rule end)
+	 *     sourceReference=[EObject|NoQuoteString] (ambiguity) (rule end)
 	 */
 	protected void emit_ResultIssue___LeftSquareBracketKeyword_5_0_RightSquareBracketKeyword_5_2__q(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
 		acceptNodes(transition, nodes);
@@ -178,7 +178,7 @@ public class AssureSyntacticSequencer extends AbstractSyntacticSequencer {
 	 *     ('issues' '[' ']')?
 	 *
 	 * This ambiguous syntax occurs at:
-	 *     resultState=VerificationResultState (ambiguity) 'results' results=[Results|QualifiedName]
+	 *     resultState=VerificationResultState (ambiguity) 'results' results=[Result|QualifiedName]
 	 *     resultState=VerificationResultState (ambiguity) metrics=Metrics
 	 */
 	protected void emit_ValidationResult___IssuesKeyword_8_0_LeftSquareBracketKeyword_8_1_RightSquareBracketKeyword_8_3__q(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
@@ -190,7 +190,7 @@ public class AssureSyntacticSequencer extends AbstractSyntacticSequencer {
 	 *     ('issues' '[' ']')?
 	 *
 	 * This ambiguous syntax occurs at:
-	 *     resultState=VerificationResultState (ambiguity) 'results' results=[Results|QualifiedName]
+	 *     resultState=VerificationResultState (ambiguity) 'results' results=[Result|QualifiedName]
 	 *     resultState=VerificationResultState (ambiguity) metrics=Metrics
 	 */
 	protected void emit_VerificationActivityResult___IssuesKeyword_8_0_LeftSquareBracketKeyword_8_1_RightSquareBracketKeyword_8_3__q(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {

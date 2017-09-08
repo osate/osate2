@@ -47,8 +47,8 @@ import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.annexsupport.AnnexUtil;
 import org.osate.assure.assure.VerificationResult;
 import org.osate.assure.util.AssureUtilExtension;
-import org.osate.results.ResultIssue;
-import org.osate.results.ResultsFactory;
+import org.osate.result.Issue;
+import org.osate.result.ResultFactory;
 
 import com.rockwellcollins.atc.agree.agree.AgreeContractSubclause;
 import com.rockwellcollins.atc.agree.agree.AgreePackage;
@@ -294,7 +294,7 @@ public class AgreeVerifySingleHandler extends VerifySingleHandler {
 				case ERROR:
 				case WAITING:
 					// case VALID_REFINED:
-					ResultIssue topResultIssue = ResultsFactory.eINSTANCE.createResultIssue();
+					Issue topResultIssue = ResultFactory.eINSTANCE.createIssue();
 					for (Iterator iterator2 = jKindResult.getPropertyResults().iterator(); iterator2.hasNext();) {
 						PropertyResult propertyResult = (PropertyResult) iterator2.next();
 

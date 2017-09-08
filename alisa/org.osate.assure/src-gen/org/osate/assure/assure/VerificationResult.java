@@ -17,8 +17,8 @@ package org.osate.assure.assure;
 
 import org.eclipse.emf.common.util.EList;
 
-import org.osate.results.ResultIssue;
-import org.osate.results.Results;
+import org.osate.result.Issue;
+import org.osate.result.Result;
 
 /**
  * <!-- begin-user-doc -->
@@ -102,7 +102,7 @@ public interface VerificationResult extends AssureResult, VerificationExpr
 
   /**
    * Returns the value of the '<em><b>Issues</b></em>' containment reference list.
-   * The list contents are of type {@link org.osate.results.ResultIssue}.
+   * The list contents are of type {@link org.osate.result.Issue}.
    * <!-- begin-user-doc -->
    * <p>
    * If the meaning of the '<em>Issues</em>' containment reference list isn't clear,
@@ -114,7 +114,7 @@ public interface VerificationResult extends AssureResult, VerificationExpr
    * @model containment="true"
    * @generated
    */
-  EList<ResultIssue> getIssues();
+  EList<Issue> getIssues();
 
   /**
    * Returns the value of the '<em><b>Results</b></em>' reference.
@@ -125,12 +125,12 @@ public interface VerificationResult extends AssureResult, VerificationExpr
    * </p>
    * <!-- end-user-doc -->
    * @return the value of the '<em>Results</em>' reference.
-   * @see #setResults(Results)
+   * @see #setResults(Result)
    * @see org.osate.assure.assure.AssurePackage#getVerificationResult_Results()
    * @model
    * @generated
    */
-  Results getResults();
+  Result getResults();
 
   /**
    * Sets the value of the '{@link org.osate.assure.assure.VerificationResult#getResults <em>Results</em>}' reference.
@@ -140,7 +140,7 @@ public interface VerificationResult extends AssureResult, VerificationExpr
    * @see #getResults()
    * @generated
    */
-  void setResults(Results value);
+  void setResults(Result value);
 
   /**
    * Returns the value of the '<em><b>Message</b></em>' attribute.

@@ -82,8 +82,8 @@ import static extension org.eclipse.emf.ecore.util.EcoreUtil.getURI
 import static extension org.osate.alisa.common.util.CommonUtilExtension.*
 import static extension org.osate.assure.util.AssureUtilExtension.*
 import static extension org.osate.verify.util.VerifyUtilExtension.*
-import org.osate.results.Results
-import org.osate.results.ResultsFactory
+import org.osate.result.ResultFactory
+import org.osate.result.Result
 
 @ImplementedBy(AssureProcessor)
 interface IAssureProcessor {
@@ -418,7 +418,7 @@ class AssureProcessor implements IAssureProcessor {
 
 						// using com.rockwellcollins.atc.resolute.analysis.results.ClaimResult
 						val ClaimResult proof = interpreter.evaluateProveStatement(provecall) as ClaimResult
-							val proveri = ResultsFactory.eINSTANCE.createResultIssue
+							val proveri = ResultFactory.eINSTANCE.createIssue
 							proof.doResoluteResults(proveri)
 						if (proof.valid) {
 							setToSuccess(verificationResult)
@@ -453,7 +453,7 @@ class AssureProcessor implements IAssureProcessor {
 					if (result.failureCount == 0) {
 						setToSuccess(verificationResult)
 					} else {
-						val proveri = ResultsFactory.eINSTANCE.createResultIssue
+						val proveri = ResultFactory.eINSTANCE.createIssue
 						result.doJUnitResults(proveri)
 						setToFail(verificationResult, proveri.issues)
 					}
@@ -568,14 +568,14 @@ class AssureProcessor implements IAssureProcessor {
 				}
 				new HashMap
 			} else if (returned instanceof HashMap<?, ?>) {
-				val report = returned.get("_result_report_") as Results
+				val report = returned.get("_result_report_") as Result
 				if (report !== null) {
 					verificationResult.results = report
 				} else {
 					setToSuccess(verificationResult, "", target)
 				}
 				returned
-			} else if (returned instanceof Results) {
+			} else if (returned instanceof Result) {
 //				verificationResult.resultReport = returned
 				if (returned.issues.empty){
 				setToSuccess(verificationResult,"",target)
