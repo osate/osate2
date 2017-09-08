@@ -1,5 +1,7 @@
 package org.osate.analysis.flows.model;
 
+import static org.osate.result.util.ResultUtil.addRealValue;
+import static org.osate.result.util.ResultUtil.addStringValue;
 import static org.osate.ui.UiUtil.BestDecPoint;
 
 import java.util.ArrayList;
@@ -18,10 +20,10 @@ import org.osate.analysis.flows.reporting.model.Line;
 import org.osate.analysis.flows.reporting.model.ReportSeverity;
 import org.osate.analysis.flows.reporting.model.ReportedCell;
 import org.osate.analysis.flows.reporting.model.Section;
-import org.osate.results.ResultIssue;
-import org.osate.results.ResultIssueType;
-import org.osate.results.Results;
-import org.osate.results.util.ResultsUtil;
+import org.osate.result.Issue;
+import org.osate.result.IssueType;
+import org.osate.result.Result;
+import org.osate.result.util.ResultUtil;
 import org.osate.xtext.aadl2.properties.util.GetProperties;
 
 /*
@@ -34,7 +36,7 @@ public class LatencyReportEntry {
 
 	List<LatencyContributor> contributors;
 	EndToEndFlowInstance relatedEndToEndFlow;
-	List<ResultIssue> issues;
+	List<Issue> issues;
 	// lastSampled may be a task, partition if no tasks inside the partition, sampling bus, or a sampling device/system
 	LatencyContributor lastSampled = null;
 	SystemOperationMode som = null;
@@ -461,15 +463,15 @@ public class LatencyReportEntry {
 	}
 
 	private void reportSummaryError(String str) {
-		issues.add(ResultsUtil.createError(str, relatedEndToEndFlow, ""));
+		issues.add(ResultUtil.createError(str, relatedEndToEndFlow, ""));
 	}
 
 	private void reportSummarySuccess(String str) {
-		issues.add(ResultsUtil.createSuccess(str, relatedEndToEndFlow, ""));
+		issues.add(ResultUtil.createSuccess(str, relatedEndToEndFlow, ""));
 	}
 
 	private void reportSummaryWarning(String str) {
-		issues.add(ResultsUtil.createWarning(str, relatedEndToEndFlow, ""));
+		issues.add(ResultUtil.createWarning(str, relatedEndToEndFlow, ""));
 	}
 
 	public Section export() {
@@ -478,7 +480,7 @@ public class LatencyReportEntry {
 		Line line;
 		String sectionName;
 
-		issues = new ArrayList<ResultIssue>();
+		issues = new ArrayList<Issue>();
 
 		if (relatedEndToEndFlow != null) {
 			sectionName = relatedEndToEndFlow.getComponentInstancePath();
@@ -620,7 +622,7 @@ public class LatencyReportEntry {
 			line = new Line();
 			line.addHeaderContent("End to end Latency Summary");
 			section.addLine(line);
-			for (ResultIssue issue : issues) {
+			for (Issue issue : issues) {
 				line = new Line();
 				String msg = issue.getMessage();
 				ReportedCell issueLabel = new ReportedCell(issue.getIssueType(), issue.getIssueType().toString());
@@ -646,15 +648,15 @@ public class LatencyReportEntry {
 	}
 
 	public void generateMarkers(AnalysisErrorReporterManager errManager) {
-		List<ResultIssue> doIssues = this.issues;
-		for (ResultIssue reportedCell : doIssues) {
-			if (reportedCell.getIssueType() == ResultIssueType.INFO) {
+		List<Issue> doIssues = this.issues;
+		for (Issue reportedCell : doIssues) {
+			if (reportedCell.getIssueType() == IssueType.INFO) {
 				errManager.info(this.relatedEndToEndFlow, reportedCell.getMessage());
-			} else if (reportedCell.getIssueType() == ResultIssueType.SUCCESS) {
+			} else if (reportedCell.getIssueType() == IssueType.SUCCESS) {
 				errManager.info(this.relatedEndToEndFlow, getRelatedObjectLabel() + reportedCell.getMessage());
-			} else if (reportedCell.getIssueType() == ResultIssueType.WARNING) {
+			} else if (reportedCell.getIssueType() == IssueType.WARNING) {
 				errManager.warning(this.relatedEndToEndFlow, getRelatedObjectLabel() + reportedCell.getMessage());
-			} else if (reportedCell.getIssueType() == ResultIssueType.ERROR) {
+			} else if (reportedCell.getIssueType() == IssueType.ERROR) {
 				errManager.error(this.relatedEndToEndFlow, getRelatedObjectLabel() + reportedCell.getMessage());
 			}
 		}
@@ -665,10 +667,10 @@ public class LatencyReportEntry {
 		}
 	}
 
-	public Results genResults() {
+	public Result genResult() {
 		String reportName;
 
-		issues = new ArrayList<ResultIssue>();
+		issues = new ArrayList<Issue>();
 
 		if (relatedEndToEndFlow != null) {
 			reportName = relatedEndToEndFlow.getComponentInstancePath();
@@ -679,20 +681,20 @@ public class LatencyReportEntry {
 		String systemName = si.getComponentClassifier().getName();
 		String inMode = Aadl2Util.isPrintableSOMName(som) ? " in mode " + som.getName() : "";
 
-		Results results = ResultsUtil.createResults(reportName + inMode, relatedEndToEndFlow);
+		Result result = ResultUtil.createResult(reportName + inMode, relatedEndToEndFlow);
 		String dspostfix = Values.getDataSetProcessingLabel();
 		String description = "Latency analysis for end-to-end flow '" + reportName + "' of system '" + systemName + "'"
 				+ inMode + " with preference settings " + Values.getSynchronousSystemLabel() + "-"
 				+ Values.getMajorFrameDelayLabel() + "-" + Values.getWorstCaseDeadlineLabel() + "-"
 				+ Values.getBestcaseEmptyQueueLabel() + (dspostfix.isEmpty() ? "" : "-" + dspostfix);
-		results.setDescription(description);
+		addStringValue(result,description);
 
-		results.getValues().add(minValue);
-		results.getValues().add(maxValue);
-		results.getValues().add(minSpecifiedValue);
-		results.getValues().add(maxSpecifiedValue);
-		results.getValues().add(expectedMinLatency);
-		results.getValues().add(expectedMaxLatency);
+		addRealValue(result, minValue);
+		addRealValue(result,maxValue);
+		addRealValue(result,minSpecifiedValue);
+		addRealValue(result,maxSpecifiedValue);
+		addRealValue(result,expectedMinLatency);
+		addRealValue(result,expectedMaxLatency);
 
 		/*
 		 * In that case, the end to end flow has a minimum latency
@@ -758,10 +760,10 @@ public class LatencyReportEntry {
 		}
 
 		for (LatencyContributor latencyContributor : contributors) {
-			results.getContributors().add(latencyContributor.genResults());
+			result.getContributors().add(latencyContributor.genResult());
 		}
 
-		return results;
+		return result;
 	}
 
 }

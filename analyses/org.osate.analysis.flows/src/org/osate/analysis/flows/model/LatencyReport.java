@@ -8,8 +8,8 @@ import org.osate.aadl2.modelsupport.errorreporting.AnalysisErrorReporterManager;
 import org.osate.analysis.flows.preferences.Values;
 import org.osate.analysis.flows.reporting.model.Report;
 import org.osate.analysis.flows.reporting.model.Report.ReportType;
-import org.osate.results.Results;
-import org.osate.results.util.ResultsUtil;
+import org.osate.result.Result;
+import org.osate.result.util.ResultUtil;
 
 /**
  * The LatencyReport class represents the generic class
@@ -70,12 +70,12 @@ public class LatencyReport {
 		return genericReport;
 	}
 
-	public Results genResults() {
+	public Result genResult() {
 
-		Results latencyReports = ResultsUtil.createResults(this.name,
+		Result latencyReports = ResultUtil.createResult(this.name,
 				this.relatedInstance);
 		for (LatencyReportEntry re : entries) {
-			latencyReports.getResults().add(re.genResults());
+			latencyReports.getSubResults().add(re.genResult());
 		}
 		return latencyReports;
 	}
