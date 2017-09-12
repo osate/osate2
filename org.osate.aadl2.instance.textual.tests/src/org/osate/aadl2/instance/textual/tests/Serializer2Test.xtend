@@ -33,8 +33,8 @@ under the contract clause at 252.227.7013.
  */
 package org.osate.aadl2.instance.textual.tests
 
-import org.eclipse.xtext.junit4.InjectWith
-import org.eclipse.xtext.junit4.XtextRunner
+import org.eclipse.xtext.testing.InjectWith
+import org.eclipse.xtext.testing.XtextRunner
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.osate.aadl2.AadlPackage
@@ -43,10 +43,6 @@ import org.osate.aadl2.instance.textual.InstanceUiInjectorProvider
 @RunWith(XtextRunner)
 @InjectWith(InstanceUiInjectorProvider)
 class Serializer2Test extends AbstractSerializerTest {
-	override getProjectName() {
-		"SerializerTest2"
-	}
-	
 	@Test
 	def void testEndToEndFlows() {
 		val pkg1FileName = "pkg1.aadl"
@@ -121,21 +117,21 @@ class Serializer2Test extends AbstractSerializerTest {
 		suppressSerialization
 		assertSerialize(testFile(pkg1FileName).resource.contents.head as AadlPackage, "s5.i", '''
 			system s5_i_Instance : pkg1::s5.i {
-				system s4_sub [ 0 ] : pkg1::s5.i:s4_sub {
+				system pkg1::s4 s4_sub [ 0 ] : pkg1::s5.i:s4_sub {
 					out dataPort p6 : pkg1::s4:p6
 					in dataPort p7 : pkg1::s4:p7
 					flow f6 ( -> p6 ) : pkg1::s4:f6
 					flow f7 ( p7 -> ) : pkg1::s4:f7
 				}
-				system s3_sub [ 0 ] : pkg1::s5.i:s3_sub {
+				system pkg1::s3.i s3_sub [ 0 ] : pkg1::s5.i:s3_sub {
 					in dataPort p4 : pkg1::s3:p4
 					out dataPort p5 : pkg1::s3:p5
-					system s1_sub [ 0 ] : pkg1::s3.i:s1_sub {
+					system pkg1::s1 s1_sub [ 0 ] : pkg1::s3.i:s1_sub {
 						in dataPort p1 : pkg1::s1:p1
 						out dataPort p2 : pkg1::s1:p2
 						flow f1 ( p1 -> p2 ) : pkg1::s1:f1
 					}
-					system s2_sub [ 0 ] : pkg1::s3.i:s2_sub {
+					system pkg1::s2 s2_sub [ 0 ] : pkg1::s3.i:s2_sub {
 						in dataPort p3 : pkg1::s2:p3
 						flow f2 ( p3 -> ) : pkg1::s2:f2
 					}
@@ -196,20 +192,20 @@ class Serializer2Test extends AbstractSerializerTest {
 		suppressSerialization
 		assertSerialize(testFile(pkg1FileName).resource.contents.head as AadlPackage, "s3.i", '''
 			system s3_i_Instance : pkg1::s3.i {
-				system s1_sub [ 0 ] : pkg1::s3.i:s1_sub {
+				system pkg1::s1 s1_sub [ 0 ] : pkg1::s3.i:s1_sub {
 					initial mode m1 : pkg1::s1:m1
 					mode m2 : pkg1::s1:m2
 				}
-				system s2_sub [ 0 ] : pkg1::s3.i:s2_sub {
+				system pkg1::s2 s2_sub [ 0 ] : pkg1::s3.i:s2_sub {
 					initial derived mode m3 : pkg1::s2:m3
 					derived mode m4 : pkg1::s2:m4
 				}
 				initial mode m5 : pkg1::s3:m5
 				mode m6 : pkg1::s3:m6
-				som "m5#s1_sub.m1" m5 , s1_sub[0].m1
-				som "m5#s1_sub.m2" m5 , s1_sub[0].m2
-				som "m6#s1_sub.m1" m6 , s1_sub[0].m1
-				som "m6#s1_sub.m2" m6 , s1_sub[0].m2
+				som "som_0" m5 , s1_sub[0].m1
+				som "som_1" m5 , s1_sub[0].m2
+				som "som_2" m6 , s1_sub[0].m1
+				som "som_3" m6 , s1_sub[0].m2
 			}''')
 	}
 	
@@ -261,27 +257,27 @@ class Serializer2Test extends AbstractSerializerTest {
 		assertSerialize(testFile(pkg1FileName).resource.contents.head as AadlPackage, "s1.i", '''
 			system s1_i_Instance : pkg1::s1.i {
 				in dataPort p1 : pkg1::s1:p1
-				system sub1 [ 0 ] : pkg1::s1.i:sub1 {
+				system pkg1::s2 sub1 [ 0 ] : pkg1::s1.i:sub1 {
 					out dataPort p2 : pkg1::s2:p2
 					flow f2 ( -> p2 ) : pkg1::s2:f2
 				}
 				system sub2 [ 0 ] in modes ( m1 ) : pkg1::s1.i:sub2
 				system sub3 [ 0 ] in modes ( m1 , m2 ) : pkg1::s1.i:sub3
-				system sub4 [ 0 ] in modes ( m1 , m2 , m3 ) : pkg1::s1.i:sub4 {
+				system pkg1::s3 sub4 [ 0 ] in modes ( m1 , m2 , m3 ) : pkg1::s1.i:sub4 {
 					in dataPort p3 : pkg1::s3:p3
 					flow f3 ( p3 -> ) : pkg1::s3:f3
 				}
-				complete portConnection "sub1.p2 -> sub4.p3" : sub1[0].p2 -> sub4[0].p3 in modes ( som#2 ) {
+				complete portConnection "sub1.p2 -> sub4.p3" : sub1[0].p2 -> sub4[0].p3 in modes ( som_2 ) {
 					sub1[0].p2 -> sub4[0].p3 : pkg1::s1.i:conn1 in parent
 				}
 				flow f1 ( p1 -> ) in modes ( m1 , m2 ) : pkg1::s1:f1
-				end to end flow etef1 sub1[0].f2 -> connection#0 -> sub4[0].f3 in modes ( som#2 ) : pkg1::s1.i:etef1
+				end to end flow etef1 sub1[0].f2 -> connection#0 -> sub4[0].f3 in modes ( som_2 ) : pkg1::s1.i:etef1
 				initial mode m1 : pkg1::s1:m1
 				mode m2 : pkg1::s1:m2
 				mode m3 : pkg1::s1:m3
-				som "m1" m1
-				som "m2" m2
-				som "m3" m3
+				som "som_0" m1
+				som "som_1" m2
+				som "som_2" m3
 			}''')
 	}
 	
@@ -325,8 +321,8 @@ class Serializer2Test extends AbstractSerializerTest {
 		suppressSerialization
 		assertSerialize(testFile(pkg1FileName).resource.contents.head as AadlPackage, "s3.i", '''
 			system s3_i_Instance : pkg1::s3.i {
-				system sub2 [ 0 ] in modes ( m6 , m7 , m5 ) : pkg1::s3.i:sub2 {
-					system sub1 [ 0 ] in modes ( m3 , m4 ) : pkg1::s2.i:sub1 {
+				system pkg1::s2.i sub2 [ 0 ] in modes ( m6 , m7 , m5 ) : pkg1::s3.i:sub2 {
+					system pkg1::s1 sub1 [ 0 ] in modes ( m3 , m4 ) : pkg1::s2.i:sub1 {
 						initial derived mode m1 = m3 : pkg1::s1:m1
 						derived mode m2 = m4 : pkg1::s1:m2
 					}
@@ -337,9 +333,9 @@ class Serializer2Test extends AbstractSerializerTest {
 				initial mode m6 : pkg1::s3:m6
 				mode m7 : pkg1::s3:m7
 				mode m5 : pkg1::s3:m5
-				som "m6#sub2.m3" m6 , sub2[0].m3
-				som "m7#sub2.m3" m7 , sub2[0].m3
-				som "m5#sub2.m5" m5 , sub2[0].m5
+				som "som_0" m6 , sub2[0].m3
+				som "som_1" m7 , sub2[0].m3
+				som "som_2" m5 , sub2[0].m5
 			}''')
 	}
 	
@@ -368,7 +364,7 @@ class Serializer2Test extends AbstractSerializerTest {
 		assertSerialize(testFile(pkg1FileName).resource.contents.head as AadlPackage, "s.i", '''
 			system s_i_Instance : pkg1::s.i {
 				in eventPort p1 : pkg1::s:p1
-				system sub1 [ 0 ] : pkg1::s.i:sub1 {
+				system pkg1::s sub1 [ 0 ] : pkg1::s.i:sub1 {
 					in eventPort p1 : pkg1::s:p1
 					initial mode m1 : pkg1::s:m1
 					mode m2 : pkg1::s:m2
@@ -377,10 +373,10 @@ class Serializer2Test extends AbstractSerializerTest {
 				initial mode m1 : pkg1::s:m1
 				mode m2 : pkg1::s:m2
 				mode transition m1.p1.m2 m1 -> m2 : pkg1::s:mt1
-				som "m1#sub1.m1" m1 , sub1[0].m1
-				som "m1#sub1.m2" m1 , sub1[0].m2
-				som "m2#sub1.m1" m2 , sub1[0].m1
-				som "m2#sub1.m2" m2 , sub1[0].m2
+				som "som_0" m1 , sub1[0].m1
+				som "som_1" m1 , sub1[0].m2
+				som "som_2" m2 , sub1[0].m1
+				som "som_3" m2 , sub1[0].m2
 			}''')
 	}
 	
@@ -424,10 +420,10 @@ class Serializer2Test extends AbstractSerializerTest {
 		assertSerialize(testFile(pkg1FileName).resource.contents.head as AadlPackage, "s3.i", '''
 			system s3_i_Instance : pkg1::s3.i {
 				in eventPort p3 : pkg1::s3:p3
-				system sub1 [ 0 ] : pkg1::s3.i:sub1 {
+				system pkg1::s1 sub1 [ 0 ] : pkg1::s3.i:sub1 {
 					out dataPort p1 : pkg1::s1:p1
 				}
-				system sub2 [ 0 ] : pkg1::s3.i:sub2 {
+				system pkg1::s2 sub2 [ 0 ] : pkg1::s3.i:sub2 {
 					in dataPort p2 : pkg1::s2:p2
 				}
 				complete portConnection "sub1.p1 -> sub2.p2" : sub1[0].p1 -> sub2[0].p2 in transitions ( transition#0 ) {
@@ -437,8 +433,8 @@ class Serializer2Test extends AbstractSerializerTest {
 				initial mode m1 : pkg1::s3:m1
 				mode m2 : pkg1::s3:m2
 				mode transition m1.p3.m2 m1 -> m2 : pkg1::s3:mt1
-				som "m1" m1
-				som "m2" m2
+				som "som_0" m1
+				som "som_1" m2
 			}''')
 	}
 	
@@ -500,7 +496,7 @@ class Serializer2Test extends AbstractSerializerTest {
 		suppressSerialization
 		assertSerialize(testFile(pkg1FileName).resource.contents.head as AadlPackage, "s3.i", '''
 			system s3_i_Instance : pkg1::s3.i {
-				system sub1 [ 0 ] : pkg1::s3.i:sub1 {
+				system pkg1::s1 sub1 [ 0 ] : pkg1::s3.i:sub1 {
 					in out featureGroup fg1 : pkg1::s1:fg1 {
 						in dataPort p4 : pkg1::fgt1:p4 {
 							ps1::bool1 => true : pkg1::fgt1:p4:property#0
@@ -523,7 +519,7 @@ class Serializer2Test extends AbstractSerializerTest {
 					}
 					ps1::bool1 => true : pkg1::s3.i:sub1:property#0
 				}
-				system sub2 [ 0 ] : pkg1::s3.i:sub2 {
+				system pkg1::s2 sub2 [ 0 ] : pkg1::s3.i:sub2 {
 					in dataPort p3 : pkg1::s2:p3
 					flow fs2 ( p3 -> ) : pkg1::s2:fs2
 				}
@@ -531,11 +527,11 @@ class Serializer2Test extends AbstractSerializerTest {
 					sub1[0].p1 -> sub2[0].p3 : pkg1::s3.i:conn1 in parent
 					ps1::bool1 => true : pkg1::s3.i:conn1:property#0
 				}
-				end to end flow etef1 sub1[0].fs1 -> connection#0 -> sub2[0].fs2 in modes ( som#0 , som#1 ) : pkg1::s3.i:etef1 {
+				end to end flow etef1 sub1[0].fs1 -> connection#0 -> sub2[0].fs2 in modes ( som_0 , som_1 ) : pkg1::s3.i:etef1 {
 					ps1::bool1 => true : pkg1::s3.i:etef1:property#0
 				}
-				som "sub1.m1" sub1[0].m1
-				som "sub1.m2" sub1[0].m2
+				som "som_0" sub1[0].m1
+				som "som_1" sub1[0].m2
 				ps1::bool1 => true : pkg1::s3:property#0
 			}''')
 	}
@@ -570,18 +566,18 @@ class Serializer2Test extends AbstractSerializerTest {
 		suppressSerialization
 		assertSerialize(testFile(pkg1FileName).resource.contents.head as AadlPackage, "s.i", '''
 			system s_i_Instance : pkg1::s.i {
-				system sub1 [ 0 ] : pkg1::s.i:sub1 {
+				system pkg1::s sub1 [ 0 ] : pkg1::s.i:sub1 {
 					initial mode m1 : pkg1::s:m1
 					mode m2 : pkg1::s:m2
-					ps1::bool1 => true in modes ( som#0 , som#2 ) , false in modes ( som#1 , som#3 ) : pkg1::s:property#0
+					ps1::bool1 => true in modes ( som_0 , som_2 ) , false in modes ( som_1 , som_3 ) : pkg1::s:property#0
 				}
 				initial mode m1 : pkg1::s:m1
 				mode m2 : pkg1::s:m2
-				som "m1#sub1.m1" m1 , sub1[0].m1
-				som "m1#sub1.m2" m1 , sub1[0].m2
-				som "m2#sub1.m1" m2 , sub1[0].m1
-				som "m2#sub1.m2" m2 , sub1[0].m2
-				ps1::bool1 => true in modes ( som#0 , som#1 ) , false in modes ( som#2 , som#3 ) : pkg1::s:property#0
+				som "som_0" m1 , sub1[0].m1
+				som "som_1" m1 , sub1[0].m2
+				som "som_2" m2 , sub1[0].m1
+				som "som_3" m2 , sub1[0].m2
+				ps1::bool1 => true in modes ( som_0 , som_1 ) , false in modes ( som_2 , som_3 ) : pkg1::s:property#0
 			}''')
 	}
 	
@@ -778,15 +774,15 @@ class Serializer2Test extends AbstractSerializerTest {
 					in out featureGroup fg3 [ 2 ] : pkg1::fgt1:fg3
 				}
 				in eventPort p1 : pkg1::s1:p1
-				abstract sub2 [ 0 ] : pkg1::s1.i:sub2 {
+				abstract pkg1::a1.i sub2 [ 0 ] : pkg1::s1.i:sub2 {
 					in out subprogramAccess sa1 : pkg1::a1:sa1
 				}
-				system sub1 [ 0 ] : pkg1::s1.i:sub1
+				system pkg1::s2 sub1 [ 0 ] : pkg1::s1.i:sub1
 				initial mode m1 : pkg1::s1:m1
 				mode m2 : pkg1::s1:m2
 				mode transition m1.p1.m2 m1 -> m2 : pkg1::s1:mt1
-				som "m1" m1
-				som "m2" m2
+				som "som_0" m1
+				som "som_1" m2
 				ps1::reference1 => reference ( pkg1::s1:proto1 ) : pkg1::s1.i:property#0
 				ps1::reference2 => reference ( pkg1::s1:fg1 / pkg1::fgt1:proto2 ) : pkg1::s1.i:property#1
 				ps1::reference3 => reference ( pkg1::s1:fg1 / pkg1::fgt1:fg2 / pkg1::fgt2:proto3 ) : pkg1::s1.i:property#2
@@ -858,11 +854,11 @@ class Serializer2Test extends AbstractSerializerTest {
 		suppressSerialization
 		assertSerialize(testFile(pkg1FileName).resource.contents.head as AadlPackage, "s3.i", '''
 			system s3_i_Instance : pkg1::s3.i {
-				system sub1 [ 0 ] : pkg1::s3.i:sub1 {
+				system pkg1::s1 sub1 [ 0 ] : pkg1::s3.i:sub1 {
 					out dataPort p1 : pkg1::s1:p1
 					ps1::reference1 => reference ( sub1[0].p1 ) : pkg1::s1:property#0
 				}
-				system sub2 [ 0 ] : pkg1::s3.i:sub2 {
+				system pkg1::s2 sub2 [ 0 ] : pkg1::s3.i:sub2 {
 					in dataPort p2 : pkg1::s2:p2
 					flow f1 ( p2 -> ) : pkg1::s2:f1
 				}
@@ -871,7 +867,7 @@ class Serializer2Test extends AbstractSerializerTest {
 				}
 				end to end flow etef1 sub1[0] -> connection#0 -> sub2[0].f1 : pkg1::s3.i:etef1
 				initial mode m1 : pkg1::s3:m1
-				som "m1" m1
+				som "som_0" m1
 				ps1::reference1 => reference ( sub1[0].p1 ) : pkg1::s3.i:property#0
 				ps1::reference2 => reference ( sub2[0].f1 ) : pkg1::s3.i:property#1
 				ps1::reference3 => reference ( m1 ) : pkg1::s3.i:property#2

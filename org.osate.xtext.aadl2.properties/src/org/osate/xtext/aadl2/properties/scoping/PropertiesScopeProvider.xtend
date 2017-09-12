@@ -87,7 +87,7 @@ public class PropertiesScopeProvider extends AbstractDeclarativeScopeProvider {
 		var scope = delegateGetScope(context, reference)
 		val renameScopeElements = newArrayList()
 		val packageSection = context.getContainerOfType(PackageSection)
-		if (packageSection != null) {
+		if (packageSection !== null) {
 			packageSection.ownedComponentTypeRenames.filter[reference.EReferenceType.isSuperTypeOf(renamedComponentType.eClass)].forEach[
 				renameScopeElements.add(new EObjectDescription(QualifiedName::create(name ?: renamedComponentType.name), renamedComponentType, null))
 			]
@@ -113,7 +113,7 @@ public class PropertiesScopeProvider extends AbstractDeclarativeScopeProvider {
 	def scope_ModalElement_inMode(Element context, EReference reference) {
 		var scope = IScope::NULLSCOPE
 		val containingPropertyAssociation = context.getContainerOfType(PropertyAssociation)
-		if (containingPropertyAssociation != null) {
+		if (containingPropertyAssociation !== null) {
 			if (!containingPropertyAssociation.appliesTos.empty) {
 				scope = (containingPropertyAssociation.appliesTos.get(0).containmentPathElements.findLast[namedElement instanceof Subcomponent].namedElement as Subcomponent)?.
 						classifier?.allModes?.scopeFor ?: scope
@@ -133,15 +133,15 @@ public class PropertiesScopeProvider extends AbstractDeclarativeScopeProvider {
 		var PropertyType propertyType = null;
 		//Inner value of a record value.
 		propertyType = context.getContainerOfType(BasicPropertyAssociation)?.property?.propertyType
-		if (propertyType == null) {
+		if (propertyType === null) {
 			//Value of the property constant.
 			propertyType = context.getContainerOfType(PropertyConstant)?.propertyType
 		}
-		if (propertyType == null) {
+		if (propertyType === null) {
 			//Default value of a property definition.
 			propertyType = context.getContainerOfType(Property)?.propertyType
 		}
-		if (propertyType == null) {
+		if (propertyType === null) {
 			//Value of an association.
 			propertyType = context.getContainerOfType(PropertyAssociation)?.property?.propertyType
 		}
@@ -155,12 +155,12 @@ public class PropertiesScopeProvider extends AbstractDeclarativeScopeProvider {
 	//Reference is from FieldPropertyAssociation in Properties.xtext
 	def scope_BasicPropertyAssociation_property(Element context, EReference reference) {
 		var parent = switch context {
-			BasicPropertyAssociation case context.property.propertyType == null:
+			BasicPropertyAssociation case context.property.propertyType === null:
 				context.owner
 			default:
 				context
 		}
-		while (parent != null && !(parent instanceof BasicPropertyAssociation || parent instanceof PropertyAssociation || parent instanceof Property || parent instanceof PropertyConstant)) {
+		while (parent !== null && !(parent instanceof BasicPropertyAssociation || parent instanceof PropertyAssociation || parent instanceof Property || parent instanceof PropertyConstant)) {
 			parent = parent.owner
 		}
 		var PropertyType propertyType = null
@@ -194,7 +194,7 @@ public class PropertiesScopeProvider extends AbstractDeclarativeScopeProvider {
 				context.namespaceForPropertyAssociation
 			}
 			ContainmentPathElement: {
-				if (context.namedElement == null || context.namedElement.eIsProxy) {
+				if (context.namedElement === null || context.namedElement.eIsProxy) {
 					//Scoping for first element of the chain when providing the scope for quick fix
 					if (context.owner instanceof ReferenceValue) {
 						//Scoping for first element of a reference value
@@ -269,7 +269,7 @@ public class PropertiesScopeProvider extends AbstractDeclarativeScopeProvider {
 	
 	def protected static allSubprogramCalls(BehavioredImplementation implementation) {
 		val allSubprogramCalls = newArrayList
-		for (var ComponentImplementation currentImplementation = implementation; currentImplementation != null; currentImplementation = currentImplementation.extended) {
+		for (var ComponentImplementation currentImplementation = implementation; currentImplementation !== null; currentImplementation = currentImplementation.extended) {
 			//Should always be a BehavioredImplementation unless we have a malformed model.
 			if (currentImplementation instanceof BehavioredImplementation) {
 				allSubprogramCalls.addAll(currentImplementation.subprogramCalls())
@@ -280,7 +280,7 @@ public class PropertiesScopeProvider extends AbstractDeclarativeScopeProvider {
 	
 	def protected static allFeatureType(FeatureGroup featureGroup) {
 		var refinedFeatureGroup = featureGroup
-		while (refinedFeatureGroup.featureType == null && refinedFeatureGroup.refined instanceof FeatureGroup) {
+		while (refinedFeatureGroup.featureType === null && refinedFeatureGroup.refined instanceof FeatureGroup) {
 			refinedFeatureGroup = refinedFeatureGroup.refined as FeatureGroup
 		}
 		refinedFeatureGroup.featureType
@@ -288,7 +288,7 @@ public class PropertiesScopeProvider extends AbstractDeclarativeScopeProvider {
 	
 	def protected static allSubcomponentType(Subcomponent subcomponent) {
 		var refinedSubcomponent = subcomponent
-		while (refinedSubcomponent.subcomponentType == null && refinedSubcomponent.refined != null) {
+		while (refinedSubcomponent.subcomponentType === null && refinedSubcomponent.refined !== null) {
 			refinedSubcomponent = refinedSubcomponent.refined
 		}
 		refinedSubcomponent.subcomponentType
@@ -296,7 +296,7 @@ public class PropertiesScopeProvider extends AbstractDeclarativeScopeProvider {
 	
 	def protected static allInternalFeatures(ComponentImplementation implementation) {
 		val allInternalFeatures = newArrayList
-		for (var ComponentImplementation currentImplementation = implementation; currentImplementation != null; currentImplementation = currentImplementation.extended) {
+		for (var ComponentImplementation currentImplementation = implementation; currentImplementation !== null; currentImplementation = currentImplementation.extended) {
 			allInternalFeatures.addAll(currentImplementation.ownedInternalFeatures)
 		}
 		allInternalFeatures
@@ -311,7 +311,7 @@ public class PropertiesScopeProvider extends AbstractDeclarativeScopeProvider {
 		allMembers
 	}
 	
-	def static private createUnitLiteralsScopeFromPropertyType(PropertyType type) {
+	def static protected createUnitLiteralsScopeFromPropertyType(PropertyType type) {
 		switch baseType : type.basePropertyType {
 			NumberType:
 				baseType.unitsType

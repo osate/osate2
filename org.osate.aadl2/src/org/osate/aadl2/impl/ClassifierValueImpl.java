@@ -40,6 +40,7 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
+import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.Classifier;
 import org.osate.aadl2.ClassifierValue;
@@ -197,8 +198,8 @@ public class ClassifierValueImpl extends PropertyOwnerImpl implements Classifier
 	}
 
 	@Override
-	public EvaluatedProperty evaluate(EvaluationContext ctx) {
-		return new EvaluatedProperty(this);
+	public EvaluatedProperty evaluate(EvaluationContext ctx, int depth) {
+		return new EvaluatedProperty(EcoreUtil.copy(this));
 	}
 
 	/**

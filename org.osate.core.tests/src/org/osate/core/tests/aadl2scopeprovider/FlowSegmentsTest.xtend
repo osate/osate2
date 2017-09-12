@@ -34,9 +34,9 @@
  */
 package org.osate.core.tests.aadl2scopeprovider
 
-import org.eclipse.xtext.junit4.InjectWith
-import org.eclipselabs.xtext.utils.unittesting.FluentIssueCollection
-import org.eclipselabs.xtext.utils.unittesting.XtextRunner2
+import com.itemis.xtext.testing.FluentIssueCollection
+import org.eclipse.xtext.testing.InjectWith
+import org.eclipse.xtext.testing.XtextRunner
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.osate.aadl2.Aadl2Package
@@ -49,13 +49,9 @@ import org.osate.core.test.OsateTest
 import static extension org.junit.Assert.assertEquals
 import static extension org.junit.Assert.assertNull
 
-@RunWith(XtextRunner2)
+@RunWith(XtextRunner)
 @InjectWith(Aadl2UiInjectorProvider)
 class FlowSegmentsTest extends OsateTest {
-	override getProjectName() {
-		"Flow_Segments_Test"
-	}
-	
 	//Tests scope_FlowSegment_context, scope_FlowSegment_flowElement, scope_EndToEndFlowSegment_context, and scope_EndToEndFlowSegment_flowElement
 	@Test
 	def void testFlowSegments() {

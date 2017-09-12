@@ -89,12 +89,12 @@ public class SystemInstanceItemProvider extends ComponentInstanceItemProvider {
 	 */
 	protected void addComponentImplementationPropertyDescriptor(Object object) {
 		itemPropertyDescriptors
-				.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
-						getResourceLocator(), getString("_UI_SystemInstance_componentImplementation_feature"), //$NON-NLS-1$
-						getString("_UI_PropertyDescriptor_description", //$NON-NLS-1$
-								"_UI_SystemInstance_componentImplementation_feature", "_UI_SystemInstance_type"), //$NON-NLS-1$ //$NON-NLS-2$
-						InstancePackage.Literals.SYSTEM_INSTANCE__COMPONENT_IMPLEMENTATION, true, false, true, null,
-						null, null));
+		.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+				getResourceLocator(), getString("_UI_SystemInstance_componentImplementation_feature"), //$NON-NLS-1$
+				getString("_UI_PropertyDescriptor_description", //$NON-NLS-1$
+						"_UI_SystemInstance_componentImplementation_feature", "_UI_SystemInstance_type"), //$NON-NLS-1$ //$NON-NLS-2$
+				InstancePackage.Literals.SYSTEM_INSTANCE__COMPONENT_IMPLEMENTATION, true, false, true, null,
+				null, null));
 	}
 
 	/**
@@ -131,11 +131,11 @@ public class SystemInstanceItemProvider extends ComponentInstanceItemProvider {
 	 * This returns SystemInstance.gif.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @generated NOT
 	 */
 	@Override
 	public Object getImage(Object object) {
-		return overlayImage(object, getResourceLocator().getImage("full/obj16/SystemInstance")); //$NON-NLS-1$
+		return super.getImage(object);
 	}
 
 	/**
@@ -148,7 +148,7 @@ public class SystemInstanceItemProvider extends ComponentInstanceItemProvider {
 	public String getText(Object object) {
 		String label = ((SystemInstance) object).getName();
 		return label == null || label.length() == 0 ? getString("_UI_SystemInstance_type") : //$NON-NLS-1$
-				getString("_UI_SystemInstance_type") + " " + label; //$NON-NLS-1$ //$NON-NLS-2$
+			getString("_UI_SystemInstance_type") + " " + label; //$NON-NLS-1$ //$NON-NLS-2$
 	}
 
 	/**

@@ -987,7 +987,7 @@ Additionally, it defines how a subcomponent array can be instantiated as a list 
       <ownedComment xmi:id="Features-_ownedComment.0">
         <body>This package contains metaclasses needed for modeling features and feature groups.</body>
       </ownedComment>
-      <packagedElement xmi:type="uml:Class" xmi:id="Features-FeatureGroup" name="FeatureGroup">
+      <packagedElement xmi:type="uml:Class" xmi:id="Features-FeatureGroup" name="FeatureGroup" isAbstract="true">
         <ownedComment xmi:id="Features-FeatureGroup-_ownedComment.0">
           <body>A collection of simple features and nested feature groups.</body>
         </ownedComment>
@@ -1062,7 +1062,7 @@ For access features, the classifier specifies the type of the shared component.<
           <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Features-A_featureGroupType_ownedFeature-owner-_upperValue" value="1"/>
         </ownedEnd>
       </packagedElement>
-      <packagedElement xmi:type="uml:Class" xmi:id="Features-FeatureGroupType" name="FeatureGroupType">
+      <packagedElement xmi:type="uml:Class" xmi:id="Features-FeatureGroupType" name="FeatureGroupType" isAbstract="true">
         <ownedComment xmi:id="Features-FeatureGroupType-_ownedComment.0">
           <body>===TBD===</body>
         </ownedComment>
@@ -1830,12 +1830,22 @@ The context owns the connection end instance.</body>
           <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_QWNzNqjSEeCoIp43xtd66A" value="1"/>
           <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_QWNzNajSEeCoIp43xtd66A" value="1"/>
         </ownedAttribute>
+        <ownedAttribute xmi:id="_P1HIMfLcEeaCy-MoY2jmxQ" name="next" type="_9cVjIKjREeCoIp43xtd66A" aggregation="composite" association="_P1BBkPLcEeaCy-MoY2jmxQ">
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_idexgPLcEeaCy-MoY2jmxQ"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_idgmsPLcEeaCy-MoY2jmxQ" value="1"/>
+        </ownedAttribute>
       </packagedElement>
       <packagedElement xmi:type="uml:Association" xmi:id="_QWNzMKjSEeCoIp43xtd66A" name="A_connectedElement_connectionEnd" memberEnd="_QWNzMajSEeCoIp43xtd66A _QWNzNKjSEeCoIp43xtd66A">
         <ownedEnd xmi:id="_QWNzMajSEeCoIp43xtd66A" name="connectedElement" visibility="public" type="_9cVjIKjREeCoIp43xtd66A" association="_QWNzMKjSEeCoIp43xtd66A">
           <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_QWNzM6jSEeCoIp43xtd66A"/>
           <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_QWNzMqjSEeCoIp43xtd66A" value="*"/>
         </ownedEnd>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Association" xmi:id="_P1BBkPLcEeaCy-MoY2jmxQ" name="A_connectedElement_next" memberEnd="_P1HIMPLcEeaCy-MoY2jmxQ _P1HIMfLcEeaCy-MoY2jmxQ">
+        <eAnnotations xmi:id="_P1GhIPLcEeaCy-MoY2jmxQ" source="org.eclipse.papyrus">
+          <details xmi:id="_P1GhIfLcEeaCy-MoY2jmxQ" key="nature" value="UML_Nature"/>
+        </eAnnotations>
+        <ownedEnd xmi:id="_P1HIMPLcEeaCy-MoY2jmxQ" name="connectedElement" type="_9cVjIKjREeCoIp43xtd66A" association="_P1BBkPLcEeaCy-MoY2jmxQ"/>
       </packagedElement>
     </packagedElement>
     <packagedElement xmi:type="uml:Package" xmi:id="Flows" name="Flows">
@@ -1901,6 +1911,14 @@ The context owns the connection end instance.</body>
         <ownedAttribute xmi:id="_xoODUKvbEeC0h7jzzZfZ7Q" name="ownedFlowSegment" visibility="public" type="_tDLx4KvbEeC0h7jzzZfZ7Q" isOrdered="true" aggregation="composite" association="_xpTocKvbEeC0h7jzzZfZ7Q">
           <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_xoODUqvbEeC0h7jzzZfZ7Q"/>
           <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_xoODUavbEeC0h7jzzZfZ7Q" value="*"/>
+        </ownedAttribute>
+        <ownedAttribute xmi:id="_Q7EB8BifEeeiMKeUpr3PBw" name="inEnd" type="_AzAPoKvVEeC0h7jzzZfZ7Q" aggregation="composite" association="_Q65p4BifEeeiMKeUpr3PBw">
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_4tEBMBowEeeOJN_lhcHQhA"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_4tT40BowEeeOJN_lhcHQhA" value="1"/>
+        </ownedAttribute>
+        <ownedAttribute xmi:id="_WUxRkRifEeeiMKeUpr3PBw" name="outEnd" type="_AzAPoKvVEeC0h7jzzZfZ7Q" aggregation="composite" association="_WUwqgBifEeeiMKeUpr3PBw">
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_7Sl5ABowEeeOJN_lhcHQhA"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_7SmgEBowEeeOJN_lhcHQhA" value="1"/>
         </ownedAttribute>
       </packagedElement>
       <packagedElement xmi:type="uml:Class" xmi:id="Flows-FlowElement" name="FlowElement" isAbstract="true">
@@ -2084,6 +2102,24 @@ The context owns the connection end instance.</body>
         <generalization xmi:id="_pB03I9S2EeGrQ5HyNd6P4Q">
           <general xmi:type="uml:Class" href="AADLInfrastructure.uml#NamedElement"/>
         </generalization>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Association" xmi:id="_Q65p4BifEeeiMKeUpr3PBw" name="A_flowImplementation_inEnd" memberEnd="_Q7EB8BifEeeiMKeUpr3PBw _Q7EpABifEeeiMKeUpr3PBw">
+        <eAnnotations xmi:id="_Q7Da4BifEeeiMKeUpr3PBw" source="org.eclipse.papyrus">
+          <details xmi:id="_Q7Da4RifEeeiMKeUpr3PBw" key="nature" value="UML_Nature"/>
+        </eAnnotations>
+        <ownedEnd xmi:id="_Q7EpABifEeeiMKeUpr3PBw" name="owner" type="Flows-FlowImplementation" association="_Q65p4BifEeeiMKeUpr3PBw">
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_w4b9gBifEeeiMKeUpr3PBw"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_w4ckkBifEeeiMKeUpr3PBw" value="1"/>
+        </ownedEnd>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Association" xmi:id="_WUwqgBifEeeiMKeUpr3PBw" name="A_flowImplementation_outEnd" memberEnd="_WUxRkRifEeeiMKeUpr3PBw _WUxRkhifEeeiMKeUpr3PBw">
+        <eAnnotations xmi:id="_WUwqgRifEeeiMKeUpr3PBw" source="org.eclipse.papyrus">
+          <details xmi:id="_WUxRkBifEeeiMKeUpr3PBw" key="nature" value="UML_Nature"/>
+        </eAnnotations>
+        <ownedEnd xmi:id="_WUxRkhifEeeiMKeUpr3PBw" name="owner" type="Flows-FlowImplementation" association="_WUwqgBifEeeiMKeUpr3PBw">
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_rtaqIBifEeeiMKeUpr3PBw"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_rteUgBifEeeiMKeUpr3PBw" value="1"/>
+        </ownedEnd>
       </packagedElement>
     </packagedElement>
     <packagedElement xmi:type="uml:Package" xmi:id="Modes" name="Modes">

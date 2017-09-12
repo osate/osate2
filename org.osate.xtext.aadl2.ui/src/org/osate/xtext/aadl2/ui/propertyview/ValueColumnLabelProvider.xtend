@@ -60,7 +60,7 @@ class ValueColumnLabelProvider extends ColumnLabelProvider {
 			URI: switch treeElementEObject : treeElement.getEObject(true) {
 				Property: {
 					val associationURI = propertyView.cachedPropertyAssociations.get(((element as TreeEntry).parent as TreeEntry).treeElement).get(treeElement)
-					if (associationURI == null) {
+					if (associationURI === null) {
 						treeElementEObject.defaultValue
 					} else {
 						val association = associationURI.getEObject(true) as PropertyAssociation
@@ -85,11 +85,12 @@ class ValueColumnLabelProvider extends ColumnLabelProvider {
 	
 	def static getValueAsString(Element expression, ISerializer serializer) {
 		try {
-			switch expression {
+			val unformatted = switch expression {
 				InstanceReferenceValue: expression.referencedInstanceObject?.instanceObjectPath ?: "null"
 				ListValue case expression.hasInstanceReferenceValue: expression.serializeListWithInstanceReferenceValue(serializer)
 				default: serializer.serialize(expression).replaceAll("\n", "").replaceAll("\r", "").replaceAll("\t", "").trim
 			}
+			unformatted.replace("( ", "(").replace(" )", ")").replace("[ ", "[").replace(" ]", "]").replace(" ,", ",").replace(" ;", ";")
 		} catch (IConcreteSyntaxValidator.InvalidConcreteSyntaxException e) {
 			//Simply return null.  Expression could not be serialized because the model is invalid.
 		}

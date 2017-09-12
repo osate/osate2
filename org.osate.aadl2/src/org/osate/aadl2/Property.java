@@ -241,7 +241,8 @@ public interface Property extends BasicProperty, AbstractNamedValue {
 	 * @throws InvalidModelException Thrown if there is a problem with the
 	 * model that prevents the property value from being evaluated.
 	 */
-	PropertyEvaluationResult evaluate(EvaluationContext ctx);
+	@Override
+	PropertyEvaluationResult evaluate(EvaluationContext ctx, int depth);
 
 	EvaluatedProperty evaluateDefault(EvaluationContext ctx);
 

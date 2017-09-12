@@ -28,7 +28,7 @@ public class AnnexParseUtil {
 			int line, int offset, ParseErrorReporter err) {
 
 		try {
-			editString = genWhitespace(offset) + editString + "\n\r";
+			editString = genWhitespace(offset) + editString;
 			IParseResult parseResult = parser.parse(parserRule, new StringReader(editString));
 
 			if (parseResult.getRootASTElement() != null) {

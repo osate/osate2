@@ -92,18 +92,18 @@ package class PropertyViewContentProvider implements ITreeContentProvider {
 						propertyView.cachedPropertyAssociations.size
 					}
 					case !propertyView.showUndefinedAction.checked && !propertyView.showDefaultAction.checked: {
-							propertyView.cachedPropertyAssociations.values.filter[entrySet.exists[value != null]].size
+							propertyView.cachedPropertyAssociations.values.filter[entrySet.exists[value !== null]].size
 							
 					}
 					case !propertyView.showUndefinedAction.checked && propertyView.showDefaultAction.checked : {
 						propertyView.cachedPropertyAssociations.values.filter[entrySet.exists[
-								value != null || (value == null && propertyView.safeRead[extension resourceSet |
-										(key.getEObject(true) as Property).defaultValue != null])]].size
+								value !== null || (value === null && propertyView.safeRead[extension resourceSet |
+										(key.getEObject(true) as Property).defaultValue !== null])]].size
 					}
 					case propertyView.showUndefinedAction.checked && !propertyView.showDefaultAction.checked : {
 						propertyView.cachedPropertyAssociations.values.filter[entrySet.exists[
-								value != null || (value == null && propertyView.safeRead[extension resourceSet |
-										(key.getEObject(true) as Property).defaultValue == null])]].size
+								value !== null || (value === null && propertyView.safeRead[extension resourceSet |
+										(key.getEObject(true) as Property).defaultValue === null])]].size
 					}
 					default : 0
 				}
@@ -117,24 +117,24 @@ package class PropertyViewContentProvider implements ITreeContentProvider {
 							}
 							case !propertyView.showUndefinedAction.checked && !propertyView.showDefaultAction.checked: {
 								propertyView.cachedPropertyAssociations.get(treeElement).filter[propertyURI, propertyAssociationURI |
-									propertyAssociationURI != null].size
+									propertyAssociationURI !== null].size
 							}
 							case !propertyView.showUndefinedAction.checked && propertyView.showDefaultAction.checked: {
 								propertyView.cachedPropertyAssociations.get(treeElement).filter[propertyURI, propertyAssociationURI |
-									propertyAssociationURI != null ||
-									(propertyAssociationURI == null && (propertyURI.getEObject(true) as Property).defaultValue != null)].size
+									propertyAssociationURI !== null ||
+									(propertyAssociationURI === null && (propertyURI.getEObject(true) as Property).defaultValue !== null)].size
 							}
 							case propertyView.showUndefinedAction.checked && !propertyView.showDefaultAction.checked: {
 								propertyView.cachedPropertyAssociations.get(treeElement).filter[propertyURI, propertyAssociationURI |
-									propertyAssociationURI != null ||
-									(propertyAssociationURI == null && (propertyURI.getEObject(true) as Property).defaultValue == null)].size
+									propertyAssociationURI !== null ||
+									(propertyAssociationURI === null && (propertyURI.getEObject(true) as Property).defaultValue === null)].size
 							}
 							default : 0
 						}
 					}
 					Property: {
 						val associationURI = propertyView.cachedPropertyAssociations.get((element.parent as TreeEntry).treeElement).get(treeElement)
-						if (associationURI == null) {
+						if (associationURI === null) {
 							getChildCount(treeElementEObject.defaultValue, treeElementEObject.propertyType, null)
 						} else {
 							val association = associationURI.getEObject(true) as PropertyAssociation
@@ -165,8 +165,8 @@ package class PropertyViewContentProvider implements ITreeContentProvider {
 	
 	def private getChildCount(PropertyExpression expression, PropertyType propertyType, PropertyExpression defaultValue) {
 		switch expression {
-			RangeValue case expression.delta == null: 2
-			RangeValue case expression.delta != null: 3
+			RangeValue case expression.delta === null: 2
+			RangeValue case expression.delta !== null: 3
 			RecordValue: switch propertyType {
 				RecordType case propertyView.showUndefinedAction.checked && propertyView.showDefaultAction.checked: {
 					propertyType.ownedFields.size
@@ -211,22 +211,22 @@ package class PropertyViewContentProvider implements ITreeContentProvider {
 						}
 						case !propertyView.showUndefinedAction.checked && !propertyView.showDefaultAction.checked : {
 							propertyView.cachedPropertyAssociations.filter[propertySetURI, associationsForPropertySet |
-								associationsForPropertySet.entrySet.exists[value != null]
+								associationsForPropertySet.entrySet.exists[value !== null]
 							]
 						}
 						case !propertyView.showUndefinedAction.checked && propertyView.showDefaultAction.checked : {
 							propertyView.cachedPropertyAssociations.filter[propertyURI, associationsForPropertySet |
 								associationsForPropertySet.entrySet.exists[
-									value != null ||
-									(value == null && propertyView.safeRead[extension resourceSet | (key.getEObject(true) as Property).defaultValue != null])	
+									value !== null ||
+									(value === null && propertyView.safeRead[extension resourceSet | (key.getEObject(true) as Property).defaultValue !== null])	
 								]
 							]
 						}
 						case propertyView.showUndefinedAction.checked && !propertyView.showDefaultAction.checked : {
 							propertyView.cachedPropertyAssociations.filter[propertySetURI, associationsForPropertySet |
 								associationsForPropertySet.entrySet.exists[
-									value != null || 
-									(value == null && propertyView.safeRead[extension resourceSet | (key.getEObject(true) as Property).defaultValue == null])
+									value !== null || 
+									(value === null && propertyView.safeRead[extension resourceSet | (key.getEObject(true) as Property).defaultValue === null])
 								]
 							]
 						}
@@ -243,19 +243,19 @@ package class PropertyViewContentProvider implements ITreeContentProvider {
 							}
 							case !propertyView.showUndefinedAction.checked && !propertyView.showDefaultAction.checked : {
 								propertyView.cachedPropertyAssociations.get(treeElement).filter[propertyURI, propertyAssociationURI |
-									propertyAssociationURI != null 
+									propertyAssociationURI !== null 
 								]
 							}
 							case !propertyView.showUndefinedAction.checked && propertyView.showDefaultAction.checked : {
 								propertyView.cachedPropertyAssociations.get(treeElement).filter[propertyURI, propertyAssociationURI |
-									propertyAssociationURI != null || 
-									(propertyAssociationURI == null && (propertyURI.getEObject(true) as Property).defaultValue != null)
+									propertyAssociationURI !== null || 
+									(propertyAssociationURI === null && (propertyURI.getEObject(true) as Property).defaultValue !== null)
 								]
 							}
 							case propertyView.showUndefinedAction.checked && !propertyView.showDefaultAction.checked : {
 								propertyView.cachedPropertyAssociations.get(treeElement).filter[propertyURI, propertyAssociationURI |
-									propertyAssociationURI != null || 
-									(propertyAssociationURI == null && (propertyURI.getEObject(true) as Property).defaultValue == null)
+									propertyAssociationURI !== null || 
+									(propertyAssociationURI === null && (propertyURI.getEObject(true) as Property).defaultValue === null)
 								]
 							}
 						}
@@ -263,7 +263,7 @@ package class PropertyViewContentProvider implements ITreeContentProvider {
 					}
 					Property: {
 						val associationURI = propertyView.cachedPropertyAssociations.get((parent.parent as TreeEntry).treeElement).get(treeElement)
-						if (associationURI == null) {
+						if (associationURI === null) {
 							getElement(treeElementEObject.defaultValue, index, treeElementEObject.propertyType, null)
 						} else {
 							val association = associationURI.getEObject(true) as PropertyAssociation

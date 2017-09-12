@@ -60,7 +60,7 @@ FeatureInstance returns instance::FeatureInstance:
 ;
 	
 ComponentInstance returns instance::ComponentInstance:
-	category=ComponentCategory name=ID ('[' index+=Long ']')*
+	category=ComponentCategory classifier=[aadl2::ComponentClassifier|ClassifierRef]? name=ID ('[' index+=Long ']')*
 	('in' 'modes' '(' inMode+=[instance::ModeInstance] (',' inMode+=[instance::ModeInstance])*')')?
 	':' subcomponent=[aadl2::Subcomponent|DeclarativeRef] ('{' (
 		featureInstance+=FeatureInstance |
@@ -77,7 +77,7 @@ ComponentInstance returns instance::ComponentInstance:
 ConnectionInstance returns instance::ConnectionInstance:
 	complete?='complete'? kind=ConnectionKind name=STRING ':'
 	source=[instance::ConnectionInstanceEnd|InstanceRef] (bidirectional?='<->' | '->') destination=[instance::ConnectionInstanceEnd|InstanceRef]
-	('in' 'modes' '(' inSystemOperationMode+=[instance::SystemOperationMode|SomRef] (',' inSystemOperationMode+=[instance::SystemOperationMode|SomRef])* ')')?
+	('in' 'modes' '(' inSystemOperationMode+=[instance::SystemOperationMode] (',' inSystemOperationMode+=[instance::SystemOperationMode])* ')')?
 	('in' 'transitions' '(' inModeTransition+=[instance::ModeTransitionInstance|TransitionRef] (',' inModeTransition+=[instance::ModeTransitionInstance|TransitionRef])* ')')? '{' (
 		connectionReference+=ConnectionReference |
 		ownedPropertyAssociation+=PropertyAssociationInstance
@@ -86,7 +86,7 @@ ConnectionInstance returns instance::ConnectionInstance:
 
 ConnectionReference returns instance::ConnectionReference:
 	source=[instance::ConnectionInstanceEnd|InstanceRef] '->' destination=[instance::ConnectionInstanceEnd|InstanceRef] ':'
-	connection=[aadl2::Connection|DeclarativeRef] 'in' context=[instance::ComponentInstance|InstanceRef]
+	(reverse?='reverse')? connection=[aadl2::Connection|DeclarativeRef] 'in' context=[instance::ComponentInstance|InstanceRef]
 ;
 
 FlowSpecificationInstance returns instance::FlowSpecificationInstance:
@@ -98,7 +98,7 @@ FlowSpecificationInstance returns instance::FlowSpecificationInstance:
 
 EndToEndFlowInstance returns instance::EndToEndFlowInstance:
 	'end' 'to' 'end' 'flow' name=ID (flowElement+=[instance::FlowElementInstance|InstanceRef] ('->' flowElement+=[instance::FlowElementInstance|InstanceRef])*)?
-	('in' 'modes' '(' inSystemOperationMode+=[instance::SystemOperationMode|SomRef] (',' inSystemOperationMode+=[instance::SystemOperationMode|SomRef])* ')')?
+	('in' 'modes' '(' inSystemOperationMode+=[instance::SystemOperationMode] (',' inSystemOperationMode+=[instance::SystemOperationMode])* ')')?
 	':' endToEndFlow=[aadl2::EndToEndFlow|DeclarativeRef] ('{' ownedPropertyAssociation+=PropertyAssociationInstance '}')?
 ;
 
@@ -122,15 +122,18 @@ PropertyAssociationInstance returns instance::PropertyAssociationInstance:
 	':' propertyAssociation=[aadl2::PropertyAssociation|PropertyAssociationRef]
 ;
 
+@Override 
 OptionalModalPropertyValue returns aadl2::ModalPropertyValue:
-	ownedValue=PropertyExpression ('in' 'modes' '(' inMode+=[aadl2::Mode|SomRef] (',' inMode+=[aadl2::Mode|SomRef])* ')')?
+	ownedValue=PropertyExpression ('in' 'modes' '(' inMode+=[aadl2::Mode] (',' inMode+=[aadl2::Mode])* ')')?
 ;
 
+@Override 
 PropertyExpression returns aadl2::PropertyExpression:
 	RecordTerm | ReferenceTerm | InstanceReferenceValue | ComponentClassifierTerm | ComputedTerm | StringTerm |
 	NumericRangeTerm | RealTerm | IntegerTerm | ListTerm | BooleanLiteral | LiteralorReferenceTerm
 ;
 
+@Override 
 ContainmentPathElement returns aadl2::ContainmentPathElement:
 	namedElement=[aadl2::NamedElement|DeclarativeRef] (arrayRange+=ArrayRange)? ('/' path=ContainmentPathElement)?
 ;
@@ -160,6 +163,10 @@ ConnectionKind returns instance::ConnectionKind:
 	'portConnection' | 'featureGroupConnection'
 ;
 
+ClassifierRef:
+	(ID '::')+ ID ('.' ID)?
+;
+
 ImplRef:
 	(ID '::')+ ID '.' ID
 ;
@@ -170,10 +177,6 @@ DeclarativeRef:
 
 InstanceRef:
 	'parent' | (ID ('[' INTEGER_LIT ']')* '.')* ('connection' '#' INTEGER_LIT | ID ('[' INTEGER_LIT ']')*)
-;
-
-SomRef:
-	'som' '#' INTEGER_LIT
 ;
 
 TransitionRef:

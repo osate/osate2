@@ -34,11 +34,13 @@
  */
 package org.osate.xtext.aadl2.ui.contentassist;
 
+import com.google.inject.Inject
 import org.eclipse.emf.ecore.EObject
 import org.eclipse.emf.ecore.util.EcoreUtil
 import org.eclipse.jface.viewers.StyledString
 import org.eclipse.xtext.Assignment
 import org.eclipse.xtext.CrossReference
+import org.eclipse.xtext.RuleCall
 import org.eclipse.xtext.resource.IEObjectDescription
 import org.eclipse.xtext.ui.editor.contentassist.ContentAssistContext
 import org.eclipse.xtext.ui.editor.contentassist.ICompletionProposalAcceptor
@@ -118,6 +120,7 @@ import org.osate.aadl2.VirtualProcessorPrototype
 import org.osate.aadl2.modelsupport.util.AadlUtil
 import org.osate.annexsupport.AnnexContentAssistRegistry
 import org.osate.annexsupport.AnnexRegistry
+import org.osate.xtext.aadl2.services.Aadl2GrammarAccess
 
 /**
  * see
@@ -125,22 +128,24 @@ import org.osate.annexsupport.AnnexRegistry
  * how to customize content assistant
  */
 class Aadl2ProposalProvider extends AbstractAadl2ProposalProvider {
+	@Inject extension Aadl2GrammarAccess
+	
 	var package AnnexContentAssistRegistry annexContentAssistRegistry
 
 	def protected void initAnnexContentAssistRegistry() {
-		if (annexContentAssistRegistry == null) {
+		if (annexContentAssistRegistry === null) {
 			annexContentAssistRegistry = AnnexRegistry.getRegistry(AnnexRegistry.ANNEX_CONTENT_ASSIST_EXT_ID) as AnnexContentAssistRegistry
 		}
 	}
 
 	override completeDefaultAnnexSubclause_SourceText(EObject model, Assignment assignment, ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
 		val annexName = AadlUtil.getContainingAnnex(model)?.name
-		if (annexName != null) {
-			if (annexContentAssistRegistry == null) {
+		if (annexName !== null) {
+			if (annexContentAssistRegistry === null) {
 				initAnnexContentAssistRegistry
 			}
 			val contentAssist = annexContentAssistRegistry?.getAnnexContentAssist(annexName)
-			if (contentAssist != null) {
+			if (contentAssist !== null) {
 				val results = contentAssist.annexCompletionSuggestions(model, context.offset)
 				super.completeDefaultAnnexLibrary_SourceText(model, assignment, context, acceptor)
 				val prefix = context.prefix
@@ -230,7 +235,7 @@ class Aadl2ProposalProvider extends AbstractAadl2ProposalProvider {
 
 			switch proposedObj {
 				case proposedObj == container : false
-				case proposedObj.inverse == null : true
+				case proposedObj.inverse === null : true
 				case proposedObj.allFeatures.nullOrEmpty : false 
 				default : true
 			}
@@ -240,7 +245,7 @@ class Aadl2ProposalProvider extends AbstractAadl2ProposalProvider {
 	override completeFeatureGroupType_Inverse(EObject model, Assignment assignment, ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
 		lookupCrossReference(assignment.terminal as CrossReference, context, acceptor, [ 
 			val proposedObj =  EcoreUtil.resolve(EObjectOrProxy, model) as FeatureGroupType 
-			if (proposedObj == model) false else proposedObj.inverse == null
+			if (proposedObj == model) false else proposedObj.inverse === null
 		])
 	}
 	
@@ -252,7 +257,7 @@ class Aadl2ProposalProvider extends AbstractAadl2ProposalProvider {
 			if (featureGroupModel.inverse) {
 				switch proposedObj {
 					FeatureGroupPrototype : true
-					FeatureGroupType : proposedObj.inverse == null
+					FeatureGroupType : proposedObj.inverse === null
 					default : false
 				}
 			} else true
@@ -649,7 +654,7 @@ class Aadl2ProposalProvider extends AbstractAadl2ProposalProvider {
 					default: null
 				}
 			if( propertyType ?: propertyType instanceof AadlInteger)
-				(propertyType as AadlInteger).unitsType == null
+				(propertyType as AadlInteger).unitsType === null
 			else false
 		])
 	}
@@ -659,7 +664,7 @@ class Aadl2ProposalProvider extends AbstractAadl2ProposalProvider {
 			val proposedObj =  EcoreUtil.resolve(EObjectOrProxy, model) as ComponentImplementation;
 			val modelSubComp = model as Subcomponent
  			modelSubComp.componentType ?: modelSubComp.componentType == proposedObj.type
-				&& modelSubComp.componentImplementation == null 
+				&& modelSubComp.componentImplementation === null 
 		])
 	}
 
@@ -795,7 +800,7 @@ class Aadl2ProposalProvider extends AbstractAadl2ProposalProvider {
 	
 	
 	def private filterTriggerPort(IEObjectDescription objDesc, ModeTransitionTrigger model){
-		if (model.context == null) true 
+		if (model.context === null) true 
 		else {
 			val proposedObj = EcoreUtil.resolve(objDesc.EObjectOrProxy, model)
 			val abstractFeatureOrPort = proposedObj instanceof AbstractFeature || proposedObj instanceof Port
@@ -994,7 +999,7 @@ class Aadl2ProposalProvider extends AbstractAadl2ProposalProvider {
 		lookupCrossReference(assignment.terminal as CrossReference, context, acceptor, [ 
 		val proposedObj = EcoreUtil.resolve(EObjectOrProxy, model)
 			switch model{
-				Flow, FlowSegment case model.context == null : proposedObj instanceof DataAccess || proposedObj instanceof Subcomponent
+				Flow, FlowSegment case model.context === null : proposedObj instanceof DataAccess || proposedObj instanceof Subcomponent
 				FlowSegment case model.context instanceof Subcomponent : proposedObj instanceof FlowSpecification
 				default: false
 			}
@@ -1020,7 +1025,7 @@ class Aadl2ProposalProvider extends AbstractAadl2ProposalProvider {
 		lookupCrossReference(assignment.terminal as CrossReference, context, acceptor, [ 
 			val proposedObj =  EcoreUtil.resolve(EObjectOrProxy, model)
 			switch model{
-				EndToEndFlow, EndToEndFlowSegment case model.context == null : {
+				EndToEndFlow, EndToEndFlowSegment case model.context === null : {
 					proposedObj instanceof DataAccess || 
 					proposedObj instanceof Subcomponent ||
 					proposedObj instanceof EndToEndFlow
@@ -1038,4 +1043,143 @@ class Aadl2ProposalProvider extends AbstractAadl2ProposalProvider {
 		])
 	}
 	
+	override complete_AbstractImplementationKeywords(EObject model, RuleCall ruleCall, ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
+		abstractImplementationKeywordsAccess.group.createKeywordProposal(context, acceptor)
+	}
+	
+	override complete_BusAccessKeywords(EObject model, RuleCall ruleCall, ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
+		busAccessKeywordsAccess.group.createKeywordProposal(context, acceptor)
+	}
+	
+	override complete_BusImplementationKeywords(EObject model, RuleCall ruleCall, ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
+		busImplementationKeywordsAccess.group.createKeywordProposal(context, acceptor)
+	}
+	
+	override complete_DataAccessKeywords(EObject model, RuleCall ruleCall, ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
+		dataAccessKeywordsAccess.group.createKeywordProposal(context, acceptor)
+	}
+	
+	override complete_DataImplementationKeywords(EObject model, RuleCall ruleCall, ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
+		dataImplementationKeywordsAccess.group.createKeywordProposal(context, acceptor)
+	}
+	
+	override complete_DataPortKeywords(EObject model, RuleCall ruleCall, ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
+		dataPortKeywordsAccess.group.createKeywordProposal(context, acceptor)
+	}
+	
+	override complete_DeviceImplementationKeywords(EObject model, RuleCall ruleCall, ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
+		deviceImplementationKeywordsAccess.group.createKeywordProposal(context, acceptor)
+	}
+	
+	override complete_EndToEndFlowKeywords(EObject model, RuleCall ruleCall, ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
+		endToEndFlowKeywordsAccess.group.createKeywordProposal(context, acceptor)
+	}
+	
+	override complete_EventDataKeywords(EObject model, RuleCall ruleCall, ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
+		eventDataKeywordsAccess.group.createKeywordProposal(context, acceptor)
+	}
+	
+	override complete_EventDataPortKeywords(EObject model, RuleCall ruleCall, ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
+		eventDataPortKeywordsAccess.group.createKeywordProposal(context, acceptor)
+	}
+	
+	override complete_EventPortKeywords(EObject model, RuleCall ruleCall, ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
+		eventPortKeywordsAccess.group.createKeywordProposal(context, acceptor)
+	}
+	
+	override complete_FeatureGroupKeywords(EObject model, RuleCall ruleCall, ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
+		featureGroupKeywordsAccess.group.createKeywordProposal(context, acceptor)
+	}
+	
+	override complete_InternalFeaturesKeywords(EObject model, RuleCall ruleCall, ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
+		internalFeaturesKeywordsAccess.group.createKeywordProposal(context, acceptor)
+	}
+	
+	override complete_InverseOfKeywords(EObject model, RuleCall ruleCall, ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
+		inverseOfKeywordsAccess.group.createKeywordProposal(context, acceptor)
+	}
+	
+	override complete_ListOfKeywords(EObject model, RuleCall ruleCall, ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
+		listOfKeywordsAccess.group.createKeywordProposal(context, acceptor)
+	}
+	
+	override complete_MemoryImplementationKeywords(EObject model, RuleCall ruleCall, ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
+		memoryImplementationKeywordsAccess.group.createKeywordProposal(context, acceptor)
+	}
+	
+	override complete_ProcessImplementationKeywords(EObject model, RuleCall ruleCall, ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
+		processImplementationKeywordsAccess.group.createKeywordProposal(context, acceptor)
+	}
+	
+	override complete_ProcessorFeaturesKeywords(EObject model, RuleCall ruleCall, ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
+		processorFeaturesKeywordsAccess.group.createKeywordProposal(context, acceptor)
+	}
+	
+	override complete_ProcessorImplementationKeywords(EObject model, RuleCall ruleCall, ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
+		processorImplementationKeywordsAccess.group.createKeywordProposal(context, acceptor)
+	}
+	
+	override complete_RangeOfKeywords(EObject model, RuleCall ruleCall, ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
+		rangeOfKeywordsAccess.group.createKeywordProposal(context, acceptor)
+	}
+	
+	override complete_RefinedToKeywords(EObject model, RuleCall ruleCall, ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
+		refinedToKeywordsAccess.group.createKeywordProposal(context, acceptor)
+	}
+	
+	override complete_RequiresModesKeywords(EObject model, RuleCall ruleCall, ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
+		requiresModesKeywordsAccess.group.createKeywordProposal(context, acceptor)
+	}
+	
+	override complete_SubprogramAccessKeywords(EObject model, RuleCall ruleCall, ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
+		subprogramAccessKeywordsAccess.group.createKeywordProposal(context, acceptor)
+	}
+	
+	override complete_SubprogramGroupKeywords(EObject model, RuleCall ruleCall, ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
+		subprogramGroupKeywordsAccess.group.createKeywordProposal(context, acceptor)
+	}
+	
+	override complete_SubprogramGroupAccessKeywords(EObject model, RuleCall ruleCall, ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
+		subprogramGroupAccessKeywordsAccess.group.createKeywordProposal(context, acceptor)
+	}
+	
+	override complete_SubprogramGroupImplementationKeywords(EObject model, RuleCall ruleCall, ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
+		subprogramGroupImplementationKeywordsAccess.group.createKeywordProposal(context, acceptor)
+	}
+	
+	override complete_SubprogramImplementationKeywords(EObject model, RuleCall ruleCall, ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
+		subprogramImplementationKeywordsAccess.group.createKeywordProposal(context, acceptor)
+	}
+	
+	override complete_SystemImplementationKeywords(EObject model, RuleCall ruleCall, ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
+		systemImplementationKeywordsAccess.group.createKeywordProposal(context, acceptor)
+	}
+	
+	override complete_ThreadGroupKeywords(EObject model, RuleCall ruleCall, ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
+		threadGroupKeywordsAccess.group.createKeywordProposal(context, acceptor)
+	}
+	
+	override complete_ThreadGroupImplementationKeywords(EObject model, RuleCall ruleCall, ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
+		threadGroupImplementationKeywordsAccess.group.createKeywordProposal(context, acceptor)
+	}
+	
+	override complete_ThreadImplementationKeywords(EObject model, RuleCall ruleCall, ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
+		threadImplementationKeywordsAccess.group.createKeywordProposal(context, acceptor)
+	}
+	
+	override complete_VirtualBusKeywords(EObject model, RuleCall ruleCall, ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
+		virtualBusKeywordsAccess.group.createKeywordProposal(context, acceptor)
+	}
+	
+	override complete_VirtualBusImplementationKeywords(EObject model, RuleCall ruleCall, ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
+		virtualBusImplementationKeywordsAccess.group.createKeywordProposal(context, acceptor)
+	}
+	
+	override complete_VirtualProcessorKeywords(EObject model, RuleCall ruleCall, ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
+		virtualProcessorKeywordsAccess.group.createKeywordProposal(context, acceptor)
+	}
+	
+	override complete_VirtualProcessorImplementationKeywords(EObject model, RuleCall ruleCall, ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
+		virtualProcessorImplementationKeywordsAccess.group.createKeywordProposal(context, acceptor)
+	}
 }

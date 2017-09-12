@@ -34,9 +34,9 @@
  */
 package org.osate.core.tests.aadl2scopeprovider
 
-import org.eclipse.xtext.junit4.InjectWith
-import org.eclipselabs.xtext.utils.unittesting.FluentIssueCollection
-import org.eclipselabs.xtext.utils.unittesting.XtextRunner2
+import com.itemis.xtext.testing.FluentIssueCollection
+import org.eclipse.xtext.testing.InjectWith
+import org.eclipse.xtext.testing.XtextRunner
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.osate.aadl2.Aadl2Package
@@ -48,13 +48,9 @@ import org.osate.core.test.OsateTest
 import static extension org.junit.Assert.assertEquals
 import static extension org.junit.Assert.assertNull
 
-@RunWith(XtextRunner2)
+@RunWith(XtextRunner)
 @InjectWith(Aadl2UiInjectorProvider)
 class ModeTransitionsTest extends OsateTest {
-	override getProjectName() {
-		"Mode_Transitions_Test"
-	}
-	
 	//Tests scope_ModeTransition_source, scope_ModeTransition_destination, scope_ModeTransitionTrigger_context, and scope_ModeTransitionTrigger_triggerPort
 	@Test
 	def void testModeTransitions() {

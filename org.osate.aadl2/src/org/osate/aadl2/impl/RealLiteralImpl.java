@@ -183,7 +183,7 @@ public class RealLiteralImpl extends NumberValueImpl implements RealLiteral {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @generated NOT
 	 */
 	@Override
 	public String toString() {
@@ -191,10 +191,12 @@ public class RealLiteralImpl extends NumberValueImpl implements RealLiteral {
 			return super.toString();
 		}
 
-		StringBuffer result = new StringBuffer(super.toString());
-		result.append(" (value: ");
+		StringBuffer result = new StringBuffer();
 		result.append(value);
-		result.append(')');
+		result.append(' ');
+		if (unit != null) {
+			result.append(unit.getName());
+		}
 		return result.toString();
 	}
 

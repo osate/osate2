@@ -43,10 +43,14 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
+import org.osate.aadl2.Aadl2Factory;
 import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.BasicPropertyAssociation;
 import org.osate.aadl2.PropertyExpression;
 import org.osate.aadl2.RecordValue;
+import org.osate.aadl2.properties.EvaluatedProperty;
+import org.osate.aadl2.properties.EvaluationContext;
+import org.osate.aadl2.properties.InvalidModelException;
 
 /**
  * <!-- begin-user-doc -->
@@ -221,6 +225,33 @@ public class RecordValueImpl extends PropertyValueImpl implements RecordValue {
 		// return false;
 		// }
 		// return true;
+	}
+
+	/* (non-Javadoc)
+	 * @see org.osate.aadl2.impl.PropertyExpressionImpl#evaluate(org.osate.aadl2.properties.EvaluationContext, int)
+	 */
+	@Override
+	public EvaluatedProperty evaluate(EvaluationContext ctx, int depth) {
+		// evaluate each record field
+		RecordValue newVal = Aadl2Factory.eINSTANCE.createRecordValue();
+		for (BasicPropertyAssociation field : getOwnedFieldValues()) {
+			EvaluatedProperty fieldVal = field.getOwnedValue().evaluate(ctx, depth + 1);
+			String name = field.getProperty().getName();
+			if (fieldVal.isEmpty()) {
+				throw new InvalidModelException(this, "Field " + name + " has no value");
+			}
+			if (fieldVal.size() > 1) {
+				throw new InvalidModelException(this, "Field " + name + " has multiple values");
+			}
+			if (fieldVal.first().isModal()) {
+				throw new InvalidModelException(this, "Field " + name + ": value is modal");
+			}
+			BasicPropertyAssociation newField = newVal.createOwnedFieldValue();
+			newField.setProperty(field.getProperty());
+			PropertyExpression exp = fieldVal.first().getValue();
+			newField.setOwnedValue(exp);
+		}
+		return new EvaluatedProperty(newVal);
 	}
 
 } // RecordValueImpl

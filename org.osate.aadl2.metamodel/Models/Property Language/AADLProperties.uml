@@ -172,7 +172,7 @@
           <ownedComment xmi:id="Types-ClassifierType-classifierReference-_ownedComment.0">
             <body>A list of metaclasses that constrains which classifier values are valid for this type.</body>
           </ownedComment>
-          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Types-ClassifierType-classifierReference-_lowerValue" value="1"/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Types-ClassifierType-classifierReference-_lowerValue"/>
           <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Types-ClassifierType-classifierReference-_upperValue" value="*"/>
         </ownedAttribute>
       </packagedElement>
@@ -359,7 +359,7 @@
           <ownedComment xmi:id="Types-ReferenceType-namedElementReference-_ownedComment.0">
             <body>A list of metaclasses that constrains which named element values are valid for this type.</body>
           </ownedComment>
-          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Types-ReferenceType-namedElementReference-_lowerValue" value="1"/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Types-ReferenceType-namedElementReference-_lowerValue"/>
           <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Types-ReferenceType-namedElementReference-_upperValue" value="*"/>
         </ownedAttribute>
       </packagedElement>

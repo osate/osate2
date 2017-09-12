@@ -1758,17 +1758,6 @@ public class Aadl2FactoryImpl extends EFactoryImpl implements Aadl2Factory {
 	 * @generated
 	 */
 	@Override
-	public FeatureGroupPrototype createFeatureGroupPrototype() {
-		FeatureGroupPrototypeImpl featureGroupPrototype = new FeatureGroupPrototypeImpl();
-		return featureGroupPrototype;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
 	public FeatureGroupPrototypeBinding createFeatureGroupPrototypeBinding() {
 		FeatureGroupPrototypeBindingImpl featureGroupPrototypeBinding = new FeatureGroupPrototypeBindingImpl();
 		return featureGroupPrototypeBinding;
@@ -1794,6 +1783,17 @@ public class Aadl2FactoryImpl extends EFactoryImpl implements Aadl2Factory {
 	public FeaturePrototype createFeaturePrototype() {
 		FeaturePrototypeImpl featurePrototype = new FeaturePrototypeImpl();
 		return featurePrototype;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public FeatureGroupPrototype createFeatureGroupPrototype() {
+		FeatureGroupPrototypeImpl featureGroupPrototype = new FeatureGroupPrototypeImpl();
+		return featureGroupPrototype;
 	}
 
 	/**

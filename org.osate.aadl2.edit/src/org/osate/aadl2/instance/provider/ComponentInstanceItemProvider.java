@@ -36,8 +36,11 @@
  */
 package org.osate.aadl2.instance.provider;
 
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import org.eclipse.emf.common.notify.AdapterFactory;
 import org.eclipse.emf.common.notify.Notification;
@@ -46,6 +49,7 @@ import org.eclipse.emf.edit.provider.ComposeableAdapterFactory;
 import org.eclipse.emf.edit.provider.IItemPropertyDescriptor;
 import org.eclipse.emf.edit.provider.ItemPropertyDescriptor;
 import org.eclipse.emf.edit.provider.ViewerNotification;
+import org.eclipse.xtext.xbase.lib.StringExtensions;
 import org.osate.aadl2.ComponentCategory;
 import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.InstancePackage;
@@ -83,6 +87,7 @@ public class ComponentInstanceItemProvider extends ConnectionInstanceEndItemProv
 			addInModePropertyDescriptor(object);
 			addSubcomponentPropertyDescriptor(object);
 			addIndexPropertyDescriptor(object);
+			addClassifierPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
@@ -147,6 +152,21 @@ public class ComponentInstanceItemProvider extends ConnectionInstanceEndItemProv
 								"_UI_ComponentInstance_type"), //$NON-NLS-1$
 						InstancePackage.Literals.COMPONENT_INSTANCE__INDEX, true, false, false,
 						ItemPropertyDescriptor.INTEGRAL_VALUE_IMAGE, null, null));
+	}
+
+	/**
+	 * This adds a property descriptor for the Classifier feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addClassifierPropertyDescriptor(Object object) {
+		itemPropertyDescriptors
+				.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+						getResourceLocator(), getString("_UI_ComponentInstance_classifier_feature"), //$NON-NLS-1$
+						getString("_UI_PropertyDescriptor_description", "_UI_ComponentInstance_classifier_feature", //$NON-NLS-1$//$NON-NLS-2$
+								"_UI_ComponentInstance_type"), //$NON-NLS-1$
+						InstancePackage.Literals.COMPONENT_INSTANCE__CLASSIFIER, true, false, true, null, null, null));
 	}
 
 	/**
@@ -222,8 +242,9 @@ public class ComponentInstanceItemProvider extends ConnectionInstanceEndItemProv
 	public String getText(Object object) {
 		ComponentInstance ci = (ComponentInstance) object;
 		String label = ci.getFullName();
-		String ctype = ci.getCategory().getName();
-		return (ctype == null || ctype.length() == 0 ? getString("_UI_ComponentInstance_type") : ctype + " instance") //$NON-NLS-1$
+		Stream<String> categoryParts = Arrays.stream(ci.getCategory().getName().split(" "));
+		String ctype = categoryParts.map(part -> StringExtensions.toFirstUpper(part)).collect(Collectors.joining(" "));
+		return (ctype == null || ctype.length() == 0 ? getString("_UI_ComponentInstance_type") : ctype) //$NON-NLS-1$
 				+ (label == null || label.length() == 0 ? "" : " " + label);
 	}
 

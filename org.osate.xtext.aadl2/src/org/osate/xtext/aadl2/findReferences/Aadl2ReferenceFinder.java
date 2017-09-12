@@ -7,8 +7,8 @@ import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.util.InternalEList;
 import org.eclipse.xtext.EcoreUtil2;
 import org.eclipse.xtext.findReferences.ReferenceFinder;
-import org.eclipse.xtext.findReferences.TargetURIs;
 
+import com.google.common.base.Predicate;
 import com.google.inject.Inject;
 
 @SuppressWarnings("restriction")
@@ -21,7 +21,7 @@ public class Aadl2ReferenceFinder extends ReferenceFinder {
 
 	@Override
 	@SuppressWarnings("unchecked")
-	protected void findLocalReferencesFromElement(TargetURIs targetURIs, EObject sourceCandidate,
+	protected void findLocalReferencesFromElement(Predicate<URI> targetURIs, EObject sourceCandidate,
 			Resource localResource, Acceptor acceptor) {
 		URI sourceURI = null;
 		if (doProcess(sourceCandidate, targetURIs)) {
@@ -57,7 +57,7 @@ public class Aadl2ReferenceFinder extends ReferenceFinder {
 											values.basicGet(i));
 									if (instanceOrProxy != null) {
 										URI refURI = EcoreUtil2.getPlatformResourceOrNormalizedURI(instanceOrProxy);
-										if (targetURIs.contains(refURI)) {
+										if (targetURIs.apply(refURI)) {
 											sourceURI = (sourceURI == null)
 													? EcoreUtil2.getPlatformResourceOrNormalizedURI(sourceCandidate)
 													: sourceURI;
@@ -71,7 +71,7 @@ public class Aadl2ReferenceFinder extends ReferenceFinder {
 										(EObject) value);
 								if (instanceOrProxy != null) {
 									URI refURI = EcoreUtil2.getPlatformResourceOrNormalizedURI(instanceOrProxy);
-									if (targetURIs.contains(refURI)) {
+									if (targetURIs.apply(refURI)) {
 										sourceURI = (sourceURI == null)
 												? EcoreUtil2.getPlatformResourceOrNormalizedURI(sourceCandidate)
 												: sourceURI;

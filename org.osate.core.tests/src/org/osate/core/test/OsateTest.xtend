@@ -1,6 +1,8 @@
 package org.osate.core.test
 
 import com.google.inject.Inject
+import com.itemis.xtext.testing.FluentIssueCollection
+import com.itemis.xtext.testing.XtextTest
 import java.io.ByteArrayInputStream
 import java.util.Comparator
 import java.util.List
@@ -26,8 +28,6 @@ import org.eclipse.xtext.diagnostics.Severity
 import org.eclipse.xtext.scoping.IScopeProvider
 import org.eclipse.xtext.serializer.tokens.SerializerScopeProviderBinding
 import org.eclipse.xtext.validation.Issue
-import org.eclipselabs.xtext.utils.unittesting.FluentIssueCollection
-import org.eclipselabs.xtext.utils.unittesting.XtextTest
 import org.junit.After
 import org.junit.Before
 import org.junit.ComparisonFailure
@@ -68,7 +68,9 @@ abstract class OsateTest extends XtextTest {
 		deleteProject(projectName)
 	}
 	
-	def String getProjectName()
+	def String getProjectName() {
+		class.simpleName
+	}
 
 	/**
       * Create a project with subdirectories in the current workspace.
@@ -213,7 +215,7 @@ abstract class OsateTest extends XtextTest {
 	def private assertScope(IScopeProvider scopeProvider, EObject context, EReference reference,
 		boolean scopingForModelUnits, Iterable<String> expected
 	) {
-		if (contributedAadlNames == null) {
+		if (contributedAadlNames === null) {
 			contributedAadlNames = PluginSupportUtil.contributedAadl.map[uri |
 				val modelUnit = context.eResource.resourceSet.getResource(uri, true).contents.head as ModelUnit
 				modelUnit.name.toLowerCase
