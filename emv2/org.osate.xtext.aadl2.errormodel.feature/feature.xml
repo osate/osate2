@@ -2,7 +2,7 @@
 <feature
       id="org.osate.xtext.aadl2.errormodel.feature"
       label="Error Model Annex V2 for OSATE2"
-      version="2.2.2.qualifier"
+      version="2.3.0.qualifier"
       provider-name="CMU-SEI"
       plugin="org.osate.branding">
 
@@ -33,18 +33,16 @@ to the terms of the license set forth at http://www.aadl.info/OSATELicense.html.
       <import plugin="org.osate.ui" version="1.0.0" match="greaterOrEqual"/>
       <import plugin="org.osate.xtext.aadl2.errormodel" version="1.0.0" match="greaterOrEqual"/>
       <import plugin="org.osate.xtext.aadl2.properties" version="1.0.0" match="greaterOrEqual"/>
-      <import plugin="org.eclipse.xtext" version="2.8.0" match="equivalent"/>
       <import plugin="org.apache.log4j" version="1.2.15" match="greaterOrEqual"/>
-      <import plugin="org.eclipse.xtext.util" version="2.8.0" match="equivalent"/>
       <import plugin="org.eclipse.emf.ecore" version="2.7.0" match="greaterOrEqual"/>
       <import plugin="org.eclipse.emf.common" version="2.7.0" match="greaterOrEqual"/>
       <import plugin="org.antlr.runtime"/>
-      <import plugin="org.eclipse.xtext.common.types" version="2.8.0" match="equivalent"/>
       <import plugin="org.eclipse.core.runtime" version="3.7.0" match="greaterOrEqual"/>
       <import plugin="org.osate.core" version="1.0.0" match="greaterOrEqual"/>
       <import plugin="org.eclipse.ui" version="3.7.0" match="greaterOrEqual"/>
       <import plugin="org.osate.annexsupport" version="1.0.0" match="greaterOrEqual"/>
       <import plugin="org.eclipse.uml2.codegen.ecore" version="1.9.100" match="greaterOrEqual"/>
+      <import plugin="org.eclipse.xtext.xbase.lib"/>
       <import plugin="org.eclipse.xtext.ui"/>
       <import plugin="org.eclipse.ui.editors" version="3.7.0" match="greaterOrEqual"/>
       <import plugin="org.eclipse.ui.ide" version="3.7.0" match="greaterOrEqual"/>
@@ -52,9 +50,11 @@ to the terms of the license set forth at http://www.aadl.info/OSATELicense.html.
       <import plugin="org.eclipse.xtext.builder"/>
       <import plugin="org.eclipse.xtext.common.types.ui"/>
       <import plugin="org.osate.xtext.aadl2.properties.ui"/>
-      <import plugin="org.apache.commons.logging"/>
-      <import plugin="org.eclipse.xtext.xbase.lib"/>
       <import plugin="org.eclipse.emf.transaction"/>
+      <import plugin="org.apache.commons.logging"/>
+      <import plugin="org.eclipse.xtext" version="2.12.0" match="equivalent"/>
+      <import plugin="org.eclipse.xtext.util" version="2.12.0" match="equivalent"/>
+      <import plugin="org.eclipse.xtext.common.types" version="2.12.0" match="equivalent"/>
    </requires>
 
    <plugin

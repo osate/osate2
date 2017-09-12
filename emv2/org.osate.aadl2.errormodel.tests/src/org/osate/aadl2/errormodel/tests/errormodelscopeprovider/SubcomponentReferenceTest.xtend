@@ -1,7 +1,7 @@
 package org.osate.aadl2.errormodel.tests.errormodelscopeprovider
 
-import org.eclipse.xtext.junit4.InjectWith
-import org.eclipselabs.xtext.utils.unittesting.XtextRunner2
+import org.eclipse.xtext.testing.InjectWith
+import org.eclipse.xtext.testing.XtextRunner
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.osate.aadl2.AadlPackage
@@ -15,13 +15,9 @@ import org.osate.xtext.aadl2.errormodel.errorModel.SConditionElement
 import static extension org.junit.Assert.assertEquals
 import static extension org.junit.Assert.assertNull
 
-@RunWith(XtextRunner2)
+@RunWith(XtextRunner)
 @InjectWith(ErrorModelUiInjectorProvider)
 class SubcomponentReferenceTest extends OsateTest {
-	override getProjectName() {
-		"Subcomponent_Reference_Test"
-	}
-	
 	/*
 	 * Tests scope_SubcomponentElement_subcomponent(ComponentImplementation, EReference),
 	 * scope_SubcomponentElement_subcomponent(QualifiedErrorBehaviorState, EReference), and
@@ -135,7 +131,7 @@ class SubcomponentReferenceTest extends OsateTest {
 				end a5;
 			end subclause1;
 		''')
-		suppressSerialization
+		ignoreSerializationDifferences
 		testFile(subclause1FileName).resource.contents.head as AadlPackage => [
 			"subclause1".assertEquals(name)
 			publicSection.ownedClassifiers.get(1) => [
@@ -143,47 +139,41 @@ class SubcomponentReferenceTest extends OsateTest {
 				(ownedAnnexSubclauses.head as DefaultAnnexSubclause).parsedAnnexSubclause as ErrorModelSubclause => [
 					states.get(0) => [
 						"compositeState1".assertEquals(name)
-						//Tests scope_SubcomponentElement_subcomponent(ComponentImplementation, EReference)
-						assertScope(ErrorModelPackage.eINSTANCE.subcomponentElement_Subcomponent, #["asub1"])
 						(condition as SConditionElement).qualifiedState => [
 							"asub1".assertEquals(subcomponent.subcomponent.name)
 							//Tests scope_SubcomponentElement_subcomponent(QualifiedErrorBehaviorState, EReference)
-							assertScope(ErrorModelPackage.eINSTANCE.subcomponentElement_Subcomponent, #["asub2"])
+							assertScope(ErrorModelPackage.eINSTANCE.subcomponentElement_Subcomponent, #["asub1"])
 							next.assertNull
 						]
 					]
 					states.get(1) => [
 						"compositeState2".assertEquals(name)
-						//Tests scope_SubcomponentElement_subcomponent(ComponentImplementation, EReference)
-						assertScope(ErrorModelPackage.eINSTANCE.subcomponentElement_Subcomponent, #["asub1"])
 						(condition as SConditionElement).qualifiedState => [
 							"asub1".assertEquals(subcomponent.subcomponent.name)
 							//Tests scope_SubcomponentElement_subcomponent(QualifiedErrorBehaviorState, EReference)
-							assertScope(ErrorModelPackage.eINSTANCE.subcomponentElement_Subcomponent, #["asub2"])
+							assertScope(ErrorModelPackage.eINSTANCE.subcomponentElement_Subcomponent, #["asub1"])
 							next => [
 								"asub2".assertEquals(subcomponent.subcomponent.name)
 								//Tests scope_SubcomponentElement_subcomponent(QualifiedErrorBehaviorState, EReference)
-								assertScope(ErrorModelPackage.eINSTANCE.subcomponentElement_Subcomponent, #["asub3"])
+								assertScope(ErrorModelPackage.eINSTANCE.subcomponentElement_Subcomponent, #["asub2"])
 								next.assertNull
 							]
 						]
 					]
 					states.get(2) => [
 						"compositeState3".assertEquals(name)
-						//Tests scope_SubcomponentElement_subcomponent(ComponentImplementation, EReference)
-						assertScope(ErrorModelPackage.eINSTANCE.subcomponentElement_Subcomponent, #["asub1"])
 						(condition as SConditionElement).qualifiedState => [
 							"asub1".assertEquals(subcomponent.subcomponent.name)
 							//Tests scope_SubcomponentElement_subcomponent(QualifiedErrorBehaviorState, EReference)
-							assertScope(ErrorModelPackage.eINSTANCE.subcomponentElement_Subcomponent, #["asub2"])
+							assertScope(ErrorModelPackage.eINSTANCE.subcomponentElement_Subcomponent, #["asub1"])
 							next => [
 								"asub2".assertEquals(subcomponent.subcomponent.name)
 								//Tests scope_SubcomponentElement_subcomponent(QualifiedErrorBehaviorState, EReference)
-								assertScope(ErrorModelPackage.eINSTANCE.subcomponentElement_Subcomponent, #["asub3"])
+								assertScope(ErrorModelPackage.eINSTANCE.subcomponentElement_Subcomponent, #["asub2"])
 								next => [
 									"asub3".assertEquals(subcomponent.subcomponent.name)
 									//Tests scope_SubcomponentElement_subcomponent(QualifiedErrorBehaviorState, EReference)
-									assertScope(ErrorModelPackage.eINSTANCE.subcomponentElement_Subcomponent, #["asub4"])
+									assertScope(ErrorModelPackage.eINSTANCE.subcomponentElement_Subcomponent, #["asub3"])
 									next.assertNull
 								]
 							]
@@ -191,42 +181,38 @@ class SubcomponentReferenceTest extends OsateTest {
 					]
 					paths.get(0) => [
 						"propPath1".assertEquals(name)
-						//Tests scope_SubcomponentElement_subcomponent(ComponentImplementation, EReference)
-						assertScope(ErrorModelPackage.eINSTANCE.subcomponentElement_Subcomponent, #["asub1"])
 						source => [
 							"asub1".assertEquals(subcomponent.subcomponent.name)
 							//Tests scope_SubcomponentElement_subcomponent(QualifiedPropagationPoint, EReference)
-							assertScope(ErrorModelPackage.eINSTANCE.subcomponentElement_Subcomponent, #["asub2"])
+							assertScope(ErrorModelPackage.eINSTANCE.subcomponentElement_Subcomponent, #["asub1"])
 							next.assertNull
 						]
 						target => [
 							"asub1".assertEquals(subcomponent.subcomponent.name)
 							//Tests scope_SubcomponentElement_subcomponent(QualifiedPropagationPoint, EReference)
-							assertScope(ErrorModelPackage.eINSTANCE.subcomponentElement_Subcomponent, #["asub2"])
+							assertScope(ErrorModelPackage.eINSTANCE.subcomponentElement_Subcomponent, #["asub1"])
 							next => [
 								"asub2".assertEquals(subcomponent.subcomponent.name)
 								//Tests scope_SubcomponentElement_subcomponent(QualifiedPropagationPoint, EReference)
-								assertScope(ErrorModelPackage.eINSTANCE.subcomponentElement_Subcomponent, #["asub3"])
+								assertScope(ErrorModelPackage.eINSTANCE.subcomponentElement_Subcomponent, #["asub2"])
 								next.assertNull
 							]
 						]
 					]
 					paths.get(1) => [
 						"propPath2".assertEquals(name)
-						//Tests scope_SubcomponentElement_subcomponent(ComponentImplementation, EReference)
-						assertScope(ErrorModelPackage.eINSTANCE.subcomponentElement_Subcomponent, #["asub1"])
 						source => [
 							"asub1".assertEquals(subcomponent.subcomponent.name)
 							//Tests scope_SubcomponentElement_subcomponent(QualifiedPropagationPoint, EReference)
-							assertScope(ErrorModelPackage.eINSTANCE.subcomponentElement_Subcomponent, #["asub2"])
+							assertScope(ErrorModelPackage.eINSTANCE.subcomponentElement_Subcomponent, #["asub1"])
 							next => [
 								"asub2".assertEquals(subcomponent.subcomponent.name)
 								//Tests scope_SubcomponentElement_subcomponent(QualifiedPropagationPoint, EReference)
-								assertScope(ErrorModelPackage.eINSTANCE.subcomponentElement_Subcomponent, #["asub3"])
+								assertScope(ErrorModelPackage.eINSTANCE.subcomponentElement_Subcomponent, #["asub2"])
 								next => [
 									"asub3".assertEquals(subcomponent.subcomponent.name)
 									//Tests scope_SubcomponentElement_subcomponent(QualifiedPropagationPoint, EReference)
-									assertScope(ErrorModelPackage.eINSTANCE.subcomponentElement_Subcomponent, #["asub4"])
+									assertScope(ErrorModelPackage.eINSTANCE.subcomponentElement_Subcomponent, #["asub3"])
 									next.assertNull
 								]
 							]
@@ -234,19 +220,19 @@ class SubcomponentReferenceTest extends OsateTest {
 						target => [
 							"asub1".assertEquals(subcomponent.subcomponent.name)
 							//Tests scope_SubcomponentElement_subcomponent(QualifiedPropagationPoint, EReference)
-							assertScope(ErrorModelPackage.eINSTANCE.subcomponentElement_Subcomponent, #["asub2"])
+							assertScope(ErrorModelPackage.eINSTANCE.subcomponentElement_Subcomponent, #["asub1"])
 							next => [
 								"asub2".assertEquals(subcomponent.subcomponent.name)
 								//Tests scope_SubcomponentElement_subcomponent(QualifiedPropagationPoint, EReference)
-								assertScope(ErrorModelPackage.eINSTANCE.subcomponentElement_Subcomponent, #["asub3"])
+								assertScope(ErrorModelPackage.eINSTANCE.subcomponentElement_Subcomponent, #["asub2"])
 								next => [
 									"asub3".assertEquals(subcomponent.subcomponent.name)
 									//Tests scope_SubcomponentElement_subcomponent(QualifiedPropagationPoint, EReference)
-									assertScope(ErrorModelPackage.eINSTANCE.subcomponentElement_Subcomponent, #["asub4"])
+									assertScope(ErrorModelPackage.eINSTANCE.subcomponentElement_Subcomponent, #["asub3"])
 									next => [
 										"asub4".assertEquals(subcomponent.subcomponent.name)
 										//Tests scope_SubcomponentElement_subcomponent(QualifiedPropagationPoint, EReference)
-										assertScope(ErrorModelPackage.eINSTANCE.subcomponentElement_Subcomponent, emptySet)
+										assertScope(ErrorModelPackage.eINSTANCE.subcomponentElement_Subcomponent, #["asub4"])
 										next.assertNull
 									]
 								]

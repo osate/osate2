@@ -20,6 +20,7 @@ import org.osate.aadl2.Classifier;
 import org.osate.aadl2.ComponentClassifier;
 import org.osate.aadl2.ComponentImplementation;
 import org.osate.aadl2.ComponentType;
+import org.osate.aadl2.Connection;
 import org.osate.aadl2.ContainedNamedElement;
 import org.osate.aadl2.ContainmentPathElement;
 import org.osate.aadl2.DefaultAnnexSubclause;
@@ -632,16 +633,22 @@ public class EMV2Util {
 
 	/**
 	 * Find ConnectionErrorSource with given classifier by looking through all connection error sources
-	 * @param el the element whose classifier we're using
-	 * @param name the name of the element to search for
-	 * @return the specified element, or null, if either the element's classifier is null or no
-	 * ConnectionErrorSource by the specified name was found
+	 * @param conni the connection instance whose connection declarations we're using
+	 * @return the connection error source or null
 	 */
-	public static ConnectionErrorSource findConnectionErrorSource(Element el, String name) {
-		Classifier cl = getAssociatedClassifier(el);
-		if (cl != null) {
-			Collection<ConnectionErrorSource> ceslist = getAllConnectionErrorSources(cl);
-			return (ConnectionErrorSource) AadlUtil.findNamedElementInList(ceslist, name);
+
+	public static ConnectionErrorSource findConnectionErrorSourceForConnection(ConnectionInstance conni) {
+		for (ConnectionReference connref : conni.getConnectionReferences()) {
+			Connection conn = connref.getConnection();
+			Classifier cl = getAssociatedClassifier(conn);
+			if (cl != null) {
+				Collection<ConnectionErrorSource> ceslist = getAllConnectionErrorSources(cl);
+				for (ConnectionErrorSource ces : ceslist) {
+					if (ces.getConnection().getName().equalsIgnoreCase(conn.getName())) {
+						return ces;
+					}
+				}
+			}
 		}
 		return null;
 	}
@@ -3004,8 +3011,13 @@ public class EMV2Util {
 		return (ep != null) && (ep.getKind() != null) && (ep.getKind().equalsIgnoreCase("processor"));
 	}
 
-	public static boolean isNoError(TypeSet type) {
-		return type.getTypeTokens().size() == 1 && type.getTypeTokens().get(0).isNoError();
-	}
+	// XXX moved to EM2TypeSetUtil
+//	public static boolean isNoError(ErrorTypes type) {
+//		return type instanceof TypeSet ? isNoError((TypeSet) type) : false;
+//	}
+//
+//	public static boolean isNoError(TypeSet type) {
+//		return type.getTypeTokens().size() == 1 && type.getTypeTokens().get(0).isNoError();
+//	}
 
 }

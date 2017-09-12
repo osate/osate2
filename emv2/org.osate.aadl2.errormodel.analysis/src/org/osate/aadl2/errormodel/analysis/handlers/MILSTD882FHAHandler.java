@@ -31,33 +31,30 @@
  * under the contract clause at 252.227.7013.
  * </copyright>
  */
-package org.osate.aadl2.errormodel.analysis.actions;
-
-import java.util.List;
+package org.osate.aadl2.errormodel.analysis.handlers;
 
 import org.eclipse.core.runtime.IProgressMonitor;
-import org.eclipse.xtext.EcoreUtil2;
 import org.osate.aadl2.Element;
-import org.osate.aadl2.errormodel.analysis.PropagateErrorSources;
-import org.osate.aadl2.instance.ComponentInstance;
+import org.osate.aadl2.errormodel.analysis.fha.FHAReport;
+import org.osate.aadl2.errormodel.analysis.fha.FHAReport.HazardFormat;
 import org.osate.aadl2.instance.InstanceObject;
 import org.osate.aadl2.instance.SystemInstance;
-import org.osate.ui.actions.AaxlReadOnlyActionAsJob;
+import org.osate.ui.handlers.AaxlReadOnlyHandlerAsJob;
 
-public final class FMEAAction extends AaxlReadOnlyActionAsJob {
+public final class MILSTD882FHAHandler extends AaxlReadOnlyHandlerAsJob {
 	@Override
 	protected String getMarkerType() {
-		return "org.osate.analysis.errormodel.FaultImpactMarker";
+		return "org.osate.analysis.errormodel.FunctionalHazardMarker";
 	}
 
 	@Override
 	protected String getActionName() {
-		return "FMEA";
+		return "FHA";
 	}
 
 	@Override
 	public void doAaxlAction(IProgressMonitor monitor, Element obj) {
-		monitor.beginTask("FMEA", IProgressMonitor.UNKNOWN);
+		monitor.beginTask("FHA", IProgressMonitor.UNKNOWN);
 
 		// Get the system instance (if any)
 		SystemInstance si;
@@ -66,17 +63,8 @@ public final class FMEAAction extends AaxlReadOnlyActionAsJob {
 		} else {
 			return;
 		}
-
-		PropagateErrorSources faultimpact = new PropagateErrorSources("FMEA", si);
-		List<ComponentInstance> cilist = EcoreUtil2.getAllContentsOfType(si, ComponentInstance.class);
-		for (ComponentInstance componentInstance : cilist) {
-			if (componentInstance != null && !(componentInstance instanceof SystemInstance)) {
-				faultimpact.startErrorFlows(componentInstance);
-			}
-		}
-		faultimpact.saveReport();
-
+		FHAReport report = new FHAReport(HazardFormat.MILSTD882);
+		report.doFHAReport(si);
 		monitor.done();
 	}
-
 }

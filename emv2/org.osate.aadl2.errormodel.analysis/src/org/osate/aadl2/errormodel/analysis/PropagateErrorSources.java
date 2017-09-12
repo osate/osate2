@@ -51,6 +51,7 @@ import org.osate.aadl2.instance.ConnectionInstanceEnd;
 import org.osate.aadl2.instance.FeatureInstance;
 import org.osate.aadl2.instance.FlowSpecificationInstance;
 import org.osate.aadl2.instance.SystemInstance;
+import org.osate.aadl2.instance.util.InstanceUtil;
 import org.osate.aadl2.modelsupport.WriteToFile;
 import org.osate.aadl2.util.Aadl2InstanceUtil;
 import org.osate.xtext.aadl2.errormodel.errorModel.ConditionElement;
@@ -201,7 +202,7 @@ public class PropagateErrorSources {
 			}
 
 			for (OutgoingPropagationCondition opc : EMV2Util.getAllOutgoingPropagationConditions(ci)) {
-				if (opc.getTypeToken() != null && EMV2Util.isNoError(opc.getTypeToken())) {
+				if (opc.getTypeToken() != null && EM2TypeSetUtil.isNoError(opc.getTypeToken())) {
 					continue;
 				}
 
@@ -295,8 +296,6 @@ public class PropagateErrorSources {
 				for (TypeToken typeToken : result) {
 					String failuremodeText = generateErrorPropTypeTokenText(ep, typeToken);
 					traceErrorPaths(root, ep, typeToken, 2, componentText + ", " + failuremodeText);
-//					String connText = generateComponentPropagationPointText(destci, destEP);
-//					traceErrorFlows(destci, destEP, typeToken, 0, failuremodeText + "-[incoming]->" + connText);
 				}
 			}
 		}
@@ -309,13 +308,21 @@ public class PropagateErrorSources {
 	public void startConnectionSourceFlows(ComponentInstance root) {
 		Collection<ConnectionErrorSource> ceslist = EMV2Util
 				.getAllConnectionErrorSources(root.getComponentClassifier());
-		String componentText = generateComponentInstanceText(root);
 		if (ceslist.isEmpty()) {
 			return;
 		}
 		for (ConnectionErrorSource ces : ceslist) {
+			EMSUtil.unsetAll(root.getSystemInstance());
 			// find connection instances that this connection is part of
-			ErrorPropagation ep = null;
+			String connName = ces.getConnection().getName();
+			ConnectionInstance conni = InstanceUtil.findConnectionInstance(root, ces.getConnection());
+			EList<PropagationPathEnd> ends = faultModel.getAllPropagationDestinationEnds(conni);
+			if (ends.size() == 0) {
+				return;
+			}
+			PropagationPathEnd ppe = ends.get(0);
+			ErrorPropagation destEP = ppe.getErrorPropagation();
+			ComponentInstance destci = ppe.getComponentInstance();
 			TypeSet fmType = ces.getFailureModeType();
 			String failuremodeDesc = ces.getFailureModeDescription();
 			TypeSet tsep = ces.getTypeTokenConstraint();
@@ -328,8 +335,11 @@ public class PropagateErrorSources {
 				} else {
 					failuremodeText = failuremodeDesc;
 				}
+				String effectText = generateOriginalFailureModeText(typeToken);
 
-				traceErrorPaths(root, ep, typeToken, 2, componentText + ", " + failuremodeText);
+				String connText = generateComponentPropagationPointText(destci, destEP);
+				traceErrorFlows(destci, destEP, typeToken, 0,
+						"Connection " + connName + "," + failuremodeText + "," + effectText + " -> " + connText);
 			}
 		}
 	}

@@ -1,7 +1,7 @@
 package org.osate.aadl2.errormodel.tests.errormodelscopeprovider
 
-import org.eclipse.xtext.junit4.InjectWith
-import org.eclipselabs.xtext.utils.unittesting.XtextRunner2
+import org.eclipse.xtext.testing.InjectWith
+import org.eclipse.xtext.testing.XtextRunner
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.osate.aadl2.AadlPackage
@@ -15,13 +15,9 @@ import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelSubclause
 
 import static extension org.junit.Assert.assertEquals
 
-@RunWith(XtextRunner2)
+@RunWith(XtextRunner)
 @InjectWith(ErrorModelUiInjectorProvider)
 class EventInitiatorTest extends OsateTest {
-	override getProjectName() {
-		"Event_Initiator_Test"
-	}
-	
 	/*
 	 * Tests scope_RepairEvent_eventInitiator(Classifier, EReference),
 	 * scope_RepairEvent_eventInitiator(ErrorBehaviorStateMachine, EReference),
@@ -147,7 +143,7 @@ class EventInitiatorTest extends OsateTest {
 				end subp1;
 			end subclause1;
 		''')
-		suppressSerialization
+		ignoreSerializationDifferences
 		val lib1TestResult = testFile(lib1FileName)
 		val subclause1TestResult = testFile(subclause1FileName)
 		lib1TestResult.resource.contents.head as AadlPackage => [

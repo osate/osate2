@@ -31,104 +31,40 @@
  * under the contract clause at 252.227.7013.
  * </copyright>
  */
-package org.osate.aadl2.errormodel.analysis.actions;
-
-import java.util.List;
+package org.osate.aadl2.errormodel.analysis.handlers;
 
 import org.eclipse.core.runtime.IProgressMonitor;
-import org.eclipse.swt.widgets.Display;
-import org.eclipse.swt.widgets.Shell;
-import org.eclipse.ui.IWorkbenchWindow;
-import org.eclipse.ui.PlatformUI;
 import org.osate.aadl2.Element;
-import org.osate.aadl2.PropertyExpression;
-import org.osate.aadl2.errormodel.analysis.cma.CMAReport;
-import org.osate.aadl2.errormodel.analysis.cma.CMAUtils;
+import org.osate.aadl2.errormodel.analysis.fha.FHAReport;
+import org.osate.aadl2.errormodel.analysis.fha.FHAReport.HazardFormat;
 import org.osate.aadl2.instance.InstanceObject;
 import org.osate.aadl2.instance.SystemInstance;
-import org.osate.aadl2.modelsupport.WriteToFile;
-import org.osate.ui.actions.AaxlReadOnlyActionAsJob;
-import org.osate.ui.dialogs.Dialog;
-import org.osate.xtext.aadl2.errormodel.errorModel.EMV2PropertyAssociation;
-import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorState;
-import org.osate.xtext.aadl2.errormodel.util.AnalysisModel;
-import org.osate.xtext.aadl2.errormodel.util.EMV2Properties;
-import org.osate.xtext.aadl2.errormodel.util.EMV2Util;
+import org.osate.ui.handlers.AaxlReadOnlyHandlerAsJob;
 
-public final class CMAAction extends AaxlReadOnlyActionAsJob {
-
+public class FHAHandler extends AaxlReadOnlyHandlerAsJob {
 	@Override
 	protected String getMarkerType() {
-		return "org.osate.analysis.errormodel.FaultImpactMarker";
+		return "org.osate.analysis.errormodel.FunctionalHazardMarker";
 	}
 
 	@Override
 	protected String getActionName() {
-		return "CMA";
+		return "FHA";
 	}
 
 	@Override
 	public void doAaxlAction(IProgressMonitor monitor, Element obj) {
+		monitor.beginTask("FHA", IProgressMonitor.UNKNOWN);
 
+		// Get the system instance (if any)
 		SystemInstance si;
-
 		if (obj instanceof InstanceObject) {
 			si = ((InstanceObject) obj).getSystemInstance();
 		} else {
-			Dialog.showInfo("Common Mode Assessment", "Please choose an instance system");
 			return;
 		}
-
-		final Display d = PlatformUI.getWorkbench().getDisplay();
-		d.syncExec(new Runnable() {
-
-			@Override
-			public void run() {
-				IWorkbenchWindow window;
-				Shell sh;
-
-				window = PlatformUI.getWorkbench().getActiveWorkbenchWindow();
-				sh = window.getShell();
-
-//				OsateDebug.osateDebug("[CMAAction] selected severity " + SEVERITY_NAME);
-
-			}
-		});
-
-		monitor.beginTask("Common Mode Assessment", IProgressMonitor.UNKNOWN);
-
-		AnalysisModel analysisModel = new AnalysisModel(si.getComponentInstance());
-
-//		analysisModel.printPropagationPaths();
-
-//		analysisModel.getPropagationPaths()
-
-		CMAReport report = new CMAReport();
-
-		/**
-		 * We try to see what is the severity for each state. Then, if a state
-		 * is classified at least as the selected severity, we add all its common
-		 * cause of failures reported by the processState method.
-		 */
-		for (ErrorBehaviorState state : EMV2Util.getAllErrorBehaviorStates(si)) {
-
-			List<EMV2PropertyAssociation> severityPAList = EMV2Properties.getSeverityProperty(si, state,
-					state.getTypeSet());
-			EMV2PropertyAssociation severityPA = severityPAList.isEmpty() ? null : severityPAList.get(0);
-			PropertyExpression severityValue = EMV2Properties.getPropertyValue(severityPA);
-			String sev = EMV2Properties.getEnumerationOrIntegerPropertyConstantPropertyValue(severityValue);
-			CMAUtils.setCurrentSeverity(sev);
-//				OsateDebug.osateDebug("[CMAAction] state " + state.getName());
-			report.addEntries(CMAUtils.processState(analysisModel, analysisModel.getRoot().getComponentInstance(),
-					state, state.getTypeSet()));
-
-		}
-
-		WriteToFile csvReport = new WriteToFile("CMA", si);
-		report.write(csvReport);
-		csvReport.saveToFile();
-
+		FHAReport report = new FHAReport(HazardFormat.EMV2);
+		report.doFHAReport(si);
 		monitor.done();
 	}
-
 }

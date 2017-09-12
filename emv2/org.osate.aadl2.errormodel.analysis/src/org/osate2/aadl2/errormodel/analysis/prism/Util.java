@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-import org.osate.aadl2.errormodel.analysis.actions.PRISMAction;
+import org.osate.aadl2.errormodel.analysis.handlers.PRISMHandler;
 import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.ConnectionInstance;
 import org.osate.aadl2.instance.ConnectionReference;
@@ -234,24 +234,24 @@ public class Util {
 					 *  2. For CTMC, we are supposed to have poisson/exponential occurence rate.
 					 */
 					if ((Model.getCurrentInstance().getType() == ModelType.DTMC)
-							&& (!EMV2Properties.getOccurenceType(PA).equals("fixed"))) {
+							&& (!EMV2Properties.getOccurrenceType(PA).equals("fixed"))) {
 						/**
 						 * Have to find out why the reportWarning does not work right now.
 						 */
 						OsateDebug.osateDebug("[Util] WRONG TYPE on " + ee + " component " + instance);
-						PRISMAction.reportWarning(instance,
+						PRISMHandler.reportWarning(instance,
 								"Distribution occurence should be set to fixed for DTMC generation");
 					}
 
 					if ((Model.getCurrentInstance().getType() == ModelType.CTMC)
-							&& (!EMV2Properties.getOccurenceType(PA).equals("poisson"))
-							&& (!EMV2Properties.getOccurenceType(PA).equals(EMV2Properties.INVALID_OCCURRENCE_TYPE))) {
+							&& (!EMV2Properties.getOccurrenceType(PA).equals("poisson"))
+							&& (!EMV2Properties.getOccurrenceType(PA).equals(EMV2Properties.INVALID_OCCURRENCE_TYPE))) {
 						/**
 						 * Have to find out why the reportWarning does not work right now.
 						 */
 						OsateDebug.osateDebug("[Util] WRONG TYPE on " + ee + " component " + instance + " found="
-								+ EMV2Properties.getOccurenceType(PA));
-						PRISMAction.reportWarning(instance,
+								+ EMV2Properties.getOccurrenceType(PA));
+						PRISMHandler.reportWarning(instance,
 								"Distribution occurence should be set to poisson for CTMC generation");
 					}
 					res = EMV2Properties.getProbability(instance, ee, null);

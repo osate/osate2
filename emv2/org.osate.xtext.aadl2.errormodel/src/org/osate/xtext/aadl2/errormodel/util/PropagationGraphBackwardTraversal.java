@@ -10,12 +10,14 @@ import org.osate.aadl2.ComponentClassifier;
 import org.osate.aadl2.DirectionType;
 import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.instance.ComponentInstance;
+import org.osate.aadl2.instance.util.InstanceUtil;
 import org.osate.xtext.aadl2.errormodel.errorModel.AllExpression;
 import org.osate.xtext.aadl2.errormodel.errorModel.AndExpression;
 import org.osate.xtext.aadl2.errormodel.errorModel.BranchValue;
 import org.osate.xtext.aadl2.errormodel.errorModel.CompositeState;
 import org.osate.xtext.aadl2.errormodel.errorModel.ConditionElement;
 import org.osate.xtext.aadl2.errormodel.errorModel.ConditionExpression;
+import org.osate.xtext.aadl2.errormodel.errorModel.ConnectionErrorSource;
 import org.osate.xtext.aadl2.errormodel.errorModel.EMV2Path;
 import org.osate.xtext.aadl2.errormodel.errorModel.EMV2PropertyAssociation;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorState;
@@ -57,19 +59,23 @@ public class PropagationGraphBackwardTraversal {
 	public EObject traverseOutgoingErrorPropagation(final ComponentInstance component,
 			final ErrorPropagation errorPropagation, ErrorTypes type) {
 		List<EObject> subResults = new LinkedList<EObject>();
-		type = getTargetType(errorPropagation.getTypeSet(), type);
+		type = matchTargetType(errorPropagation.getTypeSet(), type);
+		if (type == null)
+			return null;
 		EObject found = preProcessOutgoingErrorPropagation(component, errorPropagation, type);
 		if (found != null) {
 			// used to return cached object
 			return found;
 		}
 		for (OutgoingPropagationCondition opc : EMV2Util.getAllOutgoingPropagationConditions(component)) {
-			ErrorTypes condTargetType = getTargetType(opc.getTypeToken(), type);
-			if ((EMV2Util.isSame(opc.getOutgoing(), errorPropagation) || opc.isAllPropagations())
-					&& EM2TypeSetUtil.contains(type, opc.getTypeToken())) {
-				EObject res = handleOutgoingErrorPropagationCondition(component, opc, condTargetType);
-				if (res != null) {
-					subResults.add(res);
+			if (!EM2TypeSetUtil.isNoError(opc.getTypeToken())) {
+				ErrorTypes condTargetType = mapTargetType(opc.getTypeToken(), type);
+				if ((EMV2Util.isSame(opc.getOutgoing(), errorPropagation) || opc.isAllPropagations())
+						&& EM2TypeSetUtil.contains(type, opc.getTypeToken())) {
+					EObject res = handleOutgoingErrorPropagationCondition(component, opc, condTargetType);
+					if (res != null) {
+						subResults.add(res);
+					}
 				}
 			}
 		}
@@ -95,10 +101,17 @@ public class PropagationGraphBackwardTraversal {
 		for (ErrorFlow ef : EMV2Util.getAllErrorFlows(component)) {
 			if (ef instanceof ErrorPath) {
 				ErrorPath ep = (ErrorPath) ef;
-				if (EMV2Util.isSame(ep.getOutgoing(), errorPropagation)
-						&& EM2TypeSetUtil.contains(type, ep.getTargetToken())) {
+//				boolean typeContained = EM2TypeSetUtil.contains(type, ep.getTargetToken());
+
+				/**
+				 * Make sure that the error type we are looking for is contained
+				 * in the error types for the out propagation.
+				 * This is a fix for the JMR/SAVI WBS model.
+				 */
+				boolean typeContained = EM2TypeSetUtil.contains(ep.getTargetToken(), type);
+				if (EMV2Util.isSame(ep.getOutgoing(), errorPropagation) && typeContained) {
 					EObject newEvent = traverseIncomingErrorPropagation(component, ep.getIncoming(),
-							getTargetType(ep.getTypeTokenConstraint(), type));
+							mapTargetType(ep.getTypeTokenConstraint(), type));
 					if (newEvent != null) {
 						subResults.add(newEvent);
 					}
@@ -131,12 +144,20 @@ public class PropagationGraphBackwardTraversal {
 	 * @param original ErrroTypes that is the actual origin of the backward proapagation
 	 * @return ErrorTypes
 	 */
-	private ErrorTypes getTargetType(ErrorTypes constraint, ErrorTypes original) {
+	private ErrorTypes mapTargetType(ErrorTypes constraint, ErrorTypes original) {
 		if (constraint == null)
 			return original;
 		if (original == null)
 			return constraint;
 		return EM2TypeSetUtil.contains(constraint, original) ? original : constraint;
+	}
+
+	private ErrorTypes matchTargetType(ErrorTypes constraint, ErrorTypes original) {
+		if (constraint == null)
+			return original;
+		if (original == null)
+			return constraint;
+		return EM2TypeSetUtil.contains(constraint, original) ? original : null;
 	}
 
 	/**
@@ -378,7 +399,7 @@ public class PropagationGraphBackwardTraversal {
 					QualifiedErrorBehaviorState qs = sconditionElement.getQualifiedState();
 					ComponentInstance referencedInstance = EMV2Util.getLastComponentInstance(qs, component);
 					EObject result = null;
-					ErrorTypes referencedErrorType = getTargetType(sconditionElement.getConstraint(), type);
+					ErrorTypes referencedErrorType = mapTargetType(sconditionElement.getConstraint(), type);
 					if (referencedInstance != null) {
 						result = traverseCompositeErrorState(referencedInstance, EMV2Util.getState(sconditionElement),
 								referencedErrorType);
@@ -395,7 +416,7 @@ public class PropagationGraphBackwardTraversal {
 			}
 
 			if (conditionElement.getConstraint() != null) {
-				if (EMV2Util.isNoError(conditionElement.getConstraint())) {
+				if (EM2TypeSetUtil.isNoError(conditionElement.getConstraint())) {
 					// this is a recovery transition since an incoming propagation constraint is NoError
 					return null;
 				}
@@ -405,7 +426,8 @@ public class PropagationGraphBackwardTraversal {
 
 				ComponentInstance relatedComponent = EMV2Util.getLastComponentInstance(path, component);
 				NamedElement errorModelElement = EMV2Util.getErrorModelElement(path);
-				ErrorTypes referencedErrorType = conditionElement.getConstraint();
+				ErrorTypes referencedErrorType = mapTargetType(conditionElement.getConstraint(), type);
+
 				/**
 				 * Here, we have an error event. Likely, this is something we
 				 * can get when we are analyzing error component behavior.
@@ -420,9 +442,7 @@ public class PropagationGraphBackwardTraversal {
 				 */
 				if (errorModelElement instanceof ErrorPropagation) {
 					ErrorPropagation errorPropagation = (ErrorPropagation) errorModelElement;
-					// XXX deal with type constraint
-					TypeSet ts = errorPropagation.getTypeSet();
-					if (EMV2Util.isNoError(ts)) {
+					if (EM2TypeSetUtil.isNoError(referencedErrorType)) {
 						// this is a recovery transition since an incoming propagation became error free
 						return null;
 					}
@@ -456,12 +476,28 @@ public class PropagationGraphBackwardTraversal {
 	private EObject traverseIncomingErrorPropagation(ComponentInstance component, ErrorPropagation errorPropagation,
 			ErrorTypes type) {
 		List<EObject> subResults = new LinkedList<EObject>();
-		type = getTargetType(errorPropagation.getTypeSet(), type);
+		type = matchTargetType(errorPropagation.getTypeSet(), type);
+		if (type == null)
+			return null;
 		EObject preResult = preProcessIncomingErrorPropagation(component, errorPropagation, type);
 		if (preResult != null)
 			return preResult;
-		for (PropagationPathEnd ppe : currentAnalysisModel.getAllPropagationSourceEnds(component, errorPropagation)) {
+		for (PropagationPathRecord ppr : currentAnalysisModel.getAllReversePropagationPaths(component,
+				errorPropagation)) {
 			// traverse incoming
+			PropagationPathEnd ppe = ppr.getPathSrc();
+			if (ppr.getConnectionInstance() != null) {
+				ConnectionErrorSource ces = EMV2Util
+						.findConnectionErrorSourceForConnection(ppr.getConnectionInstance());
+				if (ces != null && EM2TypeSetUtil.contains(ces.getTypeTokenConstraint(), type)) {
+					EObject result = processConnectionErrorSource(
+							InstanceUtil.findConnectionContext(ppr.getConnectionInstance(), ces.getConnection()), ces,
+							type);
+					if (result != null) {
+						subResults.add(result);
+					}
+				}
+			}
 			ComponentInstance componentSource = ppe.getComponentInstance();
 			ErrorPropagation propagationSource = ppe.getErrorPropagation();
 			if (propagationSource.getDirection() == DirectionType.IN) {
@@ -571,6 +607,19 @@ public class PropagationGraphBackwardTraversal {
 	 */
 	protected EObject processErrorSource(ComponentInstance component, ErrorSource errorSource,
 			TypeSet typeTokenConstraint) {
+//		OsateDebug.osateDebug("processErrorSource " + component.getName() + " error source " + errorSource.getName());
+		return null;
+	}
+
+	/**
+	 * process connection error source as leaf of traversal
+	 * @param connection instance
+	 * @param errorSource
+	 * @param typeTokenConstraint
+	 * @return EObject (can be null)
+	 */
+	protected EObject processConnectionErrorSource(ComponentInstance component, ConnectionErrorSource errorSource,
+			ErrorTypes typeTokenConstraint) {
 //		OsateDebug.osateDebug("processErrorSource " + component.getName() + " error source " + errorSource.getName());
 		return null;
 	}

@@ -461,16 +461,20 @@ public class FTAUtils {
 						ErrorPropagation errorPropagation;
 						Event newEvent;
 						errorPropagation = (ErrorPropagation) eop;
+						TypeSet constraint = conditionElement.getConstraint();
+						if (constraint == null) {
+							constraint = ((ErrorPropagation) eop).getTypeSet();
+						}
 
 						newEvent = new Event();
 						newEvent.setDescription("Error Propagation on " + EMV2Util.getPrintName(errorPropagation)
-								+ "types " + EMV2Util.getPrintName(conditionElement.getConstraint()));
+								+ " types " + EMV2Util.getPrintName(constraint));
 						newEvent.setEventType(EventType.EVENT);
 
 						returnedEvents.add(newEvent);
 
 						List<Event> contributors = new ArrayList<Event>();
-						for (TypeToken tt : conditionElement.getConstraint().getTypeTokens()) {
+						for (TypeToken tt : constraint.getTypeTokens()) {
 							contributors.add(getAllEventsFromPropagationSource(component, errorPropagation, tt,
 									new Stack<Event>()));
 						}

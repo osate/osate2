@@ -31,76 +31,40 @@
  * under the contract clause at 252.227.7013.
  * </copyright>
  */
-package org.osate.aadl2.errormodel.analysis.actions;
+package org.osate.aadl2.errormodel.analysis.handlers;
 
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.osate.aadl2.Element;
-import org.osate.aadl2.instance.ComponentInstance;
+import org.osate.aadl2.errormodel.analysis.fha.FHAReport;
+import org.osate.aadl2.errormodel.analysis.fha.FHAReport.HazardFormat;
 import org.osate.aadl2.instance.InstanceObject;
 import org.osate.aadl2.instance.SystemInstance;
-import org.osate.aadl2.modelsupport.errorreporting.AnalysisErrorReporterManager;
-import org.osate.aadl2.util.OsateDebug;
-import org.osate.ui.actions.AaxlReadOnlyActionAsJob;
-import org.osate.ui.dialogs.Dialog;
-import org.osate2.aadl2.errormodel.analysis.prism.Model;
+import org.osate.ui.handlers.AaxlReadOnlyHandlerAsJob;
 
-public final class PRISMAction extends AaxlReadOnlyActionAsJob {
-
-	private static AnalysisErrorReporterManager errorManager;
-
+public final class ARP4761FHAHandler extends AaxlReadOnlyHandlerAsJob {
 	@Override
 	protected String getMarkerType() {
-		return "org.osate.analysis.errormodel.FaultImpactMarker";
+		return "org.osate.analysis.errormodel.FunctionalHazardMarker";
 	}
 
 	@Override
 	protected String getActionName() {
-		return "PRISM";
-	}
-
-	public static void reportWarning(ComponentInstance io, String message) {
-		if (errorManager != null) {
-			errorManager.warning(io, message);
-		} else {
-			OsateDebug.osateDebug("[PRISMAction] no error manager");
-		}
+		return "FHA";
 	}
 
 	@Override
 	public void doAaxlAction(IProgressMonitor monitor, Element obj) {
+		monitor.beginTask("FHA", IProgressMonitor.UNKNOWN);
+
+		// Get the system instance (if any)
 		SystemInstance si;
-		String message;
-		monitor.beginTask("PRISM", IProgressMonitor.UNKNOWN);
-
-		errorManager = getErrorManager();
-
-		si = null;
-
 		if (obj instanceof InstanceObject) {
 			si = ((InstanceObject) obj).getSystemInstance();
-
-		}
-
-		if (si == null) {
-			Dialog.showInfo("PRISM", "Please choose an instance model");
-			monitor.done();
+		} else {
 			return;
 		}
-
-		try {
-
-			Model prismModel = new Model(si);
-			prismModel.process();
-			prismModel.saveFile();
-			message = "Model successfully generated\n";
-		} catch (Exception e) {
-			message = "Error while generating the model, reason: " + e.toString();
-			e.printStackTrace();
-			Dialog.showInfo("Generating PRISM model", message);
-		}
-		OsateDebug.osateDebug("[PRISMAction] DONE");
-
+		FHAReport report = new FHAReport(HazardFormat.ARP4761);
+		report.doFHAReport(si);
 		monitor.done();
 	}
-
 }

@@ -31,14 +31,8 @@
  * under the contract clause at 252.227.7013.
  * </copyright>
  */
-package org.osate.aadl2.errormodel.analysis.actions;
+package org.osate.aadl2.errormodel.analysis.handlers;
 
-/**
- * Also, this class implement the following consistency rule from
- * the official documentation:
- * C1, C5, C7, C11, C12
- *
- */
 import java.util.Collection;
 
 import org.eclipse.core.runtime.IProgressMonitor;
@@ -60,7 +54,7 @@ import org.osate.aadl2.instance.ConnectionReference;
 import org.osate.aadl2.instance.FeatureInstance;
 import org.osate.aadl2.instance.InstanceObject;
 import org.osate.aadl2.instance.SystemInstance;
-import org.osate.ui.actions.AaxlReadOnlyActionAsJob;
+import org.osate.ui.handlers.AaxlReadOnlyHandlerAsJob;
 import org.osate.xtext.aadl2.errormodel.errorModel.CompositeState;
 import org.osate.xtext.aadl2.errormodel.errorModel.ConditionElement;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorEvent;
@@ -79,11 +73,16 @@ import org.osate.xtext.aadl2.errormodel.errorModel.SubcomponentElement;
 import org.osate.xtext.aadl2.errormodel.errorModel.TypeToken;
 import org.osate.xtext.aadl2.errormodel.util.AnalysisModel;
 import org.osate.xtext.aadl2.errormodel.util.EM2TypeSetUtil;
-import org.osate.xtext.aadl2.errormodel.util.EMV2Properties;
 import org.osate.xtext.aadl2.errormodel.util.EMV2Util;
 import org.osate.xtext.aadl2.errormodel.util.PropagationPathRecord;
 
-public final class ConsistencyAction extends AaxlReadOnlyActionAsJob {
+/**
+ * Also, this class implement the following consistency rule from
+ * the official documentation:
+ * C1, C5, C7, C11, C12
+ *
+ */
+public final class ConsistencyHandler extends AaxlReadOnlyHandlerAsJob {
 	AnalysisModel model;
 
 	@Override
@@ -303,9 +302,10 @@ public final class ConsistencyAction extends AaxlReadOnlyActionAsJob {
 					}
 				}
 
-				if (model.getAllPropagationPaths(componentInstance, ep).size() == 0) {
-					error(componentInstance,
-							"Outgoing propagation " + EMV2Util.getPrintName(ep) + " not correctly handled");
+				if (!(componentInstance instanceof SystemInstance) && ep.getDirection() == DirectionType.OUT
+						&& model.getAllPropagationPaths(componentInstance, ep).size() == 0) {
+					error(componentInstance, "Outgoing propagation " + EMV2Util.getPrintName(ep)
+							+ " is missing outgoing propagation paths");
 
 					// OsateDebug.osateDebug("Component " + componentInstance + " does not handle OUT propagation " +
 // ep.getName());
@@ -349,9 +349,10 @@ public final class ConsistencyAction extends AaxlReadOnlyActionAsJob {
 			}
 			for (ErrorPropagation ep : EMV2Util
 					.getAllIncomingErrorPropagations(componentInstance.getComponentClassifier())) {
-				if (model.getAllPropagationSourceEnds(componentInstance, ep).size() == 0) {
-					error(componentInstance,
-							"Incoming propagation " + EMV2Util.getPrintName(ep) + " not correctly handled");
+				if (!(componentInstance instanceof SystemInstance) && ep.getDirection() == DirectionType.IN
+						&& model.getAllPropagationSourceEnds(componentInstance, ep).size() == 0) {
+					error(componentInstance, "Incoming propagation " + EMV2Util.getPrintName(ep)
+							+ " is missing incoming propagation paths");
 
 					// OsateDebug.osateDebug("Component " + componentInstance + " does not handle IN propagation " +
 // ep.getName());
@@ -689,14 +690,18 @@ public final class ConsistencyAction extends AaxlReadOnlyActionAsJob {
 
 					for (ComponentInstance ci : componentInstance.getComponentInstances()) {
 						boolean found = false;
-						for (Subcomponent s : subcomponents) {
-							if (s == ci.getSubcomponent()) {
-								found = true;
+						if (EMV2Util.hasComponentErrorBehaviorStates(ci)) {
+							for (Subcomponent s : subcomponents) {
+								if (s == ci.getSubcomponent()) {
+									found = true;
+								}
 							}
-						}
-						if (!found) {
-							error(componentInstance, "C12: component " + ci.getName() + " is not referenced for state "
-									+ EMV2Util.getPrintName(ebs) + " in component " + componentInstance.getName());
+							if (!found) {
+								error(componentInstance,
+										"C12: component " + ci.getName() + " is not referenced for state "
+												+ EMV2Util.getPrintName(ebs) + " in component "
+												+ componentInstance.getName());
+							}
 						}
 					}
 				}
@@ -708,91 +713,91 @@ public final class ConsistencyAction extends AaxlReadOnlyActionAsJob {
 			/**
 			 * Rule C13: Composite error behavior: check compliance between component state machine and composite error state machine
 			 */
-			if (EMV2Util.hasCompositeErrorBehavior(componentInstance)
-					&& EMV2Util.hasComponentErrorBehaviorStates(componentInstance)) {
-
-				/**
-				 * For each state, we will get all the conditions for both the error behavior
-				 * AND the composite error model.
-				 */
-				for (ErrorBehaviorState ebs : EMV2Util.getAllErrorBehaviorStates(componentInstance)) {
-					EList<ConditionElement> elementsBehavior = new BasicEList<ConditionElement>();
-					EList<ConditionElement> elementsComposite = new BasicEList<ConditionElement>();
-					double probabilityBehavior = 0;
-					double probabilityComposite = 0;
-					double tmp;
-					/**
-					 * We retrieve all the elements within the error behavior specifications
-					 */
-					for (ErrorBehaviorTransition ebt : EMV2Util.getAllErrorBehaviorTransitions(componentInstance)) {
-						if (ebt.getTarget() == ebs) {
-							elementsBehavior.addAll(EMV2Util.getAllConditionElementsFromConditionExpression(ebt));
-						}
-					}
-
-					/**
-					 * We retrieve all the elements within the composite error behavior
-					 */
-					for (CompositeState cs : EMV2Util.getAllCompositeStates(componentInstance)) {
-						if (cs.getState() == ebs) {
-							elementsComposite.addAll(EMV2Util.getAllConditionElementsFromConditionExpression(cs));
-						}
-					}
-
-					/**
-					 * FIXME JD
-					 *
-					 * For now, we just sum the properties but we should introduce something more intelligent to make
-					 * some consistency check and handle the different operators such as and, or, etc.
-					 */
-					for (ConditionElement ce : elementsComposite) {
-						if (ce instanceof SConditionElement) {
-							SConditionElement sce = (SConditionElement) ce;
-							for (SubcomponentElement se : EMV2Util.getSubcomponents(sce)) {
-								se.getSubcomponent();
-								// OsateDebug.osateDebug("se=" + se);
-								double res = EMV2Properties.getProbability(componentInstance, EMV2Util.getState(sce),
-										null);
-								if (res == 0) {
-									warning(componentInstance,
-											"C13: component " + componentInstance.getName()
-													+ " does not define occurrence for " + EMV2Util.getPrintName(se)
-													+ " and state " + EMV2Util.getPrintName(EMV2Util.getState(sce)));
-								} else {
-									probabilityComposite = probabilityComposite + res;
-								}
-							}
-						}
-
-					}
-
-					for (ConditionElement ce : elementsBehavior) {
-						EventOrPropagation eop = EMV2Util.getErrorEventOrPropagation(ce);
-						double res = EMV2Properties.getProbability(componentInstance, eop, null);
-						// OsateDebug.osateDebug(" PA " + PA);
-						if (res == 0) {
-							warning(componentInstance,
-									"C13: component " + componentInstance.getName()
-											+ " does not define occurrence for incoming propagation "
-											+ EMV2Util.getPrintName(eop));
-						} else {
-							probabilityBehavior = probabilityBehavior + res;
-						}
-					}
-
-					if (probabilityBehavior != probabilityComposite) {
-						error(componentInstance,
-								"C13: in component " + componentInstance.getName()
-										+ " inconsistent probability values for state " + ebs.getName()
-										+ " (for composite, probability=" + probabilityComposite
-										+ " ; for behavior, probability=" + probabilityBehavior + ")");
-					} else {
-						info(componentInstance, "C13: component " + componentInstance.getName()
-								+ " has consistent probability values for state " + ebs.getName());
-
-					}
-				}
-			}
+//			if (EMV2Util.hasCompositeErrorBehavior(componentInstance)
+//					&& EMV2Util.hasComponentErrorBehaviorStates(componentInstance)) {
+//
+//				/**
+//				 * For each state, we will get all the conditions for both the error behavior
+//				 * AND the composite error model.
+//				 */
+//				for (ErrorBehaviorState ebs : EMV2Util.getAllErrorBehaviorStates(componentInstance)) {
+//					EList<ConditionElement> elementsBehavior = new BasicEList<ConditionElement>();
+//					EList<ConditionElement> elementsComposite = new BasicEList<ConditionElement>();
+//					double probabilityBehavior = 0;
+//					double probabilityComposite = 0;
+//					double tmp;
+//					/**
+//					 * We retrieve all the elements within the error behavior specifications
+//					 */
+//					for (ErrorBehaviorTransition ebt : EMV2Util.getAllErrorBehaviorTransitions(componentInstance)) {
+//						if (ebt.getTarget() == ebs) {
+//							elementsBehavior.addAll(EMV2Util.getAllConditionElementsFromConditionExpression(ebt));
+//						}
+//					}
+//
+//					/**
+//					 * We retrieve all the elements within the composite error behavior
+//					 */
+//					for (CompositeState cs : EMV2Util.getAllCompositeStates(componentInstance)) {
+//						if (cs.getState() == ebs) {
+//							elementsComposite.addAll(EMV2Util.getAllConditionElementsFromConditionExpression(cs));
+//						}
+//					}
+//
+//					/**
+//					 * FIXME JD
+//					 *
+//					 * For now, we just sum the properties but we should introduce something more intelligent to make
+//					 * some consistency check and handle the different operators such as and, or, etc.
+//					 */
+//					for (ConditionElement ce : elementsComposite) {
+//						if (ce instanceof SConditionElement) {
+//							SConditionElement sce = (SConditionElement) ce;
+//							for (SubcomponentElement se : EMV2Util.getSubcomponents(sce)) {
+//								se.getSubcomponent();
+//								// OsateDebug.osateDebug("se=" + se);
+//								double res = EMV2Properties.getProbability(componentInstance, EMV2Util.getState(sce),
+//										null);
+//								if (res == 0) {
+//									warning(componentInstance,
+//											"C13: component " + componentInstance.getName()
+//													+ " does not define occurrence for " + EMV2Util.getPrintName(se)
+//													+ " and state " + EMV2Util.getPrintName(EMV2Util.getState(sce)));
+//								} else {
+//									probabilityComposite = probabilityComposite + res;
+//								}
+//							}
+//						}
+//
+//					}
+//
+//					for (ConditionElement ce : elementsBehavior) {
+//						EventOrPropagation eop = EMV2Util.getErrorEventOrPropagation(ce);
+//						double res = EMV2Properties.getProbability(componentInstance, eop, null);
+//						// OsateDebug.osateDebug(" PA " + PA);
+//						if (res == 0) {
+//							warning(componentInstance,
+//									"C13: component " + componentInstance.getName()
+//											+ " does not define occurrence for incoming propagation "
+//											+ EMV2Util.getPrintName(eop));
+//						} else {
+//							probabilityBehavior = probabilityBehavior + res;
+//						}
+//					}
+//
+//					if (probabilityBehavior != probabilityComposite) {
+//						error(componentInstance,
+//								"C13: in component " + componentInstance.getName()
+//										+ " inconsistent probability values for state " + ebs.getName()
+//										+ " (for composite, probability=" + probabilityComposite
+//										+ " ; for behavior, probability=" + probabilityBehavior + ")");
+//					} else {
+//						info(componentInstance, "C13: component " + componentInstance.getName()
+//								+ " has consistent probability values for state " + ebs.getName());
+//
+//					}
+//				}
+//			}
 			/**
 			 * End of implementation of C13
 			 */
@@ -817,7 +822,7 @@ public final class ConsistencyAction extends AaxlReadOnlyActionAsJob {
 					for (ConnectionReference cr : ci.getConnectionReferences()) {
 						Connection conn = cr.getConnection();
 						// OsateDebug.osateDebug("conn dest=" + conn.getDestination());
-						if ((conn.getDestination() != null) && (conn.getDestination() instanceof ConnectedElement)) {
+						if (conn.getDestination() != null) {
 							ConnectedElement connected = conn.getDestination();
 							// OsateDebug.osateDebug("connected dest=" + connected.getConnectionEnd());
 							for (FeatureInstance fi2 : componentInstance.getFeatureInstances()) {
@@ -988,5 +993,4 @@ public final class ConsistencyAction extends AaxlReadOnlyActionAsJob {
 		}
 
 	}
-
 }

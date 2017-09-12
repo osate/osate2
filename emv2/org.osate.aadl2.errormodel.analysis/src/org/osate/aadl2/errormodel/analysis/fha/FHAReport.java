@@ -31,13 +31,12 @@
  * under the contract clause at 252.227.7013.
  * </copyright>
  */
-package org.osate.aadl2.errormodel.analysis.actions;
+package org.osate.aadl2.errormodel.analysis.fha;
 
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
-import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.xtext.EcoreUtil2;
 import org.osate.aadl2.AbstractNamedValue;
@@ -47,6 +46,7 @@ import org.osate.aadl2.EnumerationLiteral;
 import org.osate.aadl2.IntegerLiteral;
 import org.osate.aadl2.ListValue;
 import org.osate.aadl2.ModalPropertyValue;
+import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.NamedValue;
 import org.osate.aadl2.PropertyAssociation;
 import org.osate.aadl2.PropertyConstant;
@@ -54,12 +54,13 @@ import org.osate.aadl2.PropertyExpression;
 import org.osate.aadl2.RecordValue;
 import org.osate.aadl2.StringLiteral;
 import org.osate.aadl2.instance.ComponentInstance;
+import org.osate.aadl2.instance.ConnectionInstance;
 import org.osate.aadl2.instance.InstanceObject;
 import org.osate.aadl2.instance.SystemInstance;
 import org.osate.aadl2.modelsupport.WriteToFile;
-import org.osate.ui.actions.AaxlReadOnlyActionAsJob;
 import org.osate.xtext.aadl2.errormodel.errorModel.ConditionElement;
 import org.osate.xtext.aadl2.errormodel.errorModel.ConditionExpression;
+import org.osate.xtext.aadl2.errormodel.errorModel.ConnectionErrorSource;
 import org.osate.xtext.aadl2.errormodel.errorModel.EMV2Path;
 import org.osate.xtext.aadl2.errormodel.errorModel.EMV2PropertyAssociation;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorState;
@@ -77,49 +78,37 @@ import org.osate.xtext.aadl2.errormodel.util.EMV2Properties;
 import org.osate.xtext.aadl2.errormodel.util.EMV2Util;
 import org.osate.xtext.aadl2.properties.util.GetProperties;
 
-public final class FHAAction extends AaxlReadOnlyActionAsJob {
-
-	public static final int REPORT_TYPE_ARP4761 = 1;
-	public static final int REPORT_TYPE_MILSTD882 = 2;
-	public static final int INVALID_VALUE = 9999;
-
-	@Override
-	protected String getMarkerType() {
-		return "org.osate.analysis.errormodel.FaultImpactMarker";
-	}
-
-	@Override
-	protected String getActionName() {
-		return "FHA";
-	}
-
-	@Override
-	public void doAaxlAction(IProgressMonitor monitor, Element obj) {
-		monitor.beginTask("FHA", IProgressMonitor.UNKNOWN);
-
-		// Get the system instance (if any)
-		SystemInstance si;
-		if (obj instanceof InstanceObject) {
-			si = ((InstanceObject) obj).getSystemInstance();
-		} else {
-			return;
-		}
-
-		WriteToFile report = new WriteToFile("FHA", si);
-		reportHeading(report);
-		List<ComponentInstance> cilist = EcoreUtil2.getAllContentsOfType(si, ComponentInstance.class);
-		processHazards(si, report);
-		for (ComponentInstance componentInstance : cilist) {
-			processHazards(componentInstance, report);
-		}
-		report.saveToFile();
-
-		monitor.done();
-	}
+public final class FHAReport {
 
 	public enum HazardFormat {
 		EMV2, MILSTD882, ARP4761
 	};
+
+	private HazardFormat currentFormat = HazardFormat.EMV2;
+
+	public FHAReport(HazardFormat emv2) {
+		this.currentFormat = emv2;
+	}
+
+	public void doFHAReport(SystemInstance si) {
+		WriteToFile report = new WriteToFile("FHA", si);
+		if (currentFormat != HazardFormat.EMV2) {
+			report.setSuffix("_" + currentFormat.name());
+		}
+		reportHeading(report);
+		List<ComponentInstance> cilist = EcoreUtil2.getAllContentsOfType(si, ComponentInstance.class);
+		processHazards(si, report);
+		for (ConnectionInstance conni : si.getConnectionInstances()) {
+			processHazards(conni, report);
+		}
+		for (ComponentInstance componentInstance : cilist) {
+			processHazards(componentInstance, report);
+			for (ConnectionInstance conni : componentInstance.getConnectionInstances()) {
+				processHazards(conni, report);
+			}
+		}
+		report.saveToFile();
+	}
 
 	protected void processHazards(ComponentInstance ci, WriteToFile report) {
 
@@ -130,7 +119,7 @@ public final class FHAAction extends AaxlReadOnlyActionAsJob {
 				EventOrPropagation eop = EMV2Util.getErrorEventOrPropagation(condElement);
 				if (eop instanceof ErrorEvent) {
 					ErrorEvent errorEvent = (ErrorEvent) eop;
-					List<EMV2PropertyAssociation> PA = EMV2Properties.getHazardsProperty(ci, errorEvent,
+					List<EMV2PropertyAssociation> PA = getHazardsPropertyInCurrentFormat(ci, errorEvent,
 							errorEvent.getTypeSet());
 					List<EMV2PropertyAssociation> Sev = EMV2Properties.getSeverityProperty(ci, errorEvent,
 							errorEvent.getTypeSet());
@@ -145,7 +134,7 @@ public final class FHAAction extends AaxlReadOnlyActionAsJob {
 
 		for (ErrorBehaviorState state : EMV2Util.getAllErrorBehaviorStates(ci)) {
 
-			List<EMV2PropertyAssociation> PA = EMV2Properties.getHazardsProperty(ci, state, state.getTypeSet());
+			List<EMV2PropertyAssociation> PA = getHazardsPropertyInCurrentFormat(ci, state, state.getTypeSet());
 			List<EMV2PropertyAssociation> Sev = EMV2Properties.getSeverityProperty(ci, state, state.getTypeSet());
 			List<EMV2PropertyAssociation> Like = EMV2Properties.getLikelihoodProperty(ci, state, state.getTypeSet());
 			reportHazardProperty(ci, PA, Sev, Like, state, state.getTypeSet(), state, report);
@@ -169,7 +158,7 @@ public final class FHAAction extends AaxlReadOnlyActionAsJob {
 				// state is originating hazard, possibly with a type set
 				ts = failureMode.getTypeSet();
 				// error source a local context
-				HazardPA = EMV2Properties.getHazardsProperty(ci, failureMode, ts);
+				HazardPA = getHazardsPropertyInCurrentFormat(ci, failureMode, ts);
 				Sev = EMV2Properties.getSeverityProperty(ci, failureMode, ts);
 				Like = EMV2Properties.getLikelihoodProperty(ci, failureMode, ts);
 				target = failureMode;
@@ -184,31 +173,18 @@ public final class FHAAction extends AaxlReadOnlyActionAsJob {
 				if (ts == null && failureMode != null) {
 					ts = failureMode.getTypeSet();
 				}
-				HazardPA = EMV2Properties.getHazardsProperty(ci, errorSource, ts);
+				HazardPA = getHazardsPropertyInCurrentFormat(ci, errorSource, ts);
 				Sev = EMV2Properties.getSeverityProperty(ci, errorSource, ts);
 				Like = EMV2Properties.getLikelihoodProperty(ci, errorSource, ts);
 				target = errorSource;
 				localContext = null;
 				if (HazardPA.isEmpty() && errorSource.getFailureModeType() != null) {
 					ts = errorSource.getFailureModeType();
-					HazardPA = EMV2Properties.getHazardsProperty(ci, errorSource, ts);
+					HazardPA = getHazardsPropertyInCurrentFormat(ci, errorSource, ts);
 					Sev = EMV2Properties.getSeverityProperty(ci, errorSource, ts);
 					Like = EMV2Properties.getLikelihoodProperty(ci, errorSource, ts);
 				}
 			}
-			// Will be handled in next section processing error propagations
-//			if ((HazardPA == null) || (HazardPA.isEmpty())) {
-//				// error propagation is originating hazard
-//				ts = ep.getTypeSet();
-//				if (ts == null && failureMode != null) {
-//					ts = failureMode.getTypeSet();
-//				}
-//				HazardPA = EMV2Properties.getHazardsProperty(ci, ep, ts);
-//				Sev = EMV2Properties.getSeverityProperty(ci, ep, ts);
-//				Like = EMV2Properties.getLikelihoodProperty(ci, ep, ts);
-//				target = ep;
-//				localContext = null;
-//			}
 			if (!HazardPA.isEmpty()) {
 				reportHazardProperty(ci, HazardPA, Sev, Like, target, ts, localContext, report);
 			}
@@ -219,7 +195,7 @@ public final class FHAAction extends AaxlReadOnlyActionAsJob {
 			Element localContext = null;
 			// error propagation is originating hazard
 			ts = ep.getTypeSet();
-			List<EMV2PropertyAssociation> HazardPA = EMV2Properties.getHazardsProperty(ci, ep, ts);
+			List<EMV2PropertyAssociation> HazardPA = getHazardsPropertyInCurrentFormat(ci, ep, ts);
 			List<EMV2PropertyAssociation> Sev = EMV2Properties.getSeverityProperty(ci, ep, ts);
 			List<EMV2PropertyAssociation> Like = EMV2Properties.getLikelihoodProperty(ci, ep, ts);
 			target = ep;
@@ -228,6 +204,23 @@ public final class FHAAction extends AaxlReadOnlyActionAsJob {
 			if (!HazardPA.isEmpty()) {
 				reportHazardProperty(ci, HazardPA, Sev, Like, target, ts, localContext, report);
 			}
+		}
+	}
+
+	protected void processHazards(ConnectionInstance conni, WriteToFile report) {
+		ConnectionErrorSource ces = EMV2Util.findConnectionErrorSourceForConnection(conni);
+		if (ces == null)
+			return;
+		Element localContext = null;
+		// error propagation is originating hazard
+		TypeSet ts = ces.getTypeTokenConstraint();
+		List<EMV2PropertyAssociation> HazardPA = getHazardsPropertyInCurrentFormat(conni, ces, ts);
+		List<EMV2PropertyAssociation> Sev = EMV2Properties.getSeverityProperty(conni, ces, ts);
+		List<EMV2PropertyAssociation> Like = EMV2Properties.getLikelihoodProperty(conni, ces, ts);
+		Element target = ces;
+		// XXX we may have more than one matching hazard
+		if (!HazardPA.isEmpty()) {
+			reportHazardProperty(conni, HazardPA, Sev, Like, target, ts, localContext, report);
 		}
 	}
 
@@ -254,7 +247,7 @@ public final class FHAAction extends AaxlReadOnlyActionAsJob {
 		return "";
 	}
 
-	protected void reportHazardProperty(ComponentInstance ci, List<EMV2PropertyAssociation> PAList,
+	protected void reportHazardProperty(InstanceObject ci, List<EMV2PropertyAssociation> PAList,
 			List<EMV2PropertyAssociation> SevList, List<EMV2PropertyAssociation> LikeList, Element target, TypeSet ts,
 			Element localContext, WriteToFile report) {
 
@@ -324,17 +317,51 @@ public final class FHAAction extends AaxlReadOnlyActionAsJob {
 	}
 
 	protected void reportHeading(WriteToFile report) {
-		report.addOutputNewline("Component, Error," + " Hazard Description, Crossreference, " + "Functional Failure, " + // "Failure Effect, " +
-				"Operational Phases, Environment," + // " Mishap/Failure Condition,"+
-				// "Effects of Hazard"+ // "Description" old style
-				" Severity, Likelihood," +
-				// "Target Severity, Target Likelihood, Assurance Level, " +
-				"Verification, " + // "Safety Report, " +
-				"Comment");
+
+		switch (currentFormat) {
+		case EMV2:
+			report.addOutputNewline("Component, Error Model Element," + " Hazard Title, Description, Crossreference, "
+					+ "Failure, " + "Failure Effect, " + "Operational Phases, Environment," + "Risk,"
+					+ "Mishap, Failure Condition," + " Severity, Likelihood, Probability,"
+					+ "Target Severity, Target Likelihood, Development Assurance Level, " + "Verification Method, "
+					+ "Safety Report, " + "Comment");
+			break;
+		case ARP4761:
+			report.addOutputNewline("Component, Error Model Element," + " Hazard Title, Description, Crossreference, "
+					+ "Failure, " + "Failure Effect, " + "Operational Phases, Environment,"
+					+ "  Risk, Mishap, Failure Condition,Failure Condition Classification, "
+					+ "Qualitative Probability, Quantitative Probability, Qualitative Probability Objective, Quantitative Probability Objective, Development Assurance Level, "
+					+ "Verification Method, " + "Safety Report, " + "Comment");
+			break;
+		case MILSTD882:
+			report.addOutputNewline("Component, Error Model Element," + " Hazard Title, Description, Crossreference, "
+					+ "Failure, " + "Failure Effect, " + "Operational Phases, Environment," + " Mishap, Risk,"
+					+ " Severity Level, Severity Category, Qualitative Probability,Probability Level,Quantitative Probability, "
+					+ "Target Severity Level, Target Probability Level, " + "Verification Method, " + "Safety Report, "
+					+ "Comment");
+			break;
+		}
 	}
 
 	protected void reportFHAEntry(WriteToFile report, EList<BasicPropertyAssociation> fields,
-			PropertyExpression Severity, PropertyExpression Likelihood, ComponentInstance ci, String failureModeName,
+			PropertyExpression Severity, PropertyExpression Likelihood, InstanceObject ci, String failureModeName,
+			String typetext) {
+
+		switch (currentFormat) {
+		case EMV2:
+			reportFHAEntryEMV2(report, fields, Severity, Likelihood, ci, failureModeName, typetext);
+			break;
+		case ARP4761:
+			reportFHAEntryARP4761(report, fields, Severity, Likelihood, ci, failureModeName, typetext);
+			break;
+		case MILSTD882:
+			reportFHAEntryMILSTD882(report, fields, Severity, Likelihood, ci, failureModeName, typetext);
+			break;
+		}
+	}
+
+	protected void reportFHAEntryEMV2(WriteToFile report, EList<BasicPropertyAssociation> fields,
+			PropertyExpression Severity, PropertyExpression Likelihood, InstanceObject ci, String failureModeName,
 			String typetext) {
 		String componentName = ci.getName();
 		/*
@@ -353,43 +380,214 @@ public final class FHAAction extends AaxlReadOnlyActionAsJob {
 				+ (failureModeName.isEmpty() ? "" : " on " + failureModeName) + "\"");
 		// description (Effect)
 		addComma(report);
-		if (!reportStringProperty(fields, "hazardtitle", report)) {
-			reportStringProperty(fields, "description", report);
-		}
+		reportStringProperty(fields, "hazardtitle", report);
+		addComma(report);
+		reportStringProperty(fields, "description", report);
 		// crossreference
 		addComma(report);
 		reportStringProperty(fields, "crossreference", report);
 		// failure
 		addComma(report);
 		reportStringProperty(fields, "failure", report);
-//		// failure effect
-//		addComma(report);
-//		reportStringProperty(fields, "failureeffect", report);
+		// failure effect
+		addComma(report);
+		reportStringProperty(fields, "failureeffect", report);
 		// phase
 		addComma(report);
 		reportStringProperty(fields, "phases", report);
 		// phase
 		addComma(report);
 		reportStringProperty(fields, "environment", report);
-//		// mishap/failure condition
-//		addComma(report);
-//		if (!reportStringProperty(fields, "mishap", report))
-//			reportStringProperty(fields, "failurecondition", report);
+		// phase
+		addComma(report);
+		reportStringProperty(fields, "risk", report);
+		// mishap/failure condition
+		addComma(report);
+		reportStringProperty(fields, "mishap", report);
+		addComma(report);
+		reportStringProperty(fields, "failurecondition", report);
 		// severity
 		addComma(report);
-		reportEnumerationOrIntegerPropertyConstantPropertyValue(fields, "severity", report, Severity);
+		if (hasFieldValue(fields, "Severity")) {
+			reportEnumerationOrIntegerPropertyConstantPropertyValue(fields, "Severity", report, Severity);
+		} else if (hasFieldValue(fields, "FailureConditionClassification")) {
+			reportEnumerationOrIntegerPropertyConstantPropertyValue(fields, "FailureConditionClassification", report,
+					Severity);
+		} else {
+			reportEnumerationOrIntegerPropertyConstantPropertyValue(fields, "SeverityLevel", report, Severity);
+		}
 		// criticality
 		addComma(report);
-		reportEnumerationOrIntegerPropertyConstantPropertyValue(fields, "likelihood", report, Likelihood);
-//		// target severity
-//		addComma(report);
-//		reportEnumerationOrIntegerPropertyConstantPropertyValue(fields, "targetseverity", report,null);
-//		// target criticality
-//		addComma(report);
-//		reportEnumerationOrIntegerPropertyConstantPropertyValue(fields, "targetlikelihood", report,null);
-//		// Development assurance level
-//		addComma(report);
-//		reportEnumerationOrIntegerPropertyConstantPropertyValue(fields, "developmentassurancelevel", report,null);
+		if (hasFieldValue(fields, "Likelihood")) {
+			reportEnumerationOrIntegerPropertyConstantPropertyValue(fields, "Likelihood", report, Likelihood);
+		} else {
+			reportEnumerationOrIntegerPropertyConstantPropertyValue(fields, "QualitativeProbability", report,
+					Likelihood);
+		}
+		// probability
+		addComma(report);
+		reportEnumerationOrIntegerPropertyConstantPropertyValue(fields, "probability", report, null);
+		// target severity
+		addComma(report);
+		reportEnumerationOrIntegerPropertyConstantPropertyValue(fields, "targetseverity", report, null);
+		// target criticality
+		addComma(report);
+		reportEnumerationOrIntegerPropertyConstantPropertyValue(fields, "targetlikelihood", report, null);
+		// Development assurance level
+		addComma(report);
+		reportEnumerationOrIntegerPropertyConstantPropertyValue(fields, "developmentassurancelevel", report, null);
+		// verification method
+		addComma(report);
+		reportStringProperty(fields, "verificationmethod", report);
+		// safety report
+		addComma(report);
+		reportStringProperty(fields, "safetyreport", report);
+		// comment
+		addComma(report);
+		reportStringProperty(fields, "comment", report);
+		report.addOutputNewline("");
+	}
+
+	protected void reportFHAEntryARP4761(WriteToFile report, EList<BasicPropertyAssociation> fields,
+			PropertyExpression Severity, PropertyExpression Likelihood, InstanceObject ci, String failureModeName,
+			String typetext) {
+		String componentName = ci.getName();
+		/*
+		 * We include the parent component name if not null and if this is not the root system
+		 * instance.
+		 */
+		if ((ci.getContainingComponentInstance() != null)
+				&& (ci.getContainingComponentInstance() != ci.getSystemInstance())) {
+			componentName = ci.getContainingComponentInstance().getName() + "/" + componentName;
+		}
+		if (ci instanceof SystemInstance) {
+			componentName = "Root system";
+		}
+		// component name & error propagation name/type
+		report.addOutput(componentName + ", \"" + (typetext.isEmpty() ? "" : typetext)
+				+ (failureModeName.isEmpty() ? "" : " on " + failureModeName) + "\"");
+		// description (Effect)
+		addComma(report);
+		reportStringProperty(fields, "hazardtitle", report);
+		addComma(report);
+		reportStringProperty(fields, "description", report);
+		// crossreference
+		addComma(report);
+		reportStringProperty(fields, "crossreference", report);
+		// failure
+		addComma(report);
+		reportStringProperty(fields, "failure", report);
+		// failure effect
+		addComma(report);
+		reportStringProperty(fields, "failureeffect", report);
+		addComma(report);
+		reportStringProperty(fields, "phases", report);
+		addComma(report);
+		reportStringProperty(fields, "environment", report);
+		addComma(report);
+		reportStringProperty(fields, "risk", report);
+		addComma(report);
+		reportStringProperty(fields, "mishap", report);
+		// mishap/failure condition
+		addComma(report);
+		reportStringProperty(fields, "failurecondition", report);
+		// severity
+		addComma(report);
+		reportEnumerationOrIntegerPropertyConstantPropertyValue(fields, "FailureConditionClassification", report,
+				Severity);
+		// criticality
+		addComma(report);
+		reportEnumerationOrIntegerPropertyConstantPropertyValue(fields, "QualitativeProbability", report, Likelihood);
+		// probability
+		addComma(report);
+		reportEnumerationOrIntegerPropertyConstantPropertyValue(fields, "QuantitativeProbability", report, null);
+		// criticality
+		addComma(report);
+		reportEnumerationOrIntegerPropertyConstantPropertyValue(fields, "QualitativeProbabilityObjective", report,
+				Likelihood);
+		// probability
+		addComma(report);
+		reportEnumerationOrIntegerPropertyConstantPropertyValue(fields, "QuantitativeProbabilityObjective", report,
+				null);
+		// Development assurance level
+		addComma(report);
+		reportEnumerationOrIntegerPropertyConstantPropertyValue(fields, "developmentassurancelevel", report, null);
+		// verification method
+		addComma(report);
+		reportStringProperty(fields, "verificationmethod", report);
+		// safety report
+		addComma(report);
+		reportStringProperty(fields, "safetyreport", report);
+		// comment
+		addComma(report);
+		reportStringProperty(fields, "comment", report);
+		report.addOutputNewline("");
+	}
+
+	protected void reportFHAEntryMILSTD882(WriteToFile report, EList<BasicPropertyAssociation> fields,
+			PropertyExpression Severity, PropertyExpression Likelihood, InstanceObject ci, String failureModeName,
+			String typetext) {
+		String componentName = ci.getName();
+		/*
+		 * We include the parent component name if not null and if this is not the root system
+		 * instance.
+		 */
+		if ((ci.getContainingComponentInstance() != null)
+				&& (ci.getContainingComponentInstance() != ci.getSystemInstance())) {
+			componentName = ci.getContainingComponentInstance().getName() + "/" + componentName;
+		}
+		if (ci instanceof SystemInstance) {
+			componentName = "Root system";
+		}
+		// component name & error propagation name/type
+		report.addOutput(componentName + ", \"" + (typetext.isEmpty() ? "" : typetext)
+				+ (failureModeName.isEmpty() ? "" : " on " + failureModeName) + "\"");
+		// description (Effect)
+		addComma(report);
+		reportStringProperty(fields, "hazardtitle", report);
+		addComma(report);
+		reportStringProperty(fields, "description", report);
+		// crossreference
+		addComma(report);
+		reportStringProperty(fields, "crossreference", report);
+		// failure
+		addComma(report);
+		reportStringProperty(fields, "failure", report);
+		// failure effect
+		addComma(report);
+		reportStringProperty(fields, "failureeffect", report);
+		// phase
+		addComma(report);
+		reportStringProperty(fields, "phases", report);
+		// phase
+		addComma(report);
+		reportStringProperty(fields, "environment", report);
+		// mishap/failure condition
+		addComma(report);
+		if (!reportStringProperty(fields, "mishap", report))
+			reportStringProperty(fields, "failurecondition", report);
+		// phase
+		addComma(report);
+		reportStringProperty(fields, "risk", report);
+		// severity
+		addComma(report);
+		reportEnumerationOrIntegerPropertyConstantPropertyValue(fields, "SeverityLevel", report, Severity);
+		addComma(report);
+		reportEnumerationOrIntegerPropertyConstantPropertyValue(fields, "SeverityCategory", report, Severity);
+		// criticality
+		addComma(report);
+		reportEnumerationOrIntegerPropertyConstantPropertyValue(fields, "QualitativeProbability", report, Likelihood);
+		addComma(report);
+		reportEnumerationOrIntegerPropertyConstantPropertyValue(fields, "ProbabilityLevel", report, Likelihood);
+		// probability
+		addComma(report);
+		reportEnumerationOrIntegerPropertyConstantPropertyValue(fields, "QuantitativeProbability", report, null);
+		// criticality
+		addComma(report);
+		reportEnumerationOrIntegerPropertyConstantPropertyValue(fields, "TargetSeverityLevel", report, Likelihood);
+		// probability
+		addComma(report);
+		reportEnumerationOrIntegerPropertyConstantPropertyValue(fields, "TargetProbabilityLevel", report, null);
 		// verification method
 		addComma(report);
 		reportStringProperty(fields, "verificationmethod", report);
@@ -462,11 +660,28 @@ public final class FHAAction extends AaxlReadOnlyActionAsJob {
 		report.addOutput(EMV2Properties.getEnumerationOrIntegerPropertyConstantPropertyValue(val));
 	}
 
+	protected boolean hasFieldValue(EList<BasicPropertyAssociation> fields, String fieldName) {
+		return GetProperties.getRecordField(fields, fieldName) != null;
+	}
+
 	protected String stripQuotes(String text) {
 		if (text.startsWith("\"") && text.endsWith("\"")) {
 			return text.substring(1, text.length() - 1);
 		}
 		return text;
+	}
+
+	protected List<EMV2PropertyAssociation> getHazardsPropertyInCurrentFormat(NamedElement ci, NamedElement target,
+			TypeSet ts) {
+		switch (currentFormat) {
+		case EMV2:
+			return EMV2Properties.getHazardsProperty(ci, target, ts);
+		case ARP4761:
+			return EMV2Properties.getARP4761HazardsProperty(ci, target, ts);
+		case MILSTD882:
+			return EMV2Properties.getMILSTD882HazardsProperty(ci, target, ts);
+		}
+		return null;
 	}
 
 }

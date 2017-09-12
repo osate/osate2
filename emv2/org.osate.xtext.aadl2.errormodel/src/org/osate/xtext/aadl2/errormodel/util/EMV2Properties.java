@@ -29,6 +29,7 @@ import org.osate.aadl2.StringLiteral;
 import org.osate.aadl2.Subcomponent;
 import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.SystemOperationMode;
+import org.osate.xtext.aadl2.errormodel.errorModel.ConnectionErrorSource;
 import org.osate.xtext.aadl2.errormodel.errorModel.EMV2Path;
 import org.osate.xtext.aadl2.errormodel.errorModel.EMV2PathElement;
 import org.osate.xtext.aadl2.errormodel.errorModel.EMV2PropertyAssociation;
@@ -63,6 +64,8 @@ public class EMV2Properties {
 			}
 		} else if (val instanceof IntegerLiteral) {
 			return "" + ((IntegerLiteral) val).getValue();
+		} else if (val instanceof RealLiteral) {
+			return "" + ((RealLiteral) val).getValue();
 		}
 		return "";
 	}
@@ -88,7 +91,7 @@ public class EMV2Properties {
 		List<EMV2PropertyAssociation> PA = EMV2Properties.getOccurrenceDistributionProperty(ci, ne, ts);
 		double prob = 0;
 		for (EMV2PropertyAssociation emv2PropertyAssociation : PA) {
-			prob += EMV2Properties.getOccurenceValue(emv2PropertyAssociation);
+			prob += EMV2Properties.getOccurrenceValue(emv2PropertyAssociation);
 		}
 		return prob;
 	}
@@ -112,6 +115,9 @@ public class EMV2Properties {
 
 		if (element instanceof ErrorEvent) {
 			ts = ((ErrorEvent) element).getTypeSet();
+		}
+		if (element instanceof ConnectionErrorSource) {
+			ts = ((ConnectionErrorSource) element).getTypeTokenConstraint();
 		}
 
 		List<EMV2PropertyAssociation> PA = EMV2Properties.getHazardsProperty(relatedComponent, element, ts);
@@ -231,6 +237,18 @@ public class EMV2Properties {
 		return result;
 	}
 
+	public static List<EMV2PropertyAssociation> getARP4761HazardsProperty(NamedElement ci, NamedElement target,
+			TypeSet ts) {
+		List<EMV2PropertyAssociation> result = getProperty("ARP4761::hazards", ci, target, ts);
+		return result;
+	}
+
+	public static List<EMV2PropertyAssociation> getMILSTD882HazardsProperty(NamedElement ci, NamedElement target,
+			TypeSet ts) {
+		List<EMV2PropertyAssociation> result = getProperty("MILSTD882::hazards", ci, target, ts);
+		return result;
+	}
+
 	/**
 	 * Retrieve the value of the OccurenceDistribution property of the
 	 * EMV2 property. You can use it like this:
@@ -256,7 +274,7 @@ public class EMV2Properties {
 	 *
 	 * @param PAContainmentPath string value describing the distribution get from getOccurenceDistributionProperty
 	 */
-	public static String getOccurenceType(final EMV2PropertyAssociation PA) {
+	public static String getOccurrenceType(final EMV2PropertyAssociation PA) {
 		if (PA == null) {
 			return "unknown_distribution";
 		}
@@ -290,7 +308,7 @@ public class EMV2Properties {
 	 *
 	 * @param PA value get from getOccurenceDistributionProperty
 	 */
-	public static double getOccurenceValue(final EMV2PropertyAssociation PA) {
+	public static double getOccurrenceValue(final EMV2PropertyAssociation PA) {
 		double result;
 		result = 0;
 		if (PA == null) {

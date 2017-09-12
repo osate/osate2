@@ -20,6 +20,7 @@ import org.osate.aadl2.instance.ConnectionInstanceEnd;
 import org.osate.aadl2.instance.ConnectionReference;
 import org.osate.aadl2.instance.FeatureInstance;
 import org.osate.aadl2.instance.InstanceObject;
+import org.osate.aadl2.instance.SystemOperationMode;
 import org.osate.aadl2.util.Aadl2InstanceUtil;
 import org.osate.aadl2.util.OsateDebug;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorPropagation;
@@ -47,7 +48,8 @@ public class AnalysisModel {
 	protected Collection<ConnectionInstance> connections = new ArrayList<ConnectionInstance>();
 
 	public static AnalysisModel createAnalysisModel(ComponentInstance root) {
-		return new AnalysisModel(root);
+		AnalysisModel am = new AnalysisModel(root);
+		return am;
 	}
 
 	public AnalysisModel(ComponentInstance root) {
@@ -182,6 +184,10 @@ public class AnalysisModel {
 	 */
 	protected void populateConnectionPropagationPaths(ConnectionInstance connectionInstance,
 			PropagationPathLevel level) {
+		SystemOperationMode som = connectionInstance.getSystemInstance().getCurrentSystemOperationMode();
+		if (!isActive(connectionInstance, som)) {
+			return;
+		}
 		EList<ConnectionReference> connrefs = connectionInstance.getConnectionReferences();
 		if (connrefs.isEmpty()) {
 			return;
@@ -205,6 +211,9 @@ public class AnalysisModel {
 		List<ComponentInstance> addlDstCI = new ArrayList<ComponentInstance>();
 		List<ErrorPropagation> addlDstEP = new ArrayList<ErrorPropagation>();
 		for (ConnectionReference connectionReference : connrefs) {
+			if (!isActive(connectionReference, som)) {
+				continue;
+			}
 			ConnectionInstanceEnd src = connectionReference.getSource();
 			ConnectionInstanceEnd dst = connectionReference.getDestination();
 			// remember the first (lowest in the hierarchy) src component
@@ -323,6 +332,9 @@ public class AnalysisModel {
 			addlDstEP.clear();
 			for (int i = connrefs.size() - 1; i >= 0; i--) {
 				ConnectionReference connectionReference = connrefs.get(i);
+				if (!isActive(connectionReference, som)) {
+					continue;
+				}
 				ConnectionInstanceEnd dst = connectionReference.getSource();
 				ConnectionInstanceEnd src = connectionReference.getDestination();
 				ErrorPropagation foundEP = null;
@@ -426,6 +438,47 @@ public class AnalysisModel {
 				break;
 			}
 		}
+	}
+
+	private boolean isActive(ConnectionInstance ci, SystemOperationMode som) {
+		if (som != null) {
+			List<SystemOperationMode> inSOMs = ci.getExistsInModes();
+			if (inSOMs != null && !inSOMs.contains(som)) {
+				return false;
+			}
+		}
+		return true;
+	}
+
+	private boolean isActive(ConnectionReference cr, SystemOperationMode som) {
+		if (som != null) {
+			ComponentInstance ci = cr.getContext();
+			ConnectionInstanceEnd src = cr.getSource();
+			ConnectionInstanceEnd dst = cr.getDestination();
+			return isActive(ci, som) && isActive(src, som) && isActive(dst, som);
+		}
+		return true;
+	}
+
+	private boolean isActive(ConnectionInstanceEnd end, SystemOperationMode som) {
+		if (som != null) {
+			ComponentInstance ci;
+			if (end instanceof ComponentInstance) {
+				ci = (ComponentInstance) end;
+			} else if (end instanceof FeatureInstance) {
+				FeatureInstance fi = (FeatureInstance) end;
+				ci = fi.getComponentInstance();
+			} else {
+				return false;
+			}
+			return isActive(ci, som);
+		}
+		return true;
+	}
+
+	private boolean isActive(ComponentInstance ci, SystemOperationMode som) {
+		List<SystemOperationMode> inSOMs = ci.getExistsInModes();
+		return inSOMs == null || inSOMs.contains(som);
 	}
 
 	/**

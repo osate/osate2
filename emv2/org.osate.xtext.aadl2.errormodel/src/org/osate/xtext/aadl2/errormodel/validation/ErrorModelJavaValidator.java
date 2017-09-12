@@ -301,6 +301,7 @@ public class ErrorModelJavaValidator extends AbstractErrorModelJavaValidator {
 	public void caseOutgoingPropagationCondition(OutgoingPropagationCondition opc) {
 		checkOutgoingConditionSourceTypes(opc);
 		checkOutgoingTypes(opc);
+		checkHasConditionOrTypeToken(opc);
 	}
 
 	@Check(CheckType.NORMAL)
@@ -379,7 +380,7 @@ public class ErrorModelJavaValidator extends AbstractErrorModelJavaValidator {
 		if (triggerTS == null && condTS != null) {
 			// it is ok for a state not to have a type set.
 			error(conditionElement, "Condition has type constraint but referenced " + triggerName + " does not.");
-		} else if (!EM2TypeSetUtil.contains(triggerTS, condTS)) {
+		} else if (!EM2TypeSetUtil.isNoError(condTS) && !EM2TypeSetUtil.contains(triggerTS, condTS)) {
 			error(conditionElement,
 					"Condition type constraint " + EMV2Util.getPrintName(condTS) + "is not contained in type set "
 							+ EMV2Util.getPrintName(triggerTS) + "of referenced " + triggerName);
@@ -406,7 +407,7 @@ public class ErrorModelJavaValidator extends AbstractErrorModelJavaValidator {
 		if (triggerTS == null && condTS != null) {
 			// it is ok for a state not to have a type set.
 			error(conditionElement, "Condition has type constraint but referenced " + triggerName + " does not.");
-		} else if (!EM2TypeSetUtil.contains(triggerTS, condTS)) {
+		} else if (!EM2TypeSetUtil.isNoError(condTS) && !EM2TypeSetUtil.contains(triggerTS, condTS)) {
 			error(conditionElement,
 					"Condition type constraint " + EMV2Util.getPrintName(condTS) + "is not contained in type set "
 							+ EMV2Util.getPrintName(triggerTS) + "of referenced " + triggerName);
@@ -800,7 +801,8 @@ public class ErrorModelJavaValidator extends AbstractErrorModelJavaValidator {
 		}
 		ErrorPropagation ep = opc.getOutgoing();
 		if (ep != null) {
-			if (!EM2TypeSetUtil.contains(ep.getTypeSet(), opc.getTypeToken())) {
+			if (!EM2TypeSetUtil.isNoError(opc.getTypeToken())
+					&& !EM2TypeSetUtil.contains(ep.getTypeSet(), opc.getTypeToken())) {
 				error(opc,
 						"Outgoing error type " + EMV2Util.getPrintName(opc.getTypeToken())
 								+ " is not contained in type set of outgoing error propagation specification \'"
@@ -813,7 +815,8 @@ public class ErrorModelJavaValidator extends AbstractErrorModelJavaValidator {
 				Collection<ErrorPropagation> eps = EMV2Util.getAllOutgoingErrorPropagations(cl);
 				for (ErrorPropagation errorPropagation : eps) {
 					if (opc.getTypeToken() != null) {
-						if (!EM2TypeSetUtil.contains(errorPropagation.getTypeSet(), opc.getTypeToken())) {
+						if (!EM2TypeSetUtil.isNoError(opc.getTypeToken())
+								&& !EM2TypeSetUtil.contains(errorPropagation.getTypeSet(), opc.getTypeToken())) {
 							error(opc,
 									"Outgoing error type " + EMV2Util.getPrintName(opc.getTypeToken())
 											+ " is not contained in type set of outgoing propagation "
@@ -823,6 +826,12 @@ public class ErrorModelJavaValidator extends AbstractErrorModelJavaValidator {
 					}
 				}
 			}
+		}
+	}
+	
+	private void checkHasConditionOrTypeToken(OutgoingPropagationCondition opc) {
+		if (opc.getCondition() == null && opc.getTypeToken() == null) {
+			error(opc, "Propagation condition must have at least a condition within brackets or a type set for the outgoing propagation");
 		}
 	}
 

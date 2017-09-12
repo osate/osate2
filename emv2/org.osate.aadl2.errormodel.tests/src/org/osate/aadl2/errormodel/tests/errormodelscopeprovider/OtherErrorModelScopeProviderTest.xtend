@@ -1,15 +1,19 @@
 package org.osate.aadl2.errormodel.tests.errormodelscopeprovider
 
-import org.eclipse.xtext.junit4.InjectWith
-import org.eclipselabs.xtext.utils.unittesting.FluentIssueCollection
-import org.eclipselabs.xtext.utils.unittesting.XtextRunner2
+import com.itemis.xtext.testing.FluentIssueCollection
+import org.eclipse.xtext.testing.InjectWith
+import org.eclipse.xtext.testing.XtextRunner
 import org.junit.Test
 import org.junit.runner.RunWith
+import org.osate.aadl2.Aadl2Package
 import org.osate.aadl2.AadlPackage
 import org.osate.aadl2.AbstractImplementation
 import org.osate.aadl2.AbstractType
 import org.osate.aadl2.DefaultAnnexLibrary
 import org.osate.aadl2.DefaultAnnexSubclause
+import org.osate.aadl2.IntegerLiteral
+import org.osate.aadl2.RangeValue
+import org.osate.aadl2.RecordValue
 import org.osate.aadl2.errormodel.tests.ErrorModelUiInjectorProvider
 import org.osate.core.test.OsateTest
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelLibrary
@@ -21,13 +25,9 @@ import org.osate.xtext.aadl2.errormodel.errorModel.SConditionElement
 import static extension org.junit.Assert.assertEquals
 import static extension org.junit.Assert.assertNull
 
-@RunWith(XtextRunner2)
+@RunWith(XtextRunner)
 @InjectWith(ErrorModelUiInjectorProvider)
 class OtherErrorModelScopeProviderTest extends OsateTest {
-	override getProjectName() {
-		"Other_Error_Model_Scope_Provider_Test"
-	}
-	
 	/*
 	 * Tests scope_ErrorModelLibrary, scope_TypeMappingSet, scope_ErrorModelSubclause_useBehavior, and
 	 * scope_TypeTransformationSet
@@ -82,7 +82,7 @@ class OtherErrorModelScopeProviderTest extends OsateTest {
 				end a;
 			end pkg;
 		''')
-		suppressSerialization
+		ignoreSerializationDifferences
 		val testFileResult = testFile("pkg.aadl")
 		val issueCollection = new FluentIssueCollection(testFileResult.resource, newArrayList, newArrayList)
 		testFileResult.resource.contents.head as AadlPackage => [
@@ -186,34 +186,24 @@ class OtherErrorModelScopeProviderTest extends OsateTest {
 				end fgt2;
 			end pkg;
 		''')
-		suppressSerialization
+		ignoreSerializationDifferences
 		testFile("pkg.aadl").resource.contents.head as AadlPackage => [
 			"pkg".assertEquals(name)
 			publicSection.ownedClassifiers.get(1) as AbstractImplementation => [
 				"a.i".assertEquals(name)
-				((ownedAnnexSubclauses.head as DefaultAnnexSubclause).parsedAnnexSubclause as ErrorModelSubclause).propagations.head => [
-					//Tests ErrorModelScopeProvider.scope_FeatureorPPReference_featureorPP(Classifier, EReference)
+				((ownedAnnexSubclauses.head as DefaultAnnexSubclause).parsedAnnexSubclause as ErrorModelSubclause).propagations.head.featureorPPRef => [
+					"fg1".assertEquals(featureorPP.name)
+					//Tests scope_FeatureorPPReference_featureorPP
 					assertScope(ErrorModelPackage.eINSTANCE.featureorPPReference_FeatureorPP, #["eds", "es", "fg1", "op1", "point1", "point2"])
-					featureorPPRef => [
-						"fg1".assertEquals(featureorPP.name)
-						//Tests ErrorModelScopeProvider.scope_FeatureorPPReference_featureorPP(FeatureorPPReference, EReference)
+					next => [
+						"fg2".assertEquals(featureorPP.name)
+						//Tests scope_FeatureorPPReference_featureorPP
 						assertScope(ErrorModelPackage.eINSTANCE.featureorPPReference_FeatureorPP, #["fg2", "op2"])
-						//Tests ErrorModelSerializerScopeProvider.scope_FeatureorPPReference_featureorPP(FeatureorPPReference, EReference)
-						assertSerializerScope(ErrorModelPackage.eINSTANCE.featureorPPReference_FeatureorPP, #["eds", "es", "fg1", "op1", "point1", "point2"])
 						next => [
-							"fg2".assertEquals(featureorPP.name)
-							//Tests ErrorModelScopeProvider.scope_FeatureorPPReference_featureorPP(FeatureorPPReference, EReference)
+							"op3".assertEquals(featureorPP.name)
+							//Tests scope_FeatureorPPReference_featureorPP
 							assertScope(ErrorModelPackage.eINSTANCE.featureorPPReference_FeatureorPP, #["op3"])
-							//Tests ErrorModelSerializerScopeProvider.scope_FeatureorPPReference_featureorPP(FeatureorPPReference, EReference)
-							assertSerializerScope(ErrorModelPackage.eINSTANCE.featureorPPReference_FeatureorPP, #["fg2", "op2"])
-							next => [
-								"op3".assertEquals(featureorPP.name)
-								//Tests ErrorModelScopeProvider.scope_FeatureorPPReference_featureorPP(FeatureorPPReference, EReference)
-								assertScope(ErrorModelPackage.eINSTANCE.featureorPPReference_FeatureorPP, #[])
-								//Tests ErrorModelSerializerScopeProvider.scope_FeatureorPPReference_featureorPP(FeatureorPPReference, EReference)
-								assertSerializerScope(ErrorModelPackage.eINSTANCE.featureorPPReference_FeatureorPP, #["op3"])
-								next.assertNull
-							]
+							next.assertNull
 						]
 					]
 				]
@@ -281,7 +271,7 @@ class OtherErrorModelScopeProviderTest extends OsateTest {
 				end fgt2;
 			end pkg;
 		''')
-		suppressSerialization
+		ignoreSerializationDifferences
 		testFile("pkg.aadl").resource.contents.head as AadlPackage => [
 			"pkg".assertEquals(name)
 			publicSection.ownedClassifiers.head as AbstractType => [
@@ -353,7 +343,7 @@ class OtherErrorModelScopeProviderTest extends OsateTest {
 				end a1;
 			end subclause1;
 		''')
-		suppressSerialization
+		ignoreSerializationDifferences
 		testFile(subclause1FileName).resource.contents.head as AadlPackage => [
 			"subclause1".assertEquals(name)
 			publicSection.ownedClassifiers.head => [
@@ -439,7 +429,7 @@ class OtherErrorModelScopeProviderTest extends OsateTest {
 				end a5.i;
 			end subclause1;
 		''')
-		suppressSerialization
+		ignoreSerializationDifferences
 		testFile(subclause1FileName).resource.contents.head as AadlPackage => [
 			"subclause1".assertEquals(name)
 			publicSection.ownedClassifiers.get(9) => [
@@ -560,7 +550,7 @@ class OtherErrorModelScopeProviderTest extends OsateTest {
 				end a;
 			end subclause1;
 		''')
-		suppressSerialization
+		ignoreSerializationDifferences
 		val lib1TestResult = testFile(lib1FileName)
 		val subclause1TestResult = testFile(subclause1FileName)
 		val expectedScope = #["bvr_state1", "bvr_state2"]
@@ -665,7 +655,7 @@ class OtherErrorModelScopeProviderTest extends OsateTest {
 				end a2.i;
 			end subclause1;
 		''')
-		suppressSerialization
+		ignoreSerializationDifferences
 		testFile(subclause1FileName).resource.contents.head as AadlPackage => [
 			"subclause1".assertEquals(name)
 			publicSection.ownedClassifiers.get(3) => [
@@ -732,7 +722,7 @@ class OtherErrorModelScopeProviderTest extends OsateTest {
 				end a2.i;
 			end subclause1;
 		''')
-		suppressSerialization
+		ignoreSerializationDifferences
 		testFile(subclause1FileName).resource.contents.head as AadlPackage => [
 			"subclause1".assertEquals(name)
 			publicSection.ownedClassifiers.get(3) => [
@@ -801,7 +791,7 @@ class OtherErrorModelScopeProviderTest extends OsateTest {
 				end a2;
 			end subclause1;
 		''')
-		suppressSerialization
+		ignoreSerializationDifferences
 		testFile(subclause1FileName).resource.contents.head as AadlPackage => [
 			"subclause1".assertEquals(name)
 			publicSection.ownedClassifiers.get(1) => [
@@ -894,7 +884,7 @@ class OtherErrorModelScopeProviderTest extends OsateTest {
 				end a4;
 			end subclause1;
 		''')
-		suppressSerialization
+		ignoreSerializationDifferences
 		testFile(subclause1FileName).resource.contents.head as AadlPackage => [
 			"subclause1".assertEquals(name)
 			publicSection.ownedClassifiers.get(1) => [
@@ -932,6 +922,258 @@ class OtherErrorModelScopeProviderTest extends OsateTest {
 									//Tests scope_QualifiedErrorBehaviorState_state
 									assertScope(ErrorModelPackage.eINSTANCE.qualifiedErrorBehaviorState_State, #["bvr_state4"])
 									next.assertNull
+								]
+							]
+						]
+					]
+				]
+			]
+		]
+	}
+	
+	//Tests scope_EMV2PathElement_errorType
+	@Test
+	def void testEMV2PathElement_errorType() {
+		val ps1FileName = "ps1.aadl"
+		val pkg1FileName = "pkg1.aadl"
+		createFiles(ps1FileName -> '''
+			property set ps1 is
+				def1: aadlinteger applies to (all);
+			end ps1;
+		''', pkg1FileName -> '''
+			package pkg1
+			public
+				with ps1;
+				
+				abstract a1
+					annex EMV2 {**
+						use types pkg1;
+						
+						error propagations
+							memory: in propagation {t1};
+							memory: not in propagation {t2};
+							memory: out propagation {t3};
+							memory: not out propagation {t4};
+						end propagations;
+						
+						properties
+							ps1::def1 => 1 applies to memory.t1;
+					**};
+				end a1;
+				
+				annex EMV2 {**
+					error types
+						t1: type;
+						t2: type;
+						t3: type;
+						t4: type;
+					end types;
+				**};
+			end pkg1;
+		''')
+		ignoreSerializationDifferences
+		testFile(pkg1FileName).resource.contents.head as AadlPackage => [
+			"pkg1".assertEquals(name)
+			publicSection.ownedClassifiers.head => [
+				"a1".assertEquals(name)
+				((ownedAnnexSubclauses.head as DefaultAnnexSubclause).parsedAnnexSubclause as ErrorModelSubclause).properties.head => [
+					1.assertEquals((ownedValues.head.ownedValue as IntegerLiteral).value)
+					//Tests scope_EMV2PathElement_errorType
+					emv2Path.head.emv2Target.assertScope(ErrorModelPackage.eINSTANCE.EMV2PathElement_ErrorType, #["t1", "t2", "t3", "t4"])
+				]
+			]
+		]
+	}
+	
+	//Tests scope_BasicPropertyAssociation_property
+	@Test
+	def void testRecordFieldNameReference() {
+		val pkg1FileName = "pkg1.aadl"
+		createFiles("ps1.aadl" -> '''
+			property set ps1 is
+				def1: record (
+					field1: aadlinteger;
+					field2: aadlinteger;
+					field3: record (
+						field4: aadlinteger;
+						field5: aadlinteger;
+						field6: record (
+							field7: aadlinteger;
+							field8: aadlinteger;
+							field9: aadlinteger;
+						);
+					);
+				) applies to (all);
+			end ps1;
+		''', pkg1FileName -> '''
+			package pkg1
+			public
+				with ps1;
+				
+				annex EMV2 {**
+					error types
+						t1: type;
+					properties
+						ps1::def1 => [
+							field1 => 1;
+							field2 => 2;
+							field3 => [
+								field4 => 4;
+								field5 => 5;
+								field6 => [
+									field7 => 7;
+									field8 => 8;
+									field9 => 9;
+								];
+							];
+						] applies to t1;
+					end types;
+				**};
+			end pkg1;
+		''')
+		ignoreSerializationDifferences
+		testFile(pkg1FileName).resource.contents.head as AadlPackage => [
+			"pkg1".assertEquals(name)
+			((publicSection.ownedAnnexLibraries.head as DefaultAnnexLibrary).parsedAnnexLibrary as ErrorModelLibrary).properties.head.ownedValues.head.ownedValue as RecordValue => [
+				val firstLevelScope = #["field1", "field2", "field3"]
+				val secondLevelScope = #["field4", "field5", "field6"]
+				val thirdLevelScope = #["field7", "field8", "field9"]
+				ownedFieldValues.get(0) => [
+					"field1".assertEquals(property.name)
+					//Tests scope_BasicPropertyAssociation_property
+					assertScope(Aadl2Package.eINSTANCE.basicPropertyAssociation_Property, firstLevelScope)
+				]
+				ownedFieldValues.get(1) => [
+					"field2".assertEquals(property.name)
+					//Tests scope_BasicPropertyAssociation_property
+					assertScope(Aadl2Package.eINSTANCE.basicPropertyAssociation_Property, firstLevelScope)
+				]
+				ownedFieldValues.get(2) => [
+					"field3".assertEquals(property.name)
+					//Tests scope_BasicPropertyAssociation_property
+					assertScope(Aadl2Package.eINSTANCE.basicPropertyAssociation_Property, firstLevelScope)
+					ownedValue as RecordValue => [
+						ownedFieldValues.get(0) => [
+							"field4".assertEquals(property.name)
+							//Tests scope_BasicPropertyAssociation_property
+							assertScope(Aadl2Package.eINSTANCE.basicPropertyAssociation_Property, secondLevelScope)
+						]
+						ownedFieldValues.get(1) => [
+							"field5".assertEquals(property.name)
+							//Tests scope_BasicPropertyAssociation_property
+							assertScope(Aadl2Package.eINSTANCE.basicPropertyAssociation_Property, secondLevelScope)
+						]
+						ownedFieldValues.get(2) => [
+							"field6".assertEquals(property.name)
+							//Tests scope_BasicPropertyAssociation_property
+							assertScope(Aadl2Package.eINSTANCE.basicPropertyAssociation_Property, secondLevelScope)
+							ownedValue as RecordValue => [
+								ownedFieldValues.get(0) => [
+									"field7".assertEquals(property.name)
+									//Tests scope_BasicPropertyAssociation_property
+									assertScope(Aadl2Package.eINSTANCE.basicPropertyAssociation_Property, thirdLevelScope)
+								]
+								ownedFieldValues.get(1) => [
+									"field8".assertEquals(property.name)
+									//Tests scope_BasicPropertyAssociation_property
+									assertScope(Aadl2Package.eINSTANCE.basicPropertyAssociation_Property, thirdLevelScope)
+								]
+								ownedFieldValues.get(2) => [
+									"field9".assertEquals(property.name)
+									//Tests scope_BasicPropertyAssociation_property
+									assertScope(Aadl2Package.eINSTANCE.basicPropertyAssociation_Property, thirdLevelScope)
+								]
+							]
+						]
+					]
+				]
+			]
+		]
+	}
+	
+	//Tests scope_ContainmentPathElement_namedElement
+	@Test
+	def void testUnitLiteralReference() {
+		val pkg1FileName = "pkg1.aadl"
+		createFiles("ps1.aadl" -> '''
+			property set ps1 is
+				def1: aadlinteger units Time_Units applies to (all);
+				def2: record (
+					field1: aadlreal units Data_Rate_Units;
+					field2: record (
+						field3: range of aadlinteger units Processor_Speed_Units;
+						field4: record (
+							field5: range of aadlreal units Size_Units;
+						);
+					);
+				) applies to (all);
+			end ps1;
+		''', pkg1FileName -> '''
+			package pkg1
+			public
+				with ps1;
+				
+				system s
+				end s;
+				
+				annex EMV2 {**
+					error types
+						t1: type;
+					properties
+						ps1::def1 => 1 ms applies to t1;
+						ps1::def2 => [
+							field1 => 2.2 Bytesps;
+							field2 => [
+								field3 => 3 KIPS .. 4 GIPS;
+								field4 => [
+									field5 => 5.5 bits .. 6.6 TByte;
+								];
+							];
+						] applies to t1;
+					end types;
+				**};
+			end pkg1;
+		''')
+		ignoreSerializationDifferences
+		testFile(pkg1FileName).resource.contents.head as AadlPackage => [
+			"pkg1".assertEquals(name)
+			(publicSection.ownedAnnexLibraries.head as DefaultAnnexLibrary).parsedAnnexLibrary as ErrorModelLibrary => [
+				properties.get(0) => [
+					"def1".assertEquals(property.name)
+					//Tests scope_ContainmentPathElement_namedElement
+					ownedValues.head.ownedValue.assertScope(Aadl2Package.eINSTANCE.numberValue_Unit, #["ps", "ns", "us", "ms", "sec", "min", "hr"])
+				]
+				properties.get(1) => [
+					"def2".assertEquals(property.name)
+					ownedValues.head.ownedValue as RecordValue => [
+						ownedFieldValues.get(0) => [
+							"field1".assertEquals(property.name)
+							//Tests scope_ContainmentPathElement_namedElement
+							ownedValue.assertScope(Aadl2Package.eINSTANCE.numberValue_Unit, #["bitsps", "Bytesps", "KBytesps", "MBytesps", "GBytesps"])
+						]
+						ownedFieldValues.get(1) => [
+							"field2".assertEquals(property.name)
+							ownedValue as RecordValue => [
+								ownedFieldValues.get(0) => [
+									"field3".assertEquals(property.name)
+									ownedValue as RangeValue => [
+										//Tests scope_ContainmentPathElement_namedElement
+										minimum.assertScope(Aadl2Package.eINSTANCE.numberValue_Unit, #["KIPS", "MIPS", "GIPS"])
+										//Tests scope_ContainmentPathElement_namedElement
+										maximum.assertScope(Aadl2Package.eINSTANCE.numberValue_Unit, #["KIPS", "MIPS", "GIPS"])
+									]
+								]
+								ownedFieldValues.get(1) => [
+									"field4".assertEquals(property.name)
+									(ownedValue as RecordValue).ownedFieldValues.head => [
+										"field5".assertEquals(property.name)
+										ownedValue as RangeValue => [
+											//Tests scope_ContainmentPathElement_namedElement
+											minimum.assertScope(Aadl2Package.eINSTANCE.numberValue_Unit, #["bits", "Bytes", "KByte", "MByte", "GByte", "TByte"])
+											//Tests scope_ContainmentPathElement_namedElement
+											maximum.assertScope(Aadl2Package.eINSTANCE.numberValue_Unit, #["bits", "Bytes", "KByte", "MByte", "GByte", "TByte"])
+										]
+									]
 								]
 							]
 						]
