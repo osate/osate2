@@ -43,16 +43,16 @@ class ReqSpecUtilExtension {
 	 * If the target is a classifier return it.
 	 */
 	def static targetClassifier(ContractualElement req) {
-		if(req.target != null) return req.target
+		if(req.target !== null) return req.target
 		var EObject container = req
-		while (container.eContainer != null) {
+		while (container.eContainer !== null) {
 			container = container.eContainer
 			if (container instanceof SystemRequirementSet) {
 				val rs = container
-				if(rs.target != null) return rs.target
+				if(rs.target !== null) return rs.target
 			} else if (container instanceof StakeholderGoals) {
 				val rs = container
-				if(rs.target != null) return rs.target
+				if(rs.target !== null) return rs.target
 			}
 		}
 		return null;
@@ -109,8 +109,11 @@ class ReqSpecUtilExtension {
 			for (r : req.refinesReference) {
 				result = scopeForValComputeReq(r, result)
 			}
+			if (req.inheritsReference !== null){
+				result = scopeForValComputeReq(req.inheritsReference, result)
+			}
 			val sr = ReqSpecUtilExtension.containingRequirementSet(req)
-			if (sr != null) {
+			if (sr !== null) {
 				result = new SimpleScope(result,
 					Scopes::scopedElementsFor(sr.constants+sr.computes,
 						QualifiedName::wrapper(SimpleAttributeResolver::NAME_RESOLVER)), false)
@@ -143,7 +146,7 @@ class ReqSpecUtilExtension {
 				result = scopeForVal(r, result)
 			}
 			val sr = containingStakeholderGoals(goal)
-			if (sr != null) {
+			if (sr !== null) {
 				result = new SimpleScope(result,
 					Scopes::scopedElementsFor(sr.constants,
 						QualifiedName::wrapper(SimpleAttributeResolver::NAME_RESOLVER)), false)
@@ -173,8 +176,11 @@ class ReqSpecUtilExtension {
 			for (r : req.refinesReference) {
 				result = scopeForValReq(r, result)
 			}
+			if (req.inheritsReference !== null){
+				result = scopeForValReq(req.inheritsReference, result)
+			}
 			val sr = ReqSpecUtilExtension.containingRequirementSet(req)
-			if (sr != null) {
+			if (sr !== null) {
 				result = new SimpleScope(result,
 					Scopes::scopedElementsFor(sr.constants,
 						QualifiedName::wrapper(SimpleAttributeResolver::NAME_RESOLVER)), false)
@@ -193,18 +199,29 @@ class ReqSpecUtilExtension {
 
 		def static IScope scopeForComputeReq(Requirement req, IScope parentscope) {
 			var result = parentscope
+			for (r : req.decomposesReference) {
+				result = scopeForComputeReq(r, result)
+			}
 			for (r : req.refinesReference) {
 				result = scopeForComputeReq(r, result)
 			}
+			if (req.inheritsReference !== null){
+				result = scopeForComputeReq(req.inheritsReference, result)
+			}
 			val sr = ReqSpecUtilExtension.containingRequirementSet(req)
+			if (sr !== null) {
+				result = new SimpleScope(result,
+					Scopes::scopedElementsFor(sr.computes,
+						QualifiedName::wrapper(SimpleAttributeResolver::NAME_RESOLVER)), false)
+			}
 			result = new SimpleScope(result, Scopes::scopedElementsFor(req.computes,
 				QualifiedName::wrapper(SimpleAttributeResolver::NAME_RESOLVER)), false)
 			return result
 		}
 
 		def static String constructDescription(ContractualElement r) {
-			if(r.description != null) return CommonUtilExtension.toText(r.description, r.contractualElementSubject)
-			if(r.title != null) return r.title
+			if(r.description !== null) return CommonUtilExtension.toText(r.description, r.contractualElementSubject)
+			if(r.title !== null) return r.title
 			""
 		}
 
@@ -215,7 +232,7 @@ class ReqSpecUtilExtension {
 		
 		def static boolean matchingCategory(Iterable <ComponentCategory> catlist, ComponentCategory cat){
 			if (catlist.empty) return true
-			if (cat == null) return true
+			if (cat === null) return true
 			catlist.exists[c|c.getName().equalsIgnoreCase(cat.getName())]
 		}
 		

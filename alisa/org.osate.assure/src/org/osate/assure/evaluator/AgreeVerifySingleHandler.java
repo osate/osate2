@@ -178,7 +178,7 @@ public class AgreeVerifySingleHandler extends VerifySingleHandler {
 				wrapper.addChild(jobResult);
 				jobResult = wrapper;
 			} else if (isRealizability()) {
-				AgreeProgram agreeProgram = new AgreeASTBuilder().getAgreeProgram(si);
+				AgreeProgram agreeProgram = new AgreeASTBuilder().getAgreeProgram(si, isMonolithic());
 				Program program = LustreAstBuilder.getRealizabilityLustreProgram(agreeProgram);
 				wrapper.addChild(createVerification("Realizability Check", si, program, agreeProgram,
 						AgreeAnalysisType.Realizability));
@@ -377,7 +377,7 @@ public class AgreeVerifySingleHandler extends VerifySingleHandler {
 	}
 
 	private void wrapVerificationResult(ComponentInstance si, CompositeAnalysisResult wrapper) {
-		AgreeProgram agreeProgram = new AgreeASTBuilder().getAgreeProgram(si);
+		AgreeProgram agreeProgram = new AgreeASTBuilder().getAgreeProgram(si, isMonolithic());
 
 		// generate different lustre depending on which model checker we are
 		// using
@@ -389,9 +389,9 @@ public class AgreeVerifySingleHandler extends VerifySingleHandler {
 			}
 			program = LustreContractAstBuilder.getContractLustreProgram(agreeProgram);
 		} else {
-			program = LustreAstBuilder.getAssumeGuaranteeLustreProgram(agreeProgram, isMonolithic());
+			program = LustreAstBuilder.getAssumeGuaranteeLustreProgram(agreeProgram);
 		}
-		List<Pair<String, Program>> consistencies = LustreAstBuilder.getConsistencyChecks(agreeProgram, isMonolithic());
+		List<Pair<String, Program>> consistencies = LustreAstBuilder.getConsistencyChecks(agreeProgram);
 
 		wrapper.addChild(createVerification("Contract Guarantees", si, program, agreeProgram,
 				AgreeAnalysisType.AssumeGuarantee));

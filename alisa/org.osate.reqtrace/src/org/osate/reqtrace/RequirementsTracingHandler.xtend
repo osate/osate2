@@ -25,7 +25,7 @@
  * product liability, personal injury, death, damage to property, or violation of any laws or regulations.
  *
  * Carnegie Mellon University Software Engineering Institute authored documents are sponsored by the U.S. Department
- * of Defense under Contract F19628-00-C-0003. Carnegie Mellon University retains copyrights in all material produced
+ * of Defense under Contract FA8721-05-C-0003. Carnegie Mellon University retains copyrights in all material produced
  * under this contract. The U.S. Government retains a non-exclusive, royalty-free license to publish or reproduce these
  * documents, or allow others to do so, for U.S. Government purposes only pursuant to the copyright license
  * under the contract clause at 252.227.7013.
@@ -43,13 +43,17 @@ import org.eclipse.birt.report.engine.api.RenderOption
 import org.eclipse.core.commands.AbstractHandler
 import org.eclipse.core.commands.ExecutionEvent
 import org.eclipse.core.commands.ExecutionException
+import org.eclipse.core.filesystem.EFS
 import org.eclipse.core.resources.IFile
+import org.eclipse.core.runtime.Path
 import org.eclipse.core.runtime.Status
 import org.eclipse.core.runtime.jobs.Job
 import org.eclipse.jface.viewers.IStructuredSelection
 import org.eclipse.jface.window.Window
+import org.eclipse.ui.ide.IDE
 
 import static extension org.eclipse.ui.handlers.HandlerUtil.getActiveShell
+import static extension org.eclipse.ui.handlers.HandlerUtil.getActiveWorkbenchWindow
 import static extension org.eclipse.ui.handlers.HandlerUtil.getCurrentSelection
 
 class RequirementsTracingHandler extends AbstractHandler {
@@ -67,10 +71,9 @@ class RequirementsTracingHandler extends AbstractHandler {
 		val selectionPath = ((event.currentSelection as IStructuredSelection).firstElement as IFile).fullPath
 		val fileType = switch selectionPath.fileExtension {
 			case "aadl": "package"
-			case "reqspec": "reqspec"
-			case "goals": "goals"
 			case "aaxl2",
 			case "aail2": "instance"
+			default: selectionPath.fileExtension
 		}
 		val dialog = new ReqTraceConfigDialog(event.activeShell, EMITTERS.keySet.sort, fileType)
 		if (dialog.open == Window.OK) {
@@ -78,8 +81,13 @@ class RequirementsTracingHandler extends AbstractHandler {
 				val factory = Platform.createFactoryObject(IReportEngineFactory.EXTENSION_REPORT_ENGINE_FACTORY) as IReportEngineFactory
 				val config = new EngineConfig => [appContext.put(EngineConstants.APPCONTEXT_CLASSLOADER_KEY, this.class.classLoader)]
 				factory.createReportEngine(config) => [
-					val report = openReportDesign(new URL('''platform:/plugin/«Activator.PLUGIN_ID»/reqtrace.rptdesign''').openConnection.inputStream)
+					val url = '''platform:/plugin/«Activator.PLUGIN_ID»/reqtrace.rptdesign'''
+					val report = openReportDesign(new URL(url).openConnection.inputStream)
 					createRunAndRenderTask(report) => [
+						setParameterValue("ProjectName", selectionPath.segments.head)
+						setParameterValue("Directories", selectionPath.removeFirstSegments(1).removeLastSegments(1).toString)
+						setParameterValue("FileName", selectionPath.lastSegment)
+						
 						setParameterValue("AADLFile", selectionPath.toString)
 						setParameterValue("FileType", fileType)
 						setParameterValue("ReportType", dialog.reportType)
@@ -93,6 +101,12 @@ class RequirementsTracingHandler extends AbstractHandler {
 					]
 					destroy
 				]
+				if (!canceled && dialog.openFileAutomatically) {
+					val fileStore = EFS.localFileSystem.getStore(new Path(dialog.outputFile))
+					event.activeShell.display.asyncExec[
+						IDE.openEditorOnFileStore(event.activeWorkbenchWindow.activePage, fileStore)
+					]
+				}
 				if (canceled) {
 					Status.CANCEL_STATUS
 				} else {

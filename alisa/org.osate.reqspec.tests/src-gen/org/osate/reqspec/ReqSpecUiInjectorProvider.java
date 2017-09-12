@@ -15,15 +15,15 @@
  */
 package org.osate.reqspec;
 
-import org.eclipse.xtext.junit4.IInjectorProvider;
+import org.eclipse.xtext.testing.IInjectorProvider;
 
 import com.google.inject.Injector;
 
 public class ReqSpecUiInjectorProvider implements IInjectorProvider {
-	
+
 	@Override
 	public Injector getInjector() {
 		return org.osate.reqspec.ui.internal.ReqSpecActivator.getInstance().getInjector("org.osate.reqspec.ReqSpec");
 	}
-	
+
 }

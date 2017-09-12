@@ -60,15 +60,15 @@ public class InternalOrganizationLexer extends Lexer {
         super(input,state);
 
     }
-    public String getGrammarFileName() { return "../org.osate.organization.ui/src-gen/org/osate/organization/ui/contentassist/antlr/lexer/InternalOrganizationLexer.g"; }
+    public String getGrammarFileName() { return "InternalOrganizationLexer.g"; }
 
     // $ANTLR start "Organization"
     public final void mOrganization() throws RecognitionException {
         try {
             int _type = Organization;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.organization.ui/src-gen/org/osate/organization/ui/contentassist/antlr/lexer/InternalOrganizationLexer.g:31:14: ( 'organization' )
-            // ../org.osate.organization.ui/src-gen/org/osate/organization/ui/contentassist/antlr/lexer/InternalOrganizationLexer.g:31:16: 'organization'
+            // InternalOrganizationLexer.g:31:14: ( 'organization' )
+            // InternalOrganizationLexer.g:31:16: 'organization'
             {
             match("organization"); 
 
@@ -88,8 +88,8 @@ public class InternalOrganizationLexer extends Lexer {
         try {
             int _type = Description;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.organization.ui/src-gen/org/osate/organization/ui/contentassist/antlr/lexer/InternalOrganizationLexer.g:33:13: ( 'description' )
-            // ../org.osate.organization.ui/src-gen/org/osate/organization/ui/contentassist/antlr/lexer/InternalOrganizationLexer.g:33:15: 'description'
+            // InternalOrganizationLexer.g:33:13: ( 'description' )
+            // InternalOrganizationLexer.g:33:15: 'description'
             {
             match("description"); 
 
@@ -109,8 +109,8 @@ public class InternalOrganizationLexer extends Lexer {
         try {
             int _type = Stakeholder;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.organization.ui/src-gen/org/osate/organization/ui/contentassist/antlr/lexer/InternalOrganizationLexer.g:35:13: ( 'stakeholder' )
-            // ../org.osate.organization.ui/src-gen/org/osate/organization/ui/contentassist/antlr/lexer/InternalOrganizationLexer.g:35:15: 'stakeholder'
+            // InternalOrganizationLexer.g:35:13: ( 'stakeholder' )
+            // InternalOrganizationLexer.g:35:15: 'stakeholder'
             {
             match("stakeholder"); 
 
@@ -130,8 +130,8 @@ public class InternalOrganizationLexer extends Lexer {
         try {
             int _type = Supervisor;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.organization.ui/src-gen/org/osate/organization/ui/contentassist/antlr/lexer/InternalOrganizationLexer.g:37:12: ( 'supervisor' )
-            // ../org.osate.organization.ui/src-gen/org/osate/organization/ui/contentassist/antlr/lexer/InternalOrganizationLexer.g:37:14: 'supervisor'
+            // InternalOrganizationLexer.g:37:12: ( 'supervisor' )
+            // InternalOrganizationLexer.g:37:14: 'supervisor'
             {
             match("supervisor"); 
 
@@ -151,8 +151,8 @@ public class InternalOrganizationLexer extends Lexer {
         try {
             int _type = Email;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.organization.ui/src-gen/org/osate/organization/ui/contentassist/antlr/lexer/InternalOrganizationLexer.g:39:7: ( 'email' )
-            // ../org.osate.organization.ui/src-gen/org/osate/organization/ui/contentassist/antlr/lexer/InternalOrganizationLexer.g:39:9: 'email'
+            // InternalOrganizationLexer.g:39:7: ( 'email' )
+            // InternalOrganizationLexer.g:39:9: 'email'
             {
             match("email"); 
 
@@ -172,8 +172,8 @@ public class InternalOrganizationLexer extends Lexer {
         try {
             int _type = Phone;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.organization.ui/src-gen/org/osate/organization/ui/contentassist/antlr/lexer/InternalOrganizationLexer.g:41:7: ( 'phone' )
-            // ../org.osate.organization.ui/src-gen/org/osate/organization/ui/contentassist/antlr/lexer/InternalOrganizationLexer.g:41:9: 'phone'
+            // InternalOrganizationLexer.g:41:7: ( 'phone' )
+            // InternalOrganizationLexer.g:41:9: 'phone'
             {
             match("phone"); 
 
@@ -193,8 +193,8 @@ public class InternalOrganizationLexer extends Lexer {
         try {
             int _type = Title;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.organization.ui/src-gen/org/osate/organization/ui/contentassist/antlr/lexer/InternalOrganizationLexer.g:43:7: ( 'title' )
-            // ../org.osate.organization.ui/src-gen/org/osate/organization/ui/contentassist/antlr/lexer/InternalOrganizationLexer.g:43:9: 'title'
+            // InternalOrganizationLexer.g:43:7: ( 'title' )
+            // InternalOrganizationLexer.g:43:9: 'title'
             {
             match("title"); 
 
@@ -214,8 +214,8 @@ public class InternalOrganizationLexer extends Lexer {
         try {
             int _type = Full;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.organization.ui/src-gen/org/osate/organization/ui/contentassist/antlr/lexer/InternalOrganizationLexer.g:45:6: ( 'full' )
-            // ../org.osate.organization.ui/src-gen/org/osate/organization/ui/contentassist/antlr/lexer/InternalOrganizationLexer.g:45:8: 'full'
+            // InternalOrganizationLexer.g:45:6: ( 'full' )
+            // InternalOrganizationLexer.g:45:8: 'full'
             {
             match("full"); 
 
@@ -235,8 +235,8 @@ public class InternalOrganizationLexer extends Lexer {
         try {
             int _type = Name;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.organization.ui/src-gen/org/osate/organization/ui/contentassist/antlr/lexer/InternalOrganizationLexer.g:47:6: ( 'name' )
-            // ../org.osate.organization.ui/src-gen/org/osate/organization/ui/contentassist/antlr/lexer/InternalOrganizationLexer.g:47:8: 'name'
+            // InternalOrganizationLexer.g:47:6: ( 'name' )
+            // InternalOrganizationLexer.g:47:8: 'name'
             {
             match("name"); 
 
@@ -256,8 +256,8 @@ public class InternalOrganizationLexer extends Lexer {
         try {
             int _type = Role;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.organization.ui/src-gen/org/osate/organization/ui/contentassist/antlr/lexer/InternalOrganizationLexer.g:49:6: ( 'role' )
-            // ../org.osate.organization.ui/src-gen/org/osate/organization/ui/contentassist/antlr/lexer/InternalOrganizationLexer.g:49:8: 'role'
+            // InternalOrganizationLexer.g:49:6: ( 'role' )
+            // InternalOrganizationLexer.g:49:8: 'role'
             {
             match("role"); 
 
@@ -277,8 +277,8 @@ public class InternalOrganizationLexer extends Lexer {
         try {
             int _type = FullStop;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.organization.ui/src-gen/org/osate/organization/ui/contentassist/antlr/lexer/InternalOrganizationLexer.g:51:10: ( '.' )
-            // ../org.osate.organization.ui/src-gen/org/osate/organization/ui/contentassist/antlr/lexer/InternalOrganizationLexer.g:51:12: '.'
+            // InternalOrganizationLexer.g:51:10: ( '.' )
+            // InternalOrganizationLexer.g:51:12: '.'
             {
             match('.'); 
 
@@ -297,8 +297,8 @@ public class InternalOrganizationLexer extends Lexer {
         try {
             int _type = LeftSquareBracket;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.organization.ui/src-gen/org/osate/organization/ui/contentassist/antlr/lexer/InternalOrganizationLexer.g:53:19: ( '[' )
-            // ../org.osate.organization.ui/src-gen/org/osate/organization/ui/contentassist/antlr/lexer/InternalOrganizationLexer.g:53:21: '['
+            // InternalOrganizationLexer.g:53:19: ( '[' )
+            // InternalOrganizationLexer.g:53:21: '['
             {
             match('['); 
 
@@ -317,8 +317,8 @@ public class InternalOrganizationLexer extends Lexer {
         try {
             int _type = RightSquareBracket;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.organization.ui/src-gen/org/osate/organization/ui/contentassist/antlr/lexer/InternalOrganizationLexer.g:55:20: ( ']' )
-            // ../org.osate.organization.ui/src-gen/org/osate/organization/ui/contentassist/antlr/lexer/InternalOrganizationLexer.g:55:22: ']'
+            // InternalOrganizationLexer.g:55:20: ( ']' )
+            // InternalOrganizationLexer.g:55:22: ']'
             {
             match(']'); 
 
@@ -337,10 +337,10 @@ public class InternalOrganizationLexer extends Lexer {
         try {
             int _type = RULE_ID;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.organization.ui/src-gen/org/osate/organization/ui/contentassist/antlr/lexer/InternalOrganizationLexer.g:59:9: ( ( '^' )? ( 'a' .. 'z' | 'A' .. 'Z' | '_' ) ( 'a' .. 'z' | 'A' .. 'Z' | '_' | '0' .. '9' )* )
-            // ../org.osate.organization.ui/src-gen/org/osate/organization/ui/contentassist/antlr/lexer/InternalOrganizationLexer.g:59:11: ( '^' )? ( 'a' .. 'z' | 'A' .. 'Z' | '_' ) ( 'a' .. 'z' | 'A' .. 'Z' | '_' | '0' .. '9' )*
+            // InternalOrganizationLexer.g:59:9: ( ( '^' )? ( 'a' .. 'z' | 'A' .. 'Z' | '_' ) ( 'a' .. 'z' | 'A' .. 'Z' | '_' | '0' .. '9' )* )
+            // InternalOrganizationLexer.g:59:11: ( '^' )? ( 'a' .. 'z' | 'A' .. 'Z' | '_' ) ( 'a' .. 'z' | 'A' .. 'Z' | '_' | '0' .. '9' )*
             {
-            // ../org.osate.organization.ui/src-gen/org/osate/organization/ui/contentassist/antlr/lexer/InternalOrganizationLexer.g:59:11: ( '^' )?
+            // InternalOrganizationLexer.g:59:11: ( '^' )?
             int alt1=2;
             int LA1_0 = input.LA(1);
 
@@ -349,7 +349,7 @@ public class InternalOrganizationLexer extends Lexer {
             }
             switch (alt1) {
                 case 1 :
-                    // ../org.osate.organization.ui/src-gen/org/osate/organization/ui/contentassist/antlr/lexer/InternalOrganizationLexer.g:59:11: '^'
+                    // InternalOrganizationLexer.g:59:11: '^'
                     {
                     match('^'); 
 
@@ -367,7 +367,7 @@ public class InternalOrganizationLexer extends Lexer {
                 recover(mse);
                 throw mse;}
 
-            // ../org.osate.organization.ui/src-gen/org/osate/organization/ui/contentassist/antlr/lexer/InternalOrganizationLexer.g:59:40: ( 'a' .. 'z' | 'A' .. 'Z' | '_' | '0' .. '9' )*
+            // InternalOrganizationLexer.g:59:40: ( 'a' .. 'z' | 'A' .. 'Z' | '_' | '0' .. '9' )*
             loop2:
             do {
                 int alt2=2;
@@ -380,7 +380,7 @@ public class InternalOrganizationLexer extends Lexer {
 
                 switch (alt2) {
             	case 1 :
-            	    // ../org.osate.organization.ui/src-gen/org/osate/organization/ui/contentassist/antlr/lexer/InternalOrganizationLexer.g:
+            	    // InternalOrganizationLexer.g:
             	    {
             	    if ( (input.LA(1)>='0' && input.LA(1)<='9')||(input.LA(1)>='A' && input.LA(1)<='Z')||input.LA(1)=='_'||(input.LA(1)>='a' && input.LA(1)<='z') ) {
             	        input.consume();
@@ -416,10 +416,10 @@ public class InternalOrganizationLexer extends Lexer {
         try {
             int _type = RULE_INT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.organization.ui/src-gen/org/osate/organization/ui/contentassist/antlr/lexer/InternalOrganizationLexer.g:61:10: ( ( '0' .. '9' )+ )
-            // ../org.osate.organization.ui/src-gen/org/osate/organization/ui/contentassist/antlr/lexer/InternalOrganizationLexer.g:61:12: ( '0' .. '9' )+
+            // InternalOrganizationLexer.g:61:10: ( ( '0' .. '9' )+ )
+            // InternalOrganizationLexer.g:61:12: ( '0' .. '9' )+
             {
-            // ../org.osate.organization.ui/src-gen/org/osate/organization/ui/contentassist/antlr/lexer/InternalOrganizationLexer.g:61:12: ( '0' .. '9' )+
+            // InternalOrganizationLexer.g:61:12: ( '0' .. '9' )+
             int cnt3=0;
             loop3:
             do {
@@ -433,7 +433,7 @@ public class InternalOrganizationLexer extends Lexer {
 
                 switch (alt3) {
             	case 1 :
-            	    // ../org.osate.organization.ui/src-gen/org/osate/organization/ui/contentassist/antlr/lexer/InternalOrganizationLexer.g:61:13: '0' .. '9'
+            	    // InternalOrganizationLexer.g:61:13: '0' .. '9'
             	    {
             	    matchRange('0','9'); 
 
@@ -465,10 +465,10 @@ public class InternalOrganizationLexer extends Lexer {
         try {
             int _type = RULE_STRING;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.organization.ui/src-gen/org/osate/organization/ui/contentassist/antlr/lexer/InternalOrganizationLexer.g:63:13: ( ( '\"' ( '\\\\' . | ~ ( ( '\\\\' | '\"' ) ) )* '\"' | '\\'' ( '\\\\' . | ~ ( ( '\\\\' | '\\'' ) ) )* '\\'' ) )
-            // ../org.osate.organization.ui/src-gen/org/osate/organization/ui/contentassist/antlr/lexer/InternalOrganizationLexer.g:63:15: ( '\"' ( '\\\\' . | ~ ( ( '\\\\' | '\"' ) ) )* '\"' | '\\'' ( '\\\\' . | ~ ( ( '\\\\' | '\\'' ) ) )* '\\'' )
+            // InternalOrganizationLexer.g:63:13: ( ( '\"' ( '\\\\' . | ~ ( ( '\\\\' | '\"' ) ) )* '\"' | '\\'' ( '\\\\' . | ~ ( ( '\\\\' | '\\'' ) ) )* '\\'' ) )
+            // InternalOrganizationLexer.g:63:15: ( '\"' ( '\\\\' . | ~ ( ( '\\\\' | '\"' ) ) )* '\"' | '\\'' ( '\\\\' . | ~ ( ( '\\\\' | '\\'' ) ) )* '\\'' )
             {
-            // ../org.osate.organization.ui/src-gen/org/osate/organization/ui/contentassist/antlr/lexer/InternalOrganizationLexer.g:63:15: ( '\"' ( '\\\\' . | ~ ( ( '\\\\' | '\"' ) ) )* '\"' | '\\'' ( '\\\\' . | ~ ( ( '\\\\' | '\\'' ) ) )* '\\'' )
+            // InternalOrganizationLexer.g:63:15: ( '\"' ( '\\\\' . | ~ ( ( '\\\\' | '\"' ) ) )* '\"' | '\\'' ( '\\\\' . | ~ ( ( '\\\\' | '\\'' ) ) )* '\\'' )
             int alt6=2;
             int LA6_0 = input.LA(1);
 
@@ -486,10 +486,10 @@ public class InternalOrganizationLexer extends Lexer {
             }
             switch (alt6) {
                 case 1 :
-                    // ../org.osate.organization.ui/src-gen/org/osate/organization/ui/contentassist/antlr/lexer/InternalOrganizationLexer.g:63:16: '\"' ( '\\\\' . | ~ ( ( '\\\\' | '\"' ) ) )* '\"'
+                    // InternalOrganizationLexer.g:63:16: '\"' ( '\\\\' . | ~ ( ( '\\\\' | '\"' ) ) )* '\"'
                     {
                     match('\"'); 
-                    // ../org.osate.organization.ui/src-gen/org/osate/organization/ui/contentassist/antlr/lexer/InternalOrganizationLexer.g:63:20: ( '\\\\' . | ~ ( ( '\\\\' | '\"' ) ) )*
+                    // InternalOrganizationLexer.g:63:20: ( '\\\\' . | ~ ( ( '\\\\' | '\"' ) ) )*
                     loop4:
                     do {
                         int alt4=3;
@@ -505,7 +505,7 @@ public class InternalOrganizationLexer extends Lexer {
 
                         switch (alt4) {
                     	case 1 :
-                    	    // ../org.osate.organization.ui/src-gen/org/osate/organization/ui/contentassist/antlr/lexer/InternalOrganizationLexer.g:63:21: '\\\\' .
+                    	    // InternalOrganizationLexer.g:63:21: '\\\\' .
                     	    {
                     	    match('\\'); 
                     	    matchAny(); 
@@ -513,7 +513,7 @@ public class InternalOrganizationLexer extends Lexer {
                     	    }
                     	    break;
                     	case 2 :
-                    	    // ../org.osate.organization.ui/src-gen/org/osate/organization/ui/contentassist/antlr/lexer/InternalOrganizationLexer.g:63:28: ~ ( ( '\\\\' | '\"' ) )
+                    	    // InternalOrganizationLexer.g:63:28: ~ ( ( '\\\\' | '\"' ) )
                     	    {
                     	    if ( (input.LA(1)>='\u0000' && input.LA(1)<='!')||(input.LA(1)>='#' && input.LA(1)<='[')||(input.LA(1)>=']' && input.LA(1)<='\uFFFF') ) {
                     	        input.consume();
@@ -538,10 +538,10 @@ public class InternalOrganizationLexer extends Lexer {
                     }
                     break;
                 case 2 :
-                    // ../org.osate.organization.ui/src-gen/org/osate/organization/ui/contentassist/antlr/lexer/InternalOrganizationLexer.g:63:48: '\\'' ( '\\\\' . | ~ ( ( '\\\\' | '\\'' ) ) )* '\\''
+                    // InternalOrganizationLexer.g:63:48: '\\'' ( '\\\\' . | ~ ( ( '\\\\' | '\\'' ) ) )* '\\''
                     {
                     match('\''); 
-                    // ../org.osate.organization.ui/src-gen/org/osate/organization/ui/contentassist/antlr/lexer/InternalOrganizationLexer.g:63:53: ( '\\\\' . | ~ ( ( '\\\\' | '\\'' ) ) )*
+                    // InternalOrganizationLexer.g:63:53: ( '\\\\' . | ~ ( ( '\\\\' | '\\'' ) ) )*
                     loop5:
                     do {
                         int alt5=3;
@@ -557,7 +557,7 @@ public class InternalOrganizationLexer extends Lexer {
 
                         switch (alt5) {
                     	case 1 :
-                    	    // ../org.osate.organization.ui/src-gen/org/osate/organization/ui/contentassist/antlr/lexer/InternalOrganizationLexer.g:63:54: '\\\\' .
+                    	    // InternalOrganizationLexer.g:63:54: '\\\\' .
                     	    {
                     	    match('\\'); 
                     	    matchAny(); 
@@ -565,7 +565,7 @@ public class InternalOrganizationLexer extends Lexer {
                     	    }
                     	    break;
                     	case 2 :
-                    	    // ../org.osate.organization.ui/src-gen/org/osate/organization/ui/contentassist/antlr/lexer/InternalOrganizationLexer.g:63:61: ~ ( ( '\\\\' | '\\'' ) )
+                    	    // InternalOrganizationLexer.g:63:61: ~ ( ( '\\\\' | '\\'' ) )
                     	    {
                     	    if ( (input.LA(1)>='\u0000' && input.LA(1)<='&')||(input.LA(1)>='(' && input.LA(1)<='[')||(input.LA(1)>=']' && input.LA(1)<='\uFFFF') ) {
                     	        input.consume();
@@ -608,12 +608,12 @@ public class InternalOrganizationLexer extends Lexer {
         try {
             int _type = RULE_ML_COMMENT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.organization.ui/src-gen/org/osate/organization/ui/contentassist/antlr/lexer/InternalOrganizationLexer.g:65:17: ( '/*' ( options {greedy=false; } : . )* '*/' )
-            // ../org.osate.organization.ui/src-gen/org/osate/organization/ui/contentassist/antlr/lexer/InternalOrganizationLexer.g:65:19: '/*' ( options {greedy=false; } : . )* '*/'
+            // InternalOrganizationLexer.g:65:17: ( '/*' ( options {greedy=false; } : . )* '*/' )
+            // InternalOrganizationLexer.g:65:19: '/*' ( options {greedy=false; } : . )* '*/'
             {
             match("/*"); 
 
-            // ../org.osate.organization.ui/src-gen/org/osate/organization/ui/contentassist/antlr/lexer/InternalOrganizationLexer.g:65:24: ( options {greedy=false; } : . )*
+            // InternalOrganizationLexer.g:65:24: ( options {greedy=false; } : . )*
             loop7:
             do {
                 int alt7=2;
@@ -638,7 +638,7 @@ public class InternalOrganizationLexer extends Lexer {
 
                 switch (alt7) {
             	case 1 :
-            	    // ../org.osate.organization.ui/src-gen/org/osate/organization/ui/contentassist/antlr/lexer/InternalOrganizationLexer.g:65:52: .
+            	    // InternalOrganizationLexer.g:65:52: .
             	    {
             	    matchAny(); 
 
@@ -668,12 +668,12 @@ public class InternalOrganizationLexer extends Lexer {
         try {
             int _type = RULE_SL_COMMENT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.organization.ui/src-gen/org/osate/organization/ui/contentassist/antlr/lexer/InternalOrganizationLexer.g:67:17: ( '//' (~ ( ( '\\n' | '\\r' ) ) )* ( ( '\\r' )? '\\n' )? )
-            // ../org.osate.organization.ui/src-gen/org/osate/organization/ui/contentassist/antlr/lexer/InternalOrganizationLexer.g:67:19: '//' (~ ( ( '\\n' | '\\r' ) ) )* ( ( '\\r' )? '\\n' )?
+            // InternalOrganizationLexer.g:67:17: ( '//' (~ ( ( '\\n' | '\\r' ) ) )* ( ( '\\r' )? '\\n' )? )
+            // InternalOrganizationLexer.g:67:19: '//' (~ ( ( '\\n' | '\\r' ) ) )* ( ( '\\r' )? '\\n' )?
             {
             match("//"); 
 
-            // ../org.osate.organization.ui/src-gen/org/osate/organization/ui/contentassist/antlr/lexer/InternalOrganizationLexer.g:67:24: (~ ( ( '\\n' | '\\r' ) ) )*
+            // InternalOrganizationLexer.g:67:24: (~ ( ( '\\n' | '\\r' ) ) )*
             loop8:
             do {
                 int alt8=2;
@@ -686,7 +686,7 @@ public class InternalOrganizationLexer extends Lexer {
 
                 switch (alt8) {
             	case 1 :
-            	    // ../org.osate.organization.ui/src-gen/org/osate/organization/ui/contentassist/antlr/lexer/InternalOrganizationLexer.g:67:24: ~ ( ( '\\n' | '\\r' ) )
+            	    // InternalOrganizationLexer.g:67:24: ~ ( ( '\\n' | '\\r' ) )
             	    {
             	    if ( (input.LA(1)>='\u0000' && input.LA(1)<='\t')||(input.LA(1)>='\u000B' && input.LA(1)<='\f')||(input.LA(1)>='\u000E' && input.LA(1)<='\uFFFF') ) {
             	        input.consume();
@@ -706,7 +706,7 @@ public class InternalOrganizationLexer extends Lexer {
                 }
             } while (true);
 
-            // ../org.osate.organization.ui/src-gen/org/osate/organization/ui/contentassist/antlr/lexer/InternalOrganizationLexer.g:67:40: ( ( '\\r' )? '\\n' )?
+            // InternalOrganizationLexer.g:67:40: ( ( '\\r' )? '\\n' )?
             int alt10=2;
             int LA10_0 = input.LA(1);
 
@@ -715,9 +715,9 @@ public class InternalOrganizationLexer extends Lexer {
             }
             switch (alt10) {
                 case 1 :
-                    // ../org.osate.organization.ui/src-gen/org/osate/organization/ui/contentassist/antlr/lexer/InternalOrganizationLexer.g:67:41: ( '\\r' )? '\\n'
+                    // InternalOrganizationLexer.g:67:41: ( '\\r' )? '\\n'
                     {
-                    // ../org.osate.organization.ui/src-gen/org/osate/organization/ui/contentassist/antlr/lexer/InternalOrganizationLexer.g:67:41: ( '\\r' )?
+                    // InternalOrganizationLexer.g:67:41: ( '\\r' )?
                     int alt9=2;
                     int LA9_0 = input.LA(1);
 
@@ -726,7 +726,7 @@ public class InternalOrganizationLexer extends Lexer {
                     }
                     switch (alt9) {
                         case 1 :
-                            // ../org.osate.organization.ui/src-gen/org/osate/organization/ui/contentassist/antlr/lexer/InternalOrganizationLexer.g:67:41: '\\r'
+                            // InternalOrganizationLexer.g:67:41: '\\r'
                             {
                             match('\r'); 
 
@@ -758,10 +758,10 @@ public class InternalOrganizationLexer extends Lexer {
         try {
             int _type = RULE_WS;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.organization.ui/src-gen/org/osate/organization/ui/contentassist/antlr/lexer/InternalOrganizationLexer.g:69:9: ( ( ' ' | '\\t' | '\\r' | '\\n' )+ )
-            // ../org.osate.organization.ui/src-gen/org/osate/organization/ui/contentassist/antlr/lexer/InternalOrganizationLexer.g:69:11: ( ' ' | '\\t' | '\\r' | '\\n' )+
+            // InternalOrganizationLexer.g:69:9: ( ( ' ' | '\\t' | '\\r' | '\\n' )+ )
+            // InternalOrganizationLexer.g:69:11: ( ' ' | '\\t' | '\\r' | '\\n' )+
             {
-            // ../org.osate.organization.ui/src-gen/org/osate/organization/ui/contentassist/antlr/lexer/InternalOrganizationLexer.g:69:11: ( ' ' | '\\t' | '\\r' | '\\n' )+
+            // InternalOrganizationLexer.g:69:11: ( ' ' | '\\t' | '\\r' | '\\n' )+
             int cnt11=0;
             loop11:
             do {
@@ -775,7 +775,7 @@ public class InternalOrganizationLexer extends Lexer {
 
                 switch (alt11) {
             	case 1 :
-            	    // ../org.osate.organization.ui/src-gen/org/osate/organization/ui/contentassist/antlr/lexer/InternalOrganizationLexer.g:
+            	    // InternalOrganizationLexer.g:
             	    {
             	    if ( (input.LA(1)>='\t' && input.LA(1)<='\n')||input.LA(1)=='\r'||input.LA(1)==' ' ) {
             	        input.consume();
@@ -815,8 +815,8 @@ public class InternalOrganizationLexer extends Lexer {
         try {
             int _type = RULE_ANY_OTHER;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.organization.ui/src-gen/org/osate/organization/ui/contentassist/antlr/lexer/InternalOrganizationLexer.g:71:16: ( . )
-            // ../org.osate.organization.ui/src-gen/org/osate/organization/ui/contentassist/antlr/lexer/InternalOrganizationLexer.g:71:18: .
+            // InternalOrganizationLexer.g:71:16: ( . )
+            // InternalOrganizationLexer.g:71:18: .
             {
             matchAny(); 
 
@@ -831,145 +831,145 @@ public class InternalOrganizationLexer extends Lexer {
     // $ANTLR end "RULE_ANY_OTHER"
 
     public void mTokens() throws RecognitionException {
-        // ../org.osate.organization.ui/src-gen/org/osate/organization/ui/contentassist/antlr/lexer/InternalOrganizationLexer.g:1:8: ( Organization | Description | Stakeholder | Supervisor | Email | Phone | Title | Full | Name | Role | FullStop | LeftSquareBracket | RightSquareBracket | RULE_ID | RULE_INT | RULE_STRING | RULE_ML_COMMENT | RULE_SL_COMMENT | RULE_WS | RULE_ANY_OTHER )
+        // InternalOrganizationLexer.g:1:8: ( Organization | Description | Stakeholder | Supervisor | Email | Phone | Title | Full | Name | Role | FullStop | LeftSquareBracket | RightSquareBracket | RULE_ID | RULE_INT | RULE_STRING | RULE_ML_COMMENT | RULE_SL_COMMENT | RULE_WS | RULE_ANY_OTHER )
         int alt12=20;
         alt12 = dfa12.predict(input);
         switch (alt12) {
             case 1 :
-                // ../org.osate.organization.ui/src-gen/org/osate/organization/ui/contentassist/antlr/lexer/InternalOrganizationLexer.g:1:10: Organization
+                // InternalOrganizationLexer.g:1:10: Organization
                 {
                 mOrganization(); 
 
                 }
                 break;
             case 2 :
-                // ../org.osate.organization.ui/src-gen/org/osate/organization/ui/contentassist/antlr/lexer/InternalOrganizationLexer.g:1:23: Description
+                // InternalOrganizationLexer.g:1:23: Description
                 {
                 mDescription(); 
 
                 }
                 break;
             case 3 :
-                // ../org.osate.organization.ui/src-gen/org/osate/organization/ui/contentassist/antlr/lexer/InternalOrganizationLexer.g:1:35: Stakeholder
+                // InternalOrganizationLexer.g:1:35: Stakeholder
                 {
                 mStakeholder(); 
 
                 }
                 break;
             case 4 :
-                // ../org.osate.organization.ui/src-gen/org/osate/organization/ui/contentassist/antlr/lexer/InternalOrganizationLexer.g:1:47: Supervisor
+                // InternalOrganizationLexer.g:1:47: Supervisor
                 {
                 mSupervisor(); 
 
                 }
                 break;
             case 5 :
-                // ../org.osate.organization.ui/src-gen/org/osate/organization/ui/contentassist/antlr/lexer/InternalOrganizationLexer.g:1:58: Email
+                // InternalOrganizationLexer.g:1:58: Email
                 {
                 mEmail(); 
 
                 }
                 break;
             case 6 :
-                // ../org.osate.organization.ui/src-gen/org/osate/organization/ui/contentassist/antlr/lexer/InternalOrganizationLexer.g:1:64: Phone
+                // InternalOrganizationLexer.g:1:64: Phone
                 {
                 mPhone(); 
 
                 }
                 break;
             case 7 :
-                // ../org.osate.organization.ui/src-gen/org/osate/organization/ui/contentassist/antlr/lexer/InternalOrganizationLexer.g:1:70: Title
+                // InternalOrganizationLexer.g:1:70: Title
                 {
                 mTitle(); 
 
                 }
                 break;
             case 8 :
-                // ../org.osate.organization.ui/src-gen/org/osate/organization/ui/contentassist/antlr/lexer/InternalOrganizationLexer.g:1:76: Full
+                // InternalOrganizationLexer.g:1:76: Full
                 {
                 mFull(); 
 
                 }
                 break;
             case 9 :
-                // ../org.osate.organization.ui/src-gen/org/osate/organization/ui/contentassist/antlr/lexer/InternalOrganizationLexer.g:1:81: Name
+                // InternalOrganizationLexer.g:1:81: Name
                 {
                 mName(); 
 
                 }
                 break;
             case 10 :
-                // ../org.osate.organization.ui/src-gen/org/osate/organization/ui/contentassist/antlr/lexer/InternalOrganizationLexer.g:1:86: Role
+                // InternalOrganizationLexer.g:1:86: Role
                 {
                 mRole(); 
 
                 }
                 break;
             case 11 :
-                // ../org.osate.organization.ui/src-gen/org/osate/organization/ui/contentassist/antlr/lexer/InternalOrganizationLexer.g:1:91: FullStop
+                // InternalOrganizationLexer.g:1:91: FullStop
                 {
                 mFullStop(); 
 
                 }
                 break;
             case 12 :
-                // ../org.osate.organization.ui/src-gen/org/osate/organization/ui/contentassist/antlr/lexer/InternalOrganizationLexer.g:1:100: LeftSquareBracket
+                // InternalOrganizationLexer.g:1:100: LeftSquareBracket
                 {
                 mLeftSquareBracket(); 
 
                 }
                 break;
             case 13 :
-                // ../org.osate.organization.ui/src-gen/org/osate/organization/ui/contentassist/antlr/lexer/InternalOrganizationLexer.g:1:118: RightSquareBracket
+                // InternalOrganizationLexer.g:1:118: RightSquareBracket
                 {
                 mRightSquareBracket(); 
 
                 }
                 break;
             case 14 :
-                // ../org.osate.organization.ui/src-gen/org/osate/organization/ui/contentassist/antlr/lexer/InternalOrganizationLexer.g:1:137: RULE_ID
+                // InternalOrganizationLexer.g:1:137: RULE_ID
                 {
                 mRULE_ID(); 
 
                 }
                 break;
             case 15 :
-                // ../org.osate.organization.ui/src-gen/org/osate/organization/ui/contentassist/antlr/lexer/InternalOrganizationLexer.g:1:145: RULE_INT
+                // InternalOrganizationLexer.g:1:145: RULE_INT
                 {
                 mRULE_INT(); 
 
                 }
                 break;
             case 16 :
-                // ../org.osate.organization.ui/src-gen/org/osate/organization/ui/contentassist/antlr/lexer/InternalOrganizationLexer.g:1:154: RULE_STRING
+                // InternalOrganizationLexer.g:1:154: RULE_STRING
                 {
                 mRULE_STRING(); 
 
                 }
                 break;
             case 17 :
-                // ../org.osate.organization.ui/src-gen/org/osate/organization/ui/contentassist/antlr/lexer/InternalOrganizationLexer.g:1:166: RULE_ML_COMMENT
+                // InternalOrganizationLexer.g:1:166: RULE_ML_COMMENT
                 {
                 mRULE_ML_COMMENT(); 
 
                 }
                 break;
             case 18 :
-                // ../org.osate.organization.ui/src-gen/org/osate/organization/ui/contentassist/antlr/lexer/InternalOrganizationLexer.g:1:182: RULE_SL_COMMENT
+                // InternalOrganizationLexer.g:1:182: RULE_SL_COMMENT
                 {
                 mRULE_SL_COMMENT(); 
 
                 }
                 break;
             case 19 :
-                // ../org.osate.organization.ui/src-gen/org/osate/organization/ui/contentassist/antlr/lexer/InternalOrganizationLexer.g:1:198: RULE_WS
+                // InternalOrganizationLexer.g:1:198: RULE_WS
                 {
                 mRULE_WS(); 
 
                 }
                 break;
             case 20 :
-                // ../org.osate.organization.ui/src-gen/org/osate/organization/ui/contentassist/antlr/lexer/InternalOrganizationLexer.g:1:206: RULE_ANY_OTHER
+                // InternalOrganizationLexer.g:1:206: RULE_ANY_OTHER
                 {
                 mRULE_ANY_OTHER(); 
 

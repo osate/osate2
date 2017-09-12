@@ -45,9 +45,9 @@ class ReqSpecOutlineTreeProvider extends DefaultOutlineTreeProvider {
 	override _createNode(IOutlineNode parentNode, EObject modelElement) {
 		var text = textDispatcher.invoke(modelElement)
 		val isLeaf = isLeafDispatcher.invoke(modelElement)
-		if (text == null && isLeaf)
+		if (text === null && isLeaf)
 			return;
-		if (text == null && Description.isInstance(modelElement)){
+		if (text === null && Description.isInstance(modelElement)){
 			text = (modelElement as Description).toText(null)
 //			text = "description"
 		}

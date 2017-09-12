@@ -111,8 +111,8 @@ public abstract class AbstractCommonRuntimeModule extends org.eclipse.xtext.serv
 	}
 
 	// contributed by org.eclipse.xtext.generator.validation.ValidatorFragment
-	@org.eclipse.xtext.service.SingletonBinding(eager=true)	public Class<? extends org.osate.alisa.common.validation.CommonValidator> bindCommonValidator() {
-		return org.osate.alisa.common.validation.CommonValidator.class;
+	@org.eclipse.xtext.service.SingletonBinding(eager=true)	public Class<? extends org.osate.alisa.common.validation.AbstractCommonValidator> bindAbstractCommonValidator() {
+		return org.osate.alisa.common.validation.AbstractCommonValidator.class;
 	}
 
 	// contributed by org.eclipse.xtext.generator.scoping.AbstractScopingFragment

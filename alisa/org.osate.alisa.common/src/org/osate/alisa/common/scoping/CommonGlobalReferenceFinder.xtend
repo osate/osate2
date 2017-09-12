@@ -104,7 +104,7 @@ class CommonGlobalReferenceFinder implements ICommonGlobalReferenceFinder {
 	override Iterable<IEObjectDescription> getEObjectDescriptions(EObject context, EClass eclass, String URIExtension) {
 		val result = new ArrayList<IEObjectDescription>
 		val IResourceDescription descr = rds.getResourceDescription(context.eResource.getURI());
-		if(descr == null) return result
+		if(descr === null) return result
 		for (IContainer visibleContainer : manager.getVisibleContainers(descr, rds)) {
 			for (IResourceDescription rd : visibleContainer.getResourceDescriptions().filter [ d |
 				isURIExtension(d.URI, URIExtension)
@@ -124,13 +124,13 @@ class CommonGlobalReferenceFinder implements ICommonGlobalReferenceFinder {
 	override Iterable<IEObjectDescription> getDuplicates(EObject target) {
 		val res = new Stack<IEObjectDescription>()
 		val context = target.eResource();
-		if (context == null || context.getResourceSet() == null) {
+		if (context === null || context.getResourceSet() === null) {
 			return Collections.EMPTY_LIST;
 		}
 		val qn = qualifiedNameProvider?.getFullyQualifiedName(target)
-		if(qn == null) return Collections.EMPTY_LIST;
+		if(qn === null) return Collections.EMPTY_LIST;
 		val IResourceDescription descr = rds.getResourceDescription(context.getURI());
-		if(descr == null) return res
+		if(descr === null) return res
 		for (IContainer container : manager.getVisibleContainers(descr, rds)) {
 			val eds = container.getExportedObjects(target.eClass(), qn, true)
 			if (!container.hasResourceDescription(context.getURI())) {

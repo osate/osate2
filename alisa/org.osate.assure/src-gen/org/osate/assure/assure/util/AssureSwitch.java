@@ -226,6 +226,16 @@ public class AssureSwitch<T> extends Switch<T>
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
+      case AssurePackage.PREDICATE_RESULT:
+      {
+        PredicateResult predicateResult = (PredicateResult)theEObject;
+        T result = casePredicateResult(predicateResult);
+        if (result == null) result = caseVerificationResult(predicateResult);
+        if (result == null) result = caseVerificationExpr(predicateResult);
+        if (result == null) result = caseAssureResult(predicateResult);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
       default: return defaultCase(theEObject);
     }
   }
@@ -498,6 +508,22 @@ public class AssureSwitch<T> extends Switch<T>
    * @generated
    */
   public T caseVerificationActivityResult(VerificationActivityResult object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Predicate Result</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Predicate Result</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T casePredicateResult(PredicateResult object)
   {
     return null;
   }

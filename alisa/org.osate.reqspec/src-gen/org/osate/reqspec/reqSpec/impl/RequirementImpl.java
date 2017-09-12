@@ -51,13 +51,13 @@ import org.osate.reqspec.reqSpec.Requirement;
  * The following features are implemented:
  * </p>
  * <ul>
- *   <li>{@link org.osate.reqspec.reqSpec.impl.RequirementImpl#getComputes <em>Computes</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.impl.RequirementImpl#getPredicate <em>Predicate</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.impl.RequirementImpl#getException <em>Exception</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.impl.RequirementImpl#getExceptionText <em>Exception Text</em>}</li>
+ *   <li>{@link org.osate.reqspec.reqSpec.impl.RequirementImpl#getInheritsReference <em>Inherits Reference</em>}</li>
+ *   <li>{@link org.osate.reqspec.reqSpec.impl.RequirementImpl#getComputes <em>Computes</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.impl.RequirementImpl#getRefinesReference <em>Refines Reference</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.impl.RequirementImpl#getDecomposesReference <em>Decomposes Reference</em>}</li>
- *   <li>{@link org.osate.reqspec.reqSpec.impl.RequirementImpl#getInheritsReference <em>Inherits Reference</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.impl.RequirementImpl#getDevelopmentStakeholder <em>Development Stakeholder</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.impl.RequirementImpl#getRequirementReference <em>Requirement Reference</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.impl.RequirementImpl#getComponentCategory <em>Component Category</em>}</li>
@@ -68,16 +68,6 @@ import org.osate.reqspec.reqSpec.Requirement;
  */
 public class RequirementImpl extends ContractualElementImpl implements Requirement
 {
-  /**
-   * The cached value of the '{@link #getComputes() <em>Computes</em>}' containment reference list.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getComputes()
-   * @generated
-   * @ordered
-   */
-  protected EList<AVariableDeclaration> computes;
-
   /**
    * The cached value of the '{@link #getPredicate() <em>Predicate</em>}' containment reference.
    * <!-- begin-user-doc -->
@@ -119,6 +109,26 @@ public class RequirementImpl extends ContractualElementImpl implements Requireme
   protected String exceptionText = EXCEPTION_TEXT_EDEFAULT;
 
   /**
+   * The cached value of the '{@link #getInheritsReference() <em>Inherits Reference</em>}' reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getInheritsReference()
+   * @generated
+   * @ordered
+   */
+  protected Requirement inheritsReference;
+
+  /**
+   * The cached value of the '{@link #getComputes() <em>Computes</em>}' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getComputes()
+   * @generated
+   * @ordered
+   */
+  protected EList<AVariableDeclaration> computes;
+
+  /**
    * The cached value of the '{@link #getRefinesReference() <em>Refines Reference</em>}' reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -137,16 +147,6 @@ public class RequirementImpl extends ContractualElementImpl implements Requireme
    * @ordered
    */
   protected EList<Requirement> decomposesReference;
-
-  /**
-   * The cached value of the '{@link #getInheritsReference() <em>Inherits Reference</em>}' reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getInheritsReference()
-   * @generated
-   * @ordered
-   */
-  protected Requirement inheritsReference;
 
   /**
    * The cached value of the '{@link #getDevelopmentStakeholder() <em>Development Stakeholder</em>}' reference list.
@@ -217,20 +217,6 @@ public class RequirementImpl extends ContractualElementImpl implements Requireme
   protected EClass eStaticClass()
   {
     return ReqSpecPackage.Literals.REQUIREMENT;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EList<AVariableDeclaration> getComputes()
-  {
-    if (computes == null)
-    {
-      computes = new EObjectContainmentEList<AVariableDeclaration>(AVariableDeclaration.class, this, ReqSpecPackage.REQUIREMENT__COMPUTES);
-    }
-    return computes;
   }
 
   /**
@@ -352,34 +338,6 @@ public class RequirementImpl extends ContractualElementImpl implements Requireme
    * <!-- end-user-doc -->
    * @generated
    */
-  public EList<Requirement> getRefinesReference()
-  {
-    if (refinesReference == null)
-    {
-      refinesReference = new EObjectResolvingEList<Requirement>(Requirement.class, this, ReqSpecPackage.REQUIREMENT__REFINES_REFERENCE);
-    }
-    return refinesReference;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EList<Requirement> getDecomposesReference()
-  {
-    if (decomposesReference == null)
-    {
-      decomposesReference = new EObjectResolvingEList<Requirement>(Requirement.class, this, ReqSpecPackage.REQUIREMENT__DECOMPOSES_REFERENCE);
-    }
-    return decomposesReference;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
   public Requirement getInheritsReference()
   {
     if (inheritsReference != null && inheritsReference.eIsProxy())
@@ -416,6 +374,48 @@ public class RequirementImpl extends ContractualElementImpl implements Requireme
     inheritsReference = newInheritsReference;
     if (eNotificationRequired())
       eNotify(new ENotificationImpl(this, Notification.SET, ReqSpecPackage.REQUIREMENT__INHERITS_REFERENCE, oldInheritsReference, inheritsReference));
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EList<AVariableDeclaration> getComputes()
+  {
+    if (computes == null)
+    {
+      computes = new EObjectContainmentEList<AVariableDeclaration>(AVariableDeclaration.class, this, ReqSpecPackage.REQUIREMENT__COMPUTES);
+    }
+    return computes;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EList<Requirement> getRefinesReference()
+  {
+    if (refinesReference == null)
+    {
+      refinesReference = new EObjectResolvingEList<Requirement>(Requirement.class, this, ReqSpecPackage.REQUIREMENT__REFINES_REFERENCE);
+    }
+    return refinesReference;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EList<Requirement> getDecomposesReference()
+  {
+    if (decomposesReference == null)
+    {
+      decomposesReference = new EObjectResolvingEList<Requirement>(Requirement.class, this, ReqSpecPackage.REQUIREMENT__DECOMPOSES_REFERENCE);
+    }
+    return decomposesReference;
   }
 
   /**
@@ -493,10 +493,10 @@ public class RequirementImpl extends ContractualElementImpl implements Requireme
   {
     switch (featureID)
     {
-      case ReqSpecPackage.REQUIREMENT__COMPUTES:
-        return ((InternalEList<?>)getComputes()).basicRemove(otherEnd, msgs);
       case ReqSpecPackage.REQUIREMENT__PREDICATE:
         return basicSetPredicate(null, msgs);
+      case ReqSpecPackage.REQUIREMENT__COMPUTES:
+        return ((InternalEList<?>)getComputes()).basicRemove(otherEnd, msgs);
     }
     return super.eInverseRemove(otherEnd, featureID, msgs);
   }
@@ -511,8 +511,6 @@ public class RequirementImpl extends ContractualElementImpl implements Requireme
   {
     switch (featureID)
     {
-      case ReqSpecPackage.REQUIREMENT__COMPUTES:
-        return getComputes();
       case ReqSpecPackage.REQUIREMENT__PREDICATE:
         return getPredicate();
       case ReqSpecPackage.REQUIREMENT__EXCEPTION:
@@ -520,13 +518,15 @@ public class RequirementImpl extends ContractualElementImpl implements Requireme
         return basicGetException();
       case ReqSpecPackage.REQUIREMENT__EXCEPTION_TEXT:
         return getExceptionText();
+      case ReqSpecPackage.REQUIREMENT__INHERITS_REFERENCE:
+        if (resolve) return getInheritsReference();
+        return basicGetInheritsReference();
+      case ReqSpecPackage.REQUIREMENT__COMPUTES:
+        return getComputes();
       case ReqSpecPackage.REQUIREMENT__REFINES_REFERENCE:
         return getRefinesReference();
       case ReqSpecPackage.REQUIREMENT__DECOMPOSES_REFERENCE:
         return getDecomposesReference();
-      case ReqSpecPackage.REQUIREMENT__INHERITS_REFERENCE:
-        if (resolve) return getInheritsReference();
-        return basicGetInheritsReference();
       case ReqSpecPackage.REQUIREMENT__DEVELOPMENT_STAKEHOLDER:
         return getDevelopmentStakeholder();
       case ReqSpecPackage.REQUIREMENT__REQUIREMENT_REFERENCE:
@@ -550,10 +550,6 @@ public class RequirementImpl extends ContractualElementImpl implements Requireme
   {
     switch (featureID)
     {
-      case ReqSpecPackage.REQUIREMENT__COMPUTES:
-        getComputes().clear();
-        getComputes().addAll((Collection<? extends AVariableDeclaration>)newValue);
-        return;
       case ReqSpecPackage.REQUIREMENT__PREDICATE:
         setPredicate((ReqPredicate)newValue);
         return;
@@ -563,6 +559,13 @@ public class RequirementImpl extends ContractualElementImpl implements Requireme
       case ReqSpecPackage.REQUIREMENT__EXCEPTION_TEXT:
         setExceptionText((String)newValue);
         return;
+      case ReqSpecPackage.REQUIREMENT__INHERITS_REFERENCE:
+        setInheritsReference((Requirement)newValue);
+        return;
+      case ReqSpecPackage.REQUIREMENT__COMPUTES:
+        getComputes().clear();
+        getComputes().addAll((Collection<? extends AVariableDeclaration>)newValue);
+        return;
       case ReqSpecPackage.REQUIREMENT__REFINES_REFERENCE:
         getRefinesReference().clear();
         getRefinesReference().addAll((Collection<? extends Requirement>)newValue);
@@ -570,9 +573,6 @@ public class RequirementImpl extends ContractualElementImpl implements Requireme
       case ReqSpecPackage.REQUIREMENT__DECOMPOSES_REFERENCE:
         getDecomposesReference().clear();
         getDecomposesReference().addAll((Collection<? extends Requirement>)newValue);
-        return;
-      case ReqSpecPackage.REQUIREMENT__INHERITS_REFERENCE:
-        setInheritsReference((Requirement)newValue);
         return;
       case ReqSpecPackage.REQUIREMENT__DEVELOPMENT_STAKEHOLDER:
         getDevelopmentStakeholder().clear();
@@ -603,9 +603,6 @@ public class RequirementImpl extends ContractualElementImpl implements Requireme
   {
     switch (featureID)
     {
-      case ReqSpecPackage.REQUIREMENT__COMPUTES:
-        getComputes().clear();
-        return;
       case ReqSpecPackage.REQUIREMENT__PREDICATE:
         setPredicate((ReqPredicate)null);
         return;
@@ -615,14 +612,17 @@ public class RequirementImpl extends ContractualElementImpl implements Requireme
       case ReqSpecPackage.REQUIREMENT__EXCEPTION_TEXT:
         setExceptionText(EXCEPTION_TEXT_EDEFAULT);
         return;
+      case ReqSpecPackage.REQUIREMENT__INHERITS_REFERENCE:
+        setInheritsReference((Requirement)null);
+        return;
+      case ReqSpecPackage.REQUIREMENT__COMPUTES:
+        getComputes().clear();
+        return;
       case ReqSpecPackage.REQUIREMENT__REFINES_REFERENCE:
         getRefinesReference().clear();
         return;
       case ReqSpecPackage.REQUIREMENT__DECOMPOSES_REFERENCE:
         getDecomposesReference().clear();
-        return;
-      case ReqSpecPackage.REQUIREMENT__INHERITS_REFERENCE:
-        setInheritsReference((Requirement)null);
         return;
       case ReqSpecPackage.REQUIREMENT__DEVELOPMENT_STAKEHOLDER:
         getDevelopmentStakeholder().clear();
@@ -650,20 +650,20 @@ public class RequirementImpl extends ContractualElementImpl implements Requireme
   {
     switch (featureID)
     {
-      case ReqSpecPackage.REQUIREMENT__COMPUTES:
-        return computes != null && !computes.isEmpty();
       case ReqSpecPackage.REQUIREMENT__PREDICATE:
         return predicate != null;
       case ReqSpecPackage.REQUIREMENT__EXCEPTION:
         return exception != null;
       case ReqSpecPackage.REQUIREMENT__EXCEPTION_TEXT:
         return EXCEPTION_TEXT_EDEFAULT == null ? exceptionText != null : !EXCEPTION_TEXT_EDEFAULT.equals(exceptionText);
+      case ReqSpecPackage.REQUIREMENT__INHERITS_REFERENCE:
+        return inheritsReference != null;
+      case ReqSpecPackage.REQUIREMENT__COMPUTES:
+        return computes != null && !computes.isEmpty();
       case ReqSpecPackage.REQUIREMENT__REFINES_REFERENCE:
         return refinesReference != null && !refinesReference.isEmpty();
       case ReqSpecPackage.REQUIREMENT__DECOMPOSES_REFERENCE:
         return decomposesReference != null && !decomposesReference.isEmpty();
-      case ReqSpecPackage.REQUIREMENT__INHERITS_REFERENCE:
-        return inheritsReference != null;
       case ReqSpecPackage.REQUIREMENT__DEVELOPMENT_STAKEHOLDER:
         return developmentStakeholder != null && !developmentStakeholder.isEmpty();
       case ReqSpecPackage.REQUIREMENT__REQUIREMENT_REFERENCE:

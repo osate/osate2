@@ -89,7 +89,7 @@ Workflow {
  		registerGeneratedEPackage = "org.osate.reqspec.reqSpec.ReqSpecPackage"
 		registerGenModelFile = "platform:/resource/org.osate.reqspec/model/generated/ReqSpec.genmodel"
  		registerGeneratedEPackage = "com.rockwellcollins.atc.resolute.resolute.ResolutePackage"
-		registerGenModelFile = "platform:/resource/com.rockwellcollins.atc.resolute/src-gen/com/rockwellcollins/atc/resolute/Resolute.genmodel"
+		registerGenModelFile = "platform:/resource/com.rockwellcollins.atc.resolute/model/generated/Resolute.genmodel"
     }
     
     component = @GenerateVerify2 {}

@@ -40,7 +40,7 @@ import org.osate.alisa.workbench.alisa.AssurancePlan
 class AlisaScopeProvider extends CommonScopeProvider {
 	def scope_Subcomponent(AssurancePlan context, EReference reference) {
 		val targetClassifier = context.target
-		if (targetClassifier != null) {
+		if (targetClassifier !== null) {
 //			targetClassifier.getAllFeatures.scopeFor
 			return new SimpleScope(IScope::NULLSCOPE,
 				Scopes::scopedElementsFor(targetClassifier.allSubcomponents,

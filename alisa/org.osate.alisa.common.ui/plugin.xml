@@ -143,11 +143,6 @@
             id="org.osate.alisa.common.ui.commands.category"
             name="Sample Category">
       </category>
-      <command
-            categoryId="org.osate.alisa.common.ui.commands.category"
-            id="org.osate.alisa.common.ui.commands.spotlightExportCommand"
-            name="Export">
-      </command>
       
     </extension>
     <extension point="org.eclipse.ui.menus">
@@ -410,15 +405,6 @@
      <module
            class="org.osate.alisa.common.ui.shared.AlisaSharedContribution">
      </module>
-  </extension>
-  <extension
-        point="org.eclipse.ui.bindings">
-     <key
-           commandId="org.osate.alisa.common.ui.commands.spotlightExportCommand"
-           contextId="org.eclipse.ui.contexts.window"
-           schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"
-           sequence="M1+6">
-     </key>
   </extension>
 
 </plugin>

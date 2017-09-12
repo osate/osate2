@@ -96,7 +96,7 @@ ruleCategoriesDefinitions returns [EObject current=null]
        			$current, 
        			"categories",
         		lv_categories_0_0, 
-        		"Categories");
+        		"org.osate.categories.Categories.Categories");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -114,7 +114,7 @@ ruleCategoriesDefinitions returns [EObject current=null]
        			$current, 
        			"categoryFilters",
         		lv_categoryFilters_1_0, 
-        		"CategoryFilter");
+        		"org.osate.categories.Categories.CategoryFilter");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -154,7 +154,7 @@ ruleCategories returns [EObject current=null]
        			$current, 
        			"name",
         		lv_name_0_0, 
-        		"ID");
+        		"org.eclipse.xtext.common.Terminals.ID");
 	    }
 
 )
@@ -176,7 +176,7 @@ ruleCategories returns [EObject current=null]
        			$current, 
        			"category",
         		lv_category_2_0, 
-        		"Category");
+        		"org.osate.categories.Categories.Category");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -221,7 +221,7 @@ ruleCategory returns [EObject current=null]
        			$current, 
        			"name",
         		lv_name_0_0, 
-        		"ID");
+        		"org.eclipse.xtext.common.Terminals.ID");
 	    }
 
 )
@@ -265,7 +265,7 @@ ruleCategoryFilter returns [EObject current=null]
        			$current, 
        			"name",
         		lv_name_1_0, 
-        		"ID");
+        		"org.eclipse.xtext.common.Terminals.ID");
 	    }
 
 )
@@ -284,7 +284,8 @@ ruleCategoryFilter returns [EObject current=null]
 		{ 
 	        newCompositeNode(grammarAccess.getCategoryFilterAccess().getCategoryCategoryCrossReference_3_0()); 
 	    }
-		ruleCatRef		{ 
+		ruleCatRef
+		{ 
 	        afterParserOrEnumRuleCall();
 	    }
 

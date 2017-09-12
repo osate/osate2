@@ -55,11 +55,11 @@ class ReqSpecOutlineNodeLabelProvider extends OutlineNodeLabelProvider {
 							titleName = titleName + " - " + obj.title 
 						}  
 						var desc = ""
-//						if (obj.description != null) {
+//						if (obj.description !== null) {
 //							desc = obj.description.description.join(System.lineSeparator + " - ", 
 //															System.lineSeparator + " - ", "" , [text]) 
 //						}
-						if (obj.description != null) {
+						if (obj.description !== null) {
 							desc = obj.description.toText(null)
 							if (!desc.nullOrEmpty){
 								desc = System.lineSeparator + " - " + desc
@@ -85,7 +85,7 @@ class ReqSpecOutlineNodeLabelProvider extends OutlineNodeLabelProvider {
 	override String getText(Object element) {
 		println("element = " + element)
 		val StyledString styledText = getStyledText(element)
-		if (styledText != null) styledText.toString() 
+		if (styledText !== null) styledText.toString() 
 		null
 	}
 	

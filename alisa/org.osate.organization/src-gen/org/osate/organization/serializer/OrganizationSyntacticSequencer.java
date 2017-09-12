@@ -54,9 +54,9 @@ public class OrganizationSyntacticSequencer extends AbstractSyntacticSequencer {
 		List<INode> transitionNodes = collectNodes(fromNode, toNode);
 		for (AbstractElementAlias syntax : transition.getAmbiguousSyntaxes()) {
 			List<INode> syntaxNodes = getNodesFor(transitionNodes, syntax);
-			if(match_Stakeholder_RightSquareBracketKeyword_1_1_a.equals(syntax))
+			if (match_Stakeholder_RightSquareBracketKeyword_1_1_a.equals(syntax))
 				emit_Stakeholder_RightSquareBracketKeyword_1_1_a(semanticObject, getLastNavigableState(), syntaxNodes);
-			else if(match_Stakeholder_RightSquareBracketKeyword_1_1_p.equals(syntax))
+			else if (match_Stakeholder_RightSquareBracketKeyword_1_1_p.equals(syntax))
 				emit_Stakeholder_RightSquareBracketKeyword_1_1_p(semanticObject, getLastNavigableState(), syntaxNodes);
 			else acceptNodes(getLastNavigableState(), syntaxNodes);
 		}

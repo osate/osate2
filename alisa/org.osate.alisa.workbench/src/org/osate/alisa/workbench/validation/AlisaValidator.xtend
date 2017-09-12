@@ -1,6 +1,6 @@
 /**
  * Copyright 2015 Carnegie Mellon University. All Rights Reserved.
- *
+ * 
  * NO WARRANTY. THIS CARNEGIE MELLON UNIVERSITY AND SOFTWARE ENGINEERING INSTITUTE
  * MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO
  * WARRANTIES OF ANY KIND, EITHER EXPRESSED OR IMPLIED, AS TO ANY MATTER INCLUDING,
@@ -8,9 +8,9 @@
  * EXCLUSIVITY, OR RESULTS OBTAINED FROM USE OF THE MATERIAL. CARNEGIE MELLON
  * UNIVERSITY DOES NOT MAKE ANY WARRANTY OF ANY KIND WITH RESPECT TO FREEDOM FROM
  * PATENT, TRADEMARK, OR COPYRIGHT INFRINGEMENT.
- *
+ * 
  * Released under the Eclipse Public License (http://www.eclipse.org/org/documents/epl-v10.php)
- *
+ * 
  * See COPYRIGHT file for full details.
  */
 
@@ -27,16 +27,19 @@ import org.osate.alisa.workbench.alisa.AlisaPackage
 import org.osate.alisa.workbench.alisa.AssurancePlan
 import org.osate.verify.util.IVerifyGlobalReferenceFinder
 import static extension org.osate.alisa.workbench.util.AlisaWorkbenchUtilExtension.*
+import static extension org.osate.alisa.common.util.CommonUtilExtension.*
+import static extension org.osate.verify.util.VerifyUtilExtension.*
 
 /**
  * Custom validation rules. 
- *
+ * 
  * see http://www.eclipse.org/Xtext/documentation.html#validation
  */
 class AlisaValidator extends AbstractAlisaValidator {
 
-public static val ASSURANCE_PLAN_OWN_MISSING_VERIFICATION_PLANS = 'org.osate.alisa.workbench.validation.assurance.plan.own.missing.verification.plans'
-public static val ASSURANCE_PLAN_OWN_INVALID_VERIFICATION_PLANS = 'org.osate.alisa.workbench.validation.assurance.plan.own.invalid.verification.plans'
+	public static val ASSURANCE_PLAN_OWN_MISSING_VERIFICATION_PLANS = 'org.osate.alisa.workbench.validation.assurance.plan.own.missing.verification.plans'
+	public static val ASSURANCE_PLAN_OWN_INVALID_VERIFICATION_PLANS = 'org.osate.alisa.workbench.validation.assurance.plan.own.invalid.verification.plans'
+	public static val ASSURANCE_PLAN_TARGET_INCORRECT = 'org.osate.alisa.workbench.validation.assurance.plan.target.incorrect'
 
 //  public static val INVALID_NAME = 'invalidName'
 //
@@ -54,40 +57,69 @@ public static val ASSURANCE_PLAN_OWN_INVALID_VERIFICATION_PLANS = 'org.osate.ali
 	def void checkAssurancePlanNormal(AssurancePlan assurancePlan) {
 		checkAssurancePlanOwnOmissions(assurancePlan)
 	}
-	
+
 // Need to fix. Gives false error. Also needs to deal with global requirements	
-//	@Check(CheckType.NORMAL)
-//	def void checkAssurancePlanFast(AssurancePlan assurancePlan) {
-//		checkAssurancePlanOwnForInvalid(assurancePlan) 
-//	}
+	@Check(CheckType.NORMAL)
+	def void checkAssurancePlanFast(AssurancePlan assurancePlan) {
+		checkConsistentAssurancePlanTarget(assurancePlan)
+		checkModelPlanOwnForInvalid(assurancePlan)
+	}
 
 	def void checkAssurancePlanOwnOmissions(AssurancePlan assurancePlan) {
-		val res = referenceFinder.getVerificationPlans(assurancePlan.target, assurancePlan).filter([avp | !assurancePlan.assure.contains(avp)])		
-		if (res.size > 0){
+		val res = referenceFinder.getVerificationPlans(assurancePlan.target, assurancePlan).filter([ avp |
+			!assurancePlan.assure.contains(avp)
+		])
+		if (res.size > 0) {
 			val String[] namesAndURI = newArrayOfSize(res.length * 2)
-			res.forEach([vp, counter |
+			res.forEach([ vp, counter |
 				namesAndURI.set(counter * 2, vp.name)
 				namesAndURI.set((counter * 2) + 1, EcoreUtil.getURI(vp).toString())
 			])
-			warning("Assurance Plan '" + assurancePlan.enclosingAssurancePlan.name + "' missing Verification Plans in 'assure' statement '",
-				assurancePlan, AlisaPackage.Literals.ASSURANCE_PLAN__NAME, ASSURANCE_PLAN_OWN_MISSING_VERIFICATION_PLANS, namesAndURI)
+			warning("Assurance Plan '" + assurancePlan.name + "' missing Verification Plans in 'assure' statement '",
+				assurancePlan, AlisaPackage.Literals.ASSURANCE_PLAN__NAME,
+				ASSURANCE_PLAN_OWN_MISSING_VERIFICATION_PLANS, namesAndURI)
 		}
 	}
 
 	def void checkModelPlanOwnForInvalid(AssurancePlan assurancePlan) {
-		val res = assurancePlan.assure.filter([avp |
-			val res = referenceFinder.getVerificationPlans(assurancePlan.target, assurancePlan)
-			!res.exists[vp| vp.name.equalsIgnoreCase(avp.name)]
-		])
-		if (res.size > 0){
-			res.forEach([vp, counter |
-				val idx = assurancePlan.assure.indexed.filter([value == vp]).head.key
-				error("Verification Plan '" + vp.name  + "' is not valid for Assurance Plan '" +assurancePlan.enclosingAssurancePlan.name,
-						assurancePlan, AlisaPackage.Literals.ASSURANCE_PLAN__ASSURE, idx, 
-						ASSURANCE_PLAN_OWN_INVALID_VERIFICATION_PLANS, vp.name, EcoreUtil.getURI(vp).toString())
-				
-			])
+//		val vps = referenceFinder.getVerificationPlans(assurancePlan.target, assurancePlan)
+//		val res = assurancePlan.assure.filter([ avp |
+//			!vps.exists[vp|vp.name.equalsIgnoreCase(avp.name)]
+//		])
+//		res.forEach([ vp, counter |
+//			val idx = assurancePlan.assure.indexOf(vp)
+//			val vptargetname = vp.targetClassifier.name
+//			val aptargetname = assurancePlan.target.name
+//			error(
+//				"Verification Plan '" + vp.name + "' for '" + vptargetname + "' is not valid for Assurance Plan '" +
+//					assurancePlan.name + "' with target '" + aptargetname + "'", assurancePlan,
+//				AlisaPackage.Literals.ASSURANCE_PLAN__ASSURE, idx, ASSURANCE_PLAN_OWN_INVALID_VERIFICATION_PLANS,
+//				vp.name, EcoreUtil.getURI(vp).toString())
+//
+//		])
+		val assTarget = assurancePlan.target
+		for (vp: assurancePlan.assure){
+			if (!assTarget.isSameorExtends(vp.targetClassifier)){
+				val idx = assurancePlan.assure.indexOf(vp)
+			error(
+				"Verification Plan '" + vp.name + "' for '" + vp.targetClassifier.name + "' is not valid for Assurance Plan '" +
+					assurancePlan.name + "' with target '" + assTarget.name + "'", assurancePlan,
+				AlisaPackage.Literals.ASSURANCE_PLAN__ASSURE, idx, ASSURANCE_PLAN_OWN_INVALID_VERIFICATION_PLANS,
+				vp.name, EcoreUtil.getURI(vp).toString())
+			}
 		}
+	}
+	def void checkConsistentAssurancePlanTarget(AssurancePlan assurancePlan) {
+		val assTarget = assurancePlan.target
+		val assCase = assurancePlan.assuranceCase
+		val caseTarget = assCase.system
+			if (!assTarget.isSameorExtends(caseTarget)){
+			error(
+				"Assurance Plan '" + assurancePlan.name + "' for '" + assTarget.name + "' is not valid for Assurance Case '" +
+					assCase.name + "' with target '" + caseTarget.name + "'", assurancePlan,
+				AlisaPackage.Literals.ASSURANCE_PLAN__TARGET,  ASSURANCE_PLAN_TARGET_INCORRECT,
+				assurancePlan.name, EcoreUtil.getURI(assurancePlan).toString())
+			}
 	}
 
 }

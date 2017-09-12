@@ -60,7 +60,7 @@ public class AssureParser extends AbstractContentAssistParser {
 					put(grammarAccess.getComputeDeclarationAccess().getAlternatives_4(), "rule__ComputeDeclaration__Alternatives_4");
 					put(grammarAccess.getComputeDeclarationAccess().getAlternatives_4_2_1(), "rule__ComputeDeclaration__Alternatives_4_2_1");
 					put(grammarAccess.getAModelOrPropertyReferenceAccess().getAlternatives(), "rule__AModelOrPropertyReference__Alternatives");
-					put(grammarAccess.getShowValueAccess().getAlternatives_1(), "rule__ShowValue__Alternatives_1");
+					put(grammarAccess.getShowValueAccess().getAlternatives_1_0(), "rule__ShowValue__Alternatives_1_0");
 					put(grammarAccess.getOpOrAccess().getAlternatives(), "rule__OpOr__Alternatives");
 					put(grammarAccess.getOpAndAccess().getAlternatives(), "rule__OpAnd__Alternatives");
 					put(grammarAccess.getOpEqualityAccess().getAlternatives(), "rule__OpEquality__Alternatives");
@@ -100,6 +100,10 @@ public class AssureParser extends AbstractContentAssistParser {
 					put(grammarAccess.getVerificationActivityResultAccess().getGroup_8(), "rule__VerificationActivityResult__Group_8__0");
 					put(grammarAccess.getVerificationActivityResultAccess().getGroup_9(), "rule__VerificationActivityResult__Group_9__0");
 					put(grammarAccess.getVerificationActivityResultAccess().getGroup_11(), "rule__VerificationActivityResult__Group_11__0");
+					put(grammarAccess.getPredicateResultAccess().getGroup(), "rule__PredicateResult__Group__0");
+					put(grammarAccess.getPredicateResultAccess().getGroup_8(), "rule__PredicateResult__Group_8__0");
+					put(grammarAccess.getPredicateResultAccess().getGroup_9(), "rule__PredicateResult__Group_9__0");
+					put(grammarAccess.getPredicateResultAccess().getGroup_11(), "rule__PredicateResult__Group_11__0");
 					put(grammarAccess.getElseResultAccess().getGroup(), "rule__ElseResult__Group__0");
 					put(grammarAccess.getElseResultAccess().getGroup_2(), "rule__ElseResult__Group_2__0");
 					put(grammarAccess.getElseResultAccess().getGroup_3(), "rule__ElseResult__Group_3__0");
@@ -170,7 +174,7 @@ public class AssureParser extends AbstractContentAssistParser {
 					put(grammarAccess.getAPropertyReferenceAccess().getGroup(), "rule__APropertyReference__Group__0");
 					put(grammarAccess.getAVariableReferenceAccess().getGroup(), "rule__AVariableReference__Group__0");
 					put(grammarAccess.getShowValueAccess().getGroup(), "rule__ShowValue__Group__0");
-					put(grammarAccess.getShowValueAccess().getGroup_1_1(), "rule__ShowValue__Group_1_1__0");
+					put(grammarAccess.getShowValueAccess().getGroup_1(), "rule__ShowValue__Group_1__0");
 					put(grammarAccess.getImageReferenceAccess().getGroup(), "rule__ImageReference__Group__0");
 					put(grammarAccess.getIMGREFAccess().getGroup(), "rule__IMGREF__Group__0");
 					put(grammarAccess.getIMGREFAccess().getGroup_0(), "rule__IMGREF__Group_0__0");
@@ -202,7 +206,8 @@ public class AssureParser extends AbstractContentAssistParser {
 					put(grammarAccess.getAUnitExpressionAccess().getGroup(), "rule__AUnitExpression__Group__0");
 					put(grammarAccess.getAUnitExpressionAccess().getGroup_1(), "rule__AUnitExpression__Group_1__0");
 					put(grammarAccess.getAFunctionCallAccess().getGroup(), "rule__AFunctionCall__Group__0");
-					put(grammarAccess.getAFunctionCallAccess().getGroup_4(), "rule__AFunctionCall__Group_4__0");
+					put(grammarAccess.getAFunctionCallAccess().getGroup_3(), "rule__AFunctionCall__Group_3__0");
+					put(grammarAccess.getAFunctionCallAccess().getGroup_3_1(), "rule__AFunctionCall__Group_3_1__0");
 					put(grammarAccess.getARangeExpressionAccess().getGroup(), "rule__ARangeExpression__Group__0");
 					put(grammarAccess.getARangeExpressionAccess().getGroup_5(), "rule__ARangeExpression__Group_5__0");
 					put(grammarAccess.getAIfExpressionAccess().getGroup(), "rule__AIfExpression__Group__0");
@@ -242,6 +247,7 @@ public class AssureParser extends AbstractContentAssistParser {
 					put(grammarAccess.getClaimResultAccess().getMessageAssignment_5_1(), "rule__ClaimResult__MessageAssignment_5_1");
 					put(grammarAccess.getClaimResultAccess().getSubClaimResultAssignment_6(), "rule__ClaimResult__SubClaimResultAssignment_6");
 					put(grammarAccess.getClaimResultAccess().getVerificationActivityResultAssignment_7(), "rule__ClaimResult__VerificationActivityResultAssignment_7");
+					put(grammarAccess.getClaimResultAccess().getPredicateResultAssignment_8(), "rule__ClaimResult__PredicateResultAssignment_8");
 					put(grammarAccess.getPreconditionResultAccess().getTargetAssignment_2(), "rule__PreconditionResult__TargetAssignment_2");
 					put(grammarAccess.getPreconditionResultAccess().getExecutionStateAssignment_5(), "rule__PreconditionResult__ExecutionStateAssignment_5");
 					put(grammarAccess.getPreconditionResultAccess().getResultStateAssignment_7(), "rule__PreconditionResult__ResultStateAssignment_7");
@@ -265,6 +271,13 @@ public class AssureParser extends AbstractContentAssistParser {
 					put(grammarAccess.getVerificationActivityResultAccess().getMessageAssignment_11_1(), "rule__VerificationActivityResult__MessageAssignment_11_1");
 					put(grammarAccess.getVerificationActivityResultAccess().getPreconditionResultAssignment_12(), "rule__VerificationActivityResult__PreconditionResultAssignment_12");
 					put(grammarAccess.getVerificationActivityResultAccess().getValidationResultAssignment_13(), "rule__VerificationActivityResult__ValidationResultAssignment_13");
+					put(grammarAccess.getPredicateResultAccess().getTargetReferenceAssignment_2(), "rule__PredicateResult__TargetReferenceAssignment_2");
+					put(grammarAccess.getPredicateResultAccess().getExecutionStateAssignment_5(), "rule__PredicateResult__ExecutionStateAssignment_5");
+					put(grammarAccess.getPredicateResultAccess().getResultStateAssignment_7(), "rule__PredicateResult__ResultStateAssignment_7");
+					put(grammarAccess.getPredicateResultAccess().getIssuesAssignment_8_2(), "rule__PredicateResult__IssuesAssignment_8_2");
+					put(grammarAccess.getPredicateResultAccess().getResultReportAssignment_9_1(), "rule__PredicateResult__ResultReportAssignment_9_1");
+					put(grammarAccess.getPredicateResultAccess().getMetricsAssignment_10(), "rule__PredicateResult__MetricsAssignment_10");
+					put(grammarAccess.getPredicateResultAccess().getMessageAssignment_11_1(), "rule__PredicateResult__MessageAssignment_11_1");
 					put(grammarAccess.getElseResultAccess().getFirstAssignment_1(), "rule__ElseResult__FirstAssignment_1");
 					put(grammarAccess.getElseResultAccess().getErrorAssignment_2_1(), "rule__ElseResult__ErrorAssignment_2_1");
 					put(grammarAccess.getElseResultAccess().getFailAssignment_3_1(), "rule__ElseResult__FailAssignment_3_1");
@@ -306,9 +319,9 @@ public class AssureParser extends AbstractContentAssistParser {
 					put(grammarAccess.getNestedClaimReferenceAccess().getSubAssignment_1_1(), "rule__NestedClaimReference__SubAssignment_1_1");
 					put(grammarAccess.getDescriptionAccess().getDescriptionAssignment_1(), "rule__Description__DescriptionAssignment_1");
 					put(grammarAccess.getDescriptionElementAccess().getTextAssignment_0(), "rule__DescriptionElement__TextAssignment_0");
-					put(grammarAccess.getDescriptionElementAccess().getShowValueAssignment_1(), "rule__DescriptionElement__ShowValueAssignment_1");
-					put(grammarAccess.getDescriptionElementAccess().getThisTargetAssignment_2(), "rule__DescriptionElement__ThisTargetAssignment_2");
-					put(grammarAccess.getDescriptionElementAccess().getImageAssignment_3(), "rule__DescriptionElement__ImageAssignment_3");
+					put(grammarAccess.getDescriptionElementAccess().getThisTargetAssignment_1(), "rule__DescriptionElement__ThisTargetAssignment_1");
+					put(grammarAccess.getDescriptionElementAccess().getImageAssignment_2(), "rule__DescriptionElement__ImageAssignment_2");
+					put(grammarAccess.getDescriptionElementAccess().getShowValueAssignment_3(), "rule__DescriptionElement__ShowValueAssignment_3");
 					put(grammarAccess.getRationaleAccess().getTextAssignment_1(), "rule__Rationale__TextAssignment_1");
 					put(grammarAccess.getUncertaintyAccess().getVolatilityAssignment_2_0_1(), "rule__Uncertainty__VolatilityAssignment_2_0_1");
 					put(grammarAccess.getUncertaintyAccess().getPrecedenceAssignment_2_1_1(), "rule__Uncertainty__PrecedenceAssignment_2_1_1");
@@ -341,8 +354,10 @@ public class AssureParser extends AbstractContentAssistParser {
 					put(grammarAccess.getAModelReferenceAccess().getModelElementAssignment_1_2(), "rule__AModelReference__ModelElementAssignment_1_2");
 					put(grammarAccess.getAPropertyReferenceAccess().getPropertyAssignment_2(), "rule__APropertyReference__PropertyAssignment_2");
 					put(grammarAccess.getAVariableReferenceAccess().getVariableAssignment_1(), "rule__AVariableReference__VariableAssignment_1");
-					put(grammarAccess.getShowValueAccess().getRefAssignment_0(), "rule__ShowValue__RefAssignment_0");
-					put(grammarAccess.getShowValueAccess().getUnitAssignment_1_1_1(), "rule__ShowValue__UnitAssignment_1_1_1");
+					put(grammarAccess.getShowValueAccess().getExpressionAssignment_0(), "rule__ShowValue__ExpressionAssignment_0");
+					put(grammarAccess.getShowValueAccess().getConvertAssignment_1_0_0(), "rule__ShowValue__ConvertAssignment_1_0_0");
+					put(grammarAccess.getShowValueAccess().getDropAssignment_1_0_1(), "rule__ShowValue__DropAssignment_1_0_1");
+					put(grammarAccess.getShowValueAccess().getUnitAssignment_1_1(), "rule__ShowValue__UnitAssignment_1_1");
 					put(grammarAccess.getImageReferenceAccess().getImgfileAssignment_1(), "rule__ImageReference__ImgfileAssignment_1");
 					put(grammarAccess.getAOrExpressionAccess().getOperatorAssignment_1_0_0_1(), "rule__AOrExpression__OperatorAssignment_1_0_0_1");
 					put(grammarAccess.getAOrExpressionAccess().getRightAssignment_1_1(), "rule__AOrExpression__RightAssignment_1_1");
@@ -362,8 +377,8 @@ public class AssureParser extends AbstractContentAssistParser {
 					put(grammarAccess.getAUnitExpressionAccess().getDropAssignment_1_1_1(), "rule__AUnitExpression__DropAssignment_1_1_1");
 					put(grammarAccess.getAUnitExpressionAccess().getUnitAssignment_1_2(), "rule__AUnitExpression__UnitAssignment_1_2");
 					put(grammarAccess.getAFunctionCallAccess().getFunctionAssignment_1(), "rule__AFunctionCall__FunctionAssignment_1");
-					put(grammarAccess.getAFunctionCallAccess().getArgumentsAssignment_3(), "rule__AFunctionCall__ArgumentsAssignment_3");
-					put(grammarAccess.getAFunctionCallAccess().getArgumentsAssignment_4_1(), "rule__AFunctionCall__ArgumentsAssignment_4_1");
+					put(grammarAccess.getAFunctionCallAccess().getArgumentsAssignment_3_0(), "rule__AFunctionCall__ArgumentsAssignment_3_0");
+					put(grammarAccess.getAFunctionCallAccess().getArgumentsAssignment_3_1_1(), "rule__AFunctionCall__ArgumentsAssignment_3_1_1");
 					put(grammarAccess.getARangeExpressionAccess().getMinimumAssignment_2(), "rule__ARangeExpression__MinimumAssignment_2");
 					put(grammarAccess.getARangeExpressionAccess().getMaximumAssignment_4(), "rule__ARangeExpression__MaximumAssignment_4");
 					put(grammarAccess.getARangeExpressionAccess().getDeltaAssignment_5_1(), "rule__ARangeExpression__DeltaAssignment_5_1");

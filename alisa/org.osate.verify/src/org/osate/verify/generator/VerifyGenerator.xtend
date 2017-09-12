@@ -79,7 +79,7 @@ class VerifyGenerator implements IGenerator {
 	 
 	def String generateImports(VerificationActivity va){
 		val themethod = va.method.name//?.methodPath
-		if (themethod != null && addedImports.add(themethod)) {
+		if (themethod !== null && addedImports.add(themethod)) {
 			'''import «themethod.substring(0,themethod.lastIndexOf('.'))»;
 			'''
 		}

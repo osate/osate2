@@ -82,6 +82,7 @@ Workflow {
 
 			// Xtend-based API for validation
 			fragment = validation.ValidatorFragment auto-inject {
+				generateStub = false
 			//    composedCheck = "org.eclipse.xtext.validation.ImportUriValidator"
 			//    composedCheck = "org.eclipse.xtext.validation.NamesAreUniqueValidator"
 			}
@@ -118,7 +119,9 @@ Workflow {
 			fragment = parser.antlr.XtextAntlrUiGeneratorFragment auto-inject {}
 
 			// generates junit test support classes into Generator#pathTestProject
-			fragment = junit.Junit4Fragment auto-inject {}
+			fragment = junit.Junit4Fragment auto-inject {
+				useDeprecatedClasses = false
+			}
 
 			// rename refactoring
 			fragment = refactoring.RefactorElementNameFragment auto-inject {}

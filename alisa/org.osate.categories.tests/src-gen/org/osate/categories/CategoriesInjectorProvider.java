@@ -15,16 +15,16 @@
  */
 package org.osate.categories;
 
-import org.eclipse.xtext.junit4.GlobalRegistries;
-import org.eclipse.xtext.junit4.GlobalRegistries.GlobalStateMemento;
-import org.eclipse.xtext.junit4.IInjectorProvider;
-import org.eclipse.xtext.junit4.IRegistryConfigurator;
-
+import com.google.inject.Guice;
 import com.google.inject.Injector;
+import org.eclipse.xtext.testing.GlobalRegistries;
+import org.eclipse.xtext.testing.GlobalRegistries.GlobalStateMemento;
+import org.eclipse.xtext.testing.IInjectorProvider;
+import org.eclipse.xtext.testing.IRegistryConfigurator;
 
 public class CategoriesInjectorProvider implements IInjectorProvider, IRegistryConfigurator {
-	
-    protected GlobalStateMemento stateBeforeInjectorCreation;
+
+	protected GlobalStateMemento stateBeforeInjectorCreation;
 	protected GlobalStateMemento stateAfterInjectorCreation;
 	protected Injector injector;
 
@@ -42,9 +42,26 @@ public class CategoriesInjectorProvider implements IInjectorProvider, IRegistryC
 		}
 		return injector;
 	}
-	
+
 	protected Injector internalCreateInjector() {
-	    return new CategoriesStandaloneSetup().createInjectorAndDoEMFRegistration();
+		return new CategoriesStandaloneSetup() {
+			@Override
+			public Injector createInjector() {
+				return Guice.createInjector(createRuntimeModule());
+			}
+		}.createInjectorAndDoEMFRegistration();
+	}
+
+	protected CategoriesRuntimeModule createRuntimeModule() {
+		// make it work also with Maven/Tycho and OSGI
+		// see https://bugs.eclipse.org/bugs/show_bug.cgi?id=493672
+		return new CategoriesRuntimeModule() {
+			@Override
+			public ClassLoader bindClassLoaderToInstance() {
+				return CategoriesInjectorProvider.class
+						.getClassLoader();
+			}
+		};
 	}
 
 	@Override

@@ -120,22 +120,13 @@ public interface CommonPackage extends EPackage
   int DESCRIPTION_ELEMENT__TEXT = 0;
 
   /**
-   * The feature id for the '<em><b>Show Value</b></em>' containment reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int DESCRIPTION_ELEMENT__SHOW_VALUE = 1;
-
-  /**
    * The feature id for the '<em><b>This Target</b></em>' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int DESCRIPTION_ELEMENT__THIS_TARGET = 2;
+  int DESCRIPTION_ELEMENT__THIS_TARGET = 1;
 
   /**
    * The feature id for the '<em><b>Image</b></em>' containment reference.
@@ -144,7 +135,16 @@ public interface CommonPackage extends EPackage
    * @generated
    * @ordered
    */
-  int DESCRIPTION_ELEMENT__IMAGE = 3;
+  int DESCRIPTION_ELEMENT__IMAGE = 2;
+
+  /**
+   * The feature id for the '<em><b>Show Value</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int DESCRIPTION_ELEMENT__SHOW_VALUE = 3;
 
   /**
    * The number of structural features of the '<em>Description Element</em>' class.
@@ -496,23 +496,59 @@ public interface CommonPackage extends EPackage
   int APROPERTY_REFERENCE_FEATURE_COUNT = AEXPRESSION_FEATURE_COUNT + 2;
 
   /**
-   * The meta object id for the '{@link org.osate.alisa.common.common.impl.ShowValueImpl <em>Show Value</em>}' class.
+   * The meta object id for the '{@link org.osate.alisa.common.common.impl.AUnitExpressionImpl <em>AUnit Expression</em>}' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see org.osate.alisa.common.common.impl.ShowValueImpl
-   * @see org.osate.alisa.common.common.impl.CommonPackageImpl#getShowValue()
+   * @see org.osate.alisa.common.common.impl.AUnitExpressionImpl
+   * @see org.osate.alisa.common.common.impl.CommonPackageImpl#getAUnitExpression()
    * @generated
    */
-  int SHOW_VALUE = 9;
+  int AUNIT_EXPRESSION = 9;
 
   /**
-   * The feature id for the '<em><b>Ref</b></em>' reference.
+   * The feature id for the '<em><b>Owned Element</b></em>' reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int SHOW_VALUE__REF = 0;
+  int AUNIT_EXPRESSION__OWNED_ELEMENT = Aadl2Package.PROPERTY_EXPRESSION__OWNED_ELEMENT;
+
+  /**
+   * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int AUNIT_EXPRESSION__OWNED_COMMENT = Aadl2Package.PROPERTY_EXPRESSION__OWNED_COMMENT;
+
+  /**
+   * The feature id for the '<em><b>Expression</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int AUNIT_EXPRESSION__EXPRESSION = Aadl2Package.PROPERTY_EXPRESSION_FEATURE_COUNT + 0;
+
+  /**
+   * The feature id for the '<em><b>Convert</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int AUNIT_EXPRESSION__CONVERT = Aadl2Package.PROPERTY_EXPRESSION_FEATURE_COUNT + 1;
+
+  /**
+   * The feature id for the '<em><b>Drop</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int AUNIT_EXPRESSION__DROP = Aadl2Package.PROPERTY_EXPRESSION_FEATURE_COUNT + 2;
 
   /**
    * The feature id for the '<em><b>Unit</b></em>' reference.
@@ -521,16 +557,16 @@ public interface CommonPackage extends EPackage
    * @generated
    * @ordered
    */
-  int SHOW_VALUE__UNIT = 1;
+  int AUNIT_EXPRESSION__UNIT = Aadl2Package.PROPERTY_EXPRESSION_FEATURE_COUNT + 3;
 
   /**
-   * The number of structural features of the '<em>Show Value</em>' class.
+   * The number of structural features of the '<em>AUnit Expression</em>' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int SHOW_VALUE_FEATURE_COUNT = 2;
+  int AUNIT_EXPRESSION_FEATURE_COUNT = Aadl2Package.PROPERTY_EXPRESSION_FEATURE_COUNT + 4;
 
   /**
    * The meta object id for the '{@link org.osate.alisa.common.common.impl.ImageReferenceImpl <em>Image Reference</em>}' class.
@@ -1037,79 +1073,6 @@ public interface CommonPackage extends EPackage
   int AUNARY_OPERATION_FEATURE_COUNT = Aadl2Package.PROPERTY_EXPRESSION_FEATURE_COUNT + 2;
 
   /**
-   * The meta object id for the '{@link org.osate.alisa.common.common.impl.AUnitExpressionImpl <em>AUnit Expression</em>}' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see org.osate.alisa.common.common.impl.AUnitExpressionImpl
-   * @see org.osate.alisa.common.common.impl.CommonPackageImpl#getAUnitExpression()
-   * @generated
-   */
-  int AUNIT_EXPRESSION = 19;
-
-  /**
-   * The feature id for the '<em><b>Owned Element</b></em>' reference list.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int AUNIT_EXPRESSION__OWNED_ELEMENT = Aadl2Package.PROPERTY_EXPRESSION__OWNED_ELEMENT;
-
-  /**
-   * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int AUNIT_EXPRESSION__OWNED_COMMENT = Aadl2Package.PROPERTY_EXPRESSION__OWNED_COMMENT;
-
-  /**
-   * The feature id for the '<em><b>Expression</b></em>' containment reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int AUNIT_EXPRESSION__EXPRESSION = Aadl2Package.PROPERTY_EXPRESSION_FEATURE_COUNT + 0;
-
-  /**
-   * The feature id for the '<em><b>Convert</b></em>' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int AUNIT_EXPRESSION__CONVERT = Aadl2Package.PROPERTY_EXPRESSION_FEATURE_COUNT + 1;
-
-  /**
-   * The feature id for the '<em><b>Drop</b></em>' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int AUNIT_EXPRESSION__DROP = Aadl2Package.PROPERTY_EXPRESSION_FEATURE_COUNT + 2;
-
-  /**
-   * The feature id for the '<em><b>Unit</b></em>' reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int AUNIT_EXPRESSION__UNIT = Aadl2Package.PROPERTY_EXPRESSION_FEATURE_COUNT + 3;
-
-  /**
-   * The number of structural features of the '<em>AUnit Expression</em>' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int AUNIT_EXPRESSION_FEATURE_COUNT = Aadl2Package.PROPERTY_EXPRESSION_FEATURE_COUNT + 4;
-
-  /**
    * The meta object id for the '{@link org.osate.alisa.common.common.impl.AFunctionCallImpl <em>AFunction Call</em>}' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -1117,7 +1080,7 @@ public interface CommonPackage extends EPackage
    * @see org.osate.alisa.common.common.impl.CommonPackageImpl#getAFunctionCall()
    * @generated
    */
-  int AFUNCTION_CALL = 20;
+  int AFUNCTION_CALL = 19;
 
   /**
    * The feature id for the '<em><b>Owned Element</b></em>' reference list.
@@ -1172,7 +1135,7 @@ public interface CommonPackage extends EPackage
    * @see org.osate.alisa.common.common.impl.CommonPackageImpl#getARange()
    * @generated
    */
-  int ARANGE = 21;
+  int ARANGE = 20;
 
   /**
    * The feature id for the '<em><b>Owned Element</b></em>' reference list.
@@ -1236,7 +1199,7 @@ public interface CommonPackage extends EPackage
    * @see org.osate.alisa.common.common.impl.CommonPackageImpl#getAConditional()
    * @generated
    */
-  int ACONDITIONAL = 22;
+  int ACONDITIONAL = 21;
 
   /**
    * The feature id for the '<em><b>Owned Element</b></em>' reference list.
@@ -1300,7 +1263,7 @@ public interface CommonPackage extends EPackage
    * @see org.osate.alisa.common.common.impl.CommonPackageImpl#getResultIssueType()
    * @generated
    */
-  int RESULT_ISSUE_TYPE = 23;
+  int RESULT_ISSUE_TYPE = 22;
 
   /**
    * The meta object id for the '{@link org.osate.alisa.common.common.Operation <em>Operation</em>}' enum.
@@ -1310,7 +1273,7 @@ public interface CommonPackage extends EPackage
    * @see org.osate.alisa.common.common.impl.CommonPackageImpl#getOperation()
    * @generated
    */
-  int OPERATION = 24;
+  int OPERATION = 23;
 
 
   /**
@@ -1356,17 +1319,6 @@ public interface CommonPackage extends EPackage
   EAttribute getDescriptionElement_Text();
 
   /**
-   * Returns the meta object for the containment reference '{@link org.osate.alisa.common.common.DescriptionElement#getShowValue <em>Show Value</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the containment reference '<em>Show Value</em>'.
-   * @see org.osate.alisa.common.common.DescriptionElement#getShowValue()
-   * @see #getDescriptionElement()
-   * @generated
-   */
-  EReference getDescriptionElement_ShowValue();
-
-  /**
    * Returns the meta object for the attribute '{@link org.osate.alisa.common.common.DescriptionElement#isThisTarget <em>This Target</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -1387,6 +1339,17 @@ public interface CommonPackage extends EPackage
    * @generated
    */
   EReference getDescriptionElement_Image();
+
+  /**
+   * Returns the meta object for the containment reference '{@link org.osate.alisa.common.common.DescriptionElement#getShowValue <em>Show Value</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference '<em>Show Value</em>'.
+   * @see org.osate.alisa.common.common.DescriptionElement#getShowValue()
+   * @see #getDescriptionElement()
+   * @generated
+   */
+  EReference getDescriptionElement_ShowValue();
 
   /**
    * Returns the meta object for class '{@link org.osate.alisa.common.common.Rationale <em>Rationale</em>}'.
@@ -1646,36 +1609,58 @@ public interface CommonPackage extends EPackage
   EReference getAPropertyReference_Property();
 
   /**
-   * Returns the meta object for class '{@link org.osate.alisa.common.common.ShowValue <em>Show Value</em>}'.
+   * Returns the meta object for class '{@link org.osate.alisa.common.common.AUnitExpression <em>AUnit Expression</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for class '<em>Show Value</em>'.
-   * @see org.osate.alisa.common.common.ShowValue
+   * @return the meta object for class '<em>AUnit Expression</em>'.
+   * @see org.osate.alisa.common.common.AUnitExpression
    * @generated
    */
-  EClass getShowValue();
+  EClass getAUnitExpression();
 
   /**
-   * Returns the meta object for the reference '{@link org.osate.alisa.common.common.ShowValue#getRef <em>Ref</em>}'.
+   * Returns the meta object for the containment reference '{@link org.osate.alisa.common.common.AUnitExpression#getExpression <em>Expression</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for the reference '<em>Ref</em>'.
-   * @see org.osate.alisa.common.common.ShowValue#getRef()
-   * @see #getShowValue()
+   * @return the meta object for the containment reference '<em>Expression</em>'.
+   * @see org.osate.alisa.common.common.AUnitExpression#getExpression()
+   * @see #getAUnitExpression()
    * @generated
    */
-  EReference getShowValue_Ref();
+  EReference getAUnitExpression_Expression();
 
   /**
-   * Returns the meta object for the reference '{@link org.osate.alisa.common.common.ShowValue#getUnit <em>Unit</em>}'.
+   * Returns the meta object for the attribute '{@link org.osate.alisa.common.common.AUnitExpression#isConvert <em>Convert</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Convert</em>'.
+   * @see org.osate.alisa.common.common.AUnitExpression#isConvert()
+   * @see #getAUnitExpression()
+   * @generated
+   */
+  EAttribute getAUnitExpression_Convert();
+
+  /**
+   * Returns the meta object for the attribute '{@link org.osate.alisa.common.common.AUnitExpression#isDrop <em>Drop</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Drop</em>'.
+   * @see org.osate.alisa.common.common.AUnitExpression#isDrop()
+   * @see #getAUnitExpression()
+   * @generated
+   */
+  EAttribute getAUnitExpression_Drop();
+
+  /**
+   * Returns the meta object for the reference '{@link org.osate.alisa.common.common.AUnitExpression#getUnit <em>Unit</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @return the meta object for the reference '<em>Unit</em>'.
-   * @see org.osate.alisa.common.common.ShowValue#getUnit()
-   * @see #getShowValue()
+   * @see org.osate.alisa.common.common.AUnitExpression#getUnit()
+   * @see #getAUnitExpression()
    * @generated
    */
-  EReference getShowValue_Unit();
+  EReference getAUnitExpression_Unit();
 
   /**
    * Returns the meta object for class '{@link org.osate.alisa.common.common.ImageReference <em>Image Reference</em>}'.
@@ -1878,60 +1863,6 @@ public interface CommonPackage extends EPackage
   EReference getAUnaryOperation_Operand();
 
   /**
-   * Returns the meta object for class '{@link org.osate.alisa.common.common.AUnitExpression <em>AUnit Expression</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for class '<em>AUnit Expression</em>'.
-   * @see org.osate.alisa.common.common.AUnitExpression
-   * @generated
-   */
-  EClass getAUnitExpression();
-
-  /**
-   * Returns the meta object for the containment reference '{@link org.osate.alisa.common.common.AUnitExpression#getExpression <em>Expression</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the containment reference '<em>Expression</em>'.
-   * @see org.osate.alisa.common.common.AUnitExpression#getExpression()
-   * @see #getAUnitExpression()
-   * @generated
-   */
-  EReference getAUnitExpression_Expression();
-
-  /**
-   * Returns the meta object for the attribute '{@link org.osate.alisa.common.common.AUnitExpression#isConvert <em>Convert</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the attribute '<em>Convert</em>'.
-   * @see org.osate.alisa.common.common.AUnitExpression#isConvert()
-   * @see #getAUnitExpression()
-   * @generated
-   */
-  EAttribute getAUnitExpression_Convert();
-
-  /**
-   * Returns the meta object for the attribute '{@link org.osate.alisa.common.common.AUnitExpression#isDrop <em>Drop</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the attribute '<em>Drop</em>'.
-   * @see org.osate.alisa.common.common.AUnitExpression#isDrop()
-   * @see #getAUnitExpression()
-   * @generated
-   */
-  EAttribute getAUnitExpression_Drop();
-
-  /**
-   * Returns the meta object for the reference '{@link org.osate.alisa.common.common.AUnitExpression#getUnit <em>Unit</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the reference '<em>Unit</em>'.
-   * @see org.osate.alisa.common.common.AUnitExpression#getUnit()
-   * @see #getAUnitExpression()
-   * @generated
-   */
-  EReference getAUnitExpression_Unit();
-
-  /**
    * Returns the meta object for class '{@link org.osate.alisa.common.common.AFunctionCall <em>AFunction Call</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -2129,14 +2060,6 @@ public interface CommonPackage extends EPackage
     EAttribute DESCRIPTION_ELEMENT__TEXT = eINSTANCE.getDescriptionElement_Text();
 
     /**
-     * The meta object literal for the '<em><b>Show Value</b></em>' containment reference feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EReference DESCRIPTION_ELEMENT__SHOW_VALUE = eINSTANCE.getDescriptionElement_ShowValue();
-
-    /**
      * The meta object literal for the '<em><b>This Target</b></em>' attribute feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -2151,6 +2074,14 @@ public interface CommonPackage extends EPackage
      * @generated
      */
     EReference DESCRIPTION_ELEMENT__IMAGE = eINSTANCE.getDescriptionElement_Image();
+
+    /**
+     * The meta object literal for the '<em><b>Show Value</b></em>' containment reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference DESCRIPTION_ELEMENT__SHOW_VALUE = eINSTANCE.getDescriptionElement_ShowValue();
 
     /**
      * The meta object literal for the '{@link org.osate.alisa.common.common.impl.RationaleImpl <em>Rationale</em>}' class.
@@ -2359,22 +2290,38 @@ public interface CommonPackage extends EPackage
     EReference APROPERTY_REFERENCE__PROPERTY = eINSTANCE.getAPropertyReference_Property();
 
     /**
-     * The meta object literal for the '{@link org.osate.alisa.common.common.impl.ShowValueImpl <em>Show Value</em>}' class.
+     * The meta object literal for the '{@link org.osate.alisa.common.common.impl.AUnitExpressionImpl <em>AUnit Expression</em>}' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see org.osate.alisa.common.common.impl.ShowValueImpl
-     * @see org.osate.alisa.common.common.impl.CommonPackageImpl#getShowValue()
+     * @see org.osate.alisa.common.common.impl.AUnitExpressionImpl
+     * @see org.osate.alisa.common.common.impl.CommonPackageImpl#getAUnitExpression()
      * @generated
      */
-    EClass SHOW_VALUE = eINSTANCE.getShowValue();
+    EClass AUNIT_EXPRESSION = eINSTANCE.getAUnitExpression();
 
     /**
-     * The meta object literal for the '<em><b>Ref</b></em>' reference feature.
+     * The meta object literal for the '<em><b>Expression</b></em>' containment reference feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    EReference SHOW_VALUE__REF = eINSTANCE.getShowValue_Ref();
+    EReference AUNIT_EXPRESSION__EXPRESSION = eINSTANCE.getAUnitExpression_Expression();
+
+    /**
+     * The meta object literal for the '<em><b>Convert</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute AUNIT_EXPRESSION__CONVERT = eINSTANCE.getAUnitExpression_Convert();
+
+    /**
+     * The meta object literal for the '<em><b>Drop</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute AUNIT_EXPRESSION__DROP = eINSTANCE.getAUnitExpression_Drop();
 
     /**
      * The meta object literal for the '<em><b>Unit</b></em>' reference feature.
@@ -2382,7 +2329,7 @@ public interface CommonPackage extends EPackage
      * <!-- end-user-doc -->
      * @generated
      */
-    EReference SHOW_VALUE__UNIT = eINSTANCE.getShowValue_Unit();
+    EReference AUNIT_EXPRESSION__UNIT = eINSTANCE.getAUnitExpression_Unit();
 
     /**
      * The meta object literal for the '{@link org.osate.alisa.common.common.impl.ImageReferenceImpl <em>Image Reference</em>}' class.
@@ -2553,48 +2500,6 @@ public interface CommonPackage extends EPackage
      * @generated
      */
     EReference AUNARY_OPERATION__OPERAND = eINSTANCE.getAUnaryOperation_Operand();
-
-    /**
-     * The meta object literal for the '{@link org.osate.alisa.common.common.impl.AUnitExpressionImpl <em>AUnit Expression</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see org.osate.alisa.common.common.impl.AUnitExpressionImpl
-     * @see org.osate.alisa.common.common.impl.CommonPackageImpl#getAUnitExpression()
-     * @generated
-     */
-    EClass AUNIT_EXPRESSION = eINSTANCE.getAUnitExpression();
-
-    /**
-     * The meta object literal for the '<em><b>Expression</b></em>' containment reference feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EReference AUNIT_EXPRESSION__EXPRESSION = eINSTANCE.getAUnitExpression_Expression();
-
-    /**
-     * The meta object literal for the '<em><b>Convert</b></em>' attribute feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EAttribute AUNIT_EXPRESSION__CONVERT = eINSTANCE.getAUnitExpression_Convert();
-
-    /**
-     * The meta object literal for the '<em><b>Drop</b></em>' attribute feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EAttribute AUNIT_EXPRESSION__DROP = eINSTANCE.getAUnitExpression_Drop();
-
-    /**
-     * The meta object literal for the '<em><b>Unit</b></em>' reference feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EReference AUNIT_EXPRESSION__UNIT = eINSTANCE.getAUnitExpression_Unit();
 
     /**
      * The meta object literal for the '{@link org.osate.alisa.common.common.impl.AFunctionCallImpl <em>AFunction Call</em>}' class.

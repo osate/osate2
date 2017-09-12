@@ -46,7 +46,7 @@ class AssureScopeProvider extends CommonScopeProvider {
 
 	def scope_NamedElement(ClaimResult context, EReference reference) {
 		val targetClassifier = context.caseTargetClassifier
-		if (targetClassifier != null) {
+		if (targetClassifier !== null) {
 			val thescope = new SimpleScope(IScope::NULLSCOPE,
 				Scopes::scopedElementsFor(targetClassifier.getAllFeatures+targetClassifier.allModes,
 					QualifiedName::wrapper(SimpleAttributeResolver::NAME_RESOLVER)), false)

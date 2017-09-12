@@ -24,6 +24,7 @@ import org.osate.verify.verify.AllExpr
 import org.osate.verify.verify.RefExpr
 import org.osate.verify.verify.ElseExpr
 import org.osate.verify.verify.ThenExpr
+import org.osate.verify.verify.Claim
 
 /**
  * Provides labels for a EObjects.
@@ -51,6 +52,9 @@ class VerifyLabelProvider extends org.eclipse.xtext.ui.label.DefaultEObjectLabel
 	}
 	def text(RefExpr ele){
 		ele.verification.name
+	}
+	def text(Claim ele) {
+		ele.requirement.name
 	}
 //
 //	def image(Greeting ele) {

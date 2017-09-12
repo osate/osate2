@@ -34,7 +34,7 @@ class AadlPackageMeasures {
 	}
 	
 	def boolean hasClassifier(Feature f){
-		f.allClassifier != null
+		f.allClassifier !== null
 	}
 	
 	def int subcomponentsWithoutConnection(ComponentImplementation cimpl){

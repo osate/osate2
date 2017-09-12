@@ -17,6 +17,8 @@ package org.osate.results.results;
 
 import org.eclipse.emf.ecore.EObject;
 
+import org.osate.aadl2.PropertyExpression;
+
 /**
  * <!-- begin-user-doc -->
  * A representation of the model object '<em><b>Result Data</b></em>'.
@@ -28,7 +30,6 @@ import org.eclipse.emf.ecore.EObject;
  * <ul>
  *   <li>{@link org.osate.results.results.ResultData#getName <em>Name</em>}</li>
  *   <li>{@link org.osate.results.results.ResultData#getValue <em>Value</em>}</li>
- *   <li>{@link org.osate.results.results.ResultData#getIntegerValue <em>Integer Value</em>}</li>
  * </ul>
  *
  * @see org.osate.results.results.ResultsPackage#getResultData()
@@ -64,55 +65,29 @@ public interface ResultData extends EObject
   void setName(String value);
 
   /**
-   * Returns the value of the '<em><b>Value</b></em>' attribute.
+   * Returns the value of the '<em><b>Value</b></em>' containment reference.
    * <!-- begin-user-doc -->
    * <p>
-   * If the meaning of the '<em>Value</em>' attribute isn't clear,
+   * If the meaning of the '<em>Value</em>' containment reference isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Value</em>' attribute.
-   * @see #setValue(String)
+   * @return the value of the '<em>Value</em>' containment reference.
+   * @see #setValue(PropertyExpression)
    * @see org.osate.results.results.ResultsPackage#getResultData_Value()
-   * @model
+   * @model containment="true"
    * @generated
    */
-  String getValue();
+  PropertyExpression getValue();
 
   /**
-   * Sets the value of the '{@link org.osate.results.results.ResultData#getValue <em>Value</em>}' attribute.
+   * Sets the value of the '{@link org.osate.results.results.ResultData#getValue <em>Value</em>}' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Value</em>' attribute.
+   * @param value the new value of the '<em>Value</em>' containment reference.
    * @see #getValue()
    * @generated
    */
-  void setValue(String value);
-
-  /**
-   * Returns the value of the '<em><b>Integer Value</b></em>' attribute.
-   * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Integer Value</em>' attribute isn't clear,
-   * there really should be more of a description here...
-   * </p>
-   * <!-- end-user-doc -->
-   * @return the value of the '<em>Integer Value</em>' attribute.
-   * @see #setIntegerValue(int)
-   * @see org.osate.results.results.ResultsPackage#getResultData_IntegerValue()
-   * @model
-   * @generated
-   */
-  int getIntegerValue();
-
-  /**
-   * Sets the value of the '{@link org.osate.results.results.ResultData#getIntegerValue <em>Integer Value</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Integer Value</em>' attribute.
-   * @see #getIntegerValue()
-   * @generated
-   */
-  void setIntegerValue(int value);
+  void setValue(PropertyExpression value);
 
 } // ResultData

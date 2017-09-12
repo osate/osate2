@@ -40,6 +40,7 @@ import org.osate.verify.verify.VerificationActivity
 
 import static org.osate.reqspec.util.ReqSpecUtilExtension.*
 import static org.osate.verify.util.VerifyUtilExtension.*
+import org.eclipse.xtext.resource.EObjectDescription
 
 /**
  * This class contains custom scoping description.
@@ -62,14 +63,16 @@ class VerifyScopeProvider extends CommonScopeProvider {
 	def scope_AVariableReference_variable(AVariableReference context, EReference reference) {
 		val claim = getContainingClaim(context)
 		var req = claim.requirement
-		val result = scopeForGlobalVal(req,IScope.NULLSCOPE)
-		return scopeForVal(req, result)
+		val result1 = scopeForGlobalVal(req,IScope.NULLSCOPE)
+		val result2 = scopeForCompute(req, result1)
+		return scopeForVal(req, result2)
 	}
 
 	def scope_ComputeDeclaration(VerificationActivity context, EReference reference) {
 		val claim = getContainingClaim(context)
 		var req = claim.requirement
-		val result = scopeForGlobalVal(req,IScope.NULLSCOPE)
+//		val result = scopeForGlobalVal(req,IScope.NULLSCOPE)
+		val result = IScope.NULLSCOPE
 		return scopeForCompute(req, result)
 	}
 
@@ -85,6 +88,18 @@ class VerifyScopeProvider extends CommonScopeProvider {
 	}
 
 	def scope_FunctionDefinition(ResoluteMethod context, EReference reference) {
+// Resolute functions - both calim functions and compute functions
+//		val foundlist = refFinder.getEObjectDescriptions(context, ResolutePackage.Literals.FUNCTION_DEFINITION, "aadl")
+//		if (foundlist.isEmpty)
+//			return IScope.NULLSCOPE
+//		val fcnsEODs = foundlist.map[f|val name = f.name.lastSegment
+//			EObjectDescription.create(name, f.EObjectOrProxy)
+//		]
+//		return new SimpleScope(IScope.NULLSCOPE, 
+//			fcnsEODs
+//			, false)
+		// Resolution is done through linking service (if scoping one fails
+		// Claim functions only for content assist
 		val foundlist = refFinder.getEObjectDescriptions(context, ResolutePackage.Literals.FUNCTION_DEFINITION, "aadl")
 		if (foundlist.isEmpty)
 			return IScope.NULLSCOPE
@@ -93,6 +108,7 @@ class VerifyScopeProvider extends CommonScopeProvider {
 		]
 		return new SimpleScope(IScope.NULLSCOPE, Scopes::scopedElementsFor(fcns,
 			QualifiedName::wrapper(SimpleAttributeResolver::NAME_RESOLVER)), false)
+			
 	}
 
 	def scope_VerificationActivity(EObject context, EReference reference) {

@@ -16,16 +16,14 @@
 package org.osate.assure.serializer;
 
 import com.google.inject.Inject;
-import com.google.inject.Provider;
+import java.util.Set;
 import org.eclipse.emf.ecore.EObject;
-import org.eclipse.xtext.serializer.acceptor.ISemanticSequenceAcceptor;
+import org.eclipse.emf.ecore.EPackage;
+import org.eclipse.xtext.Action;
+import org.eclipse.xtext.Parameter;
+import org.eclipse.xtext.ParserRule;
+import org.eclipse.xtext.serializer.ISerializationContext;
 import org.eclipse.xtext.serializer.acceptor.SequenceFeeder;
-import org.eclipse.xtext.serializer.diagnostic.ISemanticSequencerDiagnosticProvider;
-import org.eclipse.xtext.serializer.diagnostic.ISerializationDiagnostic.Acceptor;
-import org.eclipse.xtext.serializer.sequencer.GenericSequencer;
-import org.eclipse.xtext.serializer.sequencer.ISemanticNodeProvider.INodesForEObjectProvider;
-import org.eclipse.xtext.serializer.sequencer.ISemanticSequencer;
-import org.eclipse.xtext.serializer.sequencer.ITransientValueService;
 import org.eclipse.xtext.serializer.sequencer.ITransientValueService.ValueTransient;
 import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.AadlBoolean;
@@ -54,7 +52,6 @@ import org.osate.alisa.common.common.ModelRef;
 import org.osate.alisa.common.common.PropertyRef;
 import org.osate.alisa.common.common.Rationale;
 import org.osate.alisa.common.common.ResultIssue;
-import org.osate.alisa.common.common.ShowValue;
 import org.osate.alisa.common.common.TypeRef;
 import org.osate.alisa.common.common.Uncertainty;
 import org.osate.alisa.common.common.ValDeclaration;
@@ -67,6 +64,7 @@ import org.osate.assure.assure.Metrics;
 import org.osate.assure.assure.ModelResult;
 import org.osate.assure.assure.NestedClaimReference;
 import org.osate.assure.assure.PreconditionResult;
+import org.osate.assure.assure.PredicateResult;
 import org.osate.assure.assure.QualifiedClaimReference;
 import org.osate.assure.assure.QualifiedVAReference;
 import org.osate.assure.assure.SubsystemResult;
@@ -82,8 +80,13 @@ public class AssureSemanticSequencer extends CommonSemanticSequencer {
 	private AssureGrammarAccess grammarAccess;
 	
 	@Override
-	public void createSequence(EObject context, EObject semanticObject) {
-		if(semanticObject.eClass().getEPackage() == Aadl2Package.eINSTANCE) switch(semanticObject.eClass().getClassifierID()) {
+	public void sequence(ISerializationContext context, EObject semanticObject) {
+		EPackage epackage = semanticObject.eClass().getEPackage();
+		ParserRule rule = context.getParserRule();
+		Action action = context.getAssignedAction();
+		Set<Parameter> parameters = context.getEnabledBooleanParameters();
+		if (epackage == Aadl2Package.eINSTANCE)
+			switch (semanticObject.eClass().getClassifierID()) {
 			case Aadl2Package.AADL_BOOLEAN:
 				sequence_TypeRef(context, (AadlBoolean) semanticObject); 
 				return; 
@@ -109,7 +112,8 @@ public class AssureSemanticSequencer extends CommonSemanticSequencer {
 				sequence_StringTerm(context, (StringLiteral) semanticObject); 
 				return; 
 			}
-		else if(semanticObject.eClass().getEPackage() == AssurePackage.eINSTANCE) switch(semanticObject.eClass().getClassifierID()) {
+		else if (epackage == AssurePackage.eINSTANCE)
+			switch (semanticObject.eClass().getClassifierID()) {
 			case AssurePackage.ASSURANCE_CASE_RESULT:
 				sequence_AssuranceCaseResult(context, (AssuranceCaseResult) semanticObject); 
 				return; 
@@ -131,6 +135,9 @@ public class AssureSemanticSequencer extends CommonSemanticSequencer {
 			case AssurePackage.PRECONDITION_RESULT:
 				sequence_PreconditionResult(context, (PreconditionResult) semanticObject); 
 				return; 
+			case AssurePackage.PREDICATE_RESULT:
+				sequence_PredicateResult(context, (PredicateResult) semanticObject); 
+				return; 
 			case AssurePackage.QUALIFIED_CLAIM_REFERENCE:
 				sequence_QualifiedClaimReference(context, (QualifiedClaimReference) semanticObject); 
 				return; 
@@ -150,7 +157,8 @@ public class AssureSemanticSequencer extends CommonSemanticSequencer {
 				sequence_VerificationActivityResult(context, (VerificationActivityResult) semanticObject); 
 				return; 
 			}
-		else if(semanticObject.eClass().getEPackage() == CommonPackage.eINSTANCE) switch(semanticObject.eClass().getClassifierID()) {
+		else if (epackage == CommonPackage.eINSTANCE)
+			switch (semanticObject.eClass().getClassifierID()) {
 			case CommonPackage.ABINARY_OPERATION:
 				sequence_AAdditiveExpression_AAndExpression_AEqualityExpression_AMultiplicativeExpression_AOrExpression_ARelationalExpression(context, (ABinaryOperation) semanticObject); 
 				return; 
@@ -164,29 +172,29 @@ public class AssureSemanticSequencer extends CommonSemanticSequencer {
 				sequence_AModelReference(context, (AModelReference) semanticObject); 
 				return; 
 			case CommonPackage.APROPERTY_REFERENCE:
-				if(context == grammarAccess.getAAdditiveExpressionRule() ||
-				   context == grammarAccess.getAAdditiveExpressionAccess().getABinaryOperationLeftAction_1_0_0_0() ||
-				   context == grammarAccess.getAAndExpressionRule() ||
-				   context == grammarAccess.getAAndExpressionAccess().getABinaryOperationLeftAction_1_0_0_0() ||
-				   context == grammarAccess.getAEqualityExpressionRule() ||
-				   context == grammarAccess.getAEqualityExpressionAccess().getABinaryOperationLeftAction_1_0_0_0() ||
-				   context == grammarAccess.getAExpressionRule() ||
-				   context == grammarAccess.getAModelOrPropertyReferenceRule() ||
-				   context == grammarAccess.getAMultiplicativeExpressionRule() ||
-				   context == grammarAccess.getAMultiplicativeExpressionAccess().getABinaryOperationLeftAction_1_0_0_0() ||
-				   context == grammarAccess.getAOrExpressionRule() ||
-				   context == grammarAccess.getAOrExpressionAccess().getABinaryOperationLeftAction_1_0_0_0() ||
-				   context == grammarAccess.getAParenthesizedExpressionRule() ||
-				   context == grammarAccess.getAPrimaryExpressionRule() ||
-				   context == grammarAccess.getARelationalExpressionRule() ||
-				   context == grammarAccess.getARelationalExpressionAccess().getABinaryOperationLeftAction_1_0_0_0() ||
-				   context == grammarAccess.getAUnaryOperationRule() ||
-				   context == grammarAccess.getAUnitExpressionRule() ||
-				   context == grammarAccess.getAUnitExpressionAccess().getAUnitExpressionExpressionAction_1_0()) {
+				if (rule == grammarAccess.getAModelOrPropertyReferenceRule()
+						|| rule == grammarAccess.getAExpressionRule()
+						|| rule == grammarAccess.getAOrExpressionRule()
+						|| action == grammarAccess.getAOrExpressionAccess().getABinaryOperationLeftAction_1_0_0_0()
+						|| rule == grammarAccess.getAAndExpressionRule()
+						|| action == grammarAccess.getAAndExpressionAccess().getABinaryOperationLeftAction_1_0_0_0()
+						|| rule == grammarAccess.getAEqualityExpressionRule()
+						|| action == grammarAccess.getAEqualityExpressionAccess().getABinaryOperationLeftAction_1_0_0_0()
+						|| rule == grammarAccess.getARelationalExpressionRule()
+						|| action == grammarAccess.getARelationalExpressionAccess().getABinaryOperationLeftAction_1_0_0_0()
+						|| rule == grammarAccess.getAAdditiveExpressionRule()
+						|| action == grammarAccess.getAAdditiveExpressionAccess().getABinaryOperationLeftAction_1_0_0_0()
+						|| rule == grammarAccess.getAMultiplicativeExpressionRule()
+						|| action == grammarAccess.getAMultiplicativeExpressionAccess().getABinaryOperationLeftAction_1_0_0_0()
+						|| rule == grammarAccess.getAUnaryOperationRule()
+						|| rule == grammarAccess.getAUnitExpressionRule()
+						|| action == grammarAccess.getAUnitExpressionAccess().getAUnitExpressionExpressionAction_1_0()
+						|| rule == grammarAccess.getAPrimaryExpressionRule()
+						|| rule == grammarAccess.getAParenthesizedExpressionRule()) {
 					sequence_AModelOrPropertyReference_APropertyReference(context, (APropertyReference) semanticObject); 
 					return; 
 				}
-				else if(context == grammarAccess.getAPropertyReferenceRule()) {
+				else if (rule == grammarAccess.getAPropertyReferenceRule()) {
 					sequence_APropertyReference(context, (APropertyReference) semanticObject); 
 					return; 
 				}
@@ -198,8 +206,32 @@ public class AssureSemanticSequencer extends CommonSemanticSequencer {
 				sequence_AUnaryOperation(context, (AUnaryOperation) semanticObject); 
 				return; 
 			case CommonPackage.AUNIT_EXPRESSION:
-				sequence_AUnitExpression(context, (AUnitExpression) semanticObject); 
-				return; 
+				if (rule == grammarAccess.getAExpressionRule()
+						|| rule == grammarAccess.getAOrExpressionRule()
+						|| action == grammarAccess.getAOrExpressionAccess().getABinaryOperationLeftAction_1_0_0_0()
+						|| rule == grammarAccess.getAAndExpressionRule()
+						|| action == grammarAccess.getAAndExpressionAccess().getABinaryOperationLeftAction_1_0_0_0()
+						|| rule == grammarAccess.getAEqualityExpressionRule()
+						|| action == grammarAccess.getAEqualityExpressionAccess().getABinaryOperationLeftAction_1_0_0_0()
+						|| rule == grammarAccess.getARelationalExpressionRule()
+						|| action == grammarAccess.getARelationalExpressionAccess().getABinaryOperationLeftAction_1_0_0_0()
+						|| rule == grammarAccess.getAAdditiveExpressionRule()
+						|| action == grammarAccess.getAAdditiveExpressionAccess().getABinaryOperationLeftAction_1_0_0_0()
+						|| rule == grammarAccess.getAMultiplicativeExpressionRule()
+						|| action == grammarAccess.getAMultiplicativeExpressionAccess().getABinaryOperationLeftAction_1_0_0_0()
+						|| rule == grammarAccess.getAUnaryOperationRule()
+						|| rule == grammarAccess.getAUnitExpressionRule()
+						|| action == grammarAccess.getAUnitExpressionAccess().getAUnitExpressionExpressionAction_1_0()
+						|| rule == grammarAccess.getAPrimaryExpressionRule()
+						|| rule == grammarAccess.getAParenthesizedExpressionRule()) {
+					sequence_AUnitExpression(context, (AUnitExpression) semanticObject); 
+					return; 
+				}
+				else if (rule == grammarAccess.getShowValueRule()) {
+					sequence_ShowValue(context, (AUnitExpression) semanticObject); 
+					return; 
+				}
+				else break;
 			case CommonPackage.AVARIABLE_REFERENCE:
 				sequence_AVariableReference(context, (AVariableReference) semanticObject); 
 				return; 
@@ -227,9 +259,6 @@ public class AssureSemanticSequencer extends CommonSemanticSequencer {
 			case CommonPackage.RESULT_ISSUE:
 				sequence_ResultIssue(context, (ResultIssue) semanticObject); 
 				return; 
-			case CommonPackage.SHOW_VALUE:
-				sequence_ShowValue(context, (ShowValue) semanticObject); 
-				return; 
 			case CommonPackage.TYPE_REF:
 				sequence_TypeRef(context, (TypeRef) semanticObject); 
 				return; 
@@ -240,19 +269,28 @@ public class AssureSemanticSequencer extends CommonSemanticSequencer {
 				sequence_ValDeclaration(context, (ValDeclaration) semanticObject); 
 				return; 
 			}
-		if (errorAcceptor != null) errorAcceptor.accept(diagnosticProvider.createInvalidContextOrTypeDiagnostic(semanticObject, context));
+		if (errorAcceptor != null)
+			errorAcceptor.accept(diagnosticProvider.createInvalidContextOrTypeDiagnostic(semanticObject, context));
 	}
 	
 	/**
+	 * Contexts:
+	 *     AssuranceCaseResult returns AssuranceCaseResult
+	 *     AssureResult returns AssuranceCaseResult
+	 *
 	 * Constraint:
 	 *     (name=QualifiedName metrics=Metrics message=STRING? modelResult+=ModelResult*)
 	 */
-	protected void sequence_AssuranceCaseResult(EObject context, AssuranceCaseResult semanticObject) {
+	protected void sequence_AssuranceCaseResult(ISerializationContext context, AssuranceCaseResult semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	
 	
 	/**
+	 * Contexts:
+	 *     ClaimResult returns ClaimResult
+	 *     AssureResult returns ClaimResult
+	 *
 	 * Constraint:
 	 *     (
 	 *         targetReference=QualifiedClaimReference 
@@ -260,15 +298,21 @@ public class AssureSemanticSequencer extends CommonSemanticSequencer {
 	 *         modelElement=[NamedElement|ID]? 
 	 *         message=STRING? 
 	 *         subClaimResult+=ClaimResult* 
-	 *         verificationActivityResult+=VerificationExpr*
+	 *         verificationActivityResult+=VerificationExpr* 
+	 *         predicateResult=PredicateResult?
 	 *     )
 	 */
-	protected void sequence_ClaimResult(EObject context, ClaimResult semanticObject) {
+	protected void sequence_ClaimResult(ISerializationContext context, ClaimResult semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	
 	
 	/**
+	 * Contexts:
+	 *     AssureResult returns ElseResult
+	 *     VerificationExpr returns ElseResult
+	 *     ElseResult returns ElseResult
+	 *
 	 * Constraint:
 	 *     (
 	 *         first+=VerificationExpr+ 
@@ -279,12 +323,15 @@ public class AssureSemanticSequencer extends CommonSemanticSequencer {
 	 *         metrics=Metrics
 	 *     )
 	 */
-	protected void sequence_ElseResult(EObject context, ElseResult semanticObject) {
+	protected void sequence_ElseResult(ISerializationContext context, ElseResult semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	
 	
 	/**
+	 * Contexts:
+	 *     Metrics returns Metrics
+	 *
 	 * Constraint:
 	 *     (
 	 *         tbdCount=INT? 
@@ -311,12 +358,16 @@ public class AssureSemanticSequencer extends CommonSemanticSequencer {
 	 *         executionTime=AInt?
 	 *     )
 	 */
-	protected void sequence_Metrics(EObject context, Metrics semanticObject) {
+	protected void sequence_Metrics(ISerializationContext context, Metrics semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	
 	
 	/**
+	 * Contexts:
+	 *     ModelResult returns ModelResult
+	 *     AssureResult returns ModelResult
+	 *
 	 * Constraint:
 	 *     (
 	 *         plan=[AssurancePlan|QualifiedName] 
@@ -327,21 +378,28 @@ public class AssureSemanticSequencer extends CommonSemanticSequencer {
 	 *         (subsystemResult+=SubsystemResult | subAssuranceCase+=AssuranceCaseResult)*
 	 *     )
 	 */
-	protected void sequence_ModelResult(EObject context, ModelResult semanticObject) {
+	protected void sequence_ModelResult(ISerializationContext context, ModelResult semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	
 	
 	/**
+	 * Contexts:
+	 *     NestedClaimReference returns NestedClaimReference
+	 *
 	 * Constraint:
 	 *     (requirement=[Requirement|ID] sub=NestedClaimReference?)
 	 */
-	protected void sequence_NestedClaimReference(EObject context, NestedClaimReference semanticObject) {
+	protected void sequence_NestedClaimReference(ISerializationContext context, NestedClaimReference semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	
 	
 	/**
+	 * Contexts:
+	 *     PreconditionResult returns PreconditionResult
+	 *     AssureResult returns PreconditionResult
+	 *
 	 * Constraint:
 	 *     (
 	 *         target=[VerificationMethod|QualifiedName] 
@@ -353,71 +411,111 @@ public class AssureSemanticSequencer extends CommonSemanticSequencer {
 	 *         message=STRING?
 	 *     )
 	 */
-	protected void sequence_PreconditionResult(EObject context, PreconditionResult semanticObject) {
+	protected void sequence_PreconditionResult(ISerializationContext context, PreconditionResult semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	
 	
 	/**
+	 * Contexts:
+	 *     PredicateResult returns PredicateResult
+	 *     AssureResult returns PredicateResult
+	 *
+	 * Constraint:
+	 *     (
+	 *         targetReference=QualifiedClaimReference 
+	 *         executionState=VerificationExecutionState 
+	 *         resultState=VerificationResultState 
+	 *         issues+=ResultIssue* 
+	 *         resultReport=[ResultReport|QualifiedName]? 
+	 *         metrics=Metrics 
+	 *         message=STRING?
+	 *     )
+	 */
+	protected void sequence_PredicateResult(ISerializationContext context, PredicateResult semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Contexts:
+	 *     QualifiedVerificationPlanElementReference returns QualifiedClaimReference
+	 *     QualifiedClaimReference returns QualifiedClaimReference
+	 *
 	 * Constraint:
 	 *     (verificationPlan=[VerificationPlan|QualifiedName] requirement=NestedClaimReference)
 	 */
-	protected void sequence_QualifiedClaimReference(EObject context, QualifiedClaimReference semanticObject) {
-		if(errorAcceptor != null) {
-			if(transientValues.isValueTransient(semanticObject, AssurePackage.Literals.QUALIFIED_VERIFICATION_PLAN_ELEMENT_REFERENCE__VERIFICATION_PLAN) == ValueTransient.YES)
+	protected void sequence_QualifiedClaimReference(ISerializationContext context, QualifiedClaimReference semanticObject) {
+		if (errorAcceptor != null) {
+			if (transientValues.isValueTransient(semanticObject, AssurePackage.Literals.QUALIFIED_VERIFICATION_PLAN_ELEMENT_REFERENCE__VERIFICATION_PLAN) == ValueTransient.YES)
 				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, AssurePackage.Literals.QUALIFIED_VERIFICATION_PLAN_ELEMENT_REFERENCE__VERIFICATION_PLAN));
-			if(transientValues.isValueTransient(semanticObject, AssurePackage.Literals.QUALIFIED_VERIFICATION_PLAN_ELEMENT_REFERENCE__REQUIREMENT) == ValueTransient.YES)
+			if (transientValues.isValueTransient(semanticObject, AssurePackage.Literals.QUALIFIED_VERIFICATION_PLAN_ELEMENT_REFERENCE__REQUIREMENT) == ValueTransient.YES)
 				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, AssurePackage.Literals.QUALIFIED_VERIFICATION_PLAN_ELEMENT_REFERENCE__REQUIREMENT));
 		}
-		INodesForEObjectProvider nodes = createNodeProvider(semanticObject);
-		SequenceFeeder feeder = createSequencerFeeder(semanticObject, nodes);
-		feeder.accept(grammarAccess.getQualifiedClaimReferenceAccess().getVerificationPlanVerificationPlanQualifiedNameParserRuleCall_0_0_1(), semanticObject.getVerificationPlan());
+		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
+		feeder.accept(grammarAccess.getQualifiedClaimReferenceAccess().getVerificationPlanVerificationPlanQualifiedNameParserRuleCall_0_0_1(), semanticObject.eGet(AssurePackage.Literals.QUALIFIED_VERIFICATION_PLAN_ELEMENT_REFERENCE__VERIFICATION_PLAN, false));
 		feeder.accept(grammarAccess.getQualifiedClaimReferenceAccess().getRequirementNestedClaimReferenceParserRuleCall_2_0(), semanticObject.getRequirement());
 		feeder.finish();
 	}
 	
 	
 	/**
+	 * Contexts:
+	 *     QualifiedVerificationPlanElementReference returns QualifiedVAReference
+	 *     QualifiedVAReference returns QualifiedVAReference
+	 *
 	 * Constraint:
 	 *     (verificationPlan=[VerificationPlan|QualifiedName] requirement=NestedClaimReference verificationActivity=[VerificationActivity|ID])
 	 */
-	protected void sequence_QualifiedVAReference(EObject context, QualifiedVAReference semanticObject) {
-		if(errorAcceptor != null) {
-			if(transientValues.isValueTransient(semanticObject, AssurePackage.Literals.QUALIFIED_VERIFICATION_PLAN_ELEMENT_REFERENCE__VERIFICATION_PLAN) == ValueTransient.YES)
+	protected void sequence_QualifiedVAReference(ISerializationContext context, QualifiedVAReference semanticObject) {
+		if (errorAcceptor != null) {
+			if (transientValues.isValueTransient(semanticObject, AssurePackage.Literals.QUALIFIED_VERIFICATION_PLAN_ELEMENT_REFERENCE__VERIFICATION_PLAN) == ValueTransient.YES)
 				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, AssurePackage.Literals.QUALIFIED_VERIFICATION_PLAN_ELEMENT_REFERENCE__VERIFICATION_PLAN));
-			if(transientValues.isValueTransient(semanticObject, AssurePackage.Literals.QUALIFIED_VERIFICATION_PLAN_ELEMENT_REFERENCE__REQUIREMENT) == ValueTransient.YES)
+			if (transientValues.isValueTransient(semanticObject, AssurePackage.Literals.QUALIFIED_VERIFICATION_PLAN_ELEMENT_REFERENCE__REQUIREMENT) == ValueTransient.YES)
 				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, AssurePackage.Literals.QUALIFIED_VERIFICATION_PLAN_ELEMENT_REFERENCE__REQUIREMENT));
-			if(transientValues.isValueTransient(semanticObject, AssurePackage.Literals.QUALIFIED_VA_REFERENCE__VERIFICATION_ACTIVITY) == ValueTransient.YES)
+			if (transientValues.isValueTransient(semanticObject, AssurePackage.Literals.QUALIFIED_VA_REFERENCE__VERIFICATION_ACTIVITY) == ValueTransient.YES)
 				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, AssurePackage.Literals.QUALIFIED_VA_REFERENCE__VERIFICATION_ACTIVITY));
 		}
-		INodesForEObjectProvider nodes = createNodeProvider(semanticObject);
-		SequenceFeeder feeder = createSequencerFeeder(semanticObject, nodes);
-		feeder.accept(grammarAccess.getQualifiedVAReferenceAccess().getVerificationPlanVerificationPlanQualifiedNameParserRuleCall_0_0_1(), semanticObject.getVerificationPlan());
+		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
+		feeder.accept(grammarAccess.getQualifiedVAReferenceAccess().getVerificationPlanVerificationPlanQualifiedNameParserRuleCall_0_0_1(), semanticObject.eGet(AssurePackage.Literals.QUALIFIED_VERIFICATION_PLAN_ELEMENT_REFERENCE__VERIFICATION_PLAN, false));
 		feeder.accept(grammarAccess.getQualifiedVAReferenceAccess().getRequirementNestedClaimReferenceParserRuleCall_2_0(), semanticObject.getRequirement());
-		feeder.accept(grammarAccess.getQualifiedVAReferenceAccess().getVerificationActivityVerificationActivityIDTerminalRuleCall_4_0_1(), semanticObject.getVerificationActivity());
+		feeder.accept(grammarAccess.getQualifiedVAReferenceAccess().getVerificationActivityVerificationActivityIDTerminalRuleCall_4_0_1(), semanticObject.eGet(AssurePackage.Literals.QUALIFIED_VA_REFERENCE__VERIFICATION_ACTIVITY, false));
 		feeder.finish();
 	}
 	
 	
 	/**
+	 * Contexts:
+	 *     SubsystemResult returns SubsystemResult
+	 *     AssureResult returns SubsystemResult
+	 *
 	 * Constraint:
 	 *     (targetSystem=[Subcomponent|ID] metrics=Metrics message=STRING? claimResult+=ClaimResult* subsystemResult+=SubsystemResult*)
 	 */
-	protected void sequence_SubsystemResult(EObject context, SubsystemResult semanticObject) {
+	protected void sequence_SubsystemResult(ISerializationContext context, SubsystemResult semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	
 	
 	/**
+	 * Contexts:
+	 *     AssureResult returns ThenResult
+	 *     VerificationExpr returns ThenResult
+	 *     ThenResult returns ThenResult
+	 *
 	 * Constraint:
 	 *     (first+=VerificationExpr+ second+=VerificationExpr+ didThenFail?='thenfailed'? metrics=Metrics)
 	 */
-	protected void sequence_ThenResult(EObject context, ThenResult semanticObject) {
+	protected void sequence_ThenResult(ISerializationContext context, ThenResult semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	
 	
 	/**
+	 * Contexts:
+	 *     ValidationResult returns ValidationResult
+	 *     AssureResult returns ValidationResult
+	 *
 	 * Constraint:
 	 *     (
 	 *         target=[VerificationMethod|QualifiedName] 
@@ -429,12 +527,17 @@ public class AssureSemanticSequencer extends CommonSemanticSequencer {
 	 *         message=STRING?
 	 *     )
 	 */
-	protected void sequence_ValidationResult(EObject context, ValidationResult semanticObject) {
+	protected void sequence_ValidationResult(ISerializationContext context, ValidationResult semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	
 	
 	/**
+	 * Contexts:
+	 *     VerificationActivityResult returns VerificationActivityResult
+	 *     AssureResult returns VerificationActivityResult
+	 *     VerificationExpr returns VerificationActivityResult
+	 *
 	 * Constraint:
 	 *     (
 	 *         targetReference=QualifiedVAReference 
@@ -448,7 +551,9 @@ public class AssureSemanticSequencer extends CommonSemanticSequencer {
 	 *         validationResult=ValidationResult?
 	 *     )
 	 */
-	protected void sequence_VerificationActivityResult(EObject context, VerificationActivityResult semanticObject) {
+	protected void sequence_VerificationActivityResult(ISerializationContext context, VerificationActivityResult semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
+	
+	
 }

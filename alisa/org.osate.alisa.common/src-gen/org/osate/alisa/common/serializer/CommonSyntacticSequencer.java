@@ -36,7 +36,6 @@ public class CommonSyntacticSequencer extends AbstractSyntacticSequencer {
 	protected AbstractElementAlias match_AParenthesizedExpression_LeftParenthesisKeyword_0_a;
 	protected AbstractElementAlias match_AParenthesizedExpression_LeftParenthesisKeyword_0_p;
 	protected AbstractElementAlias match_ResultIssue___LeftSquareBracketKeyword_5_0_RightSquareBracketKeyword_5_2__q;
-	protected AbstractElementAlias match_ShowValue_PercentSignKeyword_1_0_q;
 	
 	@Inject
 	protected void init(IGrammarAccess access) {
@@ -44,7 +43,6 @@ public class CommonSyntacticSequencer extends AbstractSyntacticSequencer {
 		match_AParenthesizedExpression_LeftParenthesisKeyword_0_a = new TokenAlias(true, true, grammarAccess.getAParenthesizedExpressionAccess().getLeftParenthesisKeyword_0());
 		match_AParenthesizedExpression_LeftParenthesisKeyword_0_p = new TokenAlias(true, false, grammarAccess.getAParenthesizedExpressionAccess().getLeftParenthesisKeyword_0());
 		match_ResultIssue___LeftSquareBracketKeyword_5_0_RightSquareBracketKeyword_5_2__q = new GroupAlias(false, true, new TokenAlias(false, false, grammarAccess.getResultIssueAccess().getLeftSquareBracketKeyword_5_0()), new TokenAlias(false, false, grammarAccess.getResultIssueAccess().getRightSquareBracketKeyword_5_2()));
-		match_ShowValue_PercentSignKeyword_1_0_q = new TokenAlias(false, true, grammarAccess.getShowValueAccess().getPercentSignKeyword_1_0());
 	}
 	
 	@Override
@@ -59,14 +57,12 @@ public class CommonSyntacticSequencer extends AbstractSyntacticSequencer {
 		List<INode> transitionNodes = collectNodes(fromNode, toNode);
 		for (AbstractElementAlias syntax : transition.getAmbiguousSyntaxes()) {
 			List<INode> syntaxNodes = getNodesFor(transitionNodes, syntax);
-			if(match_AParenthesizedExpression_LeftParenthesisKeyword_0_a.equals(syntax))
+			if (match_AParenthesizedExpression_LeftParenthesisKeyword_0_a.equals(syntax))
 				emit_AParenthesizedExpression_LeftParenthesisKeyword_0_a(semanticObject, getLastNavigableState(), syntaxNodes);
-			else if(match_AParenthesizedExpression_LeftParenthesisKeyword_0_p.equals(syntax))
+			else if (match_AParenthesizedExpression_LeftParenthesisKeyword_0_p.equals(syntax))
 				emit_AParenthesizedExpression_LeftParenthesisKeyword_0_p(semanticObject, getLastNavigableState(), syntaxNodes);
-			else if(match_ResultIssue___LeftSquareBracketKeyword_5_0_RightSquareBracketKeyword_5_2__q.equals(syntax))
+			else if (match_ResultIssue___LeftSquareBracketKeyword_5_0_RightSquareBracketKeyword_5_2__q.equals(syntax))
 				emit_ResultIssue___LeftSquareBracketKeyword_5_0_RightSquareBracketKeyword_5_2__q(semanticObject, getLastNavigableState(), syntaxNodes);
-			else if(match_ShowValue_PercentSignKeyword_1_0_q.equals(syntax))
-				emit_ShowValue_PercentSignKeyword_1_0_q(semanticObject, getLastNavigableState(), syntaxNodes);
 			else acceptNodes(getLastNavigableState(), syntaxNodes);
 		}
 	}
@@ -80,7 +76,7 @@ public class CommonSyntacticSequencer extends AbstractSyntacticSequencer {
 	 *     (rule start) (ambiguity) '[' minimum=AExpression
 	 *     (rule start) (ambiguity) 'false' (rule start)
 	 *     (rule start) (ambiguity) 'if' if=AExpression
-	 *     (rule start) (ambiguity) function=ID
+	 *     (rule start) (ambiguity) function=QualifiedName
 	 *     (rule start) (ambiguity) modelElement=[NamedElement|ThisKeyword]
 	 *     (rule start) (ambiguity) operator=OpUnary
 	 *     (rule start) (ambiguity) value=AInt
@@ -106,7 +102,7 @@ public class CommonSyntacticSequencer extends AbstractSyntacticSequencer {
 	 *     (rule start) (ambiguity) '[' minimum=AExpression
 	 *     (rule start) (ambiguity) 'false' ')' (rule start)
 	 *     (rule start) (ambiguity) 'if' if=AExpression
-	 *     (rule start) (ambiguity) function=ID
+	 *     (rule start) (ambiguity) function=QualifiedName
 	 *     (rule start) (ambiguity) modelElement=[NamedElement|ThisKeyword]
 	 *     (rule start) (ambiguity) operator=OpUnary
 	 *     (rule start) (ambiguity) value=AInt
@@ -131,20 +127,9 @@ public class CommonSyntacticSequencer extends AbstractSyntacticSequencer {
 	 *     diagnosticId=STRING (ambiguity) (rule end)
 	 *     exceptionType=STRING (ambiguity) (rule end)
 	 *     message=STRING (ambiguity) (rule end)
-	 *     target=[EObject|URIID] (ambiguity) (rule end)
+	 *     target=[EObject|NoQuoteString] (ambiguity) (rule end)
 	 */
 	protected void emit_ResultIssue___LeftSquareBracketKeyword_5_0_RightSquareBracketKeyword_5_2__q(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
-		acceptNodes(transition, nodes);
-	}
-	
-	/**
-	 * Ambiguous syntax:
-	 *     '%'?
-	 *
-	 * This ambiguous syntax occurs at:
-	 *     ref=[AVariableDeclaration|ID] (ambiguity) (rule end)
-	 */
-	protected void emit_ShowValue_PercentSignKeyword_1_0_q(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
 		acceptNodes(transition, nodes);
 	}
 	

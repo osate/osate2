@@ -15,16 +15,16 @@
  */
 package org.osate.organization;
 
-import org.eclipse.xtext.junit4.GlobalRegistries;
-import org.eclipse.xtext.junit4.GlobalRegistries.GlobalStateMemento;
-import org.eclipse.xtext.junit4.IInjectorProvider;
-import org.eclipse.xtext.junit4.IRegistryConfigurator;
-
+import com.google.inject.Guice;
 import com.google.inject.Injector;
+import org.eclipse.xtext.testing.GlobalRegistries;
+import org.eclipse.xtext.testing.GlobalRegistries.GlobalStateMemento;
+import org.eclipse.xtext.testing.IInjectorProvider;
+import org.eclipse.xtext.testing.IRegistryConfigurator;
 
 public class OrganizationInjectorProvider implements IInjectorProvider, IRegistryConfigurator {
-	
-    protected GlobalStateMemento stateBeforeInjectorCreation;
+
+	protected GlobalStateMemento stateBeforeInjectorCreation;
 	protected GlobalStateMemento stateAfterInjectorCreation;
 	protected Injector injector;
 
@@ -42,9 +42,26 @@ public class OrganizationInjectorProvider implements IInjectorProvider, IRegistr
 		}
 		return injector;
 	}
-	
+
 	protected Injector internalCreateInjector() {
-	    return new OrganizationStandaloneSetup().createInjectorAndDoEMFRegistration();
+		return new OrganizationStandaloneSetup() {
+			@Override
+			public Injector createInjector() {
+				return Guice.createInjector(createRuntimeModule());
+			}
+		}.createInjectorAndDoEMFRegistration();
+	}
+
+	protected OrganizationRuntimeModule createRuntimeModule() {
+		// make it work also with Maven/Tycho and OSGI
+		// see https://bugs.eclipse.org/bugs/show_bug.cgi?id=493672
+		return new OrganizationRuntimeModule() {
+			@Override
+			public ClassLoader bindClassLoaderToInstance() {
+				return OrganizationInjectorProvider.class
+						.getClassLoader();
+			}
+		};
 	}
 
 	@Override

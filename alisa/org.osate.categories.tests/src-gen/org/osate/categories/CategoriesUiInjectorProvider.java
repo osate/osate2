@@ -15,15 +15,15 @@
  */
 package org.osate.categories;
 
-import org.eclipse.xtext.junit4.IInjectorProvider;
+import org.eclipse.xtext.testing.IInjectorProvider;
 
 import com.google.inject.Injector;
 
 public class CategoriesUiInjectorProvider implements IInjectorProvider {
-	
+
 	@Override
 	public Injector getInjector() {
 		return org.osate.categories.ui.internal.CategoriesActivator.getInstance().getInjector("org.osate.categories.Categories");
 	}
-	
+
 }

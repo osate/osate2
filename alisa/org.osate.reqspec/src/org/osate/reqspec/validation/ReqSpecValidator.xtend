@@ -138,7 +138,7 @@ class ReqSpecValidator extends AbstractReqSpecValidator {
 		@Check(CheckType.EXPENSIVE)
 	def void checkFeatureCoverage(SystemRequirementSet sysreqs) {
 		val cl = sysreqs.target
-		if (cl == null || cl.getAllFeatures.empty ) return
+		if (cl === null || cl.getAllFeatures.empty ) return
 		
 		val fealist = new BasicEList<NamedElement>
 		cl.getAllFeatures.forEach[e| if (!sysreqs.requirements.exists[r| r.targetElement == e ]) fealist += e]
@@ -223,7 +223,7 @@ class ReqSpecValidator extends AbstractReqSpecValidator {
 						case goalRef.eIsProxy && EcoreUtil.resolve(goalRef,  resource.resourceSet).eIsProxy : null
 						default : EcoreUtil.resolve(goalRef,  resource.resourceSet)
 					} as Goal
-				if (goalRefResolved != null && goalRefResolved.targetClassifier != null 
+				if (goalRefResolved !== null && goalRefResolved.targetClassifier !== null 
 					&& !CommonUtilExtension.isSameorExtends(reqSpecTarget,goalRefResolved.targetClassifier )){
 						val goalTargetName = goalRefResolved.targetClassifier.name
 						val goalTargetURI = EcoreUtil.getURI(goalRefResolved.targetClassifier).toString();
@@ -430,7 +430,7 @@ class ReqSpecValidator extends AbstractReqSpecValidator {
 		]
 	}
 	
-	@Check//(CheckType.FAST)
+	@Check(CheckType.EXPENSIVE)
 	def void checkSystemRequirementsUniqueToComponentClassifier(SystemRequirementSet sysReq) {
 		val target = sysReq.target
 		val allSystemRequirements = reqSpecrefFinder.getSystemRequirementSetsNoExtends(target)
@@ -441,7 +441,7 @@ class ReqSpecValidator extends AbstractReqSpecValidator {
 		}
 	}
 	
-	@Check//(CheckType.FAST)
+	@Check(CheckType.EXPENSIVE)
 	def void checkStakeholderGoalsUniqueToComponentClassifier(StakeholderGoals shg) {
 		val target = shg.target
 		val allStakeholderGoals = reqSpecrefFinder.getStakeholderGoals(target)
@@ -452,7 +452,7 @@ class ReqSpecValidator extends AbstractReqSpecValidator {
 		}
 	}
 
-	@Check//(CheckType.FAST)
+	@Check(CheckType.EXPENSIVE)
 	def void checkRequirementShadowing(Requirement req){
 		val reqName = req.name.toLowerCase
 		val reqEvolvesReferences = req.evolvesReference
@@ -482,7 +482,7 @@ class ReqSpecValidator extends AbstractReqSpecValidator {
 
 	def void buildExtended(ComponentClassifier compClassifier, List<ComponentClassifier> ancestors){
 		var ext = compClassifier.extended
-		if (ext != null && ext instanceof ComponentClassifier) {
+		if (ext !== null && ext instanceof ComponentClassifier) {
 			ancestors.add(ext as ComponentClassifier)
 			(ext as ComponentClassifier).buildExtended(ancestors)
 		}

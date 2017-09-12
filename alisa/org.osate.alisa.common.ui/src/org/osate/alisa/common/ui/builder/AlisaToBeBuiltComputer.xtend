@@ -94,7 +94,7 @@ class AlisaToBeBuiltComputer implements IToBeBuiltComputerContribution {
 				if (isAlisaResource(targetURI)) {
 					val deps = depCache.get(targetURI) ?: new HashSet<URI>
 					deps += sourceURI
-					if (depCache.get(targetURI) == null) {
+					if (depCache.get(targetURI) === null) {
 						depCache.put(targetURI, deps)
 					}
 				}
@@ -105,7 +105,7 @@ class AlisaToBeBuiltComputer implements IToBeBuiltComputerContribution {
 		val deps = new HashSet<URI>
 		val uri = mapper.getUri(storage)
 
-		if (uri != null) {
+		if (uri !== null) {
 			deps += depCache.get(uri) ?: #{}
 			var changed = !deps.isEmpty
 
@@ -122,7 +122,7 @@ class AlisaToBeBuiltComputer implements IToBeBuiltComputerContribution {
 
 	private def boolean isAlisaResource(IStorage storage) {
 		val uri = mapper.getUri(storage)
-		if (uri != null)
+		if (uri !== null)
 			isAlisaResource(uri)
 		else
 			false

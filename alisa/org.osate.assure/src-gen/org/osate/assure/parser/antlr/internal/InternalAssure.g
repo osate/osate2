@@ -107,7 +107,7 @@ ruleAssuranceCaseResult returns [EObject current=null]
        			$current, 
        			"name",
         		lv_name_1_0, 
-        		"QualifiedName");
+        		"org.osate.alisa.common.Common.QualifiedName");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -129,7 +129,7 @@ ruleAssuranceCaseResult returns [EObject current=null]
        			$current, 
        			"metrics",
         		lv_metrics_3_0, 
-        		"Metrics");
+        		"org.osate.assure.Assure.Metrics");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -152,7 +152,7 @@ ruleAssuranceCaseResult returns [EObject current=null]
        			$current, 
        			"message",
         		lv_message_5_0, 
-        		"STRING");
+        		"org.eclipse.xtext.common.Terminals.STRING");
 	    }
 
 )
@@ -169,7 +169,7 @@ ruleAssuranceCaseResult returns [EObject current=null]
        			$current, 
        			"modelResult",
         		lv_modelResult_6_0, 
-        		"ModelResult");
+        		"org.osate.assure.Assure.ModelResult");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -254,7 +254,7 @@ ruleModelResult returns [EObject current=null]
        			$current, 
        			"metrics",
         		lv_metrics_5_0, 
-        		"Metrics");
+        		"org.osate.assure.Assure.Metrics");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -277,7 +277,7 @@ ruleModelResult returns [EObject current=null]
        			$current, 
        			"message",
         		lv_message_7_0, 
-        		"STRING");
+        		"org.eclipse.xtext.common.Terminals.STRING");
 	    }
 
 )
@@ -294,7 +294,7 @@ ruleModelResult returns [EObject current=null]
        			$current, 
        			"claimResult",
         		lv_claimResult_8_0, 
-        		"ClaimResult");
+        		"org.osate.assure.Assure.ClaimResult");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -312,7 +312,7 @@ ruleModelResult returns [EObject current=null]
        			$current, 
        			"subsystemResult",
         		lv_subsystemResult_9_0, 
-        		"SubsystemResult");
+        		"org.osate.assure.Assure.SubsystemResult");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -331,7 +331,7 @@ ruleModelResult returns [EObject current=null]
        			$current, 
        			"subAssuranceCase",
         		lv_subAssuranceCase_10_0, 
-        		"AssuranceCaseResult");
+        		"org.osate.assure.Assure.AssuranceCaseResult");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -395,7 +395,7 @@ ruleSubsystemResult returns [EObject current=null]
        			$current, 
        			"metrics",
         		lv_metrics_3_0, 
-        		"Metrics");
+        		"org.osate.assure.Assure.Metrics");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -418,7 +418,7 @@ ruleSubsystemResult returns [EObject current=null]
        			$current, 
        			"message",
         		lv_message_5_0, 
-        		"STRING");
+        		"org.eclipse.xtext.common.Terminals.STRING");
 	    }
 
 )
@@ -435,7 +435,7 @@ ruleSubsystemResult returns [EObject current=null]
        			$current, 
        			"claimResult",
         		lv_claimResult_6_0, 
-        		"ClaimResult");
+        		"org.osate.assure.Assure.ClaimResult");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -453,7 +453,7 @@ ruleSubsystemResult returns [EObject current=null]
        			$current, 
        			"subsystemResult",
         		lv_subsystemResult_7_0, 
-        		"SubsystemResult");
+        		"org.osate.assure.Assure.SubsystemResult");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -500,7 +500,7 @@ ruleClaimResult returns [EObject current=null]
        			$current, 
        			"targetReference",
         		lv_targetReference_1_0, 
-        		"QualifiedClaimReference");
+        		"org.osate.assure.Assure.QualifiedClaimReference");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -522,7 +522,7 @@ ruleClaimResult returns [EObject current=null]
        			$current, 
        			"metrics",
         		lv_metrics_3_0, 
-        		"Metrics");
+        		"org.osate.assure.Assure.Metrics");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -562,7 +562,7 @@ ruleClaimResult returns [EObject current=null]
        			$current, 
        			"message",
         		lv_message_7_0, 
-        		"STRING");
+        		"org.eclipse.xtext.common.Terminals.STRING");
 	    }
 
 )
@@ -579,7 +579,7 @@ ruleClaimResult returns [EObject current=null]
        			$current, 
        			"subClaimResult",
         		lv_subClaimResult_8_0, 
-        		"ClaimResult");
+        		"org.osate.assure.Assure.ClaimResult");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -597,14 +597,32 @@ ruleClaimResult returns [EObject current=null]
        			$current, 
        			"verificationActivityResult",
         		lv_verificationActivityResult_9_0, 
-        		"VerificationExpr");
+        		"org.osate.assure.Assure.VerificationExpr");
 	        afterParserOrEnumRuleCall();
 	    }
 
 )
-)*	otherlv_10=']' 
+)*(
+(
+		{ 
+	        newCompositeNode(grammarAccess.getClaimResultAccess().getPredicateResultPredicateResultParserRuleCall_8_0()); 
+	    }
+		lv_predicateResult_10_0=rulePredicateResult		{
+	        if ($current==null) {
+	            $current = createModelElementForParent(grammarAccess.getClaimResultRule());
+	        }
+       		set(
+       			$current, 
+       			"predicateResult",
+        		lv_predicateResult_10_0, 
+        		"org.osate.assure.Assure.PredicateResult");
+	        afterParserOrEnumRuleCall();
+	    }
+
+)
+)?	otherlv_11=']' 
     {
-    	newLeafNode(otherlv_10, grammarAccess.getClaimResultAccess().getRightSquareBracketKeyword_8());
+    	newLeafNode(otherlv_11, grammarAccess.getClaimResultAccess().getRightSquareBracketKeyword_9());
     }
 )
 ;
@@ -673,7 +691,7 @@ rulePreconditionResult returns [EObject current=null]
        			$current, 
        			"executionState",
         		lv_executionState_5_0, 
-        		"VerificationExecutionState");
+        		"org.osate.assure.Assure.VerificationExecutionState");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -695,7 +713,7 @@ rulePreconditionResult returns [EObject current=null]
        			$current, 
        			"resultState",
         		lv_resultState_7_0, 
-        		"VerificationResultState");
+        		"org.osate.assure.Assure.VerificationResultState");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -721,7 +739,7 @@ rulePreconditionResult returns [EObject current=null]
        			$current, 
        			"issues",
         		lv_issues_10_0, 
-        		"ResultIssue");
+        		"org.osate.alisa.common.Common.ResultIssue");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -762,7 +780,7 @@ rulePreconditionResult returns [EObject current=null]
        			$current, 
        			"metrics",
         		lv_metrics_14_0, 
-        		"Metrics");
+        		"org.osate.assure.Assure.Metrics");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -785,7 +803,7 @@ rulePreconditionResult returns [EObject current=null]
        			$current, 
        			"message",
         		lv_message_16_0, 
-        		"STRING");
+        		"org.eclipse.xtext.common.Terminals.STRING");
 	    }
 
 )
@@ -860,7 +878,7 @@ ruleValidationResult returns [EObject current=null]
        			$current, 
        			"executionState",
         		lv_executionState_5_0, 
-        		"VerificationExecutionState");
+        		"org.osate.assure.Assure.VerificationExecutionState");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -882,7 +900,7 @@ ruleValidationResult returns [EObject current=null]
        			$current, 
        			"resultState",
         		lv_resultState_7_0, 
-        		"VerificationResultState");
+        		"org.osate.assure.Assure.VerificationResultState");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -908,7 +926,7 @@ ruleValidationResult returns [EObject current=null]
        			$current, 
        			"issues",
         		lv_issues_10_0, 
-        		"ResultIssue");
+        		"org.osate.alisa.common.Common.ResultIssue");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -949,7 +967,7 @@ ruleValidationResult returns [EObject current=null]
        			$current, 
        			"metrics",
         		lv_metrics_14_0, 
-        		"Metrics");
+        		"org.osate.assure.Assure.Metrics");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -972,7 +990,7 @@ ruleValidationResult returns [EObject current=null]
        			$current, 
        			"message",
         		lv_message_16_0, 
-        		"STRING");
+        		"org.eclipse.xtext.common.Terminals.STRING");
 	    }
 
 )
@@ -1024,7 +1042,7 @@ ruleVerificationActivityResult returns [EObject current=null]
        			$current, 
        			"targetReference",
         		lv_targetReference_2_0, 
-        		"QualifiedVAReference");
+        		"org.osate.assure.Assure.QualifiedVAReference");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -1050,7 +1068,7 @@ ruleVerificationActivityResult returns [EObject current=null]
        			$current, 
        			"executionState",
         		lv_executionState_5_0, 
-        		"VerificationExecutionState");
+        		"org.osate.assure.Assure.VerificationExecutionState");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -1072,7 +1090,7 @@ ruleVerificationActivityResult returns [EObject current=null]
        			$current, 
        			"resultState",
         		lv_resultState_7_0, 
-        		"VerificationResultState");
+        		"org.osate.assure.Assure.VerificationResultState");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -1098,7 +1116,7 @@ ruleVerificationActivityResult returns [EObject current=null]
        			$current, 
        			"issues",
         		lv_issues_10_0, 
-        		"ResultIssue");
+        		"org.osate.alisa.common.Common.ResultIssue");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -1139,7 +1157,7 @@ ruleVerificationActivityResult returns [EObject current=null]
        			$current, 
        			"metrics",
         		lv_metrics_14_0, 
-        		"Metrics");
+        		"org.osate.assure.Assure.Metrics");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -1162,7 +1180,7 @@ ruleVerificationActivityResult returns [EObject current=null]
        			$current, 
        			"message",
         		lv_message_16_0, 
-        		"STRING");
+        		"org.eclipse.xtext.common.Terminals.STRING");
 	    }
 
 )
@@ -1179,7 +1197,7 @@ ruleVerificationActivityResult returns [EObject current=null]
        			$current, 
        			"preconditionResult",
         		lv_preconditionResult_17_0, 
-        		"PreconditionResult");
+        		"org.osate.assure.Assure.PreconditionResult");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -1197,7 +1215,7 @@ ruleVerificationActivityResult returns [EObject current=null]
        			$current, 
        			"validationResult",
         		lv_validationResult_18_0, 
-        		"ValidationResult");
+        		"org.osate.assure.Assure.ValidationResult");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -1205,6 +1223,196 @@ ruleVerificationActivityResult returns [EObject current=null]
 )?	otherlv_19=']' 
     {
     	newLeafNode(otherlv_19, grammarAccess.getVerificationActivityResultAccess().getRightSquareBracketKeyword_14());
+    }
+)
+;
+
+
+
+
+
+// Entry rule entryRulePredicateResult
+entryRulePredicateResult returns [EObject current=null] 
+	:
+	{ newCompositeNode(grammarAccess.getPredicateResultRule()); }
+	 iv_rulePredicateResult=rulePredicateResult 
+	 { $current=$iv_rulePredicateResult.current; } 
+	 EOF 
+;
+
+// Rule PredicateResult
+rulePredicateResult returns [EObject current=null] 
+    @init { enterRule(); 
+    }
+    @after { leaveRule(); }:
+((
+    {
+        $current = forceCreateModelElement(
+            grammarAccess.getPredicateResultAccess().getPredicateResultAction_0(),
+            $current);
+    }
+)	otherlv_1='predicate' 
+    {
+    	newLeafNode(otherlv_1, grammarAccess.getPredicateResultAccess().getPredicateKeyword_1());
+    }
+(
+(
+		{ 
+	        newCompositeNode(grammarAccess.getPredicateResultAccess().getTargetReferenceQualifiedClaimReferenceParserRuleCall_2_0()); 
+	    }
+		lv_targetReference_2_0=ruleQualifiedClaimReference		{
+	        if ($current==null) {
+	            $current = createModelElementForParent(grammarAccess.getPredicateResultRule());
+	        }
+       		set(
+       			$current, 
+       			"targetReference",
+        		lv_targetReference_2_0, 
+        		"org.osate.assure.Assure.QualifiedClaimReference");
+	        afterParserOrEnumRuleCall();
+	    }
+
+)
+)	otherlv_3='[' 
+    {
+    	newLeafNode(otherlv_3, grammarAccess.getPredicateResultAccess().getLeftSquareBracketKeyword_3());
+    }
+	otherlv_4='executionstate' 
+    {
+    	newLeafNode(otherlv_4, grammarAccess.getPredicateResultAccess().getExecutionstateKeyword_4());
+    }
+(
+(
+		{ 
+	        newCompositeNode(grammarAccess.getPredicateResultAccess().getExecutionStateVerificationExecutionStateEnumRuleCall_5_0()); 
+	    }
+		lv_executionState_5_0=ruleVerificationExecutionState		{
+	        if ($current==null) {
+	            $current = createModelElementForParent(grammarAccess.getPredicateResultRule());
+	        }
+       		set(
+       			$current, 
+       			"executionState",
+        		lv_executionState_5_0, 
+        		"org.osate.assure.Assure.VerificationExecutionState");
+	        afterParserOrEnumRuleCall();
+	    }
+
+)
+)	otherlv_6='resultstate' 
+    {
+    	newLeafNode(otherlv_6, grammarAccess.getPredicateResultAccess().getResultstateKeyword_6());
+    }
+(
+(
+		{ 
+	        newCompositeNode(grammarAccess.getPredicateResultAccess().getResultStateVerificationResultStateEnumRuleCall_7_0()); 
+	    }
+		lv_resultState_7_0=ruleVerificationResultState		{
+	        if ($current==null) {
+	            $current = createModelElementForParent(grammarAccess.getPredicateResultRule());
+	        }
+       		set(
+       			$current, 
+       			"resultState",
+        		lv_resultState_7_0, 
+        		"org.osate.assure.Assure.VerificationResultState");
+	        afterParserOrEnumRuleCall();
+	    }
+
+)
+)(	otherlv_8='issues' 
+    {
+    	newLeafNode(otherlv_8, grammarAccess.getPredicateResultAccess().getIssuesKeyword_8_0());
+    }
+	otherlv_9='[' 
+    {
+    	newLeafNode(otherlv_9, grammarAccess.getPredicateResultAccess().getLeftSquareBracketKeyword_8_1());
+    }
+(
+(
+		{ 
+	        newCompositeNode(grammarAccess.getPredicateResultAccess().getIssuesResultIssueParserRuleCall_8_2_0()); 
+	    }
+		lv_issues_10_0=ruleResultIssue		{
+	        if ($current==null) {
+	            $current = createModelElementForParent(grammarAccess.getPredicateResultRule());
+	        }
+       		add(
+       			$current, 
+       			"issues",
+        		lv_issues_10_0, 
+        		"org.osate.alisa.common.Common.ResultIssue");
+	        afterParserOrEnumRuleCall();
+	    }
+
+)
+)*	otherlv_11=']' 
+    {
+    	newLeafNode(otherlv_11, grammarAccess.getPredicateResultAccess().getRightSquareBracketKeyword_8_3());
+    }
+)?(	otherlv_12='report' 
+    {
+    	newLeafNode(otherlv_12, grammarAccess.getPredicateResultAccess().getReportKeyword_9_0());
+    }
+(
+(
+		{
+			if ($current==null) {
+	            $current = createModelElement(grammarAccess.getPredicateResultRule());
+	        }
+        }
+		{ 
+	        newCompositeNode(grammarAccess.getPredicateResultAccess().getResultReportResultReportCrossReference_9_1_0()); 
+	    }
+		ruleQualifiedName		{ 
+	        afterParserOrEnumRuleCall();
+	    }
+
+)
+))?(
+(
+		{ 
+	        newCompositeNode(grammarAccess.getPredicateResultAccess().getMetricsMetricsParserRuleCall_10_0()); 
+	    }
+		lv_metrics_14_0=ruleMetrics		{
+	        if ($current==null) {
+	            $current = createModelElementForParent(grammarAccess.getPredicateResultRule());
+	        }
+       		set(
+       			$current, 
+       			"metrics",
+        		lv_metrics_14_0, 
+        		"org.osate.assure.Assure.Metrics");
+	        afterParserOrEnumRuleCall();
+	    }
+
+)
+)(	otherlv_15='message' 
+    {
+    	newLeafNode(otherlv_15, grammarAccess.getPredicateResultAccess().getMessageKeyword_11_0());
+    }
+(
+(
+		lv_message_16_0=RULE_STRING
+		{
+			newLeafNode(lv_message_16_0, grammarAccess.getPredicateResultAccess().getMessageSTRINGTerminalRuleCall_11_1_0()); 
+		}
+		{
+	        if ($current==null) {
+	            $current = createModelElement(grammarAccess.getPredicateResultRule());
+	        }
+       		setWithLastConsumed(
+       			$current, 
+       			"message",
+        		lv_message_16_0, 
+        		"org.eclipse.xtext.common.Terminals.STRING");
+	    }
+
+)
+))?	otherlv_17=']' 
+    {
+    	newLeafNode(otherlv_17, grammarAccess.getPredicateResultAccess().getRightSquareBracketKeyword_12());
     }
 )
 ;
@@ -1296,7 +1504,7 @@ ruleElseResult returns [EObject current=null]
        			$current, 
        			"first",
         		lv_first_1_0, 
-        		"VerificationExpr");
+        		"org.osate.assure.Assure.VerificationExpr");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -1318,7 +1526,7 @@ ruleElseResult returns [EObject current=null]
        			$current, 
        			"error",
         		lv_error_3_0, 
-        		"VerificationExpr");
+        		"org.osate.assure.Assure.VerificationExpr");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -1340,7 +1548,7 @@ ruleElseResult returns [EObject current=null]
        			$current, 
        			"fail",
         		lv_fail_5_0, 
-        		"VerificationExpr");
+        		"org.osate.assure.Assure.VerificationExpr");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -1362,7 +1570,7 @@ ruleElseResult returns [EObject current=null]
        			$current, 
        			"timeout",
         		lv_timeout_7_0, 
-        		"VerificationExpr");
+        		"org.osate.assure.Assure.VerificationExpr");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -1384,7 +1592,7 @@ ruleElseResult returns [EObject current=null]
        			$current, 
        			"didFail",
         		lv_didFail_9_0, 
-        		"ElseType");
+        		"org.osate.assure.Assure.ElseType");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -1402,7 +1610,7 @@ ruleElseResult returns [EObject current=null]
        			$current, 
        			"metrics",
         		lv_metrics_10_0, 
-        		"Metrics");
+        		"org.osate.assure.Assure.Metrics");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -1449,7 +1657,7 @@ ruleThenResult returns [EObject current=null]
        			$current, 
        			"first",
         		lv_first_1_0, 
-        		"VerificationExpr");
+        		"org.osate.assure.Assure.VerificationExpr");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -1471,7 +1679,7 @@ ruleThenResult returns [EObject current=null]
        			$current, 
        			"second",
         		lv_second_3_0, 
-        		"VerificationExpr");
+        		"org.osate.assure.Assure.VerificationExpr");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -1508,7 +1716,7 @@ ruleThenResult returns [EObject current=null]
        			$current, 
        			"metrics",
         		lv_metrics_6_0, 
-        		"Metrics");
+        		"org.osate.assure.Assure.Metrics");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -1562,7 +1770,7 @@ ruleMetrics returns [EObject current=null]
        			$current, 
        			"tbdCount",
         		lv_tbdCount_2_0, 
-        		"INT");
+        		"org.eclipse.xtext.common.Terminals.INT");
 	    }
 
 )
@@ -1584,7 +1792,7 @@ ruleMetrics returns [EObject current=null]
        			$current, 
        			"successCount",
         		lv_successCount_4_0, 
-        		"INT");
+        		"org.eclipse.xtext.common.Terminals.INT");
 	    }
 
 )
@@ -1606,7 +1814,7 @@ ruleMetrics returns [EObject current=null]
        			$current, 
        			"failCount",
         		lv_failCount_6_0, 
-        		"INT");
+        		"org.eclipse.xtext.common.Terminals.INT");
 	    }
 
 )
@@ -1628,7 +1836,7 @@ ruleMetrics returns [EObject current=null]
        			$current, 
        			"timeoutCount",
         		lv_timeoutCount_8_0, 
-        		"INT");
+        		"org.eclipse.xtext.common.Terminals.INT");
 	    }
 
 )
@@ -1650,7 +1858,7 @@ ruleMetrics returns [EObject current=null]
        			$current, 
        			"errorCount",
         		lv_errorCount_10_0, 
-        		"INT");
+        		"org.eclipse.xtext.common.Terminals.INT");
 	    }
 
 )
@@ -1672,7 +1880,7 @@ ruleMetrics returns [EObject current=null]
        			$current, 
        			"didelseCount",
         		lv_didelseCount_12_0, 
-        		"INT");
+        		"org.eclipse.xtext.common.Terminals.INT");
 	    }
 
 )
@@ -1694,7 +1902,7 @@ ruleMetrics returns [EObject current=null]
        			$current, 
        			"thenskipCount",
         		lv_thenskipCount_14_0, 
-        		"INT");
+        		"org.eclipse.xtext.common.Terminals.INT");
 	    }
 
 )
@@ -1716,7 +1924,7 @@ ruleMetrics returns [EObject current=null]
        			$current, 
        			"preconditionfailCount",
         		lv_preconditionfailCount_16_0, 
-        		"INT");
+        		"org.eclipse.xtext.common.Terminals.INT");
 	    }
 
 )
@@ -1738,7 +1946,7 @@ ruleMetrics returns [EObject current=null]
        			$current, 
        			"validationfailCount",
         		lv_validationfailCount_18_0, 
-        		"INT");
+        		"org.eclipse.xtext.common.Terminals.INT");
 	    }
 
 )
@@ -1760,7 +1968,7 @@ ruleMetrics returns [EObject current=null]
        			$current, 
        			"featuresCount",
         		lv_featuresCount_20_0, 
-        		"INT");
+        		"org.eclipse.xtext.common.Terminals.INT");
 	    }
 
 )
@@ -1782,7 +1990,7 @@ ruleMetrics returns [EObject current=null]
        			$current, 
        			"featuresRequirementsCount",
         		lv_featuresRequirementsCount_22_0, 
-        		"INT");
+        		"org.eclipse.xtext.common.Terminals.INT");
 	    }
 
 )
@@ -1804,7 +2012,7 @@ ruleMetrics returns [EObject current=null]
        			$current, 
        			"qualityCategoryRequirementsCount",
         		lv_qualityCategoryRequirementsCount_24_0, 
-        		"INT");
+        		"org.eclipse.xtext.common.Terminals.INT");
 	    }
 
 )
@@ -1826,7 +2034,7 @@ ruleMetrics returns [EObject current=null]
        			$current, 
        			"totalQualityCategoryCount",
         		lv_totalQualityCategoryCount_26_0, 
-        		"INT");
+        		"org.eclipse.xtext.common.Terminals.INT");
 	    }
 
 )
@@ -1848,7 +2056,7 @@ ruleMetrics returns [EObject current=null]
        			$current, 
        			"requirementsWithoutPlanClaimCount",
         		lv_requirementsWithoutPlanClaimCount_28_0, 
-        		"INT");
+        		"org.eclipse.xtext.common.Terminals.INT");
 	    }
 
 )
@@ -1870,7 +2078,7 @@ ruleMetrics returns [EObject current=null]
        			$current, 
        			"noVerificationPlansCount",
         		lv_noVerificationPlansCount_30_0, 
-        		"INT");
+        		"org.eclipse.xtext.common.Terminals.INT");
 	    }
 
 )
@@ -1892,7 +2100,7 @@ ruleMetrics returns [EObject current=null]
        			$current, 
        			"requirementsCount",
         		lv_requirementsCount_32_0, 
-        		"INT");
+        		"org.eclipse.xtext.common.Terminals.INT");
 	    }
 
 )
@@ -1914,7 +2122,7 @@ ruleMetrics returns [EObject current=null]
        			$current, 
        			"exceptionsCount",
         		lv_exceptionsCount_34_0, 
-        		"INT");
+        		"org.eclipse.xtext.common.Terminals.INT");
 	    }
 
 )
@@ -1936,7 +2144,7 @@ ruleMetrics returns [EObject current=null]
        			$current, 
        			"reqTargetHasEMV2SubclauseCount",
         		lv_reqTargetHasEMV2SubclauseCount_36_0, 
-        		"INT");
+        		"org.eclipse.xtext.common.Terminals.INT");
 	    }
 
 )
@@ -1958,7 +2166,7 @@ ruleMetrics returns [EObject current=null]
        			$current, 
        			"featuresRequiringClassifierCount",
         		lv_featuresRequiringClassifierCount_38_0, 
-        		"INT");
+        		"org.eclipse.xtext.common.Terminals.INT");
 	    }
 
 )
@@ -1980,7 +2188,7 @@ ruleMetrics returns [EObject current=null]
        			$current, 
        			"featuresWithRequiredClassifierCount",
         		lv_featuresWithRequiredClassifierCount_40_0, 
-        		"INT");
+        		"org.eclipse.xtext.common.Terminals.INT");
 	    }
 
 )
@@ -2002,7 +2210,7 @@ ruleMetrics returns [EObject current=null]
        			$current, 
        			"weight",
         		lv_weight_42_0, 
-        		"INT");
+        		"org.eclipse.xtext.common.Terminals.INT");
 	    }
 
 )
@@ -2023,7 +2231,7 @@ ruleMetrics returns [EObject current=null]
        			$current, 
        			"executionTime",
         		lv_executionTime_44_0, 
-        		"AInt");
+        		"org.osate.alisa.common.Common.AInt");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -2083,7 +2291,7 @@ ruleQualifiedClaimReference returns [EObject current=null]
        			$current, 
        			"requirement",
         		lv_requirement_2_0, 
-        		"NestedClaimReference");
+        		"org.osate.assure.Assure.NestedClaimReference");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -2141,7 +2349,7 @@ ruleQualifiedVAReference returns [EObject current=null]
        			$current, 
        			"requirement",
         		lv_requirement_2_0, 
-        		"NestedClaimReference");
+        		"org.osate.assure.Assure.NestedClaimReference");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -2214,7 +2422,7 @@ ruleNestedClaimReference returns [EObject current=null]
        			$current, 
        			"sub",
         		lv_sub_2_0, 
-        		"NestedClaimReference");
+        		"org.osate.assure.Assure.NestedClaimReference");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -2256,35 +2464,22 @@ ruleDescriptionElement returns [EObject current=null]
        			$current, 
        			"text",
         		lv_text_0_0, 
-        		"STRING");
+        		"org.eclipse.xtext.common.Terminals.STRING");
 	    }
 
 )
 )
-    |(
+    |((
 (
-		{ 
-	        newCompositeNode(grammarAccess.getDescriptionElementAccess().getShowValueShowValueParserRuleCall_1_0()); 
-	    }
-		lv_showValue_1_0=ruleShowValue		{
-	        if ($current==null) {
-	            $current = createModelElementForParent(grammarAccess.getDescriptionElementRule());
-	        }
-       		set(
-       			$current, 
-       			"showValue",
-        		lv_showValue_1_0, 
-        		"ShowValue");
-	        afterParserOrEnumRuleCall();
-	    }
+	'this' 
+ 
 
 )
-)
-    |(
+)=>
 (
-		lv_thisTarget_2_0=	'this' 
+		lv_thisTarget_1_0=	'this' 
     {
-        newLeafNode(lv_thisTarget_2_0, grammarAccess.getDescriptionElementAccess().getThisTargetThisKeyword_2_0());
+        newLeafNode(lv_thisTarget_1_0, grammarAccess.getDescriptionElementAccess().getThisTargetThisKeyword_1_0());
     }
  
 	    {
@@ -2296,20 +2491,43 @@ ruleDescriptionElement returns [EObject current=null]
 
 )
 )
-    |(
+    |((
+(
+ruleImageReference
+)
+)=>
 (
 		{ 
-	        newCompositeNode(grammarAccess.getDescriptionElementAccess().getImageImageReferenceParserRuleCall_3_0()); 
+	        newCompositeNode(grammarAccess.getDescriptionElementAccess().getImageImageReferenceParserRuleCall_2_0()); 
 	    }
-		lv_image_3_0=ruleImageReference		{
+		lv_image_2_0=ruleImageReference		{
 	        if ($current==null) {
 	            $current = createModelElementForParent(grammarAccess.getDescriptionElementRule());
 	        }
        		set(
        			$current, 
        			"image",
-        		lv_image_3_0, 
-        		"ImageReference");
+        		lv_image_2_0, 
+        		"org.osate.alisa.common.Common.ImageReference");
+	        afterParserOrEnumRuleCall();
+	    }
+
+)
+)
+    |(
+(
+		{ 
+	        newCompositeNode(grammarAccess.getDescriptionElementAccess().getShowValueShowValueParserRuleCall_3_0()); 
+	    }
+		lv_showValue_3_0=ruleShowValue		{
+	        if ($current==null) {
+	            $current = createModelElementForParent(grammarAccess.getDescriptionElementRule());
+	        }
+       		set(
+       			$current, 
+       			"showValue",
+        		lv_showValue_3_0, 
+        		"org.osate.alisa.common.Common.ShowValue");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -2352,7 +2570,7 @@ ruleResultIssue returns [EObject current=null]
        			$current, 
        			"issueType",
         		lv_issueType_0_0, 
-        		"ResultIssueType");
+        		"org.osate.alisa.common.Common.ResultIssueType");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -2371,7 +2589,7 @@ ruleResultIssue returns [EObject current=null]
        			$current, 
        			"message",
         		lv_message_1_0, 
-        		"STRING");
+        		"org.eclipse.xtext.common.Terminals.STRING");
 	    }
 
 )
@@ -2389,7 +2607,7 @@ ruleResultIssue returns [EObject current=null]
 		{ 
 	        newCompositeNode(grammarAccess.getResultIssueAccess().getTargetEObjectCrossReference_2_1_0()); 
 	    }
-		ruleURIID		{ 
+		ruleNoQuoteString		{ 
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -2412,7 +2630,7 @@ ruleResultIssue returns [EObject current=null]
        			$current, 
        			"exceptionType",
         		lv_exceptionType_5_0, 
-        		"STRING");
+        		"org.eclipse.xtext.common.Terminals.STRING");
 	    }
 
 )
@@ -2434,7 +2652,7 @@ ruleResultIssue returns [EObject current=null]
        			$current, 
        			"diagnosticId",
         		lv_diagnosticId_7_0, 
-        		"STRING");
+        		"org.eclipse.xtext.common.Terminals.STRING");
 	    }
 
 )
@@ -2455,7 +2673,7 @@ ruleResultIssue returns [EObject current=null]
        			$current, 
        			"issues",
         		lv_issues_9_0, 
-        		"ResultIssue");
+        		"org.osate.alisa.common.Common.ResultIssue");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -2884,27 +3102,54 @@ ruleShowValue returns [EObject current=null]
     @after { leaveRule(); }:
 ((
 (
-		{
-			if ($current==null) {
-	            $current = createModelElement(grammarAccess.getShowValueRule());
+		{ 
+	        newCompositeNode(grammarAccess.getShowValueAccess().getExpressionAVariableReferenceParserRuleCall_0_0()); 
+	    }
+		lv_expression_0_0=ruleAVariableReference		{
+	        if ($current==null) {
+	            $current = createModelElementForParent(grammarAccess.getShowValueRule());
 	        }
-        }
-	otherlv_0=RULE_ID
-	{
-		newLeafNode(otherlv_0, grammarAccess.getShowValueAccess().getRefAVariableDeclarationCrossReference_0_0()); 
-	}
+       		set(
+       			$current, 
+       			"expression",
+        		lv_expression_0_0, 
+        		"org.osate.alisa.common.Common.AVariableReference");
+	        afterParserOrEnumRuleCall();
+	    }
 
 )
-)(	otherlv_1='%' 
-    {
-    	newLeafNode(otherlv_1, grammarAccess.getShowValueAccess().getPercentSignKeyword_1_0());
-    }
-
-    |(	otherlv_2='in' 
-    {
-    	newLeafNode(otherlv_2, grammarAccess.getShowValueAccess().getInKeyword_1_1_0());
-    }
+)(((
 (
+		lv_convert_1_0=	'%' 
+    {
+        newLeafNode(lv_convert_1_0, grammarAccess.getShowValueAccess().getConvertPercentSignKeyword_1_0_0_0());
+    }
+ 
+	    {
+	        if ($current==null) {
+	            $current = createModelElement(grammarAccess.getShowValueRule());
+	        }
+       		setWithLastConsumed($current, "convert", true, "\%");
+	    }
+
+)
+)
+    |(
+(
+		lv_drop_2_0=	'in' 
+    {
+        newLeafNode(lv_drop_2_0, grammarAccess.getShowValueAccess().getDropInKeyword_1_0_1_0());
+    }
+ 
+	    {
+	        if ($current==null) {
+	            $current = createModelElement(grammarAccess.getShowValueRule());
+	        }
+       		setWithLastConsumed($current, "drop", true, "in");
+	    }
+
+)
+))(
 (
 		{
 			if ($current==null) {
@@ -2913,11 +3158,11 @@ ruleShowValue returns [EObject current=null]
         }
 	otherlv_3=RULE_ID
 	{
-		newLeafNode(otherlv_3, grammarAccess.getShowValueAccess().getUnitUnitLiteralCrossReference_1_1_1_0()); 
+		newLeafNode(otherlv_3, grammarAccess.getShowValueAccess().getUnitUnitLiteralCrossReference_1_1_0()); 
 	}
 
 )
-)))?)
+))?)
 ;
 
 
@@ -2955,7 +3200,7 @@ ruleImageReference returns [EObject current=null]
        			$current, 
        			"imgfile",
         		lv_imgfile_1_0, 
-        		"IMGREF");
+        		"org.osate.alisa.common.Common.IMGREF");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -3098,7 +3343,7 @@ ruleOpOr
        			$current, 
        			"operator",
         		lv_operator_2_0, 
-        		"OpOr");
+        		"org.osate.alisa.common.Common.OpOr");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -3116,7 +3361,7 @@ ruleOpOr
        			$current, 
        			"right",
         		lv_right_3_0, 
-        		"AAndExpression");
+        		"org.osate.alisa.common.Common.AAndExpression");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -3209,7 +3454,7 @@ ruleOpAnd
        			$current, 
        			"operator",
         		lv_operator_2_0, 
-        		"OpAnd");
+        		"org.osate.alisa.common.Common.OpAnd");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -3227,7 +3472,7 @@ ruleOpAnd
        			$current, 
        			"right",
         		lv_right_3_0, 
-        		"AEqualityExpression");
+        		"org.osate.alisa.common.Common.AEqualityExpression");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -3320,7 +3565,7 @@ ruleOpEquality
        			$current, 
        			"operator",
         		lv_operator_2_0, 
-        		"OpEquality");
+        		"org.osate.alisa.common.Common.OpEquality");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -3338,7 +3583,7 @@ ruleOpEquality
        			$current, 
        			"right",
         		lv_right_3_0, 
-        		"ARelationalExpression");
+        		"org.osate.alisa.common.Common.ARelationalExpression");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -3431,7 +3676,7 @@ ruleOpCompare
        			$current, 
        			"operator",
         		lv_operator_2_0, 
-        		"OpCompare");
+        		"org.osate.alisa.common.Common.OpCompare");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -3449,7 +3694,7 @@ ruleOpCompare
        			$current, 
        			"right",
         		lv_right_3_0, 
-        		"AAdditiveExpression");
+        		"org.osate.alisa.common.Common.AAdditiveExpression");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -3563,7 +3808,7 @@ ruleOpAdd
        			$current, 
        			"operator",
         		lv_operator_2_0, 
-        		"OpAdd");
+        		"org.osate.alisa.common.Common.OpAdd");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -3581,7 +3826,7 @@ ruleOpAdd
        			$current, 
        			"right",
         		lv_right_3_0, 
-        		"AMultiplicativeExpression");
+        		"org.osate.alisa.common.Common.AMultiplicativeExpression");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -3674,7 +3919,7 @@ ruleOpMulti
        			$current, 
        			"operator",
         		lv_operator_2_0, 
-        		"OpMulti");
+        		"org.osate.alisa.common.Common.OpMulti");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -3692,7 +3937,7 @@ ruleOpMulti
        			$current, 
        			"right",
         		lv_right_3_0, 
-        		"AUnaryOperation");
+        		"org.osate.alisa.common.Common.AUnaryOperation");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -3789,7 +4034,7 @@ ruleOpUnary
        			$current, 
        			"operator",
         		lv_operator_1_0, 
-        		"OpUnary");
+        		"org.osate.alisa.common.Common.OpUnary");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -3807,7 +4052,7 @@ ruleOpUnary
        			$current, 
        			"operand",
         		lv_operand_2_0, 
-        		"AUnaryOperation");
+        		"org.osate.alisa.common.Common.AUnaryOperation");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -4062,19 +4307,19 @@ ruleAFunctionCall returns [EObject current=null]
     }
 )(
 (
-		lv_function_1_0=RULE_ID
-		{
-			newLeafNode(lv_function_1_0, grammarAccess.getAFunctionCallAccess().getFunctionIDTerminalRuleCall_1_0()); 
-		}
-		{
+		{ 
+	        newCompositeNode(grammarAccess.getAFunctionCallAccess().getFunctionQualifiedNameParserRuleCall_1_0()); 
+	    }
+		lv_function_1_0=ruleQualifiedName		{
 	        if ($current==null) {
-	            $current = createModelElement(grammarAccess.getAFunctionCallRule());
+	            $current = createModelElementForParent(grammarAccess.getAFunctionCallRule());
 	        }
-       		setWithLastConsumed(
+       		set(
        			$current, 
        			"function",
         		lv_function_1_0, 
-        		"ID");
+        		"org.osate.alisa.common.Common.QualifiedName");
+	        afterParserOrEnumRuleCall();
 	    }
 
 )
@@ -4082,10 +4327,10 @@ ruleAFunctionCall returns [EObject current=null]
     {
     	newLeafNode(otherlv_2, grammarAccess.getAFunctionCallAccess().getLeftParenthesisKeyword_2());
     }
-(
+((
 (
 		{ 
-	        newCompositeNode(grammarAccess.getAFunctionCallAccess().getArgumentsAExpressionParserRuleCall_3_0()); 
+	        newCompositeNode(grammarAccess.getAFunctionCallAccess().getArgumentsAExpressionParserRuleCall_3_0_0()); 
 	    }
 		lv_arguments_3_0=ruleAExpression		{
 	        if ($current==null) {
@@ -4095,19 +4340,19 @@ ruleAFunctionCall returns [EObject current=null]
        			$current, 
        			"arguments",
         		lv_arguments_3_0, 
-        		"AExpression");
+        		"org.osate.alisa.common.Common.AExpression");
 	        afterParserOrEnumRuleCall();
 	    }
 
 )
 )(	otherlv_4=',' 
     {
-    	newLeafNode(otherlv_4, grammarAccess.getAFunctionCallAccess().getCommaKeyword_4_0());
+    	newLeafNode(otherlv_4, grammarAccess.getAFunctionCallAccess().getCommaKeyword_3_1_0());
     }
 (
 (
 		{ 
-	        newCompositeNode(grammarAccess.getAFunctionCallAccess().getArgumentsAExpressionParserRuleCall_4_1_0()); 
+	        newCompositeNode(grammarAccess.getAFunctionCallAccess().getArgumentsAExpressionParserRuleCall_3_1_1_0()); 
 	    }
 		lv_arguments_5_0=ruleAExpression		{
 	        if ($current==null) {
@@ -4117,14 +4362,14 @@ ruleAFunctionCall returns [EObject current=null]
        			$current, 
        			"arguments",
         		lv_arguments_5_0, 
-        		"AExpression");
+        		"org.osate.alisa.common.Common.AExpression");
 	        afterParserOrEnumRuleCall();
 	    }
 
 )
-))*	otherlv_6=')' 
+))*)?	otherlv_6=')' 
     {
-    	newLeafNode(otherlv_6, grammarAccess.getAFunctionCallAccess().getRightParenthesisKeyword_5());
+    	newLeafNode(otherlv_6, grammarAccess.getAFunctionCallAccess().getRightParenthesisKeyword_4());
     }
 )
 ;
@@ -4170,7 +4415,7 @@ ruleARangeExpression returns [EObject current=null]
        			$current, 
        			"minimum",
         		lv_minimum_2_0, 
-        		"AExpression");
+        		"org.osate.alisa.common.Common.AExpression");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -4192,7 +4437,7 @@ ruleARangeExpression returns [EObject current=null]
        			$current, 
        			"maximum",
         		lv_maximum_4_0, 
-        		"AExpression");
+        		"org.osate.alisa.common.Common.AExpression");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -4215,7 +4460,7 @@ ruleARangeExpression returns [EObject current=null]
        			$current, 
        			"delta",
         		lv_delta_6_0, 
-        		"AExpression");
+        		"org.osate.alisa.common.Common.AExpression");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -4268,7 +4513,7 @@ ruleAIfExpression returns [EObject current=null]
        			$current, 
        			"if",
         		lv_if_2_0, 
-        		"AExpression");
+        		"org.osate.alisa.common.Common.AExpression");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -4290,7 +4535,7 @@ ruleAIfExpression returns [EObject current=null]
        			$current, 
        			"then",
         		lv_then_4_0, 
-        		"AExpression");
+        		"org.osate.alisa.common.Common.AExpression");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -4312,7 +4557,7 @@ ruleAIfExpression returns [EObject current=null]
        			$current, 
        			"else",
         		lv_else_6_0, 
-        		"AExpression");
+        		"org.osate.alisa.common.Common.AExpression");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -4415,7 +4660,7 @@ ruleAIntegerTerm returns [EObject current=null]
        			$current, 
        			"value",
         		lv_value_0_0, 
-        		"AInt");
+        		"org.osate.alisa.common.Common.AInt");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -4482,7 +4727,7 @@ ruleARealTerm returns [EObject current=null]
        			$current, 
        			"value",
         		lv_value_0_0, 
-        		"AReal");
+        		"org.osate.alisa.common.Common.AReal");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -4596,7 +4841,7 @@ ruleStringTerm returns [EObject current=null]
        			$current, 
        			"value",
         		lv_value_0_0, 
-        		"NoQuoteString");
+        		"org.osate.alisa.common.Common.NoQuoteString");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -4768,32 +5013,6 @@ ruleAADLPROPERTYREFERENCE returns [AntlrDatatypeRuleToken current=new AntlrDatat
     ;
 
 
-
-
-
-// Entry rule entryRuleURIID
-entryRuleURIID returns [String current=null] 
-	:
-	{ newCompositeNode(grammarAccess.getURIIDRule()); } 
-	 iv_ruleURIID=ruleURIID 
-	 { $current=$iv_ruleURIID.current.getText(); }  
-	 EOF 
-;
-
-// Rule URIID
-ruleURIID returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()] 
-    @init { enterRule(); 
-    }
-    @after { leaveRule(); }:
-    this_STRING_0=RULE_STRING    {
-		$current.merge(this_STRING_0);
-    }
-
-    { 
-    newLeafNode(this_STRING_0, grammarAccess.getURIIDAccess().getSTRINGTerminalRuleCall()); 
-    }
-
-    ;
 
 
 

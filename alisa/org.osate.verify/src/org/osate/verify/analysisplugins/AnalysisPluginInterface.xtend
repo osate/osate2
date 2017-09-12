@@ -19,19 +19,19 @@ package org.osate.verify.analysisplugins
 import org.eclipse.core.runtime.NullProgressMonitor
 import org.osate.aadl2.instance.InstanceObject
 import org.osate.aadl2.instance.SystemInstance
-import org.osate.analysis.architecture.actions.CheckA429PortConnectionConsistency
-import org.osate.analysis.architecture.actions.CheckConnectionBindingConsistency
-import org.osate.analysis.architecture.actions.DoPortConnectionConsistency
-import org.osate.analysis.architecture.actions.DoPropertyTotals
-import org.osate.analysis.flows.actions.CheckFlowLatency
+import org.osate.analysis.architecture.handlers.CheckA429PortConnectionConsistency
+import org.osate.analysis.architecture.handlers.CheckConnectionBindingConsistency
+import org.osate.analysis.architecture.handlers.DoPortConnectionConsistency
+import org.osate.analysis.architecture.handlers.DoPropertyTotals
+import org.osate.analysis.flows.handlers.CheckFlowLatency
 import org.osate.analysis.flows.preferences.Values
-import org.osate.analysis.resource.budgets.actions.DoBoundResourceAnalysis
-import org.osate.analysis.resource.budgets.actions.DoBoundSwitchBandWidthAnalysis
-import org.osate.analysis.resource.budgets.actions.DoPowerAnalysis
-import org.osate.analysis.resource.budgets.actions.DoResourceBudget
-import org.osate.analysis.resource.management.actions.Binpack
-import org.osate.analysis.security.actions.CheckSafety
-import org.osate.analysis.security.actions.CheckSecurity
+import org.osate.analysis.resource.budgets.handlers.DoBoundResourceAnalysis
+import org.osate.analysis.resource.budgets.handlers.DoBoundSwitchBandWidthAnalysis
+import org.osate.analysis.resource.budgets.handlers.DoPowerAnalysis
+import org.osate.analysis.resource.budgets.handlers.DoResourceBudget
+import org.osate.analysis.resource.management.handlers.Binpack
+import org.osate.analysis.security.handlers.CheckSafety
+import org.osate.analysis.security.handlers.CheckSecurity
 
 import static org.osate.verify.util.VerifyUtilExtension.*
 

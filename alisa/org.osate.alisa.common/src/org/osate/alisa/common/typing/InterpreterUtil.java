@@ -1,486 +1,319 @@
 package org.osate.alisa.common.typing;
 
-import com.google.common.base.Objects;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+import java.net.URL;
+import java.net.URLClassLoader;
+import java.util.ArrayList;
+import java.util.Set;
+
+import org.eclipse.core.resources.IFile;
+import org.eclipse.core.resources.IWorkspace;
+import org.eclipse.core.resources.IWorkspaceRoot;
+import org.eclipse.core.resources.ResourcesPlugin;
+import org.eclipse.core.runtime.IPath;
+import org.eclipse.emf.ecore.EObject;
+import org.eclipse.jdt.core.IClasspathEntry;
+import org.eclipse.jdt.core.IJavaModel;
+import org.eclipse.jdt.core.IJavaProject;
+import org.eclipse.jdt.core.IType;
+import org.eclipse.jdt.core.JavaCore;
+import org.eclipse.xtext.xbase.lib.CollectionLiterals;
+import org.eclipse.xtext.xbase.lib.Conversions;
+import org.eclipse.xtext.xbase.lib.Exceptions;
+import org.eclipse.xtext.xbase.lib.Functions.Function1;
+import org.eclipse.xtext.xbase.lib.IterableExtensions;
 import org.osate.aadl2.Aadl2Factory;
 import org.osate.aadl2.IntegerLiteral;
+import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.NumberValue;
 import org.osate.aadl2.RealLiteral;
 import org.osate.aadl2.UnitLiteral;
+import org.osate.aadl2.instance.InstanceObject;
+import org.osate.alisa.common.common.AModelReference;
 
-@SuppressWarnings("all")
+import com.google.common.base.Objects;
+import com.google.common.collect.Iterables;
+
 public class InterpreterUtil {
-  public static UnitLiteral smallerUnit(final UnitLiteral unit1, final UnitLiteral unit2) {
-    UnitLiteral _xifexpression = null;
-    boolean _or = false;
-    boolean _equals = Objects.equal(unit1, null);
-    if (_equals) {
-      _or = true;
-    } else {
-      boolean _equals_1 = Objects.equal(unit2, null);
-      _or = _equals_1;
-    }
-    if (_or) {
-      _xifexpression = null;
-    } else {
-      UnitLiteral _xifexpression_1 = null;
-      boolean _equals_2 = Objects.equal(unit1, unit2);
-      if (_equals_2) {
-        _xifexpression_1 = unit1;
-      } else {
-        UnitLiteral _xblockexpression = null;
-        {
-          final RealLiteral tester = Aadl2Factory.eINSTANCE.createRealLiteral();
-          tester.setValue(1.0);
-          tester.setUnit(unit1);
-          UnitLiteral _xifexpression_2 = null;
-          double _scaledValue = tester.getScaledValue(unit2);
-          boolean _lessThan = (_scaledValue < 1.0);
-          if (_lessThan) {
-            _xifexpression_2 = unit1;
-          } else {
-            _xifexpression_2 = unit2;
-          }
-          _xblockexpression = _xifexpression_2;
-        }
-        _xifexpression_1 = _xblockexpression;
-      }
-      _xifexpression = _xifexpression_1;
-    }
-    return _xifexpression;
-  }
-  
-  public static int compareTo(final NumberValue v1, final NumberValue v2) {
-    int _xblockexpression = (int) 0;
-    {
-      UnitLiteral _unit = v1.getUnit();
-      UnitLiteral _unit_1 = v2.getUnit();
-      final UnitLiteral minUnit = InterpreterUtil.smallerUnit(_unit, _unit_1);
-      int _xifexpression = (int) 0;
-      boolean _and = false;
-      if (!(v1 instanceof IntegerLiteral)) {
-        _and = false;
-      } else {
-        _and = (v2 instanceof IntegerLiteral);
-      }
-      if (_and) {
-        int _xblockexpression_1 = (int) 0;
-        {
-          long _xifexpression_1 = (long) 0;
-          UnitLiteral _unit_2 = v1.getUnit();
-          boolean _equals = Objects.equal(_unit_2, null);
-          if (_equals) {
-            _xifexpression_1 = ((IntegerLiteral) v1).getValue();
-          } else {
-            double _scaledValue = v1.getScaledValue(minUnit);
-            _xifexpression_1 = Math.round(_scaledValue);
-          }
-          final long s1 = _xifexpression_1;
-          long _xifexpression_2 = (long) 0;
-          UnitLiteral _unit_3 = v2.getUnit();
-          boolean _equals_1 = Objects.equal(_unit_3, null);
-          if (_equals_1) {
-            _xifexpression_2 = ((IntegerLiteral) v2).getValue();
-          } else {
-            double _scaledValue_1 = v2.getScaledValue(minUnit);
-            _xifexpression_2 = Math.round(_scaledValue_1);
-          }
-          final long s2 = _xifexpression_2;
-          _xblockexpression_1 = Long.valueOf(s1).compareTo(Long.valueOf(s2));
-        }
-        _xifexpression = _xblockexpression_1;
-      } else {
-        int _xblockexpression_2 = (int) 0;
-        {
-          double _xifexpression_1 = (double) 0;
-          UnitLiteral _unit_2 = v1.getUnit();
-          boolean _equals = Objects.equal(_unit_2, null);
-          if (_equals) {
-            double _xifexpression_2 = (double) 0;
-            if ((v1 instanceof IntegerLiteral)) {
-              _xifexpression_2 = ((IntegerLiteral)v1).getValue();
-            } else {
-              _xifexpression_2 = ((RealLiteral) v1).getValue();
-            }
-            _xifexpression_1 = _xifexpression_2;
-          } else {
-            _xifexpression_1 = v1.getScaledValue(minUnit);
-          }
-          final double s1 = _xifexpression_1;
-          double _xifexpression_3 = (double) 0;
-          UnitLiteral _unit_3 = v2.getUnit();
-          boolean _equals_1 = Objects.equal(_unit_3, null);
-          if (_equals_1) {
-            double _xifexpression_4 = (double) 0;
-            if ((v2 instanceof IntegerLiteral)) {
-              _xifexpression_4 = ((IntegerLiteral)v2).getValue();
-            } else {
-              _xifexpression_4 = ((RealLiteral) v2).getValue();
-            }
-            _xifexpression_3 = _xifexpression_4;
-          } else {
-            _xifexpression_3 = v2.getScaledValue(minUnit);
-          }
-          final double s2 = _xifexpression_3;
-          _xblockexpression_2 = Double.valueOf(s1).compareTo(Double.valueOf(s2));
-        }
-        _xifexpression = _xblockexpression_2;
-      }
-      _xblockexpression = _xifexpression;
-    }
-    return _xblockexpression;
-  }
-  
-  public static NumberValue add(final NumberValue v1, final NumberValue v2) {
-    NumberValue _xblockexpression = null;
-    {
-      UnitLiteral _unit = v1.getUnit();
-      UnitLiteral _unit_1 = v2.getUnit();
-      final UnitLiteral minUnit = InterpreterUtil.smallerUnit(_unit, _unit_1);
-      NumberValue _xifexpression = null;
-      boolean _and = false;
-      if (!(v1 instanceof IntegerLiteral)) {
-        _and = false;
-      } else {
-        _and = (v2 instanceof IntegerLiteral);
-      }
-      if (_and) {
-        IntegerLiteral _xblockexpression_1 = null;
-        {
-          long _xifexpression_1 = (long) 0;
-          UnitLiteral _unit_2 = v1.getUnit();
-          boolean _equals = Objects.equal(_unit_2, null);
-          if (_equals) {
-            _xifexpression_1 = ((IntegerLiteral) v1).getValue();
-          } else {
-            double _scaledValue = v1.getScaledValue(minUnit);
-            _xifexpression_1 = Math.round(_scaledValue);
-          }
-          final long s1 = _xifexpression_1;
-          long _xifexpression_2 = (long) 0;
-          UnitLiteral _unit_3 = v2.getUnit();
-          boolean _equals_1 = Objects.equal(_unit_3, null);
-          if (_equals_1) {
-            _xifexpression_2 = ((IntegerLiteral) v2).getValue();
-          } else {
-            double _scaledValue_1 = v2.getScaledValue(minUnit);
-            _xifexpression_2 = Math.round(_scaledValue_1);
-          }
-          final long s2 = _xifexpression_2;
-          final IntegerLiteral result = Aadl2Factory.eINSTANCE.createIntegerLiteral();
-          result.setValue((s1 + s2));
-          result.setUnit(minUnit);
-          _xblockexpression_1 = result;
-        }
-        _xifexpression = _xblockexpression_1;
-      } else {
-        RealLiteral _xblockexpression_2 = null;
-        {
-          double _xifexpression_1 = (double) 0;
-          UnitLiteral _unit_2 = v1.getUnit();
-          boolean _equals = Objects.equal(_unit_2, null);
-          if (_equals) {
-            double _xifexpression_2 = (double) 0;
-            if ((v1 instanceof IntegerLiteral)) {
-              _xifexpression_2 = ((IntegerLiteral)v1).getValue();
-            } else {
-              _xifexpression_2 = ((RealLiteral) v1).getValue();
-            }
-            _xifexpression_1 = _xifexpression_2;
-          } else {
-            _xifexpression_1 = v1.getScaledValue(minUnit);
-          }
-          final double s1 = _xifexpression_1;
-          double _xifexpression_3 = (double) 0;
-          UnitLiteral _unit_3 = v2.getUnit();
-          boolean _equals_1 = Objects.equal(_unit_3, null);
-          if (_equals_1) {
-            double _xifexpression_4 = (double) 0;
-            if ((v2 instanceof IntegerLiteral)) {
-              _xifexpression_4 = ((IntegerLiteral)v2).getValue();
-            } else {
-              _xifexpression_4 = ((RealLiteral) v2).getValue();
-            }
-            _xifexpression_3 = _xifexpression_4;
-          } else {
-            _xifexpression_3 = v2.getScaledValue(minUnit);
-          }
-          final double s2 = _xifexpression_3;
-          final RealLiteral result = Aadl2Factory.eINSTANCE.createRealLiteral();
-          result.setValue((s1 + s2));
-          result.setUnit(minUnit);
-          _xblockexpression_2 = result;
-        }
-        _xifexpression = _xblockexpression_2;
-      }
-      _xblockexpression = _xifexpression;
-    }
-    return _xblockexpression;
-  }
-  
-  public static NumberValue subtract(final NumberValue v1, final NumberValue v2) {
-    NumberValue _xifexpression = null;
-    if ((v2 instanceof IntegerLiteral)) {
-      NumberValue _xblockexpression = null;
-      {
-        final IntegerLiteral neg = Aadl2Factory.eINSTANCE.createIntegerLiteral();
-        long _value = ((IntegerLiteral)v2).getValue();
-        long _minus = (-_value);
-        neg.setValue(_minus);
-        UnitLiteral _unit = ((IntegerLiteral)v2).getUnit();
-        neg.setUnit(_unit);
-        _xblockexpression = InterpreterUtil.add(v1, neg);
-      }
-      _xifexpression = _xblockexpression;
-    } else {
-      NumberValue _xblockexpression_1 = null;
-      {
-        final RealLiteral neg = Aadl2Factory.eINSTANCE.createRealLiteral();
-        double _value = ((RealLiteral) v2).getValue();
-        double _minus = (-_value);
-        neg.setValue(_minus);
-        UnitLiteral _unit = v2.getUnit();
-        neg.setUnit(_unit);
-        _xblockexpression_1 = InterpreterUtil.add(v1, neg);
-      }
-      _xifexpression = _xblockexpression_1;
-    }
-    return _xifexpression;
-  }
-  
-  public static NumberValue multiply(final NumberValue v1, final NumberValue v2) {
-    NumberValue _xblockexpression = null;
-    {
-      UnitLiteral _xifexpression = null;
-      UnitLiteral _unit = v1.getUnit();
-      boolean _notEquals = (!Objects.equal(_unit, null));
-      if (_notEquals) {
-        _xifexpression = v1.getUnit();
-      } else {
-        _xifexpression = v2.getUnit();
-      }
-      final UnitLiteral unit = _xifexpression;
-      NumberValue _xifexpression_1 = null;
-      boolean _and = false;
-      if (!(v1 instanceof IntegerLiteral)) {
-        _and = false;
-      } else {
-        _and = (v2 instanceof IntegerLiteral);
-      }
-      if (_and) {
-        IntegerLiteral _xblockexpression_1 = null;
-        {
-          final long s1 = ((IntegerLiteral) v1).getValue();
-          final long s2 = ((IntegerLiteral) v2).getValue();
-          final IntegerLiteral result = Aadl2Factory.eINSTANCE.createIntegerLiteral();
-          result.setValue((s1 * s2));
-          result.setUnit(unit);
-          _xblockexpression_1 = result;
-        }
-        _xifexpression_1 = _xblockexpression_1;
-      } else {
-        RealLiteral _xblockexpression_2 = null;
-        {
-          double _xifexpression_2 = (double) 0;
-          if ((v1 instanceof IntegerLiteral)) {
-            _xifexpression_2 = ((IntegerLiteral)v1).getValue();
-          } else {
-            _xifexpression_2 = ((RealLiteral) v1).getValue();
-          }
-          final double s1 = _xifexpression_2;
-          double _xifexpression_3 = (double) 0;
-          if ((v2 instanceof IntegerLiteral)) {
-            _xifexpression_3 = ((IntegerLiteral)v2).getValue();
-          } else {
-            _xifexpression_3 = ((RealLiteral) v2).getValue();
-          }
-          final double s2 = _xifexpression_3;
-          final RealLiteral result = Aadl2Factory.eINSTANCE.createRealLiteral();
-          result.setValue((s1 * s2));
-          result.setUnit(unit);
-          _xblockexpression_2 = result;
-        }
-        _xifexpression_1 = _xblockexpression_2;
-      }
-      _xblockexpression = _xifexpression_1;
-    }
-    return _xblockexpression;
-  }
-  
-  public static RealLiteral divide(final NumberValue v1, final NumberValue v2) {
-    RealLiteral _xblockexpression = null;
-    {
-      UnitLiteral _unit = v1.getUnit();
-      UnitLiteral _unit_1 = v2.getUnit();
-      final UnitLiteral minUnit = InterpreterUtil.smallerUnit(_unit, _unit_1);
-      boolean _and = false;
-      UnitLiteral _unit_2 = v1.getUnit();
-      boolean _notEquals = (!Objects.equal(_unit_2, null));
-      if (!_notEquals) {
-        _and = false;
-      } else {
-        UnitLiteral _unit_3 = v2.getUnit();
-        boolean _notEquals_1 = (!Objects.equal(_unit_3, null));
-        _and = _notEquals_1;
-      }
-      final boolean twoUnits = _and;
-      UnitLiteral _xifexpression = null;
-      UnitLiteral _unit_4 = v1.getUnit();
-      boolean _notEquals_2 = (!Objects.equal(_unit_4, null));
-      if (_notEquals_2) {
-        _xifexpression = v1.getUnit();
-      } else {
-        _xifexpression = v2.getUnit();
-      }
-      final UnitLiteral unit = _xifexpression;
-      double _xifexpression_1 = (double) 0;
-      if ((!twoUnits)) {
-        double _xifexpression_2 = (double) 0;
-        if ((v1 instanceof IntegerLiteral)) {
-          _xifexpression_2 = ((IntegerLiteral)v1).getValue();
-        } else {
-          _xifexpression_2 = ((RealLiteral) v1).getValue();
-        }
-        _xifexpression_1 = _xifexpression_2;
-      } else {
-        _xifexpression_1 = v1.getScaledValue(minUnit);
-      }
-      final double s1 = _xifexpression_1;
-      double _xifexpression_3 = (double) 0;
-      if ((!twoUnits)) {
-        double _xifexpression_4 = (double) 0;
-        if ((v2 instanceof IntegerLiteral)) {
-          _xifexpression_4 = ((IntegerLiteral)v2).getValue();
-        } else {
-          _xifexpression_4 = ((RealLiteral) v2).getValue();
-        }
-        _xifexpression_3 = _xifexpression_4;
-      } else {
-        _xifexpression_3 = v2.getScaledValue(minUnit);
-      }
-      final double s2 = _xifexpression_3;
-      final RealLiteral result = Aadl2Factory.eINSTANCE.createRealLiteral();
-      result.setValue((s1 / s2));
-      UnitLiteral _xifexpression_5 = null;
-      if (twoUnits) {
-        _xifexpression_5 = minUnit;
-      } else {
-        _xifexpression_5 = unit;
-      }
-      result.setUnit(_xifexpression_5);
-      _xblockexpression = result;
-    }
-    return _xblockexpression;
-  }
-  
-  public static IntegerLiteral divideInt(final IntegerLiteral v1, final IntegerLiteral v2) {
-    IntegerLiteral _xblockexpression = null;
-    {
-      UnitLiteral _unit = v1.getUnit();
-      UnitLiteral _unit_1 = v2.getUnit();
-      final UnitLiteral minUnit = InterpreterUtil.smallerUnit(_unit, _unit_1);
-      boolean _and = false;
-      UnitLiteral _unit_2 = v1.getUnit();
-      boolean _notEquals = (!Objects.equal(_unit_2, null));
-      if (!_notEquals) {
-        _and = false;
-      } else {
-        UnitLiteral _unit_3 = v2.getUnit();
-        boolean _notEquals_1 = (!Objects.equal(_unit_3, null));
-        _and = _notEquals_1;
-      }
-      final boolean twoUnits = _and;
-      UnitLiteral _xifexpression = null;
-      UnitLiteral _unit_4 = v1.getUnit();
-      boolean _notEquals_2 = (!Objects.equal(_unit_4, null));
-      if (_notEquals_2) {
-        _xifexpression = v1.getUnit();
-      } else {
-        _xifexpression = v2.getUnit();
-      }
-      final UnitLiteral unit = _xifexpression;
-      long _xifexpression_1 = (long) 0;
-      if ((!twoUnits)) {
-        _xifexpression_1 = v1.getValue();
-      } else {
-        double _scaledValue = v1.getScaledValue(minUnit);
-        _xifexpression_1 = Math.round(_scaledValue);
-      }
-      final long s1 = _xifexpression_1;
-      long _xifexpression_2 = (long) 0;
-      if ((!twoUnits)) {
-        _xifexpression_2 = v2.getValue();
-      } else {
-        double _scaledValue_1 = v2.getScaledValue(minUnit);
-        _xifexpression_2 = Math.round(_scaledValue_1);
-      }
-      final long s2 = _xifexpression_2;
-      final IntegerLiteral result = Aadl2Factory.eINSTANCE.createIntegerLiteral();
-      result.setValue((s1 / s2));
-      UnitLiteral _xifexpression_3 = null;
-      if (twoUnits) {
-        _xifexpression_3 = minUnit;
-      } else {
-        _xifexpression_3 = unit;
-      }
-      result.setUnit(_xifexpression_3);
-      _xblockexpression = result;
-    }
-    return _xblockexpression;
-  }
-  
-  public static IntegerLiteral mod(final IntegerLiteral v1, final IntegerLiteral v2) {
-    IntegerLiteral _xblockexpression = null;
-    {
-      UnitLiteral _unit = v1.getUnit();
-      UnitLiteral _unit_1 = v2.getUnit();
-      final UnitLiteral minUnit = InterpreterUtil.smallerUnit(_unit, _unit_1);
-      boolean _and = false;
-      UnitLiteral _unit_2 = v1.getUnit();
-      boolean _notEquals = (!Objects.equal(_unit_2, null));
-      if (!_notEquals) {
-        _and = false;
-      } else {
-        UnitLiteral _unit_3 = v2.getUnit();
-        boolean _notEquals_1 = (!Objects.equal(_unit_3, null));
-        _and = _notEquals_1;
-      }
-      final boolean twoUnits = _and;
-      UnitLiteral _xifexpression = null;
-      UnitLiteral _unit_4 = v1.getUnit();
-      boolean _notEquals_2 = (!Objects.equal(_unit_4, null));
-      if (_notEquals_2) {
-        _xifexpression = v1.getUnit();
-      } else {
-        _xifexpression = v2.getUnit();
-      }
-      final UnitLiteral unit = _xifexpression;
-      long _xifexpression_1 = (long) 0;
-      if ((!twoUnits)) {
-        _xifexpression_1 = v1.getValue();
-      } else {
-        double _scaledValue = v1.getScaledValue(minUnit);
-        _xifexpression_1 = Math.round(_scaledValue);
-      }
-      final long s1 = _xifexpression_1;
-      long _xifexpression_2 = (long) 0;
-      if ((!twoUnits)) {
-        _xifexpression_2 = v2.getValue();
-      } else {
-        double _scaledValue_1 = v2.getScaledValue(minUnit);
-        _xifexpression_2 = Math.round(_scaledValue_1);
-      }
-      final long s2 = _xifexpression_2;
-      final IntegerLiteral result = Aadl2Factory.eINSTANCE.createIntegerLiteral();
-      result.setValue((s1 % s2));
-      UnitLiteral _xifexpression_3 = null;
-      if (twoUnits) {
-        _xifexpression_3 = minUnit;
-      } else {
-        _xifexpression_3 = unit;
-      }
-      result.setUnit(_xifexpression_3);
-      _xblockexpression = result;
-    }
-    return _xblockexpression;
-  }
+
+	public static UnitLiteral smallerUnit(UnitLiteral unit1, UnitLiteral unit2) {
+		if (unit1 == null || unit2 == null) {
+			return null;
+		} else if (unit1 == unit2) {
+			return unit1;
+		} else {
+			RealLiteral tester = Aadl2Factory.eINSTANCE.createRealLiteral();
+			tester.setValue(1.0);
+			tester.setUnit(unit1);
+			if (tester.getScaledValue(unit2) < 1.0) {
+				return unit1;
+			} else {
+				return unit2;
+			}
+		}
+	}
+
+	public static int compareTo(NumberValue v1, NumberValue v2) {
+		UnitLiteral minUnit = smallerUnit(v1.getUnit(), v2.getUnit());
+		if (v1 instanceof IntegerLiteral && v2 instanceof IntegerLiteral) {
+			Long s1 = (v1.getUnit() == null) ? ((IntegerLiteral) v1).getValue()
+					: Math.round(v1.getScaledValue(minUnit));
+			Long s2 = (v2.getUnit() == null) ? ((IntegerLiteral) v2).getValue()
+					: Math.round(v2.getScaledValue(minUnit));
+			return s1.compareTo(s2);
+		} else {
+			Double s1 = (v1.getUnit() == null)
+					? (v1 instanceof IntegerLiteral) ? ((IntegerLiteral) v1).getValue() : ((RealLiteral) v1).getValue()
+					: v1.getScaledValue(minUnit);
+			Double s2 = (v2.getUnit() == null)
+					? (v2 instanceof IntegerLiteral) ? ((IntegerLiteral) v2).getValue() : ((RealLiteral) v2).getValue()
+					: v2.getScaledValue(minUnit);
+			return s1.compareTo(s2);
+		}
+	}
+
+	public static NumberValue add(NumberValue v1, NumberValue v2) {
+		UnitLiteral minUnit = smallerUnit(v1.getUnit(), v2.getUnit());
+		if (v1 instanceof IntegerLiteral && v2 instanceof IntegerLiteral) {
+			long s1 = (v1.getUnit() == null) ? ((IntegerLiteral) v1).getValue()
+					: Math.round(v1.getScaledValue(minUnit));
+			long s2 = (v2.getUnit() == null) ? ((IntegerLiteral) v2).getValue()
+					: Math.round(v2.getScaledValue(minUnit));
+			IntegerLiteral result = Aadl2Factory.eINSTANCE.createIntegerLiteral();
+			result.setValue(s1 + s2);
+			result.setUnit(minUnit);
+			return result;
+		} else {
+			double s1 = (v1.getUnit() == null)
+					? (v1 instanceof IntegerLiteral) ? ((IntegerLiteral) v1).getValue() : ((RealLiteral) v1).getValue()
+					: v1.getScaledValue(minUnit);
+			double s2 = (v2.getUnit() == null)
+					? (v2 instanceof IntegerLiteral) ? ((IntegerLiteral) v2).getValue() : ((RealLiteral) v2).getValue()
+					: v2.getScaledValue(minUnit);
+			RealLiteral result = Aadl2Factory.eINSTANCE.createRealLiteral();
+			result.setValue(s1 + s2);
+			result.setUnit(minUnit);
+			return result;
+		}
+	}
+
+	public static NumberValue subtract(NumberValue v1, NumberValue v2) {
+		if (v2 instanceof IntegerLiteral) {
+			IntegerLiteral neg = Aadl2Factory.eINSTANCE.createIntegerLiteral();
+			neg.setValue(-((IntegerLiteral) v2).getValue());
+			neg.setUnit(v2.getUnit());
+			return add(v1, neg);
+		} else {
+			RealLiteral neg = Aadl2Factory.eINSTANCE.createRealLiteral();
+			neg.setValue(-((RealLiteral) v2).getValue());
+			neg.setUnit(v2.getUnit());
+			return add(v1, neg);
+		}
+	}
+
+	public static NumberValue multiply(NumberValue v1, NumberValue v2) {
+		UnitLiteral unit = (v1.getUnit() != null) ? v1.getUnit() : v2.getUnit();
+		if (v1 instanceof IntegerLiteral && v2 instanceof IntegerLiteral) {
+			long s1 = ((IntegerLiteral) v1).getValue();
+			long s2 = ((IntegerLiteral) v1).getValue();
+			IntegerLiteral result = Aadl2Factory.eINSTANCE.createIntegerLiteral();
+			result.setValue(s1 * s2);
+			result.setUnit(unit);
+			return result;
+		} else {
+			double s1 = (v1 instanceof IntegerLiteral) ? ((IntegerLiteral) v1).getValue()
+					: ((RealLiteral) v1).getValue();
+			double s2 = (v2 instanceof IntegerLiteral) ? ((IntegerLiteral) v2).getValue()
+					: ((RealLiteral) v2).getValue();
+			RealLiteral result = Aadl2Factory.eINSTANCE.createRealLiteral();
+			result.setValue(s1 * s2);
+			result.setUnit(unit);
+			return result;
+		}
+	}
+
+	public static NumberValue divide(NumberValue v1, NumberValue v2) {
+		UnitLiteral minUnit = smallerUnit(v1.getUnit(), v2.getUnit());
+		boolean twoUnits = v1.getUnit() != null && v2.getUnit() != null;
+		UnitLiteral unit = (v1.getUnit() != null) ? v1.getUnit() : v2.getUnit();
+
+		double s1 = (!twoUnits)
+				? (v1 instanceof IntegerLiteral) ? ((IntegerLiteral) v1).getValue() : ((RealLiteral) v1).getValue()
+				: v1.getScaledValue(minUnit);
+		double s2 = (!twoUnits)
+				? (v2 instanceof IntegerLiteral) ? ((IntegerLiteral) v2).getValue() : ((RealLiteral) v2).getValue()
+				: v2.getScaledValue(minUnit);
+		RealLiteral result = Aadl2Factory.eINSTANCE.createRealLiteral();
+		result.setValue(s1 / s2);
+		result.setUnit(twoUnits ? minUnit : unit);
+		return result;
+	}
+
+	public static NumberValue divideInt(IntegerLiteral v1, IntegerLiteral v2) {
+		UnitLiteral minUnit = smallerUnit(v1.getUnit(), v2.getUnit());
+		boolean twoUnits = v1.getUnit() != null && v2.getUnit() != null;
+		UnitLiteral unit = (v1.getUnit() != null) ? v1.getUnit() : v2.getUnit();
+
+		long s1 = (!twoUnits) ? v1.getValue() : Math.round(v1.getScaledValue(minUnit));
+		long s2 = (!twoUnits) ? v2.getValue() : Math.round(v2.getScaledValue(minUnit));
+		IntegerLiteral result = Aadl2Factory.eINSTANCE.createIntegerLiteral();
+		result.setValue(s1 / s2);
+		result.setUnit(twoUnits ? minUnit : unit);
+		return result;
+	}
+
+	public static NumberValue mod(IntegerLiteral v1, IntegerLiteral v2) {
+		UnitLiteral minUnit = smallerUnit(v1.getUnit(), v2.getUnit());
+		boolean twoUnits = v1.getUnit() != null && v2.getUnit() != null;
+		UnitLiteral unit = (v1.getUnit() != null) ? v1.getUnit() : v2.getUnit();
+
+		long s1 = (!twoUnits) ? v1.getValue() : Math.round(v1.getScaledValue(minUnit));
+		long s2 = (!twoUnits) ? v2.getValue() : Math.round(v2.getScaledValue(minUnit));
+		IntegerLiteral result = Aadl2Factory.eINSTANCE.createIntegerLiteral();
+		result.setValue(s1 % s2);
+		result.setUnit(twoUnits ? minUnit : unit);
+		return result;
+	}
+
+	/**
+	 * Resolve a model element reference relative to an instance object
+	 */
+	static InstanceObject resolve(AModelReference ref, InstanceObject root) {
+		if (ref.getPrev() == null)
+			return root;
+		else {
+			InstanceObject io = resolve(ref.getPrev(), root);
+			EObject result = io.eContents().stream()
+					.filter(it -> (it instanceof InstanceObject)
+							? ((InstanceObject) it).getName().equalsIgnoreCase(ref.getModelElement().getName()) : false)
+					.findFirst().get();
+			return (InstanceObject) result;
+		}
+	}
+
+	public static InterpreterUtil instance = new InterpreterUtil();
+
+	// Method returns null if Java class was found.
+	// Otherwise it returns an error message
+	public String methodExists(final String javaMethod) {
+		final int i = javaMethod.lastIndexOf(".");
+		if ((i == (-1))) {
+			throw new IllegalArgumentException((("Java method \'" + javaMethod) + "\' is missing Class"));
+		}
+		final String className = javaMethod.substring(0, i);
+		final String methodName = javaMethod.substring((i + 1));
+		try {
+			IWorkspace _workspace = ResourcesPlugin.getWorkspace();
+			final IWorkspaceRoot workspaceRoot = _workspace.getRoot();
+			final IJavaModel model = JavaCore.create(workspaceRoot);
+			IJavaProject[] _javaProjects = model.getJavaProjects();
+			final Function1<IJavaProject, Boolean> _function = (IJavaProject it) -> {
+				try {
+					IType _findType = it.findType(className);
+					return Boolean.valueOf((!Objects.equal(_findType, null)));
+				} catch (Throwable _e) {
+					throw Exceptions.sneakyThrow(_e);
+				}
+			};
+			Iterable<IJavaProject> _filter = IterableExtensions.<IJavaProject> filter(
+					((Iterable<IJavaProject>) Conversions.doWrapArray(_javaProjects)), _function);
+			final Set<IJavaProject> projects = IterableExtensions.<IJavaProject> toSet(_filter);
+			boolean _isEmpty = projects.isEmpty();
+			if (_isEmpty) {
+				throw new IllegalArgumentException(("No such method: " + javaMethod));
+			} else {
+				int _size = projects.size();
+				boolean _greaterThan = (_size > 1);
+				if (_greaterThan) {
+					throw new IllegalArgumentException(("Multiple methods found for " + javaMethod));
+				}
+			}
+			boolean changed = true;
+			while (changed) {
+				{
+					final Function1<IJavaProject, Iterable<IJavaProject>> _function_1 = (IJavaProject p) -> {
+						try {
+							Iterable<IJavaProject> _xblockexpression = null;
+							{
+								IClasspathEntry[] _resolvedClasspath = p.getResolvedClasspath(true);
+								final Function1<IClasspathEntry, Boolean> _function_2 = (IClasspathEntry it) -> {
+									int _entryKind = it.getEntryKind();
+									return Boolean.valueOf((_entryKind == IClasspathEntry.CPE_PROJECT));
+								};
+								final Iterable<IClasspathEntry> cpes = IterableExtensions.<IClasspathEntry> filter(
+										((Iterable<IClasspathEntry>) Conversions.doWrapArray(_resolvedClasspath)),
+										_function_2);
+								final Function1<IClasspathEntry, IPath> _function_3 = (IClasspathEntry it) -> {
+									return it.getPath();
+								};
+								final Iterable<IPath> paths = IterableExtensions.<IClasspathEntry, IPath> map(cpes,
+										_function_3);
+								final Function1<IPath, IJavaProject> _function_4 = (IPath it) -> {
+									String _string = it.toString();
+									return model.getJavaProject(_string);
+								};
+								_xblockexpression = IterableExtensions.<IPath, IJavaProject> map(paths, _function_4);
+							}
+							return _xblockexpression;
+						} catch (Throwable _e) {
+							throw Exceptions.sneakyThrow(_e);
+						}
+					};
+					Iterable<Iterable<IJavaProject>> _map = IterableExtensions
+							.<IJavaProject, Iterable<IJavaProject>> map(projects, _function_1);
+					final Iterable<IJavaProject> referenced = Iterables.<IJavaProject> concat(_map);
+					boolean _add = Iterables.<IJavaProject> addAll(projects, referenced);
+					changed = _add;
+				}
+			}
+			final Function1<IJavaProject, URL> _function_1 = (IJavaProject p) -> {
+				try {
+					URL _xblockexpression = null;
+					{
+						IPath _outputLocation = p.getOutputLocation();
+						final IFile file = workspaceRoot.getFile(_outputLocation);
+						java.net.URI _locationURI = file.getLocationURI();
+						String _plus = (_locationURI + "/");
+						_xblockexpression = new URL(_plus);
+					}
+					return _xblockexpression;
+				} catch (Throwable _e) {
+					throw Exceptions.sneakyThrow(_e);
+				}
+			};
+			final Iterable<URL> urls = IterableExtensions.<IJavaProject, URL> map(projects, _function_1);
+			Class<? extends InterpreterUtil> _class = this.getClass();
+			final ClassLoader parent = _class.getClassLoader();
+			final URLClassLoader loader = new URLClassLoader(((URL[]) Conversions.unwrapArray(urls, URL.class)),
+					parent);
+			final Class<?> clazz = Class.forName(className, true, loader);
+			final ArrayList<Class<?>> newClasses = CollectionLiterals.<Class<?>> newArrayList();
+			newClasses.add(NamedElement.class);
+			Method method = clazz.getMethod(methodName,
+					((Class<?>[]) Conversions.unwrapArray(newClasses, Class.class)));
+			boolean _equals = Objects.equal(method, null);
+			if (_equals) {
+				final ArrayList<Class<InstanceObject>> altClasses = CollectionLiterals
+						.<Class<InstanceObject>> newArrayList();
+				altClasses.add(InstanceObject.class);
+				Method _method = clazz.getMethod(methodName,
+						((Class<?>[]) Conversions.unwrapArray(newClasses, Class.class)));
+				method = _method;
+			}
+		} catch (final Throwable _t) {
+			if (_t instanceof Exception) {
+				final Exception e = (Exception) _t;
+				if ((e instanceof InvocationTargetException)) {
+					Throwable _targetException = ((InvocationTargetException) e).getTargetException();
+					return _targetException.toString();
+				}
+				return e.toString();
+			} else {
+				throw Exceptions.sneakyThrow(_t);
+			}
+		}
+		return null;
+	}
+
 }

@@ -5,11 +5,19 @@
 	<title></title>
 	<meta name="generator" content="LibreOffice 5.0.3.2 (Windows)"/>
 	<meta name="created" content="00:00:00"/>
-	<meta name="changed" content="2016-03-15T15:36:57.529000000"/>
+	<meta name="changed" content="2016-09-21T23:50:56.932000000"/>
 	<meta name="Info 1" content=""/>
 	<meta name="Info 2" content=""/>
 	<meta name="Info 3" content=""/>
 	<meta name="Info 4" content=""/>
+	<meta name="created" content="00:00:00">
+	<meta name="changed" content="2016-09-21T23:15:10.206000000">
+	<meta name="created" content="00:00:00">
+	<meta name="changed" content="2016-09-21T22:59:35.552000000">
+	<meta name="created" content="00:00:00">
+	<meta name="changed" content="2016-09-21T21:02:44.548000000">
+	<meta name="created" content="00:00:00">
+	<meta name="changed" content="2016-03-15T15:36:57.529000000">
 	<meta name="created" content="00:00:00">
 	<meta name="changed" content="2016-01-10T23:43:51.505000000">
 	<meta name="created" content="00:00:00">
@@ -29,6 +37,9 @@
 		pre.western { so-language: zxx }
 		pre.cjk { font-family: "NSimSun", monospace; so-language: zxx }
 		pre.ctl { so-language: zxx }
+		h3.western { font-family: "Albany", sans-serif }
+		h3.cjk { font-family: "SimSun" }
+		h3.ctl { font-family: "Mangal" }
 		a:link { so-language: zxx }
 	</style>
 </head>
@@ -37,89 +48,106 @@
 Plans for a System</h1>
 <p lang="zxx"><span lang="zxx">The </span><em><span lang="zxx">Verify</span></em><span lang="zxx">
 notation lets users specify </span><span lang="zxx"><i>verification
-plan</i></span><span lang="zxx">s for each component in a system
-architecture. Verify also lets users specify a </span><span lang="zxx"><i>method
+plan</i></span><span lang="zxx">s for each </span><span lang="zxx"><i>system
+requirement set</i></span><span lang="zxx"> of system components as
+well as for </span><span lang="zxx"><i>global requirment sets</i></span><span lang="zxx">.
+Verify also lets users specify a </span><span lang="zxx"><i>method
 registry</i></span><span lang="zxx"> that identfies verification
 methods implemented in different languages and apply to AADL models,
 detailed design models, and source code. </span>
 </p>
 <p lang="zxx">A verification plan specifies how every requirement of
-a system component (AADL component type or implementation) is
-verified, i.e., a system implementation meets the requirements. This
-is achieved by specifying a set of verification activities that must
-complete successfully as evidence that a requirement is met. This is
-done by a claim declaration for each requirement in the verification
-plan that specifies a set of verification activities that must be
-succesful for the claim to be met. 
-</p>
+a system or global requirement set is verified. This is achieved by
+specifying a set of verification activities that must complete
+successfully as evidence that a requirement is met. Users specify a
+claim declaration for each requirement that contains a set of
+verification activities. Users may also specify an optional condition
+under which verification activities are performed, e.g., one
+verification has to be successful for another one to be executed, and
+a verification activity acts as backup if the original one fails to
+complete successfully. In addition, verification methods may have
+specified an optional <i>precondition</i> that must be satisfied
+before the method is executed, and a result <i>validation</i> that
+determines the degree of validity of the result.</p>
 <p lang="zxx">A verification activity is performed on an artifact
-representing the system implementation. This artifact may be an AADL
-model representing the architecture specification of the system,
-detailed design models, e.g., Simulink models of physical or control
-behavior, or the actual implementation, e.g., in form of software
-that must be executed on a hardware platform. Verification activities
-may also include review of documents, design, or code by human
-reviewers. 
+representing the system implementation. This artifact is an AADL
+model representing the architecture specification of the system, or
+accessible from the AADL model, such as detailed design models, e.g.,
+Simulink models of physical or control behavior, or the source code.
+Verification activities may also include manual activities, e.g.,
+review of documents, design, or code by human reviewers. 
 </p>
-<p lang="zxx">A verification activity identifies the verification
-method to be used, and a set of parameters. By default every
-verification method is assumed to accept a reference to a model
-element, typically an AADL instance model element. The verification
-method may accept additional parameters, or it may expect the
-relevant information to be available as a property on the AADL model.
-By default the verification method is expected to return a Boolean as
-result. Verification methods may also return results via Eclipse
-Markers, in Resolute result format, or in a result report format
-defined by Alisa.</p>
+<p lang="zxx">A verification activity identifies the <i>verification
+method</i> to be used, and a set of parameters. By default every
+verification method is assumed to accept a reference to an AADL
+instance model element. The verification method may accept additional
+parameters, or it may expect the relevant information to be available
+as a property on the AADL model. 
+</p>
+<p lang="zxx">We support two types of methods: a predicate method
+that evaluates the artifact to determine if it meets the requirement
+(<i>success</i><span style="font-variant: normal"><span style="font-style: normal">,
+</span></span><i>fail</i><span style="font-variant: normal"><span style="font-style: normal">);
+a compute method that computes values (referenced by </span></span><i>computed
+variables</i><span style="font-variant: normal"><span style="font-style: normal">)
+that can be used to evaluate the predicate specified as part of the
+requirement or used as input parameter for a succeeding verification
+activity.</span></span></p>
 <p lang="zxx">A verification method registry allows users to specify
 the type and signature of a verification method as well as a
 reference to its implementation in an implementation language neutral
 way. The actual method may take a variety of forms. However, the
-methods have a common interface to interface with the Alisa
+methods have a common interface to interface with the ALISA
 incremental assurance engine. Currently we support Osate analysis
-plug-ins, Resolute, and Java/Xtend based method implementations.</p>
+plug-ins (reporting results via Eclipse markers), Resolute (reporting
+results in Resolute format), JUnit4 (reporting results via
+AssertionException and JUnit result format), and Java/Xtend based
+method implementations (reporting result via AssertionException,
+return value, or a result format defined by ALISA.</p>
 <p lang="zxx">The <i>Verify </i><span style="font-variant: normal"><span style="font-style: normal">notation
 supports two file extensions: </span></span><i>verify</i><span style="font-variant: normal">
 </span><span style="font-variant: normal"><span style="font-style: normal">for
 verification plans, and </span></span><i>methodregistry</i><span style="font-variant: normal">
 </span><span style="font-variant: normal"><span style="font-style: normal">for
 verification method specifications.</span></span></p>
-<h2 lang="zxx" class="western">Verification Plan</h2>
-<p lang="zxx"><span lang="zxx">Verification plans are defined in
-files with the extension </span><em><span lang="zxx">verify</span></em><span lang="zxx">.
-Multiple verification plans can be placed in a single file. </span>
+<h2 lang="zxx" class="western"><a name="VerificationPlan"></a>Verification Plan</h2>
+<p lang="zxx"><span lang="zxx">Users define one verification plan for
+each </span><span lang="zxx"><i>system requirement set</i></span><span lang="zxx">
+</span><span style="font-variant: normal"><span lang="zxx"><span style="font-style: normal">or
+</span></span></span><span lang="zxx"><i>global requirement set</i></span><span lang="zxx">
+</span><span style="font-variant: normal"><span lang="zxx"><span style="font-style: normal">declaration.
+The verification plan must have one claim for each requirement in
+</span></span></span><span style="font-variant: normal"><span lang="zxx"><i>system
+requirements </i></span></span><span style="font-variant: normal"><span lang="zxx"><span style="font-style: normal">or
+</span></span></span><span style="font-variant: normal"><span lang="zxx"><i>global
+requirements</i></span></span><span style="font-variant: normal"><span lang="zxx"><span style="font-style: normal">.
+The verification plans of a system and its subsystems get combined
+into an assurance case expressed in the </span></span></span><span style="font-variant: normal"><span lang="zxx"><i>Alisa
+</i></span></span><span style="font-variant: normal"><span lang="zxx"><span style="font-style: normal">notation
+(see <a href="AlisaDoc.html">Assurance Cases</a>). </span></span></span>
 </p>
-<p lang="zxx">Users define one verification plan for each <i>system
-requirement </i><i>set</i><i> </i><span style="font-variant: normal"><span style="font-style: normal">or
-</span></span><i>global requirement </i><i>set</i><i> </i><span style="font-variant: normal"><span style="font-style: normal">declaration.
-A component type that is an extension of another component type may
+<p lang="zxx"><span style="font-variant: normal"><span style="font-style: normal">A
+component type that is an extension of another component type may
 have a separate </span></span><span style="font-variant: normal"><i>system
-requirement </i></span><span style="font-variant: normal"><i>set</i></span><span style="font-variant: normal"><i>
-</i></span><span style="font-variant: normal"><span style="font-style: normal">or
-</span></span><span style="font-variant: normal"><i>global
-requirement </i></span><span style="font-variant: normal"><i>set</i></span><span style="font-variant: normal"><i>
-</i></span><span style="font-variant: normal"><span style="font-style: normal">declaration
+requirement set</i></span><span style="font-variant: normal">
+</span><span style="font-variant: normal"><span style="font-style: normal">declaration
 to represent requirements that are specific to the extension. Note
 that the requirements declared for the original component type are
-inherited. Similarly, the verification plan of the component type
-being extended is inherited to complement the verification activities
-of the extension. Similarly, component implementations inherit the
-requirements and verification plans of the component types.</span></span></p>
-<p lang="zxx"><span style="font-variant: normal"><span style="font-style: normal">The
-verification plans of a system and its subsystems get combined into
-an assurance case instance according to an </span></span><span style="font-variant: normal"><i>assurance
-case </i></span><span style="font-variant: normal"><span style="font-style: normal">declaration
-exprssed in the </span></span><span style="font-variant: normal"><i>Alisa
-</i></span><span style="font-variant: normal"><span style="font-style: normal">notation
-(see Alisa.html). </span></span>
+inherited by a component type or implementation extension and
+requirements associated with a component type are inherited by each
+implementation of that type. Similarly, the verification plan of the
+component type being extended is inherited to complement the
+verification activities of the extension and</span></span><span style="font-variant: normal">
+</span><span style="font-variant: normal"><span style="font-style: normal">component
+implementations inherit verification plans of the component types.</span></span></p>
+<p lang="zxx"><span style="font-variant: normal"><span lang="zxx"><span style="font-style: normal">Verification
+plans are defined in files with the extension </span></span></span><em><span style="font-variant: normal"><span lang="zxx">verify</span></span></em><span style="font-variant: normal"><span lang="zxx"><span style="font-style: normal">.
+Multiple verification plans can be placed in a single file. </span></span></span>
 </p>
-<p lang="zxx"><span style="background: transparent"><span style="font-variant: normal"><span style="font-style: normal">Note:
-Users may want to follow the convention to name the </span></span><i>system
-requirement </i><i>set</i><span style="font-variant: normal"> </span><span style="font-variant: normal"><span style="font-style: normal">by
-a &lt;dot.-separated qualified name path corresponding to the
-component </span></span><span style="font-variant: normal"><span style="font-style: normal">classifier</span></span><span style="font-variant: normal"><span style="font-style: normal">,
-whose requirements are specified &ndash; and the same name be used
-for the verification plan.</span></span></span></p>
+<p lang="zxx"><br/>
+<br/>
+
+</p>
 <pre lang="zxx" class="western">VerificationPlan ::= 
 
 <span lang="zxx"><font color="#7f0055"><b>verification plan</b></font> qualifiedname ( <font color="#7f0055"><b>:</b></font> <font color="#2a00ff"><span style="font-weight: normal">&quot;descriptive title&quot;</span></font> )? </span>
@@ -138,7 +166,7 @@ for the verification plan.</span></span></span></p>
 
 <span lang="zxx"><font color="#7f0055"><b>]</b></font> </span></pre><p lang="zxx">
 The verification plan specifies a claim for each of the requirements
-in the requirement set identified by the <i>for </i><span style="font-style: normal">reference</span>.
+in the requirement set identified by the <i>for </i><span style="font-variant: normal"><span style="font-style: normal">reference</span></span>.
 </p>
 <p lang="zxx">A verification plan consists of the following: 
 </p>
@@ -157,11 +185,8 @@ in the requirement set identified by the <i>for </i><span style="font-style: nor
 <p lang="zxx"><i>For: </i><span style="font-variant: normal"><span style="font-style: normal">reference
 	to </span></span><i>system requirements </i><span style="font-variant: normal"><span style="font-style: normal">or
 	</span></span><i>global requirements</i><span style="font-variant: normal"><span style="font-style: normal">.
-	The verification plan must have one claim for each requirement in
-	</span></span><i>system requirements </i><span style="font-variant: normal"><span style="font-style: normal">or
-	</span></span><i>global requirements</i><span style="font-variant: normal"><span style="font-style: normal">.
-	The individual requirement can be referenced in a claim by their
-	identifier without qualification by its container.</span></span></p>
+	</span></span>
+	</p>
 	<li/>
 <p lang="zxx"><i>Description: </i><span style="font-variant: normal"><span style="font-style: normal">A
 	textual description of the verification plan. In its most general
@@ -176,18 +201,31 @@ in the requirement set identified by the <i>for </i><span style="font-style: nor
 	<li/>
 <p lang="zxx"><i>Claim: </i><span style="font-variant: normal"><span style="font-style: normal">a
 	set of claims that make up the verification plan, one claim per
-	requirement in the requirement set identified by the </span></span><span style="font-variant: normal"><span style="font-style: normal"><b>for</b></span></span><span style="font-variant: normal"><span style="font-style: normal"><span style="font-weight: normal">.</span></span></span></p>
+	requirement in the requirement set identified by the </span></span><span style="font-variant: normal"><span style="font-style: normal"><b>for</b></span></span><span style="font-variant: normal"><span style="font-style: normal"><span style="font-weight: normal">.
+	The individual requirement can be referenced in a claim by its</span></span></span><span style="font-variant: normal">
+	</span><span style="font-variant: normal"><span style="font-style: normal"><span style="font-weight: normal">identifier
+	without qualification.</span></span></span></p>
 	<li/>
 <p lang="zxx"><i>Issues: </i><span style="font-variant: normal"><span style="font-style: normal">allows
 	users to record issues that may be encountered as a set of textual
 	notes (Strings).</span></span></p>
 </ul>
+<p lang="zxx"><span style="font-variant: normal"><span style="font-style: normal"><span style="background: transparent">Note:
+Users may want to follow the convention to name the </span></span></span><span style="font-variant: normal"><i><span style="background: transparent">system
+requirement set</span></i></span><span style="font-variant: normal"><span style="background: transparent">
+</span></span><span style="font-variant: normal"><span style="font-style: normal"><span style="background: transparent">and
+related </span></span></span><span style="font-variant: normal"><i><span style="background: transparent">verification
+plan </span></i></span><span style="font-variant: normal"><span style="font-style: normal"><span style="background: transparent">by
+qualified name of</span></span></span><span style="font-variant: normal"><span style="background: transparent">
+</span></span><span style="font-variant: normal"><span style="font-style: normal"><span style="background: transparent">the
+component classifier, whose requirements and verification plans are
+specified.</span></span></span></p>
 <h2 lang="zxx" class="western"><a name="Claim"></a>Claim</h2>
 <p lang="zxx">A claim represents the set of verification activities
 that must be successful for a requirement to be met. An argument
 expression may be defined on the set of verification activities to
-specify a condition on the combination of verificaiotn activities
-that must be successful. If no argument expression is specified  all
+specify a condition on the combination of verification activities
+that must be successful. If no argument expression is specified all
 verification activities must be successful.</p>
 <p lang="zxx">A claim declaration specifies a set of verification
 activities for a requirement. 
@@ -206,7 +244,7 @@ activities for a requirement.
 
 <span lang="zxx"><font color="#2a00ff"><span style="font-weight: normal">( </span></font><font color="#7f0055"><b>weight</b></font><font color="#7f0055"> </font><font color="#000000"><span style="font-weight: normal">Integer</span></font> )?</span>
 
-<span lang="zxx">( Claim )*</span>
+<span lang="zxx">( Claim )*      <b>// subclaims</b></span>
 
 <span lang="zxx">( <font color="#7f0055"><b>issues</b></font> (<font color="#2a00ff"><span style="font-weight: normal">&quot;explanation&quot;</span></font>)+ )?</span>
 
@@ -224,11 +262,6 @@ A claim declaration consists of the following:
 	This optional element may be used as more descriptive label than the
 	name.</p>
 	<li/>
-<p lang="zxx"><i>Weight: </i><span style="font-variant: normal"><span style="font-style: normal">a
-	weighting factor used in metrics to indicate the importance of
-	different claims</span></span><span style="font-variant: normal"> </span><span style="font-variant: normal"><span style="font-style: normal">as
-	evidence.</span></span></p>
-	<li/>
 <p lang="zxx"><i>Activities: </i><span style="font-variant: normal"><span style="font-style: normal">A
 	sequence of verification activity declarations associated with a
 	claim. </span></span>
@@ -239,48 +272,69 @@ A claim declaration consists of the following:
 	claim. By default all verification activities are required to be
 	successful (see below).</span></span></p>
 	<li/>
+<p lang="zxx"><span style="font-variant: normal"><i>Rationale:
+	</i></span><span style="font-variant: normal"><span style="font-style: normal">the
+	rationale for a system requirement as a string.</span></span></p>
+	<li/>
 <p lang="zxx"><i>Claim: </i><span style="font-variant: normal"><span style="font-style: normal">a
 	set of zero or more subclaims. A subclaim is associated with a
 	requirement that is a refinement of the requirement associated with
 	a given claim.</span></span></p>
 	<li/>
-<p lang="zxx"><i>Rationale: </i><span style="font-variant: normal"><span style="font-style: normal">the
-	rationale for a system requirement as a string.</span></span></p>
+<p lang="zxx"><span style="font-variant: normal"><i>Weight: </i></span><span style="font-variant: normal"><span style="font-style: normal">a
+	weighting factor used in metrics to indicate the importance of
+	different claims as evidence.</span></span></p>
+	<li/>
+<p lang="zxx"><span style="font-variant: normal"><i>Issues:
+	</i></span><span style="font-variant: normal"><span style="font-style: normal">allows
+	users to record issues that may be encountered as a set of textual
+	notes (Strings).</span></span></p>
 </ul>
 <p lang="zxx">Note: A requirement for a system may have been refined
 into sub-requirements that are verifiable. Typically, only the leaf
 elements of a requirement refinement hierarchy involve verification
 activities. In other words, a claim for a requirement that has been
 refined only may only contain subclaims that themselves contain
-verificaion activities. Howeever, the notation supports the
-possibility for a veritication activity for each claim in the
+verification activities. However, the notation supports the
+possibility for a verification activity for each claim in the
 requirement refinement hierarchy. 
 </p>
 <h2 lang="zxx" class="western"><a name="VerificationActivity"></a>Verification
 Activity</h2>
-<p lang="zxx">A verification activity specifies the which
-verification method is to be called, the actual parameter values to
-be passed directly as part of the call, values to be made available
-to the method via properties associated with the component, and any
-result values to be bound to <b>compute</b> <span style="font-weight: normal">variables
-defined in requirements</span>. Verification activities can have
-phase and user defined category labels that will be used for filtered
-views of an assurance case instance (see Incremental Assurance with
-Alisa alisa.html). 
+<p lang="zxx"><span lang="zxx">A verification activity specifies the
+verification method to be called, the actual parameter values to be
+passed directly as part of the call, values to be made available to
+the method via properties associated with the component, and any
+result values to be bound to </span><span lang="zxx"><b>compute</b></span><span lang="zxx">
+</span><span lang="zxx"><span style="font-weight: normal">variables
+defined in requirements</span></span><span lang="zxx">. Verification
+activities can have phase and user defined category labels that will
+be used for filtered views of an assurance case instance (see
+<a href="01-Introduction.html#Incremental%20Lifecycle%20Assurance%20Concepts%20and%20Notations%7Coutline">Incremental
+Assurance with ALISA</a>). </span>
 </p>
+<p lang="zxx"><span lang="zxx">A verification activity when executed
+can have </span><span lang="zxx"><i>success</i></span><span lang="zxx">,
+</span><span lang="zxx"><i>fail</i></span><span lang="zxx">, or does
+not complete for two reasons: </span><span lang="zxx"><i>timeout</i></span><span lang="zxx">
+or any other reason (uncaught exception thrown during the execution)
+not to complete indicated by </span><span lang="zxx"><i>error</i></span><span style="font-variant: normal"><span lang="zxx"><span style="font-style: normal">.
+This state is maintained in an instance representation of the
+assurance case (see <a href="AlisaDoc.html#Assurance%20Case%20Result%20Instance%7Coutline">Assurance
+Case Instance</a>).</span></span></span></p>
 <pre lang="zxx" class="western">VerificationActivity ::= 
-<span lang="zxx"><font color="#7f0055"><b>activity</b></font> activityname ( : <font color="#2a00ff"><span style="font-weight: normal">&quot;descriptive title&quot;</span></font> )? </span>
-<font color="#7f0055">  </font><span lang="zxx"><font color="#7f0055"><span lang="zxx"><b>:</b></span></font><span lang="zxx"> ( &lt;result parameter list&gt; </span><font color="#800000"><span lang="zxx"><b>=</b></span></font><span lang="zxx"><b> </b></span><span lang="zxx">)? </span></span>
-    <span lang="zxx"><span lang="zxx">&lt;verification method reference&gt; </span><font color="#800000"><span lang="zxx"><b>(</b></span></font><span lang="zxx"><b> &lt;</b></span><span lang="zxx"><span style="font-weight: normal">actual parameter list&gt; </span></span><font color="#800000"><span lang="zxx"><b>)</b></span></font></span>
-    <span lang="zxx"><span lang="zxx"><span style="font-weight: normal">(</span></span><span lang="zxx"> </span><font color="#800000"><span lang="zxx"><b>property values (</b></span></font><span lang="zxx"><b> </b></span><span lang="zxx"><span style="font-weight: normal">&lt;property value list&gt; </span></span><font color="#800000"><span lang="zxx"><b>)</b></span></font><span lang="zxx"><b> </b></span><span lang="zxx"><span style="font-weight: normal">)?</span></span></span>
+<span lang="zxx"><font color="#7f0055"><b>activity</b></font> activityname ( <b>:</b> <font color="#2a00ff"><span style="font-weight: normal">&quot;descriptive title&quot;</span></font> )? </span>
+<font color="#7f0055">  </font><span lang="zxx"><font color="#7f0055"><span lang="zxx"><b>:</b></span></font><span lang="zxx"> ( &lt;result parameter list&gt; </span><font color="#800000"><span lang="zxx"><b>=</b></span></font><span lang="zxx"> )? </span></span>
+    <span lang="zxx"><span lang="zxx">&lt;verification method reference&gt; </span><font color="#800000"><span lang="zxx"><b>(</b></span></font><span lang="zxx"> </span><span lang="zxx"><b>&lt;</b></span><span lang="zxx"><span style="font-weight: normal">actual parameter list&gt; </span></span><font color="#800000"><span lang="zxx"><b>)</b></span></font></span>
+    <span lang="zxx"><span lang="zxx"><span style="font-weight: normal">(</span></span><span lang="zxx"> </span><font color="#800000"><span lang="zxx"><b>property values (</b></span></font><span lang="zxx"> </span><span lang="zxx"><span style="font-weight: normal">&lt;property value list&gt; </span></span><font color="#800000"><span lang="zxx"><b>)</b></span></font><span lang="zxx"> </span><span lang="zxx"><span style="font-weight: normal">)?</span></span></span>
     <span lang="zxx"><font color="#800000"><span lang="zxx"><b>[</b></span></font></span>
-        <span lang="zxx"><span lang="zxx"><span style="font-weight: normal">( </span></span><font color="#7f0055"><span lang="zxx"><b>category</b></span></font><span lang="zxx"> </span><span lang="zxx"><span style="font-weight: normal">categorylabel* )?</span></span></span>
-        <span lang="zxx"><span lang="zxx"><span style="font-weight: normal">( </span></span><font color="#7f0055"><span lang="zxx"><b>timeout</b></span></font><span lang="zxx"> </span><span lang="zxx"><span style="font-weight: normal">Integer &lt;time unit&gt;</span></span><span lang="zxx"> </span><span lang="zxx"><span style="font-weight: normal">)?</span></span></span>
+      <span lang="zxx"><span lang="zxx"><span style="font-weight: normal">( </span></span><font color="#7f0055"><span lang="zxx"><b>category</b></span></font><span lang="zxx"> </span><span lang="zxx"><span style="font-weight: normal">categorylabel* )?</span></span></span>
+      <span lang="zxx"><span lang="zxx"><span style="font-weight: normal">( </span></span><font color="#7f0055"><span lang="zxx"><b>timeout</b></span></font><span lang="zxx"> </span><span lang="zxx"><span style="font-weight: normal">Integer &lt;time unit&gt;</span></span><span lang="zxx"> </span><span lang="zxx"><span style="font-weight: normal">)?</span></span></span>
 <font color="#2a00ff">      </font><span lang="zxx"><font color="#2a00ff"><span lang="zxx"><span style="font-weight: normal">( </span></span></font><font color="#7f0055"><span lang="zxx"><b>weight</b></span></font><font color="#7f0055"><span lang="zxx"> </span></font><font color="#000000"><span lang="zxx"><span style="font-weight: normal">Integer</span></span></font><span lang="zxx"> </span><span lang="zxx"><span style="font-weight: normal">)?</span></span></span>
 
     <span lang="zxx"><font color="#800000"><span lang="zxx"><b>]</b></span></font></span>
 
-<font color="#000000"><span lang="zxx">CategoryLabel<span lang="zxx"> ::=  </span>CategoryTypeID <font color="#7e0021"><b>.</b></font> CategoryLabelID</span></font></pre><p lang="zxx">
+<font color="#000000"><span lang="zxx">CategoryLabel ::=  CategoryTypeID <font color="#7e0021"><b>.</b></font> CategoryLabelID</span></font></pre><p lang="zxx">
 A claim declaration consists of the following: 
 </p>
 <ul>
@@ -299,27 +353,40 @@ A claim declaration consists of the following:
 	method.</span></p>
 	<li/>
 <p lang="zxx"><i><span style="font-weight: normal">Verification
-	method reference: </span></i><span style="font-variant: normal"><span style="font-style: normal"><span style="font-weight: normal">reference
-	to a verification method qualified with the method registry name.</span></span></span></p>
+	method reference: </span></i><span style="font-variant: normal"><span style="font-style: normal"><span style="font-weight: normal">qualified
+	reference to a verification method in</span></span></span><span style="font-variant: normal">
+	</span><span style="font-variant: normal"><span style="font-style: normal"><span style="font-weight: normal">the
+	method registry.</span></span></span></p>
 	<li/>
-<p lang="zxx"><i><span style="font-weight: normal">Actual
-	parameter list: </span></i><span style="font-variant: normal"><span style="font-style: normal"><span style="font-weight: normal">comma
-	separated list of zero or more actual parameter values. Acceptable
-	parameter values are references to </span></span></span><span style="font-variant: normal"><span style="font-style: normal"><b>val</b></span></span><span style="font-variant: normal">
-	</span><span style="font-variant: normal">constants</span><span style="font-variant: normal"><span style="font-style: normal"><span style="font-weight: normal">,
-	integers and reals with or without measurement unit, strings, and
-	booleans. In the future general expressions will be supported.</span></span></span></p>
+<p lang="zxx"><span lang="zxx"><i><span style="font-weight: normal">Actual
+	parameter list: </span></i></span><span style="font-variant: normal"><span lang="zxx"><span style="font-style: normal"><span style="font-weight: normal">comma
+	separated list of zero or more actual parameter values. The expected
+	list of parameters and their types are specified as part of the
+	verification method in the method registry.</span></span></span></span><span style="font-variant: normal"><span lang="zxx">
+	</span></span><span style="font-variant: normal"><span lang="zxx"><span style="font-style: normal"><span style="font-weight: normal">Acceptable
+	parameter values are expressions that include references to
+	</span></span></span></span><span style="font-variant: normal"><span lang="zxx">constants
+	(</span></span><span style="font-variant: normal"><span lang="zxx"><span style="font-weight: normal">val)
+	and</span></span></span><span style="font-variant: normal"><span lang="zxx">
+	computed variables (</span></span><span style="font-variant: normal"><span lang="zxx"><b>compute</b></span></span><span style="font-variant: normal"><span lang="zxx"><span style="font-weight: normal">)</span></span></span><span style="font-variant: normal"><span lang="zxx"><span style="font-style: normal"><span style="font-weight: normal">,
+	integers and reals with or without measurement unit, strings,
+	booleans, AADL properties and property constants. For details of the
+	expression language see <a href="TypesExpressions.html#Expression%20Notation%7Coutline">Expression
+	Notation</a>.</span></span></span></span></p>
 	<li/>
 <p lang="zxx"><i><span style="font-weight: normal">Property
 	value list:</span></i><span style="font-variant: normal"> </span><span style="font-variant: normal"><span style="font-style: normal"><span style="font-weight: normal">optional
 	comma separated list of values to be made available to the
-	verification method via an AADL property.</span></span></span></p>
+	verification method via an AADL property. The expected set of
+	properties with specific value are specified as part of the
+	verification method in the method registry. Currently the values are
+	limited to references to constant variables (</span></span></span><span style="font-variant: normal"><span style="font-style: normal"><b>val</b></span></span><span style="font-variant: normal"><span style="font-style: normal"><span style="font-weight: normal">).</span></span></span></p>
 	<li/>
 <p lang="zxx"><i><span style="font-weight: normal">Category:</span></i><span style="font-variant: normal">
 	</span><span style="font-variant: normal"><span style="font-style: normal"><span style="font-weight: normal">list
 	of user defined category labels (without comma separation) in which
 	this verification activity should be performed. It is used when
-	defining filter criteria for assurance tasks.</span></span></span></p>
+	defining filter criteria (assurance task).</span></span></span></p>
 	<li/>
 <p lang="zxx"><i><span style="font-weight: normal">Timeout:
 	</span></i><span style="font-variant: normal"><span style="font-style: normal"><span style="font-weight: normal">specification
@@ -337,20 +404,38 @@ A claim declaration consists of the following:
 	activities</span></span><span style="font-variant: normal"> </span><span style="font-variant: normal"><span style="font-style: normal">as
 	evidence.</span></span></p>
 </ul>
-<p lang="zxx" style="font-variant: normal; font-style: normal">Note:
-The intent of result parameters is to provide access to computed
-results from the execution of a verification method. These results
-can then be evaluated by the predicate specified as part of the
-requirement declaration. This predicate evaluation will be supported
-in the near future.</p>
+<p lang="zxx" style="font-variant: normal; font-style: normal">The
+intent of result parameters is to provide access to computed results
+from the execution of a verification method. These results can then
+be evaluated by the predicate specified as part of the requirement
+declaration or passed as input to succeeding verification activities. 
+</p>
+<p lang="zxx" style="font-variant: normal; font-style: normal">Actual
+parameter and property value expressions may refer to constants and
+computed variables. Those can be variables defined in requirements or
+requirement sets associated with the verification activity, including
+those of requirements and their containing requirement sets inherited
+through the component classifier extends hierarchy.</p>
 <h2 lang="zxx" class="western"><a name="Argument"></a>Argument
 Expression</h2>
-<p lang="zxx">The argument expression of a claim assertion specifies
-the logic for evaluating verification activity results. A
-verification activity can have <i>success</i>, <i>fail</i>, or not
-complete for two reasons: <i>timeout</i> or any other reason not to
-complete indicated by <i>error</i><span style="font-variant: normal"><span style="font-style: normal">.
-</span></span>
+<p lang="zxx">Without an argument expression all verification
+expressions must be successful for the claim to be met. The argument
+expression allows users to specify condition under which verification
+activities are performed: one verification has to be successful for
+another one to be executed (<b>then</b><span style="font-weight: normal">)</span>,
+and a verification activity acts as backup if the original one fails
+to complete successfully (<b>else</b><span style="font-weight: normal">)</span>.
+In the case of backup verification activity, users can specify a
+single verification activity executed if the original one is not
+successful, or users can specify separately whether they intend to
+have a backup verification activity for the original activity return
+<i>Fail</i><span style="font-variant: normal"><span style="font-style: normal">,
+not completing because of a </span></span><i>Timeout</i><span style="font-variant: normal"><span style="font-style: normal">,
+or because the execution failed to complete for other reasons, e.g.,
+the result of an uncaught exception.</span></span></p>
+<p lang="zxx"><br/>
+<br/>
+
 </p>
 <pre lang="zxx" class="western">ArgumentExpr ::=  ElseExpr |
   <span lang="zxx"><span lang="zxx">ElseExpr </span><font color="#7f0055"><span lang="zxx"><b>then</b></span></font><span lang="zxx"> ArgumentExpr  </span></span>
@@ -359,7 +444,7 @@ complete indicated by <i>error</i><span style="font-variant: normal"><span style
 
 <span lang="zxx">SingleElseExpr ::=   &lt;VerificationActivity&gt;&lt; |</span>
   <span lang="zxx"><span lang="zxx">VerificationActivity&gt; </span><font color="#7f0055"><span lang="zxx"><b>else </b></span></font><span lang="zxx"> ( ElseExpr |</span></span>
-<font color="#7f0055">                            </font><span lang="zxx"><font color="#7f0055">[</font><font color="#7f0055"><span lang="zxx"><b> </b></span></font><font color="#000000"><span lang="zxx"><span style="font-weight: normal">(</span></span></font><font color="#7f0055"><span lang="zxx"> </span></font><font color="#7f0055"><span lang="zxx"><b>fail: </b></span></font><font color="#000000"><span lang="zxx"> </span></font><font color="#000000"><span lang="zxx"><span style="font-weight: normal">ArgumentExpr )?</span></span></font></span>
+<font color="#7f0055">                            </font><span lang="zxx"><font color="#7f0055"><span lang="zxx">[ </span></font><font color="#000000"><span lang="zxx"><span style="font-weight: normal">(</span></span></font><font color="#7f0055"><span lang="zxx"> </span></font><font color="#7f0055"><span lang="zxx"><b>fail: </b></span></font><font color="#000000"><span lang="zxx"> </span></font><font color="#000000"><span lang="zxx"><span style="font-weight: normal">ArgumentExpr )?</span></span></font></span>
 <font color="#7f0055">                                </font><span lang="zxx"><font color="#000000"><span lang="zxx"><span style="font-weight: normal">(</span></span></font><font color="#7f0055"><span lang="zxx"> </span></font><font color="#7f0055"><span lang="zxx"><b>error:</b></span></font><font color="#000000"><span lang="zxx"> </span></font><font color="#000000"><span lang="zxx"><span style="font-weight: normal">ArgumentExpr )?</span></span></font></span>
 <font color="#7f0055">                        </font><span lang="zxx"><font color="#000000"><span lang="zxx"><span style="font-weight: normal">(</span></span></font><font color="#7f0055"><span lang="zxx"> </span></font><font color="#7f0055"><span lang="zxx"><b>timeout: </b></span></font><font color="#000000"><span lang="zxx"><span style="font-weight: normal">ArgumentExpr )?</span></span></font></span>
 <font color="#000000">                            </font><span lang="zxx"><font color="#000000"><span lang="zxx"><b>]</b></span></font><font color="#000000"><span lang="zxx"> </span></font><font color="#000000"><span lang="zxx"><span style="font-weight: normal">)</span></span></font></span>
@@ -402,7 +487,7 @@ expression takes the following form:</span></span></span></em></p>
 	activity.</span></span></span></em></p>
 	<li/>
 <p lang="zxx"><em><span lang="zxx">All: </span></em><em><span style="font-variant: normal"><span lang="zxx"><span style="font-style: normal">lets
-	users specify that all of a set of veriifcation activities must be
+	users specify that all of a set of verification activities must be
 	successful. </span></span></span></em><span lang="zxx">All
 	verification activities will be executed independent of whether they
 	are successful or not. The result of the </span><em><span lang="zxx">all</span></em><span lang="zxx">
@@ -417,71 +502,21 @@ expression operators. </span>
 <h2 lang="zxx" class="western"><a name="MethodRegistry"></a>Registry
 of Verification Methods 
 </h2>
-<p lang="zxx"><span lang="zxx">A verification method registry allows
-users to register implemetnations of different verification methods
-in an implementation language neutral format. A verification method
-registry is defined in a separate file with the extension
-</span><em><span lang="zxx">methodregistry</span></em><span lang="zxx">.
+<p lang="zxx">A verification method registry allows users to register
+implementations of different verification methods in an
+implementation language neutral format. Currently OSATE Analysis
+plug-ins, Java, Resolute, Agree, JUnit, and manual methods are
+supported.</p>
+<p lang="zxx"><span lang="zxx">A verification method registry is
+defined in a separate file with the extension </span><em><span lang="zxx">methodregistry</span></em><span lang="zxx">.
 </span>
 </p>
-<p lang="zxx">A verification method is invoked when a verification
-activity is executed. The method analyzes, simulates, or executes an
-AADL model, detailed design model, or source code. The result may be
-an evaluation of a predicate that reflects whether a requirement has
-been met, i.e., returns a <i>success </i><span style="font-variant: normal"><span style="font-style: normal">or</span></span>
-<i>fail </i><span style="font-variant: normal"><span style="font-style: normal">as
-result.</span></span> <span style="font-variant: normal"><span style="font-style: normal">The
-verification method may also return the result values of
-computations. </span></span>
-</p>
-<p lang="zxx">Note: A verification method will always be passed the
-component instance it applies to as first parameter. This parameter
-does not have to be specified in the registry.</p>
 <pre lang="zxx" class="western">VerificationMethodRegistry ::= 
 <span lang="zxx"><font color="#7f0055"><b>verification methods</b></font> qualifiedname ( : <font color="#2a00ff"><span style="font-weight: normal">&quot;descriptive title&quot;</span></font> )? </span>
 <span lang="zxx"><font color="#800000"><b>[</b></font> </span>
   <span lang="zxx"><span lang="zxx">( </span><font color="#7f0055"><span lang="zxx"><b>description</b></span></font><span lang="zxx"> Description )? </span></span>
   <span lang="zxx"><span lang="zxx">VerificationMethod+ </span></span>
-<span lang="zxx"><font color="#800000"><b>]</b></font> </span>
-
-<span lang="zxx">VerificationMethod ::= </span>
-<span lang="zxx"><font color="#7f0055"><b>method</b></font> methodname </span>
-  <span lang="zxx"><span lang="zxx"><span style="font-weight: normal">( </span></span><font color="#800000"><span lang="zxx"><b>(</b></span></font><span lang="zxx"><b> </b></span><span lang="zxx"><span style="font-weight: normal">( TargetElementType )?</span></span></span>
-      <span lang="zxx"><span lang="zxx"><span style="font-weight: normal">&lt;FormalParameter list&gt; </span></span><font color="#800000"><span lang="zxx"><b>)</b></span></font><span lang="zxx"><b> </b></span></span>
-    <span lang="zxx"><span lang="zxx"><span style="font-weight: normal">( </span></span><font color="#800000"><span lang="zxx"><b>properties</b></span></font><span lang="zxx"><b> </b></span><font color="#800000"><span lang="zxx"><b>(</b></span></font><span lang="zxx"><b> </b></span><span lang="zxx"><span style="font-weight: normal">&lt;property list&gt; </span></span><font color="#800000"><span lang="zxx"><b>)</b></span></font><span lang="zxx"><b> </b></span><span lang="zxx"><span style="font-weight: normal">)?</span></span></span>
-    <span lang="zxx"><span lang="zxx"><span style="font-weight: normal">( </span></span><font color="#800000"><span lang="zxx"><b>returns</b></span></font><span lang="zxx"> </span><font color="#800000"><span lang="zxx"><b>(</b></span></font><span lang="zxx"><b> </b></span><span lang="zxx"><span style="font-weight: normal">&lt;result</span></span><span lang="zxx"> </span><span lang="zxx"><span style="font-weight: normal">list&gt; </span></span><font color="#800000"><span lang="zxx"><b>)</b></span></font><span lang="zxx"><b> </b></span><span lang="zxx"><span style="font-weight: normal">)?</span></span></span>
-    <span lang="zxx"><span lang="zxx"><span style="font-weight: normal">( </span></span><font color="#800000"><span lang="zxx"><b>boolean</b></span></font><span lang="zxx"><b> </b></span><span lang="zxx"><span style="font-weight: normal">| </span></span><font color="#800000"><span lang="zxx"><b>report</b></span></font><span lang="zxx"><b> </b></span><span lang="zxx"><span style="font-weight: normal">)?</span></span></span>
-  <span lang="zxx"><span lang="zxx"><span style="font-weight: normal">)?</span></span></span>
-  <span lang="zxx"><span lang="zxx">( </span><font color="#800000"><span lang="zxx"><b>:</b></span></font><span lang="zxx"> </span><font color="#2a00ff"><span lang="zxx"><span style="font-weight: normal">&quot;descriptive title&quot;</span></span></font><span lang="zxx"> )? </span></span>
-  <span lang="zxx"><span lang="zxx">( </span><font color="#800000"><span lang="zxx"><b>for </b></span></font><font color="#000000"><span lang="zxx"><span style="font-weight: normal">&lt;ComponentClassifier&gt;</span></span></font><font color="#800000"><span lang="zxx"><b> </b></span></font><span lang="zxx"> </span><font color="#000000"><span lang="zxx"><span style="font-weight: normal">|</span></span></font><font color="#2a00ff"><span lang="zxx"><span style="font-weight: normal"> </span></span></font><font color="#000000"><span lang="zxx"><span style="font-weight: normal">ComponentCategory*</span></span></font><span lang="zxx"> )? </span></span>
-  <span lang="zxx"><font color="#800000"><span lang="zxx"><b>[</b></span></font><span lang="zxx"> </span></span>
-    <span lang="zxx"><span lang="zxx">MethodKind </span></span>
-    <span lang="zxx"><span lang="zxx">( </span><font color="#7f0055"><span lang="zxx"><b>description</b></span></font><span lang="zxx"> Description )? </span></span>
-    <span lang="zxx"><span lang="zxx">VerificationPrecondition?</span></span>
-    <span lang="zxx"><span lang="zxx">VerificationValidation?</span></span>
-    <span lang="zxx"><span lang="zxx"><span style="font-weight: normal">( </span></span><font color="#7f0055"><span lang="zxx"><b>category</b></span></font><span lang="zxx"> </span><span lang="zxx"><span style="font-weight: normal">categorylabel* )?</span></span></span>
-  <span lang="zxx"><font color="#800000"><span lang="zxx"><b>]</b></span></font><span lang="zxx"> </span></span>
-
-
-<span lang="zxx">TargetElementType ::=</span>
-  <span lang="zxx"><font color="#800000"><span lang="zxx"><b>component</b></span></font><span lang="zxx"><span style="font-weight: normal"> | </span></span><font color="#800000"><span lang="zxx"><b>feature</b></span></font><span lang="zxx"><span style="font-weight: normal"> | </span></span><font color="#800000"><span lang="zxx"><b>connection</b></span></font><span lang="zxx"><span style="font-weight: normal"> | </span></span><font color="#800000"><span lang="zxx"><b>flow</b></span></font><span lang="zxx"><span style="font-weight: normal"> | </span></span><font color="#800000"><span lang="zxx"><b>mode</b></span></font><span lang="zxx"><span style="font-weight: normal"> | </span></span><font color="#800000"><span lang="zxx"><b>element</b></span></font></span>
-
-<span lang="zxx">MethodKind ::=</span>
-  <span lang="zxx"><font color="#800000"><span lang="zxx"><b>java</b></span></font><span lang="zxx"><b> </b></span><span lang="zxx"><span style="font-weight: normal">MethodPath |</span></span></span>
-  <span lang="zxx"><font color="#800000"><span lang="zxx"><b>plugin</b></span></font><span lang="zxx"><b> </b></span><span lang="zxx"><span style="font-weight: normal">MethodID |</span></span></span>
-  <span lang="zxx"><font color="#800000"><span lang="zxx"><b>resolute</b></span></font><span lang="zxx"><b> </b></span><span lang="zxx"><span style="font-weight: normal">MethodID |</span></span></span>
-  <span lang="zxx"><font color="#800000"><span lang="zxx"><b>agree</b></span></font><span lang="zxx"><b> </b></span><span lang="zxx"><span style="font-weight: normal">( </span></span><font color="#800000"><span lang="zxx"><b>single</b></span></font><span lang="zxx"><span style="font-weight: normal"> | </span></span><font color="#800000"><span lang="zxx"><b>all )</b></span></font><font color="#800000"><span lang="zxx"><span style="font-weight: normal"> |</span></span></font></span>
-  <span lang="zxx"><font color="#800000"><span lang="zxx"><b>junit</b></span></font><span lang="zxx"><b> </b></span><span lang="zxx"><span style="font-weight: normal">ClassPath</span></span><span lang="zxx"><span style="font-weight: normal"> |</span></span></span>
-  <span lang="zxx"><font color="#800000"><span lang="zxx"><b>manual</b></span></font><span lang="zxx"><b> </b></span><span lang="zxx"><span style="font-weight: normal">DialogIdentifier</span></span></span>
- 
-<span lang="zxx">FormalParameter ::=</span>
-  <span lang="zxx"><span lang="zxx">Type ID ( </span><span lang="zxx"><b>% </b></span><span lang="zxx"><span style="font-weight: normal">Unit )?</span></span></span>
-
-<span lang="zxx">VerificationPrecondition ::= </span>
-<span lang="zxx"><font color="#7f0055"><b>precondition</b></font> &lt;method reference&gt; <b>( </b><span style="font-weight: normal">&lt;formal parameter reference</span> <span style="font-weight: normal">list&gt; </span><b>)</b></span>
-
-<span lang="zxx">VerificationValidation ::= </span>
-<span lang="zxx"><font color="#7f0055"><b>validation</b></font> &lt;method reference&gt; <b>( </b><span style="font-weight: normal">&lt;formal parameter reference</span> <span style="font-weight: normal">list&gt; </span><b>)</b> </span></pre><p lang="zxx">
+<span lang="zxx"><font color="#800000"><b>]</b></font> </span></pre><p lang="zxx">
 The verification method registry consists of:</p>
 <ul>
 	<li/>
@@ -496,11 +531,80 @@ The verification method registry consists of:</p>
 <p lang="zxx" style="margin-bottom: 0in"><i>Description: </i><span style="font-variant: normal"><span style="font-style: normal">a
 	description of the verification method.</span></span></p>
 </ul>
-<p lang="zxx"><br/>
-<br/>
-
+<h2 lang="zxx" class="western"><a name="VerificationMethod">Verification Method Specification</h2>
+<p lang="zxx">A verification method is invoked when a verification
+activity is executed. The method analyzes, simulates, or executes an
+AADL model, or a detailed design model, or source code associated
+with a component in the AADL model. 
 </p>
-<p lang="zxx">The verification method declaration consists of: 
+<p lang="zxx">The verification method may evaluate a predicate to
+indicate whether the verification is successful or failed to be
+successful, or the verification method may compute one or more values
+that are turned. In the latter case a predicate defined for the
+requirement may refer to the computed variable holding the result
+value, or the result value may be passed as in parameter to a
+succeeding verification activity. 
+</p>
+<p lang="zxx"><span style="font-variant: normal"><span style="font-style: normal">A
+verification method is assumed to always </span></span>be passed the
+component instance as its first parameter. This parameter does not
+have to be specified in the registry. The model element type of this
+parameter must be specified if it is not the component itself, i.e.,
+if it is a <i>feature</i><span style="font-variant: normal"><span style="font-style: normal">,
+</span></span><i>connection</i><span style="font-variant: normal"><span style="font-style: normal">,
+end to end </span></span><i>flow</i><span style="font-variant: normal"><span style="font-style: normal">,
+or any model </span></span><i>element</i><span style="font-variant: normal">
+</span><span style="font-variant: normal"><span style="font-style: normal">in
+the AADL instance model.</span></span></p>
+<p lang="zxx" style="font-variant: normal; font-style: normal">Additional
+parameters are passed to the method as part of the call as specified
+by the list of typed formal parameters or through a property
+associated with the model element being passed as first parameter.</p>
+<p lang="zxx" style="font-variant: normal; font-style: normal">Return
+values are assigned to <i>Computed Variables</i>, whose names match
+the formal parameter specification of the <font color="#800000"><b>returns</b></font>
+clause.</p>
+<p lang="zxx" style="font-variant: normal; font-style: normal">For
+further details see the description below.</p>
+<pre lang="zxx" class="western">VerificationMethod ::= 
+<span lang="zxx"><font color="#7f0055"><b>method</b></font> methodname </span>
+  <span lang="zxx"><span lang="zxx"><span style="font-weight: normal">( </span></span><font color="#800000"><span lang="zxx"><b>(</b></span></font><span lang="zxx"> </span><span lang="zxx"><span style="font-weight: normal">( ModelElementType </span></span><font color="#800000"><span lang="zxx"><b>, </b></span></font><span lang="zxx"><span style="font-weight: normal">)?</span></span></span>
+      <span lang="zxx"><span lang="zxx"><span style="font-weight: normal">FormalParameter ( </span></span><font color="#800000"><span lang="zxx"><b>,</b></span></font><span lang="zxx"> </span><span lang="zxx"><span style="font-weight: normal">FormalParameter</span></span><font color="#800000"><span lang="zxx"> </span></font><span lang="zxx"><span style="font-weight: normal">)* </span></span><font color="#800000"><span lang="zxx"><b>)</b></span></font><span lang="zxx"> </span></span>
+    <span lang="zxx"><span lang="zxx"><span style="font-weight: normal">( </span></span><font color="#800000"><span lang="zxx"><b>properties</b></span></font><span lang="zxx"> </span><font color="#800000"><span lang="zxx"><b>(</b></span></font><span lang="zxx"> P</span><span lang="zxx"><span style="font-weight: normal">roperty ( </span></span><font color="#800000"><span lang="zxx"><b>,</b></span></font><span lang="zxx"> </span><span lang="zxx"><span style="font-weight: normal">Property</span></span><font color="#800000"><span lang="zxx"> </span></font><span lang="zxx"><span style="font-weight: normal">)* </span></span><font color="#800000"><span lang="zxx"><b>)</b></span></font><span lang="zxx"> </span><span lang="zxx"><span style="font-weight: normal">)?</span></span></span>
+    <span lang="zxx"><span lang="zxx"><span style="font-weight: normal">( </span></span><font color="#800000"><span lang="zxx"><b>returns</b></span></font><span lang="zxx"> </span><font color="#800000"><span lang="zxx"><b>(</b></span></font><span lang="zxx"> </span><span lang="zxx"><span style="font-weight: normal">FormalParameter ( </span></span><font color="#800000"><span lang="zxx"><b>,</b></span></font><span lang="zxx"> </span><span lang="zxx"><span style="font-weight: normal">FormalParameter</span></span><font color="#800000"><span lang="zxx"> </span></font><span lang="zxx"><span style="font-weight: normal">)* </span></span><font color="#800000"><span lang="zxx"><b>)</b></span></font><span lang="zxx"> </span><span lang="zxx"><span style="font-weight: normal">)?</span></span></span>
+    <span lang="zxx"><span lang="zxx"><span style="font-weight: normal">( </span></span><font color="#800000"><span lang="zxx"><b>boolean</b></span></font><span lang="zxx"> </span><span lang="zxx"><span style="font-weight: normal">| </span></span><font color="#800000"><span lang="zxx"><b>report</b></span></font><span lang="zxx"> </span><span lang="zxx"><span style="font-weight: normal">)?</span></span></span>
+  <span lang="zxx"><span lang="zxx"><span style="font-weight: normal">)?</span></span></span>
+  <span lang="zxx"><span lang="zxx">( </span><font color="#800000"><span lang="zxx"><b>:</b></span></font><span lang="zxx"> </span><font color="#2a00ff"><span lang="zxx"><span style="font-weight: normal">&quot;descriptive title&quot;</span></span></font><span lang="zxx"> )? </span></span>
+  <span lang="zxx"><span lang="zxx">( </span><font color="#800000"><span lang="zxx"><b>for </b></span></font><font color="#000000"><span lang="zxx"><span style="font-weight: normal">&lt;ComponentClassifier&gt;</span></span></font><font color="#800000"><span lang="zxx"> </span></font><span lang="zxx"> </span><font color="#000000"><span lang="zxx"><span style="font-weight: normal">|</span></span></font><font color="#2a00ff"><span lang="zxx"> </span></font><font color="#000000"><span lang="zxx"><span style="font-weight: normal">ComponentCategory*</span></span></font><span lang="zxx"> )? </span></span>
+  <span lang="zxx"><font color="#800000"><span lang="zxx"><b>[</b></span></font><span lang="zxx"> </span></span>
+    <span lang="zxx"><span lang="zxx">MethodKind </span></span>
+    <span lang="zxx"><span lang="zxx">( </span><font color="#7f0055"><span lang="zxx"><b>description</b></span></font><span lang="zxx"> Description )? </span></span>
+    <span lang="zxx"><span lang="zxx">VerificationPrecondition?</span></span>
+    <span lang="zxx"><span lang="zxx">VerificationValidation?</span></span>
+    <span lang="zxx"><span lang="zxx"><span style="font-weight: normal">( </span></span><font color="#7f0055"><span lang="zxx"><b>category</b></span></font><span lang="zxx"> </span><span lang="zxx"><span style="font-weight: normal">categorylabel* )?</span></span></span>
+  <span lang="zxx"><font color="#800000"><span lang="zxx"><b>]</b></span></font><span lang="zxx"> </span></span>
+
+
+<span lang="zxx">ModelElementType ::=</span>
+  <span lang="zxx"><font color="#800000"><span lang="zxx"><b>component</b></span></font><span lang="zxx"> </span><span lang="zxx"><span style="font-weight: normal">| </span></span><font color="#800000"><span lang="zxx"><b>feature</b></span></font><span lang="zxx"> </span><span lang="zxx"><span style="font-weight: normal">| </span></span><font color="#800000"><span lang="zxx"><b>connection</b></span></font><span lang="zxx"> </span><span lang="zxx"><span style="font-weight: normal">| </span></span><font color="#800000"><span lang="zxx"><b>flow</b></span></font><span lang="zxx"> </span><span lang="zxx"><span style="font-weight: normal">| </span></span><font color="#800000"><span lang="zxx"><b>mode</b></span></font><span lang="zxx"> </span><span lang="zxx"><span style="font-weight: normal">| </span></span><font color="#800000"><span lang="zxx"><b>element</b></span></font></span>
+
+<span lang="zxx">MethodKind ::=</span>
+  <span lang="zxx"><font color="#800000"><span lang="zxx"><b>java</b></span></font><span lang="zxx"> </span><span lang="zxx"><span style="font-weight: normal">MethodPath ( </span></span><span lang="zxx"><b>( </b></span><span lang="zxx"> </span><span lang="zxx"><span style="font-weight: normal">JavaParameter ( </span></span><span lang="zxx"><b>, </b></span><span lang="zxx"> </span><span lang="zxx"><span style="font-weight: normal">JavaParameter )* </span></span><span lang="zxx"><b>) </b></span><span lang="zxx"><span style="font-weight: normal">)?</span></span><span lang="zxx"> </span><span lang="zxx"><span style="font-weight: normal">|</span></span></span>
+  <span lang="zxx"><font color="#800000"><span lang="zxx"><b>plugin</b></span></font><span lang="zxx"> </span><span lang="zxx"><span style="font-weight: normal">MethodID |</span></span></span>
+  <span lang="zxx"><font color="#800000"><span lang="zxx"><b>resolute</b></span></font><span lang="zxx"> </span><span lang="zxx"><span style="font-weight: normal">MethodID |</span></span></span>
+  <span lang="zxx"><font color="#800000"><span lang="zxx"><b>agree</b></span></font><span lang="zxx"> </span><span lang="zxx"><span style="font-weight: normal">( </span></span><font color="#800000"><span lang="zxx"><b>single</b></span></font><span lang="zxx"> </span><span lang="zxx"><span style="font-weight: normal">| </span></span><font color="#800000"><span lang="zxx"><b>all )</b></span></font><font color="#800000"><span lang="zxx"> </span></font><font color="#800000"><span lang="zxx"><span style="font-weight: normal">|</span></span></font></span>
+  <span lang="zxx"><font color="#800000"><span lang="zxx"><b>junit</b></span></font><span lang="zxx"> </span><span lang="zxx"><span style="font-weight: normal">ClassPath</span></span><span lang="zxx"> </span><span lang="zxx"><span style="font-weight: normal">|</span></span></span>
+  <span lang="zxx"><font color="#800000"><span lang="zxx"><b>manual</b></span></font><span lang="zxx"> </span><span lang="zxx"><span style="font-weight: normal">DialogIdentifier</span></span></span>
+ 
+<span lang="zxx">FormalParameter ::=</span>
+  <span lang="zxx"><span lang="zxx">ID </span><span lang="zxx"><b>:</b></span><span lang="zxx"> TypeSpec ( </span><font color="#800000"><span lang="zxx"><b>in</b></span></font><span lang="zxx"> </span><span lang="zxx"><span style="font-weight: normal">Unit )?</span></span></span>
+
+<span lang="zxx">VerificationPrecondition ::= </span>
+<span lang="zxx"><font color="#7f0055"><b>precondition</b></font> &lt;method reference&gt; <b>( </b><span style="font-weight: normal">&lt;formal parameter reference</span> <span style="font-weight: normal">list&gt; </span><b>)</b></span>
+
+<span lang="zxx">VerificationValidation ::= </span>
+<span lang="zxx"><font color="#7f0055"><b>validation</b></font> &lt;method reference&gt; <b>( </b><span style="font-weight: normal">&lt;formal parameter reference</span> <span style="font-weight: normal">list&gt; </span><b>)</b> </span></pre><p lang="zxx">
+The verification method declaration consists of: 
 </p>
 <ul>
 	<li/>
@@ -508,46 +612,45 @@ The verification method registry consists of:</p>
 	identifier for the method that must be unique within the registry. </span>
 	</p>
 	<li/>
-<p lang="zxx"><em><span lang="zxx">TargetType</span></em><em><span lang="zxx">:
-	</span></em><em><span lang="zxx"><span style="font-style: normal">The
+<p lang="zxx"><em><span lang="zxx">TargetType: </span></em><em><span style="font-variant: normal"><span lang="zxx"><span style="font-style: normal">The
 	type of the first parameter passed to the method when invoked. By
 	default the component instance, whose requirement is verified, is
 	passed. Some requirements apply to an element within a component
 	instance, e.g., to a feature. In this case, users must specify the
-	fact that the methods expes a feature instance instead of a
-	component instance. Other targets are conneciton instances, mode
-	instances, and (end to end) flow instances. Element is used to
-	indicate that a InstanceObject is expected. In the case of Java
-	methods, the specified target type must match the class of the first
-	parameter</span></span></em><em><span lang="zxx"><span style="font-style: normal">.</span></span></em><em><span lang="zxx">
-	</span></em>
+	fact that the methods exp</span></span></span></em><em><span style="font-variant: normal"><span lang="zxx"><span style="font-style: normal">r</span></span></span></em><em><span style="font-variant: normal"><span lang="zxx"><span style="font-style: normal">e</span></span></span></em><em><span style="font-variant: normal"><span lang="zxx"><span style="font-style: normal">s</span></span></span></em><em><span style="font-variant: normal"><span lang="zxx"><span style="font-style: normal">s
+	a feature instance instead of a component instance. Other targets
+	are connec</span></span></span></em><em><span style="font-variant: normal"><span lang="zxx"><span style="font-style: normal">ti</span></span></span></em><em><span style="font-variant: normal"><span lang="zxx"><span style="font-style: normal">on
+	instances, mode instances, and (end to end) flow instances. Element
+	is used to indicate that a InstanceObject is expected. In the case
+	of Java methods, the specified target type must match the class of
+	the first parameter.</span></span></span></em><em><span lang="zxx"> </span></em>
 	</p>
 	<li/>
 <p lang="zxx"><em><span lang="zxx">FormalParameter list:</span></em><span lang="zxx">
 	optional comma separated list of formal parameter specifications.
-	The formal parameter specification consists of a type an identifier
-	as name and an optional specification of expected measurement unit
-	for the value. The actual value will be converted into the expected
-	unit. This feature is useful when the method expectes a value
-	without a measurement unit. The following types are currently
-	supported: Java types String, Boolean, Double, double, Long, long;
-	AADL property types StringLiteral, BooleanLiteral, RealLiteral (with
-	a double value and an optional measurement unit), IntegerLiteral.
-	The unit can refer to any of the AADL property units. The specified
-	type must be the type/class name of the Java method without package
-	qualification. <br/>
-NOTE: the first parameter is assumed to be
-	ComponentInstance </span><span lang="zxx">or as specified by the
-	TargetType</span><span lang="zxx">.</span></p>
+	The formal parameter specification consists of an identifier as
+	name, a type, and an optional specification of expected measurement
+	unit for the value if the expected type is numeric without
+	measurement unit. The actual value will be converted into the
+	expected unit. This feature is useful when the method expectes a
+	value without a measurement unit. </span>
+	</p>
 	<li/>
 <p lang="zxx"><em><span lang="zxx">Property list:</span></em><span lang="zxx">
 	optional comma separated list of AADL property definition
 	references. The references use the core AADL syntax for property
-	references.</span></p>
+	references. The properties will be assigned the value specified as
+	part of the method call in a verification activity if no property
+	value is present for the model element. If a property value is
+	present the value must be the same as the value specified in the
+	call.</span></p>
 	<li/>
 <p lang="zxx"><em><span lang="zxx">Result list:</span></em><span lang="zxx">
 	optional comma separated list of formal parameter specifications to
-	indicate result values.</span></p>
+	indicate result values. The result values will be assigned in order
+	to </span><span lang="zxx"><i>Computed Variables</i></span><span style="font-variant: normal"><span lang="zxx">
+	</span></span><span style="font-variant: normal"><span lang="zxx"><span style="font-style: normal">specified
+	as part of the method call in a verificaiton activity.</span></span></span></p>
 	<li/>
 <p lang="zxx"><em><span lang="zxx">boolean:</span></em><span lang="zxx">
 	indication that the method returns a boolean value to indicate
@@ -558,8 +661,9 @@ NOTE: the first parameter is assumed to be
 	indication that the method returns a </span><span lang="zxx"><i>result
 	report</i></span><span style="font-variant: normal"><span lang="zxx">
 	</span></span><span style="font-variant: normal"><span lang="zxx"><span style="font-style: normal">in
-	an Alisa specified format. This report can contain a collection of
-	result indicators and result data (see <a href="ResultReport.html">ResultReport.html</a>).</span></span></span></p>
+	an A</span></span></span><span style="font-variant: normal"><span lang="zxx"><span style="font-style: normal">LISA</span></span></span><span style="font-variant: normal"><span lang="zxx"><span style="font-style: normal">
+	specified format. This report can contain a collection of result
+	indicators and result data (see <a href="ResultReport.html">ResultReport.html</a>).</span></span></span></p>
 	<li/>
 <p lang="zxx"><em><span lang="zxx"><i>Title:</i></span></em><em><span lang="zxx">
 	</span></em><em><span style="font-variant: normal"><span lang="zxx"><span style="font-style: normal">a
@@ -567,74 +671,18 @@ NOTE: the first parameter is assumed to be
 	element may be used as more descriptive label than the name.</span></span></span></em></p>
 	<li/>
 <p lang="zxx"><em><span lang="zxx"><i>For</i></span></em><em><span lang="zxx">:
-	</span></em><em><span lang="zxx"><span style="font-style: normal">a
+	</span></em><em><span style="font-variant: normal"><span lang="zxx"><span style="font-style: normal">a
 	restriction on the type of component the verification methods can be
 	applied to. For example, a verificaiton methods may have been
 	developed to only apply to threads, or for specific component
-	classifiers</span></span></em><em><span style="font-variant: normal"><span lang="zxx"><span style="font-style: normal">.</span></span></span></em></p>
+	classifiers.</span></span></span></em></p>
 	<li/>
 <p lang="zxx"><em><span lang="zxx">MethodKind:</span></em><span lang="zxx">
 	identification of the method implementation and implementation
-	specific reference to the method</span></p>
-</ul>
-<ul>
-	<li/>
-<p lang="zxx"><i>Java: </i><span style="font-variant: normal"><span style="font-style: normal">a
-	Java method identified by a path to a method inside a class. Note
-	that Xtend methods can be registered this way as they get translated
-	into Java. Java methods can report violation of assertions
-	(predicates) by throwing </span></span><i>AssertionException</i><span style="font-variant: normal"><span style="font-style: normal">.
-	They are mapped into </span></span><i><span style="font-weight: normal">Fail
-	</span></i><span style="font-variant: normal"><span style="font-style: normal"><span style="font-weight: normal">results.
-	</span></span></span><span style="font-variant: normal"><span style="font-style: normal">This
-	is how JUnit and Java8 support assertions. This allows users to
-	register existing JUnit test methods as verification methods.
-	Uncaught runtime exceptions within a Java method are also caught by
-	the Assure execution harness and mapped into </span></span><i>Error</i><span style="font-variant: normal">
-	</span><span style="font-variant: normal"><span style="font-style: normal">results.
-	Java methods can return a Boolean result, which gets mapped into
-	</span></span><i>Success</i><span style="font-variant: normal"> </span><span style="font-variant: normal"><span style="font-style: normal">and
-	</span></span><i>Fail</i><span style="font-variant: normal"><span style="font-style: normal">.
-	The method can also return a String object. In this case the result
-	is interpreted as </span></span><i>Success</i><span style="font-variant: normal">
-	</span><span style="font-variant: normal"><span style="font-style: normal">with
-	the text presented as succes message. In this case,
-	AssertionExceptions must be used to report </span></span><i>Fail</i><span style="font-variant: normal">
-	</span><span style="font-variant: normal"><span style="font-style: normal">results.
-	Finally, Java methods can return result reports in an Alis defined
-	format.</span></span></p>
-	<li/>
-<p lang="zxx"><i>Plugin</i>: <span style="font-variant: normal"><span style="font-style: normal">an
-	OSATE analysis plugin method identified by an identifier. Plugin
-	methods are defined in a predeclared method registry (see below).
-	OSAT Eplugins report their results via the Eclipse Marker mechanism.
-	These results are mapped into a common Alisa result issue format for
-	i</span></span><span style="font-variant: normal"><span style="font-style: normal">nc</span></span><span style="font-variant: normal"><span style="font-style: normal">lusion
-	in the assurance case result instance.</span></span></p>
-	<li/>
-<p lang="zxx"><i>Resolute:</i><span style="font-variant: normal">
-	</span><span style="font-variant: normal"><span style="font-style: normal">a
-	Resolute claim function or computational method identified by the
-	unqualified method name. Results in the Resolute result format are
-	mapped into a common Alisa Result Issue format (see Section Result
-	Issue Report below).</span></span></p>
-	<li/>
-<p lang="zxx"><i>Agree</i><i>:</i><span style="font-variant: normal">
-	</span><span style="font-variant: normal">Agree verification is
-	invoked on the target component for a single layer verificaiton or
-	for verifying all layers. This is equivalent to invoking Agree on a
-	component through the user interface</span><span style="font-variant: normal"><span style="font-style: normal">.</span></span></p>
-	<li/>
-<p lang="zxx"><i>JUnit</i><i>:</i><span style="font-variant: normal">
-	</span><span style="font-variant: normal">The specified JUnit test
-	class is invoked. Results of a JUnit run are mapped back into the
-	Alisa Result Issue format</span><span style="font-variant: normal"><span style="font-style: normal">.</span></span></p>
-	<li/>
-<p lang="zxx"><i>Manual: </i>the method represents a manual
-	method, i.e., a method that is performed by a human. The person will
-	interactively report the result of the verification, e.g., the
-	result of performing a review. 
-	</p>
+	specific reference to the method. The following method kinds are
+	supported: OSATE analysis plug-ins, Resolute, Junit4, Java, Agree,
+	Manual. See <a href="#Supported Verification Method Kinds|outline">Kinds
+	of Verification Methods</a> for details.</span></p>
 </ul>
 <ul>
 	<li/>
@@ -665,58 +713,162 @@ NOTE: the first parameter is assumed to be
 	</span></span>success <span style="font-variant: normal"><span style="font-style: normal">result
 	while the validation may indicate a </span></span>fail<span style="font-variant: normal"><span style="font-style: normal">.</span></span></p>
 	<li/>
-<p lang="zxx"><i><span style="font-weight: normal">Quality</span></i><span style="font-weight: normal">:
+<p lang="zxx"><i><span style="font-weight: normal">Category</span></i><span style="font-weight: normal">:
 	</span><span style="font-variant: normal"><span style="font-style: normal"><span style="font-weight: normal">list
 	of quality attribute</span></span></span><span style="font-variant: normal">
 	</span><span style="font-variant: normal"><span style="font-style: normal"><span style="font-weight: normal">labels
 	(without comma separation) that</span></span></span><span style="font-variant: normal">
 	</span><span style="font-variant: normal"><span style="font-style: normal"><span style="font-weight: normal">this
 	verification method addresses. It is used when defining filter
-	criteria for assurance tasks.</span></span></span></p>
-	<li/>
-<p lang="zxx"><i><span style="font-weight: normal">Category</span></i><span style="font-weight: normal">:</span><span style="font-variant: normal">
-	</span><span style="font-variant: normal"><span style="font-style: normal"><span style="font-weight: normal">list
-	of user defined category labels (without comma separation) in which
-	this verification activity should be performed. It is used when
-	defining assurance tasks.</span></span></span></p>
+	criteria </span></span></span><span style="font-variant: normal"><span style="font-style: normal"><span style="font-weight: normal">via</span></span></span><span style="font-variant: normal"><span style="font-style: normal"><span style="font-weight: normal">
+	assurance tasks.</span></span></span></p>
 </ul>
-<h2 lang="zxx" class="western"><a name="Registries"></a><a name="BuiltinRegistry"></a>
+<p lang="zxx"><br/>
+<br/>
+
+</p>
+<h3 class="western"><a name="Supported Verification Method Kinds|outline"></a>
+Supported Verification Method Kinds</h3>
+<p lang="zxx" style="font-variant: normal; font-style: normal; font-weight: normal">
+The following method types are supported:</p>
+<ul>
+	<li/>
+<p lang="zxx"><span lang="zxx"><i>Java: </i></span><span style="font-variant: normal"><span lang="zxx"><span style="font-style: normal">a
+	Java method identified by a path to a method inside a class. Note
+	that Xtend methods can be registered this way as they get translated
+	into Java. <br/>
+Java methods can report violation of assertions
+	(predicates) by throwing </span></span></span><span lang="zxx"><i>AssertionException</i></span><span style="font-variant: normal"><span lang="zxx"><span style="font-style: normal">.
+	They are mapped into </span></span></span><span lang="zxx"><i><span style="font-weight: normal">Fail
+	</span></i></span><span style="font-variant: normal"><span lang="zxx"><span style="font-style: normal"><span style="font-weight: normal">results.
+	</span></span></span></span><span style="font-variant: normal"><span lang="zxx"><span style="font-style: normal">This
+	is how JUnit and Java8 support assertions (see below for registering
+	Junit4 test classes). <br/>
+Uncaught runtime exceptions within a
+	Java method are also caught by the Assure execution harness and
+	mapped into </span></span></span><span lang="zxx"><i>Error</i></span><span style="font-variant: normal"><span lang="zxx">
+	</span></span><span style="font-variant: normal"><span lang="zxx"><span style="font-style: normal">results.
+	<br/>
+Java methods can return a Boolean result, which gets mapped
+	into </span></span></span><span lang="zxx"><i>Success</i></span><span style="font-variant: normal"><span lang="zxx">
+	</span></span><span style="font-variant: normal"><span lang="zxx"><span style="font-style: normal">and
+	</span></span></span><span lang="zxx"><i>Fail </i></span><span style="font-variant: normal"><span lang="zxx"><span style="font-style: normal">if
+	specified to do so by the </span></span></span><span style="font-variant: normal"><span lang="zxx"><span style="font-style: normal"><b>boolean
+	</b></span></span></span><span style="font-variant: normal"><span lang="zxx"><span style="font-style: normal"><span style="font-weight: normal">keyword</span></span></span></span><span lang="zxx"><i>.</i></span><span style="font-variant: normal"><span lang="zxx">
+	</span></span><span style="font-variant: normal"><span lang="zxx"><span style="font-style: normal"><br/>
+Java
+	methods can return result reports in an A</span></span></span><span style="font-variant: normal"><span lang="zxx"><span style="font-style: normal">LISA</span></span></span><span style="font-variant: normal"><span lang="zxx">
+	</span></span><span style="font-variant: normal"><span lang="zxx"><span style="font-style: normal">defined
+	format (see <a href="ResultReport.html">Result Report</a>) if the
+	method is registered accordingly (</span></span></span><span style="font-variant: normal"><span lang="zxx"><span style="font-style: normal"><b>report</b></span></span></span><span style="font-variant: normal"><span lang="zxx"><span style="font-style: normal"><span style="font-weight: normal">)</span></span></span></span><span style="font-variant: normal"><span lang="zxx"><span style="font-style: normal">.<br/>
+Jav</span></span></span><span style="font-variant: normal"><span lang="zxx"><span style="font-style: normal">a</span></span></span><span style="font-variant: normal"><span lang="zxx"><span style="font-style: normal">
+	methods can return a single value as object or a hasmap of multiple
+	values. These values will be assigned to the specified </span></span></span><span style="font-variant: normal"><span lang="zxx"><i>computed
+	variables</i></span></span><span style="font-variant: normal"><span lang="zxx"><span style="font-style: normal">.<br/>
+The
+	actual Java method may expect Java types that are not part of the
+	A</span></span></span><span style="font-variant: normal"><span lang="zxx"><span style="font-style: normal">LISA</span></span></span><span style="font-variant: normal"><span lang="zxx"><span style="font-style: normal">
+	Types. For example, the Java method may expect a l</span></span></span><span style="font-variant: normal"><span lang="zxx"><i>ong</i></span></span><span style="font-variant: normal"><span lang="zxx">
+	</span></span><span style="font-variant: normal"><span lang="zxx"><span style="font-style: normal">numeric.
+	An optional parameter list allows users to specify the expected Java
+	type followed by the name of the formal parameter. Currently we map
+	</span></span></span><span style="font-variant: normal"><span lang="zxx"><i>Stringliteral</i></span></span><span style="font-variant: normal"><span lang="zxx">
+	</span></span><span style="font-variant: normal"><span lang="zxx"><span style="font-style: normal">-&gt;
+	</span></span></span><span style="font-variant: normal"><span lang="zxx"><i>String</i></span></span><span style="font-variant: normal"><span lang="zxx"><span style="font-style: normal">,
+	</span></span></span><span style="font-variant: normal"><span lang="zxx"><i>BooleanLiteral</i></span></span><span style="font-variant: normal"><span lang="zxx">
+	</span></span><span style="font-variant: normal"><span lang="zxx"><span style="font-style: normal">-&gt;
+	</span></span></span><span style="font-variant: normal"><span lang="zxx"><i>Boolean</i></span></span><span style="font-variant: normal"><span lang="zxx"><span style="font-style: normal">,
+	</span></span></span><span style="font-variant: normal"><span lang="zxx"><i>RealLiteral</i></span></span><span style="font-variant: normal"><span lang="zxx">
+	</span></span><span style="font-variant: normal"><span lang="zxx"><span style="font-style: normal">-&gt;
+	</span></span></span><span style="font-variant: normal"><span lang="zxx"><i>double</i></span></span><span style="font-variant: normal"><span lang="zxx">
+	</span></span><span style="font-variant: normal"><span lang="zxx"><span style="font-style: normal">or
+	</span></span></span><span style="font-variant: normal"><span lang="zxx"><i>real</i></span></span><span style="font-variant: normal"><span lang="zxx"><span style="font-style: normal">,
+	</span></span></span><span style="font-variant: normal"><span lang="zxx"><i>IntegerLiteral</i></span></span><span style="font-variant: normal"><span lang="zxx">
+	</span></span><span style="font-variant: normal"><span lang="zxx"><span style="font-style: normal">-&gt;
+	</span></span></span><span style="font-variant: normal"><span lang="zxx"><i>long</i></span></span><span style="font-variant: normal"><span lang="zxx">
+	</span></span><span style="font-variant: normal"><span lang="zxx"><span style="font-style: normal">or
+	</span></span></span><span style="font-variant: normal"><span lang="zxx"><i>int</i></span></span><span style="font-variant: normal"><span lang="zxx"><span style="font-style: normal">.</span></span></span></p>
+	<li/>
+<p lang="zxx"><span lang="zxx"><i>Plugin</i></span><span lang="zxx">:
+	</span><span style="font-variant: normal"><span lang="zxx"><span style="font-style: normal">an
+	OSATE analysis plugin method identified by an identifier. Plugin
+	methods are defined in a predeclared method registry (see <a href="#Built-in and User-defined Registries|outline">Predefined
+	Method Registry</a>). OSAT</span></span></span><span style="font-variant: normal"><span lang="zxx"><span style="font-style: normal">E
+	analysis </span></span></span><span style="font-variant: normal"><span lang="zxx"><span style="font-style: normal">plugins
+	report their results via the Eclipse Marker mechanism. These results
+	are mapped into a A</span></span></span><span style="font-variant: normal"><span lang="zxx"><span style="font-style: normal">LISA</span></span></span><span style="font-variant: normal"><span lang="zxx"><span style="font-style: normal">
+	result issue format for inclusion in the assurance case result
+	instance.</span></span></span></p>
+	<li/>
+<p lang="zxx"><i>Resolute:</i><span style="font-variant: normal">
+	</span><span style="font-variant: normal"><span style="font-style: normal">a
+	Resolute claim function or computational functions</span></span><span style="font-variant: normal">
+	</span><span style="font-variant: normal"><span style="font-style: normal">identified
+	by the method name. Results in the Resolute result format are mapped
+	into the</span></span><span style="font-variant: normal"> </span><span style="font-variant: normal"><span style="font-style: normal">A</span></span><span style="font-variant: normal"><span style="font-style: normal">LISA</span></span><span style="font-variant: normal"><span style="font-style: normal">
+	Result Issue format. In the case of computational functions the
+	returned value is assigned to the specified </span></span><span style="font-variant: normal"><i>Computed
+	Variable</i></span><span style="font-variant: normal"><span style="font-style: normal">.</span></span></p>
+	<li/>
+<p lang="zxx"><i>Agree:</i><span style="font-variant: normal">
+	Agree verification is invoked on the target component for a single
+	layer verifica</span><span style="font-variant: normal">ti</span><span style="font-variant: normal">on
+	or for verifying all layers. This is equivalent to invoking Agree on
+	a component through the user interface</span><span style="font-variant: normal"><span style="font-style: normal">.
+	</span></span><span style="font-variant: normal"><span style="font-style: normal">Note
+	that for execution of Agree the Jkind verifier must be installed
+	(see Agree documentation).</span></span></p>
+	<li/>
+<p lang="zxx"><i>JUnit:</i><span style="font-variant: normal">
+	The specified JUnit test class is invoked. Results of a JUnit run
+	are mapped back into the A</span><span style="font-variant: normal">LISA</span><span style="font-variant: normal">
+	Result Issue format</span><span style="font-variant: normal"><span style="font-style: normal">.</span></span></p>
+	<li/>
+<p lang="zxx"><span style="font-variant: normal"><i><span style="font-weight: normal">Manual:
+	</span></i></span><span style="font-variant: normal"><span style="font-style: normal"><span style="font-weight: normal">the
+	method represents a manual method, i.e., a method that is performed
+	by a human. The person will interactively report the result of the
+	verification, e.g., the result of performing a review. </span></span></span>
+	</p>
+</ul>
+<h2 lang="zxx" class="western"><a name="Registries"></a><a name="BuiltinRegistry"></a><a name="Built-in and User-defined Registries|outline"></a>
 Built-in and User-defined Registries</h2>
-<p lang="zxx">Alisa comes with a built-in registry of verification
-methods. This registry is available as a project called <i>AlisaBasics</i>
-In the Github repository <i>osate/alisa-examples</i><span style="font-variant: normal"><span style="font-style: normal">.
+<p lang="zxx">ALISA comes with a built-in registry of verification
+methods. This registry is available as a project called
+<i>AlisaPredefined</i> in the Github repository <i>osate/alisa-examples</i><span style="font-variant: normal"><span style="font-style: normal">.
 The registry contains OSATE analysis plugin method declarations.</span></span></p>
 <p lang="zxx"><span style="font-variant: normal"><span style="font-style: normal">The
-</span></span><span style="font-variant: normal"><i>AlisaBasics
-</i></span><span style="font-variant: normal"><span style="font-style: normal">Project
+</span></span><span style="font-variant: normal"><i>AlisaPredefined</i></span><span style="font-variant: normal">
+</span><span style="font-variant: normal"><span style="font-style: normal">Project
 also contains a set of predefined category types and labels. See the
 ReqSpec documentation for details.</span></span></p>
-<p lang="zxx">Users can add verification methods to Alisa in two
-ways. First, users can write claim functions and computational
-methods in Resolute (see Resolute language specification for
-details). Users then define their own verification method registry to
-complement the &quot;predefined&quot; registry. Since Resolute is an
-interpreted notation, these newly registered methods are immediately
-available for use. An example can be found in the project
-<i>SimpleAlisaExample </i><span style="font-variant: normal"><span style="font-style: normal">found
+<p lang="zxx">Users can add verification methods to ALISA in several
+ways. 
+</p>
+<p lang="zxx">First, users can write claim functions and
+computational functions in Resolute (see Resolute language
+specification in OSATE Help for details). Users then define their own
+verification method registry to complement the &quot;predefined&quot;
+registry. Since Resolute is an interpreted notation, these newly
+registered methods are immediately available for use. An example can
+be found in the project <i>SimpleAlisaExample </i><span style="font-variant: normal"><span style="font-style: normal">found
 in the Github repository </span></span><i>osate/alisa-examples.</i></p>
 <p lang="zxx"><span lang="zxx">Second, users can write or make use of
 verification methods written in Java or Xtend. Users may even write
 Java wrapper methods to interface with existing tools or external
-tools, such as </span><em><span lang="zxx">JUnit</span></em><span lang="zxx">
-or </span><em><span lang="zxx">Simulink</span></em><span lang="zxx">.
+tools, such as </span><em><span lang="zxx">Simulink </span></em><em><span style="font-variant: normal"><span lang="zxx"><span style="font-style: normal">or
+the execution of source code via JUnit tests</span></span></span></em><span lang="zxx">.
 Since Java methods are called reflectively, a Java method once added
 to a registry can be used in a verification activity. When writing
 methods in Java or Xtend, users have available a large collection of
 methods from OSATE to process AADL models and retrieve AADL property
 values. These are the same methods users would use when writing a
-plugin for OSATE. </span><span lang="zxx">You create verification
-method implementations in Java or Xtend in a Plugin project, which
-allows you to easily get access to OSATE plugins. </span>
+plugin for OSATE. You create verification method implementations in
+Java or Xtend in a Plugin project, which allows you to easily get
+access to OSATE plugins. </span>
 </p>
-<div title="footer">
-	<p lang="zxx" align="center" style="margin-top: 0.2in; margin-bottom: 0in">
-	<sdfield type=PAGE subtype=RANDOM format=PAGE>5</sdfield></p>
-</div>
+<p lang="zxx">Third, users can write JUnit tests and register test
+classes. Those tests can operate on an AADL model or they may execute
+source code.</p>
 </body>
 </html>

@@ -363,7 +363,7 @@ public interface ResultsPackage extends EPackage
   int RESULT_DATA__NAME = 0;
 
   /**
-   * The feature id for the '<em><b>Value</b></em>' attribute.
+   * The feature id for the '<em><b>Value</b></em>' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
@@ -372,22 +372,13 @@ public interface ResultsPackage extends EPackage
   int RESULT_DATA__VALUE = 1;
 
   /**
-   * The feature id for the '<em><b>Integer Value</b></em>' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int RESULT_DATA__INTEGER_VALUE = 2;
-
-  /**
    * The number of structural features of the '<em>Result Data</em>' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int RESULT_DATA_FEATURE_COUNT = 3;
+  int RESULT_DATA_FEATURE_COUNT = 2;
 
   /**
    * The meta object id for the '{@link org.osate.results.results.impl.IssuesReportImpl <em>Issues Report</em>}' class.
@@ -661,26 +652,15 @@ public interface ResultsPackage extends EPackage
   EAttribute getResultData_Name();
 
   /**
-   * Returns the meta object for the attribute '{@link org.osate.results.results.ResultData#getValue <em>Value</em>}'.
+   * Returns the meta object for the containment reference '{@link org.osate.results.results.ResultData#getValue <em>Value</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for the attribute '<em>Value</em>'.
+   * @return the meta object for the containment reference '<em>Value</em>'.
    * @see org.osate.results.results.ResultData#getValue()
    * @see #getResultData()
    * @generated
    */
-  EAttribute getResultData_Value();
-
-  /**
-   * Returns the meta object for the attribute '{@link org.osate.results.results.ResultData#getIntegerValue <em>Integer Value</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the attribute '<em>Integer Value</em>'.
-   * @see org.osate.results.results.ResultData#getIntegerValue()
-   * @see #getResultData()
-   * @generated
-   */
-  EAttribute getResultData_IntegerValue();
+  EReference getResultData_Value();
 
   /**
    * Returns the meta object for class '{@link org.osate.results.results.IssuesReport <em>Issues Report</em>}'.
@@ -886,20 +866,12 @@ public interface ResultsPackage extends EPackage
     EAttribute RESULT_DATA__NAME = eINSTANCE.getResultData_Name();
 
     /**
-     * The meta object literal for the '<em><b>Value</b></em>' attribute feature.
+     * The meta object literal for the '<em><b>Value</b></em>' containment reference feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    EAttribute RESULT_DATA__VALUE = eINSTANCE.getResultData_Value();
-
-    /**
-     * The meta object literal for the '<em><b>Integer Value</b></em>' attribute feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EAttribute RESULT_DATA__INTEGER_VALUE = eINSTANCE.getResultData_IntegerValue();
+    EReference RESULT_DATA__VALUE = eINSTANCE.getResultData_Value();
 
     /**
      * The meta object literal for the '{@link org.osate.results.results.impl.IssuesReportImpl <em>Issues Report</em>}' class.

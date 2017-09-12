@@ -25,7 +25,7 @@
  * product liability, personal injury, death, damage to property, or violation of any laws or regulations.
  *
  * Carnegie Mellon University Software Engineering Institute authored documents are sponsored by the U.S. Department
- * of Defense under Contract F19628-00-C-0003. Carnegie Mellon University retains copyrights in all material produced
+ * of Defense under Contract FA8721-05-C-0003. Carnegie Mellon University retains copyrights in all material produced
  * under this contract. The U.S. Government retains a non-exclusive, royalty-free license to publish or reproduce these
  * documents, or allow others to do so, for U.S. Government purposes only pursuant to the copyright license
  * under the contract clause at 252.227.7013.
@@ -35,6 +35,7 @@
 package org.osate.reqtrace
 
 import java.io.File
+import java.util.ArrayList
 import java.util.List
 import org.eclipse.jface.dialogs.IDialogConstants
 import org.eclipse.jface.dialogs.TitleAreaDialog
@@ -53,26 +54,45 @@ import org.eclipse.swt.widgets.Shell
 import org.eclipse.swt.widgets.Text
 import org.eclipse.xtend.lib.annotations.Accessors
 
-package class ReqTraceConfigDialog extends TitleAreaDialog {
-	val package static String G2S = "goal2stakeholders"
-	val package static String R2G = "requirement2goals"
+import static extension org.eclipse.jface.dialogs.DialogSettings.getOrCreateSection
+
+class ReqTraceConfigDialog extends TitleAreaDialog {
+	val public static String G2S = "goal2stakeholders"
+	val public static String R2G = "requirement2goals"
 	val static OUTPUT_FILE_SETTING = "OUTPUT_FILE_SETTING"
 	val static REPORT_TYPE_SETTING = "REPORT_TYPE_SETTING"
+	val static OPEN_FILE_SETTING = "OPEN_FILE_SETTING"
 	
+	val dialogSettings = Activator.^default.dialogSettings.getOrCreateSection(class.name)
 	val List<String> formats
+	val List<String> formatDescriptions
 	val String fileType
 	Button g2sButton
 	Button r2gButton
 	Text outputFileText
+	Button openFileButton
 	
 	@Accessors(PACKAGE_GETTER)
 	String outputFile
 	@Accessors(PACKAGE_GETTER)
 	String reportType
+	@Accessors(PACKAGE_GETTER)
+	boolean openFileAutomatically
 	
 	new(Shell parent, List<String> formats, String fileType) {
 		super(parent)
 		this.formats = formats
+		formatDescriptions = new ArrayList(formats.map[switch it {
+			case "docx": "Word Document"
+			case "pptx": "PowerPoint Presentation"
+			case "xlsx": "Excel Workbook"
+			case "odt": "ODF Text Document"
+			case "odp": "ODF Presentation"
+			case "ods": "ODF Spreadsheet"
+			case "html": "Web Page"
+			case "pdf": "PDF"
+			default: it
+		}])
 		this.fileType = fileType
 	}
 	
@@ -89,7 +109,7 @@ package class ReqTraceConfigDialog extends TitleAreaDialog {
 	}
 	
 	override protected getDialogBoundsSettings() {
-		Activator.^default.dialogSettings
+		dialogSettings
 	}
 	
 	override protected configureShell(Shell newShell) {
@@ -119,17 +139,17 @@ package class ReqTraceConfigDialog extends TitleAreaDialog {
 					layoutData = new GridData(SWT.FILL, SWT.TOP, true, false)
 				]
 				switch fileType {
-					case "reqspec": {
+					case "reqspec", case "reqdoc": {
 						g2sButton.enabled = false
 						r2gButton.selection = true
 						r2gButton.enabled = false
 					}
-					case "goals": {
+					case "goals", case "goaldoc": {
 						g2sButton.selection = true
 						g2sButton.enabled = false
 						r2gButton.enabled = false
 					}
-					default: switch Activator.^default.dialogSettings.get(REPORT_TYPE_SETTING) {
+					default: switch dialogSettings.get(REPORT_TYPE_SETTING) {
 						case null,
 						case G2S: g2sButton.selection = true
 						case R2G: r2gButton.selection = true
@@ -144,7 +164,7 @@ package class ReqTraceConfigDialog extends TitleAreaDialog {
 					layoutData = new GridData(SWT.LEFT, SWT.CENTER, false, false)
 				]
 				outputFileText = new Text(it, SWT.SINGLE.bitwiseOr(SWT.LEFT).bitwiseOr(SWT.BORDER)) => [
-					text = Activator.^default.dialogSettings.get(OUTPUT_FILE_SETTING) ?: ""
+					text = dialogSettings.get(OUTPUT_FILE_SETTING) ?: ""
 					layoutData = new GridData(SWT.FILL, SWT.CENTER, true, false)
 					addModifyListener[validateOutputFile]
 				]
@@ -155,15 +175,22 @@ package class ReqTraceConfigDialog extends TitleAreaDialog {
 						override widgetSelected(SelectionEvent e) {
 							val dialog = new FileDialog(shell, SWT.SAVE.bitwiseOr(SWT.SHEET))
 							dialog.filterExtensions = formats.map["*." + it]
+							dialog.filterNames = formatDescriptions
 							dialog.text = "Output File"
 							val selectedFileName = dialog.open
-							if (selectedFileName != null) {
+							if (selectedFileName !== null) {
 								outputFileText.text = selectedFileName
 								validateOutputFile
 							}
 						}
 					})
 				]
+			]
+			openFileButton = new Button(it, SWT.CHECK) => [
+				text = "Open Generated Report"
+				layoutData = new GridData(SWT.LEFT, SWT.CENTER, false, false)
+				val preference = dialogSettings.get(OPEN_FILE_SETTING)
+				selection = preference === null || Boolean.parseBoolean(preference)
 			]
 		]
 	}
@@ -175,10 +202,10 @@ package class ReqTraceConfigDialog extends TitleAreaDialog {
 		} else if (r2gButton.selection) {
 			R2G
 		}
-		Activator.^default.dialogSettings => [
-			put(OUTPUT_FILE_SETTING, outputFile)
-			put(REPORT_TYPE_SETTING, reportType)
-		]
+		openFileAutomatically = openFileButton.selection
+		dialogSettings.put(OUTPUT_FILE_SETTING, outputFile)
+		dialogSettings.put(REPORT_TYPE_SETTING, reportType)
+		dialogSettings.put(OPEN_FILE_SETTING, openFileAutomatically)
 		super.okPressed
 	}
 	
@@ -194,6 +221,6 @@ package class ReqTraceConfigDialog extends TitleAreaDialog {
 				}
 			}
 		}
-		getButton(IDialogConstants.OK_ID).enabled = errorMessage == null
+		getButton(IDialogConstants.OK_ID).enabled = errorMessage === null
 	}
 }

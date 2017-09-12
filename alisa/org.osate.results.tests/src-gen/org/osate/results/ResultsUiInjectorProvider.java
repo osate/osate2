@@ -15,15 +15,15 @@
  */
 package org.osate.results;
 
-import org.eclipse.xtext.junit4.IInjectorProvider;
+import org.eclipse.xtext.testing.IInjectorProvider;
 
 import com.google.inject.Injector;
 
 public class ResultsUiInjectorProvider implements IInjectorProvider {
-	
+
 	@Override
 	public Injector getInjector() {
 		return org.osate.results.ui.internal.ResultsActivator.getInstance().getInjector("org.osate.results.Results");
 	}
-	
+
 }

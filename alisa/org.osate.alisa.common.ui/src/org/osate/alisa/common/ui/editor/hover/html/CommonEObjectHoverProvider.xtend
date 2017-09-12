@@ -51,7 +51,7 @@ public class CommonEObjectHoverProvider extends DefaultEObjectHoverProvider {
 					str += value.value
 			}
 
-			str + if (label != null) ' <b>' + label + '</b>' else ''
+			str + if (label !== null) ' <b>' + label + '</b>' else ''
 		}
 	}
 }

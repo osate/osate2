@@ -14,20 +14,31 @@
  * See COPYRIGHT file for full details.
  */
 
+import it.xsemantics.runtime.RuleEnvironment
+import java.util.HashMap
+import org.eclipse.emf.ecore.EObject
+import org.eclipse.xtext.nodemodel.util.NodeModelUtils
 import org.osate.aadl2.Aadl2Factory
 import org.osate.aadl2.AadlInteger
 import org.osate.aadl2.BooleanLiteral
 import org.osate.aadl2.IntegerLiteral
+import org.osate.aadl2.NamedElement
 import org.osate.aadl2.NumberType
 import org.osate.aadl2.NumberValue
+import org.osate.aadl2.Property
 import org.osate.aadl2.PropertyExpression
 import org.osate.aadl2.PropertyValue
 import org.osate.aadl2.RangeValue
 import org.osate.aadl2.RealLiteral
 import org.osate.aadl2.RecordValue
 import org.osate.aadl2.StringLiteral
+import org.osate.aadl2.instance.InstanceFactory
+import org.osate.aadl2.instance.InstanceObject
+import org.osate.aadl2.instance.InstanceReferenceValue
 import org.osate.alisa.common.common.ABinaryOperation
 import org.osate.alisa.common.common.AConditional
+import org.osate.alisa.common.common.AModelReference
+import org.osate.alisa.common.common.APropertyReference
 import org.osate.alisa.common.common.ARange
 import org.osate.alisa.common.common.AUnaryOperation
 import org.osate.alisa.common.common.AUnitExpression
@@ -38,11 +49,15 @@ import org.osate.alisa.common.common.Operation
 import org.osate.alisa.common.common.ValDeclaration
 
 import static extension org.osate.alisa.common.typing.InterpreterUtil.*
+import org.eclipse.emf.ecore.util.EcoreUtil
+import org.osate.aadl2.PropertyConstant
 
 system org.osate.alisa.common.typing.CommonInterpreter
 
 auxiliary {
 	combineNumeric(NumberType left, NumberType right): NumberType
+	chooseRoot(EObject io, RuleEnvironment G): InstanceObject
+	errorPosition(EObject o): String
 }
 
 
@@ -63,13 +78,42 @@ auxiliary combineNumeric(NumberType left, NumberType right) {
 			else
 				Aadl2Factory.eINSTANCE.createAadlReal
 	result.referencedUnitsType =
-			if (left.unitsType != null)
+			if (left.unitsType !== null)
 				left.unitsType
 			else
 				right.unitsType
 	result
 }
 
+
+auxiliary chooseRoot(EObject obj, RuleEnvironment G) {
+	val component = env(G, 'component', InstanceObject)
+	val element = env(G, 'element', NamedElement)
+	
+	switch (obj.eClass.name) {
+		case 'SystemRequirementSet': component
+		case 'Requirement': 
+			if (element instanceof InstanceObject)
+				element
+			else if (component !== null)
+				component
+			else
+				component.eContents.findFirst[
+					if (it instanceof InstanceObject) it.name.equalsIgnoreCase(element.name) else false
+				] as InstanceObject
+		default: {
+			val parent = obj.eContainer()
+			if (parent === null) null else chooseRoot(parent, G)
+		}
+	}
+}
+
+
+auxiliary	errorPosition(EObject o) {
+	val fileName = o.eResource.URI.path
+	val line = NodeModelUtils.findActualNodeFor(o).startLine
+	' (' + fileName + ':' + line + ')'
+}
 
 // expression interpreter
 
@@ -184,8 +228,8 @@ rule InterpretUnitExpression
 	G |- AUnitExpression unit ~> NumberValue number
 from {
 	G |- unit.expression ~> var PropertyValue propval
-	number = (propval as NumberValue)
-	
+	number = EcoreUtil.copy((propval as NumberValue))
+	val unit_add = !unit.drop && !unit.convert && unit.unit !== null
 	if (unit.drop || unit.convert) {
 		switch (number) {
 			IntegerLiteral:
@@ -199,7 +243,7 @@ from {
 	}	
 	if (unit.drop) {
 		number.unit = null
-	} else {
+	} else if (unit.convert || unit_add) {
 		number.unit = unit.unit
 	}
 }
@@ -209,15 +253,26 @@ from {
 rule InterpretVal
 	G ||- ValDeclaration varDecl ~> PropertyValue propVal
 from {
-	G |- varDecl.value ~> propVal
+	val map = env(G, 'vals', Object) as HashMap<ValDeclaration, PropertyValue>
+	if (map.containsKey(varDecl)) {
+		propVal = map.get(varDecl)
+	} else {
+		G |- varDecl.value ~> propVal
+		map.put(varDecl, propVal)
+	}
 }
 
 rule InterpretCompute
 	G ||- ComputeDeclaration varDecl ~> PropertyValue propVal
 from {
-	fail
-		error 'interpreter: compute variables are not yet implemented'
-		source varDecl
+	{ 
+		val map = env(G, 'computes', Object) as HashMap<String, PropertyValue>
+		map.containsKey(varDecl.name)
+		propVal = map.get(varDecl.name)
+	} or {
+		fail
+			error 'interpreter: compute variable ' + varDecl.name + ' has no value'
+	}
 }
 
 rule InterpretVarRef
@@ -237,19 +292,61 @@ from {
 	}
 }
 
-// access the AADL model
-// TODO
-//rule InterpretModelReference
-//	G |- AModelReference ref ~> PropertyValue propVal
-//from {
-//	// access the instance model
-//}
-//
-//rule InterpretPropertyReference
-//	G |- APropertyReference prop ~> PropertyValue propVal
-//from {
-//	// access property on instance object
-//}
+// access the AADL model or {
+
+rule InterpretModelReference
+	G |- AModelReference ref ~> InstanceReferenceValue propVal
+from {
+	// access the instance model
+	val resolved = {
+			val root = chooseRoot(ref, G)
+			ref.resolve(root)
+		}
+	{
+		resolved !== null
+		propVal = InstanceFactory.eINSTANCE.createInstanceReferenceValue
+		propVal.referencedInstanceObject = resolved
+	} or {
+		fail
+			error 'cannot resolve reference to model element ' + 
+					NodeModelUtils.findActualNodeFor(ref).text + errorPosition(ref)
+	}
+}
+
+rule InterpretPropertyReference
+	G |- APropertyReference prop ~> PropertyValue propVal
+from {
+	// access property on instance object
+	var InstanceObject io
+	{
+		prop.modelElementReference !== null
+		G |- prop.modelElementReference ~> var InstanceReferenceValue element
+		io = element.referencedInstanceObject
+	} or {
+		io = chooseRoot(prop, G)
+	}
+	val namedVal = prop.property // property or constant
+	val pexp = switch (namedVal) {
+			Property:
+				try {
+					io.getSimplePropertyValue(namedVal)
+				} catch (Exception e) {
+					null
+				}
+				PropertyConstant:
+					namedVal.constantValue
+			default: 
+				null
+	}
+	propVal = if (pexp instanceof PropertyValue) pexp else null
+
+	propVal !== null
+  or {
+		fail
+			error 'cannot retrieve property value ' + 
+					NodeModelUtils.findActualNodeFor(prop).text + errorPosition(prop)
+	}
+}
 
 // literals
 
@@ -340,12 +437,20 @@ from {
 	leftVals.forall[ l | val r = rightIter.next; G |= l : r ]
 }
 
+rule EqualModelElement
+	G |= InstanceReferenceValue left : InstanceReferenceValue right
+from {
+	left.referencedInstanceObject == right.referencedInstanceObject
+}
+
 rule Equal
 	G |= PropertyValue left : PropertyValue right
 from {
-	fail
-		error 'interpreter: comparison not implemented'
-		source left
+	left.sameAs(right)
+	or
+		fail
+			error 'interpreter: property values are not equal'
+			source left
 }
 
 rule CompareNumbers
