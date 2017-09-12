@@ -8,7 +8,9 @@
  *******************************************************************************/
 package org.osate.ge.graphics;
 
-import org.osate.ge.internal.graphics.AgeConnectionTerminator;
+import org.osate.ge.graphics.internal.AgeConnectionTerminator;
+import org.osate.ge.graphics.internal.ConnectionTerminatorSize;
+import org.osate.ge.graphics.internal.ConnectionTerminatorType;
 
 /**
  * Builder for creating arrow connection terminators. 
@@ -16,33 +18,62 @@ import org.osate.ge.internal.graphics.AgeConnectionTerminator;
  * @see ConnectionTerminator
  */
 public class ArrowBuilder {
-	private AgeConnectionTerminator terminator = AgeConnectionTerminator.FILLED_ARROW;
+	private ConnectionTerminatorType terminatorType = ConnectionTerminatorType.FILLED_ARROW;
+	private ConnectionTerminatorSize terminatorSize = ConnectionTerminatorSize.REGULAR;
+	private boolean reversed = false;
 	
 	private ArrowBuilder() {} 
 	
 	/**
 	 * Creates an arrow builder.
-	 * @return a new arrow builder
+	 * @return a arrow builder
 	 */
 	public static ArrowBuilder create() {
 		return new ArrowBuilder();
 	}
 	
 	/**
-	 * Configures the arrow builder to create a filled arrow.
+	 * Configures the arrow builder to create a filled polygon arrow.
 	 * @return this builder to allow method chaining.
 	 */
 	public ArrowBuilder filled() {
-		terminator = AgeConnectionTerminator.FILLED_ARROW;
+		terminatorType = ConnectionTerminatorType.FILLED_ARROW;
 		return this;
 	}
 	
 	/**
-	 * Configures the arrow builder to create an open arrow.
+	 * Configures the arrow builder to create an unfilled polygon arrow.
 	 * @return the arrow builder on which the method was invoked to allow method chaining
 	 */
 	public ArrowBuilder open() {
-		terminator = AgeConnectionTerminator.OPEN_ARROW;
+		terminatorType = ConnectionTerminatorType.OPEN_ARROW;
+		return this;
+	}
+	
+	/**
+	 * Configures the arrow builder to create a line arrow.
+	 * @return the arrow builder on which the method was invoked to allow method chaining
+	 */
+	public ArrowBuilder line() {
+		terminatorType = ConnectionTerminatorType.LINE_ARROW;
+		return this;
+	}
+	
+	/**
+	 * Configures the arrow builder to create a small arrow.
+	 * @return the arrow builder on which the method was invoked to allow method chaining
+	 */
+	public ArrowBuilder small() {
+		terminatorSize = ConnectionTerminatorSize.SMALL;
+		return this;
+	}
+	
+	/**
+	 * Configures the arrow builder to create a reversed arrow. Reversed arrows will point inwards rather than outwards.
+	 * @return the arrow builder on which the method was invoked to allow method chaining
+	 */
+	public ArrowBuilder reverse() {
+		reversed = true;
 		return this;
 	}
 	
@@ -51,6 +82,6 @@ public class ArrowBuilder {
 	 * @return the newly created connection terminator
 	 */
 	public ConnectionTerminator build() {
-		return terminator;
+		return new AgeConnectionTerminator(terminatorType, terminatorSize, reversed);
 	}
 }

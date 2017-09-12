@@ -9,13 +9,13 @@
 package org.osate.ge.query;
 
 /**
- * Provides access to the arguments used by filter query results using {@link DiagramElementQuery#filter(java.util.function.Predicate)}. 
+ * Provides access to the arguments used to filter query results using {@link Query#filter(java.util.function.Predicate)}. 
  * @param <A> the type of the query argument
  * @noextend
  * @noimplement
- * @see DiagramElementQuery#filter(java.util.function.Predicate)
+ * @see Query#filter(java.util.function.Predicate)
  */
-public interface FilterArguments<A> {
+public interface FilterArguments {
 	/**
 	 * Returns the business object that is associated with the diagram element being filtered.
 	 * @return the diagram element's business object
@@ -26,5 +26,5 @@ public interface FilterArguments<A> {
 	 * Returns the query argument 
 	 * @return the query argument
 	 */
-	A getQueryArgument();
+	Object getQueryArgument();
 }

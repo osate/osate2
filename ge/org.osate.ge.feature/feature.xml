@@ -2,7 +2,7 @@
 <feature
       id="org.osate.ge.feature"
       label="Open Source AADL Tool Environment Graphical Editor"
-      version="2.2.2.qualifier"
+      version="2.3.0.qualifier"
       plugin="org.osate.ge">
 
    <description>
@@ -58,6 +58,13 @@ to the terms of the license set forth at http://www.aadl.info/OSATELicense.html.
 
    <plugin
          id="org.osate.ge.doc"
+         download-size="0"
+         install-size="0"
+         version="1.0.0.qualifier"
+         unpack="false"/>
+
+   <plugin
+         id="org.osate.ge.diagram"
          download-size="0"
          install-size="0"
          version="1.0.0.qualifier"

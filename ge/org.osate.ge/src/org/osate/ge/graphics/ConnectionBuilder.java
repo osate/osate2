@@ -8,9 +8,8 @@
  *******************************************************************************/
 package org.osate.ge.graphics;
 
-import org.osate.ge.internal.graphics.ConnectionStyle;
-import org.osate.ge.internal.graphics.AgeConnectionTerminator;
-import org.osate.ge.internal.graphics.FreeFormConnection;
+import org.osate.ge.graphics.internal.AgeConnection;
+import org.osate.ge.graphics.internal.AgeConnectionTerminator;
 
 /**
  * Builder for creating connection graphics. Currently all connections are straight line connections which do not support bend-points.
@@ -20,18 +19,18 @@ import org.osate.ge.internal.graphics.FreeFormConnection;
 public class ConnectionBuilder {
 	private AgeConnectionTerminator srcTerminator = null;
 	private AgeConnectionTerminator dstTerminator = null;
-	private ConnectionStyle connectionStyle = ConnectionStyle.SOLID;
-	
+	private boolean isCurved = false;
+
 	private ConnectionBuilder() {}
-	
+
 	/**
 	 * Creates a connection builder.
-	 * @return a new connection builder
+	 * @return a connection builder
 	 */
 	public static ConnectionBuilder create() {
 		return new ConnectionBuilder();
 	}
-	
+
 	/**
 	 * Configures the connection builder to create a connection with the specified connection terminator at the source end of the connection.
 	 * @param value the source connection terminator to use when creating the connection
@@ -41,7 +40,7 @@ public class ConnectionBuilder {
 		this.srcTerminator = (AgeConnectionTerminator)value;
 		return this;
 	}
-	
+
 	/**
 	 * Configures the connection builder to create a connection with the specified connection terminator at the destination end of the connection.
 	 * @param value the destination connection terminator to use when creating the connection
@@ -51,21 +50,21 @@ public class ConnectionBuilder {
 		this.dstTerminator = (AgeConnectionTerminator)value;
 		return this;
 	}
-	
+
 	/**
-	 * Configures the connection builder to create a dashed connection.
+	 * Configures the connection builder to create a curved connection.
 	 * @return this builder to allow method chaining.
 	 */
-	public ConnectionBuilder dashed() {
-		this.connectionStyle = ConnectionStyle.DASHED;
+	public ConnectionBuilder curved() {
+		this.isCurved = true;
 		return this;
 	}
-	
+
 	/**
 	 * Creates a connection based on the current state of the builder.
 	 * @return the newly created graphic
 	 */
 	public Graphic build() {
-		return new FreeFormConnection(connectionStyle, srcTerminator, dstTerminator);
+		return AgeConnection.createNormal(srcTerminator, dstTerminator, isCurved);
 	}
 }

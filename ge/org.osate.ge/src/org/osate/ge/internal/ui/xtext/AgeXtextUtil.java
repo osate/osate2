@@ -9,6 +9,8 @@
 package org.osate.ge.internal.ui.xtext;
 
 import java.util.Collection;
+
+import org.eclipse.core.resources.IResource;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.IPageListener;
 import org.eclipse.ui.IStartup;
@@ -112,11 +114,19 @@ public class AgeXtextUtil {
 		return openAadlResources.getDocument(element.getQualifiedName(), element.eResource());
 	}
 	
+	
+	public static IXtextDocument getDocumentByIResource(final IResource res) {
+		return openAadlResources.getDocument(res);
+	}
 	public static void addModelListener(final IXtextModelListener listener) {
 		openAadlResources.addModelListener(listener);
 	}
 	
 	public static void removeModelListener(final IXtextModelListener listener) {
 		openAadlResources.removeModelListener(listener);
+	}
+	
+	public static XtextResource getOpenXtextResource(final IResource res) {
+		return openAadlResources.getXtextResource(res);
 	}
 }

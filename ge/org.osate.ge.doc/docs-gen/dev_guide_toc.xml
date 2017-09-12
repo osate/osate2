@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<toc label="OSATE Graphical Editor Developer Guide" topic="docs-gen/dev_guide.html">
+	<topic label="Introduction" href="docs-gen/dev_guide.html#introduction">
+	</topic>
+	<topic label="General Information" href="docs-gen/dev_guide.html#general-information">
+		<topic label="Services" href="docs-gen/dev_guide.html#services">
+		</topic>
+		<topic label="Annotations" href="docs-gen/dev_guide.html#annotations">
+		</topic>
+	</topic>
+	<topic label="Extension Points" href="docs-gen/dev_guide.html#extension-points">
+		<topic label="Categories" href="docs-gen/dev_guide.html#categories">
+		</topic>
+		<topic label="Commands" href="docs-gen/dev_guide.html#commands">
+			<topic label="Required Annotations:" href="docs-gen/dev_guide.html#required-annotations">
+			</topic>
+			<topic label="Optional Annotations:" href="docs-gen/dev_guide.html#optional-annotations">
+			</topic>
+		</topic>
+		<topic label="Images" href="docs-gen/dev_guide.html#images">
+		</topic>
+		<topic label="Adding Support for a new Business Object" href="docs-gen/dev_guide.html#adding-support-for-a-new-business-object">
+			<topic label="Non-EMF Objects" href="docs-gen/dev_guide.html#non-emf-objects">
+			</topic>
+			<topic label="Reference Builders and Reference Resolvers" href="docs-gen/dev_guide.html#reference-builders-and-reference-resolvers">
+				<topic label="Reference Builders" href="docs-gen/dev_guide.html#reference-builders">
+					<topic label="Examples" href="docs-gen/dev_guide.html#examples">
+					</topic>
+					<topic label="Required Annotations:" href="docs-gen/dev_guide.html#required-annotations-1">
+					</topic>
+				</topic>
+				<topic label="Reference Resolvers" href="docs-gen/dev_guide.html#reference-resolvers">
+					<topic label="Examples" href="docs-gen/dev_guide.html#examples-1">
+					</topic>
+					<topic label="Required Annotations:" href="docs-gen/dev_guide.html#required-annotations-2">
+					</topic>
+					<topic label="Optional Annotations:" href="docs-gen/dev_guide.html#optional-annotations-1">
+					</topic>
+				</topic>
+			</topic>
+			<topic label="Business Object Handlers" href="docs-gen/dev_guide.html#business-object-handlers">
+				<topic label="Examples" href="docs-gen/dev_guide.html#examples-2">
+				</topic>
+				<topic label="Annotations" href="docs-gen/dev_guide.html#annotations-1">
+					<topic label="Required" href="docs-gen/dev_guide.html#required">
+					</topic>
+					<topic label="General" href="docs-gen/dev_guide.html#general">
+					</topic>
+					<topic label="Business Object Creation" href="docs-gen/dev_guide.html#business-object-creation">
+					</topic>
+					<topic label="Business Object Deletion" href="docs-gen/dev_guide.html#business-object-deletion">
+					</topic>
+					<topic label="Naming" href="docs-gen/dev_guide.html#naming">
+					</topic>
+				</topic>
+			</topic>
+		</topic>
+		<topic label="Tooltip Contributors" href="docs-gen/dev_guide.html#tooltip-contributors">
+			<topic label="Examples" href="docs-gen/dev_guide.html#examples-3">
+			</topic>
+			<topic label="Required Annotations:" href="docs-gen/dev_guide.html#required-annotations-3">
+			</topic>
+		</topic>
+	</topic>
+</toc>

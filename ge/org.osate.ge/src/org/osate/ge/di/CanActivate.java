@@ -21,12 +21,13 @@ import java.lang.annotation.Target;
  * <h1>Usages</h1>
  * <table summary="Annotation Usages">
  *   <tr><th>Usage</th><th>Description</th><th>Return Value</th></tr>
- *   <tr><td>Tools</td><td>Not API. Returns whether a tool may be activated.</td><td>boolean</td></tr>
+ *   <tr><td>Command</td><td>Returns whether the command can be activated.</td><td>boolean</td></tr>
+ *   <tr><td>Tool</td><td>Not API. Returns whether a tool may be activated.</td><td>boolean</td></tr>
  * </table>
  * <h1>Named Parameters</h1>
  * <table summary="Named Parameters">
  *   <tr><th>Parameter</th><th>Usage</th><th>Description</th></tr>
- *   <tr><td colspan="3">None</td></tr>
+ *   <tr><td>{@link org.osate.ge.di.Names#BUSINESS_OBJECTS}</td><td>Command</td><td>Array containing the business objects for the currently selected diagram elements.</td></tr>
  * </table>
  */
 @Documented

@@ -3,22 +3,21 @@ package org.osate.ge.internal.query;
 import java.util.Deque;
 import java.util.List;
 import java.util.Objects;
-import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 
-class CommonAncestorsQuery<A> extends PictogramQuery<A> {
-	private final PictogramQuery<A> q1;
-	private final PictogramQuery<A> q2;
+class CommonAncestorsQuery extends DefaultQuery {
+	private final DefaultQuery q1;
+	private final DefaultQuery q2;
 	
-	public CommonAncestorsQuery(final PictogramQuery<A> q1, final PictogramQuery<A> q2) {
+	public CommonAncestorsQuery(final DefaultQuery q1, final DefaultQuery q2) {
 		super(null);
 		this.q1 = Objects.requireNonNull(q1, "q1 must not be null");
 		this.q2 = Objects.requireNonNull(q2, "q2 must not be null");
 	}
 
 	@Override
-	void run(final Deque<Query<A>> remainingQueries, final Object ctx, final QueryExecutionState<A> state, final QueryResult result) {
-		final List<? extends PictogramElement> q1Result = state.queryRunner.getPictogramElements(q1, state.arg);		
-		final List<? extends PictogramElement> q2Result = state.queryRunner.getPictogramElements(q2, state.arg);
+	void run(final Deque<DefaultQuery> remainingQueries, final Queryable ctx, final QueryExecutionState state, final QueryResult result) {
+		final List<Queryable> q1Result = state.queryRunner.getResults(q1, state.arg);		
+		final List<Queryable> q2Result = state.queryRunner.getResults(q2, state.arg);
 		
 		// Check sizes
 		if(q1Result.size() == 0 || q2Result.size() == 0) {
@@ -33,20 +32,20 @@ class CommonAncestorsQuery<A> extends PictogramQuery<A> {
 			throw new RuntimeException("q2 returns more than one element");
 		}
 		
-		final PictogramElement pe1 = AncestorUtil.getAncestor(q1Result.get(0), state);
-		final PictogramElement pe2 = AncestorUtil.getAncestor(q2Result.get(0), state);
+		final Queryable qc1 = q1Result.get(0).getParent();
+		final Queryable qc2 = q2Result.get(0).getParent();
 
 		// Get all common ancestors common ancestor
-		PictogramElement temp1 = pe1;
+		Queryable temp1 = qc1;
 		while(temp1 != null) {
-			PictogramElement temp2 = pe2;
+			Queryable temp2 = qc2;
 			while(temp2 != null) {
 				if(temp1 == temp2) {
 					processResultValue(remainingQueries, temp1, state, result);
 
 					// Return all other ancestors
 					while(!result.done) {
-						temp1 = AncestorUtil.getAncestor(temp1, state);
+						temp1 = temp1.getParent();
 
 						if(temp1 == null) {
 							break;
@@ -56,10 +55,10 @@ class CommonAncestorsQuery<A> extends PictogramQuery<A> {
 					}
 					return;
 				}
-				temp2 = AncestorUtil.getAncestor(temp2, state);
+				temp2 = temp2.getParent();
 			}
 			
-			temp1 = AncestorUtil.getAncestor(temp1, state);
+			temp1 = temp1.getParent();
 		}		
 	}
 }

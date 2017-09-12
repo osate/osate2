@@ -8,172 +8,177 @@
  *******************************************************************************/
 package org.osate.ge.internal.ui.editor;
 
-import org.eclipse.emf.transaction.RecordingCommand;
-import org.eclipse.graphiti.features.IFeatureProvider;
-import org.eclipse.graphiti.features.IUpdateFeature;
-import org.eclipse.graphiti.features.context.impl.UpdateContext;
-import org.eclipse.graphiti.mm.pictograms.Diagram;
-import org.eclipse.swt.widgets.Combo;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
+import org.eclipse.jface.viewers.ComboViewer;
+import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.ui.IEditorPart;
-import org.osate.aadl2.ComponentClassifier;
 import org.osate.aadl2.ComponentImplementation;
 import org.osate.aadl2.EndToEndFlow;
 import org.osate.aadl2.FlowImplementation;
+import org.osate.aadl2.FlowSpecification;
 import org.osate.aadl2.NamedElement;
-import org.osate.ge.internal.AadlElementWrapper;
-import org.osate.ge.internal.services.PropertyService;
+import org.osate.ge.BusinessObjectContext;
+import org.osate.ge.internal.diagram.runtime.AgeDiagram;
+import org.osate.ge.query.StandaloneQuery;
+import org.osate.ge.services.QueryService;
 
-public class FlowContributionItem extends ComboContributionItem implements ComponentClassifierItem {
+public class FlowContributionItem extends ComboContributionItem {
 	private static final String emptySelectionTxt = "<Flows>";
 	private static final String selectedFlowPropertyKey = "org.osate.ge.ui.editor.selectedFlow";
-	private final PropertyService propertyUtil;
-	private AgeDiagramEditor editor = null;	
-	
-	public FlowContributionItem(final String id, final PropertyService propertyUtil) {
+	private static final StandaloneQuery componentImplementationsQuery = StandaloneQuery.create((rootQuery) -> rootQuery.descendants().filter((fa) -> fa.getBusinessObject() instanceof ComponentImplementation));
+	private AgeDiagramEditor editor = null;
+
+	public FlowContributionItem(final String id) {
 		super(id);
-		this.propertyUtil = propertyUtil;
 	}
-	
+
 	@Override
 	public boolean isDynamic() {
 		return true;
 	}
-	
+
 	public final void setActiveEditor(final IEditorPart newEditor) {
 		if(editor != newEditor) {
 			saveFlowSelection();
 
 			// Update the editor
-			if(getBusinessObjectForEditor(newEditor) instanceof ComponentClassifier) {
+			if(newEditor instanceof AgeDiagramEditor) {
 				this.editor = (AgeDiagramEditor)newEditor;
 			} else {
 				this.editor = null;
 			}
-			
+
 			refresh();
 		}
 	}
-	
+
 	@Override
 	protected void onControlDisposed() {
 		saveFlowSelection();
 		super.onControlDisposed();
 	}
-	
+
 	private void saveFlowSelection() {
-		// Save the current flow selection
-		final Combo cmb = this.getCombo();
-		if(cmb != null) {
+		// Save the current mode selection
+		final ComboViewer comboViewer = getComboViewer();
+		if(comboViewer != null) {
 			if(this.editor != null) {
-				final String selection = cmb.getText();
-				editor.setPartProperty(selectedFlowPropertyKey, selection);
+				final Object firstSelection = comboViewer.getStructuredSelection().getFirstElement();
+				final String selectionStr = firstSelection instanceof NamedElement ? getQualifiedName(((NamedElement)firstSelection)): null;
+				editor.setPartProperty(selectedFlowPropertyKey, selectionStr);
 			}
 		}
 	}
-	
-	private static Object getBusinessObjectForEditor(final IEditorPart part) {
-		if(!(part instanceof AgeDiagramEditor)) {
-			return null;
-		}
-			
-		final AgeDiagramEditor ed = (AgeDiagramEditor)part;
-		final IFeatureProvider fp = ed.getDiagramTypeProvider().getFeatureProvider();
-		return AadlElementWrapper.unwrap(fp.getBusinessObjectForPictogramElement(ed.getDiagramTypeProvider().getDiagram()));
-	}
-	/**
-	 * Get the top-level component classifier from the editor
-	 * @return
-	 */
-	private ComponentImplementation getComponentImplementation() {
-		if(editor != null) {
-			// Get the AADL Element at the top level of the diagram
-			final Diagram diagram = editor.getDiagramTypeProvider().getDiagram();
-			final IFeatureProvider fp = editor.getDiagramTypeProvider().getFeatureProvider();
-			final NamedElement element = (NamedElement)AadlElementWrapper.unwrap(fp.getBusinessObjectForPictogramElement(diagram));
-			if(element instanceof ComponentImplementation) {
-				return (ComponentImplementation)element;
-			}
-		}
-		
-		return null;
-	}	
-	
+
+	@Override
 	protected Control createControl(final Composite parent) {
 		final Control control = super.createControl(parent);
 		refresh(); // Populate the combo box
-		return control;		
+		return control;
 	}
-	
+
 	private void refresh() {
-		final Combo combo = getCombo();
-		if(combo != null) {
-			String selectedFlowName = null;
-			if(editor != null) {
-				selectedFlowName = editor.getPartProperty(selectedFlowPropertyKey);
-				if(selectedFlowName == null) {
-					selectedFlowName = propertyUtil.getSelectedFlow(editor.getDiagramTypeProvider().getDiagram());
+		final ComboViewer comboViewer = getComboViewer();
+		if(comboViewer != null) {
+			Object selectedValue = getNullValue();
+			final String selectedFlowName = editor == null ? null : editor.getPartProperty(selectedFlowPropertyKey);
+
+			// Clear the combo box
+			comboViewer.setInput(null);
+
+			if (editor == null) {
+				return;
+			}
+
+			final AgeDiagram diagram = editor.getAgeDiagram();
+			if(diagram != null) {
+				final QueryService queryService = ContributionHelper.getQueryService(editor);
+				if(queryService != null) {
+					final Set<NamedElement> elements = new HashSet<>();
+					for(final BusinessObjectContext componentImplementationBoc : queryService.getResults(componentImplementationsQuery, diagram)) {
+						final ComponentImplementation componentImplementation = (ComponentImplementation)componentImplementationBoc.getBusinessObject();
+
+						// Add both modes and mode transitions to the drop down
+						for(final FlowImplementation flow : componentImplementation.getAllFlowImplementations()) {
+							if(getName(flow) != null) {
+								elements.add(flow);
+							}
+						}
+
+						for(final EndToEndFlow flow : componentImplementation.getAllEndToEndFlows()) {
+							if(flow.getName() != null) {
+								elements.add(flow);
+							}
+						}
+					}
+
+					// Find the selected value
+					for(final NamedElement ne : elements) {
+						if(getQualifiedName(ne).equalsIgnoreCase(selectedFlowName)) {
+							selectedValue = ne;
+							break;
+						}
+					}
+
+					final List<Object> sortedElements = new ArrayList<>();
+					sortedElements.add(getNullValue());
+					sortedElements.addAll(elements);
+					sortedElements.sort((o1, o2) -> {
+						if(o1 == getNullValue()) {
+							return -1;
+						} else if(o2 == getNullValue()) {
+							return 1;
+						}
+
+						final NamedElement e1 = (NamedElement)o1;
+						final NamedElement e2 = (NamedElement)o2;
+						if(e1.getClass() != e2.getClass()) {
+							if(e1 instanceof FlowImplementation) {
+								return -1;
+							} else {
+								return 1;
+							}
+						} else {
+							final String n1 = getName(e1);
+							final String n2 = getName(e2);
+							return n1 == null ? -1 : n1.compareToIgnoreCase(n2);
+						}
+					});
+
+					comboViewer.setInput(sortedElements);
 				}
 			}
-			
-			// Clear the combo box			
-			combo.removeAll();
 
-			String selectionTxt = emptySelectionTxt;
-			final ComponentImplementation componentImplementation = getComponentImplementation();
-			if(componentImplementation != null) {
-				combo.add(emptySelectionTxt);
-				
-				// Add Flow Implementations
-				for(final FlowImplementation flow : componentImplementation.getAllFlowImplementations()) {
-					if(flow.getSpecification() != null && flow.getSpecification().getName() != null) {
-						final String name = flow.getSpecification().getName();
-						combo.add(name);
-
-						if(name.equalsIgnoreCase(selectedFlowName)) {
-							selectionTxt = name;
-						}
-					}
-				}
-				
-				// Add End to End Flows
-				for(final EndToEndFlow flow : componentImplementation.getAllEndToEndFlows()) {
-					final String name = flow.getName();
-					if(name != null) {
-						combo.add(name);
-						if(name.equalsIgnoreCase(selectedFlowName)) {
-							selectionTxt = name;
-						}
-					}
-				}
-			}			
-			
-			// Set the selection
-			combo.setText(selectionTxt);
+			comboViewer.setSelection(new StructuredSelection(selectedValue));
 		}
 	}
-	
-	@Override
-	protected void onSelection(final String txt) {
-		final ComponentClassifier cc = getComponentImplementation();
-		final String transformedTxt = txt.equals(emptySelectionTxt) ? "" : txt;
-		if(cc != null) {
-			if(!transformedTxt.equalsIgnoreCase(propertyUtil.getSelectedFlow(editor.getDiagramTypeProvider().getDiagram()))) {
-				final UpdateContext ctx = new UpdateContext(editor.getDiagramTypeProvider().getDiagram());
-				final IUpdateFeature feature = editor.getDiagramTypeProvider().getFeatureProvider().getUpdateFeature(ctx);
 
-				// Set the selected flow property on the diagram and then update it
-				editor.getEditingDomain().getCommandStack().execute(new RecordingCommand(editor.getEditingDomain()) {
-					@Override
-					protected void doExecute() {
-						propertyUtil.setSelectedFlow(editor.getDiagramTypeProvider().getDiagram(), transformedTxt);
-						if(feature != null && feature.canUpdate(ctx)) {
-							feature.execute(ctx);
-						}
-					}				
-				});
+	private String getName(final NamedElement bo) {
+		String name = bo.getName();
+		if(name == null && bo instanceof FlowImplementation) {
+			final FlowSpecification fs = ((FlowImplementation) bo).getSpecification();
+			if(fs != null) {
+				name = fs.getName();
 			}
 		}
+
+		return name;
+	}
+
+	@Override
+	protected void onSelection(final Object value) {
+		// Notify coloring service of the selection
+		ContributionHelper.getColoringService(editor).setHighlightedFlow(value == getNullValue() ? null : (NamedElement)value);
+	}
+
+	@Override
+	protected String getNullValueString() {
+		return emptySelectionTxt;
 	}
 }

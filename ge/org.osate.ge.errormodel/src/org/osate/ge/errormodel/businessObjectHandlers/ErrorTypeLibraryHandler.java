@@ -1,67 +1,73 @@
-/*******************************************************************************
- * Copyright (C) 2016 University of Alabama in Huntsville (UAH)
- * All rights reserved. This program and the accompanying materials
- * are made available under the terms of the Eclipse Public License v1.0
- * which accompanies this distribution, and is available at
- * http://www.eclipse.org/legal/epl-v10.html
- * The US Government has unlimited rights in this work in accordance with W31P4Q-10-D-0092 DO 0105.
- *******************************************************************************/
 package org.osate.ge.errormodel.businessObjectHandlers;
-
-import java.util.stream.Stream;
 
 import javax.inject.Named;
 
-import org.osate.aadl2.NamedElement;
-import org.osate.ge.di.GetChildren;
-import org.osate.ge.di.GetDiagramName;
-import org.osate.ge.di.GetGraphic;
+import org.osate.aadl2.AadlPackage;
+import org.osate.aadl2.AnnexLibrary;
+import org.osate.ge.GraphicalConfiguration;
+import org.osate.ge.GraphicalConfigurationBuilder;
+import org.osate.ge.PaletteEntry;
+import org.osate.ge.PaletteEntryBuilder;
+import org.osate.ge.di.CanCreate;
+import org.osate.ge.di.Create;
+import org.osate.ge.di.GetGraphicalConfiguration;
 import org.osate.ge.di.GetName;
-import org.osate.ge.di.HandleDoubleClick;
+import org.osate.ge.di.GetPaletteEntries;
 import org.osate.ge.di.IsApplicable;
-import org.osate.ge.errormodel.model.ErrorTypeExtension;
+import org.osate.ge.di.Names;
+import org.osate.ge.errormodel.ErrorModelCategories;
 import org.osate.ge.errormodel.model.ErrorTypeLibrary;
+import org.osate.ge.errormodel.util.ErrorModelUtil;
 import org.osate.ge.graphics.Graphic;
 import org.osate.ge.graphics.RectangleBuilder;
-import org.osate.ge.di.Names;
-import org.osate.ge.services.GraphicalEditorService;
+import org.osate.xtext.aadl2.errormodel.util.EMV2Util;
 
 public class ErrorTypeLibraryHandler {
 	private static final Graphic graphic = RectangleBuilder.create().build();
-	
+
 	@IsApplicable
-	public boolean isApplicable(final @Named(Names.BUSINESS_OBJECT) ErrorTypeLibrary typeLib) {
+	public boolean isApplicable(final @Named(Names.BUSINESS_OBJECT) ErrorTypeLibrary lib) {
 		return true;
 	}
-	
-	@GetChildren
-	public Stream<Object> getChildren(final @Named(Names.BUSINESS_OBJECT) ErrorTypeLibrary typeLib) {
-		// TODO: Also ensure that super type is added to diagram if it is part of another error type library?		
-		return Stream.concat(typeLib.getErrorModelLibrary().getTypes().stream(), 
-				typeLib.getErrorModelLibrary().getTypes().stream(). // Error Type Extensions
-					filter((et) -> et.getSuperType() != null).
-					map((et) -> new ErrorTypeExtension(et.getSuperType(), et)));
+
+	@GetGraphicalConfiguration
+	public GraphicalConfiguration getGraphicalConfiguration() {
+		return GraphicalConfigurationBuilder.create().graphic(graphic).build();
 	}
 
-	@GetGraphic
-	public Graphic getGraphicalRepresentation() {
-		return graphic;
-	}
-	
-	@HandleDoubleClick
-	public void onDoubleclick(final @Named(Names.BUSINESS_OBJECT) ErrorTypeLibrary typeLib, final GraphicalEditorService editorService) {
-		editorService.openBusinessObject(typeLib);
-	}
-
-	@GetDiagramName
-	public String getTitle(final @Named(Names.BUSINESS_OBJECT) ErrorTypeLibrary typeLib) {
-		final NamedElement elementRoot = typeLib.getErrorModelLibrary().getElementRoot();
-		final String packageName = elementRoot == null ? "" : elementRoot.getQualifiedName();
-		return packageName + " : Error Type Library";
-	}
-	
 	@GetName
-	public String getName(final @Named(Names.BUSINESS_OBJECT) ErrorTypeLibrary typeLib) {
+	public String getName() {
 		return "Error Type Library";
+	}
+
+	// Creation
+	@GetPaletteEntries
+	public PaletteEntry[] getPaletteEntries() {
+		return new PaletteEntry[] { PaletteEntryBuilder.create().label("Error Type Library")
+				.category(ErrorModelCategories.ERROR_MODEL).build() };
+	}
+
+	@CanCreate
+	public boolean canCreate(final @Named(Names.TARGET_BO) AadlPackage pkg) {
+		return !hasErrorModelLibrary(pkg);
+	}
+
+	@Create
+	public Object createBusinessObject(@Named(Names.MODIFY_BO) AadlPackage pkg) {
+		return ErrorModelUtil.getOrCreateErrorModelLibrary(pkg);
+	}
+
+	private static boolean hasErrorModelLibrary(final AadlPackage pkg) {
+		if (pkg.getPublicSection() == null) {
+			return false;
+		}
+
+		for (final AnnexLibrary lib : pkg.getPublicSection().getOwnedAnnexLibraries()) {
+			if (lib.getName().equals(EMV2Util.ErrorModelAnnexName)) {
+				return true;
+			}
+		}
+
+		return false;
 	}
 }

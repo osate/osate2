@@ -9,11 +9,12 @@
 package org.osate.ge.internal.services;
 
 import java.util.List;
-
+import java.util.Set;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
-import org.eclipse.emf.ecore.resource.Resource;
-import org.eclipse.graphiti.mm.pictograms.Diagram;
+import org.eclipse.core.resources.IResource;
+import org.osate.ge.internal.diagram.runtime.RelativeBusinessObjectReference;
+import org.osate.ge.internal.diagram.runtime.CanonicalBusinessObjectReference;
 import org.osate.ge.internal.ui.editor.AgeDiagramEditor;
 
 /**
@@ -21,10 +22,8 @@ import org.osate.ge.internal.ui.editor.AgeDiagramEditor;
  *
  */
 public interface DiagramService {
-	public static interface DiagramReference {
+	static interface DiagramReference {
 		boolean isOpen();
-		Diagram getDiagram();
-		IProject getProject();
 		
 		/**
 		 * Returns the currently open editor for the diagram.
@@ -33,34 +32,61 @@ public interface DiagramService {
 		AgeDiagramEditor getEditor();
 	}
 	
-	public DiagramReference findFirstDiagramByRootBusinessObject(final Object bo);
+	List<? extends DiagramReference> findDiagramsByContextBusinessObject(final Object bo);
 	
-	public List<DiagramReference> findDiagrams();
+	List<? extends DiagramReference> findDiagrams(Set<IProject> projects);
 	
+
 	/**
-	 * Opens the first existing diagram found for a business object. If a diagram is not found, a diagram is create.
-	 * @param bo the business object for which to open/create the diagram
-	 */
-	public AgeDiagramEditor openOrCreateDiagramForRootBusinessObject(final Object bo);
-	
-	/**
-	 * Returns the name of a specified diagram
-	 */
-	public String getName(final IFile diagramFile);
-	
-	/**
-	 * Stores persistent properties in the diagram's resource. Should be called after resource has been saved.
-	 * @param diagram
-	 * @param name
-	 */
-	public void savePersistentProperties(final Diagram diagram);
-	
-	/**
-	 * Returns a name for a diagram with the specified business object
+	 * Opens the first existing diagram found for a business object. If a diagram is not found, a diagram may be created after prompting the user.
 	 * @param bo
 	 * @return
 	 */
-	public String getDiagramNameByBusinessObject(Object bo);
+	default AgeDiagramEditor openOrCreateDiagramForBusinessObject(final Object bo) {
+		return openOrCreateDiagramForBusinessObject(bo, true, true);
+	}
 	
-	public Resource getResource(Object bo);
+	/**
+	 * Opens the first existing diagram found for a business object. If a diagram is not found, a diagram may be created after optionally prompting the user.
+	 * @param bo the business object for which to open/create the diagram
+	 * @param promptForCreate is whether the user should be prompted before a diagram is created. If false, the diagram will be created.
+	 * @param promptForConfigureAfterCreate is whether the user should be prompted to configure the diagram if a new diagram is created.
+	 */
+	AgeDiagramEditor openOrCreateDiagramForBusinessObject(final Object bo, final boolean promptForCreate, final boolean promptForConfigureAfterCreate);
+	
+	/**
+	 * Create a new diagram which uses the specified business object as the context business object
+	 * @param contextBo
+	 * @return the file resource for the new diagram
+	 */
+	IFile createDiagram(final Object contextBo);
+
+	/**
+	 * Returns the name of a specified diagram
+	 */
+	String getName(final IFile diagramFile);
+	
+	/**
+	 * Clear persistent resource properties used by legacy versions of the graphical editor
+	 * @param diagram
+	 */
+	void clearLegacyPersistentProperties(final IResource fileResource);
+	
+	interface ReferenceCollection {
+		void update(UpdatedReferenceValueProvider newReferenceValues);
+	}
+	
+	// Used to provide new reference values when updating a reference collection
+	interface UpdatedReferenceValueProvider {
+		CanonicalBusinessObjectReference getNewCanonicalReference(final CanonicalBusinessObjectReference originalCanonicalReference);
+		RelativeBusinessObjectReference getNewRelativeReference(final CanonicalBusinessObjectReference originalCanonicalReference);
+	}
+	
+	/**
+	 * Gets references in saved and open resources. Used during the refactoring process to update references in open and saved diagrams.
+	 * @param relevantProjects
+	 * @param originalCanonicalReferences
+	 * @return
+	 */
+	ReferenceCollection getReferences(final Set<IProject> relevantProjects, final Set<CanonicalBusinessObjectReference> originalCanonicalReferences);
 }

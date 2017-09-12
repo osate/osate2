@@ -1,0 +1,266 @@
+/**
+ */
+package org.osate.ge.diagram;
+
+import org.eclipse.emf.common.notify.Notification;
+import org.eclipse.emf.common.notify.NotificationChain;
+
+import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.InternalEObject;
+
+import org.eclipse.emf.ecore.impl.ENotificationImpl;
+import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
+
+/**
+ * <!-- begin-user-doc -->
+ * A representation of the model object '<em><b>Configuration</b></em>'.
+ * <!-- end-user-doc -->
+ *
+ * <p>
+ * The following features are supported:
+ * </p>
+ * <ul>
+ *   <li>{@link org.osate.ge.diagram.DiagramConfiguration#getEnabledAadlProperties <em>Enabled Aadl Properties</em>}</li>
+ *   <li>{@link org.osate.ge.diagram.DiagramConfiguration#getContext <em>Context</em>}</li>
+ * </ul>
+ *
+ * @see org.osate.ge.diagram.DiagramPackage#getDiagramConfiguration()
+ * @model kind="class"
+ * @generated
+ */
+public class DiagramConfiguration extends MinimalEObjectImpl.Container implements EObject {
+	/**
+	 * The cached value of the '{@link #getEnabledAadlProperties() <em>Enabled Aadl Properties</em>}' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getEnabledAadlProperties()
+	 * @generated
+	 * @ordered
+	 */
+	protected AadlPropertiesSet enabledAadlProperties;
+
+	/**
+	 * The cached value of the '{@link #getContext() <em>Context</em>}' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getContext()
+	 * @generated
+	 * @ordered
+	 */
+	protected CanonicalBusinessObjectReference context;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public DiagramConfiguration() {
+		super();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	protected EClass eStaticClass() {
+		return DiagramPackage.Literals.DIAGRAM_CONFIGURATION;
+	}
+
+	/**
+	 * Returns the value of the '<em><b>Enabled Aadl Properties</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Enabled Aadl Properties</em>' containment reference isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Enabled Aadl Properties</em>' containment reference.
+	 * @see #setEnabledAadlProperties(AadlPropertiesSet)
+	 * @see org.osate.ge.diagram.DiagramPackage#getDiagramConfiguration_EnabledAadlProperties()
+	 * @model containment="true"
+	 * @generated
+	 */
+	public AadlPropertiesSet getEnabledAadlProperties() {
+		return enabledAadlProperties;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public NotificationChain basicSetEnabledAadlProperties(AadlPropertiesSet newEnabledAadlProperties, NotificationChain msgs) {
+		AadlPropertiesSet oldEnabledAadlProperties = enabledAadlProperties;
+		enabledAadlProperties = newEnabledAadlProperties;
+		if (eNotificationRequired()) {
+			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, DiagramPackage.DIAGRAM_CONFIGURATION__ENABLED_AADL_PROPERTIES, oldEnabledAadlProperties, newEnabledAadlProperties);
+			if (msgs == null) msgs = notification; else msgs.add(notification);
+		}
+		return msgs;
+	}
+
+	/**
+	 * Sets the value of the '{@link org.osate.ge.diagram.DiagramConfiguration#getEnabledAadlProperties <em>Enabled Aadl Properties</em>}' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Enabled Aadl Properties</em>' containment reference.
+	 * @see #getEnabledAadlProperties()
+	 * @generated
+	 */
+	public void setEnabledAadlProperties(AadlPropertiesSet newEnabledAadlProperties) {
+		if (newEnabledAadlProperties != enabledAadlProperties) {
+			NotificationChain msgs = null;
+			if (enabledAadlProperties != null)
+				msgs = ((InternalEObject)enabledAadlProperties).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - DiagramPackage.DIAGRAM_CONFIGURATION__ENABLED_AADL_PROPERTIES, null, msgs);
+			if (newEnabledAadlProperties != null)
+				msgs = ((InternalEObject)newEnabledAadlProperties).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - DiagramPackage.DIAGRAM_CONFIGURATION__ENABLED_AADL_PROPERTIES, null, msgs);
+			msgs = basicSetEnabledAadlProperties(newEnabledAadlProperties, msgs);
+			if (msgs != null) msgs.dispatch();
+		}
+		else if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, DiagramPackage.DIAGRAM_CONFIGURATION__ENABLED_AADL_PROPERTIES, newEnabledAadlProperties, newEnabledAadlProperties));
+	}
+
+	/**
+	 * Returns the value of the '<em><b>Context</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Context</em>' containment reference isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Context</em>' containment reference.
+	 * @see #setContext(CanonicalBusinessObjectReference)
+	 * @see org.osate.ge.diagram.DiagramPackage#getDiagramConfiguration_Context()
+	 * @model containment="true"
+	 * @generated
+	 */
+	public CanonicalBusinessObjectReference getContext() {
+		return context;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public NotificationChain basicSetContext(CanonicalBusinessObjectReference newContext, NotificationChain msgs) {
+		CanonicalBusinessObjectReference oldContext = context;
+		context = newContext;
+		if (eNotificationRequired()) {
+			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, DiagramPackage.DIAGRAM_CONFIGURATION__CONTEXT, oldContext, newContext);
+			if (msgs == null) msgs = notification; else msgs.add(notification);
+		}
+		return msgs;
+	}
+
+	/**
+	 * Sets the value of the '{@link org.osate.ge.diagram.DiagramConfiguration#getContext <em>Context</em>}' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Context</em>' containment reference.
+	 * @see #getContext()
+	 * @generated
+	 */
+	public void setContext(CanonicalBusinessObjectReference newContext) {
+		if (newContext != context) {
+			NotificationChain msgs = null;
+			if (context != null)
+				msgs = ((InternalEObject)context).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - DiagramPackage.DIAGRAM_CONFIGURATION__CONTEXT, null, msgs);
+			if (newContext != null)
+				msgs = ((InternalEObject)newContext).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - DiagramPackage.DIAGRAM_CONFIGURATION__CONTEXT, null, msgs);
+			msgs = basicSetContext(newContext, msgs);
+			if (msgs != null) msgs.dispatch();
+		}
+		else if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, DiagramPackage.DIAGRAM_CONFIGURATION__CONTEXT, newContext, newContext));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+		switch (featureID) {
+			case DiagramPackage.DIAGRAM_CONFIGURATION__ENABLED_AADL_PROPERTIES:
+				return basicSetEnabledAadlProperties(null, msgs);
+			case DiagramPackage.DIAGRAM_CONFIGURATION__CONTEXT:
+				return basicSetContext(null, msgs);
+		}
+		return super.eInverseRemove(otherEnd, featureID, msgs);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Object eGet(int featureID, boolean resolve, boolean coreType) {
+		switch (featureID) {
+			case DiagramPackage.DIAGRAM_CONFIGURATION__ENABLED_AADL_PROPERTIES:
+				return getEnabledAadlProperties();
+			case DiagramPackage.DIAGRAM_CONFIGURATION__CONTEXT:
+				return getContext();
+		}
+		return super.eGet(featureID, resolve, coreType);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public void eSet(int featureID, Object newValue) {
+		switch (featureID) {
+			case DiagramPackage.DIAGRAM_CONFIGURATION__ENABLED_AADL_PROPERTIES:
+				setEnabledAadlProperties((AadlPropertiesSet)newValue);
+				return;
+			case DiagramPackage.DIAGRAM_CONFIGURATION__CONTEXT:
+				setContext((CanonicalBusinessObjectReference)newValue);
+				return;
+		}
+		super.eSet(featureID, newValue);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public void eUnset(int featureID) {
+		switch (featureID) {
+			case DiagramPackage.DIAGRAM_CONFIGURATION__ENABLED_AADL_PROPERTIES:
+				setEnabledAadlProperties((AadlPropertiesSet)null);
+				return;
+			case DiagramPackage.DIAGRAM_CONFIGURATION__CONTEXT:
+				setContext((CanonicalBusinessObjectReference)null);
+				return;
+		}
+		super.eUnset(featureID);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public boolean eIsSet(int featureID) {
+		switch (featureID) {
+			case DiagramPackage.DIAGRAM_CONFIGURATION__ENABLED_AADL_PROPERTIES:
+				return enabledAadlProperties != null;
+			case DiagramPackage.DIAGRAM_CONFIGURATION__CONTEXT:
+				return context != null;
+		}
+		return super.eIsSet(featureID);
+	}
+
+} // DiagramConfiguration

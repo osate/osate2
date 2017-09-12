@@ -32,6 +32,7 @@ import org.osate.aadl2.NamedElement;
 /**
  * Data structure for tracking open AADL resources  and listening for changes. 
  * If multiple Xtext editors are open for a single AADL resource, it is treated as a single open document.
+ * This structure actually tracks all xtext resources, not just AADL files.
  */
 public class OpenAadlResources {
 	private final Map<IResource, OpenAadlResource> resourceToOpenResourceMap = new HashMap<>();
@@ -78,7 +79,7 @@ public class OpenAadlResources {
 		return null;
 	}
 	
-	public IXtextDocument getDocument(final String qualifiedName, final Resource resource) {
+	public IXtextDocument getDocument(String qualifiedName, final Resource resource) {
 		if(qualifiedName == null || resource == null) {
 			return null;
 		}
@@ -88,6 +89,7 @@ public class OpenAadlResources {
 			return null;
 		}
 		
+		qualifiedName = qualifiedName.toLowerCase();
 		final List<OpenAadlResource> openAadlResources = qualifiedNameToOpenResourcesMap.get(qualifiedName);
 		if(openAadlResources != null) {
 			for(final OpenAadlResource openAadlResource : openAadlResources) {
@@ -101,8 +103,18 @@ public class OpenAadlResources {
 		return null;
 	}
 	
+	public IXtextDocument getDocument(final IResource res) {
+		final OpenAadlResource openResource = resourceToOpenResourceMap.get(res);
+		return openResource == null || openResource.documents.size() == 0? null : openResource.documents.get(0);
+	}
+	
+	public XtextResource getXtextResource(final IResource res) {
+		final OpenAadlResource openResource = resourceToOpenResourceMap.get(res);
+		return openResource == null ? null : openResource.xtextResource;
+	}
+	
 	public void onXtextDocumentOpened(final IXtextDocument document) {
-		// Get the file associate with the document
+		// Get the file associated with the document
 		final IFile file = document.readOnly(new IUnitOfWork<IFile, XtextResource>() {
 			@Override
 			public IFile exec(final XtextResource resource) throws Exception {
@@ -124,8 +136,7 @@ public class OpenAadlResources {
 			resourceToOpenResourceMap.put(file, openResource);
 		} else {
 			openResource.documents.addFirst(document);
-		}
-		
+		}		
 		
 		// Add the IXtextDocument -> OpenAadlResource mapping
 		documentToOpenResourceMap.put(document, openResource);		
@@ -212,7 +223,7 @@ public class OpenAadlResources {
 							openResources.add(openResource);
 						}
 					}
-					
+
 					// Notify others
 					for(final IXtextModelListener l : externalModelListeners) {
 						l.modelChanged(resource);

@@ -6,6 +6,38 @@ public class ReferenceEncoder {
 	private static final char INNER_ESCAPE_CHAR = '%';
 	private static final String ESCAPED_INNER_ESCAPE_CHAR = Character.toString(INNER_ESCAPE_CHAR) + INNER_ESCAPE_CHAR;	
 	
+	public static String encode(final String[] segs) {
+		final StringBuilder sb = new StringBuilder();
+		ReferenceEncoder.encodeSegment(sb, segs[0]);
+		for(int i = 1; i < segs.length; i++) {
+			sb.append(' ');
+			if(segs[i] == null) {
+				return null;
+			}
+			
+			encodeSegment(sb, segs[i]);
+		}
+		
+		return sb.toString();
+	}
+	
+	public static String[] decode(final String referenceStr) {
+		final String[] ref = referenceStr.split(" ");
+		if(ref.length < 1) {
+			return null;
+		}
+		
+		// Restore spaces
+		final StringBuilder sb = new StringBuilder();
+		for(int i = 0; i < ref.length; i++) {
+			sb.setLength(0);
+			decodeSegment(sb, ref[i]);
+			ref[i] = sb.toString();
+		}
+		
+		return ref;
+	}
+	
 	public static void encodeSegment(final StringBuilder sb, final String seg) {
 		for(int i = 0; i < seg.length(); i++) {
 			final char ch = seg.charAt(i);

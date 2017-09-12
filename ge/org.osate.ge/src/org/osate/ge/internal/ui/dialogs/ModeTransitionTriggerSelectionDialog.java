@@ -25,7 +25,7 @@ import org.osate.aadl2.ModeTransitionTrigger;
 import org.osate.aadl2.ProcessorFeature;
 import org.osate.aadl2.Subcomponent;
 import org.osate.aadl2.TriggerPort;
-import org.osate.ge.internal.services.ComponentImplementationService;
+import org.osate.ge.internal.util.AadlHelper;
 
 public abstract class ModeTransitionTriggerSelectionDialog {
 	
@@ -35,8 +35,8 @@ public abstract class ModeTransitionTriggerSelectionDialog {
 	 * @param mt
 	 * @return an array containing the user's selection or null if the dialog was canceled.
 	 */
-	public static ModeTransitionTriggerInfo[] promptForTriggers(final ComponentClassifier cc, final ModeTransition mt, final ComponentImplementationService componentImplementationService) {
-		final List<ModeTransitionTriggerInfo> ports = getPossibleModeTransitionTriggerPorts(cc, componentImplementationService);
+	public static ModeTransitionTriggerInfo[] promptForTriggers(final ComponentClassifier cc, final ModeTransition mt) {
+		final List<ModeTransitionTriggerInfo> ports = getPossibleModeTransitionTriggerPorts(cc);
 		final ElementSelectionDialog triggerSelectionDlg = new ElementSelectionDialog(Display.getCurrent().getActiveShell(), "Select Trigger Ports", "Select mode transition triggers", ports);
 		triggerSelectionDlg.setMultipleSelection(true);
 
@@ -66,7 +66,7 @@ public abstract class ModeTransitionTriggerSelectionDialog {
 	 * @param cc
 	 * @return
 	 */
-	private static List<ModeTransitionTriggerInfo> getPossibleModeTransitionTriggerPorts(final ComponentClassifier cc, final ComponentImplementationService componentImplementationService) {
+	private static List<ModeTransitionTriggerInfo> getPossibleModeTransitionTriggerPorts(final ComponentClassifier cc) {
 		final List<ModeTransitionTriggerInfo> ports = new ArrayList<ModeTransitionTriggerInfo>();
 		
 		// Get ports from the classifier and it's feature groups
@@ -90,12 +90,12 @@ public abstract class ModeTransitionTriggerSelectionDialog {
 			final ComponentImplementation ci = (ComponentImplementation)cc;
 			
 			// Get Internal Features
-			for(final InternalFeature f : componentImplementationService.getAllInternalFeatures(ci)) {
+			for(final InternalFeature f : AadlHelper.getAllInternalFeatures(ci)) {
 				ports.add(new ModeTransitionTriggerInfo(f, null));
 			}
 			
 			// Get Port Proxies
-			for(final ProcessorFeature f : componentImplementationService.getAllProcessorFeatures(ci)) {
+			for(final ProcessorFeature f : AadlHelper.getAllProcessorFeatures(ci)) {
 				if(f instanceof TriggerPort) {
 					ports.add(new ModeTransitionTriggerInfo((TriggerPort)f, null));
 				}				

@@ -8,6 +8,8 @@
  *******************************************************************************/
 package org.osate.ge.internal.util;
 
+import org.eclipse.emf.ecore.EClass;
+
 public class ImageHelper {
 	protected static final String PREFIX = "org.osate.ge.";
     /**
@@ -15,5 +17,9 @@ public class ImageHelper {
      */
     public static String getImage(final String imageId) {
     	return PREFIX + imageId;
+    }
+    
+    public static String getImage(final EClass eClass) {
+    	return getImage(eClass.getName());
     }
 }

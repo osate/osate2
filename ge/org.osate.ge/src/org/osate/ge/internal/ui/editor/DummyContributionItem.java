@@ -8,7 +8,7 @@
  *******************************************************************************/
 package org.osate.ge.internal.ui.editor;
 
-import org.eclipse.swt.widgets.Combo;
+import org.eclipse.jface.viewers.ComboViewer;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 
@@ -17,7 +17,7 @@ import org.eclipse.swt.widgets.Control;
  * in the toolbar doesn't work).
  */
 
-public class DummyContributionItem extends ComboContributionItem implements ComponentClassifierItem {
+public class DummyContributionItem extends ComboContributionItem {
 	
 	public DummyContributionItem(final String id) {
 		super(id);
@@ -35,10 +35,10 @@ public class DummyContributionItem extends ComboContributionItem implements Comp
 	
 	protected Control createControl(final Composite parent) {
 		final Control control = super.createControl(parent);
-		Combo combo = getCombo();
+		ComboViewer combo = getComboViewer();
 		if (combo != null) {
-			combo.setEnabled(false);
-			combo.setVisible(false);
+			combo.getCombo().setEnabled(false);
+			combo.getCombo().setVisible(false);
 		}
 		return control;
 	}

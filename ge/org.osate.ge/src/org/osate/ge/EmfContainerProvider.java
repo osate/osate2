@@ -12,7 +12,7 @@ import org.eclipse.emf.ecore.EObject;
 
 /**
  * Interface for providing the EMF object which contains a business object to the graphical editor.
- * Must be implemented by all business objects which are not EMF Objects
+ * Must be implemented by all editable business objects which are not EMF Objects
  */
 public interface EmfContainerProvider {
 	/**

@@ -8,7 +8,7 @@
  *******************************************************************************/
 package org.osate.ge.graphics;
 
-import org.osate.ge.internal.graphics.Ellipse;
+import org.osate.ge.graphics.internal.Ellipse;
 
 /**
  * Builder for creating ellipse graphics.
@@ -17,15 +17,15 @@ import org.osate.ge.internal.graphics.Ellipse;
  */
 public class EllipseBuilder {
 	private EllipseBuilder() {}
-	
+
 	/**
 	 * Creates an ellipse builder.
-	 * @return a new ellipse builder
+	 * @return an ellipse builder
 	 */
 	public static EllipseBuilder create() {
 		return new EllipseBuilder();
 	}
-	
+
 	/**
 	 * Creates an ellipse graphic based on the current state of the builder.
 	 * @return the newly created graphic

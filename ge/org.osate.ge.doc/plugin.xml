@@ -1,12 +1,9 @@
 <?xml version="1.0" encoding="utf-8" standalone="no"?>
 <plugin>
    <extension point="org.eclipse.help.toc">
-      <toc file="top_toc.xml" primary="true"/>
-      <toc file="toc.xml"/>
-      <toc file="dev_guide_toc.xml"/>
-      <toc file="api.xml"/>
-   </extension>
-   <extension point="org.eclipse.help.index">
-      <index file="output/index.xml"/>
+      <toc file="toc.xml" primary="true"/>
+      <toc file="docs-gen/dev_guide_toc.xml"/>
+      <toc file="docs-gen/user_guide_toc.xml"/>
+      <toc file="api_toc.xml"/>
    </extension>
 </plugin>

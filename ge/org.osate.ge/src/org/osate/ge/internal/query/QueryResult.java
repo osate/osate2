@@ -4,6 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class QueryResult {
-	public final List<Object> result = new ArrayList<Object>();
+	public final List<Queryable> result = new ArrayList<Queryable>();
 	public boolean done = false;
 }

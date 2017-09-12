@@ -14,6 +14,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Set;
 
 import org.eclipse.core.resources.IResource;
@@ -21,7 +22,6 @@ import org.eclipse.core.resources.IResourceChangeEvent;
 import org.eclipse.core.resources.IResourceChangeListener;
 import org.eclipse.core.resources.IResourceDelta;
 import org.eclipse.core.resources.IResourceDeltaVisitor;
-import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.emf.common.util.URI;
@@ -29,13 +29,14 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.xtext.resource.XtextResourceSet;
 import org.osate.aadl2.AadlPackage;
+import org.osate.ge.internal.services.ModelChangeNotifier;
 import org.osate.ge.internal.services.SavedAadlResourceService;
 
 public class DefaultSavedAadlResourceService implements SavedAadlResourceService {    
 	public static class ContextFunction extends SimpleServiceContextFunction<SavedAadlResourceService> {
 		@Override
 		public SavedAadlResourceService createService(final IEclipseContext context) {
-			return new DefaultSavedAadlResourceService();
+			return new DefaultSavedAadlResourceService(context.get(ModelChangeNotifier.class));
 		}		
 	}
 
@@ -131,8 +132,9 @@ public class DefaultSavedAadlResourceService implements SavedAadlResourceService
 	private IResourceDeltaVisitor visitor = new IResourceDeltaVisitor() {
         public boolean visit(final IResourceDelta delta) {
            // If the resource's contents has changed changed
-           if(delta.getKind() != IResourceDelta.CHANGED || (delta.getFlags() & IResourceDelta.CONTENT) == 0)
+           if(delta.getKind() != IResourceDelta.CHANGED || (delta.getFlags() & IResourceDelta.CONTENT) == 0) {
               return true;
+           }
 
            // Check AADL files
            final IResource iResource = delta.getResource();
@@ -147,6 +149,7 @@ public class DefaultSavedAadlResourceService implements SavedAadlResourceService
 	        		   final SimpleAadlPackageReference pkgRef = weakRef.get();
 	        		   if(pkgRef != null && pkgRef.pkg != null && weakRef.resource != null && weakRef.resource.getURI().equals(resourceUri)) {
 	        			   weakRef.unloadResource();
+
 		            	   // Remove the reference to the package
 	        			   pkgRef.pkg = null;
 	        			   
@@ -169,13 +172,15 @@ public class DefaultSavedAadlResourceService implements SavedAadlResourceService
         }
     };
 	
-    public DefaultSavedAadlResourceService() {
+    public DefaultSavedAadlResourceService(final ModelChangeNotifier changeNotifier) {
+    	Objects.requireNonNull(changeNotifier, "changeNotifier must not be null");
+    	
     	// Start the reference cleanup thread
     	referenceCleanupThread.setDaemon(true);
     	referenceCleanupThread.start();
     	
 		// Register a resource change listener
-    	ResourcesPlugin.getWorkspace().addResourceChangeListener(resourceChangeListener);
+    	changeNotifier.addResourceChangeListener(resourceChangeListener);
 	}
     
 	@Override

@@ -59,6 +59,13 @@
                </appinfo>
             </annotation>
          </attribute>
+         <attribute name="priority" type="string">
+            <annotation>
+               <documentation>
+                  An integer which controls the order in which the hanlder will be used. Contributors with lower values will be called before those with higher values.
+               </documentation>
+            </annotation>
+         </attribute>
       </complexType>
    </element>
 

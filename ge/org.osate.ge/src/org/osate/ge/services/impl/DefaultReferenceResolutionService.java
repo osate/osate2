@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (C) 2016 University of Alabama in Huntsville (UAH)
+ * Copyright (C) 2016-2017 University of Alabama in Huntsville (UAH)
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -11,18 +11,18 @@ package org.osate.ge.services.impl;
 import java.util.Objects;
 
 import org.osate.ge.services.ReferenceResolutionService;
-import org.osate.ge.internal.AadlElementWrapper;
-import org.osate.ge.internal.services.SerializableReferenceService;
+import org.osate.ge.internal.diagram.runtime.CanonicalBusinessObjectReference;
+import org.osate.ge.internal.services.ProjectReferenceService;
 
 public class DefaultReferenceResolutionService implements ReferenceResolutionService {
-	private final SerializableReferenceService srService;
+	private final ProjectReferenceService srService;
 	
-	public DefaultReferenceResolutionService(final SerializableReferenceService srService) {
+	public DefaultReferenceResolutionService(final ProjectReferenceService srService) {
 		this.srService = Objects.requireNonNull(srService, "srService must not be null");
 	}
-	
+
 	@Override
-	public Object getReferencedObject(final String reference) {
-		return AadlElementWrapper.unwrap(srService.getReferencedObject(reference));
+	public Object resolve(final CanonicalBusinessObjectReference reference) {
+		return srService.resolve(reference);
 	}
 }

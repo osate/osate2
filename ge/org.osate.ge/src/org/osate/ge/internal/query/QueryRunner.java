@@ -4,23 +4,12 @@ import java.util.ArrayDeque;
 import java.util.Deque;
 import java.util.List;
 import java.util.Objects;
-
-import org.eclipse.graphiti.mm.pictograms.PictogramElement;
-import org.osate.ge.internal.services.BusinessObjectResolutionService;
-import org.osate.ge.internal.services.ConnectionService;
-import org.osate.ge.internal.services.PropertyService;
-import org.osate.ge.internal.services.InternalReferenceBuilderService;
+import org.osate.ge.internal.services.ReferenceService;
 
 public class QueryRunner {
-	private final PropertyService propertyService;
-	private final ConnectionService connectionService;
-	private final BusinessObjectResolutionService bor;
-	private final InternalReferenceBuilderService refBuilder;
+	private final ReferenceService refBuilder;
 	
-	public QueryRunner(final PropertyService propertyService, final ConnectionService connectionService, final BusinessObjectResolutionService bor, final InternalReferenceBuilderService refBuilder) {
-		this.propertyService = Objects.requireNonNull(propertyService, "propertyService must not be null");
-		this.connectionService = Objects.requireNonNull(connectionService, "connectionService must not null");
-		this.bor = Objects.requireNonNull(bor, "bor must not be null");
+	public QueryRunner(final ReferenceService refBuilder) {
 		this.refBuilder = Objects.requireNonNull(refBuilder, "refBuilder must not be null");
 	}
 	
@@ -30,8 +19,8 @@ public class QueryRunner {
 	 * @param arg
 	 * @return
 	 */
-	public final <A> Object getFirstResult(final Query<A> query, final A arg) {
-		final List<?> results = getResults(query, arg);
+	public final Queryable getFirstResult(final DefaultQuery query, final Object arg) {
+		final List<Queryable> results = getResults(query, arg);
 		if(results.size() == 0) {
 			return null;
 		}
@@ -39,29 +28,19 @@ public class QueryRunner {
 		return results.get(0);
 	}
 	
-	public final <A> List<?> getResults(final Query<A> query, final A arg) {
+	public final List<Queryable> getResults(final DefaultQuery query, final Object arg) {
 		Objects.requireNonNull(query, "query must not be null");
 		
-		final Deque<Query<A>> queryStack = new ArrayDeque<>();
-		for(Query<A> q = query; q != null; q = q.getPrev()) {
+		final Deque<DefaultQuery> queryStack = new ArrayDeque<>();
+		for(DefaultQuery q = query; q != null; q = q.getPrev()) {
 			queryStack.push(q);
 		}
-		
-		final Query<A> initialQuery = queryStack.pop();
-		final QueryExecutionState<A> state = new QueryExecutionState<>(this, propertyService, connectionService, bor, refBuilder, arg);
+
+		final DefaultQuery initialQuery = queryStack.pop();
+		final QueryExecutionState state = new QueryExecutionState(this, refBuilder, arg);
 		final QueryResult result = new QueryResult();
 		initialQuery.run(queryStack, null, state, result);
 		
-		return (List<?>)result.result;
-	}
-	
-	// Convenience Methods for Queries that return PictogramElement(s). A cast error will occur if an object which is not a PictogramElement is returned from the query
-	@SuppressWarnings("unchecked")
-	public final <A> List<? extends PictogramElement> getPictogramElements(final Query<A> query, final A arg) {
-		return (List<? extends PictogramElement>) getResults(query, arg);
-	}
-	
-	public final <A> PictogramElement getFirstPictogramElement(final Query<A> query, final A arg) {
-		return (PictogramElement)getFirstResult(query, arg);
+		return result.result;
 	}
 }

@@ -2,14 +2,10 @@ package org.osate.ge.internal.query;
 
 import java.util.Deque;
 
-import org.eclipse.graphiti.mm.pictograms.Connection;
-import org.eclipse.graphiti.mm.pictograms.PictogramElement;
-import org.eclipse.graphiti.mm.pictograms.Shape;
-
-class AncestorQuery<A> extends PictogramQuery<A> {
+class AncestorQuery extends DefaultQuery {
 	private final int depth;
 	
-	public AncestorQuery(final Query<A> prev, final int depth) {
+	public AncestorQuery(final DefaultQuery prev, final int depth) {
 		super(prev);
 		this.depth = depth;
 		
@@ -19,21 +15,15 @@ class AncestorQuery<A> extends PictogramQuery<A> {
 	}
 	
 	@Override
-	void run(final Deque<Query<A>> remainingQueries, final Object ctx, final QueryExecutionState<A> state, final QueryResult result) {
-		PictogramElement pe;
-		if(ctx instanceof Shape || ctx instanceof Connection) {
-			pe = (PictogramElement)ctx;
-		} else {
-			throw new RuntimeException("Unsupported context: " + ctx);
-		}
-		
-		for(int i = 0; i < depth && pe != null; i++) {
-			pe = AncestorUtil.getAncestor(pe, state);
+	void run(final Deque<DefaultQuery> remainingQueries, final Queryable ctx, final QueryExecutionState state, final QueryResult result) {
+		Queryable e = ctx;
+		for(int i = 0; i < depth && ctx != null; i++) {
+			e = e.getParent();
 		}
 		
 		// Process the value. If any
-		if(pe != null) {
-			processResultValue(remainingQueries, pe, state, result);
+		if(e != null) {
+			processResultValue(remainingQueries, e, state, result);
 		}
 	}
 }
