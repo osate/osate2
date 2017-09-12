@@ -34,9 +34,9 @@
  */
 package org.osate.core.tests.aadl2javavalidator
 
-import org.eclipse.xtext.junit4.InjectWith
-import org.eclipselabs.xtext.utils.unittesting.FluentIssueCollection
-import org.eclipselabs.xtext.utils.unittesting.XtextRunner2
+import com.itemis.xtext.testing.FluentIssueCollection
+import org.eclipse.xtext.testing.InjectWith
+import org.eclipse.xtext.testing.XtextRunner
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.osate.aadl2.AadlPackage
@@ -54,13 +54,9 @@ import org.osate.core.test.OsateTest
 
 import static extension org.junit.Assert.assertEquals
 
-@RunWith(XtextRunner2)
+@RunWith(XtextRunner)
 @InjectWith(Aadl2UiInjectorProvider)
 class OtherAadl2JavaValidatorTest extends OsateTest {
-	override getProjectName() {
-		"Other_Aadl2_Java_Validator_Test"
-	}
-	
 	//Tests checkFlowConnectionOrder
 	@Test
 	def void testFlowSegmentTypes() {
@@ -1108,6 +1104,11 @@ class OtherAadl2JavaValidatorTest extends OsateTest {
 						package testCheckFlowPathElements
 						public
 							system implementation S.i
+							  subcomponents
+							    s1: system s;
+							    s2: system s;
+							  connections
+							    c1: feature group s1.fg_out -> s2.fg_in;
 								flows
 									fl1: flow path fg_in.p -> fg_out.p;
 									fl2: flow path fg_in -> fg_out;
@@ -1123,7 +1124,7 @@ class OtherAadl2JavaValidatorTest extends OsateTest {
 									fg_out: feature group inverse of fg;
 								flows
 									fl1: flow path fg_in -> fg_out;
-									fl2: flow path fg_in -> fg_out ;
+									fl2: flow path fg_in -> fg_out;
 									fl3: flow path fg_in.p -> fg_out.p ;
 								end s;
 						end testCheckFlowPathElements;
@@ -1136,10 +1137,13 @@ class OtherAadl2JavaValidatorTest extends OsateTest {
 			"testCheckFlowPathElements".assertEquals(name)
 			publicSection.ownedClassifiers.head as SystemImplementation => [
 				"S.i".assertEquals(name)
-				ownedFlowImplementations.head =>[
-					assertError(testFileResult.issues, issueCollection, 
-					"'fg_out.p' does not match the out flow feature identifier 'fg_out' in the flow specification.",
-					"'fg_in.p' does not match the in flow feature identifier 'fg_in' in the flow specification.")
+				ownedFlowImplementations.get(1) => [
+					"fl2".assertEquals(specification.name)
+					assertWarning(testFileResult.issues, issueCollection, "Flow implementation is empty and does not add value to the model")
+				]
+				ownedFlowImplementations.get(2) => [
+					"fl3".assertEquals(specification.name)
+					assertWarning(testFileResult.issues, issueCollection, "Flow implementation is empty and does not add value to the model")
 				]
 			]
 		]
@@ -1211,7 +1215,8 @@ class OtherAadl2JavaValidatorTest extends OsateTest {
 				ownedConnections.get(1) => [
 					"c2".assertEquals(name)
 						assertError(testFileResult.issues, issueCollection, 
-										"Feature o1 in the referenced feature group fg1 must not be in due to the direction of the connection")
+										"Feature inner.fg1.o1 must not be in due to the direction of the connection"
+										, "Feature i.fg1.o1 must not be in due to the direction of the connection")
 				]
 			]
 		]

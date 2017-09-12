@@ -2748,29 +2748,6 @@ public class Aadl2ItemProviderAdapterFactory extends Aadl2AdapterFactory
 	}
 
 	/**
-	 * This keeps track of the one adapter used for all {@link org.osate.aadl2.FeatureGroupPrototype} instances.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected FeatureGroupPrototypeItemProvider featureGroupPrototypeItemProvider;
-
-	/**
-	 * This creates an adapter for a {@link org.osate.aadl2.FeatureGroupPrototype}.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public Adapter createFeatureGroupPrototypeAdapter() {
-		if (featureGroupPrototypeItemProvider == null) {
-			featureGroupPrototypeItemProvider = new FeatureGroupPrototypeItemProvider(this);
-		}
-
-		return featureGroupPrototypeItemProvider;
-	}
-
-	/**
 	 * This keeps track of the one adapter used for all {@link org.osate.aadl2.FeatureGroupPrototypeBinding} instances.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -2837,6 +2814,29 @@ public class Aadl2ItemProviderAdapterFactory extends Aadl2AdapterFactory
 		}
 
 		return featurePrototypeItemProvider;
+	}
+
+	/**
+	 * This keeps track of the one adapter used for all {@link org.osate.aadl2.FeatureGroupPrototype} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected FeatureGroupPrototypeItemProvider featureGroupPrototypeItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link org.osate.aadl2.FeatureGroupPrototype}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createFeatureGroupPrototypeAdapter() {
+		if (featureGroupPrototypeItemProvider == null) {
+			featureGroupPrototypeItemProvider = new FeatureGroupPrototypeItemProvider(this);
+		}
+
+		return featureGroupPrototypeItemProvider;
 	}
 
 	/**

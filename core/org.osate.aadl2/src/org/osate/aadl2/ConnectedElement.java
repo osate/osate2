@@ -49,6 +49,7 @@ package org.osate.aadl2;
  * <ul>
  *   <li>{@link org.osate.aadl2.ConnectedElement#getContext <em>Context</em>}</li>
  *   <li>{@link org.osate.aadl2.ConnectedElement#getConnectionEnd <em>Connection End</em>}</li>
+ *   <li>{@link org.osate.aadl2.ConnectedElement#getNext <em>Next</em>}</li>
  * </ul>
  *
  * @see org.osate.aadl2.Aadl2Package#getConnectedElement()
@@ -113,5 +114,46 @@ public interface ConnectedElement extends Element {
 	 * @generated
 	 */
 	void setConnectionEnd(ConnectionEnd value);
+
+	/**
+	 * Returns the value of the '<em><b>Next</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * <p>From package AADLConstructs::Connections.</p>
+	 * <!-- end-model-doc -->
+	 * @return the value of the '<em>Next</em>' containment reference.
+	 * @see #setNext(ConnectedElement)
+	 * @see org.osate.aadl2.Aadl2Package#getConnectedElement_Next()
+	 * @model containment="true" ordered="false"
+	 * @generated
+	 */
+	ConnectedElement getNext();
+
+	/**
+	 * Sets the value of the '{@link org.osate.aadl2.ConnectedElement#getNext <em>Next</em>}' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Next</em>' containment reference.
+	 * @see #getNext()
+	 * @generated
+	 */
+	void setNext(ConnectedElement value);
+
+	/**
+	 * Creates a new {@link org.osate.aadl2.ConnectedElement} and sets the '<em><b>Next</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return The new {@link org.osate.aadl2.ConnectedElement}.
+	 * @see #getNext()
+	 * @generated
+	 */
+	ConnectedElement createNext();
+
+	/**
+	 * In a ConnectedElement chain, gets the last element in the chain. For example, if the chain is "a.b.c.d", this
+	 * method returns "d".
+	 */
+	ConnectionEnd getLastConnectionEnd();
 
 } // ConnectedElement

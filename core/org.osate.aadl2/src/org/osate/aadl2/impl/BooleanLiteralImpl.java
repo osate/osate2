@@ -186,7 +186,7 @@ public class BooleanLiteralImpl extends PropertyValueImpl implements BooleanLite
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @generated NOT
 	 */
 	@Override
 	public String toString() {
@@ -195,9 +195,7 @@ public class BooleanLiteralImpl extends PropertyValueImpl implements BooleanLite
 		}
 
 		StringBuffer result = new StringBuffer(super.toString());
-		result.append(" (value: ");
 		result.append(value);
-		result.append(')');
 		return result.toString();
 	}
 

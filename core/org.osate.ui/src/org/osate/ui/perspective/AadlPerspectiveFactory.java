@@ -59,7 +59,6 @@ public class AadlPerspectiveFactory implements IPerspectiveFactory {
 		layout.addView(IPageLayout.ID_OUTLINE, IPageLayout.RIGHT, (float) 0.75, editorArea);
 
 		layout.addActionSet(IPageLayout.ID_NAVIGATE_ACTION_SET);
-		layout.addActionSet("org.osate.ui.actionSet");
 
 //		layout.addShowViewShortcut(IPageLayout.ID_RES_NAV);
 		layout.addShowViewShortcut(IPageLayout.ID_OUTLINE);

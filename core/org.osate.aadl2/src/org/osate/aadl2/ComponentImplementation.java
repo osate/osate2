@@ -916,7 +916,7 @@ public interface ComponentImplementation extends ComponentClassifier {
 	/**
 	 * Get all flow implementations, including inherited.
 	 *
-	 * @return Lis of end to end flows
+	 * @return List of end to end flows
 	 */
 	EList<FlowImplementation> getAllFlowImplementations();
 
@@ -936,5 +936,47 @@ public interface ComponentImplementation extends ComponentClassifier {
 	 * @return List of connections
 	 */
 	EList<Connection> getAllConnections(Mode mode);
+
+	/**
+	 * Get all internal features, including inherited.
+	 *
+	 * @return List of internal features in this component implementation
+	 */
+	EList<InternalFeature> getAllInternalFeatures();
+
+	/**
+	 * Get all event sources, including inherited.
+	 *
+	 * @return List of event sources in this component implementation
+	 */
+	EList<EventSource> getAllEventSources();
+
+	/**
+	 * Get all event data sources, including inherited.
+	 *
+	 * @return List of event data sources in this component implementation
+	 */
+	EList<EventDataSource> getAllEventDataSources();
+
+	/**
+	 * Get all processor features, including inherited.
+	 *
+	 * @return List of processor features in this component implementation
+	 */
+	EList<ProcessorFeature> getAllProcessorFeatures();
+
+	/**
+	 * Get all processor port proxies, including inherited.
+	 *
+	 * @return List of port proxies in this component implementation
+	 */
+	EList<PortProxy> getAllPortProxies();
+
+	/**
+	 * Get all processor subprogram proxies, including inherited.
+	 *
+	 * @return List of subprogram proxies in this component implementation
+	 */
+	EList<SubprogramProxy> getAllSubprogramProxies();
 
 } // ComponentImplementation

@@ -1,8 +1,8 @@
 package org.osate.core.tests.issues
 
-import org.eclipse.xtext.junit4.InjectWith
-import org.eclipselabs.xtext.utils.unittesting.FluentIssueCollection
-import org.eclipselabs.xtext.utils.unittesting.XtextRunner2
+import com.itemis.xtext.testing.FluentIssueCollection
+import org.eclipse.xtext.testing.InjectWith
+import org.eclipse.xtext.testing.XtextRunner
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.osate.aadl2.AadlPackage
@@ -13,13 +13,9 @@ import org.osate.core.test.OsateTest
 
 import static extension org.junit.Assert.assertEquals
 
-@RunWith(XtextRunner2)
+@RunWith(XtextRunner)
 @InjectWith(Aadl2UiInjectorProvider)
 class Issue727Test extends OsateTest {
-	override getProjectName() {
-		"Issue_727_Test"
-	}
-	
 	@Test
 	def void testConnections() {
 		val pkg1FileName = "pkg1.aadl"

@@ -1,30 +1,25 @@
 package org.osate.core.tests.issues
 
-import org.eclipse.xtext.junit4.InjectWith
-import org.eclipselabs.xtext.utils.unittesting.XtextRunner2
+import com.itemis.xtext.testing.FluentIssueCollection
+import org.eclipse.core.resources.IMarker
+import org.eclipse.core.resources.IResource
+import org.eclipse.xtext.testing.InjectWith
+import org.eclipse.xtext.testing.XtextRunner
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.osate.aadl2.AadlPackage
-import org.osate.aadl2.SystemType
 import org.osate.aadl2.SystemImplementation
+import org.osate.aadl2.SystemType
 import org.osate.aadl2.instantiation.InstantiateModel
+import org.osate.aadl2.modelsupport.resources.OsateResourceUtil
 import org.osate.core.test.Aadl2UiInjectorProvider
 import org.osate.core.test.OsateTest
 
-//import static org.junit.Assert.*
 import static extension org.junit.Assert.assertEquals
-import org.eclipselabs.xtext.utils.unittesting.FluentIssueCollection
-import org.osate.aadl2.modelsupport.resources.OsateResourceUtil
-import org.eclipse.core.resources.IMarker
-import org.eclipse.core.resources.IResource
 
-@RunWith(typeof(XtextRunner2))
+@RunWith(typeof(XtextRunner))
 @InjectWith(typeof(Aadl2UiInjectorProvider))
 class Issue578Test extends OsateTest {
-	override getProjectName() {
-		"issue578"
-	}
-
 	@Test
 	def void issue578TestA() {
 		val aadlFile = "issue578A.aadl"

@@ -2187,4 +2187,95 @@ public abstract class ComponentImplementationImpl extends ComponentClassifierImp
 		}
 		return null;
 	}
+
+	/*
+	 * (non-Javadoc)
+	 *
+	 * @see org.osate.aadl2.ComponentImplementation#getAllInternalFeatures()
+	 */
+	@Override
+	public EList<InternalFeature> getAllInternalFeatures() {
+		final BasicEList<InternalFeature> result = new BasicEList<InternalFeature>();
+		result.addAll(getAllEventSources());
+		result.addAll(getAllEventDataSources());
+		return result;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 *
+	 * @see org.osate.aadl2.ComponentImplementation#getAllEventSources()
+	 */
+	@Override
+	public EList<EventSource> getAllEventSources() {
+		final EList<Classifier> ancestors = getSelfPlusAllExtended();
+		final BasicEList<EventSource> result = new BasicEList<EventSource>();
+		for (Classifier classifier : ancestors) {
+			final ComponentImplementation current = (ComponentImplementation) classifier;
+			result.addAll(current.getOwnedEventSources());
+		}
+		return result;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 *
+	 * @see org.osate.aadl2.ComponentImplementation#getAllEventDataSources()
+	 */
+	@Override
+	public EList<EventDataSource> getAllEventDataSources() {
+		final EList<Classifier> ancestors = getSelfPlusAllExtended();
+		final BasicEList<EventDataSource> result = new BasicEList<EventDataSource>();
+		for (Classifier classifier : ancestors) {
+			final ComponentImplementation current = (ComponentImplementation) classifier;
+			result.addAll(current.getOwnedEventDataSources());
+		}
+		return result;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 *
+	 * @see org.osate.aadl2.ComponentImplementation#getAllProcessorFeatures()
+	 */
+	@Override
+	public EList<ProcessorFeature> getAllProcessorFeatures() {
+		final BasicEList<ProcessorFeature> result = new BasicEList<ProcessorFeature>();
+		result.addAll(getAllPortProxies());
+		result.addAll(getAllSubprogramProxies());
+		return result;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 *
+	 * @see org.osate.aadl2.ComponentImplementation#getAllPortProxies()
+	 */
+	@Override
+	public EList<PortProxy> getAllPortProxies() {
+		final EList<Classifier> ancestors = getSelfPlusAllExtended();
+		final BasicEList<PortProxy> result = new BasicEList<PortProxy>();
+		for (Classifier classifier : ancestors) {
+			final ComponentImplementation current = (ComponentImplementation) classifier;
+			result.addAll(current.getOwnedPortProxies());
+		}
+		return result;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 *
+	 * @see org.osate.aadl2.ComponentImplementation#getAllSubprogramProxies()
+	 */
+	@Override
+	public EList<SubprogramProxy> getAllSubprogramProxies() {
+		final EList<Classifier> ancestors = getSelfPlusAllExtended();
+		final BasicEList<SubprogramProxy> result = new BasicEList<SubprogramProxy>();
+		for (Classifier classifier : ancestors) {
+			final ComponentImplementation current = (ComponentImplementation) classifier;
+			result.addAll(current.getOwnedSubprogramProxies());
+		}
+		return result;
+	}
+
 } // ComponentImplementationImpl

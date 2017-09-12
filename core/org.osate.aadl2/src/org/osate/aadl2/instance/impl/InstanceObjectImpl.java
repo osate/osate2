@@ -304,7 +304,7 @@ public abstract class InstanceObjectImpl extends NamedElementImpl implements Ins
 	}
 
 	@Override
-	public final void getPropertyValueInternal(final Property property, final PropertyAcc pas,
+	public void getPropertyValueInternal(final Property property, final PropertyAcc pas,
 			final boolean fromInstanceSlaveCall) throws InvalidModelException {
 		/*
 		 * First see if the property is defined locally in the instance. Such

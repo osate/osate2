@@ -1,8 +1,8 @@
 package org.osate.core.tests.aadl2javavalidator
 
-import org.eclipse.xtext.junit4.InjectWith
-import org.eclipselabs.xtext.utils.unittesting.FluentIssueCollection
-import org.eclipselabs.xtext.utils.unittesting.XtextRunner2
+import com.itemis.xtext.testing.FluentIssueCollection
+import org.eclipse.xtext.testing.InjectWith
+import org.eclipse.xtext.testing.XtextRunner
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.osate.aadl2.AadlPackage
@@ -11,13 +11,9 @@ import org.osate.core.test.OsateTest
 
 import static extension org.junit.Assert.assertEquals
 
-@RunWith(XtextRunner2)
+@RunWith(XtextRunner)
 @InjectWith(Aadl2UiInjectorProvider)
 class DataSizePropertyTest extends OsateTest {
-	override getProjectName() {
-		"Data_Size_Property_Test"
-	}
-	
 	//Tests checkDataSizeProperty
 	@Test
 	def void testDataSizeProperty() {

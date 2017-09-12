@@ -38,6 +38,7 @@ package org.osate.aadl2.impl;
 import java.util.List;
 
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.PropertyExpression;
 import org.osate.aadl2.ReferenceValue;
@@ -109,8 +110,8 @@ public class ReferenceValueImpl extends ContainedNamedElementImpl implements Ref
 
 	// TODO: LW features can have reference properties too
 	@Override
-	public EvaluatedProperty evaluate(EvaluationContext ctx) {
-		return new EvaluatedProperty(this);
+	public EvaluatedProperty evaluate(EvaluationContext ctx, int depth) {
+		return new EvaluatedProperty(EcoreUtil.copy(this));
 	}
 
 	@Override

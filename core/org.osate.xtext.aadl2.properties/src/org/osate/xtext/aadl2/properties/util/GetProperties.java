@@ -78,6 +78,7 @@ import org.osate.aadl2.instance.InstanceReferenceValue;
 import org.osate.aadl2.modelsupport.util.AadlUtil;
 import org.osate.aadl2.properties.PropertyAcc;
 import org.osate.aadl2.properties.PropertyLookupException;
+import org.osate.aadl2.properties.PropertyNotPresentException;
 import org.osate.contribution.sei.names.DataModel;
 import org.osate.contribution.sei.names.SEI;
 import org.osate.xtext.aadl2.properties.linking.PropertiesLinkingService;
@@ -103,17 +104,12 @@ public class GetProperties {
 
 	}
 
-
-	public static String getPlatform (final NamedElement ne)
-	{
+	public static String getPlatform(final NamedElement ne) {
 		try {
-			Property sn = lookupPropertyDefinition(ne, SEI._NAME,
-					SEI.PLATFORM);
-
+			Property sn = lookupPropertyDefinition(ne, SEI._NAME, SEI.PLATFORM);
 
 			PropertyAcc pacc = ne.getPropertyValue(sn);
-			if (pacc.getAssociations().size()>0)
-			{
+			if (pacc.getAssociations().size() > 0) {
 				ModalPropertyValue mdv = pacc.getAssociations().get(0).getOwnedValues().get(0);
 				PropertyExpression pe = mdv.getOwnedValue();
 				StringLiteral sl = (StringLiteral) pe;
@@ -126,16 +122,12 @@ public class GetProperties {
 		}
 	}
 
-	public static String getSourceName (final NamedElement ne)
-	{
+	public static String getSourceName(final NamedElement ne) {
 		try {
-			Property sn = lookupPropertyDefinition(ne, ProgrammingProperties._NAME,
-					ProgrammingProperties.SOURCE_NAME);
-
+			Property sn = lookupPropertyDefinition(ne, ProgrammingProperties._NAME, ProgrammingProperties.SOURCE_NAME);
 
 			PropertyAcc pacc = ne.getPropertyValue(sn);
-			if (pacc.getAssociations().size()>0)
-			{
+			if (pacc.getAssociations().size() > 0) {
 				ModalPropertyValue mdv = pacc.getAssociations().get(0).getOwnedValues().get(0);
 				PropertyExpression pe = mdv.getOwnedValue();
 //				System.out.println("pe=" + pe);
@@ -150,13 +142,11 @@ public class GetProperties {
 		}
 	}
 
-	public static List<String> getDataEnumerators (final NamedElement ne)
-	{
+	public static List<String> getDataEnumerators(final NamedElement ne) {
 		List<String> res;
 		res = new ArrayList<String>();
 		try {
-			Property st = lookupPropertyDefinition(ne, DataModel._NAME,
-					DataModel.Enumerators);
+			Property st = lookupPropertyDefinition(ne, DataModel._NAME, DataModel.Enumerators);
 
 			List<? extends PropertyExpression> propertyValues = ne.getPropertyValueList(st);
 			for (PropertyExpression propertyExpression : propertyValues) {
@@ -171,13 +161,11 @@ public class GetProperties {
 		}
 	}
 
-	public static List<String> getSourceText (final NamedElement ne)
-	{
+	public static List<String> getSourceText(final NamedElement ne) {
 		List<String> res;
 		res = new ArrayList<String>();
 		try {
-			Property st = lookupPropertyDefinition(ne, ProgrammingProperties._NAME,
-					ProgrammingProperties.SOURCE_TEXT);
+			Property st = lookupPropertyDefinition(ne, ProgrammingProperties._NAME, ProgrammingProperties.SOURCE_TEXT);
 
 			List<? extends PropertyExpression> propertyValues = ne.getPropertyValueList(st);
 			for (PropertyExpression propertyExpression : propertyValues) {
@@ -352,6 +340,10 @@ public class GetProperties {
 		return findUnitLiteral(context, AadlProject.DATA_RATE_UNITS, AadlProject.KBYTESPS_LITERAL);
 	}
 
+	public static UnitLiteral getKbitspsUnitLiteral(NamedElement context) {
+		return findUnitLiteral(context, AadlProject.DATA_RATE_UNITS, AadlProject.KBITSPS_LITERAL);
+	}
+
 	public static UnitLiteral getKBUnitLiteral(NamedElement context) {
 		return findUnitLiteral(context, AadlProject.SIZE_UNITS, AadlProject.KB_LITERAL);
 	}
@@ -427,6 +419,69 @@ public class GetProperties {
 		return components;
 	}
 
+	public static List<ComponentInstance> getAllowedConnectionBinding(final InstanceObject io) {
+		ArrayList<ComponentInstance> components = new ArrayList<ComponentInstance>();
+		Property allowedConnectionBinding = lookupPropertyDefinition(io, DeploymentProperties._NAME,
+				DeploymentProperties.ALLOWED_CONNECTION_BINDING);
+		List<? extends PropertyExpression> propertyValues;
+		try {
+			propertyValues = io.getPropertyValueList(allowedConnectionBinding);
+		} catch (Exception e) {
+			return components;
+		}
+		for (PropertyExpression propertyExpression : propertyValues) {
+			components.add(
+					(ComponentInstance) ((InstanceReferenceValue) propertyExpression).getReferencedInstanceObject());
+		}
+		return components;
+	}
+
+	public static List<Classifier> getAllowedConnectionBindingClass(final InstanceObject io) {
+		Property allowedConnectionBindingClass = lookupPropertyDefinition(io, DeploymentProperties._NAME,
+				DeploymentProperties.ALLOWED_CONNECTION_BINDING_CLASS);
+		ArrayList<Classifier> components = new ArrayList<>();
+		List<? extends PropertyExpression> propertyValues;
+		try {
+			propertyValues = io.getPropertyValueList(allowedConnectionBindingClass);
+		} catch (Exception e) {
+			return components;
+		}
+		for (PropertyExpression propertyExpression : propertyValues) {
+			components.add(((ClassifierValue) propertyExpression).getClassifier());
+		}
+		return components;
+	}
+
+	public static List<EnumerationLiteral> getProvidedConnectionQualityOfService(NamedElement ne) {
+		try {
+			List<EnumerationLiteral> res = new ArrayList<>();
+			Property providedConnQos = lookupPropertyDefinition(ne, DeploymentProperties._NAME,
+					DeploymentProperties.PROVIDED_CONNECTION_QUALITY_OF_SERVICE);
+			List<? extends PropertyExpression> propertyValues = ne.getPropertyValueList(providedConnQos);
+			for (PropertyExpression propertyExpression : propertyValues) {
+				res.add((EnumerationLiteral) ((NamedValue) propertyExpression).getNamedValue());
+			}
+			return res;
+		} catch (PropertyLookupException e) {
+			return Collections.emptyList();
+		}
+	}
+
+	public static List<EnumerationLiteral> getRequiredConnectionQualityOfService(NamedElement ne) {
+		try {
+			List<EnumerationLiteral> res = new ArrayList<>();
+			Property requiredConnQos = lookupPropertyDefinition(ne, DeploymentProperties._NAME,
+					DeploymentProperties.REQUIRED_CONNECTION_QUALITY_OF_SERVICE);
+			List<? extends PropertyExpression> propertyValues = ne.getPropertyValueList(requiredConnQos);
+			for (PropertyExpression propertyExpression : propertyValues) {
+				res.add((EnumerationLiteral) ((NamedValue) propertyExpression).getNamedValue());
+			}
+			return res;
+		} catch (PropertyLookupException e) {
+			return Collections.emptyList();
+		}
+	}
+
 	public static List<ComponentInstance> getAllowedProcessorBinding(final ComponentInstance io) {
 		Property allowedProcessorBinding = lookupPropertyDefinition(io, DeploymentProperties._NAME,
 				DeploymentProperties.ALLOWED_PROCESSOR_BINDING);
@@ -444,10 +499,10 @@ public class GetProperties {
 		return components;
 	}
 
-	public static List<ComponentClassifier> getAllowedProcessorBindingClass(final ComponentInstance io) {
+	public static List<Classifier> getAllowedProcessorBindingClass(final ComponentInstance io) {
 		Property allowedProcessorBindingClass = lookupPropertyDefinition(io, DeploymentProperties._NAME,
 				DeploymentProperties.ALLOWED_PROCESSOR_BINDING_CLASS);
-		ArrayList<ComponentClassifier> components = new ArrayList<ComponentClassifier>();
+		ArrayList<Classifier> components = new ArrayList<Classifier>();
 		List<? extends PropertyExpression> propertyValues;
 		try {
 			propertyValues = io.getPropertyValueList(allowedProcessorBindingClass);
@@ -455,8 +510,7 @@ public class GetProperties {
 			return components;
 		}
 		for (PropertyExpression propertyExpression : propertyValues) {
-			components.add(
-					(ComponentClassifier) ((InstanceReferenceValue) propertyExpression).getReferencedInstanceObject());
+			components.add(((ClassifierValue) propertyExpression).getClassifier());
 		}
 		return components;
 	}
@@ -474,6 +528,39 @@ public class GetProperties {
 		for (PropertyExpression propertyExpression : propertyValues) {
 			components.add(
 					(ComponentInstance) ((InstanceReferenceValue) propertyExpression).getReferencedInstanceObject());
+		}
+		return components;
+	}
+
+	public static List<ComponentInstance> getAllowedMemoryBinding(final InstanceObject io) {
+		Property allowedMemoryBinding = lookupPropertyDefinition(io, DeploymentProperties._NAME,
+				DeploymentProperties.ALLOWED_MEMORY_BINDING);
+		ArrayList<ComponentInstance> components = new ArrayList<>();
+		List<? extends PropertyExpression> propertyValues;
+		try {
+			propertyValues = io.getPropertyValueList(allowedMemoryBinding);
+		} catch (Exception e) {
+			return components;
+		}
+		for (PropertyExpression propertyExpression : propertyValues) {
+			components.add(
+					(ComponentInstance) ((InstanceReferenceValue) propertyExpression).getReferencedInstanceObject());
+		}
+		return components;
+	}
+
+	public static List<Classifier> getAllowedMemoryBindingClass(final InstanceObject io) {
+		Property allowedMemoryBindingClass = lookupPropertyDefinition(io, DeploymentProperties._NAME,
+				DeploymentProperties.ALLOWED_MEMORY_BINDING_CLASS);
+		ArrayList<Classifier> components = new ArrayList<>();
+		List<? extends PropertyExpression> propertyValues;
+		try {
+			propertyValues = io.getPropertyValueList(allowedMemoryBindingClass);
+		} catch (Exception e) {
+			return components;
+		}
+		for (PropertyExpression propertyExpression : propertyValues) {
+			components.add(((ClassifierValue) propertyExpression).getClassifier());
 		}
 		return components;
 	}
@@ -561,15 +648,27 @@ public class GetProperties {
 		return PropertyUtils.getScaledNumberValue(ne, ROMActual, kb, defaultValue);
 	}
 
-	public static double getBandWidthCapacityInKbps(final NamedElement ne, final double defaultValue) {
+	public static double getBandWidthCapacityInKBytesps(final NamedElement ne, final double defaultValue) {
 		Property BandWidthCapacity = lookupPropertyDefinition(ne, SEI._NAME, SEI.BANDWIDTH_CAPACITY);
 		UnitLiteral Kbps = findUnitLiteral(BandWidthCapacity, AadlProject.KBYTESPS_LITERAL);
 		return PropertyUtils.getScaledNumberValue(ne, BandWidthCapacity, Kbps, defaultValue);
 	}
 
-	public static double getBandWidthBudgetInKbps(final NamedElement ne, final double defaultValue) {
+	public static double getBandWidthBudgetInKBytesps(final NamedElement ne, final double defaultValue) {
 		Property BandWidthBudget = lookupPropertyDefinition(ne, SEI._NAME, SEI.BANDWIDTH_BUDGET);
 		UnitLiteral Kbps = findUnitLiteral(BandWidthBudget, AadlProject.KBYTESPS_LITERAL);
+		return PropertyUtils.getScaledNumberValue(ne, BandWidthBudget, Kbps, defaultValue);
+	}
+
+	public static double getBandWidthCapacityInKbitsps(final NamedElement ne, final double defaultValue) {
+		Property BandWidthCapacity = lookupPropertyDefinition(ne, SEI._NAME, SEI.BANDWIDTH_CAPACITY);
+		UnitLiteral Kbps = findUnitLiteral(BandWidthCapacity, AadlProject.KBITSPS_LITERAL);
+		return PropertyUtils.getScaledNumberValue(ne, BandWidthCapacity, Kbps, defaultValue);
+	}
+
+	public static double getBandWidthBudgetInKbitsps(final NamedElement ne, final double defaultValue) {
+		Property BandWidthBudget = lookupPropertyDefinition(ne, SEI._NAME, SEI.BANDWIDTH_BUDGET);
+		UnitLiteral Kbps = findUnitLiteral(BandWidthBudget, AadlProject.KBITSPS_LITERAL);
 		return PropertyUtils.getScaledNumberValue(ne, BandWidthBudget, Kbps, defaultValue);
 	}
 
@@ -592,6 +691,21 @@ public class GetProperties {
 			PropertyExpression pv = ne.getSimplePropertyValue(referenceProcessor);
 			if (pv != null) {
 				return (ComponentClassifier) ((ClassifierValue) pv).getClassifier();
+			}
+		} catch (Exception e) {
+		}
+		return null;
+	}
+
+	public static ComponentInstance getReferenceTime(final ComponentInstance ci) {
+		Property referenceTime = lookupPropertyDefinition(ci, TimingProperties._NAME, TimingProperties.REFERENCE_TIME);
+		if (referenceTime == null) {
+			return null;
+		}
+		try {
+			PropertyExpression pv = ci.getSimplePropertyValue(referenceTime);
+			if (pv != null) {
+				return (ComponentInstance) ((InstanceReferenceValue) pv).getReferencedInstanceObject();
 			}
 		} catch (Exception e) {
 		}
@@ -718,32 +832,41 @@ public class GetProperties {
 		return 0;
 	}
 
+	public static double getMaximumTimeToTransferData(final NamedElement bus, double datasizeinbyte) {
+		double speed = getMaximumTransmissionTimePerByte(bus);
+		double dataTransferTime = speed * datasizeinbyte;
+
+		double acquisitionTime = getMaximumTransmissionTimeFixed(bus);
+
+		return dataTransferTime + acquisitionTime;
+	}
+
 	public static double getMaximumTimeToTransferData(final NamedElement bus, Classifier dataClassifier) {
-		double dataSize;
-		double speed;
-		double dataTransferTime;
-		double acquisitionTime;
+		double datasizeinbyte = getDataSizeInBytes(dataClassifier);
+		double speed = getMaximumTransmissionTimePerByte(bus);
+		double dataTransferTime = speed * datasizeinbyte;
 
-		dataSize = getDataSizeInBytes(dataClassifier);
-		speed = getMaximumTransmissionTimePerByte(bus);
-		dataTransferTime = speed * dataSize;
+		double acquisitionTime = getMaximumTransmissionTimeFixed(bus);
 
-		acquisitionTime = getMaximumTransmissionTimeFixed(bus);
+		return dataTransferTime + acquisitionTime;
+	}
+
+	public static double getMinimumTimeToTransferData(final NamedElement bus, double datasizeinbyte) {
+
+		double speed = getMinimumTransmissionTimePerByte(bus);
+		double dataTransferTime = speed * datasizeinbyte;
+
+		double acquisitionTime = getMinimumTransmissionTimeFixed(bus);
 
 		return dataTransferTime + acquisitionTime;
 	}
 
 	public static double getMinimumTimeToTransferData(final NamedElement bus, Classifier dataClassifier) {
-		double dataSize;
-		double speed;
-		double dataTransferTime;
-		double acquisitionTime;
+		double datasizeinbyte = getDataSizeInBytes(dataClassifier);
+		double speed = getMinimumTransmissionTimePerByte(bus);
+		double dataTransferTime = speed * datasizeinbyte;
 
-		dataSize = getDataSizeInBytes(dataClassifier);
-		speed = getMinimumTransmissionTimePerByte(bus);
-		dataTransferTime = speed * dataSize;
-
-		acquisitionTime = getMinimumTransmissionTimeFixed(bus);
+		double acquisitionTime = getMinimumTransmissionTimeFixed(bus);
 
 		return dataTransferTime + acquisitionTime;
 	}
@@ -1108,12 +1231,12 @@ public class GetProperties {
 		UnitLiteral milliSecond = findUnitLiteral(period, AadlProject.MS_LITERAL);
 		return PropertyUtils.getScaledNumberValue(ne, period, milliSecond, 0.0);
 	}
-	
+
 	public static double getExecutionTimeInMS(final NamedElement ne) {
 		Property period = lookupPropertyDefinition(ne, TimingProperties._NAME, TimingProperties.EXECUTION_TIME);
 		UnitLiteral milliSecond = findUnitLiteral(period, AadlProject.MS_LITERAL);
 		return PropertyUtils.getScaledNumberValue(ne, period, milliSecond, 0.0);
-	}	
+	}
 
 	public static double getPeriodinMicroSec(final NamedElement ne) {
 		Property period = lookupPropertyDefinition(ne, TimingProperties._NAME, TimingProperties.PERIOD);
@@ -1210,16 +1333,16 @@ public class GetProperties {
 			return null;
 		}
 	}
-	
+
 	public static List<String> getSourceLanguage(final NamedElement ne) {
 		try {
-			List<String> res = new ArrayList<String> ();
+			List<String> res = new ArrayList<String>();
 			Property sourceLanguage = lookupPropertyDefinition(ne, ProgrammingProperties._NAME,
 					ProgrammingProperties.SOURCE_LANGUAGE);
 			List<? extends PropertyExpression> propertyValues = ne.getPropertyValueList(sourceLanguage);
 			for (PropertyExpression propertyExpression : propertyValues) {
 				String v = ((EnumerationLiteral) ((NamedValue) propertyExpression).getNamedValue()).getName();
-				res.add (v);
+				res.add(v);
 			}
 			return res;
 		} catch (PropertyLookupException e) {
@@ -1251,6 +1374,21 @@ public class GetProperties {
 		}
 	}
 
+	public static List<EnumerationLiteral> getAllowedDispatchProtocol(NamedElement ne) {
+		try {
+			List<EnumerationLiteral> res = new ArrayList<>();
+			Property allowedDispatchProtocol = lookupPropertyDefinition(ne, DeploymentProperties._NAME,
+					DeploymentProperties.ALLOWED_DISPATCH_PROTOCOL);
+			List<? extends PropertyExpression> propertyValues = ne.getPropertyValueList(allowedDispatchProtocol);
+			for (PropertyExpression propertyExpression : propertyValues) {
+				res.add((EnumerationLiteral) ((NamedValue) propertyExpression).getNamedValue());
+			}
+			return res;
+		} catch (PropertyLookupException e) {
+			return Collections.emptyList();
+		}
+	}
+
 	public static EnumerationLiteral getOverflowHandlingProtocol(final NamedElement ne) {
 		try {
 			Property overflowHandlingProtocol = lookupPropertyDefinition(ne, CommunicationProperties._NAME,
@@ -1269,6 +1407,8 @@ public class GetProperties {
 	}
 
 	public static double getDataSizeInBytes(final NamedElement ne) {
+		if (ne == null)
+			return 0.0;
 		Property SourceDataSize = lookupPropertyDefinition(ne, MemoryProperties._NAME, MemoryProperties.DATA_SIZE);
 		UnitLiteral Bytes = findUnitLiteral(SourceDataSize, AadlProject.B_LITERAL);
 		return getDataSize(ne, Bytes);
@@ -1417,6 +1557,16 @@ public class GetProperties {
 		double res = PropertyUtils.getScaledNumberValue(ne, SourceStackSize, unit, 0.0);
 		if (res == 0.0) {
 			SourceStackSize = lookupPropertyDefinition(ne, MemoryProperties._NAME, MemoryProperties.SOURCE_STACK_SIZE);
+			res = PropertyUtils.getScaledNumberValue(ne, SourceStackSize, unit, 0.0);
+		}
+		return res;
+	}
+
+	public static double getHeapSize(final NamedElement ne, UnitLiteral unit) {
+		Property SourceStackSize = lookupPropertyDefinition(ne, MemoryProperties._NAME, MemoryProperties.HEAP_SIZE);
+		double res = PropertyUtils.getScaledNumberValue(ne, SourceStackSize, unit, 0.0);
+		if (res == 0.0) {
+			SourceStackSize = lookupPropertyDefinition(ne, MemoryProperties._NAME, MemoryProperties.SOURCE_HEAP_SIZE);
 			res = PropertyUtils.getScaledNumberValue(ne, SourceStackSize, unit, 0.0);
 		}
 		return res;
@@ -1777,6 +1927,25 @@ public class GetProperties {
 		return res;
 	}
 
+	public static List<ComponentClassifier> getProvidedVirtualBusClass(final NamedElement io) {
+		Property providedVirtualBusClass;
+		ArrayList<ComponentClassifier> components;
+
+		providedVirtualBusClass = lookupPropertyDefinition(io, DeploymentProperties._NAME,
+				DeploymentProperties.PROVIDED_VIRTUAL_BUS_CLASS);
+		components = new ArrayList<>();
+		List<? extends PropertyExpression> propertyValues;
+		try {
+			propertyValues = io.getPropertyValueList(providedVirtualBusClass);
+		} catch (Exception e) {
+			return components;
+		}
+		for (PropertyExpression propertyExpression : propertyValues) {
+			components.add((ComponentClassifier) ((ClassifierValue) propertyExpression).getClassifier());
+		}
+		return components;
+	}
+
 	/**
 	 * Get the virtual bus required for a connection, virtual bus, port, etc.
 	 *
@@ -1836,7 +2005,7 @@ public class GetProperties {
 			return 0;
 		}
 		RangeValue rv = (RangeValue) vr.getOwnedValue();
-		PropertyExpression maximum = rv.getMaximum().evaluate(null).first().getValue();
+		PropertyExpression maximum = rv.getMaximum().evaluate(null, 0).first().getValue();
 		return ((NumberValue) maximum).getScaledValue();
 	}
 
@@ -1846,7 +2015,7 @@ public class GetProperties {
 			return 0;
 		}
 		RangeValue rv = (RangeValue) vr.getOwnedValue();
-		PropertyExpression minimum = rv.getMinimum().evaluate(null).first().getValue();
+		PropertyExpression minimum = rv.getMinimum().evaluate(null, 0).first().getValue();
 		return ((NumberValue) minimum).getScaledValue();
 	}
 
@@ -1901,6 +2070,45 @@ public class GetProperties {
 		}
 		res = 1 / period;
 		return res;
+	}
+
+	public static String getClassifierMatchingRuleProperty(NamedElement ne) {
+		Property classifierMatchingRuleProperty = GetProperties.lookupPropertyDefinition(ne, ModelingProperties._NAME,
+				ModelingProperties.CLASSIFIER_MATCHING_RULE);
+		EnumerationLiteral classifierMatchingRuleValue;
+		try {
+			classifierMatchingRuleValue = PropertyUtils.getEnumLiteral(ne, classifierMatchingRuleProperty);
+		} catch (PropertyNotPresentException e) {
+			return ModelingProperties.CLASSIFIER_MATCH;
+		}
+		return classifierMatchingRuleValue.getName();
+	}
+
+	public static String getClassifierSubstitutionRuleProperty(NamedElement ne) {
+		Property classifierMatchingRuleProperty = GetProperties.lookupPropertyDefinition(ne, ModelingProperties._NAME,
+				ModelingProperties.CLASSIFIER_SUBSTITUTION_RULE);
+		EnumerationLiteral classifierMatchingRuleValue;
+		try {
+			classifierMatchingRuleValue = PropertyUtils.getEnumLiteral(ne, classifierMatchingRuleProperty);
+		} catch (PropertyNotPresentException e) {
+			return ModelingProperties.CLASSIFIER_MATCH;
+		}
+		return classifierMatchingRuleValue.getName();
+	}
+
+	public static double getMemorySize(final NamedElement ne, UnitLiteral unit) {
+		Property memorySize = lookupPropertyDefinition(ne, MemoryProperties._NAME, MemoryProperties.MEMORY_SIZE);
+		return PropertyUtils.getScaledNumberValue(ne, memorySize, unit, 0.0);
+	}
+
+	public static double getMemorySizeInKB(final NamedElement ne) {
+		Property memorySize = lookupPropertyDefinition(ne, MemoryProperties._NAME, MemoryProperties.MEMORY_SIZE);
+		UnitLiteral KBytes = findUnitLiteral(memorySize, AadlProject.KB_LITERAL);
+		return PropertyUtils.getScaledNumberValue(ne, memorySize, KBytes, 0.0);
+	}
+
+	public static double getPrice(final NamedElement ne, final double defaultValue) {
+		return PropertyUtils.getRealValue(ne, lookupPropertyDefinition(ne, SEI._NAME, SEI.PRICE), defaultValue);
 	}
 
 }

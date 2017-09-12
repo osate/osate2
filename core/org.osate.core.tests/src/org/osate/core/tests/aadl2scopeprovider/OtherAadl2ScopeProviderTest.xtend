@@ -35,11 +35,11 @@
 package org.osate.core.tests.aadl2scopeprovider
 
 import com.google.inject.Inject
-import org.eclipse.xtext.junit4.InjectWith
-import org.eclipse.xtext.junit4.util.ParseHelper
-import org.eclipse.xtext.junit4.validation.ValidationTestHelper
-import org.eclipselabs.xtext.utils.unittesting.FluentIssueCollection
-import org.eclipselabs.xtext.utils.unittesting.XtextRunner2
+import com.itemis.xtext.testing.FluentIssueCollection
+import org.eclipse.xtext.testing.InjectWith
+import org.eclipse.xtext.testing.XtextRunner
+import org.eclipse.xtext.testing.util.ParseHelper
+import org.eclipse.xtext.testing.validation.ValidationTestHelper
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.osate.aadl2.Aadl2Package
@@ -58,16 +58,12 @@ import org.osate.core.test.OsateTest
 import static extension org.junit.Assert.assertEquals
 import static extension org.junit.Assert.assertNull
 
-@RunWith(XtextRunner2)
+@RunWith(XtextRunner)
 @InjectWith(Aadl2UiInjectorProvider)
 class OtherAadl2ScopeProviderTest extends OsateTest {
 	@Inject extension ParseHelper<ModelUnit>
 	@Inject extension ValidationTestHelper
 
-	override getProjectName() {
-		"Other_Aadl2_Scope_Provider_Test"
-	}
-	
 	/*
 	 * Tests scope_ComponentPrototype_constrainingClassifier, scope_FeaturePrototype_constrainingClassifier, scope_FeatureGroupPrototypeActual_featureType,
 	 * scope_PortSpecification_classifier, scope_AccessSpecification_classifier, scope_ComponentPrototypeActual_subcomponentType,
@@ -578,7 +574,7 @@ class OtherAadl2ScopeProviderTest extends OsateTest {
 	//Tests scope_ModalPath_inModeOrTransition and scope_FlowImplementation_specification
 	@Test
 	def void testInModesAndFlows() {
-		('''
+		createFiles("pack.aadl" -> '''
 			package pack
 			public
 			  abstract a1
@@ -637,6 +633,10 @@ class OtherAadl2ScopeProviderTest extends OsateTest {
 			  end a2;
 			  
 			  abstract implementation a2.i
+			  subcomponents
+			    dummy: abstract a2;
+			  connections
+			    c1: port dummy.ep2 -> dummy.ep3;
 			  flows
 			    fsource1: flow source ep2 in modes (m5, m6, m7, mt5, mt6, mt7);
 			    fsink1: flow sink ep3 in modes (m5, m6, m7, mt5, mt6, mt7);
@@ -652,8 +652,11 @@ class OtherAadl2ScopeProviderTest extends OsateTest {
 			    param2: in parameter;
 			  end subp2;
 			end pack;
-		'''.parse as AadlPackage) => [
-			assertNoIssues
+		''')
+		suppressSerialization
+		val testFileResult = testFile("pack.aadl")
+		val issueCollection = new FluentIssueCollection(testFileResult.resource, newArrayList, newArrayList)
+		testFileResult.resource.contents.head as AadlPackage => [
 			"pack".assertEquals(name)
 			publicSection.ownedClassifiers.get(1) as AbstractImplementation => [
 				"a1.i".assertEquals(name)
@@ -714,6 +717,7 @@ class OtherAadl2ScopeProviderTest extends OsateTest {
 					assertScope(Aadl2Package::eINSTANCE.flowImplementation_Specification, #["fsink1", "fsource1"])
 					//Tests scope_ModalPath_inModeOrTransition
 					assertScope(Aadl2Package::eINSTANCE.modalPath_InModeOrTransition, #["m5", "m6", "m7", "m8", "mt5", "mt6", "mt7", "mt8"])
+					assertWarning(testFileResult.issues, issueCollection, "Flow implementation is empty and does not add value to the model")
 				]
 				ownedFlowImplementations.get(1) => [
 					"fsink1".assertEquals(specification.name)
@@ -721,9 +725,12 @@ class OtherAadl2ScopeProviderTest extends OsateTest {
 					assertScope(Aadl2Package::eINSTANCE.flowImplementation_Specification, #["fsource1", "fsink1"])
 					//Tests scope_ModalPath_inModeOrTransition
 					assertScope(Aadl2Package::eINSTANCE.modalPath_InModeOrTransition, #["m5", "m6", "m7", "m8", "mt5", "mt6", "mt7", "mt8"])
+					assertWarning(testFileResult.issues, issueCollection, "Flow implementation is empty and does not add value to the model")
 				]
 			]
 		]
+		issueCollection.sizeIs(issueCollection.issues.size)
+		assertConstraints(issueCollection)
 	}
 	
 	//Tests scope_ModeBinding_parentMode and scope_ModeBinding_derivedMode

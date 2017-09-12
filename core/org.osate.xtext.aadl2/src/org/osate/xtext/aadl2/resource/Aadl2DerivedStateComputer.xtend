@@ -96,19 +96,19 @@ public class Aadl2DerivedStateComputer implements IDerivedStateComputer {
 			if (!(parent instanceof AadlPackage)) {
 				if (parent instanceof PackageSection) {
 					if (object instanceof DefaultAnnexLibrary) {
-						if (object.parsedAnnexLibrary != null) {
+						if (object.parsedAnnexLibrary !== null) {
 							result += object.parsedAnnexLibrary
 						}
 						allContents.prune
 					}
 				} else if (parent instanceof Classifier) {
 					if (object instanceof DefaultAnnexSubclause) {
-						if (object.parsedAnnexSubclause != null) {
+						if (object.parsedAnnexSubclause !== null) {
 							result += object.parsedAnnexSubclause
 						}
 					}
 					allContents.prune
-				} else if (parent != null) {
+				} else if (parent !== null) {
 					allContents.prune
 				}
 			}
@@ -122,10 +122,10 @@ public class Aadl2DerivedStateComputer implements IDerivedStateComputer {
 		for (annex : annexElements) {
 			if (!names.contains(annex.name)) {
 				val annexParseResult = AnnexParseUtil.getParseResult(annex)
-				if (annexParseResult != null) {
+				if (annexParseResult !== null) {
 					val grammarName = getGrammarName(annexParseResult.rootNode)
 					val injector = OsateCorePlugin.getDefault().getInjector(grammarName)
-					if(injector != null) injectors += injector
+					if(injector !== null) injectors += injector
 					names += annex.name
 				}
 			}

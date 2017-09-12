@@ -35,6 +35,7 @@
 package org.osate.aadl2.impl;
 
 import org.eclipse.emf.common.notify.Notification;
+import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.InternalEObject;
@@ -54,6 +55,7 @@ import org.osate.aadl2.Context;
  * <ul>
  *   <li>{@link org.osate.aadl2.impl.ConnectedElementImpl#getContext <em>Context</em>}</li>
  *   <li>{@link org.osate.aadl2.impl.ConnectedElementImpl#getConnectionEnd <em>Connection End</em>}</li>
+ *   <li>{@link org.osate.aadl2.impl.ConnectedElementImpl#getNext <em>Next</em>}</li>
  * </ul>
  *
  * @generated
@@ -78,6 +80,16 @@ public class ConnectedElementImpl extends ElementImpl implements ConnectedElemen
 	 * @ordered
 	 */
 	protected ConnectionEnd connectionEnd;
+
+	/**
+	 * The cached value of the '{@link #getNext() <em>Next</em>}' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getNext()
+	 * @generated
+	 * @ordered
+	 */
+	protected ConnectedElement next;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -192,6 +204,89 @@ public class ConnectedElementImpl extends ElementImpl implements ConnectedElemen
 	 * @generated
 	 */
 	@Override
+	public ConnectedElement getNext() {
+		return next;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public NotificationChain basicSetNext(ConnectedElement newNext, NotificationChain msgs) {
+		ConnectedElement oldNext = next;
+		next = newNext;
+		if (eNotificationRequired()) {
+			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET,
+					Aadl2Package.CONNECTED_ELEMENT__NEXT, oldNext, newNext);
+			if (msgs == null) {
+				msgs = notification;
+			} else {
+				msgs.add(notification);
+			}
+		}
+		return msgs;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public void setNext(ConnectedElement newNext) {
+		if (newNext != next) {
+			NotificationChain msgs = null;
+			if (next != null) {
+				msgs = ((InternalEObject) next).eInverseRemove(this,
+						EOPPOSITE_FEATURE_BASE - Aadl2Package.CONNECTED_ELEMENT__NEXT, null, msgs);
+			}
+			if (newNext != null) {
+				msgs = ((InternalEObject) newNext).eInverseAdd(this,
+						EOPPOSITE_FEATURE_BASE - Aadl2Package.CONNECTED_ELEMENT__NEXT, null, msgs);
+			}
+			msgs = basicSetNext(newNext, msgs);
+			if (msgs != null) {
+				msgs.dispatch();
+			}
+		} else if (eNotificationRequired()) {
+			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.CONNECTED_ELEMENT__NEXT, newNext,
+					newNext));
+		}
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public ConnectedElement createNext() {
+		ConnectedElement newNext = (ConnectedElement) create(Aadl2Package.eINSTANCE.getConnectedElement());
+		setNext(newNext);
+		return newNext;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+		switch (featureID) {
+		case Aadl2Package.CONNECTED_ELEMENT__NEXT:
+			return basicSetNext(null, msgs);
+		}
+		return super.eInverseRemove(otherEnd, featureID, msgs);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 		case Aadl2Package.CONNECTED_ELEMENT__CONTEXT:
@@ -204,6 +299,8 @@ public class ConnectedElementImpl extends ElementImpl implements ConnectedElemen
 				return getConnectionEnd();
 			}
 			return basicGetConnectionEnd();
+		case Aadl2Package.CONNECTED_ELEMENT__NEXT:
+			return getNext();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -221,6 +318,9 @@ public class ConnectedElementImpl extends ElementImpl implements ConnectedElemen
 			return;
 		case Aadl2Package.CONNECTED_ELEMENT__CONNECTION_END:
 			setConnectionEnd((ConnectionEnd) newValue);
+			return;
+		case Aadl2Package.CONNECTED_ELEMENT__NEXT:
+			setNext((ConnectedElement) newValue);
 			return;
 		}
 		super.eSet(featureID, newValue);
@@ -240,6 +340,9 @@ public class ConnectedElementImpl extends ElementImpl implements ConnectedElemen
 		case Aadl2Package.CONNECTED_ELEMENT__CONNECTION_END:
 			setConnectionEnd((ConnectionEnd) null);
 			return;
+		case Aadl2Package.CONNECTED_ELEMENT__NEXT:
+			setNext((ConnectedElement) null);
+			return;
 		}
 		super.eUnset(featureID);
 	}
@@ -256,8 +359,19 @@ public class ConnectedElementImpl extends ElementImpl implements ConnectedElemen
 			return context != null;
 		case Aadl2Package.CONNECTED_ELEMENT__CONNECTION_END:
 			return connectionEnd != null;
+		case Aadl2Package.CONNECTED_ELEMENT__NEXT:
+			return next != null;
 		}
 		return super.eIsSet(featureID);
+	}
+
+	@Override
+	public ConnectionEnd getLastConnectionEnd() {
+		ConnectedElement current = this;
+		while (current.getNext() != null) {
+			current = current.getNext();
+		}
+		return current.getConnectionEnd();
 	}
 
 } // ConnectedElementImpl

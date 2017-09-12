@@ -42,6 +42,8 @@ import org.eclipse.emf.common.notify.AdapterFactory;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.edit.provider.ComposeableAdapterFactory;
 import org.eclipse.emf.edit.provider.IItemPropertyDescriptor;
+import org.eclipse.xtext.xbase.lib.StringExtensions;
+import org.osate.aadl2.FlowSpecification;
 import org.osate.aadl2.instance.FlowSpecificationInstance;
 import org.osate.aadl2.instance.InstancePackage;
 
@@ -176,13 +178,27 @@ public class FlowSpecificationInstanceItemProvider extends FlowElementInstanceIt
 	 * This returns the label text for the adapted class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @generated NOT
 	 */
 	@Override
 	public String getText(Object object) {
-		String label = ((FlowSpecificationInstance) object).getName();
-		return label == null || label.length() == 0 ? getString("_UI_FlowSpecificationInstance_type") : //$NON-NLS-1$
-				getString("_UI_FlowSpecificationInstance_type") + " " + label; //$NON-NLS-1$ //$NON-NLS-2$
+		FlowSpecificationInstance flowInstance = (FlowSpecificationInstance) object;
+		
+		StringBuilder result = new StringBuilder(getString("_UI_FlowSpecificationInstance_type"));
+		
+		FlowSpecification declarativeFlow = flowInstance.getFlowSpecification();
+		if (declarativeFlow != null && !declarativeFlow.eIsProxy()) {
+			result.append(' ');
+			result.append(StringExtensions.toFirstUpper(declarativeFlow.getKind().getName()));
+		}
+		
+		String flowName = flowInstance.getName();
+		if (flowName != null && !flowName.isEmpty()) {
+			result.append(' ');
+			result.append(flowName);
+		}
+		
+		return result.toString();
 	}
 
 	/**

@@ -45,7 +45,6 @@ import java.util.List;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.util.EcoreUtil;
-import org.osate.aadl2.Aadl2Factory;
 import org.osate.aadl2.ComponentClassifier;
 import org.osate.aadl2.Connection;
 import org.osate.aadl2.ContainedNamedElement;
@@ -77,7 +76,7 @@ import org.osate.aadl2.util.Aadl2Util;
  * TODO: Add comment
  * @author lwrage
  */
-class CacheContainedPropertyAssociationsSwitch extends AadlProcessingSwitchWithProgress {
+public class CacheContainedPropertyAssociationsSwitch extends AadlProcessingSwitchWithProgress {
 
 	private HashMap<InstanceObject, InstantiatedClassifier> classifierCache;
 
@@ -87,134 +86,138 @@ class CacheContainedPropertyAssociationsSwitch extends AadlProcessingSwitchWithP
 	 */
 	private SCProperties scProps;
 
-	CacheContainedPropertyAssociationsSwitch(final HashMap<InstanceObject, InstantiatedClassifier> classifierCache,
-			SCProperties scProps, final IProgressMonitor pm, final AnalysisErrorReporterManager errManager) {
+	protected CacheContainedPropertyAssociationsSwitch(
+			final HashMap<InstanceObject, InstantiatedClassifier> classifierCache, SCProperties scProps,
+			final IProgressMonitor pm, final AnalysisErrorReporterManager errManager) {
 		super(pm, PROCESS_POST_ORDER_ALL, errManager);
 		this.classifierCache = classifierCache;
 		this.scProps = scProps;
 	}
 
 	@Override
-	protected final void initSwitches() {
-		instanceSwitch = new InstanceSwitch<String>() {
-			@Override
-			public String caseSystemInstance(final SystemInstance si) {
-				if (monitor.isCanceled()) {
-					cancelTraversal();
-					return DONE;
-				}
-				monitor.subTask("Caching system instance contained property associations");
-				processContainedPropertyAssociations(si, si,
-						si.getComponentImplementation().getAllPropertyAssociations());
+	protected void initSwitches() {
+		instanceSwitch = new myInstanceSwitch();
+	}
+
+	protected class myInstanceSwitch extends InstanceSwitch<String> {
+
+		@Override
+		public String caseSystemInstance(final SystemInstance si) {
+			if (monitor.isCanceled()) {
+				cancelTraversal();
 				return DONE;
 			}
+			monitor.subTask("Caching system instance contained property associations");
+			processContainedPropertyAssociations(si, si, si.getComponentImplementation().getAllPropertyAssociations());
+			// TODO: Insert hooks here
+			return DONE;
+		}
 
-			@Override
-			public String caseComponentInstance(final ComponentInstance ci) {
-				if (monitor.isCanceled()) {
-					cancelTraversal();
-					return DONE;
-				}
-				if (ci.getContainingComponentInstance() instanceof SystemInstance) {
-					monitor.subTask("Caching contained property associations in " + ci.getName());
-				}
-				/*
-				 * (1) Get the contained associations from the classifier of the
-				 * subcomponents. (2) Get the contained associations from the
-				 * subcomponent itself.
-				 */
-				ComponentClassifier ctype = InstanceUtil.getComponentType(ci, 0, classifierCache);
-				if (ctype != null) {
-					processContainedPropertyAssociations(ci, ci, ctype.getAllPropertyAssociations());
-				}
-				ComponentClassifier cimpl = InstanceUtil.getComponentImplementation(ci, 0, classifierCache);
-				if (cimpl != null) {
-					processContainedPropertyAssociations(ci, ci, cimpl.getAllPropertyAssociations());
-				}
-
-				processContainedPropertyAssociations((ComponentInstance) ci.eContainer(), ci,
-						ci.getSubcomponent().getOwnedPropertyAssociations());
+		@Override
+		public String caseComponentInstance(final ComponentInstance ci) {
+			if (monitor.isCanceled()) {
+				cancelTraversal();
 				return DONE;
 			}
-
+			if (ci.getContainingComponentInstance() instanceof SystemInstance) {
+				monitor.subTask("Caching contained property associations in " + ci.getName());
+			}
 			/*
-			 * 
-			 * FIXME: old code by JD to try to handle reference instance
-			 * public String caseConnectionInstance(final ConnectionInstance conn)
-			 * {
-			 * ComponentInstance ci;
-			 * EList<PropertyAssociation> pas = new BasicEList<PropertyAssociation> ();
-			 * 
-			 * ci = conn.getContainingComponentInstance();
-			 * OsateDebug.osateDebug("connection instance" + conn + "on" + ci);
-			 * for (ConnectionReference ref : conn.getConnectionReferences())
-			 * {
-			 * OsateDebug.osateDebug("connection ref" + ref);
-			 * for (PropertyAssociation pa : ref.getOwnedPropertyAssociations())
-			 * {
-			 * OsateDebug.osateDebug("connection pa" + pa);
-			 * Property prop = pa.getProperty();
-			 * PropertyAssociation newPA = Aadl2Factory.eINSTANCE.createPropertyAssociation();
-			 * 
-			 * newPA.setProperty(prop);
-			 * newPA.getOwnedValues().addAll(EcoreUtil.copyAll(pa.getOwnedValues()));
-			 * 
-			 * 
-			 * for (Iterator<Element> content = EcoreUtil.getAllProperContents(newPA, false); content
-			 * .hasNext();) {
-			 * Element elem = content.next();
-			 * if (elem instanceof ModalPropertyValue)
-			 * {
-			 * ModalPropertyValue mpv = (ModalPropertyValue)elem;
-			 * if (mpv.getOwnedValue() instanceof ListValue)
-			 * {
-			 * ListValue lv = (ListValue)mpv.getOwnedValue();
-			 * for (Element e : lv.getOwnedListElements())
-			 * {
-			 * if (e instanceof ReferenceValue) {
-			 * PropertyExpression irv = ((ReferenceValue) e).instantiate(ci);
-			 * EcoreUtil.replace(e, irv);
-			 * //ref.removePropertyAssociations(prop);
-			 * ref.getOwnedPropertyAssociations().add(newPA);
-			 * }
-			 * }
-			 * }
-			 * }
-			 * if (elem instanceof ReferenceValue) {
-			 * PropertyExpression irv = ((ReferenceValue) elem).instantiate(ci);
-			 * EcoreUtil.replace(elem, irv);
-			 * 
-			 * ref.removePropertyAssociations(prop);
-			 * ref.getOwnedPropertyAssociations().add(newPA);
-			 * }
-			 * }
-			 * 
-			 * 
-			 * 
-			 * }
-			 * }
-			 * processContainedPropertyAssociations((ComponentInstance) ci.eContainer(), ci, pas);
-			 * 
-			 * return DONE;
-			 * }
+			 * (1) Get the contained associations from the classifier of the
+			 * subcomponents. (2) Get the contained associations from the
+			 * subcomponent itself.
 			 */
+			ComponentClassifier ctype = InstanceUtil.getComponentType(ci, 0, classifierCache);
+			if (ctype != null) {
+				processContainedPropertyAssociations(ci, ci, ctype.getAllPropertyAssociations());
+			}
+			ComponentClassifier cimpl = InstanceUtil.getComponentImplementation(ci, 0, classifierCache);
+			if (cimpl != null) {
+				processContainedPropertyAssociations(ci, ci, cimpl.getAllPropertyAssociations());
+			}
 
-			@Override
-			public String caseFeatureInstance(final FeatureInstance fi) {
-				if (monitor.isCanceled()) {
-					cancelTraversal();
-					return DONE;
-				}
-				if (fi.getCategory() == FeatureCategory.FEATURE_GROUP) {
-					FeatureGroupType fgType = InstanceUtil.getFeatureGroupType(fi, 0, classifierCache);
-					if (fgType != null) {
-						processContainedPropertyAssociations(fi, fgType.getAllPropertyAssociations());
-					}
-					processContainedPropertyAssociations(fi, fi.getFeature().getOwnedPropertyAssociations());
-				}
+			processContainedPropertyAssociations((ComponentInstance) ci.eContainer(), ci,
+					ci.getSubcomponent().getOwnedPropertyAssociations());
+			return DONE;
+		}
+
+		/*
+		 * 
+		 * FIXME: old code by JD to try to handle reference instance
+		 * public String caseConnectionInstance(final ConnectionInstance conn)
+		 * {
+		 * ComponentInstance ci;
+		 * EList<PropertyAssociation> pas = new BasicEList<PropertyAssociation> ();
+		 * 
+		 * ci = conn.getContainingComponentInstance();
+		 * OsateDebug.osateDebug("connection instance" + conn + "on" + ci);
+		 * for (ConnectionReference ref : conn.getConnectionReferences())
+		 * {
+		 * OsateDebug.osateDebug("connection ref" + ref);
+		 * for (PropertyAssociation pa : ref.getOwnedPropertyAssociations())
+		 * {
+		 * OsateDebug.osateDebug("connection pa" + pa);
+		 * Property prop = pa.getProperty();
+		 * PropertyAssociation newPA = Aadl2Factory.eINSTANCE.createPropertyAssociation();
+		 * 
+		 * newPA.setProperty(prop);
+		 * newPA.getOwnedValues().addAll(EcoreUtil.copyAll(pa.getOwnedValues()));
+		 * 
+		 * 
+		 * for (Iterator<Element> content = EcoreUtil.getAllProperContents(newPA, false); content
+		 * .hasNext();) {
+		 * Element elem = content.next();
+		 * if (elem instanceof ModalPropertyValue)
+		 * {
+		 * ModalPropertyValue mpv = (ModalPropertyValue)elem;
+		 * if (mpv.getOwnedValue() instanceof ListValue)
+		 * {
+		 * ListValue lv = (ListValue)mpv.getOwnedValue();
+		 * for (Element e : lv.getOwnedListElements())
+		 * {
+		 * if (e instanceof ReferenceValue) {
+		 * PropertyExpression irv = ((ReferenceValue) e).instantiate(ci);
+		 * EcoreUtil.replace(e, irv);
+		 * //ref.removePropertyAssociations(prop);
+		 * ref.getOwnedPropertyAssociations().add(newPA);
+		 * }
+		 * }
+		 * }
+		 * }
+		 * if (elem instanceof ReferenceValue) {
+		 * PropertyExpression irv = ((ReferenceValue) elem).instantiate(ci);
+		 * EcoreUtil.replace(elem, irv);
+		 * 
+		 * ref.removePropertyAssociations(prop);
+		 * ref.getOwnedPropertyAssociations().add(newPA);
+		 * }
+		 * }
+		 * 
+		 * 
+		 * 
+		 * }
+		 * }
+		 * processContainedPropertyAssociations((ComponentInstance) ci.eContainer(), ci, pas);
+		 * 
+		 * return DONE;
+		 * }
+		 */
+
+		@Override
+		public String caseFeatureInstance(final FeatureInstance fi) {
+			if (monitor.isCanceled()) {
+				cancelTraversal();
 				return DONE;
 			}
-		};
+			if (fi.getCategory() == FeatureCategory.FEATURE_GROUP) {
+				FeatureGroupType fgType = InstanceUtil.getFeatureGroupType(fi, 0, classifierCache);
+				if (fgType != null) {
+					processContainedPropertyAssociations(fi, fgType.getAllPropertyAssociations());
+				}
+				processContainedPropertyAssociations(fi, fi.getFeature().getOwnedPropertyAssociations());
+			}
+			return DONE;
+		}
 	}
 
 	protected void processContainedPropertyAssociations(final FeatureInstance fi,
@@ -274,7 +277,7 @@ class CacheContainedPropertyAssociationsSwitch extends AadlProcessingSwitchWithP
 	 * @param ci
 	 * @param propertyAssociations
 	 */
-	private void processContainedPropertyAssociations(final ComponentInstance modeContext, final ComponentInstance ci,
+	protected void processContainedPropertyAssociations(final ComponentInstance modeContext, final ComponentInstance ci,
 			final EList<PropertyAssociation> propertyAssociations) {
 		for (PropertyAssociation pa : propertyAssociations) {
 			// OsateDebug.osateDebug ("[CacheContainedProperty] Process contained property association: " + pa.getProperty().getName());

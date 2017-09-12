@@ -74,7 +74,7 @@ package class CachePropertyLookupJob extends Job {
 		val propertyAssociations = try {
 			propertyView.safeRead[extension it |
 				val element = elementURI.getEObject(true) as NamedElement
-				if (element != null) {
+				if (element !== null) {
 					//Build a collection of PropertySets that are visible from the selected element.  Unresolvable proxies are filtered out.
 					val lookupObject = if (element instanceof InstanceObject) {
 						element.getContainerOfType(SystemInstance).componentClassifier
@@ -108,7 +108,7 @@ package class CachePropertyLookupJob extends Job {
 						 */
 						newLinkedHashMap(toInvertedMap[element.getPropertyValue(it).first].mapValues[
 							//This check is for incomplete models which may occur while the user is typing a PropertyAssociation
-							if (it != null && (ownedValues.empty || ownedValues.exists[ownedValue == null])) {
+							if (it !== null && (ownedValues.empty || ownedValues.exists[ownedValue === null])) {
 								null
 							} else {
 								it?.URI
@@ -123,7 +123,7 @@ package class CachePropertyLookupJob extends Job {
 			Status.CANCEL_STATUS
 		} else {
 			propertyView.cachedPropertyAssociations.clear
-			if (propertyAssociations != null) {
+			if (propertyAssociations !== null) {
 				propertyView.cachedPropertyAssociations.putAll(propertyAssociations)
 			}
 			display.syncExec(postUiUpdate)

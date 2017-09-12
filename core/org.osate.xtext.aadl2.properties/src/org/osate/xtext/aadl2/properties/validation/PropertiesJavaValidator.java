@@ -96,7 +96,6 @@ import org.osate.aadl2.PropertyConstant;
 import org.osate.aadl2.PropertyExpression;
 import org.osate.aadl2.PropertySet;
 import org.osate.aadl2.PropertyType;
-import org.osate.aadl2.PublicPackageSection;
 import org.osate.aadl2.RangeType;
 import org.osate.aadl2.RangeValue;
 import org.osate.aadl2.RealLiteral;
@@ -863,6 +862,9 @@ public class PropertiesJavaValidator extends AbstractPropertiesJavaValidator {
 			ClassifierValue cv = (ClassifierValue) pv;
 			ClassifierType ct = (ClassifierType) pt;
 
+			if (ct.getClassifierReferences().isEmpty()) {
+				return;
+			}
 			for (MetaclassReference mcri : ct.getClassifierReferences()) {
 				if (mcri.getMetaclass() != null && mcri.getMetaclass().isSuperTypeOf(cv.getClassifier().eClass())) {
 					return;
@@ -880,6 +882,9 @@ public class PropertiesJavaValidator extends AbstractPropertiesJavaValidator {
 				error(holder, prefix + "Assigning incorrect reference value" + msg);
 			} else {
 				ReferenceType ptrt = (ReferenceType) pt;
+				if (ptrt.getNamedElementReferences().isEmpty()) {
+					return;
+				}
 				ReferenceValue pvrv = (ReferenceValue) pv;
 				EList<ContainmentPathElement> cpes = pvrv.getContainmentPathElements();
 				if (!cpes.isEmpty()) {

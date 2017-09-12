@@ -6,12 +6,20 @@ import static org.osate.aadl2.instance.ConnectionKind.FEATURE_GROUP_CONNECTION;
 import static org.osate.aadl2.instance.ConnectionKind.MODE_TRANSITION_CONNECTION;
 import static org.osate.aadl2.instance.ConnectionKind.PARAMETER_CONNECTION;
 import static org.osate.aadl2.instance.ConnectionKind.PORT_CONNECTION;
+import static org.osate.aadl2.instance.FeatureCategory.ABSTRACT_FEATURE;
+import static org.osate.aadl2.instance.FeatureCategory.BUS_ACCESS;
+import static org.osate.aadl2.instance.FeatureCategory.DATA_ACCESS;
+import static org.osate.aadl2.instance.FeatureCategory.FEATURE_GROUP;
+import static org.osate.aadl2.instance.FeatureCategory.PARAMETER;
+import static org.osate.aadl2.instance.FeatureCategory.SUBPROGRAM_ACCESS;
+import static org.osate.aadl2.instance.FeatureCategory.SUBPROGRAM_GROUP_ACCESS;
 
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
 import org.eclipse.emf.common.util.EList;
+import org.osate.aadl2.ConnectedElement;
 import org.osate.aadl2.Connection;
 import org.osate.aadl2.ConnectionEnd;
 import org.osate.aadl2.Context;
@@ -44,6 +52,9 @@ class ConnectionInfo {
 	private boolean bidirectional = true;
 	boolean complete = false;
 	private boolean across = false;
+	Connection acrossConnection;
+	ConnectedElement srcToMatch;
+	ConnectedElement dstToMatch;
 	ComponentInstance container;
 
 	private ConnectionInfo(final ConnectionInfo info) {
@@ -57,6 +68,9 @@ class ConnectionInfo {
 		bidirectional = info.bidirectional;
 		complete = info.complete;
 		across = info.across;
+		acrossConnection = info.acrossConnection;
+		srcToMatch = info.srcToMatch;
+		dstToMatch = info.dstToMatch;
 		container = info.container;
 	}
 
@@ -94,15 +108,18 @@ class ConnectionInfo {
 	 *         instance
 	 */
 	public boolean addSegment(final Connection newSeg, final ConnectionInstanceEnd srcFi,
-			final ConnectionInstanceEnd dstFi, final ComponentInstance ci, boolean opposite) {
+			final ConnectionInstanceEnd dstFi, final ComponentInstance ci, boolean opposite, boolean[] keep) {
 		boolean valid = true;
 		final Context srcCtx = opposite ? newSeg.getAllDestinationContext() : newSeg.getAllSourceContext();
 		final Context dstCtx = opposite ? newSeg.getAllSourceContext() : newSeg.getAllDestinationContext();
 		final ConnectionEnd source = opposite ? newSeg.getAllDestination() : newSeg.getAllSource();
 		final ConnectionEnd dest = opposite ? newSeg.getAllSource() : newSeg.getAllDestination();
-		final boolean goingUp = !(dstCtx instanceof Subcomponent);
-		final boolean goingDown = !(srcCtx instanceof Subcomponent);
+		final boolean goingUp = !(dstCtx instanceof Subcomponent)
+				&& (source instanceof Subcomponent || srcCtx instanceof Subcomponent);
+		final boolean goingDown = !(srcCtx instanceof Subcomponent)
+				&& (dest instanceof Subcomponent || dstCtx instanceof Subcomponent);
 		// TODO can we do these checks on the instance information
+		keep[0] = true;
 
 		if (srcFi != null) {
 			sources.add(srcFi);
@@ -111,11 +128,11 @@ class ConnectionInfo {
 
 				bidirectional &= (dir == DirectionType.IN_OUT);
 				if (goingUp) {
-					valid &= (dir != DirectionType.IN);
+					valid &= dir.outgoing();
 				} else if (goingDown) {
-					valid &= (dir != DirectionType.OUT);
+					valid &= dir.incoming();
 				} else {
-					valid &= (dir != DirectionType.IN);
+					valid &= dir.outgoing();
 				}
 			}
 		}
@@ -127,23 +144,45 @@ class ConnectionInfo {
 
 				bidirectional &= (dir == DirectionType.IN_OUT);
 				if (goingUp) {
-					valid &= (dir != DirectionType.IN);
+					valid &= dir.outgoing();
 				} else if (goingDown) {
-					valid &= (dir != DirectionType.OUT);
+					valid &= dir.incoming();
 				} else {
-					valid &= (dir != DirectionType.OUT);
+					valid &= dir.incoming();
 				}
 			}
 		}
-		across |= (srcCtx instanceof Subcomponent) && (dstCtx instanceof Subcomponent)
-				|| (source instanceof Subcomponent) && (dstCtx instanceof Subcomponent)
-				|| (srcCtx instanceof Subcomponent) && (dest instanceof Subcomponent);
+		if (valid) {
+			// handle reaching into feature groups in across connection
+			if (newSeg.isAcross()) {
+				// segment goes across
+				int i = connections.size();
+				Connection root = newSeg.getRootConnection();
+				srcToMatch = opposite ? root.getDestination() : root.getSource();
+				srcToMatch = srcToMatch.getNext();
+				while (keep[0] && i > 0 && srcToMatch != null) {
+					i -= 1;
+					Connection c = connections.get(i);
+					ConnectionEnd e = opposites.get(i) ? c.getAllSource() : c.getAllDestination();
+					ConnectionEnd cce = srcToMatch.getConnectionEnd();
+					srcToMatch = srcToMatch.getNext();
+					keep[0] = cce == e;
+				}
+				across = true;
+				acrossConnection = newSeg;
+				dstToMatch = opposite ? root.getSource() : root.getDestination();
+				dstToMatch = dstToMatch.getNext();
+				container = ci;
+			} else if (across && dstToMatch != null) {
+				ConnectionEnd e = opposite ? newSeg.getAllDestination() : newSeg.getAllSource();
+				ConnectionEnd cce = dstToMatch.getConnectionEnd();
+				dstToMatch = dstToMatch.getNext();
+				keep[0] = cce == e;
+			}
+		}
 		connections.add(newSeg);
 		opposites.add(opposite);
 		contexts.add(ci);
-		if (container == null && across) {
-			container = ci;
-		}
 		return valid;
 	}
 
@@ -161,42 +200,37 @@ class ConnectionInfo {
 	}
 
 	public ConnectionInstance createConnectionInstance(final String name, final ConnectionInstanceEnd dst) {
-		final ConnectionInstance conni;
-// XXX phf the code below diables out only and in only connection instances
-//		if (!across) {
-//			return null;
-//		}
-		// OsateDebug.osateDebug ("[ConnectionInfo] createConnectionInstance name=" + name);
-		kind = getKind(dst);
-		// TODO-LW: complete = ...;
-//		destinations.add(dst);
-		conni = InstanceFactory.eINSTANCE.createConnectionInstance();
+		ConnectionInstance conni = InstanceFactory.eINSTANCE.createConnectionInstance();
 		conni.setName(name);
 		Iterator<Connection> connIter = connections.iterator();
 		Iterator<ComponentInstance> ctxIter = contexts.iterator();
-		Iterator<ConnectionInstanceEnd> srcIter = sources.iterator();
+		// Iterator<ConnectionInstanceEnd> srcIter = sources.iterator();
 		Iterator<ConnectionInstanceEnd> dstIter = destinations.iterator();
+		Iterator<Boolean> oppIter = opposites.iterator();
 		ConnectionInstanceEnd dosrc = src;
 		ConnectionInstanceEnd dodst = null;
+
 		while (connIter.hasNext() && dstIter.hasNext()) {
 			ConnectionReference connRef = conni.createConnectionReference();
 
 			connRef.setConnection(connIter.next());
 			connRef.setContext(ctxIter.next());
-			ConnectionInstanceEnd srcit = srcIter.next();
 			connRef.setSource(dosrc);
 			dodst = resolveFeatureInstance(dosrc, dstIter.next());
 			connRef.setDestination(dodst);
 			dosrc = dodst;
+			connRef.setReverse(oppIter.next());
 		}
 		conni.setSource(src);
 		conni.setDestination(dst);
 		conni.setComplete(across);
+		kind = getKind(dst);
 		conni.setKind(kind);
 		return conni;
 	}
 
-	public ConnectionInstanceEnd resolveFeatureInstance(ConnectionInstanceEnd origCIE, ConnectionInstanceEnd rootCIE) {
+	protected ConnectionInstanceEnd resolveFeatureInstance(ConnectionInstanceEnd origCIE,
+			ConnectionInstanceEnd rootCIE) {
 		if (origCIE instanceof ComponentInstance || rootCIE instanceof ComponentInstance) {
 			return rootCIE;
 		}
@@ -246,26 +280,25 @@ class ConnectionInfo {
 	}
 
 	private boolean isAbstract(ConnectionInstanceEnd end) {
-		return end instanceof FeatureInstance
-				&& ((FeatureInstance) end).getCategory() == FeatureCategory.ABSTRACT_FEATURE;
+		return end instanceof FeatureInstance && ((FeatureInstance) end).getCategory() == ABSTRACT_FEATURE;
 	}
 
 	private boolean isFeatureGroup(ConnectionInstanceEnd end) {
-		return end instanceof FeatureInstance && ((FeatureInstance) end).getCategory() == FeatureCategory.FEATURE_GROUP;
+		return end instanceof FeatureInstance && ((FeatureInstance) end).getCategory() == FEATURE_GROUP;
 	}
 
 	private boolean isAccess(ConnectionInstanceEnd end) {
 		if (end instanceof FeatureInstance) {
 			FeatureCategory cat = ((FeatureInstance) end).getCategory();
 
-			return cat == FeatureCategory.BUS_ACCESS || cat == FeatureCategory.DATA_ACCESS
-					|| cat == FeatureCategory.SUBPROGRAM_ACCESS || cat == FeatureCategory.SUBPROGRAM_GROUP_ACCESS;
+			return cat == BUS_ACCESS || cat == DATA_ACCESS || cat == SUBPROGRAM_ACCESS
+					|| cat == SUBPROGRAM_GROUP_ACCESS;
 		}
 		return false;
 	}
 
 	private boolean isParameter(ConnectionInstanceEnd end) {
-		return end instanceof FeatureInstance && ((FeatureInstance) end).getCategory() == FeatureCategory.PARAMETER;
+		return end instanceof FeatureInstance && ((FeatureInstance) end).getCategory() == PARAMETER;
 	}
 
 	public boolean isBidirectional() {

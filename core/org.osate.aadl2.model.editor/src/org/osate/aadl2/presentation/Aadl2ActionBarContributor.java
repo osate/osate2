@@ -22,7 +22,12 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.StringTokenizer;
 
+import org.eclipse.core.resources.IMarker;
+import org.eclipse.core.resources.IResource;
+import org.eclipse.core.runtime.CoreException;
 import org.eclipse.emf.common.ui.viewer.IViewerProvider;
+import org.eclipse.emf.ecore.EValidator;
+import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.edit.domain.EditingDomain;
 import org.eclipse.emf.edit.domain.IEditingDomainProvider;
 import org.eclipse.emf.edit.ui.action.ControlAction;
@@ -56,8 +61,13 @@ import org.eclipse.ui.ISharedImages;
 import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.actions.ActionFactory;
+import org.eclipse.ui.ide.IDE;
 import org.osate.aadl2.instance.InstanceObject;
 import org.osate.aadl2.instance.PropertyAssociationInstance;
+import org.osate.aadl2.instance.provider.EndToEndFlowInstanceItemProvider.EndToEndFlowInstanceFlowElementItemProvider;
+import org.osate.aadl2.instance.provider.SystemOperationModeItemProvider.SubModeItemProvider;
+import org.osate.aadl2.modelsupport.AadlConstants;
+import org.osate.aadl2.modelsupport.resources.OsateResourceUtil;
 import org.osate.ui.UiUtil;
 
 /**
@@ -127,7 +137,12 @@ public class Aadl2ActionBarContributor extends EditingDomainActionBarContributor
 			}
 		}
 	};
+	
 	protected IAction gotoSrcTextAction = new Action(Aadl2EditorPlugin.INSTANCE.getString("_UI_GotoSource_menu_item")) {
+		{
+			setId("Aadl2ActionBarContributor.gotoSrcTextAction");
+		}
+		
 		@Override
 		public void run() {
 			if (activeEditorPart instanceof Aadl2ModelEditor) {
@@ -143,11 +158,37 @@ public class Aadl2ActionBarContributor extends EditingDomainActionBarContributor
 					}
 					UiUtil.gotoInstanceObjectSource(activeEditorPart.getSite().getPage(),
 							(PropertyAssociationInstance) currentSelection);
+				} else if (currentSelection instanceof EndToEndFlowInstanceFlowElementItemProvider) {
+					if (((Aadl2ModelEditor) activeEditorPart).isDirty()) {
+						((Aadl2ModelEditor) activeEditorPart).doSave(null);
+					}
+					UiUtil.gotoInstanceObjectSource(activeEditorPart.getSite().getPage(),
+							((EndToEndFlowInstanceFlowElementItemProvider) currentSelection).getFlowElement());
+				} else if (currentSelection instanceof SubModeItemProvider) {
+					if (((Aadl2ModelEditor) activeEditorPart).isDirty()) {
+						((Aadl2ModelEditor) activeEditorPart).doSave(null);
+					}
+					UiUtil.gotoInstanceObjectSource(activeEditorPart.getSite().getPage(),
+							((SubModeItemProvider) currentSelection).getSubMode());
 				}
 			}
 		}
 	};
-
+	
+	private IAction gotoFlowElement = new Action("Goto Flow Element") {
+		@Override
+		public void run() {
+			gotoInstanceObject(((EndToEndFlowInstanceFlowElementItemProvider) currentSelection).getFlowElement());
+		}
+	};
+	
+	private IAction gotoModeInstance = new Action("Goto Mode Instance") {
+		@Override
+		public void run() {
+			gotoInstanceObject(((SubModeItemProvider) currentSelection).getSubMode());
+		}
+	};
+	
 	/**
 	 * This will contain one {@link org.eclipse.emf.edit.ui.action.CreateChildAction} corresponding to each descriptor
 	 * generated for the current selection by the item provider.
@@ -322,7 +363,7 @@ public class Aadl2ActionBarContributor extends EditingDomainActionBarContributor
 	 * that can be added to the selected object and updating the menus accordingly.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @generated NOT
 	 */
 	@Override
 	public void selectionChanged(SelectionChangedEvent event) {
@@ -344,16 +385,11 @@ public class Aadl2ActionBarContributor extends EditingDomainActionBarContributor
 
 		ISelection selection = event.getSelection();
 		if (selection instanceof IStructuredSelection && ((IStructuredSelection) selection).size() == 1) {
-			Object object = ((IStructuredSelection) selection).getFirstElement();
-			if (object instanceof InstanceObject || object instanceof PropertyAssociationInstance) {
-				currentSelection = object;
-			} else {
-				currentSelection = null;
-			}
+			currentSelection = ((IStructuredSelection) selection).getFirstElement();
 			EditingDomain domain = ((IEditingDomainProvider) activeEditorPart).getEditingDomain();
 
-			newChildDescriptors = domain.getNewChildDescriptors(object, null);
-			newSiblingDescriptors = domain.getNewChildDescriptors(null, object);
+			newChildDescriptors = domain.getNewChildDescriptors(currentSelection, null);
+			newSiblingDescriptors = domain.getNewChildDescriptors(null, currentSelection);
 		}
 
 		// Generate actions for selection; populate and redraw the menus.
@@ -542,7 +578,7 @@ public class Aadl2ActionBarContributor extends EditingDomainActionBarContributor
 	 * This populates the pop-up menu before it appears.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @generated NOT
 	 */
 	@Override
 	public void menuAboutToShow(IMenuManager menuManager) {
@@ -558,6 +594,12 @@ public class Aadl2ActionBarContributor extends EditingDomainActionBarContributor
 		populateManager(submenuManager, createSiblingSubmenuActions, null);
 		populateManager(submenuManager, createSiblingActions, null);
 		menuManager.insertBefore("edit", submenuManager); //$NON-NLS-1$
+		
+		if (currentSelection instanceof EndToEndFlowInstanceFlowElementItemProvider) {
+			menuManager.insertAfter(gotoSrcTextAction.getId(), gotoFlowElement);
+		} else if (currentSelection instanceof SubModeItemProvider) {
+			menuManager.insertAfter(gotoSrcTextAction.getId(), gotoModeInstance);
+		}
 	}
 
 	/**
@@ -589,4 +631,15 @@ public class Aadl2ActionBarContributor extends EditingDomainActionBarContributor
 		return true;
 	}
 
+	private void gotoInstanceObject(InstanceObject io) {
+		IResource instanceFile = OsateResourceUtil.convertToIResource(io.eResource());
+		try {
+			IMarker gotoMarker = instanceFile.createMarker(AadlConstants.AADLGOTOMARKER);
+			gotoMarker.setAttribute(EValidator.URI_ATTRIBUTE, EcoreUtil.getURI(io).toString());
+			IDE.openEditor(getPage(), gotoMarker);
+			instanceFile.deleteMarkers(AadlConstants.AADLGOTOMARKER, false, IResource.DEPTH_ZERO);
+		} catch (CoreException e) {
+			Aadl2EditorPlugin.INSTANCE.log(e);
+		}
+	}
 }

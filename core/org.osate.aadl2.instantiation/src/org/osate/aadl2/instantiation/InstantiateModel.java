@@ -61,6 +61,7 @@ import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.common.util.UniqueEList;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.transaction.RecordingCommand;
 import org.eclipse.emf.transaction.RollbackException;
@@ -145,8 +146,9 @@ import org.osate.workspace.WorkspacePlugin;
 public class InstantiateModel {
 	/* The name for the single mode of a non-modal system */
 	public static final String NORMAL_SOM_NAME = "No Modes";
-	private final AnalysisErrorReporterManager errManager;
-	private final IProgressMonitor monitor;
+	protected static final int SOM_LIMIT = 1000;
+	protected final AnalysisErrorReporterManager errManager;
+	protected final IProgressMonitor monitor;
 
 	/**
 	 * A classifier for an instance object when it is a prototype in the
@@ -156,13 +158,13 @@ public class InstantiateModel {
 	 * feature or subprogram call. If the classifier is anonymous, then its
 	 * bindings are included also.
 	 */
-	private HashMap<InstanceObject, InstantiatedClassifier> classifierCache;
+	protected HashMap<InstanceObject, InstantiatedClassifier> classifierCache;
 
-	private SCProperties scProps = new SCProperties();
+	protected SCProperties scProps = new SCProperties();
 	/**
 	 * Maps mode instances to SOMs that contain this mode instance
 	 */
-	private HashMap<ModeInstance, List<SystemOperationMode>> mode2som;
+	protected HashMap<ModeInstance, List<SystemOperationMode>> mode2som;
 
 	/*
 	 * An error message that is filled by potential methods that
@@ -228,18 +230,13 @@ public class InstantiateModel {
 			throws Exception {
 		// add it to a resource; otherwise we cannot attach error messages to
 		// the instance file
-		ComponentImplementation ici = ci;
-		EObject eobj = OsateResourceUtil.loadElementIntoResourceSet(ci);
-		if (eobj instanceof ComponentImplementation) {
-			ici = (ComponentImplementation) eobj;
-		}
-		URI instanceURI = OsateResourceUtil.getInstanceModelURI(ici);
+		URI instanceURI = OsateResourceUtil.getInstanceModelURI(ci);
 		Resource aadlResource = OsateResourceUtil.getEmptyAaxl2Resource(instanceURI);// ,si);
 
 		// now instantiate the rest of the model
 		final InstantiateModel instantiateModel = new InstantiateModel(monitor, new AnalysisErrorReporterManager(
 				new MarkerAnalysisErrorReporter.Factory(AadlConstants.INSTANTIATION_OBJECT_MARKER)));
-		SystemInstance root = instantiateModel.createSystemInstance(ici, aadlResource);
+		SystemInstance root = instantiateModel.createSystemInstance(ci, aadlResource);
 		if (root == null) {
 			errorMessage = InstantiateModel.getErrorMessage();
 		}
@@ -262,15 +259,15 @@ public class InstantiateModel {
 	 */
 	public static SystemInstance rebuildInstanceModelFile(final IResource ires) throws Exception {
 		ires.deleteMarkers(null, true, IResource.DEPTH_INFINITE);
-		Resource res = OsateResourceUtil.getResource(ires);
+		ResourceSet rset = OsateResourceUtil.createResourceSet();// new XtextResourceSet();
+		Resource res = OsateResourceUtil.getResource(ires, rset);
 		SystemInstance target = (SystemInstance) res.getContents().get(0);
 		ComponentImplementation ci = target.getComponentImplementation();
 		URI uri = EcoreUtil.getURI(ci);
 		res.getContents().clear();
 		res.save(null);
 		res.unload();
-		OsateResourceUtil.refreshResourceSet();
-		ci = (ComponentImplementation) OsateResourceUtil.getResourceSet().getEObject(uri, true);
+		ci = (ComponentImplementation) rset.getEObject(uri, true);
 		final InstantiateModel instantiateModel = new InstantiateModel(new NullProgressMonitor(),
 				new AnalysisErrorReporterManager(
 						new MarkerAnalysisErrorReporter.Factory(AadlConstants.INSTANTIATION_OBJECT_MARKER)));
@@ -282,14 +279,15 @@ public class InstantiateModel {
 	/*
 	 * This method will regenerate all instance models in the workspace
 	 */
-	public static void rebuildAllInstanceModelFiles() throws Exception {
+	public static void rebuildAllInstanceModelFiles(final IProgressMonitor monitor) throws Exception {
 		HashSet<IFile> files = TraverseWorkspace.getInstanceModelFilesInWorkspace();
 		List<URI> instanceRoots = new ArrayList<URI>();
 		List<IResource> instanceIResources = new ArrayList<IResource>();
+		ResourceSet rset = OsateResourceUtil.createResourceSet();// new XtextResourceSet();
 		for (IFile iFile : files) {
 			IResource ires = iFile;
 			ires.deleteMarkers(null, true, IResource.DEPTH_INFINITE);
-			Resource res = OsateResourceUtil.getResource(ires);
+			Resource res = OsateResourceUtil.getResource(ires, rset);
 			SystemInstance target = (SystemInstance) res.getContents().get(0);
 			ComponentImplementation ci = target.getComponentImplementation();
 			URI uri = EcoreUtil.getURI(ci);
@@ -299,10 +297,10 @@ public class InstantiateModel {
 			res.save(null);
 			res.unload();
 		}
-		OsateResourceUtil.refreshResourceSet();
 		for (int i = 0; i < instanceRoots.size(); i++) {
 			ComponentImplementation ci = (ComponentImplementation) OsateResourceUtil.getResourceSet()
 					.getEObject(instanceRoots.get(i), true);
+			monitor.subTask("Reinstantiating " + ci.getName());
 			final InstantiateModel instantiateModel = new InstantiateModel(new NullProgressMonitor(),
 					new AnalysisErrorReporterManager(
 							new MarkerAnalysisErrorReporter.Factory(AadlConstants.INSTANTIATION_OBJECT_MARKER)));
@@ -365,7 +363,6 @@ public class InstantiateModel {
 			setErrorMessage(e.getMessage());
 			return null;
 		}
-
 		resultList = (List<SystemInstance>) cmd.getResult();
 		result = resultList.get(0);
 
@@ -465,6 +462,25 @@ public class InstantiateModel {
 //			return null;
 //		}
 
+		getUsedPropertyDefinitions(root);
+		// handle connection patterns
+		processConnections(root);
+
+//		OsateResourceManager.save(aadlResource);
+//		OsateResourceManager.getResourceSet().setPropagateNameChange(oldProp);
+		// Run some checks over the model.
+//		final SOMIterator soms = new SOMIterator(root);
+//		while (soms.hasNext()) {
+//			final SystemOperationMode som = soms.nextSOM();
+//			monitor.subTask("Checking model semantics for mode " + som.getName());
+//			final CheckInstanceSemanticsSwitch semanticsSwitch = new CheckInstanceSemanticsSwitch(som, soms
+//					.getSOMasModeBindings(), cpas.getSemanticConnectionProperties(), errManager);
+//			semanticsSwitch.processPostOrderAll(root);
+//		}
+		return;
+	}
+
+	protected void getUsedPropertyDefinitions(SystemInstance root) throws InterruptedException {
 		/*
 		 * We now cache the property associations. First we cache the contained
 		 * property associations. In a second pass we cache regular property
@@ -487,21 +503,6 @@ public class InstantiateModel {
 		if (monitor.isCanceled()) {
 			throw new InterruptedException();
 		}
-		// handle connection patterns
-		processConnections(root);
-
-//		OsateResourceManager.save(aadlResource);
-//		OsateResourceManager.getResourceSet().setPropagateNameChange(oldProp);
-		// Run some checks over the model.
-//		final SOMIterator soms = new SOMIterator(root);
-//		while (soms.hasNext()) {
-//			final SystemOperationMode som = soms.nextSOM();
-//			monitor.subTask("Checking model semantics for mode " + som.getName());
-//			final CheckInstanceSemanticsSwitch semanticsSwitch = new CheckInstanceSemanticsSwitch(som, soms
-//					.getSOMasModeBindings(), cpas.getSemanticConnectionProperties(), errManager);
-//			semanticsSwitch.processPostOrderAll(root);
-//		}
-		return;
 	}
 
 	// --------------------------------------------------------------------------------------------
@@ -565,8 +566,13 @@ public class InstantiateModel {
 			mi.setMode(m);
 			mi.setName(m.getName());
 			mi.setInitial(m.isInitial());
-			mi.setDerived(m.isDerived());
-			if (m.isDerived()) {
+			/*
+			 * If ci is the root object, ignore derived. This means that we are instantiating an implementation that
+			 * contains derived modes. In this case, treat the derived modes as normal modes since there is no
+			 * containing component to provide a parent mode.
+			 */
+			if (m.isDerived() && !(ci instanceof SystemInstance)) {
+				mi.setDerived(true);
 				Subcomponent sub = ci.getSubcomponent();
 				ComponentInstance parentci = ci.getContainingComponentInstance();
 
@@ -711,6 +717,7 @@ public class InstantiateModel {
 //					errManager.warning(newInstance, "Instantiated subcomponent has a component type only");
 //				}
 //			}
+			newInstance.setClassifier(cc);
 			newInstance.setCategory(cc.getCategory());
 		}
 
@@ -1006,24 +1013,45 @@ public class InstantiateModel {
 	 */
 	protected void instantiateFGFeatures(final FeatureInstance fgi, List<Feature> flist, final boolean inverse) {
 		for (final Feature feature : flist) {
-			final EList<ArrayDimension> dims = feature.getArrayDimensions();
-
-			if (dims.isEmpty()) {
-				fillFeatureInstance(fgi, feature, inverse, 0);
+			if (hasFeatureInstance(fgi, feature)) {
+				errManager.error(fgi, "Cyclic containment dependency: Feature '" + feature.getName()
+						+ "' has already been instantiated as enclosing feature group.");
 			} else {
-				class ArrayInstantiator {
-					void process(int dim) {
-						ArraySize arraySize = dims.get(dim).getSize();
-						long count = getElementCount(arraySize, fgi.getContainingComponentInstance());
+				final EList<ArrayDimension> dims = feature.getArrayDimensions();
 
-						for (int i = 0; i < count; i++) {
-							fillFeatureInstance(fgi, feature, inverse, i + 1);
+				if (dims.isEmpty()) {
+					fillFeatureInstance(fgi, feature, inverse, 0);
+				} else {
+					class ArrayInstantiator {
+						void process(int dim) {
+							ArraySize arraySize = dims.get(dim).getSize();
+							long count = getElementCount(arraySize, fgi.getContainingComponentInstance());
+
+							for (int i = 0; i < count; i++) {
+								fillFeatureInstance(fgi, feature, inverse, i + 1);
+							}
 						}
 					}
+					new ArrayInstantiator().process(0);
 				}
-				new ArrayInstantiator().process(0);
 			}
 		}
+	}
+
+	/*
+	 * check to see if the specified feature already exists as feature
+	 * instance in the ancestry
+	 */
+	private boolean hasFeatureInstance(FeatureInstance fi, Feature f) {
+		EObject parent = fi;
+		while (parent instanceof FeatureInstance) {
+			Feature df = ((FeatureInstance) parent).getFeature();
+			if (df == f) {
+				return true;
+			}
+			parent = parent.eContainer();
+		}
+		return false;
 	}
 
 	// --------------------------------------------------------------------------------------------
@@ -1975,7 +2003,7 @@ public class InstantiateModel {
 	 * @param result EList holding the used property definitions
 	 * @return List holding the used property definitions
 	 */
-	private void addUsedPropertyDefinitions(Element root, List<Property> result) {
+	protected void addUsedPropertyDefinitions(Element root, List<Property> result) {
 //		OsateDebug.osateDebug ("[InstantiateModel] addUsedPropertyDefinitions=" + root);
 
 		TreeIterator<Element> it = EcoreUtil.getAllContents(Collections.singleton(root));
@@ -2067,9 +2095,13 @@ public class InstantiateModel {
 		final EList<ModeInstance> modes = instances[0].getModeInstances();
 
 		if (!modes.isEmpty()) {
+			int somIndex = 0;
 			for (ModeInstance mi : modes) {
 				if (monitor.isCanceled()) {
 					throw new InterruptedException();
+				}
+				if (somIndex == -1) {
+					break;
 				}
 				if (!mi.isDerived()) {
 					List<ModeInstance> nextModes = new ArrayList<ModeInstance>(currentModes);
@@ -2085,11 +2117,14 @@ public class InstantiateModel {
 							}
 						}
 					}
-					enumerateSystemOperationModes(root, instances, 1, skipped, nextModes);
+					somIndex = enumerateSystemOperationModes(root, instances, 1, skipped, nextModes, somIndex);
 				}
 			}
+			if (somIndex == -1) {
+				errManager.error(root, "List of System Operation Modes is incomplete.");
+			}
 		} else {
-			enumerateSystemOperationModes(root, instances, 1, skipped, currentModes);
+			enumerateSystemOperationModes(root, instances, 1, skipped, currentModes, 0);
 		}
 	}
 
@@ -2111,15 +2146,19 @@ public class InstantiateModel {
 	 * of <code>instances</code>, this list holds the modal instances that
 	 * should be turned into a System Operation Mode object.
 	 */
-	protected void enumerateSystemOperationModes(SystemInstance root, ComponentInstance[] instances,
-			int currentInstance, LinkedList<ComponentInstance> skipped, List<ModeInstance> modeState)
+	protected int enumerateSystemOperationModes(SystemInstance root, ComponentInstance[] instances,
+			int currentInstance, LinkedList<ComponentInstance> skipped, List<ModeInstance> modeState, int somIndex)
 			throws InterruptedException {
 		if (monitor.isCanceled()) {
 			throw new InterruptedException();
 		}
+		if (somIndex >= SOM_LIMIT) {
+			return -1;
+		}
 		if (currentInstance == instances.length) {
 			// Completed an SOM
-			root.getSystemOperationModes().add(createSOM(modeState));
+			root.getSystemOperationModes().add(createSOM(modeState, somIndex));
+			somIndex++;
 		} else {
 			/*
 			 * First test if the current component exists given the currently
@@ -2138,6 +2177,9 @@ public class InstantiateModel {
 						if (monitor.isCanceled()) {
 							throw new InterruptedException();
 						}
+						if (somIndex == -1) {
+							break;
+						}
 						List<ModeInstance> nextModes = new ArrayList<ModeInstance>(modeState);
 
 						nextModes.add(mi);
@@ -2151,20 +2193,21 @@ public class InstantiateModel {
 								}
 							}
 						}
-						enumerateSystemOperationModes(root, instances, currentInstance + 1, skipped, nextModes);
+						somIndex = enumerateSystemOperationModes(root, instances, currentInstance + 1, skipped, nextModes, somIndex);
 					}
 				} else {
 					// non-modal component
-					enumerateSystemOperationModes(root, instances, currentInstance + 1, skipped, modeState);
+					somIndex = enumerateSystemOperationModes(root, instances, currentInstance + 1, skipped, modeState, somIndex);
 				}
 			} else {
 				// Skip the current component, it doesn't exist under the
 				// modeState
 				skipped.addLast(ci);
-				enumerateSystemOperationModes(root, instances, currentInstance + 1, skipped, modeState);
+				somIndex = enumerateSystemOperationModes(root, instances, currentInstance + 1, skipped, modeState, somIndex);
 				skipped.removeLast();
 			}
 		}
+		return somIndex;
 	}
 
 	private boolean existsGiven(final List<ModeInstance> modeState, final List<ModeInstance> inModes)
@@ -2187,7 +2230,7 @@ public class InstantiateModel {
 	/*
 	 * Create a SystemOperationMode given a list of mode instances.
 	 */
-	private SystemOperationMode createSOM(final List<ModeInstance> modeInstances) throws InterruptedException {
+	private SystemOperationMode createSOM(final List<ModeInstance> modeInstances, int somIndex) throws InterruptedException {
 		final SystemOperationMode som;
 
 		som = InstanceFactory.eINSTANCE.createSystemOperationMode();
@@ -2203,7 +2246,7 @@ public class InstantiateModel {
 			soms.add(som);
 			som.getCurrentModes().add(mi);
 		}
-		som.setName(som.toString());
+		som.setName("som_" + somIndex);
 		return som;
 	}
 

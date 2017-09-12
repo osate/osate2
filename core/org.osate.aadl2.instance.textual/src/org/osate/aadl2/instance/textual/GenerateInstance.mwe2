@@ -143,9 +143,7 @@ Workflow {
     		// fragment = parseTreeConstructor.ParseTreeConstructorFragment auto-inject {}    
     
     		// serializer 2.0
-    		fragment = serializer.SerializerFragment auto-inject {
-    			generateStub = false
-    		}
+    		fragment = serializer.SerializerFragment auto-inject {}
     
     		// a custom ResourceFactory for use with EMF
     		fragment = resourceFactory.ResourceFactoryFragment auto-inject {}
@@ -192,7 +190,9 @@ Workflow {
     		fragment = parser.antlr.XtextAntlrUiGeneratorFragment auto-inject {}
     
     		// generates junit test support classes into Generator#pathTestProject
-    		fragment = junit.Junit4Fragment auto-inject {}
+    		fragment = junit.Junit4Fragment auto-inject {
+    			useDeprecatedClasses = false
+    		}
     
     		// rename refactoring
     		fragment = refactoring.RefactorElementNameFragment auto-inject {}

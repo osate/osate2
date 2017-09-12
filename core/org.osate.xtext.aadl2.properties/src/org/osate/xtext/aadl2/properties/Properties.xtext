@@ -21,11 +21,12 @@ ContainedPropertyAssociation returns aadl2::PropertyAssociation:
 	 ownedValue+=OptionalModalPropertyValue
 	( ',' ownedValue+=OptionalModalPropertyValue )*
 	)
-	('applies' 'to' appliesTo+=ContainmentPath 
+	(AppliesToKeywords appliesTo+=ContainmentPath 
 		(',' appliesTo+=ContainmentPath)*
 	)?
-	('in' 'binding' '(' inBinding+=[aadl2::Classifier|QCREF]')')?
+	(InBindingKeywords '(' inBinding+=[aadl2::Classifier|QCREF]')')?
 	';';
+
 
 PropertyAssociation returns aadl2::PropertyAssociation:
 	property=[aadl2::Property|QPREF] 
@@ -34,7 +35,7 @@ PropertyAssociation returns aadl2::PropertyAssociation:
 	 ownedValue+=OptionalModalPropertyValue
 	( ',' ownedValue+=OptionalModalPropertyValue )*
 	)
-	('in' 'binding' '(' inBinding+=[aadl2::Classifier|QCREF]')')?
+	(InBindingKeywords '(' inBinding+=[aadl2::Classifier|QCREF]')')?
 	';'
 	;
 
@@ -54,7 +55,7 @@ ContainmentPath returns aadl2::ContainedNamedElement:
 
 ModalPropertyValue returns aadl2::ModalPropertyValue:
 	ownedValue=PropertyExpression 
-	'in' 'modes' '(' 
+	InModesKeywords '(' 
 	inMode+=[aadl2::Mode|ID] (',' inMode+=[aadl2::Mode|ID])*
 	')'
 	;
@@ -62,7 +63,7 @@ ModalPropertyValue returns aadl2::ModalPropertyValue:
 OptionalModalPropertyValue returns aadl2::ModalPropertyValue:
 	ownedValue=PropertyExpression 
 	// phf made this optional: need to check separately that only the last one is optional
-	( 'in' 'modes' '(' 
+	( InModesKeywords '(' 
 	inMode+=[aadl2::Mode|ID] (',' inMode+=[aadl2::Mode|ID])*
 	')')?
 	;
@@ -210,6 +211,18 @@ NumericRangeTerm returns aadl2::RangeValue:
 
 NumAlt  returns aadl2::PropertyExpression: 
 	RealTerm|IntegerTerm| SignedConstant | ConstantValue
+;
+
+AppliesToKeywords:
+	'applies' 'to'
+;
+
+InBindingKeywords:
+	'in' 'binding'
+;
+
+InModesKeywords:
+	'in' 'modes'
 ;
 
 terminal SL_COMMENT:

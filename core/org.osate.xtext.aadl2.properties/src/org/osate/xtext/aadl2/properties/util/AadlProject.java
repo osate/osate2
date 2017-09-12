@@ -121,10 +121,9 @@ public final class AadlProject {
 //
 //	public static final String DATA_VOLUME_UNITS = "Data_Volume_Units";
 	public static final String BITSPS_LITERAL = "bitsps";
-	public static final String BPS_LITERAL = "Bytesps";
-	public static final String KBPS_LITERAL = "KBytesps";
-	public static final String MBPS_LITERAL = "MBytesps";
-	public static final String GBPS_LITERAL = "GBytesps";
+	public static final String KBITSPS_LITERAL = "Kbitsps";
+	public static final String MBITSPS_LITERAL = "Mbitsps";
+	public static final String GBITSPS_LITERAL = "Gbitsps";
 	public static final String BYTESPS_LITERAL = "Bytesps";
 	public static final String KBYTESPS_LITERAL = "KBytesps";
 	public static final String MBYTESPS_LITERAL = "MBytesps";

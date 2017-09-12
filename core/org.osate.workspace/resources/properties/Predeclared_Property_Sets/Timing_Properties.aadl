@@ -19,7 +19,7 @@ property set Timing_Properties is
 	Client_Subprogram_Execution_Time: Time_Range
 		applies to (subprogram);
 	
-	Deactivate_Dealing: Time
+	Deactivate_Deadline: Time
 		applies to (thread);
 	
 	Deactivate_Execution_Time: Time_Range
@@ -89,7 +89,7 @@ property set Timing_Properties is
 		applies to (processor, device, system);
 	
 	Process_Swap_Execution_Time: Time_Range
-		applies to (processor, virtual processor);
+		applies to (processor, virtual processor, system);
 	
 	Reference_Processor: inherit classifier (processor)
 		applies to (subprogram, subprogram group, thread, thread group, process, device, system);
@@ -103,7 +103,7 @@ property set Timing_Properties is
 		applies to (processor);
 	
 	Thread_Swap_Execution_Time: Time_Range
-		applies to (processor, system);
+		applies to (processor, system, virtual processor);
 	
 	Frame_Period: Time
 		applies to (processor, virtual processor);

@@ -239,7 +239,7 @@ public class IntegerLiteralImpl extends NumberValueImpl implements IntegerLitera
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @generated NOT
 	 */
 	@Override
 	public String toString() {
@@ -247,12 +247,12 @@ public class IntegerLiteralImpl extends NumberValueImpl implements IntegerLitera
 			return super.toString();
 		}
 
-		StringBuffer result = new StringBuffer(super.toString());
-		result.append(" (base: ");
-		result.append(base);
-		result.append(", value: ");
+		StringBuffer result = new StringBuffer();
 		result.append(value);
-		result.append(')');
+		result.append(' ');
+		if (unit != null) {
+			result.append(unit.getName());
+		}
 		return result.toString();
 	}
 

@@ -217,9 +217,13 @@ public class NamedValueImpl extends PropertyValueImpl implements NamedValue {
 	 * @see org.osate.aadl2.impl.PropertyExpressionImpl#evaluate(org.osate.aadl2.properties.EvaluationContext)
 	 */
 	@Override
-	public EvaluatedProperty evaluate(EvaluationContext ctx) {
+	public EvaluatedProperty evaluate(EvaluationContext ctx, int depth) {
 		AbstractNamedValue nv = getNamedValue();
-		PropertyEvaluationResult pev = nv.evaluate(ctx);
+		if (depth > 50) {
+			throw new InvalidModelException(ctx.getInstanceObject(),
+					"Property " + ((Property) nv).getQualifiedName() + " has cyclic value");
+		}
+		PropertyEvaluationResult pev = nv.evaluate(ctx, depth + 1);
 		List<EvaluatedProperty> evaluated = pev.getEvaluated();
 		if (evaluated.isEmpty()) {
 			throw new InvalidModelException(ctx.getInstanceObject(),

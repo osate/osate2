@@ -1,7 +1,7 @@
 package org.osate.core.tests
 
-import org.eclipse.xtext.junit4.InjectWith
-import org.eclipse.xtext.junit4.XtextRunner
+import org.eclipse.xtext.testing.InjectWith
+import org.eclipse.xtext.testing.XtextRunner
 import org.junit.Assert
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -14,10 +14,6 @@ import org.osate.core.test.OsateTest
 @RunWith(typeof(XtextRunner))
 @InjectWith(typeof(Aadl2UiInjectorProvider))
 class PropertyTests extends OsateTest {
-	override getProjectName() {
-		"test"
-	}
-
 	@Test
 	def void scope_A() {
 

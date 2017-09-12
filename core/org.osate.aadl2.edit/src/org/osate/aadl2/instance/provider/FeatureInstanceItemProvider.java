@@ -251,7 +251,7 @@ public class FeatureInstanceItemProvider extends ConnectionInstanceEndItemProvid
 		FeatureInstance fi = (FeatureInstance) object;
 		String label = fi.getFullName();
 		String ftype = fi.getCategory().getName();
-		return (ftype == null || ftype.length() == 0 ? getString("_UI_FeatureInstance_type") : ftype + " instance") //$NON-NLS-1$
+		return (ftype == null || ftype.length() == 0 ? getString("_UI_FeatureInstance_type") : ftype) //$NON-NLS-1$
 				+ (label == null || label.length() == 0 ? "" : " " + label);
 	}
 
