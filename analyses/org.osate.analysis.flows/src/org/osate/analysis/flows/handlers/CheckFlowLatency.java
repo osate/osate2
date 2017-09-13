@@ -101,7 +101,7 @@ public final class CheckFlowLatency extends AbstractInstanceOrDeclarativeModelRe
 			SystemInstance root = latreport.getRootinstance();
 
 			URI latencyURI = EcoreUtil.getURI(root).trimFragment().trimSegments(1).appendSegment("reports")
-					.appendSegment("latency").appendSegment(root.getName() + ".latency");
+					.appendSegment("latency").appendSegment(root.getName() + ".result");
 			AadlUtil.makeSureFoldersExist(new Path(latencyURI.toPlatformString(true)));
 			URI newuri = OsateResourceUtil.saveEMFModel(results, latencyURI, root);
 		}
