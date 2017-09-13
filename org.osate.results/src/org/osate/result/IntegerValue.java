@@ -13,6 +13,7 @@ package org.osate.result;
  * </p>
  * <ul>
  *   <li>{@link org.osate.result.IntegerValue#getValue <em>Value</em>}</li>
+ *   <li>{@link org.osate.result.IntegerValue#getUnit <em>Unit</em>}</li>
  * </ul>
  *
  * @see org.osate.result.ResultPackage#getIntegerValue()
@@ -31,7 +32,7 @@ public interface IntegerValue extends Value {
 	 * @return the value of the '<em>Value</em>' attribute.
 	 * @see #setValue(long)
 	 * @see org.osate.result.ResultPackage#getIntegerValue_Value()
-	 * @model
+	 * @model required="true"
 	 * @generated
 	 */
 	long getValue();
@@ -45,5 +46,31 @@ public interface IntegerValue extends Value {
 	 * @generated
 	 */
 	void setValue(long value);
+
+	/**
+	 * Returns the value of the '<em><b>Unit</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Unit</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Unit</em>' attribute.
+	 * @see #setUnit(String)
+	 * @see org.osate.result.ResultPackage#getIntegerValue_Unit()
+	 * @model
+	 * @generated
+	 */
+	String getUnit();
+
+	/**
+	 * Sets the value of the '{@link org.osate.result.IntegerValue#getUnit <em>Unit</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Unit</em>' attribute.
+	 * @see #getUnit()
+	 * @generated
+	 */
+	void setUnit(String value);
 
 } // IntegerValue

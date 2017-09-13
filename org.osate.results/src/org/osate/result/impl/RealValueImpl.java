@@ -20,6 +20,7 @@ import org.osate.result.ResultPackage;
  * </p>
  * <ul>
  *   <li>{@link org.osate.result.impl.RealValueImpl#getValue <em>Value</em>}</li>
+ *   <li>{@link org.osate.result.impl.RealValueImpl#getUnit <em>Unit</em>}</li>
  * </ul>
  *
  * @generated
@@ -44,6 +45,26 @@ public class RealValueImpl extends ValueImpl implements RealValue {
 	 * @ordered
 	 */
 	protected double value = VALUE_EDEFAULT;
+
+	/**
+	 * The default value of the '{@link #getUnit() <em>Unit</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getUnit()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final String UNIT_EDEFAULT = null;
+
+	/**
+	 * The cached value of the '{@link #getUnit() <em>Unit</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getUnit()
+	 * @generated
+	 * @ordered
+	 */
+	protected String unit = UNIT_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -90,11 +111,34 @@ public class RealValueImpl extends ValueImpl implements RealValue {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public String getUnit() {
+		return unit;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setUnit(String newUnit) {
+		String oldUnit = unit;
+		unit = newUnit;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, ResultPackage.REAL_VALUE__UNIT, oldUnit, unit));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 			case ResultPackage.REAL_VALUE__VALUE:
 				return getValue();
+			case ResultPackage.REAL_VALUE__UNIT:
+				return getUnit();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -109,6 +153,9 @@ public class RealValueImpl extends ValueImpl implements RealValue {
 		switch (featureID) {
 			case ResultPackage.REAL_VALUE__VALUE:
 				setValue((Double)newValue);
+				return;
+			case ResultPackage.REAL_VALUE__UNIT:
+				setUnit((String)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -125,6 +172,9 @@ public class RealValueImpl extends ValueImpl implements RealValue {
 			case ResultPackage.REAL_VALUE__VALUE:
 				setValue(VALUE_EDEFAULT);
 				return;
+			case ResultPackage.REAL_VALUE__UNIT:
+				setUnit(UNIT_EDEFAULT);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -139,6 +189,8 @@ public class RealValueImpl extends ValueImpl implements RealValue {
 		switch (featureID) {
 			case ResultPackage.REAL_VALUE__VALUE:
 				return value != VALUE_EDEFAULT;
+			case ResultPackage.REAL_VALUE__UNIT:
+				return UNIT_EDEFAULT == null ? unit != null : !UNIT_EDEFAULT.equals(unit);
 		}
 		return super.eIsSet(featureID);
 	}
@@ -155,6 +207,8 @@ public class RealValueImpl extends ValueImpl implements RealValue {
 		StringBuffer result = new StringBuffer(super.toString());
 		result.append(" (value: ");
 		result.append(value);
+		result.append(", unit: ");
+		result.append(unit);
 		result.append(')');
 		return result.toString();
 	}
