@@ -360,13 +360,22 @@ public interface ResultPackage extends EPackage {
 	int INTEGER_VALUE__VALUE = VALUE_FEATURE_COUNT + 0;
 
 	/**
+	 * The feature id for the '<em><b>Unit</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int INTEGER_VALUE__UNIT = VALUE_FEATURE_COUNT + 1;
+
+	/**
 	 * The number of structural features of the '<em>Integer Value</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int INTEGER_VALUE_FEATURE_COUNT = VALUE_FEATURE_COUNT + 1;
+	int INTEGER_VALUE_FEATURE_COUNT = VALUE_FEATURE_COUNT + 2;
 
 	/**
 	 * The number of operations of the '<em>Integer Value</em>' class.
@@ -397,13 +406,22 @@ public interface ResultPackage extends EPackage {
 	int REAL_VALUE__VALUE = VALUE_FEATURE_COUNT + 0;
 
 	/**
+	 * The feature id for the '<em><b>Unit</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int REAL_VALUE__UNIT = VALUE_FEATURE_COUNT + 1;
+
+	/**
 	 * The number of structural features of the '<em>Real Value</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int REAL_VALUE_FEATURE_COUNT = VALUE_FEATURE_COUNT + 1;
+	int REAL_VALUE_FEATURE_COUNT = VALUE_FEATURE_COUNT + 2;
 
 	/**
 	 * The number of operations of the '<em>Real Value</em>' class.
@@ -770,6 +788,17 @@ public interface ResultPackage extends EPackage {
 	EAttribute getIntegerValue_Value();
 
 	/**
+	 * Returns the meta object for the attribute '{@link org.osate.result.IntegerValue#getUnit <em>Unit</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Unit</em>'.
+	 * @see org.osate.result.IntegerValue#getUnit()
+	 * @see #getIntegerValue()
+	 * @generated
+	 */
+	EAttribute getIntegerValue_Unit();
+
+	/**
 	 * Returns the meta object for class '{@link org.osate.result.RealValue <em>Real Value</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -789,6 +818,17 @@ public interface ResultPackage extends EPackage {
 	 * @generated
 	 */
 	EAttribute getRealValue_Value();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.osate.result.RealValue#getUnit <em>Unit</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Unit</em>'.
+	 * @see org.osate.result.RealValue#getUnit()
+	 * @see #getRealValue()
+	 * @generated
+	 */
+	EAttribute getRealValue_Unit();
 
 	/**
 	 * Returns the meta object for class '{@link org.osate.result.StringValue <em>String Value</em>}'.
@@ -1076,6 +1116,14 @@ public interface ResultPackage extends EPackage {
 		EAttribute INTEGER_VALUE__VALUE = eINSTANCE.getIntegerValue_Value();
 
 		/**
+		 * The meta object literal for the '<em><b>Unit</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute INTEGER_VALUE__UNIT = eINSTANCE.getIntegerValue_Unit();
+
+		/**
 		 * The meta object literal for the '{@link org.osate.result.impl.RealValueImpl <em>Real Value</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -1092,6 +1140,14 @@ public interface ResultPackage extends EPackage {
 		 * @generated
 		 */
 		EAttribute REAL_VALUE__VALUE = eINSTANCE.getRealValue_Value();
+
+		/**
+		 * The meta object literal for the '<em><b>Unit</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute REAL_VALUE__UNIT = eINSTANCE.getRealValue_Unit();
 
 		/**
 		 * The meta object literal for the '{@link org.osate.result.impl.StringValueImpl <em>String Value</em>}' class.

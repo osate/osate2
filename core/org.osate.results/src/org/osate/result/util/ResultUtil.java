@@ -65,6 +65,20 @@ public class ResultUtil {
 		contributor.getValues().add(res);
 	}
 
+	public static void addIntegerValue(Result result, long value, String unit) {
+		IntegerValue res = ResultFactory.eINSTANCE.createIntegerValue();
+		res.setValue(value);
+		res.setUnit(unit);
+		result.getValues().add(res);
+	}
+
+	public static void addIntegerValue(Contributor contributor, long value, String unit) {
+		IntegerValue res = ResultFactory.eINSTANCE.createIntegerValue();
+		res.setValue(value);
+		res.setUnit(unit);
+		contributor.getValues().add(res);
+	}
+
 	public static void addRealValue(Result result, double value) {
 		RealValue res = ResultFactory.eINSTANCE.createRealValue();
 		res.setValue(value);
@@ -74,6 +88,20 @@ public class ResultUtil {
 	public static void addRealValue(Contributor contributor, double value) {
 		RealValue res = ResultFactory.eINSTANCE.createRealValue();
 		res.setValue(value);
+		contributor.getValues().add(res);
+	}
+
+	public static void addRealValue(Result result, double value, String unit) {
+		RealValue res = ResultFactory.eINSTANCE.createRealValue();
+		res.setValue(value);
+		res.setUnit(unit);
+		result.getValues().add(res);
+	}
+
+	public static void addRealValue(Contributor contributor, double value, String unit) {
+		RealValue res = ResultFactory.eINSTANCE.createRealValue();
+		res.setValue(value);
+		res.setUnit(unit);
 		contributor.getValues().add(res);
 	}
 
