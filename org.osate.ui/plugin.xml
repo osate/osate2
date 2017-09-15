@@ -285,6 +285,33 @@
     <extension
           point="org.eclipse.ui.menus">
        <menuContribution
+             allPopups="false"
+             locationURI="popup:#TextEditorContext?after=additions">
+          <command
+                commandId="org.osate.ui.instantiate"
+                style="push"
+                tooltip="Do Instantiate">
+             <visibleWhen
+                   checkEnabled="false">
+                <reference
+                      definitionId="org.osate.xtext.aadl2.Aadl2.Editor.opened">
+                </reference>
+             </visibleWhen>
+          </command>
+       </menuContribution>
+       <menuContribution
+             allPopups="false"
+             locationURI="popup:org.osate.xtext.aadl2.ui.outline?after=additions">
+          <command
+                commandId="org.osate.ui.instantiate"
+                style="push"
+                tooltip="Do Instantiate">
+             <visibleWhen
+                   checkEnabled="false">
+             </visibleWhen>
+          </command>
+       </menuContribution>
+       <menuContribution
              locationURI="popup:org.osate.ui.navigator.AadlNavigator?after=additions">
           <menu
                 id="org.osate.ui.osatePopupMenu"
@@ -299,17 +326,10 @@
                 label="AADL Analyses">
           </menu>
           <command
-                commandId="org.osate.ui.setAadlProjectProperties"
-                label="Set as AADL_Project property set"
-                style="push">
-             <visibleWhen>
-                <with variable="selection">
-                   <iterate
-                         ifEmpty="false">
-                      <reference definitionId="org.osate.is_aadl_project_propertyset"/>
-                   </iterate>
-                </with>
-             </visibleWhen>
+                commandId="org.osate.ui.instantiate"
+                label="Reinstantiate selected instance"
+                style="push"
+                tooltip="Do Reinstantiate">
           </command>
        </menuContribution>
        <menuContribution
