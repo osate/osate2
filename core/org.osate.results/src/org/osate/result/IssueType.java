@@ -26,7 +26,7 @@ public enum IssueType implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	NONE(0, "NONE", "tbd"),
+	NONE(0, "NONE", "NONE"),
 
 	/**
 	 * The '<em><b>ERROR</b></em>' literal object.
@@ -36,7 +36,7 @@ public enum IssueType implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	ERROR(1, "ERROR", "error"),
+	ERROR(1, "ERROR", "ERROR"),
 
 	/**
 	 * The '<em><b>WARNING</b></em>' literal object.
@@ -46,7 +46,7 @@ public enum IssueType implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	WARNING(2, "WARNING", "warning"),
+	WARNING(2, "WARNING", "WARNING"),
 
 	/**
 	 * The '<em><b>INFO</b></em>' literal object.
@@ -56,7 +56,7 @@ public enum IssueType implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	INFO(3, "INFO", "info"),
+	INFO(3, "INFO", "INFO"),
 
 	/**
 	 * The '<em><b>SUCCESS</b></em>' literal object.
@@ -66,7 +66,7 @@ public enum IssueType implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	SUCCESS(4, "SUCCESS", "success"),
+	SUCCESS(4, "SUCCESS", "SUCCESS"),
 
 	/**
 	 * The '<em><b>FAIL</b></em>' literal object.
@@ -76,7 +76,7 @@ public enum IssueType implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	FAIL(5, "FAIL", "fail");
+	FAIL(5, "FAIL", "FAIL");
 
 	/**
 	 * The '<em><b>NONE</b></em>' literal value.
@@ -87,7 +87,7 @@ public enum IssueType implements Enumerator {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @see #NONE
-	 * @model literal="tbd"
+	 * @model
 	 * @generated
 	 * @ordered
 	 */
@@ -102,7 +102,7 @@ public enum IssueType implements Enumerator {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @see #ERROR
-	 * @model literal="error"
+	 * @model
 	 * @generated
 	 * @ordered
 	 */
@@ -117,7 +117,7 @@ public enum IssueType implements Enumerator {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @see #WARNING
-	 * @model literal="warning"
+	 * @model
 	 * @generated
 	 * @ordered
 	 */
@@ -132,7 +132,7 @@ public enum IssueType implements Enumerator {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @see #INFO
-	 * @model literal="info"
+	 * @model
 	 * @generated
 	 * @ordered
 	 */
@@ -147,7 +147,7 @@ public enum IssueType implements Enumerator {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @see #SUCCESS
-	 * @model literal="success"
+	 * @model
 	 * @generated
 	 * @ordered
 	 */
@@ -162,7 +162,7 @@ public enum IssueType implements Enumerator {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @see #FAIL
-	 * @model literal="fail"
+	 * @model
 	 * @generated
 	 * @ordered
 	 */

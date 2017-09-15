@@ -35,12 +35,12 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="source" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EEnum" name="IssueType">
-    <eLiterals name="NONE" literal="tbd"/>
-    <eLiterals name="ERROR" value="1" literal="error"/>
-    <eLiterals name="WARNING" value="2" literal="warning"/>
-    <eLiterals name="INFO" value="3" literal="info"/>
-    <eLiterals name="SUCCESS" value="4" literal="success"/>
-    <eLiterals name="FAIL" value="5" literal="fail"/>
+    <eLiterals name="NONE" literal="NONE"/>
+    <eLiterals name="ERROR" value="1" literal="ERROR"/>
+    <eLiterals name="WARNING" value="2" literal="WARNING"/>
+    <eLiterals name="INFO" value="3" literal="INFO"/>
+    <eLiterals name="SUCCESS" value="4" literal="SUCCESS"/>
+    <eLiterals name="FAIL" value="5" literal="FAIL"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Value" abstract="true"/>
   <eClassifiers xsi:type="ecore:EClass" name="IntegerValue" eSuperTypes="#//Value">
