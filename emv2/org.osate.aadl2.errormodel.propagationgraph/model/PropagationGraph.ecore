@@ -19,7 +19,8 @@
         containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="pathDst" eType="#//PropagationPathEnd"
         containment="true"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="highlight" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="highlight" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"
+        transient="true"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="type" eType="#//PropagationType"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="connection" eType="ecore:EClass ../../org.osate.aadl2/model/instance.ecore#//ConnectionInstance"/>
   </eClassifiers>
@@ -27,7 +28,8 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="connectionInstance" eType="ecore:EClass ../../org.osate.aadl2/model/instance.ecore#//ConnectionInstance"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="errorPropagation" eType="ecore:EClass ../../org.osate.xtext.aadl2.errormodel/model/generated/ErrorModel.ecore#//ErrorPropagation"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="componentInstance" eType="ecore:EClass ../../org.osate.aadl2/model/instance.ecore#//ComponentInstance"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="highlight" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="highlight" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"
+        transient="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EEnum" name="PropagationType">
     <eLiterals name="connection"/>

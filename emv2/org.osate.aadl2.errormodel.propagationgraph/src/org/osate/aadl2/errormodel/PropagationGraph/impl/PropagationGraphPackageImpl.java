@@ -8,8 +8,10 @@ import org.eclipse.emf.ecore.EEnum;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
 
+import org.eclipse.emf.ecore.EcorePackage;
 import org.eclipse.emf.ecore.impl.EPackageImpl;
 
+import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.errormodel.PropagationGraph.PropagationGraph;
 import org.osate.aadl2.errormodel.PropagationGraph.PropagationGraphFactory;
 import org.osate.aadl2.errormodel.PropagationGraph.PropagationGraphPackage;
@@ -103,6 +105,8 @@ public class PropagationGraphPackageImpl extends EPackageImpl implements Propaga
 		isInited = true;
 
 		// Initialize simple dependencies
+		Aadl2Package.eINSTANCE.eClass();
+		EcorePackage.eINSTANCE.eClass();
 		ErrorModelPackage.eINSTANCE.eClass();
 		InstancePackage.eINSTANCE.eClass();
 
@@ -401,7 +405,7 @@ public class PropagationGraphPackageImpl extends EPackageImpl implements Propaga
 		initEAttribute(getPropagationPath_Name(), ecorePackage.getEString(), "name", null, 0, 1, PropagationPath.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getPropagationPath_PathSrc(), this.getPropagationPathEnd(), null, "pathSrc", null, 0, 1, PropagationPath.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getPropagationPath_PathDst(), this.getPropagationPathEnd(), null, "pathDst", null, 0, 1, PropagationPath.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getPropagationPath_Highlight(), ecorePackage.getEBoolean(), "highlight", null, 0, 1, PropagationPath.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getPropagationPath_Highlight(), ecorePackage.getEBoolean(), "highlight", null, 0, 1, PropagationPath.class, IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getPropagationPath_Type(), this.getPropagationType(), "type", null, 0, 1, PropagationPath.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getPropagationPath_Connection(), theInstancePackage.getConnectionInstance(), null, "connection", null, 0, 1, PropagationPath.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
@@ -409,7 +413,7 @@ public class PropagationGraphPackageImpl extends EPackageImpl implements Propaga
 		initEReference(getPropagationPathEnd_ConnectionInstance(), theInstancePackage.getConnectionInstance(), null, "connectionInstance", null, 0, 1, PropagationPathEnd.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getPropagationPathEnd_ErrorPropagation(), theErrorModelPackage.getErrorPropagation(), null, "errorPropagation", null, 0, 1, PropagationPathEnd.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getPropagationPathEnd_ComponentInstance(), theInstancePackage.getComponentInstance(), null, "componentInstance", null, 0, 1, PropagationPathEnd.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getPropagationPathEnd_Highlight(), ecorePackage.getEBoolean(), "highlight", null, 0, 1, PropagationPathEnd.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getPropagationPathEnd_Highlight(), ecorePackage.getEBoolean(), "highlight", null, 0, 1, PropagationPathEnd.class, IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		// Initialize enums and add enum literals
 		initEEnum(propagationTypeEEnum, PropagationType.class, "PropagationType");

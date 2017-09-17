@@ -117,7 +117,7 @@ public interface PropagationPathEnd extends EObject {
 	 * @return the value of the '<em>Highlight</em>' attribute.
 	 * @see #setHighlight(boolean)
 	 * @see org.osate.aadl2.errormodel.PropagationGraph.PropagationGraphPackage#getPropagationPathEnd_Highlight()
-	 * @model
+	 * @model transient="true"
 	 * @generated
 	 */
 	boolean isHighlight();
