@@ -32,14 +32,18 @@ import org.osate.xtext.aadl2.properties.util.InstanceModelUtil;
 /**
  * The purpose of this class is to keep track of model elements involved in a
  * particular EM analysis.
- * 
+ *
  * @author phf
  *
+ * @deprecated use {@link org.osate.aadl2.errormodel.propagationgraph.PropgationGraph} instead
+ *
  */
+
+@Deprecated
 public class AnalysisModel {
 
 	protected ComponentInstance root; // component instance that is the root of
-										// the analysis
+	// the analysis
 	// propagation paths
 	protected Collection<PropagationPathRecord> propagationPaths = new ArrayList<PropagationPathRecord>();
 	// component instances that are involved in propagation paths
@@ -63,7 +67,7 @@ public class AnalysisModel {
 	/**
 	 * build up a propagation path graph of propagations within a system as well
 	 * as external ones.
-	 * 
+	 *
 	 * @param root
 	 *            ComponentInstance that is the root of the system
 	 * @param level
@@ -163,7 +167,7 @@ public class AnalysisModel {
 					+ propagationPath.getDstCI().getComponentInstancePath() + ":"
 					+ generateErrorPropTypeSetText(propagationPath.getPathDst().getErrorPropagation())
 					+ (propagationPath.getConnectionInstance() != null
-							? " conni " + propagationPath.getConnectionInstance().getName() : ""));
+					? " conni " + propagationPath.getConnectionInstance().getName() : ""));
 		}
 	}
 
@@ -502,7 +506,7 @@ public class AnalysisModel {
 
 	/**
 	 * populate direct bindings from the specified component to its resources
-	 * 
+	 *
 	 * @param ci
 	 */
 	protected void populateBindingPaths(InstanceObject obj) {
@@ -576,7 +580,7 @@ public class AnalysisModel {
 	 * This is made to support the binding between connection and components.
 	 * Here, the first argument is the connection bound to a resource and the
 	 * boundResource argument the associated resources (e.g. a bus).
-	 * 
+	 *
 	 * @param conn
 	 * @param boundResource
 	 */
@@ -607,7 +611,7 @@ public class AnalysisModel {
 	/**
 	 * populate with user declared propagation paths declared in this component
 	 * instance the paths are between subcomponents
-	 * 
+	 *
 	 * @param ci
 	 *            ComponentInstance
 	 */
@@ -673,7 +677,7 @@ public class AnalysisModel {
 	/**
 	 * return all propagation paths out of the outgoing error propagation we
 	 * assume that any type token to be propagated meets the ep type constraint
-	 * 
+	 *
 	 * @param ci
 	 * @param outEP
 	 * @return
@@ -758,7 +762,7 @@ public class AnalysisModel {
 	 * return all feature (or for access component) instances that are the
 	 * connection destination of the given feature instance The source and
 	 * destinations are assumed to be components with error models
-	 * 
+	 *
 	 * @param fi
 	 * @return list of ConnectionInstanceEnd
 	 */
