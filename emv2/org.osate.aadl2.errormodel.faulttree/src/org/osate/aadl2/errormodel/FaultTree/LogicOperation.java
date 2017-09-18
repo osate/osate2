@@ -19,16 +19,6 @@ import org.eclipse.emf.common.util.Enumerator;
  */
 public enum LogicOperation implements Enumerator {
 	/**
-	 * The '<em><b>Noop</b></em>' literal object.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #NOOP_VALUE
-	 * @generated
-	 * @ordered
-	 */
-	NOOP(0, "Noop", "Noop"),
-
-	/**
 	 * The '<em><b>Or</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -36,7 +26,7 @@ public enum LogicOperation implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	OR(1, "Or", "Or"),
+	OR(0, "Or", "Or"),
 
 	/**
 	 * The '<em><b>And</b></em>' literal object.
@@ -46,7 +36,7 @@ public enum LogicOperation implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	AND(2, "And", "And"),
+	AND(1, "And", "And"),
 
 	/**
 	 * The '<em><b>Xor</b></em>' literal object.
@@ -56,7 +46,7 @@ public enum LogicOperation implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	XOR(3, "Xor", "Xor"),
+	XOR(2, "Xor", "Xor"),
 
 	/**
 	 * The '<em><b>Priority And</b></em>' literal object.
@@ -66,7 +56,7 @@ public enum LogicOperation implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	PRIORITY_AND(4, "PriorityAnd", "PriorityAnd"),
+	PRIORITY_AND(3, "PriorityAnd", "PriorityAnd"),
 
 	/**
 	 * The '<em><b>KOf</b></em>' literal object.
@@ -76,7 +66,7 @@ public enum LogicOperation implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	KOF(5, "kOf", "kOf"),
+	KOF(4, "kOf", "kOf"),
 
 	/**
 	 * The '<em><b>KOrmore</b></em>' literal object.
@@ -86,7 +76,7 @@ public enum LogicOperation implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	KORMORE(6, "kOrmore", "kOrmore"),
+	KORMORE(5, "kOrmore", "kOrmore"),
 
 	/**
 	 * The '<em><b>KOrless</b></em>' literal object.
@@ -96,22 +86,7 @@ public enum LogicOperation implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	KORLESS(7, "kOrless", "kOrless");
-
-	/**
-	 * The '<em><b>Noop</b></em>' literal value.
-	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of '<em><b>Noop</b></em>' literal object isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
-	 * <!-- end-user-doc -->
-	 * @see #NOOP
-	 * @model name="Noop"
-	 * @generated
-	 * @ordered
-	 */
-	public static final int NOOP_VALUE = 0;
+	KORLESS(6, "kOrless", "kOrless");
 
 	/**
 	 * The '<em><b>Or</b></em>' literal value.
@@ -126,7 +101,7 @@ public enum LogicOperation implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	public static final int OR_VALUE = 1;
+	public static final int OR_VALUE = 0;
 
 	/**
 	 * The '<em><b>And</b></em>' literal value.
@@ -141,7 +116,7 @@ public enum LogicOperation implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	public static final int AND_VALUE = 2;
+	public static final int AND_VALUE = 1;
 
 	/**
 	 * The '<em><b>Xor</b></em>' literal value.
@@ -156,7 +131,7 @@ public enum LogicOperation implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	public static final int XOR_VALUE = 3;
+	public static final int XOR_VALUE = 2;
 
 	/**
 	 * The '<em><b>Priority And</b></em>' literal value.
@@ -171,7 +146,7 @@ public enum LogicOperation implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	public static final int PRIORITY_AND_VALUE = 4;
+	public static final int PRIORITY_AND_VALUE = 3;
 
 	/**
 	 * The '<em><b>KOf</b></em>' literal value.
@@ -186,7 +161,7 @@ public enum LogicOperation implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	public static final int KOF_VALUE = 5;
+	public static final int KOF_VALUE = 4;
 
 	/**
 	 * The '<em><b>KOrmore</b></em>' literal value.
@@ -201,7 +176,7 @@ public enum LogicOperation implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	public static final int KORMORE_VALUE = 6;
+	public static final int KORMORE_VALUE = 5;
 
 	/**
 	 * The '<em><b>KOrless</b></em>' literal value.
@@ -216,7 +191,7 @@ public enum LogicOperation implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	public static final int KORLESS_VALUE = 7;
+	public static final int KORLESS_VALUE = 6;
 
 	/**
 	 * An array of all the '<em><b>Logic Operation</b></em>' enumerators.
@@ -226,7 +201,6 @@ public enum LogicOperation implements Enumerator {
 	 */
 	private static final LogicOperation[] VALUES_ARRAY =
 		new LogicOperation[] {
-			NOOP,
 			OR,
 			AND,
 			XOR,
@@ -290,7 +264,6 @@ public enum LogicOperation implements Enumerator {
 	 */
 	public static LogicOperation get(int value) {
 		switch (value) {
-			case NOOP_VALUE: return NOOP;
 			case OR_VALUE: return OR;
 			case AND_VALUE: return AND;
 			case XOR_VALUE: return XOR;

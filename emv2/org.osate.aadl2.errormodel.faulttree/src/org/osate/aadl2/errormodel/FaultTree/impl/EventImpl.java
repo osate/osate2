@@ -199,7 +199,7 @@ public class EventImpl extends MinimalEObjectImpl.Container implements Event {
 	 * @generated
 	 * @ordered
 	 */
-	protected static final LogicOperation SUB_EVENT_LOGIC_EDEFAULT = LogicOperation.NOOP;
+	protected static final LogicOperation SUB_EVENT_LOGIC_EDEFAULT = LogicOperation.OR;
 
 	/**
 	 * The cached value of the '{@link #getSubEventLogic() <em>Sub Event Logic</em>}' attribute.

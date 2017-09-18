@@ -1,18 +1,18 @@
 /**
  * Copyright (c) 2015 Carnegie Mellon University.
  * All Rights Reserved.
- * 
+ *
  * THIS SOFTWARE IS PROVIDED "AS IS," WITH NO WARRANTIES WHATSOEVER.
- * CARNEGIE MELLON UNIVERSITY EXPRESSLY DISCLAIMS TO THE FULLEST 
- * EXTENT PERMITTEDBY LAW ALL EXPRESS, IMPLIED, AND STATUTORY 
- * WARRANTIES, INCLUDING, WITHOUT LIMITATION, THE WARRANTIES OF 
- * MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, AND 
+ * CARNEGIE MELLON UNIVERSITY EXPRESSLY DISCLAIMS TO THE FULLEST
+ * EXTENT PERMITTEDBY LAW ALL EXPRESS, IMPLIED, AND STATUTORY
+ * WARRANTIES, INCLUDING, WITHOUT LIMITATION, THE WARRANTIES OF
+ * MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, AND
  * NON-INFRINGEMENT OF PROPRIETARY RIGHTS.
 
- * This Program is distributed under a BSD license.  
+ * This Program is distributed under a BSD license.
  * Please see license.txt file or permission@sei.cmu.edu for more
- * information. 
- * 
+ * information.
+ *
  * DM-0003411
  */
 
@@ -26,6 +26,7 @@ import org.eclipse.core.commands.ExecutionEvent;
 import org.eclipse.core.commands.ExecutionException;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IResource;
+import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.URI;
@@ -62,17 +63,16 @@ public final class FTAHandler extends AbstractHandler {
 	private static boolean BASICTREE = true;
 	public static final String prefixState = "state ";
 	public static final String prefixOutgoingPropagation = "outgoing propagation on ";
-	SystemInstance si;
-	ComponentInstance target;
 
 	@Override
 	public Object execute(ExecutionEvent event) throws ExecutionException {
+		ComponentInstance target;
 		InstanceObject object = getTarget(HandlerUtil.getCurrentSelection(event));
 		if (object == null) {
 			Dialog.showInfo("Fault Tree Analysis", "Please choose an instance model");
-			return Status.ERROR;
+			return IStatus.ERROR;
 		}
-		si = object.getSystemInstance();
+		SystemInstance si = object.getSystemInstance();
 		if (object instanceof ComponentInstance) {
 			target = (ComponentInstance) object;
 		} else {
@@ -86,48 +86,44 @@ public final class FTAHandler extends AbstractHandler {
 		}
 
 		final Display d = PlatformUI.getWorkbench().getDisplay();
-		d.syncExec(new Runnable() {
+		d.syncExec(() -> {
+			IWorkbenchWindow window;
+			Shell sh;
+			List<String> stateNames = new ArrayList<String>();
 
-			@Override
-			public void run() {
-				IWorkbenchWindow window;
-				Shell sh;
-				List<String> stateNames = new ArrayList<String>();
+			window = PlatformUI.getWorkbench().getActiveWorkbenchWindow();
+			sh = window.getShell();
 
-				window = PlatformUI.getWorkbench().getActiveWorkbenchWindow();
-				sh = window.getShell();
-
-				for (ErrorBehaviorState ebs : EMV2Util.getAllErrorBehaviorStates(target)) {
-					stateNames.add(prefixState + ebs.getName());
-				}
-
-				for (ErrorPropagation opc : EMV2Util.getAllOutgoingErrorPropagations(target.getComponentClassifier())) {
-					if (!(opc.getFeatureorPPRef().getFeatureorPP() instanceof Feature)) {
-						continue;
-					}
-					EList<TypeToken> result = EM2TypeSetUtil.generateAllLeafTypeTokens(opc.getTypeSet(),
-							EMV2Util.getUseTypes(opc));
-					for (TypeToken tt : result) {
-						String epName = prefixOutgoingPropagation + EMV2Util.getPrintName(opc)
-								+ EMV2Util.getPrintName(tt);
-						if (!stateNames.contains(epName)) {
-							stateNames.add(epName);
-						}
-					}
-				}
-
-				FTADialog diag = new FTADialog(sh);
-				diag.setValues(stateNames);
-				diag.setTarget(
-						"'" + (target instanceof SystemInstance ? target.getName() : target.getComponentInstancePath())
-								+ "'");
-				diag.open();
-				ERROR_STATE_NAME = diag.getValue();
-				GRAPH = diag.getSharedEventsAsGraph();
-				TRANSFORM = diag.getTransform();
-				MINCUTSET = diag.getMinCutSet();
-				BASICTREE = diag.getBasicTree();
+			for (ErrorBehaviorState ebs : EMV2Util.getAllErrorBehaviorStates(target)) {
+				stateNames.add(prefixState + ebs.getName());
 			}
+
+			for (ErrorPropagation opc : EMV2Util.getAllOutgoingErrorPropagations(target.getComponentClassifier())) {
+				if (!(opc.getFeatureorPPRef().getFeatureorPP() instanceof Feature)) {
+					continue;
+				}
+				EList<TypeToken> result = EM2TypeSetUtil.generateAllLeafTypeTokens(opc.getTypeSet(),
+						EMV2Util.getUseTypes(opc));
+				for (TypeToken tt : result) {
+					String epName = prefixOutgoingPropagation + EMV2Util.getPrintName(opc)
+					+ EMV2Util.getPrintName(tt);
+					if (!stateNames.contains(epName)) {
+						stateNames.add(epName);
+					}
+				}
+			}
+
+			FTADialog diag = new FTADialog(sh);
+			diag.setValues(stateNames);
+			diag.setTarget(
+					"'" + (target instanceof SystemInstance ? target.getName() : target.getComponentInstancePath())
+					+ "'");
+			diag.open();
+			ERROR_STATE_NAME = diag.getValue();
+			GRAPH = diag.getSharedEventsAsGraph();
+			TRANSFORM = diag.getTransform();
+			MINCUTSET = diag.getMinCutSet();
+			BASICTREE = diag.getBasicTree();
 		});
 
 		if (ERROR_STATE_NAME != null) {
@@ -147,7 +143,7 @@ public final class FTAHandler extends AbstractHandler {
 			}
 		}
 
-		return Status.ERROR;
+		return IStatus.ERROR;
 	}
 
 	private InstanceObject getTarget(ISelection currentSelection) {

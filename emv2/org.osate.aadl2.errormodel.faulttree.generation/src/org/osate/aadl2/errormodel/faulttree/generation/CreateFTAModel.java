@@ -4,6 +4,7 @@ import org.eclipse.core.runtime.Path;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.util.EcoreUtil;
+import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.errormodel.FaultTree.FaultTree;
 import org.osate.aadl2.errormodel.PropagationGraph.PropagationGraph;
 import org.osate.aadl2.errormodel.PropagationGraph.util.Util;
@@ -32,61 +33,45 @@ public class CreateFTAModel {
 
 	public static URI createModel(ComponentInstance selection, final String errorStateName, boolean transform,
 			boolean graph, boolean mincutset) {
-		ErrorBehaviorState errorState;
-		ErrorTypes errorType;
-		ErrorPropagation errorPropagation;
-		String toProcess;
-
-		errorState = null;
-		errorType = null;
-		errorPropagation = null;
+		NamedElement errorStateOrPropagation=null;
+		ErrorTypes errorType =null;
 
 		if (errorStateName.startsWith(prefixState)) {
-			toProcess = errorStateName.replace(prefixState, "");
+			String toProcess = errorStateName.replace(prefixState, "");
 			for (ErrorBehaviorState ebs : EMV2Util.getAllErrorBehaviorStates(selection)) {
 				if (ebs.getName().equalsIgnoreCase(toProcess)) {
-					errorState = ebs;
+					errorStateOrPropagation = ebs;
 				}
 			}
 
 		}
 
 		if (errorStateName.startsWith(prefixOutgoingPropagation)) {
-			toProcess = errorStateName.replace(prefixOutgoingPropagation, "");
+			String toProcess = errorStateName.replace(prefixOutgoingPropagation, "");
 			for (ErrorPropagation opc : EMV2Util.getAllOutgoingErrorPropagations(selection.getComponentClassifier())) {
 				EList<TypeToken> result = EM2TypeSetUtil.generateAllLeafTypeTokens(opc.getTypeSet(),
 						EMV2Util.getUseTypes(opc));
 				for (TypeToken tt : result) {
 					String longName = EMV2Util.getPrintName(opc) + EMV2Util.getPrintName(tt);
 					if (longName.equalsIgnoreCase(toProcess) && !tt.getType().isEmpty()) {
-						errorPropagation = opc;
+						errorStateOrPropagation = opc;
 						errorType = tt.getType().get(0);
 					}
 				}
 			}
 		}
 		PropagationGraph currentPropagationGraph = Util.generatePropagationGraph(selection.getSystemInstance(), false);
-		FTAGenerator wrapper = null;
-		if ((errorState != null) || (errorPropagation != null)) {
-			if (errorState != null) {
-				wrapper = new FTAGenerator(currentPropagationGraph, selection, errorState, errorType);
-			}
-			if (errorPropagation != null) {
-				wrapper = new FTAGenerator(currentPropagationGraph, selection, errorPropagation, errorType);
-			}
-			FaultTree ftamodel = wrapper.getftaModel(transform, graph, mincutset);
-			String rootname = ftamodel.getName() + (mincutset ? "_cutset" : (transform ? "" : "_full"))
-					+ (graph ? "_graph" : "");
-			ftamodel.setName(rootname);
+		FTAGenerator wrapper = new FTAGenerator(currentPropagationGraph);
+		FaultTree ftamodel = wrapper.getftaModel(selection, errorStateOrPropagation, errorType,transform, graph, mincutset);
+		String rootname = ftamodel.getName() + (mincutset ? "_cutset" : (transform ? "" : "_full"))
+				+ (graph ? "_graph" : "");
+		ftamodel.setName(rootname);
 
-			URI ftaURI = EcoreUtil.getURI(selection).trimFragment().trimSegments(1).appendSegment("reports")
-					.appendSegment("fta").appendSegment(rootname + ".faulttree");
-			AadlUtil.makeSureFoldersExist(new Path(ftaURI.toPlatformString(true)));
-			URI ftauri = OsateResourceUtil.saveEMFModel(ftamodel, ftaURI, selection);
-			return ftauri;
-		} else {
-			return null;
-		}
+		URI ftaURI = EcoreUtil.getURI(selection).trimFragment().trimSegments(1).appendSegment("reports")
+				.appendSegment("fta").appendSegment(rootname + ".faulttree");
+		AadlUtil.makeSureFoldersExist(new Path(ftaURI.toPlatformString(true)));
+		URI ftauri = OsateResourceUtil.saveEMFModel(ftamodel, ftaURI, selection);
+		return ftauri;
 	}
 
 }

@@ -32,13 +32,12 @@
     <eLiterals name="Intermediate" value="3"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EEnum" name="LogicOperation">
-    <eLiterals name="Noop"/>
-    <eLiterals name="Or" value="1"/>
-    <eLiterals name="And" value="2"/>
-    <eLiterals name="Xor" value="3"/>
-    <eLiterals name="PriorityAnd" value="4"/>
-    <eLiterals name="kOf" value="5"/>
-    <eLiterals name="kOrmore" value="6"/>
-    <eLiterals name="kOrless" value="7"/>
+    <eLiterals name="Or"/>
+    <eLiterals name="And" value="1"/>
+    <eLiterals name="Xor" value="2"/>
+    <eLiterals name="PriorityAnd" value="3"/>
+    <eLiterals name="kOf" value="4"/>
+    <eLiterals name="kOrmore" value="5"/>
+    <eLiterals name="kOrless" value="6"/>
   </eClassifiers>
 </ecore:EPackage>

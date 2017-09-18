@@ -391,7 +391,6 @@ public class FaultTreePackageImpl extends EPackageImpl implements FaultTreePacka
 		addEEnumLiteral(eventTypeEEnum, EventType.INTERMEDIATE);
 
 		initEEnum(logicOperationEEnum, LogicOperation.class, "LogicOperation");
-		addEEnumLiteral(logicOperationEEnum, LogicOperation.NOOP);
 		addEEnumLiteral(logicOperationEEnum, LogicOperation.OR);
 		addEEnumLiteral(logicOperationEEnum, LogicOperation.AND);
 		addEEnumLiteral(logicOperationEEnum, LogicOperation.XOR);

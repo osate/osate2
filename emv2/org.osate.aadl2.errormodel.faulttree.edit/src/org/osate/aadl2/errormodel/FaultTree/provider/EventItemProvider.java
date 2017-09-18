@@ -58,6 +58,7 @@ public class EventItemProvider extends ItemProviderAdapter implements IEditingDo
 			addKPropertyDescriptor(object);
 			addProbabilityPropertyDescriptor(object);
 			addRelatedInstanceObjectPropertyDescriptor(object);
+			addRelatedErrorTypePropertyDescriptor(object);
 			addReferenceCountPropertyDescriptor(object);
 			addTypePropertyDescriptor(object);
 			addSubEventLogicPropertyDescriptor(object);
@@ -190,6 +191,28 @@ public class EventItemProvider extends ItemProviderAdapter implements IEditingDo
 				 getString("_UI_Event_relatedInstanceObject_feature"),
 				 getString("_UI_PropertyDescriptor_description", "_UI_Event_relatedInstanceObject_feature", "_UI_Event_type"),
 				 FaultTreePackage.Literals.EVENT__RELATED_INSTANCE_OBJECT,
+				 true,
+				 false,
+				 true,
+				 null,
+				 null,
+				 null));
+	}
+
+	/**
+	 * This adds a property descriptor for the Related Error Type feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addRelatedErrorTypePropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_Event_relatedErrorType_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_Event_relatedErrorType_feature", "_UI_Event_type"),
+				 FaultTreePackage.Literals.EVENT__RELATED_ERROR_TYPE,
 				 true,
 				 false,
 				 true,

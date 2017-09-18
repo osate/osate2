@@ -4,8 +4,6 @@ package org.osate.aadl2.errormodel.FaultTree.provider;
 
 import org.eclipse.emf.common.EMFPlugin;
 import org.eclipse.emf.common.util.ResourceLocator;
-import org.eclipse.emf.ecore.provider.EcoreEditPlugin;
-import org.osate.aadl2.provider.Aadl2EditPlugin;
 
 /**
  * This is the central singleton for the FaultTree edit plugin.
@@ -39,8 +37,6 @@ public final class FaultTreeEditPlugin extends EMFPlugin {
 	public FaultTreeEditPlugin() {
 		super
 		  (new ResourceLocator [] {
-		     Aadl2EditPlugin.INSTANCE,
-		     EcoreEditPlugin.INSTANCE,
 		   });
 	}
 
