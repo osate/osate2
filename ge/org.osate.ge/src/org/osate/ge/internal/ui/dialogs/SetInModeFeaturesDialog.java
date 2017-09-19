@@ -9,10 +9,11 @@
 package org.osate.ge.internal.ui.dialogs;
 
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.Collections;
+import java.util.Set;
+import java.util.TreeMap;
 
 import org.eclipse.jface.dialogs.IMessageProvider;
 import org.eclipse.jface.dialogs.TitleAreaDialog;
@@ -24,11 +25,15 @@ import org.eclipse.swt.events.SelectionListener;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
-import org.eclipse.swt.widgets.Combo;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Shell;
+import org.osate.aadl2.ComponentImplementation;
+import org.osate.aadl2.ModalPath;
+import org.osate.aadl2.ModeFeature;
+import org.osate.ge.internal.ui.properties.ConfigureInModesSection;
+import org.osate.ge.internal.ui.properties.ConfigureInModesSection.ModeState;
 
 /**
  * Dialog for configuring the modes and mode transitions, "mode features", in which a modal element is contained.
@@ -36,174 +41,157 @@ import org.eclipse.swt.widgets.Shell;
  */
 public class SetInModeFeaturesDialog extends TitleAreaDialog {
 	private final List<Control> modeControls = new ArrayList<Control>(); // A list of all controls that are involved in configuring modes. Will be disabled when the all modes check box is selected.
-	private final List<String> localModes;
-	private final List<String> localModeTransitions;
-	private final List<String> childModes;
-	private final Map<String, String> localToChildModeMap;
+	private final Map<ModeFeature, ModeState> localModeFeatures = new TreeMap<>(
+			ConfigureInModesSection.modeFeatureComparator);
+	private final Map<ModeFeature, ModeState> intersectionalModeTransitions = new TreeMap<>(
+			ConfigureInModesSection.modeFeatureComparator);
+	private final Set<ModeFeature> inModesOrTransitions = new HashSet<>();
 	private boolean inAllModes;
-	
+
 	/**
-	 * 
+	 *
 	 * @param parentShell
-	 * @param localModeFeatures
-	 * @param childModes optional. Used in case there is a mapping to child modes
-	 * @param localToChildModeMap
+	 * @param modalPath selected element on flows dialog
+	 * @param compImpl the component containing the modalPath
+	 * @param inModesOrTransitions
 	 */
-	public SetInModeFeaturesDialog(final Shell parentShell, final List<String> localModeFeatures, final List<String> localModeTransitionFeatures, final List<String> childModes, final Map<String, String> localToChildModeMap) {
+	public SetInModeFeaturesDialog(final Shell parentShell, final ModalPath modalPath, final ComponentImplementation compImpl) {
 		super(parentShell);
 		setShellStyle(getShellStyle() | SWT.RESIZE);
-		this.localModes = localModeFeatures;
-		this.localModeTransitions = localModeTransitionFeatures;
-		this.childModes = childModes;
-		this.localToChildModeMap = new HashMap<String, String>(localToChildModeMap);
-		this.inAllModes = localToChildModeMap.size() == 0;
+		ConfigureInModesSection.populateLocalModes(localModeFeatures, compImpl, modalPath);
+		ConfigureInModesSection.populateModeTransitions(intersectionalModeTransitions, compImpl, modalPath);
+
+		for (final Map.Entry<ModeFeature, ModeState> entry : localModeFeatures.entrySet()) {
+			if (entry.getValue() == ModeState.INMODE) {
+				inModesOrTransitions.add(entry.getKey());
+			}
+		}
+
+		for (final Map.Entry<ModeFeature, ModeState> entry : intersectionalModeTransitions.entrySet()) {
+			if (entry.getValue() == ModeState.INMODE) {
+				inModesOrTransitions.add(entry.getKey());
+			}
+		}
+
+		this.inAllModes = inAllModes();
+	}
+
+	private boolean inAllModes() {
+		return inModesOrTransitions.isEmpty();
 	}
 
 	@Override
 	public void create() {
 		super.create();
 		setTitle("Modes");
-	    setMessage("Select the modes for the element.", IMessageProvider.INFORMATION);
-	}	
-	
+		setMessage("Select the modes for the element.", IMessageProvider.INFORMATION);
+	}
+
 	@Override
 	protected void configureShell(final Shell newShell) {
 		super.configureShell(newShell);
 		newShell.setText("Configure In Modes");
 		newShell.setMinimumSize(400, 225);
 	}
-	
-	public Map<String, String> getLocalToChildModeMap() {
-		return inAllModes ? new HashMap<String, String>() : localToChildModeMap;
+
+	public Set<ModeFeature> getLocalToChildModeMap() {
+		if(inAllModes) {
+			return new HashSet<>();
+		}
+
+		return inModesOrTransitions;
 	}
-	
+
 	@Override
-  	protected Control createDialogArea(final Composite parent) {
-	    final Composite area = (Composite)super.createDialogArea(parent);
-	    
-	    ScrolledComposite scrolled = new ScrolledComposite(area, SWT.H_SCROLL | SWT.V_SCROLL);
-		scrolled.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true)); 
-		scrolled.setLayout(new GridLayout());	
-		scrolled.setExpandVertical(true); 
-		scrolled.setExpandHorizontal(true); 
-	    		
-	    final Composite container = new Composite(scrolled, SWT.NONE);
-	    container.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true)); 
-	    final GridLayout layout = new GridLayout(childModes == null ? 1 : 3, false);
-	    container.setLayout(layout);
-	    
-	    // All modes checkbox
-	    final Button allModesBtn = new Button(container, SWT.CHECK);
-	    allModesBtn.setText("All Modes");
-	    final GridData allModesGridData = new GridData();
-	    allModesGridData.horizontalSpan = layout.numColumns;
-	    allModesBtn.setLayoutData(allModesGridData);
-	    allModesBtn.setSelection(inAllModes);
-	    
-	    final Label modeSeparator = new Label(container, SWT.HORIZONTAL | SWT.SEPARATOR);
-	    final GridData modeSeparatorLayoutData = new GridData(GridData.FILL_HORIZONTAL);
-	    modeSeparatorLayoutData.horizontalSpan = layout.numColumns;
-	    modeSeparator.setLayoutData(modeSeparatorLayoutData);
-	    // Sort mode names
-	    Collections.sort(localModes);
-	    // Add controls for each of the local modes
-	    for(final String localMode : localModes) {
-	    	addLocalMode(container, localMode);
-	    }	    
-	  
-	    scrolled.setContent(container); 
-	    scrolled.setMinSize(container.computeSize(SWT.DEFAULT, SWT.DEFAULT));
-	    
-	    //will not show up on dialog if there are no mode transitions eligible for selection 
-	    if (localModeTransitions != null && !localModeTransitions.isEmpty()) {
-	    	//Sort transition names
-	    	Collections.sort(localModeTransitions);    
-	    	final GridData modeTransitionSeparatorLayoutData = new GridData(GridData.FILL_HORIZONTAL);
-	    	final Label modeTransitionSeparator = new Label(container, SWT.HORIZONTAL | SWT.SEPARATOR);
-	    	modeTransitionSeparatorLayoutData.horizontalSpan = layout.numColumns;
-	    	modeTransitionSeparator.setLayoutData(modeTransitionSeparatorLayoutData);
-	    	for(final String localModeTransition : localModeTransitions) {
-	    		addLocalMode(container, localModeTransition);
-	    	}
-	    }
-	    //update all check boxes when all modes is selected
-	    updateEnabledStateOfModeControls(!allModesBtn.getSelection());
-	    allModesBtn.addSelectionListener(new SelectionAdapter() {
-	    	@Override
-	    	public void widgetSelected(final SelectionEvent e) {
-	    		updateEnabledStateOfModeControls(!allModesBtn.getSelection());
-	    		inAllModes = allModesBtn.getSelection();
-	    	}
-	    });
-	    
-	    return area;
+	protected Control createDialogArea(final Composite parent) {
+		final Composite area = (Composite)super.createDialogArea(parent);
+
+		ScrolledComposite scrolled = new ScrolledComposite(area, SWT.H_SCROLL | SWT.V_SCROLL);
+		scrolled.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
+		scrolled.setLayout(new GridLayout());
+		scrolled.setExpandVertical(true);
+		scrolled.setExpandHorizontal(true);
+
+		final Composite container = new Composite(scrolled, SWT.NONE);
+		container.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
+		final GridLayout layout = new GridLayout();
+		container.setLayout(layout);
+
+		// All modes checkbox
+		final Button allModesBtn = new Button(container, SWT.CHECK);
+		allModesBtn.setText("All Modes");
+		final GridData allModesGridData = new GridData();
+		allModesGridData.horizontalSpan = layout.numColumns;
+		allModesBtn.setLayoutData(allModesGridData);
+		allModesBtn.setSelection(inAllModes);
+
+		final Label modeSeparator = new Label(container, SWT.HORIZONTAL | SWT.SEPARATOR);
+		final GridData modeSeparatorLayoutData = new GridData(GridData.FILL_HORIZONTAL);
+		modeSeparatorLayoutData.horizontalSpan = layout.numColumns;
+		modeSeparator.setLayoutData(modeSeparatorLayoutData);
+
+		// Add controls for each of the local modes
+		for (final Map.Entry<ModeFeature, ModeState> entry : localModeFeatures.entrySet()) {
+			addLocalMode(container, entry);
+		}
+
+		scrolled.setContent(container);
+		scrolled.setMinSize(container.computeSize(SWT.DEFAULT, SWT.DEFAULT));
+
+		// If mode transitions are available
+		if (!intersectionalModeTransitions.isEmpty()) {
+			final GridData modeTransitionSeparatorLayoutData = new GridData(GridData.FILL_HORIZONTAL);
+			final Label modeTransitionSeparator = new Label(container, SWT.HORIZONTAL | SWT.SEPARATOR);
+			modeTransitionSeparatorLayoutData.horizontalSpan = layout.numColumns;
+			modeTransitionSeparator.setLayoutData(modeTransitionSeparatorLayoutData);
+			for (Map.Entry<ModeFeature, ModeState> entry : intersectionalModeTransitions.entrySet()) {
+				addLocalMode(container, entry);
+			}
+		}
+
+		// Update all check boxes when all modes is selected
+		updateEnabledStateOfModeControls(!allModesBtn.getSelection());
+		allModesBtn.addSelectionListener(new SelectionAdapter() {
+			@Override
+			public void widgetSelected(final SelectionEvent e) {
+				updateEnabledStateOfModeControls(!allModesBtn.getSelection());
+				inAllModes = allModesBtn.getSelection();
+			}
+		});
+
+		return area;
 	}
-	
+
 	private void updateEnabledStateOfModeControls(final boolean value) {
 		for(final Control c : modeControls) {
-				c.setEnabled(value);
+			c.setEnabled(value);
 		}
 	}
-	
-	private void addLocalMode(Composite container, final String modeName) {
-	    final Button modeBtn = new Button(container, SWT.CHECK);
-	    modeBtn.setText(modeName);
-	    modeControls.add(modeBtn);
 
-	    // Set checked state
-	    if(localToChildModeMap.containsKey(modeName)) {
-		    modeBtn.setSelection(true);
-	    }
-	    
-	    // Create child mode drop down
-	    final Combo childModeFld;
-	    
-	    if(childModes == null) {
-	    	childModeFld = null;
-	    }
-	    else {
-		    final Label mappedLabel = new Label(container, SWT.CENTER);
-		    mappedLabel.setText("->");
-		    modeControls.add(mappedLabel);
-		    
-		    // Create mapped child mode combo
-		    childModeFld = new Combo(container, SWT.DROP_DOWN | SWT.READ_ONLY);
-		    modeControls.add(childModeFld);
-		    childModeFld.add("");
-		    // Sort child modes' names
-		    Collections.sort(childModes);
-		    for(final String childMode : childModes) {
-		    	 childModeFld.add(childMode);
-		    }
-		    
-		    final String mappedChildModeName = localToChildModeMap.get(modeName);
-		    if(mappedChildModeName != null) {
-		    	childModeFld.setText(mappedChildModeName);		    	
-		    }
-		    
-	    }	    
-	    
-	    // Handle selections to the mode button or the child mode combo
-	    final SelectionListener selectionListener = new SelectionAdapter() {
-	    	@Override
-	    	public void widgetSelected(final SelectionEvent e) {
-	    		if(e.getSource() == childModeFld && childModeFld.getText().length() > 0) {	    			
-	    			modeBtn.setSelection(true);
-	    		}
-	    		
-	    		if(modeBtn.getSelection()) {
-	    			final String selectedChildModeName = (childModeFld != null && childModeFld.getText().length() > 0) ? childModeFld.getText() : null;
-	    			localToChildModeMap.put(modeName, selectedChildModeName);
-	    		} else {
-	    			localToChildModeMap.remove(modeName);
-	    		}
-	    	}
-	    };
-	    
-	    // Register selection listeners
-	    modeBtn.addSelectionListener(selectionListener);
-	    if(childModeFld != null) {
-	    	childModeFld.addSelectionListener(selectionListener);	    	
-	    }
+	private void addLocalMode(final Composite container, final Map.Entry<ModeFeature, ModeState> entry) {
+		final ModeFeature localMode = entry.getKey();
+		final Button modeBtn = new Button(container, SWT.CHECK);
+		modeBtn.setText(localMode.getName());
+		modeControls.add(modeBtn);
+
+		// Set checked state
+		if (inModesOrTransitions.contains(localMode)) {
+			modeBtn.setSelection(true);
+		}
+
+		// Handle selections to the mode button or the child mode combo
+		final SelectionListener selectionListener = new SelectionAdapter() {
+			@Override
+			public void widgetSelected(final SelectionEvent e) {
+				if(modeBtn.getSelection()) {
+					inModesOrTransitions.add(localMode);
+				} else {
+					inModesOrTransitions.remove(localMode);
+				}
+			}
+		};
+
+		// Register selection listeners
+		modeBtn.addSelectionListener(selectionListener);
 	}
 }

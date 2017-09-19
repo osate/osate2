@@ -1,10 +1,12 @@
 package org.osate.ge.internal.ui.properties;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.HashMap;
-import java.util.List;
+import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
+import java.util.TreeMap;
 import java.util.stream.Collectors;
 
 import org.eclipse.core.runtime.Adapters;
@@ -19,64 +21,35 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.SelectionListener;
-import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
+import org.eclipse.swt.widgets.Combo;
 import org.eclipse.swt.widgets.Composite;
-import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.ui.IWorkbenchPart;
 import org.eclipse.ui.views.properties.tabbed.AbstractPropertySection;
 import org.eclipse.ui.views.properties.tabbed.TabbedPropertySheetPage;
-import org.osate.aadl2.AnnexSubclause;
 import org.osate.aadl2.ComponentClassifier;
 import org.osate.aadl2.ComponentType;
-import org.osate.aadl2.Connection;
-import org.osate.aadl2.FlowSpecification;
 import org.osate.aadl2.ModalElement;
 import org.osate.aadl2.ModalPath;
-import org.osate.aadl2.ModalPropertyValue;
 import org.osate.aadl2.Mode;
 import org.osate.aadl2.ModeBinding;
 import org.osate.aadl2.ModeFeature;
 import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.Subcomponent;
-import org.osate.aadl2.SubprogramCallSequence;
-import org.osate.ge.BusinessObjectContext;
 
 public class ConfigureInModesSection extends AbstractPropertySection {
 	public static class Filter implements IFilter {
-		private static Object parent = null;
 		@Override
 		public boolean select(final Object toTest) {
-			if (PropertySectionUtil.isBoCompatible(toTest, bo -> bo instanceof ModalElement)) {
-				final BusinessObjectContext boc = Adapters.adapt(toTest, BusinessObjectContext.class);
-				final ModalElement me = (ModalElement) boc.getBusinessObject();
-				if (parent == null) {
-					parent = boc.getParent().getBusinessObject();
-					return me.getContainingClassifier() instanceof ComponentClassifier;
-				}
-
-				final Object tmpParent = boc.getParent().getBusinessObject();
-				return (me.getContainingClassifier() instanceof ComponentClassifier) && parent == tmpParent;
-			}
-
-			return false;
-		}
-
-		private static void resetParent() {
-			parent = null;
+			return PropertySectionUtil.isBoCompatible(toTest, bo -> bo instanceof ModalElement);
 		}
 	}
 
-	private List<Control> modeControls;
-	private Map<ModeButton, ComboViewer> modeBtnCtrls;
-	private List<ModeFeature> childModeFeatures;
-	private Map<ModeFeature, ModeFeature> localToChildModeMap;
-	private boolean inAllModes;
 	private BusinessObjectSelection selectedBos;
-	Composite container;
-	Composite composite;
+	private Composite container;
+	private Composite composite;
 
 	@Override
 	public void createControls(final Composite parent, final TabbedPropertySheetPage aTabbedPropertySheetPage) {
@@ -91,371 +64,360 @@ public class ConfigureInModesSection extends AbstractPropertySection {
 	@Override
 	public void setInput(final IWorkbenchPart part, final ISelection selection) {
 		super.setInput(part, selection);
-		Filter.resetParent();
 		selectedBos = Adapters.adapt(selection, BusinessObjectSelection.class);
 	}
 
 	@Override
 	public void refresh() {
-		boolean enabledDerivedCombo = false;
-		System.err.println("refresh");
 		if (composite != null) {
 			composite.dispose();
 		}
 
-		composite = getWidgetFactory().createComposite(container);
-		final Set<ModalElement> selectedModalElements = selectedBos.boStream(ModalElement.class).map(a -> a)
-				.collect(Collectors.toSet());
-		// Why hashset?
-		ArrayList<Mode> intersectionDerivedModes = null;
-		final ComponentClassifier cc = (ComponentClassifier) ((ModalElement) selectedModalElements.toArray()[0])
-				.getContainingClassifier();
-		final List<ModeFeature> allLocalModeFeatures = new ArrayList<>(cc.getAllModes());
-		for (final ModalElement modalElement : selectedModalElements) {
+		final Set<ModalElement> mes = selectedBos.boStream(ModalElement.class).map(a -> a).collect(Collectors.toSet());
+		// Modal Elements selected and if element is derived
+		final Map<String, Boolean> selectedModalElements = new HashMap<String, Boolean>();
+		for (final ModalElement me : mes) {
+			selectedModalElements.put(me.getName(), false);
+		}
+
+		// Local modes and in modes state
+		final Map<ModeFeature, ModeState> allLocalModes = new TreeMap<ModeFeature, ModeState>(modeFeatureComparator);
+		// Mode transitions and in modes state. Only used when a ModalPath is selected
+		final Map<ModeFeature, ModeState> modeTransitions = new TreeMap<ModeFeature, ModeState>(modeFeatureComparator);
+		// In modes map for each selected modal element, child can be null
+		final Map<ModeFeature, ModeFeature> localToChildModeMap = new TreeMap<ModeFeature, ModeFeature>(
+				modeFeatureComparator);
+
+		ArrayList<ModeFeature> derivedModes = null;
+		boolean mixedElementSelection = false;
+		for (final ModalElement modalElement : mes) {
+			final ComponentClassifier cc = (ComponentClassifier) modalElement.getContainingClassifier();
+
+			populateLocalModes(allLocalModes, cc, modalElement);
+
 			if (modalElement instanceof Subcomponent) {
+				mixedElementSelection = true;
 				final Subcomponent sc = (Subcomponent) modalElement;
-				final ComponentType ct = sc.getComponentType();
-				if (ct != null) {
+				if (sc.getComponentType() != null) {
+					final ComponentType ct = sc.getComponentType();
 					for (final Mode mb : ct.getOwnedModes()) {
 						if (mb.isDerived()) {
-							if (intersectionDerivedModes == null) {
-								intersectionDerivedModes = new ArrayList<>();
-								intersectionDerivedModes.addAll(ct.getOwnedModes());
+							try {
+								if (derivedModes == null) {
+									derivedModes = new ArrayList<>();
+									derivedModes.addAll(ct.getOwnedModes());
+									break;
+								}
+
+								// Keep intersection of owned modes between selections
+								derivedModes.retainAll(ct.getOwnedModes());
 								break;
+							} finally {
+								// Update element value
+								selectedModalElements.replace(modalElement.getName(), true);
 							}
-							intersectionDerivedModes.retainAll(ct.getOwnedModes());
-							break;
 						}
 					}
 				}
-			} else if (modalElement instanceof AnnexSubclause) {
 
+				for (final ModeBinding modeBinding : sc.getOwnedModeBindings()) {
+					final ModeFeature localMode = modeBinding.getParentMode();
+					final ModeFeature childMode = modeBinding.getDerivedMode() == null ? null
+							: modeBinding.getDerivedMode();
+					// Add mode if not already added and override child value if not null
+					if (!localToChildModeMap.containsKey(localMode) || childMode != null) {
+						localToChildModeMap.put(localMode, childMode);
+					}
+				}
 			} else if (modalElement instanceof ModalPath) {
+				final ModalPath modalPath = (ModalPath) modalElement;
+				populateModeTransitions(modeTransitions, cc, modalPath);
 
-			} else if (modalElement instanceof ModalPropertyValue) {
-
-			} else if (modalElement instanceof SubprogramCallSequence) {
-
+				for (final ModeFeature mf : modalPath.getInModeOrTransitions()) {
+					if (!localToChildModeMap.containsKey(mf)) {
+						localToChildModeMap.put(mf, null);
+					}
+				}
 			} else {
-				// not supported
+				mixedElementSelection = true;
+				for (final ModeFeature mf : modalElement.getInModes()) {
+					if (!localToChildModeMap.containsKey(mf)) {
+						localToChildModeMap.put(mf, null);
+					}
+				}
 			}
 		}
 
-		if (intersectionDerivedModes != null && !intersectionDerivedModes.isEmpty()) {
-			enabledDerivedCombo = true;
-			for (Mode m : intersectionDerivedModes) {
-				System.err.println(m + " intersectionalMode");
+		// Mode transitions are always partial if a modal path and any other type of modal element is selected
+		if (mixedElementSelection) {
+			for (final ModeFeature mf : modeTransitions.keySet()) {
+				if (modeTransitions.get(mf) == ModeState.INMODE) {
+					modeTransitions.replace(mf, ModeState.PARTIAL);
+				}
+			}
+		}
+
+		final int horizontalSpan = derivedModes == null ? 1 : 3;
+		composite = getWidgetFactory().createComposite(container);
+		final GridLayout layout = new GridLayout(horizontalSpan, false);
+		composite.setLayout(layout);
+		GridDataFactory.fillDefaults().applyTo(composite);
+
+		final Label inModesStatus = getWidgetFactory().createLabel(composite,
+				localToChildModeMap.size() == 0 ? "In All Modes" : "Not In All Modes");
+		GridDataFactory.fillDefaults().span(horizontalSpan, 1).applyTo(inModesStatus);
+
+		GridDataFactory.fillDefaults().grab(true, false).span(horizontalSpan, 1)
+		.applyTo(new Label(composite, SWT.HORIZONTAL | SWT.SEPARATOR));
+
+		for (final Map.Entry<ModeFeature, ModeState> entry : allLocalModes.entrySet()) {
+			addLocalMode(composite, entry, derivedModes, localToChildModeMap, selectedModalElements);
+		}
+
+		if (!modeTransitions.isEmpty()) {
+			GridDataFactory.fillDefaults().grab(true, false).span(horizontalSpan, 1)
+			.applyTo(new Label(composite, SWT.HORIZONTAL | SWT.SEPARATOR));
+			for (final Map.Entry<ModeFeature, ModeState> entry : modeTransitions.entrySet()) {
+				addLocalMode(composite, entry, derivedModes, localToChildModeMap, selectedModalElements);
+			}
+		}
+
+		container.layout(true);
+		container.pack();
+	}
+
+	public static void populateModeTransitions(final Map<ModeFeature, ModeState> modeTransitions,
+			final ComponentClassifier cc, final ModalPath modalPath) {
+		final Set<String> inModeTransitions = new HashSet<>();
+		for (final ModeFeature mf : modalPath.getInModeTransitions()) {
+			inModeTransitions.add(mf.getName());
+		}
+
+		if (modeTransitions.isEmpty()) {
+			for (final ModeFeature mf : cc.getAllModeTransitions()) {
+				modeTransitions.put(mf,
+						inModeTransitions.contains(mf.getName()) ? ModeState.INMODE
+								: ModeState.NOTINMODE);
 			}
 		} else {
-			System.err.println("DISABLE DROPDOWNS");
+			// Set to disabled if not available
+			for (final ModeFeature mf : modeTransitions.keySet()) {
+				if (!cc.getAllModeTransitions().contains(mf)) {
+					modeTransitions.replace(mf, ModeState.DISABLED);
+				}
+			}
+
+			for (final ModeFeature mf : cc.getAllModeTransitions()) {
+				if (!modeTransitions.containsKey(mf)) {
+					modeTransitions.put(mf, ModeState.DISABLED);
+				} else if (inModeTransitions.contains(mf.getName())) {
+					if (modeTransitions.get(mf) == ModeState.NOTINMODE) {
+						modeTransitions.replace(mf, ModeState.PARTIAL);
+					}
+				} else if (modeTransitions.get(mf) != ModeState.DISABLED) {
+					if (modeTransitions.get(mf) == ModeState.INMODE) {
+						modeTransitions.replace(mf, ModeState.PARTIAL);
+					}
+				}
+			}
+		}
+	}
+
+	public static void populateLocalModes(final Map<ModeFeature, ModeState> allLocalModes, final ComponentClassifier cc,
+			final ModalElement modalElement) {
+		final Set<String> inModes = new HashSet<>();
+		for (final ModeFeature mf : modalElement.getInModes()) {
+			inModes.add(mf.getName());
 		}
 
-		final Button allModesBtn = getWidgetFactory().createButton(composite, "All Modes", SWT.CHECK);
-		final GridData allModesGridData = new GridData();
-		allModesBtn.setLayoutData(allModesGridData);
-		final Label modeSeparator = new Label(composite, SWT.HORIZONTAL | SWT.SEPARATOR);
-		final GridData modeSeparatorLayoutData = new GridData(GridData.FILL_HORIZONTAL);
-		modeSeparator.setLayoutData(modeSeparatorLayoutData);
+		// Initial set
+		if (allLocalModes.isEmpty()) {
+			for (final ModeFeature mf : cc.getAllModes()) {
+				allLocalModes.put(mf,
+						inModes.contains(mf.getName()) ? ModeState.INMODE : ModeState.NOTINMODE);
+			}
+		} else {
+			// Set to disabled if not available
+			for (final ModeFeature mf : allLocalModes.keySet()) {
+				if (!cc.getAllModes().contains(mf)) {
+					allLocalModes.replace(mf, ModeState.DISABLED);
+				}
+			}
 
-		modeBtnCtrls = new HashMap<ModeButton, ComboViewer>();
-		modeControls = new ArrayList<>();
-		// if intersection != null and not empty
+			for (final ModeFeature mf : cc.getAllModes()) {
+				if (!allLocalModes.containsKey(mf)) {
+					allLocalModes.put(mf, ModeState.DISABLED);
+				} else if (inModes.contains(mf.getName())) {
+					if (allLocalModes.get(mf) == ModeState.NOTINMODE) {
+						allLocalModes.replace(mf, ModeState.PARTIAL);
+					}
+				} else if (allLocalModes.get(mf) != ModeState.DISABLED) {
+					if (allLocalModes.get(mf) == ModeState.INMODE) {
+						allLocalModes.replace(mf, ModeState.PARTIAL);
+					}
+				}
+			}
+		}
+	}
 
-		// for(final ModalElement modalElement : selectedDirections) {
+	private void addLocalMode(final Composite container, Map.Entry<ModeFeature, ModeState> entry,
+			final ArrayList<ModeFeature> derivedModes,
+			final Map<ModeFeature, ModeFeature> localToChildModeMap,
+			final Map<String, Boolean> selectedModalElements) {
+		final ModeFeature modeFeature2 = entry.getKey();
+		final Button modeBtn = getWidgetFactory().createButton(container, modeFeature2.getName(), SWT.CHECK);
+
+		System.err.println("ADD LOCAL MODE: " + modeFeature2);
 
 		/*
-		 * final ComponentClassifier cc = (ComponentClassifier) ((ModalElement) selectedModalElements.toArray()[0])
-		 * .getContainingClassifier();
-		 * final List<ModeFeature> allLocalModeFeatures = new ArrayList<ModeFeature>(cc.getAllModes());
-		 * // final List<ModeFeature> localModeTransitions = new ArrayList<>();
-		 * localToChildModeMap = new HashMap<ModeFeature, ModeFeature>();
-		 * modeBtnCtrls = new HashMap<ModeButton, ComboViewer>();
-		 * modeControls = new ArrayList<>();
-		 *
-		 * final Button allModesBtn = getWidgetFactory().createButton(composite, "All Modes", SWT.CHECK);
-		 * final GridData allModesGridData = new GridData();
-		 *
-		 *
-		 * final Label modeSeparator = new Label(composite, SWT.HORIZONTAL | SWT.SEPARATOR);
-		 * final GridData modeSeparatorLayoutData = new GridData(GridData.FILL_HORIZONTAL);
-		 *
-		 * for (final ModalElement modalElement : selectedModalElements) {
-		 * if (modalElement instanceof Subcomponent) {
-		 * final Subcomponent sc = (Subcomponent) modalElement;
-		 *
-		 *
-		 * Build the child mode names from the subcomponents required modes
-		 * childModeFeatures = new ArrayList<ModeFeature>();
-		 * if (sc.getComponentType() != null) {
-		 * final List<Mode> childModes = sc.getComponentType().getAllModes();
-		 * for (final Mode childMode : childModes) {
-		 * if (childMode.isDerived()) {
-		 * childModeFeatures.add(childMode);
-		 * }
-		 * }
-		 * }
-		 *
-		 *
-		 * Build the local to child mode map from the mode bindings
-		 * for (final ModeBinding modeBinding : sc.getOwnedModeBindings()) {
-		 * final ModeFeature localModeName = modeBinding.getParentMode();
-		 * final ModeFeature childModeName = modeBinding.getDerivedMode() == null ? null
-		 * : modeBinding.getDerivedMode();
-		 * localToChildModeMap.put(localModeName, childModeName);
-		 * }
-		 * } else if (modalElement instanceof org.osate.aadl2.Connection || modalElement instanceof FlowSpecification) {
-		 * // allLocalModeFeatures.addAll(cc.getAllModeTransitions());
-		 * for (ModeTransition mt : cc.getAllModeTransitions()) {
-		 * if (allLocalModeFeatures.contains(mt)) {
-		 * allLocalModeFeatures.add(mt);
-		 * }
-		 * }
-		 * childModeFeatures = null;
-		 *
-		 * final ModalPath modalPath = (ModalPath) modalElement;
-		 * for (final ModeFeature mf : modalPath.getInModeOrTransitions()) {
-		 * localToChildModeMap.put(mf, null);
-		 * }
-		 * } else {
-		 * throw new RuntimeException("Unsupported type: " + modalElement.getClass());
-		 * }
-		 *
-		 *
-		 * Sort mode and transition names for dialog menu
-		 *
-		 * }
-		 * // final List<ModeFeature> localModeFeatures = new ArrayList<ModeFeature>();
-		 * // short alllocalmodefeatures?
-		 * for (final ModeFeature tmpMode : allLocalModeFeatures) {
-		 * if (tmpMode instanceof Mode) {
-		 * // if (!localModeFeatures.contains(tmpMode)) {
-		 * addLocalMode(composite, tmpMode);
-		 * // localModeFeatures.add(tmpMode);
-		 * // }
-		 * } else {
-		 * if (tmpMode instanceof ModeTransition) {
-		 * // if (!localModeFeatures.contains(tmpMode)) {
-		 * localModeTransitions.add(tmpMode);
-		 *
-		 * Sort transition names
-		 * // Collections.sort(localModeTransitions);
-		 * final GridData modeTransitionSeparatorLayoutData = new GridData(GridData.FILL_HORIZONTAL);
-		 * final Label modeTransitionSeparator = new Label(composite, SWT.HORIZONTAL | SWT.SEPARATOR);
-		 * modeTransitionSeparatorLayoutData.horizontalSpan = childModeFeatures == null ? 1 : 3;
-		 * modeTransitionSeparator.setLayoutData(modeTransitionSeparatorLayoutData);
-		 * addLocalMode(composite, tmpMode);
-		 * }
-		 * }
-		 * }
-		 *
-		 * final GridLayout layout = new GridLayout(childModeFeatures == null ? 1 : 3, false);
-		 * composite.setLayout(layout);
-		 * GridDataFactory.fillDefaults().applyTo(composite);
-		 *
-		 * allModesGridData.horizontalSpan = layout.numColumns;
-		 * allModesBtn.setLayoutData(allModesGridData);
-		 * allModesBtn.setSelection(inAllModes);
-		 *
-		 * modeSeparatorLayoutData.horizontalSpan = layout.numColumns;
-		 * modeSeparator.setLayoutData(modeSeparatorLayoutData);
-		 *
-		 *
-		 * update all check boxes when all modes is selected
-		 * updateEnabledStateOfModeControls(!allModesBtn.getSelection());
-		 * allModesBtn.addSelectionListener(new SelectionAdapter() {
-		 *
-		 * @Override
-		 * public void widgetSelected(final SelectionEvent e) {
-		 * updateEnabledStateOfModeControls(!allModesBtn.getSelection());
-		 * inAllModes = allModesBtn.getSelection();
-		 * if (inAllModes) {
-		 * selectedBos.modify(NamedElement.class, ne -> {
-		 * if (ne instanceof Subcomponent) {
-		 * final Subcomponent sc = (Subcomponent) ne;
-		 * sc.getOwnedModeBindings().clear();
-		 * } else if (ne instanceof Connection || ne instanceof FlowSpecification) {
-		 * final ModalPath mp = (ModalPath) ne;
-		 * mp.getInModeOrTransitions().clear();
-		 * }
-		 * });
-		 * }
-		 *
-		 * for (final ModeButton modeBtn : modeBtnCtrls.keySet()) {
-		 * modeBtn.getModeButton().setSelection(true);
-		 * }
-		 *
-		 * }
-		 * });
+		 * Create child mode drop down
 		 */
-	}
+		final ComboViewer childModeFld;
+		final Label mappedLabel;
+		if (derivedModes == null) {
+			childModeFld = null;
+			mappedLabel = null;
+		} else {
+			mappedLabel = getWidgetFactory().createLabel(container, "->", SWT.CENTER);
+			mappedLabel.setText("->");
 
-	private void updateEnabledStateOfModeControls(final boolean value) {
-		for (final ModeButton modeBtn : modeBtnCtrls.keySet()) {
-			final Button btn = modeBtn.getModeButton();
-			final ComboViewer comboViewer = modeBtnCtrls.get(modeBtn);
-			if (comboViewer != null) {
-				comboViewer.getCombo().setEnabled(value);
+			/*
+			 * Create mapped child mode combo
+			 */
+			childModeFld = new ComboViewer(container, SWT.DROP_DOWN | SWT.READ_ONLY);
+			childModeFld.setContentProvider(ArrayContentProvider.getInstance());
+			childModeFld.setLabelProvider(new LabelProvider() {
+				@Override
+				public String getText(final Object element) {
+					if (element instanceof ModeFeature) {
+						final ModeFeature modalFeature = (ModeFeature) element;
+						return modalFeature.getName();
+					}
+					return "";
+				}
+			});
+
+			childModeFld.add("");
+			childModeFld.add(derivedModes.toArray());
+
+			final ModeFeature mappedChildMode = localToChildModeMap.get(modeFeature2);
+			// If child mode is contained in intersection of derived modes
+			if (derivedModes.contains(mappedChildMode)) {
+				childModeFld.setSelection(new StructuredSelection(mappedChildMode));
 			}
+		}
 
-			if (!value) {
-				btn.setSelection(true);
+		final ModeState modeFeatureState = entry.getValue();
+		if (modeFeatureState == ModeState.INMODE) {
+			modeBtn.setSelection(true);
+		} else if (modeFeatureState == ModeState.PARTIAL) {
+			modeBtn.setSelection(true);
+			modeBtn.setGrayed(true);
+		} else if (modeFeatureState == ModeState.DISABLED) {
+			modeBtn.setEnabled(false);
+			modeBtn.setGrayed(false);
+			modeBtn.setSelection(false);
+			if (childModeFld != null) {
+				childModeFld.getCombo().setEnabled(false);
+				mappedLabel.setEnabled(false);
 			}
-			btn.setEnabled(value);
-		}
-		for (final Control c : modeControls) {
-			c.setEnabled(value);
-		}
-	}
-
-	private void addLocalMode(final Composite container, final ModeFeature modeFeature) {
-		final Button modeBtn = getWidgetFactory().createButton(container, modeFeature.getName(), SWT.CHECK);
-		final ModeButton modeButton = new ModeButton(modeBtn, modeFeature);
-
-		/*
-		 * Set checked state
-		 */ if (localToChildModeMap.containsKey(modeFeature)) {
-			 modeBtn.setSelection(true);
-		 }
-
-		 /*
-		  * Create child mode drop down
-		  */ final ComboViewer childModeFld;
-
-		  if (childModeFeatures == null) {
-			  childModeFld = null;
-		  } else {
-			  final Label mappedLabel = getWidgetFactory().createLabel(container, "->", SWT.CENTER);
-			  mappedLabel.setText("->");
-			  modeControls.add(mappedLabel);
-
-			  /*
-			   * Create mapped child mode combo
-			   */ childModeFld = new ComboViewer(container, SWT.DROP_DOWN | SWT.READ_ONLY);
-			   childModeFld.setContentProvider(ArrayContentProvider.getInstance());
-			   childModeFld.setLabelProvider(new LabelProvider() {
-				   @Override
-				   public String getText(final Object element) {
-					   if (element instanceof ModeFeature) {
-						   final ModeFeature modalFeature = (ModeFeature) element;
-						   return modalFeature.getName();
-					   }
-					   return "                ";
-				   }
-			   });
-
-			   childModeFld.add("");
-			   // Sort child modes' names
-			   // Collections.sort(childModes);
-			   /*
-			    * for (final ModeFeature childMode : childModes) {
-			    * childModeFld.add(childMode.getName());
-			    * }
-			    */
-
-			   childModeFld.add(childModeFeatures.toArray());
-
-			   final ModeFeature mappedChildModeName = localToChildModeMap.get(modeFeature);
-			   if (mappedChildModeName != null) {
-				   childModeFld.setSelection(new StructuredSelection(mappedChildModeName));
-			   }
-		  }
-
-		  modeBtnCtrls.put(modeButton, childModeFld);
-
-		  final SelectionListener selectionListener = new SelectionAdapter() {
-			  @Override
-			  public void widgetSelected(final SelectionEvent e) {
-				  selectedBos.modify(NamedElement.class, ne -> {
-					  boolean allSelection = true;
-					  for (final ModeButton modeBtn : modeBtnCtrls.keySet()) {
-						  if (!modeBtn.getModeButton().getSelection()) {
-							  allSelection = false;
-						  }
-					  }
-
-					  if (ne instanceof Subcomponent) {
-						  final Subcomponent msc = (Subcomponent) ne;
-						  if (inAllModes || allSelection) {
-							  msc.getOwnedModeBindings().clear();
-						  } else if (modeBtn.getSelection()) {
-							  final Object selection = ((StructuredSelection) childModeFld.getSelection())
-									  .getFirstElement();
-							  final ModeFeature childMode = selection instanceof ModeFeature ? (ModeFeature) selection
-									  : null;
-							  final ModeBinding existingModeBinding = getModeBinding(msc);
-							  if (existingModeBinding != null) {
-								  msc.getOwnedModeBindings().remove(existingModeBinding);
-							  }
-
-							  final ModeBinding newModeBinding = msc.createOwnedModeBinding();
-							  newModeBinding.setParentMode((Mode) modeFeature);
-							  newModeBinding.setDerivedMode((Mode) childMode);
-						  } else {
-							  msc.getOwnedModeBindings().clear();
-							  for (final ModeButton modeBtn : modeBtnCtrls.keySet()) {
-								  if (modeBtn.getModeButton().getSelection()) {
-									  final ComboViewer comboViewer = modeBtnCtrls.get(modeBtn);
-									  final Object selection = ((StructuredSelection) comboViewer.getSelection())
-											  .getFirstElement();
-									  final ModeFeature childMode = selection instanceof ModeFeature
-											  ? (ModeFeature) selection
-													  : null;
-											  final ModeBinding newModeBinding = msc.createOwnedModeBinding();
-											  newModeBinding.setParentMode((Mode) modeBtn.getModeFeature());
-											  newModeBinding.setDerivedMode((Mode) childMode);
-								  }
-							  }
-						  }
-					  } else if (ne instanceof Connection || ne instanceof FlowSpecification) {
-						  final ModalPath mp = (ModalPath) ne;
-						  if (inAllModes || allSelection) {
-							  mp.getInModeOrTransitions().clear();
-						  } else if (modeBtn.getSelection()) {
-							  mp.getInModeOrTransitions().add(modeFeature);
-						  } else {
-							  mp.getInModeOrTransitions().clear();
-							  for (final ModeButton modeBtn : modeBtnCtrls.keySet()) {
-								  if (modeBtn.getModeButton().getSelection()) {
-									  mp.getInModeOrTransitions().add(modeBtn.getModeFeature());
-								  }
-							  }
-						  }
-					  }
-				  });
-			  }
-
-			  private ModeBinding getModeBinding(final Subcomponent sc) {
-				  for (final ModeBinding mb : sc.getOwnedModeBindings()) {
-					  if (mb.getParentMode() == modeFeature) {
-						  return mb;
-					  }
-				  }
-				  return null;
-			  }
-		  };
-
-		  // Register selection listeners
-		  modeBtn.addSelectionListener(selectionListener);
-		  if (childModeFld != null) {
-			  childModeFld.getCombo().addSelectionListener(selectionListener);
-		  }
-	}
-
-	private class ModeButton {
-		final Button modeBtn;
-		final ModeFeature modeFeature;
-
-		public ModeButton(final Button modeBtn, final ModeFeature modeFeature) {
-			this.modeBtn = modeBtn;
-			this.modeFeature = modeFeature;
 		}
 
-		private Button getModeButton() {
-			return modeBtn;
-		}
+		final SelectionListener selectionListener = new SelectionAdapter() {
+			@Override
+			public void widgetSelected(final SelectionEvent e) {
+				// No changes if combo selection changes without enabled button
+				if (e.widget instanceof Combo && !modeBtn.getSelection()) {
+					return;
+				}
 
-		private ModeFeature getModeFeature() {
-			return modeFeature;
+				modeBtn.setGrayed(false);
+				System.err.println("M1");
+				selectedBos.modify(NamedElement.class, ne -> {
+					System.err.println("M2");
+//					final ModeFeature modeFeature = (ModeFeature) EcoreUtil.resolve(modeFeature2, ne.eResource());
+//					System.err.println("BO: " + ne);
+//					if (ne instanceof Subcomponent) {
+//						if (modeFeature instanceof Mode) {
+//							final Subcomponent sc = (Subcomponent) ne;
+//							if (modeBtn.getSelection()) {
+//								System.err.println("A");
+//								for (final ModeBinding mb : sc.getOwnedModeBindings()) {
+//									if (modeFeature.getName().equalsIgnoreCase(mb.getParentMode().getName())) {
+//										sc.getOwnedModeBindings().remove(mb);
+//										break;
+//									}
+//								}
+//
+//								final ModeBinding newModeBinding = sc.createOwnedModeBinding();
+//								System.err.println("MF: " + modeFeature.eIsProxy() + " : " + modeFeature);
+//								newModeBinding.setParentMode((Mode) modeFeature);
+//								boolean isDerived = selectedModalElements.get(ne.getName());
+//								if (isDerived) {
+//									final Object selection = ((StructuredSelection) childModeFld.getSelection())
+//											.getFirstElement();
+//
+//									final ModeFeature childMode = selection instanceof ModeFeature ? (ModeFeature) selection
+//											: null;
+//									newModeBinding.setDerivedMode((Mode) childMode);
+//								}
+//							} else {
+//								System.err.println("B");
+//								for (final ModeBinding mb : sc.getOwnedModeBindings()) {
+//									if (modeFeature.getName().equalsIgnoreCase(mb.getParentMode().getName())) {
+//										System.err.println("C");
+//										sc.getOwnedModeBindings().remove(mb);
+//										break;
+//									}
+//								}
+//							}
+//						}
+//					} else if (ne instanceof ModalPath) {
+//						final ModalPath mp = (ModalPath) ne;
+//						if (modeBtn.getSelection()) {
+//							mp.getInModeOrTransitions().add(modeFeature);
+//						} else {
+//							for (final ModeFeature mf : mp.getInModeOrTransitions()) {
+//								if (modeFeature.getName().equalsIgnoreCase(mf.getName())) {
+//									mp.getInModeOrTransitions().remove(mf);
+//									break;
+//								}
+//							}
+//						}
+//					} else if (ne instanceof ModalElement) {
+//						if (modeFeature instanceof Mode) {
+//							final ModalElement modalElement = (ModalElement) ne;
+//							if (modeBtn.getSelection()) {
+//								modalElement.getAllInModes().add((Mode) modeFeature);
+//							} else {
+//								for (final ModeFeature mf : modalElement.getInModes()) {
+//									if (modeFeature.getName().equalsIgnoreCase(mf.getName())) {
+//										modalElement.getAllInModes().remove(modeFeature);
+//										break;
+//									}
+//								}
+//							}
+//						}
+//					} else {
+//						System.err.println("unsupported");
+//					}
+				});
+				System.err.println("M3");
+				refresh();
+			}
+		};
+
+		// Register selection listeners
+		modeBtn.addSelectionListener(selectionListener);
+		if (childModeFld != null) {
+			childModeFld.getCombo().addSelectionListener(selectionListener);
 		}
 	}
+
+	public enum ModeState {
+		INMODE, NOTINMODE, PARTIAL, DISABLED
+	}
+
+	public static final Comparator<ModeFeature> modeFeatureComparator = (o1, o2) -> o1.getName()
+			.compareToIgnoreCase(o2.getName());
 }
