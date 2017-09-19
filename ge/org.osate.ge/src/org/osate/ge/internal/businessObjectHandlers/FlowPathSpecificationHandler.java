@@ -1,7 +1,5 @@
 package org.osate.ge.internal.businessObjectHandlers;
 
-import java.awt.Color;
-
 import javax.inject.Named;
 
 import org.osate.aadl2.ComponentType;
@@ -25,8 +23,11 @@ import org.osate.ge.di.GetPaletteEntries;
 import org.osate.ge.di.IsApplicable;
 import org.osate.ge.di.Names;
 import org.osate.ge.graphics.ArrowBuilder;
+import org.osate.ge.graphics.Color;
 import org.osate.ge.graphics.ConnectionBuilder;
 import org.osate.ge.graphics.Graphic;
+import org.osate.ge.graphics.Style;
+import org.osate.ge.graphics.StyleBuilder;
 import org.osate.ge.internal.services.NamingService;
 import org.osate.ge.internal.util.AadlInheritanceUtil;
 import org.osate.ge.internal.util.ImageHelper;
@@ -35,7 +36,6 @@ import org.osate.ge.services.QueryService;
 
 public class FlowPathSpecificationHandler extends FlowSpecificationHandler {
 	private static final Graphic graphic = ConnectionBuilder.create().destinationTerminator(ArrowBuilder.create().small().build()).build();
-	private static final Graphic partialGraphic = ConnectionBuilder.create().destinationTerminator(ArrowBuilder.create().small().build()).dotted().build();
 	private static StandaloneQuery srcQuery = StandaloneQuery.create((rootQuery) -> rootQuery.parent().descendantsByBusinessObjectsRelativeReference((FlowSpecification fs) -> getBusinessObjectsPathToFlowEnd(fs.getAllInEnd())).first());
 	private static StandaloneQuery partialSrcQuery = StandaloneQuery.create((rootQuery) -> rootQuery.parent().descendantsByBusinessObjectsRelativeReference((FlowSpecification fs) -> getBusinessObjectsPathToFlowEnd(fs.getAllInEnd()), 1).first());
 	private static StandaloneQuery dstQuery = StandaloneQuery.create((rootQuery) -> rootQuery.parent().descendantsByBusinessObjectsRelativeReference((FlowSpecification fs) -> getBusinessObjectsPathToFlowEnd(fs.getAllOutEnd())).first());
@@ -64,12 +64,20 @@ public class FlowPathSpecificationHandler extends FlowSpecificationHandler {
 			partial = true;
 		}
 
+		final StyleBuilder sb = StyleBuilder
+				.create(AadlInheritanceUtil.isInherited(boc) ? Styles.INHERITED_ELEMENT : Style.EMPTY)
+				.
+				backgroundColor(Color.BLACK);
+
+		if (partial) {
+			sb.dotted();
+		}
+
 		return GraphicalConfigurationBuilder.create().
-				graphic(partial ? partialGraphic : graphic).
+				graphic(graphic).
+				style(sb.build()).
 				source(src).
 				destination(dst).
-				defaultForeground(AadlInheritanceUtil.isInherited(boc) ? Colors.INHERITED_ELEMENT_COLOR : null).
-				defaultBackgroundColor(Color.BLACK).
 				build();
 	}
 

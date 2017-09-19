@@ -21,7 +21,7 @@ public class MatchWidthHandler extends AbstractHandler {
 		}
 
 		diagram.modify("Match Width", m -> {
-			final int width = AgeHandlerUtil.getPrimaryDiagramElement(selectedDiagramElements).getWidth();
+			final double width = AgeHandlerUtil.getPrimaryDiagramElement(selectedDiagramElements).getWidth();
 			for (final DiagramElement tmpElement : selectedDiagramElements) {
 				m.setSize(tmpElement, new Dimension(width, tmpElement.getHeight()));
 			}

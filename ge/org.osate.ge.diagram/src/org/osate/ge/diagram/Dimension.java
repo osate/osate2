@@ -36,7 +36,7 @@ public class Dimension extends MinimalEObjectImpl.Container implements EObject {
 	 * @generated
 	 * @ordered
 	 */
-	protected static final int WIDTH_EDEFAULT = 0;
+	protected static final double WIDTH_EDEFAULT = 0.0;
 
 	/**
 	 * The cached value of the '{@link #getWidth() <em>Width</em>}' attribute.
@@ -46,7 +46,7 @@ public class Dimension extends MinimalEObjectImpl.Container implements EObject {
 	 * @generated
 	 * @ordered
 	 */
-	protected int width = WIDTH_EDEFAULT;
+	protected double width = WIDTH_EDEFAULT;
 
 	/**
 	 * The default value of the '{@link #getHeight() <em>Height</em>}' attribute.
@@ -56,7 +56,7 @@ public class Dimension extends MinimalEObjectImpl.Container implements EObject {
 	 * @generated
 	 * @ordered
 	 */
-	protected static final int HEIGHT_EDEFAULT = 0;
+	protected static final double HEIGHT_EDEFAULT = 0.0;
 
 	/**
 	 * The cached value of the '{@link #getHeight() <em>Height</em>}' attribute.
@@ -66,7 +66,7 @@ public class Dimension extends MinimalEObjectImpl.Container implements EObject {
 	 * @generated
 	 * @ordered
 	 */
-	protected int height = HEIGHT_EDEFAULT;
+	protected double height = HEIGHT_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -96,12 +96,12 @@ public class Dimension extends MinimalEObjectImpl.Container implements EObject {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Width</em>' attribute.
-	 * @see #setWidth(int)
+	 * @see #setWidth(double)
 	 * @see org.osate.ge.diagram.DiagramPackage#getDimension_Width()
-	 * @model dataType="org.eclipse.emf.ecore.xml.type.Int"
+	 * @model dataType="org.eclipse.emf.ecore.xml.type.Double"
 	 * @generated
 	 */
-	public int getWidth() {
+	public double getWidth() {
 		return width;
 	}
 
@@ -113,8 +113,8 @@ public class Dimension extends MinimalEObjectImpl.Container implements EObject {
 	 * @see #getWidth()
 	 * @generated
 	 */
-	public void setWidth(int newWidth) {
-		int oldWidth = width;
+	public void setWidth(double newWidth) {
+		double oldWidth = width;
 		width = newWidth;
 		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, DiagramPackage.DIMENSION__WIDTH, oldWidth, width));
@@ -129,12 +129,12 @@ public class Dimension extends MinimalEObjectImpl.Container implements EObject {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Height</em>' attribute.
-	 * @see #setHeight(int)
+	 * @see #setHeight(double)
 	 * @see org.osate.ge.diagram.DiagramPackage#getDimension_Height()
-	 * @model dataType="org.eclipse.emf.ecore.xml.type.Int"
+	 * @model dataType="org.eclipse.emf.ecore.xml.type.Double"
 	 * @generated
 	 */
-	public int getHeight() {
+	public double getHeight() {
 		return height;
 	}
 
@@ -146,8 +146,8 @@ public class Dimension extends MinimalEObjectImpl.Container implements EObject {
 	 * @see #getHeight()
 	 * @generated
 	 */
-	public void setHeight(int newHeight) {
-		int oldHeight = height;
+	public void setHeight(double newHeight) {
+		double oldHeight = height;
 		height = newHeight;
 		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, DiagramPackage.DIMENSION__HEIGHT, oldHeight, height));
@@ -178,10 +178,10 @@ public class Dimension extends MinimalEObjectImpl.Container implements EObject {
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case DiagramPackage.DIMENSION__WIDTH:
-				setWidth((Integer)newValue);
+				setWidth((Double)newValue);
 				return;
 			case DiagramPackage.DIMENSION__HEIGHT:
-				setHeight((Integer)newValue);
+				setHeight((Double)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);

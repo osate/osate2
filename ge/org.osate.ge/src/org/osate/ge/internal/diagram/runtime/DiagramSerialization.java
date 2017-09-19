@@ -1,6 +1,5 @@
 package org.osate.ge.internal.diagram.runtime;
 
-import java.awt.Color;
 import java.io.IOException;
 import java.util.Collection;
 import java.util.Collections;
@@ -16,7 +15,10 @@ import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.emf.ecore.xmi.XMLResource;
 import org.osate.ge.diagram.Diagram;
-import org.osate.ge.internal.DockArea;
+import org.osate.ge.graphics.Color;
+import org.osate.ge.graphics.Point;
+import org.osate.ge.graphics.Style;
+import org.osate.ge.graphics.StyleBuilder;
 
 /**
  * Class to help read and write the native diagram format used by the editor.
@@ -34,7 +36,6 @@ public class DiagramSerialization {
 		// Load the resource
 		final ResourceSet rs = new ResourceSetImpl();
 		final Resource resource = rs.createResource(uri);
-
 		try {
 			resource.load(Collections.singletonMap(XMLResource.OPTION_RECORD_UNKNOWN_FEATURE, true));
 			if (resource.getContents().size() == 0
@@ -173,11 +174,11 @@ public class DiagramSerialization {
 		final Color background = mmChild.getBackground() != null ? parseColor(mmChild.getBackground()) : null;
 		final Color fontColor = mmChild.getFontColor() != null ? parseColor(mmChild.getFontColor()) : null;
 		final Color outline = mmChild.getOutline() != null ? parseColor(mmChild.getOutline()) : null;
-		final int lineWidth = mmChild.getLineWidth();
-		final double fontSize = mmChild.getFontSize();
+		final Double lineWidth = mmChild.getLineWidth();
+		final Double fontSize = mmChild.getFontSize();
 
 		newElement.setStyle(StyleBuilder.create().backgroundColor(background).fontColor(fontColor).outlineColor(outline)
-				.fontSize(FontSize.getByValue(fontSize)).lineWidth(LineWidth.getByValue(lineWidth)).build());
+				.fontSize(fontSize).lineWidth(lineWidth).build());
 
 		// Bendpoints
 		final org.osate.ge.diagram.BendpointList mmBendpoints = mmChild.getBendpoints();
@@ -205,7 +206,7 @@ public class DiagramSerialization {
 			return null;
 		}
 
-		return new Point(mmPoint.getX(), mmPoint.getY());
+		return new Point((int) Math.round(mmPoint.getX()), (int) Math.round(mmPoint.getY()));
 	}
 
 	private static Dimension convertDimension(final org.osate.ge.diagram.Dimension mmDimension) {
@@ -213,7 +214,7 @@ public class DiagramSerialization {
 			return null;
 		}
 
-		return new Dimension(mmDimension.getWidth(), mmDimension.getHeight());
+		return new Dimension((int) Math.round(mmDimension.getWidth()), (int) Math.round(mmDimension.getHeight()));
 	}
 
 	public static void write(final AgeDiagram diagram, final URI uri) {
@@ -297,29 +298,29 @@ public class DiagramSerialization {
 		}
 
 		final Style currentStyle = e.getStyle();
-		final java.awt.Color awtBackground = currentStyle.getBackgroundColor();
-		if (awtBackground != null) {
-			newElement.setBackground(awtColorToHex(awtBackground));
+		final org.osate.ge.graphics.Color backgroundColor = currentStyle.getBackgroundColor();
+		if (backgroundColor != null) {
+			newElement.setBackground(colorToHex(backgroundColor));
 		}
 
-		final java.awt.Color awtFontColor = currentStyle.getFontColor();
-		if (awtFontColor != null) {
-			newElement.setFontColor(awtColorToHex(awtFontColor));
+		final org.osate.ge.graphics.Color fontColor = currentStyle.getFontColor();
+		if (fontColor != null) {
+			newElement.setFontColor(colorToHex(fontColor));
 		}
 
-		final java.awt.Color awtOutline = currentStyle.getOutlineColor();
-		if (awtOutline != null) {
-			newElement.setOutline(awtColorToHex(awtOutline));
+		final org.osate.ge.graphics.Color outlineColor = currentStyle.getOutlineColor();
+		if (outlineColor != null) {
+			newElement.setOutline(colorToHex(outlineColor));
 		}
 
-		final FontSize fontSize = currentStyle.getFontSize();
+		final Double fontSize = currentStyle.getFontSize();
 		if (fontSize != null) {
-			newElement.setFontSize(fontSize.getValue());
+			newElement.setFontSize(fontSize);
 		}
 
-		final LineWidth lineWidth = currentStyle.getLineWidth();
+		final Double lineWidth = currentStyle.getLineWidth();
 		if (lineWidth != null) {
-			newElement.setLineWidth(lineWidth.getValue());
+			newElement.setLineWidth(lineWidth);
 		}
 
 		// Connection Specific
@@ -340,7 +341,7 @@ public class DiagramSerialization {
 	}
 
 	// Create hex string from color
-	private static String awtColorToHex(final java.awt.Color color) {
+	private static String colorToHex(final org.osate.ge.graphics.Color color) {
 		return "#" + String.format("%02x", color.getRed()) + String.format("%02x", color.getGreen())
 		+ String.format("%02x", color.getBlue());
 	}

@@ -1,6 +1,5 @@
 package org.osate.ge.internal.businessObjectHandlers;
 
-import java.awt.Color;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -35,6 +34,7 @@ import org.osate.aadl2.SubprogramProxy;
 import org.osate.aadl2.modelsupport.util.ResolvePrototypeUtil;
 import org.osate.ge.BusinessObjectContext;
 import org.osate.ge.Categories;
+import org.osate.ge.DockingPosition;
 import org.osate.ge.GraphicalConfiguration;
 import org.osate.ge.GraphicalConfigurationBuilder;
 import org.osate.ge.PaletteEntry;
@@ -48,12 +48,12 @@ import org.osate.ge.di.GetPaletteEntries;
 import org.osate.ge.di.IsApplicable;
 import org.osate.ge.di.Names;
 import org.osate.ge.di.ValidateName;
+import org.osate.ge.graphics.Color;
 import org.osate.ge.graphics.Graphic;
-import org.osate.ge.internal.DockingPosition;
+import org.osate.ge.graphics.Style;
+import org.osate.ge.graphics.StyleBuilder;
 import org.osate.ge.internal.di.CanRename;
 import org.osate.ge.internal.graphics.AadlGraphics;
-import org.osate.ge.internal.labels.LabelConfiguration;
-import org.osate.ge.internal.labels.LabelConfigurationBuilder;
 import org.osate.ge.internal.services.NamingService;
 import org.osate.ge.internal.util.AadlArrayUtil;
 import org.osate.ge.internal.util.AadlFeatureUtil;
@@ -66,7 +66,6 @@ import org.osate.ge.services.QueryService;
 
 public class FeatureHandler {
 	private static final StandaloneQuery parentQuery = StandaloneQuery.create((root) -> root.ancestors().first());
-	private static final LabelConfiguration labelConfiguration = LabelConfigurationBuilder.create().aboveTop().left().build();
 
 	@IsApplicable
 	public boolean isApplicable(final @Named(Names.BUSINESS_OBJECT) Object bo) {
@@ -143,10 +142,11 @@ public class FeatureHandler {
 			final @Named(Names.BUSINESS_OBJECT_CONTEXT) BusinessObjectContext featureBoc) {
 		return GraphicalConfigurationBuilder.create().
 				graphic(getGraphicalRepresentation(feature, featureBoc)).
+				style(StyleBuilder.create(
+						AadlInheritanceUtil.isInherited(featureBoc) ? Styles.INHERITED_ELEMENT : Style.EMPTY)
+						.backgroundColor(Color.BLACK).labelsAboveTop().labelsLeft().build())
+				.
 				defaultDockingPosition(getDefaultDockingPosition(feature, featureBoc)).
-				defaultLabelConfiguration(labelConfiguration).
-				defaultForeground(AadlInheritanceUtil.isInherited(featureBoc) ? Colors.INHERITED_ELEMENT_COLOR : null)
-				.defaultBackgroundColor(Color.BLACK).
 				build();
 	}
 

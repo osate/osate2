@@ -35,8 +35,8 @@ public class AgeMoveBendpointFeature extends DefaultMoveBendpointFeature impleme
 				@Override
 				public void modify(final DiagramModification m) {					
 					// Update the bendpoint
-					final List<org.osate.ge.internal.diagram.runtime.Point> newBendpoints = new ArrayList<>(connectionElement.getBendpoints());
-					newBendpoints.set(ctx.getBendpointIndex(), new org.osate.ge.internal.diagram.runtime.Point(ctx.getX(), ctx.getY()));
+					final List<org.osate.ge.graphics.Point> newBendpoints = new ArrayList<>(connectionElement.getBendpoints());
+					newBendpoints.set(ctx.getBendpointIndex(), new org.osate.ge.graphics.Point(ctx.getX(), ctx.getY()));
 					m.setBendpoints(connectionElement, newBendpoints);
 					AgeFeatureUtil.storeModificationInContext(ctx, m);
 				}

@@ -7,7 +7,7 @@ import org.osate.ge.BusinessObjectContext;
 import org.osate.ge.di.GetGraphicalConfiguration;
 import org.osate.ge.di.GetName;
 import org.osate.ge.di.Names;
-import org.osate.ge.internal.AgeGraphicalConfiguration;
+import org.osate.ge.graphics.internal.AgeGraphicalConfiguration;
 import org.osate.ge.internal.services.ExtensionService;
 
 /**

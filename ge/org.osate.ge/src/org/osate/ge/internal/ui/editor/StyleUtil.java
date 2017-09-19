@@ -1,7 +1,5 @@
 package org.osate.ge.internal.ui.editor;
 
-import java.util.OptionalInt;
-
 import org.eclipse.graphiti.mm.algorithms.GraphicsAlgorithm;
 import org.eclipse.graphiti.mm.algorithms.Text;
 import org.eclipse.graphiti.mm.pictograms.Connection;
@@ -17,7 +15,7 @@ public class StyleUtil {
 			final org.eclipse.graphiti.mm.algorithms.styles.Color background,
 			final org.eclipse.graphiti.mm.algorithms.styles.Color outline,
 			final org.eclipse.graphiti.mm.algorithms.styles.Color labelBackground,
-			final org.eclipse.graphiti.mm.algorithms.styles.Color fontColor, final OptionalInt lineWidth,
+			final org.eclipse.graphiti.mm.algorithms.styles.Color fontColor, final int lineWidth,
 			final boolean inLabel) {
 		if (pe.getGraphicsAlgorithm() != null) {
 			final org.eclipse.graphiti.mm.algorithms.styles.Color childBackground = inLabel ? labelBackground
@@ -54,7 +52,7 @@ public class StyleUtil {
 	private static void overrideStyle(final GraphicsAlgorithm ga,
 			final org.eclipse.graphiti.mm.algorithms.styles.Color background,
 			final org.eclipse.graphiti.mm.algorithms.styles.Color outline,
-			final org.eclipse.graphiti.mm.algorithms.styles.Color fontColor, final OptionalInt lineWidth) {
+			final org.eclipse.graphiti.mm.algorithms.styles.Color fontColor, final int lineWidth) {
 		final boolean isStylingContainer = PropertyUtil.isStylingContainer(ga);
 		final boolean isStylingChild = PropertyUtil.isStylingChild(ga);
 		final boolean isStylingOutlineEnabled = PropertyUtil.isStylingOutlineEnabled(ga);
@@ -79,8 +77,8 @@ public class StyleUtil {
 				ga.setBackground(background);
 			}
 
-			if (lineWidth.isPresent() && ga.getLineWidth() != null) {
-				ga.setLineWidth(lineWidth.getAsInt());
+			if (ga.getLineWidth() != null) {
+				ga.setLineWidth(lineWidth);
 			}
 		}
 

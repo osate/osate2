@@ -1,6 +1,6 @@
 package org.osate.ge.internal.diagram.runtime.updating;
 
-import org.osate.ge.internal.AgeGraphicalConfiguration;
+import org.osate.ge.graphics.internal.AgeGraphicalConfiguration;
 import org.osate.ge.internal.businessObjectHandlers.BusinessObjectHandlerProvider;
 import org.osate.ge.internal.diagram.runtime.DiagramElement;
 

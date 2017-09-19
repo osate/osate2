@@ -1,35 +1,5 @@
-// Based on OSATE Graphical Editor. Modifications are:
-/*
-Copyright (c) 2016, Rockwell Collins.
-Developed with the sponsorship of Defense Advanced Research Projects Agency (DARPA).
-
-Permission is hereby granted, free of charge, to any person obtaining a copy of this data,
-including any software or models in source or binary form, as well as any drawings, specifications,
-and documentation (collectively "the Data"), to deal in the Data without restriction, including
-without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense,
-and/or sell copies of the Data, and to permit persons to whom the Data is furnished to do so,
-subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all copies or
-substantial portions of the Data.
-
-THE DATA IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT
-LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
-IN NO EVENT SHALL THE AUTHORS, SPONSORS, DEVELOPERS, CONTRIBUTORS, OR COPYRIGHT HOLDERS BE LIABLE
-FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
-ARISING FROM, OUT OF OR IN CONNECTION WITH THE DATA OR THE USE OR OTHER DEALINGS IN THE DATA.
- */
-/*******************************************************************************
- * Copyright (C) 2013 University of Alabama in Huntsville (UAH)
- * All rights reserved. This program and the accompanying materials
- * are made available under the terms of the Eclipse Public License v1.0
- * which accompanies this distribution, and is available at
- * http://www.eclipse.org/legal/epl-v10.html
- * The US Government has unlimited rights in this work in accordance with W31P4Q-10-D-0092 DO 0073.
- *******************************************************************************/
 package org.osate.ge.internal.ui.editor;
 
-import java.awt.Color;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.Map;
@@ -88,9 +58,11 @@ import org.eclipse.graphiti.ui.editor.DiagramBehavior;
 import org.eclipse.graphiti.ui.editor.DiagramEditorContextMenuProvider;
 import org.eclipse.graphiti.ui.editor.IDiagramContainerUI;
 import org.eclipse.graphiti.ui.editor.IDiagramEditorInput;
+import org.eclipse.graphiti.ui.platform.IConfigurationProvider;
 import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.jface.dialogs.ErrorDialog;
 import org.eclipse.jface.dialogs.MessageDialog;
+import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.MouseEvent;
 import org.eclipse.swt.events.MouseMoveListener;
@@ -105,12 +77,16 @@ import org.eclipse.ui.IPartListener;
 import org.eclipse.ui.IWorkbenchPart;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.part.EditorPart;
+import org.eclipse.ui.views.properties.IPropertySheetPage;
+import org.eclipse.ui.views.properties.tabbed.ITabbedPropertySheetPageContributor;
+import org.eclipse.ui.views.properties.tabbed.TabbedPropertySheetPage;
 import org.osate.ge.di.Names;
+import org.osate.ge.graphics.Color;
 import org.osate.ge.internal.Activator;
 import org.osate.ge.internal.diagram.runtime.AgeDiagram;
 import org.osate.ge.internal.diagram.runtime.DiagramElement;
-import org.osate.ge.internal.diagram.runtime.DiagramLayoutUtil;
 import org.osate.ge.internal.diagram.runtime.DiagramSerialization;
+import org.osate.ge.internal.diagram.runtime.layout.DiagramLayoutUtil;
 import org.osate.ge.internal.graphiti.AgeDiagramTypeProvider;
 import org.osate.ge.internal.graphiti.AgeFeatureProvider;
 import org.osate.ge.internal.graphiti.GraphitiAgeDiagramProvider;
@@ -141,6 +117,7 @@ public class AgeDiagramBehavior extends DiagramBehavior implements GraphitiAgeDi
 	private ToolHandler toolHandler;
 	private IResourceChangeListener resourceChangeListener;
 	private AgeDiagram ageDiagram;
+	private AgeTabbedPropertySheetPage propertySheetPage;
 	private PaintListener paintListener = e -> {
 		if(updateWhenVisible) {
 			updateDiagram(true);
@@ -946,5 +923,52 @@ public class AgeDiagramBehavior extends DiagramBehavior implements GraphitiAgeDi
 
 	private static Path getPath(final URI uri) {
 		return new Path(uri.toPlatformString(true));
+	}
+
+	@Override
+	public Object getAdapter(@SuppressWarnings("rawtypes") Class type) {
+		if (type == IPropertySheetPage.class) {
+			final IConfigurationProvider cfgProvider = getConfigurationProvider();
+			if (cfgProvider != null && getDiagramContainer() instanceof ITabbedPropertySheetPageContributor) {
+				ITabbedPropertySheetPageContributor contributor = (ITabbedPropertySheetPageContributor) getDiagramContainer();
+				if (contributor.getContributorId() != null) {
+					propertySheetPage = new AgeTabbedPropertySheetPage(contributor);
+					return propertySheetPage;
+				}
+			}
+			return null; // not yet initialized
+		}
+
+		return super.getAdapter(type);
+	}
+
+	private static class AgeTabbedPropertySheetPage extends TabbedPropertySheetPage {
+		private IWorkbenchPart part;
+
+		public AgeTabbedPropertySheetPage(
+				final ITabbedPropertySheetPageContributor tabbedPropertySheetPageContributor) {
+			super(tabbedPropertySheetPageContributor);
+		}
+
+		@Override
+		public void selectionChanged(final IWorkbenchPart part, final ISelection selection) {
+			super.selectionChanged(part, selection);
+			this.part = part;
+		}
+	}
+
+	// Update the property sheet selection if it has changed and the part the property sheet is interested in is the editor.
+	// This check is needed to avoid problems with outline selection.
+	@Override
+	public void selectPictogramElements(final PictogramElement[] pes) {
+		super.selectPictogramElements(pes);
+
+		final IWorkbenchPart parentPart = getParentPart();
+		if (parentPart != null && propertySheetPage != null && propertySheetPage.part == parentPart
+				&& parentPart.getSite() != null
+				&& parentPart.getSite().getSelectionProvider() != null) {
+			propertySheetPage.selectionChanged(parentPart,
+					parentPart.getSite().getSelectionProvider().getSelection());
+		}
 	}
 }

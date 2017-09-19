@@ -21,7 +21,7 @@ public class MatchHeightHandler extends AbstractHandler {
 		}
 
 		diagram.modify("Match Height", m -> {
-			final int height = AgeHandlerUtil.getPrimaryDiagramElement(selectedDiagramElements).getHeight();
+			final double height = AgeHandlerUtil.getPrimaryDiagramElement(selectedDiagramElements).getHeight();
 			for (final DiagramElement tmpElement : selectedDiagramElements) {
 				m.setSize(tmpElement, new Dimension(tmpElement.getWidth(), height));
 			}

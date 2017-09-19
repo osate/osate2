@@ -6,9 +6,9 @@ import java.util.List;
 import org.eclipse.core.commands.AbstractHandler;
 import org.eclipse.core.commands.ExecutionEvent;
 import org.eclipse.core.commands.ExecutionException;
+import org.osate.ge.graphics.Point;
 import org.osate.ge.internal.diagram.runtime.AgeDiagram;
 import org.osate.ge.internal.diagram.runtime.DiagramElement;
-import org.osate.ge.internal.diagram.runtime.Point;
 import org.osate.ge.internal.ui.util.UiUtil;
 
 public class DistributeHorizontallyHandler extends AbstractHandler {
@@ -27,11 +27,11 @@ public class DistributeHorizontallyHandler extends AbstractHandler {
 			selectedDiagramElements.sort(XValueComparator);
 
 			// Distribute the shapes horizontally
-			final int xDistribution = getXDistribution(selectedDiagramElements);
+			final double xDistribution = getXDistribution(selectedDiagramElements);
 			for (int i = 1; i < selectedDiagramElements.size() - 1; i++) {
 				final DiagramElement de = selectedDiagramElements.get(i);
-				final int x = getXValue(selectedDiagramElements.get(i - 1), xDistribution);
-				final int y = de.getY();
+				final double x = getXValue(selectedDiagramElements.get(i - 1), xDistribution);
+				final double y = de.getY();
 
 				m.setPosition(de, new Point(x, y));
 			}
@@ -45,8 +45,8 @@ public class DistributeHorizontallyHandler extends AbstractHandler {
 	 * @param diagramElements the selected shapes
 	 * @return the width of the middle shapes
 	 */
-	private static int getWidthOfShapes(final List<DiagramElement> diagramElements) {
-		return (int) diagramElements.stream().mapToDouble(de -> de.getWidth()).sum();
+	private static double getWidthOfShapes(final List<DiagramElement> diagramElements) {
+		return diagramElements.stream().mapToDouble(de -> de.getWidth()).sum();
 	}
 
 	/**
@@ -54,9 +54,9 @@ public class DistributeHorizontallyHandler extends AbstractHandler {
 	 * @param diagramElements the selected shapes
 	 * @return the distance between each shape after distribution
 	 */
-	private static int getXDistribution(final List<DiagramElement> diagramElements) {
+	private static double getXDistribution(final List<DiagramElement> diagramElements) {
 		final int lastIndex = diagramElements.size() - 1;
-		final int widthOfShapes = getWidthOfShapes(diagramElements);
+		final double widthOfShapes = getWidthOfShapes(diagramElements);
 		final DiagramElement firstElement = diagramElements.get(0);
 		final DiagramElement lastElement = diagramElements.get(lastIndex);
 		return (lastElement.getX() + lastElement.getWidth() - firstElement.getX() - widthOfShapes) / lastIndex;
@@ -68,13 +68,13 @@ public class DistributeHorizontallyHandler extends AbstractHandler {
 	 * @param xDistribution the X-coordinate distance that needs to be between each shape
 	 * @return the X-coordinate value for the shape being evaluated
 	 */
-	private static int getXValue(final DiagramElement prevElement, final int xDistribution) {
+	private static double getXValue(final DiagramElement prevElement, final double xDistribution) {
 		return prevElement.getX() + prevElement.getWidth() + xDistribution;
 	}
 
 	/**
 	 * Sort the selected shapes based on X-coordinate value
 	 */
-	private static final Comparator<DiagramElement> XValueComparator = (de1, de2) -> Integer.valueOf(de1.getX())
-			.compareTo(de2.getX());
+	private static final Comparator<DiagramElement> XValueComparator = (de1, de2) -> Double.compare(de1.getX(),
+			de2.getX());
 }

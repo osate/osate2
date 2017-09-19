@@ -38,6 +38,10 @@ public class GraphitiEditPartAdapterFactory implements IAdapterFactory {
 			return null;
 		}
 
+		if (editPart.getViewer() == null) {
+			return null;
+		}
+
 		final EditDomain editDomain = editPart.getViewer().getEditDomain();
 		if(!(editDomain instanceof DefaultEditDomain)){
 			return null;
