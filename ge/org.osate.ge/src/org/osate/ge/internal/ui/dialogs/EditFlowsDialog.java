@@ -71,7 +71,7 @@ import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.Subcomponent;
 import org.osate.ge.internal.services.NamingService;
 import org.osate.ge.internal.ui.properties.ConfigureInModesSection;
-import org.osate.ge.internal.ui.properties.ConfigureInModesSection.ModeState;
+import org.osate.ge.internal.ui.properties.ConfigureInModesSection.ButtonState;
 import org.osate.ge.internal.util.AadlPrototypeUtil;
 import org.osate.ge.internal.util.StringUtil;
 
@@ -426,23 +426,23 @@ public class EditFlowsDialog extends TitleAreaDialog {
 				// Allow editing the modes of the current flow
 				if (currentFlow instanceof ModalPath) {
 					final ModalPath mp = (ModalPath) currentFlow;
-					final Map<ModeFeature, ModeState> localModeFeatures = new TreeMap<>(
+					final Map<ModeFeature, ButtonState> localModeFeatures = new TreeMap<>(
 							ConfigureInModesSection.modeFeatureComparator);
-					final Map<ModeFeature, ModeState> intersectionalModeTransitions = new TreeMap<>(
+					final Map<ModeFeature, ButtonState> intersectionalModeTransitions = new TreeMap<>(
 							ConfigureInModesSection.modeFeatureComparator);
 					ConfigureInModesSection.populateLocalModes(localModeFeatures, ci, mp);
 					ConfigureInModesSection.populateModeTransitions(intersectionalModeTransitions, ci, mp);
 
 					final Set<ModeFeature> localInModes = new HashSet<>();
-					for (final Map.Entry<ModeFeature, ModeState> localModeFeature : localModeFeatures.entrySet()) {
-						if (localModeFeature.getValue() == ModeState.INMODE) {
+					for (final Map.Entry<ModeFeature, ButtonState> localModeFeature : localModeFeatures.entrySet()) {
+						if (localModeFeature.getValue() == ButtonState.SELECTED) {
 							localInModes.add(localModeFeature.getKey());
 						}
 					}
 
-					for (final Map.Entry<ModeFeature, ModeState> localModeFeature : intersectionalModeTransitions
+					for (final Map.Entry<ModeFeature, ButtonState> localModeFeature : intersectionalModeTransitions
 							.entrySet()) {
-						if (localModeFeature.getValue() == ModeState.INMODE) {
+						if (localModeFeature.getValue() == ButtonState.SELECTED) {
 							localInModes.add(localModeFeature.getKey());
 						}
 					}

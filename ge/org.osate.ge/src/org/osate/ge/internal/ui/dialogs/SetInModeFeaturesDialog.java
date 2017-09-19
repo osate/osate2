@@ -33,7 +33,7 @@ import org.osate.aadl2.ComponentImplementation;
 import org.osate.aadl2.ModalPath;
 import org.osate.aadl2.ModeFeature;
 import org.osate.ge.internal.ui.properties.ConfigureInModesSection;
-import org.osate.ge.internal.ui.properties.ConfigureInModesSection.ModeState;
+import org.osate.ge.internal.ui.properties.ConfigureInModesSection.ButtonState;
 
 /**
  * Dialog for configuring the modes and mode transitions, "mode features", in which a modal element is contained.
@@ -41,11 +41,11 @@ import org.osate.ge.internal.ui.properties.ConfigureInModesSection.ModeState;
  */
 public class SetInModeFeaturesDialog extends TitleAreaDialog {
 	private final List<Control> modeControls = new ArrayList<Control>(); // A list of all controls that are involved in configuring modes. Will be disabled when the all modes check box is selected.
-	private final Map<ModeFeature, ModeState> localModeFeatures = new TreeMap<>(
+	private final Map<ModeFeature, ButtonState> localModeFeatures = new TreeMap<>(
 			ConfigureInModesSection.modeFeatureComparator);
-	private final Map<ModeFeature, ModeState> intersectionalModeTransitions = new TreeMap<>(
+	private final Map<ModeFeature, ButtonState> localModeTransitions = new TreeMap<>(
 			ConfigureInModesSection.modeFeatureComparator);
-	private final Set<ModeFeature> inModesOrTransitions = new HashSet<>();
+	private final Set<ModeFeature> inModesOrTransitions = new HashSet<>(); // Set of a flow's in mode and mode transitions
 	private boolean inAllModes;
 
 	/**
@@ -59,21 +59,22 @@ public class SetInModeFeaturesDialog extends TitleAreaDialog {
 		super(parentShell);
 		setShellStyle(getShellStyle() | SWT.RESIZE);
 		ConfigureInModesSection.populateLocalModes(localModeFeatures, compImpl, modalPath);
-		ConfigureInModesSection.populateModeTransitions(intersectionalModeTransitions, compImpl, modalPath);
+		ConfigureInModesSection.populateModeTransitions(localModeTransitions, compImpl, modalPath);
 
-		for (final Map.Entry<ModeFeature, ModeState> entry : localModeFeatures.entrySet()) {
-			if (entry.getValue() == ModeState.INMODE) {
+		for (final Map.Entry<ModeFeature, ButtonState> entry : localModeFeatures.entrySet()) {
+			if (entry.getValue() == ButtonState.SELECTED) {
 				inModesOrTransitions.add(entry.getKey());
 			}
 		}
 
-		for (final Map.Entry<ModeFeature, ModeState> entry : intersectionalModeTransitions.entrySet()) {
-			if (entry.getValue() == ModeState.INMODE) {
+		//
+		for (final Map.Entry<ModeFeature, ButtonState> entry : localModeTransitions.entrySet()) {
+			if (entry.getValue() == ButtonState.SELECTED) {
 				inModesOrTransitions.add(entry.getKey());
 			}
 		}
 
-		this.inAllModes = inAllModes();
+		inAllModes = inAllModes();
 	}
 
 	private boolean inAllModes() {
@@ -131,7 +132,7 @@ public class SetInModeFeaturesDialog extends TitleAreaDialog {
 		modeSeparator.setLayoutData(modeSeparatorLayoutData);
 
 		// Add controls for each of the local modes
-		for (final Map.Entry<ModeFeature, ModeState> entry : localModeFeatures.entrySet()) {
+		for (final Map.Entry<ModeFeature, ButtonState> entry : localModeFeatures.entrySet()) {
 			addLocalMode(container, entry);
 		}
 
@@ -139,12 +140,12 @@ public class SetInModeFeaturesDialog extends TitleAreaDialog {
 		scrolled.setMinSize(container.computeSize(SWT.DEFAULT, SWT.DEFAULT));
 
 		// If mode transitions are available
-		if (!intersectionalModeTransitions.isEmpty()) {
+		if (!localModeTransitions.isEmpty()) {
 			final GridData modeTransitionSeparatorLayoutData = new GridData(GridData.FILL_HORIZONTAL);
 			final Label modeTransitionSeparator = new Label(container, SWT.HORIZONTAL | SWT.SEPARATOR);
 			modeTransitionSeparatorLayoutData.horizontalSpan = layout.numColumns;
 			modeTransitionSeparator.setLayoutData(modeTransitionSeparatorLayoutData);
-			for (Map.Entry<ModeFeature, ModeState> entry : intersectionalModeTransitions.entrySet()) {
+			for (Map.Entry<ModeFeature, ButtonState> entry : localModeTransitions.entrySet()) {
 				addLocalMode(container, entry);
 			}
 		}
@@ -168,7 +169,7 @@ public class SetInModeFeaturesDialog extends TitleAreaDialog {
 		}
 	}
 
-	private void addLocalMode(final Composite container, final Map.Entry<ModeFeature, ModeState> entry) {
+	private void addLocalMode(final Composite container, final Map.Entry<ModeFeature, ButtonState> entry) {
 		final ModeFeature localMode = entry.getKey();
 		final Button modeBtn = new Button(container, SWT.CHECK);
 		modeBtn.setText(localMode.getName());
