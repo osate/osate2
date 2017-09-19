@@ -1,4 +1,4 @@
-package org.osate.ge.internal.ui.properties;
+package org.osate.ge;
 
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;
@@ -6,7 +6,6 @@ import java.util.function.Function;
 import java.util.stream.Stream;
 
 import org.eclipse.emf.ecore.EObject;
-import org.osate.ge.BusinessObjectContext;
 
 public interface BusinessObjectSelection {
 	/**

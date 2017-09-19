@@ -22,6 +22,8 @@ import org.eclipse.ui.views.properties.tabbed.ITabbedPropertyConstants;
 import org.eclipse.ui.views.properties.tabbed.TabbedPropertySheetPage;
 import org.osate.aadl2.Access;
 import org.osate.aadl2.AccessType;
+import org.osate.ge.BusinessObjectSelection;
+import org.osate.ge.ui.properties.PropertySectionUtil;
 
 public class AccessPropertySection extends AbstractPropertySection {
 	public static class Filter implements IFilter {

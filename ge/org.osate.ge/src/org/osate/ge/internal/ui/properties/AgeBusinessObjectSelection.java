@@ -9,6 +9,7 @@ import java.util.stream.Stream;
 
 import org.eclipse.emf.ecore.EObject;
 import org.osate.ge.BusinessObjectContext;
+import org.osate.ge.BusinessObjectSelection;
 import org.osate.ge.internal.services.AadlModificationService;
 
 import com.google.common.collect.ImmutableList;
