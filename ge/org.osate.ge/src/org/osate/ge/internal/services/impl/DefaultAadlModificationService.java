@@ -92,6 +92,7 @@ public class DefaultAadlModificationService implements AadlModificationService {
 						try {
 							savedAadlResourceService.setSaveInProgress(res, true);
 							res.save(SaveOptions.defaultOptions().toOptionsMap());
+							savedAadlResourceService.markAsSaved(res);
 						} catch (final IOException e) {
 							throw new RuntimeException(e);
 						} finally {
