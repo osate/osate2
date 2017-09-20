@@ -180,7 +180,7 @@ public class ConfigureInModesSection extends AbstractPropertySection {
 		}
 
 		// Mode transitions are always partial if a modal path and any other type of modal element is selected
-		if (mixedElementSelection) {
+		if (localModeTransitions != null && mixedElementSelection) {
 			for (final ModeFeature mf : localModeTransitions.keySet()) {
 				if (localModeTransitions.get(mf) == ButtonState.SELECTED) {
 					localModeTransitions.replace(mf, ButtonState.PARTIAL);
@@ -205,7 +205,7 @@ public class ConfigureInModesSection extends AbstractPropertySection {
 			addLocalMode(composite, entry, derivedModes, localToDerivedModeMap, selectedModalElements);
 		}
 
-		if (!localModeTransitions.isEmpty()) {
+		if (localModeTransitions != null && !localModeTransitions.isEmpty()) {
 			GridDataFactory.fillDefaults().grab(true, false).span(horizontalSpan, 1)
 			.applyTo(new Label(composite, SWT.HORIZONTAL | SWT.SEPARATOR));
 			for (final Map.Entry<ModeFeature, ButtonState> entry : localModeTransitions.entrySet()) {
@@ -422,8 +422,6 @@ public class ConfigureInModesSection extends AbstractPropertySection {
 								}
 							}
 						}
-					} else {
-						throw new RuntimeException("Unsupported Element: " + ne);
 					}
 				});
 
