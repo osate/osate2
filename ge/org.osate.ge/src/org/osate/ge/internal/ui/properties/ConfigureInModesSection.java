@@ -60,7 +60,11 @@ public class ConfigureInModesSection extends AbstractPropertySection {
 		container = getWidgetFactory().createFlatFormComposite(parent);
 		container.setLayout(new GridLayout(2, false));
 		GridDataFactory.fillDefaults().grab(false, true).applyTo(container);
-		final Label label = getWidgetFactory().createLabel(container, "Configure In Modes:");
+
+		final Composite labelComp = getWidgetFactory().createComposite(container);
+		labelComp.setLayout(new GridLayout());
+		GridDataFactory.fillDefaults().applyTo(labelComp);
+		final Label label = getWidgetFactory().createLabel(labelComp, "Configure In Modes:");
 		GridDataFactory.fillDefaults().applyTo(label);
 	}
 
@@ -198,8 +202,10 @@ public class ConfigureInModesSection extends AbstractPropertySection {
 				localToDerivedModeMap.size() == 0 ? "In All Modes" : "Not In All Modes");
 		GridDataFactory.fillDefaults().span(horizontalSpan, 1).applyTo(inModesStatus);
 
-		GridDataFactory.fillDefaults().grab(true, false).span(horizontalSpan, 1)
-		.applyTo(new Label(composite, SWT.HORIZONTAL | SWT.SEPARATOR));
+		if (localModeFeatures != null && !localModeFeatures.isEmpty()) {
+			GridDataFactory.fillDefaults().grab(true, false).span(horizontalSpan, 1)
+			.applyTo(new Label(composite, SWT.HORIZONTAL | SWT.SEPARATOR));
+		}
 
 		for (final Map.Entry<ModeFeature, ButtonState> entry : localModeFeatures.entrySet()) {
 			addLocalMode(composite, entry, derivedModes, localToDerivedModeMap, selectedModalElements);
