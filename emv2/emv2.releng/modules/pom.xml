@@ -21,6 +21,7 @@
 		<module>../../org.osate.xtext.aadl2.errormodel.ui</module>
 		<module>../../org.osate.xtext.aadl2.errormodel</module>
 		<module>../../org.osate.aadl2.errormodel.tests</module>
+		<module>../../org.osate.aadl2.errormodel.contrib</module>
 	</modules>
 
 </project>
