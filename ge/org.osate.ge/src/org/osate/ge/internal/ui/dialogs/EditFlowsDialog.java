@@ -9,12 +9,8 @@
 package org.osate.ge.internal.ui.dialogs;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Map;
 import java.util.Objects;
-import java.util.Set;
-import java.util.TreeMap;
 
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.util.EcoreUtil;
@@ -70,8 +66,6 @@ import org.osate.aadl2.ModeFeature;
 import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.Subcomponent;
 import org.osate.ge.internal.services.NamingService;
-import org.osate.ge.internal.ui.properties.ConfigureInModesSection;
-import org.osate.ge.internal.ui.properties.ConfigureInModesSection.ButtonState;
 import org.osate.ge.internal.util.AadlPrototypeUtil;
 import org.osate.ge.internal.util.StringUtil;
 
@@ -164,7 +158,7 @@ public class EditFlowsDialog extends TitleAreaDialog {
 		addElementsToPotentialFlowSegmentList(null, ci.getAllFeatures());
 		addElementsToPotentialFlowSegmentList(null, ci.getAllEndToEndFlows());
 
-// Subcomponent flow specifications
+		// Subcomponent flow specifications
 		for (final Subcomponent sc : ci.getAllSubcomponents()) {
 			final ComponentClassifier scClassifier = AadlPrototypeUtil.getComponentClassifier(ci, sc);
 			if (scClassifier instanceof ComponentType) {
@@ -176,7 +170,7 @@ public class EditFlowsDialog extends TitleAreaDialog {
 			}
 		}
 
-// Feature group features
+		// Feature group features
 		for (final Feature f : ci.getAllFeatures()) {
 			if (f instanceof FeatureGroup) {
 				final FeatureGroup fg = (FeatureGroup) f;
@@ -245,11 +239,11 @@ public class EditFlowsDialog extends TitleAreaDialog {
 
 		flowListPane.pack();
 
-// Buttons
+		// Buttons
 		final Composite listBtns = new Composite(flowListPane, SWT.NONE);
 		listBtns.setLayout(new RowLayout(SWT.HORIZONTAL));
 
-// Add - Flow Impl/ETE
+		// Add - Flow Impl/ETE
 		addImplFlowBtn = new Button(listBtns, SWT.PUSH);
 		addImplFlowBtn.setText("Create Impl...");
 		addImplFlowBtn.setToolTipText("Create a new flow implementation");
@@ -258,15 +252,15 @@ public class EditFlowsDialog extends TitleAreaDialog {
 		addETEFlowBtn.setText("Create ETE...");
 		addETEFlowBtn.setToolTipText("Create a new End-To-End flow");
 
-// Configure In Modes...
+		// Configure In Modes...
 		configureInModesBtn = new Button(listBtns, SWT.PUSH);
 		configureInModesBtn.setText("Modes...");
 
-// Delete
+		// Delete
 		deleteFlowBtn = new Button(listBtns, SWT.PUSH);
 		deleteFlowBtn.setText("Delete");
 
-// Flow Details Pane
+		// Flow Details Pane
 		final ScrolledComposite detailsScrolled = new ScrolledComposite(container, SWT.V_SCROLL | SWT.BORDER);
 		final GridData detailsScrolledGridData = new GridData(GridData.FILL_BOTH);
 		detailsScrolledGridData.widthHint = 350;
@@ -289,8 +283,8 @@ public class EditFlowsDialog extends TitleAreaDialog {
 			updateFlowDetails(flow);
 		});
 
-// Make a copy of the flows and use it as the input to the flow list viewer.
-// The copies share flow specifications but have a different set of owned flow segments
+		// Make a copy of the flows and use it as the input to the flow list viewer.
+		// The copies share flow specifications but have a different set of owned flow segments
 		flows.clear();
 		for (final FlowImplementation fi : ci.getOwnedFlowImplementations()) {
 			if (fi.getInModeOrTransitions().size() == 0) {
@@ -298,7 +292,7 @@ public class EditFlowsDialog extends TitleAreaDialog {
 			} else {
 				// Use an alternative mechanism to copy flows if the in modes clause is not empty. This is needed because EcoreUtil.copy does not work properly
 				// in that case. It throws an exception.
-// See osate2-core issue #598
+				// See osate2-core issue #598
 				final EClass flowClass = fi.eClass();
 				final FlowImplementation copiedFlowImplementation = (FlowImplementation) flowClass.getEPackage()
 						.getEFactoryInstance().create(flowClass);
@@ -318,7 +312,7 @@ public class EditFlowsDialog extends TitleAreaDialog {
 			}
 		}
 
-// Add all end to end flows that are not refinements
+		// Add all end to end flows that are not refinements
 		for (final EndToEndFlow eteFlow : ci.getOwnedEndToEndFlows()) {
 			if (eteFlow.getRefined() == null) {
 				if (eteFlow.getInModeOrTransitions().size() == 0) {
@@ -326,7 +320,7 @@ public class EditFlowsDialog extends TitleAreaDialog {
 				} else {
 					// Use an alternative mechanism to copy flows if the in modes clause is not empty. This is needed because EcoreUtil.copy does not work
 					// properly in that case. It throws an exception.
-// See osate2-core issue #598
+					// See osate2-core issue #598
 					final EClass flowClass = eteFlow.eClass();
 					final EndToEndFlow copiedEndToEndFlow = (EndToEndFlow) flowClass.getEPackage().getEFactoryInstance()
 							.create(flowClass);
@@ -363,7 +357,7 @@ public class EditFlowsDialog extends TitleAreaDialog {
 					final FlowImplementation newFlow = (FlowImplementation) pkg.getEFactoryInstance()
 							.create(pkg.getFlowImplementation());
 
-// Set the flow specification
+					// Set the flow specification
 					final FlowSpecification flowSpec = (FlowSpecification) selectedFlowSpecification;
 
 					newFlow.setSpecification(flowSpec);
@@ -371,7 +365,7 @@ public class EditFlowsDialog extends TitleAreaDialog {
 					newFlow.setInEnd(EcoreUtil.copy(flowSpec.getAllInEnd()));
 					newFlow.setOutEnd(EcoreUtil.copy(flowSpec.getAllOutEnd()));
 
-// Add the flow to the list and refresh the flow list viewer
+					// Add the flow to the list and refresh the flow list viewer
 					flows.add(newFlow);
 					flowListViewer.refresh();
 					flowListViewer.setSelection(new StructuredSelection(newFlow));
@@ -406,14 +400,14 @@ public class EditFlowsDialog extends TitleAreaDialog {
 					return;
 				}
 
-// Create a new end to end flow
+				// Create a new end to end flow
 				final Aadl2Package pkg = Aadl2Factory.eINSTANCE.getAadl2Package();
 				final EndToEndFlow newFlow = (EndToEndFlow) pkg.getEFactoryInstance().create(pkg.getEndToEndFlow());
 
-// Set the name
+				// Set the name
 				newFlow.setName(namePromptDlg.getValue());
 
-// Add the flow to the list and refresh the flow list viewer
+				// Add the flow to the list and refresh the flow list viewer
 				flows.add(newFlow);
 				flowListViewer.refresh();
 				flowListViewer.setSelection(new StructuredSelection(newFlow));
@@ -426,41 +420,14 @@ public class EditFlowsDialog extends TitleAreaDialog {
 				// Allow editing the modes of the current flow
 				if (currentFlow instanceof ModalPath) {
 					final ModalPath mp = (ModalPath) currentFlow;
-					final Map<ModeFeature, ButtonState> localModeFeatures = new TreeMap<>(
-							ConfigureInModesSection.modeFeatureComparator);
-					final Map<ModeFeature, ButtonState> intersectionalModeTransitions = new TreeMap<>(
-							ConfigureInModesSection.modeFeatureComparator);
-					ConfigureInModesSection.populateLocalModes(localModeFeatures, ci, mp);
-					ConfigureInModesSection.populateModeTransitions(intersectionalModeTransitions, ci, mp);
-
-					final Set<ModeFeature> localInModes = new HashSet<>();
-					for (final Map.Entry<ModeFeature, ButtonState> localModeFeature : localModeFeatures.entrySet()) {
-						if (localModeFeature.getValue() == ButtonState.SELECTED) {
-							localInModes.add(localModeFeature.getKey());
-						}
-					}
-
-					for (final Map.Entry<ModeFeature, ButtonState> localModeFeature : intersectionalModeTransitions
-							.entrySet()) {
-						if (localModeFeature.getValue() == ButtonState.SELECTED) {
-							localInModes.add(localModeFeature.getKey());
-						}
-					}
-
-					// Show the dialog
-					/*
-					 * final SetInModeFeaturesDialog dlg = new SetInModeFeaturesDialog(getShell(),
-					 * localModeFeatures.keySet(), intersectionalModeTransitions.keySet(), localInModes);
-					 */
 
 					final SetInModeFeaturesDialog dlg = new SetInModeFeaturesDialog(getShell(), mp, ci);
-
 					if (dlg.open() == Window.CANCEL) {
 						return;
 					}
 
 					mp.getInModeOrTransitions().clear();
-					for (final ModeFeature mf : dlg.getLocalToChildModeMap()) {
+					for (final ModeFeature mf : dlg.getNameToModeFeatureMap().values()) {
 						mp.getInModeOrTransitions().add(mf);
 					}
 				}
@@ -583,7 +550,7 @@ public class EditFlowsDialog extends TitleAreaDialog {
 					return false;
 				}
 				// [ { -> connection_identifier -> subcomponent_flow_identifier }+
-//  -> connection_identifier ]
+				// -> connection_identifier ]
 				FlowSegment prevSegment = null;
 				if ((fi.getOwnedFlowSegments().size() % 2) != 1) {
 					return false;
@@ -623,7 +590,7 @@ public class EditFlowsDialog extends TitleAreaDialog {
 		currentFlow = flow;
 		refreshWidgetEnabledStates();
 
-// Clear
+		// Clear
 		for (Control child : flowDetailsPane.getChildren()) {
 			if (!child.isDisposed()) {
 				child.dispose();
@@ -760,7 +727,7 @@ public class EditFlowsDialog extends TitleAreaDialog {
 			final StructuredSelection selection = (StructuredSelection) event.getSelection();
 			final FlowSegmentInfo newSegmentInfo = (FlowSegmentInfo) selection.getFirstElement();
 
-			if(flowSegment instanceof EndToEndFlowSegment) {
+			if (flowSegment instanceof EndToEndFlowSegment) {
 				final EndToEndFlowSegment fs1 = (EndToEndFlowSegment) flowSegment;
 				if (newSegmentInfo == null) {
 					fs1.setContext(null);
@@ -769,7 +736,7 @@ public class EditFlowsDialog extends TitleAreaDialog {
 					fs1.setContext(newSegmentInfo.context);
 					fs1.setFlowElement((EndToEndFlowElement) newSegmentInfo.flowElement);
 				}
-			} else if(flowSegment instanceof FlowSegment) {
+			} else if (flowSegment instanceof FlowSegment) {
 				final FlowSegment fs2 = (FlowSegment) flowSegment;
 				if (newSegmentInfo == null) {
 					fs2.setContext(null);

@@ -9,11 +9,11 @@
 package org.osate.ge.internal.ui.dialogs;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import java.util.TreeMap;
 
 import org.eclipse.jface.dialogs.IMessageProvider;
 import org.eclipse.jface.dialogs.TitleAreaDialog;
@@ -32,8 +32,6 @@ import org.eclipse.swt.widgets.Shell;
 import org.osate.aadl2.ComponentImplementation;
 import org.osate.aadl2.ModalPath;
 import org.osate.aadl2.ModeFeature;
-import org.osate.ge.internal.ui.properties.ConfigureInModesSection;
-import org.osate.ge.internal.ui.properties.ConfigureInModesSection.ButtonState;
 
 /**
  * Dialog for configuring the modes and mode transitions, "mode features", in which a modal element is contained.
@@ -41,11 +39,9 @@ import org.osate.ge.internal.ui.properties.ConfigureInModesSection.ButtonState;
  */
 public class SetInModeFeaturesDialog extends TitleAreaDialog {
 	private final List<Control> modeControls = new ArrayList<Control>(); // A list of all controls that are involved in configuring modes. Will be disabled when the all modes check box is selected.
-	private final Map<ModeFeature, ButtonState> localModeFeatures = new TreeMap<>(
-			ConfigureInModesSection.modeFeatureComparator);
-	private final Map<ModeFeature, ButtonState> localModeTransitions = new TreeMap<>(
-			ConfigureInModesSection.modeFeatureComparator);
-	private final Set<ModeFeature> inModesOrTransitions = new HashSet<>(); // Set of a flow's in mode and mode transitions
+	private final Map<String, ModeFeature> inModesOrTransitions = new HashMap<>();
+	private final Set<ModeFeature> localModes = new HashSet<>();
+	private final Set<ModeFeature> localModeTransitions = new HashSet<>();
 	private boolean inAllModes;
 
 	/**
@@ -55,23 +51,18 @@ public class SetInModeFeaturesDialog extends TitleAreaDialog {
 	 * @param compImpl the component containing the modalPath
 	 * @param inModesOrTransitions
 	 */
-	public SetInModeFeaturesDialog(final Shell parentShell, final ModalPath modalPath, final ComponentImplementation compImpl) {
+	public SetInModeFeaturesDialog(final Shell parentShell,
+			final ModalPath modalPath, final ComponentImplementation compImpl) {
 		super(parentShell);
 		setShellStyle(getShellStyle() | SWT.RESIZE);
-		ConfigureInModesSection.populateLocalModes(localModeFeatures, compImpl, modalPath);
-		ConfigureInModesSection.populateModeTransitions(localModeTransitions, compImpl, modalPath);
 
-		for (final Map.Entry<ModeFeature, ButtonState> entry : localModeFeatures.entrySet()) {
-			if (entry.getValue() == ButtonState.SELECTED) {
-				inModesOrTransitions.add(entry.getKey());
-			}
-		}
+		// Available Modes
+		localModes.addAll(compImpl.getAllModes());
+		// Available Mode Transitions
+		localModeTransitions.addAll(compImpl.getAllModeTransitions());
 
-		//
-		for (final Map.Entry<ModeFeature, ButtonState> entry : localModeTransitions.entrySet()) {
-			if (entry.getValue() == ButtonState.SELECTED) {
-				inModesOrTransitions.add(entry.getKey());
-			}
+		for (final ModeFeature mf : modalPath.getInModeOrTransitions()) {
+			inModesOrTransitions.put(mf.getName(), mf);
 		}
 
 		inAllModes = inAllModes();
@@ -95,9 +86,9 @@ public class SetInModeFeaturesDialog extends TitleAreaDialog {
 		newShell.setMinimumSize(400, 225);
 	}
 
-	public Set<ModeFeature> getLocalToChildModeMap() {
+	public Map<String, ModeFeature> getNameToModeFeatureMap() {
 		if(inAllModes) {
-			return new HashSet<>();
+			return new HashMap<>();
 		}
 
 		return inModesOrTransitions;
@@ -132,8 +123,8 @@ public class SetInModeFeaturesDialog extends TitleAreaDialog {
 		modeSeparator.setLayoutData(modeSeparatorLayoutData);
 
 		// Add controls for each of the local modes
-		for (final Map.Entry<ModeFeature, ButtonState> entry : localModeFeatures.entrySet()) {
-			addLocalMode(container, entry);
+		for (final ModeFeature mf : localModes) {
+			addLocalMode(container, mf);
 		}
 
 		scrolled.setContent(container);
@@ -145,8 +136,8 @@ public class SetInModeFeaturesDialog extends TitleAreaDialog {
 			final Label modeTransitionSeparator = new Label(container, SWT.HORIZONTAL | SWT.SEPARATOR);
 			modeTransitionSeparatorLayoutData.horizontalSpan = layout.numColumns;
 			modeTransitionSeparator.setLayoutData(modeTransitionSeparatorLayoutData);
-			for (Map.Entry<ModeFeature, ButtonState> entry : localModeTransitions.entrySet()) {
-				addLocalMode(container, entry);
+			for (final ModeFeature mf : localModeTransitions) {
+				addLocalMode(container, mf);
 			}
 		}
 
@@ -169,14 +160,13 @@ public class SetInModeFeaturesDialog extends TitleAreaDialog {
 		}
 	}
 
-	private void addLocalMode(final Composite container, final Map.Entry<ModeFeature, ButtonState> entry) {
-		final ModeFeature localMode = entry.getKey();
+	private void addLocalMode(final Composite container, final ModeFeature mf) {
 		final Button modeBtn = new Button(container, SWT.CHECK);
-		modeBtn.setText(localMode.getName());
+		modeBtn.setText(mf.getName());
 		modeControls.add(modeBtn);
 
 		// Set checked state
-		if (inModesOrTransitions.contains(localMode)) {
+		if (inModesOrTransitions.keySet().contains(mf.getName())) {
 			modeBtn.setSelection(true);
 		}
 
@@ -185,9 +175,9 @@ public class SetInModeFeaturesDialog extends TitleAreaDialog {
 			@Override
 			public void widgetSelected(final SelectionEvent e) {
 				if(modeBtn.getSelection()) {
-					inModesOrTransitions.add(localMode);
+					inModesOrTransitions.put(mf.getName(), mf);
 				} else {
-					inModesOrTransitions.remove(localMode);
+					inModesOrTransitions.remove(mf.getName());
 				}
 			}
 		};
