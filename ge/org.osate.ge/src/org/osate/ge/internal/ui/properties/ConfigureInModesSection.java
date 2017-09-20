@@ -260,7 +260,7 @@ public class ConfigureInModesSection extends AbstractPropertySection {
 				if (inModeTransitions.contains(mf.getName())) {
 					localModeTransitions.put(mf, ButtonState.DIS_PARTIAL);
 				} else {
-					localModeTransitions.replace(mf, ButtonState.DISABLED);
+					localModeTransitions.put(mf, ButtonState.DISABLED);
 				}
 			} else if (inModeTransitions.contains(mf.getName())) {
 				if (localModeTransitions.get(mf) == ButtonState.NOTSELECTED) {
@@ -294,7 +294,7 @@ public class ConfigureInModesSection extends AbstractPropertySection {
 				if (inModes.contains(mf.getName())) {
 					localModeFeatures.put(mf, ButtonState.DIS_PARTIAL);
 				} else {
-					localModeFeatures.replace(mf, ButtonState.DISABLED);
+					localModeFeatures.put(mf, ButtonState.DISABLED);
 				}
 			} else if (inModes.contains(mf.getName())) {
 				if (localModeFeatures.get(mf) == ButtonState.NOTSELECTED) {
