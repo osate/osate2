@@ -99,85 +99,87 @@ public class ConfigureInModesSection extends AbstractPropertySection {
 		Set<ModeFeature> derivedModes = null;
 		boolean mixedElementSelection = false;
 		for (final ModalElement modalElement : mes) {
-			final ComponentClassifier cc = modalElement.getContainingComponentImpl();
+			if (modalElement.getContainingClassifier() != null
+					&& modalElement.getContainingClassifier() instanceof ComponentClassifier) {
+				final ComponentClassifier cc = (ComponentClassifier) modalElement.getContainingClassifier();
+				// Use name for compatibility with flow implementations
+				final Set<String> inModes = getInModes(modalElement);
 
-			// Use name for compatibility with flow implementations
-			final Set<String> inModes = getInModes(modalElement);
-
-			// Initial set
-			if (localModeFeatures == null) {
-				localModeFeatures = new TreeMap<ModeFeature, ButtonState>(modeFeatureComparator);
-				for (final ModeFeature mf : cc.getAllModes()) {
-					localModeFeatures.put(mf,
-							inModes.contains(mf.getName()) ? ButtonState.SELECTED : ButtonState.NOTSELECTED);
+				// Initial set
+				if (localModeFeatures == null) {
+					localModeFeatures = new TreeMap<ModeFeature, ButtonState>(modeFeatureComparator);
+					for (final ModeFeature mf : cc.getAllModes()) {
+						localModeFeatures.put(mf,
+								inModes.contains(mf.getName()) ? ButtonState.SELECTED : ButtonState.NOTSELECTED);
+					}
+				} else {
+					populateLocalModes(localModeFeatures, cc, modalElement, inModes);
 				}
-			} else {
-				populateLocalModes(localModeFeatures, cc, modalElement, inModes);
-			}
 
-			if (modalElement instanceof Subcomponent) {
-				mixedElementSelection = true;
-				final Subcomponent sc = (Subcomponent) modalElement;
-				if (sc.getComponentType() != null) {
-					final ComponentType ct = sc.getComponentType();
-					for (final Mode mb : ct.getOwnedModes()) {
-						if (mb.isDerived()) {
-							try {
-								if (derivedModes == null) {
-									derivedModes = new HashSet<>();
-									derivedModes.addAll(ct.getOwnedModes());
+				if (modalElement instanceof Subcomponent) {
+					mixedElementSelection = true;
+					final Subcomponent sc = (Subcomponent) modalElement;
+					if (sc.getComponentType() != null) {
+						final ComponentType ct = sc.getComponentType();
+						for (final Mode mb : ct.getOwnedModes()) {
+							if (mb.isDerived()) {
+								try {
+									if (derivedModes == null) {
+										derivedModes = new HashSet<>();
+										derivedModes.addAll(ct.getOwnedModes());
+										break;
+									}
+
+									// Keep intersection of owned modes between selections
+									derivedModes.retainAll(ct.getOwnedModes());
 									break;
+								} finally {
+									// Update element value
+									selectedModalElements.replace(modalElement.getName(), true);
 								}
-
-								// Keep intersection of owned modes between selections
-								derivedModes.retainAll(ct.getOwnedModes());
-								break;
-							} finally {
-								// Update element value
-								selectedModalElements.replace(modalElement.getName(), true);
 							}
 						}
 					}
-				}
 
-				for (final ModeBinding modeBinding : sc.getOwnedModeBindings()) {
-					final ModeFeature localMode = modeBinding.getParentMode();
-					final ModeFeature derivedMode = modeBinding.getDerivedMode() == null ? null
-							: modeBinding.getDerivedMode();
-					if (!localToDerivedModeMap.containsKey(localMode) || derivedMode != null) {
-						// Add mode if not already added and override derived value if not null
-						localToDerivedModeMap.put(localMode, derivedMode);
-					} else if (localToDerivedModeMap.get(localMode) != derivedMode) { // If derived modes do not match
-						localModeFeatures.replace(localMode, ButtonState.PARTIAL);
+					for (final ModeBinding modeBinding : sc.getOwnedModeBindings()) {
+						final ModeFeature localMode = modeBinding.getParentMode();
+						final ModeFeature derivedMode = modeBinding.getDerivedMode() == null ? null
+								: modeBinding.getDerivedMode();
+						if (!localToDerivedModeMap.containsKey(localMode) || derivedMode != null) {
+							// Add mode if not already added and override derived value if not null
+							localToDerivedModeMap.put(localMode, derivedMode);
+						} else if (localToDerivedModeMap.get(localMode) != derivedMode) { // If derived modes do not match
+							localModeFeatures.replace(localMode, ButtonState.PARTIAL);
+						}
 					}
-				}
-			} else if (modalElement instanceof ModalPath) {
-				final ModalPath modalPath = (ModalPath) modalElement;
+				} else if (modalElement instanceof ModalPath) {
+					final ModalPath modalPath = (ModalPath) modalElement;
 
-				// Use name for compatibility with flow implementations
-				final Set<String> inModeTransitions = getInModeTransitions(modalPath);
+					// Use name for compatibility with flow implementations
+					final Set<String> inModeTransitions = getInModeTransitions(modalPath);
 
-				// Set Initial
-				if (localModeTransitions == null) {
-					localModeTransitions = new TreeMap<ModeFeature, ButtonState>(modeFeatureComparator);
-					for (final ModeFeature mf : cc.getAllModeTransitions()) {
-						localModeTransitions.put(mf, inModeTransitions.contains(mf.getName()) ? ButtonState.SELECTED
-								: ButtonState.NOTSELECTED);
+					// Set Initial
+					if (localModeTransitions == null) {
+						localModeTransitions = new TreeMap<ModeFeature, ButtonState>(modeFeatureComparator);
+						for (final ModeFeature mf : cc.getAllModeTransitions()) {
+							localModeTransitions.put(mf, inModeTransitions.contains(mf.getName()) ? ButtonState.SELECTED
+									: ButtonState.NOTSELECTED);
+						}
+					} else {
+						populateModeTransitions(localModeTransitions, cc, modalPath, inModeTransitions);
+					}
+
+					for (final ModeFeature mf : modalPath.getInModeOrTransitions()) {
+						if (!localToDerivedModeMap.containsKey(mf)) {
+							localToDerivedModeMap.put(mf, null);
+						}
 					}
 				} else {
-					populateModeTransitions(localModeTransitions, cc, modalPath, inModeTransitions);
-				}
-
-				for (final ModeFeature mf : modalPath.getInModeOrTransitions()) {
-					if (!localToDerivedModeMap.containsKey(mf)) {
-						localToDerivedModeMap.put(mf, null);
-					}
-				}
-			} else {
-				mixedElementSelection = true;
-				for (final ModeFeature mf : modalElement.getInModes()) {
-					if (!localToDerivedModeMap.containsKey(mf)) {
-						localToDerivedModeMap.put(mf, null);
+					mixedElementSelection = true;
+					for (final ModeFeature mf : modalElement.getInModes()) {
+						if (!localToDerivedModeMap.containsKey(mf)) {
+							localToDerivedModeMap.put(mf, null);
+						}
 					}
 				}
 			}
