@@ -7,7 +7,6 @@ import java.util.Objects;
 
 import javax.inject.Named;
 
-import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.jface.dialogs.IDialogConstants;
 import org.eclipse.jface.dialogs.TitleAreaDialog;
@@ -52,7 +51,6 @@ import org.osate.ge.internal.di.InternalNames;
 import org.osate.ge.internal.di.SelectionChanged;
 import org.osate.ge.internal.diagram.runtime.DiagramElement;
 import org.osate.ge.internal.services.AadlModificationService;
-import org.osate.ge.internal.services.AadlModificationService.AbstractModifier;
 import org.osate.ge.internal.services.ColoringService;
 import org.osate.ge.internal.services.NamingService;
 import org.osate.ge.internal.services.UiService;
@@ -85,15 +83,12 @@ public class CreateEndToEndFlowSpecificationTool {
 				}
 
 				if (dlg != null && !dlg.getFlows().isEmpty()) {
-					aadlModService.modify(ci, new AbstractModifier<ComponentImplementation, Object>() {
-						@Override
-						public Object modify(final Resource resource, final ComponentImplementation ci) {
-							for (EndToEndFlow eteFlow : dlg.getFlows()) {
-								ci.getOwnedEndToEndFlows().add(eteFlow);
-								ci.setNoFlows(false);
-							}
-							return null;
+					aadlModService.modify(ci, (resource, ci) -> {
+						for (EndToEndFlow eteFlow : dlg.getFlows()) {
+							ci.getOwnedEndToEndFlows().add(eteFlow);
+							ci.setNoFlows(false);
 						}
+						return null;
 					});
 				}
 			}

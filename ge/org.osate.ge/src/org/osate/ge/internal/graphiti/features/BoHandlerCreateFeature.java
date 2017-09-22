@@ -5,7 +5,6 @@ import java.util.Objects;
 import org.eclipse.e4.core.contexts.ContextInjectionFactory;
 import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.emf.ecore.EObject;
-import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.graphiti.features.ICustomUndoRedoFeature;
 import org.eclipse.graphiti.features.IFeatureProvider;
 import org.eclipse.graphiti.features.context.IContext;
@@ -28,7 +27,6 @@ import org.osate.ge.internal.diagram.runtime.RelativeBusinessObjectReference;
 import org.osate.ge.internal.diagram.runtime.updating.DiagramUpdater;
 import org.osate.ge.internal.graphiti.services.GraphitiService;
 import org.osate.ge.internal.services.AadlModificationService;
-import org.osate.ge.internal.services.AadlModificationService.AbstractModifier;
 import org.osate.ge.internal.services.ExtensionService;
 import org.osate.ge.services.ReferenceBuilderService;
 
@@ -105,33 +103,30 @@ public class BoHandlerCreateFeature extends AbstractCreateFeature implements Cat
 
 		final DockingPosition targetDockingPosition = AgeDiagramUtil.determineDockingPosition(targetNode, context.getX(), context.getY(), 0, 0);
 		// Modify the AADL model
-		final Object newBo = aadlModService.modify(boToModify, new AbstractModifier<EObject, Object>() {
-			@Override
-			public Object modify(Resource resource, EObject boToModify) {
-				final IEclipseContext eclipseCtx = extService.createChildContext();
-				try {
-					eclipseCtx.set(Names.PALETTE_ENTRY_CONTEXT, paletteEntry.getContext());
-					eclipseCtx.set(Names.MODIFY_BO, boToModify);
-					eclipseCtx.set(Names.TARGET_BO, targetNode.getBusinessObject());
-					eclipseCtx.set(InternalNames.PROJECT, graphitiService.getProject());
-					eclipseCtx.set(Names.DOCKING_POSITION, targetDockingPosition); // Specify even if the shape will not be docked.
-					eclipseCtx.set(Names.TARGET_BUSINESS_OBJECT_CONTEXT, targetNode);
-					final Object newBo = ContextInjectionFactory.invoke(handler, Create.class, eclipseCtx);
-					if(newBo != null) {
-						final RelativeBusinessObjectReference newRef = refBuilder.getRelativeReference(newBo);
-						if(newRef != null) {
-							if(ownerNode == targetNode) {
-								diagramUpdater.addToNextUpdate(ownerNode, newRef, new Point(context.getX(), context.getY()));
-							} else {
-								diagramUpdater.addToNextUpdate(ownerNode, newRef, null);
-							}
+		final Object newBo = aadlModService.modify(boToModify, (resource, boToModify1) -> {
+			final IEclipseContext eclipseCtx = extService.createChildContext();
+			try {
+				eclipseCtx.set(Names.PALETTE_ENTRY_CONTEXT, paletteEntry.getContext());
+				eclipseCtx.set(Names.MODIFY_BO, boToModify1);
+				eclipseCtx.set(Names.TARGET_BO, targetNode.getBusinessObject());
+				eclipseCtx.set(InternalNames.PROJECT, graphitiService.getProject());
+				eclipseCtx.set(Names.DOCKING_POSITION, targetDockingPosition); // Specify even if the shape will not be docked.
+				eclipseCtx.set(Names.TARGET_BUSINESS_OBJECT_CONTEXT, targetNode);
+				final Object newBo1 = ContextInjectionFactory.invoke(handler, Create.class, eclipseCtx);
+				if(newBo1 != null) {
+					final RelativeBusinessObjectReference newRef = refBuilder.getRelativeReference(newBo1);
+					if(newRef != null) {
+						if(ownerNode == targetNode) {
+							diagramUpdater.addToNextUpdate(ownerNode, newRef, new Point(context.getX(), context.getY()));
+						} else {
+							diagramUpdater.addToNextUpdate(ownerNode, newRef, null);
 						}
 					}
-
-					return newBo == null ? EMPTY : newBo;
-				} finally {
-					eclipseCtx.dispose();
 				}
+
+				return newBo1 == null ? EMPTY : newBo1;
+			} finally {
+				eclipseCtx.dispose();
 			}
 		});
 

@@ -27,11 +27,11 @@ public interface BusinessObjectSelection {
 	 * Calls the specified modifier for each business object provided by the bocToBoToModifyMapper.
 	 * Also provides the business object context.
 	 * The business objects contained in the business object context must not be modified.
-	 * @param modifier
 	 * @param bocToBoToModifyMapper
+	 * @param modifier
 	 */
-	<T extends EObject> void modify(BiConsumer<T, BusinessObjectContext> modifier,
-			Function<BusinessObjectContext, T> bocToBoToModifyMapper);
+	<T extends EObject> void modify(Function<BusinessObjectContext, T> bocToBoToModifyMapper,
+			BiConsumer<T, BusinessObjectContext> modifier);
 
 	/**
 	 * Calls the specified modifier for each business object.
