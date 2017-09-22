@@ -35,27 +35,16 @@ class AgeBusinessObjectSelection implements BusinessObjectSelection {
 	}
 
 	@Override
-	public <T extends EObject> void modify(final BiConsumer<T, BusinessObjectContext> modifier,
-			final Function<BusinessObjectContext, T> bocToBoToModifyMapper) {
-		for (final BusinessObjectContext tmpBoc : bocs) {
-			final T boToModify = bocToBoToModifyMapper.apply(tmpBoc);
-
-			modificationService.modify(boToModify, (resource, liveBoToModify) -> {
-				modifier.accept(liveBoToModify, tmpBoc);
-				return null;
-			});
-		}
+	public <T extends EObject> void modify(final Function<BusinessObjectContext, T> bocToBoToModifyMapper,
+			final BiConsumer<T, BusinessObjectContext> modifier) {
+		modificationService.modify(bocs, bocToBoToModifyMapper, (resource, liveBoToModify, boc) -> {
+			modifier.accept(liveBoToModify, (BusinessObjectContext) boc);
+			return null;
+		});
 	}
 
 	@Override
 	public <T extends EObject> void modify(final Class<T> c, final Consumer<T> modifier) {
-		for (final BusinessObjectContext tmpBoc : bocs) {
-			final T boToModify = c.cast(tmpBoc.getBusinessObject());
-
-			modificationService.modify(boToModify, (resource, liveBoToModify) -> {
-				modifier.accept(liveBoToModify);
-				return null;
-			});
-		}
+		modify(boc -> c.cast(boc.getBusinessObject()), (bo, boc) -> modifier.accept(bo));
 	}
 }

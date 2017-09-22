@@ -7,29 +7,35 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 
-import org.eclipse.core.resources.IResource;
-import org.eclipse.core.resources.IResourceChangeListener;
-import org.eclipse.core.resources.IResourceDelta;
-import org.eclipse.core.resources.IResourceDeltaVisitor;
-import org.eclipse.core.resources.IWorkspace;
-import org.eclipse.core.resources.IWorkspaceRoot;
-import org.eclipse.core.resources.ResourcesPlugin;
-import org.eclipse.core.runtime.CoreException;
-import org.eclipse.core.runtime.Path;
 import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.xtext.resource.XtextResourceSet;
+import org.eclipse.xtext.ui.resource.LiveScopeResourceSetInitializer;
 import org.osate.aadl2.AadlPackage;
 import org.osate.ge.internal.services.ModelChangeNotifier;
 import org.osate.ge.internal.services.SavedAadlResourceService;
+import org.osate.xtext.aadl2.ui.internal.Aadl2Activator;
+
+import com.google.inject.Injector;
 
 public class DefaultSavedAadlResourceService implements SavedAadlResourceService {
 	public static class ContextFunction extends SimpleServiceContextFunction<SavedAadlResourceService> {
 		@Override
 		public SavedAadlResourceService createService(final IEclipseContext context) {
 			return new DefaultSavedAadlResourceService(context.get(ModelChangeNotifier.class));
+		}
+
+		@Override
+		protected void deactivate() {
+			// Dispose the service if it is valid
+			final SavedAadlResourceService service = getService();
+			if (service instanceof DefaultSavedAadlResourceService) {
+				((DefaultSavedAadlResourceService) service).dispose();
+			}
+
+			super.deactivate();
 		}
 	}
 
@@ -86,99 +92,75 @@ public class DefaultSavedAadlResourceService implements SavedAadlResourceService
 	private final XtextResourceSet resourceSet = new XtextResourceSet();
 	private final Map<URI, WeakPackageReference> elementUriToAadlPackageReference = new HashMap<>();
 	private final ReferenceQueue<SimpleAadlPackageReference> collectedAadlPkgReferenceQueue = new ReferenceQueue<>();
-	private final Map<URI, Long> resourceUriToModificationStamp = new HashMap<>(); // Value will be null if a modification is in progress.
+	private final Thread referenceCleanupThread;
+	private final ModelChangeNotifier changeNotifier;
 
-	private IResourceDeltaVisitor visitor = delta -> {
-		// If the resource's contents has changed changed
-		if (delta.getKind() != IResourceDelta.CHANGED || (delta.getFlags() & IResourceDelta.CONTENT) == 0) {
-			return true;
-		}
-
-		// Check AADL files
-		final IResource iResource = delta.getResource();
-		if (iResource.getType() == IResource.FILE && "aadl".equalsIgnoreCase(iResource.getFileExtension())) {
-			final URI resourceUri = URI.createPlatformResourceURI(iResource.getFullPath().toString(), true);
-			final boolean upToDate;
-			if (resourceUriToModificationStamp.containsKey(resourceUri)) {
-				final Long storedStamp = resourceUriToModificationStamp.get(resourceUri);
-				upToDate = storedStamp == null || iResource.getModificationStamp() == storedStamp.longValue();
-			} else {
-				upToDate = false;
-			}
-
-			// Don't unload the resource is being saved by the editor
-			if (!upToDate) {
-				boolean resourceUnloaded = false;
-				for (final WeakPackageReference weakRef : elementUriToAadlPackageReference.values()) {
-					final SimpleAadlPackageReference pkgRef = weakRef.get();
-					if (pkgRef != null && pkgRef.pkg != null && weakRef.resource != null
-							&& weakRef.resource.getURI().equals(resourceUri)) {
-						weakRef.unloadResource();
-
-						// Remove the reference to the package
-						pkgRef.pkg = null;
-
-						resourceUnloaded = true;
-					}
-				}
-
-				// Check if the resource has been loaded indirectly and unload it
-				if (!resourceUnloaded) {
-					for (final Resource emfResource : resourceSet.getResources()) {
-						if (emfResource != null
-								&& (emfResource.getURI() == null || emfResource.getURI().equals(resourceUri))) {
-							emfResource.unload();
-						}
-					}
-				}
-
-			}
-		}
-
-		return true;
-	};
-
-	private final IResourceChangeListener resourceChangeListener = event -> {
-		final IResourceDelta delta = event.getDelta();
-		if (delta != null) {
-			try {
-				delta.accept(visitor);
-			} catch (CoreException e) {
-			}
-		}
-	};
-
-	// Thread class intended to be used as a daemon thread for unloading resources once they are no longer referenced.
-	private final Thread referenceCleanupThread = new Thread() {
+	private ModelChangeNotifier.ChangeListener changeListener = new ModelChangeNotifier.ChangeListener() {
 		@Override
-		public void run() {
-			while (true) {
-				try {
-					final WeakPackageReference weakRef = (WeakPackageReference) collectedAadlPkgReferenceQueue.remove();
+		public void resourceChanged(final URI resourceUri) {
+			boolean resourceUnloaded = false;
+			for (final WeakPackageReference weakRef : elementUriToAadlPackageReference.values()) {
+				final SimpleAadlPackageReference pkgRef = weakRef.get();
+				if (pkgRef != null && pkgRef.pkg != null && weakRef.resource != null
+						&& weakRef.resource.getURI().equals(resourceUri)) {
 					weakRef.unloadResource();
-					elementUriToAadlPackageReference.values().removeAll(Collections.singleton(weakRef));
 
-					// Clear all resources if there aren't any active Aadl package references.
-					// Needed to clear resources which may have been added to the resource set indirectly
-					if (elementUriToAadlPackageReference.size() == 0) {
-						resourceSet.getResources().clear();
-					}
-				} catch (final InterruptedException e) {
-					interrupt();
+					// Remove the reference to the package
+					pkgRef.pkg = null;
+
+					resourceUnloaded = true;
 				}
+			}
+
+			// Check if the resource has been loaded indirectly and unload it
+			if (!resourceUnloaded) {
+				for (final Resource emfResource : resourceSet.getResources()) {
+					if (emfResource != null && Objects.equals(emfResource.getURI(), resourceUri)) {
+						emfResource.unload();
+					}
+				}
+			}
+		}
+	};
+
+	// Runnable class intended to be used as a daemon thread for unloading resources once they are no longer referenced.
+	private final Runnable referenceCleanupRunnable = (Runnable) () -> {
+		while (Thread.currentThread().isInterrupted()) {
+			try {
+				final WeakPackageReference weakRef = (WeakPackageReference) collectedAadlPkgReferenceQueue.remove();
+				weakRef.unloadResource();
+				elementUriToAadlPackageReference.values().removeAll(Collections.singleton(weakRef));
+
+				// Clear all resources if there aren't any active Aadl package references.
+				// Needed to clear resources which may have been added to the resource set indirectly
+				if (elementUriToAadlPackageReference.size() == 0) {
+					resourceSet.getResources().clear();
+				}
+			} catch (final InterruptedException e) {
+				Thread.currentThread().interrupt();
 			}
 		}
 	};
 
 	public DefaultSavedAadlResourceService(final ModelChangeNotifier changeNotifier) {
-		Objects.requireNonNull(changeNotifier, "changeNotifier must not be null");
+		this.changeNotifier = Objects.requireNonNull(changeNotifier, "changeNotifier must not be null");
+
+		// Use live scope
+		final Injector injector = Aadl2Activator.getInstance().getInjector(Aadl2Activator.ORG_OSATE_XTEXT_AADL2_AADL2);
+		injector.getInstance(LiveScopeResourceSetInitializer.class).initialize(resourceSet);
 
 		// Start the reference cleanup thread
+		referenceCleanupThread = new Thread(referenceCleanupRunnable);
 		referenceCleanupThread.setDaemon(true);
 		referenceCleanupThread.start();
 
 		// Register a resource change listener
-		changeNotifier.addResourceChangeListener(resourceChangeListener);
+		changeNotifier.addChangeListener(changeListener);
+	}
+
+	public void dispose() {
+		resourceSet.getResources().clear();
+		changeNotifier.removeChangeListener(changeListener);
 	}
 
 	@Override
@@ -204,40 +186,5 @@ public class DefaultSavedAadlResourceService implements SavedAadlResourceService
 		}
 
 		return pkgReference;
-	}
-
-	@Override
-	public void setSaveInProgress(final Resource resource, boolean value) {
-		final URI resourceUri = resource.getURI();
-		if (value) {
-			resourceUriToModificationStamp.putIfAbsent(resourceUri, null);
-		} else {
-			resourceUriToModificationStamp.remove(resourceUri, null);
-		}
-	}
-
-	@Override
-	public void markAsSaved(final Resource resource) {
-		final URI resourceUri = resource.getURI();
-		if (resourceUri == null) {
-			return;
-		}
-
-		final IWorkspace ws = ResourcesPlugin.getWorkspace();
-		if (ws == null) {
-			return;
-		}
-
-		final IWorkspaceRoot rootResource = ws.getRoot();
-		if (rootResource == null) {
-			return;
-		}
-
-		final IResource ires = rootResource.getFile(new Path(resourceUri.toPlatformString(true)));
-		if (ires == null) {
-			return;
-		}
-
-		resourceUriToModificationStamp.put(resourceUri, ires.getModificationStamp());
 	}
 }

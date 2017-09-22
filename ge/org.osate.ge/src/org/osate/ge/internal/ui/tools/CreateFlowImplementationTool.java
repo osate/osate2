@@ -7,7 +7,6 @@ import java.util.stream.Collectors;
 
 import javax.inject.Named;
 
-import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.jface.dialogs.IDialogConstants;
 import org.eclipse.jface.dialogs.TitleAreaDialog;
 import org.eclipse.jface.window.Window;
@@ -43,7 +42,6 @@ import org.osate.ge.internal.di.InternalNames;
 import org.osate.ge.internal.di.SelectionChanged;
 import org.osate.ge.internal.diagram.runtime.DiagramElement;
 import org.osate.ge.internal.services.AadlModificationService;
-import org.osate.ge.internal.services.AadlModificationService.AbstractModifier;
 import org.osate.ge.internal.services.ColoringService;
 import org.osate.ge.internal.services.UiService;
 import org.osate.ge.internal.ui.util.DialogPlacementHelper;
@@ -72,13 +70,10 @@ public class CreateFlowImplementationTool {
 				}
 
 				if (dlg != null) {
-					aadlModService.modify(ci, new AbstractModifier<ComponentImplementation, Object>() {
-						@Override
-						public Object modify(final Resource resource, final ComponentImplementation ci) {
-							ci.getOwnedFlowImplementations().add(dlg.createFlow());
-							ci.setNoFlows(false);
-							return null;
-						}
+					aadlModService.modify(ci, (resource, ci) -> {
+						ci.getOwnedFlowImplementations().add(dlg.createFlow());
+						ci.setNoFlows(false);
+						return null;
 					});
 				}
 			}

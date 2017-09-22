@@ -1,12 +1,7 @@
-/*******************************************************************************
- * Copyright (C) 2013 University of Alabama in Huntsville (UAH)
- * All rights reserved. This program and the accompanying materials
- * are made available under the terms of the Eclipse Public License v1.0
- * which accompanies this distribution, and is available at
- * http://www.eclipse.org/legal/epl-v10.html
- * The US Government has unlimited rights in this work in accordance with W31P4Q-10-D-0092 DO 0073.
- *******************************************************************************/
 package org.osate.ge.internal.services;
+
+import java.util.List;
+import java.util.function.Function;
 
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
@@ -17,6 +12,14 @@ import org.eclipse.emf.ecore.resource.Resource;
  */
 public interface AadlModificationService {
 	/**
+	 * Calls the specified modifier for each business object provided by applying objToBoToModifyMapper to the objects in the specified object stream.
+	 * @param modifier
+	 * @param objToBoToModifyMapper
+	 */
+	<I, E extends EObject, R> List<R> modify(List<I> objs, Function<I, E> objToBoToModifyMapper,
+			MappedObjectModifier<E, R> modifier);
+
+	/**
 	 * Modifies an AADL model. Performs any necessary work to ensure it is done safely and appropriately regardless of the current state.
 	 * The modification is considered to have failed if the model that results from the modification contains validation errors.
 	 * @param element a named element that is contained in the model to be modified
@@ -24,13 +27,15 @@ public interface AadlModificationService {
 	 * @returns the result of the modification or null if the modification failed
 	 */
 	<E extends EObject, R> R modify(E bo, Modifier<E, R> modifier);
-	
+
 	public static interface Modifier<E, R> {
 		R modify(Resource resource, final E bo);
 	}
-	
-	public static abstract class AbstractModifier<E, R> implements Modifier<E,R> {
-		@Override
-		public abstract R modify(Resource resource, E bo);		
+
+	/**
+	 * Version of Modifier which provides the object that was mapped to be business object.
+	 */
+	public static interface MappedObjectModifier<E, R> {
+		R modify(Resource resource, final E bo, final Object obj);
 	}
 }
