@@ -1454,6 +1454,9 @@
        <command
              class="org.osate.ge.internal.commands.RefineFlowSpecificationCommand">
        </command>
+       <command
+             class="org.osate.ge.internal.commands.RefineConnectionCommand">
+       </command>
     </extension>
     <extension
           point="org.osate.ge.businessObjectProviders">

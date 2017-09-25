@@ -1,23 +1,3 @@
-/*
-Copyright (c) 2015, Rockwell Collins.
-Developed with the sponsorship of Defense Advanced Research Projects Agency (DARPA).
-
-Permission is hereby granted, free of charge, to any person obtaining a copy of this data,
-including any software or models in source or binary form, as well as any drawings, specifications,
-and documentation (collectively "the Data"), to deal in the Data without restriction, including
-without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense,
-and/or sell copies of the Data, and to permit persons to whom the Data is furnished to do so,
-subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all copies or
-substantial portions of the Data.
-
-THE DATA IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT
-LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
-IN NO EVENT SHALL THE AUTHORS, SPONSORS, DEVELOPERS, CONTRIBUTORS, OR COPYRIGHT HOLDERS BE LIABLE
-FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
-ARISING FROM, OUT OF OR IN CONNECTION WITH THE DATA OR THE USE OR OTHER DEALINGS IN THE DATA.
- */
 package org.osate.ge.internal.graphiti.features;
 
 import java.lang.annotation.Annotation;
@@ -26,6 +6,7 @@ import java.util.Objects;
 import org.eclipse.e4.core.contexts.ContextInjectionFactory;
 import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.graphiti.features.IFeatureProvider;
 import org.eclipse.graphiti.features.context.IContext;
 import org.eclipse.graphiti.features.context.ICustomContext;
@@ -103,7 +84,7 @@ public class CommandCustomFeature extends AbstractCustomFeature {
 
 			}
 
-			populateEclipseContext(eclipseContext, bocs, businessObjects);
+			populateEclipseContext(eclipseContext, bocs, businessObjects, null);
 			return (Boolean)ContextInjectionFactory.invoke(cmd, IsAvailable.class, eclipseContext, Boolean.FALSE);
 		} finally {
 			eclipseContext.dispose();
@@ -147,7 +128,7 @@ public class CommandCustomFeature extends AbstractCustomFeature {
 
 		final IEclipseContext eclipseContext = extService.createChildContext();
 		try {
-			populateEclipseContext(eclipseContext, bocs, businessObjects);
+			populateEclipseContext(eclipseContext, bocs, businessObjects, null);
 			return (boolean)ContextInjectionFactory.invoke(cmd, CanActivate.class, eclipseContext, Boolean.FALSE);
 		} finally {
 			eclipseContext.dispose();
@@ -165,21 +146,31 @@ public class CommandCustomFeature extends AbstractCustomFeature {
 				throw new RuntimeException("Only EObject instances may be modified");
 			}
 
-			aadlModificationService.modify(objectToModify, (resource, objectToModify1) -> {
-				// MOTE: Should the bo and bocs be transformed to ensure they are in the same resource set as the objectToModify?
-				// Currently seems to work without issue. The object is the same as would be retrieved from the resource set.
-				hasMadeChanges = activate(bocs, new Object[] { bo }, true);
+			aadlModificationService.modify(objectToModify, (resource, liveObjectToModify) -> {
+				final Object liveBo;
+				if (bo instanceof EObject) {
+					final EObject a = (EObject) bo;
+					liveBo = resource.getResourceSet().getEObject(EcoreUtil.getURI(a), true);
+				} else {
+					liveBo = null;
+				}
+
+				final Object[] liveBos = liveBo == null ? null : new Object[] { liveBo };
+
+				// Business Object Contexts are not supplied to commands which modify the model. Commands which modify the diagram must use the supplied BO's
+				// which are guaranteed to be in the appropriate resource.
+				hasMadeChanges = activate(null, liveBos, true, liveObjectToModify);
 				return null;
 			});
 		} else {
-			hasMadeChanges = activate(bocs, businessObjects, false);
+			hasMadeChanges = activate(bocs, businessObjects, false, null);
 		}
 	}
 
 	private EObject getObjectToModify(final BusinessObjectContext[] bocs, final Object[] businessObjects) {
 		final IEclipseContext eclipseContext = extService.createChildContext();
 		try {
-			populateEclipseContext(eclipseContext, bocs, businessObjects);
+			populateEclipseContext(eclipseContext, bocs, businessObjects, null);
 			final Object obj = ContextInjectionFactory.invoke(cmd, GetBusinessObjectToModify.class, eclipseContext, null);
 			if(obj != null && !(obj instanceof EObject)) {
 				throw new RuntimeException("Only EObject instances may be modified by commands");
@@ -191,10 +182,11 @@ public class CommandCustomFeature extends AbstractCustomFeature {
 		}
 	}
 
-	private boolean activate(final BusinessObjectContext[] bocs, final Object[] businessObjects, final boolean modifiesBusinessObjects) {
+	private boolean activate(final BusinessObjectContext[] bocs, final Object[] businessObjects,
+			final boolean modifiesBusinessObjects, final EObject boToModify) {
 		final IEclipseContext eclipseContext = extService.createChildContext();
 		try {
-			populateEclipseContext(eclipseContext, bocs, businessObjects);
+			populateEclipseContext(eclipseContext, bocs, businessObjects, boToModify);
 			Boolean result = (Boolean)ContextInjectionFactory.invoke(cmd, Activate.class, eclipseContext, modifiesBusinessObjects);
 			if(result == null) {
 				result = modifiesBusinessObjects;
@@ -220,7 +212,8 @@ public class CommandCustomFeature extends AbstractCustomFeature {
 		}
 	}
 
-	private static void populateEclipseContext(final IEclipseContext context, final BusinessObjectContext[] bocs, final Object[] businessObjects) {
+	private static void populateEclipseContext(final IEclipseContext context, final BusinessObjectContext[] bocs,
+			final Object[] businessObjects, final EObject boToModify) {
 		// Diagram Elements
 		if(bocs != null && bocs.length > 0) {
 			if(bocs.length == 1) {
@@ -236,6 +229,11 @@ public class CommandCustomFeature extends AbstractCustomFeature {
 				context.set(Names.BUSINESS_OBJECT, businessObjects[0]);
 			}
 			context.set(Names.BUSINESS_OBJECTS, businessObjects);
+		}
+
+		// Business Object to Modify
+		if (boToModify != null) {
+			context.set(Names.MODIFY_BO, boToModify);
 		}
 	}
 

@@ -7,7 +7,7 @@ import javax.inject.Named;
 
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.util.EcoreUtil;
-import org.eclipse.jface.dialogs.Dialog;
+import org.eclipse.jface.window.Window;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.xtext.resource.IEObjectDescription;
 import org.osate.aadl2.Aadl2Factory;
@@ -47,11 +47,11 @@ import org.osate.aadl2.VirtualBusSubcomponent;
 import org.osate.aadl2.VirtualBusSubcomponentType;
 import org.osate.aadl2.VirtualProcessorSubcomponent;
 import org.osate.aadl2.VirtualProcessorSubcomponentType;
+import org.osate.ge.BusinessObjectContext;
 import org.osate.ge.di.Activate;
 import org.osate.ge.di.GetLabel;
 import org.osate.ge.di.IsAvailable;
 import org.osate.ge.di.Names;
-import org.osate.ge.BusinessObjectContext;
 import org.osate.ge.internal.di.GetBusinessObjectToModify;
 import org.osate.ge.internal.ui.dialogs.ElementSelectionDialog;
 import org.osate.ge.internal.util.ScopedEMFIndexRetrieval;
@@ -82,7 +82,7 @@ public class SetSubcomponentClassifierCommand {
 	public boolean activate(@Named(Names.BUSINESS_OBJECT) final Subcomponent sc) {
 		// Prompt the user for the classifier
 		final ElementSelectionDialog dlg = new ElementSelectionDialog(Display.getCurrent().getActiveShell(), "Select a Classifier", "Select a classifier.", getPotentialSubcomponentTypes(sc));
-		if(dlg.open() == Dialog.CANCEL) {
+		if(dlg.open() == Window.CANCEL) {
 			return false;
 		}
 
