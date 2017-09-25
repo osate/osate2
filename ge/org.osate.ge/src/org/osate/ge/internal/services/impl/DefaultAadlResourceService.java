@@ -15,24 +15,24 @@ import org.eclipse.xtext.resource.XtextResourceSet;
 import org.eclipse.xtext.ui.resource.LiveScopeResourceSetInitializer;
 import org.osate.aadl2.AadlPackage;
 import org.osate.ge.internal.services.ModelChangeNotifier;
-import org.osate.ge.internal.services.SavedAadlResourceService;
+import org.osate.ge.internal.services.AadlResourceService;
 import org.osate.xtext.aadl2.ui.internal.Aadl2Activator;
 
 import com.google.inject.Injector;
 
-public class DefaultSavedAadlResourceService implements SavedAadlResourceService {
-	public static class ContextFunction extends SimpleServiceContextFunction<SavedAadlResourceService> {
+public class DefaultAadlResourceService implements AadlResourceService {
+	public static class ContextFunction extends SimpleServiceContextFunction<AadlResourceService> {
 		@Override
-		public SavedAadlResourceService createService(final IEclipseContext context) {
-			return new DefaultSavedAadlResourceService(context.get(ModelChangeNotifier.class));
+		public AadlResourceService createService(final IEclipseContext context) {
+			return new DefaultAadlResourceService(context.get(ModelChangeNotifier.class));
 		}
 
 		@Override
 		protected void deactivate() {
 			// Dispose the service if it is valid
-			final SavedAadlResourceService service = getService();
-			if (service instanceof DefaultSavedAadlResourceService) {
-				((DefaultSavedAadlResourceService) service).dispose();
+			final AadlResourceService service = getService();
+			if (service instanceof DefaultAadlResourceService) {
+				((DefaultAadlResourceService) service).dispose();
 			}
 
 			super.deactivate();
@@ -142,7 +142,7 @@ public class DefaultSavedAadlResourceService implements SavedAadlResourceService
 		}
 	};
 
-	public DefaultSavedAadlResourceService(final ModelChangeNotifier changeNotifier) {
+	public DefaultAadlResourceService(final ModelChangeNotifier changeNotifier) {
 		this.changeNotifier = Objects.requireNonNull(changeNotifier, "changeNotifier must not be null");
 
 		// Use live scope
