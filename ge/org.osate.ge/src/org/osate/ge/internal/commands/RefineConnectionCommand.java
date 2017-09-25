@@ -16,20 +16,20 @@ import org.osate.ge.services.QueryService;
 
 public class RefineConnectionCommand {
 	private static final StandaloneQuery parentQuery = StandaloneQuery.create((root) -> root.ancestor(1));
-	
+
 	@GetLabel
 	public String getLabel() {
 		return "Refine";
 	}
 
 	@IsAvailable
-	public boolean isAvailable(@Named(Names.BUSINESS_OBJECT) final Connection connection, 
+	public boolean isAvailable(@Named(Names.BUSINESS_OBJECT) final Connection connection,
 			@Named(Names.BUSINESS_OBJECT_CONTEXT) final BusinessObjectContext boc,
 			final QueryService queryService) {
 		final Object parent = queryService.getFirstBusinessObject(parentQuery, boc);
 		if(parent instanceof ComponentImplementation) {
 			final ComponentImplementation ci = (ComponentImplementation)parent;
-			return ci.getContainingClassifier() != ci;
+			return connection.getContainingClassifier() != ci;
 		}
 
 		return false;
@@ -41,13 +41,10 @@ public class RefineConnectionCommand {
 			final QueryService queryService) {
 		return queryService.getFirstBusinessObject(parentQuery, boc);
 	}
-		
+
 	@Activate
 	public boolean activate(@Named(Names.BUSINESS_OBJECT) final Connection connection,
-			@Named(Names.BUSINESS_OBJECT_CONTEXT) final BusinessObjectContext boc,
-			final QueryService queryService) {
-		final ComponentImplementation containerComponentImplementation = (ComponentImplementation)queryService.getFirstBusinessObject(parentQuery, boc);
-
+			@Named(Names.MODIFY_BO) final ComponentImplementation containerComponentImplementation) {
 		// Set the classifier
 		final org.osate.aadl2.Connection newAadlConnection = AadlConnectionUtil.createConnection(containerComponentImplementation, connection.eClass());
 		if(newAadlConnection != null) {

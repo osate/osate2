@@ -11,7 +11,7 @@ package org.osate.ge.internal.ui.dialogs;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.eclipse.jface.dialogs.Dialog;
+import org.eclipse.jface.window.Window;
 import org.eclipse.swt.widgets.Display;
 import org.osate.aadl2.ComponentClassifier;
 import org.osate.aadl2.ComponentImplementation;
@@ -49,7 +49,7 @@ public abstract class ModeTransitionTriggerSelectionDialog {
 			triggerSelectionDlg.setInitialSelections(currentTriggerPorts.toArray());
 		}
 		
-		if(triggerSelectionDlg.open() == Dialog.CANCEL) {
+		if(triggerSelectionDlg.open() == Window.CANCEL) {
 			return null;
 		}		
 
@@ -124,6 +124,7 @@ public abstract class ModeTransitionTriggerSelectionDialog {
 			this.context = context;
 		}
 		
+		@Override
 		public String toString() {
 			if(context == null) {
 				return port.getName();
@@ -132,10 +133,12 @@ public abstract class ModeTransitionTriggerSelectionDialog {
 			}
 		}
 		
+		@Override
 		public int hashCode() {
 			return port.hashCode() + (context == null ? 0 : context.hashCode());
 		}
 		
+		@Override
 		public boolean equals(final Object obj) {
 			if(!(obj instanceof ModeTransitionTriggerInfo)) {
 				return false;
