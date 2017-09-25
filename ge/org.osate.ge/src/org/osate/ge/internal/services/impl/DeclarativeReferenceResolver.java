@@ -1,11 +1,3 @@
-/*******************************************************************************
- * Copyright (C) 2016 University of Alabama in Huntsville (UAH)
- * All rights reserved. This program and the accompanying materials
- * are made available under the terms of the Eclipse Public License v1.0
- * which accompanies this distribution, and is available at
- * http://www.eclipse.org/legal/epl-v10.html
- * The US Government has unlimited rights in this work in accordance with W31P4Q-10-D-0092 DO 0105.
- *******************************************************************************/
 package org.osate.ge.internal.services.impl;
 
 import java.util.HashMap;
@@ -21,11 +13,9 @@ import javax.inject.Named;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EObject;
 import org.eclipse.xtext.naming.QualifiedName;
 import org.eclipse.xtext.resource.IEObjectDescription;
 import org.eclipse.xtext.resource.IResourceDescription;
-import org.eclipse.xtext.resource.XtextResource;
 import org.osate.aadl2.Aadl2Factory;
 import org.osate.aadl2.AadlPackage;
 import org.osate.aadl2.AnnexLibrary;
@@ -53,10 +43,9 @@ import org.osate.annexsupport.AnnexUtil;
 import org.osate.ge.di.Names;
 import org.osate.ge.di.ResolveCanonicalReference;
 import org.osate.ge.internal.model.SubprogramCallOrder;
+import org.osate.ge.internal.services.AadlResourceService;
+import org.osate.ge.internal.services.AadlResourceService.AadlPackageReference;
 import org.osate.ge.internal.services.ProjectProvider;
-import org.osate.ge.internal.services.SavedAadlResourceService;
-import org.osate.ge.internal.services.SavedAadlResourceService.AadlPackageReference;
-import org.osate.ge.internal.ui.xtext.AgeXtextUtil;
 import org.osate.ge.internal.util.ScopedEMFIndexRetrieval;
 import org.osate.ge.internal.util.StringUtil;
 import org.osate.ge.services.ReferenceResolutionService;
@@ -67,71 +56,58 @@ public class DeclarativeReferenceResolver {
 	private static class DeclarativeCache {
 		private static final EClass aadlPackageEClass = Aadl2Factory.eINSTANCE.getAadl2Package().getAadlPackage();
 		private final ProjectProvider projectProvider;
-		private final Map<String, Object> packageNameToPackageMap = new HashMap<>(); // Map for caching. Cleared when cache is invalidated
-		private final Set<AadlPackageReference> pkgReferences = new HashSet<>(); // Collection of package references. Not cleared to ensure strong references to
-																					// the AadlPackageReference objects exist during the lifetime of the service
-		private Set<IResourceDescription> resourceDescriptions = null; // Resource descriptions for resources which are in the project references path
-		private SavedAadlResourceService savedAadlResourceService;
 
-		public DeclarativeCache(final ProjectProvider projectProvider, final SavedAadlResourceService savedAadlResourceService) {
+		// Map for caching. Not cleared to ensure strong references to the AadlPackageReference objects exist during the lifetime of the service
+		private final Map<String, AadlPackageReference> packageNameToPackageMap = new HashMap<>();
+		private Set<IResourceDescription> resourceDescriptions = null; // Resource descriptions for resources which are in the project references path
+		private AadlResourceService aadlResourceService;
+
+		public DeclarativeCache(final ProjectProvider projectProvider, final AadlResourceService aadlResourceService) {
 			this.projectProvider = Objects.requireNonNull(projectProvider, "projectProvider must not be null");
-			this.savedAadlResourceService = Objects.requireNonNull(savedAadlResourceService, "savedAadlResourceService must not be null");
+			this.aadlResourceService = Objects.requireNonNull(aadlResourceService,
+					"aadlResourceService must not be null");
 		}
 
 		public void dispose() {
 			invalidate();
 
-			// Remove object reference
-			pkgReferences.clear();
+			// Clear map to remove object references
+			packageNameToPackageMap.clear();
 		}
 
 		private void invalidate() {
 			resourceDescriptions = null;
-			packageNameToPackageMap.clear();
 		}
 
 		public AadlPackage getAadlPackage(final String packageName) {
 			final String lowerCasePackageName = packageName.toLowerCase();
-			Object pkgRef = packageNameToPackageMap.get(lowerCasePackageName);
+			AadlPackageReference pkgRef = packageNameToPackageMap.get(lowerCasePackageName);
 			if(pkgRef == null) {
-				pkgRef = findAadlPackage(lowerCasePackageName, getCachedResourceDescriptions(), savedAadlResourceService);
-				if(pkgRef instanceof AadlPackageReference) {
-					// Store strong reference
-					pkgReferences.add((AadlPackageReference)pkgRef);
-				}
+				pkgRef = findAadlPackage(lowerCasePackageName, getCachedResourceDescriptions(), aadlResourceService);
 
-				// Store a reference to the package in the cache if the reference was valid
-				if(pkgRef != null) {
+				if (pkgRef != null) {
+					// Store a reference to the package in the cache if the reference was valid
 					packageNameToPackageMap.put(lowerCasePackageName, pkgRef);
 				}
 			}
 
-			if(pkgRef instanceof AadlPackageReference) {
-				return ((AadlPackageReference) pkgRef).getAadlPackage();
-			} else {
-				return (AadlPackage)pkgRef;
-			}
+			return pkgRef == null ? null : pkgRef.getAadlPackage();
 		}
 
 		/**
-		 * Returns an AadlPackage or AadlPackageReference depending on whether the package is retrieved from disk or from an Xtext document
+		 * Returns an AadlPackageReference depending on whether the package is retrieved from disk or from an Xtext document
 		 * @return
 		 */
-		private static Object findAadlPackage(final String packageName, Set<IResourceDescription> resourceDescriptions, final SavedAadlResourceService savedAadlResourceService) {
+		private static AadlPackageReference findAadlPackage(final String packageName,
+				Set<IResourceDescription> resourceDescriptions,
+				final AadlResourceService aadlResourceService) {
 			// Get the Xtext Resource for the package
-			final XtextResource xtextResource = AgeXtextUtil.getOpenXtextResourceByRootQualifiedName(packageName, resourceDescriptions);
-			if(xtextResource == null) {
-				final String[] pkgNameSegs = packageName.split("::");
-				final QualifiedName packageQualifiedName = QualifiedName.create(pkgNameSegs);
-				for(final IResourceDescription resDesc : resourceDescriptions) {
-					for(IEObjectDescription eod : resDesc.getExportedObjects(aadlPackageEClass, packageQualifiedName, true)) {
-						return savedAadlResourceService.getPackageReference(eod.getEObjectURI());
-					}
-				}
-			} else {
-				final EObject rootObj = xtextResource.getContents().get(0);
-				if(rootObj instanceof AadlPackage) {
-					return rootObj;
+			final String[] pkgNameSegs = packageName.split("::");
+			final QualifiedName packageQualifiedName = QualifiedName.create(pkgNameSegs);
+			for (final IResourceDescription resDesc : resourceDescriptions) {
+				for (IEObjectDescription eod : resDesc.getExportedObjects(aadlPackageEClass, packageQualifiedName,
+						true)) {
+					return aadlResourceService.getPackageReference(eod.getEObjectURI());
 				}
 			}
 
@@ -181,8 +157,8 @@ public class DeclarativeReferenceResolver {
 	private final DeclarativeCache declarativeCache;
 
 	@Inject
-	public DeclarativeReferenceResolver(final ProjectProvider projectProvider, final SavedAadlResourceService savedAadlResourceService) {
-		this.declarativeCache = new DeclarativeCache(projectProvider, savedAadlResourceService);
+	public DeclarativeReferenceResolver(final ProjectProvider projectProvider, final AadlResourceService aadlResourceService) {
+		this.declarativeCache = new DeclarativeCache(projectProvider, aadlResourceService);
 	}
 
 	@PreDestroy

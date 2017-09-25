@@ -45,7 +45,7 @@ Service-Component: components/DefaultExtensionRegistryService.xml,
  components/DefaultReferenceService.xml,
  components/DefaultSystemInstanceLoadingService.xml,
  components/DefaultReferenceBuilderService.xml,
- components/DefaultSavedAadlPackageService.xml,
+ components/DefaultAadlResourceService.xml,
  components/DefaultGraphicalEditorService.xml,
  components/DefaultModelChangeNotifier.xml,
  components/DefaultAadlModificationService.xml
