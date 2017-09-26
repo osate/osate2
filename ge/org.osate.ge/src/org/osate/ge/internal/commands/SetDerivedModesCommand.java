@@ -3,6 +3,7 @@ package org.osate.ge.internal.commands;
 import javax.inject.Named;
 
 import org.osate.aadl2.ComponentClassifier;
+import org.osate.aadl2.ComponentType;
 import org.osate.ge.di.Activate;
 import org.osate.ge.di.CanActivate;
 import org.osate.ge.di.GetLabel;
@@ -23,7 +24,7 @@ public class SetDerivedModesCommand {
 	}
 
 	@IsAvailable
-	public boolean isAvailable(@Named(Names.BUSINESS_OBJECT) final ComponentClassifier cc) {
+	public boolean isAvailable(@Named(Names.BUSINESS_OBJECT) final ComponentType cc) {
 		// Only allow setting the value if the new value would be different, the classifier contains nodes, and the classifier has not inherited any modes or mode transitions
 		return cc.isDerivedModes() != derivedModes && (cc.getOwnedModes().size() > 0 || cc.getOwnedModeTransitions().size() > 0) && cc.getAllModes().size() == cc.getOwnedModes().size() && cc.getAllModeTransitions().size() == cc.getOwnedModeTransitions().size();
 	}
@@ -39,9 +40,9 @@ public class SetDerivedModesCommand {
 	public Object getBusinessObjectToModify(@Named(Names.BUSINESS_OBJECT) final Object bo) {
 		return bo;
 	}
-	
+
 	@Activate
-	public boolean activate(@Named(Names.BUSINESS_OBJECT) final ComponentClassifier cc) {			
+	public boolean activate(@Named(Names.BUSINESS_OBJECT) final ComponentClassifier cc) {
 		cc.setDerivedModes(derivedModes);
 		return true;
 	}
