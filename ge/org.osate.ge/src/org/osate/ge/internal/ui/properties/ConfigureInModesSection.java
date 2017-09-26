@@ -1,14 +1,16 @@
 package org.osate.ge.internal.ui.properties;
 
+import java.util.Collection;
 import java.util.Comparator;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 import java.util.TreeMap;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import org.eclipse.core.runtime.Adapters;
+import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.jface.layout.GridDataFactory;
 import org.eclipse.jface.viewers.ArrayContentProvider;
@@ -37,6 +39,7 @@ import org.osate.aadl2.Mode;
 import org.osate.aadl2.ModeBinding;
 import org.osate.aadl2.ModeFeature;
 import org.osate.aadl2.NamedElement;
+import org.osate.aadl2.RefinableElement;
 import org.osate.aadl2.Subcomponent;
 
 public class ConfigureInModesSection extends AbstractPropertySection {
@@ -64,7 +67,7 @@ public class ConfigureInModesSection extends AbstractPropertySection {
 		final Composite labelComp = getWidgetFactory().createComposite(container);
 		labelComp.setLayout(new GridLayout());
 		GridDataFactory.fillDefaults().applyTo(labelComp);
-		final Label label = getWidgetFactory().createLabel(labelComp, "Configure In Modes:");
+		final Label label = getWidgetFactory().createLabel(labelComp, "In Modes:");
 		GridDataFactory.fillDefaults().applyTo(label);
 	}
 
@@ -82,10 +85,7 @@ public class ConfigureInModesSection extends AbstractPropertySection {
 
 		final Set<ModalElement> mes = selectedBos.boStream(ModalElement.class).map(a -> a).collect(Collectors.toSet());
 		// Selected Modal Elements and if element is derived
-		final Map<String, Boolean> selectedModalElements = new HashMap<String, Boolean>();
-		for (final ModalElement me : mes) {
-			selectedModalElements.put(me.getName(), false);
-		}
+		final Set<URI> urisOfElementsWhichRequireModes = new HashSet<>();
 
 		// Local modes and button state map
 		Map<ModeFeature, ButtonState> localModes = null;
@@ -97,10 +97,11 @@ public class ConfigureInModesSection extends AbstractPropertySection {
 
 		// Required mode features
 		Set<ModeFeature> derivedModes = null;
-		boolean mixedElementSelection = false;
+		boolean nonModePathSelected = false;
+
+		// Determine button states for mode features
 		for (final ModalElement modalElement : mes) {
-			if (modalElement.getContainingClassifier() != null
-					&& modalElement.getContainingClassifier() instanceof ComponentClassifier) {
+			if (modalElement.getContainingClassifier() instanceof ComponentClassifier) {
 				final ComponentClassifier cc = (ComponentClassifier) modalElement.getContainingClassifier();
 
 				// Use name for compatibility with flow implementations
@@ -111,28 +112,30 @@ public class ConfigureInModesSection extends AbstractPropertySection {
 					localModes = new TreeMap<ModeFeature, ButtonState>(modeFeatureComparator);
 					for (final ModeFeature mf : cc.getAllModes()) {
 						localModes.put(mf,
-								inModes.contains(mf.getName()) ? ButtonState.SELECTED : ButtonState.NOTSELECTED);
+								inModes.contains(mf.getName()) ? ButtonState.SELECTED : ButtonState.NOT_SELECTED);
 					}
 				} else {
 					populateLocalModes(localModes, cc, modalElement, inModes);
 				}
 
 				if (modalElement instanceof Subcomponent) {
-					mixedElementSelection = true;
+					final URI scUri = EcoreUtil.getURI(modalElement);
+
+					nonModePathSelected = true;
 					final Subcomponent sc = (Subcomponent) modalElement;
 					if (sc.getComponentType() != null) {
 						final ComponentType ct = sc.getComponentType();
 						for (final Mode mb : ct.getOwnedModes()) {
 							if (mb.isDerived()) {
 								// Mark the modal element as derived
-								selectedModalElements.replace(modalElement.getName(), true);
+								urisOfElementsWhichRequireModes.add(scUri);
 
 								if (derivedModes == null) {
 									derivedModes = new HashSet<>();
-									derivedModes.addAll(ct.getOwnedModes());
+									derivedModes.addAll(ct.getAllModes());
 								} else {
 									// Keep intersection of owned modes between selections
-									derivedModes.retainAll(ct.getOwnedModes());
+									derivedModes.retainAll(ct.getAllModes());
 								}
 
 								break;
@@ -142,13 +145,18 @@ public class ConfigureInModesSection extends AbstractPropertySection {
 
 					for (final ModeBinding modeBinding : sc.getOwnedModeBindings()) {
 						final ModeFeature localMode = modeBinding.getParentMode();
-						final ModeFeature derivedMode = modeBinding.getDerivedMode() == null ? null
-								: modeBinding.getDerivedMode();
-						if (!localToDerivedModeMap.containsKey(localMode) || derivedMode != null) {
-							// Add mode if not already added and override derived value if not null
-							localToDerivedModeMap.put(localMode, derivedMode);
-						} else if (localToDerivedModeMap.get(localMode) != derivedMode) { // If derived modes do not match
-							localModes.replace(localMode, ButtonState.PARTIAL);
+						final ModeFeature derivedMode = modeBinding.getDerivedMode();
+
+						if (urisOfElementsWhichRequireModes.contains(scUri)) {
+							if (localToDerivedModeMap.containsKey(localMode)) {
+								if (localToDerivedModeMap.get(localMode) != derivedMode) {
+									localToDerivedModeMap.put(localMode, null);
+									localModes.replace(localMode, ButtonState.PARTIAL);
+								}
+							} else {
+								// Add mode if not already added and override derived value if not null
+								localToDerivedModeMap.put(localMode, derivedMode);
+							}
 						}
 					}
 				} else if (modalElement instanceof ModalPath) {
@@ -162,7 +170,7 @@ public class ConfigureInModesSection extends AbstractPropertySection {
 						localModeTransitions = new TreeMap<ModeFeature, ButtonState>(modeFeatureComparator);
 						for (final ModeFeature mf : cc.getAllModeTransitions()) {
 							localModeTransitions.put(mf, inModeTransitions.contains(mf.getName()) ? ButtonState.SELECTED
-									: ButtonState.NOTSELECTED);
+									: ButtonState.NOT_SELECTED);
 						}
 					} else {
 						populateModeTransitions(localModeTransitions, cc, modalPath, inModeTransitions);
@@ -174,7 +182,7 @@ public class ConfigureInModesSection extends AbstractPropertySection {
 						}
 					}
 				} else {
-					mixedElementSelection = true;
+					nonModePathSelected = true;
 					for (final ModeFeature mf : modalElement.getInModes()) {
 						if (!localToDerivedModeMap.containsKey(mf)) {
 							localToDerivedModeMap.put(mf, null);
@@ -185,7 +193,7 @@ public class ConfigureInModesSection extends AbstractPropertySection {
 		}
 
 		// Mode transitions are always partial if a modal path and any other type of modal element is selected
-		if (localModeTransitions != null && mixedElementSelection) {
+		if (localModeTransitions != null && nonModePathSelected) {
 			for (final ModeFeature mf : localModeTransitions.keySet()) {
 				if (localModeTransitions.get(mf) == ButtonState.SELECTED) {
 					localModeTransitions.replace(mf, ButtonState.PARTIAL);
@@ -199,29 +207,78 @@ public class ConfigureInModesSection extends AbstractPropertySection {
 		composite.setLayout(layout);
 		GridDataFactory.fillDefaults().grab(true, true).applyTo(composite);
 
-		final Label inModesStatus = getWidgetFactory().createLabel(composite,
-				localToDerivedModeMap.size() == 0 ? "In All Modes" : "Not In All Modes");
+		// Determine if there is at least one mode feature is enabled. If no mode features are enabled then the selected elements do not have any
+		// applicable mode features in common.
+		final boolean hasEnabledModes = Stream
+				.concat(localModes == null ? Stream.empty() : localModes.values().stream(),
+						localModeTransitions == null ? Stream.empty() : localModeTransitions.values().stream())
+				.anyMatch(ButtonState::isEnabled);
+
+		final String inModesStatusTxt;
+		if (!hasEnabledModes) {
+			inModesStatusTxt = "<No Common Applicable Modes>";
+		} else if (anyRefinedElementHasInheritedModeFeatures(mes)) {
+			inModesStatusTxt = "<See Refined Element(s)>";
+		} else if (localToDerivedModeMap.size() == 0) {
+			inModesStatusTxt = "All";
+		} else {
+			inModesStatusTxt = "Selected Modes";
+		}
+
+		final Label inModesStatus = getWidgetFactory().createLabel(composite, inModesStatusTxt);
 		GridDataFactory.fillDefaults().span(horizontalSpan, 1).applyTo(inModesStatus);
 
-		if (localModes != null && !localModes.isEmpty()) {
-			GridDataFactory.fillDefaults().grab(true, false).span(horizontalSpan, 1)
-			.applyTo(new Label(composite, SWT.HORIZONTAL | SWT.SEPARATOR));
-		}
+		// Create widgets for mode features
+		// Only show mode features if at least one mode feature is enabled.
+		if (hasEnabledModes) {
+			if (localModes != null && !localModes.isEmpty()) {
+				GridDataFactory.fillDefaults().grab(true, false).span(horizontalSpan, 1)
+				.applyTo(new Label(composite, SWT.HORIZONTAL | SWT.SEPARATOR));
 
-		for (final Map.Entry<ModeFeature, ButtonState> entry : localModes.entrySet()) {
-			addLocalMode(composite, entry, derivedModes, localToDerivedModeMap, selectedModalElements);
-		}
+				for (final Map.Entry<ModeFeature, ButtonState> entry : localModes.entrySet()) {
+					addLocalMode(composite, entry, derivedModes, localToDerivedModeMap,
+							urisOfElementsWhichRequireModes);
+				}
+			}
 
-		if (localModeTransitions != null && !localModeTransitions.isEmpty()) {
-			GridDataFactory.fillDefaults().grab(true, false).span(horizontalSpan, 1)
-			.applyTo(new Label(composite, SWT.HORIZONTAL | SWT.SEPARATOR));
-			for (final Map.Entry<ModeFeature, ButtonState> entry : localModeTransitions.entrySet()) {
-				addLocalMode(composite, entry, derivedModes, localToDerivedModeMap, selectedModalElements);
+			if (localModeTransitions != null && !localModeTransitions.isEmpty()) {
+				GridDataFactory.fillDefaults().grab(true, false).span(horizontalSpan, 1)
+				.applyTo(new Label(composite, SWT.HORIZONTAL | SWT.SEPARATOR));
+				for (final Map.Entry<ModeFeature, ButtonState> entry : localModeTransitions.entrySet()) {
+					addLocalMode(composite, entry, derivedModes, localToDerivedModeMap,
+							urisOfElementsWhichRequireModes);
+				}
 			}
 		}
 
 		container.layout(true);
 		container.pack();
+	}
+
+	// Returns true if any of the elements inherit mode features(modes or transitions) from a refined element.
+	private static boolean anyRefinedElementHasInheritedModeFeatures(final Collection<ModalElement> modalElements) {
+		for (final ModalElement modalElement : modalElements) {
+			// Store whether any of the elements is refined
+			final RefinableElement refinedElement = modalElement instanceof RefinableElement
+					? ((RefinableElement) modalElement).getRefinedElement()
+							: null;
+					if (refinedElement != null) {
+						if (modalElement instanceof ModalPath) {
+							final ModalPath mp = (ModalPath) modalElement;
+							if (mp.getInModeOrTransitions().size() == 0
+									&& (mp.getAllInModeTransitions().size() > 0 || mp.getAllInModes().size() > 0)) {
+								return true;
+							}
+						} else if (modalElement instanceof ModalElement) {
+							if (modalElement.getInModes().size() == 0 && modalElement.getAllInModes().size() > 0) {
+								return true;
+							}
+						}
+					}
+
+		}
+
+		return false;
 	}
 
 	private static Set<String> getInModes(final ModalElement modalElement) {
@@ -249,7 +306,7 @@ public class ConfigureInModesSection extends AbstractPropertySection {
 		for (final ModeFeature mf : localModeTransitions.keySet()) {
 			if (!cc.getAllModeTransitions().contains(mf)) {
 				if (localModeTransitions.get(mf) == ButtonState.SELECTED) {
-					localModeTransitions.replace(mf, ButtonState.DIS_PARTIAL);
+					localModeTransitions.replace(mf, ButtonState.DISABLED_AND_PARTIAL);
 				} else {
 					localModeTransitions.replace(mf, ButtonState.DISABLED);
 				}
@@ -259,15 +316,15 @@ public class ConfigureInModesSection extends AbstractPropertySection {
 		for (final ModeFeature mf : cc.getAllModeTransitions()) {
 			if (!localModeTransitions.containsKey(mf)) {
 				if (inModeTransitions.contains(mf.getName())) {
-					localModeTransitions.put(mf, ButtonState.DIS_PARTIAL);
+					localModeTransitions.put(mf, ButtonState.DISABLED_AND_PARTIAL);
 				} else {
 					localModeTransitions.put(mf, ButtonState.DISABLED);
 				}
 			} else if (inModeTransitions.contains(mf.getName())) {
-				if (localModeTransitions.get(mf) == ButtonState.NOTSELECTED) {
+				if (localModeTransitions.get(mf) == ButtonState.NOT_SELECTED) {
 					localModeTransitions.replace(mf, ButtonState.PARTIAL);
 				}
-			} else if (localModeTransitions.get(mf) != ButtonState.DIS_PARTIAL
+			} else if (localModeTransitions.get(mf) != ButtonState.DISABLED_AND_PARTIAL
 					|| localModeTransitions.get(mf) != ButtonState.DISABLED) {
 				if (localModeTransitions.get(mf) == ButtonState.SELECTED) {
 					localModeTransitions.replace(mf, ButtonState.PARTIAL);
@@ -277,13 +334,12 @@ public class ConfigureInModesSection extends AbstractPropertySection {
 	}
 
 	private static void populateLocalModes(final Map<ModeFeature, ButtonState> localModeFeatures,
-			final ComponentClassifier cc,
-			final ModalElement modalElement, final Set<String> inModes) {
+			final ComponentClassifier cc, final ModalElement modalElement, final Set<String> inModes) {
 		// Set to disabled if not available for all selected modal elements
 		for (final ModeFeature mf : localModeFeatures.keySet()) {
 			if (!cc.getAllModes().contains(mf)) {
 				if (localModeFeatures.get(mf) == ButtonState.SELECTED) {
-					localModeFeatures.replace(mf, ButtonState.DIS_PARTIAL);
+					localModeFeatures.replace(mf, ButtonState.DISABLED_AND_PARTIAL);
 				} else {
 					localModeFeatures.replace(mf, ButtonState.DISABLED);
 				}
@@ -293,15 +349,15 @@ public class ConfigureInModesSection extends AbstractPropertySection {
 		for (final ModeFeature mf : cc.getAllModes()) {
 			if (!localModeFeatures.containsKey(mf)) {
 				if (inModes.contains(mf.getName())) {
-					localModeFeatures.put(mf, ButtonState.DIS_PARTIAL);
+					localModeFeatures.put(mf, ButtonState.DISABLED_AND_PARTIAL);
 				} else {
 					localModeFeatures.put(mf, ButtonState.DISABLED);
 				}
 			} else if (inModes.contains(mf.getName())) {
-				if (localModeFeatures.get(mf) == ButtonState.NOTSELECTED) {
+				if (localModeFeatures.get(mf) == ButtonState.NOT_SELECTED) {
 					localModeFeatures.replace(mf, ButtonState.PARTIAL);
 				}
-			} else if (localModeFeatures.get(mf) != ButtonState.DIS_PARTIAL
+			} else if (localModeFeatures.get(mf) != ButtonState.DISABLED_AND_PARTIAL
 					|| localModeFeatures.get(mf) != ButtonState.DISABLED) {
 				if (localModeFeatures.get(mf) == ButtonState.SELECTED) {
 					localModeFeatures.replace(mf, ButtonState.PARTIAL);
@@ -311,9 +367,8 @@ public class ConfigureInModesSection extends AbstractPropertySection {
 	}
 
 	private void addLocalMode(final Composite container, final Map.Entry<ModeFeature, ButtonState> entry,
-			final Set<ModeFeature> derivedModesAvailable,
-			final Map<ModeFeature, ModeFeature> localToDerivedModeMap,
-			final Map<String, Boolean> selectedModalElements) {
+			final Set<ModeFeature> derivedModesAvailable, final Map<ModeFeature, ModeFeature> localToDerivedModeMap,
+			final Set<URI> urisOfElementsWhichRequireModes) {
 		final ModeFeature mf = entry.getKey();
 		final Button modeBtn = getWidgetFactory().createButton(container, mf.getName(), SWT.CHECK);
 
@@ -358,9 +413,9 @@ public class ConfigureInModesSection extends AbstractPropertySection {
 		} else if (modeFeatureState == ButtonState.PARTIAL) {
 			modeBtn.setSelection(true);
 			modeBtn.setGrayed(true);
-		} else if (modeFeatureState == ButtonState.DIS_PARTIAL || modeFeatureState == ButtonState.DISABLED) {
+		} else if (modeFeatureState == ButtonState.DISABLED_AND_PARTIAL || modeFeatureState == ButtonState.DISABLED) {
 			modeBtn.setEnabled(false);
-			boolean partialDisabled = modeFeatureState == ButtonState.DIS_PARTIAL;
+			boolean partialDisabled = modeFeatureState == ButtonState.DISABLED_AND_PARTIAL;
 			modeBtn.setGrayed(partialDisabled);
 			modeBtn.setSelection(partialDisabled);
 			if (derivedModeFld != null) {
@@ -395,15 +450,14 @@ public class ConfigureInModesSection extends AbstractPropertySection {
 						if (modeBtnIsSelected) {
 							final ModeBinding newModeBinding = sc.createOwnedModeBinding();
 							newModeBinding.setParentMode((Mode) modeFeature);
-							boolean isDerived = selectedModalElements.get(ne.getName());
+							final boolean isDerived = urisOfElementsWhichRequireModes.contains(EcoreUtil.getURI(ne));
 							// If modal element is derived, set derived mode
 							if (isDerived) {
 								final Object selection = ((StructuredSelection) derivedModeFld.getSelection())
 										.getFirstElement();
-								final ModeFeature childMode = selection instanceof ModeFeature
-										? (ModeFeature) selection
-												: null;
-										newModeBinding.setDerivedMode((Mode) childMode);
+								final ModeFeature childMode = selection instanceof ModeFeature ? (ModeFeature) selection
+										: null;
+								newModeBinding.setDerivedMode((Mode) childMode);
 							}
 						}
 					} else if (ne instanceof ModalPath) {
@@ -446,7 +500,14 @@ public class ConfigureInModesSection extends AbstractPropertySection {
 			Comparator.nullsFirst(String::compareToIgnoreCase));
 
 	private enum ButtonState {
-		SELECTED, NOTSELECTED, PARTIAL, DISABLED,
-		DIS_PARTIAL // Disabled Partial Selection
+		SELECTED, NOT_SELECTED, PARTIAL, DISABLED, DISABLED_AND_PARTIAL;
+
+		final boolean isDisabled() {
+			return this == DISABLED || this == DISABLED_AND_PARTIAL;
+		}
+
+		final boolean isEnabled() {
+			return !isDisabled();
+		}
 	}
 }
