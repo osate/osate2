@@ -184,7 +184,8 @@ public class GeneralizatonHandler {
 	}
 
 	@Create
-	public Generalization createGeneralization(@Named(Names.SOURCE_BO) final Classifier subtype, @Named(Names.DESTINATION_BO) final Classifier supertype) {
+	public Generalization createGeneralization(@Named(Names.MODIFY_BO) final Classifier subtype,
+			@Named(Names.DESTINATION_BO) final Classifier supertype) {
 		// Import the package if necessary
 		if(subtype.getNamespace() instanceof PackageSection && subtype.getNamespace().getOwner() instanceof AadlPackage &&
 				supertype.getNamespace() instanceof PackageSection && supertype.getNamespace().getOwner() instanceof AadlPackage) {

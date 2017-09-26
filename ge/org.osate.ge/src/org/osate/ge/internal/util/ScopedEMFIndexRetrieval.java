@@ -25,37 +25,39 @@ import org.eclipse.xtext.resource.IResourceDescription;
 import org.eclipse.xtext.resource.IResourceDescriptions;
 import org.eclipse.xtext.resource.XtextResourceSet;
 import org.eclipse.xtext.resource.impl.ResourceDescriptionsProvider;
+import org.eclipse.xtext.ui.resource.LiveScopeResourceSetInitializer;
 import org.osate.core.OsateCorePlugin;
 import org.osate.ge.internal.ui.util.SelectionUtil;
+import org.osate.xtext.aadl2.ui.internal.Aadl2Activator;
 
 import com.google.inject.Injector;
 
 public class ScopedEMFIndexRetrieval {
 	/**
-	* Gets a collection containing all EObjects of a specified type which may be directly referenced from the project containing the specified resource.
-	*/
+	 * Gets a collection containing all EObjects of a specified type which may be directly referenced from the project containing the specified resource.
+	 */
 	public static Collection<IEObjectDescription> getAllEObjectsByType(final Resource resource, final EClass type) {
 		return getAllEObjectsByType(SelectionUtil.getProject(resource), type);
 	}
-	
+
 	/**
-	* Gets a collection containing all EObjects of a specified type which may be directly referenced from the specified project
-	*/
+	 * Gets a collection containing all EObjects of a specified type which may be directly referenced from the specified project
+	 */
 	public static Collection<IEObjectDescription> getAllEObjectsByType(final IProject project, final EClass type) {
 		final Set<IResourceDescription> resourceDescriptions = calculateResourceDescriptions(getReferenceableProjects(project));
 		final List<IEObjectDescription> objectDescriptions = new ArrayList<IEObjectDescription>();
-		
+
 		for(final IResourceDescription rd : resourceDescriptions) {
 			for(final IEObjectDescription od : rd.getExportedObjectsByType(type)) {
-				objectDescriptions.add(od);	
-			}			
+				objectDescriptions.add(od);
+			}
 		}
-		
+
 		return objectDescriptions;
 	}
-	
+
 	/**
-	 * Returns the set of projects that can be referenced from the specified project. Includes the specified project. 
+	 * Returns the set of projects that can be referenced from the specified project. Includes the specified project.
 	 * Not recursive(Projects referenced by referenced projects are not included).
 	 * @param resource
 	 * @return
@@ -64,7 +66,7 @@ public class ScopedEMFIndexRetrieval {
 		try {
 			final Set<IProject> projects = new HashSet<IProject>();
 			projects.add(project);
-			
+
 			for(final IProject referencedProject : project.getReferencedProjects()) {
 				if(!projects.contains(referencedProject)) {
 					projects.add(referencedProject);
@@ -74,14 +76,17 @@ public class ScopedEMFIndexRetrieval {
 			return projects;
 		} catch(final CoreException ex) {
 			throw new RuntimeException(ex);
-		}		 
+		}
 	}
-	
+
 	public static Set<IResourceDescription> calculateResourceDescriptions(final Set<IProject> projects) {
 		final Set<IResourceDescription> resourceDescriptions = new HashSet<IResourceDescription>();
 		final Injector injector = OsateCorePlugin.getDefault().getInjector("org.osate.xtext.aadl2.properties.Properties");
 		final ResourceDescriptionsProvider resourceDescProvider = injector.getInstance(ResourceDescriptionsProvider.class);
-		final IResourceDescriptions resDescriptions = resourceDescProvider.getResourceDescriptions(new XtextResourceSet());
+		final XtextResourceSet rs = new XtextResourceSet();
+		Aadl2Activator.getInstance().getInjector(Aadl2Activator.ORG_OSATE_XTEXT_AADL2_AADL2)
+		.getInstance(LiveScopeResourceSetInitializer.class).initialize(rs);
+		final IResourceDescriptions resDescriptions = resourceDescProvider.getResourceDescriptions(rs);
 		for(final IResourceDescription resDesc : resDescriptions.getAllResourceDescriptions()) {
 			final IPath resPath = new Path(resDesc.getURI().toPlatformString(true));
 			for(final IProject p : projects) {
@@ -91,7 +96,7 @@ public class ScopedEMFIndexRetrieval {
 				}
 			}
 		}
-		
+
 		return resourceDescriptions;
 	}
 }

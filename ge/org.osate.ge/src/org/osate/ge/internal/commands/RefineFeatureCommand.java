@@ -9,11 +9,11 @@ import org.osate.aadl2.DirectedFeature;
 import org.osate.aadl2.Feature;
 import org.osate.aadl2.FeatureGroupType;
 import org.osate.aadl2.NamedElement;
+import org.osate.ge.BusinessObjectContext;
 import org.osate.ge.di.Activate;
 import org.osate.ge.di.GetLabel;
 import org.osate.ge.di.IsAvailable;
 import org.osate.ge.di.Names;
-import org.osate.ge.BusinessObjectContext;
 import org.osate.ge.internal.di.GetBusinessObjectToModify;
 import org.osate.ge.internal.util.AadlFeatureUtil;
 import org.osate.ge.query.StandaloneQuery;
@@ -46,21 +46,18 @@ public class RefineFeatureCommand {
 			final QueryService queryService) {
 		return queryService.getFirstBusinessObject(parentQuery, boc);
 	}
-	
+
 	@Activate
 	public boolean activate(@Named(Names.BUSINESS_OBJECT) final Feature feature,
-			@Named(Names.BUSINESS_OBJECT_CONTEXT) final BusinessObjectContext boc,
-			final QueryService queryService) {
-		final Object featureOwner = queryService.getFirstBusinessObject(parentQuery, boc);
-		
+			@Named(Names.MODIFY_BO) final Classifier featureOwner) {
 		// Refine the feature
-		final NamedElement newFeatureEl = AadlFeatureUtil.createFeature((Classifier)featureOwner, feature.eClass());
+		final NamedElement newFeatureEl = AadlFeatureUtil.createFeature(featureOwner, feature.eClass());
 		final Feature newFeature = (Feature)newFeatureEl;
 		newFeature.setRefined(feature);
 
 		if(feature instanceof DirectedFeature) {
 			final DirectedFeature refinedDirectedFeature= (DirectedFeature)feature;
-			final DirectedFeature newDirectedFeature = (DirectedFeature)newFeature;						
+			final DirectedFeature newDirectedFeature = (DirectedFeature)newFeature;
 			newDirectedFeature.setIn(refinedDirectedFeature.isIn());
 			newDirectedFeature.setOut(refinedDirectedFeature.isOut());
 		} else if(feature instanceof Access) {

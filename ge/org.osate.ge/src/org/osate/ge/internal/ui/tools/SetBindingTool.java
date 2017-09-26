@@ -54,7 +54,7 @@ import org.osate.ge.internal.diagram.runtime.AgeDiagram;
 import org.osate.ge.internal.diagram.runtime.DiagramConfigurationBuilder;
 import org.osate.ge.internal.diagram.runtime.DiagramElement;
 import org.osate.ge.internal.services.AadlModificationService;
-import org.osate.ge.internal.services.AadlModificationService.AbstractModifier;
+import org.osate.ge.internal.services.AadlModificationService.Modifier;
 import org.osate.ge.internal.services.UiService;
 import org.osate.xtext.aadl2.properties.util.DeploymentProperties;
 import org.osate.xtext.aadl2.properties.util.GetProperties;
@@ -67,41 +67,41 @@ public class SetBindingTool {
 	private SetBindingWindow currentWindow = null;
 
 	@Activate
-	public void activate(@Named(InternalNames.SELECTED_DIAGRAM_ELEMENT) final BusinessObjectContext selectedBoc, 
+	public void activate(@Named(InternalNames.SELECTED_DIAGRAM_ELEMENT) final BusinessObjectContext selectedBoc,
 			final AgeDiagramProvider diagramProvider,
 			final AadlModificationService aadlModService,
 			final UiService uiService) {
 		try {
-			final BusinessObjectContext componentImplementationBoc = ToolUtil.findComponentImplementationBoc(selectedBoc);		
-			
+			final BusinessObjectContext componentImplementationBoc = ToolUtil.findComponentImplementationBoc(selectedBoc);
+
 			// Open Dialog
 			if(currentWindow == null && componentImplementationBoc != null) {
 				currentWindow = new SetBindingWindow(Display.getCurrent().getActiveShell(), componentImplementationBoc, selectedBoc);
-				if(currentWindow.open() == Window.OK) {					
+				if(currentWindow.open() == Window.OK) {
 					// Ensure the diagram is configured to show the specified binding property
 					final AgeDiagram diagram = diagramProvider.getAgeDiagram();
 					diagram.setDiagramConfiguration(new DiagramConfigurationBuilder(diagram.getConfiguration()).
 							addAadlProperty(currentWindow.getSelectedProperty().getQualifiedName()).
 							build());
-					
+
 					// Create the property association
 					createPropertyAssociation(aadlModService);
 				}
-								
+
 				currentWindow = null;
 			}
 		} finally {
 			uiService.deactivateActiveTool();
 		}
 	}
-	
+
 	@SelectionChanged
 	public void onSelectionChanged(@Named(InternalNames.SELECTED_DIAGRAM_ELEMENTS) final DiagramElement[] selectedDiagramElements) {
 		if(currentWindow != null && currentWindow.getShell() != null && currentWindow.getShell().isVisible()) {
 			currentWindow.setTargetBusinessObjectContexts(selectedDiagramElements);
 		}
 	}
-	
+
 	@Deactivate
 	public void deactivate(final UiService uiService) {
 		if(currentWindow != null) {
@@ -119,18 +119,18 @@ public class SetBindingTool {
 		private IStructuredSelection currentPropComboSel;
 		private BusinessObjectContext[] targetBocs = new BusinessObjectContext[0];
 		private final LabelProvider propertyLabelProvider = new LabelProvider() {
-	    	@Override
-	    	public String getText(final Object element) {
-	    		final Property p = (Property)element;
-	    		if(p == null) {
-	    			return "";
-	    		}
-	    		
-	    		return p.getName();
-	    	}
-	    };
-	    
-		public SetBindingWindow(final Shell parentShell, 
+			@Override
+			public String getText(final Object element) {
+				final Property p = (Property)element;
+				if(p == null) {
+					return "";
+				}
+
+				return p.getName();
+			}
+		};
+
+		public SetBindingWindow(final Shell parentShell,
 				final BusinessObjectContext componentImplementationBoc,
 				final BusinessObjectContext bocToBind) {
 			super(parentShell);
@@ -147,7 +147,7 @@ public class SetBindingTool {
 
 			setTitle("Select Elements");
 			setMessage("Select a binding property and the elements from the diagram to bind " + elementToBind.getName()
-					+ ".");
+			+ ".");
 			validate();
 		}
 
@@ -243,20 +243,20 @@ public class SetBindingTool {
 										}
 									}
 								}
-							}						
+							}
 						}
-						
+
 						// Show an error message if the BO is not valid
 						if (!boIsValid) {
 							validationSuccessful = false;
 							selectionStatusLabel.setText("One or more of the selected target elements are not valid.");
 							break;
 						}
-						
+
 					}
 				}
 			}
-			
+
 			final Button okButton = getButton(IDialogConstants.OK_ID);
 			okButton.setEnabled(validationSuccessful);
 		}
@@ -282,11 +282,11 @@ public class SetBindingTool {
 		public BusinessObjectContext getComponentImplementationBoc() {
 			return componentImplementationBoc;
 		}
-		
+
 		public BusinessObjectContext getBocToBind() {
 			return bocToBind;
-		}		
-		
+		}
+
 		public Property getSelectedProperty() {
 			if (currentPropComboSel instanceof StructuredSelection) {
 				final StructuredSelection selection = (StructuredSelection) currentPropComboSel;
@@ -295,7 +295,7 @@ public class SetBindingTool {
 
 			return null;
 		}
-		
+
 		public void setSelectedProperty(final IStructuredSelection propComboSelection) {
 			currentPropComboSel = propComboSelection;
 		}
@@ -315,11 +315,11 @@ public class SetBindingTool {
 	private void createPropertyAssociation(final AadlModificationService aadlModService) {
 		final BusinessObjectContext ciBoc = currentWindow.getComponentImplementationBoc();
 		final ComponentImplementation ci = (ComponentImplementation)ciBoc.getBusinessObject();
-		aadlModService.modify(ci, new AbstractModifier<ComponentClassifier, Object>() {
+		aadlModService.modify(ci, new Modifier<ComponentClassifier, Object>() {
 			@Override
 			public Object modify(final Resource resource, final ComponentClassifier cc) {
 				final PropertyAssociation newPa = Aadl2Factory.eINSTANCE.createPropertyAssociation();
-				
+
 				// Set property
 				newPa.setProperty(currentWindow.getSelectedProperty());
 
