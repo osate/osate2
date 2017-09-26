@@ -3,6 +3,7 @@ package org.osate.ge.internal.ui.properties;
 import java.util.Collection;
 import java.util.Comparator;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.TreeMap;
@@ -32,7 +33,6 @@ import org.eclipse.ui.IWorkbenchPart;
 import org.eclipse.ui.views.properties.tabbed.AbstractPropertySection;
 import org.eclipse.ui.views.properties.tabbed.TabbedPropertySheetPage;
 import org.osate.aadl2.ComponentClassifier;
-import org.osate.aadl2.ComponentType;
 import org.osate.aadl2.ModalElement;
 import org.osate.aadl2.ModalPath;
 import org.osate.aadl2.Mode;
@@ -123,19 +123,20 @@ public class ConfigureInModesSection extends AbstractPropertySection {
 
 					nonModePathSelected = true;
 					final Subcomponent sc = (Subcomponent) modalElement;
-					if (sc.getComponentType() != null) {
-						final ComponentType ct = sc.getComponentType();
-						for (final Mode mb : ct.getOwnedModes()) {
+					final ComponentClassifier scClassifier = sc.getAllClassifier();
+					if (scClassifier != null) {
+						final List<Mode> scClassifierAllModes = scClassifier.getAllModes();
+						for (final Mode mb : scClassifierAllModes) {
 							if (mb.isDerived()) {
 								// Mark the modal element as derived
 								urisOfElementsWhichRequireModes.add(scUri);
 
 								if (derivedModes == null) {
 									derivedModes = new HashSet<>();
-									derivedModes.addAll(ct.getAllModes());
+									derivedModes.addAll(scClassifierAllModes);
 								} else {
 									// Keep intersection of owned modes between selections
-									derivedModes.retainAll(ct.getAllModes());
+									derivedModes.retainAll(scClassifierAllModes);
 								}
 
 								break;
@@ -146,7 +147,6 @@ public class ConfigureInModesSection extends AbstractPropertySection {
 					for (final ModeBinding modeBinding : sc.getOwnedModeBindings()) {
 						final ModeFeature localMode = modeBinding.getParentMode();
 						final ModeFeature derivedMode = modeBinding.getDerivedMode();
-
 						if (urisOfElementsWhichRequireModes.contains(scUri)) {
 							if (localToDerivedModeMap.containsKey(localMode)) {
 								if (localToDerivedModeMap.get(localMode) != derivedMode) {
@@ -175,19 +175,8 @@ public class ConfigureInModesSection extends AbstractPropertySection {
 					} else {
 						populateModeTransitions(localModeTransitions, cc, modalPath, inModeTransitions);
 					}
-
-					for (final ModeFeature mf : modalPath.getInModeOrTransitions()) {
-						if (!localToDerivedModeMap.containsKey(mf)) {
-							localToDerivedModeMap.put(mf, null);
-						}
-					}
 				} else {
 					nonModePathSelected = true;
-					for (final ModeFeature mf : modalElement.getInModes()) {
-						if (!localToDerivedModeMap.containsKey(mf)) {
-							localToDerivedModeMap.put(mf, null);
-						}
-					}
 				}
 			}
 		}
@@ -214,15 +203,20 @@ public class ConfigureInModesSection extends AbstractPropertySection {
 						localModeTransitions == null ? Stream.empty() : localModeTransitions.values().stream())
 				.anyMatch(ButtonState::isEnabled);
 
+		final boolean hasModeSelections = Stream
+				.concat(localModes == null ? Stream.empty() : localModes.values().stream(),
+						localModeTransitions == null ? Stream.empty() : localModeTransitions.values().stream())
+				.anyMatch(ButtonState::isAtleastPartiallySelected);
+
 		final String inModesStatusTxt;
 		if (!hasEnabledModes) {
 			inModesStatusTxt = "<No Common Applicable Modes>";
 		} else if (anyRefinedElementHasInheritedModeFeatures(mes)) {
 			inModesStatusTxt = "<See Refined Element(s)>";
-		} else if (localToDerivedModeMap.size() == 0) {
-			inModesStatusTxt = "All";
-		} else {
+		} else if (hasModeSelections) {
 			inModesStatusTxt = "Selected Modes";
+		} else {
+			inModesStatusTxt = "All";
 		}
 
 		final Label inModesStatus = getWidgetFactory().createLabel(composite, inModesStatusTxt);
@@ -508,6 +502,10 @@ public class ConfigureInModesSection extends AbstractPropertySection {
 
 		final boolean isEnabled() {
 			return !isDisabled();
+		}
+
+		final boolean isAtleastPartiallySelected() {
+			return this == SELECTED || this == PARTIAL || this == DISABLED_AND_PARTIAL;
 		}
 	}
 }
