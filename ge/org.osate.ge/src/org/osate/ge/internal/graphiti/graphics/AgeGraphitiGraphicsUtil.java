@@ -626,26 +626,21 @@ public class AgeGraphitiGraphicsUtil {
 
 		switch (featureGraphic.featureType) {
 		case ABSTRACT:
-		case PORT_PROXY:
 			return createAbstractFeatureGraphicsAlgorithm(diagram, containerGa, featureGraphic.direction);
 
-		case BUS_ACCESS:
-		case DATA_ACCESS:
+		case BUS_OR_DATA_ACCESS:
 			return createDataOrBusAccessGraphicsAlgorithm(diagram, containerGa, featureGraphic.direction);
 
 		case DATA_PORT:
 			return createPortGraphicsAlgorithm(diagram, containerGa, true, false, featureGraphic.direction);
 
 		case EVENT_DATA_PORT:
-		case EVENT_DATA_SOURCE:
 			return createPortGraphicsAlgorithm(diagram, containerGa, true, true, featureGraphic.direction);
 
 		case EVENT_PORT:
-		case EVENT_SOURCE:
 			return createPortGraphicsAlgorithm(diagram, containerGa, false, true, featureGraphic.direction);
 
 		case SUBPROGRAM_ACCESS:
-		case SUBPROGRAM_PROXY:
 			return createSubprogramAccessGraphicsAlgorithm(diagram, containerGa, featureGraphic.direction, false);
 
 		case SUBPROGRAM_GROUP_ACCESS:

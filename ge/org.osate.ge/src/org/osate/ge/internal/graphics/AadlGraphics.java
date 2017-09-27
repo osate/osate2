@@ -11,6 +11,7 @@ import org.osate.aadl2.ComponentImplementation;
 import org.osate.aadl2.DirectionType;
 import org.osate.aadl2.FeatureGroupType;
 import org.osate.aadl2.PortCategory;
+import org.osate.ge.graphics.Color;
 import org.osate.ge.graphics.EllipseBuilder;
 import org.osate.ge.graphics.Graphic;
 import org.osate.ge.graphics.RectangleBuilder;
@@ -18,7 +19,9 @@ import org.osate.ge.graphics.Style;
 import org.osate.ge.graphics.StyleBuilder;
 import org.osate.ge.graphics.internal.BusGraphicBuilder;
 import org.osate.ge.graphics.internal.DeviceGraphicBuilder;
+import org.osate.ge.graphics.internal.FeatureGraphic;
 import org.osate.ge.graphics.internal.FeatureGraphicBuilder;
+import org.osate.ge.graphics.internal.FeatureGraphicType;
 import org.osate.ge.graphics.internal.FeatureGroupTypeGraphicBuilder;
 import org.osate.ge.graphics.internal.MemoryGraphicBuilder;
 import org.osate.ge.graphics.internal.ParallelogramBuilder;
@@ -70,7 +73,7 @@ public class AadlGraphics {
 		return topCenteredLabelStyle;
 	}
 
-	public static Graphic getFeatureGraphic(final EClass featureClass, DirectionType direction) {
+	public static FeatureGraphic getFeatureGraphic(final EClass featureClass, DirectionType direction) {
 		final FeatureGraphicBuilder builder = FeatureGraphicBuilder.create();
 
 		// Configure the feature type
@@ -101,8 +104,6 @@ public class AadlGraphics {
 			builder.eventDataSource();
 		} else if(featureClass == aadl2Pkg.getSubprogramProxy()) {
 			builder.subprogramProxy();
-		} else {
-			return defaultGraphic;
 		}
 
 		switch(direction) {
@@ -122,7 +123,26 @@ public class AadlGraphics {
 		return builder.build();
 	}
 
-	public static Graphic getFeatureGraphic(final PortCategory portCategory, final DirectionType direction) {
+	public static String getFeatureAnnotation(final EClass featureClass) {
+		final Aadl2Package aadl2Pkg = Aadl2Factory.eINSTANCE.getAadl2Package();
+		if (aadl2Pkg.getProcessorFeature().isSuperTypeOf(featureClass)) {
+			return "<processor>";
+		} else if (aadl2Pkg.getInternalFeature().isSuperTypeOf(featureClass)) {
+			return "<internal>";
+		}
+
+		return null;
+	}
+
+	public static Color getDefaultBackgroundColor(final FeatureGraphicType featureGraphicType) {
+		if (featureGraphicType == FeatureGraphicType.SUBPROGRAM_ACCESS) {
+			return Color.WHITE;
+		} else {
+			return Color.BLACK;
+		}
+	}
+
+	public static FeatureGraphic getFeatureGraphic(final PortCategory portCategory, final DirectionType direction) {
 		final FeatureGraphicBuilder builder = FeatureGraphicBuilder.create();
 
 		switch(portCategory) {
@@ -139,7 +159,6 @@ public class AadlGraphics {
 			break;
 
 		default:
-			return defaultGraphic;
 		}
 
 		switch(direction) {
@@ -159,7 +178,7 @@ public class AadlGraphics {
 		return builder.build();
 	}
 
-	public static Graphic getFeatureGraphic(final AccessCategory accessCategory, final DirectionType direction) {
+	public static FeatureGraphic getFeatureGraphic(final AccessCategory accessCategory, final DirectionType direction) {
 		final FeatureGraphicBuilder builder = FeatureGraphicBuilder.create();
 
 		switch(accessCategory) {
@@ -180,7 +199,7 @@ public class AadlGraphics {
 			break;
 
 		default:
-			return defaultGraphic;
+			break;
 		}
 
 		switch(direction) {
