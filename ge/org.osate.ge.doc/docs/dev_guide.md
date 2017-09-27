@@ -89,6 +89,8 @@ Reference resolvers differ from reference builders and other extensions in a cou
 ### Business Object Handlers
 Business object handlers are classes which provide business object specific functionality to the graphical editor. They are registered using the org.osate.ge.businessObjectHandlers extension point. Business object handlers may provide partial functionality by only including a subset of the supported annotations.
 
+If a business object handler exists for a parsed annex library or subclause, neither the default or the parsed annex library or subclause will be contributed automatically. This provides an extension that provides support for an annex additional flexibility in determining how the annex is represented graphically.
+
 #### Examples
 * org.osate.ge.errormodel.businessObjectHandlers package
 
