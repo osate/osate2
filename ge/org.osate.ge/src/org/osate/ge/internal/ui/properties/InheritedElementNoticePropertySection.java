@@ -72,9 +72,10 @@ public class InheritedElementNoticePropertySection extends AbstractPropertySecti
 
 	@Override
 	public void refresh() {
-		final boolean visible = selectedBos.bocStream().anyMatch(
-				boc -> !(((Element) boc.getBusinessObject()) instanceof Classifier) && boc.getParent()
-				.getBusinessObject() != ((Element) boc.getBusinessObject()).getContainingClassifier());
+		final boolean visible = selectedBos.bocStream()
+				.anyMatch(boc -> !(((Element) boc.getBusinessObject()) instanceof Classifier) && boc.getParent() != null
+				&& boc.getParent().getBusinessObject() != ((Element) boc.getBusinessObject())
+				.getContainingClassifier());
 
 		warningComposite.setVisible(visible);
 		warningComposite.setLayoutData(
