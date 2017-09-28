@@ -103,7 +103,7 @@ public class SavedDiagramIndex {
 							if(config != null) {
 								context = DiagramSerialization.convert(config.getContext());
 
-								// Get the busines object for the context reference.
+								// Get the business object for the context reference.
 								if(context != null) {
 									contextBo = projectReferenceService.resolve(context);
 								}
