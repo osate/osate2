@@ -45,6 +45,10 @@ public class AgeGraphitiGraphicsUtil {
 	public static final int featureGroupDefaultSymbolWidth = 30;
 	private static final Map<Class<? extends Graphic>, GraphicsAlgorithmCreator<?>> graphicToCreatorMap;
 
+	// Standard size of features other than feature groups
+	private static final int featureWidth = 16;
+	private static final int featureHeight = 16;
+
 	@FunctionalInterface
 	static interface GraphicsAlgorithmCreator<G> {
 		GraphicsAlgorithm createGraphicsAlgorithm(Diagram diagram, GraphicsAlgorithmContainer containerGa, G graphic,
@@ -659,31 +663,43 @@ public class AgeGraphitiGraphicsUtil {
 		final IGaService gaService = Graphiti.getGaService();
 		final Color black = gaService.manageColor(diagram, IColorConstant.BLACK);
 
+		final int width = featureWidth;
+		final int height = featureHeight;
+
 		final GraphicsAlgorithm ga = gaService.createPlainRectangle(containerGa);
 		PropertyUtil.setIsStylingContainer(ga, true);
 		ga.setFilled(false);
 		ga.setLineVisible(false);
-		gaService.setSize(ga, 25, 20);
+		gaService.setSize(ga, width, height);
+
+		final int circlePadding;
+		if (direction == Direction.IN_OUT) {
+			circlePadding = 0;
+		} else {
+			circlePadding = 4;
+		}
 
 		final GraphicsAlgorithm circleGa = gaService.createPlainEllipse(ga);
 		PropertyUtil.setIsStylingChild(circleGa, true);
 		circleGa.setBackground(black);
 		circleGa.setForeground(black);
 		circleGa.setLineWidth(featureLineWidth);
-		gaService.setLocation(circleGa, 0, 5);
-		gaService.setSize(circleGa, 10, 10);
+		gaService.setLocation(circleGa, 0, circlePadding);
+		gaService.setSize(circleGa, width - 2 * circlePadding, width - 2 * circlePadding);
 
 		// In Abstract Feature
 		if (direction == Direction.IN) {
-			final GraphicsAlgorithm directionGa = gaService.createPlainPolyline(ga, new int[] { 0, 0, 25, 10, 0, 20 });
+			final GraphicsAlgorithm directionGa = gaService.createPlainPolyline(ga,
+					new int[] { 0, 0, width, height / 2, 0, height });
 			PropertyUtil.setIsStylingChild(directionGa, true);
 			directionGa.setBackground(black);
 			directionGa.setForeground(black);
 			directionGa.setLineWidth(featureLineWidth);
 		} else if (direction == Direction.OUT) { // Out Abstract Feature
-			final GraphicsAlgorithm directionGa = gaService.createPlainPolyline(ga, new int[] { 25, 0, 0, 10, 25, 20 });
+			final GraphicsAlgorithm directionGa = gaService.createPlainPolyline(ga,
+					new int[] { width, 0, 0, height / 2, width, height });
 			PropertyUtil.setIsStylingChild(directionGa, true);
-			gaService.setLocation(circleGa, ga.getWidth() - circleGa.getWidth(), 5);
+			gaService.setLocation(circleGa, ga.getWidth() - circleGa.getWidth(), circlePadding);
 			directionGa.setForeground(black);
 			directionGa.setLineWidth(featureLineWidth);
 		}
@@ -703,13 +719,23 @@ public class AgeGraphitiGraphicsUtil {
 		ga.setFilled(false);
 		ga.setLineVisible(false);
 
-		int width = 25;
-		final int height = 20;
-		final int dataSymbolXPadding = 10;
-		final int dataSymbolYPadding = 5;
+		final int dataSymbolXPadding;
+		final int dataSymbolYPadding;
+
+		// Data width and height should be evenly divisbile in all cases. Check other match
+		if (hasEvent) {
+			dataSymbolXPadding = 6;
+			dataSymbolYPadding = 4;
+		} else {
+			dataSymbolXPadding = 0;
+			dataSymbolYPadding = 0;
+		}
 
 		GraphicsAlgorithm dataGa = null;
 		GraphicsAlgorithm eventGa = null;
+
+		final int width = featureWidth;
+		final int height = featureHeight;
 
 		switch (direction) {
 		// In Port
@@ -740,7 +766,6 @@ public class AgeGraphitiGraphicsUtil {
 
 			// In Out Port
 		case IN_OUT:
-			width *= 2;
 			if (hasEvent) {
 				eventGa = gaService.createPlainPolyline(ga,
 						new int[] { width / 2, 0, width, height / 2, width / 2, height, 0, height / 2, width / 2, 0 });
@@ -748,8 +773,8 @@ public class AgeGraphitiGraphicsUtil {
 
 			if (hasData) {
 				dataGa = gaService.createPlainPolygon(ga,
-						new int[] { width / 2, dataSymbolYPadding, width - dataSymbolXPadding, height / 2, width / 2,
-								height - dataSymbolYPadding, dataSymbolXPadding, height / 2 });
+						new int[] { width / 2, dataSymbolYPadding, width - dataSymbolXPadding / 2, height / 2,
+								width / 2, height - dataSymbolYPadding, dataSymbolXPadding / 2, height / 2 });
 			}
 
 			break;
@@ -781,8 +806,8 @@ public class AgeGraphitiGraphicsUtil {
 		final Color black = gaService.manageColor(diagram, IColorConstant.BLACK);
 		final Color white = gaService.manageColor(diagram, IColorConstant.WHITE);
 
-		final int width = 20;
-		final int height = 20;
+		final int width = featureWidth;
+		final int height = featureHeight;
 		final int slopeWidth = 5;
 
 		final GraphicsAlgorithm ga;
@@ -813,8 +838,9 @@ public class AgeGraphitiGraphicsUtil {
 		final Color background = blackBackground ? black : white;
 		final Color foreground = blackBackground ? white : black;
 
-		final int width = 35;
-		final int height = 20;
+		final int width = featureWidth;
+		final int height = featureHeight;
+
 		final int vPadding = 5;
 
 		final GraphicsAlgorithm ga = gaService.createPlainEllipse(containerGa);
