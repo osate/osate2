@@ -112,6 +112,21 @@
 </tbody>
 </table>
 <table class="useSummary" border="0" cellpadding="3" cellspacing="0" summary="Use table, listing methods, and an explanation">
+<caption><span>Methods in <a href="../../../../org/osate/ge/package-summary.html">org.osate.ge</a> that return types with arguments of type <a href="../../../../org/osate/ge/BusinessObjectContext.html" title="interface in org.osate.ge">BusinessObjectContext</a></span><span class="tabEnd">&nbsp;</span></caption>
+<tr>
+<th class="colFirst" scope="col">Modifier and Type</th>
+<th class="colLast" scope="col">Method and Description</th>
+</tr>
+<tbody>
+<tr class="altColor">
+<td class="colFirst"><code>java.util.stream.Stream&lt;<a href="../../../../org/osate/ge/BusinessObjectContext.html" title="interface in org.osate.ge">BusinessObjectContext</a>&gt;</code></td>
+<td class="colLast"><span class="typeNameLabel">BusinessObjectSelection.</span><code><span class="memberNameLink"><a href="../../../../org/osate/ge/BusinessObjectSelection.html#bocStream--">bocStream</a></span>()</code>
+<div class="block">Business objects provided by this stream must not be modified.</div>
+</td>
+</tr>
+</tbody>
+</table>
+<table class="useSummary" border="0" cellpadding="3" cellspacing="0" summary="Use table, listing methods, and an explanation">
 <caption><span>Methods in <a href="../../../../org/osate/ge/package-summary.html">org.osate.ge</a> with parameters of type <a href="../../../../org/osate/ge/BusinessObjectContext.html" title="interface in org.osate.ge">BusinessObjectContext</a></span><span class="tabEnd">&nbsp;</span></caption>
 <tr>
 <th class="colFirst" scope="col">Modifier and Type</th>
@@ -123,8 +138,35 @@
 <td class="colLast"><span class="typeNameLabel">GraphicalConfigurationBuilder.</span><code><span class="memberNameLink"><a href="../../../../org/osate/ge/GraphicalConfigurationBuilder.html#destination-org.osate.ge.BusinessObjectContext-">destination</a></span>(<a href="../../../../org/osate/ge/BusinessObjectContext.html" title="interface in org.osate.ge">BusinessObjectContext</a>&nbsp;value)</code>&nbsp;</td>
 </tr>
 <tr class="rowColor">
+<td class="colFirst"><code>static boolean</code></td>
+<td class="colLast"><span class="typeNameLabel">GraphicalExtensionUtil.</span><code><span class="memberNameLink"><a href="../../../../org/osate/ge/GraphicalExtensionUtil.html#isInherited-org.osate.ge.BusinessObjectContext-">isInherited</a></span>(<a href="../../../../org/osate/ge/BusinessObjectContext.html" title="interface in org.osate.ge">BusinessObjectContext</a>&nbsp;boc)</code>&nbsp;</td>
+</tr>
+<tr class="altColor">
 <td class="colFirst"><code><a href="../../../../org/osate/ge/GraphicalConfigurationBuilder.html" title="class in org.osate.ge">GraphicalConfigurationBuilder</a></code></td>
 <td class="colLast"><span class="typeNameLabel">GraphicalConfigurationBuilder.</span><code><span class="memberNameLink"><a href="../../../../org/osate/ge/GraphicalConfigurationBuilder.html#source-org.osate.ge.BusinessObjectContext-">source</a></span>(<a href="../../../../org/osate/ge/BusinessObjectContext.html" title="interface in org.osate.ge">BusinessObjectContext</a>&nbsp;value)</code>&nbsp;</td>
+</tr>
+</tbody>
+</table>
+<table class="useSummary" border="0" cellpadding="3" cellspacing="0" summary="Use table, listing methods, and an explanation">
+<caption><span>Method parameters in <a href="../../../../org/osate/ge/package-summary.html">org.osate.ge</a> with type arguments of type <a href="../../../../org/osate/ge/BusinessObjectContext.html" title="interface in org.osate.ge">BusinessObjectContext</a></span><span class="tabEnd">&nbsp;</span></caption>
+<tr>
+<th class="colFirst" scope="col">Modifier and Type</th>
+<th class="colLast" scope="col">Method and Description</th>
+</tr>
+<tbody>
+<tr class="altColor">
+<td class="colFirst"><code>&lt;T extends EObject&gt;<br>void</code></td>
+<td class="colLast"><span class="typeNameLabel">BusinessObjectSelection.</span><code><span class="memberNameLink"><a href="../../../../org/osate/ge/BusinessObjectSelection.html#modify-java.util.function.Function-java.util.function.BiConsumer-">modify</a></span>(java.util.function.Function&lt;<a href="../../../../org/osate/ge/BusinessObjectContext.html" title="interface in org.osate.ge">BusinessObjectContext</a>,T&gt;&nbsp;bocToBoToModifyMapper,
+      java.util.function.BiConsumer&lt;T,<a href="../../../../org/osate/ge/BusinessObjectContext.html" title="interface in org.osate.ge">BusinessObjectContext</a>&gt;&nbsp;modifier)</code>
+<div class="block">Calls the specified modifier for each business object provided by the bocToBoToModifyMapper.</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>&lt;T extends EObject&gt;<br>void</code></td>
+<td class="colLast"><span class="typeNameLabel">BusinessObjectSelection.</span><code><span class="memberNameLink"><a href="../../../../org/osate/ge/BusinessObjectSelection.html#modify-java.util.function.Function-java.util.function.BiConsumer-">modify</a></span>(java.util.function.Function&lt;<a href="../../../../org/osate/ge/BusinessObjectContext.html" title="interface in org.osate.ge">BusinessObjectContext</a>,T&gt;&nbsp;bocToBoToModifyMapper,
+      java.util.function.BiConsumer&lt;T,<a href="../../../../org/osate/ge/BusinessObjectContext.html" title="interface in org.osate.ge">BusinessObjectContext</a>&gt;&nbsp;modifier)</code>
+<div class="block">Calls the specified modifier for each business object provided by the bocToBoToModifyMapper.</div>
+</td>
 </tr>
 </tbody>
 </table>

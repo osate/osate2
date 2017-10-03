@@ -24,6 +24,8 @@ import org.osate.aadl2.AbstractFeature;
 import org.osate.aadl2.DirectedFeature;
 import org.osate.aadl2.DirectionType;
 import org.osate.aadl2.FeatureGroup;
+import org.osate.ge.BusinessObjectSelection;
+import org.osate.ge.ui.properties.PropertySectionUtil;
 
 public class DirectionalFeaturePropertySection extends AbstractPropertySection {
 	public static class Filter implements IFilter {

@@ -41,6 +41,8 @@ import org.osate.aadl2.ModeFeature;
 import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.RefinableElement;
 import org.osate.aadl2.Subcomponent;
+import org.osate.ge.BusinessObjectSelection;
+import org.osate.ge.ui.properties.PropertySectionUtil;
 
 public class ConfigureInModesSection extends AbstractPropertySection {
 	public static class Filter implements IFilter {

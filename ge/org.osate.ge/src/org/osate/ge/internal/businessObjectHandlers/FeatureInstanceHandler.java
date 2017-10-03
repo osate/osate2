@@ -13,14 +13,11 @@ import org.osate.ge.di.GetGraphicalConfiguration;
 import org.osate.ge.di.GetName;
 import org.osate.ge.di.IsApplicable;
 import org.osate.ge.di.Names;
-import org.osate.ge.graphics.Graphic;
-import org.osate.ge.graphics.Style;
 import org.osate.ge.graphics.StyleBuilder;
+import org.osate.ge.graphics.internal.FeatureGraphic;
 import org.osate.ge.internal.graphics.AadlGraphics;
 
 public class FeatureInstanceHandler {
-	private static final Style style = StyleBuilder.create().labelsAboveTop().labelsLeft().build();
-
 	@IsApplicable
 	public boolean isApplicable(final @Named(Names.BUSINESS_OBJECT) FeatureInstance fi) {
 		return true;
@@ -28,14 +25,18 @@ public class FeatureInstanceHandler {
 
 	@GetGraphicalConfiguration
 	public GraphicalConfiguration getGraphicalConfiguration(final @Named(Names.BUSINESS_OBJECT) FeatureInstance fi) {
+		final FeatureGraphic graphic = getGraphicalRepresentation(fi);
 		return GraphicalConfigurationBuilder.create().
-				graphic(getGraphicalRepresentation(fi)).
-				style(style).
+				graphic(graphic).
+				annotation(AadlGraphics.getFeatureAnnotation(fi.getFeature().eClass())).
+				style(StyleBuilder.create().backgroundColor(AadlGraphics.getDefaultBackgroundColor(graphic.featureType))
+						.labelsAboveTop().labelsLeft().build())
+				.
 				defaultDockingPosition(getDefaultDockingPosition(fi)).
 				build();
 	}
 
-	private Graphic getGraphicalRepresentation(final FeatureInstance fi) {
+	private FeatureGraphic getGraphicalRepresentation(final FeatureInstance fi) {
 		// Determine the direction of access feature instances using the type of the feature.
 		// This is needed because as of 2016-12-09 access feature instances have a direction of IN OUT. The AccessType may not be reliable because it could be inverted
 		// by being inside an inverse of feature group.

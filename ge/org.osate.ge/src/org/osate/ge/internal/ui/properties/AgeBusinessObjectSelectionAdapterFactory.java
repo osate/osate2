@@ -4,6 +4,7 @@ import org.eclipse.core.runtime.IAdapterFactory;
 import org.eclipse.e4.core.contexts.EclipseContextFactory;
 import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.jface.viewers.ISelection;
+import org.osate.ge.BusinessObjectSelection;
 import org.osate.ge.internal.services.AadlModificationService;
 import org.osate.ge.internal.ui.util.SelectionUtil;
 import org.osgi.framework.Bundle;

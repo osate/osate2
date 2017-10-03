@@ -645,7 +645,7 @@
         adaptableType="org.eclipse.jface.viewers.ISelection"
         class="org.osate.ge.internal.ui.properties.AgeBusinessObjectSelectionAdapterFactory">
      <adapter
-           type="org.osate.ge.internal.ui.properties.BusinessObjectSelection">
+           type="org.osate.ge.BusinessObjectSelection">
      </adapter>
   </factory>
 	</extension>

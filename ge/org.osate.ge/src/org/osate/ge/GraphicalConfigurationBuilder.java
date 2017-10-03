@@ -17,6 +17,7 @@ public class GraphicalConfigurationBuilder {
 	private DiagramElement connectionSource;
 	private DiagramElement connectionDestination;
 	private boolean isDecoration = false;
+	private String annotation;
 
 	private GraphicalConfigurationBuilder() {
 	}
@@ -55,8 +56,18 @@ public class GraphicalConfigurationBuilder {
 		return this;
 	}
 
+	/**
+	 * Annotations are only supported for use with shape graphics at this time.
+	 * @param value
+	 * @return
+	 */
+	public GraphicalConfigurationBuilder annotation(String value) {
+		this.annotation = value;
+		return this;
+	}
+
 	public GraphicalConfiguration build() {
 		return new AgeGraphicalConfiguration(graphic, defaultDockingPosition, connectionSource, connectionDestination,
-				style, isDecoration);
+				style, isDecoration, annotation);
 	}
 }
