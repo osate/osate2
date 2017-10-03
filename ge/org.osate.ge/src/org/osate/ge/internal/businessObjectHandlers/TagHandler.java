@@ -21,9 +21,7 @@ import org.osate.ge.internal.query.Queryable;
 public class TagHandler {
 	private final Graphic defaultGraphic = LabelBuilder.create().build();
 	private static final Graphic directionIndicator = PolyBuilder.create().polyline()
-			.points(
-					new Point(12.0, 9.0), new Point(0.0, 0.0), new Point(12.0, -9.0)
-					).build();
+			.points(new Point(8.0, 6.0), new Point(0.0, 0.0), new Point(8.0, -6.0)).build();
 
 	@IsApplicable
 	public boolean isApplicable(final @Named(Names.BUSINESS_OBJECT) Tag tv) {
