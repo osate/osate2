@@ -134,7 +134,20 @@ public class GeneralizatonHandler {
 			return null;
 		}
 
-		return (generalization instanceof Realization ? "Implements " : "Extends ") + general.getQualifiedName();
+		final Classifier specific = generalization.getSpecific();
+		if (specific == null) {
+			return null;
+		}
+
+		// Only show the name of the general element if both elements are in the same package.
+		final String generalName;
+		if (general.getElementRoot() == specific.getElementRoot()) {
+			generalName = general.getName();
+		} else {
+			generalName = general.getQualifiedName();
+		}
+
+		return (generalization instanceof Realization ? "Implements " : "Extends ") + generalName;
 	}
 
 	@GetCreateOwner

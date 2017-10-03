@@ -174,7 +174,7 @@ public class AadlBusinessObjectProvider {
 
 		Stream<?> results = getChildren(cc, false, extRegistryService);
 
-		final String scTypeTxt = AadlSubcomponentUtil.getSubcomponentTypeDescription(sc);
+		final String scTypeTxt = AadlSubcomponentUtil.getSubcomponentTypeDescription(sc, scBoc);
 		if(scTypeTxt != null) {
 			results = Stream.concat(results, Stream.of(new Tag(Tag.KEY_SUBCOMPONENT_TYPE, scTypeTxt)));
 		}
