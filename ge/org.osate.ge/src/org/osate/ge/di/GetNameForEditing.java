@@ -6,7 +6,7 @@
  * http://www.eclipse.org/legal/epl-v10.html
  * The US Government has unlimited rights in this work in accordance with W31P4Q-10-D-0092 DO 0105
  *******************************************************************************/
-package org.osate.ge.internal.di;
+package org.osate.ge.di;
 
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;
