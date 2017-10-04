@@ -210,7 +210,6 @@ public class BoHandlerDirectEditFeature extends AbstractDirectEditingFeature imp
 			}
 
 			aadlModService.modify(bo, (resource, boToModify) -> {
-				// TODO: Modfifying wrong object!!!
 				final IEclipseContext childCtx = extService.createChildContext();
 				try {
 					childCtx.set(Names.BUSINESS_OBJECT, boToModify);
