@@ -46,7 +46,7 @@ public class AgeGraphitiGraphicsUtil {
 	private static final Map<Class<? extends Graphic>, GraphicsAlgorithmCreator<?>> graphicToCreatorMap;
 
 	// Standard size of features other than feature groups
-	private static final int featureWidth = 16;
+	private static final int featureWidth = 20;
 	private static final int featureHeight = 16;
 
 	@FunctionalInterface
@@ -676,16 +676,16 @@ public class AgeGraphitiGraphicsUtil {
 		if (direction == Direction.IN_OUT) {
 			circlePadding = 0;
 		} else {
-			circlePadding = 4;
+			circlePadding = 3;
 		}
 
 		final GraphicsAlgorithm circleGa = gaService.createPlainEllipse(ga);
-		PropertyUtil.setIsStylingChild(circleGa, true);
+		PropertyUtil.setIsStylingOutlineEnabled(circleGa, true);
 		circleGa.setBackground(black);
 		circleGa.setForeground(black);
-		circleGa.setLineWidth(featureLineWidth);
 		gaService.setLocation(circleGa, 0, circlePadding);
-		gaService.setSize(circleGa, width - 2 * circlePadding, width - 2 * circlePadding);
+		final int minDim = Math.min(width, height);
+		gaService.setSize(circleGa, minDim - 2 * circlePadding, minDim - 2 * circlePadding);
 
 		// In Abstract Feature
 		if (direction == Direction.IN) {
@@ -724,11 +724,11 @@ public class AgeGraphitiGraphicsUtil {
 
 		// Data width and height should be evenly divisbile in all cases. Check other match
 		if (hasEvent) {
-			dataSymbolXPadding = 6;
+			dataSymbolXPadding = 10;
 			dataSymbolYPadding = 4;
 		} else {
-			dataSymbolXPadding = 0;
-			dataSymbolYPadding = 0;
+			dataSymbolXPadding = 8;
+			dataSymbolYPadding = 4;
 		}
 
 		GraphicsAlgorithm dataGa = null;
