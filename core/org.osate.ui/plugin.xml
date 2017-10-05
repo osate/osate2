@@ -275,11 +275,21 @@
 
     <extension point="org.eclipse.core.expressions.definitions">
        <definition id="org.osate.is_aadl_project_propertyset">
-          <adapt type="org.eclipse.core.resources.IResource">
-             <test property="org.eclipse.core.resources.name"
-                  value="AADL_Project.aadl">
-             </test>
-          </adapt>
+          <or>
+             <adapt type="org.eclipse.core.resources.IResource">
+                <test property="org.eclipse.core.resources.name"
+                     value="AADL_Project.aadl">
+                </test>
+             </adapt>
+             <adapt
+                   type="org.osate.xtext.aadl2.ui.resource.ContributedAadlStorage">
+                <test
+                      property="org.osate.ui.name"
+                      value="AADL_Project.aadl"
+                      forcePluginActivation="true">
+                </test>
+             </adapt>
+          </or>
        </definition>
     </extension>
     <extension
@@ -325,6 +335,27 @@
                 id="org.osate.ui.aadlAnalysesPopupMenu"
                 label="AADL Analyses">
           </menu>
+          <command
+                commandId="org.osate.ui.setAadlProjectProperties"
+                label="Set as AADL_Project property set"
+                style="push">
+             <visibleWhen>
+                <with
+                      variable="selection">
+                   <and>
+                      <count
+                            value="1">
+                      </count>
+                      <iterate
+                            ifEmpty="false">
+                         <reference
+                               definitionId="org.osate.is_aadl_project_propertyset">
+                         </reference>
+                      </iterate>
+                   </and>
+                </with>
+             </visibleWhen>
+          </command>
           <command
                 commandId="org.osate.ui.instantiate"
                 label="Reinstantiate selected instance"
@@ -519,6 +550,10 @@
     <extension
           point="org.eclipse.ui.commands">
        <command
+             id="org.osate.ui.setAadlProjectProperties"
+             name="Set as AADL_Project property set">
+       </command>
+       <command
              description="Instantiate the system"
              id="org.osate.ui.instantiate"
              name="Instantiate System">
@@ -542,6 +577,10 @@
     </extension>
     <extension
           point="org.eclipse.ui.handlers">
+       <handler
+             class="org.osate.ui.handlers.SetAadlProjectPropertiesHandler"
+             commandId="org.osate.ui.setAadlProjectProperties">
+       </handler>
        <handler
              class="org.osate.ui.handlers.InstantiateHandler"
              commandId="org.osate.ui.instantiate">
@@ -596,5 +635,15 @@
              commandId="org.osate.ui.resetMarkers"
              icon="icons/none.gif">
        </image>
+    </extension>
+    <extension
+          point="org.eclipse.core.expressions.propertyTesters">
+       <propertyTester
+             class="org.osate.ui.handlers.ContributedAadlStoragePropertyTester"
+             id="org.osate.ui.ContributedAadlStoragePropertyTester"
+             namespace="org.osate.ui"
+             properties="name"
+             type="org.osate.xtext.aadl2.ui.resource.ContributedAadlStorage">
+       </propertyTester>
     </extension>
 </plugin>
