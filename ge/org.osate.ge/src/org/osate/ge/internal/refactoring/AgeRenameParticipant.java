@@ -38,19 +38,19 @@ import org.eclipse.xtext.resource.XtextResource;
 import org.eclipse.xtext.resource.XtextResourceSet;
 import org.eclipse.xtext.ui.refactoring.impl.RefactoringResourceSetProvider;
 import org.eclipse.xtext.ui.refactoring.ui.IRenameElementContext;
+import org.eclipse.xtext.ui.resource.LiveScopeResourceSetInitializer;
 import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.ComponentType;
 import org.osate.aadl2.ComponentTypeRename;
 import org.osate.aadl2.Feature;
 import org.osate.aadl2.Realization;
-import org.osate.aadl2.modelsupport.resources.OsateResourceUtil;
 import org.osate.ge.internal.diagram.runtime.CanonicalBusinessObjectReference;
 import org.osate.ge.internal.diagram.runtime.RelativeBusinessObjectReference;
 import org.osate.ge.internal.services.DiagramService;
 import org.osate.ge.internal.services.ReferenceService;
-import org.osate.ge.internal.ui.xtext.AgeXtextUtil;
 import org.osate.ge.internal.util.ProjectUtil;
 import org.osate.ge.internal.util.ScopedEMFIndexRetrieval;
+import org.osate.xtext.aadl2.ui.internal.Aadl2Activator;
 import org.osgi.framework.Bundle;
 import org.osgi.framework.FrameworkUtil;
 
@@ -95,18 +95,16 @@ public class AgeRenameParticipant extends RenameParticipant {
 			return false;
 		}
 
-		XtextResource xtextResource = AgeXtextUtil.getOpenXtextResource(resource);
-		final XtextResourceSet tmpRs = xtextResource == null ? OsateResourceUtil.createXtextResourceSet() : (XtextResourceSet)xtextResource.getResourceSet();
-		if(tmpRs == null) {
-			return false;
-		}
+		final XtextResourceSet tmpRs = new XtextResourceSet();
+		Aadl2Activator.getInstance().getInjector(Aadl2Activator.ORG_OSATE_XTEXT_AADL2_AADL2)
+		.getInstance(LiveScopeResourceSetInitializer.class).initialize(tmpRs);
 
 		targetObject = tmpRs.getEObject(targetElementUri, true);
 		if(targetObject == null || !(targetObject.eResource() instanceof XtextResource)) {
 			return false;
 		}
 
-		xtextResource = (XtextResource)targetObject.eResource();
+		final XtextResource xtextResource = (XtextResource) targetObject.eResource();
 
 		// Get the provider for the refactoring resource set
 		final RefactoringResourceSetProvider refactoringResourceSetProvider = xtextResource.getResourceServiceProvider().get(RefactoringResourceSetProvider.class);
