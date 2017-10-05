@@ -90,6 +90,7 @@
 <li type="circle">org.osate.ge.graphics.<a href="org/osate/ge/graphics/EllipseBuilder.html" title="class in org.osate.ge.graphics"><span class="typeNameLink">EllipseBuilder</span></a></li>
 <li type="circle">org.osate.ge.<a href="org/osate/ge/GraphicalAnnexUtil.html" title="class in org.osate.ge"><span class="typeNameLink">GraphicalAnnexUtil</span></a></li>
 <li type="circle">org.osate.ge.<a href="org/osate/ge/GraphicalConfigurationBuilder.html" title="class in org.osate.ge"><span class="typeNameLink">GraphicalConfigurationBuilder</span></a></li>
+<li type="circle">org.osate.ge.<a href="org/osate/ge/GraphicalExtensionUtil.html" title="class in org.osate.ge"><span class="typeNameLink">GraphicalExtensionUtil</span></a></li>
 <li type="circle">org.osate.ge.<a href="org/osate/ge/PaletteEntryBuilder.html" title="class in org.osate.ge"><span class="typeNameLink">PaletteEntryBuilder</span></a></li>
 <li type="circle">org.osate.ge.graphics.<a href="org/osate/ge/graphics/Point.html" title="class in org.osate.ge.graphics"><span class="typeNameLink">Point</span></a></li>
 <li type="circle">org.osate.ge.graphics.<a href="org/osate/ge/graphics/PolyBuilder.html" title="class in org.osate.ge.graphics"><span class="typeNameLink">PolyBuilder</span></a></li>
@@ -101,6 +102,7 @@
 </ul>
 <h2 title="Interface Hierarchy">Interface Hierarchy</h2>
 <ul>
+<li type="circle">org.osate.ge.<a href="org/osate/ge/BusinessObjectSelection.html" title="interface in org.osate.ge"><span class="typeNameLink">BusinessObjectSelection</span></a></li>
 <li type="circle">org.osate.ge.<a href="org/osate/ge/Categories.html" title="interface in org.osate.ge"><span class="typeNameLink">Categories</span></a></li>
 <li type="circle">org.osate.ge.graphics.<a href="org/osate/ge/graphics/ConnectionTerminator.html" title="interface in org.osate.ge.graphics"><span class="typeNameLink">ConnectionTerminator</span></a></li>
 <li type="circle">org.osate.ge.<a href="org/osate/ge/EmfContainerProvider.html" title="interface in org.osate.ge"><span class="typeNameLink">EmfContainerProvider</span></a></li>
@@ -127,10 +129,12 @@
 <ul>
 <li type="circle">org.osate.ge.di.<a href="org/osate/ge/di/ValidateName.html" title="annotation in org.osate.ge.di"><span class="typeNameLink">ValidateName</span></a> (implements java.lang.annotation.Annotation)</li>
 <li type="circle">org.osate.ge.di.<a href="org/osate/ge/di/ResolveCanonicalReference.html" title="annotation in org.osate.ge.di"><span class="typeNameLink">ResolveCanonicalReference</span></a> (implements java.lang.annotation.Annotation)</li>
+<li type="circle">org.osate.ge.di.<a href="org/osate/ge/di/Rename.html" title="annotation in org.osate.ge.di"><span class="typeNameLink">Rename</span></a> (implements java.lang.annotation.Annotation)</li>
 <li type="circle">org.osate.ge.di.<a href="org/osate/ge/di/IsAvailable.html" title="annotation in org.osate.ge.di"><span class="typeNameLink">IsAvailable</span></a> (implements java.lang.annotation.Annotation)</li>
 <li type="circle">org.osate.ge.di.<a href="org/osate/ge/di/IsApplicable.html" title="annotation in org.osate.ge.di"><span class="typeNameLink">IsApplicable</span></a> (implements java.lang.annotation.Annotation)</li>
 <li type="circle">org.osate.ge.di.<a href="org/osate/ge/di/HasDoneChanges.html" title="annotation in org.osate.ge.di"><span class="typeNameLink">HasDoneChanges</span></a> (implements java.lang.annotation.Annotation)</li>
 <li type="circle">org.osate.ge.di.<a href="org/osate/ge/di/GetPaletteEntries.html" title="annotation in org.osate.ge.di"><span class="typeNameLink">GetPaletteEntries</span></a> (implements java.lang.annotation.Annotation)</li>
+<li type="circle">org.osate.ge.di.<a href="org/osate/ge/di/GetNameForEditing.html" title="annotation in org.osate.ge.di"><span class="typeNameLink">GetNameForEditing</span></a> (implements java.lang.annotation.Annotation)</li>
 <li type="circle">org.osate.ge.di.<a href="org/osate/ge/di/GetName.html" title="annotation in org.osate.ge.di"><span class="typeNameLink">GetName</span></a> (implements java.lang.annotation.Annotation)</li>
 <li type="circle">org.osate.ge.di.<a href="org/osate/ge/di/GetLabel.html" title="annotation in org.osate.ge.di"><span class="typeNameLink">GetLabel</span></a> (implements java.lang.annotation.Annotation)</li>
 <li type="circle">org.osate.ge.di.<a href="org/osate/ge/di/GetGraphicalConfiguration.html" title="annotation in org.osate.ge.di"><span class="typeNameLink">GetGraphicalConfiguration</span></a> (implements java.lang.annotation.Annotation)</li>
@@ -139,6 +143,7 @@
 <li type="circle">org.osate.ge.di.<a href="org/osate/ge/di/Delete.html" title="annotation in org.osate.ge.di"><span class="typeNameLink">Delete</span></a> (implements java.lang.annotation.Annotation)</li>
 <li type="circle">org.osate.ge.di.<a href="org/osate/ge/di/Create.html" title="annotation in org.osate.ge.di"><span class="typeNameLink">Create</span></a> (implements java.lang.annotation.Annotation)</li>
 <li type="circle">org.osate.ge.di.<a href="org/osate/ge/di/CanStartConnection.html" title="annotation in org.osate.ge.di"><span class="typeNameLink">CanStartConnection</span></a> (implements java.lang.annotation.Annotation)</li>
+<li type="circle">org.osate.ge.di.<a href="org/osate/ge/di/CanRename.html" title="annotation in org.osate.ge.di"><span class="typeNameLink">CanRename</span></a> (implements java.lang.annotation.Annotation)</li>
 <li type="circle">org.osate.ge.di.<a href="org/osate/ge/di/CanDelete.html" title="annotation in org.osate.ge.di"><span class="typeNameLink">CanDelete</span></a> (implements java.lang.annotation.Annotation)</li>
 <li type="circle">org.osate.ge.di.<a href="org/osate/ge/di/CanCreate.html" title="annotation in org.osate.ge.di"><span class="typeNameLink">CanCreate</span></a> (implements java.lang.annotation.Annotation)</li>
 <li type="circle">org.osate.ge.di.<a href="org/osate/ge/di/CanActivate.html" title="annotation in org.osate.ge.di"><span class="typeNameLink">CanActivate</span></a> (implements java.lang.annotation.Annotation)</li>

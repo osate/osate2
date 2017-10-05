@@ -5,7 +5,6 @@ import java.util.Objects;
 import org.eclipse.e4.core.contexts.ContextInjectionFactory;
 import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.emf.ecore.EObject;
-import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.graphiti.features.ICustomUndoRedoFeature;
 import org.eclipse.graphiti.features.IFeatureProvider;
 import org.eclipse.graphiti.features.context.IContext;
@@ -28,7 +27,6 @@ import org.osate.ge.internal.diagram.runtime.updating.DiagramUpdater;
 import org.osate.ge.internal.graphiti.GraphitiAgeDiagramProvider;
 import org.osate.ge.internal.graphiti.diagram.GraphitiAgeDiagram;
 import org.osate.ge.internal.services.AadlModificationService;
-import org.osate.ge.internal.services.AadlModificationService.AbstractModifier;
 import org.osate.ge.internal.services.ExtensionService;
 import org.osate.ge.services.ReferenceBuilderService;
 
@@ -143,20 +141,17 @@ public class BoHandlerCreateConnectionFeature extends AbstractCreateConnectionFe
 			final DiagramNode ownerNode = (DiagramNode)ownerBoc;
 
 			// Modify the model
-			aadlModService.modify((EObject) boToModify, new AbstractModifier<EObject, Object>() {
-				@Override
-				public Object modify(final Resource resource, final EObject ownerBo) {
-					eclipseCtx.set(Names.MODIFY_BO, ownerBo);
-					final Object newBo = ContextInjectionFactory.invoke(handler, Create.class, eclipseCtx, null);
-					if(newBo != null) {
-						final RelativeBusinessObjectReference newRef = refBuilder.getRelativeReference(newBo);
-						if(newRef != null) {
-							diagramUpdater.addToNextUpdate(ownerNode, newRef, null);
-						}
+			aadlModService.modify((EObject) boToModify, (resource, ownerBo) -> {
+				eclipseCtx.set(Names.MODIFY_BO, ownerBo);
+				final Object newBo = ContextInjectionFactory.invoke(handler, Create.class, eclipseCtx, null);
+				if(newBo != null) {
+					final RelativeBusinessObjectReference newRef = refBuilder.getRelativeReference(newBo);
+					if(newRef != null) {
+						diagramUpdater.addToNextUpdate(ownerNode, newRef, null);
 					}
-
-					return newBo;
 				}
+
+				return newBo;
 			});
 		} finally {
 			eclipseCtx.dispose();

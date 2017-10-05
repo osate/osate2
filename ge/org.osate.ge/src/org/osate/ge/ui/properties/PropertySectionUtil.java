@@ -1,4 +1,4 @@
-package org.osate.ge.internal.ui.properties;
+package org.osate.ge.ui.properties;
 
 import java.util.function.Predicate;
 

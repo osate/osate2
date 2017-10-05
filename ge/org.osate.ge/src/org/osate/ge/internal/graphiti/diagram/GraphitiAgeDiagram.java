@@ -431,8 +431,7 @@ public class GraphitiAgeDiagram implements NodePictogramBiMap, AutoCloseable {
 				labelShape.setActive(false);
 			}
 
-			final AgeShape ageShape = (AgeShape) de.getGraphic();
-			final String annotation = ageShape.getAnnotation();
+			final String annotation = de.getGraphicalConfiguration().annotation;
 			if (annotation != null) {
 				final Shape annotationShape = LabelUtil.createLabelShape(graphitiDiagram, (ContainerShape) pe,
 						ShapeNames.annotationShapeName, annotation, fontSize);

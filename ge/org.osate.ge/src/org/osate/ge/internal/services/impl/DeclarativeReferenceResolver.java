@@ -1,11 +1,3 @@
-/*******************************************************************************
- * Copyright (C) 2016 University of Alabama in Huntsville (UAH)
- * All rights reserved. This program and the accompanying materials
- * are made available under the terms of the Eclipse Public License v1.0
- * which accompanies this distribution, and is available at
- * http://www.eclipse.org/legal/epl-v10.html
- * The US Government has unlimited rights in this work in accordance with W31P4Q-10-D-0092 DO 0105.
- *******************************************************************************/
 package org.osate.ge.internal.services.impl;
 
 import java.util.HashMap;
@@ -21,11 +13,9 @@ import javax.inject.Named;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EObject;
 import org.eclipse.xtext.naming.QualifiedName;
 import org.eclipse.xtext.resource.IEObjectDescription;
 import org.eclipse.xtext.resource.IResourceDescription;
-import org.eclipse.xtext.resource.XtextResource;
 import org.osate.aadl2.Aadl2Factory;
 import org.osate.aadl2.AadlPackage;
 import org.osate.aadl2.AnnexLibrary;
@@ -53,10 +43,9 @@ import org.osate.annexsupport.AnnexUtil;
 import org.osate.ge.di.Names;
 import org.osate.ge.di.ResolveCanonicalReference;
 import org.osate.ge.internal.model.SubprogramCallOrder;
-import org.osate.ge.internal.services.SavedAadlResourceService;
+import org.osate.ge.internal.services.AadlResourceService;
+import org.osate.ge.internal.services.AadlResourceService.AadlPackageReference;
 import org.osate.ge.internal.services.ProjectProvider;
-import org.osate.ge.internal.services.SavedAadlResourceService.AadlPackageReference;
-import org.osate.ge.internal.ui.xtext.AgeXtextUtil;
 import org.osate.ge.internal.util.ScopedEMFIndexRetrieval;
 import org.osate.ge.internal.util.StringUtil;
 import org.osate.ge.services.ReferenceResolutionService;
@@ -67,88 +56,76 @@ public class DeclarativeReferenceResolver {
 	private static class DeclarativeCache {
 		private static final EClass aadlPackageEClass = Aadl2Factory.eINSTANCE.getAadl2Package().getAadlPackage();
 		private final ProjectProvider projectProvider;
-		private final Map<String, Object> packageNameToPackageMap = new HashMap<>(); // Map for caching. Cleared when cache is invalidated
-		private final Set<AadlPackageReference> pkgReferences = new HashSet<>(); // Collection of package references. Not cleared to ensure strong references to the EObjectReference objects exist during the lifetime of the service 
+
+		// Map for caching. Not cleared to ensure strong references to the AadlPackageReference objects exist during the lifetime of the service
+		private final Map<String, AadlPackageReference> packageNameToPackageMap = new HashMap<>();
 		private Set<IResourceDescription> resourceDescriptions = null; // Resource descriptions for resources which are in the project references path
-		private SavedAadlResourceService savedAadlResourceService;
-		
-	    public DeclarativeCache(final ProjectProvider projectProvider, final SavedAadlResourceService savedAadlResourceService) {
+		private AadlResourceService aadlResourceService;
+
+		public DeclarativeCache(final ProjectProvider projectProvider, final AadlResourceService aadlResourceService) {
 			this.projectProvider = Objects.requireNonNull(projectProvider, "projectProvider must not be null");
-			this.savedAadlResourceService = Objects.requireNonNull(savedAadlResourceService, "savedAadlResourceService must not be null");
-	    }
-		
-	    public void dispose() {
-	    	invalidate();
-	    	
-	    	// Remove object reference
-	    	pkgReferences.clear();
-	    }
-	    
+			this.aadlResourceService = Objects.requireNonNull(aadlResourceService,
+					"aadlResourceService must not be null");
+		}
+
+		public void dispose() {
+			invalidate();
+
+			// Clear map to remove object references
+			packageNameToPackageMap.clear();
+		}
+
 		private void invalidate() {
 			resourceDescriptions = null;
-			packageNameToPackageMap.clear();
-		}			
-		
+		}
+
 		public AadlPackage getAadlPackage(final String packageName) {
 			final String lowerCasePackageName = packageName.toLowerCase();
-			Object pkgRef = packageNameToPackageMap.get(lowerCasePackageName);
+			AadlPackageReference pkgRef = packageNameToPackageMap.get(lowerCasePackageName);
 			if(pkgRef == null) {
-				pkgRef = findAadlPackage(lowerCasePackageName, getCachedResourceDescriptions(), savedAadlResourceService);
-				if(pkgRef instanceof AadlPackageReference) {
-					// Store strong reference
-					pkgReferences.add((AadlPackageReference)pkgRef);
-				} 
-				
-				// Store a reference to the package in the cache if the reference was valid
-				if(pkgRef != null) {
-					packageNameToPackageMap.put(lowerCasePackageName, pkgRef);					 
+				pkgRef = findAadlPackage(lowerCasePackageName, getCachedResourceDescriptions(), aadlResourceService);
+
+				if (pkgRef != null) {
+					// Store a reference to the package in the cache if the reference was valid
+					packageNameToPackageMap.put(lowerCasePackageName, pkgRef);
 				}
 			}
-						
-			if(pkgRef instanceof AadlPackageReference) {
-				return ((AadlPackageReference) pkgRef).getAadlPackage();
-			} else {
-				return (AadlPackage)pkgRef;
-			}
+
+			return pkgRef == null ? null : pkgRef.getAadlPackage();
 		}
-		
+
 		/**
-		 * Returns an AadlPackage or an EObjectReference depending on whether the package is retrieved from disk or from an Xtext document
+		 * Returns an AadlPackageReference depending on whether the package is retrieved from disk or from an Xtext document
 		 * @return
 		 */
-		private static Object findAadlPackage(final String packageName, Set<IResourceDescription> resourceDescriptions, final SavedAadlResourceService savedAadlResourceService) {
+		private static AadlPackageReference findAadlPackage(final String packageName,
+				Set<IResourceDescription> resourceDescriptions,
+				final AadlResourceService aadlResourceService) {
 			// Get the Xtext Resource for the package
-			final XtextResource xtextResource = AgeXtextUtil.getOpenXtextResourceByRootQualifiedName(packageName, resourceDescriptions);
-			if(xtextResource == null) {
-				final String[] pkgNameSegs = packageName.split("::");
-				final QualifiedName packageQualifiedName = QualifiedName.create(pkgNameSegs);
-				for(final IResourceDescription resDesc : resourceDescriptions) {
-					for(IEObjectDescription eod : resDesc.getExportedObjects(aadlPackageEClass, packageQualifiedName, true)) {
-						return savedAadlResourceService.getPackageReference(eod.getEObjectURI());
-					}
-				}
-			} else {		
-				final EObject rootObj = xtextResource.getContents().get(0);
-				if(rootObj instanceof AadlPackage) {
-					return rootObj;
+			final String[] pkgNameSegs = packageName.split("::");
+			final QualifiedName packageQualifiedName = QualifiedName.create(pkgNameSegs);
+			for (final IResourceDescription resDesc : resourceDescriptions) {
+				for (IEObjectDescription eod : resDesc.getExportedObjects(aadlPackageEClass, packageQualifiedName,
+						true)) {
+					return aadlResourceService.getPackageReference(eod.getEObjectURI());
 				}
 			}
-			
+
 			return null;
 		}
-		
+
 		private Set<IResourceDescription> getCachedResourceDescriptions() {
 			if(resourceDescriptions == null) {
 				// Find resources that should be looked in
 				final Set<IProject> projects = getRelevantProjects();
 				resourceDescriptions = ScopedEMFIndexRetrieval.calculateResourceDescriptions(projects);
 			}
-			
+
 			return resourceDescriptions;
 		}
-		
+
 		/**
-		 * Returns the set of projects that can be referenced from the project containing the diagram. 
+		 * Returns the set of projects that can be referenced from the project containing the diagram.
 		 * Recursive(Projects referenced by referenced projects are also included).
 		 * @return
 		 */
@@ -162,9 +139,9 @@ public class DeclarativeReferenceResolver {
 				return projects;
 			} catch(final CoreException ex) {
 				throw new RuntimeException(ex);
-			}		 
+			}
 		}
-		
+
 		private void addReferencedProjects(final IProject project, final Set<IProject> results) throws CoreException {
 			for(final IProject rp : project.getReferencedProjects()) {
 				if(rp.isAccessible()) {
@@ -176,14 +153,14 @@ public class DeclarativeReferenceResolver {
 			}
 		}
 	}
-	
+
 	private final DeclarativeCache declarativeCache;
-         
+
 	@Inject
-	public DeclarativeReferenceResolver(final ProjectProvider projectProvider, final SavedAadlResourceService savedAadlResourceService) {
-		this.declarativeCache = new DeclarativeCache(projectProvider, savedAadlResourceService);		
+	public DeclarativeReferenceResolver(final ProjectProvider projectProvider, final AadlResourceService aadlResourceService) {
+		this.declarativeCache = new DeclarativeCache(projectProvider, aadlResourceService);
 	}
-		
+
 	@PreDestroy
 	public void dispose() {
 		declarativeCache.dispose();
@@ -192,17 +169,17 @@ public class DeclarativeReferenceResolver {
 	void invalidateCache() {
 		declarativeCache.invalidate();
 	}
-	
+
 	@ResolveCanonicalReference
 	public Object getReferencedObject(final @Named(Names.REFERENCE) String[] refSegs, final ReferenceResolutionService refService) {
 		Objects.requireNonNull(refSegs, "refSegs must not be null");
 		if(refSegs.length < 2) {
 			return null;
 		}
-				
+
 		Object referencedObject = null; // The object that will be returned
 		final String type = refSegs[0];
-					
+
 		if(type.equals(DeclarativeReferenceBuilder.TYPE_SUBPROGRAM_CALL_ORDER)) {
 			if(refSegs.length == 3) {
 				final SubprogramCall previousSubprogramCall = getNamedElementByQualifiedName(refSegs[1], SubprogramCall.class);
@@ -210,8 +187,8 @@ public class DeclarativeReferenceResolver {
 				if(previousSubprogramCall != null && subprogramCall != null) {
 					referencedObject = new SubprogramCallOrder(previousSubprogramCall, subprogramCall);
 				}
-			}			
-		} else { 
+			}
+		} else {
 			final String qualifiedName = refSegs[1];
 			if(type.equals(DeclarativeReferenceBuilder.TYPE_PACKAGE)) {
 				referencedObject = getNamedElementByQualifiedName(qualifiedName, AadlPackage.class);
@@ -250,12 +227,12 @@ public class DeclarativeReferenceResolver {
 				final ComponentClassifier cc = getNamedElementByQualifiedName(qualifiedName, ComponentClassifier.class);
 				if(cc != null) {
 					for(final ModeTransition mt : cc.getOwnedModeTransitions()) {
-						if(equalsIgnoreCase(refSegs, DeclarativeReferenceBuilder.buildUnnamedModeTransitionKey(mt))) { 
+						if(equalsIgnoreCase(refSegs, DeclarativeReferenceBuilder.buildUnnamedModeTransitionKey(mt))) {
 							referencedObject = mt;
 							break;
 						}
 					}
-				}			
+				}
 			} else if(type.equals(DeclarativeReferenceBuilder.TYPE_MODE_TRANSITION_TRIGGER)) {
 				if(refSegs.length == 4) {
 					final Object referencedModeTransition = refService.getReferencedObject(refSegs[1]);
@@ -308,7 +285,7 @@ public class DeclarativeReferenceResolver {
 
 		return referencedObject;
 	}
-	
+
 	/**
 	 * Assumes all elements are non-null
 	 * @param a1
@@ -319,13 +296,13 @@ public class DeclarativeReferenceResolver {
 		if(a1.length != a2.length) {
 			return false;
 		}
-		
+
 		for(int i = 0; i < a1.length; i++) {
 			if(!a1[i].equalsIgnoreCase(a2[i])) {
 				return false;
 			}
 		}
-		
+
 		return true;
 	}
 
@@ -344,15 +321,15 @@ public class DeclarativeReferenceResolver {
 		}
 
 		final AadlPackage pkg = getAadlPackage(packageName);
-		if(pkg == null) { 
+		if(pkg == null) {
 			return null;
 		}
 
-		// Return the package if that is the element that was being retrieved		 
+		// Return the package if that is the element that was being retrieved
 		T element;
 		if(searchClass == AadlPackage.class) {
 			element = (T)pkg;
-		} else {		
+		} else {
 			final String[] elementPathSegs = elementPath.split("\\.");
 			element = findNamedElementByDeclarativeModelPath(pkg.getPublicSection(), searchClass, elementPathSegs);
 			if(element == null) {
@@ -362,7 +339,7 @@ public class DeclarativeReferenceResolver {
 
 		return element;
 	}
-	
+
 	public AadlPackage getAadlPackage(final String packageName) {
 		return declarativeCache.getAadlPackage(packageName);
 	}
@@ -370,13 +347,13 @@ public class DeclarativeReferenceResolver {
 	private <T> T findNamedElementByDeclarativeModelPath(final Namespace namespace, final Class<T> searchClass, final String[] pathSegs) {
 		return findNamedElementByDeclarativeModelPath(namespace, searchClass, pathSegs, 0);
 	}
-	
+
 	/**
 	 * Looks up a model element based on the concept of a declarative model path. This path does not include the AadlPackage
 	 * An example path is top_classifier.flow_type
 	 * @param element the element in which to look for the next child
 	 * @param searchClass the base type of the final object.
-	 * @param pathSegs is the segments to use to find the object. Usually one segment corresponds to one child but in the case of component implementations, two 
+	 * @param pathSegs is the segments to use to find the object. Usually one segment corresponds to one child but in the case of component implementations, two
 	 * segments will be used for a single child.
 	 * @param i the current path segment
 	 * @return
@@ -386,7 +363,7 @@ public class DeclarativeReferenceResolver {
 		if(i >= pathSegs.length) {
 			return searchClass.isInstance(element) ? (T)element : null;
 		}
-		
+
 		final String seg = pathSegs[i];
 		if(element instanceof Classifier) {
 			final Classifier c = (Classifier)element;
@@ -400,8 +377,8 @@ public class DeclarativeReferenceResolver {
 						if(result != null) {
 							return result;
 						}
-					} 
-					
+					}
+
 					// Handle Component Implementations
 					if(((i+1) < pathSegs.length) && name.contains(".")) {
 						if(name.equalsIgnoreCase(pathSegs[i] + "." + pathSegs[i+1])) {
@@ -411,17 +388,17 @@ public class DeclarativeReferenceResolver {
 							}
 						}
 					}
-				}				
+				}
 			}
-		}			
-		
+		}
+
 		return null;
 	}
-	
+
 	// Specialized implementation of findNamedElementByDeclarativeModelPath for Classifiers because of performance issues when using Classifier.getMembers()
 	private <T> T findNamedElementInClassifierByDeclarativeModelPath(final Classifier c, final Class<T> searchClass, final String[] pathSegs, final int i, Set<Classifier> checkedClassifiers) {
 		final String seg = pathSegs[i];
-		
+
 		if(c != null) {
 			for(final NamedElement member : c.getOwnedMembers()) {
 				final String name = member.getName();
@@ -431,10 +408,10 @@ public class DeclarativeReferenceResolver {
 						if(result != null) {
 							return result;
 						}
-					} 
+					}
 				}
 			}
-			
+
 			// Special handling for subprogram calls. The qualified name does not include the call sequence. Just the classifier.
 			if(c instanceof BehavioredImplementation) {
 				final BehavioredImplementation bi = (BehavioredImplementation)c;
@@ -447,12 +424,12 @@ public class DeclarativeReferenceResolver {
 								if(result != null) {
 									return result;
 								}
-							} 
+							}
 						}
 					}
 				}
 			}
-			
+
 			for (Generalization g : c.getGeneralizations()) {
 				final Classifier gc = g.getGeneral();
 				// Only check the generalization if it has not been checked yet. This protects against cycles.
@@ -461,14 +438,14 @@ public class DeclarativeReferenceResolver {
 					final T result = findNamedElementInClassifierByDeclarativeModelPath(gc, searchClass, pathSegs, i, checkedClassifiers);
 					if(result != null) {
 						return result;
-					}				
+					}
 				}
 			}
 		}
-		
+
 		return null;
 	}
-	
+
 	// Helper methods for working with Annexes
 	private AnnexLibrary findAnnexLibrary(final AadlPackage pkg, final String annexName, final int searchIndex) {
 		int currentIndex = 0;
@@ -477,14 +454,14 @@ public class DeclarativeReferenceResolver {
 				if(currentIndex == searchIndex) {
 					return library;
 				}
-				
+
 				currentIndex++;
 			}
 		}
-		
+
 		return null;
 	}
-	
+
 	private AnnexSubclause findAnnexSubclause(final Classifier classifier, final String annexName, final int searchIndex) {
 		int currentIndex = 0;
 		for(final AnnexSubclause subclause : classifier.getOwnedAnnexSubclauses()) {
@@ -492,11 +469,11 @@ public class DeclarativeReferenceResolver {
 				if(currentIndex == searchIndex) {
 					return subclause;
 				}
-				
+
 				currentIndex++;
 			}
 		}
-		
+
 		return null;
 	}
 }

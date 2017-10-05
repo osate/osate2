@@ -45,7 +45,7 @@ Service-Component: components/DefaultExtensionRegistryService.xml,
  components/DefaultReferenceService.xml,
  components/DefaultSystemInstanceLoadingService.xml,
  components/DefaultReferenceBuilderService.xml,
- components/DefaultSavedAadlPackageService.xml,
+ components/DefaultAadlResourceService.xml,
  components/DefaultGraphicalEditorService.xml,
  components/DefaultModelChangeNotifier.xml,
  components/DefaultAadlModificationService.xml
@@ -54,6 +54,7 @@ Export-Package: org.osate.ge,
  org.osate.ge.graphics,
  org.osate.ge.graphics.internal;x-internal:=true,
  org.osate.ge.query,
- org.osate.ge.services
+ org.osate.ge.services,
+ org.osate.ge.ui.properties
 Bundle-ClassPath: .
 

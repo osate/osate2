@@ -181,7 +181,7 @@ The appearance of diagram elements can be edited by using the *Appearance* tab o
 
 An element's appearance can be changed using the following steps.
 
-1. Open the *Properties* view by double-clicking on an element or by selecting *Properties...* from the context menu..
+1. Open the *Properties* view by double-clicking on an element or by selecting *Properties...* from the context menu.
 
 2. Select the diagram element(s) to be edited.
 
@@ -438,7 +438,9 @@ The component type can be swapped between using derived and non-derived modes by
 Selecting a mode from the mode drop-down in the toolbar will highlight elements applicable to the mode.
 
 ### Selecting Active Components{#sec:selective_active_components}
-The editor allows specifying the modes in which a modal element, such as a subcomponent, is active as well as the mapping between modes in the case of derived modes. The modes can be specified by right-clicking on the element and selecting *Configure In Modes...* from the context menu.
+The editor allows specifying the modes in which modal elements, such as subcomponents, are active as well as the mapping between modes in the case of derived modes.  The modes can be specified by selecting the element(s) in the editor and using the *AADL* tab of the *Properties* view.
+
+![](../images/InModesProperties.png)
 
 ## Bindings
 

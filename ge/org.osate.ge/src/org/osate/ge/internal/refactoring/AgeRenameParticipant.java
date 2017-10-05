@@ -14,7 +14,6 @@ import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
-import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.OperationCanceledException;
 import org.eclipse.core.runtime.Path;
@@ -39,18 +38,19 @@ import org.eclipse.xtext.resource.XtextResource;
 import org.eclipse.xtext.resource.XtextResourceSet;
 import org.eclipse.xtext.ui.refactoring.impl.RefactoringResourceSetProvider;
 import org.eclipse.xtext.ui.refactoring.ui.IRenameElementContext;
+import org.eclipse.xtext.ui.resource.LiveScopeResourceSetInitializer;
 import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.ComponentType;
 import org.osate.aadl2.ComponentTypeRename;
 import org.osate.aadl2.Feature;
 import org.osate.aadl2.Realization;
-import org.osate.aadl2.modelsupport.resources.OsateResourceUtil;
 import org.osate.ge.internal.diagram.runtime.CanonicalBusinessObjectReference;
 import org.osate.ge.internal.diagram.runtime.RelativeBusinessObjectReference;
 import org.osate.ge.internal.services.DiagramService;
 import org.osate.ge.internal.services.ReferenceService;
-import org.osate.ge.internal.ui.xtext.AgeXtextUtil;
+import org.osate.ge.internal.util.ProjectUtil;
 import org.osate.ge.internal.util.ScopedEMFIndexRetrieval;
+import org.osate.xtext.aadl2.ui.internal.Aadl2Activator;
 import org.osgi.framework.Bundle;
 import org.osgi.framework.FrameworkUtil;
 
@@ -95,27 +95,23 @@ public class AgeRenameParticipant extends RenameParticipant {
 			return false;
 		}
 
-		XtextResource xtextResource = AgeXtextUtil.getOpenXtextResource(resource);
-		final XtextResourceSet tmpRs = xtextResource == null ? OsateResourceUtil.createXtextResourceSet() : (XtextResourceSet)xtextResource.getResourceSet();
-		if(tmpRs == null) {
-			return false;
-		}
+		final XtextResourceSet tmpRs = new XtextResourceSet();
+		Aadl2Activator.getInstance().getInjector(Aadl2Activator.ORG_OSATE_XTEXT_AADL2_AADL2)
+		.getInstance(LiveScopeResourceSetInitializer.class).initialize(tmpRs);
 
 		targetObject = tmpRs.getEObject(targetElementUri, true);
 		if(targetObject == null || !(targetObject.eResource() instanceof XtextResource)) {
 			return false;
 		}
 
-		xtextResource = (XtextResource)targetObject.eResource();
+		final XtextResource xtextResource = (XtextResource) targetObject.eResource();
 
 		// Get the provider for the refactoring resource set
 		final RefactoringResourceSetProvider refactoringResourceSetProvider = xtextResource.getResourceServiceProvider().get(RefactoringResourceSetProvider.class);
-		final IPath projectPath = new Path(targetElementUri.toPlatformString(true)).uptoSegment(1);
-		final IResource projectResource = ResourcesPlugin.getWorkspace().getRoot().findMember(projectPath);
-		if(!(projectResource instanceof IProject)) {
+		project = ProjectUtil.getProject(targetElementUri);
+		if (project == null) {
 			return false;
 		}
-		project = (IProject)projectResource;
 
 		// Get the refactoring resource set
 		refactoringResourceSet = refactoringResourceSetProvider.get(project);
@@ -130,7 +126,7 @@ public class AgeRenameParticipant extends RenameParticipant {
 		diagramService = Objects.requireNonNull(context.get(DiagramService.class), "Unable to get diagram service");
 
 		// Get projects with are affected by the refactoring.
-		final Set<IProject> relevantProjects = getAffectedProjects(project, new HashSet<>());
+		final Set<IProject> relevantProjects = ProjectUtil.getAffectedProjects(project, new HashSet<>());
 
 		// Build a mapping between an EObject URI and the URIs of EObjects that it affects.
 		final Map<URI, Set<URI>> externalReferencesMap = buildExternalReferenceMap(relevantProjects);
@@ -154,34 +150,6 @@ public class AgeRenameParticipant extends RenameParticipant {
 		originalReferences = diagramService.getReferences(relevantProjects, originalCanRefToNewInfoMap.keySet());
 
 		return true;
-	}
-
-	/**
-	 * Get affects projects. At this point, this function returns projects which directly or indirectly reference the project containing the model element.
-	 * @param project
-	 * @param relevantProjects
-	 * @return relevantProjects
-	 */
-	private static Set<IProject> getAffectedProjects(final IProject project, final Set<IProject> relevantProjects) {
-		if(project.isAccessible()) {
-			if(relevantProjects.add(project)) {
-				// Get referencing projects if the project was not already part of the relevant projects set
-				for(final IProject referencingProject : project.getReferencingProjects()) {
-					getAffectedProjects(referencingProject, relevantProjects);
-				}
-
-				// Get referencing projects if the project was not already part of the relevant projects set
-				try {
-					for(final IProject referencedProject : project.getReferencedProjects()) {
-						getAffectedProjects(referencedProject, relevantProjects);
-					}
-				} catch (final CoreException e) {
-					// Ignore
-				}
-			}
-		}
-
-		return relevantProjects;
 	}
 
 	@Override
@@ -440,7 +408,7 @@ public class AgeRenameParticipant extends RenameParticipant {
 
 		@Override
 		public Change perform(final IProgressMonitor pm) throws CoreException {
-			final Set<IProject> relevantProjects = getAffectedProjects(project, new HashSet<>());
+			final Set<IProject> relevantProjects = ProjectUtil.getAffectedProjects(project, new HashSet<>());
 			final DiagramService.ReferenceCollection references = diagramService.getReferences(relevantProjects, mapping.getOriginalCanonicalReferences());
 			references.update(mapping);
 

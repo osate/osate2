@@ -27,22 +27,22 @@ public class TimingPropertyValueHandler {
 	private static final Graphic immediateGraphic = PolyBuilder.create().
 			polyline().
 			points(
-					new Point(12.0, -9), new Point(0.0, 0.0), new Point(12.0, 9.0),
+					new Point(8.0, -6), new Point(0.0, 0.0), new Point(8.0, 6.0),
 
-					new Point(0.0, 0.0), new Point(12.0, 0.0),
+					new Point(0.0, 0.0), new Point(8.0, 0.0),
 
-					new Point(24.0, -9), new Point(12.0, 0.0), new Point(24.0, 9.0)
-					).build();
+					new Point(16.0, -6), new Point(8.0, 0.0), new Point(16.0, 6.0))
+			.build();
 
 	private static final Graphic delayedGraphic = PolyBuilder.create().
 			polyline().
 			points(
 					new Point(0.0, -10), new Point(0.0, 10.0),
 
-					new Point(0.0, 0.0), new Point(10.0, 0.0),
+					new Point(0.0, 0.0), new Point(5.0, 0.0),
 
-					new Point(10.0, -10), new Point(10.0, 10.0)
-					).build();
+					new Point(5.0, -10), new Point(5.0, 10.0))
+			.build();
 
 	private final PropertyValueGroupHandler fallbackBoh = new PropertyValueGroupHandler();
 

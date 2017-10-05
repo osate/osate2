@@ -645,7 +645,7 @@
         adaptableType="org.eclipse.jface.viewers.ISelection"
         class="org.osate.ge.internal.ui.properties.AgeBusinessObjectSelectionAdapterFactory">
      <adapter
-           type="org.osate.ge.internal.ui.properties.BusinessObjectSelection">
+           type="org.osate.ge.BusinessObjectSelection">
      </adapter>
   </factory>
 	</extension>
@@ -1368,13 +1368,6 @@
              class="org.osate.ge.internal.businessObjectHandlers.TimingPropertyValueHandler"
              priority="1">
        </handler>
-       <!--
-       <handler
-             class="org.osate.ge.internal.businessObjectHandlers.FlowSourceSinkSpecificationHandler">
-       </handler>
-       <handler
-             class="org.osate.ge.internal.businessObjectHandlers.FlowPathSpecificationHandler">
-       </handler>-->
     </extension>
     <extension
           point="org.osate.ge.commands">
@@ -1405,9 +1398,6 @@
        </command>
        <command
              class="org.osate.ge.internal.commands.SwitchDirectionOfConnectionCommand">
-       </command>
-       <command
-             class="org.osate.ge.internal.commands.ConfigureInModesCommand">
        </command>
        <command
              class="org.osate.ge.internal.commands.SetDimensionsCommand">
@@ -1453,6 +1443,9 @@
        </command>
        <command
              class="org.osate.ge.internal.commands.RefineFlowSpecificationCommand">
+       </command>
+       <command
+             class="org.osate.ge.internal.commands.RefineConnectionCommand">
        </command>
     </extension>
     <extension
@@ -1518,6 +1511,13 @@
                class="org.osate.ge.internal.ui.properties.AccessPropertySection"
                filter="org.osate.ge.internal.ui.properties.AccessPropertySection$Filter"
                id="org.osate.ge.ui.properties.accessSection"
+               tab="org.osate.ge.ui.properties.aadlTab">
+         </propertySection>
+         <propertySection
+               afterSection="org.osate.ge.ui.properties.inheritedElementOwnerNoticeSection"
+               class="org.osate.ge.internal.ui.properties.ConfigureInModesSection"
+               filter="org.osate.ge.internal.ui.properties.ConfigureInModesSection$Filter"
+               id="org.osate.ge.ui.properties.configureInModesSection"
                tab="org.osate.ge.ui.properties.aadlTab">
          </propertySection>
       </propertySections>

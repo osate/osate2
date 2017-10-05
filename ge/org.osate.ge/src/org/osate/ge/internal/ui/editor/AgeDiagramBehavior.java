@@ -456,11 +456,13 @@ public class AgeDiagramBehavior extends DiagramBehavior implements GraphitiAgeDi
 
 			try {
 				// Don't update unless the diagram is visible
-				if(!requireVisible || getContentEditPart().getViewer().getControl().isVisible()) {
+				if (!requireVisible || (getContentEditPart().getViewer().getControl() != null
+						&& getContentEditPart().getViewer().getControl().isVisible())) {
 					// Update the entire diagram
 					updateWhenVisible = false;
 					dirtyModel = false;
 					getDiagramTypeProvider().getNotificationService().updatePictogramElements(new PictogramElement[] { getDiagramTypeProvider().getDiagram() });
+					refresh();
 				} else {
 					// Queue the update for when the control becomes visible
 					updateWhenVisible = true;
@@ -943,6 +945,7 @@ public class AgeDiagramBehavior extends DiagramBehavior implements GraphitiAgeDi
 	}
 
 	private static class AgeTabbedPropertySheetPage extends TabbedPropertySheetPage {
+		private boolean disposed = false;
 		private IWorkbenchPart part;
 
 		public AgeTabbedPropertySheetPage(
@@ -951,9 +954,18 @@ public class AgeDiagramBehavior extends DiagramBehavior implements GraphitiAgeDi
 		}
 
 		@Override
+		public void dispose() {
+			super.dispose();
+			disposed = true;
+			part = null;
+		}
+
+		@Override
 		public void selectionChanged(final IWorkbenchPart part, final ISelection selection) {
-			super.selectionChanged(part, selection);
-			this.part = part;
+			if (!disposed) {
+				super.selectionChanged(part, selection);
+				this.part = part;
+			}
 		}
 	}
 
@@ -967,8 +979,13 @@ public class AgeDiagramBehavior extends DiagramBehavior implements GraphitiAgeDi
 		if (parentPart != null && propertySheetPage != null && propertySheetPage.part == parentPart
 				&& parentPart.getSite() != null
 				&& parentPart.getSite().getSelectionProvider() != null) {
-			propertySheetPage.selectionChanged(parentPart,
-					parentPart.getSite().getSelectionProvider().getSelection());
+			propertySheetPage.selectionChanged(parentPart, parentPart.getSite().getSelectionProvider().getSelection());
+
+			// Refresh the property sheet page. This is important because the selected pictogram element may not have changed but the business objects
+			// they are associated with may have.
+			if (propertySheetPage != null && propertySheetPage.getCurrentTab() != null) {
+				propertySheetPage.refresh();
+			}
 		}
 	}
 }

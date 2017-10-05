@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.1.0">
-	<implementation class="org.osate.ge.internal.services.impl.DefaultSavedAadlResourceService$ContextFunction"/>
+	<implementation class="org.osate.ge.internal.services.impl.DefaultAadlResourceService$ContextFunction"/>
 	<property 
 		name="service.context.key" 
 		type="String" 
-		value="org.osate.ge.internal.services.SavedAadlResourceService"/>
+		value="org.osate.ge.internal.services.AadlResourceService"/>
 	<service>
 		<provide interface="org.eclipse.e4.core.contexts.IContextFunction"/>
 	</service>

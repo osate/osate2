@@ -1,4 +1,4 @@
-package org.osate.ge.internal.ui.properties;
+package org.osate.ge;
 
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;
@@ -6,7 +6,6 @@ import java.util.function.Function;
 import java.util.stream.Stream;
 
 import org.eclipse.emf.ecore.EObject;
-import org.osate.ge.BusinessObjectContext;
 
 public interface BusinessObjectSelection {
 	/**
@@ -27,11 +26,11 @@ public interface BusinessObjectSelection {
 	 * Calls the specified modifier for each business object provided by the bocToBoToModifyMapper.
 	 * Also provides the business object context.
 	 * The business objects contained in the business object context must not be modified.
-	 * @param modifier
 	 * @param bocToBoToModifyMapper
+	 * @param modifier
 	 */
-	<T extends EObject> void modify(BiConsumer<T, BusinessObjectContext> modifier,
-			Function<BusinessObjectContext, T> bocToBoToModifyMapper);
+	<T extends EObject> void modify(Function<BusinessObjectContext, T> bocToBoToModifyMapper,
+			BiConsumer<T, BusinessObjectContext> modifier);
 
 	/**
 	 * Calls the specified modifier for each business object.
