@@ -5,7 +5,7 @@ import java.util.Objects;
 public class FeatureGraphic implements AgeShape {
 	public final Direction direction;
 	public final FeatureGraphicType featureType;
-	
+
 	public FeatureGraphic(final Direction direction, final FeatureGraphicType featureType) {
 		this.direction = Objects.requireNonNull(direction, "direction must not be null");
 		this.featureType = Objects.requireNonNull(featureType, "featureType must not be null");
@@ -40,7 +40,7 @@ public class FeatureGraphic implements AgeShape {
 		}
 		return true;
 	}
-	
+
 	@Override
 	public boolean isResizeable() {
 		return featureType == FeatureGraphicType.FEATURE_GROUP;

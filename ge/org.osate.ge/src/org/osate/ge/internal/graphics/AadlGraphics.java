@@ -135,7 +135,8 @@ public class AadlGraphics {
 	}
 
 	public static Color getDefaultBackgroundColor(final FeatureGraphicType featureGraphicType) {
-		if (featureGraphicType == FeatureGraphicType.SUBPROGRAM_ACCESS) {
+		if (featureGraphicType == FeatureGraphicType.SUBPROGRAM_ACCESS
+				|| featureGraphicType == FeatureGraphicType.BUS_OR_DATA_ACCESS) {
 			return Color.WHITE;
 		} else {
 			return Color.BLACK;
