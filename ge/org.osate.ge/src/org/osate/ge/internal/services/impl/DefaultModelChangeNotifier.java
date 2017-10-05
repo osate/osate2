@@ -17,6 +17,7 @@ import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.emf.common.util.URI;
+import org.eclipse.swt.widgets.Display;
 import org.osate.ge.internal.services.ModelChangeNotifier;
 import org.osate.ge.internal.ui.xtext.AgeXtextUtil;
 import org.osate.ge.internal.ui.xtext.XtextDocumentChangeListener;
@@ -90,7 +91,9 @@ public class DefaultModelChangeNotifier implements ModelChangeNotifier {
 				e.printStackTrace();
 			}
 
-			handleNotifications();
+			Display.getDefault().asyncExec(() -> {
+				handleNotifications();
+			});
 		}
 	};
 
