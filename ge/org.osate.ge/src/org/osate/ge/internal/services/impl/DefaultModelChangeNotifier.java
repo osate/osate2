@@ -17,9 +17,9 @@ import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.emf.common.util.URI;
-import org.eclipse.xtext.ui.editor.model.IXtextModelListener;
 import org.osate.ge.internal.services.ModelChangeNotifier;
 import org.osate.ge.internal.ui.xtext.AgeXtextUtil;
+import org.osate.ge.internal.ui.xtext.XtextDocumentChangeListener;
 
 public class DefaultModelChangeNotifier implements ModelChangeNotifier {
 	private final ProjectDeltaVisitor projectVisitor = new ProjectDeltaVisitor();
@@ -94,18 +94,18 @@ public class DefaultModelChangeNotifier implements ModelChangeNotifier {
 		}
 	};
 
-	private IXtextModelListener xtextModelListener = resource -> {
-		if (resource.getURI() == null) {
+	private XtextDocumentChangeListener xtextModelListener = resourceUri -> {
+		if (resourceUri == null) {
 			return;
 		}
 
-		final String platformString = resource.getURI().toPlatformString(true);
+		final String platformString = resourceUri.toPlatformString(true);
 		if (platformString == null) {
 			return;
 		}
 
 		if (platformString.toLowerCase().endsWith(".aadl")) {
-			pendingChangedResourceUris.add(resource.getURI());
+			pendingChangedResourceUris.add(resourceUri);
 			hasModelChanged = true;
 
 			handleNotifications();
