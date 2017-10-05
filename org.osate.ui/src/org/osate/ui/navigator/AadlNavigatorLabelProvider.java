@@ -35,13 +35,17 @@ package org.osate.ui.navigator;
 
 import java.util.List;
 
+import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IMarker;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.jface.viewers.DecoratingLabelProvider;
+import org.eclipse.swt.SWT;
+import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.graphics.Rectangle;
+import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.ISharedImages;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.model.WorkbenchLabelProvider;
@@ -50,6 +54,7 @@ import org.osate.aadl2.PrivatePackageSection;
 import org.osate.aadl2.PropertyType;
 import org.osate.aadl2.PublicPackageSection;
 import org.osate.aadl2.instance.InstanceObject;
+import org.osate.aadl2.modelsupport.resources.PredeclaredProperties;
 import org.osate.ui.OsateUiPlugin;
 import org.osate.ui.UiUtil;
 import org.osate.ui.navigator.AadlElementImageDescriptor.ModificationFlag;
@@ -103,6 +108,24 @@ public class AadlNavigatorLabelProvider extends DecoratingLabelProvider {
 			image = super.getImage(element);
 		}
 		return decorateImage(image, element);
+	}
+
+	@Override
+	public Color getForeground(Object element) {
+		if (element instanceof IFile) {
+			IFile file = (IFile) element;
+			if (file.getName().contentEquals(PredeclaredProperties.AADL_PROJECT)
+					&& !file.getFullPath().toString().contentEquals(PredeclaredProperties.getAADLProjectPreference())) {
+				return Display.getCurrent().getSystemColor(SWT.COLOR_GRAY);
+			}
+		} else if (element instanceof ContributedAadlStorage) {
+			ContributedAadlStorage contributed = (ContributedAadlStorage) element;
+			if (contributed.getName().contentEquals(PredeclaredProperties.AADL_PROJECT) && !contributed.getUri()
+					.toString().contentEquals(PredeclaredProperties.getAADLProjectPreference())) {
+				return Display.getCurrent().getSystemColor(SWT.COLOR_GRAY);
+			}
+		}
+		return super.getForeground(element);
 	}
 
 	private Image decorateImage(Image image, Object obj) {

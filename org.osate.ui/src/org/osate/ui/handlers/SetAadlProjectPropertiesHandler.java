@@ -8,7 +8,7 @@
  * NO WARRANTY
  *
  * ANY INFORMATION, MATERIALS, SERVICES, INTELLECTUAL PROPERTY OR OTHER PROPERTY OR RIGHTS GRANTED OR PROVIDED BY
- * CARNEGIE MELLON UNIVERSITY PURSUANT TO THIS LICENSE (HEREINAFTER THE "DELIVERABLES") ARE ON AN "AS-IS" BASIS.
+ * CARNEGIE MELLON UNIVERSITY PURSUANT TO THIS LICENSE (HEREINAFTER THE ''DELIVERABLES'') ARE ON AN ''AS-IS'' BASIS.
  * CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY KIND, EITHER EXPRESS OR IMPLIED AS TO ANY MATTER INCLUDING,
  * BUT NOT LIMITED TO, WARRANTY OF FITNESS FOR A PARTICULAR PURPOSE, MERCHANTABILITY, INFORMATIONAL CONTENT,
  * NONINFRINGEMENT, OR ERROR-FREE OPERATION. CARNEGIE MELLON UNIVERSITY SHALL NOT BE LIABLE FOR INDIRECT, SPECIAL OR
@@ -24,73 +24,44 @@
  * assistance granted by Carnegie Mellon University under this License, including, but not limited to, any claims of
  * product liability, personal injury, death, damage to property, or violation of any laws or regulations.
  *
- * Carnegie Mellon Carnegie Mellon University Software Engineering Institute authored documents are sponsored by the U.S. Department
+ * Carnegie Mellon University Software Engineering Institute authored documents are sponsored by the U.S. Department
  * of Defense under Contract F19628-00-C-0003. Carnegie Mellon University retains copyrights in all material produced
  * under this contract. The U.S. Government retains a non-exclusive, royalty-free license to publish or reproduce these
  * documents, or allow others to do so, for U.S. Government purposes only pursuant to the copyright license
  * under the contract clause at 252.227.7013.
  * </copyright>
  */
-package org.osate.xtext.aadl2.ui.containers;
+package org.osate.ui.handlers;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.List;
-import java.util.stream.Collectors;
-
-import org.eclipse.emf.common.util.URI;
-import org.eclipse.xtext.ui.containers.WorkspaceProjectsStateHelper;
+import org.eclipse.core.commands.AbstractHandler;
+import org.eclipse.core.commands.ExecutionEvent;
+import org.eclipse.core.commands.ExecutionException;
+import org.eclipse.core.resources.IResource;
+import org.eclipse.jface.viewers.ISelection;
+import org.eclipse.jface.viewers.TreeSelection;
+import org.eclipse.ui.IWorkbenchPage;
+import org.eclipse.ui.IWorkbenchWindow;
+import org.eclipse.ui.PlatformUI;
 import org.osate.aadl2.modelsupport.resources.PredeclaredProperties;
-import org.osate.pluginsupport.PluginSupportUtil;
+import org.osate.xtext.aadl2.ui.resource.ContributedAadlStorage;
 
-import com.google.inject.Singleton;
-
-@Singleton
-public class Aadl2ProjectsStateHelper extends WorkspaceProjectsStateHelper {
-	private final static String AADL_PROJECT_HANDLE = "$aadl_project$";
-	private final static String CONTRIBUTED_HANDLE = "$contributed_aadl_handle$";
-	private final static List<URI> CONTRIBUTED_AADL = PluginSupportUtil.getContributedAadl();
-
+public class SetAadlProjectPropertiesHandler extends AbstractHandler {
 	@Override
-	public String initHandle(URI uri) {
-		if (uri.lastSegment().contentEquals(PredeclaredProperties.AADL_PROJECT)) {
-			if (uri.toString().contentEquals(PredeclaredProperties.getAADLProjectPreference())) {
-				return AADL_PROJECT_HANDLE;
-			} else {
-				return null;
+	public Object execute(ExecutionEvent event) throws ExecutionException {
+		IWorkbenchWindow win = PlatformUI.getWorkbench().getActiveWorkbenchWindow();
+		IWorkbenchPage page = win.getActivePage();
+		ISelection selection = page.getSelection();
+		if (selection instanceof TreeSelection) {
+			TreeSelection tree = (TreeSelection) selection;
+			if (tree.size() == 1) {
+				if (tree.getFirstElement() instanceof IResource) {
+					IResource newAadlProject = (IResource) tree.getFirstElement();
+					PredeclaredProperties.setAadlProject(newAadlProject);
+				} else if (tree.getFirstElement() instanceof ContributedAadlStorage) {
+					PredeclaredProperties.resetAadlProject();
+				}
 			}
-		} else if (CONTRIBUTED_AADL.contains(uri)) {
-			return CONTRIBUTED_HANDLE;
-		} else {
-			return super.initHandle(uri);
 		}
-	}
-
-	@Override
-	public Collection<URI> initContainedURIs(String containerHandle) {
-		if (containerHandle.contentEquals(AADL_PROJECT_HANDLE)) {
-			return Collections
-					.singleton(URI.createPlatformResourceURI(PredeclaredProperties.getAADLProjectPreference(), true));
-		} else if (containerHandle.equals(CONTRIBUTED_HANDLE)) {
-			if (!PredeclaredProperties.getAADLProjectPreference()
-					.contentEquals(PredeclaredProperties.AADL_PROJECT_DEFAULT)) {
-				return CONTRIBUTED_AADL.stream()
-						.filter(uri -> !uri.lastSegment().contentEquals(PredeclaredProperties.AADL_PROJECT))
-						.collect(Collectors.toList());
-			} else {
-				return CONTRIBUTED_AADL;
-			}
-		} else {
-			return super.initContainedURIs(containerHandle);
-		}
-	}
-
-	@Override
-	public List<String> initVisibleHandles(String handle) {
-		List<String> result = new ArrayList<>(super.initVisibleHandles(handle));
-		result.add(CONTRIBUTED_HANDLE);
-		result.add(AADL_PROJECT_HANDLE);
-		return result;
+		return null;
 	}
 }
