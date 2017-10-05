@@ -1023,7 +1023,7 @@ public class AgeGraphitiGraphicsUtil {
 		ga.setHeight(maxY - minY);
 	}
 
-	private static void shrinkPolyline(final org.eclipse.graphiti.mm.algorithms.Polyline polyline) {
+	public static void shrinkPolyline(final org.eclipse.graphiti.mm.algorithms.Polyline polyline) {
 		int minX = Integer.MAX_VALUE;
 		int maxX = Integer.MIN_VALUE;
 		int minY = Integer.MAX_VALUE;
