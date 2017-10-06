@@ -421,14 +421,6 @@ class LayoutUtil {
 								break;
 							}
 
-							if (AgeGraphitiGraphicsUtil.useExteriorForInteriorAnchorPoint(gr)) {
-								interiorAnchorPosition = exteriorAnchorPosition;
-							}
-
-							if (AgeGraphitiGraphicsUtil.useInteriorForExteriorAnchorPoint(gr)) {
-								exteriorAnchorPosition = interiorAnchorPosition;
-							}
-
 							AnchorUtil.createOrUpdateFixPointAnchor(shape, AnchorNames.FLOW_SPECIFICATION,
 									(int) flowSpecAnchorPosition.x, (int) flowSpecAnchorPosition.y, true);
 

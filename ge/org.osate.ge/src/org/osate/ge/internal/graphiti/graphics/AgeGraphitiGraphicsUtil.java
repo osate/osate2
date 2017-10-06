@@ -19,7 +19,6 @@ import org.osate.ge.graphics.internal.DeviceGraphic;
 import org.osate.ge.graphics.internal.Direction;
 import org.osate.ge.graphics.internal.Ellipse;
 import org.osate.ge.graphics.internal.FeatureGraphic;
-import org.osate.ge.graphics.internal.FeatureGraphicType;
 import org.osate.ge.graphics.internal.FeatureGroupTypeGraphic;
 import org.osate.ge.graphics.internal.FolderGraphic;
 import org.osate.ge.graphics.internal.Label;
@@ -1102,24 +1101,5 @@ public class AgeGraphitiGraphicsUtil {
 		polyline.setY(polyline.getY() + minY);
 		polyline.setWidth(maxX - minX);
 		polyline.setHeight(maxY - minY);
-	}
-
-	public static boolean useExteriorForInteriorAnchorPoint(final Graphic gr) {
-		if (gr instanceof FeatureGraphic) {
-			final FeatureGraphic fg = (FeatureGraphic) gr;
-			return fg.direction == Direction.OUT && fg.featureType == FeatureGraphicType.EVENT_PORT;
-		} else {
-			return false;
-		}
-	}
-
-	public static boolean useInteriorForExteriorAnchorPoint(final Graphic gr) {
-		if (gr instanceof FeatureGraphic) {
-			final FeatureGraphic fg = (FeatureGraphic) gr;
-			return fg.direction == Direction.IN && fg.featureType == FeatureGraphicType.EVENT_PORT;
-		} else {
-			return false;
-		}
-
 	}
 }
