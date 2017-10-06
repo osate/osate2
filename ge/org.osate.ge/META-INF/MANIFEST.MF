@@ -31,11 +31,11 @@ Require-Bundle: org.eclipse.ui,
  org.osate.aadl2.instantiation,
  org.osate.annexsupport,
  org.osate.ge.diagram,
- org.eclipse.ltk.ui.refactoring
+ org.eclipse.ltk.ui.refactoring,
+ com.google.guava;bundle-version="21.0.0"
 Bundle-ActivationPolicy: lazy
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Import-Package: 
- com.google.common.collect,
  org.eclipse.draw2d.graph,
  org.eclipse.ui,
  org.eclipse.ui.part,

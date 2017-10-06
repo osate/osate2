@@ -188,6 +188,7 @@ public class AgeDiagram implements DiagramNode, ModifiableDiagramElementContaine
 		private DiagramElement removedElement;
 		private boolean undoable = true;
 		private ArrayList<FieldChange> fieldChanges = new ArrayList<>(); // Used for undoing the modification
+		private boolean inUndoOrRedo = false;
 
 		@Override
 		public void updateBusinessObject(final DiagramElement e, final Object bo, final RelativeBusinessObjectReference relativeReference) {
@@ -300,15 +301,19 @@ public class AgeDiagram implements DiagramNode, ModifiableDiagramElementContaine
 				e.setPosition(value);
 				afterUpdate(e, DiagramElementField.POSITION);
 
-				// Update the dock area based on the position
-				final DockArea currentDockArea = e.getDockArea();
-				if(currentDockArea != null) {
-					if(currentDockArea != DockArea.GROUP) {
-						setDockArea(e, calculateDockArea(e));
+				// Don't perform settings triggered by setting the position during undo or redo. Such changes occur in an order that will result in erroneous
+				// values. If a value was changed during the original action, it will have its own entry in the change list.
+				if (!inUndoOrRedo) {
+					// Update the dock area based on the position
+					final DockArea currentDockArea = e.getDockArea();
+					if (currentDockArea != null) {
+						if (currentDockArea != DockArea.GROUP) {
+							setDockArea(e, calculateDockArea(e));
+						}
 					}
-				}
 
-				updateBendpointsForContainedConnections(e, dx, dy);
+					updateBendpointsForContainedConnections(e, dx, dy);
+				}
 			}
 		}
 
@@ -485,7 +490,16 @@ public class AgeDiagram implements DiagramNode, ModifiableDiagramElementContaine
 			}
 
 			if(modification instanceof AgeDiagramModification) {
-				((AgeDiagramModification) modification).undo(this);
+				try {
+					inUndoOrRedo = true;
+					final AgeDiagramModification modificationToUndo = ((AgeDiagramModification) modification);
+					for (int i = modificationToUndo.fieldChanges.size() - 1; i >= 0; i--) {
+						final FieldChange change = modificationToUndo.fieldChanges.get(i);
+						setValue(change.element, change.field, change.previousValue);
+					}
+				} finally {
+					inUndoOrRedo = false;
+				}
 			}
 		}
 
@@ -496,7 +510,15 @@ public class AgeDiagram implements DiagramNode, ModifiableDiagramElementContaine
 			}
 
 			if(modification instanceof AgeDiagramModification) {
-				((AgeDiagramModification) modification).redo(this);
+				try {
+					inUndoOrRedo = true;
+					final AgeDiagramModification modificationToRedo = ((AgeDiagramModification) modification);
+					for (final FieldChange change : modificationToRedo.fieldChanges) {
+						setValue(change.element, change.field, change.newValue);
+					}
+				} finally {
+					inUndoOrRedo = false;
+				}
 			}
 		}
 
@@ -510,76 +532,55 @@ public class AgeDiagram implements DiagramNode, ModifiableDiagramElementContaine
 			return undoable; // Only commands that can be undone can be redone.
 		}
 
-		/**
-		 * Undoes the current modification. Makes modifications using the modification specified.
-		 * @param newModification
-		 */
-		private void undo(final AgeDiagramModification newModification) {
-			for(int i = fieldChanges.size()-1; i >= 0; i--) {
-				final FieldChange change = fieldChanges.get(i);
-				setValue(newModification, change.element, change.field, change.previousValue);
-			}
-		}
-
-		/**
-		 * Undoes the current modification. Makes modifications using the modification specified.
-		 * @param newModification
-		 */
-		private void redo(final AgeDiagramModification newModification) {
-			for(final FieldChange change : fieldChanges) {
-				setValue(newModification, change.element, change.field, change.newValue);
-			}
-		}
-
 		@SuppressWarnings("unchecked")
-		private void setValue(final AgeDiagramModification m, final DiagramElement element, final DiagramElementField field, final Object value) {
+		private void setValue(final DiagramElement element, final DiagramElementField field, final Object value) {
 			switch(field) {
 			case ID:
-				m.setId(element, (Long)value);
+				setId(element, (Long) value);
 				break;
 
 			case MANUAL:
-				m.setManual(element, (boolean)value);
+				setManual(element, (boolean) value);
 				break;
 
 			case AUTO_CONTENTS_FILTER:
-				m.setAutoContentsFilter(element, (ContentsFilter)value);
+				setAutoContentsFilter(element, (ContentsFilter) value);
 				break;
 
 			case COMPLETENESS:
-				m.setCompleteness(element, (Completeness)value);
+				setCompleteness(element, (Completeness) value);
 				break;
 
 			case NAME:
-				m.setName(element, (String)value);
+				setName(element, (String) value);
 				break;
 
 			case BENDPOINTS:
-				m.setBendpoints(element, (List<Point>)value);
+				setBendpoints(element, (List<Point>) value);
 				break;
 
 			case DOCK_AREA:
-				m.setDockArea(element, (DockArea)value);
+				setDockArea(element, (DockArea) value);
 				break;
 
 			case GRAPHICAL_CONFIGURATION:
-				m.setGraphicalConfiguration(element, (AgeGraphicalConfiguration)value);
+				setGraphicalConfiguration(element, (AgeGraphicalConfiguration) value);
 				break;
 
 			case POSITION:
-				m.setPosition(element, (Point)value);
+				setPosition(element, (Point) value);
 				break;
 
 			case SIZE:
-				m.setSize(element, (Dimension)value);
+				setSize(element, (Dimension) value);
 				break;
 
 			case CONNECTION_PRIMARY_LABEL_POSITION:
-				m.setConnectionPrimaryLabelPosition(element, (Point)value);
+				setConnectionPrimaryLabelPosition(element, (Point) value);
 				break;
 
 			case STYLE:
-				m.setStyle(element, (Style)value);
+				setStyle(element, (Style) value);
 				break;
 
 			case RELATIVE_REFERENCE:
