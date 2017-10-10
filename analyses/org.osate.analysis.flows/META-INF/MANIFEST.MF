@@ -17,5 +17,6 @@ Require-Bundle: org.osate.aadl2,
  org.osate.aadl2.modelsupport,
  org.osate.ui;visibility:=reexport,
  org.osate.xtext.aadl2.properties;bundle-version="1.0.0",
- org.osate.contribution.sei
+ org.osate.contribution.sei,
+ org.osate.results;bundle-version="1.0.0"
 Eclipse-LazyStart: true

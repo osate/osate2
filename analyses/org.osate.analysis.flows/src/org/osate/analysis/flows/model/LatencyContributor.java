@@ -1,5 +1,10 @@
 package org.osate.analysis.flows.model;
 
+
+import static org.osate.result.util.ResultUtil.addRealValue;
+import static org.osate.result.util.ResultUtil.addStringValue;
+import static org.osate.result.util.ResultUtil.createIssue;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,16 +15,18 @@ import org.osate.analysis.flows.FlowLatencyUtil;
 import org.osate.analysis.flows.preferences.Values;
 import org.osate.analysis.flows.reporting.model.Line;
 import org.osate.analysis.flows.reporting.model.ReportSeverity;
-import org.osate.analysis.flows.reporting.model.ReportedCell;
+import org.osate.result.Contributor;
+import org.osate.result.Issue;
+import org.osate.result.IssueType;
+import org.osate.result.ResultFactory;
 
 /**
  * A latency Contributor represents something in the flow
  * that can contribute to increase/decrease the latency.
- * 
+ *
  * This class contains the result for a latency contributor
  * with min/max latency.
- * 
- * @author julien
+ *
  *
  */
 public abstract class LatencyContributor {
@@ -85,7 +92,7 @@ public abstract class LatencyContributor {
 	 */
 	private double samplingPeriod;
 
-	List<ReportedCell> issues;
+	List<Issue> issues;
 
 	/**
 	 * Sampling of incoming communication is synchronous
@@ -107,7 +114,7 @@ public abstract class LatencyContributor {
 	/**
 	 * The sub contributors are basically what are the other
 	 * elements that can incur a latency in addition to the
-	 * related element. A good example is a bus for a 
+	 * related element. A good example is a bus for a
 	 * connection. The connection is the latency contributor
 	 * and the bus is a sub-contributor (it adds potentially
 	 * some latency).
@@ -130,69 +137,77 @@ public abstract class LatencyContributor {
 		this.partitionOffset = 0.0;
 		this.partitionDuration = 0.0;
 		this.subContributors = new ArrayList<LatencyContributor>();
-		this.issues = new ArrayList<ReportedCell>();
+		this.issues = new ArrayList<Issue>();
 		this.maxSubtotal = 0.0;
 		this.minSubtotal = 0.0;
 	}
 
-	protected List<ReportedCell> getReportedIssues() {
+	protected List<Issue> getReportedIssues() {
 		return this.issues;
 	}
 
 	public void reportError(String str) {
-		issues.add(new ReportedCell(ReportSeverity.ERROR, str));
+		issues.add(createIssue(str, this.relatedElement, IssueType.ERROR, ""));
 	}
 
 	public void reportSuccess(String str) {
-		issues.add(new ReportedCell(ReportSeverity.SUCCESS, str));
+		issues.add(createIssue(str, this.relatedElement, IssueType.SUCCESS, ""));
 	}
 
 	public void reportInfo(String str) {
-		issues.add(new ReportedCell(ReportSeverity.INFO, str));
+		issues.add(createIssue(str, this.relatedElement, IssueType.INFO, ""));
 	}
 
 	public void reportWarning(String str) {
-		issues.add(new ReportedCell(ReportSeverity.WARNING, str));
+		issues.add(createIssue(str, this.relatedElement, IssueType.WARNING, ""));
 	}
 
 	public void reportError(boolean doMaximum, String str) {
-		issues.add(new ReportedCell(ReportSeverity.ERROR, FlowLatencyUtil.getMinMaxLabel(doMaximum) + str));
+		issues.add(createIssue(FlowLatencyUtil.getMinMaxLabel(doMaximum) + str,
+				this.relatedElement, IssueType.ERROR, ""));
 	}
 
 	public void reportSuccess(boolean doMaximum, String str) {
-		issues.add(new ReportedCell(ReportSeverity.SUCCESS, FlowLatencyUtil.getMinMaxLabel(doMaximum) + str));
+		issues.add(createIssue(FlowLatencyUtil.getMinMaxLabel(doMaximum) + str,
+				this.relatedElement, IssueType.SUCCESS, ""));
 	}
 
 	public void reportInfo(boolean doMaximum, String str) {
-		issues.add(new ReportedCell(ReportSeverity.INFO, FlowLatencyUtil.getMinMaxLabel(doMaximum) + str));
+		issues.add(createIssue(FlowLatencyUtil.getMinMaxLabel(doMaximum) + str,
+				this.relatedElement, IssueType.INFO, ""));
 	}
 
 	public void reportWarning(boolean doMaximum, String str) {
-		issues.add(new ReportedCell(ReportSeverity.WARNING, FlowLatencyUtil.getMinMaxLabel(doMaximum) + str));
+		issues.add(createIssue(FlowLatencyUtil.getMinMaxLabel(doMaximum) + str,
+				this.relatedElement, IssueType.WARNING, ""));
 	}
 
 	public void reportErrorOnce(boolean doMaximum, String str) {
-		if (doMaximum)
+		if (doMaximum) {
 			return;
-		issues.add(new ReportedCell(ReportSeverity.ERROR, str));
+		}
+		reportError(str);
 	}
 
 	public void reportSuccessOnce(boolean doMaximum, String str) {
-		if (doMaximum)
+		if (doMaximum) {
 			return;
-		issues.add(new ReportedCell(ReportSeverity.SUCCESS, str));
+		}
+		reportSuccess(str);
 	}
 
 	public void reportInfoOnce(boolean doMaximum, String str) {
-		if (doMaximum)
+		if (doMaximum) {
 			return;
-		issues.add(new ReportedCell(ReportSeverity.INFO, str));
+		}
+		reportInfo(str);
 	}
 
 	public void reportWarningOnce(boolean doMaximum, String str) {
-		if (doMaximum)
+		if (doMaximum) {
 			return;
-		issues.add(new ReportedCell(ReportSeverity.WARNING, str));
+		}
+		reportWarning(str);
 	}
 
 	protected String getContributorName() {
@@ -280,10 +295,11 @@ public abstract class LatencyContributor {
 	}
 
 	public void reportSubtotal(double val, boolean doMax) {
-		if (doMax)
+		if (doMax) {
 			this.setMaxSubtotal(val);
-		else
+		} else {
 			this.setMinSubtotal(val);
+		}
 	}
 
 	public double getImmediateDeadline() {
@@ -311,10 +327,11 @@ public abstract class LatencyContributor {
 	}
 
 	public LatencyContributorMethod getLatencyContributorMethod(boolean doWorstcase) {
-		if (doWorstcase)
+		if (doWorstcase) {
 			return this.worstCaseMethod;
-		else
+		} else {
 			return this.bestCaseMethod;
+		}
 	}
 
 //	UNKNOWN, DEADLINE, PROCESSING_TIME, DELAYED, SAMPLED, FIRST_SAMPLED, SPECIFIED, QUEUED, TRANSMISSION_TIME, PARTITION_FRAME, PARTITION_SCHEDULE, PARTITION_IO
@@ -390,10 +407,11 @@ public abstract class LatencyContributor {
 	}
 
 	public double getTotal(boolean doMaximum) {
-		if (doMaximum)
+		if (doMaximum) {
 			return getTotalMaximum();
-		else
+		} else {
 			return getTotalMinimum();
+		}
 	}
 
 	public double getTotalMinimum() {
@@ -480,14 +498,16 @@ public abstract class LatencyContributor {
 	}
 
 	private String levelOpenLabel(int level) {
-		if (level > 0)
+		if (level > 0) {
 			return "(";
+		}
 		return "";
 	}
 
 	private String levelCloseLabel(int level) {
-		if (level > 0)
+		if (level > 0) {
 			return ")";
+		}
 		return "";
 	}
 
@@ -553,17 +573,50 @@ public abstract class LatencyContributor {
 	}
 
 	public void generateMarkers(AnalysisErrorReporterManager errManager) {
-		List<ReportedCell> doIssues = this.getReportedIssues();
-		for (ReportedCell reportedCell : doIssues) {
-			if (reportedCell.getSeverity() == ReportSeverity.INFO) {
+		List<Issue> doIssues = this.getReportedIssues();
+		for (Issue reportedCell : doIssues) {
+			if (reportedCell.getIssueType() == IssueType.INFO) {
+				errManager.info(this.relatedElement, reportedCell.getMessage());
+			} else if (reportedCell.getIssueType() == IssueType.SUCCESS) {
 				errManager.info(this.relatedElement, getRelatedObjectLabel() + reportedCell.getMessage());
-			} else if (reportedCell.getSeverity() == ReportSeverity.SUCCESS) {
-				errManager.info(this.relatedElement, getRelatedObjectLabel() + reportedCell.getMessage());
-			} else if (reportedCell.getSeverity() == ReportSeverity.WARNING) {
+			} else if (reportedCell.getIssueType() == IssueType.WARNING) {
 				errManager.warning(this.relatedElement, getRelatedObjectLabel() + reportedCell.getMessage());
-			} else if (reportedCell.getSeverity() == ReportSeverity.ERROR) {
+			} else if (reportedCell.getIssueType() == IssueType.ERROR) {
 				errManager.error(this.relatedElement, getRelatedObjectLabel() + reportedCell.getMessage());
 			}
 		}
 	}
+
+	public Contributor genResult() {
+		return genResult(0);
+	}
+
+	public Contributor genResult(int level) {
+
+		Contributor result = ResultFactory.eINSTANCE.createContributor();
+		result.setSourceReference(relatedElement);
+		result.getIssues().addAll(issues);
+		addRealValue(result, minValue);
+		addRealValue(result, maxValue);
+		addRealValue(result, expectedMin);
+		addRealValue(result, expectedMax);
+		addRealValue(result, immediateDeadline);
+		addRealValue(result, partitionOffset);
+		addRealValue(result, partitionDuration);
+		addRealValue(result, samplingPeriod);
+		addRealValue(result, minSubtotal);
+		addRealValue(result, minSubtotal);
+		addRealValue(result, maxSubtotal);
+		addStringValue(result,worstCaseMethod.name());
+		addStringValue(result, bestCaseMethod.name());
+		addStringValue(result,isSynchronized.name());
+		/**
+		 * We also add the lines of all the sub-contributors.
+		 */
+		for (LatencyContributor lc : this.subContributors) {
+			result.getSubContributors().add(lc.genResult(level + 1));
+		}
+		return result;
+	}
+
 }

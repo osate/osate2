@@ -40,16 +40,22 @@
 package org.osate.analysis.flows.handlers;
 
 import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.core.runtime.Path;
+import org.eclipse.emf.common.util.URI;
+import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.osate.aadl2.Element;
 import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.instance.SystemInstance;
 import org.osate.aadl2.instance.SystemOperationMode;
 import org.osate.aadl2.modelsupport.errorreporting.AnalysisErrorReporterManager;
+import org.osate.aadl2.modelsupport.resources.OsateResourceUtil;
+import org.osate.aadl2.modelsupport.util.AadlUtil;
 import org.osate.analysis.flows.FlowLatencyAnalysisSwitch;
 import org.osate.analysis.flows.model.LatencyReport;
 import org.osate.analysis.flows.reporting.exporters.CsvExport;
 import org.osate.analysis.flows.reporting.exporters.ExcelExport;
 import org.osate.analysis.flows.reporting.model.Report;
+import org.osate.result.Result;
 import org.osate.ui.dialogs.Dialog;
 import org.osate.ui.handlers.AbstractInstanceOrDeclarativeModelReadOnlyHandler;
 
@@ -90,6 +96,16 @@ public final class CheckFlowLatency extends AbstractInstanceOrDeclarativeModelRe
 			csvExport.save();
 			ExcelExport excelExport = new ExcelExport(report);
 			excelExport.save();
+
+			Result results = latreport.genResult();
+			SystemInstance root = latreport.getRootinstance();
+			URI rootURI = EcoreUtil.getURI(root).trimFragment().trimFileExtension();
+			String rootname = rootURI.lastSegment();
+			URI latencyURI = rootURI.trimFragment().trimSegments(1).appendSegment("reports")
+					.appendSegment("latency")
+					.appendSegment(rootname + "__latency_" + latreport.getPreferencesSuffix() + ".result");
+			AadlUtil.makeSureFoldersExist(new Path(latencyURI.toPlatformString(true)));
+			URI newuri = OsateResourceUtil.saveEMFModel(results, latencyURI, root);
 		}
 		return true;
 	};
@@ -121,9 +137,9 @@ public final class CheckFlowLatency extends AbstractInstanceOrDeclarativeModelRe
 
 	/**
 	 * Invoke the analysis but return the report object rather than writing it to disk.
-	 * 
+	 *
 	 * @param monitor The progress monitor to use
-	 * @param errManager [Optional] The error manager to use, or null if one should be created 
+	 * @param errManager [Optional] The error manager to use, or null if one should be created
 	 * @param root The root system instance
 	 * @param som The mode to run the analysis in
 	 * @return A populated report.

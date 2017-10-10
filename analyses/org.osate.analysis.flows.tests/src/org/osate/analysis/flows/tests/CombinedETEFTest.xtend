@@ -49,6 +49,12 @@ class CombinedETEFTest extends OsateTest {
 		val file = workspaceRoot.getFile(new Path(uri.toPlatformString(true)))
 		val actual = Files.readStreamIntoString(file.contents)
 		assertEquals('error', expected.trim, actual.trim)
+		// read result
+		val uriresult = URI.createURI(
+			resourceRoot + "/instances/reports/latency/CombinedETEF_Test_Impl_Instance__latency_AS-MF-DL-EQ.result")
+		val fileresult = workspaceRoot.getFile(new Path(uriresult.toPlatformString(true)))
+		val actualresult = Files.readStreamIntoString(fileresult.contents)
+		assertEquals('error', expectedresult.trim, actualresult.trim)
 	}
 
 	val combinedETEFText = '''
@@ -162,5 +168,430 @@ ERROR,Maximum actual latency total 40.0ms exceeds expected maximum end to end la
 
 
 
+
+
+
 	'''
+
+	val expectedresult = '''
+<?xml version="1.0" encoding="ASCII"?>
+<result:Result xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:result="http://www.osate.org/result/Result" analysis="latencyreport">
+  <sourceReference href="../../CombinedETEF_Test_Impl_Instance.aaxl2#/"/>
+  <subResults analysis="a_b">
+    <sourceReference href="../../CombinedETEF_Test_Impl_Instance.aaxl2#//@endToEndFlow.0"/>
+    <values xsi:type="result:StringValue" value="Latency analysis for end-to-end flow 'a_b' of system 'Test.Impl' with preference settings AS-MF-DL-EQ"/>
+    <values xsi:type="result:RealValue" value="20.0"/>
+    <values xsi:type="result:RealValue" value="20.0"/>
+    <values xsi:type="result:RealValue" value="20.0"/>
+    <values xsi:type="result:RealValue" value="20.0"/>
+    <values xsi:type="result:RealValue"/>
+    <values xsi:type="result:RealValue"/>
+    <contributors>
+      <sourceReference href="../../CombinedETEF_Test_Impl_Instance.aaxl2#//@componentInstance.0"/>
+      <values xsi:type="result:RealValue"/>
+      <values xsi:type="result:RealValue"/>
+      <values xsi:type="result:RealValue"/>
+      <values xsi:type="result:RealValue"/>
+      <values xsi:type="result:RealValue"/>
+      <values xsi:type="result:RealValue"/>
+      <values xsi:type="result:RealValue"/>
+      <values xsi:type="result:RealValue"/>
+      <values xsi:type="result:RealValue"/>
+      <values xsi:type="result:RealValue"/>
+      <values xsi:type="result:RealValue"/>
+      <values xsi:type="result:StringValue" value="FIRST_SAMPLED"/>
+      <values xsi:type="result:StringValue" value="FIRST_SAMPLED"/>
+      <values xsi:type="result:StringValue" value="SYNCUNKNOWN"/>
+      <issues issueType="INFO" message="Initial 0.0ms sampling latency not added" diagnostic="">
+        <sourceReference href="../../CombinedETEF_Test_Impl_Instance.aaxl2#//@componentInstance.0"/>
+      </issues>
+    </contributors>
+    <contributors>
+      <sourceReference href="../../CombinedETEF_Test_Impl_Instance.aaxl2#//@componentInstance.0"/>
+      <values xsi:type="result:RealValue" value="10.0"/>
+      <values xsi:type="result:RealValue" value="10.0"/>
+      <values xsi:type="result:RealValue" value="10.0"/>
+      <values xsi:type="result:RealValue" value="10.0"/>
+      <values xsi:type="result:RealValue"/>
+      <values xsi:type="result:RealValue"/>
+      <values xsi:type="result:RealValue"/>
+      <values xsi:type="result:RealValue"/>
+      <values xsi:type="result:RealValue" value="10.0"/>
+      <values xsi:type="result:RealValue" value="10.0"/>
+      <values xsi:type="result:RealValue" value="10.0"/>
+      <values xsi:type="result:StringValue" value="SPECIFIED"/>
+      <values xsi:type="result:StringValue" value="SPECIFIED"/>
+      <values xsi:type="result:StringValue" value="SYNCUNKNOWN"/>
+    </contributors>
+    <contributors>
+      <sourceReference href="../../CombinedETEF_Test_Impl_Instance.aaxl2#//@connectionInstance.0"/>
+      <values xsi:type="result:RealValue"/>
+      <values xsi:type="result:RealValue"/>
+      <values xsi:type="result:RealValue"/>
+      <values xsi:type="result:RealValue"/>
+      <values xsi:type="result:RealValue"/>
+      <values xsi:type="result:RealValue"/>
+      <values xsi:type="result:RealValue"/>
+      <values xsi:type="result:RealValue"/>
+      <values xsi:type="result:RealValue" value="10.0"/>
+      <values xsi:type="result:RealValue" value="10.0"/>
+      <values xsi:type="result:RealValue" value="10.0"/>
+      <values xsi:type="result:StringValue" value="UNKNOWN"/>
+      <values xsi:type="result:StringValue" value="UNKNOWN"/>
+      <values xsi:type="result:StringValue" value="SYNCUNKNOWN"/>
+    </contributors>
+    <contributors>
+      <sourceReference href="../../CombinedETEF_Test_Impl_Instance.aaxl2#//@componentInstance.1"/>
+      <values xsi:type="result:RealValue"/>
+      <values xsi:type="result:RealValue"/>
+      <values xsi:type="result:RealValue"/>
+      <values xsi:type="result:RealValue"/>
+      <values xsi:type="result:RealValue"/>
+      <values xsi:type="result:RealValue"/>
+      <values xsi:type="result:RealValue"/>
+      <values xsi:type="result:RealValue"/>
+      <values xsi:type="result:RealValue" value="10.0"/>
+      <values xsi:type="result:RealValue" value="10.0"/>
+      <values xsi:type="result:RealValue" value="10.0"/>
+      <values xsi:type="result:StringValue" value="SAMPLED"/>
+      <values xsi:type="result:StringValue" value="SAMPLED"/>
+      <values xsi:type="result:StringValue" value="SYNCUNKNOWN"/>
+      <issues issueType="INFO" message="Best case 0 ms worst case 0.0ms (period) sampling delay" diagnostic="">
+        <sourceReference href="../../CombinedETEF_Test_Impl_Instance.aaxl2#//@componentInstance.1"/>
+      </issues>
+    </contributors>
+    <contributors>
+      <sourceReference href="../../CombinedETEF_Test_Impl_Instance.aaxl2#//@componentInstance.1"/>
+      <values xsi:type="result:RealValue" value="10.0"/>
+      <values xsi:type="result:RealValue" value="10.0"/>
+      <values xsi:type="result:RealValue" value="10.0"/>
+      <values xsi:type="result:RealValue" value="10.0"/>
+      <values xsi:type="result:RealValue"/>
+      <values xsi:type="result:RealValue"/>
+      <values xsi:type="result:RealValue"/>
+      <values xsi:type="result:RealValue"/>
+      <values xsi:type="result:RealValue" value="20.0"/>
+      <values xsi:type="result:RealValue" value="20.0"/>
+      <values xsi:type="result:RealValue" value="20.0"/>
+      <values xsi:type="result:StringValue" value="SPECIFIED"/>
+      <values xsi:type="result:StringValue" value="SPECIFIED"/>
+      <values xsi:type="result:StringValue" value="SYNCUNKNOWN"/>
+    </contributors>
+  </subResults>
+  <subResults analysis="c_d">
+    <sourceReference href="../../CombinedETEF_Test_Impl_Instance.aaxl2#//@endToEndFlow.1"/>
+    <values xsi:type="result:StringValue" value="Latency analysis for end-to-end flow 'c_d' of system 'Test.Impl' with preference settings AS-MF-DL-EQ"/>
+    <values xsi:type="result:RealValue" value="20.0"/>
+    <values xsi:type="result:RealValue" value="20.0"/>
+    <values xsi:type="result:RealValue" value="20.0"/>
+    <values xsi:type="result:RealValue" value="20.0"/>
+    <values xsi:type="result:RealValue"/>
+    <values xsi:type="result:RealValue"/>
+    <contributors>
+      <sourceReference href="../../CombinedETEF_Test_Impl_Instance.aaxl2#//@componentInstance.2"/>
+      <values xsi:type="result:RealValue"/>
+      <values xsi:type="result:RealValue"/>
+      <values xsi:type="result:RealValue"/>
+      <values xsi:type="result:RealValue"/>
+      <values xsi:type="result:RealValue"/>
+      <values xsi:type="result:RealValue"/>
+      <values xsi:type="result:RealValue"/>
+      <values xsi:type="result:RealValue"/>
+      <values xsi:type="result:RealValue"/>
+      <values xsi:type="result:RealValue"/>
+      <values xsi:type="result:RealValue"/>
+      <values xsi:type="result:StringValue" value="FIRST_SAMPLED"/>
+      <values xsi:type="result:StringValue" value="FIRST_SAMPLED"/>
+      <values xsi:type="result:StringValue" value="SYNCUNKNOWN"/>
+      <issues issueType="INFO" message="Initial 0.0ms sampling latency not added" diagnostic="">
+        <sourceReference href="../../CombinedETEF_Test_Impl_Instance.aaxl2#//@componentInstance.2"/>
+      </issues>
+    </contributors>
+    <contributors>
+      <sourceReference href="../../CombinedETEF_Test_Impl_Instance.aaxl2#//@componentInstance.2"/>
+      <values xsi:type="result:RealValue" value="10.0"/>
+      <values xsi:type="result:RealValue" value="10.0"/>
+      <values xsi:type="result:RealValue" value="10.0"/>
+      <values xsi:type="result:RealValue" value="10.0"/>
+      <values xsi:type="result:RealValue"/>
+      <values xsi:type="result:RealValue"/>
+      <values xsi:type="result:RealValue"/>
+      <values xsi:type="result:RealValue"/>
+      <values xsi:type="result:RealValue" value="10.0"/>
+      <values xsi:type="result:RealValue" value="10.0"/>
+      <values xsi:type="result:RealValue" value="10.0"/>
+      <values xsi:type="result:StringValue" value="SPECIFIED"/>
+      <values xsi:type="result:StringValue" value="SPECIFIED"/>
+      <values xsi:type="result:StringValue" value="SYNCUNKNOWN"/>
+    </contributors>
+    <contributors>
+      <sourceReference href="../../CombinedETEF_Test_Impl_Instance.aaxl2#//@connectionInstance.2"/>
+      <values xsi:type="result:RealValue"/>
+      <values xsi:type="result:RealValue"/>
+      <values xsi:type="result:RealValue"/>
+      <values xsi:type="result:RealValue"/>
+      <values xsi:type="result:RealValue"/>
+      <values xsi:type="result:RealValue"/>
+      <values xsi:type="result:RealValue"/>
+      <values xsi:type="result:RealValue"/>
+      <values xsi:type="result:RealValue" value="10.0"/>
+      <values xsi:type="result:RealValue" value="10.0"/>
+      <values xsi:type="result:RealValue" value="10.0"/>
+      <values xsi:type="result:StringValue" value="UNKNOWN"/>
+      <values xsi:type="result:StringValue" value="UNKNOWN"/>
+      <values xsi:type="result:StringValue" value="SYNCUNKNOWN"/>
+    </contributors>
+    <contributors>
+      <sourceReference href="../../CombinedETEF_Test_Impl_Instance.aaxl2#//@componentInstance.3"/>
+      <values xsi:type="result:RealValue"/>
+      <values xsi:type="result:RealValue"/>
+      <values xsi:type="result:RealValue"/>
+      <values xsi:type="result:RealValue"/>
+      <values xsi:type="result:RealValue"/>
+      <values xsi:type="result:RealValue"/>
+      <values xsi:type="result:RealValue"/>
+      <values xsi:type="result:RealValue"/>
+      <values xsi:type="result:RealValue" value="10.0"/>
+      <values xsi:type="result:RealValue" value="10.0"/>
+      <values xsi:type="result:RealValue" value="10.0"/>
+      <values xsi:type="result:StringValue" value="SAMPLED"/>
+      <values xsi:type="result:StringValue" value="SAMPLED"/>
+      <values xsi:type="result:StringValue" value="SYNCUNKNOWN"/>
+      <issues issueType="INFO" message="Best case 0 ms worst case 0.0ms (period) sampling delay" diagnostic="">
+        <sourceReference href="../../CombinedETEF_Test_Impl_Instance.aaxl2#//@componentInstance.3"/>
+      </issues>
+    </contributors>
+    <contributors>
+      <sourceReference href="../../CombinedETEF_Test_Impl_Instance.aaxl2#//@componentInstance.3"/>
+      <values xsi:type="result:RealValue" value="10.0"/>
+      <values xsi:type="result:RealValue" value="10.0"/>
+      <values xsi:type="result:RealValue" value="10.0"/>
+      <values xsi:type="result:RealValue" value="10.0"/>
+      <values xsi:type="result:RealValue"/>
+      <values xsi:type="result:RealValue"/>
+      <values xsi:type="result:RealValue"/>
+      <values xsi:type="result:RealValue"/>
+      <values xsi:type="result:RealValue" value="20.0"/>
+      <values xsi:type="result:RealValue" value="20.0"/>
+      <values xsi:type="result:RealValue" value="20.0"/>
+      <values xsi:type="result:StringValue" value="SPECIFIED"/>
+      <values xsi:type="result:StringValue" value="SPECIFIED"/>
+      <values xsi:type="result:StringValue" value="SYNCUNKNOWN"/>
+    </contributors>
+  </subResults>
+  <subResults analysis="total">
+    <sourceReference href="../../CombinedETEF_Test_Impl_Instance.aaxl2#//@endToEndFlow.2"/>
+    <values xsi:type="result:StringValue" value="Latency analysis for end-to-end flow 'total' of system 'Test.Impl' with preference settings AS-MF-DL-EQ"/>
+    <values xsi:type="result:RealValue" value="40.0"/>
+    <values xsi:type="result:RealValue" value="40.0"/>
+    <values xsi:type="result:RealValue" value="40.0"/>
+    <values xsi:type="result:RealValue" value="40.0"/>
+    <values xsi:type="result:RealValue" value="20.0"/>
+    <values xsi:type="result:RealValue" value="30.0"/>
+    <contributors>
+      <sourceReference href="../../CombinedETEF_Test_Impl_Instance.aaxl2#//@componentInstance.0"/>
+      <values xsi:type="result:RealValue"/>
+      <values xsi:type="result:RealValue"/>
+      <values xsi:type="result:RealValue"/>
+      <values xsi:type="result:RealValue"/>
+      <values xsi:type="result:RealValue"/>
+      <values xsi:type="result:RealValue"/>
+      <values xsi:type="result:RealValue"/>
+      <values xsi:type="result:RealValue"/>
+      <values xsi:type="result:RealValue"/>
+      <values xsi:type="result:RealValue"/>
+      <values xsi:type="result:RealValue"/>
+      <values xsi:type="result:StringValue" value="FIRST_SAMPLED"/>
+      <values xsi:type="result:StringValue" value="FIRST_SAMPLED"/>
+      <values xsi:type="result:StringValue" value="SYNCUNKNOWN"/>
+      <issues issueType="INFO" message="Initial 0.0ms sampling latency not added" diagnostic="">
+        <sourceReference href="../../CombinedETEF_Test_Impl_Instance.aaxl2#//@componentInstance.0"/>
+      </issues>
+    </contributors>
+    <contributors>
+      <sourceReference href="../../CombinedETEF_Test_Impl_Instance.aaxl2#//@componentInstance.0"/>
+      <values xsi:type="result:RealValue" value="10.0"/>
+      <values xsi:type="result:RealValue" value="10.0"/>
+      <values xsi:type="result:RealValue" value="10.0"/>
+      <values xsi:type="result:RealValue" value="10.0"/>
+      <values xsi:type="result:RealValue"/>
+      <values xsi:type="result:RealValue"/>
+      <values xsi:type="result:RealValue"/>
+      <values xsi:type="result:RealValue"/>
+      <values xsi:type="result:RealValue" value="10.0"/>
+      <values xsi:type="result:RealValue" value="10.0"/>
+      <values xsi:type="result:RealValue" value="10.0"/>
+      <values xsi:type="result:StringValue" value="SPECIFIED"/>
+      <values xsi:type="result:StringValue" value="SPECIFIED"/>
+      <values xsi:type="result:StringValue" value="SYNCUNKNOWN"/>
+    </contributors>
+    <contributors>
+      <sourceReference href="../../CombinedETEF_Test_Impl_Instance.aaxl2#//@connectionInstance.0"/>
+      <values xsi:type="result:RealValue"/>
+      <values xsi:type="result:RealValue"/>
+      <values xsi:type="result:RealValue"/>
+      <values xsi:type="result:RealValue"/>
+      <values xsi:type="result:RealValue"/>
+      <values xsi:type="result:RealValue"/>
+      <values xsi:type="result:RealValue"/>
+      <values xsi:type="result:RealValue"/>
+      <values xsi:type="result:RealValue" value="10.0"/>
+      <values xsi:type="result:RealValue" value="10.0"/>
+      <values xsi:type="result:RealValue" value="10.0"/>
+      <values xsi:type="result:StringValue" value="UNKNOWN"/>
+      <values xsi:type="result:StringValue" value="UNKNOWN"/>
+      <values xsi:type="result:StringValue" value="SYNCUNKNOWN"/>
+    </contributors>
+    <contributors>
+      <sourceReference href="../../CombinedETEF_Test_Impl_Instance.aaxl2#//@componentInstance.1"/>
+      <values xsi:type="result:RealValue"/>
+      <values xsi:type="result:RealValue"/>
+      <values xsi:type="result:RealValue"/>
+      <values xsi:type="result:RealValue"/>
+      <values xsi:type="result:RealValue"/>
+      <values xsi:type="result:RealValue"/>
+      <values xsi:type="result:RealValue"/>
+      <values xsi:type="result:RealValue"/>
+      <values xsi:type="result:RealValue" value="10.0"/>
+      <values xsi:type="result:RealValue" value="10.0"/>
+      <values xsi:type="result:RealValue" value="10.0"/>
+      <values xsi:type="result:StringValue" value="SAMPLED"/>
+      <values xsi:type="result:StringValue" value="SAMPLED"/>
+      <values xsi:type="result:StringValue" value="SYNCUNKNOWN"/>
+      <issues issueType="INFO" message="Best case 0 ms worst case 0.0ms (period) sampling delay" diagnostic="">
+        <sourceReference href="../../CombinedETEF_Test_Impl_Instance.aaxl2#//@componentInstance.1"/>
+      </issues>
+    </contributors>
+    <contributors>
+      <sourceReference href="../../CombinedETEF_Test_Impl_Instance.aaxl2#//@componentInstance.1"/>
+      <values xsi:type="result:RealValue" value="10.0"/>
+      <values xsi:type="result:RealValue" value="10.0"/>
+      <values xsi:type="result:RealValue" value="10.0"/>
+      <values xsi:type="result:RealValue" value="10.0"/>
+      <values xsi:type="result:RealValue"/>
+      <values xsi:type="result:RealValue"/>
+      <values xsi:type="result:RealValue"/>
+      <values xsi:type="result:RealValue"/>
+      <values xsi:type="result:RealValue" value="20.0"/>
+      <values xsi:type="result:RealValue" value="20.0"/>
+      <values xsi:type="result:RealValue" value="20.0"/>
+      <values xsi:type="result:StringValue" value="SPECIFIED"/>
+      <values xsi:type="result:StringValue" value="SPECIFIED"/>
+      <values xsi:type="result:StringValue" value="SYNCUNKNOWN"/>
+    </contributors>
+    <contributors>
+      <sourceReference href="../../CombinedETEF_Test_Impl_Instance.aaxl2#//@connectionInstance.1"/>
+      <values xsi:type="result:RealValue"/>
+      <values xsi:type="result:RealValue"/>
+      <values xsi:type="result:RealValue"/>
+      <values xsi:type="result:RealValue"/>
+      <values xsi:type="result:RealValue"/>
+      <values xsi:type="result:RealValue"/>
+      <values xsi:type="result:RealValue"/>
+      <values xsi:type="result:RealValue"/>
+      <values xsi:type="result:RealValue" value="20.0"/>
+      <values xsi:type="result:RealValue" value="20.0"/>
+      <values xsi:type="result:RealValue" value="20.0"/>
+      <values xsi:type="result:StringValue" value="UNKNOWN"/>
+      <values xsi:type="result:StringValue" value="UNKNOWN"/>
+      <values xsi:type="result:StringValue" value="SYNCUNKNOWN"/>
+    </contributors>
+    <contributors>
+      <sourceReference href="../../CombinedETEF_Test_Impl_Instance.aaxl2#//@componentInstance.2"/>
+      <values xsi:type="result:RealValue"/>
+      <values xsi:type="result:RealValue"/>
+      <values xsi:type="result:RealValue"/>
+      <values xsi:type="result:RealValue"/>
+      <values xsi:type="result:RealValue"/>
+      <values xsi:type="result:RealValue"/>
+      <values xsi:type="result:RealValue"/>
+      <values xsi:type="result:RealValue"/>
+      <values xsi:type="result:RealValue" value="20.0"/>
+      <values xsi:type="result:RealValue" value="20.0"/>
+      <values xsi:type="result:RealValue" value="20.0"/>
+      <values xsi:type="result:StringValue" value="SAMPLED"/>
+      <values xsi:type="result:StringValue" value="SAMPLED"/>
+      <values xsi:type="result:StringValue" value="SYNCUNKNOWN"/>
+      <issues issueType="INFO" message="Best case 0 ms worst case 0.0ms (period) sampling delay" diagnostic="">
+        <sourceReference href="../../CombinedETEF_Test_Impl_Instance.aaxl2#//@componentInstance.2"/>
+      </issues>
+    </contributors>
+    <contributors>
+      <sourceReference href="../../CombinedETEF_Test_Impl_Instance.aaxl2#//@componentInstance.2"/>
+      <values xsi:type="result:RealValue" value="10.0"/>
+      <values xsi:type="result:RealValue" value="10.0"/>
+      <values xsi:type="result:RealValue" value="10.0"/>
+      <values xsi:type="result:RealValue" value="10.0"/>
+      <values xsi:type="result:RealValue"/>
+      <values xsi:type="result:RealValue"/>
+      <values xsi:type="result:RealValue"/>
+      <values xsi:type="result:RealValue"/>
+      <values xsi:type="result:RealValue" value="30.0"/>
+      <values xsi:type="result:RealValue" value="30.0"/>
+      <values xsi:type="result:RealValue" value="30.0"/>
+      <values xsi:type="result:StringValue" value="SPECIFIED"/>
+      <values xsi:type="result:StringValue" value="SPECIFIED"/>
+      <values xsi:type="result:StringValue" value="SYNCUNKNOWN"/>
+    </contributors>
+    <contributors>
+      <sourceReference href="../../CombinedETEF_Test_Impl_Instance.aaxl2#//@connectionInstance.2"/>
+      <values xsi:type="result:RealValue"/>
+      <values xsi:type="result:RealValue"/>
+      <values xsi:type="result:RealValue"/>
+      <values xsi:type="result:RealValue"/>
+      <values xsi:type="result:RealValue"/>
+      <values xsi:type="result:RealValue"/>
+      <values xsi:type="result:RealValue"/>
+      <values xsi:type="result:RealValue"/>
+      <values xsi:type="result:RealValue" value="30.0"/>
+      <values xsi:type="result:RealValue" value="30.0"/>
+      <values xsi:type="result:RealValue" value="30.0"/>
+      <values xsi:type="result:StringValue" value="UNKNOWN"/>
+      <values xsi:type="result:StringValue" value="UNKNOWN"/>
+      <values xsi:type="result:StringValue" value="SYNCUNKNOWN"/>
+    </contributors>
+    <contributors>
+      <sourceReference href="../../CombinedETEF_Test_Impl_Instance.aaxl2#//@componentInstance.3"/>
+      <values xsi:type="result:RealValue"/>
+      <values xsi:type="result:RealValue"/>
+      <values xsi:type="result:RealValue"/>
+      <values xsi:type="result:RealValue"/>
+      <values xsi:type="result:RealValue"/>
+      <values xsi:type="result:RealValue"/>
+      <values xsi:type="result:RealValue"/>
+      <values xsi:type="result:RealValue"/>
+      <values xsi:type="result:RealValue" value="30.0"/>
+      <values xsi:type="result:RealValue" value="30.0"/>
+      <values xsi:type="result:RealValue" value="30.0"/>
+      <values xsi:type="result:StringValue" value="SAMPLED"/>
+      <values xsi:type="result:StringValue" value="SAMPLED"/>
+      <values xsi:type="result:StringValue" value="SYNCUNKNOWN"/>
+      <issues issueType="INFO" message="Best case 0 ms worst case 0.0ms (period) sampling delay" diagnostic="">
+        <sourceReference href="../../CombinedETEF_Test_Impl_Instance.aaxl2#//@componentInstance.3"/>
+      </issues>
+    </contributors>
+    <contributors>
+      <sourceReference href="../../CombinedETEF_Test_Impl_Instance.aaxl2#//@componentInstance.3"/>
+      <values xsi:type="result:RealValue" value="10.0"/>
+      <values xsi:type="result:RealValue" value="10.0"/>
+      <values xsi:type="result:RealValue" value="10.0"/>
+      <values xsi:type="result:RealValue" value="10.0"/>
+      <values xsi:type="result:RealValue"/>
+      <values xsi:type="result:RealValue"/>
+      <values xsi:type="result:RealValue"/>
+      <values xsi:type="result:RealValue"/>
+      <values xsi:type="result:RealValue" value="40.0"/>
+      <values xsi:type="result:RealValue" value="40.0"/>
+      <values xsi:type="result:RealValue" value="40.0"/>
+      <values xsi:type="result:StringValue" value="SPECIFIED"/>
+      <values xsi:type="result:StringValue" value="SPECIFIED"/>
+      <values xsi:type="result:StringValue" value="SYNCUNKNOWN"/>
+    </contributors>
+  </subResults>
+</result:Result>
+
+
+
+	'''
+
 }
