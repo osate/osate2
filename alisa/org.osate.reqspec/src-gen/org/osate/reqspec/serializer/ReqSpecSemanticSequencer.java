@@ -51,7 +51,6 @@ import org.osate.alisa.common.common.ImageReference;
 import org.osate.alisa.common.common.ModelRef;
 import org.osate.alisa.common.common.PropertyRef;
 import org.osate.alisa.common.common.Rationale;
-import org.osate.alisa.common.common.ResultIssue;
 import org.osate.alisa.common.common.TypeRef;
 import org.osate.alisa.common.common.Uncertainty;
 import org.osate.alisa.common.serializer.CommonSemanticSequencer;
@@ -211,9 +210,6 @@ public class ReqSpecSemanticSequencer extends CommonSemanticSequencer {
 				return; 
 			case CommonPackage.RATIONALE:
 				sequence_Rationale(context, (Rationale) semanticObject); 
-				return; 
-			case CommonPackage.RESULT_ISSUE:
-				sequence_ResultIssue(context, (ResultIssue) semanticObject); 
 				return; 
 			case CommonPackage.TYPE_REF:
 				sequence_TypeRef(context, (TypeRef) semanticObject); 

@@ -7,7 +7,6 @@ Workflow {
 	component = @org.osate.organization.GenerateOrganization2 {}
 	component = @org.osate.reqspec.GenerateReqSpec2 {}
 	component = @org.osate.verify.GenerateVerify2 {}
-	component = @org.osate.results.GenerateResults2 {}
 	component = @org.osate.alisa.workbench.GenerateAlisa2 {}
 	component = @org.osate.assure.GenerateAssure2 {}
 }

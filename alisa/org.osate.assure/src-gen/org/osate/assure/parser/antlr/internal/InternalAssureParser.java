@@ -38,7 +38,7 @@ import java.util.HashMap;
 @SuppressWarnings("all")
 public class InternalAssureParser extends AbstractInternalAntlrParser {
     public static final String[] tokenNames = new String[] {
-        "<invalid>", "<EOR>", "<DOWN>", "<UP>", "RULE_STRING", "RULE_ID", "RULE_INT", "RULE_REAL_LIT", "RULE_DIGIT", "RULE_EXPONENT", "RULE_INT_EXPONENT", "RULE_EXTENDED_DIGIT", "RULE_BASED_INTEGER", "RULE_ML_COMMENT", "RULE_SL_COMMENT", "RULE_WS", "RULE_ANY_OTHER", "'case'", "'['", "'message'", "']'", "'model'", "'for'", "'subsystem'", "'claim'", "'precondition'", "'executionstate'", "'resultstate'", "'issues'", "'report'", "'validation'", "'verification'", "'predicate'", "'else'", "'error'", "'fail'", "'timeout'", "'then'", "'do'", "'thenfailed'", "'tbdcount'", "'successcount'", "'failcount'", "'timeoutcount'", "'errorcount'", "'didelsecount'", "'thenskipcount'", "'prefailcount'", "'validfailcount'", "'featurescount'", "'featuresrequirementscount'", "'qualitycategoryrequirementscount'", "'totalqualitycategorycount'", "'requirementswithoutplanclaimcount'", "'noverificationplanscount'", "'requirementscount'", "'exceptionscount'", "'reqtargethasemv2subclausecount'", "'featuresrequiringclassifiercount'", "'featureswithrequiredclassifiercount'", "'weight'", "'time'", "'#'", "'.'", "'this'", "'target'", "'exception'", "'diagnosticId'", "'boolean'", "'integer'", "'units'", "'real'", "'string'", "'element'", "'%'", "'in'", "'img'", "'/'", "'or'", "'||'", "'and'", "'&&'", "'=='", "'!='", "'>='", "'<='", "'>'", "'<'", "'><'", "'+'", "'-'", "'*'", "'div'", "'mod'", "'not'", "'('", "','", "')'", "'..'", "'delta'", "'if'", "'endif'", "'true'", "'false'", "'::'", "'ok'", "'tbd'", "'success'", "'todo'", "'running'", "'redo'", "'completed'", "'warning'", "'info'"
+        "<invalid>", "<EOR>", "<DOWN>", "<UP>", "RULE_STRING", "RULE_ID", "RULE_INT", "RULE_REAL_LIT", "RULE_DIGIT", "RULE_EXPONENT", "RULE_INT_EXPONENT", "RULE_EXTENDED_DIGIT", "RULE_BASED_INTEGER", "RULE_ML_COMMENT", "RULE_SL_COMMENT", "RULE_WS", "RULE_ANY_OTHER", "'case'", "'['", "'message'", "']'", "'model'", "'for'", "'subsystem'", "'claim'", "'precondition'", "'executionstate'", "'resultstate'", "'issues'", "'results'", "'validation'", "'verification'", "'predicate'", "'else'", "'error'", "'fail'", "'timeout'", "'then'", "'do'", "'thenfailed'", "'tbdcount'", "'successcount'", "'failcount'", "'timeoutcount'", "'errorcount'", "'didelsecount'", "'thenskipcount'", "'prefailcount'", "'validfailcount'", "'featurescount'", "'featuresrequirementscount'", "'qualitycategoryrequirementscount'", "'totalqualitycategorycount'", "'requirementswithoutplanclaimcount'", "'noverificationplanscount'", "'requirementscount'", "'exceptionscount'", "'reqtargethasemv2subclausecount'", "'featuresrequiringclassifiercount'", "'featureswithrequiredclassifiercount'", "'weight'", "'time'", "'#'", "'.'", "'source'", "'exception'", "'diagnostic'", "'this'", "'boolean'", "'integer'", "'units'", "'real'", "'string'", "'element'", "'%'", "'in'", "'img'", "'/'", "'or'", "'||'", "'and'", "'&&'", "'=='", "'!='", "'>='", "'<='", "'>'", "'<'", "'><'", "'+'", "'-'", "'*'", "'div'", "'mod'", "'not'", "'('", "','", "')'", "'..'", "'delta'", "'if'", "'endif'", "'true'", "'false'", "'::'", "'ok'", "'tbd'", "'success'", "'todo'", "'running'", "'redo'", "'completed'", "'none'", "'warning'", "'info'"
     };
     public static final int T__50=50;
     public static final int T__59=59;
@@ -126,6 +126,7 @@ public class InternalAssureParser extends AbstractInternalAntlrParser {
     public static final int T__73=73;
     public static final int EOF=-1;
     public static final int T__74=74;
+    public static final int T__114=114;
     public static final int T__75=75;
     public static final int T__76=76;
     public static final int T__80=80;
@@ -1701,7 +1702,7 @@ public class InternalAssureParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "rulePreconditionResult"
-    // InternalAssure.g:644:1: rulePreconditionResult returns [EObject current=null] : (otherlv_0= 'precondition' () ( ( ruleQualifiedName ) ) otherlv_3= '[' otherlv_4= 'executionstate' ( (lv_executionState_5_0= ruleVerificationExecutionState ) ) otherlv_6= 'resultstate' ( (lv_resultState_7_0= ruleVerificationResultState ) ) (otherlv_8= 'issues' otherlv_9= '[' ( (lv_issues_10_0= ruleResultIssue ) )* otherlv_11= ']' )? (otherlv_12= 'report' ( ( ruleQualifiedName ) ) )? ( (lv_metrics_14_0= ruleMetrics ) ) (otherlv_15= 'message' ( (lv_message_16_0= RULE_STRING ) ) )? otherlv_17= ']' ) ;
+    // InternalAssure.g:644:1: rulePreconditionResult returns [EObject current=null] : (otherlv_0= 'precondition' () ( ( ruleQualifiedName ) ) otherlv_3= '[' otherlv_4= 'executionstate' ( (lv_executionState_5_0= ruleVerificationExecutionState ) ) otherlv_6= 'resultstate' ( (lv_resultState_7_0= ruleVerificationResultState ) ) (otherlv_8= 'issues' otherlv_9= '[' ( (lv_issues_10_0= ruleResultIssue ) )* otherlv_11= ']' )? (otherlv_12= 'results' ( ( ruleQualifiedName ) ) )? ( (lv_metrics_14_0= ruleMetrics ) ) (otherlv_15= 'message' ( (lv_message_16_0= RULE_STRING ) ) )? otherlv_17= ']' ) ;
     public final EObject rulePreconditionResult() throws RecognitionException {
         EObject current = null;
 
@@ -1728,11 +1729,11 @@ public class InternalAssureParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // InternalAssure.g:647:28: ( (otherlv_0= 'precondition' () ( ( ruleQualifiedName ) ) otherlv_3= '[' otherlv_4= 'executionstate' ( (lv_executionState_5_0= ruleVerificationExecutionState ) ) otherlv_6= 'resultstate' ( (lv_resultState_7_0= ruleVerificationResultState ) ) (otherlv_8= 'issues' otherlv_9= '[' ( (lv_issues_10_0= ruleResultIssue ) )* otherlv_11= ']' )? (otherlv_12= 'report' ( ( ruleQualifiedName ) ) )? ( (lv_metrics_14_0= ruleMetrics ) ) (otherlv_15= 'message' ( (lv_message_16_0= RULE_STRING ) ) )? otherlv_17= ']' ) )
-            // InternalAssure.g:648:1: (otherlv_0= 'precondition' () ( ( ruleQualifiedName ) ) otherlv_3= '[' otherlv_4= 'executionstate' ( (lv_executionState_5_0= ruleVerificationExecutionState ) ) otherlv_6= 'resultstate' ( (lv_resultState_7_0= ruleVerificationResultState ) ) (otherlv_8= 'issues' otherlv_9= '[' ( (lv_issues_10_0= ruleResultIssue ) )* otherlv_11= ']' )? (otherlv_12= 'report' ( ( ruleQualifiedName ) ) )? ( (lv_metrics_14_0= ruleMetrics ) ) (otherlv_15= 'message' ( (lv_message_16_0= RULE_STRING ) ) )? otherlv_17= ']' )
+            // InternalAssure.g:647:28: ( (otherlv_0= 'precondition' () ( ( ruleQualifiedName ) ) otherlv_3= '[' otherlv_4= 'executionstate' ( (lv_executionState_5_0= ruleVerificationExecutionState ) ) otherlv_6= 'resultstate' ( (lv_resultState_7_0= ruleVerificationResultState ) ) (otherlv_8= 'issues' otherlv_9= '[' ( (lv_issues_10_0= ruleResultIssue ) )* otherlv_11= ']' )? (otherlv_12= 'results' ( ( ruleQualifiedName ) ) )? ( (lv_metrics_14_0= ruleMetrics ) ) (otherlv_15= 'message' ( (lv_message_16_0= RULE_STRING ) ) )? otherlv_17= ']' ) )
+            // InternalAssure.g:648:1: (otherlv_0= 'precondition' () ( ( ruleQualifiedName ) ) otherlv_3= '[' otherlv_4= 'executionstate' ( (lv_executionState_5_0= ruleVerificationExecutionState ) ) otherlv_6= 'resultstate' ( (lv_resultState_7_0= ruleVerificationResultState ) ) (otherlv_8= 'issues' otherlv_9= '[' ( (lv_issues_10_0= ruleResultIssue ) )* otherlv_11= ']' )? (otherlv_12= 'results' ( ( ruleQualifiedName ) ) )? ( (lv_metrics_14_0= ruleMetrics ) ) (otherlv_15= 'message' ( (lv_message_16_0= RULE_STRING ) ) )? otherlv_17= ']' )
             {
-            // InternalAssure.g:648:1: (otherlv_0= 'precondition' () ( ( ruleQualifiedName ) ) otherlv_3= '[' otherlv_4= 'executionstate' ( (lv_executionState_5_0= ruleVerificationExecutionState ) ) otherlv_6= 'resultstate' ( (lv_resultState_7_0= ruleVerificationResultState ) ) (otherlv_8= 'issues' otherlv_9= '[' ( (lv_issues_10_0= ruleResultIssue ) )* otherlv_11= ']' )? (otherlv_12= 'report' ( ( ruleQualifiedName ) ) )? ( (lv_metrics_14_0= ruleMetrics ) ) (otherlv_15= 'message' ( (lv_message_16_0= RULE_STRING ) ) )? otherlv_17= ']' )
-            // InternalAssure.g:648:3: otherlv_0= 'precondition' () ( ( ruleQualifiedName ) ) otherlv_3= '[' otherlv_4= 'executionstate' ( (lv_executionState_5_0= ruleVerificationExecutionState ) ) otherlv_6= 'resultstate' ( (lv_resultState_7_0= ruleVerificationResultState ) ) (otherlv_8= 'issues' otherlv_9= '[' ( (lv_issues_10_0= ruleResultIssue ) )* otherlv_11= ']' )? (otherlv_12= 'report' ( ( ruleQualifiedName ) ) )? ( (lv_metrics_14_0= ruleMetrics ) ) (otherlv_15= 'message' ( (lv_message_16_0= RULE_STRING ) ) )? otherlv_17= ']'
+            // InternalAssure.g:648:1: (otherlv_0= 'precondition' () ( ( ruleQualifiedName ) ) otherlv_3= '[' otherlv_4= 'executionstate' ( (lv_executionState_5_0= ruleVerificationExecutionState ) ) otherlv_6= 'resultstate' ( (lv_resultState_7_0= ruleVerificationResultState ) ) (otherlv_8= 'issues' otherlv_9= '[' ( (lv_issues_10_0= ruleResultIssue ) )* otherlv_11= ']' )? (otherlv_12= 'results' ( ( ruleQualifiedName ) ) )? ( (lv_metrics_14_0= ruleMetrics ) ) (otherlv_15= 'message' ( (lv_message_16_0= RULE_STRING ) ) )? otherlv_17= ']' )
+            // InternalAssure.g:648:3: otherlv_0= 'precondition' () ( ( ruleQualifiedName ) ) otherlv_3= '[' otherlv_4= 'executionstate' ( (lv_executionState_5_0= ruleVerificationExecutionState ) ) otherlv_6= 'resultstate' ( (lv_resultState_7_0= ruleVerificationResultState ) ) (otherlv_8= 'issues' otherlv_9= '[' ( (lv_issues_10_0= ruleResultIssue ) )* otherlv_11= ']' )? (otherlv_12= 'results' ( ( ruleQualifiedName ) ) )? ( (lv_metrics_14_0= ruleMetrics ) ) (otherlv_15= 'message' ( (lv_message_16_0= RULE_STRING ) ) )? otherlv_17= ']'
             {
             otherlv_0=(Token)match(input,25,FOLLOW_3); if (state.failed) return current;
             if ( state.backtracking==0 ) {
@@ -1904,7 +1905,7 @@ public class InternalAssureParser extends AbstractInternalAntlrParser {
                         int alt14=2;
                         int LA14_0 = input.LA(1);
 
-                        if ( ((LA14_0>=34 && LA14_0<=35)||(LA14_0>=106 && LA14_0<=107)||(LA14_0>=112 && LA14_0<=113)) ) {
+                        if ( ((LA14_0>=34 && LA14_0<=35)||LA14_0==107||(LA14_0>=112 && LA14_0<=114)) ) {
                             alt14=1;
                         }
 
@@ -1935,7 +1936,7 @@ public class InternalAssureParser extends AbstractInternalAntlrParser {
                     	             			current, 
                     	             			"issues",
                     	              		lv_issues_10_0, 
-                    	              		"org.osate.alisa.common.Common.ResultIssue");
+                    	              		"org.osate.assure.Assure.ResultIssue");
                     	      	        afterParserOrEnumRuleCall();
                     	      	    
                     	    }
@@ -1963,7 +1964,7 @@ public class InternalAssureParser extends AbstractInternalAntlrParser {
 
             }
 
-            // InternalAssure.g:751:3: (otherlv_12= 'report' ( ( ruleQualifiedName ) ) )?
+            // InternalAssure.g:751:3: (otherlv_12= 'results' ( ( ruleQualifiedName ) ) )?
             int alt16=2;
             int LA16_0 = input.LA(1);
 
@@ -1972,12 +1973,12 @@ public class InternalAssureParser extends AbstractInternalAntlrParser {
             }
             switch (alt16) {
                 case 1 :
-                    // InternalAssure.g:751:5: otherlv_12= 'report' ( ( ruleQualifiedName ) )
+                    // InternalAssure.g:751:5: otherlv_12= 'results' ( ( ruleQualifiedName ) )
                     {
                     otherlv_12=(Token)match(input,29,FOLLOW_3); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
-                          	newLeafNode(otherlv_12, grammarAccess.getPreconditionResultAccess().getReportKeyword_9_0());
+                          	newLeafNode(otherlv_12, grammarAccess.getPreconditionResultAccess().getResultsKeyword_9_0());
                           
                     }
                     // InternalAssure.g:755:1: ( ( ruleQualifiedName ) )
@@ -1995,7 +1996,7 @@ public class InternalAssureParser extends AbstractInternalAntlrParser {
                     }
                     if ( state.backtracking==0 ) {
                        
-                      	        newCompositeNode(grammarAccess.getPreconditionResultAccess().getResultReportResultReportCrossReference_9_1_0()); 
+                      	        newCompositeNode(grammarAccess.getPreconditionResultAccess().getResultsResultCrossReference_9_1_0()); 
                       	    
                     }
                     pushFollow(FOLLOW_31);
@@ -2177,7 +2178,7 @@ public class InternalAssureParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleValidationResult"
-    // InternalAssure.g:831:1: ruleValidationResult returns [EObject current=null] : (otherlv_0= 'validation' () ( ( ruleQualifiedName ) ) otherlv_3= '[' otherlv_4= 'executionstate' ( (lv_executionState_5_0= ruleVerificationExecutionState ) ) otherlv_6= 'resultstate' ( (lv_resultState_7_0= ruleVerificationResultState ) ) (otherlv_8= 'issues' otherlv_9= '[' ( (lv_issues_10_0= ruleResultIssue ) )* otherlv_11= ']' )? (otherlv_12= 'report' ( ( ruleQualifiedName ) ) )? ( (lv_metrics_14_0= ruleMetrics ) ) (otherlv_15= 'message' ( (lv_message_16_0= RULE_STRING ) ) )? otherlv_17= ']' ) ;
+    // InternalAssure.g:831:1: ruleValidationResult returns [EObject current=null] : (otherlv_0= 'validation' () ( ( ruleQualifiedName ) ) otherlv_3= '[' otherlv_4= 'executionstate' ( (lv_executionState_5_0= ruleVerificationExecutionState ) ) otherlv_6= 'resultstate' ( (lv_resultState_7_0= ruleVerificationResultState ) ) (otherlv_8= 'issues' otherlv_9= '[' ( (lv_issues_10_0= ruleResultIssue ) )* otherlv_11= ']' )? (otherlv_12= 'results' ( ( ruleQualifiedName ) ) )? ( (lv_metrics_14_0= ruleMetrics ) ) (otherlv_15= 'message' ( (lv_message_16_0= RULE_STRING ) ) )? otherlv_17= ']' ) ;
     public final EObject ruleValidationResult() throws RecognitionException {
         EObject current = null;
 
@@ -2204,11 +2205,11 @@ public class InternalAssureParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // InternalAssure.g:834:28: ( (otherlv_0= 'validation' () ( ( ruleQualifiedName ) ) otherlv_3= '[' otherlv_4= 'executionstate' ( (lv_executionState_5_0= ruleVerificationExecutionState ) ) otherlv_6= 'resultstate' ( (lv_resultState_7_0= ruleVerificationResultState ) ) (otherlv_8= 'issues' otherlv_9= '[' ( (lv_issues_10_0= ruleResultIssue ) )* otherlv_11= ']' )? (otherlv_12= 'report' ( ( ruleQualifiedName ) ) )? ( (lv_metrics_14_0= ruleMetrics ) ) (otherlv_15= 'message' ( (lv_message_16_0= RULE_STRING ) ) )? otherlv_17= ']' ) )
-            // InternalAssure.g:835:1: (otherlv_0= 'validation' () ( ( ruleQualifiedName ) ) otherlv_3= '[' otherlv_4= 'executionstate' ( (lv_executionState_5_0= ruleVerificationExecutionState ) ) otherlv_6= 'resultstate' ( (lv_resultState_7_0= ruleVerificationResultState ) ) (otherlv_8= 'issues' otherlv_9= '[' ( (lv_issues_10_0= ruleResultIssue ) )* otherlv_11= ']' )? (otherlv_12= 'report' ( ( ruleQualifiedName ) ) )? ( (lv_metrics_14_0= ruleMetrics ) ) (otherlv_15= 'message' ( (lv_message_16_0= RULE_STRING ) ) )? otherlv_17= ']' )
+            // InternalAssure.g:834:28: ( (otherlv_0= 'validation' () ( ( ruleQualifiedName ) ) otherlv_3= '[' otherlv_4= 'executionstate' ( (lv_executionState_5_0= ruleVerificationExecutionState ) ) otherlv_6= 'resultstate' ( (lv_resultState_7_0= ruleVerificationResultState ) ) (otherlv_8= 'issues' otherlv_9= '[' ( (lv_issues_10_0= ruleResultIssue ) )* otherlv_11= ']' )? (otherlv_12= 'results' ( ( ruleQualifiedName ) ) )? ( (lv_metrics_14_0= ruleMetrics ) ) (otherlv_15= 'message' ( (lv_message_16_0= RULE_STRING ) ) )? otherlv_17= ']' ) )
+            // InternalAssure.g:835:1: (otherlv_0= 'validation' () ( ( ruleQualifiedName ) ) otherlv_3= '[' otherlv_4= 'executionstate' ( (lv_executionState_5_0= ruleVerificationExecutionState ) ) otherlv_6= 'resultstate' ( (lv_resultState_7_0= ruleVerificationResultState ) ) (otherlv_8= 'issues' otherlv_9= '[' ( (lv_issues_10_0= ruleResultIssue ) )* otherlv_11= ']' )? (otherlv_12= 'results' ( ( ruleQualifiedName ) ) )? ( (lv_metrics_14_0= ruleMetrics ) ) (otherlv_15= 'message' ( (lv_message_16_0= RULE_STRING ) ) )? otherlv_17= ']' )
             {
-            // InternalAssure.g:835:1: (otherlv_0= 'validation' () ( ( ruleQualifiedName ) ) otherlv_3= '[' otherlv_4= 'executionstate' ( (lv_executionState_5_0= ruleVerificationExecutionState ) ) otherlv_6= 'resultstate' ( (lv_resultState_7_0= ruleVerificationResultState ) ) (otherlv_8= 'issues' otherlv_9= '[' ( (lv_issues_10_0= ruleResultIssue ) )* otherlv_11= ']' )? (otherlv_12= 'report' ( ( ruleQualifiedName ) ) )? ( (lv_metrics_14_0= ruleMetrics ) ) (otherlv_15= 'message' ( (lv_message_16_0= RULE_STRING ) ) )? otherlv_17= ']' )
-            // InternalAssure.g:835:3: otherlv_0= 'validation' () ( ( ruleQualifiedName ) ) otherlv_3= '[' otherlv_4= 'executionstate' ( (lv_executionState_5_0= ruleVerificationExecutionState ) ) otherlv_6= 'resultstate' ( (lv_resultState_7_0= ruleVerificationResultState ) ) (otherlv_8= 'issues' otherlv_9= '[' ( (lv_issues_10_0= ruleResultIssue ) )* otherlv_11= ']' )? (otherlv_12= 'report' ( ( ruleQualifiedName ) ) )? ( (lv_metrics_14_0= ruleMetrics ) ) (otherlv_15= 'message' ( (lv_message_16_0= RULE_STRING ) ) )? otherlv_17= ']'
+            // InternalAssure.g:835:1: (otherlv_0= 'validation' () ( ( ruleQualifiedName ) ) otherlv_3= '[' otherlv_4= 'executionstate' ( (lv_executionState_5_0= ruleVerificationExecutionState ) ) otherlv_6= 'resultstate' ( (lv_resultState_7_0= ruleVerificationResultState ) ) (otherlv_8= 'issues' otherlv_9= '[' ( (lv_issues_10_0= ruleResultIssue ) )* otherlv_11= ']' )? (otherlv_12= 'results' ( ( ruleQualifiedName ) ) )? ( (lv_metrics_14_0= ruleMetrics ) ) (otherlv_15= 'message' ( (lv_message_16_0= RULE_STRING ) ) )? otherlv_17= ']' )
+            // InternalAssure.g:835:3: otherlv_0= 'validation' () ( ( ruleQualifiedName ) ) otherlv_3= '[' otherlv_4= 'executionstate' ( (lv_executionState_5_0= ruleVerificationExecutionState ) ) otherlv_6= 'resultstate' ( (lv_resultState_7_0= ruleVerificationResultState ) ) (otherlv_8= 'issues' otherlv_9= '[' ( (lv_issues_10_0= ruleResultIssue ) )* otherlv_11= ']' )? (otherlv_12= 'results' ( ( ruleQualifiedName ) ) )? ( (lv_metrics_14_0= ruleMetrics ) ) (otherlv_15= 'message' ( (lv_message_16_0= RULE_STRING ) ) )? otherlv_17= ']'
             {
             otherlv_0=(Token)match(input,30,FOLLOW_3); if (state.failed) return current;
             if ( state.backtracking==0 ) {
@@ -2380,7 +2381,7 @@ public class InternalAssureParser extends AbstractInternalAntlrParser {
                         int alt18=2;
                         int LA18_0 = input.LA(1);
 
-                        if ( ((LA18_0>=34 && LA18_0<=35)||(LA18_0>=106 && LA18_0<=107)||(LA18_0>=112 && LA18_0<=113)) ) {
+                        if ( ((LA18_0>=34 && LA18_0<=35)||LA18_0==107||(LA18_0>=112 && LA18_0<=114)) ) {
                             alt18=1;
                         }
 
@@ -2411,7 +2412,7 @@ public class InternalAssureParser extends AbstractInternalAntlrParser {
                     	             			current, 
                     	             			"issues",
                     	              		lv_issues_10_0, 
-                    	              		"org.osate.alisa.common.Common.ResultIssue");
+                    	              		"org.osate.assure.Assure.ResultIssue");
                     	      	        afterParserOrEnumRuleCall();
                     	      	    
                     	    }
@@ -2439,7 +2440,7 @@ public class InternalAssureParser extends AbstractInternalAntlrParser {
 
             }
 
-            // InternalAssure.g:938:3: (otherlv_12= 'report' ( ( ruleQualifiedName ) ) )?
+            // InternalAssure.g:938:3: (otherlv_12= 'results' ( ( ruleQualifiedName ) ) )?
             int alt20=2;
             int LA20_0 = input.LA(1);
 
@@ -2448,12 +2449,12 @@ public class InternalAssureParser extends AbstractInternalAntlrParser {
             }
             switch (alt20) {
                 case 1 :
-                    // InternalAssure.g:938:5: otherlv_12= 'report' ( ( ruleQualifiedName ) )
+                    // InternalAssure.g:938:5: otherlv_12= 'results' ( ( ruleQualifiedName ) )
                     {
                     otherlv_12=(Token)match(input,29,FOLLOW_3); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
-                          	newLeafNode(otherlv_12, grammarAccess.getValidationResultAccess().getReportKeyword_9_0());
+                          	newLeafNode(otherlv_12, grammarAccess.getValidationResultAccess().getResultsKeyword_9_0());
                           
                     }
                     // InternalAssure.g:942:1: ( ( ruleQualifiedName ) )
@@ -2471,7 +2472,7 @@ public class InternalAssureParser extends AbstractInternalAntlrParser {
                     }
                     if ( state.backtracking==0 ) {
                        
-                      	        newCompositeNode(grammarAccess.getValidationResultAccess().getResultReportResultReportCrossReference_9_1_0()); 
+                      	        newCompositeNode(grammarAccess.getValidationResultAccess().getResultsResultCrossReference_9_1_0()); 
                       	    
                     }
                     pushFollow(FOLLOW_31);
@@ -2653,7 +2654,7 @@ public class InternalAssureParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleVerificationActivityResult"
-    // InternalAssure.g:1018:1: ruleVerificationActivityResult returns [EObject current=null] : (otherlv_0= 'verification' () ( (lv_targetReference_2_0= ruleQualifiedVAReference ) ) otherlv_3= '[' otherlv_4= 'executionstate' ( (lv_executionState_5_0= ruleVerificationExecutionState ) ) otherlv_6= 'resultstate' ( (lv_resultState_7_0= ruleVerificationResultState ) ) (otherlv_8= 'issues' otherlv_9= '[' ( (lv_issues_10_0= ruleResultIssue ) )* otherlv_11= ']' )? (otherlv_12= 'report' ( ( ruleQualifiedName ) ) )? ( (lv_metrics_14_0= ruleMetrics ) ) (otherlv_15= 'message' ( (lv_message_16_0= RULE_STRING ) ) )? ( (lv_preconditionResult_17_0= rulePreconditionResult ) )? ( (lv_validationResult_18_0= ruleValidationResult ) )? otherlv_19= ']' ) ;
+    // InternalAssure.g:1018:1: ruleVerificationActivityResult returns [EObject current=null] : (otherlv_0= 'verification' () ( (lv_targetReference_2_0= ruleQualifiedVAReference ) ) otherlv_3= '[' otherlv_4= 'executionstate' ( (lv_executionState_5_0= ruleVerificationExecutionState ) ) otherlv_6= 'resultstate' ( (lv_resultState_7_0= ruleVerificationResultState ) ) (otherlv_8= 'issues' otherlv_9= '[' ( (lv_issues_10_0= ruleResultIssue ) )* otherlv_11= ']' )? (otherlv_12= 'results' ( ( ruleQualifiedName ) ) )? ( (lv_metrics_14_0= ruleMetrics ) ) (otherlv_15= 'message' ( (lv_message_16_0= RULE_STRING ) ) )? ( (lv_preconditionResult_17_0= rulePreconditionResult ) )? ( (lv_validationResult_18_0= ruleValidationResult ) )? otherlv_19= ']' ) ;
     public final EObject ruleVerificationActivityResult() throws RecognitionException {
         EObject current = null;
 
@@ -2686,11 +2687,11 @@ public class InternalAssureParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // InternalAssure.g:1021:28: ( (otherlv_0= 'verification' () ( (lv_targetReference_2_0= ruleQualifiedVAReference ) ) otherlv_3= '[' otherlv_4= 'executionstate' ( (lv_executionState_5_0= ruleVerificationExecutionState ) ) otherlv_6= 'resultstate' ( (lv_resultState_7_0= ruleVerificationResultState ) ) (otherlv_8= 'issues' otherlv_9= '[' ( (lv_issues_10_0= ruleResultIssue ) )* otherlv_11= ']' )? (otherlv_12= 'report' ( ( ruleQualifiedName ) ) )? ( (lv_metrics_14_0= ruleMetrics ) ) (otherlv_15= 'message' ( (lv_message_16_0= RULE_STRING ) ) )? ( (lv_preconditionResult_17_0= rulePreconditionResult ) )? ( (lv_validationResult_18_0= ruleValidationResult ) )? otherlv_19= ']' ) )
-            // InternalAssure.g:1022:1: (otherlv_0= 'verification' () ( (lv_targetReference_2_0= ruleQualifiedVAReference ) ) otherlv_3= '[' otherlv_4= 'executionstate' ( (lv_executionState_5_0= ruleVerificationExecutionState ) ) otherlv_6= 'resultstate' ( (lv_resultState_7_0= ruleVerificationResultState ) ) (otherlv_8= 'issues' otherlv_9= '[' ( (lv_issues_10_0= ruleResultIssue ) )* otherlv_11= ']' )? (otherlv_12= 'report' ( ( ruleQualifiedName ) ) )? ( (lv_metrics_14_0= ruleMetrics ) ) (otherlv_15= 'message' ( (lv_message_16_0= RULE_STRING ) ) )? ( (lv_preconditionResult_17_0= rulePreconditionResult ) )? ( (lv_validationResult_18_0= ruleValidationResult ) )? otherlv_19= ']' )
+            // InternalAssure.g:1021:28: ( (otherlv_0= 'verification' () ( (lv_targetReference_2_0= ruleQualifiedVAReference ) ) otherlv_3= '[' otherlv_4= 'executionstate' ( (lv_executionState_5_0= ruleVerificationExecutionState ) ) otherlv_6= 'resultstate' ( (lv_resultState_7_0= ruleVerificationResultState ) ) (otherlv_8= 'issues' otherlv_9= '[' ( (lv_issues_10_0= ruleResultIssue ) )* otherlv_11= ']' )? (otherlv_12= 'results' ( ( ruleQualifiedName ) ) )? ( (lv_metrics_14_0= ruleMetrics ) ) (otherlv_15= 'message' ( (lv_message_16_0= RULE_STRING ) ) )? ( (lv_preconditionResult_17_0= rulePreconditionResult ) )? ( (lv_validationResult_18_0= ruleValidationResult ) )? otherlv_19= ']' ) )
+            // InternalAssure.g:1022:1: (otherlv_0= 'verification' () ( (lv_targetReference_2_0= ruleQualifiedVAReference ) ) otherlv_3= '[' otherlv_4= 'executionstate' ( (lv_executionState_5_0= ruleVerificationExecutionState ) ) otherlv_6= 'resultstate' ( (lv_resultState_7_0= ruleVerificationResultState ) ) (otherlv_8= 'issues' otherlv_9= '[' ( (lv_issues_10_0= ruleResultIssue ) )* otherlv_11= ']' )? (otherlv_12= 'results' ( ( ruleQualifiedName ) ) )? ( (lv_metrics_14_0= ruleMetrics ) ) (otherlv_15= 'message' ( (lv_message_16_0= RULE_STRING ) ) )? ( (lv_preconditionResult_17_0= rulePreconditionResult ) )? ( (lv_validationResult_18_0= ruleValidationResult ) )? otherlv_19= ']' )
             {
-            // InternalAssure.g:1022:1: (otherlv_0= 'verification' () ( (lv_targetReference_2_0= ruleQualifiedVAReference ) ) otherlv_3= '[' otherlv_4= 'executionstate' ( (lv_executionState_5_0= ruleVerificationExecutionState ) ) otherlv_6= 'resultstate' ( (lv_resultState_7_0= ruleVerificationResultState ) ) (otherlv_8= 'issues' otherlv_9= '[' ( (lv_issues_10_0= ruleResultIssue ) )* otherlv_11= ']' )? (otherlv_12= 'report' ( ( ruleQualifiedName ) ) )? ( (lv_metrics_14_0= ruleMetrics ) ) (otherlv_15= 'message' ( (lv_message_16_0= RULE_STRING ) ) )? ( (lv_preconditionResult_17_0= rulePreconditionResult ) )? ( (lv_validationResult_18_0= ruleValidationResult ) )? otherlv_19= ']' )
-            // InternalAssure.g:1022:3: otherlv_0= 'verification' () ( (lv_targetReference_2_0= ruleQualifiedVAReference ) ) otherlv_3= '[' otherlv_4= 'executionstate' ( (lv_executionState_5_0= ruleVerificationExecutionState ) ) otherlv_6= 'resultstate' ( (lv_resultState_7_0= ruleVerificationResultState ) ) (otherlv_8= 'issues' otherlv_9= '[' ( (lv_issues_10_0= ruleResultIssue ) )* otherlv_11= ']' )? (otherlv_12= 'report' ( ( ruleQualifiedName ) ) )? ( (lv_metrics_14_0= ruleMetrics ) ) (otherlv_15= 'message' ( (lv_message_16_0= RULE_STRING ) ) )? ( (lv_preconditionResult_17_0= rulePreconditionResult ) )? ( (lv_validationResult_18_0= ruleValidationResult ) )? otherlv_19= ']'
+            // InternalAssure.g:1022:1: (otherlv_0= 'verification' () ( (lv_targetReference_2_0= ruleQualifiedVAReference ) ) otherlv_3= '[' otherlv_4= 'executionstate' ( (lv_executionState_5_0= ruleVerificationExecutionState ) ) otherlv_6= 'resultstate' ( (lv_resultState_7_0= ruleVerificationResultState ) ) (otherlv_8= 'issues' otherlv_9= '[' ( (lv_issues_10_0= ruleResultIssue ) )* otherlv_11= ']' )? (otherlv_12= 'results' ( ( ruleQualifiedName ) ) )? ( (lv_metrics_14_0= ruleMetrics ) ) (otherlv_15= 'message' ( (lv_message_16_0= RULE_STRING ) ) )? ( (lv_preconditionResult_17_0= rulePreconditionResult ) )? ( (lv_validationResult_18_0= ruleValidationResult ) )? otherlv_19= ']' )
+            // InternalAssure.g:1022:3: otherlv_0= 'verification' () ( (lv_targetReference_2_0= ruleQualifiedVAReference ) ) otherlv_3= '[' otherlv_4= 'executionstate' ( (lv_executionState_5_0= ruleVerificationExecutionState ) ) otherlv_6= 'resultstate' ( (lv_resultState_7_0= ruleVerificationResultState ) ) (otherlv_8= 'issues' otherlv_9= '[' ( (lv_issues_10_0= ruleResultIssue ) )* otherlv_11= ']' )? (otherlv_12= 'results' ( ( ruleQualifiedName ) ) )? ( (lv_metrics_14_0= ruleMetrics ) ) (otherlv_15= 'message' ( (lv_message_16_0= RULE_STRING ) ) )? ( (lv_preconditionResult_17_0= rulePreconditionResult ) )? ( (lv_validationResult_18_0= ruleValidationResult ) )? otherlv_19= ']'
             {
             otherlv_0=(Token)match(input,31,FOLLOW_3); if (state.failed) return current;
             if ( state.backtracking==0 ) {
@@ -2863,7 +2864,7 @@ public class InternalAssureParser extends AbstractInternalAntlrParser {
                         int alt22=2;
                         int LA22_0 = input.LA(1);
 
-                        if ( ((LA22_0>=34 && LA22_0<=35)||(LA22_0>=106 && LA22_0<=107)||(LA22_0>=112 && LA22_0<=113)) ) {
+                        if ( ((LA22_0>=34 && LA22_0<=35)||LA22_0==107||(LA22_0>=112 && LA22_0<=114)) ) {
                             alt22=1;
                         }
 
@@ -2894,7 +2895,7 @@ public class InternalAssureParser extends AbstractInternalAntlrParser {
                     	             			current, 
                     	             			"issues",
                     	              		lv_issues_10_0, 
-                    	              		"org.osate.alisa.common.Common.ResultIssue");
+                    	              		"org.osate.assure.Assure.ResultIssue");
                     	      	        afterParserOrEnumRuleCall();
                     	      	    
                     	    }
@@ -2922,7 +2923,7 @@ public class InternalAssureParser extends AbstractInternalAntlrParser {
 
             }
 
-            // InternalAssure.g:1128:3: (otherlv_12= 'report' ( ( ruleQualifiedName ) ) )?
+            // InternalAssure.g:1128:3: (otherlv_12= 'results' ( ( ruleQualifiedName ) ) )?
             int alt24=2;
             int LA24_0 = input.LA(1);
 
@@ -2931,12 +2932,12 @@ public class InternalAssureParser extends AbstractInternalAntlrParser {
             }
             switch (alt24) {
                 case 1 :
-                    // InternalAssure.g:1128:5: otherlv_12= 'report' ( ( ruleQualifiedName ) )
+                    // InternalAssure.g:1128:5: otherlv_12= 'results' ( ( ruleQualifiedName ) )
                     {
                     otherlv_12=(Token)match(input,29,FOLLOW_3); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
-                          	newLeafNode(otherlv_12, grammarAccess.getVerificationActivityResultAccess().getReportKeyword_9_0());
+                          	newLeafNode(otherlv_12, grammarAccess.getVerificationActivityResultAccess().getResultsKeyword_9_0());
                           
                     }
                     // InternalAssure.g:1132:1: ( ( ruleQualifiedName ) )
@@ -2954,7 +2955,7 @@ public class InternalAssureParser extends AbstractInternalAntlrParser {
                     }
                     if ( state.backtracking==0 ) {
                        
-                      	        newCompositeNode(grammarAccess.getVerificationActivityResultAccess().getResultReportResultReportCrossReference_9_1_0()); 
+                      	        newCompositeNode(grammarAccess.getVerificationActivityResultAccess().getResultsResultCrossReference_9_1_0()); 
                       	    
                     }
                     pushFollow(FOLLOW_35);
@@ -3228,7 +3229,7 @@ public class InternalAssureParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "rulePredicateResult"
-    // InternalAssure.g:1244:1: rulePredicateResult returns [EObject current=null] : ( () otherlv_1= 'predicate' ( (lv_targetReference_2_0= ruleQualifiedClaimReference ) ) otherlv_3= '[' otherlv_4= 'executionstate' ( (lv_executionState_5_0= ruleVerificationExecutionState ) ) otherlv_6= 'resultstate' ( (lv_resultState_7_0= ruleVerificationResultState ) ) (otherlv_8= 'issues' otherlv_9= '[' ( (lv_issues_10_0= ruleResultIssue ) )* otherlv_11= ']' )? (otherlv_12= 'report' ( ( ruleQualifiedName ) ) )? ( (lv_metrics_14_0= ruleMetrics ) ) (otherlv_15= 'message' ( (lv_message_16_0= RULE_STRING ) ) )? otherlv_17= ']' ) ;
+    // InternalAssure.g:1244:1: rulePredicateResult returns [EObject current=null] : ( () otherlv_1= 'predicate' ( (lv_targetReference_2_0= ruleQualifiedClaimReference ) ) otherlv_3= '[' otherlv_4= 'executionstate' ( (lv_executionState_5_0= ruleVerificationExecutionState ) ) otherlv_6= 'resultstate' ( (lv_resultState_7_0= ruleVerificationResultState ) ) (otherlv_8= 'issues' otherlv_9= '[' ( (lv_issues_10_0= ruleResultIssue ) )* otherlv_11= ']' )? (otherlv_12= 'results' ( ( ruleQualifiedName ) ) )? ( (lv_metrics_14_0= ruleMetrics ) ) (otherlv_15= 'message' ( (lv_message_16_0= RULE_STRING ) ) )? otherlv_17= ']' ) ;
     public final EObject rulePredicateResult() throws RecognitionException {
         EObject current = null;
 
@@ -3257,11 +3258,11 @@ public class InternalAssureParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // InternalAssure.g:1247:28: ( ( () otherlv_1= 'predicate' ( (lv_targetReference_2_0= ruleQualifiedClaimReference ) ) otherlv_3= '[' otherlv_4= 'executionstate' ( (lv_executionState_5_0= ruleVerificationExecutionState ) ) otherlv_6= 'resultstate' ( (lv_resultState_7_0= ruleVerificationResultState ) ) (otherlv_8= 'issues' otherlv_9= '[' ( (lv_issues_10_0= ruleResultIssue ) )* otherlv_11= ']' )? (otherlv_12= 'report' ( ( ruleQualifiedName ) ) )? ( (lv_metrics_14_0= ruleMetrics ) ) (otherlv_15= 'message' ( (lv_message_16_0= RULE_STRING ) ) )? otherlv_17= ']' ) )
-            // InternalAssure.g:1248:1: ( () otherlv_1= 'predicate' ( (lv_targetReference_2_0= ruleQualifiedClaimReference ) ) otherlv_3= '[' otherlv_4= 'executionstate' ( (lv_executionState_5_0= ruleVerificationExecutionState ) ) otherlv_6= 'resultstate' ( (lv_resultState_7_0= ruleVerificationResultState ) ) (otherlv_8= 'issues' otherlv_9= '[' ( (lv_issues_10_0= ruleResultIssue ) )* otherlv_11= ']' )? (otherlv_12= 'report' ( ( ruleQualifiedName ) ) )? ( (lv_metrics_14_0= ruleMetrics ) ) (otherlv_15= 'message' ( (lv_message_16_0= RULE_STRING ) ) )? otherlv_17= ']' )
+            // InternalAssure.g:1247:28: ( ( () otherlv_1= 'predicate' ( (lv_targetReference_2_0= ruleQualifiedClaimReference ) ) otherlv_3= '[' otherlv_4= 'executionstate' ( (lv_executionState_5_0= ruleVerificationExecutionState ) ) otherlv_6= 'resultstate' ( (lv_resultState_7_0= ruleVerificationResultState ) ) (otherlv_8= 'issues' otherlv_9= '[' ( (lv_issues_10_0= ruleResultIssue ) )* otherlv_11= ']' )? (otherlv_12= 'results' ( ( ruleQualifiedName ) ) )? ( (lv_metrics_14_0= ruleMetrics ) ) (otherlv_15= 'message' ( (lv_message_16_0= RULE_STRING ) ) )? otherlv_17= ']' ) )
+            // InternalAssure.g:1248:1: ( () otherlv_1= 'predicate' ( (lv_targetReference_2_0= ruleQualifiedClaimReference ) ) otherlv_3= '[' otherlv_4= 'executionstate' ( (lv_executionState_5_0= ruleVerificationExecutionState ) ) otherlv_6= 'resultstate' ( (lv_resultState_7_0= ruleVerificationResultState ) ) (otherlv_8= 'issues' otherlv_9= '[' ( (lv_issues_10_0= ruleResultIssue ) )* otherlv_11= ']' )? (otherlv_12= 'results' ( ( ruleQualifiedName ) ) )? ( (lv_metrics_14_0= ruleMetrics ) ) (otherlv_15= 'message' ( (lv_message_16_0= RULE_STRING ) ) )? otherlv_17= ']' )
             {
-            // InternalAssure.g:1248:1: ( () otherlv_1= 'predicate' ( (lv_targetReference_2_0= ruleQualifiedClaimReference ) ) otherlv_3= '[' otherlv_4= 'executionstate' ( (lv_executionState_5_0= ruleVerificationExecutionState ) ) otherlv_6= 'resultstate' ( (lv_resultState_7_0= ruleVerificationResultState ) ) (otherlv_8= 'issues' otherlv_9= '[' ( (lv_issues_10_0= ruleResultIssue ) )* otherlv_11= ']' )? (otherlv_12= 'report' ( ( ruleQualifiedName ) ) )? ( (lv_metrics_14_0= ruleMetrics ) ) (otherlv_15= 'message' ( (lv_message_16_0= RULE_STRING ) ) )? otherlv_17= ']' )
-            // InternalAssure.g:1248:2: () otherlv_1= 'predicate' ( (lv_targetReference_2_0= ruleQualifiedClaimReference ) ) otherlv_3= '[' otherlv_4= 'executionstate' ( (lv_executionState_5_0= ruleVerificationExecutionState ) ) otherlv_6= 'resultstate' ( (lv_resultState_7_0= ruleVerificationResultState ) ) (otherlv_8= 'issues' otherlv_9= '[' ( (lv_issues_10_0= ruleResultIssue ) )* otherlv_11= ']' )? (otherlv_12= 'report' ( ( ruleQualifiedName ) ) )? ( (lv_metrics_14_0= ruleMetrics ) ) (otherlv_15= 'message' ( (lv_message_16_0= RULE_STRING ) ) )? otherlv_17= ']'
+            // InternalAssure.g:1248:1: ( () otherlv_1= 'predicate' ( (lv_targetReference_2_0= ruleQualifiedClaimReference ) ) otherlv_3= '[' otherlv_4= 'executionstate' ( (lv_executionState_5_0= ruleVerificationExecutionState ) ) otherlv_6= 'resultstate' ( (lv_resultState_7_0= ruleVerificationResultState ) ) (otherlv_8= 'issues' otherlv_9= '[' ( (lv_issues_10_0= ruleResultIssue ) )* otherlv_11= ']' )? (otherlv_12= 'results' ( ( ruleQualifiedName ) ) )? ( (lv_metrics_14_0= ruleMetrics ) ) (otherlv_15= 'message' ( (lv_message_16_0= RULE_STRING ) ) )? otherlv_17= ']' )
+            // InternalAssure.g:1248:2: () otherlv_1= 'predicate' ( (lv_targetReference_2_0= ruleQualifiedClaimReference ) ) otherlv_3= '[' otherlv_4= 'executionstate' ( (lv_executionState_5_0= ruleVerificationExecutionState ) ) otherlv_6= 'resultstate' ( (lv_resultState_7_0= ruleVerificationResultState ) ) (otherlv_8= 'issues' otherlv_9= '[' ( (lv_issues_10_0= ruleResultIssue ) )* otherlv_11= ']' )? (otherlv_12= 'results' ( ( ruleQualifiedName ) ) )? ( (lv_metrics_14_0= ruleMetrics ) ) (otherlv_15= 'message' ( (lv_message_16_0= RULE_STRING ) ) )? otherlv_17= ']'
             {
             // InternalAssure.g:1248:2: ()
             // InternalAssure.g:1249:5: 
@@ -3434,7 +3435,7 @@ public class InternalAssureParser extends AbstractInternalAntlrParser {
                         int alt28=2;
                         int LA28_0 = input.LA(1);
 
-                        if ( ((LA28_0>=34 && LA28_0<=35)||(LA28_0>=106 && LA28_0<=107)||(LA28_0>=112 && LA28_0<=113)) ) {
+                        if ( ((LA28_0>=34 && LA28_0<=35)||LA28_0==107||(LA28_0>=112 && LA28_0<=114)) ) {
                             alt28=1;
                         }
 
@@ -3465,7 +3466,7 @@ public class InternalAssureParser extends AbstractInternalAntlrParser {
                     	             			current, 
                     	             			"issues",
                     	              		lv_issues_10_0, 
-                    	              		"org.osate.alisa.common.Common.ResultIssue");
+                    	              		"org.osate.assure.Assure.ResultIssue");
                     	      	        afterParserOrEnumRuleCall();
                     	      	    
                     	    }
@@ -3493,7 +3494,7 @@ public class InternalAssureParser extends AbstractInternalAntlrParser {
 
             }
 
-            // InternalAssure.g:1354:3: (otherlv_12= 'report' ( ( ruleQualifiedName ) ) )?
+            // InternalAssure.g:1354:3: (otherlv_12= 'results' ( ( ruleQualifiedName ) ) )?
             int alt30=2;
             int LA30_0 = input.LA(1);
 
@@ -3502,12 +3503,12 @@ public class InternalAssureParser extends AbstractInternalAntlrParser {
             }
             switch (alt30) {
                 case 1 :
-                    // InternalAssure.g:1354:5: otherlv_12= 'report' ( ( ruleQualifiedName ) )
+                    // InternalAssure.g:1354:5: otherlv_12= 'results' ( ( ruleQualifiedName ) )
                     {
                     otherlv_12=(Token)match(input,29,FOLLOW_3); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
-                          	newLeafNode(otherlv_12, grammarAccess.getPredicateResultAccess().getReportKeyword_9_0());
+                          	newLeafNode(otherlv_12, grammarAccess.getPredicateResultAccess().getResultsKeyword_9_0());
                           
                     }
                     // InternalAssure.g:1358:1: ( ( ruleQualifiedName ) )
@@ -3525,7 +3526,7 @@ public class InternalAssureParser extends AbstractInternalAntlrParser {
                     }
                     if ( state.backtracking==0 ) {
                        
-                      	        newCompositeNode(grammarAccess.getPredicateResultAccess().getResultReportResultReportCrossReference_9_1_0()); 
+                      	        newCompositeNode(grammarAccess.getPredicateResultAccess().getResultsResultCrossReference_9_1_0()); 
                       	    
                     }
                     pushFollow(FOLLOW_31);
@@ -6453,8 +6454,407 @@ public class InternalAssureParser extends AbstractInternalAntlrParser {
     // $ANTLR end "ruleNestedClaimReference"
 
 
+    // $ANTLR start "entryRuleResultIssue"
+    // InternalAssure.g:2438:1: entryRuleResultIssue returns [EObject current=null] : iv_ruleResultIssue= ruleResultIssue EOF ;
+    public final EObject entryRuleResultIssue() throws RecognitionException {
+        EObject current = null;
+
+        EObject iv_ruleResultIssue = null;
+
+
+        try {
+            // InternalAssure.g:2439:2: (iv_ruleResultIssue= ruleResultIssue EOF )
+            // InternalAssure.g:2440:2: iv_ruleResultIssue= ruleResultIssue EOF
+            {
+            if ( state.backtracking==0 ) {
+               newCompositeNode(grammarAccess.getResultIssueRule()); 
+            }
+            pushFollow(FOLLOW_1);
+            iv_ruleResultIssue=ruleResultIssue();
+
+            state._fsp--;
+            if (state.failed) return current;
+            if ( state.backtracking==0 ) {
+               current =iv_ruleResultIssue; 
+            }
+            match(input,EOF,FOLLOW_2); if (state.failed) return current;
+
+            }
+
+        }
+         
+            catch (RecognitionException re) { 
+                recover(input,re); 
+                appendSkippedTokens();
+            } 
+        finally {
+        }
+        return current;
+    }
+    // $ANTLR end "entryRuleResultIssue"
+
+
+    // $ANTLR start "ruleResultIssue"
+    // InternalAssure.g:2447:1: ruleResultIssue returns [EObject current=null] : ( ( (lv_issueType_0_0= ruleResultIssueType ) ) ( (lv_message_1_0= RULE_STRING ) ) (otherlv_2= 'source' ( ( ruleNoQuoteString ) ) )? (otherlv_4= 'exception' ( (lv_exceptionType_5_0= RULE_STRING ) ) )? (otherlv_6= 'diagnostic' ( (lv_diagnostic_7_0= RULE_STRING ) ) )? (otherlv_8= '[' ( (lv_issues_9_0= ruleResultIssue ) )* otherlv_10= ']' )? ) ;
+    public final EObject ruleResultIssue() throws RecognitionException {
+        EObject current = null;
+
+        Token lv_message_1_0=null;
+        Token otherlv_2=null;
+        Token otherlv_4=null;
+        Token lv_exceptionType_5_0=null;
+        Token otherlv_6=null;
+        Token lv_diagnostic_7_0=null;
+        Token otherlv_8=null;
+        Token otherlv_10=null;
+        Enumerator lv_issueType_0_0 = null;
+
+        EObject lv_issues_9_0 = null;
+
+
+         enterRule(); 
+            
+        try {
+            // InternalAssure.g:2450:28: ( ( ( (lv_issueType_0_0= ruleResultIssueType ) ) ( (lv_message_1_0= RULE_STRING ) ) (otherlv_2= 'source' ( ( ruleNoQuoteString ) ) )? (otherlv_4= 'exception' ( (lv_exceptionType_5_0= RULE_STRING ) ) )? (otherlv_6= 'diagnostic' ( (lv_diagnostic_7_0= RULE_STRING ) ) )? (otherlv_8= '[' ( (lv_issues_9_0= ruleResultIssue ) )* otherlv_10= ']' )? ) )
+            // InternalAssure.g:2451:1: ( ( (lv_issueType_0_0= ruleResultIssueType ) ) ( (lv_message_1_0= RULE_STRING ) ) (otherlv_2= 'source' ( ( ruleNoQuoteString ) ) )? (otherlv_4= 'exception' ( (lv_exceptionType_5_0= RULE_STRING ) ) )? (otherlv_6= 'diagnostic' ( (lv_diagnostic_7_0= RULE_STRING ) ) )? (otherlv_8= '[' ( (lv_issues_9_0= ruleResultIssue ) )* otherlv_10= ']' )? )
+            {
+            // InternalAssure.g:2451:1: ( ( (lv_issueType_0_0= ruleResultIssueType ) ) ( (lv_message_1_0= RULE_STRING ) ) (otherlv_2= 'source' ( ( ruleNoQuoteString ) ) )? (otherlv_4= 'exception' ( (lv_exceptionType_5_0= RULE_STRING ) ) )? (otherlv_6= 'diagnostic' ( (lv_diagnostic_7_0= RULE_STRING ) ) )? (otherlv_8= '[' ( (lv_issues_9_0= ruleResultIssue ) )* otherlv_10= ']' )? )
+            // InternalAssure.g:2451:2: ( (lv_issueType_0_0= ruleResultIssueType ) ) ( (lv_message_1_0= RULE_STRING ) ) (otherlv_2= 'source' ( ( ruleNoQuoteString ) ) )? (otherlv_4= 'exception' ( (lv_exceptionType_5_0= RULE_STRING ) ) )? (otherlv_6= 'diagnostic' ( (lv_diagnostic_7_0= RULE_STRING ) ) )? (otherlv_8= '[' ( (lv_issues_9_0= ruleResultIssue ) )* otherlv_10= ']' )?
+            {
+            // InternalAssure.g:2451:2: ( (lv_issueType_0_0= ruleResultIssueType ) )
+            // InternalAssure.g:2452:1: (lv_issueType_0_0= ruleResultIssueType )
+            {
+            // InternalAssure.g:2452:1: (lv_issueType_0_0= ruleResultIssueType )
+            // InternalAssure.g:2453:3: lv_issueType_0_0= ruleResultIssueType
+            {
+            if ( state.backtracking==0 ) {
+               
+              	        newCompositeNode(grammarAccess.getResultIssueAccess().getIssueTypeResultIssueTypeEnumRuleCall_0_0()); 
+              	    
+            }
+            pushFollow(FOLLOW_7);
+            lv_issueType_0_0=ruleResultIssueType();
+
+            state._fsp--;
+            if (state.failed) return current;
+            if ( state.backtracking==0 ) {
+
+              	        if (current==null) {
+              	            current = createModelElementForParent(grammarAccess.getResultIssueRule());
+              	        }
+                     		set(
+                     			current, 
+                     			"issueType",
+                      		lv_issueType_0_0, 
+                      		"org.osate.assure.Assure.ResultIssueType");
+              	        afterParserOrEnumRuleCall();
+              	    
+            }
+
+            }
+
+
+            }
+
+            // InternalAssure.g:2469:2: ( (lv_message_1_0= RULE_STRING ) )
+            // InternalAssure.g:2470:1: (lv_message_1_0= RULE_STRING )
+            {
+            // InternalAssure.g:2470:1: (lv_message_1_0= RULE_STRING )
+            // InternalAssure.g:2471:3: lv_message_1_0= RULE_STRING
+            {
+            lv_message_1_0=(Token)match(input,RULE_STRING,FOLLOW_72); if (state.failed) return current;
+            if ( state.backtracking==0 ) {
+
+              			newLeafNode(lv_message_1_0, grammarAccess.getResultIssueAccess().getMessageSTRINGTerminalRuleCall_1_0()); 
+              		
+            }
+            if ( state.backtracking==0 ) {
+
+              	        if (current==null) {
+              	            current = createModelElement(grammarAccess.getResultIssueRule());
+              	        }
+                     		setWithLastConsumed(
+                     			current, 
+                     			"message",
+                      		lv_message_1_0, 
+                      		"org.eclipse.xtext.common.Terminals.STRING");
+              	    
+            }
+
+            }
+
+
+            }
+
+            // InternalAssure.g:2487:2: (otherlv_2= 'source' ( ( ruleNoQuoteString ) ) )?
+            int alt67=2;
+            int LA67_0 = input.LA(1);
+
+            if ( (LA67_0==64) ) {
+                alt67=1;
+            }
+            switch (alt67) {
+                case 1 :
+                    // InternalAssure.g:2487:4: otherlv_2= 'source' ( ( ruleNoQuoteString ) )
+                    {
+                    otherlv_2=(Token)match(input,64,FOLLOW_7); if (state.failed) return current;
+                    if ( state.backtracking==0 ) {
+
+                          	newLeafNode(otherlv_2, grammarAccess.getResultIssueAccess().getSourceKeyword_2_0());
+                          
+                    }
+                    // InternalAssure.g:2491:1: ( ( ruleNoQuoteString ) )
+                    // InternalAssure.g:2492:1: ( ruleNoQuoteString )
+                    {
+                    // InternalAssure.g:2492:1: ( ruleNoQuoteString )
+                    // InternalAssure.g:2493:3: ruleNoQuoteString
+                    {
+                    if ( state.backtracking==0 ) {
+
+                      			if (current==null) {
+                      	            current = createModelElement(grammarAccess.getResultIssueRule());
+                      	        }
+                              
+                    }
+                    if ( state.backtracking==0 ) {
+                       
+                      	        newCompositeNode(grammarAccess.getResultIssueAccess().getSourceReferenceEObjectCrossReference_2_1_0()); 
+                      	    
+                    }
+                    pushFollow(FOLLOW_73);
+                    ruleNoQuoteString();
+
+                    state._fsp--;
+                    if (state.failed) return current;
+                    if ( state.backtracking==0 ) {
+                       
+                      	        afterParserOrEnumRuleCall();
+                      	    
+                    }
+
+                    }
+
+
+                    }
+
+
+                    }
+                    break;
+
+            }
+
+            // InternalAssure.g:2506:4: (otherlv_4= 'exception' ( (lv_exceptionType_5_0= RULE_STRING ) ) )?
+            int alt68=2;
+            int LA68_0 = input.LA(1);
+
+            if ( (LA68_0==65) ) {
+                alt68=1;
+            }
+            switch (alt68) {
+                case 1 :
+                    // InternalAssure.g:2506:6: otherlv_4= 'exception' ( (lv_exceptionType_5_0= RULE_STRING ) )
+                    {
+                    otherlv_4=(Token)match(input,65,FOLLOW_7); if (state.failed) return current;
+                    if ( state.backtracking==0 ) {
+
+                          	newLeafNode(otherlv_4, grammarAccess.getResultIssueAccess().getExceptionKeyword_3_0());
+                          
+                    }
+                    // InternalAssure.g:2510:1: ( (lv_exceptionType_5_0= RULE_STRING ) )
+                    // InternalAssure.g:2511:1: (lv_exceptionType_5_0= RULE_STRING )
+                    {
+                    // InternalAssure.g:2511:1: (lv_exceptionType_5_0= RULE_STRING )
+                    // InternalAssure.g:2512:3: lv_exceptionType_5_0= RULE_STRING
+                    {
+                    lv_exceptionType_5_0=(Token)match(input,RULE_STRING,FOLLOW_74); if (state.failed) return current;
+                    if ( state.backtracking==0 ) {
+
+                      			newLeafNode(lv_exceptionType_5_0, grammarAccess.getResultIssueAccess().getExceptionTypeSTRINGTerminalRuleCall_3_1_0()); 
+                      		
+                    }
+                    if ( state.backtracking==0 ) {
+
+                      	        if (current==null) {
+                      	            current = createModelElement(grammarAccess.getResultIssueRule());
+                      	        }
+                             		setWithLastConsumed(
+                             			current, 
+                             			"exceptionType",
+                              		lv_exceptionType_5_0, 
+                              		"org.eclipse.xtext.common.Terminals.STRING");
+                      	    
+                    }
+
+                    }
+
+
+                    }
+
+
+                    }
+                    break;
+
+            }
+
+            // InternalAssure.g:2528:4: (otherlv_6= 'diagnostic' ( (lv_diagnostic_7_0= RULE_STRING ) ) )?
+            int alt69=2;
+            int LA69_0 = input.LA(1);
+
+            if ( (LA69_0==66) ) {
+                alt69=1;
+            }
+            switch (alt69) {
+                case 1 :
+                    // InternalAssure.g:2528:6: otherlv_6= 'diagnostic' ( (lv_diagnostic_7_0= RULE_STRING ) )
+                    {
+                    otherlv_6=(Token)match(input,66,FOLLOW_7); if (state.failed) return current;
+                    if ( state.backtracking==0 ) {
+
+                          	newLeafNode(otherlv_6, grammarAccess.getResultIssueAccess().getDiagnosticKeyword_4_0());
+                          
+                    }
+                    // InternalAssure.g:2532:1: ( (lv_diagnostic_7_0= RULE_STRING ) )
+                    // InternalAssure.g:2533:1: (lv_diagnostic_7_0= RULE_STRING )
+                    {
+                    // InternalAssure.g:2533:1: (lv_diagnostic_7_0= RULE_STRING )
+                    // InternalAssure.g:2534:3: lv_diagnostic_7_0= RULE_STRING
+                    {
+                    lv_diagnostic_7_0=(Token)match(input,RULE_STRING,FOLLOW_75); if (state.failed) return current;
+                    if ( state.backtracking==0 ) {
+
+                      			newLeafNode(lv_diagnostic_7_0, grammarAccess.getResultIssueAccess().getDiagnosticSTRINGTerminalRuleCall_4_1_0()); 
+                      		
+                    }
+                    if ( state.backtracking==0 ) {
+
+                      	        if (current==null) {
+                      	            current = createModelElement(grammarAccess.getResultIssueRule());
+                      	        }
+                             		setWithLastConsumed(
+                             			current, 
+                             			"diagnostic",
+                              		lv_diagnostic_7_0, 
+                              		"org.eclipse.xtext.common.Terminals.STRING");
+                      	    
+                    }
+
+                    }
+
+
+                    }
+
+
+                    }
+                    break;
+
+            }
+
+            // InternalAssure.g:2550:4: (otherlv_8= '[' ( (lv_issues_9_0= ruleResultIssue ) )* otherlv_10= ']' )?
+            int alt71=2;
+            int LA71_0 = input.LA(1);
+
+            if ( (LA71_0==18) ) {
+                alt71=1;
+            }
+            switch (alt71) {
+                case 1 :
+                    // InternalAssure.g:2550:6: otherlv_8= '[' ( (lv_issues_9_0= ruleResultIssue ) )* otherlv_10= ']'
+                    {
+                    otherlv_8=(Token)match(input,18,FOLLOW_29); if (state.failed) return current;
+                    if ( state.backtracking==0 ) {
+
+                          	newLeafNode(otherlv_8, grammarAccess.getResultIssueAccess().getLeftSquareBracketKeyword_5_0());
+                          
+                    }
+                    // InternalAssure.g:2554:1: ( (lv_issues_9_0= ruleResultIssue ) )*
+                    loop70:
+                    do {
+                        int alt70=2;
+                        int LA70_0 = input.LA(1);
+
+                        if ( ((LA70_0>=34 && LA70_0<=35)||LA70_0==107||(LA70_0>=112 && LA70_0<=114)) ) {
+                            alt70=1;
+                        }
+
+
+                        switch (alt70) {
+                    	case 1 :
+                    	    // InternalAssure.g:2555:1: (lv_issues_9_0= ruleResultIssue )
+                    	    {
+                    	    // InternalAssure.g:2555:1: (lv_issues_9_0= ruleResultIssue )
+                    	    // InternalAssure.g:2556:3: lv_issues_9_0= ruleResultIssue
+                    	    {
+                    	    if ( state.backtracking==0 ) {
+                    	       
+                    	      	        newCompositeNode(grammarAccess.getResultIssueAccess().getIssuesResultIssueParserRuleCall_5_1_0()); 
+                    	      	    
+                    	    }
+                    	    pushFollow(FOLLOW_29);
+                    	    lv_issues_9_0=ruleResultIssue();
+
+                    	    state._fsp--;
+                    	    if (state.failed) return current;
+                    	    if ( state.backtracking==0 ) {
+
+                    	      	        if (current==null) {
+                    	      	            current = createModelElementForParent(grammarAccess.getResultIssueRule());
+                    	      	        }
+                    	             		add(
+                    	             			current, 
+                    	             			"issues",
+                    	              		lv_issues_9_0, 
+                    	              		"org.osate.assure.Assure.ResultIssue");
+                    	      	        afterParserOrEnumRuleCall();
+                    	      	    
+                    	    }
+
+                    	    }
+
+
+                    	    }
+                    	    break;
+
+                    	default :
+                    	    break loop70;
+                        }
+                    } while (true);
+
+                    otherlv_10=(Token)match(input,20,FOLLOW_2); if (state.failed) return current;
+                    if ( state.backtracking==0 ) {
+
+                          	newLeafNode(otherlv_10, grammarAccess.getResultIssueAccess().getRightSquareBracketKeyword_5_2());
+                          
+                    }
+
+                    }
+                    break;
+
+            }
+
+
+            }
+
+
+            }
+
+            if ( state.backtracking==0 ) {
+               leaveRule(); 
+            }
+        }
+         
+            catch (RecognitionException re) { 
+                recover(input,re); 
+                appendSkippedTokens();
+            } 
+        finally {
+        }
+        return current;
+    }
+    // $ANTLR end "ruleResultIssue"
+
+
     // $ANTLR start "entryRuleDescriptionElement"
-    // InternalAssure.g:2440:1: entryRuleDescriptionElement returns [EObject current=null] : iv_ruleDescriptionElement= ruleDescriptionElement EOF ;
+    // InternalAssure.g:2586:1: entryRuleDescriptionElement returns [EObject current=null] : iv_ruleDescriptionElement= ruleDescriptionElement EOF ;
     public final EObject entryRuleDescriptionElement() throws RecognitionException {
         EObject current = null;
 
@@ -6462,8 +6862,8 @@ public class InternalAssureParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // InternalAssure.g:2441:2: (iv_ruleDescriptionElement= ruleDescriptionElement EOF )
-            // InternalAssure.g:2442:2: iv_ruleDescriptionElement= ruleDescriptionElement EOF
+            // InternalAssure.g:2587:2: (iv_ruleDescriptionElement= ruleDescriptionElement EOF )
+            // InternalAssure.g:2588:2: iv_ruleDescriptionElement= ruleDescriptionElement EOF
             {
             if ( state.backtracking==0 ) {
                newCompositeNode(grammarAccess.getDescriptionElementRule()); 
@@ -6494,7 +6894,7 @@ public class InternalAssureParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleDescriptionElement"
-    // InternalAssure.g:2449:1: ruleDescriptionElement returns [EObject current=null] : ( ( (lv_text_0_0= RULE_STRING ) ) | ( ( ( 'this' ) )=> (lv_thisTarget_1_0= 'this' ) ) | ( ( ( ruleImageReference ) )=> (lv_image_2_0= ruleImageReference ) ) | ( (lv_showValue_3_0= ruleShowValue ) ) ) ;
+    // InternalAssure.g:2595:1: ruleDescriptionElement returns [EObject current=null] : ( ( (lv_text_0_0= RULE_STRING ) ) | ( ( ( 'this' ) )=> (lv_thisTarget_1_0= 'this' ) ) | ( ( ( ruleImageReference ) )=> (lv_image_2_0= ruleImageReference ) ) | ( (lv_showValue_3_0= ruleShowValue ) ) ) ;
     public final EObject ruleDescriptionElement() throws RecognitionException {
         EObject current = null;
 
@@ -6508,41 +6908,41 @@ public class InternalAssureParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // InternalAssure.g:2452:28: ( ( ( (lv_text_0_0= RULE_STRING ) ) | ( ( ( 'this' ) )=> (lv_thisTarget_1_0= 'this' ) ) | ( ( ( ruleImageReference ) )=> (lv_image_2_0= ruleImageReference ) ) | ( (lv_showValue_3_0= ruleShowValue ) ) ) )
-            // InternalAssure.g:2453:1: ( ( (lv_text_0_0= RULE_STRING ) ) | ( ( ( 'this' ) )=> (lv_thisTarget_1_0= 'this' ) ) | ( ( ( ruleImageReference ) )=> (lv_image_2_0= ruleImageReference ) ) | ( (lv_showValue_3_0= ruleShowValue ) ) )
+            // InternalAssure.g:2598:28: ( ( ( (lv_text_0_0= RULE_STRING ) ) | ( ( ( 'this' ) )=> (lv_thisTarget_1_0= 'this' ) ) | ( ( ( ruleImageReference ) )=> (lv_image_2_0= ruleImageReference ) ) | ( (lv_showValue_3_0= ruleShowValue ) ) ) )
+            // InternalAssure.g:2599:1: ( ( (lv_text_0_0= RULE_STRING ) ) | ( ( ( 'this' ) )=> (lv_thisTarget_1_0= 'this' ) ) | ( ( ( ruleImageReference ) )=> (lv_image_2_0= ruleImageReference ) ) | ( (lv_showValue_3_0= ruleShowValue ) ) )
             {
-            // InternalAssure.g:2453:1: ( ( (lv_text_0_0= RULE_STRING ) ) | ( ( ( 'this' ) )=> (lv_thisTarget_1_0= 'this' ) ) | ( ( ( ruleImageReference ) )=> (lv_image_2_0= ruleImageReference ) ) | ( (lv_showValue_3_0= ruleShowValue ) ) )
-            int alt67=4;
-            int LA67_0 = input.LA(1);
+            // InternalAssure.g:2599:1: ( ( (lv_text_0_0= RULE_STRING ) ) | ( ( ( 'this' ) )=> (lv_thisTarget_1_0= 'this' ) ) | ( ( ( ruleImageReference ) )=> (lv_image_2_0= ruleImageReference ) ) | ( (lv_showValue_3_0= ruleShowValue ) ) )
+            int alt72=4;
+            int LA72_0 = input.LA(1);
 
-            if ( (LA67_0==RULE_STRING) ) {
-                alt67=1;
+            if ( (LA72_0==RULE_STRING) ) {
+                alt72=1;
             }
-            else if ( (LA67_0==64) && (synpred1_InternalAssure())) {
-                alt67=2;
+            else if ( (LA72_0==67) && (synpred1_InternalAssure())) {
+                alt72=2;
             }
-            else if ( (LA67_0==76) && (synpred2_InternalAssure())) {
-                alt67=3;
+            else if ( (LA72_0==76) && (synpred2_InternalAssure())) {
+                alt72=3;
             }
-            else if ( (LA67_0==RULE_ID) ) {
-                alt67=4;
+            else if ( (LA72_0==RULE_ID) ) {
+                alt72=4;
             }
             else {
                 if (state.backtracking>0) {state.failed=true; return current;}
                 NoViableAltException nvae =
-                    new NoViableAltException("", 67, 0, input);
+                    new NoViableAltException("", 72, 0, input);
 
                 throw nvae;
             }
-            switch (alt67) {
+            switch (alt72) {
                 case 1 :
-                    // InternalAssure.g:2453:2: ( (lv_text_0_0= RULE_STRING ) )
+                    // InternalAssure.g:2599:2: ( (lv_text_0_0= RULE_STRING ) )
                     {
-                    // InternalAssure.g:2453:2: ( (lv_text_0_0= RULE_STRING ) )
-                    // InternalAssure.g:2454:1: (lv_text_0_0= RULE_STRING )
+                    // InternalAssure.g:2599:2: ( (lv_text_0_0= RULE_STRING ) )
+                    // InternalAssure.g:2600:1: (lv_text_0_0= RULE_STRING )
                     {
-                    // InternalAssure.g:2454:1: (lv_text_0_0= RULE_STRING )
-                    // InternalAssure.g:2455:3: lv_text_0_0= RULE_STRING
+                    // InternalAssure.g:2600:1: (lv_text_0_0= RULE_STRING )
+                    // InternalAssure.g:2601:3: lv_text_0_0= RULE_STRING
                     {
                     lv_text_0_0=(Token)match(input,RULE_STRING,FOLLOW_2); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
@@ -6572,15 +6972,15 @@ public class InternalAssureParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 2 :
-                    // InternalAssure.g:2472:6: ( ( ( 'this' ) )=> (lv_thisTarget_1_0= 'this' ) )
+                    // InternalAssure.g:2618:6: ( ( ( 'this' ) )=> (lv_thisTarget_1_0= 'this' ) )
                     {
-                    // InternalAssure.g:2472:6: ( ( ( 'this' ) )=> (lv_thisTarget_1_0= 'this' ) )
-                    // InternalAssure.g:2472:7: ( ( 'this' ) )=> (lv_thisTarget_1_0= 'this' )
+                    // InternalAssure.g:2618:6: ( ( ( 'this' ) )=> (lv_thisTarget_1_0= 'this' ) )
+                    // InternalAssure.g:2618:7: ( ( 'this' ) )=> (lv_thisTarget_1_0= 'this' )
                     {
-                    // InternalAssure.g:2479:1: (lv_thisTarget_1_0= 'this' )
-                    // InternalAssure.g:2480:3: lv_thisTarget_1_0= 'this'
+                    // InternalAssure.g:2625:1: (lv_thisTarget_1_0= 'this' )
+                    // InternalAssure.g:2626:3: lv_thisTarget_1_0= 'this'
                     {
-                    lv_thisTarget_1_0=(Token)match(input,64,FOLLOW_2); if (state.failed) return current;
+                    lv_thisTarget_1_0=(Token)match(input,67,FOLLOW_2); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
                               newLeafNode(lv_thisTarget_1_0, grammarAccess.getDescriptionElementAccess().getThisTargetThisKeyword_1_0());
@@ -6604,13 +7004,13 @@ public class InternalAssureParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 3 :
-                    // InternalAssure.g:2494:6: ( ( ( ruleImageReference ) )=> (lv_image_2_0= ruleImageReference ) )
+                    // InternalAssure.g:2640:6: ( ( ( ruleImageReference ) )=> (lv_image_2_0= ruleImageReference ) )
                     {
-                    // InternalAssure.g:2494:6: ( ( ( ruleImageReference ) )=> (lv_image_2_0= ruleImageReference ) )
-                    // InternalAssure.g:2494:7: ( ( ruleImageReference ) )=> (lv_image_2_0= ruleImageReference )
+                    // InternalAssure.g:2640:6: ( ( ( ruleImageReference ) )=> (lv_image_2_0= ruleImageReference ) )
+                    // InternalAssure.g:2640:7: ( ( ruleImageReference ) )=> (lv_image_2_0= ruleImageReference )
                     {
-                    // InternalAssure.g:2499:1: (lv_image_2_0= ruleImageReference )
-                    // InternalAssure.g:2500:3: lv_image_2_0= ruleImageReference
+                    // InternalAssure.g:2645:1: (lv_image_2_0= ruleImageReference )
+                    // InternalAssure.g:2646:3: lv_image_2_0= ruleImageReference
                     {
                     if ( state.backtracking==0 ) {
                        
@@ -6645,13 +7045,13 @@ public class InternalAssureParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 4 :
-                    // InternalAssure.g:2517:6: ( (lv_showValue_3_0= ruleShowValue ) )
+                    // InternalAssure.g:2663:6: ( (lv_showValue_3_0= ruleShowValue ) )
                     {
-                    // InternalAssure.g:2517:6: ( (lv_showValue_3_0= ruleShowValue ) )
-                    // InternalAssure.g:2518:1: (lv_showValue_3_0= ruleShowValue )
+                    // InternalAssure.g:2663:6: ( (lv_showValue_3_0= ruleShowValue ) )
+                    // InternalAssure.g:2664:1: (lv_showValue_3_0= ruleShowValue )
                     {
-                    // InternalAssure.g:2518:1: (lv_showValue_3_0= ruleShowValue )
-                    // InternalAssure.g:2519:3: lv_showValue_3_0= ruleShowValue
+                    // InternalAssure.g:2664:1: (lv_showValue_3_0= ruleShowValue )
+                    // InternalAssure.g:2665:3: lv_showValue_3_0= ruleShowValue
                     {
                     if ( state.backtracking==0 ) {
                        
@@ -6705,405 +7105,6 @@ public class InternalAssureParser extends AbstractInternalAntlrParser {
         return current;
     }
     // $ANTLR end "ruleDescriptionElement"
-
-
-    // $ANTLR start "entryRuleResultIssue"
-    // InternalAssure.g:2547:1: entryRuleResultIssue returns [EObject current=null] : iv_ruleResultIssue= ruleResultIssue EOF ;
-    public final EObject entryRuleResultIssue() throws RecognitionException {
-        EObject current = null;
-
-        EObject iv_ruleResultIssue = null;
-
-
-        try {
-            // InternalAssure.g:2548:2: (iv_ruleResultIssue= ruleResultIssue EOF )
-            // InternalAssure.g:2549:2: iv_ruleResultIssue= ruleResultIssue EOF
-            {
-            if ( state.backtracking==0 ) {
-               newCompositeNode(grammarAccess.getResultIssueRule()); 
-            }
-            pushFollow(FOLLOW_1);
-            iv_ruleResultIssue=ruleResultIssue();
-
-            state._fsp--;
-            if (state.failed) return current;
-            if ( state.backtracking==0 ) {
-               current =iv_ruleResultIssue; 
-            }
-            match(input,EOF,FOLLOW_2); if (state.failed) return current;
-
-            }
-
-        }
-         
-            catch (RecognitionException re) { 
-                recover(input,re); 
-                appendSkippedTokens();
-            } 
-        finally {
-        }
-        return current;
-    }
-    // $ANTLR end "entryRuleResultIssue"
-
-
-    // $ANTLR start "ruleResultIssue"
-    // InternalAssure.g:2556:1: ruleResultIssue returns [EObject current=null] : ( ( (lv_issueType_0_0= ruleResultIssueType ) ) ( (lv_message_1_0= RULE_STRING ) ) (otherlv_2= 'target' ( ( ruleNoQuoteString ) ) )? (otherlv_4= 'exception' ( (lv_exceptionType_5_0= RULE_STRING ) ) )? (otherlv_6= 'diagnosticId' ( (lv_diagnosticId_7_0= RULE_STRING ) ) )? (otherlv_8= '[' ( (lv_issues_9_0= ruleResultIssue ) )* otherlv_10= ']' )? ) ;
-    public final EObject ruleResultIssue() throws RecognitionException {
-        EObject current = null;
-
-        Token lv_message_1_0=null;
-        Token otherlv_2=null;
-        Token otherlv_4=null;
-        Token lv_exceptionType_5_0=null;
-        Token otherlv_6=null;
-        Token lv_diagnosticId_7_0=null;
-        Token otherlv_8=null;
-        Token otherlv_10=null;
-        Enumerator lv_issueType_0_0 = null;
-
-        EObject lv_issues_9_0 = null;
-
-
-         enterRule(); 
-            
-        try {
-            // InternalAssure.g:2559:28: ( ( ( (lv_issueType_0_0= ruleResultIssueType ) ) ( (lv_message_1_0= RULE_STRING ) ) (otherlv_2= 'target' ( ( ruleNoQuoteString ) ) )? (otherlv_4= 'exception' ( (lv_exceptionType_5_0= RULE_STRING ) ) )? (otherlv_6= 'diagnosticId' ( (lv_diagnosticId_7_0= RULE_STRING ) ) )? (otherlv_8= '[' ( (lv_issues_9_0= ruleResultIssue ) )* otherlv_10= ']' )? ) )
-            // InternalAssure.g:2560:1: ( ( (lv_issueType_0_0= ruleResultIssueType ) ) ( (lv_message_1_0= RULE_STRING ) ) (otherlv_2= 'target' ( ( ruleNoQuoteString ) ) )? (otherlv_4= 'exception' ( (lv_exceptionType_5_0= RULE_STRING ) ) )? (otherlv_6= 'diagnosticId' ( (lv_diagnosticId_7_0= RULE_STRING ) ) )? (otherlv_8= '[' ( (lv_issues_9_0= ruleResultIssue ) )* otherlv_10= ']' )? )
-            {
-            // InternalAssure.g:2560:1: ( ( (lv_issueType_0_0= ruleResultIssueType ) ) ( (lv_message_1_0= RULE_STRING ) ) (otherlv_2= 'target' ( ( ruleNoQuoteString ) ) )? (otherlv_4= 'exception' ( (lv_exceptionType_5_0= RULE_STRING ) ) )? (otherlv_6= 'diagnosticId' ( (lv_diagnosticId_7_0= RULE_STRING ) ) )? (otherlv_8= '[' ( (lv_issues_9_0= ruleResultIssue ) )* otherlv_10= ']' )? )
-            // InternalAssure.g:2560:2: ( (lv_issueType_0_0= ruleResultIssueType ) ) ( (lv_message_1_0= RULE_STRING ) ) (otherlv_2= 'target' ( ( ruleNoQuoteString ) ) )? (otherlv_4= 'exception' ( (lv_exceptionType_5_0= RULE_STRING ) ) )? (otherlv_6= 'diagnosticId' ( (lv_diagnosticId_7_0= RULE_STRING ) ) )? (otherlv_8= '[' ( (lv_issues_9_0= ruleResultIssue ) )* otherlv_10= ']' )?
-            {
-            // InternalAssure.g:2560:2: ( (lv_issueType_0_0= ruleResultIssueType ) )
-            // InternalAssure.g:2561:1: (lv_issueType_0_0= ruleResultIssueType )
-            {
-            // InternalAssure.g:2561:1: (lv_issueType_0_0= ruleResultIssueType )
-            // InternalAssure.g:2562:3: lv_issueType_0_0= ruleResultIssueType
-            {
-            if ( state.backtracking==0 ) {
-               
-              	        newCompositeNode(grammarAccess.getResultIssueAccess().getIssueTypeResultIssueTypeEnumRuleCall_0_0()); 
-              	    
-            }
-            pushFollow(FOLLOW_7);
-            lv_issueType_0_0=ruleResultIssueType();
-
-            state._fsp--;
-            if (state.failed) return current;
-            if ( state.backtracking==0 ) {
-
-              	        if (current==null) {
-              	            current = createModelElementForParent(grammarAccess.getResultIssueRule());
-              	        }
-                     		set(
-                     			current, 
-                     			"issueType",
-                      		lv_issueType_0_0, 
-                      		"org.osate.alisa.common.Common.ResultIssueType");
-              	        afterParserOrEnumRuleCall();
-              	    
-            }
-
-            }
-
-
-            }
-
-            // InternalAssure.g:2578:2: ( (lv_message_1_0= RULE_STRING ) )
-            // InternalAssure.g:2579:1: (lv_message_1_0= RULE_STRING )
-            {
-            // InternalAssure.g:2579:1: (lv_message_1_0= RULE_STRING )
-            // InternalAssure.g:2580:3: lv_message_1_0= RULE_STRING
-            {
-            lv_message_1_0=(Token)match(input,RULE_STRING,FOLLOW_72); if (state.failed) return current;
-            if ( state.backtracking==0 ) {
-
-              			newLeafNode(lv_message_1_0, grammarAccess.getResultIssueAccess().getMessageSTRINGTerminalRuleCall_1_0()); 
-              		
-            }
-            if ( state.backtracking==0 ) {
-
-              	        if (current==null) {
-              	            current = createModelElement(grammarAccess.getResultIssueRule());
-              	        }
-                     		setWithLastConsumed(
-                     			current, 
-                     			"message",
-                      		lv_message_1_0, 
-                      		"org.eclipse.xtext.common.Terminals.STRING");
-              	    
-            }
-
-            }
-
-
-            }
-
-            // InternalAssure.g:2596:2: (otherlv_2= 'target' ( ( ruleNoQuoteString ) ) )?
-            int alt68=2;
-            int LA68_0 = input.LA(1);
-
-            if ( (LA68_0==65) ) {
-                alt68=1;
-            }
-            switch (alt68) {
-                case 1 :
-                    // InternalAssure.g:2596:4: otherlv_2= 'target' ( ( ruleNoQuoteString ) )
-                    {
-                    otherlv_2=(Token)match(input,65,FOLLOW_7); if (state.failed) return current;
-                    if ( state.backtracking==0 ) {
-
-                          	newLeafNode(otherlv_2, grammarAccess.getResultIssueAccess().getTargetKeyword_2_0());
-                          
-                    }
-                    // InternalAssure.g:2600:1: ( ( ruleNoQuoteString ) )
-                    // InternalAssure.g:2601:1: ( ruleNoQuoteString )
-                    {
-                    // InternalAssure.g:2601:1: ( ruleNoQuoteString )
-                    // InternalAssure.g:2602:3: ruleNoQuoteString
-                    {
-                    if ( state.backtracking==0 ) {
-
-                      			if (current==null) {
-                      	            current = createModelElement(grammarAccess.getResultIssueRule());
-                      	        }
-                              
-                    }
-                    if ( state.backtracking==0 ) {
-                       
-                      	        newCompositeNode(grammarAccess.getResultIssueAccess().getTargetEObjectCrossReference_2_1_0()); 
-                      	    
-                    }
-                    pushFollow(FOLLOW_73);
-                    ruleNoQuoteString();
-
-                    state._fsp--;
-                    if (state.failed) return current;
-                    if ( state.backtracking==0 ) {
-                       
-                      	        afterParserOrEnumRuleCall();
-                      	    
-                    }
-
-                    }
-
-
-                    }
-
-
-                    }
-                    break;
-
-            }
-
-            // InternalAssure.g:2615:4: (otherlv_4= 'exception' ( (lv_exceptionType_5_0= RULE_STRING ) ) )?
-            int alt69=2;
-            int LA69_0 = input.LA(1);
-
-            if ( (LA69_0==66) ) {
-                alt69=1;
-            }
-            switch (alt69) {
-                case 1 :
-                    // InternalAssure.g:2615:6: otherlv_4= 'exception' ( (lv_exceptionType_5_0= RULE_STRING ) )
-                    {
-                    otherlv_4=(Token)match(input,66,FOLLOW_7); if (state.failed) return current;
-                    if ( state.backtracking==0 ) {
-
-                          	newLeafNode(otherlv_4, grammarAccess.getResultIssueAccess().getExceptionKeyword_3_0());
-                          
-                    }
-                    // InternalAssure.g:2619:1: ( (lv_exceptionType_5_0= RULE_STRING ) )
-                    // InternalAssure.g:2620:1: (lv_exceptionType_5_0= RULE_STRING )
-                    {
-                    // InternalAssure.g:2620:1: (lv_exceptionType_5_0= RULE_STRING )
-                    // InternalAssure.g:2621:3: lv_exceptionType_5_0= RULE_STRING
-                    {
-                    lv_exceptionType_5_0=(Token)match(input,RULE_STRING,FOLLOW_74); if (state.failed) return current;
-                    if ( state.backtracking==0 ) {
-
-                      			newLeafNode(lv_exceptionType_5_0, grammarAccess.getResultIssueAccess().getExceptionTypeSTRINGTerminalRuleCall_3_1_0()); 
-                      		
-                    }
-                    if ( state.backtracking==0 ) {
-
-                      	        if (current==null) {
-                      	            current = createModelElement(grammarAccess.getResultIssueRule());
-                      	        }
-                             		setWithLastConsumed(
-                             			current, 
-                             			"exceptionType",
-                              		lv_exceptionType_5_0, 
-                              		"org.eclipse.xtext.common.Terminals.STRING");
-                      	    
-                    }
-
-                    }
-
-
-                    }
-
-
-                    }
-                    break;
-
-            }
-
-            // InternalAssure.g:2637:4: (otherlv_6= 'diagnosticId' ( (lv_diagnosticId_7_0= RULE_STRING ) ) )?
-            int alt70=2;
-            int LA70_0 = input.LA(1);
-
-            if ( (LA70_0==67) ) {
-                alt70=1;
-            }
-            switch (alt70) {
-                case 1 :
-                    // InternalAssure.g:2637:6: otherlv_6= 'diagnosticId' ( (lv_diagnosticId_7_0= RULE_STRING ) )
-                    {
-                    otherlv_6=(Token)match(input,67,FOLLOW_7); if (state.failed) return current;
-                    if ( state.backtracking==0 ) {
-
-                          	newLeafNode(otherlv_6, grammarAccess.getResultIssueAccess().getDiagnosticIdKeyword_4_0());
-                          
-                    }
-                    // InternalAssure.g:2641:1: ( (lv_diagnosticId_7_0= RULE_STRING ) )
-                    // InternalAssure.g:2642:1: (lv_diagnosticId_7_0= RULE_STRING )
-                    {
-                    // InternalAssure.g:2642:1: (lv_diagnosticId_7_0= RULE_STRING )
-                    // InternalAssure.g:2643:3: lv_diagnosticId_7_0= RULE_STRING
-                    {
-                    lv_diagnosticId_7_0=(Token)match(input,RULE_STRING,FOLLOW_75); if (state.failed) return current;
-                    if ( state.backtracking==0 ) {
-
-                      			newLeafNode(lv_diagnosticId_7_0, grammarAccess.getResultIssueAccess().getDiagnosticIdSTRINGTerminalRuleCall_4_1_0()); 
-                      		
-                    }
-                    if ( state.backtracking==0 ) {
-
-                      	        if (current==null) {
-                      	            current = createModelElement(grammarAccess.getResultIssueRule());
-                      	        }
-                             		setWithLastConsumed(
-                             			current, 
-                             			"diagnosticId",
-                              		lv_diagnosticId_7_0, 
-                              		"org.eclipse.xtext.common.Terminals.STRING");
-                      	    
-                    }
-
-                    }
-
-
-                    }
-
-
-                    }
-                    break;
-
-            }
-
-            // InternalAssure.g:2659:4: (otherlv_8= '[' ( (lv_issues_9_0= ruleResultIssue ) )* otherlv_10= ']' )?
-            int alt72=2;
-            int LA72_0 = input.LA(1);
-
-            if ( (LA72_0==18) ) {
-                alt72=1;
-            }
-            switch (alt72) {
-                case 1 :
-                    // InternalAssure.g:2659:6: otherlv_8= '[' ( (lv_issues_9_0= ruleResultIssue ) )* otherlv_10= ']'
-                    {
-                    otherlv_8=(Token)match(input,18,FOLLOW_29); if (state.failed) return current;
-                    if ( state.backtracking==0 ) {
-
-                          	newLeafNode(otherlv_8, grammarAccess.getResultIssueAccess().getLeftSquareBracketKeyword_5_0());
-                          
-                    }
-                    // InternalAssure.g:2663:1: ( (lv_issues_9_0= ruleResultIssue ) )*
-                    loop71:
-                    do {
-                        int alt71=2;
-                        int LA71_0 = input.LA(1);
-
-                        if ( ((LA71_0>=34 && LA71_0<=35)||(LA71_0>=106 && LA71_0<=107)||(LA71_0>=112 && LA71_0<=113)) ) {
-                            alt71=1;
-                        }
-
-
-                        switch (alt71) {
-                    	case 1 :
-                    	    // InternalAssure.g:2664:1: (lv_issues_9_0= ruleResultIssue )
-                    	    {
-                    	    // InternalAssure.g:2664:1: (lv_issues_9_0= ruleResultIssue )
-                    	    // InternalAssure.g:2665:3: lv_issues_9_0= ruleResultIssue
-                    	    {
-                    	    if ( state.backtracking==0 ) {
-                    	       
-                    	      	        newCompositeNode(grammarAccess.getResultIssueAccess().getIssuesResultIssueParserRuleCall_5_1_0()); 
-                    	      	    
-                    	    }
-                    	    pushFollow(FOLLOW_29);
-                    	    lv_issues_9_0=ruleResultIssue();
-
-                    	    state._fsp--;
-                    	    if (state.failed) return current;
-                    	    if ( state.backtracking==0 ) {
-
-                    	      	        if (current==null) {
-                    	      	            current = createModelElementForParent(grammarAccess.getResultIssueRule());
-                    	      	        }
-                    	             		add(
-                    	             			current, 
-                    	             			"issues",
-                    	              		lv_issues_9_0, 
-                    	              		"org.osate.alisa.common.Common.ResultIssue");
-                    	      	        afterParserOrEnumRuleCall();
-                    	      	    
-                    	    }
-
-                    	    }
-
-
-                    	    }
-                    	    break;
-
-                    	default :
-                    	    break loop71;
-                        }
-                    } while (true);
-
-                    otherlv_10=(Token)match(input,20,FOLLOW_2); if (state.failed) return current;
-                    if ( state.backtracking==0 ) {
-
-                          	newLeafNode(otherlv_10, grammarAccess.getResultIssueAccess().getRightSquareBracketKeyword_5_2());
-                          
-                    }
-
-                    }
-                    break;
-
-            }
-
-
-            }
-
-
-            }
-
-            if ( state.backtracking==0 ) {
-               leaveRule(); 
-            }
-        }
-         
-            catch (RecognitionException re) { 
-                recover(input,re); 
-                appendSkippedTokens();
-            } 
-        finally {
-        }
-        return current;
-    }
-    // $ANTLR end "ruleResultIssue"
 
 
     // $ANTLR start "entryRuleTypeRef"
@@ -7748,7 +7749,7 @@ public class InternalAssureParser extends AbstractInternalAntlrParser {
             int alt77=2;
             int LA77_0 = input.LA(1);
 
-            if ( (LA77_0==64) ) {
+            if ( (LA77_0==67) ) {
                 alt77=1;
             }
             else if ( (LA77_0==62) ) {
@@ -11174,7 +11175,7 @@ public class InternalAssureParser extends AbstractInternalAntlrParser {
             if ( ((LA94_0>=89 && LA94_0<=90)||LA94_0==94) ) {
                 alt94=1;
             }
-            else if ( ((LA94_0>=RULE_STRING && LA94_0<=RULE_REAL_LIT)||LA94_0==18||LA94_0==62||LA94_0==64||LA94_0==95||LA94_0==100||(LA94_0>=102 && LA94_0<=103)) ) {
+            else if ( ((LA94_0>=RULE_STRING && LA94_0<=RULE_REAL_LIT)||LA94_0==18||LA94_0==62||LA94_0==67||LA94_0==95||LA94_0==100||(LA94_0>=102 && LA94_0<=103)) ) {
                 alt94=2;
             }
             else {
@@ -11794,7 +11795,7 @@ public class InternalAssureParser extends AbstractInternalAntlrParser {
                 }
                 break;
             case 62:
-            case 64:
+            case 67:
                 {
                 alt98=3;
                 }
@@ -12121,7 +12122,7 @@ public class InternalAssureParser extends AbstractInternalAntlrParser {
             int alt100=2;
             int LA100_0 = input.LA(1);
 
-            if ( ((LA100_0>=RULE_STRING && LA100_0<=RULE_REAL_LIT)||LA100_0==18||LA100_0==62||LA100_0==64||(LA100_0>=89 && LA100_0<=90)||(LA100_0>=94 && LA100_0<=95)||LA100_0==100||(LA100_0>=102 && LA100_0<=103)) ) {
+            if ( ((LA100_0>=RULE_STRING && LA100_0<=RULE_REAL_LIT)||LA100_0==18||LA100_0==62||LA100_0==67||(LA100_0>=89 && LA100_0<=90)||(LA100_0>=94 && LA100_0<=95)||LA100_0==100||(LA100_0>=102 && LA100_0<=103)) ) {
                 alt100=1;
             }
             switch (alt100) {
@@ -14289,7 +14290,7 @@ public class InternalAssureParser extends AbstractInternalAntlrParser {
             // InternalAssure.g:5075:28: (kw= 'this' )
             // InternalAssure.g:5077:2: kw= 'this'
             {
-            kw=(Token)match(input,64,FOLLOW_2); if (state.failed) return current;
+            kw=(Token)match(input,67,FOLLOW_2); if (state.failed) return current;
             if ( state.backtracking==0 ) {
 
                       current.merge(kw);
@@ -14776,7 +14777,7 @@ public class InternalAssureParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleResultIssueType"
-    // InternalAssure.g:5189:1: ruleResultIssueType returns [Enumerator current=null] : ( (enumLiteral_0= 'tbd' ) | (enumLiteral_1= 'error' ) | (enumLiteral_2= 'warning' ) | (enumLiteral_3= 'info' ) | (enumLiteral_4= 'success' ) | (enumLiteral_5= 'fail' ) ) ;
+    // InternalAssure.g:5189:1: ruleResultIssueType returns [Enumerator current=null] : ( (enumLiteral_0= 'none' ) | (enumLiteral_1= 'error' ) | (enumLiteral_2= 'warning' ) | (enumLiteral_3= 'info' ) | (enumLiteral_4= 'success' ) | (enumLiteral_5= 'fail' ) ) ;
     public final Enumerator ruleResultIssueType() throws RecognitionException {
         Enumerator current = null;
 
@@ -14789,13 +14790,13 @@ public class InternalAssureParser extends AbstractInternalAntlrParser {
 
          enterRule(); 
         try {
-            // InternalAssure.g:5191:28: ( ( (enumLiteral_0= 'tbd' ) | (enumLiteral_1= 'error' ) | (enumLiteral_2= 'warning' ) | (enumLiteral_3= 'info' ) | (enumLiteral_4= 'success' ) | (enumLiteral_5= 'fail' ) ) )
-            // InternalAssure.g:5192:1: ( (enumLiteral_0= 'tbd' ) | (enumLiteral_1= 'error' ) | (enumLiteral_2= 'warning' ) | (enumLiteral_3= 'info' ) | (enumLiteral_4= 'success' ) | (enumLiteral_5= 'fail' ) )
+            // InternalAssure.g:5191:28: ( ( (enumLiteral_0= 'none' ) | (enumLiteral_1= 'error' ) | (enumLiteral_2= 'warning' ) | (enumLiteral_3= 'info' ) | (enumLiteral_4= 'success' ) | (enumLiteral_5= 'fail' ) ) )
+            // InternalAssure.g:5192:1: ( (enumLiteral_0= 'none' ) | (enumLiteral_1= 'error' ) | (enumLiteral_2= 'warning' ) | (enumLiteral_3= 'info' ) | (enumLiteral_4= 'success' ) | (enumLiteral_5= 'fail' ) )
             {
-            // InternalAssure.g:5192:1: ( (enumLiteral_0= 'tbd' ) | (enumLiteral_1= 'error' ) | (enumLiteral_2= 'warning' ) | (enumLiteral_3= 'info' ) | (enumLiteral_4= 'success' ) | (enumLiteral_5= 'fail' ) )
+            // InternalAssure.g:5192:1: ( (enumLiteral_0= 'none' ) | (enumLiteral_1= 'error' ) | (enumLiteral_2= 'warning' ) | (enumLiteral_3= 'info' ) | (enumLiteral_4= 'success' ) | (enumLiteral_5= 'fail' ) )
             int alt112=6;
             switch ( input.LA(1) ) {
-            case 106:
+            case 112:
                 {
                 alt112=1;
                 }
@@ -14805,12 +14806,12 @@ public class InternalAssureParser extends AbstractInternalAntlrParser {
                 alt112=2;
                 }
                 break;
-            case 112:
+            case 113:
                 {
                 alt112=3;
                 }
                 break;
-            case 113:
+            case 114:
                 {
                 alt112=4;
                 }
@@ -14835,16 +14836,16 @@ public class InternalAssureParser extends AbstractInternalAntlrParser {
 
             switch (alt112) {
                 case 1 :
-                    // InternalAssure.g:5192:2: (enumLiteral_0= 'tbd' )
+                    // InternalAssure.g:5192:2: (enumLiteral_0= 'none' )
                     {
-                    // InternalAssure.g:5192:2: (enumLiteral_0= 'tbd' )
-                    // InternalAssure.g:5192:4: enumLiteral_0= 'tbd'
+                    // InternalAssure.g:5192:2: (enumLiteral_0= 'none' )
+                    // InternalAssure.g:5192:4: enumLiteral_0= 'none'
                     {
-                    enumLiteral_0=(Token)match(input,106,FOLLOW_2); if (state.failed) return current;
+                    enumLiteral_0=(Token)match(input,112,FOLLOW_2); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
-                              current = grammarAccess.getResultIssueTypeAccess().getTBDEnumLiteralDeclaration_0().getEnumLiteral().getInstance();
-                              newLeafNode(enumLiteral_0, grammarAccess.getResultIssueTypeAccess().getTBDEnumLiteralDeclaration_0()); 
+                              current = grammarAccess.getResultIssueTypeAccess().getNONEEnumLiteralDeclaration_0().getEnumLiteral().getInstance();
+                              newLeafNode(enumLiteral_0, grammarAccess.getResultIssueTypeAccess().getNONEEnumLiteralDeclaration_0()); 
                           
                     }
 
@@ -14878,7 +14879,7 @@ public class InternalAssureParser extends AbstractInternalAntlrParser {
                     // InternalAssure.g:5204:6: (enumLiteral_2= 'warning' )
                     // InternalAssure.g:5204:8: enumLiteral_2= 'warning'
                     {
-                    enumLiteral_2=(Token)match(input,112,FOLLOW_2); if (state.failed) return current;
+                    enumLiteral_2=(Token)match(input,113,FOLLOW_2); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
                               current = grammarAccess.getResultIssueTypeAccess().getWARNINGEnumLiteralDeclaration_2().getEnumLiteral().getInstance();
@@ -14897,7 +14898,7 @@ public class InternalAssureParser extends AbstractInternalAntlrParser {
                     // InternalAssure.g:5210:6: (enumLiteral_3= 'info' )
                     // InternalAssure.g:5210:8: enumLiteral_3= 'info'
                     {
-                    enumLiteral_3=(Token)match(input,113,FOLLOW_2); if (state.failed) return current;
+                    enumLiteral_3=(Token)match(input,114,FOLLOW_2); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
                               current = grammarAccess.getResultIssueTypeAccess().getINFOEnumLiteralDeclaration_3().getEnumLiteral().getInstance();
@@ -14971,13 +14972,13 @@ public class InternalAssureParser extends AbstractInternalAntlrParser {
 
     // $ANTLR start synpred1_InternalAssure
     public final void synpred1_InternalAssure_fragment() throws RecognitionException {   
-        // InternalAssure.g:2472:7: ( ( 'this' ) )
-        // InternalAssure.g:2473:1: ( 'this' )
+        // InternalAssure.g:2618:7: ( ( 'this' ) )
+        // InternalAssure.g:2619:1: ( 'this' )
         {
-        // InternalAssure.g:2473:1: ( 'this' )
-        // InternalAssure.g:2474:2: 'this'
+        // InternalAssure.g:2619:1: ( 'this' )
+        // InternalAssure.g:2620:2: 'this'
         {
-        match(input,64,FOLLOW_2); if (state.failed) return ;
+        match(input,67,FOLLOW_2); if (state.failed) return ;
 
         }
 
@@ -14988,11 +14989,11 @@ public class InternalAssureParser extends AbstractInternalAntlrParser {
 
     // $ANTLR start synpred2_InternalAssure
     public final void synpred2_InternalAssure_fragment() throws RecognitionException {   
-        // InternalAssure.g:2494:7: ( ( ruleImageReference ) )
-        // InternalAssure.g:2495:1: ( ruleImageReference )
+        // InternalAssure.g:2640:7: ( ( ruleImageReference ) )
+        // InternalAssure.g:2641:1: ( ruleImageReference )
         {
-        // InternalAssure.g:2495:1: ( ruleImageReference )
-        // InternalAssure.g:2496:1: ruleImageReference
+        // InternalAssure.g:2641:1: ( ruleImageReference )
+        // InternalAssure.g:2642:1: ruleImageReference
         {
         pushFollow(FOLLOW_2);
         ruleImageReference();
@@ -15442,7 +15443,7 @@ public class InternalAssureParser extends AbstractInternalAntlrParser {
     public static final BitSet FOLLOW_26 = new BitSet(new long[]{0x0000000008000000L});
     public static final BitSet FOLLOW_27 = new BitSet(new long[]{0x0000001C00000000L,0x00000C0000000000L});
     public static final BitSet FOLLOW_28 = new BitSet(new long[]{0x3FFFFF0030180000L});
-    public static final BitSet FOLLOW_29 = new BitSet(new long[]{0x0000000C00100000L,0x00030C0000000000L});
+    public static final BitSet FOLLOW_29 = new BitSet(new long[]{0x0000000C00100000L,0x0007080000000000L});
     public static final BitSet FOLLOW_30 = new BitSet(new long[]{0x3FFFFF0020180000L});
     public static final BitSet FOLLOW_31 = new BitSet(new long[]{0x3FFFFF0000180000L});
     public static final BitSet FOLLOW_32 = new BitSet(new long[]{0x0000000000180000L});
@@ -15485,9 +15486,9 @@ public class InternalAssureParser extends AbstractInternalAntlrParser {
     public static final BitSet FOLLOW_69 = new BitSet(new long[]{0x2000000000000002L});
     public static final BitSet FOLLOW_70 = new BitSet(new long[]{0x4000000000000000L});
     public static final BitSet FOLLOW_71 = new BitSet(new long[]{0x8000000000000002L});
-    public static final BitSet FOLLOW_72 = new BitSet(new long[]{0x0000000000040002L,0x000000000000000EL});
-    public static final BitSet FOLLOW_73 = new BitSet(new long[]{0x0000000000040002L,0x000000000000000CL});
-    public static final BitSet FOLLOW_74 = new BitSet(new long[]{0x0000000000040002L,0x0000000000000008L});
+    public static final BitSet FOLLOW_72 = new BitSet(new long[]{0x0000000000040002L,0x0000000000000007L});
+    public static final BitSet FOLLOW_73 = new BitSet(new long[]{0x0000000000040002L,0x0000000000000006L});
+    public static final BitSet FOLLOW_74 = new BitSet(new long[]{0x0000000000040002L,0x0000000000000004L});
     public static final BitSet FOLLOW_75 = new BitSet(new long[]{0x0000000000040002L});
     public static final BitSet FOLLOW_76 = new BitSet(new long[]{0x0000000000000002L,0x0000000000000040L});
     public static final BitSet FOLLOW_77 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000200L});
@@ -15496,7 +15497,7 @@ public class InternalAssureParser extends AbstractInternalAntlrParser {
     public static final BitSet FOLLOW_80 = new BitSet(new long[]{0x0000000000000000L,0x0000000000002000L});
     public static final BitSet FOLLOW_81 = new BitSet(new long[]{0x8000000000000000L});
     public static final BitSet FOLLOW_82 = new BitSet(new long[]{0x0000000000000002L,0x000000000000C000L});
-    public static final BitSet FOLLOW_83 = new BitSet(new long[]{0x40000000000400F0L,0x000000D0C6000001L});
+    public static final BitSet FOLLOW_83 = new BitSet(new long[]{0x40000000000400F0L,0x000000D0C6000008L});
     public static final BitSet FOLLOW_84 = new BitSet(new long[]{0x0000000000000002L,0x0000000000030000L});
     public static final BitSet FOLLOW_85 = new BitSet(new long[]{0x0000000000000002L,0x00000000000C0000L});
     public static final BitSet FOLLOW_86 = new BitSet(new long[]{0x0000000000000002L,0x0000000001F00000L});
@@ -15504,7 +15505,7 @@ public class InternalAssureParser extends AbstractInternalAntlrParser {
     public static final BitSet FOLLOW_88 = new BitSet(new long[]{0x0000000000000002L,0x0000000038002000L});
     public static final BitSet FOLLOW_89 = new BitSet(new long[]{0x0000000000000022L,0x0000000000000C00L});
     public static final BitSet FOLLOW_90 = new BitSet(new long[]{0x0000000000000000L,0x0000000080000000L});
-    public static final BitSet FOLLOW_91 = new BitSet(new long[]{0x40000000000400F0L,0x000000D2C6000001L});
+    public static final BitSet FOLLOW_91 = new BitSet(new long[]{0x40000000000400F0L,0x000000D2C6000008L});
     public static final BitSet FOLLOW_92 = new BitSet(new long[]{0x0000000000000000L,0x0000000300000000L});
     public static final BitSet FOLLOW_93 = new BitSet(new long[]{0x0000000000000000L,0x0000000400000000L});
     public static final BitSet FOLLOW_94 = new BitSet(new long[]{0x0000000000100000L,0x0000000800000000L});

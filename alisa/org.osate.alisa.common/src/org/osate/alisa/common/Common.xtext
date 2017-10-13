@@ -27,20 +27,6 @@ Uncertainty:
 	']'
 ;
 
-// This is similar to diagnostics
-ResultIssue returns ResultIssue:
-	issueType=ResultIssueType
-	message=STRING
-	('target' target=[ecore::EObject|NoQuoteString])?
-	('exception' exceptionType = STRING)?
-	('diagnosticId' diagnosticId = STRING)?
-	('[' issues+=ResultIssue*']')?
-;
-
-
-enum ResultIssueType:
-	TBD = 'tbd'| ERROR='error' |  WARNING='warning' | INFO='info' | SUCCESS='success' | FAIL='fail' 
-;
 
 TypeRef returns aadl2::PropertyType:
 	{aadl2::AadlBoolean} 'boolean'

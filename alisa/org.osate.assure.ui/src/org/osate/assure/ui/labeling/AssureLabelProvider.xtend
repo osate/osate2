@@ -27,8 +27,8 @@ import org.osate.assure.assure.AssuranceCaseResult
 import org.osate.assure.assure.ValidationResult
 import org.osate.assure.assure.ThenResult
 import org.osate.assure.assure.ElseResult
-import org.osate.alisa.common.common.ResultIssue
-import org.osate.alisa.common.common.ResultIssueType
+import org.osate.result.Issue
+import org.osate.result.IssueType
 import org.osate.assure.assure.ModelResult
 import org.osate.assure.assure.SubsystemResult
 import org.osate.assure.assure.PreconditionResult
@@ -81,8 +81,8 @@ class AssureLabelProvider extends org.eclipse.xtext.ui.label.DefaultEObjectLabel
 		+ ele.assureResultCounts
 	}
 	
-	def text(ResultIssue ele) {
-		return "Issue "+(ele.target?.constructLabel?:"")+ ele.constructMessage
+	def text(Issue ele) {
+		return "Issue "+(ele.sourceReference?.constructLabel?:"")+ ele.constructMessage
 	}
 	
 	def text(ElseResult ele) {
@@ -92,14 +92,14 @@ class AssureLabelProvider extends org.eclipse.xtext.ui.label.DefaultEObjectLabel
 		'then: '+ ele.assureResultCounts
 	}
 
-	def image(ResultIssue ele) {
+	def image(Issue ele) {
 		switch(ele.issueType){
 			case ERROR: 'error.png'
 			case SUCCESS: 'valid.png'
 			case WARNING: 'warning.png'
 			case INFO: 'info.png'
 			case FAIL: 'invalid.png'
-			case TBD: 'questionmark.png'
+			case NONE: 'questionmark.png'
 		}
 	}
 	

@@ -114,11 +114,6 @@ public class CommonAdapterFactory extends AdapterFactoryImpl
         return createUncertaintyAdapter();
       }
       @Override
-      public Adapter caseResultIssue(ResultIssue object)
-      {
-        return createResultIssueAdapter();
-      }
-      @Override
       public Adapter caseAVariableDeclaration(AVariableDeclaration object)
       {
         return createAVariableDeclarationAdapter();
@@ -306,21 +301,6 @@ public class CommonAdapterFactory extends AdapterFactoryImpl
    * @generated
    */
   public Adapter createUncertaintyAdapter()
-  {
-    return null;
-  }
-
-  /**
-   * Creates a new adapter for an object of class '{@link org.osate.alisa.common.common.ResultIssue <em>Result Issue</em>}'.
-   * <!-- begin-user-doc -->
-   * This default implementation returns null so that we can easily ignore cases;
-   * it's useful to ignore a case when inheritance will catch all the cases anyway.
-   * <!-- end-user-doc -->
-   * @return the new adapter.
-   * @see org.osate.alisa.common.common.ResultIssue
-   * @generated
-   */
-  public Adapter createResultIssueAdapter()
   {
     return null;
   }

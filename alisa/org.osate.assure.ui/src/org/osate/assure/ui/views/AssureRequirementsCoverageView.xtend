@@ -38,7 +38,7 @@ import org.eclipse.xtext.resource.IResourceDescriptions
 import org.eclipse.xtext.ui.editor.GlobalURIEditorOpener
 import org.eclipse.xtext.ui.resource.IResourceSetProvider
 import org.osate.aadl2.util.Activator
-import org.osate.alisa.common.common.ResultIssue
+import org.osate.result.Issue
 import org.osate.alisa.workbench.alisa.AlisaPackage
 import org.osate.alisa.workbench.alisa.AssuranceCase
 import org.osate.alisa.workbench.alisa.AssurancePlan
@@ -352,7 +352,7 @@ class AssureRequirementsCoverageView extends ViewPart {
 							VerificationActivityResult: "Evidence " + eObject.name
 							ValidationResult: "Validation " + eObject.name
 							PreconditionResult: "Precondition " + eObject.name
-							ResultIssue: "Issue " + (eObject.target?.constructLabel ?: eObject.constructMessage)
+							Issue: "Issue " + (eObject.sourceReference?.constructLabel ?: eObject.constructMessage)
 							ElseResult: "else"
 							ThenResult: "then"
 							default: "?"
@@ -361,14 +361,14 @@ class AssureRequirementsCoverageView extends ViewPart {
 
 					override getImage(Object element) {
 						val fileName = switch eObject : resourceSetForUI.getEObject(element as URI, true) {
-							ResultIssue:
+							Issue:
 								switch eObject.issueType {
 									case ERROR: "error.png"
 									case SUCCESS: "valid.png"
 									case WARNING: "warning.png"
 									case INFO: "info.png"
 									case FAIL: "invalid.png"
-									case TBD: "questionmark.png"
+									case NONE: "questionmark.png"
 								}
 							AssuranceCaseResult:
 								"assure.png"
@@ -410,8 +410,8 @@ class AssureRequirementsCoverageView extends ViewPart {
 								val cumulativeNoPlan = eObject.cumulativeRequirementsWithoutPlanClaimCount
 								'''«noPlan» of «reqs» | Cume: «cumulativeNoPlan» of «eObject.cumulativeRequirementsCount»'''
 							}
-							ResultIssue:
-								eObject.target?.constructLabel ?: eObject.constructMessage
+							Issue:
+								eObject.sourceReference?.constructLabel ?: eObject.constructMessage
 							ElseResult:
 								"else"
 							ThenResult:
@@ -465,8 +465,8 @@ class AssureRequirementsCoverageView extends ViewPart {
 										eObject.cumulativeTotalQualityCategorysCount)
 										'''«qualityReqs» of «totalQuality» | Cume: «percent»'''
 									}
-									ResultIssue:
-										eObject.target?.constructLabel ?: eObject.constructMessage
+									Issue:
+										eObject.sourceReference?.constructLabel ?: eObject.constructMessage
 									ElseResult:
 										"else"
 									ThenResult:
@@ -517,8 +517,8 @@ class AssureRequirementsCoverageView extends ViewPart {
 										val cumulativeFeatures = eObject.cumulativeFeaturesCount
 										'''«featuresReqs» for «features» | Cume: «cumulativeFeaturesReqs» for «cumulativeFeatures»'''
 									}
-									ResultIssue:
-										eObject.target?.constructLabel ?: eObject.constructMessage
+									Issue:
+										eObject.sourceReference?.constructLabel ?: eObject.constructMessage
 									ElseResult:
 										"else"
 									ThenResult:
@@ -561,7 +561,7 @@ class AssureRequirementsCoverageView extends ViewPart {
 									ModelResult,
 									SubsystemResult: eObject.metrics.noVerificationPlansCount + " | Cume: " +
 										eObject.cumulativeNoVerificationPlansCount
-									ResultIssue: eObject.target?.constructLabel ?: eObject.constructMessage
+									Issue: eObject.sourceReference?.constructLabel ?: eObject.constructMessage
 									ElseResult: "else"
 									ThenResult: "then"
 									default: "?"

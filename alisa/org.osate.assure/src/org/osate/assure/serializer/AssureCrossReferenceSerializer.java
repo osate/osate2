@@ -29,14 +29,14 @@ import org.osate.aadl2.Property;
 import org.osate.aadl2.PropertyConstant;
 import org.osate.aadl2.PropertyType;
 import org.osate.aadl2.modelsupport.util.AadlUtil;
-import org.osate.alisa.common.common.ResultIssue;
+import org.osate.result.Issue;
 
 public class AssureCrossReferenceSerializer extends CrossReferenceSerializer {
 
 	@Override
 	protected String getCrossReferenceNameFromScope(EObject semanticObject, CrossReference crossref, EObject target,
 			final IScope scope, Acceptor errors) {
-		if (semanticObject instanceof ResultIssue) {
+		if (semanticObject instanceof Issue) {
 			return '"' + EcoreUtil.getURI(target).toString() + '"';
 		}
 		if (target instanceof Classifier) {

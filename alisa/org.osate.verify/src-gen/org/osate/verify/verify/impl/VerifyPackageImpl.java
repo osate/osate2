@@ -32,6 +32,8 @@ import org.osate.alisa.common.common.CommonPackage;
 
 import org.osate.categories.categories.CategoriesPackage;
 
+import org.osate.organization.organization.OrganizationPackage;
+
 import org.osate.reqspec.reqSpec.ReqSpecPackage;
 
 import org.osate.verify.verify.AgreeMethod;
@@ -61,6 +63,8 @@ import org.osate.verify.verify.VerificationPrecondition;
 import org.osate.verify.verify.VerificationValidation;
 import org.osate.verify.verify.VerifyFactory;
 import org.osate.verify.verify.VerifyPackage;
+
+import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelPackage;
 
 /**
  * <!-- begin-user-doc -->
@@ -295,7 +299,13 @@ public class VerifyPackageImpl extends EPackageImpl implements VerifyPackage
 
     // Initialize simple dependencies
     ResolutePackage.eINSTANCE.eClass();
+    EcorePackage.eINSTANCE.eClass();
+    Aadl2Package.eINSTANCE.eClass();
+    CommonPackage.eINSTANCE.eClass();
+    CategoriesPackage.eINSTANCE.eClass();
     ReqSpecPackage.eINSTANCE.eClass();
+    OrganizationPackage.eINSTANCE.eClass();
+    ErrorModelPackage.eINSTANCE.eClass();
 
     // Create package meta-data objects
     theVerifyPackage.createPackageContents();

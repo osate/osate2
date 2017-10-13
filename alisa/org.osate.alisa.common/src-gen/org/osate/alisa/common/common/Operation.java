@@ -266,7 +266,7 @@ public enum Operation implements Enumerator
    * </p>
    * <!-- end-user-doc -->
    * @see #ALT_AND
-   * @model literal="&&"
+   * @model literal="&amp;&amp;"
    * @generated
    * @ordered
    */
@@ -311,7 +311,7 @@ public enum Operation implements Enumerator
    * </p>
    * <!-- end-user-doc -->
    * @see #GEQ
-   * @model literal=">="
+   * @model literal="&gt;="
    * @generated
    * @ordered
    */
@@ -326,7 +326,7 @@ public enum Operation implements Enumerator
    * </p>
    * <!-- end-user-doc -->
    * @see #LEQ
-   * @model literal="<="
+   * @model literal="&lt;="
    * @generated
    * @ordered
    */
@@ -341,7 +341,7 @@ public enum Operation implements Enumerator
    * </p>
    * <!-- end-user-doc -->
    * @see #GT
-   * @model literal=">"
+   * @model literal="&gt;"
    * @generated
    * @ordered
    */
@@ -356,7 +356,7 @@ public enum Operation implements Enumerator
    * </p>
    * <!-- end-user-doc -->
    * @see #LT
-   * @model literal="<"
+   * @model literal="&lt;"
    * @generated
    * @ordered
    */
@@ -371,7 +371,7 @@ public enum Operation implements Enumerator
    * </p>
    * <!-- end-user-doc -->
    * @see #IN
-   * @model literal="><"
+   * @model literal="&gt;&lt;"
    * @generated
    * @ordered
    */

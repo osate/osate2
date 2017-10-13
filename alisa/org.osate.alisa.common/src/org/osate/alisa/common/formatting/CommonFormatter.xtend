@@ -51,6 +51,5 @@ class CommonFormatter extends AbstractDeclarativeFormatter {
 			c.setIndentationDecrement().before(pair.second);
 			c.setLinewrap().before(pair.second);
 		}
-		c.setLinewrap().after(resultIssueRule);
 	}
 }

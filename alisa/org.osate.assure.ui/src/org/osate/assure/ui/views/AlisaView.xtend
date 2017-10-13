@@ -51,7 +51,7 @@ import org.eclipse.xtext.resource.IResourceDescriptions
 import org.eclipse.xtext.ui.editor.GlobalURIEditorOpener
 import org.eclipse.xtext.ui.resource.IResourceSetProvider
 import org.osate.aadl2.util.Activator
-import org.osate.alisa.common.common.ResultIssue
+import org.osate.result.Issue
 import org.osate.alisa.workbench.alisa.AlisaPackage
 import org.osate.alisa.workbench.alisa.AssuranceCase
 import org.osate.alisa.workbench.alisa.AssurancePlan
@@ -416,8 +416,8 @@ class AlisaView extends ViewPart {
 								"Validation " + eObject.name
 							PreconditionResult:
 								"Precondition " + eObject.name
-							ResultIssue:
-								"Issue " + (eObject.target?.constructLabel ?: eObject.constructMessage)
+							Issue:
+								"Issue " + (eObject.sourceReference?.constructLabel ?: eObject.constructMessage)
 							ElseResult:
 								"else"
 							ThenResult:
@@ -438,14 +438,14 @@ class AlisaView extends ViewPart {
 
 					override getImage(Object element) {
 						val imageFileName = switch eObject : resourceSetForUI.getEObject(element as URI, true) {
-							ResultIssue:
+							Issue:
 								switch eObject.issueType {
 									case ERROR: "error.png"
 									case SUCCESS: "valid.png"
 									case WARNING: "warning.png"
 									case INFO: "info.png"
 									case FAIL: "invalid.png"
-									case TBD: "questionmark.png"
+									case NONE: "questionmark.png"
 								}
 							AssureResult case eObject.successful:
 								"valid.png"
@@ -541,7 +541,7 @@ class AlisaView extends ViewPart {
 							AssuranceCaseResult: eObject.constructMessage
 							ModelResult: eObject.constructMessage
 							SubsystemResult: eObject.constructMessage
-							ResultIssue: eObject.constructMessage
+							Issue: eObject.constructMessage
 							ElseResult: "else"
 							ThenResult: "then"
 							PredicateResult: eObject.constructMessage

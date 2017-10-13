@@ -51,7 +51,6 @@ import org.osate.alisa.common.common.ImageReference;
 import org.osate.alisa.common.common.ModelRef;
 import org.osate.alisa.common.common.PropertyRef;
 import org.osate.alisa.common.common.Rationale;
-import org.osate.alisa.common.common.ResultIssue;
 import org.osate.alisa.common.common.TypeRef;
 import org.osate.alisa.common.common.Uncertainty;
 import org.osate.alisa.common.common.ValDeclaration;
@@ -72,6 +71,8 @@ import org.osate.assure.assure.ThenResult;
 import org.osate.assure.assure.ValidationResult;
 import org.osate.assure.assure.VerificationActivityResult;
 import org.osate.assure.services.AssureGrammarAccess;
+import org.osate.result.Issue;
+import org.osate.result.ResultPackage;
 
 @SuppressWarnings("all")
 public class AssureSemanticSequencer extends CommonSemanticSequencer {
@@ -256,9 +257,6 @@ public class AssureSemanticSequencer extends CommonSemanticSequencer {
 			case CommonPackage.RATIONALE:
 				sequence_Rationale(context, (Rationale) semanticObject); 
 				return; 
-			case CommonPackage.RESULT_ISSUE:
-				sequence_ResultIssue(context, (ResultIssue) semanticObject); 
-				return; 
 			case CommonPackage.TYPE_REF:
 				sequence_TypeRef(context, (TypeRef) semanticObject); 
 				return; 
@@ -267,6 +265,12 @@ public class AssureSemanticSequencer extends CommonSemanticSequencer {
 				return; 
 			case CommonPackage.VAL_DECLARATION:
 				sequence_ValDeclaration(context, (ValDeclaration) semanticObject); 
+				return; 
+			}
+		else if (epackage == ResultPackage.eINSTANCE)
+			switch (semanticObject.eClass().getClassifierID()) {
+			case ResultPackage.ISSUE:
+				sequence_ResultIssue(context, (Issue) semanticObject); 
 				return; 
 			}
 		if (errorAcceptor != null)
@@ -406,7 +410,7 @@ public class AssureSemanticSequencer extends CommonSemanticSequencer {
 	 *         executionState=VerificationExecutionState 
 	 *         resultState=VerificationResultState 
 	 *         issues+=ResultIssue* 
-	 *         resultReport=[ResultReport|QualifiedName]? 
+	 *         results=[Result|QualifiedName]? 
 	 *         metrics=Metrics 
 	 *         message=STRING?
 	 *     )
@@ -427,7 +431,7 @@ public class AssureSemanticSequencer extends CommonSemanticSequencer {
 	 *         executionState=VerificationExecutionState 
 	 *         resultState=VerificationResultState 
 	 *         issues+=ResultIssue* 
-	 *         resultReport=[ResultReport|QualifiedName]? 
+	 *         results=[Result|QualifiedName]? 
 	 *         metrics=Metrics 
 	 *         message=STRING?
 	 *     )
@@ -486,6 +490,25 @@ public class AssureSemanticSequencer extends CommonSemanticSequencer {
 	
 	/**
 	 * Contexts:
+	 *     ResultIssue returns Issue
+	 *
+	 * Constraint:
+	 *     (
+	 *         issueType=ResultIssueType 
+	 *         message=STRING 
+	 *         sourceReference=[EObject|NoQuoteString]? 
+	 *         exceptionType=STRING? 
+	 *         diagnostic=STRING? 
+	 *         issues+=ResultIssue*
+	 *     )
+	 */
+	protected void sequence_ResultIssue(ISerializationContext context, Issue semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Contexts:
 	 *     SubsystemResult returns SubsystemResult
 	 *     AssureResult returns SubsystemResult
 	 *
@@ -522,7 +545,7 @@ public class AssureSemanticSequencer extends CommonSemanticSequencer {
 	 *         executionState=VerificationExecutionState 
 	 *         resultState=VerificationResultState 
 	 *         issues+=ResultIssue* 
-	 *         resultReport=[ResultReport|QualifiedName]? 
+	 *         results=[Result|QualifiedName]? 
 	 *         metrics=Metrics 
 	 *         message=STRING?
 	 *     )
@@ -544,7 +567,7 @@ public class AssureSemanticSequencer extends CommonSemanticSequencer {
 	 *         executionState=VerificationExecutionState 
 	 *         resultState=VerificationResultState 
 	 *         issues+=ResultIssue* 
-	 *         resultReport=[ResultReport|QualifiedName]? 
+	 *         results=[Result|QualifiedName]? 
 	 *         metrics=Metrics 
 	 *         message=STRING? 
 	 *         preconditionResult=PreconditionResult? 

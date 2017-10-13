@@ -49,12 +49,8 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cRightSquareBracketKeyword_6 = (Keyword)cGroup.eContents().get(6);
 		
 		//// result for a system in the architecture hierarchy
-		//AssuranceCaseResult:
-		//	'case' name=QualifiedName
-		//	'['
-		//	metrics=Metrics ('message' message=STRING)?
-		//	modelResult+=ModelResult*
-		//	']';
+		// AssuranceCaseResult:
+		//	'case' name=QualifiedName '[' metrics=Metrics ('message' message=STRING)? modelResult+=ModelResult* ']';
 		@Override public ParserRule getRule() { return rule; }
 
 		//'case' name=QualifiedName '[' metrics=Metrics ('message' message=STRING)? modelResult+=ModelResult* ']'
@@ -128,12 +124,9 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cRightSquareBracketKeyword_9 = (Keyword)cGroup.eContents().get(9);
 		
 		//ModelResult:
-		//	'model' plan=[Alisa::AssurancePlan|QualifiedName]
-		//	'for' target=[aadl2::ComponentImplementation|AadlClassifierReference]
-		//	'['
-		//	metrics=Metrics ('message' message=STRING)?
-		//	claimResult+=ClaimResult* (subsystemResult+=SubsystemResult | subAssuranceCase+=AssuranceCaseResult)*
-		//	']';
+		//	'model' plan=[Alisa::AssurancePlan|QualifiedName] 'for'
+		//	target=[aadl2::ComponentImplementation|AadlClassifierReference] '[' metrics=Metrics ('message' message=STRING)?
+		//	claimResult+=ClaimResult* (subsystemResult+=SubsystemResult | subAssuranceCase+=AssuranceCaseResult)* ']';
 		@Override public ParserRule getRule() { return rule; }
 
 		//'model' plan=[Alisa::AssurancePlan|QualifiedName] 'for' target=[aadl2::ComponentImplementation|AadlClassifierReference]
@@ -233,24 +226,20 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 		
 		//SubsystemResult:
 		//	'subsystem' //name=QualifiedName 'for' 
-		//	targetSystem=[aadl2::Subcomponent]
-		//	'['
-		//	metrics=Metrics ('message' message=STRING)?
-		//	claimResult+=ClaimResult*
-		//	subsystemResult+=SubsystemResult*
-		//	']';
+		// targetSystem=[aadl2::Subcomponent] '[' metrics=Metrics ('message'
+		//	message=STRING)? claimResult+=ClaimResult* subsystemResult+=SubsystemResult* ']';
 		@Override public ParserRule getRule() { return rule; }
 
 		//'subsystem' //name=QualifiedName 'for' 
-		//targetSystem=[aadl2::Subcomponent] '[' metrics=Metrics ('message' message=STRING)? claimResult+=ClaimResult*
-		//subsystemResult+=SubsystemResult* ']'
+		// targetSystem=[aadl2::Subcomponent] '[' metrics=Metrics ('message'
+		//message=STRING)? claimResult+=ClaimResult* subsystemResult+=SubsystemResult* ']'
 		public Group getGroup() { return cGroup; }
 
 		//'subsystem'
 		public Keyword getSubsystemKeyword_0() { return cSubsystemKeyword_0; }
 
 		////name=QualifiedName 'for' 
-		//targetSystem=[aadl2::Subcomponent]
+		// targetSystem=[aadl2::Subcomponent]
 		public Assignment getTargetSystemAssignment_1() { return cTargetSystemAssignment_1; }
 
 		//[aadl2::Subcomponent]
@@ -323,18 +312,16 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cRightSquareBracketKeyword_9 = (Keyword)cGroup.eContents().get(9);
 		
 		//// Result of meeting a requirement
-		//ClaimResult:
+		// ClaimResult:
 		//	'claim' targetReference=QualifiedClaimReference //target=[ReqSpec::Requirement|QualifiedName]
-		//	'['
-		//	metrics=Metrics ('for' modelElement=[aadl2::NamedElement])? ('message' message=STRING)?
-		//	subClaimResult+=ClaimResult*
-		//	verificationActivityResult+=VerificationExpr*
-		//	predicateResult=PredicateResult?
-		//	']';
+		// '[' metrics=Metrics
+		//	('for' modelElement=[aadl2::NamedElement])? ('message' message=STRING)? subClaimResult+=ClaimResult*
+		//	verificationActivityResult+=VerificationExpr* predicateResult=PredicateResult? ']';
 		@Override public ParserRule getRule() { return rule; }
 
 		//'claim' targetReference=QualifiedClaimReference //target=[ReqSpec::Requirement|QualifiedName]
-		//'[' metrics=Metrics ('for' modelElement=[aadl2::NamedElement])? ('message' message=STRING)? subClaimResult+=ClaimResult*
+		// '[' metrics=Metrics
+		//('for' modelElement=[aadl2::NamedElement])? ('message' message=STRING)? subClaimResult+=ClaimResult*
 		//verificationActivityResult+=VerificationExpr* predicateResult=PredicateResult? ']'
 		public Group getGroup() { return cGroup; }
 
@@ -348,7 +335,7 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 		public RuleCall getTargetReferenceQualifiedClaimReferenceParserRuleCall_1_0() { return cTargetReferenceQualifiedClaimReferenceParserRuleCall_1_0; }
 
 		////target=[ReqSpec::Requirement|QualifiedName]
-		//'['
+		// '['
 		public Keyword getLeftSquareBracketKeyword_2() { return cLeftSquareBracketKeyword_2; }
 
 		//metrics=Metrics
@@ -428,10 +415,10 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cIssuesResultIssueParserRuleCall_8_2_0 = (RuleCall)cIssuesAssignment_8_2.eContents().get(0);
 		private final Keyword cRightSquareBracketKeyword_8_3 = (Keyword)cGroup_8.eContents().get(3);
 		private final Group cGroup_9 = (Group)cGroup.eContents().get(9);
-		private final Keyword cReportKeyword_9_0 = (Keyword)cGroup_9.eContents().get(0);
-		private final Assignment cResultReportAssignment_9_1 = (Assignment)cGroup_9.eContents().get(1);
-		private final CrossReference cResultReportResultReportCrossReference_9_1_0 = (CrossReference)cResultReportAssignment_9_1.eContents().get(0);
-		private final RuleCall cResultReportResultReportQualifiedNameParserRuleCall_9_1_0_1 = (RuleCall)cResultReportResultReportCrossReference_9_1_0.eContents().get(1);
+		private final Keyword cResultsKeyword_9_0 = (Keyword)cGroup_9.eContents().get(0);
+		private final Assignment cResultsAssignment_9_1 = (Assignment)cGroup_9.eContents().get(1);
+		private final CrossReference cResultsResultCrossReference_9_1_0 = (CrossReference)cResultsAssignment_9_1.eContents().get(0);
+		private final RuleCall cResultsResultQualifiedNameParserRuleCall_9_1_0_1 = (RuleCall)cResultsResultCrossReference_9_1_0.eContents().get(1);
 		private final Assignment cMetricsAssignment_10 = (Assignment)cGroup.eContents().get(10);
 		private final RuleCall cMetricsMetricsParserRuleCall_10_0 = (RuleCall)cMetricsAssignment_10.eContents().get(0);
 		private final Group cGroup_11 = (Group)cGroup.eContents().get(11);
@@ -441,19 +428,17 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cRightSquareBracketKeyword_12 = (Keyword)cGroup.eContents().get(12);
 		
 		//PreconditionResult VerificationResult:
-		//	'precondition' {PreconditionResult} target=[Verify::VerificationMethod|QualifiedName]
-		//	'['
-		//	'executionstate' executionState=VerificationExecutionState
-		//	'resultstate' resultState=VerificationResultState ('issues' '['
-		//	issues+=ResultIssue*
-		//	']')? ('report' resultReport=[results::ResultReport|QualifiedName])? // pointer to separate report
-		//	metrics=Metrics ('message' message=STRING)?
-		//	']';
+		//	'precondition' {PreconditionResult} target=[Verify::VerificationMethod|QualifiedName] '[' 'executionstate'
+		//	executionState=VerificationExecutionState 'resultstate' resultState=VerificationResultState ('issues' '['
+		//	issues+=ResultIssue* ']')? ('results' results=[results::Result|QualifiedName])? // pointer to separate report
+		//
+		//	metrics=Metrics ('message' message=STRING)? ']';
 		@Override public ParserRule getRule() { return rule; }
 
 		//'precondition' {PreconditionResult} target=[Verify::VerificationMethod|QualifiedName] '[' 'executionstate'
 		//executionState=VerificationExecutionState 'resultstate' resultState=VerificationResultState ('issues' '['
-		//issues+=ResultIssue* ']')? ('report' resultReport=[results::ResultReport|QualifiedName])? // pointer to separate report
+		//issues+=ResultIssue* ']')? ('results' results=[results::Result|QualifiedName])? // pointer to separate report
+		//
 		//metrics=Metrics ('message' message=STRING)? ']'
 		public Group getGroup() { return cGroup; }
 
@@ -511,23 +496,23 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 		//']'
 		public Keyword getRightSquareBracketKeyword_8_3() { return cRightSquareBracketKeyword_8_3; }
 
-		//('report' resultReport=[results::ResultReport|QualifiedName])?
+		//('results' results=[results::Result|QualifiedName])?
 		public Group getGroup_9() { return cGroup_9; }
 
-		//'report'
-		public Keyword getReportKeyword_9_0() { return cReportKeyword_9_0; }
+		//'results'
+		public Keyword getResultsKeyword_9_0() { return cResultsKeyword_9_0; }
 
-		//resultReport=[results::ResultReport|QualifiedName]
-		public Assignment getResultReportAssignment_9_1() { return cResultReportAssignment_9_1; }
+		//results=[results::Result|QualifiedName]
+		public Assignment getResultsAssignment_9_1() { return cResultsAssignment_9_1; }
 
-		//[results::ResultReport|QualifiedName]
-		public CrossReference getResultReportResultReportCrossReference_9_1_0() { return cResultReportResultReportCrossReference_9_1_0; }
+		//[results::Result|QualifiedName]
+		public CrossReference getResultsResultCrossReference_9_1_0() { return cResultsResultCrossReference_9_1_0; }
 
 		//QualifiedName
-		public RuleCall getResultReportResultReportQualifiedNameParserRuleCall_9_1_0_1() { return cResultReportResultReportQualifiedNameParserRuleCall_9_1_0_1; }
+		public RuleCall getResultsResultQualifiedNameParserRuleCall_9_1_0_1() { return cResultsResultQualifiedNameParserRuleCall_9_1_0_1; }
 
 		//// pointer to separate report
-		//metrics=Metrics
+		// metrics=Metrics
 		public Assignment getMetricsAssignment_10() { return cMetricsAssignment_10; }
 
 		//Metrics
@@ -571,10 +556,10 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cIssuesResultIssueParserRuleCall_8_2_0 = (RuleCall)cIssuesAssignment_8_2.eContents().get(0);
 		private final Keyword cRightSquareBracketKeyword_8_3 = (Keyword)cGroup_8.eContents().get(3);
 		private final Group cGroup_9 = (Group)cGroup.eContents().get(9);
-		private final Keyword cReportKeyword_9_0 = (Keyword)cGroup_9.eContents().get(0);
-		private final Assignment cResultReportAssignment_9_1 = (Assignment)cGroup_9.eContents().get(1);
-		private final CrossReference cResultReportResultReportCrossReference_9_1_0 = (CrossReference)cResultReportAssignment_9_1.eContents().get(0);
-		private final RuleCall cResultReportResultReportQualifiedNameParserRuleCall_9_1_0_1 = (RuleCall)cResultReportResultReportCrossReference_9_1_0.eContents().get(1);
+		private final Keyword cResultsKeyword_9_0 = (Keyword)cGroup_9.eContents().get(0);
+		private final Assignment cResultsAssignment_9_1 = (Assignment)cGroup_9.eContents().get(1);
+		private final CrossReference cResultsResultCrossReference_9_1_0 = (CrossReference)cResultsAssignment_9_1.eContents().get(0);
+		private final RuleCall cResultsResultQualifiedNameParserRuleCall_9_1_0_1 = (RuleCall)cResultsResultCrossReference_9_1_0.eContents().get(1);
 		private final Assignment cMetricsAssignment_10 = (Assignment)cGroup.eContents().get(10);
 		private final RuleCall cMetricsMetricsParserRuleCall_10_0 = (RuleCall)cMetricsAssignment_10.eContents().get(0);
 		private final Group cGroup_11 = (Group)cGroup.eContents().get(11);
@@ -584,19 +569,17 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cRightSquareBracketKeyword_12 = (Keyword)cGroup.eContents().get(12);
 		
 		//ValidationResult VerificationResult:
-		//	'validation' {ValidationResult} target=[Verify::VerificationMethod|QualifiedName]
-		//	'['
-		//	'executionstate' executionState=VerificationExecutionState
-		//	'resultstate' resultState=VerificationResultState ('issues' '['
-		//	issues+=ResultIssue*
-		//	']')? ('report' resultReport=[results::ResultReport|QualifiedName])? // pointer to separate report
-		//	metrics=Metrics ('message' message=STRING)?
-		//	']';
+		//	'validation' {ValidationResult} target=[Verify::VerificationMethod|QualifiedName] '[' 'executionstate'
+		//	executionState=VerificationExecutionState 'resultstate' resultState=VerificationResultState ('issues' '['
+		//	issues+=ResultIssue* ']')? ('results' results=[results::Result|QualifiedName])? // pointer to separate report
+		//
+		//	metrics=Metrics ('message' message=STRING)? ']';
 		@Override public ParserRule getRule() { return rule; }
 
 		//'validation' {ValidationResult} target=[Verify::VerificationMethod|QualifiedName] '[' 'executionstate'
 		//executionState=VerificationExecutionState 'resultstate' resultState=VerificationResultState ('issues' '['
-		//issues+=ResultIssue* ']')? ('report' resultReport=[results::ResultReport|QualifiedName])? // pointer to separate report
+		//issues+=ResultIssue* ']')? ('results' results=[results::Result|QualifiedName])? // pointer to separate report
+		//
 		//metrics=Metrics ('message' message=STRING)? ']'
 		public Group getGroup() { return cGroup; }
 
@@ -654,23 +637,23 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 		//']'
 		public Keyword getRightSquareBracketKeyword_8_3() { return cRightSquareBracketKeyword_8_3; }
 
-		//('report' resultReport=[results::ResultReport|QualifiedName])?
+		//('results' results=[results::Result|QualifiedName])?
 		public Group getGroup_9() { return cGroup_9; }
 
-		//'report'
-		public Keyword getReportKeyword_9_0() { return cReportKeyword_9_0; }
+		//'results'
+		public Keyword getResultsKeyword_9_0() { return cResultsKeyword_9_0; }
 
-		//resultReport=[results::ResultReport|QualifiedName]
-		public Assignment getResultReportAssignment_9_1() { return cResultReportAssignment_9_1; }
+		//results=[results::Result|QualifiedName]
+		public Assignment getResultsAssignment_9_1() { return cResultsAssignment_9_1; }
 
-		//[results::ResultReport|QualifiedName]
-		public CrossReference getResultReportResultReportCrossReference_9_1_0() { return cResultReportResultReportCrossReference_9_1_0; }
+		//[results::Result|QualifiedName]
+		public CrossReference getResultsResultCrossReference_9_1_0() { return cResultsResultCrossReference_9_1_0; }
 
 		//QualifiedName
-		public RuleCall getResultReportResultReportQualifiedNameParserRuleCall_9_1_0_1() { return cResultReportResultReportQualifiedNameParserRuleCall_9_1_0_1; }
+		public RuleCall getResultsResultQualifiedNameParserRuleCall_9_1_0_1() { return cResultsResultQualifiedNameParserRuleCall_9_1_0_1; }
 
 		//// pointer to separate report
-		//metrics=Metrics
+		// metrics=Metrics
 		public Assignment getMetricsAssignment_10() { return cMetricsAssignment_10; }
 
 		//Metrics
@@ -713,10 +696,10 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cIssuesResultIssueParserRuleCall_8_2_0 = (RuleCall)cIssuesAssignment_8_2.eContents().get(0);
 		private final Keyword cRightSquareBracketKeyword_8_3 = (Keyword)cGroup_8.eContents().get(3);
 		private final Group cGroup_9 = (Group)cGroup.eContents().get(9);
-		private final Keyword cReportKeyword_9_0 = (Keyword)cGroup_9.eContents().get(0);
-		private final Assignment cResultReportAssignment_9_1 = (Assignment)cGroup_9.eContents().get(1);
-		private final CrossReference cResultReportResultReportCrossReference_9_1_0 = (CrossReference)cResultReportAssignment_9_1.eContents().get(0);
-		private final RuleCall cResultReportResultReportQualifiedNameParserRuleCall_9_1_0_1 = (RuleCall)cResultReportResultReportCrossReference_9_1_0.eContents().get(1);
+		private final Keyword cResultsKeyword_9_0 = (Keyword)cGroup_9.eContents().get(0);
+		private final Assignment cResultsAssignment_9_1 = (Assignment)cGroup_9.eContents().get(1);
+		private final CrossReference cResultsResultCrossReference_9_1_0 = (CrossReference)cResultsAssignment_9_1.eContents().get(0);
+		private final RuleCall cResultsResultQualifiedNameParserRuleCall_9_1_0_1 = (RuleCall)cResultsResultCrossReference_9_1_0.eContents().get(1);
 		private final Assignment cMetricsAssignment_10 = (Assignment)cGroup.eContents().get(10);
 		private final RuleCall cMetricsMetricsParserRuleCall_10_0 = (RuleCall)cMetricsAssignment_10.eContents().get(0);
 		private final Group cGroup_11 = (Group)cGroup.eContents().get(11);
@@ -730,23 +713,21 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cRightSquareBracketKeyword_14 = (Keyword)cGroup.eContents().get(14);
 		
 		//// result of executing a verification activity
-		//VerificationActivityResult VerificationResult:
-		//	'verification' {VerificationActivityResult} targetReference=QualifiedVAReference //target=[Verify::VerificationActivity|QualifiedName]
-		//	'['
-		//	'executionstate' executionState=VerificationExecutionState
-		//	'resultstate' resultState=VerificationResultState ('issues' '['
-		//	issues+=ResultIssue*
-		//	']')? ('report' resultReport=[results::ResultReport|QualifiedName])?
-		//	metrics=Metrics ('message' message=STRING)?
-		//	preconditionResult=PreconditionResult?
-		//	validationResult=ValidationResult?
-		//	']';
+		// VerificationActivityResult VerificationResult:
+		//	'verification' {VerificationActivityResult} targetReference=QualifiedVAReference
+		//	//target=[Verify::VerificationActivity|QualifiedName]
+		// '[' 'executionstate' executionState=VerificationExecutionState
+		//	'resultstate' resultState=VerificationResultState ('issues' '[' issues+=ResultIssue* ']')? ('results'
+		//	results=[results::Result|QualifiedName])? metrics=Metrics ('message' message=STRING)?
+		//	preconditionResult=PreconditionResult? validationResult=ValidationResult? ']';
 		@Override public ParserRule getRule() { return rule; }
 
-		//'verification' {VerificationActivityResult} targetReference=QualifiedVAReference //target=[Verify::VerificationActivity|QualifiedName]
-		//'[' 'executionstate' executionState=VerificationExecutionState 'resultstate' resultState=VerificationResultState
-		//('issues' '[' issues+=ResultIssue* ']')? ('report' resultReport=[results::ResultReport|QualifiedName])? metrics=Metrics
-		//('message' message=STRING)? preconditionResult=PreconditionResult? validationResult=ValidationResult? ']'
+		//'verification' {VerificationActivityResult} targetReference=QualifiedVAReference
+		////target=[Verify::VerificationActivity|QualifiedName]
+		// '[' 'executionstate' executionState=VerificationExecutionState
+		//'resultstate' resultState=VerificationResultState ('issues' '[' issues+=ResultIssue* ']')? ('results'
+		//results=[results::Result|QualifiedName])? metrics=Metrics ('message' message=STRING)?
+		//preconditionResult=PreconditionResult? validationResult=ValidationResult? ']'
 		public Group getGroup() { return cGroup; }
 
 		//'verification'
@@ -762,7 +743,7 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 		public RuleCall getTargetReferenceQualifiedVAReferenceParserRuleCall_2_0() { return cTargetReferenceQualifiedVAReferenceParserRuleCall_2_0; }
 
 		////target=[Verify::VerificationActivity|QualifiedName]
-		//'['
+		// '['
 		public Keyword getLeftSquareBracketKeyword_3() { return cLeftSquareBracketKeyword_3; }
 
 		//'executionstate'
@@ -801,20 +782,20 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 		//']'
 		public Keyword getRightSquareBracketKeyword_8_3() { return cRightSquareBracketKeyword_8_3; }
 
-		//('report' resultReport=[results::ResultReport|QualifiedName])?
+		//('results' results=[results::Result|QualifiedName])?
 		public Group getGroup_9() { return cGroup_9; }
 
-		//'report'
-		public Keyword getReportKeyword_9_0() { return cReportKeyword_9_0; }
+		//'results'
+		public Keyword getResultsKeyword_9_0() { return cResultsKeyword_9_0; }
 
-		//resultReport=[results::ResultReport|QualifiedName]
-		public Assignment getResultReportAssignment_9_1() { return cResultReportAssignment_9_1; }
+		//results=[results::Result|QualifiedName]
+		public Assignment getResultsAssignment_9_1() { return cResultsAssignment_9_1; }
 
-		//[results::ResultReport|QualifiedName]
-		public CrossReference getResultReportResultReportCrossReference_9_1_0() { return cResultReportResultReportCrossReference_9_1_0; }
+		//[results::Result|QualifiedName]
+		public CrossReference getResultsResultCrossReference_9_1_0() { return cResultsResultCrossReference_9_1_0; }
 
 		//QualifiedName
-		public RuleCall getResultReportResultReportQualifiedNameParserRuleCall_9_1_0_1() { return cResultReportResultReportQualifiedNameParserRuleCall_9_1_0_1; }
+		public RuleCall getResultsResultQualifiedNameParserRuleCall_9_1_0_1() { return cResultsResultQualifiedNameParserRuleCall_9_1_0_1; }
 
 		//metrics=Metrics
 		public Assignment getMetricsAssignment_10() { return cMetricsAssignment_10; }
@@ -871,10 +852,10 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cIssuesResultIssueParserRuleCall_8_2_0 = (RuleCall)cIssuesAssignment_8_2.eContents().get(0);
 		private final Keyword cRightSquareBracketKeyword_8_3 = (Keyword)cGroup_8.eContents().get(3);
 		private final Group cGroup_9 = (Group)cGroup.eContents().get(9);
-		private final Keyword cReportKeyword_9_0 = (Keyword)cGroup_9.eContents().get(0);
-		private final Assignment cResultReportAssignment_9_1 = (Assignment)cGroup_9.eContents().get(1);
-		private final CrossReference cResultReportResultReportCrossReference_9_1_0 = (CrossReference)cResultReportAssignment_9_1.eContents().get(0);
-		private final RuleCall cResultReportResultReportQualifiedNameParserRuleCall_9_1_0_1 = (RuleCall)cResultReportResultReportCrossReference_9_1_0.eContents().get(1);
+		private final Keyword cResultsKeyword_9_0 = (Keyword)cGroup_9.eContents().get(0);
+		private final Assignment cResultsAssignment_9_1 = (Assignment)cGroup_9.eContents().get(1);
+		private final CrossReference cResultsResultCrossReference_9_1_0 = (CrossReference)cResultsAssignment_9_1.eContents().get(0);
+		private final RuleCall cResultsResultQualifiedNameParserRuleCall_9_1_0_1 = (RuleCall)cResultsResultCrossReference_9_1_0.eContents().get(1);
 		private final Assignment cMetricsAssignment_10 = (Assignment)cGroup.eContents().get(10);
 		private final RuleCall cMetricsMetricsParserRuleCall_10_0 = (RuleCall)cMetricsAssignment_10.eContents().get(0);
 		private final Group cGroup_11 = (Group)cGroup.eContents().get(11);
@@ -884,20 +865,15 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cRightSquareBracketKeyword_12 = (Keyword)cGroup.eContents().get(12);
 		
 		//PredicateResult VerificationResult:
-		//	{PredicateResult}
-		//	'predicate' targetReference=QualifiedClaimReference
-		//	'['
-		//	'executionstate' executionState=VerificationExecutionState
-		//	'resultstate' resultState=VerificationResultState ('issues' '['
-		//	issues+=ResultIssue*
-		//	']')? ('report' resultReport=[results::ResultReport|QualifiedName])?
-		//	metrics=Metrics ('message' message=STRING)?
-		//	']';
+		//	{PredicateResult} 'predicate' targetReference=QualifiedClaimReference '[' 'executionstate'
+		//	executionState=VerificationExecutionState 'resultstate' resultState=VerificationResultState ('issues' '['
+		//	issues+=ResultIssue* ']')? ('results' results=[results::Result|QualifiedName])? metrics=Metrics ('message'
+		//	message=STRING)? ']';
 		@Override public ParserRule getRule() { return rule; }
 
 		//{PredicateResult} 'predicate' targetReference=QualifiedClaimReference '[' 'executionstate'
 		//executionState=VerificationExecutionState 'resultstate' resultState=VerificationResultState ('issues' '['
-		//issues+=ResultIssue* ']')? ('report' resultReport=[results::ResultReport|QualifiedName])? metrics=Metrics ('message'
+		//issues+=ResultIssue* ']')? ('results' results=[results::Result|QualifiedName])? metrics=Metrics ('message'
 		//message=STRING)? ']'
 		public Group getGroup() { return cGroup; }
 
@@ -952,20 +928,20 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 		//']'
 		public Keyword getRightSquareBracketKeyword_8_3() { return cRightSquareBracketKeyword_8_3; }
 
-		//('report' resultReport=[results::ResultReport|QualifiedName])?
+		//('results' results=[results::Result|QualifiedName])?
 		public Group getGroup_9() { return cGroup_9; }
 
-		//'report'
-		public Keyword getReportKeyword_9_0() { return cReportKeyword_9_0; }
+		//'results'
+		public Keyword getResultsKeyword_9_0() { return cResultsKeyword_9_0; }
 
-		//resultReport=[results::ResultReport|QualifiedName]
-		public Assignment getResultReportAssignment_9_1() { return cResultReportAssignment_9_1; }
+		//results=[results::Result|QualifiedName]
+		public Assignment getResultsAssignment_9_1() { return cResultsAssignment_9_1; }
 
-		//[results::ResultReport|QualifiedName]
-		public CrossReference getResultReportResultReportCrossReference_9_1_0() { return cResultReportResultReportCrossReference_9_1_0; }
+		//[results::Result|QualifiedName]
+		public CrossReference getResultsResultCrossReference_9_1_0() { return cResultsResultCrossReference_9_1_0; }
 
 		//QualifiedName
-		public RuleCall getResultReportResultReportQualifiedNameParserRuleCall_9_1_0_1() { return cResultReportResultReportQualifiedNameParserRuleCall_9_1_0_1; }
+		public RuleCall getResultsResultQualifiedNameParserRuleCall_9_1_0_1() { return cResultsResultQualifiedNameParserRuleCall_9_1_0_1; }
 
 		//metrics=Metrics
 		public Assignment getMetricsAssignment_10() { return cMetricsAssignment_10; }
@@ -1086,11 +1062,7 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 		
 		//ElseResult:
 		//	'else' first+=VerificationExpr+ ('error' error+=VerificationExpr+)? ('fail' fail+=VerificationExpr+)? ('timeout'
-		//	timeout+=VerificationExpr+)?
-		//	'['
-		//	didFail=ElseType?
-		//	metrics=Metrics
-		//	']';
+		//	timeout+=VerificationExpr+)? '[' didFail=ElseType? metrics=Metrics ']';
 		@Override public ParserRule getRule() { return rule; }
 
 		//'else' first+=VerificationExpr+ ('error' error+=VerificationExpr+)? ('fail' fail+=VerificationExpr+)? ('timeout'
@@ -1178,11 +1150,7 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cRightSquareBracketKeyword_7 = (Keyword)cGroup.eContents().get(7);
 		
 		//ThenResult:
-		//	'then' first+=VerificationExpr+ 'do' second+=VerificationExpr+
-		//	'['
-		//	didThenFail?='thenfailed'?
-		//	metrics=Metrics
-		//	']';
+		//	'then' first+=VerificationExpr+ 'do' second+=VerificationExpr+ '[' didThenFail?='thenfailed'? metrics=Metrics ']';
 		@Override public ParserRule getRule() { return rule; }
 
 		//'then' first+=VerificationExpr+ 'do' second+=VerificationExpr+ '[' didThenFail?='thenfailed'? metrics=Metrics ']'
@@ -1682,8 +1650,8 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cVerificationActivityVerificationActivityIDTerminalRuleCall_4_0_1 = (RuleCall)cVerificationActivityVerificationActivityCrossReference_4_0.eContents().get(1);
 		
 		//QualifiedVAReference:
-		//	verificationPlan=[Verify::VerificationPlan|QualifiedName] '#' requirement=NestedClaimReference
-		//	"#" verificationActivity=[Verify::VerificationActivity];
+		//	verificationPlan=[Verify::VerificationPlan|QualifiedName] '#' requirement=NestedClaimReference "#"
+		//	verificationActivity=[Verify::VerificationActivity];
 		@Override public ParserRule getRule() { return rule; }
 
 		//verificationPlan=[Verify::VerificationPlan|QualifiedName] '#' requirement=NestedClaimReference "#"
@@ -1759,6 +1727,108 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 
 		//NestedClaimReference
 		public RuleCall getSubNestedClaimReferenceParserRuleCall_1_1_0() { return cSubNestedClaimReferenceParserRuleCall_1_1_0; }
+	}
+
+	public class ResultIssueElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "org.osate.assure.Assure.ResultIssue");
+		private final Group cGroup = (Group)rule.eContents().get(1);
+		private final Assignment cIssueTypeAssignment_0 = (Assignment)cGroup.eContents().get(0);
+		private final RuleCall cIssueTypeResultIssueTypeEnumRuleCall_0_0 = (RuleCall)cIssueTypeAssignment_0.eContents().get(0);
+		private final Assignment cMessageAssignment_1 = (Assignment)cGroup.eContents().get(1);
+		private final RuleCall cMessageSTRINGTerminalRuleCall_1_0 = (RuleCall)cMessageAssignment_1.eContents().get(0);
+		private final Group cGroup_2 = (Group)cGroup.eContents().get(2);
+		private final Keyword cSourceKeyword_2_0 = (Keyword)cGroup_2.eContents().get(0);
+		private final Assignment cSourceReferenceAssignment_2_1 = (Assignment)cGroup_2.eContents().get(1);
+		private final CrossReference cSourceReferenceEObjectCrossReference_2_1_0 = (CrossReference)cSourceReferenceAssignment_2_1.eContents().get(0);
+		private final RuleCall cSourceReferenceEObjectNoQuoteStringParserRuleCall_2_1_0_1 = (RuleCall)cSourceReferenceEObjectCrossReference_2_1_0.eContents().get(1);
+		private final Group cGroup_3 = (Group)cGroup.eContents().get(3);
+		private final Keyword cExceptionKeyword_3_0 = (Keyword)cGroup_3.eContents().get(0);
+		private final Assignment cExceptionTypeAssignment_3_1 = (Assignment)cGroup_3.eContents().get(1);
+		private final RuleCall cExceptionTypeSTRINGTerminalRuleCall_3_1_0 = (RuleCall)cExceptionTypeAssignment_3_1.eContents().get(0);
+		private final Group cGroup_4 = (Group)cGroup.eContents().get(4);
+		private final Keyword cDiagnosticKeyword_4_0 = (Keyword)cGroup_4.eContents().get(0);
+		private final Assignment cDiagnosticAssignment_4_1 = (Assignment)cGroup_4.eContents().get(1);
+		private final RuleCall cDiagnosticSTRINGTerminalRuleCall_4_1_0 = (RuleCall)cDiagnosticAssignment_4_1.eContents().get(0);
+		private final Group cGroup_5 = (Group)cGroup.eContents().get(5);
+		private final Keyword cLeftSquareBracketKeyword_5_0 = (Keyword)cGroup_5.eContents().get(0);
+		private final Assignment cIssuesAssignment_5_1 = (Assignment)cGroup_5.eContents().get(1);
+		private final RuleCall cIssuesResultIssueParserRuleCall_5_1_0 = (RuleCall)cIssuesAssignment_5_1.eContents().get(0);
+		private final Keyword cRightSquareBracketKeyword_5_2 = (Keyword)cGroup_5.eContents().get(2);
+		
+		//ResultIssue results::Issue:
+		//	issueType=ResultIssueType message=STRING ('source' sourceReference=[ecore::EObject|NoQuoteString])? ('exception'
+		//	exceptionType=STRING)? ('diagnostic' diagnostic=STRING)? ('[' issues+=ResultIssue* ']')?;
+		@Override public ParserRule getRule() { return rule; }
+
+		//issueType=ResultIssueType message=STRING ('source' sourceReference=[ecore::EObject|NoQuoteString])? ('exception'
+		//exceptionType=STRING)? ('diagnostic' diagnostic=STRING)? ('[' issues+=ResultIssue* ']')?
+		public Group getGroup() { return cGroup; }
+
+		//issueType=ResultIssueType
+		public Assignment getIssueTypeAssignment_0() { return cIssueTypeAssignment_0; }
+
+		//ResultIssueType
+		public RuleCall getIssueTypeResultIssueTypeEnumRuleCall_0_0() { return cIssueTypeResultIssueTypeEnumRuleCall_0_0; }
+
+		//message=STRING
+		public Assignment getMessageAssignment_1() { return cMessageAssignment_1; }
+
+		//STRING
+		public RuleCall getMessageSTRINGTerminalRuleCall_1_0() { return cMessageSTRINGTerminalRuleCall_1_0; }
+
+		//('source' sourceReference=[ecore::EObject|NoQuoteString])?
+		public Group getGroup_2() { return cGroup_2; }
+
+		//'source'
+		public Keyword getSourceKeyword_2_0() { return cSourceKeyword_2_0; }
+
+		//sourceReference=[ecore::EObject|NoQuoteString]
+		public Assignment getSourceReferenceAssignment_2_1() { return cSourceReferenceAssignment_2_1; }
+
+		//[ecore::EObject|NoQuoteString]
+		public CrossReference getSourceReferenceEObjectCrossReference_2_1_0() { return cSourceReferenceEObjectCrossReference_2_1_0; }
+
+		//NoQuoteString
+		public RuleCall getSourceReferenceEObjectNoQuoteStringParserRuleCall_2_1_0_1() { return cSourceReferenceEObjectNoQuoteStringParserRuleCall_2_1_0_1; }
+
+		//('exception' exceptionType=STRING)?
+		public Group getGroup_3() { return cGroup_3; }
+
+		//'exception'
+		public Keyword getExceptionKeyword_3_0() { return cExceptionKeyword_3_0; }
+
+		//exceptionType=STRING
+		public Assignment getExceptionTypeAssignment_3_1() { return cExceptionTypeAssignment_3_1; }
+
+		//STRING
+		public RuleCall getExceptionTypeSTRINGTerminalRuleCall_3_1_0() { return cExceptionTypeSTRINGTerminalRuleCall_3_1_0; }
+
+		//('diagnostic' diagnostic=STRING)?
+		public Group getGroup_4() { return cGroup_4; }
+
+		//'diagnostic'
+		public Keyword getDiagnosticKeyword_4_0() { return cDiagnosticKeyword_4_0; }
+
+		//diagnostic=STRING
+		public Assignment getDiagnosticAssignment_4_1() { return cDiagnosticAssignment_4_1; }
+
+		//STRING
+		public RuleCall getDiagnosticSTRINGTerminalRuleCall_4_1_0() { return cDiagnosticSTRINGTerminalRuleCall_4_1_0; }
+
+		//('[' issues+=ResultIssue* ']')?
+		public Group getGroup_5() { return cGroup_5; }
+
+		//'['
+		public Keyword getLeftSquareBracketKeyword_5_0() { return cLeftSquareBracketKeyword_5_0; }
+
+		//issues+=ResultIssue*
+		public Assignment getIssuesAssignment_5_1() { return cIssuesAssignment_5_1; }
+
+		//ResultIssue
+		public RuleCall getIssuesResultIssueParserRuleCall_5_1_0() { return cIssuesResultIssueParserRuleCall_5_1_0; }
+
+		//']'
+		public Keyword getRightSquareBracketKeyword_5_2() { return cRightSquareBracketKeyword_5_2; }
 	}
 	
 	
@@ -1872,16 +1942,19 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 		
 		//enum VerificationExecutionState:
 		//	TODO='todo' // verification to be performed
-		//	| RUNNING='running' // verification in progress (background processing)
+		// | RUNNING='running' // verification in progress (background processing)
+		//
 		//	| REDO='redo' // invalidated while in progress. redo verification.
-		//	| COMPLETED='completed' // completed. verification result is valid
+		// | COMPLETED='completed'
+		//	// completed. verification result is valid
 		//;
 		public EnumRule getRule() { return rule; }
 
 		//TODO='todo' // verification to be performed
-		//| RUNNING='running' // verification in progress (background processing)
-		//| REDO='redo' // invalidated while in progress. redo verification.
-		//| COMPLETED='completed'
+		// | RUNNING='running' // verification in progress (background processing)
+		// |
+		//REDO='redo' // invalidated while in progress. redo verification.
+		// | COMPLETED='completed'
 		public Alternatives getAlternatives() { return cAlternatives; }
 
 		//TODO='todo'
@@ -1908,6 +1981,66 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 		//'completed'
 		public Keyword getCOMPLETEDCompletedKeyword_3_0() { return cCOMPLETEDCompletedKeyword_3_0; }
 	}
+
+	public class ResultIssueTypeElements extends AbstractEnumRuleElementFinder {
+		private final EnumRule rule = (EnumRule) GrammarUtil.findRuleForName(getGrammar(), "org.osate.assure.Assure.ResultIssueType");
+		private final Alternatives cAlternatives = (Alternatives)rule.eContents().get(1);
+		private final EnumLiteralDeclaration cNONEEnumLiteralDeclaration_0 = (EnumLiteralDeclaration)cAlternatives.eContents().get(0);
+		private final Keyword cNONENoneKeyword_0_0 = (Keyword)cNONEEnumLiteralDeclaration_0.eContents().get(0);
+		private final EnumLiteralDeclaration cERROREnumLiteralDeclaration_1 = (EnumLiteralDeclaration)cAlternatives.eContents().get(1);
+		private final Keyword cERRORErrorKeyword_1_0 = (Keyword)cERROREnumLiteralDeclaration_1.eContents().get(0);
+		private final EnumLiteralDeclaration cWARNINGEnumLiteralDeclaration_2 = (EnumLiteralDeclaration)cAlternatives.eContents().get(2);
+		private final Keyword cWARNINGWarningKeyword_2_0 = (Keyword)cWARNINGEnumLiteralDeclaration_2.eContents().get(0);
+		private final EnumLiteralDeclaration cINFOEnumLiteralDeclaration_3 = (EnumLiteralDeclaration)cAlternatives.eContents().get(3);
+		private final Keyword cINFOInfoKeyword_3_0 = (Keyword)cINFOEnumLiteralDeclaration_3.eContents().get(0);
+		private final EnumLiteralDeclaration cSUCCESSEnumLiteralDeclaration_4 = (EnumLiteralDeclaration)cAlternatives.eContents().get(4);
+		private final Keyword cSUCCESSSuccessKeyword_4_0 = (Keyword)cSUCCESSEnumLiteralDeclaration_4.eContents().get(0);
+		private final EnumLiteralDeclaration cFAILEnumLiteralDeclaration_5 = (EnumLiteralDeclaration)cAlternatives.eContents().get(5);
+		private final Keyword cFAILFailKeyword_5_0 = (Keyword)cFAILEnumLiteralDeclaration_5.eContents().get(0);
+		
+		//enum ResultIssueType returns results::IssueType:
+		//	NONE='none' | ERROR='error' | WARNING='warning' | INFO='info' | SUCCESS='success' | FAIL='fail';
+		public EnumRule getRule() { return rule; }
+
+		//NONE='none' | ERROR='error' | WARNING='warning' | INFO='info' | SUCCESS='success' | FAIL='fail'
+		public Alternatives getAlternatives() { return cAlternatives; }
+
+		//NONE='none'
+		public EnumLiteralDeclaration getNONEEnumLiteralDeclaration_0() { return cNONEEnumLiteralDeclaration_0; }
+
+		//'none'
+		public Keyword getNONENoneKeyword_0_0() { return cNONENoneKeyword_0_0; }
+
+		//ERROR='error'
+		public EnumLiteralDeclaration getERROREnumLiteralDeclaration_1() { return cERROREnumLiteralDeclaration_1; }
+
+		//'error'
+		public Keyword getERRORErrorKeyword_1_0() { return cERRORErrorKeyword_1_0; }
+
+		//WARNING='warning'
+		public EnumLiteralDeclaration getWARNINGEnumLiteralDeclaration_2() { return cWARNINGEnumLiteralDeclaration_2; }
+
+		//'warning'
+		public Keyword getWARNINGWarningKeyword_2_0() { return cWARNINGWarningKeyword_2_0; }
+
+		//INFO='info'
+		public EnumLiteralDeclaration getINFOEnumLiteralDeclaration_3() { return cINFOEnumLiteralDeclaration_3; }
+
+		//'info'
+		public Keyword getINFOInfoKeyword_3_0() { return cINFOInfoKeyword_3_0; }
+
+		//SUCCESS='success'
+		public EnumLiteralDeclaration getSUCCESSEnumLiteralDeclaration_4() { return cSUCCESSEnumLiteralDeclaration_4; }
+
+		//'success'
+		public Keyword getSUCCESSSuccessKeyword_4_0() { return cSUCCESSSuccessKeyword_4_0; }
+
+		//FAIL='fail'
+		public EnumLiteralDeclaration getFAILEnumLiteralDeclaration_5() { return cFAILEnumLiteralDeclaration_5; }
+
+		//'fail'
+		public Keyword getFAILFailKeyword_5_0() { return cFAILFailKeyword_5_0; }
+	}
 	
 	private final AssuranceCaseResultElements pAssuranceCaseResult;
 	private final ModelResultElements pModelResult;
@@ -1929,6 +2062,8 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 	private final QualifiedClaimReferenceElements pQualifiedClaimReference;
 	private final QualifiedVAReferenceElements pQualifiedVAReference;
 	private final NestedClaimReferenceElements pNestedClaimReference;
+	private final ResultIssueElements pResultIssue;
+	private final ResultIssueTypeElements eResultIssueType;
 	
 	private final Grammar grammar;
 
@@ -1963,6 +2098,8 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 		this.pQualifiedClaimReference = new QualifiedClaimReferenceElements();
 		this.pQualifiedVAReference = new QualifiedVAReferenceElements();
 		this.pNestedClaimReference = new NestedClaimReferenceElements();
+		this.pResultIssue = new ResultIssueElements();
+		this.eResultIssueType = new ResultIssueTypeElements();
 	}
 	
 	protected Grammar internalFindGrammar(GrammarProvider grammarProvider) {
@@ -1997,12 +2134,8 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 
 	
 	//// result for a system in the architecture hierarchy
-	//AssuranceCaseResult:
-	//	'case' name=QualifiedName
-	//	'['
-	//	metrics=Metrics ('message' message=STRING)?
-	//	modelResult+=ModelResult*
-	//	']';
+	// AssuranceCaseResult:
+	//	'case' name=QualifiedName '[' metrics=Metrics ('message' message=STRING)? modelResult+=ModelResult* ']';
 	public AssuranceCaseResultElements getAssuranceCaseResultAccess() {
 		return pAssuranceCaseResult;
 	}
@@ -2012,12 +2145,9 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//ModelResult:
-	//	'model' plan=[Alisa::AssurancePlan|QualifiedName]
-	//	'for' target=[aadl2::ComponentImplementation|AadlClassifierReference]
-	//	'['
-	//	metrics=Metrics ('message' message=STRING)?
-	//	claimResult+=ClaimResult* (subsystemResult+=SubsystemResult | subAssuranceCase+=AssuranceCaseResult)*
-	//	']';
+	//	'model' plan=[Alisa::AssurancePlan|QualifiedName] 'for'
+	//	target=[aadl2::ComponentImplementation|AadlClassifierReference] '[' metrics=Metrics ('message' message=STRING)?
+	//	claimResult+=ClaimResult* (subsystemResult+=SubsystemResult | subAssuranceCase+=AssuranceCaseResult)* ']';
 	public ModelResultElements getModelResultAccess() {
 		return pModelResult;
 	}
@@ -2028,12 +2158,8 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 
 	//SubsystemResult:
 	//	'subsystem' //name=QualifiedName 'for' 
-	//	targetSystem=[aadl2::Subcomponent]
-	//	'['
-	//	metrics=Metrics ('message' message=STRING)?
-	//	claimResult+=ClaimResult*
-	//	subsystemResult+=SubsystemResult*
-	//	']';
+	// targetSystem=[aadl2::Subcomponent] '[' metrics=Metrics ('message'
+	//	message=STRING)? claimResult+=ClaimResult* subsystemResult+=SubsystemResult* ']';
 	public SubsystemResultElements getSubsystemResultAccess() {
 		return pSubsystemResult;
 	}
@@ -2043,14 +2169,11 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//// Result of meeting a requirement
-	//ClaimResult:
+	// ClaimResult:
 	//	'claim' targetReference=QualifiedClaimReference //target=[ReqSpec::Requirement|QualifiedName]
-	//	'['
-	//	metrics=Metrics ('for' modelElement=[aadl2::NamedElement])? ('message' message=STRING)?
-	//	subClaimResult+=ClaimResult*
-	//	verificationActivityResult+=VerificationExpr*
-	//	predicateResult=PredicateResult?
-	//	']';
+	// '[' metrics=Metrics
+	//	('for' modelElement=[aadl2::NamedElement])? ('message' message=STRING)? subClaimResult+=ClaimResult*
+	//	verificationActivityResult+=VerificationExpr* predicateResult=PredicateResult? ']';
 	public ClaimResultElements getClaimResultAccess() {
 		return pClaimResult;
 	}
@@ -2060,14 +2183,11 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//PreconditionResult VerificationResult:
-	//	'precondition' {PreconditionResult} target=[Verify::VerificationMethod|QualifiedName]
-	//	'['
-	//	'executionstate' executionState=VerificationExecutionState
-	//	'resultstate' resultState=VerificationResultState ('issues' '['
-	//	issues+=ResultIssue*
-	//	']')? ('report' resultReport=[results::ResultReport|QualifiedName])? // pointer to separate report
-	//	metrics=Metrics ('message' message=STRING)?
-	//	']';
+	//	'precondition' {PreconditionResult} target=[Verify::VerificationMethod|QualifiedName] '[' 'executionstate'
+	//	executionState=VerificationExecutionState 'resultstate' resultState=VerificationResultState ('issues' '['
+	//	issues+=ResultIssue* ']')? ('results' results=[results::Result|QualifiedName])? // pointer to separate report
+	//
+	//	metrics=Metrics ('message' message=STRING)? ']';
 	public PreconditionResultElements getPreconditionResultAccess() {
 		return pPreconditionResult;
 	}
@@ -2077,14 +2197,11 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//ValidationResult VerificationResult:
-	//	'validation' {ValidationResult} target=[Verify::VerificationMethod|QualifiedName]
-	//	'['
-	//	'executionstate' executionState=VerificationExecutionState
-	//	'resultstate' resultState=VerificationResultState ('issues' '['
-	//	issues+=ResultIssue*
-	//	']')? ('report' resultReport=[results::ResultReport|QualifiedName])? // pointer to separate report
-	//	metrics=Metrics ('message' message=STRING)?
-	//	']';
+	//	'validation' {ValidationResult} target=[Verify::VerificationMethod|QualifiedName] '[' 'executionstate'
+	//	executionState=VerificationExecutionState 'resultstate' resultState=VerificationResultState ('issues' '['
+	//	issues+=ResultIssue* ']')? ('results' results=[results::Result|QualifiedName])? // pointer to separate report
+	//
+	//	metrics=Metrics ('message' message=STRING)? ']';
 	public ValidationResultElements getValidationResultAccess() {
 		return pValidationResult;
 	}
@@ -2094,17 +2211,13 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//// result of executing a verification activity
-	//VerificationActivityResult VerificationResult:
-	//	'verification' {VerificationActivityResult} targetReference=QualifiedVAReference //target=[Verify::VerificationActivity|QualifiedName]
-	//	'['
-	//	'executionstate' executionState=VerificationExecutionState
-	//	'resultstate' resultState=VerificationResultState ('issues' '['
-	//	issues+=ResultIssue*
-	//	']')? ('report' resultReport=[results::ResultReport|QualifiedName])?
-	//	metrics=Metrics ('message' message=STRING)?
-	//	preconditionResult=PreconditionResult?
-	//	validationResult=ValidationResult?
-	//	']';
+	// VerificationActivityResult VerificationResult:
+	//	'verification' {VerificationActivityResult} targetReference=QualifiedVAReference
+	//	//target=[Verify::VerificationActivity|QualifiedName]
+	// '[' 'executionstate' executionState=VerificationExecutionState
+	//	'resultstate' resultState=VerificationResultState ('issues' '[' issues+=ResultIssue* ']')? ('results'
+	//	results=[results::Result|QualifiedName])? metrics=Metrics ('message' message=STRING)?
+	//	preconditionResult=PreconditionResult? validationResult=ValidationResult? ']';
 	public VerificationActivityResultElements getVerificationActivityResultAccess() {
 		return pVerificationActivityResult;
 	}
@@ -2114,15 +2227,10 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//PredicateResult VerificationResult:
-	//	{PredicateResult}
-	//	'predicate' targetReference=QualifiedClaimReference
-	//	'['
-	//	'executionstate' executionState=VerificationExecutionState
-	//	'resultstate' resultState=VerificationResultState ('issues' '['
-	//	issues+=ResultIssue*
-	//	']')? ('report' resultReport=[results::ResultReport|QualifiedName])?
-	//	metrics=Metrics ('message' message=STRING)?
-	//	']';
+	//	{PredicateResult} 'predicate' targetReference=QualifiedClaimReference '[' 'executionstate'
+	//	executionState=VerificationExecutionState 'resultstate' resultState=VerificationResultState ('issues' '['
+	//	issues+=ResultIssue* ']')? ('results' results=[results::Result|QualifiedName])? metrics=Metrics ('message'
+	//	message=STRING)? ']';
 	public PredicateResultElements getPredicateResultAccess() {
 		return pPredicateResult;
 	}
@@ -2164,11 +2272,7 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 
 	//ElseResult:
 	//	'else' first+=VerificationExpr+ ('error' error+=VerificationExpr+)? ('fail' fail+=VerificationExpr+)? ('timeout'
-	//	timeout+=VerificationExpr+)?
-	//	'['
-	//	didFail=ElseType?
-	//	metrics=Metrics
-	//	']';
+	//	timeout+=VerificationExpr+)? '[' didFail=ElseType? metrics=Metrics ']';
 	public ElseResultElements getElseResultAccess() {
 		return pElseResult;
 	}
@@ -2178,11 +2282,7 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//ThenResult:
-	//	'then' first+=VerificationExpr+ 'do' second+=VerificationExpr+
-	//	'['
-	//	didThenFail?='thenfailed'?
-	//	metrics=Metrics
-	//	']';
+	//	'then' first+=VerificationExpr+ 'do' second+=VerificationExpr+ '[' didThenFail?='thenfailed'? metrics=Metrics ']';
 	public ThenResultElements getThenResultAccess() {
 		return pThenResult;
 	}
@@ -2222,9 +2322,11 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 
 	//enum VerificationExecutionState:
 	//	TODO='todo' // verification to be performed
-	//	| RUNNING='running' // verification in progress (background processing)
+	// | RUNNING='running' // verification in progress (background processing)
+	//
 	//	| REDO='redo' // invalidated while in progress. redo verification.
-	//	| COMPLETED='completed' // completed. verification result is valid
+	// | COMPLETED='completed'
+	//	// completed. verification result is valid
 	//;
 	public VerificationExecutionStateElements getVerificationExecutionStateAccess() {
 		return eVerificationExecutionState;
@@ -2255,8 +2357,8 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//QualifiedVAReference:
-	//	verificationPlan=[Verify::VerificationPlan|QualifiedName] '#' requirement=NestedClaimReference
-	//	"#" verificationActivity=[Verify::VerificationActivity];
+	//	verificationPlan=[Verify::VerificationPlan|QualifiedName] '#' requirement=NestedClaimReference "#"
+	//	verificationActivity=[Verify::VerificationActivity];
 	public QualifiedVAReferenceElements getQualifiedVAReferenceAccess() {
 		return pQualifiedVAReference;
 	}
@@ -2273,6 +2375,27 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 	
 	public ParserRule getNestedClaimReferenceRule() {
 		return getNestedClaimReferenceAccess().getRule();
+	}
+
+	//ResultIssue results::Issue:
+	//	issueType=ResultIssueType message=STRING ('source' sourceReference=[ecore::EObject|NoQuoteString])? ('exception'
+	//	exceptionType=STRING)? ('diagnostic' diagnostic=STRING)? ('[' issues+=ResultIssue* ']')?;
+	public ResultIssueElements getResultIssueAccess() {
+		return pResultIssue;
+	}
+	
+	public ParserRule getResultIssueRule() {
+		return getResultIssueAccess().getRule();
+	}
+
+	//enum ResultIssueType returns results::IssueType:
+	//	NONE='none' | ERROR='error' | WARNING='warning' | INFO='info' | SUCCESS='success' | FAIL='fail';
+	public ResultIssueTypeElements getResultIssueTypeAccess() {
+		return eResultIssueType;
+	}
+	
+	public EnumRule getResultIssueTypeRule() {
+		return getResultIssueTypeAccess().getRule();
 	}
 
 	//Description:
@@ -2306,11 +2429,7 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//Uncertainty:
-	//	'uncertainty'
-	//	'[' (('volatility' volatility=INT)?
-	//	& ('precedence' precedence=INT)?
-	//	& ('impact' impact=INT)?)
-	//	']';
+	//	'uncertainty' '[' (('volatility' volatility=INT)? & ('precedence' precedence=INT)? & ('impact' impact=INT)?) ']';
 	public CommonGrammarAccess.UncertaintyElements getUncertaintyAccess() {
 		return gaCommon.getUncertaintyAccess();
 	}
@@ -2319,36 +2438,11 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 		return getUncertaintyAccess().getRule();
 	}
 
-	//// This is similar to diagnostics
-	//ResultIssue:
-	//	issueType=ResultIssueType
-	//	message=STRING ('target' target=[ecore::EObject|NoQuoteString])? ('exception' exceptionType=STRING)? ('diagnosticId'
-	//	diagnosticId=STRING)? ('[' issues+=ResultIssue* ']')?;
-	public CommonGrammarAccess.ResultIssueElements getResultIssueAccess() {
-		return gaCommon.getResultIssueAccess();
-	}
-	
-	public ParserRule getResultIssueRule() {
-		return getResultIssueAccess().getRule();
-	}
-
-	//enum ResultIssueType:
-	//	TBD='tbd' | ERROR='error' | WARNING='warning' | INFO='info' | SUCCESS='success' | FAIL='fail';
-	public CommonGrammarAccess.ResultIssueTypeElements getResultIssueTypeAccess() {
-		return gaCommon.getResultIssueTypeAccess();
-	}
-	
-	public EnumRule getResultIssueTypeRule() {
-		return getResultIssueTypeAccess().getRule();
-	}
-
 	//TypeRef aadl2::PropertyType:
-	//	{aadl2::AadlBoolean} 'boolean'
-	//	| {aadl2::AadlInteger} 'integer' ('units' referencedUnitsType=[aadl2::UnitsType|AADLPROPERTYREFERENCE])?
-	//	| {aadl2::AadlReal} 'real' ('units' referencedUnitsType=[aadl2::UnitsType|AADLPROPERTYREFERENCE])?
-	//	| {aadl2::AadlString} 'string'
-	//	| {ModelRef} 'model' 'element'
-	//	| {TypeRef} ref=[aadl2::PropertyType|AADLPROPERTYREFERENCE];
+	//	{aadl2::AadlBoolean} 'boolean' | {aadl2::AadlInteger} 'integer' ('units'
+	//	referencedUnitsType=[aadl2::UnitsType|AADLPROPERTYREFERENCE])? | {aadl2::AadlReal} 'real' ('units'
+	//	referencedUnitsType=[aadl2::UnitsType|AADLPROPERTYREFERENCE])? | {aadl2::AadlString} 'string' | {ModelRef} 'model'
+	//	'element' | {TypeRef} ref=[aadl2::PropertyType|AADLPROPERTYREFERENCE];
 	public CommonGrammarAccess.TypeRefElements getTypeRefAccess() {
 		return gaCommon.getTypeRefAccess();
 	}
@@ -2379,9 +2473,8 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//ComputeDeclaration AVariableDeclaration:
-	//	{ComputeDeclaration}
-	//	'compute' name=ID ':' (type=TypeRef | 'typeof' type=PropertyRef | range?='[' (type=TypeRef | 'typeof'
-	//	type=PropertyRef) ']');
+	//	{ComputeDeclaration} 'compute' name=ID ':' (type=TypeRef | 'typeof' type=PropertyRef | range?='[' (type=TypeRef |
+	//	'typeof' type=PropertyRef) ']');
 	public CommonGrammarAccess.ComputeDeclarationElements getComputeDeclarationAccess() {
 		return gaCommon.getComputeDeclarationAccess();
 	}
@@ -2391,10 +2484,9 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//// Reference to property, property constant, or model element.
-	//AModelOrPropertyReference AExpression:
+	// AModelOrPropertyReference AExpression:
 	//	AModelReference (=> ({APropertyReference.modelElementReference=current} '#')
-	//	property=[aadl2::AbstractNamedValue|AADLPROPERTYREFERENCE])?
-	//	| APropertyReference;
+	//	property=[aadl2::AbstractNamedValue|AADLPROPERTYREFERENCE])? | APropertyReference;
 	public CommonGrammarAccess.AModelOrPropertyReferenceElements getAModelOrPropertyReferenceAccess() {
 		return gaCommon.getAModelOrPropertyReferenceAccess();
 	}
@@ -2465,13 +2557,8 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//enum Operation:
-	//	OR='or' | ALT_OR='||'
-	//	| AND='and' | ALT_AND='&&'
-	//	| EQ='==' | NEQ='!='
-	//	| GEQ='>=' | LEQ='<=' | GT='>' | LT='<' | IN='><'
-	//	| PLUS='+' | MINUS='-'
-	//	| MULT='*' | DIV='/' | INTDIV='div' | MOD='mod'
-	//	| NOT='not';
+	//	OR='or' | ALT_OR='||' | AND='and' | ALT_AND='&&' | EQ='==' | NEQ='!=' | GEQ='>=' | LEQ='<=' | GT='>' | LT='<' |
+	//	IN='><' | PLUS='+' | MINUS='-' | MULT='*' | DIV='/' | INTDIV='div' | MOD='mod' | NOT='not';
 	public CommonGrammarAccess.OperationElements getOperationAccess() {
 		return gaCommon.getOperationAccess();
 	}
@@ -2571,20 +2658,24 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	////AOtherOperatorExpression returns aadl2::PropertyExpression:
+	//
 	////	AAdditiveExpression (=>({ABinaryOperation.leftOperand=current} feature=OpOther)
+	//
 	////	rightOperand=AAdditiveExpression)*;
-	////
-	////OpOther:
-	////	  '->' 
-	////	| '..<'
-	////	| '>' '..'
-	////	| '..'
-	////	| '=>' 
+	// //
+	// //OpOther:
+	// //	  '->' 
+	// //	| '..<'
+	// //	| '>' '..'
+	// //	| '..'
+	// //	| '=>' 
+	//
 	////	| '>' (=>('>' '>') | '>') 
-	////	| '<' (=>('<' '<') | '<' | '=>')
-	////	| '<>'
-	////	| '?:';
-	//AAdditiveExpression aadl2::PropertyExpression:
+	// //	| '<' (=>('<' '<') | '<' | '=>')
+	// //	| '<>'
+	// //	| '?:';
+	// AAdditiveExpression
+	//aadl2::PropertyExpression:
 	//	AMultiplicativeExpression (=> ({ABinaryOperation.left=current} operator=OpAdd) right=AMultiplicativeExpression)*;
 	public CommonGrammarAccess.AAdditiveExpressionElements getAAdditiveExpressionAccess() {
 		return gaCommon.getAAdditiveExpressionAccess();
@@ -2655,8 +2746,8 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//APrimaryExpression aadl2::PropertyExpression:
-	//	ALiteral | AVariableReference | AModelOrPropertyReference | AFunctionCall | ARangeExpression | AIfExpression
-	//	| AParenthesizedExpression;
+	//	ALiteral | AVariableReference | AModelOrPropertyReference | AFunctionCall | ARangeExpression | AIfExpression |
+	//	AParenthesizedExpression;
 	public CommonGrammarAccess.APrimaryExpressionElements getAPrimaryExpressionAccess() {
 		return gaCommon.getAPrimaryExpressionAccess();
 	}
@@ -2746,13 +2837,17 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	////ASetTerm returns aadl2::PropertyExpression:
+	//
 	////	{ASetLiteral}  '{' (elements+=AExpression (',' elements+=AExpression )*)? '}'
-	////;
-	////
+	// //;
+	// //
+	//
 	////AListTerm returns aadl2::PropertyExpression:
+	//
 	////	{AListTerm} '[' (elements+=AExpression (',' elements+=AExpression )*)? ']'
-	////;
-	//ABooleanLiteral aadl2::PropertyExpression:
+	// //;
+	// ABooleanLiteral
+	//aadl2::PropertyExpression:
 	//	{aadl2::BooleanLiteral} (value?='true' | 'false');
 	public CommonGrammarAccess.ABooleanLiteralElements getABooleanLiteralAccess() {
 		return gaCommon.getABooleanLiteralAccess();
@@ -2793,10 +2888,8 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//ComponentCategory aadl2::ComponentCategory:
-	//	'abstract' | 'bus' | 'data'
-	//	| 'device' | 'memory' | 'process' | 'processor' | 'subprogram'
-	//	| 'subprogram' 'group' | 'system' | 'thread' 'group'
-	//	| 'thread' | 'virtual' 'bus' | 'virtual' 'processor';
+	//	'abstract' | 'bus' | 'data' | 'device' | 'memory' | 'process' | 'processor' | 'subprogram' | 'subprogram' 'group' |
+	//	'system' | 'thread' 'group' | 'thread' | 'virtual' 'bus' | 'virtual' 'processor';
 	public CommonGrammarAccess.ComponentCategoryElements getComponentCategoryAccess() {
 		return gaCommon.getComponentCategoryAccess();
 	}
@@ -2842,7 +2935,7 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 	} 
 
 	//// Qualified classifier reference
-	//AadlClassifierReference:
+	// AadlClassifierReference:
 	//	ID ('::' ID)+ ('.' ID)?;
 	public CommonGrammarAccess.AadlClassifierReferenceElements getAadlClassifierReferenceAccess() {
 		return gaCommon.getAadlClassifierReferenceAccess();
@@ -2873,7 +2966,7 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	////terminal URIID : ('a'..'z'|'A'..'Z') ('a'..'z'|'A'..'Z'|'_'|'0'..'9'|'#'|'@'|'/'|':')*;
-	//QualifiedName:
+	// QualifiedName:
 	//	ID ('.' ID)*;
 	public CommonGrammarAccess.QualifiedNameElements getQualifiedNameAccess() {
 		return gaCommon.getQualifiedNameAccess();
@@ -2906,8 +2999,7 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 	} 
 
 	//terminal STRING:
-	//	'"' ('\\' . | !('\\' | '"'))* '"' |
-	//	"'" ('\\' . | !('\\' | "'"))* "'";
+	//	'"' ('\\' . | !('\\' | '"'))* '"' | "'" ('\\' . | !('\\' | "'"))* "'";
 	public TerminalRule getSTRINGRule() {
 		return gaTerminals.getSTRINGRule();
 	} 

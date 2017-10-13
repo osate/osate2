@@ -253,6 +253,8 @@ public class ReqSpecPackageImpl extends EPackageImpl implements ReqSpecPackage
     isInited = true;
 
     // Initialize simple dependencies
+    EcorePackage.eINSTANCE.eClass();
+    Aadl2Package.eINSTANCE.eClass();
     CommonPackage.eINSTANCE.eClass();
     CategoriesPackage.eINSTANCE.eClass();
     OrganizationPackage.eINSTANCE.eClass();

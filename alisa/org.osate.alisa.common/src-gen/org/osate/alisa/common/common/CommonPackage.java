@@ -230,79 +230,6 @@ public interface CommonPackage extends EPackage
   int UNCERTAINTY_FEATURE_COUNT = 3;
 
   /**
-   * The meta object id for the '{@link org.osate.alisa.common.common.impl.ResultIssueImpl <em>Result Issue</em>}' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see org.osate.alisa.common.common.impl.ResultIssueImpl
-   * @see org.osate.alisa.common.common.impl.CommonPackageImpl#getResultIssue()
-   * @generated
-   */
-  int RESULT_ISSUE = 4;
-
-  /**
-   * The feature id for the '<em><b>Issue Type</b></em>' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int RESULT_ISSUE__ISSUE_TYPE = 0;
-
-  /**
-   * The feature id for the '<em><b>Message</b></em>' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int RESULT_ISSUE__MESSAGE = 1;
-
-  /**
-   * The feature id for the '<em><b>Target</b></em>' reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int RESULT_ISSUE__TARGET = 2;
-
-  /**
-   * The feature id for the '<em><b>Exception Type</b></em>' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int RESULT_ISSUE__EXCEPTION_TYPE = 3;
-
-  /**
-   * The feature id for the '<em><b>Diagnostic Id</b></em>' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int RESULT_ISSUE__DIAGNOSTIC_ID = 4;
-
-  /**
-   * The feature id for the '<em><b>Issues</b></em>' containment reference list.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int RESULT_ISSUE__ISSUES = 5;
-
-  /**
-   * The number of structural features of the '<em>Result Issue</em>' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int RESULT_ISSUE_FEATURE_COUNT = 6;
-
-  /**
    * The meta object id for the '{@link org.osate.alisa.common.common.impl.AVariableDeclarationImpl <em>AVariable Declaration</em>}' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -310,7 +237,7 @@ public interface CommonPackage extends EPackage
    * @see org.osate.alisa.common.common.impl.CommonPackageImpl#getAVariableDeclaration()
    * @generated
    */
-  int AVARIABLE_DECLARATION = 5;
+  int AVARIABLE_DECLARATION = 4;
 
   /**
    * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -356,7 +283,7 @@ public interface CommonPackage extends EPackage
    * @see org.osate.alisa.common.common.impl.CommonPackageImpl#getAExpression()
    * @generated
    */
-  int AEXPRESSION = 6;
+  int AEXPRESSION = 5;
 
   /**
    * The feature id for the '<em><b>Owned Element</b></em>' reference list.
@@ -393,7 +320,7 @@ public interface CommonPackage extends EPackage
    * @see org.osate.alisa.common.common.impl.CommonPackageImpl#getAModelReference()
    * @generated
    */
-  int AMODEL_REFERENCE = 7;
+  int AMODEL_REFERENCE = 6;
 
   /**
    * The feature id for the '<em><b>Owned Element</b></em>' reference list.
@@ -448,7 +375,7 @@ public interface CommonPackage extends EPackage
    * @see org.osate.alisa.common.common.impl.CommonPackageImpl#getAPropertyReference()
    * @generated
    */
-  int APROPERTY_REFERENCE = 8;
+  int APROPERTY_REFERENCE = 7;
 
   /**
    * The feature id for the '<em><b>Owned Element</b></em>' reference list.
@@ -503,7 +430,7 @@ public interface CommonPackage extends EPackage
    * @see org.osate.alisa.common.common.impl.CommonPackageImpl#getAUnitExpression()
    * @generated
    */
-  int AUNIT_EXPRESSION = 9;
+  int AUNIT_EXPRESSION = 8;
 
   /**
    * The feature id for the '<em><b>Owned Element</b></em>' reference list.
@@ -576,7 +503,7 @@ public interface CommonPackage extends EPackage
    * @see org.osate.alisa.common.common.impl.CommonPackageImpl#getImageReference()
    * @generated
    */
-  int IMAGE_REFERENCE = 10;
+  int IMAGE_REFERENCE = 9;
 
   /**
    * The feature id for the '<em><b>Imgfile</b></em>' attribute.
@@ -604,7 +531,7 @@ public interface CommonPackage extends EPackage
    * @see org.osate.alisa.common.common.impl.CommonPackageImpl#getModelRef()
    * @generated
    */
-  int MODEL_REF = 11;
+  int MODEL_REF = 10;
 
   /**
    * The feature id for the '<em><b>Owned Element</b></em>' reference list.
@@ -668,7 +595,7 @@ public interface CommonPackage extends EPackage
    * @see org.osate.alisa.common.common.impl.CommonPackageImpl#getTypeRef()
    * @generated
    */
-  int TYPE_REF = 12;
+  int TYPE_REF = 11;
 
   /**
    * The feature id for the '<em><b>Owned Element</b></em>' reference list.
@@ -741,7 +668,7 @@ public interface CommonPackage extends EPackage
    * @see org.osate.alisa.common.common.impl.CommonPackageImpl#getPropertyRef()
    * @generated
    */
-  int PROPERTY_REF = 13;
+  int PROPERTY_REF = 12;
 
   /**
    * The feature id for the '<em><b>Owned Element</b></em>' reference list.
@@ -814,7 +741,7 @@ public interface CommonPackage extends EPackage
    * @see org.osate.alisa.common.common.impl.CommonPackageImpl#getValDeclaration()
    * @generated
    */
-  int VAL_DECLARATION = 14;
+  int VAL_DECLARATION = 13;
 
   /**
    * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -869,7 +796,7 @@ public interface CommonPackage extends EPackage
    * @see org.osate.alisa.common.common.impl.CommonPackageImpl#getComputeDeclaration()
    * @generated
    */
-  int COMPUTE_DECLARATION = 15;
+  int COMPUTE_DECLARATION = 14;
 
   /**
    * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -915,7 +842,7 @@ public interface CommonPackage extends EPackage
    * @see org.osate.alisa.common.common.impl.CommonPackageImpl#getAVariableReference()
    * @generated
    */
-  int AVARIABLE_REFERENCE = 16;
+  int AVARIABLE_REFERENCE = 15;
 
   /**
    * The feature id for the '<em><b>Owned Element</b></em>' reference list.
@@ -961,7 +888,7 @@ public interface CommonPackage extends EPackage
    * @see org.osate.alisa.common.common.impl.CommonPackageImpl#getABinaryOperation()
    * @generated
    */
-  int ABINARY_OPERATION = 17;
+  int ABINARY_OPERATION = 16;
 
   /**
    * The feature id for the '<em><b>Owned Element</b></em>' reference list.
@@ -1025,7 +952,7 @@ public interface CommonPackage extends EPackage
    * @see org.osate.alisa.common.common.impl.CommonPackageImpl#getAUnaryOperation()
    * @generated
    */
-  int AUNARY_OPERATION = 18;
+  int AUNARY_OPERATION = 17;
 
   /**
    * The feature id for the '<em><b>Owned Element</b></em>' reference list.
@@ -1080,7 +1007,7 @@ public interface CommonPackage extends EPackage
    * @see org.osate.alisa.common.common.impl.CommonPackageImpl#getAFunctionCall()
    * @generated
    */
-  int AFUNCTION_CALL = 19;
+  int AFUNCTION_CALL = 18;
 
   /**
    * The feature id for the '<em><b>Owned Element</b></em>' reference list.
@@ -1135,7 +1062,7 @@ public interface CommonPackage extends EPackage
    * @see org.osate.alisa.common.common.impl.CommonPackageImpl#getARange()
    * @generated
    */
-  int ARANGE = 20;
+  int ARANGE = 19;
 
   /**
    * The feature id for the '<em><b>Owned Element</b></em>' reference list.
@@ -1199,7 +1126,7 @@ public interface CommonPackage extends EPackage
    * @see org.osate.alisa.common.common.impl.CommonPackageImpl#getAConditional()
    * @generated
    */
-  int ACONDITIONAL = 21;
+  int ACONDITIONAL = 20;
 
   /**
    * The feature id for the '<em><b>Owned Element</b></em>' reference list.
@@ -1256,16 +1183,6 @@ public interface CommonPackage extends EPackage
   int ACONDITIONAL_FEATURE_COUNT = Aadl2Package.PROPERTY_EXPRESSION_FEATURE_COUNT + 3;
 
   /**
-   * The meta object id for the '{@link org.osate.alisa.common.common.ResultIssueType <em>Result Issue Type</em>}' enum.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see org.osate.alisa.common.common.ResultIssueType
-   * @see org.osate.alisa.common.common.impl.CommonPackageImpl#getResultIssueType()
-   * @generated
-   */
-  int RESULT_ISSUE_TYPE = 22;
-
-  /**
    * The meta object id for the '{@link org.osate.alisa.common.common.Operation <em>Operation</em>}' enum.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -1273,7 +1190,7 @@ public interface CommonPackage extends EPackage
    * @see org.osate.alisa.common.common.impl.CommonPackageImpl#getOperation()
    * @generated
    */
-  int OPERATION = 23;
+  int OPERATION = 21;
 
 
   /**
@@ -1414,82 +1331,6 @@ public interface CommonPackage extends EPackage
    * @generated
    */
   EAttribute getUncertainty_Impact();
-
-  /**
-   * Returns the meta object for class '{@link org.osate.alisa.common.common.ResultIssue <em>Result Issue</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for class '<em>Result Issue</em>'.
-   * @see org.osate.alisa.common.common.ResultIssue
-   * @generated
-   */
-  EClass getResultIssue();
-
-  /**
-   * Returns the meta object for the attribute '{@link org.osate.alisa.common.common.ResultIssue#getIssueType <em>Issue Type</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the attribute '<em>Issue Type</em>'.
-   * @see org.osate.alisa.common.common.ResultIssue#getIssueType()
-   * @see #getResultIssue()
-   * @generated
-   */
-  EAttribute getResultIssue_IssueType();
-
-  /**
-   * Returns the meta object for the attribute '{@link org.osate.alisa.common.common.ResultIssue#getMessage <em>Message</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the attribute '<em>Message</em>'.
-   * @see org.osate.alisa.common.common.ResultIssue#getMessage()
-   * @see #getResultIssue()
-   * @generated
-   */
-  EAttribute getResultIssue_Message();
-
-  /**
-   * Returns the meta object for the reference '{@link org.osate.alisa.common.common.ResultIssue#getTarget <em>Target</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the reference '<em>Target</em>'.
-   * @see org.osate.alisa.common.common.ResultIssue#getTarget()
-   * @see #getResultIssue()
-   * @generated
-   */
-  EReference getResultIssue_Target();
-
-  /**
-   * Returns the meta object for the attribute '{@link org.osate.alisa.common.common.ResultIssue#getExceptionType <em>Exception Type</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the attribute '<em>Exception Type</em>'.
-   * @see org.osate.alisa.common.common.ResultIssue#getExceptionType()
-   * @see #getResultIssue()
-   * @generated
-   */
-  EAttribute getResultIssue_ExceptionType();
-
-  /**
-   * Returns the meta object for the attribute '{@link org.osate.alisa.common.common.ResultIssue#getDiagnosticId <em>Diagnostic Id</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the attribute '<em>Diagnostic Id</em>'.
-   * @see org.osate.alisa.common.common.ResultIssue#getDiagnosticId()
-   * @see #getResultIssue()
-   * @generated
-   */
-  EAttribute getResultIssue_DiagnosticId();
-
-  /**
-   * Returns the meta object for the containment reference list '{@link org.osate.alisa.common.common.ResultIssue#getIssues <em>Issues</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the containment reference list '<em>Issues</em>'.
-   * @see org.osate.alisa.common.common.ResultIssue#getIssues()
-   * @see #getResultIssue()
-   * @generated
-   */
-  EReference getResultIssue_Issues();
 
   /**
    * Returns the meta object for class '{@link org.osate.alisa.common.common.AVariableDeclaration <em>AVariable Declaration</em>}'.
@@ -1981,16 +1822,6 @@ public interface CommonPackage extends EPackage
   EReference getAConditional_Else();
 
   /**
-   * Returns the meta object for enum '{@link org.osate.alisa.common.common.ResultIssueType <em>Result Issue Type</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for enum '<em>Result Issue Type</em>'.
-   * @see org.osate.alisa.common.common.ResultIssueType
-   * @generated
-   */
-  EEnum getResultIssueType();
-
-  /**
    * Returns the meta object for enum '{@link org.osate.alisa.common.common.Operation <em>Operation</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -2134,64 +1965,6 @@ public interface CommonPackage extends EPackage
      * @generated
      */
     EAttribute UNCERTAINTY__IMPACT = eINSTANCE.getUncertainty_Impact();
-
-    /**
-     * The meta object literal for the '{@link org.osate.alisa.common.common.impl.ResultIssueImpl <em>Result Issue</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see org.osate.alisa.common.common.impl.ResultIssueImpl
-     * @see org.osate.alisa.common.common.impl.CommonPackageImpl#getResultIssue()
-     * @generated
-     */
-    EClass RESULT_ISSUE = eINSTANCE.getResultIssue();
-
-    /**
-     * The meta object literal for the '<em><b>Issue Type</b></em>' attribute feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EAttribute RESULT_ISSUE__ISSUE_TYPE = eINSTANCE.getResultIssue_IssueType();
-
-    /**
-     * The meta object literal for the '<em><b>Message</b></em>' attribute feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EAttribute RESULT_ISSUE__MESSAGE = eINSTANCE.getResultIssue_Message();
-
-    /**
-     * The meta object literal for the '<em><b>Target</b></em>' reference feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EReference RESULT_ISSUE__TARGET = eINSTANCE.getResultIssue_Target();
-
-    /**
-     * The meta object literal for the '<em><b>Exception Type</b></em>' attribute feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EAttribute RESULT_ISSUE__EXCEPTION_TYPE = eINSTANCE.getResultIssue_ExceptionType();
-
-    /**
-     * The meta object literal for the '<em><b>Diagnostic Id</b></em>' attribute feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EAttribute RESULT_ISSUE__DIAGNOSTIC_ID = eINSTANCE.getResultIssue_DiagnosticId();
-
-    /**
-     * The meta object literal for the '<em><b>Issues</b></em>' containment reference list feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EReference RESULT_ISSUE__ISSUES = eINSTANCE.getResultIssue_Issues();
 
     /**
      * The meta object literal for the '{@link org.osate.alisa.common.common.impl.AVariableDeclarationImpl <em>AVariable Declaration</em>}' class.
@@ -2594,16 +2367,6 @@ public interface CommonPackage extends EPackage
      * @generated
      */
     EReference ACONDITIONAL__ELSE = eINSTANCE.getAConditional_Else();
-
-    /**
-     * The meta object literal for the '{@link org.osate.alisa.common.common.ResultIssueType <em>Result Issue Type</em>}' enum.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see org.osate.alisa.common.common.ResultIssueType
-     * @see org.osate.alisa.common.common.impl.CommonPackageImpl#getResultIssueType()
-     * @generated
-     */
-    EEnum RESULT_ISSUE_TYPE = eINSTANCE.getResultIssueType();
 
     /**
      * The meta object literal for the '{@link org.osate.alisa.common.common.Operation <em>Operation</em>}' enum.

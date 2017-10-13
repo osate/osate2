@@ -52,7 +52,6 @@ import org.osate.alisa.common.common.ImageReference;
 import org.osate.alisa.common.common.ModelRef;
 import org.osate.alisa.common.common.PropertyRef;
 import org.osate.alisa.common.common.Rationale;
-import org.osate.alisa.common.common.ResultIssue;
 import org.osate.alisa.common.common.TypeRef;
 import org.osate.alisa.common.common.Uncertainty;
 import org.osate.alisa.common.common.ValDeclaration;
@@ -195,9 +194,6 @@ public class CommonSemanticSequencer extends AbstractDelegatingSemanticSequencer
 				return; 
 			case CommonPackage.RATIONALE:
 				sequence_Rationale(context, (Rationale) semanticObject); 
-				return; 
-			case CommonPackage.RESULT_ISSUE:
-				sequence_ResultIssue(context, (ResultIssue) semanticObject); 
 				return; 
 			case CommonPackage.TYPE_REF:
 				sequence_TypeRef(context, (TypeRef) semanticObject); 
@@ -718,25 +714,6 @@ public class CommonSemanticSequencer extends AbstractDelegatingSemanticSequencer
 		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
 		feeder.accept(grammarAccess.getRationaleAccess().getTextSTRINGTerminalRuleCall_1_0(), semanticObject.getText());
 		feeder.finish();
-	}
-	
-	
-	/**
-	 * Contexts:
-	 *     ResultIssue returns ResultIssue
-	 *
-	 * Constraint:
-	 *     (
-	 *         issueType=ResultIssueType 
-	 *         message=STRING 
-	 *         target=[EObject|NoQuoteString]? 
-	 *         exceptionType=STRING? 
-	 *         diagnosticId=STRING? 
-	 *         issues+=ResultIssue*
-	 *     )
-	 */
-	protected void sequence_ResultIssue(ISerializationContext context, ResultIssue semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
 	}
 	
 	

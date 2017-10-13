@@ -51,9 +51,8 @@ import org.osate.aadl2.instance.SystemInstance
 import org.osate.aadl2.modelsupport.AadlConstants
 import org.osate.aadl2.modelsupport.resources.OsateResourceUtil
 import org.osate.aadl2.util.Aadl2Util
-import org.osate.alisa.common.common.CommonFactory
-import org.osate.alisa.common.common.ResultIssue
-import org.osate.alisa.common.common.ResultIssueType
+import org.osate.result.Issue
+import org.osate.result.IssueType
 import org.osate.assure.assure.AssuranceCaseResult
 import org.osate.assure.assure.AssureResult
 import org.osate.assure.assure.ClaimResult
@@ -87,6 +86,7 @@ import static extension org.osate.reqspec.util.ReqSpecUtilExtension.*
 import static extension org.osate.verify.util.VerifyUtilExtension.*
 import org.eclipse.xtext.resource.XtextResource
 import org.osate.reqspec.reqSpec.InformalPredicate
+import org.osate.result.ResultFactory
 
 class AssureUtilExtension {
 
@@ -274,9 +274,9 @@ class AssureUtilExtension {
 			]
 		}
 		targetmarkers.forEach[em|verificationActivityResult.addMarkerIssue(null /*instance*/ , em, diagnosticId)]
-		if (verificationActivityResult.issues.exists[ri|ri.issueType == ResultIssueType.FAIL]) {
+		if (verificationActivityResult.issues.exists[ri|ri.issueType == IssueType.FAIL]) {
 			verificationActivityResult.setToFail
-		} else if (verificationActivityResult.issues.exists[ri|ri.issueType == ResultIssueType.ERROR]) {
+		} else if (verificationActivityResult.issues.exists[ri|ri.issueType == IssueType.ERROR]) {
 			verificationActivityResult.setToError
 		} else {
 			verificationActivityResult.setToSuccess
@@ -296,7 +296,7 @@ class AssureUtilExtension {
 		return ""
 	}
 
-	def static ResultIssue addMarkerIssue(VerificationResult vr, EObject target, IMarker marker, String diagnosticId) {
+	def static Issue addMarkerIssue(VerificationResult vr, EObject target, IMarker marker, String diagnosticId) {
 		val msg = marker.getAttribute(IMarker.MESSAGE) as String
 		switch (marker.getAttribute(IMarker.SEVERITY)) {
 			case IMarker.SEVERITY_ERROR: addFailIssue(vr, target, msg, diagnosticId)
@@ -305,96 +305,96 @@ class AssureUtilExtension {
 		}
 	}
 
-	def static ResultIssue addErrorIssue(VerificationResult vr, EObject target, String message) {
+	def static Issue addErrorIssue(VerificationResult vr, EObject target, String message) {
 		addErrorIssue(vr, target, message, null, "")
 	}
 
-	def static ResultIssue addErrorIssue(VerificationResult vr, EObject target, String message, String diagnosticId) {
+	def static Issue addErrorIssue(VerificationResult vr, EObject target, String message, String diagnosticId) {
 		addErrorIssue(vr, target, message, null, diagnosticId)
 	}
 
-	def static ResultIssue addErrorIssue(VerificationResult vr, EObject target, String message, String issueSource,
+	def static Issue addErrorIssue(VerificationResult vr, EObject target, String message, String issueSource,
 		String diagnosticId) {
-		val issue = CommonFactory.eINSTANCE.createResultIssue
+		val issue = ResultFactory.eINSTANCE.createIssue
 		issue.message = message ?: "no message"
-		issue.issueType = ResultIssueType.ERROR;
+		issue.issueType = IssueType.ERROR;
 		issue.exceptionType = issueSource
-		issue.target = target
-		issue.diagnosticId = diagnosticId
+		issue.sourceReference = target
+		issue.diagnostic = diagnosticId
 		vr.issues.add(issue)
 		issue
 	}
 
-	def static ResultIssue addFailIssue(VerificationResult vr, EObject target, String message, String diagnosticId) {
+	def static Issue addFailIssue(VerificationResult vr, EObject target, String message, String diagnosticId) {
 		addFailIssue(vr, target, message, null, diagnosticId)
 	}
 
-	def static ResultIssue addFailIssue(VerificationResult vr, EObject target, String message, String issueSource,
+	def static Issue addFailIssue(VerificationResult vr, EObject target, String message, String issueSource,
 		String diagnosticId) {
-		val issue = CommonFactory.eINSTANCE.createResultIssue
+		val issue = ResultFactory.eINSTANCE.createIssue
 		issue.message = message ?: "no message"
-		issue.issueType = ResultIssueType.FAIL;
+		issue.issueType = IssueType.FAIL;
 		issue.exceptionType = issueSource
-		issue.target = target
-		issue.diagnosticId = diagnosticId
+		issue.sourceReference = target
+		issue.diagnostic = diagnosticId
 		vr.issues.add(issue)
 		issue
 	}
 
-	def static ResultIssue addInfoIssue(VerificationResult vr, EObject target, String message, String diagnosticId) {
+	def static Issue addInfoIssue(VerificationResult vr, EObject target, String message, String diagnosticId) {
 		addInfoIssue(vr, target, message, null, diagnosticId)
 	}
 
-	def static ResultIssue addInfoIssue(VerificationResult vr, EObject target, String message, String issueSource,
+	def static Issue addInfoIssue(VerificationResult vr, EObject target, String message, String issueSource,
 		String diagnosticId) {
-		val issue = CommonFactory.eINSTANCE.createResultIssue
+		val issue = ResultFactory.eINSTANCE.createIssue
 		issue.message = message
-		issue.issueType = ResultIssueType.INFO;
+		issue.issueType = IssueType.INFO;
 		issue.exceptionType = issueSource
-		issue.target = target
+		issue.sourceReference = target
 		vr.issues.add(issue)
 		issue
 	}
 
-	def static ResultIssue addSuccessIssue(VerificationResult vr, EObject target, String message, String diagnosticId) {
+	def static Issue addSuccessIssue(VerificationResult vr, EObject target, String message, String diagnosticId) {
 		addSuccessIssue(vr, target, message, null, diagnosticId)
 	}
 
-	def static ResultIssue addSuccessIssue(VerificationResult vr, EObject target, String message, String issueSource,
+	def static Issue addSuccessIssue(VerificationResult vr, EObject target, String message, String issueSource,
 		String diagnosticId) {
-		val issue = CommonFactory.eINSTANCE.createResultIssue
+		val issue = ResultFactory.eINSTANCE.createIssue
 		issue.message = message
-		issue.issueType = ResultIssueType.SUCCESS;
+		issue.issueType = IssueType.SUCCESS;
 		issue.exceptionType = issueSource
-		issue.target = target
-		issue.diagnosticId = diagnosticId
+		issue.sourceReference = target
+		issue.diagnostic = diagnosticId
 		vr.issues.add(issue)
 		issue
 	}
 
-	def static ResultIssue addWarningIssue(VerificationResult vr, EObject target, String message, String diagnosticId) {
+	def static Issue addWarningIssue(VerificationResult vr, EObject target, String message, String diagnosticId) {
 		addWarningIssue(vr, target, message, null, diagnosticId)
 	}
 
-	def static ResultIssue addWarningIssue(VerificationResult vr, EObject target, String message, String issueSource,
+	def static Issue addWarningIssue(VerificationResult vr, EObject target, String message, String issueSource,
 		String diagnosticId) {
-		val issue = CommonFactory.eINSTANCE.createResultIssue
+		val issue = ResultFactory.eINSTANCE.createIssue
 		issue.message = message
-		issue.issueType = ResultIssueType.WARNING;
+		issue.issueType = IssueType.WARNING;
 		issue.exceptionType = issueSource
-		issue.target = target
-		issue.diagnosticId = diagnosticId
+		issue.sourceReference = target
+		issue.diagnostic = diagnosticId
 		vr.issues.add(issue)
 		issue
 	}
 
 	static val resoluteContent = new ResoluteResultContentProvider
 
-	def static void doResoluteResults(ResoluteResult rr, ResultIssue ri) {
+	def static void doResoluteResults(ResoluteResult rr, Issue ri) {
 		doResoluteResults(rr, ri, "")
 	}
 
-	def static void doResoluteResults(ResoluteResult rr, ResultIssue ri, String diagnosticId) {
+	def static void doResoluteResults(ResoluteResult rr, Issue ri, String diagnosticId) {
 		val subrrs = resoluteContent.getChildren(rr)
 		subrrs.forEach [ subrr |
 			val subclaim = subrr as com.rockwellcollins.atc.resolute.analysis.results.ClaimResult
@@ -406,32 +406,32 @@ class AssureUtilExtension {
 		]
 	}
 
-	def static void doJUnitResults(Result rr, ResultIssue ri) {
+	def static void doJUnitResults(Result rr, Issue ri) {
 		val failist = rr.failures
 		failist.forEach [ failed |
 			ri.addFailIssue(null, failed.message)
 		]
 	}
 
-	def static ResultIssue addFailIssue(ResultIssue ri, EObject target, String message) {
+	def static Issue addFailIssue(Issue ri, EObject target, String message) {
 		addFailIssue(ri, target, message, "")
 	}
 
-	def static ResultIssue addFailIssue(ResultIssue ri, EObject target, String message, String diagnosticId) {
-		addIssue(ri, ResultIssueType.FAIL, target, message, null, diagnosticId)
+	def static Issue addFailIssue(Issue ri, EObject target, String message, String diagnosticId) {
+		addIssue(ri, IssueType.FAIL, target, message, null, diagnosticId)
 	}
 
-	def static ResultIssue addIssue(ResultIssue ri, ResultIssueType type, EObject target, String message,
+	def static Issue addIssue(Issue ri, IssueType type, EObject target, String message,
 		String issueSource, String diagnosticId) {
-		val issue = CommonFactory.eINSTANCE.createResultIssue
+		val issue = ResultFactory.eINSTANCE.createIssue
 		issue.message = message
 		issue.issueType = type;
 		issue.exceptionType = issueSource
-		issue.diagnosticId = diagnosticId
+		issue.diagnostic = diagnosticId
 		if (target instanceof FunctionDefinition) {
-			issue.target = target
+			issue.sourceReference = target
 		} else if (!(target instanceof FailExpr)) {
-			issue.target = target
+			issue.sourceReference = target
 		} else if (target instanceof FailExpr) {
 			if (message.length > 14) {
 				issue.message = message.substring(15)
@@ -441,11 +441,11 @@ class AssureUtilExtension {
 		issue
 	}
 
-	def static ResultIssue addSuccessIssue(ResultIssue ri, EObject target, String message, String diagnosticId) {
-		addIssue(ri, ResultIssueType.SUCCESS, target, message, null, diagnosticId)
+	def static Issue addSuccessIssue(Issue ri, EObject target, String message, String diagnosticId) {
+		addIssue(ri, IssueType.SUCCESS, target, message, null, diagnosticId)
 	}
 
-	def static ResultIssue addSuccessIssue(ResultIssue ri, EObject target, String message) {
+	def static Issue addSuccessIssue(Issue ri, EObject target, String message) {
 		addSuccessIssue(ri, target, message, "")
 	}
 
@@ -994,7 +994,7 @@ class AssureUtilExtension {
 			verificationActivityResult.propagateCountChangeUp
 	}
 
-	def static void setToSuccess(VerificationResult verificationActivityResult, List<ResultIssue> rl) {
+	def static void setToSuccess(VerificationResult verificationActivityResult, List<Issue> rl) {
 		verificationActivityResult.issues.addAll(rl);
 		if (verificationActivityResult.updateOwnResultState(VerificationResultState.SUCCESS))
 			verificationActivityResult.propagateCountChangeUp
@@ -1030,7 +1030,7 @@ class AssureUtilExtension {
 		verificationActivityResult.setToFail
 	}
 
-	def static void setToFail(VerificationResult verificationActivityResult, List<ResultIssue> rl) {
+	def static void setToFail(VerificationResult verificationActivityResult, List<Issue> rl) {
 		verificationActivityResult.issues.addAll(rl);
 		verificationActivityResult.setToFail
 	}
@@ -1481,7 +1481,7 @@ class AssureUtilExtension {
 		""
 	}
 
-	def static String constructMessage(ResultIssue ri) {
+	def static String constructMessage(Issue ri) {
 		if (ri.message !== null)
 			return ri.message + if (ri.exceptionType !== null) ( " [" + ri.exceptionType + "]" ) else ""
 		if (ri.exceptionType !== null) return ri.exceptionType

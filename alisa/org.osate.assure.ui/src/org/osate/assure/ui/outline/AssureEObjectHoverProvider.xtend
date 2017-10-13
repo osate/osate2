@@ -23,7 +23,7 @@ import org.osate.assure.assure.VerificationActivityResult
 import org.osate.assure.assure.PreconditionResult
 import org.osate.assure.assure.ValidationResult
 import org.osate.assure.assure.AssuranceCaseResult
-import org.osate.alisa.common.common.ResultIssue
+import org.osate.result.Issue
 
 class AssureEObjectHoverProvider extends DefaultEObjectHoverProvider {
 	override getHoverInfoAsHtml(EObject o){
@@ -33,7 +33,7 @@ class AssureEObjectHoverProvider extends DefaultEObjectHoverProvider {
 			VerificationActivityResult: return o.message?:"No message"
 			ValidationResult: return o.message?:"No message"
 			PreconditionResult: return o.message?:"No message"
-			ResultIssue: return o.message?:"No message"
+			Issue: return o.message?:"No message"
 		}
 		return super.getHoverInfoAsHtml(o)
 	}

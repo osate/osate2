@@ -1,6 +1,6 @@
 /**
  * Copyright 2015 Carnegie Mellon University. All Rights Reserved.
- * 
+ *
  * NO WARRANTY. THIS CARNEGIE MELLON UNIVERSITY AND SOFTWARE ENGINEERING INSTITUTE
  * MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO
  * WARRANTIES OF ANY KIND, EITHER EXPRESSED OR IMPLIED, AS TO ANY MATTER INCLUDING,
@@ -8,9 +8,9 @@
  * EXCLUSIVITY, OR RESULTS OBTAINED FROM USE OF THE MATERIAL. CARNEGIE MELLON
  * UNIVERSITY DOES NOT MAKE ANY WARRANTY OF ANY KIND WITH RESPECT TO FREEDOM FROM
  * PATENT, TRADEMARK, OR COPYRIGHT INFRINGEMENT.
- * 
+ *
  * Released under the Eclipse Public License (http://www.eclipse.org/org/documents/epl-v10.php)
- * 
+ *
  * See COPYRIGHT file for full details.
  */
 
@@ -44,11 +44,11 @@ import org.osate.aadl2.Element;
 import org.osate.aadl2.EventDataPort;
 import org.osate.aadl2.FeatureGroup;
 import org.osate.aadl2.instance.ComponentInstance;
-import org.osate.alisa.common.common.CommonFactory;
-import org.osate.alisa.common.common.ResultIssue;
 import org.osate.annexsupport.AnnexUtil;
 import org.osate.assure.assure.VerificationResult;
 import org.osate.assure.util.AssureUtilExtension;
+import org.osate.result.Issue;
+import org.osate.result.ResultFactory;
 
 import com.rockwellcollins.atc.agree.agree.AgreeContractSubclause;
 import com.rockwellcollins.atc.agree.agree.AgreePackage;
@@ -137,11 +137,7 @@ public class AgreeVerifySingleHandler extends VerifySingleHandler {
 
 	private void updateProgress(VerificationResult result) {
 		if (progressTreeViewer != null) {
-			Display.getDefault().asyncExec(new Runnable() {
-				public void run() {
-					progressTreeViewer.update(result, null);
-				}
-			});
+			Display.getDefault().asyncExec(() -> progressTreeViewer.update(result, null));
 		}
 	}
 
@@ -199,6 +195,7 @@ public class AgreeVerifySingleHandler extends VerifySingleHandler {
 	private IStatus doAnalysis(final Element root, final IProgressMonitor globalMonitor) {
 
 		Thread analysisThread = new Thread() {
+			@Override
 			public void run() {
 				// activateTerminateHandlers(globalMonitor);
 
@@ -263,7 +260,7 @@ public class AgreeVerifySingleHandler extends VerifySingleHandler {
 	/**
 	 * Top analysis result is always a CompositeAnalysisResult with empty string name
 	 * @param compositeAnalysisResult
-	 * @throws IOException 
+	 * @throws IOException
 	 */
 	protected void updateAgreeResults(CompositeAnalysisResult compositeAnalysisResult) throws IOException {
 		// System.out.println("AgreeVerifySingleHandler.updateAgreeResults() 0000");
@@ -297,7 +294,7 @@ public class AgreeVerifySingleHandler extends VerifySingleHandler {
 				case ERROR:
 				case WAITING:
 					// case VALID_REFINED:
-					ResultIssue topResultIssue = CommonFactory.eINSTANCE.createResultIssue();
+					Issue topResultIssue = ResultFactory.eINSTANCE.createIssue();
 					for (Iterator iterator2 = jKindResult.getPropertyResults().iterator(); iterator2.hasNext();) {
 						PropertyResult propertyResult = (PropertyResult) iterator2.next();
 

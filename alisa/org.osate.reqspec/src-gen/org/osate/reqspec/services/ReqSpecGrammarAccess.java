@@ -634,8 +634,8 @@ public class ReqSpecGrammarAccess extends AbstractGrammarElementFinder {
 		//target=[aadl2::ComponentClassifier|AadlClassifierReference] ('use' 'constants'
 		//importConstants+=[GlobalConstants|QualifiedName]+)? '[' (description=Description | constants+=ValDeclaration |
 		//computes+=ComputeDeclaration | requirements+=SystemRequirement | include+=IncludeGlobalRequirement | 'see' 'document'
-		//docReference+=ExternalDocument+ | 'see' 'goals' stakeholderGoals+=[ReqRoot|QualifiedName]+ | 'issues' issues+=STRING+)*
-		//']'
+		//docReference+=ExternalDocument+ | 'see' 'goals' stakeholderGoals+=[ReqRoot|QualifiedName]+ | 'issues'
+		//issues+=STRING+)* ']'
 		public Group getGroup() { return cGroup; }
 
 		//{SystemRequirementSet}
@@ -1728,8 +1728,8 @@ public class ReqSpecGrammarAccess extends AbstractGrammarElementFinder {
 		//	'[' ('category' category+=[categories::Category|QualifiedName]+ | description=Description |
 		//	whencondition=WhenCondition | predicate=ReqPredicate | rationale=Rationale | changeUncertainty=Uncertainty |
 		//	'mitigates' (exception=[ecore::EObject] | exceptionText=STRING) | 'inherits'
-		//	inheritsReference=[Requirement|QualifiedName] | dropped?='dropped' dropRationale=STRING? | constants+=ValDeclaration |
-		//	computes+=ComputeDeclaration | 'refines' refinesReference+=[Requirement|QualifiedName]+ | 'decomposes'
+		//	inheritsReference=[Requirement|QualifiedName] | dropped?='dropped' dropRationale=STRING? | constants+=ValDeclaration
+		//	| computes+=ComputeDeclaration | 'refines' refinesReference+=[Requirement|QualifiedName]+ | 'decomposes'
 		//	decomposesReference+=[Requirement|QualifiedName]+ | 'evolves' evolvesReference+=[Requirement|QualifiedName]+ |
 		//	'development' 'stakeholder' developmentStakeholder+=[org::Stakeholder|QualifiedName]+ | 'see' 'goal'
 		//	goalReference+=[Goal|QualifiedName]+ | 'see' 'requirement' requirementReference+=[Requirement|QualifiedName]+ | 'see'
@@ -3287,8 +3287,8 @@ public class ReqSpecGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cPropertyPropertyRefParserRuleCall_6_1_0 = (RuleCall)cPropertyAssignment_6_1.eContents().get(0);
 		
 		//ValDeclaration common::ValDeclaration:
-		//	{ReqValDeclaration} 'val' name=ID (':' (type=TypeRef | 'typeof' type=PropertyRef | range?='[' (type=TypeRef | 'typeof'
-		//	type=PropertyRef) ']'))? '=' value=AExpression ('as' property=PropertyRef)?;
+		//	{ReqValDeclaration} 'val' name=ID (':' (type=TypeRef | 'typeof' type=PropertyRef | range?='[' (type=TypeRef |
+		//	'typeof' type=PropertyRef) ']'))? '=' value=AExpression ('as' property=PropertyRef)?;
 		@Override public ParserRule getRule() { return rule; }
 
 		//{ReqValDeclaration} 'val' name=ID (':' (type=TypeRef | 'typeof' type=PropertyRef | range?='[' (type=TypeRef | 'typeof'
@@ -3700,8 +3700,8 @@ public class ReqSpecGrammarAccess extends AbstractGrammarElementFinder {
 	//	'[' ('category' category+=[categories::Category|QualifiedName]+ | description=Description |
 	//	whencondition=WhenCondition | predicate=ReqPredicate | rationale=Rationale | changeUncertainty=Uncertainty |
 	//	'mitigates' (exception=[ecore::EObject] | exceptionText=STRING) | 'inherits'
-	//	inheritsReference=[Requirement|QualifiedName] | dropped?='dropped' dropRationale=STRING? | constants+=ValDeclaration |
-	//	computes+=ComputeDeclaration | 'refines' refinesReference+=[Requirement|QualifiedName]+ | 'decomposes'
+	//	inheritsReference=[Requirement|QualifiedName] | dropped?='dropped' dropRationale=STRING? | constants+=ValDeclaration
+	//	| computes+=ComputeDeclaration | 'refines' refinesReference+=[Requirement|QualifiedName]+ | 'decomposes'
 	//	decomposesReference+=[Requirement|QualifiedName]+ | 'evolves' evolvesReference+=[Requirement|QualifiedName]+ |
 	//	'development' 'stakeholder' developmentStakeholder+=[org::Stakeholder|QualifiedName]+ | 'see' 'goal'
 	//	goalReference+=[Goal|QualifiedName]+ | 'see' 'requirement' requirementReference+=[Requirement|QualifiedName]+ | 'see'
@@ -3846,8 +3846,8 @@ public class ReqSpecGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//ValDeclaration common::ValDeclaration:
-	//	{ReqValDeclaration} 'val' name=ID (':' (type=TypeRef | 'typeof' type=PropertyRef | range?='[' (type=TypeRef | 'typeof'
-	//	type=PropertyRef) ']'))? '=' value=AExpression ('as' property=PropertyRef)?;
+	//	{ReqValDeclaration} 'val' name=ID (':' (type=TypeRef | 'typeof' type=PropertyRef | range?='[' (type=TypeRef |
+	//	'typeof' type=PropertyRef) ']'))? '=' value=AExpression ('as' property=PropertyRef)?;
 	public ValDeclarationElements getValDeclarationAccess() {
 		return pValDeclaration;
 	}
@@ -3909,29 +3909,6 @@ public class ReqSpecGrammarAccess extends AbstractGrammarElementFinder {
 	
 	public ParserRule getUncertaintyRule() {
 		return getUncertaintyAccess().getRule();
-	}
-
-	//// This is similar to diagnostics
-	//ResultIssue:
-	//	issueType=ResultIssueType
-	//	message=STRING ('target' target=[ecore::EObject|NoQuoteString])? ('exception' exceptionType=STRING)? ('diagnosticId'
-	//	diagnosticId=STRING)? ('[' issues+=ResultIssue* ']')?;
-	public CommonGrammarAccess.ResultIssueElements getResultIssueAccess() {
-		return gaCommon.getResultIssueAccess();
-	}
-	
-	public ParserRule getResultIssueRule() {
-		return getResultIssueAccess().getRule();
-	}
-
-	//enum ResultIssueType:
-	//	TBD='tbd' | ERROR='error' | WARNING='warning' | INFO='info' | SUCCESS='success' | FAIL='fail';
-	public CommonGrammarAccess.ResultIssueTypeElements getResultIssueTypeAccess() {
-		return gaCommon.getResultIssueTypeAccess();
-	}
-	
-	public EnumRule getResultIssueTypeRule() {
-		return getResultIssueTypeAccess().getRule();
 	}
 
 	//TypeRef aadl2::PropertyType:
@@ -4487,8 +4464,7 @@ public class ReqSpecGrammarAccess extends AbstractGrammarElementFinder {
 	} 
 
 	//terminal STRING:
-	//	'"' ('\\' . | !('\\' | '"'))* '"' |
-	//	"'" ('\\' . | !('\\' | "'"))* "'";
+	//	'"' ('\\' . | !('\\' | '"'))* '"' | "'" ('\\' . | !('\\' | "'"))* "'";
 	public TerminalRule getSTRINGRule() {
 		return gaTerminals.getSTRINGRule();
 	} 
