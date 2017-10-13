@@ -26,7 +26,6 @@ import org.osate.aadl2.Subcomponent;
 import org.osate.ge.BusinessObjectContext;
 import org.osate.ge.graphics.Color;
 import org.osate.ge.internal.diagram.runtime.DiagramElement;
-import org.osate.ge.internal.diagram.runtime.DiagramNode;
 import org.osate.ge.internal.graphiti.diagram.GraphitiAgeDiagram;
 import org.osate.ge.internal.graphiti.services.GraphitiService;
 import org.osate.ge.internal.services.ColoringService;
@@ -361,14 +360,7 @@ public class DefaultColoringService implements ColoringService {
 			public void execute() {
 				// Refresh Coloring
 				final GraphitiAgeDiagram graphitiAgeDiagram = graphitiService.getGraphitiAgeDiagram();
-				refreshChildrenColoring(graphitiAgeDiagram, graphitiService.getAgeDiagram());
-			}
-
-			private void refreshChildrenColoring(final GraphitiAgeDiagram graphitiAgeDiagram, final DiagramNode n) {
-				for (final DiagramElement child : n.getDiagramElements()) {
-					refreshChildrenColoring(graphitiAgeDiagram, child);
-					graphitiAgeDiagram.refreshStyle(child);
-				}
+				graphitiAgeDiagram.refreshDiagramStyles();
 			}
 
 			@Override

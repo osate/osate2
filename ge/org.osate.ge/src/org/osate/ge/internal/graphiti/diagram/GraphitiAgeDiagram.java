@@ -682,7 +682,20 @@ public class GraphitiAgeDiagram implements NodePictogramBiMap, AutoCloseable {
 	public final void refreshStyle(final DiagramElement de) {
 		final PictogramElement pe = getPictogramElement(de);
 		if (pe != null) {
-			LayoutUtil.refreshStyle(graphitiDiagram, pe, de, coloringProvider, this);
+			StyleUtil.refreshStyle(graphitiDiagram, pe, de, coloringProvider, this);
+		}
+	}
+
+	// Must be called inside the proper transaction
+	public void refreshDiagramStyles() {
+		// Refresh Coloring
+		refreshChildrenStyles(getAgeDiagram());
+	}
+
+	private void refreshChildrenStyles(final DiagramNode n) {
+		for (final DiagramElement child : n.getDiagramElements()) {
+			refreshChildrenStyles(child);
+			refreshStyle(child);
 		}
 	}
 
@@ -961,6 +974,9 @@ public class GraphitiAgeDiagram implements NodePictogramBiMap, AutoCloseable {
 								finishUpdating(element);
 							}
 						}
+
+						// Refresh the entire diagram's color. A model change could affect any number of diagram elements.
+						refreshDiagramStyles();
 					} finally {
 						inBeforeModificationsCompleted = false;
 					}
