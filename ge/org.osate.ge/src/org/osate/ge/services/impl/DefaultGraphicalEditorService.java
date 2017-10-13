@@ -118,6 +118,10 @@ public class DefaultGraphicalEditorService implements GraphicalEditorService {
 			return null;
 		}
 
+		if (editPart.getViewer() == null) {
+			return null;
+		}
+
 		final PictogramElement pe = (PictogramElement) editPart.getModel();
 
 		// Get services
