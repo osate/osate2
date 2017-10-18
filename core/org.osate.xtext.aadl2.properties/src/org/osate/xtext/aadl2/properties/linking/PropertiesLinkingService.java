@@ -501,7 +501,7 @@ public class PropertiesLinkingService extends DefaultLinkingService {
 										AadlUtil.getContainingClassifier(context));
 							}
 						} else {
-							ns = (Classifier) containingPropertyAssociation.getContainingClassifier();
+							ns = containingPropertyAssociation.getContainingClassifier();
 						}
 					}
 					if (ns != null) {

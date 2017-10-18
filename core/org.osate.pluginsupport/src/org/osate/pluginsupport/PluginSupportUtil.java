@@ -36,6 +36,8 @@ package org.osate.pluginsupport;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.OptionalInt;
+import java.util.stream.IntStream;
 
 import org.eclipse.core.runtime.IConfigurationElement;
 import org.eclipse.core.runtime.IExtension;
@@ -51,7 +53,6 @@ import org.eclipse.emf.common.util.URI;
  * @version $Id: PluginSupportUtil.java,v 1.2 2007-06-04 17:03:01 lwrage Exp $
  */
 public class PluginSupportUtil {
-
 	public static List<URI> getContributedAadl() {
 		ArrayList<URI> result = new ArrayList<URI>();
 		IExtensionRegistry extensionRegistry = Platform.getExtensionRegistry();
@@ -71,5 +72,12 @@ public class PluginSupportUtil {
 			}
 		}
 		return result;
+	}
+	
+	public static OptionalInt getFirstSignificantIndex(URI uri) {
+		return IntStream.range(2, uri.segmentCount()).filter(index -> {
+			String segment = uri.segment(index);
+			return !(segment.startsWith("resource") || segment.startsWith("package") || segment.startsWith("propert"));
+		}).findFirst();
 	}
 }
