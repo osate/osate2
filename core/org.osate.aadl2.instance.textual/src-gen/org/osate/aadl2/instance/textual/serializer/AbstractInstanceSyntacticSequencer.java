@@ -48,7 +48,7 @@ import org.eclipse.xtext.serializer.sequencer.AbstractSyntacticSequencer;
 import org.osate.aadl2.instance.textual.services.InstanceGrammarAccess;
 
 @SuppressWarnings("all")
-public class InstanceSyntacticSequencer extends AbstractSyntacticSequencer {
+public abstract class AbstractInstanceSyntacticSequencer extends AbstractSyntacticSequencer {
 
 	protected InstanceGrammarAccess grammarAccess;
 	protected AbstractElementAlias match_ComponentInstance___LeftCurlyBracketKeyword_7_0_RightCurlyBracketKeyword_7_2__q;
@@ -63,9 +63,47 @@ public class InstanceSyntacticSequencer extends AbstractSyntacticSequencer {
 	
 	@Override
 	protected String getUnassignedRuleCallToken(EObject semanticObject, RuleCall ruleCall, INode node) {
+		if (ruleCall.getRule() == grammarAccess.getAppliesToKeywordsRule())
+			return getAppliesToKeywordsToken(semanticObject, ruleCall, node);
+		else if (ruleCall.getRule() == grammarAccess.getInBindingKeywordsRule())
+			return getInBindingKeywordsToken(semanticObject, ruleCall, node);
+		else if (ruleCall.getRule() == grammarAccess.getInModesKeywordsRule())
+			return getInModesKeywordsToken(semanticObject, ruleCall, node);
 		return "";
 	}
 	
+	/**
+	 * AppliesToKeywords:
+	 * 	'applies' 'to'
+	 * ;
+	 */
+	protected String getAppliesToKeywordsToken(EObject semanticObject, RuleCall ruleCall, INode node) {
+		if (node != null)
+			return getTokenText(node);
+		return "appliesto";
+	}
+	
+	/**
+	 * InBindingKeywords:
+	 * 	'in' 'binding'
+	 * ;
+	 */
+	protected String getInBindingKeywordsToken(EObject semanticObject, RuleCall ruleCall, INode node) {
+		if (node != null)
+			return getTokenText(node);
+		return "inbinding";
+	}
+	
+	/**
+	 * InModesKeywords:
+	 * 	'in' 'modes'
+	 * ;
+	 */
+	protected String getInModesKeywordsToken(EObject semanticObject, RuleCall ruleCall, INode node) {
+		if (node != null)
+			return getTokenText(node);
+		return "inmodes";
+	}
 	
 	@Override
 	protected void emitUnassignedTokens(EObject semanticObject, ISynTransition transition, INode fromNode, INode toNode) {

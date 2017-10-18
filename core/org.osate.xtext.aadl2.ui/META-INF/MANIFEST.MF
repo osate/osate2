@@ -26,21 +26,25 @@ Require-Bundle: org.eclipse.ui.editors;bundle-version="3.7.0",
  org.osate.xtext.aadl2;bundle-version="1.0.0";visibility:=reexport,
  org.osate.xtext.aadl2.properties;bundle-version="1.0.0";visibility:=reexport,
  org.osate.xtext.aadl2.properties.ui;bundle-version="1.0.0";visibility:=reexport,
- org.osate.ui;bundle-version="1.0.0",
  org.eclipse.emf.transaction;bundle-version="1.4.0",
  org.osate.annexsupport;bundle-version="1.0.0",
  org.eclipse.xtext.ui.codetemplates.ui,
  org.eclipse.ui.navigator,
  org.eclipse.xtext.xbase.lib,
- org.eclipse.xtend.lib;bundle-version="[2.12.0,3.0.0)"
+ org.eclipse.xtend.lib;bundle-version="[2.12.0,3.0.0)",
+ org.osate.pluginsupport;bundle-version="1.0.0",
+ org.eclipse.jdt.core;bundle-version="3.13.0"
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Export-Package: de.itemis.utils.jface.viewers,
  de.itemis.xtext.utils.jface.viewers,
  org.osate.xtext.aadl2.ui,
+ org.osate.xtext.aadl2.ui.containers,
  org.osate.xtext.aadl2.ui.contentassist,
+ org.osate.xtext.aadl2.ui.editor,
  org.osate.xtext.aadl2.ui.internal,
  org.osate.xtext.aadl2.ui.outline,
  org.osate.xtext.aadl2.ui.propertyview,
- org.osate.xtext.aadl2.ui.quickfix
+ org.osate.xtext.aadl2.ui.quickfix,
+ org.osate.xtext.aadl2.ui.resource
 Bundle-Activator: org.osate.xtext.aadl2.ui.MyAadl2Activator
 Import-Package: org.apache.log4j

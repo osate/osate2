@@ -44,7 +44,6 @@ import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IProjectDescription;
 import org.eclipse.core.resources.IResourceStatus;
 import org.eclipse.core.resources.IWorkspace;
-import org.eclipse.core.resources.IWorkspaceRoot;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IConfigurationElement;
@@ -67,7 +66,6 @@ import org.eclipse.ui.dialogs.WizardNewProjectReferencePage;
 import org.eclipse.ui.wizards.newresource.BasicNewProjectResourceWizard;
 import org.eclipse.ui.wizards.newresource.BasicNewResourceWizard;
 import org.eclipse.xtext.ui.XtextProjectHelper;
-import org.osate.aadl2.modelsupport.resources.PredeclaredProperties;
 import org.osate.core.AadlNature;
 import org.osate.core.OsateCorePlugin;
 import org.osate.ui.OsateUiPlugin;
@@ -206,36 +204,6 @@ public class AadlProjectWizard extends BasicNewResourceWizard implements IExecut
 		IWorkspace workspace = ResourcesPlugin.getWorkspace();
 		final IProjectDescription description = workspace.newProjectDescription(newProjectHandle.getName());
 		description.setLocation(newPath);
-		IWorkspaceRoot workspaceRoot = ResourcesPlugin.getWorkspace().getRoot();
-		IProject plugins = workspaceRoot.getProject(PredeclaredProperties.PLUGIN_RESOURCES_PROJECT_NAME);
-		if (plugins == null) {
-			PredeclaredProperties.initPluginContributedAadl();
-			plugins = workspaceRoot.getProject(PredeclaredProperties.PLUGIN_RESOURCES_PROJECT_NAME);
-		}
-		if (referencePage != null) {
-			IProject[] refProjects = referencePage.getReferencedProjects();
-			if (refProjects.length > 0) {
-				boolean foundPlugins = false;
-				if (plugins != null) {
-					for (int i = 0; i < refProjects.length; i++) {
-						if (plugins == refProjects[i]) {
-							foundPlugins = true;
-						}
-					}
-					if (!foundPlugins) {
-						IProject[] newlist = new IProject[refProjects.length + 1];
-						System.arraycopy(refProjects, 0, newlist, 0, refProjects.length);
-						newlist[refProjects.length] = plugins;
-						refProjects = newlist;
-					}
-				}
-				description.setReferencedProjects(refProjects);
-			} else if (plugins != null) {
-				refProjects = new IProject[1];
-				refProjects[0] = plugins;
-				description.setReferencedProjects(refProjects);
-			}
-		}
 
 		// create the new project operation
 		WorkspaceModifyOperation op = new WorkspaceModifyOperation() {
