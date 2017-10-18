@@ -20402,13 +20402,13 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		
 		//AbstractFeature aadl2::AbstractFeature:
 		//	(name=ID ':' | refined=[aadl2::AbstractFeature|REFINEDNAME] ':' RefinedToKeywords) (in?='in' | out?='out')?
-		//	('prototype' featurePrototype=[aadl2::FeaturePrototype|QCREF]? | 'feature'
+		//	('prototype' featurePrototype=[aadl2::FeaturePrototype|QCREF] | 'feature'
 		//	abstractFeatureClassifier=[aadl2::FeatureClassifier|QCREF]?) arrayDimension+=ArrayDimension? ('{'
 		//	ownedPropertyAssociation+=PropertyAssociation+ '}')? ';';
 		@Override public ParserRule getRule() { return rule; }
 
 		//(name=ID ':' | refined=[aadl2::AbstractFeature|REFINEDNAME] ':' RefinedToKeywords) (in?='in' | out?='out')? ('prototype'
-		//featurePrototype=[aadl2::FeaturePrototype|QCREF]? | 'feature'
+		//featurePrototype=[aadl2::FeaturePrototype|QCREF] | 'feature'
 		//abstractFeatureClassifier=[aadl2::FeatureClassifier|QCREF]?) arrayDimension+=ArrayDimension? ('{'
 		//ownedPropertyAssociation+=PropertyAssociation+ '}')? ';'
 		public Group getGroup() { return cGroup; }
@@ -20462,17 +20462,17 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//'out'
 		public Keyword getOutOutKeyword_1_1_0() { return cOutOutKeyword_1_1_0; }
 
-		//'prototype' featurePrototype=[aadl2::FeaturePrototype|QCREF]? | 'feature'
+		//'prototype' featurePrototype=[aadl2::FeaturePrototype|QCREF] | 'feature'
 		//abstractFeatureClassifier=[aadl2::FeatureClassifier|QCREF]?
 		public Alternatives getAlternatives_2() { return cAlternatives_2; }
 
-		//'prototype' featurePrototype=[aadl2::FeaturePrototype|QCREF]?
+		//'prototype' featurePrototype=[aadl2::FeaturePrototype|QCREF]
 		public Group getGroup_2_0() { return cGroup_2_0; }
 
 		//'prototype'
 		public Keyword getPrototypeKeyword_2_0_0() { return cPrototypeKeyword_2_0_0; }
 
-		//featurePrototype=[aadl2::FeaturePrototype|QCREF]?
+		//featurePrototype=[aadl2::FeaturePrototype|QCREF]
 		public Assignment getFeaturePrototypeAssignment_2_0_1() { return cFeaturePrototypeAssignment_2_0_1; }
 
 		//[aadl2::FeaturePrototype|QCREF]
@@ -29709,7 +29709,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 
 	//AbstractFeature aadl2::AbstractFeature:
 	//	(name=ID ':' | refined=[aadl2::AbstractFeature|REFINEDNAME] ':' RefinedToKeywords) (in?='in' | out?='out')?
-	//	('prototype' featurePrototype=[aadl2::FeaturePrototype|QCREF]? | 'feature'
+	//	('prototype' featurePrototype=[aadl2::FeaturePrototype|QCREF] | 'feature'
 	//	abstractFeatureClassifier=[aadl2::FeatureClassifier|QCREF]?) arrayDimension+=ArrayDimension? ('{'
 	//	ownedPropertyAssociation+=PropertyAssociation+ '}')? ';';
 	public AbstractFeatureElements getAbstractFeatureAccess() {
