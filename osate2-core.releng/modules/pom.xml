@@ -31,9 +31,10 @@
 		<module>../../org.osate.core</module>
 		<module>../../org.osate.core.feature</module>
 		<module>../../org.osate.help</module>
-		<module>../../org.osate.resolute.help</module>
 		<module>../../org.osate.pluginsupport</module>
 		<module>../../org.osate.reporter</module>
+		<module>../../org.osate.resolute.help</module>
+		<module>../../org.osate.results</module>
 		<module>../../org.osate.ui</module>
 		<module>../../org.osate.wizards</module>
 		<module>../../org.osate.workspace</module>
