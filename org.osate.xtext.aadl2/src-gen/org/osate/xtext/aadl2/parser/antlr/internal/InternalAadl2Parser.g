@@ -28366,7 +28366,7 @@ ruleRefinedToKeywords
 	    }
 
 )
-)?)
+))
     |(
 	otherlv_9=Feature
     {
