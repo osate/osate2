@@ -5,7 +5,7 @@ import java.util.Iterator;
 import java.util.List;
 
 import org.eclipse.core.resources.IFile;
-import org.eclipse.core.resources.IResource;
+import org.eclipse.core.runtime.CoreException;
 import org.eclipse.jface.text.TextSelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.StructuredSelection;
@@ -30,24 +30,40 @@ import org.osate.aadl2.Property;
 import org.osate.aadl2.PropertyConstant;
 import org.osate.aadl2.PropertyType;
 import org.osate.aadl2.modelsupport.resources.OsateResourceUtil;
+import org.osate.xtext.aadl2.ui.editor.ContributedAadlEditorInput;
+import org.osate.xtext.aadl2.ui.resource.ContributedAadlStorage;
 
 public class AadlNavigatorLinkHelper implements ILinkHelper {
 
 	@Override
 	public IStructuredSelection findSelection(IEditorInput anInput) {
-		IResource resource = ResourceUtil.getResource(anInput);
-		IFile file = ResourceUtil.getFile(anInput);
-		if (file != null) {
-			return new StructuredSelection(file);
+		if (anInput instanceof ContributedAadlEditorInput) {
+			try {
+				return new StructuredSelection(((ContributedAadlEditorInput) anInput).getStorage());
+			} catch (CoreException e) {
+				return StructuredSelection.EMPTY;
+			}
+		} else {
+			IFile file = ResourceUtil.getFile(anInput);
+			if (file != null) {
+				return new StructuredSelection(file);
+			} else {
+				return StructuredSelection.EMPTY;
+			}
 		}
-		return StructuredSelection.EMPTY;
 	}
 
 	@Override
 	public void activateEditor(IWorkbenchPage aPage, IStructuredSelection aSelection) {
 		if (aSelection == null || aSelection.isEmpty())
 			return;
-		if (aSelection.getFirstElement() instanceof IFile) {
+		if (aSelection.getFirstElement() instanceof ContributedAadlStorage) {
+			ContributedAadlStorage storage = (ContributedAadlStorage)aSelection.getFirstElement();
+			IEditorPart editor = aPage.findEditor(new ContributedAadlEditorInput(storage));
+			if (editor != null) {
+				aPage.bringToTop(editor);
+			}
+		} else if (aSelection.getFirstElement() instanceof IFile) {
 			IEditorInput fileInput = new FileEditorInput((IFile) aSelection.getFirstElement());
 			IEditorPart editor = null;
 			if ((editor = aPage.findEditor(fileInput)) != null)

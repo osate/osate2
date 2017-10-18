@@ -34,12 +34,17 @@
 package org.osate.ui.navigator;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
+import java.util.OptionalInt;
+import java.util.stream.Stream;
 
 import org.eclipse.core.resources.IFile;
-import org.eclipse.core.resources.IProject;
-import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.resources.IWorkspaceRoot;
+import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.emf.common.util.EList;
+import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.ui.model.WorkbenchContentProvider;
 import org.osate.aadl2.AadlPackage;
@@ -53,27 +58,52 @@ import org.osate.aadl2.PropertyType;
 import org.osate.aadl2.instance.ConnectionInstance;
 import org.osate.aadl2.instance.InstanceObject;
 import org.osate.aadl2.modelsupport.resources.OsateResourceUtil;
-import org.osate.aadl2.modelsupport.resources.PredeclaredProperties;
+import org.osate.pluginsupport.PluginSupportUtil;
+import org.osate.xtext.aadl2.ui.resource.ContributedAadlStorage;
 
 public class AadlNavigatorContentProvider extends WorkbenchContentProvider {
 
 	private static final Object[] NO_CHILDREN = new Object[0];
 	private static final Object AADL_EXT = "aadl";
 	private static final Object AAXL2_EXT = "aaxl2";
-
+	
 	@Override
 	public Object[] getChildren(Object element) {
-		if (element instanceof IProject) {
-			IProject project = (IProject) element;
-			if (project.getName().equals(PredeclaredProperties.PLUGIN_RESOURCES_PROJECT_NAME)) {
-				try {
-					// DB: Fix
-					return project.members();
-					// return project.getFolder(WorkspacePlugin.DEFAULT_SOURCE_DIR).members();
-				} catch (CoreException e) {
-					// Do Nothing.
+		if (element instanceof IWorkspaceRoot) {
+			List<Object> result = new ArrayList<>(Arrays.asList(super.getChildren(element)));
+			result.add(VirtualPluginResources.INSTANCE);
+			return result.toArray();
+		} else if (element instanceof VirtualPluginResources) {
+			return PluginSupportUtil.getContributedAadl().stream().map(uri -> {
+				OptionalInt firstSignificantIndex = PluginSupportUtil.getFirstSignificantIndex(uri);
+				if (!firstSignificantIndex.isPresent() || firstSignificantIndex.getAsInt() == uri.segmentCount() - 1) {
+					return new ContributedAadlStorage(uri);
+				} else {
+					return new ContributedDirectory(Collections.singletonList(uri.segment(firstSignificantIndex.getAsInt())));
 				}
-			}
+			}).distinct().toArray();
+		} else if (element instanceof ContributedDirectory) {
+			List<String> directoryPath = ((ContributedDirectory) element).getPath();
+			Stream<URI> inDirectory = PluginSupportUtil.getContributedAadl().stream().filter(uri -> {
+				OptionalInt firstSignificantIndex = PluginSupportUtil.getFirstSignificantIndex(uri);
+				if (firstSignificantIndex.isPresent() && firstSignificantIndex.getAsInt() < uri.segmentCount() - 1) {
+					List<String> uriDirectory = uri.segmentsList().subList(firstSignificantIndex.getAsInt(), uri.segmentCount() - 1);
+					return directoryPath.equals(uriDirectory);
+				} else {
+					return false;
+				}
+			});
+			
+			return inDirectory.map(uri -> {
+				int nextSignificantIndex = PluginSupportUtil.getFirstSignificantIndex(uri).getAsInt() + directoryPath.size();
+				if (nextSignificantIndex == uri.segmentCount() - 1) {
+					return new ContributedAadlStorage(uri);
+				} else {
+					ArrayList<String> newPath = new ArrayList<>(directoryPath);
+					newPath.add(uri.segment(nextSignificantIndex));
+					return new ContributedDirectory(newPath);
+				}
+			}).distinct().toArray();
 		} else if (element instanceof IFile) {
 			IFile modelFile = (IFile) element;
 			if (AADL_EXT.equals(modelFile.getFileExtension())) {
@@ -138,5 +168,31 @@ public class AadlNavigatorContentProvider extends WorkbenchContentProvider {
 
 		return super.getChildren(element);
 	}
-
+	
+	@Override
+	public Object getParent(Object element) {
+		if (element instanceof VirtualPluginResources) {
+			return ResourcesPlugin.getWorkspace().getRoot();
+		} else if (element instanceof ContributedDirectory) {
+			List<String> path = ((ContributedDirectory) element).getPath();
+			if (path.size() == 1) {
+				return VirtualPluginResources.INSTANCE;
+			} else {
+				ArrayList<String> newList = new ArrayList<>(path);
+				newList.remove(path.size() - 1);
+				return new ContributedDirectory(newList);
+			}
+		} else if (element instanceof ContributedAadlStorage) {
+			URI uri = ((ContributedAadlStorage) element).getUri();
+			int firstSignificantIndex = PluginSupportUtil.getFirstSignificantIndex(uri).getAsInt();
+			if (firstSignificantIndex == uri.segmentCount() - 1) {
+				return VirtualPluginResources.INSTANCE;
+			} else {
+				List<String> path = uri.segmentsList().subList(firstSignificantIndex, uri.segmentCount() - 1);
+				return new ContributedDirectory(path);
+			}
+		} else {
+			return super.getParent(element);
+		}
+	}
 }

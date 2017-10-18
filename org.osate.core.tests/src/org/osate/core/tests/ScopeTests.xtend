@@ -1,10 +1,6 @@
 package org.osate.core.tests
 
 import com.google.inject.Inject
-import org.eclipse.core.resources.IncrementalProjectBuilder
-import org.eclipse.core.resources.ResourcesPlugin
-import org.eclipse.core.runtime.CoreException
-import org.eclipse.core.runtime.NullProgressMonitor
 import org.eclipse.emf.ecore.EObject
 import org.eclipse.emf.ecore.EReference
 import org.eclipse.xtext.scoping.IScopeProvider
@@ -13,7 +9,6 @@ import org.eclipse.xtext.testing.XtextRunner
 import org.eclipse.xtext.testing.util.ParseHelper
 import org.eclipse.xtext.testing.validation.ValidationTestHelper
 import org.junit.Assert
-import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.osate.aadl2.Aadl2Package
@@ -24,19 +19,6 @@ import org.osate.core.test.Aadl2UiInjectorProvider
 @RunWith(typeof(XtextRunner))
 @InjectWith(typeof(Aadl2UiInjectorProvider))
 class ScopeTests {
-
-	@Before
-	def setUp() {
-		val workspaceRoot = ResourcesPlugin.getWorkspace().getRoot();
-		val project = workspaceRoot.getProject("Plugin_Resources");
-		Assert.assertTrue(project.exists());
-		try {
-			project.build(IncrementalProjectBuilder.CLEAN_BUILD, new NullProgressMonitor());
-		} catch (CoreException e) {
-			e.printStackTrace();
-		}
-	}
-
 	@Inject extension ParseHelper<AadlPackage>
 	@Inject extension ValidationTestHelper
 	@Inject extension IScopeProvider

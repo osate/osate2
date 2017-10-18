@@ -2,12 +2,6 @@
 <?eclipse version="3.0"?>
 
 <plugin>
-<extension
-      point="org.eclipse.ui.startup">
-   <startup
-         class="org.osate.xtext.aadl2.properties.ui.PropertiesUiStartup">
-   </startup>
-</extension>
     <extension
             point="org.eclipse.ui.editors">
         <editor
@@ -208,6 +202,18 @@
          </command>
       </menuContribution>
    </extension>
+    <extension
+          point="org.eclipse.xtext.ui.shared.sharedStateContributingModule">
+       <module
+             class="org.osate.xtext.aadl2.properties.ui.PropertiesSharedStateContributingModule">
+       </module>
+    </extension>
+    <extension
+          point="org.eclipse.ui.startup">
+       <startup
+             class="org.osate.xtext.aadl2.properties.ui.PropertiesUiStartup">
+       </startup>
+    </extension>
 
 
 </plugin>

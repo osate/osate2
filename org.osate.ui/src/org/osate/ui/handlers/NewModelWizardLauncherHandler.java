@@ -46,7 +46,6 @@ import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.wizard.WizardDialog;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.handlers.HandlerUtil;
-import org.osate.aadl2.modelsupport.resources.PredeclaredProperties;
 import org.osate.ui.wizards.NewModelWizard;
 
 /**
@@ -61,8 +60,7 @@ public abstract class NewModelWizardLauncherHandler extends AbstractHandler {
 		IProject[] projects = ResourcesPlugin.getWorkspace().getRoot().getProjects();
 		ArrayList<IProject> openProjects = new ArrayList<IProject>();
 		for (int i = 0; i < projects.length; i++) {
-			if (projects[i].isOpen()
-					&& !projects[i].getName().equals(PredeclaredProperties.PLUGIN_RESOURCES_PROJECT_NAME)) {
+			if (projects[i].isOpen()) {
 				openProjects.add(projects[i]);
 			}
 		}
@@ -79,9 +77,9 @@ public abstract class NewModelWizardLauncherHandler extends AbstractHandler {
 		}
 		return null;
 	}
-	
+
 	protected abstract void setInitialObjectType(NewModelWizard wizard);
-	
+
 	private IStructuredSelection getSelection(ExecutionEvent event) {
 		ISelection selection = HandlerUtil.getCurrentSelection(event);
 		if (selection instanceof IStructuredSelection && ((IStructuredSelection) selection).size() == 1) {

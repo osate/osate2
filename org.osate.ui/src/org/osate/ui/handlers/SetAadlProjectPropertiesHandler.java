@@ -43,9 +43,9 @@ import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.PlatformUI;
 import org.osate.aadl2.modelsupport.resources.PredeclaredProperties;
+import org.osate.xtext.aadl2.ui.resource.ContributedAadlStorage;
 
 public class SetAadlProjectPropertiesHandler extends AbstractHandler {
-
 	@Override
 	public Object execute(ExecutionEvent event) throws ExecutionException {
 		IWorkbenchWindow win = PlatformUI.getWorkbench().getActiveWorkbenchWindow();
@@ -57,10 +57,11 @@ public class SetAadlProjectPropertiesHandler extends AbstractHandler {
 				if (tree.getFirstElement() instanceof IResource) {
 					IResource newAadlProject = (IResource) tree.getFirstElement();
 					PredeclaredProperties.setAadlProject(newAadlProject);
+				} else if (tree.getFirstElement() instanceof ContributedAadlStorage) {
+					PredeclaredProperties.resetAadlProject();
 				}
 			}
 		}
 		return null;
 	}
-
 }
