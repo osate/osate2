@@ -86,7 +86,6 @@ import org.eclipse.ui.statushandlers.StatusManager;
 import org.eclipse.xtext.resource.XtextResourceSet;
 import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.modelsupport.Activator;
-import org.osate.aadl2.modelsupport.resources.PredeclaredProperties;
 import org.osate.ge.internal.services.DiagramService;
 import org.osate.ge.internal.services.impl.DefaultNamingService;
 import org.osate.ui.OsateUiPlugin;
@@ -120,12 +119,7 @@ public class NewPackageWizard extends Wizard implements INewWizard {
 		if (selection != null) {
 			Object selectedElement = selection.getFirstElement();
 			if (selectedElement instanceof IResource) {
-				IProject project = ((IResource) selectedElement).getProject();
-				if (!project.getName().equals(PredeclaredProperties.PLUGIN_RESOURCES_PROJECT_NAME)) {
-					this.project = project;
-				} else {
-					this.project = null;
-				}
+				project = ((IResource) selectedElement).getProject();
 			}
 		}
 		setWindowTitle("New Aadl Package");
@@ -302,8 +296,7 @@ public class NewPackageWizard extends Wizard implements INewWizard {
 					IProject[] projects = ((IWorkspace) element).getRoot().getProjects();
 					ArrayList<IProject> openProjects = new ArrayList<IProject>();
 					for (IProject project : projects) {
-						if (project.isOpen()
-								&& !project.getName().equals(PredeclaredProperties.PLUGIN_RESOURCES_PROJECT_NAME)) {
+						if (project.isOpen()) {
 							openProjects.add(project);
 						}
 					}

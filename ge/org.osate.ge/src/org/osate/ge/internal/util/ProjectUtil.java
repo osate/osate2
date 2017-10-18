@@ -9,7 +9,6 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.emf.common.util.URI;
-import org.osate.aadl2.modelsupport.resources.PredeclaredProperties;
 
 public class ProjectUtil {
 	/**
@@ -29,11 +28,7 @@ public class ProjectUtil {
 				// Get referencing projects if the project was not already part of the relevant projects set
 				try {
 					for (final IProject referencedProject : project.getReferencedProjects()) {
-						// Don't handle the plugin resources project or the set of referencing and referenced projects will likely contain all AADL projects
-						if (!PredeclaredProperties.PLUGIN_RESOURCES_PROJECT_NAME
-								.equalsIgnoreCase(referencedProject.getName())) {
-							getAffectedProjects(referencedProject, relevantProjects);
-						}
+						getAffectedProjects(referencedProject, relevantProjects);
 					}
 				} catch (final CoreException e) {
 					// Ignore
