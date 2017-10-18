@@ -33,18 +33,12 @@
  */
 package org.osate.ui.navigator;
 
-import static org.osate.aadl2.modelsupport.resources.PredeclaredProperties.AADL_PROJECT;
-import static org.osate.aadl2.modelsupport.resources.PredeclaredProperties.AADL_PROJECT_DEFAULT;
-import static org.osate.aadl2.modelsupport.resources.PredeclaredProperties.AADL_PROJECT_KEY;
+import java.util.List;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IMarker;
-import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.CoreException;
-import org.eclipse.core.runtime.preferences.IEclipsePreferences;
-import org.eclipse.core.runtime.preferences.InstanceScope;
-import org.eclipse.emf.common.util.URI;
 import org.eclipse.jface.viewers.DecoratingLabelProvider;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Color;
@@ -52,17 +46,19 @@ import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.widgets.Display;
+import org.eclipse.ui.ISharedImages;
+import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.model.WorkbenchLabelProvider;
 import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.PrivatePackageSection;
 import org.osate.aadl2.PropertyType;
 import org.osate.aadl2.PublicPackageSection;
 import org.osate.aadl2.instance.InstanceObject;
-import org.osate.aadl2.modelsupport.Activator;
 import org.osate.aadl2.modelsupport.resources.PredeclaredProperties;
 import org.osate.ui.OsateUiPlugin;
 import org.osate.ui.UiUtil;
 import org.osate.ui.navigator.AadlElementImageDescriptor.ModificationFlag;
+import org.osate.xtext.aadl2.ui.resource.ContributedAadlStorage;
 
 public class AadlNavigatorLabelProvider extends DecoratingLabelProvider {
 	public AadlNavigatorLabelProvider() {
@@ -72,12 +68,13 @@ public class AadlNavigatorLabelProvider extends DecoratingLabelProvider {
 	@Override
 	public String getText(Object element) {
 		StringBuilder text = new StringBuilder(super.getText(element));
-		if (element instanceof IFile) {
-			IFile file = (IFile) element;
-			if (file.getProject().getName().equals(PredeclaredProperties.PLUGIN_RESOURCES_PROJECT_NAME)
-					&& !file.getResourceAttributes().isReadOnly()) {
-				text.append(" (Modified)");
-			}
+		if (element instanceof VirtualPluginResources) {
+			text.append("Plugin_Contributions");
+		} else if (element instanceof ContributedDirectory) {
+			List<String> directoryPath = ((ContributedDirectory) element).getPath();
+			text.append(directoryPath.get(directoryPath.size() - 1));
+		} else if (element instanceof ContributedAadlStorage) {
+			text.append(((ContributedAadlStorage) element).getUri().lastSegment());
 		} else if (element instanceof PublicPackageSection) {
 			text.append("Public Package Section");
 		} else if (element instanceof PrivatePackageSection) {
@@ -95,9 +92,12 @@ public class AadlNavigatorLabelProvider extends DecoratingLabelProvider {
 	@Override
 	public Image getImage(Object element) {
 		Image image;
-		if (element instanceof IProject
-				&& ((IProject) element).getName().equals(PredeclaredProperties.PLUGIN_RESOURCES_PROJECT_NAME)) {
+		if (element instanceof VirtualPluginResources) {
 			image = OsateUiPlugin.getImageDescriptor("icons/library_obj.gif").createImage();
+		} else if (element instanceof ContributedDirectory) {
+			image = PlatformUI.getWorkbench().getSharedImages().getImage(ISharedImages.IMG_OBJ_FOLDER);
+		} else if (element instanceof ContributedAadlStorage) {
+			image = PlatformUI.getWorkbench().getSharedImages().getImage(ISharedImages.IMG_OBJ_FILE);
 		} else if (element instanceof PropertyType) {
 			image = UiUtil.getModelElementLabelProvider().getImage(element);
 		} else if (element instanceof InstanceObject) {
@@ -113,10 +113,15 @@ public class AadlNavigatorLabelProvider extends DecoratingLabelProvider {
 	@Override
 	public Color getForeground(Object element) {
 		if (element instanceof IFile) {
-			IEclipsePreferences prefs = InstanceScope.INSTANCE.getNode(Activator.PLUGIN_ID);
-			URI uri = URI.createPlatformResourceURI(((IFile) element).getFullPath().toString(), true);
-			String path = prefs.get(AADL_PROJECT_KEY, AADL_PROJECT_DEFAULT);
-			if (uri.lastSegment().equals(AADL_PROJECT) && !uri.equals(URI.createPlatformResourceURI(path, true))) {
+			IFile file = (IFile) element;
+			if (file.getName().contentEquals(PredeclaredProperties.AADL_PROJECT)
+					&& !file.getFullPath().toString().contentEquals(PredeclaredProperties.getAADLProjectPreference())) {
+				return Display.getCurrent().getSystemColor(SWT.COLOR_GRAY);
+			}
+		} else if (element instanceof ContributedAadlStorage) {
+			ContributedAadlStorage contributed = (ContributedAadlStorage) element;
+			if (contributed.getName().contentEquals(PredeclaredProperties.AADL_PROJECT) && !contributed.getUri()
+					.toString().contentEquals(PredeclaredProperties.getAADLProjectPreference())) {
 				return Display.getCurrent().getSystemColor(SWT.COLOR_GRAY);
 			}
 		}

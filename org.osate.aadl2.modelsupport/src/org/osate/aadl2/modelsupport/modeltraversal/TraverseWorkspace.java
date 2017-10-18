@@ -14,7 +14,6 @@ import org.osate.aadl2.AadlPackage;
 import org.osate.aadl2.Element;
 import org.osate.aadl2.ModelUnit;
 import org.osate.aadl2.PropertySet;
-import org.osate.aadl2.modelsupport.resources.PredeclaredProperties;
 import org.osate.aadl2.modelsupport.util.AadlUtil;
 import org.osate.workspace.WorkspacePlugin;
 
@@ -83,8 +82,7 @@ public class TraverseWorkspace {
 		int cn = 0;
 		for (int i = 0, max = projects.length; i < max; i++) {
 			IProject project = projects[i];
-			if (project.isOpen()// && AadlProject.hasAadlNature(project)
-					&& !project.getName().equalsIgnoreCase(PredeclaredProperties.PLUGIN_RESOURCES_PROJECT_NAME)) {
+			if (project.isOpen()) {
 				tmp[cn++] = project;
 			}
 		}

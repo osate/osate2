@@ -45,8 +45,10 @@ import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.URI;
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
+import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.xtext.resource.SaveOptions;
 import org.eclipse.xtext.resource.XtextResourceSet;
 import org.eclipse.xtext.ui.resource.IResourceSetProvider;
@@ -202,7 +204,7 @@ public class OsateResourceUtil {
 		 * "platform:/resource/xxx/yyy/zzz" and return the Eclipse IPath to the
 		 * file for that Resource. This seems to involve removing the
 		 * "/resource/" part.
-		 * 
+		 *
 		 * --aarong
 		 */
 
@@ -238,7 +240,7 @@ public class OsateResourceUtil {
 		 * "platform:/resource/xxx/yyy/zzz" and return the Eclipse IPath to
 		 * the file for that Resource. This seems to involve removing the
 		 * "/resource/" part.
-		 * 
+		 *
 		 * --aarong
 		 */
 
@@ -455,9 +457,9 @@ public class OsateResourceUtil {
 
 	/*
 	 * returns the instance model URI for a given system implementation
-	 * 
+	 *
 	 * @param si
-	 * 
+	 *
 	 * @return URI for instance model file
 	 */
 	public static URI getInstanceModelURI(ComponentImplementation ci) {
@@ -477,9 +479,9 @@ public class OsateResourceUtil {
 
 	/*
 	 * returns the instance model URI for a given system implementation
-	 * 
+	 *
 	 * @param si
-	 * 
+	 *
 	 * @return URI for instance model file
 	 */
 	public static URI getReportsURI(InstanceObject obj, String reporttype, String extension) {
@@ -500,6 +502,19 @@ public class OsateResourceUtil {
 			reportURI = reportURI.appendFileExtension(extension);
 		}
 		return reportURI;
+	}
+
+	public static URI saveEMFModel(EObject root, final URI newURI, EObject context) {
+		try {
+			ResourceSet set = context.eResource().getResourceSet();
+			Resource res = set.createResource(newURI);
+			res.getContents().add(root);
+			res.save(null);
+			return EcoreUtil.getURI(root);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return newURI;
 	}
 
 }

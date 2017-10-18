@@ -288,10 +288,6 @@
           xsi:type="setup:PreferenceTask"
           key="/instance/org.eclipse.ui/defaultPerspectiveId"
           value="org.eclipse.jdt.ui.JavaPerspective"/>
-      <setupTask
-          xsi:type="setup:PreferenceTask"
-          key="/instance/org.eclipse.ui/SHOW_MEMORY_MONITOR"
-          value="true"/>
     </setupTask>
     <setupTask
         xsi:type="setup:CompoundTask"
@@ -599,10 +595,6 @@
           name="org.eclipse.wst.xml_ui.feature.feature.group"/>
       <requirement
           name="org.sonatype.tycho.m2e.feature.feature.group"/>
-      <requirement
-          name="de.libutzki.xtext.nodemodeloutline.feature.feature.group"/>
-      <requirement
-          name="de.libutzki.xtext.semanticmodeloutline.feature.feature.group"/>
       <repository
           url="http://download.eclipse.org/modeling/mdt/papyrus/updates/releases/oxygen"/>
       <repository
@@ -613,8 +605,6 @@
           url="http://download.eclipse.org/releases/oxygen/201706281000"/>
       <repository
           url="http://repo1.maven.org/maven2/.m2e/connectors/m2eclipse-tycho/0.9.0/N/0.9.0.201609252021/"/>
-      <repository
-          url="http://xtexttools.libutzki.de/"/>
     </setupTask>
   </setupTask>
   <setupTask
@@ -735,8 +725,24 @@
           name="org.eclipse.graphiti.sdk.plus.feature.feature.group"/>
       <requirement
           name="org.eclipse.zest.sdk.feature.group"/>
+      <requirement
+          name="org.eclipse.fx.ide.pde.feature.feature.group"/>
+      <requirement
+          name="org.eclipse.gef.common.sdk.feature.group"/>
+      <requirement
+          name="org.eclipse.gef.geometry.sdk.feature.group"/>
+      <requirement
+          name="org.eclipse.gef.fx.sdk.feature.group"/>
+      <requirement
+          name="org.eclipse.gef.mvc.sdk.feature.group"/>          
+      <requirement
+          name="org.eclipse.elk.sdk.feature.feature.group"/>
+      <requirement
+          name="org.eclipse.elk.ui.feature.feature.group"/>
       <repository
           url="http://download.eclipse.org/releases/oxygen/201706281000"/>
+      <repository
+          url="http://download.eclipse.org/elk/updates/releases/0.2.2/"/>
     </setupTask>
   </setupTask>
   <setupTask
@@ -805,16 +811,8 @@
         xsi:type="setup.p2:P2Task">
       <requirement
           name="it.xsemantics.sdk.feature.group"/>
-      <requirement
-          name="org.eclipse.rmf.reqif10.thirdparty.feature.feature.group"/>
-      <requirement
-          name="org.eclipse.rmf.reqif10.feature.feature.group"/>
-      <requirement
-          name="org.eclipse.rmf.reqif10.pror.feature.feature.group"/>
       <repository
           url="https://dl.bintray.com/lorenzobettini/xsemantics/updates/1.12"/>
-      <repository
-          url="http://download.eclipse.org/rmf/updates/releases"/>
     </setupTask>
   </setupTask>
   <setupTask
@@ -916,28 +914,37 @@
       <requirement
           name="com.itemis.xtext.testing.feature.feature.group"/>
       <requirement
+          name="org.eclipse.elk.feature.feature.group"/>
+      <requirement
+          name="org.eclipse.fx.runtime.min.feature.feature.group"/>
+      <requirement
+          name="org.eclipse.gef.common.feature.group"/>
+      <requirement
+          name="org.eclipse.gef.geometry.feature.group"/>
+      <requirement
+          name="org.eclipse.gef.geometry.convert.fx.feature.group"/>
+      <requirement
+          name="org.eclipse.gef.fx.feature.group"/>
+      <requirement
+          name="org.eclipse.gef.mvc.fx.feature.group"/>
+      <requirement
+          name="org.eclipse.gef.mvc.fx.ui.feature.group"/>
+      <requirement
           name="*"/>
       <sourceLocator
-          rootFolder="${git.clone.osate2-core.location}"
-          locateNestedProjects="true"/>
+          rootFolder="${git.clone.osate2-core.location}"/>
       <sourceLocator
-          rootFolder="${git.clone.emv2.location}"
-          locateNestedProjects="true"/>
+          rootFolder="${git.clone.emv2.location}"/>
       <sourceLocator
-          rootFolder="${git.clone.osate2-plugins.location}"
-          locateNestedProjects="true"/>
+          rootFolder="${git.clone.osate2-plugins.location}"/>
       <sourceLocator
-          rootFolder="${git.clone.osate2-ba.location}"
-          locateNestedProjects="true"/>
+          rootFolder="${git.clone.osate2-ba.location}"/>
       <sourceLocator
-          rootFolder="${git.clone.osate-ge.location}"
-          locateNestedProjects="true"/>
+          rootFolder="${git.clone.osate-ge.location}"/>
       <sourceLocator
-          rootFolder="${git.clone.ocarina.location}"
-          locateNestedProjects="true"/>
+          rootFolder="${git.clone.ocarina.location}"/>
       <sourceLocator
-          rootFolder="${git.clone.emfta.location}"
-          locateNestedProjects="true"/>
+          rootFolder="${git.clone.emfta.location}"/>
       <repositoryList
           name="Oxygen">
         <repository
@@ -950,6 +957,8 @@
             url="http://download.itemis.de/updates/"/>
         <repository
             url="http://download.eclipse.org/sirius/updates/releases/5.0.1/oxygen"/>
+        <repository
+            url="http://download.eclipse.org/elk/updates/releases/0.2.2/"/>
       </repositoryList>
     </targlet>
     <targlet
@@ -985,27 +994,22 @@
       <requirement
           name="*"/>
       <sourceLocator
-          rootFolder="${git.clone.smaccm.location/fm-workbench/agree}"
-          locateNestedProjects="true">
+          rootFolder="${git.clone.smaccm.location/fm-workbench/agree}">
         <excludedPath>edu.umn.cs.crisys.agree.realtime</excludedPath>
       </sourceLocator>
       <sourceLocator
-          rootFolder="${git.clone.smaccm.location/fm-workbench/resolute}"
-          locateNestedProjects="true"/>
+          rootFolder="${git.clone.smaccm.location/fm-workbench/resolute}"/>
       <sourceLocator
-          rootFolder="${git.clone.smaccm.location/fm-workbench/simulator}"
-          locateNestedProjects="true">
+          rootFolder="${git.clone.smaccm.location/fm-workbench/simulator}">
         <excludedPath>edu.uah.rsesc.aadlsimulator.agree.eval.test</excludedPath>
       </sourceLocator>
       <sourceLocator
-          rootFolder="${git.clone.smaccm.location/fm-workbench/tcg}"
-          locateNestedProjects="true">
+          rootFolder="${git.clone.smaccm.location/fm-workbench/tcg}">
         <excludedPath>com.rockwellcollins.atc.tcg.feature</excludedPath>
         <excludedPath>com.rockwellcollins.atc.tcg.standalone</excludedPath>
       </sourceLocator>
       <sourceLocator
-          rootFolder="${git.clone.smaccm.location/fm-workbench/z3}"
-          locateNestedProjects="true"/>
+          rootFolder="${git.clone.smaccm.location/fm-workbench/z3}"/>
       <repositoryList
           name="Oxygen">
         <repository
@@ -1053,8 +1057,7 @@
       <requirement
           name="*"/>
       <sourceLocator
-          rootFolder="${git.clone.alisa.location}"
-          locateNestedProjects="true"/>
+          rootFolder="${git.clone.alisa.location}"/>
       <repositoryList
           name="Oxygen">
         <repository

@@ -128,9 +128,6 @@
          		<instanceof value= "org.osate.aadl2.NamedElement" />
          	</or>
          </possibleChildren>
-		<actionProvider
-			class="org.osate.ui.navigator.AadlNavigatorActionGroup">
-		</actionProvider>
 		  <enablement>
 		  </enablement>
 		  
@@ -144,9 +141,20 @@
                  </instanceof>
                  <instanceof value="org.osate.aadl2.instance.InstanceObject" />
                  <instanceof value="org.osate.aadl2.NamedElement" />
+                 <instanceof
+                       value="org.osate.ui.navigator.VirtualPluginResources">
+                 </instanceof>
                 </or>
            </parentExpression>
         </commonSorter>
+        <actionProvider
+              class="org.osate.ui.navigator.AadlNavigatorActionProvider">
+           <enablement>
+              <instanceof
+                    value="org.osate.xtext.aadl2.ui.resource.ContributedAadlStorage">
+              </instanceof>
+           </enablement>
+        </actionProvider>
       </navigatorContent>
    </extension>
    
@@ -237,11 +245,17 @@
              <instanceof value="org.osate.aadl2.Property"/>
              <instanceof value="org.osate.aadl2.PropertyConstant"/>
              <instanceof value="org.osate.aadl2.PropertyType"/>
+             <instanceof
+                   value="org.osate.xtext.aadl2.ui.resource.ContributedAadlStorage">
+             </instanceof>
            </or>
           </selectionEnablement>
           <editorInputEnablement>
           <or>
              <instanceof value="org.eclipse.ui.IFileEditorInput"/>
+             <instanceof
+                   value="org.osate.xtext.aadl2.ui.editor.ContributedAadlEditorInput">
+             </instanceof>
            </or>
           </editorInputEnablement>
        </linkHelper>
@@ -261,15 +275,52 @@
 
     <extension point="org.eclipse.core.expressions.definitions">
        <definition id="org.osate.is_aadl_project_propertyset">
-          <adapt type="org.eclipse.core.resources.IResource">
-             <test property="org.eclipse.core.resources.name"
-                  value="AADL_Project.aadl">
-             </test>
-          </adapt>
+          <or>
+             <adapt type="org.eclipse.core.resources.IResource">
+                <test property="org.eclipse.core.resources.name"
+                     value="AADL_Project.aadl">
+                </test>
+             </adapt>
+             <adapt
+                   type="org.osate.xtext.aadl2.ui.resource.ContributedAadlStorage">
+                <test
+                      property="org.osate.ui.name"
+                      value="AADL_Project.aadl"
+                      forcePluginActivation="true">
+                </test>
+             </adapt>
+          </or>
        </definition>
     </extension>
     <extension
           point="org.eclipse.ui.menus">
+       <menuContribution
+             allPopups="false"
+             locationURI="popup:#TextEditorContext?after=additions">
+          <command
+                commandId="org.osate.ui.instantiate"
+                style="push"
+                tooltip="Do Instantiate">
+             <visibleWhen
+                   checkEnabled="false">
+                <reference
+                      definitionId="org.osate.xtext.aadl2.Aadl2.Editor.opened">
+                </reference>
+             </visibleWhen>
+          </command>
+       </menuContribution>
+       <menuContribution
+             allPopups="false"
+             locationURI="popup:org.osate.xtext.aadl2.ui.outline?after=additions">
+          <command
+                commandId="org.osate.ui.instantiate"
+                style="push"
+                tooltip="Do Instantiate">
+             <visibleWhen
+                   checkEnabled="false">
+             </visibleWhen>
+          </command>
+       </menuContribution>
        <menuContribution
              locationURI="popup:org.osate.ui.navigator.AadlNavigator?after=additions">
           <menu
@@ -289,13 +340,27 @@
                 label="Set as AADL_Project property set"
                 style="push">
              <visibleWhen>
-                <with variable="selection">
-                   <iterate
-                         ifEmpty="false">
-                      <reference definitionId="org.osate.is_aadl_project_propertyset"/>
-                   </iterate>
+                <with
+                      variable="selection">
+                   <and>
+                      <count
+                            value="1">
+                      </count>
+                      <iterate
+                            ifEmpty="false">
+                         <reference
+                               definitionId="org.osate.is_aadl_project_propertyset">
+                         </reference>
+                      </iterate>
+                   </and>
                 </with>
              </visibleWhen>
+          </command>
+          <command
+                commandId="org.osate.ui.instantiate"
+                label="Reinstantiate selected instance"
+                style="push"
+                tooltip="Do Reinstantiate">
           </command>
        </menuContribution>
        <menuContribution
@@ -489,6 +554,11 @@
              name="Set as AADL_Project property set">
        </command>
        <command
+             description="Instantiate the system"
+             id="org.osate.ui.instantiate"
+             name="Instantiate System">
+       </command>
+       <command
              id="org.osate.ui.reinstantiateAllAadl"
              name="%ReinstantiateAllModelsAction.label">
        </command>
@@ -510,6 +580,10 @@
        <handler
              class="org.osate.ui.handlers.SetAadlProjectPropertiesHandler"
              commandId="org.osate.ui.setAadlProjectProperties">
+       </handler>
+       <handler
+             class="org.osate.ui.handlers.InstantiateHandler"
+             commandId="org.osate.ui.instantiate">
        </handler>
        <handler
              class="org.osate.ui.handlers.ReinstantiateAadl"
@@ -561,5 +635,15 @@
              commandId="org.osate.ui.resetMarkers"
              icon="icons/none.gif">
        </image>
+    </extension>
+    <extension
+          point="org.eclipse.core.expressions.propertyTesters">
+       <propertyTester
+             class="org.osate.ui.handlers.ContributedAadlStoragePropertyTester"
+             id="org.osate.ui.ContributedAadlStoragePropertyTester"
+             namespace="org.osate.ui"
+             properties="name"
+             type="org.osate.xtext.aadl2.ui.resource.ContributedAadlStorage">
+       </propertyTester>
     </extension>
 </plugin>
