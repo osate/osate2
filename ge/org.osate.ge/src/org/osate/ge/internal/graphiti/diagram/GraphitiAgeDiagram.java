@@ -30,7 +30,6 @@ import org.eclipse.graphiti.mm.pictograms.ChopboxAnchor;
 import org.eclipse.graphiti.mm.pictograms.Connection;
 import org.eclipse.graphiti.mm.pictograms.ConnectionDecorator;
 import org.eclipse.graphiti.mm.pictograms.ContainerShape;
-import org.eclipse.graphiti.mm.pictograms.CurvedConnection;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.eclipse.graphiti.mm.pictograms.FreeFormConnection;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
@@ -400,10 +399,6 @@ public class GraphitiAgeDiagram implements NodePictogramBiMap, AutoCloseable {
 			ga.setLineWidth(2);
 			ga.setForeground(Graphiti.getGaService().manageColor(graphitiDiagram, IColorConstant.BLACK));
 
-			if (pe instanceof CurvedConnection) {
-				ConnectionUtil.updateControlPoints((CurvedConnection) pe);
-			}
-
 			if (pe instanceof FreeFormConnection) {
 				final FreeFormConnection ffc = (FreeFormConnection) pe;
 				final List<org.eclipse.graphiti.mm.algorithms.styles.Point> graphitiBendpoints = ffc.getBendpoints();
@@ -537,13 +532,6 @@ public class GraphitiAgeDiagram implements NodePictogramBiMap, AutoCloseable {
 		final PictogramElement pe = getPictogramElement(element);
 		if (pe instanceof Shape) {
 			final Shape shape = ((Shape) pe);
-
-			// Update control points of curved connections which are connected to the shape.
-			for (final Anchor anchor : shape.getAnchors()) {
-				ConnectionUtil.updateControlPoints(anchor.getIncomingConnections());
-				ConnectionUtil.updateControlPoints(anchor.getOutgoingConnections());
-			}
-
 			AnchorUtil.updateConnectionAnchors(shape, GraphitiAgeDiagram.this);
 		} else if (pe instanceof Connection) {
 			AnchorUtil.updateConnectionAnchor(element, (Connection) pe, GraphitiAgeDiagram.this);
@@ -568,12 +556,9 @@ public class GraphitiAgeDiagram implements NodePictogramBiMap, AutoCloseable {
 
 		// Create/Change Pictogram Element Based on the Graphic
 		if (graphic instanceof AgeConnection) {
-			final AgeConnection ac = (AgeConnection) graphic;
-
 			// Remove the PE If it is of the wrong type...
 			if (pe != null) {
-				if (!(pe instanceof Connection) || (ac.isCurved && !(pe instanceof CurvedConnection))
-						|| (!ac.isCurved && !(pe instanceof FreeFormConnection))) {
+				if (!(pe instanceof Connection)) {
 					EcoreUtil.delete(pe, true);
 					pe = null;
 				}
@@ -581,11 +566,7 @@ public class GraphitiAgeDiagram implements NodePictogramBiMap, AutoCloseable {
 
 			if (pe == null) {
 				// Create the connection
-				if (ac.isCurved) {
-					pe = peCreateService.createCurvedConnection(new double[] { 0.0, 0.0 }, graphitiDiagram);
-				} else {
-					pe = peCreateService.createFreeFormConnection(graphitiDiagram);
-				}
+				pe = peCreateService.createFreeFormConnection(graphitiDiagram);
 
 				final GraphicsAlgorithm ga = Graphiti.getGaService().createPlainPolyline(pe);
 				PropertyUtil.setIsStylingContainer(ga, true);

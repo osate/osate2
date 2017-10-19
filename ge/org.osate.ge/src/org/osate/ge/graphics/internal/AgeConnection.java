@@ -8,14 +8,12 @@ import org.osate.ge.graphics.Graphic;
 public class AgeConnection implements Graphic {
 	public final AgeConnectionTerminator srcTerminator;
 	public final AgeConnectionTerminator dstTerminator;
-	public final boolean isCurved;
 	public final boolean isFlowIndicator;
 
 	private AgeConnection(final AgeConnectionTerminator srcTerminator, final AgeConnectionTerminator dstTerminator,
-			final boolean isCurved, final boolean isFlowIndicator) {
+			final boolean isFlowIndicator) {
 		this.srcTerminator = srcTerminator;
 		this.dstTerminator = dstTerminator;
-		this.isCurved = isCurved;
 		this.isFlowIndicator = isFlowIndicator;
 	}
 
@@ -24,17 +22,16 @@ public class AgeConnection implements Graphic {
 	 * @param lineStyle
 	 * @param srcTerminator
 	 * @param dstTerminator
-	 * @param isCurved
 	 * @return
 	 */
 	public static AgeConnection createNormal(final AgeConnectionTerminator srcTerminator,
-			final AgeConnectionTerminator dstTerminator, final boolean isCurved) {
-		return new AgeConnection(srcTerminator, dstTerminator, isCurved, false);
+			final AgeConnectionTerminator dstTerminator) {
+		return new AgeConnection(srcTerminator, dstTerminator, false);
 	}
 
 	public static AgeConnection createFlowIndicator(final AgeConnectionTerminator srcTerminator,
 			final AgeConnectionTerminator dstTerminator) {
-		return new AgeConnection(srcTerminator, dstTerminator, false, true);
+		return new AgeConnection(srcTerminator, dstTerminator, true);
 	}
 
 	@Override
@@ -42,7 +39,6 @@ public class AgeConnection implements Graphic {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((dstTerminator == null) ? 0 : dstTerminator.hashCode());
-		result = prime * result + (isCurved ? 1231 : 1237);
 		result = prime * result + (isFlowIndicator ? 1231 : 1237);
 		result = prime * result + ((srcTerminator == null) ? 0 : srcTerminator.hashCode());
 		return result;
@@ -65,9 +61,6 @@ public class AgeConnection implements Graphic {
 				return false;
 			}
 		} else if (!dstTerminator.equals(other.dstTerminator)) {
-			return false;
-		}
-		if (isCurved != other.isCurved) {
 			return false;
 		}
 		if (isFlowIndicator != other.isFlowIndicator) {

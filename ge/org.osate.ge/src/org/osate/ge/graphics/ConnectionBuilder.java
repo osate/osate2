@@ -19,7 +19,6 @@ import org.osate.ge.graphics.internal.AgeConnectionTerminator;
 public class ConnectionBuilder {
 	private AgeConnectionTerminator srcTerminator = null;
 	private AgeConnectionTerminator dstTerminator = null;
-	private boolean isCurved = false;
 
 	private ConnectionBuilder() {}
 
@@ -41,8 +40,7 @@ public class ConnectionBuilder {
 		return this;
 	}
 
-	/**
-	 * Configures the connection builder to create a connection with the specified connection terminator at the destination end of the connection.
+	/**	 * Configures the connection builder to create a connection with the specified connection terminator at the destination end of the connection.
 	 * @param value the destination connection terminator to use when creating the connection
 	 * @return this builder to allow method chaining.
 	 */
@@ -52,19 +50,10 @@ public class ConnectionBuilder {
 	}
 
 	/**
-	 * Configures the connection builder to create a curved connection.
-	 * @return this builder to allow method chaining.
-	 */
-	public ConnectionBuilder curved() {
-		this.isCurved = true;
-		return this;
-	}
-
-	/**
 	 * Creates a connection based on the current state of the builder.
 	 * @return the newly created graphic
 	 */
 	public Graphic build() {
-		return AgeConnection.createNormal(srcTerminator, dstTerminator, isCurved);
+		return AgeConnection.createNormal(srcTerminator, dstTerminator);
 	}
 }

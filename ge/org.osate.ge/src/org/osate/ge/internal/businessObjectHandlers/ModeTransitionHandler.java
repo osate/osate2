@@ -43,7 +43,8 @@ import org.osate.ge.services.QueryService;
 public class ModeTransitionHandler {
 	private static final StandaloneQuery parentQuery = StandaloneQuery.create((root) -> root.ancestor(1).first());
 	private static final StandaloneQuery componentClassifierQuery = StandaloneQuery.create((root) -> root.ancestors().filter((fa) -> fa.getBusinessObject() instanceof ComponentClassifier).first());
-	private static final Graphic graphic = ConnectionBuilder.create().curved().destinationTerminator(ArrowBuilder.create().small().build()).build();
+	private static final Graphic graphic = ConnectionBuilder.create()
+			.destinationTerminator(ArrowBuilder.create().small().build()).build();
 	private static StandaloneQuery srcQuery = StandaloneQuery.create((rootQuery) -> rootQuery.parent().children().filterByBusinessObjectRelativeReference((ModeTransition mt) -> mt.getSource()));
 	private static StandaloneQuery dstQuery = StandaloneQuery.create((rootQuery) -> rootQuery.parent().children().filterByBusinessObjectRelativeReference((ModeTransition mt) -> mt.getDestination()));
 
