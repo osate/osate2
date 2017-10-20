@@ -33,6 +33,7 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
  *   <li>{@link org.osate.ge.diagram.DiagramElement#getFontColor <em>Font Color</em>}</li>
  *   <li>{@link org.osate.ge.diagram.DiagramElement#getFontSize <em>Font Size</em>}</li>
  *   <li>{@link org.osate.ge.diagram.DiagramElement#getLineWidth <em>Line Width</em>}</li>
+ *   <li>{@link org.osate.ge.diagram.DiagramElement#getPrimaryLabelVisible <em>Primary Label Visible</em>}</li>
  * </ul>
  *
  * @see org.osate.ge.diagram.DiagramPackage#getDiagramElement()
@@ -269,6 +270,26 @@ public class DiagramElement extends DiagramNode {
 	 * @ordered
 	 */
 	protected Double lineWidth = LINE_WIDTH_EDEFAULT;
+
+	/**
+	 * The default value of the '{@link #getPrimaryLabelVisible() <em>Primary Label Visible</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getPrimaryLabelVisible()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final Boolean PRIMARY_LABEL_VISIBLE_EDEFAULT = null;
+
+	/**
+	 * The cached value of the '{@link #getPrimaryLabelVisible() <em>Primary Label Visible</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getPrimaryLabelVisible()
+	 * @generated
+	 * @ordered
+	 */
+	protected Boolean primaryLabelVisible = PRIMARY_LABEL_VISIBLE_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -829,6 +850,39 @@ public class DiagramElement extends DiagramNode {
 	}
 
 	/**
+	 * Returns the value of the '<em><b>Primary Label Visible</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Primary Label Visible</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Primary Label Visible</em>' attribute.
+	 * @see #setPrimaryLabelVisible(Boolean)
+	 * @see org.osate.ge.diagram.DiagramPackage#getDiagramElement_PrimaryLabelVisible()
+	 * @model
+	 * @generated
+	 */
+	public Boolean getPrimaryLabelVisible() {
+		return primaryLabelVisible;
+	}
+
+	/**
+	 * Sets the value of the '{@link org.osate.ge.diagram.DiagramElement#getPrimaryLabelVisible <em>Primary Label Visible</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Primary Label Visible</em>' attribute.
+	 * @see #getPrimaryLabelVisible()
+	 * @generated
+	 */
+	public void setPrimaryLabelVisible(Boolean newPrimaryLabelVisible) {
+		Boolean oldPrimaryLabelVisible = primaryLabelVisible;
+		primaryLabelVisible = newPrimaryLabelVisible;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, DiagramPackage.DIAGRAM_ELEMENT__PRIMARY_LABEL_VISIBLE, oldPrimaryLabelVisible, primaryLabelVisible));
+	}
+
+	/**
 	 * Returns the value of the '<em><b>Id</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <p>
@@ -919,6 +973,8 @@ public class DiagramElement extends DiagramNode {
 				return getFontSize();
 			case DiagramPackage.DIAGRAM_ELEMENT__LINE_WIDTH:
 				return getLineWidth();
+			case DiagramPackage.DIAGRAM_ELEMENT__PRIMARY_LABEL_VISIBLE:
+				return getPrimaryLabelVisible();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -972,6 +1028,9 @@ public class DiagramElement extends DiagramNode {
 				return;
 			case DiagramPackage.DIAGRAM_ELEMENT__LINE_WIDTH:
 				setLineWidth((Double)newValue);
+				return;
+			case DiagramPackage.DIAGRAM_ELEMENT__PRIMARY_LABEL_VISIBLE:
+				setPrimaryLabelVisible((Boolean)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -1027,6 +1086,9 @@ public class DiagramElement extends DiagramNode {
 			case DiagramPackage.DIAGRAM_ELEMENT__LINE_WIDTH:
 				setLineWidth(LINE_WIDTH_EDEFAULT);
 				return;
+			case DiagramPackage.DIAGRAM_ELEMENT__PRIMARY_LABEL_VISIBLE:
+				setPrimaryLabelVisible(PRIMARY_LABEL_VISIBLE_EDEFAULT);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -1067,6 +1129,8 @@ public class DiagramElement extends DiagramNode {
 				return FONT_SIZE_EDEFAULT == null ? fontSize != null : !FONT_SIZE_EDEFAULT.equals(fontSize);
 			case DiagramPackage.DIAGRAM_ELEMENT__LINE_WIDTH:
 				return LINE_WIDTH_EDEFAULT == null ? lineWidth != null : !LINE_WIDTH_EDEFAULT.equals(lineWidth);
+			case DiagramPackage.DIAGRAM_ELEMENT__PRIMARY_LABEL_VISIBLE:
+				return PRIMARY_LABEL_VISIBLE_EDEFAULT == null ? primaryLabelVisible != null : !PRIMARY_LABEL_VISIBLE_EDEFAULT.equals(primaryLabelVisible);
 		}
 		return super.eIsSet(featureID);
 	}
@@ -1099,6 +1163,8 @@ public class DiagramElement extends DiagramNode {
 		result.append(fontSize);
 		result.append(", lineWidth: ");
 		result.append(lineWidth);
+		result.append(", primaryLabelVisible: ");
+		result.append(primaryLabelVisible);
 		result.append(')');
 		return result.toString();
 	}

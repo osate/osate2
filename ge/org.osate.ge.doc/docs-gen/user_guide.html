@@ -43,7 +43,7 @@
 <li><a href="#moving-shapes-using-arrow-keys"><span class="toc-section-number">3.1.11</span> Moving Shapes Using Arrow Keys</a></li>
 <li><a href="#selecting-a-diagram-elements-container"><span class="toc-section-number">3.1.12</span> Selecting a Diagram Element's Container</a></li>
 <li><a href="#performing-diagram-layout"><span class="toc-section-number">3.1.13</span> Performing Diagram Layout</a></li>
-<li><a href="#editing-a-diagram-elements-appearance"><span class="toc-section-number">3.1.14</span> Editing a Diagram Element's Appearance</a></li>
+<li><a href="#sec:de_apperance"><span class="toc-section-number">3.1.14</span> Editing a Diagram Element's Appearance</a></li>
 </ul></li>
 <li><a href="#connections"><span class="toc-section-number">3.2</span> Connections</a><ul>
 <li><a href="#creating-connections"><span class="toc-section-number">3.2.1</span> Creating Connections</a></li>
@@ -204,6 +204,8 @@
 </table>
 </div>
 <p>The diagram configuration dialog also allows selecting which AADL properties will be included in the diagram. The <em>communication_properties::timing</em> property is implicitly enabled and is represented by specialized graphical indicators. Delayed connections have a double bar indicator in the middle. Immediate connections have a double arrow in the middle.</p>
+<p>Connections which are manually enabled will be removed if the connection ends are not also included in the diagram.</p>
+<p>The <em>Select the Hide Connection Labels</em> option can be used to set the default visibility of labels for connections between diagram elements. Label visibility for individual elements can be controlled using the properties view described in section <a href="#sec:de_apperance">3.1.14</a>.</p>
 <h3 id="showing-and-hiding-diagram-element-contents"><span class="header-section-number">3.1.2</span> Showing and Hiding Diagram Element Contents</h3>
 <p>Menu options available in a diagram element's context menu will modify the diagram configuration to show and hide contents of a selected element. Access the context menu by right-clicking on a diagram element.</p>
 <div id="tbl:show_hide_menu_items">
@@ -291,35 +293,23 @@
 <figure>
 <img src="../images/LayoutDiagram.png" />
 </figure>
-<h3 id="editing-a-diagram-elements-appearance"><span class="header-section-number">3.1.14</span> Editing a Diagram Element's Appearance</h3>
+<h3 id="sec:de_apperance"><span class="header-section-number">3.1.14</span> Editing a Diagram Element's Appearance</h3>
 <p>The appearance of diagram elements can be edited by using the <em>Appearance</em> tab of the <em>Properties</em> view.</p>
 <p>An element's appearance can be changed using the following steps.</p>
 <ol type="1">
 <li><p>Open the <em>Properties</em> view by double-clicking on an element or by selecting <em>Properties...</em> from the context menu.</p></li>
 <li><p>Select the diagram element(s) to be edited.</p></li>
 <li><p>Select the <em>Appearance</em> tab.</p></li>
-<li><p>Select desired appearance options.</p></li>
+<li>Select desired appearance options.
+<ul>
+<li>The <em>Label Visibility</em> option allows hiding or showing the diagram element's label.</li>
+<li>Font size can be edited by selecting the font size drop-down menu.</li>
+<li>Line width can be edited by selecting the line width drop-down menu.</li>
+<li>Outline color can be edited by clicking the outline button and selecting the desired color.</li>
+<li>Font color can be edited by clicking the font color button and selecting the desired color.</li>
+<li>Background color can be edited by clicking the background color button and selecting the desired color.</li>
+</ul></li>
 </ol>
-<p>Font size can be edited by selecting the font size drop-down menu.</p>
-<figure>
-<img src="../images/FontSize.png" />
-</figure>
-<p>Line width can be edited by selecting the line width drop-down menu.</p>
-<figure>
-<img src="../images/LineWidth.png" />
-</figure>
-<p>Outline color can be edited by clicking the outline button and selecting the desired color.</p>
-<figure>
-<img src="../images/OutlineColor.png" />
-</figure>
-<p>Font color can be edited by clicking the font color button and selecting the desired color.</p>
-<figure>
-<img src="../images/FontColor.png" />
-</figure>
-<p>Background color can be edited by clicking the background color button and selecting the desired color.</p>
-<figure>
-<img src="../images/BackgroundColor.png" />
-</figure>
 <h2 id="connections"><span class="header-section-number">3.2</span> Connections</h2>
 <p>The graphical editor allows editing AADL connections such as access, feature, feature group, parameter, and port.</p>
 <h3 id="creating-connections"><span class="header-section-number">3.2.1</span> Creating Connections</h3>

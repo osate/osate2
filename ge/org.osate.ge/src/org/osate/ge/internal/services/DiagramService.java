@@ -10,11 +10,12 @@ package org.osate.ge.internal.services;
 
 import java.util.List;
 import java.util.Set;
+
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
-import org.osate.ge.internal.diagram.runtime.RelativeBusinessObjectReference;
 import org.osate.ge.internal.diagram.runtime.CanonicalBusinessObjectReference;
+import org.osate.ge.internal.diagram.runtime.RelativeBusinessObjectReference;
 import org.osate.ge.internal.ui.editor.AgeDiagramEditor;
 
 /**
@@ -24,18 +25,18 @@ import org.osate.ge.internal.ui.editor.AgeDiagramEditor;
 public interface DiagramService {
 	static interface DiagramReference {
 		boolean isOpen();
-		
+
 		/**
 		 * Returns the currently open editor for the diagram.
 		 * @return the editor. Will be non-null if and only if isOpen() is true.
 		 */
 		AgeDiagramEditor getEditor();
 	}
-	
+
 	List<? extends DiagramReference> findDiagramsByContextBusinessObject(final Object bo);
-	
+
 	List<? extends DiagramReference> findDiagrams(Set<IProject> projects);
-	
+
 
 	/**
 	 * Opens the first existing diagram found for a business object. If a diagram is not found, a diagram may be created after prompting the user.
@@ -45,7 +46,7 @@ public interface DiagramService {
 	default AgeDiagramEditor openOrCreateDiagramForBusinessObject(final Object bo) {
 		return openOrCreateDiagramForBusinessObject(bo, true, true);
 	}
-	
+
 	/**
 	 * Opens the first existing diagram found for a business object. If a diagram is not found, a diagram may be created after optionally prompting the user.
 	 * @param bo the business object for which to open/create the diagram
@@ -53,7 +54,7 @@ public interface DiagramService {
 	 * @param promptForConfigureAfterCreate is whether the user should be prompted to configure the diagram if a new diagram is created.
 	 */
 	AgeDiagramEditor openOrCreateDiagramForBusinessObject(final Object bo, final boolean promptForCreate, final boolean promptForConfigureAfterCreate);
-	
+
 	/**
 	 * Create a new diagram which uses the specified business object as the context business object
 	 * @param contextBo
@@ -65,23 +66,34 @@ public interface DiagramService {
 	 * Returns the name of a specified diagram
 	 */
 	String getName(final IFile diagramFile);
-	
+
 	/**
 	 * Clear persistent resource properties used by legacy versions of the graphical editor
 	 * @param diagram
 	 */
 	void clearLegacyPersistentProperties(final IResource fileResource);
-	
+
 	interface ReferenceCollection {
 		void update(UpdatedReferenceValueProvider newReferenceValues);
 	}
-	
+
 	// Used to provide new reference values when updating a reference collection
 	interface UpdatedReferenceValueProvider {
+		/**
+		 *
+		 * @param originalCanonicalReference is the canonical reference at the time the reference collection was created.
+		 * @return
+		 */
 		CanonicalBusinessObjectReference getNewCanonicalReference(final CanonicalBusinessObjectReference originalCanonicalReference);
+
+		/**
+		 *
+		 * @param originalCanonicalReference is the canonical reference at the time the reference collection was created.
+		 * @return
+		 */
 		RelativeBusinessObjectReference getNewRelativeReference(final CanonicalBusinessObjectReference originalCanonicalReference);
 	}
-	
+
 	/**
 	 * Gets references in saved and open resources. Used during the refactoring process to update references in open and saved diagrams.
 	 * @param relevantProjects

@@ -1,12 +1,10 @@
 package org.osate.ge.internal.ui.properties;
 
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
 import java.util.Objects;
+import java.util.stream.Stream;
 
 import org.eclipse.core.runtime.Adapters;
 import org.eclipse.jface.layout.GridDataFactory;
@@ -76,16 +74,30 @@ public class AppearancePropertySection extends AbstractPropertySection {
 	}
 
 	private void createComboViewerSection(final Composite parent) {
-		fontSizeLabel = createLabel(parent, "Font Size:");
-		FormData fd = new FormData();
+		FormData fd;
+
+		primaryLabelVisibleLabel = createLabel(parent, "Label Visibility:");
+		fd = new FormData();
 		fd.top = new FormAttachment(5, 0);
+		fd.left = new FormAttachment(0, 10);
+		primaryLabelVisibleLabel.setLayoutData(fd);
+
+		primaryLabelVisibleViewer = createComboViewer(parent, LabelVisibility.values());
+		fd = new FormData();
+		fd.top = new FormAttachment(primaryLabelVisibleLabel, 0, SWT.TOP);
+		fd.left = new FormAttachment(primaryLabelVisibleLabel, 10);
+		primaryLabelVisibleViewer.getCombo().setLayoutData(fd);
+
+		fontSizeLabel = createLabel(parent, "Font Size:");
+		fd = new FormData();
+		fd.top = new FormAttachment(primaryLabelVisibleLabel, 10);
 		fd.left = new FormAttachment(0, 10);
 		fontSizeLabel.setLayoutData(fd);
 
 		fontSizeComboViewer = createComboViewer(parent, FontSize.values());
 		fd = new FormData();
 		fd.top = new FormAttachment(fontSizeLabel, 0, SWT.TOP);
-		fd.left = new FormAttachment(fontSizeLabel, 20);
+		fd.left = new FormAttachment(primaryLabelVisibleViewer.getControl(), 0, SWT.LEFT);
 		fontSizeComboViewer.getCombo().setLayoutData(fd);
 
 		lineWidthLabel = createLabel(parent, "Line Width:");
@@ -97,7 +109,7 @@ public class AppearancePropertySection extends AbstractPropertySection {
 		lineWidthComboViewer = createComboViewer(parent, LineWidth.values());
 		fd = new FormData();
 		fd.top = new FormAttachment(lineWidthLabel, 0, SWT.TOP);
-		fd.left = new FormAttachment(lineWidthLabel, 10);
+		fd.left = new FormAttachment(primaryLabelVisibleViewer.getControl(), 0, SWT.LEFT);
 		lineWidthComboViewer.getCombo().setLayoutData(fd);
 	}
 
@@ -153,6 +165,7 @@ public class AppearancePropertySection extends AbstractPropertySection {
 		boolean enableLineWidth = false;
 		boolean enableBackground = false;
 		boolean enableOutlineOption = false;
+		boolean enablePrimaryLabelVisibleOption = false;
 		final Iterator<?> itr = ss.iterator();
 		while (itr.hasNext()) {
 			final Object o = itr.next();
@@ -176,6 +189,10 @@ public class AppearancePropertySection extends AbstractPropertySection {
 			if (supportsOutline(diagramElement)) {
 				enableOutlineOption = true;
 			}
+
+			if (supportsPrimaryLabelVisible(diagramElement)) {
+				enablePrimaryLabelVisibleOption = true;
+			}
 		}
 
 		// Get the editor from the selected diagram elements
@@ -187,6 +204,8 @@ public class AppearancePropertySection extends AbstractPropertySection {
 
 		final FontSize lastFontSizeSelected = FontSize.getByValue(currentStyle.getFontSize());
 		final LineWidth lastLineWidthSelected = LineWidth.getByValue(currentStyle.getLineWidth());
+		final LabelVisibility lastLabelVisibilitySelected = LabelVisibility
+				.getByValue(currentStyle.getPrimaryLabelVisible());
 
 		final Button backgroundButton = backgroundPaintListener.getButton();
 		backgroundButton.setEnabled(enableBackground);
@@ -225,8 +244,8 @@ public class AppearancePropertySection extends AbstractPropertySection {
 		}
 
 		// Update UI
-		setComboViewersEnabled(enableFontOptions, enableLineWidth);
-		setStructuredSelection(lastFontSizeSelected, lastLineWidthSelected);
+		setComboViewersEnabled(enableFontOptions, enableLineWidth, enablePrimaryLabelVisibleOption);
+		setStructuredSelection(lastFontSizeSelected, lastLineWidthSelected, lastLabelVisibilitySelected);
 		setPaintListenerColors(background, fontColor, outline);
 	}
 
@@ -243,6 +262,10 @@ public class AppearancePropertySection extends AbstractPropertySection {
 	}
 
 	private boolean supportsOutline(final DiagramElement de) {
+		return !(de.getGraphic() instanceof Label);
+	}
+
+	private boolean supportsPrimaryLabelVisible(final DiagramElement de) {
 		return !(de.getGraphic() instanceof Label);
 	}
 
@@ -272,11 +295,14 @@ public class AppearancePropertySection extends AbstractPropertySection {
 		return button;
 	}
 
-	private void setComboViewersEnabled(final boolean showFontSize, final boolean showLineWidth) {
+	private void setComboViewersEnabled(final boolean showFontSize, final boolean showLineWidth,
+			final boolean enablePrimaryLabelVisibleOption) {
 		fontSizeLabel.setEnabled(showFontSize);
 		fontSizeComboViewer.getControl().setEnabled(showFontSize);
 		lineWidthLabel.setEnabled(showLineWidth);
 		lineWidthComboViewer.getControl().setEnabled(showLineWidth);
+		primaryLabelVisibleLabel.setEnabled(enablePrimaryLabelVisibleOption);
+		primaryLabelVisibleViewer.getControl().setEnabled(enablePrimaryLabelVisibleOption);
 	}
 
 	private void setPaintListenerColors(final RGB background, final RGB fontColor, final RGB outline) {
@@ -285,7 +311,8 @@ public class AppearancePropertySection extends AbstractPropertySection {
 		outlinePaintListener.setColor(outline);
 	}
 
-	private void setStructuredSelection(final FontSize fontSize, final LineWidth lineWidth) {
+	private void setStructuredSelection(final FontSize fontSize, final LineWidth lineWidth,
+			final LabelVisibility labelVisibility) {
 		fontSizeComboViewer.removeSelectionChangedListener(fontSizeSelectionListener);
 		fontSizeComboViewer
 		.setSelection(fontSize == null ? StructuredSelection.EMPTY : new StructuredSelection(fontSize));
@@ -295,6 +322,11 @@ public class AppearancePropertySection extends AbstractPropertySection {
 		lineWidthComboViewer
 		.setSelection(lineWidth == null ? StructuredSelection.EMPTY : new StructuredSelection(lineWidth));
 		lineWidthComboViewer.addSelectionChangedListener(lineWidthSelectionListener);
+
+		primaryLabelVisibleViewer.removeSelectionChangedListener(primaryLabelVisibleSelectionListener);
+		primaryLabelVisibleViewer.setSelection(
+				labelVisibility == null ? StructuredSelection.EMPTY : new StructuredSelection(labelVisibility));
+		primaryLabelVisibleViewer.addSelectionChangedListener(primaryLabelVisibleSelectionListener);
 	}
 
 	private class ColorSelectionListener extends SelectionAdapter {
@@ -578,6 +610,13 @@ public class AppearancePropertySection extends AbstractPropertySection {
 				}
 			}));
 
+	private ComboViewerSelection primaryLabelVisibleSelectionListener = new ComboViewerSelection(
+			new StyleCommand("Set Primary Label Visibility", (diagramElement, sb, value) -> {
+				if (supportsPrimaryLabelVisible(diagramElement) && value != null) {
+					sb.primaryLabelVisible(((LabelVisibility) value).getValue());
+				}
+			}));
+
 	private final static ImageDescriptor outlineIcon = Activator.getImageDescriptor("icons/Outline.gif");
 	private final static ImageDescriptor backgroundIcon = Activator.getImageDescriptor("icons/Background.gif");
 	private final static ImageDescriptor fontColorIcon = Activator.getImageDescriptor("icons/FontColor.gif");
@@ -588,6 +627,9 @@ public class AppearancePropertySection extends AbstractPropertySection {
 	private org.eclipse.swt.widgets.Label lineWidthLabel;
 	private ComboViewer fontSizeComboViewer;
 	private ComboViewer lineWidthComboViewer;
+	private org.eclipse.swt.widgets.Label primaryLabelVisibleLabel;
+	private ComboViewer primaryLabelVisibleViewer;
+
 	private StylePaintListener backgroundPaintListener;
 	private StylePaintListener fontColorPaintListener;
 	private StylePaintListener outlinePaintListener;
@@ -666,15 +708,6 @@ public class AppearancePropertySection extends AbstractPropertySection {
 	private static enum LineWidth {
 		Default(null), Small(2.0), Medium(4.0), Large(6.0);
 
-		private static final Map<Double, LineWidth> valueToLineWidth;
-		static {
-			final Map<Double, LineWidth> modifiableMap = new HashMap<>();
-			for(final LineWidth lineWidth : LineWidth.values()) {
-				modifiableMap.put(lineWidth.getValue(), lineWidth);
-			}
-			valueToLineWidth = Collections.unmodifiableMap(modifiableMap);
-		}
-
 		private LineWidth(final Double value) {
 			this.value = value;
 		}
@@ -683,8 +716,8 @@ public class AppearancePropertySection extends AbstractPropertySection {
 			return value;
 		}
 
-		public static LineWidth getByValue(final Double lineWidthId) {
-			return valueToLineWidth.get(lineWidthId);
+		public static LineWidth getByValue(final Double value) {
+			return Stream.of(values()).filter(v -> Objects.equals(v.value, value)).findAny().orElse(null);
 		}
 
 		private final Double value;
@@ -692,15 +725,6 @@ public class AppearancePropertySection extends AbstractPropertySection {
 
 	private static enum FontSize {
 		Default(null), Small(8.0), Medium(10.0), Large(16.0), ExtraLarge(20.0);
-
-		private static final Map<Double, FontSize> valueToFontSize;
-		static {
-			final Map<Double, FontSize> modifiableMap = new HashMap<>();
-			for (final FontSize fontSize : FontSize.values()) {
-				modifiableMap.put(fontSize.getValue(), fontSize);
-			}
-			valueToFontSize = Collections.unmodifiableMap(modifiableMap);
-		}
 
 		private FontSize(final Double value) {
 			this.value = value;
@@ -715,10 +739,28 @@ public class AppearancePropertySection extends AbstractPropertySection {
 			return value;
 		}
 
-		public static FontSize getByValue(final Double fontSizeId) {
-			return valueToFontSize.get(fontSizeId);
+		public static FontSize getByValue(final Double value) {
+			return Stream.of(values()).filter(v -> Objects.equals(v.value, value)).findAny().orElse(null);
 		}
 
 		private final Double value;
+	}
+
+	private static enum LabelVisibility {
+		Default(null), Show(true), Hide(false);
+
+		private LabelVisibility(final Boolean value) {
+			this.value = value;
+		}
+
+		public Boolean getValue() {
+			return value;
+		}
+
+		public static LabelVisibility getByValue(final Boolean value) {
+			return Stream.of(values()).filter(v -> Objects.equals(v.value, value)).findAny().orElse(null);
+		}
+
+		private final Boolean value;
 	}
 }

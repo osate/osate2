@@ -10,7 +10,7 @@ import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.PlatformUI;
 import org.osate.ge.internal.diagram.runtime.AgeDiagram;
 import org.osate.ge.internal.diagram.runtime.DiagramElement;
-import org.osate.ge.internal.diagram.runtime.DiagramNode;
+import org.osate.ge.internal.util.DiagamElementUtil;
 
 public class UiUtil {
 	public static void openPropertiesView() {
@@ -40,21 +40,12 @@ public class UiUtil {
 		if (elements.size() == 0) {
 			return null;
 		}
-	
-		final AgeDiagram firstDiagram = UiUtil.getDiagram(elements.get(0));
-		if (!elements.stream().allMatch(e -> UiUtil.getDiagram(e) == firstDiagram)) {
+
+		final AgeDiagram firstDiagram = DiagamElementUtil.getDiagram(elements.get(0));
+		if (!elements.stream().allMatch(e -> DiagamElementUtil.getDiagram(e) == firstDiagram)) {
 			return null;
 		}
-	
-		return firstDiagram;
-	}
 
-	public static AgeDiagram getDiagram(final DiagramElement de) {
-		for (DiagramNode dn = de; dn != null; dn = dn.getParent()) {
-			if (dn instanceof AgeDiagram) {
-				return (AgeDiagram) dn;
-			}
-		}
-		return null;
+		return firstDiagram;
 	}
 }

@@ -95,6 +95,10 @@ Table: Auto Children Setting {#tbl:auto_children_setting}
 
 The diagram configuration dialog also allows selecting which AADL properties will be included in the diagram. The *communication_properties::timing* property is implicitly enabled and is represented by specialized graphical indicators. Delayed connections have a double bar indicator in the middle. Immediate connections have a double arrow in the middle.
 
+Connections which are manually enabled will be removed if the connection ends are not also included in the diagram.
+
+The *Select the Hide Connection Labels* option can be used to set the default visibility of labels for connections between diagram elements. Label visibility for individual elements can be controlled using the properties view described in @sec:de_apperance.
+
 ### Showing and Hiding Diagram Element Contents
 Menu options available in a diagram element's context menu will modify the diagram configuration to show and hide contents of a selected element. Access the context menu by right-clicking on a diagram element.
 
@@ -176,7 +180,7 @@ When creating a new diagram from an AADL model, the editor lays out the diagram 
 
 ![](../images/LayoutDiagram.png)
 
-### Editing a Diagram Element's Appearance
+### Editing a Diagram Element's Appearance{#sec:de_apperance}
 The appearance of diagram elements can be edited by using the *Appearance* tab of the *Properties* view.
 
 An element's appearance can be changed using the following steps.
@@ -188,26 +192,12 @@ An element's appearance can be changed using the following steps.
 3. Select the *Appearance* tab.
 
 4. Select desired appearance options.
-
-Font size can be edited by selecting the font size drop-down menu.
-
-![](../images/FontSize.png)
-
-Line width can be edited by selecting the line width drop-down menu.
-
-![](../images/LineWidth.png)
-
-Outline color can be edited by clicking the outline button and selecting the desired color.
-
-![](../images/OutlineColor.png)
-
-Font color can be edited by clicking the font color button and selecting the desired color.
-
-![](../images/FontColor.png)
-
-Background color can be edited by clicking the background color button and selecting the desired color.
-
-![](../images/BackgroundColor.png)
+	- The *Label Visibility* option allows hiding or showing the diagram element's label.
+	- Font size can be edited by selecting the font size drop-down menu.
+	- Line width can be edited by selecting the line width drop-down menu.
+	- Outline color can be edited by clicking the outline button and selecting the desired color.
+	- Font color can be edited by clicking the font color button and selecting the desired color.
+	- Background color can be edited by clicking the background color button and selecting the desired color.
 
 ## Connections
 The graphical editor allows editing AADL connections such as access, feature, feature group, parameter, and port.

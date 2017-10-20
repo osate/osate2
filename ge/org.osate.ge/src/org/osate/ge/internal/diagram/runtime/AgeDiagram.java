@@ -35,16 +35,8 @@ public class AgeDiagram implements DiagramNode, ModifiableDiagramElementContaine
 	 * @param startingElementId is the id of the first diagram element which has an id automatically assigned to it.
 	 */
 	public AgeDiagram(final long startingElementId) {
-		this.diagramConfiguration = new DiagramConfiguration(null, Collections.emptySet());
+		this.diagramConfiguration = new DiagramConfiguration(null, Collections.emptySet(), true);
 		this.maxElementId = startingElementId-1; // The max element id is set to the specified value - 1 because the value is incremented before it is assigned as an id.
-	}
-
-	/**
-	 * Sets the diagram configuration.
-	 * @param diagramConfiguration
-	 */
-	public void setDiagramConfiguration(final DiagramConfiguration diagramConfiguration) {
-		this.diagramConfiguration = Objects.requireNonNull(diagramConfiguration, "diagramConfiguration must not be null");
 	}
 
 	/**
@@ -189,6 +181,22 @@ public class AgeDiagram implements DiagramNode, ModifiableDiagramElementContaine
 		private boolean undoable = true;
 		private ArrayList<FieldChange> fieldChanges = new ArrayList<>(); // Used for undoing the modification
 		private boolean inUndoOrRedo = false;
+
+		@Override
+		public void setDiagramConfiguration(final DiagramConfiguration config) {
+			Objects.requireNonNull(config, "config must not be null");
+
+			if(!getConfiguration().equals(config)) {
+				AgeDiagram.this.diagramConfiguration = config;
+				undoable = false; // Do not allow undoing set diagram configuration for now. Will need to store change and test before enabling.
+
+				// Notify listeners
+				final DiagramConfigurationChangedEvent event = new DiagramConfigurationChangedEvent();
+				for (final DiagramModificationListener ml : modificationListeners) {
+					ml.diagramConfigurationChanged(event);
+				}
+			}
+		}
 
 		@Override
 		public void updateBusinessObject(final DiagramElement e, final Object bo, final RelativeBusinessObjectReference relativeReference) {

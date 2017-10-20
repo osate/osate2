@@ -9,6 +9,7 @@ package org.osate.ge.internal.diagram.runtime;
  * However, multiple notifications of an element may be updated will be supplied if other elements are updated between updates of the original element.
  */
 public interface DiagramModificationListener {
+	void diagramConfigurationChanged(DiagramConfigurationChangedEvent e);
 	void elementAdded(ElementAddedEvent e);
 	void elementRemoved(ElementRemovedEvent e);
 	void elementUpdated(ElementUpdatedEvent e);

@@ -256,8 +256,10 @@ public class DefaultDiagramService implements DiagramService {
 
 		// Build diagram configuration
 		final CanonicalBusinessObjectReference contextBoCanonicalRef = Objects.requireNonNull(referenceService.getCanonicalReference(contextBo), "Unable to build canonical reference for business object: " + contextBo);
-		diagram.setDiagramConfiguration(
-				new DiagramConfigurationBuilder().setContextBoReference(contextBoCanonicalRef).build());
+		diagram.modify("Configure Diagram", m -> {
+			m.setDiagramConfiguration(
+					new DiagramConfigurationBuilder().setContextBoReference(contextBoCanonicalRef).build());
+		});
 
 		// Create a root diagram element for the context which will be set to manual.
 		// This has the benefit that the root element will be checked when the user configures the diagram.
@@ -575,7 +577,9 @@ public class DefaultDiagramService implements DiagramService {
 
 		@Override
 		public void update(CanonicalBusinessObjectReference newCanonicalReference, RelativeBusinessObjectReference newRelativeReference) {
-			diagram.setDiagramConfiguration(new DiagramConfigurationBuilder().setContextBoReference(newCanonicalReference).build());
+			diagram.modify("Configure Diagram", m -> {
+				m.setDiagramConfiguration(new DiagramConfigurationBuilder().setContextBoReference(newCanonicalReference).build());
+			});
 		}
 	}
 

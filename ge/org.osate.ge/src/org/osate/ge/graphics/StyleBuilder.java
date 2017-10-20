@@ -11,6 +11,7 @@ public class StyleBuilder {
 	private LineStyle lineStyle;
 	private LabelPosition horizontalLabelPosition;
 	private LabelPosition verticalLabelPosition;
+	private Boolean primaryLabelVisible;
 
 	private StyleBuilder() {}
 
@@ -58,6 +59,10 @@ public class StyleBuilder {
 
 			if (s.getVerticalLabelPosition() != null) {
 				sb.labelsVerticalPosition(s.getVerticalLabelPosition());
+			}
+
+			if (s.getPrimaryLabelVisible() != null) {
+				sb.primaryLabelVisible(s.getPrimaryLabelVisible());
 			}
 		}
 
@@ -124,6 +129,11 @@ public class StyleBuilder {
 
 	public StyleBuilder labelsVerticalPosition(final LabelPosition value) {
 		this.verticalLabelPosition = value;
+		return this;
+	}
+
+	public StyleBuilder primaryLabelVisible(final Boolean value) {
+		this.primaryLabelVisible = value;
 		return this;
 	}
 
@@ -229,6 +239,6 @@ public class StyleBuilder {
 
 	public Style build() {
 		return new Style(background, fontColor, outline, fontSize, lineWidth, lineStyle, horizontalLabelPosition,
-				verticalLabelPosition);
+				verticalLabelPosition, primaryLabelVisible);
 	}
 }

@@ -25,7 +25,7 @@ import org.osate.ge.graphics.StyleBuilder;
  *
  */
 public class DiagramSerialization {
-	public final static int FORMAT_VERSION = 2;
+	public final static int FORMAT_VERSION = 3;
 
 	private static Comparator<DiagramElement> elementComparator = (e1, e2) -> e1.getRelativeReference()
 			.compareTo(e2.getRelativeReference());
@@ -69,9 +69,13 @@ public class DiagramSerialization {
 					configBuilder.addAadlProperty(enabledProperty);
 				}
 			}
+
+			configBuilder.connectionPrimaryLabelsVisible(mmDiagramConfig.isConnectionPrimaryLabelsVisible());
 		}
 
-		ageDiagram.setDiagramConfiguration(configBuilder.build());
+		ageDiagram.modify("Configure Diagram", m -> {
+			m.setDiagramConfiguration(configBuilder.build());
+		});
 
 		// Require a context business object
 		if (ageDiagram.getConfiguration().getContextBoReference() == null) {
@@ -176,9 +180,10 @@ public class DiagramSerialization {
 		final Color outline = mmChild.getOutline() != null ? parseColor(mmChild.getOutline()) : null;
 		final Double lineWidth = mmChild.getLineWidth();
 		final Double fontSize = mmChild.getFontSize();
+		final Boolean primaryLabelVisible = mmChild.getPrimaryLabelVisible();
 
 		newElement.setStyle(StyleBuilder.create().backgroundColor(background).fontColor(fontColor).outlineColor(outline)
-				.fontSize(fontSize).lineWidth(lineWidth).build());
+				.fontSize(fontSize).lineWidth(lineWidth).primaryLabelVisible(primaryLabelVisible).build());
 
 		// Bendpoints
 		final org.osate.ge.diagram.BendpointList mmBendpoints = mmChild.getBendpoints();
@@ -228,6 +233,8 @@ public class DiagramSerialization {
 		final DiagramConfiguration config = diagram.getConfiguration();
 		mmConfig.setContext(
 				config.getContextBoReference() == null ? null : config.getContextBoReference().toMetamodel());
+
+		mmConfig.setConnectionPrimaryLabelsVisible(config.areConnectionPrimaryLabelsVisible());
 
 		final org.osate.ge.diagram.AadlPropertiesSet enabledProperties = new org.osate.ge.diagram.AadlPropertiesSet();
 		mmConfig.setEnabledAadlProperties(enabledProperties);
@@ -321,6 +328,10 @@ public class DiagramSerialization {
 		final Double lineWidth = currentStyle.getLineWidth();
 		if (lineWidth != null) {
 			newElement.setLineWidth(lineWidth);
+		}
+
+		if (currentStyle.getPrimaryLabelVisible() != null) {
+			newElement.setPrimaryLabelVisible(currentStyle.getPrimaryLabelVisible());
 		}
 
 		// Connection Specific

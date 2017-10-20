@@ -12,16 +12,19 @@ import org.eclipse.graphiti.mm.pictograms.Shape;
 import org.eclipse.graphiti.services.Graphiti;
 import org.osate.ge.graphics.Style;
 import org.osate.ge.graphics.StyleBuilder;
+import org.osate.ge.graphics.internal.AgeConnection;
 import org.osate.ge.graphics.internal.AgeShape;
 import org.osate.ge.graphics.internal.Label;
+import org.osate.ge.internal.diagram.runtime.DiagramConfiguration;
 import org.osate.ge.internal.diagram.runtime.DiagramElement;
 import org.osate.ge.internal.diagram.runtime.DiagramNode;
 import org.osate.ge.internal.graphiti.ShapeNames;
 
 class StyleUtil {
 	public static void refreshStyle(final Diagram graphitiDiagram, final PictogramElement pe,
-			final DiagramElement element, final ColoringProvider coloringProvider, final NodePictogramBiMap mapping) {
-		final Style finalStyle = getFinalStyle(element, coloringProvider);
+			final DiagramElement element, final Style diagramConnectionStyle, final ColoringProvider coloringProvider,
+			final NodePictogramBiMap mapping) {
+		final Style finalStyle = getFinalStyle(element, diagramConnectionStyle, coloringProvider);
 		final org.osate.ge.graphics.Color finalOutline = finalStyle.getOutlineColor();
 		final org.osate.ge.graphics.Color finalBackground = finalStyle.getBackgroundColor();
 		final org.osate.ge.graphics.Color finalFontColor = finalStyle.getFontColor();
@@ -50,7 +53,7 @@ class StyleUtil {
 
 							if (labelBackgroundDiagramElement != null) {
 								final org.osate.ge.graphics.Color geLabelBackground = getFinalStyle(labelBackgroundDiagramElement,
-										coloringProvider).getBackgroundColor();
+						diagramConnectionStyle, coloringProvider).getBackgroundColor();
 								labelBackground = Graphiti.getGaService().manageColor(graphitiDiagram, geLabelBackground.getRed(),
 										geLabelBackground.getGreen(), geLabelBackground.getBlue());
 							}
@@ -71,8 +74,17 @@ class StyleUtil {
 		return null;
 	}
 
-	private static Style getFinalStyle(final DiagramElement de, final ColoringProvider coloringProvider) {
-		final StyleBuilder sb = StyleBuilder.create(de.getStyle(), de.getGraphicalConfiguration().style, Style.DEFAULT);
+	public static Style getFinalStyle(final DiagramElement de, final Style diagramConnectionStyle,
+			final ColoringProvider coloringProvider) {
+		final Style diagramConfigurationStyle;
+		if (de.getGraphic() instanceof AgeConnection) {
+			diagramConfigurationStyle = diagramConnectionStyle;
+		} else {
+			diagramConfigurationStyle = Style.EMPTY;
+		}
+
+		final StyleBuilder sb = StyleBuilder.create(de.getStyle(), de.getGraphicalConfiguration().style,
+				diagramConfigurationStyle, Style.DEFAULT);
 
 		org.osate.ge.graphics.Color foregroundColor = coloringProvider.getForegroundColor(de);
 		if (foregroundColor != null) {
@@ -80,6 +92,12 @@ class StyleUtil {
 		}
 
 		return sb.build();
+	}
+
+	public static Style getDiagramConfigurationConnectionStyle(final DiagramConfiguration config) {
+		final StyleBuilder builder = StyleBuilder.create(Style.DEFAULT);
+		builder.primaryLabelVisible(config.areConnectionPrimaryLabelsVisible());
+		return builder.build();
 	}
 
 	private static void overrideStyle(final PictogramElement pe,

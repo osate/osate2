@@ -297,13 +297,22 @@ public class DiagramPackage extends EPackageImpl {
 	public static final int DIAGRAM_ELEMENT__LINE_WIDTH = DIAGRAM_NODE_FEATURE_COUNT + 13;
 
 	/**
+	 * The feature id for the '<em><b>Primary Label Visible</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	public static final int DIAGRAM_ELEMENT__PRIMARY_LABEL_VISIBLE = DIAGRAM_NODE_FEATURE_COUNT + 14;
+
+	/**
 	 * The number of structural features of the '<em>Element</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	public static final int DIAGRAM_ELEMENT_FEATURE_COUNT = DIAGRAM_NODE_FEATURE_COUNT + 14;
+	public static final int DIAGRAM_ELEMENT_FEATURE_COUNT = DIAGRAM_NODE_FEATURE_COUNT + 15;
 
 	/**
 	 * The number of operations of the '<em>Element</em>' class.
@@ -630,13 +639,22 @@ public class DiagramPackage extends EPackageImpl {
 	public static final int DIAGRAM_CONFIGURATION__CONTEXT = 1;
 
 	/**
+	 * The feature id for the '<em><b>Connection Primary Labels Visible</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	public static final int DIAGRAM_CONFIGURATION__CONNECTION_PRIMARY_LABELS_VISIBLE = 2;
+
+	/**
 	 * The number of structural features of the '<em>Configuration</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	public static final int DIAGRAM_CONFIGURATION_FEATURE_COUNT = 2;
+	public static final int DIAGRAM_CONFIGURATION_FEATURE_COUNT = 3;
 
 	/**
 	 * The number of operations of the '<em>Configuration</em>' class.
@@ -1047,6 +1065,20 @@ public class DiagramPackage extends EPackageImpl {
 
 
 	/**
+	 * Returns the meta object for the attribute '{@link org.osate.ge.diagram.DiagramElement#getPrimaryLabelVisible <em>Primary Label Visible</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Primary Label Visible</em>'.
+	 * @see org.osate.ge.diagram.DiagramElement#getPrimaryLabelVisible()
+	 * @see #getDiagramElement()
+	 * @generated
+	 */
+	public EAttribute getDiagramElement_PrimaryLabelVisible() {
+		return (EAttribute)diagramElementEClass.getEStructuralFeatures().get(14);
+	}
+
+
+	/**
 	 * Returns the meta object for the attribute '{@link org.osate.ge.diagram.DiagramElement#getId <em>Id</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1249,6 +1281,20 @@ public class DiagramPackage extends EPackageImpl {
 	}
 
 	/**
+	 * Returns the meta object for the attribute '{@link org.osate.ge.diagram.DiagramConfiguration#isConnectionPrimaryLabelsVisible <em>Connection Primary Labels Visible</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Connection Primary Labels Visible</em>'.
+	 * @see org.osate.ge.diagram.DiagramConfiguration#isConnectionPrimaryLabelsVisible()
+	 * @see #getDiagramConfiguration()
+	 * @generated
+	 */
+	public EAttribute getDiagramConfiguration_ConnectionPrimaryLabelsVisible() {
+		return (EAttribute)diagramConfigurationEClass.getEStructuralFeatures().get(2);
+	}
+
+
+	/**
 	 * Returns the meta object for class '{@link org.osate.ge.diagram.Reference <em>Reference</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1339,6 +1385,7 @@ public class DiagramPackage extends EPackageImpl {
 		createEAttribute(diagramElementEClass, DIAGRAM_ELEMENT__FONT_COLOR);
 		createEAttribute(diagramElementEClass, DIAGRAM_ELEMENT__FONT_SIZE);
 		createEAttribute(diagramElementEClass, DIAGRAM_ELEMENT__LINE_WIDTH);
+		createEAttribute(diagramElementEClass, DIAGRAM_ELEMENT__PRIMARY_LABEL_VISIBLE);
 
 		pointEClass = createEClass(POINT);
 		createEAttribute(pointEClass, POINT__X);
@@ -1361,6 +1408,7 @@ public class DiagramPackage extends EPackageImpl {
 		diagramConfigurationEClass = createEClass(DIAGRAM_CONFIGURATION);
 		createEReference(diagramConfigurationEClass, DIAGRAM_CONFIGURATION__ENABLED_AADL_PROPERTIES);
 		createEReference(diagramConfigurationEClass, DIAGRAM_CONFIGURATION__CONTEXT);
+		createEAttribute(diagramConfigurationEClass, DIAGRAM_CONFIGURATION__CONNECTION_PRIMARY_LABELS_VISIBLE);
 
 		referenceEClass = createEClass(REFERENCE);
 		createEAttribute(referenceEClass, REFERENCE__SEG);
@@ -1428,6 +1476,7 @@ public class DiagramPackage extends EPackageImpl {
 		initEAttribute(getDiagramElement_FontColor(), this.getColor(), "fontColor", null, 0, 1, DiagramElement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getDiagramElement_FontSize(), theXMLTypePackage.getDoubleObject(), "fontSize", null, 0, 1, DiagramElement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getDiagramElement_LineWidth(), theXMLTypePackage.getDoubleObject(), "lineWidth", null, 0, 1, DiagramElement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getDiagramElement_PrimaryLabelVisible(), ecorePackage.getEBooleanObject(), "primaryLabelVisible", null, 0, 1, DiagramElement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(pointEClass, Point.class, "Point", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getPoint_X(), theXMLTypePackage.getDouble(), "x", null, 0, 1, Point.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -1450,6 +1499,7 @@ public class DiagramPackage extends EPackageImpl {
 		initEClass(diagramConfigurationEClass, DiagramConfiguration.class, "DiagramConfiguration", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getDiagramConfiguration_EnabledAadlProperties(), this.getAadlPropertiesSet(), null, "enabledAadlProperties", null, 0, 1, DiagramConfiguration.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getDiagramConfiguration_Context(), this.getCanonicalBusinessObjectReference(), null, "context", null, 0, 1, DiagramConfiguration.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getDiagramConfiguration_ConnectionPrimaryLabelsVisible(), ecorePackage.getEBoolean(), "connectionPrimaryLabelsVisible", "true", 0, 1, DiagramConfiguration.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(referenceEClass, Reference.class, "Reference", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getReference_Seg(), theXMLTypePackage.getString(), "seg", null, 0, -1, Reference.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -1634,6 +1684,14 @@ public class DiagramPackage extends EPackageImpl {
 		public static final EAttribute DIAGRAM_ELEMENT__LINE_WIDTH = eINSTANCE.getDiagramElement_LineWidth();
 
 		/**
+		 * The meta object literal for the '<em><b>Primary Label Visible</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		public static final EAttribute DIAGRAM_ELEMENT__PRIMARY_LABEL_VISIBLE = eINSTANCE.getDiagramElement_PrimaryLabelVisible();
+
+		/**
 		 * The meta object literal for the '<em><b>Id</b></em>' attribute feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -1774,6 +1832,14 @@ public class DiagramPackage extends EPackageImpl {
 		 * @generated
 		 */
 		public static final EReference DIAGRAM_CONFIGURATION__CONTEXT = eINSTANCE.getDiagramConfiguration_Context();
+
+		/**
+		 * The meta object literal for the '<em><b>Connection Primary Labels Visible</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		public static final EAttribute DIAGRAM_CONFIGURATION__CONNECTION_PRIMARY_LABELS_VISIBLE = eINSTANCE.getDiagramConfiguration_ConnectionPrimaryLabelsVisible();
 
 		/**
 		 * The meta object literal for the '{@link org.osate.ge.diagram.Reference <em>Reference</em>}' class.

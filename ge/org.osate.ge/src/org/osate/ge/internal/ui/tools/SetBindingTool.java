@@ -80,9 +80,14 @@ public class SetBindingTool {
 				if(currentWindow.open() == Window.OK) {
 					// Ensure the diagram is configured to show the specified binding property
 					final AgeDiagram diagram = diagramProvider.getAgeDiagram();
-					diagram.setDiagramConfiguration(new DiagramConfigurationBuilder(diagram.getConfiguration()).
-							addAadlProperty(currentWindow.getSelectedProperty().getQualifiedName()).
-							build());
+					if (!diagram.getConfiguration().getEnabledAadlPropertyNames()
+							.contains(currentWindow.getSelectedProperty().getQualifiedName().toLowerCase())) {
+						diagram.modify("Configure Diagram", m -> {
+							m.setDiagramConfiguration(new DiagramConfigurationBuilder(diagram.getConfiguration()).
+									addAadlProperty(currentWindow.getSelectedProperty().getQualifiedName()).
+									build());
+						});
+					}
 
 					// Create the property association
 					createPropertyAssociation(aadlModService);
