@@ -26,7 +26,7 @@ public class DefaultModelChangeNotifier implements ModelChangeNotifier {
 	private final ProjectDeltaVisitor projectVisitor = new ProjectDeltaVisitor();
 	private final AadlResourceUriCollectorVisitor resourceUriCollectorVisitor = new AadlResourceUriCollectorVisitor();
 	private final List<ChangeListener> changeListeners = new CopyOnWriteArrayList<>();
-	private Lock currentLock; // TODO: Should be volatile or atomic?
+	private Lock currentLock;
 	private final Set<URI> pendingChangedResourceUris = new HashSet<>();
 	private boolean hasModelChanged = false;
 
