@@ -1013,7 +1013,7 @@
       <repositoryList
           name="Oxygen">
         <repository
-            url="http://download.eclipse.org/releases/oxygen"/>
+            url="http://download.eclipse.org/releases/oxygen/201706281000"/>
         <repository
             url="http://download.eclipse.org/eclipse/updates/4.7"/>
         <repository
@@ -1061,7 +1061,7 @@
       <repositoryList
           name="Oxygen">
         <repository
-            url="http://download.eclipse.org/releases/oxygen"/>
+            url="http://download.eclipse.org/releases/oxygen/201706281000"/>
         <repository
             url="http://download.eclipse.org/eclipse/updates/4.7"/>
         <repository
