@@ -70,7 +70,7 @@ public class DiagramSerialization {
 				}
 			}
 
-			configBuilder.connectionPrimaryLabelsVisible(mmDiagramConfig.isConnectionPrimaryLabelsVisible());
+			configBuilder.connectionPrimaryLabelsVisible(mmDiagramConfig.getConnectionPrimaryLabelsVisible());
 		}
 
 		ageDiagram.modify("Configure Diagram", m -> {
@@ -234,7 +234,7 @@ public class DiagramSerialization {
 		mmConfig.setContext(
 				config.getContextBoReference() == null ? null : config.getContextBoReference().toMetamodel());
 
-		mmConfig.setConnectionPrimaryLabelsVisible(config.areConnectionPrimaryLabelsVisible());
+		mmConfig.setConnectionPrimaryLabelsVisible(config.getConnectionPrimaryLabelsVisible());
 
 		final org.osate.ge.diagram.AadlPropertiesSet enabledProperties = new org.osate.ge.diagram.AadlPropertiesSet();
 		mmConfig.setEnabledAadlProperties(enabledProperties);

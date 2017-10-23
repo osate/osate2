@@ -53,7 +53,7 @@ class StyleUtil {
 
 							if (labelBackgroundDiagramElement != null) {
 								final org.osate.ge.graphics.Color geLabelBackground = getFinalStyle(labelBackgroundDiagramElement,
-						diagramConnectionStyle, coloringProvider).getBackgroundColor();
+										diagramConnectionStyle, coloringProvider).getBackgroundColor();
 								labelBackground = Graphiti.getGaService().manageColor(graphitiDiagram, geLabelBackground.getRed(),
 										geLabelBackground.getGreen(), geLabelBackground.getBlue());
 							}
@@ -74,6 +74,17 @@ class StyleUtil {
 		return null;
 	}
 
+	/**
+	 * Gets the final style object based on the following style priorities:
+	 *     Diagram Element Style
+	 *     Diagram Configuration Style - Only used for connections.
+	 *     Diagram Element Graphical Configuration
+	 *     Default Style
+	 * @param de
+	 * @param diagramConnectionStyle
+	 * @param coloringProvider
+	 * @return
+	 */
 	public static Style getFinalStyle(final DiagramElement de, final Style diagramConnectionStyle,
 			final ColoringProvider coloringProvider) {
 		final Style diagramConfigurationStyle;
@@ -83,8 +94,8 @@ class StyleUtil {
 			diagramConfigurationStyle = Style.EMPTY;
 		}
 
-		final StyleBuilder sb = StyleBuilder.create(de.getStyle(), de.getGraphicalConfiguration().style,
-				diagramConfigurationStyle, Style.DEFAULT);
+		final StyleBuilder sb = StyleBuilder.create(de.getStyle(), diagramConfigurationStyle,
+				de.getGraphicalConfiguration().style, Style.DEFAULT);
 
 		org.osate.ge.graphics.Color foregroundColor = coloringProvider.getForegroundColor(de);
 		if (foregroundColor != null) {
@@ -96,7 +107,7 @@ class StyleUtil {
 
 	public static Style getDiagramConfigurationConnectionStyle(final DiagramConfiguration config) {
 		final StyleBuilder builder = StyleBuilder.create(Style.DEFAULT);
-		builder.primaryLabelVisible(config.areConnectionPrimaryLabelsVisible());
+		builder.primaryLabelVisible(config.getConnectionPrimaryLabelsVisible());
 		return builder.build();
 	}
 

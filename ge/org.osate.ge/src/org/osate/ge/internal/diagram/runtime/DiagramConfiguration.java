@@ -14,11 +14,12 @@ public class DiagramConfiguration {
 	private final CanonicalBusinessObjectReference contextBoReference;
 	private final Set<String> lcEnabledAadlPropertyNames; // Lowercase AADL property names
 
-	// Determines whether the primary label of connections should be visible by default. This can be overridden by the business object handler.
-	private final boolean connectionPrimaryLabelsVisible;
+	// Determines whether the primary label of connections should be visible by default. This overrides the settings of the business object handler and can be
+	// overridden by the user selection.
+	private final Boolean connectionPrimaryLabelsVisible;
 
 	DiagramConfiguration(final CanonicalBusinessObjectReference contextBoReference,
-			final Set<String> displayedAadlPropertyNames, final boolean connectionPrimaryLabelsVisible) {
+			final Set<String> displayedAadlPropertyNames, final Boolean connectionPrimaryLabelsVisible) {
 		this.contextBoReference = contextBoReference == null ? null : contextBoReference;
 		this.lcEnabledAadlPropertyNames = Collections.unmodifiableSet(new HashSet<String>(Objects.requireNonNull(displayedAadlPropertyNames, "displayedAadlPropertyNames must not be null")));
 		this.connectionPrimaryLabelsVisible = connectionPrimaryLabelsVisible;
@@ -36,7 +37,7 @@ public class DiagramConfiguration {
 		return lcEnabledAadlPropertyNames;
 	}
 
-	public boolean areConnectionPrimaryLabelsVisible() {
+	public Boolean getConnectionPrimaryLabelsVisible() {
 		return connectionPrimaryLabelsVisible;
 	}
 
@@ -51,7 +52,8 @@ public class DiagramConfiguration {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + (connectionPrimaryLabelsVisible ? 1231 : 1237);
+		result = prime * result
+				+ ((connectionPrimaryLabelsVisible == null) ? 0 : connectionPrimaryLabelsVisible.hashCode());
 		result = prime * result + ((contextBoReference == null) ? 0 : contextBoReference.hashCode());
 		result = prime * result + ((lcEnabledAadlPropertyNames == null) ? 0 : lcEnabledAadlPropertyNames.hashCode());
 		return result;
@@ -69,7 +71,11 @@ public class DiagramConfiguration {
 			return false;
 		}
 		DiagramConfiguration other = (DiagramConfiguration) obj;
-		if (connectionPrimaryLabelsVisible != other.connectionPrimaryLabelsVisible) {
+		if (connectionPrimaryLabelsVisible == null) {
+			if (other.connectionPrimaryLabelsVisible != null) {
+				return false;
+			}
+		} else if (!connectionPrimaryLabelsVisible.equals(other.connectionPrimaryLabelsVisible)) {
 			return false;
 		}
 		if (contextBoReference == null) {

@@ -23,7 +23,7 @@ import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
  * <ul>
  *   <li>{@link org.osate.ge.diagram.DiagramConfiguration#getEnabledAadlProperties <em>Enabled Aadl Properties</em>}</li>
  *   <li>{@link org.osate.ge.diagram.DiagramConfiguration#getContext <em>Context</em>}</li>
- *   <li>{@link org.osate.ge.diagram.DiagramConfiguration#isConnectionPrimaryLabelsVisible <em>Connection Primary Labels Visible</em>}</li>
+ *   <li>{@link org.osate.ge.diagram.DiagramConfiguration#getConnectionPrimaryLabelsVisible <em>Connection Primary Labels Visible</em>}</li>
  * </ul>
  *
  * @see org.osate.ge.diagram.DiagramPackage#getDiagramConfiguration()
@@ -52,24 +52,24 @@ public class DiagramConfiguration extends MinimalEObjectImpl.Container implement
 	protected CanonicalBusinessObjectReference context;
 
 	/**
-	 * The default value of the '{@link #isConnectionPrimaryLabelsVisible() <em>Connection Primary Labels Visible</em>}' attribute.
+	 * The default value of the '{@link #getConnectionPrimaryLabelsVisible() <em>Connection Primary Labels Visible</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #isConnectionPrimaryLabelsVisible()
+	 * @see #getConnectionPrimaryLabelsVisible()
 	 * @generated
 	 * @ordered
 	 */
-	protected static final boolean CONNECTION_PRIMARY_LABELS_VISIBLE_EDEFAULT = true;
+	protected static final Boolean CONNECTION_PRIMARY_LABELS_VISIBLE_EDEFAULT = Boolean.TRUE;
 
 	/**
-	 * The cached value of the '{@link #isConnectionPrimaryLabelsVisible() <em>Connection Primary Labels Visible</em>}' attribute.
+	 * The cached value of the '{@link #getConnectionPrimaryLabelsVisible() <em>Connection Primary Labels Visible</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #isConnectionPrimaryLabelsVisible()
+	 * @see #getConnectionPrimaryLabelsVisible()
 	 * @generated
 	 * @ordered
 	 */
-	protected boolean connectionPrimaryLabelsVisible = CONNECTION_PRIMARY_LABELS_VISIBLE_EDEFAULT;
+	protected Boolean connectionPrimaryLabelsVisible = CONNECTION_PRIMARY_LABELS_VISIBLE_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -210,25 +210,25 @@ public class DiagramConfiguration extends MinimalEObjectImpl.Container implement
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Connection Primary Labels Visible</em>' attribute.
-	 * @see #setConnectionPrimaryLabelsVisible(boolean)
+	 * @see #setConnectionPrimaryLabelsVisible(Boolean)
 	 * @see org.osate.ge.diagram.DiagramPackage#getDiagramConfiguration_ConnectionPrimaryLabelsVisible()
 	 * @model default="true"
 	 * @generated
 	 */
-	public boolean isConnectionPrimaryLabelsVisible() {
+	public Boolean getConnectionPrimaryLabelsVisible() {
 		return connectionPrimaryLabelsVisible;
 	}
 
 	/**
-	 * Sets the value of the '{@link org.osate.ge.diagram.DiagramConfiguration#isConnectionPrimaryLabelsVisible <em>Connection Primary Labels Visible</em>}' attribute.
+	 * Sets the value of the '{@link org.osate.ge.diagram.DiagramConfiguration#getConnectionPrimaryLabelsVisible <em>Connection Primary Labels Visible</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Connection Primary Labels Visible</em>' attribute.
-	 * @see #isConnectionPrimaryLabelsVisible()
+	 * @see #getConnectionPrimaryLabelsVisible()
 	 * @generated
 	 */
-	public void setConnectionPrimaryLabelsVisible(boolean newConnectionPrimaryLabelsVisible) {
-		boolean oldConnectionPrimaryLabelsVisible = connectionPrimaryLabelsVisible;
+	public void setConnectionPrimaryLabelsVisible(Boolean newConnectionPrimaryLabelsVisible) {
+		Boolean oldConnectionPrimaryLabelsVisible = connectionPrimaryLabelsVisible;
 		connectionPrimaryLabelsVisible = newConnectionPrimaryLabelsVisible;
 		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, DiagramPackage.DIAGRAM_CONFIGURATION__CONNECTION_PRIMARY_LABELS_VISIBLE, oldConnectionPrimaryLabelsVisible, connectionPrimaryLabelsVisible));
@@ -263,7 +263,7 @@ public class DiagramConfiguration extends MinimalEObjectImpl.Container implement
 			case DiagramPackage.DIAGRAM_CONFIGURATION__CONTEXT:
 				return getContext();
 			case DiagramPackage.DIAGRAM_CONFIGURATION__CONNECTION_PRIMARY_LABELS_VISIBLE:
-				return isConnectionPrimaryLabelsVisible();
+				return getConnectionPrimaryLabelsVisible();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -323,7 +323,7 @@ public class DiagramConfiguration extends MinimalEObjectImpl.Container implement
 			case DiagramPackage.DIAGRAM_CONFIGURATION__CONTEXT:
 				return context != null;
 			case DiagramPackage.DIAGRAM_CONFIGURATION__CONNECTION_PRIMARY_LABELS_VISIBLE:
-				return connectionPrimaryLabelsVisible != CONNECTION_PRIMARY_LABELS_VISIBLE_EDEFAULT;
+				return CONNECTION_PRIMARY_LABELS_VISIBLE_EDEFAULT == null ? connectionPrimaryLabelsVisible != null : !CONNECTION_PRIMARY_LABELS_VISIBLE_EDEFAULT.equals(connectionPrimaryLabelsVisible);
 		}
 		return super.eIsSet(featureID);
 	}

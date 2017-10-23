@@ -63,7 +63,8 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="context" eType="#//CanonicalBusinessObjectReference"
         containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="connectionPrimaryLabelsVisible"
-        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean" defaultValueLiteral="true"/>
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBooleanObject"
+        defaultValueLiteral="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Reference" abstract="true">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="seg" upperBound="-1" eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//String"/>

@@ -360,11 +360,15 @@ public class DiagramConfigurationDialog {
 			hideConnectionPrimaryLabelsVisibleBtn.addSelectionListener(new SelectionAdapter() {
 				@Override
 				public void widgetSelected(final SelectionEvent e) {
+					// Use default value if hide is unchecked.
 					diagramConfigBuilder
-					.connectionPrimaryLabelsVisible(!hideConnectionPrimaryLabelsVisibleBtn.getSelection());
+					.connectionPrimaryLabelsVisible(
+							hideConnectionPrimaryLabelsVisibleBtn.getSelection() ? Boolean.FALSE : null);
 				}
 			});
-			hideConnectionPrimaryLabelsVisibleBtn.setSelection(!diagramConfigBuilder.areConnectionPrimaryLabelsVisible());
+			hideConnectionPrimaryLabelsVisibleBtn
+			.setSelection(
+					Objects.equals(Boolean.FALSE, diagramConfigBuilder.getConnectionPrimaryLabelsVisible()));
 
 			// Set the initial selection
 			if(initialSelectionBoPath != null) {

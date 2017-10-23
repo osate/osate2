@@ -2,21 +2,23 @@ package org.osate.ge.internal.diagram.runtime;
 
 import java.util.Collections;
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 public class DiagramConfigurationBuilder {
 	private CanonicalBusinessObjectReference contextBoReference;
 	private final Set<String> lcEnabledAadlPropertyNames = new HashSet<>();
-	private boolean connectionPrimaryLabelsVisible = true;
+	private Boolean connectionPrimaryLabelsVisible;
 
 	public DiagramConfigurationBuilder() {
 		this.contextBoReference = null;
 	}
 
 	public DiagramConfigurationBuilder(final DiagramConfiguration config) {
+		Objects.requireNonNull(config, "config must not be null");
 		this.contextBoReference = config.getContextBoReference();
 		this.lcEnabledAadlPropertyNames.addAll(config.getEnabledAadlPropertyNames());
-		this.connectionPrimaryLabelsVisible = config.areConnectionPrimaryLabelsVisible();
+		this.connectionPrimaryLabelsVisible = config.getConnectionPrimaryLabelsVisible();
 	}
 
 	public CanonicalBusinessObjectReference getContextBoReference() {
@@ -28,11 +30,11 @@ public class DiagramConfigurationBuilder {
 		return this;
 	}
 
-	public boolean areConnectionPrimaryLabelsVisible() {
+	public Boolean getConnectionPrimaryLabelsVisible() {
 		return connectionPrimaryLabelsVisible;
 	}
 
-	public DiagramConfigurationBuilder connectionPrimaryLabelsVisible(final boolean value) {
+	public DiagramConfigurationBuilder connectionPrimaryLabelsVisible(final Boolean value) {
 		this.connectionPrimaryLabelsVisible = value;
 		return this;
 	}
