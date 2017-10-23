@@ -50,8 +50,6 @@
       <feature id="com.rockwellcollins.atc.resolute.feature" installMode="root"/>
       <feature id="org.osate.ocarina.feature" installMode="root"/>
       <feature id="org.osate.alisa.workbench.sdk" installMode="root"/>
-      <feature id="org.osate.aadl2.errormodel.emfta.feature" installMode="root"/>
-      <feature id="edu.cmu.emfta.feature" installMode="root"/>
       <feature id="it.xsemantics.runtime.feature"/>
       <feature id="org.eclipse.birt"/>
       <feature id="org.eclipse.egit"/>
@@ -74,10 +72,9 @@
    </configurations>
 
    <repositories>
-      <repository location="http://aadl.info/aadl/osate/stable/2.2.3/update-site/" enabled="true" />
-      <repository location="http://www.eclipse.org/modeling/amalgam/downloads/package/modeling/mars/" enabled="true" />
-      <repository location="http://download.eclipse.org/eclipse/updates/4.5" enabled="true" />
-      <repository location="http://download.eclipse.org/releases/mars" enabled="true" />
+      <repository location="http://aadl.info/aadl/osate/testing/update-site/" enabled="true" />
+      <repository location="http://download.eclipse.org/eclipse/updates/4.7" enabled="true" />
+      <repository location="http://download.eclipse.org/releases/oxygen" enabled="true" />
    </repositories>
 
 </product>
