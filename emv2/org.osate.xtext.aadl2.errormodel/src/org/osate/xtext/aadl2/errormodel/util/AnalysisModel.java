@@ -2,7 +2,7 @@ package org.osate.xtext.aadl2.errormodel.util;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.List;
 
 import org.eclipse.emf.common.util.BasicEList;
@@ -47,7 +47,7 @@ public class AnalysisModel {
 	// propagation paths
 	protected Collection<PropagationPathRecord> propagationPaths = new ArrayList<PropagationPathRecord>();
 	// component instances that are involved in propagation paths
-	protected Collection<ComponentInstance> subcomponents = new HashSet<ComponentInstance>();
+	protected Collection<ComponentInstance> subcomponents = new LinkedHashSet<ComponentInstance>();
 	// connection instances as source or taraget of a propagation path
 	protected Collection<ConnectionInstance> connections = new ArrayList<ConnectionInstance>();
 
@@ -312,6 +312,7 @@ public class AnalysisModel {
 			break;
 		case ALL:
 			// add all combinations
+			// FIXME: this is obviously wrong
 			for (int i = 0; i < addlSrcCI.size(); i++) {
 				for (int j = 0; i < addlDstCI.size(); i++) {
 					srcCI = addlSrcCI.get(i);
@@ -430,6 +431,7 @@ public class AnalysisModel {
 				break;
 			case ALL:
 				// add all combinations
+				// FIXME: this is obviously wrong
 				for (int i = 0; i < addlSrcCI.size(); i++) {
 					for (int j = 0; i < addlDstCI.size(); i++) {
 						srcCI = addlSrcCI.get(i);

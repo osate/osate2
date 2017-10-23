@@ -6,6 +6,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Set;
 
@@ -153,8 +154,9 @@ public class EMV2Util {
 		EList<ErrorModelSubclause> result = new BasicEList<ErrorModelSubclause>();
 		if (cl == null) {
 			ErrorModelSubclause localemsc = getContainingErrorModelSubclause(element);
-			if (localemsc != null)
+			if (localemsc != null) {
 				result.add(localemsc);
+			}
 			return result;
 		}
 		if (cl instanceof ComponentImplementation) {
@@ -175,11 +177,13 @@ public class EMV2Util {
 	public static ComponentClassifier getAssociatedClassifier(Element emv2Element) {
 
 		ComponentClassifier cl = (ComponentClassifier) emv2Element.getContainingClassifier();
-		if (cl != null)
+		if (cl != null) {
 			return cl;
+		}
 		ErrorModelSubclause emsc = getContainingErrorModelSubclause(emv2Element);
-		if (emsc == null || emsc.getName().equalsIgnoreCase("EMV2"))
+		if (emsc == null || emsc.getName().equalsIgnoreCase("EMV2")) {
 			return null;
+		}
 		return (ComponentClassifier) EMFIndexRetrieval.getEObjectOfType(emsc,
 				Aadl2Package.eINSTANCE.getComponentClassifier(), emsc.getQualifiedName());
 	}
@@ -207,8 +211,9 @@ public class EMV2Util {
 		}
 		// separately stored EMV2 subclause
 		ErrorModelSubclause emsc = getAssociatedEMV2Subclause(cl);
-		if (emsc != null)
+		if (emsc != null) {
 			return emsc;
+		}
 		// embedded EMV2 subclause
 		return getEmbeddedEMV2Subclause(cl);
 	}
@@ -314,8 +319,9 @@ public class EMV2Util {
 	}
 
 	public static String getPath(FeatureorPPReference ref) {
-		if (ref == null)
+		if (ref == null) {
 			return "";
+		}
 		if (ref.getNext() != null) {
 			return ref.getFeatureorPP().getName() + "." + getPath(ref.getNext());
 		} else {
@@ -846,9 +852,9 @@ public class EMV2Util {
 
 	/**
 	 * find the error flow whose outgoing error propagation point is flowSource
-	* @param eps List of error propagations
-	* @param flowSource ErrorPropagation
-	* @return ErrorFlow list
+	 * @param eps List of error propagations
+	 * @param flowSource ErrorPropagation
+	 * @return ErrorFlow list
 	 */
 	public static EList<ErrorFlow> findReverseErrorFlowFrom(Collection<ErrorFlow> efs, ErrorPropagation flowSource) {
 		EList<ErrorFlow> result = new BasicEList<ErrorFlow>();
@@ -1263,7 +1269,7 @@ public class EMV2Util {
 	 * @return Collection<ErrorPropagation> list of ErrorPropagation excluding duplicates
 	 */
 	public static Collection<ErrorPropagation> getAllErrorPropagations(Classifier cl, DirectionType dir) {
-		HashMap<String, ErrorPropagation> result = new HashMap<String, ErrorPropagation>();
+		HashMap<String, ErrorPropagation> result = new LinkedHashMap<>();
 		EList<ErrorModelSubclause> emslist = getAllContainingClassifierEMV2Subclauses(cl);
 		for (ErrorModelSubclause errorModelSubclause : emslist) {
 			EList<ErrorPropagation> eflist = errorModelSubclause.getPropagations();
@@ -1285,7 +1291,7 @@ public class EMV2Util {
 	 * @return Collection<ConnectionErrorSource> list of ConnectionErrorSource excluding duplicates
 	 */
 	public static Collection<ConnectionErrorSource> getAllConnectionErrorSources(Classifier cl) {
-		HashMap<String, ConnectionErrorSource> result = new HashMap<String, ConnectionErrorSource>();
+		HashMap<String, ConnectionErrorSource> result = new LinkedHashMap<>();
 		EList<ErrorModelSubclause> emslist = getAllContainingClassifierEMV2Subclauses(cl);
 		for (ErrorModelSubclause errorModelSubclause : emslist) {
 			EList<ConnectionErrorSource> eflist = errorModelSubclause.getConnectionErrorSources();
@@ -1404,7 +1410,7 @@ public class EMV2Util {
 	 * @return Collection<ErrorPropagation> list of ErrorPropagations excluding duplicates
 	 */
 	public static Collection<ErrorPropagation> getAllErrorContainments(Classifier cl, DirectionType dir) {
-		HashMap<String, ErrorPropagation> result = new HashMap<String, ErrorPropagation>();
+		HashMap<String, ErrorPropagation> result = new LinkedHashMap<>();
 		EList<ErrorModelSubclause> emslist = getAllContainingClassifierEMV2Subclauses(cl);
 		for (ErrorModelSubclause errorModelSubclause : emslist) {
 			EList<ErrorPropagation> eflist = errorModelSubclause.getPropagations();
@@ -1426,7 +1432,7 @@ public class EMV2Util {
 	 * @return Collection<ErrorFlow> list of error flow
 	 */
 	public static Collection<ErrorFlow> getAllErrorFlows(Classifier cl) {
-		HashMap<String, ErrorFlow> result = new HashMap<String, ErrorFlow>();
+		HashMap<String, ErrorFlow> result = new LinkedHashMap<>();
 		EList<ErrorModelSubclause> emslist = getAllContainingClassifierEMV2Subclauses(cl);
 		for (ErrorModelSubclause errorModelSubclause : emslist) {
 			EList<ErrorFlow> eflist = errorModelSubclause.getFlows();
@@ -1449,7 +1455,7 @@ public class EMV2Util {
 	 * @return Collection<ErrorSource> list of error flow
 	 */
 	public static Collection<ErrorSource> getAllErrorSources(Classifier cl) {
-		HashMap<String, ErrorSource> result = new HashMap<String, ErrorSource>();
+		HashMap<String, ErrorSource> result = new LinkedHashMap<>();
 		EList<ErrorModelSubclause> emslist = getAllContainingClassifierEMV2Subclauses(cl);
 		for (ErrorModelSubclause errorModelSubclause : emslist) {
 			EList<ErrorFlow> eflist = errorModelSubclause.getFlows();
@@ -1474,7 +1480,7 @@ public class EMV2Util {
 	 * @return Collection<ErrorSource> list of error paths declared in the flow section
 	 */
 	public static Collection<ErrorPath> getAllErrorPaths(Classifier cl) {
-		HashMap<String, ErrorPath> result = new HashMap<String, ErrorPath>();
+		HashMap<String, ErrorPath> result = new LinkedHashMap<>();
 		EList<ErrorModelSubclause> emslist = getAllContainingClassifierEMV2Subclauses(cl);
 		for (ErrorModelSubclause errorModelSubclause : emslist) {
 			EList<ErrorFlow> eflist = errorModelSubclause.getFlows();
@@ -1499,7 +1505,7 @@ public class EMV2Util {
 	 * @return Collection<ErrorSource> list of error sinks declared in the flow section
 	 */
 	public static Collection<ErrorSink> getAllErrorSinks(Classifier cl) {
-		HashMap<String, ErrorSink> result = new HashMap<String, ErrorSink>();
+		HashMap<String, ErrorSink> result = new LinkedHashMap<>();
 		EList<ErrorModelSubclause> emslist = getAllContainingClassifierEMV2Subclauses(cl);
 		for (ErrorModelSubclause errorModelSubclause : emslist) {
 			EList<ErrorFlow> eflist = errorModelSubclause.getFlows();
@@ -1584,7 +1590,7 @@ public class EMV2Util {
 	 * @return Collection<PropagationPoint> list of propagation points as HashMap for quick lookup of names
 	 */
 	public static Collection<PropagationPoint> getAllPropagationPoints(Classifier cl) {
-		HashMap<String, PropagationPoint> result = new HashMap<String, PropagationPoint>();
+		HashMap<String, PropagationPoint> result = new LinkedHashMap<>();
 		EList<ErrorModelSubclause> emslist = getAllContainingClassifierEMV2Subclauses(cl);
 		for (ErrorModelSubclause errorModelSubclause : emslist) {
 			EList<PropagationPoint> eflist = errorModelSubclause.getPoints();
@@ -1603,7 +1609,7 @@ public class EMV2Util {
 	 * @return Collection<PropagationPath> list of PropagationPaths as HashMap for quick lookup of names
 	 */
 	public static Collection<PropagationPath> getAllPropagationPaths(Classifier cl) {
-		HashMap<String, PropagationPath> result = new HashMap<String, PropagationPath>();
+		HashMap<String, PropagationPath> result = new LinkedHashMap<>();
 		EList<ErrorModelSubclause> emslist = getAllContainingClassifierEMV2Subclauses(cl);
 		for (ErrorModelSubclause errorModelSubclause : emslist) {
 			EList<PropagationPath> eflist = errorModelSubclause.getPaths();
@@ -1622,7 +1628,7 @@ public class EMV2Util {
 	 * @return Collection<ErrorBehaviorEvent> list of ErrorBehaviorEvents as HashMap for quick lookup of names
 	 */
 	public static Collection<ErrorBehaviorEvent> getAllErrorBehaviorEvents(Classifier cl) {
-		HashMap<String, ErrorBehaviorEvent> result = new HashMap<String, ErrorBehaviorEvent>();
+		HashMap<String, ErrorBehaviorEvent> result = new LinkedHashMap<>();
 		EList<ErrorModelSubclause> emslist = getAllContainingClassifierEMV2Subclauses(cl);
 		boolean foundEBSM = false;
 		for (ErrorModelSubclause errorModelSubclause : emslist) {
@@ -1657,7 +1663,7 @@ public class EMV2Util {
 	 * @return Collection<ErrorBehaviorState> list of ErrorBehaviorStates as HashMap for quick lookup of names
 	 */
 	public static Collection<ErrorBehaviorState> getAllErrorBehaviorStates(Classifier cl) {
-		HashMap<String, ErrorBehaviorState> result = new HashMap<String, ErrorBehaviorState>();
+		HashMap<String, ErrorBehaviorState> result = new LinkedHashMap<>();
 		EList<ErrorModelSubclause> emslist = getAllContainingClassifierEMV2Subclauses(cl);
 		for (ErrorModelSubclause errorModelSubclause : emslist) {
 			ErrorBehaviorStateMachine ebsm = errorModelSubclause.getUseBehavior();
@@ -1764,7 +1770,7 @@ public class EMV2Util {
 	 */
 	private static HashMap<String, ErrorBehaviorTransition> getAllErrorBehaviorTransitions(Classifier cl,
 			Collection<ErrorBehaviorTransition> unnamed) {
-		HashMap<String, ErrorBehaviorTransition> result = new HashMap<String, ErrorBehaviorTransition>();
+		HashMap<String, ErrorBehaviorTransition> result = new LinkedHashMap<>();
 		EList<ErrorModelSubclause> emslist = getAllContainingClassifierEMV2Subclauses(cl);
 		boolean foundEBSM = false;
 		for (ErrorModelSubclause errorModelSubclause : emslist) {
@@ -1821,7 +1827,7 @@ public class EMV2Util {
 	 */
 	private static HashMap<String, OutgoingPropagationCondition> getAllOutgoingPropagationConditions(Classifier cl,
 			Collection<OutgoingPropagationCondition> unnamed) {
-		HashMap<String, OutgoingPropagationCondition> result = new HashMap<String, OutgoingPropagationCondition>();
+		HashMap<String, OutgoingPropagationCondition> result = new LinkedHashMap<>();
 		EList<ErrorModelSubclause> emslist = getAllContainingClassifierEMV2Subclauses(cl);
 		for (ErrorModelSubclause errorModelSubclause : emslist) {
 			EList<OutgoingPropagationCondition> eflist = errorModelSubclause.getOutgoingPropagationConditions();
@@ -1862,7 +1868,7 @@ public class EMV2Util {
 	 */
 	private static HashMap<String, CompositeState> getAllCompositeStates(Classifier cl,
 			Collection<CompositeState> unnamed) {
-		HashMap<String, CompositeState> result = new HashMap<String, CompositeState>();
+		HashMap<String, CompositeState> result = new LinkedHashMap<>();
 		EList<ErrorModelSubclause> emslist = getAllContainingClassifierEMV2Subclauses(cl);
 		for (ErrorModelSubclause errorModelSubclause : emslist) {
 			EList<CompositeState> eslist = errorModelSubclause.getStates();
@@ -1899,7 +1905,7 @@ public class EMV2Util {
 	 */
 	public static HashMap<String, ErrorDetection> getAllErrorDetections(Classifier cl,
 			Collection<ErrorDetection> unnamed) {
-		HashMap<String, ErrorDetection> result = new HashMap<String, ErrorDetection>();
+		HashMap<String, ErrorDetection> result = new LinkedHashMap<>();
 		EList<ErrorModelSubclause> emslist = getAllContainingClassifierEMV2Subclauses(cl);
 		for (ErrorModelSubclause errorModelSubclause : emslist) {
 			EList<ErrorDetection> eflist = errorModelSubclause.getErrorDetections();
@@ -2016,13 +2022,15 @@ public class EMV2Util {
 	 */
 	public static Feature getFeature(ErrorPropagation ep) {
 		FeatureorPPReference forppref = ep.getFeatureorPPRef();
-		if (forppref == null)
+		if (forppref == null) {
 			return null;
+		}
 		while (forppref.getNext() != null) {
 			forppref = forppref.getNext();
 		}
-		if (forppref.getFeatureorPP() instanceof Feature)
+		if (forppref.getFeatureorPP() instanceof Feature) {
 			return (Feature) forppref.getFeatureorPP();
+		}
 		return null;
 	}
 
@@ -2092,11 +2100,13 @@ public class EMV2Util {
 	}
 
 	public static String getPrintNameWithoutType(EMV2Path ep) {
-		if (ep == null)
+		if (ep == null) {
 			return "";
+		}
 		EMV2PathElement epe = ep.getEmv2Target();
-		if (epe == null)
+		if (epe == null) {
 			return "";
+		}
 		ContainmentPathElement cpe = ep.getContainmentPath();
 		String prefix;
 		if (cpe == null) {
@@ -2119,11 +2129,13 @@ public class EMV2Util {
 	}
 
 	public static String getPrintName(EMV2Path ep) {
-		if (ep == null)
+		if (ep == null) {
 			return "";
+		}
 		EMV2PathElement epe = ep.getEmv2Target();
-		if (epe == null)
+		if (epe == null) {
 			return "";
+		}
 		ContainmentPathElement cpe = ep.getContainmentPath();
 		String prefix;
 		if (cpe == null) {
@@ -2140,7 +2152,7 @@ public class EMV2Util {
 		}
 		if (epe.getEmv2PropagationKind() != null) {
 			return prefix + epe.getEmv2PropagationKind()
-					+ (epe.getErrorType() != null ? "." + epe.getErrorType().getName() : "");
+			+ (epe.getErrorType() != null ? "." + epe.getErrorType().getName() : "");
 		} else {
 			return getPathName(epe);
 		}
@@ -2154,7 +2166,7 @@ public class EMV2Util {
 	/**
 	 * This method returns the error type if referenced in the containment path
 	 * This applies only to paths in EMV2PropertionAssociation
-	 * In ConditionElement the type or type set is 
+	 * In ConditionElement the type or type set is
 	 * @param ep
 	 * @return
 	 */
@@ -2170,7 +2182,7 @@ public class EMV2Util {
 	 * Get the error model element pointed to by the EMV2Path.
 	 * An error model element can be ErrorSource, ErrorSink, ErrorPath, ErrorPropagaiton, ErrorState,
 	 * ErrorBehaviorEvent (ErrorEvent, RecoverEvent, RepairEvent), ErrorBehaviorTransition
-	 * This works for condition elements (ConditionElement, SConditionElement) 
+	 * This works for condition elements (ConditionElement, SConditionElement)
 	 * @param ce ConditionElement
 	 * @return NamedElement
 	 */
@@ -2206,8 +2218,9 @@ public class EMV2Util {
 	 */
 	public static ErrorPropagation getErrorPropagation(EMV2Path epath) {
 		NamedElement res = getErrorModelElement(epath);
-		if (res instanceof ErrorPropagation)
+		if (res instanceof ErrorPropagation) {
 			return (ErrorPropagation) res;
+		}
 		return null;
 	}
 
@@ -2218,11 +2231,13 @@ public class EMV2Util {
 	 * @return EventOrPropagation
 	 */
 	public static EventOrPropagation getErrorEventOrPropagation(EMV2Path epath) {
-		if (epath == null)
+		if (epath == null) {
 			return null;
+		}
 		NamedElement res = getErrorModelElement(epath);
-		if (res instanceof ErrorPropagation || res instanceof ErrorBehaviorEvent)
+		if (res instanceof ErrorPropagation || res instanceof ErrorBehaviorEvent) {
 			return (EventOrPropagation) res;
+		}
 		return null;
 	}
 
@@ -2230,13 +2245,14 @@ public class EMV2Util {
 	 * Get the error model element pointed to by the EMV2Path.
 	 * An error model element can be ErrorSource, ErrorSink, ErrorPath, ErrorPropagaiton, ErrorState,
 	 * ErrorBehaviorEvent (ErrorEvent, RecoverEvent, RepairEvent), ErrorBehaviorTransition
-	 * This works for condition elements (ConditionElement, SConditionElement) 
+	 * This works for condition elements (ConditionElement, SConditionElement)
 	 * @param epath EMV2Path
 	 * @return NamedElement
 	 */
 	public static NamedElement getErrorModelElement(EMV2Path epath) {
-		if (epath == null)
+		if (epath == null) {
 			return null;
+		}
 		EMV2PathElement target = getLast(epath.getEmv2Target());
 		if (target.getNamedElement() instanceof ErrorTypes) {
 			EObject prev = target.eContainer();
@@ -2351,8 +2367,9 @@ public class EMV2Util {
 	}
 
 	public static ContainmentPathElement getLast(ContainmentPathElement ep) {
-		if (ep == null)
+		if (ep == null) {
 			return null;
+		}
 		ContainmentPathElement result = ep;
 		while (result.getPath() != null) {
 			result = result.getPath();
@@ -2361,12 +2378,14 @@ public class EMV2Util {
 	}
 
 	public static String getPathNameWithoutType(EMV2PathElement ep) {
-		if (ep == null || ep.getNamedElement() instanceof ErrorTypes)
+		if (ep == null || ep.getNamedElement() instanceof ErrorTypes) {
 			return "";
+		}
 		String path = getPathNameWithoutType(ep.getPath());
 		String myname = getPrintName(ep.getNamedElement());
-		if (myname == null)
+		if (myname == null) {
 			return path;
+		}
 		if (!path.isEmpty()) {
 			return myname + "." + path;
 		} else {
@@ -2375,12 +2394,14 @@ public class EMV2Util {
 	}
 
 	public static String getPathName(EMV2PathElement ep) {
-		if (ep == null)
+		if (ep == null) {
 			return "";
+		}
 		String path = getPathName(ep.getPath());
 		String myname = getPrintName(ep.getNamedElement());
-		if (myname == null)
+		if (myname == null) {
 			return path;
+		}
 		if (!path.isEmpty()) {
 			return myname + "." + path;
 		} else {
@@ -2902,8 +2923,9 @@ public class EMV2Util {
 			return null;
 		}
 		FeatureorPPReference forppref = ep.getFeatureorPPRef();
-		if (forppref == null || forppref.getFeatureorPP() instanceof PropagationPoint)
+		if (forppref == null || forppref.getFeatureorPP() instanceof PropagationPoint) {
 			return null;
+		}
 		FeatureInstance container = ci.findFeatureInstance((Feature) forppref.getFeatureorPP());
 		while (forppref.getNext() != null) {
 			forppref = forppref.getNext();

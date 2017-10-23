@@ -24,7 +24,6 @@
       <super type="org.osate.aadl2.modelsupport.AadlObjectMarker"/>
       <persistent value="true"/>
    </extension>
-   
    <extension
          point="org.eclipse.ui.commands">
       <category
