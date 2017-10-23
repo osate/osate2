@@ -35,7 +35,11 @@ import org.osate.xtext.aadl2.properties.util.InstanceModelUtil;
  *
  * @author phf
  *
+ * @deprecated use {@link org.osate.aadl2.errormodel.propagationgraph.PropgationGraph} instead
+ *
  */
+
+@Deprecated
 public class AnalysisModel {
 
 	protected ComponentInstance root; // component instance that is the root of

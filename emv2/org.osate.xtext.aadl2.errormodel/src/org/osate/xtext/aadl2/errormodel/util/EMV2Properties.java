@@ -102,7 +102,7 @@ public class EMV2Properties {
 	 * @param relatedComponent - the component (instance, subcomponent or classifier that have the property association
 	 * @return - the text related to the description part of the hazards property. Null if not defined
 	 */
-	public static String getDescription(NamedElement element, NamedElement relatedComponent) {
+	public static String getHazardDescription(NamedElement element, NamedElement relatedComponent) {
 		TypeSet ts = null;
 
 		if (element instanceof ErrorBehaviorState) {
@@ -119,7 +119,20 @@ public class EMV2Properties {
 		if (element instanceof ConnectionErrorSource) {
 			ts = ((ConnectionErrorSource) element).getTypeTokenConstraint();
 		}
+		return getHazardDescription(element, relatedComponent, ts);
+	}
 
+	@Deprecated
+	public static String getDescription(NamedElement element, NamedElement relatedComponent) {
+		return getHazardDescription(element, relatedComponent);
+	}
+
+	@Deprecated
+	public static String getDescription(NamedElement element, NamedElement relatedComponent, ErrorTypes ts) {
+		return getHazardDescription(element, relatedComponent, ts);
+	}
+
+	public static String getHazardDescription(NamedElement element, NamedElement relatedComponent, ErrorTypes ts) {
 		List<EMV2PropertyAssociation> PA = EMV2Properties.getHazardsProperty(relatedComponent, element, ts);
 
 		if (PA.isEmpty()) {
@@ -249,6 +262,18 @@ public class EMV2Properties {
 		return result;
 	}
 
+	public static List<EMV2PropertyAssociation> getHazardsProperty(NamedElement ci, NamedElement target,
+			ErrorTypes ts) {
+		List<EMV2PropertyAssociation> result = getProperty("EMV2::hazards", ci, target, ts);
+		if (result.isEmpty()) {
+			result = getProperty("ARP4761::hazards", ci, target, ts);
+		}
+		if (result.isEmpty()) {
+			result = getProperty("MILSTD882::hazards", ci, target, ts);
+		}
+		return result;
+	}
+
 	/**
 	 * Retrieve the value of the OccurenceDistribution property of the
 	 * EMV2 property. You can use it like this:
@@ -336,7 +361,7 @@ public class EMV2Properties {
 	}
 
 	/**
-	 * 
+	 *
 	 */
 	public static double getRealValue(final EMV2PropertyAssociation PA) {
 		if (PA == null) {
@@ -501,8 +526,9 @@ public class EMV2Properties {
 			return true;
 		}
 		if (cp == null && (ciStack != null && !ciStack.isEmpty())
-				|| cp != null && (ciStack == null || ciStack.isEmpty()))
+				|| cp != null && (ciStack == null || ciStack.isEmpty())) {
 			return false;
+		}
 		ContainmentPathElement emv2ce = cp;
 		for (NamedElement namedElement : ciStack) {
 			if (emv2ce == null || !namedElement.getName().equalsIgnoreCase(emv2ce.getNamedElement().getName())) {
@@ -654,8 +680,9 @@ public class EMV2Properties {
 	 */
 	public static List<EMV2PropertyAssociation> getPropertyInInstanceHierarchy(String propertyName, NamedElement ci,
 			NamedElement target, ErrorTypes ts) {
-		if (ci == null)
+		if (ci == null) {
 			return Collections.emptyList();
+		}
 		Stack<NamedElement> ciStack = new Stack<NamedElement>();
 		ComponentClassifier cl = null;
 		if (ci instanceof ComponentInstance) {

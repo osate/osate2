@@ -98,7 +98,7 @@ public class FTAUtils {
 	public static void fillProperties(Event event, ComponentInstance component, NamedElement errorModelArtifact,
 			TypeSet typeSet) {
 		String propertyDescription;
-		propertyDescription = EMV2Properties.getDescription(errorModelArtifact, component);
+		propertyDescription = EMV2Properties.getHazardDescription(errorModelArtifact, component);
 
 		if (propertyDescription == null) {
 			event.setDescription(getDescription(component, errorModelArtifact, typeSet));

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ecore:EPackage xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="PropagationGraph" nsURI="http://www.aadl.info/PropagationGraph"
+    nsPrefix="PropagationGraph">
+  <eClassifiers xsi:type="ecore:EClass" name="PropagationGraph">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="description" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="components" upperBound="-1"
+        eType="ecore:EClass ../../org.osate.aadl2/model/instance.ecore#//ComponentInstance"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="propagationPaths" upperBound="-1"
+        eType="#//PropagationPath" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="connections" upperBound="-1"
+        eType="ecore:EClass ../../org.osate.aadl2/model/instance.ecore#//ConnectionInstance"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="root" eType="ecore:EClass ../../org.osate.aadl2/model/instance.ecore#//ComponentInstance"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="PropagationPath">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="pathSrc" eType="#//PropagationPathEnd"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="pathDst" eType="#//PropagationPathEnd"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="highlight" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"
+        transient="true"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="type" eType="#//PropagationType"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="connection" eType="ecore:EClass ../../org.osate.aadl2/model/instance.ecore#//ConnectionInstance"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="PropagationPathEnd">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="connectionInstance" eType="ecore:EClass ../../org.osate.aadl2/model/instance.ecore#//ConnectionInstance"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="errorPropagation" eType="ecore:EClass ../../org.osate.xtext.aadl2.errormodel/model/generated/ErrorModel.ecore#//ErrorPropagation"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="componentInstance" eType="ecore:EClass ../../org.osate.aadl2/model/instance.ecore#//ComponentInstance"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="highlight" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"
+        transient="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="PropagationType">
+    <eLiterals name="connection"/>
+    <eLiterals name="binding" value="1"/>
+    <eLiterals name="userDefined" value="2"/>
+  </eClassifiers>
+</ecore:EPackage>
