@@ -734,7 +734,7 @@
       <requirement
           name="org.eclipse.gef.fx.sdk.feature.group"/>
       <requirement
-          name="org.eclipse.gef.mvc.sdk.feature.group"/>          
+          name="org.eclipse.gef.mvc.sdk.feature.group"/>
       <requirement
           name="org.eclipse.elk.sdk.feature.feature.group"/>
       <requirement
@@ -845,34 +845,6 @@
     </setupTask>
   </setupTask>
   <setupTask
-      xsi:type="setup:CompoundTask"
-      id="emfta"
-      name="EMFTA">
-    <setupTask
-        xsi:type="git:GitCloneTask"
-        id="git.clone.emfta"
-        location="${git.clone.location/emfta}"
-        remoteURI="cmu-sei/emfta"
-        pushURI="">
-      <annotation
-          source="http://www.eclipse.org/oomph/setup/InducedChoices">
-        <detail
-            key="inherit">
-          <value>github.remoteURIs</value>
-        </detail>
-        <detail
-            key="label">
-          <value>EMFTA Github repository</value>
-        </detail>
-        <detail
-            key="target">
-          <value>remoteURI</value>
-        </detail>
-      </annotation>
-      <description>Clone EMFTA repository</description>
-    </setupTask>
-  </setupTask>
-  <setupTask
       xsi:type="setup.targlets:TargletTask"
       filter=""
       programArguments=""
@@ -943,8 +915,6 @@
           rootFolder="${git.clone.osate-ge.location}"/>
       <sourceLocator
           rootFolder="${git.clone.ocarina.location}"/>
-      <sourceLocator
-          rootFolder="${git.clone.emfta.location}"/>
       <repositoryList
           name="Oxygen">
         <repository
@@ -1146,15 +1116,6 @@
         <operand
             xsi:type="predicates:RepositoryPredicate"
             project="osate2-ocarina.releng"/>
-      </predicate>
-    </workingSet>
-    <workingSet
-        name="emfta">
-      <predicate
-          xsi:type="predicates:AndPredicate">
-        <operand
-            xsi:type="predicates:RepositoryPredicate"
-            project="emfta.releng"/>
       </predicate>
     </workingSet>
     <description>The dynamic working sets for ${scope.project.label}</description>
