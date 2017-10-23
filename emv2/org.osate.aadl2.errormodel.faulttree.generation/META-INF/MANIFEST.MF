@@ -1,6 +1,6 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
-Bundle-Name: Generation
+Bundle-Name: %pluginName
 Bundle-SymbolicName: org.osate.aadl2.errormodel.faulttree.generation;singleton:=true
 Bundle-Version: 1.0.0.qualifier
 Bundle-Activator: org.osate.aadl2.errormodel.faulttree.generation.Activator
@@ -17,3 +17,4 @@ Require-Bundle: org.eclipse.ui,
  org.eclipse.sirius.ext.base;bundle-version="5.0.1"
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Bundle-ActivationPolicy: lazy
+Bundle-Vendor: %providerName
