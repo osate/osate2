@@ -27,7 +27,7 @@ import org.osate.ge.internal.diagram.runtime.RelativeBusinessObjectReference;
  * Contains tests for the AgeDiagram class.
  *
  */
-public class AgeDiagramTests {
+public class AgeDiagramTest {
 	private Object dummyBoh = new Object(); // Dummy business object handler
 
 	class TestModificationListener implements DiagramModificationListener {

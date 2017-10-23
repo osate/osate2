@@ -3,5 +3,7 @@ Bundle-ManifestVersion: 2
 Bundle-Name: OSATE Graphical Editor Tests
 Bundle-SymbolicName: org.osate.ge.tests
 Bundle-Version: 1.0.0.qualifier
-Fragment-Host: org.osate.ge;bundle-version="1.0.0"
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Require-Bundle: org.osate.ge;bundle-version="1.0.0",
+ org.osate.ge.diagram;bundle-version="1.0.0",
+ org.junit

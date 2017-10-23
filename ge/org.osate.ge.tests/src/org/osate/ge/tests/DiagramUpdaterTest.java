@@ -21,7 +21,7 @@ import static org.osate.ge.tests.TestBusinessObject.newBO;
 import java.util.Collection;
 import java.util.EnumSet;
 
-public class DiagramUpdaterTests {
+public class DiagramUpdaterTest {
 	private AgeDiagram diagram;
 	private DiagramUpdater diagramUpdater;
 	private final TestBusinessObjectModel testModel = new TestBusinessObjectModel();
