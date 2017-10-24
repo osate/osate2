@@ -888,6 +888,9 @@
           name="org.eclipse.elk.feature.feature.group"
           versionRange="[0.3.0,0.4.0)"/>
       <requirement
+          name="org.eclipse.elk.algorithms.feature.feature.group"
+          versionRange="[0.3.0,0.4.0)"/>
+      <requirement
           name="org.eclipse.fx.runtime.min.feature.feature.group"/>
       <requirement
           name="org.eclipse.gef.common.feature.group"/>
