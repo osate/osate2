@@ -598,9 +598,11 @@
       <repository
           url="http://download.eclipse.org/modeling/mdt/papyrus/updates/releases/oxygen"/>
       <repository
-          url="http://download.eclipse.org/modeling/tmf/xtext/updates/composite/releases/"/>
+          url="http://download.eclipse.org/modeling/emft/mwe/updates/releases/2.9.0/"/>
       <repository
-          url="http://download.itemis.de/updates/"/>
+          url="http://download.eclipse.org/modeling/tmf/xtext/updates/releases/2.12.0/"/>
+      <repository
+          url="http://download.itemis.de/updates/releases/2.1.1"/>
       <repository
           url="http://download.eclipse.org/releases/oxygen/201706281000"/>
       <repository
@@ -915,11 +917,15 @@
         <repository
             url="http://download.eclipse.org/releases/oxygen/201706281000"/>
         <repository
-            url="http://download.eclipse.org/eclipse/updates/4.7"/>
+            url="http://download.eclipse.org/eclipse/updates/4.7/R-4.7.1-201709061700"/>
         <repository
             url="http://dl.bintray.com/itemis/generic/xtext-testing/updates/"/>
         <repository
-            url="http://download.itemis.de/updates/"/>
+            url="http://download.eclipse.org/modeling/emft/mwe/updates/releases/2.9.0/"/>
+        <repository
+            url="http://download.eclipse.org/modeling/tmf/xtext/updates/releases/2.12.0/"/>
+        <repository
+            url="http://download.itemis.de/updates/releases/2.1.1"/>
         <repository
             url="http://download.eclipse.org/sirius/updates/releases/5.0.1/oxygen"/>
         <repository
@@ -980,7 +986,7 @@
         <repository
             url="http://download.eclipse.org/releases/oxygen/201706281000"/>
         <repository
-            url="http://download.eclipse.org/eclipse/updates/4.7"/>
+            url="http://download.eclipse.org/eclipse/updates/4.7/R-4.7.1-201709061700"/>
         <repository
             url="http://dl.bintray.com/itemis/generic/xtext-testing/updates/"/>
         <repository
@@ -1028,7 +1034,7 @@
         <repository
             url="http://download.eclipse.org/releases/oxygen/201706281000"/>
         <repository
-            url="http://download.eclipse.org/eclipse/updates/4.7"/>
+            url="http://download.eclipse.org/eclipse/updates/4.7/R-4.7.1-201709061700"/>
         <repository
             url="http://dl.bintray.com/itemis/generic/xtext-testing/updates/"/>
         <repository
