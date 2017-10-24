@@ -68,22 +68,22 @@ class LayoutUtil {
 	}
 
 	public static void layoutDepthFirst(final Diagram graphitiDiagram, final DiagramModification mod,
-			final AgeDiagram ageDiagram, final NodePictogramBiMap mapping, final ColoringProvider coloringProvider) {
+			final AgeDiagram ageDiagram, final NodePictogramBiMap mapping) {
 		for (final DiagramElement child : ageDiagram.getDiagramElements()) {
-			layoutDepthFirst(graphitiDiagram, mod, child, mapping, coloringProvider);
+			layoutDepthFirst(graphitiDiagram, mod, child, mapping);
 		}
 	}
 
 	public static void layoutDepthFirst(final Diagram graphitiDiagram, final DiagramModification mod,
-			final DiagramElement element, final NodePictogramBiMap mapping, final ColoringProvider coloringProvider) {
+			final DiagramElement element, final NodePictogramBiMap mapping) {
 		for (final DiagramElement child : element.getDiagramElements()) {
-			layoutDepthFirst(graphitiDiagram, mod, child, mapping, coloringProvider);
+			layoutDepthFirst(graphitiDiagram, mod, child, mapping);
 		}
 
 		// Get the pictogram element and lay it out if it is a shape
 		final PictogramElement pe = mapping.getPictogramElement(element);
 		if (pe instanceof ContainerShape) {
-			layout(graphitiDiagram, mod, element, (ContainerShape) pe, mapping, coloringProvider);
+			layout(graphitiDiagram, mod, element, (ContainerShape) pe, mapping);
 		} else if (pe instanceof Connection) {
 			final Connection connection = (Connection) pe;
 
@@ -160,8 +160,7 @@ class LayoutUtil {
 	 * @param diagramNodeProvider
 	 */
 	public static void layout(final Diagram graphitiDiagram, final DiagramModification mod,
-			final DiagramElement element, final ContainerShape shape, final NodePictogramBiMap diagramNodeProvider,
-			final ColoringProvider coloringProvider) {
+			final DiagramElement element, final ContainerShape shape, final NodePictogramBiMap diagramNodeProvider) {
 		final LabelPosition horizontalLabelPositionFromStyle = element.getGraphicalConfiguration().style
 				.getHorizontalLabelPosition() == null ? Style.DEFAULT.getHorizontalLabelPosition()
 						: element.getGraphicalConfiguration().style.getHorizontalLabelPosition();
