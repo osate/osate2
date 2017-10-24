@@ -467,19 +467,6 @@
                    </with>
                 </visibleWhen>
              </command>
-             <command
-                   commandId="org.osate.ui.clearHistory"
-                   style="push">
-                <visibleWhen
-                      checkEnabled="false">
-                   <with
-                         variable="activeWorkbenchWindow.activePerspective">
-                      <equals
-                            value="org.osate.ui.perspective.AadlPerspective">
-                      </equals>
-                   </with>
-                </visibleWhen>
-             </command>
           </menu>
        </menuContribution>
        <menuContribution
@@ -512,20 +499,6 @@
                    name="org.osate.ui.separator2"
                    visible="true">
              </separator>
-             <command
-                   commandId="org.osate.ui.clearHistory"
-                   tooltip="%ClearHistory.toolTip"
-                   style="push">
-                 <visibleWhen
-                      checkEnabled="false">
-                   <with
-                         variable="activeWorkbenchWindow.activePerspective">
-                      <equals
-                            value="org.osate.ui.perspective.AadlPerspective">
-                      </equals>
-                   </with>
-                </visibleWhen>
-             </command>
              <separator
                    name="org.osate.ui.separator3"
                    visible="true">
@@ -563,10 +536,6 @@
              name="%ReinstantiateAllModelsAction.label">
        </command>
        <command
-             id="org.osate.ui.clearHistory"
-             name="%ClearHistory.label">
-       </command>
-       <command
              id="org.osate.ui.resetMarkers"
              name="%ResetMarkers.label">
        </command>
@@ -588,18 +557,6 @@
        <handler
              class="org.osate.ui.handlers.ReinstantiateAadl"
              commandId="org.osate.ui.reinstantiateAllAadl">
-       </handler>
-       <handler
-             class="org.osate.ui.handlers.ClearHistory"
-             commandId="org.osate.ui.clearHistory">
-          <enabledWhen>
-             <with
-                   variable="selection">
-                <count
-                      value="1">
-                </count>
-             </with>
-          </enabledWhen>
        </handler>
        <handler
              class="org.osate.ui.handlers.ResetMarkers"
@@ -626,10 +583,6 @@
        <image
              commandId="org.osate.ui.reinstantiateAllAadl"
              icon="icons/reinstantiate.gif">
-       </image>
-       <image
-             commandId="org.osate.ui.clearHistory"
-             icon="icons/smiley.gif">
        </image>
        <image
              commandId="org.osate.ui.resetMarkers"
