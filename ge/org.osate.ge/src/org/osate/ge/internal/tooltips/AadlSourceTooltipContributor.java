@@ -1,6 +1,7 @@
 package org.osate.ge.internal.tooltips;
 
 import javax.inject.Named;
+
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Composite;
@@ -11,6 +12,8 @@ import org.osate.aadl2.Connection;
 import org.osate.aadl2.Feature;
 import org.osate.aadl2.FlowSpecification;
 import org.osate.aadl2.InternalFeature;
+import org.osate.aadl2.ModeTransition;
+import org.osate.aadl2.ModeTransitionTrigger;
 import org.osate.aadl2.ProcessorFeature;
 import org.osate.aadl2.Subcomponent;
 import org.osate.aadl2.SubprogramCall;
@@ -24,10 +27,10 @@ public class AadlSourceTooltipContributor {
 				bo instanceof InternalFeature ||
 				bo instanceof ProcessorFeature ||
 				bo instanceof Feature ||
-				bo instanceof Connection || 
-				bo instanceof FlowSpecification || 
+				bo instanceof Connection ||
+				bo instanceof FlowSpecification ||
 				bo instanceof Subcomponent ||
-				bo instanceof SubprogramCall;
+				bo instanceof SubprogramCall || bo instanceof ModeTransition || bo instanceof ModeTransitionTrigger;
 		if(!showSource) {
 			return;
 		}
@@ -36,12 +39,12 @@ public class AadlSourceTooltipContributor {
 		if(n == null) {
 			return;
 		}
-			
+
 		final String txt = NodeModelUtils.getTokenText(n);
 		if(txt == null) {
 			return;
 		}
-		
+
 		final Label lbl = new Label(parent, SWT.NONE);
 		lbl.setText(txt);
 	}

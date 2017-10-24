@@ -22,7 +22,6 @@ Require-Bundle: org.eclipse.ui,
  org.eclipse.e4.core.services,
  org.osate.ui,
  org.eclipse.e4.core.contexts,
- org.junit,
  org.eclipse.ui.navigator,
  org.eclipse.ui.ide,
  org.eclipse.jface,
@@ -31,11 +30,11 @@ Require-Bundle: org.eclipse.ui,
  org.osate.aadl2.instantiation,
  org.osate.annexsupport,
  org.osate.ge.diagram,
- org.eclipse.ltk.ui.refactoring
+ org.eclipse.ltk.ui.refactoring,
+ com.google.guava;bundle-version="21.0.0"
 Bundle-ActivationPolicy: lazy
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Import-Package: 
- com.google.common.collect,
  org.eclipse.draw2d.graph,
  org.eclipse.ui,
  org.eclipse.ui.part,
@@ -45,13 +44,20 @@ Service-Component: components/DefaultExtensionRegistryService.xml,
  components/DefaultReferenceService.xml,
  components/DefaultSystemInstanceLoadingService.xml,
  components/DefaultReferenceBuilderService.xml,
- components/DefaultSavedAadlPackageService.xml,
+ components/DefaultAadlResourceService.xml,
  components/DefaultGraphicalEditorService.xml,
- components/DefaultModelChangeNotifier.xml
+ components/DefaultModelChangeNotifier.xml,
+ components/DefaultAadlModificationService.xml
 Export-Package: org.osate.ge,
  org.osate.ge.di,
  org.osate.ge.graphics,
+ org.osate.ge.graphics.internal;x-friends:="org.osate.ge.tests",
+ org.osate.ge.internal.diagram.runtime;x-friends:="org.osate.ge.tests",
+ org.osate.ge.internal.diagram.runtime.boTree;x-friends:="org.osate.ge.tests",
+ org.osate.ge.internal.diagram.runtime.updating;x-friends:="org.osate.ge.tests",
+ org.osate.ge.internal.util;x-friends:="org.osate.ge.tests",
  org.osate.ge.query,
- org.osate.ge.services
+ org.osate.ge.services,
+ org.osate.ge.ui.properties
 Bundle-ClassPath: .
 

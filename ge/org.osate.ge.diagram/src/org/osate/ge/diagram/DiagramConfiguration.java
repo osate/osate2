@@ -23,6 +23,7 @@ import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
  * <ul>
  *   <li>{@link org.osate.ge.diagram.DiagramConfiguration#getEnabledAadlProperties <em>Enabled Aadl Properties</em>}</li>
  *   <li>{@link org.osate.ge.diagram.DiagramConfiguration#getContext <em>Context</em>}</li>
+ *   <li>{@link org.osate.ge.diagram.DiagramConfiguration#getConnectionPrimaryLabelsVisible <em>Connection Primary Labels Visible</em>}</li>
  * </ul>
  *
  * @see org.osate.ge.diagram.DiagramPackage#getDiagramConfiguration()
@@ -49,6 +50,26 @@ public class DiagramConfiguration extends MinimalEObjectImpl.Container implement
 	 * @ordered
 	 */
 	protected CanonicalBusinessObjectReference context;
+
+	/**
+	 * The default value of the '{@link #getConnectionPrimaryLabelsVisible() <em>Connection Primary Labels Visible</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getConnectionPrimaryLabelsVisible()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final Boolean CONNECTION_PRIMARY_LABELS_VISIBLE_EDEFAULT = Boolean.TRUE;
+
+	/**
+	 * The cached value of the '{@link #getConnectionPrimaryLabelsVisible() <em>Connection Primary Labels Visible</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getConnectionPrimaryLabelsVisible()
+	 * @generated
+	 * @ordered
+	 */
+	protected Boolean connectionPrimaryLabelsVisible = CONNECTION_PRIMARY_LABELS_VISIBLE_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -180,6 +201,40 @@ public class DiagramConfiguration extends MinimalEObjectImpl.Container implement
 	}
 
 	/**
+	 * Returns the value of the '<em><b>Connection Primary Labels Visible</b></em>' attribute.
+	 * The default value is <code>"true"</code>.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Connection Primary Labels Visible</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Connection Primary Labels Visible</em>' attribute.
+	 * @see #setConnectionPrimaryLabelsVisible(Boolean)
+	 * @see org.osate.ge.diagram.DiagramPackage#getDiagramConfiguration_ConnectionPrimaryLabelsVisible()
+	 * @model default="true"
+	 * @generated
+	 */
+	public Boolean getConnectionPrimaryLabelsVisible() {
+		return connectionPrimaryLabelsVisible;
+	}
+
+	/**
+	 * Sets the value of the '{@link org.osate.ge.diagram.DiagramConfiguration#getConnectionPrimaryLabelsVisible <em>Connection Primary Labels Visible</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Connection Primary Labels Visible</em>' attribute.
+	 * @see #getConnectionPrimaryLabelsVisible()
+	 * @generated
+	 */
+	public void setConnectionPrimaryLabelsVisible(Boolean newConnectionPrimaryLabelsVisible) {
+		Boolean oldConnectionPrimaryLabelsVisible = connectionPrimaryLabelsVisible;
+		connectionPrimaryLabelsVisible = newConnectionPrimaryLabelsVisible;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, DiagramPackage.DIAGRAM_CONFIGURATION__CONNECTION_PRIMARY_LABELS_VISIBLE, oldConnectionPrimaryLabelsVisible, connectionPrimaryLabelsVisible));
+	}
+
+	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -207,6 +262,8 @@ public class DiagramConfiguration extends MinimalEObjectImpl.Container implement
 				return getEnabledAadlProperties();
 			case DiagramPackage.DIAGRAM_CONFIGURATION__CONTEXT:
 				return getContext();
+			case DiagramPackage.DIAGRAM_CONFIGURATION__CONNECTION_PRIMARY_LABELS_VISIBLE:
+				return getConnectionPrimaryLabelsVisible();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -224,6 +281,9 @@ public class DiagramConfiguration extends MinimalEObjectImpl.Container implement
 				return;
 			case DiagramPackage.DIAGRAM_CONFIGURATION__CONTEXT:
 				setContext((CanonicalBusinessObjectReference)newValue);
+				return;
+			case DiagramPackage.DIAGRAM_CONFIGURATION__CONNECTION_PRIMARY_LABELS_VISIBLE:
+				setConnectionPrimaryLabelsVisible((Boolean)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -243,6 +303,9 @@ public class DiagramConfiguration extends MinimalEObjectImpl.Container implement
 			case DiagramPackage.DIAGRAM_CONFIGURATION__CONTEXT:
 				setContext((CanonicalBusinessObjectReference)null);
 				return;
+			case DiagramPackage.DIAGRAM_CONFIGURATION__CONNECTION_PRIMARY_LABELS_VISIBLE:
+				setConnectionPrimaryLabelsVisible(CONNECTION_PRIMARY_LABELS_VISIBLE_EDEFAULT);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -259,8 +322,26 @@ public class DiagramConfiguration extends MinimalEObjectImpl.Container implement
 				return enabledAadlProperties != null;
 			case DiagramPackage.DIAGRAM_CONFIGURATION__CONTEXT:
 				return context != null;
+			case DiagramPackage.DIAGRAM_CONFIGURATION__CONNECTION_PRIMARY_LABELS_VISIBLE:
+				return CONNECTION_PRIMARY_LABELS_VISIBLE_EDEFAULT == null ? connectionPrimaryLabelsVisible != null : !CONNECTION_PRIMARY_LABELS_VISIBLE_EDEFAULT.equals(connectionPrimaryLabelsVisible);
 		}
 		return super.eIsSet(featureID);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public String toString() {
+		if (eIsProxy()) return super.toString();
+
+		StringBuffer result = new StringBuffer(super.toString());
+		result.append(" (connectionPrimaryLabelsVisible: ");
+		result.append(connectionPrimaryLabelsVisible);
+		result.append(')');
+		return result.toString();
 	}
 
 } // DiagramConfiguration

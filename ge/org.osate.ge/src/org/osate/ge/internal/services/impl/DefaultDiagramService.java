@@ -56,7 +56,7 @@ import org.osate.ge.internal.services.ReferenceService;
 import org.osate.ge.internal.ui.editor.AgeDiagramBehavior;
 import org.osate.ge.internal.ui.editor.AgeDiagramEditor;
 import org.osate.ge.internal.ui.util.EditorUtil;
-import org.osate.ge.internal.ui.util.SelectionHelper;
+import org.osate.ge.internal.ui.util.SelectionUtil;
 import org.osate.ge.internal.util.BusinessObjectProviderHelper;
 import org.osate.ge.internal.util.Log;
 import org.osate.ge.internal.util.NonUndoableToolCommand;
@@ -256,17 +256,19 @@ public class DefaultDiagramService implements DiagramService {
 
 		// Build diagram configuration
 		final CanonicalBusinessObjectReference contextBoCanonicalRef = Objects.requireNonNull(referenceService.getCanonicalReference(contextBo), "Unable to build canonical reference for business object: " + contextBo);
-		diagram.setDiagramConfiguration(new DiagramConfigurationBuilder().setContextBoReference(contextBoCanonicalRef).build());
+		diagram.modify("Configure Diagram", m -> {
+			m.setDiagramConfiguration(
+					new DiagramConfigurationBuilder().setContextBoReference(contextBoCanonicalRef).build());
+		});
 
 		// Create a root diagram element for the context which will be set to manual.
 		// This has the benefit that the root element will be checked when the user configures the diagram.
 		final RelativeBusinessObjectReference contextBoRelRef = Objects.requireNonNull(referenceService.getRelativeReference(contextBo), "Unable to build relative reference for business object: " + contextBo);
-		diagram.modify(m -> {
+		diagram.modify("Set Context as Manual", m -> {
 			final DiagramElement contextElement = new DiagramElement(diagram, contextBo, null, contextBoRelRef);
 			m.setManual(contextElement, true);
 			m.addElement(contextElement);
 		});
-
 
 		final IProject project = Objects.requireNonNull(getProject(contextBo), "Unable to get project for business object: " + contextBo);
 
@@ -350,7 +352,7 @@ public class DefaultDiagramService implements DiagramService {
 							final Diagram diagram = (Diagram)resource.getContents().get(0);
 							name = diagram.getName() + " (Legacy)";
 						}
-					} catch(final RuntimeException e) {
+					} catch (final RuntimeException e) {
 						// Ignore. Print to stderr
 						e.printStackTrace();
 					}
@@ -395,7 +397,7 @@ public class DefaultDiagramService implements DiagramService {
 		if(resource != null) {
 			final URI uri = resource.getURI();
 			if(uri != null) {
-				return SelectionHelper.getProject(uri);
+				return SelectionUtil.getProject(uri);
 			}
 		}
 
@@ -430,9 +432,11 @@ public class DefaultDiagramService implements DiagramService {
 		@Override
 		public void update(final UpdatedReferenceValueProvider updatedReferenceValues) {
 			Display.getDefault().syncExec(() -> {
-				for(final Entry<Object, Map<CanonicalBusinessObjectReference, Collection<UpdateableReference>>> sourceToCanonicalReferenceToReferencesEntry : sourceToCanonicalReferenceToReferencesMap.entrySet()) {
+				for (final Entry<Object, Map<CanonicalBusinessObjectReference, Collection<UpdateableReference>>> sourceToCanonicalReferenceToReferencesEntry : sourceToCanonicalReferenceToReferencesMap
+						.entrySet()) {
 					final Object key = sourceToCanonicalReferenceToReferencesEntry.getKey();
-					final Map<CanonicalBusinessObjectReference, Collection<UpdateableReference>> originalCanonicalRefToReferenceMap = sourceToCanonicalReferenceToReferencesEntry.getValue();
+					final Map<CanonicalBusinessObjectReference, Collection<UpdateableReference>> originalCanonicalRefToReferenceMap = sourceToCanonicalReferenceToReferencesEntry
+							.getValue();
 
 					if(key instanceof AgeDiagramEditor) {
 						final AgeDiagramEditor editor = (AgeDiagramEditor)key;
@@ -451,14 +455,15 @@ public class DefaultDiagramService implements DiagramService {
 						editor.getEditingDomain().getCommandStack().execute(new NonUndoableToolCommand() {
 							@Override
 							public void execute() {
-								diagram.modify(m -> updateReferences(updatedReferenceValues, originalCanonicalRefToReferenceMap, null, m));
+								diagram.modify("Update References", m -> updateReferences(updatedReferenceValues,
+										originalCanonicalRefToReferenceMap, null, m));
 							}
 						});
 
 						// Ensure that the editor is updated on the next model change
 						editor.forceDiagramUpdateOnNextModelChange();
-					} else if(key instanceof IFile) {
-						final IFile diagramFile = (IFile)key;
+					} else if (key instanceof IFile) {
+						final IFile diagramFile = (IFile) key;
 
 						// Handle closed diagrams
 						final ResourceSet rs = new ResourceSetImpl();
@@ -466,14 +471,16 @@ public class DefaultDiagramService implements DiagramService {
 						final Resource diagramResource = rs.createResource(diagramUri);
 						try {
 							diagramResource.load(Collections.emptyMap());
-							if(diagramResource.getContents().size() == 1 && diagramResource.getContents().get(0) instanceof org.osate.ge.diagram.Diagram) {
-								updateReferences(updatedReferenceValues, originalCanonicalRefToReferenceMap, diagramResource, null);
+							if (diagramResource.getContents().size() == 1
+									&& diagramResource.getContents().get(0) instanceof org.osate.ge.diagram.Diagram) {
+								updateReferences(updatedReferenceValues, originalCanonicalRefToReferenceMap,
+										diagramResource, null);
 							}
 						} catch (IOException e) {
 							// Ignore. Continue with next file
 						} finally {
 							// Save and unload the resource if it was loaded
-							if(diagramResource.isLoaded()) {
+							if (diagramResource.isLoaded()) {
 								try {
 									diagramResource.save(Collections.emptyMap());
 								} catch (final IOException e) {
@@ -538,7 +545,8 @@ public class DefaultDiagramService implements DiagramService {
 		}
 
 		public Collection<Entry<CanonicalBusinessObjectReference, Collection<UpdateableReference>>> getReferences(final InternalDiagramReference ref) {
-			final Map<CanonicalBusinessObjectReference, Collection<UpdateableReference>> canonicalReferenceToUpdateableReferenceMap = sourceToCanonicalReferenceToReferencesMap.get(ref);
+			final Map<CanonicalBusinessObjectReference, Collection<UpdateableReference>> canonicalReferenceToUpdateableReferenceMap = sourceToCanonicalReferenceToReferencesMap
+					.get(ref);
 			if(canonicalReferenceToUpdateableReferenceMap == null) {
 				return Collections.emptyList();
 			}
@@ -569,7 +577,9 @@ public class DefaultDiagramService implements DiagramService {
 
 		@Override
 		public void update(CanonicalBusinessObjectReference newCanonicalReference, RelativeBusinessObjectReference newRelativeReference) {
-			diagram.setDiagramConfiguration(new DiagramConfigurationBuilder().setContextBoReference(newCanonicalReference).build());
+			diagram.modify("Configure Diagram", m -> {
+				m.setDiagramConfiguration(new DiagramConfigurationBuilder().setContextBoReference(newCanonicalReference).build());
+			});
 		}
 	}
 
@@ -634,25 +644,27 @@ public class DefaultDiagramService implements DiagramService {
 			final Set<CanonicalBusinessObjectReference> originalCanonicalReferences) {
 		final InternalReferencesToUpdate references = new InternalReferencesToUpdate();
 		Display.getDefault().syncExec(() -> {
-			try(final BusinessObjectProviderHelper bopHelper = new BusinessObjectProviderHelper(extRegistry)) {
+			try (final BusinessObjectProviderHelper bopHelper = new BusinessObjectProviderHelper(extRegistry)) {
 				// Create updateable reference for open diagrams
-				for(final AgeDiagramEditor editor : getOpenEditorsMap(relevantProjects).values()) {
-					final AgeDiagramProvider diagramProvider = (AgeDiagramProvider)editor.getAdapter(AgeDiagramProvider.class);
-					if(diagramProvider == null) {
+				for (final AgeDiagramEditor editor : getOpenEditorsMap(relevantProjects).values()) {
+					final AgeDiagramProvider diagramProvider = (AgeDiagramProvider) editor
+							.getAdapter(AgeDiagramProvider.class);
+					if (diagramProvider == null) {
 						continue;
 					}
 
 					final AgeDiagram diagram = diagramProvider.getAgeDiagram();
-					if(diagram == null) {
+					if (diagram == null) {
 						continue;
 					}
 
 					// Update the diagram immediately. This is intended to ensure the diagram doesn't have any proxies
 					editor.updateNowIfModelHasChanged();
 
-					final CanonicalBusinessObjectReference diagramContextRef = diagram.getConfiguration().getContextBoReference();
-					if(diagramContextRef != null) {
-						if(originalCanonicalReferences.contains(diagramContextRef)) {
+					final CanonicalBusinessObjectReference diagramContextRef = diagram.getConfiguration()
+							.getContextBoReference();
+					if (diagramContextRef != null) {
+						if (originalCanonicalReferences.contains(diagramContextRef)) {
 							references.addReference(editor, diagramContextRef, new OpenDiagramContextReference(diagram));
 						}
 					}

@@ -32,6 +32,12 @@
         <details key="documentation" value="Only supported for connections."/>
       </eAnnotations>
     </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="background" eType="#//Color"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="outline" eType="#//Color"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="fontColor" eType="#//Color"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="fontSize" eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//DoubleObject"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="lineWidth" eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//DoubleObject"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="primaryLabelVisible" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBooleanObject"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Point">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="x" eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//Double"/>
@@ -56,8 +62,12 @@
         eType="#//AadlPropertiesSet" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="context" eType="#//CanonicalBusinessObjectReference"
         containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="connectionPrimaryLabelsVisible"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBooleanObject"
+        defaultValueLiteral="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Reference" abstract="true">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="seg" upperBound="-1" eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//String"/>
   </eClassifiers>
+  <eClassifiers xsi:type="ecore:EDataType" name="Color" instanceClassName="java.lang.String"/>
 </ecore:EPackage>

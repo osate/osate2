@@ -7,23 +7,29 @@ import java.util.Objects;
  *
  */
 public class Dimension {
-	public Dimension(final int width, final int height) {
+	public final double width;
+	public final double height;
+
+	public Dimension(final double width, final double height) {
 		this.width = width;
 		this.height = height;
 	}
-	
+
 	public Dimension(final Dimension d) {
 		Objects.requireNonNull(d, "d must not be null");
 		this.width = d.width;
 		this.height = d.height;
 	}
-	
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + height;
-		result = prime * result + width;
+		long temp;
+		temp = Double.doubleToLongBits(height);
+		result = prime * result + (int) (temp ^ (temp >>> 32));
+		temp = Double.doubleToLongBits(width);
+		result = prime * result + (int) (temp ^ (temp >>> 32));
 		return result;
 	}
 
@@ -39,10 +45,10 @@ public class Dimension {
 			return false;
 		}
 		Dimension other = (Dimension) obj;
-		if (height != other.height) {
+		if (Double.doubleToLongBits(height) != Double.doubleToLongBits(other.height)) {
 			return false;
 		}
-		if (width != other.width) {
+		if (Double.doubleToLongBits(width) != Double.doubleToLongBits(other.width)) {
 			return false;
 		}
 		return true;
@@ -53,8 +59,5 @@ public class Dimension {
 		newDimension.setWidth(width);
 		newDimension.setHeight(height);
 		return newDimension;
-	}	
-	
-	public final int width;
-	public final int height;
+	}
 }

@@ -9,6 +9,7 @@
   <genPackages prefix="Diagram" basePackage="org.osate.ge" disposableProviderFactory="true"
       adapterFactory="false" contentTypeIdentifier="" fileExtensions="aadl_diagram"
       ecorePackage="diagram.ecore#/" publicationLocation="">
+    <genDataTypes ecoreDataType="diagram.ecore#//Color"/>
     <genClasses ecoreClass="diagram.ecore#//Diagram">
       <genFeatures property="None" children="true" createChild="true" propertyCategory=""
           propertyDescription="" ecoreFeature="ecore:EReference diagram.ecore#//Diagram/config"/>
@@ -27,6 +28,11 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute diagram.ecore#//DiagramElement/dockArea"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference diagram.ecore#//DiagramElement/bendpoints"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference diagram.ecore#//DiagramElement/primaryLabelPosition"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute diagram.ecore#//DiagramElement/background"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute diagram.ecore#//DiagramElement/outline"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute diagram.ecore#//DiagramElement/fontColor"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute diagram.ecore#//DiagramElement/fontSize"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute diagram.ecore#//DiagramElement/lineWidth"/>
     </genClasses>
     <genClasses ecoreClass="diagram.ecore#//Point">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute diagram.ecore#//Point/x"/>

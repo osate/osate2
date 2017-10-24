@@ -1,14 +1,5 @@
-/*******************************************************************************
- * Copyright (C) 2016 University of Alabama in Huntsville (UAH)
- * All rights reserved. This program and the accompanying materials
- * are made available under the terms of the Eclipse Public License v1.0
- * which accompanies this distribution, and is available at
- * http://www.eclipse.org/legal/epl-v10.html
- * The US Government has unlimited rights in this work in accordance with W31P4Q-10-D-0092 DO 0105.
- *******************************************************************************/
 package org.osate.ge.internal.ui.tools;
 
-import java.awt.Color;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -16,12 +7,10 @@ import java.util.Objects;
 
 import javax.inject.Named;
 
-import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.util.EcoreUtil;
-import org.eclipse.jface.dialogs.Dialog;
 import org.eclipse.jface.dialogs.IDialogConstants;
 import org.eclipse.jface.dialogs.TitleAreaDialog;
-import org.eclipse.jface.resource.ImageDescriptor;
+import org.eclipse.jface.window.Window;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.StyleRange;
 import org.eclipse.swt.custom.StyledText;
@@ -56,12 +45,8 @@ import org.osate.aadl2.RefinableElement;
 import org.osate.aadl2.Subcomponent;
 import org.osate.ge.BusinessObjectContext;
 import org.osate.ge.di.Activate;
-import org.osate.ge.di.CanActivate;
-import org.osate.ge.internal.Activator;
+import org.osate.ge.graphics.Color;
 import org.osate.ge.internal.di.Deactivate;
-import org.osate.ge.internal.di.Description;
-import org.osate.ge.internal.di.Icon;
-import org.osate.ge.internal.di.Id;
 import org.osate.ge.internal.di.InternalNames;
 import org.osate.ge.internal.di.SelectionChanged;
 import org.osate.ge.internal.diagram.runtime.DiagramElement;
@@ -69,7 +54,6 @@ import org.osate.ge.internal.services.AadlModificationService;
 import org.osate.ge.internal.services.ColoringService;
 import org.osate.ge.internal.services.NamingService;
 import org.osate.ge.internal.services.UiService;
-import org.osate.ge.internal.services.AadlModificationService.AbstractModifier;
 import org.osate.ge.internal.ui.util.DialogPlacementHelper;
 
 public class CreateEndToEndFlowSpecificationTool {
@@ -77,22 +61,7 @@ public class CreateEndToEndFlowSpecificationTool {
 	private CreateFlowsToolsDialog dlg;
 	private BusinessObjectContext ciBoc;
 	private ComponentImplementation ci;
-	private boolean canActivate = true;
 	private final List<DiagramElement> previouslySelectedDiagramElements = new ArrayList<>();
-
-	@Id
-	public final static String ID = "org.osate.ge.ui.tools.CreateEndToEndFlowSpecificationTool";
-
-	@Description
-	public final static String DESCRIPTION = "Create End to End Flow Specification";
-
-	@Icon
-	public final static ImageDescriptor ICON = Activator.getImageDescriptor("icons/CreateEndToEndFlowSpecification.gif");
-
-	@CanActivate
-	public boolean canActivate(@Named(InternalNames.SELECTED_DIAGRAM_ELEMENT) BusinessObjectContext boc) {
-		return ToolUtil.findComponentImplementationBoc(boc) != null	&& canActivate;
-	}
 
 	@Activate
 	public void activate(@Named(InternalNames.SELECTED_DIAGRAM_ELEMENT) final BusinessObjectContext selectedBoc,
@@ -100,30 +69,26 @@ public class CreateEndToEndFlowSpecificationTool {
 			final UiService uiService,
 			final ColoringService coloringService,
 			final NamingService namingService) {
-		try {	
+		try {
 			ciBoc = ToolUtil.findComponentImplementationBoc(selectedBoc);
 			if (ciBoc != null) {
 				this.ci = (ComponentImplementation)ciBoc.getBusinessObject();
 				coloring = coloringService.adjustColors(); // Create a coloring object that will allow adjustment of pictogram
-				
-				canActivate = false;
+
 				uiService.clearSelection();
 				final Display display = Display.getCurrent();
 				dlg = new CreateFlowsToolsDialog(display.getActiveShell(), namingService, uiService);
-				if (dlg.open() == Dialog.CANCEL) {
+				if (dlg.open() == Window.CANCEL) {
 					return;
 				}
-	
+
 				if (dlg != null && !dlg.getFlows().isEmpty()) {
-					aadlModService.modify(ci, new AbstractModifier<ComponentImplementation, Object>() {
-						@Override
-						public Object modify(final Resource resource, final ComponentImplementation ci) {
-							for (EndToEndFlow eteFlow : dlg.getFlows()) {
-								ci.getOwnedEndToEndFlows().add(eteFlow);
-								ci.setNoFlows(false);
-							}
-							return null;
+					aadlModService.modify(ci, (resource, ci) -> {
+						for (EndToEndFlow eteFlow : dlg.getFlows()) {
+							ci.getOwnedEndToEndFlows().add(eteFlow);
+							ci.setNoFlows(false);
 						}
+						return null;
 					});
 				}
 			}
@@ -139,16 +104,15 @@ public class CreateEndToEndFlowSpecificationTool {
 			coloring.dispose();
 			coloring = null;
 		}
-		
+
 		if (dlg != null) {
 			dlg.close();
 			dlg = null;
 		}
-		
+
 		this.ciBoc = null;
 		this.ci = null;
 		this.previouslySelectedDiagramElements.clear();
-		canActivate = true;
 	}
 
 	@SelectionChanged
@@ -161,8 +125,8 @@ public class CreateEndToEndFlowSpecificationTool {
 				} else if(selectedDiagramElements.length == 1) {
 					// Get the selected diagram element
 					final DiagramElement selectedDiagramElement = selectedDiagramElements[0];
-					
-					final Object bo = selectedDiagramElement.getBusinessObject();									
+
+					final Object bo = selectedDiagramElement.getBusinessObject();
 					final Context context = ToolUtil.findContext(selectedDiagramElement);
 
 					if (bo instanceof Element) {
@@ -179,7 +143,7 @@ public class CreateEndToEndFlowSpecificationTool {
 						} else {
 							error = "Invalid element selected. ";
 						}
-						
+
 						if(error == null) {
 							dlg.setErrorMessage(null);
 							dlg.setMessage(getDialogMessage());
@@ -212,12 +176,12 @@ public class CreateEndToEndFlowSpecificationTool {
 		} else {
 			msg = "Select a starting flow specification.";
 		}
-				
+
 		if(msg.length() != 0) {
 			msg += "\n";
 		}
 		msg += "Optionally, select a mode or mode transition.";
-		
+
 		return msg;
 	}
 
@@ -233,8 +197,8 @@ public class CreateEndToEndFlowSpecificationTool {
 		final List<String> segmentList = new ArrayList<String>();
 		final List<String> modeList = new ArrayList<String>();
 		private final EndToEndFlow eTEFlow = (EndToEndFlow) pkg.getEFactoryInstance().create(pkg.getEndToEndFlow());
-		
-		public CreateFlowsToolsDialog(final Shell parentShell, 
+
+		public CreateFlowsToolsDialog(final Shell parentShell,
 				final NamingService namingService,
 				final UiService uiService) {
 			super(parentShell);
@@ -413,7 +377,7 @@ public class CreateEndToEndFlowSpecificationTool {
 							&& (selectedEle instanceof FlowSpecification) && isValidSubcomponent((Context) getRefinedElement(context))) {
 						final FlowSpecification segFs = (FlowSpecification)selectedEle;
 						final org.osate.aadl2.Connection con = (org.osate.aadl2.Connection)prevEle;
-						final Element flowInFeature = getRefinedElement(segFs.getInEnd().getFeature());	
+						final Element flowInFeature = getRefinedElement(segFs.getInEnd().getFeature());
 						if (segFs.getKind() == FlowKind.SINK || segFs.getKind() == FlowKind.PATH) {
 							if (con.isBidirectional()) {
 								if (areEquivalent(con.getDestination().getConnectionEnd(), flowInFeature)
@@ -493,7 +457,6 @@ public class CreateEndToEndFlowSpecificationTool {
 			newShell.setText("Create End To End Flow Specification");
 			newShell.setLocation(DialogPlacementHelper.getOffsetRectangleLocation(Display.getCurrent().getActiveShell().getBounds(), 50, 50));
 			newShell.setSize(575, 275);
-			newShell.setImage(ICON.createImage());
 			newShell.setMinimumSize(460, 215);
 		}
 
@@ -510,7 +473,7 @@ public class CreateEndToEndFlowSpecificationTool {
 			GridLayout layout = (GridLayout)flowSegmentComposite.getLayout();
 			layout.marginLeft = 10;
 			layout.marginTop = 5;
-			
+
 			flowSegmentLabel = new StyledText(flowSegmentComposite, SWT.BORDER | SWT.WRAP | SWT.V_SCROLL | SWT.MULTI);
 			flowSegmentLabel.setEditable(false);
 			flowSegmentLabel.setEnabled(false);
@@ -549,13 +512,13 @@ public class CreateEndToEndFlowSpecificationTool {
 				public void keyReleased(final KeyEvent e) {
 					final String errorMsg;
 					if(!namingService.isValidIdentifier(newETEFlowName.getText())) {
-						errorMsg = "Name is not a valid identifier";	
+						errorMsg = "Name is not a valid identifier";
 					} else if(namingService.isNameInUse(ci, newETEFlowName.getText())) {
 						errorMsg = "The specified name is already is use.";
 					} else {
 						errorMsg = null;
 					}
-					
+
 					dlg.setErrorMessage(errorMsg);
 					eTEFlow.setName(newETEFlowName.getText());
 					updateWidgets();
@@ -573,7 +536,7 @@ public class CreateEndToEndFlowSpecificationTool {
 						final DiagramElement removedDiagramElement = previouslySelectedDiagramElements.get(prevDiagramElementsSize-1);
 						previouslySelectedDiagramElements.remove(prevDiagramElementsSize-1);
 						coloring.setForeground(removedDiagramElement, null);
-						
+
 						final Object removedDiagramElementBo = removedDiagramElement.getBusinessObject();
 						if (removedDiagramElementBo instanceof ModeFeature)  {
 							eTEFlow.getInModeOrTransitions().remove(eTEFlow.getInModeOrTransitions().size()-1);
@@ -582,7 +545,7 @@ public class CreateEndToEndFlowSpecificationTool {
 							eTEFlow.getAllFlowSegments().remove(flowSegment);
 							EcoreUtil.remove(flowSegment);
 						}
-						
+
 						//Clear strings for refresh
 						segmentList.clear();
 						modeList.clear();
@@ -627,12 +590,12 @@ public class CreateEndToEndFlowSpecificationTool {
 			return buttonBar;
 		}
 	}
-	
+
 	private static boolean areEquivalent(final Object bo1, final Object bo2) {
 		if(!(bo1 instanceof NamedElement && bo2 instanceof NamedElement)) {
 			return false;
 		}
-		
+
 		final String n1 = ((NamedElement)bo1).getName();
 		final String n2 = ((NamedElement)bo2).getName();
 		return n1 != null && n1.equalsIgnoreCase(n2);

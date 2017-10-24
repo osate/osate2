@@ -3,10 +3,11 @@ package org.osate.ge.internal.diagram.runtime.boTree;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Map;
+
+import org.osate.ge.graphics.Point;
 import org.osate.ge.internal.diagram.runtime.AgeDiagram;
 import org.osate.ge.internal.diagram.runtime.DiagramElement;
 import org.osate.ge.internal.diagram.runtime.DiagramNode;
-import org.osate.ge.internal.diagram.runtime.Point;
 import org.osate.ge.internal.diagram.runtime.RelativeBusinessObjectReference;
 
 /**
@@ -17,25 +18,25 @@ public class DiagramToBusinessObjectTreeConverter {
 	public static BusinessObjectNode createBusinessObjectNode(final AgeDiagram diagram) {
 		return createBusinessObjectNode(diagram, Collections.emptyMap(), Collections.emptyMap());
 	}
-	
+
 	/**
-	 * 
+	 *
 	 * @param diagram
-	 * @param futureElementPositionMap a mapping from parent DiagramNode objects to a map for which a business object node will be created for each entry with the position specified in the map. 
+	 * @param futureElementPositionMap a mapping from parent DiagramNode objects to a map for which a business object node will be created for each entry with the position specified in the map.
 	 * @return
 	 */
-	public static BusinessObjectNode createBusinessObjectNode(final AgeDiagram diagram, 
+	public static BusinessObjectNode createBusinessObjectNode(final AgeDiagram diagram,
 			final Map<DiagramNode, Map<RelativeBusinessObjectReference, Point>> futureElementPositionMap,
 			final Map<DiagramNode, Map<RelativeBusinessObjectReference, DiagramElement>> containerToRelativeReferenceToGhostMap) {
 		BusinessObjectNode rootNode = new BusinessObjectNode(null, null, null, null, false, null, Completeness.UNKNOWN);
 		createBusinessObjectNodesForElements(rootNode, diagram.getDiagramElements(), futureElementPositionMap, containerToRelativeReferenceToGhostMap);
 		createBusinessObjectNodesForFutureElements(rootNode, diagram, futureElementPositionMap);
-		
+
 		return rootNode;
 	}
-	
-	
-	private static void createBusinessObjectNodesForElements(final BusinessObjectNode parent, 
+
+
+	private static void createBusinessObjectNodesForElements(final BusinessObjectNode parent,
 			final Collection<DiagramElement> elements,
 			final Map<DiagramNode, Map<RelativeBusinessObjectReference, Point>> futureElementPositionMap,
 			final Map<DiagramNode, Map<RelativeBusinessObjectReference, DiagramElement>> containerToRelativeReferenceToGhostMap) {
@@ -43,33 +44,39 @@ public class DiagramToBusinessObjectTreeConverter {
 			createBusinessObjectNodesForElements(parent, e, futureElementPositionMap, containerToRelativeReferenceToGhostMap);
 		}
 	}
-	
-	private static void createBusinessObjectNodesForElements(final BusinessObjectNode parent, 
+
+	private static void createBusinessObjectNodesForElements(final BusinessObjectNode parent,
 			final DiagramElement e,
 			final Map<DiagramNode, Map<RelativeBusinessObjectReference, Point>> futureElementPositionMap,
 			final Map<DiagramNode, Map<RelativeBusinessObjectReference, DiagramElement>> containerToRelativeReferenceToGhostMap) {
 		// Don't keep the business object when building the business object tree. This will ensure that tree expander or other user of the tree updates
-		// the business object based on the model.,
-		final BusinessObjectNode childNode = new BusinessObjectNode(parent, e.getId(), e.getRelativeReference(), null, e.isManual(), e.getAutoContentsFilter(), Completeness.UNKNOWN);
-		createBusinessObjectNodesForElements(childNode, e.getDiagramElements(), futureElementPositionMap, containerToRelativeReferenceToGhostMap);
-		createBusinessObjectNodesForGhostedElements(childNode, e, futureElementPositionMap, containerToRelativeReferenceToGhostMap);			
-		createBusinessObjectNodesForFutureElements(childNode, e, futureElementPositionMap);		
+		// the business object based on the model.
+		final BusinessObjectNode childNode = new BusinessObjectNode(parent, e.getId(), e.getRelativeReference(), null,
+				e.isManual(), e.getAutoContentsFilter(), Completeness.UNKNOWN);
+		createBusinessObjectNodesForElements(childNode, e.getDiagramElements(), futureElementPositionMap,
+				containerToRelativeReferenceToGhostMap);
+		createBusinessObjectNodesForGhostedElements(childNode, e, futureElementPositionMap,
+				containerToRelativeReferenceToGhostMap);
+		createBusinessObjectNodesForFutureElements(childNode, e, futureElementPositionMap);
 	}
-	
-	private static void createBusinessObjectNodesForGhostedElements(final BusinessObjectNode parent, 
+
+	private static void createBusinessObjectNodesForGhostedElements(final BusinessObjectNode parent,
 			final DiagramNode diagramNode,
 			final Map<DiagramNode, Map<RelativeBusinessObjectReference, Point>> futureElementPositionMap,
 			final Map<DiagramNode, Map<RelativeBusinessObjectReference, DiagramElement>> containerToRelativeReferenceToGhostMap) {
-		
+
 		final Map<RelativeBusinessObjectReference, DiagramElement> ghostedElements = containerToRelativeReferenceToGhostMap.get(diagramNode);
 		if(ghostedElements != null) {
-			for(final DiagramElement ghostedElement : ghostedElements.values()) {			
-				createBusinessObjectNodesForElements(parent, ghostedElement, futureElementPositionMap, containerToRelativeReferenceToGhostMap);
+			for(final DiagramElement ghostedElement : ghostedElements.values()) {
+				// Don't create a node if a node has already been created for the relative reference.
+				if (parent.getChild(ghostedElement.getRelativeReference()) == null) {
+					createBusinessObjectNodesForElements(parent, ghostedElement, futureElementPositionMap, containerToRelativeReferenceToGhostMap);
+				}
 			}
 		}
 	}
-	
-	public static void createBusinessObjectNodesForFutureElements(final BusinessObjectNode parent, 
+
+	public static void createBusinessObjectNodesForFutureElements(final BusinessObjectNode parent,
 			final DiagramNode diagramNode,
 			final Map<DiagramNode, Map<RelativeBusinessObjectReference, Point>> futureElementPositionMap) {
 		final Map<RelativeBusinessObjectReference, Point> futureElements = futureElementPositionMap.get(diagramNode);

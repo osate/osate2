@@ -1,0 +1,7 @@
+before_script: 
+    - python3 ./gitlab-ci/prepare_to_run_tests.py ~/oge_build_root/
+
+test:
+    script: 
+      - cd ~/oge_build_root/osate2-core/osate.releng/
+      - xvfb-run mvn -Plocal -fae clean integration-test

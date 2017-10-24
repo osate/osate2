@@ -8,9 +8,9 @@
  *******************************************************************************/
 package org.osate.ge.graphics;
 
-import org.osate.ge.internal.graphics.AgeConnectionTerminator;
-import org.osate.ge.internal.graphics.ConnectionTerminatorSize;
-import org.osate.ge.internal.graphics.ConnectionTerminatorType;
+import org.osate.ge.graphics.internal.AgeConnectionTerminator;
+import org.osate.ge.graphics.internal.ConnectionTerminatorSize;
+import org.osate.ge.graphics.internal.ConnectionTerminatorType;
 
 /**
  * Builder for creating arrow connection terminators. 

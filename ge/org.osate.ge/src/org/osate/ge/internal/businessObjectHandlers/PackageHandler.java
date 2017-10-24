@@ -1,6 +1,7 @@
 package org.osate.ge.internal.businessObjectHandlers;
 
 import javax.inject.Named;
+
 import org.eclipse.core.resources.IProject;
 import org.eclipse.xtext.resource.IEObjectDescription;
 import org.osate.aadl2.Aadl2Factory;
@@ -9,16 +10,14 @@ import org.osate.ge.GraphicalConfiguration;
 import org.osate.ge.GraphicalConfigurationBuilder;
 import org.osate.ge.di.GetGraphicalConfiguration;
 import org.osate.ge.di.GetName;
-import org.osate.ge.di.HandleDoubleClick;
 import org.osate.ge.di.IsApplicable;
 import org.osate.ge.di.Names;
 import org.osate.ge.di.ValidateName;
 import org.osate.ge.graphics.Graphic;
+import org.osate.ge.graphics.internal.FolderGraphicBuilder;
 import org.osate.ge.internal.di.InternalNames;
-import org.osate.ge.internal.graphics.FolderGraphicBuilder;
 import org.osate.ge.internal.services.NamingService;
 import org.osate.ge.internal.util.ScopedEMFIndexRetrieval;
-import org.osate.ge.services.GraphicalEditorService;
 
 public class PackageHandler {
 	private final Graphic graphic = FolderGraphicBuilder.create().build();
@@ -33,11 +32,6 @@ public class PackageHandler {
 		return GraphicalConfigurationBuilder.create().
 				graphic(graphic).
 				build();
-	}
-	
-	@HandleDoubleClick
-	public void onDoubleclick(final @Named(Names.BUSINESS_OBJECT) AadlPackage pkg, final GraphicalEditorService editorService) {
-		editorService.openBusinessObject(pkg);
 	}
 	
 	@GetName

@@ -28,7 +28,9 @@
 			</topic>
 			<topic label="Abstracted Connections" href="docs-gen/user_guide.html#abstracted-connections">
 			</topic>
-			<topic label="Inherited Element" href="docs-gen/user_guide.html#inherited-element">
+			<topic label="Inherited Elements" href="docs-gen/user_guide.html#inherited-elements">
+			</topic>
+			<topic label="Editing Properties" href="docs-gen/user_guide.html#editing-properties">
 			</topic>
 			<topic label="Deleting" href="docs-gen/user_guide.html#deleting">
 			</topic>
@@ -43,6 +45,8 @@
 			<topic label="Selecting a Diagram Element&#39;s Container" href="docs-gen/user_guide.html#selecting-a-diagram-elements-container">
 			</topic>
 			<topic label="Performing Diagram Layout" href="docs-gen/user_guide.html#performing-diagram-layout">
+			</topic>
+			<topic label="Editing a Diagram Element&#39;s Appearance" href="docs-gen/user_guide.html#sec:de_apperance">
 			</topic>
 		</topic>
 		<topic label="Connections" href="docs-gen/user_guide.html#connections">

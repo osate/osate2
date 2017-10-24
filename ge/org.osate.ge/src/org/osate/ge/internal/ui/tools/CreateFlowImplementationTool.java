@@ -1,24 +1,15 @@
-/*******************************************************************************
- * Copyright (C) 2016 University of Alabama in Huntsville (UAH)
- * All rights reserved. This program and the accompanying materials
- * are made available under the terms of the Eclipse Public License v1.0
- * which accompanies this distribution, and is available at
- * http://www.eclipse.org/legal/epl-v10.html
- * The US Government has unlimited rights in this work in accordance with W31P4Q-10-D-0092 DO 0105.
- *******************************************************************************/
 package org.osate.ge.internal.ui.tools;
 
-import java.awt.Color;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
+
 import javax.inject.Named;
-import org.eclipse.emf.ecore.resource.Resource;
-import org.eclipse.jface.dialogs.Dialog;
+
 import org.eclipse.jface.dialogs.IDialogConstants;
 import org.eclipse.jface.dialogs.TitleAreaDialog;
-import org.eclipse.jface.resource.ImageDescriptor;
+import org.eclipse.jface.window.Window;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.StyleRange;
 import org.eclipse.swt.custom.StyledText;
@@ -45,19 +36,14 @@ import org.osate.aadl2.ModeFeature;
 import org.osate.aadl2.NamedElement;
 import org.osate.ge.BusinessObjectContext;
 import org.osate.ge.di.Activate;
-import org.osate.ge.di.CanActivate;
-import org.osate.ge.internal.Activator;
+import org.osate.ge.graphics.Color;
 import org.osate.ge.internal.di.Deactivate;
-import org.osate.ge.internal.di.Description;
-import org.osate.ge.internal.di.Icon;
-import org.osate.ge.internal.di.Id;
 import org.osate.ge.internal.di.InternalNames;
 import org.osate.ge.internal.di.SelectionChanged;
 import org.osate.ge.internal.diagram.runtime.DiagramElement;
 import org.osate.ge.internal.services.AadlModificationService;
 import org.osate.ge.internal.services.ColoringService;
 import org.osate.ge.internal.services.UiService;
-import org.osate.ge.internal.services.AadlModificationService.AbstractModifier;
 import org.osate.ge.internal.ui.util.DialogPlacementHelper;
 
 public class CreateFlowImplementationTool {
@@ -65,48 +51,29 @@ public class CreateFlowImplementationTool {
 	private BusinessObjectContext ciBoc;
 	private ComponentImplementation ci;
 	private CreateFlowImplementationDialog dlg;
-	boolean canActivate = true;
-	
-	@Id
-	public final static String ID = "org.osate.ge.ui.tools.CreateFlowImplementationTool";
-
-	@Description
-	public final static String DESCRIPTION = "Create Flow Implementation";
-
-	@Icon
-	public final static ImageDescriptor ICON = Activator.getImageDescriptor("icons/CreateFlowImplementation.gif");
-
-	@CanActivate
-	public boolean canActivate(@Named(InternalNames.SELECTED_DIAGRAM_ELEMENT) BusinessObjectContext boc) {
-		return ToolUtil.findComponentImplementationBoc(boc) != null	&& canActivate;
-	}
 
 	@Activate
 	public void activate(@Named(InternalNames.SELECTED_DIAGRAM_ELEMENT) final BusinessObjectContext selectedBoc,
 			final AadlModificationService aadlModService,
 			final UiService uiService,
-			final ColoringService coloringService) {		
+			final ColoringService coloringService) {
 		try {
 			ciBoc = ToolUtil.findComponentImplementationBoc(selectedBoc);
 			if (ciBoc != null) {
 				this.ci = (ComponentImplementation)ciBoc.getBusinessObject();
 				this.coloring = coloringService.adjustColors();
-				
-				canActivate = false;
+
 				uiService.clearSelection();
 				dlg = new CreateFlowImplementationDialog(Display.getCurrent().getActiveShell(), coloring, uiService);
-				if (dlg.open() == Dialog.CANCEL) {
+				if (dlg.open() == Window.CANCEL) {
 					return;
 				}
-	
+
 				if (dlg != null) {
-					aadlModService.modify(ci, new AbstractModifier<ComponentImplementation, Object>() {
-						@Override
-						public Object modify(final Resource resource, final ComponentImplementation ci) {
-							ci.getOwnedFlowImplementations().add(dlg.createFlow());
-							ci.setNoFlows(false);
-							return null;
-						}
+					aadlModService.modify(ci, (resource, ci) -> {
+						ci.getOwnedFlowImplementations().add(dlg.createFlow());
+						ci.setNoFlows(false);
+						return null;
 					});
 				}
 			}
@@ -121,28 +88,27 @@ public class CreateFlowImplementationTool {
 		if (coloring != null) {
 			coloring.dispose();
 			coloring = null;
-		}	
-		
+		}
+
 		// Close the dialog
 		if (dlg != null) {
 			dlg.close();
 			dlg = null;
 		}
-		
+
 		this.ciBoc = null;
 		this.ci = null;
-		canActivate = true;
 	}
 
 	@SelectionChanged
-	public void onSelectionChanged(@Named(InternalNames.SELECTED_DIAGRAM_ELEMENTS) final DiagramElement[] selectedDiagramElements) {		
+	public void onSelectionChanged(@Named(InternalNames.SELECTED_DIAGRAM_ELEMENTS) final DiagramElement[] selectedDiagramElements) {
 		if (dlg != null && dlg.getShell() != null && dlg.getShell().isVisible()) {
-			// If the selection is a valid addition to the flow implementation, add it		
+			// If the selection is a valid addition to the flow implementation, add it
 			if(selectedDiagramElements.length > 1) {
 				dlg.setMultipleElementsSelected(true);
 			} else if(selectedDiagramElements.length == 1) {
 				dlg.setMultipleElementsSelected(false);
-				
+
 				// Get the selected diagram element
 				final DiagramElement selectedDiagramElement = selectedDiagramElements[0];
 				dlg.addSelectedElement(selectedDiagramElement);
@@ -153,7 +119,7 @@ public class CreateFlowImplementationTool {
 	/**
 	 * Determine message based on currently selected element
 	 * @return
-	 */	
+	 */
 	private static class CreateFlowImplementationDialog extends TitleAreaDialog {
 		private final ColoringService.Coloring coloring;
 		private final UiService uiService;
@@ -163,8 +129,8 @@ public class CreateFlowImplementationTool {
 		private Button undoButton;
 		private List<DiagramElement> userSelections = new ArrayList<>(); // Include the flow specification, flow segments, features and modes. First item should be the flow specification being implemented.
 		private boolean multipleElementsSelected = false;
-		
-		CreateFlowImplementationDialog(final Shell parentShell, 
+
+		CreateFlowImplementationDialog(final Shell parentShell,
 				final ColoringService.Coloring coloring,
 				final UiService uiService) {
 			super(parentShell);
@@ -173,14 +139,14 @@ public class CreateFlowImplementationTool {
 			this.setHelpAvailable(false);
 			setShellStyle(SWT.CLOSE | SWT.MODELESS | SWT.BORDER | SWT.TITLE | SWT.RESIZE);
 		}
-		
+
 		// Returns whether the flow has both a start and end.
 		private boolean isFlowComplete() {
 			final FlowSpecification fs = getFlowSpecification();
 			if(fs == null) {
 				return false;
 			}
-			
+
 			if(fs.getKind() == FlowKind.SOURCE) {
 				return getSelectedBocsOtherThanFirst().stream().filter(boc -> boc.getBusinessObject() instanceof Feature).count() == 1;
 			} else if(fs.getKind() == FlowKind.PATH) {
@@ -188,20 +154,20 @@ public class CreateFlowImplementationTool {
 			} else if(fs.getKind() == FlowKind.SINK) {
 				return getSelectedBocsOtherThanFirst().stream().filter(boc -> boc.getBusinessObject() instanceof FlowSpecification && ((FlowSpecification)boc.getBusinessObject()).getKind() == FlowKind.SINK).count() == 1;
 			}
-			
+
 			return false;
 		}
-		
+
 		public void setMultipleElementsSelected(final boolean value) {
 			multipleElementsSelected = value;
 			updateMessage();
 		}
-		
+
 		private boolean needsStartingFeature() {
 			final FlowSpecification fs = getFlowSpecification();
 			return fs == null ? false : (fs.getKind() == FlowKind.PATH || fs.getKind() == FlowKind.SINK);
 		}
-		
+
 		private boolean needsEndingFeature() {
 			final FlowSpecification fs = getFlowSpecification();
 			return fs == null ? false : fs.getKind() == FlowKind.PATH || fs.getKind() == FlowKind.SOURCE;
@@ -211,7 +177,7 @@ public class CreateFlowImplementationTool {
 			final FlowSpecification fs = getFlowSpecification();
 			return fs == null ? false : fs.getKind() == FlowKind.SINK;
 		}
-		
+
 		private void updateMessage() {
 			String msg;
 			String error = null;
@@ -232,34 +198,34 @@ public class CreateFlowImplementationTool {
 			if(multipleElementsSelected) {
 				error = "Multiple diagram elements selected. Select a single diagram element.";
 			}
-			
+
 			if(error == null) {
 				setErrorMessage(null);
 				setMessage(msg);
 			} else {
 				setErrorMessage(error + " " + msg);
 			}
-		}		
-		
+		}
+
 		private List<DiagramElement> getSelectedBocsOtherThanFirst() {
 			return userSelections.subList(1,  userSelections.size());
 		}
-		
+
 		public FlowImplementation createFlow() {
 			// Create a flow implementation based on the state of the dialog
 			final FlowImplementation flowImpl = (FlowImplementation)pkg.getEFactoryInstance().create(pkg.getFlowImplementation());
 			flowImpl.setSpecification(getFlowSpecification());
-			
+
 			if(flowImpl.getSpecification() != null) {
 				flowImpl.setKind(flowImpl.getSpecification().getKind());
-			}				
-			
+			}
+
 			if(userSelections.size() > 1) {
 				final List<DiagramElement> modesAndSegmentBocs = getSelectedBocsOtherThanFirst();
 				final List<BusinessObjectContext> featureBocs = modesAndSegmentBocs.stream().filter(boc -> boc.getBusinessObject() instanceof Feature).collect(Collectors.toCollection(ArrayList::new));
 				final List<BusinessObjectContext> flowElementBocs = modesAndSegmentBocs.stream().filter(boc -> boc.getBusinessObject() instanceof FlowElement).collect(Collectors.toCollection(ArrayList::new));
 				final List<BusinessObjectContext> modeFeatureBocs = modesAndSegmentBocs.stream().filter(boc -> boc.getBusinessObject() instanceof ModeFeature).collect(Collectors.toCollection(ArrayList::new));
-				
+
 				int nextFeatureIndex = 0;
 				if(needsStartingFeature() && featureBocs.size() > nextFeatureIndex) {
 					final FlowEnd inEnd = flowImpl.createInEnd();
@@ -268,7 +234,7 @@ public class CreateFlowImplementationTool {
 					inEnd.setFeature((Feature)tmpBoc.getBusinessObject());
 					nextFeatureIndex++;
 				}
-				
+
 				if(needsEndingFeature() && featureBocs.size() > nextFeatureIndex) {
 					final FlowEnd outEnd = flowImpl.createOutEnd();
 					final BusinessObjectContext tmpBoc = featureBocs.get(nextFeatureIndex);
@@ -276,29 +242,29 @@ public class CreateFlowImplementationTool {
 					outEnd.setFeature((Feature)tmpBoc.getBusinessObject());
 					nextFeatureIndex++;
 				}
-				
+
 				for(final BusinessObjectContext tmpBoc : flowElementBocs) {
 					final FlowSegment newFlowSegment = flowImpl.createOwnedFlowSegment();
 					newFlowSegment.setContext(ToolUtil.findContext(tmpBoc));
 					newFlowSegment.setFlowElement((FlowElement)tmpBoc.getBusinessObject());
 				}
-				
+
 				for(final BusinessObjectContext tmpModeFeature : modeFeatureBocs) {
 					flowImpl.getInModeOrTransitions().add((ModeFeature)tmpModeFeature.getBusinessObject());
 				}
 			}
-			
+
 			return flowImpl;
 		}
-		
+
 		private boolean selectingFlowSpecificationToImplement() {
 			return userSelections.size() == 0;
 		}
-		
+
 		private boolean selectingFlowIn() {
 			return needsStartingFeature() && userSelections.size() == 1;
 		}
-				
+
 		/**
 		 * @param de - the business object context for the selected diagram element
 		 * @return - true or false depending if the selected element was added to the flow implementation
@@ -321,57 +287,57 @@ public class CreateFlowImplementationTool {
 					add = true;
 				}
 			}
-			
+
 			if(add) {
 				// Don't allow duplicate selections
 				if(!userSelections.contains(de)) {
 					userSelections.add(de);
 				}
-				
+
 				// Update the UI
 				update();
 			}
 		}
-		
+
 		private static String getName(final NamedElement ne) {
 			return ne.getName() == null ? "<unknown>" : ne.getName();
 		}
-		
+
 		private static String flowEndToString(final FlowEnd flowEnd) {
 			final StringBuilder sb = new StringBuilder();
 			if(flowEnd.getContext() != null) {
 				sb.append(getName(flowEnd.getContext()));
 				sb.append('.');
 			}
-			
+
 			if(flowEnd.getFeature() != null) {
 				sb.append(getName(flowEnd.getFeature()));
 			}
-			
+
 			return sb.toString();
 		}
-		
+
 		private static String flowSegmentToString(final FlowSegment flowSegment) {
 			final StringBuilder sb = new StringBuilder();
 			if(flowSegment.getContext() != null) {
 				sb.append(getName(flowSegment.getContext()));
 				sb.append('.');
 			}
-			
+
 			if(flowSegment.getFlowElement() != null) {
 				sb.append(getName(flowSegment.getFlowElement()));
 			}
-			
+
 			return sb.toString();
 		}
-				
+
 		/**
 		 * Updates the UI
 		 */
 		private void update() {
 			getButton(IDialogConstants.OK_ID).setEnabled(isFlowComplete());
 			undoButton.setEnabled(userSelections.size() > 0);
-			
+
 			updateMessage();
 
 			// Update the flow implementation string
@@ -382,14 +348,14 @@ public class CreateFlowImplementationTool {
 			} else {
 				final FlowSpecification flowSpec = fi.getSpecification();
 				String flowStr = flowSpec.getName() + ":" + "  flow ";
-				final int kindStartIndex = flowStr.length(); 
+				final int kindStartIndex = flowStr.length();
 				flowStr += fi.getKind() + " ";
 				final int kindEndIndex = flowStr.length();
-	
+
 				if(needsStartingFeature() && fi.getInEnd() != null) {
 					flowStr += flowEndToString(fi.getInEnd()) + " -> ";
 				}
-			
+
 				for(final FlowSegment seg : fi.getOwnedFlowSegments()) {
 					flowStr += flowSegmentToString(seg) + " ";
 					if(!(seg.getFlowElement() instanceof FlowSpecification && ((FlowSpecification)seg.getFlowElement()).getKind() == FlowKind.SINK)) {
@@ -406,18 +372,18 @@ public class CreateFlowImplementationTool {
 					flowStr += " in modes (" + fi.getInModeOrTransitions().stream().map(mf -> mf.getName()).collect(Collectors.joining(", ")) + ")";
 				}
 				final int modeEndIndex = flowStr.length();
-				
+
 				flowStr += ";";
-				
+
 				flowLabel.setText(flowStr);
-				
+
 				// Adjust style of label
 				flowLabel.setStyleRange(new StyleRange(kindStartIndex, kindEndIndex-kindStartIndex, Display.getCurrent().getSystemColor(SWT.COLOR_DARK_RED), null, SWT.BOLD));
 				if (modeStartIndex != modeEndIndex) {
 					flowLabel.setStyleRange(new StyleRange(modeStartIndex, 10, Display.getCurrent().getSystemColor(SWT.COLOR_DARK_RED), null, SWT.BOLD));
-				}	
+				}
 			}
-			
+
 			// Update diagram element highlighting
 			coloring.clear();
 			for(int i = 0; i < userSelections.size(); i++) {
@@ -431,13 +397,13 @@ public class CreateFlowImplementationTool {
 				}
 			}
 		}
-		
+
 		private FlowSpecification getFlowSpecification() {
 			// The flow specification should be the first thing selected by the user
 			if(userSelections.size() == 0) {
 				return null;
 			}
-			
+
 			final BusinessObjectContext boc = userSelections.get(0);
 			return (FlowSpecification)boc.getBusinessObject();
 		}
@@ -448,7 +414,6 @@ public class CreateFlowImplementationTool {
 			newShell.setText("Create Flow Implementation");
 			newShell.setLocation(DialogPlacementHelper.getOffsetRectangleLocation(Display.getCurrent().getActiveShell().getBounds(), 50, 50));
 			newShell.setSize(540, 250);
-			newShell.setImage(ICON.createImage());
 			newShell.setMinimumSize(300, 215);
 		}
 
@@ -456,7 +421,7 @@ public class CreateFlowImplementationTool {
 		public void create() {
 			super.create();
 			setTitle("Select Elements");
-			
+
 			update();
 		}
 
@@ -466,7 +431,7 @@ public class CreateFlowImplementationTool {
 			GridLayout layout = (GridLayout)flowComposite.getLayout();
 			layout.marginLeft = 10;
 			layout.marginTop = 5;
-			
+
 			flowLabel = new StyledText(flowComposite, SWT.BORDER | SWT.WRAP | SWT.V_SCROLL | SWT.MULTI);
 			flowLabel.setEditable(false);
 			flowLabel.setEnabled(false);

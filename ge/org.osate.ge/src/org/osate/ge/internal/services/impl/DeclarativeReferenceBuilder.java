@@ -9,6 +9,7 @@
 package org.osate.ge.internal.services.impl;
 
 import java.util.List;
+
 import javax.inject.Named;
 
 import org.eclipse.emf.common.util.EList;
@@ -38,15 +39,14 @@ import org.osate.aadl2.SubprogramCall;
 import org.osate.aadl2.SubprogramCallSequence;
 import org.osate.aadl2.TypeExtension;
 import org.osate.annexsupport.AnnexUtil;
+import org.osate.ge.di.BuildCanonicalReference;
+import org.osate.ge.di.BuildRelativeReference;
+import org.osate.ge.di.Names;
 import org.osate.ge.internal.diagram.runtime.CanonicalBusinessObjectReference;
 import org.osate.ge.internal.model.SubprogramCallOrder;
 import org.osate.ge.services.ReferenceBuilderService;
 
 import com.google.common.collect.Lists;
-
-import org.osate.ge.di.Names;
-import org.osate.ge.di.BuildCanonicalReference;
-import org.osate.ge.di.BuildRelativeReference;
 
 // Handles building references related to the AADL declarative model
 public class DeclarativeReferenceBuilder {

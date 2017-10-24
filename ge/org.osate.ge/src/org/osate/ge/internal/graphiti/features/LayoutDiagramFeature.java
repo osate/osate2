@@ -10,9 +10,9 @@ import org.eclipse.graphiti.features.context.IContext;
 import org.eclipse.graphiti.features.context.ICustomContext;
 import org.eclipse.graphiti.features.custom.AbstractCustomFeature;
 import org.osate.ge.internal.diagram.runtime.AgeDiagram;
-import org.osate.ge.internal.diagram.runtime.DiagramLayoutUtil;
 import org.osate.ge.internal.diagram.runtime.DiagramModification;
 import org.osate.ge.internal.diagram.runtime.DiagramModifier;
+import org.osate.ge.internal.diagram.runtime.layout.DiagramLayoutUtil;
 import org.osate.ge.internal.graphiti.GraphitiAgeDiagramProvider;
 
 public class LayoutDiagramFeature extends AbstractCustomFeature implements ICustomUndoRedoFeature {
@@ -42,7 +42,7 @@ public class LayoutDiagramFeature extends AbstractCustomFeature implements ICust
 	@Override
 	public void execute(final ICustomContext context) {
 		final AgeDiagram ageDiagram = graphitiAgeDiagramProvider.getGraphitiAgeDiagram().getAgeDiagram();
-		ageDiagram.modify(new DiagramModifier() {
+		ageDiagram.modify("Layout Diagram", new DiagramModifier() {
 			@Override
 			public void modify(final DiagramModification m) {
 				DiagramLayoutUtil.layout(ageDiagram, m, true);	

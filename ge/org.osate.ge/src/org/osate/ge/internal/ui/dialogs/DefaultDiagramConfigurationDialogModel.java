@@ -92,7 +92,10 @@ public class DefaultDiagramConfigurationDialogModel implements DiagramConfigurat
 			}
 
 			if(baseName == null) {
-				return "<Unnamed " + bo.getClass() + ">";
+				final String typeName = StringUtil
+						.camelCaseToUser(
+								bo instanceof EObject ? ((EObject) bo).eClass().getName() : bo.getClass().getName());
+				return "<Unnamed " + typeName + ">";
 			} else {
 				return baseName;
 			}

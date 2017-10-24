@@ -4,6 +4,9 @@
    <extension
          point="org.osate.ge.businessObjectHandlers">
       <handler
+            class="org.osate.ge.errormodel.businessObjectHandlers.ErrorTypeLibraryHandler">
+      </handler>
+      <handler
             class="org.osate.ge.errormodel.businessObjectHandlers.ErrorTypeHandler">
       </handler>
       <handler

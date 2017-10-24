@@ -7,10 +7,10 @@ import org.eclipse.graphiti.features.IFeatureProvider;
 import org.eclipse.graphiti.features.context.IContext;
 import org.eclipse.graphiti.features.context.IMoveConnectionDecoratorContext;
 import org.eclipse.graphiti.features.impl.DefaultMoveConnectionDecoratorFeature;
+import org.osate.ge.graphics.Point;
 import org.osate.ge.internal.diagram.runtime.DiagramElement;
 import org.osate.ge.internal.diagram.runtime.DiagramModification;
 import org.osate.ge.internal.diagram.runtime.DiagramModifier;
-import org.osate.ge.internal.diagram.runtime.Point;
 import org.osate.ge.internal.graphiti.GraphitiAgeDiagramProvider;
 import org.osate.ge.internal.graphiti.ShapeNames;
 import org.osate.ge.internal.graphiti.diagram.GraphitiAgeDiagram;
@@ -47,7 +47,7 @@ public class AgeMoveConnectionDecoratorFeature extends DefaultMoveConnectionDeco
 		final DiagramElement decoratorDiagramElement = graphitiAgeDiagram.getDiagramElement(context.getConnectionDecorator());
 		if(decoratorDiagramElement == null) {
 			final DiagramElement connectionElement = graphitiAgeDiagram.getDiagramElement(context.getConnectionDecorator().getConnection());		
-			graphitiAgeDiagram.modify(new DiagramModifier() {					
+			graphitiAgeDiagram.modify("Move Connection Decorator", new DiagramModifier() {					
 				@Override
 				public void modify(final DiagramModification m) {
 					m.setConnectionPrimaryLabelPosition(connectionElement, new Point(context.getX(), context.getY()));
@@ -55,7 +55,7 @@ public class AgeMoveConnectionDecoratorFeature extends DefaultMoveConnectionDeco
 				}
 			});
 		} else {
-			graphitiAgeDiagram.modify(new DiagramModifier() {					
+			graphitiAgeDiagram.modify("Move Connection Decorator", new DiagramModifier() {					
 				@Override
 				public void modify(final DiagramModification m) {
 					m.setPosition(decoratorDiagramElement, new Point(context.getX(), context.getY()));

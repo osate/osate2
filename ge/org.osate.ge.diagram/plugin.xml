@@ -5,7 +5,6 @@
 -->
 
 <plugin>
-
    <extension point="org.eclipse.emf.ecore.generated_package">
       <!-- @generated diagram -->
       <package
@@ -13,5 +12,4 @@
             class="org.osate.ge.diagram.DiagramPackage"
             genModel="model/diagram.genmodel"/>
    </extension>
-
 </plugin>

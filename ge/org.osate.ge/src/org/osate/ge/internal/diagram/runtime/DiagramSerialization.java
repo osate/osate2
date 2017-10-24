@@ -15,14 +15,17 @@ import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.emf.ecore.xmi.XMLResource;
 import org.osate.ge.diagram.Diagram;
-import org.osate.ge.internal.DockArea;
+import org.osate.ge.graphics.Color;
+import org.osate.ge.graphics.Point;
+import org.osate.ge.graphics.Style;
+import org.osate.ge.graphics.StyleBuilder;
 
 /**
  * Class to help read and write the native diagram format used by the editor.
  *
  */
 public class DiagramSerialization {
-	public final static int FORMAT_VERSION = 1;
+	public final static int FORMAT_VERSION = 3;
 
 	private static Comparator<DiagramElement> elementComparator = (e1, e2) -> e1.getRelativeReference()
 			.compareTo(e2.getRelativeReference());
@@ -66,17 +69,21 @@ public class DiagramSerialization {
 					configBuilder.addAadlProperty(enabledProperty);
 				}
 			}
+
+			configBuilder.connectionPrimaryLabelsVisible(mmDiagramConfig.getConnectionPrimaryLabelsVisible());
 		}
 
-		ageDiagram.setDiagramConfiguration(configBuilder.build());
+		ageDiagram.modify("Configure Diagram", m -> {
+			m.setDiagramConfiguration(configBuilder.build());
+		});
 
 		// Require a context business object
 		if (ageDiagram.getConfiguration().getContextBoReference() == null) {
 			throw new RuntimeException("Contextless diagrams are not supported");
 		}
 
-		// Read elements
-		ageDiagram.modify(m -> readElements(m, ageDiagram, mmDiagram, new HashSet<>()));
+		//  Read elements
+		ageDiagram.modify("Read from File", m -> readElements(m, ageDiagram, mmDiagram, new HashSet<>()));
 
 		return ageDiagram;
 	}
@@ -167,6 +174,17 @@ public class DiagramSerialization {
 			}
 		}
 
+		// Style
+		final Color background = mmChild.getBackground() != null ? parseColor(mmChild.getBackground()) : null;
+		final Color fontColor = mmChild.getFontColor() != null ? parseColor(mmChild.getFontColor()) : null;
+		final Color outline = mmChild.getOutline() != null ? parseColor(mmChild.getOutline()) : null;
+		final Double lineWidth = mmChild.getLineWidth();
+		final Double fontSize = mmChild.getFontSize();
+		final Boolean primaryLabelVisible = mmChild.getPrimaryLabelVisible();
+
+		newElement.setStyle(StyleBuilder.create().backgroundColor(background).fontColor(fontColor).outlineColor(outline)
+				.fontSize(fontSize).lineWidth(lineWidth).primaryLabelVisible(primaryLabelVisible).build());
+
 		// Bendpoints
 		final org.osate.ge.diagram.BendpointList mmBendpoints = mmChild.getBendpoints();
 		if (mmBendpoints != null) {
@@ -215,6 +233,8 @@ public class DiagramSerialization {
 		final DiagramConfiguration config = diagram.getConfiguration();
 		mmConfig.setContext(
 				config.getContextBoReference() == null ? null : config.getContextBoReference().toMetamodel());
+
+		mmConfig.setConnectionPrimaryLabelsVisible(config.getConnectionPrimaryLabelsVisible());
 
 		final org.osate.ge.diagram.AadlPropertiesSet enabledProperties = new org.osate.ge.diagram.AadlPropertiesSet();
 		mmConfig.setEnabledAadlProperties(enabledProperties);
@@ -276,13 +296,42 @@ public class DiagramSerialization {
 		if (e.hasPosition()) {
 			newElement.setPosition(e.getPosition().toMetamodel());
 		}
-
-		if (e.hasSize() && e.isSizeable()) {
+		if (e.hasSize() && DiagramElementPredicates.isResizeable(e)) {
 			newElement.setSize(e.getSize().toMetamodel());
 		}
 
 		if (e.getDockArea() != null && e.getDockArea() != DockArea.GROUP) { // Don't serialize null or group dock areas
 			newElement.setDockArea(e.getDockArea().id);
+		}
+
+		final Style currentStyle = e.getStyle();
+		final org.osate.ge.graphics.Color backgroundColor = currentStyle.getBackgroundColor();
+		if (backgroundColor != null) {
+			newElement.setBackground(colorToHex(backgroundColor));
+		}
+
+		final org.osate.ge.graphics.Color fontColor = currentStyle.getFontColor();
+		if (fontColor != null) {
+			newElement.setFontColor(colorToHex(fontColor));
+		}
+
+		final org.osate.ge.graphics.Color outlineColor = currentStyle.getOutlineColor();
+		if (outlineColor != null) {
+			newElement.setOutline(colorToHex(outlineColor));
+		}
+
+		final Double fontSize = currentStyle.getFontSize();
+		if (fontSize != null) {
+			newElement.setFontSize(fontSize);
+		}
+
+		final Double lineWidth = currentStyle.getLineWidth();
+		if (lineWidth != null) {
+			newElement.setLineWidth(lineWidth);
+		}
+
+		if (currentStyle.getPrimaryLabelVisible() != null) {
+			newElement.setPrimaryLabelVisible(currentStyle.getPrimaryLabelVisible());
 		}
 
 		// Connection Specific
@@ -300,5 +349,17 @@ public class DiagramSerialization {
 		}
 
 		convertElementsToMetamodel(newElement, e.getDiagramElements());
+	}
+
+	// Create hex string from color
+	private static String colorToHex(final org.osate.ge.graphics.Color color) {
+		return "#" + String.format("%02x", color.getRed()) + String.format("%02x", color.getGreen())
+		+ String.format("%02x", color.getBlue());
+	}
+
+	// Create color from hex string
+	private static Color parseColor(final String color) {
+		return new Color(Integer.parseInt(color.substring(1, 3), 16), Integer.parseInt(color.substring(3, 5), 16),
+				Integer.parseInt(color.substring(5), 16));
 	}
 }

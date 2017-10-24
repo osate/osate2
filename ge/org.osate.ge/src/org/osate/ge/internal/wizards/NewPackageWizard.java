@@ -54,7 +54,7 @@ import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.core.runtime.OperationCanceledException;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.Status;
-import org.eclipse.core.runtime.SubProgressMonitor;
+import org.eclipse.core.runtime.SubMonitor;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.jface.dialogs.ErrorDialog;
@@ -86,7 +86,6 @@ import org.eclipse.ui.statushandlers.StatusManager;
 import org.eclipse.xtext.resource.XtextResourceSet;
 import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.modelsupport.Activator;
-import org.osate.aadl2.modelsupport.resources.PredeclaredProperties;
 import org.osate.ge.internal.services.DiagramService;
 import org.osate.ge.internal.services.impl.DefaultNamingService;
 import org.osate.ui.OsateUiPlugin;
@@ -96,7 +95,7 @@ import org.osate.workspace.WorkspacePlugin;
 /**
  * This is a simple wizard for creating a new model file.
  * It is based on edu.cmu.sei.aadl.model.core.presentation.CoreModelWizard from OSATE 1.
- * 
+ *
  */
 public class NewPackageWizard extends Wizard implements INewWizard {
 	/**
@@ -120,11 +119,7 @@ public class NewPackageWizard extends Wizard implements INewWizard {
 		if (selection != null) {
 			Object selectedElement = selection.getFirstElement();
 			if (selectedElement instanceof IResource) {
-				IProject project = ((IResource) selectedElement).getProject();
-				if (!project.getName().equals(PredeclaredProperties.PLUGIN_RESOURCES_PROJECT_NAME))
-					this.project = project;
-				else
-					this.project = null;
+				project = ((IResource) selectedElement).getProject();
 			}
 		}
 		setWindowTitle("New Aadl Package");
@@ -176,13 +171,13 @@ public class NewPackageWizard extends Wizard implements INewWizard {
 			@Override
 			protected void execute(IProgressMonitor monitor) throws CoreException {
 				try {
-					monitor.beginTask("Creating", 2000);
+					final SubMonitor progress = SubMonitor.convert(monitor, "Creating Package", 100);
 					ContainerGenerator generator = new ContainerGenerator(sourcePath.removeLastSegments(1));
-					generator.generateContainer(new SubProgressMonitor(monitor, 1000));
-					newFile.create(initialContents, false, monitor);
+					generator.generateContainer(progress.split(50));
+					newFile.create(initialContents, false, progress.split(50));
 					IResourceUtility.setGenerated(newFile, false);
-					if (monitor.isCanceled()) { 
-						throw new OperationCanceledException(); 
+					if (progress.isCanceled()) {
+						throw new OperationCanceledException();
 					}
 				} finally {
 					monitor.done();
@@ -213,10 +208,10 @@ public class NewPackageWizard extends Wizard implements INewWizard {
 			final Resource pkgResource = resourceSet.getResource(uri, true);
 			if (pkgResource.getContents().size() > 0 && pkgResource.getContents().get(0) instanceof NamedElement) {
 				// Open the diagram
-				final DiagramService diagramService = (DiagramService) PlatformUI.getWorkbench()
+				final DiagramService diagramService = PlatformUI.getWorkbench()
 						.getActiveWorkbenchWindow().getService(DiagramService.class);
 				diagramService
-						.openOrCreateDiagramForBusinessObject((NamedElement) pkgResource.getContents().get(0), false, false);
+				.openOrCreateDiagramForBusinessObject(pkgResource.getContents().get(0), false, false);
 			} else {
 				final Status status = new Status(IStatus.ERROR, Activator.getPluginId(),
 						"Unable to retrieve package from resource.", null);
@@ -295,14 +290,16 @@ public class NewPackageWizard extends Wizard implements INewWizard {
 			projectViewer.setContentProvider(new WorkbenchContentProvider() {
 				@Override
 				public Object[] getChildren(Object element) {
-					if (!(element instanceof IWorkspace))
+					if (!(element instanceof IWorkspace)) {
 						return new Object[0];
+					}
 					IProject[] projects = ((IWorkspace) element).getRoot().getProjects();
 					ArrayList<IProject> openProjects = new ArrayList<IProject>();
-					for (IProject project : projects)
-						if (project.isOpen()
-								&& !project.getName().equals(PredeclaredProperties.PLUGIN_RESOURCES_PROJECT_NAME))
+					for (IProject project : projects) {
+						if (project.isOpen()) {
 							openProjects.add(project);
+						}
+					}
 					return openProjects.size() == 0 ? new Object[0] : openProjects.toArray();
 				}
 			});
@@ -315,9 +312,9 @@ public class NewPackageWizard extends Wizard implements INewWizard {
 					break;
 				}
 			}
-			if ((project != null) && selectedProjectInList)
+			if ((project != null) && selectedProjectInList) {
 				projectViewer.setSelection(new StructuredSelection(project), true);
-			else if (projectItemCount > 0) {
+			} else if (projectItemCount > 0) {
 				projectViewer.getTable().setSelection(0);
 			}
 			projectViewer.getTable().setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
@@ -327,7 +324,7 @@ public class NewPackageWizard extends Wizard implements INewWizard {
 			noProjectComposite.setLayout(new GridLayout());
 			Label noProjectLabel = new Label(noProjectComposite, SWT.NONE);
 			noProjectLabel
-					.setText("The workspace contains no projects. Before an Aadl Package can be created you must first create a project.");
+			.setText("The workspace contains no projects. Before an Aadl Package can be created you must first create a project.");
 			if (projectItemCount < 1) {
 				pageBook.showPage(noProjectComposite);
 			} else {
@@ -341,8 +338,9 @@ public class NewPackageWizard extends Wizard implements INewWizard {
 			if (validateEnteredName() && !fileExists()) {
 				setErrorMessage(null);
 				return true;
-			} else
+			} else {
 				return false;
+			}
 		}
 
 		public IProject getSelectedProject() {
@@ -379,8 +377,9 @@ public class NewPackageWizard extends Wizard implements INewWizard {
 				}
 				int startingIndex = 0;
 				for (int i = 1; i < nameTextField.getText().length() - 1; i++) {
-					if ((nameTextField.getText().charAt(i) == ':') && (nameTextField.getText().charAt(i - 1) != ':'))
+					if ((nameTextField.getText().charAt(i) == ':') && (nameTextField.getText().charAt(i - 1) != ':')) {
 						startingIndex = i;
+					}
 					if ((nameTextField.getText().charAt(i) == ':') && (nameTextField.getText().charAt(i + 1) != ':')
 							&& (i - startingIndex != 1)) {
 						setErrorMessage("Use two colons(::) to separate identifiers in the package path.");
@@ -389,8 +388,9 @@ public class NewPackageWizard extends Wizard implements INewWizard {
 				}
 				StringTokenizer tokenizer = new StringTokenizer(nameTextField.getText(), "::");
 				while (tokenizer.hasMoreTokens()) {
-					if (!validateIdentifier(tokenizer.nextToken()))
+					if (!validateIdentifier(tokenizer.nextToken())) {
 						return false;
+					}
 				}
 				return true;
 			}
@@ -414,8 +414,9 @@ public class NewPackageWizard extends Wizard implements INewWizard {
 			if (newObjectAbsolutePath().toFile().exists()) {
 				setErrorMessage(nameTextField.getText() + " already exists.");
 				return true;
-			} else
+			} else {
 				return false;
+			}
 		}
 	}
 

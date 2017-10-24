@@ -1,24 +1,24 @@
-// Based on OSATE Graphical Editor. Modifications are: 
+// Based on OSATE Graphical Editor. Modifications are:
 /*
 Copyright (c) 2016, Rockwell Collins.
 Developed with the sponsorship of Defense Advanced Research Projects Agency (DARPA).
 
-Permission is hereby granted, free of charge, to any person obtaining a copy of this data, 
-including any software or models in source or binary form, as well as any drawings, specifications, 
+Permission is hereby granted, free of charge, to any person obtaining a copy of this data,
+including any software or models in source or binary form, as well as any drawings, specifications,
 and documentation (collectively "the Data"), to deal in the Data without restriction, including
-without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, 
-and/or sell copies of the Data, and to permit persons to whom the Data is furnished to do so, 
+without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense,
+and/or sell copies of the Data, and to permit persons to whom the Data is furnished to do so,
 subject to the following conditions:
 
-The above copyright notice and this permission notice shall be included in all copies or 
+The above copyright notice and this permission notice shall be included in all copies or
 substantial portions of the Data.
 
-THE DATA IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT 
-LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. 
-IN NO EVENT SHALL THE AUTHORS, SPONSORS, DEVELOPERS, CONTRIBUTORS, OR COPYRIGHT HOLDERS BE LIABLE 
-FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, 
+THE DATA IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT
+LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+IN NO EVENT SHALL THE AUTHORS, SPONSORS, DEVELOPERS, CONTRIBUTORS, OR COPYRIGHT HOLDERS BE LIABLE
+FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
 ARISING FROM, OUT OF OR IN CONNECTION WITH THE DATA OR THE USE OR OTHER DEALINGS IN THE DATA.
-*/
+ */
 /*******************************************************************************
  * Copyright (C) 2013 University of Alabama in Huntsville (UAH)
  * All rights reserved. This program and the accompanying materials
@@ -32,6 +32,7 @@ package org.osate.ge.internal.graphiti;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+
 import org.eclipse.e4.core.contexts.ContextInjectionFactory;
 import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.graphiti.dt.IDiagramTypeProvider;
@@ -41,8 +42,8 @@ import org.eclipse.graphiti.features.ICreateConnectionFeature;
 import org.eclipse.graphiti.features.ICreateFeature;
 import org.eclipse.graphiti.features.IDeleteFeature;
 import org.eclipse.graphiti.features.IDirectEditingFeature;
-import org.eclipse.graphiti.features.ILayoutFeature;
 import org.eclipse.graphiti.features.IFeatureProvider;
+import org.eclipse.graphiti.features.ILayoutFeature;
 import org.eclipse.graphiti.features.IMoveBendpointFeature;
 import org.eclipse.graphiti.features.IMoveConnectionDecoratorFeature;
 import org.eclipse.graphiti.features.IMoveShapeFeature;
@@ -69,11 +70,9 @@ import org.eclipse.graphiti.features.custom.ICustomFeature;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.ui.features.DefaultFeatureProvider;
-import org.osate.ge.internal.graphiti.features.AgeResizeShapeFeature;
-import org.osate.ge.internal.graphiti.features.BoHandlerCreateConnectionFeature;
-import org.osate.ge.internal.graphiti.features.BoHandlerCreateFeature;
-import org.osate.ge.internal.graphiti.features.BoHandlerDeleteFeature;
-import org.osate.ge.internal.graphiti.features.BoHandlerDirectEditFeature;
+import org.osate.ge.PaletteEntry;
+import org.osate.ge.di.GetPaletteEntries;
+import org.osate.ge.di.Names;
 import org.osate.ge.internal.SimplePaletteEntry;
 import org.osate.ge.internal.diagram.runtime.AgeDiagram;
 import org.osate.ge.internal.diagram.runtime.AgeDiagramUtil;
@@ -92,6 +91,11 @@ import org.osate.ge.internal.graphiti.features.AgeMoveBendpointFeature;
 import org.osate.ge.internal.graphiti.features.AgeMoveConnectionDecoratorFeature;
 import org.osate.ge.internal.graphiti.features.AgeMoveShapeFeature;
 import org.osate.ge.internal.graphiti.features.AgeRemoveBendpointFeature;
+import org.osate.ge.internal.graphiti.features.AgeResizeShapeFeature;
+import org.osate.ge.internal.graphiti.features.BoHandlerCreateConnectionFeature;
+import org.osate.ge.internal.graphiti.features.BoHandlerCreateFeature;
+import org.osate.ge.internal.graphiti.features.BoHandlerDeleteFeature;
+import org.osate.ge.internal.graphiti.features.BoHandlerDirectEditFeature;
 import org.osate.ge.internal.graphiti.features.CommandCustomFeature;
 import org.osate.ge.internal.graphiti.features.ConfigureDiagramFeature;
 import org.osate.ge.internal.graphiti.features.LayoutDiagramFeature;
@@ -100,16 +104,13 @@ import org.osate.ge.internal.graphiti.features.SetAutoContentFilterFeature;
 import org.osate.ge.internal.graphiti.features.UpdateDiagramCustomFeature;
 import org.osate.ge.internal.graphiti.features.UpdateDiagramFeature;
 import org.osate.ge.internal.graphiti.services.GraphitiService;
-import org.osate.ge.PaletteEntry;
-import org.osate.ge.di.GetPaletteEntries;
-import org.osate.ge.di.Names;
 import org.osate.ge.internal.services.AadlModificationService;
 import org.osate.ge.internal.services.ExtensionService;
 import org.osate.ge.internal.services.ProjectReferenceService;
 import org.osate.ge.internal.services.ReferenceService;
 import org.osate.ge.services.QueryService;
 
-public class AgeFeatureProvider extends DefaultFeatureProvider {	
+public class AgeFeatureProvider extends DefaultFeatureProvider {
 	private IEclipseContext eclipseContext;
 	private ReferenceService referenceService;
 	private ExtensionService extService;
@@ -128,11 +129,11 @@ public class AgeFeatureProvider extends DefaultFeatureProvider {
 	private DiagramUpdater diagramUpdater;
 	private ConfigureDiagramFeature configureDiagramFeature;
 	private DefaultDiagramElementGraphicalConfigurationProvider deInfoProvider;
-	
+
 	public AgeFeatureProvider(final IDiagramTypeProvider dtp) {
 		super(dtp);
 	}
-	
+
 	public void initialize(final IEclipseContext context) {
 		this.eclipseContext = context.createChild();
 		this.eclipseContext.set(IFeatureProvider.class, this);
@@ -141,7 +142,7 @@ public class AgeFeatureProvider extends DefaultFeatureProvider {
 		this.aadlModService = Objects.requireNonNull(eclipseContext.get(AadlModificationService.class), "unable to retrieve AADL modification service");
 		this.graphitiService = Objects.requireNonNull(eclipseContext.get(GraphitiService.class), "unablet to retrieve Graphiti service");
 		this.referenceResolver = Objects.requireNonNull(eclipseContext.get(ProjectReferenceService.class), "unable to retrieve internal reference resolution service");
-		
+
 		// Create the feature to use for pictograms which do not have a specialized feature. Delegates to business object handlers.
 		defaultDeleteFeature = make(BoHandlerDeleteFeature.class);
 		defaultDirectEditFeature = make(BoHandlerDirectEditFeature.class);
@@ -151,7 +152,7 @@ public class AgeFeatureProvider extends DefaultFeatureProvider {
 		moveBendpointFeature = make(AgeMoveBendpointFeature.class);
 		addBendpointFeature = make(AgeAddBendpointFeature.class);
 		removeBendpointFeature = make(AgeRemoveBendpointFeature.class);
-		
+
 		// Create the refresh diagram feature
 		final DefaultBusinessObjectNodeFactory nodeFactory = new DefaultBusinessObjectNodeFactory(referenceResolver);
 		final QueryService queryService = Objects.requireNonNull(eclipseContext.get(QueryService.class), "unable to retrieve query service");
@@ -159,7 +160,7 @@ public class AgeFeatureProvider extends DefaultFeatureProvider {
 		deInfoProvider = new DefaultDiagramElementGraphicalConfigurationProvider(referenceResolver, extService);
 		diagramUpdater = new DiagramUpdater(boTreeExpander, deInfoProvider);
 		this.updateDiagramFeature = new UpdateDiagramFeature(this, graphitiService, diagramUpdater);
-		
+
 		// Create the configure diagram feature
 		this.configureDiagramFeature = new ConfigureDiagramFeature(this, boTreeExpander, diagramUpdater, graphitiService, referenceResolver, extService, graphitiService);
 	}
@@ -169,22 +170,22 @@ public class AgeFeatureProvider extends DefaultFeatureProvider {
 		if(deInfoProvider != null) {
 			deInfoProvider.close();
 		}
-		
+
 		if(eclipseContext != null) {
 			eclipseContext.dispose();
 		}
-		
+
 		super.dispose();
 	}
-	
+
 	public DiagramUpdater getDiagramUpdater() {
 		return diagramUpdater;
 	}
-	
+
 	public ICustomFeature getConfigureDiagramFeature() {
 		return configureDiagramFeature;
 	}
-	
+
 	/**
 	 * Instantiates an object and injects the current context into it
 	 * @param clazz
@@ -193,7 +194,7 @@ public class AgeFeatureProvider extends DefaultFeatureProvider {
 	protected final <T> T make(final Class<T> clazz) {
 		return ContextInjectionFactory.make(clazz, eclipseContext);
 	}
-	
+
 	// Referencing
 	@Override
 	public Object[] getAllBusinessObjectsForPictogramElement(final PictogramElement pictogramElement) {
@@ -201,17 +202,17 @@ public class AgeFeatureProvider extends DefaultFeatureProvider {
 		final Object bo = getBusinessObjectForPictogramElement(pictogramElement);
 		return bo == null ? new Object[0] : new Object[] { bo };
 	}
-	
+
 	@Override
 	public Object getBusinessObjectForPictogramElement(final PictogramElement pictogramElement) {
 		if(pictogramElement == null) {
 			return null;
 		}
-		
+
 		final DiagramNode dn = graphitiService.getGraphitiAgeDiagram().getClosestDiagramNode(pictogramElement);
 		return dn == null ? null : dn.getBusinessObject();
 	}
-	
+
 	@Override
 	public PictogramElement[] getAllPictogramElementsForBusinessObject(final Object businessObject) {
 		final AgeDiagram ageDiagram = graphitiService.getGraphitiAgeDiagram().getAgeDiagram();
@@ -222,7 +223,7 @@ public class AgeFeatureProvider extends DefaultFeatureProvider {
 		}
 		return pes.toArray(new PictogramElement[pes.size()]);
 	}
-			
+
 	@Override
 	public PictogramElement getPictogramElementForBusinessObject(final Object businessObject) {
 		final AgeDiagram ageDiagram = graphitiService.getGraphitiAgeDiagram().getAgeDiagram();
@@ -231,18 +232,18 @@ public class AgeFeatureProvider extends DefaultFeatureProvider {
 		if(searchRef != null) {
 			getPictogramElements(searchRef, ageDiagram, graphitiService.getGraphitiAgeDiagram(), pes, 1);
 		}
-		
+
 		return pes.size() > 0 ? pes.get(0) : null;
 	}
-	
+
 	/**
-	 * Searches the child of a specified diagram node for elements with a matching canonical business object reference. 
+	 * Searches the child of a specified diagram node for elements with a matching canonical business object reference.
 	 * Returns the associated pictogram elmeents. Returns up to limit entries.
 	 * @return whether the limit has been reached
 	 */
-	private boolean getPictogramElements(final CanonicalBusinessObjectReference searchRef, 
-			final DiagramNode dn, 
-			final NodePictogramBiMap mapping, 			
+	private boolean getPictogramElements(final CanonicalBusinessObjectReference searchRef,
+			final DiagramNode dn,
+			final NodePictogramBiMap mapping,
 			final List<PictogramElement> results,
 			final int limit) {
 		for(final DiagramElement child : dn.getDiagramElements()) {
@@ -255,23 +256,23 @@ public class AgeFeatureProvider extends DefaultFeatureProvider {
 					}
 				}
 			}
-			
+
 			if(getPictogramElements(searchRef, child, mapping, results, limit)) {
 				return true;
 			}
 		}
-		
+
 		return false;
 	}
-		
+
 	// link() is not supported because linkages are only changed when elements in the AgeDiagram is changed.
 	@Override
 	public void link(final PictogramElement pictogramElement, final Object[] businessObjects) {
 		throw new RuntimeException("Not supported");
 	}
-			
+
 	// Don't allow removing, just deleting.
-	@Override 
+	@Override
 	public IRemoveFeature getRemoveFeature(final IRemoveContext context) {
 		return null;
 	}
@@ -280,19 +281,20 @@ public class AgeFeatureProvider extends DefaultFeatureProvider {
 	public IDeleteFeature getDeleteFeature(final IDeleteContext context) {
 		return defaultDeleteFeature;
 	}
-	
+
 	@Override
 	public ICustomFeature[] getCustomFeatures(final ICustomContext context) {
 		final ArrayList<ICustomFeature> features = new ArrayList<ICustomFeature>();
 		addCustomFeatures(features);
 		return features.toArray(new ICustomFeature[] {});
-	}	
+	}
 
 	// Don't allow reconnection
+	@Override
 	public IReconnectionFeature getReconnectionFeature(IReconnectionContext context) {
 		return null;
 	}
-	
+
 	/**
 	 * Method used to additively build a list of custom features. Subclasses can override to add additional custom features while including those supported by parent classes.
 	 * @param features
@@ -308,17 +310,17 @@ public class AgeFeatureProvider extends DefaultFeatureProvider {
 
 		// Commands
 		for(final Object cmd : extService.getCommands()) {
-			features.add(new CommandCustomFeature(cmd, extService, aadlModService, graphitiService, this)); 		
+			features.add(new CommandCustomFeature(cmd, extService, aadlModService, graphitiService, this));
 		}
 	}
-	
+
 	@Override
 	public IDirectEditingFeature getDirectEditingFeature(final IDirectEditingContext context) {
 		return defaultDirectEditFeature;
 	}
-	
+
 	@Override
-	public ICreateFeature[] getCreateFeatures() {		
+	public ICreateFeature[] getCreateFeatures() {
 		final List<ICreateFeature> features = new ArrayList<>();
 		final IEclipseContext childCtx = createGetPaletteEntriesContext();
 		try {
@@ -332,32 +334,32 @@ public class AgeFeatureProvider extends DefaultFeatureProvider {
 						}
 					}
 				}
-			}		
+			}
 		} finally {
 			childCtx.dispose();
 		}
-		
+
 		return features.toArray(new ICreateFeature[0]);
 	}
-			
+
 	@Override
 	public IAddFeature getAddFeature(final IAddContext addCtx) {
 		return null;
 	}
-	
+
 	@Override
 	public IUpdateFeature getUpdateFeature(final IUpdateContext updateCtx) {
 		if(updateCtx.getPictogramElement() instanceof Diagram) {
 			return updateDiagramFeature;
 		}
-		
+
 		return null;
 	}
-		
+
 	@Override
 	public ICreateConnectionFeature[] getCreateConnectionFeatures() {
-		final List<ICreateConnectionFeature> retList = new ArrayList<ICreateConnectionFeature>();	
-		// Add extension create connection features		
+		final List<ICreateConnectionFeature> retList = new ArrayList<ICreateConnectionFeature>();
+		// Add extension create connection features
 		final IEclipseContext childCtx = createGetPaletteEntriesContext();
 		try {
 			for(final Object boHandler : extService.getBusinessObjectHandlers()) {
@@ -370,25 +372,25 @@ public class AgeFeatureProvider extends DefaultFeatureProvider {
 						}
 					}
 				}
-			}		
+			}
 		} finally {
 			childCtx.dispose();
 		}
 
 		return retList.toArray(new ICreateConnectionFeature[0]);
 	}
-		
-	@Override 
+
+	@Override
 	public IMoveBendpointFeature getMoveBendpointFeature(final IMoveBendpointContext context) {
 		return moveBendpointFeature;
 	}
-	
-	@Override 
+
+	@Override
 	public IAddBendpointFeature getAddBendpointFeature(final IAddBendpointContext context) {
 		return addBendpointFeature;
 	}
-	
-	@Override 
+
+	@Override
 	public IRemoveBendpointFeature getRemoveBendpointFeature(final IRemoveBendpointContext context) {
 		return removeBendpointFeature;
 	}
@@ -398,22 +400,22 @@ public class AgeFeatureProvider extends DefaultFeatureProvider {
 		childCtx.set(Names.DIAGRAM_BO, AgeDiagramUtil.getConfigurationContextBusinessObject(graphitiService.getGraphitiAgeDiagram().getAgeDiagram(), referenceResolver));
 		return childCtx;
 	}
-	
+
 	@Override
 	public IMoveConnectionDecoratorFeature getMoveConnectionDecoratorFeature(final IMoveConnectionDecoratorContext context) {
 		return defaultMoveConnectionDecoratorFeature;
 	}
-	
+
 	@Override
 	public IMoveShapeFeature getMoveShapeFeature(final IMoveShapeContext context) {
 		return defaultMoveShapeFeature;
 	}
-	
+
 	@Override
 	public IResizeShapeFeature getResizeShapeFeature(final IResizeShapeContext context) {
 		return defaultResizeShapeFeature;
 	}
-		
+
 	@Override
 	public ILayoutFeature getLayoutFeature(ILayoutContext context) {
 		// Layout is handled automatically

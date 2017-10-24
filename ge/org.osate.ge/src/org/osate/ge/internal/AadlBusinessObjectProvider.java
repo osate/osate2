@@ -47,8 +47,8 @@ import org.osate.aadl2.instance.FeatureInstance;
 import org.osate.ge.BusinessObjectContext;
 import org.osate.ge.di.Activate;
 import org.osate.ge.di.Names;
-import org.osate.ge.internal.model.Tag;
 import org.osate.ge.internal.model.SubprogramCallOrder;
+import org.osate.ge.internal.model.Tag;
 import org.osate.ge.internal.services.ExtensionRegistryService;
 import org.osate.ge.internal.util.AadlFeatureUtil;
 import org.osate.ge.internal.util.AadlHelper;
@@ -65,14 +65,14 @@ public class AadlBusinessObjectProvider {
 		/*
 		if(bo == null) { // Special handling for project
 			Stream.Builder<Object> packages = Stream.builder();
-			for(final IEObjectDescription desc : ScopedEMFIndexRetrieval.getAllEObjectsByType(graphitiService.getProject(), Aadl2Factory.eINSTANCE.getAadl2Package().getAadlPackage())) {
+			for(final IEObjectDescription desc : ScopedEMFIndexRetrieval.getAllEObjectsByType(projectProvider.getProject(), Aadl2Factory.eINSTANCE.getAadl2Package().getAadlPackage())) {
 				final String pkgQualifiedName = desc.getQualifiedName().toString("::");
 				final Object resolvedPackage = refService.resolve(DeclarativeReferenceBuilder.buildPackageCanonicalReference(pkgQualifiedName));
 				if(resolvedPackage != null) {
 					packages.add(resolvedPackage);
 				}
 			}
-			
+
 			return packages.build();
 		} else */if(bo instanceof AadlPackage) {
 			return getChildren((AadlPackage)bo, extRegistryService);
@@ -102,109 +102,107 @@ public class AadlBusinessObjectProvider {
 				return Stream.of(new Tag(Tag.KEY_UNIDIRECTIONAL, null));
 			}
 		}
-		
+
 		return null;
 	}
-	
+
 	// Declarative Model
 	private static Stream<Object> getChildren(final AadlPackage pkg, final ExtensionRegistryService extRegistryService) {
 		// Build a list of all named elements in the public and private sections of the package
 		final Set<Object> children = new HashSet<>();
 		populateChildren(pkg, pkg.getPublicSection(), children, extRegistryService);
-		populateChildren(pkg, pkg.getPrivateSection(), children, extRegistryService);	
-		
+		populateChildren(pkg, pkg.getPrivateSection(), children, extRegistryService);
+
 		return children.stream();
 	}
-	
+
 	private static void populateChildren(final AadlPackage pkg, final PackageSection ps, final Set<Object> children, final ExtensionRegistryService extRegistryService) {
 		if(ps == null) {
 			return;
 		}
-		
+
 		children.addAll(ps.getOwnedClassifiers());
-		
+
 		for(final AnnexLibrary annexLibrary : ps.getOwnedAnnexLibraries()) {
 			final NamedElement parsedAnnexLibrary = getParsedAnnexLibrary(annexLibrary);
 			final boolean specializedHandling = parsedAnnexLibrary != null && extRegistryService.getApplicableBusinessObjectHandler(parsedAnnexLibrary) != null;
 
-			// Create the generic shape if specialized handling wasn't used
-			if(specializedHandling) {
-				children.add(parsedAnnexLibrary);
-			} else {
+			// Only contribute the annex object if a BOH for the annex does not exist. The annex plugin is expected to contribute the object as needed.
+			if (!specializedHandling) {
 				children.add(annexLibrary);
 			}
 		}
 	}
-	
+
 	private static NamedElement getParsedAnnexLibrary(final NamedElement annexLibrary) {
 		if(annexLibrary instanceof DefaultAnnexLibrary) {
 			final NamedElement parsedLib = ((DefaultAnnexLibrary) annexLibrary).getParsedAnnexLibrary();
-			
+
 			// Don't return libraries which inherit from DefaultAnnexLibrary
 			if(parsedLib instanceof DefaultAnnexLibrary) {
 				return null;
 			}
-			
+
 			return parsedLib;
 		}
-		
+
 		return null;
 	}
-	
+
 	private static AnnexSubclause getParsedAnnexSubclause(final NamedElement annexSubclause) {
 		if(annexSubclause instanceof DefaultAnnexSubclause) {
 			final AnnexSubclause parsedSubclause = ((DefaultAnnexSubclause) annexSubclause).getParsedAnnexSubclause();
-			
+
 			// Don't return libraries which inherit from DefaultAnnexSubclause
 			if(parsedSubclause instanceof DefaultAnnexSubclause) {
 				return null;
 			}
-			
+
 			return parsedSubclause;
 		}
-		
+
 		return null;
 	}
-	
-	private static Stream<?> getChildren(final Subcomponent sc, 
+
+	private static Stream<?> getChildren(final Subcomponent sc,
 			final BusinessObjectContext scBoc,
 			final ExtensionRegistryService extRegistryService) {
 		final ComponentClassifier cc = AadlSubcomponentUtil.getComponentClassifier(scBoc, sc);
 		if(cc == null) {
 			return null;
 		}
-		
+
 		Stream<?> results = getChildren(cc, false, extRegistryService);
-		
-		final String scTypeTxt = AadlSubcomponentUtil.getSubcomponentTypeDescription(sc);
+
+		final String scTypeTxt = AadlSubcomponentUtil.getSubcomponentTypeDescription(sc, scBoc);
 		if(scTypeTxt != null) {
 			results = Stream.concat(results, Stream.of(new Tag(Tag.KEY_SUBCOMPONENT_TYPE, scTypeTxt)));
 		}
 
 		return results;
 	}
-	
+
 	private static Stream<?> getChildren(final SubprogramCall call) {
 		final SubprogramType subprogramType = getSubprogramType(call);
 		Stream<?> results = Stream.empty();
 		if(subprogramType != null) {
-			results = Stream.concat(results, 
-					Stream.concat(AadlFeatureUtil.getAllDeclaredFeatures(subprogramType).stream(), 
+			results = Stream.concat(results,
+					Stream.concat(AadlFeatureUtil.getAllDeclaredFeatures(subprogramType).stream(),
 							subprogramType.getAllFlowSpecifications().stream()));
 		}
-		
+
 		final String calledSubprogramReference = AadlSubprogramCallUtil.getCalledSubprogramDescription(call);
 		if(calledSubprogramReference != null) {
 			results = Stream.concat(results, Stream.of(new Tag(Tag.KEY_SUBPROGRAM_CALL_CALLED_SUBPROGRAM, calledSubprogramReference)));
 		}
-		
+
 		return results;
 	}
-	
+
 	private static Stream<?> getChildren(final SubprogramCallSequence cs) {
 		return Stream.concat(cs.getOwnedSubprogramCalls().stream(), SubprogramCallOrder.getSubprogramCallOrders(cs.getOwnedSubprogramCalls()).stream());
 	}
-	
+
 	/**
 	 * Finds and returns the SubprogramType associated with the specified model element.
 	 * @param element
@@ -233,40 +231,38 @@ public class AadlBusinessObjectProvider {
 			return null;
 		}
 	}
-	
-	private static Stream<?> getChildren(final Classifier classifier, 
+
+	private static Stream<?> getChildren(final Classifier classifier,
 			final boolean includeGeneralizations,
 			final ExtensionRegistryService extRegistryService) {
 		Stream<?> children = Stream.empty();
-		
+
 		// Shapes
 		children = Stream.concat(children, AadlFeatureUtil.getAllDeclaredFeatures(classifier).stream());
-		
+
 		if(classifier instanceof ComponentImplementation) {
 			final ComponentImplementation ci = (ComponentImplementation)classifier;
 			children = Stream.concat(children, AadlHelper.getAllInternalFeatures(ci).stream());
 			children = Stream.concat(children, AadlHelper.getAllProcessorFeatures(ci).stream());
 			children = Stream.concat(children, ci.getAllSubcomponents().stream());
 		}
-		
+
 		if(classifier instanceof BehavioredImplementation) {
 			children = Stream.concat(children, AadlHelper.getAllSubprogramCallSequences((BehavioredImplementation)classifier).stream());
 		}
-		
+
 		if(classifier instanceof ComponentClassifier) {
 			children = Stream.concat(children, ((ComponentClassifier)classifier).getAllModes().stream());
 		}
-		
+
 		// Annex Subclauses
 		final Stream.Builder<AnnexSubclause> subclauseStreamBuilder = Stream.builder();
 		for(final AnnexSubclause annexSubclause : getAllDefaultAnnexSubclauses(classifier)) {
 			final AnnexSubclause parsedAnnexSubclause = getParsedAnnexSubclause(annexSubclause);
 			final boolean specializedHandling = parsedAnnexSubclause != null && extRegistryService.getApplicableBusinessObjectHandler(parsedAnnexSubclause) != null;
 
-			// Create the generic shape if specialized handling wasn't used
-			if(specializedHandling) {
-				subclauseStreamBuilder.add(parsedAnnexSubclause);
-			} else {
+			// Only contribute the annex object if a BOH for the annex does not exist. The annex plugin is expected to contribute the object as needed.
+			if (!specializedHandling) {
 				subclauseStreamBuilder.add(annexSubclause);
 			}
 		}
@@ -276,11 +272,11 @@ public class AadlBusinessObjectProvider {
 		if(classifier instanceof ComponentClassifier) {
 			children = Stream.concat(children, ((ComponentClassifier)classifier).getAllModeTransitions().stream());
 		}
-		
+
 		if(classifier instanceof ComponentImplementation) {
 			children = Stream.concat(children, ((ComponentImplementation)classifier).getAllConnections().stream());
 		}
-		
+
 		final ComponentType componentType;
 		if(classifier instanceof ComponentType) {
 			componentType = (ComponentType)classifier;
@@ -289,11 +285,11 @@ public class AadlBusinessObjectProvider {
 		} else {
 			componentType = null;
 		}
-		
-		if(componentType != null) {			
+
+		if(componentType != null) {
 			children = Stream.concat(children, componentType.getAllFlowSpecifications().stream());
 		}
-	
+
 		// Add generalizations
 		if(includeGeneralizations) {
 			if(classifier instanceof ComponentType) {
@@ -304,18 +300,18 @@ public class AadlBusinessObjectProvider {
 				}
 			} else if(classifier instanceof ComponentImplementation) {
 				final ComponentImplementation componentImplementation = ((ComponentImplementation)classifier);
-	
+
 				// Implementation Extension
 				final ImplementationExtension ie = componentImplementation.getOwnedExtension();
 				if(ie != null) {
-					children = Stream.concat(children, Stream.of(ie));				
+					children = Stream.concat(children, Stream.of(ie));
 				}
-				
+
 				// Realization
 				final Realization realization = componentImplementation.getOwnedRealization();
-				if(realization != null) {	
-					children = Stream.concat(children, Stream.of(realization));			
-				}				
+				if(realization != null) {
+					children = Stream.concat(children, Stream.of(realization));
+				}
 			} else if(classifier instanceof FeatureGroupType) {
 				final FeatureGroupType featureGroupType = ((FeatureGroupType)classifier);
 				final GroupExtension ge = featureGroupType.getOwnedExtension();
@@ -324,10 +320,10 @@ public class AadlBusinessObjectProvider {
 				}
 			}
 		}
-		
+
 		return children;
 	}
-	
+
 	/**
 	 * Returns all the default annex subclauses owned by a classifier or any extended or implemented classifiers.
 	 * @param topClassifier
@@ -338,7 +334,7 @@ public class AadlBusinessObjectProvider {
 		if(topClassifier == null) {
 			return result;
 		}
-		
+
 		final EList<Classifier> classifiers = topClassifier.getSelfPlusAllExtended();
 		if (topClassifier instanceof ComponentImplementation) {
 			ComponentType ct = ((ComponentImplementation) topClassifier).getType();
@@ -347,13 +343,13 @@ public class AadlBusinessObjectProvider {
 				classifiers.addAll(tclassifiers);
 			}
 		}
-		
+
 		for (Classifier classifier : classifiers) {
 			result.addAll(classifier.getOwnedAnnexSubclauses());
 		}
 		return result;
 	}
-	
+
 	// Instance Model
 	private static Stream<?> getChildren(ComponentInstance ci) {
 		Stream.Builder<Object> connectionReferenceStreamBuilder = Stream.builder();
@@ -361,9 +357,9 @@ public class AadlBusinessObjectProvider {
 			for(final ConnectionReference cr : connectionInstance.getConnectionReferences()) {
 				connectionReferenceStreamBuilder.add(cr);
 			}
-		}	
+		}
 
-		return Stream.concat(Stream.concat(ci.getComponentInstances().stream(), 
+		return Stream.concat(Stream.concat(ci.getComponentInstances().stream(),
 				ci.getFeatureInstances().stream()),
 				connectionReferenceStreamBuilder.build());
 	}

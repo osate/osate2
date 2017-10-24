@@ -52,7 +52,7 @@ An existing AADL model can be opened in the graphical editor. Changes made to ei
 The graphical editor supports navigating between related diagrams in several ways.
 
 ## Opening an Associated Diagram
-Diagrams associated with a particular element can be opened by double-clicking on the model element. For example, double-clicking a classifier inside a package diagram will open that classifier's diagram. Alternatively, the associated diagram can be open by right-clicking on the element and selecting *Open Associated Diagram* from the context menu.
+Diagrams associated with a particular element can be opened by right-clicking on the element and selecting *Open Associated Diagram* from the context menu. 
 
 ![](../images/OpenAssociatedDiagram.png)
 
@@ -95,6 +95,10 @@ Table: Auto Children Setting {#tbl:auto_children_setting}
 
 The diagram configuration dialog also allows selecting which AADL properties will be included in the diagram. The *communication_properties::timing* property is implicitly enabled and is represented by specialized graphical indicators. Delayed connections have a double bar indicator in the middle. Immediate connections have a double arrow in the middle.
 
+Connections which are manually enabled will be removed if the connection ends are not also included in the diagram.
+
+The *Select the Hide Connection Labels* option can be used to set the default visibility of labels for connections between diagram elements. Label visibility for individual elements can be controlled using the properties view described in @sec:de_apperance.
+
 ### Showing and Hiding Diagram Element Contents
 Menu options available in a diagram element's context menu will modify the diagram configuration to show and hide contents of a selected element. Access the context menu by right-clicking on a diagram element.
 
@@ -117,8 +121,11 @@ In some cases a connection between diagram elements will be represented by a dot
 - An AADL property reference value for which the model element to which the property value applies is hidden.
 - An AADL property reference value for which the referenced model element is hidden.
 
-### Inherited Element
+### Inherited Elements
 Elements which are inherited from another model element have a gray color. This indicates that any changes made to the model element will result in a change to model element other than the one in which it is contained in graphically. Modifying inherited elements directly is not supported at this time. To modify an inherited model element, modify the element in the context of its owner. For example, to modify an AADL feature which is inherited from another classifier, find the diagram element of the classifier which defines the feature and modify the feature. 
+
+### Editing Properties
+The properties sheet contains properties for the currently selected diagram elements. The properties sheet can be opened by double-clicking on a diagram element in the diagram or in the outline. Alternatively, the properties sheet can be opened by right-clicking on a diagram element in the diagram or outline and selecting *Properties...* from the context menu.
 
 ### Deleting
 An element can be deleted from the AADL model by selecting it and pressing the *Delete* key. An element can also be deleted by right-clicking on it and selecting *Delete* from the context menu.
@@ -172,6 +179,25 @@ Under some circumstances, it is difficult to select the desired diagram element 
 When creating a new diagram from an AADL model, the editor lays out the diagram automatically. The layout of the diagram can be redone by right-clicking inside the diagram and select *Layout Diagram*. Doing so will adjust the positions of all the shapes in the diagram.
 
 ![](../images/LayoutDiagram.png)
+
+### Editing a Diagram Element's Appearance{#sec:de_apperance}
+The appearance of diagram elements can be edited by using the *Appearance* tab of the *Properties* view.
+
+An element's appearance can be changed using the following steps.
+
+1. Open the *Properties* view by double-clicking on an element or by selecting *Properties...* from the context menu.
+
+2. Select the diagram element(s) to be edited.
+
+3. Select the *Appearance* tab.
+
+4. Select desired appearance options.
+	- The *Label Visibility* option allows hiding or showing the diagram element's label.
+	- Font size can be edited by selecting the font size drop-down menu.
+	- Line width can be edited by selecting the line width drop-down menu.
+	- Outline color can be edited by clicking the outline button and selecting the desired color.
+	- Font color can be edited by clicking the font color button and selecting the desired color.
+	- Background color can be edited by clicking the background color button and selecting the desired color.
 
 ## Connections
 The graphical editor allows editing AADL connections such as access, feature, feature group, parameter, and port.
@@ -402,7 +428,9 @@ The component type can be swapped between using derived and non-derived modes by
 Selecting a mode from the mode drop-down in the toolbar will highlight elements applicable to the mode.
 
 ### Selecting Active Components{#sec:selective_active_components}
-The editor allows specifying the modes in which a modal element, such as a subcomponent, is active as well as the mapping between modes in the case of derived modes. The modes can be specified by right-clicking on the element and selecting *Configure In Modes...* from the context menu.
+The editor allows specifying the modes in which modal elements, such as subcomponents, are active as well as the mapping between modes in the case of derived modes.  The modes can be specified by selecting the element(s) in the editor and using the *AADL* tab of the *Properties* view.
+
+![](../images/InModesProperties.png)
 
 ## Bindings
 

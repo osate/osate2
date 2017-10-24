@@ -21,7 +21,7 @@ import org.osate.ge.di.Names;
 import org.osate.ge.BusinessObjectContext;
 import org.osate.ge.internal.di.GetBusinessObjectToModify;
 import org.osate.ge.internal.ui.dialogs.EditDimensionsDialog;
-import org.osate.ge.internal.ui.util.SelectionHelper;
+import org.osate.ge.internal.ui.util.SelectionUtil;
 import org.osate.ge.query.StandaloneQuery;
 import org.osate.ge.services.QueryService;
 
@@ -48,7 +48,7 @@ public class SetDimensionsCommand {
 	
 	@Activate
 	public boolean activate(@Named(Names.BUSINESS_OBJECT) final ArrayableElement ae) {
-		final EditDimensionsDialog dlg = new EditDimensionsDialog(Display.getCurrent().getActiveShell(), SelectionHelper.getProject(ae.eResource()), ae.getArrayDimensions(), ae instanceof Subcomponent);
+		final EditDimensionsDialog dlg = new EditDimensionsDialog(Display.getCurrent().getActiveShell(), SelectionUtil.getProject(ae.eResource()), ae.getArrayDimensions(), ae instanceof Subcomponent);
 		if(dlg.open() == Dialog.CANCEL) {
 			return false;
 		}

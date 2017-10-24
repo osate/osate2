@@ -31,6 +31,7 @@ package org.osate.ge.internal.services.impl;
 
 import java.util.Collection;
 import java.util.List;
+
 import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.osate.ge.internal.services.ExtensionRegistryService;
 import org.osate.ge.internal.services.ExtensionService;
@@ -45,11 +46,6 @@ public class DefaultExtensionService implements ExtensionService {
 	}
 	
 	@Override
-	public Collection<Object> getTools() {
-		return globalExtService.getTools();
-	}
-	
-	@Override
 	public Collection<Object> getBusinessObjectHandlers() {
     	return globalExtService.getBusinessObjectHandlers();
     }
@@ -59,6 +55,7 @@ public class DefaultExtensionService implements ExtensionService {
 		return globalExtService.getApplicableBusinessObjectHandler(bo);
 	}
 	
+	@Override
 	public Collection<Object> getTooltipContributors() {
 		return globalExtService.getTooltipContributors();
 	}

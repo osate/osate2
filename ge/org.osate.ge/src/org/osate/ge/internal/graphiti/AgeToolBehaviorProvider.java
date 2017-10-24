@@ -1,24 +1,24 @@
-// Based on OSATE Graphical Editor. Modifications are: 
+// Based on OSATE Graphical Editor. Modifications are:
 /*
 Copyright (c) 2016, Rockwell Collins.
 Developed with the sponsorship of Defense Advanced Research Projects Agency (DARPA).
 
-Permission is hereby granted, free of charge, to any person obtaining a copy of this data, 
-including any software or models in source or binary form, as well as any drawings, specifications, 
+Permission is hereby granted, free of charge, to any person obtaining a copy of this data,
+including any software or models in source or binary form, as well as any drawings, specifications,
 and documentation (collectively "the Data"), to deal in the Data without restriction, including
-without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, 
-and/or sell copies of the Data, and to permit persons to whom the Data is furnished to do so, 
+without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense,
+and/or sell copies of the Data, and to permit persons to whom the Data is furnished to do so,
 subject to the following conditions:
 
-The above copyright notice and this permission notice shall be included in all copies or 
+The above copyright notice and this permission notice shall be included in all copies or
 substantial portions of the Data.
 
-THE DATA IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT 
-LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. 
-IN NO EVENT SHALL THE AUTHORS, SPONSORS, DEVELOPERS, CONTRIBUTORS, OR COPYRIGHT HOLDERS BE LIABLE 
-FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, 
+THE DATA IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT
+LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+IN NO EVENT SHALL THE AUTHORS, SPONSORS, DEVELOPERS, CONTRIBUTORS, OR COPYRIGHT HOLDERS BE LIABLE
+FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
 ARISING FROM, OUT OF OR IN CONNECTION WITH THE DATA OR THE USE OR OTHER DEALINGS IN THE DATA.
-*/
+ */
 /*******************************************************************************
  * Copyright (C) 2013 University of Alabama in Huntsville (UAH)
  * All rights reserved. This program and the accompanying materials
@@ -32,6 +32,7 @@ package org.osate.ge.internal.graphiti;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+
 import javax.inject.Inject;
 
 import org.eclipse.e4.core.contexts.IEclipseContext;
@@ -57,7 +58,7 @@ import org.eclipse.graphiti.tb.IContextButtonPadData;
 import org.osate.aadl2.Generalization;
 import org.osate.ge.internal.Categorized;
 import org.osate.ge.internal.commands.GraphicalToTextualCommand;
-import org.osate.ge.internal.graphiti.features.BoHandlerDoubleClickFeature;
+import org.osate.ge.internal.graphiti.features.AgeDoubleClickFeature;
 import org.osate.ge.internal.graphiti.features.CommandCustomFeature;
 import org.osate.ge.internal.graphiti.services.GraphitiService;
 import org.osate.ge.internal.services.ExtensionRegistryService.Category;
@@ -65,40 +66,40 @@ import org.osate.ge.internal.services.ExtensionService;
 
 public class AgeToolBehaviorProvider extends DefaultToolBehaviorProvider {
 	private final static String GRAPHICAL_TO_TEXTUAL_FEATURE_HINT = "graphicalToTextualFeature";
-	
+
 	private final IEclipseContext context;
 	private final ExtensionService extensionService;
-	private final BoHandlerDoubleClickFeature defaultDoubleClickFeature;
-	
+	private final AgeDoubleClickFeature defaultDoubleClickFeature;
+
 	@Inject
 	public AgeToolBehaviorProvider(final GraphitiService graphiti, final ExtensionService extensionService, final IEclipseContext context) {
 		super(graphiti.getDiagramTypeProvider());
 		this.extensionService = extensionService;
 		this.context = context;
-		this.defaultDoubleClickFeature = new BoHandlerDoubleClickFeature(extensionService, graphiti, getFeatureProvider());
+		this.defaultDoubleClickFeature = new AgeDoubleClickFeature(getFeatureProvider());
 	}
 
 	@Override
 	public String getContributorId() {
 		return "org.osate.ge.editor.AgeDiagramEditor";
 	}
-	
+
 	//Remove context buttons from pictogram elements
 	@Override
 	public IContextButtonPadData getContextButtonPad(IPictogramElementContext context) {
 		return null;
 	}
-	
+
 	// Override the business object equality check. This is needed in the case of Generalization because the owner is one of the defining
 	// characteristics and is not checked by the default check which uses EcoreUtil.equals().
 	@Override
-	public boolean equalsBusinessObjects(final Object o1, final Object o2) {            	
+	public boolean equalsBusinessObjects(final Object o1, final Object o2) {
 		if(o1 instanceof Generalization) {
 			return o1.equals(o2);
-		} 
+		}
 		return super.equalsBusinessObjects(o1, o2);
 	}
-	
+
 	/**
 	 * This is how we provide objects in the context to the editor.
 	 */
@@ -107,20 +108,20 @@ public class AgeToolBehaviorProvider extends DefaultToolBehaviorProvider {
 		if(type == IEclipseContext.class) {
 			return context;
 		}
-		
+
 		final Object result = context.get(type);
 		if(result != null) {
 			return result;
 		}
-		
+
 		return super.getAdapter(type);
-	}	
+	}
 
 	@Override
 	public ICustomFeature getDoubleClickFeature(final IDoubleClickContext context) {
-	    return defaultDoubleClickFeature;
-	 }
-		
+		return defaultDoubleClickFeature;
+	}
+
 	/**
 	 * Override of getSelection that checks the shape and containers and returns the first shape with a business object. Allows using active objects without them being
 	 * selectable.
@@ -128,7 +129,7 @@ public class AgeToolBehaviorProvider extends DefaultToolBehaviorProvider {
 	@Override
 	public PictogramElement getSelection(PictogramElement originalPe, PictogramElement[] oldSelection) {
 		if(originalPe instanceof ConnectionDecorator) {
-		} else if(originalPe instanceof Shape) {					
+		} else if(originalPe instanceof Shape) {
 			// Return the first shape that has a business object
 			Shape shape = (Shape)originalPe;
 			while(shape != null && (getFeatureProvider().getBusinessObjectForPictogramElement(shape) == null)) {
@@ -138,47 +139,47 @@ public class AgeToolBehaviorProvider extends DefaultToolBehaviorProvider {
 		}
 		return null;
 	}
-	
+
 	//Execute when keyboard command is pressed.  Registered in plugin.xml
 	@Override
 	public ICustomFeature getCommandFeature(final CustomContext context, String hint){
 		//Use hint to verify command should be executed
-		if(GRAPHICAL_TO_TEXTUAL_FEATURE_HINT.equals(hint)){		
+		if(GRAPHICAL_TO_TEXTUAL_FEATURE_HINT.equals(hint)){
 			for(final ICustomFeature customFeature : getFeatureProvider().getCustomFeatures(context)) {
 				if(customFeature instanceof CommandCustomFeature) {
 					if(((CommandCustomFeature) customFeature).getCommand() instanceof GraphicalToTextualCommand) {
-						if(customFeature.canExecute(context)){	
+						if(customFeature.canExecute(context)){
 							return customFeature;
 						}
 						break;
 					}
 				}
-			}			
+			}
 		}
 		return super.getCommandFeature(context, hint);
 	}
-	
+
 	@Override
-	public String getTitleToolTip() {		
+	public String getTitleToolTip() {
 		final String diagramTitle = getDiagramTypeProvider() == null ? null : getDiagramTypeProvider().getDiagramTitle();
 		return diagramTitle == null ? super.getTitleToolTip() : diagramTitle;
 	}
-	
+
 	@Override
-	public IPaletteCompartmentEntry[] getPalette() {	
+	public IPaletteCompartmentEntry[] getPalette() {
 		final class PaletteCompartments {
 			private final ArrayList<PaletteCompartmentEntry> compartments = createCompartmentEntries();
 			private ArrayList<PaletteCompartmentEntry> createCompartmentEntries() {
 				final ArrayList<PaletteCompartmentEntry> compartmentEntries= new ArrayList<PaletteCompartmentEntry>();
 				for(final Category category : extensionService.getCategories()) {
-					final PaletteCompartmentEntry newEntry = new PaletteCompartmentEntry(((Category)category).getName(), null);
+					final PaletteCompartmentEntry newEntry = new PaletteCompartmentEntry(category.getName(), null);
 					newEntry.setInitiallyOpen(false);
 					compartmentEntries.add(newEntry);
 				}
 
 				return compartmentEntries;
 			}
-	
+
 			/**
 			 * Add the tool entry to the correct category
 			 * @param toolEntry the toolEntry to be added to the palette
@@ -197,7 +198,7 @@ public class AgeToolBehaviorProvider extends DefaultToolBehaviorProvider {
 					compartments.get(compartments.size()-1).addToolEntry(toolEntry);
 				}
 			}
-			
+
 			/**
 			 * Get the category
 			 * @param feature
@@ -223,13 +224,13 @@ public class AgeToolBehaviorProvider extends DefaultToolBehaviorProvider {
 						return category;
 					}
 				}
-				
+
 				return null;
 			}
 
 			public void removeEmpty() {
-				// Remove empty compartments		
-				final Iterator<PaletteCompartmentEntry> it = compartments.iterator(); 
+				// Remove empty compartments
+				final Iterator<PaletteCompartmentEntry> it = compartments.iterator();
 				while(it.hasNext()) {
 					final IPaletteCompartmentEntry entry = it.next();
 					if(entry.getToolEntries().isEmpty()) {
@@ -237,17 +238,17 @@ public class AgeToolBehaviorProvider extends DefaultToolBehaviorProvider {
 					}
 				}
 			}
-			
+
 			public IPaletteCompartmentEntry[] toArray() {
 				return compartments.toArray(new IPaletteCompartmentEntry[compartments.size()]);
 			}
 		};
-		
-		final PaletteCompartments compartments = new PaletteCompartments();	
-		final IFeatureProvider featureProvider = getFeatureProvider();		
+
+		final PaletteCompartments compartments = new PaletteCompartments();
+		final IFeatureProvider featureProvider = getFeatureProvider();
 		final ICreateConnectionFeature[] createConnectionFeatures = featureProvider.getCreateConnectionFeatures();
 		if (createConnectionFeatures.length > 0) {
-			for (ICreateConnectionFeature createConnectionFeature : createConnectionFeatures) {	
+			for (ICreateConnectionFeature createConnectionFeature : createConnectionFeatures) {
 				final ConnectionCreationToolEntry ccTool = new ConnectionCreationToolEntry(
 						createConnectionFeature.getCreateName(), createConnectionFeature.getCreateDescription(),
 						createConnectionFeature.getCreateImageId(), createConnectionFeature.getCreateLargeImageId());
@@ -255,7 +256,7 @@ public class AgeToolBehaviorProvider extends DefaultToolBehaviorProvider {
 				compartments.addToolEntry(ccTool, createConnectionFeature);
 			}
 		}
-		
+
 		final ICreateFeature[] createFeatures = featureProvider.getCreateFeatures();
 		if (createFeatures.length > 0){
 			for (ICreateFeature createFeature : createFeatures) {
@@ -265,12 +266,12 @@ public class AgeToolBehaviorProvider extends DefaultToolBehaviorProvider {
 				compartments.addToolEntry(objectCreationToolEntry, createFeature);
 			}
 		}
-		
+
 		compartments.removeEmpty();
 
 		return compartments.toArray();
 	}
-	
+
 	/**
 	 * Overrides the mechanism to get the graphics algorithm used to determine the chop box location so that it uses the first graphics algorithm that isn't invisible.
 	 * @param pe

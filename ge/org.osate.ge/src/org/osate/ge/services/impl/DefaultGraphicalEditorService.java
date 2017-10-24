@@ -1,24 +1,24 @@
-// Based on OSATE Graphical Editor. Modifications are: 
+// Based on OSATE Graphical Editor. Modifications are:
 /*
 Copyright (c) 2016, Rockwell Collins.
 Developed with the sponsorship of Defense Advanced Research Projects Agency (DARPA).
 
-Permission is hereby granted, free of charge, to any person obtaining a copy of this data, 
-including any software or models in source or binary form, as well as any drawings, specifications, 
+Permission is hereby granted, free of charge, to any person obtaining a copy of this data,
+including any software or models in source or binary form, as well as any drawings, specifications,
 and documentation (collectively "the Data"), to deal in the Data without restriction, including
-without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, 
-and/or sell copies of the Data, and to permit persons to whom the Data is furnished to do so, 
+without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense,
+and/or sell copies of the Data, and to permit persons to whom the Data is furnished to do so,
 subject to the following conditions:
 
-The above copyright notice and this permission notice shall be included in all copies or 
+The above copyright notice and this permission notice shall be included in all copies or
 substantial portions of the Data.
 
-THE DATA IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT 
-LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. 
-IN NO EVENT SHALL THE AUTHORS, SPONSORS, DEVELOPERS, CONTRIBUTORS, OR COPYRIGHT HOLDERS BE LIABLE 
-FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, 
+THE DATA IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT
+LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+IN NO EVENT SHALL THE AUTHORS, SPONSORS, DEVELOPERS, CONTRIBUTORS, OR COPYRIGHT HOLDERS BE LIABLE
+FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
 ARISING FROM, OUT OF OR IN CONNECTION WITH THE DATA OR THE USE OR OTHER DEALINGS IN THE DATA.
-*/
+ */
 /*******************************************************************************
  * Copyright (C) 2016 University of Alabama in Huntsville (UAH)
  * All rights reserved. This program and the accompanying materials
@@ -55,35 +55,31 @@ public class DefaultGraphicalEditorService implements GraphicalEditorService {
 	private static interface ValueGenerator<T> {
 		T generateValue(ExtensionService extService, Object bo, Object diagramBo);
 	}
-	
-	private final DiagramService diagramService;
-	private final ValueGenerator<IEclipseContext> contextBuilder = new ValueGenerator<IEclipseContext>() {
 
-		@Override
-		public IEclipseContext generateValue(final ExtensionService extService, final Object bo, final Object diagramBo) {
-			final IEclipseContext ctx = extService.createChildContext();
-			try {
-				ctx.set(Names.BUSINESS_OBJECT, bo);
-				ctx.set(Names.DIAGRAM_BO, diagramBo);
-				return ctx;
-			} catch(Exception e) {
-				ctx.dispose();
-				return null;
-			}
-		}		
+	private final DiagramService diagramService;
+	private final ValueGenerator<IEclipseContext> contextBuilder = (extService, bo, diagramBo) -> {
+		final IEclipseContext ctx = extService.createChildContext();
+		try {
+			ctx.set(Names.BUSINESS_OBJECT, bo);
+			ctx.set(Names.DIAGRAM_BO, diagramBo);
+			return ctx;
+		} catch(Exception e) {
+			ctx.dispose();
+			return null;
+		}
 	};
-	
+
 	public static class ContextFunction extends SimpleServiceContextFunction<GraphicalEditorService> {
 		@Override
 		public GraphicalEditorService createService(final IEclipseContext context) {
 			return new DefaultGraphicalEditorService(context.get(DiagramService.class));
-		}		
+		}
 	}
-	
+
 	public DefaultGraphicalEditorService(final DiagramService diagramService) {
 		this.diagramService = Objects.requireNonNull(diagramService, "diagramService must not be null");
 	}
-	
+
 	@Override
 	public GraphicalEditor openBusinessObject(final Object bo) {
 		return diagramService.openOrCreateDiagramForBusinessObject(bo);
@@ -94,7 +90,7 @@ public class DefaultGraphicalEditorService implements GraphicalEditorService {
 		Object result = performOperation(potentialOperand, (extService, bo, diagramBo) -> true);
 		return result != null;
 	}
-	
+
 	@Override
 	public Object operateOn(final Object operand, final Object operation) {
 		// Activate the operation
@@ -113,48 +109,55 @@ public class DefaultGraphicalEditorService implements GraphicalEditorService {
 	 * @return null if a value could not be executed. Otherwise, the result of the specified value generator.
 	 */
 	private <T> T performOperation(final Object operand, final ValueGenerator<T> valueGenerator) {
-		if(!(operand instanceof EditPart)) {
-			return null;
-		}
-		
-		final EditPart editPart = (EditPart)operand;
-		if(!(editPart.getModel() instanceof PictogramElement)) {
-			return null;
-		}
-		
-		final PictogramElement pe = (PictogramElement)editPart.getModel();
-		
-		// Get services
-		final EditDomain editDomain = editPart.getViewer().getEditDomain();
-		if(!(editDomain instanceof DefaultEditDomain)){
-			return null;
-		}
-						
-		final DefaultEditDomain defaultEditDomain = (DefaultEditDomain)editDomain;
-		final IEditorPart editorPart = defaultEditDomain.getEditorPart();
-		if(!(editorPart instanceof AgeDiagramEditor)) {
+		if (!(operand instanceof EditPart)) {
 			return null;
 		}
 
-		final ExtensionService extService = (ExtensionService)editorPart.getAdapter(ExtensionService.class);
-		final GraphitiAgeDiagramProvider graphitiAgeDiagramProvider = (GraphitiAgeDiagramProvider)editorPart.getAdapter(GraphitiAgeDiagramProvider.class);
-		final ProjectReferenceService referenceService = (ProjectReferenceService)editorPart.getAdapter(ProjectReferenceService.class);
-		
+		final EditPart editPart = (EditPart) operand;
+		if (!(editPart.getModel() instanceof PictogramElement)) {
+			return null;
+		}
+
+		if (editPart.getViewer() == null) {
+			return null;
+		}
+
+		final PictogramElement pe = (PictogramElement) editPart.getModel();
+
+		// Get services
+		final EditDomain editDomain = editPart.getViewer().getEditDomain();
+		if (!(editDomain instanceof DefaultEditDomain)) {
+			return null;
+		}
+
+		final DefaultEditDomain defaultEditDomain = (DefaultEditDomain) editDomain;
+		final IEditorPart editorPart = defaultEditDomain.getEditorPart();
+		if (!(editorPart instanceof AgeDiagramEditor)) {
+			return null;
+		}
+
+		final ExtensionService extService = editorPart.getAdapter(ExtensionService.class);
+		final GraphitiAgeDiagramProvider graphitiAgeDiagramProvider = editorPart
+				.getAdapter(GraphitiAgeDiagramProvider.class);
+		final ProjectReferenceService referenceService = editorPart
+				.getAdapter(ProjectReferenceService.class);
+
 		// Services may be null if the pictogram element doesn't belong to an OSATE GE Diagram.
-		if(extService == null || graphitiAgeDiagramProvider == null || graphitiAgeDiagramProvider.getGraphitiAgeDiagram() == null) {
+		if (extService == null || graphitiAgeDiagramProvider == null
+				|| graphitiAgeDiagramProvider.getGraphitiAgeDiagram() == null) {
 			return null;
 		}
-		
+
 		final DiagramNode dn = graphitiAgeDiagramProvider.getGraphitiAgeDiagram().getClosestDiagramNode(pe);
-		if(dn == null) {
+		if (dn == null) {
 			return null;
 		}
-		
+
 		final Object bo = dn.getBusinessObject();
 		if(bo == null) {
 			return null;
 		}
-		
+
 		// Diagrams are no longer directly associated with a business object. Use the diagram configuration to determine the diagram business object.
 		final Object diagramBo = AgeDiagramUtil.getConfigurationContextBusinessObject(graphitiAgeDiagramProvider.getGraphitiAgeDiagram().getAgeDiagram(), referenceService);
 		return valueGenerator.generateValue(extService, bo, diagramBo);

@@ -1,7 +1,8 @@
 package org.osate.ge.internal.diagram.runtime.updating;
 
 import java.util.Objects;
-import org.osate.ge.internal.AgeGraphicalConfiguration;
+
+import org.osate.ge.graphics.internal.AgeGraphicalConfiguration;
 import org.osate.ge.internal.businessObjectHandlers.BusinessObjectHandlerProvider;
 import org.osate.ge.internal.diagram.runtime.DiagramElement;
 import org.osate.ge.internal.services.ExtensionService;

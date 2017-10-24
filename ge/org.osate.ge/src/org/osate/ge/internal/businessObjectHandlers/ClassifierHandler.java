@@ -4,20 +4,22 @@
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
  * http://www.eclipse.org/legal/epl-v10.html
- * This material is based upon work supported by 
- * Aviation and Missile Research, Development, and Engineering Command (AMRDEC) 
+ * This material is based upon work supported by
+ * Aviation and Missile Research, Development, and Engineering Command (AMRDEC)
  * under W31P4Q-15-D-0062 TO 0045.
  *******************************************************************************/
 package org.osate.ge.internal.businessObjectHandlers;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import javax.inject.Named;
+
 import org.eclipse.core.resources.IProject;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.util.EcoreUtil;
-import org.eclipse.jface.dialogs.Dialog;
+import org.eclipse.jface.window.Window;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.xtext.resource.IEObjectDescription;
 import org.osate.aadl2.Aadl2Factory;
@@ -42,22 +44,18 @@ import org.osate.ge.PaletteEntry;
 import org.osate.ge.PaletteEntryBuilder;
 import org.osate.ge.di.CanCreate;
 import org.osate.ge.di.CanDelete;
+import org.osate.ge.di.CanRename;
 import org.osate.ge.di.Create;
 import org.osate.ge.di.GetCreateOwner;
 import org.osate.ge.di.GetGraphicalConfiguration;
 import org.osate.ge.di.GetName;
+import org.osate.ge.di.GetNameForEditing;
 import org.osate.ge.di.GetPaletteEntries;
-import org.osate.ge.di.HandleDoubleClick;
 import org.osate.ge.di.IsApplicable;
 import org.osate.ge.di.Names;
 import org.osate.ge.di.ValidateName;
-import org.osate.ge.internal.di.CanRename;
-import org.osate.ge.internal.di.GetNameForEditing;
 import org.osate.ge.internal.di.InternalNames;
 import org.osate.ge.internal.graphics.AadlGraphics;
-import org.osate.ge.internal.labels.LabelConfiguration;
-import org.osate.ge.internal.labels.LabelConfigurationBuilder;
-import org.osate.ge.internal.services.DiagramService;
 import org.osate.ge.internal.services.NamingService;
 import org.osate.ge.internal.ui.dialogs.ElementSelectionDialog;
 import org.osate.ge.internal.util.AadlImportsUtil;
@@ -69,66 +67,65 @@ import org.osate.ge.query.StandaloneQuery;
 import org.osate.ge.services.QueryService;
 
 public class ClassifierHandler {
-	private static final LabelConfiguration labelConfiguration = LabelConfigurationBuilder.create().top().horizontalCenter().build();
 	private static final StandaloneQuery packageQuery = StandaloneQuery.create((root) -> root.ancestors().filter((fa) -> fa.getBusinessObject() instanceof AadlPackage));
-	
+
 	@IsApplicable
 	@CanDelete
 	public boolean isApplicable(final @Named(Names.BUSINESS_OBJECT) Classifier bo) {
 		return true;
 	}
-	
+
 	@GetPaletteEntries
 	public PaletteEntry[] getPaletteEntries(final @Named(Names.DIAGRAM_BO) AadlPackage pkg) {
 		final Aadl2Package p = Aadl2Factory.eINSTANCE.getAadl2Package();
-		return new PaletteEntry[] { 
-			createPaletteEntry(p.getAbstractType()),
-			createPaletteEntry(p.getAbstractImplementation()),
-			createPaletteEntry(p.getBusType()),
-			createPaletteEntry(p.getBusImplementation()),
-			createPaletteEntry(p.getDataType()),
-			createPaletteEntry(p.getDataImplementation()),
-			createPaletteEntry(p.getDeviceType()),
-			createPaletteEntry(p.getDeviceImplementation()),
-			createPaletteEntry(p.getFeatureGroupType()),
-			createPaletteEntry(p.getMemoryType()),
-			createPaletteEntry(p.getMemoryImplementation()),
-			createPaletteEntry(p.getProcessType()),
-			createPaletteEntry(p.getProcessImplementation()),
-			createPaletteEntry(p.getProcessorType()),
-			createPaletteEntry(p.getProcessorImplementation()),
-			createPaletteEntry(p.getSubprogramType()),
-			createPaletteEntry(p.getSubprogramImplementation()),
-			createPaletteEntry(p.getSubprogramGroupType()),
-			createPaletteEntry(p.getSubprogramGroupImplementation()),
-			createPaletteEntry(p.getSystemType()),
-			createPaletteEntry(p.getSystemImplementation()),
-			createPaletteEntry(p.getThreadType()),
-			createPaletteEntry(p.getThreadImplementation()),
-			createPaletteEntry(p.getThreadGroupType()),
-			createPaletteEntry(p.getThreadGroupImplementation()),
-			createPaletteEntry(p.getVirtualBusType()),
-			createPaletteEntry(p.getVirtualBusImplementation()),
-			createPaletteEntry(p.getVirtualProcessorType()),
-			createPaletteEntry(p.getVirtualProcessorImplementation())
+		return new PaletteEntry[] {
+				createPaletteEntry(p.getAbstractType()),
+				createPaletteEntry(p.getAbstractImplementation()),
+				createPaletteEntry(p.getBusType()),
+				createPaletteEntry(p.getBusImplementation()),
+				createPaletteEntry(p.getDataType()),
+				createPaletteEntry(p.getDataImplementation()),
+				createPaletteEntry(p.getDeviceType()),
+				createPaletteEntry(p.getDeviceImplementation()),
+				createPaletteEntry(p.getFeatureGroupType()),
+				createPaletteEntry(p.getMemoryType()),
+				createPaletteEntry(p.getMemoryImplementation()),
+				createPaletteEntry(p.getProcessType()),
+				createPaletteEntry(p.getProcessImplementation()),
+				createPaletteEntry(p.getProcessorType()),
+				createPaletteEntry(p.getProcessorImplementation()),
+				createPaletteEntry(p.getSubprogramType()),
+				createPaletteEntry(p.getSubprogramImplementation()),
+				createPaletteEntry(p.getSubprogramGroupType()),
+				createPaletteEntry(p.getSubprogramGroupImplementation()),
+				createPaletteEntry(p.getSystemType()),
+				createPaletteEntry(p.getSystemImplementation()),
+				createPaletteEntry(p.getThreadType()),
+				createPaletteEntry(p.getThreadImplementation()),
+				createPaletteEntry(p.getThreadGroupType()),
+				createPaletteEntry(p.getThreadGroupImplementation()),
+				createPaletteEntry(p.getVirtualBusType()),
+				createPaletteEntry(p.getVirtualBusImplementation()),
+				createPaletteEntry(p.getVirtualProcessorType()),
+				createPaletteEntry(p.getVirtualProcessorImplementation())
 		};
 	}
-	
+
 	private static PaletteEntry createPaletteEntry(final EClass classifierType) {
 		return PaletteEntryBuilder.create().label(StringUtil.camelCaseToUser(classifierType.getName())).icon(ImageHelper.getImage(classifierType.getName())).category(Categories.CLASSIFIERS).context(classifierType).build();
 	}
-	
+
 	@CanCreate
 	public boolean canCreate(final @Named(Names.TARGET_BO) EObject bo, final @Named(Names.PALETTE_ENTRY_CONTEXT) EClass classifierType) {
 		return bo instanceof AadlPackage || isValidBaseClassifier(bo, classifierType);
 	}
-	
+
 	private boolean isValidBaseClassifier(final EObject containerBo, final EClass classifierType) {
 		final EClass containerType = containerBo.eClass();
-		
+
 		// Determine if the container is a valid base classifier
 		boolean containerIsValidBaseClassifier = false;
-		if(isComponentImplementation(classifierType)) {				
+		if(isComponentImplementation(classifierType)) {
 			for(final EClass superType : classifierType.getESuperTypes()) {
 				if(!Aadl2Factory.eINSTANCE.getAadl2Package().getComponentImplementation().isSuperTypeOf(superType)) {
 					if(superType.isSuperTypeOf(containerType)) {
@@ -140,27 +137,27 @@ public class ClassifierHandler {
 		} else {
 			containerIsValidBaseClassifier = classifierType.isSuperTypeOf(containerType) || Aadl2Factory.eINSTANCE.getAadl2Package().getAbstractType().isSuperTypeOf(containerType);
 		}
-		
+
 		return containerIsValidBaseClassifier;
 	}
-	
+
 	private EObject determineBaseClassifier(final EObject targetBo, final EClass classifierType, final IProject project) {
 		// Determine the base classifier using the container. The base classifier is the classifier that should be extended or implemented(if any)
 		final EObject baseClassifier;
 
 		// Determine if the container is a valid base classifier
 		boolean containerIsValidBaseClassifier = isValidBaseClassifier(targetBo, classifierType);
-		
+
 		// Set the base classifier
 		if(containerIsValidBaseClassifier) {
 			baseClassifier = targetBo;
 		} else {
 			if(isComponentImplementation(classifierType)) {
 				final ElementSelectionDialog dlg = new ElementSelectionDialog(Display.getCurrent().getActiveShell(), "Select a Classifier", "Select a classifier to implement or extend.", getValidBaseClassifierDescriptions(project, classifierType));
-				if(dlg.open() == Dialog.CANCEL) {
+				if(dlg.open() == Window.CANCEL) {
 					return null;
-				}			
-				baseClassifier = (EObject)dlg.getFirstSelectedElement();			
+				}
+				baseClassifier = (EObject)dlg.getFirstSelectedElement();
 			} else {
 				baseClassifier = null;
 			}
@@ -168,10 +165,10 @@ public class ClassifierHandler {
 
 		return (baseClassifier != null && baseClassifier.eIsProxy()) ? EcoreUtil.resolve(baseClassifier, targetBo.eResource()) : baseClassifier;
 	}
-	
+
 	@GetCreateOwner
-	public BusinessObjectContext getCreateOwner(final @Named(Names.TARGET_BO) EObject targetBo, 
-			final @Named(Names.TARGET_BUSINESS_OBJECT_CONTEXT) BusinessObjectContext targetBoc, 
+	public BusinessObjectContext getCreateOwner(final @Named(Names.TARGET_BO) EObject targetBo,
+			final @Named(Names.TARGET_BUSINESS_OBJECT_CONTEXT) BusinessObjectContext targetBoc,
 			final QueryService queryService) {
 		if(targetBo instanceof AadlPackage) {
 			return targetBoc;
@@ -183,7 +180,7 @@ public class ClassifierHandler {
 
 		return null;
 	}
-	
+
 	/**
 	 * Return a list of EObjectDescriptions for classifiers that would be valid "base" classifiers for the current classifierType.
 	 * A "base" classifier is one that will be implemented or extended.
@@ -208,14 +205,14 @@ public class ClassifierHandler {
 	}
 
 	@Create
-	public Classifier createBusinessObject(@Named(Names.OWNER_BO) final AadlPackage pkg, @Named(Names.TARGET_BO) final EObject targetBo, 
+	public Classifier createBusinessObject(@Named(Names.MODIFY_BO) final AadlPackage pkg, @Named(Names.TARGET_BO) final EObject targetBo,
 			final @Named(Names.PALETTE_ENTRY_CONTEXT) EClass classifierType, final @Named(InternalNames.PROJECT) IProject project,
 			final NamingService namingService) {
 		final EObject baseClassifier = determineBaseClassifier(targetBo, classifierType, project);
 		if(baseClassifier == null && isComponentImplementation(classifierType)) {
 			return null;
 		}
-		
+
 		final PackageSection section = pkg.getPublicSection();
 		if(section == null) {
 			return null;
@@ -223,13 +220,13 @@ public class ClassifierHandler {
 
 		// Create the new classifier
 		final Classifier newClassifier = section.createOwnedClassifier(classifierType);
-		
+
 		// Determine the name
 		final String newName = buildNewName(section, classifierType, baseClassifier, namingService);
 		if(newName == null) {
 			return null;
-		}		
-		
+		}
+
 		// Handle implementations
 		if(newClassifier instanceof ComponentImplementation) {
 			final ComponentImplementation newImpl = (ComponentImplementation)newClassifier;
@@ -240,10 +237,10 @@ public class ClassifierHandler {
 				final ComponentImplementation baseImpl = (ComponentImplementation)baseClassifier;
 				final ImplementationExtension extension = newImpl.createOwnedExtension();
 				extension.setExtended(baseImpl);
-				
+
 				final Realization realization = newImpl.createOwnedRealization();
 				realization.setImplemented(baseImpl.getType());
-			}	
+			}
 		} else if(newClassifier instanceof ComponentType && baseClassifier instanceof ComponentType) {
 			final ComponentType newType = (ComponentType)newClassifier;
 			final TypeExtension extension = newType.createOwnedExtension();
@@ -253,15 +250,15 @@ public class ClassifierHandler {
 			final GroupExtension extension = newFgt.createOwnedExtension();
 			extension.setExtended((FeatureGroupType)baseClassifier);
 		}
-		
+
 		// Set the name
 		newClassifier.setName(newName);
-		
+
 		Log.info("Created classifier with name: " + newClassifier.getName());
-			
+
 		return newClassifier;
 	}
-	
+
 	private String buildNewName(final PackageSection section, final EClass classifierType, final Object contextBo, final NamingService namingService) {
 		// Determine the appropriate base name. The base name will be used if there are no conflicts
 		final String baseName;
@@ -274,11 +271,11 @@ public class ClassifierHandler {
 			} else {
 				componentType = null;
 			}
-			
+
 			if(componentType == null) {
 				return null;
 			}
-			
+
 			// Resolve name. Add imports as needed
 			final String componentTypeName = resolveComponentTypeName(section, componentType, namingService);
 
@@ -291,124 +288,119 @@ public class ClassifierHandler {
 		} else {
 			baseName = "new_classifier";
 		}
-		
+
 		// Build the name and check for conflicts
 		return namingService.buildUniqueIdentifier(section, baseName);
 	}
-	
+
 	private String resolveComponentTypeName(final PackageSection section, final ComponentType ct, final NamingService namingService) {
 		// Ensure the component type has a valid namespace
 		if(ct.getNamespace() == null) {
 			return null;
 		}
-		
+
 		// Check if the component type is in the same package
 		if(section == ct.getNamespace()) {
 			return ct.getName();
 		}
-		
+
 		// Look for an existing component type renames
 		for(final ComponentTypeRename ctr : section.getOwnedComponentTypeRenames()) {
 			if(ctr.getRenamedComponentType() == ct && ctr.getName() != null) {
 				return ctr.getName();
 			}
 		}
-		
+
 		// Import the package if necessary
 		final AadlPackage ctPkg = (AadlPackage)ct.getNamespace().getOwner();
 		AadlImportsUtil.addImportIfNeeded(section, ctPkg);
-		
+
 		// Create a new component type rename
 		final String ctFullName = ct.getFullName();
 		if(ctFullName == null) {
-			return null;			
+			return null;
 		}
-		
+
 		// Determine a unique name for the new rename
 		final String baseAlias = ct.getQualifiedName().replace("::","_");
 		final String alias = namingService.buildUniqueIdentifier(section, baseAlias);
-	
+
 		final ComponentTypeRename ctr = section.createOwnedComponentTypeRename();
 		ctr.setName(alias);
 		ctr.setCategory(ct.getCategory());
 		ctr.setRenamedComponentType(ct);
-		
+
 		return alias;
 	}
-	
+
 	private static boolean isComponentImplementation(EClass classifierType) {
 		return Aadl2Factory.eINSTANCE.getAadl2Package().getComponentImplementation().isSuperTypeOf(classifierType);
 	}
-	
+
 	@GetGraphicalConfiguration
 	public GraphicalConfiguration getGraphicalConfiguration(final @Named(Names.BUSINESS_OBJECT) Classifier bo) {
 		return GraphicalConfigurationBuilder.create().
-			graphic(AadlGraphics.getGraphic(bo)).
-			defaultLabelConfiguration(labelConfiguration).
-			build();
+				graphic(AadlGraphics.getGraphic(bo)).
+				style(AadlGraphics.getStyle(bo)).
+				build();
 	}
 
 	@CanRename
 	public boolean canRename(final @Named(Names.BUSINESS_OBJECT) Classifier classifier, final @Named(Names.BUSINESS_OBJECT_CONTEXT) BusinessObjectContext boc, final QueryService queryService) {
 		return classifierIsOwnedByPackage(classifier, boc, queryService);
 	}
-	
+
 	@GetName
 	public String getName(final @Named(Names.BUSINESS_OBJECT) Classifier classifier) {
-		return classifier.getName(); 
+		return classifier.getName();
 	}
-	
+
 	@GetNameForEditing
 	public String getName(final @Named(Names.BUSINESS_OBJECT) ComponentImplementation ci) {
 		return ci.getImplementationName();
 	}
-	
+
 	// Returns whether the classifier is owned by the package in which the diagram element is contained.
 	private boolean classifierIsOwnedByPackage(final Classifier classifier, final BusinessObjectContext boc, final QueryService queryService) {
 		final AadlPackage containingAadlPackage = (AadlPackage)queryService.getFirstBusinessObject(packageQuery, boc);
 		if(containingAadlPackage == null || classifier == null || classifier.getNamespace() == null || classifier.getNamespace().getOwner() == null) {
 			return false;
 		}
-		
+
 		return containingAadlPackage.getQualifiedName().equalsIgnoreCase(((NamedElement)classifier.getNamespace().getOwner()).getQualifiedName()) ? true : false;
 	}
-	
+
 	@ValidateName
 	public String validateName(final @Named(Names.BUSINESS_OBJECT) Classifier classifier, final @Named(Names.NAME) String value, final NamingService namingService) {
 		final String newQualifiedName;
 		final String oldName;
-		
+
 		// Transform value so that is is the full name
 		if(classifier instanceof ComponentImplementation) {
-    		final ComponentImplementation ci = (ComponentImplementation)classifier;
-    		newQualifiedName = ci.getTypeName() + "." + value;
-    		oldName = ci.getImplementationName();
+			final ComponentImplementation ci = (ComponentImplementation)classifier;
+			newQualifiedName = ci.getTypeName() + "." + value;
+			oldName = ci.getImplementationName();
 		} else {
 			newQualifiedName = value;
 			oldName = classifier.getName();
 		}
-		
-    	// If the name hasn't changed or has only changed case
-    	if(value.equalsIgnoreCase(oldName)) {
-    		return null;
-    	}
-    	    
-    	// Check if the value matches the format for AADL identifiers
-   		if(!namingService.isValidIdentifier(value)) {
-	    	return "The specified name is not a valid AADL identifier";
-	    }
-    	
-    	// Check for conflicts in the namespace
-    	if(namingService.isNameInUse(classifier.getNamespace(), newQualifiedName)) {
-    		return "The specified name conflicts with an existing member of the namespace.";
-    	}
 
-        // The value is valid
-        return null;        
-	}
-	
-	@HandleDoubleClick
-	public static void openAssociatedDiagram(final @Named(Names.BUSINESS_OBJECT) Classifier bo, final DiagramService diagramService) {
-		diagramService.openOrCreateDiagramForBusinessObject(bo);
+		// If the name hasn't changed or has only changed case
+		if(value.equalsIgnoreCase(oldName)) {
+			return null;
+		}
+
+		// Check if the value matches the format for AADL identifiers
+		if(!namingService.isValidIdentifier(value)) {
+			return "The specified name is not a valid AADL identifier";
+		}
+
+		// Check for conflicts in the namespace
+		if(namingService.isNameInUse(classifier.getNamespace(), newQualifiedName)) {
+			return "The specified name conflicts with an existing member of the namespace.";
+		}
+
+		// The value is valid
+		return null;
 	}
 }

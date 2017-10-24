@@ -28,6 +28,12 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
  *   <li>{@link org.osate.ge.diagram.DiagramElement#getDockArea <em>Dock Area</em>}</li>
  *   <li>{@link org.osate.ge.diagram.DiagramElement#getBendpoints <em>Bendpoints</em>}</li>
  *   <li>{@link org.osate.ge.diagram.DiagramElement#getPrimaryLabelPosition <em>Primary Label Position</em>}</li>
+ *   <li>{@link org.osate.ge.diagram.DiagramElement#getBackground <em>Background</em>}</li>
+ *   <li>{@link org.osate.ge.diagram.DiagramElement#getOutline <em>Outline</em>}</li>
+ *   <li>{@link org.osate.ge.diagram.DiagramElement#getFontColor <em>Font Color</em>}</li>
+ *   <li>{@link org.osate.ge.diagram.DiagramElement#getFontSize <em>Font Size</em>}</li>
+ *   <li>{@link org.osate.ge.diagram.DiagramElement#getLineWidth <em>Line Width</em>}</li>
+ *   <li>{@link org.osate.ge.diagram.DiagramElement#getPrimaryLabelVisible <em>Primary Label Visible</em>}</li>
  * </ul>
  *
  * @see org.osate.ge.diagram.DiagramPackage#getDiagramElement()
@@ -164,6 +170,126 @@ public class DiagramElement extends DiagramNode {
 	 * @ordered
 	 */
 	protected Point primaryLabelPosition;
+
+	/**
+	 * The default value of the '{@link #getBackground() <em>Background</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getBackground()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final String BACKGROUND_EDEFAULT = null;
+
+	/**
+	 * The cached value of the '{@link #getBackground() <em>Background</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getBackground()
+	 * @generated
+	 * @ordered
+	 */
+	protected String background = BACKGROUND_EDEFAULT;
+
+	/**
+	 * The default value of the '{@link #getOutline() <em>Outline</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getOutline()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final String OUTLINE_EDEFAULT = null;
+
+	/**
+	 * The cached value of the '{@link #getOutline() <em>Outline</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getOutline()
+	 * @generated
+	 * @ordered
+	 */
+	protected String outline = OUTLINE_EDEFAULT;
+
+	/**
+	 * The default value of the '{@link #getFontColor() <em>Font Color</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getFontColor()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final String FONT_COLOR_EDEFAULT = null;
+
+	/**
+	 * The cached value of the '{@link #getFontColor() <em>Font Color</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getFontColor()
+	 * @generated
+	 * @ordered
+	 */
+	protected String fontColor = FONT_COLOR_EDEFAULT;
+
+	/**
+	 * The default value of the '{@link #getFontSize() <em>Font Size</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getFontSize()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final Double FONT_SIZE_EDEFAULT = null;
+
+	/**
+	 * The cached value of the '{@link #getFontSize() <em>Font Size</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getFontSize()
+	 * @generated
+	 * @ordered
+	 */
+	protected Double fontSize = FONT_SIZE_EDEFAULT;
+
+	/**
+	 * The default value of the '{@link #getLineWidth() <em>Line Width</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getLineWidth()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final Double LINE_WIDTH_EDEFAULT = null;
+
+	/**
+	 * The cached value of the '{@link #getLineWidth() <em>Line Width</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getLineWidth()
+	 * @generated
+	 * @ordered
+	 */
+	protected Double lineWidth = LINE_WIDTH_EDEFAULT;
+
+	/**
+	 * The default value of the '{@link #getPrimaryLabelVisible() <em>Primary Label Visible</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getPrimaryLabelVisible()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final Boolean PRIMARY_LABEL_VISIBLE_EDEFAULT = null;
+
+	/**
+	 * The cached value of the '{@link #getPrimaryLabelVisible() <em>Primary Label Visible</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getPrimaryLabelVisible()
+	 * @generated
+	 * @ordered
+	 */
+	protected Boolean primaryLabelVisible = PRIMARY_LABEL_VISIBLE_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -559,6 +685,204 @@ public class DiagramElement extends DiagramNode {
 	}
 
 	/**
+	 * Returns the value of the '<em><b>Background</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Background</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Background</em>' attribute.
+	 * @see #setBackground(String)
+	 * @see org.osate.ge.diagram.DiagramPackage#getDiagramElement_Background()
+	 * @model dataType="org.osate.ge.diagram.Color"
+	 * @generated
+	 */
+	public String getBackground() {
+		return background;
+	}
+
+	/**
+	 * Sets the value of the '{@link org.osate.ge.diagram.DiagramElement#getBackground <em>Background</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Background</em>' attribute.
+	 * @see #getBackground()
+	 * @generated
+	 */
+	public void setBackground(String newBackground) {
+		String oldBackground = background;
+		background = newBackground;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, DiagramPackage.DIAGRAM_ELEMENT__BACKGROUND, oldBackground, background));
+	}
+
+	/**
+	 * Returns the value of the '<em><b>Outline</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Outline</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Outline</em>' attribute.
+	 * @see #setOutline(String)
+	 * @see org.osate.ge.diagram.DiagramPackage#getDiagramElement_Outline()
+	 * @model dataType="org.osate.ge.diagram.Color"
+	 * @generated
+	 */
+	public String getOutline() {
+		return outline;
+	}
+
+	/**
+	 * Sets the value of the '{@link org.osate.ge.diagram.DiagramElement#getOutline <em>Outline</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Outline</em>' attribute.
+	 * @see #getOutline()
+	 * @generated
+	 */
+	public void setOutline(String newOutline) {
+		String oldOutline = outline;
+		outline = newOutline;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, DiagramPackage.DIAGRAM_ELEMENT__OUTLINE, oldOutline, outline));
+	}
+
+	/**
+	 * Returns the value of the '<em><b>Font Color</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Font Color</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Font Color</em>' attribute.
+	 * @see #setFontColor(String)
+	 * @see org.osate.ge.diagram.DiagramPackage#getDiagramElement_FontColor()
+	 * @model dataType="org.osate.ge.diagram.Color"
+	 * @generated
+	 */
+	public String getFontColor() {
+		return fontColor;
+	}
+
+	/**
+	 * Sets the value of the '{@link org.osate.ge.diagram.DiagramElement#getFontColor <em>Font Color</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Font Color</em>' attribute.
+	 * @see #getFontColor()
+	 * @generated
+	 */
+	public void setFontColor(String newFontColor) {
+		String oldFontColor = fontColor;
+		fontColor = newFontColor;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, DiagramPackage.DIAGRAM_ELEMENT__FONT_COLOR, oldFontColor, fontColor));
+	}
+
+	/**
+	 * Returns the value of the '<em><b>Font Size</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Font Size</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Font Size</em>' attribute.
+	 * @see #setFontSize(Double)
+	 * @see org.osate.ge.diagram.DiagramPackage#getDiagramElement_FontSize()
+	 * @model dataType="org.eclipse.emf.ecore.xml.type.DoubleObject"
+	 * @generated
+	 */
+	public Double getFontSize() {
+		return fontSize;
+	}
+
+	/**
+	 * Sets the value of the '{@link org.osate.ge.diagram.DiagramElement#getFontSize <em>Font Size</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Font Size</em>' attribute.
+	 * @see #getFontSize()
+	 * @generated
+	 */
+	public void setFontSize(Double newFontSize) {
+		Double oldFontSize = fontSize;
+		fontSize = newFontSize;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, DiagramPackage.DIAGRAM_ELEMENT__FONT_SIZE, oldFontSize, fontSize));
+	}
+
+	/**
+	 * Returns the value of the '<em><b>Line Width</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Line Width</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Line Width</em>' attribute.
+	 * @see #setLineWidth(Double)
+	 * @see org.osate.ge.diagram.DiagramPackage#getDiagramElement_LineWidth()
+	 * @model dataType="org.eclipse.emf.ecore.xml.type.DoubleObject"
+	 * @generated
+	 */
+	public Double getLineWidth() {
+		return lineWidth;
+	}
+
+	/**
+	 * Sets the value of the '{@link org.osate.ge.diagram.DiagramElement#getLineWidth <em>Line Width</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Line Width</em>' attribute.
+	 * @see #getLineWidth()
+	 * @generated
+	 */
+	public void setLineWidth(Double newLineWidth) {
+		Double oldLineWidth = lineWidth;
+		lineWidth = newLineWidth;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, DiagramPackage.DIAGRAM_ELEMENT__LINE_WIDTH, oldLineWidth, lineWidth));
+	}
+
+	/**
+	 * Returns the value of the '<em><b>Primary Label Visible</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Primary Label Visible</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Primary Label Visible</em>' attribute.
+	 * @see #setPrimaryLabelVisible(Boolean)
+	 * @see org.osate.ge.diagram.DiagramPackage#getDiagramElement_PrimaryLabelVisible()
+	 * @model
+	 * @generated
+	 */
+	public Boolean getPrimaryLabelVisible() {
+		return primaryLabelVisible;
+	}
+
+	/**
+	 * Sets the value of the '{@link org.osate.ge.diagram.DiagramElement#getPrimaryLabelVisible <em>Primary Label Visible</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Primary Label Visible</em>' attribute.
+	 * @see #getPrimaryLabelVisible()
+	 * @generated
+	 */
+	public void setPrimaryLabelVisible(Boolean newPrimaryLabelVisible) {
+		Boolean oldPrimaryLabelVisible = primaryLabelVisible;
+		primaryLabelVisible = newPrimaryLabelVisible;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, DiagramPackage.DIAGRAM_ELEMENT__PRIMARY_LABEL_VISIBLE, oldPrimaryLabelVisible, primaryLabelVisible));
+	}
+
+	/**
 	 * Returns the value of the '<em><b>Id</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <p>
@@ -639,6 +963,18 @@ public class DiagramElement extends DiagramNode {
 				return getBendpoints();
 			case DiagramPackage.DIAGRAM_ELEMENT__PRIMARY_LABEL_POSITION:
 				return getPrimaryLabelPosition();
+			case DiagramPackage.DIAGRAM_ELEMENT__BACKGROUND:
+				return getBackground();
+			case DiagramPackage.DIAGRAM_ELEMENT__OUTLINE:
+				return getOutline();
+			case DiagramPackage.DIAGRAM_ELEMENT__FONT_COLOR:
+				return getFontColor();
+			case DiagramPackage.DIAGRAM_ELEMENT__FONT_SIZE:
+				return getFontSize();
+			case DiagramPackage.DIAGRAM_ELEMENT__LINE_WIDTH:
+				return getLineWidth();
+			case DiagramPackage.DIAGRAM_ELEMENT__PRIMARY_LABEL_VISIBLE:
+				return getPrimaryLabelVisible();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -677,6 +1013,24 @@ public class DiagramElement extends DiagramNode {
 				return;
 			case DiagramPackage.DIAGRAM_ELEMENT__PRIMARY_LABEL_POSITION:
 				setPrimaryLabelPosition((Point)newValue);
+				return;
+			case DiagramPackage.DIAGRAM_ELEMENT__BACKGROUND:
+				setBackground((String)newValue);
+				return;
+			case DiagramPackage.DIAGRAM_ELEMENT__OUTLINE:
+				setOutline((String)newValue);
+				return;
+			case DiagramPackage.DIAGRAM_ELEMENT__FONT_COLOR:
+				setFontColor((String)newValue);
+				return;
+			case DiagramPackage.DIAGRAM_ELEMENT__FONT_SIZE:
+				setFontSize((Double)newValue);
+				return;
+			case DiagramPackage.DIAGRAM_ELEMENT__LINE_WIDTH:
+				setLineWidth((Double)newValue);
+				return;
+			case DiagramPackage.DIAGRAM_ELEMENT__PRIMARY_LABEL_VISIBLE:
+				setPrimaryLabelVisible((Boolean)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -717,6 +1071,24 @@ public class DiagramElement extends DiagramNode {
 			case DiagramPackage.DIAGRAM_ELEMENT__PRIMARY_LABEL_POSITION:
 				setPrimaryLabelPosition((Point)null);
 				return;
+			case DiagramPackage.DIAGRAM_ELEMENT__BACKGROUND:
+				setBackground(BACKGROUND_EDEFAULT);
+				return;
+			case DiagramPackage.DIAGRAM_ELEMENT__OUTLINE:
+				setOutline(OUTLINE_EDEFAULT);
+				return;
+			case DiagramPackage.DIAGRAM_ELEMENT__FONT_COLOR:
+				setFontColor(FONT_COLOR_EDEFAULT);
+				return;
+			case DiagramPackage.DIAGRAM_ELEMENT__FONT_SIZE:
+				setFontSize(FONT_SIZE_EDEFAULT);
+				return;
+			case DiagramPackage.DIAGRAM_ELEMENT__LINE_WIDTH:
+				setLineWidth(LINE_WIDTH_EDEFAULT);
+				return;
+			case DiagramPackage.DIAGRAM_ELEMENT__PRIMARY_LABEL_VISIBLE:
+				setPrimaryLabelVisible(PRIMARY_LABEL_VISIBLE_EDEFAULT);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -747,6 +1119,18 @@ public class DiagramElement extends DiagramNode {
 				return bendpoints != null;
 			case DiagramPackage.DIAGRAM_ELEMENT__PRIMARY_LABEL_POSITION:
 				return primaryLabelPosition != null;
+			case DiagramPackage.DIAGRAM_ELEMENT__BACKGROUND:
+				return BACKGROUND_EDEFAULT == null ? background != null : !BACKGROUND_EDEFAULT.equals(background);
+			case DiagramPackage.DIAGRAM_ELEMENT__OUTLINE:
+				return OUTLINE_EDEFAULT == null ? outline != null : !OUTLINE_EDEFAULT.equals(outline);
+			case DiagramPackage.DIAGRAM_ELEMENT__FONT_COLOR:
+				return FONT_COLOR_EDEFAULT == null ? fontColor != null : !FONT_COLOR_EDEFAULT.equals(fontColor);
+			case DiagramPackage.DIAGRAM_ELEMENT__FONT_SIZE:
+				return FONT_SIZE_EDEFAULT == null ? fontSize != null : !FONT_SIZE_EDEFAULT.equals(fontSize);
+			case DiagramPackage.DIAGRAM_ELEMENT__LINE_WIDTH:
+				return LINE_WIDTH_EDEFAULT == null ? lineWidth != null : !LINE_WIDTH_EDEFAULT.equals(lineWidth);
+			case DiagramPackage.DIAGRAM_ELEMENT__PRIMARY_LABEL_VISIBLE:
+				return PRIMARY_LABEL_VISIBLE_EDEFAULT == null ? primaryLabelVisible != null : !PRIMARY_LABEL_VISIBLE_EDEFAULT.equals(primaryLabelVisible);
 		}
 		return super.eIsSet(featureID);
 	}
@@ -769,6 +1153,18 @@ public class DiagramElement extends DiagramNode {
 		result.append(autoContentsFilter);
 		result.append(", dockArea: ");
 		result.append(dockArea);
+		result.append(", background: ");
+		result.append(background);
+		result.append(", outline: ");
+		result.append(outline);
+		result.append(", fontColor: ");
+		result.append(fontColor);
+		result.append(", fontSize: ");
+		result.append(fontSize);
+		result.append(", lineWidth: ");
+		result.append(lineWidth);
+		result.append(", primaryLabelVisible: ");
+		result.append(primaryLabelVisible);
 		result.append(')');
 		return result.toString();
 	}

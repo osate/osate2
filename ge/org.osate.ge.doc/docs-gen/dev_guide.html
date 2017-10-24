@@ -109,6 +109,7 @@
 </ul>
 <h3 id="business-object-handlers"><span class="header-section-number">3.4.3</span> Business Object Handlers</h3>
 <p>Business object handlers are classes which provide business object specific functionality to the graphical editor. They are registered using the org.osate.ge.businessObjectHandlers extension point. Business object handlers may provide partial functionality by only including a subset of the supported annotations.</p>
+<p>If a business object handler exists for a parsed annex library or subclause, neither the default or the parsed annex library or subclause will be contributed automatically. This provides an extension that provides support for an annex additional flexibility in determining how the annex is represented graphically.</p>
 <h4 id="examples-2"><span class="header-section-number">3.4.3.1</span> Examples</h4>
 <ul>
 <li>org.osate.ge.errormodel.businessObjectHandlers package</li>
@@ -122,7 +123,6 @@
 <ul>
 <li><a href="../api/org/osate/ge/GetGraphicalConfiguration.html">GetGraphicalConfiguration</a></li>
 <li><a href="../api/org/osate/ge/di/GetChildren.html">GetChildren</a></li>
-<li><a href="../api/org/osate/ge/di/HandleDoubleClick.html">HandleDoubleClick</a></li>
 </ul>
 <h5 id="business-object-creation"><span class="header-section-number">3.4.3.2.3</span> Business Object Creation</h5>
 <ul>

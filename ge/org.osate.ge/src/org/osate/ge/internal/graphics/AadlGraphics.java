@@ -11,62 +11,71 @@ import org.osate.aadl2.ComponentImplementation;
 import org.osate.aadl2.DirectionType;
 import org.osate.aadl2.FeatureGroupType;
 import org.osate.aadl2.PortCategory;
+import org.osate.ge.graphics.Color;
 import org.osate.ge.graphics.EllipseBuilder;
 import org.osate.ge.graphics.Graphic;
 import org.osate.ge.graphics.RectangleBuilder;
+import org.osate.ge.graphics.Style;
+import org.osate.ge.graphics.StyleBuilder;
+import org.osate.ge.graphics.internal.BusGraphicBuilder;
+import org.osate.ge.graphics.internal.DeviceGraphicBuilder;
+import org.osate.ge.graphics.internal.FeatureGraphic;
+import org.osate.ge.graphics.internal.FeatureGraphicBuilder;
+import org.osate.ge.graphics.internal.FeatureGraphicType;
+import org.osate.ge.graphics.internal.FeatureGroupTypeGraphicBuilder;
+import org.osate.ge.graphics.internal.MemoryGraphicBuilder;
+import org.osate.ge.graphics.internal.ParallelogramBuilder;
+import org.osate.ge.graphics.internal.ProcessorGraphicBuilder;
 
 /**
- * Helper class for retrieving the appropriate graphic for an AADL element 
+ * Helper class for retrieving the appropriate graphic for an AADL element
  *
  */
 public class AadlGraphics {
-	private static final int typeLineWidth = 2;
-	private static final int implLineWidth = 3;
-	
 	private static final Graphic defaultGraphic = RectangleBuilder.create().build(); // Fallback graphic when a specialized graphic is not supported
-	private static final Graphic abstractGraphic = RectangleBuilder.create().dashed().lineWidth(typeLineWidth).build();
-	private static final Graphic abstractImplGraphic = RectangleBuilder.create().dashed().lineWidth(implLineWidth).build();
-	private static final Graphic busGraphic = BusGraphicBuilder.create().lineWidth(typeLineWidth).build();
-	private static final Graphic busImplGraphic = BusGraphicBuilder.create().lineWidth(implLineWidth).build();
-	private static final Graphic dataGraphic = RectangleBuilder.create().lineWidth(typeLineWidth).build();
-	private static final Graphic dataImplGraphic = RectangleBuilder.create().lineWidth(implLineWidth).build();
-	private static final Graphic deviceGraphic = DeviceGraphicBuilder.create().lineWidth(typeLineWidth).build();
-	private static final Graphic deviceImplGraphic = DeviceGraphicBuilder.create().lineWidth(implLineWidth).build();
-	private static final Graphic memoryGraphic = MemoryGraphicBuilder.create().lineWidth(typeLineWidth).build();
-	private static final Graphic memoryImplGraphic = MemoryGraphicBuilder.create().lineWidth(implLineWidth).build();
-	private static final Graphic processGraphic = ParallelogramBuilder.create().horizontalOffset(20).lineWidth(typeLineWidth).build();
-	private static final Graphic processImplGraphic = ParallelogramBuilder.create().horizontalOffset(20).lineWidth(implLineWidth).build();
-	private static final Graphic processorGraphic = ProcessorGraphicBuilder.create().lineWidth(typeLineWidth).build();
-	private static final Graphic processorImplGraphic = ProcessorGraphicBuilder.create().lineWidth(implLineWidth).build();
-	private static final Graphic subprogramGraphic = EllipseBuilder.create().lineWidth(typeLineWidth).build();
-	private static final Graphic subprogramImplGraphic = EllipseBuilder.create().lineWidth(implLineWidth).build();
-	private static final Graphic subprogramGroupGraphic = EllipseBuilder.create().dashed().lineWidth(typeLineWidth).build();
-	private static final Graphic subprogramGroupImplGraphic = EllipseBuilder.create().dashed().lineWidth(implLineWidth).build();
-	private static final Graphic systemGraphic = RectangleBuilder.create().rounded().lineWidth(typeLineWidth).build();
-	private static final Graphic systemImplGraphic = RectangleBuilder.create().rounded().lineWidth(implLineWidth).build();	
-	private static final Graphic threadGraphic = ParallelogramBuilder.create().horizontalOffset(20).dashed().lineWidth(typeLineWidth).build();
-	private static final Graphic threadImplGraphic = ParallelogramBuilder.create().horizontalOffset(20).dashed().lineWidth(implLineWidth).build();
-	private static final Graphic threadGroupGraphic = RectangleBuilder.create().rounded().dashed().lineWidth(typeLineWidth).build();
-	private static final Graphic threadGroupImplGraphic = RectangleBuilder.create().rounded().dashed().lineWidth(implLineWidth).build();
-	private static final Graphic virtualBusGraphic = BusGraphicBuilder.create().dashed().lineWidth(typeLineWidth).build();
-	private static final Graphic virtualBusImplGraphic = BusGraphicBuilder.create().dashed().lineWidth(implLineWidth).build();
-	private static final Graphic virtualProcessorGraphic = ProcessorGraphicBuilder.create().dashed().lineWidth(typeLineWidth).build();
-	private static final Graphic virtualProcessorImplGraphic = ProcessorGraphicBuilder.create().dashed().lineWidth(implLineWidth).build();	
+	private static final Graphic abstractGraphic = RectangleBuilder.create().build();
+	private static final Graphic busGraphic = BusGraphicBuilder.create().build();
+	private static final Graphic dataGraphic = RectangleBuilder.create().build();
+	private static final Graphic deviceGraphic = DeviceGraphicBuilder.create().build();
+	private static final Graphic memoryGraphic = MemoryGraphicBuilder.create().build();
+	private static final Graphic processGraphic = ParallelogramBuilder.create().horizontalOffset(20).build();
+	private static final Graphic processorGraphic = ProcessorGraphicBuilder.create().build();
+	private static final Graphic subprogramGraphic = EllipseBuilder.create().build();
+	private static final Graphic subprogramGroupGraphic = EllipseBuilder.create().build();
+	private static final Graphic systemGraphic = RectangleBuilder.create().rounded().build();
+	private static final Graphic threadGraphic = ParallelogramBuilder.create().horizontalOffset(20).build();
+	private static final Graphic threadGroupGraphic = RectangleBuilder.create().rounded().build();
+	private static final Graphic virtualBusGraphic = BusGraphicBuilder.create().build();
+	private static final Graphic virtualProcessorGraphic = ProcessorGraphicBuilder.create().build();
 	private static final Graphic featureGroupTypeGraphic = FeatureGroupTypeGraphicBuilder.create().build();
-	
+	private static final Style topCenteredLabelStyle = StyleBuilder.create().labelsTop().labelsHorizontalCenter()
+			.build();
+	private final static Style dashedStyle = StyleBuilder.create(topCenteredLabelStyle).dashed().build();
+	private final static Style implStyle = StyleBuilder.create(topCenteredLabelStyle).lineWidth(4.0)
+			.build();
+	private final static Style dashedImplStyle = StyleBuilder.create(dashedStyle, implStyle).build();
+
 	public static Graphic getGraphic(final Classifier classifier) {
 		if(classifier instanceof ComponentClassifier) {
 			return getGraphic((ComponentClassifier)classifier);
 		} else if(classifier instanceof FeatureGroupType) {
 			return featureGroupTypeGraphic;
 		}
-		
+
 		return defaultGraphic;
 	}
-	
-	public static Graphic getFeatureGraphic(final EClass featureClass, DirectionType direction) {
+
+	public static Style getStyle(final Classifier classifier) {
+		if (classifier instanceof ComponentClassifier) {
+			return getStyle((ComponentClassifier) classifier);
+		}
+
+		return topCenteredLabelStyle;
+	}
+
+	public static FeatureGraphic getFeatureGraphic(final EClass featureClass, DirectionType direction) {
 		final FeatureGraphicBuilder builder = FeatureGraphicBuilder.create();
-		
+
 		// Configure the feature type
 		final Aadl2Package aadl2Pkg = Aadl2Factory.eINSTANCE.getAadl2Package();
 		if(featureClass == aadl2Pkg.getAbstractFeature()) {
@@ -95,155 +104,189 @@ public class AadlGraphics {
 			builder.eventDataSource();
 		} else if(featureClass == aadl2Pkg.getSubprogramProxy()) {
 			builder.subprogramProxy();
-		} else {
-			return defaultGraphic;
 		}
-				
+
 		switch(direction) {
 		case IN:
 			builder.input();
 			break;
-			
+
 		case OUT:
 			builder.output();
-			break;			
-			
+			break;
+
 		case IN_OUT:
 			builder.bidirectional();
 			break;
 		}
-		 
+
 		return builder.build();
 	}
-	
-	public static Graphic getFeatureGraphic(final PortCategory portCategory, final DirectionType direction) {
+
+	public static String getFeatureAnnotation(final EClass featureClass) {
+		final Aadl2Package aadl2Pkg = Aadl2Factory.eINSTANCE.getAadl2Package();
+		if (aadl2Pkg.getProcessorFeature().isSuperTypeOf(featureClass)) {
+			return "<processor>";
+		} else if (aadl2Pkg.getInternalFeature().isSuperTypeOf(featureClass)) {
+			return "<internal>";
+		}
+
+		return null;
+	}
+
+	public static Color getDefaultBackgroundColor(final FeatureGraphicType featureGraphicType) {
+		if (featureGraphicType == FeatureGraphicType.SUBPROGRAM_ACCESS
+				|| featureGraphicType == FeatureGraphicType.BUS_OR_DATA_ACCESS) {
+			return Color.WHITE;
+		} else {
+			return Color.BLACK;
+		}
+	}
+
+	public static FeatureGraphic getFeatureGraphic(final PortCategory portCategory, final DirectionType direction) {
 		final FeatureGraphicBuilder builder = FeatureGraphicBuilder.create();
-		
+
 		switch(portCategory) {
 		case DATA:
 			builder.dataPort();
 			break;
-			
+
 		case EVENT:
 			builder.eventPort();
 			break;
-			
+
 		case EVENT_DATA:
 			builder.eventDataPort();
 			break;
-			
+
 		default:
-			return defaultGraphic;		
 		}
-		
+
 		switch(direction) {
 		case IN:
 			builder.input();
 			break;
-			
+
 		case OUT:
 			builder.output();
-			break;			
-			
+			break;
+
 		case IN_OUT:
 			builder.bidirectional();
 			break;
 		}
-		 
+
 		return builder.build();
 	}
-	
-	public static Graphic getFeatureGraphic(final AccessCategory accessCategory, final DirectionType direction) {
+
+	public static FeatureGraphic getFeatureGraphic(final AccessCategory accessCategory, final DirectionType direction) {
 		final FeatureGraphicBuilder builder = FeatureGraphicBuilder.create();
-		
+
 		switch(accessCategory) {
 		case BUS:
 			builder.busAccess();
 			break;
-			
+
 		case DATA:
 			builder.dataAccess();
 			break;
-			
+
 		case SUBPROGRAM:
 			builder.subprogramAccess();
 			break;
-			
+
 		case SUBPROGRAM_GROUP:
 			builder.subprogramGroupAccess();
 			break;
-			
+
 		default:
-			return defaultGraphic;
+			break;
 		}
-		
+
 		switch(direction) {
 		case IN:
 			builder.input();
 			break;
-			
+
 		case OUT:
 			builder.output();
-			break;			
-			
+			break;
+
 		case IN_OUT:
 			builder.bidirectional();
 			break;
 		}
-		 
+
 		return builder.build();
 	}
-	
+
 	private static Graphic getGraphic(final ComponentClassifier cc) {
-		return getGraphic(cc.getCategory(), cc instanceof ComponentImplementation);
+		return getGraphic(cc.getCategory());
 	}
-	
-	public static Graphic getGraphic(final ComponentCategory cc, final boolean isImplementation) {
+
+	public static Graphic getGraphic(final ComponentCategory cc) {
 		switch(cc) {
 		case ABSTRACT:
-			return isImplementation ? abstractImplGraphic : abstractGraphic;
-			
+			return abstractGraphic;
+
 		case BUS:
-			return isImplementation ? busImplGraphic : busGraphic;
-			
+			return busGraphic;
+
 		case DATA:
-			return isImplementation ? dataImplGraphic : dataGraphic;
-			
+			return dataGraphic;
+
 		case DEVICE:
-			return isImplementation ? deviceImplGraphic : deviceGraphic;
-			
+			return deviceGraphic;
+
 		case MEMORY:
-			return isImplementation ? memoryImplGraphic : memoryGraphic;
-			
+			return memoryGraphic;
+
 		case PROCESS:
-			return isImplementation ? processImplGraphic : processGraphic;
-			
+			return processGraphic;
+
 		case PROCESSOR:
-			return isImplementation ? processorImplGraphic : processorGraphic;
-			
+			return processorGraphic;
+
 		case SUBPROGRAM:
-			return isImplementation ? subprogramImplGraphic : subprogramGraphic;
-			
+			return subprogramGraphic;
+
 		case SUBPROGRAM_GROUP:
-			return isImplementation ? subprogramGroupImplGraphic : subprogramGroupGraphic;
-			
+			return subprogramGroupGraphic;
+
 		case SYSTEM:
-			return isImplementation ? systemImplGraphic : systemGraphic;
-			
+			return systemGraphic;
+
 		case THREAD:
-			return isImplementation ? threadImplGraphic : threadGraphic;
-			
+			return threadGraphic;
+
 		case THREAD_GROUP:
-			return isImplementation ? threadGroupImplGraphic : threadGroupGraphic;
-			
+			return threadGroupGraphic;
+
 		case VIRTUAL_BUS:
-			return isImplementation ? virtualBusImplGraphic : virtualBusGraphic;
-			
+			return virtualBusGraphic;
+
 		case VIRTUAL_PROCESSOR:
-			return isImplementation ? virtualProcessorImplGraphic : virtualProcessorGraphic;
-			
+			return virtualProcessorGraphic;
+
 		default:
-			return defaultGraphic;	
+			return defaultGraphic;
 		}
-	}	
+	}
+
+	private static Style getStyle(final ComponentClassifier cc) {
+		return getStyle(cc.getCategory(), cc instanceof ComponentImplementation);
+	}
+
+	public static Style getStyle(final ComponentCategory cc, final boolean isImplementation) {
+		final boolean isDashed = cc == ComponentCategory.ABSTRACT || cc == ComponentCategory.THREAD || cc == ComponentCategory.THREAD_GROUP
+				|| cc == ComponentCategory.SUBPROGRAM_GROUP || cc == ComponentCategory.VIRTUAL_BUS
+				|| cc == ComponentCategory.VIRTUAL_PROCESSOR;
+
+		if (isImplementation) {
+			return isDashed ? dashedImplStyle : implStyle;
+		} else {
+			return isDashed ? dashedStyle : topCenteredLabelStyle;
+		}
+
+	}
 }

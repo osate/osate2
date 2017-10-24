@@ -31,12 +31,12 @@ public class AgeAddBendpointFeature extends DefaultAddBendpointFeature implement
 		final GraphitiAgeDiagram graphitiAgeDiagram = graphitiAgeDiagramProvider.getGraphitiAgeDiagram();
 		final DiagramElement connectionElement = graphitiAgeDiagram.getDiagramElement(ctx.getConnection());
 		if(connectionElement != null) {
-			graphitiAgeDiagram.modify(new DiagramModifier() {					
+			graphitiAgeDiagram.modify("Add Bendpoint", new DiagramModifier() {					
 				@Override
 				public void modify(final DiagramModification m) {
 					// Update the bendpoints
-					final List<org.osate.ge.internal.diagram.runtime.Point> newBendpoints = new ArrayList<>(connectionElement.getBendpoints());
-					newBendpoints.add(ctx.getBendpointIndex(), new org.osate.ge.internal.diagram.runtime.Point(ctx.getX(), ctx.getY()));
+					final List<org.osate.ge.graphics.Point> newBendpoints = new ArrayList<>(connectionElement.getBendpoints());
+					newBendpoints.add(ctx.getBendpointIndex(), new org.osate.ge.graphics.Point(ctx.getX(), ctx.getY()));
 					m.setBendpoints(connectionElement, newBendpoints);
 					AgeFeatureUtil.storeModificationInContext(ctx, m);
 				}
