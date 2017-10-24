@@ -73,8 +73,8 @@
 
    <repositories>
       <repository location="http://aadl.info/aadl/osate/testing/update-site/" enabled="true" />
-      <repository location="http://download.eclipse.org/eclipse/updates/4.7" enabled="true" />
-      <repository location="http://download.eclipse.org/releases/oxygen" enabled="true" />
+      <repository location="http://download.eclipse.org/eclipse/updates/4.7" enabled="false" />
+      <repository location="http://download.eclipse.org/releases/oxygen" enabled="false" />
    </repositories>
 
 </product>
