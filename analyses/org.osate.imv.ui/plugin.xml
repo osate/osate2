@@ -103,7 +103,7 @@
    <extension
          point="org.eclipse.ui.menus">
       <menuContribution
-            locationURI="popup:org.osate.ui.osatePopupMenu?after=org.osate.reporter.reporter">
+            locationURI="popup:org.osate.ui.osatePopupMenu">
          <command
                commandId="org.osate.imv.ui.openImvEditor">
             <visibleWhen
