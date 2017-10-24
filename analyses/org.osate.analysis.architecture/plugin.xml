@@ -82,11 +82,6 @@
       </command>
       <command
             categoryId="org.osate.analysis.architecture.category"
-            id="org.osate.analysis.architecture.doModelStatistics"
-            name="%DoModelStatistics.label">
-      </command>
-      <command
-            categoryId="org.osate.analysis.architecture.category"
             id="org.osate.analysis.architecture.propertyTotals"
             name="%CheckPropertyTotals.label">
       </command>
@@ -171,37 +166,6 @@
          </enabledWhen>
       </handler>
       <handler
-            class="org.osate.analysis.architecture.handlers.DoModelStatistics"
-            commandId="org.osate.analysis.architecture.doModelStatistics">
-         <enabledWhen>
-            <with
-                  variable="selection">
-               <iterate
-                     operator="and"
-                     ifEmpty="false">
-                  <or>
-                     <instanceof
-                           value="org.osate.aadl2.instance.SystemInstance">
-                     </instanceof>
-                     <adapt
-                           type="org.eclipse.core.resources.IFile">
-                        <or>
-                           <test
-                                 property="org.eclipse.core.resources.contentTypeId"
-                                 value="org.osate.core.instanceModelFile">
-                           </test>
-                           <test
-                                 property="org.eclipse.core.resources.extension"
-                                 value="aadl">
-                           </test>
-                        </or>
-                     </adapt>
-                  </or>
-               </iterate>
-            </with>
-         </enabledWhen>
-      </handler>
-      <handler
             class="org.osate.analysis.architecture.handlers.DoPropertyTotals"
             commandId="org.osate.analysis.architecture.propertyTotals">
          <enabledWhen>
@@ -265,11 +229,6 @@
             icon="icons/a429ConnCon.gif">
       </image>
       <image
-            commandId="org.osate.analysis.architecture.doModelStatistics"
-            icon="icons/stats.gif"
-            disabledIcon="icons/noStats.gif">
-      </image>
-      <image
             commandId="org.osate.analysis.architecture.propertyTotals"
             icon="icons/checkPropertyTotals.gif">
       </image>
@@ -283,23 +242,6 @@
                label="Architecture">
             <command
                   commandId="org.osate.analysis.architecture.propertyTotals">
-               <visibleWhen
-                     checkEnabled="false">
-                  <with
-                        variable="activeWorkbenchWindow.activePerspective">
-                     <or>
-                        <equals
-                              value="org.osate.ui.perspective.AadlPerspective">
-                        </equals>
-                        <equals
-                              value="org.osate.imv.ui.perspective.ImvPerspective">
-                        </equals>
-                     </or>
-                  </with>
-               </visibleWhen>
-            </command>
-            <command
-                  commandId="org.osate.analysis.architecture.doModelStatistics">
                <visibleWhen
                      checkEnabled="false">
                   <with
@@ -394,24 +336,6 @@
          <command
                commandId="org.osate.analysis.architecture.propertyTotals"
                tooltip="%CheckPropertyTotals.toolTip">
-            <visibleWhen
-                  checkEnabled="false">
-               <with
-                     variable="activeWorkbenchWindow.activePerspective">
-                  <or>
-                     <equals
-                           value="org.osate.ui.perspective.AadlPerspective">
-                     </equals>
-                     <equals
-                           value="org.osate.imv.ui.perspective.ImvPerspective">
-                     </equals>
-                  </or>
-               </with>
-            </visibleWhen>
-         </command>
-         <command
-               commandId="org.osate.analysis.architecture.doModelStatistics"
-               tooltip="%DoModelStatistics.toolTip">
             <visibleWhen
                   checkEnabled="false">
                <with
@@ -539,12 +463,6 @@
                         </or>
                      </iterate>
                   </with>
-               </visibleWhen>
-            </command>
-            <command
-                  commandId="org.osate.analysis.architecture.doModelStatistics">
-               <visibleWhen
-                     checkEnabled="true">
                </visibleWhen>
             </command>
             <command
