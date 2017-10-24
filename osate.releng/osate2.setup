@@ -735,14 +735,8 @@
           name="org.eclipse.gef.fx.sdk.feature.group"/>
       <requirement
           name="org.eclipse.gef.mvc.sdk.feature.group"/>
-      <requirement
-          name="org.eclipse.elk.sdk.feature.feature.group"/>
-      <requirement
-          name="org.eclipse.elk.ui.feature.feature.group"/>
       <repository
           url="http://download.eclipse.org/releases/oxygen/201706281000"/>
-      <repository
-          url="http://download.eclipse.org/elk/updates/releases/0.2.2/"/>
     </setupTask>
   </setupTask>
   <setupTask
@@ -886,7 +880,8 @@
       <requirement
           name="com.itemis.xtext.testing.feature.feature.group"/>
       <requirement
-          name="org.eclipse.elk.feature.feature.group"/>
+          name="org.eclipse.elk.feature.feature.group"
+          versionRange="[0.3.0,0.4.0)"/>
       <requirement
           name="org.eclipse.fx.runtime.min.feature.feature.group"/>
       <requirement
@@ -928,7 +923,7 @@
         <repository
             url="http://download.eclipse.org/sirius/updates/releases/5.0.1/oxygen"/>
         <repository
-            url="http://download.eclipse.org/elk/updates/releases/0.2.2/"/>
+            url="http://download.eclipse.org/elk/updates/releases/0.3.0/"/>
       </repositoryList>
     </targlet>
     <targlet
