@@ -41,7 +41,7 @@
    <extension
          point="org.eclipse.ui.menus">
       <menuContribution
-            locationURI="toolbar:org.osate.ui.toolbar?after=org.osate.ui.resetMarkers">
+            locationURI="toolbar:org.osate.ui.toolbar">
          <command
                commandId="org.osate.wizards.aadlProjectWizard"
                icon="icons/new_aadl_project.gif">

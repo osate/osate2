@@ -326,10 +326,6 @@
           <menu
                 id="org.osate.ui.osatePopupMenu"
                 label="OSATE">
-             <command
-                   commandId="org.osate.ui.resetMarkers"
-                   style="push">
-             </command>
           </menu>
           <menu
                 id="org.osate.ui.aadlAnalysesPopupMenu"
@@ -454,19 +450,6 @@
                    name="org.osate.ui.separator1"
                    visible="true">
              </separator>
-             <command
-                   commandId="org.osate.ui.resetMarkers"
-                   style="push">
-                <visibleWhen
-                      checkEnabled="false">
-                   <with
-                         variable="activeWorkbenchWindow.activePerspective">
-                      <equals
-                            value="org.osate.ui.perspective.AadlPerspective">
-                      </equals>
-                   </with>
-                </visibleWhen>
-             </command>
           </menu>
        </menuContribution>
        <menuContribution
@@ -503,20 +486,6 @@
                    name="org.osate.ui.separator3"
                    visible="true">
              </separator>
-             <command
-                   commandId="org.osate.ui.resetMarkers"
-                   tooltip="%ResetMarkers.toolTip"
-                   style="push">
-                <visibleWhen
-                      checkEnabled="false">
-                   <with
-                         variable="activeWorkbenchWindow.activePerspective">
-                      <equals
-                            value="org.osate.ui.perspective.AadlPerspective">
-                      </equals>
-                   </with>
-                </visibleWhen>
-             </command>
           </toolbar>
        </menuContribution>
     </extension>
@@ -534,10 +503,6 @@
        <command
              id="org.osate.ui.reinstantiateAllAadl"
              name="%ReinstantiateAllModelsAction.label">
-       </command>
-       <command
-             id="org.osate.ui.resetMarkers"
-             name="%ResetMarkers.label">
        </command>
        <command
              id="org.osate.ui.conversion"
@@ -559,21 +524,6 @@
              commandId="org.osate.ui.reinstantiateAllAadl">
        </handler>
        <handler
-             class="org.osate.ui.handlers.ResetMarkers"
-             commandId="org.osate.ui.resetMarkers">
-          <enabledWhen>
-             <with
-                   variable="selection">
-                <iterate
-                      ifEmpty="false">
-                   <instanceof
-                         value="org.eclipse.core.resources.IFile">
-                   </instanceof>
-                </iterate>
-             </with>
-          </enabledWhen>
-       </handler>
-       <handler
              class="org.osate.ui.handlers.ConversionHandler"
              commandId="org.osate.ui.conversion">
        </handler>
@@ -583,10 +533,6 @@
        <image
              commandId="org.osate.ui.reinstantiateAllAadl"
              icon="icons/reinstantiate.gif">
-       </image>
-       <image
-             commandId="org.osate.ui.resetMarkers"
-             icon="icons/none.gif">
        </image>
     </extension>
     <extension
