@@ -42,6 +42,7 @@ import org.eclipse.graphiti.util.IColorConstant;
 import org.eclipse.swt.widgets.Display;
 import org.osate.ge.graphics.Graphic;
 import org.osate.ge.graphics.Style;
+import org.osate.ge.graphics.StyleBuilder;
 import org.osate.ge.graphics.internal.AgeConnection;
 import org.osate.ge.graphics.internal.AgeConnectionTerminator;
 import org.osate.ge.graphics.internal.AgeShape;
@@ -61,6 +62,7 @@ import org.osate.ge.internal.diagram.runtime.ElementRemovedEvent;
 import org.osate.ge.internal.diagram.runtime.ElementUpdatedEvent;
 import org.osate.ge.internal.diagram.runtime.ModificationsCompletedEvent;
 import org.osate.ge.internal.diagram.runtime.boTree.Completeness;
+import org.osate.ge.internal.diagram.runtime.styling.StyleCalculator;
 import org.osate.ge.internal.graphiti.AnchorNames;
 import org.osate.ge.internal.graphiti.ShapeNames;
 import org.osate.ge.internal.graphiti.graphics.AgeGraphitiGraphicsUtil;
@@ -79,11 +81,10 @@ public class GraphitiAgeDiagram implements NodePictogramBiMap, AutoCloseable {
 	private final UpdaterListener updateListener;
 	private final AgeDiagram ageDiagram;
 	private final Diagram graphitiDiagram;
-	private final ColoringProvider coloringProvider;
 	private final Map<PictogramElement, DiagramNode> pictogramElementToDiagramNodeMap = new HashMap<>();
 	private final Map<DiagramNode, PictogramElement> diagramNodeToPictogramElementMap = new HashMap<>();
 	private final GraphitiDiagramModificationListener modificationListener = new GraphitiDiagramModificationListener();
-	private Style diagramConnectionStyle = Style.EMPTY; // Cached style based on the diagram configuraiton.
+	private final StyleCalculator finalStyleProvider;
 
 	public interface CommandExecutor {
 		void execute(final Command cmd);
@@ -97,7 +98,7 @@ public class GraphitiAgeDiagram implements NodePictogramBiMap, AutoCloseable {
 	/**
 	 *
 	 * @param ageDiagram is the AgeDiagram that will be associated with the Graphiti Diagram
-	 * @param graphitiDiagram is the internal graphiti diagram to associated with the Grpahiti Age Diagram.
+	 * @param graphitiDiagram is the internal graphiti diagram to associated with the Graphiti Age Diagram.
 	 * It is a parameter rather than creating it in the constructor to work around initializing sequence issues.
 	 * @param editingDomain is the editing domain to use to make modifications to the diagram. It must not contain any other diagrams.
 	 */
@@ -105,12 +106,19 @@ public class GraphitiAgeDiagram implements NodePictogramBiMap, AutoCloseable {
 			final EditingDomain editingDomain, final CommandExecutor cmdExecutor,
 			final ColoringProvider coloringProvider, final UpdaterListener updateListener) {
 		this.ageDiagram = Objects.requireNonNull(ageDiagram, "ageDiagram must not be null");
-		this.diagramConnectionStyle = StyleUtil.getDiagramConfigurationConnectionStyle(ageDiagram.getConfiguration());
 		Objects.requireNonNull(editingDomain, "editingDomain must not be null");
-		this.coloringProvider = Objects.requireNonNull(coloringProvider, "coloringProvider must not be null");
 		this.updateListener = Objects.requireNonNull(updateListener, "updateListener must not be null");
 		this.graphitiDiagram = Objects.requireNonNull(graphitiDiagram, "graphitiDiagram must not be null");
 		addMapping(ageDiagram, graphitiDiagram);
+
+		this.finalStyleProvider = new StyleCalculator(ageDiagram.getConfiguration(), de -> {
+			final org.osate.ge.graphics.Color foreground = coloringProvider.getForegroundColor(de);
+			if(foreground == null) {
+				return Style.EMPTY;
+			} else {
+				return StyleBuilder.create().foregroundColor(foreground).build();
+			}
+		});
 
 		// Create a URI to use for the resource. This resource uses a scheme which does not have a registered handler.
 		// A handler is not needed the resource's save() should not be called. The URI just serves as a unique identifier in the resource set.
@@ -130,7 +138,7 @@ public class GraphitiAgeDiagram implements NodePictogramBiMap, AutoCloseable {
 			public void execute() {
 				diagramResource.getContents().add(graphitiDiagram);
 				ageDiagram.modify("Initial Update", m -> createUpdateElementsFromAgeDiagram(m));
-
+				refreshDiagramStyles(); // Update style of graphiti pictogram elements.
 			}
 
 			@Override
@@ -203,7 +211,7 @@ public class GraphitiAgeDiagram implements NodePictogramBiMap, AutoCloseable {
 	private void createUpdateElementsFromAgeDiagram(final DiagramModification mod) {
 		ensureCreatedChildren(ageDiagram, graphitiDiagram);
 		updateChildren(ageDiagram, true);
-		LayoutUtil.layoutDepthFirst(graphitiDiagram, mod, ageDiagram, GraphitiAgeDiagram.this, coloringProvider); // Layout
+		LayoutUtil.layoutDepthFirst(graphitiDiagram, mod, ageDiagram, GraphitiAgeDiagram.this); // Layout
 		finishUpdating(ageDiagram);
 	}
 
@@ -421,7 +429,7 @@ public class GraphitiAgeDiagram implements NodePictogramBiMap, AutoCloseable {
 
 		// Build the primary label which includes the element's name
 		final String completenessSuffix = de.getCompleteness() == Completeness.INCOMPLETE ? incompleteIndicator : "";
-		final Style finalStyle = StyleUtil.getFinalStyle(de, diagramConnectionStyle, coloringProvider);
+		final Style finalStyle = finalStyleProvider.getStyle(de);
 		final String primaryLabelStr = (!finalStyle.getPrimaryLabelVisible().booleanValue() || de.getName() == null)
 				? null
 						: (de.getName() + completenessSuffix);
@@ -669,7 +677,7 @@ public class GraphitiAgeDiagram implements NodePictogramBiMap, AutoCloseable {
 	public final void refreshStyle(final DiagramElement de) {
 		final PictogramElement pe = getPictogramElement(de);
 		if (pe != null) {
-			StyleUtil.refreshStyle(graphitiDiagram, pe, de, diagramConnectionStyle, coloringProvider, this);
+			StyleUtil.refreshStyle(graphitiDiagram, pe, de, finalStyleProvider, this);
 		}
 	}
 
@@ -825,7 +833,7 @@ public class GraphitiAgeDiagram implements NodePictogramBiMap, AutoCloseable {
 		@Override
 		public void diagramConfigurationChanged(final DiagramConfigurationChangedEvent e) {
 			needFullUpdate = true;
-			diagramConnectionStyle = StyleUtil.getDiagramConfigurationConnectionStyle(ageDiagram.getConfiguration());
+			finalStyleProvider.setDiagramConfiguration(ageDiagram.getConfiguration());
 		}
 
 		@Override
@@ -930,10 +938,10 @@ public class GraphitiAgeDiagram implements NodePictogramBiMap, AutoCloseable {
 							for (final DiagramNode n : nodesToLayout) {
 								if (n instanceof AgeDiagram) {
 									LayoutUtil.layoutDepthFirst(graphitiDiagram, event.mod, (AgeDiagram) n,
-											GraphitiAgeDiagram.this, coloringProvider);
+											GraphitiAgeDiagram.this);
 								} else if (n instanceof DiagramElement) {
 									LayoutUtil.layoutDepthFirst(graphitiDiagram, event.mod, (DiagramElement) n,
-											GraphitiAgeDiagram.this, coloringProvider);
+											GraphitiAgeDiagram.this);
 									elementsToCheckParentsForLayout.add((DiagramElement) n);
 								}
 							}
@@ -954,7 +962,7 @@ public class GraphitiAgeDiagram implements NodePictogramBiMap, AutoCloseable {
 									final PictogramElement parentPe = getPictogramElement(parentToLayout);
 									if (parentPe instanceof ContainerShape) {
 										LayoutUtil.layout(graphitiDiagram, event.mod, parentToLayout,
-												(ContainerShape) parentPe, GraphitiAgeDiagram.this, coloringProvider);
+												(ContainerShape) parentPe, GraphitiAgeDiagram.this);
 									}
 								}
 
