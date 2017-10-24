@@ -138,7 +138,7 @@ public class GraphitiAgeDiagram implements NodePictogramBiMap, AutoCloseable {
 			public void execute() {
 				diagramResource.getContents().add(graphitiDiagram);
 				ageDiagram.modify("Initial Update", m -> createUpdateElementsFromAgeDiagram(m));
-
+				refreshDiagramStyles(); // Update style of graphiti pictogram elements.
 			}
 
 			@Override
