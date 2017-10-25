@@ -25,7 +25,6 @@
 		<module>../../org.osate.codegen.checker</module>
 
 		<module>../../org.osate.importer</module>
-		<module>../../org.osate.importer.scade</module>
 		<module>../../org.osate.importer.simulink</module>
 		<module>../../org.osate.importer.lattix</module>
 
