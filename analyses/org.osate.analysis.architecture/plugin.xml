@@ -246,14 +246,9 @@
                      checkEnabled="false">
                   <with
                         variable="activeWorkbenchWindow.activePerspective">
-                     <or>
-                        <equals
-                              value="org.osate.ui.perspective.AadlPerspective">
-                        </equals>
-                        <equals
-                              value="org.osate.imv.ui.perspective.ImvPerspective">
-                        </equals>
-                     </or>
+                     <equals
+                           value="org.osate.ui.perspective.AadlPerspective">
+                     </equals>
                   </with>
                </visibleWhen>
             </command>
@@ -263,14 +258,9 @@
                      checkEnabled="false">
                   <with
                         variable="activeWorkbenchWindow.activePerspective">
-                     <or>
-                        <equals
-                              value="org.osate.ui.perspective.AadlPerspective">
-                        </equals>
-                        <equals
-                              value="org.osate.imv.ui.perspective.ImvPerspective">
-                        </equals>
-                     </or>
+                     <equals
+                           value="org.osate.ui.perspective.AadlPerspective">
+                     </equals>
                   </with>
                </visibleWhen>
             </command>
@@ -280,14 +270,9 @@
                      checkEnabled="false">
                   <with
                         variable="activeWorkbenchWindow.activePerspective">
-                     <or>
-                        <equals
-                              value="org.osate.ui.perspective.AadlPerspective">
-                        </equals>
-                        <equals
-                              value="org.osate.imv.ui.perspective.ImvPerspective">
-                        </equals>
-                     </or>
+                     <equals
+                           value="org.osate.ui.perspective.AadlPerspective">
+                     </equals>
                   </with>
                </visibleWhen>
             </command>
@@ -301,14 +286,9 @@
                      checkEnabled="false">
                   <with
                         variable="activeWorkbenchWindow.activePerspective">
-                     <or>
-                        <equals
-                              value="org.osate.ui.perspective.AadlPerspective">
-                        </equals>
-                        <equals
-                              value="org.osate.imv.ui.perspective.ImvPerspective">
-                        </equals>
-                     </or>
+                     <equals
+                           value="org.osate.ui.perspective.AadlPerspective">
+                     </equals>
                   </with>
                </visibleWhen>
             </command>
@@ -318,14 +298,9 @@
                      checkEnabled="false">
                   <with
                         variable="activeWorkbenchWindow.activePerspective">
-                     <or>
-                        <equals
-                              value="org.osate.ui.perspective.AadlPerspective">
-                        </equals>
-                        <equals
-                              value="org.osate.imv.ui.perspective.ImvPerspective">
-                        </equals>
-                     </or>
+                     <equals
+                           value="org.osate.ui.perspective.AadlPerspective">
+                     </equals>
                   </with>
                </visibleWhen>
             </command>
@@ -340,14 +315,9 @@
                   checkEnabled="false">
                <with
                      variable="activeWorkbenchWindow.activePerspective">
-                  <or>
-                     <equals
-                           value="org.osate.ui.perspective.AadlPerspective">
-                     </equals>
-                     <equals
-                           value="org.osate.imv.ui.perspective.ImvPerspective">
-                     </equals>
-                  </or>
+                  <equals
+                        value="org.osate.ui.perspective.AadlPerspective">
+                  </equals>
                </with>
             </visibleWhen>
          </command>
@@ -358,14 +328,9 @@
                   checkEnabled="false">
                <with
                      variable="activeWorkbenchWindow.activePerspective">
-                  <or>
-                     <equals
-                           value="org.osate.ui.perspective.AadlPerspective">
-                     </equals>
-                     <equals
-                           value="org.osate.imv.ui.perspective.ImvPerspective">
-                     </equals>
-                  </or>
+                  <equals
+                        value="org.osate.ui.perspective.AadlPerspective">
+                  </equals>
                </with>
             </visibleWhen>
          </command>
@@ -376,14 +341,9 @@
                   checkEnabled="false">
                <with
                      variable="activeWorkbenchWindow.activePerspective">
-                  <or>
-                     <equals
-                           value="org.osate.ui.perspective.AadlPerspective">
-                     </equals>
-                     <equals
-                           value="org.osate.imv.ui.perspective.ImvPerspective">
-                     </equals>
-                  </or>
+                  <equals
+                        value="org.osate.ui.perspective.AadlPerspective">
+                  </equals>
                </with>
             </visibleWhen>
          </command>
@@ -394,14 +354,9 @@
                   checkEnabled="false">
                <with
                      variable="activeWorkbenchWindow.activePerspective">
-                  <or>
-                     <equals
-                           value="org.osate.ui.perspective.AadlPerspective">
-                     </equals>
-                     <equals
-                           value="org.osate.imv.ui.perspective.ImvPerspective">
-                     </equals>
-                  </or>
+                  <equals
+                        value="org.osate.ui.perspective.AadlPerspective">
+                  </equals>
                </with>
             </visibleWhen>
          </command>

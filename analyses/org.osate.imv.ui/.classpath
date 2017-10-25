@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<classpath>
-	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.6"/>
-	<classpathentry kind="con" path="org.eclipse.pde.core.requiredPlugins"/>
-	<classpathentry excluding="edu/erau/osate/imv/providers/AadlFigureProvider.java|edu/erau/osate/imv/filters/ComponentFilter.java|edu/erau/osate/imv/filters/FeatureFilter.java|edu/erau/osate/imv/filters/ModeFilter.java|edu/erau/osate/imv/model/ElementInhibitStatus.java|edu/erau/osate/imv/model/FlowHighlighter.java|edu/erau/osate/imv/model/FlowManager.java|edu/erau/osate/imv/model/ImvModelProvider.java|edu/erau/osate/imv/model/ModeManager.java|edu/erau/osate/imv/image/AutoImageType.java|edu/erau/osate/imv/image/ImageSaver.java|edu/erau/osate/imv/image/ImageUtils.java|edu/erau/osate/imv/persistence/AadlDiagramReader.java|edu/erau/osate/imv/persistence/AadlDiagramWriter.java|edu/erau/osate/imv/providers/OsateFigureRestorer.java|edu/erau/osate/imv/providers/OsateFlowHighlighterDelegate.java" kind="src" path="src"/>
-	<classpathentry kind="output" path="bin"/>
-</classpath>

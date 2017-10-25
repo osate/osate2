@@ -28,10 +28,6 @@
 		<module>../../org.osate.importer.simulink</module>
 		<module>../../org.osate.importer.lattix</module>
 
-		<module>../../org.osate.imv.osate</module>
-		<module>../../org.osate.imv.propertydecorations</module>
-		<module>../../org.osate.imv.ui</module>
-		<module>../../org.osate.imv.aadldiagram</module>
 		<module>../../org.osate.analysis.binpacking</module>
 		<module>../../org.osate.plugins.feature</module>
 

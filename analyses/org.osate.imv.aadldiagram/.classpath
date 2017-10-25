@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<classpath>
-	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.6"/>
-	<classpathentry kind="con" path="org.eclipse.pde.core.requiredPlugins"/>
-	<classpathentry excluding="edu/erau/osate/imv/draw2d/MevConnectionFigure.java|edu/erau/osate/imv/providers/IMevFigureProvider.java|edu/erau/osate/imv/draw2d/MevFigure.java|edu/erau/osate/imv/draw2d/AadlFigureListener.java|edu/erau/osate/imv/draw2d/SelectableAadlFigure.java|edu/erau/osate/imv/draw2d/AadlFigureCanvas.java|edu/erau/aadldiagram/draw2d/AadlFigureCanvas.java|edu/erau/osate/imv/mev/ImvMevPlugin.java|edu/erau/aadldiagram/draw2d/MevFigureType.java|edu/erau/aadldiagram/draw2d/MevConnectionDecorator.java|edu/erau/aadldiagram/connectiondecorations/ConnectionItem.java" kind="src" path="src"/>
-	<classpathentry kind="output" path="bin"/>
-</classpath>
