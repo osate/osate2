@@ -47,11 +47,6 @@
       </command>
       <command
             categoryId="org.osate.aadl2.errormodel.analysis.category"
-            id="org.osate.aadl2.errormodel.analysis.rbd"
-            name="%RBD.label">
-      </command>
-      <command
-            categoryId="org.osate.aadl2.errormodel.analysis.category"
             id="org.osate.aadl2.errormodel.analysis.faultImpact"
             name="%FaultImpact.label">
       </command>
@@ -119,30 +114,6 @@
       <handler
             class="org.osate.aadl2.errormodel.analysis.handlers.MILSTD882FHAHandler"
             commandId="org.osate.aadl2.errormodel.analysis.milstd882FHA">
-         <enabledWhen>
-            <or>
-               <reference
-                     definitionId="org.osate.core.isInstanceFileSelected">
-               </reference>
-               <with
-                     variable="selection">
-                  <and>
-                     <count
-                           value="1">
-                     </count>
-                     <iterate>
-                        <instanceof
-                              value="org.osate.aadl2.instance.ComponentInstance">
-                        </instanceof>
-                     </iterate>
-                  </and>
-               </with>
-            </or>
-         </enabledWhen>
-      </handler>
-      <handler
-            class="org.osate.aadl2.errormodel.analysis.handlers.RBDHandler"
-            commandId="org.osate.aadl2.errormodel.analysis.rbd">
          <enabledWhen>
             <or>
                <reference
@@ -252,10 +223,6 @@
             icon="icons/fha.png">
       </image>
       <image
-            commandId="org.osate.aadl2.errormodel.analysis.rbd"
-            icon="icons/rbd.png">
-      </image>
-      <image
             commandId="org.osate.aadl2.errormodel.analysis.faultImpact"
             icon="icons/FaultImpact.gif">
       </image>
@@ -301,18 +268,6 @@
             </command>
             <command
                   commandId="org.osate.aadl2.errormodel.analysis.faultImpact">
-               <visibleWhen
-                     checkEnabled="false">
-                  <with
-                        variable="activeWorkbenchWindow.activePerspective">
-                     <equals
-                           value="org.osate.ui.perspective.AadlPerspective">
-                     </equals>
-                  </with>
-               </visibleWhen>
-            </command>
-            <command
-                  commandId="org.osate.aadl2.errormodel.analysis.rbd">
                <visibleWhen
                      checkEnabled="false">
                   <with
@@ -392,19 +347,6 @@
          <command
                commandId="org.osate.aadl2.errormodel.analysis.faultImpact"
                tooltip="%FaultImpact.toolTip">
-            <visibleWhen
-                  checkEnabled="false">
-               <with
-                     variable="activeWorkbenchWindow.activePerspective">
-                  <equals
-                        value="org.osate.ui.perspective.AadlPerspective">
-                  </equals>
-               </with>
-            </visibleWhen>
-         </command>
-         <command
-               commandId="org.osate.aadl2.errormodel.analysis.rbd"
-               tooltip="%RBD.toolTip">
             <visibleWhen
                   checkEnabled="false">
                <with
@@ -512,31 +454,6 @@
             </command>
             <command
                   commandId="org.osate.aadl2.errormodel.analysis.faultImpact">
-               <visibleWhen
-                     checkEnabled="false">
-                  <with
-                        variable="selection">
-                     <iterate
-                           operator="and"
-                           ifEmpty="false">
-                        <or>
-                           <instanceof
-                                 value="org.osate.aadl2.instance.SystemInstance">
-                           </instanceof>
-                           <adapt
-                                 type="org.eclipse.core.resources.IFile">
-                              <test
-                                    property="org.eclipse.core.resources.contentTypeId"
-                                    value="org.osate.core.instanceModelFile">
-                              </test>
-                           </adapt>
-                        </or>
-                     </iterate>
-                  </with>
-               </visibleWhen>
-            </command>
-            <command
-                  commandId="org.osate.aadl2.errormodel.analysis.rbd">
                <visibleWhen
                      checkEnabled="false">
                   <with
