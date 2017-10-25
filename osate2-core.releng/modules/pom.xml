@@ -30,6 +30,7 @@
 		<module>../../org.osate.contribution.sei</module>
 		<module>../../org.osate.core</module>
 		<module>../../org.osate.core.feature</module>
+		<module>../../org.osate.discovery</module>
 		<module>../../org.osate.help</module>
 		<module>../../org.osate.pluginsupport</module>
 		<module>../../org.osate.resolute.help</module>
