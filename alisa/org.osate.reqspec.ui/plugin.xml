@@ -54,10 +54,6 @@
 				</and>
             </activeWhen>
         </handler>
-        <handler
-              class="org.osate.reqspec.ui.handlers.SpotlightHandler"
-              commandId="org.osate.reqspec.ui.commands.spotlightCommand">
-          </handler>
     </extension>
     <extension point="org.eclipse.core.expressions.definitions">
         <definition id="org.osate.reqspec.ReqSpec.Editor.opened">
@@ -144,11 +140,6 @@
             description="Copy the qualified name for the selected element"
             name="Copy Qualified Name">
       </command>
-      <command
-            id="org.osate.reqspec.ui.commands.spotlightCommand"
-            name="Spotlight">
-      </command>
-      
     </extension>
     <extension point="org.eclipse.ui.menus">
         <menuContribution
@@ -193,13 +184,6 @@
 					</and>
 				</visibleWhen>
 			</command>
-         </menuContribution>
-         <menuContribution
-              locationURI="popup:org.osate.ui.navigator.AadlNavigator?before=org.osate.ui.instantiate">
-               <command
-                     commandId="org.osate.reqspec.ui.commands.spotlightCommand"
-                     label="Spotlight">
-               </command>
          </menuContribution>
     </extension>
     <extension point="org.eclipse.ui.menus">
