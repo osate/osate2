@@ -1,0 +1,66 @@
+BASE_VERSION=2.2.3
+BASE_TAG=2.2.3-RELEASE-20170811
+UPDATE=01
+NEW_VERSION=${BASE_VERSION}.vupdate${UPDATE}
+NEW_TAG=${BASE_VERSION}-UPDATE${UPDATE}
+GIT_ROOT=$HOME/git/osate
+DIRS="alisa emfta ErrorModelV2 osate2-ba osate2-core osate2-ocarina osate2-plugins osate-ge smaccm"
+
+#
+# Get up-to-date master branches
+#
+for d in $DIRS; do (echo $d; cd $d && git checkout master); done
+for d in $DIRS; do (echo $d; cd $d && git pull); done
+
+#
+# Create maintenance branches from release tags
+#
+#for d in $DIRS; do (echo $d; cd $d && git branch ${BASE_VERSION}-maintenance ${BASE_TAG}); done
+#for d in $DIRS; do (echo $d; cd $d && git push --set-upstream origin ${BASE_VERSION}-maintenance); done
+
+#
+# Get up-to-date maintenance branches
+#
+for d in $DIRS; do (echo $d; cd $d && git checkout ${BASE_VERSION}-maintenance; git pull); done
+
+#
+### Merge develop here if needed
+#
+
+#
+# Set new version and commit
+#
+(cd osate2-core/osate.releng && mvn org.eclipse.tycho:tycho-versions-plugin:set-version -Dtycho.mode=maven -Dartifacts=osate2 -DnewVersion=$NEW_VERSION)
+(cd osate2-core/org.osate.build.main && sed --in-place "s/\(<osate.version>\)[^<]*\(<\/osate.version>\)/\1${NEW_VERSION}\2/" pom.xml)
+for d in $DIRS; do (echo $d; cd $d && git add . && git commit -m"Set OSATE version ${NEW_VERSION}"); done
+for d in $DIRS; do (echo $d; cd $d && git push); done
+
+#
+# Build
+#
+(cd osate2-core/osate.releng && mvn clean integration-test -Pfull -U -Djgit.dirtyWorkingTree=error -Dtycho.localArtifacts=ignore)
+
+#
+# Create release tags and push
+#
+for d in $DIRS; do (echo $d; cd $d && git tag $NEW_TAG); done
+for d in $DIRS; do (echo $d; cd $d && git push --follow-tags); done
+
+
+#
+# Mirror repositories to merge them into one
+#
+ECLIPSE=$HOME/local/eclipse/osate2-develop/eclipse/eclipse
+$ECLIPSE -application org.eclipse.equinox.p2.metadata.repository.mirrorApplication \
+    -source http://aadl.info/aadl/osate/stable/2.2.3/update-site/ -destination file:$HOME/tmp/$NEW_VERSION/update-site/ -verbose
+$ECLIPSE -application org.eclipse.equinox.p2.metadata.repository.mirrorApplication \
+    -source file:$GIT_ROOT/osate2-core/org.osate.build.product/target/repository/ -destination file:$HOME/tmp/$NEW_VERSION/update-site/ -verbose
+$ECLIPSE -application org.eclipse.equinox.p2.artifact.repository.mirrorApplication \
+    -source file:$GIT_ROOT/osate2-core/org.osate.build.product/target/repository/ -destination file:$HOME/tmp/$NEW_VERSION/update-site/ -verbose
+$ECLIPSE -application org.eclipse.equinox.p2.artifact.repository.mirrorApplication \
+    -source http://aadl.info/aadl/osate/stable/2.2.3/update-site/ -destination file:$HOME/tmp/$NEW_VERSION/update-site/ -verbose
+
+#
+# Get up-to-date maintenance branches
+#
+for d in $DIRS; do (echo $d; cd $d && if [ $d != osate2-ocarina ]; then git checkout develop; else git checkout master; fi); done
