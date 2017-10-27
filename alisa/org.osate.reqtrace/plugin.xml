@@ -15,6 +15,15 @@
    <extension
          point="org.eclipse.ui.menus">
       <menuContribution
+            locationURI="menu:org.osate.ui.reportGenerationMenu?after=core">
+         <command
+               commandId="org.osate.reqtrace.requirementsTracing">
+         </command>
+         <command
+               commandId="org.osate.reqtrace.requirementsReport">
+         </command>
+      </menuContribution>
+      <menuContribution
             allPopups="false"
             locationURI="popup:org.osate.ui.navigator.AadlNavigator?before=org.osate.aadl2.instance.ui.generateTextualInstance">
          <menu
