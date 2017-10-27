@@ -582,18 +582,6 @@
              <separator
                    name="org.osate.ui.analysisToolbarSection2">
              </separator>
-             <command
-                   commandId="org.osate.ui.reinstantiateAllAadl">
-                <visibleWhen
-                      checkEnabled="false">
-                   <with
-                         variable="activeWorkbenchWindow.activePerspective">
-                      <equals
-                            value="org.osate.ui.perspective.AadlPerspective">
-                      </equals>
-                   </with>
-                </visibleWhen>
-             </command>
              <separator
                    name="org.osate.ui.separator2"
                    visible="true">
