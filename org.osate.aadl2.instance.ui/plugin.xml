@@ -11,6 +11,12 @@
          <extension
                point="org.eclipse.ui.menus">
             <menuContribution
+                  locationURI="menu:org.osate.ui.osateMenu?after=generateTextual">
+               <command
+                     commandId="org.osate.aadl2.instance.ui.generateTextualInstance">
+               </command>
+            </menuContribution>
+            <menuContribution
                   allPopups="false"
                   locationURI="popup:org.osate.ui.navigator.AadlNavigator?after=org.osate.ui.aadlAnalysesPopupMenu">
                <command

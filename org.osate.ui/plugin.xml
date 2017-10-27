@@ -425,30 +425,146 @@
           </command>
        </menuContribution>
        <menuContribution
-             locationURI="menu:org.eclipse.ui.main.menu?after=additions">
-          <menu
-                id="org.osate.ui.analysesMenu"
-                label="Analyses">
-          </menu>
+             locationURI="menu:org.eclipse.ui.main.menu?after=org.eclipse.ui.run">
           <menu
                 id="org.osate.ui.osateMenu"
                 label="OSATE">
+             <visibleWhen
+                   checkEnabled="false">
+                <with
+                      variable="activeWorkbenchWindow.activePerspective">
+                   <equals
+                         value="org.osate.ui.perspective.AadlPerspective">
+                   </equals>
+                </with>
+             </visibleWhen>
+             <menu
+                   id="org.osate.ui.openWorkflowMenu"
+                   label="Open Workflow">
+                <separator
+                      name="core">
+                </separator>
+                <separator
+                      name="third_party">
+                </separator>
+             </menu>
+             <menu
+                   id="org.osate.ui.importExportMenu"
+                   label="Import/Export">
+                <separator
+                      name="core">
+                </separator>
+                <separator
+                      name="third_party">
+                </separator>
+             </menu>
+             <menu
+                   id="org.osate.ui.reportGenerationMenu"
+                   label="Report Generation">
+                <separator
+                      name="core">
+                </separator>
+                <separator
+                      name="third_party">
+                </separator>
+             </menu>
+             <menu
+                   id="org.osate.ui.ocarinaMenu"
+                   label="Ocarina">
+                <separator
+                      name="core">
+                </separator>
+                <separator
+                      name="third_party">
+                </separator>
+             </menu>
              <command
                    commandId="org.osate.ui.reinstantiateAllAadl"
                    style="push">
-                <visibleWhen
-                      checkEnabled="false">
-                   <with
-                         variable="activeWorkbenchWindow.activePerspective">
-                      <equals
-                            value="org.osate.ui.perspective.AadlPerspective">
-                      </equals>
-                   </with>
-                </visibleWhen>
              </command>
              <separator
-                   name="org.osate.ui.separator1"
-                   visible="true">
+                   name="generateTextual">
+             </separator>
+             <separator
+                   name="third_party">
+             </separator>
+          </menu>
+          <menu
+                id="org.osate.ui.analysesMenu"
+                label="Analyses">
+             <visibleWhen
+                   checkEnabled="false">
+                <with
+                      variable="activeWorkbenchWindow.activePerspective">
+                   <equals
+                         value="org.osate.ui.perspective.AadlPerspective">
+                   </equals>
+                </with>
+             </visibleWhen>
+             <menu
+                   id="org.osate.ui.budgetMenu"
+                   label="Budget">
+                <separator
+                      name="core">
+                </separator>
+                <separator
+                      name="third_party">
+                </separator>
+             </menu>
+             <menu
+                   id="org.osate.ui.semanticChecksMenu"
+                   label="Semantic Checks">
+                <separator
+                      name="core">
+                </separator>
+                <separator
+                      name="emv2"
+                      visible="true">
+                </separator>
+                <separator
+                      name="code_generation"
+                      visible="true">
+                </separator>
+                <separator
+                      name="third_party">
+                </separator>
+             </menu>
+             <menu
+                   id="org.osate.ui.timingMenu"
+                   label="Timing">
+                <separator
+                      name="core">
+                </separator>
+                <separator
+                      name="workbench"
+                      visible="true">
+                </separator>
+                <separator
+                      name="third_party">
+                </separator>
+             </menu>
+             <menu
+                   id="org.osate.ui.safetyMenu"
+                   label="Safety">
+                <separator
+                      name="core">
+                </separator>
+                <separator
+                      name="third_party">
+                </separator>
+             </menu>
+             <menu
+                   id="org.osate.ui.miscellaneousMenu"
+                   label="Miscellaneous">
+                <separator
+                      name="workbench">
+                </separator>
+                <separator
+                      name="third_party">
+                </separator>
+             </menu>
+             <separator
+                   name="third_party">
              </separator>
           </menu>
        </menuContribution>
