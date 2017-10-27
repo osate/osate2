@@ -61,24 +61,11 @@
          
     <extension point="org.eclipse.ui.menus">
        <menuContribution
-            locationURI="menu:org.osate.ui.analysesMenu?before=org.osate.analysis.flows.checkFlowLatency">
-         <menu
-               id="org.osate.aadl2.errormodel.analysis.faultAnalysesMenu"
-               label="Fault Analyses">
-            <command
-                  commandId="org.osate.aadl2.errormodel.analysis.fta">
-               <visibleWhen
-                     checkEnabled="false">
-                  <with
-                        variable="activeWorkbenchWindow.activePerspective">
-                     <equals
-                           value="org.osate.ui.perspective.AadlPerspective">
-                     </equals>
-                  </with>
-               </visibleWhen>
-            </command>
-         </menu>
-      </menuContribution>
+             locationURI="menu:org.osate.ui.safetyMenu?after=core">
+          <command
+                commandId="org.osate.aadl2.errormodel.analysis.fta">
+          </command>
+       </menuContribution>
       <menuContribution
             locationURI="toolbar:org.osate.ui.toolbar?after=org.osate.ui.annexToolbarSection">
          <command
