@@ -75,18 +75,9 @@
    <extension
          point="org.eclipse.ui.menus">
       <menuContribution
-            locationURI="menu:org.osate.ui.analysesMenu?after=org.osate.analysis.architecture.semanticChecksMenu">
+            locationURI="menu:org.osate.ui.timingMenu?after=core">
          <command
                commandId="org.osate.analysis.flows.checkFlowLatency">
-            <visibleWhen
-                  checkEnabled="false">
-               <with
-                     variable="activeWorkbenchWindow.activePerspective">
-                  <equals
-                        value="org.osate.ui.perspective.AadlPerspective">
-                  </equals>
-               </with>
-            </visibleWhen>
          </command>
       </menuContribution>
       <menuContribution

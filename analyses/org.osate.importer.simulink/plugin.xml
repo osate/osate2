@@ -41,23 +41,10 @@
    <extension
          point="org.eclipse.ui.menus">
       <menuContribution
-            locationURI="menu:org.osate.ui.analysesMenu?after=org.osate.analysis.resource.management.schedulingMenu">
-         <menu
-               id="org.osate.importer.simulink.importExportModelsMenu"
-               label="Import/Export Models">
-            <command
-                  commandId="org.osate.importer.simulink.doImportSimulink">
-               <visibleWhen
-                     checkEnabled="false">
-                  <with
-                        variable="activeWorkbenchWindow.activePerspective">
-                     <equals
-                           value="org.osate.ui.perspective.AadlPerspective">
-                     </equals>
-                  </with>
-               </visibleWhen>
-            </command>
-         </menu>
+            locationURI="menu:org.osate.ui.importExportMenu?after=core">
+         <command
+               commandId="org.osate.importer.simulink.doImportSimulink">
+         </command>
       </menuContribution>
       <menuContribution
             locationURI="toolbar:org.osate.ui.toolbar">

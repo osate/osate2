@@ -143,35 +143,16 @@
    <extension
          point="org.eclipse.ui.menus">
       <menuContribution
-            locationURI="menu:org.osate.ui.analysesMenu?after=org.osate.analysis.flows.checkFlowLatency">
-         <menu
-               id="org.osate.analysis.resource.management.schedulingMenu"
-               label="Scheduling">
-            <command
-                  commandId="org.osate.analysis.resource.management.binpack">
-               <visibleWhen
-                     checkEnabled="false">
-                  <with
-                        variable="activeWorkbenchWindow.activePerspective">
-                     <equals
-                           value="org.osate.ui.perspective.AadlPerspective">
-                     </equals>
-                  </with>
-               </visibleWhen>
-            </command>
-            <command
-                  commandId="org.osate.analysis.resource.management.checkPriorityInversion">
-               <visibleWhen
-                     checkEnabled="false">
-                  <with
-                        variable="activeWorkbenchWindow.activePerspective">
-                     <equals
-                           value="org.osate.ui.perspective.AadlPerspective">
-                     </equals>
-                  </with>
-               </visibleWhen>
-            </command>
-         </menu>
+            locationURI="menu:org.osate.ui.timingMenu?after=core">
+         <command
+               commandId="org.osate.analysis.resource.management.binpack">
+         </command>
+         <command
+               commandId="org.osate.analysis.resource.management.checkPriorityInversion">
+         </command>
+         <command
+               commandId="org.osate.analysis.resource.management.schedule">
+         </command>
       </menuContribution>
       <menuContribution
             locationURI="toolbar:org.osate.ui.toolbar?after=org.osate.analysis.resource.budgets.doResourceBudget">

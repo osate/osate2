@@ -182,54 +182,18 @@
    <extension
          point="org.eclipse.ui.menus">
       <menuContribution
-            locationURI="menu:org.osate.analysis.architecture.architectureMenu?after=org.osate.analysis.architecture.portConnectionConsistency">
+            locationURI="menu:org.osate.ui.budgetMenu?after=core">
          <command
                commandId="org.osate.analysis.resource.budgets.doBoundSwitchBandWidthAnalysis">
-            <visibleWhen
-                  checkEnabled="false">
-               <with
-                     variable="activeWorkbenchWindow.activePerspective">
-                  <equals
-                        value="org.osate.ui.perspective.AadlPerspective">
-                  </equals>
-               </with>
-            </visibleWhen>
          </command>
          <command
                commandId="org.osate.analysis.resource.budgets.doPowerAnalysis">
-            <visibleWhen
-                  checkEnabled="false">
-               <with
-                     variable="activeWorkbenchWindow.activePerspective">
-                  <equals
-                        value="org.osate.ui.perspective.AadlPerspective">
-                  </equals>
-               </with>
-            </visibleWhen>
          </command>
          <command
                commandId="org.osate.analysis.resource.budgets.doBoundResourceAnalysis">
-            <visibleWhen
-                  checkEnabled="false">
-               <with
-                     variable="activeWorkbenchWindow.activePerspective">
-                  <equals
-                        value="org.osate.ui.perspective.AadlPerspective">
-                  </equals>
-               </with>
-            </visibleWhen>
          </command>
          <command
                commandId="org.osate.analysis.resource.budgets.doResourceBudget">
-            <visibleWhen
-                  checkEnabled="false">
-               <with
-                     variable="activeWorkbenchWindow.activePerspective">
-                  <equals
-                        value="org.osate.ui.perspective.AadlPerspective">
-                  </equals>
-               </with>
-            </visibleWhen>
          </command>
       </menuContribution>
       <menuContribution
