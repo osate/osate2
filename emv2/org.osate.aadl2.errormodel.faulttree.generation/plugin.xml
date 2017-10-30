@@ -66,11 +66,15 @@
                 commandId="org.osate.aadl2.errormodel.analysis.fta">
           </command>
        </menuContribution>
-      <menuContribution
-            locationURI="toolbar:org.osate.ui.toolbar?after=org.osate.ui.annexToolbarSection">
-         <command
-               commandId="org.osate.aadl2.errormodel.analysis.fta"
-               tooltip="Generate and View Fault Tree or Minimal Cut Set">
+       <menuContribution
+             locationURI="toolbar:org.osate.ui.safetyToolbar?after=core">
+          <command
+                commandId="org.osate.aadl2.errormodel.analysis.fta"
+                tooltip="Generate and View Fault Tree or Minimal Cut Set">
+             <!--
+               Remove visibleWhen on the command when this bug is fixed:
+               https://bugs.eclipse.org/bugs/show_bug.cgi?id=201589
+            -->
             <visibleWhen
                   checkEnabled="false">
                <with
@@ -80,8 +84,8 @@
                   </equals>
                </with>
             </visibleWhen>
-         </command>
-      </menuContribution>
+          </command>
+       </menuContribution>
       <menuContribution
             locationURI="popup:org.osate.ui.aadlAnalysesPopupMenu?before=org.osate.analysis.flows.checkFlowLatency">
          <menu

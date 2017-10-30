@@ -262,10 +262,14 @@
          </command>
       </menuContribution>
       <menuContribution
-            locationURI="toolbar:org.osate.ui.toolbar?after=org.osate.ui.annexToolbarSection">
+            locationURI="toolbar:org.osate.ui.semanticChecksToolbar?after=emv2">
          <command
                commandId="org.osate.aadl2.errormodel.analysis.implementationCompliance"
                tooltip="%ImplementationCompliance.toolTip">
+            <!--
+               Remove visibleWhen on the command when this bug is fixed:
+               https://bugs.eclipse.org/bugs/show_bug.cgi?id=201589
+            -->
             <visibleWhen
                   checkEnabled="false">
                <with
@@ -277,8 +281,31 @@
             </visibleWhen>
          </command>
          <command
-               commandId="org.osate.aadl2.errormodel.analysis.unhandledFaults"
-               tooltip="%UnhandledFaults.toolTip">
+               commandId="org.osate.aadl2.errormodel.analysis.unhandledFaults">
+            <!--
+               Remove visibleWhen on the command when this bug is fixed:
+               https://bugs.eclipse.org/bugs/show_bug.cgi?id=201589
+            -->
+            <visibleWhen
+                  checkEnabled="false">
+               <with
+                     variable="activeWorkbenchWindow.activePerspective">
+                  <equals
+                        value="org.osate.ui.perspective.AadlPerspective">
+                  </equals>
+               </with>
+            </visibleWhen>
+         </command>
+      </menuContribution>
+      <menuContribution
+            locationURI="toolbar:org.osate.ui.safetyToolbar?after=core">
+         <command
+               commandId="org.osate.aadl2.errormodel.analysis.fha"
+               style="pulldown">
+            <!--
+               Remove visibleWhen on the command when this bug is fixed:
+               https://bugs.eclipse.org/bugs/show_bug.cgi?id=201589
+            -->
             <visibleWhen
                   checkEnabled="false">
                <with
@@ -292,6 +319,10 @@
          <command
                commandId="org.osate.aadl2.errormodel.analysis.faultImpact"
                tooltip="%FaultImpact.toolTip">
+            <!--
+               Remove visibleWhen on the command when this bug is fixed:
+               https://bugs.eclipse.org/bugs/show_bug.cgi?id=201589
+            -->
             <visibleWhen
                   checkEnabled="false">
                <with
@@ -302,44 +333,17 @@
                </with>
             </visibleWhen>
          </command>
+      </menuContribution>
+      <menuContribution
+            locationURI="menu:org.osate.aadl2.errormodel.analysis.fha">
          <command
-               commandId="org.osate.aadl2.errormodel.analysis.milstd882FHA"
-               tooltip="%MILSTD882FHA.toolTip">
-            <visibleWhen
-                  checkEnabled="false">
-               <with
-                     variable="activeWorkbenchWindow.activePerspective">
-                  <equals
-                        value="org.osate.ui.perspective.AadlPerspective">
-                  </equals>
-               </with>
-            </visibleWhen>
+               commandId="org.osate.aadl2.errormodel.analysis.fha">
          </command>
          <command
-               commandId="org.osate.aadl2.errormodel.analysis.arp4761FHA"
-               tooltip="%ARP4761FHA.toolTip">
-            <visibleWhen
-                  checkEnabled="false">
-               <with
-                     variable="activeWorkbenchWindow.activePerspective">
-                  <equals
-                        value="org.osate.ui.perspective.AadlPerspective">
-                  </equals>
-               </with>
-            </visibleWhen>
+               commandId="org.osate.aadl2.errormodel.analysis.arp4761FHA">
          </command>
          <command
-               commandId="org.osate.aadl2.errormodel.analysis.fha"
-               tooltip="%FHA.toolTip">
-            <visibleWhen
-                  checkEnabled="false">
-               <with
-                     variable="activeWorkbenchWindow.activePerspective">
-                  <equals
-                        value="org.osate.ui.perspective.AadlPerspective">
-                  </equals>
-               </with>
-            </visibleWhen>
+               commandId="org.osate.aadl2.errormodel.analysis.milstd882FHA">
          </command>
       </menuContribution>
       <menuContribution
