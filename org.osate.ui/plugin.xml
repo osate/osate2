@@ -569,27 +569,109 @@
           </menu>
        </menuContribution>
        <menuContribution
-             locationURI="toolbar:org.eclipse.ui.main.toolbar">
+             locationURI="toolbar:org.eclipse.ui.main.toolbar?after=additions">
           <toolbar
-                id="org.osate.ui.toolbar"
-                label="OSATE">
+                id="org.osate.ui.osateWizardsToolbar"
+                label="OSATE Wizards">
+             <visibleWhen
+                   checkEnabled="false">
+                <with
+                      variable="activeWorkbenchWindow.activePerspective">
+                   <equals
+                         value="org.osate.ui.perspective.AadlPerspective">
+                   </equals>
+                </with>
+             </visibleWhen>
              <separator
-                   name="org.osate.ui.analysisToolbarSection1">
+                   name="core">
              </separator>
              <separator
-                   name="org.osate.ui.annexToolbarSection">
+                   name="third_party">
              </separator>
-             <separator
-                   name="org.osate.ui.analysisToolbarSection2">
-             </separator>
-             <separator
-                   name="org.osate.ui.separator2"
-                   visible="true">
-             </separator>
-             <separator
-                   name="org.osate.ui.separator3"
-                   visible="true">
-             </separator>
+          </toolbar>
+          <toolbar
+                id="org.osate.ui.budgetToolbar"
+                label="Budget">
+            <visibleWhen
+                  checkEnabled="false">
+               <with
+                     variable="activeWorkbenchWindow.activePerspective">
+                  <equals
+                        value="org.osate.ui.perspective.AadlPerspective">
+                  </equals>
+               </with>
+            </visibleWhen>
+            <separator
+                  name="core">
+            </separator>
+            <separator
+                  name="third_party">
+            </separator>
+          </toolbar>
+          <toolbar
+                id="org.osate.ui.semanticChecksToolbar"
+                label="Semantic Checks">
+            <visibleWhen
+                  checkEnabled="false">
+               <with
+                     variable="activeWorkbenchWindow.activePerspective">
+                  <equals
+                        value="org.osate.ui.perspective.AadlPerspective">
+                  </equals>
+               </with>
+            </visibleWhen>
+            <separator
+                  name="core">
+            </separator>
+            <separator
+                  name="emv2"
+                  visible="true">
+            </separator>
+            <separator
+                  name="code_generation"
+                  visible="true">
+            </separator>
+            <separator
+                  name="third_party">
+            </separator>
+          </toolbar>
+          <toolbar
+                id="org.osate.ui.timingToolbar"
+                label="Timing">
+            <visibleWhen
+                  checkEnabled="false">
+               <with
+                     variable="activeWorkbenchWindow.activePerspective">
+                  <equals
+                        value="org.osate.ui.perspective.AadlPerspective">
+                  </equals>
+               </with>
+            </visibleWhen>
+            <separator
+                  name="core">
+            </separator>
+            <separator
+                  name="third_party">
+            </separator>
+          </toolbar>
+          <toolbar
+                id="org.osate.ui.safetyToolbar"
+                label="Safety">
+            <visibleWhen
+                  checkEnabled="false">
+               <with
+                     variable="activeWorkbenchWindow.activePerspective">
+                  <equals
+                        value="org.osate.ui.perspective.AadlPerspective">
+                  </equals>
+               </with>
+            </visibleWhen>
+            <separator
+                  name="core">
+            </separator>
+            <separator
+                  name="third_party">
+            </separator>
           </toolbar>
        </menuContribution>
     </extension>
