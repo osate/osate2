@@ -365,7 +365,7 @@
       </menuContribution>
 	<menuContribution
              allPopups="false"
-             locationURI="toolbar:org.eclipse.ui.main.toolbar?after=org.osate.ui.toolbar">
+             locationURI="toolbar:org.eclipse.ui.main.toolbar?after=org.osate.ui.safetyToolbar">
           <toolbar
                 id="org.osate.ge.toolbars.layout"
                 label="Layout">
