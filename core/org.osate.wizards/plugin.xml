@@ -39,28 +39,30 @@
       </handler>
    </extension>
    <extension
+         point="org.eclipse.ui.commandImages">
+      <image
+            commandId="org.osate.wizards.aadlProjectWizard"
+            icon="icons/new_aadl_project.gif">
+      </image>
+      <image
+            commandId="org.osate.wizards.packageWizard"
+            icon="icons/new_package.gif">
+      </image>
+      <image
+            commandId="org.osate.wizards.propertySetWizard"
+            icon="icons/new_ps.gif">
+      </image>
+   </extension>
+   <extension
          point="org.eclipse.ui.menus">
       <menuContribution
-            locationURI="toolbar:org.osate.ui.toolbar">
+            locationURI="toolbar:org.osate.ui.osateWizardsToolbar?after=core">
          <command
-               commandId="org.osate.wizards.aadlProjectWizard"
-               icon="icons/new_aadl_project.gif">
-            <visibleWhen
-                  checkEnabled="false">
-               <with
-                     variable="activeWorkbenchWindow.activePerspective">
-                  <equals
-                        value="org.osate.ui.perspective.AadlPerspective">
-                  </equals>
-               </with>
-            </visibleWhen>
-         </command>
-         <separator
-               name="org.osate.wizards.separator1">
-         </separator>
-         <command
-               commandId="org.osate.wizards.propertySetWizard"
-               icon="icons/new_ps.gif">
+               commandId="org.osate.wizards.aadlProjectWizard">
+            <!--
+               Remove visibleWhen on the command when this bug is fixed:
+               https://bugs.eclipse.org/bugs/show_bug.cgi?id=201589
+            -->
             <visibleWhen
                   checkEnabled="false">
                <with
@@ -72,8 +74,27 @@
             </visibleWhen>
          </command>
          <command
-               commandId="org.osate.wizards.packageWizard"
-               icon="icons/new_package.gif">
+               commandId="org.osate.wizards.packageWizard">
+            <!--
+               Remove visibleWhen on the command when this bug is fixed:
+               https://bugs.eclipse.org/bugs/show_bug.cgi?id=201589
+            -->
+            <visibleWhen
+                  checkEnabled="false">
+               <with
+                     variable="activeWorkbenchWindow.activePerspective">
+                  <equals
+                        value="org.osate.ui.perspective.AadlPerspective">
+                  </equals>
+               </with>
+            </visibleWhen>
+         </command>
+         <command
+               commandId="org.osate.wizards.propertySetWizard">
+            <!--
+               Remove visibleWhen on the command when this bug is fixed:
+               https://bugs.eclipse.org/bugs/show_bug.cgi?id=201589
+            -->
             <visibleWhen
                   checkEnabled="false">
                <with
