@@ -81,10 +81,14 @@
          </command>
       </menuContribution>
       <menuContribution
-            locationURI="toolbar:org.osate.ui.toolbar?after=org.osate.ui.analysisToolbarSection2">
+            locationURI="toolbar:org.osate.ui.timingToolbar?after=core">
          <command
                commandId="org.osate.analysis.flows.checkFlowLatency"
                tooltip="%CheckFlowLatency.toolTip">
+            <!--
+               Remove visibleWhen on the command when this bug is fixed:
+               https://bugs.eclipse.org/bugs/show_bug.cgi?id=201589
+            -->
             <visibleWhen
                   checkEnabled="false">
                <with

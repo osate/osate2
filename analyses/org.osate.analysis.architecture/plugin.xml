@@ -232,6 +232,10 @@
             commandId="org.osate.analysis.architecture.propertyTotals"
             icon="icons/checkPropertyTotals.gif">
       </image>
+      <image
+            commandId="org.osate.analysis.architecture.checkBindingConstraints"
+            icon="icons/bindingConstraints.gif">
+      </image>
    </extension>
    <extension
          point="org.eclipse.ui.menus">
@@ -257,10 +261,14 @@
          </command>
       </menuContribution>
       <menuContribution
-            locationURI="toolbar:org.osate.ui.toolbar?after=org.osate.ui.analysisToolbarSection1">
+            locationURI="toolbar:org.osate.ui.budgetToolbar?after=core">
          <command
                commandId="org.osate.analysis.architecture.propertyTotals"
                tooltip="%CheckPropertyTotals.toolTip">
+            <!--
+               Remove visibleWhen on the command when this bug is fixed:
+               https://bugs.eclipse.org/bugs/show_bug.cgi?id=201589
+            -->
             <visibleWhen
                   checkEnabled="false">
                <with
@@ -271,9 +279,16 @@
                </with>
             </visibleWhen>
          </command>
+      </menuContribution>
+      <menuContribution
+            locationURI="toolbar:org.osate.ui.semanticChecksToolbar?after=core">
          <command
                commandId="org.osate.analysis.architecture.checkA429PortConnectionConsistency"
                tooltip="%A429ConnectionConsistency.toolTip">
+            <!--
+               Remove visibleWhen on the command when this bug is fixed:
+               https://bugs.eclipse.org/bugs/show_bug.cgi?id=201589
+            -->
             <visibleWhen
                   checkEnabled="false">
                <with
@@ -287,6 +302,26 @@
          <command
                commandId="org.osate.analysis.architecture.portConnectionConsistency"
                tooltip="%PortConnectionConsistency.toolTip">
+            <!--
+               Remove visibleWhen on the command when this bug is fixed:
+               https://bugs.eclipse.org/bugs/show_bug.cgi?id=201589
+            -->
+            <visibleWhen
+                  checkEnabled="false">
+               <with
+                     variable="activeWorkbenchWindow.activePerspective">
+                  <equals
+                        value="org.osate.ui.perspective.AadlPerspective">
+                  </equals>
+               </with>
+            </visibleWhen>
+         </command>
+         <command
+               commandId="org.osate.analysis.architecture.checkBindingConstraints">
+            <!--
+               Remove visibleWhen on the command when this bug is fixed:
+               https://bugs.eclipse.org/bugs/show_bug.cgi?id=201589
+            -->
             <visibleWhen
                   checkEnabled="false">
                <with
@@ -300,6 +335,10 @@
          <command
                commandId="org.osate.analysis.architecture.checkConnectionBindingConsistency"
                tooltip="%DoConnectionBindingConsistency.toolTip">
+            <!--
+               Remove visibleWhen on the command when this bug is fixed:
+               https://bugs.eclipse.org/bugs/show_bug.cgi?id=201589
+            -->
             <visibleWhen
                   checkEnabled="false">
                <with

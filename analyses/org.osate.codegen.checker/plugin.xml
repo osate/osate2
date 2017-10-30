@@ -24,6 +24,13 @@
       </handler>
    </extension>
    <extension
+         point="org.eclipse.ui.commandImages">
+      <image
+            commandId="org.osate.codegen.checker.commands.check"
+            icon="icons/codegenChecker.gif">
+      </image>
+   </extension>
+   <extension
          point="org.eclipse.ui.menus">
       <menuContribution
             locationURI="menu:org.osate.ui.semanticChecksMenu?after=code_generation">
@@ -48,6 +55,58 @@
          <command
                commandId="org.osate.codegen.checker.commands.check"
                style="push"
+               label="Check Semantics for VxWorks">
+            <parameter
+                  name="org.osate.codegen.checker.kind"
+                  value="vxworks">
+            </parameter>
+         </command>
+      </menuContribution>
+      <menuContribution
+            locationURI="toolbar:org.osate.ui.semanticChecksToolbar?after=code_generation">
+         <command
+               commandId="org.osate.codegen.checker.commands.check"
+               tooltip="Check Semantics for VxWorks"
+               style="pulldown">
+            <!--
+               Remove visibleWhen on the command when this bug is fixed:
+               https://bugs.eclipse.org/bugs/show_bug.cgi?id=201589
+            -->
+            <visibleWhen
+                  checkEnabled="false">
+               <with
+                     variable="activeWorkbenchWindow.activePerspective">
+                  <equals
+                        value="org.osate.ui.perspective.AadlPerspective">
+                  </equals>
+               </with>
+            </visibleWhen>
+            <parameter
+                  name="org.osate.codegen.checker.kind"
+                  value="vxworks">
+            </parameter>
+         </command>
+      </menuContribution>
+      <menuContribution
+            locationURI="menu:org.osate.codegen.checker.commands.check">
+         <command
+               commandId="org.osate.codegen.checker.commands.check"
+               label="Check Semantics for POK">
+            <parameter
+                  name="org.osate.codegen.checker.kind"
+                  value="pok">
+            </parameter>
+         </command>
+         <command
+               commandId="org.osate.codegen.checker.commands.check"
+               label="Check Semantics for DeOS">
+            <parameter
+                  name="org.osate.codegen.checker.kind"
+                  value="deos">
+            </parameter>
+         </command>
+         <command
+               commandId="org.osate.codegen.checker.commands.check"
                label="Check Semantics for VxWorks">
             <parameter
                   name="org.osate.codegen.checker.kind"

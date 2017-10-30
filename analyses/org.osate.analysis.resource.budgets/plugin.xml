@@ -197,10 +197,14 @@
          </command>
       </menuContribution>
       <menuContribution
-            locationURI="toolbar:org.osate.ui.toolbar?after=org.osate.analysis.flows.checkFlowLatency">
+            locationURI="toolbar:org.osate.ui.budgetToolbar?after=core">
          <command
                commandId="org.osate.analysis.resource.budgets.doBoundSwitchBandWidthAnalysis"
                tooltip="Analyze Bandwidth Load for Bound according to their bound connections">
+            <!--
+               Remove visibleWhen on the command when this bug is fixed:
+               https://bugs.eclipse.org/bugs/show_bug.cgi?id=201589
+            -->
             <visibleWhen
                   checkEnabled="false">
                <with
@@ -214,6 +218,10 @@
          <command
                commandId="org.osate.analysis.resource.budgets.doPowerAnalysis"
                tooltip="Make sure the system has enough power to operate">
+            <!--
+               Remove visibleWhen on the command when this bug is fixed:
+               https://bugs.eclipse.org/bugs/show_bug.cgi?id=201589
+            -->
             <visibleWhen
                   checkEnabled="false">
                <with
@@ -227,6 +235,10 @@
          <command
                commandId="org.osate.analysis.resource.budgets.doBoundResourceAnalysis"
                tooltip="Analyze Resource Allocations for Processors and Memories">
+            <!--
+               Remove visibleWhen on the command when this bug is fixed:
+               https://bugs.eclipse.org/bugs/show_bug.cgi?id=201589
+            -->
             <visibleWhen
                   checkEnabled="false">
                <with
@@ -240,6 +252,10 @@
          <command
                commandId="org.osate.analysis.resource.budgets.doResourceBudget"
                tooltip="Analyze Resource Budget Totals for Processors and Memories">
+            <!--
+               Remove visibleWhen on the command when this bug is fixed:
+               https://bugs.eclipse.org/bugs/show_bug.cgi?id=201589
+            -->
             <visibleWhen
                   checkEnabled="false">
                <with
