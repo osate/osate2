@@ -46,38 +46,5 @@
                commandId="org.osate.importer.simulink.doImportSimulink">
          </command>
       </menuContribution>
-      <menuContribution
-            locationURI="popup:org.osate.ui.aadlAnalysesPopupMenu?after=org.osate.analysis.flows.checkFlowLatency">
-         <menu
-               id="org.osate.importer.simulink.importExportModelsPopupMenu"
-               label="Import/Export Models">
-            <command
-                  commandId="org.osate.importer.simulink.doImportSimulink"
-                  label="Simulink model import">
-               <visibleWhen
-                     checkEnabled="false">
-                  <with
-                        variable="selection">
-                     <iterate
-                           operator="and"
-                           ifEmpty="false">
-                        <or>
-                           <instanceof
-                                 value="org.osate.aadl2.instance.SystemInstance">
-                           </instanceof>
-                           <adapt
-                                 type="org.eclipse.core.resources.IFile">
-                              <test
-                                    property="org.eclipse.core.resources.contentTypeId"
-                                    value="org.osate.core.instanceModelFile">
-                              </test>
-                           </adapt>
-                        </or>
-                     </iterate>
-                  </with>
-               </visibleWhen>
-            </command>
-         </menu>
-      </menuContribution>
    </extension>
 </plugin>
