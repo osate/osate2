@@ -16,14 +16,6 @@
                      commandId="org.osate.aadl2.instance.ui.generateTextualInstance">
                </command>
             </menuContribution>
-            <menuContribution
-                  allPopups="false"
-                  locationURI="popup:org.osate.ui.navigator.AadlNavigator?after=org.osate.ui.aadlAnalysesPopupMenu">
-               <command
-                     commandId="org.osate.aadl2.instance.ui.generateTextualInstance"
-                     style="push">
-               </command>
-            </menuContribution>
          </extension>
          <extension
                point="org.eclipse.ui.handlers">
