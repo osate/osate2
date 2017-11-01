@@ -24,19 +24,19 @@
          </command>
       </menuContribution>
       <menuContribution
-            allPopups="false"
-            locationURI="popup:org.osate.ui.navigator.AadlNavigator?before=org.osate.aadl2.instance.ui.generateTextualInstance">
-         <menu
-               label="Report Generation">
-            <command
-                  commandId="org.osate.reqtrace.requirementsTracing"
-                  style="push">
-            </command>
-            <command
-                  commandId="org.osate.reqtrace.requirementsReport"
-                  style="push">
-            </command>
-         </menu>
+            locationURI="popup:org.osate.ui.reportGenerationNavigatorPopup?after=core">
+         <command
+               commandId="org.osate.reqtrace.requirementsTracing">
+            <visibleWhen
+                  checkEnabled="true">
+            </visibleWhen>
+         </command>
+         <command
+               commandId="org.osate.reqtrace.requirementsReport">
+            <visibleWhen
+                  checkEnabled="true">
+            </visibleWhen>
+         </command>
       </menuContribution>
    </extension>
    <extension
