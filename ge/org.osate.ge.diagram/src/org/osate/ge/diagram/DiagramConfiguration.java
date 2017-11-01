@@ -59,7 +59,7 @@ public class DiagramConfiguration extends MinimalEObjectImpl.Container implement
 	 * @generated
 	 * @ordered
 	 */
-	protected static final Boolean CONNECTION_PRIMARY_LABELS_VISIBLE_EDEFAULT = Boolean.TRUE;
+	protected static final Boolean CONNECTION_PRIMARY_LABELS_VISIBLE_EDEFAULT = null;
 
 	/**
 	 * The cached value of the '{@link #getConnectionPrimaryLabelsVisible() <em>Connection Primary Labels Visible</em>}' attribute.
@@ -202,7 +202,6 @@ public class DiagramConfiguration extends MinimalEObjectImpl.Container implement
 
 	/**
 	 * Returns the value of the '<em><b>Connection Primary Labels Visible</b></em>' attribute.
-	 * The default value is <code>"true"</code>.
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Connection Primary Labels Visible</em>' attribute isn't clear,
@@ -212,7 +211,7 @@ public class DiagramConfiguration extends MinimalEObjectImpl.Container implement
 	 * @return the value of the '<em>Connection Primary Labels Visible</em>' attribute.
 	 * @see #setConnectionPrimaryLabelsVisible(Boolean)
 	 * @see org.osate.ge.diagram.DiagramPackage#getDiagramConfiguration_ConnectionPrimaryLabelsVisible()
-	 * @model default="true"
+	 * @model
 	 * @generated
 	 */
 	public Boolean getConnectionPrimaryLabelsVisible() {

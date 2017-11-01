@@ -59,7 +59,7 @@ public class StyleCalculator implements StyleProvider {
 	}
 
 	private static Style getDiagramConnectionStyle(final DiagramConfiguration config) {
-		final StyleBuilder diagramConnectionStyleBuilder = StyleBuilder.create(Style.DEFAULT);
+		final StyleBuilder diagramConnectionStyleBuilder = StyleBuilder.create(Style.EMPTY);
 		diagramConnectionStyleBuilder.primaryLabelVisible(config.getConnectionPrimaryLabelsVisible());
 		return diagramConnectionStyleBuilder.build();
 	}

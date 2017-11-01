@@ -49,13 +49,14 @@ public class ModeTransitionTriggerHandler {
 
 	@GetName
 	public String getName(final @Named(Names.BUSINESS_OBJECT) ModeTransitionTrigger mtt) {
-		final String portName = Strings.nullToEmpty(mtt.getTriggerPort() == null ? null : mtt.getTriggerPort().getName());
-		if(Strings.isNullOrEmpty(portName)) {
+		final String portName = Strings
+				.nullToEmpty(mtt.getTriggerPort() == null ? null : mtt.getTriggerPort().getName());
+		if (Strings.isNullOrEmpty(portName)) {
 			return null;
 		}
 
 		final String contextName = Strings.nullToEmpty(mtt.getContext() == null ? null : mtt.getContext().getName());
-		return (contextName.length() == 0 ? "" : (contextName + "."));
+		return (contextName.length() == 0 ? "" : (contextName + ".")) + portName;
 	}
 
 	// Source - the mode transition
