@@ -339,7 +339,7 @@
 		</menuContribution>
 		
        <menuContribution
-            locationURI="popup:org.osate.ui.navigator.AadlNavigator?after=org.osate.aadl2.instance.ui.generateTextualInstance">
+            locationURI="popup:org.osate.ui.navigator.AadlNavigator?after=osate_begin">
          <command
              commandId="org.osate.ge.commands.open.diagram.from.navigator"
              label="Open Diagram"
