@@ -323,41 +323,86 @@
        </menuContribution>
        <menuContribution
              locationURI="popup:org.osate.ui.navigator.AadlNavigator?after=additions">
-          <menu
-                id="org.osate.ui.osatePopupMenu"
-                label="OSATE">
-          </menu>
-          <menu
-                id="org.osate.ui.aadlAnalysesPopupMenu"
-                label="AADL Analyses">
-          </menu>
-          <command
-                commandId="org.osate.ui.setAadlProjectProperties"
-                label="Set as AADL_Project property set"
-                style="push">
-             <visibleWhen>
-                <with
-                      variable="selection">
-                   <and>
-                      <count
-                            value="1">
-                      </count>
-                      <iterate
-                            ifEmpty="false">
-                         <reference
-                               definitionId="org.osate.is_aadl_project_propertyset">
-                         </reference>
-                      </iterate>
-                   </and>
-                </with>
-             </visibleWhen>
-          </command>
+          <separator
+                name="osate_begin"
+                visible="true">
+          </separator>
           <command
                 commandId="org.osate.ui.instantiate"
                 label="Reinstantiate selected instance"
-                style="push"
                 tooltip="Do Reinstantiate">
           </command>
+          <command
+                commandId="org.osate.ui.setAadlProjectProperties">
+             <visibleWhen
+                   checkEnabled="true">
+             </visibleWhen>
+          </command>
+          <menu
+                id="org.osate.ui.analysesNavigatorPopup"
+                label="Analyses">
+             <menu
+                   id="org.osate.ui.budgetNavigatorPopup"
+                   label="Budget">
+                <separator
+                      name="core">
+                </separator>
+                <separator
+                      name="third_party">
+                </separator>
+             </menu>
+             <menu
+                   id="org.osate.ui.semanticChecksNavigatorPopup"
+                   label="Semantic Checks">
+                <separator
+                      name="core">
+                </separator>
+                <separator
+                      name="emv2"
+                      visible="true">
+                </separator>
+                <separator
+                      name="third_party">
+                </separator>
+             </menu>
+             <menu
+                   id="org.osate.ui.timingNavigatorPopup"
+                   label="Timing">
+                <separator
+                      name="core">
+                </separator>
+                <separator
+                      name="third_party">
+                </separator>
+             </menu>
+             <menu
+                   id="org.osate.ui.safetyNavigatorPopup"
+                   label="Safety">
+                <separator
+                      name="core">
+                </separator>
+                <separator
+                      name="third_party">
+                </separator>
+             </menu>
+             <separator
+                   name="third_party">
+             </separator>
+          </menu>
+          <menu
+                id="org.osate.ui.reportGenerationNavigatorPopup"
+                label="Report Generation">
+             <separator
+                   name="core">
+             </separator>
+             <separator
+                   name="third_party">
+             </separator>
+          </menu>
+          <separator
+                name="osate_end"
+                visible="true">
+          </separator>
        </menuContribution>
        <menuContribution
              allPopups="false"
@@ -700,6 +745,22 @@
        <handler
              class="org.osate.ui.handlers.SetAadlProjectPropertiesHandler"
              commandId="org.osate.ui.setAadlProjectProperties">
+          <enabledWhen>
+             <with
+                   variable="selection">
+                <and>
+                   <count
+                         value="1">
+                   </count>
+                   <iterate
+                         ifEmpty="false">
+                      <reference
+                            definitionId="org.osate.is_aadl_project_propertyset">
+                      </reference>
+                   </iterate>
+                </and>
+             </with>
+          </enabledWhen>
        </handler>
        <handler
              class="org.osate.ui.handlers.InstantiateHandler"
