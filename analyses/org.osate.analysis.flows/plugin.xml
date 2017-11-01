@@ -101,30 +101,11 @@
          </command>
       </menuContribution>
       <menuContribution
-            locationURI="popup:org.osate.ui.aadlAnalysesPopupMenu">
+            locationURI="popup:org.osate.ui.timingNavigatorPopup?after=core">
          <command
                commandId="org.osate.analysis.flows.checkFlowLatency">
             <visibleWhen
-                  checkEnabled="false">
-               <with
-                     variable="selection">
-                  <iterate
-                        operator="and"
-                        ifEmpty="false">
-                     <or>
-                        <instanceof
-                              value="org.osate.aadl2.instance.SystemInstance">
-                        </instanceof>
-                        <adapt
-                              type="org.eclipse.core.resources.IFile">
-                           <test
-                                 property="org.eclipse.core.resources.contentTypeId"
-                                 value="org.osate.core.instanceModelFile">
-                           </test>
-                        </adapt>
-                     </or>
-                  </iterate>
-               </with>
+                  checkEnabled="true">
             </visibleWhen>
          </command>
       </menuContribution>
