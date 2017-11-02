@@ -5,7 +5,7 @@
          point="org.eclipse.ui.commands">
       <command
             id="org.osate.reqtrace.requirementsTracing"
-            name="Tracability">
+            name="Traceability">
       </command>
       <command
             id="org.osate.reqtrace.requirementsReport"
