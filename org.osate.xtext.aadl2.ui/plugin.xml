@@ -268,7 +268,6 @@
 		 allPopups="false"
          locationURI="popup:#TextEditorContext">
         <command commandId="org.osate.xtext.aadl2.ui.organize.with"
-		 tooltip="Remove unecessary, add needed and sort With Clauses" 
 		 style="push">
          <visibleWhen checkEnabled="false">
                <reference
