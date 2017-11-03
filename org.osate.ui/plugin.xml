@@ -310,16 +310,46 @@
           </command>
        </menuContribution>
        <menuContribution
-             allPopups="false"
              locationURI="popup:org.osate.xtext.aadl2.ui.outline?after=additions">
+          <separator
+                name="osate_begin"
+                visible="true">
+          </separator>
           <command
                 commandId="org.osate.ui.instantiate"
-                style="push"
                 tooltip="Do Instantiate">
-             <visibleWhen
-                   checkEnabled="false">
-             </visibleWhen>
           </command>
+          <menu
+                id="org.osate.ui.analysesOutlinePopup"
+                label="Analyses">
+             <menu
+                   id="org.osate.ui.semanticChecksOutlinePopup"
+                   label="Semantic Checks">
+                <separator
+                      name="code_generation">
+                </separator>
+                <separator
+                      name="third_party">
+                </separator>
+             </menu>
+             <separator
+                   name="third_party">
+             </separator>
+          </menu>
+          <menu
+                id="org.osate.ui.ocarinaOutlinePopup"
+                label="Ocarina">
+             <separator
+                   name="core">
+             </separator>
+             <separator
+                   name="third_party">
+             </separator>
+          </menu>
+          <separator
+                name="osate_end"
+                visible="true">
+          </separator>
        </menuContribution>
        <menuContribution
              locationURI="popup:org.osate.ui.navigator.AadlNavigator?after=additions">
