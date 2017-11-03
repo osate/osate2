@@ -21,11 +21,15 @@ package org.osate.reqspec.ui;
 
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.eclipse.ui.views.contentoutline.IContentOutlinePage;
+import org.eclipse.xtext.resource.containers.IAllContainersState;
 import org.eclipse.xtext.ui.editor.hover.IEObjectHoverProvider;
 import org.eclipse.xtext.ui.editor.outline.impl.OutlineNodeLabelProvider;
+import org.eclipse.xtext.ui.shared.Access;
 import org.osate.reqspec.ui.outline.ReqSpecEObjectHoverProvider;
 import org.osate.reqspec.ui.outline.ReqSpecOutlineNodeLabelProvider;
 import org.osate.reqspec.ui.outline.ReqSpecOutlinePage;
+import org.osate.xtext.aadl2.ui.containers.Aadl2ProjectsState;
+import org.osate.xtext.aadl2.ui.containers.Aadl2ProjectsStateHelper;
 
 /**
  * Use this class to register components to be used within the IDE.
@@ -56,6 +60,15 @@ public class ReqSpecUiModule extends org.osate.reqspec.ui.AbstractReqSpecUiModul
 
 	public Class<? extends IEObjectHoverProvider> bindIEObjectHoverProvider() {
 		return ReqSpecEObjectHoverProvider.class;
+	}
+
+	@Override
+	public com.google.inject.Provider<org.eclipse.xtext.resource.containers.IAllContainersState> provideIAllContainersState() {
+		return Access.<IAllContainersState> provider(Aadl2ProjectsState.class);
+	}
+
+	public Class<? extends Aadl2ProjectsStateHelper> bindWorkspaceProjectsStateHelper() {
+		return Aadl2ProjectsStateHelper.class;
 	}
 
 }
