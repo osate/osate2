@@ -333,7 +333,7 @@
          </visibleWhen>
          </command>
 		</menuContribution>
-		<menuContribution allPopups="false" locationURI="popup:org.osate.xtext.aadl2.ui.outline?after=additions">
+		<menuContribution allPopups="false" locationURI="popup:org.osate.xtext.aadl2.ui.outline?after=osate_begin">
 			<command commandId="org.osate.ge.commands.opendiagram" style="push"/>
 			<command commandId="org.osate.ge.commands.creatediagram" style="push"/>
 		</menuContribution>
