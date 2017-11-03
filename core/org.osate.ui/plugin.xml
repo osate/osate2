@@ -301,8 +301,7 @@
                 visible="true">
           </separator>
           <command
-                commandId="org.osate.ui.instantiate"
-                tooltip="Do Instantiate">
+                commandId="org.osate.ui.instantiate">
           </command>
           <menu
                 id="org.osate.ui.analysesOutlinePopup"
@@ -344,8 +343,7 @@
           </separator>
           <command
                 commandId="org.osate.ui.instantiate"
-                label="Reinstantiate selected instance"
-                tooltip="Do Reinstantiate">
+                label="Reinstantiate selected instance">
           </command>
           <command
                 commandId="org.osate.ui.setAadlProjectProperties">
@@ -425,7 +423,6 @@
           <command
                 commandId="org.osate.ui.conversion"
                 label="%RemoveAADLNature.label"
-                tooltip="%RemoveAADLNature.toolTip"
                 style="push">
              <visibleWhen>
                 <with
@@ -454,8 +451,7 @@
           </command>
           <command
                 commandId="org.osate.ui.conversion"
-                label="%EnableAADLNature.label"
-                tooltip="%EnableAADLNature.toolTip">
+                label="%EnableAADLNature.label">
              <visibleWhen>
                 <with
                       variable="selection">
