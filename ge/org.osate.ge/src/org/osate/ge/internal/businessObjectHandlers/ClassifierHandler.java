@@ -300,7 +300,7 @@ public class ClassifierHandler {
 		}
 
 		// Check if the component type is in the same package
-		if(section == ct.getNamespace()) {
+		if (section.getName() != null && section.getName().equalsIgnoreCase(ct.getNamespace().getName())) {
 			return ct.getName();
 		}
 
