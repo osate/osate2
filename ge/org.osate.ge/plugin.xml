@@ -626,11 +626,6 @@
 		</editor>
 	</extension>
 
-	<extension point="org.eclipse.ui.startup">
-      <startup class="org.osate.ge.internal.ui.xtext.AgeXtextUtil$Initializer">
-      </startup>
-   </extension>
-   
 	<extension point="org.eclipse.core.runtime.adapters">
 		<factory adaptableType="org.eclipse.gef.EditPart" class="org.osate.ge.internal.ui.editor.GraphitiEditPartAdapterFactory">
 			<adapter type="org.osate.xtext.aadl2.ui.propertyview.IAadlPropertySource"/>
