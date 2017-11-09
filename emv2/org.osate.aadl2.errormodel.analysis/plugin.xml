@@ -55,11 +55,6 @@
             id="org.osate.aadl2.errormodel.analysis.unhandledFaults"
             name="%UnhandledFaults.label">
       </command>
-      <command
-            categoryId="org.osate.aadl2.errormodel.analysis.category"
-            id="org.osate.aadl2.errormodel.analysis.implementationCompliance"
-            name="%ImplementationCompliance.label">
-      </command>
    </extension>
    <extension
          point="org.eclipse.ui.handlers">
@@ -183,30 +178,6 @@
             </or>
          </enabledWhen>
       </handler>
-      <handler
-            class="org.osate.aadl2.errormodel.analysis.handlers.ImplementationComplianceHandler"
-            commandId="org.osate.aadl2.errormodel.analysis.implementationCompliance">
-         <enabledWhen>
-            <or>
-               <reference
-                     definitionId="org.osate.core.isInstanceFileSelected">
-               </reference>
-               <with
-                     variable="selection">
-                  <and>
-                     <count
-                           value="1">
-                     </count>
-                     <iterate>
-                        <instanceof
-                              value="org.osate.aadl2.instance.ComponentInstance">
-                        </instanceof>
-                     </iterate>
-                  </and>
-               </with>
-            </or>
-         </enabledWhen>
-      </handler>
    </extension>
    <extension
          point="org.eclipse.ui.commandImages">
@@ -230,18 +201,11 @@
             commandId="org.osate.aadl2.errormodel.analysis.unhandledFaults"
             icon="icons/UnhandledFaults.gif">
       </image>
-      <image
-            commandId="org.osate.aadl2.errormodel.analysis.implementationCompliance"
-            icon="icons/compliance.png">
-      </image>
    </extension>
    <extension
          point="org.eclipse.ui.menus">
       <menuContribution
             locationURI="menu:org.osate.ui.semanticChecksMenu?after=emv2">
-         <command
-               commandId="org.osate.aadl2.errormodel.analysis.implementationCompliance">
-         </command>
          <command
                commandId="org.osate.aadl2.errormodel.analysis.unhandledFaults">
          </command>
@@ -263,23 +227,6 @@
       </menuContribution>
       <menuContribution
             locationURI="toolbar:org.osate.ui.semanticChecksToolbar?after=emv2">
-         <command
-               commandId="org.osate.aadl2.errormodel.analysis.implementationCompliance"
-               tooltip="%ImplementationCompliance.toolTip">
-            <!--
-               Remove visibleWhen on the command when this bug is fixed:
-               https://bugs.eclipse.org/bugs/show_bug.cgi?id=201589
-            -->
-            <visibleWhen
-                  checkEnabled="false">
-               <with
-                     variable="activeWorkbenchWindow.activePerspective">
-                  <equals
-                        value="org.osate.ui.perspective.AadlPerspective">
-                  </equals>
-               </with>
-            </visibleWhen>
-         </command>
          <command
                commandId="org.osate.aadl2.errormodel.analysis.unhandledFaults">
             <!--
@@ -348,12 +295,6 @@
       </menuContribution>
       <menuContribution
             locationURI="popup:org.osate.ui.semanticChecksNavigatorPopup?after=emv2">
-         <command
-               commandId="org.osate.aadl2.errormodel.analysis.implementationCompliance">
-            <visibleWhen
-                  checkEnabled="true">
-            </visibleWhen>
-         </command>
          <command
                commandId="org.osate.aadl2.errormodel.analysis.unhandledFaults">
             <visibleWhen
