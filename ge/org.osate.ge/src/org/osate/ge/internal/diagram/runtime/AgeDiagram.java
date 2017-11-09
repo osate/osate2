@@ -384,9 +384,11 @@ public class AgeDiagram implements DiagramNode, ModifiableDiagramElementContaine
 
 		@Override
 		public void setStyle(final DiagramElement e, final Style value) {
-			storeChange(e, DiagramElementField.STYLE, e.getStyle(), value);
-			e.setStyle(value);
-			afterUpdate(e, DiagramElementField.STYLE);
+			if (!value.equals(e.getStyle())) {
+				storeChange(e, DiagramElementField.STYLE, e.getStyle(), value);
+				e.setStyle(value);
+				afterUpdate(e, DiagramElementField.STYLE);
+			}
 		}
 
 		// Notifies listeners and manages change tracking state after a field has been updated.
