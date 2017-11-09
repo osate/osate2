@@ -2,6 +2,7 @@ package org.osate.ge.internal;
 
 import java.util.HashSet;
 import java.util.Set;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import javax.inject.Named;
@@ -47,6 +48,7 @@ import org.osate.aadl2.instance.FeatureInstance;
 import org.osate.ge.BusinessObjectContext;
 import org.osate.ge.di.Activate;
 import org.osate.ge.di.Names;
+import org.osate.ge.internal.businessObjectHandlers.ModeTransitionTriggerHandler;
 import org.osate.ge.internal.model.SubprogramCallOrder;
 import org.osate.ge.internal.model.Tag;
 import org.osate.ge.internal.services.ExtensionRegistryService;
@@ -56,6 +58,8 @@ import org.osate.ge.internal.util.AadlSubcomponentUtil;
 import org.osate.ge.internal.util.AadlSubprogramCallUtil;
 
 public class AadlBusinessObjectProvider {
+	private final ModeTransitionTriggerHandler mttHandler = new ModeTransitionTriggerHandler();
+
 	@Activate
 	public Stream<?> getBusinessObjects(final @Named(Names.BUSINESS_OBJECT_CONTEXT) BusinessObjectContext boc,
 			final ExtensionRegistryService extRegistryService) {
@@ -88,7 +92,11 @@ public class AadlBusinessObjectProvider {
 		} else if(bo instanceof SubprogramCallSequence) {
 			return getChildren((SubprogramCallSequence)bo);
 		} else if(bo instanceof ModeTransition) {
-			return ((ModeTransition)bo).getOwnedTriggers().stream();
+			final ModeTransition mt = ((ModeTransition) bo);
+			final String modeTransitionTriggersDesc = mt.getOwnedTriggers().stream().map(mtt -> mttHandler.getName(mtt))
+					.collect(Collectors.joining(","));
+			return Stream.concat(mt.getOwnedTriggers().stream(),
+					Stream.of(new Tag(Tag.KEY_MODE_TRANSITION_TRIGGERS, modeTransitionTriggersDesc)));
 		} else if(bo instanceof ComponentInstance) {
 			return getChildren((ComponentInstance)bo);
 		} else if(bo instanceof FeatureInstance) {
