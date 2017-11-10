@@ -343,7 +343,7 @@
           </separator>
           <command
                 commandId="org.osate.ui.instantiate"
-                label="Reinstantiate selected instance">
+                label="Reinstantiate">
           </command>
           <command
                 commandId="org.osate.ui.setAadlProjectProperties">
@@ -735,12 +735,12 @@
           point="org.eclipse.ui.commands">
        <command
              id="org.osate.ui.setAadlProjectProperties"
-             name="Set as AADL_Project property set">
+             name="Set As AADL_Project Property Set">
        </command>
        <command
              description="Instantiate the system"
              id="org.osate.ui.instantiate"
-             name="Instantiate System">
+             name="Instantiate">
        </command>
        <command
              id="org.osate.ui.reinstantiateAllAadl"

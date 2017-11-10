@@ -260,7 +260,7 @@
 		<command
 			description="Organize With Clauses"
 			id="org.osate.xtext.aadl2.ui.organize.with"
-			name="Organize With clauses">
+			name="Organize With Clauses">
 		</command>
 	</extension>
     <extension point="org.eclipse.ui.menus">

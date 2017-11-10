@@ -58,7 +58,8 @@
       <menuContribution
             locationURI="toolbar:org.osate.ui.osateWizardsToolbar?after=core">
          <command
-               commandId="org.osate.wizards.aadlProjectWizard">
+               commandId="org.osate.wizards.aadlProjectWizard"
+               tooltip="New AADL project">
             <!--
                Remove visibleWhen on the command when this bug is fixed:
                https://bugs.eclipse.org/bugs/show_bug.cgi?id=201589
@@ -74,7 +75,8 @@
             </visibleWhen>
          </command>
          <command
-               commandId="org.osate.wizards.packageWizard">
+               commandId="org.osate.wizards.packageWizard"
+               tooltip="New AADL package">
             <!--
                Remove visibleWhen on the command when this bug is fixed:
                https://bugs.eclipse.org/bugs/show_bug.cgi?id=201589
@@ -90,7 +92,8 @@
             </visibleWhen>
          </command>
          <command
-               commandId="org.osate.wizards.propertySetWizard">
+               commandId="org.osate.wizards.propertySetWizard"
+               tooltip="New AADL property set">
             <!--
                Remove visibleWhen on the command when this bug is fixed:
                https://bugs.eclipse.org/bugs/show_bug.cgi?id=201589
