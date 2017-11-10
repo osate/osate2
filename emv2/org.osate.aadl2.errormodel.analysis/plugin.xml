@@ -228,7 +228,8 @@
       <menuContribution
             locationURI="toolbar:org.osate.ui.semanticChecksToolbar?after=emv2">
          <command
-               commandId="org.osate.aadl2.errormodel.analysis.unhandledFaults">
+               commandId="org.osate.aadl2.errormodel.analysis.unhandledFaults"
+               tooltip="Check unhandled faults">
             <!--
                Remove visibleWhen on the command when this bug is fixed:
                https://bugs.eclipse.org/bugs/show_bug.cgi?id=201589
@@ -248,6 +249,7 @@
             locationURI="toolbar:org.osate.ui.safetyToolbar?after=core">
          <command
                commandId="org.osate.aadl2.errormodel.analysis.fha"
+               tooltip="Run functional hazard assessment"
                style="pulldown">
             <!--
                Remove visibleWhen on the command when this bug is fixed:

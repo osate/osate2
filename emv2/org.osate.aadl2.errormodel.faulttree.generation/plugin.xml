@@ -18,7 +18,7 @@
             categoryId="org.osate.aadl2.errormodel.analysis.category"
             id="org.osate.aadl2.errormodel.analysis.fta"
             description="View FTA graphically or as minimal cutset table"
-            name="Fault Tree Analysis">
+            name="Run Fault Tree Analysis">
      </command>     
     </extension>
     
@@ -70,7 +70,7 @@
              locationURI="toolbar:org.osate.ui.safetyToolbar?after=core">
           <command
                 commandId="org.osate.aadl2.errormodel.analysis.fta"
-                tooltip="Generate and View Fault Tree or Minimal Cut Set">
+                tooltip="Run fault tree analysis">
              <!--
                Remove visibleWhen on the command when this bug is fixed:
                https://bugs.eclipse.org/bugs/show_bug.cgi?id=201589
