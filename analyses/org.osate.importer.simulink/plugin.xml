@@ -13,7 +13,7 @@
          point="org.eclipse.ui.commands">
       <command
             id="org.osate.importer.simulink.doImportSimulink"
-            name="Import Simulink model">
+            name="Import Simulink Model">
       </command>
    </extension>
    <extension

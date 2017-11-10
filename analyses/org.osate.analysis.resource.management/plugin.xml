@@ -191,7 +191,8 @@
             </visibleWhen>
          </command>
          <command
-               commandId="org.osate.analysis.resource.management.schedule">
+               commandId="org.osate.analysis.resource.management.schedule"
+               tooltip="Schedule bound threads">
             <!--
                Remove visibleWhen on the command when this bug is fixed:
                https://bugs.eclipse.org/bugs/show_bug.cgi?id=201589

@@ -9,7 +9,7 @@
             id="org.osate.codegen.checker.commands.category">
       </category>
       <command
-            name="Check Model Semantics"
+            name="Check Codegen Prerequisites"
             categoryId="org.osate.codegen.checker.commands.category"
             id="org.osate.codegen.checker.commands.check">
              <commandParameter id="org.osate.codegen.checker.kind" name="Generator Kind"/>
@@ -37,7 +37,7 @@
          <command
                commandId="org.osate.codegen.checker.commands.check"
                mnemonic="S"
-               label="Check Semantics for POK">
+               label="Check Codegen Prerequisites For POK">
             <parameter
                   name="org.osate.codegen.checker.kind"
                   value="pok">
@@ -46,7 +46,7 @@
          <command
                commandId="org.osate.codegen.checker.commands.check"
                style="push"
-               label="Check Semantics for DeOS">
+               label="Check Codegen Prerequisites For DeOS">
             <parameter
                   name="org.osate.codegen.checker.kind"
                   value="deos">
@@ -55,7 +55,7 @@
          <command
                commandId="org.osate.codegen.checker.commands.check"
                style="push"
-               label="Check Semantics for VxWorks">
+               label="Check Codegen Prerequisites For VxWorks">
             <parameter
                   name="org.osate.codegen.checker.kind"
                   value="vxworks">
@@ -66,7 +66,7 @@
             locationURI="toolbar:org.osate.ui.semanticChecksToolbar?after=code_generation">
          <command
                commandId="org.osate.codegen.checker.commands.check"
-               tooltip="Check Semantics for VxWorks"
+               tooltip="Check codegen prerequisites for VxWorks"
                style="pulldown">
             <!--
                Remove visibleWhen on the command when this bug is fixed:
@@ -91,7 +91,7 @@
             locationURI="menu:org.osate.codegen.checker.commands.check">
          <command
                commandId="org.osate.codegen.checker.commands.check"
-               label="Check Semantics for POK">
+               label="Check Codegen Prerequisites For POK">
             <parameter
                   name="org.osate.codegen.checker.kind"
                   value="pok">
@@ -99,7 +99,7 @@
          </command>
          <command
                commandId="org.osate.codegen.checker.commands.check"
-               label="Check Semantics for DeOS">
+               label="Check Codegen Prerequisites For DeOS">
             <parameter
                   name="org.osate.codegen.checker.kind"
                   value="deos">
@@ -107,7 +107,7 @@
          </command>
          <command
                commandId="org.osate.codegen.checker.commands.check"
-               label="Check Semantics for VxWorks">
+               label="Check Codegen Prerequisites For VxWorks">
             <parameter
                   name="org.osate.codegen.checker.kind"
                   value="vxworks">
@@ -119,7 +119,7 @@
          <command
                commandId="org.osate.codegen.checker.commands.check"
                style="push"
-               label="Check Semantics for POK">
+               label="Check Codegen Prerequisites For POK">
             <parameter
                   name="org.osate.codegen.checker.kind"
                   value="pok">
@@ -128,7 +128,7 @@
          <command
                commandId="org.osate.codegen.checker.commands.check"
                style="push"
-               label="Check Semantics for DeOS">
+               label="Check Codegen Prerequisites For DeOS">
             <parameter
                   name="org.osate.codegen.checker.kind"
                   value="deos">
@@ -137,7 +137,7 @@
          <command
                commandId="org.osate.codegen.checker.commands.check"
                style="push"
-               label="Check Semantics for VxWorks">
+               label="Check Codegen Prerequisites For VxWorks">
             <parameter
                   name="org.osate.codegen.checker.kind"
                   value="vxworks">

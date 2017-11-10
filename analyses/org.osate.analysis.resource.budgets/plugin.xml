@@ -43,12 +43,12 @@
       <command
             categoryId="org.osate.analysis.resource.budgets.category"
             id="org.osate.analysis.resource.budgets.doResourceBudget"
-            name="&amp;Analyze Resource Budgets (not bound)">
+            name="&amp;Analyze Resource Budgets (Not Bound)">
       </command>
       <command
             categoryId="org.osate.analysis.resource.budgets.category"
             id="org.osate.analysis.resource.budgets.doBoundResourceAnalysis"
-            name="&amp;Analyze Resource Allocations (bound)">
+            name="&amp;Analyze Resource Allocations (Bound)">
       </command>
       <command
             categoryId="org.osate.analysis.resource.budgets.category"
@@ -58,7 +58,7 @@
       <command
             categoryId="org.osate.analysis.resource.budgets.category"
             id="org.osate.analysis.resource.budgets.doBoundSwitchBandWidthAnalysis"
-            name="&amp;Analyze Bus Load (bound connections)">
+            name="&amp;Analyze Bus Load">
       </command>
    </extension>
    <extension
@@ -200,7 +200,7 @@
             locationURI="toolbar:org.osate.ui.budgetToolbar?after=core">
          <command
                commandId="org.osate.analysis.resource.budgets.doBoundSwitchBandWidthAnalysis"
-               tooltip="Analyze Bandwidth Load for Bound according to their bound connections">
+               tooltip="Analyze bus load for bound connections">
             <!--
                Remove visibleWhen on the command when this bug is fixed:
                https://bugs.eclipse.org/bugs/show_bug.cgi?id=201589
@@ -217,7 +217,7 @@
          </command>
          <command
                commandId="org.osate.analysis.resource.budgets.doPowerAnalysis"
-               tooltip="Make sure the system has enough power to operate">
+               tooltip="Analyze power requirements">
             <!--
                Remove visibleWhen on the command when this bug is fixed:
                https://bugs.eclipse.org/bugs/show_bug.cgi?id=201589
@@ -234,7 +234,7 @@
          </command>
          <command
                commandId="org.osate.analysis.resource.budgets.doBoundResourceAnalysis"
-               tooltip="Analyze Resource Allocations for Processors and Memories">
+               tooltip="Analyze resource allocations for processors and memories">
             <!--
                Remove visibleWhen on the command when this bug is fixed:
                https://bugs.eclipse.org/bugs/show_bug.cgi?id=201589
@@ -251,7 +251,7 @@
          </command>
          <command
                commandId="org.osate.analysis.resource.budgets.doResourceBudget"
-               tooltip="Analyze Resource Budget Totals for Processors and Memories">
+               tooltip="Analyze resource budget totals for processors and memories">
             <!--
                Remove visibleWhen on the command when this bug is fixed:
                https://bugs.eclipse.org/bugs/show_bug.cgi?id=201589
