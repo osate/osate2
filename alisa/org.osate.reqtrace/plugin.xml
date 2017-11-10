@@ -9,7 +9,7 @@
       </command>
       <command
             id="org.osate.reqtrace.requirementsReport"
-            name="Requirements Report">
+            name="Requirements">
       </command>
    </extension>
    <extension
