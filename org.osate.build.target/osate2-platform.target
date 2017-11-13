@@ -23,15 +23,11 @@
 <unit id="org.eclipse.platform.feature.group" version="0.0.0"/>
 <unit id="org.eclipse.rcp.feature.group" version="0.0.0"/>
 <unit id="org.eclipse.sdk.feature.group" version="0.0.0"/>
+<unit id="org.eclipse.sirius.common.acceleo.aql" version="0.0.0"/>
+<unit id="org.eclipse.sirius.runtime.ide.ui.feature.group" version="0.0.0"/>
 <unit id="org.eclipse.uml2.feature.group" version="0.0.0"/>
 <unit id="org.eclipse.zest.feature.group" version="0.0.0"/>
-<repository location="http://download.eclipse.org/releases/oxygen/201706281000"/>
-</location>
-<location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="planner" includeSource="false" type="InstallableUnit">
-<unit id="org.eclipse.sirius.runtime.ide.ui.feature.group" version="0.0.0"/>
-<unit id="org.eclipse.sirius.runtime.ide.xtext.feature.group" version="0.0.0"/>
-<unit id="org.eclipse.sirius.specifier.feature.group" version="0.0.0"/>
-<repository location="http://download.eclipse.org/sirius/updates/releases/5.0.1/oxygen/"/>
+<repository location="http://download.eclipse.org/releases/oxygen/201709271000"/>
 </location>
 <location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="planner" includeSource="false" type="InstallableUnit">
 <unit id="org.eclipse.xtext.redist.feature.group" version="2.12.0.v20170519-1412"/>
