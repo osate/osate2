@@ -17,7 +17,7 @@
 	<topic href="html/plugins/index.html" label="Plug-ins">
 		<topic href="html/plugins/imv.html" label="Graphical Model Viewer (IMV)" />
 		<topic href="html/plugins/sei.html" label="SEI validation tools" />
-		<topic href="html/plugins/functional-importer.html" label="Simulink and SCADE bridges" />
+		<topic href="html/plugins/functional-importer.html" label="Simulink bridge" />
 		<anchor id="_codegen_checker" />
 		<anchor id="_check_binding_constraints"/>
 	</topic>

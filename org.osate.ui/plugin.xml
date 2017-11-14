@@ -295,73 +295,127 @@
     <extension
           point="org.eclipse.ui.menus">
        <menuContribution
-             allPopups="false"
-             locationURI="popup:#TextEditorContext?after=additions">
-          <command
-                commandId="org.osate.ui.instantiate"
-                style="push"
-                tooltip="Do Instantiate">
-             <visibleWhen
-                   checkEnabled="false">
-                <reference
-                      definitionId="org.osate.xtext.aadl2.Aadl2.Editor.opened">
-                </reference>
-             </visibleWhen>
-          </command>
-       </menuContribution>
-       <menuContribution
-             allPopups="false"
              locationURI="popup:org.osate.xtext.aadl2.ui.outline?after=additions">
+          <separator
+                name="osate_begin"
+                visible="true">
+          </separator>
           <command
-                commandId="org.osate.ui.instantiate"
-                style="push"
-                tooltip="Do Instantiate">
-             <visibleWhen
-                   checkEnabled="false">
-             </visibleWhen>
+                commandId="org.osate.ui.instantiate">
           </command>
+          <menu
+                id="org.osate.ui.analysesOutlinePopup"
+                label="Analyses">
+             <menu
+                   id="org.osate.ui.semanticChecksOutlinePopup"
+                   label="Semantic Checks">
+                <separator
+                      name="code_generation">
+                </separator>
+                <separator
+                      name="third_party">
+                </separator>
+             </menu>
+             <separator
+                   name="third_party">
+             </separator>
+          </menu>
+          <menu
+                id="org.osate.ui.ocarinaOutlinePopup"
+                label="Ocarina">
+             <separator
+                   name="core">
+             </separator>
+             <separator
+                   name="third_party">
+             </separator>
+          </menu>
+          <separator
+                name="osate_end"
+                visible="true">
+          </separator>
        </menuContribution>
        <menuContribution
              locationURI="popup:org.osate.ui.navigator.AadlNavigator?after=additions">
-          <menu
-                id="org.osate.ui.osatePopupMenu"
-                label="OSATE">
-             <command
-                   commandId="org.osate.ui.resetMarkers"
-                   style="push">
-             </command>
-          </menu>
-          <menu
-                id="org.osate.ui.aadlAnalysesPopupMenu"
-                label="AADL Analyses">
-          </menu>
-          <command
-                commandId="org.osate.ui.setAadlProjectProperties"
-                label="Set as AADL_Project property set"
-                style="push">
-             <visibleWhen>
-                <with
-                      variable="selection">
-                   <and>
-                      <count
-                            value="1">
-                      </count>
-                      <iterate
-                            ifEmpty="false">
-                         <reference
-                               definitionId="org.osate.is_aadl_project_propertyset">
-                         </reference>
-                      </iterate>
-                   </and>
-                </with>
-             </visibleWhen>
-          </command>
+          <separator
+                name="osate_begin"
+                visible="true">
+          </separator>
           <command
                 commandId="org.osate.ui.instantiate"
-                label="Reinstantiate selected instance"
-                style="push"
-                tooltip="Do Reinstantiate">
+                label="Reinstantiate">
           </command>
+          <command
+                commandId="org.osate.ui.setAadlProjectProperties">
+             <visibleWhen
+                   checkEnabled="true">
+             </visibleWhen>
+          </command>
+          <menu
+                id="org.osate.ui.analysesNavigatorPopup"
+                label="Analyses">
+             <menu
+                   id="org.osate.ui.budgetNavigatorPopup"
+                   label="Budget">
+                <separator
+                      name="core">
+                </separator>
+                <separator
+                      name="third_party">
+                </separator>
+             </menu>
+             <menu
+                   id="org.osate.ui.semanticChecksNavigatorPopup"
+                   label="Semantic Checks">
+                <separator
+                      name="core">
+                </separator>
+                <separator
+                      name="emv2"
+                      visible="true">
+                </separator>
+                <separator
+                      name="third_party">
+                </separator>
+             </menu>
+             <menu
+                   id="org.osate.ui.timingNavigatorPopup"
+                   label="Timing">
+                <separator
+                      name="core">
+                </separator>
+                <separator
+                      name="third_party">
+                </separator>
+             </menu>
+             <menu
+                   id="org.osate.ui.safetyNavigatorPopup"
+                   label="Safety">
+                <separator
+                      name="core">
+                </separator>
+                <separator
+                      name="third_party">
+                </separator>
+             </menu>
+             <separator
+                   name="third_party">
+             </separator>
+          </menu>
+          <menu
+                id="org.osate.ui.reportGenerationNavigatorPopup"
+                label="Report Generation">
+             <separator
+                   name="core">
+             </separator>
+             <separator
+                   name="third_party">
+             </separator>
+          </menu>
+          <separator
+                name="osate_end"
+                visible="true">
+          </separator>
        </menuContribution>
        <menuContribution
              allPopups="false"
@@ -369,7 +423,6 @@
           <command
                 commandId="org.osate.ui.conversion"
                 label="%RemoveAADLNature.label"
-                tooltip="%RemoveAADLNature.toolTip"
                 style="push">
              <visibleWhen>
                 <with
@@ -398,8 +451,7 @@
           </command>
           <command
                 commandId="org.osate.ui.conversion"
-                label="%EnableAADLNature.label"
-                tooltip="%EnableAADLNature.toolTip">
+                label="%EnableAADLNature.label">
              <visibleWhen>
                 <with
                       variable="selection">
@@ -429,121 +481,253 @@
           </command>
        </menuContribution>
        <menuContribution
-             locationURI="menu:org.eclipse.ui.main.menu?after=additions">
-          <menu
-                id="org.osate.ui.analysesMenu"
-                label="Analyses">
-          </menu>
+             locationURI="menu:org.eclipse.ui.main.menu?after=org.eclipse.ui.run">
           <menu
                 id="org.osate.ui.osateMenu"
                 label="OSATE">
+             <visibleWhen
+                   checkEnabled="false">
+                <with
+                      variable="activeWorkbenchWindow.activePerspective">
+                   <equals
+                         value="org.osate.ui.perspective.AadlPerspective">
+                   </equals>
+                </with>
+             </visibleWhen>
+             <menu
+                   id="org.osate.ui.openWorkflowMenu"
+                   label="Open Workflow">
+                <separator
+                      name="core">
+                </separator>
+                <separator
+                      name="third_party">
+                </separator>
+             </menu>
+             <menu
+                   id="org.osate.ui.importExportMenu"
+                   label="Import/Export">
+                <separator
+                      name="core">
+                </separator>
+                <separator
+                      name="third_party">
+                </separator>
+             </menu>
+             <menu
+                   id="org.osate.ui.reportGenerationMenu"
+                   label="Report Generation">
+                <separator
+                      name="core">
+                </separator>
+                <separator
+                      name="third_party">
+                </separator>
+             </menu>
+             <menu
+                   id="org.osate.ui.ocarinaMenu"
+                   label="Ocarina">
+                <separator
+                      name="core">
+                </separator>
+                <separator
+                      name="third_party">
+                </separator>
+             </menu>
              <command
                    commandId="org.osate.ui.reinstantiateAllAadl"
                    style="push">
-                <visibleWhen
-                      checkEnabled="false">
-                   <with
-                         variable="activeWorkbenchWindow.activePerspective">
-                      <equals
-                            value="org.osate.ui.perspective.AadlPerspective">
-                      </equals>
-                   </with>
-                </visibleWhen>
              </command>
              <separator
-                   name="org.osate.ui.separator1"
-                   visible="true">
+                   name="generateTextual">
              </separator>
-             <command
-                   commandId="org.osate.ui.resetMarkers"
-                   style="push">
-                <visibleWhen
-                      checkEnabled="false">
-                   <with
-                         variable="activeWorkbenchWindow.activePerspective">
-                      <equals
-                            value="org.osate.ui.perspective.AadlPerspective">
-                      </equals>
-                   </with>
-                </visibleWhen>
-             </command>
-             <command
-                   commandId="org.osate.ui.clearHistory"
-                   style="push">
-                <visibleWhen
-                      checkEnabled="false">
-                   <with
-                         variable="activeWorkbenchWindow.activePerspective">
-                      <equals
-                            value="org.osate.ui.perspective.AadlPerspective">
-                      </equals>
-                   </with>
-                </visibleWhen>
-             </command>
+             <separator
+                   name="third_party">
+             </separator>
+          </menu>
+          <menu
+                id="org.osate.ui.analysesMenu"
+                label="Analyses">
+             <visibleWhen
+                   checkEnabled="false">
+                <with
+                      variable="activeWorkbenchWindow.activePerspective">
+                   <equals
+                         value="org.osate.ui.perspective.AadlPerspective">
+                   </equals>
+                </with>
+             </visibleWhen>
+             <menu
+                   id="org.osate.ui.budgetMenu"
+                   label="Budget">
+                <separator
+                      name="core">
+                </separator>
+                <separator
+                      name="third_party">
+                </separator>
+             </menu>
+             <menu
+                   id="org.osate.ui.semanticChecksMenu"
+                   label="Semantic Checks">
+                <separator
+                      name="core">
+                </separator>
+                <separator
+                      name="emv2"
+                      visible="true">
+                </separator>
+                <separator
+                      name="code_generation"
+                      visible="true">
+                </separator>
+                <separator
+                      name="third_party">
+                </separator>
+             </menu>
+             <menu
+                   id="org.osate.ui.timingMenu"
+                   label="Timing">
+                <separator
+                      name="core">
+                </separator>
+                <separator
+                      name="workbench"
+                      visible="true">
+                </separator>
+                <separator
+                      name="third_party">
+                </separator>
+             </menu>
+             <menu
+                   id="org.osate.ui.safetyMenu"
+                   label="Safety">
+                <separator
+                      name="core">
+                </separator>
+                <separator
+                      name="third_party">
+                </separator>
+             </menu>
+             <menu
+                   id="org.osate.ui.miscellaneousMenu"
+                   label="Miscellaneous">
+                <separator
+                      name="workbench">
+                </separator>
+                <separator
+                      name="third_party">
+                </separator>
+             </menu>
+             <separator
+                   name="third_party">
+             </separator>
           </menu>
        </menuContribution>
        <menuContribution
-             locationURI="toolbar:org.eclipse.ui.main.toolbar">
+             locationURI="toolbar:org.eclipse.ui.main.toolbar?after=additions">
           <toolbar
-                id="org.osate.ui.toolbar"
-                label="OSATE">
+                id="org.osate.ui.osateWizardsToolbar"
+                label="OSATE Wizards">
+             <visibleWhen
+                   checkEnabled="false">
+                <with
+                      variable="activeWorkbenchWindow.activePerspective">
+                   <equals
+                         value="org.osate.ui.perspective.AadlPerspective">
+                   </equals>
+                </with>
+             </visibleWhen>
              <separator
-                   name="org.osate.ui.analysisToolbarSection1">
+                   name="core">
              </separator>
              <separator
-                   name="org.osate.ui.annexToolbarSection">
+                   name="third_party">
              </separator>
-             <separator
-                   name="org.osate.ui.analysisToolbarSection2">
-             </separator>
-             <command
-                   commandId="org.osate.ui.reinstantiateAllAadl">
-                <visibleWhen
-                      checkEnabled="false">
-                   <with
-                         variable="activeWorkbenchWindow.activePerspective">
-                      <equals
-                            value="org.osate.ui.perspective.AadlPerspective">
-                      </equals>
-                   </with>
-                </visibleWhen>
-             </command>
-             <separator
-                   name="org.osate.ui.separator2"
-                   visible="true">
-             </separator>
-             <command
-                   commandId="org.osate.ui.clearHistory"
-                   tooltip="%ClearHistory.toolTip"
-                   style="push">
-                 <visibleWhen
-                      checkEnabled="false">
-                   <with
-                         variable="activeWorkbenchWindow.activePerspective">
-                      <equals
-                            value="org.osate.ui.perspective.AadlPerspective">
-                      </equals>
-                   </with>
-                </visibleWhen>
-             </command>
-             <separator
-                   name="org.osate.ui.separator3"
-                   visible="true">
-             </separator>
-             <command
-                   commandId="org.osate.ui.resetMarkers"
-                   tooltip="%ResetMarkers.toolTip"
-                   style="push">
-                <visibleWhen
-                      checkEnabled="false">
-                   <with
-                         variable="activeWorkbenchWindow.activePerspective">
-                      <equals
-                            value="org.osate.ui.perspective.AadlPerspective">
-                      </equals>
-                   </with>
-                </visibleWhen>
-             </command>
+          </toolbar>
+          <toolbar
+                id="org.osate.ui.budgetToolbar"
+                label="Budget">
+            <visibleWhen
+                  checkEnabled="false">
+               <with
+                     variable="activeWorkbenchWindow.activePerspective">
+                  <equals
+                        value="org.osate.ui.perspective.AadlPerspective">
+                  </equals>
+               </with>
+            </visibleWhen>
+            <separator
+                  name="core">
+            </separator>
+            <separator
+                  name="third_party">
+            </separator>
+          </toolbar>
+          <toolbar
+                id="org.osate.ui.semanticChecksToolbar"
+                label="Semantic Checks">
+            <visibleWhen
+                  checkEnabled="false">
+               <with
+                     variable="activeWorkbenchWindow.activePerspective">
+                  <equals
+                        value="org.osate.ui.perspective.AadlPerspective">
+                  </equals>
+               </with>
+            </visibleWhen>
+            <separator
+                  name="core">
+            </separator>
+            <separator
+                  name="emv2"
+                  visible="true">
+            </separator>
+            <separator
+                  name="code_generation"
+                  visible="true">
+            </separator>
+            <separator
+                  name="third_party">
+            </separator>
+          </toolbar>
+          <toolbar
+                id="org.osate.ui.timingToolbar"
+                label="Timing">
+            <visibleWhen
+                  checkEnabled="false">
+               <with
+                     variable="activeWorkbenchWindow.activePerspective">
+                  <equals
+                        value="org.osate.ui.perspective.AadlPerspective">
+                  </equals>
+               </with>
+            </visibleWhen>
+            <separator
+                  name="core">
+            </separator>
+            <separator
+                  name="third_party">
+            </separator>
+          </toolbar>
+          <toolbar
+                id="org.osate.ui.safetyToolbar"
+                label="Safety">
+            <visibleWhen
+                  checkEnabled="false">
+               <with
+                     variable="activeWorkbenchWindow.activePerspective">
+                  <equals
+                        value="org.osate.ui.perspective.AadlPerspective">
+                  </equals>
+               </with>
+            </visibleWhen>
+            <separator
+                  name="core">
+            </separator>
+            <separator
+                  name="third_party">
+            </separator>
           </toolbar>
        </menuContribution>
     </extension>
@@ -551,24 +735,16 @@
           point="org.eclipse.ui.commands">
        <command
              id="org.osate.ui.setAadlProjectProperties"
-             name="Set as AADL_Project property set">
+             name="Set As AADL_Project Property Set">
        </command>
        <command
              description="Instantiate the system"
              id="org.osate.ui.instantiate"
-             name="Instantiate System">
+             name="Instantiate">
        </command>
        <command
              id="org.osate.ui.reinstantiateAllAadl"
              name="%ReinstantiateAllModelsAction.label">
-       </command>
-       <command
-             id="org.osate.ui.clearHistory"
-             name="%ClearHistory.label">
-       </command>
-       <command
-             id="org.osate.ui.resetMarkers"
-             name="%ResetMarkers.label">
        </command>
        <command
              id="org.osate.ui.conversion"
@@ -580,6 +756,22 @@
        <handler
              class="org.osate.ui.handlers.SetAadlProjectPropertiesHandler"
              commandId="org.osate.ui.setAadlProjectProperties">
+          <enabledWhen>
+             <with
+                   variable="selection">
+                <and>
+                   <count
+                         value="1">
+                   </count>
+                   <iterate
+                         ifEmpty="false">
+                      <reference
+                            definitionId="org.osate.is_aadl_project_propertyset">
+                      </reference>
+                   </iterate>
+                </and>
+             </with>
+          </enabledWhen>
        </handler>
        <handler
              class="org.osate.ui.handlers.InstantiateHandler"
@@ -588,33 +780,6 @@
        <handler
              class="org.osate.ui.handlers.ReinstantiateAadl"
              commandId="org.osate.ui.reinstantiateAllAadl">
-       </handler>
-       <handler
-             class="org.osate.ui.handlers.ClearHistory"
-             commandId="org.osate.ui.clearHistory">
-          <enabledWhen>
-             <with
-                   variable="selection">
-                <count
-                      value="1">
-                </count>
-             </with>
-          </enabledWhen>
-       </handler>
-       <handler
-             class="org.osate.ui.handlers.ResetMarkers"
-             commandId="org.osate.ui.resetMarkers">
-          <enabledWhen>
-             <with
-                   variable="selection">
-                <iterate
-                      ifEmpty="false">
-                   <instanceof
-                         value="org.eclipse.core.resources.IFile">
-                   </instanceof>
-                </iterate>
-             </with>
-          </enabledWhen>
        </handler>
        <handler
              class="org.osate.ui.handlers.ConversionHandler"
@@ -626,14 +791,6 @@
        <image
              commandId="org.osate.ui.reinstantiateAllAadl"
              icon="icons/reinstantiate.gif">
-       </image>
-       <image
-             commandId="org.osate.ui.clearHistory"
-             icon="icons/smiley.gif">
-       </image>
-       <image
-             commandId="org.osate.ui.resetMarkers"
-             icon="icons/none.gif">
        </image>
     </extension>
     <extension

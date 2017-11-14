@@ -141,7 +141,6 @@
 <setEntry value="org.osate.ge.errormodel.feature:default"/>
 <setEntry value="org.osate.ge.feature:default"/>
 <setEntry value="org.osate.gtse.config.feature:default"/>
-<setEntry value="org.osate.imv.osate.feature:default"/>
 <setEntry value="org.osate.ocarina.feature:default"/>
 <setEntry value="org.osate.plugins.feature:default"/>
 <setEntry value="org.osate.utils.feature:default"/>
