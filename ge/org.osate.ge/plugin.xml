@@ -333,13 +333,13 @@
          </visibleWhen>
          </command>
 		</menuContribution>
-		<menuContribution allPopups="false" locationURI="popup:org.osate.xtext.aadl2.ui.outline?after=additions">
+		<menuContribution allPopups="false" locationURI="popup:org.osate.xtext.aadl2.ui.outline?after=osate_begin">
 			<command commandId="org.osate.ge.commands.opendiagram" style="push"/>
 			<command commandId="org.osate.ge.commands.creatediagram" style="push"/>
 		</menuContribution>
 		
        <menuContribution
-            locationURI="popup:org.osate.ui.navigator.AadlNavigator?after=org.osate.aadl2.instance.ui.generateTextualInstance">
+            locationURI="popup:org.osate.ui.navigator.AadlNavigator?after=osate_begin">
          <command
              commandId="org.osate.ge.commands.open.diagram.from.navigator"
              label="Open Diagram"
@@ -365,7 +365,7 @@
       </menuContribution>
 	<menuContribution
              allPopups="false"
-             locationURI="toolbar:org.eclipse.ui.main.toolbar?after=org.osate.ui.toolbar">
+             locationURI="toolbar:org.eclipse.ui.main.toolbar?after=org.osate.ui.safetyToolbar">
           <toolbar
                 id="org.osate.ge.toolbars.layout"
                 label="Layout">
