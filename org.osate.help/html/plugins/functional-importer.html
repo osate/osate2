@@ -9,10 +9,10 @@
 </head>
 
 <body>
-<H2>SCADE or Simulink importers</H2>
+<H2>Simulink importer</H2>
 <p>
 The functional importers create AADL models skeletons using
-a functional model such as SCADE or Simulink. SCADE or Simulink
+a functional model such as Simulink. Simulink
 provides a language to describe a functional description
 using a graphical notation. However, these models do not show
 many deployment information, which may result in limited
@@ -34,7 +34,7 @@ to select an <strong>empty directory</strong> in
 your OSATE installation (see picture below).
  This directory will then contain
 the generated AADL model. Then, the tool
-will ask to select the Simulink or SCADE model to import.
+will ask to select the Simulink model to import.
 </p>
 
 <img src="osate-directory-selected.png"/>
@@ -55,25 +55,11 @@ under the <strong>slx format</strong>.
 </p>
 
 
-<h3>Importing SCADE Models</h3>
-<p>
-To import a SCADE model, make sure you
-have selected an empty directory in your workspace
-and then, select the menu entry
-<strong>Import SCADE model</strong>
-under the <strong>Analyses</strong> menu.
-This is shown in the figure below in the 
-red box.
-</p>
-
-<img src="osate-importer-menu.png"/>
-
-
 <h2>Mapping Rules</h2>
 <p>
 The following sections provide an overview
 of the mapping rules to transform a Simulink
-or SCADE model into an AADL model
+ model into an AADL model
 </p>
 <p>
 For both importers, the tool will create
@@ -122,25 +108,6 @@ the following files:
 		When a Simulink model references a components from another file, it
 		does not resolve the reference. Instead, the user then needs to import
 		the referenced Simulink library as well.
-	</li>
-</ul>
-
-<h3>SCADE Mapping Rules</h3>
-<p>
-It is possible to import a single component (<em>.xscade</em> file) or a complete project (<em>.etp</em> file).
-</p>
-
-<ul>
-	<li>Each component in the diagram is mapped into an AADL abstract (functional) or system (runtime) component</li>
-	<li>Connections are mapped only for connections internal to a components (a connection from a sub-components to a feature)</li>
-	<li>Inter-components connections are not supported</li>
-	<li>The importer tried to infer the data type and see if a numeric or boolean value is being used.
-	</li>
-	<li>SCADE state machines are translated into AADL behavior state machine
-		<ul>
-			<li>Inner state machines are embedded</li>
-			<li>Data shared across state machines are mapped using an AADL shared data component</li>
-		</ul>
 	</li>
 </ul>
 
