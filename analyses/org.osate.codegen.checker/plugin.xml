@@ -9,7 +9,7 @@
             id="org.osate.codegen.checker.commands.category">
       </category>
       <command
-            name="Check Model Semantics"
+            name="Check Codegen Prerequisites"
             categoryId="org.osate.codegen.checker.commands.category"
             id="org.osate.codegen.checker.commands.check">
              <commandParameter id="org.osate.codegen.checker.kind" name="Generator Kind"/>
@@ -24,40 +24,126 @@
       </handler>
    </extension>
    <extension
+         point="org.eclipse.ui.commandImages">
+      <image
+            commandId="org.osate.codegen.checker.commands.check"
+            icon="icons/codegenChecker.gif">
+      </image>
+   </extension>
+   <extension
          point="org.eclipse.ui.menus">
       <menuContribution
-            locationURI="menu:org.eclipse.ui.main.menu?after=org.osate.ui.osateMenu">
-         <menu
-               id="org.osate.codegen.checker.codeGenerationMenu"
-               label="Code Generation">
-            <command
-                  commandId="org.osate.codegen.checker.commands.check"
-                  mnemonic="S"
-                  label="Check Semantics for POK"
-                  id="org.osate.codegen.checker.menus.check">
-               <parameter name="org.osate.codegen.checker.kind" value="pok"/>
-            </command>
-            <command commandId="org.osate.codegen.checker.commands.check" style="push" label="Check Semantics for DeOS">
-				<parameter name="org.osate.codegen.checker.kind" value="deos"/>
-			</command>
-			<command commandId="org.osate.codegen.checker.commands.check" style="push" label="Check Semantics for VxWorks">
-				<parameter name="org.osate.codegen.checker.kind" value="vxworks"/>
-			</command>
-         </menu>
+            locationURI="menu:org.osate.ui.semanticChecksMenu?after=code_generation">
+         <command
+               commandId="org.osate.codegen.checker.commands.check"
+               mnemonic="S"
+               label="Check Codegen Prerequisites For POK">
+            <parameter
+                  name="org.osate.codegen.checker.kind"
+                  value="pok">
+            </parameter>
+         </command>
+         <command
+               commandId="org.osate.codegen.checker.commands.check"
+               style="push"
+               label="Check Codegen Prerequisites For DeOS">
+            <parameter
+                  name="org.osate.codegen.checker.kind"
+                  value="deos">
+            </parameter>
+         </command>
+         <command
+               commandId="org.osate.codegen.checker.commands.check"
+               style="push"
+               label="Check Codegen Prerequisites For VxWorks">
+            <parameter
+                  name="org.osate.codegen.checker.kind"
+                  value="vxworks">
+            </parameter>
+         </command>
       </menuContribution>
-	<menuContribution allPopups="false" locationURI="popup:org.osate.xtext.aadl2.ui.outline?after=additions">
-		<menu id="org.osate.codegen.checker.toolbars.codegenOutline" label="Code Generation">
-			<command commandId="org.osate.codegen.checker.commands.check" style="push" label="Check Semantics for POK">
-				<parameter name="org.osate.codegen.checker.kind" value="pok"/>
-			</command>
-			<command commandId="org.osate.codegen.checker.commands.check" style="push" label="Check Semantics for DeOS">
-				<parameter name="org.osate.codegen.checker.kind" value="deos"/>
-			</command>
-			<command commandId="org.osate.codegen.checker.commands.check" style="push" label="Check Semantics for VxWorks">
-				<parameter name="org.osate.codegen.checker.kind" value="vxworks"/>
-			</command>
-		</menu>
-	</menuContribution>
+      <menuContribution
+            locationURI="toolbar:org.osate.ui.semanticChecksToolbar?after=code_generation">
+         <command
+               commandId="org.osate.codegen.checker.commands.check"
+               tooltip="Check codegen prerequisites for VxWorks"
+               style="pulldown">
+            <!--
+               Remove visibleWhen on the command when this bug is fixed:
+               https://bugs.eclipse.org/bugs/show_bug.cgi?id=201589
+            -->
+            <visibleWhen
+                  checkEnabled="false">
+               <with
+                     variable="activeWorkbenchWindow.activePerspective">
+                  <equals
+                        value="org.osate.ui.perspective.AadlPerspective">
+                  </equals>
+               </with>
+            </visibleWhen>
+            <parameter
+                  name="org.osate.codegen.checker.kind"
+                  value="vxworks">
+            </parameter>
+         </command>
+      </menuContribution>
+      <menuContribution
+            locationURI="menu:org.osate.codegen.checker.commands.check">
+         <command
+               commandId="org.osate.codegen.checker.commands.check"
+               label="Check Codegen Prerequisites For POK">
+            <parameter
+                  name="org.osate.codegen.checker.kind"
+                  value="pok">
+            </parameter>
+         </command>
+         <command
+               commandId="org.osate.codegen.checker.commands.check"
+               label="Check Codegen Prerequisites For DeOS">
+            <parameter
+                  name="org.osate.codegen.checker.kind"
+                  value="deos">
+            </parameter>
+         </command>
+         <command
+               commandId="org.osate.codegen.checker.commands.check"
+               label="Check Codegen Prerequisites For VxWorks">
+            <parameter
+                  name="org.osate.codegen.checker.kind"
+                  value="vxworks">
+            </parameter>
+         </command>
+      </menuContribution>
+      <menuContribution
+            locationURI="popup:org.osate.ui.semanticChecksOutlinePopup?after=code_generation">
+         <command
+               commandId="org.osate.codegen.checker.commands.check"
+               style="push"
+               label="Check Codegen Prerequisites For POK">
+            <parameter
+                  name="org.osate.codegen.checker.kind"
+                  value="pok">
+            </parameter>
+         </command>
+         <command
+               commandId="org.osate.codegen.checker.commands.check"
+               style="push"
+               label="Check Codegen Prerequisites For DeOS">
+            <parameter
+                  name="org.osate.codegen.checker.kind"
+                  value="deos">
+            </parameter>
+         </command>
+         <command
+               commandId="org.osate.codegen.checker.commands.check"
+               style="push"
+               label="Check Codegen Prerequisites For VxWorks">
+            <parameter
+                  name="org.osate.codegen.checker.kind"
+                  value="vxworks">
+            </parameter>
+         </command>
+      </menuContribution>
    </extension>
    
 	

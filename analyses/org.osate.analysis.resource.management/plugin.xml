@@ -143,166 +143,91 @@
    <extension
          point="org.eclipse.ui.menus">
       <menuContribution
-            locationURI="menu:org.osate.ui.analysesMenu?after=org.osate.analysis.flows.checkFlowLatency">
-         <menu
-               id="org.osate.analysis.resource.management.schedulingMenu"
-               label="Scheduling">
-            <command
-                  commandId="org.osate.analysis.resource.management.binpack">
-               <visibleWhen
-                     checkEnabled="false">
-                  <with
-                        variable="activeWorkbenchWindow.activePerspective">
-                     <or>
-                        <equals
-                              value="org.osate.ui.perspective.AadlPerspective">
-                        </equals>
-                        <equals
-                              value="org.osate.imv.ui.perspective.ImvPerspective">
-                        </equals>
-                     </or>
-                  </with>
-               </visibleWhen>
-            </command>
-            <command
-                  commandId="org.osate.analysis.resource.management.checkPriorityInversion">
-               <visibleWhen
-                     checkEnabled="false">
-                  <with
-                        variable="activeWorkbenchWindow.activePerspective">
-                     <or>
-                        <equals
-                              value="org.osate.ui.perspective.AadlPerspective">
-                        </equals>
-                        <equals
-                              value="org.osate.imv.ui.perspective.ImvPerspective">
-                        </equals>
-                     </or>
-                  </with>
-               </visibleWhen>
-            </command>
-         </menu>
+            locationURI="menu:org.osate.ui.timingMenu?after=core">
+         <command
+               commandId="org.osate.analysis.resource.management.binpack">
+         </command>
+         <command
+               commandId="org.osate.analysis.resource.management.checkPriorityInversion">
+         </command>
+         <command
+               commandId="org.osate.analysis.resource.management.schedule">
+         </command>
       </menuContribution>
       <menuContribution
-            locationURI="toolbar:org.osate.ui.toolbar?after=org.osate.analysis.resource.budgets.doResourceBudget">
+            locationURI="toolbar:org.osate.ui.timingToolbar?after=core">
          <command
                commandId="org.osate.analysis.resource.management.binpack"
                tooltip="%Binpack.toolTip">
+            <!--
+               Remove visibleWhen on the command when this bug is fixed:
+               https://bugs.eclipse.org/bugs/show_bug.cgi?id=201589
+            -->
             <visibleWhen
                   checkEnabled="false">
                <with
                      variable="activeWorkbenchWindow.activePerspective">
-                  <or>
-                     <equals
-                           value="org.osate.ui.perspective.AadlPerspective">
-                     </equals>
-                     <equals
-                           value="org.osate.imv.ui.perspective.ImvPerspective">
-                     </equals>
-                  </or>
+                  <equals
+                        value="org.osate.ui.perspective.AadlPerspective">
+                  </equals>
                </with>
             </visibleWhen>
          </command>
          <command
                commandId="org.osate.analysis.resource.management.checkPriorityInversion"
                tooltip="%CheckPriorityInversion.toolTip">
+            <!--
+               Remove visibleWhen on the command when this bug is fixed:
+               https://bugs.eclipse.org/bugs/show_bug.cgi?id=201589
+            -->
             <visibleWhen
                   checkEnabled="false">
                <with
                      variable="activeWorkbenchWindow.activePerspective">
-                  <or>
-                     <equals
-                           value="org.osate.ui.perspective.AadlPerspective">
-                     </equals>
-                     <equals
-                           value="org.osate.imv.ui.perspective.ImvPerspective">
-                     </equals>
-                  </or>
+                  <equals
+                        value="org.osate.ui.perspective.AadlPerspective">
+                  </equals>
+               </with>
+            </visibleWhen>
+         </command>
+         <command
+               commandId="org.osate.analysis.resource.management.schedule"
+               tooltip="Schedule bound threads">
+            <!--
+               Remove visibleWhen on the command when this bug is fixed:
+               https://bugs.eclipse.org/bugs/show_bug.cgi?id=201589
+            -->
+            <visibleWhen
+                  checkEnabled="false">
+               <with
+                     variable="activeWorkbenchWindow.activePerspective">
+                  <equals
+                        value="org.osate.ui.perspective.AadlPerspective">
+                  </equals>
                </with>
             </visibleWhen>
          </command>
       </menuContribution>
       <menuContribution
-            locationURI="popup:org.osate.ui.aadlAnalysesPopupMenu?after=org.osate.importer.simulink.importExportModelsPopupMenu">
-         <menu
-               id="org.osate.analysis.resource.management.schedulingPopupMenu"
-               label="Scheduling">
-            <command
-                  commandId="org.osate.analysis.resource.management.binpack">
-               <visibleWhen
-                     checkEnabled="false">
-                  <with
-                        variable="selection">
-                     <iterate
-                           operator="and"
-                           ifEmpty="false">
-                        <or>
-                           <instanceof
-                                 value="org.osate.aadl2.instance.SystemInstance">
-                           </instanceof>
-                           <adapt
-                                 type="org.eclipse.core.resources.IFile">
-                              <test
-                                    property="org.eclipse.core.resources.contentTypeId"
-                                    value="org.osate.core.instanceModelFile">
-                              </test>
-                           </adapt>
-                        </or>
-                     </iterate>
-                  </with>
-               </visibleWhen>
-            </command>
-            <command
-                  commandId="org.osate.analysis.resource.management.schedule">
-               <visibleWhen
-                     checkEnabled="false">
-                  <with
-                        variable="selection">
-                     <iterate
-                           operator="and"
-                           ifEmpty="false">
-                        <or>
-                           <instanceof
-                                 value="org.osate.aadl2.instance.SystemInstance">
-                           </instanceof>
-                           <adapt
-                                 type="org.eclipse.core.resources.IFile">
-                              <test
-                                    property="org.eclipse.core.resources.contentTypeId"
-                                    value="org.osate.core.instanceModelFile">
-                              </test>
-                           </adapt>
-                        </or>
-                     </iterate>
-                  </with>
-               </visibleWhen>
-            </command>
-            <command
-                  commandId="org.osate.analysis.resource.management.checkPriorityInversion">
-               <visibleWhen
-                     checkEnabled="false">
-                  <with
-                        variable="selection">
-                     <iterate
-                           operator="and"
-                           ifEmpty="false">
-                        <or>
-                           <instanceof
-                                 value="org.osate.aadl2.instance.SystemInstance">
-                           </instanceof>
-                           <adapt
-                                 type="org.eclipse.core.resources.IFile">
-                              <test
-                                    property="org.eclipse.core.resources.contentTypeId"
-                                    value="org.osate.core.instanceModelFile">
-                              </test>
-                           </adapt>
-                        </or>
-                     </iterate>
-                  </with>
-               </visibleWhen>
-            </command>
-         </menu>
+            locationURI="popup:org.osate.ui.timingNavigatorPopup?after=core">
+         <command
+               commandId="org.osate.analysis.resource.management.binpack">
+            <visibleWhen
+                  checkEnabled="true">
+            </visibleWhen>
+         </command>
+         <command
+               commandId="org.osate.analysis.resource.management.checkPriorityInversion">
+            <visibleWhen
+                  checkEnabled="true">
+            </visibleWhen>
+         </command>
+         <command
+               commandId="org.osate.analysis.resource.management.schedule">
+            <visibleWhen
+                  checkEnabled="true">
+            </visibleWhen>
+         </command>
       </menuContribution>
    </extension>
 </plugin>
