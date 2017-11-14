@@ -387,10 +387,6 @@
   <setupTask
       xsi:type="setup.p2:P2Task">
     <requirement
-        name="org.eclipse.m2m.atl.sdk.feature.group"/>
-    <requirement
-        name="org.eclipse.m2m.atl.emftvm.feature.group"/>
-    <requirement
         name="org.eclipse.ease.feature.feature.group"/>
     <requirement
         name="org.eclipse.ease.ui.feature.feature.group"/>
@@ -401,9 +397,9 @@
     <requirement
         name="org.eclipse.gendoc.feature.feature.group"/>
     <repository
-        url="https://hudson.eclipse.org/shared/job/mmt-atl-master/lastSuccessfulBuild/artifact/releng/org.eclipse.m2m.atl.update/target/repository/"/>
+        url="http://download.eclipse.org/releases/oxygen"/>
     <repository
-        url="http://download.eclipse.org/ease/update/nightly"/>
+        url="http://download.eclipse.org/ease/update/release"/>
     <repository
         url="http://download.eclipse.org/gendoc/updates/releases/0.6.0"/>
   </setupTask>
@@ -502,7 +498,7 @@
     <requirement
         name="org.eclipse.sirius.aql.source.feature.group"/>
     <repository
-        url="http://download.eclipse.org/releases/oxygen/201709271000"/>
+        url="http://download.eclipse.org/releases/oxygen"/>
     <repository
         url="http://download.eclipse.org/sirius/updates/releases/5.0.2/oxygen"/>
   </setupTask>
