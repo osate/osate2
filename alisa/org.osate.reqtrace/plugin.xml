@@ -5,29 +5,38 @@
          point="org.eclipse.ui.commands">
       <command
             id="org.osate.reqtrace.requirementsTracing"
-            name="Tracability">
+            name="Traceability">
       </command>
       <command
             id="org.osate.reqtrace.requirementsReport"
-            name="Requirements Report">
+            name="Requirements">
       </command>
    </extension>
    <extension
          point="org.eclipse.ui.menus">
       <menuContribution
-            allPopups="false"
-            locationURI="popup:org.osate.ui.navigator.AadlNavigator?before=org.osate.aadl2.instance.ui.generateTextualInstance">
-         <menu
-               label="Report Generation">
-            <command
-                  commandId="org.osate.reqtrace.requirementsTracing"
-                  style="push">
-            </command>
-            <command
-                  commandId="org.osate.reqtrace.requirementsReport"
-                  style="push">
-            </command>
-         </menu>
+            locationURI="menu:org.osate.ui.reportGenerationMenu?after=core">
+         <command
+               commandId="org.osate.reqtrace.requirementsTracing">
+         </command>
+         <command
+               commandId="org.osate.reqtrace.requirementsReport">
+         </command>
+      </menuContribution>
+      <menuContribution
+            locationURI="popup:org.osate.ui.reportGenerationNavigatorPopup?after=core">
+         <command
+               commandId="org.osate.reqtrace.requirementsTracing">
+            <visibleWhen
+                  checkEnabled="true">
+            </visibleWhen>
+         </command>
+         <command
+               commandId="org.osate.reqtrace.requirementsReport">
+            <visibleWhen
+                  checkEnabled="true">
+            </visibleWhen>
+         </command>
       </menuContribution>
    </extension>
    <extension
