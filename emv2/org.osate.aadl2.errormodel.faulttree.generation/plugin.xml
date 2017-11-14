@@ -18,7 +18,7 @@
             categoryId="org.osate.aadl2.errormodel.analysis.category"
             id="org.osate.aadl2.errormodel.analysis.fta"
             description="View FTA graphically or as minimal cutset table"
-            name="Fault Tree Analysis">
+            name="Run Fault Tree Analysis">
      </command>     
     </extension>
     
@@ -61,29 +61,20 @@
          
     <extension point="org.eclipse.ui.menus">
        <menuContribution
-            locationURI="menu:org.osate.ui.analysesMenu?before=org.osate.analysis.flows.checkFlowLatency">
-         <menu
-               id="org.osate.aadl2.errormodel.analysis.faultAnalysesMenu"
-               label="Fault Analyses">
-            <command
-                  commandId="org.osate.aadl2.errormodel.analysis.fta">
-               <visibleWhen
-                     checkEnabled="false">
-                  <with
-                        variable="activeWorkbenchWindow.activePerspective">
-                     <equals
-                           value="org.osate.ui.perspective.AadlPerspective">
-                     </equals>
-                  </with>
-               </visibleWhen>
-            </command>
-         </menu>
-      </menuContribution>
-      <menuContribution
-            locationURI="toolbar:org.osate.ui.toolbar?after=org.osate.ui.annexToolbarSection">
-         <command
-               commandId="org.osate.aadl2.errormodel.analysis.fta"
-               tooltip="Generate and View Fault Tree or Minimal Cut Set">
+             locationURI="menu:org.osate.ui.safetyMenu?after=core">
+          <command
+                commandId="org.osate.aadl2.errormodel.analysis.fta">
+          </command>
+       </menuContribution>
+       <menuContribution
+             locationURI="toolbar:org.osate.ui.safetyToolbar?after=core">
+          <command
+                commandId="org.osate.aadl2.errormodel.analysis.fta"
+                tooltip="Run fault tree analysis">
+             <!--
+               Remove visibleWhen on the command when this bug is fixed:
+               https://bugs.eclipse.org/bugs/show_bug.cgi?id=201589
+            -->
             <visibleWhen
                   checkEnabled="false">
                <with
@@ -93,40 +84,17 @@
                   </equals>
                </with>
             </visibleWhen>
-         </command>
-      </menuContribution>
-      <menuContribution
-            locationURI="popup:org.osate.ui.aadlAnalysesPopupMenu?before=org.osate.analysis.flows.checkFlowLatency">
-         <menu
-               id="org.osate.aadl2.errormodel.analysis.faultAnalysesPopupMenu"
-               label="Fault Analyses">
-            <command
-                  commandId="org.osate.aadl2.errormodel.analysis.fta">
-               <visibleWhen
-                     checkEnabled="false">
-                  <with
-                        variable="selection">
-                     <iterate
-                           operator="and"
-                           ifEmpty="false">
-                        <or>
-                           <instanceof
-                                 value="org.osate.aadl2.instance.SystemInstance">
-                           </instanceof>
-                           <adapt
-                                 type="org.eclipse.core.resources.IFile">
-                              <test
-                                    property="org.eclipse.core.resources.contentTypeId"
-                                    value="org.osate.core.instanceModelFile">
-                              </test>
-                           </adapt>
-                        </or>
-                     </iterate>
-                  </with>
-               </visibleWhen>
-            </command>
-         </menu>
-      </menuContribution>
+          </command>
+       </menuContribution>
+       <menuContribution
+             locationURI="popup:org.osate.ui.safetyNavigatorPopup?after=core">
+          <command
+                commandId="org.osate.aadl2.errormodel.analysis.fta">
+             <visibleWhen
+                   checkEnabled="true">
+             </visibleWhen>
+          </command>
+       </menuContribution>
  	</extension>
 
 </plugin>

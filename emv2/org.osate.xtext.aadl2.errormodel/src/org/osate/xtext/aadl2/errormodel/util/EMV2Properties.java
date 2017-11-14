@@ -293,41 +293,6 @@ public class EMV2Properties {
 	}
 
 	/**
-	 * Retrieve the type/kind of distribution associated
-	 * with the Occurrence property
-	 * See PRISM converter to see how it is used.
-	 *
-	 * @param PAContainmentPath string value describing the distribution get from getOccurenceDistributionProperty
-	 */
-	public static String getOccurrenceType(final EMV2PropertyAssociation PA) {
-		if (PA == null) {
-			return "unknown_distribution";
-		}
-
-		for (ModalPropertyValue modalPropertyValue : PA.getOwnedValues()) {
-			PropertyExpression val = modalPropertyValue.getOwnedValue();
-			if (val instanceof RecordValue) {
-
-				RecordValue rv = (RecordValue) val;
-				EList<BasicPropertyAssociation> fields = rv.getOwnedFieldValues();
-				// for all error types/aliases in type set or the element identified in the containment clause
-				for (BasicPropertyAssociation bpa : fields) {
-					if (bpa.getProperty().getName().equalsIgnoreCase("distribution")) {
-						if (bpa.getValue() instanceof NamedValue) {
-							EnumerationLiteral el = (EnumerationLiteral) ((NamedValue) bpa.getValue()).getNamedValue();
-							return (el.getName().toLowerCase());
-
-							// RealLiteral rl = (NamedValue)bpa.getValue();
-							// result = rl.getScaledValue();
-						}
-					}
-				}
-			}
-		}
-		return "unknown_distribution";
-	}
-
-	/**
 	 * Retrieve the value associated with a containment path
 	 * See RDB action to see how it is used.
 	 *
