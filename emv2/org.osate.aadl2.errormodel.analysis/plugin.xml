@@ -47,16 +47,6 @@
       </command>
       <command
             categoryId="org.osate.aadl2.errormodel.analysis.category"
-            id="org.osate.aadl2.errormodel.analysis.cma"
-            name="%CMA.label">
-      </command>
-      <command
-            categoryId="org.osate.aadl2.errormodel.analysis.category"
-            id="org.osate.aadl2.errormodel.analysis.rbd"
-            name="%RBD.label">
-      </command>
-      <command
-            categoryId="org.osate.aadl2.errormodel.analysis.category"
             id="org.osate.aadl2.errormodel.analysis.faultImpact"
             name="%FaultImpact.label">
       </command>
@@ -64,11 +54,6 @@
             categoryId="org.osate.aadl2.errormodel.analysis.category"
             id="org.osate.aadl2.errormodel.analysis.unhandledFaults"
             name="%UnhandledFaults.label">
-      </command>
-      <command
-            categoryId="org.osate.aadl2.errormodel.analysis.category"
-            id="org.osate.aadl2.errormodel.analysis.implementationCompliance"
-            name="%ImplementationCompliance.label">
       </command>
    </extension>
    <extension
@@ -146,54 +131,6 @@
          </enabledWhen>
       </handler>
       <handler
-            class="org.osate.aadl2.errormodel.analysis.handlers.CMAHandler"
-            commandId="org.osate.aadl2.errormodel.analysis.cma">
-         <enabledWhen>
-            <or>
-               <reference
-                     definitionId="org.osate.core.isInstanceFileSelected">
-               </reference>
-               <with
-                     variable="selection">
-                  <and>
-                     <count
-                           value="1">
-                     </count>
-                     <iterate>
-                        <instanceof
-                              value="org.osate.aadl2.instance.ComponentInstance">
-                        </instanceof>
-                     </iterate>
-                  </and>
-               </with>
-            </or>
-         </enabledWhen>
-      </handler>
-      <handler
-            class="org.osate.aadl2.errormodel.analysis.handlers.RBDHandler"
-            commandId="org.osate.aadl2.errormodel.analysis.rbd">
-         <enabledWhen>
-            <or>
-               <reference
-                     definitionId="org.osate.core.isInstanceFileSelected">
-               </reference>
-               <with
-                     variable="selection">
-                  <and>
-                     <count
-                           value="1">
-                     </count>
-                     <iterate>
-                        <instanceof
-                              value="org.osate.aadl2.instance.ComponentInstance">
-                        </instanceof>
-                     </iterate>
-                  </and>
-               </with>
-            </or>
-         </enabledWhen>
-      </handler>
-      <handler
             class="org.osate.aadl2.errormodel.analysis.handlers.FaultImpactHandler"
             commandId="org.osate.aadl2.errormodel.analysis.faultImpact">
          <enabledWhen>
@@ -241,30 +178,6 @@
             </or>
          </enabledWhen>
       </handler>
-      <handler
-            class="org.osate.aadl2.errormodel.analysis.handlers.ImplementationComplianceHandler"
-            commandId="org.osate.aadl2.errormodel.analysis.implementationCompliance">
-         <enabledWhen>
-            <or>
-               <reference
-                     definitionId="org.osate.core.isInstanceFileSelected">
-               </reference>
-               <with
-                     variable="selection">
-                  <and>
-                     <count
-                           value="1">
-                     </count>
-                     <iterate>
-                        <instanceof
-                              value="org.osate.aadl2.instance.ComponentInstance">
-                        </instanceof>
-                     </iterate>
-                  </and>
-               </with>
-            </or>
-         </enabledWhen>
-      </handler>
    </extension>
    <extension
          point="org.eclipse.ui.commandImages">
@@ -281,14 +194,6 @@
             icon="icons/fha.png">
       </image>
       <image
-            commandId="org.osate.aadl2.errormodel.analysis.cma"
-            icon="icons/cma.png">
-      </image>
-      <image
-            commandId="org.osate.aadl2.errormodel.analysis.rbd"
-            icon="icons/rbd.png">
-      </image>
-      <image
             commandId="org.osate.aadl2.errormodel.analysis.faultImpact"
             icon="icons/FaultImpact.gif">
       </image>
@@ -296,121 +201,39 @@
             commandId="org.osate.aadl2.errormodel.analysis.unhandledFaults"
             icon="icons/UnhandledFaults.gif">
       </image>
-      <image
-            commandId="org.osate.aadl2.errormodel.analysis.implementationCompliance"
-            icon="icons/compliance.png">
-      </image>
    </extension>
    <extension
          point="org.eclipse.ui.menus">
       <menuContribution
-            locationURI="menu:org.osate.ui.analysesMenu?before=org.osate.analysis.flows.checkFlowLatency">
-         <menu
-               id="org.osate.aadl2.errormodel.analysis.faultAnalysesMenu"
-               label="Fault Analyses">
-            <command
-                  commandId="org.osate.aadl2.errormodel.analysis.implementationCompliance">
-               <visibleWhen
-                     checkEnabled="false">
-                  <with
-                        variable="activeWorkbenchWindow.activePerspective">
-                     <equals
-                           value="org.osate.ui.perspective.AadlPerspective">
-                     </equals>
-                  </with>
-               </visibleWhen>
-            </command>
-            <command
-                  commandId="org.osate.aadl2.errormodel.analysis.unhandledFaults">
-               <visibleWhen
-                     checkEnabled="false">
-                  <with
-                        variable="activeWorkbenchWindow.activePerspective">
-                     <equals
-                           value="org.osate.ui.perspective.AadlPerspective">
-                     </equals>
-                  </with>
-               </visibleWhen>
-            </command>
-            <command
-                  commandId="org.osate.aadl2.errormodel.analysis.faultImpact">
-               <visibleWhen
-                     checkEnabled="false">
-                  <with
-                        variable="activeWorkbenchWindow.activePerspective">
-                     <equals
-                           value="org.osate.ui.perspective.AadlPerspective">
-                     </equals>
-                  </with>
-               </visibleWhen>
-            </command>
-            <command
-                  commandId="org.osate.aadl2.errormodel.analysis.rbd">
-               <visibleWhen
-                     checkEnabled="false">
-                  <with
-                        variable="activeWorkbenchWindow.activePerspective">
-                     <equals
-                           value="org.osate.ui.perspective.AadlPerspective">
-                     </equals>
-                  </with>
-               </visibleWhen>
-            </command>
-            <command
-                  commandId="org.osate.aadl2.errormodel.analysis.cma">
-               <visibleWhen
-                     checkEnabled="false">
-                  <with
-                        variable="activeWorkbenchWindow.activePerspective">
-                     <equals
-                           value="org.osate.ui.perspective.AadlPerspective">
-                     </equals>
-                  </with>
-               </visibleWhen>
-            </command>
-            <command
-                  commandId="org.osate.aadl2.errormodel.analysis.milstd882FHA">
-               <visibleWhen
-                     checkEnabled="false">
-                  <with
-                        variable="activeWorkbenchWindow.activePerspective">
-                     <equals
-                           value="org.osate.ui.perspective.AadlPerspective">
-                     </equals>
-                  </with>
-               </visibleWhen>
-            </command>
-            <command
-                  commandId="org.osate.aadl2.errormodel.analysis.arp4761FHA">
-               <visibleWhen
-                     checkEnabled="false">
-                  <with
-                        variable="activeWorkbenchWindow.activePerspective">
-                     <equals
-                           value="org.osate.ui.perspective.AadlPerspective">
-                     </equals>
-                  </with>
-               </visibleWhen>
-            </command>
-            <command
-                  commandId="org.osate.aadl2.errormodel.analysis.fha">
-               <visibleWhen
-                     checkEnabled="false">
-                  <with
-                        variable="activeWorkbenchWindow.activePerspective">
-                     <equals
-                           value="org.osate.ui.perspective.AadlPerspective">
-                     </equals>
-                  </with>
-               </visibleWhen>
-            </command>
-         </menu>
+            locationURI="menu:org.osate.ui.semanticChecksMenu?after=emv2">
+         <command
+               commandId="org.osate.aadl2.errormodel.analysis.unhandledFaults">
+         </command>
       </menuContribution>
       <menuContribution
-            locationURI="toolbar:org.osate.ui.toolbar?after=org.osate.ui.annexToolbarSection">
+            locationURI="menu:org.osate.ui.safetyMenu?after=core">
          <command
-               commandId="org.osate.aadl2.errormodel.analysis.implementationCompliance"
-               tooltip="%ImplementationCompliance.toolTip">
+               commandId="org.osate.aadl2.errormodel.analysis.fha">
+         </command>
+         <command
+               commandId="org.osate.aadl2.errormodel.analysis.arp4761FHA">
+         </command>
+         <command
+               commandId="org.osate.aadl2.errormodel.analysis.milstd882FHA">
+         </command>
+         <command
+               commandId="org.osate.aadl2.errormodel.analysis.faultImpact">
+         </command>
+      </menuContribution>
+      <menuContribution
+            locationURI="toolbar:org.osate.ui.semanticChecksToolbar?after=emv2">
+         <command
+               commandId="org.osate.aadl2.errormodel.analysis.unhandledFaults"
+               tooltip="Check unhandled faults">
+            <!--
+               Remove visibleWhen on the command when this bug is fixed:
+               https://bugs.eclipse.org/bugs/show_bug.cgi?id=201589
+            -->
             <visibleWhen
                   checkEnabled="false">
                <with
@@ -421,9 +244,17 @@
                </with>
             </visibleWhen>
          </command>
+      </menuContribution>
+      <menuContribution
+            locationURI="toolbar:org.osate.ui.safetyToolbar?after=core">
          <command
-               commandId="org.osate.aadl2.errormodel.analysis.unhandledFaults"
-               tooltip="%UnhandledFaults.toolTip">
+               commandId="org.osate.aadl2.errormodel.analysis.fha"
+               tooltip="Run functional hazard assessment"
+               style="pulldown">
+            <!--
+               Remove visibleWhen on the command when this bug is fixed:
+               https://bugs.eclipse.org/bugs/show_bug.cgi?id=201589
+            -->
             <visibleWhen
                   checkEnabled="false">
                <with
@@ -437,71 +268,10 @@
          <command
                commandId="org.osate.aadl2.errormodel.analysis.faultImpact"
                tooltip="%FaultImpact.toolTip">
-            <visibleWhen
-                  checkEnabled="false">
-               <with
-                     variable="activeWorkbenchWindow.activePerspective">
-                  <equals
-                        value="org.osate.ui.perspective.AadlPerspective">
-                  </equals>
-               </with>
-            </visibleWhen>
-         </command>
-         <command
-               commandId="org.osate.aadl2.errormodel.analysis.rbd"
-               tooltip="%RBD.toolTip">
-            <visibleWhen
-                  checkEnabled="false">
-               <with
-                     variable="activeWorkbenchWindow.activePerspective">
-                  <equals
-                        value="org.osate.ui.perspective.AadlPerspective">
-                  </equals>
-               </with>
-            </visibleWhen>
-         </command>
-         <command
-               commandId="org.osate.aadl2.errormodel.analysis.cma"
-               tooltip="%CMA.toolTip">
-            <visibleWhen
-                  checkEnabled="false">
-               <with
-                     variable="activeWorkbenchWindow.activePerspective">
-                  <equals
-                        value="org.osate.ui.perspective.AadlPerspective">
-                  </equals>
-               </with>
-            </visibleWhen>
-         </command>
-         <command
-               commandId="org.osate.aadl2.errormodel.analysis.milstd882FHA"
-               tooltip="%MILSTD882FHA.toolTip">
-            <visibleWhen
-                  checkEnabled="false">
-               <with
-                     variable="activeWorkbenchWindow.activePerspective">
-                  <equals
-                        value="org.osate.ui.perspective.AadlPerspective">
-                  </equals>
-               </with>
-            </visibleWhen>
-         </command>
-         <command
-               commandId="org.osate.aadl2.errormodel.analysis.arp4761FHA"
-               tooltip="%ARP4761FHA.toolTip">
-            <visibleWhen
-                  checkEnabled="false">
-               <with
-                     variable="activeWorkbenchWindow.activePerspective">
-                  <equals
-                        value="org.osate.ui.perspective.AadlPerspective">
-                  </equals>
-               </with>
-            </visibleWhen>
-         </command>
-         <command
-               commandId="org.osate.aadl2.errormodel.analysis.fha"
-               tooltip="%FHA.toolTip">
+            <!--
+               Remove visibleWhen on the command when this bug is fixed:
+               https://bugs.eclipse.org/bugs/show_bug.cgi?id=201589
+            -->
             <visibleWhen
                   checkEnabled="false">
                <with
@@ -514,211 +284,52 @@
          </command>
       </menuContribution>
       <menuContribution
-            locationURI="popup:org.osate.ui.aadlAnalysesPopupMenu?before=org.osate.analysis.flows.checkFlowLatency">
-         <menu
-               id="org.osate.aadl2.errormodel.analysis.faultAnalysesPopupMenu"
-               label="Fault Analyses">
-            <command
-                  commandId="org.osate.aadl2.errormodel.analysis.implementationCompliance">
-               <visibleWhen
-                     checkEnabled="false">
-                  <with
-                        variable="selection">
-                     <iterate
-                           operator="and"
-                           ifEmpty="false">
-                        <or>
-                           <instanceof
-                                 value="org.osate.aadl2.instance.SystemInstance">
-                           </instanceof>
-                           <adapt
-                                 type="org.eclipse.core.resources.IFile">
-                              <test
-                                    property="org.eclipse.core.resources.contentTypeId"
-                                    value="org.osate.core.instanceModelFile">
-                              </test>
-                           </adapt>
-                        </or>
-                     </iterate>
-                  </with>
-               </visibleWhen>
-            </command>
-            <command
-                  commandId="org.osate.aadl2.errormodel.analysis.unhandledFaults">
-               <visibleWhen
-                     checkEnabled="false">
-                  <with
-                        variable="selection">
-                     <iterate
-                           operator="and"
-                           ifEmpty="false">
-                        <or>
-                           <instanceof
-                                 value="org.osate.aadl2.instance.SystemInstance">
-                           </instanceof>
-                           <adapt
-                                 type="org.eclipse.core.resources.IFile">
-                              <test
-                                    property="org.eclipse.core.resources.contentTypeId"
-                                    value="org.osate.core.instanceModelFile">
-                              </test>
-                           </adapt>
-                        </or>
-                     </iterate>
-                  </with>
-               </visibleWhen>
-            </command>
-            <command
-                  commandId="org.osate.aadl2.errormodel.analysis.faultImpact">
-               <visibleWhen
-                     checkEnabled="false">
-                  <with
-                        variable="selection">
-                     <iterate
-                           operator="and"
-                           ifEmpty="false">
-                        <or>
-                           <instanceof
-                                 value="org.osate.aadl2.instance.SystemInstance">
-                           </instanceof>
-                           <adapt
-                                 type="org.eclipse.core.resources.IFile">
-                              <test
-                                    property="org.eclipse.core.resources.contentTypeId"
-                                    value="org.osate.core.instanceModelFile">
-                              </test>
-                           </adapt>
-                        </or>
-                     </iterate>
-                  </with>
-               </visibleWhen>
-            </command>
-            <command
-                  commandId="org.osate.aadl2.errormodel.analysis.rbd">
-               <visibleWhen
-                     checkEnabled="false">
-                  <with
-                        variable="selection">
-                     <iterate
-                           operator="and"
-                           ifEmpty="false">
-                        <or>
-                           <instanceof
-                                 value="org.osate.aadl2.instance.SystemInstance">
-                           </instanceof>
-                           <adapt
-                                 type="org.eclipse.core.resources.IFile">
-                              <test
-                                    property="org.eclipse.core.resources.contentTypeId"
-                                    value="org.osate.core.instanceModelFile">
-                              </test>
-                           </adapt>
-                        </or>
-                     </iterate>
-                  </with>
-               </visibleWhen>
-            </command>
-            <command
-                  commandId="org.osate.aadl2.errormodel.analysis.cma">
-               <visibleWhen
-                     checkEnabled="false">
-                  <with
-                        variable="selection">
-                     <iterate
-                           operator="and"
-                           ifEmpty="false">
-                        <or>
-                           <instanceof
-                                 value="org.osate.aadl2.instance.SystemInstance">
-                           </instanceof>
-                           <adapt
-                                 type="org.eclipse.core.resources.IFile">
-                              <test
-                                    property="org.eclipse.core.resources.contentTypeId"
-                                    value="org.osate.core.instanceModelFile">
-                              </test>
-                           </adapt>
-                        </or>
-                     </iterate>
-                  </with>
-               </visibleWhen>
-            </command>
-            <command
-                  commandId="org.osate.aadl2.errormodel.analysis.milstd882FHA">
-               <visibleWhen
-                     checkEnabled="false">
-                  <with
-                        variable="selection">
-                     <iterate
-                           operator="and"
-                           ifEmpty="false">
-                        <or>
-                           <instanceof
-                                 value="org.osate.aadl2.instance.SystemInstance">
-                           </instanceof>
-                           <adapt
-                                 type="org.eclipse.core.resources.IFile">
-                              <test
-                                    property="org.eclipse.core.resources.contentTypeId"
-                                    value="org.osate.core.instanceModelFile">
-                              </test>
-                           </adapt>
-                        </or>
-                     </iterate>
-                  </with>
-               </visibleWhen>
-            </command>
-            <command
-                  commandId="org.osate.aadl2.errormodel.analysis.arp4761FHA">
-               <visibleWhen
-                     checkEnabled="false">
-                  <with
-                        variable="selection">
-                     <iterate
-                           operator="and"
-                           ifEmpty="false">
-                        <or>
-                           <instanceof
-                                 value="org.osate.aadl2.instance.SystemInstance">
-                           </instanceof>
-                           <adapt
-                                 type="org.eclipse.core.resources.IFile">
-                              <test
-                                    property="org.eclipse.core.resources.contentTypeId"
-                                    value="org.osate.core.instanceModelFile">
-                              </test>
-                           </adapt>
-                        </or>
-                     </iterate>
-                  </with>
-               </visibleWhen>
-            </command>
-            <command
-                  commandId="org.osate.aadl2.errormodel.analysis.fha">
-               <visibleWhen
-                     checkEnabled="false">
-                  <with
-                        variable="selection">
-                     <iterate
-                           operator="and"
-                           ifEmpty="false">
-                        <or>
-                           <instanceof
-                                 value="org.osate.aadl2.instance.SystemInstance">
-                           </instanceof>
-                           <adapt
-                                 type="org.eclipse.core.resources.IFile">
-                              <test
-                                    property="org.eclipse.core.resources.contentTypeId"
-                                    value="org.osate.core.instanceModelFile">
-                              </test>
-                           </adapt>
-                        </or>
-                     </iterate>
-                  </with>
-               </visibleWhen>
-            </command>
-         </menu>
+            locationURI="menu:org.osate.aadl2.errormodel.analysis.fha">
+         <command
+               commandId="org.osate.aadl2.errormodel.analysis.fha">
+         </command>
+         <command
+               commandId="org.osate.aadl2.errormodel.analysis.arp4761FHA">
+         </command>
+         <command
+               commandId="org.osate.aadl2.errormodel.analysis.milstd882FHA">
+         </command>
+      </menuContribution>
+      <menuContribution
+            locationURI="popup:org.osate.ui.semanticChecksNavigatorPopup?after=emv2">
+         <command
+               commandId="org.osate.aadl2.errormodel.analysis.unhandledFaults">
+            <visibleWhen
+                  checkEnabled="true">
+            </visibleWhen>
+         </command>
+      </menuContribution>
+      <menuContribution
+            locationURI="popup:org.osate.ui.safetyNavigatorPopup?after=core">
+         <command
+               commandId="org.osate.aadl2.errormodel.analysis.fha">
+            <visibleWhen
+                  checkEnabled="true">
+            </visibleWhen>
+         </command>
+         <command
+               commandId="org.osate.aadl2.errormodel.analysis.arp4761FHA">
+            <visibleWhen
+                  checkEnabled="true">
+            </visibleWhen>
+         </command>
+         <command
+               commandId="org.osate.aadl2.errormodel.analysis.milstd882FHA">
+            <visibleWhen
+                  checkEnabled="true">
+            </visibleWhen>
+         </command>
+         <command
+               commandId="org.osate.aadl2.errormodel.analysis.faultImpact">
+            <visibleWhen
+                  checkEnabled="true">
+            </visibleWhen>
+         </command>
       </menuContribution>
    </extension>
 </plugin>
