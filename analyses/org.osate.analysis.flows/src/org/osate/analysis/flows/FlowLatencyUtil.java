@@ -84,7 +84,7 @@ public class FlowLatencyUtil {
 			final FlowElementInstance flowElementInstance) {
 		ConnectionInstance nextElement = getPreviousConnection(etef, flowElementInstance);
 		if ((nextElement != null)) {
-			return (getConnectionType((ConnectionInstance) nextElement) == ConnectionType.DELAYED);
+			return (getConnectionType(nextElement) == ConnectionType.DELAYED);
 		}
 
 		return false;
@@ -94,7 +94,7 @@ public class FlowLatencyUtil {
 			final FlowElementInstance flowElementInstance) {
 		ConnectionInstance nextElement = getNextConnection(etef, flowElementInstance);
 		if ((nextElement != null)) {
-			return (getConnectionType((ConnectionInstance) nextElement) == ConnectionType.DELAYED);
+			return (getConnectionType(nextElement) == ConnectionType.DELAYED);
 		}
 
 		return false;
@@ -104,7 +104,7 @@ public class FlowLatencyUtil {
 			final FlowElementInstance flowElementInstance) {
 		ConnectionInstance nextElement = getPreviousConnection(etef, flowElementInstance);
 		if ((nextElement != null)) {
-			return (getConnectionType((ConnectionInstance) nextElement) == ConnectionType.SAMPLED);
+			return (getConnectionType(nextElement) == ConnectionType.SAMPLED);
 		}
 
 		return false;
@@ -114,7 +114,7 @@ public class FlowLatencyUtil {
 			final FlowElementInstance flowElementInstance) {
 		ConnectionInstance nextElement = getNextConnection(etef, flowElementInstance);
 		if ((nextElement != null)) {
-			return (getConnectionType((ConnectionInstance) nextElement) == ConnectionType.SAMPLED);
+			return (getConnectionType(nextElement) == ConnectionType.SAMPLED);
 		}
 
 		return false;
@@ -253,8 +253,9 @@ public class FlowLatencyUtil {
 		while (ci != null) {
 			if (GetProperties.getIsPartition(ci)) {
 				double res = GetProperties.getPartitionLatencyInMilliSec(ci, 0.0);
-				if (res > 0)
+				if (res > 0) {
 					return ci;
+				}
 			}
 			ci = ci.getContainingComponentInstance();
 		}
@@ -264,7 +265,7 @@ public class FlowLatencyUtil {
 	/**
 	 * find virtual processor representing SEI tagged or ARINC653 partition (bound to processor with ARINC653 major frame)
 	 * @param componentInstance system, process, thread or other entity bound to a processor and running inside a partition.
-	 * @return partition 
+	 * @return partition
 	 */
 	public static ComponentInstance getVirtualProcessorPartition(ComponentInstance componentInstance) {
 		double res = 0.0;
@@ -512,14 +513,14 @@ public class FlowLatencyUtil {
 	}
 
 	/**
-	 * round up to the next sampling frame. 
+	 * round up to the next sampling frame.
 	 * If processing latency is zero then go to the next frame.
 	 * If processing latency is already a multiple of a frame then use that boundary.
 	 * Otherwise use the next multiple of the samplingLatency
 	 * Parameters are assumed to have the same unit
 	 * @param processingLatency double Can be larger than the sampling latency
 	 * @param samplingLatency double Assumed to be non-zero
-	 * @return double 
+	 * @return double
 	 */
 	public static double roundUp(double processingLatency, double samplingLatency) {
 		int frames = (int) (processingLatency / samplingLatency);
@@ -544,23 +545,27 @@ public class FlowLatencyUtil {
 			return samplingLatency - diff;
 		} else if (processingLatency == 0) {
 			return samplingLatency;
-		} else
+		} else {
 			return 0;
+		}
 	}
 
 	/**
-	 * Determine the amount needed to round up to the target latency. 
+	 * Determine the amount needed to round up to the target latency.
 	 * If processing latency is larger than window then it flows into the next frame
 	 * It is the difference been the result of roundUp and processing latency
 	 * @param processingLatency double
 	 * @param samplingLatency double
-	 * @param targetLatency double 
+	 * @param targetLatency double
 	 * @return double
 	 */
 	public static double roundUpDiff(double processingLatency, double samplingLatency, double targetLatency) {
+		if (targetLatency == 0 || targetLatency == -1) {
+			return 0;
+		}
 		double diff = targetLatency - (processingLatency % targetLatency);
 		// deal with overflow into next frame.
-		int extraslots = (int) (processingLatency / targetLatency);
+		int extraslots = targetLatency == 0 ? 0 : (int) (processingLatency / targetLatency);
 		return diff + (extraslots * samplingLatency);
 	}
 
@@ -599,8 +604,9 @@ public class FlowLatencyUtil {
 	public static String getMinMaxLabel(boolean doMax) {
 		if (doMax) {
 			return "Max: ";
-		} else
+		} else {
 			return "Min: ";
+		}
 	}
 
 	public static double getDimension(final NamedElement ne) {

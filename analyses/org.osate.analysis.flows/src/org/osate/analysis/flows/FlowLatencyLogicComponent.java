@@ -54,8 +54,8 @@ public class FlowLatencyLogicComponent {
 		boolean checkLastImmediate = false;
 		if (period > 0
 				&& (InstanceModelUtil.isThread(componentInstance) || InstanceModelUtil.isDevice(componentInstance))
-						? (!InstanceModelUtil.isSporadicComponent(componentInstance)
-								&& !InstanceModelUtil.isTimedComponent(componentInstance))
+				? (!InstanceModelUtil.isSporadicComponent(componentInstance)
+						&& !InstanceModelUtil.isTimedComponent(componentInstance))
 						: true) {
 			// period is set, and if thread or device needs to be dispatched as periodic
 			LatencyContributorComponent samplingLatencyContributor = new LatencyContributorComponent(componentInstance);
@@ -115,6 +115,8 @@ public class FlowLatencyLogicComponent {
 					LatencyContributorComponent platencyContributor = new LatencyContributorComponent(firstPartition);
 					platencyContributor.setSamplingPeriod(partitionLatency);
 					platencyContributor.setPartitionOffset(frameOffset);
+					double partitionDuration = FlowLatencyUtil.getPartitionDuration(firstPartition);
+					platencyContributor.setPartitionDuration(partitionDuration);
 					platencyContributor.setWorstCaseMethod(LatencyContributorMethod.PARTITION_SCHEDULE);
 					platencyContributor.setBestCaseMethod(LatencyContributorMethod.PARTITION_SCHEDULE);
 					entry.addContributor(platencyContributor);
