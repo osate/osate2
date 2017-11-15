@@ -43,7 +43,6 @@ to the terms of the license set forth at http://www.aadl.info/OSATELicense.html.
       <import plugin="org.osate.ui" version="1.0.0" match="greaterOrEqual"/>
       <import plugin="org.eclipse.draw2d" version="3.7.1" match="greaterOrEqual"/>
       <import plugin="org.eclipse.zest.layouts" version="1.1.0" match="greaterOrEqual"/>
-      <import plugin="org.osate.imv.aadldiagram" version="1.0.0" match="greaterOrEqual"/>
       <import plugin="org.osate.aadl2" version="1.0.0" match="greaterOrEqual"/>
       <import plugin="org.eclipse.ui" version="3.7.0" match="greaterOrEqual"/>
       <import plugin="org.eclipse.core.runtime" version="3.7.0" match="greaterOrEqual"/>
@@ -55,7 +54,6 @@ to the terms of the license set forth at http://www.aadl.info/OSATELicense.html.
       <import plugin="org.osate.core" version="1.0.0" match="greaterOrEqual"/>
       <import plugin="org.osate.aadl2.edit" version="1.0.0" match="greaterOrEqual"/>
       <import plugin="org.osate.xtext.aadl2.ui" version="1.0.0" match="greaterOrEqual"/>
-      <import plugin="org.osate.imv.osate" version="1.0.0" match="greaterOrEqual"/>
       <import plugin="org.eclipse.emf.transaction" version="1.4.0" match="greaterOrEqual"/>
       <import plugin="org.eclipse.ui.console"/>
       <import plugin="org.osate.xtext.aadl2.properties.ui" version="1.0.0" match="greaterOrEqual"/>
@@ -105,42 +103,7 @@ to the terms of the license set forth at http://www.aadl.info/OSATELicense.html.
          unpack="false"/>
 
    <plugin
-         id="org.osate.imv.aadldiagram"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-
-   <plugin
-         id="org.osate.imv.osate"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-
-   <plugin
-         id="org.osate.imv.propertydecorations"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-
-   <plugin
-         id="org.osate.imv.ui"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-
-   <plugin
          id="org.osate.importer"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-
-   <plugin
-         id="org.osate.importer.scade"
          download-size="0"
          install-size="0"
          version="0.0.0"
