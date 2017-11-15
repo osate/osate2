@@ -75,71 +75,37 @@
    <extension
          point="org.eclipse.ui.menus">
       <menuContribution
-            locationURI="menu:org.osate.ui.analysesMenu?after=org.osate.analysis.architecture.semanticChecksMenu">
+            locationURI="menu:org.osate.ui.timingMenu?after=core">
          <command
                commandId="org.osate.analysis.flows.checkFlowLatency">
-            <visibleWhen
-                  checkEnabled="false">
-               <with
-                     variable="activeWorkbenchWindow.activePerspective">
-                  <or>
-                     <equals
-                           value="org.osate.ui.perspective.AadlPerspective">
-                     </equals>
-                     <equals
-                           value="org.osate.imv.ui.perspective.ImvPerspective">
-                     </equals>
-                  </or>
-               </with>
-            </visibleWhen>
          </command>
       </menuContribution>
       <menuContribution
-            locationURI="toolbar:org.osate.ui.toolbar?after=org.osate.ui.analysisToolbarSection2">
+            locationURI="toolbar:org.osate.ui.timingToolbar?after=core">
          <command
                commandId="org.osate.analysis.flows.checkFlowLatency"
                tooltip="%CheckFlowLatency.toolTip">
+            <!--
+               Remove visibleWhen on the command when this bug is fixed:
+               https://bugs.eclipse.org/bugs/show_bug.cgi?id=201589
+            -->
             <visibleWhen
                   checkEnabled="false">
                <with
                      variable="activeWorkbenchWindow.activePerspective">
-                  <or>
-                     <equals
-                           value="org.osate.ui.perspective.AadlPerspective">
-                     </equals>
-                     <equals
-                           value="org.osate.imv.ui.perspective.ImvPerspective">
-                     </equals>
-                  </or>
+                  <equals
+                        value="org.osate.ui.perspective.AadlPerspective">
+                  </equals>
                </with>
             </visibleWhen>
          </command>
       </menuContribution>
       <menuContribution
-            locationURI="popup:org.osate.ui.aadlAnalysesPopupMenu">
+            locationURI="popup:org.osate.ui.timingNavigatorPopup?after=core">
          <command
                commandId="org.osate.analysis.flows.checkFlowLatency">
             <visibleWhen
-                  checkEnabled="false">
-               <with
-                     variable="selection">
-                  <iterate
-                        operator="and"
-                        ifEmpty="false">
-                     <or>
-                        <instanceof
-                              value="org.osate.aadl2.instance.SystemInstance">
-                        </instanceof>
-                        <adapt
-                              type="org.eclipse.core.resources.IFile">
-                           <test
-                                 property="org.eclipse.core.resources.contentTypeId"
-                                 value="org.osate.core.instanceModelFile">
-                           </test>
-                        </adapt>
-                     </or>
-                  </iterate>
-               </with>
+                  checkEnabled="true">
             </visibleWhen>
          </command>
       </menuContribution>

@@ -82,18 +82,13 @@
       </command>
       <command
             categoryId="org.osate.analysis.architecture.category"
-            id="org.osate.analysis.architecture.doModelStatistics"
-            name="%DoModelStatistics.label">
-      </command>
-      <command
-            categoryId="org.osate.analysis.architecture.category"
             id="org.osate.analysis.architecture.propertyTotals"
             name="%CheckPropertyTotals.label">
       </command>
       <command
             categoryId="org.osate.analysis.architecture.category"
             id="org.osate.analysis.architecture.checkBindingConstraints"
-            name="Check binding constraints">
+            name="Check Binding Constraints">
       </command>
    </extension>
    <extension
@@ -171,37 +166,6 @@
          </enabledWhen>
       </handler>
       <handler
-            class="org.osate.analysis.architecture.handlers.DoModelStatistics"
-            commandId="org.osate.analysis.architecture.doModelStatistics">
-         <enabledWhen>
-            <with
-                  variable="selection">
-               <iterate
-                     operator="and"
-                     ifEmpty="false">
-                  <or>
-                     <instanceof
-                           value="org.osate.aadl2.instance.SystemInstance">
-                     </instanceof>
-                     <adapt
-                           type="org.eclipse.core.resources.IFile">
-                        <or>
-                           <test
-                                 property="org.eclipse.core.resources.contentTypeId"
-                                 value="org.osate.core.instanceModelFile">
-                           </test>
-                           <test
-                                 property="org.eclipse.core.resources.extension"
-                                 value="aadl">
-                           </test>
-                        </or>
-                     </adapt>
-                  </or>
-               </iterate>
-            </with>
-         </enabledWhen>
-      </handler>
-      <handler
             class="org.osate.analysis.architecture.handlers.DoPropertyTotals"
             commandId="org.osate.analysis.architecture.propertyTotals">
          <enabledWhen>
@@ -265,339 +229,163 @@
             icon="icons/a429ConnCon.gif">
       </image>
       <image
-            commandId="org.osate.analysis.architecture.doModelStatistics"
-            icon="icons/stats.gif"
-            disabledIcon="icons/noStats.gif">
-      </image>
-      <image
             commandId="org.osate.analysis.architecture.propertyTotals"
             icon="icons/checkPropertyTotals.gif">
+      </image>
+      <image
+            commandId="org.osate.analysis.architecture.checkBindingConstraints"
+            icon="icons/bindingConstraints.gif">
       </image>
    </extension>
    <extension
          point="org.eclipse.ui.menus">
       <menuContribution
-            locationURI="menu:org.osate.ui.analysesMenu">
-         <menu
-               id="org.osate.analysis.architecture.architectureMenu"
-               label="Architecture">
-            <command
-                  commandId="org.osate.analysis.architecture.propertyTotals">
-               <visibleWhen
-                     checkEnabled="false">
-                  <with
-                        variable="activeWorkbenchWindow.activePerspective">
-                     <or>
-                        <equals
-                              value="org.osate.ui.perspective.AadlPerspective">
-                        </equals>
-                        <equals
-                              value="org.osate.imv.ui.perspective.ImvPerspective">
-                        </equals>
-                     </or>
-                  </with>
-               </visibleWhen>
-            </command>
-            <command
-                  commandId="org.osate.analysis.architecture.doModelStatistics">
-               <visibleWhen
-                     checkEnabled="false">
-                  <with
-                        variable="activeWorkbenchWindow.activePerspective">
-                     <or>
-                        <equals
-                              value="org.osate.ui.perspective.AadlPerspective">
-                        </equals>
-                        <equals
-                              value="org.osate.imv.ui.perspective.ImvPerspective">
-                        </equals>
-                     </or>
-                  </with>
-               </visibleWhen>
-            </command>
-            <command
-                  commandId="org.osate.analysis.architecture.checkA429PortConnectionConsistency">
-               <visibleWhen
-                     checkEnabled="false">
-                  <with
-                        variable="activeWorkbenchWindow.activePerspective">
-                     <or>
-                        <equals
-                              value="org.osate.ui.perspective.AadlPerspective">
-                        </equals>
-                        <equals
-                              value="org.osate.imv.ui.perspective.ImvPerspective">
-                        </equals>
-                     </or>
-                  </with>
-               </visibleWhen>
-            </command>
-            <command
-                  commandId="org.osate.analysis.architecture.portConnectionConsistency">
-               <visibleWhen
-                     checkEnabled="false">
-                  <with
-                        variable="activeWorkbenchWindow.activePerspective">
-                     <or>
-                        <equals
-                              value="org.osate.ui.perspective.AadlPerspective">
-                        </equals>
-                        <equals
-                              value="org.osate.imv.ui.perspective.ImvPerspective">
-                        </equals>
-                     </or>
-                  </with>
-               </visibleWhen>
-            </command>
-         </menu>
-         <menu
-               id="org.osate.analysis.architecture.semanticChecksMenu"
-               label="Semantic Checks">
-            <command
-                  commandId="org.osate.analysis.architecture.checkBindingConstraints">
-               <visibleWhen
-                     checkEnabled="false">
-                  <with
-                        variable="activeWorkbenchWindow.activePerspective">
-                     <or>
-                        <equals
-                              value="org.osate.ui.perspective.AadlPerspective">
-                        </equals>
-                        <equals
-                              value="org.osate.imv.ui.perspective.ImvPerspective">
-                        </equals>
-                     </or>
-                  </with>
-               </visibleWhen>
-            </command>
-            <command
-                  commandId="org.osate.analysis.architecture.checkConnectionBindingConsistency">
-               <visibleWhen
-                     checkEnabled="false">
-                  <with
-                        variable="activeWorkbenchWindow.activePerspective">
-                     <or>
-                        <equals
-                              value="org.osate.ui.perspective.AadlPerspective">
-                        </equals>
-                        <equals
-                              value="org.osate.imv.ui.perspective.ImvPerspective">
-                        </equals>
-                     </or>
-                  </with>
-               </visibleWhen>
-            </command>
-         </menu>
+            locationURI="menu:org.osate.ui.budgetMenu?after=core">
+         <command
+               commandId="org.osate.analysis.architecture.propertyTotals">
+         </command>
       </menuContribution>
       <menuContribution
-            locationURI="toolbar:org.osate.ui.toolbar?after=org.osate.ui.analysisToolbarSection1">
+            locationURI="menu:org.osate.ui.semanticChecksMenu?after=core">
+         <command
+               commandId="org.osate.analysis.architecture.checkA429PortConnectionConsistency">
+         </command>
+         <command
+               commandId="org.osate.analysis.architecture.portConnectionConsistency">
+         </command>
+         <command
+               commandId="org.osate.analysis.architecture.checkBindingConstraints">
+         </command>
+         <command
+               commandId="org.osate.analysis.architecture.checkConnectionBindingConsistency">
+         </command>
+      </menuContribution>
+      <menuContribution
+            locationURI="toolbar:org.osate.ui.budgetToolbar?after=core">
          <command
                commandId="org.osate.analysis.architecture.propertyTotals"
                tooltip="%CheckPropertyTotals.toolTip">
+            <!--
+               Remove visibleWhen on the command when this bug is fixed:
+               https://bugs.eclipse.org/bugs/show_bug.cgi?id=201589
+            -->
             <visibleWhen
                   checkEnabled="false">
                <with
                      variable="activeWorkbenchWindow.activePerspective">
-                  <or>
-                     <equals
-                           value="org.osate.ui.perspective.AadlPerspective">
-                     </equals>
-                     <equals
-                           value="org.osate.imv.ui.perspective.ImvPerspective">
-                     </equals>
-                  </or>
+                  <equals
+                        value="org.osate.ui.perspective.AadlPerspective">
+                  </equals>
                </with>
             </visibleWhen>
          </command>
-         <command
-               commandId="org.osate.analysis.architecture.doModelStatistics"
-               tooltip="%DoModelStatistics.toolTip">
-            <visibleWhen
-                  checkEnabled="false">
-               <with
-                     variable="activeWorkbenchWindow.activePerspective">
-                  <or>
-                     <equals
-                           value="org.osate.ui.perspective.AadlPerspective">
-                     </equals>
-                     <equals
-                           value="org.osate.imv.ui.perspective.ImvPerspective">
-                     </equals>
-                  </or>
-               </with>
-            </visibleWhen>
-         </command>
+      </menuContribution>
+      <menuContribution
+            locationURI="toolbar:org.osate.ui.semanticChecksToolbar?after=core">
          <command
                commandId="org.osate.analysis.architecture.checkA429PortConnectionConsistency"
                tooltip="%A429ConnectionConsistency.toolTip">
+            <!--
+               Remove visibleWhen on the command when this bug is fixed:
+               https://bugs.eclipse.org/bugs/show_bug.cgi?id=201589
+            -->
             <visibleWhen
                   checkEnabled="false">
                <with
                      variable="activeWorkbenchWindow.activePerspective">
-                  <or>
-                     <equals
-                           value="org.osate.ui.perspective.AadlPerspective">
-                     </equals>
-                     <equals
-                           value="org.osate.imv.ui.perspective.ImvPerspective">
-                     </equals>
-                  </or>
+                  <equals
+                        value="org.osate.ui.perspective.AadlPerspective">
+                  </equals>
                </with>
             </visibleWhen>
          </command>
          <command
                commandId="org.osate.analysis.architecture.portConnectionConsistency"
                tooltip="%PortConnectionConsistency.toolTip">
+            <!--
+               Remove visibleWhen on the command when this bug is fixed:
+               https://bugs.eclipse.org/bugs/show_bug.cgi?id=201589
+            -->
             <visibleWhen
                   checkEnabled="false">
                <with
                      variable="activeWorkbenchWindow.activePerspective">
-                  <or>
-                     <equals
-                           value="org.osate.ui.perspective.AadlPerspective">
-                     </equals>
-                     <equals
-                           value="org.osate.imv.ui.perspective.ImvPerspective">
-                     </equals>
-                  </or>
+                  <equals
+                        value="org.osate.ui.perspective.AadlPerspective">
+                  </equals>
+               </with>
+            </visibleWhen>
+         </command>
+         <command
+               commandId="org.osate.analysis.architecture.checkBindingConstraints"
+               tooltip="Check actual bindings against constraints">
+            <!--
+               Remove visibleWhen on the command when this bug is fixed:
+               https://bugs.eclipse.org/bugs/show_bug.cgi?id=201589
+            -->
+            <visibleWhen
+                  checkEnabled="false">
+               <with
+                     variable="activeWorkbenchWindow.activePerspective">
+                  <equals
+                        value="org.osate.ui.perspective.AadlPerspective">
+                  </equals>
                </with>
             </visibleWhen>
          </command>
          <command
                commandId="org.osate.analysis.architecture.checkConnectionBindingConsistency"
                tooltip="%DoConnectionBindingConsistency.toolTip">
+            <!--
+               Remove visibleWhen on the command when this bug is fixed:
+               https://bugs.eclipse.org/bugs/show_bug.cgi?id=201589
+            -->
             <visibleWhen
                   checkEnabled="false">
                <with
                      variable="activeWorkbenchWindow.activePerspective">
-                  <or>
-                     <equals
-                           value="org.osate.ui.perspective.AadlPerspective">
-                     </equals>
-                     <equals
-                           value="org.osate.imv.ui.perspective.ImvPerspective">
-                     </equals>
-                  </or>
+                  <equals
+                        value="org.osate.ui.perspective.AadlPerspective">
+                  </equals>
                </with>
             </visibleWhen>
          </command>
       </menuContribution>
       <menuContribution
-            locationURI="popup:org.osate.ui.aadlAnalysesPopupMenu?after=org.osate.analysis.resource.management.schedulingPopupMenu">
-         <menu
-               id="org.osate.analysis.architecture.semanticChecksPopupMenu"
-               label="Semantic Checks">
-            <command
-                  commandId="org.osate.analysis.architecture.checkConnectionBindingConsistency">
-               <visibleWhen
-                     checkEnabled="false">
-                  <with
-                        variable="selection">
-                     <iterate
-                           operator="and"
-                           ifEmpty="false">
-                        <or>
-                           <instanceof
-                                 value="org.osate.aadl2.instance.SystemInstance">
-                           </instanceof>
-                           <adapt
-                                 type="org.eclipse.core.resources.IFile">
-                              <test
-                                    property="org.eclipse.core.resources.contentTypeId"
-                                    value="org.osate.core.instanceModelFile">
-                              </test>
-                           </adapt>
-                        </or>
-                     </iterate>
-                  </with>
-               </visibleWhen>
-            </command>
-         </menu>
-         <menu
-               id="org.osate.analysis.architecture.architecturePopupMenu"
-               label="Architecture">
-            <command
-                  commandId="org.osate.analysis.architecture.propertyTotals">
-               <visibleWhen
-                     checkEnabled="false">
-                  <with
-                        variable="selection">
-                     <iterate
-                           operator="and"
-                           ifEmpty="false">
-                        <or>
-                           <instanceof
-                                 value="org.osate.aadl2.instance.SystemInstance">
-                           </instanceof>
-                           <adapt
-                                 type="org.eclipse.core.resources.IFile">
-                              <test
-                                    property="org.eclipse.core.resources.contentTypeId"
-                                    value="org.osate.core.instanceModelFile">
-                              </test>
-                           </adapt>
-                        </or>
-                     </iterate>
-                  </with>
-               </visibleWhen>
-            </command>
-            <command
-                  commandId="org.osate.analysis.architecture.doModelStatistics">
-               <visibleWhen
-                     checkEnabled="true">
-               </visibleWhen>
-            </command>
-            <command
-                  commandId="org.osate.analysis.architecture.checkA429PortConnectionConsistency">
-               <visibleWhen
-                     checkEnabled="false">
-                  <with
-                        variable="selection">
-                     <iterate
-                           operator="and"
-                           ifEmpty="false">
-                        <or>
-                           <instanceof
-                                 value="org.osate.aadl2.instance.SystemInstance">
-                           </instanceof>
-                           <adapt
-                                 type="org.eclipse.core.resources.IFile">
-                              <test
-                                    property="org.eclipse.core.resources.contentTypeId"
-                                    value="org.osate.core.instanceModelFile">
-                              </test>
-                           </adapt>
-                        </or>
-                     </iterate>
-                  </with>
-               </visibleWhen>
-            </command>
-            <command
-                  commandId="org.osate.analysis.architecture.portConnectionConsistency">
-               <visibleWhen
-                     checkEnabled="false">
-                  <with
-                        variable="selection">
-                     <iterate
-                           operator="and"
-                           ifEmpty="false">
-                        <or>
-                           <instanceof
-                                 value="org.osate.aadl2.instance.SystemInstance">
-                           </instanceof>
-                           <adapt
-                                 type="org.eclipse.core.resources.IFile">
-                              <test
-                                    property="org.eclipse.core.resources.contentTypeId"
-                                    value="org.osate.core.instanceModelFile">
-                              </test>
-                           </adapt>
-                        </or>
-                     </iterate>
-                  </with>
-               </visibleWhen>
-            </command>
-         </menu>
+            locationURI="popup:org.osate.ui.budgetNavigatorPopup?after=core">
+         <command
+               commandId="org.osate.analysis.architecture.propertyTotals">
+            <visibleWhen
+                  checkEnabled="true">
+            </visibleWhen>
+         </command>
+      </menuContribution>
+      <menuContribution
+            locationURI="popup:org.osate.ui.semanticChecksNavigatorPopup?after=core">
+         <command
+               commandId="org.osate.analysis.architecture.checkA429PortConnectionConsistency">
+            <visibleWhen
+                  checkEnabled="true">
+            </visibleWhen>
+         </command>
+         <command
+               commandId="org.osate.analysis.architecture.portConnectionConsistency">
+            <visibleWhen
+                  checkEnabled="true">
+            </visibleWhen>
+         </command>
+         <command
+               commandId="org.osate.analysis.architecture.checkBindingConstraints">
+            <visibleWhen
+                  checkEnabled="true">
+            </visibleWhen>
+         </command>
+         <command
+               commandId="org.osate.analysis.architecture.checkConnectionBindingConsistency">
+            <visibleWhen
+                  checkEnabled="true">
+            </visibleWhen>
+         </command>
       </menuContribution>
    </extension>
 </plugin>
