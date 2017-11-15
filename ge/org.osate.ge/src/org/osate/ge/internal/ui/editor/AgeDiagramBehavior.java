@@ -886,8 +886,8 @@ public class AgeDiagramBehavior extends DiagramBehavior implements GraphitiAgeDi
 		final ColoringProvider coloringProvider = new ColoringProvider() {
 			private ColoringService cs = ((AgeDiagramTypeProvider)dtp).getColoringService();
 			@Override
-			public Color getForegroundColor(final DiagramElement de) {
-				return cs.getForegroundColor(de);
+			public Map<DiagramElement, Color> buildForegroundColorMap() {
+				return cs.buildForegroundColorMap();
 			}
 		};
 

@@ -8,30 +8,35 @@
  *******************************************************************************/
 package org.osate.ge.internal.ui.editor;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.Optional;
+import java.util.SortedSet;
+import java.util.TreeSet;
+import java.util.stream.Stream;
 
 import org.eclipse.jface.viewers.ComboViewer;
+import org.eclipse.jface.viewers.LabelProvider;
 import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.ui.IEditorPart;
-import org.osate.aadl2.ComponentClassifier;
-import org.osate.aadl2.Mode;
-import org.osate.aadl2.ModeTransition;
+import org.osate.aadl2.ComponentImplementation;
 import org.osate.aadl2.NamedElement;
+import org.osate.aadl2.Subcomponent;
 import org.osate.ge.BusinessObjectContext;
 import org.osate.ge.internal.diagram.runtime.AgeDiagram;
+import org.osate.ge.internal.util.AadlClassifierUtil;
+import org.osate.ge.internal.util.AadlModalElementUtil;
+import org.osate.ge.internal.util.AadlModalElementUtil.ModeFeatureReference;
 import org.osate.ge.query.StandaloneQuery;
 import org.osate.ge.services.QueryService;
 
 public class ModeContributionItem extends ComboContributionItem {
 	private static final String emptySelectionTxt = "<Modes>";
 	private static final String selectedModePropertyKey = "org.osate.ge.ui.editor.selectedMode";
-	private static final StandaloneQuery componentClassifiersQuery = StandaloneQuery.create((rootQuery) -> rootQuery.descendants().filter((fa) -> fa.getBusinessObject() instanceof ComponentClassifier));
-	private AgeDiagramEditor editor = null;
+	private static final StandaloneQuery modeContainerQuery = StandaloneQuery.create((rootQuery) -> rootQuery
+			.descendants().filter((fa) -> fa.getBusinessObject() instanceof ComponentImplementation
+					|| fa.getBusinessObject() instanceof Subcomponent));
+	private AgeDiagramEditor editor;
 
 	public ModeContributionItem(final String id) {
 		super(id);
@@ -43,12 +48,12 @@ public class ModeContributionItem extends ComboContributionItem {
 	}
 
 	public final void setActiveEditor(final IEditorPart newEditor) {
-		if(editor != newEditor) {
+		if (editor != newEditor) {
 			saveModeSelection();
 
 			// Update the editor
-			if(newEditor instanceof AgeDiagramEditor) {
-				this.editor = (AgeDiagramEditor)newEditor;
+			if (newEditor instanceof AgeDiagramEditor) {
+				this.editor = (AgeDiagramEditor) newEditor;
 			} else {
 				this.editor = null;
 			}
@@ -66,12 +71,11 @@ public class ModeContributionItem extends ComboContributionItem {
 	private void saveModeSelection() {
 		// Save the current mode selection
 		final ComboViewer comboViewer = getComboViewer();
-		if(comboViewer != null) {
-			if(this.editor != null) {
-				final Object firstSelection = comboViewer.getStructuredSelection().getFirstElement();
-				final String selectionStr = firstSelection instanceof NamedElement ? ((NamedElement)firstSelection).getQualifiedName() : null;
-				editor.setPartProperty(selectedModePropertyKey, selectionStr);
-			}
+		if (comboViewer != null && editor != null) {
+			final Object firstSelection = comboViewer.getStructuredSelection().getFirstElement();
+			final ModeFeatureReference mf = (ModeFeatureReference) firstSelection;
+			final String selectionStr = firstSelection != null ? (String) mf.getName() : null;
+			editor.setPartProperty(selectedModePropertyKey, selectionStr);
 		}
 	}
 
@@ -84,71 +88,58 @@ public class ModeContributionItem extends ComboContributionItem {
 
 	private void refresh() {
 		final ComboViewer comboViewer = getComboViewer();
-		if(comboViewer != null) {
-			Object selectedValue = getNullValue();
+		final SortedSet<ModeFeatureReference> modeFeatureReferences = new TreeSet<>(
+				(o1, o2) -> o1.getName().compareToIgnoreCase(o2.getName()));
+		if (comboViewer != null) {
+			final ModeFeatureReference nullValue = AadlModalElementUtil.createModeFeatureReference(getNullValueString(),
+					null, null);
+			modeFeatureReferences.add(nullValue);
+			Object selectedValue = nullValue;
 			final String selectedModeName = editor == null ? null : editor.getPartProperty(selectedModePropertyKey);
 
 			// Clear the combo box
 			comboViewer.setInput(null);
 
-			if(editor == null) {
+			if (editor == null) {
 				return;
 			}
-			
+
 			final AgeDiagram diagram = editor.getAgeDiagram();
-			if(diagram != null) {
+			if (diagram != null) {
 				final QueryService queryService = ContributionHelper.getQueryService(editor);
-				if(queryService != null) {
-					final Set<NamedElement> elements = new HashSet<>();
-					for(final BusinessObjectContext componentClassifierBoc : queryService.getResults(componentClassifiersQuery, diagram)) {
-						final ComponentClassifier componentClassifier = (ComponentClassifier)componentClassifierBoc.getBusinessObject();
+				if (queryService != null) {
+					queryService.getResults(modeContainerQuery, diagram).stream().flatMap(modeContainer -> {
+						// If container contains a modal element
+						if (AadlModalElementUtil.getModalElement(modeContainer) != null) {
+							// Get qualified modes to add to the drop-down
+							return Stream.concat(
+									getModeBindingFeatureReferences(modeContainer),
+									getModeFeatureReferences(modeContainer));
 
-						// Add both modes and mode transitions to the drop down
-						for(final Mode mode : componentClassifier.getAllModes()) {
-							if(mode.getName() != null) {
-								elements.add(mode);
-							}
 						}
 
-						for(final ModeTransition transition : componentClassifier.getAllModeTransitions()) {
-							if(transition.getName() != null) {
-								elements.add(transition);
-							}
-						}
+						return Stream.empty();
+					}).forEach(modeFeatureRef -> {
+						modeFeatureReferences.add(modeFeatureRef);
+					});
+
+// Find ComboViewer selection
+					final Optional<ModeFeatureReference> tmpSelectedValue = modeFeatureReferences.stream()
+							.filter(tmpKey -> tmpKey.getName().equalsIgnoreCase(selectedModeName))
+							.findAny();
+					if (tmpSelectedValue.isPresent()) {
+						selectedValue = tmpSelectedValue.get();
 					}
 
-					// Find the selected value
-					for(final NamedElement ne : elements) {
-						if(ne.getQualifiedName().equalsIgnoreCase(selectedModeName)) {
-							selectedValue = ne;
-							break;
-						}
-					}
-
-					final List<Object> sortedElements = new ArrayList<>();
-					sortedElements.add(getNullValue());
-					sortedElements.addAll(elements);
-					sortedElements.sort((o1, o2) -> {
-						if(o1 == getNullValue()) {
-							return -1;
-						} else if(o2 == getNullValue()) {
-							return 1;
-						}
-
-						final NamedElement e1 = (NamedElement)o1;
-						final NamedElement e2 = (NamedElement)o2;
-						if(e1.getClass() != e2.getClass()) {
-							if(e1 instanceof Mode) {
-								return -1;
-							} else {
-								return 1;
-							}
-						} else {
-							return e1.getName().compareToIgnoreCase(e2.getName());
+					comboViewer.setLabelProvider(new LabelProvider() {
+						@Override
+						public String getText(final Object element) {
+							final ModeFeatureReference mf = (ModeFeatureReference) element;
+							return mf.getName();
 						}
 					});
 
-					comboViewer.setInput(sortedElements);
+					comboViewer.setInput(modeFeatureReferences);
 				}
 			}
 
@@ -156,10 +147,46 @@ public class ModeContributionItem extends ComboContributionItem {
 		}
 	}
 
+	/**
+	 * Return a stream of mode feature references that will be added to the drop-down
+	 * @param modeContainer
+	 * @return
+	 */
+	private static Stream<ModeFeatureReference> getModeFeatureReferences(final BusinessObjectContext modeContainer) {
+		return AadlClassifierUtil.getComponentImplementation(modeContainer)
+				.filter(ci -> !ci.getAllModes().isEmpty() || !ci.getAllModeTransitions().isEmpty()).map(ci -> {
+					return Stream.concat(ci.getAllModes().stream(), ci.getAllModeTransitions().stream());
+				}).orElse(Stream.empty()).map(ob -> {
+					final NamedElement ne = ob;
+					return createInModeFeatureReference(modeContainer, ne);
+				});
+	}
+
+	/**
+	 * Return a stream of ModeBindings that are mapped to a derived Mode
+	 * @param modeContainerParent
+	 * @return
+	 */
+	public static Stream<ModeFeatureReference> getModeBindingFeatureReferences(final BusinessObjectContext modeContainerParent) {
+		if (modeContainerParent.getBusinessObject() instanceof Subcomponent) {
+			final Subcomponent subcomponent = (Subcomponent) modeContainerParent.getBusinessObject();
+			// Filter ModeBindings that have a null derived mode
+			return subcomponent.getOwnedModeBindings().stream().filter(mb -> mb.getDerivedMode() != null)
+					.map(mb -> createInModeFeatureReference(modeContainerParent, mb.getDerivedMode()));
+		}
+		return Stream.empty();
+	}
+
+	private static ModeFeatureReference createInModeFeatureReference(final BusinessObjectContext parent,
+			final NamedElement namedElement) {
+		final String modeFeatureName = ContributionHelper.getPath(parent) + "::" + namedElement.getName();
+		return AadlModalElementUtil.createModeFeatureReference(modeFeatureName, namedElement, parent);
+	}
+
 	@Override
 	protected void onSelection(final Object value) {
-		// Notify coloring service of the selection
-		ContributionHelper.getColoringService(editor).setHighlightedMode(value == getNullValue() ? null : (NamedElement)value);
+		final ModeFeatureReference mf = (ModeFeatureReference) value;
+		ContributionHelper.getColoringService(editor).setHighlightedMode(mf.getNamedElement(), mf.getContainer());
 	}
 
 	@Override

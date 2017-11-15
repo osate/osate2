@@ -1,8 +1,11 @@
 package org.osate.ge.internal.services;
 
+import java.util.Map;
+
 import org.osate.aadl2.NamedElement;
 import org.osate.ge.graphics.Color;
 import org.osate.ge.internal.diagram.runtime.DiagramElement;
+import org.osate.ge.internal.query.Queryable;
 
 /**
  * Contains methods to handle highlighting objects based on editor state
@@ -31,13 +34,12 @@ public interface ColoringService {
 	Coloring adjustColors();
 
 	/**
-	 * Returns the override foreground color for the element.
-	 * @param de
-	 * @return the overridden color or null if the default color should be used.
+	 * Returns a map of override foreground colors for elements.
 	 */
-	Color getForegroundColor(DiagramElement de);
+	Map<DiagramElement, Color> buildForegroundColorMap();
 
 	// TODO: Rework. Should be split out from the service.
-	void setHighlightedMode(NamedElement ne);
-	void setHighlightedFlow(NamedElement ne);
+	void setHighlightedMode(NamedElement ne, Queryable boc);
+
+	void setHighlightedFlow(NamedElement ne, Queryable boc);
 }

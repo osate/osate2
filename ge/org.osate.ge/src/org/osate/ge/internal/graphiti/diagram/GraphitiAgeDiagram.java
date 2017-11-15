@@ -2,6 +2,7 @@ package org.osate.ge.internal.graphiti.diagram;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -81,10 +82,12 @@ public class GraphitiAgeDiagram implements NodePictogramBiMap, AutoCloseable {
 	private final UpdaterListener updateListener;
 	private final AgeDiagram ageDiagram;
 	private final Diagram graphitiDiagram;
+	private final ColoringProvider coloringProvider;
 	private final Map<PictogramElement, DiagramNode> pictogramElementToDiagramNodeMap = new HashMap<>();
 	private final Map<DiagramNode, PictogramElement> diagramNodeToPictogramElementMap = new HashMap<>();
 	private final GraphitiDiagramModificationListener modificationListener = new GraphitiDiagramModificationListener();
 	private final StyleCalculator finalStyleProvider;
+	private Map<DiagramElement, org.osate.ge.graphics.Color> overrideForegroundColorMap = Collections.emptyMap();
 
 	public interface CommandExecutor {
 		void execute(final Command cmd);
@@ -110,9 +113,10 @@ public class GraphitiAgeDiagram implements NodePictogramBiMap, AutoCloseable {
 		this.updateListener = Objects.requireNonNull(updateListener, "updateListener must not be null");
 		this.graphitiDiagram = Objects.requireNonNull(graphitiDiagram, "graphitiDiagram must not be null");
 		addMapping(ageDiagram, graphitiDiagram);
+		this.coloringProvider = Objects.requireNonNull(coloringProvider, "coloringProvider must not be null");
 
 		this.finalStyleProvider = new StyleCalculator(ageDiagram.getConfiguration(), de -> {
-			final org.osate.ge.graphics.Color foreground = coloringProvider.getForegroundColor(de);
+			final org.osate.ge.graphics.Color foreground = overrideForegroundColorMap.get(de);
 			if(foreground == null) {
 				return Style.EMPTY;
 			} else {
@@ -203,6 +207,10 @@ public class GraphitiAgeDiagram implements NodePictogramBiMap, AutoCloseable {
 				});
 			}
 		});
+	}
+
+	private void refreshOverrideForegroundColorMap() {
+		overrideForegroundColorMap = coloringProvider.buildForegroundColorMap();
 	}
 
 	/**
@@ -671,10 +679,16 @@ public class GraphitiAgeDiagram implements NodePictogramBiMap, AutoCloseable {
 		return ageDiagram;
 	}
 
-	// This function assumes that the foreground color of all applicable graphics algorithms is black by default.
-	// When the coloring is disabled, the foreground colors are reverted to black.
+	// Refreshes the override color map and the style of the specified elements. Does not refresh their descendants.
 	// Must be called within a transaction
-	public final void refreshStyle(final DiagramElement de) {
+	public void refreshStyle(final Collection<DiagramElement> elements) {
+		refreshOverrideForegroundColorMap();
+		for (final DiagramElement de : elements) {
+			refreshStyle(de);
+		}
+	}
+
+	private void refreshStyle(final DiagramElement de) {
 		final PictogramElement pe = getPictogramElement(de);
 		if (pe != null) {
 			StyleUtil.refreshStyle(graphitiDiagram, pe, de, finalStyleProvider, this);
@@ -683,6 +697,7 @@ public class GraphitiAgeDiagram implements NodePictogramBiMap, AutoCloseable {
 
 	// Must be called inside the proper transaction
 	public void refreshDiagramStyles() {
+		refreshOverrideForegroundColorMap();
 		// Refresh Coloring
 		refreshChildrenStyles(getAgeDiagram());
 	}

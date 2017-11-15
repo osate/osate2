@@ -393,7 +393,7 @@ When editing a component implementation, flow implementations and end-to-end flo
 ![](../images/EditFlows.png)
 
 ### Highlighting Flow Implementations and End-to-End Flow Specifications
-Selecting a flow implementation or end-to-end flow specification from the flow drop-down in the toolbar will highlight the flow.
+Selecting a flow implementation or end-to-end flow specification from the flow drop-down in the toolbar will highlight the flow.  Flow Implementations and End To End Flows that have segments that are not shown in the diagram will be marked with an asterisk(*) in the drop-down.
 
 ## Modes
 The graphical editor allows editing the modes and mode transitions defined in the AADL model.
