@@ -16,6 +16,7 @@ import org.osate.analysis.flows.model.LatencyContributor.LatencyContributorMetho
 import org.osate.analysis.flows.model.LatencyContributorComponent;
 import org.osate.analysis.flows.model.LatencyContributorConnection;
 import org.osate.analysis.flows.model.LatencyReportEntry;
+import org.osate.xtext.aadl2.properties.util.ARINC653ScheduleWindow;
 import org.osate.xtext.aadl2.properties.util.GetProperties;
 import org.osate.xtext.aadl2.properties.util.InstanceModelUtil;
 
@@ -47,14 +48,15 @@ public class FlowLatencyLogicConnection {
 
 		// if we exit a partition then we may have I/O Delay until the end of the partition window or the end of the major frame
 		if (srcPartition != null && srcPartition != dstPartition) {
-			double partitionLatency = FlowLatencyUtil.getPartitionLatency(srcPartition);
-			double frameOffset = FlowLatencyUtil.getPartitionFrameOffset(srcPartition);
-			double partitionDuration = FlowLatencyUtil.getPartitionDuration(srcPartition);
-			if (frameOffset != -1) {
+			double partitionLatency = FlowLatencyUtil.getPartitionPeriod(srcPartition);
+			List<ARINC653ScheduleWindow> schedule = FlowLatencyUtil.getModuleSchedule(srcPartition);
+			double partitionDuration = FlowLatencyUtil.getPartitionDuration(srcPartition, schedule);
+			if (partitionDuration != -1) {
 				LatencyContributor ioLatencyContributor = new LatencyContributorComponent(srcPartition);
 				ioLatencyContributor.setWorstCaseMethod(LatencyContributorMethod.PARTITION_OUTPUT);
 				ioLatencyContributor.setBestCaseMethod(LatencyContributorMethod.PARTITION_OUTPUT);
 				ioLatencyContributor.setSamplingPeriod(partitionLatency);
+				double frameOffset = FlowLatencyUtil.getPartitionFrameOffset(srcPartition, schedule);
 				ioLatencyContributor.setPartitionOffset(frameOffset);
 				ioLatencyContributor.setPartitionDuration(partitionDuration);
 				entry.addContributor(ioLatencyContributor);
@@ -121,13 +123,14 @@ public class FlowLatencyLogicConnection {
 
 		if (dstPartition != null && srcPartition != dstPartition) {
 			// add partition latency if the destination is a partition and it is different from the source partition (or null)
-			double partitionLatency = FlowLatencyUtil.getPartitionLatency(dstPartition);
-			double frameOffset = FlowLatencyUtil.getPartitionFrameOffset(dstPartition);
-			if (frameOffset != -1) {
+			double partitionLatency = FlowLatencyUtil.getPartitionPeriod(dstPartition);
+			List<ARINC653ScheduleWindow> schedule = FlowLatencyUtil.getModuleSchedule(srcPartition);
+			double partitionDuration = FlowLatencyUtil.getPartitionDuration(dstPartition, schedule);
+			if (partitionDuration != -1) {
 				LatencyContributorComponent platencyContributor = new LatencyContributorComponent(dstPartition);
 				platencyContributor.setSamplingPeriod(partitionLatency);
+				double frameOffset = FlowLatencyUtil.getPartitionFrameOffset(dstPartition, schedule);
 				platencyContributor.setPartitionOffset(frameOffset);
-				double partitionDuration = FlowLatencyUtil.getPartitionDuration(dstPartition);
 				platencyContributor.setPartitionDuration(partitionDuration);
 				platencyContributor.setWorstCaseMethod(LatencyContributorMethod.PARTITION_SCHEDULE);
 				platencyContributor.setBestCaseMethod(LatencyContributorMethod.PARTITION_SCHEDULE);
@@ -140,25 +143,6 @@ public class FlowLatencyLogicConnection {
 				entry.addContributor(platencyContributor);
 			}
 		}
-	}
-
-	public static void checkPartitionLatencyConsistency(ComponentInstance ci) {
-		double res = 0.0;
-		if (GetProperties.getIsPartition(ci)) {
-			res = GetProperties.getPartitionLatencyInMilliSec(ci, 0.0);
-		}
-		double VPres = FlowLatencyUtil.getVirtualProcessorPartitionPeriod(ci);
-		double ARINC653res = FlowLatencyUtil.getARINC653ProcessorMajorFrame(ci);
-		if (res > 0.0 && VPres > 0.0) {
-			// TODO they should be the same
-		}
-		if (res > 0.0 && ARINC653res > 0.0) {
-			// TODO they should be the same
-		}
-		if (VPres > 0.0 && ARINC653res > 0.0) {
-			// TODO they should be the same
-		}
-		// TODO also compare major frame from schedule against major frame from property of processor
 	}
 
 	/**

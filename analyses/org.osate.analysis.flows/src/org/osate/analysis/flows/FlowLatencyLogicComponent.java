@@ -1,5 +1,7 @@
 package org.osate.analysis.flows;
 
+import java.util.List;
+
 import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.EndToEndFlowInstance;
 import org.osate.aadl2.instance.FeatureCategory;
@@ -10,6 +12,7 @@ import org.osate.analysis.flows.model.LatencyContributor.LatencyContributorMetho
 import org.osate.analysis.flows.model.LatencyContributorComponent;
 import org.osate.analysis.flows.model.LatencyReportEntry;
 import org.osate.analysis.flows.preferences.Values;
+import org.osate.xtext.aadl2.properties.util.ARINC653ScheduleWindow;
 import org.osate.xtext.aadl2.properties.util.GetProperties;
 import org.osate.xtext.aadl2.properties.util.InstanceModelUtil;
 
@@ -77,14 +80,15 @@ public class FlowLatencyLogicComponent {
 					// insert first partition sampling before task sampling. FOr other partitions it is inserted by connection processing
 					ComponentInstance firstPartition = FlowLatencyUtil.getPartition(componentInstance);
 					if (firstPartition != null) {
-						double partitionLatency = FlowLatencyUtil.getPartitionLatency(firstPartition);
-						double frameOffset = FlowLatencyUtil.getPartitionFrameOffset(firstPartition);
-						if (frameOffset != -1) {
+						double partitionLatency = FlowLatencyUtil.getPartitionPeriod(firstPartition);
+						List<ARINC653ScheduleWindow> schedule = FlowLatencyUtil.getModuleSchedule(firstPartition);
+						double partitionDuration = FlowLatencyUtil.getPartitionDuration(firstPartition, schedule);
+						if (partitionDuration != -1) {
 							LatencyContributorComponent partitionLatencyContributor = new LatencyContributorComponent(
 									firstPartition);
 							partitionLatencyContributor.setSamplingPeriod(partitionLatency);
+							double frameOffset = FlowLatencyUtil.getPartitionFrameOffset(firstPartition, schedule);
 							partitionLatencyContributor.setPartitionOffset(frameOffset);
-							double partitionDuration = FlowLatencyUtil.getPartitionDuration(firstPartition);
 							partitionLatencyContributor.setPartitionDuration(partitionDuration);
 							partitionLatencyContributor.setWorstCaseMethod(LatencyContributorMethod.PARTITION_SCHEDULE);
 							partitionLatencyContributor.setBestCaseMethod(LatencyContributorMethod.PARTITION_SCHEDULE);
@@ -109,13 +113,14 @@ public class FlowLatencyLogicComponent {
 			// insert first partition sampling for the aperiodic case. For other partitions it is inserted by connection processing
 			ComponentInstance firstPartition = FlowLatencyUtil.getPartition(componentInstance);
 			if (firstPartition != null) {
-				double partitionLatency = FlowLatencyUtil.getPartitionLatency(firstPartition);
-				double frameOffset = FlowLatencyUtil.getPartitionFrameOffset(firstPartition);
-				if (frameOffset != -1) {
+				double partitionLatency = FlowLatencyUtil.getPartitionPeriod(firstPartition);
+				List<ARINC653ScheduleWindow> schedule = FlowLatencyUtil.getModuleSchedule(firstPartition);
+				double partitionDuration = FlowLatencyUtil.getPartitionDuration(firstPartition, schedule);
+				if (partitionDuration != -1) {
 					LatencyContributorComponent platencyContributor = new LatencyContributorComponent(firstPartition);
 					platencyContributor.setSamplingPeriod(partitionLatency);
+					double frameOffset = FlowLatencyUtil.getPartitionFrameOffset(firstPartition, schedule);
 					platencyContributor.setPartitionOffset(frameOffset);
-					double partitionDuration = FlowLatencyUtil.getPartitionDuration(firstPartition);
 					platencyContributor.setPartitionDuration(partitionDuration);
 					platencyContributor.setWorstCaseMethod(LatencyContributorMethod.PARTITION_SCHEDULE);
 					platencyContributor.setBestCaseMethod(LatencyContributorMethod.PARTITION_SCHEDULE);

@@ -228,61 +228,25 @@ public class FlowLatencyUtil {
 		return null;
 	}
 
-	/**
-	 * find component tagged with isPartition and return its partition latency (period)
-	 * @param ci
-	 * @return
-	 */
-	public static double getSEIPartitionPeriod(ComponentInstance ci) {
-		while (ci != null) {
-			if (GetProperties.getIsPartition(ci)) {
-				double res = GetProperties.getPartitionLatencyInMilliSec(ci, 0.0);
-				return res;
-			}
-			ci = ci.getContainingComponentInstance();
-		}
-		return 0.0;
-	}
 
 	/**
-	 * find component tagged with isPartition and has Partition Latency value, either the component itself or an enclosing component (enclosing process for a thread)
-	 * @param ci
-	 * @return
-	 */
-	public static ComponentInstance getSEIPartition(ComponentInstance ci) {
-		while (ci != null) {
-			if (GetProperties.getIsPartition(ci)) {
-				double res = GetProperties.getPartitionLatencyInMilliSec(ci, 0.0);
-				if (res > 0) {
-					return ci;
-				}
-			}
-			ci = ci.getContainingComponentInstance();
-		}
-		return null;
-	}
-
-	/**
-	 * find virtual processor representing SEI tagged or ARINC653 partition (bound to processor with ARINC653 major frame)
+	 * find virtual processor with a period or ARINC653 partition (bound to processor with ARINC653 major frame)
 	 * @param componentInstance system, process, thread or other entity bound to a processor and running inside a partition.
 	 * @return partition
 	 */
-	public static ComponentInstance getVirtualProcessorPartition(ComponentInstance componentInstance) {
-		double res = 0.0;
+	public static ComponentInstance getPartition(ComponentInstance componentInstance) {
 		Collection<ComponentInstance> vprocessors = InstanceModelUtil.getBoundVirtualProcessors(componentInstance);
 		for (ComponentInstance vproc : vprocessors) {
 			Collection<ComponentInstance> procs = InstanceModelUtil.getBoundPhysicalProcessors(vproc);
 			for (ComponentInstance proc : procs) {
-				res = GetProperties.getARINC653ModuleMajorFrame(proc);
-				if (res == 0.0) {
-					res = FlowLatencyUtil.getARINC653ProcessorMajorFrameFromSchedule(proc);
-				}
-				if (res > 0.0) {
+				if (GetProperties.hasAssignedPropertyValue(proc, "ARINC653::Module_Major_Frame")) {
 					return vproc;
 				}
 			}
-			res = GetProperties.getPartitionLatencyInMilliSec(vproc, 0.0);
-			if (res > 0.0) {
+			if (GetProperties.hasAssignedPropertyValue(vproc, "Period")) {
+				return vproc;
+			}
+			if (GetProperties.hasAssignedPropertyValue(vproc, "ARINC653::Module_Major_Frame")) {
 				return vproc;
 			}
 		}
@@ -290,56 +254,20 @@ public class FlowLatencyUtil {
 	}
 
 	/**
-	 * Get the major frame from the processor supporting ARINC653 partitions, or form bound virtual processor tagged with SEI partition properties
-	 * @param componentInstance system, process, thread or other entity whose partition we try to identify
-	 * @return partition period supported by virtual processor
+	 * get the partition period, either from the virtual processor representing the partition, or from the major frame of the ARINC653 specification of a processor
+	 * @return partition period as latency contributor
 	 */
-	public static double getVirtualProcessorPartitionPeriod(ComponentInstance componentInstance) {
-		double res = 0.0;
-		Collection<ComponentInstance> vprocessors = InstanceModelUtil.getBoundVirtualProcessors(componentInstance);
-		for (ComponentInstance vproc : vprocessors) {
-			res = GetProperties.getARINC653ModuleMajorFrame(vproc);
-			if (res > 0.0) {
-				return res;
-			}
-			res = GetProperties.getPartitionLatencyInMilliSec(vproc, 0.0);
-			if (res > 0.0) {
-				return res;
-			}
+	public static double getPartitionPeriod(ComponentInstance part) {
+		// first look for major frame value on processor
+		ComponentInstance module = getModule(part);
+		double res = GetProperties.getARINC653ModuleMajorFrame(module);
+		if (res == 0.0) {
+			// look for period on partition
+			res = GetProperties.getPeriodinMS(part);
 		}
-		return res;
-	}
-
-	/**
-	 * Get the the processor supporting ARINC653 partitions
-	 * @param componentInstance system, process, thread or other entity bound to a processor and running inside a partition.
-	 * @return processor supporting ARINC653
-	 */
-	public static ComponentInstance getARINC653PartitionProcessor(ComponentInstance componentInstance) {
-		double res = 0.0;
-		Collection<ComponentInstance> processors = InstanceModelUtil.getBoundPhysicalProcessors(componentInstance);
-		for (ComponentInstance proc : processors) {
-			res = GetProperties.getARINC653ModuleMajorFrame(proc);
-			if (res > 0.0) {
-				return proc;
-			}
-		}
-		return null;
-	}
-
-	/**
-	 * Get the major frame from the processor supporting ARINC653 partitions
-	 * @param componentInstance system, process, thread or other entity bound to a processor and running inside a partition.
-	 * @return partition period supported by processor
-	 */
-	public static double getARINC653ProcessorMajorFrame(ComponentInstance componentInstance) {
-		double res = 0.0;
-		Collection<ComponentInstance> processors = InstanceModelUtil.getBoundPhysicalProcessors(componentInstance);
-		for (ComponentInstance proc : processors) {
-			res = GetProperties.getARINC653ModuleMajorFrame(proc);
-			if (res > 0.0) {
-				return res;
-			}
+		if (res == 0.0) {
+			// look for major frame value on virtual processor (partition)
+			res = GetProperties.getARINC653ModuleMajorFrame(part);
 		}
 		return res;
 	}
@@ -349,27 +277,14 @@ public class FlowLatencyUtil {
 	 * @param componentInstance system, process, thread or other entity bound to a processor and running inside a partition.
 	 * @return partition period supported by processor
 	 */
-	public static double getARINC653ProcessorMajorFrameFromSchedule(ComponentInstance componentInstance) {
+	public static double getARINC653ProcessorMajorFrameFromSchedule(ComponentInstance processorInstance) {
 		double res = 0.0;
-		if (InstanceModelUtil.isProcessor(componentInstance)) {
-			List<ARINC653ScheduleWindow> schedule = GetProperties.getModuleSchedule(componentInstance);
-			if ((schedule != null) && (schedule.size() > 0)) {
-				for (ARINC653ScheduleWindow window : schedule) {
-					res = res + window.getTime();
-				}
-				return res;
+		List<ARINC653ScheduleWindow> schedule = GetProperties.getModuleSchedule(processorInstance);
+		if ((schedule != null) && (schedule.size() > 0)) {
+			for (ARINC653ScheduleWindow window : schedule) {
+				res = res + window.getTime();
 			}
-		} else {
-			Collection<ComponentInstance> processors = InstanceModelUtil.getBoundPhysicalProcessors(componentInstance);
-			for (ComponentInstance proc : processors) {
-				List<ARINC653ScheduleWindow> schedule = GetProperties.getModuleSchedule(proc);
-				if ((schedule != null) && (schedule.size() > 0)) {
-					for (ARINC653ScheduleWindow window : schedule) {
-						res = res + window.getTime();
-					}
-					return res;
-				}
-			}
+			return res;
 		}
 		return res;
 	}
@@ -396,17 +311,14 @@ public class FlowLatencyUtil {
 		if (partition.getCategory() != ComponentCategory.VIRTUAL_PROCESSOR) {
 			return null;
 		}
-
 		/**
 		 * Try to get the module from the virtual processor partition.
 		 */
 		module = GetProperties.getBoundProcessor(partition);
-
 		if (module == null) {
 			module = partition.getContainingComponentInstance();
 		}
-
-		if ((module != null) && (module.getCategory() == ComponentCategory.PROCESSOR)) {
+		if ((module != null) && (module.getCategory() != ComponentCategory.VIRTUAL_PROCESSOR)) {
 			return module;
 		}
 		return null;
@@ -418,21 +330,8 @@ public class FlowLatencyUtil {
 	 * @param partition This can be a virtual processor representing a partition or a component instance tagged with SEI properties
 	 * @return offset or -1 if no schedule, no virtual processor as ARINC653 partition, or no processor.
 	 */
-	public static double getPartitionFrameOffset(ComponentInstance partition) {
-		ComponentInstance module;
-		List<ARINC653ScheduleWindow> schedule;
-		double res;
-		if (partition == null) {
-			return -1;
-		}
-
-		res = 0;
-		module = getModule(partition);
-		if (module == null) {
-			return -1;
-		}
-		schedule = GetProperties.getModuleSchedule(module);
-
+	public static double getPartitionFrameOffset(ComponentInstance partition, List<ARINC653ScheduleWindow> schedule) {
+		double res = 0.0;
 		if ((schedule == null) || (schedule.size() == 0)) {
 			return -1;
 		}
@@ -449,22 +348,17 @@ public class FlowLatencyUtil {
 	/**
 	 * return the duration of the partition i.e., its window size.
 	 * utilizes the window schedule of the module for the partition
-	 * @param partition This can be a virtual processor representing a partition or a component instance tagged with SEI properties
-	 * @return window size (duration),  or -1 if no schedule, no virtual processor as ARINC653 partition, or no processor.
+	 * If no schedule: interpret WC execution time on partition as duration
+	 * @param partition This is a virtual processor representing a partition
+	 * @param schedule ARINC653 schedule
+	 * @return window size (duration),  or -1 if no schedule.
 	 */
-	public static double getPartitionDuration(ComponentInstance partition) {
-		ComponentInstance module;
-		List<ARINC653ScheduleWindow> schedule;
-		if (partition == null) {
-			return -1;
-		}
-		module = getModule(partition);
-		if (module == null) {
-			return -1;
-		}
-		schedule = GetProperties.getModuleSchedule(module);
-
+	public static double getPartitionDuration(ComponentInstance partition, List<ARINC653ScheduleWindow> schedule) {
 		if ((schedule == null) || (schedule.size() == 0)) {
+			double wcet = GetProperties.getMaximumComputeExecutionTimeinMs(partition);
+			if (wcet > 0) {
+				return wcet;
+			}
 			return -1;
 		}
 		for (ARINC653ScheduleWindow window : schedule) {
@@ -475,41 +369,18 @@ public class FlowLatencyUtil {
 		return -1;
 	}
 
-	public static double getPartitionReceiverLatencyWithSchedule(ComponentInstance partition) {
-		return getPartitionFrameOffset(partition);
-	}
-
-	public static double getPartitionSenderLatencyWithSchedule(ComponentInstance partition) {
+	public static List<ARINC653ScheduleWindow> getModuleSchedule(ComponentInstance partition) {
 		ComponentInstance module;
-		List<ARINC653ScheduleWindow> schedule;
-		double res;
-		boolean found = false;
-
+		List<ARINC653ScheduleWindow> schedule = null;
 		if (partition == null) {
-			return 0;
+			return schedule;
 		}
-
-		res = 0;
 		module = getModule(partition);
-		schedule = GetProperties.getModuleSchedule(module);
-
-		if ((schedule == null) || (schedule.size() == 0)) {
-			return 0;
-		}
-
-		found = false;
-
-		for (ARINC653ScheduleWindow window : schedule) {
-			if (found == true) {
-				res = res + window.getTime();
-			}
-
-			if (window.getPartition() == partition) {
-				found = true;
-			}
+		if (module != null) {
+			schedule = GetProperties.getModuleSchedule(module);
 
 		}
-		return res;
+		return schedule;
 	}
 
 	/**
@@ -569,37 +440,6 @@ public class FlowLatencyUtil {
 		return diff + (extraslots * samplingLatency);
 	}
 
-	/**
-	 * return the component tagged with SEI partition or with ARINC653 major frame properties, or bound to a processor with ARINC653 properties
-	 * @param ci Component Instance
-	 * @return Component Instance
-	 */
-	public static ComponentInstance getPartition(ComponentInstance ci) {
-		ComponentInstance partition = FlowLatencyUtil.getVirtualProcessorPartition(ci);
-		if (partition == null) {
-			partition = FlowLatencyUtil.getSEIPartition(ci);
-		}
-		return partition;
-	}
-
-	/**
-	 * get the partition latency, either from the virtual processor representing the partition, or from the SEI partition properties on the component instance itself
-	 * @param ci Component Instance (process, thread, system, etc.
-	 * @return partition period as latency contributor
-	 */
-	public static double getPartitionLatency(ComponentInstance ci) {
-		double res = FlowLatencyUtil.getARINC653ProcessorMajorFrame(ci);
-		if (res == 0.0) {
-			res = FlowLatencyUtil.getARINC653ProcessorMajorFrameFromSchedule(ci);
-		}
-		if (res == 0.0) {
-			res = FlowLatencyUtil.getVirtualProcessorPartitionPeriod(ci);
-		}
-		if (res == 0.0) {
-			res = FlowLatencyUtil.getSEIPartitionPeriod(ci);
-		}
-		return res;
-	}
 
 	public static String getMinMaxLabel(boolean doMax) {
 		if (doMax) {
