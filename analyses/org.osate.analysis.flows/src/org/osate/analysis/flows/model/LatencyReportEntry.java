@@ -767,6 +767,7 @@ public class LatencyReportEntry {
 		} else {
 			reportSummaryWarning("Expected end to end latency is not specified");
 		}
+		result.getIssues().addAll(issues);
 
 		for (LatencyContributor latencyContributor : contributors) {
 			result.getContributors().add(latencyContributor.genResult());
