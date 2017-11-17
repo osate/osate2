@@ -117,10 +117,8 @@ end CombinedETEF;
 Latency analysis for end-to-end flow 'a_b' of system 'Test.Impl' with preference settings AS-MF-DL-EQ,
 
 Contributor,Min Specified,Min Actual,Min Method,Max Specified,Max Actual,Max Method,Comments,
-system a,,0.0ms,first sampling,,0.0ms,first sampling,Initial 0.0ms sampling latency not added,
 system a,10.0ms,10.0ms,specified,10.0ms,10.0ms,specified,
 Connection ,,0.0ms,no latency,,0.0ms,no latency,
-system b,,0.0ms,sampling,,0.0ms,sampling,Best case 0 ms worst case 0.0ms (period) sampling delay,
 system b,10.0ms,10.0ms,specified,10.0ms,10.0ms,specified,
 Latency Total,20.0ms,20.0ms,,20.0ms,20.0ms,,
 Specified End To End Latency,,0.0ms,,,0.0ms,,
@@ -132,10 +130,8 @@ WARNING,Expected end to end latency is not specified,
 Latency analysis for end-to-end flow 'c_d' of system 'Test.Impl' with preference settings AS-MF-DL-EQ,
 
 Contributor,Min Specified,Min Actual,Min Method,Max Specified,Max Actual,Max Method,Comments,
-system c,,0.0ms,first sampling,,0.0ms,first sampling,Initial 0.0ms sampling latency not added,
 system c,10.0ms,10.0ms,specified,10.0ms,10.0ms,specified,
 Connection ,,0.0ms,no latency,,0.0ms,no latency,
-system d,,0.0ms,sampling,,0.0ms,sampling,Best case 0 ms worst case 0.0ms (period) sampling delay,
 system d,10.0ms,10.0ms,specified,10.0ms,10.0ms,specified,
 Latency Total,20.0ms,20.0ms,,20.0ms,20.0ms,,
 Specified End To End Latency,,0.0ms,,,0.0ms,,
@@ -147,16 +143,12 @@ WARNING,Expected end to end latency is not specified,
 Latency analysis for end-to-end flow 'total' of system 'Test.Impl' with preference settings AS-MF-DL-EQ,
 
 Contributor,Min Specified,Min Actual,Min Method,Max Specified,Max Actual,Max Method,Comments,
-system a,,0.0ms,first sampling,,0.0ms,first sampling,Initial 0.0ms sampling latency not added,
 system a,10.0ms,10.0ms,specified,10.0ms,10.0ms,specified,
 Connection ,,0.0ms,no latency,,0.0ms,no latency,
-system b,,0.0ms,sampling,,0.0ms,sampling,Best case 0 ms worst case 0.0ms (period) sampling delay,
 system b,10.0ms,10.0ms,specified,10.0ms,10.0ms,specified,
 Connection ,,0.0ms,no latency,,0.0ms,no latency,
-system c,,0.0ms,sampling,,0.0ms,sampling,Best case 0 ms worst case 0.0ms (period) sampling delay,
 system c,10.0ms,10.0ms,specified,10.0ms,10.0ms,specified,
 Connection ,,0.0ms,no latency,,0.0ms,no latency,
-system d,,0.0ms,sampling,,0.0ms,sampling,Best case 0 ms worst case 0.0ms (period) sampling delay,
 system d,10.0ms,10.0ms,specified,10.0ms,10.0ms,specified,
 Latency Total,40.0ms,40.0ms,,40.0ms,40.0ms,,
 Specified End To End Latency,,20.0ms,,,30.0ms,,
@@ -165,7 +157,6 @@ ERROR,Minimum specified flow latency total 40.0ms exceeds expected maximum laten
 ERROR,Minimum actual latency total 40.0ms exceeds expected maximum end to end latency 30.0ms,
 ERROR,Maximum specified flow latency total 40.0ms exceeds expected maximum end to end latency 30.0ms,
 ERROR,Maximum actual latency total 40.0ms exceeds expected maximum end to end latency 30.0ms,
-
 
 	'''
 
@@ -182,26 +173,6 @@ ERROR,Maximum actual latency total 40.0ms exceeds expected maximum end to end la
     <values xsi:type="result:RealValue" value="20.0"/>
     <values xsi:type="result:RealValue"/>
     <values xsi:type="result:RealValue"/>
-    <contributors>
-      <sourceReference href="../../CombinedETEF_Test_Impl_Instance.aaxl2#//@componentInstance.0"/>
-      <values xsi:type="result:RealValue"/>
-      <values xsi:type="result:RealValue"/>
-      <values xsi:type="result:RealValue"/>
-      <values xsi:type="result:RealValue"/>
-      <values xsi:type="result:RealValue"/>
-      <values xsi:type="result:RealValue"/>
-      <values xsi:type="result:RealValue"/>
-      <values xsi:type="result:RealValue"/>
-      <values xsi:type="result:RealValue"/>
-      <values xsi:type="result:RealValue"/>
-      <values xsi:type="result:RealValue"/>
-      <values xsi:type="result:StringValue" value="FIRST_SAMPLED"/>
-      <values xsi:type="result:StringValue" value="FIRST_SAMPLED"/>
-      <values xsi:type="result:StringValue" value="SYNCUNKNOWN"/>
-      <issues issueType="INFO" message="Initial 0.0ms sampling latency not added" diagnostic="">
-        <sourceReference href="../../CombinedETEF_Test_Impl_Instance.aaxl2#//@componentInstance.0"/>
-      </issues>
-    </contributors>
     <contributors>
       <sourceReference href="../../CombinedETEF_Test_Impl_Instance.aaxl2#//@componentInstance.0"/>
       <values xsi:type="result:RealValue" value="10.0"/>
@@ -238,26 +209,6 @@ ERROR,Maximum actual latency total 40.0ms exceeds expected maximum end to end la
     </contributors>
     <contributors>
       <sourceReference href="../../CombinedETEF_Test_Impl_Instance.aaxl2#//@componentInstance.1"/>
-      <values xsi:type="result:RealValue"/>
-      <values xsi:type="result:RealValue"/>
-      <values xsi:type="result:RealValue"/>
-      <values xsi:type="result:RealValue"/>
-      <values xsi:type="result:RealValue"/>
-      <values xsi:type="result:RealValue"/>
-      <values xsi:type="result:RealValue"/>
-      <values xsi:type="result:RealValue"/>
-      <values xsi:type="result:RealValue" value="10.0"/>
-      <values xsi:type="result:RealValue" value="10.0"/>
-      <values xsi:type="result:RealValue" value="10.0"/>
-      <values xsi:type="result:StringValue" value="SAMPLED"/>
-      <values xsi:type="result:StringValue" value="SAMPLED"/>
-      <values xsi:type="result:StringValue" value="SYNCUNKNOWN"/>
-      <issues issueType="INFO" message="Best case 0 ms worst case 0.0ms (period) sampling delay" diagnostic="">
-        <sourceReference href="../../CombinedETEF_Test_Impl_Instance.aaxl2#//@componentInstance.1"/>
-      </issues>
-    </contributors>
-    <contributors>
-      <sourceReference href="../../CombinedETEF_Test_Impl_Instance.aaxl2#//@componentInstance.1"/>
       <values xsi:type="result:RealValue" value="10.0"/>
       <values xsi:type="result:RealValue" value="10.0"/>
       <values xsi:type="result:RealValue" value="10.0"/>
@@ -283,26 +234,6 @@ ERROR,Maximum actual latency total 40.0ms exceeds expected maximum end to end la
     <values xsi:type="result:RealValue" value="20.0"/>
     <values xsi:type="result:RealValue"/>
     <values xsi:type="result:RealValue"/>
-    <contributors>
-      <sourceReference href="../../CombinedETEF_Test_Impl_Instance.aaxl2#//@componentInstance.2"/>
-      <values xsi:type="result:RealValue"/>
-      <values xsi:type="result:RealValue"/>
-      <values xsi:type="result:RealValue"/>
-      <values xsi:type="result:RealValue"/>
-      <values xsi:type="result:RealValue"/>
-      <values xsi:type="result:RealValue"/>
-      <values xsi:type="result:RealValue"/>
-      <values xsi:type="result:RealValue"/>
-      <values xsi:type="result:RealValue"/>
-      <values xsi:type="result:RealValue"/>
-      <values xsi:type="result:RealValue"/>
-      <values xsi:type="result:StringValue" value="FIRST_SAMPLED"/>
-      <values xsi:type="result:StringValue" value="FIRST_SAMPLED"/>
-      <values xsi:type="result:StringValue" value="SYNCUNKNOWN"/>
-      <issues issueType="INFO" message="Initial 0.0ms sampling latency not added" diagnostic="">
-        <sourceReference href="../../CombinedETEF_Test_Impl_Instance.aaxl2#//@componentInstance.2"/>
-      </issues>
-    </contributors>
     <contributors>
       <sourceReference href="../../CombinedETEF_Test_Impl_Instance.aaxl2#//@componentInstance.2"/>
       <values xsi:type="result:RealValue" value="10.0"/>
@@ -339,26 +270,6 @@ ERROR,Maximum actual latency total 40.0ms exceeds expected maximum end to end la
     </contributors>
     <contributors>
       <sourceReference href="../../CombinedETEF_Test_Impl_Instance.aaxl2#//@componentInstance.3"/>
-      <values xsi:type="result:RealValue"/>
-      <values xsi:type="result:RealValue"/>
-      <values xsi:type="result:RealValue"/>
-      <values xsi:type="result:RealValue"/>
-      <values xsi:type="result:RealValue"/>
-      <values xsi:type="result:RealValue"/>
-      <values xsi:type="result:RealValue"/>
-      <values xsi:type="result:RealValue"/>
-      <values xsi:type="result:RealValue" value="10.0"/>
-      <values xsi:type="result:RealValue" value="10.0"/>
-      <values xsi:type="result:RealValue" value="10.0"/>
-      <values xsi:type="result:StringValue" value="SAMPLED"/>
-      <values xsi:type="result:StringValue" value="SAMPLED"/>
-      <values xsi:type="result:StringValue" value="SYNCUNKNOWN"/>
-      <issues issueType="INFO" message="Best case 0 ms worst case 0.0ms (period) sampling delay" diagnostic="">
-        <sourceReference href="../../CombinedETEF_Test_Impl_Instance.aaxl2#//@componentInstance.3"/>
-      </issues>
-    </contributors>
-    <contributors>
-      <sourceReference href="../../CombinedETEF_Test_Impl_Instance.aaxl2#//@componentInstance.3"/>
       <values xsi:type="result:RealValue" value="10.0"/>
       <values xsi:type="result:RealValue" value="10.0"/>
       <values xsi:type="result:RealValue" value="10.0"/>
@@ -384,26 +295,6 @@ ERROR,Maximum actual latency total 40.0ms exceeds expected maximum end to end la
     <values xsi:type="result:RealValue" value="40.0"/>
     <values xsi:type="result:RealValue" value="20.0"/>
     <values xsi:type="result:RealValue" value="30.0"/>
-    <contributors>
-      <sourceReference href="../../CombinedETEF_Test_Impl_Instance.aaxl2#//@componentInstance.0"/>
-      <values xsi:type="result:RealValue"/>
-      <values xsi:type="result:RealValue"/>
-      <values xsi:type="result:RealValue"/>
-      <values xsi:type="result:RealValue"/>
-      <values xsi:type="result:RealValue"/>
-      <values xsi:type="result:RealValue"/>
-      <values xsi:type="result:RealValue"/>
-      <values xsi:type="result:RealValue"/>
-      <values xsi:type="result:RealValue"/>
-      <values xsi:type="result:RealValue"/>
-      <values xsi:type="result:RealValue"/>
-      <values xsi:type="result:StringValue" value="FIRST_SAMPLED"/>
-      <values xsi:type="result:StringValue" value="FIRST_SAMPLED"/>
-      <values xsi:type="result:StringValue" value="SYNCUNKNOWN"/>
-      <issues issueType="INFO" message="Initial 0.0ms sampling latency not added" diagnostic="">
-        <sourceReference href="../../CombinedETEF_Test_Impl_Instance.aaxl2#//@componentInstance.0"/>
-      </issues>
-    </contributors>
     <contributors>
       <sourceReference href="../../CombinedETEF_Test_Impl_Instance.aaxl2#//@componentInstance.0"/>
       <values xsi:type="result:RealValue" value="10.0"/>
@@ -437,26 +328,6 @@ ERROR,Maximum actual latency total 40.0ms exceeds expected maximum end to end la
       <values xsi:type="result:StringValue" value="UNKNOWN"/>
       <values xsi:type="result:StringValue" value="UNKNOWN"/>
       <values xsi:type="result:StringValue" value="SYNCUNKNOWN"/>
-    </contributors>
-    <contributors>
-      <sourceReference href="../../CombinedETEF_Test_Impl_Instance.aaxl2#//@componentInstance.1"/>
-      <values xsi:type="result:RealValue"/>
-      <values xsi:type="result:RealValue"/>
-      <values xsi:type="result:RealValue"/>
-      <values xsi:type="result:RealValue"/>
-      <values xsi:type="result:RealValue"/>
-      <values xsi:type="result:RealValue"/>
-      <values xsi:type="result:RealValue"/>
-      <values xsi:type="result:RealValue"/>
-      <values xsi:type="result:RealValue" value="10.0"/>
-      <values xsi:type="result:RealValue" value="10.0"/>
-      <values xsi:type="result:RealValue" value="10.0"/>
-      <values xsi:type="result:StringValue" value="SAMPLED"/>
-      <values xsi:type="result:StringValue" value="SAMPLED"/>
-      <values xsi:type="result:StringValue" value="SYNCUNKNOWN"/>
-      <issues issueType="INFO" message="Best case 0 ms worst case 0.0ms (period) sampling delay" diagnostic="">
-        <sourceReference href="../../CombinedETEF_Test_Impl_Instance.aaxl2#//@componentInstance.1"/>
-      </issues>
     </contributors>
     <contributors>
       <sourceReference href="../../CombinedETEF_Test_Impl_Instance.aaxl2#//@componentInstance.1"/>
@@ -494,26 +365,6 @@ ERROR,Maximum actual latency total 40.0ms exceeds expected maximum end to end la
     </contributors>
     <contributors>
       <sourceReference href="../../CombinedETEF_Test_Impl_Instance.aaxl2#//@componentInstance.2"/>
-      <values xsi:type="result:RealValue"/>
-      <values xsi:type="result:RealValue"/>
-      <values xsi:type="result:RealValue"/>
-      <values xsi:type="result:RealValue"/>
-      <values xsi:type="result:RealValue"/>
-      <values xsi:type="result:RealValue"/>
-      <values xsi:type="result:RealValue"/>
-      <values xsi:type="result:RealValue"/>
-      <values xsi:type="result:RealValue" value="20.0"/>
-      <values xsi:type="result:RealValue" value="20.0"/>
-      <values xsi:type="result:RealValue" value="20.0"/>
-      <values xsi:type="result:StringValue" value="SAMPLED"/>
-      <values xsi:type="result:StringValue" value="SAMPLED"/>
-      <values xsi:type="result:StringValue" value="SYNCUNKNOWN"/>
-      <issues issueType="INFO" message="Best case 0 ms worst case 0.0ms (period) sampling delay" diagnostic="">
-        <sourceReference href="../../CombinedETEF_Test_Impl_Instance.aaxl2#//@componentInstance.2"/>
-      </issues>
-    </contributors>
-    <contributors>
-      <sourceReference href="../../CombinedETEF_Test_Impl_Instance.aaxl2#//@componentInstance.2"/>
       <values xsi:type="result:RealValue" value="10.0"/>
       <values xsi:type="result:RealValue" value="10.0"/>
       <values xsi:type="result:RealValue" value="10.0"/>
@@ -548,26 +399,6 @@ ERROR,Maximum actual latency total 40.0ms exceeds expected maximum end to end la
     </contributors>
     <contributors>
       <sourceReference href="../../CombinedETEF_Test_Impl_Instance.aaxl2#//@componentInstance.3"/>
-      <values xsi:type="result:RealValue"/>
-      <values xsi:type="result:RealValue"/>
-      <values xsi:type="result:RealValue"/>
-      <values xsi:type="result:RealValue"/>
-      <values xsi:type="result:RealValue"/>
-      <values xsi:type="result:RealValue"/>
-      <values xsi:type="result:RealValue"/>
-      <values xsi:type="result:RealValue"/>
-      <values xsi:type="result:RealValue" value="30.0"/>
-      <values xsi:type="result:RealValue" value="30.0"/>
-      <values xsi:type="result:RealValue" value="30.0"/>
-      <values xsi:type="result:StringValue" value="SAMPLED"/>
-      <values xsi:type="result:StringValue" value="SAMPLED"/>
-      <values xsi:type="result:StringValue" value="SYNCUNKNOWN"/>
-      <issues issueType="INFO" message="Best case 0 ms worst case 0.0ms (period) sampling delay" diagnostic="">
-        <sourceReference href="../../CombinedETEF_Test_Impl_Instance.aaxl2#//@componentInstance.3"/>
-      </issues>
-    </contributors>
-    <contributors>
-      <sourceReference href="../../CombinedETEF_Test_Impl_Instance.aaxl2#//@componentInstance.3"/>
       <values xsi:type="result:RealValue" value="10.0"/>
       <values xsi:type="result:RealValue" value="10.0"/>
       <values xsi:type="result:RealValue" value="10.0"/>
@@ -585,7 +416,6 @@ ERROR,Maximum actual latency total 40.0ms exceeds expected maximum end to end la
     </contributors>
   </subResults>
 </result:Result>
-
 
 
 	'''
