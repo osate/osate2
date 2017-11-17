@@ -1,11 +1,8 @@
 package org.osate.analysis.flows.tests
 
 import org.eclipse.core.runtime.NullProgressMonitor
-import org.eclipse.core.runtime.Path
-import org.eclipse.emf.common.util.URI
 import org.eclipse.xtext.testing.InjectWith
 import org.eclipse.xtext.testing.XtextRunner
-import org.eclipse.xtext.util.Files
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.osate.aadl2.AadlPackage
@@ -15,8 +12,11 @@ import org.osate.aadl2.modelsupport.errorreporting.AnalysisErrorReporterManager
 import org.osate.analysis.flows.handlers.CheckFlowLatency
 import org.osate.core.test.Aadl2UiInjectorProvider
 import org.osate.core.test.OsateTest
+import org.osate.result.Result
 
-import static org.junit.Assert.*
+import static extension org.junit.Assert.assertEquals
+import static extension org.junit.Assert.assertTrue
+import org.osate.result.RealValue
 
 @RunWith(typeof(XtextRunner))
 @InjectWith(typeof(Aadl2UiInjectorProvider))
@@ -41,19 +41,15 @@ class FlowLatencyTest extends OsateTest {
 		val errorManager = AnalysisErrorReporterManager.NULL_ERROR_MANANGER
 		val checker = new CheckFlowLatency()
 		val som = instance.systemOperationModes.head
-		checker.invoke(new NullProgressMonitor, errorManager, instance, som)
-
-		// read csv
-		val uri = URI.createURI(
-			resourceRoot + "/instances/reports/latency/pullprotocols_stub_i_Instance__latency_AS-MF-DL-EQ.csv")
-		val file = workspaceRoot.getFile(new Path(uri.toPlatformString(true)))
-		val actual = Files.readStreamIntoString(file.contents)
-		assertEquals('error', expected.trim, actual.trim)
-		val uriresult = URI.createURI(
-			resourceRoot + "/instances/reports/latency/pullprotocols_stub_i_Instance__latency_AS-MF-DL-EQ.result")
-		val fileresult = workspaceRoot.getFile(new Path(uriresult.toPlatformString(true)))
-		val actualresult = Files.readStreamIntoString(fileresult.contents)
-		assertEquals('error', expectedresult.trim, actualresult.trim)
+		val latencyresult = checker.invokeAndGetResult(new NullProgressMonitor, errorManager, instance, som)
+		val res = latencyresult.subResults.get(0)
+		assertTrue((res.values.get(1) as RealValue).value == (304.0))
+		assertTrue((res.values.get(2) as RealValue).value == (504.0))
+		assertTrue((res.values.get(3) as RealValue).value == (4.0))
+		assertTrue((res.values.get(4) as RealValue).value == (4.0))
+		assertTrue((res.values.get(5) as RealValue).value == (300.0))
+		assertTrue((res.values.get(6) as RealValue).value == (300.0))
+		res.contributors.size.assertEquals(17)
 	}
 
 	val pullprotocolsText = '''
@@ -170,366 +166,5 @@ properties
 end PullProtocols;
 	'''
 
-	val expected = '''
-Latency analysis for end-to-end flow 'prot.XferOnly' of system 'stub.i' with preference settings AS-MF-DL-EQ,
-
-Contributor,Min Specified,Min Actual,Min Method,Max Specified,Max Actual,Max Method,Comments,
-thread prot.sender,,0.0ms,first sampling,,0.0ms,first sampling,Initial 100.0ms sampling latency not added,
-thread prot.sender,,0.0ms,no latency,,100.0ms,deadline,
-Delayed Connection ,,0.0ms,no latency,,0.0ms,no latency,
-thread prot.requestor,,100.0ms,delayed sampling,,100.0ms,delayed sampling,Min: Sampling period 100.0ms,Max: Sampling period 100.0ms,
-thread prot.requestor,1.0ms,1.0ms,specified,1.0ms,1.0ms,specified,
-Immediate Connection ,,0.0ms,no latency,,0.0ms,no latency,
-thread prot.sender,,0.0ms,no latency,,0.0ms,no latency,
-thread prot.sender,1.0ms,1.0ms,specified,1.0ms,1.0ms,specified,
-Delayed Connection ,,0.0ms,no latency,,0.0ms,no latency,
-thread prot.requestor,,100.0ms,delayed sampling,,100.0ms,delayed sampling,Min: Sampling period 100.0ms,Max: Sampling period 100.0ms,
-thread prot.requestor,1.0ms,1.0ms,specified,1.0ms,1.0ms,specified,
-Immediate Connection ,,0.0ms,no latency,,0.0ms,no latency,
-thread prot.sender,,0.0ms,no latency,,0.0ms,no latency,
-thread prot.sender,1.0ms,1.0ms,specified,1.0ms,1.0ms,specified,
-Delayed Connection ,,0.0ms,no latency,,0.0ms,no latency,
-thread prot.requestor,,100.0ms,delayed sampling,,100.0ms,delayed sampling,Min: Sampling period 100.0ms,Max: Sampling period 100.0ms,
-thread prot.requestor,,0.0ms,no latency,,100.0ms,deadline,
-Latency Total,4.0ms,304.0ms,,4.0ms,504.0ms,,
-Specified End To End Latency,,300.0ms,,,300.0ms,,
-End to end Latency Summary,
-WARNING,Minimum specified flow latency total 4.00ms less than expected minimum end to end latency 300.0ms (better response time),
-ERROR,Minimum actual latency total 304.0ms exceeds expected maximum end to end latency 300.0ms,
-ERROR,Maximum actual latency total 504.0ms exceeds expected maximum end to end latency 300.0ms,
-WARNING,Jitter of actual latency total 304.0..504.0ms exceeds expected end to end latency jitter 300.0..300.0ms,
-
-
-	'''
-
-	val expectedresult = '''
-<?xml version="1.0" encoding="ASCII"?>
-<result:Result xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:result="http://www.osate.org/result/Result" analysis="latencyreport">
-  <sourceReference href="../../pullprotocols_stub_i_Instance.aaxl2#/"/>
-  <subResults analysis="prot.XferOnly">
-    <sourceReference href="../../pullprotocols_stub_i_Instance.aaxl2#//@componentInstance.0/@endToEndFlow.0"/>
-    <values xsi:type="result:StringValue" value="Latency analysis for end-to-end flow 'prot.XferOnly' of system 'stub.i' with preference settings AS-MF-DL-EQ"/>
-    <values xsi:type="result:RealValue" value="304.0"/>
-    <values xsi:type="result:RealValue" value="504.0"/>
-    <values xsi:type="result:RealValue" value="4.0"/>
-    <values xsi:type="result:RealValue" value="4.0"/>
-    <values xsi:type="result:RealValue" value="300.0"/>
-    <values xsi:type="result:RealValue" value="300.0"/>
-    <contributors>
-      <sourceReference href="../../pullprotocols_stub_i_Instance.aaxl2#//@componentInstance.0/@componentInstance.0"/>
-      <values xsi:type="result:RealValue"/>
-      <values xsi:type="result:RealValue"/>
-      <values xsi:type="result:RealValue"/>
-      <values xsi:type="result:RealValue"/>
-      <values xsi:type="result:RealValue"/>
-      <values xsi:type="result:RealValue"/>
-      <values xsi:type="result:RealValue"/>
-      <values xsi:type="result:RealValue" value="100.0"/>
-      <values xsi:type="result:RealValue"/>
-      <values xsi:type="result:RealValue"/>
-      <values xsi:type="result:RealValue"/>
-      <values xsi:type="result:StringValue" value="FIRST_SAMPLED"/>
-      <values xsi:type="result:StringValue" value="FIRST_SAMPLED"/>
-      <values xsi:type="result:StringValue" value="SYNCUNKNOWN"/>
-      <issues issueType="INFO" message="Initial 100.0ms sampling latency not added" diagnostic="">
-        <sourceReference href="../../pullprotocols_stub_i_Instance.aaxl2#//@componentInstance.0/@componentInstance.0"/>
-      </issues>
-    </contributors>
-    <contributors>
-      <sourceReference href="../../pullprotocols_stub_i_Instance.aaxl2#//@componentInstance.0/@componentInstance.0"/>
-      <values xsi:type="result:RealValue"/>
-      <values xsi:type="result:RealValue" value="100.0"/>
-      <values xsi:type="result:RealValue"/>
-      <values xsi:type="result:RealValue"/>
-      <values xsi:type="result:RealValue"/>
-      <values xsi:type="result:RealValue"/>
-      <values xsi:type="result:RealValue"/>
-      <values xsi:type="result:RealValue"/>
-      <values xsi:type="result:RealValue"/>
-      <values xsi:type="result:RealValue"/>
-      <values xsi:type="result:RealValue" value="100.0"/>
-      <values xsi:type="result:StringValue" value="DEADLINE"/>
-      <values xsi:type="result:StringValue" value="UNKNOWN"/>
-      <values xsi:type="result:StringValue" value="SYNCUNKNOWN"/>
-    </contributors>
-    <contributors>
-      <sourceReference href="../../pullprotocols_stub_i_Instance.aaxl2#//@componentInstance.0/@connectionInstance.0"/>
-      <values xsi:type="result:RealValue"/>
-      <values xsi:type="result:RealValue"/>
-      <values xsi:type="result:RealValue"/>
-      <values xsi:type="result:RealValue"/>
-      <values xsi:type="result:RealValue"/>
-      <values xsi:type="result:RealValue"/>
-      <values xsi:type="result:RealValue"/>
-      <values xsi:type="result:RealValue"/>
-      <values xsi:type="result:RealValue"/>
-      <values xsi:type="result:RealValue"/>
-      <values xsi:type="result:RealValue" value="100.0"/>
-      <values xsi:type="result:StringValue" value="UNKNOWN"/>
-      <values xsi:type="result:StringValue" value="UNKNOWN"/>
-      <values xsi:type="result:StringValue" value="SYNCUNKNOWN"/>
-    </contributors>
-    <contributors>
-      <sourceReference href="../../pullprotocols_stub_i_Instance.aaxl2#//@componentInstance.0/@componentInstance.1"/>
-      <values xsi:type="result:RealValue" value="100.0"/>
-      <values xsi:type="result:RealValue" value="100.0"/>
-      <values xsi:type="result:RealValue"/>
-      <values xsi:type="result:RealValue"/>
-      <values xsi:type="result:RealValue"/>
-      <values xsi:type="result:RealValue"/>
-      <values xsi:type="result:RealValue"/>
-      <values xsi:type="result:RealValue" value="100.0"/>
-      <values xsi:type="result:RealValue" value="100.0"/>
-      <values xsi:type="result:RealValue" value="100.0"/>
-      <values xsi:type="result:RealValue" value="200.0"/>
-      <values xsi:type="result:StringValue" value="DELAYED"/>
-      <values xsi:type="result:StringValue" value="DELAYED"/>
-      <values xsi:type="result:StringValue" value="SYNCUNKNOWN"/>
-      <issues issueType="INFO" message="Min: Sampling period 100.0ms" diagnostic="">
-        <sourceReference href="../../pullprotocols_stub_i_Instance.aaxl2#//@componentInstance.0/@componentInstance.1"/>
-      </issues>
-      <issues issueType="INFO" message="Max: Sampling period 100.0ms" diagnostic="">
-        <sourceReference href="../../pullprotocols_stub_i_Instance.aaxl2#//@componentInstance.0/@componentInstance.1"/>
-      </issues>
-    </contributors>
-    <contributors>
-      <sourceReference href="../../pullprotocols_stub_i_Instance.aaxl2#//@componentInstance.0/@componentInstance.1"/>
-      <values xsi:type="result:RealValue" value="1.0"/>
-      <values xsi:type="result:RealValue" value="1.0"/>
-      <values xsi:type="result:RealValue" value="1.0"/>
-      <values xsi:type="result:RealValue" value="1.0"/>
-      <values xsi:type="result:RealValue"/>
-      <values xsi:type="result:RealValue"/>
-      <values xsi:type="result:RealValue"/>
-      <values xsi:type="result:RealValue"/>
-      <values xsi:type="result:RealValue" value="101.0"/>
-      <values xsi:type="result:RealValue" value="101.0"/>
-      <values xsi:type="result:RealValue" value="201.0"/>
-      <values xsi:type="result:StringValue" value="SPECIFIED"/>
-      <values xsi:type="result:StringValue" value="SPECIFIED"/>
-      <values xsi:type="result:StringValue" value="SYNCUNKNOWN"/>
-    </contributors>
-    <contributors>
-      <sourceReference href="../../pullprotocols_stub_i_Instance.aaxl2#//@componentInstance.0/@connectionInstance.4"/>
-      <values xsi:type="result:RealValue"/>
-      <values xsi:type="result:RealValue"/>
-      <values xsi:type="result:RealValue"/>
-      <values xsi:type="result:RealValue"/>
-      <values xsi:type="result:RealValue"/>
-      <values xsi:type="result:RealValue"/>
-      <values xsi:type="result:RealValue"/>
-      <values xsi:type="result:RealValue"/>
-      <values xsi:type="result:RealValue" value="101.0"/>
-      <values xsi:type="result:RealValue" value="101.0"/>
-      <values xsi:type="result:RealValue" value="201.0"/>
-      <values xsi:type="result:StringValue" value="UNKNOWN"/>
-      <values xsi:type="result:StringValue" value="UNKNOWN"/>
-      <values xsi:type="result:StringValue" value="SYNCUNKNOWN"/>
-    </contributors>
-    <contributors>
-      <sourceReference href="../../pullprotocols_stub_i_Instance.aaxl2#//@componentInstance.0/@componentInstance.0"/>
-      <values xsi:type="result:RealValue"/>
-      <values xsi:type="result:RealValue"/>
-      <values xsi:type="result:RealValue"/>
-      <values xsi:type="result:RealValue"/>
-      <values xsi:type="result:RealValue"/>
-      <values xsi:type="result:RealValue"/>
-      <values xsi:type="result:RealValue"/>
-      <values xsi:type="result:RealValue" value="100.0"/>
-      <values xsi:type="result:RealValue" value="101.0"/>
-      <values xsi:type="result:RealValue" value="101.0"/>
-      <values xsi:type="result:RealValue" value="201.0"/>
-      <values xsi:type="result:StringValue" value="UNKNOWN"/>
-      <values xsi:type="result:StringValue" value="UNKNOWN"/>
-      <values xsi:type="result:StringValue" value="SYNCUNKNOWN"/>
-    </contributors>
-    <contributors>
-      <sourceReference href="../../pullprotocols_stub_i_Instance.aaxl2#//@componentInstance.0/@componentInstance.0"/>
-      <values xsi:type="result:RealValue" value="1.0"/>
-      <values xsi:type="result:RealValue" value="1.0"/>
-      <values xsi:type="result:RealValue" value="1.0"/>
-      <values xsi:type="result:RealValue" value="1.0"/>
-      <values xsi:type="result:RealValue" value="100.0"/>
-      <values xsi:type="result:RealValue"/>
-      <values xsi:type="result:RealValue"/>
-      <values xsi:type="result:RealValue"/>
-      <values xsi:type="result:RealValue" value="102.0"/>
-      <values xsi:type="result:RealValue" value="102.0"/>
-      <values xsi:type="result:RealValue" value="202.0"/>
-      <values xsi:type="result:StringValue" value="SPECIFIED"/>
-      <values xsi:type="result:StringValue" value="SPECIFIED"/>
-      <values xsi:type="result:StringValue" value="SYNCUNKNOWN"/>
-    </contributors>
-    <contributors>
-      <sourceReference href="../../pullprotocols_stub_i_Instance.aaxl2#//@componentInstance.0/@connectionInstance.1"/>
-      <values xsi:type="result:RealValue"/>
-      <values xsi:type="result:RealValue"/>
-      <values xsi:type="result:RealValue"/>
-      <values xsi:type="result:RealValue"/>
-      <values xsi:type="result:RealValue"/>
-      <values xsi:type="result:RealValue"/>
-      <values xsi:type="result:RealValue"/>
-      <values xsi:type="result:RealValue"/>
-      <values xsi:type="result:RealValue" value="102.0"/>
-      <values xsi:type="result:RealValue" value="102.0"/>
-      <values xsi:type="result:RealValue" value="202.0"/>
-      <values xsi:type="result:StringValue" value="UNKNOWN"/>
-      <values xsi:type="result:StringValue" value="UNKNOWN"/>
-      <values xsi:type="result:StringValue" value="SYNCUNKNOWN"/>
-    </contributors>
-    <contributors>
-      <sourceReference href="../../pullprotocols_stub_i_Instance.aaxl2#//@componentInstance.0/@componentInstance.1"/>
-      <values xsi:type="result:RealValue" value="100.0"/>
-      <values xsi:type="result:RealValue" value="100.0"/>
-      <values xsi:type="result:RealValue"/>
-      <values xsi:type="result:RealValue"/>
-      <values xsi:type="result:RealValue"/>
-      <values xsi:type="result:RealValue"/>
-      <values xsi:type="result:RealValue"/>
-      <values xsi:type="result:RealValue" value="100.0"/>
-      <values xsi:type="result:RealValue" value="202.0"/>
-      <values xsi:type="result:RealValue" value="202.0"/>
-      <values xsi:type="result:RealValue" value="302.0"/>
-      <values xsi:type="result:StringValue" value="DELAYED"/>
-      <values xsi:type="result:StringValue" value="DELAYED"/>
-      <values xsi:type="result:StringValue" value="SYNCUNKNOWN"/>
-      <issues issueType="INFO" message="Min: Sampling period 100.0ms" diagnostic="">
-        <sourceReference href="../../pullprotocols_stub_i_Instance.aaxl2#//@componentInstance.0/@componentInstance.1"/>
-      </issues>
-      <issues issueType="INFO" message="Max: Sampling period 100.0ms" diagnostic="">
-        <sourceReference href="../../pullprotocols_stub_i_Instance.aaxl2#//@componentInstance.0/@componentInstance.1"/>
-      </issues>
-    </contributors>
-    <contributors>
-      <sourceReference href="../../pullprotocols_stub_i_Instance.aaxl2#//@componentInstance.0/@componentInstance.1"/>
-      <values xsi:type="result:RealValue" value="1.0"/>
-      <values xsi:type="result:RealValue" value="1.0"/>
-      <values xsi:type="result:RealValue" value="1.0"/>
-      <values xsi:type="result:RealValue" value="1.0"/>
-      <values xsi:type="result:RealValue"/>
-      <values xsi:type="result:RealValue"/>
-      <values xsi:type="result:RealValue"/>
-      <values xsi:type="result:RealValue"/>
-      <values xsi:type="result:RealValue" value="203.0"/>
-      <values xsi:type="result:RealValue" value="203.0"/>
-      <values xsi:type="result:RealValue" value="303.0"/>
-      <values xsi:type="result:StringValue" value="SPECIFIED"/>
-      <values xsi:type="result:StringValue" value="SPECIFIED"/>
-      <values xsi:type="result:StringValue" value="SYNCUNKNOWN"/>
-    </contributors>
-    <contributors>
-      <sourceReference href="../../pullprotocols_stub_i_Instance.aaxl2#//@componentInstance.0/@connectionInstance.5"/>
-      <values xsi:type="result:RealValue"/>
-      <values xsi:type="result:RealValue"/>
-      <values xsi:type="result:RealValue"/>
-      <values xsi:type="result:RealValue"/>
-      <values xsi:type="result:RealValue"/>
-      <values xsi:type="result:RealValue"/>
-      <values xsi:type="result:RealValue"/>
-      <values xsi:type="result:RealValue"/>
-      <values xsi:type="result:RealValue" value="203.0"/>
-      <values xsi:type="result:RealValue" value="203.0"/>
-      <values xsi:type="result:RealValue" value="303.0"/>
-      <values xsi:type="result:StringValue" value="UNKNOWN"/>
-      <values xsi:type="result:StringValue" value="UNKNOWN"/>
-      <values xsi:type="result:StringValue" value="SYNCUNKNOWN"/>
-    </contributors>
-    <contributors>
-      <sourceReference href="../../pullprotocols_stub_i_Instance.aaxl2#//@componentInstance.0/@componentInstance.0"/>
-      <values xsi:type="result:RealValue"/>
-      <values xsi:type="result:RealValue"/>
-      <values xsi:type="result:RealValue"/>
-      <values xsi:type="result:RealValue"/>
-      <values xsi:type="result:RealValue"/>
-      <values xsi:type="result:RealValue"/>
-      <values xsi:type="result:RealValue"/>
-      <values xsi:type="result:RealValue" value="100.0"/>
-      <values xsi:type="result:RealValue" value="203.0"/>
-      <values xsi:type="result:RealValue" value="203.0"/>
-      <values xsi:type="result:RealValue" value="303.0"/>
-      <values xsi:type="result:StringValue" value="UNKNOWN"/>
-      <values xsi:type="result:StringValue" value="UNKNOWN"/>
-      <values xsi:type="result:StringValue" value="SYNCUNKNOWN"/>
-    </contributors>
-    <contributors>
-      <sourceReference href="../../pullprotocols_stub_i_Instance.aaxl2#//@componentInstance.0/@componentInstance.0"/>
-      <values xsi:type="result:RealValue" value="1.0"/>
-      <values xsi:type="result:RealValue" value="1.0"/>
-      <values xsi:type="result:RealValue" value="1.0"/>
-      <values xsi:type="result:RealValue" value="1.0"/>
-      <values xsi:type="result:RealValue" value="100.0"/>
-      <values xsi:type="result:RealValue"/>
-      <values xsi:type="result:RealValue"/>
-      <values xsi:type="result:RealValue"/>
-      <values xsi:type="result:RealValue" value="204.0"/>
-      <values xsi:type="result:RealValue" value="204.0"/>
-      <values xsi:type="result:RealValue" value="304.0"/>
-      <values xsi:type="result:StringValue" value="SPECIFIED"/>
-      <values xsi:type="result:StringValue" value="SPECIFIED"/>
-      <values xsi:type="result:StringValue" value="SYNCUNKNOWN"/>
-    </contributors>
-    <contributors>
-      <sourceReference href="../../pullprotocols_stub_i_Instance.aaxl2#//@componentInstance.0/@connectionInstance.2"/>
-      <values xsi:type="result:RealValue"/>
-      <values xsi:type="result:RealValue"/>
-      <values xsi:type="result:RealValue"/>
-      <values xsi:type="result:RealValue"/>
-      <values xsi:type="result:RealValue"/>
-      <values xsi:type="result:RealValue"/>
-      <values xsi:type="result:RealValue"/>
-      <values xsi:type="result:RealValue"/>
-      <values xsi:type="result:RealValue" value="204.0"/>
-      <values xsi:type="result:RealValue" value="204.0"/>
-      <values xsi:type="result:RealValue" value="304.0"/>
-      <values xsi:type="result:StringValue" value="UNKNOWN"/>
-      <values xsi:type="result:StringValue" value="UNKNOWN"/>
-      <values xsi:type="result:StringValue" value="SYNCUNKNOWN"/>
-    </contributors>
-    <contributors>
-      <sourceReference href="../../pullprotocols_stub_i_Instance.aaxl2#//@componentInstance.0/@componentInstance.1"/>
-      <values xsi:type="result:RealValue" value="100.0"/>
-      <values xsi:type="result:RealValue" value="100.0"/>
-      <values xsi:type="result:RealValue"/>
-      <values xsi:type="result:RealValue"/>
-      <values xsi:type="result:RealValue"/>
-      <values xsi:type="result:RealValue"/>
-      <values xsi:type="result:RealValue"/>
-      <values xsi:type="result:RealValue" value="100.0"/>
-      <values xsi:type="result:RealValue" value="304.0"/>
-      <values xsi:type="result:RealValue" value="304.0"/>
-      <values xsi:type="result:RealValue" value="404.0"/>
-      <values xsi:type="result:StringValue" value="DELAYED"/>
-      <values xsi:type="result:StringValue" value="DELAYED"/>
-      <values xsi:type="result:StringValue" value="SYNCUNKNOWN"/>
-      <issues issueType="INFO" message="Min: Sampling period 100.0ms" diagnostic="">
-        <sourceReference href="../../pullprotocols_stub_i_Instance.aaxl2#//@componentInstance.0/@componentInstance.1"/>
-      </issues>
-      <issues issueType="INFO" message="Max: Sampling period 100.0ms" diagnostic="">
-        <sourceReference href="../../pullprotocols_stub_i_Instance.aaxl2#//@componentInstance.0/@componentInstance.1"/>
-      </issues>
-    </contributors>
-    <contributors>
-      <sourceReference href="../../pullprotocols_stub_i_Instance.aaxl2#//@componentInstance.0/@componentInstance.1"/>
-      <values xsi:type="result:RealValue"/>
-      <values xsi:type="result:RealValue" value="100.0"/>
-      <values xsi:type="result:RealValue"/>
-      <values xsi:type="result:RealValue"/>
-      <values xsi:type="result:RealValue"/>
-      <values xsi:type="result:RealValue"/>
-      <values xsi:type="result:RealValue"/>
-      <values xsi:type="result:RealValue"/>
-      <values xsi:type="result:RealValue" value="304.0"/>
-      <values xsi:type="result:RealValue" value="304.0"/>
-      <values xsi:type="result:RealValue" value="504.0"/>
-      <values xsi:type="result:StringValue" value="DEADLINE"/>
-      <values xsi:type="result:StringValue" value="UNKNOWN"/>
-      <values xsi:type="result:StringValue" value="SYNCUNKNOWN"/>
-    </contributors>
-  </subResults>
-</result:Result>
-
-
-
-	'''
 
 }
