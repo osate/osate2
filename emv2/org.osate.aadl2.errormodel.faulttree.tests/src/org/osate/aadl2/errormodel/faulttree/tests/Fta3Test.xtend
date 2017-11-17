@@ -17,7 +17,7 @@ import static org.junit.Assert.*
 
 @RunWith(typeof(XtextRunner))
 @InjectWith(typeof(ErrorModelUiInjectorProvider))
-class Emfta3Test extends OsateTest {
+class Fta3Test extends OsateTest {
 	override getProjectName() {
 		"test3"
 	}
