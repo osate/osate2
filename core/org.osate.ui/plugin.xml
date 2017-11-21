@@ -302,6 +302,7 @@
           </separator>
           <command
                 commandId="org.osate.ui.instantiate">
+             <visibleWhen checkEnabled="true"/>
           </command>
           <menu
                 id="org.osate.ui.analysesOutlinePopup"
@@ -344,6 +345,9 @@
           <command
                 commandId="org.osate.ui.instantiate"
                 label="Reinstantiate">
+             <visibleWhen
+                   checkEnabled="true">
+             </visibleWhen>
           </command>
           <command
                 commandId="org.osate.ui.setAadlProjectProperties">
@@ -776,6 +780,22 @@
        <handler
              class="org.osate.ui.handlers.InstantiateHandler"
              commandId="org.osate.ui.instantiate">
+         <enabledWhen>
+            <with
+                  variable="selection">
+               <and>
+                  <count
+                        value="1">
+                  </count>
+                  <iterate>
+                  	 <or>
+	                     <instanceof value="org.osate.aadl2.ComponentImplementation"/>
+	                     <test property="org.osate.ui.superType" value="ComponentImplementation"/>
+	                 </or>
+                  </iterate>
+               </and>
+            </with>
+         </enabledWhen>
        </handler>
        <handler
              class="org.osate.ui.handlers.ReinstantiateAadl"
@@ -801,6 +821,14 @@
              namespace="org.osate.ui"
              properties="name"
              type="org.osate.xtext.aadl2.ui.resource.ContributedAadlStorage">
+       </propertyTester>
+       
+       <propertyTester
+       		class="org.osate.ui.handlers.EObjectNodeAadlSuperTypePropertyTester"
+            id="org.osate.ui.EObjectSuperTypePropertyTester"
+            namespace="org.osate.ui"
+            properties="superType"
+            type="org.eclipse.xtext.ui.editor.outline.impl.EObjectNode">
        </propertyTester>
     </extension>
 </plugin>

@@ -349,8 +349,8 @@ public class InstanceGrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cRightCurlyBracketKeyword_7_2 = (Keyword)cGroup_7.eContents().get(2);
 		
 		//ComponentInstance instance::ComponentInstance:
-		//	category=ComponentCategory classifier=[aadl2::ComponentClassifier|ClassifierRef]? name=ID ('[' index+=Long ']')* ('in'
-		//	'modes' '(' inMode+=[instance::ModeInstance] (',' inMode+=[instance::ModeInstance])* ')')?
+		//	category=ComponentCategory classifier=[aadl2::ComponentClassifier|ClassifierRef]? name=ID ('[' index+=Long ']')*
+		//	('in' 'modes' '(' inMode+=[instance::ModeInstance] (',' inMode+=[instance::ModeInstance])* ')')?
 		//	':' subcomponent=[aadl2::Subcomponent|DeclarativeRef] ('{' (featureInstance+=FeatureInstance |
 		//	componentInstance+=ComponentInstance | connectionInstance+=ConnectionInstance |
 		//	flowSpecification+=FlowSpecificationInstance | endToEndFlow+=EndToEndFlowInstance | modeInstance+=ModeInstance |
@@ -893,8 +893,8 @@ public class InstanceGrammarAccess extends AbstractGrammarElementFinder {
 		//inMode+=[instance::ModeInstance])* ')')? ('in' 'transitions' '('
 		//inModeTransition+=[instance::ModeTransitionInstance|TransitionRef] (','
 		//inModeTransition+=[instance::ModeTransitionInstance|TransitionRef])* ')')? ':'
-		//flowSpecification=[aadl2::FlowSpecification|DeclarativeRef] ('{' ownedPropertyAssociation+=PropertyAssociationInstance+
-		//'}')?
+		//flowSpecification=[aadl2::FlowSpecification|DeclarativeRef] ('{'
+		//ownedPropertyAssociation+=PropertyAssociationInstance+ '}')?
 		public Group getGroup() { return cGroup; }
 
 		//'flow'
@@ -2544,8 +2544,8 @@ public class InstanceGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//ComponentInstance instance::ComponentInstance:
-	//	category=ComponentCategory classifier=[aadl2::ComponentClassifier|ClassifierRef]? name=ID ('[' index+=Long ']')* ('in'
-	//	'modes' '(' inMode+=[instance::ModeInstance] (',' inMode+=[instance::ModeInstance])* ')')?
+	//	category=ComponentCategory classifier=[aadl2::ComponentClassifier|ClassifierRef]? name=ID ('[' index+=Long ']')*
+	//	('in' 'modes' '(' inMode+=[instance::ModeInstance] (',' inMode+=[instance::ModeInstance])* ')')?
 	//	':' subcomponent=[aadl2::Subcomponent|DeclarativeRef] ('{' (featureInstance+=FeatureInstance |
 	//	componentInstance+=ComponentInstance | connectionInstance+=ConnectionInstance |
 	//	flowSpecification+=FlowSpecificationInstance | endToEndFlow+=EndToEndFlowInstance | modeInstance+=ModeInstance |
