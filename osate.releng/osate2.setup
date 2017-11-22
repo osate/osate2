@@ -569,6 +569,9 @@
           name="org.eclipse.xtext.sdk.feature.group"
           versionRange="[2.12.0,2.13.0)"/>
       <requirement
+          name="com.itemis.xtext.testing.feature.feature.group"
+          versionRange="[0.2.0,1.0.0)"/>
+      <requirement
           name="de.itemis.xtext.antlr.feature.feature.group"/>
       <requirement
           name="de.itemis.xtext.antlr.sdk.feature.group"/>
@@ -605,6 +608,8 @@
           url="http://download.eclipse.org/releases/oxygen/201709271000"/>
       <repository
           url="http://repo1.maven.org/maven2/.m2e/connectors/m2eclipse-tycho/0.9.0/N/0.9.0.201609252021/"/>
+      <repository
+          url="https://dl.bintray.com/itemis/generic/xtext-testing/updates/"/>
     </setupTask>
   </setupTask>
   <setupTask
