@@ -52,7 +52,7 @@ import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.OperationCanceledException;
 import org.eclipse.core.runtime.Path;
-import org.eclipse.core.runtime.SubProgressMonitor;
+import org.eclipse.core.runtime.SubMonitor;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.jface.dialogs.ErrorDialog;
 import org.eclipse.jface.dialogs.MessageDialog;
@@ -92,8 +92,6 @@ import org.eclipse.xtext.nodemodel.util.NodeModelUtils;
 import org.eclipse.xtext.resource.XtextResource;
 import org.eclipse.xtext.ui.editor.XtextEditor;
 import org.eclipse.xtext.util.concurrent.IUnitOfWork;
-import org.osate.aadl2.Aadl2Factory;
-import org.osate.aadl2.Aadl2Package;
 import org.osate.ui.OsateUiPlugin;
 import org.osate.workspace.IResourceUtility;
 import org.osate.workspace.WorkspacePlugin;
@@ -110,15 +108,6 @@ public class NewModelWizard extends Wizard implements INewWizard {
 	}
 
 	private static final String[] HIDE_FOLDERS = { "instances", "diagrams", "imv" };
-	/**
-	 * This caches an instance of the model package.
-	 */
-	private Aadl2Package aadl2Package = Aadl2Package.eINSTANCE;
-
-	/**
-	 * This caches an instance of the model factory.
-	 */
-	private Aadl2Factory aadl2Factory = aadl2Package.getAadl2Factory();
 
 	/**
 	 * This is the only page of the wizard.  Instantiated in addPages and accessed
@@ -135,14 +124,12 @@ public class NewModelWizard extends Wizard implements INewWizard {
 	 * Selected project in the package explorer.  This will become the selected project
 	 * in the wizard's page.
 	 */
-//	private IProject project = null;
 	private IContainer projectFolder = null;
 	private ObjectType initialObjectType = ObjectType.AADL_PACKAGE;
 
 	/**
 	 * This just records the information.
 	 */
-//	@Override
 	@Override
 	public void init(IWorkbench workbench, IStructuredSelection selection) {
 		this.workbench = workbench;
@@ -215,17 +202,13 @@ public class NewModelWizard extends Wizard implements INewWizard {
 		WorkspaceModifyOperation operation = new WorkspaceModifyOperation() {
 			@Override
 			protected void execute(IProgressMonitor monitor) throws CoreException {
-				try {
-					monitor.beginTask("Creating", 2000);
-					ContainerGenerator generator = new ContainerGenerator(sourcePath.removeLastSegments(1));
-					generator.generateContainer(new SubProgressMonitor(monitor, 1000));
-					newFile.create(initialContents, false, monitor);
-					IResourceUtility.setGenerated(newFile, false);
-					if (monitor.isCanceled()) {
-						throw new OperationCanceledException();
-					}
-				} finally {
-					monitor.done();
+				SubMonitor subMonitor = SubMonitor.convert(monitor, "Creating", 2000);
+				ContainerGenerator generator = new ContainerGenerator(sourcePath.removeLastSegments(1));
+				generator.generateContainer(subMonitor.split(1000));
+				newFile.create(initialContents, false, subMonitor);
+				IResourceUtility.setGenerated(newFile, false);
+				if (subMonitor.isCanceled()) {
+					throw new OperationCanceledException();
 				}
 			}
 		};
@@ -339,7 +322,6 @@ public class NewModelWizard extends Wizard implements INewWizard {
 			this.initialObjectType = initialObjectType;
 		}
 
-//		@Override
 		@Override
 		public void createControl(Composite parent) {
 			createAndLayoutWidgets(parent);
@@ -573,7 +555,6 @@ public class NewModelWizard extends Wizard implements INewWizard {
 			wizardPage.setPageComplete(wizardPage.isPageComplete());
 		}
 
-//		@Override
 		@Override
 		public void modifyText(ModifyEvent e) {
 			wizardPage.setPageComplete(wizardPage.isPageComplete());
