@@ -33,12 +33,10 @@
  */
 package org.osate.ui.wizards;
 
-import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.StringTokenizer;
 
 import org.eclipse.core.resources.IContainer;
 import org.eclipse.core.resources.IFile;
@@ -62,15 +60,9 @@ import org.eclipse.jface.viewers.TreeViewer;
 import org.eclipse.jface.wizard.Wizard;
 import org.eclipse.jface.wizard.WizardPage;
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.events.ModifyEvent;
-import org.eclipse.swt.events.ModifyListener;
-import org.eclipse.swt.events.SelectionAdapter;
-import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
-import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
-import org.eclipse.swt.widgets.Group;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.swt.widgets.TreeItem;
@@ -102,18 +94,16 @@ import org.osate.workspace.WorkspacePlugin;
  *
  * @author jseibel
  */
-public class NewModelWizard extends Wizard implements INewWizard {
-	public static enum ObjectType {
-		AADL_PACKAGE, AADL_PROPERTY_SET
-	}
-
+abstract class NewModelWizard extends Wizard implements INewWizard {
 	private static final String[] HIDE_FOLDERS = { "instances", "diagrams", "imv" };
+
+	private final String fileTypeLabel;
 
 	/**
 	 * This is the only page of the wizard.  Instantiated in addPages and accessed
 	 * in performFinish.
 	 */
-	private NewModelWizardNewObjectCreationPage newObjectCreationPage = null;
+	protected NewModelWizardNewObjectCreationPage newObjectCreationPage = null;
 
 	/**
 	 * Remember the workbench during initialization.
@@ -125,13 +115,16 @@ public class NewModelWizard extends Wizard implements INewWizard {
 	 * in the wizard's page.
 	 */
 	private IContainer projectFolder = null;
-	private ObjectType initialObjectType = ObjectType.AADL_PACKAGE;
+
+	protected NewModelWizard(String fileTypeLabel) {
+		this.fileTypeLabel = fileTypeLabel;
+	}
 
 	/**
 	 * This just records the information.
 	 */
 	@Override
-	public void init(IWorkbench workbench, IStructuredSelection selection) {
+	public final void init(IWorkbench workbench, IStructuredSelection selection) {
 		this.workbench = workbench;
 		if (selection != null) {
 			Object selectedElement = selection.getFirstElement();
@@ -146,15 +139,8 @@ public class NewModelWizard extends Wizard implements INewWizard {
 				}
 			}
 		}
-		setWindowTitle("New AADL Package or Property Set");
+		setWindowTitle("New AADL " + fileTypeLabel);
 		setDefaultPageImageDescriptor(OsateUiPlugin.getImageDescriptor("icons/NewAadl2.gif"));
-	}
-
-	/**
-	 * Specifies which radio button should be selected when the wizard page is displayed.
-	 */
-	public void setInitialObjectType(ObjectType initialObjectType) {
-		this.initialObjectType = initialObjectType;
 	}
 
 	/**
@@ -162,7 +148,7 @@ public class NewModelWizard extends Wizard implements INewWizard {
 	 * Generates the appropriate files with the appropriate code within.
 	 */
 	@Override
-	public boolean performFinish() {
+	public final boolean performFinish() {
 		return addAadlSource(newObjectRelativePath());
 	}
 
@@ -282,76 +268,28 @@ public class NewModelWizard extends Wizard implements INewWizard {
 		return result;
 	}
 
-	private InputStream getInitialSourceContents() {
-		String contents = null;
-		String newLine = System.lineSeparator();
-
-		if (newObjectCreationPage.getObjectType().equals(ObjectType.AADL_PACKAGE)) {
-			contents = "package " + newObjectCreationPage.getNewObjectName() + newLine + "public" + newLine + "\t"
-					+ newLine + "end " + newObjectCreationPage.getNewObjectName() + ";";
-		} else {
-			contents = "property set " + newObjectCreationPage.getNewObjectName() + " is" + newLine + "\t" + newLine
-					+ "end " + newObjectCreationPage.getNewObjectName() + ";";
-		}
-		return new ByteArrayInputStream(contents.getBytes());
-	}
+	protected abstract InputStream getInitialSourceContents();
 
 	/**
 	 * Allows the user to select options for the new aadl file.  The user can specify which
-	 * project the new file should be in, the name of the new file, whether the new file is
-	 * text or object, and whether the new file is a package or property set.
+	 * project the new file should be in and the name of the new file.
 	 */
-	private class NewModelWizardNewObjectCreationPage extends WizardPage {
-		/**
-		 * Specifies which radio button should be selected when the page is shown.
-		 */
-		private ObjectType initialObjectType = ObjectType.AADL_PACKAGE;
-
-		// All buttons are radio buttons.
-		private Button aadlPackageButton = null;
-		private Button aadlPropertySetButton = null;
+	protected class NewModelWizardNewObjectCreationPage extends WizardPage {
 		private Text nameTextField = null;
 		private TreeViewer folderViewer = null;
 
-		/**
-		 * initialObjectType specifies which radio button will be selected when the page is shown.
-		 */
-		public NewModelWizardNewObjectCreationPage(String pageName, ObjectType initialObjectType) {
-			super(pageName, "New AADL Package or Property Set", null);
-			setDescription("Create a new AADL Package or Property set.");
-			this.initialObjectType = initialObjectType;
+		public NewModelWizardNewObjectCreationPage(String pageName) {
+			super(pageName, "New AADL " + fileTypeLabel, null);
+			setDescription("Create a new AADL " + fileTypeLabel + '.');
 		}
 
 		@Override
 		public void createControl(Composite parent) {
-			createAndLayoutWidgets(parent);
-			ButtonAndTextListener listener = new ButtonAndTextListener(this);
-			aadlPackageButton.addSelectionListener(listener);
-			aadlPropertySetButton.addSelectionListener(listener);
-			if (nameTextField != null) {
-				nameTextField.addModifyListener(listener);
-			}
-		}
-
-		private void createAndLayoutWidgets(Composite parent) {
 			PageBook pageBook = new PageBook(parent, SWT.NONE);
 
 			Composite composite = new Composite(pageBook, SWT.NONE);
 			composite.setSize(parent.getSize());
 			composite.setLayout(new GridLayout());
-
-			Group objectTypeGroup = new Group(composite, SWT.NONE);
-			objectTypeGroup.setLayout(new GridLayout());
-			objectTypeGroup.setText("AADL File Type");
-			objectTypeGroup.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false));
-
-			aadlPackageButton = new Button(objectTypeGroup, SWT.RADIO);
-			aadlPackageButton.setText("AADL Package");
-			aadlPackageButton.setLayoutData(new GridData(SWT.LEFT, SWT.CENTER, false, false));
-
-			aadlPropertySetButton = new Button(objectTypeGroup, SWT.RADIO);
-			aadlPropertySetButton.setText("AADL Property Set");
-			aadlPropertySetButton.setLayoutData(new GridData(SWT.LEFT, SWT.CENTER, false, false));
 
 			GridData layoutData = new GridData(SWT.FILL, SWT.CENTER, true, false);
 
@@ -406,7 +344,7 @@ public class NewModelWizard extends Wizard implements INewWizard {
 			TreeItem[] treeItems = folderViewer.getTree().getItems();
 			int treeItemsLength = treeItems.length;
 			Label nameFieldLabel = new Label(composite, SWT.NONE);
-			nameFieldLabel.setText("Enter the new Aadl Package or Property Set name:");
+			nameFieldLabel.setText("Enter the new Aadl " + fileTypeLabel + " name:");
 			layoutData = new GridData(SWT.LEFT, SWT.CENTER, false, false);
 			layoutData.verticalIndent = 15;
 			nameFieldLabel.setLayoutData(layoutData);
@@ -414,6 +352,7 @@ public class NewModelWizard extends Wizard implements INewWizard {
 			nameTextField = new Text(composite, SWT.BORDER);
 			nameTextField.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false));
 			nameTextField.setFocus();
+			nameTextField.addModifyListener(e -> setPageComplete(isPageComplete()));
 
 			if (projectFolder != null) {
 				folderViewer.setSelection(new StructuredSelection(projectFolder), true);
@@ -426,23 +365,13 @@ public class NewModelWizard extends Wizard implements INewWizard {
 				}
 			}
 			folderViewer.getTree().setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
-			switch (initialObjectType) {
-			case AADL_PACKAGE:
-				aadlPackageButton.setSelection(true);
-				break;
-			case AADL_PROPERTY_SET:
-				aadlPropertySetButton.setSelection(true);
-				break;
-			default:
-				throw new AssertionError(initialObjectType.name() + " is not a recognized enum literal.");
-			}
 
 			Composite noProjectComposite = new Composite(pageBook, SWT.NONE);
 			noProjectComposite.setSize(parent.getSize());
 			noProjectComposite.setLayout(new GridLayout());
 			Label noProjectLabel = new Label(noProjectComposite, SWT.NONE);
-			noProjectLabel.setText(
-					"The workspace contains no projects. Before an Aadl Package or Property Set can be created you must first create a project.");
+			noProjectLabel.setText("The workspace contains no projects. Before an Aadl " + fileTypeLabel
+					+ " can be created you must first create a project.");
 			if (treeItemsLength < 1) {
 				pageBook.showPage(noProjectComposite);
 			} else {
@@ -461,20 +390,12 @@ public class NewModelWizard extends Wizard implements INewWizard {
 			}
 		}
 
-		public IContainer getSelectedProjectOrFolder() {
+		private IContainer getSelectedProjectOrFolder() {
 			return (IContainer) ((IStructuredSelection) folderViewer.getSelection()).getFirstElement();
 		}
 
-		public String getNewObjectName() {
+		protected String getNewObjectName() {
 			return nameTextField.getText();
-		}
-
-		public ObjectType getObjectType() {
-			if (aadlPackageButton.getSelection()) {
-				return ObjectType.AADL_PACKAGE;
-			} else {
-				return ObjectType.AADL_PROPERTY_SET;
-			}
 		}
 
 		/**
@@ -488,49 +409,9 @@ public class NewModelWizard extends Wizard implements INewWizard {
 				// a new Aadl file must have a name.
 				setErrorMessage(null);
 				return false;
-			} else if (aadlPackageButton.getSelection()) {
-				if (nameTextField.getText().startsWith(":")) {
-					setErrorMessage("Package path must start with an identifier.");
-					return false;
-				} else if (nameTextField.getText().endsWith(":")) {
-					setErrorMessage("Package path must end with an identifier.");
-					return false;
-				}
-				int startingIndex = 0;
-				for (int i = 1; i < nameTextField.getText().length() - 1; i++) {
-					if ((nameTextField.getText().charAt(i) == ':') && (nameTextField.getText().charAt(i - 1) != ':')) {
-						startingIndex = i;
-					}
-					if ((nameTextField.getText().charAt(i) == ':') && (nameTextField.getText().charAt(i + 1) != ':')
-							&& (i - startingIndex != 1)) {
-						setErrorMessage("Use two colons(::) to separate identifiers in the package path.");
-						return false;
-					}
-				}
-				StringTokenizer tokenizer = new StringTokenizer(nameTextField.getText(), "::");
-				while (tokenizer.hasMoreTokens()) {
-					if (!validateIdentifier(tokenizer.nextToken())) {
-						return false;
-					}
-				}
-				return true;
 			} else {
-				return validateIdentifier(nameTextField.getText());
+				return validateName(nameTextField.getText());
 			}
-		}
-
-		private boolean validateIdentifier(String identifier) {
-			if (!Character.isLetter(identifier.charAt(0))) {
-				setErrorMessage("Identifier must start with a letter.");
-				return false;
-			}
-			for (int i = 1; i < identifier.length(); i++) {
-				if (!(Character.isLetterOrDigit(identifier.charAt(i)) || identifier.charAt(i) == '_')) {
-					setErrorMessage("Identifier can only contain letters, digits, and the underscore character.");
-					return false;
-				}
-			}
-			return true;
 		}
 
 		private boolean fileExists() {
@@ -543,30 +424,29 @@ public class NewModelWizard extends Wizard implements INewWizard {
 		}
 	}
 
-	private static class ButtonAndTextListener extends SelectionAdapter implements ModifyListener {
-		private final WizardPage wizardPage;
+	protected abstract boolean validateName(String name);
 
-		public ButtonAndTextListener(final WizardPage wp) {
-			wizardPage = wp;
+	protected final boolean validateIdentifier(String identifier) {
+		if (!Character.isLetter(identifier.charAt(0))) {
+			newObjectCreationPage.setErrorMessage("Identifier must start with a letter.");
+			return false;
 		}
-
-		@Override
-		public void widgetSelected(SelectionEvent e) {
-			wizardPage.setPageComplete(wizardPage.isPageComplete());
+		for (int i = 1; i < identifier.length(); i++) {
+			if (!(Character.isLetterOrDigit(identifier.charAt(i)) || identifier.charAt(i) == '_')) {
+				newObjectCreationPage
+						.setErrorMessage("Identifier can only contain letters, digits, and the underscore character.");
+				return false;
+			}
 		}
-
-		@Override
-		public void modifyText(ModifyEvent e) {
-			wizardPage.setPageComplete(wizardPage.isPageComplete());
-		}
+		return true;
 	}
 
 	/**
 	 * The framework calls this to create the contents of the wizard.
 	 */
 	@Override
-	public void addPages() {
-		newObjectCreationPage = new NewModelWizardNewObjectCreationPage("New Object", initialObjectType);
+	public final void addPages() {
+		newObjectCreationPage = new NewModelWizardNewObjectCreationPage("New Object");
 		addPage(newObjectCreationPage);
 	}
 }

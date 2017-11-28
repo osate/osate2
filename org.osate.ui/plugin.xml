@@ -38,17 +38,27 @@
                class="org.eclipse.core.resources.IResource">
          </selection>
       </wizard>
-       <wizard
-            id="org.osate.ui.wizards.NewModelWizardID"
-            name="%_UI_CoreModelWizard_label"
-            icon="icons/aadl.gif"
+      <wizard
+            id="org.osate.ui.NewAadlPackageWizard"
+            name="AADL Package"
+            icon="icons/new_package.gif"
             category="org.osate.Wizard.category.ID"
-            class="org.osate.ui.wizards.NewModelWizard"
-                   preferredPerspectives="org.osate.ui.perspective.AadlPerspective"
-            finalPerspective="org.osate.ui.perspective.AadlPerspective"
-            >
+            class="org.osate.ui.wizards.NewAadlPackageWizard">
          <description>
-            %_UI_CoreModelWizard_description
+            Create a new AADL package
+         </description>
+         <selection
+               class="org.eclipse.core.resources.IResource">
+         </selection>
+      </wizard>
+      <wizard
+            id="org.osate.ui.NewPropertySetWizard"
+            name="AADL Property Set"
+            icon="icons/new_ps.gif"
+            category="org.osate.Wizard.category.ID"
+            class="org.osate.ui.wizards.NewPropertySetWizard">
+         <description>
+            Create a new AADL property set
          </description>
          <selection
                class="org.eclipse.core.resources.IResource">
