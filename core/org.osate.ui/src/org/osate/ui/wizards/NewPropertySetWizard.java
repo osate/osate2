@@ -31,14 +31,34 @@
  * under the contract clause at 252.227.7013.
  * </copyright>
  */
-package org.osate.ui.handlers;
+package org.osate.ui.wizards;
 
-import org.eclipse.ui.IWorkbenchWizard;
-import org.osate.ui.wizards.NewAadlPackageWizard;
+import java.io.ByteArrayInputStream;
+import java.io.InputStream;
 
-public class NewPackageWizardHandler extends NewModelWizardLauncherHandler {
+/**
+ * This is a simple wizard for creating a new model file.
+ * It is based on edu.cmu.sei.aadl.model.core.presentation.CoreModelWizard from OSATE 1.
+ *
+ * @author jseibel
+ */
+public class NewPropertySetWizard extends NewModelWizard {
+	public NewPropertySetWizard() {
+		super("Property Set");
+	}
+
 	@Override
-	protected IWorkbenchWizard createWizard() {
-		return new NewAadlPackageWizard();
+	protected InputStream getInitialSourceContents() {
+		String contents = null;
+		String newLine = System.lineSeparator();
+
+		contents = "property set " + newObjectCreationPage.getNewObjectName() + " is" + newLine + "\t" + newLine
+				+ "end " + newObjectCreationPage.getNewObjectName() + ";";
+		return new ByteArrayInputStream(contents.getBytes());
+	}
+
+	@Override
+	protected boolean validateName(String name) {
+		return validateIdentifier(name);
 	}
 }
