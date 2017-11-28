@@ -31,14 +31,59 @@
  * under the contract clause at 252.227.7013.
  * </copyright>
  */
-package org.osate.ui.handlers;
+package org.osate.ui.wizards;
 
-import org.eclipse.ui.IWorkbenchWizard;
-import org.osate.ui.wizards.NewAadlPackageWizard;
+import java.io.ByteArrayInputStream;
+import java.io.InputStream;
+import java.util.StringTokenizer;
 
-public class NewPackageWizardHandler extends NewModelWizardLauncherHandler {
+/**
+ * This is a simple wizard for creating a new model file.
+ * It is based on edu.cmu.sei.aadl.model.core.presentation.CoreModelWizard from OSATE 1.
+ *
+ * @author jseibel
+ */
+public class NewAadlPackageWizard extends NewModelWizard {
+	public NewAadlPackageWizard() {
+		super("Package");
+	}
+
 	@Override
-	protected IWorkbenchWizard createWizard() {
-		return new NewAadlPackageWizard();
+	protected InputStream getInitialSourceContents() {
+		String contents = null;
+		String newLine = System.lineSeparator();
+
+		contents = "package " + newObjectCreationPage.getNewObjectName() + newLine + "public" + newLine + "\t" + newLine
+				+ "end " + newObjectCreationPage.getNewObjectName() + ";";
+		return new ByteArrayInputStream(contents.getBytes());
+	}
+
+	@Override
+	protected boolean validateName(String name) {
+		if (name.startsWith(":")) {
+			newObjectCreationPage.setErrorMessage("Package path must start with an identifier.");
+			return false;
+		} else if (name.endsWith(":")) {
+			newObjectCreationPage.setErrorMessage("Package path must end with an identifier.");
+			return false;
+		}
+		int startingIndex = 0;
+		for (int i = 1; i < name.length() - 1; i++) {
+			if ((name.charAt(i) == ':') && (name.charAt(i - 1) != ':')) {
+				startingIndex = i;
+			}
+			if ((name.charAt(i) == ':') && (name.charAt(i + 1) != ':') && (i - startingIndex != 1)) {
+				newObjectCreationPage
+						.setErrorMessage("Use two colons(::) to separate identifiers in the package path.");
+				return false;
+			}
+		}
+		StringTokenizer tokenizer = new StringTokenizer(name, "::");
+		while (tokenizer.hasMoreTokens()) {
+			if (!validateIdentifier(tokenizer.nextToken())) {
+				return false;
+			}
+		}
+		return true;
 	}
 }
