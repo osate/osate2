@@ -165,6 +165,24 @@
               </instanceof>
            </enablement>
         </actionProvider>
+         <commonWizard
+               type="new"
+               wizardId="org.osate.ui.NewAadlPackageWizard">
+            <enablement>
+               <adapt
+                     type="org.eclipse.core.resources.IResource">
+               </adapt>
+            </enablement>
+         </commonWizard>
+         <commonWizard
+               type="new"
+               wizardId="org.osate.ui.NewPropertySetWizard">
+            <enablement>
+               <adapt
+                     type="org.eclipse.core.resources.IResource">
+               </adapt>
+            </enablement>
+         </commonWizard>
       </navigatorContent>
    </extension>
    
