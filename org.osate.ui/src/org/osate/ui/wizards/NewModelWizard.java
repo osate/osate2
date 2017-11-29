@@ -95,7 +95,7 @@ import org.osate.workspace.WorkspacePlugin;
  * @author jseibel
  */
 abstract class NewModelWizard extends Wizard implements INewWizard {
-	private static final String[] HIDE_FOLDERS = { "instances", "diagrams", "imv" };
+	private static final String[] HIDE_FOLDERS = { ".aadlbin-gen", ".settings", "instances", "diagrams", "imv" };
 
 	private final String fileTypeLabel;
 
