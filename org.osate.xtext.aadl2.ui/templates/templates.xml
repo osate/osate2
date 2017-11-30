@@ -63,7 +63,7 @@ end ${name};</template>
 <template autoinsert="true" context="org.osate.xtext.aadl2.Aadl2.AbstractFeature" deleted="false" description="Feature" enabled="true" name="Feature" id="Feature">${name}: ${direction:Enum('DirectionType')} feature ${featurePrototype:CrossReference('AbstractFeature.featurePrototype')};</template>
 <template autoinsert="true" context="org.osate.xtext.aadl2.Aadl2.DataPort" deleted="false" description="Data Port" enabled="true" name="DataPort" id="DataPort">${name}: ${direction:Enum('DirectionType')} data port ${dataClassifier:CrossReference('DataPort.dataClassifier')};</template>
 
-<template autoinsert="true" context="org.osate.xtext.aadl2.Aadl2.DataImplementation" deleted="false" description="Data Implementation" enabled="true" name="DataImplementation" id="DeviceImplementation">data implementation ${name}&#13;
+<template autoinsert="true" context="org.osate.xtext.aadl2.Aadl2.DataImplementation" deleted="false" description="Data Implementation" enabled="true" name="DataImplementation" id="DataImplementation">data implementation ${name}&#13;
 	subcomponents&#13;
 		${cursor}&#13;
 	connections&#13;
