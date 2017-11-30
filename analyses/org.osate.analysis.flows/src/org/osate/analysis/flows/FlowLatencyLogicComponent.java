@@ -56,13 +56,19 @@ public class FlowLatencyLogicComponent {
 		 */
 		boolean checkLastImmediate = false;
 		if (period > 0
-				&& (InstanceModelUtil.isThread(componentInstance) || InstanceModelUtil.isDevice(componentInstance))
-				? (!InstanceModelUtil.isSporadicComponent(componentInstance)
-						&& !InstanceModelUtil.isTimedComponent(componentInstance))
-						: true) {
-			// period is set, and if thread or device needs to be dispatched as periodic
+				&& ((InstanceModelUtil.isThread(componentInstance) || InstanceModelUtil.isDevice(componentInstance)
+						|| InstanceModelUtil.isAbstract(componentInstance))
+						? (!InstanceModelUtil.isSporadicComponent(componentInstance)
+								&& !InstanceModelUtil.isTimedComponent(componentInstance)
+								&& !InstanceModelUtil.isAperiodicComponent(componentInstance))
+								: true)) {
+			// period is set, and if thread, abstract, or device needs to be dispatched as periodic
 			LatencyContributorComponent samplingLatencyContributor = new LatencyContributorComponent(componentInstance);
 			samplingLatencyContributor.setSamplingPeriod(period);
+			if ((InstanceModelUtil.isThread(componentInstance) || InstanceModelUtil.isDevice(componentInstance))
+					&& !GetProperties.hasAssignedPropertyValue(componentInstance, "Dispatch_Protocol")) {
+				samplingLatencyContributor.reportInfo("Assume Periodic dispatch because period is set");
+			}
 			if (FlowLatencyUtil.isPreviousConnectionDelayed(etef, flowElementInstance)) {
 				samplingLatencyContributor.setBestCaseMethod(LatencyContributorMethod.DELAYED);
 				samplingLatencyContributor.setWorstCaseMethod(LatencyContributorMethod.DELAYED);
