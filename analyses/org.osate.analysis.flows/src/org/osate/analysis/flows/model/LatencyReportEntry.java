@@ -219,11 +219,20 @@ public class LatencyReportEntry {
 				} else if (((doSynchronous() && isPreviousConnectionSyncUnknown(lc))
 						|| isPreviousConnectionSynchronous(lc)) && wasSampled()) {
 					// there was a previous sampling component. We can to the roundup game.
-					double diff = FlowLatencyUtil.roundUpDiff(getCumLatency(lc, doMaximum), lc.getSamplingPeriod());
+					// We do this only for maximum. For minimum we assume no sampling delay.
+					double diff = 0.0;
+					if (doMaximum) {
+						diff = FlowLatencyUtil.roundUpDiff(getCumLatency(lc, doMaximum), lc.getSamplingPeriod());
+					}
 					res = res + diff;
 					lc.setActualValue(diff, doMaximum);
 					lc.reportSubtotal(res, doMaximum);
-					lc.reportInfo(doMaximum, "Round up to sampling period " + lc.getSamplingPeriod() + "ms");
+					if (doMaximum) {
+						lc.reportInfo(doMaximum,
+								"Worst case: Round up sampling delay to period " + lc.getSamplingPeriod() + "ms");
+					} else {
+						lc.reportInfo(doMaximum, "Best case: 0 ms sampling delay");
+					}
 					if (doSynchronous() && isPreviousConnectionSyncUnknown(lc)) {
 						lc.reportInfoOnce(doMaximum, "Assume synchronous communication");
 					} else if (isPreviousConnectionSynchronous(lc)) {
@@ -504,13 +513,13 @@ public class LatencyReportEntry {
 		line = new Line();
 		line.addHeaderContent("Contributor");
 		line.addHeaderContent("Min Specified");
-		line.addHeaderContent("Min Value");
+		line.addHeaderContent("Min Actual");
 		if (Values.doReportSubtotals()) {
 			line.addHeaderContent("Min Subtotals");
 		}
 		line.addHeaderContent("Min Method");
 		line.addHeaderContent("Max Specified");
-		line.addHeaderContent("Max Value");
+		line.addHeaderContent("Max Actual");
 		if (Values.doReportSubtotals()) {
 			line.addHeaderContent("Max Subtotals");
 		}
@@ -545,7 +554,7 @@ public class LatencyReportEntry {
 		line = new Line();
 		line.setSeverity(ReportSeverity.SUCCESS);
 
-		line.addContent("End to End Latency");
+		line.addContent("Specified End To End Latency");
 		line.addContent("");
 		line.addContent(expectedMinLatency + "ms");
 		line.addContent("");

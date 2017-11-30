@@ -173,7 +173,7 @@ end PullProtocols;
 	val expected = '''
 Latency analysis for end-to-end flow 'prot.XferOnly' of system 'stub.i' with preference settings AS-MF-DL-EQ,
 
-Contributor,Min Specified,Min Value,Min Method,Max Specified,Max Value,Max Method,Comments,
+Contributor,Min Specified,Min Actual,Min Method,Max Specified,Max Actual,Max Method,Comments,
 thread prot.sender,,0.0ms,first sampling,,0.0ms,first sampling,Initial 100.0ms sampling latency not added,
 thread prot.sender,,0.0ms,no latency,,100.0ms,deadline,
 Delayed Connection ,,0.0ms,no latency,,0.0ms,no latency,
@@ -192,13 +192,12 @@ Delayed Connection ,,0.0ms,no latency,,0.0ms,no latency,
 thread prot.requestor,,100.0ms,delayed sampling,,100.0ms,delayed sampling,Min: Sampling period 100.0ms,Max: Sampling period 100.0ms,
 thread prot.requestor,,0.0ms,no latency,,100.0ms,deadline,
 Latency Total,4.0ms,304.0ms,,4.0ms,504.0ms,,
-End to End Latency,,300.0ms,,,300.0ms,,
+Specified End To End Latency,,300.0ms,,,300.0ms,,
 End to end Latency Summary,
 WARNING,Minimum specified flow latency total 4.00ms less than expected minimum end to end latency 300.0ms (better response time),
 ERROR,Minimum actual latency total 304.0ms exceeds expected maximum end to end latency 300.0ms,
 ERROR,Maximum actual latency total 504.0ms exceeds expected maximum end to end latency 300.0ms,
 WARNING,Jitter of actual latency total 304.0..504.0ms exceeds expected end to end latency jitter 300.0..300.0ms,
-
 
 
 	'''

@@ -16,6 +16,7 @@ import org.osate.analysis.flows.model.LatencyContributor.LatencyContributorMetho
 import org.osate.analysis.flows.model.LatencyContributorComponent;
 import org.osate.analysis.flows.model.LatencyContributorConnection;
 import org.osate.analysis.flows.model.LatencyReportEntry;
+import org.osate.xtext.aadl2.properties.util.ARINC653ScheduleWindow;
 import org.osate.xtext.aadl2.properties.util.GetProperties;
 import org.osate.xtext.aadl2.properties.util.InstanceModelUtil;
 
@@ -23,7 +24,7 @@ public class FlowLatencyLogicConnection {
 
 	/**
 	 * Main function, transform the connection instance into a latency contributor
-	 * object. 
+	 * object.
 	 * @param etef - the end to end flow being analyzed
 	 * @param flowElementInstance - the flow element that represents the connection to be processed.
 	 * @param entry LatencyReportEntry to be added to
@@ -47,16 +48,19 @@ public class FlowLatencyLogicConnection {
 
 		// if we exit a partition then we may have I/O Delay until the end of the partition window or the end of the major frame
 		if (srcPartition != null && srcPartition != dstPartition) {
-			LatencyContributor ioLatencyContributor = new LatencyContributorComponent(srcPartition);
-			ioLatencyContributor.setWorstCaseMethod(LatencyContributorMethod.PARTITION_OUTPUT);
-			ioLatencyContributor.setBestCaseMethod(LatencyContributorMethod.PARTITION_OUTPUT);
-			double partitionLatency = FlowLatencyUtil.getPartitionLatency(srcPartition);
-			double frameOffset = FlowLatencyUtil.getPartitionFrameOffset(srcPartition);
-			double partitionDuration = FlowLatencyUtil.getPartitionDuration(srcPartition);
-			ioLatencyContributor.setSamplingPeriod(partitionLatency);
-			ioLatencyContributor.setPartitionOffset(frameOffset);
-			ioLatencyContributor.setPartitionDuration(partitionDuration);
-			entry.addContributor(ioLatencyContributor);
+			double partitionLatency = FlowLatencyUtil.getPartitionPeriod(srcPartition);
+			List<ARINC653ScheduleWindow> schedule = FlowLatencyUtil.getModuleSchedule(srcPartition);
+			double partitionDuration = FlowLatencyUtil.getPartitionDuration(srcPartition, schedule);
+			if (partitionDuration != -1) {
+				LatencyContributor ioLatencyContributor = new LatencyContributorComponent(srcPartition);
+				ioLatencyContributor.setWorstCaseMethod(LatencyContributorMethod.PARTITION_OUTPUT);
+				ioLatencyContributor.setBestCaseMethod(LatencyContributorMethod.PARTITION_OUTPUT);
+				ioLatencyContributor.setSamplingPeriod(partitionLatency);
+				double frameOffset = FlowLatencyUtil.getPartitionFrameOffset(srcPartition, schedule);
+				ioLatencyContributor.setPartitionOffset(frameOffset);
+				ioLatencyContributor.setPartitionDuration(partitionDuration);
+				entry.addContributor(ioLatencyContributor);
+			}
 		}
 
 		// now we deal with communication latency
@@ -65,7 +69,7 @@ public class FlowLatencyLogicConnection {
 		processActualConnectionBindingsSampling(connectionInstance, latencyContributor);
 		processActualConnectionBindingsTransmission(connectionInstance,
 				relatedConnectionData == null ? 0.0 : GetProperties.getDataSizeInBytes(relatedConnectionData),
-				latencyContributor);
+						latencyContributor);
 		/**
 		 * handle the case when there is no binding to virtual bus or bus.
 		 * In this case we use the latency from the connection itself
@@ -119,13 +123,14 @@ public class FlowLatencyLogicConnection {
 
 		if (dstPartition != null && srcPartition != dstPartition) {
 			// add partition latency if the destination is a partition and it is different from the source partition (or null)
-			double partitionLatency = FlowLatencyUtil.getPartitionLatency(dstPartition);
-			double frameOffset = FlowLatencyUtil.getPartitionFrameOffset(dstPartition);
-			if (frameOffset != -1) {
+			double partitionLatency = FlowLatencyUtil.getPartitionPeriod(dstPartition);
+			List<ARINC653ScheduleWindow> schedule = FlowLatencyUtil.getModuleSchedule(srcPartition);
+			double partitionDuration = FlowLatencyUtil.getPartitionDuration(dstPartition, schedule);
+			if (partitionDuration != -1) {
 				LatencyContributorComponent platencyContributor = new LatencyContributorComponent(dstPartition);
 				platencyContributor.setSamplingPeriod(partitionLatency);
+				double frameOffset = FlowLatencyUtil.getPartitionFrameOffset(dstPartition, schedule);
 				platencyContributor.setPartitionOffset(frameOffset);
-				double partitionDuration = FlowLatencyUtil.getPartitionDuration(dstPartition);
 				platencyContributor.setPartitionDuration(partitionDuration);
 				platencyContributor.setWorstCaseMethod(LatencyContributorMethod.PARTITION_SCHEDULE);
 				platencyContributor.setBestCaseMethod(LatencyContributorMethod.PARTITION_SCHEDULE);
@@ -138,25 +143,6 @@ public class FlowLatencyLogicConnection {
 				entry.addContributor(platencyContributor);
 			}
 		}
-	}
-
-	public static void checkPartitionLatencyConsistency(ComponentInstance ci) {
-		double res = 0.0;
-		if (GetProperties.getIsPartition(ci)) {
-			res = GetProperties.getPartitionLatencyInMilliSec(ci, 0.0);
-		}
-		double VPres = FlowLatencyUtil.getVirtualProcessorPartitionPeriod(ci);
-		double ARINC653res = FlowLatencyUtil.getARINC653ProcessorMajorFrame(ci);
-		if (res > 0.0 && VPres > 0.0) {
-			// TODO they should be the same
-		}
-		if (res > 0.0 && ARINC653res > 0.0) {
-			// TODO they should be the same
-		}
-		if (VPres > 0.0 && ARINC653res > 0.0) {
-			// TODO they should be the same
-		}
-		// TODO also compare major frame from schedule against major frame from property of processor
 	}
 
 	/**
@@ -222,7 +208,7 @@ public class FlowLatencyLogicConnection {
 		boolean willDoVirtualBuses = false;
 		boolean willDoBuses = false;
 		// look for actual binding if we have a connection instance or virtual bus instance
-		List<ComponentInstance> bindings = GetProperties.getActualConnectionBinding((InstanceObject) connorvb);
+		List<ComponentInstance> bindings = GetProperties.getActualConnectionBinding(connorvb);
 		if (bindings.isEmpty()) {
 			// add specified latency if present
 			processTransmissionTime(connorvb, 0, latencyContributor);

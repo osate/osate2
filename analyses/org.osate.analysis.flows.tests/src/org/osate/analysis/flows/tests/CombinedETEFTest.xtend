@@ -116,14 +116,14 @@ end CombinedETEF;
 	val expected = '''
 Latency analysis for end-to-end flow 'a_b' of system 'Test.Impl' with preference settings AS-MF-DL-EQ,
 
-Contributor,Min Specified,Min Value,Min Method,Max Specified,Max Value,Max Method,Comments,
+Contributor,Min Specified,Min Actual,Min Method,Max Specified,Max Actual,Max Method,Comments,
 system a,,0.0ms,first sampling,,0.0ms,first sampling,Initial 0.0ms sampling latency not added,
 system a,10.0ms,10.0ms,specified,10.0ms,10.0ms,specified,
 Connection ,,0.0ms,no latency,,0.0ms,no latency,
 system b,,0.0ms,sampling,,0.0ms,sampling,Best case 0 ms worst case 0.0ms (period) sampling delay,
 system b,10.0ms,10.0ms,specified,10.0ms,10.0ms,specified,
 Latency Total,20.0ms,20.0ms,,20.0ms,20.0ms,,
-End to End Latency,,0.0ms,,,0.0ms,,
+Specified End To End Latency,,0.0ms,,,0.0ms,,
 End to end Latency Summary,
 WARNING,Expected end to end latency is not specified,
 
@@ -131,14 +131,14 @@ WARNING,Expected end to end latency is not specified,
 
 Latency analysis for end-to-end flow 'c_d' of system 'Test.Impl' with preference settings AS-MF-DL-EQ,
 
-Contributor,Min Specified,Min Value,Min Method,Max Specified,Max Value,Max Method,Comments,
+Contributor,Min Specified,Min Actual,Min Method,Max Specified,Max Actual,Max Method,Comments,
 system c,,0.0ms,first sampling,,0.0ms,first sampling,Initial 0.0ms sampling latency not added,
 system c,10.0ms,10.0ms,specified,10.0ms,10.0ms,specified,
 Connection ,,0.0ms,no latency,,0.0ms,no latency,
 system d,,0.0ms,sampling,,0.0ms,sampling,Best case 0 ms worst case 0.0ms (period) sampling delay,
 system d,10.0ms,10.0ms,specified,10.0ms,10.0ms,specified,
 Latency Total,20.0ms,20.0ms,,20.0ms,20.0ms,,
-End to End Latency,,0.0ms,,,0.0ms,,
+Specified End To End Latency,,0.0ms,,,0.0ms,,
 End to end Latency Summary,
 WARNING,Expected end to end latency is not specified,
 
@@ -146,7 +146,7 @@ WARNING,Expected end to end latency is not specified,
 
 Latency analysis for end-to-end flow 'total' of system 'Test.Impl' with preference settings AS-MF-DL-EQ,
 
-Contributor,Min Specified,Min Value,Min Method,Max Specified,Max Value,Max Method,Comments,
+Contributor,Min Specified,Min Actual,Min Method,Max Specified,Max Actual,Max Method,Comments,
 system a,,0.0ms,first sampling,,0.0ms,first sampling,Initial 0.0ms sampling latency not added,
 system a,10.0ms,10.0ms,specified,10.0ms,10.0ms,specified,
 Connection ,,0.0ms,no latency,,0.0ms,no latency,
@@ -159,16 +159,12 @@ Connection ,,0.0ms,no latency,,0.0ms,no latency,
 system d,,0.0ms,sampling,,0.0ms,sampling,Best case 0 ms worst case 0.0ms (period) sampling delay,
 system d,10.0ms,10.0ms,specified,10.0ms,10.0ms,specified,
 Latency Total,40.0ms,40.0ms,,40.0ms,40.0ms,,
-End to End Latency,,20.0ms,,,30.0ms,,
+Specified End To End Latency,,20.0ms,,,30.0ms,,
 End to end Latency Summary,
 ERROR,Minimum specified flow latency total 40.0ms exceeds expected maximum latency 30.0ms,
 ERROR,Minimum actual latency total 40.0ms exceeds expected maximum end to end latency 30.0ms,
 ERROR,Maximum specified flow latency total 40.0ms exceeds expected maximum end to end latency 30.0ms,
 ERROR,Maximum actual latency total 40.0ms exceeds expected maximum end to end latency 30.0ms,
-
-
-
-
 
 
 	'''
