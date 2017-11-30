@@ -2142,10 +2142,11 @@ public class EMV2Util {
 			prefix = "";
 		} else {
 			prefix = "^" + cpe.getNamedElement().getName();
-		}
-		while (cpe.getPath() != null) {
 			cpe = cpe.getPath();
+		}
+		while (cpe != null) {
 			prefix = prefix + "." + cpe.getNamedElement().getName();
+			cpe = cpe.getPath();
 		}
 		if (!prefix.isEmpty()) {
 			prefix = prefix + '@';
