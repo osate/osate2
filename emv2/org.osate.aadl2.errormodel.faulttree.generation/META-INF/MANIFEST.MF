@@ -18,3 +18,6 @@ Require-Bundle: org.eclipse.ui,
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Bundle-ActivationPolicy: lazy
 Bundle-Vendor: %providerName
+Export-Package: org.osate.aadl2.errormodel.faulttree.generation,
+ org.osate.aadl2.errormodel.faulttree.handler,
+ org.osate.aadl2.errormodel.faulttree.util
