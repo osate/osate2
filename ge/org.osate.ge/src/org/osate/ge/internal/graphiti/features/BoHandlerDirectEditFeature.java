@@ -73,6 +73,9 @@ import org.osate.ge.services.ReferenceBuilderService;
 // Only supports NamedElement objects.
 @SuppressWarnings("restriction")
 public class BoHandlerDirectEditFeature extends AbstractDirectEditingFeature implements ICustomUndoRedoFeature {
+	// Property for the context to specify whether the feature should require the specified pictogram element to be the primary label. Defaults to true.
+	public static final String PROPERTY_REQUIRE_PRIMARY_LABEL = "org.osate.ge.require_primary_label";
+
 	private final GraphitiService graphitiService;
 	private final ExtensionService extService;
 	private final AadlModificationService aadlModService;
@@ -116,8 +119,11 @@ public class BoHandlerDirectEditFeature extends AbstractDirectEditingFeature imp
 			return false;
 		}
 
-		if(!ShapeNames.primaryLabelShapeName.equals(PropertyUtil.getName(context.getPictogramElement()))) {
-			return false;
+		// Ensure that the specified pictogram elmenet is a primary label unless the context contains a property specifying otherwise.
+		if (!Boolean.FALSE.equals(context.getProperty(PROPERTY_REQUIRE_PRIMARY_LABEL))) {
+			if (!ShapeNames.primaryLabelShapeName.equals(PropertyUtil.getName(context.getPictogramElement()))) {
+				return false;
+			}
 		}
 
 		final IEclipseContext childCtx = extService.createChildContext();

@@ -23,13 +23,7 @@ import org.eclipse.graphiti.features.context.impl.DeleteContext;
 import org.eclipse.graphiti.features.context.impl.DirectEditingContext;
 import org.eclipse.graphiti.features.context.impl.MultiDeleteInfo;
 import org.eclipse.graphiti.features.custom.ICustomFeature;
-import org.eclipse.graphiti.mm.algorithms.GraphicsAlgorithm;
-import org.eclipse.graphiti.mm.algorithms.Text;
-import org.eclipse.graphiti.mm.pictograms.Connection;
-import org.eclipse.graphiti.mm.pictograms.ConnectionDecorator;
-import org.eclipse.graphiti.mm.pictograms.ContainerShape;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
-import org.eclipse.graphiti.mm.pictograms.Shape;
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.jface.action.IStatusLineManager;
@@ -63,6 +57,7 @@ import org.osate.ge.internal.Activator;
 import org.osate.ge.internal.diagram.runtime.DiagramElement;
 import org.osate.ge.internal.diagram.runtime.DiagramNode;
 import org.osate.ge.internal.graphiti.diagram.GraphitiAgeDiagram;
+import org.osate.ge.internal.graphiti.features.BoHandlerDirectEditFeature;
 import org.osate.ge.internal.ui.util.ImageUiHelper;
 import org.osate.ge.internal.ui.util.UiUtil;
 import org.osate.ge.internal.util.StringUtil;
@@ -387,31 +382,9 @@ public class AgeContentOutlinePage extends ContentOutlinePage {
 	 * @return DirectEditingContext
 	 */
 	private static DirectEditingContext getDirectEditingContext(final PictogramElement pe) {
-		if(pe instanceof ContainerShape) {
-			for(final Shape shape : ((ContainerShape)pe).getChildren()) {
-				final GraphicsAlgorithm ga = shape.getGraphicsAlgorithm();
-				for(final GraphicsAlgorithm childGa : ga.getGraphicsAlgorithmChildren()) {
-					if(childGa instanceof Text) {
-						return new DirectEditingContext(ga.getPictogramElement(), childGa);
-					}
-				}
-
-				if(ga instanceof Text) {
-					return new DirectEditingContext(ga.getPictogramElement(), ga);
-				}
-			}
-		} else if(pe instanceof Connection) {
-			final Connection con = (Connection)pe;
-			for(final ConnectionDecorator conDecorator : con.getConnectionDecorators()) {
-				if(conDecorator.isActive()) {
-					if(conDecorator.getGraphicsAlgorithm() instanceof Text) {
-						return new DirectEditingContext(conDecorator, conDecorator.getGraphicsAlgorithm());
-					}
-				}
-			}
-		}
-
-		return null;
+		final DirectEditingContext ctx = new DirectEditingContext(pe, pe.getGraphicsAlgorithm());
+		ctx.putProperty(BoHandlerDirectEditFeature.PROPERTY_REQUIRE_PRIMARY_LABEL, Boolean.FALSE);
+		return ctx;
 	}
 
 	private class ToggleLinkWithEditorAction extends Action {
