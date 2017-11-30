@@ -53,5 +53,10 @@
 <unit id="org.apache.commons.io" version="2.2.0.v201405211200"/>
 <repository location="http://download.eclipse.org/tools/orbit/downloads/drops/R20160221192158/repository/"/>
 </location>
+<location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="planner" includeSource="false" type="InstallableUnit">
+<unit id="org.eclipse.elk.feature.feature.group" version="0.3.0"/>
+<unit id="org.eclipse.elk.algorithms.feature.feature.group" version="0.3.0"/>
+<repository location="http://download.eclipse.org/elk/updates/releases/0.3.0/"/>
+</location>
 </locations>
 </target>
