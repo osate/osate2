@@ -16,7 +16,6 @@ import org.osate.ge.internal.diagram.runtime.AgeDiagram;
 import org.osate.ge.internal.diagram.runtime.BuiltinContentsFilter;
 import org.osate.ge.internal.diagram.runtime.DiagramElement;
 import org.osate.ge.internal.diagram.runtime.DiagramModification;
-import org.osate.ge.internal.diagram.runtime.DiagramModifier;
 import org.osate.ge.internal.graphiti.GraphitiAgeDiagramProvider;
 import org.osate.ge.internal.model.PropertyValueGroup;
 
@@ -27,7 +26,7 @@ import org.osate.ge.internal.model.PropertyValueGroup;
 public class SetAutoContentFilterFeature extends AbstractCustomFeature implements ICustomUndoRedoFeature {
 	private final GraphitiAgeDiagramProvider graphitiAgeDiagramProvider;
 	private final BuiltinContentsFilter newFilterValue;
-	
+
 	@Inject
 	public SetAutoContentFilterFeature (final IFeatureProvider fp,
 			final GraphitiAgeDiagramProvider graphitiAgeDiagramProvider,
@@ -36,24 +35,24 @@ public class SetAutoContentFilterFeature extends AbstractCustomFeature implement
 		this.graphitiAgeDiagramProvider = Objects.requireNonNull(graphitiAgeDiagramProvider, "graphitiAgeDiagramProvider must not be null");
 		this.newFilterValue = Objects.requireNonNull(newFilterValue, "newFilerValue must not be null");
 	}
-	
+
 	@Override
 	public String getName() {
 		switch(newFilterValue) {
 		case ALLOW_FUNDAMENTAL:
 			return "Hide Contents";
-			
+
 		case ALLOW_ALL:
 			return "Show Contents";
-			
+
 		case ALLOW_TYPE:
 			return "Show Type Contents";
-			
+
 		default:
 			throw new RuntimeException("Unhandled Case: " + newFilterValue);
 		}
 	}
-	
+
 	@Override
 	public boolean isAvailable(final IContext context) {
 		final ICustomContext customCtx = (ICustomContext)context;
@@ -61,30 +60,30 @@ public class SetAutoContentFilterFeature extends AbstractCustomFeature implement
 		if(elements == null) {
 			return false;
 		}
-		
+
 		boolean isApplicableToAtleastOne = false;
 		for(final DiagramElement e : elements) {
 			if(isContentFilterApplicable(e.getBusinessObject())) {
 				isApplicableToAtleastOne = true;
 				break;
-			}				
+			}
 		}
-		
-		return isApplicableToAtleastOne;		
+
+		return isApplicableToAtleastOne;
 	}
-	
+
 	private boolean isContentFilterApplicable(final Object bo) {
 		return (newFilterValue != BuiltinContentsFilter.ALLOW_TYPE || (bo instanceof Subcomponent || bo instanceof Classifier)) &&
 				!(bo instanceof PropertyValueGroup); // Don't allow setting the content filter for property values
 	}
-	
+
 	@Override
 	public boolean canExecute(final ICustomContext context) {
 		final DiagramElement[] elements = getDiagramElements(context.getPictogramElements());
 		if(elements == null) {
 			return false;
 		}
-		
+
 		// If the selection is the "Hide Contents" selection, make the command executable if any of the descendants is manual
 		if(newFilterValue == BuiltinContentsFilter.ALLOW_FUNDAMENTAL) {
 			for(final DiagramElement e : elements) {
@@ -92,7 +91,7 @@ public class SetAutoContentFilterFeature extends AbstractCustomFeature implement
 					return true;
 				}
 			}
-			
+
 		}
 
 		// Make the command executable if any of the elements have a different filter value
@@ -101,42 +100,39 @@ public class SetAutoContentFilterFeature extends AbstractCustomFeature implement
 				return true;
 			}
 		}
-		
+
 		return false;
 	}
-	
+
 	@Override
 	public void execute(final ICustomContext context) {
 		final AgeDiagram ageDiagram = graphitiAgeDiagramProvider.getGraphitiAgeDiagram().getAgeDiagram();
 		final DiagramElement[] elements = getDiagramElements(context.getPictogramElements());
 		if(elements != null) {
-			ageDiagram.modify("Set Auto Children", new DiagramModifier() {
-				@Override
-				public void modify(final DiagramModification m) {
-					// If setting to allow fundamental "Hide Contents", mark all descendants as automatic. This will ensure that the contents are hidden.
-					if(newFilterValue == BuiltinContentsFilter.ALLOW_FUNDAMENTAL) {
-						for(final DiagramElement e : elements) {
-							setDescendantsAsAutomatic(m, e);
-						}
+			ageDiagram.modify("Set Auto Children", m -> {
+				// If setting to allow fundamental "Hide Contents", mark all descendants as automatic. This will ensure that the contents are hidden.
+				if(newFilterValue == BuiltinContentsFilter.ALLOW_FUNDAMENTAL) {
+					for(final DiagramElement e1 : elements) {
+						setDescendantsAsAutomatic(m, e1);
 					}
-					
-					for(DiagramElement e : elements) {
-						// Don't set the type to something that isn't applicable to the type of business object
-						if(isContentFilterApplicable(e.getBusinessObject())) {
-							m.setManual(e, true);
-							m.setAutoContentsFilter(e, newFilterValue);
-						}
+				}
+
+				for(DiagramElement e2 : elements) {
+					// Don't set the type to something that isn't applicable to the type of business object
+					if(isContentFilterApplicable(e2.getBusinessObject())) {
+						m.setManual(e2, true);
+						m.setAutoContentsFilter(e2, newFilterValue);
 					}
-					
-					AgeFeatureUtil.storeModificationInContext(context, m);
-				}						
+				}
+
+				AgeFeatureUtil.storeModificationInContext(context, m);
 			});
-			
+
 			// Update the diagram
 			this.updatePictogramElement(graphitiAgeDiagramProvider.getGraphitiAgeDiagram().getGraphitiDiagram());
 		}
 	}
-	
+
 	/**
 	 * Returns true if any of the descendants of an element is manual.
 	 * @param m
@@ -148,15 +144,15 @@ public class SetAutoContentFilterFeature extends AbstractCustomFeature implement
 			if(child.isManual()) {
 				return true;
 			}
-			
+
 			if(hasManualDescendant(child)) {
 				return true;
 			}
 		}
-		
+
 		return false;
 	}
-	
+
 	private void setDescendantsAsAutomatic(final DiagramModification m, final DiagramElement e) {
 		// Set all descendants of the specified element as automatic/not manual
 		for(final DiagramElement child : e.getDiagramElements()) {
@@ -166,10 +162,10 @@ public class SetAutoContentFilterFeature extends AbstractCustomFeature implement
 			setDescendantsAsAutomatic(m, child);
 		}
 	}
-	
+
 	private DiagramElement[] getDiagramElements(final PictogramElement[] pes) {
 		final DiagramElement[] elements = new DiagramElement[pes.length];
-		
+
 		for(int i = 0; i < pes.length; i++) {
 			elements[i] = graphitiAgeDiagramProvider.getGraphitiAgeDiagram().getClosestDiagramElement(pes[i]);
 			if(elements[i] == null) {
@@ -178,13 +174,13 @@ public class SetAutoContentFilterFeature extends AbstractCustomFeature implement
 		}
 		return elements;
 	}
-	
+
 	// ICustomUndoRedoFeature
 	@Override
 	public boolean canUndo(final IContext context) {
 		return AgeFeatureUtil.canUndo(context);
 	}
-	
+
 	@Override
 	public void preUndo(final IContext context) {
 	}
@@ -192,7 +188,7 @@ public class SetAutoContentFilterFeature extends AbstractCustomFeature implement
 	@Override
 	public void postUndo(final IContext context) {
 		AgeFeatureUtil.undoModification(graphitiAgeDiagramProvider.getGraphitiAgeDiagram(), context);
-		
+
 		// Update the diagram
 		this.updatePictogramElement(graphitiAgeDiagramProvider.getGraphitiAgeDiagram().getGraphitiDiagram());
 	}
@@ -209,7 +205,7 @@ public class SetAutoContentFilterFeature extends AbstractCustomFeature implement
 	@Override
 	public void postRedo(final IContext context) {
 		AgeFeatureUtil.redoModification(graphitiAgeDiagramProvider.getGraphitiAgeDiagram(), context);
-		
+
 		// Update the diagram
 		this.updatePictogramElement(graphitiAgeDiagramProvider.getGraphitiAgeDiagram().getGraphitiDiagram());
 	}

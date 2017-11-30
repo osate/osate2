@@ -112,7 +112,7 @@ public class AgeContentOutlinePage extends ContentOutlinePage {
 	private final IPreferenceChangeListener preferenceChangeListener = event -> {
 		// Update the state of the button based on the new property value.
 		// This will not trigger a synchronization.
-		if(PREFERENCE_OUTLINE_LINK_WITH_EDITOR.equals(event.getKey())) {
+		if (PREFERENCE_OUTLINE_LINK_WITH_EDITOR.equals(event.getKey())) {
 			if(event.getNewValue() != null) {
 				linkWithEditorAction.setChecked(Boolean.parseBoolean(event.getNewValue().toString()));
 			}

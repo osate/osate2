@@ -77,7 +77,7 @@ public class SetSubcomponentClassifierCommand {
 	public Object getBusinessObjectToModify(@Named(Names.BUSINESS_OBJECT) final Object bo) {
 		return bo;
 	}
-	
+
 	@Activate
 	public boolean activate(@Named(Names.BUSINESS_OBJECT) final Subcomponent sc) {
 		// Prompt the user for the classifier
@@ -91,8 +91,8 @@ public class SetSubcomponentClassifierCommand {
 		SubcomponentType selectedSubcomponentType = (SubcomponentType)dlg.getFirstSelectedElement();
 		if(selectedSubcomponentType != null) {
 			// Resolve the reference
-			selectedSubcomponentType = (SubcomponentType)EcoreUtil.resolve(selectedSubcomponentType, sc); 
-			
+			selectedSubcomponentType = (SubcomponentType)EcoreUtil.resolve(selectedSubcomponentType, sc);
+
 			// Import its package if necessary
 			final AadlPackage pkg = (AadlPackage)sc.getElementRoot();
 			if(selectedSubcomponentType instanceof ComponentClassifier && selectedSubcomponentType.getNamespace() != null && pkg != null) {
@@ -102,7 +102,7 @@ public class SetSubcomponentClassifierCommand {
 					section.getImportedUnits().add(selectedClassifierPkg);
 				}
 			}
-		}				
+		}
 
 		// Set the classifier
 		if(sc instanceof SystemSubcomponent) {
@@ -211,8 +211,8 @@ public class SetSubcomponentClassifierCommand {
 		for(final Prototype p : sc.getContainingComponentImpl().getAllPrototypes()) {
 			if(subcomponentTypeClass.isInstance(p)) {
 				subcomponentTypes.add(p);
-			}			
-		}		
+			}
+		}
 
 		return subcomponentTypes;
 	}

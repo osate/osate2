@@ -189,7 +189,14 @@ public class FeatureHandler {
 	}
 
 	private DockingPosition getDefaultDockingPosition(NamedElement feature, BusinessObjectContext featureBoc) {
-		return getDirection(feature, featureBoc) == DirectionType.OUT ? DockingPosition.RIGHT : DockingPosition.LEFT;
+		final DirectionType direction = getDirection(feature, featureBoc);
+		if(direction == DirectionType.IN) {
+			return DockingPosition.LEFT;
+		} else if(direction == DirectionType.OUT) {
+			return DockingPosition.RIGHT;
+		} else {
+			return DockingPosition.ANY;
+		}
 	}
 
 	/**

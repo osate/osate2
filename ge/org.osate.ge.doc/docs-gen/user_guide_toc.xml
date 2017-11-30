@@ -44,9 +44,15 @@
 			</topic>
 			<topic label="Selecting a Diagram Element&#39;s Container" href="docs-gen/user_guide.html#selecting-a-diagram-elements-container">
 			</topic>
-			<topic label="Performing Diagram Layout" href="docs-gen/user_guide.html#performing-diagram-layout">
-			</topic>
 			<topic label="Editing a Diagram Element&#39;s Appearance" href="docs-gen/user_guide.html#sec:de_apperance">
+			</topic>
+		</topic>
+		<topic label="Diagram Layout" href="docs-gen/user_guide.html#diagram-layout">
+			<topic label="Layout Commands" href="docs-gen/user_guide.html#layout-commands">
+			</topic>
+			<topic label="Incremental Layout" href="docs-gen/user_guide.html#incremental-layout">
+			</topic>
+			<topic label="Known Layout Issues and Limitations" href="docs-gen/user_guide.html#known-layout-issues-and-limitations">
 			</topic>
 		</topic>
 		<topic label="Connections" href="docs-gen/user_guide.html#connections">
@@ -165,12 +171,6 @@
 		</topic>
 		<topic label="Annexes" href="docs-gen/user_guide.html#annexes">
 			<topic label="Creating Annex Libraries and Annex Subclauses" href="docs-gen/user_guide.html#creating-annex-libraries-and-annex-subclauses">
-			</topic>
-		</topic>
-		<topic label="Layouts" href="docs-gen/user_guide.html#layouts">
-			<topic label="Grid Layout" href="docs-gen/user_guide.html#grid-layout">
-			</topic>
-			<topic label="Radial Layout" href="docs-gen/user_guide.html#radial-layout">
 			</topic>
 		</topic>
 	</topic>

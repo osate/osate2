@@ -31,6 +31,10 @@ Require-Bundle: org.eclipse.ui,
  org.osate.annexsupport,
  org.osate.ge.diagram,
  org.eclipse.ltk.ui.refactoring,
+ org.eclipse.elk.core,
+ org.eclipse.elk.graph,
+ org.eclipse.elk.alg.layered,
+ org.eclipse.elk.core.service,
  com.google.guava;bundle-version="21.0.0"
 Bundle-ActivationPolicy: lazy
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8

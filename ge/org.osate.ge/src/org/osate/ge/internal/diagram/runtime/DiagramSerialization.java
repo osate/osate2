@@ -187,7 +187,9 @@ public class DiagramSerialization {
 
 		// Bendpoints
 		final org.osate.ge.diagram.BendpointList mmBendpoints = mmChild.getBendpoints();
-		if (mmBendpoints != null) {
+		if (mmBendpoints == null) {
+			newElement.setBendpoints(Collections.emptyList());
+		} else {
 			newElement.setBendpoints(mmBendpoints.getPoint().stream().map(DiagramSerialization::convertPoint)
 					.collect(Collectors.toList()));
 		}

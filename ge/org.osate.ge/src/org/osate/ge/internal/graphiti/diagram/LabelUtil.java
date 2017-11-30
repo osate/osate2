@@ -7,7 +7,6 @@
  *******************************************************************************/
 package org.osate.ge.internal.graphiti.diagram;
 
-import org.eclipse.graphiti.datatypes.IDimension;
 import org.eclipse.graphiti.mm.GraphicsAlgorithmContainer;
 import org.eclipse.graphiti.mm.algorithms.GraphicsAlgorithm;
 import org.eclipse.graphiti.mm.algorithms.Text;
@@ -17,7 +16,6 @@ import org.eclipse.graphiti.mm.pictograms.Shape;
 import org.eclipse.graphiti.services.Graphiti;
 import org.eclipse.graphiti.services.IGaService;
 import org.eclipse.graphiti.services.IPeCreateService;
-import org.eclipse.graphiti.ui.services.GraphitiUi;
 import org.eclipse.graphiti.util.IColorConstant;
 
 public class LabelUtil {
@@ -44,17 +42,10 @@ public class LabelUtil {
 			labelText = createLabelGraphicsAlgorithm(diagram, labelShape, labelValue, fontSize);
 		}
 
-		// Get sizes of text graphics algorithms
-		final IDimension labelTextSize = GraphitiUi.getUiLayoutService().calculateTextSize(labelText.getValue(), labelText.getFont());
-
-		// Add padding to the text size to account for rounding issues in GEF3/Graphiti
-		final int paddedLabelTextWidth = labelTextSize.getWidth() + Math.max(15, labelText.getValue().length());
-		final int paddedLabelTextHeight = labelTextSize.getHeight() + 5;
 		final IGaService gaService = Graphiti.getGaService();
 		if(labelBackground != null) {
-			gaService.setSize(labelBackground, paddedLabelTextWidth, paddedLabelTextHeight);
+			gaService.setSize(labelBackground, labelText.getWidth(), labelText.getHeight());
 		}
-		gaService.setSize(labelText, paddedLabelTextWidth, paddedLabelTextHeight);
 
 		return labelShape;
 	}
@@ -75,7 +66,7 @@ public class LabelUtil {
 	private static Text createLabelGraphicsAlgorithm(final Diagram diagram, final GraphicsAlgorithmContainer container, final String labelTxt, final double fontSize) {
 		final IGaService gaService = Graphiti.getGaService();
 		final Text text = gaService.createPlainText(container, labelTxt);
-		TextUtil.setStyle(diagram, text, fontSize);
+		TextUtil.setStyleAndSize(diagram, text, fontSize);
 		PropertyUtil.setIsStylingChild(text, true);
 
 		return text;

@@ -218,7 +218,7 @@ public class GraphitiAgeDiagram implements NodePictogramBiMap, AutoCloseable {
 	 */
 	private void createUpdateElementsFromAgeDiagram(final DiagramModification mod) {
 		ensureCreatedChildren(ageDiagram, graphitiDiagram);
-		updateChildren(ageDiagram, true);
+		updateChildren(mod, ageDiagram, true);
 		LayoutUtil.layoutDepthFirst(graphitiDiagram, mod, ageDiagram, GraphitiAgeDiagram.this); // Layout
 		finishUpdating(ageDiagram);
 	}
@@ -336,9 +336,10 @@ public class GraphitiAgeDiagram implements NodePictogramBiMap, AutoCloseable {
 		ensureCreatedChildren(de, pe);
 	}
 
-	private void updateChildren(final DiagramNode elementContainer, final boolean recursive) {
+	private void updateChildren(final DiagramModification mod, final DiagramNode elementContainer,
+			final boolean recursive) {
 		for (final DiagramElement e : elementContainer.getDiagramElements()) {
-			updateDiagramElement(e, recursive);
+			updateDiagramElement(mod, e, recursive);
 		}
 	}
 
@@ -347,7 +348,7 @@ public class GraphitiAgeDiagram implements NodePictogramBiMap, AutoCloseable {
 	 * @param de
 	 * @param recursive
 	 */
-	private void updateDiagramElement(final DiagramElement de, final boolean recursive) {
+	private void updateDiagramElement(final DiagramModification mod, final DiagramElement de, final boolean recursive) {
 		final Graphic g = de.getGraphic();
 
 		final PictogramElement pe = getPictogramElement(de);
@@ -432,7 +433,7 @@ public class GraphitiAgeDiagram implements NodePictogramBiMap, AutoCloseable {
 
 		// Update Children
 		if (recursive) {
-			updateChildren(de, recursive);
+			updateChildren(mod, de, recursive);
 		}
 
 		// Build the primary label which includes the element's name
@@ -451,7 +452,6 @@ public class GraphitiAgeDiagram implements NodePictogramBiMap, AutoCloseable {
 				final Shape labelShape;
 				labelShape = LabelUtil.createLabelShape(graphitiDiagram, (ContainerShape) pe,
 						ShapeNames.primaryLabelShapeName, primaryLabelStr, fontSize);
-
 				labelShape.setActive(false);
 			}
 
@@ -479,10 +479,10 @@ public class GraphitiAgeDiagram implements NodePictogramBiMap, AutoCloseable {
 						ageConnection.isFlowIndicator ? 1.0 : 0.5, true);
 				final Text text = gaService.createDefaultText(graphitiDiagram, textDecorator);
 				PropertyUtil.setIsStylingChild(text, true);
-				TextUtil.setStyle(graphitiDiagram, text, de.getStyle().getFontSize());
-
 				PropertyUtil.setName(textDecorator, ShapeNames.primaryLabelShapeName);
 				text.setValue(primaryLabelStr);
+
+				TextUtil.setStyleAndSize(graphitiDiagram, text, de.getStyle().getFontSize());
 
 				final org.osate.ge.graphics.Point primaryLabelPosition = de
 						.getConnectionPrimaryLabelPosition();
@@ -502,6 +502,7 @@ public class GraphitiAgeDiagram implements NodePictogramBiMap, AutoCloseable {
 					labelX = primaryLabelPosition.x;
 					labelY = primaryLabelPosition.y;
 				}
+
 				gaService.setLocation(text, (int) Math.round(labelX), (int) Math.round(labelY));
 			}
 
@@ -515,16 +516,19 @@ public class GraphitiAgeDiagram implements NodePictogramBiMap, AutoCloseable {
 		// and because there are issues when recreating the graphics algorithm of connections. Upon update, the connections may disappear.
 		if (pe instanceof Shape) {
 			final Shape shape = (Shape) pe;
-			final int width = Math.max(10, (int) Math.round(de.getWidth()));
-			final int height = Math.max(10, (int) Math.round(de.getHeight()));
-
 			// Set the position of the refreshed graphics algorithm
 			final IGaService gaService = Graphiti.getGaService();
 			final GraphicsAlgorithm newGa = gaService.createInvisibleRectangle(shape);
 			PropertyUtil.setIsStylingContainer(newGa, true);
 
-			// Set Size
-			gaService.setSize(newGa, width, height);
+			// Only set the size if it already has one assigned. Otherwise, leave it to the layout algorithm.
+			if (de.hasSize()) {
+				final int width = Math.max(10, (int) Math.round(de.getWidth()));
+				final int height = Math.max(10, (int) Math.round(de.getHeight()));
+
+				// Set Size
+				gaService.setSize(newGa, width, height);
+			}
 
 			// Set Position
 			final org.osate.ge.graphics.Point position = de.getPosition();
@@ -803,7 +807,7 @@ public class GraphitiAgeDiagram implements NodePictogramBiMap, AutoCloseable {
 		final IGaService gaService = Graphiti.getGaService();
 		switch (size) {
 		case REGULAR:
-			return gaService.createPlainPolyline(gaContainer, new int[] { -14, 8, 2, 0, -14, -8 });
+			return gaService.createPlainPolyline(gaContainer, new int[] { -10, 6, 2, 0, -10, -6 });
 		case SMALL:
 			return gaService.createPlainPolyline(gaContainer, new int[] { -6, 5, 2, 0, -6, -5 });
 		}
@@ -816,7 +820,7 @@ public class GraphitiAgeDiagram implements NodePictogramBiMap, AutoCloseable {
 		final IGaService gaService = Graphiti.getGaService();
 		switch (size) {
 		case REGULAR:
-			return gaService.createPlainPolygon(gaContainer, new int[] { -14, 8, 2, 0, -14, -8 });
+			return gaService.createPlainPolygon(gaContainer, new int[] { -10, 6, 2, 0, -10, -6 });
 		case SMALL:
 			return gaService.createPlainPolygon(gaContainer, new int[] { -6, 4, 2, 0, -6, -4 });
 		}
@@ -928,7 +932,7 @@ public class GraphitiAgeDiagram implements NodePictogramBiMap, AutoCloseable {
 							// Update modified elements
 							for (final DiagramElement element : elementsToUpdate) {
 								final PictogramElement pe = getPictogramElement(element);
-								updateDiagramElement(element, false);
+								updateDiagramElement(event.mod, element, false);
 
 								if (pe instanceof ContainerShape || pe instanceof ConnectionDecorator) {
 									final DiagramNode undockedContainer = getUndockedDiagramNode(element.getContainer());

@@ -10,7 +10,7 @@ import org.osate.ge.internal.diagram.runtime.AgeDiagram;
 import org.osate.ge.internal.diagram.runtime.DiagramElement;
 import org.osate.ge.internal.ui.util.UiUtil;
 
-public class GridLayoutHandler extends AbstractHandler {
+public class ArrangeInGridHandler extends AbstractHandler {
 
 	@Override
 	public Object execute(final ExecutionEvent event) throws ExecutionException {
@@ -20,7 +20,7 @@ public class GridLayoutHandler extends AbstractHandler {
 			throw new RuntimeException("Unable to get diagram");
 		}
 
-		diagram.modify("Grid Layout", m -> {
+		diagram.modify("Arrange in Grid", m -> {
 			// Calculate and sets the selected diagram elements into a grid layout.
 			final int padding = 25;
 
