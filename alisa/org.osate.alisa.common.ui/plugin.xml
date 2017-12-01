@@ -407,4 +407,11 @@
      </module>
   </extension>
 
+   <extension
+         point="org.eclipse.ui.newWizards">
+      <category
+            id="org.osate.alisa.common.ui.alisaWizardsCategory"
+            name="ALISA">
+      </category>
+   </extension>
 </plugin>

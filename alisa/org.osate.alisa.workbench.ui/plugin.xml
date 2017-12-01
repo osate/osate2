@@ -402,16 +402,10 @@
    <extension
          point="org.eclipse.ui.newWizards">
       <wizard
-            category="org.eclipse.xtext.projectwiz"
-            class="org.osate.alisa.workbench.ui.AlisaExecutableExtensionFactory:org.osate.alisa.workbench.ui.wizard.AlisaNewProjectWizard"
-            id="org.osate.alisa.workbench.ui.wizard.AlisaNewProjectWizard"
-            name="Alisa Project"
-            project="true">
+            id="org.osate.alisa.workbench.ui.assurancePlanFileWizard"
+            name="Assurance Plan File"
+            category="org.osate.alisa.common.ui.alisaWizardsCategory"
+            class="org.osate.alisa.workbench.ui.AlisaExecutableExtensionFactory:org.osate.alisa.workbench.ui.wizards.AssurancePlanFileWizard">
       </wizard>
    </extension>
-   
-   
-   
- 
-
 </plugin>
