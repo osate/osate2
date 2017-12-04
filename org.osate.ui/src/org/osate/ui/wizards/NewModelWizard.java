@@ -351,7 +351,6 @@ abstract class NewModelWizard extends Wizard implements INewWizard {
 
 			nameTextField = new Text(composite, SWT.BORDER);
 			nameTextField.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false));
-			nameTextField.setFocus();
 			nameTextField.addModifyListener(e -> setPageComplete(isPageComplete()));
 
 			if (projectFolder != null) {
@@ -378,6 +377,14 @@ abstract class NewModelWizard extends Wizard implements INewWizard {
 				pageBook.showPage(composite);
 			}
 			setControl(pageBook);
+		}
+		
+		@Override
+		public void setVisible(boolean visible) {
+			super.setVisible(visible);
+			if (visible) {
+				nameTextField.setFocus();
+			}
 		}
 
 		@Override
