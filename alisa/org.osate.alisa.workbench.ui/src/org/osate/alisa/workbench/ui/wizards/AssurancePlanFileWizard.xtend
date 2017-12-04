@@ -146,7 +146,6 @@ class AssurancePlanFileWizard extends Wizard implements INewWizard {
 					
 					caseNameField = new Text(composite, SWT.BORDER) => [caseNameField |
 						caseNameField.layoutData = new GridData(SWT.FILL, SWT.CENTER, true, false)
-						caseNameField.setFocus
 						caseNameField.addModifyListener[validate]
 					]
 					
@@ -170,6 +169,13 @@ class AssurancePlanFileWizard extends Wizard implements INewWizard {
 						implementationField.addModifyListener[validate]
 					]
 				]
+			}
+			
+			override setVisible(boolean visible) {
+				super.visible = visible
+				if (visible) {
+					caseNameField.setFocus
+				}
 			}
 			
 			/*
