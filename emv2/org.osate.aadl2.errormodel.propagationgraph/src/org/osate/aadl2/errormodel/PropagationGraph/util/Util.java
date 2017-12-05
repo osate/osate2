@@ -38,8 +38,15 @@ public class Util {
 		for (ConnectionInstance connectionInstance : cilist) {
 			if (!(completeConnectionsOnly && !connectionInstance.isComplete())) {
 				populateConnectionPropagationPaths(pg, connectionInstance);
+			}
+		}
+		List<ComponentInstance> compilist = EcoreUtil2.getAllContentsOfType(root, ComponentInstance.class);
+		for (ComponentInstance ci : compilist) {
+			populateBindingPaths(pg, ci);
+		}
+		for (ConnectionInstance connectionInstance : cilist) {
+			if (!(completeConnectionsOnly && !connectionInstance.isComplete())) {
 				populateBindingPaths(pg, connectionInstance);
-
 			}
 		}
 //		savePropagationGraph(pg);
@@ -278,7 +285,27 @@ public class Util {
 			pg.getPropagationPaths().add(path);
 			pg.getComponents().add(srcCI);
 			pg.getComponents().add(dstCI);
-			pg.getConnections().add(connectionInstance);
+			if (connectionInstance != null) {
+				pg.getConnections().add(connectionInstance);
+			}
+		}
+	}
+
+	private static void addPropagationpathRecord(PropagationGraph pg, ComponentInstance srcCI, ErrorPropagation srcprop,
+			ComponentInstance dstCI, ErrorPropagation dstprop) {
+		if (!existsPropagationPath(pg, srcCI, srcprop, dstCI, dstprop)) {
+			PropagationPath path = PropagationGraphFactory.eINSTANCE.createPropagationPath();
+			PropagationPathEnd srcPE = PropagationGraphFactory.eINSTANCE.createPropagationPathEnd();
+			PropagationPathEnd dstPE = PropagationGraphFactory.eINSTANCE.createPropagationPathEnd();
+			srcPE.setComponentInstance(srcCI);
+			srcPE.setErrorPropagation(srcprop);
+			dstPE.setComponentInstance(dstCI);
+			dstPE.setErrorPropagation(dstprop);
+			path.setPathSrc(srcPE);
+			path.setPathDst(dstPE);
+			pg.getPropagationPaths().add(path);
+			pg.getComponents().add(srcCI);
+			pg.getComponents().add(dstCI);
 		}
 	}
 
@@ -318,6 +345,17 @@ public class Util {
 		for (PropagationPath pp : pg.getPropagationPaths()) {
 			if (pp.getConnection() == conni && pp.getPathSrc() == srcCI && pp.getPathDst() == dstCI
 					&& pp.getPathSrc().getErrorPropagation() == srcEP
+					&& pp.getPathDst().getErrorPropagation() == dstEP) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	private static boolean existsPropagationPath(PropagationGraph pg, ComponentInstance srcCI, ErrorPropagation srcEP,
+			ComponentInstance dstCI, ErrorPropagation dstEP) {
+		for (PropagationPath pp : pg.getPropagationPaths()) {
+			if (pp.getPathSrc() == srcCI && pp.getPathDst() == dstCI && pp.getPathSrc().getErrorPropagation() == srcEP
 					&& pp.getPathDst().getErrorPropagation() == dstEP) {
 				return true;
 			}
@@ -383,14 +421,14 @@ public class Util {
 				resourcebindingKind);
 
 		if (BRsrcprop != null && BCdstprop != null) {
-			addPropagationpathRecord(pg, boundResource, BRsrcprop, comp, BCdstprop, null);
+			addPropagationpathRecord(pg, boundResource, BRsrcprop, comp, BCdstprop);
 		}
 		ErrorPropagation BCsrcprop = EMV2Util.findOutgoingErrorPropagation(comp.getComponentClassifier(),
 				resourcebindingKind);
 		ErrorPropagation BRdstprop = EMV2Util.findIncomingErrorPropagation(boundResource.getComponentClassifier(),
 				"bindings");
 		if (BCsrcprop != null && BRdstprop != null) {
-			addPropagationpathRecord(pg, comp, BCsrcprop, boundResource, BRdstprop, null);
+			addPropagationpathRecord(pg, comp, BCsrcprop, boundResource, BRdstprop);
 		}
 	}
 
