@@ -26,7 +26,7 @@ class PrimaryConnectionLabelReference implements ConnectionLabelReference {
 	}
 
 	@Override
-	public void setPosition(final DiagramModification modification, final Point position) {
+	public void setPosition(DiagramModification modification, Point position) {
 		modification.setConnectionPrimaryLabelPosition(connectionDiagramElement, position);
 	}
 
