@@ -1,6 +1,5 @@
 package org.osate.aadl2.errormodel.PropagationGraph.util;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.core.runtime.Path;
@@ -43,12 +42,17 @@ public class Util {
 
 			}
 		}
+//		savePropagationGraph(pg);
+		return pg;
+	}
+
+	public static void savePropagationGraph(PropagationGraph pg) {
+		ComponentInstance root = pg.getRoot();
 		String pgname = root.getName();
 		URI pgURI = EcoreUtil.getURI(root).trimFragment().trimSegments(1).appendSegment("reports")
 				.appendSegment("propagationgraph").appendSegment(pgname + ".propagationgraph");
 		AadlUtil.makeSureFoldersExist(new Path(pgURI.toPlatformString(true)));
 		OsateResourceUtil.saveEMFModel(pg, pgURI, root);
-		return pg;
 	}
 
 	/**
@@ -56,7 +60,6 @@ public class Util {
 	 * This method handles different levels.
 	 * It also handles both complete and incomplete connection instances (the latter are out only and in only connections
 	 * @param connectionInstance
-	 * @param level LEAF (lowest), TOP (highest), ALL (all combinations)
 	 */
 	protected static void populateConnectionPropagationPaths(PropagationGraph pg,
 			ConnectionInstance connectionInstance) {
@@ -80,12 +83,6 @@ public class Util {
 		// outonly is an incomplete connection instance that is only outgoing,
 		// i.e., we only have outgoing propagations.
 		boolean outonly = (last.getDestination().getComponentInstance() == last.getContext());
-		// list of additional source error propagations (i.e., those of
-		// enclosing components.
-		List<ComponentInstance> addlSrcCI = new ArrayList<ComponentInstance>();
-		List<ErrorPropagation> addlSrcEP = new ArrayList<ErrorPropagation>();
-		List<ComponentInstance> addlDstCI = new ArrayList<ComponentInstance>();
-		List<ErrorPropagation> addlDstEP = new ArrayList<ErrorPropagation>();
 		for (ConnectionReference connectionReference : connrefs) {
 			if (!isActive(connectionReference, som)) {
 				continue;
@@ -95,24 +92,24 @@ public class Util {
 			// remember the first (lowest in the hierarchy) src component
 			// instance with Error propagation
 			// srcprop is null until we found the source error propagation
-			ErrorPropagation foundEP = null;
-			if (src instanceof FeatureInstance) {
-				if (inonly) {
-					foundEP = EMV2Util.getIncomingErrorPropagation((FeatureInstance) src);
-				} else {
-					foundEP = EMV2Util.getOutgoingErrorPropagation((FeatureInstance) src);
+			if (srcprop == null) {
+				ErrorPropagation foundEP = null;
+				if (src instanceof FeatureInstance) {
+					if (inonly) {
+						foundEP = EMV2Util.getIncomingErrorPropagation((FeatureInstance) src);
+					} else {
+						foundEP = EMV2Util.getOutgoingErrorPropagation((FeatureInstance) src);
+					}
+				} else if (src instanceof ComponentInstance) {
+					// deal with an access connection pointing to a component
+					// instance instead of a feature instance
+					if (inonly) {
+						foundEP = EMV2Util.getIncomingAccessErrorPropagation((ComponentInstance) src);
+					} else {
+						foundEP = EMV2Util.getOutgoingAccessErrorPropagation((ComponentInstance) src);
+					}
 				}
-			} else if (src instanceof ComponentInstance) {
-				// deal with an access connection pointing to a component
-				// instance instead of a feature instance
-				if (inonly) {
-					foundEP = EMV2Util.getIncomingAccessErrorPropagation((ComponentInstance) src);
-				} else {
-					foundEP = EMV2Util.getOutgoingAccessErrorPropagation((ComponentInstance) src);
-				}
-			}
-			if (foundEP != null) {
-				if (srcprop == null) {
+				if (foundEP != null) {
 					srcprop = foundEP;
 					srcCI = src.getComponentInstance();
 				}
@@ -135,6 +132,7 @@ public class Util {
 				}
 			}
 			if (founddst != null) {
+				// remember the last one, i.e., we keep setting it.
 				dstprop = founddst;
 				dstCI = dst.getComponentInstance();
 			}
@@ -145,11 +143,6 @@ public class Util {
 			// we found a source and destination. Add it if not already
 			// there.
 			addPropagationpathRecord(pg, srcCI, srcprop, dstCI, dstprop, connectionInstance);
-		} else {
-			if (srcprop != null && addlSrcEP.size() > 1) {
-				dstprop = addlSrcEP.get(addlSrcEP.size() - 1);
-				dstCI = addlSrcCI.get(addlSrcCI.size() - 1);
-			}
 		}
 		if (connectionInstance.isBidirectional()) {
 			// now work in the inverse direction since the conneciton is
@@ -158,10 +151,6 @@ public class Util {
 			srcCI = null;
 			dstprop = null;
 			dstCI = null;
-			addlSrcCI.clear();
-			addlSrcEP.clear();
-			addlDstCI.clear();
-			addlDstEP.clear();
 			for (int i = connrefs.size() - 1; i >= 0; i--) {
 				ConnectionReference connectionReference = connrefs.get(i);
 				if (!isActive(connectionReference, som)) {
@@ -169,25 +158,25 @@ public class Util {
 				}
 				ConnectionInstanceEnd dst = connectionReference.getSource();
 				ConnectionInstanceEnd src = connectionReference.getDestination();
-				ErrorPropagation foundEP = null;
-				if (src instanceof FeatureInstance) {
-					if (inonly) {
-						foundEP = EMV2Util.getIncomingErrorPropagation((FeatureInstance) src);
-					} else {
-						foundEP = EMV2Util.getOutgoingErrorPropagation((FeatureInstance) src);
+				if (srcprop == null) {
+					ErrorPropagation foundEP = null;
+					if (src instanceof FeatureInstance) {
+						if (inonly) {
+							foundEP = EMV2Util.getIncomingErrorPropagation((FeatureInstance) src);
+						} else {
+							foundEP = EMV2Util.getOutgoingErrorPropagation((FeatureInstance) src);
+						}
+					} else if (src instanceof ComponentInstance) {
+						// deal with an access connection pointing to a component
+						// instance instead of a feature instance
+						if (inonly) {
+							foundEP = EMV2Util.getIncomingAccessErrorPropagation((ComponentInstance) src);
+						} else {
+							foundEP = EMV2Util.getOutgoingAccessErrorPropagation((ComponentInstance) src);
+						}
 					}
-				} else if (src instanceof ComponentInstance) {
-					// deal with an access connection pointing to a component
-					// instance instead of a feature instance
-					if (inonly) {
-						foundEP = EMV2Util.getIncomingAccessErrorPropagation((ComponentInstance) src);
-					} else {
-						foundEP = EMV2Util.getOutgoingAccessErrorPropagation((ComponentInstance) src);
-					}
-				}
 
-				if (foundEP != null) {
-					if (srcprop == null) {
+					if (foundEP != null) {
 						srcprop = foundEP;
 						srcCI = src.getComponentInstance();
 					}
@@ -220,11 +209,6 @@ public class Util {
 				// we found a source and destination. Add it if not already
 				// there.
 				addPropagationpathRecord(pg, srcCI, srcprop, dstCI, dstprop, connectionInstance);
-			} else {
-				if (srcprop != null && addlSrcEP.size() > 1) {
-					dstprop = addlSrcEP.get(addlSrcEP.size() - 1);
-					dstCI = addlSrcCI.get(addlSrcCI.size() - 1);
-				}
 			}
 		}
 	}
@@ -291,7 +275,6 @@ public class Util {
 			dstPE.setErrorPropagation(dstprop);
 			path.setPathSrc(srcPE);
 			path.setPathDst(dstPE);
-			// new PropagationPathRecord(srcCI, srcprop, dstCI, dstprop, connectionInstance);
 			pg.getPropagationPaths().add(path);
 			pg.getComponents().add(srcCI);
 			pg.getComponents().add(dstCI);
