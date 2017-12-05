@@ -91,7 +91,7 @@ class AssurancePlanFileWizard extends Wizard implements INewWizard {
 				editor.selectAndReveal(contents.ordinalIndexOf("\t", 3) + 1, 0)
 			} catch (PartInitException e) {
 				AlisaActivator.instance.log.log(new Status(IStatus.WARNING, "org.osate.alisa.workbench.ui", e.message, e))
-				MessageDialog.openError(container.shell, "Open Editor", e.message)
+				MessageDialog.openWarning(container.shell, "Open Editor", e.message)
 			}
 			true
 		} catch (InterruptedException e) {
