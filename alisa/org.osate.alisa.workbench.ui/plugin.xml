@@ -408,4 +408,26 @@
             class="org.osate.alisa.workbench.ui.AlisaExecutableExtensionFactory:org.osate.alisa.workbench.ui.wizards.AssurancePlanFileWizard">
       </wizard>
    </extension>
+   <extension
+         point="org.eclipse.ui.perspectiveExtensions">
+      <perspectiveExtension
+            targetID="org.osate.ui.perspective.AadlPerspective">
+         <newWizardShortcut
+               id="org.osate.alisa.workbench.ui.assurancePlanFileWizard">
+         </newWizardShortcut>
+      </perspectiveExtension>
+   </extension>
+   <extension
+         point="org.eclipse.ui.navigator.navigatorContent">
+      <commonWizard
+            type="new"
+            wizardId="org.osate.alisa.workbench.ui.assurancePlanFileWizard"
+            menuGroupId="org.osate.alisa.common.ui.alisaWizardsCategory">
+         <enablement>
+            <adapt
+                  type="org.eclipse.core.resources.IResource">
+            </adapt>
+         </enablement>
+      </commonWizard>
+   </extension>
 </plugin>

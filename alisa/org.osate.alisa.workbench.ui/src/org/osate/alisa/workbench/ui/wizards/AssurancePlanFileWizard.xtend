@@ -150,7 +150,7 @@ class AssurancePlanFileWizard extends Wizard implements INewWizard {
 					]
 					
 					new Label(composite, SWT.NONE) => [label |
-						label.text = "Assurance Plan Name:"
+						label.text = "First Assurance Plan Name:"
 						label.layoutData = new GridData(SWT.BEGINNING, SWT.CENTER, false, false)
 					]
 					
