@@ -187,11 +187,11 @@
       </image>
       <image
             commandId="org.osate.aadl2.errormodel.analysis.arp4761FHA"
-            icon="icons/fha.png">
+            icon="icons/fha_a.png">
       </image>
       <image
             commandId="org.osate.aadl2.errormodel.analysis.milstd882FHA"
-            icon="icons/fha.png">
+            icon="icons/fha_m.png">
       </image>
       <image
             commandId="org.osate.aadl2.errormodel.analysis.faultImpact"
