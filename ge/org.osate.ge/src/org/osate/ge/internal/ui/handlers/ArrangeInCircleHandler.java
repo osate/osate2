@@ -11,7 +11,7 @@ import org.osate.ge.internal.diagram.runtime.AgeDiagram;
 import org.osate.ge.internal.diagram.runtime.DiagramElement;
 import org.osate.ge.internal.ui.util.UiUtil;
 
-public class RadialLayoutHandler extends AbstractHandler {
+public class ArrangeInCircleHandler extends AbstractHandler {
 	@Override
 	public Object execute(final ExecutionEvent event) throws ExecutionException {
 		final List<DiagramElement> selectedDiagramElements = AgeHandlerUtil.getSelectedDiagramElements(event);
@@ -20,7 +20,7 @@ public class RadialLayoutHandler extends AbstractHandler {
 			throw new RuntimeException("Unable to get diagram");
 		}
 
-		diagram.modify("Radial Layout", m -> {
+		diagram.modify("Arrange in Circle", m -> {
 			// Calculate and sets the position of the selected shapes into a radial layout.
 			final List<Double> angles = new ArrayList<>();
 			final double padding = 5;

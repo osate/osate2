@@ -138,15 +138,6 @@ public class StyleBuilder {
 	}
 
 	/**
-	 * Configures labels to be positioned before the left side of the graphic.
-	 * @return this builder to allow method chaining.
-	 */
-	public StyleBuilder labelsBeforeLeft() {
-		this.horizontalLabelPosition = LabelPosition.BEFORE_GRAPHIC;
-		return this;
-	}
-
-	/**
 	 * Configures labels to be left aligned.
 	 * @return this builder to allow method chaining.
 	 */
@@ -174,16 +165,7 @@ public class StyleBuilder {
 	}
 
 	/**
-	 * Configures labels to be positioned after the right side of the graphic.
-	 * @return this builder to allow method chaining.
-	 */
-	public StyleBuilder labelsAfterRight() {
-		this.horizontalLabelPosition = LabelPosition.AFTER_GRAPHIC;
-		return this;
-	}
-
-	/**
-	 * Configures labels to be positioned above the top of the graphic
+	 * Configures labels to be positioned above the top of the graphic. Only supported for docked shapes.
 	 * @return this builder to allow method chaining.
 	 */
 	public StyleBuilder labelsAboveTop() {
@@ -215,15 +197,6 @@ public class StyleBuilder {
 	 */
 	public StyleBuilder labelsBottom() {
 		this.verticalLabelPosition = LabelPosition.GRAPHIC_END;
-		return this;
-	}
-
-	/**
-	 * Configures labels to be positioned below the bottom of the graphic
-	 * @return this builder to allow method chaining.
-	 */
-	public StyleBuilder labelsBelowBottom() {
-		this.verticalLabelPosition = LabelPosition.AFTER_GRAPHIC;
 		return this;
 	}
 

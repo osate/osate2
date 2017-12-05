@@ -1,6 +1,5 @@
 package org.osate.ge.internal.diagram.runtime;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
@@ -14,6 +13,8 @@ import org.osate.ge.graphics.Style;
 import org.osate.ge.graphics.internal.AgeGraphicalConfiguration;
 import org.osate.ge.internal.diagram.runtime.boTree.Completeness;
 import org.osate.ge.internal.query.Queryable;
+
+import com.google.common.collect.ImmutableList;
 
 public class DiagramElement implements DiagramNode, ModifiableDiagramElementContainer, BusinessObjectContext {
 	private final DiagramNode container;
@@ -36,8 +37,8 @@ public class DiagramElement implements DiagramNode, ModifiableDiagramElementCont
 	private DockArea dockArea; // Optional
 
 	// Connection Specific
-	private List<Point> bendpoints; // Optional. Diagram coordinate system.
-	private Point connectionPrimaryLabelPosition; // Optional. Position of the connection label.
+	private List<Point> bendpoints; // Optional. Diagram coordinate system. A null value indicates that the bendpoints have not been configured.
+	private Point connectionPrimaryLabelPosition; // Optional. Position of the connection label. Relative to the midpoint of the connection.
 
 	/**
 	 * It is intended that bo and boHandler will not be null except for during the diagram loading process.
@@ -264,16 +265,29 @@ public class DiagramElement implements DiagramNode, ModifiableDiagramElementCont
 	}
 
 	/**
-	 * Returns an unmodifiable list of the element's bendpoints. The returned list is not guaranteed to be updated to reflect changes.
+	 * Returns true if the diagram element's bendpoints have been set. Will return true when there are no bendpoints if the bendpoints have been set to an empty list.
+	 * @return
+	 */
+	public final boolean isBendpointsSet() {
+		return bendpoints != null;
+	}
+
+	/**
+	 * Returns an immutable list of the element's bendpoints. The returned list is not guaranteed to be updated to reflect changes.
 	 * Bendpoints are specified in diagram coordinates rather than relative to the diagram element.
 	 * @return never returns null.
 	 */
 	public final List<Point> getBendpoints() {
-		return bendpoints == null ? Collections.emptyList() : Collections.unmodifiableList(bendpoints);
+		return bendpoints == null ? Collections.emptyList() : bendpoints;
 	}
 
+	/**
+	 * Bendpoints is set to null instead of an empty list so that it can be determined if the bendpoints have been set. To indicate that the diagram element
+	 * does not have any bendpoints, an empty value should be set.
+	 * @param value
+	 */
 	final void setBendpoints(final List<Point> value) {
-		bendpoints = value == null ? null : new ArrayList<>(value);
+		bendpoints = value == null ? null : ImmutableList.copyOf(value);
 	}
 
 	/**

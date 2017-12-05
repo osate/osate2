@@ -7,8 +7,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.stream.Collectors;
 
-import org.eclipse.graphiti.datatypes.IDimension;
 import org.eclipse.graphiti.mm.algorithms.GraphicsAlgorithm;
 import org.eclipse.graphiti.mm.algorithms.Text;
 import org.eclipse.graphiti.mm.algorithms.styles.Point;
@@ -20,7 +20,6 @@ import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.mm.pictograms.Shape;
 import org.eclipse.graphiti.services.Graphiti;
 import org.eclipse.graphiti.services.IGaService;
-import org.eclipse.graphiti.ui.services.GraphitiUi;
 import org.osate.ge.graphics.Graphic;
 import org.osate.ge.graphics.LabelPosition;
 import org.osate.ge.graphics.Style;
@@ -28,8 +27,10 @@ import org.osate.ge.graphics.internal.Label;
 import org.osate.ge.graphics.internal.Poly;
 import org.osate.ge.internal.diagram.runtime.AgeDiagram;
 import org.osate.ge.internal.diagram.runtime.DiagramElement;
+import org.osate.ge.internal.diagram.runtime.DiagramElementPredicates;
 import org.osate.ge.internal.diagram.runtime.DiagramModification;
 import org.osate.ge.internal.diagram.runtime.DiagramNode;
+import org.osate.ge.internal.diagram.runtime.Dimension;
 import org.osate.ge.internal.diagram.runtime.DockArea;
 import org.osate.ge.internal.graphiti.AnchorNames;
 import org.osate.ge.internal.graphiti.ShapeNames;
@@ -39,8 +40,8 @@ import org.osate.ge.internal.graphiti.graphics.AgeGraphitiGraphicsUtil;
  * Helper class for performing layout. Layout includes positioning child shapes and updating the graphics algorithm.
  *
  */
-class LayoutUtil {
-	private final static int labelPadding = 3;
+public class LayoutUtil {
+	public final static int labelPadding = 3;
 
 	private static class LayoutMetrics {
 		int innerWidth = 30;
@@ -117,17 +118,17 @@ class LayoutUtil {
 						if (decorationElement.getName() != null) {
 							final Text text = gaService.createDefaultText(graphitiDiagram, cd);
 							PropertyUtil.setIsStylingChild(text, true);
-							TextUtil.setStyle(graphitiDiagram, text, decorationElement.getStyle().getFontSize());
 							text.setValue(decorationElement.getName());
+							TextUtil.setStyleAndSize(graphitiDiagram, text, decorationElement.getStyle().getFontSize());
 							if (decorationElement.hasPosition()) {
 								gaService.setLocation(text, (int) Math.round(decorationElement.getX()),
 										(int) Math.round(decorationElement.getY()));
 							} else {
-								final IDimension labelTextSize = GraphitiUi.getUiLayoutService()
-										.calculateTextSize(decorationElement.getName(), text.getFont());
-								text.setX(-labelTextSize.getWidth() / 2);
+								text.setX(-text.getWidth() / 2);
 								text.setY(labelY);
 							}
+
+							mod.setSize(decorationElement, new Dimension(text.getWidth(), text.getHeight()));
 
 							// Set the next label position based on the position of this label
 							labelY += 15;
@@ -245,12 +246,12 @@ class LayoutUtil {
 						final Map<DockArea, List<Shape>> dockAreaToShapesMap = buildDockAreaToChildrenMap(shape);
 
 						// Adjust shapes so they do not overlap
-						cleanupOverlappingDockedShapes(shapeDockArea, dockAreaToShapesMap);
+						cleanupOverlappingDockedShapes(shapeDockArea, dockAreaToShapesMap, diagramNodeProvider);
 
 						// Handle positioning of group docked shapes
 						for (final Entry<DockArea, List<Shape>> dockAreaToShapesEntry : dockAreaToShapesMap.entrySet()) {
-							for (final Shape childShape : dockAreaToShapesEntry.getValue()) {
-								if (dockAreaToShapesEntry.getKey() == DockArea.GROUP) {
+							if (dockAreaToShapesEntry.getKey() == DockArea.GROUP) {
+								for (final Shape childShape : dockAreaToShapesEntry.getValue()) {
 									switch (shapeDockArea) {
 									case LEFT:
 									case RIGHT:
@@ -305,9 +306,12 @@ class LayoutUtil {
 						final int innerBottom = lm.getInnerBottom();
 						shapeGa.setWidth(innerRight + lm.rightOuterPadding);
 						shapeGa.setHeight(innerBottom + lm.bottomOuterPadding);
-						mod.setSize(element,
-								new org.osate.ge.internal.diagram.runtime.Dimension(shapeGa.getWidth(), shapeGa.getHeight()));
 
+						// Only adjust the size of an element if it doesn't have a size. If it doens't already have a size, the incremental layout will handle it.
+						if (!DiagramElementPredicates.isResizeable(element) || element.hasSize()) {
+							mod.setSize(element,
+									new org.osate.ge.internal.diagram.runtime.Dimension(shapeGa.getWidth(), shapeGa.getHeight()));
+						}
 						// Position docked shapes
 						for (final Entry<DockArea, List<Shape>> dockAreaToShapesEntry : dockAreaToShapesMap.entrySet()) {
 							for (final Shape childShape : dockAreaToShapesEntry.getValue()) {
@@ -339,7 +343,6 @@ class LayoutUtil {
 										childGa.setY(innerBottom - dockedShapeOffset - childGa.getHeight());
 										break;
 									}
-
 								}
 							}
 						}
@@ -470,6 +473,7 @@ class LayoutUtil {
 								mod.setDockArea(child, oldDockArea); // Prevent changing the dock area when positioning the shape.
 							}
 						}
+
 	}
 
 	/**
@@ -667,7 +671,7 @@ class LayoutUtil {
 	};
 
 	private static void cleanupOverlappingDockedShapes(final DockArea parentNonGroupDockArea,
-			final Map<DockArea, List<Shape>> dockAreaToShapesMap) {
+			final Map<DockArea, List<Shape>> dockAreaToShapesMap, final NodePictogramBiMap diagramNodeProvider) {
 		for (final Entry<DockArea, List<Shape>> dockAreaToShapesEntry : dockAreaToShapesMap.entrySet()) {
 			if (dockAreaToShapesEntry.getKey() != null) {
 				// Determine the orientation of the docked shapes
@@ -685,8 +689,16 @@ class LayoutUtil {
 					vertical = true;
 				}
 
-				// Sort shapes by order
-				final List<Shape> sortedShapes = new ArrayList<Shape>(dockAreaToShapesEntry.getValue());
+				// Sort shapes by order. Ignore shapes that haven't been layed out
+				final List<Shape> sortedShapes = dockAreaToShapesEntry.getValue().stream().filter(s -> {
+					final DiagramNode dn = diagramNodeProvider.getDiagramNode(s);
+					if (!(dn instanceof DiagramElement)) {
+						return false;
+					}
+
+					final DiagramElement de = (DiagramElement) dn;
+					return de.hasPosition() || de.getDockArea() == DockArea.GROUP;
+				}).collect(Collectors.toList());
 
 				if (vertical) {
 					Collections.sort(sortedShapes, yComparator);
@@ -707,6 +719,14 @@ class LayoutUtil {
 							shape.getGraphicsAlgorithm().setX(newX);
 							minX = newX + shape.getGraphicsAlgorithm().getWidth() + 5;
 						}
+					}
+				}
+
+				// Nested docked feature need to be marked as layed out since the layout algorithm does not handle them.
+				// This ensures they are taken into account when determining minimum size
+				if (dockAreaToShapesEntry.getKey() == DockArea.GROUP) {
+					for (Shape shape : sortedShapes) {
+						PropertyUtil.setIsLayedOut(shape, true);
 					}
 				}
 			}
@@ -739,14 +759,8 @@ class LayoutUtil {
 		return result;
 	}
 
-	private static Shape getChildShapeByName(final ContainerShape shape, final String name) {
-		for (final Shape child : shape.getChildren()) {
-			if (name.equals(PropertyUtil.getName(child))) {
-				return child;
-			}
-		}
-
-		return null;
+	public static Shape getChildShapeByName(final ContainerShape shape, final String name) {
+		return ShapeUtil.getShapeByName(shape.getChildren(), name);
 	}
 
 	private static List<Shape> getChildShapesByName(ContainerShape shape, String name) {

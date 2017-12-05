@@ -361,7 +361,12 @@ public class AgeDiagram implements DiagramNode, ModifiableDiagramElementContaine
 
 		@Override
 		public void setBendpoints(final DiagramElement e, final List<Point> value) {
-			if(!value.equals(e.getBendpoints())) {
+			if (value == null && !e.isBendpointsSet()) {
+				return;
+			}
+
+			// Set the bendpoints even if the returned bendpoints are equal if the bendpoints is being set for the first time or unset.
+			if (value == null || !e.isBendpointsSet() || !value.equals(e.getBendpoints())) {
 				// Make copy of values because lists are not immutable.
 				storeChange(e, DiagramElementField.BENDPOINTS, new ArrayList<>(e.getBendpoints()), value == null ? Collections.emptyList() : new ArrayList<>(value));
 				e.setBendpoints(value);
@@ -607,7 +612,9 @@ public class AgeDiagram implements DiagramNode, ModifiableDiagramElementContaine
 	}
 
 	private DockArea calculateDockArea(final DiagramElement e) {
-		return AgeDiagramUtil.determineDockingPosition(e.getContainer(), e.getX(), e.getY(), e.getWidth(), e.getHeight()).getDockArea();
+		return AgeDiagramUtil
+				.determineDockingPosition(e.getContainer(), e.getX(), e.getY(), e.getWidth(), e.getHeight())
+				.getDefaultDockArea();
 	}
 
 	@Override
