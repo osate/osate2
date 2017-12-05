@@ -455,10 +455,10 @@ end FTerrorlibrary;
     <relatedErrorType href="../../../changeme.aadl#/0/@ownedPublicSection/@ownedClassifier.6/@ownedAnnexSubclause.0/@parsedAnnexSubclause/@transitions.0/@condition/@constraint"/>
     <relatedEMV2Object href="../../../FTErrorLibrary.aadl#/0/@ownedPublicSection/@ownedAnnexLibrary.0/@parsedAnnexLibrary/@behaviors.0/@events.0"/>
   </events>
-  <events name="voter.thr-memory-serviceerror" description="Component 'voter.thr' with incoming  failure 'ServiceError' from undeveloped 'memory'" referenceCount="1" type="Undeveloped">
-    <relatedInstanceObject href="../../changeme_main2_composite_Instance.aaxl2#//@componentInstance.5/@componentInstance.0"/>
+  <events name="mem-memfail-serviceerror" description="Component 'mem' failure source 'ServiceError'" referenceCount="1">
+    <relatedInstanceObject href="../../changeme_main2_composite_Instance.aaxl2#//@componentInstance.4"/>
     <relatedErrorType href="../../../changeme.aadl#/0/@ownedPublicSection/@ownedClassifier.7/@ownedAnnexSubclause.0/@parsedAnnexSubclause/@flows.3/@typeTokenConstraint"/>
-    <relatedEMV2Object href="../../../changeme.aadl#/0/@ownedPublicSection/@ownedClassifier.7/@ownedAnnexSubclause.0/@parsedAnnexSubclause/@propagations.4"/>
+    <relatedEMV2Object href="../../../changeme.aadl#/0/@ownedPublicSection/@ownedClassifier.2/@ownedAnnexSubclause.0/@parsedAnnexSubclause/@flows.0"/>
   </events>
   <events name="voter.thr-computeerror-inconsistentvalue" description="Component 'voter.thr' failure event 'InconsistentValue'" referenceCount="1">
     <relatedInstanceObject href="../../changeme_main2_composite_Instance.aaxl2#//@componentInstance.5/@componentInstance.0"/>
@@ -489,10 +489,10 @@ end FTerrorlibrary;
     <relatedErrorType href="../../../changeme.aadl#/0/@ownedPublicSection/@ownedClassifier.8/@ownedAnnexSubclause.0/@parsedAnnexSubclause/@flows.1/@typeTokenConstraint"/>
     <relatedEMV2Object href="../../../changeme.aadl#/0/@ownedPublicSection/@ownedClassifier.4/@ownedAnnexSubclause.0/@parsedAnnexSubclause/@propagations.0"/>
   </events>
-  <events name="voter.thr-processor-itemomission" description="Component 'voter.thr' with incoming  failure 'ItemOmission' from undeveloped 'processor'" referenceCount="1" type="Undeveloped">
-    <relatedInstanceObject href="../../changeme_main2_compositesametype_Instance.aaxl2#//@componentInstance.5/@componentInstance.0"/>
+  <events name="cpu-cpufail-itemomission" description="Component 'cpu' failure source 'ItemOmission'" referenceCount="1">
+    <relatedInstanceObject href="../../changeme_main2_compositesametype_Instance.aaxl2#//@componentInstance.6"/>
     <relatedErrorType href="../../../changeme.aadl#/0/@ownedPublicSection/@ownedClassifier.6/@ownedAnnexSubclause.0/@parsedAnnexSubclause/@transitions.0/@condition/@constraint"/>
-    <relatedEMV2Object href="../../../changeme.aadl#/0/@ownedPublicSection/@ownedClassifier.8/@ownedAnnexSubclause.0/@parsedAnnexSubclause/@propagations.3"/>
+    <relatedEMV2Object href="../../../changeme.aadl#/0/@ownedPublicSection/@ownedClassifier.1/@ownedAnnexSubclause.0/@parsedAnnexSubclause/@flows.0"/>
   </events>
   <events name="sensor1-ef1-outofrange" description="Component 'sensor1' failure source 'OutOfRange'" referenceCount="1">
     <relatedInstanceObject href="../../changeme_main2_compositesametype_Instance.aaxl2#//@componentInstance.1"/>
@@ -513,7 +513,7 @@ end FTerrorlibrary;
     <relatedInstanceObject href="../../changeme_main2_compositesametype_Instance.aaxl2#//@componentInstance.3"/>
     <relatedEMV2Object href="../../../../../plugin/org.osate.aadl2.errormodel.contrib/resources/packages/ErrorLibrary.aadl#/0/@ownedPublicSection/@ownedAnnexLibrary.0/@parsedAnnexLibrary/@behaviors.0/@events.0"/>
   </events>
-  <events name="redundant2_main2_compositesametype-failstop" description="Component 'main2.compositesametype' in failure mode 'FailStop'" subEvents="//@events.6 //@events.2 //@events.0 //@events.1 //@events.3 //@events.4 //@events.5" referenceCount="1" type="Intermediate">
+  <events name="redundant2_main2_compositesametype-failstop" description="Component 'main2.compositesametype' in failure mode 'FailStop'" subEvents="//@events.6 //@events.0 //@events.1 //@events.2 //@events.3 //@events.4 //@events.5" referenceCount="1" type="Intermediate">
     <relatedInstanceObject href="../../changeme_main2_compositesametype_Instance.aaxl2#/"/>
     <relatedEMV2Object href="../../../../../plugin/org.osate.aadl2.errormodel.contrib/resources/packages/ErrorLibrary.aadl#/0/@ownedPublicSection/@ownedAnnexLibrary.0/@parsedAnnexLibrary/@behaviors.0/@states.1"/>
   </events>
