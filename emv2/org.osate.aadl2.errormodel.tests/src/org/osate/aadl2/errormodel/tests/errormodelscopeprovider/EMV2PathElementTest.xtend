@@ -21,6 +21,7 @@ import org.osate.xtext.aadl2.errormodel.errorModel.SConditionElement
 import static extension org.junit.Assert.assertEquals
 import static extension org.junit.Assert.assertNull
 import static extension org.osate.xtext.aadl2.errormodel.util.EMV2Util.getPropagationName
+import com.itemis.xtext.testing.FluentIssueCollection
 
 @RunWith(XtextRunner)
 @InjectWith(ErrorModelUiInjectorProvider)
@@ -1238,7 +1239,9 @@ class EMV2PathElementTest extends OsateTest {
 			end BasicEMV2PropertyAssociation_in_ErrorBehaviorStateMachine;
 		''')
 		ignoreSerializationDifferences
-		testFile(basicEMV2PropertyAssociationInErrorBehaviorStateMachineFileName).resource.contents.head as AadlPackage => [
+		val lib1TestResult = testFile(basicEMV2PropertyAssociationInErrorBehaviorStateMachineFileName)
+		val lib1IssueCollection = new FluentIssueCollection(lib1TestResult.resource, newArrayList, newArrayList)
+		lib1TestResult.resource.contents.head as AadlPackage => [
 			"BasicEMV2PropertyAssociation_in_ErrorBehaviorStateMachine".assertEquals(name)
 			((publicSection.ownedAnnexLibraries.head as DefaultAnnexLibrary).parsedAnnexLibrary as ErrorModelLibrary).behaviors.head => [
 				"bvr1".assertEquals(name)
@@ -1262,6 +1265,7 @@ class EMV2PathElementTest extends OsateTest {
 					]
 				]
 				properties.get(2) => [
+					assertError(lib1TestResult.issues, lib1IssueCollection, "Property EMV2::ExposurePeriod does not apply to trans1")
 					3.3.assertEquals((ownedValues.head.ownedValue as RealLiteral).value, 0)
 					emv2Path.head.emv2Target => [
 						"trans1".assertEquals(namedElement.name)
@@ -1540,7 +1544,9 @@ class EMV2PathElementTest extends OsateTest {
 			end EMV2PropertyAssociation;
 		''')
 		ignoreSerializationDifferences
-		testFile(emv2PropertyAssociationFileName).resource.contents.head as AadlPackage => [
+		val lib1TestResult = testFile(emv2PropertyAssociationFileName)
+		val lib1IssueCollection = new FluentIssueCollection(lib1TestResult.resource, newArrayList, newArrayList)
+		lib1TestResult.resource.contents.head as AadlPackage => [
 			"EMV2PropertyAssociation".assertEquals(name)
 			publicSection.ownedClassifiers.get(1) => [
 				"a1.i".assertEquals(name)
@@ -2358,6 +2364,7 @@ class EMV2PathElementTest extends OsateTest {
 						]
 					]
 					properties.get(50) => [
+					assertError(lib1TestResult.issues, lib1IssueCollection, "Property EMV2::ExposurePeriod does not apply to outgoingPropagationCondition1")
 						51.51.assertEquals((ownedValues.head.ownedValue as RealLiteral).value, 0)
 						emv2Path.head.emv2Target => [
 							"outgoingPropagationCondition1".assertEquals(namedElement.name)
@@ -2376,6 +2383,7 @@ class EMV2PathElementTest extends OsateTest {
 						]
 					]
 					properties.get(52) => [
+					assertError(lib1TestResult.issues, lib1IssueCollection, "Property EMV2::ExposurePeriod does not apply to detection1")
 						53.53.assertEquals((ownedValues.head.ownedValue as RealLiteral).value, 0)
 						emv2Path.head.emv2Target => [
 							"detection1".assertEquals(namedElement.name)
@@ -2394,6 +2402,7 @@ class EMV2PathElementTest extends OsateTest {
 						]
 					]
 					properties.get(54) => [
+					assertError(lib1TestResult.issues, lib1IssueCollection, "Property EMV2::ExposurePeriod does not apply to compositeState1")
 						55.55.assertEquals((ownedValues.head.ownedValue as RealLiteral).value, 0)
 						emv2Path.head.emv2Target => [
 							"compositeState1".assertEquals(namedElement.name)
@@ -2412,6 +2421,7 @@ class EMV2PathElementTest extends OsateTest {
 						]
 					]
 					properties.get(56) => [
+					assertError(lib1TestResult.issues, lib1IssueCollection, "Property EMV2::ExposurePeriod does not apply to connectionErrorSource1")
 						57.57.assertEquals((ownedValues.head.ownedValue as RealLiteral).value, 0)
 						emv2Path.head.emv2Target => [
 							"connectionErrorSource1".assertEquals(namedElement.name)
@@ -2464,6 +2474,7 @@ class EMV2PathElementTest extends OsateTest {
 						]
 					]
 					properties.get(60) => [
+					assertError(lib1TestResult.issues, lib1IssueCollection, "Property EMV2::ExposurePeriod does not apply to propagationPath1")
 						61.61.assertEquals((ownedValues.head.ownedValue as RealLiteral).value, 0)
 						emv2Path.head.emv2Target => [
 							"propagationPath1".assertEquals(namedElement.name)
