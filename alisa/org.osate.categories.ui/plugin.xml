@@ -404,6 +404,12 @@
             category="org.osate.alisa.common.ui.alisaWizardsCategory"
             class="org.osate.categories.ui.wizards.CategoriesFileWizard">
       </wizard>
+      <wizard
+            id="org.osate.categories.ui.categoryFiltersFileWizard"
+            name="Category Filters File"
+            category="org.osate.alisa.common.ui.alisaWizardsCategory"
+            class="org.osate.categories.ui.wizards.CategoryFiltersFileWizard">
+      </wizard>
    </extension>
    <extension
          point="org.eclipse.ui.perspectiveExtensions">
@@ -412,6 +418,9 @@
          <newWizardShortcut
                id="org.osate.categories.ui.categoriesFileWizard">
          </newWizardShortcut>
+         <newWizardShortcut
+               id="org.osate.categories.ui.categoryFiltersFileWizard">
+         </newWizardShortcut>
       </perspectiveExtension>
    </extension>
    <extension
@@ -419,6 +428,16 @@
       <commonWizard
             type="new"
             wizardId="org.osate.categories.ui.categoriesFileWizard"
+            menuGroupId="org.osate.alisa.common.ui.alisaWizardsCategory">
+         <enablement>
+            <adapt
+                  type="org.eclipse.core.resources.IResource">
+            </adapt>
+         </enablement>
+      </commonWizard>
+      <commonWizard
+            type="new"
+            wizardId="org.osate.categories.ui.categoryFiltersFileWizard"
             menuGroupId="org.osate.alisa.common.ui.alisaWizardsCategory">
          <enablement>
             <adapt
