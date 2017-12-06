@@ -234,7 +234,7 @@
       </image>
       <image
             commandId="org.osate.analysis.architecture.checkBindingConstraints"
-            icon="icons/bindingConstraints.gif">
+            icon="icons/check_binding.png">
       </image>
    </extension>
    <extension
