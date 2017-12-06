@@ -22,7 +22,8 @@ Require-Bundle: org.osate.alisa.common;visibility:=reexport,
  org.eclipse.jdt.debug.ui,
  org.eclipse.xtext.xbase.lib,
  org.osate.reqspec;bundle-version="1.0.0",
- org.osate.xtext.aadl2.ui
+ org.osate.xtext.aadl2.ui,
+ org.apache.commons.lang;bundle-version="2.6.0"
 Import-Package: it.xsemantics.runtime,
  org.apache.log4j
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
@@ -33,5 +34,6 @@ Export-Package: org.osate.alisa.common.ui.contentassist,
  org.osate.alisa.common.ui.internal,
  org.osate.alisa.common.ui.labeling,
  org.osate.alisa.common.ui.quickfix,
- org.osate.alisa.common.ui.util
+ org.osate.alisa.common.ui.util,
+ org.osate.alisa.common.ui.wizards
 Bundle-Activator: org.osate.alisa.common.ui.internal.CommonActivator
