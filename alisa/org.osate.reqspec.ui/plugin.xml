@@ -456,4 +456,54 @@
     </provider>
   </extension>
 
+   <extension
+         point="org.eclipse.ui.newWizards">
+      <wizard
+            id="org.osate.reqspec.ui.systemRequirementsFileWizard"
+            name="System Requirements File"
+            category="org.osate.alisa.common.ui.alisaWizardsCategory"
+            class="org.osate.reqspec.ui.ReqSpecExecutableExtensionFactory:org.osate.reqspec.ui.wizards.SystemRequirementsFileWizard">
+      </wizard>
+      <wizard
+            id="org.osate.reqspec.ui.globalRequirementsFileWizard"
+            name="Global Requirements File"
+            category="org.osate.alisa.common.ui.alisaWizardsCategory"
+            class="org.osate.reqspec.ui.ReqSpecExecutableExtensionFactory:org.osate.reqspec.ui.wizards.GlobalRequirementsFileWizard">
+      </wizard>
+   </extension>
+   <extension
+         point="org.eclipse.ui.perspectiveExtensions">
+      <perspectiveExtension
+            targetID="org.osate.ui.perspective.AadlPerspective">
+         <newWizardShortcut
+               id="org.osate.reqspec.ui.systemRequirementsFileWizard">
+         </newWizardShortcut>
+         <newWizardShortcut
+               id="org.osate.reqspec.ui.globalRequirementsFileWizard">
+         </newWizardShortcut>
+      </perspectiveExtension>
+   </extension>
+   <extension
+         point="org.eclipse.ui.navigator.navigatorContent">
+      <commonWizard
+            type="new"
+            wizardId="org.osate.reqspec.ui.systemRequirementsFileWizard"
+            menuGroupId="org.osate.alisa.common.ui.alisaWizardsCategory">
+         <enablement>
+            <adapt
+                  type="org.eclipse.core.resources.IResource">
+            </adapt>
+         </enablement>
+      </commonWizard>
+      <commonWizard
+            type="new"
+            wizardId="org.osate.reqspec.ui.globalRequirementsFileWizard"
+            menuGroupId="org.osate.alisa.common.ui.alisaWizardsCategory">
+         <enablement>
+            <adapt
+                  type="org.eclipse.core.resources.IResource">
+            </adapt>
+         </enablement>
+      </commonWizard>
+   </extension>
 </plugin>
