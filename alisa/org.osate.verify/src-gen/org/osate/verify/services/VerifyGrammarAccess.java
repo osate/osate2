@@ -223,8 +223,8 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 		@Override public ParserRule getRule() { return rule; }
 
 		//{Claim} 'claim' requirement=[ReqSpec::Requirement|QualifiedName]? (':' title=STRING)? '[' (('activities'
-		//activities+=VerificationActivity*)? & ('assert' assert=ArgumentExpr)? & rationale=Rationale? & ('weight' weight=INT)?
-		//& subclaim+=Claim* & ('issues' issues+=STRING+)?) ']'
+		//activities+=VerificationActivity*)? & ('assert' assert=ArgumentExpr)? & rationale=Rationale? & ('weight' weight=INT)? &
+		//subclaim+=Claim* & ('issues' issues+=STRING+)?) ']'
 		public Group getGroup() { return cGroup; }
 
 		//{Claim}
@@ -1136,12 +1136,12 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 		//	'verification' 'methods' name=QualifiedName (':' title=STRING)?
 		//	//	( 'for' (target=[aadl2::ComponentClassifier|AadlClassifierReference] | componentCategory+=ComponentCategory+ ))?
 		//	'[' (description=Description?
-		//	methods+=VerificationMethod+)
+		//	methods+=VerificationMethod*)
 		//	']';
 		@Override public ParserRule getRule() { return rule; }
 
 		//'verification' 'methods' name=QualifiedName (':' title=STRING)? //	( 'for' (target=[aadl2::ComponentClassifier|AadlClassifierReference] | componentCategory+=ComponentCategory+ ))?
-		//'[' (description=Description? methods+=VerificationMethod+) ']'
+		//'[' (description=Description? methods+=VerificationMethod*) ']'
 		public Group getGroup() { return cGroup; }
 
 		//'verification'
@@ -1172,7 +1172,7 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 		//'['
 		public Keyword getLeftSquareBracketKeyword_4() { return cLeftSquareBracketKeyword_4; }
 
-		//description=Description? methods+=VerificationMethod+
+		//description=Description? methods+=VerificationMethod*
 		public Group getGroup_5() { return cGroup_5; }
 
 		//description=Description?
@@ -1181,7 +1181,7 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 		//Description
 		public RuleCall getDescriptionDescriptionParserRuleCall_5_0_0() { return cDescriptionDescriptionParserRuleCall_5_0_0; }
 
-		//methods+=VerificationMethod+
+		//methods+=VerificationMethod*
 		public Assignment getMethodsAssignment_5_1() { return cMethodsAssignment_5_1; }
 
 		//VerificationMethod
@@ -1368,8 +1368,8 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 
 		//'method' name=ID ('(' (targetType=TargetType? | formals+=FormalParameter (',' formals+=FormalParameter)* |
 		//targetType=TargetType ',' formals+=FormalParameter (',' formals+=FormalParameter)*) ')' ('properties' '('
-		//(properties+=[aadl2::Property|AADLPROPERTYREFERENCE] (',' properties+=[aadl2::Property|AADLPROPERTYREFERENCE])*)?
-		//')')? ('returns' '(' (results+=FormalParameter (',' results+=FormalParameter)*)? ')')? (isPredicate?='boolean' |
+		//(properties+=[aadl2::Property|AADLPROPERTYREFERENCE] (',' properties+=[aadl2::Property|AADLPROPERTYREFERENCE])*)? ')')?
+		//('returns' '(' (results+=FormalParameter (',' results+=FormalParameter)*)? ')')? (isPredicate?='boolean' |
 		//isResultReport?='report')?)? (':' title=STRING)? ('for' (target=[aadl2::ComponentClassifier|AadlClassifierReference] |
 		//componentCategory+=ComponentCategory+))? '[' (methodKind=MethodKind & description=Description? &
 		//precondition=VerificationPrecondition? & validation=VerificationValidation? & ('category'
@@ -1387,8 +1387,8 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 
 		//('(' (targetType=TargetType? | formals+=FormalParameter (',' formals+=FormalParameter)* | targetType=TargetType ','
 		//formals+=FormalParameter (',' formals+=FormalParameter)*) ')' ('properties' '('
-		//(properties+=[aadl2::Property|AADLPROPERTYREFERENCE] (',' properties+=[aadl2::Property|AADLPROPERTYREFERENCE])*)?
-		//')')? ('returns' '(' (results+=FormalParameter (',' results+=FormalParameter)*)? ')')? (isPredicate?='boolean' |
+		//(properties+=[aadl2::Property|AADLPROPERTYREFERENCE] (',' properties+=[aadl2::Property|AADLPROPERTYREFERENCE])*)? ')')?
+		//('returns' '(' (results+=FormalParameter (',' results+=FormalParameter)*)? ')')? (isPredicate?='boolean' |
 		//isResultReport?='report')?)?
 		public Group getGroup_2() { return cGroup_2; }
 
@@ -2245,7 +2245,7 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 	//	'verification' 'methods' name=QualifiedName (':' title=STRING)?
 	//	//	( 'for' (target=[aadl2::ComponentClassifier|AadlClassifierReference] | componentCategory+=ComponentCategory+ ))?
 	//	'[' (description=Description?
-	//	methods+=VerificationMethod+)
+	//	methods+=VerificationMethod*)
 	//	']';
 	public VerificationMethodRegistryElements getVerificationMethodRegistryAccess() {
 		return pVerificationMethodRegistry;
@@ -2985,7 +2985,8 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 	} 
 
 	//terminal STRING:
-	//	'"' ('\\' . | !('\\' | '"'))* '"' | "'" ('\\' . | !('\\' | "'"))* "'";
+	//	'"' ('\\' . | !('\\' | '"'))* '"' |
+	//	"'" ('\\' . | !('\\' | "'"))* "'";
 	public TerminalRule getSTRINGRule() {
 		return gaTerminals.getSTRINGRule();
 	} 

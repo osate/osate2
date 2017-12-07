@@ -7745,16 +7745,9 @@ rule__VerificationMethodRegistry__Group_5__1__Impl
     }
 :
 (
-(
-{ before(grammarAccess.getVerificationMethodRegistryAccess().getMethodsAssignment_5_1()); }
-(rule__VerificationMethodRegistry__MethodsAssignment_5_1)
-{ after(grammarAccess.getVerificationMethodRegistryAccess().getMethodsAssignment_5_1()); }
-)
-(
 { before(grammarAccess.getVerificationMethodRegistryAccess().getMethodsAssignment_5_1()); }
 (rule__VerificationMethodRegistry__MethodsAssignment_5_1)*
 { after(grammarAccess.getVerificationMethodRegistryAccess().getMethodsAssignment_5_1()); }
-)
 )
 
 ;
