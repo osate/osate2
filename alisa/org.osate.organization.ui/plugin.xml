@@ -405,26 +405,4 @@
             class="org.osate.organization.ui.wizards.StakeholdersFileWizard">
       </wizard>
    </extension>
-   <extension
-         point="org.eclipse.ui.perspectiveExtensions">
-      <perspectiveExtension
-            targetID="org.osate.ui.perspective.AadlPerspective">
-         <newWizardShortcut
-               id="org.osate.organization.ui.stakeholdersFileWizard">
-         </newWizardShortcut>
-      </perspectiveExtension>
-   </extension>
-   <extension
-         point="org.eclipse.ui.navigator.navigatorContent">
-      <commonWizard
-            type="new"
-            wizardId="org.osate.organization.ui.stakeholdersFileWizard"
-            menuGroupId="org.osate.alisa.common.ui.alisaWizardsCategory">
-         <enablement>
-            <adapt
-                  type="org.eclipse.core.resources.IResource">
-            </adapt>
-         </enablement>
-      </commonWizard>
-   </extension>
 </plugin>

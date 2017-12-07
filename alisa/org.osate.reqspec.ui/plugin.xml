@@ -502,21 +502,6 @@
          <newWizardShortcut
                id="org.osate.reqspec.ui.systemRequirementsFileWizard">
          </newWizardShortcut>
-         <newWizardShortcut
-               id="org.osate.reqspec.ui.globalRequirementsFileWizard">
-         </newWizardShortcut>
-         <newWizardShortcut
-               id="org.osate.reqspec.ui.stakeholderGoalsFileWizard">
-         </newWizardShortcut>
-         <newWizardShortcut
-               id="org.osate.reqspec.ui.constantsFileWizard">
-         </newWizardShortcut>
-         <newWizardShortcut
-               id="org.osate.reqspec.ui.requirementsDocumentFileWizard">
-         </newWizardShortcut>
-         <newWizardShortcut
-               id="org.osate.reqspec.ui.goalsDocumentFileWizard">
-         </newWizardShortcut>
       </perspectiveExtension>
    </extension>
    <extension
@@ -524,56 +509,6 @@
       <commonWizard
             type="new"
             wizardId="org.osate.reqspec.ui.systemRequirementsFileWizard"
-            menuGroupId="org.osate.alisa.common.ui.alisaWizardsCategory">
-         <enablement>
-            <adapt
-                  type="org.eclipse.core.resources.IResource">
-            </adapt>
-         </enablement>
-      </commonWizard>
-      <commonWizard
-            type="new"
-            wizardId="org.osate.reqspec.ui.globalRequirementsFileWizard"
-            menuGroupId="org.osate.alisa.common.ui.alisaWizardsCategory">
-         <enablement>
-            <adapt
-                  type="org.eclipse.core.resources.IResource">
-            </adapt>
-         </enablement>
-      </commonWizard>
-      <commonWizard
-            type="new"
-            wizardId="org.osate.reqspec.ui.stakeholderGoalsFileWizard"
-            menuGroupId="org.osate.alisa.common.ui.alisaWizardsCategory">
-         <enablement>
-            <adapt
-                  type="org.eclipse.core.resources.IResource">
-            </adapt>
-         </enablement>
-      </commonWizard>
-      <commonWizard
-            type="new"
-            wizardId="org.osate.reqspec.ui.constantsFileWizard"
-            menuGroupId="org.osate.alisa.common.ui.alisaWizardsCategory">
-         <enablement>
-            <adapt
-                  type="org.eclipse.core.resources.IResource">
-            </adapt>
-         </enablement>
-      </commonWizard>
-      <commonWizard
-            type="new"
-            wizardId="org.osate.reqspec.ui.requirementsDocumentFileWizard"
-            menuGroupId="org.osate.alisa.common.ui.alisaWizardsCategory">
-         <enablement>
-            <adapt
-                  type="org.eclipse.core.resources.IResource">
-            </adapt>
-         </enablement>
-      </commonWizard>
-      <commonWizard
-            type="new"
-            wizardId="org.osate.reqspec.ui.goalsDocumentFileWizard"
             menuGroupId="org.osate.alisa.common.ui.alisaWizardsCategory">
          <enablement>
             <adapt
