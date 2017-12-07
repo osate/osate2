@@ -399,10 +399,10 @@
    <extension
          point="org.eclipse.ui.newWizards">
       <wizard
-            id="org.osate.organization.ui.organizationFileWizard"
-            name="Organization File"
+            id="org.osate.organization.ui.stakeholdersFileWizard"
+            name="Stakeholders File"
             category="org.osate.alisa.common.ui.alisaWizardsCategory"
-            class="org.osate.organization.ui.wizards.OrganizationFileWizard">
+            class="org.osate.organization.ui.wizards.StakeholdersFileWizard">
       </wizard>
    </extension>
    <extension
@@ -410,7 +410,7 @@
       <perspectiveExtension
             targetID="org.osate.ui.perspective.AadlPerspective">
          <newWizardShortcut
-               id="org.osate.organization.ui.organizationFileWizard">
+               id="org.osate.organization.ui.stakeholdersFileWizard">
          </newWizardShortcut>
       </perspectiveExtension>
    </extension>
@@ -418,7 +418,7 @@
          point="org.eclipse.ui.navigator.navigatorContent">
       <commonWizard
             type="new"
-            wizardId="org.osate.organization.ui.organizationFileWizard"
+            wizardId="org.osate.organization.ui.stakeholdersFileWizard"
             menuGroupId="org.osate.alisa.common.ui.alisaWizardsCategory">
          <enablement>
             <adapt
