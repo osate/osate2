@@ -470,6 +470,12 @@
             category="org.osate.alisa.common.ui.alisaWizardsCategory"
             class="org.osate.reqspec.ui.ReqSpecExecutableExtensionFactory:org.osate.reqspec.ui.wizards.GlobalRequirementsFileWizard">
       </wizard>
+      <wizard
+            id="org.osate.reqspec.ui.stakeholderGoalsFileWizard"
+            name="Stakeholder Goals File"
+            category="org.osate.alisa.common.ui.alisaWizardsCategory"
+            class="org.osate.reqspec.ui.ReqSpecExecutableExtensionFactory:org.osate.reqspec.ui.wizards.StakeholderGoalsFileWizard">
+      </wizard>
    </extension>
    <extension
          point="org.eclipse.ui.perspectiveExtensions">
@@ -480,6 +486,9 @@
          </newWizardShortcut>
          <newWizardShortcut
                id="org.osate.reqspec.ui.globalRequirementsFileWizard">
+         </newWizardShortcut>
+         <newWizardShortcut
+               id="org.osate.reqspec.ui.stakeholderGoalsFileWizard">
          </newWizardShortcut>
       </perspectiveExtension>
    </extension>
@@ -498,6 +507,16 @@
       <commonWizard
             type="new"
             wizardId="org.osate.reqspec.ui.globalRequirementsFileWizard"
+            menuGroupId="org.osate.alisa.common.ui.alisaWizardsCategory">
+         <enablement>
+            <adapt
+                  type="org.eclipse.core.resources.IResource">
+            </adapt>
+         </enablement>
+      </commonWizard>
+      <commonWizard
+            type="new"
+            wizardId="org.osate.reqspec.ui.stakeholderGoalsFileWizard"
             menuGroupId="org.osate.alisa.common.ui.alisaWizardsCategory">
          <enablement>
             <adapt
