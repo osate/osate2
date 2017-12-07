@@ -38,15 +38,22 @@ import org.eclipse.ui.model.WorkbenchContentProvider
 import org.eclipse.ui.model.WorkbenchLabelProvider
 import org.eclipse.ui.part.FileEditorInput
 import org.eclipse.ui.texteditor.ITextEditor
+import org.eclipse.xtend.lib.annotations.FinalFieldsConstructor
 import org.osate.alisa.common.parser.antlr.internal.InternalCommonLexer
 
 import static extension org.apache.commons.lang.StringUtils.ordinalIndexOf
 
+/**
+ * Abstract wizard for creating new ALISA files. Each wizard contains a tree for selecting the parent folder
+ * and one or more fields for entering text. Subclasses must specify the fields in the wizard by calling
+ * addField before the wizard page is created. This can best be done in the constructor of the subclass.
+ */
+@FinalFieldsConstructor
 abstract class AbstractAlisaFileWizard extends Wizard implements INewWizard {
 	val static HIDE_FOLDERS = #[".aadlbin-gen", ".settings", "instances", "diagrams", "imv"]
 	
 	val String fileType
-	val String fileExtension
+	val protected String fileExtension
 	val int tabIndex
 	val ILog log
 	val String pluginId
@@ -57,14 +64,6 @@ abstract class AbstractAlisaFileWizard extends Wizard implements INewWizard {
 	
 	TreeViewer folderViewer
 	LinkedHashMap<String, Text> fields
-	
-	new(String fileType, String fileExtension, int tabIndex, ILog log, String pluginId) {
-		this.fileType = fileType
-		this.fileExtension = fileExtension
-		this.tabIndex = tabIndex
-		this.log = log
-		this.pluginId = pluginId
-	}
 	
 	def void addField(String fieldLabel, (String)=>boolean fieldValidator) {
 		fieldValidators.put(fieldLabel, fieldValidator)
@@ -109,6 +108,10 @@ abstract class AbstractAlisaFileWizard extends Wizard implements INewWizard {
 		}
 	}
 	
+	/**
+	 * fieldValues is a map from the field labels to the values in the text fields. The field labels are
+	 * specified in the calls to addField.
+	 */
 	def String fileContents(Map<String, String> fieldValues)
 	
 	override addPages() {
@@ -192,7 +195,7 @@ abstract class AbstractAlisaFileWizard extends Wizard implements INewWizard {
 						} else if (!fieldValidators.get(fieldLabel).apply(field.text)) {
 							'''The «fieldLabel» '«field.text»' is not valid.'''
 						} else if (fieldLabel == fields.keySet.head && file.exists) {
-							"'" + fileName + "' already exists."
+							"'" + getFileName(fields.values.head.text) + "' already exists."
 						}
 					].filterNull.head
 				}
@@ -216,10 +219,10 @@ abstract class AbstractAlisaFileWizard extends Wizard implements INewWizard {
 	
 	def private IFile getFile() {
 		val parentContainer = folderViewer.structuredSelection.firstElement as IContainer
-		parentContainer.getFile(new Path(fileName))
+		parentContainer.getFile(new Path(getFileName(fields.values.head.text)))
 	}
 	
-	def private String getFileName() {
-		fields.values.head.text + "." + fileExtension
+	def protected String getFileName(String enteredName) {
+		enteredName + "." + fileExtension
 	}
 }
