@@ -410,4 +410,35 @@
     </provider>
   </extension>
 
+   <extension
+         point="org.eclipse.ui.newWizards">
+      <wizard
+            id="org.osate.verify.ui.verificationPlanFileWizard"
+            name="Verification Plan File"
+            category="org.osate.alisa.common.ui.alisaWizardsCategory"
+            class="org.osate.verify.ui.VerifyExecutableExtensionFactory:org.osate.verify.ui.wizards.VerificationPlanFileWizard">
+      </wizard>
+   </extension>
+   <extension
+         point="org.eclipse.ui.perspectiveExtensions">
+      <perspectiveExtension
+            targetID="org.osate.ui.perspective.AadlPerspective">
+         <newWizardShortcut
+               id="org.osate.verify.ui.verificationPlanFileWizard">
+         </newWizardShortcut>
+      </perspectiveExtension>
+   </extension>
+   <extension
+         point="org.eclipse.ui.navigator.navigatorContent">
+      <commonWizard
+            type="new"
+            wizardId="org.osate.verify.ui.verificationPlanFileWizard"
+            menuGroupId="org.osate.alisa.common.ui.alisaWizardsCategory">
+         <enablement>
+            <adapt
+                  type="org.eclipse.core.resources.IResource">
+            </adapt>
+         </enablement>
+      </commonWizard>
+   </extension>
 </plugin>
