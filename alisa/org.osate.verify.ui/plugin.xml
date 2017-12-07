@@ -418,6 +418,12 @@
             category="org.osate.alisa.common.ui.alisaWizardsCategory"
             class="org.osate.verify.ui.VerifyExecutableExtensionFactory:org.osate.verify.ui.wizards.VerificationPlanFileWizard">
       </wizard>
+      <wizard
+            id="org.osate.verify.ui.verificationMethodsFileWizard"
+            name="Verification Methods File"
+            category="org.osate.alisa.common.ui.alisaWizardsCategory"
+            class="org.osate.verify.ui.VerifyExecutableExtensionFactory:org.osate.verify.ui.wizards.VerificationMethodsFileWizard">
+      </wizard>
    </extension>
    <extension
          point="org.eclipse.ui.perspectiveExtensions">
@@ -426,6 +432,9 @@
          <newWizardShortcut
                id="org.osate.verify.ui.verificationPlanFileWizard">
          </newWizardShortcut>
+         <newWizardShortcut
+               id="org.osate.verify.ui.verificationMethodsFileWizard">
+         </newWizardShortcut>
       </perspectiveExtension>
    </extension>
    <extension
@@ -433,6 +442,16 @@
       <commonWizard
             type="new"
             wizardId="org.osate.verify.ui.verificationPlanFileWizard"
+            menuGroupId="org.osate.alisa.common.ui.alisaWizardsCategory">
+         <enablement>
+            <adapt
+                  type="org.eclipse.core.resources.IResource">
+            </adapt>
+         </enablement>
+      </commonWizard>
+      <commonWizard
+            type="new"
+            wizardId="org.osate.verify.ui.verificationMethodsFileWizard"
             menuGroupId="org.osate.alisa.common.ui.alisaWizardsCategory">
          <enablement>
             <adapt
