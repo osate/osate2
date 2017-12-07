@@ -1239,9 +1239,9 @@ class EMV2PathElementTest extends OsateTest {
 			end BasicEMV2PropertyAssociation_in_ErrorBehaviorStateMachine;
 		''')
 		ignoreSerializationDifferences
-		val lib1TestResult = testFile(basicEMV2PropertyAssociationInErrorBehaviorStateMachineFileName)
-		val lib1IssueCollection = new FluentIssueCollection(lib1TestResult.resource, newArrayList, newArrayList)
-		lib1TestResult.resource.contents.head as AadlPackage => [
+		val testResult = testFile(basicEMV2PropertyAssociationInErrorBehaviorStateMachineFileName)
+		val issueCollection = new FluentIssueCollection(testResult.resource, newArrayList, newArrayList)
+		testResult.resource.contents.head as AadlPackage => [
 			"BasicEMV2PropertyAssociation_in_ErrorBehaviorStateMachine".assertEquals(name)
 			((publicSection.ownedAnnexLibraries.head as DefaultAnnexLibrary).parsedAnnexLibrary as ErrorModelLibrary).behaviors.head => [
 				"bvr1".assertEquals(name)
@@ -1265,7 +1265,7 @@ class EMV2PathElementTest extends OsateTest {
 					]
 				]
 				properties.get(2) => [
-					assertError(lib1TestResult.issues, lib1IssueCollection, "Property EMV2::ExposurePeriod does not apply to trans1")
+					assertError(testResult.issues, issueCollection, "Property EMV2::ExposurePeriod does not apply to trans1")
 					3.3.assertEquals((ownedValues.head.ownedValue as RealLiteral).value, 0)
 					emv2Path.head.emv2Target => [
 						"trans1".assertEquals(namedElement.name)
@@ -1276,6 +1276,8 @@ class EMV2PathElementTest extends OsateTest {
 				]
 			]
 		]
+		issueCollection.sizeIs(issueCollection.issues.size)
+		assertConstraints(issueCollection)
 	}
 	
 	/*
@@ -2547,5 +2549,7 @@ class EMV2PathElementTest extends OsateTest {
 				]
 			]
 		]
+		lib1IssueCollection.sizeIs(lib1IssueCollection.issues.size)
+		assertConstraints(lib1IssueCollection)
 	}
 }
