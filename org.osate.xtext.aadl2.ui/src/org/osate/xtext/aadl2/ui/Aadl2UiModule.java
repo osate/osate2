@@ -38,6 +38,7 @@ import org.eclipse.jface.text.contentassist.IContentAssistProcessor;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.eclipse.ui.views.contentoutline.IContentOutlinePage;
+import org.eclipse.xtext.parser.IEncodingProvider;
 import org.eclipse.xtext.resource.containers.IAllContainersState;
 import org.eclipse.xtext.ui.LanguageSpecific;
 import org.eclipse.xtext.ui.editor.IURIEditorOpener;
@@ -50,6 +51,7 @@ import org.osate.xtext.aadl2.ui.containers.Aadl2ProjectsState;
 import org.osate.xtext.aadl2.ui.containers.Aadl2ProjectsStateHelper;
 import org.osate.xtext.aadl2.ui.contentassist.AnnexAwareContentAssistProcessor;
 import org.osate.xtext.aadl2.ui.editor.Aadl2LanguageSpecificURIEditorOpener;
+import org.osate.xtext.aadl2.ui.editor.Aadl2WorkspaceEncodingProvider;
 import org.osate.xtext.aadl2.ui.editor.model.Aadl2DocumentProvider;
 import org.osate.xtext.aadl2.ui.editor.model.Aadl2ResourceForEditorInputFactory;
 import org.osate.xtext.aadl2.ui.editor.occurrences.Aadl2OccurrenceComputer;
@@ -125,30 +127,34 @@ public class Aadl2UiModule extends org.osate.xtext.aadl2.ui.AbstractAadl2UiModul
 	public Class<? extends IContentAssistProcessor> bindIContentAssistProcessor() {
 		return AnnexAwareContentAssistProcessor.class;
 	}
-	
+
 	public Class<? extends IStorage2UriMapper> bindIStorage2UriMapper() {
 		return Aadl2Storage2UriMapper.class;
 	}
-	
+
 	@Override
 	public Class<? extends IResourceForEditorInputFactory> bindIResourceForEditorInputFactory() {
 		return Aadl2ResourceForEditorInputFactory.class;
 	}
-	
+
 	@Override
 	public void configureLanguageSpecificURIEditorOpener(Binder binder) {
 		if (PlatformUI.isWorkbenchRunning()) {
 			binder.bind(IURIEditorOpener.class).annotatedWith(LanguageSpecific.class).to(Aadl2LanguageSpecificURIEditorOpener.class);
 		}
 	}
-	
+
 	public Class<? extends XtextDocumentProvider> bindXtextDocumentProvider() {
 		return Aadl2DocumentProvider.class;
 	}
-	
+
 // FIXME: Formatting doesn't work for classifier: no newline before, no indentation for end <name>
 //	public Class<? extends ITextEditComposer> bindITextEditComposer() {
 //		return FormattingTextEditComposer.class;
 //	}
+
+	public Class<? extends IEncodingProvider> bindIEncodingProvider() {
+		return Aadl2WorkspaceEncodingProvider.class;
+	}
 
 }
