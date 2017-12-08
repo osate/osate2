@@ -126,9 +126,21 @@ public class ErrorModelJavaValidator extends AbstractErrorModelJavaValidator {
 					final EMV2PathElement ph = EMV2Util.getLast(path);
 					NamedElement ne = ph.getNamedElement();
 					if (ne instanceof ErrorTypes) {
+						ErrorTypes et = (ErrorTypes) ne;
 						EObject prev = ph.eContainer();
 						if (prev instanceof EMV2PathElement) {
 							ne = ((EMV2PathElement) prev).getNamedElement();
+							if (ne instanceof ErrorPropagation) {
+								ErrorPropagation ep = (ErrorPropagation) ne;
+								TypeSet ts = ep.getTypeSet();
+								if (!EM2TypeSetUtil.contains(ts, et)) {
+									error(pa,
+											"Property " + pa.getProperty().getQualifiedName()
+													+ " applies to refers to type " + EMV2Util.getPrintName(et)
+													+ " not conained in type set of error propagation "
+													+ EMV2Util.getPrintName(ep));
+								}
+							}
 						}
 					}
 					if (!Aadl2Util.isNull(ne)) {
@@ -271,7 +283,6 @@ public class ErrorModelJavaValidator extends AbstractErrorModelJavaValidator {
 
 	@Check(CheckType.NORMAL)
 	public void caseErrorBehaviorStateMachine(ErrorBehaviorStateMachine ebsm) {
-		// checkCyclicExtends(ebsm);
 		checkUniqueEBSMElements(ebsm);
 	}
 

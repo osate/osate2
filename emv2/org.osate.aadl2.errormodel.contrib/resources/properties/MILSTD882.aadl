@@ -15,12 +15,13 @@ Probable    : constant EMV2::LikelihoodLabels => B;
 Occasional  : constant EMV2::LikelihoodLabels => C;
 Remote      : constant EMV2::LikelihoodLabels => D;
 Improbable  : constant EMV2::LikelihoodLabels => E;
+Eliminated  : constant EMV2::LikelihoodLabels => F;
 
 SeverityLabels: type enumeration (Catastrophic, Critical, Marginal, Negligible);
 SeverityRange: type aadlinteger 1 .. 4;
 
-ProbabilityLabels: type enumeration (Frequent, Probable, Occasional, Remote, Improbable);
-ProbabilityLevelLabels: type enumeration (A, B, C, D, E);
+ProbabilityLabels: type enumeration (Frequent, Probable, Occasional, Remote, Improbable, Eliminated);
+ProbabilityLevelLabels: type enumeration (A, B, C, D, E, F);
 
 Hazards: list of record
   (

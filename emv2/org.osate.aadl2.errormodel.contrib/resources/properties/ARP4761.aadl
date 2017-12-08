@@ -16,7 +16,7 @@ ExtremelyRemote     : constant EMV2::LikelihoodLabels => D;
 ExtremelyImprobable : constant EMV2::LikelihoodLabels => E;
 
 
-SeverityClassification: type enumeration (Catastrophic, SevereMajor, Major, Minor, NoEffect);
+SeverityClassification: type enumeration (Catastrophic, Hazardous, SevereMajor, Major, Minor, NoEffect);
 
 ProbabilityLabels: type enumeration (Frequent, Probable, Remote, ExtremelyRemote, ExtremelyImprobable);
 
