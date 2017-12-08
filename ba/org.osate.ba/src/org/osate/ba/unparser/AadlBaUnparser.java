@@ -576,6 +576,7 @@ public class AadlBaUnparser {
         boolean hasToOutputTerminator = true;
 
         if ( object.isElif() ) {
+          aadlbaText.addOutputNewline("");
           aadlbaText.addOutput("elsif (");
           hasToOutputTerminator = false;
         }
