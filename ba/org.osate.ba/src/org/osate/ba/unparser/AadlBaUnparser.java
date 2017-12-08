@@ -607,6 +607,8 @@ public class AadlBaUnparser {
 
       public String caseElseStatement(ElseStatement object)
       {
+        
+        aadlbaText.addOutputNewline( "" );
         aadlbaText.addOutputNewline( "else" );
         aadlbaText.incrementIndent();
 
