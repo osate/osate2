@@ -27,7 +27,7 @@
          point="org.eclipse.ui.commandImages">
       <image
             commandId="org.osate.codegen.checker.commands.check"
-            icon="icons/codegenChecker.gif">
+            icon="icons/check_codegen.png">
       </image>
    </extension>
    <extension
