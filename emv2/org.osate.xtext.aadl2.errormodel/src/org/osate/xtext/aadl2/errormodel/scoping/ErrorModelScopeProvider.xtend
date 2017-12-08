@@ -573,8 +573,13 @@ class ErrorModelScopeProvider extends PropertiesScopeProvider {
 		}
 	}
 
-	def scope_ErrorSource_outgoing(Classifier context, EReference reference) {
-		context.scopeForErrorPropagation(DirectionType.OUT)
+	def scope_ErrorSource_sourceModelElement(ErrorSource context, EReference reference) {
+		val subc = context.eContainer as ErrorModelSubclause
+		if (subc.connectionErrorSources.contains(context)){
+				subc.containingComponentImpl.allConnections.scopeFor
+		} else {
+			subc.containingClassifier.scopeForErrorPropagation(DirectionType.OUT)
+		}
 	}
 
 	def scope_ErrorSource_failureModeReference(ErrorModelSubclause context, EReference reference) {
@@ -628,10 +633,6 @@ class ErrorModelScopeProvider extends PropertiesScopeProvider {
 	def scope_ErrorBehaviorState(Classifier context, EReference reference) {
 		val stateMachine = context.allContainingClassifierEMV2Subclauses.map[useBehavior].filterNull.head
 		stateMachine?.states?.scopeFor ?: IScope.NULLSCOPE
-	}
-
-	def scope_ConnectionErrorSource_connection(ComponentImplementation context, EReference reference) {
-		context.allConnections.scopeFor
 	}
 
 	def scope_OutgoingPropagationCondition_outgoing(Classifier context, EReference reference) {

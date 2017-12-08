@@ -136,9 +136,9 @@ public class ErrorModelJavaValidator extends AbstractErrorModelJavaValidator {
 								if (!EM2TypeSetUtil.contains(ts, et)) {
 									error(pa,
 											"Property " + pa.getProperty().getQualifiedName()
-													+ " applies to refers to type " + EMV2Util.getPrintName(et)
-													+ " not conained in type set of error propagation "
-													+ EMV2Util.getPrintName(ep));
+											+ " applies to refers to type " + EMV2Util.getPrintName(et)
+											+ " not conained in type set of error propagation "
+											+ EMV2Util.getPrintName(ep));
 								}
 							}
 						}
@@ -1020,7 +1020,10 @@ public class ErrorModelJavaValidator extends AbstractErrorModelJavaValidator {
 			return;
 		}
 		NamedElement ne = ef.getSourceModelElement();
-		if (ne != null && ne instanceof ErrorPropagation) {
+		if (ne instanceof Connection) {
+			return;
+		}
+		if (ne instanceof ErrorPropagation) {
 			ErrorPropagation epout = (ErrorPropagation) ne;
 			if (!EM2TypeSetUtil.contains(epout.getTypeSet(), ef.getTypeTokenConstraint())) {
 				error(ef,
@@ -1028,7 +1031,7 @@ public class ErrorModelJavaValidator extends AbstractErrorModelJavaValidator {
 						+ " is not contained in type set of outgoing propagation "
 						+ EMV2Util.getPrintName(epout) + EMV2Util.getPrintName(epout.getTypeSet()));
 			}
-		} else {
+		} else if (ef.isAll()) {
 			// check containment for all of the outgoing propagation points
 			Classifier cl = ef.getContainingClassifier();
 			Collection<ErrorPropagation> eps = EMV2Util.getAllOutgoingErrorPropagations(cl);
