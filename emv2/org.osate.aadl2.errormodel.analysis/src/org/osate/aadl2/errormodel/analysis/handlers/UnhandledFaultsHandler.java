@@ -37,17 +37,17 @@ import java.util.Collection;
 
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.osate.aadl2.Element;
+import org.osate.aadl2.errormodel.PropagationGraph.PropagationGraph;
+import org.osate.aadl2.errormodel.PropagationGraph.PropagationPath;
+import org.osate.aadl2.errormodel.PropagationGraph.util.Util;
 import org.osate.aadl2.instance.InstanceObject;
 import org.osate.aadl2.instance.SystemInstance;
 import org.osate.ui.handlers.AaxlReadOnlyHandlerAsJob;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorPropagation;
-import org.osate.xtext.aadl2.errormodel.util.AnalysisModel;
 import org.osate.xtext.aadl2.errormodel.util.EM2TypeSetUtil;
 import org.osate.xtext.aadl2.errormodel.util.EMV2Util;
-import org.osate.xtext.aadl2.errormodel.util.PropagationPathRecord;
 
 public class UnhandledFaultsHandler extends AaxlReadOnlyHandlerAsJob {
-	AnalysisModel model;
 
 	@Override
 	protected String getMarkerType() {
@@ -72,32 +72,38 @@ public class UnhandledFaultsHandler extends AaxlReadOnlyHandlerAsJob {
 		}
 
 		setCSVLog("UnhandledFaults", si);
-		model = new AnalysisModel(si);
-		Collection<PropagationPathRecord> pathlist = model.getPropagationPaths();
-		for (PropagationPathRecord path : pathlist) {
+		PropagationGraph currentPropagationGraph = Util.generatePropagationGraph(si, false);
+		Collection<PropagationPath> pathlist = currentPropagationGraph.getPropagationPaths();
+		for (PropagationPath path : pathlist) {
 			checkPropagationPathErrorTypes(path);
 		}
 
 		monitor.done();
 	}
 
-	protected void checkPropagationPathErrorTypes(PropagationPathRecord path) {
+	protected void checkPropagationPathErrorTypes(PropagationPath path) {
 		ErrorPropagation srcprop = path.getPathSrc().getErrorPropagation();
 		ErrorPropagation dstprop = path.getPathDst().getErrorPropagation();
 		if (srcprop != null && dstprop != null) {
 			if (!EM2TypeSetUtil.contains(dstprop.getTypeSet(), srcprop.getTypeSet())) {
-				error(path.getConnectionInstance() != null ? path.getConnectionInstance() : path.getSrcCI(),
+				error(path.getConnection() != null ? path.getConnection() : path.getPathSrc().getComponentInstance(),
 						"Outgoing propagation  " + EMV2Util.getPrintName(srcprop)
-								+ EMV2Util.getPrintName(srcprop.getTypeSet())
-								+ " has error types not handled by incoming propagation "
-								+ EMV2Util.getPrintName(dstprop) + EMV2Util.getPrintName(dstprop.getTypeSet()));
+						+ EMV2Util.getPrintName(srcprop.getTypeSet())
+						+ " has error types not handled by incoming propagation "
+						+ EMV2Util.getPrintName(dstprop) + EMV2Util.getPrintName(dstprop.getTypeSet()));
 			}
 		}
 		if (dstprop == null && srcprop != null) {
 			// has an EMV2 subclause but no propagation specification for the feature
-			error(path.getConnectionInstance() != null ? path.getConnectionInstance() : path.getSrcCI(),
+			error(path.getConnection() != null ? path.getConnection() : path.getPathDst().getComponentInstance(),
 					"Connection target has no error propagation/containment but source does: "
 							+ EMV2Util.getPrintName(srcprop));
+		}
+		if (dstprop != null && srcprop == null) {
+			// has an EMV2 subclause but no propagation specification for the feature
+			error(path.getConnection() != null ? path.getConnection() : path.getPathSrc().getComponentInstance(),
+					"Connection source has no error propagation/containment but target does: "
+							+ EMV2Util.getPrintName(dstprop));
 		}
 	}
 }
