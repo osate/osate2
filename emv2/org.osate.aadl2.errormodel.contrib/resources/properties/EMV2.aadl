@@ -105,9 +105,9 @@ Likelihood : inherit EMV2::LikelihoodLabels applies to ({emv2}**error type, {emv
 
 LikelihoodLabels: type enumeration (A, B, C, D, E, F);
 
--- MILSTD882-style labels for likelihood: qualify with ARP4761::
+-- MILSTD882-style labels for likelihood: qualify with MILSTD882::
 -- Frequent, Probable, Occasional, Remote, Improbable
--- ARP 4761-style labels for likelihood: qualify with MILSTD882::
+-- ARP4761-style labels for likelihood: qualify with ARP4761::
 -- Frequent, Probable, Remote, ExtremelyRemote, ExtremelyImprobable
 
 DALLabels: type enumeration (A,B,C,D,E);
