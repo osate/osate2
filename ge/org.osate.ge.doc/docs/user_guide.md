@@ -199,7 +199,7 @@ The following sections describe the diagram layout capabilities of the graphical
 
 ### Layout Commands
 
-Layout menu items are available by right clicking on the diagram or diagram element and using the *Layout* sub-menu. The behavior of the layout menu items are described in @tbl:layout_menu_items.
+Layout menu items are available from the *Edit->Layout* menu or by right clicking on the diagram or diagram element and using the *Layout* sub-menu. The behavior of the layout menu items are described in @tbl:layout_menu_items.
 
 ![](../images/layout_menu.png)
 
