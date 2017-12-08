@@ -136,7 +136,8 @@ public class AgeFeatureProvider extends DefaultFeatureProvider {
 	public void initialize(final IEclipseContext context) {
 		this.eclipseContext = context.createChild();
 		this.eclipseContext.set(IFeatureProvider.class, this);
-		this.referenceService = Objects.requireNonNull(eclipseContext.get(ReferenceService.class), "unablet to retrieve reference service service");
+		this.referenceService = Objects.requireNonNull(eclipseContext.get(ReferenceService.class),
+				"unable to retrieve reference service service");
 		this.extService = Objects.requireNonNull(eclipseContext.get(ExtensionService.class), "unable to retrieve extension service");
 		this.aadlModService = Objects.requireNonNull(eclipseContext.get(AadlModificationService.class), "unable to retrieve AADL modification service");
 		this.graphitiService = Objects.requireNonNull(eclipseContext.get(GraphitiService.class), "unablet to retrieve Graphiti service");
