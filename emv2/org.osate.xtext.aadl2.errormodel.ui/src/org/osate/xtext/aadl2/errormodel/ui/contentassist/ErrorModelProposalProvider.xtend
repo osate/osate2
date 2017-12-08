@@ -75,14 +75,14 @@ class ErrorModelProposalProvider extends AbstractErrorModelProposalProvider {
 			TypeSet case modelContainer.getContainerOfType(ErrorPath)?.incoming !== null : {
 				filterTypeSetTokenTypes( modelContainer.getContainerOfType(ErrorPath).incoming.typeSet, model, assignment, context, acceptor)
 			}
-			TypeSet case modelContainer.getContainerOfType(ErrorSource)?.outgoing !== null : {
-				filterTypeSetTokenTypes(modelContainer.getContainerOfType(ErrorSource).outgoing.typeSet, model, assignment, context, acceptor)
+			TypeSet case modelContainer.getContainerOfType(ErrorSource)?.sourceModelElement !== null && modelContainer.getContainerOfType(ErrorSource)?.sourceModelElement instanceof ErrorPropagation: {
+				filterTypeSetTokenTypes((modelContainer.getContainerOfType(ErrorSource).sourceModelElement as ErrorPropagation).typeSet, model, assignment, context, acceptor)
 			}
 			TypeSet case modelContainer.getContainerOfType(ErrorSink)?.incoming !== null : {
 				filterTypeSetTokenTypes(modelContainer.getContainerOfType(ErrorSink).incoming.typeSet, model, assignment, context, acceptor)
 			}
-			ErrorSource case modelContainer.outgoing !== null && modelContainer.typeTokenConstraint == model: {
-				filterTypeSetTokenTypes(modelContainer.outgoing.typeSet, model, assignment, context, acceptor)
+			ErrorSource case modelContainer.sourceModelElement !== null&& modelContainer.sourceModelElement instanceof ErrorPropagation && modelContainer.typeTokenConstraint == model: {
+				filterTypeSetTokenTypes((modelContainer.sourceModelElement as ErrorPropagation).typeSet, model, assignment, context, acceptor)
 			}
 			ErrorSource case modelContainer.failureModeReference !== null && modelContainer.failureModeType == model: {
 				filterTypeSetTokenTypes(modelContainer.failureModeReference.typeSet, model, assignment, context, acceptor)

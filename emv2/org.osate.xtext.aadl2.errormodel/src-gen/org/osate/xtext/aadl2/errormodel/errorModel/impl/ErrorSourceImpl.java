@@ -6,13 +6,15 @@ import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
 
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 
+import org.osate.aadl2.NamedElement;
+
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorState;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelPackage;
-import org.osate.xtext.aadl2.errormodel.errorModel.ErrorPropagation;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorSource;
 import org.osate.xtext.aadl2.errormodel.errorModel.TypeSet;
 
@@ -24,8 +26,8 @@ import org.osate.xtext.aadl2.errormodel.errorModel.TypeSet;
  * The following features are implemented:
  * </p>
  * <ul>
- *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorSourceImpl#getOutgoing <em>Outgoing</em>}</li>
- *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorSourceImpl#isAllOutgoing <em>All Outgoing</em>}</li>
+ *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorSourceImpl#getSourceModelElement <em>Source Model Element</em>}</li>
+ *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorSourceImpl#isAll <em>All</em>}</li>
  *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorSourceImpl#getFailureModeReference <em>Failure Mode Reference</em>}</li>
  *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorSourceImpl#getFailureModeType <em>Failure Mode Type</em>}</li>
  *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorSourceImpl#getFailureModeDescription <em>Failure Mode Description</em>}</li>
@@ -37,34 +39,34 @@ import org.osate.xtext.aadl2.errormodel.errorModel.TypeSet;
 public class ErrorSourceImpl extends ErrorFlowImpl implements ErrorSource
 {
   /**
-   * The cached value of the '{@link #getOutgoing() <em>Outgoing</em>}' reference.
+   * The cached value of the '{@link #getSourceModelElement() <em>Source Model Element</em>}' reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getOutgoing()
+   * @see #getSourceModelElement()
    * @generated
    * @ordered
    */
-  protected ErrorPropagation outgoing;
+  protected NamedElement sourceModelElement;
 
   /**
-   * The default value of the '{@link #isAllOutgoing() <em>All Outgoing</em>}' attribute.
+   * The default value of the '{@link #isAll() <em>All</em>}' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #isAllOutgoing()
+   * @see #isAll()
    * @generated
    * @ordered
    */
-  protected static final boolean ALL_OUTGOING_EDEFAULT = false;
+  protected static final boolean ALL_EDEFAULT = false;
 
   /**
-   * The cached value of the '{@link #isAllOutgoing() <em>All Outgoing</em>}' attribute.
+   * The cached value of the '{@link #isAll() <em>All</em>}' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #isAllOutgoing()
+   * @see #isAll()
    * @generated
    * @ordered
    */
-  protected boolean allOutgoing = ALL_OUTGOING_EDEFAULT;
+  protected boolean all = ALL_EDEFAULT;
 
   /**
    * The cached value of the '{@link #getFailureModeReference() <em>Failure Mode Reference</em>}' reference.
@@ -152,19 +154,19 @@ public class ErrorSourceImpl extends ErrorFlowImpl implements ErrorSource
    * <!-- end-user-doc -->
    * @generated
    */
-  public ErrorPropagation getOutgoing()
+  public NamedElement getSourceModelElement()
   {
-    if (outgoing != null && outgoing.eIsProxy())
+    if (sourceModelElement != null && ((EObject)sourceModelElement).eIsProxy())
     {
-      InternalEObject oldOutgoing = (InternalEObject)outgoing;
-      outgoing = (ErrorPropagation)eResolveProxy(oldOutgoing);
-      if (outgoing != oldOutgoing)
+      InternalEObject oldSourceModelElement = (InternalEObject)sourceModelElement;
+      sourceModelElement = (NamedElement)eResolveProxy(oldSourceModelElement);
+      if (sourceModelElement != oldSourceModelElement)
       {
         if (eNotificationRequired())
-          eNotify(new ENotificationImpl(this, Notification.RESOLVE, ErrorModelPackage.ERROR_SOURCE__OUTGOING, oldOutgoing, outgoing));
+          eNotify(new ENotificationImpl(this, Notification.RESOLVE, ErrorModelPackage.ERROR_SOURCE__SOURCE_MODEL_ELEMENT, oldSourceModelElement, sourceModelElement));
       }
     }
-    return outgoing;
+    return sourceModelElement;
   }
 
   /**
@@ -172,9 +174,9 @@ public class ErrorSourceImpl extends ErrorFlowImpl implements ErrorSource
    * <!-- end-user-doc -->
    * @generated
    */
-  public ErrorPropagation basicGetOutgoing()
+  public NamedElement basicGetSourceModelElement()
   {
-    return outgoing;
+    return sourceModelElement;
   }
 
   /**
@@ -182,12 +184,12 @@ public class ErrorSourceImpl extends ErrorFlowImpl implements ErrorSource
    * <!-- end-user-doc -->
    * @generated
    */
-  public void setOutgoing(ErrorPropagation newOutgoing)
+  public void setSourceModelElement(NamedElement newSourceModelElement)
   {
-    ErrorPropagation oldOutgoing = outgoing;
-    outgoing = newOutgoing;
+    NamedElement oldSourceModelElement = sourceModelElement;
+    sourceModelElement = newSourceModelElement;
     if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, ErrorModelPackage.ERROR_SOURCE__OUTGOING, oldOutgoing, outgoing));
+      eNotify(new ENotificationImpl(this, Notification.SET, ErrorModelPackage.ERROR_SOURCE__SOURCE_MODEL_ELEMENT, oldSourceModelElement, sourceModelElement));
   }
 
   /**
@@ -195,9 +197,9 @@ public class ErrorSourceImpl extends ErrorFlowImpl implements ErrorSource
    * <!-- end-user-doc -->
    * @generated
    */
-  public boolean isAllOutgoing()
+  public boolean isAll()
   {
-    return allOutgoing;
+    return all;
   }
 
   /**
@@ -205,12 +207,12 @@ public class ErrorSourceImpl extends ErrorFlowImpl implements ErrorSource
    * <!-- end-user-doc -->
    * @generated
    */
-  public void setAllOutgoing(boolean newAllOutgoing)
+  public void setAll(boolean newAll)
   {
-    boolean oldAllOutgoing = allOutgoing;
-    allOutgoing = newAllOutgoing;
+    boolean oldAll = all;
+    all = newAll;
     if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, ErrorModelPackage.ERROR_SOURCE__ALL_OUTGOING, oldAllOutgoing, allOutgoing));
+      eNotify(new ENotificationImpl(this, Notification.SET, ErrorModelPackage.ERROR_SOURCE__ALL, oldAll, all));
   }
 
   /**
@@ -376,11 +378,11 @@ public class ErrorSourceImpl extends ErrorFlowImpl implements ErrorSource
   {
     switch (featureID)
     {
-      case ErrorModelPackage.ERROR_SOURCE__OUTGOING:
-        if (resolve) return getOutgoing();
-        return basicGetOutgoing();
-      case ErrorModelPackage.ERROR_SOURCE__ALL_OUTGOING:
-        return isAllOutgoing();
+      case ErrorModelPackage.ERROR_SOURCE__SOURCE_MODEL_ELEMENT:
+        if (resolve) return getSourceModelElement();
+        return basicGetSourceModelElement();
+      case ErrorModelPackage.ERROR_SOURCE__ALL:
+        return isAll();
       case ErrorModelPackage.ERROR_SOURCE__FAILURE_MODE_REFERENCE:
         if (resolve) return getFailureModeReference();
         return basicGetFailureModeReference();
@@ -404,11 +406,11 @@ public class ErrorSourceImpl extends ErrorFlowImpl implements ErrorSource
   {
     switch (featureID)
     {
-      case ErrorModelPackage.ERROR_SOURCE__OUTGOING:
-        setOutgoing((ErrorPropagation)newValue);
+      case ErrorModelPackage.ERROR_SOURCE__SOURCE_MODEL_ELEMENT:
+        setSourceModelElement((NamedElement)newValue);
         return;
-      case ErrorModelPackage.ERROR_SOURCE__ALL_OUTGOING:
-        setAllOutgoing((Boolean)newValue);
+      case ErrorModelPackage.ERROR_SOURCE__ALL:
+        setAll((Boolean)newValue);
         return;
       case ErrorModelPackage.ERROR_SOURCE__FAILURE_MODE_REFERENCE:
         setFailureModeReference((ErrorBehaviorState)newValue);
@@ -436,11 +438,11 @@ public class ErrorSourceImpl extends ErrorFlowImpl implements ErrorSource
   {
     switch (featureID)
     {
-      case ErrorModelPackage.ERROR_SOURCE__OUTGOING:
-        setOutgoing((ErrorPropagation)null);
+      case ErrorModelPackage.ERROR_SOURCE__SOURCE_MODEL_ELEMENT:
+        setSourceModelElement((NamedElement)null);
         return;
-      case ErrorModelPackage.ERROR_SOURCE__ALL_OUTGOING:
-        setAllOutgoing(ALL_OUTGOING_EDEFAULT);
+      case ErrorModelPackage.ERROR_SOURCE__ALL:
+        setAll(ALL_EDEFAULT);
         return;
       case ErrorModelPackage.ERROR_SOURCE__FAILURE_MODE_REFERENCE:
         setFailureModeReference((ErrorBehaviorState)null);
@@ -468,10 +470,10 @@ public class ErrorSourceImpl extends ErrorFlowImpl implements ErrorSource
   {
     switch (featureID)
     {
-      case ErrorModelPackage.ERROR_SOURCE__OUTGOING:
-        return outgoing != null;
-      case ErrorModelPackage.ERROR_SOURCE__ALL_OUTGOING:
-        return allOutgoing != ALL_OUTGOING_EDEFAULT;
+      case ErrorModelPackage.ERROR_SOURCE__SOURCE_MODEL_ELEMENT:
+        return sourceModelElement != null;
+      case ErrorModelPackage.ERROR_SOURCE__ALL:
+        return all != ALL_EDEFAULT;
       case ErrorModelPackage.ERROR_SOURCE__FAILURE_MODE_REFERENCE:
         return failureModeReference != null;
       case ErrorModelPackage.ERROR_SOURCE__FAILURE_MODE_TYPE:
@@ -495,8 +497,8 @@ public class ErrorSourceImpl extends ErrorFlowImpl implements ErrorSource
     if (eIsProxy()) return super.toString();
 
     StringBuffer result = new StringBuffer(super.toString());
-    result.append(" (allOutgoing: ");
-    result.append(allOutgoing);
+    result.append(" (all: ");
+    result.append(all);
     result.append(", failureModeDescription: ");
     result.append(failureModeDescription);
     result.append(", condition: ");

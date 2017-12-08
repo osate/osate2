@@ -781,14 +781,6 @@ public abstract class AbstractErrorModelSyntacticSequencer extends AbstractSynta
 	 *         typeTransformationSet=[TypeTransformationSet|QEMREF]
 	 *     )
 	 *     (
-	 *         name=QCREF 
-	 *         (ErrorPropagationsKeywords EndPropagationsKeywords ';')? 
-	 *         (ambiguity) 
-	 *         (CompositeErrorBehaviorKeywords EndCompositeKeywords ';')? 
-	 *         ConnectionErrorKeywords 
-	 *         connectionErrorSources+=ConnectionErrorSource
-	 *     )
-	 *     (
 	 *         propagations+=ErrorPropagation 
 	 *         EndPropagationsKeywords 
 	 *         ';' 
@@ -901,7 +893,7 @@ public abstract class AbstractErrorModelSyntacticSequencer extends AbstractSynta
 	 *         (ambiguity) 
 	 *         (CompositeErrorBehaviorKeywords EndCompositeKeywords ';')? 
 	 *         ConnectionErrorKeywords 
-	 *         connectionErrorSources+=ConnectionErrorSource
+	 *         connectionErrorSources+=ErrorSource
 	 *     )
 	 *     (
 	 *         typeMappingSet=[TypeMappingSet|QEMREF] 
@@ -963,7 +955,7 @@ public abstract class AbstractErrorModelSyntacticSequencer extends AbstractSynta
 	 *         (ambiguity) 
 	 *         (CompositeErrorBehaviorKeywords EndCompositeKeywords ';')? 
 	 *         ConnectionErrorKeywords 
-	 *         connectionErrorSources+=ConnectionErrorSource
+	 *         connectionErrorSources+=ErrorSource
 	 *     )
 	 *     (
 	 *         useBehavior=[ErrorBehaviorStateMachine|QEMREF] 
@@ -1025,7 +1017,7 @@ public abstract class AbstractErrorModelSyntacticSequencer extends AbstractSynta
 	 *         (ambiguity) 
 	 *         (CompositeErrorBehaviorKeywords EndCompositeKeywords ';')? 
 	 *         ConnectionErrorKeywords 
-	 *         connectionErrorSources+=ConnectionErrorSource
+	 *         connectionErrorSources+=ErrorSource
 	 *     )
 	 *     (
 	 *         useTypes+=[ErrorModelLibrary|QEMREF] 
@@ -1087,12 +1079,13 @@ public abstract class AbstractErrorModelSyntacticSequencer extends AbstractSynta
 	 *         (ambiguity) 
 	 *         (CompositeErrorBehaviorKeywords EndCompositeKeywords ';')? 
 	 *         ConnectionErrorKeywords 
-	 *         connectionErrorSources+=ConnectionErrorSource
+	 *         connectionErrorSources+=ErrorSource
 	 *     )
-	 *     flows+=ErrorFlow EndPropagationsKeywords ';' (ambiguity) (CompositeErrorBehaviorKeywords EndCompositeKeywords ';')? ConnectionErrorKeywords connectionErrorSources+=ConnectionErrorSource
+	 *     flows+=ErrorFlow EndPropagationsKeywords ';' (ambiguity) (CompositeErrorBehaviorKeywords EndCompositeKeywords ';')? ConnectionErrorKeywords connectionErrorSources+=ErrorSource
 	 *     flows+=ErrorFlow EndPropagationsKeywords ';' (ambiguity) CompositeErrorBehaviorKeywords 'states' states+=CompositeState
+	 *     name=QCREF (ErrorPropagationsKeywords EndPropagationsKeywords ';')? (ambiguity) (CompositeErrorBehaviorKeywords EndCompositeKeywords ';')? ConnectionErrorKeywords connectionErrorSources+=ErrorSource
 	 *     name=QCREF (ErrorPropagationsKeywords EndPropagationsKeywords ';')? (ambiguity) CompositeErrorBehaviorKeywords 'states' states+=CompositeState
-	 *     propagations+=ErrorPropagation EndPropagationsKeywords ';' (ambiguity) (CompositeErrorBehaviorKeywords EndCompositeKeywords ';')? ConnectionErrorKeywords connectionErrorSources+=ConnectionErrorSource
+	 *     propagations+=ErrorPropagation EndPropagationsKeywords ';' (ambiguity) (CompositeErrorBehaviorKeywords EndCompositeKeywords ';')? ConnectionErrorKeywords connectionErrorSources+=ErrorSource
 	 *     propagations+=ErrorPropagation EndPropagationsKeywords ';' (ambiguity) CompositeErrorBehaviorKeywords 'states' states+=CompositeState
 	 *     typeEquivalence=[TypeMappingSet|QEMREF] ';' (ErrorPropagationsKeywords EndPropagationsKeywords ';')? (ambiguity) CompositeErrorBehaviorKeywords 'states' states+=CompositeState
 	 *     typeMappingSet=[TypeMappingSet|QEMREF] ';' (ErrorPropagationsKeywords EndPropagationsKeywords ';')? (ambiguity) CompositeErrorBehaviorKeywords 'states' states+=CompositeState
@@ -1251,14 +1244,6 @@ public abstract class AbstractErrorModelSyntacticSequencer extends AbstractSynta
 	 *         typeTransformationSet=[TypeTransformationSet|QEMREF]
 	 *     )
 	 *     (
-	 *         name=QCREF 
-	 *         (ErrorPropagationsKeywords EndPropagationsKeywords ';')? 
-	 *         (ComponentErrorBehaviorKeywords EndComponentKeywords ';')? 
-	 *         (ambiguity) 
-	 *         ConnectionErrorKeywords 
-	 *         connectionErrorSources+=ConnectionErrorSource
-	 *     )
-	 *     (
 	 *         outgoingPropagationConditions+=OutgoingPropagationCondition 
 	 *         EndComponentKeywords 
 	 *         ';' 
@@ -1413,7 +1398,7 @@ public abstract class AbstractErrorModelSyntacticSequencer extends AbstractSynta
 	 *         (ComponentErrorBehaviorKeywords EndComponentKeywords ';')? 
 	 *         (ambiguity) 
 	 *         ConnectionErrorKeywords 
-	 *         connectionErrorSources+=ConnectionErrorSource
+	 *         connectionErrorSources+=ErrorSource
 	 *     )
 	 *     (
 	 *         typeMappingSet=[TypeMappingSet|QEMREF] 
@@ -1475,7 +1460,7 @@ public abstract class AbstractErrorModelSyntacticSequencer extends AbstractSynta
 	 *         (ComponentErrorBehaviorKeywords EndComponentKeywords ';')? 
 	 *         (ambiguity) 
 	 *         ConnectionErrorKeywords 
-	 *         connectionErrorSources+=ConnectionErrorSource
+	 *         connectionErrorSources+=ErrorSource
 	 *     )
 	 *     (
 	 *         useBehavior=[ErrorBehaviorStateMachine|QEMREF] 
@@ -1537,7 +1522,7 @@ public abstract class AbstractErrorModelSyntacticSequencer extends AbstractSynta
 	 *         (ComponentErrorBehaviorKeywords EndComponentKeywords ';')? 
 	 *         (ambiguity) 
 	 *         ConnectionErrorKeywords 
-	 *         connectionErrorSources+=ConnectionErrorSource
+	 *         connectionErrorSources+=ErrorSource
 	 *     )
 	 *     (
 	 *         useTransformation=[TypeTransformationSet|QEMREF] 
@@ -1622,36 +1607,37 @@ public abstract class AbstractErrorModelSyntacticSequencer extends AbstractSynta
 	 *         (ComponentErrorBehaviorKeywords EndComponentKeywords ';')? 
 	 *         (ambiguity) 
 	 *         ConnectionErrorKeywords 
-	 *         connectionErrorSources+=ConnectionErrorSource
+	 *         connectionErrorSources+=ErrorSource
 	 *     )
 	 *     errorDetections+=ErrorDetection EndComponentKeywords ';' (ambiguity) (ConnectionErrorKeywords EndConnectionKeywords ';')? (PropagationPathsKeywords EndPathsKeywords ';')? EndSubclauseKeywords ';' (rule end)
 	 *     errorDetections+=ErrorDetection EndComponentKeywords ';' (ambiguity) (ConnectionErrorKeywords EndConnectionKeywords ';')? PropagationPathsKeywords paths+=PropagationPath
 	 *     errorDetections+=ErrorDetection EndComponentKeywords ';' (ambiguity) (ConnectionErrorKeywords EndConnectionKeywords ';')? PropagationPathsKeywords points+=PropagationPoint
 	 *     errorDetections+=ErrorDetection EndComponentKeywords ';' (ambiguity) ConnectionErrorKeywords UseTransformationsKeywords typeTransformationSet=[TypeTransformationSet|QEMREF]
-	 *     errorDetections+=ErrorDetection EndComponentKeywords ';' (ambiguity) ConnectionErrorKeywords connectionErrorSources+=ConnectionErrorSource
+	 *     errorDetections+=ErrorDetection EndComponentKeywords ';' (ambiguity) ConnectionErrorKeywords connectionErrorSources+=ErrorSource
 	 *     errorStateToModeMappings+=ErrorStateToModeMapping EndComponentKeywords ';' (ambiguity) (ConnectionErrorKeywords EndConnectionKeywords ';')? PropagationPathsKeywords paths+=PropagationPath
 	 *     errorStateToModeMappings+=ErrorStateToModeMapping EndComponentKeywords ';' (ambiguity) (ConnectionErrorKeywords EndConnectionKeywords ';')? PropagationPathsKeywords points+=PropagationPoint
 	 *     errorStateToModeMappings+=ErrorStateToModeMapping EndComponentKeywords ';' (ambiguity) ConnectionErrorKeywords UseTransformationsKeywords typeTransformationSet=[TypeTransformationSet|QEMREF]
-	 *     errorStateToModeMappings+=ErrorStateToModeMapping EndComponentKeywords ';' (ambiguity) ConnectionErrorKeywords connectionErrorSources+=ConnectionErrorSource
+	 *     errorStateToModeMappings+=ErrorStateToModeMapping EndComponentKeywords ';' (ambiguity) ConnectionErrorKeywords connectionErrorSources+=ErrorSource
 	 *     events+=ErrorBehaviorEvent EndComponentKeywords ';' (ambiguity) (ConnectionErrorKeywords EndConnectionKeywords ';')? (PropagationPathsKeywords EndPathsKeywords ';')? EndSubclauseKeywords ';' (rule end)
 	 *     events+=ErrorBehaviorEvent EndComponentKeywords ';' (ambiguity) (ConnectionErrorKeywords EndConnectionKeywords ';')? PropagationPathsKeywords paths+=PropagationPath
 	 *     events+=ErrorBehaviorEvent EndComponentKeywords ';' (ambiguity) (ConnectionErrorKeywords EndConnectionKeywords ';')? PropagationPathsKeywords points+=PropagationPoint
 	 *     events+=ErrorBehaviorEvent EndComponentKeywords ';' (ambiguity) ConnectionErrorKeywords UseTransformationsKeywords typeTransformationSet=[TypeTransformationSet|QEMREF]
-	 *     events+=ErrorBehaviorEvent EndComponentKeywords ';' (ambiguity) ConnectionErrorKeywords connectionErrorSources+=ConnectionErrorSource
-	 *     flows+=ErrorFlow EndPropagationsKeywords ';' (ComponentErrorBehaviorKeywords EndComponentKeywords ';')? (ambiguity) ConnectionErrorKeywords connectionErrorSources+=ConnectionErrorSource
+	 *     events+=ErrorBehaviorEvent EndComponentKeywords ';' (ambiguity) ConnectionErrorKeywords connectionErrorSources+=ErrorSource
+	 *     flows+=ErrorFlow EndPropagationsKeywords ';' (ComponentErrorBehaviorKeywords EndComponentKeywords ';')? (ambiguity) ConnectionErrorKeywords connectionErrorSources+=ErrorSource
+	 *     name=QCREF (ErrorPropagationsKeywords EndPropagationsKeywords ';')? (ComponentErrorBehaviorKeywords EndComponentKeywords ';')? (ambiguity) ConnectionErrorKeywords connectionErrorSources+=ErrorSource
 	 *     outgoingPropagationConditions+=OutgoingPropagationCondition EndComponentKeywords ';' (ambiguity) (ConnectionErrorKeywords EndConnectionKeywords ';')? PropagationPathsKeywords paths+=PropagationPath
 	 *     outgoingPropagationConditions+=OutgoingPropagationCondition EndComponentKeywords ';' (ambiguity) (ConnectionErrorKeywords EndConnectionKeywords ';')? PropagationPathsKeywords points+=PropagationPoint
 	 *     outgoingPropagationConditions+=OutgoingPropagationCondition EndComponentKeywords ';' (ambiguity) ConnectionErrorKeywords UseTransformationsKeywords typeTransformationSet=[TypeTransformationSet|QEMREF]
-	 *     outgoingPropagationConditions+=OutgoingPropagationCondition EndComponentKeywords ';' (ambiguity) ConnectionErrorKeywords connectionErrorSources+=ConnectionErrorSource
-	 *     propagations+=ErrorPropagation EndPropagationsKeywords ';' (ComponentErrorBehaviorKeywords EndComponentKeywords ';')? (ambiguity) ConnectionErrorKeywords connectionErrorSources+=ConnectionErrorSource
+	 *     outgoingPropagationConditions+=OutgoingPropagationCondition EndComponentKeywords ';' (ambiguity) ConnectionErrorKeywords connectionErrorSources+=ErrorSource
+	 *     propagations+=ErrorPropagation EndPropagationsKeywords ';' (ComponentErrorBehaviorKeywords EndComponentKeywords ';')? (ambiguity) ConnectionErrorKeywords connectionErrorSources+=ErrorSource
 	 *     transitions+=ErrorBehaviorTransition EndComponentKeywords ';' (ambiguity) (ConnectionErrorKeywords EndConnectionKeywords ';')? PropagationPathsKeywords paths+=PropagationPath
 	 *     transitions+=ErrorBehaviorTransition EndComponentKeywords ';' (ambiguity) (ConnectionErrorKeywords EndConnectionKeywords ';')? PropagationPathsKeywords points+=PropagationPoint
 	 *     transitions+=ErrorBehaviorTransition EndComponentKeywords ';' (ambiguity) ConnectionErrorKeywords UseTransformationsKeywords typeTransformationSet=[TypeTransformationSet|QEMREF]
-	 *     transitions+=ErrorBehaviorTransition EndComponentKeywords ';' (ambiguity) ConnectionErrorKeywords connectionErrorSources+=ConnectionErrorSource
+	 *     transitions+=ErrorBehaviorTransition EndComponentKeywords ';' (ambiguity) ConnectionErrorKeywords connectionErrorSources+=ErrorSource
 	 *     useTransformation=[TypeTransformationSet|QEMREF] ';' EndComponentKeywords ';' (ambiguity) (ConnectionErrorKeywords EndConnectionKeywords ';')? PropagationPathsKeywords paths+=PropagationPath
 	 *     useTransformation=[TypeTransformationSet|QEMREF] ';' EndComponentKeywords ';' (ambiguity) (ConnectionErrorKeywords EndConnectionKeywords ';')? PropagationPathsKeywords points+=PropagationPoint
 	 *     useTransformation=[TypeTransformationSet|QEMREF] ';' EndComponentKeywords ';' (ambiguity) ConnectionErrorKeywords UseTransformationsKeywords typeTransformationSet=[TypeTransformationSet|QEMREF]
-	 *     useTransformation=[TypeTransformationSet|QEMREF] ';' EndComponentKeywords ';' (ambiguity) ConnectionErrorKeywords connectionErrorSources+=ConnectionErrorSource
+	 *     useTransformation=[TypeTransformationSet|QEMREF] ';' EndComponentKeywords ';' (ambiguity) ConnectionErrorKeywords connectionErrorSources+=ErrorSource
 	 */
 	protected void emit_EMV2Subclause___CompositeErrorBehaviorKeywordsParserRuleCall_9_0_EndCompositeKeywordsParserRuleCall_9_2_SemicolonKeyword_9_3__q(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
 		acceptNodes(transition, nodes);
@@ -2152,14 +2138,6 @@ public abstract class AbstractErrorModelSyntacticSequencer extends AbstractSynta
 	 *         typeTransformationSet=[TypeTransformationSet|QEMREF]
 	 *     )
 	 *     (
-	 *         name=QCREF 
-	 *         (ambiguity) 
-	 *         (ComponentErrorBehaviorKeywords EndComponentKeywords ';')? 
-	 *         (CompositeErrorBehaviorKeywords EndCompositeKeywords ';')? 
-	 *         ConnectionErrorKeywords 
-	 *         connectionErrorSources+=ConnectionErrorSource
-	 *     )
-	 *     (
 	 *         typeEquivalence=[TypeMappingSet|QEMREF] 
 	 *         ';' 
 	 *         (ambiguity) 
@@ -2219,7 +2197,7 @@ public abstract class AbstractErrorModelSyntacticSequencer extends AbstractSynta
 	 *         (ComponentErrorBehaviorKeywords EndComponentKeywords ';')? 
 	 *         (CompositeErrorBehaviorKeywords EndCompositeKeywords ';')? 
 	 *         ConnectionErrorKeywords 
-	 *         connectionErrorSources+=ConnectionErrorSource
+	 *         connectionErrorSources+=ErrorSource
 	 *     )
 	 *     (
 	 *         typeMappingSet=[TypeMappingSet|QEMREF] 
@@ -2281,7 +2259,7 @@ public abstract class AbstractErrorModelSyntacticSequencer extends AbstractSynta
 	 *         (ComponentErrorBehaviorKeywords EndComponentKeywords ';')? 
 	 *         (CompositeErrorBehaviorKeywords EndCompositeKeywords ';')? 
 	 *         ConnectionErrorKeywords 
-	 *         connectionErrorSources+=ConnectionErrorSource
+	 *         connectionErrorSources+=ErrorSource
 	 *     )
 	 *     (
 	 *         useBehavior=[ErrorBehaviorStateMachine|QEMREF] 
@@ -2343,7 +2321,7 @@ public abstract class AbstractErrorModelSyntacticSequencer extends AbstractSynta
 	 *         (ComponentErrorBehaviorKeywords EndComponentKeywords ';')? 
 	 *         (CompositeErrorBehaviorKeywords EndCompositeKeywords ';')? 
 	 *         ConnectionErrorKeywords 
-	 *         connectionErrorSources+=ConnectionErrorSource
+	 *         connectionErrorSources+=ErrorSource
 	 *     )
 	 *     (
 	 *         useTypes+=[ErrorModelLibrary|QEMREF] 
@@ -2405,8 +2383,9 @@ public abstract class AbstractErrorModelSyntacticSequencer extends AbstractSynta
 	 *         (ComponentErrorBehaviorKeywords EndComponentKeywords ';')? 
 	 *         (CompositeErrorBehaviorKeywords EndCompositeKeywords ';')? 
 	 *         ConnectionErrorKeywords 
-	 *         connectionErrorSources+=ConnectionErrorSource
+	 *         connectionErrorSources+=ErrorSource
 	 *     )
+	 *     name=QCREF (ambiguity) (ComponentErrorBehaviorKeywords EndComponentKeywords ';')? (CompositeErrorBehaviorKeywords EndCompositeKeywords ';')? ConnectionErrorKeywords connectionErrorSources+=ErrorSource
 	 *     name=QCREF (ambiguity) (ComponentErrorBehaviorKeywords EndComponentKeywords ';')? CompositeErrorBehaviorKeywords 'states' states+=CompositeState
 	 *     name=QCREF (ambiguity) ComponentErrorBehaviorKeywords 'detections' errorDetections+=ErrorDetection
 	 *     name=QCREF (ambiguity) ComponentErrorBehaviorKeywords 'events' events+=ErrorBehaviorEvent
@@ -2739,8 +2718,8 @@ public abstract class AbstractErrorModelSyntacticSequencer extends AbstractSynta
 	 *         ';' 
 	 *         (rule end)
 	 *     )
-	 *     connectionErrorSources+=ConnectionErrorSource EndConnectionKeywords ';' (ambiguity) 'properties' properties+=EMV2PropertyAssociation
-	 *     connectionErrorSources+=ConnectionErrorSource EndConnectionKeywords ';' (ambiguity) EndSubclauseKeywords ';' (rule end)
+	 *     connectionErrorSources+=ErrorSource EndConnectionKeywords ';' (ambiguity) 'properties' properties+=EMV2PropertyAssociation
+	 *     connectionErrorSources+=ErrorSource EndConnectionKeywords ';' (ambiguity) EndSubclauseKeywords ';' (rule end)
 	 *     states+=CompositeState EndCompositeKeywords ';' (ConnectionErrorKeywords EndConnectionKeywords ';')? (ambiguity) 'properties' properties+=EMV2PropertyAssociation
 	 *     states+=CompositeState EndCompositeKeywords ';' (ConnectionErrorKeywords EndConnectionKeywords ';')? (ambiguity) EndSubclauseKeywords ';' (rule end)
 	 *     typeTransformationSet=[TypeTransformationSet|QEMREF] ';' EndConnectionKeywords ';' (ambiguity) 'properties' properties+=EMV2PropertyAssociation
@@ -2816,14 +2795,6 @@ public abstract class AbstractErrorModelSyntacticSequencer extends AbstractSynta
 	 *         typeTransformationSet=[TypeTransformationSet|QEMREF]
 	 *     )
 	 *     (
-	 *         (rule start) 
-	 *         (ErrorPropagationsKeywords EndPropagationsKeywords ';')? 
-	 *         (ambiguity) 
-	 *         (CompositeErrorBehaviorKeywords EndCompositeKeywords ';')? 
-	 *         ConnectionErrorKeywords 
-	 *         connectionErrorSources+=ConnectionErrorSource
-	 *     )
-	 *     (
 	 *         flows+=ErrorFlow 
 	 *         EndPropagationsKeywords 
 	 *         ';' 
@@ -2983,7 +2954,7 @@ public abstract class AbstractErrorModelSyntacticSequencer extends AbstractSynta
 	 *         (ambiguity) 
 	 *         (CompositeErrorBehaviorKeywords EndCompositeKeywords ';')? 
 	 *         ConnectionErrorKeywords 
-	 *         connectionErrorSources+=ConnectionErrorSource
+	 *         connectionErrorSources+=ErrorSource
 	 *     )
 	 *     (
 	 *         typeMappingSet=[TypeMappingSet|QEMREF] 
@@ -3043,7 +3014,7 @@ public abstract class AbstractErrorModelSyntacticSequencer extends AbstractSynta
 	 *         (ambiguity) 
 	 *         (CompositeErrorBehaviorKeywords EndCompositeKeywords ';')? 
 	 *         ConnectionErrorKeywords 
-	 *         connectionErrorSources+=ConnectionErrorSource
+	 *         connectionErrorSources+=ErrorSource
 	 *     )
 	 *     (
 	 *         useBehavior=[ErrorBehaviorStateMachine|QEMREF] 
@@ -3103,7 +3074,7 @@ public abstract class AbstractErrorModelSyntacticSequencer extends AbstractSynta
 	 *         (ambiguity) 
 	 *         (CompositeErrorBehaviorKeywords EndCompositeKeywords ';')? 
 	 *         ConnectionErrorKeywords 
-	 *         connectionErrorSources+=ConnectionErrorSource
+	 *         connectionErrorSources+=ErrorSource
 	 *     )
 	 *     (
 	 *         useTypes+=[ErrorModelLibrary|QEMREF] 
@@ -3163,12 +3134,13 @@ public abstract class AbstractErrorModelSyntacticSequencer extends AbstractSynta
 	 *         (ambiguity) 
 	 *         (CompositeErrorBehaviorKeywords EndCompositeKeywords ';')? 
 	 *         ConnectionErrorKeywords 
-	 *         connectionErrorSources+=ConnectionErrorSource
+	 *         connectionErrorSources+=ErrorSource
 	 *     )
+	 *     (rule start) (ErrorPropagationsKeywords EndPropagationsKeywords ';')? (ambiguity) (CompositeErrorBehaviorKeywords EndCompositeKeywords ';')? ConnectionErrorKeywords connectionErrorSources+=ErrorSource
 	 *     (rule start) (ErrorPropagationsKeywords EndPropagationsKeywords ';')? (ambiguity) CompositeErrorBehaviorKeywords 'states' states+=CompositeState
-	 *     flows+=ErrorFlow EndPropagationsKeywords ';' (ambiguity) (CompositeErrorBehaviorKeywords EndCompositeKeywords ';')? ConnectionErrorKeywords connectionErrorSources+=ConnectionErrorSource
+	 *     flows+=ErrorFlow EndPropagationsKeywords ';' (ambiguity) (CompositeErrorBehaviorKeywords EndCompositeKeywords ';')? ConnectionErrorKeywords connectionErrorSources+=ErrorSource
 	 *     flows+=ErrorFlow EndPropagationsKeywords ';' (ambiguity) CompositeErrorBehaviorKeywords 'states' states+=CompositeState
-	 *     propagations+=ErrorPropagation EndPropagationsKeywords ';' (ambiguity) (CompositeErrorBehaviorKeywords EndCompositeKeywords ';')? ConnectionErrorKeywords connectionErrorSources+=ConnectionErrorSource
+	 *     propagations+=ErrorPropagation EndPropagationsKeywords ';' (ambiguity) (CompositeErrorBehaviorKeywords EndCompositeKeywords ';')? ConnectionErrorKeywords connectionErrorSources+=ErrorSource
 	 *     propagations+=ErrorPropagation EndPropagationsKeywords ';' (ambiguity) CompositeErrorBehaviorKeywords 'states' states+=CompositeState
 	 *     typeEquivalence=[TypeMappingSet|QEMREF] ';' (ErrorPropagationsKeywords EndPropagationsKeywords ';')? (ambiguity) CompositeErrorBehaviorKeywords 'states' states+=CompositeState
 	 *     typeMappingSet=[TypeMappingSet|QEMREF] ';' (ErrorPropagationsKeywords EndPropagationsKeywords ';')? (ambiguity) CompositeErrorBehaviorKeywords 'states' states+=CompositeState
@@ -3229,14 +3201,6 @@ public abstract class AbstractErrorModelSyntacticSequencer extends AbstractSynta
 	 *         ConnectionErrorKeywords 
 	 *         UseTransformationsKeywords 
 	 *         typeTransformationSet=[TypeTransformationSet|QEMREF]
-	 *     )
-	 *     (
-	 *         (rule start) 
-	 *         (ErrorPropagationsKeywords EndPropagationsKeywords ';')? 
-	 *         (ComponentErrorBehaviorKeywords EndComponentKeywords ';')? 
-	 *         (ambiguity) 
-	 *         ConnectionErrorKeywords 
-	 *         connectionErrorSources+=ConnectionErrorSource
 	 *     )
 	 *     (
 	 *         errorDetections+=ErrorDetection 
@@ -3457,7 +3421,7 @@ public abstract class AbstractErrorModelSyntacticSequencer extends AbstractSynta
 	 *         (ComponentErrorBehaviorKeywords EndComponentKeywords ';')? 
 	 *         (ambiguity) 
 	 *         ConnectionErrorKeywords 
-	 *         connectionErrorSources+=ConnectionErrorSource
+	 *         connectionErrorSources+=ErrorSource
 	 *     )
 	 *     (
 	 *         typeMappingSet=[TypeMappingSet|QEMREF] 
@@ -3517,7 +3481,7 @@ public abstract class AbstractErrorModelSyntacticSequencer extends AbstractSynta
 	 *         (ComponentErrorBehaviorKeywords EndComponentKeywords ';')? 
 	 *         (ambiguity) 
 	 *         ConnectionErrorKeywords 
-	 *         connectionErrorSources+=ConnectionErrorSource
+	 *         connectionErrorSources+=ErrorSource
 	 *     )
 	 *     (
 	 *         useBehavior=[ErrorBehaviorStateMachine|QEMREF] 
@@ -3577,7 +3541,7 @@ public abstract class AbstractErrorModelSyntacticSequencer extends AbstractSynta
 	 *         (ComponentErrorBehaviorKeywords EndComponentKeywords ';')? 
 	 *         (ambiguity) 
 	 *         ConnectionErrorKeywords 
-	 *         connectionErrorSources+=ConnectionErrorSource
+	 *         connectionErrorSources+=ErrorSource
 	 *     )
 	 *     (
 	 *         useTransformation=[TypeTransformationSet|QEMREF] 
@@ -3648,39 +3612,40 @@ public abstract class AbstractErrorModelSyntacticSequencer extends AbstractSynta
 	 *         (ComponentErrorBehaviorKeywords EndComponentKeywords ';')? 
 	 *         (ambiguity) 
 	 *         ConnectionErrorKeywords 
-	 *         connectionErrorSources+=ConnectionErrorSource
+	 *         connectionErrorSources+=ErrorSource
 	 *     )
+	 *     (rule start) (ErrorPropagationsKeywords EndPropagationsKeywords ';')? (ComponentErrorBehaviorKeywords EndComponentKeywords ';')? (ambiguity) ConnectionErrorKeywords connectionErrorSources+=ErrorSource
 	 *     errorDetections+=ErrorDetection EndComponentKeywords ';' (ambiguity) (ConnectionErrorKeywords EndConnectionKeywords ';')? (PropagationPathsKeywords EndPathsKeywords ';')? (rule end)
 	 *     errorDetections+=ErrorDetection EndComponentKeywords ';' (ambiguity) (ConnectionErrorKeywords EndConnectionKeywords ';')? PropagationPathsKeywords paths+=PropagationPath
 	 *     errorDetections+=ErrorDetection EndComponentKeywords ';' (ambiguity) (ConnectionErrorKeywords EndConnectionKeywords ';')? PropagationPathsKeywords points+=PropagationPoint
 	 *     errorDetections+=ErrorDetection EndComponentKeywords ';' (ambiguity) ConnectionErrorKeywords UseTransformationsKeywords typeTransformationSet=[TypeTransformationSet|QEMREF]
-	 *     errorDetections+=ErrorDetection EndComponentKeywords ';' (ambiguity) ConnectionErrorKeywords connectionErrorSources+=ConnectionErrorSource
+	 *     errorDetections+=ErrorDetection EndComponentKeywords ';' (ambiguity) ConnectionErrorKeywords connectionErrorSources+=ErrorSource
 	 *     errorStateToModeMappings+=ErrorStateToModeMapping EndComponentKeywords ';' (ambiguity) (ConnectionErrorKeywords EndConnectionKeywords ';')? (PropagationPathsKeywords EndPathsKeywords ';')? (rule end)
 	 *     errorStateToModeMappings+=ErrorStateToModeMapping EndComponentKeywords ';' (ambiguity) (ConnectionErrorKeywords EndConnectionKeywords ';')? PropagationPathsKeywords paths+=PropagationPath
 	 *     errorStateToModeMappings+=ErrorStateToModeMapping EndComponentKeywords ';' (ambiguity) (ConnectionErrorKeywords EndConnectionKeywords ';')? PropagationPathsKeywords points+=PropagationPoint
 	 *     errorStateToModeMappings+=ErrorStateToModeMapping EndComponentKeywords ';' (ambiguity) ConnectionErrorKeywords UseTransformationsKeywords typeTransformationSet=[TypeTransformationSet|QEMREF]
-	 *     errorStateToModeMappings+=ErrorStateToModeMapping EndComponentKeywords ';' (ambiguity) ConnectionErrorKeywords connectionErrorSources+=ConnectionErrorSource
+	 *     errorStateToModeMappings+=ErrorStateToModeMapping EndComponentKeywords ';' (ambiguity) ConnectionErrorKeywords connectionErrorSources+=ErrorSource
 	 *     events+=ErrorBehaviorEvent EndComponentKeywords ';' (ambiguity) (ConnectionErrorKeywords EndConnectionKeywords ';')? (PropagationPathsKeywords EndPathsKeywords ';')? (rule end)
 	 *     events+=ErrorBehaviorEvent EndComponentKeywords ';' (ambiguity) (ConnectionErrorKeywords EndConnectionKeywords ';')? PropagationPathsKeywords paths+=PropagationPath
 	 *     events+=ErrorBehaviorEvent EndComponentKeywords ';' (ambiguity) (ConnectionErrorKeywords EndConnectionKeywords ';')? PropagationPathsKeywords points+=PropagationPoint
 	 *     events+=ErrorBehaviorEvent EndComponentKeywords ';' (ambiguity) ConnectionErrorKeywords UseTransformationsKeywords typeTransformationSet=[TypeTransformationSet|QEMREF]
-	 *     events+=ErrorBehaviorEvent EndComponentKeywords ';' (ambiguity) ConnectionErrorKeywords connectionErrorSources+=ConnectionErrorSource
-	 *     flows+=ErrorFlow EndPropagationsKeywords ';' (ComponentErrorBehaviorKeywords EndComponentKeywords ';')? (ambiguity) ConnectionErrorKeywords connectionErrorSources+=ConnectionErrorSource
+	 *     events+=ErrorBehaviorEvent EndComponentKeywords ';' (ambiguity) ConnectionErrorKeywords connectionErrorSources+=ErrorSource
+	 *     flows+=ErrorFlow EndPropagationsKeywords ';' (ComponentErrorBehaviorKeywords EndComponentKeywords ';')? (ambiguity) ConnectionErrorKeywords connectionErrorSources+=ErrorSource
 	 *     outgoingPropagationConditions+=OutgoingPropagationCondition EndComponentKeywords ';' (ambiguity) (ConnectionErrorKeywords EndConnectionKeywords ';')? PropagationPathsKeywords paths+=PropagationPath
 	 *     outgoingPropagationConditions+=OutgoingPropagationCondition EndComponentKeywords ';' (ambiguity) (ConnectionErrorKeywords EndConnectionKeywords ';')? PropagationPathsKeywords points+=PropagationPoint
 	 *     outgoingPropagationConditions+=OutgoingPropagationCondition EndComponentKeywords ';' (ambiguity) ConnectionErrorKeywords UseTransformationsKeywords typeTransformationSet=[TypeTransformationSet|QEMREF]
-	 *     outgoingPropagationConditions+=OutgoingPropagationCondition EndComponentKeywords ';' (ambiguity) ConnectionErrorKeywords connectionErrorSources+=ConnectionErrorSource
-	 *     propagations+=ErrorPropagation EndPropagationsKeywords ';' (ComponentErrorBehaviorKeywords EndComponentKeywords ';')? (ambiguity) ConnectionErrorKeywords connectionErrorSources+=ConnectionErrorSource
+	 *     outgoingPropagationConditions+=OutgoingPropagationCondition EndComponentKeywords ';' (ambiguity) ConnectionErrorKeywords connectionErrorSources+=ErrorSource
+	 *     propagations+=ErrorPropagation EndPropagationsKeywords ';' (ComponentErrorBehaviorKeywords EndComponentKeywords ';')? (ambiguity) ConnectionErrorKeywords connectionErrorSources+=ErrorSource
 	 *     transitions+=ErrorBehaviorTransition EndComponentKeywords ';' (ambiguity) (ConnectionErrorKeywords EndConnectionKeywords ';')? (PropagationPathsKeywords EndPathsKeywords ';')? (rule end)
 	 *     transitions+=ErrorBehaviorTransition EndComponentKeywords ';' (ambiguity) (ConnectionErrorKeywords EndConnectionKeywords ';')? PropagationPathsKeywords paths+=PropagationPath
 	 *     transitions+=ErrorBehaviorTransition EndComponentKeywords ';' (ambiguity) (ConnectionErrorKeywords EndConnectionKeywords ';')? PropagationPathsKeywords points+=PropagationPoint
 	 *     transitions+=ErrorBehaviorTransition EndComponentKeywords ';' (ambiguity) ConnectionErrorKeywords UseTransformationsKeywords typeTransformationSet=[TypeTransformationSet|QEMREF]
-	 *     transitions+=ErrorBehaviorTransition EndComponentKeywords ';' (ambiguity) ConnectionErrorKeywords connectionErrorSources+=ConnectionErrorSource
+	 *     transitions+=ErrorBehaviorTransition EndComponentKeywords ';' (ambiguity) ConnectionErrorKeywords connectionErrorSources+=ErrorSource
 	 *     useTransformation=[TypeTransformationSet|QEMREF] ';' EndComponentKeywords ';' (ambiguity) (ConnectionErrorKeywords EndConnectionKeywords ';')? (PropagationPathsKeywords EndPathsKeywords ';')? (rule end)
 	 *     useTransformation=[TypeTransformationSet|QEMREF] ';' EndComponentKeywords ';' (ambiguity) (ConnectionErrorKeywords EndConnectionKeywords ';')? PropagationPathsKeywords paths+=PropagationPath
 	 *     useTransformation=[TypeTransformationSet|QEMREF] ';' EndComponentKeywords ';' (ambiguity) (ConnectionErrorKeywords EndConnectionKeywords ';')? PropagationPathsKeywords points+=PropagationPoint
 	 *     useTransformation=[TypeTransformationSet|QEMREF] ';' EndComponentKeywords ';' (ambiguity) ConnectionErrorKeywords UseTransformationsKeywords typeTransformationSet=[TypeTransformationSet|QEMREF]
-	 *     useTransformation=[TypeTransformationSet|QEMREF] ';' EndComponentKeywords ';' (ambiguity) ConnectionErrorKeywords connectionErrorSources+=ConnectionErrorSource
+	 *     useTransformation=[TypeTransformationSet|QEMREF] ';' EndComponentKeywords ';' (ambiguity) ConnectionErrorKeywords connectionErrorSources+=ErrorSource
 	 */
 	protected void emit_ErrorModelSubclause___CompositeErrorBehaviorKeywordsParserRuleCall_7_0_EndCompositeKeywordsParserRuleCall_7_2_SemicolonKeyword_7_3__q(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
 		acceptNodes(transition, nodes);
@@ -4131,14 +4096,6 @@ public abstract class AbstractErrorModelSyntacticSequencer extends AbstractSynta
 	 *         typeTransformationSet=[TypeTransformationSet|QEMREF]
 	 *     )
 	 *     (
-	 *         (rule start) 
-	 *         (ambiguity) 
-	 *         (ComponentErrorBehaviorKeywords EndComponentKeywords ';')? 
-	 *         (CompositeErrorBehaviorKeywords EndCompositeKeywords ';')? 
-	 *         ConnectionErrorKeywords 
-	 *         connectionErrorSources+=ConnectionErrorSource
-	 *     )
-	 *     (
 	 *         typeEquivalence=[TypeMappingSet|QEMREF] 
 	 *         ';' 
 	 *         (ambiguity) 
@@ -4196,7 +4153,7 @@ public abstract class AbstractErrorModelSyntacticSequencer extends AbstractSynta
 	 *         (ComponentErrorBehaviorKeywords EndComponentKeywords ';')? 
 	 *         (CompositeErrorBehaviorKeywords EndCompositeKeywords ';')? 
 	 *         ConnectionErrorKeywords 
-	 *         connectionErrorSources+=ConnectionErrorSource
+	 *         connectionErrorSources+=ErrorSource
 	 *     )
 	 *     (
 	 *         typeMappingSet=[TypeMappingSet|QEMREF] 
@@ -4256,7 +4213,7 @@ public abstract class AbstractErrorModelSyntacticSequencer extends AbstractSynta
 	 *         (ComponentErrorBehaviorKeywords EndComponentKeywords ';')? 
 	 *         (CompositeErrorBehaviorKeywords EndCompositeKeywords ';')? 
 	 *         ConnectionErrorKeywords 
-	 *         connectionErrorSources+=ConnectionErrorSource
+	 *         connectionErrorSources+=ErrorSource
 	 *     )
 	 *     (
 	 *         useBehavior=[ErrorBehaviorStateMachine|QEMREF] 
@@ -4316,7 +4273,7 @@ public abstract class AbstractErrorModelSyntacticSequencer extends AbstractSynta
 	 *         (ComponentErrorBehaviorKeywords EndComponentKeywords ';')? 
 	 *         (CompositeErrorBehaviorKeywords EndCompositeKeywords ';')? 
 	 *         ConnectionErrorKeywords 
-	 *         connectionErrorSources+=ConnectionErrorSource
+	 *         connectionErrorSources+=ErrorSource
 	 *     )
 	 *     (
 	 *         useTypes+=[ErrorModelLibrary|QEMREF] 
@@ -4376,8 +4333,9 @@ public abstract class AbstractErrorModelSyntacticSequencer extends AbstractSynta
 	 *         (ComponentErrorBehaviorKeywords EndComponentKeywords ';')? 
 	 *         (CompositeErrorBehaviorKeywords EndCompositeKeywords ';')? 
 	 *         ConnectionErrorKeywords 
-	 *         connectionErrorSources+=ConnectionErrorSource
+	 *         connectionErrorSources+=ErrorSource
 	 *     )
+	 *     (rule start) (ambiguity) (ComponentErrorBehaviorKeywords EndComponentKeywords ';')? (CompositeErrorBehaviorKeywords EndCompositeKeywords ';')? ConnectionErrorKeywords connectionErrorSources+=ErrorSource
 	 *     (rule start) (ambiguity) (ComponentErrorBehaviorKeywords EndComponentKeywords ';')? CompositeErrorBehaviorKeywords 'states' states+=CompositeState
 	 *     (rule start) (ambiguity) ComponentErrorBehaviorKeywords 'detections' errorDetections+=ErrorDetection
 	 *     (rule start) (ambiguity) ComponentErrorBehaviorKeywords 'events' events+=ErrorBehaviorEvent
@@ -4657,8 +4615,8 @@ public abstract class AbstractErrorModelSyntacticSequencer extends AbstractSynta
 	 *         (ambiguity) 
 	 *         (rule end)
 	 *     )
-	 *     connectionErrorSources+=ConnectionErrorSource EndConnectionKeywords ';' (ambiguity) 'properties' properties+=EMV2PropertyAssociation
-	 *     connectionErrorSources+=ConnectionErrorSource EndConnectionKeywords ';' (ambiguity) (rule end)
+	 *     connectionErrorSources+=ErrorSource EndConnectionKeywords ';' (ambiguity) 'properties' properties+=EMV2PropertyAssociation
+	 *     connectionErrorSources+=ErrorSource EndConnectionKeywords ';' (ambiguity) (rule end)
 	 *     errorDetections+=ErrorDetection EndComponentKeywords ';' (CompositeErrorBehaviorKeywords EndCompositeKeywords ';')? (ConnectionErrorKeywords EndConnectionKeywords ';')? (ambiguity) (rule end)
 	 *     events+=ErrorBehaviorEvent EndComponentKeywords ';' (CompositeErrorBehaviorKeywords EndCompositeKeywords ';')? (ConnectionErrorKeywords EndConnectionKeywords ';')? (ambiguity) (rule end)
 	 *     states+=CompositeState EndCompositeKeywords ';' (ConnectionErrorKeywords EndConnectionKeywords ';')? (ambiguity) 'properties' properties+=EMV2PropertyAssociation

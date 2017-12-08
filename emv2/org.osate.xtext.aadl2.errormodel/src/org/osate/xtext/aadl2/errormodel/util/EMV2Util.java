@@ -48,7 +48,6 @@ import org.osate.xtext.aadl2.errormodel.errorModel.AndExpression;
 import org.osate.xtext.aadl2.errormodel.errorModel.CompositeState;
 import org.osate.xtext.aadl2.errormodel.errorModel.ConditionElement;
 import org.osate.xtext.aadl2.errormodel.errorModel.ConditionExpression;
-import org.osate.xtext.aadl2.errormodel.errorModel.ConnectionErrorSource;
 import org.osate.xtext.aadl2.errormodel.errorModel.EMV2Path;
 import org.osate.xtext.aadl2.errormodel.errorModel.EMV2PathElement;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorEvent;
@@ -101,7 +100,7 @@ public class EMV2Util {
 		for (ErrorFlow ef : flows) {
 			if (ef instanceof ErrorSource) {
 				ErrorSource es = (ErrorSource) ef;
-				if (es.getOutgoing() == ep) {
+				if (es.getSourceModelElement() == ep) {
 					return es;
 				}
 
@@ -643,14 +642,14 @@ public class EMV2Util {
 	 * @return the connection error source or null
 	 */
 
-	public static ConnectionErrorSource findConnectionErrorSourceForConnection(ConnectionInstance conni) {
+	public static ErrorSource findConnectionErrorSourceForConnection(ConnectionInstance conni) {
 		for (ConnectionReference connref : conni.getConnectionReferences()) {
 			Connection conn = connref.getConnection();
 			Classifier cl = getAssociatedClassifier(conn);
 			if (cl != null) {
-				Collection<ConnectionErrorSource> ceslist = getAllConnectionErrorSources(cl);
-				for (ConnectionErrorSource ces : ceslist) {
-					if (ces.getConnection().getName().equalsIgnoreCase(conn.getName())) {
+				Collection<ErrorSource> ceslist = getAllConnectionErrorSources(cl);
+				for (ErrorSource ces : ceslist) {
+					if (ces.getSourceModelElement().getName().equalsIgnoreCase(conn.getName())) {
 						return ces;
 					}
 				}
@@ -865,10 +864,11 @@ public class EMV2Util {
 				ErrorPath ep = (ErrorPath) ef;
 				eprop = ep.getOutgoing();
 				isall = ep.isAllOutgoing();
-			} else if (ef instanceof ErrorSource) {
+			} else if (ef instanceof ErrorSource
+					&& ((ErrorSource) ef).getSourceModelElement() instanceof ErrorPropagation) {
 				ErrorSource es = (ErrorSource) ef;
-				eprop = es.getOutgoing();
-				isall = es.isAllOutgoing();
+				eprop = (ErrorPropagation) es.getSourceModelElement();
+				isall = es.isAll();
 			}
 			if ((eprop != null && eprop == flowSource) || isall) {
 				result.add(ef);
@@ -879,10 +879,11 @@ public class EMV2Util {
 
 	public static Collection<ErrorPropagation> getOutgoingPropagationOrAll(ErrorSource errorSource) {
 		Collection<ErrorPropagation> eplist = null;
-		if (errorSource.getOutgoing() != null) {
+		if (errorSource.getSourceModelElement() != null
+				&& errorSource.getSourceModelElement() instanceof ErrorPropagation) {
 			eplist = new BasicEList<ErrorPropagation>();
-			eplist.add(errorSource.getOutgoing());
-		} else if (errorSource.isAllOutgoing()) {
+			eplist.add((ErrorPropagation) errorSource.getSourceModelElement());
+		} else if (errorSource.isAll()) {
 			eplist = EMV2Util.getAllOutgoingErrorPropagations(getAssociatedClassifier(errorSource));
 		}
 		return eplist;
@@ -1290,12 +1291,12 @@ public class EMV2Util {
 	 * @param cl Classifier
 	 * @return Collection<ConnectionErrorSource> list of ConnectionErrorSource excluding duplicates
 	 */
-	public static Collection<ConnectionErrorSource> getAllConnectionErrorSources(Classifier cl) {
-		HashMap<String, ConnectionErrorSource> result = new LinkedHashMap<>();
+	public static Collection<ErrorSource> getAllConnectionErrorSources(Classifier cl) {
+		HashMap<String, ErrorSource> result = new LinkedHashMap<>();
 		EList<ErrorModelSubclause> emslist = getAllContainingClassifierEMV2Subclauses(cl);
 		for (ErrorModelSubclause errorModelSubclause : emslist) {
-			EList<ConnectionErrorSource> eflist = errorModelSubclause.getConnectionErrorSources();
-			for (ConnectionErrorSource errorProp : eflist) {
+			EList<ErrorSource> eflist = errorModelSubclause.getConnectionErrorSources();
+			for (ErrorSource errorProp : eflist) {
 				String epname = EMV2Util.getPrintName(errorProp);
 				if (!result.containsKey(epname)) {
 					result.put(epname, errorProp);

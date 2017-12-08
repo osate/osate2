@@ -363,15 +363,6 @@ public class ErrorModelSwitch<T> extends Switch<T>
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
-      case ErrorModelPackage.CONNECTION_ERROR_SOURCE:
-      {
-        ConnectionErrorSource connectionErrorSource = (ConnectionErrorSource)theEObject;
-        T result = caseConnectionErrorSource(connectionErrorSource);
-        if (result == null) result = caseNamedElement(connectionErrorSource);
-        if (result == null) result = caseElement(connectionErrorSource);
-        if (result == null) result = defaultCase(theEObject);
-        return result;
-      }
       case ErrorModelPackage.CONDITION_EXPRESSION:
       {
         ConditionExpression conditionExpression = (ConditionExpression)theEObject;
@@ -1035,22 +1026,6 @@ public class ErrorModelSwitch<T> extends Switch<T>
    * @generated
    */
   public T caseBranchValue(BranchValue object)
-  {
-    return null;
-  }
-
-  /**
-   * Returns the result of interpreting the object as an instance of '<em>Connection Error Source</em>'.
-   * <!-- begin-user-doc -->
-   * This implementation returns null;
-   * returning a non-null result will terminate the switch.
-   * <!-- end-user-doc -->
-   * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>Connection Error Source</em>'.
-   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-   * @generated
-   */
-  public T caseConnectionErrorSource(ConnectionErrorSource object)
   {
     return null;
   }

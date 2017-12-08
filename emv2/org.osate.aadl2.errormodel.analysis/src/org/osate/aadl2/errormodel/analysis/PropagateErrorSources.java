@@ -44,6 +44,7 @@ import java.util.Map;
 import org.eclipse.emf.common.util.BasicEList;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
+import org.osate.aadl2.Connection;
 import org.osate.aadl2.Feature;
 import org.osate.aadl2.errormodel.PropagationGraph.PropagationGraph;
 import org.osate.aadl2.errormodel.PropagationGraph.PropagationPath;
@@ -59,7 +60,6 @@ import org.osate.aadl2.instance.util.InstanceUtil;
 import org.osate.aadl2.modelsupport.WriteToFile;
 import org.osate.aadl2.util.Aadl2InstanceUtil;
 import org.osate.xtext.aadl2.errormodel.errorModel.ConditionElement;
-import org.osate.xtext.aadl2.errormodel.errorModel.ConnectionErrorSource;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorEvent;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorState;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorTransition;
@@ -307,16 +307,17 @@ public class PropagateErrorSources {
 	 * @param ci component instance
 	 */
 	public void startConnectionSourceFlows(ComponentInstance root) {
-		Collection<ConnectionErrorSource> ceslist = EMV2Util
+		Collection<ErrorSource> ceslist = EMV2Util
 				.getAllConnectionErrorSources(root.getComponentClassifier());
 		if (ceslist.isEmpty()) {
 			return;
 		}
-		for (ConnectionErrorSource ces : ceslist) {
+		for (ErrorSource ces : ceslist) {
 			EMSUtil.unsetAll(root.getSystemInstance());
 			// find connection instances that this connection is part of
-			String connName = ces.getConnection().getName();
-			ConnectionInstance conni = InstanceUtil.findConnectionInstance(root, ces.getConnection());
+			String connName = ces.getSourceModelElement().getName();
+			ConnectionInstance conni = InstanceUtil.findConnectionInstance(root,
+					(Connection) ces.getSourceModelElement());
 			EList<PropagationPathEnd> ends = Util.getAllPropagationDestinationEnds(faultModel, conni);
 			if (ends.size() == 0) {
 				return;
@@ -600,12 +601,12 @@ public class PropagateErrorSources {
 					} else if (destci instanceof SystemInstance) {
 						// we have an external propagation (out only connection)
 						String connText = connSymbol + generateComponentPropagationPointText(destci, destEP)
-								+ " [External Effect]";
+						+ " [External Effect]";
 						reportEntry(entryText + effectText + connText, depth);
 					} else if (pathConni != null && Aadl2InstanceUtil.outOnly(pathConni) && !pathConni.isComplete()) {
 						// outgoing only, but not ending at root
 						String connText = connSymbol + generateComponentPropagationPointText(destci, destEP)
-								+ " [External Effect]";
+						+ " [External Effect]";
 						reportEntry(entryText + effectText + connText, depth);
 					} else if (destci != null && destEP != null) {
 //						OsateDebug.osateDebug("ci=" + ci.getName());
@@ -826,7 +827,7 @@ public class PropagateErrorSources {
 								newtt);
 						if (intersection.isEmpty()) {
 							String errorText = ",\"" + generateFailureModeText(ci, outp, newtt)
-									+ " [Not in type constraint " + EMV2Util.getPrintName(outp.getTypeSet()) + " ]\"";
+							+ " [Not in type constraint " + EMV2Util.getPrintName(outp.getTypeSet()) + " ]\"";
 							reportEntry(entryText + errorText, depth);
 							handled = true;
 						} else {
@@ -847,7 +848,7 @@ public class PropagateErrorSources {
 							// report only for the top feature instance
 							if (fi.getOwner() instanceof ComponentInstance) {
 								String errorText = "," + generateFailureModeText(ci, outp, tt)
-										+ " [No feature with out propagation ]";
+								+ " [No feature with out propagation ]";
 								reportEntry(entryText + errorText, depth);
 							}
 						}

@@ -21,7 +21,6 @@ import org.eclipse.emf.ecore.util.InternalEList;
 import org.osate.aadl2.impl.AnnexSubclauseImpl;
 
 import org.osate.xtext.aadl2.errormodel.errorModel.CompositeState;
-import org.osate.xtext.aadl2.errormodel.errorModel.ConnectionErrorSource;
 import org.osate.xtext.aadl2.errormodel.errorModel.EMV2PropertyAssociation;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorEvent;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorStateMachine;
@@ -32,6 +31,7 @@ import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelLibrary;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelPackage;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelSubclause;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorPropagation;
+import org.osate.xtext.aadl2.errormodel.errorModel.ErrorSource;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorStateToModeMapping;
 import org.osate.xtext.aadl2.errormodel.errorModel.OutgoingPropagationCondition;
 import org.osate.xtext.aadl2.errormodel.errorModel.PropagationPath;
@@ -219,7 +219,7 @@ public class ErrorModelSubclauseImpl extends AnnexSubclauseImpl implements Error
    * @generated
    * @ordered
    */
-  protected EList<ConnectionErrorSource> connectionErrorSources;
+  protected EList<ErrorSource> connectionErrorSources;
 
   /**
    * The cached value of the '{@link #getPoints() <em>Points</em>}' containment reference list.
@@ -618,11 +618,11 @@ public class ErrorModelSubclauseImpl extends AnnexSubclauseImpl implements Error
    * <!-- end-user-doc -->
    * @generated
    */
-  public EList<ConnectionErrorSource> getConnectionErrorSources()
+  public EList<ErrorSource> getConnectionErrorSources()
   {
     if (connectionErrorSources == null)
     {
-      connectionErrorSources = new EObjectContainmentEList<ConnectionErrorSource>(ConnectionErrorSource.class, this, ErrorModelPackage.ERROR_MODEL_SUBCLAUSE__CONNECTION_ERROR_SOURCES);
+      connectionErrorSources = new EObjectContainmentEList<ErrorSource>(ErrorSource.class, this, ErrorModelPackage.ERROR_MODEL_SUBCLAUSE__CONNECTION_ERROR_SOURCES);
     }
     return connectionErrorSources;
   }
@@ -826,7 +826,7 @@ public class ErrorModelSubclauseImpl extends AnnexSubclauseImpl implements Error
         return;
       case ErrorModelPackage.ERROR_MODEL_SUBCLAUSE__CONNECTION_ERROR_SOURCES:
         getConnectionErrorSources().clear();
-        getConnectionErrorSources().addAll((Collection<? extends ConnectionErrorSource>)newValue);
+        getConnectionErrorSources().addAll((Collection<? extends ErrorSource>)newValue);
         return;
       case ErrorModelPackage.ERROR_MODEL_SUBCLAUSE__POINTS:
         getPoints().clear();

@@ -319,7 +319,7 @@ public interface ErrorModelSubclause extends EObject, AnnexSubclause
 
   /**
    * Returns the value of the '<em><b>Connection Error Sources</b></em>' containment reference list.
-   * The list contents are of type {@link org.osate.xtext.aadl2.errormodel.errorModel.ConnectionErrorSource}.
+   * The list contents are of type {@link org.osate.xtext.aadl2.errormodel.errorModel.ErrorSource}.
    * <!-- begin-user-doc -->
    * <p>
    * If the meaning of the '<em>Connection Error Sources</em>' containment reference list isn't clear,
@@ -331,7 +331,7 @@ public interface ErrorModelSubclause extends EObject, AnnexSubclause
    * @model containment="true"
    * @generated
    */
-  EList<ConnectionErrorSource> getConnectionErrorSources();
+  EList<ErrorSource> getConnectionErrorSources();
 
   /**
    * Returns the value of the '<em><b>Points</b></em>' containment reference list.

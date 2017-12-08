@@ -60,7 +60,6 @@ import org.osate.aadl2.instance.SystemInstance;
 import org.osate.aadl2.modelsupport.WriteToFile;
 import org.osate.xtext.aadl2.errormodel.errorModel.ConditionElement;
 import org.osate.xtext.aadl2.errormodel.errorModel.ConditionExpression;
-import org.osate.xtext.aadl2.errormodel.errorModel.ConnectionErrorSource;
 import org.osate.xtext.aadl2.errormodel.errorModel.EMV2Path;
 import org.osate.xtext.aadl2.errormodel.errorModel.EMV2PropertyAssociation;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorState;
@@ -208,9 +207,10 @@ public final class FHAReport {
 	}
 
 	protected void processHazards(ConnectionInstance conni, WriteToFile report) {
-		ConnectionErrorSource ces = EMV2Util.findConnectionErrorSourceForConnection(conni);
-		if (ces == null)
+		ErrorSource ces = EMV2Util.findConnectionErrorSourceForConnection(conni);
+		if (ces == null) {
 			return;
+		}
 		Element localContext = null;
 		// error propagation is originating hazard
 		TypeSet ts = ces.getTypeTokenConstraint();
@@ -252,8 +252,9 @@ public final class FHAReport {
 			Element localContext, WriteToFile report) {
 
 		String targetName;
-		if (PAList.isEmpty())
+		if (PAList.isEmpty()) {
 			return;
+		}
 		if (target == null) {
 			targetName = "";
 		} else {
@@ -564,8 +565,9 @@ public final class FHAReport {
 		reportStringProperty(fields, "environment", report);
 		// mishap/failure condition
 		addComma(report);
-		if (!reportStringProperty(fields, "mishap", report))
+		if (!reportStringProperty(fields, "mishap", report)) {
 			reportStringProperty(fields, "failurecondition", report);
+		}
 		// phase
 		addComma(report);
 		reportStringProperty(fields, "risk", report);

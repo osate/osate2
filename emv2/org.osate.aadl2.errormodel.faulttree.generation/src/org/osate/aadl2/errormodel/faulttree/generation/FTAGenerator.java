@@ -24,7 +24,6 @@ import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.ConnectionInstance;
 import org.osate.aadl2.instance.SystemInstance;
 import org.osate.xtext.aadl2.errormodel.errorModel.ConditionExpression;
-import org.osate.xtext.aadl2.errormodel.errorModel.ConnectionErrorSource;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorState;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorEvent;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorPropagation;
@@ -890,7 +889,7 @@ public class FTAGenerator extends PropagationGraphBackwardTraversal {
 	}
 
 	@Override
-	protected EObject processConnectionErrorSource(ConnectionInstance conni, ConnectionErrorSource errorSource,
+	protected EObject processConnectionErrorSource(ConnectionInstance conni, ErrorSource errorSource,
 			ErrorTypes typeTokenConstraint) {
 		Event newEvent = FaultTreeUtils.createBasicEvent(ftaModel, conni, errorSource, typeTokenConstraint);
 		return newEvent;

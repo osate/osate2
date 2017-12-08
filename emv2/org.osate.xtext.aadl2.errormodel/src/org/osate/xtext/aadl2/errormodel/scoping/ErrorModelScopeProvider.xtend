@@ -29,7 +29,6 @@ import org.osate.aadl2.ReferenceValue
 import org.osate.aadl2.Subcomponent
 import org.osate.aadl2.TriggerPort
 import org.osate.xtext.aadl2.errormodel.errorModel.ConditionExpression
-import org.osate.xtext.aadl2.errormodel.errorModel.ConnectionErrorSource
 import org.osate.xtext.aadl2.errormodel.errorModel.EMV2Path
 import org.osate.xtext.aadl2.errormodel.errorModel.EMV2PathElement
 import org.osate.xtext.aadl2.errormodel.errorModel.EMV2PropertyAssociation
@@ -428,7 +427,6 @@ class ErrorModelScopeProvider extends PropertiesScopeProvider {
 				switch previous : parent.namedElement {
 					ErrorSource,
 					ErrorSink,
-					ConnectionErrorSource,
 					ErrorBehaviorState,
 					/*
 					 * Grammar path: ErrorModelSubclause -> EMV2PropertyAssociation -> EMV2Path ->

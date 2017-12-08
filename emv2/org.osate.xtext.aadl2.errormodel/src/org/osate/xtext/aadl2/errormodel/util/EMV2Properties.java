@@ -29,7 +29,6 @@ import org.osate.aadl2.StringLiteral;
 import org.osate.aadl2.Subcomponent;
 import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.SystemOperationMode;
-import org.osate.xtext.aadl2.errormodel.errorModel.ConnectionErrorSource;
 import org.osate.xtext.aadl2.errormodel.errorModel.EMV2Path;
 import org.osate.xtext.aadl2.errormodel.errorModel.EMV2PathElement;
 import org.osate.xtext.aadl2.errormodel.errorModel.EMV2PropertyAssociation;
@@ -39,6 +38,7 @@ import org.osate.xtext.aadl2.errormodel.errorModel.ErrorEvent;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelLibrary;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelSubclause;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorPropagation;
+import org.osate.xtext.aadl2.errormodel.errorModel.ErrorSource;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorTypes;
 import org.osate.xtext.aadl2.errormodel.errorModel.TypeSet;
 import org.osate.xtext.aadl2.properties.util.GetProperties;
@@ -116,8 +116,8 @@ public class EMV2Properties {
 		if (element instanceof ErrorEvent) {
 			ts = ((ErrorEvent) element).getTypeSet();
 		}
-		if (element instanceof ConnectionErrorSource) {
-			ts = ((ConnectionErrorSource) element).getTypeTokenConstraint();
+		if (element instanceof ErrorSource) {
+			ts = ((ErrorSource) element).getTypeTokenConstraint();
 		}
 		return getHazardDescription(element, relatedComponent, ts);
 	}

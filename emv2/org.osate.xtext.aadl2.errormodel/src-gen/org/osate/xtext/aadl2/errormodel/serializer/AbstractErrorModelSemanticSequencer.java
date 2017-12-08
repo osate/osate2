@@ -37,7 +37,6 @@ import org.osate.xtext.aadl2.errormodel.errorModel.AndExpression;
 import org.osate.xtext.aadl2.errormodel.errorModel.BranchValue;
 import org.osate.xtext.aadl2.errormodel.errorModel.CompositeState;
 import org.osate.xtext.aadl2.errormodel.errorModel.ConditionElement;
-import org.osate.xtext.aadl2.errormodel.errorModel.ConnectionErrorSource;
 import org.osate.xtext.aadl2.errormodel.errorModel.EMV2Path;
 import org.osate.xtext.aadl2.errormodel.errorModel.EMV2PathElement;
 import org.osate.xtext.aadl2.errormodel.errorModel.EMV2PropertyAssociation;
@@ -241,9 +240,6 @@ public abstract class AbstractErrorModelSemanticSequencer extends PropertiesSema
 				return; 
 			case ErrorModelPackage.CONDITION_ELEMENT:
 				sequence_ConditionElement(context, (ConditionElement) semanticObject); 
-				return; 
-			case ErrorModelPackage.CONNECTION_ERROR_SOURCE:
-				sequence_ConnectionErrorSource(context, (ConnectionErrorSource) semanticObject); 
 				return; 
 			case ErrorModelPackage.EMV2_PATH:
 				if (rule == grammarAccess.getBasicEMV2PathRule()) {
@@ -630,25 +626,6 @@ public abstract class AbstractErrorModelSemanticSequencer extends PropertiesSema
 	
 	/**
 	 * Contexts:
-	 *     NamedElement returns ConnectionErrorSource
-	 *     ConnectionErrorSource returns ConnectionErrorSource
-	 *
-	 * Constraint:
-	 *     (
-	 *         name=ID 
-	 *         (connection=[Connection|ID] | all?='all') 
-	 *         typeTokenConstraint=TypeTokenConstraint? 
-	 *         (failureModeType=TypeSetConstructor | failureModeDescription=STRING)? 
-	 *         condition=CONDITION?
-	 *     )
-	 */
-	protected void sequence_ConnectionErrorSource(ISerializationContext context, ConnectionErrorSource semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
-	}
-	
-	
-	/**
-	 * Contexts:
 	 *     EMV2ErrorPropagationPath returns EMV2PathElement
 	 *
 	 * Constraint:
@@ -781,7 +758,7 @@ public abstract class AbstractErrorModelSemanticSequencer extends PropertiesSema
 	 *         errorStateToModeMappings+=ErrorStateToModeMapping* 
 	 *         states+=CompositeState* 
 	 *         typeTransformationSet=[TypeTransformationSet|QEMREF]? 
-	 *         connectionErrorSources+=ConnectionErrorSource* 
+	 *         connectionErrorSources+=ErrorSource* 
 	 *         points+=PropagationPoint* 
 	 *         paths+=PropagationPath* 
 	 *         properties+=EMV2PropertyAssociation*
@@ -939,7 +916,7 @@ public abstract class AbstractErrorModelSemanticSequencer extends PropertiesSema
 	 *         errorStateToModeMappings+=ErrorStateToModeMapping* 
 	 *         states+=CompositeState* 
 	 *         typeTransformationSet=[TypeTransformationSet|QEMREF]? 
-	 *         connectionErrorSources+=ConnectionErrorSource* 
+	 *         connectionErrorSources+=ErrorSource* 
 	 *         points+=PropagationPoint* 
 	 *         paths+=PropagationPath* 
 	 *         properties+=EMV2PropertyAssociation*
@@ -1007,7 +984,7 @@ public abstract class AbstractErrorModelSemanticSequencer extends PropertiesSema
 	 * Constraint:
 	 *     (
 	 *         name=ID 
-	 *         (outgoing=[ErrorPropagation|ErrorPropagationPoint] | allOutgoing?='all') 
+	 *         (sourceModelElement=[NamedElement|ErrorPropagationPoint] | all?='all') 
 	 *         typeTokenConstraint=TypeTokenConstraint? 
 	 *         (
 	 *             (failureModeReference=[ErrorBehaviorState|ID] failureModeType=TypeSetReference?) | 
