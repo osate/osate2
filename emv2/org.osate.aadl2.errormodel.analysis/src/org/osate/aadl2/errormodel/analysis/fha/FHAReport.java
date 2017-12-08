@@ -144,7 +144,7 @@ public final class FHAReport {
 		Collection<ErrorPropagation> oeplist = EMV2Util.getAllOutgoingErrorPropagations(ci.getComponentClassifier());
 
 		for (ErrorSource errorSource : eslist) {
-			ErrorPropagation ep = errorSource.getOutgoing();
+			NamedElement ne = errorSource.getSourceModelElement();
 			ErrorBehaviorState failureMode = errorSource.getFailureModeReference();
 			List<EMV2PropertyAssociation> HazardPA = Collections.EMPTY_LIST;
 			List<EMV2PropertyAssociation> Sev = Collections.EMPTY_LIST;
@@ -166,8 +166,8 @@ public final class FHAReport {
 			if (HazardPA.isEmpty()) {
 				// error source is originating hazard
 				ts = errorSource.getTypeTokenConstraint();
-				if (ts == null) {
-					ts = ep.getTypeSet();
+				if (ts == null && ne instanceof ErrorPropagation) {
+					ts = ((ErrorPropagation) ne).getTypeSet();
 				}
 				if (ts == null && failureMode != null) {
 					ts = failureMode.getTypeSet();

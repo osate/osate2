@@ -195,18 +195,18 @@ public final class ConsistencyHandler extends AaxlReadOnlyHandlerAsJob {
 			if (!EM2TypeSetUtil.contains(dstprop.getTypeSet(), srcprop.getTypeSet())) {
 				error(connectionInstance,
 						"C1: Outgoing propagation  " + EMV2Util.getPrintName(srcprop)
-								+ EMV2Util.getPrintName(srcprop.getTypeSet())
-								+ " has error types not handled by incoming propagation "
-								+ EMV2Util.getPrintName(dstprop) + EMV2Util.getPrintName(dstprop.getTypeSet()));
+						+ EMV2Util.getPrintName(srcprop.getTypeSet())
+						+ " has error types not handled by incoming propagation "
+						+ EMV2Util.getPrintName(dstprop) + EMV2Util.getPrintName(dstprop.getTypeSet()));
 			}
 		}
 		if (srccontain != null && dstcontain != null) {
 			if (!EM2TypeSetUtil.contains(srccontain.getTypeSet(), dstcontain.getTypeSet())) {
 				error(connectionInstance,
 						"C1: Outgoing containment  " + EMV2Util.getPrintName(srcprop)
-								+ EMV2Util.getPrintName(srcprop.getTypeSet())
-								+ " does not contain error types listed by incoming containment "
-								+ EMV2Util.getPrintName(dstprop) + EMV2Util.getPrintName(dstprop.getTypeSet()));
+						+ EMV2Util.getPrintName(srcprop.getTypeSet())
+						+ " does not contain error types listed by incoming containment "
+						+ EMV2Util.getPrintName(dstprop) + EMV2Util.getPrintName(dstprop.getTypeSet()));
 			}
 		}
 		if (srcprop == null && srccontain == null && (dstprop != null || dstcontain != null)) {
@@ -228,9 +228,9 @@ public final class ConsistencyHandler extends AaxlReadOnlyHandlerAsJob {
 			if (!EM2TypeSetUtil.contains(dstprop.getTypeSet(), srcprop.getTypeSet())) {
 				error(path.getConnectionInstance() != null ? path.getConnectionInstance() : path.getSrcCI(),
 						"Outgoing propagation  " + EMV2Util.getPrintName(srcprop)
-								+ EMV2Util.getPrintName(srcprop.getTypeSet())
-								+ " has error types not handled by incoming propagation "
-								+ EMV2Util.getPrintName(dstprop) + EMV2Util.getPrintName(dstprop.getTypeSet()));
+						+ EMV2Util.getPrintName(srcprop.getTypeSet())
+						+ " has error types not handled by incoming propagation "
+						+ EMV2Util.getPrintName(dstprop) + EMV2Util.getPrintName(dstprop.getTypeSet()));
 			}
 		}
 		if (dstprop == null && srcprop != null) {
@@ -288,14 +288,14 @@ public final class ConsistencyHandler extends AaxlReadOnlyHandlerAsJob {
 				 * when defining different error sources/path for the same propagation point.
 				 */
 				for (ErrorSource es : EMV2Util.getAllErrorSources(componentInstance.getComponentClassifier())) {
-					if (es.getOutgoing() == ep) {
+					if (EMV2Util.isSame(es.getSourceModelElement(), ep)) {
 
 						for (TypeToken tt : EM2TypeSetUtil.generateAllLeafTypeTokens(ep.getTypeSet(),
 								EMV2Util.getUseTypes(ep))) {
 
 							if (!EM2TypeSetUtil.contains(es.getTypeTokenConstraint(), tt)) {
 								error(componentInstance, "Outgoing propagation " + EMV2Util.getPrintName(ep)
-										+ " does not declare " + tt.getType().get(0).getName() + " as error source");
+								+ " does not declare " + tt.getType().get(0).getName() + " as error source");
 
 							}
 						}
@@ -305,7 +305,7 @@ public final class ConsistencyHandler extends AaxlReadOnlyHandlerAsJob {
 				if (!(componentInstance instanceof SystemInstance) && ep.getDirection() == DirectionType.OUT
 						&& model.getAllPropagationPaths(componentInstance, ep).size() == 0) {
 					error(componentInstance, "Outgoing propagation " + EMV2Util.getPrintName(ep)
-							+ " is missing outgoing propagation paths");
+					+ " is missing outgoing propagation paths");
 
 					// OsateDebug.osateDebug("Component " + componentInstance + " does not handle OUT propagation " +
 // ep.getName());
@@ -352,7 +352,7 @@ public final class ConsistencyHandler extends AaxlReadOnlyHandlerAsJob {
 				if (!(componentInstance instanceof SystemInstance) && ep.getDirection() == DirectionType.IN
 						&& model.getAllPropagationSourceEnds(componentInstance, ep).size() == 0) {
 					error(componentInstance, "Incoming propagation " + EMV2Util.getPrintName(ep)
-							+ " is missing incoming propagation paths");
+					+ " is missing incoming propagation paths");
 
 					// OsateDebug.osateDebug("Component " + componentInstance + " does not handle IN propagation " +
 // ep.getName());
@@ -473,7 +473,7 @@ public final class ConsistencyHandler extends AaxlReadOnlyHandlerAsJob {
 					// EMV2Util.getAllConditionElementsFromOutgoingPropagationCondition(opc)
 					if (!found) {
 						error(componentInstance, "C4: outgoing propagation condition " + EMV2Util.getPrintName(opc)
-								+ " in component " + componentInstance.getName() + " does not have error path defined");
+						+ " in component " + componentInstance.getName() + " does not have error path defined");
 					}
 				}
 			}
@@ -496,7 +496,7 @@ public final class ConsistencyHandler extends AaxlReadOnlyHandlerAsJob {
 					}
 					if (found == false) {
 						error(componentInstance, "State " + EMV2Util.getPrintName(ebs)
-								+ " has no associated transition for component " + componentInstance.getName());
+						+ " has no associated transition for component " + componentInstance.getName());
 
 					}
 				}
@@ -533,8 +533,8 @@ public final class ConsistencyHandler extends AaxlReadOnlyHandlerAsJob {
 						if (!found) {
 							error(componentInstance,
 									"C6: error propagation " + EMV2Util.getPrintName(ep)
-											+ " does not have a corresponding propagation condition for type "
-											+ EMV2Util.getPrintName(tt) + "or any other super-type");
+									+ " does not have a corresponding propagation condition for type "
+									+ EMV2Util.getPrintName(tt) + "or any other super-type");
 						}
 					}
 
@@ -654,8 +654,8 @@ public final class ConsistencyHandler extends AaxlReadOnlyHandlerAsJob {
 					if (found == false) {
 						error(componentInstance,
 								"C11: state " + EMV2Util.getPrintName(ebs)
-										+ " has no associated transition for composite behavior of component "
-										+ componentInstance.getName());
+								+ " has no associated transition for composite behavior of component "
+								+ componentInstance.getName());
 
 					}
 				}
@@ -978,7 +978,7 @@ public final class ConsistencyHandler extends AaxlReadOnlyHandlerAsJob {
 							if (!found) {
 								error(componentInstance,
 										"C15: in component " + componentInstance.getName() + " feature " + src.getName()
-												+ " is an error sink while it is connected to a non error-sink");
+										+ " is an error sink while it is connected to a non error-sink");
 							}
 
 						}

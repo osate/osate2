@@ -282,7 +282,7 @@ class OtherErrorModelScopeProviderTest extends OsateTest {
 					flows.get(0) => [
 						"errSource".assertEquals(name)
 						//Tests scope_ErrorSource_outgoing
-						assertScope(ErrorModelPackage.eINSTANCE.errorSource_Outgoing, outgoingScope)
+						assertScope(ErrorModelPackage.eINSTANCE.errorSource_SourceModelElement, outgoingScope)
 					]
 					flows.get(1) => [
 						"errSink".assertEquals(name)
@@ -663,7 +663,7 @@ class OtherErrorModelScopeProviderTest extends OsateTest {
 				((ownedAnnexSubclauses.head as DefaultAnnexSubclause).parsedAnnexSubclause as ErrorModelSubclause).connectionErrorSources.head => [
 					"source1".assertEquals(name)
 					//Tests scope_ConnectionErrorSource_connection
-					assertScope(ErrorModelPackage.eINSTANCE.connectionErrorSource_Connection, #["conn1", "conn2"])
+					assertScope(ErrorModelPackage.eINSTANCE.errorSource_SourceModelElement, #["conn1", "conn2"])
 				]
 			]
 		]

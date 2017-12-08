@@ -21,6 +21,7 @@ import org.osate.xtext.aadl2.errormodel.errorModel.ErrorPropagation;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorSource;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorTypes;
 import org.osate.xtext.aadl2.errormodel.errorModel.EventOrPropagation;
+import org.osate.xtext.aadl2.errormodel.errorModel.FeatureorPPReference;
 import org.osate.xtext.aadl2.errormodel.errorModel.OrExpression;
 import org.osate.xtext.aadl2.errormodel.errorModel.SConditionElement;
 import org.osate.xtext.aadl2.errormodel.errorModel.SubcomponentElement;
@@ -57,12 +58,13 @@ public class FTAUtils {
 				description += " " + errorSource.getName();
 			}
 			description += " on component " + component.getName();
-
-			if ((errorSource.getOutgoing().getFeatureorPPRef() != null)
-					&& (errorSource.getOutgoing().getFeatureorPPRef().getFeatureorPP() != null)) {
-				NamedElement el = errorSource.getOutgoing().getFeatureorPPRef().getFeatureorPP();
-				description += " from ";
-				description += el.getName();
+			if (errorSource.getSourceModelElement() instanceof ErrorPropagation) {
+				FeatureorPPReference fpp = ((ErrorPropagation) errorSource.getSourceModelElement()).getFeatureorPPRef();
+				if ((fpp != null) && (fpp.getFeatureorPP() != null)) {
+					NamedElement el = fpp.getFeatureorPP();
+					description += " from ";
+					description += el.getName();
+				}
 			}
 
 			description += " with types " + EMV2Util.getPrintName(typeSet);
@@ -243,7 +245,7 @@ public class FTAUtils {
 				if (ef instanceof ErrorSource) {
 					ErrorSource errorSource = (ErrorSource) ef;
 
-					if (propagationEndsMatches(propagationSource, errorSource.getOutgoing())) {
+					if (propagationEndsMatches(propagationSource, errorSource.getSourceModelElement())) {
 						if (EM2TypeSetUtil.contains(errorSource.getTypeTokenConstraint(), typeToken)) {
 							Event newEvent = new Event();
 							newEvent.setEventType(EventType.EVENT);
@@ -300,8 +302,8 @@ public class FTAUtils {
 	}
 
 	private static boolean propagationEndsMatches(ErrorPropagation propagationSource,
-			ErrorPropagation propagationDestination) {
-		return EMV2Util.isSame(propagationSource, propagationDestination);
+			NamedElement propagationDestination) {
+			return EMV2Util.isSame(propagationSource, propagationDestination);
 	}
 
 	/**
@@ -339,158 +341,158 @@ public class FTAUtils {
 			returnedEvents.add(newEvent);
 		} else
 
-		/**
-		 * We have an OR expression, so, we create an EVENT to OR'd
-		 * sub events.
-		 */
-		if (condition instanceof OrExpression) {
-			OrExpression expression;
-			Event newEvent;
-
-			newEvent = new Event();
-			newEvent.setEventType(EventType.OR);
-			newEvent.setDescription("Occurrence of one of the following events");
-
-			expression = (OrExpression) condition;
-			for (ConditionExpression ce : expression.getOperands()) {
-				for (Event tmp : processCondition(component, ce)) {
-					newEvent.addSubEvent(tmp);
-				}
-			}
-			returnedEvents.add(newEvent);
-		} else
-
-		if (condition instanceof OrExpression) {
-			OrExpression expression;
-			Event newEvent;
-
-			newEvent = new Event();
-			newEvent.setEventType(EventType.OR);
-			newEvent.setDescription("Occurrence of one of the following events");
-
-			expression = (OrExpression) condition;
-			for (ConditionExpression ce : expression.getOperands()) {
-				for (Event tmp : processCondition(component, ce)) {
-					newEvent.addSubEvent(tmp);
-				}
-			}
-			returnedEvents.add(newEvent);
-		} else
-
-		/**
-		 * Here, we have a single condition element.
-		 */
-		if (condition instanceof ConditionElement) {
-			ConditionElement conditionElement = (ConditionElement) condition;
 			/**
-			 * Here, we have a reference to a subcomponent and then, potentially
-			 * one of its state. This is what we find in a composite error
-			 * state machine.
+			 * We have an OR expression, so, we create an EVENT to OR'd
+			 * sub events.
 			 */
-			if (condition instanceof SConditionElement) {
-				SConditionElement sConditionElement = (SConditionElement) condition;
-				if (sConditionElement.getQualifiedState() != null) {
-					/**
-					 * In the following, it seems that we reference another component.
-					 * This is typically the case when the condition is within
-					 * an composite error behavior.
-					 *
-					 * So, we find the referenced component in the component hierarchy
-					 * and add all its contributors to the returned events.
-					 */
-					// OsateDebug.osateDebug("[FTAUtils] processCondition subcomponents are present, size=" + conditionElement.getSubcomponents().size());
-					SubcomponentElement subcomponentElement = sConditionElement.getQualifiedState().getSubcomponent();
-					Subcomponent subcomponent = subcomponentElement.getSubcomponent();
-					ComponentInstance referencedInstance;
-					ErrorTypes referencedErrorType;
-					referencedInstance = null;
-					referencedErrorType = null;
-					// OsateDebug.osateDebug("[FTAUtils] subcomponent=" + subcomponent);
+			if (condition instanceof OrExpression) {
+				OrExpression expression;
+				Event newEvent;
 
-					for (ComponentInstance sub : component.getComponentInstances()) {
-						// OsateDebug.osateDebug("[FTAUtils] sub=" + sub.getSubcomponent());
-						if (sub.getSubcomponent().getName().equalsIgnoreCase(subcomponent.getName())) {
-							referencedInstance = sub;
-						}
-					}
+				newEvent = new Event();
+				newEvent.setEventType(EventType.OR);
+				newEvent.setDescription("Occurrence of one of the following events");
 
-					if ((conditionElement.getConstraint() != null)
-							&& (conditionElement.getConstraint().getTypeTokens().size() > 0)) {
-						referencedErrorType = conditionElement.getConstraint().getTypeTokens().get(0).getType().get(0);
-					}
-
-					// OsateDebug.osateDebug("[FTAUtils] referenced component instance=" + referencedInstance);
-					// OsateDebug.osateDebug("[FTAUtils] referenced type=" + referencedErrorType);
-
-					returnedEvents.add(processErrorState(referencedInstance, EMV2Util.getState(sConditionElement),
-							referencedErrorType));
-				}
-			} else {
-
-				EventOrPropagation eop = EMV2Util.getErrorEventOrPropagation(conditionElement);
-				if (eop != null) {
-					// OsateDebug.osateDebug("[FTAUtils] processCondition incoming=" + conditionElement.getIncoming());
-
-					/**
-					 * Here, we have an error event. Likely, this is something we can get
-					 * when we are analyzing error component behavior.
-					 */
-					if (eop instanceof ErrorEvent) {
-						ErrorEvent errorEvent;
-						Event newEvent;
-
-						errorEvent = (ErrorEvent) eop;
-
-						newEvent = new Event();
-						newEvent.setDescription("Error event " + errorEvent.getName() + "types "
-								+ EMV2Util.getPrintName(errorEvent.getTypeSet()));
-						newEvent.setEventType(EventType.EVENT);
-
-						fillProperties(newEvent, component, errorEvent, errorEvent.getTypeSet());
-
-						returnedEvents.add(newEvent);
-
-					}
-
-					/**
-					 * Here, we have an error propagation. This is notified
-					 * with the in propagation within a composite error
-					 * model.
-					 */
-					if (eop instanceof ErrorPropagation) {
-						ErrorPropagation errorPropagation;
-						Event newEvent;
-						errorPropagation = (ErrorPropagation) eop;
-						TypeSet constraint = conditionElement.getConstraint();
-						if (constraint == null) {
-							constraint = ((ErrorPropagation) eop).getTypeSet();
-						}
-
-						newEvent = new Event();
-						newEvent.setDescription("Error Propagation on " + EMV2Util.getPrintName(errorPropagation)
-								+ " types " + EMV2Util.getPrintName(constraint));
-						newEvent.setEventType(EventType.EVENT);
-
-						returnedEvents.add(newEvent);
-
-						List<Event> contributors = new ArrayList<Event>();
-						for (TypeToken tt : constraint.getTypeTokens()) {
-							contributors.add(getAllEventsFromPropagationSource(component, errorPropagation, tt,
-									new Stack<Event>()));
-						}
-
-						if (contributors.size() > 0) {
-							Event orGate = new Event();
-							orGate.setEventType(EventType.OR);
-							orGate.setDescription("Occurrence of one of the following events");
-							orGate.getSubEvents().addAll(contributors);
-							newEvent.addSubEvent(orGate);
-							newEvent.setEventType(EventType.NORMAL);
-						}
+				expression = (OrExpression) condition;
+				for (ConditionExpression ce : expression.getOperands()) {
+					for (Event tmp : processCondition(component, ce)) {
+						newEvent.addSubEvent(tmp);
 					}
 				}
-			}
-		}
+				returnedEvents.add(newEvent);
+			} else
+
+				if (condition instanceof OrExpression) {
+					OrExpression expression;
+					Event newEvent;
+
+					newEvent = new Event();
+					newEvent.setEventType(EventType.OR);
+					newEvent.setDescription("Occurrence of one of the following events");
+
+					expression = (OrExpression) condition;
+					for (ConditionExpression ce : expression.getOperands()) {
+						for (Event tmp : processCondition(component, ce)) {
+							newEvent.addSubEvent(tmp);
+						}
+					}
+					returnedEvents.add(newEvent);
+				} else
+
+					/**
+					 * Here, we have a single condition element.
+					 */
+					if (condition instanceof ConditionElement) {
+						ConditionElement conditionElement = (ConditionElement) condition;
+						/**
+						 * Here, we have a reference to a subcomponent and then, potentially
+						 * one of its state. This is what we find in a composite error
+						 * state machine.
+						 */
+						if (condition instanceof SConditionElement) {
+							SConditionElement sConditionElement = (SConditionElement) condition;
+							if (sConditionElement.getQualifiedState() != null) {
+								/**
+								 * In the following, it seems that we reference another component.
+								 * This is typically the case when the condition is within
+								 * an composite error behavior.
+								 *
+								 * So, we find the referenced component in the component hierarchy
+								 * and add all its contributors to the returned events.
+								 */
+								// OsateDebug.osateDebug("[FTAUtils] processCondition subcomponents are present, size=" + conditionElement.getSubcomponents().size());
+								SubcomponentElement subcomponentElement = sConditionElement.getQualifiedState().getSubcomponent();
+								Subcomponent subcomponent = subcomponentElement.getSubcomponent();
+								ComponentInstance referencedInstance;
+								ErrorTypes referencedErrorType;
+								referencedInstance = null;
+								referencedErrorType = null;
+								// OsateDebug.osateDebug("[FTAUtils] subcomponent=" + subcomponent);
+
+								for (ComponentInstance sub : component.getComponentInstances()) {
+									// OsateDebug.osateDebug("[FTAUtils] sub=" + sub.getSubcomponent());
+									if (sub.getSubcomponent().getName().equalsIgnoreCase(subcomponent.getName())) {
+										referencedInstance = sub;
+									}
+								}
+
+								if ((conditionElement.getConstraint() != null)
+										&& (conditionElement.getConstraint().getTypeTokens().size() > 0)) {
+									referencedErrorType = conditionElement.getConstraint().getTypeTokens().get(0).getType().get(0);
+								}
+
+								// OsateDebug.osateDebug("[FTAUtils] referenced component instance=" + referencedInstance);
+								// OsateDebug.osateDebug("[FTAUtils] referenced type=" + referencedErrorType);
+
+								returnedEvents.add(processErrorState(referencedInstance, EMV2Util.getState(sConditionElement),
+										referencedErrorType));
+							}
+						} else {
+
+							EventOrPropagation eop = EMV2Util.getErrorEventOrPropagation(conditionElement);
+							if (eop != null) {
+								// OsateDebug.osateDebug("[FTAUtils] processCondition incoming=" + conditionElement.getIncoming());
+
+								/**
+								 * Here, we have an error event. Likely, this is something we can get
+								 * when we are analyzing error component behavior.
+								 */
+								if (eop instanceof ErrorEvent) {
+									ErrorEvent errorEvent;
+									Event newEvent;
+
+									errorEvent = (ErrorEvent) eop;
+
+									newEvent = new Event();
+									newEvent.setDescription("Error event " + errorEvent.getName() + "types "
+											+ EMV2Util.getPrintName(errorEvent.getTypeSet()));
+									newEvent.setEventType(EventType.EVENT);
+
+									fillProperties(newEvent, component, errorEvent, errorEvent.getTypeSet());
+
+									returnedEvents.add(newEvent);
+
+								}
+
+								/**
+								 * Here, we have an error propagation. This is notified
+								 * with the in propagation within a composite error
+								 * model.
+								 */
+								if (eop instanceof ErrorPropagation) {
+									ErrorPropagation errorPropagation;
+									Event newEvent;
+									errorPropagation = (ErrorPropagation) eop;
+									TypeSet constraint = conditionElement.getConstraint();
+									if (constraint == null) {
+										constraint = ((ErrorPropagation) eop).getTypeSet();
+									}
+
+									newEvent = new Event();
+									newEvent.setDescription("Error Propagation on " + EMV2Util.getPrintName(errorPropagation)
+									+ " types " + EMV2Util.getPrintName(constraint));
+									newEvent.setEventType(EventType.EVENT);
+
+									returnedEvents.add(newEvent);
+
+									List<Event> contributors = new ArrayList<Event>();
+									for (TypeToken tt : constraint.getTypeTokens()) {
+										contributors.add(getAllEventsFromPropagationSource(component, errorPropagation, tt,
+												new Stack<Event>()));
+									}
+
+									if (contributors.size() > 0) {
+										Event orGate = new Event();
+										orGate.setEventType(EventType.OR);
+										orGate.setDescription("Occurrence of one of the following events");
+										orGate.getSubEvents().addAll(contributors);
+										newEvent.addSubEvent(orGate);
+										newEvent.setEventType(EventType.NORMAL);
+									}
+								}
+							}
+						}
+					}
 
 		return returnedEvents;
 	}

@@ -38,6 +38,7 @@ import java.util.Collection;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.UniqueEList;
 import org.eclipse.emf.ecore.EObject;
+import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.FeatureInstance;
 import org.osate.aadl2.instance.FlowSpecificationInstance;
@@ -132,25 +133,19 @@ public class TraverseErrorPropagationPaths {
 	public void startErrorFlows(ComponentInstance ci, Object param) {
 		Collection<ErrorSource> eslist = EMV2Util.getAllErrorSources(ci.getComponentClassifier());
 		for (ErrorSource errorSource : eslist) {
-			ErrorPropagation ep = errorSource.getOutgoing();
 			EList<TypeToken> sourceTypes = initSource(ci, errorSource, param);
-			for (TypeToken typeToken : sourceTypes) {
-				Object newparam = processStart(ci, ep, typeToken, param);
-				traverseErrorPaths(ci, ep, 2, typeToken, newparam);
+			NamedElement ne = errorSource.getSourceModelElement();
+			if (ne instanceof ErrorPropagation) {
+				ErrorPropagation ep = (ErrorPropagation) ne;
+				for (TypeToken typeToken : sourceTypes) {
+					Object newparam = processStart(ci, ep, typeToken, param);
+					traverseErrorPaths(ci, ep, 2, typeToken, newparam);
+				}
 			}
 		}
 		saveReport();
 	}
 
-//	protected void setToken(InstanceObject io, TypeToken token){
-//		ErrorModelState st = (ErrorModelState) ErrorModelStateAdapterFactory.INSTANCE.adapt(io, ErrorModelState.class);
-//		if (st != null) st.setToken(token);
-//	}
-//
-//	protected TypeToken getToken(InstanceObject io){
-//		ErrorModelState st = (ErrorModelState) ErrorModelStateAdapterFactory.INSTANCE.adapt(io, ErrorModelState.class);
-//		return st == null?null:st.getToken();
-//	}
 
 	/**
 	 * traverse through the destination of the connection instance
@@ -223,10 +218,10 @@ public class TraverseErrorPropagationPaths {
 	}
 
 	protected EList<TypeToken> initSource(ComponentInstance ci, ErrorSource errorSource, Object param) {
-		ErrorPropagation ep = errorSource.getOutgoing();
 		TypeSet ts = errorSource.getTypeTokenConstraint();
-		if (ts == null) {
-			ep.getTypeSet();
+		NamedElement ne = errorSource.getSourceModelElement();
+		if (ts == null && ne instanceof ErrorPropagation) {
+			((ErrorPropagation) ne).getTypeSet();
 		}
 		ErrorBehaviorState failureMode = errorSource.getFailureModeReference();
 		EList<TypeToken> sourceTokenSet = EM2TypeSetUtil.generateAllLeafTypeTokens(ts,
