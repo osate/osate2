@@ -20,7 +20,7 @@ import org.eclipse.ui.PlatformUI;
  * If this is used regularly, this should likely be switched to use a preference.
  */
 class LayoutDebugUtil {
-	private static final boolean enabled = false;
+	private static final boolean enabled = true;// false;
 	private static final String magicProjectName = "__osate_ge_debug";
 
 	static void saveElkGraphToDebugProject(final ElkNode g) {
