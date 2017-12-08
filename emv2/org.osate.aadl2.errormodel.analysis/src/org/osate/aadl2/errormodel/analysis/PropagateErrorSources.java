@@ -608,8 +608,6 @@ public class PropagateErrorSources {
 								+ " [External Effect]";
 						reportEntry(entryText + effectText + connText, depth);
 					} else if (destci != null && destEP != null) {
-//						OsateDebug.osateDebug("ci=" + ci.getName());
-//						OsateDebug.osateDebug("destEP=" + destEP);
 						String connText = connSymbol + generateComponentPropagationPointText(destci, destEP);
 						traceErrorFlows(destci, destEP, targettt, depth, entryText + effectText + connText);
 					}
@@ -643,13 +641,11 @@ public class PropagateErrorSources {
 		}
 
 		alreadyTreated.get(ci).add(entryText);
-		// OsateDebug.osateDebug("[traceErrorFlows] ci=" + ci.getName() + "text=" + entryText);
 		List<ErrorPropagation> treated = new ArrayList<ErrorPropagation>();
 		boolean handled = false;
 		Collection<ErrorFlow> outefs = EMV2Util.findErrorFlowFromComponentInstance(ci, ep);
 		for (ErrorFlow ef : outefs) {
 			if (ef instanceof ErrorSink) {
-				// OsateDebug.osateDebug("error sink" + ef.getName());
 				/**
 				 * We try to find additional error propagation for this error sink.
 				 * For example, if the error sink triggers to switch to
