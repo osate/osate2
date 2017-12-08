@@ -105,10 +105,9 @@
 <li><a href="#troubleshooting"><span class="toc-section-number">4</span> Troubleshooting</a><ul>
 <li><a href="#build-automatically"><span class="toc-section-number">4.1</span> Build Automatically</a></li>
 <li><a href="#inconsistent-font-sizes-across-machines"><span class="toc-section-number">4.2</span> Inconsistent Font Sizes Across Machines</a></li>
-<li><a href="#out-of-handles-exception"><span class="toc-section-number">4.3</span> Out of Handles Exception</a></li>
-<li><a href="#unable-to-set-properties-unless-text-model-is-open"><span class="toc-section-number">4.4</span> Unable to Set Properties Unless Text Model is Open</a></li>
-<li><a href="#updating-the-diagram"><span class="toc-section-number">4.5</span> Updating the Diagram</a></li>
-<li><a href="#reporting-bugs"><span class="toc-section-number">4.6</span> Reporting Bugs</a></li>
+<li><a href="#unable-to-set-properties-unless-text-model-is-open"><span class="toc-section-number">4.3</span> Unable to Set Properties Unless Text Model is Open</a></li>
+<li><a href="#updating-the-diagram"><span class="toc-section-number">4.4</span> Updating the Diagram</a></li>
+<li><a href="#reporting-bugs"><span class="toc-section-number">4.5</span> Reporting Bugs</a></li>
 </ul></li>
 <li><a href="#notices"><span class="toc-section-number">5</span> Notices</a></li>
 </ul>
@@ -792,13 +791,11 @@
 </figure>
 <h2 id="inconsistent-font-sizes-across-machines"><span class="header-section-number">4.2</span> Inconsistent Font Sizes Across Machines</h2>
 <p>To ensure diagrams have a consistent appearance across machines, the graphical editor attempts to produce consistent text sizes regardless of system settings. However, due to limitations in the underlying libraries on which the graphical editor relies, this is not always possible. On windows systems, the graphical editor produces consistent font sizes at 100%, 125%, and 200% system text scaling levels.</p>
-<h2 id="out-of-handles-exception"><span class="header-section-number">4.3</span> Out of Handles Exception</h2>
-<p>When working with extremely large models, the graphical editor may run out of graphics handles. To work around this issue, reduce the number of graphics handles used by splitting the model into smaller packages.</p>
-<h2 id="unable-to-set-properties-unless-text-model-is-open"><span class="header-section-number">4.4</span> Unable to Set Properties Unless Text Model is Open</h2>
+<h2 id="unable-to-set-properties-unless-text-model-is-open"><span class="header-section-number">4.3</span> Unable to Set Properties Unless Text Model is Open</h2>
 <p>The AADL Property Values view does not support editing property associations unless the textual AADL model is open. To work around this issue, open the textual AADL file before attempting to create property assignments with the AADL Properties Values view.</p>
-<h2 id="updating-the-diagram"><span class="header-section-number">4.5</span> Updating the Diagram</h2>
+<h2 id="updating-the-diagram"><span class="header-section-number">4.4</span> Updating the Diagram</h2>
 <p>In most cases the graphical editor will automatically update diagrams to reflect changes to the AADL Model. If a diagram has not been updated for any reason, it can be updated manually by right-clicking inside an empty area of the diagram and selecting <em>Update</em> from the context menu.</p>
-<h2 id="reporting-bugs"><span class="header-section-number">4.6</span> Reporting Bugs</h2>
+<h2 id="reporting-bugs"><span class="header-section-number">4.5</span> Reporting Bugs</h2>
 <p>Bugs should be reported to the issue tracker on the graphical editor's <a href="https://github.com/osate/osate-ge">GitHub Site</a>.</p>
 <h1 id="notices"><span class="header-section-number">5</span> Notices</h1>
 <p>Development of portions of the OSATE Graphical Editor was sponsored by the Government of the United States under Contract Number FA8702-15-D-0002.</p>
