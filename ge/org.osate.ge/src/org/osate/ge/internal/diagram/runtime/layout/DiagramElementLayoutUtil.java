@@ -323,8 +323,7 @@ public class DiagramElementLayoutUtil {
 				final double heightForFlowIndicators = portSidesWithFlowIndicators.getOrDefault(PortSide.NORTH, 0.0)
 						+ portSidesWithFlowIndicators.getOrDefault(PortSide.SOUTH, 0.0);
 
-				final double minWidth;
-
+				double minWidth = 0;
 				if (n.getProperty(CoreOptions.NODE_LABELS_PLACEMENT).contains(NodeLabelPlacement.H_CENTER)) {
 					// Ensure the minimum width is such that the label can be centered without overlapping with ports.
 					// This happens because ports are inside the node due to the PORT_BORDER_OFFSET and ELK centers the labels in the remaining space.
@@ -336,7 +335,14 @@ public class DiagramElementLayoutUtil {
 					minWidth = Math.max(40, Math.max(Math.max(maxLabelWidth, widthForPorts), widthForFlowIndicators));
 				}
 
-				final double minHeight = Math.max(Math.max(25, labelHeightSum), heightForFlowIndicators);
+				double minHeight = Math.max(Math.max(25, labelHeightSum), heightForFlowIndicators);
+
+				// Increase min width and min height for top level nodes.
+				if (dn != null && dn.getParent() instanceof AgeDiagram) {
+					minWidth = Math.max(minWidth, 200);
+					minHeight = Math.max(minHeight, 100);
+				}
+
 				n.setProperty(CoreOptions.NODE_SIZE_MINIMUM, new KVector(minWidth, minHeight));
 			}
 		};
