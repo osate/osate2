@@ -3,7 +3,11 @@ package org.osate.core.test
 import com.google.inject.Inject
 import com.itemis.xtext.testing.FluentIssueCollection
 import com.itemis.xtext.testing.XtextTest
+import java.io.BufferedReader
 import java.io.ByteArrayInputStream
+import java.io.IOException
+import java.io.InputStreamReader
+import java.net.URL
 import java.util.Comparator
 import java.util.List
 import java.util.Set
@@ -46,7 +50,7 @@ import static extension org.osate.aadl2.modelsupport.util.AadlUtil.isPredeclared
 abstract class OsateTest extends XtextTest {
 	@Inject
 	IScopeProvider scopeProvider
-	
+
 	@Inject
 	@SerializerScopeProviderBinding
 	IScopeProvider serializerScopeProvider
@@ -54,27 +58,27 @@ abstract class OsateTest extends XtextTest {
 	static val Logger LOGGER = Logger.getLogger(OsateTest);
 
 	protected val workspaceRoot = ResourcesPlugin.workspace.root
-	
+
 	Set<String> contributedAadlNames
-	
+
 	@Before
 	def setUp() {
 		createProject(projectName)
 		setResourceRoot("platform:/resource/" + projectName)
 	}
-	
+
 	@After
 	def cleanUp() {
 		deleteProject(projectName)
 	}
-	
+
 	def String getProjectName() {
 		class.simpleName
 	}
 
 	/**
-      * Create a project with subdirectories in the current workspace.
-      */
+	 * Create a project with subdirectories in the current workspace.
+	 */
 	def createProject(String projectName, String... srcDirs) {
 		val project = workspaceRoot.getProject(projectName)
 		val operation = new WorkspaceModifyOperation() {
@@ -133,6 +137,25 @@ abstract class OsateTest extends XtextTest {
 		}
 	}
 
+	def protected String readFile(String path) {
+		var String result = ''
+		try {
+			val url = new URL('platform:/plugin/' + path)
+			val inputStream = url.openConnection().inputStream
+			val in = new BufferedReader(new InputStreamReader(inputStream))
+			var String inputLine
+
+			while ((inputLine = in.readLine()) !== null) {
+				result += inputLine + '\n'
+			}
+			
+			in.close()
+		} catch (IOException e) {
+			result = ''
+		}
+		result
+	}
+
 	/**
 	 * Create a set of files in the workspace given as filename -> text pairs
 	 */
@@ -154,9 +177,8 @@ abstract class OsateTest extends XtextTest {
 
 		Assert.isTrue(file.getParent.exists)
 
-		LOGGER.info(
-			"creating " + uri + " in test method " + this.class.simpleName + "." +
-				new Throwable().fillInStackTrace.getStackTrace().get(1).methodName)
+		LOGGER.info("creating " + uri + " in test method " + this.class.simpleName + "." +
+			new Throwable().fillInStackTrace.getStackTrace().get(1).methodName)
 
 		try {
 			val stream = new ByteArrayInputStream(content.getBytes(file.charset))
@@ -186,12 +208,14 @@ abstract class OsateTest extends XtextTest {
 		String... expectedMessages) {
 		assertIssue(eObject, allIssues, issueCollection, Severity.ERROR, expectedMessages)
 	}
-	
-	def protected static assertWarning(EObject eObject, List<Issue> allIssues, FluentIssueCollection issueCollection, String... expectedMessages) {
+
+	def protected static assertWarning(EObject eObject, List<Issue> allIssues, FluentIssueCollection issueCollection,
+		String... expectedMessages) {
 		assertIssue(eObject, allIssues, issueCollection, Severity.WARNING, expectedMessages)
 	}
-	
-	def protected static assertIssue(EObject eObject, List<Issue> allIssues, FluentIssueCollection issueCollection, Severity severity, String... expectedMessages) {
+
+	def protected static assertIssue(EObject eObject, List<Issue> allIssues, FluentIssueCollection issueCollection,
+		Severity severity, String... expectedMessages) {
 		val issuesForEObject = allIssues.filter[it.severity == severity && uriToProblem == eObject.URI]
 		val messagesForEObject = issuesForEObject.map[message]
 		if (messagesForEObject.toSet != expectedMessages.toSet) {
@@ -199,49 +223,55 @@ abstract class OsateTest extends XtextTest {
 		}
 		issuesForEObject.forEach[issueCollection.addIssue(it)]
 	}
-	
+
 	def protected assertScope(EObject context, EReference reference, Iterable<String> expected) {
 		assertScope(scopeProvider, context, reference, false, expected)
 	}
-	
+
 	def protected assertScopeModelUnitNamesOnly(EObject context, EReference reference, Iterable<String> expected) {
 		assertScope(scopeProvider, context, reference, true, expected)
 	}
-	
+
 	def protected assertSerializerScope(EObject context, EReference reference, Iterable<String> expected) {
 		assertScope(serializerScopeProvider, context, reference, false, expected)
 	}
-	
-	def private assertScope(IScopeProvider scopeProvider, EObject context, EReference reference,
-		boolean scopingForModelUnits, Iterable<String> expected
+
+	def private assertScope(
+		IScopeProvider scopeProvider,
+		EObject context,
+		EReference reference,
+		boolean scopingForModelUnits,
+		Iterable<String> expected
 	) {
 		if (contributedAadlNames === null) {
-			contributedAadlNames = PluginSupportUtil.contributedAadl.map[uri |
+			contributedAadlNames = PluginSupportUtil.contributedAadl.map [ uri |
 				val modelUnit = context.eResource.resourceSet.getResource(uri, true).contents.head as ModelUnit
 				modelUnit.name.toLowerCase
 			].toSet
 		}
 		val expectedNames = expected.sortWith(CUSTOM_NAME_COMPARATOR).join(", ")
-		val actualNames = scopeProvider.getScope(context, reference).allElements.map[name.toString("::")].filter[
+		val actualNames = scopeProvider.getScope(context, reference).allElements.map[name.toString("::")].filter [
 			val separatorIndex = lastIndexOf("::")
 			val modelUnitName = if (scopingForModelUnits || separatorIndex == -1) {
-				it
-			} else {
-				substring(0, separatorIndex)
-			}
+					it
+				} else {
+					substring(0, separatorIndex)
+				}
 			modelUnitName.predeclaredPropertySet || !contributedAadlNames.contains(modelUnitName.toLowerCase)
 		].sortWith(CUSTOM_NAME_COMPARATOR).join(", ")
 		expectedNames.assertEquals(actualNames)
 	}
-	
+
 	def private static Iterable<IResource> getAllMembers(IContainer container) {
-		container.members.map[if (it instanceof IContainer) {
-			allMembers
-		} else {
-			#[it]
-		}].flatten
+		container.members.map [
+			if (it instanceof IContainer) {
+				allMembers
+			} else {
+				#[it]
+			}
+		].flatten
 	}
-	
+
 	/*
 	 * Compares two aadl names such that simple names are less than qualified names.
 	 * If the name is qualified then names in predeclared property sets are greater than names in other packages or property sets.
@@ -271,7 +301,7 @@ abstract class OsateTest extends XtextTest {
 			}
 		}
 
-		//Xtend requires this method to be overriden.  I should file a bug with Xtend
+		// Xtend requires this method to be overriden.  I should file a bug with Xtend
 		override equals(Object obj) {
 			class == obj.class
 		}

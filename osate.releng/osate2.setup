@@ -387,10 +387,6 @@
   <setupTask
       xsi:type="setup.p2:P2Task">
     <requirement
-        name="org.eclipse.m2m.atl.sdk.feature.group"/>
-    <requirement
-        name="org.eclipse.m2m.atl.emftvm.feature.group"/>
-    <requirement
         name="org.eclipse.ease.feature.feature.group"/>
     <requirement
         name="org.eclipse.ease.ui.feature.feature.group"/>
@@ -401,9 +397,9 @@
     <requirement
         name="org.eclipse.gendoc.feature.feature.group"/>
     <repository
-        url="https://hudson.eclipse.org/shared/job/mmt-atl-master/lastSuccessfulBuild/artifact/releng/org.eclipse.m2m.atl.update/target/repository/"/>
+        url="http://download.eclipse.org/releases/oxygen"/>
     <repository
-        url="http://download.eclipse.org/ease/update/nightly"/>
+        url="http://download.eclipse.org/ease/update/release"/>
     <repository
         url="http://download.eclipse.org/gendoc/updates/releases/0.6.0"/>
   </setupTask>
@@ -502,7 +498,9 @@
     <requirement
         name="org.eclipse.sirius.aql.source.feature.group"/>
     <repository
-        url="http://download.eclipse.org/sirius/updates/releases/5.0.1/oxygen"/>
+        url="http://download.eclipse.org/releases/oxygen"/>
+    <repository
+        url="http://download.eclipse.org/sirius/updates/releases/5.0.2/oxygen"/>
   </setupTask>
   <setupTask
       xsi:type="setup.p2:P2Task">
@@ -579,6 +577,9 @@
           name="org.eclipse.xtext.sdk.feature.group"
           versionRange="[2.12.0,2.13.0)"/>
       <requirement
+          name="com.itemis.xtext.testing.feature.feature.group"
+          versionRange="[0.2.0,1.0.0)"/>
+      <requirement
           name="de.itemis.xtext.antlr.feature.feature.group"/>
       <requirement
           name="de.itemis.xtext.antlr.sdk.feature.group"/>
@@ -612,9 +613,11 @@
       <repository
           url="http://download.itemis.de/updates/releases/2.1.1"/>
       <repository
-          url="http://download.eclipse.org/releases/oxygen/201706281000"/>
+          url="http://download.eclipse.org/releases/oxygen/201709271000"/>
       <repository
           url="http://repo1.maven.org/maven2/.m2e/connectors/m2eclipse-tycho/0.9.0/N/0.9.0.201609252021/"/>
+      <repository
+          url="https://dl.bintray.com/itemis/generic/xtext-testing/updates/"/>
     </setupTask>
   </setupTask>
   <setupTask
@@ -745,8 +748,13 @@
           name="org.eclipse.gef.fx.sdk.feature.group"/>
       <requirement
           name="org.eclipse.gef.mvc.sdk.feature.group"/>
+      <requirement
+          name="org.eclipse.elk.sdk.feature.feature.group"
+          versionRange="[0.3.0,0.4.0)"/>
       <repository
-          url="http://download.eclipse.org/releases/oxygen/201706281000"/>
+          url="http://download.eclipse.org/releases/oxygen/201709271000"/>
+      <repository
+          url="http://download.eclipse.org/elk/updates/releases/0.3.0/"/>
     </setupTask>
   </setupTask>
   <setupTask
@@ -893,6 +901,9 @@
           name="org.eclipse.elk.feature.feature.group"
           versionRange="[0.3.0,0.4.0)"/>
       <requirement
+          name="org.eclipse.elk.algorithms.feature.feature.group"
+          versionRange="[0.3.0,0.4.0)"/>
+      <requirement
           name="org.eclipse.fx.runtime.min.feature.feature.group"/>
       <requirement
           name="org.eclipse.gef.common.feature.group"/>
@@ -906,6 +917,8 @@
           name="org.eclipse.gef.mvc.fx.feature.group"/>
       <requirement
           name="org.eclipse.gef.mvc.fx.ui.feature.group"/>
+      <requirement
+          name="org.eclipse.sirius.runtime.ide.ui.feature.group"/>
       <requirement
           name="*"/>
       <sourceLocator
@@ -923,7 +936,7 @@
       <repositoryList
           name="Oxygen">
         <repository
-            url="http://download.eclipse.org/releases/oxygen/201706281000"/>
+            url="http://download.eclipse.org/releases/oxygen/201709271000"/>
         <repository
             url="http://download.eclipse.org/eclipse/updates/4.7/R-4.7.1-201709061700"/>
         <repository
@@ -934,8 +947,6 @@
             url="http://download.eclipse.org/modeling/tmf/xtext/updates/releases/2.12.0/"/>
         <repository
             url="http://download.itemis.de/updates/releases/2.1.1"/>
-        <repository
-            url="http://download.eclipse.org/sirius/updates/releases/5.0.1/oxygen"/>
         <repository
             url="http://download.eclipse.org/elk/updates/releases/0.3.0/"/>
       </repositoryList>
@@ -992,7 +1003,7 @@
       <repositoryList
           name="Oxygen">
         <repository
-            url="http://download.eclipse.org/releases/oxygen/201706281000"/>
+            url="http://download.eclipse.org/releases/oxygen/201709271000"/>
         <repository
             url="http://download.eclipse.org/eclipse/updates/4.7/R-4.7.1-201709061700"/>
         <repository
@@ -1040,7 +1051,7 @@
       <repositoryList
           name="Oxygen">
         <repository
-            url="http://download.eclipse.org/releases/oxygen/201706281000"/>
+            url="http://download.eclipse.org/releases/oxygen/201709271000"/>
         <repository
             url="http://download.eclipse.org/eclipse/updates/4.7/R-4.7.1-201709061700"/>
         <repository

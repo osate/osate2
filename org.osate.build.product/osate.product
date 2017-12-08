@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?pde version="3.5"?>
 
-<product name="OSATE2" uid="osate2" id="org.osate.branding.osate2" application="org.eclipse.ui.ide.workbench" version="2.3.0.qualifier" useFeatures="true" includeLaunchers="true">
+<product name="OSATE2" uid="osate2" id="org.osate.branding.osate2" application="org.eclipse.ui.ide.workbench" version="2.3.1.qualifier" useFeatures="true" includeLaunchers="true">
 
    <aboutInfo>
       <image path="icons/osateAbout_hc90.jpg"/>
@@ -57,6 +57,7 @@
       <feature id="org.eclipse.platform"/>
       <feature id="org.eclipse.rcp"/>
       <feature id="org.eclipse.graphiti.export.feature"/>
+      <feature id="org.eclipse.sirius.runtime.ide.ui"/>
    </features>
 
    <configurations>
@@ -72,7 +73,7 @@
    </configurations>
 
    <repositories>
-      <repository location="http://aadl.info/aadl/osate/testing/update-site/" enabled="true" />
+      <repository location="http://aadl.info/aadl/osate/testing/updates/" enabled="true" />
       <repository location="http://download.eclipse.org/eclipse/updates/4.7" enabled="false" />
       <repository location="http://download.eclipse.org/releases/oxygen" enabled="false" />
    </repositories>

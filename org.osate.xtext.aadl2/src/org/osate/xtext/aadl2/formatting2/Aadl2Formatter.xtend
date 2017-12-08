@@ -164,6 +164,7 @@ import org.osate.aadl2.VirtualProcessorSubcomponent
 import org.osate.aadl2.VirtualProcessorType
 import org.osate.xtext.aadl2.services.Aadl2GrammarAccess
 
+@SuppressWarnings("all")
 class Aadl2Formatter extends AbstractFormatter2 {
 	@Inject extension Aadl2GrammarAccess
 	
