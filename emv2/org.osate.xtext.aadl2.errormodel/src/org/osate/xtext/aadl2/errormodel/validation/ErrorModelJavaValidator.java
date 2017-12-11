@@ -1050,6 +1050,9 @@ public class ErrorModelJavaValidator extends AbstractErrorModelJavaValidator {
 						+ EMV2Util.getPrintName(epout) + EMV2Util.getPrintName(epout.getTypeSet()));
 			}
 		} else if (ef.isAll()) {
+			if (EMV2Util.getContainingErrorModelSubclause(ef).getConnectionErrorSources().contains(ef)) {
+				return;
+			}
 			// check containment for all of the outgoing propagation points
 			Classifier cl = ef.getContainingClassifier();
 			Collection<ErrorPropagation> eps = EMV2Util.getAllOutgoingErrorPropagations(cl);
