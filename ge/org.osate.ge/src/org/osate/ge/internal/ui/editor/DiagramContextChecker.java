@@ -1,0 +1,207 @@
+package org.osate.ge.internal.ui.editor;
+
+import java.util.Collection;
+import java.util.List;
+import java.util.Objects;
+
+import org.eclipse.core.resources.IProject;
+import org.eclipse.core.resources.IncrementalProjectBuilder;
+import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.NullProgressMonitor;
+import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.resource.ResourceSet;
+import org.eclipse.emf.ecore.util.EcoreUtil;
+import org.eclipse.jface.window.Window;
+import org.eclipse.xtext.resource.IEObjectDescription;
+import org.eclipse.xtext.ui.resource.XtextLiveScopeResourceSetProvider;
+import org.osate.aadl2.Aadl2Factory;
+import org.osate.ge.internal.diagram.runtime.AgeDiagram;
+import org.osate.ge.internal.diagram.runtime.CanonicalBusinessObjectReference;
+import org.osate.ge.internal.diagram.runtime.DiagramConfigurationBuilder;
+import org.osate.ge.internal.diagram.runtime.RelativeBusinessObjectReference;
+import org.osate.ge.internal.services.ProjectReferenceService;
+import org.osate.ge.internal.services.impl.DeclarativeReferenceType;
+import org.osate.ge.internal.ui.dialogs.ElementSelectionDialog;
+import org.osate.ge.internal.util.ScopedEMFIndexRetrieval;
+import org.osate.xtext.aadl2.ui.internal.Aadl2Activator;
+
+import com.google.inject.Injector;
+
+public class DiagramContextChecker {
+	private final IProject project;
+	private final ProjectReferenceService refService;
+
+	public static class Result {
+		private final boolean contextIsValid;
+		private final boolean relinked;
+
+		public Result(final boolean contextIsValid, final boolean relinked) {
+			this.contextIsValid = contextIsValid;
+			this.relinked = relinked;
+		}
+
+		public final boolean isContextValid() {
+			return contextIsValid;
+		}
+
+		public final boolean wasContextUpdated() {
+			return relinked;
+		}
+	}
+
+	public DiagramContextChecker(final IProject project, final ProjectReferenceService refService) {
+		this.project = Objects.requireNonNull(project, "project must not be null");
+		this.refService = Objects.requireNonNull(refService, "refService must not be null");
+	}
+
+	/**
+	 * Checks the diagram context and optionally prompts the user to fix missing context.
+	 * Throws an exception if the context is invalid.
+	 * @param diagram
+	 * @param promptToRelinkIfMissing
+	 */
+	public Result checkContext(final AgeDiagram diagram, final boolean promptToRelinkIfMissing) {
+		Objects.requireNonNull(diagram, "diagram must not be null");
+
+		Objects.requireNonNull(diagram.getConfiguration().getContextBoReference(),
+				"contextless diagram are not supported");
+
+		Object contextBo = refService.resolve(diagram.getConfiguration().getContextBoReference());
+
+		// If unable to resolve the context, rebuild the project
+		if (contextBo == null) {
+			try {
+				project.build(IncrementalProjectBuilder.FULL_BUILD, new NullProgressMonitor());
+				contextBo = refService.resolve(diagram.getConfiguration().getContextBoReference());
+			} catch (CoreException e) {
+				throw new RuntimeException(e);
+			}
+		}
+
+		// If the context is still not valid and the prompt flag is set, prompt the user for a new context and relink the diagram.
+		boolean relinked = false;
+		if (contextBo == null && promptToRelinkIfMissing) {
+			relinked = promptToRelink(diagram);
+		}
+
+		// Check the context again
+		contextBo = refService.resolve(diagram.getConfiguration().getContextBoReference());
+		if (contextBo == null) {
+			return new Result(false, false);
+		}
+
+		return new Result(true, relinked);
+	}
+
+	/**
+	 * Returns whether or not the diagram context was adjusted.
+	 * @param diagram
+	 * @param missingContextRef
+	 * @return
+	 */
+	private boolean promptToRelink(final AgeDiagram diagram) {
+		final CanonicalBusinessObjectReference missingContextRef = diagram.getConfiguration().getContextBoReference();
+
+		final List<String> refSegs = missingContextRef.getSegments();
+		if (refSegs.size() < 2) {
+			return false;
+		}
+
+		final boolean isPackageRef = DeclarativeReferenceType.PACKAGE.getId().equals(refSegs.get(0));
+		final boolean isClassifierRef = DeclarativeReferenceType.CLASSIFIER.getId().equals(refSegs.get(0));
+		if (!isPackageRef && !isClassifierRef) {
+			return false;
+		}
+
+		// Find all packages
+		final Collection<IEObjectDescription> packageDescriptions = ScopedEMFIndexRetrieval
+				.getAllEObjectsByType(project, Aadl2Factory.eINSTANCE.getAadl2Package().getAadlPackage());
+
+		// Determine the options to present to the user
+		final Collection<IEObjectDescription> options;
+		String searchPrefix = "";
+		if (isPackageRef) {
+			options = packageDescriptions;
+		} else if (isClassifierRef) {
+			options = ScopedEMFIndexRetrieval.getAllEObjectsByType(project,
+					Aadl2Factory.eINSTANCE.getAadl2Package().getClassifier());
+
+			// Check if the package portion of the qualified name is a valid package.
+			// If so, use it as the initial filter
+			final String referencedClassifierQualifiedName = refSegs.get(1);
+			final String[] qualifiedNameParts = referencedClassifierQualifiedName.split("::");
+			if (qualifiedNameParts.length == 2) {
+				final String pkgName = qualifiedNameParts[0];
+
+				for (final IEObjectDescription desc : packageDescriptions) {
+					if (desc.getName().toString("::").equalsIgnoreCase(pkgName)) {
+						searchPrefix = pkgName.toLowerCase() + "::";
+					}
+				}
+			}
+
+		} else {
+			// Unexpected case: there is already a short circuit for the case where the reference isn't a package or classifier reference
+			throw new RuntimeException("Unexpected case");
+		}
+
+		// Don't prompt if there aren't any options.
+		if (options.size() == 0) {
+			return false;
+		}
+
+		final ElementSelectionDialog dlg = new ElementSelectionDialog(null, "Missing Diagram Context",
+				"Unable to find diagram context \"" + refService.getLabel(missingContextRef)
+						+ "\".\nIf the model element has been renamed, select the new name for the model element.",
+				options);
+		dlg.setFilter(searchPrefix);
+		if (dlg.open() != Window.OK) {
+			return false;
+		}
+
+		final EObject newContextProxy = (EObject) dlg.getFirstSelectedElement();
+
+		// Find the live object
+		final Injector injector = Objects.requireNonNull(
+				Aadl2Activator.getInstance().getInjector(Aadl2Activator.ORG_OSATE_XTEXT_AADL2_AADL2),
+				"Unable to retrieve injector");
+		final XtextLiveScopeResourceSetProvider liveResourceSetProvider = Objects.requireNonNull(
+				injector.getInstance(XtextLiveScopeResourceSetProvider.class),
+				"Unable to retrieve live scope resource set provider");
+
+		final ResourceSet liveResourceSet = Objects.requireNonNull(liveResourceSetProvider.get(project),
+				"Unable to get live resource set");
+
+		final EObject newContext = EcoreUtil.resolve(newContextProxy, liveResourceSet);
+		if (newContext.eIsProxy()) {
+			throw new RuntimeException("Unable to retrieve non-proxy object for selection");
+		}
+
+		// Find canonical and relative reference
+		final CanonicalBusinessObjectReference newContextCanonicalRef = refService.getCanonicalReference(newContext);
+		if (newContextCanonicalRef == null) {
+			throw new RuntimeException("Unable to retrieve reference for new diagram context: " + newContext);
+		}
+
+		final RelativeBusinessObjectReference newContextRelativeRef = refService.getRelativeReference(newContext);
+		if (newContextRelativeRef == null) {
+			throw new RuntimeException("Unable to retrieve relative reference for new diagram context: " + newContext);
+		}
+
+		// Update the diagram
+		diagram.modify("Update Diagram Context", m -> {
+			// Update the diagram's context
+			m.setDiagramConfiguration(new DiagramConfigurationBuilder(diagram.getConfiguration())
+					.setContextBoReference(newContextCanonicalRef).build());
+
+			// Update the root element
+			if (diagram.getDiagramElements().size() == 1) {
+				m.updateBusinessObject(diagram.getDiagramElements().stream().findAny().get(), newContext,
+						newContextRelativeRef);
+			}
+
+		});
+
+		return true;
+	}
+}

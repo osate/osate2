@@ -43,6 +43,8 @@
 <li><a href="#moving-shapes-using-arrow-keys"><span class="toc-section-number">3.1.11</span> Moving Shapes Using Arrow Keys</a></li>
 <li><a href="#selecting-a-diagram-elements-container"><span class="toc-section-number">3.1.12</span> Selecting a Diagram Element's Container</a></li>
 <li><a href="#sec:de_apperance"><span class="toc-section-number">3.1.13</span> Editing a Diagram Element's Appearance</a></li>
+<li><a href="#diagram-context-adjustment"><span class="toc-section-number">3.1.14</span> Diagram Context Adjustment</a></li>
+<li><a href="#sec:restore_missing_diagram_elements"><span class="toc-section-number">3.1.15</span> Restore Missing Diagram Elements</a></li>
 </ul></li>
 <li><a href="#diagram-layout"><span class="toc-section-number">3.2</span> Diagram Layout</a><ul>
 <li><a href="#layout-commands"><span class="toc-section-number">3.2.1</span> Layout Commands</a></li>
@@ -107,7 +109,8 @@
 <li><a href="#inconsistent-font-sizes-across-machines"><span class="toc-section-number">4.2</span> Inconsistent Font Sizes Across Machines</a></li>
 <li><a href="#unable-to-set-properties-unless-text-model-is-open"><span class="toc-section-number">4.3</span> Unable to Set Properties Unless Text Model is Open</a></li>
 <li><a href="#updating-the-diagram"><span class="toc-section-number">4.4</span> Updating the Diagram</a></li>
-<li><a href="#reporting-bugs"><span class="toc-section-number">4.5</span> Reporting Bugs</a></li>
+<li><a href="#missing-diagram-elements-after-modification-of-aadl-source"><span class="toc-section-number">4.5</span> Missing Diagram Elements After Modification of AADL Source</a></li>
+<li><a href="#reporting-bugs"><span class="toc-section-number">4.6</span> Reporting Bugs</a></li>
 </ul></li>
 <li><a href="#notices"><span class="toc-section-number">5</span> Notices</a></li>
 </ul>
@@ -303,6 +306,16 @@
 <li>Font color can be edited by clicking the font color button and selecting the desired color.</li>
 <li>Background color can be edited by clicking the background color button and selecting the desired color.</li>
 </ul></li>
+</ol>
+<h3 id="diagram-context-adjustment"><span class="header-section-number">3.1.14</span> Diagram Context Adjustment</h3>
+<p>Diagrams are associated with model elements. Moving a model element between packages or renaming it or any of its containers from the AADL text editor without using the <em>Rename Element</em> menu option will break its association with diagrams.</p>
+<p>When opening a diagram, the <em>Missing Diagram Context</em> dialog will appear if the graphical editor is unable to find the model element associated with a diagram for any reason. If the element has been previously renamed, select the new name for the element and select <em>OK</em>.</p>
+<h3 id="sec:restore_missing_diagram_elements"><span class="header-section-number">3.1.15</span> Restore Missing Diagram Elements</h3>
+<p>If a a model element is renamed from the AADL text editor without using the <em>Rename Element</em> menu option, the diagram element may disappear from diagrams in which it appears. In such cases it is possible to restore the diagram elements using the following steps. Note: if the diagram is saved after the diagram elements disappears, it will not be possible to restore the missing diagram elements.</p>
+<ol type="1">
+<li>Select <em>Edit-&gt;Restore Missing Diagram Elements</em>. A window containing diagram elements which have been removed from the diagram because the associated model element is missing will appear.</li>
+<li>Update the desired model references in the <em>New Reference</em> column.</li>
+<li>Select OK. The diagram elements will be restored.</li>
 </ol>
 <h2 id="diagram-layout"><span class="header-section-number">3.2</span> Diagram Layout</h2>
 <p>The following sections describe the diagram layout capabilities of the graphical editor.</p>
@@ -795,7 +808,9 @@
 <p>The AADL Property Values view does not support editing property associations unless the textual AADL model is open. To work around this issue, open the textual AADL file before attempting to create property assignments with the AADL Properties Values view.</p>
 <h2 id="updating-the-diagram"><span class="header-section-number">4.4</span> Updating the Diagram</h2>
 <p>In most cases the graphical editor will automatically update diagrams to reflect changes to the AADL Model. If a diagram has not been updated for any reason, it can be updated manually by right-clicking inside an empty area of the diagram and selecting <em>Update</em> from the context menu.</p>
-<h2 id="reporting-bugs"><span class="header-section-number">4.5</span> Reporting Bugs</h2>
+<h2 id="missing-diagram-elements-after-modification-of-aadl-source"><span class="header-section-number">4.5</span> Missing Diagram Elements After Modification of AADL Source</h2>
+<p>See section <a href="#sec:restore_missing_diagram_elements">3.1.15</a>.</p>
+<h2 id="reporting-bugs"><span class="header-section-number">4.6</span> Reporting Bugs</h2>
 <p>Bugs should be reported to the issue tracker on the graphical editor's <a href="https://github.com/osate/osate-ge">GitHub Site</a>.</p>
 <h1 id="notices"><span class="header-section-number">5</span> Notices</h1>
 <p>Development of portions of the OSATE Graphical Editor was sponsored by the Government of the United States under Contract Number FA8702-15-D-0002.</p>

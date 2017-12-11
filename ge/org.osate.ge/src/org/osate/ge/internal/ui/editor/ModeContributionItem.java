@@ -22,8 +22,9 @@ import org.eclipse.ui.IEditorPart;
 import org.osate.aadl2.ComponentImplementation;
 import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.Subcomponent;
-import org.osate.ge.BusinessObjectContext;
 import org.osate.ge.internal.diagram.runtime.AgeDiagram;
+import org.osate.ge.internal.diagram.runtime.DiagramNode;
+import org.osate.ge.internal.ui.util.UiUtil;
 import org.osate.ge.internal.util.AadlClassifierUtil;
 import org.osate.ge.internal.util.AadlModalElementUtil;
 import org.osate.ge.internal.util.AadlModalElementUtil.ModeFeatureReference;
@@ -112,10 +113,8 @@ public class ModeContributionItem extends ComboContributionItem {
 						// If container contains a modal element
 						if (AadlModalElementUtil.getModalElement(modeContainer) != null) {
 							// Get qualified modes to add to the drop-down
-							return Stream.concat(
-									getModeBindingFeatureReferences(modeContainer),
-									getModeFeatureReferences(modeContainer));
-
+							return Stream.concat(getModeBindingFeatureReferences((DiagramNode) modeContainer),
+									getModeFeatureReferences((DiagramNode) modeContainer));
 						}
 
 						return Stream.empty();
@@ -152,7 +151,7 @@ public class ModeContributionItem extends ComboContributionItem {
 	 * @param modeContainer
 	 * @return
 	 */
-	private static Stream<ModeFeatureReference> getModeFeatureReferences(final BusinessObjectContext modeContainer) {
+	private static Stream<ModeFeatureReference> getModeFeatureReferences(final DiagramNode modeContainer) {
 		return AadlClassifierUtil.getComponentImplementation(modeContainer)
 				.filter(ci -> !ci.getAllModes().isEmpty() || !ci.getAllModeTransitions().isEmpty()).map(ci -> {
 					return Stream.concat(ci.getAllModes().stream(), ci.getAllModeTransitions().stream());
@@ -167,7 +166,7 @@ public class ModeContributionItem extends ComboContributionItem {
 	 * @param modeContainerParent
 	 * @return
 	 */
-	public static Stream<ModeFeatureReference> getModeBindingFeatureReferences(final BusinessObjectContext modeContainerParent) {
+	public static Stream<ModeFeatureReference> getModeBindingFeatureReferences(final DiagramNode modeContainerParent) {
 		if (modeContainerParent.getBusinessObject() instanceof Subcomponent) {
 			final Subcomponent subcomponent = (Subcomponent) modeContainerParent.getBusinessObject();
 			// Filter ModeBindings that have a null derived mode
@@ -177,9 +176,9 @@ public class ModeContributionItem extends ComboContributionItem {
 		return Stream.empty();
 	}
 
-	private static ModeFeatureReference createInModeFeatureReference(final BusinessObjectContext parent,
+	private static ModeFeatureReference createInModeFeatureReference(final DiagramNode parent,
 			final NamedElement namedElement) {
-		final String modeFeatureName = ContributionHelper.getPath(parent) + "::" + namedElement.getName();
+		final String modeFeatureName = UiUtil.getPathLabel(parent) + "::" + namedElement.getName();
 		return AadlModalElementUtil.createModeFeatureReference(modeFeatureName, namedElement, parent);
 	}
 

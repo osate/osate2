@@ -84,7 +84,6 @@ public class DeclarativeReferenceResolver {
 			AadlPackageReference pkgRef = packageNameToPackageMap.get(lowerCasePackageName);
 			if(pkgRef == null) {
 				pkgRef = findAadlPackage(lowerCasePackageName, getCachedResourceDescriptions(), aadlResourceService);
-
 				if (pkgRef != null) {
 					// Store a reference to the package in the cache if the reference was valid
 					packageNameToPackageMap.put(lowerCasePackageName, pkgRef);
@@ -180,7 +179,7 @@ public class DeclarativeReferenceResolver {
 		Object referencedObject = null; // The object that will be returned
 		final String type = refSegs[0];
 
-		if(type.equals(DeclarativeReferenceBuilder.TYPE_SUBPROGRAM_CALL_ORDER)) {
+		if (type.equals(DeclarativeReferenceType.SUBPROGRAM_CALL_ORDER.getId())) {
 			if(refSegs.length == 3) {
 				final SubprogramCall previousSubprogramCall = getNamedElementByQualifiedName(refSegs[1], SubprogramCall.class);
 				final SubprogramCall subprogramCall = getNamedElementByQualifiedName(refSegs[2], SubprogramCall.class);
@@ -190,29 +189,29 @@ public class DeclarativeReferenceResolver {
 			}
 		} else {
 			final String qualifiedName = refSegs[1];
-			if(type.equals(DeclarativeReferenceBuilder.TYPE_PACKAGE)) {
+			if (type.equals(DeclarativeReferenceType.PACKAGE.getId())) {
 				referencedObject = getNamedElementByQualifiedName(qualifiedName, AadlPackage.class);
-			} else if(type.equals(DeclarativeReferenceBuilder.TYPE_CLASSIFIER)) {
+			} else if (type.equals(DeclarativeReferenceType.CLASSIFIER.getId())) {
 				referencedObject = getNamedElementByQualifiedName(qualifiedName, Classifier.class);
-			} else if(type.equals(DeclarativeReferenceBuilder.TYPE_SUBCOMPONENT)) {
+			} else if (type.equals(DeclarativeReferenceType.SUBCOMPONENT.getId())) {
 				referencedObject = getNamedElementByQualifiedName(qualifiedName, Subcomponent.class);
-			} else if(type.equals(DeclarativeReferenceBuilder.TYPE_FEATURE)){
+			} else if (type.equals(DeclarativeReferenceType.FEATURE.getId())) {
 				referencedObject = getNamedElementByQualifiedName(qualifiedName, Feature.class);
-			} else if(type.equals(DeclarativeReferenceBuilder.TYPE_INTERNAL_FEATURE)) {
+			} else if (type.equals(DeclarativeReferenceType.INTERNAL_FEATURE.getId())) {
 				referencedObject = getNamedElementByQualifiedName(qualifiedName, InternalFeature.class);
-			} else if(type.equals(DeclarativeReferenceBuilder.TYPE_PROCESSOR_FEATURE)) {
+			} else if (type.equals(DeclarativeReferenceType.PROCESSOR_FEATURE.getId())) {
 				referencedObject = getNamedElementByQualifiedName(qualifiedName, ProcessorFeature.class);
-			} else if(type.equals(DeclarativeReferenceBuilder.TYPE_FLOW_SPECIFICATION)) {
+			} else if (type.equals(DeclarativeReferenceType.FLOW_SPECIFICATION.getId())) {
 				referencedObject = getNamedElementByQualifiedName(qualifiedName, FlowSpecification.class);
-			} else if(type.equals(DeclarativeReferenceBuilder.TYPE_CONNECTION)) {
+			} else if (type.equals(DeclarativeReferenceType.CONNECTION.getId())) {
 				referencedObject = getNamedElementByQualifiedName(qualifiedName, Connection.class);
-			} else if(type.equals(DeclarativeReferenceBuilder.TYPE_MODE)) {
+			} else if (type.equals(DeclarativeReferenceType.MODE.getId())) {
 				referencedObject = getNamedElementByQualifiedName(qualifiedName, Mode.class);
-			} else if(type.equals(DeclarativeReferenceBuilder.TYPE_SUBPROGRAM_CALL_SEQUENCE)) {
+			} else if (type.equals(DeclarativeReferenceType.SUBPROGRAM_CALL_SEQUENCE.getId())) {
 				referencedObject = getNamedElementByQualifiedName(qualifiedName, SubprogramCallSequence.class);
-			} else if(type.equals(DeclarativeReferenceBuilder.TYPE_SUBPROGRAM_CALL)) {
+			} else if (type.equals(DeclarativeReferenceType.SUBPROGRAM_CALL.getId())) {
 				referencedObject = getNamedElementByQualifiedName(qualifiedName, SubprogramCall.class);
-			} else if(type.equals(DeclarativeReferenceBuilder.TYPE_MODE_TRANSITION_NAMED)) {
+			} else if (type.equals(DeclarativeReferenceType.MODE_TRANSITION_NAMED.getId())) {
 				if(refSegs.length == 3) {
 					final Object referencedClassifier = refService.getReferencedObject(refSegs[1]);
 					if(referencedClassifier instanceof ComponentClassifier) {
@@ -223,7 +222,7 @@ public class DeclarativeReferenceResolver {
 								findAny().orElse(null);
 					}
 				}
-			} else if(type.equals(DeclarativeReferenceBuilder.TYPE_MODE_TRANSITION_UNNAMED)) {
+			} else if (type.equals(DeclarativeReferenceType.MODE_TRANSITION_UNNAMED.getId())) {
 				final ComponentClassifier cc = getNamedElementByQualifiedName(qualifiedName, ComponentClassifier.class);
 				if(cc != null) {
 					for(final ModeTransition mt : cc.getOwnedModeTransitions()) {
@@ -233,7 +232,7 @@ public class DeclarativeReferenceResolver {
 						}
 					}
 				}
-			} else if(type.equals(DeclarativeReferenceBuilder.TYPE_MODE_TRANSITION_TRIGGER)) {
+			} else if (type.equals(DeclarativeReferenceType.MODE_TRANSITION_TRIGGER.getId())) {
 				if(refSegs.length == 4) {
 					final Object referencedModeTransition = refService.getReferencedObject(refSegs[1]);
 					if(referencedModeTransition instanceof ModeTransition) {
@@ -246,34 +245,34 @@ public class DeclarativeReferenceResolver {
 								findAny().orElse(null);
 					}
 				}
-			} else if(type.equals(DeclarativeReferenceBuilder.TYPE_REALIZATION)) {
+			} else if (type.equals(DeclarativeReferenceType.REALIZATION.getId())) {
 				final ComponentImplementation ci = getNamedElementByQualifiedName(qualifiedName, ComponentImplementation.class);
 				if(ci != null) {
 					referencedObject = ci.getOwnedRealization();
 				}
-			} else if(type.equals(DeclarativeReferenceBuilder.TYPE_TYPE_EXTENSION)) {
+			} else if (type.equals(DeclarativeReferenceType.TYPE_EXTENSION.getId())) {
 				final ComponentType ct = getNamedElementByQualifiedName(qualifiedName, ComponentType.class);
 				if(ct instanceof ComponentType) {
 					referencedObject = ct.getOwnedExtension();
 				}
-			} else if(type.equals(DeclarativeReferenceBuilder.TYPE_IMPLEMENTATION_EXTENSION)) {
+			} else if (type.equals(DeclarativeReferenceType.IMPLEMENTATION_EXTENSION.getId())) {
 				final ComponentImplementation ci = getNamedElementByQualifiedName(qualifiedName, ComponentImplementation.class);
 				if(ci != null) {
 					referencedObject = ci.getOwnedExtension();
 				}
-			} else if(type.equals(DeclarativeReferenceBuilder.TYPE_GROUP_EXTENSION)) {
+			} else if (type.equals(DeclarativeReferenceType.GROUP_EXTENSION.getId())) {
 				final FeatureGroupType fgt = getNamedElementByQualifiedName(qualifiedName, FeatureGroupType.class);
 				if(fgt != null) {
 					referencedObject = fgt.getOwnedExtension();
 				}
-			} else if(type.equals(DeclarativeReferenceBuilder.TYPE_ANNEX_LIBRARY)) {
+			} else if (type.equals(DeclarativeReferenceType.ANNEX_LIBRARY.getId())) {
 				final AadlPackage pkg = getNamedElementByQualifiedName(qualifiedName, AadlPackage.class);
 				if(refSegs.length == 4 && pkg != null) {
 					final String annexName = refSegs[2];
 					final int annexIndex = Integer.parseInt(refSegs[3]);
 					referencedObject = findAnnexLibrary(pkg, annexName, annexIndex);
 				}
-			} else if(type.equals(DeclarativeReferenceBuilder.TYPE_ANNEX_SUBCLAUSE)) {
+			} else if (type.equals(DeclarativeReferenceType.ANNEX_SUBCLAUSE.getId())) {
 				final Classifier classifier = getNamedElementByQualifiedName(qualifiedName, Classifier.class);
 				if(refSegs.length == 4 && classifier != null) {
 					final String annexName = refSegs[2];

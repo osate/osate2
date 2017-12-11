@@ -16,4 +16,5 @@ public class InternalNames {
 	public static final String PROJECT = "project";
 	public static final String SELECTED_DIAGRAM_ELEMENT = "selected_diagram_element";
 	public static final String SELECTED_DIAGRAM_ELEMENTS = "selected_diagram_elements";
+	public static final String REFERENCE = "reference";
 }

@@ -123,6 +123,10 @@
             id="org.osate.ge.layoutContents"
             name="Layout Contents">
       </command>
+      <command
+            id="org.osate.ge.restoreMissingDiagramElements"
+            name="Restore Missing Diagram Elements...">
+      </command>
    </extension>
  <extension
        point="org.eclipse.ui.handlers">
@@ -340,6 +344,10 @@
                 definitionId="org.osate.ge.expresions.editorIsActive">
           </reference>
        </enabledWhen>
+    </handler>
+    <handler
+          class="org.osate.ge.internal.ui.handlers.RestoreMissingDiagramElementsHandler"
+          commandId="org.osate.ge.restoreMissingDiagramElements">
     </handler>
  </extension>
        
@@ -722,6 +730,20 @@
  </menuContribution>
  <menuContribution
        allPopups="false"
+       locationURI="menu:edit?after=additions">
+    <command
+          commandId="org.osate.ge.restoreMissingDiagramElements"
+          style="push">
+       <visibleWhen
+             checkEnabled="false">
+          <reference
+                definitionId="org.osate.ge.expresions.editorIsActive">
+          </reference>
+       </visibleWhen>
+    </command>
+</menuContribution>
+ <menuContribution
+       allPopups="false"
        locationURI="menu:edit?after=selectAll">
     <menu
           label="Layout">
@@ -834,6 +856,7 @@
              style="push">
        </command>
     </menu>
+>>>>>>> refs/remotes/origin/develop
  </menuContribution>
    </extension>
 	   
@@ -1541,6 +1564,9 @@
        <referenceBuilder
              class="org.osate.ge.internal.services.impl.GraphicalEditorModelReferenceBuilder">
        </referenceBuilder>
+       <referenceLabelProvider
+             class="org.osate.ge.internal.services.impl.DeclarativeReferenceLabelProvider">
+       </referenceLabelProvider>
     </extension>
     <extension
           point="org.osate.ge.businessObjectHandlers">

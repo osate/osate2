@@ -114,7 +114,7 @@ public class DiagramUpdater {
 				if(removedGhost == null) {
 					final Object boh = infoProvider.getApplicableBusinessObjectHandler(n.getBusinessObject());
 					if(boh == null) {
-						// TODO: Proper way of handling?
+						// Ignore the object
 						continue;
 					}
 					element = new DiagramElement(container, n.getBusinessObject(), boh, n.getRelativeReference());
@@ -320,4 +320,42 @@ public class DiagramUpdater {
 
 		return relativeReferenceToGhostMap.remove(relativeReference);
 	}
+
+	/**
+	 * Wrapper for a ghosted DiagramElement. Intended to prevent corrupting containerToRelativeReferenceToGhostMap caused by changing the element's relative reference directly.
+	 *
+	 */
+	public class GhostedElement {
+		private final DiagramElement element;
+
+		public GhostedElement(final DiagramElement element) {
+			this.element = Objects.requireNonNull(element, "element mustnot be null");
+		}
+
+		public RelativeBusinessObjectReference getRelativeReference() {
+			return element.getRelativeReference();
+		}
+
+		public DiagramNode getParent() {
+			return element.getParent();
+		}
+
+		public void updateBusinessObject(final DiagramModification m, final Object bo,
+				final RelativeBusinessObjectReference newRelativeReference) {
+			removeGhost(element.getContainer(), getRelativeReference());
+			m.updateBusinessObject(element, bo, newRelativeReference);
+			addGhost(element);
+		}
+	}
+
+	/**
+	 * Returns a collection containing the ghosted children for the specified node.
+	 * @param node
+	 * @return
+	 */
+	public Collection<GhostedElement> getGhosts(final DiagramNode node) {
+		return containerToRelativeReferenceToGhostMap.getOrDefault(node, Collections.emptyMap()).values().stream()
+				.map(e -> new GhostedElement(e)).collect(Collectors.toList());
+	}
+
 }

@@ -1,7 +1,5 @@
 package org.osate.ge.internal.ui.editor;
 
-import org.osate.aadl2.NamedElement;
-import org.osate.ge.internal.query.Queryable;
 import org.osate.ge.internal.services.ColoringService;
 import org.osate.ge.services.QueryService;
 
@@ -24,16 +22,5 @@ class ContributionHelper {
 		}
 
 		return (ColoringService)editor.getAdapter(ColoringService.class);
-	}
-
-	public static String getPath(final Queryable q) {
-		final Object bo = q.getBusinessObject();
-		if (bo instanceof NamedElement) {
-			final String parentPath = getPath(q.getParent());
-			final String name = ((NamedElement) bo).getName();
-			return parentPath.length() == 0 ? name : parentPath + "::" + name;
-		} else {
-			return "";
-		}
 	}
 }

@@ -46,6 +46,10 @@
 			</topic>
 			<topic label="Editing a Diagram Element&#39;s Appearance" href="docs-gen/user_guide.html#sec:de_apperance">
 			</topic>
+			<topic label="Diagram Context Adjustment" href="docs-gen/user_guide.html#diagram-context-adjustment">
+			</topic>
+			<topic label="Restore Missing Diagram Elements" href="docs-gen/user_guide.html#sec:restore_missing_diagram_elements">
+			</topic>
 		</topic>
 		<topic label="Diagram Layout" href="docs-gen/user_guide.html#diagram-layout">
 			<topic label="Layout Commands" href="docs-gen/user_guide.html#layout-commands">
@@ -182,6 +186,8 @@
 		<topic label="Unable to Set Properties Unless Text Model is Open" href="docs-gen/user_guide.html#unable-to-set-properties-unless-text-model-is-open">
 		</topic>
 		<topic label="Updating the Diagram" href="docs-gen/user_guide.html#updating-the-diagram">
+		</topic>
+		<topic label="Missing Diagram Elements After Modification of AADL Source" href="docs-gen/user_guide.html#missing-diagram-elements-after-modification-of-aadl-source">
 		</topic>
 		<topic label="Reporting Bugs" href="docs-gen/user_guide.html#reporting-bugs">
 		</topic>

@@ -13,5 +13,6 @@ import org.osate.ge.services.ReferenceResolutionService;
 /**
  * Project-specific Service for building and resolving references.
  */
-public interface ProjectReferenceService extends ReferenceBuilderService, ReferenceResolutionService {
+public interface ProjectReferenceService
+		extends ReferenceBuilderService, ReferenceLabelService, ReferenceResolutionService {
 }

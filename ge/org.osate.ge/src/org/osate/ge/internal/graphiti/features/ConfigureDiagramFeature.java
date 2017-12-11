@@ -77,16 +77,17 @@ public class ConfigureDiagramFeature extends AbstractCustomFeature implements IC
 
 		final long nextElementId = BusinessObjectNode.getMaxId(boTree) + 1;
 
-		try(final DefaultDiagramConfigurationDialogModel model = new DefaultDiagramConfigurationDialogModel(referenceService, extService, projectProvider, nextElementId)) {
+		try (final DefaultDiagramConfigurationDialogModel model = new DefaultDiagramConfigurationDialogModel(
+				referenceService, extService, projectProvider, nextElementId)) {
 			// Create a BO path for the initial selection
 			Object[] initialSelectionBoPath = null;
-			if(context.getPictogramElements() != null && context.getPictogramElements().length == 1) {
+			if (context.getPictogramElements() != null && context.getPictogramElements().length == 1) {
 				final PictogramElement pe = context.getPictogramElements()[0];
 				final DiagramElement element = graphitiAgeDiagram.getDiagramElement(pe);
-				if(element != null && model.showBusinessObject(element.getBusinessObject())) { // Only build a selection path if the BO will be shown
+				if (element != null && model.showBusinessObject(element.getBusinessObject())) { // Only build a selection path if the BO will be shown
 					DiagramNode tmp = element;
 					final LinkedList<Object> boList = new LinkedList<>();
-					while(tmp instanceof DiagramElement) {
+					while (tmp instanceof DiagramElement) {
 						boList.addFirst(tmp.getBusinessObject());
 						tmp = tmp.getParent();
 					}
@@ -96,8 +97,9 @@ public class ConfigureDiagramFeature extends AbstractCustomFeature implements IC
 			}
 
 			// Show the dialog
-			final DiagramConfigurationDialog.Result result = DiagramConfigurationDialog.show(null, model, diagram.getConfiguration(), boTree, initialSelectionBoPath);
-			if(result != null) {
+			final DiagramConfigurationDialog.Result result = DiagramConfigurationDialog.show(null, model,
+					diagram.getConfiguration(), boTree, initialSelectionBoPath);
+			if (result != null) {
 				diagram.modify("Set Diagram Configuration", m -> {
 					m.setDiagramConfiguration(result.getDiagramConfiguration());
 					diagramUpdater.updateDiagram(diagram, result.getBusinessObjectTree());

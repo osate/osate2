@@ -10,6 +10,7 @@ import javax.inject.Inject;
 
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
+import org.eclipse.core.resources.IncrementalProjectBuilder;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
@@ -64,6 +65,8 @@ import org.osate.ge.internal.services.DiagramService;
 import org.osate.ge.internal.services.DiagramService.ReferenceCollection;
 import org.osate.ge.internal.services.DiagramService.UpdatedReferenceValueProvider;
 import org.osate.ge.internal.services.ExtensionService;
+import org.osate.ge.internal.services.ModelChangeNotifier;
+import org.osate.ge.internal.services.ModelChangeNotifier.Lock;
 import org.osate.ge.internal.util.AnnotationUtil;
 import org.osate.ge.internal.util.ProjectUtil;
 import org.osate.ge.services.ReferenceBuilderService;
@@ -81,12 +84,14 @@ public class BoHandlerDirectEditFeature extends AbstractDirectEditingFeature imp
 	private final AadlModificationService aadlModService;
 	private final DiagramService diagramService;
 	private final ReferenceBuilderService referenceBuilderService;
+	private final ModelChangeNotifier modelChangeNotifier;
 
 	@Inject
 	public BoHandlerDirectEditFeature(final IFeatureProvider fp,
 			final GraphitiService graphitiService,
 			final ExtensionService extService, final AadlModificationService aadlModService,
-			final DiagramService diagramService, final ReferenceBuilderService referenceBuilderService) {
+			final DiagramService diagramService, final ReferenceBuilderService referenceBuilderService,
+			final ModelChangeNotifier modelChangeNotifier) {
 		super(fp);
 		this.graphitiService = Objects.requireNonNull(graphitiService, "graphitiService must not be null");
 		this.extService = Objects.requireNonNull(extService, "extService must not be null");
@@ -94,6 +99,7 @@ public class BoHandlerDirectEditFeature extends AbstractDirectEditingFeature imp
 		this.diagramService = Objects.requireNonNull(diagramService, "diagramService must not be null");
 		this.referenceBuilderService = Objects.requireNonNull(referenceBuilderService,
 				"referenceBuilderService must not be null");
+		this.modelChangeNotifier = Objects.requireNonNull(modelChangeNotifier, "modelChangeNotifier must not be null");
 	}
 
 	@Override
@@ -309,7 +315,20 @@ public class BoHandlerDirectEditFeature extends AbstractDirectEditingFeature imp
 					@Override
 					protected void execute(IProgressMonitor monitor)
 							throws CoreException, InvocationTargetException, InterruptedException {
-						change.perform(monitor);
+						// Prevent model notification changes from being sent until after the refactoring
+						try (Lock lock = modelChangeNotifier.lock()) {
+							// Perform the modification
+							change.perform(monitor);
+
+							// Build the project to prevent reference resolver from using old objects.
+							try {
+								graphitiService.getProject().build(IncrementalProjectBuilder.INCREMENTAL_BUILD,
+										new NullProgressMonitor());
+							} catch (CoreException e) {
+								// Ignore any errors that occur while building the project
+								e.printStackTrace();
+							}
+						}
 					}
 				}.run(null);
 			} catch (final Exception e) {

@@ -194,6 +194,18 @@ An element's appearance can be changed using the following steps.
 	- Font color can be edited by clicking the font color button and selecting the desired color.
 	- Background color can be edited by clicking the background color button and selecting the desired color.
 
+### Diagram Context Adjustment
+Diagrams are associated with model elements. Moving a model element between packages or renaming it or any of its containers from the AADL text editor without using the *Rename Element* menu option will break its association with diagrams. 
+
+When opening a diagram, the *Missing Diagram Context* dialog will appear if the graphical editor is unable to find the model element associated with a diagram for any reason. If the element has been previously renamed, select the new name for the element and select *OK*.
+
+### Restore Missing Diagram Elements{#sec:restore_missing_diagram_elements}
+If a a model element is renamed from the AADL text editor without using the *Rename Element* menu option, the diagram element may disappear from diagrams in which it appears. In such cases it is possible to restore the diagram elements using the following steps. Note: if the diagram is saved after the diagram elements disappears, it will not be possible to restore the missing diagram elements.
+
+1. Select *Edit->Restore Missing Diagram Elements*. A window containing diagram elements which have been removed from the diagram because the associated model element is missing will appear.
+2. Update the desired model references in the *New Reference* column.
+3. Select OK. The diagram elements will be restored.
+
 ## Diagram Layout
 The following sections describe the diagram layout capabilities of the graphical editor.
 
@@ -600,6 +612,9 @@ The AADL Property Values view does not support editing property associations unl
 
 ## Updating the Diagram
 In most cases the graphical editor will automatically update diagrams to reflect changes to the AADL Model. If a diagram has not been updated for any reason, it can be updated manually by right-clicking inside an empty area of the diagram and selecting *Update* from the context menu.
+
+## Missing Diagram Elements After Modification of AADL Source
+See @sec:restore_missing_diagram_elements.
 
 ## Reporting Bugs
 Bugs should be reported to the issue tracker on the graphical editor's [GitHub Site](https://github.com/osate/osate-ge).

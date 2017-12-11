@@ -26,7 +26,9 @@ import org.osate.aadl2.ComponentImplementation;
 import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.Subcomponent;
 import org.osate.ge.internal.diagram.runtime.AgeDiagram;
+import org.osate.ge.internal.diagram.runtime.DiagramNode;
 import org.osate.ge.internal.query.Queryable;
+import org.osate.ge.internal.ui.util.UiUtil;
 import org.osate.ge.internal.util.AadlClassifierUtil;
 import org.osate.ge.internal.util.AadlFlowSpecificationUtil;
 import org.osate.ge.internal.util.AadlFlowSpecificationUtil.FlowSegmentReference;
@@ -168,7 +170,7 @@ public class FlowContributionItem extends ComboContributionItem {
 	}
 
 	private static String getName(final FlowSegmentReference highlightableFlowElement) {
-		return ContributionHelper.getPath(highlightableFlowElement.container) + "::"
+		return UiUtil.getPathLabel((DiagramNode) highlightableFlowElement.container) + "::"
 				+ highlightableFlowElement.flowSegmentElement.getName();
 	}
 

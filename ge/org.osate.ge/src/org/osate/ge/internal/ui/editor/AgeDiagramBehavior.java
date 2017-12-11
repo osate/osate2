@@ -711,10 +711,7 @@ public class AgeDiagramBehavior extends DiagramBehavior implements GraphitiAgeDi
 			if(LegacyDiagramUtil.isLegacy((IFile)resource)) {
 				// Only prompt for converting if the workbench window is already visible.
 				// The primary purpose is to be prevent confusion by not prompting for conversion on the first load of the workspace after upgrading.
-				if(PlatformUI.getWorkbench() !=  null &&
-						PlatformUI.getWorkbench().getActiveWorkbenchWindow() != null &&
-						PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell() != null &&
-						PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell().isVisible()) {
+				if (isWorkbenchVisible()) {
 					// The file is a legacy file
 					// Prompt user as to whether to convert the file
 					if(MessageDialog.openQuestion(null, "Conversion Required", "This diagram file uses a legacy file format which is not supported by this version of OSATE.\nDo you wish to convert the file to the latest format?\n\nConverted files will not be compatible with older versions of OSATE.\nThe original file will be removed after conversion.")) {
@@ -733,10 +730,16 @@ public class AgeDiagramBehavior extends DiagramBehavior implements GraphitiAgeDi
 					}
 				} else {
 					// Close the editor if the window isn't open. This usually occurs when eclipse is loading with legacy diagrams opened.
-					getDiagramContainer().close();
+					closeDiagramContainer();
 				}
 			}
 		}
+	}
+
+	private static boolean isWorkbenchVisible() {
+		return PlatformUI.getWorkbench() != null && PlatformUI.getWorkbench().getActiveWorkbenchWindow() != null
+				&& PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell() != null
+				&& PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell().isVisible();
 	}
 
 	public boolean initializationFailed() {
@@ -752,40 +755,48 @@ public class AgeDiagramBehavior extends DiagramBehavior implements GraphitiAgeDi
 			return;
 		}
 
-		super.setInput(input);
+		try {
+			super.setInput(input);
 
-		if(resourceChangeListener == null) {
-			// Create and register a resource change listener. This listener is needed to handle moving and deleting of the resource file.
-			// Graphiti's built-in support cannot be used because the editor has a custom persistency behavior that doesn't use EMF
-			final IWorkspace workspace = ResourcesPlugin.getWorkspace();
-			resourceChangeListener = event -> {
-				if(event.getType() != IResourceChangeEvent.POST_CHANGE) {
-					return;
-				}
+			if (initializationFailed()) {
+				return;
+			}
 
-				final IResourceDelta rootDelta = event.getDelta();
-				final IResourceDelta diagramDelta = rootDelta.findMember(getPath(getInput().getUri()));
-				if (diagramDelta == null) {
-					return;
-				}
+			if (resourceChangeListener == null) {
+				// Create and register a resource change listener. This listener is needed to handle moving and deleting of the resource file.
+				// Graphiti's built-in support cannot be used because the editor has a custom persistency behavior that doesn't use EMF
+				final IWorkspace workspace = ResourcesPlugin.getWorkspace();
+				resourceChangeListener = event -> {
+					if (event.getType() != IResourceChangeEvent.POST_CHANGE) {
+						return;
+					}
 
-				if(diagramDelta.getKind() == IResourceDelta.REMOVED) {
-					Display.getDefault().asyncExec(() -> {
-						if((diagramDelta.getFlags() & IResourceDelta.MOVED_TO) == 0) {
-							// Close editor
-							getDiagramContainer().close();
-						} else {
-							// Update the input's URI and refresh the title
-							final IPath newPath = diagramDelta.getMovedToPath();
-							final URI newUri = URI.createPlatformResourceURI(newPath.toString(), true);
-							getInput().updateUri(newUri);
-							updateProjectByUri(newUri);
-							getDiagramContainer().refreshTitle();
-						}
-					});
-				}
-			};
-			workspace.addResourceChangeListener(resourceChangeListener);
+					final IResourceDelta rootDelta = event.getDelta();
+					final IResourceDelta diagramDelta = rootDelta.findMember(getPath(getInput().getUri()));
+					if (diagramDelta == null) {
+						return;
+					}
+
+					if (diagramDelta.getKind() == IResourceDelta.REMOVED) {
+						Display.getDefault().asyncExec(() -> {
+							if ((diagramDelta.getFlags() & IResourceDelta.MOVED_TO) == 0) {
+								// Close editor
+								getDiagramContainer().close();
+							} else {
+								// Update the input's URI and refresh the title
+								final IPath newPath = diagramDelta.getMovedToPath();
+								final URI newUri = URI.createPlatformResourceURI(newPath.toString(), true);
+								getInput().updateUri(newUri);
+								updateProjectByUri(newUri);
+								getDiagramContainer().refreshTitle();
+							}
+						});
+					}
+				};
+				workspace.addResourceChangeListener(resourceChangeListener);
+			}
+		} catch (final InitializationException ex) {
+			setEditorInitializationError(ex.getMessage());
 		}
 	}
 
@@ -867,7 +878,7 @@ public class AgeDiagramBehavior extends DiagramBehavior implements GraphitiAgeDi
 
 	@Override
 	protected IDiagramTypeProvider initDiagramTypeProvider(final Diagram diagram) {
-		final IDiagramTypeProvider dtp = super.initDiagramTypeProvider(diagram);
+		final AgeDiagramTypeProvider dtp = (AgeDiagramTypeProvider) super.initDiagramTypeProvider(diagram);
 
 		// Ensure the project is built. This prevents being unable to find the context due to the Xtext index not having completed.
 		try {
@@ -876,9 +887,39 @@ public class AgeDiagramBehavior extends DiagramBehavior implements GraphitiAgeDi
 			throw new RuntimeException(e);
 		}
 
+		// Prevent the diagram from being marked as dirty. This may be overriden if the context is relinked
+		forceNotDirty = true;
+
+		final AgeFeatureProvider fp = (AgeFeatureProvider) dtp.getFeatureProvider();
+
 		// Update the diagram to finish initializing the diagram's fields before creating the GraphitiAgeDiagram object
-		final AgeFeatureProvider fp = (AgeFeatureProvider)dtp.getFeatureProvider();
-		fp.getDiagramUpdater().updateDiagram(ageDiagram);
+		ageDiagram.modify("Update Diagram", m -> {
+			// Check the diagram's context
+			final DiagramContextChecker contextChecker = new DiagramContextChecker(project,
+					dtp.getProjectReferenceService());
+			final boolean workbenchIsVisible = isWorkbenchVisible();
+			final DiagramContextChecker.Result result = contextChecker.checkContext(ageDiagram, workbenchIsVisible);
+
+			if (result.isContextValid()) {
+				if (result.wasContextUpdated()) {
+					forceNotDirty = false;
+				}
+			} else {
+				// If the workbench is not visible, then close the diagram to avoid an error which could have been avoided by relinking since
+				// we only prompts to relink if the workbench is visible.
+				if (!workbenchIsVisible) {
+					closeDiagramContainer();
+				}
+
+				final String refContextLabel = dtp.getProjectReferenceService().getLabel(ageDiagram.getConfiguration().getContextBoReference());
+
+				throw new InitializationException("Unable to resolve context: "
+						+ (refContextLabel == null ? ageDiagram.getConfiguration().getContextBoReference().toString()
+								: refContextLabel));
+			}
+
+			fp.getDiagramUpdater().updateDiagram(ageDiagram);
+		});
 
 		// Perform incremental layout
 		final LayoutInfoProvider layoutInfoProvider = (LayoutInfoProvider) dtp.getCurrentToolBehaviorProvider()
@@ -888,7 +929,7 @@ public class AgeDiagramBehavior extends DiagramBehavior implements GraphitiAgeDi
 
 		// Set the coloring service field. It is needed
 		final ColoringProvider coloringProvider = new ColoringProvider() {
-			private ColoringService cs = ((AgeDiagramTypeProvider)dtp).getColoringService();
+			private ColoringService cs = dtp.getColoringService();
 			@Override
 			public Map<DiagramElement, Color> buildForegroundColorMap() {
 				return cs.buildForegroundColorMap();
@@ -904,10 +945,15 @@ public class AgeDiagramBehavior extends DiagramBehavior implements GraphitiAgeDi
 					setPictogramElementsForSelection(pes);
 				});
 
-		// Prevent the diagram from being marked as dirty.
-		forceNotDirty = true;
-
 		return dtp;
+	}
+
+	private void closeDiagramContainer() {
+		// Need to wait until opening finishes before attempting to close the editor.
+		// Otherwise, exceptions will be triggered in addition to the editor being closed.
+		Display.getCurrent().asyncExec(() -> {
+			getDiagramContainer().close();
+		});
 	}
 
 	/**
@@ -990,6 +1036,15 @@ public class AgeDiagramBehavior extends DiagramBehavior implements GraphitiAgeDi
 			if (propertySheetPage != null && propertySheetPage.getCurrentTab() != null) {
 				propertySheetPage.refresh();
 			}
+		}
+	}
+
+	// Special exception for handling errors during the initialization process.
+	private static class InitializationException extends RuntimeException {
+		private static final long serialVersionUID = 2650849956029822898L;
+
+		public InitializationException(final String message) {
+			super(message);
 		}
 	}
 }

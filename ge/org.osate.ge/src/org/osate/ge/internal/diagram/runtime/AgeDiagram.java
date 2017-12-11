@@ -206,10 +206,13 @@ public class AgeDiagram implements DiagramNode, ModifiableDiagramElementContaine
 			Objects.requireNonNull(bo, "bo must not be null");
 			Objects.requireNonNull(relativeReference, "relativeReference must not be null");
 
-			e.getModifiableContainer().getModifiableDiagramElements().remove(e);
+			final boolean wasRemoved = e.getModifiableContainer().getModifiableDiagramElements().remove(e);
 			e.setBusinessObject(bo);
 			e.setRelativeReference(relativeReference);
-			e.getModifiableContainer().getModifiableDiagramElements().add(e);
+
+			if (wasRemoved) {
+				e.getModifiableContainer().getModifiableDiagramElements().add(e);
+			}
 
 			updatedElement = e;
 			undoable = false;

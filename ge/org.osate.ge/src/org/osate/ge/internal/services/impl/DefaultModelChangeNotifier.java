@@ -53,6 +53,8 @@ public class DefaultModelChangeNotifier implements ModelChangeNotifier {
 		@Override
 		public boolean visit(final IResourceDelta delta) {
 			final IResource resource = delta.getResource();
+
+			// Trigger a change if the project itself has changed
 			if (resource.getType() == IResource.PROJECT && (delta.getKind() != IResourceDelta.CHANGED
 					|| (delta.getKind() == IResourceDelta.CHANGED && delta.getFlags() != 0))) {
 				hasModelChanged = true;
@@ -66,7 +68,9 @@ public class DefaultModelChangeNotifier implements ModelChangeNotifier {
 		@Override
 		public boolean visit(final IResourceDelta delta) {
 			final IResource resource = delta.getResource();
-			if (resource.getType() == IResource.FILE && "aadl".equalsIgnoreCase(resource.getFileExtension())) {
+			// aadlbin changes indicate an AADL file has been (re)built.
+			if (resource.getType() == IResource.FILE && ("aadl".equalsIgnoreCase(resource.getFileExtension())
+					|| "aadlbin".equalsIgnoreCase(resource.getFileExtension()))) {
 				final URI resourceUri = URI.createPlatformResourceURI(resource.getFullPath().toString(), true);
 				pendingChangedResourceUris.add(resourceUri);
 				return false;
@@ -91,7 +95,7 @@ public class DefaultModelChangeNotifier implements ModelChangeNotifier {
 				e.printStackTrace();
 			}
 
-			Display.getDefault().asyncExec(() -> {
+			Display.getDefault().syncExec(() -> {
 				handleNotifications();
 			});
 		}

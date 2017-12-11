@@ -113,6 +113,10 @@ public class AgeDiagramTypeProvider extends AbstractDiagramTypeProvider {
 		return context.get(ColoringService.class);
 	}
 
+	public ProjectReferenceService getProjectReferenceService() {
+		return projectReferenceService;
+	}
+
 	@Override
 	public IToolBehaviorProvider[] getAvailableToolBehaviorProviders() {
 		if (toolBehaviorProviders == null) {
