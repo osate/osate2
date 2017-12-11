@@ -51,7 +51,7 @@ import static extension org.apache.commons.lang.StringUtils.ordinalIndexOf
  */
 @FinalFieldsConstructor
 abstract class AbstractNewFileWizard extends Wizard implements INewWizard {
-	val static HIDE_FOLDERS = #[".aadlbin-gen", ".settings", "instances", "diagrams", "imv"]
+	val static HIDE_FOLDERS = #["instances", "diagrams", "imv"]
 	
 	val String fileType
 	val protected String fileExtension
@@ -135,7 +135,9 @@ abstract class AbstractNewFileWizard extends Wizard implements INewWizard {
 								switch element {
 									IWorkspace: element.root.projects.filter[project | project.open]
 									IContainer: try {
-										element.members.filter(IContainer).filter[resource | !HIDE_FOLDERS.contains(resource.name)]
+										element.members.filter(IContainer).filter[resource |
+											!resource.name.startsWith(".") && !HIDE_FOLDERS.contains(resource.name)
+										]
 									} catch (CoreException e) {
 										log.log(new Status(IStatus.WARNING, pluginId, e.message, e))
 										#[]
