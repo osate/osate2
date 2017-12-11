@@ -2423,7 +2423,6 @@ class EMV2PathElementTest extends OsateTest {
 						]
 					]
 					properties.get(56) => [
-					assertError(lib1TestResult.issues, lib1IssueCollection, "Property EMV2::ExposurePeriod does not apply to connectionErrorSource1")
 						57.57.assertEquals((ownedValues.head.ownedValue as RealLiteral).value, 0)
 						emv2Path.head.emv2Target => [
 							"connectionErrorSource1".assertEquals(namedElement.name)
