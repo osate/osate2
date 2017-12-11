@@ -50,7 +50,7 @@ end issue53;
 			publicSection.ownedClassifiers.head => [
 				"pedals".assertEquals(name)
 				((ownedAnnexSubclauses.head as DefaultAnnexSubclause).parsedAnnexSubclause as ErrorModelSubclause).properties.head => [
-					assertError(testFileResult.issues, issueCollection, "Property EMV2::Likelihood applies to refers to type ServiceOmission not conained in type set of error propagation pedal_position")
+					assertError(testFileResult.issues, issueCollection, "Property EMV2::Likelihood applies to refers to type ServiceOmission not contained in type set of error propagation pedal_position")
 				]
 			]
 		]

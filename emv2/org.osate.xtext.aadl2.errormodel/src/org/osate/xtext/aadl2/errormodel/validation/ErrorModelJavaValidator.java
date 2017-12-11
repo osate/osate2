@@ -44,7 +44,6 @@ import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorStateMachine;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorTransition;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorDetection;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorEvent;
-import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelFactory;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelLibrary;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelPackage;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelSubclause;
@@ -130,16 +129,35 @@ public class ErrorModelJavaValidator extends AbstractErrorModelJavaValidator {
 						EObject prev = ph.eContainer();
 						if (prev instanceof EMV2PathElement) {
 							ne = ((EMV2PathElement) prev).getNamedElement();
-							if (ne instanceof ErrorPropagation) {
-								ErrorPropagation ep = (ErrorPropagation) ne;
-								TypeSet ts = ep.getTypeSet();
-								if (!EM2TypeSetUtil.contains(ts, et)) {
-									error(pa,
-											"Property " + pa.getProperty().getQualifiedName()
-											+ " applies to refers to type " + EMV2Util.getPrintName(et)
-											+ " not conained in type set of error propagation "
-											+ EMV2Util.getPrintName(ep));
+							boolean noMatch = false;
+							if (ne instanceof ErrorBehaviorState) {
+								TypeSet ts = ((ErrorBehaviorState) ne).getTypeSet();
+								noMatch = ts != null && !EM2TypeSetUtil.contains(ts, et);
+							} else if (ne instanceof ErrorPropagation) {
+								String epname = EMV2Util.getPrintName((ErrorPropagation) ne);
+								EList<ErrorPropagation> eplist = EMV2Util.getContainingErrorModelSubclause(ne)
+										.getPropagations();
+								Boolean foundType = false;
+								for (ErrorPropagation ep : eplist) {
+									if (epname.equalsIgnoreCase(EMV2Util.getPrintName(ep))) {
+										TypeSet ts = ep.getTypeSet();
+										if (EM2TypeSetUtil.contains(ts, et)) {
+											foundType = true;
+											break;
+										}
+									}
 								}
+								noMatch = !foundType;
+							} else if (ne instanceof ErrorEvent) {
+								TypeSet ts = ((ErrorEvent) ne).getTypeSet();
+								noMatch = ts != null && !EM2TypeSetUtil.contains(ts, et);
+							}
+							if (noMatch) {
+								error(pa,
+										"Property " + pa.getProperty().getQualifiedName()
+										+ " applies to refers to type " + EMV2Util.getPrintName(et)
+										+ " not contained in type set of error propagation "
+										+ EMV2Util.getPrintName(ne));
 							}
 						}
 					}
@@ -187,10 +205,10 @@ public class ErrorModelJavaValidator extends AbstractErrorModelJavaValidator {
 					} else if (ne instanceof ErrorEvent) {
 						tts = ((ErrorEvent) ne).getTypeSet();
 					}
-					TypeToken tt = ErrorModelFactory.eINSTANCE.createTypeToken();
-					tt.getType().add(et);
-					if (EM2TypeSetUtil.contains(tts, tt)) {
-
+					if (!EM2TypeSetUtil.contains(tts, et)) {
+						error(propertyAssociation, "Property " + propertyAssociation.getProperty().getQualifiedName()
+								+ " applies to refers to type " + EMV2Util.getPrintName(et)
+								+ " not contained in type set of error propagation " + EMV2Util.getPrintName(ne));
 					}
 				}
 			}
