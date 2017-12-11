@@ -602,9 +602,9 @@ ruleUseTransformationsKeywords
 )?(
 (
 		{ 
-	        newCompositeNode(grammarAccess.getErrorModelSubclauseAccess().getConnectionErrorSourcesConnectionErrorSourceParserRuleCall_8_2_0()); 
+	        newCompositeNode(grammarAccess.getErrorModelSubclauseAccess().getConnectionErrorSourcesErrorSourceParserRuleCall_8_2_0()); 
 	    }
-		lv_connectionErrorSources_46_0=ruleConnectionErrorSource		{
+		lv_connectionErrorSources_46_0=ruleErrorSource		{
 	        if ($current==null) {
 	            $current = createModelElementForParent(grammarAccess.getErrorModelSubclauseRule());
 	        }
@@ -612,7 +612,7 @@ ruleUseTransformationsKeywords
        			$current, 
        			"connectionErrorSources",
         		lv_connectionErrorSources_46_0, 
-        		"org.osate.xtext.aadl2.errormodel.ErrorModel.ConnectionErrorSource");
+        		"org.osate.xtext.aadl2.errormodel.ErrorModel.ErrorSource");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -1211,9 +1211,9 @@ ruleUseTransformationsKeywords
 )?(
 (
 		{ 
-	        newCompositeNode(grammarAccess.getEMV2SubclauseAccess().getConnectionErrorSourcesConnectionErrorSourceParserRuleCall_10_2_0()); 
+	        newCompositeNode(grammarAccess.getEMV2SubclauseAccess().getConnectionErrorSourcesErrorSourceParserRuleCall_10_2_0()); 
 	    }
-		lv_connectionErrorSources_48_0=ruleConnectionErrorSource		{
+		lv_connectionErrorSources_48_0=ruleErrorSource		{
 	        if ($current==null) {
 	            $current = createModelElementForParent(grammarAccess.getEMV2SubclauseRule());
 	        }
@@ -1221,7 +1221,7 @@ ruleUseTransformationsKeywords
        			$current, 
        			"connectionErrorSources",
         		lv_connectionErrorSources_48_0, 
-        		"org.osate.xtext.aadl2.errormodel.ErrorModel.ConnectionErrorSource");
+        		"org.osate.xtext.aadl2.errormodel.ErrorModel.ErrorSource");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -4222,7 +4222,7 @@ ruleErrorSourceKeywords
 	        }
         }
 		{ 
-	        newCompositeNode(grammarAccess.getErrorSourceAccess().getOutgoingErrorPropagationCrossReference_3_0_0()); 
+	        newCompositeNode(grammarAccess.getErrorSourceAccess().getSourceModelElementNamedElementCrossReference_3_0_0()); 
 	    }
 		ruleErrorPropagationPoint
 		{ 
@@ -4233,17 +4233,17 @@ ruleErrorSourceKeywords
 )
     |(
 (
-		lv_allOutgoing_4_0=
+		lv_all_4_0=
 	All
     {
-        newLeafNode(lv_allOutgoing_4_0, grammarAccess.getErrorSourceAccess().getAllOutgoingAllKeyword_3_1_0());
+        newLeafNode(lv_all_4_0, grammarAccess.getErrorSourceAccess().getAllAllKeyword_3_1_0());
     }
 
 	    {
 	        if ($current==null) {
 	            $current = createModelElement(grammarAccess.getErrorSourceRule());
 	        }
-       		setWithLastConsumed($current, "allOutgoing", true, "all");
+       		setWithLastConsumed($current, "all", true, "all");
 	    }
 
 )
@@ -6018,176 +6018,6 @@ ruleBranchValue returns [EObject current=null]
 
 )
 )))
-;
-
-
-
-
-
-// Entry rule entryRuleConnectionErrorSource
-entryRuleConnectionErrorSource returns [EObject current=null]
-	:
-	{ newCompositeNode(grammarAccess.getConnectionErrorSourceRule()); }
-	 iv_ruleConnectionErrorSource=ruleConnectionErrorSource 
-	 { $current=$iv_ruleConnectionErrorSource.current; } 
-	 EOF 
-;
-
-// Rule ConnectionErrorSource
-ruleConnectionErrorSource returns [EObject current=null] 
-    @init { enterRule(); 
-    }
-    @after { leaveRule(); }:
-((
-(
-		lv_name_0_0=RULE_ID
-		{
-			newLeafNode(lv_name_0_0, grammarAccess.getConnectionErrorSourceAccess().getNameIDTerminalRuleCall_0_0()); 
-		}
-		{
-	        if ($current==null) {
-	            $current = createModelElement(grammarAccess.getConnectionErrorSourceRule());
-	        }
-       		setWithLastConsumed(
-       			$current, 
-       			"name",
-        		lv_name_0_0, 
-        		"org.osate.xtext.aadl2.properties.Properties.ID");
-	    }
-
-)
-)
-	otherlv_1=Colon
-    {
-    	newLeafNode(otherlv_1, grammarAccess.getConnectionErrorSourceAccess().getColonKeyword_1());
-    }
-
-    { 
-        newCompositeNode(grammarAccess.getConnectionErrorSourceAccess().getErrorSourceKeywordsParserRuleCall_2()); 
-    }
-ruleErrorSourceKeywords
-    {
-        afterParserOrEnumRuleCall();
-    }
-((
-(
-		{
-			if ($current==null) {
-	            $current = createModelElement(grammarAccess.getConnectionErrorSourceRule());
-	        }
-        }
-	otherlv_3=RULE_ID
-	{
-		newLeafNode(otherlv_3, grammarAccess.getConnectionErrorSourceAccess().getConnectionConnectionCrossReference_3_0_0()); 
-	}
-
-)
-)
-    |(
-(
-		lv_all_4_0=
-	All
-    {
-        newLeafNode(lv_all_4_0, grammarAccess.getConnectionErrorSourceAccess().getAllAllKeyword_3_1_0());
-    }
-
-	    {
-	        if ($current==null) {
-	            $current = createModelElement(grammarAccess.getConnectionErrorSourceRule());
-	        }
-       		setWithLastConsumed($current, "all", true, "all");
-	    }
-
-)
-))(
-(
-		{ 
-	        newCompositeNode(grammarAccess.getConnectionErrorSourceAccess().getTypeTokenConstraintTypeTokenConstraintParserRuleCall_4_0()); 
-	    }
-		lv_typeTokenConstraint_5_0=ruleTypeTokenConstraint		{
-	        if ($current==null) {
-	            $current = createModelElementForParent(grammarAccess.getConnectionErrorSourceRule());
-	        }
-       		set(
-       			$current, 
-       			"typeTokenConstraint",
-        		lv_typeTokenConstraint_5_0, 
-        		"org.osate.xtext.aadl2.errormodel.ErrorModel.TypeTokenConstraint");
-	        afterParserOrEnumRuleCall();
-	    }
-
-)
-)?(
-	otherlv_6=When
-    {
-    	newLeafNode(otherlv_6, grammarAccess.getConnectionErrorSourceAccess().getWhenKeyword_5_0());
-    }
-((
-(
-		{ 
-	        newCompositeNode(grammarAccess.getConnectionErrorSourceAccess().getFailureModeTypeTypeSetConstructorParserRuleCall_5_1_0_0()); 
-	    }
-		lv_failureModeType_7_0=ruleTypeSetConstructor		{
-	        if ($current==null) {
-	            $current = createModelElementForParent(grammarAccess.getConnectionErrorSourceRule());
-	        }
-       		set(
-       			$current, 
-       			"failureModeType",
-        		lv_failureModeType_7_0, 
-        		"org.osate.xtext.aadl2.errormodel.ErrorModel.TypeSetConstructor");
-	        afterParserOrEnumRuleCall();
-	    }
-
-)
-)
-    |(
-(
-		lv_failureModeDescription_8_0=RULE_STRING
-		{
-			newLeafNode(lv_failureModeDescription_8_0, grammarAccess.getConnectionErrorSourceAccess().getFailureModeDescriptionSTRINGTerminalRuleCall_5_1_1_0()); 
-		}
-		{
-	        if ($current==null) {
-	            $current = createModelElement(grammarAccess.getConnectionErrorSourceRule());
-	        }
-       		setWithLastConsumed(
-       			$current, 
-       			"failureModeDescription",
-        		lv_failureModeDescription_8_0, 
-        		"org.osate.xtext.aadl2.properties.Properties.STRING");
-	    }
-
-)
-)))?(
-	otherlv_9=If
-    {
-    	newLeafNode(otherlv_9, grammarAccess.getConnectionErrorSourceAccess().getIfKeyword_6_0());
-    }
-(
-(
-		{ 
-	        newCompositeNode(grammarAccess.getConnectionErrorSourceAccess().getConditionCONDITIONParserRuleCall_6_1_0()); 
-	    }
-		lv_condition_10_0=ruleCONDITION		{
-	        if ($current==null) {
-	            $current = createModelElementForParent(grammarAccess.getConnectionErrorSourceRule());
-	        }
-       		set(
-       			$current, 
-       			"condition",
-        		lv_condition_10_0, 
-        		"org.osate.xtext.aadl2.errormodel.ErrorModel.CONDITION");
-	        afterParserOrEnumRuleCall();
-	    }
-
-)
-))?
-	otherlv_11=Semicolon
-    {
-    	newLeafNode(otherlv_11, grammarAccess.getConnectionErrorSourceAccess().getSemicolonKeyword_7());
-    }
-)
 ;
 
 

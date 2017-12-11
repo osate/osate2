@@ -236,11 +236,6 @@ public class ErrorModelAdapterFactory extends AdapterFactoryImpl
         return createBranchValueAdapter();
       }
       @Override
-      public Adapter caseConnectionErrorSource(ConnectionErrorSource object)
-      {
-        return createConnectionErrorSourceAdapter();
-      }
-      @Override
       public Adapter caseConditionExpression(ConditionExpression object)
       {
         return createConditionExpressionAdapter();
@@ -843,21 +838,6 @@ public class ErrorModelAdapterFactory extends AdapterFactoryImpl
    * @generated
    */
   public Adapter createBranchValueAdapter()
-  {
-    return null;
-  }
-
-  /**
-   * Creates a new adapter for an object of class '{@link org.osate.xtext.aadl2.errormodel.errorModel.ConnectionErrorSource <em>Connection Error Source</em>}'.
-   * <!-- begin-user-doc -->
-   * This default implementation returns null so that we can easily ignore cases;
-   * it's useful to ignore a case when inheritance will catch all the cases anyway.
-   * <!-- end-user-doc -->
-   * @return the new adapter.
-   * @see org.osate.xtext.aadl2.errormodel.errorModel.ConnectionErrorSource
-   * @generated
-   */
-  public Adapter createConnectionErrorSourceAdapter()
   {
     return null;
   }

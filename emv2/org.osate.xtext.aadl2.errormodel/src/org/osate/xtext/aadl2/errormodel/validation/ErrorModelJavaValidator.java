@@ -136,9 +136,9 @@ public class ErrorModelJavaValidator extends AbstractErrorModelJavaValidator {
 								if (!EM2TypeSetUtil.contains(ts, et)) {
 									error(pa,
 											"Property " + pa.getProperty().getQualifiedName()
-													+ " applies to refers to type " + EMV2Util.getPrintName(et)
-													+ " not conained in type set of error propagation "
-													+ EMV2Util.getPrintName(ep));
+											+ " applies to refers to type " + EMV2Util.getPrintName(et)
+											+ " not conained in type set of error propagation "
+											+ EMV2Util.getPrintName(ep));
 								}
 							}
 						}
@@ -500,12 +500,15 @@ public class ErrorModelJavaValidator extends AbstractErrorModelJavaValidator {
 	}
 
 	private void checkFlowDirection(ErrorSource errorSource) {
-		ErrorPropagation ep = errorSource.getOutgoing();
-		if (!Aadl2Util.isNull(ep)) {
-			DirectionType epd = ep.getDirection();
-			if (!(epd.equals(DirectionType.OUT))) {
-				error(errorSource,
-						EMV2Util.getPrintName(ep) + " of error source is not an outgoing propagation point.");
+		NamedElement ne = errorSource.getSourceModelElement();
+		if (ne instanceof ErrorPropagation) {
+			if (!Aadl2Util.isNull(ne)&&ne instanceof ErrorPropagation) {
+				ErrorPropagation ep = (ErrorPropagation)ne;
+				DirectionType epd = ep.getDirection();
+				if (!(epd.equals(DirectionType.OUT))) {
+					error(errorSource,
+							EMV2Util.getPrintName(ep) + " of error source is not an outgoing propagation point.");
+				}
 			}
 		}
 	}
@@ -1016,15 +1019,19 @@ public class ErrorModelJavaValidator extends AbstractErrorModelJavaValidator {
 		if (ef.getTypeTokenConstraint() == null) {
 			return;
 		}
-		ErrorPropagation epout = ef.getOutgoing();
-		if (epout != null) {
+		NamedElement ne = ef.getSourceModelElement();
+		if (ne instanceof Connection) {
+			return;
+		}
+		if (ne instanceof ErrorPropagation) {
+			ErrorPropagation epout = (ErrorPropagation) ne;
 			if (!EM2TypeSetUtil.contains(epout.getTypeSet(), ef.getTypeTokenConstraint())) {
 				error(ef,
 						"Error source type constraint " + EMV2Util.getPrintName(ef.getTypeTokenConstraint())
 						+ " is not contained in type set of outgoing propagation "
 						+ EMV2Util.getPrintName(epout) + EMV2Util.getPrintName(epout.getTypeSet()));
 			}
-		} else {
+		} else if (ef.isAll()) {
 			// check containment for all of the outgoing propagation points
 			Classifier cl = ef.getContainingClassifier();
 			Collection<ErrorPropagation> eps = EMV2Util.getAllOutgoingErrorPropagations(cl);

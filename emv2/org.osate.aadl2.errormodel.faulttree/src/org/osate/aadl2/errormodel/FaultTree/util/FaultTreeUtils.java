@@ -17,7 +17,6 @@ import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.ConnectionInstance;
 import org.osate.aadl2.instance.InstanceObject;
 import org.osate.aadl2.instance.SystemInstance;
-import org.osate.xtext.aadl2.errormodel.errorModel.ConnectionErrorSource;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorState;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorEvent;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorPropagation;
@@ -279,7 +278,7 @@ public class FaultTreeUtils {
 			event.setDescription(getDescription(event, (ComponentInstance) io, ne, type));
 		} else {
 			String hazardDescription = EMV2Properties.getHazardDescription(ne, io);
-			event.setDescription("Connection " + ((ConnectionErrorSource) ne).getConnection().getName() + " Hazard "
+			event.setDescription("Connection " + ((ErrorSource) ne).getSourceModelElement().getName() + " Hazard "
 					+ hazardDescription);
 		}
 
@@ -291,7 +290,7 @@ public class FaultTreeUtils {
 		fillProperties(event, component, errorModelArtifact, type, 1);
 	}
 
-	public static void fillProperties(Event event, ComponentInstance component, ConnectionErrorSource ces,
+	public static void fillProperties(Event event, ComponentInstance component, ErrorSource ces,
 			ErrorTypes type) {
 		fillProperties(event, component, ces, type, 1);
 	}

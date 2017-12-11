@@ -1498,22 +1498,22 @@ public interface ErrorModelPackage extends EPackage
   int ERROR_SOURCE__TYPE_TOKEN_CONSTRAINT = ERROR_FLOW__TYPE_TOKEN_CONSTRAINT;
 
   /**
-   * The feature id for the '<em><b>Outgoing</b></em>' reference.
+   * The feature id for the '<em><b>Source Model Element</b></em>' reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int ERROR_SOURCE__OUTGOING = ERROR_FLOW_FEATURE_COUNT + 0;
+  int ERROR_SOURCE__SOURCE_MODEL_ELEMENT = ERROR_FLOW_FEATURE_COUNT + 0;
 
   /**
-   * The feature id for the '<em><b>All Outgoing</b></em>' attribute.
+   * The feature id for the '<em><b>All</b></em>' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int ERROR_SOURCE__ALL_OUTGOING = ERROR_FLOW_FEATURE_COUNT + 1;
+  int ERROR_SOURCE__ALL = ERROR_FLOW_FEATURE_COUNT + 1;
 
   /**
    * The feature id for the '<em><b>Failure Mode Reference</b></em>' reference.
@@ -2763,124 +2763,6 @@ public interface ErrorModelPackage extends EPackage
   int BRANCH_VALUE_FEATURE_COUNT = Aadl2Package.ELEMENT_FEATURE_COUNT + 3;
 
   /**
-   * The meta object id for the '{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.ConnectionErrorSourceImpl <em>Connection Error Source</em>}' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see org.osate.xtext.aadl2.errormodel.errorModel.impl.ConnectionErrorSourceImpl
-   * @see org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorModelPackageImpl#getConnectionErrorSource()
-   * @generated
-   */
-  int CONNECTION_ERROR_SOURCE = 31;
-
-  /**
-   * The feature id for the '<em><b>Owned Element</b></em>' reference list.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int CONNECTION_ERROR_SOURCE__OWNED_ELEMENT = Aadl2Package.NAMED_ELEMENT__OWNED_ELEMENT;
-
-  /**
-   * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int CONNECTION_ERROR_SOURCE__OWNED_COMMENT = Aadl2Package.NAMED_ELEMENT__OWNED_COMMENT;
-
-  /**
-   * The feature id for the '<em><b>Name</b></em>' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int CONNECTION_ERROR_SOURCE__NAME = Aadl2Package.NAMED_ELEMENT__NAME;
-
-  /**
-   * The feature id for the '<em><b>Qualified Name</b></em>' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int CONNECTION_ERROR_SOURCE__QUALIFIED_NAME = Aadl2Package.NAMED_ELEMENT__QUALIFIED_NAME;
-
-  /**
-   * The feature id for the '<em><b>Owned Property Association</b></em>' containment reference list.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int CONNECTION_ERROR_SOURCE__OWNED_PROPERTY_ASSOCIATION = Aadl2Package.NAMED_ELEMENT__OWNED_PROPERTY_ASSOCIATION;
-
-  /**
-   * The feature id for the '<em><b>Connection</b></em>' reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int CONNECTION_ERROR_SOURCE__CONNECTION = Aadl2Package.NAMED_ELEMENT_FEATURE_COUNT + 0;
-
-  /**
-   * The feature id for the '<em><b>All</b></em>' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int CONNECTION_ERROR_SOURCE__ALL = Aadl2Package.NAMED_ELEMENT_FEATURE_COUNT + 1;
-
-  /**
-   * The feature id for the '<em><b>Type Token Constraint</b></em>' containment reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int CONNECTION_ERROR_SOURCE__TYPE_TOKEN_CONSTRAINT = Aadl2Package.NAMED_ELEMENT_FEATURE_COUNT + 2;
-
-  /**
-   * The feature id for the '<em><b>Failure Mode Type</b></em>' containment reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int CONNECTION_ERROR_SOURCE__FAILURE_MODE_TYPE = Aadl2Package.NAMED_ELEMENT_FEATURE_COUNT + 3;
-
-  /**
-   * The feature id for the '<em><b>Failure Mode Description</b></em>' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int CONNECTION_ERROR_SOURCE__FAILURE_MODE_DESCRIPTION = Aadl2Package.NAMED_ELEMENT_FEATURE_COUNT + 4;
-
-  /**
-   * The feature id for the '<em><b>Condition</b></em>' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int CONNECTION_ERROR_SOURCE__CONDITION = Aadl2Package.NAMED_ELEMENT_FEATURE_COUNT + 5;
-
-  /**
-   * The number of structural features of the '<em>Connection Error Source</em>' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int CONNECTION_ERROR_SOURCE_FEATURE_COUNT = Aadl2Package.NAMED_ELEMENT_FEATURE_COUNT + 6;
-
-  /**
    * The meta object id for the '{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.ConditionExpressionImpl <em>Condition Expression</em>}' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -2888,7 +2770,7 @@ public interface ErrorModelPackage extends EPackage
    * @see org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorModelPackageImpl#getConditionExpression()
    * @generated
    */
-  int CONDITION_EXPRESSION = 32;
+  int CONDITION_EXPRESSION = 31;
 
   /**
    * The feature id for the '<em><b>Owned Element</b></em>' reference list.
@@ -2925,7 +2807,7 @@ public interface ErrorModelPackage extends EPackage
    * @see org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorModelPackageImpl#getOrmoreExpression()
    * @generated
    */
-  int ORMORE_EXPRESSION = 33;
+  int ORMORE_EXPRESSION = 32;
 
   /**
    * The feature id for the '<em><b>Owned Element</b></em>' reference list.
@@ -2980,7 +2862,7 @@ public interface ErrorModelPackage extends EPackage
    * @see org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorModelPackageImpl#getOrlessExpression()
    * @generated
    */
-  int ORLESS_EXPRESSION = 34;
+  int ORLESS_EXPRESSION = 33;
 
   /**
    * The feature id for the '<em><b>Owned Element</b></em>' reference list.
@@ -3035,7 +2917,7 @@ public interface ErrorModelPackage extends EPackage
    * @see org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorModelPackageImpl#getConditionElement()
    * @generated
    */
-  int CONDITION_ELEMENT = 35;
+  int CONDITION_ELEMENT = 34;
 
   /**
    * The feature id for the '<em><b>Owned Element</b></em>' reference list.
@@ -3090,7 +2972,7 @@ public interface ErrorModelPackage extends EPackage
    * @see org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorModelPackageImpl#getEventOrPropagation()
    * @generated
    */
-  int EVENT_OR_PROPAGATION = 36;
+  int EVENT_OR_PROPAGATION = 35;
 
   /**
    * The feature id for the '<em><b>Owned Element</b></em>' reference list.
@@ -3154,7 +3036,7 @@ public interface ErrorModelPackage extends EPackage
    * @see org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorModelPackageImpl#getOutgoingPropagationCondition()
    * @generated
    */
-  int OUTGOING_PROPAGATION_CONDITION = 37;
+  int OUTGOING_PROPAGATION_CONDITION = 36;
 
   /**
    * The feature id for the '<em><b>Owned Element</b></em>' reference list.
@@ -3281,7 +3163,7 @@ public interface ErrorModelPackage extends EPackage
    * @see org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorModelPackageImpl#getErrorDetection()
    * @generated
    */
-  int ERROR_DETECTION = 38;
+  int ERROR_DETECTION = 37;
 
   /**
    * The feature id for the '<em><b>Owned Element</b></em>' reference list.
@@ -3399,7 +3281,7 @@ public interface ErrorModelPackage extends EPackage
    * @see org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorModelPackageImpl#getErrorCodeValue()
    * @generated
    */
-  int ERROR_CODE_VALUE = 39;
+  int ERROR_CODE_VALUE = 38;
 
   /**
    * The feature id for the '<em><b>Owned Element</b></em>' reference list.
@@ -3463,7 +3345,7 @@ public interface ErrorModelPackage extends EPackage
    * @see org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorModelPackageImpl#getErrorStateToModeMapping()
    * @generated
    */
-  int ERROR_STATE_TO_MODE_MAPPING = 40;
+  int ERROR_STATE_TO_MODE_MAPPING = 39;
 
   /**
    * The feature id for the '<em><b>Owned Element</b></em>' reference list.
@@ -3527,7 +3409,7 @@ public interface ErrorModelPackage extends EPackage
    * @see org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorModelPackageImpl#getCompositeState()
    * @generated
    */
-  int COMPOSITE_STATE = 41;
+  int COMPOSITE_STATE = 40;
 
   /**
    * The feature id for the '<em><b>Owned Element</b></em>' reference list.
@@ -3627,7 +3509,7 @@ public interface ErrorModelPackage extends EPackage
    * @see org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorModelPackageImpl#getQualifiedErrorBehaviorState()
    * @generated
    */
-  int QUALIFIED_ERROR_BEHAVIOR_STATE = 42;
+  int QUALIFIED_ERROR_BEHAVIOR_STATE = 41;
 
   /**
    * The feature id for the '<em><b>Owned Element</b></em>' reference list.
@@ -3691,7 +3573,7 @@ public interface ErrorModelPackage extends EPackage
    * @see org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorModelPackageImpl#getSubcomponentElement()
    * @generated
    */
-  int SUBCOMPONENT_ELEMENT = 43;
+  int SUBCOMPONENT_ELEMENT = 42;
 
   /**
    * The feature id for the '<em><b>Owned Element</b></em>' reference list.
@@ -3737,7 +3619,7 @@ public interface ErrorModelPackage extends EPackage
    * @see org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorModelPackageImpl#getEMV2Root()
    * @generated
    */
-  int EMV2_ROOT = 44;
+  int EMV2_ROOT = 43;
 
   /**
    * The feature id for the '<em><b>Owned Element</b></em>' reference list.
@@ -3819,7 +3701,7 @@ public interface ErrorModelPackage extends EPackage
    * @see org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorModelPackageImpl#getOrExpression()
    * @generated
    */
-  int OR_EXPRESSION = 45;
+  int OR_EXPRESSION = 44;
 
   /**
    * The feature id for the '<em><b>Owned Element</b></em>' reference list.
@@ -3865,7 +3747,7 @@ public interface ErrorModelPackage extends EPackage
    * @see org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorModelPackageImpl#getAndExpression()
    * @generated
    */
-  int AND_EXPRESSION = 46;
+  int AND_EXPRESSION = 45;
 
   /**
    * The feature id for the '<em><b>Owned Element</b></em>' reference list.
@@ -3911,7 +3793,7 @@ public interface ErrorModelPackage extends EPackage
    * @see org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorModelPackageImpl#getAllExpression()
    * @generated
    */
-  int ALL_EXPRESSION = 47;
+  int ALL_EXPRESSION = 46;
 
   /**
    * The feature id for the '<em><b>Owned Element</b></em>' reference list.
@@ -3966,7 +3848,7 @@ public interface ErrorModelPackage extends EPackage
    * @see org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorModelPackageImpl#getQualifiedErrorEventOrPropagation()
    * @generated
    */
-  int QUALIFIED_ERROR_EVENT_OR_PROPAGATION = 48;
+  int QUALIFIED_ERROR_EVENT_OR_PROPAGATION = 47;
 
   /**
    * The feature id for the '<em><b>Owned Element</b></em>' reference list.
@@ -4021,7 +3903,7 @@ public interface ErrorModelPackage extends EPackage
    * @see org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorModelPackageImpl#getQualifiedErrorPropagation()
    * @generated
    */
-  int QUALIFIED_ERROR_PROPAGATION = 49;
+  int QUALIFIED_ERROR_PROPAGATION = 48;
 
   /**
    * The feature id for the '<em><b>Owned Element</b></em>' reference list.
@@ -4076,7 +3958,7 @@ public interface ErrorModelPackage extends EPackage
    * @see org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorModelPackageImpl#getSConditionElement()
    * @generated
    */
-  int SCONDITION_ELEMENT = 50;
+  int SCONDITION_ELEMENT = 49;
 
   /**
    * The feature id for the '<em><b>Owned Element</b></em>' reference list.
@@ -4953,26 +4835,26 @@ public interface ErrorModelPackage extends EPackage
   EClass getErrorSource();
 
   /**
-   * Returns the meta object for the reference '{@link org.osate.xtext.aadl2.errormodel.errorModel.ErrorSource#getOutgoing <em>Outgoing</em>}'.
+   * Returns the meta object for the reference '{@link org.osate.xtext.aadl2.errormodel.errorModel.ErrorSource#getSourceModelElement <em>Source Model Element</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for the reference '<em>Outgoing</em>'.
-   * @see org.osate.xtext.aadl2.errormodel.errorModel.ErrorSource#getOutgoing()
+   * @return the meta object for the reference '<em>Source Model Element</em>'.
+   * @see org.osate.xtext.aadl2.errormodel.errorModel.ErrorSource#getSourceModelElement()
    * @see #getErrorSource()
    * @generated
    */
-  EReference getErrorSource_Outgoing();
+  EReference getErrorSource_SourceModelElement();
 
   /**
-   * Returns the meta object for the attribute '{@link org.osate.xtext.aadl2.errormodel.errorModel.ErrorSource#isAllOutgoing <em>All Outgoing</em>}'.
+   * Returns the meta object for the attribute '{@link org.osate.xtext.aadl2.errormodel.errorModel.ErrorSource#isAll <em>All</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for the attribute '<em>All Outgoing</em>'.
-   * @see org.osate.xtext.aadl2.errormodel.errorModel.ErrorSource#isAllOutgoing()
+   * @return the meta object for the attribute '<em>All</em>'.
+   * @see org.osate.xtext.aadl2.errormodel.errorModel.ErrorSource#isAll()
    * @see #getErrorSource()
    * @generated
    */
-  EAttribute getErrorSource_AllOutgoing();
+  EAttribute getErrorSource_All();
 
   /**
    * Returns the meta object for the reference '{@link org.osate.xtext.aadl2.errormodel.errorModel.ErrorSource#getFailureModeReference <em>Failure Mode Reference</em>}'.
@@ -5608,82 +5490,6 @@ public interface ErrorModelPackage extends EPackage
    * @generated
    */
   EAttribute getBranchValue_Others();
-
-  /**
-   * Returns the meta object for class '{@link org.osate.xtext.aadl2.errormodel.errorModel.ConnectionErrorSource <em>Connection Error Source</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for class '<em>Connection Error Source</em>'.
-   * @see org.osate.xtext.aadl2.errormodel.errorModel.ConnectionErrorSource
-   * @generated
-   */
-  EClass getConnectionErrorSource();
-
-  /**
-   * Returns the meta object for the reference '{@link org.osate.xtext.aadl2.errormodel.errorModel.ConnectionErrorSource#getConnection <em>Connection</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the reference '<em>Connection</em>'.
-   * @see org.osate.xtext.aadl2.errormodel.errorModel.ConnectionErrorSource#getConnection()
-   * @see #getConnectionErrorSource()
-   * @generated
-   */
-  EReference getConnectionErrorSource_Connection();
-
-  /**
-   * Returns the meta object for the attribute '{@link org.osate.xtext.aadl2.errormodel.errorModel.ConnectionErrorSource#isAll <em>All</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the attribute '<em>All</em>'.
-   * @see org.osate.xtext.aadl2.errormodel.errorModel.ConnectionErrorSource#isAll()
-   * @see #getConnectionErrorSource()
-   * @generated
-   */
-  EAttribute getConnectionErrorSource_All();
-
-  /**
-   * Returns the meta object for the containment reference '{@link org.osate.xtext.aadl2.errormodel.errorModel.ConnectionErrorSource#getTypeTokenConstraint <em>Type Token Constraint</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the containment reference '<em>Type Token Constraint</em>'.
-   * @see org.osate.xtext.aadl2.errormodel.errorModel.ConnectionErrorSource#getTypeTokenConstraint()
-   * @see #getConnectionErrorSource()
-   * @generated
-   */
-  EReference getConnectionErrorSource_TypeTokenConstraint();
-
-  /**
-   * Returns the meta object for the containment reference '{@link org.osate.xtext.aadl2.errormodel.errorModel.ConnectionErrorSource#getFailureModeType <em>Failure Mode Type</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the containment reference '<em>Failure Mode Type</em>'.
-   * @see org.osate.xtext.aadl2.errormodel.errorModel.ConnectionErrorSource#getFailureModeType()
-   * @see #getConnectionErrorSource()
-   * @generated
-   */
-  EReference getConnectionErrorSource_FailureModeType();
-
-  /**
-   * Returns the meta object for the attribute '{@link org.osate.xtext.aadl2.errormodel.errorModel.ConnectionErrorSource#getFailureModeDescription <em>Failure Mode Description</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the attribute '<em>Failure Mode Description</em>'.
-   * @see org.osate.xtext.aadl2.errormodel.errorModel.ConnectionErrorSource#getFailureModeDescription()
-   * @see #getConnectionErrorSource()
-   * @generated
-   */
-  EAttribute getConnectionErrorSource_FailureModeDescription();
-
-  /**
-   * Returns the meta object for the attribute '{@link org.osate.xtext.aadl2.errormodel.errorModel.ConnectionErrorSource#getCondition <em>Condition</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the attribute '<em>Condition</em>'.
-   * @see org.osate.xtext.aadl2.errormodel.errorModel.ConnectionErrorSource#getCondition()
-   * @see #getConnectionErrorSource()
-   * @generated
-   */
-  EAttribute getConnectionErrorSource_Condition();
 
   /**
    * Returns the meta object for class '{@link org.osate.xtext.aadl2.errormodel.errorModel.ConditionExpression <em>Condition Expression</em>}'.
@@ -6981,20 +6787,20 @@ public interface ErrorModelPackage extends EPackage
     EClass ERROR_SOURCE = eINSTANCE.getErrorSource();
 
     /**
-     * The meta object literal for the '<em><b>Outgoing</b></em>' reference feature.
+     * The meta object literal for the '<em><b>Source Model Element</b></em>' reference feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    EReference ERROR_SOURCE__OUTGOING = eINSTANCE.getErrorSource_Outgoing();
+    EReference ERROR_SOURCE__SOURCE_MODEL_ELEMENT = eINSTANCE.getErrorSource_SourceModelElement();
 
     /**
-     * The meta object literal for the '<em><b>All Outgoing</b></em>' attribute feature.
+     * The meta object literal for the '<em><b>All</b></em>' attribute feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    EAttribute ERROR_SOURCE__ALL_OUTGOING = eINSTANCE.getErrorSource_AllOutgoing();
+    EAttribute ERROR_SOURCE__ALL = eINSTANCE.getErrorSource_All();
 
     /**
      * The meta object literal for the '<em><b>Failure Mode Reference</b></em>' reference feature.
@@ -7495,64 +7301,6 @@ public interface ErrorModelPackage extends EPackage
      * @generated
      */
     EAttribute BRANCH_VALUE__OTHERS = eINSTANCE.getBranchValue_Others();
-
-    /**
-     * The meta object literal for the '{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.ConnectionErrorSourceImpl <em>Connection Error Source</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see org.osate.xtext.aadl2.errormodel.errorModel.impl.ConnectionErrorSourceImpl
-     * @see org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorModelPackageImpl#getConnectionErrorSource()
-     * @generated
-     */
-    EClass CONNECTION_ERROR_SOURCE = eINSTANCE.getConnectionErrorSource();
-
-    /**
-     * The meta object literal for the '<em><b>Connection</b></em>' reference feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EReference CONNECTION_ERROR_SOURCE__CONNECTION = eINSTANCE.getConnectionErrorSource_Connection();
-
-    /**
-     * The meta object literal for the '<em><b>All</b></em>' attribute feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EAttribute CONNECTION_ERROR_SOURCE__ALL = eINSTANCE.getConnectionErrorSource_All();
-
-    /**
-     * The meta object literal for the '<em><b>Type Token Constraint</b></em>' containment reference feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EReference CONNECTION_ERROR_SOURCE__TYPE_TOKEN_CONSTRAINT = eINSTANCE.getConnectionErrorSource_TypeTokenConstraint();
-
-    /**
-     * The meta object literal for the '<em><b>Failure Mode Type</b></em>' containment reference feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EReference CONNECTION_ERROR_SOURCE__FAILURE_MODE_TYPE = eINSTANCE.getConnectionErrorSource_FailureModeType();
-
-    /**
-     * The meta object literal for the '<em><b>Failure Mode Description</b></em>' attribute feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EAttribute CONNECTION_ERROR_SOURCE__FAILURE_MODE_DESCRIPTION = eINSTANCE.getConnectionErrorSource_FailureModeDescription();
-
-    /**
-     * The meta object literal for the '<em><b>Condition</b></em>' attribute feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EAttribute CONNECTION_ERROR_SOURCE__CONDITION = eINSTANCE.getConnectionErrorSource_Condition();
 
     /**
      * The meta object literal for the '{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.ConditionExpressionImpl <em>Condition Expression</em>}' class.

@@ -302,15 +302,6 @@ public interface ErrorModelFactory extends EFactory
   BranchValue createBranchValue();
 
   /**
-   * Returns a new object of class '<em>Connection Error Source</em>'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return a new object of class '<em>Connection Error Source</em>'.
-   * @generated
-   */
-  ConnectionErrorSource createConnectionErrorSource();
-
-  /**
    * Returns a new object of class '<em>Condition Expression</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->

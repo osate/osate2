@@ -33,7 +33,7 @@ ErrorTypes| ErrorBehaviorEvent | ErrorBehaviorState | ErrorBehaviorTransition
 	   | ErrorFlow| ErrorPropagation |OutgoingPropagationCondition
 |PropagationPath | PropagationPoint |CompositeState
 	|TypeTransformationSet | TypeMappingSet  | ErrorBehaviorStateMachine
-|ErrorDetection	|  ConnectionErrorSource | EventOrPropagation 
+|ErrorDetection	|  EventOrPropagation 
 ;
 
 ModalElement returns aadl2::ModalElement:
@@ -86,7 +86,7 @@ ErrorModelSubclause returns ErrorModelSubclause:
   )?
   (	ConnectionErrorKeywords
 	(UseTransformationsKeywords typeTransformationSet=[TypeTransformationSet|QEMREF] ';')?
-	( connectionErrorSources+= ConnectionErrorSource )*
+	( connectionErrorSources+= ErrorSource )*
 	EndConnectionKeywords ';'
   )?
 
@@ -138,7 +138,7 @@ EMV2Subclause returns ErrorModelSubclause:
   )?
   (	ConnectionErrorKeywords
 	(UseTransformationsKeywords typeTransformationSet=[TypeTransformationSet|QEMREF] ';')?
-	( connectionErrorSources+= ConnectionErrorSource )*
+	( connectionErrorSources+= ErrorSource )*
 	EndConnectionKeywords ';'
   )?
 
@@ -387,8 +387,8 @@ PropagationKind  : ('processor'|'memory'|'connection' | 'binding' | 'bindings'|'
   ErrorSource | ErrorSink | ErrorPath; 
 
 ErrorSource returns ErrorSource:
-  name=ID ':' ErrorSourceKeywords (outgoing=[ErrorPropagation|ErrorPropagationPoint]
-  	|allOutgoing?='all'
+  name=ID ':' ErrorSourceKeywords (sourceModelElement=[aadl2::NamedElement|ErrorPropagationPoint] // reference to ErrorPropagation or to connection
+  	|  all?='all'
   ) (typeTokenConstraint=TypeTokenConstraint)?
   	('when' (( failureModeReference = [ErrorBehaviorState|ID] ( failureModeType = TypeSetReference )?) 
   	| ( failureModeType = TypeSetConstructor )	 | failureModeDescription = STRING
@@ -396,6 +396,16 @@ ErrorSource returns ErrorSource:
      ( 'if' condition=CONDITION)?
      ';'
   ;
+
+//ConnectionErrorSource returns ConnectionErrorSource:
+//	name=ID ':' ErrorSourceKeywords
+//	(connection=[aadl2::Connection|ID]|all?='all')
+//	(typeTokenConstraint=TypeTokenConstraint)?
+//  	('when'  (  failureModeType = TypeSetConstructor | failureModeDescription = STRING)
+//  	)?
+//     ( 'if' condition=CONDITION)?
+//     ';'
+//;
 
 ErrorSink returns ErrorSink:
   name=ID ':' ErrorSinkKeywords (incoming=[ErrorPropagation|ErrorPropagationPoint]|allIncoming?='all') (typeTokenConstraint=TypeTokenConstraint)?
@@ -492,15 +502,15 @@ BranchValue returns BranchValue:
    ((realvalue = REAL_LIT) | (symboliclabel = [aadl2::Property|QEMREF]) | (others?='others'));
 
 
-ConnectionErrorSource returns ConnectionErrorSource:
-	name=ID ':' ErrorSourceKeywords
-	(connection=[aadl2::Connection|ID]|all?='all')
-	(typeTokenConstraint=TypeTokenConstraint)?
-  	('when'  (  failureModeType = TypeSetConstructor | failureModeDescription = STRING)
-  	)?
-     ( 'if' condition=CONDITION)?
-     ';'
-;
+//ConnectionErrorSource returns ConnectionErrorSource:
+//	name=ID ':' ErrorSourceKeywords
+//	(connection=[aadl2::Connection|ID]|all?='all')
+//	(typeTokenConstraint=TypeTokenConstraint)?
+//  	('when'  (  failureModeType = TypeSetConstructor | failureModeDescription = STRING)
+//  	)?
+//     ( 'if' condition=CONDITION)?
+//     ';'
+//;
 
  
  

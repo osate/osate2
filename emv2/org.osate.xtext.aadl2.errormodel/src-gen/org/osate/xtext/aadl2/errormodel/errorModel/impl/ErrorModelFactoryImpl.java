@@ -95,7 +95,6 @@ public class ErrorModelFactoryImpl extends EFactoryImpl implements ErrorModelFac
       case ErrorModelPackage.ERROR_BEHAVIOR_TRANSITION: return createErrorBehaviorTransition();
       case ErrorModelPackage.TRANSITION_BRANCH: return createTransitionBranch();
       case ErrorModelPackage.BRANCH_VALUE: return createBranchValue();
-      case ErrorModelPackage.CONNECTION_ERROR_SOURCE: return createConnectionErrorSource();
       case ErrorModelPackage.CONDITION_EXPRESSION: return createConditionExpression();
       case ErrorModelPackage.ORMORE_EXPRESSION: return createOrmoreExpression();
       case ErrorModelPackage.ORLESS_EXPRESSION: return createOrlessExpression();
@@ -459,17 +458,6 @@ public class ErrorModelFactoryImpl extends EFactoryImpl implements ErrorModelFac
   {
     BranchValueImpl branchValue = new BranchValueImpl();
     return branchValue;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public ConnectionErrorSource createConnectionErrorSource()
-  {
-    ConnectionErrorSourceImpl connectionErrorSource = new ConnectionErrorSourceImpl();
-    return connectionErrorSource;
   }
 
   /**
