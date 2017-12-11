@@ -16,6 +16,7 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<osate.version>2.3.1-SNAPSHOT</osate.version>
 
+		<jacoco.version>0.7.9</jacoco.version>
 		<test.logging.1>-Dorg.apache.commons.logging.Log=org.apache.commons.logging.impl.SimpleLog</test.logging.1>
 		<test.logging.2>-Dorg.apache.commons.logging.simplelog.defaultlog=error</test.logging.2>
 		<test.logging>${test.logging.1} ${test.logging.2}</test.logging>
@@ -172,6 +173,33 @@
 				<ui.test.vmargs></ui.test.vmargs>
 			</properties>
 		</profile>
+		<profile>
+			<id>codecoverage</id>
+			<activation>
+				<activeByDefault>false</activeByDefault>
+			</activation>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.jacoco</groupId>
+						<artifactId>jacoco-maven-plugin</artifactId>
+						<version>${jacoco.version}</version>
+						<configuration>
+							<excludes>
+								<exclude>**/Aadl2Switch*</exclude>
+							</excludes>
+						</configuration>
+						<executions>
+							<execution>
+								<goals>
+									<goal>prepare-agent</goal>
+								</goals>
+							</execution>
+						</executions>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
 	</profiles>
 
 	<build>
@@ -287,7 +315,7 @@
 					<artifactId>tycho-surefire-plugin</artifactId>
 					<version>${tycho.version}</version>
 					<configuration>
-						<argLine>${ui.test.vmargs} ${test.logging}</argLine>
+						<argLine>${tycho.testArgLine} ${ui.test.vmargs} ${test.logging}</argLine>
 						<useUIHarness>true</useUIHarness>
 						<!-- Use this if there's an org.eclipse.swt.SWTException: Invalid thread 
 							access <useUIThread>true</useUIThread> -->

@@ -503,6 +503,14 @@
         url="http://download.eclipse.org/sirius/updates/releases/5.0.2/oxygen"/>
   </setupTask>
   <setupTask
+      xsi:type="setup.p2:P2Task">
+    <requirement
+        name="org.eclipse.eclemma.feature.feature.group"
+        versionRange="[3.0.0,3.1.0)"/>
+    <repository
+        url="http://update.eclemma.org/"/>
+  </setupTask>
+  <setupTask
       xsi:type="setup:CompoundTask"
       id="osate-development"
       disabled="true"
