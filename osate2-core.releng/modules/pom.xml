@@ -45,6 +45,7 @@
 		<module>../../org.osate.aadl2.instance.textual.tests</module>
 		<module>../../org.osate.core.tests</module>
 		<module>../../org.osate.core.tests.log4j</module>
+		<module>../../org.osate.build.coverage.report</module>
 	</modules>
 
 </project>
