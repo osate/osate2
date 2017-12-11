@@ -313,12 +313,12 @@ public class AadlBusinessObjectProvider {
 				final ImplementationExtension ie = componentImplementation.getOwnedExtension();
 				if(ie != null) {
 					children = Stream.concat(children, Stream.of(ie));
-				}
-
-				// Realization
-				final Realization realization = componentImplementation.getOwnedRealization();
-				if(realization != null) {
-					children = Stream.concat(children, Stream.of(realization));
+				} else {
+					// Realization
+					final Realization realization = componentImplementation.getOwnedRealization();
+					if (realization != null) {
+						children = Stream.concat(children, Stream.of(realization));
+					}
 				}
 			} else if(classifier instanceof FeatureGroupType) {
 				final FeatureGroupType featureGroupType = ((FeatureGroupType)classifier);
