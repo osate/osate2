@@ -10,7 +10,7 @@ import org.osate.ge.di.GetLabel;
 import org.osate.ge.di.IsAvailable;
 import org.osate.ge.di.Names;
 import org.osate.ge.internal.di.GetBusinessObjectToModify;
-import org.osate.ge.internal.util.SubcomponentUtil;
+import org.osate.ge.internal.util.AadlSubcomponentUtil;
 import org.osate.ge.query.StandaloneQuery;
 import org.osate.ge.services.QueryService;
 
@@ -29,7 +29,8 @@ public class RefineSubcomponentCommand {
 		final Object parent = queryService.getFirstBusinessObject(parentQuery, boc);
 		if(parent instanceof ComponentImplementation) {
 			final ComponentImplementation ci = (ComponentImplementation)parent;
-			return sc.getContainingClassifier() != ci && SubcomponentUtil.canContainSubcomponentType(ci, sc.eClass());
+			return sc.getContainingClassifier() != ci
+					&& AadlSubcomponentUtil.canContainSubcomponentType(ci, sc.eClass());
 		}
 
 		return false;
@@ -46,7 +47,7 @@ public class RefineSubcomponentCommand {
 	public boolean activate(@Named(Names.BUSINESS_OBJECT) final Subcomponent sc,
 			@Named(Names.MODIFY_BO) final ComponentImplementation ci) {
 		// Refine the subcomponent
-		final Subcomponent newSc = SubcomponentUtil.createSubcomponent(ci, sc.eClass());
+		final Subcomponent newSc = AadlSubcomponentUtil.createSubcomponent(ci, sc.eClass());
 		newSc.setRefined(sc);
 		return true;
 	}

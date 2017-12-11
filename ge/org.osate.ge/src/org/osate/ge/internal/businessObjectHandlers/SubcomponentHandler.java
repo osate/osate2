@@ -36,7 +36,6 @@ import org.osate.ge.internal.util.AadlInheritanceUtil;
 import org.osate.ge.internal.util.AadlSubcomponentUtil;
 import org.osate.ge.internal.util.ImageHelper;
 import org.osate.ge.internal.util.StringUtil;
-import org.osate.ge.internal.util.SubcomponentUtil;
 import org.osate.ge.query.StandaloneQuery;
 import org.osate.ge.services.QueryService;
 
@@ -103,8 +102,8 @@ public class SubcomponentHandler {
 		final ComponentImplementation ci = diagramBo instanceof ComponentImplementation ? (ComponentImplementation)diagramBo : null;
 
 		// Create palette entries for each subcomponent class which can be contained in the component implementation
-		for(final EClass subcomponentType : SubcomponentUtil.getSubcomponentTypes()) {
-			if(ci == null || SubcomponentUtil.canContainSubcomponentType(ci, subcomponentType)) {
+		for (final EClass subcomponentType : AadlSubcomponentUtil.getSubcomponentTypes()) {
+			if (ci == null || AadlSubcomponentUtil.canContainSubcomponentType(ci, subcomponentType)) {
 				paletteEntries.add(PaletteEntryBuilder.create().
 						label(StringUtil.camelCaseToUser(subcomponentType.getName())).
 						icon(ImageHelper.getImage(subcomponentType.getName())).
@@ -118,7 +117,7 @@ public class SubcomponentHandler {
 
 	@CanCreate
 	public boolean canCreate(final @Named(Names.TARGET_BO) ComponentImplementation ci, final @Named(Names.PALETTE_ENTRY_CONTEXT) EClass subcomponentType) {
-		return SubcomponentUtil.canContainSubcomponentType(ci, subcomponentType);
+		return AadlSubcomponentUtil.canContainSubcomponentType(ci, subcomponentType);
 	}
 
 	@Create
@@ -127,7 +126,7 @@ public class SubcomponentHandler {
 			final NamingService namingService) {
 
 		final String name = namingService.buildUniqueIdentifier(owner, "new_subcomponent");
-		final Subcomponent sc = SubcomponentUtil.createSubcomponent(owner, subcomponentType);
+		final Subcomponent sc = AadlSubcomponentUtil.createSubcomponent(owner, subcomponentType);
 		sc.setName(name);
 
 		// Reset the no subcomponents flag
