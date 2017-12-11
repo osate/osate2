@@ -2,13 +2,13 @@ package org.osate.reqspec.ui.wizards
 
 import com.google.inject.Inject
 import java.io.StringReader
+import java.util.Map
 import org.eclipse.xtext.parser.IParser
-import org.osate.alisa.common.ui.wizards.AbstractAlisaFileWizard
 import org.osate.reqspec.services.ReqSpecGrammarAccess
 import org.osate.reqspec.ui.internal.ReqSpecActivator
-import java.util.Map
+import org.osate.ui.wizards.AbstractNewFileWizard
 
-class ConstantsFileWizard extends AbstractAlisaFileWizard {
+class ConstantsFileWizard extends AbstractNewFileWizard {
 	val CONSTANTS_LABEL = "Constants Name"
 	
 	@Inject IParser parser

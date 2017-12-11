@@ -2,13 +2,13 @@ package org.osate.verify.ui.wizards
 
 import com.google.inject.Inject
 import java.io.StringReader
+import java.util.Map
 import org.eclipse.xtext.parser.IParser
-import org.osate.alisa.common.ui.wizards.AbstractAlisaFileWizard
+import org.osate.ui.wizards.AbstractNewFileWizard
 import org.osate.verify.services.VerifyGrammarAccess
 import org.osate.verify.ui.internal.VerifyActivator
-import java.util.Map
 
-class VerificationMethodsFileWizard extends AbstractAlisaFileWizard {
+class VerificationMethodsFileWizard extends AbstractNewFileWizard {
 	val VERIFICATION_METHODS_LABEL = "Verification Methods Name"
 	
 	@Inject IParser parser

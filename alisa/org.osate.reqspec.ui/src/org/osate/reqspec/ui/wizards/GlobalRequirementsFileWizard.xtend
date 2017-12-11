@@ -4,11 +4,11 @@ import com.google.inject.Inject
 import java.io.StringReader
 import java.util.Map
 import org.eclipse.xtext.parser.IParser
-import org.osate.alisa.common.ui.wizards.AbstractAlisaFileWizard
 import org.osate.reqspec.services.ReqSpecGrammarAccess
 import org.osate.reqspec.ui.internal.ReqSpecActivator
+import org.osate.ui.wizards.AbstractNewFileWizard
 
-class GlobalRequirementsFileWizard extends AbstractAlisaFileWizard {
+class GlobalRequirementsFileWizard extends AbstractNewFileWizard {
 	val GLOBAL_REQUIREMENTS_LABEL = "Global Requirements Name"
 	
 	@Inject IParser parser

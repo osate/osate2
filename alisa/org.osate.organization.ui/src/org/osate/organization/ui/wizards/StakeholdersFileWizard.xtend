@@ -1,10 +1,10 @@
 package org.osate.organization.ui.wizards
 
 import java.util.Map
-import org.osate.alisa.common.ui.wizards.AbstractAlisaFileWizard
 import org.osate.organization.ui.internal.OrganizationActivator
+import org.osate.ui.wizards.AbstractNewFileWizard
 
-class StakeholdersFileWizard extends AbstractAlisaFileWizard {
+class StakeholdersFileWizard extends AbstractNewFileWizard {
 	val ORGANIZATION_LABEL = "Organization Name"
 	val STAKEHOLDER_LABEL = "First Stakeholder Name"
 	

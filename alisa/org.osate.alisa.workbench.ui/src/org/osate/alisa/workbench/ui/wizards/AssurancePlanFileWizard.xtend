@@ -2,13 +2,13 @@ package org.osate.alisa.workbench.ui.wizards
 
 import com.google.inject.Inject
 import java.io.StringReader
+import java.util.Map
 import org.eclipse.xtext.parser.IParser
-import org.osate.alisa.common.ui.wizards.AbstractAlisaFileWizard
 import org.osate.alisa.workbench.services.AlisaGrammarAccess
 import org.osate.alisa.workbench.ui.internal.AlisaActivator
-import java.util.Map
+import org.osate.ui.wizards.AbstractNewFileWizard
 
-class AssurancePlanFileWizard extends AbstractAlisaFileWizard {
+class AssurancePlanFileWizard extends AbstractNewFileWizard {
 	val CASE_LABEL = "Assurance Case Name"
 	val PLAN_LABEL = "First Assurance Plan Name"
 	val IMPLEMENTATION_LABEL = "Component Implementation"
