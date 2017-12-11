@@ -20,4 +20,11 @@
       <nonProxyHosts>localhost|*.sei.cmu.edu</nonProxyHosts>
     </proxy>
   </proxies>
+  <mirror>
+    <id>eclipse-mirror</id>
+    <mirrorOf>http://download.eclipse.org/</mirrorOf>
+    <url>http://ftp.osuosl.org/pub/eclipse/</url>
+    <layout>p2</layout>
+    <mirrorOfLayouts>p2</mirrorOfLayouts>
+  </mirror>
 </settings>
