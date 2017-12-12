@@ -10,13 +10,13 @@ import org.osate.xtext.aadl2.services.Aadl2GrammarAccess
 import org.osate.xtext.aadl2.ui.MyAadl2Activator
 
 class NewAadlPackageWizard extends AbstractNewFileWizard {
-	val PACKAGE_LABEL = "Aadl Package Name"
+	val PACKAGE_LABEL = "AADL package name"
 	
 	@Inject IParser parser
 	@Inject Aadl2GrammarAccess grammarAccess
 	
 	new() {
-		super("AADL Package", "aadl", 1, OsateUiPlugin.^default.log, OsateUiPlugin.PLUGIN_ID)
+		super("AADL Package", "AADL package", "aadl", 1, OsateUiPlugin.^default.log, OsateUiPlugin.PLUGIN_ID)
 		MyAadl2Activator.instance.getInjector(MyAadl2Activator.ORG_OSATE_XTEXT_AADL2_AADL2).injectMembers(this)
 		addField(PACKAGE_LABEL, [fieldValue | fieldValue.matches("\\S+") &&
 			!parser.parse(grammarAccess.PNAMERule, new StringReader(fieldValue)).hasSyntaxErrors

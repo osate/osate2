@@ -53,7 +53,8 @@ import static extension org.apache.commons.lang.StringUtils.ordinalIndexOf
 abstract class AbstractNewFileWizard extends Wizard implements INewWizard {
 	val static HIDE_FOLDERS = #["instances", "diagrams", "imv"]
 	
-	val String fileType
+	val String titleFileType
+	val String descriptionFileType
 	val protected String fileExtension
 	val int tabIndex
 	val ILog log
@@ -66,6 +67,10 @@ abstract class AbstractNewFileWizard extends Wizard implements INewWizard {
 	TreeViewer folderViewer
 	LinkedHashMap<String, Text> fields
 	
+	new(String titleFileType, String fileExtension, int tabIndex, ILog log, String pluginId) {
+		this(titleFileType, titleFileType.toLowerCase, fileExtension, tabIndex, log, pluginId)
+	}
+	
 	def void addField(String fieldLabel, (String)=>boolean fieldValidator) {
 		fieldValidators.put(fieldLabel, fieldValidator)
 	}
@@ -76,7 +81,7 @@ abstract class AbstractNewFileWizard extends Wizard implements INewWizard {
 			IFile: selectedElement.parent
 			IContainer: selectedElement
 		}
-		windowTitle = '''New «fileType» Fle'''
+		windowTitle = '''New «titleFileType» Fle'''
 		defaultPageImageDescriptor = OsateUiPlugin.getImageDescriptor("icons/NewAadl2.gif")
 	}
 	
@@ -117,7 +122,7 @@ abstract class AbstractNewFileWizard extends Wizard implements INewWizard {
 	def String fileContents(Map<String, String> fieldValues)
 	
 	override addPages() {
-		addPage(new WizardPage("New Object", '''New «fileType» File''', null) {
+		addPage(new WizardPage("New Object", '''New «titleFileType» File''', null) {
 			override createControl(Composite parent) {
 				control = new Composite(parent, SWT.NONE) => [composite |
 					composite.size = parent.size
@@ -206,7 +211,7 @@ abstract class AbstractNewFileWizard extends Wizard implements INewWizard {
 				pageComplete = errorMessage === null
 			}
 		} => [wizardPage |
-			wizardPage.description = '''Create a new «fileType» file.'''
+			wizardPage.description = '''Create a new «descriptionFileType» file.'''
 			wizardPage.pageComplete = false
 		])
 	}
