@@ -18,8 +18,8 @@ import org.osate.ge.di.GetLabel;
 import org.osate.ge.di.IsAvailable;
 import org.osate.ge.di.Names;
 import org.osate.ge.internal.di.GetBusinessObjectToModify;
+import org.osate.ge.internal.util.AadlSubcomponentUtil;
 import org.osate.ge.internal.util.StringUtil;
-import org.osate.ge.internal.util.SubcomponentUtil;
 import org.osate.ge.query.StandaloneQuery;
 import org.osate.ge.services.QueryService;
 
@@ -48,7 +48,8 @@ public class ChangeSubcomponentTypeCommand {
 
 		final ComponentImplementation ci = (ComponentImplementation)parent;
 		return sc.getContainingClassifier() == ci &&
-				SubcomponentUtil.canContainSubcomponentType(ci, subcomponentType) &&
+				AadlSubcomponentUtil.canContainSubcomponentType(ci, subcomponentType)
+				&&
 				(sc.getRefined() == null || sc.getRefined() instanceof AbstractSubcomponent);
 	}
 
@@ -65,11 +66,11 @@ public class ChangeSubcomponentTypeCommand {
 	public Object getBusinessObjectToModify(@Named(Names.BUSINESS_OBJECT) final Subcomponent sc) {
 		return sc.getContainingComponentImpl();
 	}
-	
+
 	@Activate
 	public boolean activate(@Named(Names.BUSINESS_OBJECT) final Subcomponent sc) {
 		final ComponentImplementation ci = sc.getContainingComponentImpl();
-		final Subcomponent replacementSc = SubcomponentUtil.createSubcomponent(ci, subcomponentType);
+		final Subcomponent replacementSc = AadlSubcomponentUtil.createSubcomponent(ci, subcomponentType);
 
 		// Copy structural feature values to the replacement object.
 		transferStructuralFeatureValues(sc, replacementSc);
@@ -89,7 +90,7 @@ public class ChangeSubcomponentTypeCommand {
 	private void transferStructuralFeatureValues(final EObject original, final EObject replacement) {
 		for(final EStructuralFeature feature : original.eClass().getEAllStructuralFeatures()) {
 			if(feature.isChangeable() && !feature.isDerived()) {
-				final Object originalValue = original.eGet(feature, true);						
+				final Object originalValue = original.eGet(feature, true);
 
 				// Only copy values that are set
 				if(original.eIsSet(feature)) {
@@ -98,7 +99,7 @@ public class ChangeSubcomponentTypeCommand {
 							final @SuppressWarnings("unchecked") List<Object> originalList = (List<Object>)originalValue;
 							final Object replacementValue = replacement.eGet(feature);
 							final @SuppressWarnings("unchecked") List<Object> replacementList = (List<Object>)replacementValue;
-							replacementList.addAll(originalList);					
+							replacementList.addAll(originalList);
 						} else {
 							replacement.eSet(feature, originalValue);
 						}
@@ -106,5 +107,5 @@ public class ChangeSubcomponentTypeCommand {
 				}
 			}
 		}
-	}	
+	}
 }

@@ -81,7 +81,6 @@ public class CommandCustomFeature extends AbstractCustomFeature {
 			final Object[] businessObjects = getBusinessObjects(bocs);
 			if(businessObjects == null){
 				return false;
-
 			}
 
 			populateEclipseContext(eclipseContext, bocs, businessObjects, null);
@@ -247,6 +246,10 @@ public class CommandCustomFeature extends AbstractCustomFeature {
 			bos[i] = bocs[i].getBusinessObject();
 
 			if(bos[i] == null) {
+				return null;
+			}
+
+			if (bos[i] instanceof EObject && ((EObject) bos[i]).eIsProxy()) {
 				return null;
 			}
 		}

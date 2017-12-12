@@ -29,6 +29,7 @@ import org.osate.ge.graphics.internal.Parallelogram;
 import org.osate.ge.graphics.internal.Poly;
 import org.osate.ge.graphics.internal.ProcessorGraphic;
 import org.osate.ge.graphics.internal.Rectangle;
+import org.osate.ge.internal.diagram.runtime.Dimension;
 import org.osate.ge.internal.diagram.runtime.DockArea;
 import org.osate.ge.internal.graphiti.diagram.PropertyUtil;
 
@@ -46,8 +47,11 @@ public class AgeGraphitiGraphicsUtil {
 	private static final Map<Class<? extends Graphic>, GraphicsAlgorithmCreator<?>> graphicToCreatorMap;
 
 	// Standard size of features other than feature groups
-	private static final int featureWidth = 20;
-	private static final int featureHeight = 16;
+	public static final Dimension defaultFeatureSize = new Dimension(20, 16);
+	private static final int featureGroupCircleWidth = featureGroupDefaultSymbolWidth * 2 / 3;
+	public static final Dimension featureGroupCircleSize = new Dimension(featureGroupCircleWidth,
+			featureGroupCircleWidth);
+
 	private static final double featureBgTransparency = 0.0; // Transparency for features which have a background. Directional features and event ports.
 
 	@FunctionalInterface
@@ -107,7 +111,7 @@ public class AgeGraphitiGraphicsUtil {
 		}
 	}
 
-	// Returns the new graphics algorithm
+// Returns the new graphics algorithm
 	public static GraphicsAlgorithm createGraphicsAlgorithm(final Diagram diagram,
 			final GraphicsAlgorithmContainer gaContainer, final Object graphic, final int width, final int height,
 			boolean fillBackground, final Style style) {
@@ -623,7 +627,7 @@ public class AgeGraphitiGraphicsUtil {
 		return 0;
 	}
 
-	// width and fillBackground are ignored for feature
+// width and fillBackground are ignored for feature
 	private static GraphicsAlgorithm createGraphicsAlgorithmForFeature(final Diagram diagram,
 			final GraphicsAlgorithmContainer containerGa, final FeatureGraphic featureGraphic, final int width,
 			final int height, boolean fillBackground, final int lineWidth, final LineStyle lineStyle) {
@@ -664,8 +668,8 @@ public class AgeGraphitiGraphicsUtil {
 		final IGaService gaService = Graphiti.getGaService();
 		final Color black = gaService.manageColor(diagram, IColorConstant.BLACK);
 
-		final int width = featureWidth;
-		final int height = featureHeight;
+		final int width = (int) defaultFeatureSize.width;
+		final int height = (int) defaultFeatureSize.height;
 
 		final GraphicsAlgorithm ga = gaService.createPlainRectangle(containerGa);
 		PropertyUtil.setIsStylingContainer(ga, true);
@@ -755,8 +759,8 @@ public class AgeGraphitiGraphicsUtil {
 		int[] eventPoints = null;
 		int[] dataPoints = null;
 
-		final int width = featureWidth;
-		final int height = featureHeight;
+		final int width = (int) defaultFeatureSize.width;
+		final int height = (int) defaultFeatureSize.height;
 
 		switch (direction) {
 		// In Port
@@ -837,8 +841,8 @@ public class AgeGraphitiGraphicsUtil {
 		final Color black = gaService.manageColor(diagram, IColorConstant.BLACK);
 		final Color white = gaService.manageColor(diagram, IColorConstant.WHITE);
 
-		final int width = featureWidth;
-		final int height = featureHeight;
+		final int width = (int) defaultFeatureSize.width;
+		final int height = (int) defaultFeatureSize.height;
 		final int slopeWidth = 5;
 
 		final GraphicsAlgorithm ga;
@@ -869,8 +873,8 @@ public class AgeGraphitiGraphicsUtil {
 		final Color background = blackBackground ? black : white;
 		final Color foreground = blackBackground ? white : black;
 
-		final int width = featureWidth;
-		final int height = featureHeight;
+		final int width = (int) defaultFeatureSize.width;
+		final int height = (int) defaultFeatureSize.height;
 
 		final int vPadding = 5;
 
@@ -918,9 +922,8 @@ public class AgeGraphitiGraphicsUtil {
 
 		final GraphicsAlgorithm ga = gaService.createRectangle(containerGa);
 		final int width = featureGroupDefaultSymbolWidth;
-		final int circleSize = width * 2 / 3;
-		final int barWidth = width - circleSize;
-		height = Math.max(height, circleSize);
+		final int barWidth = width - featureGroupCircleWidth;
+		height = Math.max(height, featureGroupCircleWidth);
 		gaService.setSize(ga, width, height);
 		ga.setLineVisible(false);
 		ga.setFilled(false);
@@ -928,14 +931,14 @@ public class AgeGraphitiGraphicsUtil {
 
 		// Circle
 		final GraphicsAlgorithm circle = gaService.createPlainEllipse(ga);
-		gaService.setLocationAndSize(circle, 0, height / 2 - circleSize / 2, circleSize, circleSize);
+		gaService.setLocationAndSize(circle, 0, height / 2 - featureGroupCircleWidth / 2, featureGroupCircleWidth, featureGroupCircleWidth);
 		circle.setBackground(black);
 		circle.setForeground(black);
 		PropertyUtil.setIsStylingChild(circle, true);
 
 		// Bar
 		final GraphicsAlgorithm bar = gaService.createPlainRectangle(ga);
-		gaService.setLocationAndSize(bar, circleSize, 0, barWidth, height);
+		gaService.setLocationAndSize(bar, featureGroupCircleWidth, 0, barWidth, height);
 		bar.setBackground(black);
 		bar.setForeground(black);
 		PropertyUtil.setIsStylingChild(bar, true);

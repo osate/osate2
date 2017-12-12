@@ -8,7 +8,6 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 
-import org.eclipse.emf.ecore.EObject;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.xtext.naming.QualifiedName;
 import org.eclipse.xtext.resource.IEObjectDescription;
@@ -20,12 +19,12 @@ import org.osate.ge.internal.diagram.runtime.CanonicalBusinessObjectReference;
 import org.osate.ge.internal.diagram.runtime.ContentsFilter;
 import org.osate.ge.internal.diagram.runtime.RelativeBusinessObjectReference;
 import org.osate.ge.internal.model.PropertyValueGroup;
-import org.osate.ge.internal.model.Tag;
 import org.osate.ge.internal.query.Queryable;
 import org.osate.ge.internal.services.ExtensionService;
 import org.osate.ge.internal.services.ProjectProvider;
 import org.osate.ge.internal.services.ProjectReferenceService;
 import org.osate.ge.internal.ui.util.ImageUiHelper;
+import org.osate.ge.internal.ui.util.UiUtil;
 import org.osate.ge.internal.util.BusinessObjectContextHelper;
 import org.osate.ge.internal.util.BusinessObjectProviderHelper;
 import org.osate.ge.internal.util.ScopedEMFIndexRetrieval;
@@ -71,37 +70,7 @@ public class DefaultDiagramConfigurationDialogModel implements DiagramConfigurat
 
 	@Override
 	public String getName(final BusinessObjectContext boc) {
-		// Build a prefix based on the business object type
-		final Object bo = boc.getBusinessObject();
-		final String prefix;
-		if(bo instanceof EObject) {
-			prefix = StringUtil.camelCaseToUser(((EObject)bo).eClass().getName()) + " ";
-		} else if(bo instanceof Tag) {
-			prefix = "Misc ";
-		} else {
-			prefix ="";
-		}
-
-		// Call the business object handler's GetName method
-		final Object boh = extService.getApplicableBusinessObjectHandler(bo);
-
-		String baseName = bocHelper.getName(boc, boh);
-		if(baseName == null) {
-			if(bo instanceof NamedElement) {
-				baseName = ((NamedElement) bo).getName();
-			}
-
-			if(baseName == null) {
-				final String typeName = StringUtil
-						.camelCaseToUser(
-								bo instanceof EObject ? ((EObject) bo).eClass().getName() : bo.getClass().getName());
-				return "<Unnamed " + typeName + ">";
-			} else {
-				return baseName;
-			}
-		}
-
-		return prefix + baseName;
+		return UiUtil.getDescription(boc, extService, bocHelper);
 	}
 
 	@Override

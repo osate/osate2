@@ -1,17 +1,20 @@
 package org.osate.ge.internal.ui.handlers;
 
+import java.util.Collections;
 import java.util.List;
 
 import org.eclipse.core.commands.ExecutionEvent;
+import org.eclipse.core.expressions.IEvaluationContext;
 import org.eclipse.core.runtime.Adapters;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.ui.IEditorPart;
+import org.eclipse.ui.ISources;
 import org.eclipse.ui.handlers.HandlerUtil;
 import org.osate.ge.internal.diagram.runtime.DiagramElement;
 import org.osate.ge.internal.services.UiService;
 import org.osate.ge.internal.ui.util.SelectionUtil;
 
-public class AgeHandlerUtil {
+class AgeHandlerUtil {
 	// Returns the current selection as diagram elements.
 	// If one or more of the selected objects cannot be adapted to DiagramElement then an empty list is returned.
 	public static List<DiagramElement> getSelectedDiagramElements(final ExecutionEvent event) {
@@ -35,5 +38,20 @@ public class AgeHandlerUtil {
 		}
 
 		uiService.activateTool(tool);
+	}
+
+	public static List<DiagramElement> getSelectedDiagramElementsFromContext(final Object evaluationContext) {
+		if (!(evaluationContext instanceof IEvaluationContext)) {
+			return Collections.emptyList();
+		}
+
+		final IEvaluationContext context = (IEvaluationContext) evaluationContext;
+		final Object selectionObj = context.getVariable(ISources.ACTIVE_CURRENT_SELECTION_NAME);
+		if (!(selectionObj instanceof ISelection)) {
+			return Collections.emptyList();
+		}
+
+		final ISelection selection = (ISelection) selectionObj;
+		return SelectionUtil.getSelectedDiagramElements(selection);
 	}
 }

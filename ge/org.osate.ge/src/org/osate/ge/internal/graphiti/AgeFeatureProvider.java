@@ -98,7 +98,6 @@ import org.osate.ge.internal.graphiti.features.BoHandlerDeleteFeature;
 import org.osate.ge.internal.graphiti.features.BoHandlerDirectEditFeature;
 import org.osate.ge.internal.graphiti.features.CommandCustomFeature;
 import org.osate.ge.internal.graphiti.features.ConfigureDiagramFeature;
-import org.osate.ge.internal.graphiti.features.LayoutDiagramFeature;
 import org.osate.ge.internal.graphiti.features.SelectAncestorFeature;
 import org.osate.ge.internal.graphiti.features.SetAutoContentFilterFeature;
 import org.osate.ge.internal.graphiti.features.UpdateDiagramCustomFeature;
@@ -137,7 +136,8 @@ public class AgeFeatureProvider extends DefaultFeatureProvider {
 	public void initialize(final IEclipseContext context) {
 		this.eclipseContext = context.createChild();
 		this.eclipseContext.set(IFeatureProvider.class, this);
-		this.referenceService = Objects.requireNonNull(eclipseContext.get(ReferenceService.class), "unablet to retrieve reference service service");
+		this.referenceService = Objects.requireNonNull(eclipseContext.get(ReferenceService.class),
+				"unable to retrieve reference service service");
 		this.extService = Objects.requireNonNull(eclipseContext.get(ExtensionService.class), "unable to retrieve extension service");
 		this.aadlModService = Objects.requireNonNull(eclipseContext.get(AadlModificationService.class), "unable to retrieve AADL modification service");
 		this.graphitiService = Objects.requireNonNull(eclipseContext.get(GraphitiService.class), "unablet to retrieve Graphiti service");
@@ -156,13 +156,16 @@ public class AgeFeatureProvider extends DefaultFeatureProvider {
 		// Create the refresh diagram feature
 		final DefaultBusinessObjectNodeFactory nodeFactory = new DefaultBusinessObjectNodeFactory(referenceResolver);
 		final QueryService queryService = Objects.requireNonNull(eclipseContext.get(QueryService.class), "unable to retrieve query service");
-		final TreeUpdater boTreeExpander = new DefaultTreeUpdater(graphitiService, extService, referenceResolver, queryService, nodeFactory);
+		final TreeUpdater boTreeExpander = new DefaultTreeUpdater(graphitiService, extService, referenceResolver,
+				queryService, nodeFactory);
 		deInfoProvider = new DefaultDiagramElementGraphicalConfigurationProvider(referenceResolver, extService);
 		diagramUpdater = new DiagramUpdater(boTreeExpander, deInfoProvider);
-		this.updateDiagramFeature = new UpdateDiagramFeature(this, graphitiService, diagramUpdater);
+		this.updateDiagramFeature = new UpdateDiagramFeature(this, graphitiService, diagramUpdater, graphitiService,
+				referenceResolver);
 
 		// Create the configure diagram feature
-		this.configureDiagramFeature = new ConfigureDiagramFeature(this, boTreeExpander, diagramUpdater, graphitiService, referenceResolver, extService, graphitiService);
+		this.configureDiagramFeature = new ConfigureDiagramFeature(this, boTreeExpander, diagramUpdater,
+				graphitiService, referenceResolver, extService, graphitiService, graphitiService);
 	}
 
 	@Override
@@ -302,7 +305,6 @@ public class AgeFeatureProvider extends DefaultFeatureProvider {
 	protected void addCustomFeatures(final List<ICustomFeature> features) {
 		features.add(configureDiagramFeature);
 		features.add(make(UpdateDiagramCustomFeature.class));
-		features.add(make(LayoutDiagramFeature.class));
 		features.add(make(SelectAncestorFeature.class));
 		features.add(new SetAutoContentFilterFeature(this, graphitiService, BuiltinContentsFilter.ALLOW_FUNDAMENTAL));
 		features.add(new SetAutoContentFilterFeature(this, graphitiService, BuiltinContentsFilter.ALLOW_TYPE));

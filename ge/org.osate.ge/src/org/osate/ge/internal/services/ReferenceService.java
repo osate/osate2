@@ -14,6 +14,6 @@ import org.osate.ge.services.ReferenceBuilderService;
 /**
  * Service for building and resolving references to business objects
  */
-public interface ReferenceService extends ReferenceBuilderService {
+public interface ReferenceService extends ReferenceBuilderService, ReferenceLabelService {
 	ProjectReferenceService getProjectReferenceService(IProject project);
 }

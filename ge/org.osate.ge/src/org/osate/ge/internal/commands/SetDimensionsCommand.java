@@ -2,7 +2,7 @@ package org.osate.ge.internal.commands;
 
 import javax.inject.Named;
 
-import org.eclipse.jface.dialogs.Dialog;
+import org.eclipse.jface.window.Window;
 import org.eclipse.swt.widgets.Display;
 import org.osate.aadl2.AadlPackage;
 import org.osate.aadl2.ArrayDimension;
@@ -14,11 +14,11 @@ import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.PackageSection;
 import org.osate.aadl2.Subcomponent;
 import org.osate.aadl2.modelsupport.util.AadlUtil;
+import org.osate.ge.BusinessObjectContext;
 import org.osate.ge.di.Activate;
 import org.osate.ge.di.GetLabel;
 import org.osate.ge.di.IsAvailable;
 import org.osate.ge.di.Names;
-import org.osate.ge.BusinessObjectContext;
 import org.osate.ge.internal.di.GetBusinessObjectToModify;
 import org.osate.ge.internal.ui.dialogs.EditDimensionsDialog;
 import org.osate.ge.internal.ui.util.SelectionUtil;
@@ -49,7 +49,7 @@ public class SetDimensionsCommand {
 	@Activate
 	public boolean activate(@Named(Names.BUSINESS_OBJECT) final ArrayableElement ae) {
 		final EditDimensionsDialog dlg = new EditDimensionsDialog(Display.getCurrent().getActiveShell(), SelectionUtil.getProject(ae.eResource()), ae.getArrayDimensions(), ae instanceof Subcomponent);
-		if(dlg.open() == Dialog.CANCEL) {
+		if(dlg.open() == Window.CANCEL) {
 			return false;
 		}
 		// Replace the element's array dimensions in a round about way.

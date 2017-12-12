@@ -13,13 +13,13 @@ public enum DockingPosition {
 	TOP(DockArea.TOP),
 	BOTTOM(DockArea.BOTTOM);
 
-	private final DockArea dockArea;
+	private final DockArea defaultDockArea;
 
-	DockingPosition(DockArea dockArea) {
-		this.dockArea = dockArea;
+	DockingPosition(DockArea defaultDockArea) {
+		this.defaultDockArea = defaultDockArea;
 	}
 
-	public DockArea getDockArea() {
-		return dockArea;
+	public DockArea getDefaultDockArea() {
+		return defaultDockArea;
 	}
 }

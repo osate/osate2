@@ -129,4 +129,12 @@ public class AgeDiagramEditor extends DiagramEditor implements GraphicalEditor {
 	public void clearSelection() {
 		selectPictogramElements(new PictogramElement[0]);
 	}
+
+	public void setDiagramContextIsValid(final boolean value) {
+		((AgeDiagramBehavior) getDiagramBehavior()).setDiagramContextIsValid(value);
+	}
+
+	public boolean isEditable() {
+		return ((AgeDiagramBehavior) getDiagramBehavior()).isEditable();
+	}
 }

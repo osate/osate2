@@ -29,6 +29,9 @@ import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.osate.ge.di.BuildCanonicalReference;
 import org.osate.ge.di.BuildRelativeReference;
 import org.osate.ge.di.Names;
+import org.osate.ge.internal.di.GetCanonicalReferenceLabel;
+import org.osate.ge.internal.di.GetRelativeReferenceLabel;
+import org.osate.ge.internal.di.InternalNames;
 import org.osate.ge.internal.diagram.runtime.CanonicalBusinessObjectReference;
 import org.osate.ge.internal.diagram.runtime.RelativeBusinessObjectReference;
 import org.osate.ge.internal.services.ModelChangeNotifier;
@@ -40,6 +43,7 @@ import org.osgi.framework.FrameworkUtil;
 public class DefaultReferenceService implements ReferenceService {
 	public static final String REFERENCES_EXTENSION_POINT_ID = "org.osate.ge.references";
 	private static final String REFERENCE_BUILDER_ELEMENT_NAME = "referenceBuilder";
+	private static final String REFERENCE_LABEL_PROVIDER_ELEMENT_NAME = "referenceLabelProvider";
 
 	private final static ReferenceQueue<ProjectReferenceService> serviceReferenceQueue = new ReferenceQueue<>();
 
@@ -97,6 +101,7 @@ public class DefaultReferenceService implements ReferenceService {
 	}
 
 	private List<Object> referenceBuilders = null;
+	private List<Object> referenceLabelProviders = null;
 	private final IEclipseContext argCtx = EclipseContextFactory.create(); // Used for method arguments
 	private final IEclipseContext serviceContext;
 	private final WeakHashMap<IProject, ProjectReferenceServiceReference> projectToProjectReferenceService = new WeakHashMap<>();
@@ -118,6 +123,7 @@ public class DefaultReferenceService implements ReferenceService {
 	public DefaultReferenceService(final ModelChangeNotifier modelChangeNotifier) {
 		this.modelChangeNotifier = Objects.requireNonNull(modelChangeNotifier, "modelChangeNotifier must not be null");
 		referenceBuilders = instantiateReferenceBuilders();
+		referenceLabelProviders = instantiateReferenceLabelProviders();
 
 		final Bundle bundle = FrameworkUtil.getBundle(getClass());
 		serviceContext = EclipseContextFactory.getServiceContext(bundle.getBundleContext()).createChild();
@@ -145,6 +151,29 @@ public class DefaultReferenceService implements ReferenceService {
 						final Object ext = ce.createExecutableExtension("class");
 						referenceBuilders.add(ext);
 					} catch(final CoreException ex) {
+						throw new RuntimeException(ex);
+					}
+				}
+			}
+		}
+
+		return Collections.unmodifiableList(referenceBuilders);
+	}
+
+	private static List<Object> instantiateReferenceLabelProviders() {
+		final List<Object> referenceBuilders = new ArrayList<>();
+
+		final IExtensionRegistry registry = Platform.getExtensionRegistry();
+		final IExtensionPoint point = Objects.requireNonNull(
+				registry.getExtensionPoint(DefaultReferenceService.REFERENCES_EXTENSION_POINT_ID),
+				"unable to retrieve references extension point");
+		for (final IExtension extension : point.getExtensions()) {
+			for (final IConfigurationElement ce : extension.getConfigurationElements()) {
+				if (ce.getName().equals(REFERENCE_LABEL_PROVIDER_ELEMENT_NAME)) {
+					try {
+						final Object ext = ce.createExecutableExtension("class");
+						referenceBuilders.add(ext);
+					} catch (final CoreException ex) {
 						throw new RuntimeException(ex);
 					}
 				}
@@ -220,7 +249,7 @@ public class DefaultReferenceService implements ReferenceService {
 			final IEclipseContext ctx = EclipseContextFactory.getServiceContext(bundle.getBundleContext()).createChild();
 
 			// Create the reference service
-			result = new DefaultProjectReferenceService(this, project, ctx);
+			result = new DefaultProjectReferenceService(this, this, project, ctx);
 
 			// Create the reference
 			final ProjectReferenceServiceReference newServiceRef = new ProjectReferenceServiceReference(result, serviceReferenceQueue, ctx);
@@ -228,5 +257,48 @@ public class DefaultReferenceService implements ReferenceService {
 		}
 
 		return result;
+	}
+
+	@Override
+	public String getLabel(final CanonicalBusinessObjectReference ref) {
+		Objects.requireNonNull(ref, "ref must not be null");
+		try {
+			// Set context fields
+			argCtx.set(InternalNames.REFERENCE, ref);
+			for (final Object refLabelProvider : referenceLabelProviders) {
+				final String label = (String) ContextInjectionFactory.invoke(refLabelProvider,
+						GetCanonicalReferenceLabel.class,
+						serviceContext, argCtx, null);
+				if (label != null) {
+					return label;
+				}
+			}
+		} finally {
+			// Remove entries from context
+			argCtx.remove(Names.BUSINESS_OBJECT);
+		}
+
+		return null;
+	}
+
+	@Override
+	public String getLabel(final RelativeBusinessObjectReference ref) {
+		Objects.requireNonNull(ref, "ref must not be null");
+		try {
+			// Set context fields
+			argCtx.set(InternalNames.REFERENCE, ref);
+			for (final Object refLabelProvider : referenceLabelProviders) {
+				final String label = (String) ContextInjectionFactory.invoke(refLabelProvider,
+						GetRelativeReferenceLabel.class, serviceContext, argCtx, null);
+				if (label != null) {
+					return label;
+				}
+			}
+		} finally {
+			// Remove entries from context
+			argCtx.remove(Names.BUSINESS_OBJECT);
+		}
+
+		return null;
 	}
 }

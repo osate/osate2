@@ -17,6 +17,7 @@ import org.eclipse.graphiti.dt.AbstractDiagramTypeProvider;
 import org.eclipse.graphiti.features.IFeatureProvider;
 import org.eclipse.graphiti.tb.IToolBehaviorProvider;
 import org.osate.ge.internal.AgeDiagramProvider;
+import org.osate.ge.internal.diagram.runtime.layout.LayoutInfoProvider;
 import org.osate.ge.internal.graphiti.services.GraphitiService;
 import org.osate.ge.internal.graphiti.services.impl.DefaultColoringService;
 import org.osate.ge.internal.graphiti.services.impl.DefaultGraphitiService;
@@ -41,36 +42,36 @@ import org.osgi.framework.Bundle;
 import org.osgi.framework.FrameworkUtil;
 
 public class AgeDiagramTypeProvider extends AbstractDiagramTypeProvider {
-	public static final String id = "org.osate.ge.aadlDiagramTypeProvider";	
+	public static final String id = "org.osate.ge.aadlDiagramTypeProvider";
 	private final IEclipseContext context;
 	private ProjectReferenceServiceProxy projectReferenceService;
 	private IToolBehaviorProvider[] toolBehaviorProviders;
-	
-	public AgeDiagramTypeProvider() {	
+
+	public AgeDiagramTypeProvider() {
 		final AgeFeatureProvider featureProvider = new AgeFeatureProvider(this);
 		this.context = createEclipseContext(featureProvider);
-		featureProvider.initialize(context);		
+		featureProvider.initialize(context);
 		setFeatureProvider(featureProvider);
 	}
-	
+
 	private IEclipseContext createEclipseContext(final IFeatureProvider fp) {
 		// Create the eclipse context
-		final Bundle bundle = FrameworkUtil.getBundle(getClass());	
+		final Bundle bundle = FrameworkUtil.getBundle(getClass());
 		final IEclipseContext context =  EclipseContextFactory.getServiceContext(bundle.getBundleContext()).createChild();
-		
+
 		// Create objects for the context
 		final ReferenceService globalReferenceService = Objects.requireNonNull(context.get(ReferenceService.class), "Unable to retrieve global reference service");
 		final DefaultNamingService namingService = new DefaultNamingService();
 		final ExtensionService extensionService = new DefaultExtensionService(Objects.requireNonNull(context.get(ExtensionRegistryService.class), "Unable to retrieve ExtensionRegistryService"), context);
-		
+
 		final DefaultGraphitiService graphitiService = new DefaultGraphitiService(this, fp);
 		final UiService uiService = new DefaultUiService(graphitiService);
 		projectReferenceService = new ProjectReferenceServiceProxy(globalReferenceService, graphitiService);
 		final DefaultColoringService coloringService = new DefaultColoringService(graphitiService);
 		final DefaultQueryService queryService = new DefaultQueryService(globalReferenceService);
-		
+
 		// Populate the context.
-		// This context is used by extensions so it should only contain objects which are part of the graphical editor's API or which 
+		// This context is used by extensions so it should only contain objects which are part of the graphical editor's API or which
 		// are in internal package. It should not include Graphiti objects.
 		context.set(ExtensionService.class, extensionService);
 		context.set(UiService.class, uiService);
@@ -83,39 +84,44 @@ public class AgeDiagramTypeProvider extends AbstractDiagramTypeProvider {
 		context.set(QueryService.class, queryService);
 		context.set(GraphitiAgeDiagramProvider.class, graphitiService);
 		context.set(AgeDiagramProvider.class, graphitiService);
-		
+		context.set(LayoutInfoProvider.class, graphitiService);
+
 		// Create Public Services
 		context.set(ReferenceResolutionService.class, new DefaultReferenceResolutionService(projectReferenceService));
 
 		return context;
 	}
-	
+
 	@Override
 	public void dispose() {
 		projectReferenceService.dispose();
-		
+
 		if(context != null) {
 			context.dispose();
 		}
-		
+
 		super.dispose();
 	}
-		
+
 	@Override
 	public boolean isAutoUpdateAtStartup() {
 		// Disable auto updating on startup because the diagram is updated as part of the diagram loading process.
 		return false;
-	}	
-	
+	}
+
 	public ColoringService getColoringService() {
 		return context.get(ColoringService.class);
 	}
-	
+
+	public ProjectReferenceService getProjectReferenceService() {
+		return projectReferenceService;
+	}
+
 	@Override
-    public IToolBehaviorProvider[] getAvailableToolBehaviorProviders() {
-        if (toolBehaviorProviders == null) {
-            toolBehaviorProviders = new IToolBehaviorProvider[] { ContextInjectionFactory.make(AgeToolBehaviorProvider.class, context) };
-        }
-        return toolBehaviorProviders;
-    }
+	public IToolBehaviorProvider[] getAvailableToolBehaviorProviders() {
+		if (toolBehaviorProviders == null) {
+			toolBehaviorProviders = new IToolBehaviorProvider[] { ContextInjectionFactory.make(AgeToolBehaviorProvider.class, context) };
+		}
+		return toolBehaviorProviders;
+	}
 }

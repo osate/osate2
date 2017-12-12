@@ -14,8 +14,6 @@ import org.eclipse.jface.viewers.ComboViewer;
 import org.eclipse.jface.viewers.LabelProvider;
 import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.events.DisposeEvent;
-import org.eclipse.swt.events.DisposeListener;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.SelectionListener;
 import org.eclipse.swt.widgets.Composite;
@@ -26,7 +24,7 @@ import org.osate.aadl2.NamedElement;
 public class ComboContributionItem extends ControlContribution {
 	private ComboViewer combo;
 	private final Object nullValue = new Object();
-	
+
 	protected ComboContributionItem(final String id) {
 		super(id);
 	}
@@ -34,18 +32,12 @@ public class ComboContributionItem extends ControlContribution {
 	protected final Object getNullValue() {
 		return nullValue;
 	}
-	
+
 	@Override
 	protected Control createControl(final Composite parent) {
 		combo = new ComboViewer(parent, SWT.DROP_DOWN | SWT.READ_ONLY);
 		combo.setContentProvider(ArrayContentProvider.getInstance());
-		combo.getCombo().addDisposeListener(new DisposeListener() {
-			@Override
-			public void widgetDisposed(DisposeEvent e) {
-				onControlDisposed();
-			}
-			
-		});
+		combo.getCombo().addDisposeListener(e -> onControlDisposed());
 
 		combo.getCombo().addSelectionListener(new SelectionListener() {
 			@Override
@@ -56,19 +48,19 @@ public class ComboContributionItem extends ControlContribution {
 
 			@Override
 			public void widgetDefaultSelected(SelectionEvent e) {
-			}			
+			}
 		});
-		
+
 		combo.setLabelProvider(new LabelProvider() {
-	        @Override
-	        public String getText(Object element) {
-	        	if(element == nullValue) {
-	        		return getNullValueString();
-	        	} else if (element instanceof NamedElement) {
-                	return getQualifiedName((NamedElement) element);
-                }
-                return super.getText(element);
-	        }
+			@Override
+			public String getText(Object element) {
+				if(element == nullValue) {
+					return getNullValueString();
+				} else if (element instanceof NamedElement) {
+					return getQualifiedName((NamedElement) element);
+				}
+				return super.getText(element);
+			}
 		});
 
 		return combo.getControl();
@@ -79,32 +71,33 @@ public class ComboContributionItem extends ControlContribution {
 		if(element instanceof FlowImplementation) {
 			return ((FlowImplementation) element).getSpecification().getQualifiedName();
 		}
-		
+
 		return element.getQualifiedName();
 	}
-	
+
 	public ComboViewer getComboViewer() {
-		if(combo == null || combo.getCombo() == null || combo.getCombo().isDisposed())
+		if(combo == null || combo.getCombo() == null || combo.getCombo().isDisposed()) {
 			return null;
-		
+		}
+
 		return combo;
 	}
-	
+
 	protected void onControlDisposed() {
-		
+
 	}
-	
+
 	protected void onSelection(final Object value) {
-		
+
 	}
-	
+
 	protected String getNullValueString() {
 		return "";
 	}
-	
+
 	// Force a fixed width for the combo contribution items. Otherwise the sizes are often incorrect due to the dynamic nature of the control.
 	@Override
 	protected int computeWidth(Control control) {
-	    return 300;
+		return 300;
 	}
 }

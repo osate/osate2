@@ -175,11 +175,6 @@ Under some circumstances, it is difficult to select the desired diagram element 
 
 2. Select *Select Container* from the context menu.
 
-### Performing Diagram Layout
-When creating a new diagram from an AADL model, the editor lays out the diagram automatically. The layout of the diagram can be redone by right-clicking inside the diagram and select *Layout Diagram*. Doing so will adjust the positions of all the shapes in the diagram.
-
-![](../images/LayoutDiagram.png)
-
 ### Editing a Diagram Element's Appearance{#sec:de_apperance}
 The appearance of diagram elements can be edited by using the *Appearance* tab of the *Properties* view.
 
@@ -199,6 +194,74 @@ An element's appearance can be changed using the following steps.
 	- Font color can be edited by clicking the font color button and selecting the desired color.
 	- Background color can be edited by clicking the background color button and selecting the desired color.
 
+### Diagram Context Adjustment
+Diagrams are associated with model elements. Moving a model element between packages or renaming it or any of its containers from the AADL text editor without using the *Rename Element* menu option will break its association with diagrams. 
+
+When opening a diagram, the *Missing Diagram Context* dialog will appear if the graphical editor is unable to find the model element associated with a diagram for any reason. If the element has been previously renamed, select the new name for the element and select *OK*.
+
+### Restore Missing Diagram Elements{#sec:restore_missing_diagram_elements}
+If a a model element is renamed from the AADL text editor without using the *Rename Element* menu option, the diagram element may disappear from diagrams in which it appears. In such cases it is possible to restore the diagram elements using the following steps. Note: if the diagram is saved after the diagram elements disappears, it will not be possible to restore the missing diagram elements.
+
+1. Select *Edit->Restore Missing Diagram Elements*. A window containing diagram elements which have been removed from the diagram because the associated model element is missing will appear.
+2. Update the desired model references in the *New Reference* column.
+3. Select OK. The diagram elements will be restored.
+
+## Diagram Layout
+The following sections describe the diagram layout capabilities of the graphical editor.
+
+### Layout Commands
+
+Layout menu items are available from the *Edit->Layout* menu or by right clicking on the diagram or diagram element and using the *Layout* sub-menu. The behavior of the layout menu items are described in @tbl:layout_menu_items.
+
+![](../images/layout_menu.png)
+
+
+|Menu Option | Description|
+|--------------------|--------------------------------------------------|
+| *Layout Diagram* | Repositions and resizes the contents of the entire diagram. |
+| *Layout Contents* | Repositions and resizes the contents of the selected element(s). |
+| *Align Left* | Aligns the left of all selected elements with that of the primary selection. |
+| *Align Center* | Aligns the horizontal center of all selected elements with that of the primary selection. |
+| *Align Right* | Aligns the right of all selected elements with that of the primary selection. |
+| *Align Top* | Aligns the top of all selected elements with that of the primary selection. |
+| *Align Middle* | Aligns the vertical center of all selected elements with that of the primary selection. |
+| *Align Bottom* | Aligns the bottom of all selected elements with that of the primary selection. |
+| *Distribute Shapes Horizontally* | Moves the selected elements to produce equal horizontal spacing. |
+| *Distribute Shapes Vertically* | Moves the selected elements to produce equal vertical spacing. |
+| *Arrange in Grid* | Arranges the selected elements into a grid. |
+| *Arrange in Circle* | Arranges the selected elements into a circle. |
+| *Match Width* | Adjusts the width of all selected elements to match that of the primary selection. |
+| *Match Height* | Adjusts the height of all selected elements to match that of the primary selection. |
+| *Match Size* | Adjusts the width and height of all selected elements to match that of the primary selection. | 
+
+Table: Layout Menu Items {#tbl:layout_menu_items}
+
+### Incremental Layout
+When an element has been added to the diagram and needs to be positioned or sized, an incremental layout is performed. The behavior of the incremental layout can be configured by selecting a mode from the preferences dialog.
+
+1. Select *Window->Preferences*
+
+2. Select to *OSATE Preferences->Diagram*
+
+![](../images/preferences.png)
+
+3. Select the desired *Incremental Layout Mode*. The modes are described in @tbl:incremental_layout_modes.
+
+|Mode| Description|
+|-------|--------------------------------------------------|
+| *Diagram* | Each time the editor needs to position an element, a layout will be performed on the entire diagram. User adjustments to the diagram layout will be replaced. This reduces the amount of user control over the layout.|
+| *Container* | When an element is found that has neither a size or position, a layout is performed on the diagram element's container. Any manual layout information in the diagram element's container will be replaced. If the shape is created and positioned using the palette, the layout will only be performed on the contents of the new element. |
+| *Contents* | This is the default setting. A layout is performed on the contents of any element which does not have a size or position. This option is the least disruptive to the existing layout. However, new elements may overlap with existing elements. The *Layout Contents* menu item can be used to manually layout the contents of a container as needed. If a feature is added, it will be positioned after other features on the appropriate edge. If none of the siblings of an element have a position or size, then the layout will be performed on the container instead. This is done to provide a better layout in cases when an element does not have a user specified layout. |
+
+Table: Incremental Layout Modes {#tbl:incremental_layout_modes}
+
+### Known Layout Issues and Limitations
+
+* Connections between multiple levels of the diagram hierarchy are not routed out. Such connections usually represent property values such as bindings. Such connections must be routed manually.
+* Mode transition triggers are not routed out. The recommended workaround is to show the mode transition triggers as text labels.
+* Flow source and sinks are not consider when laying out the diagram.
+* The automatic layout for flow path may produce unexpected routing and label placement for the flow path. To workaround this issue, it is recommended to disable labels for flow paths.	
+	
 ## Connections
 The graphical editor allows editing AADL connections such as access, feature, feature group, parameter, and port.
 
@@ -393,7 +456,7 @@ When editing a component implementation, flow implementations and end-to-end flo
 ![](../images/EditFlows.png)
 
 ### Highlighting Flow Implementations and End-to-End Flow Specifications
-Selecting a flow implementation or end-to-end flow specification from the flow drop-down in the toolbar will highlight the flow.
+Selecting a flow implementation or end-to-end flow specification from the flow drop-down in the toolbar will highlight the flow.  Flow Implementations and End To End Flows that have segments that are not shown in the diagram will be marked with an asterisk(*) in the drop-down.
 
 ## Modes
 The graphical editor allows editing the modes and mode transitions defined in the AADL model.
@@ -533,21 +596,6 @@ Annex Libraries and Annex Libraries can be created by using the palette.
 
 ![](../images/AnnexDialog.png)
 
-## Layouts
-The graphical editor allows for the layout of appropriate elements to be set to radial or grid.
-
-### Grid Layout
-1. Select the elements for which to set the layout.
-1. Select the *Grid Layout* button from the toolbar.
-
-![](../images/GridLayout.png)
-
-### Radial Layout
-1. Select the elements for which to set the layout.
-1. Select the *Radial Layout* button from the toolbar.
-
-![](../images/RadialLayout.png)
-	
 # Troubleshooting
 The following section contains solutions to known issues as well as instructions for reporting problems with the graphical editor.
 
@@ -559,14 +607,14 @@ The following section contains solutions to known issues as well as instructions
 ## Inconsistent Font Sizes Across Machines
 To ensure diagrams have a consistent appearance across machines, the graphical editor attempts to produce consistent text sizes regardless of system settings. However, due to limitations in the underlying libraries on which the graphical editor relies, this is not always possible. On windows systems, the graphical editor produces consistent font sizes at 100%, 125%, and 200% system text scaling levels.
 
-## Out of Handles Exception
-When working with extremely large models, the graphical editor may run out of graphics handles. To work around this issue, reduce the number of graphics handles used by splitting the model into smaller packages.
-
 ## Unable to Set Properties Unless Text Model is Open
 The AADL Property Values view does not support editing property associations unless the textual AADL model is open. To work around this issue, open the textual AADL file before attempting to create property assignments with the AADL Properties Values view.
 
 ## Updating the Diagram
-In most cases the graphical editor will automatically update diagrams to reflect changes to the AADL Model. If a diagram has not been updated for any reason, it can be updated manually by right-clicking inside an empty area of the diagram and selecting *Update* from the context menu.
+In most cases the graphical editor will automatically update diagrams to reflect changes to the AADL Model. If a diagram has not been updated for any reason, it can be updated manually by right-clicking inside the diagram and selecting *Update Diagram* from the context menu.
+
+## Missing Diagram Elements After Modification of AADL Source
+See @sec:restore_missing_diagram_elements.
 
 ## Reporting Bugs
 Bugs should be reported to the issue tracker on the graphical editor's [GitHub Site](https://github.com/osate/osate-ge).
