@@ -4,10 +4,12 @@ import org.osate.ui.OsateUiPlugin
 import java.util.Map
 
 class NewPropertySetWizard extends AbstractNewFileWizard {
-	val PROPERTY_SET_LABEL = "Property Set Name"
+	val PROPERTY_SET_LABEL = "Property set name"
 	
 	new() {
-		super("AADL Property Set", "aadl", 1, OsateUiPlugin.^default.log, OsateUiPlugin.PLUGIN_ID)
+		super("AADL Property Set", "AADL property set", "aadl", 1, OsateUiPlugin.^default.log,
+			OsateUiPlugin.PLUGIN_ID
+		)
 		addField(PROPERTY_SET_LABEL, [fieldValue | isValidId(fieldValue)])
 	}
 	
