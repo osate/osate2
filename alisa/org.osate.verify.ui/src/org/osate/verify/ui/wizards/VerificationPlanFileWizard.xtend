@@ -9,8 +9,8 @@ import org.osate.verify.services.VerifyGrammarAccess
 import org.osate.verify.ui.internal.VerifyActivator
 
 class VerificationPlanFileWizard extends AbstractNewFileWizard {
-	val VERIFICATION_PLAN_LABEL = "Verification Plan Name"
-	val REQUIREMENT_SET_LABEL = "Requirement Set"
+	val VERIFICATION_PLAN_LABEL = "Verification plan name"
+	val REQUIREMENT_SET_LABEL = "Requirement set"
 	
 	@Inject IParser parser
 	@Inject VerifyGrammarAccess grammarAccess

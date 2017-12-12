@@ -7,7 +7,7 @@ import org.osate.ui.wizards.AbstractNewFileWizard
 package abstract class AbstractCategoriesFileWizard extends AbstractNewFileWizard {
 	new(String fileType, String fileExtension) {
 		super(fileType, fileExtension, 0, CategoriesActivator.instance.log, "org.osate.categories.ui")
-		addField(fileType + " File Name", [fieldValue | !fieldValue.startsWith(".")])
+		addField(fileType + " file name", [fieldValue | !fieldValue.startsWith(".")])
 	}
 	
 	override fileContents(Map<String, String> fieldValues) {

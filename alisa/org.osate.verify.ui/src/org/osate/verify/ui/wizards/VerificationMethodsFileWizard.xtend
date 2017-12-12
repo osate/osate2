@@ -9,7 +9,7 @@ import org.osate.verify.services.VerifyGrammarAccess
 import org.osate.verify.ui.internal.VerifyActivator
 
 class VerificationMethodsFileWizard extends AbstractNewFileWizard {
-	val VERIFICATION_METHODS_LABEL = "Verification Methods Name"
+	val VERIFICATION_METHODS_LABEL = "Verification methods name"
 	
 	@Inject IParser parser
 	@Inject VerifyGrammarAccess grammarAccess

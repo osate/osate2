@@ -9,9 +9,9 @@ import org.osate.alisa.workbench.ui.internal.AlisaActivator
 import org.osate.ui.wizards.AbstractNewFileWizard
 
 class AssurancePlanFileWizard extends AbstractNewFileWizard {
-	val CASE_LABEL = "Assurance Case Name"
-	val PLAN_LABEL = "First Assurance Plan Name"
-	val IMPLEMENTATION_LABEL = "Component Implementation"
+	val CASE_LABEL = "Assurance case name"
+	val PLAN_LABEL = "First assurance plan name"
+	val IMPLEMENTATION_LABEL = "Component implementation"
 	
 	@Inject IParser parser
 	@Inject AlisaGrammarAccess grammarAccess

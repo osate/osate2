@@ -9,7 +9,7 @@ import org.osate.reqspec.ui.internal.ReqSpecActivator
 import org.osate.ui.wizards.AbstractNewFileWizard
 
 class SystemRequirementsFileWizard extends AbstractNewFileWizard {
-	val SYSTEM_REQUIREMENTS_LABEL = "System Requirements Name"
+	val SYSTEM_REQUIREMENTS_LABEL = "System requirements name"
 	val CLASSIFIER_LABEL = "Classifier"
 	
 	@Inject IParser parser

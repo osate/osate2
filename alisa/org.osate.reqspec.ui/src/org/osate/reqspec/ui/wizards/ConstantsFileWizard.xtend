@@ -9,7 +9,7 @@ import org.osate.reqspec.ui.internal.ReqSpecActivator
 import org.osate.ui.wizards.AbstractNewFileWizard
 
 class ConstantsFileWizard extends AbstractNewFileWizard {
-	val CONSTANTS_LABEL = "Constants Name"
+	val CONSTANTS_LABEL = "Constants name"
 	
 	@Inject IParser parser
 	@Inject ReqSpecGrammarAccess grammarAccess

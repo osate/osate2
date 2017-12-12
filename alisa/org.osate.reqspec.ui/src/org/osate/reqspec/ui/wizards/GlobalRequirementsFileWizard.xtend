@@ -9,7 +9,7 @@ import org.osate.reqspec.ui.internal.ReqSpecActivator
 import org.osate.ui.wizards.AbstractNewFileWizard
 
 class GlobalRequirementsFileWizard extends AbstractNewFileWizard {
-	val GLOBAL_REQUIREMENTS_LABEL = "Global Requirements Name"
+	val GLOBAL_REQUIREMENTS_LABEL = "Global requirements name"
 	
 	@Inject IParser parser
 	@Inject ReqSpecGrammarAccess grammarAccess

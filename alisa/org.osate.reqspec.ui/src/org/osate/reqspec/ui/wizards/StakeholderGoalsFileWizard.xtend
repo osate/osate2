@@ -9,8 +9,8 @@ import org.osate.reqspec.ui.internal.ReqSpecActivator
 import org.osate.ui.wizards.AbstractNewFileWizard
 
 class StakeholderGoalsFileWizard extends AbstractNewFileWizard {
-	val STAKEHOLDER_GOALS_LABEL = "Stakeholder Goals Name"
-	val TARGET_LABEL = "Classifier or Category"
+	val STAKEHOLDER_GOALS_LABEL = "Stakeholder goals name"
+	val TARGET_LABEL = "Classifier or category"
 	
 	@Inject IParser parser
 	@Inject ReqSpecGrammarAccess grammarAccess

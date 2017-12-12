@@ -9,7 +9,7 @@ import org.osate.reqspec.ui.internal.ReqSpecActivator
 import org.osate.ui.wizards.AbstractNewFileWizard
 
 class RequirementsDocumentFileWizard extends AbstractNewFileWizard {
-	val DOCUMENT_LABEL = "Document Name"
+	val DOCUMENT_LABEL = "Document name"
 	
 	@Inject IParser parser
 	@Inject ReqSpecGrammarAccess grammarAccess
