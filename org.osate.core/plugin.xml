@@ -42,12 +42,6 @@
       </fileTypes>
    </extension>
    <extension
-         point="org.eclipse.ui.startup">
-      <startup
-            class="org.osate.core.Startup">
-      </startup>
-   </extension>
-   <extension
          point="org.eclipse.core.contenttype.contentTypes">
       <content-type
             file-extensions="aaxl2,aail2"
