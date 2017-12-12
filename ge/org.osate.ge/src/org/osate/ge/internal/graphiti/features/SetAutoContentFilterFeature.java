@@ -16,23 +16,24 @@ import org.osate.ge.internal.diagram.runtime.AgeDiagram;
 import org.osate.ge.internal.diagram.runtime.BuiltinContentsFilter;
 import org.osate.ge.internal.diagram.runtime.DiagramElement;
 import org.osate.ge.internal.diagram.runtime.DiagramModification;
-import org.osate.ge.internal.graphiti.GraphitiAgeDiagramProvider;
+import org.osate.ge.internal.graphiti.services.GraphitiService;
 import org.osate.ge.internal.model.PropertyValueGroup;
+import org.osate.ge.internal.ui.editor.AgeDiagramEditor;
 
 /**
  * Sets the auto contents filter for a diagram element and then updates the diagram.
  *
  */
 public class SetAutoContentFilterFeature extends AbstractCustomFeature implements ICustomUndoRedoFeature {
-	private final GraphitiAgeDiagramProvider graphitiAgeDiagramProvider;
+	private final GraphitiService graphitiService;
 	private final BuiltinContentsFilter newFilterValue;
 
 	@Inject
 	public SetAutoContentFilterFeature (final IFeatureProvider fp,
-			final GraphitiAgeDiagramProvider graphitiAgeDiagramProvider,
+			final GraphitiService graphitiService,
 			final BuiltinContentsFilter newFilterValue) {
 		super(fp);
-		this.graphitiAgeDiagramProvider = Objects.requireNonNull(graphitiAgeDiagramProvider, "graphitiAgeDiagramProvider must not be null");
+		this.graphitiService = Objects.requireNonNull(graphitiService, "graphitiService must not be null");
 		this.newFilterValue = Objects.requireNonNull(newFilterValue, "newFilerValue must not be null");
 	}
 
@@ -84,6 +85,12 @@ public class SetAutoContentFilterFeature extends AbstractCustomFeature implement
 			return false;
 		}
 
+		// Don't allow execution if editor is not editable
+		final AgeDiagramEditor editor = graphitiService.getEditor();
+		if (editor != null && !editor.isEditable()) {
+			return false;
+		}
+
 		// If the selection is the "Hide Contents" selection, make the command executable if any of the descendants is manual
 		if(newFilterValue == BuiltinContentsFilter.ALLOW_FUNDAMENTAL) {
 			for(final DiagramElement e : elements) {
@@ -91,7 +98,6 @@ public class SetAutoContentFilterFeature extends AbstractCustomFeature implement
 					return true;
 				}
 			}
-
 		}
 
 		// Make the command executable if any of the elements have a different filter value
@@ -106,7 +112,7 @@ public class SetAutoContentFilterFeature extends AbstractCustomFeature implement
 
 	@Override
 	public void execute(final ICustomContext context) {
-		final AgeDiagram ageDiagram = graphitiAgeDiagramProvider.getGraphitiAgeDiagram().getAgeDiagram();
+		final AgeDiagram ageDiagram = graphitiService.getGraphitiAgeDiagram().getAgeDiagram();
 		final DiagramElement[] elements = getDiagramElements(context.getPictogramElements());
 		if(elements != null) {
 			ageDiagram.modify("Set Auto Children", m -> {
@@ -129,7 +135,7 @@ public class SetAutoContentFilterFeature extends AbstractCustomFeature implement
 			});
 
 			// Update the diagram
-			this.updatePictogramElement(graphitiAgeDiagramProvider.getGraphitiAgeDiagram().getGraphitiDiagram());
+			this.updatePictogramElement(graphitiService.getGraphitiAgeDiagram().getGraphitiDiagram());
 		}
 	}
 
@@ -167,7 +173,7 @@ public class SetAutoContentFilterFeature extends AbstractCustomFeature implement
 		final DiagramElement[] elements = new DiagramElement[pes.length];
 
 		for(int i = 0; i < pes.length; i++) {
-			elements[i] = graphitiAgeDiagramProvider.getGraphitiAgeDiagram().getClosestDiagramElement(pes[i]);
+			elements[i] = graphitiService.getGraphitiAgeDiagram().getClosestDiagramElement(pes[i]);
 			if(elements[i] == null) {
 				return null;
 			}
@@ -187,10 +193,10 @@ public class SetAutoContentFilterFeature extends AbstractCustomFeature implement
 
 	@Override
 	public void postUndo(final IContext context) {
-		AgeFeatureUtil.undoModification(graphitiAgeDiagramProvider.getGraphitiAgeDiagram(), context);
+		AgeFeatureUtil.undoModification(graphitiService.getGraphitiAgeDiagram(), context);
 
 		// Update the diagram
-		this.updatePictogramElement(graphitiAgeDiagramProvider.getGraphitiAgeDiagram().getGraphitiDiagram());
+		this.updatePictogramElement(graphitiService.getGraphitiAgeDiagram().getGraphitiDiagram());
 	}
 
 	@Override
@@ -204,9 +210,9 @@ public class SetAutoContentFilterFeature extends AbstractCustomFeature implement
 
 	@Override
 	public void postRedo(final IContext context) {
-		AgeFeatureUtil.redoModification(graphitiAgeDiagramProvider.getGraphitiAgeDiagram(), context);
+		AgeFeatureUtil.redoModification(graphitiService.getGraphitiAgeDiagram(), context);
 
 		// Update the diagram
-		this.updatePictogramElement(graphitiAgeDiagramProvider.getGraphitiAgeDiagram().getGraphitiDiagram());
+		this.updatePictogramElement(graphitiService.getGraphitiAgeDiagram().getGraphitiDiagram());
 	}
 }

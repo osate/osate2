@@ -58,6 +58,7 @@ import org.eclipse.graphiti.ui.editor.DiagramBehavior;
 import org.eclipse.graphiti.ui.editor.DiagramEditorContextMenuProvider;
 import org.eclipse.graphiti.ui.editor.IDiagramContainerUI;
 import org.eclipse.graphiti.ui.editor.IDiagramEditorInput;
+import org.eclipse.graphiti.ui.internal.action.UpdateAction;
 import org.eclipse.graphiti.ui.platform.IConfigurationProvider;
 import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.jface.dialogs.ErrorDialog;
@@ -104,6 +105,7 @@ import org.osate.ge.internal.services.ModelChangeNotifier;
 import org.osate.ge.internal.services.ModelChangeNotifier.ChangeListener;
 import org.osate.ge.internal.ui.util.SelectionUtil;
 
+@SuppressWarnings("restriction")
 public class AgeDiagramBehavior extends DiagramBehavior implements GraphitiAgeDiagramProvider {
 	private GraphitiAgeDiagram graphitiAgeDiagram;
 	private IProject project = null;
@@ -119,6 +121,7 @@ public class AgeDiagramBehavior extends DiagramBehavior implements GraphitiAgeDi
 	private IResourceChangeListener resourceChangeListener;
 	private AgeDiagram ageDiagram;
 	private AgeTabbedPropertySheetPage propertySheetPage;
+	private boolean diagramContextIsValid = true;
 	private PaintListener paintListener = e -> {
 		if(updateWhenVisible) {
 			updateDiagram(true);
@@ -379,7 +382,6 @@ public class AgeDiagramBehavior extends DiagramBehavior implements GraphitiAgeDi
 			final org.eclipse.draw2d.geometry.Point p = new org.eclipse.draw2d.geometry.Point(controlX, controlY);
 			rootEditPart.getContentPane().translateToRelative(p);
 
-			@SuppressWarnings("restriction")
 			final EditPart ep = org.eclipse.graphiti.ui.internal.services.GraphitiUiInternal.getGefService().findEditPartAt(parentPart.getGraphicalViewer(), new org.eclipse.draw2d.geometry.Point(p.x, p.y), true);
 			if(ep != null  && ep.getModel() instanceof PictogramElement) {
 				return (PictogramElement)ep.getModel();
@@ -457,12 +459,14 @@ public class AgeDiagramBehavior extends DiagramBehavior implements GraphitiAgeDi
 
 			try {
 				// Don't update unless the diagram is visible
-				if (!requireVisible || (getContentEditPart().getViewer().getControl() != null
-						&& getContentEditPart().getViewer().getControl().isVisible())) {
+				final boolean isVisible = (getContentEditPart().getViewer().getControl() != null
+						&& getContentEditPart().getViewer().getControl().isVisible());
+				if (!requireVisible || isVisible) {
 					// Update the entire diagram
 					updateWhenVisible = false;
 					dirtyModel = false;
-					getDiagramTypeProvider().getNotificationService().updatePictogramElements(new PictogramElement[] { getDiagramTypeProvider().getDiagram() });
+					getDiagramTypeProvider().getNotificationService()
+					.updatePictogramElements(new PictogramElement[] { getDiagramTypeProvider().getDiagram() });
 					refresh();
 				} else {
 					// Queue the update for when the control becomes visible
@@ -491,8 +495,10 @@ public class AgeDiagramBehavior extends DiagramBehavior implements GraphitiAgeDi
 			public void refreshPalette() {
 				super.refreshPalette();
 
-				// Hide palette drawers if a tool is active
-				if(toolHandler != null && toolHandler.isToolActive()) {
+				// Hide palette drawers if a tool is active or if the diagram context is invalid
+				final boolean paletteIsDisabled = (toolHandler != null && toolHandler.isToolActive())
+						|| !diagramContextIsValid;
+				if (paletteIsDisabled) {
 					final PaletteRoot root = getPaletteRoot();
 					for(final Object child : root.getChildren()) {
 						if(child instanceof PaletteDrawer) {
@@ -593,6 +599,9 @@ public class AgeDiagramBehavior extends DiagramBehavior implements GraphitiAgeDi
 				// Don't populate context menu when a tool is active
 				if(toolHandler == null  || !toolHandler.isToolActive()) {
 					super.buildContextMenu(manager);
+
+					// Remove update action. Instead, there is an Update Diagram custom feature.
+					manager.remove(UpdateAction.ACTION_ID);
 				}
 			}
 		};
@@ -632,6 +641,7 @@ public class AgeDiagramBehavior extends DiagramBehavior implements GraphitiAgeDi
 				if(startCount != endCount) {
 					forceNotDirty = false;
 				}
+
 				return retValue;
 			} else {
 				if(!updatingFeatureWhileForcingNotDirty) {
@@ -639,9 +649,28 @@ public class AgeDiagramBehavior extends DiagramBehavior implements GraphitiAgeDi
 				}
 			}
 		}
+
 		return super.executeFeature(feature, context);
 	}
 
+	public void setDiagramContextIsValid(final boolean value) {
+		final boolean prevContextWasValid = diagramContextIsValid;
+		diagramContextIsValid = value;
+		if (diagramContextIsValid != prevContextWasValid) {
+			Display.getDefault().asyncExec(() -> {
+				getPaletteBehavior().refreshPalette();
+
+				// Reset the selection if the diagram context isn't valid.
+				if (!diagramContextIsValid) {
+					selectPictogramElements(new PictogramElement[0]);
+				}
+			});
+		}
+	}
+
+	public boolean isEditable() {
+		return diagramContextIsValid;
+	}
 
 	@Override
 	protected void editingDomainInitialized() {
@@ -898,7 +927,7 @@ public class AgeDiagramBehavior extends DiagramBehavior implements GraphitiAgeDi
 			final DiagramContextChecker contextChecker = new DiagramContextChecker(project,
 					dtp.getProjectReferenceService());
 			final boolean workbenchIsVisible = isWorkbenchVisible();
-			final DiagramContextChecker.Result result = contextChecker.checkContext(ageDiagram, workbenchIsVisible);
+			final DiagramContextChecker.Result result = contextChecker.checkContextFullBuild(ageDiagram, workbenchIsVisible);
 
 			if (result.isContextValid()) {
 				if (result.wasContextUpdated()) {

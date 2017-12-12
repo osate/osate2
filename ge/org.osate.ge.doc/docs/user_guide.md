@@ -611,7 +611,7 @@ To ensure diagrams have a consistent appearance across machines, the graphical e
 The AADL Property Values view does not support editing property associations unless the textual AADL model is open. To work around this issue, open the textual AADL file before attempting to create property assignments with the AADL Properties Values view.
 
 ## Updating the Diagram
-In most cases the graphical editor will automatically update diagrams to reflect changes to the AADL Model. If a diagram has not been updated for any reason, it can be updated manually by right-clicking inside an empty area of the diagram and selecting *Update* from the context menu.
+In most cases the graphical editor will automatically update diagrams to reflect changes to the AADL Model. If a diagram has not been updated for any reason, it can be updated manually by right-clicking inside the diagram and selecting *Update Diagram* from the context menu.
 
 ## Missing Diagram Elements After Modification of AADL Source
 See @sec:restore_missing_diagram_elements.

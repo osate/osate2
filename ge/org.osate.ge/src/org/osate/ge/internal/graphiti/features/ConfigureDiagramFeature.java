@@ -20,18 +20,19 @@ import org.osate.ge.internal.diagram.runtime.boTree.TreeUpdater;
 import org.osate.ge.internal.diagram.runtime.layout.DiagramElementLayoutUtil;
 import org.osate.ge.internal.diagram.runtime.layout.LayoutInfoProvider;
 import org.osate.ge.internal.diagram.runtime.updating.DiagramUpdater;
-import org.osate.ge.internal.graphiti.GraphitiAgeDiagramProvider;
 import org.osate.ge.internal.graphiti.diagram.GraphitiAgeDiagram;
+import org.osate.ge.internal.graphiti.services.GraphitiService;
 import org.osate.ge.internal.services.ExtensionService;
 import org.osate.ge.internal.services.ProjectProvider;
 import org.osate.ge.internal.services.ProjectReferenceService;
 import org.osate.ge.internal.ui.dialogs.DefaultDiagramConfigurationDialogModel;
 import org.osate.ge.internal.ui.dialogs.DiagramConfigurationDialog;
+import org.osate.ge.internal.ui.editor.AgeDiagramEditor;
 
 public class ConfigureDiagramFeature extends AbstractCustomFeature implements ICustomUndoRedoFeature {
 	private final TreeUpdater boTreeExpander;
 	private final DiagramUpdater diagramUpdater;
-	private final GraphitiAgeDiagramProvider graphitiAgeDiagramProvider;
+	private final GraphitiService graphitiService;
 	private final ProjectReferenceService referenceService;
 	private final ExtensionService extService;
 	private final ProjectProvider projectProvider;
@@ -41,14 +42,14 @@ public class ConfigureDiagramFeature extends AbstractCustomFeature implements IC
 	public ConfigureDiagramFeature(final IFeatureProvider fp,
 			final TreeUpdater boTreeExpander,
 			final DiagramUpdater diagramUpdater,
-			final GraphitiAgeDiagramProvider graphitiAgeDiagramProvider,
+			final GraphitiService graphitiService,
 			final ProjectReferenceService referenceService,
 			final ExtensionService extService,
 			final ProjectProvider projectProvider, final LayoutInfoProvider layoutInfoProvider) {
 		super(fp);
 		this.boTreeExpander = Objects.requireNonNull(boTreeExpander, "boTreeExpander must not be null");
 		this.diagramUpdater = Objects.requireNonNull(diagramUpdater, "diagramUpdater must not be null");
-		this.graphitiAgeDiagramProvider = Objects.requireNonNull(graphitiAgeDiagramProvider, "graphitiAgeDiagramProvider must not be null");
+		this.graphitiService = Objects.requireNonNull(graphitiService, "graphitiService must not be null");
 		this.referenceService = Objects.requireNonNull(referenceService, "referenceService must not be null");
 		this.extService = Objects.requireNonNull(extService, "extService must not be null");
 		this.projectProvider = Objects.requireNonNull(projectProvider, "projectProvider must not be null");
@@ -62,12 +63,13 @@ public class ConfigureDiagramFeature extends AbstractCustomFeature implements IC
 
 	@Override
 	public boolean canExecute(final ICustomContext context) {
-		return true;
+		final AgeDiagramEditor editor = graphitiService.getEditor();
+		return editor != null && editor.isEditable();
 	}
 
 	@Override
 	public void execute(final ICustomContext context) {
-		final GraphitiAgeDiagram graphitiAgeDiagram = graphitiAgeDiagramProvider.getGraphitiAgeDiagram();
+		final GraphitiAgeDiagram graphitiAgeDiagram = graphitiService.getGraphitiAgeDiagram();
 		final AgeDiagram diagram = graphitiAgeDiagram.getAgeDiagram();
 
 		BusinessObjectNode boTree = DiagramToBusinessObjectTreeConverter.createBusinessObjectNode(diagram);

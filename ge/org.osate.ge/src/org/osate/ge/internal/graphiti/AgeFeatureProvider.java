@@ -160,7 +160,8 @@ public class AgeFeatureProvider extends DefaultFeatureProvider {
 				queryService, nodeFactory);
 		deInfoProvider = new DefaultDiagramElementGraphicalConfigurationProvider(referenceResolver, extService);
 		diagramUpdater = new DiagramUpdater(boTreeExpander, deInfoProvider);
-		this.updateDiagramFeature = new UpdateDiagramFeature(this, graphitiService, diagramUpdater, graphitiService);
+		this.updateDiagramFeature = new UpdateDiagramFeature(this, graphitiService, diagramUpdater, graphitiService,
+				referenceResolver);
 
 		// Create the configure diagram feature
 		this.configureDiagramFeature = new ConfigureDiagramFeature(this, boTreeExpander, diagramUpdater,

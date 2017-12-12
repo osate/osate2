@@ -89,6 +89,11 @@ public class BoHandlerDeleteFeature extends AbstractFeature implements IDeleteFe
 			return false;
 		}
 
+		// Don't allow proxies.
+		if (bo instanceof EObject && ((EObject) bo).eIsProxy()) {
+			return false;
+		}
+
 		final IEclipseContext childCtx = extService.createChildContext();
 		try {
 			childCtx.set(Names.BUSINESS_OBJECT, bo);

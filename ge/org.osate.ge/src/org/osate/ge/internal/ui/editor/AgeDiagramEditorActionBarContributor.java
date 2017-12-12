@@ -1,16 +1,7 @@
-/*******************************************************************************
- * Copyright (C) 2013 University of Alabama in Huntsville (UAH)
- * All rights reserved. This program and the accompanying materials
- * are made available under the terms of the Eclipse Public License v1.0
- * which accompanies this distribution, and is available at
- * http://www.eclipse.org/legal/epl-v10.html
- * The US Government has unlimited rights in this work in accordance with W31P4Q-10-D-0092 DO 0073.
- *******************************************************************************/
 package org.osate.ge.internal.ui.editor;
 
 import org.eclipse.gef.ui.actions.GEFActionConstants;
 import org.eclipse.gef.ui.actions.ZoomComboContributionItem;
-import org.eclipse.graphiti.ui.internal.action.UpdateAction;
 import org.eclipse.jface.action.IContributionItem;
 import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.jface.action.IToolBarManager;
@@ -18,7 +9,6 @@ import org.eclipse.jface.action.MenuManager;
 import org.eclipse.jface.action.Separator;
 import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.IWorkbenchActionConstants;
-import org.eclipse.ui.actions.ActionFactory;
 
 public class AgeDiagramEditorActionBarContributor extends org.eclipse.graphiti.ui.editor.DiagramEditorActionBarContributor {
 	final ModeContributionItem selectedModeItem;
@@ -57,17 +47,12 @@ public class AgeDiagramEditorActionBarContributor extends org.eclipse.graphiti.u
 		tbm.add(dummyItem);
 	}
 
-	@SuppressWarnings("restriction")
 	@Override
 	public void contributeToMenu(IMenuManager menubar) {
 		// Forked from Graphiti version so that the Align menu can be removed.
 		// Don't call base class.
 		// super.contributeToMenu(menubar);
 		IMenuManager editMenu = menubar.findMenuUsingPath(IWorkbenchActionConstants.M_EDIT);
-
-		if (editMenu != null) {
-			editMenu.insertAfter(ActionFactory.DELETE.getId(), getAction(UpdateAction.ACTION_ID));
-		}
 
 		// Create view menu ...
 		MenuManager viewMenu = new MenuManager("View", MENU_ID_VIEW);

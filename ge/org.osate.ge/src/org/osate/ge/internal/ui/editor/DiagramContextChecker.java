@@ -54,13 +54,22 @@ public class DiagramContextChecker {
 		this.refService = Objects.requireNonNull(refService, "refService must not be null");
 	}
 
+	public Result checkContextFullBuild(final AgeDiagram diagram, final boolean promptToRelinkIfMissing) {
+		return checkContext(diagram, promptToRelinkIfMissing, IncrementalProjectBuilder.FULL_BUILD);
+	}
+
+	public Result checkContextIncrementalBuild(final AgeDiagram diagram, final boolean promptToRelinkIfMissing) {
+		return checkContext(diagram, promptToRelinkIfMissing, IncrementalProjectBuilder.INCREMENTAL_BUILD);
+	}
+
 	/**
 	 * Checks the diagram context and optionally prompts the user to fix missing context.
 	 * Throws an exception if the context is invalid.
 	 * @param diagram
 	 * @param promptToRelinkIfMissing
 	 */
-	public Result checkContext(final AgeDiagram diagram, final boolean promptToRelinkIfMissing) {
+	private Result checkContext(final AgeDiagram diagram, final boolean promptToRelinkIfMissing,
+			final int buildKind) {
 		Objects.requireNonNull(diagram, "diagram must not be null");
 
 		Objects.requireNonNull(diagram.getConfiguration().getContextBoReference(),
@@ -71,7 +80,7 @@ public class DiagramContextChecker {
 		// If unable to resolve the context, rebuild the project
 		if (contextBo == null) {
 			try {
-				project.build(IncrementalProjectBuilder.FULL_BUILD, new NullProgressMonitor());
+				project.build(buildKind, new NullProgressMonitor());
 				contextBo = refService.resolve(diagram.getConfiguration().getContextBoReference());
 			} catch (CoreException e) {
 				throw new RuntimeException(e);
@@ -152,7 +161,7 @@ public class DiagramContextChecker {
 
 		final ElementSelectionDialog dlg = new ElementSelectionDialog(null, "Missing Diagram Context",
 				"Unable to find diagram context \"" + refService.getLabel(missingContextRef)
-						+ "\".\nIf the model element has been renamed, select the new name for the model element.",
+				+ "\".\nIf the model element has been renamed, select the new name for the model element.",
 				options);
 		dlg.setFilter(searchPrefix);
 		if (dlg.open() != Window.OK) {
