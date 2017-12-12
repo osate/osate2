@@ -666,9 +666,57 @@
                    </equals>
                 </with>
              </visibleWhen>
-             <separator
-                   name="core">
-             </separator>
+             <command
+                   commandId="org.osate.ui.wizards.aadlProjectWizard"
+                   tooltip="New AADL project">
+                <!--
+                   Remove visibleWhen on the command when this bug is fixed:
+                   https://bugs.eclipse.org/bugs/show_bug.cgi?id=201589
+                -->
+                <visibleWhen
+                      checkEnabled="false">
+                   <with
+                         variable="activeWorkbenchWindow.activePerspective">
+                      <equals
+                            value="org.osate.ui.perspective.AadlPerspective">
+                      </equals>
+                   </with>
+                </visibleWhen>
+             </command>
+             <command
+                   commandId="org.osate.ui.wizards.packageWizard"
+                   tooltip="New AADL package">
+                <!--
+                   Remove visibleWhen on the command when this bug is fixed:
+                   https://bugs.eclipse.org/bugs/show_bug.cgi?id=201589
+                -->
+                <visibleWhen
+                      checkEnabled="false">
+                   <with
+                         variable="activeWorkbenchWindow.activePerspective">
+                      <equals
+                            value="org.osate.ui.perspective.AadlPerspective">
+                      </equals>
+                   </with>
+                </visibleWhen>
+             </command>
+             <command
+                   commandId="org.osate.ui.wizards.propertySetWizard"
+                   tooltip="New AADL property set">
+                <!--
+                   Remove visibleWhen on the command when this bug is fixed:
+                   https://bugs.eclipse.org/bugs/show_bug.cgi?id=201589
+                -->
+                <visibleWhen
+                      checkEnabled="false">
+                   <with
+                         variable="activeWorkbenchWindow.activePerspective">
+                      <equals
+                            value="org.osate.ui.perspective.AadlPerspective">
+                      </equals>
+                   </with>
+                </visibleWhen>
+             </command>
              <separator
                    name="third_party">
              </separator>
@@ -778,6 +826,25 @@
              id="org.osate.ui.conversion"
              name="Add/Remove AADL Nature">
        </command>
+       <category
+             id="org.osate.ui.wizards.category"
+             name="OSATE Wizards">
+       </category>
+       <command
+             categoryId="org.osate.ui.wizards.category"
+             id="org.osate.ui.wizards.aadlProjectWizard"
+             name="New AADL Project">
+       </command>
+       <command
+             categoryId="org.osate.ui.wizards.category"
+             id="org.osate.ui.wizards.packageWizard"
+             name="New AADL Package">
+       </command>
+       <command
+             categoryId="org.osate.ui.wizards.category"
+             id="org.osate.ui.wizards.propertySetWizard"
+             name="New AADL Property Set">
+       </command>
     </extension>
     <extension
           point="org.eclipse.ui.handlers">
@@ -813,6 +880,18 @@
              class="org.osate.ui.handlers.ConversionHandler"
              commandId="org.osate.ui.conversion">
        </handler>
+       <handler
+            class="org.osate.ui.handlers.WizardLauncherHandler"
+            commandId="org.osate.ui.wizards.aadlProjectWizard">
+      </handler>
+      <handler
+            class="org.osate.ui.handlers.NewPackageWizardHandler"
+            commandId="org.osate.ui.wizards.packageWizard">
+      </handler>
+      <handler
+            class="org.osate.ui.handlers.NewPropertySetWizardHandler"
+            commandId="org.osate.ui.wizards.propertySetWizard">
+      </handler>
     </extension>
     <extension
           point="org.eclipse.ui.commandImages">
@@ -820,6 +899,18 @@
              commandId="org.osate.ui.reinstantiateAllAadl"
              icon="icons/reinstantiate.gif">
        </image>
+       <image
+            commandId="org.osate.ui.wizards.aadlProjectWizard"
+            icon="icons/new_aadl_project.gif">
+      </image>
+      <image
+            commandId="org.osate.ui.wizards.packageWizard"
+            icon="icons/new_package.gif">
+      </image>
+      <image
+            commandId="org.osate.ui.wizards.propertySetWizard"
+            icon="icons/new_ps.gif">
+      </image>
     </extension>
     <extension
           point="org.eclipse.core.expressions.propertyTesters">
