@@ -105,8 +105,8 @@ public class AadlNature extends XtextNature implements IProjectNature {
 					IProjectDescription desc = project.getDescription();
 					String[] oldNatures = desc.getNatureIds();
 					String[] newNatures = new String[oldNatures.length + 1];
-					System.arraycopy(oldNatures, 0, newNatures, 0, oldNatures.length);
-					newNatures[oldNatures.length] = ID;
+					System.arraycopy(oldNatures, 0, newNatures, 1, oldNatures.length);
+					newNatures[0] = ID;
 					desc.setNatureIds(newNatures);
 					project.setDescription(desc, monitor);
 				}
