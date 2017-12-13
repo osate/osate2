@@ -4996,7 +4996,7 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleVerificationMethodRegistry"
-    // InternalVerify.g:1727:1: ruleVerificationMethodRegistry returns [EObject current=null] : (otherlv_0= 'verification' otherlv_1= 'methods' ( (lv_name_2_0= ruleQualifiedName ) ) (otherlv_3= ':' ( (lv_title_4_0= RULE_STRING ) ) )? otherlv_5= '[' ( ( (lv_description_6_0= ruleDescription ) )? ( (lv_methods_7_0= ruleVerificationMethod ) )+ ) otherlv_8= ']' ) ;
+    // InternalVerify.g:1727:1: ruleVerificationMethodRegistry returns [EObject current=null] : (otherlv_0= 'verification' otherlv_1= 'methods' ( (lv_name_2_0= ruleQualifiedName ) ) (otherlv_3= ':' ( (lv_title_4_0= RULE_STRING ) ) )? otherlv_5= '[' ( ( (lv_description_6_0= ruleDescription ) )? ( (lv_methods_7_0= ruleVerificationMethod ) )* ) otherlv_8= ']' ) ;
     public final EObject ruleVerificationMethodRegistry() throws RecognitionException {
         EObject current = null;
 
@@ -5016,11 +5016,11 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // InternalVerify.g:1730:28: ( (otherlv_0= 'verification' otherlv_1= 'methods' ( (lv_name_2_0= ruleQualifiedName ) ) (otherlv_3= ':' ( (lv_title_4_0= RULE_STRING ) ) )? otherlv_5= '[' ( ( (lv_description_6_0= ruleDescription ) )? ( (lv_methods_7_0= ruleVerificationMethod ) )+ ) otherlv_8= ']' ) )
-            // InternalVerify.g:1731:1: (otherlv_0= 'verification' otherlv_1= 'methods' ( (lv_name_2_0= ruleQualifiedName ) ) (otherlv_3= ':' ( (lv_title_4_0= RULE_STRING ) ) )? otherlv_5= '[' ( ( (lv_description_6_0= ruleDescription ) )? ( (lv_methods_7_0= ruleVerificationMethod ) )+ ) otherlv_8= ']' )
+            // InternalVerify.g:1730:28: ( (otherlv_0= 'verification' otherlv_1= 'methods' ( (lv_name_2_0= ruleQualifiedName ) ) (otherlv_3= ':' ( (lv_title_4_0= RULE_STRING ) ) )? otherlv_5= '[' ( ( (lv_description_6_0= ruleDescription ) )? ( (lv_methods_7_0= ruleVerificationMethod ) )* ) otherlv_8= ']' ) )
+            // InternalVerify.g:1731:1: (otherlv_0= 'verification' otherlv_1= 'methods' ( (lv_name_2_0= ruleQualifiedName ) ) (otherlv_3= ':' ( (lv_title_4_0= RULE_STRING ) ) )? otherlv_5= '[' ( ( (lv_description_6_0= ruleDescription ) )? ( (lv_methods_7_0= ruleVerificationMethod ) )* ) otherlv_8= ']' )
             {
-            // InternalVerify.g:1731:1: (otherlv_0= 'verification' otherlv_1= 'methods' ( (lv_name_2_0= ruleQualifiedName ) ) (otherlv_3= ':' ( (lv_title_4_0= RULE_STRING ) ) )? otherlv_5= '[' ( ( (lv_description_6_0= ruleDescription ) )? ( (lv_methods_7_0= ruleVerificationMethod ) )+ ) otherlv_8= ']' )
-            // InternalVerify.g:1731:3: otherlv_0= 'verification' otherlv_1= 'methods' ( (lv_name_2_0= ruleQualifiedName ) ) (otherlv_3= ':' ( (lv_title_4_0= RULE_STRING ) ) )? otherlv_5= '[' ( ( (lv_description_6_0= ruleDescription ) )? ( (lv_methods_7_0= ruleVerificationMethod ) )+ ) otherlv_8= ']'
+            // InternalVerify.g:1731:1: (otherlv_0= 'verification' otherlv_1= 'methods' ( (lv_name_2_0= ruleQualifiedName ) ) (otherlv_3= ':' ( (lv_title_4_0= RULE_STRING ) ) )? otherlv_5= '[' ( ( (lv_description_6_0= ruleDescription ) )? ( (lv_methods_7_0= ruleVerificationMethod ) )* ) otherlv_8= ']' )
+            // InternalVerify.g:1731:3: otherlv_0= 'verification' otherlv_1= 'methods' ( (lv_name_2_0= ruleQualifiedName ) ) (otherlv_3= ':' ( (lv_title_4_0= RULE_STRING ) ) )? otherlv_5= '[' ( ( (lv_description_6_0= ruleDescription ) )? ( (lv_methods_7_0= ruleVerificationMethod ) )* ) otherlv_8= ']'
             {
             otherlv_0=(Token)match(input,17,FOLLOW_40); if (state.failed) return current;
             if ( state.backtracking==0 ) {
@@ -5128,8 +5128,8 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
                   	newLeafNode(otherlv_5, grammarAccess.getVerificationMethodRegistryAccess().getLeftSquareBracketKeyword_4());
                   
             }
-            // InternalVerify.g:1783:1: ( ( (lv_description_6_0= ruleDescription ) )? ( (lv_methods_7_0= ruleVerificationMethod ) )+ )
-            // InternalVerify.g:1783:2: ( (lv_description_6_0= ruleDescription ) )? ( (lv_methods_7_0= ruleVerificationMethod ) )+
+            // InternalVerify.g:1783:1: ( ( (lv_description_6_0= ruleDescription ) )? ( (lv_methods_7_0= ruleVerificationMethod ) )* )
+            // InternalVerify.g:1783:2: ( (lv_description_6_0= ruleDescription ) )? ( (lv_methods_7_0= ruleVerificationMethod ) )*
             {
             // InternalVerify.g:1783:2: ( (lv_description_6_0= ruleDescription ) )?
             int alt39=2;
@@ -5150,7 +5150,7 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
                       	        newCompositeNode(grammarAccess.getVerificationMethodRegistryAccess().getDescriptionDescriptionParserRuleCall_5_0_0()); 
                       	    
                     }
-                    pushFollow(FOLLOW_41);
+                    pushFollow(FOLLOW_42);
                     lv_description_6_0=ruleDescription();
 
                     state._fsp--;
@@ -5177,8 +5177,7 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
 
             }
 
-            // InternalVerify.g:1801:3: ( (lv_methods_7_0= ruleVerificationMethod ) )+
-            int cnt40=0;
+            // InternalVerify.g:1801:3: ( (lv_methods_7_0= ruleVerificationMethod ) )*
             loop40:
             do {
                 int alt40=2;
@@ -5227,13 +5226,8 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
             	    break;
 
             	default :
-            	    if ( cnt40 >= 1 ) break loop40;
-            	    if (state.backtracking>0) {state.failed=true; return current;}
-                        EarlyExitException eee =
-                            new EarlyExitException(40, input);
-                        throw eee;
+            	    break loop40;
                 }
-                cnt40++;
             } while (true);
 
 
@@ -17344,8 +17338,8 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
     public static final BitSet FOLLOW_38 = new BitSet(new long[]{0x0000010088800040L});
     public static final BitSet FOLLOW_39 = new BitSet(new long[]{0x0000001000000040L});
     public static final BitSet FOLLOW_40 = new BitSet(new long[]{0x0000080000000000L});
-    public static final BitSet FOLLOW_41 = new BitSet(new long[]{0x0400400000000000L});
-    public static final BitSet FOLLOW_42 = new BitSet(new long[]{0x0400400000800000L});
+    public static final BitSet FOLLOW_41 = new BitSet(new long[]{0x0400400000800000L});
+    public static final BitSet FOLLOW_42 = new BitSet(new long[]{0x0000400000800000L});
     public static final BitSet FOLLOW_43 = new BitSet(new long[]{0xA002100000000040L,0x0000000000000003L});
     public static final BitSet FOLLOW_44 = new BitSet(new long[]{0x0000200000000002L});
     public static final BitSet FOLLOW_45 = new BitSet(new long[]{0xA002000000000040L,0x0000000000000003L});

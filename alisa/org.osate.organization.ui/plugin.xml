@@ -396,4 +396,13 @@
     </provider>
   </extension>
 
+   <extension
+         point="org.eclipse.ui.newWizards">
+      <wizard
+            id="org.osate.organization.ui.stakeholdersFileWizard"
+            name="Stakeholders File"
+            category="org.osate.alisa.common.ui.alisaWizardsCategory"
+            class="org.osate.organization.ui.wizards.StakeholdersFileWizard">
+      </wizard>
+   </extension>
 </plugin>

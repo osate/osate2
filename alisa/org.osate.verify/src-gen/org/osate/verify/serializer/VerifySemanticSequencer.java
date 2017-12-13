@@ -625,7 +625,7 @@ public class VerifySemanticSequencer extends CommonSemanticSequencer {
 	 *     VerificationMethodRegistry returns VerificationMethodRegistry
 	 *
 	 * Constraint:
-	 *     (name=QualifiedName title=STRING? description=Description? methods+=VerificationMethod+)
+	 *     (name=QualifiedName title=STRING? description=Description? methods+=VerificationMethod*)
 	 */
 	protected void sequence_VerificationMethodRegistry(ISerializationContext context, VerificationMethodRegistry semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);

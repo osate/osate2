@@ -120,7 +120,7 @@ VerificationMethodRegistry returns VerificationMethodRegistry:
 //	( 'for' (target=[aadl2::ComponentClassifier|AadlClassifierReference] | componentCategory+=ComponentCategory+ ))?
 	'[' (
 	( description=Description)?
-	methods+=VerificationMethod+)
+	methods+=VerificationMethod*)
 	']';
 
 	

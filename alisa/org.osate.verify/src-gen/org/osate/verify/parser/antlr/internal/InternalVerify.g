@@ -1816,7 +1816,7 @@ ruleVerificationMethodRegistry returns [EObject current=null]
 	    }
 
 )
-)+)	otherlv_8=']' 
+)*)	otherlv_8=']' 
     {
     	newLeafNode(otherlv_8, grammarAccess.getVerificationMethodRegistryAccess().getRightSquareBracketKeyword_6());
     }
