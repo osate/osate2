@@ -33,11 +33,12 @@
  */
 package org.osate.ui.handlers;
 
-import org.osate.ui.wizards.NewModelWizard;
+import org.eclipse.ui.IWorkbenchWizard;
+import org.osate.ui.wizards.NewPropertySetWizard;
 
 public class NewPropertySetWizardHandler extends NewModelWizardLauncherHandler {
 	@Override
-	protected void setInitialObjectType(NewModelWizard wizard) {
-		wizard.setInitialObjectType(NewModelWizard.ObjectType.AADL_PROPERTY_SET);
+	protected IWorkbenchWizard createWizard() {
+		return new NewPropertySetWizard();
 	}
 }

@@ -45,8 +45,8 @@ import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.wizard.WizardDialog;
 import org.eclipse.ui.IWorkbench;
+import org.eclipse.ui.IWorkbenchWizard;
 import org.eclipse.ui.handlers.HandlerUtil;
-import org.osate.ui.wizards.NewModelWizard;
 
 /**
  * Launches a "new Aadl model wizard" when the user clicks on
@@ -54,9 +54,9 @@ import org.osate.ui.wizards.NewModelWizard;
  *
  * @author jseibel
  */
-public abstract class NewModelWizardLauncherHandler extends AbstractHandler {
+abstract class NewModelWizardLauncherHandler extends AbstractHandler {
 	@Override
-	public Object execute(ExecutionEvent event) throws ExecutionException {
+	public final Object execute(ExecutionEvent event) throws ExecutionException {
 		IProject[] projects = ResourcesPlugin.getWorkspace().getRoot().getProjects();
 		ArrayList<IProject> openProjects = new ArrayList<IProject>();
 		for (int i = 0; i < projects.length; i++) {
@@ -68,17 +68,16 @@ public abstract class NewModelWizardLauncherHandler extends AbstractHandler {
 			MessageDialog.openWarning(null, "Cannot Create New Spec",
 					"There are no open projects to create a new spec in.");
 		} else {
-			NewModelWizard wizard = new NewModelWizard();
+			IWorkbenchWizard wizard = createWizard();
 			IWorkbench workbench = HandlerUtil.getActiveWorkbenchWindow(event).getWorkbench();
 			wizard.init(workbench, getSelection(event));
-			setInitialObjectType(wizard);
 			WizardDialog dialog = new WizardDialog(workbench.getActiveWorkbenchWindow().getShell(), wizard);
 			dialog.open();
 		}
 		return null;
 	}
 
-	protected abstract void setInitialObjectType(NewModelWizard wizard);
+	protected abstract IWorkbenchWizard createWizard();
 
 	private IStructuredSelection getSelection(ExecutionEvent event) {
 		ISelection selection = HandlerUtil.getCurrentSelection(event);
