@@ -33,11 +33,12 @@
  */
 package org.osate.ui.handlers;
 
-import org.osate.ui.wizards.NewModelWizard;
+import org.eclipse.ui.IWorkbenchWizard;
+import org.osate.ui.wizards.NewAadlPackageWizard;
 
 public class NewPackageWizardHandler extends NewModelWizardLauncherHandler {
 	@Override
-	protected void setInitialObjectType(NewModelWizard wizard) {
-		wizard.setInitialObjectType(NewModelWizard.ObjectType.AADL_PACKAGE);
+	protected IWorkbenchWizard createWizard() {
+		return new NewAadlPackageWizard();
 	}
 }
