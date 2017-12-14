@@ -14,7 +14,6 @@ package org.osate.workspace;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.IWorkspace;
-import org.eclipse.emf.common.util.EList;
 
 /**
  * Represent the root AADL element corresponding to the workspace. There is only
@@ -93,35 +92,6 @@ public interface IAadlWorkspace extends IAadlElement, IParent {
 	 * @return the workspace associated with this Java model
 	 */
 	IWorkspace getWorkspace();
-
-	/**
-	 * Search all projects in the workspace for the source file of the given
-	 * package or property set name. Also check if the file is unique in the
-	 * workspace.
-	 *
-	 * @param name the name of the package to find.
-	 * @return the source file for the package, or <code>null</code> if not
-	 *         found.
-	 */
-	IFile findAadlSourceFile(String name);
-
-	/**
-	 * Search all projects in the workspace for the XML model file of the given
-	 * package or property set name. Also check if the file is unique in the
-	 * workspace.
-	 *
-	 * @param name the name of the file to find.
-	 * @return the model file for the package, or <code>null</code> if not found.
-	 */
-	IFile findAadlModelFile(String name);
-
-	/**
-	 * return all model & instance files in a Workspace, i.e., files with the
-	 * extension "aadl"
-	 *
-	 * @return EList of IFiles that represent AADL model files
-	 */
-	EList<IFile> getAllModelFiles();
 
 	/**
 	 * remove the specified file from the lookup table

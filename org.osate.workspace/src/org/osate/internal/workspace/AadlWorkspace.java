@@ -19,11 +19,8 @@ import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.IWorkspace;
 import org.eclipse.core.resources.ResourcesPlugin;
-import org.eclipse.emf.common.util.BasicEList;
-import org.eclipse.emf.common.util.EList;
 import org.osate.workspace.IAadlProject;
 import org.osate.workspace.IAadlWorkspace;
-import org.osate.workspace.WorkspacePlugin;
 
 /**
  * @author lwrage
@@ -164,71 +161,6 @@ public class AadlWorkspace extends AadlElement implements IAadlWorkspace {
 	@Override
 	public IWorkspace getWorkspace() {
 		return ResourcesPlugin.getWorkspace();
-	}
-
-	/*
-	 * (non-Javadoc)
-	 *
-	 * @see edu.cmu.sei.osate.core.IAadlWorkspace#findAadlSourceFile(int,
-	 * java.lang.String)
-	 */
-	@Override
-	@Deprecated
-	public IFile findAadlSourceFile(String name) {
-		IAadlProject[] projects = getOpenAadlProjects();
-
-		for (int i = 0; i < projects.length; i++) {
-			IFile f = projects[i].findAadlSourceFile(name);
-
-			if (f != null) {
-				return f;
-			}
-		}
-		return null;
-	}
-
-	/*
-	 * (non-Javadoc)
-	 *
-	 * @see edu.cmu.sei.osate.core.IAadlWorkspace#findAadlModelFile(
-	 * java.lang.String)
-	 */
-	@Override
-	@Deprecated
-	public IFile findAadlModelFile(String name) {
-		String filename = name + "." + WorkspacePlugin.MODEL_FILE_EXT;
-		IFile result = (IFile) lookupFile.get(filename);
-		if (result != null) {
-			return result;
-		}
-		IAadlProject[] projects = getOpenAadlProjects();
-
-		for (int i = 0; i < projects.length; i++) {
-			IFile f = projects[i].findAadlModelFile(name);
-
-			if (f != null) {
-
-				lookupFile.put(filename, f);
-				return f;
-			}
-		}
-		return null;
-	}
-
-	/**
-	 * return all model & instance files in a Workspace, i.e., files with the
-	 * extension "aaxl"
-	 *
-	 * @return EList of IFiles that represent AADL model files
-	 */
-	@Override
-	public EList<IFile> getAllModelFiles() {
-		EList<IFile> result = new BasicEList<IFile>();
-		IAadlProject[] projects = getOpenAadlProjects();
-		for (int i = 0; i < projects.length; i++) {
-			result.addAll(projects[i].getAllModelFiles());
-		}
-		return result;
 	}
 
 	/**
