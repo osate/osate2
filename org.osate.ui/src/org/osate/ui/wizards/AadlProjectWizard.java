@@ -36,10 +36,11 @@
  */
 package org.osate.ui.wizards;
 
-import java.io.IOException;
+import java.io.ByteArrayInputStream;
 import java.lang.reflect.InvocationTargetException;
 import java.text.MessageFormat;
 
+import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IProjectDescription;
 import org.eclipse.core.resources.IResourceStatus;
@@ -53,11 +54,10 @@ import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.OperationCanceledException;
 import org.eclipse.core.runtime.Status;
-import org.eclipse.core.runtime.SubProgressMonitor;
+import org.eclipse.core.runtime.SubMonitor;
 import org.eclipse.jface.dialogs.ErrorDialog;
 import org.eclipse.jface.dialogs.IDialogSettings;
 import org.eclipse.jface.dialogs.MessageDialog;
-import org.eclipse.jface.preference.PreferenceStore;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.actions.WorkspaceModifyOperation;
@@ -69,7 +69,6 @@ import org.eclipse.xtext.ui.XtextProjectHelper;
 import org.osate.core.AadlNature;
 import org.osate.core.OsateCorePlugin;
 import org.osate.ui.OsateUiPlugin;
-import org.osate.workspace.WorkspacePlugin;
 
 /**
  * This is a simple wizard for creating a new Aadl project.
@@ -265,20 +264,9 @@ public class AadlProjectWizard extends BasicNewResourceWizard implements IExecut
 	 */
 	protected void createProject(IProjectDescription description, IProject projectHandle, IProgressMonitor monitor)
 			throws CoreException, OperationCanceledException {
-		try {
-			monitor.beginTask("", 2000);//$NON-NLS-1$
-
-			projectHandle.create(description, new SubProgressMonitor(monitor, 1000));
-
-			if (monitor.isCanceled()) {
-				throw new OperationCanceledException();
-			}
-
-			projectHandle.open(new SubProgressMonitor(monitor, 1000));
-
-		} finally {
-			monitor.done();
-		}
+		SubMonitor subMonitor = SubMonitor.convert(monitor, 2000);
+		projectHandle.create(description, subMonitor.split(1000));
+		projectHandle.open(subMonitor.split(1000));
 	}
 
 	/**
@@ -320,17 +308,23 @@ public class AadlProjectWizard extends BasicNewResourceWizard implements IExecut
 		selectAndReveal(newProject);
 		final IProject p = getNewProject();
 
-		String filepath = p.getFile(WorkspacePlugin.AADLPATH_FILENAME).getRawLocation().toString();
-
-		PreferenceStore ps = new PreferenceStore(filepath);
-		ps.setValue(WorkspacePlugin.PROJECT_SOURCE_DIR, WorkspacePlugin.DEFAULT_SOURCE_DIR);
-		ps.setValue(WorkspacePlugin.PROJECT_MODEL_DIR, WorkspacePlugin.DEFAULT_MODEL_DIR);
+		IFile gitIgnoreFile = p.getFile(".gitignore");
+		String ignoreContents = "/.aadlbin-gen/" + System.lineSeparator();
+		WorkspaceModifyOperation op = new WorkspaceModifyOperation() {
+			@Override
+			protected void execute(IProgressMonitor monitor)
+					throws CoreException, InvocationTargetException, InterruptedException {
+				gitIgnoreFile.create(new ByteArrayInputStream(ignoreContents.getBytes()), false, monitor);
+			}
+		};
 		try {
-			ps.save();
-		} catch (IOException e1) {
-			MessageDialog.openError(getShell(), "Save Problem", //$NON-NLS-1$
-					MessageFormat.format("Problem saving Preference Store", e1.getStackTrace().toString()));
+			getContainer().run(false, true, op);
+		} catch (InterruptedException e) {
+		} catch (InvocationTargetException e) {
+			OsateUiPlugin.log(new Status(IStatus.ERROR, OsateUiPlugin.getPluginId(), e.getMessage(), e));
+			MessageDialog.openError(getShell(), "Creation Problems", "Internal error: " + e.getMessage());
 		}
+
 		try {
 			p.refreshLocal(1, null);
 		} catch (CoreException e2) {
