@@ -315,7 +315,7 @@
 					<artifactId>tycho-surefire-plugin</artifactId>
 					<version>${tycho.version}</version>
 					<configuration>
-						<argLine>${tycho.testArgLine} ${ui.test.vmargs} ${test.logging}</argLine>
+						<argLine>${ui.test.vmargs} ${test.logging}</argLine>
 						<useUIHarness>true</useUIHarness>
 						<!-- Use this if there's an org.eclipse.swt.SWTException: Invalid thread 
 							access <useUIThread>true</useUIThread> -->
