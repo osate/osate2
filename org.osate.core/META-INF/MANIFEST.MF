@@ -17,4 +17,4 @@ Require-Bundle: org.eclipse.ui,
  org.eclipse.xtext.ui.shared;bundle-version="2.0.1",
  org.eclipse.core.expressions;bundle-version="3.5.0"
 Bundle-ActivationPolicy: lazy
-Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8
