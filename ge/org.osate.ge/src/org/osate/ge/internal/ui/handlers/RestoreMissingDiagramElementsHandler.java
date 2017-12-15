@@ -114,7 +114,7 @@ public class RestoreMissingDiagramElementsHandler extends AbstractHandler {
 						}).forEachOrdered(
 								// type cast is needed to compile using maven/tycho
 								// see https://github.com/osate/osate2-core/issues/976
-								boc -> diagramNodeToAvailableBusinessObjectContextsMap.put(parent, boc));
+								boc -> diagramNodeToAvailableBusinessObjectContextsMap.put(parent, (BusinessObjectContext)boc));
 						ghostsToModify.addAll(ghosts);
 					}
 				}
