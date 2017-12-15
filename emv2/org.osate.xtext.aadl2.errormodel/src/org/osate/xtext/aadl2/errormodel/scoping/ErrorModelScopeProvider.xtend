@@ -442,7 +442,7 @@ class ErrorModelScopeProvider extends PropertiesScopeProvider {
 					ErrorPropagation case
 						parent.getContainerOfType(EMV2Path) !== null &&
 						parent.getContainerOfType(ErrorModelSubclause) !== null: {
-							scopeForErrorTypes(context, EMV2Util.getUseTypes(context), Optional.empty, [allErrorTypes])
+							scopeForErrorTypes(context, EMV2Util.getUseTypes(previous), Optional.empty, [allErrorTypes])
 						}
 					Subcomponent: {
 						val classifier = previous.allClassifier
