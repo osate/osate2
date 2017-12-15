@@ -547,6 +547,9 @@ class ElkGraphBuilder {
 					final ElkConnectableShape end = edgeEnd;
 
 					final ElkEdge newEdge = ElkGraphUtil.createSimpleEdge(start, end);
+					// Ensure the edge has at least one section. Fixes NPE that can occur when laying out connections
+					// with the same source and destination port.
+					ElkGraphUtil.createEdgeSection(newEdge);
 					newEdge.setProperty(CoreOptions.INSIDE_SELF_LOOPS_YO, true);
 					mapping.getGraphMap().put(newEdge, de);
 
