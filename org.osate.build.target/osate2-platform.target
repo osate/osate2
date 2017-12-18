@@ -27,6 +27,7 @@
 <unit id="org.eclipse.sirius.runtime.ide.ui.feature.group" version="0.0.0"/>
 <unit id="org.eclipse.uml2.feature.group" version="0.0.0"/>
 <unit id="org.eclipse.zest.feature.group" version="0.0.0"/>
+<unit id="org.eclipse.papyrus.infra.discovery.ui" version="0.0.0"/>
 <repository location="http://download.eclipse.org/releases/oxygen/201709271000"/>
 </location>
 <location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="planner" includeSource="false" type="InstallableUnit">
