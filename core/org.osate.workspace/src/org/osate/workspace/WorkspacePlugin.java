@@ -1,19 +1,12 @@
 package org.osate.workspace;
 
 import java.io.File;
-import java.io.IOException;
 import java.net.URL;
 import java.util.MissingResourceException;
 import java.util.ResourceBundle;
 
-import org.eclipse.core.resources.IProject;
-import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
-import org.eclipse.jface.dialogs.MessageDialog;
-import org.eclipse.jface.preference.PreferenceStore;
-import org.eclipse.swt.widgets.Display;
-import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.osgi.framework.BundleContext;
 
@@ -26,11 +19,6 @@ public class WorkspacePlugin extends AbstractUIPlugin {
 	 * <code>"org.osate.workspace"</code>)
 	 */
 	public static final String PLUGIN_ID = "org.osate.workspace";
-
-	/**
-	 * Name of file containing project's aadlpath
-	 */
-	public static final String AADLPATH_FILENAME = ".aadlsettings";
 
 	/**
 	 * File extension of AADL source text files
@@ -87,30 +75,6 @@ public class WorkspacePlugin extends AbstractUIPlugin {
 	 * Name of preference for standard AADL property set file
 	 */
 	public static final String AADL_PROJECT_FILE = "aadlProjectFilePreference";
-
-	/**
-	 * Name of source directory project property.
-	 */
-	public static final String PROJECT_SOURCE_DIR = "source.directory";
-
-	/**
-	 * Default source directory. In canonical
-	 * {@link org.eclipse.core.runtime.IPath} format with "<code>/</code>" as
-	 * the separator character.
-	 */
-	public static final String DEFAULT_SOURCE_DIR = "/aadl";
-
-	/**
-	 * Name of model directory project property.
-	 */
-	public static final String PROJECT_MODEL_DIR = "model.directory";
-
-	/**
-	 * Default model directory. In canonical
-	 * {@link org.eclipse.core.runtime.IPath} format with "<code>/</code>" as
-	 * the separator character.
-	 */
-	public static final String DEFAULT_MODEL_DIR = "/aaxl";
 
 	/**
 	 * Aadl pakcages directory.
@@ -213,70 +177,6 @@ public class WorkspacePlugin extends AbstractUIPlugin {
 
 	public static String getPluginId() {
 		return plugin.getBundle().getSymbolicName();
-	}
-
-	public static PreferenceStore getPreferenceStore(IProject project) {
-		PreferenceStore projectProperties;
-		String settingspath = project.getFile(AADLPATH_FILENAME).getRawLocation().toString();
-		final String projectname = project.getName();
-		/*
-		 * Paths are stored using the canonical IPath format in the properties
-		 * file. That is, we use "/" as the separator character.
-		 */
-		projectProperties = new PreferenceStore(settingspath);
-		projectProperties.setDefault(PROJECT_SOURCE_DIR, DEFAULT_SOURCE_DIR);
-		projectProperties.setDefault(PROJECT_MODEL_DIR, DEFAULT_MODEL_DIR);
-		try {
-			projectProperties.load();
-		} catch (IOException e) {
-			if (existsFolder(project, "aadl")) {
-				projectProperties.setValue(PROJECT_SOURCE_DIR, "/aadl");
-			} else if (existsFolder(project, "Aadl")) {
-				projectProperties.setValue(PROJECT_SOURCE_DIR, "/Aadl");
-			} else if (existsFolder(project, "src")) {
-				projectProperties.setValue(PROJECT_SOURCE_DIR, "/src");
-			} else if (existsFolder(project, "Src")) {
-				projectProperties.setValue(PROJECT_SOURCE_DIR, "/Src");
-			} else {
-				projectProperties.setValue(PROJECT_SOURCE_DIR, "/");
-			}
-			if (existsFolder(project, "aaxl")) {
-				projectProperties.setValue(PROJECT_MODEL_DIR, "/aaxl");
-			} else if (existsFolder(project, "Aaxl")) {
-				projectProperties.setValue(PROJECT_MODEL_DIR, "/Aaxl");
-			} else if (existsFolder(project, "xml")) {
-				projectProperties.setValue(PROJECT_MODEL_DIR, "/xml");
-			} else if (existsFolder(project, "Xml")) {
-				projectProperties.setValue(PROJECT_MODEL_DIR, "/Xml");
-			} else if (existsFolder(project, "output")) {
-				projectProperties.setValue(PROJECT_MODEL_DIR, "/output");
-			} else {
-				projectProperties.setValue(PROJECT_MODEL_DIR, "/");
-			}
-			try {
-				projectProperties.save();
-				project.refreshLocal(IResource.DEPTH_INFINITE, null);
-			} catch (Exception e1) {
-			}
-			Display.getDefault().asyncExec(new Runnable() {
-				@Override
-				public void run() {
-					MessageDialog.openInformation(PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell(),
-							"Aadl and aaxl folders",
-							"Could not find " + AADLPATH_FILENAME + " with AADL Build Path properties\n" + "Created "
-									+ AADLPATH_FILENAME
-									+ " with project (or best guess sub folder) as Aadl and Aaxl folders.\n"
-									+ "To change the settings select Properties for project '" + projectname
-									+ "' and change AADL Build Path properties.");
-				}
-			});
-		}
-		return projectProperties;
-	}
-
-	private static boolean existsFolder(IProject project, String foldername) {
-		IResource folder = project.findMember(foldername);
-		return folder != null && folder.exists();
 	}
 
 //	Creates directory if it doesn't exist.
