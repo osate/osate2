@@ -22,6 +22,7 @@ import org.osate.ge.di.CanRename;
 import org.osate.ge.di.Create;
 import org.osate.ge.di.GetGraphicalConfiguration;
 import org.osate.ge.di.GetName;
+import org.osate.ge.di.GetNameForEditing;
 import org.osate.ge.di.GetPaletteEntries;
 import org.osate.ge.di.IsApplicable;
 import org.osate.ge.di.Names;
@@ -84,6 +85,11 @@ public class SubcomponentHandler {
 	@GetName
 	public String getName(final @Named(Names.BUSINESS_OBJECT) Subcomponent sc) {
 		return getSubcomponentName(sc) + AadlArrayUtil.getDimensionUserString(sc);
+	}
+
+	@GetNameForEditing
+	public String getNameForEditing(final @Named(Names.BUSINESS_OBJECT) Subcomponent sc) {
+		return getSubcomponentName(sc);
 	}
 
 	private String getSubcomponentName(final Subcomponent sc) {

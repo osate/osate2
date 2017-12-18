@@ -118,7 +118,7 @@ public class DiagramElementLayoutUtil {
 			layoutGraph.setProperty(CoreOptions.ALGORITHM, layoutAlgorithm);
 
 			// Apply properties for the initial layout
-			applyProperties(mapping, layoutInfoProvider, options);
+			applyProperties(dn, mapping, layoutInfoProvider, options);
 
 			LayoutDebugUtil.saveElkGraphToDebugProject(layoutGraph);
 
@@ -149,16 +149,15 @@ public class DiagramElementLayoutUtil {
 
 		final Collection<DiagramNode> nodesToLayout = DiagramElementLayoutUtil
 				.filterUnnecessaryNodes(getNodesToLayoutIncrementally(diagram, currentLayoutMode, new HashSet<>()));
-
 		if (nodesToLayout.size() == 0) {
 			return;
 		}
 
 		if (currentLayoutMode == IncrementalLayoutMode.LAYOUT_DIAGRAM) {
-			DiagramElementLayoutUtil.layout(incrementalLayoutLabel, diagram, layoutInfoProvider,
+			layout(incrementalLayoutLabel, diagram, layoutInfoProvider,
 					new LayoutOptionsBuilder().build());
 		} else {
-			DiagramElementLayoutUtil.layout(mod, nodesToLayout,
+			layout(mod, nodesToLayout,
 					new StyleCalculator(diagram.getConfiguration(), StyleProvider.EMPTY),
 					layoutInfoProvider,
 					new LayoutOptionsBuilder().build());
@@ -265,8 +264,12 @@ public class DiagramElementLayoutUtil {
 	}
 
 	private static boolean hasLayedOutShapes(final Collection<DiagramElement> diagramElements) {
-		return diagramElements.stream().anyMatch(de -> (de.hasPosition() || !DiagramElementPredicates.isMoveable(de))
-				&& (de.hasSize() || !DiagramElementPredicates.isResizeable(de)));
+		return diagramElements.stream().anyMatch(de -> {
+			final boolean moveable = DiagramElementPredicates.isMoveable(de);
+			final boolean resizable = DiagramElementPredicates.isResizeable(de);
+			return ((de.hasPosition() && moveable) || !moveable)
+					&& ((de.hasSize() && resizable) || !resizable) && (moveable || resizable);
+		});
 	}
 
 
@@ -275,7 +278,8 @@ public class DiagramElementLayoutUtil {
 	 * @param layoutMapping
 	 * @param options
 	 */
-	private static void applyProperties(final LayoutMapping layoutMapping, final LayoutInfoProvider layoutInfoProvider,
+	private static void applyProperties(final DiagramNode rootDiagramNode, final LayoutMapping layoutMapping,
+			final LayoutInfoProvider layoutInfoProvider,
 			final LayoutOptions options) {
 		// Set the minimum node size based on the ports and their assigned sides.
 		final IGraphElementVisitor minNodeSizeVisitor = element -> {
@@ -349,6 +353,19 @@ public class DiagramElementLayoutUtil {
 
 		ElkUtil.applyVisitors(layoutMapping.getLayoutGraph(), minNodeSizeVisitor);
 
+		// If the top level element has a size set, don't shrink it.
+		if (rootDiagramNode instanceof DiagramElement) {
+			final DiagramElement rootDiagramElement = (DiagramElement) rootDiagramNode;
+			final ElkGraphElement rootGraphElement = layoutMapping.getGraphMap().inverse().get(rootDiagramNode);
+
+			if (rootGraphElement != null && rootDiagramElement.hasSize()
+					&& DiagramElementPredicates.isResizeable(rootDiagramElement)) {
+				final KVector minSize = rootGraphElement.getProperty(CoreOptions.NODE_SIZE_MINIMUM);
+				final double newMinWidth = Math.max(rootDiagramElement.getWidth(), minSize == null ? 0.0 : minSize.x);
+				final double newMinHeight = Math.max(rootDiagramElement.getHeight(), minSize == null ? 0.0 : minSize.y);
+				rootGraphElement.setProperty(CoreOptions.NODE_SIZE_MINIMUM, new KVector(newMinWidth, newMinHeight));
+			}
+		}
 	}
 
 	private static boolean isTopLevel(final ElkGraphElement ge) {

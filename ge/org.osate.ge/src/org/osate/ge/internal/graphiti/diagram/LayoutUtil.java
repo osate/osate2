@@ -36,6 +36,8 @@ import org.osate.ge.internal.graphiti.AnchorNames;
 import org.osate.ge.internal.graphiti.ShapeNames;
 import org.osate.ge.internal.graphiti.graphics.AgeGraphitiGraphicsUtil;
 
+import com.google.common.base.Strings;
+
 /**
  * Helper class for performing layout. Layout includes positioning child shapes and updating the graphics algorithm.
  *
@@ -190,16 +192,16 @@ public class LayoutUtil {
 						}
 						decorationShapes.addAll(getChildShapesByName(shape, ShapeNames.annotationShapeName));
 
-						// Add decoration shapes to the list
-						for (final DiagramElement childElement : element.getDiagramElements()) {
-							if (childElement.isDecoration()) {
-								final PictogramElement decorationPictogramElement = diagramNodeProvider
-										.getPictogramElement(childElement);
-								if (decorationPictogramElement instanceof Shape) {
-									decorationShapes.add((Shape) decorationPictogramElement);
-								}
+						// Add decoration shapes to the list. Sort them by name so that labels will be ordered consistently.
+						element.getDiagramElements().stream().filter(childElement -> childElement.isDecoration()).sorted((ce1,
+								ce2) -> Strings.nullToEmpty(ce1.getName()).compareToIgnoreCase(Strings.nullToEmpty(ce2.getName())))
+						.forEachOrdered(childElement -> {
+							final PictogramElement decorationPictogramElement = diagramNodeProvider
+									.getPictogramElement(childElement);
+							if (decorationPictogramElement instanceof Shape) {
+								decorationShapes.add((Shape) decorationPictogramElement);
 							}
-						}
+						});
 
 						// Determine the size needs for the labels
 						int totalLabelsWidth = 0;
