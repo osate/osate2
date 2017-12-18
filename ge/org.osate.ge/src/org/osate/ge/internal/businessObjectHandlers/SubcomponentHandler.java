@@ -99,6 +99,10 @@ public class SubcomponentHandler {
 	// Creating
 	@GetPaletteEntries
 	public PaletteEntry[] getPaletteEntries(final @Named(Names.DIAGRAM_BO) Object diagramBo) {
+		if (!BusinessObjectHandlerUtil.diagramSupportsPackageOrClassifiers(diagramBo)) {
+			return null;
+		}
+
 		// Disable for diagrams which are bound to a ComponentType
 		if(diagramBo instanceof ComponentType) {
 			return null;

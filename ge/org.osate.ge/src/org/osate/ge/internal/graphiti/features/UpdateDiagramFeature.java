@@ -21,6 +21,7 @@ import org.osate.ge.internal.diagram.runtime.layout.LayoutInfoProvider;
 import org.osate.ge.internal.diagram.runtime.updating.DiagramUpdater;
 import org.osate.ge.internal.graphiti.services.GraphitiService;
 import org.osate.ge.internal.services.ProjectReferenceService;
+import org.osate.ge.internal.services.SystemInstanceLoadingService;
 import org.osate.ge.internal.ui.editor.AgeDiagramEditor;
 import org.osate.ge.internal.ui.editor.DiagramContextChecker;
 
@@ -31,6 +32,7 @@ public class UpdateDiagramFeature extends AbstractUpdateFeature implements ICust
 	private final DiagramUpdater diagramUpdater;
 	private final LayoutInfoProvider layoutInfoProvider;
 	private final ProjectReferenceService projectReferenceService;
+	private final SystemInstanceLoadingService systemInstanceLoader;
 
 	private boolean wasContextValid = true;
 
@@ -38,13 +40,16 @@ public class UpdateDiagramFeature extends AbstractUpdateFeature implements ICust
 	public UpdateDiagramFeature(final IFeatureProvider fp,
 			final GraphitiService graphitiService,
 			final DiagramUpdater diagramUpdater, final LayoutInfoProvider layoutInfoProvider,
-			final ProjectReferenceService projectReferenceService) {
+			final ProjectReferenceService projectReferenceService,
+			final SystemInstanceLoadingService systemInstanceLoader) {
 		super(fp);
 		this.graphitiService = Objects.requireNonNull(graphitiService, "graphitiService must not be null");
 		this.diagramUpdater = Objects.requireNonNull(diagramUpdater, "diagramUpdater must not be null");
 		this.layoutInfoProvider = Objects.requireNonNull(layoutInfoProvider, "layoutInfoProvider must not be null");
 		this.projectReferenceService = Objects.requireNonNull(projectReferenceService,
 				"projectReferenceService must not be null");
+		this.systemInstanceLoader = Objects.requireNonNull(systemInstanceLoader,
+				"systemInstanceLoader must not be null");
 	}
 
 	@Override
@@ -70,7 +75,7 @@ public class UpdateDiagramFeature extends AbstractUpdateFeature implements ICust
 						&& editor.getGraphicalViewer().getControl().isVisible() && (wasContextValid
 								|| Boolean.TRUE.equals(context.getProperty(promptToRelinkMissingContextProperty)));
 				final DiagramContextChecker contextChecker = new DiagramContextChecker(graphitiService.getProject(),
-						projectReferenceService);
+						projectReferenceService, systemInstanceLoader);
 				final DiagramContextChecker.Result result = contextChecker.checkContextIncrementalBuild(ageDiagram,
 						promptToRelink);
 				wasContextValid = result.isContextValid(); // Store for next execution

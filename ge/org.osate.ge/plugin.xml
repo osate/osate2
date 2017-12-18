@@ -1567,6 +1567,9 @@
        <referenceLabelProvider
              class="org.osate.ge.internal.services.impl.DeclarativeReferenceLabelProvider">
        </referenceLabelProvider>
+       <referenceLabelProvider
+             class="org.osate.ge.internal.services.impl.InstanceReferenceLabelProvider">
+       </referenceLabelProvider>
     </extension>
     <extension
           point="org.osate.ge.businessObjectHandlers">

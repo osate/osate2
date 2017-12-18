@@ -18,13 +18,19 @@ import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.xtext.resource.IEObjectDescription;
 import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.ClassifierValue;
-import org.osate.aadl2.ListType;
 import org.osate.aadl2.Property;
-import org.osate.aadl2.ReferenceType;
-import org.osate.aadl2.Type;
+import org.osate.aadl2.instance.InstanceObject;
+import org.osate.aadl2.instance.InstanceReferenceValue;
 import org.osate.aadl2.modelsupport.resources.OsateResourceUtil;
 import org.osate.aadl2.util.Aadl2Util;
 import org.osate.ge.BusinessObjectContext;
+import org.osate.ge.internal.aadlproperties.AadlPropertyResolutionResults;
+import org.osate.ge.internal.aadlproperties.AadlPropertyResolver;
+import org.osate.ge.internal.aadlproperties.AadlPropertyUtil;
+import org.osate.ge.internal.aadlproperties.PropertyResult;
+import org.osate.ge.internal.aadlproperties.PropertyResult.NullReason;
+import org.osate.ge.internal.aadlproperties.PropertyValueUtil;
+import org.osate.ge.internal.aadlproperties.ReferenceValueWithContext;
 import org.osate.ge.internal.diagram.runtime.BuiltinContentsFilter;
 import org.osate.ge.internal.diagram.runtime.ContentsFilter;
 import org.osate.ge.internal.diagram.runtime.DiagramConfiguration;
@@ -35,13 +41,7 @@ import org.osate.ge.internal.query.Queryable;
 import org.osate.ge.internal.services.ExtensionService;
 import org.osate.ge.internal.services.ProjectProvider;
 import org.osate.ge.internal.services.ProjectReferenceService;
-import org.osate.ge.internal.util.AadlPropertyResolver;
 import org.osate.ge.internal.util.BusinessObjectProviderHelper;
-import org.osate.ge.internal.util.PropertyResult;
-import org.osate.ge.internal.util.PropertyResult.NullReason;
-import org.osate.ge.internal.util.PropertyValueUtil;
-import org.osate.ge.internal.util.ReferenceValueWithContext;
-import org.osate.ge.internal.util.ReferenceValueWithContext.ResolutionResults;
 import org.osate.ge.internal.util.ScopedEMFIndexRetrieval;
 import org.osate.ge.services.QueryService;
 
@@ -248,7 +248,7 @@ public class DefaultTreeUpdater implements TreeUpdater {
 			}
 
 			// For reference properties, do the same for unprocessed references.
-			if(isReferenceOrListReferenceType(property.getType())) {
+			if (AadlPropertyUtil.isReferenceOrListReferenceType(property.getType())) {
 				// Create property values which reference children which are not included in the diagram. These are stored as property associations
 				// which have not  been fully processed
 				// The key is the path to the element is applies to
@@ -324,25 +324,24 @@ public class DefaultTreeUpdater implements TreeUpdater {
 			final BusinessObjectNode dst;
 			boolean fullyResolved = true;
 			if(value instanceof ReferenceValueWithContext) {
-				final ResolutionResults rr = ((ReferenceValueWithContext)value).resolve(node, queryService);
+				final AadlPropertyResolutionResults rr = ((ReferenceValueWithContext)value).resolve(node, queryService);
 				dst = (BusinessObjectNode)rr.dst;
 				fullyResolved = !rr.isPartial;
 			} else if(value instanceof ClassifierValue) {
 				dst = (BusinessObjectNode)PropertyValueUtil.getReferencedClassifier(node, (ClassifierValue)value, queryService);
+			} else if (value instanceof InstanceReferenceValue) {
+				final InstanceReferenceValue irv = (InstanceReferenceValue) value;
+				final InstanceObject referencedInstanceObject = irv.getReferencedInstanceObject();
+				final AadlPropertyResolutionResults rr = PropertyValueUtil.getReferencedInstanceObject(node,
+						referencedInstanceObject, queryService);
+				dst = (BusinessObjectNode) rr.dst;
+				fullyResolved = !rr.isPartial;
 			} else {
 				dst = null;
 			}
 
 			dstToPropertyValues.put(dst, new AgePropertyValue(pr, indicesStack, appliesToDescendantRef, fullyResolved));
 		}
-	}
-
-	private boolean isReferenceOrListReferenceType(final Type type) {
-		if(type instanceof ListType) {
-			return isReferenceOrListReferenceType(((ListType)type).getOwnedElementType());
-		}
-
-		return type instanceof ReferenceType;
 	}
 
 	private void createNodes(

@@ -107,6 +107,7 @@ import org.osate.ge.internal.services.AadlModificationService;
 import org.osate.ge.internal.services.ExtensionService;
 import org.osate.ge.internal.services.ProjectReferenceService;
 import org.osate.ge.internal.services.ReferenceService;
+import org.osate.ge.internal.services.SystemInstanceLoadingService;
 import org.osate.ge.services.QueryService;
 
 public class AgeFeatureProvider extends DefaultFeatureProvider {
@@ -160,8 +161,11 @@ public class AgeFeatureProvider extends DefaultFeatureProvider {
 				queryService, nodeFactory);
 		deInfoProvider = new DefaultDiagramElementGraphicalConfigurationProvider(referenceResolver, extService);
 		diagramUpdater = new DiagramUpdater(boTreeExpander, deInfoProvider);
+		final SystemInstanceLoadingService systemInstanceLoader = Objects.requireNonNull(
+				eclipseContext.get(SystemInstanceLoadingService.class),
+				"unable to retrieve system instance loading service");
 		this.updateDiagramFeature = new UpdateDiagramFeature(this, graphitiService, diagramUpdater, graphitiService,
-				referenceResolver);
+				referenceResolver, systemInstanceLoader);
 
 		// Create the configure diagram feature
 		this.configureDiagramFeature = new ConfigureDiagramFeature(this, boTreeExpander, diagramUpdater,

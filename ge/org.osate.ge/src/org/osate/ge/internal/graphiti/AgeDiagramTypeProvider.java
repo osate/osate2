@@ -29,6 +29,7 @@ import org.osate.ge.internal.services.NamingService;
 import org.osate.ge.internal.services.ProjectProvider;
 import org.osate.ge.internal.services.ProjectReferenceService;
 import org.osate.ge.internal.services.ReferenceService;
+import org.osate.ge.internal.services.SystemInstanceLoadingService;
 import org.osate.ge.internal.services.UiService;
 import org.osate.ge.internal.services.impl.DefaultExtensionService;
 import org.osate.ge.internal.services.impl.DefaultNamingService;
@@ -111,6 +112,10 @@ public class AgeDiagramTypeProvider extends AbstractDiagramTypeProvider {
 
 	public ColoringService getColoringService() {
 		return context.get(ColoringService.class);
+	}
+
+	public SystemInstanceLoadingService getSystemInstanceLoader() {
+		return context.get(SystemInstanceLoadingService.class);
 	}
 
 	public ProjectReferenceService getProjectReferenceService() {

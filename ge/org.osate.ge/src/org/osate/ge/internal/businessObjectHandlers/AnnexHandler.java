@@ -72,6 +72,10 @@ public class AnnexHandler {
 
 	@GetPaletteEntries
 	public PaletteEntry[] getPaletteEntries(final @Named(Names.DIAGRAM_BO) Object diagramBo) {
+		if (!BusinessObjectHandlerUtil.diagramSupportsPackageOrClassifiers(diagramBo)) {
+			return null;
+		}
+
 		final List<PaletteEntry> entries = new ArrayList<>();
 		if(diagramBo == null || diagramBo instanceof AadlPackage) {
 			entries.add(PaletteEntryBuilder.create().label("Annex Library").icon(ImageHelper.getImage(getDefaultAnnexLibrary().getName())).category(Categories.MISC).context(getDefaultAnnexLibrary()).build());

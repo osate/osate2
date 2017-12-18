@@ -1,10 +1,12 @@
-package org.osate.ge.internal.util;
+package org.osate.ge.internal.aadlproperties;
 
 import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
+
 import javax.inject.Named;
+
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.xtext.nodemodel.INode;
 import org.eclipse.xtext.nodemodel.util.NodeModelUtils;
@@ -38,34 +40,34 @@ public class PropertyValueFormatter {
 		public int compare(final AgePropertyValue pv1, final AgePropertyValue pv2) {
 			return compare(pv1.getArrayIndices(), pv2.getArrayIndices(), 0);
 		}
-		
+
 		private int compare(final List<Integer> list1, final List<Integer> list2, final int index) {
 			if(list1.size() < index) {
 				return -1;
 			}
-			
+
 			if(list2.size() < index) {
 				return 1;
 			}
-			
+
 			int result = Integer.compare(list1.get(index), list2.get(index));
 			return result == 0 ? compare(list1, list2, index+1) : result;
-		}		
+		}
 	};
-	
+
 	private static final Comparator<String> caseInsensitiveNullFirstComparator = Ordering.from(String.CASE_INSENSITIVE_ORDER).nullsFirst();
 	private static final Comparator<AgePropertyValue> appliesToComparator = Comparator.comparing((AgePropertyValue pv) -> pv.getAppliesToRef(), caseInsensitiveNullFirstComparator);
 	private static final Comparator<AgePropertyValue> propertyValueComparator = Ordering.from(appliesToComparator).compound(arrayIndicesComparator);
 
-	
+
 	/**
-	 * 
+	 *
 	 * @param propertyValueQueryable
 	 * @param prv
 	 * @param expandComplexValues if true values inside of lists and groups will be contained in the result.
 	 * @return
 	 */
-	public static String getUserString(final @Named(Names.BUSINESS_OBJECT_CONTEXT) Queryable pvgQueryable, 
+	public static String getUserString(final @Named(Names.BUSINESS_OBJECT_CONTEXT) Queryable pvgQueryable,
 			final boolean singleLine,
 			final boolean includeOnlyValuesBasedOnCompletelyProcessedAssociations,
 			final boolean includeValues,
@@ -74,44 +76,44 @@ public class PropertyValueFormatter {
 		if(pvgQueryable == null || pvgQueryable.getParent() == null) {
 			return "";
 		}
-		
+
 		if(!(pvgQueryable.getBusinessObject() instanceof PropertyValueGroup)) {
 			throw new RuntimeException("Queryable business object must be a PropertyValueGroup");
 		}
 		final PropertyValueGroup pvg = (PropertyValueGroup)pvgQueryable.getBusinessObject();
-		
+
 		final StringBuilder sb = new StringBuilder();
 
 		Stream<AgePropertyValue> propertyValuesStream = pvg.getPropertyValues().stream();
 		if(includeOnlyValuesBasedOnCompletelyProcessedAssociations) {
 			propertyValuesStream = propertyValuesStream.filter(pv -> pv.isBasedOnCompletelyProcessedAssociation());
 		}
-		
+
 		final List<AgePropertyValue> sortedPropertyValues = propertyValuesStream.
 				sorted(propertyValueComparator).
 				collect(Collectors.toList());
-		
+
 		if(singleLine && sortedPropertyValues.size() > 1) {
 			sb.append(AadlUtil.getPropertySetElementName(pvg.getProperty()));
-			
+
 			if(includeValues) {
 				sb.append(": <multiple>");
 			}
-		} else {		
+		} else {
 			final Queryable pvgParentQueryable = pvgQueryable.getParent();
 			for(final AgePropertyValue pv : sortedPropertyValues) {
 				if(sb.length() != 0) {
 					sb.append('\n');
 				}
-				
+
 				sb.append(AadlUtil.getPropertySetElementName(pvg.getProperty()));
 				appendArrayIndices(sb, pv);
-				
+
 				if(includeValues) {
 					sb.append(": ");
 					appendPropertyResultValue(sb, pv.getPropertyResult(), pv.getValue(), pvgParentQueryable, expandComplexValues);
 				}
-	
+
 				// Add applies to
 				if(includeAppliesTo) {
 					if(pv.getAppliesToRef() != null) {
@@ -121,11 +123,11 @@ public class PropertyValueFormatter {
 				}
 			}
 		}
-		
+
 		return sb.toString();
 	}
-	
-	private static void appendArrayIndices(final StringBuilder sb, 
+
+	private static void appendArrayIndices(final StringBuilder sb,
 			final AgePropertyValue pv) {
 		// Append Indices
 		for(final Integer idx : pv.getArrayIndices()) {
@@ -134,12 +136,12 @@ public class PropertyValueFormatter {
 			sb.append(']');
 		}
 	}
-	
-	private static void appendPropertyResultValue(final StringBuilder sb, 
-			final PropertyResult pr, 
+
+	private static void appendPropertyResultValue(final StringBuilder sb,
+			final PropertyResult pr,
 			final Object valueToDisplay,
 			final Queryable pvgParentQueryable,
-			final boolean expandComplexValues) {		
+			final boolean expandComplexValues) {
 		if(valueToDisplay == null) {
 			// Append explanation for null value
 			if(pr.nullReason != null) {
@@ -148,31 +150,31 @@ public class PropertyValueFormatter {
 				case ARRAY_ELEMENT_SPECIFIC:
 					nullReasonStr = "<array element specific>";
 					break;
-					
+
 				case BINDING_SPECIFIC:
 					nullReasonStr = "<binding specific>";
 					break;
-					
+
 				case MODAL:
-					nullReasonStr = "<modal>";					
+					nullReasonStr = "<modal>";
 					break;
-					
+
 				default:
 					nullReasonStr = "";
 					break;
 				}
-				
+
 				sb.append(nullReasonStr);
 			}
 		} else {
 			appendPropertyValue(pvgParentQueryable, valueToDisplay, expandComplexValues, sb);
 		}
 	}
-	
+
 	@SuppressWarnings("unchecked")
-	public static void appendPropertyValue(final Queryable q, 
-			final Object value, 
-			final boolean expandComplexValues, 
+	public static void appendPropertyValue(final Queryable q,
+			final Object value,
+			final boolean expandComplexValues,
 			final StringBuilder sb) {
 		if(value instanceof List) {
 			if(expandComplexValues) {
@@ -183,7 +185,7 @@ public class PropertyValueFormatter {
 						sb.append(", ");
 					}
 					isFirst = false;
-					
+
 					appendPropertyValue(q, element, expandComplexValues, sb);
 				}
 				sb.append(')');
@@ -203,7 +205,7 @@ public class PropertyValueFormatter {
 			} else if(value instanceof NamedValue) {
 				final NamedValue nv = (NamedValue)value;
 				if(nv.getNamedValue() == null) {
-					sb.append("<null>");				
+					sb.append("<null>");
 				} else {
 					appendPropertyValue(q, nv.getNamedValue(), expandComplexValues, sb);
 				}
@@ -254,7 +256,7 @@ public class PropertyValueFormatter {
 				sb.append('"');
 			} else if(value instanceof ReferenceValueWithContext) {
 				final ReferenceValueWithContext rv = (ReferenceValueWithContext)value;
-				
+
 				Queryable tmp = q;
 				for(int i = 0; i < rv.propertyAssociationOwnerAncestorLevel; i++) {
 					tmp = tmp.getParent();
@@ -262,7 +264,7 @@ public class PropertyValueFormatter {
 						return;
 					}
 				}
-				
+
 				// The reference is relative to the current value of tmp
 				// Append Each Level Until Reaching the Containing Classifier
 				String prefix = null;
@@ -272,16 +274,16 @@ public class PropertyValueFormatter {
 						// Ignore
 						return;
 					}
-					
+
 					if(prefix == null) {
 						prefix = containerName;
 					} else {
 						prefix = containerName + "." + prefix;
 					}
-					
+
 					tmp = tmp.getParent();
 				}
-				
+
 				// Handle relative portion.. need to add appropriate ancestors.
 				if(prefix != null) {
 					sb.append(prefix);
@@ -292,14 +294,14 @@ public class PropertyValueFormatter {
 						sb.append(".");
 					}
 					isFirst = false;
-					
+
 					final NamedElement ne = pathElement.getNamedElement();
 					if(ne == null) {
-						sb.append("<null>");					
+						sb.append("<null>");
 					} else {
 						sb.append(ne.getName());
 					}
-					
+
 					for(final ArrayRange ar : pathElement.getArrayRanges()) {
 						sb.append('[');
 						sb.append(ar.getLowerBound());
@@ -310,10 +312,10 @@ public class PropertyValueFormatter {
 						sb.append(']');
 					}
 				}
-				
+
 			} else if(value instanceof InstanceReferenceValue) {
 				final InstanceReferenceValue irv = (InstanceReferenceValue)value;
-				if(irv.getReferencedInstanceObject() != null) {					
+				if(irv.getReferencedInstanceObject() != null) {
 					sb.append(irv.getReferencedInstanceObject().getComponentInstancePath());
 				} else {
 					sb.append("?");
