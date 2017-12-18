@@ -4,7 +4,7 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Objects;
 
-import org.osate.ge.internal.util.PropertyResult;
+import org.osate.ge.internal.aadlproperties.PropertyResult;
 
 import com.google.common.collect.ImmutableList;
 

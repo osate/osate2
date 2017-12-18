@@ -1,12 +1,18 @@
 package org.osate.ge.internal.ui.editor;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 
+import org.eclipse.core.resources.IContainer;
+import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
+import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.IncrementalProjectBuilder;
 import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.ResourceSet;
@@ -15,21 +21,26 @@ import org.eclipse.jface.window.Window;
 import org.eclipse.xtext.resource.IEObjectDescription;
 import org.eclipse.xtext.ui.resource.XtextLiveScopeResourceSetProvider;
 import org.osate.aadl2.Aadl2Factory;
+import org.osate.aadl2.instance.InstanceFactory;
 import org.osate.ge.internal.diagram.runtime.AgeDiagram;
 import org.osate.ge.internal.diagram.runtime.CanonicalBusinessObjectReference;
 import org.osate.ge.internal.diagram.runtime.DiagramConfigurationBuilder;
 import org.osate.ge.internal.diagram.runtime.RelativeBusinessObjectReference;
 import org.osate.ge.internal.services.ProjectReferenceService;
+import org.osate.ge.internal.services.SystemInstanceLoadingService;
 import org.osate.ge.internal.services.impl.DeclarativeReferenceType;
+import org.osate.ge.internal.services.impl.InstanceReferenceBuilder;
 import org.osate.ge.internal.ui.dialogs.ElementSelectionDialog;
 import org.osate.ge.internal.util.ScopedEMFIndexRetrieval;
 import org.osate.xtext.aadl2.ui.internal.Aadl2Activator;
 
+import com.google.common.base.Strings;
 import com.google.inject.Injector;
 
 public class DiagramContextChecker {
 	private final IProject project;
 	private final ProjectReferenceService refService;
+	private final SystemInstanceLoadingService systemInstanceLoader;
 
 	public static class Result {
 		private final boolean contextIsValid;
@@ -49,9 +60,12 @@ public class DiagramContextChecker {
 		}
 	}
 
-	public DiagramContextChecker(final IProject project, final ProjectReferenceService refService) {
+	public DiagramContextChecker(final IProject project, final ProjectReferenceService refService,
+			final SystemInstanceLoadingService systemInstanceLoader) {
 		this.project = Objects.requireNonNull(project, "project must not be null");
 		this.refService = Objects.requireNonNull(refService, "refService must not be null");
+		this.systemInstanceLoader = Objects.requireNonNull(systemInstanceLoader,
+				"systemInstanceLoader must not be null");
 	}
 
 	public Result checkContextFullBuild(final AgeDiagram diagram, final boolean promptToRelinkIfMissing) {
@@ -118,37 +132,43 @@ public class DiagramContextChecker {
 
 		final boolean isPackageRef = DeclarativeReferenceType.PACKAGE.getId().equals(refSegs.get(0));
 		final boolean isClassifierRef = DeclarativeReferenceType.CLASSIFIER.getId().equals(refSegs.get(0));
-		if (!isPackageRef && !isClassifierRef) {
+		final boolean isSystemInstance = InstanceReferenceBuilder.isSystemInstanceReference(refSegs);
+		if (!isPackageRef && !isClassifierRef && !isSystemInstance) {
 			return false;
 		}
 
-		// Find all packages
-		final Collection<IEObjectDescription> packageDescriptions = ScopedEMFIndexRetrieval
-				.getAllEObjectsByType(project, Aadl2Factory.eINSTANCE.getAadl2Package().getAadlPackage());
-
 		// Determine the options to present to the user
-		final Collection<IEObjectDescription> options;
+		final Collection<?> options;
 		String searchPrefix = "";
-		if (isPackageRef) {
-			options = packageDescriptions;
-		} else if (isClassifierRef) {
-			options = ScopedEMFIndexRetrieval.getAllEObjectsByType(project,
-					Aadl2Factory.eINSTANCE.getAadl2Package().getClassifier());
+		if (isPackageRef || isClassifierRef) {
+			// Find all packages
+			final Collection<IEObjectDescription> packageDescriptions = ScopedEMFIndexRetrieval
+					.getAllEObjectsByType(project, Aadl2Factory.eINSTANCE.getAadl2Package().getAadlPackage());
 
-			// Check if the package portion of the qualified name is a valid package.
-			// If so, use it as the initial filter
-			final String referencedClassifierQualifiedName = refSegs.get(1);
-			final String[] qualifiedNameParts = referencedClassifierQualifiedName.split("::");
-			if (qualifiedNameParts.length == 2) {
-				final String pkgName = qualifiedNameParts[0];
+			if (isPackageRef) {
+				options = packageDescriptions;
+			} else if (isClassifierRef) {
+				options = ScopedEMFIndexRetrieval.getAllEObjectsByType(project,
+						Aadl2Factory.eINSTANCE.getAadl2Package().getClassifier());
 
-				for (final IEObjectDescription desc : packageDescriptions) {
-					if (desc.getName().toString("::").equalsIgnoreCase(pkgName)) {
-						searchPrefix = pkgName.toLowerCase() + "::";
+				// Check if the package portion of the qualified name is a valid package.
+				// If so, use it as the initial filter
+				final String referencedClassifierQualifiedName = refSegs.get(1);
+				final String[] qualifiedNameParts = referencedClassifierQualifiedName.split("::");
+				if (qualifiedNameParts.length == 2) {
+					final String pkgName = qualifiedNameParts[0];
+
+					for (final IEObjectDescription desc : packageDescriptions) {
+						if (desc.getName().toString("::").equalsIgnoreCase(pkgName)) {
+							searchPrefix = pkgName.toLowerCase() + "::";
+						}
 					}
 				}
+			} else {
+				options = Collections.emptyList();
 			}
-
+		} else if (isSystemInstance) {
+			options = findInstanceModelFiles(project, new ArrayList<IPath>());
 		} else {
 			// Unexpected case: there is already a short circuit for the case where the reference isn't a package or classifier reference
 			throw new RuntimeException("Unexpected case");
@@ -168,33 +188,50 @@ public class DiagramContextChecker {
 			return false;
 		}
 
-		final EObject newContextProxy = (EObject) dlg.getFirstSelectedElement();
+		final CanonicalBusinessObjectReference newContextCanonicalRef;
+		final RelativeBusinessObjectReference newContextRelativeRef;
 
-		// Find the live object
-		final Injector injector = Objects.requireNonNull(
-				Aadl2Activator.getInstance().getInjector(Aadl2Activator.ORG_OSATE_XTEXT_AADL2_AADL2),
-				"Unable to retrieve injector");
-		final XtextLiveScopeResourceSetProvider liveResourceSetProvider = Objects.requireNonNull(
-				injector.getInstance(XtextLiveScopeResourceSetProvider.class),
-				"Unable to retrieve live scope resource set provider");
+		final Object newContext;
+		if (isSystemInstance) {
+			final IPath systemInstancePath = (IPath) dlg.getFirstSelectedElement();
+			newContextCanonicalRef = InstanceReferenceBuilder
+					.getCanonicalBusinessObjectReferenceForSystemInstance(systemInstanceLoader, systemInstancePath);
+			newContextRelativeRef = InstanceReferenceBuilder
+					.getRelativeBusinessObjectReferenceForSystemInstance(systemInstanceLoader, systemInstancePath);
 
-		final ResourceSet liveResourceSet = Objects.requireNonNull(liveResourceSetProvider.get(project),
-				"Unable to get live resource set");
+			// Create a dummy system instance. It will be replaced as part of the diagram updating process.
+			newContext = InstanceFactory.eINSTANCE.createSystemInstance();
+		} else {
+			final EObject newContextProxy = (EObject) dlg.getFirstSelectedElement();
 
-		final EObject newContext = EcoreUtil.resolve(newContextProxy, liveResourceSet);
-		if (newContext.eIsProxy()) {
-			throw new RuntimeException("Unable to retrieve non-proxy object for selection");
-		}
+			// Find the live object
+			final Injector injector = Objects.requireNonNull(
+					Aadl2Activator.getInstance().getInjector(Aadl2Activator.ORG_OSATE_XTEXT_AADL2_AADL2),
+					"Unable to retrieve injector");
+			final XtextLiveScopeResourceSetProvider liveResourceSetProvider = Objects.requireNonNull(
+					injector.getInstance(XtextLiveScopeResourceSetProvider.class),
+					"Unable to retrieve live scope resource set provider");
 
-		// Find canonical and relative reference
-		final CanonicalBusinessObjectReference newContextCanonicalRef = refService.getCanonicalReference(newContext);
-		if (newContextCanonicalRef == null) {
-			throw new RuntimeException("Unable to retrieve reference for new diagram context: " + newContext);
-		}
+			final ResourceSet liveResourceSet = Objects.requireNonNull(liveResourceSetProvider.get(project),
+					"Unable to get live resource set");
 
-		final RelativeBusinessObjectReference newContextRelativeRef = refService.getRelativeReference(newContext);
-		if (newContextRelativeRef == null) {
-			throw new RuntimeException("Unable to retrieve relative reference for new diagram context: " + newContext);
+			newContext = EcoreUtil.resolve(newContextProxy, liveResourceSet);
+			if (((EObject) newContext).eIsProxy()) {
+				throw new RuntimeException("Unable to retrieve non-proxy object for selection");
+			}
+
+			// Find canonical and relative reference
+			newContextCanonicalRef = refService
+					.getCanonicalReference(newContext);
+			if (newContextCanonicalRef == null) {
+				throw new RuntimeException("Unable to retrieve reference for new diagram context: " + newContext);
+			}
+
+			newContextRelativeRef = refService.getRelativeReference(newContext);
+			if (newContextRelativeRef == null) {
+				throw new RuntimeException(
+						"Unable to retrieve relative reference for new diagram context: " + newContext);
+			}
 		}
 
 		// Update the diagram
@@ -212,5 +249,28 @@ public class DiagramContextChecker {
 		});
 
 		return true;
+	}
+
+	/**
+	 *
+	 * @param parent
+	 * @param results
+	 * @return results
+	 */
+	private List<IPath> findInstanceModelFiles(final IResource res, final List<IPath> results) {
+		if (res instanceof IFile && Strings.emptyToNull(res.getFileExtension()).equalsIgnoreCase("aaxl2")) {
+			results.add(res.getFullPath());
+		} else if (res instanceof IContainer) {
+			final IContainer container = (IContainer) res;
+			try {
+				for (final IResource child : container.members()) {
+					findInstanceModelFiles(child, results);
+				}
+			} catch (CoreException e) {
+				throw new RuntimeException(e);
+			}
+		}
+
+		return results;
 	}
 }

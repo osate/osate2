@@ -8,8 +8,8 @@ import org.eclipse.swt.widgets.Label;
 import org.osate.ge.BusinessObjectContext;
 import org.osate.ge.di.Activate;
 import org.osate.ge.di.Names;
+import org.osate.ge.internal.aadlproperties.PropertyValueFormatter;
 import org.osate.ge.internal.model.PropertyValueGroup;
-import org.osate.ge.internal.util.PropertyValueFormatter;
 
 public class PropertyValueTooltipContributor {
 	@Activate

@@ -88,6 +88,10 @@ public class FeatureHandler {
 
 	@GetPaletteEntries
 	public PaletteEntry[] getPaletteEntries(final @Named(Names.DIAGRAM_BO) Object diagramBo) {
+		if (!BusinessObjectHandlerUtil.diagramSupportsPackageOrClassifiers(diagramBo)) {
+			return null;
+		}
+
 		final List<PaletteEntry> entries = new ArrayList<PaletteEntry>();
 		final Classifier classifier = diagramBo instanceof Classifier ? (Classifier) diagramBo : null;
 

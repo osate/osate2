@@ -2,6 +2,7 @@ package org.osate.ge.internal.businessObjectHandlers;
 
 import javax.inject.Named;
 
+import org.osate.aadl2.ComponentImplementation;
 import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.ge.GraphicalConfiguration;
 import org.osate.ge.GraphicalConfigurationBuilder;
@@ -20,8 +21,10 @@ public class ComponentInstanceHandler {
 	@GetGraphicalConfiguration
 	public GraphicalConfiguration getGraphicalConGraphic(final @Named(Names.BUSINESS_OBJECT) ComponentInstance ci) {
 		return GraphicalConfigurationBuilder.create().
-				graphic(AadlGraphics.getGraphic(ci.getComponentClassifier())).
-				style(AadlGraphics.getStyle(ci.getComponentClassifier()))
+				graphic(AadlGraphics.getGraphic(ci.getCategory()))
+				.
+				style(AadlGraphics.getStyle(ci.getCategory(),
+						ci.getComponentClassifier() instanceof ComponentImplementation))
 				.
 				build();
 	}

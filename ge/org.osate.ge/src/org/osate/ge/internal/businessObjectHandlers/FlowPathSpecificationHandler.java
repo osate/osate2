@@ -83,7 +83,11 @@ public class FlowPathSpecificationHandler extends FlowSpecificationHandler {
 
 	// Creating
 	@GetPaletteEntries
-	public PaletteEntry[] getPaletteEntries() {
+	public PaletteEntry[] getPaletteEntries(final @Named(Names.DIAGRAM_BO) Object diagramBo) {
+		if (!BusinessObjectHandlerUtil.diagramSupportsPackageOrClassifiers(diagramBo)) {
+			return null;
+		}
+
 		return new PaletteEntry[] {
 				PaletteEntryBuilder.create().connectionCreation().label("Flow Path").icon(ImageHelper.getImage("FlowPath")).category(Categories.FLOWS).context(FlowKind.PATH).build(),
 		};

@@ -92,7 +92,11 @@ public class FlowSourceSinkSpecificationHandler extends FlowSpecificationHandler
 
 	// Creating
 	@GetPaletteEntries
-	public PaletteEntry[] getPaletteEntries() {
+	public PaletteEntry[] getPaletteEntries(final @Named(Names.DIAGRAM_BO) Object diagramBo) {
+		if (!BusinessObjectHandlerUtil.diagramSupportsPackageOrClassifiers(diagramBo)) {
+			return null;
+		}
+
 		return new PaletteEntry[] {
 				PaletteEntryBuilder.create().creation().label("Flow Source").icon(ImageHelper.getImage("FlowSource")).category(Categories.FLOWS).context(FlowKind.SOURCE).build(),
 				PaletteEntryBuilder.create().creation().label("Flow Sink").icon(ImageHelper.getImage("FlowSink")).category(Categories.FLOWS).context(FlowKind.SINK).build()

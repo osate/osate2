@@ -17,9 +17,9 @@ import org.osate.ge.graphics.Style;
 import org.osate.ge.graphics.StyleBuilder;
 import org.osate.ge.graphics.internal.LabelBuilder;
 import org.osate.ge.internal.AgeDiagramProvider;
+import org.osate.ge.internal.aadlproperties.PropertyValueFormatter;
 import org.osate.ge.internal.diagram.runtime.DiagramElement;
 import org.osate.ge.internal.model.PropertyValueGroup;
-import org.osate.ge.internal.util.PropertyValueFormatter;
 import org.osate.ge.services.QueryService;
 
 public class PropertyValueGroupHandler {
@@ -49,6 +49,16 @@ public class PropertyValueGroupHandler {
 				return null;
 			}
 
+			// Don't show references from the parent to children unless it is based on a completely processed property association
+			if (pvg.getFirstValueBasedOnCompletelyProcessedAssociation() == null) {
+				final BusinessObjectContext parent = boc.getParent();
+				for (BusinessObjectContext tmp = referencedElement; tmp != null; tmp = tmp.getParent()) {
+					if(tmp == parent) {
+						return null;
+					}
+				}
+			}
+
 			return GraphicalConfigurationBuilder.create().
 					graphic(graphic).style(pvg.isAbstract() ? abstractStyle : referenceStyle)
 					.
@@ -69,8 +79,10 @@ public class PropertyValueGroupHandler {
 	public String getName(final @Named(Names.BUSINESS_OBJECT_CONTEXT) BusinessObjectContext boc,
 			final @Named(Names.BUSINESS_OBJECT) PropertyValueGroup pvg,
 			final QueryService queryService) {
+
 		final boolean includeOnlyValuesBasedOnCompletelyProcessedAssociations = pvg.getReferenceId() == null;
 		final boolean includeValues = pvg.getReferenceId() == null;
-		return PropertyValueFormatter.getUserString(boc, true, includeOnlyValuesBasedOnCompletelyProcessedAssociations, includeValues, false, false);
+		return PropertyValueFormatter.getUserString(boc, true, includeOnlyValuesBasedOnCompletelyProcessedAssociations,
+				includeValues, false, false);
 	}
 }

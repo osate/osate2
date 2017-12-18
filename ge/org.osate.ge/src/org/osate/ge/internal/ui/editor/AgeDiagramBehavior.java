@@ -925,7 +925,7 @@ public class AgeDiagramBehavior extends DiagramBehavior implements GraphitiAgeDi
 		ageDiagram.modify("Update Diagram", m -> {
 			// Check the diagram's context
 			final DiagramContextChecker contextChecker = new DiagramContextChecker(project,
-					dtp.getProjectReferenceService());
+					dtp.getProjectReferenceService(), dtp.getSystemInstanceLoader());
 			final boolean workbenchIsVisible = isWorkbenchVisible();
 			final DiagramContextChecker.Result result = contextChecker.checkContextFullBuild(ageDiagram, workbenchIsVisible);
 
