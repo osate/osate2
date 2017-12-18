@@ -12,11 +12,9 @@ package org.osate.workspace;
 
 import org.eclipse.core.resources.IContainer;
 import org.eclipse.core.resources.IFile;
-import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.QualifiedName;
-import org.osate.internal.workspace.AadlWorkspace;
 
 public class IResourceUtility {
 
@@ -197,37 +195,6 @@ public class IResourceUtility {
 	public static boolean isModelFile(IResource file) {
 		return isAaxlFile(file) && !isInstanceFile(file);
 	}
-
-	/**
-	 * get the complement file for the given deleted file
-	 *
-	 * @param origfile
-	 */
-	public static IFile getComplementFile(IFile origfile) {
-		IFile complementfile = null;
-		if (IResourceUtility.isAadlFile(origfile)) {
-			IAadlProject aadlProject = workspace.getAadlProject(origfile);
-			complementfile = aadlProject.getAaxlFile(origfile);
-		} else if (IResourceUtility.isModelFile(origfile)) {
-			IAadlProject aadlProject = workspace.getAadlProject(origfile);
-			complementfile = aadlProject.getAadlFile(origfile);
-		}
-		return complementfile;
-	}
-
-	/**
-	 * get the complement file for the given deleted file
-	 *
-	 * @param origfolder
-	 */
-	public static IFolder getComplementFolder(IFolder origfolder) {
-		IAadlProject aadlProject = workspace.getAadlProject(origfolder);
-		IFolder complementfolder = aadlProject.getComplementFolder(origfolder);
-		return complementfolder;
-	}
-
-	/** A reference to the current workspace. */
-	private static IAadlWorkspace workspace = AadlWorkspace.getAadlWorkspace();
 
 	/**
 	 * check whether the model IResource is tagged as derived
