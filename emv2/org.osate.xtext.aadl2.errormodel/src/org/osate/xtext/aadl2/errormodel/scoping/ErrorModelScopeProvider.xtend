@@ -378,10 +378,21 @@ class ErrorModelScopeProvider extends PropertiesScopeProvider {
 							behaviorElements + localElements
 						].flatten
 						val propagations = parentOfAssociation.allContainingClassifierEMV2Subclauses.map[propagations].flatten.filter[
-							featureorPPRef !== null && featureorPPRef.next === null && featureorPPRef.featureorPP.name !== null
+							featureorPPRef !== null && featureorPPRef.next === null && featureorPPRef.featureorPP.name !== null && {
+								/*
+								 * For ErrorPropagations that refer to a FeatureGroup, only include the
+								 * propagation in the scope if the feature group is empty.
+								 */
+								val f = feature
+								if (f instanceof FeatureGroup) {
+									f.allFeatureGroupType === null || f.allFeatureGroupType.allFeatures.empty
+								} else {
+									true
+								}
+							}
 						]
-						val propagationsScope = new SimpleScope(propagations.map[EObjectDescription.create(featureorPPRef.featureorPP.name, it)], true)
-						(featureGroups + subclauseElements).scopeFor(propagationsScope)
+						val propagationsDescriptions = propagations.map[EObjectDescription.create(featureorPPRef.featureorPP.name, it)]
+						new SimpleScope((featureGroups + subclauseElements).scopeFor, propagationsDescriptions, true)
 					}
 					/*
 					 * First element in chain.
@@ -409,10 +420,21 @@ class ErrorModelScopeProvider extends PropertiesScopeProvider {
 									behaviorElements + localElements
 								].flatten
 								val propagations = classifier.allContainingClassifierEMV2Subclauses.map[propagations].flatten.filter[
-									featureorPPRef !== null && featureorPPRef.next === null && featureorPPRef.featureorPP.name !== null
+									featureorPPRef !== null && featureorPPRef.next === null && featureorPPRef.featureorPP.name !== null && {
+										/*
+										 * For ErrorPropagations that refer to a FeatureGroup, only include the
+										 * propagation in the scope if the feature group is empty.
+										 */
+										val f = feature
+										if (f instanceof FeatureGroup) {
+											f.allFeatureGroupType === null || f.allFeatureGroupType.allFeatures.empty
+										} else {
+											true
+										}
+									}
 								]
-								val propagationsScope = new SimpleScope(propagations.map[EObjectDescription.create(featureorPPRef.featureorPP.name, it)], true)
-								(featureGroups + subclauseElements).scopeFor(propagationsScope)
+								val propagationsDescriptions = propagations.map[EObjectDescription.create(featureorPPRef.featureorPP.name, it)]
+								new SimpleScope((featureGroups + subclauseElements).scopeFor, propagationsDescriptions, true)
 							} else {
 								IScope.NULLSCOPE
 							}
@@ -497,15 +519,26 @@ class ErrorModelScopeProvider extends PropertiesScopeProvider {
 						}
 						val filteredPropagations = propagations.filter[
 							val name = propagationName
-							if (name.startsWith(previousPath)) {
+							if (name !== null && name.startsWith(previousPath)) {
 								val remainingName = name.substring(previousPath.length)
-								!remainingName.empty && !remainingName.contains(".")
+								!remainingName.empty && !remainingName.contains(".") && {
+									/*
+									 * For ErrorPropagations that refer to a FeatureGroup, only include the
+									 * propagation in the scope if the feature group is empty.
+									 */
+									val f = feature
+									if (f instanceof FeatureGroup) {
+										f.allFeatureGroupType === null || f.allFeatureGroupType.allFeatures.empty
+									} else {
+										true
+									}
+								}
 							} else {
 								false
 							}
 						]
-						val propagationsScope = new SimpleScope(filteredPropagations.map[EObjectDescription.create(propagationName.split("\\.").last, it)], true)
-						featureGroups.scopeFor(propagationsScope)
+						val propagationsDescriptions = filteredPropagations.map[EObjectDescription.create(propagationName.split("\\.").last, it)]
+						new SimpleScope(featureGroups.scopeFor, propagationsDescriptions, true)
 					}
 				}
 			}
