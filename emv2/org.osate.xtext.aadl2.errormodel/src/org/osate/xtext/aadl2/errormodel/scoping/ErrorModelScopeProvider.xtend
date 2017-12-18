@@ -796,21 +796,4 @@ class ErrorModelScopeProvider extends PropertiesScopeProvider {
 			eventsDescriptions + flowDescriptions + propagationsDescriptions
 		].flatten + ebsmeventDescriptions
 	}
-
-	def private static Iterable<IEObjectDescription> getSubcomponentPropagations(String prefix,
-		ComponentClassifier classifier) {
-		val propagationsDescriptions = classifier.allContainingClassifierEMV2Subclauses.map [
-			val outPropagations = propagations.filter[!not && direction == DirectionType.OUT]
-			outPropagations.map[EObjectDescription.create(QualifiedName.create(prefix + propagationName), it)]
-		].flatten
-
-		val nextSubcomponentLevel = if (classifier instanceof ComponentImplementation) {
-				val validSubcomponents = classifier.allSubcomponents.filter[allClassifier !== null]
-				validSubcomponents.map[getSubcomponentPropagations(prefix + name + ".", allClassifier)].flatten
-			} else {
-				emptySet
-			}
-
-		propagationsDescriptions + nextSubcomponentLevel
-	}
 }
