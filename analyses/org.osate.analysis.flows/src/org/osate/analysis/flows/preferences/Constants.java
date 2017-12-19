@@ -20,10 +20,6 @@ public class Constants {
 	public static String WORST_CASE_DEADLINE_YES = "worst case as deadline";
 	public static String WORST_CASE_DEADLINE_NO = "worst case as max compute execution time";
 
-	public static String DETAILS_MARKERS = "org.osate.analysis.flows.details_markers";
-
-	public static String DETAILS_MARKERS_YES = "yes";
-	public static String DETAILS_MARKERS_NO = "no";
 
 	public static String DATASET_PROCESSING = "org.osate.analysis.flows.dataset_processing";
 

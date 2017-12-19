@@ -40,12 +40,6 @@ public class Values {
 		return policy.equalsIgnoreCase(Constants.WORST_CASE_DEADLINE_YES);
 	}
 
-	public static boolean doDetailsMarkers() {
-		IPreferenceStore store = FlowanalysisPlugin.getDefault().getPreferenceStore();
-		String policy = store.getString(Constants.DETAILS_MARKERS);
-		return policy.equalsIgnoreCase(Constants.DETAILS_MARKERS_YES);
-	}
-
 	public static boolean doDataSetProcessing() {
 		IPreferenceStore store = FlowanalysisPlugin.getDefault().getPreferenceStore();
 		String policy = store.getString(Constants.DATASET_PROCESSING);

@@ -669,11 +669,6 @@ public class LatencyReportEntry {
 				errManager.error(this.relatedEndToEndFlow, getRelatedObjectLabel() + reportedCell.getMessage());
 			}
 		}
-		if (Values.doDetailsMarkers()) {
-			for (LatencyContributor lc : this.contributors) {
-				lc.generateMarkers(errManager);
-			}
-		}
 	}
 
 	public Result genResult() {
