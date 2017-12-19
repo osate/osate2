@@ -254,8 +254,10 @@
 						<goals>
 							<goal>compile</goal>
 							<!-- <goal>testCompile</goal> -->
+							<goal>xtend-install-debug-info</goal>
 						</goals>
 						<configuration>
+							<xtendAsPrimaryDebugSource>true</xtendAsPrimaryDebugSource>
 							<outputDirectory>${basedir}/xtend-gen</outputDirectory>
 						</configuration>
 					</execution>
