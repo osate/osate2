@@ -40,16 +40,6 @@ public class FlowLatencyLogicComponent {
 		boolean isAssignedDeadline = GetProperties.isAssignedDeadline(componentInstance);
 		double executionTimeLower = GetProperties.getScaledMinComputeExecutionTimeinMilliSec(componentInstance);
 		double executionTimeHigher = GetProperties.getScaledMaxComputeExecutionTimeinMilliSec(componentInstance);
-		if (Values.doDataSetProcessing()) {
-			FeatureInstance inport = FlowLatencyUtil.getIncomingFeatureInstance(etef, flowElementInstance);
-			if (inport != null) {
-				double dim = FlowLatencyUtil.getDimension(inport);
-				if (dim > 1) {
-					executionTimeHigher = executionTimeHigher * dim;
-					executionTimeLower = executionTimeLower * dim;
-				}
-			}
-		}
 
 		/**
 		 * The component is periodic. Therefore it will sample its input unless we have an immediate connection or delayed connection

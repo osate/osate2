@@ -501,12 +501,11 @@ public class LatencyReportEntry {
 		String inMode = Aadl2Util.isPrintableSOMName(som) ? " in mode " + som.getName() : "";
 
 		section = new Section(sectionName + inMode);
-		String dspostfix = Values.getDataSetProcessingLabel();
 		line = new Line();
 		line.addHeaderContent("Latency analysis for end-to-end flow '" + sectionName + "' of system '" + systemName
 				+ "'" + inMode + " with preference settings " + Values.getSynchronousSystemLabel() + "-"
 				+ Values.getMajorFrameDelayLabel() + "-" + Values.getWorstCaseDeadlineLabel() + "-"
-				+ Values.getBestcaseEmptyQueueLabel() + (dspostfix.isEmpty() ? "" : "-" + dspostfix));
+				+ Values.getBestcaseEmptyQueueLabel());
 		section.addLine(line);
 		line = new Line();
 		section.addLine(line);
@@ -686,11 +685,10 @@ public class LatencyReportEntry {
 		String inMode = Aadl2Util.isPrintableSOMName(som) ? " in mode " + som.getName() : "";
 
 		Result result = ResultUtil.createResult(reportName + inMode, relatedEndToEndFlow);
-		String dspostfix = Values.getDataSetProcessingLabel();
 		String description = "Latency analysis for end-to-end flow '" + reportName + "' of system '" + systemName + "'"
 				+ inMode + " with preference settings " + Values.getSynchronousSystemLabel() + "-"
 				+ Values.getMajorFrameDelayLabel() + "-" + Values.getWorstCaseDeadlineLabel() + "-"
-				+ Values.getBestcaseEmptyQueueLabel() + (dspostfix.isEmpty() ? "" : "-" + dspostfix);
+				+ Values.getBestcaseEmptyQueueLabel();
 		addStringValue(result,description);
 
 		addRealValue(result, minValue);

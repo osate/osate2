@@ -39,12 +39,12 @@ public class Values {
 		String policy = store.getString(Constants.WORST_CASE_DEADLINE);
 		return policy.equalsIgnoreCase(Constants.WORST_CASE_DEADLINE_YES);
 	}
-
-	public static boolean doDataSetProcessing() {
-		IPreferenceStore store = FlowanalysisPlugin.getDefault().getPreferenceStore();
-		String policy = store.getString(Constants.DATASET_PROCESSING);
-		return policy.equalsIgnoreCase(Constants.DATASET_PROCESSING_YES);
-	}
+//
+//	public static boolean doDataSetProcessing() {
+//		IPreferenceStore store = FlowanalysisPlugin.getDefault().getPreferenceStore();
+//		String policy = store.getString(Constants.DATASET_PROCESSING);
+//		return policy.equalsIgnoreCase(Constants.DATASET_PROCESSING_YES);
+//	}
 
 	public static boolean doBestcaseEmptyQueue() {
 		if (prefs != null && prefs.length > 3) {
@@ -89,15 +89,6 @@ public class Values {
 	public static String getBestcaseEmptyQueueName() {
 		IPreferenceStore store = FlowanalysisPlugin.getDefault().getPreferenceStore();
 		return store.getString(Constants.BESTCASE_EMPTY_QUEUE);
-	}
-
-	public static String getDataSetProcessingLabel() {
-		return Values.doDataSetProcessing() ? "DS" : "";
-	}
-
-	public static String getDataSetProcessingName() {
-		IPreferenceStore store = FlowanalysisPlugin.getDefault().getPreferenceStore();
-		return store.getString(Constants.DATASET_PROCESSING);
 	}
 
 	public static String[] getPrefs() {
