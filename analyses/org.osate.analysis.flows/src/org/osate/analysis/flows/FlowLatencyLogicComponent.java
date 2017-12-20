@@ -141,10 +141,16 @@ public class FlowLatencyLogicComponent {
 
 		LatencyContributorComponent processingLatencyContributor = new LatencyContributorComponent(componentInstance);
 
-		if (executionTimeHigher != 0.0 && (!Values.doWorstCaseDeadline() || !isAssignedDeadline)) {
-			// Use execution time for worst-case if preferences specify not deadline or no deadline is specified
-			worstCaseValue = executionTimeHigher;
-			worstmethod = LatencyContributorMethod.PROCESSING_TIME;
+		if (executionTimeHigher != 0.0) {
+			if (!Values.doWorstCaseDeadline()) {
+				// Use execution time for worst-case if preferences specify not deadline or no deadline is specified
+				worstCaseValue = executionTimeHigher;
+				worstmethod = LatencyContributorMethod.PROCESSING_TIME;
+			} else if (!isAssignedDeadline) {
+				worstCaseValue = executionTimeHigher;
+				worstmethod = LatencyContributorMethod.PROCESSING_TIME;
+				processingLatencyContributor.reportInfo("Using execution time as deadline was not set");
+			}
 		}
 
 		if ((worstCaseValue == 0.0) && isAssignedDeadline && Values.doWorstCaseDeadline()) {
@@ -161,6 +167,7 @@ public class FlowLatencyLogicComponent {
 			// if no flow spec value then use default deadline == period
 			worstCaseValue = deadline;
 			worstmethod = LatencyContributorMethod.DEADLINE;
+			processingLatencyContributor.reportInfo("Using deadline as execution time was not set");
 		}
 
 		/**
