@@ -23,7 +23,7 @@ import static extension org.osate.xtext.aadl2.errormodel.util.EMV2Util.getPropag
 
 @RunWith(XtextRunner)
 @InjectWith(ErrorModelUiInjectorProvider)
-class Issue963 extends OsateTest {
+class Issue963Test extends OsateTest {
 	val static PROJECT_LOCATION = "org.osate.aadl2.errormodel.tests/models/Issue963/"
 	
 	@Test
