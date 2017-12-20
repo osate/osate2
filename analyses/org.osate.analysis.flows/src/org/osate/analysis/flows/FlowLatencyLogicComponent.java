@@ -139,13 +139,15 @@ public class FlowLatencyLogicComponent {
 		double bestCaseValue = 0.0;
 		worstmethod = LatencyContributorMethod.UNKNOWN;
 
-		if (executionTimeHigher != 0.0 && !Values.doWorstCaseDeadline()) {
-			// Use execution time for worst-case if preferences specify not deadline
+		LatencyContributorComponent processingLatencyContributor = new LatencyContributorComponent(componentInstance);
+
+		if (executionTimeHigher != 0.0 && (!Values.doWorstCaseDeadline() || !isAssignedDeadline)) {
+			// Use execution time for worst-case if preferences specify not deadline or no deadline is specified
 			worstCaseValue = executionTimeHigher;
 			worstmethod = LatencyContributorMethod.PROCESSING_TIME;
 		}
 
-		if ((worstCaseValue == 0.0) && isAssignedDeadline) {
+		if ((worstCaseValue == 0.0) && isAssignedDeadline && Values.doWorstCaseDeadline()) {
 			// use deadline if no execution time and deadline was explicitly assigned
 			worstCaseValue = deadline;
 			worstmethod = LatencyContributorMethod.DEADLINE;
@@ -222,7 +224,6 @@ public class FlowLatencyLogicComponent {
 			}
 		}
 
-		LatencyContributorComponent processingLatencyContributor = new LatencyContributorComponent(componentInstance);
 		processingLatencyContributor.setWorstCaseMethod(worstmethod);
 		processingLatencyContributor.setBestCaseMethod(bestmethod);
 		processingLatencyContributor.setMaximum(worstCaseValue);
