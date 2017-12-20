@@ -250,14 +250,18 @@ abstract class OsateTest extends XtextTest {
 			].toSet
 		}
 		val expectedNames = expected.sortWith(CUSTOM_NAME_COMPARATOR).join(", ")
-		val actualNames = scopeProvider.getScope(context, reference).allElements.map[name.toString("::")].filter [
-			val separatorIndex = lastIndexOf("::")
-			val modelUnitName = if (scopingForModelUnits || separatorIndex == -1) {
-					it
+		val actualNames = scopeProvider.getScope(context, reference).allElements.map[name.toString("::")].filter[
+			if (scopingForModelUnits) {
+				predeclaredPropertySet || !contributedAadlNames.contains(toLowerCase)
+			} else {
+				val separatorIndex = lastIndexOf("::")
+				if (separatorIndex == -1) {
+					true
 				} else {
-					substring(0, separatorIndex)
+					val modelUnitName = substring(0, separatorIndex)
+					modelUnitName.predeclaredPropertySet || !contributedAadlNames.contains(modelUnitName.toLowerCase)
 				}
-			modelUnitName.predeclaredPropertySet || !contributedAadlNames.contains(modelUnitName.toLowerCase)
+			}
 		].sortWith(CUSTOM_NAME_COMPARATOR).join(", ")
 		expectedNames.assertEquals(actualNames)
 	}
