@@ -12,10 +12,8 @@ import java.util.Comparator
 import java.util.List
 import java.util.Set
 import org.apache.log4j.Logger
-import org.eclipse.core.resources.IContainer
 import org.eclipse.core.resources.IFile
 import org.eclipse.core.resources.IProject
-import org.eclipse.core.resources.IResource
 import org.eclipse.core.resources.IncrementalProjectBuilder
 import org.eclipse.core.resources.ResourcesPlugin
 import org.eclipse.core.runtime.Assert
@@ -264,16 +262,6 @@ abstract class OsateTest extends XtextTest {
 			}
 		].sortWith(CUSTOM_NAME_COMPARATOR).join(", ")
 		expectedNames.assertEquals(actualNames)
-	}
-
-	def private static Iterable<IResource> getAllMembers(IContainer container) {
-		container.members.map [
-			if (it instanceof IContainer) {
-				allMembers
-			} else {
-				#[it]
-			}
-		].flatten
 	}
 
 	/*
