@@ -21,13 +21,11 @@ public class FlowLatencyLogicComponent {
 	public static void mapComponentInstance(final EndToEndFlowInstance etef,
 			final FlowElementInstance flowElementInstance, LatencyReportEntry entry) {
 		ComponentInstance componentInstance;
-		double expectedMin = 0.0;
-		double expectedMax = 0.0;
+		double expectedMin = GetProperties.getMinimumLatencyinMilliSec(flowElementInstance);
+		double expectedMax = GetProperties.getMaximumLatencyinMilliSec(flowElementInstance);
 
 		if (flowElementInstance instanceof FlowSpecificationInstance) {
 			componentInstance = flowElementInstance.getComponentInstance();
-			expectedMin = GetProperties.getMinimumLatencyinMilliSec(flowElementInstance);
-			expectedMax = GetProperties.getMaximumLatencyinMilliSec(flowElementInstance);
 		} else {
 			componentInstance = (ComponentInstance) flowElementInstance;
 		}
