@@ -604,9 +604,8 @@ public abstract class LatencyContributor {
 		addRealValue(result, partitionOffset);
 		addRealValue(result, partitionDuration);
 		addRealValue(result, samplingPeriod);
-		addRealValue(result, minSubtotal);
-		addRealValue(result, minSubtotal);
-		addRealValue(result, maxSubtotal);
+//		addRealValue(result, minSubtotal);
+//		addRealValue(result, maxSubtotal);
 		addStringValue(result,worstCaseMethod.name());
 		addStringValue(result, bestCaseMethod.name());
 		addStringValue(result,isSynchronized.name());
