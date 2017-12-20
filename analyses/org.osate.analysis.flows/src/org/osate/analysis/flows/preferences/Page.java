@@ -53,11 +53,11 @@ public class Page extends FieldEditorPreferencePage implements IWorkbenchPrefere
 			{ "Assume full queue (FQ)", Constants.BESTCASE_EMPTY_QUEUE_NO } },
 				getFieldEditorParent(), true);
 		addField(bcEmptyQueue);
-		RadioGroupFieldEditor reportSubtotals = new RadioGroupFieldEditor(Constants.REPORT_SUBTOTALS,
-				"Report Subtotals", 1,
-				new String[][] { { "Yes", Constants.REPORT_SUBTOTALS_YES }, { "No", Constants.REPORT_SUBTOTALS_NO } },
-				getFieldEditorParent(), true);
-		addField(reportSubtotals);
+//		RadioGroupFieldEditor reportSubtotals = new RadioGroupFieldEditor(Constants.REPORT_SUBTOTALS,
+//				"Report Subtotals", 1,
+//				new String[][] { { "Yes", Constants.REPORT_SUBTOTALS_YES }, { "No", Constants.REPORT_SUBTOTALS_NO } },
+//				getFieldEditorParent(), true);
+//		addField(reportSubtotals);
 	}
 
 	/*
