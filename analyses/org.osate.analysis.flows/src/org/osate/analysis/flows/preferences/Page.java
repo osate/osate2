@@ -53,12 +53,6 @@ public class Page extends FieldEditorPreferencePage implements IWorkbenchPrefere
 			{ "Assume full queue (FQ)", Constants.BESTCASE_EMPTY_QUEUE_NO } },
 				getFieldEditorParent(), true);
 		addField(bcEmptyQueue);
-		RadioGroupFieldEditor dsProcessing = new RadioGroupFieldEditor(Constants.DATASET_PROCESSING,
-				"Data set processing: Use Data_model::dimension property as execution time multiplier", 1,
-				new String[][] { { "Yes (DS)", Constants.DATASET_PROCESSING_YES },
-			{ "No", Constants.DATASET_PROCESSING_NO } },
-				getFieldEditorParent(), true);
-		addField(dsProcessing);
 		RadioGroupFieldEditor reportSubtotals = new RadioGroupFieldEditor(Constants.REPORT_SUBTOTALS,
 				"Report Subtotals", 1,
 				new String[][] { { "Yes", Constants.REPORT_SUBTOTALS_YES }, { "No", Constants.REPORT_SUBTOTALS_NO } },

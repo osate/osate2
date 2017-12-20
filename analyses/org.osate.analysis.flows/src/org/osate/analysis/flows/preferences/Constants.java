@@ -21,11 +21,6 @@ public class Constants {
 	public static String WORST_CASE_DEADLINE_NO = "worst case as max compute execution time";
 
 
-	public static String DATASET_PROCESSING = "org.osate.analysis.flows.dataset_processing";
-
-	public static String DATASET_PROCESSING_YES = "process as data set";
-	public static String DATASET_PROCESSING_NO = "process as data";
-
 	public static String BESTCASE_EMPTY_QUEUE = "org.osate.analysis.flows.bestcase_empty_queue";
 
 	public static String BESTCASE_EMPTY_QUEUE_YES = "best case as empty queue";
