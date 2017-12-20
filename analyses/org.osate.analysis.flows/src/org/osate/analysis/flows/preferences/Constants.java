@@ -10,10 +10,10 @@ public class Constants {
 		PARTITIONEND, MAJORFRAMEDELAYED
 	};
 
-	public static String REPORT_SUBTOTALS = "org.osate.analysis.flows.report_subtotals";
-
-	public static String REPORT_SUBTOTALS_YES = "yes";
-	public static String REPORT_SUBTOTALS_NO = "no";
+//	public static String REPORT_SUBTOTALS = "org.osate.analysis.flows.report_subtotals";
+//
+//	public static String REPORT_SUBTOTALS_YES = "yes";
+//	public static String REPORT_SUBTOTALS_NO = "no";
 
 	public static String WORST_CASE_DEADLINE = "org.osate.analysis.flows.report_worstcasedeadline";
 

@@ -60,6 +60,8 @@ public class LatencyReportEntry {
 	public void finalizeReportEntry() {
 		minValue = getActualLatency(false);
 		maxValue = getActualLatency(true);
+//		minValue = Math.round(getActualLatency(false) * 1000.0) / 1000.0;
+//		maxValue = Math.round(getActualLatency(true) * 1000.0) / 1000.0;
 
 		minSpecifiedValue = getMinimumSpecifiedLatency();
 		maxSpecifiedValue = getMaximumSpecifiedLatency();
@@ -513,15 +515,15 @@ public class LatencyReportEntry {
 		line.addHeaderContent("Contributor");
 		line.addHeaderContent("Min Specified");
 		line.addHeaderContent("Min Actual");
-		if (Values.doReportSubtotals()) {
-			line.addHeaderContent("Min Subtotals");
-		}
+//		if (Values.doReportSubtotals()) {
+//			line.addHeaderContent("Min Subtotals");
+//		}
 		line.addHeaderContent("Min Method");
 		line.addHeaderContent("Max Specified");
 		line.addHeaderContent("Max Actual");
-		if (Values.doReportSubtotals()) {
-			line.addHeaderContent("Max Subtotals");
-		}
+//		if (Values.doReportSubtotals()) {
+//			line.addHeaderContent("Max Subtotals");
+//		}
 		line.addHeaderContent("Max Method");
 		line.addHeaderContent("Comments");
 		section.addLine(line);
@@ -538,15 +540,15 @@ public class LatencyReportEntry {
 		line.addContent("Latency Total");
 		line.addContent(minSpecifiedValue + "ms");
 		line.addContent(minValue + "ms");
-		if (Values.doReportSubtotals()) {
-			line.addHeaderContent("");
-		}
+//		if (Values.doReportSubtotals()) {
+//			line.addHeaderContent("");
+//		}
 		line.addContent("");
 		line.addContent(maxSpecifiedValue + "ms");
 		line.addContent(maxValue + "ms");
-		if (Values.doReportSubtotals()) {
-			line.addHeaderContent("");
-		}
+//		if (Values.doReportSubtotals()) {
+//			line.addHeaderContent("");
+//		}
 		line.addContent("");
 		section.addLine(line);
 
