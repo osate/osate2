@@ -73,6 +73,7 @@ import org.osate.aadl2.ArrayDimension;
 import org.osate.aadl2.ArraySize;
 import org.osate.aadl2.BasicPropertyAssociation;
 import org.osate.aadl2.Classifier;
+import org.osate.aadl2.ComponentCategory;
 import org.osate.aadl2.ComponentClassifier;
 import org.osate.aadl2.ComponentImplementation;
 import org.osate.aadl2.ComponentPrototype;
@@ -193,9 +194,9 @@ public class InstantiateModel {
 	 * Create an instantiate object. Tracks who to report errors to - the
 	 * resource that contains si. It also holds on to the property definition
 	 * filter to be used for caching properties in the instance model
-	 * 
+	 *
 	 * @param pm
-	 * 
+	 *
 	 * @param errMgr
 	 */
 	public InstantiateModel(final IProgressMonitor pm) {
@@ -221,9 +222,9 @@ public class InstantiateModel {
 	 * well. The Osate resource set is the shared resource set maintained by
 	 * OsateResourceUtil. THe operation is performed in a transactional editing
 	 * domain
-	 * 
+	 *
 	 * @param si system implementation
-	 * 
+	 *
 	 * @return SystemInstance or <code>null</code> if cancelled.
 	 */
 	public static SystemInstance buildInstanceModelFile(final ComponentImplementation ci, IProgressMonitor monitor)
@@ -252,9 +253,9 @@ public class InstantiateModel {
 	 * its root object The method will make sure the declarative models are up
 	 * to date. The Osate resource set is the shared resource set maintained by
 	 * OsateResourceUtil
-	 * 
+	 *
 	 * @param si system implementation
-	 * 
+	 *
 	 * @return SystemInstance or <code>null</code> if cancelled.
 	 */
 	public static SystemInstance rebuildInstanceModelFile(final IResource ires) throws Exception {
@@ -371,18 +372,18 @@ public class InstantiateModel {
 
 	/*
 	 * instantiate SystemImpl as root of instance tree and save the model
-	 * 
+	 *
 	 * @param si SystemImpl the root of the system instance
-	 * 
+	 *
 	 * @param aadlResource the Resource to store the instance model in
-	 * 
+	 *
 	 * @return SystemInstance or <code>null</code> if canceled.
 	 */
 	public SystemInstance createSystemInstanceInt(ComponentImplementation ci, Resource aadlResource)
 			throws InterruptedException {
 		SystemInstance root = InstanceFactory.eINSTANCE.createSystemInstance();
 		final String instanceName = ci.getTypeName() + "_" + ci.getImplementationName()
-				+ WorkspacePlugin.INSTANCE_MODEL_POSTFIX;
+		+ WorkspacePlugin.INSTANCE_MODEL_POSTFIX;
 
 		root.setComponentImplementation(ci);
 		root.setName(instanceName);
@@ -620,7 +621,7 @@ public class InstantiateModel {
 
 	/*
 	 * @param ci
-	 * 
+	 *
 	 * @param impl
 	 */
 	protected void instantiateSubcomponents(final ComponentInstance ci, ComponentImplementation impl)
@@ -631,7 +632,7 @@ public class InstantiateModel {
 			}
 			if (hasSubcomponentInstance(ci, sub)) {
 				errManager.error(ci, "Cyclic containment dependency: Subcomponent '" + sub.getName()
-						+ "' has already been instantiated as enclosing component.");
+				+ "' has already been instantiated as enclosing component.");
 			} else {
 				final EList<ArrayDimension> dims = sub.getArrayDimensions();
 				Stack<Long> indexStack = new Stack<Long>();
@@ -697,6 +698,7 @@ public class InstantiateModel {
 		final InstantiatedClassifier ic;
 
 		newInstance.setSubcomponent(sub);
+		// Issue 961: Set the category for real later (below); set it here now in case something goes wrong
 		newInstance.setCategory(sub.getCategory());
 		newInstance.setName(sub.getName());
 		newInstance.getIndices().addAll(indexStack);
@@ -717,8 +719,32 @@ public class InstantiateModel {
 //					errManager.warning(newInstance, "Instantiated subcomponent has a component type only");
 //				}
 //			}
+
 			newInstance.setClassifier(cc);
-			newInstance.setCategory(cc.getCategory());
+
+			/*
+			 * From Issue 961:
+			 *
+			 * I think the category can be determined as follows:
+			 *
+			 * If the classifier is not abstract then use its category (and maybe check that the subcomponent either has the same category or is abstract).
+			 * If the classifier is abstract then use the category from the subcomponent.
+			 *
+			 * Only if both are abstract the component instance should be abstract.
+			 * If both are not abstract then they must have the same category. If the categories are different, validation should already have reported an
+			 * error, and we don't instantiate models with errors. It can't hurt if the instantiator checks again, though.
+			 */
+			final ComponentCategory classifierCategory = cc.getCategory();
+			final ComponentCategory subcomponentCategory = sub.getCategory();
+			if (classifierCategory != ComponentCategory.ABSTRACT) {
+				newInstance.setCategory(cc.getCategory());
+				if (subcomponentCategory != ComponentCategory.ABSTRACT && subcomponentCategory != classifierCategory) {
+					errManager.warning(newInstance,
+							"Subcomponent's category and its classifier's category do not match");
+				}
+			} else {
+				newInstance.setCategory(subcomponentCategory);
+			}
 		}
 
 		for (Mode mode : mm.getAllInModes()) {
@@ -947,7 +973,7 @@ public class InstantiateModel {
 
 	/*
 	 * expand out feature instances for elements of a port group
-	 * 
+	 *
 	 * @param fi Feature Instance that is a port group
 	 */
 	protected void expandFeatureGroupInstance(Feature feature, FeatureInstance fi, boolean inverse) {
@@ -968,7 +994,7 @@ public class InstantiateModel {
 			} else if (ic.bindings != null && ic.bindings.isEmpty()) {
 				// prototype has not been bound yet
 				errManager.warning(fi, "Feature group prototype  of " + fi.getInstanceObjectPath()
-						+ " is not bound yet to feature group type");
+				+ " is not bound yet to feature group type");
 			}
 			FeatureGroupType fgt = (FeatureGroupType) ic.classifier;
 
@@ -1015,7 +1041,7 @@ public class InstantiateModel {
 		for (final Feature feature : flist) {
 			if (hasFeatureInstance(fgi, feature)) {
 				errManager.error(fgi, "Cyclic containment dependency: Feature '" + feature.getName()
-						+ "' has already been instantiated as enclosing feature group.");
+				+ "' has already been instantiated as enclosing feature group.");
 			} else {
 				final EList<ArrayDimension> dims = feature.getArrayDimensions();
 
@@ -1296,13 +1322,13 @@ public class InstantiateModel {
 			}
 		} else {
 			if (!srcSizes.get(srcOffset).equals(dstSizes.get(dstOffset))) {
-//verbose exception message			
+//verbose exception message
 				errManager.error(conni,
 						"Array size mismatch (" + patternName + ") on connection " + conni.getFullName() + " in "
 								+ conni.getContainingComponentInstance().getFullName() + ": " + srcSizes.get(srcOffset)
 								+ " at source " + // ("+conni.getSource().getFullName()+")
 								"and " + dstSizes.get(dstOffset) + " at destination." // ("+conni.getSource().getFullName()+")."
-				);
+						);
 				return false;
 			} else {
 				if (patternName.equalsIgnoreCase("One_To_One")) {
@@ -1372,7 +1398,7 @@ public class InstantiateModel {
 					for (long i = 1; i <= srcSizes.get(srcOffset); i++) {
 						srcIndices.add(i);
 						dstIndices
-								.add(i == srcSizes.get(srcOffset) ? 2 : (i == srcSizes.get(srcOffset) - 1 ? 1 : i + 1));
+						.add(i == srcSizes.get(srcOffset) ? 2 : (i == srcSizes.get(srcOffset) - 1 ? 1 : i + 1));
 						result &= interpretConnectionPatterns(conni, isOpposite, patterns, offset + 1, srcSizes,
 								srcOffset + 1, dstSizes, dstOffset + 1, srcIndices, dstIndices);
 						dstIndices.remove(dstOffset);
@@ -1382,7 +1408,7 @@ public class InstantiateModel {
 					for (long i = 1; i <= srcSizes.get(srcOffset); i++) {
 						srcIndices.add(i);
 						dstIndices
-								.add(i == 2 ? srcSizes.get(srcOffset) : (i == 1 ? srcSizes.get(srcOffset) - 1 : i - 1));
+						.add(i == 2 ? srcSizes.get(srcOffset) : (i == 1 ? srcSizes.get(srcOffset) - 1 : i - 1));
 						result &= interpretConnectionPatterns(conni, isOpposite, patterns, offset + 1, srcSizes,
 								srcOffset + 1, dstSizes, dstOffset + 1, srcIndices, dstIndices);
 						dstIndices.remove(dstOffset);
@@ -1541,7 +1567,7 @@ public class InstantiateModel {
 		ConnectionReference topConnRef = Aadl2InstanceUtil.getTopConnectionReference(newConn);
 		analyzePath(conni.getContainingComponentInstance(), conni.getSource(), names, dims, sizes);
 		if (srcIndices.size() != sizes.size() &&
-		// filter out one side being an element without index (array of 1) (many to one mapping)
+				// filter out one side being an element without index (array of 1) (many to one mapping)
 				!(sizes.size() == 0 && dstIndices.size() == 1)) {
 			errManager.error(newConn,
 					"Source indices " + srcIndices + " do not match source dimension " + sizes.size());
@@ -1552,12 +1578,12 @@ public class InstantiateModel {
 		sizes.clear();
 		analyzePath(conni.getContainingComponentInstance(), conni.getDestination(), names, dims, sizes);
 		if (dstIndices.size() != sizes.size() &&
-		// filter out one side being an element without index (array of 1) (many to one mapping)
+				// filter out one side being an element without index (array of 1) (many to one mapping)
 				!(sizes.size() == 0 && dstIndices.size() == 1)) {
 			errManager.error(newConn,
 					"For " + newConn.getConnectionReferences().get(0).getFullName() + " : " + newConn.getFullName()
-							+ ", destination indices " + dstIndices + " do not match destination dimension "
-							+ sizes.size());
+					+ ", destination indices " + dstIndices + " do not match destination dimension "
+					+ sizes.size());
 		}
 		InstanceObject dst = resolveConnectionInstancePath(newConn, topConnRef, names, dims, sizes, dstIndices, false);
 		if (src == null) {
@@ -1826,7 +1852,7 @@ public class InstantiateModel {
 				}
 				result = resolveConnectionReference(targetConnRef, outerConnRef, (ComponentInstance) resolutionContext,
 						doSource, dimfeature == 0 ? 0 : indices.get(0),
-						dimfg == 0 ? 0 : (dimfeature == 0 ? indices.get(0) : indices.get(1)));
+								dimfg == 0 ? 0 : (dimfeature == 0 ? indices.get(0) : indices.get(1)));
 			} else {
 				// the resolved feature has been found
 				result = resolutionContext;
@@ -1972,7 +1998,7 @@ public class InstantiateModel {
 				if (extendedComponentImpls.contains(impl)) {
 					if (showError) {
 						errManager.error(root, "Circular extension: Component '" + impl.getName()
-								+ "' directly or indirectly extends itself.");
+						+ "' directly or indirectly extends itself.");
 					}
 					break;
 				}
@@ -1987,7 +2013,7 @@ public class InstantiateModel {
 			if (extendedClassifiers.contains(cc)) {
 				if (showError) {
 					errManager.error(root, "Circular extension: Classifier '" + cc.getName()
-							+ "' directly or indirectly extends itself.");
+					+ "' directly or indirectly extends itself.");
 				}
 				break;
 			}
@@ -2074,15 +2100,15 @@ public class InstantiateModel {
 	 * Recursively enumerate all the system operation modes given an array of
 	 * component instances that are modal. The system operation mode objects are
 	 * created and added to the given system instance object.
-	 * 
+	 *
 	 * @param root The system instance object to which the SOMs are attached.
-	 * 
+	 *
 	 * @param instances An array of component instances that should be all the
 	 * modal components in <code>root</code>.
-	 * 
+	 *
 	 * @param currentInstance The index of the component instance in
 	 * <code>instances</code> that is to have its modes enumerated
-	 * 
+	 *
 	 * @param modeState A list used as a dynamic workspace by the method. Should
 	 * initially be empty. When <code>currentInstance</code> equals the lenght
 	 * of <code>instances</code>, this list holds the modal instances that
@@ -2132,15 +2158,15 @@ public class InstantiateModel {
 	 * Recursively enumerate all the system operation modes given an array of
 	 * component instances that are modal. The system operation mode objects are
 	 * created and added to the given system instance object.
-	 * 
+	 *
 	 * @param root The system instance object to which the SOMs are attached.
-	 * 
+	 *
 	 * @param instances An array of component instances that should be all the
 	 * modal components in <code>root</code>.
-	 * 
+	 *
 	 * @param currentInstance The index of the component instance in
 	 * <code>instances</code> that is to have its modes enumerated
-	 * 
+	 *
 	 * @param modeState A list used as a dynamic workspace by the method. Should
 	 * initially be empty. When <code>currentInstance</code> equals the lenght
 	 * of <code>instances</code>, this list holds the modal instances that
@@ -2148,7 +2174,7 @@ public class InstantiateModel {
 	 */
 	protected int enumerateSystemOperationModes(SystemInstance root, ComponentInstance[] instances,
 			int currentInstance, LinkedList<ComponentInstance> skipped, List<ModeInstance> modeState, int somIndex)
-			throws InterruptedException {
+					throws InterruptedException {
 		if (monitor.isCanceled()) {
 			throw new InterruptedException();
 		}
