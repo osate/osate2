@@ -174,9 +174,24 @@
 			</properties>
 		</profile>
 		<profile>
+			<id>no-codecoverage</id>
+			<activation>
+				<property>
+					<name>codecoverage</name>
+					<value>!true</value>
+				</property>
+			</activation>
+			<properties>
+				<tycho.testArgLine> </tycho.testArgLine>
+			</properties>
+		</profile>
+		<profile>
 			<id>codecoverage</id>
 			<activation>
-				<activeByDefault>false</activeByDefault>
+				<property>
+					<name>codecoverage</name>
+					<value>true</value>
+				</property>
 			</activation>
 			<build>
 				<plugins>
@@ -253,8 +268,9 @@
 					<execution>
 						<goals>
 							<goal>compile</goal>
-							<!-- <goal>testCompile</goal> -->
+							<goal>testCompile</goal>
 							<goal>xtend-install-debug-info</goal>
+							<goal>xtend-test-install-debug-info</goal>
 						</goals>
 						<configuration>
 							<xtendAsPrimaryDebugSource>true</xtendAsPrimaryDebugSource>
