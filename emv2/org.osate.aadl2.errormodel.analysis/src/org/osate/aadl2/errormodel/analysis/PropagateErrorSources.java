@@ -779,7 +779,7 @@ public class PropagateErrorSources {
 			}
 		}
 		if (!handled) {
-			String errorText = "," + generateFailureModeText(ci, ep, tt) + " [Failure Effect]";
+			String errorText = "," + generateFailureModeText(ci, ep, tt) + " [Unhandled Failure Effect]";
 			reportEntry(entryText + errorText, depth);
 		}
 	}
