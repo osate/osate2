@@ -1,5 +1,15 @@
 package package2
 public
+	system SS
+		prototypes
+			X: abstract;
+	end SS;
+
+	system implementation SS.i
+		subcomponents
+			s1: abstract X;
+	end SS.i;
+	
 	bus B1
 	end B1;
 	
