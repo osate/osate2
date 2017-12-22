@@ -10,13 +10,13 @@ public
 	end s.i;
 	
 	system implementation s.j
-		subcomponents
-			x: abstract a; -- subcomponent is still abstract
+	subcomponents
+		x: abstract a; -- subcomponent is still abstract
 	end s.j;
 	
 	system implementation s.k extends s.j
-		subcomponents
-			x: refined to process a; -- subcomponent is now a process
+	subcomponents
+		x: refined to process a; -- subcomponent is now a process
 	end s.k;
 	
 	abstract a
