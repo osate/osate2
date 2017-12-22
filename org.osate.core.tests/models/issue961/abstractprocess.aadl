@@ -5,8 +5,8 @@ public
 	
 	system implementation s.i
 	subcomponents
-		p: process a; -- subcomponent is a process
-		b: bus a; -- subcomponent is a bus
+		p: process a; -- subcomponent is a process; error was that this showed up as abstract
+		b: bus a; -- subcomponent is a bus; error was that this showed up as abstract
 	end s.i;
 	
 	system implementation s.j
