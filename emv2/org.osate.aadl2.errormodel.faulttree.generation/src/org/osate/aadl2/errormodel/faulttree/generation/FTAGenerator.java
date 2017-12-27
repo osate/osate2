@@ -232,12 +232,12 @@ public class FTAGenerator extends PropagationGraphBackwardTraversal {
 		if (event.getSubEvents().isEmpty()) {
 			return;
 		}
-		EventType mytype = event.getType();
+		LogicOperation mygate = event.getSubEventLogic();
 		EList<Event> subEvents = event.getSubEvents();
 		List<Event> toAdd = new LinkedList<Event>();
 		List<Event> toRemove = new LinkedList<Event>();
 		for (Event se : subEvents) {
-			if (!se.getSubEvents().isEmpty() && se.getType() == mytype) {
+			if (!se.getSubEvents().isEmpty() && se.getSubEventLogic() == mygate) {
 				for (Event ev : se.getSubEvents()) {
 					toAdd.add(ev);
 				}
