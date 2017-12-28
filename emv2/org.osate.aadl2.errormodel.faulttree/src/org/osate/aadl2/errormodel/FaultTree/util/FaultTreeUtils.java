@@ -337,15 +337,16 @@ public class FaultTreeUtils {
 		}
 
 		if (errorModelArtifact instanceof ErrorEvent) {
-			description += "Component '" + getName(component) + "' failure event '" + EMV2Util.getName(type) + "'";
+			description += "Component '" + getName(component) + "' failure event '"
+					+ EMV2Util.getName(errorModelArtifact) + "'";
 			if (type != null) {
 				description += " type '" + EMV2Util.getName(type) + "'";
 			}
 		}
 
 		if (errorModelArtifact instanceof ErrorBehaviorState) {
-			ErrorBehaviorState ebs = (ErrorBehaviorState) errorModelArtifact;
-			description = "Component '" + getName(component) + "' in failure mode '" + ebs.getName() + "'";
+			description = "Component '" + getName(component) + "' in failure mode '" + errorModelArtifact.getName()
+					+ "'";
 			if (type != null) {
 				description += " type '" + EMV2Util.getName(type) + "'";
 			}
