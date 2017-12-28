@@ -203,6 +203,12 @@ public class FTAGenerator extends PropagationGraphBackwardTraversal {
 			return;
 		}
 		List<Event> subEvents = topEvent.getSubEvents();
+		if (subEvents.size() == 1) {
+			Event remEvent = subEvents.get(0);
+			topEvent.setSubEventLogic(remEvent.getSubEventLogic());
+			subEvents.clear();
+			subEvents.addAll(remEvent.getSubEvents());
+		}
 		List<Event> toRemove = new LinkedList<Event>();
 		List<Event> toAdd = new LinkedList<Event>();
 		for (Event event : subEvents) {
