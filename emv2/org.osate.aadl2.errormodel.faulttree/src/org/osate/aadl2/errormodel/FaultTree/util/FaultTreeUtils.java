@@ -337,9 +337,9 @@ public class FaultTreeUtils {
 		}
 
 		if (errorModelArtifact instanceof ErrorEvent) {
-			description += "Component '" + getName(component) + "'";
+			description += "Component '" + getName(component) + "' failure event '" + EMV2Util.getName(type) + "'";
 			if (type != null) {
-				description += " failure event '" + EMV2Util.getName(type) + "'";
+				description += " type '" + EMV2Util.getName(type) + "'";
 			}
 		}
 
