@@ -175,7 +175,7 @@ public class FaultTreeUtils {
 	 * @param type
 	 * @return Event
 	 */
-	public static Event createIntermediateEvent(FaultTree ftaModel, ComponentInstance component, Element element,
+	public static Event createIntermediateEvent(FaultTree ftaModel, ComponentInstance component, EObject element,
 			ErrorTypes type) {
 		return createIntermediateEvent(ftaModel, component, element, type, false);
 	}
@@ -186,7 +186,7 @@ public class FaultTreeUtils {
 		.add(createIntermediateEvent((FaultTree) parent.eContainer(), component, element, type, false));
 	}
 
-	public static Event createUniqueIntermediateEvent(FaultTree ftaModel, ComponentInstance component, Element element,
+	public static Event createUniqueIntermediateEvent(FaultTree ftaModel, ComponentInstance component, EObject element,
 			ErrorTypes type) {
 		return createIntermediateEvent(ftaModel, component, element, type, true);
 	}
@@ -207,7 +207,7 @@ public class FaultTreeUtils {
 		count = 0;
 	}
 
-	private static Event createIntermediateEvent(FaultTree ftaModel, ComponentInstance component, Element element,
+	private static Event createIntermediateEvent(FaultTree ftaModel, ComponentInstance component, EObject element,
 			ErrorTypes type,
 			boolean unique) {
 		String name;
@@ -346,7 +346,7 @@ public class FaultTreeUtils {
 
 		if (errorModelArtifact instanceof ErrorBehaviorState) {
 			description = "Component '" + getName(component) + "' in failure mode '" + errorModelArtifact.getName()
-					+ "'";
+			+ "'";
 			if (type != null) {
 				description += " type '" + EMV2Util.getName(type) + "'";
 			}

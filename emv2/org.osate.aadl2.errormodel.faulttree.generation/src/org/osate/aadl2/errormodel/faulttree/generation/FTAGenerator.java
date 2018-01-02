@@ -292,7 +292,7 @@ public class FTAGenerator extends PropagationGraphBackwardTraversal {
 		List<Event> toAdd = new LinkedList<Event>();
 		Event alternatives = FaultTreeUtils.createUniqueIntermediateEvent(ftaModel,
 				(ComponentInstance) rootevent.getRelatedInstanceObject(),
-				(NamedElement) rootevent.getRelatedEMV2Object(), (ErrorTypes) rootevent.getRelatedErrorType());
+				rootevent.getRelatedEMV2Object(), (ErrorTypes) rootevent.getRelatedErrorType());
 		alternatives.setName("Alternatives");
 		if (rootevent.getSubEventLogic() == LogicOperation.XOR) {
 			alternatives.setSubEventLogic(LogicOperation.XOR);
@@ -305,7 +305,7 @@ public class FTAGenerator extends PropagationGraphBackwardTraversal {
 			for (Event alt : rootevent.getSubEvents()) {
 				Event alternative = FaultTreeUtils.createUniqueIntermediateEvent(ftaModel,
 						(ComponentInstance) rootevent.getRelatedInstanceObject(),
-						(NamedElement) rootevent.getRelatedEMV2Object(), (ErrorTypes) rootevent.getRelatedErrorType());
+						rootevent.getRelatedEMV2Object(), (ErrorTypes) rootevent.getRelatedErrorType());
 				alternative.setSubEventLogic(LogicOperation.AND);
 				toAdd.add(alternative);
 				normalizeEvent(alt, toAdd);
@@ -318,7 +318,7 @@ public class FTAGenerator extends PropagationGraphBackwardTraversal {
 				|| rootevent.getSubEventLogic() == LogicOperation.PRIORITY_AND) {
 			Event alternative = FaultTreeUtils.createUniqueIntermediateEvent(ftaModel,
 					(ComponentInstance) rootevent.getRelatedInstanceObject(),
-					(NamedElement) rootevent.getRelatedEMV2Object(), (ErrorTypes) rootevent.getRelatedErrorType());
+					rootevent.getRelatedEMV2Object(), (ErrorTypes) rootevent.getRelatedErrorType());
 			alternative.setSubEventLogic(LogicOperation.AND);
 			toAdd.add(alternative);
 			normalizeEvent(rootevent, toAdd);
@@ -633,7 +633,7 @@ public class FTAGenerator extends PropagationGraphBackwardTraversal {
 					// remove from lower OR and create an OR above top gate
 					Event newtopevent = FaultTreeUtils.createIntermediateEvent(ftaModel,
 							(ComponentInstance) topevent.getRelatedInstanceObject(),
-							(NamedElement) topevent.getRelatedEMV2Object(),
+							topevent.getRelatedEMV2Object(),
 							(ErrorTypes) topevent.getRelatedErrorType());
 					if (!topevent.getName().startsWith("Intermediate")) {
 						String newname = newtopevent.getName();
@@ -658,7 +658,7 @@ public class FTAGenerator extends PropagationGraphBackwardTraversal {
 					// transformed subtree to top gate replacing subset of events involved in transformation
 					Event newtopevent = FaultTreeUtils.createIntermediateEvent(ftaModel,
 							(ComponentInstance) topevent.getRelatedInstanceObject(),
-							(NamedElement) topevent.getRelatedEMV2Object(),
+							topevent.getRelatedEMV2Object(),
 							(ErrorTypes) topevent.getRelatedErrorType());
 					newtopevent.setSubEventLogic(gt);
 					topevent.getSubEvents().add(newtopevent);
@@ -673,7 +673,7 @@ public class FTAGenerator extends PropagationGraphBackwardTraversal {
 					// create intermediate topgate for subset of gates and remove from original top gate
 					Event newsubtopevent = FaultTreeUtils.createIntermediateEvent(ftaModel,
 							(ComponentInstance) topevent.getRelatedInstanceObject(),
-							(NamedElement) topevent.getRelatedEMV2Object(),
+							topevent.getRelatedEMV2Object(),
 							(ErrorTypes) topevent.getRelatedErrorType());
 					newsubtopevent.setSubEventLogic(topgt);
 					newsubtopevent.getSubEvents().addAll(todo);
