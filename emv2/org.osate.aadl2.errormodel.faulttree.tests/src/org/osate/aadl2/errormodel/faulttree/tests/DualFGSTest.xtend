@@ -14,6 +14,7 @@ import org.osate.aadl2.instantiation.InstantiateModel
 import org.osate.core.test.OsateTest
 
 import static org.junit.Assert.*
+import org.eclipse.emf.ecore.util.EcoreUtil
 
 @RunWith(typeof(XtextRunner))
 @InjectWith(typeof(ErrorModelUiInjectorProvider))
@@ -49,10 +50,8 @@ class DualFGSTest extends OsateTest {
 		// instantiate
 		val sysImpl = cls.findFirst[name == 'FGS.composite'] as SystemImplementation
 		val instance = InstantiateModel::buildInstanceModelFile(sysImpl)
-//		assertEquals("fta_main_i_Instance", instance.name)
-
-		
-		val uri = CreateFTAModel.createTransformedFTA(instance, state)
+		val ft = CreateFTAModel.createTransformedFTA(instance,state)
+		val uri = EcoreUtil.getURI(ft)
 		assertTrue('No FTA file was created', uri !== null)
 		val file = workspaceRoot.getFile(new Path(uri.toPlatformString(true)))
 		val actual = Files.readStreamIntoString(file.contents)
@@ -335,6 +334,7 @@ end FGSErrorModelLibrary;
     <relatedInstanceObject href="../../DualFGS_FGS_composite_Instance.aaxl2#/"/>
     <relatedEMV2Object href="../../../DualFGS.aadl#/0/@ownedPublicSection/@ownedClassifier.5/@ownedAnnexSubclause.0/@parsedAnnexSubclause/@states.2/@condition/@operands.1"/>
   </events>
+  <instanceRoot href="../../DualFGS_FGS_composite_Instance.aaxl2#/"/>
 </FaultTree:FaultTree>
 	'''
 

@@ -14,6 +14,7 @@ import org.osate.core.test.OsateTest
 
 import static org.junit.Assert.*
 import org.osate.aadl2.errormodel.faulttree.generation.CreateFTAModel
+import org.eclipse.emf.ecore.util.EcoreUtil
 
 @RunWith(typeof(XtextRunner))
 @InjectWith(typeof(ErrorModelUiInjectorProvider))
@@ -45,11 +46,8 @@ class CommonError3Test extends OsateTest {
 		// instantiate
 		val sysImpl = cls.findFirst[name == 'main.commoneventssingleport'] as SystemImplementation
 		val instance = InstantiateModel::buildInstanceModelFile(sysImpl)
-//		assertEquals("fta_main_i_Instance", instance.name)
-
-		
-		val uri = CreateFTAModel.createTransformedFTA(instance, state)
-		
+		val ft = CreateFTAModel.createTransformedFTA(instance,state)
+		val uri = EcoreUtil.getURI(ft)
 		val file = workspaceRoot.getFile(new Path(uri.toPlatformString(true)))
 		val actual = Files.readStreamIntoString(file.contents)
 		assertEquals('error', expected.trim, actual.trim)
@@ -179,6 +177,7 @@ end common_error3;
     <relatedInstanceObject href="../../common-error3_main_commoneventssingleport_Instance.aaxl2#/"/>
     <relatedEMV2Object href="../../../../../plugin/org.osate.aadl2.errormodel.contrib/resources/packages/ErrorLibrary.aadl#/0/@ownedPublicSection/@ownedAnnexLibrary.0/@parsedAnnexLibrary/@behaviors.0/@states.1"/>
   </events>
+  <instanceRoot href="../../common-error3_main_commoneventssingleport_Instance.aaxl2#/"/>
 </FaultTree:FaultTree>
 	'''
 

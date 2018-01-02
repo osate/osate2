@@ -10,6 +10,7 @@ import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.common.util.EList;
 
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
@@ -34,6 +35,7 @@ import org.osate.aadl2.errormodel.FaultTree.FaultTreePackage;
  *   <li>{@link org.osate.aadl2.errormodel.FaultTree.impl.FaultTreeImpl#getDescription <em>Description</em>}</li>
  *   <li>{@link org.osate.aadl2.errormodel.FaultTree.impl.FaultTreeImpl#getEvents <em>Events</em>}</li>
  *   <li>{@link org.osate.aadl2.errormodel.FaultTree.impl.FaultTreeImpl#getRoot <em>Root</em>}</li>
+ *   <li>{@link org.osate.aadl2.errormodel.FaultTree.impl.FaultTreeImpl#getInstanceRoot <em>Instance Root</em>}</li>
  * </ul>
  *
  * @generated
@@ -98,6 +100,16 @@ public class FaultTreeImpl extends MinimalEObjectImpl.Container implements Fault
 	 * @ordered
 	 */
 	protected Event root;
+
+	/**
+	 * The cached value of the '{@link #getInstanceRoot() <em>Instance Root</em>}' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getInstanceRoot()
+	 * @generated
+	 * @ordered
+	 */
+	protected EObject instanceRoot;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -215,6 +227,44 @@ public class FaultTreeImpl extends MinimalEObjectImpl.Container implements Fault
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EObject getInstanceRoot() {
+		if (instanceRoot != null && instanceRoot.eIsProxy()) {
+			InternalEObject oldInstanceRoot = (InternalEObject)instanceRoot;
+			instanceRoot = eResolveProxy(oldInstanceRoot);
+			if (instanceRoot != oldInstanceRoot) {
+				if (eNotificationRequired())
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE, FaultTreePackage.FAULT_TREE__INSTANCE_ROOT, oldInstanceRoot, instanceRoot));
+			}
+		}
+		return instanceRoot;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EObject basicGetInstanceRoot() {
+		return instanceRoot;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setInstanceRoot(EObject newInstanceRoot) {
+		EObject oldInstanceRoot = instanceRoot;
+		instanceRoot = newInstanceRoot;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, FaultTreePackage.FAULT_TREE__INSTANCE_ROOT, oldInstanceRoot, instanceRoot));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
@@ -241,6 +291,9 @@ public class FaultTreeImpl extends MinimalEObjectImpl.Container implements Fault
 			case FaultTreePackage.FAULT_TREE__ROOT:
 				if (resolve) return getRoot();
 				return basicGetRoot();
+			case FaultTreePackage.FAULT_TREE__INSTANCE_ROOT:
+				if (resolve) return getInstanceRoot();
+				return basicGetInstanceRoot();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -267,6 +320,9 @@ public class FaultTreeImpl extends MinimalEObjectImpl.Container implements Fault
 			case FaultTreePackage.FAULT_TREE__ROOT:
 				setRoot((Event)newValue);
 				return;
+			case FaultTreePackage.FAULT_TREE__INSTANCE_ROOT:
+				setInstanceRoot((EObject)newValue);
+				return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -291,6 +347,9 @@ public class FaultTreeImpl extends MinimalEObjectImpl.Container implements Fault
 			case FaultTreePackage.FAULT_TREE__ROOT:
 				setRoot((Event)null);
 				return;
+			case FaultTreePackage.FAULT_TREE__INSTANCE_ROOT:
+				setInstanceRoot((EObject)null);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -311,6 +370,8 @@ public class FaultTreeImpl extends MinimalEObjectImpl.Container implements Fault
 				return events != null && !events.isEmpty();
 			case FaultTreePackage.FAULT_TREE__ROOT:
 				return root != null;
+			case FaultTreePackage.FAULT_TREE__INSTANCE_ROOT:
+				return instanceRoot != null;
 		}
 		return super.eIsSet(featureID);
 	}

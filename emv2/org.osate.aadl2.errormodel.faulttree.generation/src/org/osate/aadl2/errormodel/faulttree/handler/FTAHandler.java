@@ -32,6 +32,7 @@ import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.swt.widgets.Display;
@@ -127,7 +128,8 @@ public final class FTAHandler extends AbstractHandler {
 		});
 
 		if (ERROR_STATE_NAME != null) {
-			URI newURI = CreateFTAModel.createModel(target, ERROR_STATE_NAME, TRANSFORM, GRAPH, MINCUTSET);
+			URI newURI = EcoreUtil
+					.getURI(CreateFTAModel.createModel(target, ERROR_STATE_NAME, TRANSFORM, GRAPH, MINCUTSET));
 			if (newURI != null) {
 				if (MINCUTSET) {
 					SiriusUtil.INSTANCE.autoOpenModel(newURI, ResourceUtil.getFile(si.eResource()).getProject(),

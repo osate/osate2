@@ -23,15 +23,15 @@ public class CreateFTAModel {
 	private static final String prefixState = "state ";
 	private static final String prefixOutgoingPropagation = "outgoing propagation on ";
 
-	public static URI createTransformedFTA(ComponentInstance selection, final String errorStateName) {
+	public static FaultTree createTransformedFTA(ComponentInstance selection, final String errorStateName) {
 		return createModel(selection, errorStateName, true, false, false);
 	}
 
-	public static URI createMinimalCutSet(ComponentInstance selection, final String errorStateName) {
+	public static FaultTree createMinimalCutSet(ComponentInstance selection, final String errorStateName) {
 		return createModel(selection, errorStateName, true, false, true);
 	}
 
-	public static URI createModel(ComponentInstance selection, final String errorStateName, boolean transform,
+	public static FaultTree createModel(ComponentInstance selection, final String errorStateName, boolean transform,
 			boolean graph, boolean mincutset) {
 		NamedElement errorStateOrPropagation=null;
 		ErrorTypes errorType =null;
@@ -66,12 +66,15 @@ public class CreateFTAModel {
 		String rootname = ftamodel.getName() + (mincutset ? "_cutset" : (transform ? "" : "_full"))
 				+ (graph ? "_graph" : "");
 		ftamodel.setName(rootname);
+		saveFaultTree(ftamodel);
+		return ftamodel;
+	}
 
-		URI ftaURI = EcoreUtil.getURI(selection).trimFragment().trimSegments(1).appendSegment("reports")
-				.appendSegment("fta").appendSegment(rootname + ".faulttree");
+	public static URI saveFaultTree(FaultTree ftamodel) {
+		URI ftaURI = EcoreUtil.getURI(ftamodel.getInstanceRoot()).trimFragment().trimSegments(1)
+				.appendSegment("reports").appendSegment("fta").appendSegment(ftamodel.getName() + ".faulttree");
 		AadlUtil.makeSureFoldersExist(new Path(ftaURI.toPlatformString(true)));
-		URI ftauri = OsateResourceUtil.saveEMFModel(ftamodel, ftaURI, selection);
-		return ftauri;
+		return OsateResourceUtil.saveEMFModel(ftamodel, ftaURI, ftamodel.getInstanceRoot());
 	}
 
 }

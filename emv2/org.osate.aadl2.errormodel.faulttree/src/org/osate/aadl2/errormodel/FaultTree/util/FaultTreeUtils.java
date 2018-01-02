@@ -230,7 +230,7 @@ public class FaultTreeUtils {
 		return newEvent;
 	}
 
-	private static Event findEvent(FaultTree ftaModel, String eventName) {
+	public static Event findEvent(FaultTree ftaModel, String eventName) {
 		for (Event event : ftaModel.getEvents()) {
 			if (event.getName().equalsIgnoreCase(eventName)) {
 				return event;

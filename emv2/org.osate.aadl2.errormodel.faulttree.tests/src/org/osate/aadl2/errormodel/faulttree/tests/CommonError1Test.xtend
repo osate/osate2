@@ -11,11 +11,12 @@ import org.osate.aadl2.SystemImplementation
 import org.osate.aadl2.errormodel.faulttree.generation.CreateFTAModel
 import org.osate.aadl2.errormodel.tests.ErrorModelUiInjectorProvider
 import org.osate.aadl2.instantiation.InstantiateModel
-import org.osate.aadl2.util.OsateDebug
 import org.osate.core.test.OsateTest
-import org.osate.xtext.aadl2.errormodel.util.EMV2Util
 
 import static org.junit.Assert.*
+import org.eclipse.emf.ecore.util.EcoreUtil
+import org.osate.aadl2.errormodel.FaultTree.util.FaultTreeUtils
+import org.osate.aadl2.errormodel.FaultTree.LogicOperation
 
 @RunWith(XtextRunner)
 @InjectWith(ErrorModelUiInjectorProvider)
@@ -52,18 +53,22 @@ class CommonError1Test extends OsateTest {
 		val instance = InstantiateModel::buildInstanceModelFile(sysImpl)
 //		assertEquals("fta_main_i_Instance", instance.name)
 		
-		val uri =CreateFTAModel.createTransformedFTA(instance,state)
-		
+		val ft = CreateFTAModel.createTransformedFTA(instance,state)
+		val uri = EcoreUtil.getURI(ft)
 		val file = workspaceRoot.getFile(new Path(uri.toPlatformString(true)))
 		val actual = Files.readStreamIntoString(file.contents)
 		assertEquals('error', expected.trim, actual.trim)
+		assertEquals(ft.events.size,5)
+		val andevent = FaultTreeUtils.findEvent(ft,"Intermediate1")
+		assertEquals(andevent.subEventLogic, LogicOperation.AND)
 		
 		val stateop = "state Operational"
-		val uriop=CreateFTAModel.createTransformedFTA(instance, stateop)
-		
+		val ftop = CreateFTAModel.createTransformedFTA(instance,stateop)
+		val uriop = EcoreUtil.getURI(ftop)
 		val fileop = workspaceRoot.getFile(new Path(uriop.toPlatformString(true)))
 		val actualop = Files.readStreamIntoString(fileop.contents)
 		assertEquals('error', expectedOperational.trim, actualop.trim)
+		assertEquals(ftop.events.size,1)
 	}
 
 	val aadlText = '''
@@ -182,6 +187,7 @@ end common_error1;
     <relatedInstanceObject href="../../common-error_main_commonsource_Instance.aaxl2#/"/>
     <relatedEMV2Object href="../../../../../plugin/org.osate.aadl2.errormodel.contrib/resources/packages/ErrorLibrary.aadl#/0/@ownedPublicSection/@ownedAnnexLibrary.0/@parsedAnnexLibrary/@behaviors.0/@states.1"/>
   </events>
+  <instanceRoot href="../../common-error_main_commonsource_Instance.aaxl2#/"/>
 </FaultTree:FaultTree>
 	'''
 
@@ -192,6 +198,7 @@ end common_error1;
     <relatedInstanceObject href="../../common-error_main_commonsource_Instance.aaxl2#/"/>
     <relatedEMV2Object href="../../../../../plugin/org.osate.aadl2.errormodel.contrib/resources/packages/ErrorLibrary.aadl#/0/@ownedPublicSection/@ownedAnnexLibrary.0/@parsedAnnexLibrary/@behaviors.0/@states.0"/>
   </events>
+  <instanceRoot href="../../common-error_main_commonsource_Instance.aaxl2#/"/>
 </FaultTree:FaultTree>
 	'''
 }

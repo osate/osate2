@@ -48,6 +48,7 @@ public class FTAGenerator extends PropagationGraphBackwardTraversal {
 			ftaModel = FaultTreeFactory.eINSTANCE.createFaultTree();
 			ftaModel.setName(FaultTreeUtils.buildIdentifier(rootComponent, rootStateOrPropagation, rootComponentTypes));
 			ftaModel.setDescription("Top Level Failure");
+			ftaModel.setInstanceRoot(rootComponent);
 
 			if (rootStateOrPropagation instanceof ErrorBehaviorState) {
 				ftaRootEvent = (Event) traverseCompositeErrorState(rootComponent,

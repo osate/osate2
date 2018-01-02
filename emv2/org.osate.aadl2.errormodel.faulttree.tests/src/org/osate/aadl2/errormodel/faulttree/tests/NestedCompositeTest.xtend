@@ -14,6 +14,7 @@ import org.osate.aadl2.instantiation.InstantiateModel
 import org.osate.core.test.OsateTest
 
 import static org.junit.Assert.*
+import org.eclipse.emf.ecore.util.EcoreUtil
 
 @RunWith(typeof(XtextRunner))
 @InjectWith(typeof(ErrorModelUiInjectorProvider))
@@ -50,7 +51,8 @@ class NestedCompositeTest extends OsateTest {
 //		assertEquals("fta_main_i_Instance", instance.name)
 
 		
-		val uri =CreateFTAModel.createTransformedFTA(instance,state)
+		val ft = CreateFTAModel.createTransformedFTA(instance,state)
+		val uri = EcoreUtil.getURI(ft)
 		val file = workspaceRoot.getFile(new Path(uri.toPlatformString(true)))
 		val actual = Files.readStreamIntoString(file.contents)
 		assertEquals('error', expected.trim, actual.trim)
@@ -271,6 +273,7 @@ end nestedcomposite;
     <relatedInstanceObject href="../../nestedcomposite_main_nestedstate_Instance.aaxl2#/"/>
     <relatedEMV2Object href="../../../nestedcomposite.aadl#/0/@ownedPublicSection/@ownedClassifier.10/@ownedAnnexSubclause.0/@parsedAnnexSubclause/@states.0/@condition"/>
   </events>
+  <instanceRoot href="../../nestedcomposite_main_nestedstate_Instance.aaxl2#/"/>
 </FaultTree:FaultTree>
 	'''
 

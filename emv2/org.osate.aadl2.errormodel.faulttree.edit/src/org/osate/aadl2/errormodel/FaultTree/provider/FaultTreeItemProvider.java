@@ -66,6 +66,7 @@ public class FaultTreeItemProvider
 			addNamePropertyDescriptor(object);
 			addDescriptionPropertyDescriptor(object);
 			addRootPropertyDescriptor(object);
+			addInstanceRootPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
@@ -128,6 +129,28 @@ public class FaultTreeItemProvider
 				 getString("_UI_FaultTree_root_feature"),
 				 getString("_UI_PropertyDescriptor_description", "_UI_FaultTree_root_feature", "_UI_FaultTree_type"),
 				 FaultTreePackage.Literals.FAULT_TREE__ROOT,
+				 true,
+				 false,
+				 true,
+				 null,
+				 null,
+				 null));
+	}
+
+	/**
+	 * This adds a property descriptor for the Instance Root feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addInstanceRootPropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_FaultTree_instanceRoot_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_FaultTree_instanceRoot_feature", "_UI_FaultTree_type"),
+				 FaultTreePackage.Literals.FAULT_TREE__INSTANCE_ROOT,
 				 true,
 				 false,
 				 true,

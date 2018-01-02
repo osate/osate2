@@ -104,13 +104,22 @@ public interface FaultTreePackage extends EPackage {
 	int FAULT_TREE__ROOT = 3;
 
 	/**
+	 * The feature id for the '<em><b>Instance Root</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FAULT_TREE__INSTANCE_ROOT = 4;
+
+	/**
 	 * The number of structural features of the '<em>Fault Tree</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int FAULT_TREE_FEATURE_COUNT = 4;
+	int FAULT_TREE_FEATURE_COUNT = 5;
 
 	/**
 	 * The number of operations of the '<em>Fault Tree</em>' class.
@@ -322,6 +331,17 @@ public interface FaultTreePackage extends EPackage {
 	 * @generated
 	 */
 	EReference getFaultTree_Root();
+
+	/**
+	 * Returns the meta object for the reference '{@link org.osate.aadl2.errormodel.FaultTree.FaultTree#getInstanceRoot <em>Instance Root</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference '<em>Instance Root</em>'.
+	 * @see org.osate.aadl2.errormodel.FaultTree.FaultTree#getInstanceRoot()
+	 * @see #getFaultTree()
+	 * @generated
+	 */
+	EReference getFaultTree_InstanceRoot();
 
 	/**
 	 * Returns the meta object for class '{@link org.osate.aadl2.errormodel.FaultTree.Event <em>Event</em>}'.
@@ -538,6 +558,14 @@ public interface FaultTreePackage extends EPackage {
 		 * @generated
 		 */
 		EReference FAULT_TREE__ROOT = eINSTANCE.getFaultTree_Root();
+
+		/**
+		 * The meta object literal for the '<em><b>Instance Root</b></em>' reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference FAULT_TREE__INSTANCE_ROOT = eINSTANCE.getFaultTree_InstanceRoot();
 
 		/**
 		 * The meta object literal for the '{@link org.osate.aadl2.errormodel.FaultTree.impl.EventImpl <em>Event</em>}' class.

@@ -19,6 +19,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link org.osate.aadl2.errormodel.FaultTree.FaultTree#getDescription <em>Description</em>}</li>
  *   <li>{@link org.osate.aadl2.errormodel.FaultTree.FaultTree#getEvents <em>Events</em>}</li>
  *   <li>{@link org.osate.aadl2.errormodel.FaultTree.FaultTree#getRoot <em>Root</em>}</li>
+ *   <li>{@link org.osate.aadl2.errormodel.FaultTree.FaultTree#getInstanceRoot <em>Instance Root</em>}</li>
  * </ul>
  *
  * @see org.osate.aadl2.errormodel.FaultTree.FaultTreePackage#getFaultTree()
@@ -119,5 +120,31 @@ public interface FaultTree extends EObject {
 	 * @generated
 	 */
 	void setRoot(Event value);
+
+	/**
+	 * Returns the value of the '<em><b>Instance Root</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Instance Root</em>' reference isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Instance Root</em>' reference.
+	 * @see #setInstanceRoot(EObject)
+	 * @see org.osate.aadl2.errormodel.FaultTree.FaultTreePackage#getFaultTree_InstanceRoot()
+	 * @model
+	 * @generated
+	 */
+	EObject getInstanceRoot();
+
+	/**
+	 * Sets the value of the '{@link org.osate.aadl2.errormodel.FaultTree.FaultTree#getInstanceRoot <em>Instance Root</em>}' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Instance Root</em>' reference.
+	 * @see #getInstanceRoot()
+	 * @generated
+	 */
+	void setInstanceRoot(EObject value);
 
 } // FaultTree

@@ -14,6 +14,7 @@ import org.osate.aadl2.instantiation.InstantiateModel
 import org.osate.core.test.OsateTest
 
 import static org.junit.Assert.*
+import org.eclipse.emf.ecore.util.EcoreUtil
 
 @RunWith(typeof(XtextRunner))
 @InjectWith(typeof(ErrorModelUiInjectorProvider))
@@ -48,7 +49,8 @@ class Fta2Test extends OsateTest {
 //		assertEquals("fta_main_i_Instance", instance.name)
 
 		
-		val uri =CreateFTAModel.createTransformedFTA(instance,state)
+		val ft = CreateFTAModel.createTransformedFTA(instance,state)
+		val uri = EcoreUtil.getURI(ft)
 		val file = workspaceRoot.getFile(new Path(uri.toPlatformString(true)))
 		val actual = Files.readStreamIntoString(file.contents)
 		assertEquals('error', expected.trim, actual.trim)
@@ -196,6 +198,7 @@ end ErrorModelLibrary;
     <relatedInstanceObject href="../../fta2Test_main_i_Instance.aaxl2#/"/>
     <relatedEMV2Object href="../../../fta2Test.aadl#/0/@ownedPublicSection/@ownedClassifier.4/@ownedAnnexSubclause.0/@parsedAnnexSubclause/@states.0/@condition"/>
   </events>
+  <instanceRoot href="../../fta2Test_main_i_Instance.aaxl2#/"/>
 </FaultTree:FaultTree>
 	'''
 }
