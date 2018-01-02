@@ -204,7 +204,7 @@ public class FaultTreeUtils {
 	private static int count = 1;
 
 	public static void resetIntermediateEventCount() {
-		count = 0;
+		count = 1;
 	}
 
 	private static Event createIntermediateEvent(FaultTree ftaModel, ComponentInstance component, EObject element,

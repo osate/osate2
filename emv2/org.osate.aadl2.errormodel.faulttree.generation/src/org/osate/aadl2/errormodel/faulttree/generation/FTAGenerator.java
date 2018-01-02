@@ -37,6 +37,7 @@ public class FTAGenerator extends PropagationGraphBackwardTraversal {
 	public FTAGenerator(PropagationGraph currentPropagationGraph) {
 		super(currentPropagationGraph);
 		ftaModel = null;
+		FaultTreeUtils.resetIntermediateEventCount();
 	}
 
 	public FaultTree getftaModel(ComponentInstance rootComponent, NamedElement rootStateOrPropagation,
