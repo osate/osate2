@@ -31,7 +31,7 @@ class Fta3Test extends OsateTest {
 	@Test
 	def void basicfta() {
 		val aadlFile = "fta3Test.aadl"
-		val errorlibFile = "errorlib.aadl"
+		val errorlibFile = "ErrorModellibrary.aadl"
 		val state = "state Failed"
 		createFiles(aadlFile -> aadlText,errorlibFile -> errorlibText) 
 		suppressSerialization

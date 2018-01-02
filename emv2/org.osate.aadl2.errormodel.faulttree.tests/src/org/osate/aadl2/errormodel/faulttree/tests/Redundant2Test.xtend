@@ -33,8 +33,8 @@ class Redundant2Test extends OsateTest {
  */
 	@Test
 	def void redundantfta() {
-		val aadlFile = "changeme.aadl"
-		val errlibFile = "FTErrorLibrary.aadl"
+		val aadlFile = "redundant2.aadl"
+		val errlibFile = "FTerrorlibrary.aadl"
 		val state = "state FailStop"
 		createFiles(aadlFile -> aadlText, errlibFile -> fterrlibText) // TODO add all files to workspace
 		suppressSerialization
@@ -436,41 +436,41 @@ end FTerrorlibrary;
 <?xml version="1.0" encoding="ASCII"?>
 <FaultTree:FaultTree xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:FaultTree="http://www.aadl.info/FaultTree" name="redundant2_main2_composite-failstop" description="Top Level Failure" root="//@events.7">
   <events name="sensor1-valueout-latedelivery,outofrange" description="Component 'sensor1' with outgoing  failure 'LateDelivery,OutOfRange" referenceCount="1">
-    <relatedInstanceObject href="../../changeme_main2_composite_Instance.aaxl2#//@componentInstance.1"/>
-    <relatedErrorType href="../../../changeme.aadl#/0/@ownedPublicSection/@ownedClassifier.7/@ownedAnnexSubclause.0/@parsedAnnexSubclause/@outgoingPropagationConditions.0/@condition/@operands.0/@constraint"/>
-    <relatedEMV2Object href="../../../changeme.aadl#/0/@ownedPublicSection/@ownedClassifier.4/@ownedAnnexSubclause.0/@parsedAnnexSubclause/@propagations.0"/>
+    <relatedInstanceObject href="../../redundant2_main2_composite_Instance.aaxl2#//@componentInstance.1"/>
+    <relatedErrorType href="../../../redundant2.aadl#/0/@ownedPublicSection/@ownedClassifier.7/@ownedAnnexSubclause.0/@parsedAnnexSubclause/@outgoingPropagationConditions.0/@condition/@operands.0/@constraint"/>
+    <relatedEMV2Object href="../../../redundant2.aadl#/0/@ownedPublicSection/@ownedClassifier.4/@ownedAnnexSubclause.0/@parsedAnnexSubclause/@propagations.0"/>
   </events>
   <events name="sensor2-valueout-latedelivery,outofrange" description="Component 'sensor2' with outgoing  failure 'LateDelivery,OutOfRange" referenceCount="1">
-    <relatedInstanceObject href="../../changeme_main2_composite_Instance.aaxl2#//@componentInstance.2"/>
-    <relatedErrorType href="../../../changeme.aadl#/0/@ownedPublicSection/@ownedClassifier.7/@ownedAnnexSubclause.0/@parsedAnnexSubclause/@outgoingPropagationConditions.0/@condition/@operands.1/@constraint"/>
-    <relatedEMV2Object href="../../../changeme.aadl#/0/@ownedPublicSection/@ownedClassifier.4/@ownedAnnexSubclause.0/@parsedAnnexSubclause/@propagations.0"/>
+    <relatedInstanceObject href="../../redundant2_main2_composite_Instance.aaxl2#//@componentInstance.2"/>
+    <relatedErrorType href="../../../redundant2.aadl#/0/@ownedPublicSection/@ownedClassifier.7/@ownedAnnexSubclause.0/@parsedAnnexSubclause/@outgoingPropagationConditions.0/@condition/@operands.1/@constraint"/>
+    <relatedEMV2Object href="../../../redundant2.aadl#/0/@ownedPublicSection/@ownedClassifier.4/@ownedAnnexSubclause.0/@parsedAnnexSubclause/@propagations.0"/>
   </events>
-  <events name="voter.thr-failure-itemomission" description="Component 'voter.thr' failure event 'ItemOmission'" referenceCount="1">
-    <relatedInstanceObject href="../../changeme_main2_composite_Instance.aaxl2#//@componentInstance.5/@componentInstance.0"/>
-    <relatedErrorType href="../../../changeme.aadl#/0/@ownedPublicSection/@ownedClassifier.6/@ownedAnnexSubclause.0/@parsedAnnexSubclause/@transitions.0/@condition/@constraint"/>
-    <relatedEMV2Object href="../../../FTErrorLibrary.aadl#/0/@ownedPublicSection/@ownedAnnexLibrary.0/@parsedAnnexLibrary/@behaviors.0/@events.1"/>
+  <events name="Intermediate1" subEvents="//@events.0 //@events.1" referenceCount="1" type="Intermediate" subEventLogic="And">
+    <relatedInstanceObject href="../../redundant2_main2_composite_Instance.aaxl2#//@componentInstance.5/@componentInstance.0"/>
+    <relatedErrorType href="../../../redundant2.aadl#/0/@ownedPublicSection/@ownedClassifier.6/@ownedAnnexSubclause.0/@parsedAnnexSubclause/@transitions.0/@condition/@constraint"/>
+    <relatedEMV2Object href="../../../redundant2.aadl#/0/@ownedPublicSection/@ownedClassifier.7/@ownedAnnexSubclause.0/@parsedAnnexSubclause/@outgoingPropagationConditions.0/@condition"/>
   </events>
-  <events name="voter.thr-computeerror-itemomission" description="Component 'voter.thr' failure event 'ItemOmission'" referenceCount="1">
-    <relatedInstanceObject href="../../changeme_main2_composite_Instance.aaxl2#//@componentInstance.5/@componentInstance.0"/>
-    <relatedErrorType href="../../../changeme.aadl#/0/@ownedPublicSection/@ownedClassifier.6/@ownedAnnexSubclause.0/@parsedAnnexSubclause/@transitions.0/@condition/@constraint"/>
-    <relatedEMV2Object href="../../../FTErrorLibrary.aadl#/0/@ownedPublicSection/@ownedAnnexLibrary.0/@parsedAnnexLibrary/@behaviors.0/@events.0"/>
+  <events name="voter.thr-failure-itemomission" description="Component 'voter.thr' failure event 'Failure' type 'ItemOmission'" referenceCount="1">
+    <relatedInstanceObject href="../../redundant2_main2_composite_Instance.aaxl2#//@componentInstance.5/@componentInstance.0"/>
+    <relatedErrorType href="../../../redundant2.aadl#/0/@ownedPublicSection/@ownedClassifier.6/@ownedAnnexSubclause.0/@parsedAnnexSubclause/@transitions.0/@condition/@constraint"/>
+    <relatedEMV2Object href="../../../FTerrorlibrary.aadl#/0/@ownedPublicSection/@ownedAnnexLibrary.0/@parsedAnnexLibrary/@behaviors.0/@events.1"/>
   </events>
   <events name="mem-memfail-serviceerror" description="Component 'mem' failure source 'ServiceError'" referenceCount="1">
-    <relatedInstanceObject href="../../changeme_main2_composite_Instance.aaxl2#//@componentInstance.4"/>
-    <relatedErrorType href="../../../changeme.aadl#/0/@ownedPublicSection/@ownedClassifier.7/@ownedAnnexSubclause.0/@parsedAnnexSubclause/@flows.3/@typeTokenConstraint"/>
-    <relatedEMV2Object href="../../../changeme.aadl#/0/@ownedPublicSection/@ownedClassifier.2/@ownedAnnexSubclause.0/@parsedAnnexSubclause/@flows.0"/>
+    <relatedInstanceObject href="../../redundant2_main2_composite_Instance.aaxl2#//@componentInstance.4"/>
+    <relatedErrorType href="../../../redundant2.aadl#/0/@ownedPublicSection/@ownedClassifier.7/@ownedAnnexSubclause.0/@parsedAnnexSubclause/@flows.3/@typeTokenConstraint"/>
+    <relatedEMV2Object href="../../../redundant2.aadl#/0/@ownedPublicSection/@ownedClassifier.2/@ownedAnnexSubclause.0/@parsedAnnexSubclause/@flows.0"/>
   </events>
-  <events name="voter.thr-computeerror-inconsistentvalue" description="Component 'voter.thr' failure event 'InconsistentValue'" referenceCount="1">
-    <relatedInstanceObject href="../../changeme_main2_composite_Instance.aaxl2#//@componentInstance.5/@componentInstance.0"/>
-    <relatedErrorType href="../../../changeme.aadl#/0/@ownedPublicSection/@ownedClassifier.6/@ownedAnnexSubclause.0/@parsedAnnexSubclause/@transitions.2/@condition/@constraint"/>
-    <relatedEMV2Object href="../../../FTErrorLibrary.aadl#/0/@ownedPublicSection/@ownedAnnexLibrary.0/@parsedAnnexLibrary/@behaviors.0/@events.0"/>
+  <events name="voter.thr-computeerror-inconsistentvalue" description="Component 'voter.thr' failure event 'ComputeError' type 'InconsistentValue'" referenceCount="1">
+    <relatedInstanceObject href="../../redundant2_main2_composite_Instance.aaxl2#//@componentInstance.5/@componentInstance.0"/>
+    <relatedErrorType href="../../../redundant2.aadl#/0/@ownedPublicSection/@ownedClassifier.6/@ownedAnnexSubclause.0/@parsedAnnexSubclause/@transitions.2/@condition/@constraint"/>
+    <relatedEMV2Object href="../../../FTerrorlibrary.aadl#/0/@ownedPublicSection/@ownedAnnexLibrary.0/@parsedAnnexLibrary/@behaviors.0/@events.0"/>
   </events>
-  <events name="actuator-failure" description="Component 'actuator'" referenceCount="1">
-    <relatedInstanceObject href="../../changeme_main2_composite_Instance.aaxl2#//@componentInstance.3"/>
+  <events name="actuator-failure" description="Component 'actuator' failure event 'Failure'" referenceCount="1">
+    <relatedInstanceObject href="../../redundant2_main2_composite_Instance.aaxl2#//@componentInstance.3"/>
     <relatedEMV2Object href="../../../../../plugin/org.osate.aadl2.errormodel.contrib/resources/packages/ErrorLibrary.aadl#/0/@ownedPublicSection/@ownedAnnexLibrary.0/@parsedAnnexLibrary/@behaviors.0/@events.0"/>
   </events>
-  <events name="redundant2_main2_composite-failstop" description="Component 'main2.composite' in failure mode 'FailStop'" subEvents="//@events.6 //@events.0 //@events.1 //@events.2 //@events.3 //@events.4 //@events.5" referenceCount="1" type="Intermediate">
-    <relatedInstanceObject href="../../changeme_main2_composite_Instance.aaxl2#/"/>
+  <events name="redundant2_main2_composite-failstop" description="Component 'main2.composite' in failure mode 'FailStop'" subEvents="//@events.6 //@events.2 //@events.3 //@events.4 //@events.5" referenceCount="1" type="Intermediate">
+    <relatedInstanceObject href="../../redundant2_main2_composite_Instance.aaxl2#/"/>
     <relatedEMV2Object href="../../../../../plugin/org.osate.aadl2.errormodel.contrib/resources/packages/ErrorLibrary.aadl#/0/@ownedPublicSection/@ownedAnnexLibrary.0/@parsedAnnexLibrary/@behaviors.0/@states.1"/>
   </events>
 </FaultTree:FaultTree>
@@ -478,43 +478,48 @@ end FTerrorlibrary;
 
 	val expected2 = '''
 <?xml version="1.0" encoding="ASCII"?>
-<FaultTree:FaultTree xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:FaultTree="http://www.aadl.info/FaultTree" name="redundant2_main2_compositesametype-failstop" description="Top Level Failure" root="//@events.7">
+<FaultTree:FaultTree xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:FaultTree="http://www.aadl.info/FaultTree" name="redundant2_main2_compositesametype-failstop" description="Top Level Failure" root="//@events.8">
   <events name="sensor1-valueout-latedelivery,outofrange" description="Component 'sensor1' with outgoing  failure 'LateDelivery,OutOfRange" referenceCount="1">
-    <relatedInstanceObject href="../../changeme_main2_compositesametype_Instance.aaxl2#//@componentInstance.1"/>
-    <relatedErrorType href="../../../changeme.aadl#/0/@ownedPublicSection/@ownedClassifier.8/@ownedAnnexSubclause.0/@parsedAnnexSubclause/@flows.0/@typeTokenConstraint"/>
-    <relatedEMV2Object href="../../../changeme.aadl#/0/@ownedPublicSection/@ownedClassifier.4/@ownedAnnexSubclause.0/@parsedAnnexSubclause/@propagations.0"/>
+    <relatedInstanceObject href="../../redundant2_main2_compositesametype_Instance.aaxl2#//@componentInstance.1"/>
+    <relatedErrorType href="../../../redundant2.aadl#/0/@ownedPublicSection/@ownedClassifier.8/@ownedAnnexSubclause.0/@parsedAnnexSubclause/@flows.0/@typeTokenConstraint"/>
+    <relatedEMV2Object href="../../../redundant2.aadl#/0/@ownedPublicSection/@ownedClassifier.4/@ownedAnnexSubclause.0/@parsedAnnexSubclause/@propagations.0"/>
   </events>
   <events name="sensor2-valueout-latedelivery,outofrange" description="Component 'sensor2' with outgoing  failure 'LateDelivery,OutOfRange" referenceCount="1">
-    <relatedInstanceObject href="../../changeme_main2_compositesametype_Instance.aaxl2#//@componentInstance.2"/>
-    <relatedErrorType href="../../../changeme.aadl#/0/@ownedPublicSection/@ownedClassifier.8/@ownedAnnexSubclause.0/@parsedAnnexSubclause/@flows.1/@typeTokenConstraint"/>
-    <relatedEMV2Object href="../../../changeme.aadl#/0/@ownedPublicSection/@ownedClassifier.4/@ownedAnnexSubclause.0/@parsedAnnexSubclause/@propagations.0"/>
+    <relatedInstanceObject href="../../redundant2_main2_compositesametype_Instance.aaxl2#//@componentInstance.2"/>
+    <relatedErrorType href="../../../redundant2.aadl#/0/@ownedPublicSection/@ownedClassifier.8/@ownedAnnexSubclause.0/@parsedAnnexSubclause/@flows.1/@typeTokenConstraint"/>
+    <relatedEMV2Object href="../../../redundant2.aadl#/0/@ownedPublicSection/@ownedClassifier.4/@ownedAnnexSubclause.0/@parsedAnnexSubclause/@propagations.0"/>
   </events>
   <events name="cpu-cpufail-itemomission" description="Component 'cpu' failure source 'ItemOmission'" referenceCount="1">
-    <relatedInstanceObject href="../../changeme_main2_compositesametype_Instance.aaxl2#//@componentInstance.6"/>
-    <relatedErrorType href="../../../changeme.aadl#/0/@ownedPublicSection/@ownedClassifier.6/@ownedAnnexSubclause.0/@parsedAnnexSubclause/@transitions.0/@condition/@constraint"/>
-    <relatedEMV2Object href="../../../changeme.aadl#/0/@ownedPublicSection/@ownedClassifier.1/@ownedAnnexSubclause.0/@parsedAnnexSubclause/@flows.0"/>
+    <relatedInstanceObject href="../../redundant2_main2_compositesametype_Instance.aaxl2#//@componentInstance.6"/>
+    <relatedErrorType href="../../../redundant2.aadl#/0/@ownedPublicSection/@ownedClassifier.6/@ownedAnnexSubclause.0/@parsedAnnexSubclause/@transitions.0/@condition/@constraint"/>
+    <relatedEMV2Object href="../../../redundant2.aadl#/0/@ownedPublicSection/@ownedClassifier.1/@ownedAnnexSubclause.0/@parsedAnnexSubclause/@flows.0"/>
   </events>
   <events name="sensor1-ef1-outofrange" description="Component 'sensor1' failure source 'OutOfRange'" referenceCount="1">
-    <relatedInstanceObject href="../../changeme_main2_compositesametype_Instance.aaxl2#//@componentInstance.1"/>
-    <relatedErrorType href="../../../changeme.aadl#/0/@ownedPublicSection/@ownedClassifier.8/@ownedAnnexSubclause.0/@parsedAnnexSubclause/@outgoingPropagationConditions.1/@typeToken"/>
-    <relatedEMV2Object href="../../../changeme.aadl#/0/@ownedPublicSection/@ownedClassifier.4/@ownedAnnexSubclause.0/@parsedAnnexSubclause/@flows.1"/>
+    <relatedInstanceObject href="../../redundant2_main2_compositesametype_Instance.aaxl2#//@componentInstance.1"/>
+    <relatedErrorType href="../../../redundant2.aadl#/0/@ownedPublicSection/@ownedClassifier.8/@ownedAnnexSubclause.0/@parsedAnnexSubclause/@outgoingPropagationConditions.1/@typeToken"/>
+    <relatedEMV2Object href="../../../redundant2.aadl#/0/@ownedPublicSection/@ownedClassifier.4/@ownedAnnexSubclause.0/@parsedAnnexSubclause/@flows.1"/>
   </events>
   <events name="sensor2-ef1-outofrange" description="Component 'sensor2' failure source 'OutOfRange'" referenceCount="1">
-    <relatedInstanceObject href="../../changeme_main2_compositesametype_Instance.aaxl2#//@componentInstance.2"/>
-    <relatedErrorType href="../../../changeme.aadl#/0/@ownedPublicSection/@ownedClassifier.8/@ownedAnnexSubclause.0/@parsedAnnexSubclause/@outgoingPropagationConditions.1/@typeToken"/>
-    <relatedEMV2Object href="../../../changeme.aadl#/0/@ownedPublicSection/@ownedClassifier.4/@ownedAnnexSubclause.0/@parsedAnnexSubclause/@flows.1"/>
+    <relatedInstanceObject href="../../redundant2_main2_compositesametype_Instance.aaxl2#//@componentInstance.2"/>
+    <relatedErrorType href="../../../redundant2.aadl#/0/@ownedPublicSection/@ownedClassifier.8/@ownedAnnexSubclause.0/@parsedAnnexSubclause/@outgoingPropagationConditions.1/@typeToken"/>
+    <relatedEMV2Object href="../../../redundant2.aadl#/0/@ownedPublicSection/@ownedClassifier.4/@ownedAnnexSubclause.0/@parsedAnnexSubclause/@flows.1"/>
+  </events>
+  <events name="Intermediate1" subEvents="//@events.3 //@events.4" referenceCount="1" type="Intermediate" subEventLogic="And">
+    <relatedInstanceObject href="../../redundant2_main2_compositesametype_Instance.aaxl2#//@componentInstance.5/@componentInstance.0"/>
+    <relatedErrorType href="../../../redundant2.aadl#/0/@ownedPublicSection/@ownedClassifier.8/@ownedAnnexSubclause.0/@parsedAnnexSubclause/@outgoingPropagationConditions.1/@typeToken"/>
+    <relatedEMV2Object href="../../../redundant2.aadl#/0/@ownedPublicSection/@ownedClassifier.8/@ownedAnnexSubclause.0/@parsedAnnexSubclause/@outgoingPropagationConditions.1/@condition"/>
   </events>
   <events name="voter.thr-ef5-inconsistentvalue" description="Component 'voter.thr' failure source 'InconsistentValue'" referenceCount="1">
-    <relatedInstanceObject href="../../changeme_main2_compositesametype_Instance.aaxl2#//@componentInstance.5/@componentInstance.0"/>
-    <relatedErrorType href="../../../changeme.aadl#/0/@ownedPublicSection/@ownedClassifier.6/@ownedAnnexSubclause.0/@parsedAnnexSubclause/@transitions.2/@condition/@constraint"/>
-    <relatedEMV2Object href="../../../changeme.aadl#/0/@ownedPublicSection/@ownedClassifier.8/@ownedAnnexSubclause.0/@parsedAnnexSubclause/@flows.4"/>
+    <relatedInstanceObject href="../../redundant2_main2_compositesametype_Instance.aaxl2#//@componentInstance.5/@componentInstance.0"/>
+    <relatedErrorType href="../../../redundant2.aadl#/0/@ownedPublicSection/@ownedClassifier.6/@ownedAnnexSubclause.0/@parsedAnnexSubclause/@transitions.2/@condition/@constraint"/>
+    <relatedEMV2Object href="../../../redundant2.aadl#/0/@ownedPublicSection/@ownedClassifier.8/@ownedAnnexSubclause.0/@parsedAnnexSubclause/@flows.4"/>
   </events>
-  <events name="actuator-failure" description="Component 'actuator'" referenceCount="1">
-    <relatedInstanceObject href="../../changeme_main2_compositesametype_Instance.aaxl2#//@componentInstance.3"/>
+  <events name="actuator-failure" description="Component 'actuator' failure event 'Failure'" referenceCount="1">
+    <relatedInstanceObject href="../../redundant2_main2_compositesametype_Instance.aaxl2#//@componentInstance.3"/>
     <relatedEMV2Object href="../../../../../plugin/org.osate.aadl2.errormodel.contrib/resources/packages/ErrorLibrary.aadl#/0/@ownedPublicSection/@ownedAnnexLibrary.0/@parsedAnnexLibrary/@behaviors.0/@events.0"/>
   </events>
-  <events name="redundant2_main2_compositesametype-failstop" description="Component 'main2.compositesametype' in failure mode 'FailStop'" subEvents="//@events.6 //@events.0 //@events.1 //@events.2 //@events.3 //@events.4 //@events.5" referenceCount="1" type="Intermediate">
-    <relatedInstanceObject href="../../changeme_main2_compositesametype_Instance.aaxl2#/"/>
+  <events name="redundant2_main2_compositesametype-failstop" description="Component 'main2.compositesametype' in failure mode 'FailStop'" subEvents="//@events.7 //@events.0 //@events.1 //@events.2 //@events.5 //@events.6" referenceCount="1" type="Intermediate">
+    <relatedInstanceObject href="../../redundant2_main2_compositesametype_Instance.aaxl2#/"/>
     <relatedEMV2Object href="../../../../../plugin/org.osate.aadl2.errormodel.contrib/resources/packages/ErrorLibrary.aadl#/0/@ownedPublicSection/@ownedAnnexLibrary.0/@parsedAnnexLibrary/@behaviors.0/@states.1"/>
   </events>
 </FaultTree:FaultTree>
@@ -524,34 +529,34 @@ end FTerrorlibrary;
 <?xml version="1.0" encoding="ASCII"?>
 <FaultTree:FaultTree xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:FaultTree="http://www.aadl.info/FaultTree" name="redundant2_main2_transition-externaleffect-serviceomission" description="Top Level Failure" root="//@events.5">
   <events name="sensor1-valueout-latedelivery,outofrange" description="Component 'sensor1' with outgoing  failure 'LateDelivery,OutOfRange" referenceCount="1">
-    <relatedInstanceObject href="../../changeme_main2_transition_Instance.aaxl2#//@componentInstance.1"/>
-    <relatedErrorType href="../../../changeme.aadl#/0/@ownedPublicSection/@ownedClassifier.7/@ownedAnnexSubclause.0/@parsedAnnexSubclause/@outgoingPropagationConditions.0/@condition/@operands.0/@constraint"/>
-    <relatedEMV2Object href="../../../changeme.aadl#/0/@ownedPublicSection/@ownedClassifier.4/@ownedAnnexSubclause.0/@parsedAnnexSubclause/@propagations.0"/>
+    <relatedInstanceObject href="../../redundant2_main2_transition_Instance.aaxl2#//@componentInstance.1"/>
+    <relatedErrorType href="../../../redundant2.aadl#/0/@ownedPublicSection/@ownedClassifier.7/@ownedAnnexSubclause.0/@parsedAnnexSubclause/@outgoingPropagationConditions.0/@condition/@operands.0/@constraint"/>
+    <relatedEMV2Object href="../../../redundant2.aadl#/0/@ownedPublicSection/@ownedClassifier.4/@ownedAnnexSubclause.0/@parsedAnnexSubclause/@propagations.0"/>
   </events>
   <events name="sensor2-valueout-latedelivery,outofrange" description="Component 'sensor2' with outgoing  failure 'LateDelivery,OutOfRange" referenceCount="1">
-    <relatedInstanceObject href="../../changeme_main2_transition_Instance.aaxl2#//@componentInstance.2"/>
-    <relatedErrorType href="../../../changeme.aadl#/0/@ownedPublicSection/@ownedClassifier.7/@ownedAnnexSubclause.0/@parsedAnnexSubclause/@outgoingPropagationConditions.0/@condition/@operands.1/@constraint"/>
-    <relatedEMV2Object href="../../../changeme.aadl#/0/@ownedPublicSection/@ownedClassifier.4/@ownedAnnexSubclause.0/@parsedAnnexSubclause/@propagations.0"/>
+    <relatedInstanceObject href="../../redundant2_main2_transition_Instance.aaxl2#//@componentInstance.2"/>
+    <relatedErrorType href="../../../redundant2.aadl#/0/@ownedPublicSection/@ownedClassifier.7/@ownedAnnexSubclause.0/@parsedAnnexSubclause/@outgoingPropagationConditions.0/@condition/@operands.1/@constraint"/>
+    <relatedEMV2Object href="../../../redundant2.aadl#/0/@ownedPublicSection/@ownedClassifier.4/@ownedAnnexSubclause.0/@parsedAnnexSubclause/@propagations.0"/>
   </events>
-  <events name="voter.thr-computeerror-inconsistentvalue" description="Component 'voter.thr' failure event 'InconsistentValue'" referenceCount="1">
-    <relatedInstanceObject href="../../changeme_main2_transition_Instance.aaxl2#//@componentInstance.5/@componentInstance.0"/>
-    <relatedErrorType href="../../../changeme.aadl#/0/@ownedPublicSection/@ownedClassifier.7/@ownedAnnexSubclause.0/@parsedAnnexSubclause/@outgoingPropagationConditions.1/@typeToken"/>
-    <relatedEMV2Object href="../../../FTErrorLibrary.aadl#/0/@ownedPublicSection/@ownedAnnexLibrary.0/@parsedAnnexLibrary/@behaviors.0/@events.0"/>
+  <events name="Intermediate1" subEvents="//@events.0 //@events.1" referenceCount="1" type="Intermediate" subEventLogic="And">
+    <relatedInstanceObject href="../../redundant2_main2_transition_Instance.aaxl2#//@componentInstance.5/@componentInstance.0"/>
+    <relatedErrorType href="../../../redundant2.aadl#/0/@ownedPublicSection/@ownedClassifier.7/@ownedAnnexSubclause.0/@parsedAnnexSubclause/@outgoingPropagationConditions.0/@typeToken"/>
+    <relatedEMV2Object href="../../../redundant2.aadl#/0/@ownedPublicSection/@ownedClassifier.7/@ownedAnnexSubclause.0/@parsedAnnexSubclause/@outgoingPropagationConditions.0/@condition"/>
   </events>
-  <events name="voter.thr-failure-itemomission" description="Component 'voter.thr' failure event 'ItemOmission'" referenceCount="1">
-    <relatedInstanceObject href="../../changeme_main2_transition_Instance.aaxl2#//@componentInstance.5/@componentInstance.0"/>
-    <relatedErrorType href="../../../changeme.aadl#/0/@ownedPublicSection/@ownedClassifier.7/@ownedAnnexSubclause.0/@parsedAnnexSubclause/@outgoingPropagationConditions.2/@typeToken"/>
-    <relatedEMV2Object href="../../../FTErrorLibrary.aadl#/0/@ownedPublicSection/@ownedAnnexLibrary.0/@parsedAnnexLibrary/@behaviors.0/@events.1"/>
+  <events name="voter.thr-computeerror-inconsistentvalue" description="Component 'voter.thr' failure event 'ComputeError' type 'InconsistentValue'" referenceCount="1">
+    <relatedInstanceObject href="../../redundant2_main2_transition_Instance.aaxl2#//@componentInstance.5/@componentInstance.0"/>
+    <relatedErrorType href="../../../redundant2.aadl#/0/@ownedPublicSection/@ownedClassifier.7/@ownedAnnexSubclause.0/@parsedAnnexSubclause/@outgoingPropagationConditions.1/@typeToken"/>
+    <relatedEMV2Object href="../../../FTerrorlibrary.aadl#/0/@ownedPublicSection/@ownedAnnexLibrary.0/@parsedAnnexLibrary/@behaviors.0/@events.0"/>
   </events>
-  <events name="voter.thr-computeerror-itemomission" description="Component 'voter.thr' failure event 'ItemOmission'" referenceCount="1">
-    <relatedInstanceObject href="../../changeme_main2_transition_Instance.aaxl2#//@componentInstance.5/@componentInstance.0"/>
-    <relatedErrorType href="../../../changeme.aadl#/0/@ownedPublicSection/@ownedClassifier.7/@ownedAnnexSubclause.0/@parsedAnnexSubclause/@outgoingPropagationConditions.2/@typeToken"/>
-    <relatedEMV2Object href="../../../FTErrorLibrary.aadl#/0/@ownedPublicSection/@ownedAnnexLibrary.0/@parsedAnnexLibrary/@behaviors.0/@events.0"/>
+  <events name="voter.thr-failure-itemomission" description="Component 'voter.thr' failure event 'Failure' type 'ItemOmission'" referenceCount="1">
+    <relatedInstanceObject href="../../redundant2_main2_transition_Instance.aaxl2#//@componentInstance.5/@componentInstance.0"/>
+    <relatedErrorType href="../../../redundant2.aadl#/0/@ownedPublicSection/@ownedClassifier.7/@ownedAnnexSubclause.0/@parsedAnnexSubclause/@outgoingPropagationConditions.2/@typeToken"/>
+    <relatedEMV2Object href="../../../FTerrorlibrary.aadl#/0/@ownedPublicSection/@ownedAnnexLibrary.0/@parsedAnnexLibrary/@behaviors.0/@events.1"/>
   </events>
-  <events name="redundant2_main2_transition-externaleffect-serviceomission" description="Component 'main2.transition' with outgoing  failure 'ServiceOmission" subEvents="//@events.0 //@events.1 //@events.2 //@events.3 //@events.4" referenceCount="1" type="Intermediate">
-    <relatedInstanceObject href="../../changeme_main2_transition_Instance.aaxl2#/"/>
+  <events name="redundant2_main2_transition-externaleffect-serviceomission" description="Component 'main2.transition' with outgoing  failure 'ServiceOmission" subEvents="//@events.2 //@events.3 //@events.4" referenceCount="1" type="Intermediate">
+    <relatedInstanceObject href="../../redundant2_main2_transition_Instance.aaxl2#/"/>
     <relatedErrorType href="../../../../../plugin/org.osate.aadl2.errormodel.contrib/resources/packages/ErrorLibrary.aadl#emv2$ErrorLibrary.ServiceOmission"/>
-    <relatedEMV2Object href="../../../changeme.aadl#/0/@ownedPublicSection/@ownedClassifier.12/@ownedAnnexSubclause.0/@parsedAnnexSubclause/@propagations.0"/>
+    <relatedEMV2Object href="../../../redundant2.aadl#/0/@ownedPublicSection/@ownedClassifier.12/@ownedAnnexSubclause.0/@parsedAnnexSubclause/@propagations.0"/>
   </events>
 </FaultTree:FaultTree>
 	'''

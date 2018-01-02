@@ -33,7 +33,7 @@ class NestedCompositeTest extends OsateTest {
  */
 	@Test
 	def void nestedcompositefta() {
-		val aadlFile = "changeme.aadl"
+		val aadlFile = "nestedcomposite.aadl"
 		val state = "state FailStop"
 		createFiles(aadlFile -> aadlText) // TODO add all files to workspace
 		suppressSerialization
@@ -238,30 +238,38 @@ end nestedcomposite;
 
 	val expected = '''
 <?xml version="1.0" encoding="ASCII"?>
-<FaultTree:FaultTree xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:FaultTree="http://www.aadl.info/FaultTree" name="nestedcomposite_main_nestedstate-failstop" description="Top Level Failure" root="//@events.5">
-  <events name="sensor1-failure" description="Component 'sensor1'" referenceCount="1">
-    <relatedInstanceObject href="../../changeme_main_nestedstate_Instance.aaxl2#//@componentInstance.1"/>
+<FaultTree:FaultTree xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:FaultTree="http://www.aadl.info/FaultTree" name="nestedcomposite_main_nestedstate-failstop" description="Top Level Failure" root="//@events.7">
+  <events name="sensor1-failure" description="Component 'sensor1' failure event 'Failure'" referenceCount="1">
+    <relatedInstanceObject href="../../nestedcomposite_main_nestedstate_Instance.aaxl2#//@componentInstance.1"/>
     <relatedEMV2Object href="../../../../../plugin/org.osate.aadl2.errormodel.contrib/resources/packages/ErrorLibrary.aadl#/0/@ownedPublicSection/@ownedAnnexLibrary.0/@parsedAnnexLibrary/@behaviors.0/@events.0"/>
   </events>
-  <events name="sensor2-failure" description="Component 'sensor2'" referenceCount="1">
-    <relatedInstanceObject href="../../changeme_main_nestedstate_Instance.aaxl2#//@componentInstance.2"/>
+  <events name="sensor2-failure" description="Component 'sensor2' failure event 'Failure'" referenceCount="1">
+    <relatedInstanceObject href="../../nestedcomposite_main_nestedstate_Instance.aaxl2#//@componentInstance.2"/>
     <relatedEMV2Object href="../../../../../plugin/org.osate.aadl2.errormodel.contrib/resources/packages/ErrorLibrary.aadl#/0/@ownedPublicSection/@ownedAnnexLibrary.0/@parsedAnnexLibrary/@behaviors.0/@events.0"/>
   </events>
-  <events name="actuator-failure" description="Component 'actuator'" referenceCount="1">
-    <relatedInstanceObject href="../../changeme_main_nestedstate_Instance.aaxl2#//@componentInstance.3"/>
+  <events name="Intermediate1" subEvents="//@events.0 //@events.1" referenceCount="1" type="Intermediate" subEventLogic="And">
+    <relatedInstanceObject href="../../nestedcomposite_main_nestedstate_Instance.aaxl2#/"/>
+    <relatedEMV2Object href="../../../nestedcomposite.aadl#/0/@ownedPublicSection/@ownedClassifier.10/@ownedAnnexSubclause.0/@parsedAnnexSubclause/@states.0/@condition/@operands.0/@operands.0"/>
+  </events>
+  <events name="actuator-failure" description="Component 'actuator' failure event 'Failure'" referenceCount="1">
+    <relatedInstanceObject href="../../nestedcomposite_main_nestedstate_Instance.aaxl2#//@componentInstance.3"/>
     <relatedEMV2Object href="../../../../../plugin/org.osate.aadl2.errormodel.contrib/resources/packages/ErrorLibrary.aadl#/0/@ownedPublicSection/@ownedAnnexLibrary.0/@parsedAnnexLibrary/@behaviors.0/@events.0"/>
   </events>
-  <events name="voter.thr1-failure" description="Component 'voter.thr1'" referenceCount="1">
-    <relatedInstanceObject href="../../changeme_main_nestedstate_Instance.aaxl2#//@componentInstance.5/@componentInstance.0"/>
+  <events name="voter.thr1-failure" description="Component 'voter.thr1' failure event 'Failure'" referenceCount="1">
+    <relatedInstanceObject href="../../nestedcomposite_main_nestedstate_Instance.aaxl2#//@componentInstance.5/@componentInstance.0"/>
     <relatedEMV2Object href="../../../../../plugin/org.osate.aadl2.errormodel.contrib/resources/packages/ErrorLibrary.aadl#/0/@ownedPublicSection/@ownedAnnexLibrary.0/@parsedAnnexLibrary/@behaviors.0/@events.0"/>
   </events>
-  <events name="voter.thr2-failure" description="Component 'voter.thr2'" referenceCount="1">
-    <relatedInstanceObject href="../../changeme_main_nestedstate_Instance.aaxl2#//@componentInstance.5/@componentInstance.1"/>
+  <events name="voter.thr2-failure" description="Component 'voter.thr2' failure event 'Failure'" referenceCount="1">
+    <relatedInstanceObject href="../../nestedcomposite_main_nestedstate_Instance.aaxl2#//@componentInstance.5/@componentInstance.1"/>
     <relatedEMV2Object href="../../../../../plugin/org.osate.aadl2.errormodel.contrib/resources/packages/ErrorLibrary.aadl#/0/@ownedPublicSection/@ownedAnnexLibrary.0/@parsedAnnexLibrary/@behaviors.0/@events.0"/>
   </events>
-  <events name="nestedcomposite_main_nestedstate-failstop" description="Component 'main.nestedstate' in failure mode 'FailStop'" subEvents="//@events.0 //@events.1 //@events.2 //@events.3 //@events.4" referenceCount="1" type="Intermediate">
-    <relatedInstanceObject href="../../changeme_main_nestedstate_Instance.aaxl2#/"/>
-    <relatedEMV2Object href="../../../../../plugin/org.osate.aadl2.errormodel.contrib/resources/packages/ErrorLibrary.aadl#/0/@ownedPublicSection/@ownedAnnexLibrary.0/@parsedAnnexLibrary/@behaviors.0/@states.1"/>
+  <events name="Intermediate3" subEvents="//@events.4 //@events.5" referenceCount="1" type="Intermediate" subEventLogic="And">
+    <relatedInstanceObject href="../../nestedcomposite_main_nestedstate_Instance.aaxl2#//@componentInstance.5"/>
+    <relatedEMV2Object href="../../../nestedcomposite.aadl#/0/@ownedPublicSection/@ownedClassifier.8/@ownedAnnexSubclause.0/@parsedAnnexSubclause/@states.0/@condition"/>
+  </events>
+  <events name="nestedcomposite_main_nestedstate-failstop" subEvents="//@events.2 //@events.3 //@events.6" referenceCount="1" type="Intermediate" subEventLogic="Xor">
+    <relatedInstanceObject href="../../nestedcomposite_main_nestedstate_Instance.aaxl2#/"/>
+    <relatedEMV2Object href="../../../nestedcomposite.aadl#/0/@ownedPublicSection/@ownedClassifier.10/@ownedAnnexSubclause.0/@parsedAnnexSubclause/@states.0/@condition"/>
   </events>
 </FaultTree:FaultTree>
 	'''
