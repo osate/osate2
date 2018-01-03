@@ -295,7 +295,7 @@ public class PropagationGraphBackwardTraversal {
 			return processErrorBehaviorState(component, state, type);
 		} else {
 			// we have found an operational error state (no incoming transitions with error events)
-			// Do not include in EMFTA tree
+			// Do not include
 			return null;
 		}
 	}
@@ -413,13 +413,10 @@ public class PropagationGraphBackwardTraversal {
 						result = traverseCompositeErrorState(referencedInstance, EMV2Util.getState(sconditionElement),
 								referencedErrorType);
 					}
-					// XXX traverse returns the FailStop state
-					// thus we do not try to find the error event triggering it.
 					if (result != null) {
 						return result;
 					}
-					return traverseErrorBehaviorState(referencedInstance, EMV2Util.getState(sconditionElement),
-							referencedErrorType);
+					return processErrorBehaviorState(referencedInstance, EMV2Util.getState(sconditionElement), referencedErrorType);
 				}
 
 			}
@@ -553,7 +550,7 @@ public class PropagationGraphBackwardTraversal {
 		if (!subResults.isEmpty()) {
 			return postProcessCompositeErrorStates(component, state, type, subResults);
 		}
-		return traverseErrorBehaviorState(component, state, type);
+		return  processErrorBehaviorState(component, state, type);
 	}
 
 //	methods to be overwritten by applications

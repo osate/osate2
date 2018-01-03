@@ -5,6 +5,7 @@ package org.osate.aadl2.errormodel.FaultTree.impl;
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EEnum;
+import org.eclipse.emf.ecore.EOperation;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.impl.EPackageImpl;
@@ -13,6 +14,7 @@ import org.osate.aadl2.errormodel.FaultTree.EventType;
 import org.osate.aadl2.errormodel.FaultTree.FaultTree;
 import org.osate.aadl2.errormodel.FaultTree.FaultTreeFactory;
 import org.osate.aadl2.errormodel.FaultTree.FaultTreePackage;
+import org.osate.aadl2.errormodel.FaultTree.FaultTreeType;
 import org.osate.aadl2.errormodel.FaultTree.LogicOperation;
 
 /**
@@ -49,6 +51,13 @@ public class FaultTreePackageImpl extends EPackageImpl implements FaultTreePacka
 	 * @generated
 	 */
 	private EEnum logicOperationEEnum = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EEnum faultTreeTypeEEnum = null;
 
 	/**
 	 * Creates an instance of the model <b>Package</b>, registered with
@@ -143,8 +152,17 @@ public class FaultTreePackageImpl extends EPackageImpl implements FaultTreePacka
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EAttribute getFaultTree_FaultTreeType() {
+		return (EAttribute)faultTreeEClass.getEStructuralFeatures().get(2);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EReference getFaultTree_Events() {
-		return (EReference)faultTreeEClass.getEStructuralFeatures().get(2);
+		return (EReference)faultTreeEClass.getEStructuralFeatures().get(5);
 	}
 
 	/**
@@ -215,7 +233,7 @@ public class FaultTreePackageImpl extends EPackageImpl implements FaultTreePacka
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getEvent_Probability() {
+	public EAttribute getEvent_AssignedProbability() {
 		return (EAttribute)eventEClass.getEStructuralFeatures().get(4);
 	}
 
@@ -224,8 +242,17 @@ public class FaultTreePackageImpl extends EPackageImpl implements FaultTreePacka
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EAttribute getEvent_ComputedProbability() {
+		return (EAttribute)eventEClass.getEStructuralFeatures().get(5);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EReference getEvent_RelatedInstanceObject() {
-		return (EReference)eventEClass.getEStructuralFeatures().get(5);
+		return (EReference)eventEClass.getEStructuralFeatures().get(6);
 	}
 
 	/**
@@ -234,15 +261,6 @@ public class FaultTreePackageImpl extends EPackageImpl implements FaultTreePacka
 	 * @generated
 	 */
 	public EAttribute getEvent_ReferenceCount() {
-		return (EAttribute)eventEClass.getEStructuralFeatures().get(7);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EAttribute getEvent_Type() {
 		return (EAttribute)eventEClass.getEStructuralFeatures().get(8);
 	}
 
@@ -251,7 +269,7 @@ public class FaultTreePackageImpl extends EPackageImpl implements FaultTreePacka
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getEvent_SubEventLogic() {
+	public EAttribute getEvent_Type() {
 		return (EAttribute)eventEClass.getEStructuralFeatures().get(9);
 	}
 
@@ -260,8 +278,35 @@ public class FaultTreePackageImpl extends EPackageImpl implements FaultTreePacka
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EAttribute getEvent_SubEventLogic() {
+		return (EAttribute)eventEClass.getEStructuralFeatures().get(10);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EReference getEvent_RelatedEMV2Object() {
-		return (EReference)eventEClass.getEStructuralFeatures().get(10);
+		return (EReference)eventEClass.getEStructuralFeatures().get(11);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getEvent_SharedEvent() {
+		return (EAttribute)eventEClass.getEStructuralFeatures().get(12);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EOperation getEvent__GetProbability() {
+		return eventEClass.getEOperations().get(0);
 	}
 
 	/**
@@ -270,7 +315,7 @@ public class FaultTreePackageImpl extends EPackageImpl implements FaultTreePacka
 	 * @generated
 	 */
 	public EReference getEvent_RelatedErrorType() {
-		return (EReference)eventEClass.getEStructuralFeatures().get(6);
+		return (EReference)eventEClass.getEStructuralFeatures().get(7);
 	}
 
 	/**
@@ -289,6 +334,15 @@ public class FaultTreePackageImpl extends EPackageImpl implements FaultTreePacka
 	 */
 	public EEnum getLogicOperation() {
 		return logicOperationEEnum;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EEnum getFaultTreeType() {
+		return faultTreeTypeEEnum;
 	}
 
 	/**
@@ -322,26 +376,31 @@ public class FaultTreePackageImpl extends EPackageImpl implements FaultTreePacka
 		faultTreeEClass = createEClass(FAULT_TREE);
 		createEAttribute(faultTreeEClass, FAULT_TREE__NAME);
 		createEAttribute(faultTreeEClass, FAULT_TREE__DESCRIPTION);
-		createEReference(faultTreeEClass, FAULT_TREE__EVENTS);
+		createEAttribute(faultTreeEClass, FAULT_TREE__FAULT_TREE_TYPE);
 		createEReference(faultTreeEClass, FAULT_TREE__ROOT);
 		createEReference(faultTreeEClass, FAULT_TREE__INSTANCE_ROOT);
+		createEReference(faultTreeEClass, FAULT_TREE__EVENTS);
 
 		eventEClass = createEClass(EVENT);
 		createEAttribute(eventEClass, EVENT__NAME);
 		createEAttribute(eventEClass, EVENT__DESCRIPTION);
 		createEReference(eventEClass, EVENT__SUB_EVENTS);
 		createEAttribute(eventEClass, EVENT__K);
-		createEAttribute(eventEClass, EVENT__PROBABILITY);
+		createEAttribute(eventEClass, EVENT__ASSIGNED_PROBABILITY);
+		createEAttribute(eventEClass, EVENT__COMPUTED_PROBABILITY);
 		createEReference(eventEClass, EVENT__RELATED_INSTANCE_OBJECT);
 		createEReference(eventEClass, EVENT__RELATED_ERROR_TYPE);
 		createEAttribute(eventEClass, EVENT__REFERENCE_COUNT);
 		createEAttribute(eventEClass, EVENT__TYPE);
 		createEAttribute(eventEClass, EVENT__SUB_EVENT_LOGIC);
 		createEReference(eventEClass, EVENT__RELATED_EMV2_OBJECT);
+		createEAttribute(eventEClass, EVENT__SHARED_EVENT);
+		createEOperation(eventEClass, EVENT___GET_PROBABILITY);
 
 		// Create enums
 		eventTypeEEnum = createEEnum(EVENT_TYPE);
 		logicOperationEEnum = createEEnum(LOGIC_OPERATION);
+		faultTreeTypeEEnum = createEEnum(FAULT_TREE_TYPE);
 	}
 
 	/**
@@ -377,22 +436,27 @@ public class FaultTreePackageImpl extends EPackageImpl implements FaultTreePacka
 		initEClass(faultTreeEClass, FaultTree.class, "FaultTree", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getFaultTree_Name(), ecorePackage.getEString(), "name", null, 0, 1, FaultTree.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getFaultTree_Description(), ecorePackage.getEString(), "description", null, 0, 1, FaultTree.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getFaultTree_Events(), this.getEvent(), null, "events", null, 0, -1, FaultTree.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getFaultTree_FaultTreeType(), this.getFaultTreeType(), "faultTreeType", null, 0, 1, FaultTree.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getFaultTree_Root(), this.getEvent(), null, "root", null, 0, 1, FaultTree.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getFaultTree_InstanceRoot(), ecorePackage.getEObject(), null, "instanceRoot", null, 0, 1, FaultTree.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getFaultTree_Events(), this.getEvent(), null, "events", null, 0, -1, FaultTree.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(eventEClass, Event.class, "Event", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getEvent_Name(), ecorePackage.getEString(), "name", null, 0, 1, Event.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getEvent_Description(), ecorePackage.getEString(), "description", null, 0, 1, Event.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getEvent_SubEvents(), this.getEvent(), null, "subEvents", null, 0, -1, Event.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getEvent_K(), ecorePackage.getEInt(), "k", "1", 0, 1, Event.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getEvent_Probability(), ecorePackage.getEDouble(), "probability", null, 0, 1, Event.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getEvent_AssignedProbability(), ecorePackage.getEDouble(), "assignedProbability", null, 0, 1, Event.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getEvent_ComputedProbability(), ecorePackage.getEDouble(), "computedProbability", null, 0, 1, Event.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getEvent_RelatedInstanceObject(), ecorePackage.getEObject(), null, "relatedInstanceObject", null, 0, 1, Event.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getEvent_RelatedErrorType(), ecorePackage.getEObject(), null, "relatedErrorType", null, 0, 1, Event.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getEvent_ReferenceCount(), ecorePackage.getEInt(), "referenceCount", "0", 0, 1, Event.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getEvent_Type(), this.getEventType(), "type", null, 0, 1, Event.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getEvent_SubEventLogic(), this.getLogicOperation(), "subEventLogic", null, 0, 1, Event.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getEvent_RelatedEMV2Object(), ecorePackage.getEObject(), null, "relatedEMV2Object", null, 0, 1, Event.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getEvent_SharedEvent(), ecorePackage.getEBoolean(), "sharedEvent", "false", 0, 1, Event.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEOperation(getEvent__GetProbability(), ecorePackage.getEDouble(), "getProbability", 0, 1, IS_UNIQUE, IS_ORDERED);
 
 		// Initialize enums and add enum literals
 		initEEnum(eventTypeEEnum, EventType.class, "EventType");
@@ -409,6 +473,12 @@ public class FaultTreePackageImpl extends EPackageImpl implements FaultTreePacka
 		addEEnumLiteral(logicOperationEEnum, LogicOperation.KOF);
 		addEEnumLiteral(logicOperationEEnum, LogicOperation.KORMORE);
 		addEEnumLiteral(logicOperationEEnum, LogicOperation.KORLESS);
+
+		initEEnum(faultTreeTypeEEnum, FaultTreeType.class, "FaultTreeType");
+		addEEnumLiteral(faultTreeTypeEEnum, FaultTreeType.FAULT_TREE);
+		addEEnumLiteral(faultTreeTypeEEnum, FaultTreeType.FAULT_TRACE);
+		addEEnumLiteral(faultTreeTypeEEnum, FaultTreeType.COMPOSITE_PARTS);
+		addEEnumLiteral(faultTreeTypeEEnum, FaultTreeType.MINIMAL_CUT_SET);
 
 		// Create resource
 		createResource(eNS_URI);

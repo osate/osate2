@@ -16,6 +16,7 @@ import org.osate.aadl2.errormodel.FaultTree.Event;
 import org.osate.aadl2.errormodel.FaultTree.EventType;
 import org.osate.aadl2.errormodel.FaultTree.FaultTree;
 import org.osate.aadl2.errormodel.FaultTree.FaultTreeFactory;
+import org.osate.aadl2.errormodel.FaultTree.FaultTreeType;
 import org.osate.aadl2.errormodel.FaultTree.LogicOperation;
 import org.osate.aadl2.errormodel.FaultTree.util.FaultTreeUtils;
 import org.osate.aadl2.errormodel.PropagationGraph.PropagationGraph;
@@ -49,6 +50,11 @@ public class FTAGenerator extends PropagationGraphBackwardTraversal {
 			ftaModel.setName(FaultTreeUtils.buildIdentifier(rootComponent, rootStateOrPropagation, rootComponentTypes));
 			ftaModel.setDescription("Top Level Failure");
 			ftaModel.setInstanceRoot(rootComponent);
+			if (rootStateOrPropagation instanceof ErrorBehaviorState) {
+				ftaModel.setFaultTreeType(FaultTreeType.COMPOSITE_PARTS);
+			} else {
+				ftaModel.setFaultTreeType(FaultTreeType.FAULT_TRACE);
+			}
 
 			if (rootStateOrPropagation instanceof ErrorBehaviorState) {
 				ftaRootEvent = (Event) traverseCompositeErrorState(rootComponent,
@@ -70,12 +76,13 @@ public class FTAGenerator extends PropagationGraphBackwardTraversal {
 				topEvent.getSubEvents().add(ftaRootEvent);
 				ftaRootEvent = topEvent;
 			}
-			flattenGates(ftaRootEvent);
+//			flattenGates(ftaRootEvent);
 			cleanupXORGates(ftaRootEvent);
 //			xformXORtoOR(emftaRootEvent);
 			if (transformTree) {
 				ftaRootEvent = optimizeGates(ftaRootEvent);
 				flattenGates(ftaRootEvent);
+				ftaModel.setFaultTreeType(FaultTreeType.FAULT_TREE);
 			}
 			// remove gate with single event from root
 			if (ftaRootEvent.getSubEvents().size() == 1) {
@@ -88,6 +95,7 @@ public class FTAGenerator extends PropagationGraphBackwardTraversal {
 			}
 			if (minimalCutSet) {
 				ftaRootEvent = minimalCutSet(ftaRootEvent);
+				ftaModel.setFaultTreeType(FaultTreeType.MINIMAL_CUT_SET);
 			}
 			ftaRootEvent.setName(longName);
 			ftaModel.setRoot(ftaRootEvent);
@@ -100,13 +108,12 @@ public class FTAGenerator extends PropagationGraphBackwardTraversal {
 			for (Event event : ftaModel.getEvents()) {
 				EObject element = event.getRelatedEMV2Object();
 				if (element instanceof NamedElement) {
-					FaultTreeUtils.fillProperties(event, (ComponentInstance) event.getRelatedInstanceObject(),
-							(NamedElement) element,
-							(ErrorTypes) event.getRelatedErrorType());
+					FaultTreeUtils.fillDescription(event);
+					FaultTreeUtils.fillProbability(event);
 				}
 			}
 			if (transformTree || minimalCutSet || !hasDependentEvents) {
-				FaultTreeUtils.performUpdate(ftaModel.getRoot());
+				FaultTreeUtils.computeProbabilities(ftaModel.getRoot());
 			}
 		}
 		return ftaModel;
@@ -449,9 +456,7 @@ public class FTAGenerator extends PropagationGraphBackwardTraversal {
 	}
 
 	private void tagAsSharedEvent(Event ev) {
-		if (!ev.getName().endsWith("*")) {
-			ev.setName(ev.getName() + "*");
-		}
+		ev.setSharedEvent(true);
 	}
 
 	/**

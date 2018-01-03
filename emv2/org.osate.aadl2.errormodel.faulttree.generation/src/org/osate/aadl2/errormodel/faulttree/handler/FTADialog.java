@@ -43,9 +43,9 @@ public class FTADialog extends TitleAreaDialog {
 	@Override
 	public void create() {
 		super.create();
-		setTitle("Fault-Tree Analysis");
-		setMessage("Select the Failure Mode to Analyze (error state, propagation)"
-				+ (target.isEmpty() ? "" : " for " + target), IMessageProvider.INFORMATION);
+		setTitle("Fault-Tree Analysis" + (target.isEmpty() ? "" : " for " + target));
+		setMessage("Select Error state for composite parts fault tree, Out propagation for flow based fault tree.",
+				IMessageProvider.INFORMATION);
 	}
 
 	@Override
@@ -58,7 +58,7 @@ public class FTADialog extends TitleAreaDialog {
 		container.setLayout(layout);
 
 		Label labelErrorMode = new Label(container, SWT.NONE);
-		labelErrorMode.setText("Error-Mode");
+		labelErrorMode.setText("Error State or Outgoing Propagation");
 
 		errorMode = new Combo(container, SWT.READ_ONLY | SWT.BORDER);
 		String val[] = new String[values.size()];
@@ -68,18 +68,14 @@ public class FTADialog extends TitleAreaDialog {
 		errorMode.setItems(val);
 
 		errorMode.select(0);
-// enable if we want to support showing shared events as fault graph instead of fault tree
-//		graphBox = new Button(container, SWT.CHECK);
-//		graphBox.setText("Fault graph");
-//		graphBox.setSelection(false);
 		basictreeBox = new Button(container, SWT.RADIO);
-		basictreeBox.setText("Basic Fault Tree (dependent events marked by *)");
+		basictreeBox.setText("Fault Contributor Trace (dependent events marked by *)");
 		basictreeBox.setSelection(true);
 		optBox = new Button(container, SWT.RADIO);
-		optBox.setText("Transformed Fault Tree with Computed Probability");
+		optBox.setText("Fault Tree with Computed Probability");
 		optBox.setSelection(false);
 		cutsetBox = new Button(container, SWT.RADIO);
-		cutsetBox.setText("Minimal Cut Sets");
+		cutsetBox.setText("Minimal Cut Sets with Computed Probability");
 		cutsetBox.setSelection(false);
 		return area;
 	}
@@ -91,22 +87,26 @@ public class FTADialog extends TitleAreaDialog {
 
 	private void saveInput() {
 		value = errorMode.getText();
-		if (graphBox == null)
+		if (graphBox == null) {
 			graph = false;
-		else
+		} else {
 			optimize = graphBox.getSelection();
-		if (optBox == null)
+		}
+		if (optBox == null) {
 			optimize = true;
-		else
+		} else {
 			optimize = optBox.getSelection();
-		if (cutsetBox == null)
+		}
+		if (cutsetBox == null) {
 			mincutset = false;
-		else
+		} else {
 			mincutset = cutsetBox.getSelection();
-		if (basictreeBox == null)
+		}
+		if (basictreeBox == null) {
 			basictree = true;
-		else
+		} else {
 			basictree = basictreeBox.getSelection();
+		}
 	}
 
 	@Override

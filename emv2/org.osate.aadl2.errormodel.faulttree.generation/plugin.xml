@@ -20,6 +20,12 @@
             description="View FTA graphically or as minimal cutset table"
             name="Run Fault Tree Analysis">
      </command>     
+     <!--command 
+            categoryId="org.osate.aadl2.errormodel.analysis.category"
+            id="org.osate.aadl2.errormodel.analysis.compositepartsfta"
+            description="View composite parts FTA graphically"
+            name="Run Composite Parts Fault Tree Analysis">
+     </command-->     
     </extension>
     
     
@@ -48,6 +54,30 @@
             </or>
          </enabledWhen>
       </handler>
+        <!--handler
+            class="org.osate.aadl2.errormodel.faulttree.handler.CompositePartsFTAHandler" 
+            commandId="org.osate.aadl2.errormodel.analysis.compositepartsfta">
+         <enabledWhen>
+            <or>
+               <reference
+                     definitionId="org.osate.core.isInstanceFileSelected">
+               </reference>
+               <with
+                     variable="selection">
+                  <and>
+                     <count
+                           value="1">
+                     </count>
+                     <iterate>
+                        <instanceof
+                              value="org.osate.aadl2.instance.ComponentInstance">
+                        </instanceof>
+                     </iterate>
+                  </and>
+               </with>
+            </or>
+         </enabledWhen>
+      </handler-->
      </extension>  
  
     <extension
@@ -56,6 +86,10 @@
             commandId="org.osate.aadl2.errormodel.analysis.fta"
             icon="icons/fta.png">
       </image>
+       <!--image
+            commandId="org.osate.aadl2.errormodel.analysis.compositepartsfta"
+            icon="icons/fta.png">
+      </image-->
      </extension>  
      
          
@@ -65,6 +99,9 @@
           <command
                 commandId="org.osate.aadl2.errormodel.analysis.fta">
           </command>
+          <!--command
+                commandId="org.osate.aadl2.errormodel.analysis.compositepartsfta">
+          </command-->
        </menuContribution>
        <menuContribution
              locationURI="toolbar:org.osate.ui.safetyToolbar?after=core">
@@ -85,6 +122,19 @@
                </with>
             </visibleWhen>
           </command>
+          <!--command
+                commandId="org.osate.aadl2.errormodel.analysis.compositepartsfta"
+                tooltip="Run composite parts fault tree analysis">
+            <visibleWhen
+                  checkEnabled="false">
+               <with
+                     variable="activeWorkbenchWindow.activePerspective">
+                  <equals
+                        value="org.osate.ui.perspective.AadlPerspective">
+                  </equals>
+               </with>
+            </visibleWhen>
+          </command-->
        </menuContribution>
        <menuContribution
              locationURI="popup:org.osate.ui.safetyNavigatorPopup?after=core">
@@ -94,6 +144,12 @@
                    checkEnabled="true">
              </visibleWhen>
           </command>
+          <!--command
+                commandId="org.osate.aadl2.errormodel.analysis.compositepartsfta">
+             <visibleWhen
+                   checkEnabled="true">
+             </visibleWhen>
+          </command-->
        </menuContribution>
  	</extension>
 

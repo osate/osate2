@@ -41,10 +41,6 @@ import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.handlers.HandlerUtil;
 import org.eclipse.xtext.ui.util.ResourceUtil;
-import org.osate.aadl2.Feature;
-import org.osate.aadl2.errormodel.PropagationGraph.PropagationGraph;
-import org.osate.aadl2.errormodel.PropagationGraph.PropagationPath;
-import org.osate.aadl2.errormodel.PropagationGraph.util.Util;
 import org.osate.aadl2.errormodel.faulttree.generation.CreateFTAModel;
 import org.osate.aadl2.errormodel.faulttree.util.SiriusUtil;
 import org.osate.aadl2.instance.ComponentInstance;
@@ -54,19 +50,14 @@ import org.osate.aadl2.modelsupport.resources.OsateResourceUtil;
 import org.osate.ui.dialogs.Dialog;
 import org.osate.xtext.aadl2.errormodel.errorModel.CompositeState;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorState;
-import org.osate.xtext.aadl2.errormodel.errorModel.ErrorPropagation;
 import org.osate.xtext.aadl2.errormodel.errorModel.TypeToken;
 import org.osate.xtext.aadl2.errormodel.util.EM2TypeSetUtil;
 import org.osate.xtext.aadl2.errormodel.util.EMV2Util;
 
-public final class FTAHandler extends AbstractHandler {
+public final class CompositePartsFTAHandler extends AbstractHandler {
 
 	private static String ERROR_STATE_NAME = null;
-	private static boolean GRAPH = false;
-	private static boolean TRANSFORM = false;
-	private static boolean MINCUTSET = false;
 	public static final String prefixState = "state ";
-	public static final String prefixOutgoingPropagation = "outgoing propagation on ";
 
 	@Override
 	public Object execute(ExecutionEvent event) throws ExecutionException {
@@ -83,9 +74,9 @@ public final class FTAHandler extends AbstractHandler {
 			target = si;
 		}
 
-		if (!EMV2Util.hasCompositeErrorBehavior(target) && !EMV2Util.hasOutgoingPropagations(target)) {
+		if (!EMV2Util.hasCompositeErrorBehavior(target.getComponentClassifier())) {
 			Dialog.showInfo("Fault Tree Analysis",
-					"Your system instance or selected component instance must have composite error behavior states or outgoing propagations.");
+					"Your system instance or selected component instance must have composite error behavior states.");
 			return null;
 		}
 
@@ -114,56 +105,23 @@ public final class FTAHandler extends AbstractHandler {
 				}
 			}
 
-			PropagationGraph currentPropagationGraph = Util.generatePropagationGraph(target.getSystemInstance(), false);
-			for (ErrorPropagation outprop : EMV2Util.getAllOutgoingErrorPropagations(target.getComponentClassifier())) {
-				EList<PropagationPath> paths = Util.getAllReversePropagationPaths(currentPropagationGraph, target,
-						outprop);
-				if (paths.isEmpty()) {
-					continue;
-				}
-				if (!(outprop.getFeatureorPPRef().getFeatureorPP() instanceof Feature)) {
-					continue;
-				}
-				EList<TypeToken> result = EM2TypeSetUtil.generateAllLeafTypeTokens(outprop.getTypeSet(),
-						EMV2Util.getUseTypes(outprop));
-				for (TypeToken tt : result) {
-					String epName = prefixOutgoingPropagation + EMV2Util.getPrintName(outprop)
-					+ EMV2Util.getPrintName(tt);
-					if (!stateNames.contains(epName)) {
-						stateNames.add(epName);
-					}
-				}
-			}
-
-			FTADialog diag = new FTADialog(sh);
+			CompositePartsFTADialog diag = new CompositePartsFTADialog(sh);
 			diag.setValues(stateNames);
 			diag.setTarget(
 					"'" + (target instanceof SystemInstance ? target.getName() : target.getComponentInstancePath())
 					+ "'");
 			diag.open();
 			ERROR_STATE_NAME = diag.getValue();
-			if (ERROR_STATE_NAME.startsWith(prefixOutgoingPropagation)) {
-				GRAPH = diag.getSharedEventsAsGraph();
-				TRANSFORM = diag.getTransform();
-				MINCUTSET = diag.getMinCutSet();
-			}
 		});
 
 		if (ERROR_STATE_NAME != null) {
 			URI newURI = EcoreUtil
-					.getURI(CreateFTAModel.createModel(target, ERROR_STATE_NAME, TRANSFORM, GRAPH, MINCUTSET));
+					.getURI(CreateFTAModel.createModel(target, ERROR_STATE_NAME, true, false, false));
 			if (newURI != null) {
-				if (MINCUTSET) {
-					SiriusUtil.INSTANCE.autoOpenModel(newURI, ResourceUtil.getFile(si.eResource()).getProject(),
-							"viewpoint:/org.osate.aadl2.errormodel.faulttree.design/FaultTree", "MinimalCutSetTable",
-							"Minimal Cutset");
-					return Status.OK_STATUS;
-				} else {
-					SiriusUtil.INSTANCE.autoOpenModel(newURI, ResourceUtil.getFile(si.eResource()).getProject(),
-							"viewpoint:/org.osate.aadl2.errormodel.faulttree.design/FaultTree", "IconicFaultTree",
-							"Fault Tree");
-					return Status.OK_STATUS;
-				}
+				SiriusUtil.INSTANCE.autoOpenModel(newURI, ResourceUtil.getFile(si.eResource()).getProject(),
+						"viewpoint:/org.osate.aadl2.errormodel.faulttree.design/FaultTree", "IconicFaultTree",
+						"Fault Tree");
+				return Status.OK_STATUS;
 			}
 		}
 

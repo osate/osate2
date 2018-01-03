@@ -65,6 +65,7 @@ public class FaultTreeItemProvider
 
 			addNamePropertyDescriptor(object);
 			addDescriptionPropertyDescriptor(object);
+			addFaultTreeTypePropertyDescriptor(object);
 			addRootPropertyDescriptor(object);
 			addInstanceRootPropertyDescriptor(object);
 		}
@@ -107,6 +108,28 @@ public class FaultTreeItemProvider
 				 getString("_UI_FaultTree_description_feature"),
 				 getString("_UI_PropertyDescriptor_description", "_UI_FaultTree_description_feature", "_UI_FaultTree_type"),
 				 FaultTreePackage.Literals.FAULT_TREE__DESCRIPTION,
+				 true,
+				 false,
+				 false,
+				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+				 null,
+				 null));
+	}
+
+	/**
+	 * This adds a property descriptor for the Fault Tree Type feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addFaultTreeTypePropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_FaultTree_faultTreeType_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_FaultTree_faultTreeType_feature", "_UI_FaultTree_type"),
+				 FaultTreePackage.Literals.FAULT_TREE__FAULT_TREE_TYPE,
 				 true,
 				 false,
 				 false,
@@ -229,6 +252,7 @@ public class FaultTreeItemProvider
 		switch (notification.getFeatureID(FaultTree.class)) {
 			case FaultTreePackage.FAULT_TREE__NAME:
 			case FaultTreePackage.FAULT_TREE__DESCRIPTION:
+			case FaultTreePackage.FAULT_TREE__FAULT_TREE_TYPE:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 				return;
 			case FaultTreePackage.FAULT_TREE__EVENTS:

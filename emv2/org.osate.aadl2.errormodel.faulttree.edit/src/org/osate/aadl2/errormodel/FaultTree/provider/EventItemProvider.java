@@ -56,13 +56,15 @@ public class EventItemProvider extends ItemProviderAdapter implements IEditingDo
 			addDescriptionPropertyDescriptor(object);
 			addSubEventsPropertyDescriptor(object);
 			addKPropertyDescriptor(object);
-			addProbabilityPropertyDescriptor(object);
+			addAssignedProbabilityPropertyDescriptor(object);
+			addComputedProbabilityPropertyDescriptor(object);
 			addRelatedInstanceObjectPropertyDescriptor(object);
 			addRelatedErrorTypePropertyDescriptor(object);
 			addReferenceCountPropertyDescriptor(object);
 			addTypePropertyDescriptor(object);
 			addSubEventLogicPropertyDescriptor(object);
 			addRelatedEMV2ObjectPropertyDescriptor(object);
+			addSharedEventPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
@@ -156,19 +158,41 @@ public class EventItemProvider extends ItemProviderAdapter implements IEditingDo
 	}
 
 	/**
-	 * This adds a property descriptor for the Probability feature.
+	 * This adds a property descriptor for the Assigned Probability feature.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected void addProbabilityPropertyDescriptor(Object object) {
+	protected void addAssignedProbabilityPropertyDescriptor(Object object) {
 		itemPropertyDescriptors.add
 			(createItemPropertyDescriptor
 				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
 				 getResourceLocator(),
-				 getString("_UI_Event_probability_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_Event_probability_feature", "_UI_Event_type"),
-				 FaultTreePackage.Literals.EVENT__PROBABILITY,
+				 getString("_UI_Event_assignedProbability_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_Event_assignedProbability_feature", "_UI_Event_type"),
+				 FaultTreePackage.Literals.EVENT__ASSIGNED_PROBABILITY,
+				 true,
+				 false,
+				 false,
+				 ItemPropertyDescriptor.REAL_VALUE_IMAGE,
+				 null,
+				 null));
+	}
+
+	/**
+	 * This adds a property descriptor for the Computed Probability feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addComputedProbabilityPropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_Event_computedProbability_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_Event_computedProbability_feature", "_UI_Event_type"),
+				 FaultTreePackage.Literals.EVENT__COMPUTED_PROBABILITY,
 				 true,
 				 false,
 				 false,
@@ -310,6 +334,28 @@ public class EventItemProvider extends ItemProviderAdapter implements IEditingDo
 	}
 
 	/**
+	 * This adds a property descriptor for the Shared Event feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addSharedEventPropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_Event_sharedEvent_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_Event_sharedEvent_feature", "_UI_Event_type"),
+				 FaultTreePackage.Literals.EVENT__SHARED_EVENT,
+				 true,
+				 false,
+				 false,
+				 ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE,
+				 null,
+				 null));
+	}
+
+	/**
 	 * This returns Event.gif.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -368,10 +414,12 @@ public class EventItemProvider extends ItemProviderAdapter implements IEditingDo
 			case FaultTreePackage.EVENT__NAME:
 			case FaultTreePackage.EVENT__DESCRIPTION:
 			case FaultTreePackage.EVENT__K:
-			case FaultTreePackage.EVENT__PROBABILITY:
+			case FaultTreePackage.EVENT__ASSIGNED_PROBABILITY:
+			case FaultTreePackage.EVENT__COMPUTED_PROBABILITY:
 			case FaultTreePackage.EVENT__REFERENCE_COUNT:
 			case FaultTreePackage.EVENT__TYPE:
 			case FaultTreePackage.EVENT__SUB_EVENT_LOGIC:
+			case FaultTreePackage.EVENT__SHARED_EVENT:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 				return;
 		}
