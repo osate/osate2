@@ -1,12 +1,17 @@
 package org.osate.ge.internal.graphiti.diagram;
 
+import java.util.Iterator;
+import java.util.List;
+
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.graphiti.datatypes.ILocation;
+import org.eclipse.graphiti.mm.algorithms.GraphicsAlgorithm;
 import org.eclipse.graphiti.mm.pictograms.Anchor;
 import org.eclipse.graphiti.mm.pictograms.AnchorContainer;
 import org.eclipse.graphiti.mm.pictograms.ChopboxAnchor;
 import org.eclipse.graphiti.mm.pictograms.Connection;
 import org.eclipse.graphiti.mm.pictograms.FixPointAnchor;
+import org.eclipse.graphiti.mm.pictograms.FreeFormConnection;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.mm.pictograms.Shape;
 import org.eclipse.graphiti.services.Graphiti;
@@ -182,12 +187,6 @@ class AnchorUtil {
 		return retrievedAnchor;
 	}
 
-	private static Point getConnectionMidpoint(final Connection connection, final double d) {
-		final ILayoutService layoutService = Graphiti.getLayoutService();
-		final ILocation midpoint = layoutService.getConnectionMidpoint(connection, d);
-		return new Point(midpoint.getX(), midpoint.getY());
-	}
-
 	private static String getUniqueReference(final DiagramElement element) {
 		String result = "";
 		for(DiagramNode t = element; t != null; t = t.getContainer()) {
@@ -197,5 +196,160 @@ class AnchorUtil {
 		}
 
 		return result;
+	}
+
+	// This code is based on getConnectionMidpoint from Graphiti's PeSeviceImpl
+	// Forked to work around issue: https://bugs.eclipse.org/bugs/show_bug.cgi?id=529378
+	// Once the Graphiti issue is resolved and in the releases used by OSATE, switch the implemented to this function to delegate to Graphiti's PeService
+	private static Point getConnectionMidpoint(Connection c, double d) {
+		final IPeService peService = Graphiti.getPeService();
+		Point ret = null;
+
+		Anchor startAnchor = c.getStart();
+		ILocation startLocation = peService.getLocationRelativeToDiagram(startAnchor);
+		java.awt.Point startPoint = new java.awt.Point(startLocation.getX(), startLocation.getY());
+
+		Anchor endAnchor = c.getEnd();
+		ILocation endLocation = peService.getLocationRelativeToDiagram(endAnchor);
+		java.awt.Point endPoint = new java.awt.Point(endLocation.getX(), endLocation.getY());
+
+		// special solutions for chopbox anchors
+		if (startAnchor instanceof ChopboxAnchor || endAnchor instanceof ChopboxAnchor) {
+			if (startAnchor instanceof ChopboxAnchor) {
+				ChopboxAnchor cbStartAnchor = (ChopboxAnchor) startAnchor;
+				GraphicsAlgorithm parentGa = cbStartAnchor.getParent().getGraphicsAlgorithm();
+				Shape shape = (Shape) cbStartAnchor.getParent();
+				ILocation location = peService.getLocationRelativeToDiagram(shape);
+				java.awt.Rectangle parentRect = new java.awt.Rectangle(location.getX(), location.getY(),
+						parentGa.getWidth(), parentGa.getHeight());
+
+				java.awt.Point pointNextToStartAnchor = new java.awt.Point(endPoint.x, endPoint.y);
+
+				if (c instanceof FreeFormConnection) {
+					FreeFormConnection ffc = (FreeFormConnection) c;
+					List<org.eclipse.graphiti.mm.algorithms.styles.Point> bendpoints = ffc.getBendpoints();
+					if (!bendpoints.isEmpty()) {
+						org.eclipse.graphiti.mm.algorithms.styles.Point firstBendpoint = bendpoints.get(0);
+						pointNextToStartAnchor.setLocation(firstBendpoint.getX(), firstBendpoint.getY());
+					}
+				}
+
+				java.awt.Point chopboxLocationOnBox = getChopboxLocationOnBox(pointNextToStartAnchor, parentRect);
+				startPoint.setLocation(chopboxLocationOnBox);
+			}
+
+			if (endAnchor instanceof ChopboxAnchor) {
+				ChopboxAnchor cbEndAnchor = (ChopboxAnchor) endAnchor;
+				GraphicsAlgorithm parentGa = cbEndAnchor.getParent().getGraphicsAlgorithm();
+				Shape shape = (Shape) cbEndAnchor.getParent();
+				ILocation location = peService.getLocationRelativeToDiagram(shape);
+				java.awt.Rectangle parentRect = new java.awt.Rectangle(location.getX(), location.getY(),
+						parentGa.getWidth(), parentGa.getHeight());
+
+				java.awt.Point pointNextToEndAnchor = new java.awt.Point(startPoint.x, startPoint.y);
+
+				if (c instanceof FreeFormConnection) {
+					FreeFormConnection ffc = (FreeFormConnection) c;
+					List<org.eclipse.graphiti.mm.algorithms.styles.Point> bendpoints = ffc.getBendpoints();
+					if (!bendpoints.isEmpty()) {
+						org.eclipse.graphiti.mm.algorithms.styles.Point lastBendpoint = bendpoints
+								.get(bendpoints.size() - 1);
+						pointNextToEndAnchor.setLocation(lastBendpoint.getX(), lastBendpoint.getY());
+					}
+				}
+
+				java.awt.Point chopboxLocationOnBox = getChopboxLocationOnBox(pointNextToEndAnchor, parentRect);
+				endPoint.setLocation(chopboxLocationOnBox);
+			}
+		}
+
+		if (c instanceof FreeFormConnection) {
+			FreeFormConnection ffc = (FreeFormConnection) c;
+			List<org.eclipse.graphiti.mm.algorithms.styles.Point> bendpoints = ffc.getBendpoints();
+
+			java.awt.Point[] awtPointsArray = new java.awt.Point[bendpoints.size() + 2];
+			{
+				awtPointsArray[0] = startPoint;
+				int i = 1;
+				for (Iterator<org.eclipse.graphiti.mm.algorithms.styles.Point> iter = bendpoints.iterator(); iter
+						.hasNext();) {
+					org.eclipse.graphiti.mm.algorithms.styles.Point pictogramsPoint = iter.next();
+					awtPointsArray[i] = new java.awt.Point(pictogramsPoint.getX(), pictogramsPoint.getY());
+					i++;
+				}
+				awtPointsArray[i] = endPoint;
+			}
+
+			double completeDistance = getDistance(awtPointsArray);
+			double absDistanceToRelPoint = completeDistance * d;
+
+			double distanceSum = 0;
+			for (int i = 0; i < awtPointsArray.length - 1; i++) {
+				double oldDistanceSum = distanceSum;
+				java.awt.Point currentPoint = awtPointsArray[i];
+				java.awt.Point nextPoint = awtPointsArray[i + 1];
+				double additionalDistanceToNext = getDistance(currentPoint, nextPoint);
+				distanceSum += additionalDistanceToNext;
+				if (distanceSum >= absDistanceToRelPoint) {
+					double thisRelative = ((completeDistance * d) - oldDistanceSum) / additionalDistanceToNext;
+					ret = getMidpoint(currentPoint.x, currentPoint.y, nextPoint.x, nextPoint.y, thisRelative);
+					break; // or return ret;
+				}
+			}
+		} else {
+			int midX = (int) Math.round((startPoint.x + d * (endPoint.x - startPoint.x)));
+			int midY = (int) Math.round((startPoint.y + d * (endPoint.y - startPoint.y)));
+			ret = new Point(midX, midY);
+		}
+		return ret;
+	}
+
+	private static double getDistance(java.awt.Point start, java.awt.Point end) {
+		int xDist = end.x - start.x;
+		int yDist = end.y - start.y;
+		double ret = Math.sqrt((xDist * xDist) + (yDist * yDist));
+		return ret;
+	}
+
+	private static double getDistance(java.awt.Point[] points) {
+		double ret = 0;
+		for (int i = 0; i < points.length - 1; i++) {
+			java.awt.Point currentPoint = points[i];
+			java.awt.Point nextPoint = points[i + 1];
+			ret += getDistance(currentPoint, nextPoint);
+		}
+		return ret;
+	}
+
+	private static Point getMidpoint(int startX, int startY, int endX, int endY, double d) {
+		int midX = (int) Math.round((startX + d * (endX - startX)));
+		int midY = (int) Math.round((startY + d * (endY - startY)));
+		return new Point(midX, midY);
+	}
+
+	private static java.awt.Point getChopboxLocationOnBox(java.awt.Point outsidePoint, java.awt.Rectangle box) {
+		java.awt.Rectangle r = new java.awt.Rectangle(box.x - 1, box.y - 1, box.width + 1, box.height + 1);
+
+		float centerX = r.x + 0.5f * r.width;
+		float centerY = r.y + 0.5f * r.height;
+
+		if (r.isEmpty() || (outsidePoint.x == (int) centerX && outsidePoint.y == (int) centerY)) {
+			return new java.awt.Point((int) centerX, (int) centerY); // This
+			// avoids
+			// divide-by-zero
+		}
+
+		float dx = outsidePoint.x - centerX;
+		float dy = outsidePoint.y - centerY;
+
+		// r.width, r.height, dx, and dy are guaranteed to be non-zero.
+		float scale = 0.5f / Math.max(Math.abs(dx) / r.width, Math.abs(dy) / r.height);
+
+		dx *= scale;
+		dy *= scale;
+		centerX += dx;
+		centerY += dy;
+
+		return new java.awt.Point(Math.round(centerX), Math.round(centerY));
 	}
 }
