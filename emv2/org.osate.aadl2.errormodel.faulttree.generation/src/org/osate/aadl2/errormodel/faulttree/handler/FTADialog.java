@@ -12,20 +12,18 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Shell;
+import org.osate.aadl2.errormodel.FaultTree.FaultTreeType;
 
 public class FTADialog extends TitleAreaDialog {
 
 	private String value;
 	java.util.List<String> values;
 	private Combo errorMode;
-	private Button graphBox;
-	private boolean graph;
-	private Button optBox;
-	private Button cutsetBox;
-	private Button basictreeBox;
-	private boolean optimize;
-	private boolean mincutset;
-	private boolean basictree;
+	private Button compositePartsBox;
+	private Button faultTreeBox;
+	private Button mincutsetBox;
+	private Button faultTraceBox;
+	private FaultTreeType faultTreeType;
 	private String target = "";
 
 	public FTADialog(Shell parentShell) {
@@ -68,15 +66,18 @@ public class FTADialog extends TitleAreaDialog {
 		errorMode.setItems(val);
 
 		errorMode.select(0);
-		basictreeBox = new Button(container, SWT.RADIO);
-		basictreeBox.setText("Fault Contributor Trace (dependent events marked by *)");
-		basictreeBox.setSelection(true);
-		optBox = new Button(container, SWT.RADIO);
-		optBox.setText("Fault Tree with Computed Probability");
-		optBox.setSelection(false);
-		cutsetBox = new Button(container, SWT.RADIO);
-		cutsetBox.setText("Minimal Cut Sets with Computed Probability");
-		cutsetBox.setSelection(false);
+		faultTraceBox = new Button(container, SWT.RADIO);
+		faultTraceBox.setText("Fault Contributor Trace (dependent events marked by *)");
+		faultTraceBox.setSelection(false);
+		compositePartsBox = new Button(container, SWT.RADIO);
+		compositePartsBox.setText("Parts Fault Tree (based on composite error states*)");
+		compositePartsBox.setSelection(false);
+		faultTreeBox = new Button(container, SWT.RADIO);
+		faultTreeBox.setText("Fault Tree with Computed Probability");
+		faultTreeBox.setSelection(true);
+		mincutsetBox = new Button(container, SWT.RADIO);
+		mincutsetBox.setText("Minimal Cut Sets with Computed Probability");
+		mincutsetBox.setSelection(false);
 		return area;
 	}
 
@@ -87,25 +88,14 @@ public class FTADialog extends TitleAreaDialog {
 
 	private void saveInput() {
 		value = errorMode.getText();
-		if (graphBox == null) {
-			graph = false;
-		} else {
-			optimize = graphBox.getSelection();
-		}
-		if (optBox == null) {
-			optimize = true;
-		} else {
-			optimize = optBox.getSelection();
-		}
-		if (cutsetBox == null) {
-			mincutset = false;
-		} else {
-			mincutset = cutsetBox.getSelection();
-		}
-		if (basictreeBox == null) {
-			basictree = true;
-		} else {
-			basictree = basictreeBox.getSelection();
+		if (compositePartsBox.getSelection()) {
+			faultTreeType = FaultTreeType.COMPOSITE_PARTS;
+		} else if (faultTreeBox.getSelection()) {
+			faultTreeType = FaultTreeType.FAULT_TREE;
+		} else if (mincutsetBox.getSelection()) {
+			faultTreeType = FaultTreeType.MINIMAL_CUT_SET;
+		} else if (faultTraceBox.getSelection()) {
+			faultTreeType = FaultTreeType.FAULT_TRACE;
 		}
 	}
 
@@ -119,20 +109,8 @@ public class FTADialog extends TitleAreaDialog {
 		return value;
 	}
 
-	public boolean getSharedEventsAsGraph() {
-		return graph;
-	}
-
-	public boolean getTransform() {
-		return optimize;
-	}
-
-	public boolean getMinCutSet() {
-		return mincutset;
-	}
-
-	public boolean getBasicTree() {
-		return basictree;
+	public FaultTreeType getFaultTreeType() {
+		return faultTreeType;
 	}
 
 }

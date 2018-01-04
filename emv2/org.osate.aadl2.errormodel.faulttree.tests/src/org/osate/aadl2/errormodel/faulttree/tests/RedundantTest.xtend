@@ -51,7 +51,7 @@ class RedundantTest extends OsateTest {
 //		assertEquals("fta_main_i_Instance", instance.name)
 
 		
-		val ft = CreateFTAModel.createTransformedFTA(instance,state)
+		val ft = CreateFTAModel.createFaultTree(instance,state)
 		val uri = EcoreUtil.getURI(ft)
 		val file = workspaceRoot.getFile(new Path(uri.toPlatformString(true)))
 		val actual = Files.readStreamIntoString(file.contents)
@@ -227,6 +227,7 @@ end redundant;
 	val expected = '''
 <?xml version="1.0" encoding="ASCII"?>
 <FaultTree:FaultTree xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:FaultTree="http://www.aadl.info/FaultTree" name="redundant_main_compositestate-failstop" description="Top Level Failure" root="//@events.5">
+  <instanceRoot href="../../redundant_main_compositestate_Instance.aaxl2#/"/>
   <events name="sensor1-failure" description="Component 'sensor1' failure event 'Failure'" referenceCount="1">
     <relatedInstanceObject href="../../redundant_main_compositestate_Instance.aaxl2#//@componentInstance.1"/>
     <relatedEMV2Object href="../../../../../plugin/org.osate.aadl2.errormodel.contrib/resources/packages/ErrorLibrary.aadl#/0/@ownedPublicSection/@ownedAnnexLibrary.0/@parsedAnnexLibrary/@behaviors.0/@events.0"/>
@@ -247,11 +248,10 @@ end redundant;
     <relatedInstanceObject href="../../redundant_main_compositestate_Instance.aaxl2#//@componentInstance.5/@componentInstance.0"/>
     <relatedEMV2Object href="../../../../../plugin/org.osate.aadl2.errormodel.contrib/resources/packages/ErrorLibrary.aadl#/0/@ownedPublicSection/@ownedAnnexLibrary.0/@parsedAnnexLibrary/@behaviors.0/@events.0"/>
   </events>
-  <events name="redundant_main_compositestate-failstop" subEvents="//@events.2 //@events.3 //@events.4" referenceCount="1" type="Intermediate" subEventLogic="Xor">
+  <events name="redundant_main_compositestate-failstop" description="Component 'main.compositestate' in failure mode 'FailStop'" subEvents="//@events.2 //@events.3 //@events.4" referenceCount="1" type="Intermediate" subEventLogic="Xor">
     <relatedInstanceObject href="../../redundant_main_compositestate_Instance.aaxl2#/"/>
     <relatedEMV2Object href="../../../redundant.aadl#/0/@ownedPublicSection/@ownedClassifier.10/@ownedAnnexSubclause.0/@parsedAnnexSubclause/@states.0/@condition"/>
   </events>
-  <instanceRoot href="../../redundant_main_compositestate_Instance.aaxl2#/"/>
 </FaultTree:FaultTree>
 	'''
 

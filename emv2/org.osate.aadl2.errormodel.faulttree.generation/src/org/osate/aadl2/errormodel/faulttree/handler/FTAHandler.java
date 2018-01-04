@@ -42,6 +42,7 @@ import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.handlers.HandlerUtil;
 import org.eclipse.xtext.ui.util.ResourceUtil;
 import org.osate.aadl2.Feature;
+import org.osate.aadl2.errormodel.FaultTree.FaultTreeType;
 import org.osate.aadl2.errormodel.PropagationGraph.PropagationGraph;
 import org.osate.aadl2.errormodel.PropagationGraph.PropagationPath;
 import org.osate.aadl2.errormodel.PropagationGraph.util.Util;
@@ -62,11 +63,7 @@ import org.osate.xtext.aadl2.errormodel.util.EMV2Util;
 public final class FTAHandler extends AbstractHandler {
 
 	private static String ERROR_STATE_NAME = null;
-	private static boolean GRAPH = false;
-	private static boolean TRANSFORM = false;
-	private static boolean MINCUTSET = false;
-	public static final String prefixState = "state ";
-	public static final String prefixOutgoingPropagation = "outgoing propagation on ";
+	private static FaultTreeType FAULT_TREE_TYPE = FaultTreeType.FAULT_TREE;
 
 	@Override
 	public Object execute(ExecutionEvent event) throws ExecutionException {
@@ -101,12 +98,13 @@ public final class FTAHandler extends AbstractHandler {
 			for (CompositeState cebs : EMV2Util.getAllCompositeStates(target.getComponentClassifier())) {
 				ErrorBehaviorState ebs = cebs.getState();
 				if (cebs.getTypedToken() == null) {
-					stateNames.add(prefixState + EMV2Util.getPrintName(ebs));
+					stateNames.add(CreateFTAModel.prefixState + EMV2Util.getPrintName(ebs));
 				} else {
 					EList<TypeToken> result = EM2TypeSetUtil.generateAllLeafTypeTokens(cebs.getTypedToken(),
 							EMV2Util.getUseTypes(cebs));
 					for (TypeToken tt : result) {
-						String epName = prefixState + EMV2Util.getPrintName(ebs) + EMV2Util.getPrintName(tt);
+						String epName = CreateFTAModel.prefixState + EMV2Util.getPrintName(ebs)
+						+ EMV2Util.getPrintName(tt);
 						if (!stateNames.contains(epName)) {
 							stateNames.add(epName);
 						}
@@ -127,7 +125,7 @@ public final class FTAHandler extends AbstractHandler {
 				EList<TypeToken> result = EM2TypeSetUtil.generateAllLeafTypeTokens(outprop.getTypeSet(),
 						EMV2Util.getUseTypes(outprop));
 				for (TypeToken tt : result) {
-					String epName = prefixOutgoingPropagation + EMV2Util.getPrintName(outprop)
+					String epName = CreateFTAModel.prefixOutgoingPropagation + EMV2Util.getPrintName(outprop)
 					+ EMV2Util.getPrintName(tt);
 					if (!stateNames.contains(epName)) {
 						stateNames.add(epName);
@@ -142,18 +140,14 @@ public final class FTAHandler extends AbstractHandler {
 					+ "'");
 			diag.open();
 			ERROR_STATE_NAME = diag.getValue();
-			if (ERROR_STATE_NAME.startsWith(prefixOutgoingPropagation)) {
-				GRAPH = diag.getSharedEventsAsGraph();
-				TRANSFORM = diag.getTransform();
-				MINCUTSET = diag.getMinCutSet();
-			}
+			FAULT_TREE_TYPE = diag.getFaultTreeType();
 		});
 
 		if (ERROR_STATE_NAME != null) {
 			URI newURI = EcoreUtil
-					.getURI(CreateFTAModel.createModel(target, ERROR_STATE_NAME, TRANSFORM, GRAPH, MINCUTSET));
+					.getURI(CreateFTAModel.createModel(target, ERROR_STATE_NAME, FAULT_TREE_TYPE));
 			if (newURI != null) {
-				if (MINCUTSET) {
+				if (FAULT_TREE_TYPE.equals(FaultTreeType.MINIMAL_CUT_SET)) {
 					SiriusUtil.INSTANCE.autoOpenModel(newURI, ResourceUtil.getFile(si.eResource()).getProject(),
 							"viewpoint:/org.osate.aadl2.errormodel.faulttree.design/FaultTree", "MinimalCutSetTable",
 							"Minimal Cutset");

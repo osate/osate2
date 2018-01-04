@@ -48,7 +48,7 @@ class Fta1Test extends OsateTest {
 		val instance = InstantiateModel::buildInstanceModelFile(sysImpl)
 //		assertEquals("fta_main_i_Instance", instance.name)
 
-		val ft = CreateFTAModel.createTransformedFTA(instance,state)
+		val ft = CreateFTAModel.createFaultTree(instance,state)
 		val testuri = EcoreUtil.getURI(ft)
 		val file = workspaceRoot.getFile(new Path(testuri.toPlatformString(true)))
 		val actual = Files.readStreamIntoString(file.contents)
@@ -131,15 +131,15 @@ end fta1test;
 <?xml version="1.0" encoding="ASCII"?>
 <FaultTree:FaultTree xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:FaultTree="http://www.aadl.info/FaultTree" name="fta1test_main_i-failed" description="Top Level Failure" root="//@events.2">
   <instanceRoot href="../../fta1Test_main_i_Instance.aaxl2#/"/>
-  <events name="s1-failed" description="Component 's1' in failure mode 'Failed'" referenceCount="1">
+  <events name="s1-failure" description="Component 's1' failure event 'Failure'" referenceCount="1">
     <relatedInstanceObject href="../../fta1Test_main_i_Instance.aaxl2#//@componentInstance.0"/>
-    <relatedEMV2Object href="../../../fta1Test.aadl#/0/@ownedPublicSection/@ownedAnnexLibrary.0/@parsedAnnexLibrary/@behaviors.0/@states.1"/>
+    <relatedEMV2Object href="../../../fta1Test.aadl#/0/@ownedPublicSection/@ownedAnnexLibrary.0/@parsedAnnexLibrary/@behaviors.0/@events.0"/>
   </events>
-  <events name="s2-failed" description="Component 's2' in failure mode 'Failed'" referenceCount="1">
+  <events name="s2-failure" description="Component 's2' failure event 'Failure'" referenceCount="1">
     <relatedInstanceObject href="../../fta1Test_main_i_Instance.aaxl2#//@componentInstance.1"/>
-    <relatedEMV2Object href="../../../fta1Test.aadl#/0/@ownedPublicSection/@ownedAnnexLibrary.0/@parsedAnnexLibrary/@behaviors.0/@states.1"/>
+    <relatedEMV2Object href="../../../fta1Test.aadl#/0/@ownedPublicSection/@ownedAnnexLibrary.0/@parsedAnnexLibrary/@behaviors.0/@events.0"/>
   </events>
-  <events name="fta1test_main_i-failed" subEvents="//@events.0 //@events.1" referenceCount="1" type="Intermediate" subEventLogic="And">
+  <events name="fta1test_main_i-failed" description="Component 'main.i' in failure mode 'Failed'" subEvents="//@events.0 //@events.1" referenceCount="1" type="Intermediate" subEventLogic="And">
     <relatedInstanceObject href="../../fta1Test_main_i_Instance.aaxl2#/"/>
     <relatedEMV2Object href="../../../fta1Test.aadl#/0/@ownedPublicSection/@ownedClassifier.2/@ownedAnnexSubclause.0/@parsedAnnexSubclause/@states.0/@condition"/>
   </events>

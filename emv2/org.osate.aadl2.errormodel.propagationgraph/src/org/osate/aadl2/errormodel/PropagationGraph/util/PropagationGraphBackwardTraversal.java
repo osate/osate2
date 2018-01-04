@@ -313,7 +313,7 @@ public class PropagationGraphBackwardTraversal {
 	}
 
 	/**
-	 * create the appropriate EMFTA events according to the expression.
+	 * create the appropriate FTA events according to the expression.
 	 * When calculating the probability apply the specified scale to each probability..
 	 * Used to perform scaling according to the transition branch probability.
 	 * @param component
@@ -467,6 +467,106 @@ public class PropagationGraphBackwardTraversal {
 
 	}
 
+	public EObject processSConditionStateOnly(ComponentInstance component, ConditionExpression condition,
+			ErrorTypes type, double scale) {
+		/**
+		 * We have an AND expression, so, we create an EVENT to AND' sub events.
+		 */
+		if (condition instanceof AndExpression) {
+			preProcessAnd(component, condition, type, scale);
+			AndExpression expression = (AndExpression) condition;
+			List<EObject> subResults = new LinkedList<EObject>();
+
+			for (ConditionExpression ce : expression.getOperands()) {
+				EObject res = processSConditionStateOnly(component, ce, type, scale);
+				if (res != null) {
+					subResults.add(res);
+				}
+			}
+
+			return postProcessAnd(component, condition, type, scale, subResults);
+		}
+		if (condition instanceof AllExpression) {
+			List<EObject> subResults = new LinkedList<EObject>();
+
+			AllExpression allCondition = (AllExpression) condition;
+			if (allCondition.getCount() == 0) {
+				preProcessAnd(component, condition, type, scale);
+				for (ConditionExpression ce : allCondition.getOperands()) {
+					EObject res = processSConditionStateOnly(component, ce, type, scale);
+					if (res != null) {
+						subResults.add(res);
+					}
+				}
+			}
+			return postProcessAnd(component, condition, type, scale, subResults);
+		}
+
+		if (condition instanceof OrExpression) {
+			preProcessXor(component, condition, type, scale);
+			OrExpression expression = (OrExpression) condition;
+			List<EObject> subResults = new LinkedList<EObject>();
+
+			for (ConditionExpression ce : expression.getOperands()) {
+				EObject res = processSConditionStateOnly(component, ce, type, scale);
+				if (res != null) {
+					subResults.add(res);
+				}
+			}
+			return postProcessXor(component, condition, type, scale, subResults);
+		}
+
+		if (condition instanceof OrmoreExpression) {
+			OrmoreExpression omCondition = (OrmoreExpression) condition;
+			List<EObject> subResults = new LinkedList<EObject>();
+
+			if (omCondition.getCount() == 1) {
+				preProcessOr(component, condition, type, scale);
+				for (ConditionExpression ce : omCondition.getOperands()) {
+					EObject res = processSConditionStateOnly(component, ce, type, scale);
+					if (res != null) {
+						subResults.add(res);
+					}
+				}
+			}
+			return postProcessOr(component, condition, type, scale, subResults);
+		}
+
+		/**
+		 * Here, we have a single condition element.
+		 */
+		if (condition instanceof SConditionElement) {
+			SConditionElement sconditionElement = (SConditionElement) condition;
+			if (sconditionElement.getQualifiedState() != null) {
+				/**
+				 * In the following, it seems that we reference another
+				 * component. This is typically the case when the condition is
+				 * within an composite error behavior.
+				 *
+				 * So, we find the referenced component in the component
+				 * hierarchy and add all its contributors to the returned
+				 * events.
+				 */
+				QualifiedErrorBehaviorState qs = sconditionElement.getQualifiedState();
+				ComponentInstance referencedInstance = EMV2Util.getLastComponentInstance(qs, component);
+				EObject result = null;
+				ErrorTypes referencedErrorType = mapTargetType(sconditionElement.getConstraint(), type);
+				if (referencedInstance != null) {
+					result = traverseCompositeErrorStateOnly(referencedInstance, EMV2Util.getState(sconditionElement),
+							referencedErrorType);
+				}
+				if (result != null) {
+					return result;
+				}
+				return processErrorBehaviorState(referencedInstance, EMV2Util.getState(sconditionElement),
+						referencedErrorType);
+			}
+
+		}
+		return null;
+
+	}
+
 	/**
 	 * traverse backwards according to propagation paths
 	 * if preProcessing result is non-null return it instead of result of actual traversal (used for shared subtrees)
@@ -542,6 +642,25 @@ public class PropagationGraphBackwardTraversal {
 		for (CompositeState cs : EMV2Util.getAllCompositeStates(component)) {
 			if (cs.getState() == state) {
 				EObject res = processCondition(component, cs.getCondition(), type);
+				if (res != null) {
+					subResults.add(res);
+				}
+			}
+		}
+		if (!subResults.isEmpty()) {
+			return postProcessCompositeErrorStates(component, state, type, subResults);
+		}
+		return traverseErrorBehaviorState(component, state, type);
+	}
+
+	public EObject traverseCompositeErrorStateOnly(ComponentInstance component, ErrorBehaviorState state,
+			ErrorTypes type) {
+		preProcessCompositeErrorStates(component, state, type);
+		List<EObject> subResults = new LinkedList<EObject>();
+		// should only match one composite state declaration.
+		for (CompositeState cs : EMV2Util.getAllCompositeStates(component)) {
+			if (cs.getState() == state) {
+				EObject res = processSConditionStateOnly(component, cs.getCondition(), type, 1);
 				if (res != null) {
 					subResults.add(res);
 				}

@@ -53,7 +53,7 @@ class CommonError1Test extends OsateTest {
 		val instance = InstantiateModel::buildInstanceModelFile(sysImpl)
 //		assertEquals("fta_main_i_Instance", instance.name)
 		
-		val ft = CreateFTAModel.createTransformedFTA(instance,state)
+		val ft = CreateFTAModel.createFaultTree(instance,state)
 		val uri = EcoreUtil.getURI(ft)
 		val file = workspaceRoot.getFile(new Path(uri.toPlatformString(true)))
 		val actual = Files.readStreamIntoString(file.contents)
@@ -63,7 +63,7 @@ class CommonError1Test extends OsateTest {
 		assertEquals(andevent.subEventLogic, LogicOperation.AND)
 		
 		val stateop = "state Operational"
-		val ftop = CreateFTAModel.createTransformedFTA(instance,stateop)
+		val ftop = CreateFTAModel.createFaultTree(instance,stateop)
 		val uriop = EcoreUtil.getURI(ftop)
 		val fileop = workspaceRoot.getFile(new Path(uriop.toPlatformString(true)))
 		val actualop = Files.readStreamIntoString(fileop.contents)
@@ -166,6 +166,7 @@ end common_error1;
 	val expected = '''
 <?xml version="1.0" encoding="ASCII"?>
 <FaultTree:FaultTree xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:FaultTree="http://www.aadl.info/FaultTree" name="common_error1_main_commonsource-failstop" description="Top Level Failure" root="//@events.4">
+  <instanceRoot href="../../common-error_main_commonsource_Instance.aaxl2#/"/>
   <events name="s0-ef0-latedelivery" description="Component 's0' failure source 'LateDelivery'" referenceCount="1">
     <relatedInstanceObject href="../../common-error_main_commonsource_Instance.aaxl2#//@componentInstance.0"/>
     <relatedErrorType href="../../../common-error.aadl#/0/@ownedPublicSection/@ownedClassifier.2/@ownedAnnexSubclause.0/@parsedAnnexSubclause/@flows.0/@typeTokenConstraint"/>
@@ -187,18 +188,17 @@ end common_error1;
     <relatedInstanceObject href="../../common-error_main_commonsource_Instance.aaxl2#/"/>
     <relatedEMV2Object href="../../../../../plugin/org.osate.aadl2.errormodel.contrib/resources/packages/ErrorLibrary.aadl#/0/@ownedPublicSection/@ownedAnnexLibrary.0/@parsedAnnexLibrary/@behaviors.0/@states.1"/>
   </events>
-  <instanceRoot href="../../common-error_main_commonsource_Instance.aaxl2#/"/>
 </FaultTree:FaultTree>
 	'''
 
 	val expectedOperational = '''
 <?xml version="1.0" encoding="ASCII"?>
 <FaultTree:FaultTree xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:FaultTree="http://www.aadl.info/FaultTree" name="common_error1_main_commonsource-operational" description="Top Level Failure" root="//@events.0">
+  <instanceRoot href="../../common-error_main_commonsource_Instance.aaxl2#/"/>
   <events name="common_error1_main_commonsource-operational" description="Component 'main.commonsource' in failure mode 'Operational'" referenceCount="1" type="Intermediate">
     <relatedInstanceObject href="../../common-error_main_commonsource_Instance.aaxl2#/"/>
     <relatedEMV2Object href="../../../../../plugin/org.osate.aadl2.errormodel.contrib/resources/packages/ErrorLibrary.aadl#/0/@ownedPublicSection/@ownedAnnexLibrary.0/@parsedAnnexLibrary/@behaviors.0/@states.0"/>
   </events>
-  <instanceRoot href="../../common-error_main_commonsource_Instance.aaxl2#/"/>
 </FaultTree:FaultTree>
 	'''
 }
