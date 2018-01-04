@@ -371,12 +371,20 @@ public class DefaultAadlModificationService implements AadlModificationService {
 			return null;
 		}
 
-		// Create a new editing domain
-		final TransactionalEditingDomain domain = Objects.requireNonNull(TransactionalEditingDomain.Registry.INSTANCE.getEditingDomain("org.osate.aadl2.ModelEditingDomain"), "unable to retrieve editing domain");
+		final ResourceSet resourceSet = Objects.requireNonNull(resource.getResourceSet(),
+				"Unable to retrieve resource set");
+		TransactionalEditingDomain domain = null;
+		boolean createdEditingDomain = false;
 
 		R result = null;
 		boolean modificationSuccessful = false;
 		try {
+			domain = TransactionalEditingDomain.Factory.INSTANCE.getEditingDomain(resourceSet);
+			if (domain == null) {
+				domain = TransactionalEditingDomain.Factory.INSTANCE.createEditingDomain(resourceSet);
+				createdEditingDomain = true;
+			}
+
 			// Execute a new recording command
 			final RecordingCommand cmd = new RecordingCommand(domain) {
 				private R modifierResult;
@@ -410,9 +418,8 @@ public class DefaultAadlModificationService implements AadlModificationService {
 			// Undo the changes if any of the validators fail
 			final List<Diagnostic> concreteValidationErrors = resource.validateConcreteSyntax();
 			// Disabled checking for resource errors because that includes errors that will occur in normal operations(unless refactoring/chain deleting/modification is implemented)
-			if(!modificationSuccessful || (/*resource.getErrors().size() > 0 || */concreteValidationErrors.size() > 0) && domain.getCommandStack().canUndo()) {
-				Log.error("Error. Undoing modification");
-
+			if (!modificationSuccessful || (/* resource.getErrors().size() > 0 || */concreteValidationErrors.size() > 0)
+					&& (domain != null && domain.getCommandStack().canUndo())) {
 				if(concreteValidationErrors.size() > 0) {
 					Log.error("Concrete Syntax Validation Errors:");
 					for(final Diagnostic diag : concreteValidationErrors) {
@@ -420,7 +427,8 @@ public class DefaultAadlModificationService implements AadlModificationService {
 					}
 				}
 
-				if(domain.getCommandStack().canUndo()) {
+				if (domain != null && domain.getCommandStack().canUndo()) {
+					Log.error("Error. Undoing modification");
 					domain.getCommandStack().undo();
 				}
 
@@ -429,7 +437,13 @@ public class DefaultAadlModificationService implements AadlModificationService {
 			}
 
 			// Flush and dispose of the editing domain
-			domain.getCommandStack().flush();
+			if (domain != null) {
+				domain.getCommandStack().flush();
+
+				if (createdEditingDomain) {
+					domain.dispose();
+				}
+			}
 		}
 
 		return new ModifySafelyResults<R>(modificationSuccessful, result);
