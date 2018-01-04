@@ -4886,10 +4886,10 @@ ruleQualifiedPropagationPoint returns [EObject current=null]
     @init { enterRule(); 
     }
     @after { leaveRule(); }:
-((
+(((
 (
 		{ 
-	        newCompositeNode(grammarAccess.getQualifiedPropagationPointAccess().getSubcomponentSubcomponentElementParserRuleCall_0_0()); 
+	        newCompositeNode(grammarAccess.getQualifiedPropagationPointAccess().getSubcomponentSubcomponentElementParserRuleCall_0_0_0()); 
 	    }
 		lv_subcomponent_0_0=ruleSubcomponentElement		{
 	        if ($current==null) {
@@ -4907,12 +4907,12 @@ ruleQualifiedPropagationPoint returns [EObject current=null]
 )
 	otherlv_1=FullStop
     {
-    	newLeafNode(otherlv_1, grammarAccess.getQualifiedPropagationPointAccess().getFullStopKeyword_1());
+    	newLeafNode(otherlv_1, grammarAccess.getQualifiedPropagationPointAccess().getFullStopKeyword_0_1());
     }
-((
+(
 (
 		{ 
-	        newCompositeNode(grammarAccess.getQualifiedPropagationPointAccess().getNextQualifiedPropagationPointParserRuleCall_2_0_0()); 
+	        newCompositeNode(grammarAccess.getQualifiedPropagationPointAccess().getNextQualifiedPropagationPointParserRuleCall_0_2_0()); 
 	    }
 		lv_next_2_0=ruleQualifiedPropagationPoint		{
 	        if ($current==null) {
@@ -4927,7 +4927,7 @@ ruleQualifiedPropagationPoint returns [EObject current=null]
 	    }
 
 )
-)
+))
     |(
 (
 		{
@@ -4937,11 +4937,11 @@ ruleQualifiedPropagationPoint returns [EObject current=null]
         }
 	otherlv_3=RULE_ID
 	{
-		newLeafNode(otherlv_3, grammarAccess.getQualifiedPropagationPointAccess().getPropagationPointPropagationPointCrossReference_2_1_0()); 
+		newLeafNode(otherlv_3, grammarAccess.getQualifiedPropagationPointAccess().getPropagationPointPropagationPointCrossReference_1_0()); 
 	}
 
 )
-)))
+))
 ;
 
 
