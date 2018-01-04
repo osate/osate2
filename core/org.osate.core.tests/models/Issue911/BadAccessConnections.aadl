@@ -31,18 +31,18 @@ public
 	connections
 		-- internal connections: bus subcomponent to bus subcomponent
 		-- These should be bad, although there is no explicit rule in AS5506B that states this
-		c1: bus access Bus1 -> Bus2;
-		c2: data access Data1 -> Data2;
-		c3: subprogram access Sub1 -> Sub2;
-		c4: subprogram group access SubG1 -> SubG2;
-		c5: virtual bus access VBus1 -> VBus2;
+		bad1: bus access Bus1 -> Bus2;
+		bad2: data access Data1 -> Data2;
+		bad3: subprogram access Sub1 -> Sub2;
+		bad4: subprogram group access SubG1 -> SubG2;
+		bad5: virtual bus access VBus1 -> VBus2;
 				
 		-- inward connections: bus to requires features
-		cc1: bus access Bus2 -> SubSystem.B1;
-		cc2: data access Data2 -> SubSystem.D1;
-		cc3: subprogram access Sub2 -> SubSystem.S1;
-		cc4: subprogram group access SubG2 -> SubSystem.SG1;
-		cc5: virtual bus access VBus2 -> SubSystem.VB1;
+		r1: bus access Bus2 -> SubSystem.B1;
+		r2: data access Data2 -> SubSystem.D1;
+		r3: subprogram access Sub2 -> SubSystem.S1;
+		r4: subprogram group access SubG2 -> SubSystem.SG1;
+		r5: virtual bus access VBus2 -> SubSystem.VB1;
 		
 		-- external connections: bus to provides features
 		p1: bus access Bus1 -> B1;
@@ -74,10 +74,10 @@ public
 		
 	connections
 		-- Connect provides to requires features
-		ccc1: bus access s1.B1 -> s2.B1;
-		ccc2: data access s1.D1 -> s2.D1;
-		ccc3: subprogram access s1.S1 -> s2.S1;
-		ccc4: subprogram group access s1.SG1 -> s2.SG1;
-		ccc5: virtual bus access s1.VB1 -> s2.VB1;
+		pToR1: bus access s1.B1 -> s2.B1;
+		pToR2: data access s1.D1 -> s2.D1;
+		pToR3: subprogram access s1.S1 -> s2.S1;
+		pToR4: subprogram group access s1.SG1 -> s2.SG1;
+		pToR5: virtual bus access s1.VB1 -> s2.VB1;
 	end Sys3.impl;
 end BadAccessConnections;
