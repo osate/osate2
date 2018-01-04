@@ -47,16 +47,13 @@ class Issue993 extends OsateTest {
 					]
 				]
 			]
-		]
-		testFileResult.resource.contents.head as AadlPackage => [
-			"issue993".assertEquals(name)
 			publicSection.ownedClassifiers.get(2) as SystemImplementation => [
 				"main.i".assertEquals(name)
 				(ownedAnnexSubclauses.head as DefaultAnnexSubclause).parsedAnnexSubclause as ErrorModelSubclause => [
 					points.get(0) as PropagationPoint => [
 						"externalEffect".assertEquals(name)
 					]
-					paths.size.assertEquals(1) 
+					paths.size.assertEquals(2) 
 				]
 			]
 		]
