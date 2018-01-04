@@ -613,7 +613,7 @@
       <repository
           url="http://download.itemis.de/updates/releases/2.1.1"/>
       <repository
-          url="http://download.eclipse.org/releases/oxygen/201709271000"/>
+          url="http://download.eclipse.org/releases/oxygen"/>
       <repository
           url="http://repo1.maven.org/maven2/.m2e/connectors/m2eclipse-tycho/0.9.0/N/0.9.0.201609252021/"/>
       <repository
@@ -752,7 +752,7 @@
           name="org.eclipse.elk.sdk.feature.feature.group"
           versionRange="[0.3.0,0.4.0)"/>
       <repository
-          url="http://download.eclipse.org/releases/oxygen/201709271000"/>
+          url="http://download.eclipse.org/releases/oxygen"/>
       <repository
           url="http://download.eclipse.org/elk/updates/releases/0.3.0/"/>
     </setupTask>
@@ -936,9 +936,7 @@
       <repositoryList
           name="Oxygen">
         <repository
-            url="http://download.eclipse.org/releases/oxygen/201709271000"/>
-        <repository
-            url="http://download.eclipse.org/eclipse/updates/4.7/R-4.7.1-201709061700"/>
+            url="http://download.eclipse.org/releases/oxygen"/>
         <repository
             url="http://dl.bintray.com/itemis/generic/xtext-testing/updates/"/>
         <repository
@@ -1003,9 +1001,7 @@
       <repositoryList
           name="Oxygen">
         <repository
-            url="http://download.eclipse.org/releases/oxygen/201709271000"/>
-        <repository
-            url="http://download.eclipse.org/eclipse/updates/4.7/R-4.7.1-201709061700"/>
+            url="http://download.eclipse.org/releases/oxygen"/>
         <repository
             url="http://dl.bintray.com/itemis/generic/xtext-testing/updates/"/>
         <repository
@@ -1051,9 +1047,7 @@
       <repositoryList
           name="Oxygen">
         <repository
-            url="http://download.eclipse.org/releases/oxygen/201709271000"/>
-        <repository
-            url="http://download.eclipse.org/eclipse/updates/4.7/R-4.7.1-201709061700"/>
+            url="http://download.eclipse.org/releases/oxygen"/>
         <repository
             url="http://dl.bintray.com/itemis/generic/xtext-testing/updates/"/>
         <repository
