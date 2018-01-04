@@ -25,6 +25,7 @@ public class FTADialog extends TitleAreaDialog {
 	private Button faultTraceBox;
 	private FaultTreeType faultTreeType;
 	private String target = "";
+	private boolean composite = false;
 
 	public FTADialog(Shell parentShell) {
 		super(parentShell);
@@ -36,6 +37,10 @@ public class FTADialog extends TitleAreaDialog {
 
 	public void setTarget(String targetname) {
 		target = targetname;
+	}
+
+	public void setComposite(boolean compositeparts) {
+		composite = compositeparts;
 	}
 
 	@Override
@@ -69,15 +74,17 @@ public class FTADialog extends TitleAreaDialog {
 		faultTraceBox = new Button(container, SWT.RADIO);
 		faultTraceBox.setText("Fault Contributor Trace (dependent events marked by *)");
 		faultTraceBox.setSelection(false);
-		compositePartsBox = new Button(container, SWT.RADIO);
-		compositePartsBox.setText("Parts Fault Tree (based on composite error states*)");
-		compositePartsBox.setSelection(false);
 		faultTreeBox = new Button(container, SWT.RADIO);
 		faultTreeBox.setText("Fault Tree with Computed Probability");
 		faultTreeBox.setSelection(true);
 		mincutsetBox = new Button(container, SWT.RADIO);
 		mincutsetBox.setText("Minimal Cut Sets with Computed Probability");
 		mincutsetBox.setSelection(false);
+		if (composite) {
+			compositePartsBox = new Button(container, SWT.RADIO);
+			compositePartsBox.setText("Parts Fault Tree (based on composite error states*)");
+			compositePartsBox.setSelection(false);
+		}
 		return area;
 	}
 
