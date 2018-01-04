@@ -23,7 +23,6 @@ import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.e4.core.contexts.IEclipseContext;
-import org.eclipse.emf.common.util.Diagnostic;
 import org.eclipse.emf.common.util.ECollections;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
@@ -93,7 +92,6 @@ public class DefaultAadlModificationService implements AadlModificationService {
 		// We want to run the modification in the display thread. Executing in the display thread will allow the diagram editor updates to be ran synchronously
 		final ModifyRunnable modifyRunnable = new ModifyRunnable();
 		if (Display.getDefault().getThread() == Thread.currentThread()) {
-			Log.info("Executing modification without a thread switch");
 			try {
 				modifyRunnable.run();
 			} catch (RuntimeException ex) {
@@ -194,7 +192,7 @@ public class DefaultAadlModificationService implements AadlModificationService {
 								final EObject objectToModify = res.getResourceSet().getEObject(modificationObjectUri,
 										true);
 								if (objectToModify == null) {
-									return null;
+									return new ModifySafelyResults<R>(false, null);
 								}
 
 								if (parsedAnnexRoot != null && (objectToModify instanceof DefaultAnnexLibrary
@@ -409,30 +407,14 @@ public class DefaultAadlModificationService implements AadlModificationService {
 			// Try to serialize the resource. In some cases serialization can fail and leave a corrupt model if we are editing without an xtext document
 			// The real serialization will occur later.
 			if(testSerialization) {
-				resource.getSerializer().serialize(resource.getContents().get(0));
+				final String serializedSrc = resource.getSerializer().serialize(resource.getContents().get(0));
+				modificationSuccessful = serializedSrc != null && !serializedSrc.trim().isEmpty();
+			} else {
+				// Mark the modification as successful
+				modificationSuccessful = true;
 			}
-
-			// Mark the modification as successful
-			modificationSuccessful = true;
 		} finally {
-			// Undo the changes if any of the validators fail
-			final List<Diagnostic> concreteValidationErrors = resource.validateConcreteSyntax();
-			// Disabled checking for resource errors because that includes errors that will occur in normal operations(unless refactoring/chain deleting/modification is implemented)
-			if (!modificationSuccessful || (/* resource.getErrors().size() > 0 || */concreteValidationErrors.size() > 0)
-					&& (domain != null && domain.getCommandStack().canUndo())) {
-				if(concreteValidationErrors.size() > 0) {
-					Log.error("Concrete Syntax Validation Errors:");
-					for(final Diagnostic diag : concreteValidationErrors) {
-						Log.error(diag.toString());
-					}
-				}
-
-				if (domain != null && domain.getCommandStack().canUndo()) {
-					Log.error("Error. Undoing modification");
-					domain.getCommandStack().undo();
-				}
-
-				modificationSuccessful = false;
+			if (!modificationSuccessful) {
 				result = null;
 			}
 
