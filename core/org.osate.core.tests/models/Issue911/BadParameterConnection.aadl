@@ -16,7 +16,7 @@ public
 	subcomponents
 		Data1: data;
 		Data2: data;
-		connections
+	connections
 		-- this should be bad: subcomponent to subcomponent
 		-- Disallowed by ASS5506B, page 178 (L2)
 		bad1: parameter Data2 -> Data1;
