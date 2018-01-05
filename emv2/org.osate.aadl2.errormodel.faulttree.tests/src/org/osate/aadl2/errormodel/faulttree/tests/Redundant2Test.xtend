@@ -52,7 +52,7 @@ class Redundant2Test extends OsateTest {
 //		assertEquals("fta_main_i_Instance", instance.name)
 
 		
-		val ft = CreateFTAModel.createTransformedFTA(instance,state)
+		val ft = CreateFTAModel.createFaultTree(instance,state)
 		val uri = EcoreUtil.getURI(ft)
 		val file = workspaceRoot.getFile(new Path(uri.toPlatformString(true)))
 		val actual = Files.readStreamIntoString(file.contents)
@@ -65,7 +65,7 @@ class Redundant2Test extends OsateTest {
 		val sysImpl2 = cls.findFirst[name == 'main2.compositesametype'] as SystemImplementation
 		val instance2 = InstantiateModel::buildInstanceModelFile(sysImpl2)
 		val state2 = "state FailStop"
-		val ft2 = CreateFTAModel.createTransformedFTA(instance2,state2)
+		val ft2 = CreateFTAModel.createFaultTree(instance2,state2)
 		val uri2 = EcoreUtil.getURI(ft2)
 		val file2 = workspaceRoot.getFile(new Path(uri2.toPlatformString(true)))
 		val actual2 = Files.readStreamIntoString(file2.contents)
@@ -78,7 +78,7 @@ class Redundant2Test extends OsateTest {
 		val sysImpl3 = cls.findFirst[name == 'main2.transition'] as SystemImplementation
 		val instance3 = InstantiateModel::buildInstanceModelFile(sysImpl3)
 		val state3 = "outgoing propagation on externaleffect{serviceomission}"
-		val ft3 = CreateFTAModel.createTransformedFTA(instance3,state3)
+		val ft3 = CreateFTAModel.createFaultTree(instance3,state3)
 		val uri3 = EcoreUtil.getURI(ft3)
 		val file3 = workspaceRoot.getFile(new Path(uri3.toPlatformString(true)))
 		val actual3 = Files.readStreamIntoString(file3.contents)
@@ -439,6 +439,7 @@ end FTerrorlibrary;
 	val expected = '''
 <?xml version="1.0" encoding="ASCII"?>
 <FaultTree:FaultTree xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:FaultTree="http://www.aadl.info/FaultTree" name="redundant2_main2_composite-failstop" description="Top Level Failure" root="//@events.7">
+  <instanceRoot href="../../redundant2_main2_composite_Instance.aaxl2#/"/>
   <events name="sensor1-valueout-latedelivery,outofrange" description="Component 'sensor1' with outgoing  failure 'LateDelivery,OutOfRange" referenceCount="1">
     <relatedInstanceObject href="../../redundant2_main2_composite_Instance.aaxl2#//@componentInstance.1"/>
     <relatedErrorType href="../../../redundant2.aadl#/0/@ownedPublicSection/@ownedClassifier.7/@ownedAnnexSubclause.0/@parsedAnnexSubclause/@outgoingPropagationConditions.0/@condition/@operands.0/@constraint"/>
@@ -477,13 +478,13 @@ end FTerrorlibrary;
     <relatedInstanceObject href="../../redundant2_main2_composite_Instance.aaxl2#/"/>
     <relatedEMV2Object href="../../../../../plugin/org.osate.aadl2.errormodel.contrib/resources/packages/ErrorLibrary.aadl#/0/@ownedPublicSection/@ownedAnnexLibrary.0/@parsedAnnexLibrary/@behaviors.0/@states.1"/>
   </events>
-  <instanceRoot href="../../redundant2_main2_composite_Instance.aaxl2#/"/>
 </FaultTree:FaultTree>
 	'''
 
 	val expected2 = '''
 <?xml version="1.0" encoding="ASCII"?>
 <FaultTree:FaultTree xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:FaultTree="http://www.aadl.info/FaultTree" name="redundant2_main2_compositesametype-failstop" description="Top Level Failure" root="//@events.8">
+  <instanceRoot href="../../redundant2_main2_compositesametype_Instance.aaxl2#/"/>
   <events name="sensor1-valueout-latedelivery,outofrange" description="Component 'sensor1' with outgoing  failure 'LateDelivery,OutOfRange" referenceCount="1">
     <relatedInstanceObject href="../../redundant2_main2_compositesametype_Instance.aaxl2#//@componentInstance.1"/>
     <relatedErrorType href="../../../redundant2.aadl#/0/@ownedPublicSection/@ownedClassifier.8/@ownedAnnexSubclause.0/@parsedAnnexSubclause/@flows.0/@typeTokenConstraint"/>
@@ -527,13 +528,13 @@ end FTerrorlibrary;
     <relatedInstanceObject href="../../redundant2_main2_compositesametype_Instance.aaxl2#/"/>
     <relatedEMV2Object href="../../../../../plugin/org.osate.aadl2.errormodel.contrib/resources/packages/ErrorLibrary.aadl#/0/@ownedPublicSection/@ownedAnnexLibrary.0/@parsedAnnexLibrary/@behaviors.0/@states.1"/>
   </events>
-  <instanceRoot href="../../redundant2_main2_compositesametype_Instance.aaxl2#/"/>
 </FaultTree:FaultTree>
 	'''
 	
 	val expected3 = '''
 <?xml version="1.0" encoding="ASCII"?>
 <FaultTree:FaultTree xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:FaultTree="http://www.aadl.info/FaultTree" name="redundant2_main2_transition-externaleffect-serviceomission" description="Top Level Failure" root="//@events.5">
+  <instanceRoot href="../../redundant2_main2_transition_Instance.aaxl2#/"/>
   <events name="sensor1-valueout-latedelivery,outofrange" description="Component 'sensor1' with outgoing  failure 'LateDelivery,OutOfRange" referenceCount="1">
     <relatedInstanceObject href="../../redundant2_main2_transition_Instance.aaxl2#//@componentInstance.1"/>
     <relatedErrorType href="../../../redundant2.aadl#/0/@ownedPublicSection/@ownedClassifier.7/@ownedAnnexSubclause.0/@parsedAnnexSubclause/@outgoingPropagationConditions.0/@condition/@operands.0/@constraint"/>
@@ -564,7 +565,6 @@ end FTerrorlibrary;
     <relatedErrorType href="../../../../../plugin/org.osate.aadl2.errormodel.contrib/resources/packages/ErrorLibrary.aadl#emv2$ErrorLibrary.ServiceOmission"/>
     <relatedEMV2Object href="../../../redundant2.aadl#/0/@ownedPublicSection/@ownedClassifier.12/@ownedAnnexSubclause.0/@parsedAnnexSubclause/@propagations.0"/>
   </events>
-  <instanceRoot href="../../redundant2_main2_transition_Instance.aaxl2#/"/>
 </FaultTree:FaultTree>
 	'''
 

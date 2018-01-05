@@ -2,6 +2,7 @@
  */
 package org.osate.aadl2.errormodel.FaultTree.impl;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.Collection;
 
 import org.eclipse.emf.common.notify.Notification;
@@ -29,13 +30,15 @@ import org.osate.aadl2.errormodel.FaultTree.LogicOperation;
  *   <li>{@link org.osate.aadl2.errormodel.FaultTree.impl.EventImpl#getDescription <em>Description</em>}</li>
  *   <li>{@link org.osate.aadl2.errormodel.FaultTree.impl.EventImpl#getSubEvents <em>Sub Events</em>}</li>
  *   <li>{@link org.osate.aadl2.errormodel.FaultTree.impl.EventImpl#getK <em>K</em>}</li>
- *   <li>{@link org.osate.aadl2.errormodel.FaultTree.impl.EventImpl#getProbability <em>Probability</em>}</li>
+ *   <li>{@link org.osate.aadl2.errormodel.FaultTree.impl.EventImpl#getAssignedProbability <em>Assigned Probability</em>}</li>
+ *   <li>{@link org.osate.aadl2.errormodel.FaultTree.impl.EventImpl#getComputedProbability <em>Computed Probability</em>}</li>
  *   <li>{@link org.osate.aadl2.errormodel.FaultTree.impl.EventImpl#getRelatedInstanceObject <em>Related Instance Object</em>}</li>
  *   <li>{@link org.osate.aadl2.errormodel.FaultTree.impl.EventImpl#getRelatedErrorType <em>Related Error Type</em>}</li>
  *   <li>{@link org.osate.aadl2.errormodel.FaultTree.impl.EventImpl#getReferenceCount <em>Reference Count</em>}</li>
  *   <li>{@link org.osate.aadl2.errormodel.FaultTree.impl.EventImpl#getType <em>Type</em>}</li>
  *   <li>{@link org.osate.aadl2.errormodel.FaultTree.impl.EventImpl#getSubEventLogic <em>Sub Event Logic</em>}</li>
  *   <li>{@link org.osate.aadl2.errormodel.FaultTree.impl.EventImpl#getRelatedEMV2Object <em>Related EMV2 Object</em>}</li>
+ *   <li>{@link org.osate.aadl2.errormodel.FaultTree.impl.EventImpl#isSharedEvent <em>Shared Event</em>}</li>
  * </ul>
  *
  * @generated
@@ -112,24 +115,44 @@ public class EventImpl extends MinimalEObjectImpl.Container implements Event {
 	protected int k = K_EDEFAULT;
 
 	/**
-	 * The default value of the '{@link #getProbability() <em>Probability</em>}' attribute.
+	 * The default value of the '{@link #getAssignedProbability() <em>Assigned Probability</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getProbability()
+	 * @see #getAssignedProbability()
 	 * @generated
 	 * @ordered
 	 */
-	protected static final double PROBABILITY_EDEFAULT = 0.0;
+	protected static final double ASSIGNED_PROBABILITY_EDEFAULT = 0.0;
 
 	/**
-	 * The cached value of the '{@link #getProbability() <em>Probability</em>}' attribute.
+	 * The cached value of the '{@link #getAssignedProbability() <em>Assigned Probability</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getProbability()
+	 * @see #getAssignedProbability()
 	 * @generated
 	 * @ordered
 	 */
-	protected double probability = PROBABILITY_EDEFAULT;
+	protected double assignedProbability = ASSIGNED_PROBABILITY_EDEFAULT;
+
+	/**
+	 * The default value of the '{@link #getComputedProbability() <em>Computed Probability</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getComputedProbability()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final double COMPUTED_PROBABILITY_EDEFAULT = 0.0;
+
+	/**
+	 * The cached value of the '{@link #getComputedProbability() <em>Computed Probability</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getComputedProbability()
+	 * @generated
+	 * @ordered
+	 */
+	protected double computedProbability = COMPUTED_PROBABILITY_EDEFAULT;
 
 	/**
 	 * The cached value of the '{@link #getRelatedInstanceObject() <em>Related Instance Object</em>}' reference.
@@ -222,6 +245,26 @@ public class EventImpl extends MinimalEObjectImpl.Container implements Event {
 	protected EObject relatedEMV2Object;
 
 	/**
+	 * The default value of the '{@link #isSharedEvent() <em>Shared Event</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isSharedEvent()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final boolean SHARED_EVENT_EDEFAULT = false;
+
+	/**
+	 * The cached value of the '{@link #isSharedEvent() <em>Shared Event</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isSharedEvent()
+	 * @generated
+	 * @ordered
+	 */
+	protected boolean sharedEvent = SHARED_EVENT_EDEFAULT;
+
+	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -245,6 +288,7 @@ public class EventImpl extends MinimalEObjectImpl.Container implements Event {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getName() {
 		return name;
 	}
@@ -254,6 +298,7 @@ public class EventImpl extends MinimalEObjectImpl.Container implements Event {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setName(String newName) {
 		String oldName = name;
 		name = newName;
@@ -266,6 +311,7 @@ public class EventImpl extends MinimalEObjectImpl.Container implements Event {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getDescription() {
 		return description;
 	}
@@ -275,6 +321,7 @@ public class EventImpl extends MinimalEObjectImpl.Container implements Event {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setDescription(String newDescription) {
 		String oldDescription = description;
 		description = newDescription;
@@ -287,6 +334,7 @@ public class EventImpl extends MinimalEObjectImpl.Container implements Event {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<Event> getSubEvents() {
 		if (subEvents == null) {
 			subEvents = new EObjectResolvingEList<Event>(Event.class, this, FaultTreePackage.EVENT__SUB_EVENTS);
@@ -299,6 +347,7 @@ public class EventImpl extends MinimalEObjectImpl.Container implements Event {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public int getK() {
 		return k;
 	}
@@ -308,6 +357,7 @@ public class EventImpl extends MinimalEObjectImpl.Container implements Event {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setK(int newK) {
 		int oldK = k;
 		k = newK;
@@ -320,8 +370,9 @@ public class EventImpl extends MinimalEObjectImpl.Container implements Event {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public double getProbability() {
-		return probability;
+	@Override
+	public double getAssignedProbability() {
+		return assignedProbability;
 	}
 
 	/**
@@ -329,11 +380,29 @@ public class EventImpl extends MinimalEObjectImpl.Container implements Event {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setProbability(double newProbability) {
-		double oldProbability = probability;
-		probability = newProbability;
+	@Override
+	public void setAssignedProbability(double newAssignedProbability) {
+		double oldAssignedProbability = assignedProbability;
+		assignedProbability = newAssignedProbability;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, FaultTreePackage.EVENT__PROBABILITY, oldProbability, probability));
+			eNotify(new ENotificationImpl(this, Notification.SET, FaultTreePackage.EVENT__ASSIGNED_PROBABILITY, oldAssignedProbability, assignedProbability));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated NOT
+	 */
+	@Override
+	public double getProbability() {
+		if (this.getComputedProbability() == 0.0) {
+			return this.getAssignedProbability();
+		}
+		if (this.getComputedProbability() > this.getAssignedProbability()) {
+			return this.getComputedProbability();
+		} else {
+			return this.getAssignedProbability();
+		}
 	}
 
 	/**
@@ -341,6 +410,30 @@ public class EventImpl extends MinimalEObjectImpl.Container implements Event {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
+	public double getComputedProbability() {
+		return computedProbability;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public void setComputedProbability(double newComputedProbability) {
+		double oldComputedProbability = computedProbability;
+		computedProbability = newComputedProbability;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, FaultTreePackage.EVENT__COMPUTED_PROBABILITY, oldComputedProbability, computedProbability));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
 	public EObject getRelatedInstanceObject() {
 		if (relatedInstanceObject != null && relatedInstanceObject.eIsProxy()) {
 			InternalEObject oldRelatedInstanceObject = (InternalEObject)relatedInstanceObject;
@@ -367,6 +460,7 @@ public class EventImpl extends MinimalEObjectImpl.Container implements Event {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setRelatedInstanceObject(EObject newRelatedInstanceObject) {
 		EObject oldRelatedInstanceObject = relatedInstanceObject;
 		relatedInstanceObject = newRelatedInstanceObject;
@@ -379,6 +473,7 @@ public class EventImpl extends MinimalEObjectImpl.Container implements Event {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public int getReferenceCount() {
 		return referenceCount;
 	}
@@ -388,6 +483,7 @@ public class EventImpl extends MinimalEObjectImpl.Container implements Event {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setReferenceCount(int newReferenceCount) {
 		int oldReferenceCount = referenceCount;
 		referenceCount = newReferenceCount;
@@ -400,6 +496,7 @@ public class EventImpl extends MinimalEObjectImpl.Container implements Event {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EventType getType() {
 		return type;
 	}
@@ -409,6 +506,7 @@ public class EventImpl extends MinimalEObjectImpl.Container implements Event {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setType(EventType newType) {
 		EventType oldType = type;
 		type = newType == null ? TYPE_EDEFAULT : newType;
@@ -421,6 +519,7 @@ public class EventImpl extends MinimalEObjectImpl.Container implements Event {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public LogicOperation getSubEventLogic() {
 		return subEventLogic;
 	}
@@ -430,6 +529,7 @@ public class EventImpl extends MinimalEObjectImpl.Container implements Event {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setSubEventLogic(LogicOperation newSubEventLogic) {
 		LogicOperation oldSubEventLogic = subEventLogic;
 		subEventLogic = newSubEventLogic == null ? SUB_EVENT_LOGIC_EDEFAULT : newSubEventLogic;
@@ -442,6 +542,7 @@ public class EventImpl extends MinimalEObjectImpl.Container implements Event {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EObject getRelatedEMV2Object() {
 		if (relatedEMV2Object != null && relatedEMV2Object.eIsProxy()) {
 			InternalEObject oldRelatedEMV2Object = (InternalEObject)relatedEMV2Object;
@@ -468,6 +569,7 @@ public class EventImpl extends MinimalEObjectImpl.Container implements Event {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setRelatedEMV2Object(EObject newRelatedEMV2Object) {
 		EObject oldRelatedEMV2Object = relatedEMV2Object;
 		relatedEMV2Object = newRelatedEMV2Object;
@@ -480,6 +582,28 @@ public class EventImpl extends MinimalEObjectImpl.Container implements Event {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public boolean isSharedEvent() {
+		return sharedEvent;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setSharedEvent(boolean newSharedEvent) {
+		boolean oldSharedEvent = sharedEvent;
+		sharedEvent = newSharedEvent;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, FaultTreePackage.EVENT__SHARED_EVENT, oldSharedEvent, sharedEvent));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
 	public EObject getRelatedErrorType() {
 		if (relatedErrorType != null && relatedErrorType.eIsProxy()) {
 			InternalEObject oldRelatedErrorType = (InternalEObject)relatedErrorType;
@@ -506,6 +630,7 @@ public class EventImpl extends MinimalEObjectImpl.Container implements Event {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setRelatedErrorType(EObject newRelatedErrorType) {
 		EObject oldRelatedErrorType = relatedErrorType;
 		relatedErrorType = newRelatedErrorType;
@@ -529,8 +654,10 @@ public class EventImpl extends MinimalEObjectImpl.Container implements Event {
 				return getSubEvents();
 			case FaultTreePackage.EVENT__K:
 				return getK();
-			case FaultTreePackage.EVENT__PROBABILITY:
-				return getProbability();
+			case FaultTreePackage.EVENT__ASSIGNED_PROBABILITY:
+				return getAssignedProbability();
+			case FaultTreePackage.EVENT__COMPUTED_PROBABILITY:
+				return getComputedProbability();
 			case FaultTreePackage.EVENT__RELATED_INSTANCE_OBJECT:
 				if (resolve) return getRelatedInstanceObject();
 				return basicGetRelatedInstanceObject();
@@ -546,6 +673,8 @@ public class EventImpl extends MinimalEObjectImpl.Container implements Event {
 			case FaultTreePackage.EVENT__RELATED_EMV2_OBJECT:
 				if (resolve) return getRelatedEMV2Object();
 				return basicGetRelatedEMV2Object();
+			case FaultTreePackage.EVENT__SHARED_EVENT:
+				return isSharedEvent();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -572,8 +701,11 @@ public class EventImpl extends MinimalEObjectImpl.Container implements Event {
 			case FaultTreePackage.EVENT__K:
 				setK((Integer)newValue);
 				return;
-			case FaultTreePackage.EVENT__PROBABILITY:
-				setProbability((Double)newValue);
+			case FaultTreePackage.EVENT__ASSIGNED_PROBABILITY:
+				setAssignedProbability((Double)newValue);
+				return;
+			case FaultTreePackage.EVENT__COMPUTED_PROBABILITY:
+				setComputedProbability((Double)newValue);
 				return;
 			case FaultTreePackage.EVENT__RELATED_INSTANCE_OBJECT:
 				setRelatedInstanceObject((EObject)newValue);
@@ -592,6 +724,9 @@ public class EventImpl extends MinimalEObjectImpl.Container implements Event {
 				return;
 			case FaultTreePackage.EVENT__RELATED_EMV2_OBJECT:
 				setRelatedEMV2Object((EObject)newValue);
+				return;
+			case FaultTreePackage.EVENT__SHARED_EVENT:
+				setSharedEvent((Boolean)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -617,8 +752,11 @@ public class EventImpl extends MinimalEObjectImpl.Container implements Event {
 			case FaultTreePackage.EVENT__K:
 				setK(K_EDEFAULT);
 				return;
-			case FaultTreePackage.EVENT__PROBABILITY:
-				setProbability(PROBABILITY_EDEFAULT);
+			case FaultTreePackage.EVENT__ASSIGNED_PROBABILITY:
+				setAssignedProbability(ASSIGNED_PROBABILITY_EDEFAULT);
+				return;
+			case FaultTreePackage.EVENT__COMPUTED_PROBABILITY:
+				setComputedProbability(COMPUTED_PROBABILITY_EDEFAULT);
 				return;
 			case FaultTreePackage.EVENT__RELATED_INSTANCE_OBJECT:
 				setRelatedInstanceObject((EObject)null);
@@ -637,6 +775,9 @@ public class EventImpl extends MinimalEObjectImpl.Container implements Event {
 				return;
 			case FaultTreePackage.EVENT__RELATED_EMV2_OBJECT:
 				setRelatedEMV2Object((EObject)null);
+				return;
+			case FaultTreePackage.EVENT__SHARED_EVENT:
+				setSharedEvent(SHARED_EVENT_EDEFAULT);
 				return;
 		}
 		super.eUnset(featureID);
@@ -658,8 +799,10 @@ public class EventImpl extends MinimalEObjectImpl.Container implements Event {
 				return subEvents != null && !subEvents.isEmpty();
 			case FaultTreePackage.EVENT__K:
 				return k != K_EDEFAULT;
-			case FaultTreePackage.EVENT__PROBABILITY:
-				return probability != PROBABILITY_EDEFAULT;
+			case FaultTreePackage.EVENT__ASSIGNED_PROBABILITY:
+				return assignedProbability != ASSIGNED_PROBABILITY_EDEFAULT;
+			case FaultTreePackage.EVENT__COMPUTED_PROBABILITY:
+				return computedProbability != COMPUTED_PROBABILITY_EDEFAULT;
 			case FaultTreePackage.EVENT__RELATED_INSTANCE_OBJECT:
 				return relatedInstanceObject != null;
 			case FaultTreePackage.EVENT__RELATED_ERROR_TYPE:
@@ -672,8 +815,24 @@ public class EventImpl extends MinimalEObjectImpl.Container implements Event {
 				return subEventLogic != SUB_EVENT_LOGIC_EDEFAULT;
 			case FaultTreePackage.EVENT__RELATED_EMV2_OBJECT:
 				return relatedEMV2Object != null;
+			case FaultTreePackage.EVENT__SHARED_EVENT:
+				return sharedEvent != SHARED_EVENT_EDEFAULT;
 		}
 		return super.eIsSet(featureID);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Object eInvoke(int operationID, EList<?> arguments) throws InvocationTargetException {
+		switch (operationID) {
+			case FaultTreePackage.EVENT___GET_PROBABILITY:
+				return getProbability();
+		}
+		return super.eInvoke(operationID, arguments);
 	}
 
 	/**
@@ -692,14 +851,18 @@ public class EventImpl extends MinimalEObjectImpl.Container implements Event {
 		result.append(description);
 		result.append(", k: ");
 		result.append(k);
-		result.append(", probability: ");
-		result.append(probability);
+		result.append(", assignedProbability: ");
+		result.append(assignedProbability);
+		result.append(", computedProbability: ");
+		result.append(computedProbability);
 		result.append(", referenceCount: ");
 		result.append(referenceCount);
 		result.append(", type: ");
 		result.append(type);
 		result.append(", subEventLogic: ");
 		result.append(subEventLogic);
+		result.append(", sharedEvent: ");
+		result.append(sharedEvent);
 		result.append(')');
 		return result.toString();
 	}

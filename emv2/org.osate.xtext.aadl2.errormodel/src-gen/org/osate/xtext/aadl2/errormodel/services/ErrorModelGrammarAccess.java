@@ -3663,50 +3663,50 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 
 	public class QualifiedPropagationPointElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "org.osate.xtext.aadl2.errormodel.ErrorModel.QualifiedPropagationPoint");
-		private final Group cGroup = (Group)rule.eContents().get(1);
-		private final Assignment cSubcomponentAssignment_0 = (Assignment)cGroup.eContents().get(0);
-		private final RuleCall cSubcomponentSubcomponentElementParserRuleCall_0_0 = (RuleCall)cSubcomponentAssignment_0.eContents().get(0);
-		private final Keyword cFullStopKeyword_1 = (Keyword)cGroup.eContents().get(1);
-		private final Alternatives cAlternatives_2 = (Alternatives)cGroup.eContents().get(2);
-		private final Assignment cNextAssignment_2_0 = (Assignment)cAlternatives_2.eContents().get(0);
-		private final RuleCall cNextQualifiedPropagationPointParserRuleCall_2_0_0 = (RuleCall)cNextAssignment_2_0.eContents().get(0);
-		private final Assignment cPropagationPointAssignment_2_1 = (Assignment)cAlternatives_2.eContents().get(1);
-		private final CrossReference cPropagationPointPropagationPointCrossReference_2_1_0 = (CrossReference)cPropagationPointAssignment_2_1.eContents().get(0);
-		private final RuleCall cPropagationPointPropagationPointIDTerminalRuleCall_2_1_0_1 = (RuleCall)cPropagationPointPropagationPointCrossReference_2_1_0.eContents().get(1);
+		private final Alternatives cAlternatives = (Alternatives)rule.eContents().get(1);
+		private final Group cGroup_0 = (Group)cAlternatives.eContents().get(0);
+		private final Assignment cSubcomponentAssignment_0_0 = (Assignment)cGroup_0.eContents().get(0);
+		private final RuleCall cSubcomponentSubcomponentElementParserRuleCall_0_0_0 = (RuleCall)cSubcomponentAssignment_0_0.eContents().get(0);
+		private final Keyword cFullStopKeyword_0_1 = (Keyword)cGroup_0.eContents().get(1);
+		private final Assignment cNextAssignment_0_2 = (Assignment)cGroup_0.eContents().get(2);
+		private final RuleCall cNextQualifiedPropagationPointParserRuleCall_0_2_0 = (RuleCall)cNextAssignment_0_2.eContents().get(0);
+		private final Assignment cPropagationPointAssignment_1 = (Assignment)cAlternatives.eContents().get(1);
+		private final CrossReference cPropagationPointPropagationPointCrossReference_1_0 = (CrossReference)cPropagationPointAssignment_1.eContents().get(0);
+		private final RuleCall cPropagationPointPropagationPointIDTerminalRuleCall_1_0_1 = (RuleCall)cPropagationPointPropagationPointCrossReference_1_0.eContents().get(1);
 		
 		//QualifiedPropagationPoint:
-		//	subcomponent=SubcomponentElement '.' (next=QualifiedPropagationPoint | propagationPoint=[PropagationPoint]);
+		//	subcomponent=SubcomponentElement '.' next=QualifiedPropagationPoint | propagationPoint=[PropagationPoint];
 		@Override public ParserRule getRule() { return rule; }
 
-		//subcomponent=SubcomponentElement '.' (next=QualifiedPropagationPoint | propagationPoint=[PropagationPoint])
-		public Group getGroup() { return cGroup; }
+		//subcomponent=SubcomponentElement '.' next=QualifiedPropagationPoint | propagationPoint=[PropagationPoint]
+		public Alternatives getAlternatives() { return cAlternatives; }
+
+		//subcomponent=SubcomponentElement '.' next=QualifiedPropagationPoint
+		public Group getGroup_0() { return cGroup_0; }
 
 		//subcomponent=SubcomponentElement
-		public Assignment getSubcomponentAssignment_0() { return cSubcomponentAssignment_0; }
+		public Assignment getSubcomponentAssignment_0_0() { return cSubcomponentAssignment_0_0; }
 
 		//SubcomponentElement
-		public RuleCall getSubcomponentSubcomponentElementParserRuleCall_0_0() { return cSubcomponentSubcomponentElementParserRuleCall_0_0; }
+		public RuleCall getSubcomponentSubcomponentElementParserRuleCall_0_0_0() { return cSubcomponentSubcomponentElementParserRuleCall_0_0_0; }
 
 		//'.'
-		public Keyword getFullStopKeyword_1() { return cFullStopKeyword_1; }
-
-		//next=QualifiedPropagationPoint | propagationPoint=[PropagationPoint]
-		public Alternatives getAlternatives_2() { return cAlternatives_2; }
+		public Keyword getFullStopKeyword_0_1() { return cFullStopKeyword_0_1; }
 
 		//next=QualifiedPropagationPoint
-		public Assignment getNextAssignment_2_0() { return cNextAssignment_2_0; }
+		public Assignment getNextAssignment_0_2() { return cNextAssignment_0_2; }
 
 		//QualifiedPropagationPoint
-		public RuleCall getNextQualifiedPropagationPointParserRuleCall_2_0_0() { return cNextQualifiedPropagationPointParserRuleCall_2_0_0; }
+		public RuleCall getNextQualifiedPropagationPointParserRuleCall_0_2_0() { return cNextQualifiedPropagationPointParserRuleCall_0_2_0; }
 
 		//propagationPoint=[PropagationPoint]
-		public Assignment getPropagationPointAssignment_2_1() { return cPropagationPointAssignment_2_1; }
+		public Assignment getPropagationPointAssignment_1() { return cPropagationPointAssignment_1; }
 
 		//[PropagationPoint]
-		public CrossReference getPropagationPointPropagationPointCrossReference_2_1_0() { return cPropagationPointPropagationPointCrossReference_2_1_0; }
+		public CrossReference getPropagationPointPropagationPointCrossReference_1_0() { return cPropagationPointPropagationPointCrossReference_1_0; }
 
 		//ID
-		public RuleCall getPropagationPointPropagationPointIDTerminalRuleCall_2_1_0_1() { return cPropagationPointPropagationPointIDTerminalRuleCall_2_1_0_1; }
+		public RuleCall getPropagationPointPropagationPointIDTerminalRuleCall_1_0_1() { return cPropagationPointPropagationPointIDTerminalRuleCall_1_0_1; }
 	}
 
 	public class ErrorBehaviorStateMachineElements extends AbstractParserRuleElementFinder {
@@ -7415,7 +7415,7 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//QualifiedPropagationPoint:
-	//	subcomponent=SubcomponentElement '.' (next=QualifiedPropagationPoint | propagationPoint=[PropagationPoint]);
+	//	subcomponent=SubcomponentElement '.' next=QualifiedPropagationPoint | propagationPoint=[PropagationPoint];
 	public QualifiedPropagationPointElements getQualifiedPropagationPointAccess() {
 		return pQualifiedPropagationPoint;
 	}

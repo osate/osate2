@@ -22,6 +22,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
 import org.osate.aadl2.errormodel.FaultTree.Event;
 import org.osate.aadl2.errormodel.FaultTree.FaultTree;
 import org.osate.aadl2.errormodel.FaultTree.FaultTreePackage;
+import org.osate.aadl2.errormodel.FaultTree.FaultTreeType;
 
 /**
  * <!-- begin-user-doc -->
@@ -33,9 +34,10 @@ import org.osate.aadl2.errormodel.FaultTree.FaultTreePackage;
  * <ul>
  *   <li>{@link org.osate.aadl2.errormodel.FaultTree.impl.FaultTreeImpl#getName <em>Name</em>}</li>
  *   <li>{@link org.osate.aadl2.errormodel.FaultTree.impl.FaultTreeImpl#getDescription <em>Description</em>}</li>
- *   <li>{@link org.osate.aadl2.errormodel.FaultTree.impl.FaultTreeImpl#getEvents <em>Events</em>}</li>
+ *   <li>{@link org.osate.aadl2.errormodel.FaultTree.impl.FaultTreeImpl#getFaultTreeType <em>Fault Tree Type</em>}</li>
  *   <li>{@link org.osate.aadl2.errormodel.FaultTree.impl.FaultTreeImpl#getRoot <em>Root</em>}</li>
  *   <li>{@link org.osate.aadl2.errormodel.FaultTree.impl.FaultTreeImpl#getInstanceRoot <em>Instance Root</em>}</li>
+ *   <li>{@link org.osate.aadl2.errormodel.FaultTree.impl.FaultTreeImpl#getEvents <em>Events</em>}</li>
  * </ul>
  *
  * @generated
@@ -82,14 +84,24 @@ public class FaultTreeImpl extends MinimalEObjectImpl.Container implements Fault
 	protected String description = DESCRIPTION_EDEFAULT;
 
 	/**
-	 * The cached value of the '{@link #getEvents() <em>Events</em>}' containment reference list.
+	 * The default value of the '{@link #getFaultTreeType() <em>Fault Tree Type</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getEvents()
+	 * @see #getFaultTreeType()
 	 * @generated
 	 * @ordered
 	 */
-	protected EList<Event> events;
+	protected static final FaultTreeType FAULT_TREE_TYPE_EDEFAULT = FaultTreeType.FAULT_TREE;
+
+	/**
+	 * The cached value of the '{@link #getFaultTreeType() <em>Fault Tree Type</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getFaultTreeType()
+	 * @generated
+	 * @ordered
+	 */
+	protected FaultTreeType faultTreeType = FAULT_TREE_TYPE_EDEFAULT;
 
 	/**
 	 * The cached value of the '{@link #getRoot() <em>Root</em>}' reference.
@@ -110,6 +122,16 @@ public class FaultTreeImpl extends MinimalEObjectImpl.Container implements Fault
 	 * @ordered
 	 */
 	protected EObject instanceRoot;
+
+	/**
+	 * The cached value of the '{@link #getEvents() <em>Events</em>}' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getEvents()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<Event> events;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -170,6 +192,27 @@ public class FaultTreeImpl extends MinimalEObjectImpl.Container implements Fault
 		description = newDescription;
 		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, FaultTreePackage.FAULT_TREE__DESCRIPTION, oldDescription, description));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public FaultTreeType getFaultTreeType() {
+		return faultTreeType;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setFaultTreeType(FaultTreeType newFaultTreeType) {
+		FaultTreeType oldFaultTreeType = faultTreeType;
+		faultTreeType = newFaultTreeType == null ? FAULT_TREE_TYPE_EDEFAULT : newFaultTreeType;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, FaultTreePackage.FAULT_TREE__FAULT_TREE_TYPE, oldFaultTreeType, faultTreeType));
 	}
 
 	/**
@@ -286,14 +329,16 @@ public class FaultTreeImpl extends MinimalEObjectImpl.Container implements Fault
 				return getName();
 			case FaultTreePackage.FAULT_TREE__DESCRIPTION:
 				return getDescription();
-			case FaultTreePackage.FAULT_TREE__EVENTS:
-				return getEvents();
+			case FaultTreePackage.FAULT_TREE__FAULT_TREE_TYPE:
+				return getFaultTreeType();
 			case FaultTreePackage.FAULT_TREE__ROOT:
 				if (resolve) return getRoot();
 				return basicGetRoot();
 			case FaultTreePackage.FAULT_TREE__INSTANCE_ROOT:
 				if (resolve) return getInstanceRoot();
 				return basicGetInstanceRoot();
+			case FaultTreePackage.FAULT_TREE__EVENTS:
+				return getEvents();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -313,15 +358,18 @@ public class FaultTreeImpl extends MinimalEObjectImpl.Container implements Fault
 			case FaultTreePackage.FAULT_TREE__DESCRIPTION:
 				setDescription((String)newValue);
 				return;
-			case FaultTreePackage.FAULT_TREE__EVENTS:
-				getEvents().clear();
-				getEvents().addAll((Collection<? extends Event>)newValue);
+			case FaultTreePackage.FAULT_TREE__FAULT_TREE_TYPE:
+				setFaultTreeType((FaultTreeType)newValue);
 				return;
 			case FaultTreePackage.FAULT_TREE__ROOT:
 				setRoot((Event)newValue);
 				return;
 			case FaultTreePackage.FAULT_TREE__INSTANCE_ROOT:
 				setInstanceRoot((EObject)newValue);
+				return;
+			case FaultTreePackage.FAULT_TREE__EVENTS:
+				getEvents().clear();
+				getEvents().addAll((Collection<? extends Event>)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -341,14 +389,17 @@ public class FaultTreeImpl extends MinimalEObjectImpl.Container implements Fault
 			case FaultTreePackage.FAULT_TREE__DESCRIPTION:
 				setDescription(DESCRIPTION_EDEFAULT);
 				return;
-			case FaultTreePackage.FAULT_TREE__EVENTS:
-				getEvents().clear();
+			case FaultTreePackage.FAULT_TREE__FAULT_TREE_TYPE:
+				setFaultTreeType(FAULT_TREE_TYPE_EDEFAULT);
 				return;
 			case FaultTreePackage.FAULT_TREE__ROOT:
 				setRoot((Event)null);
 				return;
 			case FaultTreePackage.FAULT_TREE__INSTANCE_ROOT:
 				setInstanceRoot((EObject)null);
+				return;
+			case FaultTreePackage.FAULT_TREE__EVENTS:
+				getEvents().clear();
 				return;
 		}
 		super.eUnset(featureID);
@@ -366,12 +417,14 @@ public class FaultTreeImpl extends MinimalEObjectImpl.Container implements Fault
 				return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
 			case FaultTreePackage.FAULT_TREE__DESCRIPTION:
 				return DESCRIPTION_EDEFAULT == null ? description != null : !DESCRIPTION_EDEFAULT.equals(description);
-			case FaultTreePackage.FAULT_TREE__EVENTS:
-				return events != null && !events.isEmpty();
+			case FaultTreePackage.FAULT_TREE__FAULT_TREE_TYPE:
+				return faultTreeType != FAULT_TREE_TYPE_EDEFAULT;
 			case FaultTreePackage.FAULT_TREE__ROOT:
 				return root != null;
 			case FaultTreePackage.FAULT_TREE__INSTANCE_ROOT:
 				return instanceRoot != null;
+			case FaultTreePackage.FAULT_TREE__EVENTS:
+				return events != null && !events.isEmpty();
 		}
 		return super.eIsSet(featureID);
 	}
@@ -390,6 +443,8 @@ public class FaultTreeImpl extends MinimalEObjectImpl.Container implements Fault
 		result.append(name);
 		result.append(", description: ");
 		result.append(description);
+		result.append(", faultTreeType: ");
+		result.append(faultTreeType);
 		result.append(')');
 		return result.toString();
 	}

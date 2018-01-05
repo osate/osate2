@@ -18,13 +18,15 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link org.osate.aadl2.errormodel.FaultTree.Event#getDescription <em>Description</em>}</li>
  *   <li>{@link org.osate.aadl2.errormodel.FaultTree.Event#getSubEvents <em>Sub Events</em>}</li>
  *   <li>{@link org.osate.aadl2.errormodel.FaultTree.Event#getK <em>K</em>}</li>
- *   <li>{@link org.osate.aadl2.errormodel.FaultTree.Event#getProbability <em>Probability</em>}</li>
+ *   <li>{@link org.osate.aadl2.errormodel.FaultTree.Event#getAssignedProbability <em>Assigned Probability</em>}</li>
+ *   <li>{@link org.osate.aadl2.errormodel.FaultTree.Event#getComputedProbability <em>Computed Probability</em>}</li>
  *   <li>{@link org.osate.aadl2.errormodel.FaultTree.Event#getRelatedInstanceObject <em>Related Instance Object</em>}</li>
  *   <li>{@link org.osate.aadl2.errormodel.FaultTree.Event#getRelatedErrorType <em>Related Error Type</em>}</li>
  *   <li>{@link org.osate.aadl2.errormodel.FaultTree.Event#getReferenceCount <em>Reference Count</em>}</li>
  *   <li>{@link org.osate.aadl2.errormodel.FaultTree.Event#getType <em>Type</em>}</li>
  *   <li>{@link org.osate.aadl2.errormodel.FaultTree.Event#getSubEventLogic <em>Sub Event Logic</em>}</li>
  *   <li>{@link org.osate.aadl2.errormodel.FaultTree.Event#getRelatedEMV2Object <em>Related EMV2 Object</em>}</li>
+ *   <li>{@link org.osate.aadl2.errormodel.FaultTree.Event#isSharedEvent <em>Shared Event</em>}</li>
  * </ul>
  *
  * @see org.osate.aadl2.errormodel.FaultTree.FaultTreePackage#getEvent()
@@ -128,30 +130,68 @@ public interface Event extends EObject {
 	void setK(int value);
 
 	/**
-	 * Returns the value of the '<em><b>Probability</b></em>' attribute.
+	 * Returns the value of the '<em><b>Assigned Probability</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Assigned Probability</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Assigned Probability</em>' attribute.
+	 * @see #setAssignedProbability(double)
+	 * @see org.osate.aadl2.errormodel.FaultTree.FaultTreePackage#getEvent_AssignedProbability()
+	 * @model
+	 * @generated
+	 */
+	double getAssignedProbability();
+
+	/**
+	 * Sets the value of the '{@link org.osate.aadl2.errormodel.FaultTree.Event#getAssignedProbability <em>Assigned Probability</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Assigned Probability</em>' attribute.
+	 * @see #getAssignedProbability()
+	 * @generated
+	 */
+	void setAssignedProbability(double value);
+
+	/**
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Probability</em>' attribute isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Probability</em>' attribute.
-	 * @see #setProbability(double)
-	 * @see org.osate.aadl2.errormodel.FaultTree.FaultTreePackage#getEvent_Probability()
-	 * @model
+	 * @model kind="operation"
 	 * @generated
 	 */
 	double getProbability();
 
 	/**
-	 * Sets the value of the '{@link org.osate.aadl2.errormodel.FaultTree.Event#getProbability <em>Probability</em>}' attribute.
+	 * Returns the value of the '<em><b>Computed Probability</b></em>' attribute.
 	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Computed Probability</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
 	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Probability</em>' attribute.
-	 * @see #getProbability()
+	 * @return the value of the '<em>Computed Probability</em>' attribute.
+	 * @see #setComputedProbability(double)
+	 * @see org.osate.aadl2.errormodel.FaultTree.FaultTreePackage#getEvent_ComputedProbability()
+	 * @model
 	 * @generated
 	 */
-	void setProbability(double value);
+	double getComputedProbability();
+
+	/**
+	 * Sets the value of the '{@link org.osate.aadl2.errormodel.FaultTree.Event#getComputedProbability <em>Computed Probability</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Computed Probability</em>' attribute.
+	 * @see #getComputedProbability()
+	 * @generated
+	 */
+	void setComputedProbability(double value);
 
 	/**
 	 * Returns the value of the '<em><b>Related Instance Object</b></em>' reference.
@@ -289,6 +329,33 @@ public interface Event extends EObject {
 	 * @generated
 	 */
 	void setRelatedEMV2Object(EObject value);
+
+	/**
+	 * Returns the value of the '<em><b>Shared Event</b></em>' attribute.
+	 * The default value is <code>"false"</code>.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Shared Event</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Shared Event</em>' attribute.
+	 * @see #setSharedEvent(boolean)
+	 * @see org.osate.aadl2.errormodel.FaultTree.FaultTreePackage#getEvent_SharedEvent()
+	 * @model default="false"
+	 * @generated
+	 */
+	boolean isSharedEvent();
+
+	/**
+	 * Sets the value of the '{@link org.osate.aadl2.errormodel.FaultTree.Event#isSharedEvent <em>Shared Event</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Shared Event</em>' attribute.
+	 * @see #isSharedEvent()
+	 * @generated
+	 */
+	void setSharedEvent(boolean value);
 
 	/**
 	 * Returns the value of the '<em><b>Related Error Type</b></em>' reference.

@@ -12680,7 +12680,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleQualifiedPropagationPoint"
-    // InternalErrorModelParser.g:4885:1: ruleQualifiedPropagationPoint returns [EObject current=null] : ( ( (lv_subcomponent_0_0= ruleSubcomponentElement ) ) otherlv_1= FullStop ( ( (lv_next_2_0= ruleQualifiedPropagationPoint ) ) | ( (otherlv_3= RULE_ID ) ) ) ) ;
+    // InternalErrorModelParser.g:4885:1: ruleQualifiedPropagationPoint returns [EObject current=null] : ( ( ( (lv_subcomponent_0_0= ruleSubcomponentElement ) ) otherlv_1= FullStop ( (lv_next_2_0= ruleQualifiedPropagationPoint ) ) ) | ( (otherlv_3= RULE_ID ) ) ) ;
     public final EObject ruleQualifiedPropagationPoint() throws RecognitionException {
         EObject current = null;
 
@@ -12694,59 +12694,21 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // InternalErrorModelParser.g:4888:28: ( ( ( (lv_subcomponent_0_0= ruleSubcomponentElement ) ) otherlv_1= FullStop ( ( (lv_next_2_0= ruleQualifiedPropagationPoint ) ) | ( (otherlv_3= RULE_ID ) ) ) ) )
-            // InternalErrorModelParser.g:4889:1: ( ( (lv_subcomponent_0_0= ruleSubcomponentElement ) ) otherlv_1= FullStop ( ( (lv_next_2_0= ruleQualifiedPropagationPoint ) ) | ( (otherlv_3= RULE_ID ) ) ) )
+            // InternalErrorModelParser.g:4888:28: ( ( ( ( (lv_subcomponent_0_0= ruleSubcomponentElement ) ) otherlv_1= FullStop ( (lv_next_2_0= ruleQualifiedPropagationPoint ) ) ) | ( (otherlv_3= RULE_ID ) ) ) )
+            // InternalErrorModelParser.g:4889:1: ( ( ( (lv_subcomponent_0_0= ruleSubcomponentElement ) ) otherlv_1= FullStop ( (lv_next_2_0= ruleQualifiedPropagationPoint ) ) ) | ( (otherlv_3= RULE_ID ) ) )
             {
-            // InternalErrorModelParser.g:4889:1: ( ( (lv_subcomponent_0_0= ruleSubcomponentElement ) ) otherlv_1= FullStop ( ( (lv_next_2_0= ruleQualifiedPropagationPoint ) ) | ( (otherlv_3= RULE_ID ) ) ) )
-            // InternalErrorModelParser.g:4889:2: ( (lv_subcomponent_0_0= ruleSubcomponentElement ) ) otherlv_1= FullStop ( ( (lv_next_2_0= ruleQualifiedPropagationPoint ) ) | ( (otherlv_3= RULE_ID ) ) )
-            {
-            // InternalErrorModelParser.g:4889:2: ( (lv_subcomponent_0_0= ruleSubcomponentElement ) )
-            // InternalErrorModelParser.g:4890:1: (lv_subcomponent_0_0= ruleSubcomponentElement )
-            {
-            // InternalErrorModelParser.g:4890:1: (lv_subcomponent_0_0= ruleSubcomponentElement )
-            // InternalErrorModelParser.g:4891:3: lv_subcomponent_0_0= ruleSubcomponentElement
-            {
-             
-            	        newCompositeNode(grammarAccess.getQualifiedPropagationPointAccess().getSubcomponentSubcomponentElementParserRuleCall_0_0()); 
-            	    
-            pushFollow(FOLLOW_73);
-            lv_subcomponent_0_0=ruleSubcomponentElement();
-
-            state._fsp--;
-
-
-            	        if (current==null) {
-            	            current = createModelElementForParent(grammarAccess.getQualifiedPropagationPointRule());
-            	        }
-                   		set(
-                   			current, 
-                   			"subcomponent",
-                    		lv_subcomponent_0_0, 
-                    		"org.osate.xtext.aadl2.errormodel.ErrorModel.SubcomponentElement");
-            	        afterParserOrEnumRuleCall();
-            	    
-
-            }
-
-
-            }
-
-            otherlv_1=(Token)match(input,FullStop,FOLLOW_4); 
-
-                	newLeafNode(otherlv_1, grammarAccess.getQualifiedPropagationPointAccess().getFullStopKeyword_1());
-                
-            // InternalErrorModelParser.g:4912:1: ( ( (lv_next_2_0= ruleQualifiedPropagationPoint ) ) | ( (otherlv_3= RULE_ID ) ) )
+            // InternalErrorModelParser.g:4889:1: ( ( ( (lv_subcomponent_0_0= ruleSubcomponentElement ) ) otherlv_1= FullStop ( (lv_next_2_0= ruleQualifiedPropagationPoint ) ) ) | ( (otherlv_3= RULE_ID ) ) )
             int alt149=2;
             int LA149_0 = input.LA(1);
 
             if ( (LA149_0==RULE_ID) ) {
                 int LA149_1 = input.LA(2);
 
-                if ( (LA149_1==FullStop) ) {
-                    alt149=1;
-                }
-                else if ( (LA149_1==EOF||LA149_1==HyphenMinusGreaterThanSign||LA149_1==Semicolon) ) {
+                if ( (LA149_1==EOF||LA149_1==HyphenMinusGreaterThanSign||LA149_1==Semicolon) ) {
                     alt149=2;
+                }
+                else if ( (LA149_1==FullStop) ) {
+                    alt149=1;
                 }
                 else {
                     NoViableAltException nvae =
@@ -12763,16 +12725,54 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
             }
             switch (alt149) {
                 case 1 :
-                    // InternalErrorModelParser.g:4912:2: ( (lv_next_2_0= ruleQualifiedPropagationPoint ) )
+                    // InternalErrorModelParser.g:4889:2: ( ( (lv_subcomponent_0_0= ruleSubcomponentElement ) ) otherlv_1= FullStop ( (lv_next_2_0= ruleQualifiedPropagationPoint ) ) )
                     {
-                    // InternalErrorModelParser.g:4912:2: ( (lv_next_2_0= ruleQualifiedPropagationPoint ) )
+                    // InternalErrorModelParser.g:4889:2: ( ( (lv_subcomponent_0_0= ruleSubcomponentElement ) ) otherlv_1= FullStop ( (lv_next_2_0= ruleQualifiedPropagationPoint ) ) )
+                    // InternalErrorModelParser.g:4889:3: ( (lv_subcomponent_0_0= ruleSubcomponentElement ) ) otherlv_1= FullStop ( (lv_next_2_0= ruleQualifiedPropagationPoint ) )
+                    {
+                    // InternalErrorModelParser.g:4889:3: ( (lv_subcomponent_0_0= ruleSubcomponentElement ) )
+                    // InternalErrorModelParser.g:4890:1: (lv_subcomponent_0_0= ruleSubcomponentElement )
+                    {
+                    // InternalErrorModelParser.g:4890:1: (lv_subcomponent_0_0= ruleSubcomponentElement )
+                    // InternalErrorModelParser.g:4891:3: lv_subcomponent_0_0= ruleSubcomponentElement
+                    {
+                     
+                    	        newCompositeNode(grammarAccess.getQualifiedPropagationPointAccess().getSubcomponentSubcomponentElementParserRuleCall_0_0_0()); 
+                    	    
+                    pushFollow(FOLLOW_73);
+                    lv_subcomponent_0_0=ruleSubcomponentElement();
+
+                    state._fsp--;
+
+
+                    	        if (current==null) {
+                    	            current = createModelElementForParent(grammarAccess.getQualifiedPropagationPointRule());
+                    	        }
+                           		set(
+                           			current, 
+                           			"subcomponent",
+                            		lv_subcomponent_0_0, 
+                            		"org.osate.xtext.aadl2.errormodel.ErrorModel.SubcomponentElement");
+                    	        afterParserOrEnumRuleCall();
+                    	    
+
+                    }
+
+
+                    }
+
+                    otherlv_1=(Token)match(input,FullStop,FOLLOW_4); 
+
+                        	newLeafNode(otherlv_1, grammarAccess.getQualifiedPropagationPointAccess().getFullStopKeyword_0_1());
+                        
+                    // InternalErrorModelParser.g:4912:1: ( (lv_next_2_0= ruleQualifiedPropagationPoint ) )
                     // InternalErrorModelParser.g:4913:1: (lv_next_2_0= ruleQualifiedPropagationPoint )
                     {
                     // InternalErrorModelParser.g:4913:1: (lv_next_2_0= ruleQualifiedPropagationPoint )
                     // InternalErrorModelParser.g:4914:3: lv_next_2_0= ruleQualifiedPropagationPoint
                     {
                      
-                    	        newCompositeNode(grammarAccess.getQualifiedPropagationPointAccess().getNextQualifiedPropagationPointParserRuleCall_2_0_0()); 
+                    	        newCompositeNode(grammarAccess.getQualifiedPropagationPointAccess().getNextQualifiedPropagationPointParserRuleCall_0_2_0()); 
                     	    
                     pushFollow(FOLLOW_2);
                     lv_next_2_0=ruleQualifiedPropagationPoint();
@@ -12798,6 +12798,9 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
 
                     }
+
+
+                    }
                     break;
                 case 2 :
                     // InternalErrorModelParser.g:4931:6: ( (otherlv_3= RULE_ID ) )
@@ -12815,7 +12818,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
                             
                     otherlv_3=(Token)match(input,RULE_ID,FOLLOW_2); 
 
-                    		newLeafNode(otherlv_3, grammarAccess.getQualifiedPropagationPointAccess().getPropagationPointPropagationPointCrossReference_2_1_0()); 
+                    		newLeafNode(otherlv_3, grammarAccess.getQualifiedPropagationPointAccess().getPropagationPointPropagationPointCrossReference_1_0()); 
                     	
 
                     }
@@ -12826,9 +12829,6 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
                     }
                     break;
-
-            }
-
 
             }
 

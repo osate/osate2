@@ -76,6 +76,8 @@ public class FaultTreeFactoryImpl extends EFactoryImpl implements FaultTreeFacto
 				return createEventTypeFromString(eDataType, initialValue);
 			case FaultTreePackage.LOGIC_OPERATION:
 				return createLogicOperationFromString(eDataType, initialValue);
+			case FaultTreePackage.FAULT_TREE_TYPE:
+				return createFaultTreeTypeFromString(eDataType, initialValue);
 			default:
 				throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier");
 		}
@@ -93,6 +95,8 @@ public class FaultTreeFactoryImpl extends EFactoryImpl implements FaultTreeFacto
 				return convertEventTypeToString(eDataType, instanceValue);
 			case FaultTreePackage.LOGIC_OPERATION:
 				return convertLogicOperationToString(eDataType, instanceValue);
+			case FaultTreePackage.FAULT_TREE_TYPE:
+				return convertFaultTreeTypeToString(eDataType, instanceValue);
 			default:
 				throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier");
 		}
@@ -155,6 +159,26 @@ public class FaultTreeFactoryImpl extends EFactoryImpl implements FaultTreeFacto
 	 * @generated
 	 */
 	public String convertLogicOperationToString(EDataType eDataType, Object instanceValue) {
+		return instanceValue == null ? null : instanceValue.toString();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public FaultTreeType createFaultTreeTypeFromString(EDataType eDataType, String initialValue) {
+		FaultTreeType result = FaultTreeType.get(initialValue);
+		if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
+		return result;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String convertFaultTreeTypeToString(EDataType eDataType, Object instanceValue) {
 		return instanceValue == null ? null : instanceValue.toString();
 	}
 

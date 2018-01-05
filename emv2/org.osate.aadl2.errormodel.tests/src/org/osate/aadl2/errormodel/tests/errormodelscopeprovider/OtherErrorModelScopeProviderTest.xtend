@@ -89,57 +89,64 @@ class OtherErrorModelScopeProviderTest extends OsateTest {
 			"pkg".assertEquals(name)
 			publicSection => [
 				(ownedAnnexLibraries.head as DefaultAnnexLibrary).parsedAnnexLibrary as ErrorModelLibrary => [
-					//Tests scope_ErrorModelLibrary
+					// Tests scope_ErrorModelLibrary
 					assertScopeModelUnitNamesOnly(ErrorModelPackage.eINSTANCE.errorModelLibrary_UseTypes, #["pkg"])
-					//Tests scope_ErrorModelLibrary
+					// Tests scope_ErrorModelLibrary
 					assertScopeModelUnitNamesOnly(ErrorModelPackage.eINSTANCE.errorModelLibrary_Extends, #["pkg"])
 					behaviors.head => [
 						"b".assertEquals(name)
-						//Tests scope_ErrorModelLibrary
-						assertScopeModelUnitNamesOnly(ErrorModelPackage.eINSTANCE.errorBehaviorStateMachine_UseTypes, #["pkg"])
-						//Tests scope_TypeTransformationSet
-						assertScope(ErrorModelPackage.eINSTANCE.errorBehaviorStateMachine_UseTransformation, #["t", "pkg::t"])
+						// Tests scope_ErrorModelLibrary
+						assertScopeModelUnitNamesOnly(ErrorModelPackage.eINSTANCE.errorBehaviorStateMachine_UseTypes,
+							#["pkg"])
+						// Tests scope_TypeTransformationSet
+						assertScope(ErrorModelPackage.eINSTANCE.errorBehaviorStateMachine_UseTransformation,
+							#["t", "pkg::t"])
 					]
 					mappings.head => [
 						"m".assertEquals(name)
-						//Tests scope_ErrorModelLibrary
+						// Tests scope_ErrorModelLibrary
 						assertScopeModelUnitNamesOnly(ErrorModelPackage.eINSTANCE.typeMappingSet_UseTypes, #["pkg"])
 					]
 					transformations.head => [
 						"t".assertEquals(name)
-						//Tests scope_ErrorModelLibrary
-						assertScopeModelUnitNamesOnly(ErrorModelPackage.eINSTANCE.typeTransformationSet_UseTypes, #["pkg"])
+						// Tests scope_ErrorModelLibrary
+						assertScopeModelUnitNamesOnly(ErrorModelPackage.eINSTANCE.typeTransformationSet_UseTypes,
+							#["pkg"])
 					]
 				]
 				ownedClassifiers.head => [
 					"a".assertEquals(name)
-					(ownedAnnexSubclauses.head as DefaultAnnexSubclause).parsedAnnexSubclause as ErrorModelSubclause => [
-						//Tests scope_ErrorModelLibrary
-						assertScopeModelUnitNamesOnly(ErrorModelPackage.eINSTANCE.errorModelSubclause_UseTypes, #["pkg"])
-						//Tests scope_TypeMappingSet
-						assertScope(ErrorModelPackage.eINSTANCE.errorModelSubclause_TypeEquivalence, #["pkg::m"])
-						//Tests scope_TypeMappingSet
-						assertScope(ErrorModelPackage.eINSTANCE.errorModelSubclause_TypeMappingSet, #["pkg::m"])
-						//Tests scope_ErrorModelSubclause_useBehavior
-						assertScope(ErrorModelPackage.eINSTANCE.errorModelSubclause_UseBehavior, #["pkg::b"])
-						flows.head => [
-							"p".assertEquals(name)
-							assertWarning(testFileResult.issues, issueCollection, "Legacy support: please declare 'use mappings' at subclause level.")
-							//Tests scope_TypeMappingSet
-							assertScope(ErrorModelPackage.eINSTANCE.errorPath_TypeMappingSet, #["pkg::m"])
+					(ownedAnnexSubclauses.head as DefaultAnnexSubclause).parsedAnnexSubclause as ErrorModelSubclause =>
+						[
+							// Tests scope_ErrorModelLibrary
+							assertScopeModelUnitNamesOnly(ErrorModelPackage.eINSTANCE.errorModelSubclause_UseTypes,
+								#["pkg"])
+							// Tests scope_TypeMappingSet
+							assertScope(ErrorModelPackage.eINSTANCE.errorModelSubclause_TypeEquivalence, #["pkg::m"])
+							// Tests scope_TypeMappingSet
+							assertScope(ErrorModelPackage.eINSTANCE.errorModelSubclause_TypeMappingSet, #["pkg::m"])
+							// Tests scope_ErrorModelSubclause_useBehavior
+							assertScope(ErrorModelPackage.eINSTANCE.errorModelSubclause_UseBehavior, #["pkg::b"])
+							flows.head => [
+								"p".assertEquals(name)
+								assertWarning(testFileResult.issues, issueCollection,
+									"Legacy support: please declare 'use mappings' at subclause level.")
+								// Tests scope_TypeMappingSet
+								assertScope(ErrorModelPackage.eINSTANCE.errorPath_TypeMappingSet, #["pkg::m"])
+							]
+							// Tests scope_TypeTransformationSet
+							assertScope(ErrorModelPackage.eINSTANCE.errorModelSubclause_UseTransformation, #["pkg::t"])
+							// Tests scope_TypeTransformationSet
+							assertScope(ErrorModelPackage.eINSTANCE.errorModelSubclause_TypeTransformationSet,
+								#["pkg::t"])
 						]
-						//Tests scope_TypeTransformationSet
-						assertScope(ErrorModelPackage.eINSTANCE.errorModelSubclause_UseTransformation, #["pkg::t"])
-						//Tests scope_TypeTransformationSet
-						assertScope(ErrorModelPackage.eINSTANCE.errorModelSubclause_TypeTransformationSet, #["pkg::t"])
-					]
 				]
 			]
 		]
 		issueCollection.sizeIs(issueCollection.issues.size)
 		assertConstraints(issueCollection)
 	}
-	
+
 	/*
 	 * Tests ErrorModelScopeProvider.scope_FeatureorPPReference_featureorPP(Classifier, EReference),
 	 * ErrorModelScopeProvider.scope_FeatureorPPReference_featureorPP(FeatureorPPReference, EReference), and
@@ -191,17 +198,19 @@ class OtherErrorModelScopeProviderTest extends OsateTest {
 			"pkg".assertEquals(name)
 			publicSection.ownedClassifiers.get(1) as AbstractImplementation => [
 				"a.i".assertEquals(name)
-				((ownedAnnexSubclauses.head as DefaultAnnexSubclause).parsedAnnexSubclause as ErrorModelSubclause).propagations.head.featureorPPRef => [
+				((ownedAnnexSubclauses.head as DefaultAnnexSubclause).parsedAnnexSubclause as ErrorModelSubclause).
+					propagations.head.featureorPPRef => [
 					"fg1".assertEquals(featureorPP.name)
-					//Tests scope_FeatureorPPReference_featureorPP
-					assertScope(ErrorModelPackage.eINSTANCE.featureorPPReference_FeatureorPP, #["eds", "es", "fg1", "op1", "point1", "point2"])
+					// Tests scope_FeatureorPPReference_featureorPP
+					assertScope(ErrorModelPackage.eINSTANCE.featureorPPReference_FeatureorPP,
+						#["eds", "es", "fg1", "op1", "point1", "point2"])
 					next => [
 						"fg2".assertEquals(featureorPP.name)
-						//Tests scope_FeatureorPPReference_featureorPP
+						// Tests scope_FeatureorPPReference_featureorPP
 						assertScope(ErrorModelPackage.eINSTANCE.featureorPPReference_FeatureorPP, #["fg2", "op2"])
 						next => [
 							"op3".assertEquals(featureorPP.name)
-							//Tests scope_FeatureorPPReference_featureorPP
+							// Tests scope_FeatureorPPReference_featureorPP
 							assertScope(ErrorModelPackage.eINSTANCE.featureorPPReference_FeatureorPP, #["op3"])
 							next.assertNull
 						]
@@ -210,7 +219,7 @@ class OtherErrorModelScopeProviderTest extends OsateTest {
 			]
 		]
 	}
-	
+
 	/*
 	 * Tests scope_ErrorSource_outgoing, scope_ErrorSink_incoming, scope_ErrorPath_incoming, scope_ErrorPath_outgoing,
 	 * and scope_OutgoingPropagationCondition_outgoing
@@ -281,32 +290,32 @@ class OtherErrorModelScopeProviderTest extends OsateTest {
 					val incomingScope = #["p4", "p5", "fg1.p4", "fg1.fg2.p5", "memory", "binding"]
 					flows.get(0) => [
 						"errSource".assertEquals(name)
-						//Tests scope_ErrorSource_outgoing
+						// Tests scope_ErrorSource_outgoing
 						assertScope(ErrorModelPackage.eINSTANCE.errorSource_SourceModelElement, outgoingScope)
 					]
 					flows.get(1) => [
 						"errSink".assertEquals(name)
-						//Tests scope_ErrorSink_incoming
+						// Tests scope_ErrorSink_incoming
 						assertScope(ErrorModelPackage.eINSTANCE.errorSink_Incoming, incomingScope)
 					]
 					flows.get(2) => [
 						"errPath".assertEquals(name)
-						//Tests scope_ErrorPath_incoming
+						// Tests scope_ErrorPath_incoming
 						assertScope(ErrorModelPackage.eINSTANCE.errorPath_Incoming, incomingScope)
-						//Tests scope_ErrorPath_outgoing
+						// Tests scope_ErrorPath_outgoing
 						assertScope(ErrorModelPackage.eINSTANCE.errorPath_Outgoing, outgoingScope)
 					]
 					outgoingPropagationConditions.head => [
 						"condition1".assertEquals(name)
-						//Tests scope_OutgoingPropagationCondition_outgoing
+						// Tests scope_OutgoingPropagationCondition_outgoing
 						assertScope(ErrorModelPackage.eINSTANCE.outgoingPropagationCondition_Outgoing, outgoingScope)
 					]
 				]
 			]
 		]
 	}
-	
-	//Tests scope_ErrorSource_failureModeReference
+
+	// Tests scope_ErrorSource_failureModeReference
 	@Test
 	def void testErrorBehaviorStateOrTypeSetReference() {
 		val lib1FileName = "lib1.aadl"
@@ -348,16 +357,18 @@ class OtherErrorModelScopeProviderTest extends OsateTest {
 			"subclause1".assertEquals(name)
 			publicSection.ownedClassifiers.head => [
 				"a1".assertEquals(name)
-				((ownedAnnexSubclauses.head as DefaultAnnexSubclause).parsedAnnexSubclause as ErrorModelSubclause).flows.head as ErrorSource => [
+				((ownedAnnexSubclauses.head as DefaultAnnexSubclause).parsedAnnexSubclause as ErrorModelSubclause).
+					flows.head as ErrorSource => [
 					"errSource1".assertEquals(name)
-					//Tests scope_ErrorSource_failureModeReference
-					assertScope(ErrorModelPackage.eINSTANCE.errorSource_FailureModeReference, #["ts1", "bvr_state1", "bvr_state2"])
+					// Tests scope_ErrorSource_failureModeReference
+					assertScope(ErrorModelPackage.eINSTANCE.errorSource_FailureModeReference,
+						#["ts1", "bvr_state1", "bvr_state2"])
 				]
 			]
 		]
 	}
-	
-	//Tests scope_QualifiedPropagationPoint_propagationPoint
+
+	// Tests scope_QualifiedPropagationPoint_propagationPoint
 	@Test
 	def void testPropagationPointReference() {
 		val subclause1FileName = "subclause1.aadl"
@@ -439,17 +450,25 @@ class OtherErrorModelScopeProviderTest extends OsateTest {
 						"propPath1".assertEquals(name)
 						source => [
 							"asub1".assertEquals(subcomponent.subcomponent.name)
-							//Tests scope_QualifiedPropagationPoint_propagationPoint
-							assertScope(ErrorModelPackage.eINSTANCE.qualifiedPropagationPoint_PropagationPoint, #["point1"])
-							next.assertNull
+							// Tests scope_QualifiedPropagationPoint_propagationPoint
+							next => [
+								"point1".assertEquals(propagationPoint.name)
+								assertScope(ErrorModelPackage.eINSTANCE.qualifiedPropagationPoint_PropagationPoint,
+									#["point1"])
+								next.assertNull
+							]
 						]
 						target => [
 							"asub1".assertEquals(subcomponent.subcomponent.name)
 							next => [
 								"asub2".assertEquals(subcomponent.subcomponent.name)
-								//Tests scope_QualifiedPropagationPoint_propagationPoint
-								assertScope(ErrorModelPackage.eINSTANCE.qualifiedPropagationPoint_PropagationPoint, #["point2"])
-								next.assertNull
+								// Tests scope_QualifiedPropagationPoint_propagationPoint
+								next => [
+									"point2".assertEquals(propagationPoint.name)
+									assertScope(ErrorModelPackage.eINSTANCE.qualifiedPropagationPoint_PropagationPoint,
+										#["point2"])
+									next.assertNull
+								]
 							]
 						]
 					]
@@ -461,9 +480,14 @@ class OtherErrorModelScopeProviderTest extends OsateTest {
 								"asub2".assertEquals(subcomponent.subcomponent.name)
 								next => [
 									"asub3".assertEquals(subcomponent.subcomponent.name)
-									//Tests scope_QualifiedPropagationPoint_propagationPoint
-									assertScope(ErrorModelPackage.eINSTANCE.qualifiedPropagationPoint_PropagationPoint, #["point3"])
-									next.assertNull
+									// Tests scope_QualifiedPropagationPoint_propagationPoint
+									next => [
+										"point3".assertEquals(propagationPoint.name)
+										assertScope(
+											ErrorModelPackage.eINSTANCE.qualifiedPropagationPoint_PropagationPoint,
+											#["point3"])
+										next.assertNull
+									]
 								]
 							]
 						]
@@ -475,9 +499,14 @@ class OtherErrorModelScopeProviderTest extends OsateTest {
 									"asub3".assertEquals(subcomponent.subcomponent.name)
 									next => [
 										"asub4".assertEquals(subcomponent.subcomponent.name)
-										//Tests scope_QualifiedPropagationPoint_propagationPoint
-										assertScope(ErrorModelPackage.eINSTANCE.qualifiedPropagationPoint_PropagationPoint, #["point4"])
-										next.assertNull
+										// Tests scope_QualifiedPropagationPoint_propagationPoint
+										next => [
+											"point4".assertEquals(propagationPoint.name)
+											assertScope(
+												ErrorModelPackage.eINSTANCE.qualifiedPropagationPoint_PropagationPoint,
+												#["point4"])
+											next.assertNull
+										]
 									]
 								]
 							]
@@ -487,8 +516,8 @@ class OtherErrorModelScopeProviderTest extends OsateTest {
 			]
 		]
 	}
-	
-	//Tests scope_ErrorBehaviorState(ErrorBehaviorStateMachine, EReference) and scope_ErrorBehaviorState(Classifier, EReference)
+
+	// Tests scope_ErrorBehaviorState(ErrorBehaviorStateMachine, EReference) and scope_ErrorBehaviorState(Classifier, EReference)
 	@Test
 	def void testErrorBehaviorStateReference() {
 		val lib1FileName = "lib1.aadl"
@@ -556,23 +585,26 @@ class OtherErrorModelScopeProviderTest extends OsateTest {
 		val expectedScope = #["bvr_state1", "bvr_state2"]
 		lib1TestResult.resource.contents.head as AadlPackage => [
 			"lib1".assertEquals(name)
-			((publicSection.ownedAnnexLibraries.head as DefaultAnnexLibrary).parsedAnnexLibrary as ErrorModelLibrary).behaviors.head => [
+			((publicSection.ownedAnnexLibraries.head as DefaultAnnexLibrary).parsedAnnexLibrary as ErrorModelLibrary).
+				behaviors.head => [
 				"bvr".assertEquals(name)
 				transitions.get(0) => [
 					"transition1".assertEquals(name)
-					//Tests scope_ErrorBehaviorState(ErrorBehaviorStateMachine, EReference)
+					// Tests scope_ErrorBehaviorState(ErrorBehaviorStateMachine, EReference)
 					assertScope(ErrorModelPackage.eINSTANCE.errorBehaviorTransition_Source, expectedScope)
-					//Tests scope_ErrorBehaviorState(ErrorBehaviorStateMachine, EReference)
+					// Tests scope_ErrorBehaviorState(ErrorBehaviorStateMachine, EReference)
 					assertScope(ErrorModelPackage.eINSTANCE.errorBehaviorTransition_Target, expectedScope)
 				]
 				transitions.get(1) => [
 					"transition2".assertEquals(name)
-					//Tests scope_ErrorBehaviorState(ErrorBehaviorStateMachine, EReference)
+					// Tests scope_ErrorBehaviorState(ErrorBehaviorStateMachine, EReference)
 					assertScope(ErrorModelPackage.eINSTANCE.errorBehaviorTransition_Source, expectedScope)
-					//Tests scope_ErrorBehaviorState(ErrorBehaviorStateMachine, EReference)
-					destinationBranches.get(0).assertScope(ErrorModelPackage.eINSTANCE.transitionBranch_Target, expectedScope)
-					//Tests scope_ErrorBehaviorState(ErrorBehaviorStateMachine, EReference)
-					destinationBranches.get(1).assertScope(ErrorModelPackage.eINSTANCE.transitionBranch_Target, expectedScope)
+					// Tests scope_ErrorBehaviorState(ErrorBehaviorStateMachine, EReference)
+					destinationBranches.get(0).assertScope(ErrorModelPackage.eINSTANCE.transitionBranch_Target,
+						expectedScope)
+					// Tests scope_ErrorBehaviorState(ErrorBehaviorStateMachine, EReference)
+					destinationBranches.get(1).assertScope(ErrorModelPackage.eINSTANCE.transitionBranch_Target,
+						expectedScope)
 				]
 			]
 		]
@@ -583,46 +615,48 @@ class OtherErrorModelScopeProviderTest extends OsateTest {
 				(ownedAnnexSubclauses.head as DefaultAnnexSubclause).parsedAnnexSubclause as ErrorModelSubclause => [
 					transitions.get(0) => [
 						"transition3".assertEquals(name)
-						//Tests scope_ErrorBehaviorState(Classifier, EReference)
+						// Tests scope_ErrorBehaviorState(Classifier, EReference)
 						assertScope(ErrorModelPackage.eINSTANCE.errorBehaviorTransition_Source, expectedScope)
-						//Tests scope_ErrorBehaviorState(Classifier, EReference)
+						// Tests scope_ErrorBehaviorState(Classifier, EReference)
 						assertScope(ErrorModelPackage.eINSTANCE.errorBehaviorTransition_Target, expectedScope)
 					]
 					transitions.get(1) => [
 						"transition4".assertEquals(name)
-						//Tests scope_ErrorBehaviorState(Classifier, EReference)
+						// Tests scope_ErrorBehaviorState(Classifier, EReference)
 						assertScope(ErrorModelPackage.eINSTANCE.errorBehaviorTransition_Source, expectedScope)
-						//Tests scope_ErrorBehaviorState(Classifier, EReference)
-						destinationBranches.get(0).assertScope(ErrorModelPackage.eINSTANCE.transitionBranch_Target, expectedScope)
-						//Tests scope_ErrorBehaviorState(Classifier, EReference)
-						destinationBranches.get(1).assertScope(ErrorModelPackage.eINSTANCE.transitionBranch_Target, expectedScope)
+						// Tests scope_ErrorBehaviorState(Classifier, EReference)
+						destinationBranches.get(0).assertScope(ErrorModelPackage.eINSTANCE.transitionBranch_Target,
+							expectedScope)
+						// Tests scope_ErrorBehaviorState(Classifier, EReference)
+						destinationBranches.get(1).assertScope(ErrorModelPackage.eINSTANCE.transitionBranch_Target,
+							expectedScope)
 					]
 					outgoingPropagationConditions.head => [
 						"propagationCondition1".assertEquals(name)
-						//Tests scope_ErrorBehaviorState(Classifier, EReference)
+						// Tests scope_ErrorBehaviorState(Classifier, EReference)
 						assertScope(ErrorModelPackage.eINSTANCE.outgoingPropagationCondition_State, expectedScope)
 					]
 					errorDetections.head => [
 						"detection1".assertEquals(name)
-						//Tests scope_ErrorBehaviorState(Classifier, EReference)
+						// Tests scope_ErrorBehaviorState(Classifier, EReference)
 						assertScope(ErrorModelPackage.eINSTANCE.errorDetection_State, expectedScope)
 					]
 					errorStateToModeMappings.head => [
 						"bvr_state1".assertEquals(errorState.name)
-						//Tests scope_ErrorBehaviorState(Classifier, EReference)
+						// Tests scope_ErrorBehaviorState(Classifier, EReference)
 						assertScope(ErrorModelPackage.eINSTANCE.errorStateToModeMapping_ErrorState, expectedScope)
 					]
 					states.head => [
 						"compositeState1".assertEquals(name)
-						//Tests scope_ErrorBehaviorState(Classifier, EReference)
+						// Tests scope_ErrorBehaviorState(Classifier, EReference)
 						assertScope(ErrorModelPackage.eINSTANCE.compositeState_State, expectedScope)
 					]
 				]
 			]
 		]
 	}
-	
-	//Tests scope_ConnectionErrorSource_connection
+
+	// Tests scope_ConnectionErrorSource_connection
 	@Test
 	def void testConnectionReference() {
 		val subclause1FileName = "subclause1.aadl"
@@ -660,16 +694,17 @@ class OtherErrorModelScopeProviderTest extends OsateTest {
 			"subclause1".assertEquals(name)
 			publicSection.ownedClassifiers.get(3) => [
 				"a2.i".assertEquals(name)
-				((ownedAnnexSubclauses.head as DefaultAnnexSubclause).parsedAnnexSubclause as ErrorModelSubclause).connectionErrorSources.head => [
+				((ownedAnnexSubclauses.head as DefaultAnnexSubclause).parsedAnnexSubclause as ErrorModelSubclause).
+					connectionErrorSources.head => [
 					"source1".assertEquals(name)
-					//Tests scope_ConnectionErrorSource_connection
+					// Tests scope_ConnectionErrorSource_connection
 					assertScope(ErrorModelPackage.eINSTANCE.errorSource_SourceModelElement, #["conn1", "conn2"])
 				]
 			]
 		]
 	}
-	
-	//Tests scope_ErrorDetection_detectionReportingPort and ErrorCodeValue's constant reference
+
+	// Tests scope_ErrorDetection_detectionReportingPort and ErrorCodeValue's constant reference
 	@Test
 	def void testErrorDetectionReferences() {
 		val ps1FileName = "ps1.aadl"
@@ -727,32 +762,64 @@ class OtherErrorModelScopeProviderTest extends OsateTest {
 			"subclause1".assertEquals(name)
 			publicSection.ownedClassifiers.get(3) => [
 				"a2.i".assertEquals(name)
-				((ownedAnnexSubclauses.head as DefaultAnnexSubclause).parsedAnnexSubclause as ErrorModelSubclause).errorDetections.head => [
+				((ownedAnnexSubclauses.head as DefaultAnnexSubclause).parsedAnnexSubclause as ErrorModelSubclause).
+					errorDetections.head => [
 					"detection1".assertEquals(name)
-					//Tests scope_ErrorDetection_detectionReportingPort
-					assertScope(ErrorModelPackage.eINSTANCE.errorDetection_DetectionReportingPort, #["af1", "dp1",
-						"ep1", "edp1", "es1", "eds1", "af2", "dp2", "ep2", "edp2", "es2", "eds2"
+					// Tests scope_ErrorDetection_detectionReportingPort
+					assertScope(ErrorModelPackage.eINSTANCE.errorDetection_DetectionReportingPort, #[
+						"af1",
+						"dp1",
+						"ep1",
+						"edp1",
+						"es1",
+						"eds1",
+						"af2",
+						"dp2",
+						"ep2",
+						"edp2",
+						"es2",
+						"eds2"
 					])
-					//Tests ErrorCodeValue's constant reference
-					errorCode.assertScope(ErrorModelPackage.eINSTANCE.errorCodeValue_Constant, #["Max_Aadlinteger",
-						"Max_Base_Address", "Max_Byte_Count", "Max_Memory_Size", "Max_Queue_Size", "Max_Target_Integer",
-						"Max_Thread_Limit", "Max_Time", "Max_Urgency", "Max_Volume", "Max_Word_Space",
-						"Supported_Classifier_Complement_Matches", "Supported_Classifier_Equivalence_Matches",
-						"Supported_Classifier_Subset_Matches", "Supported_Type_Conversions", "ps1::const1",
-						"AADL_Project::Max_Aadlinteger", "AADL_Project::Max_Base_Address",
-						"AADL_Project::Max_Byte_Count", "AADL_Project::Max_Memory_Size", "AADL_Project::Max_Queue_Size",
-						"AADL_Project::Max_Target_Integer", "AADL_Project::Max_Thread_Limit", "AADL_Project::Max_Time",
-						"AADL_Project::Max_Urgency", "AADL_Project::Max_Volume", "AADL_Project::Max_Word_Space",
+					// Tests ErrorCodeValue's constant reference
+					errorCode.assertScope(ErrorModelPackage.eINSTANCE.errorCodeValue_Constant, #[
+						"Max_Aadlinteger",
+						"Max_Base_Address",
+						"Max_Byte_Count",
+						"Max_Memory_Size",
+						"Max_Queue_Size",
+						"Max_Target_Integer",
+						"Max_Thread_Limit",
+						"Max_Time",
+						"Max_Urgency",
+						"Max_Volume",
+						"Max_Word_Space",
+						"Supported_Classifier_Complement_Matches",
+						"Supported_Classifier_Equivalence_Matches",
+						"Supported_Classifier_Subset_Matches",
+						"Supported_Type_Conversions",
+						"ps1::const1",
+						"AADL_Project::Max_Aadlinteger",
+						"AADL_Project::Max_Base_Address",
+						"AADL_Project::Max_Byte_Count",
+						"AADL_Project::Max_Memory_Size",
+						"AADL_Project::Max_Queue_Size",
+						"AADL_Project::Max_Target_Integer",
+						"AADL_Project::Max_Thread_Limit",
+						"AADL_Project::Max_Time",
+						"AADL_Project::Max_Urgency",
+						"AADL_Project::Max_Volume",
+						"AADL_Project::Max_Word_Space",
 						"AADL_Project::Supported_Classifier_Complement_Matches",
 						"AADL_Project::Supported_Classifier_Equivalence_Matches",
-						"AADL_Project::Supported_Classifier_Subset_Matches", "AADL_Project::Supported_Type_Conversions"
+						"AADL_Project::Supported_Classifier_Subset_Matches",
+						"AADL_Project::Supported_Type_Conversions"
 					])
 				]
 			]
 		]
 	}
-	
-	//Tests scope_ErrorStateToModeMapping_mappedModes
+
+	// Tests scope_ErrorStateToModeMapping_mappedModes
 	@Test
 	def void testModeReference() {
 		val lib1FileName = "lib1.aadl"
@@ -796,16 +863,18 @@ class OtherErrorModelScopeProviderTest extends OsateTest {
 			"subclause1".assertEquals(name)
 			publicSection.ownedClassifiers.get(1) => [
 				"a2".assertEquals(name)
-				((ownedAnnexSubclauses.head as DefaultAnnexSubclause).parsedAnnexSubclause as ErrorModelSubclause).errorStateToModeMappings.head => [
+				((ownedAnnexSubclauses.head as DefaultAnnexSubclause).parsedAnnexSubclause as ErrorModelSubclause).
+					errorStateToModeMappings.head => [
 					"bvr_state1".assertEquals(errorState.name)
-					//Tests scope_ErrorStateToModeMapping_mappedModes
-					assertScope(ErrorModelPackage.eINSTANCE.errorStateToModeMapping_MappedModes, #["m1", "m2", "m3", "m4"])
+					// Tests scope_ErrorStateToModeMapping_mappedModes
+					assertScope(ErrorModelPackage.eINSTANCE.errorStateToModeMapping_MappedModes,
+						#["m1", "m2", "m3", "m4"])
 				]
 			]
 		]
 	}
-	
-	//Tests scope_QualifiedErrorBehaviorState_state
+
+	// Tests scope_QualifiedErrorBehaviorState_state
 	@Test
 	def void testQualifiedErrorBehaviorState() {
 		val lib1FileName = "lib1.aadl"
@@ -894,7 +963,7 @@ class OtherErrorModelScopeProviderTest extends OsateTest {
 						"compositeState1".assertEquals(name)
 						(condition as SConditionElement).qualifiedState => [
 							"asub1".assertEquals(subcomponent.subcomponent.name)
-							//Tests scope_QualifiedErrorBehaviorState_state
+							// Tests scope_QualifiedErrorBehaviorState_state
 							assertScope(ErrorModelPackage.eINSTANCE.qualifiedErrorBehaviorState_State, #["bvr_state2"])
 							next.assertNull
 						]
@@ -905,8 +974,9 @@ class OtherErrorModelScopeProviderTest extends OsateTest {
 							"asub1".assertEquals(subcomponent.subcomponent.name)
 							next => [
 								"asub2".assertEquals(subcomponent.subcomponent.name)
-								//Tests scope_QualifiedErrorBehaviorState_state
-								assertScope(ErrorModelPackage.eINSTANCE.qualifiedErrorBehaviorState_State, #["bvr_state3"])
+								// Tests scope_QualifiedErrorBehaviorState_state
+								assertScope(ErrorModelPackage.eINSTANCE.qualifiedErrorBehaviorState_State,
+									#["bvr_state3"])
 								next.assertNull
 							]
 						]
@@ -919,8 +989,9 @@ class OtherErrorModelScopeProviderTest extends OsateTest {
 								"asub2".assertEquals(subcomponent.subcomponent.name)
 								next => [
 									"asub3".assertEquals(subcomponent.subcomponent.name)
-									//Tests scope_QualifiedErrorBehaviorState_state
-									assertScope(ErrorModelPackage.eINSTANCE.qualifiedErrorBehaviorState_State, #["bvr_state4"])
+									// Tests scope_QualifiedErrorBehaviorState_state
+									assertScope(ErrorModelPackage.eINSTANCE.qualifiedErrorBehaviorState_State,
+										#["bvr_state4"])
 									next.assertNull
 								]
 							]
@@ -930,8 +1001,8 @@ class OtherErrorModelScopeProviderTest extends OsateTest {
 			]
 		]
 	}
-	
-	//Tests scope_EMV2PathElement_errorType
+
+	// Tests scope_EMV2PathElement_errorType
 	@Test
 	def void testEMV2PathElement_errorType() {
 		val ps1FileName = "ps1.aadl"
@@ -976,16 +1047,18 @@ class OtherErrorModelScopeProviderTest extends OsateTest {
 			"pkg1".assertEquals(name)
 			publicSection.ownedClassifiers.head => [
 				"a1".assertEquals(name)
-				((ownedAnnexSubclauses.head as DefaultAnnexSubclause).parsedAnnexSubclause as ErrorModelSubclause).properties.head => [
+				((ownedAnnexSubclauses.head as DefaultAnnexSubclause).parsedAnnexSubclause as ErrorModelSubclause).
+					properties.head => [
 					1.assertEquals((ownedValues.head.ownedValue as IntegerLiteral).value)
-					//Tests scope_EMV2PathElement_errorType
-					emv2Path.head.emv2Target.assertScope(ErrorModelPackage.eINSTANCE.EMV2PathElement_ErrorType, #["t1", "t2", "t3", "t4"])
+					// Tests scope_EMV2PathElement_errorType
+					emv2Path.head.emv2Target.assertScope(ErrorModelPackage.eINSTANCE.EMV2PathElement_ErrorType,
+						#["t1", "t2", "t3", "t4"])
 				]
 			]
 		]
 	}
-	
-	//Tests scope_BasicPropertyAssociation_property
+
+	// Tests scope_BasicPropertyAssociation_property
 	@Test
 	def void testRecordFieldNameReference() {
 		val pkg1FileName = "pkg1.aadl"
@@ -1034,54 +1107,58 @@ class OtherErrorModelScopeProviderTest extends OsateTest {
 		ignoreSerializationDifferences
 		testFile(pkg1FileName).resource.contents.head as AadlPackage => [
 			"pkg1".assertEquals(name)
-			((publicSection.ownedAnnexLibraries.head as DefaultAnnexLibrary).parsedAnnexLibrary as ErrorModelLibrary).properties.head.ownedValues.head.ownedValue as RecordValue => [
+			((publicSection.ownedAnnexLibraries.head as DefaultAnnexLibrary).parsedAnnexLibrary as ErrorModelLibrary).
+				properties.head.ownedValues.head.ownedValue as RecordValue => [
 				val firstLevelScope = #["field1", "field2", "field3"]
 				val secondLevelScope = #["field4", "field5", "field6"]
 				val thirdLevelScope = #["field7", "field8", "field9"]
 				ownedFieldValues.get(0) => [
 					"field1".assertEquals(property.name)
-					//Tests scope_BasicPropertyAssociation_property
+					// Tests scope_BasicPropertyAssociation_property
 					assertScope(Aadl2Package.eINSTANCE.basicPropertyAssociation_Property, firstLevelScope)
 				]
 				ownedFieldValues.get(1) => [
 					"field2".assertEquals(property.name)
-					//Tests scope_BasicPropertyAssociation_property
+					// Tests scope_BasicPropertyAssociation_property
 					assertScope(Aadl2Package.eINSTANCE.basicPropertyAssociation_Property, firstLevelScope)
 				]
 				ownedFieldValues.get(2) => [
 					"field3".assertEquals(property.name)
-					//Tests scope_BasicPropertyAssociation_property
+					// Tests scope_BasicPropertyAssociation_property
 					assertScope(Aadl2Package.eINSTANCE.basicPropertyAssociation_Property, firstLevelScope)
 					ownedValue as RecordValue => [
 						ownedFieldValues.get(0) => [
 							"field4".assertEquals(property.name)
-							//Tests scope_BasicPropertyAssociation_property
+							// Tests scope_BasicPropertyAssociation_property
 							assertScope(Aadl2Package.eINSTANCE.basicPropertyAssociation_Property, secondLevelScope)
 						]
 						ownedFieldValues.get(1) => [
 							"field5".assertEquals(property.name)
-							//Tests scope_BasicPropertyAssociation_property
+							// Tests scope_BasicPropertyAssociation_property
 							assertScope(Aadl2Package.eINSTANCE.basicPropertyAssociation_Property, secondLevelScope)
 						]
 						ownedFieldValues.get(2) => [
 							"field6".assertEquals(property.name)
-							//Tests scope_BasicPropertyAssociation_property
+							// Tests scope_BasicPropertyAssociation_property
 							assertScope(Aadl2Package.eINSTANCE.basicPropertyAssociation_Property, secondLevelScope)
 							ownedValue as RecordValue => [
 								ownedFieldValues.get(0) => [
 									"field7".assertEquals(property.name)
-									//Tests scope_BasicPropertyAssociation_property
-									assertScope(Aadl2Package.eINSTANCE.basicPropertyAssociation_Property, thirdLevelScope)
+									// Tests scope_BasicPropertyAssociation_property
+									assertScope(Aadl2Package.eINSTANCE.basicPropertyAssociation_Property,
+										thirdLevelScope)
 								]
 								ownedFieldValues.get(1) => [
 									"field8".assertEquals(property.name)
-									//Tests scope_BasicPropertyAssociation_property
-									assertScope(Aadl2Package.eINSTANCE.basicPropertyAssociation_Property, thirdLevelScope)
+									// Tests scope_BasicPropertyAssociation_property
+									assertScope(Aadl2Package.eINSTANCE.basicPropertyAssociation_Property,
+										thirdLevelScope)
 								]
 								ownedFieldValues.get(2) => [
 									"field9".assertEquals(property.name)
-									//Tests scope_BasicPropertyAssociation_property
-									assertScope(Aadl2Package.eINSTANCE.basicPropertyAssociation_Property, thirdLevelScope)
+									// Tests scope_BasicPropertyAssociation_property
+									assertScope(Aadl2Package.eINSTANCE.basicPropertyAssociation_Property,
+										thirdLevelScope)
 								]
 							]
 						]
@@ -1090,8 +1167,8 @@ class OtherErrorModelScopeProviderTest extends OsateTest {
 			]
 		]
 	}
-	
-	//Tests scope_ContainmentPathElement_namedElement
+
+	// Tests scope_ContainmentPathElement_namedElement
 	@Test
 	def void testUnitLiteralReference() {
 		val pkg1FileName = "pkg1.aadl"
@@ -1140,16 +1217,18 @@ class OtherErrorModelScopeProviderTest extends OsateTest {
 			(publicSection.ownedAnnexLibraries.head as DefaultAnnexLibrary).parsedAnnexLibrary as ErrorModelLibrary => [
 				properties.get(0) => [
 					"def1".assertEquals(property.name)
-					//Tests scope_ContainmentPathElement_namedElement
-					ownedValues.head.ownedValue.assertScope(Aadl2Package.eINSTANCE.numberValue_Unit, #["ps", "ns", "us", "ms", "sec", "min", "hr"])
+					// Tests scope_ContainmentPathElement_namedElement
+					ownedValues.head.ownedValue.assertScope(Aadl2Package.eINSTANCE.numberValue_Unit,
+						#["ps", "ns", "us", "ms", "sec", "min", "hr"])
 				]
 				properties.get(1) => [
 					"def2".assertEquals(property.name)
 					ownedValues.head.ownedValue as RecordValue => [
 						ownedFieldValues.get(0) => [
 							"field1".assertEquals(property.name)
-							//Tests scope_ContainmentPathElement_namedElement
-							ownedValue.assertScope(Aadl2Package.eINSTANCE.numberValue_Unit, #["bitsps", "Bytesps", "KBytesps", "MBytesps", "GBytesps"])
+							// Tests scope_ContainmentPathElement_namedElement
+							ownedValue.assertScope(Aadl2Package.eINSTANCE.numberValue_Unit,
+								#["bitsps", "Bytesps", "KBytesps", "MBytesps", "GBytesps"])
 						]
 						ownedFieldValues.get(1) => [
 							"field2".assertEquals(property.name)
@@ -1157,10 +1236,12 @@ class OtherErrorModelScopeProviderTest extends OsateTest {
 								ownedFieldValues.get(0) => [
 									"field3".assertEquals(property.name)
 									ownedValue as RangeValue => [
-										//Tests scope_ContainmentPathElement_namedElement
-										minimum.assertScope(Aadl2Package.eINSTANCE.numberValue_Unit, #["KIPS", "MIPS", "GIPS"])
-										//Tests scope_ContainmentPathElement_namedElement
-										maximum.assertScope(Aadl2Package.eINSTANCE.numberValue_Unit, #["KIPS", "MIPS", "GIPS"])
+										// Tests scope_ContainmentPathElement_namedElement
+										minimum.assertScope(Aadl2Package.eINSTANCE.numberValue_Unit,
+											#["KIPS", "MIPS", "GIPS"])
+										// Tests scope_ContainmentPathElement_namedElement
+										maximum.assertScope(Aadl2Package.eINSTANCE.numberValue_Unit,
+											#["KIPS", "MIPS", "GIPS"])
 									]
 								]
 								ownedFieldValues.get(1) => [
@@ -1168,10 +1249,12 @@ class OtherErrorModelScopeProviderTest extends OsateTest {
 									(ownedValue as RecordValue).ownedFieldValues.head => [
 										"field5".assertEquals(property.name)
 										ownedValue as RangeValue => [
-											//Tests scope_ContainmentPathElement_namedElement
-											minimum.assertScope(Aadl2Package.eINSTANCE.numberValue_Unit, #["bits", "Bytes", "KByte", "MByte", "GByte", "TByte"])
-											//Tests scope_ContainmentPathElement_namedElement
-											maximum.assertScope(Aadl2Package.eINSTANCE.numberValue_Unit, #["bits", "Bytes", "KByte", "MByte", "GByte", "TByte"])
+											// Tests scope_ContainmentPathElement_namedElement
+											minimum.assertScope(Aadl2Package.eINSTANCE.numberValue_Unit,
+												#["bits", "Bytes", "KByte", "MByte", "GByte", "TByte"])
+											// Tests scope_ContainmentPathElement_namedElement
+											maximum.assertScope(Aadl2Package.eINSTANCE.numberValue_Unit,
+												#["bits", "Bytes", "KByte", "MByte", "GByte", "TByte"])
 										]
 									]
 								]

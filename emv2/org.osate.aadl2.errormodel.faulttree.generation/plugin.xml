@@ -56,7 +56,7 @@
             commandId="org.osate.aadl2.errormodel.analysis.fta"
             icon="icons/fta.png">
       </image>
-     </extension>  
+    </extension>  
      
          
     <extension point="org.eclipse.ui.menus">
@@ -94,7 +94,7 @@
                    checkEnabled="true">
              </visibleWhen>
           </command>
-       </menuContribution>
+        </menuContribution>
  	</extension>
 
 </plugin>

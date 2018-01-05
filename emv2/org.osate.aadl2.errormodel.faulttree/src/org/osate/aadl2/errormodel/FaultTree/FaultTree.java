@@ -17,9 +17,10 @@ import org.eclipse.emf.ecore.EObject;
  * <ul>
  *   <li>{@link org.osate.aadl2.errormodel.FaultTree.FaultTree#getName <em>Name</em>}</li>
  *   <li>{@link org.osate.aadl2.errormodel.FaultTree.FaultTree#getDescription <em>Description</em>}</li>
- *   <li>{@link org.osate.aadl2.errormodel.FaultTree.FaultTree#getEvents <em>Events</em>}</li>
+ *   <li>{@link org.osate.aadl2.errormodel.FaultTree.FaultTree#getFaultTreeType <em>Fault Tree Type</em>}</li>
  *   <li>{@link org.osate.aadl2.errormodel.FaultTree.FaultTree#getRoot <em>Root</em>}</li>
  *   <li>{@link org.osate.aadl2.errormodel.FaultTree.FaultTree#getInstanceRoot <em>Instance Root</em>}</li>
+ *   <li>{@link org.osate.aadl2.errormodel.FaultTree.FaultTree#getEvents <em>Events</em>}</li>
  * </ul>
  *
  * @see org.osate.aadl2.errormodel.FaultTree.FaultTreePackage#getFaultTree()
@@ -78,6 +79,35 @@ public interface FaultTree extends EObject {
 	 * @generated
 	 */
 	void setDescription(String value);
+
+	/**
+	 * Returns the value of the '<em><b>Fault Tree Type</b></em>' attribute.
+	 * The literals are from the enumeration {@link org.osate.aadl2.errormodel.FaultTree.FaultTreeType}.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Fault Tree Type</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Fault Tree Type</em>' attribute.
+	 * @see org.osate.aadl2.errormodel.FaultTree.FaultTreeType
+	 * @see #setFaultTreeType(FaultTreeType)
+	 * @see org.osate.aadl2.errormodel.FaultTree.FaultTreePackage#getFaultTree_FaultTreeType()
+	 * @model
+	 * @generated
+	 */
+	FaultTreeType getFaultTreeType();
+
+	/**
+	 * Sets the value of the '{@link org.osate.aadl2.errormodel.FaultTree.FaultTree#getFaultTreeType <em>Fault Tree Type</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Fault Tree Type</em>' attribute.
+	 * @see org.osate.aadl2.errormodel.FaultTree.FaultTreeType
+	 * @see #getFaultTreeType()
+	 * @generated
+	 */
+	void setFaultTreeType(FaultTreeType value);
 
 	/**
 	 * Returns the value of the '<em><b>Events</b></em>' containment reference list.

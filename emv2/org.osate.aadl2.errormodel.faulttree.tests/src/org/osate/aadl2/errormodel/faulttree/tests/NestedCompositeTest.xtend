@@ -51,7 +51,7 @@ class NestedCompositeTest extends OsateTest {
 //		assertEquals("fta_main_i_Instance", instance.name)
 
 		
-		val ft = CreateFTAModel.createTransformedFTA(instance,state)
+		val ft = CreateFTAModel.createFaultTree(instance,state)
 		val uri = EcoreUtil.getURI(ft)
 		val file = workspaceRoot.getFile(new Path(uri.toPlatformString(true)))
 		val actual = Files.readStreamIntoString(file.contents)
@@ -241,6 +241,7 @@ end nestedcomposite;
 	val expected = '''
 <?xml version="1.0" encoding="ASCII"?>
 <FaultTree:FaultTree xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:FaultTree="http://www.aadl.info/FaultTree" name="nestedcomposite_main_nestedstate-failstop" description="Top Level Failure" root="//@events.7">
+  <instanceRoot href="../../nestedcomposite_main_nestedstate_Instance.aaxl2#/"/>
   <events name="sensor1-failure" description="Component 'sensor1' failure event 'Failure'" referenceCount="1">
     <relatedInstanceObject href="../../nestedcomposite_main_nestedstate_Instance.aaxl2#//@componentInstance.1"/>
     <relatedEMV2Object href="../../../../../plugin/org.osate.aadl2.errormodel.contrib/resources/packages/ErrorLibrary.aadl#/0/@ownedPublicSection/@ownedAnnexLibrary.0/@parsedAnnexLibrary/@behaviors.0/@events.0"/>
@@ -269,11 +270,10 @@ end nestedcomposite;
     <relatedInstanceObject href="../../nestedcomposite_main_nestedstate_Instance.aaxl2#//@componentInstance.5"/>
     <relatedEMV2Object href="../../../nestedcomposite.aadl#/0/@ownedPublicSection/@ownedClassifier.8/@ownedAnnexSubclause.0/@parsedAnnexSubclause/@states.0/@condition"/>
   </events>
-  <events name="nestedcomposite_main_nestedstate-failstop" subEvents="//@events.2 //@events.3 //@events.6" referenceCount="1" type="Intermediate" subEventLogic="Xor">
+  <events name="nestedcomposite_main_nestedstate-failstop" description="Component 'main.nestedstate' in failure mode 'FailStop'" subEvents="//@events.2 //@events.3 //@events.6" referenceCount="1" type="Intermediate" subEventLogic="Xor">
     <relatedInstanceObject href="../../nestedcomposite_main_nestedstate_Instance.aaxl2#/"/>
     <relatedEMV2Object href="../../../nestedcomposite.aadl#/0/@ownedPublicSection/@ownedClassifier.10/@ownedAnnexSubclause.0/@parsedAnnexSubclause/@states.0/@condition"/>
   </events>
-  <instanceRoot href="../../nestedcomposite_main_nestedstate_Instance.aaxl2#/"/>
 </FaultTree:FaultTree>
 	'''
 
