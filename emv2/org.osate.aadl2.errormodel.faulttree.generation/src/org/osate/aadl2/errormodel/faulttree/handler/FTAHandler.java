@@ -53,7 +53,6 @@ import org.osate.aadl2.instance.InstanceObject;
 import org.osate.aadl2.instance.SystemInstance;
 import org.osate.aadl2.modelsupport.resources.OsateResourceUtil;
 import org.osate.ui.dialogs.Dialog;
-import org.osate.xtext.aadl2.errormodel.errorModel.CompositeState;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorState;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorPropagation;
 import org.osate.xtext.aadl2.errormodel.errorModel.TypeToken;
@@ -117,29 +116,14 @@ public final class FTAHandler extends AbstractHandler {
 			}
 
 			boolean compositeparts = false;
-			for (CompositeState cebs : EMV2Util.getAllCompositeStates(target.getComponentClassifier())) {
-				compositeparts = true;
-				ErrorBehaviorState ebs = cebs.getState();
-				if (cebs.getTypedToken() == null) {
-					stateNames.add(CreateFTAModel.prefixState + EMV2Util.getPrintName(ebs));
-				} else {
-					EList<TypeToken> result = EM2TypeSetUtil.generateAllLeafTypeTokens(cebs.getTypedToken(),
-							EMV2Util.getUseTypes(cebs));
-					for (TypeToken tt : result) {
-						String epName = CreateFTAModel.prefixState + EMV2Util.getPrintName(ebs)
-						+ EMV2Util.getPrintName(tt);
-						if (!stateNames.contains(epName)) {
-							stateNames.add(epName);
-						}
-					}
-				}
-			}
-//			for (ErrorBehaviorState ebs : EMV2Util.getAllErrorBehaviorStates(target)) {
-//				if (ebs.getTypeSet() == null) {
+//			for (CompositeState cebs : EMV2Util.getAllCompositeStates(target.getComponentClassifier())) {
+//				compositeparts = true;
+//				ErrorBehaviorState ebs = cebs.getState();
+//				if (cebs.getTypedToken() == null) {
 //					stateNames.add(CreateFTAModel.prefixState + EMV2Util.getPrintName(ebs));
 //				} else {
-//					EList<TypeToken> result = EM2TypeSetUtil.generateAllLeafTypeTokens(ebs.getTypeSet(),
-//							EMV2Util.getUseTypes(ebs));
+//					EList<TypeToken> result = EM2TypeSetUtil.generateAllLeafTypeTokens(cebs.getTypedToken(),
+//							EMV2Util.getUseTypes(cebs));
 //					for (TypeToken tt : result) {
 //						String epName = CreateFTAModel.prefixState + EMV2Util.getPrintName(ebs)
 //						+ EMV2Util.getPrintName(tt);
@@ -149,6 +133,23 @@ public final class FTAHandler extends AbstractHandler {
 //					}
 //				}
 //			}
+
+			for (ErrorBehaviorState ebs : EMV2Util.getAllErrorBehaviorStates(target)) {
+				compositeparts = true;
+				if (ebs.getTypeSet() == null) {
+					stateNames.add(CreateFTAModel.prefixState + EMV2Util.getPrintName(ebs));
+				} else {
+					EList<TypeToken> result = EM2TypeSetUtil.generateAllLeafTypeTokens(ebs.getTypeSet(),
+							EMV2Util.getUseTypes(ebs));
+					for (TypeToken tt : result) {
+						String epName = CreateFTAModel.prefixState + EMV2Util.getPrintName(ebs)
+						+ EMV2Util.getPrintName(tt);
+						if (!stateNames.contains(epName)) {
+							stateNames.add(epName);
+						}
+					}
+				}
+			}
 
 			FTADialog diag = new FTADialog(sh);
 			diag.setValues(stateNames);
