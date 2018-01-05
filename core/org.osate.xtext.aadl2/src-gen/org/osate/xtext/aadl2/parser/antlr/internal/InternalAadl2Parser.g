@@ -28388,56 +28388,62 @@ ruleRefinedToKeywords
 	    }
 
 )
-)?))(
+))
+    |
+	otherlv_11=Feature
+    {
+    	newLeafNode(otherlv_11, grammarAccess.getAbstractFeatureAccess().getFeatureKeyword_2_2());
+    }
+)(
 (
 		{ 
 	        newCompositeNode(grammarAccess.getAbstractFeatureAccess().getArrayDimensionArrayDimensionParserRuleCall_3_0()); 
 	    }
-		lv_arrayDimension_11_0=ruleArrayDimension		{
+		lv_arrayDimension_12_0=ruleArrayDimension		{
 	        if ($current==null) {
 	            $current = createModelElementForParent(grammarAccess.getAbstractFeatureRule());
 	        }
        		add(
        			$current, 
        			"arrayDimension",
-        		lv_arrayDimension_11_0, 
+        		lv_arrayDimension_12_0, 
         		"org.osate.xtext.aadl2.Aadl2.ArrayDimension");
 	        afterParserOrEnumRuleCall();
 	    }
 
 )
 )?(
-	otherlv_12=LeftCurlyBracket
+	otherlv_13=LeftCurlyBracket
     {
-    	newLeafNode(otherlv_12, grammarAccess.getAbstractFeatureAccess().getLeftCurlyBracketKeyword_4_0());
+    	newLeafNode(otherlv_13, grammarAccess.getAbstractFeatureAccess().getLeftCurlyBracketKeyword_4_0());
     }
 (
 (
 		{ 
 	        newCompositeNode(grammarAccess.getAbstractFeatureAccess().getOwnedPropertyAssociationPropertyAssociationParserRuleCall_4_1_0()); 
 	    }
-		lv_ownedPropertyAssociation_13_0=rulePropertyAssociation		{
+		lv_ownedPropertyAssociation_14_0=rulePropertyAssociation		{
 	        if ($current==null) {
 	            $current = createModelElementForParent(grammarAccess.getAbstractFeatureRule());
 	        }
        		add(
        			$current, 
        			"ownedPropertyAssociation",
-        		lv_ownedPropertyAssociation_13_0, 
+        		lv_ownedPropertyAssociation_14_0, 
         		"org.osate.xtext.aadl2.properties.Properties.PropertyAssociation");
 	        afterParserOrEnumRuleCall();
 	    }
 
 )
 )+
-	otherlv_14=RightCurlyBracket
+	otherlv_15=RightCurlyBracket
     {
-    	newLeafNode(otherlv_14, grammarAccess.getAbstractFeatureAccess().getRightCurlyBracketKeyword_4_2());
+    	newLeafNode(otherlv_15, grammarAccess.getAbstractFeatureAccess().getRightCurlyBracketKeyword_4_2());
     }
 )?
-	otherlv_15=Semicolon
+	otherlv_16=Semicolon
     {
-    	newLeafNode(otherlv_15, grammarAccess.getAbstractFeatureAccess().getSemicolonKeyword_5());
+    	newLeafNode(otherlv_16, grammarAccess.getAbstractFeatureAccess().getSemicolonKeyword_5());
     }
 )
 ;
