@@ -32,6 +32,7 @@ import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.swt.widgets.Display;
@@ -41,6 +42,10 @@ import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.handlers.HandlerUtil;
 import org.eclipse.xtext.ui.util.ResourceUtil;
 import org.osate.aadl2.Feature;
+import org.osate.aadl2.errormodel.FaultTree.FaultTreeType;
+import org.osate.aadl2.errormodel.PropagationGraph.PropagationGraph;
+import org.osate.aadl2.errormodel.PropagationGraph.PropagationPath;
+import org.osate.aadl2.errormodel.PropagationGraph.util.Util;
 import org.osate.aadl2.errormodel.faulttree.generation.CreateFTAModel;
 import org.osate.aadl2.errormodel.faulttree.util.SiriusUtil;
 import org.osate.aadl2.instance.ComponentInstance;
@@ -57,12 +62,7 @@ import org.osate.xtext.aadl2.errormodel.util.EMV2Util;
 public final class FTAHandler extends AbstractHandler {
 
 	private static String ERROR_STATE_NAME = null;
-	private static boolean GRAPH = false;
-	private static boolean TRANSFORM = false;
-	private static boolean MINCUTSET = false;
-	private static boolean BASICTREE = true;
-	public static final String prefixState = "state ";
-	public static final String prefixOutgoingPropagation = "outgoing propagation on ";
+	private static FaultTreeType FAULT_TREE_TYPE = FaultTreeType.FAULT_TREE;
 
 	@Override
 	public Object execute(ExecutionEvent event) throws ExecutionException {
@@ -79,9 +79,9 @@ public final class FTAHandler extends AbstractHandler {
 			target = si;
 		}
 
-		if (!EMV2Util.hasErrorBehaviorStates(target) && !EMV2Util.hasOutgoingPropagations(target)) {
+		if (!EMV2Util.hasCompositeErrorBehavior(target) && !EMV2Util.hasOutgoingPropagations(target)) {
 			Dialog.showInfo("Fault Tree Analysis",
-					"Your system instance or selected component instance must have error behavior states or outgoing propagations.");
+					"Your system instance or selected component instance must have composite error behavior states or outgoing propagations.");
 			return null;
 		}
 
@@ -94,18 +94,20 @@ public final class FTAHandler extends AbstractHandler {
 			window = PlatformUI.getWorkbench().getActiveWorkbenchWindow();
 			sh = window.getShell();
 
-			for (ErrorBehaviorState ebs : EMV2Util.getAllErrorBehaviorStates(target)) {
-				stateNames.add(prefixState + ebs.getName());
-			}
-
-			for (ErrorPropagation opc : EMV2Util.getAllOutgoingErrorPropagations(target.getComponentClassifier())) {
-				if (!(opc.getFeatureorPPRef().getFeatureorPP() instanceof Feature)) {
+			PropagationGraph currentPropagationGraph = Util.generatePropagationGraph(target.getSystemInstance(), false);
+			for (ErrorPropagation outprop : EMV2Util.getAllOutgoingErrorPropagations(target.getComponentClassifier())) {
+				EList<PropagationPath> paths = Util.getAllReversePropagationPaths(currentPropagationGraph, target,
+						outprop);
+				if (paths.isEmpty()) {
 					continue;
 				}
-				EList<TypeToken> result = EM2TypeSetUtil.generateAllLeafTypeTokens(opc.getTypeSet(),
-						EMV2Util.getUseTypes(opc));
+				if (!(outprop.getFeatureorPPRef().getFeatureorPP() instanceof Feature)) {
+					continue;
+				}
+				EList<TypeToken> result = EM2TypeSetUtil.generateAllLeafTypeTokens(outprop.getTypeSet(),
+						EMV2Util.getUseTypes(outprop));
 				for (TypeToken tt : result) {
-					String epName = prefixOutgoingPropagation + EMV2Util.getPrintName(opc)
+					String epName = CreateFTAModel.prefixOutgoingPropagation + EMV2Util.getPrintName(outprop)
 					+ EMV2Util.getPrintName(tt);
 					if (!stateNames.contains(epName)) {
 						stateNames.add(epName);
@@ -113,23 +115,58 @@ public final class FTAHandler extends AbstractHandler {
 				}
 			}
 
+			boolean compositeparts = false;
+//			for (CompositeState cebs : EMV2Util.getAllCompositeStates(target.getComponentClassifier())) {
+//				compositeparts = true;
+//				ErrorBehaviorState ebs = cebs.getState();
+//				if (cebs.getTypedToken() == null) {
+//					stateNames.add(CreateFTAModel.prefixState + EMV2Util.getPrintName(ebs));
+//				} else {
+//					EList<TypeToken> result = EM2TypeSetUtil.generateAllLeafTypeTokens(cebs.getTypedToken(),
+//							EMV2Util.getUseTypes(cebs));
+//					for (TypeToken tt : result) {
+//						String epName = CreateFTAModel.prefixState + EMV2Util.getPrintName(ebs)
+//						+ EMV2Util.getPrintName(tt);
+//						if (!stateNames.contains(epName)) {
+//							stateNames.add(epName);
+//						}
+//					}
+//				}
+//			}
+
+			for (ErrorBehaviorState ebs : EMV2Util.getAllErrorBehaviorStates(target)) {
+				compositeparts = true;
+				if (ebs.getTypeSet() == null) {
+					stateNames.add(CreateFTAModel.prefixState + EMV2Util.getPrintName(ebs));
+				} else {
+					EList<TypeToken> result = EM2TypeSetUtil.generateAllLeafTypeTokens(ebs.getTypeSet(),
+							EMV2Util.getUseTypes(ebs));
+					for (TypeToken tt : result) {
+						String epName = CreateFTAModel.prefixState + EMV2Util.getPrintName(ebs)
+						+ EMV2Util.getPrintName(tt);
+						if (!stateNames.contains(epName)) {
+							stateNames.add(epName);
+						}
+					}
+				}
+			}
+
 			FTADialog diag = new FTADialog(sh);
 			diag.setValues(stateNames);
+			diag.setComposite(compositeparts);
 			diag.setTarget(
 					"'" + (target instanceof SystemInstance ? target.getName() : target.getComponentInstancePath())
 					+ "'");
 			diag.open();
 			ERROR_STATE_NAME = diag.getValue();
-			GRAPH = diag.getSharedEventsAsGraph();
-			TRANSFORM = diag.getTransform();
-			MINCUTSET = diag.getMinCutSet();
-			BASICTREE = diag.getBasicTree();
+			FAULT_TREE_TYPE = diag.getFaultTreeType();
 		});
 
 		if (ERROR_STATE_NAME != null) {
-			URI newURI = CreateFTAModel.createModel(target, ERROR_STATE_NAME, TRANSFORM, GRAPH, MINCUTSET);
+			URI newURI = EcoreUtil
+					.getURI(CreateFTAModel.createModel(target, ERROR_STATE_NAME, FAULT_TREE_TYPE));
 			if (newURI != null) {
-				if (MINCUTSET) {
+				if (FAULT_TREE_TYPE.equals(FaultTreeType.MINIMAL_CUT_SET)) {
 					SiriusUtil.INSTANCE.autoOpenModel(newURI, ResourceUtil.getFile(si.eResource()).getProject(),
 							"viewpoint:/org.osate.aadl2.errormodel.faulttree.design/FaultTree", "MinimalCutSetTable",
 							"Minimal Cutset");

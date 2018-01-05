@@ -5,6 +5,7 @@ package org.osate.aadl2.errormodel.FaultTree;
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EEnum;
+import org.eclipse.emf.ecore.EOperation;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
 
@@ -86,13 +87,13 @@ public interface FaultTreePackage extends EPackage {
 	int FAULT_TREE__DESCRIPTION = 1;
 
 	/**
-	 * The feature id for the '<em><b>Events</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Fault Tree Type</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int FAULT_TREE__EVENTS = 2;
+	int FAULT_TREE__FAULT_TREE_TYPE = 2;
 
 	/**
 	 * The feature id for the '<em><b>Root</b></em>' reference.
@@ -104,13 +105,31 @@ public interface FaultTreePackage extends EPackage {
 	int FAULT_TREE__ROOT = 3;
 
 	/**
+	 * The feature id for the '<em><b>Instance Root</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FAULT_TREE__INSTANCE_ROOT = 4;
+
+	/**
+	 * The feature id for the '<em><b>Events</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FAULT_TREE__EVENTS = 5;
+
+	/**
 	 * The number of structural features of the '<em>Fault Tree</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int FAULT_TREE_FEATURE_COUNT = 4;
+	int FAULT_TREE_FEATURE_COUNT = 6;
 
 	/**
 	 * The number of operations of the '<em>Fault Tree</em>' class.
@@ -168,13 +187,22 @@ public interface FaultTreePackage extends EPackage {
 	int EVENT__K = 3;
 
 	/**
-	 * The feature id for the '<em><b>Probability</b></em>' attribute.
+	 * The feature id for the '<em><b>Assigned Probability</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int EVENT__PROBABILITY = 4;
+	int EVENT__ASSIGNED_PROBABILITY = 4;
+
+	/**
+	 * The feature id for the '<em><b>Computed Probability</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int EVENT__COMPUTED_PROBABILITY = 5;
 
 	/**
 	 * The feature id for the '<em><b>Related Instance Object</b></em>' reference.
@@ -183,7 +211,7 @@ public interface FaultTreePackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int EVENT__RELATED_INSTANCE_OBJECT = 5;
+	int EVENT__RELATED_INSTANCE_OBJECT = 6;
 
 	/**
 	 * The feature id for the '<em><b>Related Error Type</b></em>' reference.
@@ -192,7 +220,7 @@ public interface FaultTreePackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int EVENT__RELATED_ERROR_TYPE = 6;
+	int EVENT__RELATED_ERROR_TYPE = 7;
 
 	/**
 	 * The feature id for the '<em><b>Reference Count</b></em>' attribute.
@@ -201,7 +229,7 @@ public interface FaultTreePackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int EVENT__REFERENCE_COUNT = 7;
+	int EVENT__REFERENCE_COUNT = 8;
 
 	/**
 	 * The feature id for the '<em><b>Type</b></em>' attribute.
@@ -210,7 +238,7 @@ public interface FaultTreePackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int EVENT__TYPE = 8;
+	int EVENT__TYPE = 9;
 
 	/**
 	 * The feature id for the '<em><b>Sub Event Logic</b></em>' attribute.
@@ -219,7 +247,7 @@ public interface FaultTreePackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int EVENT__SUB_EVENT_LOGIC = 9;
+	int EVENT__SUB_EVENT_LOGIC = 10;
 
 	/**
 	 * The feature id for the '<em><b>Related EMV2 Object</b></em>' reference.
@@ -228,7 +256,16 @@ public interface FaultTreePackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int EVENT__RELATED_EMV2_OBJECT = 10;
+	int EVENT__RELATED_EMV2_OBJECT = 11;
+
+	/**
+	 * The feature id for the '<em><b>Shared Event</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int EVENT__SHARED_EVENT = 12;
 
 	/**
 	 * The number of structural features of the '<em>Event</em>' class.
@@ -237,7 +274,16 @@ public interface FaultTreePackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int EVENT_FEATURE_COUNT = 11;
+	int EVENT_FEATURE_COUNT = 13;
+
+	/**
+	 * The operation id for the '<em>Get Probability</em>' operation.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int EVENT___GET_PROBABILITY = 0;
 
 	/**
 	 * The number of operations of the '<em>Event</em>' class.
@@ -246,7 +292,7 @@ public interface FaultTreePackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int EVENT_OPERATION_COUNT = 0;
+	int EVENT_OPERATION_COUNT = 1;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.errormodel.FaultTree.EventType <em>Event Type</em>}' enum.
@@ -267,6 +313,17 @@ public interface FaultTreePackage extends EPackage {
 	 * @generated
 	 */
 	int LOGIC_OPERATION = 3;
+
+
+	/**
+	 * The meta object id for the '{@link org.osate.aadl2.errormodel.FaultTree.FaultTreeType <em>Type</em>}' enum.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.osate.aadl2.errormodel.FaultTree.FaultTreeType
+	 * @see org.osate.aadl2.errormodel.FaultTree.impl.FaultTreePackageImpl#getFaultTreeType()
+	 * @generated
+	 */
+	int FAULT_TREE_TYPE = 4;
 
 
 	/**
@@ -302,6 +359,17 @@ public interface FaultTreePackage extends EPackage {
 	EAttribute getFaultTree_Description();
 
 	/**
+	 * Returns the meta object for the attribute '{@link org.osate.aadl2.errormodel.FaultTree.FaultTree#getFaultTreeType <em>Fault Tree Type</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Fault Tree Type</em>'.
+	 * @see org.osate.aadl2.errormodel.FaultTree.FaultTree#getFaultTreeType()
+	 * @see #getFaultTree()
+	 * @generated
+	 */
+	EAttribute getFaultTree_FaultTreeType();
+
+	/**
 	 * Returns the meta object for the containment reference list '{@link org.osate.aadl2.errormodel.FaultTree.FaultTree#getEvents <em>Events</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -322,6 +390,17 @@ public interface FaultTreePackage extends EPackage {
 	 * @generated
 	 */
 	EReference getFaultTree_Root();
+
+	/**
+	 * Returns the meta object for the reference '{@link org.osate.aadl2.errormodel.FaultTree.FaultTree#getInstanceRoot <em>Instance Root</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference '<em>Instance Root</em>'.
+	 * @see org.osate.aadl2.errormodel.FaultTree.FaultTree#getInstanceRoot()
+	 * @see #getFaultTree()
+	 * @generated
+	 */
+	EReference getFaultTree_InstanceRoot();
 
 	/**
 	 * Returns the meta object for class '{@link org.osate.aadl2.errormodel.FaultTree.Event <em>Event</em>}'.
@@ -378,15 +457,26 @@ public interface FaultTreePackage extends EPackage {
 	EAttribute getEvent_K();
 
 	/**
-	 * Returns the meta object for the attribute '{@link org.osate.aadl2.errormodel.FaultTree.Event#getProbability <em>Probability</em>}'.
+	 * Returns the meta object for the attribute '{@link org.osate.aadl2.errormodel.FaultTree.Event#getAssignedProbability <em>Assigned Probability</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Probability</em>'.
-	 * @see org.osate.aadl2.errormodel.FaultTree.Event#getProbability()
+	 * @return the meta object for the attribute '<em>Assigned Probability</em>'.
+	 * @see org.osate.aadl2.errormodel.FaultTree.Event#getAssignedProbability()
 	 * @see #getEvent()
 	 * @generated
 	 */
-	EAttribute getEvent_Probability();
+	EAttribute getEvent_AssignedProbability();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.osate.aadl2.errormodel.FaultTree.Event#getComputedProbability <em>Computed Probability</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Computed Probability</em>'.
+	 * @see org.osate.aadl2.errormodel.FaultTree.Event#getComputedProbability()
+	 * @see #getEvent()
+	 * @generated
+	 */
+	EAttribute getEvent_ComputedProbability();
 
 	/**
 	 * Returns the meta object for the reference '{@link org.osate.aadl2.errormodel.FaultTree.Event#getRelatedInstanceObject <em>Related Instance Object</em>}'.
@@ -444,6 +534,27 @@ public interface FaultTreePackage extends EPackage {
 	EReference getEvent_RelatedEMV2Object();
 
 	/**
+	 * Returns the meta object for the attribute '{@link org.osate.aadl2.errormodel.FaultTree.Event#isSharedEvent <em>Shared Event</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Shared Event</em>'.
+	 * @see org.osate.aadl2.errormodel.FaultTree.Event#isSharedEvent()
+	 * @see #getEvent()
+	 * @generated
+	 */
+	EAttribute getEvent_SharedEvent();
+
+	/**
+	 * Returns the meta object for the '{@link org.osate.aadl2.errormodel.FaultTree.Event#getProbability() <em>Get Probability</em>}' operation.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the '<em>Get Probability</em>' operation.
+	 * @see org.osate.aadl2.errormodel.FaultTree.Event#getProbability()
+	 * @generated
+	 */
+	EOperation getEvent__GetProbability();
+
+	/**
 	 * Returns the meta object for the reference '{@link org.osate.aadl2.errormodel.FaultTree.Event#getRelatedErrorType <em>Related Error Type</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -473,6 +584,16 @@ public interface FaultTreePackage extends EPackage {
 	 * @generated
 	 */
 	EEnum getLogicOperation();
+
+	/**
+	 * Returns the meta object for enum '{@link org.osate.aadl2.errormodel.FaultTree.FaultTreeType <em>Type</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for enum '<em>Type</em>'.
+	 * @see org.osate.aadl2.errormodel.FaultTree.FaultTreeType
+	 * @generated
+	 */
+	EEnum getFaultTreeType();
 
 	/**
 	 * Returns the factory that creates the instances of the model.
@@ -524,6 +645,14 @@ public interface FaultTreePackage extends EPackage {
 		EAttribute FAULT_TREE__DESCRIPTION = eINSTANCE.getFaultTree_Description();
 
 		/**
+		 * The meta object literal for the '<em><b>Fault Tree Type</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute FAULT_TREE__FAULT_TREE_TYPE = eINSTANCE.getFaultTree_FaultTreeType();
+
+		/**
 		 * The meta object literal for the '<em><b>Events</b></em>' containment reference list feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -538,6 +667,14 @@ public interface FaultTreePackage extends EPackage {
 		 * @generated
 		 */
 		EReference FAULT_TREE__ROOT = eINSTANCE.getFaultTree_Root();
+
+		/**
+		 * The meta object literal for the '<em><b>Instance Root</b></em>' reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference FAULT_TREE__INSTANCE_ROOT = eINSTANCE.getFaultTree_InstanceRoot();
 
 		/**
 		 * The meta object literal for the '{@link org.osate.aadl2.errormodel.FaultTree.impl.EventImpl <em>Event</em>}' class.
@@ -582,12 +719,20 @@ public interface FaultTreePackage extends EPackage {
 		EAttribute EVENT__K = eINSTANCE.getEvent_K();
 
 		/**
-		 * The meta object literal for the '<em><b>Probability</b></em>' attribute feature.
+		 * The meta object literal for the '<em><b>Assigned Probability</b></em>' attribute feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EAttribute EVENT__PROBABILITY = eINSTANCE.getEvent_Probability();
+		EAttribute EVENT__ASSIGNED_PROBABILITY = eINSTANCE.getEvent_AssignedProbability();
+
+		/**
+		 * The meta object literal for the '<em><b>Computed Probability</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute EVENT__COMPUTED_PROBABILITY = eINSTANCE.getEvent_ComputedProbability();
 
 		/**
 		 * The meta object literal for the '<em><b>Related Instance Object</b></em>' reference feature.
@@ -630,6 +775,22 @@ public interface FaultTreePackage extends EPackage {
 		EReference EVENT__RELATED_EMV2_OBJECT = eINSTANCE.getEvent_RelatedEMV2Object();
 
 		/**
+		 * The meta object literal for the '<em><b>Shared Event</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute EVENT__SHARED_EVENT = eINSTANCE.getEvent_SharedEvent();
+
+		/**
+		 * The meta object literal for the '<em><b>Get Probability</b></em>' operation.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EOperation EVENT___GET_PROBABILITY = eINSTANCE.getEvent__GetProbability();
+
+		/**
 		 * The meta object literal for the '<em><b>Related Error Type</b></em>' reference feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -656,6 +817,16 @@ public interface FaultTreePackage extends EPackage {
 		 * @generated
 		 */
 		EEnum LOGIC_OPERATION = eINSTANCE.getLogicOperation();
+
+		/**
+		 * The meta object literal for the '{@link org.osate.aadl2.errormodel.FaultTree.FaultTreeType <em>Type</em>}' enum.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.osate.aadl2.errormodel.FaultTree.FaultTreeType
+		 * @see org.osate.aadl2.errormodel.FaultTree.impl.FaultTreePackageImpl#getFaultTreeType()
+		 * @generated
+		 */
+		EEnum FAULT_TREE_TYPE = eINSTANCE.getFaultTreeType();
 
 	}
 

@@ -108,7 +108,7 @@ public class FaultTreeUtils {
 
 	public static boolean hasSharedEvents(FaultTree ftaModel) {
 		for (Event ev : ftaModel.getEvents()) {
-			if (ev.getReferenceCount() > 1) {
+			if (ev.getReferenceCount() > 1 || ev.isSharedEvent()) {
 				return true;
 			}
 		}
@@ -175,7 +175,7 @@ public class FaultTreeUtils {
 	 * @param type
 	 * @return Event
 	 */
-	public static Event createIntermediateEvent(FaultTree ftaModel, ComponentInstance component, Element element,
+	public static Event createIntermediateEvent(FaultTree ftaModel, ComponentInstance component, EObject element,
 			ErrorTypes type) {
 		return createIntermediateEvent(ftaModel, component, element, type, false);
 	}
@@ -186,7 +186,7 @@ public class FaultTreeUtils {
 		.add(createIntermediateEvent((FaultTree) parent.eContainer(), component, element, type, false));
 	}
 
-	public static Event createUniqueIntermediateEvent(FaultTree ftaModel, ComponentInstance component, Element element,
+	public static Event createUniqueIntermediateEvent(FaultTree ftaModel, ComponentInstance component, EObject element,
 			ErrorTypes type) {
 		return createIntermediateEvent(ftaModel, component, element, type, true);
 	}
@@ -204,10 +204,10 @@ public class FaultTreeUtils {
 	private static int count = 1;
 
 	public static void resetIntermediateEventCount() {
-		count = 0;
+		count = 1;
 	}
 
-	private static Event createIntermediateEvent(FaultTree ftaModel, ComponentInstance component, Element element,
+	private static Event createIntermediateEvent(FaultTree ftaModel, ComponentInstance component, EObject element,
 			ErrorTypes type,
 			boolean unique) {
 		String name;
@@ -230,7 +230,7 @@ public class FaultTreeUtils {
 		return newEvent;
 	}
 
-	private static Event findEvent(FaultTree ftaModel, String eventName) {
+	public static Event findEvent(FaultTree ftaModel, String eventName) {
 		for (Event event : ftaModel.getEvents()) {
 			if (event.getName().equalsIgnoreCase(eventName)) {
 				return event;
@@ -264,16 +264,18 @@ public class FaultTreeUtils {
 	}
 
 	/**
-	 * Fill an Event with all the properties from the AADL model. Likely, all the related
-	 * values in the Hazard property from EMV2.
+	 * Fill an Event with a description, based on hazards property or related object references
 	 *
 	 * @param event					- the event related to the EMV2 artifact
-	 * @param component             - the component from the event
-	 * @param errorModelArtifact    - the EMV2 artifact (error event, error propagation, etc)
-	 * @param type               - the type set (null if none)
 	 */
 
-	public static void fillProperties(Event event, InstanceObject io, NamedElement ne, ErrorTypes type, double scale) {
+	public static void fillDescription(Event event) {
+		if (!(event.getRelatedEMV2Object() instanceof NamedElement)) {
+			return;
+		}
+		InstanceObject io = (InstanceObject)event.getRelatedInstanceObject();
+		NamedElement ne = (NamedElement)event.getRelatedEMV2Object();
+		ErrorTypes type = (ErrorTypes) event.getRelatedErrorType();
 		if (io instanceof ComponentInstance) {
 			event.setDescription(getDescription(event, (ComponentInstance) io, ne, type));
 		} else {
@@ -281,22 +283,20 @@ public class FaultTreeUtils {
 			event.setDescription("Connection " + ((ErrorSource) ne).getSourceModelElement().getName() + " Hazard "
 					+ hazardDescription);
 		}
-
-		event.setProbability(EMV2Properties.getProbability(io, ne, type) * scale);
 	}
 
-	public static void fillProperties(Event event, ComponentInstance component, NamedElement errorModelArtifact,
-			ErrorTypes type) {
-		fillProperties(event, component, errorModelArtifact, type, 1);
+	public static void fillProbability(Event event, double scale) {
+		if (!(event.getRelatedEMV2Object() instanceof NamedElement)) {
+			return;
+		}
+		InstanceObject io = (InstanceObject) event.getRelatedInstanceObject();
+		NamedElement ne = (NamedElement) event.getRelatedEMV2Object();
+		ErrorTypes type = (ErrorTypes) event.getRelatedErrorType();
+		event.setAssignedProbability(EMV2Properties.getProbability(io, ne, type) * scale);
 	}
 
-	public static void fillProperties(Event event, ComponentInstance component, ErrorSource ces,
-			ErrorTypes type) {
-		fillProperties(event, component, ces, type, 1);
-	}
-
-	public static void fillProperties(Event event, ConnectionInstance conni, NamedElement ces, ErrorTypes type) {
-		fillProperties(event, conni, ces, type, 1);
+	public static void fillProbability(Event event) {
+		fillProbability(event, 1);
 	}
 
 	public static String getName(ComponentInstance component) {
@@ -337,15 +337,16 @@ public class FaultTreeUtils {
 		}
 
 		if (errorModelArtifact instanceof ErrorEvent) {
-			description += "Component '" + getName(component) + "'";
+			description += "Component '" + getName(component) + "' failure event '"
+					+ EMV2Util.getName(errorModelArtifact) + "'";
 			if (type != null) {
-				description += " failure event '" + EMV2Util.getName(type) + "'";
+				description += " type '" + EMV2Util.getName(type) + "'";
 			}
 		}
 
 		if (errorModelArtifact instanceof ErrorBehaviorState) {
-			ErrorBehaviorState ebs = (ErrorBehaviorState) errorModelArtifact;
-			description = "Component '" + getName(component) + "' in failure mode '" + ebs.getName() + "'";
+			description = "Component '" + getName(component) + "' in failure mode '" + errorModelArtifact.getName()
+			+ "'";
 			if (type != null) {
 				description += " type '" + EMV2Util.getName(type) + "'";
 			}
@@ -371,59 +372,59 @@ public class FaultTreeUtils {
 		return description;
 	}
 
-	/**
-	 * For leaf event it returns the probability stored with the event.
-	 * For non-leaf events (events with a gate) it recursively calculates the probability from subevents.
-	 * @param event
-	 * @return double probability
-	 */
-	public static double getProbability(Event event) {
-		double result;
-
-		if (!event.getSubEvents().isEmpty()) {
-			switch (event.getSubEventLogic()) {
-			case AND: {
-				result = 1;
-				for (Event subEvent : event.getSubEvents()) {
-					result = result * getProbability(subEvent);
-				}
-				break;
-			}
-			case PRIORITY_AND: {
-				// TODO need to adjust for ordered events
-				result = 1;
-				for (Event subEvent : event.getSubEvents()) {
-					result = result * getProbability(subEvent);
-				}
-				break;
-			}
-			case XOR: {
-				double inverseProb = 1;
-				for (Event subEvent : event.getSubEvents()) {
-					inverseProb *= (1 - getProbability(subEvent));
-				}
-				result = 1 - inverseProb;
-				break;
-			}
-			case OR: {
-				result = 0;
-				for (Event subEvent : event.getSubEvents()) {
-					result = result + getProbability(subEvent);
-				}
-				break;
-			}
-			default: {
-				System.out.println("[Utils] Unsupported for now");
-				result = 1;
-				break;
-			}
-			}
-
-		} else {
-			result = event.getProbability();
-		}
-		return result;
-	}
+//	/**
+//	 * For leaf event it returns the probability stored with the event.
+//	 * For non-leaf events (events with a gate) it recursively calculates the probability from subevents.
+//	 * @param event
+//	 * @return double probability
+//	 */
+//	public static double getProbability(Event event) {
+//		double result;
+//
+//		if (!event.getSubEvents().isEmpty()) {
+//			switch (event.getSubEventLogic()) {
+//			case AND: {
+//				result = 1;
+//				for (Event subEvent : event.getSubEvents()) {
+//					result = result * getProbability(subEvent);
+//				}
+//				break;
+//			}
+//			case PRIORITY_AND: {
+//				// TODO need to adjust for ordered events
+//				result = 1;
+//				for (Event subEvent : event.getSubEvents()) {
+//					result = result * getProbability(subEvent);
+//				}
+//				break;
+//			}
+//			case XOR: {
+//				double inverseProb = 1;
+//				for (Event subEvent : event.getSubEvents()) {
+//					inverseProb *= (1 - getProbability(subEvent));
+//				}
+//				result = 1 - inverseProb;
+//				break;
+//			}
+//			case OR: {
+//				result = 0;
+//				for (Event subEvent : event.getSubEvents()) {
+//					result = result + getProbability(subEvent);
+//				}
+//				break;
+//			}
+//			default: {
+//				System.out.println("[Utils] Unsupported operator for now: " + event.getSubEventLogic());
+//				result = 1;
+//				break;
+//			}
+//			}
+//
+//		} else {
+//			result = event.getProbability();
+//		}
+//		return result;
+//	}
 
 	/**
 	 * return sum of probabilities of direct subevents.
@@ -466,30 +467,24 @@ public class FaultTreeUtils {
 				break;
 			}
 			default: {
-				System.out.println("[Utils] Unsupported for now");
+				System.out.println("[Utils] Unsupported operator for now: " + event.getSubEventLogic());
 				result = 1;
 				break;
 			}
 			}
-			System.out.println("[Utils] Probability for " + event.getName() + ":" + result);
-
 		} else {
 			result = event.getProbability();
 		}
 		return result;
 	}
 
-	public static void performUpdate(Event event) {
+	public static void computeProbabilities(Event event) {
 		if (!event.getSubEvents().isEmpty()) {
-			double probability;
-			// TODO change the order. First, recurse
-
 			for (Event e : event.getSubEvents()) {
-				performUpdate(e);
+				computeProbabilities(e);
 			}
-			probability = getSubeventProbabilities(event);
-			event.setProbability(probability);
+			double subtotalprobability = getSubeventProbabilities(event);
+			event.setComputedProbability(subtotalprobability);
 		}
 	}
-
 }

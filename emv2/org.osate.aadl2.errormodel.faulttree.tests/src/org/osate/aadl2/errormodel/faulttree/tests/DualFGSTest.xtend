@@ -14,6 +14,7 @@ import org.osate.aadl2.instantiation.InstantiateModel
 import org.osate.core.test.OsateTest
 
 import static org.junit.Assert.*
+import org.eclipse.emf.ecore.util.EcoreUtil
 
 @RunWith(typeof(XtextRunner))
 @InjectWith(typeof(ErrorModelUiInjectorProvider))
@@ -35,7 +36,7 @@ class DualFGSTest extends OsateTest {
 	@Test
 	def void dualfgsfta() {
 		val aadlFile = "DualFGS.aadl"
-		val fgserrorlibFile = "fgserrorlib.aadl"
+		val fgserrorlibFile = "FGSErrorModellibrary.aadl"
 		val state = "state CriticalModeFailure"
 		createFiles(aadlFile -> aadlText,  fgserrorlibFile -> errorlib) // TODO add all files to workspace
 		suppressSerialization
@@ -49,10 +50,8 @@ class DualFGSTest extends OsateTest {
 		// instantiate
 		val sysImpl = cls.findFirst[name == 'FGS.composite'] as SystemImplementation
 		val instance = InstantiateModel::buildInstanceModelFile(sysImpl)
-//		assertEquals("fta_main_i_Instance", instance.name)
-
-		
-		val uri = CreateFTAModel.createTransformedFTA(instance, state)
+		val ft = CreateFTAModel.createFaultTree(instance,state)
+		val uri = EcoreUtil.getURI(ft)
 		assertTrue('No FTA file was created', uri !== null)
 		val file = workspaceRoot.getFile(new Path(uri.toPlatformString(true)))
 		val actual = Files.readStreamIntoString(file.contents)
@@ -298,30 +297,43 @@ end FGSErrorModelLibrary;
 
 	val expected = '''
 <?xml version="1.0" encoding="ASCII"?>
-<FaultTree:FaultTree xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:FaultTree="http://www.aadl.info/FaultTree" name="dualfgs_fgs_composite-criticalmodefailure" description="Top Level Failure" root="//@events.5">
-  <events name="ac-failure" description="Component 'AC'" referenceCount="1">
+<FaultTree:FaultTree xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:FaultTree="http://www.aadl.info/FaultTree" name="dualfgs_fgs_composite-criticalmodefailure" description="Top Level Failure" root="//@events.6">
+  <instanceRoot href="../../DualFGS_FGS_composite_Instance.aaxl2#/"/>
+  <events name="ac-failure" description="Component 'AC' failure event 'Failure'" referenceCount="1">
     <relatedInstanceObject href="../../DualFGS_FGS_composite_Instance.aaxl2#//@componentInstance.5"/>
-    <relatedEMV2Object href="../../../fgserrorlib.aadl#/0/@ownedPublicSection/@ownedAnnexLibrary.0/@parsedAnnexLibrary/@behaviors.4/@events.0"/>
+    <relatedEMV2Object href="../../../FGSErrorModellibrary.aadl#/0/@ownedPublicSection/@ownedAnnexLibrary.0/@parsedAnnexLibrary/@behaviors.4/@events.0"/>
   </events>
-  <events name="ap1-failure" description="Component 'AP1'" referenceCount="1">
+  <events name="ap1-failure" description="Component 'AP1' failure event 'Failure'" referenceCount="1">
     <relatedInstanceObject href="../../DualFGS_FGS_composite_Instance.aaxl2#//@componentInstance.1"/>
-    <relatedEMV2Object href="../../../fgserrorlib.aadl#/0/@ownedPublicSection/@ownedAnnexLibrary.0/@parsedAnnexLibrary/@behaviors.4/@events.0"/>
+    <relatedEMV2Object href="../../../FGSErrorModellibrary.aadl#/0/@ownedPublicSection/@ownedAnnexLibrary.0/@parsedAnnexLibrary/@behaviors.4/@events.0"/>
   </events>
-  <events name="fg1-failure" description="Component 'FG1'" referenceCount="1">
+  <events name="fg1-failure" description="Component 'FG1' failure event 'Failure'" referenceCount="1">
     <relatedInstanceObject href="../../DualFGS_FGS_composite_Instance.aaxl2#//@componentInstance.3"/>
-    <relatedEMV2Object href="../../../fgserrorlib.aadl#/0/@ownedPublicSection/@ownedAnnexLibrary.0/@parsedAnnexLibrary/@behaviors.4/@events.0"/>
+    <relatedEMV2Object href="../../../FGSErrorModellibrary.aadl#/0/@ownedPublicSection/@ownedAnnexLibrary.0/@parsedAnnexLibrary/@behaviors.4/@events.0"/>
   </events>
-  <events name="fg2-failure" description="Component 'FG2'" referenceCount="1">
+  <events name="fg2-failure" description="Component 'FG2' failure event 'Failure'" referenceCount="1">
     <relatedInstanceObject href="../../DualFGS_FGS_composite_Instance.aaxl2#//@componentInstance.4"/>
-    <relatedEMV2Object href="../../../fgserrorlib.aadl#/0/@ownedPublicSection/@ownedAnnexLibrary.0/@parsedAnnexLibrary/@behaviors.4/@events.0"/>
+    <relatedEMV2Object href="../../../FGSErrorModellibrary.aadl#/0/@ownedPublicSection/@ownedAnnexLibrary.0/@parsedAnnexLibrary/@behaviors.4/@events.0"/>
   </events>
-  <events name="network-failure" description="Component 'network'" referenceCount="1">
+  <events name="network-failure" description="Component 'network' failure event 'Failure'" referenceCount="1">
     <relatedInstanceObject href="../../DualFGS_FGS_composite_Instance.aaxl2#//@componentInstance.0"/>
-    <relatedEMV2Object href="../../../fgserrorlib.aadl#/0/@ownedPublicSection/@ownedAnnexLibrary.0/@parsedAnnexLibrary/@behaviors.4/@events.0"/>
+    <relatedEMV2Object href="../../../FGSErrorModellibrary.aadl#/0/@ownedPublicSection/@ownedAnnexLibrary.0/@parsedAnnexLibrary/@behaviors.4/@events.0"/>
   </events>
-  <events name="dualfgs_fgs_composite-criticalmodefailure" description="Component 'FGS.composite' in failure mode 'CriticalModeFailure'" subEvents="//@events.0 //@events.1 //@events.2 //@events.3 //@events.4" referenceCount="1" type="Intermediate">
+  <events name="Intermediate4" subEvents="//@events.4 //@events.7" referenceCount="1" type="Intermediate" subEventLogic="And">
     <relatedInstanceObject href="../../DualFGS_FGS_composite_Instance.aaxl2#/"/>
-    <relatedEMV2Object href="../../../fgserrorlib.aadl#/0/@ownedPublicSection/@ownedAnnexLibrary.0/@parsedAnnexLibrary/@behaviors.0/@states.2"/>
+    <relatedEMV2Object href="../../../DualFGS.aadl#/0/@ownedPublicSection/@ownedClassifier.5/@ownedAnnexSubclause.0/@parsedAnnexSubclause/@states.2/@condition/@operands.1"/>
+  </events>
+  <events name="dualfgs_fgs_composite-criticalmodefailure" description="Component 'FGS.composite' in failure mode 'CriticalModeFailure'" subEvents="//@events.5 //@events.0" referenceCount="1" type="Intermediate" subEventLogic="Xor">
+    <relatedInstanceObject href="../../DualFGS_FGS_composite_Instance.aaxl2#/"/>
+    <relatedEMV2Object href="../../../DualFGS.aadl#/0/@ownedPublicSection/@ownedClassifier.5/@ownedAnnexSubclause.0/@parsedAnnexSubclause/@states.2/@condition"/>
+  </events>
+  <events name="Intermediate6" subEvents="//@events.1 //@events.8" referenceCount="1" type="Intermediate">
+    <relatedInstanceObject href="../../DualFGS_FGS_composite_Instance.aaxl2#/"/>
+    <relatedEMV2Object href="../../../DualFGS.aadl#/0/@ownedPublicSection/@ownedClassifier.5/@ownedAnnexSubclause.0/@parsedAnnexSubclause/@states.2/@condition/@operands.1"/>
+  </events>
+  <events name="Intermediate7" subEvents="//@events.2 //@events.3" referenceCount="1" type="Intermediate" subEventLogic="And">
+    <relatedInstanceObject href="../../DualFGS_FGS_composite_Instance.aaxl2#/"/>
+    <relatedEMV2Object href="../../../DualFGS.aadl#/0/@ownedPublicSection/@ownedClassifier.5/@ownedAnnexSubclause.0/@parsedAnnexSubclause/@states.2/@condition/@operands.1"/>
   </events>
 </FaultTree:FaultTree>
 	'''
