@@ -35,10 +35,11 @@ public class Services {
 
 	public String getDescriptionAndProbability(EObject context) {
 		if (context instanceof Event) {
-			double val = ((Event) context).getProbability();
-			String labeltext = ((Event) context).getDescription();
+			Event ev = (Event) context;
+			double val = ev.getProbability();
+			String labeltext = ev.getDescription();
 			if (labeltext == null || labeltext.isEmpty()) {
-				labeltext = ((Event) context).getName();
+				labeltext = ev.getName();
 			}
 			return String.format("%1$s\n(%2$.3E)", labeltext, val);
 		}
