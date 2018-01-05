@@ -17057,6 +17057,14 @@ rule__AbstractFeature__Alternatives_2
 { after(grammarAccess.getAbstractFeatureAccess().getGroup_2_1()); }
 )
 
+    |(
+{ before(grammarAccess.getAbstractFeatureAccess().getFeatureKeyword_2_2()); }
+
+	Feature 
+
+{ after(grammarAccess.getAbstractFeatureAccess().getFeatureKeyword_2_2()); }
+)
+
 ;
 finally {
 	restoreStackSize(stackSize);
@@ -94895,7 +94903,7 @@ rule__AbstractFeature__Group_2_1__1__Impl
 :
 (
 { before(grammarAccess.getAbstractFeatureAccess().getAbstractFeatureClassifierAssignment_2_1_1()); }
-(rule__AbstractFeature__AbstractFeatureClassifierAssignment_2_1_1)?
+(rule__AbstractFeature__AbstractFeatureClassifierAssignment_2_1_1)
 { after(grammarAccess.getAbstractFeatureAccess().getAbstractFeatureClassifierAssignment_2_1_1()); }
 )
 

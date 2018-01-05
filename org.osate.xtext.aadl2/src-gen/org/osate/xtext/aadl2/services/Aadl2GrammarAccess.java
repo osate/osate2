@@ -20391,6 +20391,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		private final Assignment cAbstractFeatureClassifierAssignment_2_1_1 = (Assignment)cGroup_2_1.eContents().get(1);
 		private final CrossReference cAbstractFeatureClassifierFeatureClassifierCrossReference_2_1_1_0 = (CrossReference)cAbstractFeatureClassifierAssignment_2_1_1.eContents().get(0);
 		private final RuleCall cAbstractFeatureClassifierFeatureClassifierQCREFParserRuleCall_2_1_1_0_1 = (RuleCall)cAbstractFeatureClassifierFeatureClassifierCrossReference_2_1_1_0.eContents().get(1);
+		private final Keyword cFeatureKeyword_2_2 = (Keyword)cAlternatives_2.eContents().get(2);
 		private final Assignment cArrayDimensionAssignment_3 = (Assignment)cGroup.eContents().get(3);
 		private final RuleCall cArrayDimensionArrayDimensionParserRuleCall_3_0 = (RuleCall)cArrayDimensionAssignment_3.eContents().get(0);
 		private final Group cGroup_4 = (Group)cGroup.eContents().get(4);
@@ -20403,14 +20404,13 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//AbstractFeature aadl2::AbstractFeature:
 		//	(name=ID ':' | refined=[aadl2::AbstractFeature|REFINEDNAME] ':' RefinedToKeywords) (in?='in' | out?='out')?
 		//	('prototype' featurePrototype=[aadl2::FeaturePrototype|QCREF] | 'feature'
-		//	abstractFeatureClassifier=[aadl2::FeatureClassifier|QCREF]?) arrayDimension+=ArrayDimension? ('{'
+		//	abstractFeatureClassifier=[aadl2::FeatureClassifier|QCREF] | 'feature') arrayDimension+=ArrayDimension? ('{'
 		//	ownedPropertyAssociation+=PropertyAssociation+ '}')? ';';
 		@Override public ParserRule getRule() { return rule; }
 
 		//(name=ID ':' | refined=[aadl2::AbstractFeature|REFINEDNAME] ':' RefinedToKeywords) (in?='in' | out?='out')? ('prototype'
-		//featurePrototype=[aadl2::FeaturePrototype|QCREF] | 'feature'
-		//abstractFeatureClassifier=[aadl2::FeatureClassifier|QCREF]?) arrayDimension+=ArrayDimension? ('{'
-		//ownedPropertyAssociation+=PropertyAssociation+ '}')? ';'
+		//featurePrototype=[aadl2::FeaturePrototype|QCREF] | 'feature' abstractFeatureClassifier=[aadl2::FeatureClassifier|QCREF]
+		//| 'feature') arrayDimension+=ArrayDimension? ('{' ownedPropertyAssociation+=PropertyAssociation+ '}')? ';'
 		public Group getGroup() { return cGroup; }
 
 		//// default is inout if no direction
@@ -20463,7 +20463,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		public Keyword getOutOutKeyword_1_1_0() { return cOutOutKeyword_1_1_0; }
 
 		//'prototype' featurePrototype=[aadl2::FeaturePrototype|QCREF] | 'feature'
-		//abstractFeatureClassifier=[aadl2::FeatureClassifier|QCREF]?
+		//abstractFeatureClassifier=[aadl2::FeatureClassifier|QCREF] | 'feature'
 		public Alternatives getAlternatives_2() { return cAlternatives_2; }
 
 		//'prototype' featurePrototype=[aadl2::FeaturePrototype|QCREF]
@@ -20481,13 +20481,13 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//QCREF
 		public RuleCall getFeaturePrototypeFeaturePrototypeQCREFParserRuleCall_2_0_1_0_1() { return cFeaturePrototypeFeaturePrototypeQCREFParserRuleCall_2_0_1_0_1; }
 
-		//'feature' abstractFeatureClassifier=[aadl2::FeatureClassifier|QCREF]?
+		//'feature' abstractFeatureClassifier=[aadl2::FeatureClassifier|QCREF]
 		public Group getGroup_2_1() { return cGroup_2_1; }
 
 		//'feature'
 		public Keyword getFeatureKeyword_2_1_0() { return cFeatureKeyword_2_1_0; }
 
-		//abstractFeatureClassifier=[aadl2::FeatureClassifier|QCREF]?
+		//abstractFeatureClassifier=[aadl2::FeatureClassifier|QCREF]
 		public Assignment getAbstractFeatureClassifierAssignment_2_1_1() { return cAbstractFeatureClassifierAssignment_2_1_1; }
 
 		//[aadl2::FeatureClassifier|QCREF]
@@ -20495,6 +20495,9 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 
 		//QCREF
 		public RuleCall getAbstractFeatureClassifierFeatureClassifierQCREFParserRuleCall_2_1_1_0_1() { return cAbstractFeatureClassifierFeatureClassifierQCREFParserRuleCall_2_1_1_0_1; }
+
+		//'feature'
+		public Keyword getFeatureKeyword_2_2() { return cFeatureKeyword_2_2; }
 
 		//arrayDimension+=ArrayDimension?
 		public Assignment getArrayDimensionAssignment_3() { return cArrayDimensionAssignment_3; }
@@ -29710,7 +29713,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	//AbstractFeature aadl2::AbstractFeature:
 	//	(name=ID ':' | refined=[aadl2::AbstractFeature|REFINEDNAME] ':' RefinedToKeywords) (in?='in' | out?='out')?
 	//	('prototype' featurePrototype=[aadl2::FeaturePrototype|QCREF] | 'feature'
-	//	abstractFeatureClassifier=[aadl2::FeatureClassifier|QCREF]?) arrayDimension+=ArrayDimension? ('{'
+	//	abstractFeatureClassifier=[aadl2::FeatureClassifier|QCREF] | 'feature') arrayDimension+=ArrayDimension? ('{'
 	//	ownedPropertyAssociation+=PropertyAssociation+ '}')? ';';
 	public AbstractFeatureElements getAbstractFeatureAccess() {
 		return pAbstractFeature;
