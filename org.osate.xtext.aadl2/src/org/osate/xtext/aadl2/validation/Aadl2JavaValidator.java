@@ -1468,7 +1468,8 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 							}
 						}
 					} else if (prevFlowElement instanceof Subcomponent) {
-						if (prevFlowElement != cxt) {
+						if (prevFlowElement != cxt && !(cxt instanceof SubprogramCall
+								&& ((SubprogramCall) cxt).getCalledSubprogram() == prevFlowElement)) {
 							error(flow.getOwnedFlowSegments().get(i),
 									"The source of connection '" + connection.getName()
 											+ "' does not match the preceding subcomponent '"
@@ -1520,7 +1521,8 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 							}
 						}
 					} else if (felem instanceof Subcomponent) {
-						if (felem != cxt) {
+						if (felem != cxt && !(cxt instanceof SubprogramCall
+								&& ((SubprogramCall) cxt).getCalledSubprogram() == felem)) {
 							error(flow.getOwnedFlowSegments().get(i),
 									"The destination component '" + cxt.getName() + "' of connection '"
 											+ connection.getName() + "' does not match the succeeding subcomponent  '"
