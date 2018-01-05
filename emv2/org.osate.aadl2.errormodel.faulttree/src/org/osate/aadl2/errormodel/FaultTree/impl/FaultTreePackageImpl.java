@@ -161,6 +161,15 @@ public class FaultTreePackageImpl extends EPackageImpl implements FaultTreePacka
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EReference getFaultTree_InstanceRoot() {
+		return (EReference)faultTreeEClass.getEStructuralFeatures().get(4);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EClass getEvent() {
 		return eventEClass;
 	}
@@ -315,6 +324,7 @@ public class FaultTreePackageImpl extends EPackageImpl implements FaultTreePacka
 		createEAttribute(faultTreeEClass, FAULT_TREE__DESCRIPTION);
 		createEReference(faultTreeEClass, FAULT_TREE__EVENTS);
 		createEReference(faultTreeEClass, FAULT_TREE__ROOT);
+		createEReference(faultTreeEClass, FAULT_TREE__INSTANCE_ROOT);
 
 		eventEClass = createEClass(EVENT);
 		createEAttribute(eventEClass, EVENT__NAME);
@@ -369,6 +379,7 @@ public class FaultTreePackageImpl extends EPackageImpl implements FaultTreePacka
 		initEAttribute(getFaultTree_Description(), ecorePackage.getEString(), "description", null, 0, 1, FaultTree.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getFaultTree_Events(), this.getEvent(), null, "events", null, 0, -1, FaultTree.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getFaultTree_Root(), this.getEvent(), null, "root", null, 0, 1, FaultTree.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getFaultTree_InstanceRoot(), ecorePackage.getEObject(), null, "instanceRoot", null, 0, 1, FaultTree.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(eventEClass, Event.class, "Event", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getEvent_Name(), ecorePackage.getEString(), "name", null, 0, 1, Event.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

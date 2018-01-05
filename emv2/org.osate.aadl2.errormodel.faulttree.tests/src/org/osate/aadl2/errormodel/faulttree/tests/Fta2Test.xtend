@@ -14,6 +14,7 @@ import org.osate.aadl2.instantiation.InstantiateModel
 import org.osate.core.test.OsateTest
 
 import static org.junit.Assert.*
+import org.eclipse.emf.ecore.util.EcoreUtil
 
 @RunWith(typeof(XtextRunner))
 @InjectWith(typeof(ErrorModelUiInjectorProvider))
@@ -30,8 +31,8 @@ class Fta2Test extends OsateTest {
  */
 	@Test
 	def void basicfta() {
-		val aadlFile = "Emfta2Test.aadl"
-		val errorlibFile = "errorlib.aadl"
+		val aadlFile = "fta2Test.aadl"
+		val errorlibFile = "ErrorModellibrary.aadl"
 		val state = "state Failed"
 		createFiles(aadlFile -> aadlText, errorlibFile -> errorlibText) 
 		suppressSerialization
@@ -48,17 +49,21 @@ class Fta2Test extends OsateTest {
 //		assertEquals("fta_main_i_Instance", instance.name)
 
 		
-		val uri =CreateFTAModel.createTransformedFTA(instance,state)
+		val ft = CreateFTAModel.createTransformedFTA(instance,state)
+		val uri = EcoreUtil.getURI(ft)
 		val file = workspaceRoot.getFile(new Path(uri.toPlatformString(true)))
 		val actual = Files.readStreamIntoString(file.contents)
 		assertEquals('error', expected.trim, actual.trim)
 	}
 
 	val aadlText = '''
-package Emfta2Test
-
-
+package fta2test
 public
+
+
+-- This test uses a composite error state declaration with an AND that references
+-- the last two subcomponents in a flow. For each we trace backward along propagations
+-- to include the input to the subcomponent.
 
 data mydata
 end mydata;
@@ -120,7 +125,7 @@ annex EMV2 {**
 **};
 end main.i;
 
-end Emfta2Test;
+end fta2test;
 	'''
 
 	val errorlibText = '''
@@ -162,29 +167,38 @@ end ErrorModelLibrary;
 
 	val expected = '''
 <?xml version="1.0" encoding="ASCII"?>
-<FaultTree:FaultTree xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:FaultTree="http://www.aadl.info/FaultTree" name="emfta2test_main_i-failed" description="Top Level Failure" root="//@events.4">
+<FaultTree:FaultTree xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:FaultTree="http://www.aadl.info/FaultTree" name="fta2test_main_i-failed" description="Top Level Failure" root="//@events.6">
   <events name="sens1-f0-badvalue" description="Component 'sens1' failure source 'BadValue'" referenceCount="1">
-    <relatedInstanceObject href="../../Emfta2Test_main_i_Instance.aaxl2#//@componentInstance.0"/>
-    <relatedErrorType href="../../../Emfta2Test.aadl#/0/@ownedPublicSection/@ownedClassifier.1/@ownedAnnexSubclause.0/@parsedAnnexSubclause/@transitions.0/@condition/@constraint"/>
-    <relatedEMV2Object href="../../../Emfta2Test.aadl#/0/@ownedPublicSection/@ownedClassifier.2/@ownedAnnexSubclause.0/@parsedAnnexSubclause/@flows.0"/>
+    <relatedInstanceObject href="../../fta2Test_main_i_Instance.aaxl2#//@componentInstance.0"/>
+    <relatedErrorType href="../../../fta2Test.aadl#/0/@ownedPublicSection/@ownedClassifier.1/@ownedAnnexSubclause.0/@parsedAnnexSubclause/@transitions.0/@condition/@constraint"/>
+    <relatedEMV2Object href="../../../fta2Test.aadl#/0/@ownedPublicSection/@ownedClassifier.2/@ownedAnnexSubclause.0/@parsedAnnexSubclause/@flows.0"/>
   </events>
-  <events name="s1-failure" description="Component 's1'" referenceCount="1">
-    <relatedInstanceObject href="../../Emfta2Test_main_i_Instance.aaxl2#//@componentInstance.2"/>
-    <relatedEMV2Object href="../../../errorlib.aadl#/0/@ownedPublicSection/@ownedAnnexLibrary.0/@parsedAnnexLibrary/@behaviors.0/@events.0"/>
+  <events name="s1-failure" description="Component 's1' failure event 'Failure'" referenceCount="1">
+    <relatedInstanceObject href="../../fta2Test_main_i_Instance.aaxl2#//@componentInstance.2"/>
+    <relatedEMV2Object href="../../../ErrorModellibrary.aadl#/0/@ownedPublicSection/@ownedAnnexLibrary.0/@parsedAnnexLibrary/@behaviors.0/@events.0"/>
+  </events>
+  <events name="s1-failed" description="Component 's1' in failure mode 'Failed'" subEvents="//@events.1 //@events.0" referenceCount="1" type="Intermediate">
+    <relatedInstanceObject href="../../fta2Test_main_i_Instance.aaxl2#//@componentInstance.2"/>
+    <relatedEMV2Object href="../../../ErrorModellibrary.aadl#/0/@ownedPublicSection/@ownedAnnexLibrary.0/@parsedAnnexLibrary/@behaviors.0/@states.1"/>
   </events>
   <events name="sens2-f0-badvalue" description="Component 'sens2' failure source 'BadValue'" referenceCount="1">
-    <relatedInstanceObject href="../../Emfta2Test_main_i_Instance.aaxl2#//@componentInstance.1"/>
-    <relatedErrorType href="../../../Emfta2Test.aadl#/0/@ownedPublicSection/@ownedClassifier.1/@ownedAnnexSubclause.0/@parsedAnnexSubclause/@transitions.0/@condition/@constraint"/>
-    <relatedEMV2Object href="../../../Emfta2Test.aadl#/0/@ownedPublicSection/@ownedClassifier.2/@ownedAnnexSubclause.0/@parsedAnnexSubclause/@flows.0"/>
+    <relatedInstanceObject href="../../fta2Test_main_i_Instance.aaxl2#//@componentInstance.1"/>
+    <relatedErrorType href="../../../fta2Test.aadl#/0/@ownedPublicSection/@ownedClassifier.1/@ownedAnnexSubclause.0/@parsedAnnexSubclause/@transitions.0/@condition/@constraint"/>
+    <relatedEMV2Object href="../../../fta2Test.aadl#/0/@ownedPublicSection/@ownedClassifier.2/@ownedAnnexSubclause.0/@parsedAnnexSubclause/@flows.0"/>
   </events>
-  <events name="s2-failure" description="Component 's2'" referenceCount="1">
-    <relatedInstanceObject href="../../Emfta2Test_main_i_Instance.aaxl2#//@componentInstance.3"/>
-    <relatedEMV2Object href="../../../errorlib.aadl#/0/@ownedPublicSection/@ownedAnnexLibrary.0/@parsedAnnexLibrary/@behaviors.0/@events.0"/>
+  <events name="s2-failure" description="Component 's2' failure event 'Failure'" referenceCount="1">
+    <relatedInstanceObject href="../../fta2Test_main_i_Instance.aaxl2#//@componentInstance.3"/>
+    <relatedEMV2Object href="../../../ErrorModellibrary.aadl#/0/@ownedPublicSection/@ownedAnnexLibrary.0/@parsedAnnexLibrary/@behaviors.0/@events.0"/>
   </events>
-  <events name="emfta2test_main_i-failed" description="Component 'main.i' in failure mode 'Failed'" subEvents="//@events.1 //@events.0 //@events.3 //@events.2" referenceCount="1" type="Intermediate">
-    <relatedInstanceObject href="../../Emfta2Test_main_i_Instance.aaxl2#/"/>
-    <relatedEMV2Object href="../../../errorlib.aadl#/0/@ownedPublicSection/@ownedAnnexLibrary.0/@parsedAnnexLibrary/@behaviors.0/@states.1"/>
+  <events name="s2-failed" description="Component 's2' in failure mode 'Failed'" subEvents="//@events.4 //@events.3" referenceCount="1" type="Intermediate">
+    <relatedInstanceObject href="../../fta2Test_main_i_Instance.aaxl2#//@componentInstance.3"/>
+    <relatedEMV2Object href="../../../ErrorModellibrary.aadl#/0/@ownedPublicSection/@ownedAnnexLibrary.0/@parsedAnnexLibrary/@behaviors.0/@states.1"/>
   </events>
+  <events name="fta2test_main_i-failed" subEvents="//@events.2 //@events.5" referenceCount="1" type="Intermediate" subEventLogic="And">
+    <relatedInstanceObject href="../../fta2Test_main_i_Instance.aaxl2#/"/>
+    <relatedEMV2Object href="../../../fta2Test.aadl#/0/@ownedPublicSection/@ownedClassifier.4/@ownedAnnexSubclause.0/@parsedAnnexSubclause/@states.0/@condition"/>
+  </events>
+  <instanceRoot href="../../fta2Test_main_i_Instance.aaxl2#/"/>
 </FaultTree:FaultTree>
 	'''
 }

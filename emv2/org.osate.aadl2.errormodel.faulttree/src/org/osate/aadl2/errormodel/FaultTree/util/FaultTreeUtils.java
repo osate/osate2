@@ -175,7 +175,7 @@ public class FaultTreeUtils {
 	 * @param type
 	 * @return Event
 	 */
-	public static Event createIntermediateEvent(FaultTree ftaModel, ComponentInstance component, Element element,
+	public static Event createIntermediateEvent(FaultTree ftaModel, ComponentInstance component, EObject element,
 			ErrorTypes type) {
 		return createIntermediateEvent(ftaModel, component, element, type, false);
 	}
@@ -186,7 +186,7 @@ public class FaultTreeUtils {
 		.add(createIntermediateEvent((FaultTree) parent.eContainer(), component, element, type, false));
 	}
 
-	public static Event createUniqueIntermediateEvent(FaultTree ftaModel, ComponentInstance component, Element element,
+	public static Event createUniqueIntermediateEvent(FaultTree ftaModel, ComponentInstance component, EObject element,
 			ErrorTypes type) {
 		return createIntermediateEvent(ftaModel, component, element, type, true);
 	}
@@ -204,10 +204,10 @@ public class FaultTreeUtils {
 	private static int count = 1;
 
 	public static void resetIntermediateEventCount() {
-		count = 0;
+		count = 1;
 	}
 
-	private static Event createIntermediateEvent(FaultTree ftaModel, ComponentInstance component, Element element,
+	private static Event createIntermediateEvent(FaultTree ftaModel, ComponentInstance component, EObject element,
 			ErrorTypes type,
 			boolean unique) {
 		String name;
@@ -230,7 +230,7 @@ public class FaultTreeUtils {
 		return newEvent;
 	}
 
-	private static Event findEvent(FaultTree ftaModel, String eventName) {
+	public static Event findEvent(FaultTree ftaModel, String eventName) {
 		for (Event event : ftaModel.getEvents()) {
 			if (event.getName().equalsIgnoreCase(eventName)) {
 				return event;
@@ -337,15 +337,16 @@ public class FaultTreeUtils {
 		}
 
 		if (errorModelArtifact instanceof ErrorEvent) {
-			description += "Component '" + getName(component) + "'";
+			description += "Component '" + getName(component) + "' failure event '"
+					+ EMV2Util.getName(errorModelArtifact) + "'";
 			if (type != null) {
-				description += " failure event '" + EMV2Util.getName(type) + "'";
+				description += " type '" + EMV2Util.getName(type) + "'";
 			}
 		}
 
 		if (errorModelArtifact instanceof ErrorBehaviorState) {
-			ErrorBehaviorState ebs = (ErrorBehaviorState) errorModelArtifact;
-			description = "Component '" + getName(component) + "' in failure mode '" + ebs.getName() + "'";
+			description = "Component '" + getName(component) + "' in failure mode '" + errorModelArtifact.getName()
+			+ "'";
 			if (type != null) {
 				description += " type '" + EMV2Util.getName(type) + "'";
 			}
