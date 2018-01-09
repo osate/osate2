@@ -1,7 +1,7 @@
 # Safety Analysis with Error Model V2
 
 ## Introduction
-In this write-up, we demonstrate on an example how functional ahazard asessment (FHA), fault impact analysis (FMEA), and fault tree analysis (FTA) of a safety-critical system can be performed through the use of AADL, Error Model V2 (EMV2), and the analysis capabilities of OSATE. 
+In this write-up, we demonstrate on an example how functional ahazard asessment (FHA), fault impact analysis (FMEA like), and fault tree analysis (FTA) of a safety-critical system can be performed through the use of AADL, Error Model V2 (EMV2), and the analysis capabilities of OSATE. 
 
 In fault impact analysis the impact of fault occurrences on a system is determined through forward reasoning from an error source. One such form of inductive impact analysis is known as failure mode and effect analysis (FMEA). In OSATE it is supported by a Fault Impact Analysis capability.
 
@@ -9,9 +9,9 @@ In fault tree analysis fault occurrences are identified as contributors to a cri
 
 We will show how AADL and EMV2 can be used in this process. In terms of notation, we will demonstrate the use of EMV2 at three levels of abstraction:
 
- 1. error propagations and flows: early for FHA, forward impact analysis (FMEA) typically single source to identify impact; backward propagation to identify all potential contributors to a catastrophic or major event (in FTA format); common cause analysis to identify shared resources or functions (CMA/CCA). This level does not take into account any safety system/fault management design. The level of specification detail corresponds to that of the Fault Propagation and Transformation Calculus (FPTA) of York University.
- 2. Component error behavior specifications: identification of failure modes, Types of component failures (error events), error behavior logic to reflect redundancy of external input and redundancy of subcomponents.
- 3. Compositional error behavior in terms of subcomponent behavior to determine initial system reliability based on a parts model, and to identify the starting point for a deductive fault impact analysis of safety systems.
+ 1. error propagations and flows: early for FHA, for impact analysis (FMEA) typically single source tracing forward to identify impact; backward propagation to identify all potential contributors to a catastrophic or major event (in FTA format); common cause analysis to identify shared resources or functions (CMA/CCA). The level of specification detail corresponds to that of the Fault Propagation and Transformation Calculus (FPTA) of York University.
+ 2. Component error behavior specifications: identification of failure modes, Types of component failures (error events), error behavior logic to reflect redundancy of external input and redundancy of subcomponents. This level can take into account any safety system/fault management design such as reudnant input or parts. 
+ 3. Compositional error behavior (failure modes) in terms of subcomponent error behavior to determine initial system reliability based on a parts model. It can be used to generate a composite parts fault tree.
 
 ##The Example Model
 
@@ -112,40 +112,59 @@ Additional labels may be used for intermediate elements of the impact trace to i
 
 Fault tree analysis operates with the same AADL model annotated with EMV2. Again users can specify the model at different levels of detail. Users can specify error propagations and error flows. Users may also specify component error behavior, in which case it is interpreted instead of the error flows. Finally, users can declare composite error behavior, where an error behavior state of a system is declared in terms of error behavior states of its subsystem. 
 
-Fault tree analysis is invoked on an instance model through the main menu, context, menu, or tool bar. The main menu is shown below.
+### Fault Tree Analysis Invocation and Results
+
+Fault tree analysis is invoked on an instance model through the main menu, context, menu, or tool bar. By default the top level component instance becomes the root of the fault tree analysis. The main menu is shown below.
 ![FTA Invocation](images/FTAInvocation.png "FTA Invocation")
+> Note that users select a component instance other than the root component instance (system instance) as starting point of fault tree analysis.  
 
-Fault tree analysis produces a propagation graph from the AADL/EMV2 model. This graph reflects common cause elements (dependent events). Users can select the representation of interest resulting from this graph as well as the error behavior state or outgoing error propagation of the top-level system as root of the faul tree.
+Fault tree analysis uses an error state or outgoing error propagation of the selected component instance as starting point. The analysis generates a fault propagation graph based on error flows, connections, and bindings. The analysis produces one of several fault tree respresentations by tracing backwards along the propagation graph or based on composite error state declarations.  These fault tree representations are stored in an XMI format and shown to the user in graphical or table format. The figure below shows the dialog box through which the user can select an error state or outgoing propagation as well as the fault tree representation. 
 ![FTA Dialog](images/FTADialog.png "FTA Dialog")
-The three representations are:
-* Basic Fault Tree: A fault tree with dependent events marked by "\*". Such a fault tree most closely reflects the original paths through the system. The fault tree is stored in an XMI representation for fault graphs and is made available in a graphical view.
-* Transformed Fault Tree: Transformations applied to the basic fault tree to move common events "up the tree". The resultant fault tree does not have dependent events and is used for calculating occurrence probabilities. The fault tree is stored in an XMI representation for fault graphs and is made available in a graphical view.
-* Minimal cut sets: Minimal cut sets are generated from the graph. Occurrence probability is calculated from it as well. The minimal caut sets are stored in an XMI representation for fault graphs and is made available in a tabular view.
+The four representations are:
+* Fault tree with computed occurrence probability: A fault tree based on backward trace of the propagation graph with contributors shown as fault tree events. The fault tree is compacted to remove intermediate steps of the trace to focus on actual contributors, such as error events, error sources, or external effects propagated into the system of interest. Occurrence probability is calculated from occurrence propability values of the leaf events in the fault tree. Dependent (common) events are minimized through fault tree transformation. By default the resulting fault tree is shown graphically.
+* Minimal cut sets with computed occurrence probability: Minimal cut sets of contributors are generated from the propagation graph and occurrence probability is calculated from assigned occurrence propability values of the . The minimal caut sets shown in table format.
+* Fault Contributor Trace: A fault tree is generated that shows the full backward trace to contributors. This cncludes intermediate steps such as outgoing and incoming error proagations, and error states. Dependent (common) fault tree events and event subtrees are identified by a "*". By default the resulting fault tree is shown graphically.
+* Parts Fault Tree: A composite fault tree of system parts recursively identified by composite error state declarations. In this case the propagation graph representing error flow is not taken into account. Occurrence probability is computed from the occurrence probability values assigned to error states of the leaf components. By default the resulting fault tree is shown graphically.
+> Users can choose to have the fault tree, fault trace, and parts fault tree shown in table format instead of the default graphical view by checking the appropriate item in teh dialog box.
 
-The stored fault tree representations are kept in the **FTA** folder under the **reports** folder (see earlier figure).
+### Fault Tree Analysis Results
+
+The stored fault tree representations are kept in the **FTA** folder under the **reports** folder. They are stored in an XMI format based on a FaultTree.ecore specification (for details see https://github.com/osate/ErrorModelV2/tree/develop/org.osate.aadl2.errormodel.faulttree/model).
+![FTA Reports](images/FTAReports.png "FTA Reports")
 We support the following fault tree elements:
 Events: Basic ![](images/BasicEvent.gif), External![](images/ExternalEvent.gif), Undeveloped![](images/UndevelopedEvent.gif), and Intermediate.
 Basic events represent error sources or error events within the system, External events represent Events that come from outside the system of interest, and Undeveloped events represent incoming propagations of binding points without bindings or incoming propagations of features that are not connected.
 Intermediate events represent composite events with logic gates. We have the following gates: OR![](images/OrOp.gif), AND![](images/AndOp.gif), XOR![](images/XorOp.gif), PriorityAnd![](images/PAndOp.gif), KOrMore![](images/OrMoreOp.gif), KOf, KOrLess.
 > Note that **Kof(1)** is the same as **Xor** of single elements, and **KOrMore(1)** is the same as **Or** of single elements.
 
-###State-based Compositional Fault Tree Generation
+Eclipse Sirius is automatically invoked to visualize the fault trees graphically and in table format. An example graphical presentation of a fault tree 
 
-One use early in the process is a state-based compositional faul tree generation. In this case users define a parts model, i.e., identify the parts of each system, and specify how the error states of the parts relate to the error states of the enclosing system through composite state declarations. Note that user can define such a model with error state machines at multiple level of a system architecture. Users also do not have to specify an error state machine for each level. Instead a higher level state can be expressed in terms of subsystems more than one level down. 
+
+
+###Error State-based Composite Parts Fault Tree Generation
+
+One use early in the process is a composite parts fault tree generation. In this case users define a parts model, i.e., identify the parts of each system, and specify how the error states of the parts relate to the error states of the enclosing system through composite state declarations. Note that user can define such a model with error state machines at multiple level of a system architecture. Users also do not have to specify an error state machine for each level. Instead a higher level state can be expressed in terms of subsystems more than one level down. 
 >This is similar to specifying reliability block diagrams in a compositional manner, where the logic of the composite error behavior state corresponds to the logic represented graphically by parallel and serial blocks.
 
-An example of a composite error behavior state declaration is shown here.
+An example of a composite error behavior state declaration is shown here. 
+> In EMV2 the **1 ormore** operator is used to indicate **inclusive oOr**, while the EMV2 **Or** operator represents **exclusive or**.
+
 ![Composite Error Behavior](images/compositeerrorbehavior.png "Composite Error Behavior")
 
-In our example, the package *GPSSystem* contains the top level GPS system with a number of implementations with different levels of detail and configurations. The parts model is represented by the system implementation *gps.parts_SingleSensor*. In this case, the EMFTA constructs a complete system fault tree form fault tree fragments based on the composite state declarations for a user-selected error state of the top-level system.
+In our example, the package *GPSSystem* contains the top level GPS system with a number of implementations with different levels of detail and configurations. The parts model is represented by the system implementation *gps.parts_SingleSensor*. In this case, the fault tree analysis constructs a complete system fault tree from fault tree fragments based on the composite state declarations for a user-selected error state of the top-level system.
 
-The resulting fault tree can then be analyzed for cut sets, i.e., shortest path to cause the root node of the tree to fail, and occurrence probability based on occurrence probabilities of the leaf nodes, i.e., the error states of the leaf components with EMV2 subclauses. 
-![GPS Composite FTA](images/compositefta-gps.png "GPS Composite FTA")
+Occurrence probability of the system error state (failure mode) is computed from the occurrence probability values assigned to the error states of the leaf nodes. The figure below shows the assignment of the occurrence probability value to the power supply.
 
-Probabilistic state-based EMFTA is performed by using occurrence distribution specifications on error states. This allows for the use of an error state machine without having a full specification of error transitions and outgoing propagation conditions. If an error state machine has been included with error events and transitions, then the state probability may be derived from the error event probabilities and the transition condition logic.
+![Occurrence Assignment](images/Powersupplyoccurrence.png "Occurrence Assignment")
+![Fsil Stop State](images/FailStopState.png "Fsil Stop State")
+
+> Occurrence probability is computed from the occurrence probability on error states of the parts. This allows you to use of an error state machine with states only, i.e., without specification of error events and transitions. If an error state machine has been included with error events and transitions, and you want the error event included in the generated fault tree, then use the propagation graph based fault tree generation.
+
+The resulting graphical fault tree looks like this.
+![GPS Composite FTA](images/fta-gps1sensor.png "GPS Composite FTA")
 
 ### Fault Tree Derived from Backward Trace of Propagation Graph
-In this case, the propagation paths in the propagation graph are traversed backward to construct a fault tree representation. In other words, propagation paths along connections, bindings, and user declared propagation paths, as well as error flows from incoming propagations to outgoing propagations are interpreted. If component error behavior in terms of error behavior state machines with error events, states, transitions, and outgoing ppropagation conditions are presents, they are interpreted resulting in a higher fidelity propagation graph and fault tree.
+In this case, the propagation paths in the propagaation graph are traversed backward to construct a fault tree representation. In other words, propagation paths along connections, bindings, and user declared propagation paths, as well as error flows from incoming propagations to outgoing propagations are interpreted. If component error behavior in terms of error behavior state machines with error events, states, transitions, and outgoing ppropagation conditions are presents, they are interpreted resulting in a higher fidelity propagation graph and fault tree.
 
 In its simplest form the analysis traces back from a user identified outgoing error propagation and error type of interest for the top-level system. In our example, this is represented by the top-level system implementation gps.basic.
 

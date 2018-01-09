@@ -59,7 +59,7 @@ public class FTADialog extends TitleAreaDialog {
 		container.setLayout(layout);
 
 		Label labelErrorMode = new Label(container, SWT.NONE);
-		labelErrorMode.setText("Error State or Outgoing Propagation");
+		labelErrorMode.setText("Select Error State or Outgoing Propagation");
 
 		errorMode = new Combo(container, SWT.READ_ONLY | SWT.BORDER);
 		String val[] = new String[values.size()];
@@ -69,15 +69,15 @@ public class FTADialog extends TitleAreaDialog {
 		errorMode.setItems(val);
 
 		errorMode.select(0);
-		faultTraceBox = new Button(container, SWT.RADIO);
-		faultTraceBox.setText("Fault Contributor Trace (dependent events marked by *)");
-		faultTraceBox.setSelection(false);
 		faultTreeBox = new Button(container, SWT.RADIO);
 		faultTreeBox.setText("Fault Tree with Computed Probability");
 		faultTreeBox.setSelection(true);
 		mincutsetBox = new Button(container, SWT.RADIO);
 		mincutsetBox.setText("Minimal Cut Sets with Computed Probability (Table format)");
 		mincutsetBox.setSelection(false);
+		faultTraceBox = new Button(container, SWT.RADIO);
+		faultTraceBox.setText("Fault Contributor Trace (dependent events marked by *)");
+		faultTraceBox.setSelection(false);
 		compositePartsBox = new Button(container, SWT.RADIO);
 		compositePartsBox.setText("Parts Fault Tree (based on composite error states*)");
 		compositePartsBox.setSelection(false);
