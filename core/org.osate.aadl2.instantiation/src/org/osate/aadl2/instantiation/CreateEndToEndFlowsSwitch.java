@@ -471,6 +471,17 @@ public class CreateEndToEndFlowsSwitch extends AadlProcessingSwitchWithProgress 
 			if (connis.isEmpty()) {
 				connections.clear();
 				removeETEI.add(etei);
+
+				if (!lastFlowImpl.isEmpty()) {
+					FlowImplementation flowFilter = lastFlowImpl.peek();
+					if (flowFilter != null) {
+						error(etei.getContainingComponentInstance(),
+								"Cannot create end to end flow '" + etei.getName()
+								+ "' because there are no semantic connections that continue the flow '"
+								+ flowFilter.getSpecification().getName() + "' from feature '"
+								+ flowFilter.getOutEnd().getFeature().getName() + "'");
+					}
+				}
 			} else {
 				Iterator<ConnectionInstance> connIter = connis.iterator();
 				FlowImplementation flowFilter = lastFlowImpl.isEmpty() ? null : lastFlowImpl.peek();
@@ -562,9 +573,10 @@ public class CreateEndToEndFlowsSwitch extends AadlProcessingSwitchWithProgress 
 			result = flowIn == connDst;
 			if (!result) {
 				error(etei.getContainingComponentInstance(),
-						"Cannot created end to end flow '" + etei.getName() + "' because semantic connection '"
-								+ conni.getComponentInstancePath() + "' does not connect to the start of flow '"
-								+ fimpl.getSpecification().getName() + "'");
+						"Cannot create end to end flow '" + etei.getName()
+						+ "' because the end of the semantic connection '"
+						+ conni.getComponentInstancePath() + "' does not connect to the start of flow '"
+						+ fimpl.getSpecification().getName() + "'");
 			}
 		}
 		return result;
@@ -584,7 +596,11 @@ public class CreateEndToEndFlowsSwitch extends AadlProcessingSwitchWithProgress 
 			Feature connSrc = ((FeatureInstance) src).getFeature();
 			result = flowOut == connSrc;
 			if (!result) {
-				error(etei.getContainingComponentInstance(), "Bad flow to connection");
+				error(etei.getContainingComponentInstance(),
+						"Cannot create end to end flow '" + etei.getName() + "' because flow '"
+								+ fimpl.getSpecification().getName()
+								+ "' does not connect to the start of the semantic connection '"
+								+ conni.getComponentInstancePath() + "'");
 			}
 		}
 		return result;
