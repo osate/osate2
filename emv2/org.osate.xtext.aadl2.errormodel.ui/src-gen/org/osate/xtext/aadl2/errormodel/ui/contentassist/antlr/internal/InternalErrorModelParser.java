@@ -3209,31 +3209,31 @@ public class InternalErrorModelParser extends AbstractInternalContentAssistParse
 
 
     // $ANTLR start "ruleQualifiedPropagationPoint"
-    // InternalErrorModelParser.g:1239:1: ruleQualifiedPropagationPoint : ( ( rule__QualifiedPropagationPoint__Group__0 ) ) ;
+    // InternalErrorModelParser.g:1239:1: ruleQualifiedPropagationPoint : ( ( rule__QualifiedPropagationPoint__Alternatives ) ) ;
     public final void ruleQualifiedPropagationPoint() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalErrorModelParser.g:1243:5: ( ( ( rule__QualifiedPropagationPoint__Group__0 ) ) )
-            // InternalErrorModelParser.g:1244:1: ( ( rule__QualifiedPropagationPoint__Group__0 ) )
+            // InternalErrorModelParser.g:1243:5: ( ( ( rule__QualifiedPropagationPoint__Alternatives ) ) )
+            // InternalErrorModelParser.g:1244:1: ( ( rule__QualifiedPropagationPoint__Alternatives ) )
             {
-            // InternalErrorModelParser.g:1244:1: ( ( rule__QualifiedPropagationPoint__Group__0 ) )
-            // InternalErrorModelParser.g:1245:1: ( rule__QualifiedPropagationPoint__Group__0 )
+            // InternalErrorModelParser.g:1244:1: ( ( rule__QualifiedPropagationPoint__Alternatives ) )
+            // InternalErrorModelParser.g:1245:1: ( rule__QualifiedPropagationPoint__Alternatives )
             {
-             before(grammarAccess.getQualifiedPropagationPointAccess().getGroup()); 
-            // InternalErrorModelParser.g:1246:1: ( rule__QualifiedPropagationPoint__Group__0 )
-            // InternalErrorModelParser.g:1246:2: rule__QualifiedPropagationPoint__Group__0
+             before(grammarAccess.getQualifiedPropagationPointAccess().getAlternatives()); 
+            // InternalErrorModelParser.g:1246:1: ( rule__QualifiedPropagationPoint__Alternatives )
+            // InternalErrorModelParser.g:1246:2: rule__QualifiedPropagationPoint__Alternatives
             {
             pushFollow(FOLLOW_2);
-            rule__QualifiedPropagationPoint__Group__0();
+            rule__QualifiedPropagationPoint__Alternatives();
 
             state._fsp--;
 
 
             }
 
-             after(grammarAccess.getQualifiedPropagationPointAccess().getGroup()); 
+             after(grammarAccess.getQualifiedPropagationPointAccess().getAlternatives()); 
 
             }
 
@@ -13621,25 +13621,25 @@ public class InternalErrorModelParser extends AbstractInternalContentAssistParse
     // $ANTLR end "rule__ErrorPropagationPoint__Alternatives_1"
 
 
-    // $ANTLR start "rule__QualifiedPropagationPoint__Alternatives_2"
-    // InternalErrorModelParser.g:4724:1: rule__QualifiedPropagationPoint__Alternatives_2 : ( ( ( rule__QualifiedPropagationPoint__NextAssignment_2_0 ) ) | ( ( rule__QualifiedPropagationPoint__PropagationPointAssignment_2_1 ) ) );
-    public final void rule__QualifiedPropagationPoint__Alternatives_2() throws RecognitionException {
+    // $ANTLR start "rule__QualifiedPropagationPoint__Alternatives"
+    // InternalErrorModelParser.g:4724:1: rule__QualifiedPropagationPoint__Alternatives : ( ( ( rule__QualifiedPropagationPoint__Group_0__0 ) ) | ( ( rule__QualifiedPropagationPoint__PropagationPointAssignment_1 ) ) );
+    public final void rule__QualifiedPropagationPoint__Alternatives() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalErrorModelParser.g:4728:1: ( ( ( rule__QualifiedPropagationPoint__NextAssignment_2_0 ) ) | ( ( rule__QualifiedPropagationPoint__PropagationPointAssignment_2_1 ) ) )
+            // InternalErrorModelParser.g:4728:1: ( ( ( rule__QualifiedPropagationPoint__Group_0__0 ) ) | ( ( rule__QualifiedPropagationPoint__PropagationPointAssignment_1 ) ) )
             int alt25=2;
             int LA25_0 = input.LA(1);
 
             if ( (LA25_0==RULE_ID) ) {
                 int LA25_1 = input.LA(2);
 
-                if ( (LA25_1==EOF||LA25_1==HyphenMinusGreaterThanSign||LA25_1==Semicolon) ) {
-                    alt25=2;
-                }
-                else if ( (LA25_1==FullStop) ) {
+                if ( (LA25_1==FullStop) ) {
                     alt25=1;
+                }
+                else if ( (LA25_1==EOF||LA25_1==HyphenMinusGreaterThanSign||LA25_1==Semicolon) ) {
+                    alt25=2;
                 }
                 else {
                     NoViableAltException nvae =
@@ -13656,24 +13656,24 @@ public class InternalErrorModelParser extends AbstractInternalContentAssistParse
             }
             switch (alt25) {
                 case 1 :
-                    // InternalErrorModelParser.g:4729:1: ( ( rule__QualifiedPropagationPoint__NextAssignment_2_0 ) )
+                    // InternalErrorModelParser.g:4729:1: ( ( rule__QualifiedPropagationPoint__Group_0__0 ) )
                     {
-                    // InternalErrorModelParser.g:4729:1: ( ( rule__QualifiedPropagationPoint__NextAssignment_2_0 ) )
-                    // InternalErrorModelParser.g:4730:1: ( rule__QualifiedPropagationPoint__NextAssignment_2_0 )
+                    // InternalErrorModelParser.g:4729:1: ( ( rule__QualifiedPropagationPoint__Group_0__0 ) )
+                    // InternalErrorModelParser.g:4730:1: ( rule__QualifiedPropagationPoint__Group_0__0 )
                     {
-                     before(grammarAccess.getQualifiedPropagationPointAccess().getNextAssignment_2_0()); 
-                    // InternalErrorModelParser.g:4731:1: ( rule__QualifiedPropagationPoint__NextAssignment_2_0 )
-                    // InternalErrorModelParser.g:4731:2: rule__QualifiedPropagationPoint__NextAssignment_2_0
+                     before(grammarAccess.getQualifiedPropagationPointAccess().getGroup_0()); 
+                    // InternalErrorModelParser.g:4731:1: ( rule__QualifiedPropagationPoint__Group_0__0 )
+                    // InternalErrorModelParser.g:4731:2: rule__QualifiedPropagationPoint__Group_0__0
                     {
                     pushFollow(FOLLOW_2);
-                    rule__QualifiedPropagationPoint__NextAssignment_2_0();
+                    rule__QualifiedPropagationPoint__Group_0__0();
 
                     state._fsp--;
 
 
                     }
 
-                     after(grammarAccess.getQualifiedPropagationPointAccess().getNextAssignment_2_0()); 
+                     after(grammarAccess.getQualifiedPropagationPointAccess().getGroup_0()); 
 
                     }
 
@@ -13681,24 +13681,24 @@ public class InternalErrorModelParser extends AbstractInternalContentAssistParse
                     }
                     break;
                 case 2 :
-                    // InternalErrorModelParser.g:4735:6: ( ( rule__QualifiedPropagationPoint__PropagationPointAssignment_2_1 ) )
+                    // InternalErrorModelParser.g:4735:6: ( ( rule__QualifiedPropagationPoint__PropagationPointAssignment_1 ) )
                     {
-                    // InternalErrorModelParser.g:4735:6: ( ( rule__QualifiedPropagationPoint__PropagationPointAssignment_2_1 ) )
-                    // InternalErrorModelParser.g:4736:1: ( rule__QualifiedPropagationPoint__PropagationPointAssignment_2_1 )
+                    // InternalErrorModelParser.g:4735:6: ( ( rule__QualifiedPropagationPoint__PropagationPointAssignment_1 ) )
+                    // InternalErrorModelParser.g:4736:1: ( rule__QualifiedPropagationPoint__PropagationPointAssignment_1 )
                     {
-                     before(grammarAccess.getQualifiedPropagationPointAccess().getPropagationPointAssignment_2_1()); 
-                    // InternalErrorModelParser.g:4737:1: ( rule__QualifiedPropagationPoint__PropagationPointAssignment_2_1 )
-                    // InternalErrorModelParser.g:4737:2: rule__QualifiedPropagationPoint__PropagationPointAssignment_2_1
+                     before(grammarAccess.getQualifiedPropagationPointAccess().getPropagationPointAssignment_1()); 
+                    // InternalErrorModelParser.g:4737:1: ( rule__QualifiedPropagationPoint__PropagationPointAssignment_1 )
+                    // InternalErrorModelParser.g:4737:2: rule__QualifiedPropagationPoint__PropagationPointAssignment_1
                     {
                     pushFollow(FOLLOW_2);
-                    rule__QualifiedPropagationPoint__PropagationPointAssignment_2_1();
+                    rule__QualifiedPropagationPoint__PropagationPointAssignment_1();
 
                     state._fsp--;
 
 
                     }
 
-                     after(grammarAccess.getQualifiedPropagationPointAccess().getPropagationPointAssignment_2_1()); 
+                     after(grammarAccess.getQualifiedPropagationPointAccess().getPropagationPointAssignment_1()); 
 
                     }
 
@@ -13719,7 +13719,7 @@ public class InternalErrorModelParser extends AbstractInternalContentAssistParse
         }
         return ;
     }
-    // $ANTLR end "rule__QualifiedPropagationPoint__Alternatives_2"
+    // $ANTLR end "rule__QualifiedPropagationPoint__Alternatives"
 
 
     // $ANTLR start "rule__ErrorBehaviorEvent__Alternatives"
@@ -52879,23 +52879,23 @@ public class InternalErrorModelParser extends AbstractInternalContentAssistParse
     // $ANTLR end "rule__PropagationPath__Group_0__1__Impl"
 
 
-    // $ANTLR start "rule__QualifiedPropagationPoint__Group__0"
-    // InternalErrorModelParser.g:19034:1: rule__QualifiedPropagationPoint__Group__0 : rule__QualifiedPropagationPoint__Group__0__Impl rule__QualifiedPropagationPoint__Group__1 ;
-    public final void rule__QualifiedPropagationPoint__Group__0() throws RecognitionException {
+    // $ANTLR start "rule__QualifiedPropagationPoint__Group_0__0"
+    // InternalErrorModelParser.g:19034:1: rule__QualifiedPropagationPoint__Group_0__0 : rule__QualifiedPropagationPoint__Group_0__0__Impl rule__QualifiedPropagationPoint__Group_0__1 ;
+    public final void rule__QualifiedPropagationPoint__Group_0__0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalErrorModelParser.g:19038:1: ( rule__QualifiedPropagationPoint__Group__0__Impl rule__QualifiedPropagationPoint__Group__1 )
-            // InternalErrorModelParser.g:19039:2: rule__QualifiedPropagationPoint__Group__0__Impl rule__QualifiedPropagationPoint__Group__1
+            // InternalErrorModelParser.g:19038:1: ( rule__QualifiedPropagationPoint__Group_0__0__Impl rule__QualifiedPropagationPoint__Group_0__1 )
+            // InternalErrorModelParser.g:19039:2: rule__QualifiedPropagationPoint__Group_0__0__Impl rule__QualifiedPropagationPoint__Group_0__1
             {
             pushFollow(FOLLOW_40);
-            rule__QualifiedPropagationPoint__Group__0__Impl();
+            rule__QualifiedPropagationPoint__Group_0__0__Impl();
 
             state._fsp--;
 
             pushFollow(FOLLOW_2);
-            rule__QualifiedPropagationPoint__Group__1();
+            rule__QualifiedPropagationPoint__Group_0__1();
 
             state._fsp--;
 
@@ -52914,35 +52914,35 @@ public class InternalErrorModelParser extends AbstractInternalContentAssistParse
         }
         return ;
     }
-    // $ANTLR end "rule__QualifiedPropagationPoint__Group__0"
+    // $ANTLR end "rule__QualifiedPropagationPoint__Group_0__0"
 
 
-    // $ANTLR start "rule__QualifiedPropagationPoint__Group__0__Impl"
-    // InternalErrorModelParser.g:19046:1: rule__QualifiedPropagationPoint__Group__0__Impl : ( ( rule__QualifiedPropagationPoint__SubcomponentAssignment_0 ) ) ;
-    public final void rule__QualifiedPropagationPoint__Group__0__Impl() throws RecognitionException {
+    // $ANTLR start "rule__QualifiedPropagationPoint__Group_0__0__Impl"
+    // InternalErrorModelParser.g:19046:1: rule__QualifiedPropagationPoint__Group_0__0__Impl : ( ( rule__QualifiedPropagationPoint__SubcomponentAssignment_0_0 ) ) ;
+    public final void rule__QualifiedPropagationPoint__Group_0__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalErrorModelParser.g:19050:1: ( ( ( rule__QualifiedPropagationPoint__SubcomponentAssignment_0 ) ) )
-            // InternalErrorModelParser.g:19051:1: ( ( rule__QualifiedPropagationPoint__SubcomponentAssignment_0 ) )
+            // InternalErrorModelParser.g:19050:1: ( ( ( rule__QualifiedPropagationPoint__SubcomponentAssignment_0_0 ) ) )
+            // InternalErrorModelParser.g:19051:1: ( ( rule__QualifiedPropagationPoint__SubcomponentAssignment_0_0 ) )
             {
-            // InternalErrorModelParser.g:19051:1: ( ( rule__QualifiedPropagationPoint__SubcomponentAssignment_0 ) )
-            // InternalErrorModelParser.g:19052:1: ( rule__QualifiedPropagationPoint__SubcomponentAssignment_0 )
+            // InternalErrorModelParser.g:19051:1: ( ( rule__QualifiedPropagationPoint__SubcomponentAssignment_0_0 ) )
+            // InternalErrorModelParser.g:19052:1: ( rule__QualifiedPropagationPoint__SubcomponentAssignment_0_0 )
             {
-             before(grammarAccess.getQualifiedPropagationPointAccess().getSubcomponentAssignment_0()); 
-            // InternalErrorModelParser.g:19053:1: ( rule__QualifiedPropagationPoint__SubcomponentAssignment_0 )
-            // InternalErrorModelParser.g:19053:2: rule__QualifiedPropagationPoint__SubcomponentAssignment_0
+             before(grammarAccess.getQualifiedPropagationPointAccess().getSubcomponentAssignment_0_0()); 
+            // InternalErrorModelParser.g:19053:1: ( rule__QualifiedPropagationPoint__SubcomponentAssignment_0_0 )
+            // InternalErrorModelParser.g:19053:2: rule__QualifiedPropagationPoint__SubcomponentAssignment_0_0
             {
             pushFollow(FOLLOW_2);
-            rule__QualifiedPropagationPoint__SubcomponentAssignment_0();
+            rule__QualifiedPropagationPoint__SubcomponentAssignment_0_0();
 
             state._fsp--;
 
 
             }
 
-             after(grammarAccess.getQualifiedPropagationPointAccess().getSubcomponentAssignment_0()); 
+             after(grammarAccess.getQualifiedPropagationPointAccess().getSubcomponentAssignment_0_0()); 
 
             }
 
@@ -52961,26 +52961,26 @@ public class InternalErrorModelParser extends AbstractInternalContentAssistParse
         }
         return ;
     }
-    // $ANTLR end "rule__QualifiedPropagationPoint__Group__0__Impl"
+    // $ANTLR end "rule__QualifiedPropagationPoint__Group_0__0__Impl"
 
 
-    // $ANTLR start "rule__QualifiedPropagationPoint__Group__1"
-    // InternalErrorModelParser.g:19063:1: rule__QualifiedPropagationPoint__Group__1 : rule__QualifiedPropagationPoint__Group__1__Impl rule__QualifiedPropagationPoint__Group__2 ;
-    public final void rule__QualifiedPropagationPoint__Group__1() throws RecognitionException {
+    // $ANTLR start "rule__QualifiedPropagationPoint__Group_0__1"
+    // InternalErrorModelParser.g:19063:1: rule__QualifiedPropagationPoint__Group_0__1 : rule__QualifiedPropagationPoint__Group_0__1__Impl rule__QualifiedPropagationPoint__Group_0__2 ;
+    public final void rule__QualifiedPropagationPoint__Group_0__1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalErrorModelParser.g:19067:1: ( rule__QualifiedPropagationPoint__Group__1__Impl rule__QualifiedPropagationPoint__Group__2 )
-            // InternalErrorModelParser.g:19068:2: rule__QualifiedPropagationPoint__Group__1__Impl rule__QualifiedPropagationPoint__Group__2
+            // InternalErrorModelParser.g:19067:1: ( rule__QualifiedPropagationPoint__Group_0__1__Impl rule__QualifiedPropagationPoint__Group_0__2 )
+            // InternalErrorModelParser.g:19068:2: rule__QualifiedPropagationPoint__Group_0__1__Impl rule__QualifiedPropagationPoint__Group_0__2
             {
             pushFollow(FOLLOW_6);
-            rule__QualifiedPropagationPoint__Group__1__Impl();
+            rule__QualifiedPropagationPoint__Group_0__1__Impl();
 
             state._fsp--;
 
             pushFollow(FOLLOW_2);
-            rule__QualifiedPropagationPoint__Group__2();
+            rule__QualifiedPropagationPoint__Group_0__2();
 
             state._fsp--;
 
@@ -52999,12 +52999,12 @@ public class InternalErrorModelParser extends AbstractInternalContentAssistParse
         }
         return ;
     }
-    // $ANTLR end "rule__QualifiedPropagationPoint__Group__1"
+    // $ANTLR end "rule__QualifiedPropagationPoint__Group_0__1"
 
 
-    // $ANTLR start "rule__QualifiedPropagationPoint__Group__1__Impl"
-    // InternalErrorModelParser.g:19075:1: rule__QualifiedPropagationPoint__Group__1__Impl : ( FullStop ) ;
-    public final void rule__QualifiedPropagationPoint__Group__1__Impl() throws RecognitionException {
+    // $ANTLR start "rule__QualifiedPropagationPoint__Group_0__1__Impl"
+    // InternalErrorModelParser.g:19075:1: rule__QualifiedPropagationPoint__Group_0__1__Impl : ( FullStop ) ;
+    public final void rule__QualifiedPropagationPoint__Group_0__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
@@ -53015,9 +53015,9 @@ public class InternalErrorModelParser extends AbstractInternalContentAssistParse
             // InternalErrorModelParser.g:19080:1: ( FullStop )
             // InternalErrorModelParser.g:19081:1: FullStop
             {
-             before(grammarAccess.getQualifiedPropagationPointAccess().getFullStopKeyword_1()); 
+             before(grammarAccess.getQualifiedPropagationPointAccess().getFullStopKeyword_0_1()); 
             match(input,FullStop,FOLLOW_2); 
-             after(grammarAccess.getQualifiedPropagationPointAccess().getFullStopKeyword_1()); 
+             after(grammarAccess.getQualifiedPropagationPointAccess().getFullStopKeyword_0_1()); 
 
             }
 
@@ -53036,21 +53036,21 @@ public class InternalErrorModelParser extends AbstractInternalContentAssistParse
         }
         return ;
     }
-    // $ANTLR end "rule__QualifiedPropagationPoint__Group__1__Impl"
+    // $ANTLR end "rule__QualifiedPropagationPoint__Group_0__1__Impl"
 
 
-    // $ANTLR start "rule__QualifiedPropagationPoint__Group__2"
-    // InternalErrorModelParser.g:19094:1: rule__QualifiedPropagationPoint__Group__2 : rule__QualifiedPropagationPoint__Group__2__Impl ;
-    public final void rule__QualifiedPropagationPoint__Group__2() throws RecognitionException {
+    // $ANTLR start "rule__QualifiedPropagationPoint__Group_0__2"
+    // InternalErrorModelParser.g:19094:1: rule__QualifiedPropagationPoint__Group_0__2 : rule__QualifiedPropagationPoint__Group_0__2__Impl ;
+    public final void rule__QualifiedPropagationPoint__Group_0__2() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalErrorModelParser.g:19098:1: ( rule__QualifiedPropagationPoint__Group__2__Impl )
-            // InternalErrorModelParser.g:19099:2: rule__QualifiedPropagationPoint__Group__2__Impl
+            // InternalErrorModelParser.g:19098:1: ( rule__QualifiedPropagationPoint__Group_0__2__Impl )
+            // InternalErrorModelParser.g:19099:2: rule__QualifiedPropagationPoint__Group_0__2__Impl
             {
             pushFollow(FOLLOW_2);
-            rule__QualifiedPropagationPoint__Group__2__Impl();
+            rule__QualifiedPropagationPoint__Group_0__2__Impl();
 
             state._fsp--;
 
@@ -53069,35 +53069,35 @@ public class InternalErrorModelParser extends AbstractInternalContentAssistParse
         }
         return ;
     }
-    // $ANTLR end "rule__QualifiedPropagationPoint__Group__2"
+    // $ANTLR end "rule__QualifiedPropagationPoint__Group_0__2"
 
 
-    // $ANTLR start "rule__QualifiedPropagationPoint__Group__2__Impl"
-    // InternalErrorModelParser.g:19105:1: rule__QualifiedPropagationPoint__Group__2__Impl : ( ( rule__QualifiedPropagationPoint__Alternatives_2 ) ) ;
-    public final void rule__QualifiedPropagationPoint__Group__2__Impl() throws RecognitionException {
+    // $ANTLR start "rule__QualifiedPropagationPoint__Group_0__2__Impl"
+    // InternalErrorModelParser.g:19105:1: rule__QualifiedPropagationPoint__Group_0__2__Impl : ( ( rule__QualifiedPropagationPoint__NextAssignment_0_2 ) ) ;
+    public final void rule__QualifiedPropagationPoint__Group_0__2__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalErrorModelParser.g:19109:1: ( ( ( rule__QualifiedPropagationPoint__Alternatives_2 ) ) )
-            // InternalErrorModelParser.g:19110:1: ( ( rule__QualifiedPropagationPoint__Alternatives_2 ) )
+            // InternalErrorModelParser.g:19109:1: ( ( ( rule__QualifiedPropagationPoint__NextAssignment_0_2 ) ) )
+            // InternalErrorModelParser.g:19110:1: ( ( rule__QualifiedPropagationPoint__NextAssignment_0_2 ) )
             {
-            // InternalErrorModelParser.g:19110:1: ( ( rule__QualifiedPropagationPoint__Alternatives_2 ) )
-            // InternalErrorModelParser.g:19111:1: ( rule__QualifiedPropagationPoint__Alternatives_2 )
+            // InternalErrorModelParser.g:19110:1: ( ( rule__QualifiedPropagationPoint__NextAssignment_0_2 ) )
+            // InternalErrorModelParser.g:19111:1: ( rule__QualifiedPropagationPoint__NextAssignment_0_2 )
             {
-             before(grammarAccess.getQualifiedPropagationPointAccess().getAlternatives_2()); 
-            // InternalErrorModelParser.g:19112:1: ( rule__QualifiedPropagationPoint__Alternatives_2 )
-            // InternalErrorModelParser.g:19112:2: rule__QualifiedPropagationPoint__Alternatives_2
+             before(grammarAccess.getQualifiedPropagationPointAccess().getNextAssignment_0_2()); 
+            // InternalErrorModelParser.g:19112:1: ( rule__QualifiedPropagationPoint__NextAssignment_0_2 )
+            // InternalErrorModelParser.g:19112:2: rule__QualifiedPropagationPoint__NextAssignment_0_2
             {
             pushFollow(FOLLOW_2);
-            rule__QualifiedPropagationPoint__Alternatives_2();
+            rule__QualifiedPropagationPoint__NextAssignment_0_2();
 
             state._fsp--;
 
 
             }
 
-             after(grammarAccess.getQualifiedPropagationPointAccess().getAlternatives_2()); 
+             after(grammarAccess.getQualifiedPropagationPointAccess().getNextAssignment_0_2()); 
 
             }
 
@@ -53116,7 +53116,7 @@ public class InternalErrorModelParser extends AbstractInternalContentAssistParse
         }
         return ;
     }
-    // $ANTLR end "rule__QualifiedPropagationPoint__Group__2__Impl"
+    // $ANTLR end "rule__QualifiedPropagationPoint__Group_0__2__Impl"
 
 
     // $ANTLR start "rule__ErrorBehaviorStateMachine__Group__0"
@@ -93337,9 +93337,9 @@ public class InternalErrorModelParser extends AbstractInternalContentAssistParse
     // $ANTLR end "rule__PropagationPath__TargetAssignment_3"
 
 
-    // $ANTLR start "rule__QualifiedPropagationPoint__SubcomponentAssignment_0"
-    // InternalErrorModelParser.g:34923:1: rule__QualifiedPropagationPoint__SubcomponentAssignment_0 : ( ruleSubcomponentElement ) ;
-    public final void rule__QualifiedPropagationPoint__SubcomponentAssignment_0() throws RecognitionException {
+    // $ANTLR start "rule__QualifiedPropagationPoint__SubcomponentAssignment_0_0"
+    // InternalErrorModelParser.g:34923:1: rule__QualifiedPropagationPoint__SubcomponentAssignment_0_0 : ( ruleSubcomponentElement ) ;
+    public final void rule__QualifiedPropagationPoint__SubcomponentAssignment_0_0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
@@ -93350,13 +93350,13 @@ public class InternalErrorModelParser extends AbstractInternalContentAssistParse
             // InternalErrorModelParser.g:34928:1: ( ruleSubcomponentElement )
             // InternalErrorModelParser.g:34929:1: ruleSubcomponentElement
             {
-             before(grammarAccess.getQualifiedPropagationPointAccess().getSubcomponentSubcomponentElementParserRuleCall_0_0()); 
+             before(grammarAccess.getQualifiedPropagationPointAccess().getSubcomponentSubcomponentElementParserRuleCall_0_0_0()); 
             pushFollow(FOLLOW_2);
             ruleSubcomponentElement();
 
             state._fsp--;
 
-             after(grammarAccess.getQualifiedPropagationPointAccess().getSubcomponentSubcomponentElementParserRuleCall_0_0()); 
+             after(grammarAccess.getQualifiedPropagationPointAccess().getSubcomponentSubcomponentElementParserRuleCall_0_0_0()); 
 
             }
 
@@ -93375,12 +93375,12 @@ public class InternalErrorModelParser extends AbstractInternalContentAssistParse
         }
         return ;
     }
-    // $ANTLR end "rule__QualifiedPropagationPoint__SubcomponentAssignment_0"
+    // $ANTLR end "rule__QualifiedPropagationPoint__SubcomponentAssignment_0_0"
 
 
-    // $ANTLR start "rule__QualifiedPropagationPoint__NextAssignment_2_0"
-    // InternalErrorModelParser.g:34938:1: rule__QualifiedPropagationPoint__NextAssignment_2_0 : ( ruleQualifiedPropagationPoint ) ;
-    public final void rule__QualifiedPropagationPoint__NextAssignment_2_0() throws RecognitionException {
+    // $ANTLR start "rule__QualifiedPropagationPoint__NextAssignment_0_2"
+    // InternalErrorModelParser.g:34938:1: rule__QualifiedPropagationPoint__NextAssignment_0_2 : ( ruleQualifiedPropagationPoint ) ;
+    public final void rule__QualifiedPropagationPoint__NextAssignment_0_2() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
@@ -93391,13 +93391,13 @@ public class InternalErrorModelParser extends AbstractInternalContentAssistParse
             // InternalErrorModelParser.g:34943:1: ( ruleQualifiedPropagationPoint )
             // InternalErrorModelParser.g:34944:1: ruleQualifiedPropagationPoint
             {
-             before(grammarAccess.getQualifiedPropagationPointAccess().getNextQualifiedPropagationPointParserRuleCall_2_0_0()); 
+             before(grammarAccess.getQualifiedPropagationPointAccess().getNextQualifiedPropagationPointParserRuleCall_0_2_0()); 
             pushFollow(FOLLOW_2);
             ruleQualifiedPropagationPoint();
 
             state._fsp--;
 
-             after(grammarAccess.getQualifiedPropagationPointAccess().getNextQualifiedPropagationPointParserRuleCall_2_0_0()); 
+             after(grammarAccess.getQualifiedPropagationPointAccess().getNextQualifiedPropagationPointParserRuleCall_0_2_0()); 
 
             }
 
@@ -93416,12 +93416,12 @@ public class InternalErrorModelParser extends AbstractInternalContentAssistParse
         }
         return ;
     }
-    // $ANTLR end "rule__QualifiedPropagationPoint__NextAssignment_2_0"
+    // $ANTLR end "rule__QualifiedPropagationPoint__NextAssignment_0_2"
 
 
-    // $ANTLR start "rule__QualifiedPropagationPoint__PropagationPointAssignment_2_1"
-    // InternalErrorModelParser.g:34953:1: rule__QualifiedPropagationPoint__PropagationPointAssignment_2_1 : ( ( RULE_ID ) ) ;
-    public final void rule__QualifiedPropagationPoint__PropagationPointAssignment_2_1() throws RecognitionException {
+    // $ANTLR start "rule__QualifiedPropagationPoint__PropagationPointAssignment_1"
+    // InternalErrorModelParser.g:34953:1: rule__QualifiedPropagationPoint__PropagationPointAssignment_1 : ( ( RULE_ID ) ) ;
+    public final void rule__QualifiedPropagationPoint__PropagationPointAssignment_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
@@ -93432,17 +93432,17 @@ public class InternalErrorModelParser extends AbstractInternalContentAssistParse
             // InternalErrorModelParser.g:34958:1: ( ( RULE_ID ) )
             // InternalErrorModelParser.g:34959:1: ( RULE_ID )
             {
-             before(grammarAccess.getQualifiedPropagationPointAccess().getPropagationPointPropagationPointCrossReference_2_1_0()); 
+             before(grammarAccess.getQualifiedPropagationPointAccess().getPropagationPointPropagationPointCrossReference_1_0()); 
             // InternalErrorModelParser.g:34960:1: ( RULE_ID )
             // InternalErrorModelParser.g:34961:1: RULE_ID
             {
-             before(grammarAccess.getQualifiedPropagationPointAccess().getPropagationPointPropagationPointIDTerminalRuleCall_2_1_0_1()); 
+             before(grammarAccess.getQualifiedPropagationPointAccess().getPropagationPointPropagationPointIDTerminalRuleCall_1_0_1()); 
             match(input,RULE_ID,FOLLOW_2); 
-             after(grammarAccess.getQualifiedPropagationPointAccess().getPropagationPointPropagationPointIDTerminalRuleCall_2_1_0_1()); 
+             after(grammarAccess.getQualifiedPropagationPointAccess().getPropagationPointPropagationPointIDTerminalRuleCall_1_0_1()); 
 
             }
 
-             after(grammarAccess.getQualifiedPropagationPointAccess().getPropagationPointPropagationPointCrossReference_2_1_0()); 
+             after(grammarAccess.getQualifiedPropagationPointAccess().getPropagationPointPropagationPointCrossReference_1_0()); 
 
             }
 
@@ -93461,7 +93461,7 @@ public class InternalErrorModelParser extends AbstractInternalContentAssistParse
         }
         return ;
     }
-    // $ANTLR end "rule__QualifiedPropagationPoint__PropagationPointAssignment_2_1"
+    // $ANTLR end "rule__QualifiedPropagationPoint__PropagationPointAssignment_1"
 
 
     // $ANTLR start "rule__ErrorBehaviorStateMachine__NameAssignment_1"

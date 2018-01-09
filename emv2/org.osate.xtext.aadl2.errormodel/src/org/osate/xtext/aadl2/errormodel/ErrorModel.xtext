@@ -423,7 +423,7 @@ PropagationPath returns PropagationPath:
    ;
   
 QualifiedPropagationPoint returns QualifiedPropagationPoint:
-   subcomponent=SubcomponentElement '.' (next=QualifiedPropagationPoint | propagationPoint=[PropagationPoint|ID])
+   (subcomponent=SubcomponentElement '.' next=QualifiedPropagationPoint) | propagationPoint=[PropagationPoint|ID]
    ;
    
 

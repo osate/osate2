@@ -1210,7 +1210,7 @@ public abstract class AbstractErrorModelSemanticSequencer extends PropertiesSema
 	 *     QualifiedPropagationPoint returns QualifiedPropagationPoint
 	 *
 	 * Constraint:
-	 *     (subcomponent=SubcomponentElement (next=QualifiedPropagationPoint | propagationPoint=[PropagationPoint|ID]))
+	 *     ((subcomponent=SubcomponentElement next=QualifiedPropagationPoint) | propagationPoint=[PropagationPoint|ID])
 	 */
 	protected void sequence_QualifiedPropagationPoint(ISerializationContext context, QualifiedPropagationPoint semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
