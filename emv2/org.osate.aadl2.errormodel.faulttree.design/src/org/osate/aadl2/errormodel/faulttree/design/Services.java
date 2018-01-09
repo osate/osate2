@@ -36,9 +36,9 @@ public class Services {
 		String labeltext = FaultTreeUtils.getInstanceDescription(ev);
 		String emv2label = FaultTreeUtils.getEMV2ElementDescription(ev);
 		if (labeltext.length() > emv2label.length()) {
-			return labeltext.length() / 2 + 3;
+			return labeltext.length() / 2 + 4;
 		}
-		return emv2label.length() / 2 + 3;
+		return emv2label.length() / 2 + 4;
 	}
 
 	public String getDescriptionAndProbability(EObject context) {
