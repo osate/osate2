@@ -15,7 +15,7 @@ import org.eclipse.emf.ecore.EObject;
  * </p>
  * <ul>
  *   <li>{@link org.osate.aadl2.errormodel.FaultTree.Event#getName <em>Name</em>}</li>
- *   <li>{@link org.osate.aadl2.errormodel.FaultTree.Event#getDescription <em>Description</em>}</li>
+ *   <li>{@link org.osate.aadl2.errormodel.FaultTree.Event#getMessage <em>Message</em>}</li>
  *   <li>{@link org.osate.aadl2.errormodel.FaultTree.Event#getSubEvents <em>Sub Events</em>}</li>
  *   <li>{@link org.osate.aadl2.errormodel.FaultTree.Event#getK <em>K</em>}</li>
  *   <li>{@link org.osate.aadl2.errormodel.FaultTree.Event#getAssignedProbability <em>Assigned Probability</em>}</li>
@@ -61,30 +61,30 @@ public interface Event extends EObject {
 	void setName(String value);
 
 	/**
-	 * Returns the value of the '<em><b>Description</b></em>' attribute.
+	 * Returns the value of the '<em><b>Message</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of the '<em>Description</em>' attribute isn't clear,
+	 * If the meaning of the '<em>Message</em>' attribute isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Description</em>' attribute.
-	 * @see #setDescription(String)
-	 * @see org.osate.aadl2.errormodel.FaultTree.FaultTreePackage#getEvent_Description()
+	 * @return the value of the '<em>Message</em>' attribute.
+	 * @see #setMessage(String)
+	 * @see org.osate.aadl2.errormodel.FaultTree.FaultTreePackage#getEvent_Message()
 	 * @model
 	 * @generated
 	 */
-	String getDescription();
+	String getMessage();
 
 	/**
-	 * Sets the value of the '{@link org.osate.aadl2.errormodel.FaultTree.Event#getDescription <em>Description</em>}' attribute.
+	 * Sets the value of the '{@link org.osate.aadl2.errormodel.FaultTree.Event#getMessage <em>Message</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Description</em>' attribute.
-	 * @see #getDescription()
+	 * @param value the new value of the '<em>Message</em>' attribute.
+	 * @see #getMessage()
 	 * @generated
 	 */
-	void setDescription(String value);
+	void setMessage(String value);
 
 	/**
 	 * Returns the value of the '<em><b>Sub Events</b></em>' reference list.

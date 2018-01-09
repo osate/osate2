@@ -44,11 +44,10 @@ public class FTAGenerator extends PropagationGraphBackwardTraversal {
 	public FaultTree getftaModel(ComponentInstance rootComponent, NamedElement rootStateOrPropagation,
 			ErrorTypes rootComponentTypes, FaultTreeType faultTreeType) {
 		if (ftaModel == null) {
-			Event ftaRootEvent;
-
+			Event ftaRootEvent = null;
+			String errorMsg = "";
 			ftaModel = FaultTreeFactory.eINSTANCE.createFaultTree();
 			ftaModel.setName(FaultTreeUtils.buildIdentifier(rootComponent, rootStateOrPropagation, rootComponentTypes));
-			ftaModel.setDescription("Top Level Failure");
 			ftaModel.setInstanceRoot(rootComponent);
 			ftaModel.setFaultTreeType(faultTreeType);
 
@@ -62,13 +61,18 @@ public class FTAGenerator extends PropagationGraphBackwardTraversal {
 							(ErrorBehaviorState) rootStateOrPropagation, rootComponentTypes);
 				}
 			} else {
-				ftaRootEvent = (Event) traverseOutgoingErrorPropagation(rootComponent,
-						(ErrorPropagation) rootStateOrPropagation,
-						rootComponentTypes);
-			}
-			if (ftaRootEvent == null) {
-				ftaRootEvent = FaultTreeUtils.createIntermediateEvent(ftaModel, rootComponent, rootStateOrPropagation,
-						rootComponentTypes);
+				if (faultTreeType.equals(FaultTreeType.COMPOSITE_PARTS)) {
+					errorMsg = "Select error state for composite parts fault tree";
+					ftaRootEvent = FaultTreeUtils.createIntermediateEvent(ftaModel, rootComponent,
+							rootStateOrPropagation, rootComponentTypes);
+					ftaModel.setMessage(errorMsg);
+					ftaModel.setRoot(ftaRootEvent);
+					return ftaModel;
+				} else {
+					ftaRootEvent = (Event) traverseOutgoingErrorPropagation(rootComponent,
+							(ErrorPropagation) rootStateOrPropagation,
+							rootComponentTypes);
+				}
 			}
 			String longName = FaultTreeUtils.buildName(rootComponent, rootStateOrPropagation, rootComponentTypes);
 			if (ftaRootEvent.getSubEvents().isEmpty() && !ftaRootEvent.getName().equals(longName)) {
@@ -83,7 +87,6 @@ public class FTAGenerator extends PropagationGraphBackwardTraversal {
 			for (Event event : ftaModel.getEvents()) {
 				EObject element = event.getRelatedEMV2Object();
 				if (element instanceof NamedElement) {
-					FaultTreeUtils.fillDescription(event);
 					FaultTreeUtils.fillProbability(event);
 				}
 			}
@@ -97,7 +100,7 @@ public class FTAGenerator extends PropagationGraphBackwardTraversal {
 				Event subevent = ftaRootEvent.getSubEvents().get(0);
 				if (subevent.getType() == EventType.INTERMEDIATE) {
 					subevent.setName(ftaRootEvent.getName());
-					subevent.setDescription(ftaRootEvent.getDescription());
+					subevent.setMessage(ftaRootEvent.getMessage());
 					ftaRootEvent = subevent;
 				}
 			}
@@ -126,7 +129,7 @@ public class FTAGenerator extends PropagationGraphBackwardTraversal {
 		if (subEvents.size() == 0) {
 			return null;
 		}
-		Event combined = FaultTreeUtils.findSharedSubtree(ftaModel, subEvents, LogicOperation.XOR);
+		Event combined = FaultTreeUtils.findSharedSubtree(ftaModel, subEvents, LogicOperation.XOR, component, el, type);
 		if (combined != null) {
 			return combined;
 		}
@@ -148,7 +151,7 @@ public class FTAGenerator extends PropagationGraphBackwardTraversal {
 //		if (subEvents.size() == 1) {
 //			return (Event) subEvents.get(0);
 //		}
-		Event combined = FaultTreeUtils.findSharedSubtree(ftaModel, subEvents, LogicOperation.OR);
+		Event combined = FaultTreeUtils.findSharedSubtree(ftaModel, subEvents, LogicOperation.OR, component, ne, type);
 		if (combined != null) {
 			return combined;
 		}
@@ -171,7 +174,7 @@ public class FTAGenerator extends PropagationGraphBackwardTraversal {
 //		if (subEvents.size() == 1) {
 //			return (Event) subEvents.get(0);
 //		}
-		Event combined = FaultTreeUtils.findSharedSubtree(ftaModel, subEvents, LogicOperation.AND);
+		Event combined = FaultTreeUtils.findSharedSubtree(ftaModel, subEvents, LogicOperation.AND, component, ne, type);
 		if (combined != null) {
 			return combined;
 		}
@@ -190,7 +193,8 @@ public class FTAGenerator extends PropagationGraphBackwardTraversal {
 		if (subEvents.size() == 0) {
 			return null;
 		}
-		Event combined = FaultTreeUtils.findSharedSubtree(ftaModel, subEvents, LogicOperation.PRIORITY_AND);
+		Event combined = FaultTreeUtils.findSharedSubtree(ftaModel, subEvents, LogicOperation.PRIORITY_AND, component,
+				ne, type);
 		if (combined != null) {
 			return combined;
 		}

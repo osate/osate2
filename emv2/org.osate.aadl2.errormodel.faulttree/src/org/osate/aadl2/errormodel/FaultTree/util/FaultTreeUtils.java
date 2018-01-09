@@ -17,11 +17,15 @@ import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.ConnectionInstance;
 import org.osate.aadl2.instance.InstanceObject;
 import org.osate.aadl2.instance.SystemInstance;
+import org.osate.xtext.aadl2.errormodel.errorModel.ConditionExpression;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorState;
+import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorTransition;
+import org.osate.xtext.aadl2.errormodel.errorModel.ErrorDetection;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorEvent;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorPropagation;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorSource;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorTypes;
+import org.osate.xtext.aadl2.errormodel.errorModel.OutgoingPropagationCondition;
 import org.osate.xtext.aadl2.errormodel.util.EMV2Properties;
 import org.osate.xtext.aadl2.errormodel.util.EMV2Util;
 
@@ -179,23 +183,23 @@ public class FaultTreeUtils {
 			ErrorTypes type) {
 		return createIntermediateEvent(ftaModel, component, element, type, false);
 	}
-
-	public static void addIntermediateEvent(Event parent, ComponentInstance component, Element element,
-			ErrorTypes type) {
-		parent.getSubEvents()
-		.add(createIntermediateEvent((FaultTree) parent.eContainer(), component, element, type, false));
-	}
+//
+//	public static void addIntermediateEvent(Event parent, ComponentInstance component, Element element,
+//			ErrorTypes type) {
+//		parent.getSubEvents()
+//		.add(createIntermediateEvent((FaultTree) parent.eContainer(), component, element, type, false));
+//	}
 
 	public static Event createUniqueIntermediateEvent(FaultTree ftaModel, ComponentInstance component, EObject element,
 			ErrorTypes type) {
 		return createIntermediateEvent(ftaModel, component, element, type, true);
 	}
 
-	public static void addUniqueIntermediateEvent(Event parent, ComponentInstance component, Element element,
-			ErrorTypes type) {
-		parent.getSubEvents()
-		.add(createUniqueIntermediateEvent((FaultTree) parent.eContainer(), component, element, type));
-	}
+//	public static void addUniqueIntermediateEvent(Event parent, ComponentInstance component, Element element,
+//			ErrorTypes type) {
+//		parent.getSubEvents()
+//		.add(createUniqueIntermediateEvent((FaultTree) parent.eContainer(), component, element, type));
+//	}
 
 	/**
 	 * create a generic intermediate Event
@@ -239,11 +243,15 @@ public class FaultTreeUtils {
 		return null;
 	}
 
-	public static Event findSharedSubtree(FaultTree ftaModel, List<EObject> subEvents, LogicOperation type) {
+	public static Event findSharedSubtree(FaultTree ftaModel, List<EObject> subEvents, LogicOperation optype,
+			ComponentInstance component, Element ne, ErrorTypes type) {
 		for (Event event : ftaModel.getEvents()) {
-			if (!event.getSubEvents().isEmpty() && event.getSubEventLogic() == type
-					&& event.getSubEvents().size() == subEvents.size() && subEvents.containsAll(event.getSubEvents())) {
-				return event;
+			if (event.getRelatedInstanceObject() == component && event.getRelatedEMV2Object() == ne
+					&& event.getRelatedErrorType() == type) {
+				if (!event.getSubEvents().isEmpty() && event.getSubEventLogic() == optype
+						&& event.getSubEvents().size() == subEvents.size() && subEvents.containsAll(event.getSubEvents())) {
+					return event;
+				}
 			}
 		}
 		return null;
@@ -261,28 +269,6 @@ public class FaultTreeUtils {
 
 	public static boolean sameEvent(Event e1, Event e2) {
 		return e1.getName().equalsIgnoreCase(e2.getName());
-	}
-
-	/**
-	 * Fill an Event with a description, based on hazards property or related object references
-	 *
-	 * @param event					- the event related to the EMV2 artifact
-	 */
-
-	public static void fillDescription(Event event) {
-		if (!(event.getRelatedEMV2Object() instanceof NamedElement)) {
-			return;
-		}
-		InstanceObject io = (InstanceObject)event.getRelatedInstanceObject();
-		NamedElement ne = (NamedElement)event.getRelatedEMV2Object();
-		ErrorTypes type = (ErrorTypes) event.getRelatedErrorType();
-		if (io instanceof ComponentInstance) {
-			event.setDescription(getDescription(event, (ComponentInstance) io, ne, type));
-		} else {
-			String hazardDescription = EMV2Properties.getHazardDescription(ne, io);
-			event.setDescription("Connection " + ((ErrorSource) ne).getSourceModelElement().getName() + " Hazard "
-					+ hazardDescription);
-		}
 	}
 
 	public static void fillProbability(Event event, double scale) {
@@ -304,49 +290,54 @@ public class FaultTreeUtils {
 				: component.getComponentInstancePath());
 	}
 
-	public static String getDescription(Event event, ComponentInstance component, NamedElement errorModelArtifact,
-			ErrorTypes type) {
+	public static String getDescription(Event event) {
+		return getInstanceDescription(event) + " " + getEMV2ElementDescription(event);
+	}
+
+	public static String getInstanceDescription(Event event) {
+		InstanceObject io = (InstanceObject) event.getRelatedInstanceObject();
+		String description = "";
+		if (io instanceof ComponentInstance) {
+			description = "Component '" + getName((ComponentInstance) io) + "'";
+		} else if (io instanceof ConnectionInstance) {
+			description = "Connection '" + ((ConnectionInstance) io).getName() + "'";
+		}
+		EObject errorModelArtifact = event.getRelatedEMV2Object();
+		if (errorModelArtifact instanceof ErrorSource) {
+			ErrorSource errorSource = (ErrorSource) errorModelArtifact;
+			NamedElement ep = errorSource.getSourceModelElement();
+			description += " out '" + EMV2Util.getName(ep) + "'";
+		}
+		if (errorModelArtifact instanceof ErrorPropagation) {
+			ErrorPropagation ep = (ErrorPropagation) errorModelArtifact;
+			String directionLabel = ep.getDirection() == DirectionType.IN ? " in " : " out ";
+			description += directionLabel + "'" + EMV2Util.getName(ep) + "'";
+		}
+		return description;
+	}
+
+	public static String getEMV2ElementDescription(Event event) {
+		EObject errorModelArtifact = event.getRelatedEMV2Object();
+		NamedElement type = (NamedElement) event.getRelatedErrorType();
 		String description;
 		description = "";
 		if (errorModelArtifact instanceof ErrorSource) {
 			ErrorSource errorSource = (ErrorSource) errorModelArtifact;
-			description += "Component '" + getName(component) + "'";
-			if (errorSource.getFailureModeType() != null) {
-				description += " failure source '" + EMV2Util.getName(errorSource.getFailureModeType()) + "'";
-			} else if (errorSource.getFailureModeReference() != null) {
-				description += " failure mode '" + errorSource.getFailureModeReference().getName() + "'";
-			}
-			if (errorSource.getFailureModeDescription() != null) {
-				description += " failure '" + errorSource.getFailureModeDescription() + "'";
-			}
-			if (type != null) {
-				if (errorSource.getFailureModeType() == null && errorSource.getFailureModeReference() == null
-						&& errorSource.getFailureModeDescription() == null) {
-					description += " failure source '" + EMV2Util.getName(type) + "'";
-				} else {
-					description += " propagates '" + EMV2Util.getName(type) + "'";
-				}
-			}
-//			if ((errorSource.getOutgoing() != null && errorSource.getOutgoing().getFeatureorPPRef() != null)
-//					&& (errorSource.getOutgoing().getFeatureorPPRef().getFeatureorPP() != null)) {
-//				NamedElement el = errorSource.getOutgoing().getFeatureorPPRef().getFeatureorPP();
-//				description += " via '";
-//				description += el.getName() + "'";
-//			}
-
+			description = (type != null ? "effect '" + EMV2Util.getName(type) + "'" : "") + " from failure source '"
+					+ EMV2Util.getName(errorSource) + "'";
 		}
 
 		if (errorModelArtifact instanceof ErrorEvent) {
-			description += "Component '" + getName(component) + "' failure event '"
-					+ EMV2Util.getName(errorModelArtifact) + "'";
+			ErrorEvent ee = (ErrorEvent) errorModelArtifact;
 			if (type != null) {
-				description += " type '" + EMV2Util.getName(type) + "'";
+				description += "effect '" + EMV2Util.getName(type) + "'";
 			}
+			description += " from failure event '" + EMV2Util.getName(ee) + "'";
 		}
 
 		if (errorModelArtifact instanceof ErrorBehaviorState) {
-			description = "Component '" + getName(component) + "' in failure mode '" + errorModelArtifact.getName()
-			+ "'";
+			description = "failure mode '" + ((ErrorBehaviorState) errorModelArtifact).getName()
+					+ "'";
 			if (type != null) {
 				description += " type '" + EMV2Util.getName(type) + "'";
 			}
@@ -354,77 +345,114 @@ public class FaultTreeUtils {
 
 		if (errorModelArtifact instanceof ErrorPropagation) {
 			ErrorPropagation ep = (ErrorPropagation) errorModelArtifact;
-			String boundaryLabel = null;
+			String boundaryLabel = "";
 			String epname = EMV2Util.getPrintName(ep);
 			if (event.getType() == EventType.EXTERNAL) {
 				boundaryLabel = "external ";
 			} else if (event.getType() == EventType.UNDEVELOPED) {
 				boundaryLabel = "undeveloped ";
 			}
-			String directionLabel = ep.getDirection() == DirectionType.IN ? "incoming " : "outgoing ";
-			description = "Component '" + getName(component) + "' with " + directionLabel;
+			String directionLabel = ep.getDirection() == DirectionType.IN ? "in " : "out ";
+			description = boundaryLabel + directionLabel + "propagation";
 			if (type != null) {
-				description += " failure '" + EMV2Util.getName(type)
-				+ (boundaryLabel == null ? "" : ("' from " + boundaryLabel + "'" + epname + "'"));
+				description += " '" + EMV2Util.getName(type) + "'";
 			}
+		}
+
+		if (errorModelArtifact instanceof ConditionExpression) {
+			while (errorModelArtifact instanceof ConditionExpression) {
+				errorModelArtifact = errorModelArtifact.eContainer();
+			}
+			String opcontext = "";
+			if (errorModelArtifact instanceof ErrorBehaviorTransition) {
+				opcontext = " in transition";
+			} else if (errorModelArtifact instanceof OutgoingPropagationCondition) {
+				opcontext = " in outgoing propagation";
+			} else if (errorModelArtifact instanceof ErrorDetection) {
+				opcontext = " in error detection";
+			}
+			description = "'" + event.getSubEventLogic() + "' gate" + opcontext;
 		}
 
 		return description;
 	}
 
-//	/**
-//	 * For leaf event it returns the probability stored with the event.
-//	 * For non-leaf events (events with a gate) it recursively calculates the probability from subevents.
-//	 * @param event
-//	 * @return double probability
-//	 */
-//	public static double getProbability(Event event) {
-//		double result;
-//
-//		if (!event.getSubEvents().isEmpty()) {
-//			switch (event.getSubEventLogic()) {
-//			case AND: {
-//				result = 1;
-//				for (Event subEvent : event.getSubEvents()) {
-//					result = result * getProbability(subEvent);
-//				}
-//				break;
-//			}
-//			case PRIORITY_AND: {
-//				// TODO need to adjust for ordered events
-//				result = 1;
-//				for (Event subEvent : event.getSubEvents()) {
-//					result = result * getProbability(subEvent);
-//				}
-//				break;
-//			}
-//			case XOR: {
-//				double inverseProb = 1;
-//				for (Event subEvent : event.getSubEvents()) {
-//					inverseProb *= (1 - getProbability(subEvent));
-//				}
-//				result = 1 - inverseProb;
-//				break;
-//			}
-//			case OR: {
-//				result = 0;
-//				for (Event subEvent : event.getSubEvents()) {
-//					result = result + getProbability(subEvent);
-//				}
-//				break;
-//			}
-//			default: {
-//				System.out.println("[Utils] Unsupported operator for now: " + event.getSubEventLogic());
-//				result = 1;
-//				break;
-//			}
-//			}
-//
-//		} else {
-//			result = event.getProbability();
-//		}
-//		return result;
-//	}
+	public static String getDescriptionAndProbability(EObject context) {
+		if (context instanceof Event) {
+			Event ev = (Event) context;
+			FaultTree ft = (FaultTree) ev.eContainer();
+			double val = ev.getProbability();
+			String labeltext = FaultTreeUtils.getInstanceDescription(ev);
+			if (labeltext == null || labeltext.isEmpty()) {
+				labeltext = ev.getName();
+			}
+			String emv2label = FaultTreeUtils.getEMV2ElementDescription(ev);
+			String ftmsg = ft.getMessage();
+			if (ftmsg != null) {
+				return "ERROR: " + ftmsg + "\n" + labeltext;
+			}
+			String msg = ev.getMessage() != null ? "NOTE: " + ev.getMessage() : " ";
+			String fullText = String.format("%1$s\n%2$s\n%4$s(%3$.3E)", labeltext, emv2label, val, msg);
+			if (ev == ft.getRoot()) {
+				// mark probability with star if shared events are involved
+				if (FaultTreeUtils.hasSharedEvents(ft)) {
+					return fullText + "*";
+				} else {
+					return fullText;
+				}
+			} else if (ev.isSharedEvent()) {
+				return "*" + fullText;
+			} else {
+				return fullText;
+			}
+		}
+		return "";
+	}
+
+	public static String getHazardDescription(EObject context) {
+		if (context instanceof Event) {
+			Event ev = (Event) context;
+			FaultTree ft = (FaultTree) ev.eContainer();
+			String hazardDescription = EMV2Properties.getHazardDescription(
+					(InstanceObject) ev.getRelatedInstanceObject(), (NamedElement) ev.getRelatedEMV2Object(),
+					(ErrorTypes) ev.getRelatedErrorType());
+			return hazardDescription;
+		}
+		return "";
+	}
+
+	public static String getHazardDescriptionAndProbability(EObject context) {
+		if (context instanceof Event) {
+			Event ev = (Event) context;
+			FaultTree ft = (FaultTree) ev.eContainer();
+			double val = ev.getProbability();
+			String hazardDescription = EMV2Properties.getHazardDescription(
+					(InstanceObject) ev.getRelatedInstanceObject(), (NamedElement) ev.getRelatedEMV2Object(),
+					(ErrorTypes) ev.getRelatedErrorType());
+			String labeltext = FaultTreeUtils.getDescription(ev);
+			if (labeltext == null || labeltext.isEmpty()) {
+				labeltext = ((Event) context).getName();
+			}
+			String msg = ev.getMessage() != null ? "\nMessage: " + ev.getMessage() : "";
+			String problabel = "";
+			if (ev.isSharedEvent()) {
+				labeltext = "Dependent event: " + labeltext;
+			} else if (ev == ft.getRoot()) {
+				// mark probability with star if shared events are involved
+				if (FaultTreeUtils.hasSharedEvents(ft)) {
+					problabel = " (incl. dependent event probabilities)";
+				}
+			}
+
+			if (hazardDescription == null) {
+				return String.format("%1$s%4$s\nOccurrence probability %2$.3E%3$s", labeltext, val, problabel, msg);
+			} else {
+				return String.format("%1$s\n%3$s%5$s\nOccurrence probability %2$.3E%4$s", labeltext, val,
+						"Hazard: " + hazardDescription, problabel, msg);
+			}
+		}
+		return "";
+	}
 
 	/**
 	 * return sum of probabilities of direct subevents.

@@ -47,8 +47,8 @@ public class FaultTreeExport {
 		} else if (root.getSubEventLogic() == LogicOperation.XOR) {
 			report.addOutput(" type=\"xor\"");
 		}
-		if (root.getDescription() != null) {
-			report.addOutput(" description=" + root.getDescription());
+		if (root.getMessage() != null) {
+			report.addOutput(" description=" + root.getMessage());
 		}
 		report.addOutputNewline(">");
 		for (Event e : root.getSubEvents()) {
@@ -70,8 +70,8 @@ public class FaultTreeExport {
 			if (prob == 0) {
 				prob = 0.1;
 			}
-			if (root.getDescription() != null) {
-				description = root.getDescription();
+			if (root.getMessage() != null) {
+				description = root.getMessage();
 			} else {
 				description = root.getName() + "(no extended description)";
 			}
@@ -111,8 +111,8 @@ public class FaultTreeExport {
 
 			title = root.getName();
 
-			if (root.getDescription() != null) {
-				title = root.getDescription();
+			if (root.getMessage() != null) {
+				title = root.getMessage();
 			}
 
 			report.addOutputNewline("" + title.length() + " " + title);

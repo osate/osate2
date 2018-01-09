@@ -2773,7 +2773,8 @@ public class EMV2Util {
 			if (!errorModelSubclause.getTransitions().isEmpty()) {
 				return true;
 			}
-			if (!errorModelSubclause.getUseBehavior().getTransitions().isEmpty()) {
+			if (errorModelSubclause.getUseBehavior() != null
+					&& !errorModelSubclause.getUseBehavior().getTransitions().isEmpty()) {
 				return true;
 			}
 		}

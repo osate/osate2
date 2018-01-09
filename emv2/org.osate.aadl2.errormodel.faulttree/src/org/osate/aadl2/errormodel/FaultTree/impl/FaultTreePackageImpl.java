@@ -143,7 +143,7 @@ public class FaultTreePackageImpl extends EPackageImpl implements FaultTreePacka
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getFaultTree_Description() {
+	public EAttribute getFaultTree_Message() {
 		return (EAttribute)faultTreeEClass.getEStructuralFeatures().get(1);
 	}
 
@@ -206,7 +206,7 @@ public class FaultTreePackageImpl extends EPackageImpl implements FaultTreePacka
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getEvent_Description() {
+	public EAttribute getEvent_Message() {
 		return (EAttribute)eventEClass.getEStructuralFeatures().get(1);
 	}
 
@@ -375,7 +375,7 @@ public class FaultTreePackageImpl extends EPackageImpl implements FaultTreePacka
 		// Create classes and their features
 		faultTreeEClass = createEClass(FAULT_TREE);
 		createEAttribute(faultTreeEClass, FAULT_TREE__NAME);
-		createEAttribute(faultTreeEClass, FAULT_TREE__DESCRIPTION);
+		createEAttribute(faultTreeEClass, FAULT_TREE__MESSAGE);
 		createEAttribute(faultTreeEClass, FAULT_TREE__FAULT_TREE_TYPE);
 		createEReference(faultTreeEClass, FAULT_TREE__ROOT);
 		createEReference(faultTreeEClass, FAULT_TREE__INSTANCE_ROOT);
@@ -383,7 +383,7 @@ public class FaultTreePackageImpl extends EPackageImpl implements FaultTreePacka
 
 		eventEClass = createEClass(EVENT);
 		createEAttribute(eventEClass, EVENT__NAME);
-		createEAttribute(eventEClass, EVENT__DESCRIPTION);
+		createEAttribute(eventEClass, EVENT__MESSAGE);
 		createEReference(eventEClass, EVENT__SUB_EVENTS);
 		createEAttribute(eventEClass, EVENT__K);
 		createEAttribute(eventEClass, EVENT__ASSIGNED_PROBABILITY);
@@ -435,7 +435,7 @@ public class FaultTreePackageImpl extends EPackageImpl implements FaultTreePacka
 		// Initialize classes, features, and operations; add parameters
 		initEClass(faultTreeEClass, FaultTree.class, "FaultTree", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getFaultTree_Name(), ecorePackage.getEString(), "name", null, 0, 1, FaultTree.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getFaultTree_Description(), ecorePackage.getEString(), "description", null, 0, 1, FaultTree.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getFaultTree_Message(), ecorePackage.getEString(), "message", null, 0, 1, FaultTree.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getFaultTree_FaultTreeType(), this.getFaultTreeType(), "faultTreeType", null, 0, 1, FaultTree.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getFaultTree_Root(), this.getEvent(), null, "root", null, 0, 1, FaultTree.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getFaultTree_InstanceRoot(), ecorePackage.getEObject(), null, "instanceRoot", null, 0, 1, FaultTree.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -443,7 +443,7 @@ public class FaultTreePackageImpl extends EPackageImpl implements FaultTreePacka
 
 		initEClass(eventEClass, Event.class, "Event", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getEvent_Name(), ecorePackage.getEString(), "name", null, 0, 1, Event.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getEvent_Description(), ecorePackage.getEString(), "description", null, 0, 1, Event.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getEvent_Message(), ecorePackage.getEString(), "message", null, 0, 1, Event.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getEvent_SubEvents(), this.getEvent(), null, "subEvents", null, 0, -1, Event.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getEvent_K(), ecorePackage.getEInt(), "k", "1", 0, 1, Event.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getEvent_AssignedProbability(), ecorePackage.getEDouble(), "assignedProbability", null, 0, 1, Event.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

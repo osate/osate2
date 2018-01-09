@@ -78,13 +78,13 @@ public interface FaultTreePackage extends EPackage {
 	int FAULT_TREE__NAME = 0;
 
 	/**
-	 * The feature id for the '<em><b>Description</b></em>' attribute.
+	 * The feature id for the '<em><b>Message</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int FAULT_TREE__DESCRIPTION = 1;
+	int FAULT_TREE__MESSAGE = 1;
 
 	/**
 	 * The feature id for the '<em><b>Fault Tree Type</b></em>' attribute.
@@ -160,13 +160,13 @@ public interface FaultTreePackage extends EPackage {
 	int EVENT__NAME = 0;
 
 	/**
-	 * The feature id for the '<em><b>Description</b></em>' attribute.
+	 * The feature id for the '<em><b>Message</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int EVENT__DESCRIPTION = 1;
+	int EVENT__MESSAGE = 1;
 
 	/**
 	 * The feature id for the '<em><b>Sub Events</b></em>' reference list.
@@ -348,15 +348,15 @@ public interface FaultTreePackage extends EPackage {
 	EAttribute getFaultTree_Name();
 
 	/**
-	 * Returns the meta object for the attribute '{@link org.osate.aadl2.errormodel.FaultTree.FaultTree#getDescription <em>Description</em>}'.
+	 * Returns the meta object for the attribute '{@link org.osate.aadl2.errormodel.FaultTree.FaultTree#getMessage <em>Message</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Description</em>'.
-	 * @see org.osate.aadl2.errormodel.FaultTree.FaultTree#getDescription()
+	 * @return the meta object for the attribute '<em>Message</em>'.
+	 * @see org.osate.aadl2.errormodel.FaultTree.FaultTree#getMessage()
 	 * @see #getFaultTree()
 	 * @generated
 	 */
-	EAttribute getFaultTree_Description();
+	EAttribute getFaultTree_Message();
 
 	/**
 	 * Returns the meta object for the attribute '{@link org.osate.aadl2.errormodel.FaultTree.FaultTree#getFaultTreeType <em>Fault Tree Type</em>}'.
@@ -424,15 +424,15 @@ public interface FaultTreePackage extends EPackage {
 	EAttribute getEvent_Name();
 
 	/**
-	 * Returns the meta object for the attribute '{@link org.osate.aadl2.errormodel.FaultTree.Event#getDescription <em>Description</em>}'.
+	 * Returns the meta object for the attribute '{@link org.osate.aadl2.errormodel.FaultTree.Event#getMessage <em>Message</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Description</em>'.
-	 * @see org.osate.aadl2.errormodel.FaultTree.Event#getDescription()
+	 * @return the meta object for the attribute '<em>Message</em>'.
+	 * @see org.osate.aadl2.errormodel.FaultTree.Event#getMessage()
 	 * @see #getEvent()
 	 * @generated
 	 */
-	EAttribute getEvent_Description();
+	EAttribute getEvent_Message();
 
 	/**
 	 * Returns the meta object for the reference list '{@link org.osate.aadl2.errormodel.FaultTree.Event#getSubEvents <em>Sub Events</em>}'.
@@ -637,12 +637,12 @@ public interface FaultTreePackage extends EPackage {
 		EAttribute FAULT_TREE__NAME = eINSTANCE.getFaultTree_Name();
 
 		/**
-		 * The meta object literal for the '<em><b>Description</b></em>' attribute feature.
+		 * The meta object literal for the '<em><b>Message</b></em>' attribute feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EAttribute FAULT_TREE__DESCRIPTION = eINSTANCE.getFaultTree_Description();
+		EAttribute FAULT_TREE__MESSAGE = eINSTANCE.getFaultTree_Message();
 
 		/**
 		 * The meta object literal for the '<em><b>Fault Tree Type</b></em>' attribute feature.
@@ -695,12 +695,12 @@ public interface FaultTreePackage extends EPackage {
 		EAttribute EVENT__NAME = eINSTANCE.getEvent_Name();
 
 		/**
-		 * The meta object literal for the '<em><b>Description</b></em>' attribute feature.
+		 * The meta object literal for the '<em><b>Message</b></em>' attribute feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EAttribute EVENT__DESCRIPTION = eINSTANCE.getEvent_Description();
+		EAttribute EVENT__MESSAGE = eINSTANCE.getEvent_Message();
 
 		/**
 		 * The meta object literal for the '<em><b>Sub Events</b></em>' reference list feature.

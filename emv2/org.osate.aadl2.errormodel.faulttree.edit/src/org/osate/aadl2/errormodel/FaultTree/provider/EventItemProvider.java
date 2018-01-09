@@ -53,7 +53,7 @@ IStructuredItemContentProvider, ITreeItemContentProvider, IItemLabelProvider, II
 			super.getPropertyDescriptors(object);
 
 			addNamePropertyDescriptor(object);
-			addDescriptionPropertyDescriptor(object);
+			addMessagePropertyDescriptor(object);
 			addSubEventsPropertyDescriptor(object);
 			addKPropertyDescriptor(object);
 			addAssignedProbabilityPropertyDescriptor(object);
@@ -77,40 +77,40 @@ IStructuredItemContentProvider, ITreeItemContentProvider, IItemLabelProvider, II
 	 */
 	protected void addNamePropertyDescriptor(Object object) {
 		itemPropertyDescriptors.add
-		(createItemPropertyDescriptor
+			(createItemPropertyDescriptor
 				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-						getResourceLocator(),
-						getString("_UI_Event_name_feature"),
-						getString("_UI_PropertyDescriptor_description", "_UI_Event_name_feature", "_UI_Event_type"),
-						FaultTreePackage.Literals.EVENT__NAME,
-						true,
-						false,
-						false,
-						ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
-						null,
-						null));
+				 getResourceLocator(),
+				 getString("_UI_Event_name_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_Event_name_feature", "_UI_Event_type"),
+				 FaultTreePackage.Literals.EVENT__NAME,
+				 true,
+				 false,
+				 false,
+				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+				 null,
+				 null));
 	}
 
 	/**
-	 * This adds a property descriptor for the Description feature.
+	 * This adds a property descriptor for the Message feature.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected void addDescriptionPropertyDescriptor(Object object) {
+	protected void addMessagePropertyDescriptor(Object object) {
 		itemPropertyDescriptors.add
-		(createItemPropertyDescriptor
+			(createItemPropertyDescriptor
 				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-						getResourceLocator(),
-						getString("_UI_Event_description_feature"),
-						getString("_UI_PropertyDescriptor_description", "_UI_Event_description_feature", "_UI_Event_type"),
-						FaultTreePackage.Literals.EVENT__DESCRIPTION,
-						true,
-						false,
-						false,
-						ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
-						null,
-						null));
+				 getResourceLocator(),
+				 getString("_UI_Event_message_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_Event_message_feature", "_UI_Event_type"),
+				 FaultTreePackage.Literals.EVENT__MESSAGE,
+				 true,
+				 false,
+				 false,
+				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+				 null,
+				 null));
 	}
 
 	/**
@@ -121,18 +121,18 @@ IStructuredItemContentProvider, ITreeItemContentProvider, IItemLabelProvider, II
 	 */
 	protected void addSubEventsPropertyDescriptor(Object object) {
 		itemPropertyDescriptors.add
-		(createItemPropertyDescriptor
+			(createItemPropertyDescriptor
 				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-						getResourceLocator(),
-						getString("_UI_Event_subEvents_feature"),
-						getString("_UI_PropertyDescriptor_description", "_UI_Event_subEvents_feature", "_UI_Event_type"),
-						FaultTreePackage.Literals.EVENT__SUB_EVENTS,
-						true,
-						false,
-						true,
-						null,
-						null,
-						null));
+				 getResourceLocator(),
+				 getString("_UI_Event_subEvents_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_Event_subEvents_feature", "_UI_Event_type"),
+				 FaultTreePackage.Literals.EVENT__SUB_EVENTS,
+				 true,
+				 false,
+				 true,
+				 null,
+				 null,
+				 null));
 	}
 
 	/**
@@ -143,18 +143,18 @@ IStructuredItemContentProvider, ITreeItemContentProvider, IItemLabelProvider, II
 	 */
 	protected void addKPropertyDescriptor(Object object) {
 		itemPropertyDescriptors.add
-		(createItemPropertyDescriptor
+			(createItemPropertyDescriptor
 				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-						getResourceLocator(),
-						getString("_UI_Event_k_feature"),
-						getString("_UI_PropertyDescriptor_description", "_UI_Event_k_feature", "_UI_Event_type"),
-						FaultTreePackage.Literals.EVENT__K,
-						true,
-						false,
-						false,
-						ItemPropertyDescriptor.INTEGRAL_VALUE_IMAGE,
-						null,
-						null));
+				 getResourceLocator(),
+				 getString("_UI_Event_k_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_Event_k_feature", "_UI_Event_type"),
+				 FaultTreePackage.Literals.EVENT__K,
+				 true,
+				 false,
+				 false,
+				 ItemPropertyDescriptor.INTEGRAL_VALUE_IMAGE,
+				 null,
+				 null));
 	}
 
 	/**
@@ -165,7 +165,7 @@ IStructuredItemContentProvider, ITreeItemContentProvider, IItemLabelProvider, II
 	 */
 	protected void addAssignedProbabilityPropertyDescriptor(Object object) {
 		itemPropertyDescriptors.add
-		(createItemPropertyDescriptor
+			(createItemPropertyDescriptor
 				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
 				 getResourceLocator(),
 				 getString("_UI_Event_assignedProbability_feature"),
@@ -209,18 +209,18 @@ IStructuredItemContentProvider, ITreeItemContentProvider, IItemLabelProvider, II
 	 */
 	protected void addRelatedInstanceObjectPropertyDescriptor(Object object) {
 		itemPropertyDescriptors.add
-		(createItemPropertyDescriptor
+			(createItemPropertyDescriptor
 				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-						getResourceLocator(),
-						getString("_UI_Event_relatedInstanceObject_feature"),
-						getString("_UI_PropertyDescriptor_description", "_UI_Event_relatedInstanceObject_feature", "_UI_Event_type"),
-						FaultTreePackage.Literals.EVENT__RELATED_INSTANCE_OBJECT,
-						true,
-						false,
-						true,
-						null,
-						null,
-						null));
+				 getResourceLocator(),
+				 getString("_UI_Event_relatedInstanceObject_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_Event_relatedInstanceObject_feature", "_UI_Event_type"),
+				 FaultTreePackage.Literals.EVENT__RELATED_INSTANCE_OBJECT,
+				 true,
+				 false,
+				 true,
+				 null,
+				 null,
+				 null));
 	}
 
 	/**
@@ -231,18 +231,18 @@ IStructuredItemContentProvider, ITreeItemContentProvider, IItemLabelProvider, II
 	 */
 	protected void addRelatedErrorTypePropertyDescriptor(Object object) {
 		itemPropertyDescriptors.add
-		(createItemPropertyDescriptor
+			(createItemPropertyDescriptor
 				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-						getResourceLocator(),
-						getString("_UI_Event_relatedErrorType_feature"),
-						getString("_UI_PropertyDescriptor_description", "_UI_Event_relatedErrorType_feature", "_UI_Event_type"),
-						FaultTreePackage.Literals.EVENT__RELATED_ERROR_TYPE,
-						true,
-						false,
-						true,
-						null,
-						null,
-						null));
+				 getResourceLocator(),
+				 getString("_UI_Event_relatedErrorType_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_Event_relatedErrorType_feature", "_UI_Event_type"),
+				 FaultTreePackage.Literals.EVENT__RELATED_ERROR_TYPE,
+				 true,
+				 false,
+				 true,
+				 null,
+				 null,
+				 null));
 	}
 
 	/**
@@ -253,18 +253,18 @@ IStructuredItemContentProvider, ITreeItemContentProvider, IItemLabelProvider, II
 	 */
 	protected void addReferenceCountPropertyDescriptor(Object object) {
 		itemPropertyDescriptors.add
-		(createItemPropertyDescriptor
+			(createItemPropertyDescriptor
 				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-						getResourceLocator(),
-						getString("_UI_Event_referenceCount_feature"),
-						getString("_UI_PropertyDescriptor_description", "_UI_Event_referenceCount_feature", "_UI_Event_type"),
-						FaultTreePackage.Literals.EVENT__REFERENCE_COUNT,
-						true,
-						false,
-						false,
-						ItemPropertyDescriptor.INTEGRAL_VALUE_IMAGE,
-						null,
-						null));
+				 getResourceLocator(),
+				 getString("_UI_Event_referenceCount_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_Event_referenceCount_feature", "_UI_Event_type"),
+				 FaultTreePackage.Literals.EVENT__REFERENCE_COUNT,
+				 true,
+				 false,
+				 false,
+				 ItemPropertyDescriptor.INTEGRAL_VALUE_IMAGE,
+				 null,
+				 null));
 	}
 
 	/**
@@ -275,18 +275,18 @@ IStructuredItemContentProvider, ITreeItemContentProvider, IItemLabelProvider, II
 	 */
 	protected void addTypePropertyDescriptor(Object object) {
 		itemPropertyDescriptors.add
-		(createItemPropertyDescriptor
+			(createItemPropertyDescriptor
 				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-						getResourceLocator(),
-						getString("_UI_Event_type_feature"),
-						getString("_UI_PropertyDescriptor_description", "_UI_Event_type_feature", "_UI_Event_type"),
-						FaultTreePackage.Literals.EVENT__TYPE,
-						true,
-						false,
-						false,
-						ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
-						null,
-						null));
+				 getResourceLocator(),
+				 getString("_UI_Event_type_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_Event_type_feature", "_UI_Event_type"),
+				 FaultTreePackage.Literals.EVENT__TYPE,
+				 true,
+				 false,
+				 false,
+				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+				 null,
+				 null));
 	}
 
 	/**
@@ -297,18 +297,18 @@ IStructuredItemContentProvider, ITreeItemContentProvider, IItemLabelProvider, II
 	 */
 	protected void addSubEventLogicPropertyDescriptor(Object object) {
 		itemPropertyDescriptors.add
-		(createItemPropertyDescriptor
+			(createItemPropertyDescriptor
 				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-						getResourceLocator(),
-						getString("_UI_Event_subEventLogic_feature"),
-						getString("_UI_PropertyDescriptor_description", "_UI_Event_subEventLogic_feature", "_UI_Event_type"),
-						FaultTreePackage.Literals.EVENT__SUB_EVENT_LOGIC,
-						true,
-						false,
-						false,
-						ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
-						null,
-						null));
+				 getResourceLocator(),
+				 getString("_UI_Event_subEventLogic_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_Event_subEventLogic_feature", "_UI_Event_type"),
+				 FaultTreePackage.Literals.EVENT__SUB_EVENT_LOGIC,
+				 true,
+				 false,
+				 false,
+				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+				 null,
+				 null));
 	}
 
 	/**
@@ -319,18 +319,18 @@ IStructuredItemContentProvider, ITreeItemContentProvider, IItemLabelProvider, II
 	 */
 	protected void addRelatedEMV2ObjectPropertyDescriptor(Object object) {
 		itemPropertyDescriptors.add
-		(createItemPropertyDescriptor
+			(createItemPropertyDescriptor
 				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-						getResourceLocator(),
-						getString("_UI_Event_relatedEMV2Object_feature"),
-						getString("_UI_PropertyDescriptor_description", "_UI_Event_relatedEMV2Object_feature", "_UI_Event_type"),
-						FaultTreePackage.Literals.EVENT__RELATED_EMV2_OBJECT,
-						true,
-						false,
-						true,
-						null,
-						null,
-						null));
+				 getResourceLocator(),
+				 getString("_UI_Event_relatedEMV2Object_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_Event_relatedEMV2Object_feature", "_UI_Event_type"),
+				 FaultTreePackage.Literals.EVENT__RELATED_EMV2_OBJECT,
+				 true,
+				 false,
+				 true,
+				 null,
+				 null,
+				 null));
 	}
 
 	/**
@@ -401,8 +401,8 @@ IStructuredItemContentProvider, ITreeItemContentProvider, IItemLabelProvider, II
 	public String getText(Object object) {
 		String label = ((Event)object).getName();
 		return label == null || label.length() == 0 ?
-				getString("_UI_Event_type") :
-					getString("_UI_Event_type") + " " + label;
+			getString("_UI_Event_type") :
+			getString("_UI_Event_type") + " " + label;
 	}
 
 	/**
@@ -418,7 +418,7 @@ IStructuredItemContentProvider, ITreeItemContentProvider, IItemLabelProvider, II
 
 		switch (notification.getFeatureID(Event.class)) {
 			case FaultTreePackage.EVENT__NAME:
-			case FaultTreePackage.EVENT__DESCRIPTION:
+			case FaultTreePackage.EVENT__MESSAGE:
 			case FaultTreePackage.EVENT__K:
 			case FaultTreePackage.EVENT__ASSIGNED_PROBABILITY:
 			case FaultTreePackage.EVENT__COMPUTED_PROBABILITY:

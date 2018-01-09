@@ -23,9 +23,10 @@ public class FTADialog extends TitleAreaDialog {
 	private Button faultTreeBox;
 	private Button mincutsetBox;
 	private Button faultTraceBox;
+	private Button ftTableBox;
+	private boolean isFaultTreeTable = false;
 	private FaultTreeType faultTreeType;
 	private String target = "";
-	private boolean composite = false;
 
 	public FTADialog(Shell parentShell) {
 		super(parentShell);
@@ -39,15 +40,12 @@ public class FTADialog extends TitleAreaDialog {
 		target = targetname;
 	}
 
-	public void setComposite(boolean compositeparts) {
-		composite = compositeparts;
-	}
-
 	@Override
 	public void create() {
 		super.create();
 		setTitle("Fault-Tree Analysis" + (target.isEmpty() ? "" : " for " + target));
-		setMessage("Select Error state for composite parts fault tree, Out propagation for flow based fault tree.",
+		setMessage(
+				"Fault Tree and Trace in graphical view by default, minimal cut sets in table format.\nSelect Error state for composite parts fault tree, Out propagation for flow based fault tree.",
 				IMessageProvider.INFORMATION);
 	}
 
@@ -78,13 +76,14 @@ public class FTADialog extends TitleAreaDialog {
 		faultTreeBox.setText("Fault Tree with Computed Probability");
 		faultTreeBox.setSelection(true);
 		mincutsetBox = new Button(container, SWT.RADIO);
-		mincutsetBox.setText("Minimal Cut Sets with Computed Probability");
+		mincutsetBox.setText("Minimal Cut Sets with Computed Probability (Table format)");
 		mincutsetBox.setSelection(false);
-		if (composite) {
-			compositePartsBox = new Button(container, SWT.RADIO);
-			compositePartsBox.setText("Parts Fault Tree (based on composite error states*)");
-			compositePartsBox.setSelection(false);
-		}
+		compositePartsBox = new Button(container, SWT.RADIO);
+		compositePartsBox.setText("Parts Fault Tree (based on composite error states*)");
+		compositePartsBox.setSelection(false);
+		ftTableBox = new Button(container, SWT.CHECK);
+		ftTableBox.setText("Fault Tree/Trace in Table Format");
+		ftTableBox.setSelection(false);
 		return area;
 	}
 
@@ -95,6 +94,7 @@ public class FTADialog extends TitleAreaDialog {
 
 	private void saveInput() {
 		value = errorMode.getText();
+		isFaultTreeTable = ftTableBox.getSelection();
 		if (compositePartsBox.getSelection()) {
 			faultTreeType = FaultTreeType.COMPOSITE_PARTS;
 		} else if (faultTreeBox.getSelection()) {
@@ -118,6 +118,10 @@ public class FTADialog extends TitleAreaDialog {
 
 	public FaultTreeType getFaultTreeType() {
 		return faultTreeType;
+	}
+
+	public boolean isFaultTreeTable() {
+		return isFaultTreeTable;
 	}
 
 }

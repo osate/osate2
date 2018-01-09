@@ -33,7 +33,7 @@ import org.osate.aadl2.errormodel.FaultTree.FaultTreeType;
  * </p>
  * <ul>
  *   <li>{@link org.osate.aadl2.errormodel.FaultTree.impl.FaultTreeImpl#getName <em>Name</em>}</li>
- *   <li>{@link org.osate.aadl2.errormodel.FaultTree.impl.FaultTreeImpl#getDescription <em>Description</em>}</li>
+ *   <li>{@link org.osate.aadl2.errormodel.FaultTree.impl.FaultTreeImpl#getMessage <em>Message</em>}</li>
  *   <li>{@link org.osate.aadl2.errormodel.FaultTree.impl.FaultTreeImpl#getFaultTreeType <em>Fault Tree Type</em>}</li>
  *   <li>{@link org.osate.aadl2.errormodel.FaultTree.impl.FaultTreeImpl#getRoot <em>Root</em>}</li>
  *   <li>{@link org.osate.aadl2.errormodel.FaultTree.impl.FaultTreeImpl#getInstanceRoot <em>Instance Root</em>}</li>
@@ -64,24 +64,24 @@ public class FaultTreeImpl extends MinimalEObjectImpl.Container implements Fault
 	protected String name = NAME_EDEFAULT;
 
 	/**
-	 * The default value of the '{@link #getDescription() <em>Description</em>}' attribute.
+	 * The default value of the '{@link #getMessage() <em>Message</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getDescription()
+	 * @see #getMessage()
 	 * @generated
 	 * @ordered
 	 */
-	protected static final String DESCRIPTION_EDEFAULT = null;
+	protected static final String MESSAGE_EDEFAULT = null;
 
 	/**
-	 * The cached value of the '{@link #getDescription() <em>Description</em>}' attribute.
+	 * The cached value of the '{@link #getMessage() <em>Message</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getDescription()
+	 * @see #getMessage()
 	 * @generated
 	 * @ordered
 	 */
-	protected String description = DESCRIPTION_EDEFAULT;
+	protected String message = MESSAGE_EDEFAULT;
 
 	/**
 	 * The default value of the '{@link #getFaultTreeType() <em>Fault Tree Type</em>}' attribute.
@@ -178,8 +178,8 @@ public class FaultTreeImpl extends MinimalEObjectImpl.Container implements Fault
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public String getDescription() {
-		return description;
+	public String getMessage() {
+		return message;
 	}
 
 	/**
@@ -187,11 +187,11 @@ public class FaultTreeImpl extends MinimalEObjectImpl.Container implements Fault
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setDescription(String newDescription) {
-		String oldDescription = description;
-		description = newDescription;
+	public void setMessage(String newMessage) {
+		String oldMessage = message;
+		message = newMessage;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, FaultTreePackage.FAULT_TREE__DESCRIPTION, oldDescription, description));
+			eNotify(new ENotificationImpl(this, Notification.SET, FaultTreePackage.FAULT_TREE__MESSAGE, oldMessage, message));
 	}
 
 	/**
@@ -327,8 +327,8 @@ public class FaultTreeImpl extends MinimalEObjectImpl.Container implements Fault
 		switch (featureID) {
 			case FaultTreePackage.FAULT_TREE__NAME:
 				return getName();
-			case FaultTreePackage.FAULT_TREE__DESCRIPTION:
-				return getDescription();
+			case FaultTreePackage.FAULT_TREE__MESSAGE:
+				return getMessage();
 			case FaultTreePackage.FAULT_TREE__FAULT_TREE_TYPE:
 				return getFaultTreeType();
 			case FaultTreePackage.FAULT_TREE__ROOT:
@@ -355,8 +355,8 @@ public class FaultTreeImpl extends MinimalEObjectImpl.Container implements Fault
 			case FaultTreePackage.FAULT_TREE__NAME:
 				setName((String)newValue);
 				return;
-			case FaultTreePackage.FAULT_TREE__DESCRIPTION:
-				setDescription((String)newValue);
+			case FaultTreePackage.FAULT_TREE__MESSAGE:
+				setMessage((String)newValue);
 				return;
 			case FaultTreePackage.FAULT_TREE__FAULT_TREE_TYPE:
 				setFaultTreeType((FaultTreeType)newValue);
@@ -386,8 +386,8 @@ public class FaultTreeImpl extends MinimalEObjectImpl.Container implements Fault
 			case FaultTreePackage.FAULT_TREE__NAME:
 				setName(NAME_EDEFAULT);
 				return;
-			case FaultTreePackage.FAULT_TREE__DESCRIPTION:
-				setDescription(DESCRIPTION_EDEFAULT);
+			case FaultTreePackage.FAULT_TREE__MESSAGE:
+				setMessage(MESSAGE_EDEFAULT);
 				return;
 			case FaultTreePackage.FAULT_TREE__FAULT_TREE_TYPE:
 				setFaultTreeType(FAULT_TREE_TYPE_EDEFAULT);
@@ -415,8 +415,8 @@ public class FaultTreeImpl extends MinimalEObjectImpl.Container implements Fault
 		switch (featureID) {
 			case FaultTreePackage.FAULT_TREE__NAME:
 				return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
-			case FaultTreePackage.FAULT_TREE__DESCRIPTION:
-				return DESCRIPTION_EDEFAULT == null ? description != null : !DESCRIPTION_EDEFAULT.equals(description);
+			case FaultTreePackage.FAULT_TREE__MESSAGE:
+				return MESSAGE_EDEFAULT == null ? message != null : !MESSAGE_EDEFAULT.equals(message);
 			case FaultTreePackage.FAULT_TREE__FAULT_TREE_TYPE:
 				return faultTreeType != FAULT_TREE_TYPE_EDEFAULT;
 			case FaultTreePackage.FAULT_TREE__ROOT:
@@ -441,8 +441,8 @@ public class FaultTreeImpl extends MinimalEObjectImpl.Container implements Fault
 		StringBuffer result = new StringBuffer(super.toString());
 		result.append(" (name: ");
 		result.append(name);
-		result.append(", description: ");
-		result.append(description);
+		result.append(", message: ");
+		result.append(message);
 		result.append(", faultTreeType: ");
 		result.append(faultTreeType);
 		result.append(')');

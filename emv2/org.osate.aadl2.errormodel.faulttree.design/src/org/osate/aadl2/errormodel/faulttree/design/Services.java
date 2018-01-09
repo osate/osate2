@@ -4,12 +4,10 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 import org.eclipse.emf.ecore.EObject;
-import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.errormodel.FaultTree.Event;
+import org.osate.aadl2.errormodel.FaultTree.EventType;
 import org.osate.aadl2.errormodel.FaultTree.FaultTree;
-import org.osate.aadl2.instance.InstanceObject;
-import org.osate.xtext.aadl2.errormodel.errorModel.ErrorTypes;
-import org.osate.xtext.aadl2.errormodel.util.EMV2Properties;
+import org.osate.aadl2.errormodel.FaultTree.util.FaultTreeUtils;
 
 public class Services {
 
@@ -33,38 +31,55 @@ public class Services {
 		return eventsToReturn;
 	}
 
+	public int getWidth(EObject context) {
+		Event ev = (Event) context;
+		String labeltext = FaultTreeUtils.getInstanceDescription(ev);
+		String emv2label = FaultTreeUtils.getEMV2ElementDescription(ev);
+		if (labeltext.length() > emv2label.length()) {
+			return labeltext.length() / 2 + 3;
+		}
+		return emv2label.length() / 2 + 3;
+	}
+
 	public String getDescriptionAndProbability(EObject context) {
-		if (context instanceof Event) {
-			Event ev = (Event) context;
-			double val = ev.getProbability();
-			String labeltext = ev.getDescription();
-			if (labeltext == null || labeltext.isEmpty()) {
-				labeltext = ev.getName();
-			}
-			return String.format("%1$s\n(%2$.3E)", labeltext, val);
+		return FaultTreeUtils.getDescriptionAndProbability(context);
+	}
+
+	public String getDescription(EObject context) {
+		return FaultTreeUtils.getDescription((Event) context);
+	}
+
+	public String getHazardDescriptionAndProbability(EObject context) {
+		return FaultTreeUtils.getHazardDescriptionAndProbability(context);
+	}
+
+	public String getEventTypeLogic(EObject context) {
+		Event ev = (Event) context;
+		if (ev.getType() == EventType.INTERMEDIATE) {
+			return ev.getSubEventLogic().getName() + " gate";
+		}
+		return ev.getType().getName() + " event";
+	}
+
+	public String getGateLogic(EObject context) {
+		Event ev = (Event) context;
+		if (ev.getType() == EventType.INTERMEDIATE) {
+			return ev.getSubEventLogic().getName();
 		}
 		return "";
 	}
 
-	public String getHazardDescriptionAndProbability(EObject context) {
-		if (context instanceof Event) {
-			Event ev = (Event) context;
-			double val = ev.getProbability();
-			String hazardDescription = EMV2Properties.getHazardDescription(
-					(InstanceObject) ev.getRelatedInstanceObject(), (NamedElement) ev.getRelatedEMV2Object(),
-					(ErrorTypes) ev.getRelatedErrorType());
-			String labeltext = ((Event) context).getDescription();
-			if (labeltext == null || labeltext.isEmpty()) {
-				labeltext = ((Event) context).getName();
-			}
-			if (hazardDescription == null) {
-				return String.format("%1$s\nOccurrence probability %2$.3E", labeltext, val);
-			} else {
-				return String.format("%1$s\n%3$s\nOccurrence probability %2$.3E", labeltext, val,
-						"Hazard: " + hazardDescription);
-			}
-		}
-		return "";
+	public String getDependentEventLabel(EObject context) {
+		return ((Event) context).isSharedEvent() ? "yes" : "no";
+	}
+
+	public String getHazardDescription(EObject context) {
+		return FaultTreeUtils.getHazardDescription(context);
+	}
+
+	public String getProbability(EObject context) {
+		Event ev = (Event) context;
+		return String.format("%1$.3E", ev.getProbability());
 	}
 
 }

@@ -27,7 +27,7 @@ import org.osate.aadl2.errormodel.FaultTree.LogicOperation;
  * </p>
  * <ul>
  *   <li>{@link org.osate.aadl2.errormodel.FaultTree.impl.EventImpl#getName <em>Name</em>}</li>
- *   <li>{@link org.osate.aadl2.errormodel.FaultTree.impl.EventImpl#getDescription <em>Description</em>}</li>
+ *   <li>{@link org.osate.aadl2.errormodel.FaultTree.impl.EventImpl#getMessage <em>Message</em>}</li>
  *   <li>{@link org.osate.aadl2.errormodel.FaultTree.impl.EventImpl#getSubEvents <em>Sub Events</em>}</li>
  *   <li>{@link org.osate.aadl2.errormodel.FaultTree.impl.EventImpl#getK <em>K</em>}</li>
  *   <li>{@link org.osate.aadl2.errormodel.FaultTree.impl.EventImpl#getAssignedProbability <em>Assigned Probability</em>}</li>
@@ -65,24 +65,24 @@ public class EventImpl extends MinimalEObjectImpl.Container implements Event {
 	protected String name = NAME_EDEFAULT;
 
 	/**
-	 * The default value of the '{@link #getDescription() <em>Description</em>}' attribute.
+	 * The default value of the '{@link #getMessage() <em>Message</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getDescription()
+	 * @see #getMessage()
 	 * @generated
 	 * @ordered
 	 */
-	protected static final String DESCRIPTION_EDEFAULT = null;
+	protected static final String MESSAGE_EDEFAULT = null;
 
 	/**
-	 * The cached value of the '{@link #getDescription() <em>Description</em>}' attribute.
+	 * The cached value of the '{@link #getMessage() <em>Message</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getDescription()
+	 * @see #getMessage()
 	 * @generated
 	 * @ordered
 	 */
-	protected String description = DESCRIPTION_EDEFAULT;
+	protected String message = MESSAGE_EDEFAULT;
 
 	/**
 	 * The cached value of the '{@link #getSubEvents() <em>Sub Events</em>}' reference list.
@@ -311,9 +311,8 @@ public class EventImpl extends MinimalEObjectImpl.Container implements Event {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
-	public String getDescription() {
-		return description;
+	public String getMessage() {
+		return message;
 	}
 
 	/**
@@ -321,12 +320,11 @@ public class EventImpl extends MinimalEObjectImpl.Container implements Event {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
-	public void setDescription(String newDescription) {
-		String oldDescription = description;
-		description = newDescription;
+	public void setMessage(String newMessage) {
+		String oldMessage = message;
+		message = newMessage;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, FaultTreePackage.EVENT__DESCRIPTION, oldDescription, description));
+			eNotify(new ENotificationImpl(this, Notification.SET, FaultTreePackage.EVENT__MESSAGE, oldMessage, message));
 	}
 
 	/**
@@ -648,8 +646,8 @@ public class EventImpl extends MinimalEObjectImpl.Container implements Event {
 		switch (featureID) {
 			case FaultTreePackage.EVENT__NAME:
 				return getName();
-			case FaultTreePackage.EVENT__DESCRIPTION:
-				return getDescription();
+			case FaultTreePackage.EVENT__MESSAGE:
+				return getMessage();
 			case FaultTreePackage.EVENT__SUB_EVENTS:
 				return getSubEvents();
 			case FaultTreePackage.EVENT__K:
@@ -691,8 +689,8 @@ public class EventImpl extends MinimalEObjectImpl.Container implements Event {
 			case FaultTreePackage.EVENT__NAME:
 				setName((String)newValue);
 				return;
-			case FaultTreePackage.EVENT__DESCRIPTION:
-				setDescription((String)newValue);
+			case FaultTreePackage.EVENT__MESSAGE:
+				setMessage((String)newValue);
 				return;
 			case FaultTreePackage.EVENT__SUB_EVENTS:
 				getSubEvents().clear();
@@ -743,8 +741,8 @@ public class EventImpl extends MinimalEObjectImpl.Container implements Event {
 			case FaultTreePackage.EVENT__NAME:
 				setName(NAME_EDEFAULT);
 				return;
-			case FaultTreePackage.EVENT__DESCRIPTION:
-				setDescription(DESCRIPTION_EDEFAULT);
+			case FaultTreePackage.EVENT__MESSAGE:
+				setMessage(MESSAGE_EDEFAULT);
 				return;
 			case FaultTreePackage.EVENT__SUB_EVENTS:
 				getSubEvents().clear();
@@ -793,8 +791,8 @@ public class EventImpl extends MinimalEObjectImpl.Container implements Event {
 		switch (featureID) {
 			case FaultTreePackage.EVENT__NAME:
 				return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
-			case FaultTreePackage.EVENT__DESCRIPTION:
-				return DESCRIPTION_EDEFAULT == null ? description != null : !DESCRIPTION_EDEFAULT.equals(description);
+			case FaultTreePackage.EVENT__MESSAGE:
+				return MESSAGE_EDEFAULT == null ? message != null : !MESSAGE_EDEFAULT.equals(message);
 			case FaultTreePackage.EVENT__SUB_EVENTS:
 				return subEvents != null && !subEvents.isEmpty();
 			case FaultTreePackage.EVENT__K:
@@ -847,8 +845,8 @@ public class EventImpl extends MinimalEObjectImpl.Container implements Event {
 		StringBuffer result = new StringBuffer(super.toString());
 		result.append(" (name: ");
 		result.append(name);
-		result.append(", description: ");
-		result.append(description);
+		result.append(", message: ");
+		result.append(message);
 		result.append(", k: ");
 		result.append(k);
 		result.append(", assignedProbability: ");

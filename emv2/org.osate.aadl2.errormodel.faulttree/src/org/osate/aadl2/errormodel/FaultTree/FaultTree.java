@@ -16,7 +16,7 @@ import org.eclipse.emf.ecore.EObject;
  * </p>
  * <ul>
  *   <li>{@link org.osate.aadl2.errormodel.FaultTree.FaultTree#getName <em>Name</em>}</li>
- *   <li>{@link org.osate.aadl2.errormodel.FaultTree.FaultTree#getDescription <em>Description</em>}</li>
+ *   <li>{@link org.osate.aadl2.errormodel.FaultTree.FaultTree#getMessage <em>Message</em>}</li>
  *   <li>{@link org.osate.aadl2.errormodel.FaultTree.FaultTree#getFaultTreeType <em>Fault Tree Type</em>}</li>
  *   <li>{@link org.osate.aadl2.errormodel.FaultTree.FaultTree#getRoot <em>Root</em>}</li>
  *   <li>{@link org.osate.aadl2.errormodel.FaultTree.FaultTree#getInstanceRoot <em>Instance Root</em>}</li>
@@ -55,30 +55,30 @@ public interface FaultTree extends EObject {
 	void setName(String value);
 
 	/**
-	 * Returns the value of the '<em><b>Description</b></em>' attribute.
+	 * Returns the value of the '<em><b>Message</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of the '<em>Description</em>' attribute isn't clear,
+	 * If the meaning of the '<em>Message</em>' attribute isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Description</em>' attribute.
-	 * @see #setDescription(String)
-	 * @see org.osate.aadl2.errormodel.FaultTree.FaultTreePackage#getFaultTree_Description()
+	 * @return the value of the '<em>Message</em>' attribute.
+	 * @see #setMessage(String)
+	 * @see org.osate.aadl2.errormodel.FaultTree.FaultTreePackage#getFaultTree_Message()
 	 * @model
 	 * @generated
 	 */
-	String getDescription();
+	String getMessage();
 
 	/**
-	 * Sets the value of the '{@link org.osate.aadl2.errormodel.FaultTree.FaultTree#getDescription <em>Description</em>}' attribute.
+	 * Sets the value of the '{@link org.osate.aadl2.errormodel.FaultTree.FaultTree#getMessage <em>Message</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Description</em>' attribute.
-	 * @see #getDescription()
+	 * @param value the new value of the '<em>Message</em>' attribute.
+	 * @see #getMessage()
 	 * @generated
 	 */
-	void setDescription(String value);
+	void setMessage(String value);
 
 	/**
 	 * Returns the value of the '<em><b>Fault Tree Type</b></em>' attribute.
