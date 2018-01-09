@@ -306,7 +306,7 @@ public class Aadl2LabelProvider extends AnnexAwareEObjectLabelProvider {
 		if (ele.getName() == null) {
 			return "Unnamed Property Type";
 		}
-		return "Property Type  " + ele.getName();
+		return "Property Type " + ele.getName();
 	}
 
 	String text(PropertyConstant ele) {
@@ -565,15 +565,15 @@ public class Aadl2LabelProvider extends AnnexAwareEObjectLabelProvider {
 		if (ele instanceof RealLiteral) {
 			return text((RealLiteral) ele);
 		}
-		return "unknown number" + ele;
+		return "unknown number " + ele;
 	}
 
 	String text(AadlInteger ele) {
-		return "Property Type" + ele.getName();
+		return "Property Type " + ele.getName();
 	}
 
 	String text(AadlReal ele) {
-		return "Property Type" + ele.getName();
+		return "Property Type " + ele.getName();
 	}
 
 	String image(NamedElement ele) {
@@ -600,6 +600,10 @@ public class Aadl2LabelProvider extends AnnexAwareEObjectLabelProvider {
 //		OsateDebug.osateDebug("Aadl2LabelProvider", "PropertyType");
 //		OsateDebug.osateDebug("Aadl2LabelProvider", "proptype");
 
+		return "PropertyType.gif";
+	}
+
+	String image(AadlInteger ele) {
 		return "PropertyType.gif";
 	}
 
