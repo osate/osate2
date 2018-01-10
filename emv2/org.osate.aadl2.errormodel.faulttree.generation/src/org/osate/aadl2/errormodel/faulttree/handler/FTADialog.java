@@ -45,7 +45,7 @@ public class FTADialog extends TitleAreaDialog {
 		super.create();
 		setTitle("Fault-Tree Analysis" + (target.isEmpty() ? "" : " for " + target));
 		setMessage(
-				"Fault Tree and Trace in graphical view by default, minimal cut sets in table format.\nSelect Error state for composite parts fault tree, Out propagation for flow based fault tree.",
+				"Fault Tree and Trace in graphical view by default, Minimal Cut Sets in table format.\nSelect Error state for composite parts fault tree, out propagation for flow based fault tree.",
 				IMessageProvider.INFORMATION);
 	}
 
@@ -79,7 +79,7 @@ public class FTADialog extends TitleAreaDialog {
 		faultTraceBox.setText("Fault Contributor Trace (dependent events marked by *)");
 		faultTraceBox.setSelection(false);
 		compositePartsBox = new Button(container, SWT.RADIO);
-		compositePartsBox.setText("Parts Fault Tree based on composite error states (was RBD)");
+		compositePartsBox.setText("Parts Fault Tree with Computed Probability (based on composite error states)");
 		compositePartsBox.setSelection(false);
 		ftTableBox = new Button(container, SWT.CHECK);
 		ftTableBox.setText("Fault Tree/Trace in Table Format");

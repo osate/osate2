@@ -152,7 +152,7 @@ The table view of a fault tree shows the fault tree events hierarchically nested
 ###Error State-based Composite Parts Fault Tree Generation
 
 One use early in the process is a composite parts fault tree generation. In this case users define a parts model, i.e., identify the parts of each system, and specify how the error states of the parts relate to the error states of the enclosing system through composite state declarations. Note that user can define such a model with error state machines at multiple level of a system architecture. Users also do not have to specify an error state machine for each level. Instead a higher level state can be expressed in terms of subsystems more than one level down. 
->This is similar to specifying reliability block diagrams in a compositional manner, where the logic of the composite error behavior state corresponds to the logic represented graphically by parallel and serial blocks.
+>This is similar to specifying reliability block diagrams (RBD) in a compositional manner, where the logic of the composite error behavior state corresponds to the logic represented graphically by parallel and serial blocks. It replaces the RBD command previous versions of OSATE supported.
 
 An example of a composite error behavior state declaration is shown here. 
 > In EMV2 the **1 ormore** operator is used to indicate **inclusive oOr**, while the EMV2 **Or** operator represents **exclusive or**.
