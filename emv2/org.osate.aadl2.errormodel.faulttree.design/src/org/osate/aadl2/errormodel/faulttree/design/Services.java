@@ -31,22 +31,20 @@ public class Services {
 		return eventsToReturn;
 	}
 
-	public int getWidth(EObject context) {
-		Event ev = (Event) context;
-		String labeltext = FaultTreeUtils.getInstanceDescription(ev);
-		String emv2label = FaultTreeUtils.getEMV2ElementDescription(ev);
-		if (labeltext.length() > emv2label.length()) {
-			return labeltext.length() / 2 + 4;
-		}
-		return emv2label.length() / 2 + 4;
-	}
-
 	public String getDescriptionAndProbability(EObject context) {
 		return FaultTreeUtils.getDescriptionAndProbability(context);
 	}
 
 	public String getDescription(EObject context) {
 		return FaultTreeUtils.getDescription((Event) context);
+	}
+
+	public String getEventDescription(EObject context) {
+		return " " + FaultTreeUtils.getEventDescription((Event) context);
+	}
+
+	public String getErrorDescription(EObject context) {
+		return FaultTreeUtils.getErrorDescription((Event) context);
 	}
 
 	public String getHazardDescriptionAndProbability(EObject context) {

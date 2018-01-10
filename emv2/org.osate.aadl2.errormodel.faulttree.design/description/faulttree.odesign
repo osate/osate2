@@ -9,9 +9,10 @@
     </ownedRepresentations>
     <ownedRepresentations xsi:type="description_1:EditionTableDescription" name="FaultTreeTable" domainClass="FaultTree.FaultTree">
       <metamodel href="../../org.osate.aadl2.errormodel.faulttree/model/FaultTree.ecore#/"/>
-      <ownedLineMappings name="EventLine" reusedSubLines="//@ownedViewpoints[name='FaultTree']/@ownedRepresentations[name='FaultTreeTable']/@ownedLineMappings[name='EventLine']" reusedInMappings="//@ownedViewpoints[name='FaultTree']/@ownedRepresentations[name='FaultTreeTable']/@ownedLineMappings[name='EventLine']" domainClass="FaultTree.Event" semanticCandidatesExpression="service:getEvents()" headerLabelExpression="service:getDescription()"/>
-      <ownedColumnMappings name="EventTypeColumn" label="Event/Gate Type" headerLabelExpression="Event/Gate Type" canEdit="false" featureName="*" labelExpression="service:getEventTypeLogic()"/>
+      <ownedLineMappings name="EventLine" reusedSubLines="//@ownedViewpoints[name='FaultTree']/@ownedRepresentations[name='FaultTreeTable']/@ownedLineMappings[name='EventLine']" reusedInMappings="//@ownedViewpoints[name='FaultTree']/@ownedRepresentations[name='FaultTreeTable']/@ownedLineMappings[name='EventLine']" domainClass="FaultTree.Event" semanticCandidatesExpression="service:getEvents()" headerLabelExpression="service:getEventDescription()"/>
+      <ownedColumnMappings name="ErrorColumn" label="Error Type" headerLabelExpression="Propagated Error Type" canEdit="false" featureName="*" labelExpression="service:getErrorDescription()"/>
       <ownedColumnMappings name="ProbabilityColumn" label="Probability" headerLabelExpression="Probability" canEdit="false" featureName="*" labelExpression="service:getProbability()"/>
+      <ownedColumnMappings name="EventTypeColumn" label="Event/Gate Type" headerLabelExpression="Event/Gate Type" canEdit="false" featureName="*" labelExpression="service:getEventTypeLogic()"/>
       <ownedColumnMappings name="DependentEventColumn" label="Dependent Event" headerLabelExpression="Dependent Event" canEdit="false" featureName="*" labelExpression="service:getDependentEventLabel()"/>
       <ownedColumnMappings name="DescriptionColumn" label="Hazard Description" headerLabelExpression="Hazard Description" canEdit="false" featureName="*" labelExpression="service:getHazardDescription()"/>
     </ownedRepresentations>
@@ -31,11 +32,9 @@
           </style>
         </edgeMappings>
         <containerMappings name="EventContainer" semanticCandidatesExpression="feature:events" domainClass="FaultTree::Event">
-          <style xsi:type="style:FlatContainerStyleDescription" labelExpression="service:getDescriptionAndProbability()" tooltipExpression="service:getHazardDescriptionAndProbability()" widthComputationExpression="service:getWidth()" heightComputationExpression="5">
+          <style xsi:type="style:FlatContainerStyleDescription" borderSizeComputationExpression="1" labelExpression="service:getDescriptionAndProbability()" tooltipExpression="service:getHazardDescriptionAndProbability()" heightComputationExpression="6" backgroundColor="//@userColorsPalettes[name='FaultTreeColors']/@entries[name='VeryLightGrey']" foregroundColor="//@userColorsPalettes[name='FaultTreeColors']/@entries[name='VeryLightGrey']">
             <borderColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
             <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
-            <backgroundColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='light_gray']"/>
-            <foregroundColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='light_gray']"/>
           </style>
         </containerMappings>
       </defaultLayer>
@@ -44,5 +43,6 @@
   </ownedViewpoints>
   <userColorsPalettes name="FaultTreeColors">
     <entries xsi:type="description:UserFixedColor" red="231" green="231" blue="231" name="VeryLightGrey"/>
+    <entries xsi:type="description:UserFixedColor" red="225" green="245" blue="255" name="VeryLightBlue"/>
   </userColorsPalettes>
 </description:Group>

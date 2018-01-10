@@ -294,11 +294,19 @@ public class FaultTreeUtils {
 		return getInstanceDescription(event) + " " + getEMV2ElementDescription(event);
 	}
 
+	public static String getEventDescription(Event event) {
+		return getInstanceDescription(event);
+	}
+
+	public static String getErrorDescription(Event event) {
+		return getEMV2ElementDescription(event);
+	}
+
 	public static String getInstanceDescription(Event event) {
 		InstanceObject io = (InstanceObject) event.getRelatedInstanceObject();
 		String description = "";
 		if (io instanceof ComponentInstance) {
-			description = "Component '" + getName((ComponentInstance) io) + "'";
+			description = "'" + getName((ComponentInstance) io) + "'";
 		} else if (io instanceof ConnectionInstance) {
 			description = "Connection '" + ((ConnectionInstance) io).getName() + "'";
 		}
@@ -306,11 +314,11 @@ public class FaultTreeUtils {
 		if (errorModelArtifact instanceof ErrorSource) {
 			ErrorSource errorSource = (ErrorSource) errorModelArtifact;
 			NamedElement ep = errorSource.getSourceModelElement();
-			description += " out '" + EMV2Util.getName(ep) + "'";
+			description += " outgoing '" + EMV2Util.getName(ep) + "'";
 		}
 		if (errorModelArtifact instanceof ErrorPropagation) {
 			ErrorPropagation ep = (ErrorPropagation) errorModelArtifact;
-			String directionLabel = ep.getDirection() == DirectionType.IN ? " in " : " out ";
+			String directionLabel = ep.getDirection() == DirectionType.IN ? " incoming " : " outgoing ";
 			description += directionLabel + "'" + EMV2Util.getName(ep) + "'";
 		}
 		return description;
@@ -323,20 +331,20 @@ public class FaultTreeUtils {
 		description = "";
 		if (errorModelArtifact instanceof ErrorSource) {
 			ErrorSource errorSource = (ErrorSource) errorModelArtifact;
-			description = (type != null ? "effect '" + EMV2Util.getName(type) + "'" : "") + " from failure source '"
+			description = (type != null ? "type '" + EMV2Util.getName(type) + "'" : "") + " from error source '"
 					+ EMV2Util.getName(errorSource) + "'";
 		}
 
 		if (errorModelArtifact instanceof ErrorEvent) {
 			ErrorEvent ee = (ErrorEvent) errorModelArtifact;
 			if (type != null) {
-				description += "effect '" + EMV2Util.getName(type) + "'";
+				description += "type '" + EMV2Util.getName(type) + "'";
 			}
-			description += " from failure event '" + EMV2Util.getName(ee) + "'";
+			description += " from error event '" + EMV2Util.getName(ee) + "'";
 		}
 
 		if (errorModelArtifact instanceof ErrorBehaviorState) {
-			description = "failure mode '" + ((ErrorBehaviorState) errorModelArtifact).getName()
+			description = "error state '" + ((ErrorBehaviorState) errorModelArtifact).getName()
 					+ "'";
 			if (type != null) {
 				description += " type '" + EMV2Util.getName(type) + "'";
@@ -352,7 +360,7 @@ public class FaultTreeUtils {
 			} else if (event.getType() == EventType.UNDEVELOPED) {
 				boundaryLabel = "undeveloped ";
 			}
-			description = boundaryLabel + "effect";
+			description = boundaryLabel + "type";
 			if (type != null) {
 				description += " '" + EMV2Util.getName(type) + "'";
 			}
@@ -366,7 +374,7 @@ public class FaultTreeUtils {
 			if (errorModelArtifact instanceof ErrorBehaviorTransition) {
 				opcontext = " in transition";
 			} else if (errorModelArtifact instanceof OutgoingPropagationCondition) {
-				opcontext = " in outgoing propagation";
+				opcontext = " in outgoing propagation condition";
 			} else if (errorModelArtifact instanceof ErrorDetection) {
 				opcontext = " in error detection";
 			}
@@ -390,8 +398,9 @@ public class FaultTreeUtils {
 			if (ftmsg != null) {
 				return "ERROR: " + ftmsg + "\n" + labeltext;
 			}
-			String msg = ev.getMessage() != null ? "NOTE: " + ev.getMessage() : " ";
-			String fullText = String.format("%1$s\n%2$s\n%4$s(%3$.3E)", labeltext, emv2label, val, msg);
+//			String msg = ev.getMessage() != null ? "NOTE: " + ev.getMessage() : " ";
+//			String fullText = String.format("%1$s\n%2$s\n%4$s(%3$.3E)", labeltext, emv2label, val, msg);
+			String fullText = String.format("%1$s \n%2$s \n(%3$.3E)", labeltext, emv2label, val);
 			if (ev == ft.getRoot()) {
 				// mark probability with star if shared events are involved
 				if (FaultTreeUtils.hasSharedEvents(ft)) {
