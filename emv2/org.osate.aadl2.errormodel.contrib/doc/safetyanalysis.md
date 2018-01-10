@@ -137,9 +137,17 @@ Basic events represent error sources or error events within the system, External
 Intermediate events represent composite events with logic gates. We have the following gates: OR![](images/OrOp.gif), AND![](images/AndOp.gif), XOR![](images/XorOp.gif), PriorityAnd![](images/PAndOp.gif), KOrMore![](images/OrMoreOp.gif), KOf, KOrLess.
 > Note that **Kof(1)** is the same as **Xor** of single elements, and **KOrMore(1)** is the same as **Or** of single elements.
 
-Eclipse Sirius is automatically invoked to visualize the fault trees graphically and in table format. An example graphical presentation of a fault tree 
+Eclipse Sirius is automatically invoked to visualize the fault trees graphically and in table format. An example graphical presentation of a fault tree shows the different event types. Each fault tree event shows the name of the component instance and incoming or outgoing feature in the first line. The second line identifies the propagated error type as **effect** and in case of an error source its name as **failure source**, and the third line the computed or assigned occurence probability. 
+* The top level fault tree event shows the outgoing features and propagated error type representing the outgoing error propagation selected by the user in the dialog. 
+* The basic events for components **FlightControl** and **AutoFlightGuidance** show an error type from an error soruce as effect through an outgoing features. 
+* An **undeveloped** event for component **AutoFlightGuidance** shows an incoming propagation from the **powersupply** incoming feature that has not been connected yet. 
+* Finally, an **external** event for component **flightsystem_tier1** shows an error type as incoming effect from outside the flight system.
+* 
+![FlightSystemTier1Graphic](images/flightsystemtier1.png "FlightSystemTier1Graphic")
 
+The table view of a fault tree shows the fault tree events hierarchically nested in the first column. The icon and the text in this column is the same as the first two lines of the graphical fault tree representation. The second column indicates the type of event, and in the case of an intermediate event the type of gate logic. The third column shows the occurrence probability as assigned or computed. The fourth column indicates whether the fault tree event is a common subevent to multiple events. The example shows a top level event with three basic subevents and one intermediate event as **and** gate.
 
+![GPS2SensorTable](images/fta-gps2sensorstatetable.png "GPS2SensorTable")
 
 ###Error State-based Composite Parts Fault Tree Generation
 
