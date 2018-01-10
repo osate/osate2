@@ -596,6 +596,10 @@ public class CreateEndToEndFlowsSwitch extends AadlProcessingSwitchWithProgress 
 			Feature connSrc = ((FeatureInstance) src).getFeature();
 			result = flowOut == connSrc;
 			if (!result) {
+				/**
+				 * 2018-01-09 -- Lutz says in Issue #879 that he is convinced this case cannot
+				 * actually happen.
+				 */
 				error(etei.getContainingComponentInstance(),
 						"Cannot create end to end flow '" + etei.getName() + "' because flow '"
 								+ fimpl.getSpecification().getName()
