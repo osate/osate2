@@ -81,8 +81,10 @@ public class FTAGenerator extends PropagationGraphBackwardTraversal {
 				topEvent.getSubEvents().add(ftaRootEvent);
 				ftaRootEvent = topEvent;
 			}
-//			flattenGates(ftaRootEvent);
-			cleanupXORGates(ftaRootEvent);
+			if (!faultTreeType.equals(FaultTreeType.FAULT_TRACE)) {
+				flattenGates(ftaRootEvent);
+				cleanupXORGates(ftaRootEvent);
+			}
 //			xformXORtoOR(emftaRootEvent);
 			for (Event event : ftaModel.getEvents()) {
 				EObject element = event.getRelatedEMV2Object();
@@ -110,6 +112,7 @@ public class FTAGenerator extends PropagationGraphBackwardTraversal {
 			ftaRootEvent.setName(longName);
 			ftaModel.setRoot(ftaRootEvent);
 			FaultTreeUtils.removeEventOrphans(ftaModel);
+			// copy shared events so we display a tree
 			replicateSharedEvents(ftaRootEvent);
 			FaultTreeUtils.removeEventOrphans(ftaModel);
 			FaultTreeUtils.computeProbabilities(ftaModel.getRoot());

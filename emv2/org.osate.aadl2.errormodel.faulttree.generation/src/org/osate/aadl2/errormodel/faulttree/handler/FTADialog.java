@@ -79,7 +79,7 @@ public class FTADialog extends TitleAreaDialog {
 		faultTraceBox.setText("Fault Contributor Trace (dependent events marked by *)");
 		faultTraceBox.setSelection(false);
 		compositePartsBox = new Button(container, SWT.RADIO);
-		compositePartsBox.setText("Parts Fault Tree (based on composite error states*)");
+		compositePartsBox.setText("Parts Fault Tree based on composite error states (was RBD)");
 		compositePartsBox.setSelection(false);
 		ftTableBox = new Button(container, SWT.CHECK);
 		ftTableBox.setText("Fault Tree/Trace in Table Format");
