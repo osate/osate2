@@ -352,8 +352,7 @@ public class FaultTreeUtils {
 			} else if (event.getType() == EventType.UNDEVELOPED) {
 				boundaryLabel = "undeveloped ";
 			}
-			String directionLabel = ep.getDirection() == DirectionType.IN ? "in " : "out ";
-			description = boundaryLabel + directionLabel + "propagation";
+			description = boundaryLabel + "effect";
 			if (type != null) {
 				description += " '" + EMV2Util.getName(type) + "'";
 			}
