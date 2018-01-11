@@ -331,24 +331,23 @@ public class FaultTreeUtils {
 		description = "";
 		if (errorModelArtifact instanceof ErrorSource) {
 			ErrorSource errorSource = (ErrorSource) errorModelArtifact;
-			description = (type != null ? "type '" + EMV2Util.getName(type) + "'" : "") + " from error source '"
+			description = (type != null ? "{" + EMV2Util.getName(type) + "} from " : "") + "error source '"
 					+ EMV2Util.getName(errorSource) + "'";
 		}
 
 		if (errorModelArtifact instanceof ErrorEvent) {
 			ErrorEvent ee = (ErrorEvent) errorModelArtifact;
 			if (type != null) {
-				description += "type '" + EMV2Util.getName(type) + "'";
+				description += "{" + EMV2Util.getName(type) + "} from ";
 			}
-			description += " from error event '" + EMV2Util.getName(ee) + "'";
+			description += "error event '" + EMV2Util.getName(ee) + "'";
 		}
 
 		if (errorModelArtifact instanceof ErrorBehaviorState) {
-			description = "error state '" + ((ErrorBehaviorState) errorModelArtifact).getName()
-					+ "'";
 			if (type != null) {
-				description += " type '" + EMV2Util.getName(type) + "'";
+				description += "{" + EMV2Util.getName(type) + "} from ";
 			}
+			description += "error state '" + ((ErrorBehaviorState) errorModelArtifact).getName() + "'";
 		}
 
 		if (errorModelArtifact instanceof ErrorPropagation) {
@@ -356,13 +355,17 @@ public class FaultTreeUtils {
 			String boundaryLabel = "";
 			String epname = EMV2Util.getPrintName(ep);
 			if (event.getType() == EventType.EXTERNAL) {
-				boundaryLabel = "external ";
+				boundaryLabel = "external";
 			} else if (event.getType() == EventType.UNDEVELOPED) {
-				boundaryLabel = "undeveloped ";
+				boundaryLabel = "undeveloped";
 			}
-			description = boundaryLabel + "type";
 			if (type != null) {
-				description += " '" + EMV2Util.getName(type) + "'";
+				description = "{" + EMV2Util.getName(type) + "}";
+				if (!boundaryLabel.isEmpty()) {
+					description += " from " + boundaryLabel;
+				}
+			} else {
+				description = boundaryLabel;
 			}
 		}
 
@@ -384,11 +387,15 @@ public class FaultTreeUtils {
 		return description;
 	}
 
+	public static String getProbability(EObject context) {
+		Event ev = (Event) context;
+		return String.format("%1$.1e", ev.getProbability());
+	}
+
 	public static String getDescriptionAndProbability(EObject context) {
 		if (context instanceof Event) {
 			Event ev = (Event) context;
 			FaultTree ft = (FaultTree) ev.eContainer();
-			double val = ev.getProbability();
 			String labeltext = FaultTreeUtils.getInstanceDescription(ev);
 			if (labeltext == null || labeltext.isEmpty()) {
 				labeltext = ev.getName();
@@ -400,7 +407,7 @@ public class FaultTreeUtils {
 			}
 //			String msg = ev.getMessage() != null ? "NOTE: " + ev.getMessage() : " ";
 //			String fullText = String.format("%1$s\n%2$s\n%4$s(%3$.3E)", labeltext, emv2label, val, msg);
-			String fullText = String.format("%1$s \n%2$s \n(%3$.3E)", labeltext, emv2label, val);
+			String fullText = String.format("%1$s \n%2$s \n%3$s", labeltext, emv2label, getProbability(ev));
 			if (ev == ft.getRoot()) {
 				// mark probability with star if shared events are involved
 				if (FaultTreeUtils.hasSharedEvents(ft)) {
@@ -433,7 +440,6 @@ public class FaultTreeUtils {
 		if (context instanceof Event) {
 			Event ev = (Event) context;
 			FaultTree ft = (FaultTree) ev.eContainer();
-			double val = ev.getProbability();
 			String hazardDescription = EMV2Properties.getHazardDescription(
 					(InstanceObject) ev.getRelatedInstanceObject(), (NamedElement) ev.getRelatedEMV2Object(),
 					(ErrorTypes) ev.getRelatedErrorType());
@@ -453,9 +459,10 @@ public class FaultTreeUtils {
 			}
 
 			if (hazardDescription == null) {
-				return String.format("%1$s%4$s\nOccurrence probability %2$.3E%3$s", labeltext, val, problabel, msg);
+				return String.format("%1$s%4$s\nOccurrence probability %2$s%3$s", labeltext, getProbability(ev),
+						problabel, msg);
 			} else {
-				return String.format("%1$s\n%3$s%5$s\nOccurrence probability %2$.3E%4$s", labeltext, val,
+				return String.format("%1$s\n%3$s%5$s\nOccurrence probability %2$s%4$s", labeltext, getProbability(ev),
 						"Hazard: " + hazardDescription, problabel, msg);
 			}
 		}

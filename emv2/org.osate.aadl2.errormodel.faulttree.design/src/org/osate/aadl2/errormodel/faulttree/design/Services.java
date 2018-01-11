@@ -76,8 +76,7 @@ public class Services {
 	}
 
 	public String getProbability(EObject context) {
-		Event ev = (Event) context;
-		return String.format("%1$.3E", ev.getProbability());
+		return FaultTreeUtils.getProbability(context);
 	}
 
 }
