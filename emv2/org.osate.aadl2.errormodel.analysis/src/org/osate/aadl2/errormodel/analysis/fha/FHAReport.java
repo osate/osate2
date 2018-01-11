@@ -150,7 +150,7 @@ public final class FHAReport {
 			List<EMV2PropertyAssociation> Sev = Collections.EMPTY_LIST;
 			List<EMV2PropertyAssociation> Like = Collections.EMPTY_LIST;
 			TypeSet ts = null;
-			Element target = null;
+			NamedElement target = null;
 			Element localContext = null;
 			// not dealing with type set as failure mode
 			if (failureMode != null) {
@@ -168,9 +168,6 @@ public final class FHAReport {
 				ts = errorSource.getTypeTokenConstraint();
 				if (ts == null && ne instanceof ErrorPropagation) {
 					ts = ((ErrorPropagation) ne).getTypeSet();
-				}
-				if (ts == null && failureMode != null) {
-					ts = failureMode.getTypeSet();
 				}
 				HazardPA = getHazardsPropertyInCurrentFormat(ci, errorSource, ts);
 				Sev = EMV2Properties.getSeverityProperty(ci, errorSource, ts);
@@ -190,7 +187,7 @@ public final class FHAReport {
 		}
 		for (ErrorPropagation ep : oeplist) {
 			TypeSet ts = null;
-			Element target = null;
+			NamedElement target = null;
 			Element localContext = null;
 			// error propagation is originating hazard
 			ts = ep.getTypeSet();
@@ -217,7 +214,7 @@ public final class FHAReport {
 		List<EMV2PropertyAssociation> HazardPA = getHazardsPropertyInCurrentFormat(conni, ces, ts);
 		List<EMV2PropertyAssociation> Sev = EMV2Properties.getSeverityProperty(conni, ces, ts);
 		List<EMV2PropertyAssociation> Like = EMV2Properties.getLikelihoodProperty(conni, ces, ts);
-		Element target = ces;
+		NamedElement target = ces;
 		// XXX we may have more than one matching hazard
 		if (!HazardPA.isEmpty()) {
 			reportHazardProperty(conni, HazardPA, Sev, Like, target, ts, localContext, report);
@@ -248,7 +245,8 @@ public final class FHAReport {
 	}
 
 	protected void reportHazardProperty(InstanceObject ci, List<EMV2PropertyAssociation> PAList,
-			List<EMV2PropertyAssociation> SevList, List<EMV2PropertyAssociation> LikeList, Element target, TypeSet ts,
+			List<EMV2PropertyAssociation> SevList, List<EMV2PropertyAssociation> LikeList, NamedElement target,
+			TypeSet ts,
 			Element localContext, WriteToFile report) {
 
 		String targetName;
@@ -267,46 +265,52 @@ public final class FHAReport {
 				targetName = "state " + targetName;
 			}
 		}
-		EMV2PropertyAssociation PA = PAList.get(0);
-		EMV2PropertyAssociation Sev = SevList.isEmpty() ? null : SevList.get(0);
-		EMV2PropertyAssociation Like = LikeList.isEmpty() ? null : LikeList.get(0);
+		for (EMV2PropertyAssociation PA : PAList) {
 
-		for (ModalPropertyValue modalPropertyValue : PA.getOwnedValues()) {
-			PropertyExpression peVal = modalPropertyValue.getOwnedValue();
-			ListValue lv = (ListValue) peVal;
-			for (PropertyExpression pe : lv.getOwnedListElements()) {
-				PropertyExpression severityValue = EMV2Properties.getPropertyValue(Sev);
-				PropertyExpression likelihoodValue = EMV2Properties.getPropertyValue(Like);
-				EList<BasicPropertyAssociation> fields = ((RecordValue) pe).getOwnedFieldValues();
-				// for all error types/aliases in type set or the element identified in the containment clause
+			for (ModalPropertyValue modalPropertyValue : PA.getOwnedValues()) {
+				PropertyExpression peVal = modalPropertyValue.getOwnedValue();
+				ListValue lv = (ListValue) peVal;
+				for (PropertyExpression pe : lv.getOwnedListElements()) {
+					EList<BasicPropertyAssociation> fields = ((RecordValue) pe).getOwnedFieldValues();
+					// for all error types/aliases in type set or the element identified in the containment clause
 
-				if (ts != null) {
-					// do smaller of ts or hazard type set.
-					EList<EMV2Path> epathlist = PA.getEmv2Path();
-					for (EMV2Path ep : epathlist) {
-						ErrorTypes et = EMV2Util.getErrorType(ep);
-						ErrorTypes targettype = ts;
-						if (EM2TypeSetUtil.contains(ts, et)) {
-							targettype = et;
-						}
-						if (targettype instanceof TypeSet) {
-							for (TypeToken token : ((TypeSet) targettype).getTypeTokens()) {
-								reportFHAEntry(report, fields, severityValue, likelihoodValue, ci, targetName,
-										EMV2Util.getName(token));
+					if (ts != null) {
+						// do smaller of ts or hazard type set.
+						EList<EMV2Path> epathlist = PA.getEmv2Path();
+						for (EMV2Path ep : epathlist) {
+							ErrorTypes et = EMV2Util.getErrorType(ep);
+							ErrorTypes targettype = ts;
+							if (EM2TypeSetUtil.contains(ts, et)) {
+								targettype = et;
 							}
-						} else {
-							reportFHAEntry(report, fields, severityValue, likelihoodValue, ci, targetName,
-									((ErrorType) targettype).getName());
+							List<EMV2PropertyAssociation> Sevs = EMV2Properties.getSeverityProperty(ci, target, et);
+							List<EMV2PropertyAssociation> Likes = EMV2Properties.getLikelihoodProperty(ci, target, et);
+							EMV2PropertyAssociation Sev = Sevs.isEmpty() ? null : Sevs.get(0);
+							EMV2PropertyAssociation Like = Likes.isEmpty() ? null : Likes.get(0);
+							PropertyExpression severityValue = EMV2Properties.getPropertyValue(Sev);
+							PropertyExpression likelihoodValue = EMV2Properties.getPropertyValue(Like);
+							if (targettype instanceof TypeSet) {
+								for (TypeToken token : ((TypeSet) targettype).getTypeTokens()) {
+									reportFHAEntry(report, fields, severityValue, likelihoodValue, ci, targetName,
+											EMV2Util.getName(token));
+								}
+							} else {
+								reportFHAEntry(report, fields, severityValue, likelihoodValue, ci, targetName,
+										((ErrorType) targettype).getName());
+							}
 						}
-					}
-				} else {
-					// did not have a type set. Let's use fmr (state of type set as failure mode.
-
-					if (localContext == null) {
-						reportFHAEntry(report, fields, severityValue, likelihoodValue, ci, targetName, "");
 					} else {
-						reportFHAEntry(report, fields, severityValue, likelihoodValue, ci,
-								EMV2Util.getPrintName(localContext), EMV2Util.getPrintName(target));
+						// did not have a type set. Let's use fmr (state of type set as failure mode.
+						EMV2PropertyAssociation Sev = SevList.isEmpty() ? null : SevList.get(0);
+						EMV2PropertyAssociation Like = SevList.isEmpty() ? null : LikeList.get(0);
+						PropertyExpression severityValue = EMV2Properties.getPropertyValue(Sev);
+						PropertyExpression likelihoodValue = EMV2Properties.getPropertyValue(Like);
+						if (localContext == null) {
+							reportFHAEntry(report, fields, severityValue, likelihoodValue, ci, targetName, "");
+						} else {
+							reportFHAEntry(report, fields, severityValue, likelihoodValue, ci,
+									EMV2Util.getPrintName(localContext), EMV2Util.getPrintName(target));
+						}
 					}
 				}
 			}
