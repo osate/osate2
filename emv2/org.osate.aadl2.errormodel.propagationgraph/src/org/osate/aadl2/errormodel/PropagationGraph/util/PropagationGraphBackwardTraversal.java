@@ -29,6 +29,7 @@ import org.osate.xtext.aadl2.errormodel.errorModel.ErrorFlow;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorPath;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorPropagation;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorSource;
+import org.osate.xtext.aadl2.errormodel.errorModel.ErrorType;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorTypes;
 import org.osate.xtext.aadl2.errormodel.errorModel.OrExpression;
 import org.osate.xtext.aadl2.errormodel.errorModel.OrmoreExpression;
@@ -36,6 +37,7 @@ import org.osate.xtext.aadl2.errormodel.errorModel.OutgoingPropagationCondition;
 import org.osate.xtext.aadl2.errormodel.errorModel.QualifiedErrorBehaviorState;
 import org.osate.xtext.aadl2.errormodel.errorModel.SConditionElement;
 import org.osate.xtext.aadl2.errormodel.errorModel.TransitionBranch;
+import org.osate.xtext.aadl2.errormodel.errorModel.TypeSet;
 import org.osate.xtext.aadl2.errormodel.errorModel.TypeToken;
 import org.osate.xtext.aadl2.errormodel.util.EM2TypeSetUtil;
 import org.osate.xtext.aadl2.errormodel.util.EMV2Properties;
@@ -206,7 +208,7 @@ public class PropagationGraphBackwardTraversal {
 		EObject conditionResult = null;
 		EObject stateResult = null;
 		if (opc.getCondition() != null) {
-			conditionResult = processCondition(component, opc.getCondition(), type);
+			conditionResult = processCondition(component, opc.getCondition(), type, 1, false);
 		}
 		if (opc.getState() != null) {
 			stateResult = traverseErrorBehaviorState(component, opc.getState(), type);
@@ -288,7 +290,7 @@ public class PropagationGraphBackwardTraversal {
 			}
 			if (!sameState && conditionExpression != null) {
 				// don't include transition staying in same state
-				EObject conditionResult = processCondition(component, conditionExpression, type, scale);
+				EObject conditionResult = processCondition(component, conditionExpression, type, scale, false);
 				// XXX this is the recursive call
 				// do not traverse back in same state
 				// we also do not traverse back if left is allstates.
@@ -323,17 +325,6 @@ public class PropagationGraphBackwardTraversal {
 		}
 	}
 
-	/**
-	 * Process a condition, either from a component error behavior or a
-	 * composite error behavior.
-	 *
-	 * @param component the component that contains the condition
-	 * @param condition the ConditionExpression to be analyzed
-	 * @return an EObject related to the condition (can be null)
-	 */
-	public EObject processCondition(ComponentInstance component, ConditionExpression condition, ErrorTypes type) {
-		return processCondition(component, condition, type, 1);
-	}
 
 	/**
 	 * create the appropriate FTA events according to the expression.
@@ -343,13 +334,9 @@ public class PropagationGraphBackwardTraversal {
 	 * @param condition
 	 * @param type
 	 * @param scale
+	 * @param stateOnly do not trace via transitions
 	 * @return an EObject related to the condition (can be null)
 	 */
-	public EObject processCondition(ComponentInstance component, ConditionExpression condition, ErrorTypes type,
-			double scale) {
-		return processCondition(component, condition, type, scale, false);
-	}
-
 	public EObject processCondition(ComponentInstance component, ConditionExpression condition, ErrorTypes type,
 			double scale, boolean stateOnly) {
 		/**
@@ -361,7 +348,7 @@ public class PropagationGraphBackwardTraversal {
 			List<EObject> subResults = new LinkedList<EObject>();
 
 			for (ConditionExpression ce : expression.getOperands()) {
-				EObject res = processCondition(component, ce, type, scale);
+				EObject res = processCondition(component, ce, type, scale, stateOnly);
 				if (res != null) {
 					subResults.add(res);
 				}
@@ -376,7 +363,7 @@ public class PropagationGraphBackwardTraversal {
 			if (allCondition.getCount() == 0) {
 				preProcessAnd(component, condition, type, scale);
 				for (ConditionExpression ce : allCondition.getOperands()) {
-					EObject res = processCondition(component, ce, type, scale);
+					EObject res = processCondition(component, ce, type, scale, stateOnly);
 					if (res != null) {
 						subResults.add(res);
 					}
@@ -391,7 +378,7 @@ public class PropagationGraphBackwardTraversal {
 			List<EObject> subResults = new LinkedList<EObject>();
 
 			for (ConditionExpression ce : expression.getOperands()) {
-				EObject res = processCondition(component, ce, type, scale);
+				EObject res = processCondition(component, ce, type, scale, stateOnly);
 				if (res != null) {
 					subResults.add(res);
 				}
@@ -406,7 +393,7 @@ public class PropagationGraphBackwardTraversal {
 			if (omCondition.getCount() == 1) {
 				preProcessOr(component, condition, type, scale);
 				for (ConditionExpression ce : omCondition.getOperands()) {
-					EObject res = processCondition(component, ce, type, scale);
+					EObject res = processCondition(component, ce, type, scale, stateOnly);
 					if (res != null) {
 						subResults.add(res);
 					}
@@ -442,8 +429,36 @@ public class PropagationGraphBackwardTraversal {
 							? sconditionElement.getConstraint()
 									: state.getTypeSet();
 							if (referencedInstance != null) {
-								result = traverseCompositeErrorState(referencedInstance, state,
-										referencedErrorType, stateOnly);
+								if (referencedErrorType == null || referencedErrorType instanceof ErrorType) {
+									result = traverseCompositeErrorState(referencedInstance, state,
+											referencedErrorType, stateOnly);
+								} else {
+									// handle type set on states
+									// get incoming type from propagation
+									EList<TypeToken> leaftypes = EM2TypeSetUtil.generateAllLeafTypeTokens(
+											(TypeSet) referencedErrorType,
+											EMV2Util.getUseTypes(state));
+									List<EObject> subResults = new LinkedList<EObject>();
+									for (TypeToken typeToken : leaftypes) {
+										EList<ErrorTypes> tl = typeToken.getType();
+										// TODO deal with type product
+										ErrorTypes newtype = tl.get(0);
+										EObject newEvent = traverseCompositeErrorState(component, state,
+												newtype, stateOnly);
+										if (newEvent != null) {
+											subResults.add(newEvent);
+										}
+									}
+									if (subResults.isEmpty()) {
+										return processErrorBehaviorState(referencedInstance,
+												EMV2Util.getState(sconditionElement), referencedErrorType);
+									} else if (subResults.size() == 1) {
+										return subResults.get(0);
+									} else {
+										return postProcessXor(component, sconditionElement, referencedErrorType, scale,
+												subResults);
+									}
+								}
 							}
 							if (result != null) {
 								return result;
