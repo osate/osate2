@@ -60,7 +60,10 @@ import org.osate.aadl2.IntegerLiteral;
 import org.osate.aadl2.ListValue;
 import org.osate.aadl2.ModalPropertyValue;
 import org.osate.aadl2.ModelUnit;
+import org.osate.aadl2.Property;
 import org.osate.aadl2.PropertyAssociation;
+import org.osate.aadl2.PropertyConstant;
+import org.osate.aadl2.PropertyType;
 import org.osate.aadl2.RangeValue;
 import org.osate.aadl2.Realization;
 import org.osate.aadl2.RecordValue;
@@ -234,20 +237,20 @@ public class Aadl2OutlineTreeProvider extends DefaultOutlineTreeProvider {
 //	protected boolean _isLeaf(Classifier feature) {
 //	    return true;
 //	}
-//
-//	// Property nodes are leafs and not expandable
-//	protected boolean _isLeaf(Property feature) {
-//	    return true;
-//	}
-//
-//	// PropertyConstant nodes are leafs and not expandable
-//	protected boolean _isLeaf(PropertyConstant feature) {
-//	    return true;
-//	}
-//
-//	// PropertyType nodes are leafs and not expandable
-//	protected boolean _isLeaf(PropertyType feature) {
-//	    return true;
-//	}
+
+	// Property nodes are leafs and not expandable
+	protected boolean _isLeaf(Property feature) {
+		return true;
+	}
+
+	// PropertyConstant nodes are leafs and not expandable
+	protected boolean _isLeaf(PropertyConstant feature) {
+		return true;
+	}
+
+	// PropertyType nodes are leafs and not expandable
+	protected boolean _isLeaf(PropertyType feature) {
+		return true;
+	}
 
 }
