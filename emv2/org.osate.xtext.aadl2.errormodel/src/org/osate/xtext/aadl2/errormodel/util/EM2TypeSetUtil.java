@@ -52,6 +52,10 @@ public class EM2TypeSetUtil {
 		return EMV2Util.resolveAlias(t1) == EMV2Util.resolveAlias(t2);
 	}
 
+	public static boolean isSame(ErrorTypes t1, ErrorTypes t2) {
+		return EM2TypeSetUtil.contains(t1, t2) && EM2TypeSetUtil.contains(t2, t1);
+	}
+
 	/**
 	 * true if error type is an alias
 	 * @param et
