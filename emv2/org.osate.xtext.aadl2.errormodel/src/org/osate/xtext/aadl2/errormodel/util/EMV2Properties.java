@@ -709,7 +709,8 @@ public class EMV2Properties {
 	 * @param ts Typeset
 	 * @return path to element with property
 	 */
-	public static List<EMV2PropertyAssociation> getSeverityProperty(NamedElement ci, NamedElement target, TypeSet ts) {
+	public static List<EMV2PropertyAssociation> getSeverityProperty(NamedElement ci, NamedElement target,
+			ErrorTypes ts) {
 		return EMV2Properties.getProperty("EMV2::Severity", ci, target, ts);
 	}
 
@@ -721,7 +722,7 @@ public class EMV2Properties {
 	 * @return path to element with property
 	 */
 	public static List<EMV2PropertyAssociation> getLikelihoodProperty(NamedElement ci, NamedElement target,
-			TypeSet ts) {
+			ErrorTypes ts) {
 		return EMV2Properties.getProperty("EMV2::Likelihood", ci, target, ts);
 	}
 

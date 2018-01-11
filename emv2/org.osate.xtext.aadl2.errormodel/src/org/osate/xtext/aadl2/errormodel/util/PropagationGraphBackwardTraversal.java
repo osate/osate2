@@ -70,6 +70,7 @@ public class PropagationGraphBackwardTraversal {
 		}
 		for (OutgoingPropagationCondition opc : EMV2Util.getAllOutgoingPropagationConditions(component)) {
 			if (!EM2TypeSetUtil.isNoError(opc.getTypeToken())) {
+				// TODO deal with map result a type set
 				ErrorTypes condTargetType = mapTargetType(opc.getTypeToken(), type);
 				if ((EMV2Util.isSame(opc.getOutgoing(), errorPropagation) || opc.isAllPropagations())
 						&& EM2TypeSetUtil.contains(type, opc.getTypeToken())) {
@@ -102,8 +103,6 @@ public class PropagationGraphBackwardTraversal {
 		for (ErrorFlow ef : EMV2Util.getAllErrorFlows(component)) {
 			if (ef instanceof ErrorPath) {
 				ErrorPath ep = (ErrorPath) ef;
-//				boolean typeContained = EM2TypeSetUtil.contains(type, ep.getTargetToken());
-
 				/**
 				 * Make sure that the error type we are looking for is contained
 				 * in the error types for the out propagation.
@@ -111,6 +110,7 @@ public class PropagationGraphBackwardTraversal {
 				 */
 				boolean typeContained = EM2TypeSetUtil.contains(ep.getTargetToken(), type);
 				if (EMV2Util.isSame(ep.getOutgoing(), errorPropagation) && typeContained) {
+					// TODO check on map
 					EObject newEvent = traverseIncomingErrorPropagation(component, ep.getIncoming(),
 							mapTargetType(ep.getTypeTokenConstraint(), type));
 					if (newEvent != null) {

@@ -74,7 +74,8 @@ public class PropagationGraphBackwardTraversal {
 			return found;
 		}
 		for (OutgoingPropagationCondition opc : EMV2Util.getAllOutgoingPropagationConditions(component)) {
-			if (opc.getTypeToken() != null && !EM2TypeSetUtil.isNoError(opc.getTypeToken())) {
+			if ((opc.getTypeToken() != null && !EM2TypeSetUtil.isNoError(opc.getTypeToken()))
+					|| opc.getTypeToken() == null) {
 				if ((EMV2Util.isSame(opc.getOutgoing(), errorPropagation) || opc.isAllPropagations())
 						&& EM2TypeSetUtil.contains(opc.getTypeToken(), type)) {
 					EObject res = handleOutgoingErrorPropagationCondition(component, opc, type);
@@ -106,7 +107,6 @@ public class PropagationGraphBackwardTraversal {
 		for (ErrorFlow ef : EMV2Util.getAllErrorFlows(component)) {
 			if (ef instanceof ErrorPath) {
 				ErrorPath ep = (ErrorPath) ef;
-//				boolean typeContained = EM2TypeSetUtil.contains(type, ep.getTargetToken());
 
 				/**
 				 * Make sure that the error type we are looking for is contained
@@ -535,25 +535,27 @@ public class PropagationGraphBackwardTraversal {
 			PropagationPathEnd ppe = ppr.getPathSrc();
 			if (ppr.getConnection() != null) {
 				ErrorSource ces = EMV2Util.findConnectionErrorSourceForConnection(ppr.getConnection());
+				// the type constraint has to come from the error source as the connection does not have one
 				if (ces != null && EM2TypeSetUtil.contains(ces.getTypeTokenConstraint(), type)) {
 					EObject result = processConnectionErrorSource(ppr.getConnection(), ces, type);
 					if (result != null) {
 						subResults.add(result);
 					}
 				}
-			}
-			ComponentInstance componentSource = ppe.getComponentInstance();
-			ErrorPropagation propagationSource = ppe.getErrorPropagation();
-			if (propagationSource.getDirection() == DirectionType.IN) {
-				// we have an external incoming propagation
-				EObject result = processIncomingErrorPropagation(componentSource, propagationSource, type);
-				if (result != null) {
-					subResults.add(result);
-				}
 			} else {
-				EObject result = traverseOutgoingErrorPropagation(componentSource, propagationSource, type);
-				if (result != null) {
-					subResults.add(result);
+				ComponentInstance componentSource = ppe.getComponentInstance();
+				ErrorPropagation propagationSource = ppe.getErrorPropagation();
+				if (propagationSource.getDirection() == DirectionType.IN) {
+					// we have an external incoming propagation
+					EObject result = processIncomingErrorPropagation(componentSource, propagationSource, type);
+					if (result != null) {
+						subResults.add(result);
+					}
+				} else {
+					EObject result = traverseOutgoingErrorPropagation(componentSource, propagationSource, type);
+					if (result != null) {
+						subResults.add(result);
+					}
 				}
 			}
 		}
@@ -580,6 +582,7 @@ public class PropagationGraphBackwardTraversal {
 
 	public EObject traverseCompositeErrorState(ComponentInstance component, ErrorBehaviorState state, ErrorTypes type,
 			boolean stateOnly) {
+		// TODO expand out type into leaf types
 		preProcessCompositeErrorStates(component, state, type);
 		List<EObject> subResults = new LinkedList<EObject>();
 		// should only match one composite state declaration.

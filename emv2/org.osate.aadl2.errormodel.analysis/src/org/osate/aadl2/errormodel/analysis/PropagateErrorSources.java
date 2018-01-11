@@ -585,7 +585,7 @@ public class PropagateErrorSources {
 					ErrorPropagation destEP = propagationPathEnd.getErrorPropagation();
 					TypeSet dstTS = destEP.getTypeSet();
 					TypeToken targettt = null;
-					if (EM2TypeSetUtil.contains(dstTS, tt)) {
+					if (tt != null && EM2TypeSetUtil.contains(dstTS, tt)) {
 						targettt = tt;
 					} else if (mappedtt != null && EM2TypeSetUtil.contains(dstTS, mappedtt)) {
 						targettt = mappedtt;

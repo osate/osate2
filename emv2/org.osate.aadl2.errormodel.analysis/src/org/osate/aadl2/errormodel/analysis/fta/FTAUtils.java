@@ -200,14 +200,6 @@ public class FTAUtils {
 					 * If in the path the
 					 */
 					if (errorPath.getTargetToken() != null) {
-						if (!EM2TypeSetUtil.contains(errorPath.getTargetToken(), typeToken)) {
-							OsateDebug.osateDebug("FTAUtils",
-									"types do not match on path " + errorPath.getName() + ";types1="
-											+ EMV2Util.getPrintName(errorPath.getTargetToken()) + ";types2="
-											+ EMV2Util.getPrintName(typeToken));
-							continue;
-						}
-
 						if (errorPath.getTypeTokenConstraint() == null) {
 							subEvents.add(getAllEventsFromPropagationSource(componentSource, errorPath.getIncoming(),
 									null, history));
@@ -218,13 +210,6 @@ public class FTAUtils {
 							}
 						}
 					} else {
-						if (!EM2TypeSetUtil.contains(errorPath.getTypeTokenConstraint(), typeToken)) {
-							OsateDebug.osateDebug("FTAUtils",
-									"types do not match on path " + errorPath.getName() + ";types1="
-											+ EMV2Util.getPrintName(errorPath.getTypeTokenConstraint()) + ";types2="
-											+ EMV2Util.getPrintName(typeToken));
-							continue;
-						}
 						if (errorPath.getTypeTokenConstraint() == null) {
 							subEvents.add(getAllEventsFromPropagationSource(componentSource, errorPath.getIncoming(),
 									null, history));
