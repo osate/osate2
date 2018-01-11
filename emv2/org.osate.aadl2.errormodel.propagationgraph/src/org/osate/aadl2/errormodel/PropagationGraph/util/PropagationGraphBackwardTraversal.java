@@ -329,9 +329,9 @@ public class PropagationGraphBackwardTraversal {
 				if (conditionResult != null) {
 					EObject stateResult = null;
 					if (!(sameState || ebt.isAllStates())) {
-						if (newtype instanceof ErrorType) {
+						if (newtype instanceof ErrorType || newtype == null) {
 							stateResult = traverseErrorBehaviorState(component, ebt.getSource(), newtype);
-						} else {
+						} else if (newtype instanceof TypeSet) {
 							EList<TypeToken> leaftypes = EM2TypeSetUtil.generateAllLeafTypeTokens((TypeSet) newtype,
 									EMV2Util.getUseTypes(ebt));
 							List<EObject> subsubResults = new LinkedList<EObject>();
