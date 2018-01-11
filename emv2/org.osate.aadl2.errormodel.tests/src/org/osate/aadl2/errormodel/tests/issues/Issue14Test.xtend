@@ -6,17 +6,15 @@ import org.eclipse.xtext.testing.XtextRunner
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.osate.aadl2.AadlPackage
-import org.osate.aadl2.DefaultAnnexSubclause
+import org.osate.aadl2.ComponentImplementation
 import org.osate.aadl2.errormodel.tests.ErrorModelUiInjectorProvider
 import org.osate.core.test.OsateTest
-import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelSubclause
 
 import static extension org.junit.Assert.assertEquals
-import org.osate.aadl2.ComponentImplementation
 
 @RunWith(XtextRunner)
 @InjectWith(ErrorModelUiInjectorProvider)
-class Issue14 extends OsateTest {
+class Issue14Test extends OsateTest {
 	@Test
 	def void issue14() {
 		val fileName = "issue14.aadl"

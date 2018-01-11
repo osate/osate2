@@ -15,44 +15,42 @@ import static extension org.junit.Assert.assertEquals
 
 @RunWith(XtextRunner)
 @InjectWith(ErrorModelUiInjectorProvider)
-class Issue117 extends OsateTest {
+class Issue53Test extends OsateTest {
 	@Test
-	def void issue117() {
-		val fileName = "issue117.aadl"
+	def void issue53() {
+		val fileName = "issue53.aadl"
 		createFiles(fileName -> '''
-			package pkg1
-			public
-				abstract a1
-					annex EMV2 {**
-						use types pkg1;
-						
-						component error behavior
-						propagations
-							condition1: all -[ ]-> all;
-							condition2: all -[ memory ]-> all;
-							condition3: all -[ ]-> all {errorType1};
-							condition4: all -[ memory ]-> all {errorType1};
-						end component;
-					**};
-				end a1;
-				
-				annex EMV2 {**
-					error types
-						errorType1: type;
-					end types;
-				**};
-			end pkg1;
+package issue53
+public
+	with EMV2;
+system pedals
+features
+pedal_position : out data port ;
+annex EMV2 {**                                                                                                   
+use types errorlibrary;
+use behavior ErrorLibrary::FailStop;
+
+error propagations
+    pedal_position : out propagation {badvalue};
+end propagations;
+
+properties
+    EMV2::Likelihood    => ARP4761::Probable applies to pedal_position.serviceomission;
+    EMV2::Severity     => ARP4761::Major applies to pedal_position.badvalue;
+    **};
+end pedals;
+
+end issue53;
 		''')
 		suppressSerialization
 		val testFileResult = testFile(fileName)
 		val issueCollection = new FluentIssueCollection(testFileResult.resource, newArrayList, newArrayList)
 		testFileResult.resource.contents.head as AadlPackage => [
-			"pkg1".assertEquals(name)
+			"issue53".assertEquals(name)
 			publicSection.ownedClassifiers.head => [
-				"a1".assertEquals(name)
-				((ownedAnnexSubclauses.head as DefaultAnnexSubclause).parsedAnnexSubclause as ErrorModelSubclause).outgoingPropagationConditions.head => [
-					"condition1".assertEquals(name)
-					assertError(testFileResult.issues, issueCollection, "Propagation condition must have at least a condition within brackets or a type set for the outgoing propagation")
+				"pedals".assertEquals(name)
+				((ownedAnnexSubclauses.head as DefaultAnnexSubclause).parsedAnnexSubclause as ErrorModelSubclause).properties.head => [
+					assertError(testFileResult.issues, issueCollection, "Property EMV2::Likelihood applies to refers to type ServiceOmission not contained in type set of error propagation pedal_position")
 				]
 			]
 		]

@@ -19,6 +19,7 @@ import org.osate.aadl2.Classifier
 import org.osate.aadl2.ComponentClassifier
 import org.osate.aadl2.ComponentImplementation
 import org.osate.aadl2.ContainmentPathElement
+import org.osate.aadl2.DefaultAnnexSubclause
 import org.osate.aadl2.DirectionType
 import org.osate.aadl2.Element
 import org.osate.aadl2.EnumerationType
@@ -704,7 +705,7 @@ class ErrorModelScopeProvider extends PropertiesScopeProvider {
 	}
 
 	def scope_RepairEvent_eventInitiator(Classifier context, EReference reference) {
-		context.allMembers.filterRefined.scopeFor
+		context.allMembers.filter[!(it instanceof DefaultAnnexSubclause)].filterRefined.scopeFor
 	}
 
 	def scope_RepairEvent_eventInitiator(ErrorBehaviorStateMachine context, EReference reference) {
@@ -712,7 +713,7 @@ class ErrorModelScopeProvider extends PropertiesScopeProvider {
 	}
 
 	def scope_RecoverEvent_eventInitiator(Classifier context, EReference reference) {
-		context.allMembers.filterRefined.scopeFor
+		context.allMembers.filter[!(it instanceof DefaultAnnexSubclause)].filterRefined.scopeFor
 	}
 
 	def scope_RecoverEvent_eventInitiator(ErrorBehaviorStateMachine context, EReference reference) {
