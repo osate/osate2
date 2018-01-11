@@ -36,6 +36,7 @@ import org.osate.xtext.aadl2.errormodel.errorModel.SConditionElement;
 import org.osate.xtext.aadl2.errormodel.errorModel.TransitionBranch;
 import org.osate.xtext.aadl2.errormodel.errorModel.TypeSet;
 
+@Deprecated
 public class PropagationGraphBackwardTraversal {
 
 	private AnalysisModel currentAnalysisModel;
