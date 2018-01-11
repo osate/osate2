@@ -121,7 +121,7 @@ class PropertySetReferencesTest extends OsateTest {
 		testFile("ps.aadl").resource.contents.head as PropertySet => [
 			"ps".assertEquals(name)
 			//Tests the reference PropertySet_ImportedUnit
-			assertScopeModelUnitNamesOnly(Aadl2Package::eINSTANCE.propertySet_ImportedUnit, #["AADL_Project", "Communication_Properties", "Deployment_Properties",
+			assertScope(Aadl2Package::eINSTANCE.propertySet_ImportedUnit, #["AADL_Project", "Communication_Properties", "Deployment_Properties",
 				"Memory_Properties", "Modeling_Properties", "Programming_Properties", "Thread_Properties", "Timing_Properties", "pack1", "pack2", "ps"
 			])
 			ownedPropertyTypes.get(0) as UnitsType => [

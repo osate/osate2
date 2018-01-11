@@ -10,12 +10,9 @@ import java.io.InputStreamReader
 import java.net.URL
 import java.util.Comparator
 import java.util.List
-import java.util.Set
 import org.apache.log4j.Logger
-import org.eclipse.core.resources.IContainer
 import org.eclipse.core.resources.IFile
 import org.eclipse.core.resources.IProject
-import org.eclipse.core.resources.IResource
 import org.eclipse.core.resources.IncrementalProjectBuilder
 import org.eclipse.core.resources.ResourcesPlugin
 import org.eclipse.core.runtime.Assert
@@ -35,7 +32,6 @@ import org.eclipse.xtext.validation.Issue
 import org.junit.After
 import org.junit.Before
 import org.junit.ComparisonFailure
-import org.osate.aadl2.ModelUnit
 import org.osate.aadl2.modelsupport.util.AadlUtil
 import org.osate.core.AadlNature
 import org.osate.pluginsupport.PluginSupportUtil
@@ -58,8 +54,6 @@ abstract class OsateTest extends XtextTest {
 	static val Logger LOGGER = Logger.getLogger(OsateTest);
 
 	protected val workspaceRoot = ResourcesPlugin.workspace.root
-
-	Set<String> contributedAadlNames
 
 	@Before
 	def setUp() {
@@ -225,51 +219,27 @@ abstract class OsateTest extends XtextTest {
 	}
 
 	def protected assertScope(EObject context, EReference reference, Iterable<String> expected) {
-		assertScope(scopeProvider, context, reference, false, expected)
-	}
-
-	def protected assertScopeModelUnitNamesOnly(EObject context, EReference reference, Iterable<String> expected) {
-		assertScope(scopeProvider, context, reference, true, expected)
+		assertScope(scopeProvider, context, reference, expected)
 	}
 
 	def protected assertSerializerScope(EObject context, EReference reference, Iterable<String> expected) {
-		assertScope(serializerScopeProvider, context, reference, false, expected)
+		assertScope(serializerScopeProvider, context, reference, expected)
 	}
 
 	def private assertScope(
 		IScopeProvider scopeProvider,
 		EObject context,
 		EReference reference,
-		boolean scopingForModelUnits,
 		Iterable<String> expected
 	) {
-		if (contributedAadlNames === null) {
-			contributedAadlNames = PluginSupportUtil.contributedAadl.map [ uri |
-				val modelUnit = context.eResource.resourceSet.getResource(uri, true).contents.head as ModelUnit
-				modelUnit.name.toLowerCase
-			].toSet
-		}
 		val expectedNames = expected.sortWith(CUSTOM_NAME_COMPARATOR).join(", ")
-		val actualNames = scopeProvider.getScope(context, reference).allElements.map[name.toString("::")].filter [
-			val separatorIndex = lastIndexOf("::")
-			val modelUnitName = if (scopingForModelUnits || separatorIndex == -1) {
-					it
-				} else {
-					substring(0, separatorIndex)
-				}
-			modelUnitName.predeclaredPropertySet || !contributedAadlNames.contains(modelUnitName.toLowerCase)
-		].sortWith(CUSTOM_NAME_COMPARATOR).join(", ")
+		val actual = scopeProvider.getScope(context, reference).allElements.filter[eObjectDescription |
+			val resourceURI = eObjectDescription.EObjectURI.trimFragment
+			val fileName = resourceURI.trimFileExtension.segments.last
+			!PluginSupportUtil.contributedAadl.contains(resourceURI) || fileName.predeclaredPropertySet
+		]
+		val actualNames = actual.map[name.toString("::")].sortWith(CUSTOM_NAME_COMPARATOR).join(", ")
 		expectedNames.assertEquals(actualNames)
-	}
-
-	def private static Iterable<IResource> getAllMembers(IContainer container) {
-		container.members.map [
-			if (it instanceof IContainer) {
-				allMembers
-			} else {
-				#[it]
-			}
-		].flatten
 	}
 
 	/*
