@@ -24,7 +24,6 @@ import org.osate.aadl2.errormodel.PropagationGraph.util.PropagationGraphBackward
 import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.ConnectionInstance;
 import org.osate.aadl2.instance.SystemInstance;
-import org.osate.xtext.aadl2.errormodel.errorModel.ConditionExpression;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorState;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorEvent;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorPropagation;
@@ -983,19 +982,19 @@ public class FTAGenerator extends PropagationGraphBackwardTraversal {
 	}
 
 	@Override
-	protected EObject postProcessAnd(ComponentInstance component, ConditionExpression condition, ErrorTypes type,
+	protected EObject postProcessAnd(ComponentInstance component, Element condition, ErrorTypes type,
 			double scale, List<EObject> subResults) {
 		return finalizeAsAndEvents(component, condition, type, subResults);
 	}
 
 	@Override
-	protected EObject postProcessXor(ComponentInstance component, ConditionExpression condition, ErrorTypes type,
+	protected EObject postProcessXor(ComponentInstance component, Element condition, ErrorTypes type,
 			double scale, List<EObject> subResults) {
 		return finalizeAsXOrEvents(component, condition, type, subResults);
 	}
 
 	@Override
-	protected EObject postProcessOr(ComponentInstance component, ConditionExpression condition, ErrorTypes type,
+	protected EObject postProcessOr(ComponentInstance component, Element condition, ErrorTypes type,
 			double scale, List<EObject> subResults) {
 		return finalizeAsOrEvents(component, condition, type, subResults);
 	}

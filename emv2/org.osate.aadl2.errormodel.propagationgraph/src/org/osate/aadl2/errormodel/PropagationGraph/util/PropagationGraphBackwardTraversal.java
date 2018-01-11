@@ -85,6 +85,26 @@ public class PropagationGraphBackwardTraversal {
 					if (res != null) {
 						subResults.add(res);
 					}
+					if (opc.getState() != null) {
+						ErrorTypes newtype = mapTargetType(opc.getTypeTokenConstraint(), type);
+						if (newtype instanceof ErrorType || newtype == null) {
+							res = traverseErrorBehaviorState(component, opc.getState(), type);
+							if (res != null) {
+								subResults.add(res);
+							}
+						} else {
+							EList<TypeToken> types = EM2TypeSetUtil.generateAllLeafTypeTokens((TypeSet)newtype,
+									EMV2Util.getUseTypes(opc));
+							for (TypeToken typeToken : types) {
+								EList<ErrorTypes> tl = typeToken.getType();
+								// TODO deal with type product
+								res = traverseErrorBehaviorState(component, opc.getState(), tl.get(0));
+								if (res != null) {
+									subResults.add(res);
+								}
+							}
+						}
+					}
 				}
 			}
 		}
