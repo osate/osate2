@@ -36,6 +36,7 @@ import org.osate.xtext.aadl2.errormodel.errorModel.OutgoingPropagationCondition;
 import org.osate.xtext.aadl2.errormodel.errorModel.QualifiedErrorBehaviorState;
 import org.osate.xtext.aadl2.errormodel.errorModel.SConditionElement;
 import org.osate.xtext.aadl2.errormodel.errorModel.TransitionBranch;
+import org.osate.xtext.aadl2.errormodel.errorModel.TypeToken;
 import org.osate.xtext.aadl2.errormodel.util.EM2TypeSetUtil;
 import org.osate.xtext.aadl2.errormodel.util.EMV2Properties;
 import org.osate.xtext.aadl2.errormodel.util.EMV2Util;
@@ -73,11 +74,10 @@ public class PropagationGraphBackwardTraversal {
 			return found;
 		}
 		for (OutgoingPropagationCondition opc : EMV2Util.getAllOutgoingPropagationConditions(component)) {
-			if (!EM2TypeSetUtil.isNoError(opc.getTypeToken())) {
-				ErrorTypes condTargetType = mapTargetType(opc.getTypeToken(), type);
+			if (opc.getTypeToken() != null && !EM2TypeSetUtil.isNoError(opc.getTypeToken())) {
 				if ((EMV2Util.isSame(opc.getOutgoing(), errorPropagation) || opc.isAllPropagations())
-						&& EM2TypeSetUtil.contains(type, opc.getTypeToken())) {
-					EObject res = handleOutgoingErrorPropagationCondition(component, opc, condTargetType);
+						&& EM2TypeSetUtil.contains(opc.getTypeToken(), type)) {
+					EObject res = handleOutgoingErrorPropagationCondition(component, opc, type);
 					if (res != null) {
 						subResults.add(res);
 					}
@@ -113,12 +113,35 @@ public class PropagationGraphBackwardTraversal {
 				 * in the error types for the out propagation.
 				 * This is a fix for the JMR/SAVI WBS model.
 				 */
-				boolean typeContained = EM2TypeSetUtil.contains(ep.getTargetToken(), type);
-				if (EMV2Util.isSame(ep.getOutgoing(), errorPropagation) && typeContained) {
-					EObject newEvent = traverseIncomingErrorPropagation(component, ep.getIncoming(),
-							mapTargetType(ep.getTypeTokenConstraint(), type));
-					if (newEvent != null) {
-						subResults.add(newEvent);
+				if (EMV2Util.isSame(ep.getOutgoing(), errorPropagation)) {
+					if (ep.getTargetToken() != null && EM2TypeSetUtil.contains(ep.getTargetToken(), type)) {
+						// we have a type mapping
+						EList<TypeToken> result;
+						if (ep.getTypeTokenConstraint() != null) {
+							// get type from path constraint
+							result = EM2TypeSetUtil.generateAllLeafTypeTokens(ep.getTypeTokenConstraint(),
+									EMV2Util.getUseTypes(ep));
+						} else {
+							// get incoming type from propagation
+							result = EM2TypeSetUtil.generateAllLeafTypeTokens(ep.getIncoming().getTypeSet(),
+									EMV2Util.getUseTypes(ep));
+						}
+						for (TypeToken typeToken : result) {
+							EList<ErrorTypes> tl = typeToken.getType();
+							// TODO deal with type product
+							ErrorTypes newtype = tl.get(0);
+							EObject newEvent = traverseIncomingErrorPropagation(component, ep.getIncoming(),
+									newtype);
+							if (newEvent != null) {
+								subResults.add(newEvent);
+							}
+						}
+					} else {
+						// no type mapping
+						EObject newEvent = traverseIncomingErrorPropagation(component, ep.getIncoming(), type);
+						if (newEvent != null) {
+							subResults.add(newEvent);
+						}
 					}
 				}
 			} else if (ef instanceof ErrorSource) {
