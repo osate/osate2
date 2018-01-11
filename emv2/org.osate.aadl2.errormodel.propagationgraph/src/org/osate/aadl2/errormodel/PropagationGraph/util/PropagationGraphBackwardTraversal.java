@@ -347,6 +347,11 @@ public class PropagationGraphBackwardTraversal {
 	 */
 	public EObject processCondition(ComponentInstance component, ConditionExpression condition, ErrorTypes type,
 			double scale) {
+		return processCondition(component, condition, type, scale, false);
+	}
+
+	public EObject processCondition(ComponentInstance component, ConditionExpression condition, ErrorTypes type,
+			double scale, boolean stateOnly) {
 		/**
 		 * We have an AND expression, so, we create an EVENT to AND' sub events.
 		 */
@@ -431,15 +436,20 @@ public class PropagationGraphBackwardTraversal {
 					QualifiedErrorBehaviorState qs = sconditionElement.getQualifiedState();
 					ComponentInstance referencedInstance = EMV2Util.getLastComponentInstance(qs, component);
 					EObject result = null;
-					ErrorTypes referencedErrorType = mapTargetType(sconditionElement.getConstraint(), type);
-					if (referencedInstance != null) {
-						result = traverseCompositeErrorState(referencedInstance, EMV2Util.getState(sconditionElement),
-								referencedErrorType);
-					}
-					if (result != null) {
-						return result;
-					}
-					return processErrorBehaviorState(referencedInstance, EMV2Util.getState(sconditionElement), referencedErrorType);
+					ErrorBehaviorState state = EMV2Util.getState(sconditionElement);
+					// either original type or mapped to constraint in condition or type set on state declaration
+					ErrorTypes referencedErrorType = (sconditionElement.getConstraint() != null)
+							? sconditionElement.getConstraint()
+									: state.getTypeSet();
+							if (referencedInstance != null) {
+								result = traverseCompositeErrorState(referencedInstance, state,
+										referencedErrorType, stateOnly);
+							}
+							if (result != null) {
+								return result;
+							}
+							return processErrorBehaviorState(referencedInstance, EMV2Util.getState(sconditionElement),
+									referencedErrorType);
 				}
 
 			}
@@ -455,14 +465,16 @@ public class PropagationGraphBackwardTraversal {
 
 				ComponentInstance relatedComponent = EMV2Util.getLastComponentInstance(path, component);
 				NamedElement errorModelElement = EMV2Util.getErrorModelElement(path);
-				ErrorTypes referencedErrorType = mapTargetType(conditionElement.getConstraint(), type);
 
 				/**
 				 * Here, we have an error event. Likely, this is something we
 				 * can get when we are analyzing error component behavior.
 				 */
 				if (errorModelElement instanceof ErrorEvent) {
-					return processErrorEvent(component, (ErrorEvent) errorModelElement, referencedErrorType, scale);
+					ErrorTypes referencedErrorType = conditionElement.getConstraint() != null
+							? mapTargetType(conditionElement.getConstraint(), type)
+									: mapTargetType(((ErrorEvent) errorModelElement).getTypeSet(), type);
+							return processErrorEvent(component, (ErrorEvent) errorModelElement, referencedErrorType, scale);
 				}
 
 				/**
@@ -471,17 +483,20 @@ public class PropagationGraphBackwardTraversal {
 				 */
 				if (errorModelElement instanceof ErrorPropagation) {
 					ErrorPropagation errorPropagation = (ErrorPropagation) errorModelElement;
-					if (EM2TypeSetUtil.isNoError(referencedErrorType)) {
-						// this is a recovery transition since an incoming propagation became error free
-						return null;
-					}
-					if (errorPropagation.getDirection() == DirectionType.IN) {
-						return traverseIncomingErrorPropagation(relatedComponent, errorPropagation,
-								referencedErrorType);
-					} else {
-						return traverseOutgoingErrorPropagation(relatedComponent, errorPropagation,
-								referencedErrorType);
-					}
+					ErrorTypes referencedErrorType = conditionElement.getConstraint() != null
+							? mapTargetType(conditionElement.getConstraint(), type)
+									: mapTargetType(errorPropagation.getTypeSet(), type);
+							if (EM2TypeSetUtil.isNoError(referencedErrorType)) {
+								// this is a recovery transition since an incoming propagation became error free
+								return null;
+							}
+							if (errorPropagation.getDirection() == DirectionType.IN) {
+								return traverseIncomingErrorPropagation(relatedComponent, errorPropagation,
+										referencedErrorType);
+							} else {
+								return traverseOutgoingErrorPropagation(relatedComponent, errorPropagation,
+										referencedErrorType);
+							}
 				}
 
 			}
@@ -490,105 +505,6 @@ public class PropagationGraphBackwardTraversal {
 
 	}
 
-	public EObject processSConditionStateOnly(ComponentInstance component, ConditionExpression condition,
-			ErrorTypes type, double scale) {
-		/**
-		 * We have an AND expression, so, we create an EVENT to AND' sub events.
-		 */
-		if (condition instanceof AndExpression) {
-			preProcessAnd(component, condition, type, scale);
-			AndExpression expression = (AndExpression) condition;
-			List<EObject> subResults = new LinkedList<EObject>();
-
-			for (ConditionExpression ce : expression.getOperands()) {
-				EObject res = processSConditionStateOnly(component, ce, type, scale);
-				if (res != null) {
-					subResults.add(res);
-				}
-			}
-
-			return postProcessAnd(component, condition, type, scale, subResults);
-		}
-		if (condition instanceof AllExpression) {
-			List<EObject> subResults = new LinkedList<EObject>();
-
-			AllExpression allCondition = (AllExpression) condition;
-			if (allCondition.getCount() == 0) {
-				preProcessAnd(component, condition, type, scale);
-				for (ConditionExpression ce : allCondition.getOperands()) {
-					EObject res = processSConditionStateOnly(component, ce, type, scale);
-					if (res != null) {
-						subResults.add(res);
-					}
-				}
-			}
-			return postProcessAnd(component, condition, type, scale, subResults);
-		}
-
-		if (condition instanceof OrExpression) {
-			preProcessXor(component, condition, type, scale);
-			OrExpression expression = (OrExpression) condition;
-			List<EObject> subResults = new LinkedList<EObject>();
-
-			for (ConditionExpression ce : expression.getOperands()) {
-				EObject res = processSConditionStateOnly(component, ce, type, scale);
-				if (res != null) {
-					subResults.add(res);
-				}
-			}
-			return postProcessXor(component, condition, type, scale, subResults);
-		}
-
-		if (condition instanceof OrmoreExpression) {
-			OrmoreExpression omCondition = (OrmoreExpression) condition;
-			List<EObject> subResults = new LinkedList<EObject>();
-
-			if (omCondition.getCount() == 1) {
-				preProcessOr(component, condition, type, scale);
-				for (ConditionExpression ce : omCondition.getOperands()) {
-					EObject res = processSConditionStateOnly(component, ce, type, scale);
-					if (res != null) {
-						subResults.add(res);
-					}
-				}
-			}
-			return postProcessOr(component, condition, type, scale, subResults);
-		}
-
-		/**
-		 * Here, we have a single condition element.
-		 */
-		if (condition instanceof SConditionElement) {
-			SConditionElement sconditionElement = (SConditionElement) condition;
-			if (sconditionElement.getQualifiedState() != null) {
-				/**
-				 * In the following, it seems that we reference another
-				 * component. This is typically the case when the condition is
-				 * within an composite error behavior.
-				 *
-				 * So, we find the referenced component in the component
-				 * hierarchy and add all its contributors to the returned
-				 * events.
-				 */
-				QualifiedErrorBehaviorState qs = sconditionElement.getQualifiedState();
-				ComponentInstance referencedInstance = EMV2Util.getLastComponentInstance(qs, component);
-				EObject result = null;
-				ErrorTypes referencedErrorType = mapTargetType(sconditionElement.getConstraint(), type);
-				if (referencedInstance != null) {
-					result = traverseCompositeErrorStateOnly(referencedInstance, EMV2Util.getState(sconditionElement),
-							referencedErrorType);
-				}
-				if (result != null) {
-					return result;
-				}
-				return processErrorBehaviorState(referencedInstance, EMV2Util.getState(sconditionElement),
-						referencedErrorType);
-			}
-
-		}
-		return null;
-
-	}
 
 	/**
 	 * traverse backwards according to propagation paths
@@ -659,12 +575,17 @@ public class PropagationGraphBackwardTraversal {
 	 * @return - EObject (non-null)
 	 */
 	public EObject traverseCompositeErrorState(ComponentInstance component, ErrorBehaviorState state, ErrorTypes type) {
+		return traverseCompositeErrorState(component, state, type, false);
+	}
+
+	public EObject traverseCompositeErrorState(ComponentInstance component, ErrorBehaviorState state, ErrorTypes type,
+			boolean stateOnly) {
 		preProcessCompositeErrorStates(component, state, type);
 		List<EObject> subResults = new LinkedList<EObject>();
 		// should only match one composite state declaration.
 		for (CompositeState cs : EMV2Util.getAllCompositeStates(component)) {
-			if (cs.getState() == state) {
-				EObject res = processCondition(component, cs.getCondition(), type);
+			if (cs.getState() == state && EM2TypeSetUtil.contains(cs.getTypedToken(), type)) {
+				EObject res = processCondition(component, cs.getCondition(), type, 1, stateOnly);
 				if (res != null) {
 					subResults.add(res);
 				}
@@ -673,26 +594,16 @@ public class PropagationGraphBackwardTraversal {
 		if (!subResults.isEmpty()) {
 			return postProcessCompositeErrorStates(component, state, type, subResults);
 		}
-		return traverseErrorBehaviorState(component, state, type);
+		if (stateOnly) {
+			return processErrorBehaviorState(component, state, type);
+		} else {
+			return traverseErrorBehaviorState(component, state, type);
+		}
 	}
 
 	public EObject traverseCompositeErrorStateOnly(ComponentInstance component, ErrorBehaviorState state,
 			ErrorTypes type) {
-		preProcessCompositeErrorStates(component, state, type);
-		List<EObject> subResults = new LinkedList<EObject>();
-		// should only match one composite state declaration.
-		for (CompositeState cs : EMV2Util.getAllCompositeStates(component)) {
-			if (cs.getState() == state) {
-				EObject res = processSConditionStateOnly(component, cs.getCondition(), type, 1);
-				if (res != null) {
-					subResults.add(res);
-				}
-			}
-		}
-		if (!subResults.isEmpty()) {
-			return postProcessCompositeErrorStates(component, state, type, subResults);
-		}
-		return  processErrorBehaviorState(component, state, type);
+		return traverseCompositeErrorState(component, state, type, true);
 	}
 
 //	methods to be overwritten by applications
