@@ -306,7 +306,7 @@ public class Aadl2LabelProvider extends AnnexAwareEObjectLabelProvider {
 		if (ele.getName() == null) {
 			return "Unnamed Property Type";
 		}
-		return "Property Type  " + ele.getName();
+		return "Property Type " + ele.getName();
 	}
 
 	String text(PropertyConstant ele) {
@@ -565,69 +565,15 @@ public class Aadl2LabelProvider extends AnnexAwareEObjectLabelProvider {
 		if (ele instanceof RealLiteral) {
 			return text((RealLiteral) ele);
 		}
-		return "unknown number" + ele;
+		return "unknown number " + ele;
 	}
 
 	String text(AadlInteger ele) {
-		return "Property Type" + ele.getName();
+		return "Property Type " + ele.getName();
 	}
 
 	String text(AadlReal ele) {
-		return "Property Type" + ele.getName();
-	}
-
-	String image(NamedElement ele) {
-		String imgName;
-		imgName = ele.eClass().getName() + ".gif";
-//		OsateDebug.osateDebug("Aadl2LabelProvider", "image name=" + imgName + ";container=" + ele.eContainer());
-		return imgName;
-	}
-
-	String image(PropertyAssociation ele) {
-		String imgName;
-		imgName = "PropertyAssociation.gif";
-//		OsateDebug.osateDebug("Aadl2LabelProvider", "image name=" + imgName + ";container=" + ele.eContainer());
-		return imgName;
-	}
-
-	String image(ListValue ele) {
-		String imgName;
-		imgName = "ListValue.gif";
-		return imgName;
-	}
-
-	String image(PropertyType ele) {
-//		OsateDebug.osateDebug("Aadl2LabelProvider", "PropertyType");
-//		OsateDebug.osateDebug("Aadl2LabelProvider", "proptype");
-
-		return "PropertyType.gif";
-	}
-
-	String image(ComponentInstance ele) {
-		String imgName;
-		ComponentCategory cat;
-		imgName = null;
-		cat = ele.getCategory();
-		if (cat != null) {
-			String name = cat.getLiteral();
-			int idx = name.indexOf(" ");
-			if (idx < 0) {
-				imgName = name.substring(0, 1).toUpperCase() + name.substring(1).toLowerCase() + ".gif";
-			} else {
-				imgName = name.substring(0, 1).toUpperCase() + name.substring(1, idx).toLowerCase()
-						+ name.substring(idx + 1, idx + 2).toUpperCase() + name.substring(idx + 2).toLowerCase()
-						+ ".gif";
-			}
-		}
-		if (ele instanceof SystemInstance) {
-			imgName = "System.gif";
-		}
-		if (imgName == null) {
-			imgName = ele.eClass().getName() + ".gif";
-		}
-//		OsateDebug.osateDebug("Aadl2LabelProvider", "image name2=" + imgName);
-
-		return imgName;
+		return "Property Type " + ele.getName();
 	}
 
 }
