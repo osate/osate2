@@ -607,7 +607,7 @@ class OtherAadl2JavaValidatorTest extends OsateTest {
 				subprogram subp1
 				features
 					af4: feature;
-					ep3: in event port;
+					ep3: out event port;
 					param1: in parameter a2.i;
 				end subp1;
 				

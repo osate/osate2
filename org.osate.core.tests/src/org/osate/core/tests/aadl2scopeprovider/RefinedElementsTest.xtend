@@ -163,8 +163,8 @@ class RefinedElementsTest extends OsateTest {
 			  
 			  subprogram sub1
 			  features
-			    edport3: in event data port;
-			    eport3: in event port;
+			    edport3: out event data port;
+			    eport3: out event port;
 			    fg3: feature group;
 			    param2: in parameter;
 			    suba3: requires subprogram access;
@@ -175,8 +175,8 @@ class RefinedElementsTest extends OsateTest {
 			  
 			  subprogram sub2 extends sub1
 			  features
-			    edport3: refined to in event data port;
-			    eport3: refined to in event port;
+			    edport3: refined to out event data port;
+			    eport3: refined to out event port;
 			    fg3: refined to feature group;
 			    param2: refined to in parameter;
 			    suba3: refined to requires subprogram access;
