@@ -73,6 +73,10 @@ public class FTAGenerator extends PropagationGraphBackwardTraversal {
 							rootComponentTypes);
 				}
 			}
+			if (ftaRootEvent == null) {
+				ftaRootEvent = FaultTreeUtils.createIntermediateEvent(ftaModel, rootComponent, rootStateOrPropagation,
+						rootComponentTypes);
+			}
 			String longName = FaultTreeUtils.buildName(rootComponent, rootStateOrPropagation, rootComponentTypes);
 			if (ftaRootEvent.getSubEvents().isEmpty() && !ftaRootEvent.getName().equals(longName)) {
 				Event topEvent = FaultTreeUtils.createIntermediateEvent(ftaModel, rootComponent, rootStateOrPropagation,
