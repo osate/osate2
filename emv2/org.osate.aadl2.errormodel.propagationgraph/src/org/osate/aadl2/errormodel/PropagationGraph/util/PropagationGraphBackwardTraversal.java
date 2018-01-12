@@ -85,26 +85,6 @@ public class PropagationGraphBackwardTraversal {
 					if (res != null) {
 						subResults.add(res);
 					}
-					if (opc.getState() != null) {
-						ErrorTypes newtype = mapTargetType(opc.getTypeTokenConstraint(), type);
-						if (newtype instanceof ErrorType || newtype == null) {
-							res = traverseErrorBehaviorState(component, opc.getState(), type);
-							if (res != null) {
-								subResults.add(res);
-							}
-						} else {
-							EList<TypeToken> types = EM2TypeSetUtil.generateAllLeafTypeTokens((TypeSet)newtype,
-									EMV2Util.getUseTypes(opc));
-							for (TypeToken typeToken : types) {
-								EList<ErrorTypes> tl = typeToken.getType();
-								// TODO deal with type product
-								res = traverseErrorBehaviorState(component, opc.getState(), tl.get(0));
-								if (res != null) {
-									subResults.add(res);
-								}
-							}
-						}
-					}
 				}
 			}
 		}
@@ -231,8 +211,37 @@ public class PropagationGraphBackwardTraversal {
 		if (opc.getCondition() != null) {
 			conditionResult = processCondition(component, opc.getCondition(), type, 1, false);
 		}
-		if (opc.getState() != null) {
-			stateResult = traverseErrorBehaviorState(component, opc.getState(), type);
+		ErrorBehaviorState state = opc.getState();
+		if (state != null) {
+			ErrorTypes newtype = null;
+			if (opc.getTypeTokenConstraint() != null) {
+				newtype = mapTargetType(opc.getTypeTokenConstraint(), type);
+			} else if (state.getTypeSet() != null) {
+				newtype = mapTargetType(state.getTypeSet(), type);
+			}
+			if (newtype instanceof ErrorType || newtype == null) {
+				stateResult = traverseErrorBehaviorState(component, state, newtype);
+			} else {
+				// multiple types to trace back
+				EList<TypeToken> types = EM2TypeSetUtil.generateAllLeafTypeTokens((TypeSet) newtype,
+						EMV2Util.getUseTypes(opc));
+				List<EObject> subResults = new LinkedList<EObject>();
+				for (TypeToken typeToken : types) {
+					EList<ErrorTypes> tl = typeToken.getType();
+					// TODO deal with type product
+					EObject res = traverseErrorBehaviorState(component, opc.getState(), tl.get(0));
+					if (res != null) {
+						subResults.add(res);
+					}
+				}
+				if (subResults.isEmpty()) {
+					stateResult = processErrorBehaviorState(component, state, type);
+				} else if (subResults.size() == 1) {
+					stateResult = subResults.get(0);
+				} else {
+					stateResult = postProcessXor(component, state, newtype, 1, subResults);
+				}
+			}
 		}
 		if (conditionResult != null && stateResult != null) {
 			return processOutgoingErrorPropagationCondition(component, opc, type, conditionResult, stateResult);
