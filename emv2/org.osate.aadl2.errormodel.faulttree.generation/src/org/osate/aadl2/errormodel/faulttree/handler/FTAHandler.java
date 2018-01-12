@@ -64,7 +64,7 @@ public final class FTAHandler extends AbstractHandler {
 
 	private static String ERROR_STATE_NAME = null;
 	private static FaultTreeType FAULT_TREE_TYPE = FaultTreeType.FAULT_TREE;
-	private static boolean FAULT_TREE_TABLE = false;
+	private static boolean GRAPHIC_VIEW = false;
 	private static List<String> stateNames = null;
 
 
@@ -145,7 +145,7 @@ public final class FTAHandler extends AbstractHandler {
 			diag.open();
 			ERROR_STATE_NAME = diag.getValue();
 			FAULT_TREE_TYPE = diag.getFaultTreeType();
-			FAULT_TREE_TABLE = diag.isFaultTreeTable();
+			GRAPHIC_VIEW = diag.isGraphicView();
 		});
 
 		if (ERROR_STATE_NAME != null) {
@@ -164,23 +164,22 @@ public final class FTAHandler extends AbstractHandler {
 			FaultTree ftmodel = CreateFTAModel.createModel(target, ERROR_STATE_NAME, FAULT_TREE_TYPE);
 			URI newURI = EcoreUtil.getURI(ftmodel);
 			if (newURI != null) {
-				if (FAULT_TREE_TYPE.equals(FaultTreeType.MINIMAL_CUT_SET)) {
+				if (GRAPHIC_VIEW) {
 					SiriusUtil.INSTANCE.autoOpenModel(newURI, ResourceUtil.getFile(si.eResource()).getProject(),
-							"viewpoint:/org.osate.aadl2.errormodel.faulttree.design/FaultTree", "MinimalCutSetTable",
-							"Minimal Cutset");
-					return Status.OK_STATUS;
+							"viewpoint:/org.osate.aadl2.errormodel.faulttree.design/FaultTree", "IconicFaultTree",
+							"Fault Tree");
 				} else {
-					if (FAULT_TREE_TABLE) {
+					if (FAULT_TREE_TYPE.equals(FaultTreeType.MINIMAL_CUT_SET)) {
+						SiriusUtil.INSTANCE.autoOpenModel(newURI, ResourceUtil.getFile(si.eResource()).getProject(),
+								"viewpoint:/org.osate.aadl2.errormodel.faulttree.design/FaultTree",
+								"MinimalCutSetTable", "Minimal Cutset");
+					} else {
 						SiriusUtil.INSTANCE.autoOpenModel(newURI, ResourceUtil.getFile(si.eResource()).getProject(),
 								"viewpoint:/org.osate.aadl2.errormodel.faulttree.design/FaultTree", "FaultTreeTable",
 								"Fault Tree");
-					} else {
-						SiriusUtil.INSTANCE.autoOpenModel(newURI, ResourceUtil.getFile(si.eResource()).getProject(),
-								"viewpoint:/org.osate.aadl2.errormodel.faulttree.design/FaultTree", "IconicFaultTree",
-								"Fault Tree");
-						return Status.OK_STATUS;
 					}
 				}
+				return Status.OK_STATUS;
 			}
 		}
 
