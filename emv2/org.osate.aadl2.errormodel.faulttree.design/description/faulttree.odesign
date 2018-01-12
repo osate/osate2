@@ -3,9 +3,8 @@
   <ownedViewpoints name="FaultTree" modelFileExtension="faulttree">
     <ownedRepresentations xsi:type="description_1:EditionTableDescription" name="MinimalCutSetTable" domainClass="FaultTree.FaultTree">
       <metamodel href="../../org.osate.aadl2.errormodel.faulttree/model/FaultTree.ecore#/"/>
-      <ownedLineMappings name="MinimalCutSetsLine" label="Minimal Cutsets" reusedSubLines="//@ownedViewpoints[name='FaultTree']/@ownedRepresentations[name='MinimalCutSetTable']/@ownedLineMappings[name='MinimalCutSetsLine']" reusedInMappings="//@ownedViewpoints[name='FaultTree']/@ownedRepresentations[name='MinimalCutSetTable']/@ownedLineMappings[name='MinimalCutSetsLine']" domainClass="FaultTree.Event" semanticCandidatesExpression="service:getCutsets()" headerLabelExpression="service:getDescription()"/>
+      <ownedLineMappings name="MinimalCutSetsLine" label="Minimal Cutsets" reusedSubLines="//@ownedViewpoints[name='FaultTree']/@ownedRepresentations[name='MinimalCutSetTable']/@ownedLineMappings[name='MinimalCutSetsLine']" reusedInMappings="//@ownedViewpoints[name='FaultTree']/@ownedRepresentations[name='MinimalCutSetTable']/@ownedLineMappings[name='MinimalCutSetsLine']" domainClass="FaultTree.Event" semanticCandidatesExpression="service:getCutsets()" headerLabelExpression="service:getCutsetLabel()"/>
       <ownedColumnMappings name="ProbabilityColumn" label="Probability" headerLabelExpression="Probability" canEdit="false" featureName="*" labelExpression="service:getProbability()"/>
-      <ownedColumnMappings name="DescriptionColumn" label="Hazard Description" headerLabelExpression="Hazard Description" canEdit="false" featureName="*" labelExpression="service:getHazardDescription()"/>
     </ownedRepresentations>
     <ownedRepresentations xsi:type="description_1:EditionTableDescription" name="FaultTreeTable" domainClass="FaultTree.FaultTree">
       <metamodel href="../../org.osate.aadl2.errormodel.faulttree/model/FaultTree.ecore#/"/>
@@ -14,7 +13,6 @@
       <ownedColumnMappings name="ProbabilityColumn" label="Probability" headerLabelExpression="Probability" canEdit="false" featureName="*" labelExpression="service:getProbability()"/>
       <ownedColumnMappings name="EventTypeColumn" label="Event/Gate Type" headerLabelExpression="Event/Gate Type" canEdit="false" featureName="*" labelExpression="service:getEventTypeLogic()"/>
       <ownedColumnMappings name="DependentEventColumn" label="Dependent Event" headerLabelExpression="Dependent Event" canEdit="false" featureName="*" labelExpression="service:getDependentEventLabel()"/>
-      <ownedColumnMappings name="DescriptionColumn" label="Hazard Description" headerLabelExpression="Hazard Description" canEdit="false" featureName="*" labelExpression="service:getHazardDescription()"/>
     </ownedRepresentations>
     <ownedRepresentations xsi:type="description_2:DiagramDescription" name="IconicFaultTree" domainClass="FaultTree.FaultTree" enablePopupBars="true">
       <metamodel href="../../org.osate.aadl2.errormodel.faulttree/model/FaultTree.ecore#/"/>

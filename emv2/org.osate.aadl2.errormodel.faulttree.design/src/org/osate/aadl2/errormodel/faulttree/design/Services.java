@@ -39,6 +39,15 @@ public class Services {
 		return FaultTreeUtils.getDescription((Event) context);
 	}
 
+	public String getCutsetLabel(EObject context) {
+		Event event = (Event) context;
+		FaultTree ft = (FaultTree) event.eContainer();
+		if (ft.getRoot().getSubEvents().contains(event)) {
+			return event.getName();
+		}
+		return FaultTreeUtils.getDescription((Event) context);
+	}
+
 	public String getEventDescription(EObject context) {
 		return " " + FaultTreeUtils.getEventDescription((Event) context);
 	}
