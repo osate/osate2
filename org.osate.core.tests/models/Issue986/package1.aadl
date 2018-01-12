@@ -9,10 +9,10 @@ public
 	bus B2
 	end B2;
 	
-	system s
-	end s;
+	system S
+	end S;
 
-	system implementation s.i
+	system implementation S.i
 	prototypes
 		X1: bus; -- no classifier at all when unbound
 		X2: bus B1; -- B1 when unbound
@@ -24,5 +24,5 @@ public
 		b2: bus X2; 
 		b3: bus X3;
 		b4: bus X4; 
-	end s.i;
+	end S.i;
 end package1;
