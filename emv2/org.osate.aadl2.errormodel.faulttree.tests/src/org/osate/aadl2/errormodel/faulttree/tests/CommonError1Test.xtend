@@ -17,6 +17,9 @@ import static org.junit.Assert.*
 import org.eclipse.emf.ecore.util.EcoreUtil
 import org.osate.aadl2.errormodel.FaultTree.util.FaultTreeUtils
 import org.osate.aadl2.errormodel.FaultTree.LogicOperation
+import org.osate.aadl2.errormodel.FaultTree.FaultTreeType
+import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorState
+import org.osate.aadl2.errormodel.FaultTree.EventType
 
 @RunWith(XtextRunner)
 @InjectWith(ErrorModelUiInjectorProvider)
@@ -165,18 +168,18 @@ end common_error1;
 
 	val expected = '''
 <?xml version="1.0" encoding="ASCII"?>
-<FaultTree:FaultTree xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:FaultTree="http://www.aadl.info/FaultTree" name="common_error1_main_commonsource-failstop" description="Top Level Failure" root="//@events.4">
+<FaultTree:FaultTree xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:FaultTree="http://www.aadl.info/FaultTree" name="common_error1_main_commonsource-failstop" root="//@events.4">
   <instanceRoot href="../../common-error_main_commonsource_Instance.aaxl2#/"/>
-  <events name="s0-ef0-latedelivery" description="Component 's0' failure source 'LateDelivery'" referenceCount="1">
+  <events name="s0-ef0-latedelivery" referenceCount="1">
     <relatedInstanceObject href="../../common-error_main_commonsource_Instance.aaxl2#//@componentInstance.0"/>
-    <relatedErrorType href="../../../common-error.aadl#/0/@ownedPublicSection/@ownedClassifier.2/@ownedAnnexSubclause.0/@parsedAnnexSubclause/@flows.0/@typeTokenConstraint"/>
+    <relatedErrorType href="../../../../../plugin/org.osate.aadl2.errormodel.contrib/resources/packages/ErrorLibrary.aadl#emv2$ErrorLibrary.LateDelivery"/>
     <relatedEMV2Object href="../../../common-error.aadl#/0/@ownedPublicSection/@ownedClassifier.1/@ownedAnnexSubclause.0/@parsedAnnexSubclause/@flows.0"/>
   </events>
-  <events name="a0-failure" description="Component 'a0' failure event 'Failure'" referenceCount="1">
+  <events name="a0-failure" referenceCount="1">
     <relatedInstanceObject href="../../common-error_main_commonsource_Instance.aaxl2#//@componentInstance.1"/>
     <relatedEMV2Object href="../../../../../plugin/org.osate.aadl2.errormodel.contrib/resources/packages/ErrorLibrary.aadl#/0/@ownedPublicSection/@ownedAnnexLibrary.0/@parsedAnnexLibrary/@behaviors.0/@events.0"/>
   </events>
-  <events name="a1-failure" description="Component 'a1' failure event 'Failure'" referenceCount="1">
+  <events name="a1-failure" referenceCount="1">
     <relatedInstanceObject href="../../common-error_main_commonsource_Instance.aaxl2#//@componentInstance.2"/>
     <relatedEMV2Object href="../../../../../plugin/org.osate.aadl2.errormodel.contrib/resources/packages/ErrorLibrary.aadl#/0/@ownedPublicSection/@ownedAnnexLibrary.0/@parsedAnnexLibrary/@behaviors.0/@events.0"/>
   </events>
@@ -184,7 +187,7 @@ end common_error1;
     <relatedInstanceObject href="../../common-error_main_commonsource_Instance.aaxl2#/"/>
     <relatedEMV2Object href="../../../common-error.aadl#/0/@ownedPublicSection/@ownedClassifier.5/@ownedAnnexSubclause.0/@parsedAnnexSubclause/@states.0/@condition"/>
   </events>
-  <events name="common_error1_main_commonsource-failstop" description="Component 'main.commonsource' in failure mode 'FailStop'" subEvents="//@events.3 //@events.0" referenceCount="1" type="Intermediate">
+  <events name="common_error1_main_commonsource-failstop" subEvents="//@events.3 //@events.0" referenceCount="1" type="Intermediate">
     <relatedInstanceObject href="../../common-error_main_commonsource_Instance.aaxl2#/"/>
     <relatedEMV2Object href="../../../../../plugin/org.osate.aadl2.errormodel.contrib/resources/packages/ErrorLibrary.aadl#/0/@ownedPublicSection/@ownedAnnexLibrary.0/@parsedAnnexLibrary/@behaviors.0/@states.1"/>
   </events>
@@ -193,9 +196,9 @@ end common_error1;
 
 	val expectedOperational = '''
 <?xml version="1.0" encoding="ASCII"?>
-<FaultTree:FaultTree xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:FaultTree="http://www.aadl.info/FaultTree" name="common_error1_main_commonsource-operational" description="Top Level Failure" root="//@events.0">
+<FaultTree:FaultTree xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:FaultTree="http://www.aadl.info/FaultTree" name="common_error1_main_commonsource-operational" root="//@events.0">
   <instanceRoot href="../../common-error_main_commonsource_Instance.aaxl2#/"/>
-  <events name="common_error1_main_commonsource-operational" description="Component 'main.commonsource' in failure mode 'Operational'" referenceCount="1" type="Intermediate">
+  <events name="common_error1_main_commonsource-operational" referenceCount="1" type="Intermediate">
     <relatedInstanceObject href="../../common-error_main_commonsource_Instance.aaxl2#/"/>
     <relatedEMV2Object href="../../../../../plugin/org.osate.aadl2.errormodel.contrib/resources/packages/ErrorLibrary.aadl#/0/@ownedPublicSection/@ownedAnnexLibrary.0/@parsedAnnexLibrary/@behaviors.0/@states.0"/>
   </events>

@@ -155,18 +155,17 @@ end common_error3;
 
 	val expected = '''
 <?xml version="1.0" encoding="ASCII"?>
-<FaultTree:FaultTree xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:FaultTree="http://www.aadl.info/FaultTree" name="common_error3_main_commoneventssingleport-failstop" description="Top Level Failure" root="//@events.4">
+<FaultTree:FaultTree xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:FaultTree="http://www.aadl.info/FaultTree" name="common_error3_main_commoneventssingleport-failstop" root="//@events.4">
   <instanceRoot href="../../common-error3_main_commoneventssingleport_Instance.aaxl2#/"/>
-  <events name="c0-failure-serviceerror" description="Component 'c0' failure event 'Failure' type 'ServiceError'" referenceCount="1">
+  <events name="c0-failure" referenceCount="1">
     <relatedInstanceObject href="../../common-error3_main_commoneventssingleport_Instance.aaxl2#//@componentInstance.3"/>
-    <relatedErrorType href="../../../common-error3.aadl#/0/@ownedPublicSection/@ownedClassifier.3/@ownedAnnexSubclause.0/@parsedAnnexSubclause/@transitions.0/@condition/@constraint"/>
     <relatedEMV2Object href="../../../../../plugin/org.osate.aadl2.errormodel.contrib/resources/packages/ErrorLibrary.aadl#/0/@ownedPublicSection/@ownedAnnexLibrary.0/@parsedAnnexLibrary/@behaviors.0/@events.0"/>
   </events>
-  <events name="a0-failure" description="Component 'a0' failure event 'Failure'" referenceCount="1">
+  <events name="a0-failure" referenceCount="1">
     <relatedInstanceObject href="../../common-error3_main_commoneventssingleport_Instance.aaxl2#//@componentInstance.1"/>
     <relatedEMV2Object href="../../../../../plugin/org.osate.aadl2.errormodel.contrib/resources/packages/ErrorLibrary.aadl#/0/@ownedPublicSection/@ownedAnnexLibrary.0/@parsedAnnexLibrary/@behaviors.0/@events.0"/>
   </events>
-  <events name="a1-failure" description="Component 'a1' failure event 'Failure'" referenceCount="1">
+  <events name="a1-failure" referenceCount="1">
     <relatedInstanceObject href="../../common-error3_main_commoneventssingleport_Instance.aaxl2#//@componentInstance.2"/>
     <relatedEMV2Object href="../../../../../plugin/org.osate.aadl2.errormodel.contrib/resources/packages/ErrorLibrary.aadl#/0/@ownedPublicSection/@ownedAnnexLibrary.0/@parsedAnnexLibrary/@behaviors.0/@events.0"/>
   </events>
@@ -174,7 +173,7 @@ end common_error3;
     <relatedInstanceObject href="../../common-error3_main_commoneventssingleport_Instance.aaxl2#/"/>
     <relatedEMV2Object href="../../../common-error3.aadl#/0/@ownedPublicSection/@ownedClassifier.5/@ownedAnnexSubclause.0/@parsedAnnexSubclause/@states.0/@condition"/>
   </events>
-  <events name="common_error3_main_commoneventssingleport-failstop" description="Component 'main.commoneventssingleport' in failure mode 'FailStop'" subEvents="//@events.3 //@events.0" referenceCount="1" type="Intermediate">
+  <events name="common_error3_main_commoneventssingleport-failstop" subEvents="//@events.3 //@events.0" referenceCount="1" type="Intermediate">
     <relatedInstanceObject href="../../common-error3_main_commoneventssingleport_Instance.aaxl2#/"/>
     <relatedEMV2Object href="../../../../../plugin/org.osate.aadl2.errormodel.contrib/resources/packages/ErrorLibrary.aadl#/0/@ownedPublicSection/@ownedAnnexLibrary.0/@parsedAnnexLibrary/@behaviors.0/@states.1"/>
   </events>
