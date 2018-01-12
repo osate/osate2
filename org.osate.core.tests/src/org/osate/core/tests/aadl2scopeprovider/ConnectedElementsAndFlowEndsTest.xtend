@@ -160,8 +160,8 @@ class ConnectedElementsAndFlowEndsTest extends OsateTest {
 			    subpga1: requires subprogram group access subpg1;
 			    subpga2: requires subprogram group access subpgproto1;
 			    da4: requires data access;
-			    ep4: in event port;
-			    edp4: in event data port;
+			    ep4: out event port;
+			    edp4: out event data port;
 			  end subp1;
 			  
 			  subprogram implementation subp1.i1
