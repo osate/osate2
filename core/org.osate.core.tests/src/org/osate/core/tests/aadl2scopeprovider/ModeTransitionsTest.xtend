@@ -195,7 +195,7 @@ class ModeTransitionsTest extends OsateTest {
 					subpproto3: subprogram subp1.i;
 				features
 					af4: feature;
-					ep4: in event port;
+					ep4: out event port;
 					subpa4: requires subprogram access subpproto3;
 				end subp1;
 				

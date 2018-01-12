@@ -466,10 +466,6 @@ class ConnectionAndFlowTypesTest extends OsateTest {
 						fconn74: feature call1.subpa1 <-> asub1.af3;
 						--SubprogramCall.DataAccess
 						fconn75: feature call1.da2 <-> asub1.af3;
-						--SubprogramCall.Port
-						fconn76: feature call1.ep3 <-> asub1.af3;
-						--SubprogramCall.EventDataPort
-						fconn77: feature call1.edp5 <-> asub1.af3;
 						
 						
 						
@@ -1017,10 +1013,10 @@ class ConnectionAndFlowTypesTest extends OsateTest {
 						fg2: feature group;
 						subpa1: requires subprogram access subpcontainer;
 						da2: requires data access d1;
-						ep3: in out event port;
+						ep3: out event port;
 						ep4: out event port;
-						edp4: in event data port d1;
-						edp5: in out event data port;
+						edp4: out event data port d1;
+						edp5: out event data port;
 					flows
 						--Parameter
 						fsource18: flow source param5;
