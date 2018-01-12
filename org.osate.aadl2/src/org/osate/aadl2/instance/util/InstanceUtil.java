@@ -284,8 +284,11 @@ public class InstanceUtil {
 							ic = new InstantiatedClassifier((ComponentClassifier) cpa.getSubcomponentType(),
 									cpa.getBindings());
 						} else {
-							ic = new InstantiatedClassifier(
-									((ComponentPrototype) prototype).getConstrainingClassifier(), noBindings);
+							// ISSUE 986: If the constraining classifier is missing (null), then don't create an InstantiatedClassifier object
+							final ComponentClassifier cc = ((ComponentPrototype) prototype).getConstrainingClassifier();
+							if (cc != null) {
+								ic = new InstantiatedClassifier(cc, noBindings);
+							}
 						}
 					} else if (prototype instanceof FeatureGroupPrototype) {
 						FeatureGroupPrototypeActual fpa = resolveFeatureGroupPrototype(prototype, iobj,
