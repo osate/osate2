@@ -106,6 +106,9 @@ public class FTAGenerator extends PropagationGraphBackwardTraversal {
 				if (subevent.getType() == EventType.INTERMEDIATE) {
 					subevent.setName(ftaRootEvent.getName());
 					subevent.setMessage(ftaRootEvent.getMessage());
+					subevent.setRelatedInstanceObject(ftaRootEvent.getRelatedInstanceObject());
+					subevent.setRelatedErrorType(ftaRootEvent.getRelatedErrorType());
+					subevent.setRelatedEMV2Object(ftaRootEvent.getRelatedEMV2Object());
 					ftaRootEvent = subevent;
 				}
 			}
