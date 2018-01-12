@@ -325,7 +325,7 @@ end FGSErrorModelLibrary;
   </events>
   <events name="dualfgs_fgs_composite-criticalmodefailure" subEvents="//@events.5 //@events.0" referenceCount="1" type="Intermediate" subEventLogic="Xor">
     <relatedInstanceObject href="../../DualFGS_FGS_composite_Instance.aaxl2#/"/>
-    <relatedEMV2Object href="../../../DualFGS.aadl#/0/@ownedPublicSection/@ownedClassifier.5/@ownedAnnexSubclause.0/@parsedAnnexSubclause/@states.2/@condition"/>
+    <relatedEMV2Object href="../../../FGSErrorModellibrary.aadl#/0/@ownedPublicSection/@ownedAnnexLibrary.0/@parsedAnnexLibrary/@behaviors.0/@states.2"/>
   </events>
   <events name="Intermediate6" subEvents="//@events.1 //@events.8" referenceCount="1" type="Intermediate">
     <relatedInstanceObject href="../../DualFGS_FGS_composite_Instance.aaxl2#/"/>

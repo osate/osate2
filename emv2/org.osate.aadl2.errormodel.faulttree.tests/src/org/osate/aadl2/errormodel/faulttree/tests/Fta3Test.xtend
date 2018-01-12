@@ -229,7 +229,7 @@ end ErrorModelLibrary;
   </events>
   <events name="fta3test_main_i-failed" subEvents="//@events.3 //@events.7" referenceCount="1" type="Intermediate" subEventLogic="And">
     <relatedInstanceObject href="../../fta3Test_main_i_Instance.aaxl2#/"/>
-    <relatedEMV2Object href="../../../fta3Test.aadl#/0/@ownedPublicSection/@ownedClassifier.5/@ownedAnnexSubclause.0/@parsedAnnexSubclause/@states.0/@condition"/>
+    <relatedEMV2Object href="../../../ErrorModellibrary.aadl#/0/@ownedPublicSection/@ownedAnnexLibrary.0/@parsedAnnexLibrary/@behaviors.0/@states.1"/>
   </events>
 </FaultTree:FaultTree>
 	'''

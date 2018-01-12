@@ -197,7 +197,7 @@ end ErrorModelLibrary;
   </events>
   <events name="fta2test_main_i-failed" subEvents="//@events.2 //@events.5" referenceCount="1" type="Intermediate" subEventLogic="And">
     <relatedInstanceObject href="../../fta2Test_main_i_Instance.aaxl2#/"/>
-    <relatedEMV2Object href="../../../fta2Test.aadl#/0/@ownedPublicSection/@ownedClassifier.4/@ownedAnnexSubclause.0/@parsedAnnexSubclause/@states.0/@condition"/>
+    <relatedEMV2Object href="../../../ErrorModellibrary.aadl#/0/@ownedPublicSection/@ownedAnnexLibrary.0/@parsedAnnexLibrary/@behaviors.0/@states.1"/>
   </events>
 </FaultTree:FaultTree>
 	'''

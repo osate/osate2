@@ -141,7 +141,7 @@ end fta1test;
   </events>
   <events name="fta1test_main_i-failed" subEvents="//@events.0 //@events.1" referenceCount="1" type="Intermediate" subEventLogic="And">
     <relatedInstanceObject href="../../fta1Test_main_i_Instance.aaxl2#/"/>
-    <relatedEMV2Object href="../../../fta1Test.aadl#/0/@ownedPublicSection/@ownedClassifier.2/@ownedAnnexSubclause.0/@parsedAnnexSubclause/@states.0/@condition"/>
+    <relatedEMV2Object href="../../../fta1Test.aadl#/0/@ownedPublicSection/@ownedAnnexLibrary.0/@parsedAnnexLibrary/@behaviors.0/@states.1"/>
   </events>
 </FaultTree:FaultTree>
 	'''

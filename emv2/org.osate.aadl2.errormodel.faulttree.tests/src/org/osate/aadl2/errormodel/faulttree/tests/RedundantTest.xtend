@@ -250,7 +250,7 @@ end redundant;
   </events>
   <events name="redundant_main_compositestate-failstop" subEvents="//@events.2 //@events.3 //@events.4" referenceCount="1" type="Intermediate" subEventLogic="Xor">
     <relatedInstanceObject href="../../redundant_main_compositestate_Instance.aaxl2#/"/>
-    <relatedEMV2Object href="../../../redundant.aadl#/0/@ownedPublicSection/@ownedClassifier.10/@ownedAnnexSubclause.0/@parsedAnnexSubclause/@states.0/@condition"/>
+    <relatedEMV2Object href="../../../../../plugin/org.osate.aadl2.errormodel.contrib/resources/packages/ErrorLibrary.aadl#/0/@ownedPublicSection/@ownedAnnexLibrary.0/@parsedAnnexLibrary/@behaviors.0/@states.1"/>
   </events>
 </FaultTree:FaultTree>
 	'''
