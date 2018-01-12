@@ -73,13 +73,13 @@ public class FTADialog extends TitleAreaDialog {
 		faultTreeBox.setText("Fault Tree with Computed Probability");
 		faultTreeBox.setSelection(faultTreeType.equals(FaultTreeType.FAULT_TREE));
 		mincutsetBox = new Button(container, SWT.RADIO);
-		mincutsetBox.setText("Minimal Cut Sets with Computed Probability (Table format)");
+		mincutsetBox.setText("Minimal Cut Sets with Computed Probability");
 		mincutsetBox.setSelection(faultTreeType.equals(FaultTreeType.MINIMAL_CUT_SET));
 		faultTraceBox = new Button(container, SWT.RADIO);
 		faultTraceBox.setText("Fault Contributor Trace (dependent events marked by *)");
 		faultTraceBox.setSelection(faultTreeType.equals(FaultTreeType.FAULT_TRACE));
 		compositePartsBox = new Button(container, SWT.RADIO);
-		compositePartsBox.setText("Parts Fault Tree with Computed Probability (based on composite error states)");
+		compositePartsBox.setText("Parts Fault Tree with Computed Probability (composite error states only)");
 		compositePartsBox.setSelection(faultTreeType.equals(FaultTreeType.COMPOSITE_PARTS));
 		graphicViewBox = new Button(container, SWT.CHECK);
 		graphicViewBox.setText("Show in graphical view (default is table view)");
