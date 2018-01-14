@@ -17,6 +17,7 @@ import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.ConnectionInstance;
 import org.osate.aadl2.instance.InstanceObject;
 import org.osate.aadl2.instance.SystemInstance;
+import org.osate.xtext.aadl2.errormodel.errorModel.CompositeState;
 import org.osate.xtext.aadl2.errormodel.errorModel.ConditionExpression;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorState;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorTransition;
@@ -380,8 +381,10 @@ public class FaultTreeUtils {
 				opcontext = " in outgoing propagation condition";
 			} else if (errorModelArtifact instanceof ErrorDetection) {
 				opcontext = " in error detection";
+			} else if (errorModelArtifact instanceof CompositeState) {
+				opcontext = " in composite state";
 			}
-			description = "'" + event.getSubEventLogic() + "' gate" + opcontext;
+			description = "'" + event.getSubEventLogic() + "'" + opcontext;
 		}
 
 		return description;

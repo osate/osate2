@@ -9,7 +9,7 @@
     <ownedRepresentations xsi:type="description_1:EditionTableDescription" name="FaultTreeTable" label="Fault Tree Table" domainClass="FaultTree.FaultTree">
       <metamodel href="../../org.osate.aadl2.errormodel.faulttree/model/FaultTree.ecore#/"/>
       <ownedLineMappings name="EventLine" label="System Component" reusedSubLines="//@ownedViewpoints[name='FaultTree']/@ownedRepresentations[name='FaultTreeTable']/@ownedLineMappings[name='EventLine']" reusedInMappings="//@ownedViewpoints[name='FaultTree']/@ownedRepresentations[name='FaultTreeTable']/@ownedLineMappings[name='EventLine']" domainClass="FaultTree.Event" semanticCandidatesExpression="service:getEvents()" headerLabelExpression="service:getEventDescription()"/>
-      <ownedColumnMappings name="ErrorColumn" label="Propagated Error" headerLabelExpression="Propagated Error Type" canEdit="false" featureName="*" labelExpression="service:getErrorDescription()"/>
+      <ownedColumnMappings name="ErrorColumn" label="Propagated Error" headerLabelExpression="Error Model Element/Type" canEdit="false" featureName="*" labelExpression="service:getErrorDescription()"/>
       <ownedColumnMappings name="ProbabilityColumn" label="Probability" headerLabelExpression="Probability" canEdit="false" featureName="*" labelExpression="service:getProbability()"/>
       <ownedColumnMappings name="EventTypeColumn" label="Event/Gate Type" headerLabelExpression="Event/Gate Type" canEdit="false" featureName="*" labelExpression="service:getEventTypeLogic()"/>
       <ownedColumnMappings name="DependentEventColumn" label="Dependent Event" headerLabelExpression="Dependent Event" canEdit="false" featureName="*" labelExpression="service:getDependentEventLabel()"/>

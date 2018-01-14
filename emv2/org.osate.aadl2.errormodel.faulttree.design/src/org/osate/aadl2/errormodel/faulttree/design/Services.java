@@ -62,7 +62,7 @@ public class Services {
 
 	public String getEventTypeLogic(EObject context) {
 		Event ev = (Event) context;
-		if (ev.getType() == EventType.INTERMEDIATE) {
+		if (ev.getType() == EventType.INTERMEDIATE && ev.getSubEvents().size() > 1) {
 			return ev.getSubEventLogic().getName() + " gate";
 		}
 		return ev.getType().getName() + " event";
@@ -70,7 +70,7 @@ public class Services {
 
 	public String getGateLogic(EObject context) {
 		Event ev = (Event) context;
-		if (ev.getType() == EventType.INTERMEDIATE) {
+		if (ev.getType() == EventType.INTERMEDIATE && ev.getSubEvents().size() > 1) {
 			return ev.getSubEventLogic().getName();
 		}
 		return "";
