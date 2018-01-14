@@ -65,8 +65,8 @@ public class CreateFTAModel {
 		FTAGenerator generator = new FTAGenerator(currentPropagationGraph);
 		FaultTree ftamodel = generator.getftaModel(selection, errorStateOrPropagation, errorType, faultTreeType);
 		String rootname = ftamodel.getName() + (faultTreeType.equals(FaultTreeType.MINIMAL_CUT_SET) ? "_cutset"
-				: (faultTreeType.equals(FaultTreeType.FAULT_TRACE) ? "_full"
-						: (faultTreeType.equals(FaultTreeType.COMPOSITE_PARTS) ? "_parts" : "")));
+				: (faultTreeType.equals(FaultTreeType.FAULT_TRACE) ? "_trace"
+						: (faultTreeType.equals(FaultTreeType.COMPOSITE_PARTS) ? "_parts" : "_tree")));
 		ftamodel.setName(rootname);
 		saveFaultTree(ftamodel);
 		return ftamodel;
