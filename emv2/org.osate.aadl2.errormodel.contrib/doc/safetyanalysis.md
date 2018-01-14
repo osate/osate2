@@ -205,43 +205,47 @@ The generaeted fault tree for our **GPS.basic** example is shown below. The **po
 
 ![GPS flow-based FTA](images/fta-gps-basic.png "GPS flow-based FTA")
 
-When the user selects **Minimal Cutsets with computed occurrence probability** the analysis generates a set of minimal cutsets for the system. The collection of cutsets is represented as an **OR**, while the elements in each cutset are added together. 
+When the user selects **Minimal Cutsets with computed occurrence probability** the analysis generates a set of minimal cutsets for the system. The collection of cutsets is represented as an **OR**, while the elements in each cutset are added together. In our example each cutset has only a single element.
 ![GPS cutset](images/gps-basic-cutset.png "GPS cutset")
 
 ### Mapping of EMV2 Constructs into Fault Tree Elements
 The fault tree generator maps EMV2 constructs into fault tree Events and Gates as follows:
  * EMV2 conditions have AND, OR, ORMORE, ALL as logical operators
   * EMV2 AND maps to FTA AND
-  * EMV2 OR maps to FTA XOR
-  * EMV2 1 ORMORE maps into FTA OR of single elements
+  * EMV2 OR maps to FTA XOR (exclusive OR)
+  * EMV2 1 ORMORE maps into FTA OR (inclusive OR) 
   * EMV2 X ORMORE maps into a FTA KOrMore
   * EMV2 ALL maps into FTA AND
 
-In the case of state-based fault tree generation, the condition logic of composite error state declarations are reflected according to the above mapping. For each subcomponent state its composite state declaration is interpreted if present. Otherwise, the state is traced to the error events that trigger transition into the state by interpreting the transition conditions that lead to the error state (OR of multiple transitions), and recursively transitions triggered by error events leading to those states (PRIORITY_AND of multiple transitions). Error events are BASIC events. If the model does not include transitions triggered by error events that lead to the error state, the state itself is shown as BASIC event.
+In the case of state-based fault tree generation, the condition logic of composite error state declarations are reflected according to the above mapping. For each subcomponent state its composite state declaration is interpreted if present. 
 
-In the case of flow-based EMFTA, an outgoing error propagation is the starting point. We follow backwards OutgoingPropagationConditions (OPC) with multiple OPCs combined as OR.
+In the case of flow-based FTA, an outgoing error propagation or error state and the selected system instance or subcomponent instance is the starting point.  
 
-If OPCs are absent, we follow error flow declarations. When following error flows, we combine error paths and error sources as OR.
+For an outgoing error propagation we follow OutgoingPropagationConditions (OPC) backwards with multiple OPCs combined as OR. If OPCs are absent we follow the propagation path from the outgoing error propagation of the outer component to the outgoing error propagation of a subcomponent instance.
+
+> Note that if the root system instance is selected we typically expect to find a propagation path to a subcomponent instance. Otherwise, the user may select a subcomponent instance with an error model as starting point and apply the fault tree analysis command to it.  
+
+If OPCs and propagation paths are absent, we follow error flow declarations. When following error flows to incoming error propagations, we combine error paths and error sources as OR.
 
 For OPC, the condition expression and the error state are interpreted and combined as a PRIORITY_AND with the state related event occurring before the trigger condition). If the outgoing propagation condition applies to all states (all keyword on left) only the condition is interpreted.
 
 The OPC condition, if not empty, identifies incoming error propagations. They are followed to outgoing propagations of connected/bound components by following propagation paths. Multiple paths are combined as an OR.
 
-From the error state of the OPC we track backwards via transitions to identify the error events leading to the state (details presented above), or any propagation (incoming from the enclosing component or outgoing from a subcomponent).
+From the error state of the OPC we trace backwards via transitions to identify the error events or error propagations (incoming from the enclosing component or outgoing from a subcomponent) that trigger transition to the state by interpreting the transition condition. The source state of such a transition is recursively traced backwrds until we reach a state without transitions triggered by error events (an operational error state). Multiple transitions with the same target error state are combined by an OR while recursive transitions across states are reflected by a PRIORITYAND.
 
 Error events and error sources are BASIC events. Incoming propagation that represent bindings, but are not bound, are represented by UNDEVELOPED events. Similarly, incoming propagations that do not have a propagation path to a sending component are UNDEVELOPED events.
 
-Note that as we track backwards, we start with the error type identified by the user and perform the appropriate filtering and mappings according to the specified type set constraints. Incoming propagations that trace back to an incoming propagation of the top system, are represented by EXTERNAL events.
+If an error state is selected to flow-based fault tree analysis on the root system instance then a composite error state declaration is examined to identify one or more subcomponent instances to start the flow-based backward tracing. Alternatively, the user can select a subcomponet instance and error state to start the backward trace from the error state according to transitions into the state.
+
+>Note that as we trace backwards, we start with the error type identified by the user and perform the appropriate filtering and mappings according to the specified type set constraints. Incoming propagations that trace back to an incoming propagation of the top system, are represented by EXTERNAL events.
 
 
 ### Fault Tree Transformations
 
-We flatten nested OR, XOR, AND, PRIORITYAND in the generated EMFTA tree (Idempotent Law). For example, if an OR gate has events that themselves contain OR gates, we move their events into the upper OR. The effect is that although the backwards trace traverses multiple components, if all are based on an OR, the events contributed by each component are placed under a single OR gate instead of a right recursively nested OR structure.
+When generating a fault tree, parts fault tree, or minimal cutset, we flatten nested OR, XOR, AND, PRIORITYAND in the generated EMFTA tree (Idempotent Law). For example, if an OR gate has events that themselves contain OR gates, we move their events into the upper OR. The effect is that although the backwards trace traverses multiple components, if all are based on an OR, the events contributed by each component are placed under a single OR gate instead of a right recursively nested OR structure.
 
-When creating the EMFTA structure, we identify dependent events, e.g., events that represent shared hardware components that multiple functional or software components are bound to, or a power supply that is physically connected to (supplies) multiple sensors. A single instance of this event is maintained in the EMFTA representation with multiple gates pointing to this instance instead of replicating it. A reference count greater than one on the shared event indicates that it is referenced by more than one gate. This effectively represents a directed graph. This allows for simple identification of common cause events.
+When creating the fault tree or parts fault tree, we identify dependent events, e.g., events that represent shared hardware components that multiple functional or software components are bound to, or a power supply that is physically connected to (supplies) multiple sensors. A single instance of this event is maintained in the fault tree structure with multiple gates pointing to this instance instead of replicating it. A reference count greater than one on the shared event indicates that it is referenced by more than one gate. This effectively represents a directed graph. This allows for simple identification of common cause events.
 
 We apply transformations to move the shared event up towards the root. In particular we apply the Law of Absorption to remove subgates with dependent events if they also exist as directly under the enclosing gate. We also apply the Distributive Law to move dependent events found in multiple subgates to the enclosing gate.
 
-When users invoke the generate EMFTA command (found under Fault Analyses as EMFTA Export), they select a state or outgoing propagation of the top-level system as the root of the fault tree. By default the transformations are automatically applied. If the user wants to see the fault tree without optimizations and dependent events shown as separate copies in various subtrees, they can set a check Full tree in the dialog box of the command.
-The fault tree is automatically opened in the graphical emfta editor when generated. Users can also open the [graphical emfta editor as explained here](https://github.com/cmu-sei/emfta)
 
