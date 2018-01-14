@@ -138,29 +138,45 @@ Intermediate events represent events whose subevents are combined by logic gates
 
 >Note that **Kof(1)** is the same as **Xor** of single elements, and **KOrMore(1)** is the same as **Or** of single elements.
 
-Eclipse Sirius is automatically invoked to visualize the fault trees graphically and in table format. An example graphical presentation of a fault tree shows the different event types. Each fault tree event shows the name of the component instance and incoming or outgoing feature in the first line. The second line identifies the propagated error type as **effect** and in case of an error source its name as **failure source**, and the third line the computed or assigned occurence probability. 
+Eclipse Sirius is automatically invoked to visualize the fault trees in table or graphical view. 
+
+An example graphical view of a fault tree (shown below) illustrates the different event types. The graphical view uses a compact presentation of events and gates by showing events as rectangles and the gate type as part of an event with multiple subevents. 
+Each fault tree event rectangle contains an icon reflecting the event type or gate logic type as well as three lines of text: 
+
+* The first line shows the name of the component instance and incoming or outgoing feature or binding point. 
+* The second line identifies the error model element represented by the fault tree event. Typically this is the error type of an error propagation, an error event, or error state, and in the case of an intermediate event that represents a logic condition, the gate logic and construct containing the logic condition.
+* The third line shows the computed or assigned occurence probability. 
+
+![FlightSystemTier1Graphic](images/flightsystemtier1.png "FlightSystemTier1Graphic")
+The example graphical view shows the following:
+
 * The top level fault tree event shows the outgoing features and propagated error type representing the outgoing error propagation selected by the user in the dialog. 
 * The basic events for components **FlightControl** and **AutoFlightGuidance** show an error type from an error soruce as effect through an outgoing features. 
 * An **undeveloped** event for component **AutoFlightGuidance** shows an incoming propagation from the **powersupply** incoming feature that has not been connected yet. 
 * Finally, an **external** event for component **flightsystem_tier1** shows an error type as incoming effect from outside the flight system.
-* 
-![FlightSystemTier1Graphic](images/flightsystemtier1.png "FlightSystemTier1Graphic")
 
-The table view of a fault tree shows the fault tree events hierarchically nested in the first column. The icon and the text in this column is the same as the first two lines of the graphical fault tree representation. The second column indicates the type of event, and in the case of an intermediate event the type of gate logic. The third column shows the occurrence probability as assigned or computed. The fourth column indicates whether the fault tree event is a common subevent to multiple events. The example shows a top level event with three basic subevents and one intermediate event as **and** gate.
+An example table view is shown below for a different fault tree. The example shows a top level event with three basic subevents and one intermediate event as **and** gate with two subevents.
+
+* The first column shows the fault tree events hierarchically nested. The icon and the text in this column is the same as the first line of the graphical fault tree representation. 
+* The second column shows error model element represented by the event (line 2 of the event in the graphical view).  
+* The third column shows the occurrence probability as assigned or computed. 
+* The fourth column indicates the event type, or in the case of an intermediate event with more than one subevent the gate logic. 
+* The fifth column indicates whether the fault tree event is a common (shared) subevent to multiple events, i.e., a dependent event. 
 
 ![GPS2SensorTable](images/fta-gps2sensorstatetable.png "GPS2SensorTable")
 
-###Error State-based Composite Parts Fault Tree Generation
+###Composite Error State-based Parts Fault Tree Generation
 
-One use early in the process is a composite parts fault tree generation. In this case users define a parts model, i.e., identify the parts of each system, and specify how the error states of the parts relate to the error states of the enclosing system through composite state declarations. Note that user can define such a model with error state machines at multiple level of a system architecture. Users also do not have to specify an error state machine for each level. Instead a higher level state can be expressed in terms of subsystems more than one level down. 
->This is similar to specifying reliability block diagrams (RBD) in a compositional manner, where the logic of the composite error behavior state corresponds to the logic represented graphically by parallel and serial blocks. It replaces the RBD command previous versions of OSATE supported.
+One use early in the process is a composite parts fault tree generation. In this case users define a parts model, i.e., identify the parts of each system, and specify how the error states of the parts relate to the error states of the enclosing system through composite state declarations. Note that user can define such a model with error state machines at multiple level of a system architecture. Users also do not have to specify an error state machine for each level. Instead a higher level state can be expressed in terms of subsystems more than one level down by identifying a subcomponent inside a subcomponent as the condition element. If the identified subcomponent also has composite error behavior specifications, then the generated fault tre recursively includes the identified composite error states. 
 
 An example of a composite error behavior state declaration is shown here. 
 > In EMV2 the **1 ormore** operator is used to indicate **inclusive oOr**, while the EMV2 **Or** operator represents **exclusive or**.
 
 ![Composite Error Behavior](images/compositeerrorbehavior.png "Composite Error Behavior")
 
-In our example, the package *GPSSystem* contains the top level GPS system with a number of implementations with different levels of detail and configurations. The parts model is represented by the system implementation *gps.parts_SingleSensor*. In this case, the fault tree analysis constructs a complete system fault tree from fault tree fragments based on the composite state declarations for a user-selected error state of the top-level system.
+In our example, the package *GPSSystem* contains the top level GPS system with a number of implementations with different levels of detail and configurations. The parts model is represented by the system implementation *gps.parts_TwoSensor*. The composite error behavior specifies that the state **FailStop** for **GPS** holds if both sensors that act as satellite signal receivers fail (AND), or any of the other parts fail. 
+
+>This is similar to specifying reliability block diagrams (RBD) in a compositional manner, where the logic of the composite error behavior state corresponds to the logic represented graphically by parallel and serial blocks. The **parts fault tree** replaces the RBD command from earlier versions of OSATE.
 
 Occurrence probability of the system error state (failure mode) is computed from the occurrence probability values assigned to the error states of the leaf nodes. The figure below shows the assignment of the occurrence probability value to the power supply.
 
@@ -170,20 +186,27 @@ Occurrence probability of the system error state (failure mode) is computed from
 > Occurrence probability is computed from the occurrence probability on error states of the parts. This allows you to use of an error state machine with states only, i.e., without specification of error events and transitions. If an error state machine has been included with error events and transitions, and you want the error event included in the generated fault tree, then use the propagation graph based fault tree generation.
 
 The resulting graphical fault tree looks like this.
-![GPS Composite FTA](images/fta-gps1sensor.png "GPS Composite FTA")
+![GPS Composite FTA](images/fta-gps2sensorstate.png "GPS Composite FTA")
 
-### Fault Tree Derived from Backward Trace of Propagation Graph
-In this case, the propagation paths in the propagaation graph are traversed backward to construct a fault tree representation. In other words, propagation paths along connections, bindings, and user declared propagation paths, as well as error flows from incoming propagations to outgoing propagations are interpreted. If component error behavior in terms of error behavior state machines with error events, states, transitions, and outgoing ppropagation conditions are presents, they are interpreted resulting in a higher fidelity propagation graph and fault tree.
+###Flow-Based Fault Trees Generated from Backward Trace of Error Propagations
+A flow-based backward trace traverses propagation paths along connections, bindings, and error flows from incoming propagations to outgoing propagations are interpreted. If component error behavior specifies error behavior state machines with error events, states, transitions, and outgoing propagation conditions, then they are interpreted resulting in a higher fidelity fault tree.
 
-In its simplest form the analysis traces back from a user identified outgoing error propagation and error type of interest for the top-level system. In our example, this is represented by the top-level system implementation gps.basic.
+The starting point of a flow-based fault tree generation is an outgoing error propagation and error type of interest for the system instance, to which the fault tree analysis command is applied. This outgoing propagation represents the external effect a system function or service can have on its operational environment. The backward trace proceeds along propagation paths and error flows/component error bheaviors until it encounters an error source (Basic event), an error event (Basic event), or an incoming error propagation that does not have a propagation path due to an absent connection or binding (Undeveloped event), or an incoming error propagation of the top-level system (External event). 
 
-This propagation represents the external effect a system function or service can have on its operational environment. The backward trace continues until it encounters an error source, or an incoming error propagation that does not have a propagation path due to an absent connection or binding. An example of an intentionally unconnected incoming error propagation is an incoming propagation of the top level system. An example is shown in the figure below for the satellite signal coming to the satellitesignalreceiver.
+In the case of a **fault contributor trace** every stop of the backward trace is reflected in generated structure. The same component and error model element may be reached multiple times, i.e., it represents a dependent event. In this case, each copy of the shared event (or event subtree) is tagged accordingly. 
 
-![GPS flow-based FTA](images/fta-gps2.png "GPS flow-based FTA")
+An example fault contributor trace is shown for the system **GPS.basic**. The example shows a trace to the error source of the **network** component and to the error event of the **powersupply1** component. Both are marked as dependent events as they are reached via both **SatelliteSignalReceiver1** and **SatelliteSignalReceiver2**. The trace also shows an exernal event in teh form of a **satellitesignal** coming into the **GPS** system.
 
->The resulting fault tree is flattened during the generation. For example, the error source contributions of three successive components are represented as Events under a single OR gate instead of a right recursive tree of binary OR operators. Flattening has the effect that components may not show if they do not have fault contributors. For example, a software component itself may not show as contributor, if no error source or event has been specified for it, but the processor the software component is bound will show as contributor – illustrated in the example above by the event named Processing_processor_serviceomission
-Some components may be included multiple times in a fault tree. For example, a single source component whose output is fanned out along multiple paths and then brought together, or a processor with multiple software components bound to it. Such components are actually a single instance that is linked to by multiple gates in the fault tree. If the same component occurs multiple times directly under a gate it is listed only once. In our example above, the power supply is such a component.
+![GPS Fault Trace](images/gps-faulttrace.png "GPS Fault Trace")
 
+When the user selects **Fault tree with computed occurrence probability** the fault contributor trace is flattened by removing intermediate events with a single subevent. In addition a set of transformations are applied to reduce the presence of dependent events by moving events and event subtrees up until they are no longer shared. 
+
+The generaeted fault tree for our **GPS.basic** example is shown below. The **powersupply1** and **network** components contribute an **error event** and **error source** respectively. Those vents have been moved up to become subevents under the top-level system event connected via an OR gate. Note that these events were dependent events in the fault contributor trace.
+
+![GPS flow-based FTA](images/fta-gps-basic.png "GPS flow-based FTA")
+
+When the user selects **Minimal Cutsets with computed occurrence probability** the analysis generates a set of minimal cutsets for the system. The collection of cutsets is represented as an **OR**, while the elements in each cutset are added together. 
+![GPS cutset](images/gps-basic-cutset.png "GPS cutset")
 
 ### Mapping of EMV2 Constructs into Fault Tree Elements
 The fault tree generator maps EMV2 constructs into fault tree Events and Gates as follows:
