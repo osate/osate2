@@ -373,6 +373,9 @@ IStructuredItemContentProvider, ITreeItemContentProvider, IItemLabelProvider, II
 		if (ev.getType() == EventType.EXTERNAL) {
 			return overlayImage(object, getResourceLocator().getImage("full/obj16/ExternalEventBW"));
 		}
+		if (ev.getType() == EventType.INTERMEDIATE && ev.getSubEvents().size() < 2) {
+			return overlayImage(object, getResourceLocator().getImage("full/obj16/IntermediateEventBW"));
+		}
 		if (ev.getSubEventLogic() == LogicOperation.AND) {
 			return overlayImage(object, getResourceLocator().getImage("full/obj16/AndOpBW"));
 		}
