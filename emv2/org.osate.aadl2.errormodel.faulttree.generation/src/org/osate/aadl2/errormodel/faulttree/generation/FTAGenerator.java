@@ -87,33 +87,27 @@ public class FTAGenerator extends PropagationGraphBackwardTraversal {
 			if (!faultTreeType.equals(FaultTreeType.FAULT_TRACE)) {
 				flattenGates(ftaRootEvent);
 				cleanupXORGates(ftaRootEvent);
-			}
 //			xformXORtoOR(emftaRootEvent);
-			for (Event event : ftaModel.getEvents()) {
-				EObject element = event.getRelatedEMV2Object();
-				if (element instanceof NamedElement) {
-					FaultTreeUtils.fillProbability(event);
+				if (faultTreeType.equals(FaultTreeType.FAULT_TREE)) {
+					flattenGates(ftaRootEvent);
+					ftaRootEvent = optimizeGates(ftaRootEvent);
+					flattenGates(ftaRootEvent);
 				}
-			}
-			if (faultTreeType.equals(FaultTreeType.FAULT_TREE)) {
-				flattenGates(ftaRootEvent);
-				ftaRootEvent = optimizeGates(ftaRootEvent);
-				flattenGates(ftaRootEvent);
-			}
-			// remove gate with single event from root
-			if (ftaRootEvent.getSubEvents().size() == 1) {
-				Event subevent = ftaRootEvent.getSubEvents().get(0);
-				if (subevent.getType() == EventType.INTERMEDIATE) {
-					subevent.setName(ftaRootEvent.getName());
-					subevent.setMessage(ftaRootEvent.getMessage());
-					subevent.setRelatedInstanceObject(ftaRootEvent.getRelatedInstanceObject());
-					subevent.setRelatedErrorType(ftaRootEvent.getRelatedErrorType());
-					subevent.setRelatedEMV2Object(ftaRootEvent.getRelatedEMV2Object());
-					ftaRootEvent = subevent;
+				// remove gate with single event from root
+				if (ftaRootEvent.getSubEvents().size() == 1) {
+					Event subevent = ftaRootEvent.getSubEvents().get(0);
+					if (subevent.getType() == EventType.INTERMEDIATE) {
+						subevent.setName(ftaRootEvent.getName());
+						subevent.setMessage(ftaRootEvent.getMessage());
+						subevent.setRelatedInstanceObject(ftaRootEvent.getRelatedInstanceObject());
+						subevent.setRelatedErrorType(ftaRootEvent.getRelatedErrorType());
+						subevent.setRelatedEMV2Object(ftaRootEvent.getRelatedEMV2Object());
+						ftaRootEvent = subevent;
+					}
 				}
-			}
-			if (faultTreeType.equals(FaultTreeType.MINIMAL_CUT_SET)) {
-				ftaRootEvent = minimalCutSet(ftaRootEvent);
+				if (faultTreeType.equals(FaultTreeType.MINIMAL_CUT_SET)) {
+					ftaRootEvent = minimalCutSet(ftaRootEvent);
+				}
 			}
 			ftaRootEvent.setName(longName);
 			ftaModel.setRoot(ftaRootEvent);
@@ -121,6 +115,7 @@ public class FTAGenerator extends PropagationGraphBackwardTraversal {
 			// copy shared events so we display a tree
 			replicateSharedEvents(ftaRootEvent);
 			FaultTreeUtils.removeEventOrphans(ftaModel);
+			FaultTreeUtils.fillProbabilities(ftaModel);
 			FaultTreeUtils.computeProbabilities(ftaModel.getRoot());
 		}
 		return ftaModel;

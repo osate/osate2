@@ -438,7 +438,7 @@ end FTerrorlibrary;
 
 	val expected = '''
 <?xml version="1.0" encoding="ASCII"?>
-<FaultTree:FaultTree xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:FaultTree="http://www.aadl.info/FaultTree" name="redundant2_main2_composite-failstop" root="//@events.16">
+<FaultTree:FaultTree xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:FaultTree="http://www.aadl.info/FaultTree" name="redundant2_main2_composite-failstop_tree" root="//@events.16">
   <instanceRoot href="../../redundant2_main2_composite_Instance.aaxl2#/"/>
   <events name="sensor1-valueout-latedelivery,outofrange" referenceCount="1">
     <relatedInstanceObject href="../../redundant2_main2_composite_Instance.aaxl2#//@componentInstance.1"/>
@@ -526,7 +526,7 @@ end FTerrorlibrary;
 
 	val expected2 = '''
 <?xml version="1.0" encoding="ASCII"?>
-<FaultTree:FaultTree xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:FaultTree="http://www.aadl.info/FaultTree" name="redundant2_main2_compositesametype-failstop" root="//@events.28">
+<FaultTree:FaultTree xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:FaultTree="http://www.aadl.info/FaultTree" name="redundant2_main2_compositesametype-failstop_tree" root="//@events.28">
   <instanceRoot href="../../redundant2_main2_compositesametype_Instance.aaxl2#/"/>
   <events name="sensor1-ef0-latedelivery" referenceCount="1">
     <relatedInstanceObject href="../../redundant2_main2_compositesametype_Instance.aaxl2#//@componentInstance.1"/>
@@ -676,7 +676,7 @@ end FTerrorlibrary;
 	
 	val expected3 = '''
 <?xml version="1.0" encoding="ASCII"?>
-<FaultTree:FaultTree xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:FaultTree="http://www.aadl.info/FaultTree" name="redundant2_main2_transition-externaleffect-serviceomission" root="//@events.19">
+<FaultTree:FaultTree xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:FaultTree="http://www.aadl.info/FaultTree" name="redundant2_main2_transition-externaleffect-serviceomission_tree" root="//@events.19">
   <instanceRoot href="../../redundant2_main2_transition_Instance.aaxl2#/"/>
   <events name="sensor1-valueout-latedelivery,outofrange" referenceCount="1">
     <relatedInstanceObject href="../../redundant2_main2_transition_Instance.aaxl2#//@componentInstance.1"/>

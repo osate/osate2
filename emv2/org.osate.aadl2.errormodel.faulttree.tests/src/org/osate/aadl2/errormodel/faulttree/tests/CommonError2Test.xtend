@@ -163,7 +163,7 @@ end common_error2;
 
 	val expected = '''
 <?xml version="1.0" encoding="ASCII"?>
-<FaultTree:FaultTree xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:FaultTree="http://www.aadl.info/FaultTree" name="common_error2_main_commonevents-failstop" root="//@events.4">
+<FaultTree:FaultTree xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:FaultTree="http://www.aadl.info/FaultTree" name="common_error2_main_commonevents-failstop_tree" root="//@events.4">
   <instanceRoot href="../../common-error2_main_commonevents_Instance.aaxl2#/"/>
   <events name="c0-failure" referenceCount="1">
     <relatedInstanceObject href="../../common-error2_main_commonevents_Instance.aaxl2#//@componentInstance.3"/>

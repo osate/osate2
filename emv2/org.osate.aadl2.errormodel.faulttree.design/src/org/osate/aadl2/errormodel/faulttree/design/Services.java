@@ -40,12 +40,7 @@ public class Services {
 	}
 
 	public String getCutsetLabel(EObject context) {
-		Event event = (Event) context;
-		FaultTree ft = (FaultTree) event.eContainer();
-		if (ft.getRoot().getSubEvents().contains(event)) {
-			return " " + event.getName();
-		}
-		return " " + FaultTreeUtils.getDescription((Event) context);
+		return " " + FaultTreeUtils.getCutsetLabel(context);
 	}
 
 	public String getEventDescription(EObject context) {

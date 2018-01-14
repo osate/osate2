@@ -226,7 +226,7 @@ end redundant;
 
 	val expected = '''
 <?xml version="1.0" encoding="ASCII"?>
-<FaultTree:FaultTree xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:FaultTree="http://www.aadl.info/FaultTree" name="redundant_main_compositestate-failstop" root="//@events.5">
+<FaultTree:FaultTree xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:FaultTree="http://www.aadl.info/FaultTree" name="redundant_main_compositestate-failstop_tree" root="//@events.5">
   <instanceRoot href="../../redundant_main_compositestate_Instance.aaxl2#/"/>
   <events name="sensor1-failure" referenceCount="1">
     <relatedInstanceObject href="../../redundant_main_compositestate_Instance.aaxl2#//@componentInstance.1"/>

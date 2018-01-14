@@ -297,7 +297,7 @@ end FGSErrorModelLibrary;
 
 	val expected = '''
 <?xml version="1.0" encoding="ASCII"?>
-<FaultTree:FaultTree xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:FaultTree="http://www.aadl.info/FaultTree" name="dualfgs_fgs_composite-criticalmodefailure" root="//@events.6">
+<FaultTree:FaultTree xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:FaultTree="http://www.aadl.info/FaultTree" name="dualfgs_fgs_composite-criticalmodefailure_tree" root="//@events.6">
   <instanceRoot href="../../DualFGS_FGS_composite_Instance.aaxl2#/"/>
   <events name="ac-failure" referenceCount="1">
     <relatedInstanceObject href="../../DualFGS_FGS_composite_Instance.aaxl2#//@componentInstance.5"/>

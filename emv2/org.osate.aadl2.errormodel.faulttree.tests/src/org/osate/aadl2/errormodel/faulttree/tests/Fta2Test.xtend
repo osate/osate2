@@ -167,7 +167,7 @@ end ErrorModelLibrary;
 
 	val expected = '''
 <?xml version="1.0" encoding="ASCII"?>
-<FaultTree:FaultTree xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:FaultTree="http://www.aadl.info/FaultTree" name="fta2test_main_i-failed" root="//@events.6">
+<FaultTree:FaultTree xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:FaultTree="http://www.aadl.info/FaultTree" name="fta2test_main_i-failed_tree" root="//@events.6">
   <instanceRoot href="../../fta2Test_main_i_Instance.aaxl2#/"/>
   <events name="sens1-f0-badvalue" referenceCount="1">
     <relatedInstanceObject href="../../fta2Test_main_i_Instance.aaxl2#//@componentInstance.0"/>

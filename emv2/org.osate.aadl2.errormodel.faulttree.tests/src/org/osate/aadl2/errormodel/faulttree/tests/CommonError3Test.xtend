@@ -155,7 +155,7 @@ end common_error3;
 
 	val expected = '''
 <?xml version="1.0" encoding="ASCII"?>
-<FaultTree:FaultTree xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:FaultTree="http://www.aadl.info/FaultTree" name="common_error3_main_commoneventssingleport-failstop" root="//@events.4">
+<FaultTree:FaultTree xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:FaultTree="http://www.aadl.info/FaultTree" name="common_error3_main_commoneventssingleport-failstop_tree" root="//@events.4">
   <instanceRoot href="../../common-error3_main_commoneventssingleport_Instance.aaxl2#/"/>
   <events name="c0-failure" referenceCount="1">
     <relatedInstanceObject href="../../common-error3_main_commoneventssingleport_Instance.aaxl2#//@componentInstance.3"/>

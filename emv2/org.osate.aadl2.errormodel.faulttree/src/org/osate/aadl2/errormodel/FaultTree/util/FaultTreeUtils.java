@@ -12,6 +12,7 @@ import org.osate.aadl2.errormodel.FaultTree.Event;
 import org.osate.aadl2.errormodel.FaultTree.EventType;
 import org.osate.aadl2.errormodel.FaultTree.FaultTree;
 import org.osate.aadl2.errormodel.FaultTree.FaultTreeFactory;
+import org.osate.aadl2.errormodel.FaultTree.FaultTreeType;
 import org.osate.aadl2.errormodel.FaultTree.LogicOperation;
 import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.ConnectionInstance;
@@ -399,32 +400,43 @@ public class FaultTreeUtils {
 		if (context instanceof Event) {
 			Event ev = (Event) context;
 			FaultTree ft = (FaultTree) ev.eContainer();
-			String labeltext = FaultTreeUtils.getInstanceDescription(ev);
-			if (labeltext == null || labeltext.isEmpty()) {
-				labeltext = ev.getName();
-			}
-			String emv2label = FaultTreeUtils.getEMV2ElementDescription(ev);
-			String ftmsg = ft.getMessage();
-			if (ftmsg != null) {
-				return "ERROR: " + ftmsg + "\n" + labeltext;
-			}
+			String labeltext = ft.getFaultTreeType().equals(FaultTreeType.MINIMAL_CUT_SET)
+					? FaultTreeUtils.getCutsetLabel(ev)
+							: FaultTreeUtils.getInstanceDescription(ev);
+					if (labeltext == null || labeltext.isEmpty()) {
+						labeltext = ev.getName();
+					}
+					String emv2label = FaultTreeUtils.getEMV2ElementDescription(ev);
+					String ftmsg = ft.getMessage();
+					if (ftmsg != null) {
+						return "ERROR: " + ftmsg + "\n" + labeltext;
+					}
 //			String msg = ev.getMessage() != null ? "NOTE: " + ev.getMessage() : " ";
 //			String fullText = String.format("%1$s\n%2$s\n%4$s(%3$.3E)", labeltext, emv2label, val, msg);
-			String fullText = String.format("%1$s \n%2$s \n%3$s", labeltext, emv2label, getProbability(ev));
-			if (ev == ft.getRoot()) {
-				// mark probability with star if shared events are involved
-				if (FaultTreeUtils.hasSharedEvents(ft)) {
-					return fullText + "*";
-				} else {
-					return fullText;
-				}
-			} else if (ev.isSharedEvent()) {
-				return "*" + fullText;
-			} else {
-				return fullText;
-			}
+					String fullText = String.format("%1$s \n%2$s \n%3$s", labeltext, emv2label, getProbability(ev));
+					if (ev == ft.getRoot()) {
+						// mark probability with star if shared events are involved
+						if (FaultTreeUtils.hasSharedEvents(ft)) {
+							return fullText + "*";
+						} else {
+							return fullText;
+						}
+					} else if (ev.isSharedEvent()) {
+						return "*" + fullText;
+					} else {
+						return fullText;
+					}
 		}
 		return "";
+	}
+
+	public static String getCutsetLabel(EObject context) {
+		Event event = (Event) context;
+		FaultTree ft = (FaultTree) event.eContainer();
+		if (ft.getRoot().getSubEvents().contains(event)) {
+			return event.getName();
+		}
+		return FaultTreeUtils.getDescription((Event) context);
 	}
 
 	public static String getHazardDescription(EObject context) {
@@ -522,6 +534,16 @@ public class FaultTreeUtils {
 			result = event.getProbability();
 		}
 		return result;
+	}
+
+	public static void fillProbabilities(FaultTree ftaModel) {
+		for (Event event : ftaModel.getEvents()) {
+			EObject element = event.getRelatedEMV2Object();
+			if (element instanceof NamedElement) {
+				FaultTreeUtils.fillProbability(event);
+			}
+		}
+
 	}
 
 	public static void computeProbabilities(Event event) {

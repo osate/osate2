@@ -168,7 +168,7 @@ end common_error1;
 
 	val expected = '''
 <?xml version="1.0" encoding="ASCII"?>
-<FaultTree:FaultTree xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:FaultTree="http://www.aadl.info/FaultTree" name="common_error1_main_commonsource-failstop" root="//@events.4">
+<FaultTree:FaultTree xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:FaultTree="http://www.aadl.info/FaultTree" name="common_error1_main_commonsource-failstop_tree" root="//@events.4">
   <instanceRoot href="../../common-error_main_commonsource_Instance.aaxl2#/"/>
   <events name="s0-ef0-latedelivery" referenceCount="1">
     <relatedInstanceObject href="../../common-error_main_commonsource_Instance.aaxl2#//@componentInstance.0"/>
@@ -196,7 +196,7 @@ end common_error1;
 
 	val expectedOperational = '''
 <?xml version="1.0" encoding="ASCII"?>
-<FaultTree:FaultTree xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:FaultTree="http://www.aadl.info/FaultTree" name="common_error1_main_commonsource-operational" root="//@events.0">
+<FaultTree:FaultTree xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:FaultTree="http://www.aadl.info/FaultTree" name="common_error1_main_commonsource-operational_tree" root="//@events.0">
   <instanceRoot href="../../common-error_main_commonsource_Instance.aaxl2#/"/>
   <events name="common_error1_main_commonsource-operational" referenceCount="1" type="Intermediate">
     <relatedInstanceObject href="../../common-error_main_commonsource_Instance.aaxl2#/"/>

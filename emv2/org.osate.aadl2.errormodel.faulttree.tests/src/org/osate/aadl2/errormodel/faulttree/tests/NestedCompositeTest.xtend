@@ -240,7 +240,7 @@ end nestedcomposite;
 
 	val expected = '''
 <?xml version="1.0" encoding="ASCII"?>
-<FaultTree:FaultTree xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:FaultTree="http://www.aadl.info/FaultTree" name="nestedcomposite_main_nestedstate-failstop" root="//@events.7">
+<FaultTree:FaultTree xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:FaultTree="http://www.aadl.info/FaultTree" name="nestedcomposite_main_nestedstate-failstop_tree" root="//@events.7">
   <instanceRoot href="../../nestedcomposite_main_nestedstate_Instance.aaxl2#/"/>
   <events name="sensor1-failure" referenceCount="1">
     <relatedInstanceObject href="../../nestedcomposite_main_nestedstate_Instance.aaxl2#//@componentInstance.1"/>
