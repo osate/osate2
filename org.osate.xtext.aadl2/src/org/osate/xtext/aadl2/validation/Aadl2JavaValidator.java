@@ -379,6 +379,7 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 			checkReferencesToInternalFeatures(connection);
 		}
 		checkDirectionOfFeatureGroupMembers(connection);
+		checkNoConnectedSubcomponents(connection);
 	}
 
 	@Check(CheckType.FAST)
@@ -5562,6 +5563,19 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 		}
 		// no binding found
 		return null;
+	}
+
+	/**
+	 * Check that a connection is between two subcomponents.  There is no explicit rule against this,
+	 * but it's clearly not intended.
+	 */
+	private void checkNoConnectedSubcomponents(final Connection connection) {
+		final ConnectionEnd source = connection.getAllLastSource();
+		final ConnectionEnd destination = connection.getAllLastDestination();
+		if (source instanceof Subcomponent && destination instanceof Subcomponent) {
+			error(connection,
+					"Connection must not be between two subcomponents; use provides/requires access features");
+		}
 	}
 
 	/**
