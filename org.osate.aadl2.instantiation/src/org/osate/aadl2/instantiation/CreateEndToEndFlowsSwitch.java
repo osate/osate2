@@ -141,7 +141,7 @@ public class CreateEndToEndFlowsSwitch extends AadlProcessingSwitchWithProgress 
 
 		/*
 		 * (non-Javadoc)
-		 * 
+		 *
 		 * @see java.lang.Object#clone()
 		 */
 		@Override
@@ -197,7 +197,7 @@ public class CreateEndToEndFlowsSwitch extends AadlProcessingSwitchWithProgress 
 
 	private HashMap<EndToEndFlow, List<ETEInfo>> ete2info;
 
-	/** 
+	/**
 	 * The last flow implementation to match connection start
 	 * Relevant if a flow implementation goes straight through a subcomponent.
 	 * This can occur only for leaf components, such that no stack is needed.
@@ -471,6 +471,17 @@ public class CreateEndToEndFlowsSwitch extends AadlProcessingSwitchWithProgress 
 			if (connis.isEmpty()) {
 				connections.clear();
 				removeETEI.add(etei);
+
+				if (!lastFlowImpl.isEmpty()) {
+					FlowImplementation flowFilter = lastFlowImpl.peek();
+					if (flowFilter != null) {
+						error(etei.getContainingComponentInstance(),
+								"Cannot create end to end flow '" + etei.getName()
+										+ "' because there are no semantic connections that continue the flow '"
+										+ flowFilter.getSpecification().getName() + "' from feature '"
+										+ flowFilter.getOutEnd().getFeature().getName() + "'");
+					}
+				}
 			} else {
 				Iterator<ConnectionInstance> connIter = connis.iterator();
 				FlowImplementation flowFilter = lastFlowImpl.isEmpty() ? null : lastFlowImpl.peek();
@@ -484,8 +495,8 @@ public class CreateEndToEndFlowsSwitch extends AadlProcessingSwitchWithProgress 
 					FlowIterator iterClone = null;
 
 					remove = true;
-					if (flowFilter != null && !isValidContinuation(flowFilter, conni)
-							|| nextFlowImpl != null && !isValidContinuation(conni, nextFlowImpl)) {
+					if (flowFilter != null && !isValidContinuation(etei, flowFilter, conni)
+							|| nextFlowImpl != null && !isValidContinuation(etei, conni, nextFlowImpl)) {
 						continue;
 					}
 					remove = false;
@@ -553,13 +564,18 @@ public class CreateEndToEndFlowsSwitch extends AadlProcessingSwitchWithProgress 
 	 * @param flow
 	 * @return
 	 */
-	boolean isValidContinuation(ConnectionInstance conni, FlowImplementation fimpl) {
+	boolean isValidContinuation(EndToEndFlowInstance etei, ConnectionInstance conni, FlowImplementation fimpl) {
 		boolean result = false;
 		ConnectionInstanceEnd dst = conni.getDestination();
 		if (dst instanceof FeatureInstance) {
 			Feature flowIn = fimpl.getInEnd().getFeature();
 			Feature connDst = ((FeatureInstance) dst).getFeature();
 			result = flowIn == connDst;
+			if (!result) {
+				error(etei.getContainingComponentInstance(), "Cannot create end to end flow '" + etei.getName()
+						+ "' because the end of the semantic connection '" + conni.getComponentInstancePath()
+						+ "' does not connect to the start of flow '" + fimpl.getSpecification().getName() + "'");
+			}
 		}
 		return result;
 	}
@@ -570,13 +586,20 @@ public class CreateEndToEndFlowsSwitch extends AadlProcessingSwitchWithProgress 
 	 * @param flow
 	 * @return
 	 */
-	boolean isValidContinuation(FlowImplementation fimpl, ConnectionInstance conni) {
+	boolean isValidContinuation(EndToEndFlowInstance etei, FlowImplementation fimpl, ConnectionInstance conni) {
 		boolean result = false;
 		ConnectionInstanceEnd src = conni.getSource();
 		if (src instanceof FeatureInstance) {
 			Feature flowOut = fimpl.getOutEnd().getFeature();
 			Feature connSrc = ((FeatureInstance) src).getFeature();
 			result = flowOut == connSrc;
+			if (!result) {
+				error(etei.getContainingComponentInstance(),
+						"Cannot create end to end flow '" + etei.getName() + "' because flow '"
+								+ fimpl.getSpecification().getName()
+								+ "' does not connect to the start of the semantic connection '"
+								+ conni.getComponentInstancePath() + "'");
+			}
 		}
 		return result;
 	}
@@ -1069,8 +1092,9 @@ public class CreateEndToEndFlowsSwitch extends AadlProcessingSwitchWithProgress 
 	private boolean isSameorContains(FeatureInstance flowFeature, FeatureInstance connFeature) {
 		EObject matchme = connFeature;
 		while (matchme instanceof FeatureInstance) {
-			if (matchme == flowFeature)
+			if (matchme == flowFeature) {
 				return true;
+			}
 			matchme = matchme.eContainer();
 		}
 		return false;
