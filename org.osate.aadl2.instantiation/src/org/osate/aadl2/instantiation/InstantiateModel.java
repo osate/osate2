@@ -383,7 +383,7 @@ public class InstantiateModel {
 			throws InterruptedException {
 		SystemInstance root = InstanceFactory.eINSTANCE.createSystemInstance();
 		final String instanceName = ci.getTypeName() + "_" + ci.getImplementationName()
-		+ WorkspacePlugin.INSTANCE_MODEL_POSTFIX;
+				+ WorkspacePlugin.INSTANCE_MODEL_POSTFIX;
 
 		root.setComponentImplementation(ci);
 		root.setName(instanceName);
@@ -632,7 +632,7 @@ public class InstantiateModel {
 			}
 			if (hasSubcomponentInstance(ci, sub)) {
 				errManager.error(ci, "Cyclic containment dependency: Subcomponent '" + sub.getName()
-				+ "' has already been instantiated as enclosing component.");
+						+ "' has already been instantiated as enclosing component.");
 			} else {
 				final EList<ArrayDimension> dims = sub.getArrayDimensions();
 				Stack<Long> indexStack = new Stack<Long>();
@@ -994,7 +994,7 @@ public class InstantiateModel {
 			} else if (ic.bindings != null && ic.bindings.isEmpty()) {
 				// prototype has not been bound yet
 				errManager.warning(fi, "Feature group prototype  of " + fi.getInstanceObjectPath()
-				+ " is not bound yet to feature group type");
+						+ " is not bound yet to feature group type");
 			}
 			FeatureGroupType fgt = (FeatureGroupType) ic.classifier;
 
@@ -1041,7 +1041,7 @@ public class InstantiateModel {
 		for (final Feature feature : flist) {
 			if (hasFeatureInstance(fgi, feature)) {
 				errManager.error(fgi, "Cyclic containment dependency: Feature '" + feature.getName()
-				+ "' has already been instantiated as enclosing feature group.");
+						+ "' has already been instantiated as enclosing feature group.");
 			} else {
 				final EList<ArrayDimension> dims = feature.getArrayDimensions();
 
@@ -1328,7 +1328,7 @@ public class InstantiateModel {
 								+ conni.getContainingComponentInstance().getFullName() + ": " + srcSizes.get(srcOffset)
 								+ " at source " + // ("+conni.getSource().getFullName()+")
 								"and " + dstSizes.get(dstOffset) + " at destination." // ("+conni.getSource().getFullName()+")."
-						);
+				);
 				return false;
 			} else {
 				if (patternName.equalsIgnoreCase("One_To_One")) {
@@ -1398,7 +1398,7 @@ public class InstantiateModel {
 					for (long i = 1; i <= srcSizes.get(srcOffset); i++) {
 						srcIndices.add(i);
 						dstIndices
-						.add(i == srcSizes.get(srcOffset) ? 2 : (i == srcSizes.get(srcOffset) - 1 ? 1 : i + 1));
+								.add(i == srcSizes.get(srcOffset) ? 2 : (i == srcSizes.get(srcOffset) - 1 ? 1 : i + 1));
 						result &= interpretConnectionPatterns(conni, isOpposite, patterns, offset + 1, srcSizes,
 								srcOffset + 1, dstSizes, dstOffset + 1, srcIndices, dstIndices);
 						dstIndices.remove(dstOffset);
@@ -1408,7 +1408,7 @@ public class InstantiateModel {
 					for (long i = 1; i <= srcSizes.get(srcOffset); i++) {
 						srcIndices.add(i);
 						dstIndices
-						.add(i == 2 ? srcSizes.get(srcOffset) : (i == 1 ? srcSizes.get(srcOffset) - 1 : i - 1));
+								.add(i == 2 ? srcSizes.get(srcOffset) : (i == 1 ? srcSizes.get(srcOffset) - 1 : i - 1));
 						result &= interpretConnectionPatterns(conni, isOpposite, patterns, offset + 1, srcSizes,
 								srcOffset + 1, dstSizes, dstOffset + 1, srcIndices, dstIndices);
 						dstIndices.remove(dstOffset);
@@ -1567,7 +1567,7 @@ public class InstantiateModel {
 		ConnectionReference topConnRef = Aadl2InstanceUtil.getTopConnectionReference(newConn);
 		analyzePath(conni.getContainingComponentInstance(), conni.getSource(), names, dims, sizes);
 		if (srcIndices.size() != sizes.size() &&
-				// filter out one side being an element without index (array of 1) (many to one mapping)
+		// filter out one side being an element without index (array of 1) (many to one mapping)
 				!(sizes.size() == 0 && dstIndices.size() == 1)) {
 			errManager.error(newConn,
 					"Source indices " + srcIndices + " do not match source dimension " + sizes.size());
@@ -1578,12 +1578,12 @@ public class InstantiateModel {
 		sizes.clear();
 		analyzePath(conni.getContainingComponentInstance(), conni.getDestination(), names, dims, sizes);
 		if (dstIndices.size() != sizes.size() &&
-				// filter out one side being an element without index (array of 1) (many to one mapping)
+		// filter out one side being an element without index (array of 1) (many to one mapping)
 				!(sizes.size() == 0 && dstIndices.size() == 1)) {
 			errManager.error(newConn,
 					"For " + newConn.getConnectionReferences().get(0).getFullName() + " : " + newConn.getFullName()
-					+ ", destination indices " + dstIndices + " do not match destination dimension "
-					+ sizes.size());
+							+ ", destination indices " + dstIndices + " do not match destination dimension "
+							+ sizes.size());
 		}
 		InstanceObject dst = resolveConnectionInstancePath(newConn, topConnRef, names, dims, sizes, dstIndices, false);
 		if (src == null) {
@@ -1852,7 +1852,7 @@ public class InstantiateModel {
 				}
 				result = resolveConnectionReference(targetConnRef, outerConnRef, (ComponentInstance) resolutionContext,
 						doSource, dimfeature == 0 ? 0 : indices.get(0),
-								dimfg == 0 ? 0 : (dimfeature == 0 ? indices.get(0) : indices.get(1)));
+						dimfg == 0 ? 0 : (dimfeature == 0 ? indices.get(0) : indices.get(1)));
 			} else {
 				// the resolved feature has been found
 				result = resolutionContext;
@@ -1998,7 +1998,7 @@ public class InstantiateModel {
 				if (extendedComponentImpls.contains(impl)) {
 					if (showError) {
 						errManager.error(root, "Circular extension: Component '" + impl.getName()
-						+ "' directly or indirectly extends itself.");
+								+ "' directly or indirectly extends itself.");
 					}
 					break;
 				}
@@ -2013,7 +2013,7 @@ public class InstantiateModel {
 			if (extendedClassifiers.contains(cc)) {
 				if (showError) {
 					errManager.error(root, "Circular extension: Classifier '" + cc.getName()
-					+ "' directly or indirectly extends itself.");
+							+ "' directly or indirectly extends itself.");
 				}
 				break;
 			}
@@ -2172,9 +2172,9 @@ public class InstantiateModel {
 	 * of <code>instances</code>, this list holds the modal instances that
 	 * should be turned into a System Operation Mode object.
 	 */
-	protected int enumerateSystemOperationModes(SystemInstance root, ComponentInstance[] instances,
-			int currentInstance, LinkedList<ComponentInstance> skipped, List<ModeInstance> modeState, int somIndex)
-					throws InterruptedException {
+	protected int enumerateSystemOperationModes(SystemInstance root, ComponentInstance[] instances, int currentInstance,
+			LinkedList<ComponentInstance> skipped, List<ModeInstance> modeState, int somIndex)
+			throws InterruptedException {
 		if (monitor.isCanceled()) {
 			throw new InterruptedException();
 		}
@@ -2219,17 +2219,20 @@ public class InstantiateModel {
 								}
 							}
 						}
-						somIndex = enumerateSystemOperationModes(root, instances, currentInstance + 1, skipped, nextModes, somIndex);
+						somIndex = enumerateSystemOperationModes(root, instances, currentInstance + 1, skipped,
+								nextModes, somIndex);
 					}
 				} else {
 					// non-modal component
-					somIndex = enumerateSystemOperationModes(root, instances, currentInstance + 1, skipped, modeState, somIndex);
+					somIndex = enumerateSystemOperationModes(root, instances, currentInstance + 1, skipped, modeState,
+							somIndex);
 				}
 			} else {
 				// Skip the current component, it doesn't exist under the
 				// modeState
 				skipped.addLast(ci);
-				somIndex = enumerateSystemOperationModes(root, instances, currentInstance + 1, skipped, modeState, somIndex);
+				somIndex = enumerateSystemOperationModes(root, instances, currentInstance + 1, skipped, modeState,
+						somIndex);
 				skipped.removeLast();
 			}
 		}
@@ -2256,7 +2259,8 @@ public class InstantiateModel {
 	/*
 	 * Create a SystemOperationMode given a list of mode instances.
 	 */
-	private SystemOperationMode createSOM(final List<ModeInstance> modeInstances, int somIndex) throws InterruptedException {
+	private SystemOperationMode createSOM(final List<ModeInstance> modeInstances, int somIndex)
+			throws InterruptedException {
 		final SystemOperationMode som;
 
 		som = InstanceFactory.eINSTANCE.createSystemOperationMode();
