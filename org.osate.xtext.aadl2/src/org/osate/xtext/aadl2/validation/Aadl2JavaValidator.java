@@ -132,7 +132,6 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 		checkComponentImplementationUniqueNames(componentImplementation);
 		checkComponentImplementationInPackageSection(componentImplementation);
 		checkComponentImplementationModes(componentImplementation);
-		checkImplementsFlowSpecifications(componentImplementation);
 		checkFlowImplementationModeCompatibilityWithRefinedFlowSegments(componentImplementation);
 		checkModeSpecificFlowImplementations(componentImplementation);
 		checkInheritedMissingModes(componentImplementation);
@@ -2047,31 +2046,6 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 						}
 					}
 				}
-			}
-		}
-	}
-
-	/**
-	 * Checks that the component explicitly implements any flow specifications that are declared
-	 * in the implemented type.  Each implementation must have a flow spec implementation (inherited or local)
-	 * for each flow specification (inherited or local) in the component type.
-	 */
-	private void checkImplementsFlowSpecifications(final ComponentImplementation ci) {
-		/*
-		 * flow specs and flow implementations have already been bound, so we just need to check
-		 * names against names.
-		 */
-		final Set<String> flowImplNames = new HashSet<>();
-		for (FlowImplementation fi : ci.getAllFlowImplementations()) {
-			String name = fi.getSpecification().getName();
-			flowImplNames.add(name);
-		}
-		for (FlowSpecification flowSpec : ci.getType().getAllFlowSpecifications()) {
-			if (!flowImplNames.contains(flowSpec.getName())) {
-				error(ci,
-						"Component implementation '" + ci.getFullName()
-								+ "' does not implement the flow specification '" + flowSpec.getName()
-								+ "' from component type '" + flowSpec.getContainingClassifier().getFullName() + "'");
 			}
 		}
 	}
