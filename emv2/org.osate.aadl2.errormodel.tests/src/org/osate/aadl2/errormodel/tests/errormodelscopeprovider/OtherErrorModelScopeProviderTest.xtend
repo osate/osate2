@@ -90,14 +90,13 @@ class OtherErrorModelScopeProviderTest extends OsateTest {
 			publicSection => [
 				(ownedAnnexLibraries.head as DefaultAnnexLibrary).parsedAnnexLibrary as ErrorModelLibrary => [
 					// Tests scope_ErrorModelLibrary
-					assertScopeModelUnitNamesOnly(ErrorModelPackage.eINSTANCE.errorModelLibrary_UseTypes, #["pkg"])
+					assertScope(ErrorModelPackage.eINSTANCE.errorModelLibrary_UseTypes, #["pkg"])
 					// Tests scope_ErrorModelLibrary
-					assertScopeModelUnitNamesOnly(ErrorModelPackage.eINSTANCE.errorModelLibrary_Extends, #["pkg"])
+					assertScope(ErrorModelPackage.eINSTANCE.errorModelLibrary_Extends, #["pkg"])
 					behaviors.head => [
 						"b".assertEquals(name)
 						// Tests scope_ErrorModelLibrary
-						assertScopeModelUnitNamesOnly(ErrorModelPackage.eINSTANCE.errorBehaviorStateMachine_UseTypes,
-							#["pkg"])
+						assertScope(ErrorModelPackage.eINSTANCE.errorBehaviorStateMachine_UseTypes, #["pkg"])
 						// Tests scope_TypeTransformationSet
 						assertScope(ErrorModelPackage.eINSTANCE.errorBehaviorStateMachine_UseTransformation,
 							#["t", "pkg::t"])
@@ -105,13 +104,12 @@ class OtherErrorModelScopeProviderTest extends OsateTest {
 					mappings.head => [
 						"m".assertEquals(name)
 						// Tests scope_ErrorModelLibrary
-						assertScopeModelUnitNamesOnly(ErrorModelPackage.eINSTANCE.typeMappingSet_UseTypes, #["pkg"])
+						assertScope(ErrorModelPackage.eINSTANCE.typeMappingSet_UseTypes, #["pkg"])
 					]
 					transformations.head => [
 						"t".assertEquals(name)
 						// Tests scope_ErrorModelLibrary
-						assertScopeModelUnitNamesOnly(ErrorModelPackage.eINSTANCE.typeTransformationSet_UseTypes,
-							#["pkg"])
+						assertScope(ErrorModelPackage.eINSTANCE.typeTransformationSet_UseTypes, #["pkg"])
 					]
 				]
 				ownedClassifiers.head => [
@@ -119,8 +117,7 @@ class OtherErrorModelScopeProviderTest extends OsateTest {
 					(ownedAnnexSubclauses.head as DefaultAnnexSubclause).parsedAnnexSubclause as ErrorModelSubclause =>
 						[
 							// Tests scope_ErrorModelLibrary
-							assertScopeModelUnitNamesOnly(ErrorModelPackage.eINSTANCE.errorModelSubclause_UseTypes,
-								#["pkg"])
+							assertScope(ErrorModelPackage.eINSTANCE.errorModelSubclause_UseTypes, #["pkg"])
 							// Tests scope_TypeMappingSet
 							assertScope(ErrorModelPackage.eINSTANCE.errorModelSubclause_TypeEquivalence, #["pkg::m"])
 							// Tests scope_TypeMappingSet

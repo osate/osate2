@@ -132,7 +132,7 @@ class EventInitiatorTest extends OsateTest {
 				subprogram subp1
 				features
 					param1: in parameter;
-					ep2: in event port;
+					ep2: out event port;
 				annex EMV2 {**
 					component error behavior
 					events
