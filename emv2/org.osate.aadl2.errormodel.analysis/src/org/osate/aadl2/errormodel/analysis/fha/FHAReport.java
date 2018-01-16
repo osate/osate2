@@ -67,7 +67,6 @@ import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorTransition;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorEvent;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorPropagation;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorSource;
-import org.osate.xtext.aadl2.errormodel.errorModel.ErrorType;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorTypes;
 import org.osate.xtext.aadl2.errormodel.errorModel.EventOrPropagation;
 import org.osate.xtext.aadl2.errormodel.errorModel.TypeSet;
@@ -280,7 +279,7 @@ public final class FHAReport {
 						for (EMV2Path ep : epathlist) {
 							ErrorTypes et = EMV2Util.getErrorType(ep);
 							ErrorTypes targettype = ts;
-							if (EM2TypeSetUtil.contains(ts, et)) {
+							if (et != null && EM2TypeSetUtil.contains(ts, et)) {
 								targettype = et;
 							}
 							List<EMV2PropertyAssociation> Sevs = EMV2Properties.getSeverityProperty(ci, target, et);
@@ -296,7 +295,7 @@ public final class FHAReport {
 								}
 							} else {
 								reportFHAEntry(report, fields, severityValue, likelihoodValue, ci, targetName,
-										((ErrorType) targettype).getName());
+										EMV2Util.getName(targettype));
 							}
 						}
 					} else {
