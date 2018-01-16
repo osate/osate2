@@ -85,7 +85,6 @@ public class ErrorModelJavaValidator extends AbstractErrorModelJavaValidator {
 	protected void checkPropertyAssociation(EMV2PropertyAssociation pa) {
 		// type check value against type
 		Property pdef = pa.getProperty();
-		checkPropertySetElementReference(pdef, pa);
 		if (Aadl2Util.isNull(pdef)) {
 			return;
 		}
