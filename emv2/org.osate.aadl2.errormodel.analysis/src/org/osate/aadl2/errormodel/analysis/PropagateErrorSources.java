@@ -263,7 +263,7 @@ public class PropagateErrorSources {
 							failuremodeText = failuremodeDesc;
 						}
 						if (failureMode == null && failureTypeSet == null) {
-							if (!handledTypes.contains(typeToken)) {
+							if (!EM2TypeSetUtil.contains(handledTypes, typeToken)) {
 								traceErrorPaths(ci, ep, typeToken, 2, componentText + "," + failuremodeText);
 							}
 						} else {
