@@ -227,7 +227,7 @@ public class PropagateErrorSources {
 					for (TypeToken typeToken : result) {
 						handledTypes.add(typeToken);
 						traceErrorPaths(ci, ep, typeToken, 2,
-								componentText + ", " + "internal event " + event.getName());
+								componentText + ", " + "error event " + event.getName());
 					}
 
 					// OsateDebug.osateDebug("event=" + event.getName() + "state=" + opc.getState().getName() + "|outgoing=" + opc.getOutgoing());
