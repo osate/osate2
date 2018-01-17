@@ -66,7 +66,7 @@ public class AadlNavigatorContentProvider extends WorkbenchContentProvider {
 	private static final Object[] NO_CHILDREN = new Object[0];
 	private static final Object AADL_EXT = "aadl";
 	private static final Object AAXL2_EXT = "aaxl2";
-	
+
 	@Override
 	public Object[] getChildren(Object element) {
 		if (element instanceof IWorkspaceRoot) {
@@ -88,12 +88,12 @@ public class AadlNavigatorContentProvider extends WorkbenchContentProvider {
 				OptionalInt firstSignificantIndex = PluginSupportUtil.getFirstSignificantIndex(uri);
 				if (firstSignificantIndex.isPresent() && firstSignificantIndex.getAsInt() < uri.segmentCount() - 1) {
 					List<String> uriDirectory = uri.segmentsList().subList(firstSignificantIndex.getAsInt(), uri.segmentCount() - 1);
-					return directoryPath.equals(uriDirectory);
+					return isPrefix(directoryPath, uriDirectory);
 				} else {
 					return false;
 				}
 			});
-			
+
 			return inDirectory.map(uri -> {
 				int nextSignificantIndex = PluginSupportUtil.getFirstSignificantIndex(uri).getAsInt() + directoryPath.size();
 				if (nextSignificantIndex == uri.segmentCount() - 1) {
@@ -168,7 +168,7 @@ public class AadlNavigatorContentProvider extends WorkbenchContentProvider {
 
 		return super.getChildren(element);
 	}
-	
+
 	@Override
 	public Object getParent(Object element) {
 		if (element instanceof VirtualPluginResources) {
@@ -193,6 +193,22 @@ public class AadlNavigatorContentProvider extends WorkbenchContentProvider {
 			}
 		} else {
 			return super.getParent(element);
+		}
+	}
+
+	/**
+	 * Is the first list a prefix of the second one?
+	 */
+	private static <T> boolean isPrefix(final List<T> first, final List<T> second) {
+		if (first.size() > second.size()) {
+			return false;
+		} else {
+			for (int i = 0; i < first.size(); i++) {
+				if (first.get(i) != second.get(i)) {
+					return false;
+				}
+			}
+			return true;
 		}
 	}
 }
