@@ -90,7 +90,7 @@ Each row in the report represets an inpact trace.
 
 - The first element of a row identifies the component of the error source or the top-level component for external error sources. 
 
-- The second element identifies the initial failure mode, i.e., the error type or state in the **when** condition of the error source or the error event type if the component has a component error behavior declaration. 
+- The second element identifies the initial failure mode, i.e., the error type shown in "{}" or error state (without "{}") as specified in the **when** condition of the error source or as the error event type if the component has a component error behavior declaration. 
 
 - The third element describes the first level effect by identifying the outgoing error propagation, the error type being propagated, and the target component and incoming propagation that will be affected.
 
