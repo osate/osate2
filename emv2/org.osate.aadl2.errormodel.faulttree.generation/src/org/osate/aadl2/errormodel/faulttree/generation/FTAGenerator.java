@@ -84,7 +84,8 @@ public class FTAGenerator extends PropagationGraphBackwardTraversal {
 				topEvent.getSubEvents().add(ftaRootEvent);
 				ftaRootEvent = topEvent;
 			}
-			if (!faultTreeType.equals(FaultTreeType.FAULT_TRACE)) {
+			if (!faultTreeType.equals(FaultTreeType.FAULT_TRACE)
+					&& !faultTreeType.equals(FaultTreeType.COMPOSITE_PARTS)) {
 				flattenGates(ftaRootEvent);
 				cleanupXORGates(ftaRootEvent);
 //			xformXORtoOR(emftaRootEvent);
@@ -163,8 +164,7 @@ public class FTAGenerator extends PropagationGraphBackwardTraversal {
 		combined.setSubEventLogic(LogicOperation.OR);
 
 		for (Object seobj : subEvents) {
-			Event se = (Event) seobj;
-			combined.getSubEvents().add(se);
+			combined.getSubEvents().add((Event) seobj);
 		}
 		return combined;
 
@@ -943,6 +943,13 @@ public class FTAGenerator extends PropagationGraphBackwardTraversal {
 	@Override
 	protected EObject postProcessCompositeErrorStates(ComponentInstance component, ErrorBehaviorState state,
 			ErrorTypes targetType, List<EObject> subResults) {
+		if (subResults.size() == 1) {
+			Event result = (Event) subResults.get(0);
+			result.setRelatedInstanceObject(component);
+			result.setRelatedEMV2Object(state);
+			result.setRelatedErrorType(targetType);
+			return result;
+		}
 		Event result = finalizeAsOrEvents(component, state, targetType, subResults);
 		if (result == null) {
 			Event newEvent = FaultTreeUtils.createBasicEvent(ftaModel, component, state, targetType);
