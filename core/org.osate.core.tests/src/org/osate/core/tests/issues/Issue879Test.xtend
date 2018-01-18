@@ -63,26 +63,26 @@ class Issue879Test extends OsateTest {
 		testFileResult.resource.contents.head as AadlPackage => [
 			"simple".assertEquals(name)
 			
-			publicSection.ownedClassifiers.findFirst[name == S_I] as SystemImplementation => [
-				assertError(testFileResult.issues, issueCollection, ERROR_NO_SINK1, ERROR_NO_SRC1, ERROR_NO_PATH1)
-			]			
+//			publicSection.ownedClassifiers.findFirst[name == S_I] as SystemImplementation => [
+//				assertError(testFileResult.issues, issueCollection, ERROR_NO_SINK1, ERROR_NO_SRC1, ERROR_NO_PATH1)
+//			]			
 
 			publicSection.ownedClassifiers.findFirst[name == S_J] as SystemImplementation => [
-				ownedFlowImplementations.findFirst[specification.name == MY_SOURCE] as FlowImplementation => [
+				ownedFlowImplementations.findFirst[specification.name == MY_SOURCE] => [
 					assertWarning(testFileResult.issues, issueCollection, WARNING_FLOW_EMPTY)
 				]
-				ownedFlowImplementations.findFirst[specification.name == MY_SINK] as FlowImplementation => [
+				ownedFlowImplementations.findFirst[specification.name == MY_SINK] => [
 					assertWarning(testFileResult.issues, issueCollection, WARNING_FLOW_EMPTY)
 				]
-				ownedFlowImplementations.findFirst[specification.name == MY_PATH] as FlowImplementation => [
+				ownedFlowImplementations.findFirst[specification.name == MY_PATH] => [
 					assertWarning(testFileResult.issues, issueCollection, WARNING_FLOW_EMPTY)
 				]
 			]			
 			
 			publicSection.ownedClassifiers.findFirst[name == S_K] as SystemImplementation => [
-				assertError(testFileResult.issues, issueCollection, ERROR_NO_SINK2, ERROR_NO_SRC2)
+//				assertError(testFileResult.issues, issueCollection, ERROR_NO_SINK2, ERROR_NO_SRC2)
 				
-				ownedFlowImplementations.findFirst[specification.name == MY_PATH] as FlowImplementation => [
+				ownedFlowImplementations.findFirst[specification.name == MY_PATH] => [
 					assertWarning(testFileResult.issues, issueCollection, WARNING_FLOW_EMPTY)
 				]
 			]			
@@ -101,7 +101,7 @@ class Issue879Test extends OsateTest {
 			"pkg1".assertEquals(name)
 			
 			publicSection.ownedClassifiers.findFirst[name == A2_I] as AbstractImplementation => [
-				ownedFlowImplementations.findFirst[specification.name == FPATH1] as FlowImplementation => [
+				ownedFlowImplementations.findFirst[specification.name == FPATH1] => [
 					assertWarning(testFileResult.issues, issueCollection, WARNING_FLOW_EMPTY)
 				]
 			]			
@@ -133,7 +133,7 @@ class Issue879Test extends OsateTest {
 			"pkg2".assertEquals(name)
 			
 			publicSection.ownedClassifiers.findFirst[name == A2_I] as AbstractImplementation => [
-				ownedFlowImplementations.findFirst[specification.name == FSRC1] as FlowImplementation => [
+				ownedFlowImplementations.findFirst[specification.name == FSRC1] => [
 					assertWarning(testFileResult.issues, issueCollection, WARNING_FLOW_EMPTY)
 				]
 			]			
