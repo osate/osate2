@@ -507,7 +507,8 @@ public class OsateResourceUtil {
 	public static URI saveEMFModel(EObject root, final URI newURI, EObject context) {
 		try {
 			ResourceSet set = context.eResource().getResourceSet();
-			Resource res = set.createResource(newURI);
+			Resource res = getResource(newURI, set);
+			res.getContents().clear();
 			res.getContents().add(root);
 			res.save(null);
 			return EcoreUtil.getURI(root);
