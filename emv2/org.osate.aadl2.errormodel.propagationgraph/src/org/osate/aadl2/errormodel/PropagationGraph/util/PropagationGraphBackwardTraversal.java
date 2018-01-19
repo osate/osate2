@@ -525,14 +525,57 @@ public class PropagationGraphBackwardTraversal {
 												subResults);
 									}
 								}
+								if (result != null) {
+									return result;
+								}
+								return processErrorBehaviorState(referencedInstance, EMV2Util.getState(sconditionElement),
+										referencedErrorType);
 							}
-							if (result != null) {
-								return result;
+				} else if (sconditionElement.getQualifiedErrorPropagationReference() != null) {
+					EMV2Path path = sconditionElement.getQualifiedErrorPropagationReference();
+					ComponentInstance referencedInstance = EMV2Util.getLastComponentInstance(path, component);
+					EObject result = null;
+					ErrorPropagation ep = EMV2Util.getErrorPropagation(path);
+					// either original type or mapped to constraint in condition or type set on state declaration
+					ErrorTypes referencedErrorType = (sconditionElement.getConstraint() != null)
+							? sconditionElement.getConstraint()
+									: ep.getTypeSet();
+							if (referencedInstance != null) {
+								if (referencedErrorType == null || referencedErrorType instanceof ErrorType) {
+									result = traverseIncomingErrorPropagation(referencedInstance, ep, referencedErrorType);
+								} else {
+									// handle type set on states
+									// get incoming type from propagation
+									EList<TypeToken> leaftypes = EM2TypeSetUtil
+											.generateAllLeafTypeTokens((TypeSet) referencedErrorType, EMV2Util.getUseTypes(ep));
+									List<EObject> subResults = new LinkedList<EObject>();
+									for (TypeToken typeToken : leaftypes) {
+										EList<ErrorTypes> tl = typeToken.getType();
+										// TODO deal with type product
+										ErrorTypes newtype = tl.get(0);
+								EObject newEvent = traverseIncomingErrorPropagation(component, ep, newtype);
+										if (newEvent != null) {
+											subResults.add(newEvent);
+										}
+									}
+									if (subResults.isEmpty()) {
+										return processIncomingErrorPropagation(referencedInstance, ep, referencedErrorType);
+									} else if (subResults.size() == 1) {
+										return subResults.get(0);
+									} else {
+										return postProcessXor(component, sconditionElement, referencedErrorType, scale,
+												subResults);
+									}
+								}
+								if (result != null) {
+									return result;
+								}
+								return processErrorBehaviorState(referencedInstance, EMV2Util.getState(sconditionElement),
+										referencedErrorType);
 							}
-							return processErrorBehaviorState(referencedInstance, EMV2Util.getState(sconditionElement),
-									referencedErrorType);
 				}
-
+				// should not reach this
+				return processErrorBehaviorState(component, EMV2Util.getState(sconditionElement), null);
 			}
 
 			if (conditionElement.getConstraint() != null) {
