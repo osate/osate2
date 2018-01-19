@@ -5,7 +5,6 @@ import java.util.List;
 
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
-import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
@@ -14,7 +13,6 @@ import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
-import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.emf.transaction.RecordingCommand;
 import org.eclipse.emf.transaction.TransactionalEditingDomain;
 import org.eclipse.sirius.business.api.componentization.ViewpointRegistry;
@@ -41,11 +39,12 @@ import org.eclipse.sirius.viewpoint.DView;
 import org.eclipse.sirius.viewpoint.description.RepresentationDescription;
 import org.eclipse.sirius.viewpoint.description.Viewpoint;
 import org.eclipse.swt.widgets.Display;
+import org.osate.aadl2.errormodel.FaultTree.FaultTree;
 import org.osate.aadl2.util.OsateDebug;
 
 /**
  * Utilities around Sirius, sessions and representations
- * 
+ *
  * @author St�phane Thibaudeau <stephane.thibaudeau@obeo.fr>
  *
  */
@@ -58,7 +57,7 @@ public class SiriusUtil {
 	}
 
 	/**
-	 * 
+	 *
 	 * @param session
 	 * @param monitor
 	 */
@@ -70,8 +69,9 @@ public class SiriusUtil {
 
 	public Viewpoint getViewpoint(final Session session, URI viewpointURI, final IProgressMonitor monitor) {
 		Viewpoint result = getViewpointFromSession(session, viewpointURI);
-		if (result != null)
+		if (result != null) {
 			return result;
+		}
 		ViewpointRegistry registry = ViewpointRegistry.getInstance();
 		try {
 			final Viewpoint regViewpoint = registry.getViewpoint(viewpointURI);
@@ -83,19 +83,19 @@ public class SiriusUtil {
 
 				// Ensure the viewpoint is selected for the session
 				session.getTransactionalEditingDomain().getCommandStack()
-						.execute(new RecordingCommand(session.getTransactionalEditingDomain()) {
+				.execute(new RecordingCommand(session.getTransactionalEditingDomain()) {
 
-							@Override
-							protected void doExecute() {
+					@Override
+					protected void doExecute() {
 
-								// Check if already selected
-								Collection<Viewpoint> sel = session.getSelectedViewpoints(false);
-								if (!session.getSelectedViewpoints(false).contains(regViewpoint)) {
-									ViewpointSelectionCallback selection = new ViewpointSelectionCallback();
-									selection.selectViewpoint(regViewpoint, session, monitor);
-								}
-							}
-						});
+						// Check if already selected
+						Collection<Viewpoint> sel = session.getSelectedViewpoints(false);
+						if (!session.getSelectedViewpoints(false).contains(regViewpoint)) {
+							ViewpointSelectionCallback selection = new ViewpointSelectionCallback();
+							selection.selectViewpoint(regViewpoint, session, monitor);
+						}
+					}
+				});
 			}
 		} catch (Exception e) {
 			// Unable to retrieve viewpoint
@@ -164,7 +164,7 @@ public class SiriusUtil {
 	}
 
 	/**
-	 * Creates and opens a representation on the specified object 
+	 * Creates and opens a representation on the specified object
 	 * @param existingSession Sirirus session
 	 * @param viewpoint Viewpoint containing the representation description
 	 * @param description Representation description used to indicate which kind of representation to create
@@ -177,19 +177,15 @@ public class SiriusUtil {
 			final IProgressMonitor monitor) {
 
 		// Create and open the representation
-		Display.getDefault().syncExec(new Runnable() {
-
-			@Override
-			public void run() {
-				CreateRepresentationAction action = new CreateRepresentationAction(existingSession, object, description,
-						new SessionLabelProvider(ViewHelper.INSTANCE.createAdapterFactory())) {
-					@Override
-					protected String getRepresentationName() {
-						return representationName;
-					}
-				};
-				action.run();
-			}
+		Display.getDefault().syncExec(() -> {
+			CreateRepresentationAction action = new CreateRepresentationAction(existingSession, object, description,
+					new SessionLabelProvider(ViewHelper.INSTANCE.createAdapterFactory())) {
+				@Override
+				protected String getRepresentationName() {
+					return representationName;
+				}
+			};
+			action.run();
 		});
 	}
 
@@ -263,7 +259,7 @@ public class SiriusUtil {
 
 	/**
 	 * Retrieves the Sirius session referencing the URI as a semantic resource
-	 * 
+	 *
 	 * @param uri URI of the potential semantic resource
 	 * @return the Sirius session or null if no corresponding session was found
 	 */
@@ -313,7 +309,7 @@ public class SiriusUtil {
 	}
 
 	/**
-	 * Returns a session's semantic resource from its URI 
+	 * Returns a session's semantic resource from its URI
 	 * @param session
 	 * @param uri
 	 * @return the semantic resource or null if the session references no resource with the specified URI
@@ -344,7 +340,8 @@ public class SiriusUtil {
 	 * @param resourceUri
 	 * @param monitor
 	 */
-	public void createAndOpenSiruisView(final URI ftamodelUri, final IProject project, String viewPoint,
+	public void createAndOpenSiruisView(final URI ftamodelUri, final FaultTree ft, final IProject project,
+			String viewPoint,
 			String representation, IProgressMonitor monitor) {
 		URI viewpointURI = URI.createURI(viewPoint);
 
@@ -357,44 +354,45 @@ public class SiriusUtil {
 		}
 		if (existingSession != null) {
 			saveSession(existingSession, monitor);
-			ResourceSetImpl resset = new ResourceSetImpl();
 			EObject model = getModelFromSession(existingSession, semanticResourceURI);
 			// XXX this next piece of code tries to compensate for a bug in Sirius where it cannot find the model
 			// It should be there since the getSessionForProjectandResource would have put it there.
 			if (model == null) {
 				OsateDebug.osateDebug(
 						"Could not find semantic resource in session for URI " + semanticResourceURI.path());
-				model = resset.getEObject(ftamodelUri, true);
+				model = ft;
 			}
 			if (model == null) {
 				OsateDebug.osateDebug("Could not find model for URI " + ftamodelUri.path());
 				return;
 			}
-			final Viewpoint emftaVP = getViewpoint(existingSession, viewpointURI, monitor);
-			final RepresentationDescription description = getRepresentationDescription(emftaVP, representation);
+			final Viewpoint faultTreeVP = getViewpoint(existingSession, viewpointURI, monitor);
+			final RepresentationDescription description = getRepresentationDescription(faultTreeVP, representation);
 			String modelRootName = getPrintName(model);
 			String representationName = modelRootName + " " + representation;
-			final DRepresentation rep = findRepresentation(existingSession, emftaVP, description, representationName);
+			final DRepresentation rep = findRepresentation(existingSession, faultTreeVP, description, representationName);
 			if (rep != null) {
-				DialectUIManager.INSTANCE.openEditor(existingSession, rep, monitor);
-			} else {
 				try {
-					createAndOpenRepresentation(existingSession, emftaVP, description, representationName, model,
-							monitor);
-				} catch (Exception e) {
-					OsateDebug.osateDebug("Could not create and open model " + modelRootName);
+					DialectUIManager.INSTANCE.openEditor(existingSession, rep, monitor);
+					project.refreshLocal(IResource.DEPTH_INFINITE, monitor);
 					return;
+				} catch (Exception e) {
+					OsateDebug.osateDebug("Could not open editor on model " + modelRootName);
 				}
 			}
 			try {
+				createAndOpenRepresentation(existingSession, faultTreeVP, description, representationName, model,
+						monitor);
 				project.refreshLocal(IResource.DEPTH_INFINITE, monitor);
-			} catch (CoreException e) {
-				// Error while refreshing the project
+			} catch (Exception e) {
+				OsateDebug.osateDebug("Could not create and open model " + modelRootName);
+				return;
 			}
 		}
 	}
 
-	public void autoOpenModel(final URI newURI, final IProject activeProject, final String viewPoint,
+	public void autoOpenModel(final URI newURI, final FaultTree ft, final IProject activeProject,
+			final String viewPoint,
 			final String representation, final String jobName) {
 
 		try {
@@ -406,7 +404,7 @@ public class SiriusUtil {
 
 					monitor.beginTask(jobName, 100);
 
-					createAndOpenSiruisView(newURI, activeProject, viewPoint, representation, monitor);
+					createAndOpenSiruisView(newURI, ft, activeProject, viewPoint, representation, monitor);
 //					}
 					monitor.done();
 

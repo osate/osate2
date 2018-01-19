@@ -283,6 +283,25 @@ public class EM2TypeSetUtil {
 	}
 
 	/**
+	 * true if TypeToken constraint contains TypeToken token
+	 * aliases are resolved before the error types are compared
+	 * @param constraint TypeToken
+	 * @param token TypeToken
+	 * @return
+	 */
+	public static boolean contains(List<TypeToken> constraint, TypeToken token) {
+		if (token == null) {
+			return true;
+		}
+		for (TypeToken typeToken : constraint) {
+			if (contains(typeToken, token)) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	/**
 	 * type product contains typeelement as one of its elements
 	 * @param typeProduct
 	 * @param typeElement

@@ -179,7 +179,7 @@ end common_error2;
   </events>
   <events name="Intermediate1" subEvents="//@events.1 //@events.2" referenceCount="1" type="Intermediate" subEventLogic="And">
     <relatedInstanceObject href="../../common-error2_main_commonevents_Instance.aaxl2#/"/>
-    <relatedEMV2Object href="../../../common-error2.aadl#/0/@ownedPublicSection/@ownedClassifier.5/@ownedAnnexSubclause.0/@parsedAnnexSubclause/@states.0/@condition"/>
+    <relatedEMV2Object href="../../../../../plugin/org.osate.aadl2.errormodel.contrib/resources/packages/ErrorLibrary.aadl#/0/@ownedPublicSection/@ownedAnnexLibrary.0/@parsedAnnexLibrary/@behaviors.0/@states.1"/>
   </events>
   <events name="common_error2_main_commonevents-failstop" subEvents="//@events.3 //@events.0" referenceCount="1" type="Intermediate">
     <relatedInstanceObject href="../../common-error2_main_commonevents_Instance.aaxl2#/"/>

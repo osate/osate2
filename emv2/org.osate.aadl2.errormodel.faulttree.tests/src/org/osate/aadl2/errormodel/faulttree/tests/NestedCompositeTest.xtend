@@ -268,9 +268,9 @@ end nestedcomposite;
   </events>
   <events name="Intermediate3" subEvents="//@events.4 //@events.5" referenceCount="1" type="Intermediate" subEventLogic="And">
     <relatedInstanceObject href="../../nestedcomposite_main_nestedstate_Instance.aaxl2#//@componentInstance.5"/>
-    <relatedEMV2Object href="../../../nestedcomposite.aadl#/0/@ownedPublicSection/@ownedClassifier.8/@ownedAnnexSubclause.0/@parsedAnnexSubclause/@states.0/@condition"/>
+    <relatedEMV2Object href="../../../../../plugin/org.osate.aadl2.errormodel.contrib/resources/packages/ErrorLibrary.aadl#/0/@ownedPublicSection/@ownedAnnexLibrary.0/@parsedAnnexLibrary/@behaviors.0/@states.1"/>
   </events>
-  <events name="nestedcomposite_main_nestedstate-failstop" subEvents="//@events.2 //@events.3 //@events.6" referenceCount="1" type="Intermediate" subEventLogic="Xor">
+  <events name="nestedcomposite_main_nestedstate-failstop" subEvents="//@events.6 //@events.2 //@events.3" referenceCount="1" type="Intermediate" subEventLogic="Xor">
     <relatedInstanceObject href="../../nestedcomposite_main_nestedstate_Instance.aaxl2#/"/>
     <relatedEMV2Object href="../../../../../plugin/org.osate.aadl2.errormodel.contrib/resources/packages/ErrorLibrary.aadl#/0/@ownedPublicSection/@ownedAnnexLibrary.0/@parsedAnnexLibrary/@behaviors.0/@states.1"/>
   </events>
