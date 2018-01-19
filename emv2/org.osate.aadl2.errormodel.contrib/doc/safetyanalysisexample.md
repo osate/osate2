@@ -59,9 +59,9 @@ The second table reports the impact of failures external to the top-level system
 
 Users can determine all contributors to a flight system failure and assess whether the failure occurrence probabilities assigned to each subsystem and assumed by the context are sufficient to meet the maximum failure occurrence requirement for the flight system. Users can generate a fault tree by applying the Analyze Fault Tree command to the FlightSystem.Tier1 instance. Users identify ObservableFailure of error type ServiceOmission of FlightSystem as the fault tree root. The resulting fault tree is displayed graphically or in table view as chosen by the user. Both views are illustrated below for FlightSystem.Tier1.
 
-![FGS FTA](images/FlightSystem-FaultTreeGraphic.png "FGS FTA")
+![FGS FTA](images/flightsystemtier1-FT-graphic.png "FGS FTA")
 
-![FGS FTA](images/FlightSystem-FaultTreeTable.png "FGS FTA")
+![FGS FTA](images/flightsystemtier1-FT-table.png "FGS FTA")
 
 >Note that the fault tree analysis command lets users choose to generate a **fault tree**, a **fault contributor trace**, a **minimal cutset**, and a **parts fault tree**. A fault tree shows all potential failures (error events and error sources). A fault contributor traces shows all steps in the backward trace from the system failure to each of the contributors including incoming and outgoing propagations and error behavior states reached by transitions. A minimal cutset generates the smallest sets of contributors resulting in the sected system failure. The parts fault tree generates a fault tree from a parts model of a system with composite error state specification in terms of subcomponent error states.
 
@@ -122,7 +122,7 @@ The resulting fault tree results including occurrence probability are shown in t
 ![GPS 2 Sensor](images/fta-gps2sensorstatetable.png "GPS 2 Sensor")
 
 The fault occurrence probability of this redundant sensor design may be too close to the target values as we are early in the system design. Therefore, the architect of the flight system can quickly explore the an alternative flight system architecture with a dual GPS design and determine whether this alternative provides a better solution with respect to the target occurrence probability for the flight system.
-FlightSystem.Dual is a specification of such a design.
+FlightSystem.DualGPS is a specification of such a design.
 
 ![FS Dual](images/FS-Dual-Graphic.png "FS Dual")
 
