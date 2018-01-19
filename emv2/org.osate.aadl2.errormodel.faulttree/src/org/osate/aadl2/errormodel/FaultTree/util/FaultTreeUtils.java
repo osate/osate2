@@ -63,6 +63,9 @@ public class FaultTreeUtils {
 
 	public static String buildIdentifier(ComponentInstance component, NamedElement namedElement, ErrorTypes type) {
 		String identifier;
+		if (component == null) {
+			return "Null Component Reference";
+		}
 
 		identifier = component instanceof SystemInstance
 				? component.getComponentClassifier().getQualifiedName().replaceAll("::", "_").replaceAll("\\.", "_")
