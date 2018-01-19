@@ -4,13 +4,15 @@
     <ownedRepresentations xsi:type="description_1:EditionTableDescription" name="MinimalCutSetTable" label="Minimal Cutset Table" domainClass="FaultTree.FaultTree">
       <metamodel href="../../org.osate.aadl2.errormodel.faulttree/model/FaultTree.ecore#/"/>
       <ownedLineMappings name="MinimalCutSetsLine" label="Minimal Cutsets" reusedSubLines="//@ownedViewpoints[name='FaultTree']/@ownedRepresentations[name='MinimalCutSetTable']/@ownedLineMappings[name='MinimalCutSetsLine']" reusedInMappings="//@ownedViewpoints[name='FaultTree']/@ownedRepresentations[name='MinimalCutSetTable']/@ownedLineMappings[name='MinimalCutSetsLine']" domainClass="FaultTree.Event" semanticCandidatesExpression="service:getCutsets()" headerLabelExpression="service:getCutsetLabel()"/>
-      <ownedColumnMappings name="ProbabilityColumn" label="Probability" headerLabelExpression="Probability" canEdit="false" featureName="*" labelExpression="service:getProbability()"/>
+      <ownedColumnMappings name="ProbabilityColumn" label="Computed Probability" headerLabelExpression="Computed Probability" canEdit="false" featureName="*" labelExpression="service:getComputedProbability()"/>
+      <ownedColumnMappings name="ProbabilityColumn" label="Specified Probability" headerLabelExpression="Specified Probability" canEdit="false" featureName="*" labelExpression="service:getAssignedProbability()"/>
     </ownedRepresentations>
     <ownedRepresentations xsi:type="description_1:EditionTableDescription" name="FaultTreeTable" label="Fault Tree Table" domainClass="FaultTree.FaultTree">
       <metamodel href="../../org.osate.aadl2.errormodel.faulttree/model/FaultTree.ecore#/"/>
       <ownedLineMappings name="EventLine" label="System Component" reusedSubLines="//@ownedViewpoints[name='FaultTree']/@ownedRepresentations[name='FaultTreeTable']/@ownedLineMappings[name='EventLine']" reusedInMappings="//@ownedViewpoints[name='FaultTree']/@ownedRepresentations[name='FaultTreeTable']/@ownedLineMappings[name='EventLine']" domainClass="FaultTree.Event" semanticCandidatesExpression="service:getEvents()" headerLabelExpression="service:getEventDescription()"/>
       <ownedColumnMappings name="ErrorColumn" label="Propagated Error" headerLabelExpression="Error Model Element/Type" canEdit="false" featureName="*" labelExpression="service:getErrorDescription()"/>
-      <ownedColumnMappings name="ProbabilityColumn" label="Probability" headerLabelExpression="Probability" canEdit="false" featureName="*" labelExpression="service:getProbability()"/>
+      <ownedColumnMappings name="ProbabilityColumn" label="Computed Probability" headerLabelExpression="Computed Probability" canEdit="false" featureName="*" labelExpression="service:getComputedProbability()"/>
+      <ownedColumnMappings name="ProbabilityColumn" label="Specified Probability" headerLabelExpression="Specified Probability" canEdit="false" featureName="*" labelExpression="service:getAssignedProbability()"/>
       <ownedColumnMappings name="EventTypeColumn" label="Event/Gate Type" headerLabelExpression="Event/Gate Type" canEdit="false" featureName="*" labelExpression="service:getEventTypeLogic()"/>
       <ownedColumnMappings name="DependentEventColumn" label="Dependent Event" headerLabelExpression="Dependent Event" canEdit="false" featureName="*" labelExpression="service:getDependentEventLabel()"/>
     </ownedRepresentations>

@@ -391,11 +391,25 @@ public class FaultTreeUtils {
 		return description;
 	}
 
+	/**
+	 * return computed & spec probability - if computed is zero then only spec.
+	 * @param context
+	 * @return
+	 */
 	public static String getProbability(EObject context) {
 		Event ev = (Event) context;
-		return String.format("%1$.1e", ev.getProbability());
+		String specProb = "";
+		if (ev.getComputedProbability() != 0.0 && ev.getAssignedProbability() != 0.0) {
+			specProb = String.format(" (Spec %1$.1e)", ev.getAssignedProbability());
+		}
+		return String.format("%1$.1e%2$s", ev.getProbability(), specProb);
 	}
 
+	/**
+	 * return spec probability, i.e., probability assigned by property
+	 * @param context
+	 * @return
+	 */
 	public static String getAssignedProbability(EObject context) {
 		Event ev = (Event) context;
 		if (ev.getAssignedProbability() == 0.0) {
@@ -404,6 +418,11 @@ public class FaultTreeUtils {
 		return String.format("%1$.1e", ev.getAssignedProbability());
 	}
 
+	/**
+	 * return computed probability
+	 * @param context
+	 * @return
+	 */
 	public static String getComputedProbability(EObject context) {
 		Event ev = (Event) context;
 		if (ev.getComputedProbability() == 0.0) {

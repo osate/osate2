@@ -83,4 +83,12 @@ public class Services {
 		return FaultTreeUtils.getProbability(context);
 	}
 
+	public String getAssignedProbability(EObject context) {
+		return FaultTreeUtils.getAssignedProbability(context);
+	}
+
+	public String getComputedProbability(EObject context) {
+		return FaultTreeUtils.getComputedProbability(context);
+	}
+
 }
