@@ -333,4 +333,10 @@
             id="org.osate.xtext.aadl2.ui.editor.ContributedAadlEditorInputFactory">
       </factory>
    </extension>
+       <extension
+          point="org.eclipse.xtext.ui.shared.overridingGuiceModule">
+       <module
+             class="org.osate.xtext.aadl2.properties.ui.PropertiesBuilderModule">
+       </module>
+    </extension>
 </plugin>
