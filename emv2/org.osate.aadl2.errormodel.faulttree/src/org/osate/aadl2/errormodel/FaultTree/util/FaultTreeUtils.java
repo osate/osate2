@@ -396,6 +396,22 @@ public class FaultTreeUtils {
 		return String.format("%1$.1e", ev.getProbability());
 	}
 
+	public static String getAssignedProbability(EObject context) {
+		Event ev = (Event) context;
+		if (ev.getAssignedProbability() == 0.0) {
+			return "";
+		}
+		return String.format("%1$.1e", ev.getAssignedProbability());
+	}
+
+	public static String getComputedProbability(EObject context) {
+		Event ev = (Event) context;
+		if (ev.getComputedProbability() == 0.0) {
+			return "";
+		}
+		return String.format("%1$.1e", ev.getComputedProbability());
+	}
+
 	public static String getDescriptionAndProbability(EObject context) {
 		if (context instanceof Event) {
 			Event ev = (Event) context;
