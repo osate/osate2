@@ -1,139 +1,46 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<description:Group xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:description="http://www.eclipse.org/sirius/description/1.1.0" xmlns:description_1="http://www.eclipse.org/sirius/diagram/description/1.1.0" xmlns:description_2="http://www.eclipse.org/sirius/table/description/1.1.0" xmlns:style="http://www.eclipse.org/sirius/diagram/description/style/1.1.0" xmlns:tool="http://www.eclipse.org/sirius/description/tool/1.1.0" name="faulttree" version="12.0.0.2017041100">
+<description:Group xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:description="http://www.eclipse.org/sirius/description/1.1.0" xmlns:description_1="http://www.eclipse.org/sirius/table/description/1.1.0" xmlns:description_2="http://www.eclipse.org/sirius/diagram/description/1.1.0" xmlns:style="http://www.eclipse.org/sirius/diagram/description/style/1.1.0" xmlns:tool="http://www.eclipse.org/sirius/description/tool/1.1.0" name="faulttree" version="12.0.0.2017041100">
   <ownedViewpoints name="FaultTree" modelFileExtension="faulttree">
-    <ownedRepresentations xsi:type="description_1:DiagramDescription" name="GraphicFaultTree" domainClass="FaultTree.FaultTree" enablePopupBars="true">
+    <ownedRepresentations xsi:type="description_1:EditionTableDescription" name="MinimalCutSetTable" label="Minimal Cutset Table" domainClass="FaultTree.FaultTree">
       <metamodel href="../../org.osate.aadl2.errormodel.faulttree/model/FaultTree.ecore#/"/>
-      <layout xsi:type="description_1:OrderedTreeLayout" childrenExpression="service:getEvents()" nodeMapping="//@ownedViewpoints[name='FaultTree']/@ownedRepresentations[name='GraphicFaultTree']/@defaultLayer/@nodeMappings[name='EventNode']"/>
+      <ownedLineMappings name="MinimalCutSetsLine" label="Minimal Cutsets" reusedSubLines="//@ownedViewpoints[name='FaultTree']/@ownedRepresentations[name='MinimalCutSetTable']/@ownedLineMappings[name='MinimalCutSetsLine']" reusedInMappings="//@ownedViewpoints[name='FaultTree']/@ownedRepresentations[name='MinimalCutSetTable']/@ownedLineMappings[name='MinimalCutSetsLine']" domainClass="FaultTree.Event" semanticCandidatesExpression="service:getCutsets()" headerLabelExpression="service:getCutsetLabel()"/>
+      <ownedColumnMappings name="ProbabilityColumn" label="Probability" headerLabelExpression="Probability" canEdit="false" featureName="*" labelExpression="service:getProbability()"/>
+    </ownedRepresentations>
+    <ownedRepresentations xsi:type="description_1:EditionTableDescription" name="FaultTreeTable" label="Fault Tree Table" domainClass="FaultTree.FaultTree">
+      <metamodel href="../../org.osate.aadl2.errormodel.faulttree/model/FaultTree.ecore#/"/>
+      <ownedLineMappings name="EventLine" label="System Component" reusedSubLines="//@ownedViewpoints[name='FaultTree']/@ownedRepresentations[name='FaultTreeTable']/@ownedLineMappings[name='EventLine']" reusedInMappings="//@ownedViewpoints[name='FaultTree']/@ownedRepresentations[name='FaultTreeTable']/@ownedLineMappings[name='EventLine']" domainClass="FaultTree.Event" semanticCandidatesExpression="service:getEvents()" headerLabelExpression="service:getEventDescription()"/>
+      <ownedColumnMappings name="ErrorColumn" label="Propagated Error" headerLabelExpression="Error Model Element/Type" canEdit="false" featureName="*" labelExpression="service:getErrorDescription()"/>
+      <ownedColumnMappings name="ProbabilityColumn" label="Probability" headerLabelExpression="Probability" canEdit="false" featureName="*" labelExpression="service:getProbability()"/>
+      <ownedColumnMappings name="EventTypeColumn" label="Event/Gate Type" headerLabelExpression="Event/Gate Type" canEdit="false" featureName="*" labelExpression="service:getEventTypeLogic()"/>
+      <ownedColumnMappings name="DependentEventColumn" label="Dependent Event" headerLabelExpression="Dependent Event" canEdit="false" featureName="*" labelExpression="service:getDependentEventLabel()"/>
+    </ownedRepresentations>
+    <ownedRepresentations xsi:type="description_2:DiagramDescription" name="IconicFaultTree" domainClass="FaultTree.FaultTree" enablePopupBars="true">
+      <metamodel href="../../org.osate.aadl2.errormodel.faulttree/model/FaultTree.ecore#/"/>
+      <layout xsi:type="description_2:OrderedTreeLayout" childrenExpression="service:getEvents()" nodeMapping="//@ownedViewpoints[name='FaultTree']/@ownedRepresentations[name='IconicFaultTree']/@defaultLayer/@containerMappings[name='EventContainer']"/>
       <diagramInitialisation>
         <firstModelOperations xsi:type="tool:ChangeContext"/>
       </diagramInitialisation>
       <defaultLayer name="Default">
-        <nodeMappings name="EventNode" semanticCandidatesExpression="feature:events" domainClass="FaultTree.Event">
-          <borderedNodeMappings name="GateBNode" semanticCandidatesExpression="aql:self" domainClass="FaultTree.Event">
-            <style xsi:type="style:DotDescription" labelPosition="node" resizeKind="NSEW">
-              <borderColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
-              <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
-              <forbiddenSides>WEST</forbiddenSides>
-              <forbiddenSides>EAST</forbiddenSides>
-              <forbiddenSides>NORTH</forbiddenSides>
-              <backgroundColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='gray']"/>
-            </style>
-            <conditionnalStyles predicateExpression="aql:self.type = FaultTree::EventType::Basic">
-              <style xsi:type="style:EllipseNodeDescription" showIcon="false" labelExpression="" sizeComputationExpression="2" labelPosition="node" resizeKind="NSEW" horizontalDiameterComputationExpression="" verticalDiameterComputationExpression="">
-                <borderColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
-                <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
-                <forbiddenSides>WEST</forbiddenSides>
-                <forbiddenSides>EAST</forbiddenSides>
-                <forbiddenSides>NORTH</forbiddenSides>
-                <color xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='white']"/>
-              </style>
-            </conditionnalStyles>
-            <conditionnalStyles predicateExpression="aql:self.subEventLogic = FaultTree::LogicOperation::Or">
-              <style xsi:type="style:WorkspaceImageDescription" showIcon="false" labelExpression="OR" labelPosition="node" resizeKind="NSEW" workspacePath="/org.osate.aadl2.errormodel.faulttree.design/images/or5mm.svg">
-                <borderColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
-                <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
-                <forbiddenSides>WEST</forbiddenSides>
-                <forbiddenSides>EAST</forbiddenSides>
-                <forbiddenSides>NORTH</forbiddenSides>
-              </style>
-            </conditionnalStyles>
-            <conditionnalStyles predicateExpression="aql:self.subEventLogic = FaultTree::LogicOperation::And">
-              <style xsi:type="style:WorkspaceImageDescription" showIcon="false" labelExpression="AND" labelPosition="node" resizeKind="NSEW" workspacePath="/org.osate.aadl2.errormodel.faulttree.design/images/and5mm.svg">
-                <borderColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
-                <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
-              </style>
-            </conditionnalStyles>
-            <conditionnalStyles predicateExpression="aql:self.type = FaultTree::EventType::Undeveloped">
-              <style xsi:type="style:LozengeNodeDescription" showIcon="false" labelExpression="" sizeComputationExpression="2" labelPosition="node" resizeKind="NSEW">
-                <borderColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
-                <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
-                <forbiddenSides>WEST</forbiddenSides>
-                <forbiddenSides>EAST</forbiddenSides>
-                <forbiddenSides>NORTH</forbiddenSides>
-                <color xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='white']"/>
-              </style>
-            </conditionnalStyles>
-            <conditionnalStyles predicateExpression="aql:self.type = FaultTree::EventType::External">
-              <style xsi:type="style:WorkspaceImageDescription" showIcon="false" labelExpression="" sizeComputationExpression="2" labelPosition="node" resizeKind="NSEW" workspacePath="/org.osate.aadl2.errormodel.faulttree.design/images/ExternalSymbol.svg">
-                <borderColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
-                <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
-                <forbiddenSides>WEST</forbiddenSides>
-                <forbiddenSides>EAST</forbiddenSides>
-                <forbiddenSides>NORTH</forbiddenSides>
-              </style>
-            </conditionnalStyles>
-            <conditionnalStyles predicateExpression="aql:self.subEventLogic = FaultTree::LogicOperation::Xor">
-              <style xsi:type="style:WorkspaceImageDescription" showIcon="false" labelExpression="XOR" sizeComputationExpression="2" labelPosition="node" resizeKind="NSEW" workspacePath="/org.osate.aadl2.errormodel.faulttree.design/images/xor5mm.svg">
-                <borderColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
-                <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
-                <forbiddenSides>WEST</forbiddenSides>
-                <forbiddenSides>EAST</forbiddenSides>
-                <forbiddenSides>NORTH</forbiddenSides>
-              </style>
-            </conditionnalStyles>
-            <conditionnalStyles predicateExpression="aql:self.subEventLogic = FaultTree::LogicOperation::PriorityAnd">
-              <style xsi:type="style:WorkspaceImageDescription" showIcon="false" labelExpression="P-AND" labelPosition="node" resizeKind="NSEW" workspacePath="/org.osate.aadl2.errormodel.faulttree.design/images/priority-and5mm.svg">
-                <borderColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
-                <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
-                <forbiddenSides>WEST</forbiddenSides>
-                <forbiddenSides>EAST</forbiddenSides>
-                <forbiddenSides>NORTH</forbiddenSides>
-              </style>
-            </conditionnalStyles>
-          </borderedNodeMappings>
-          <style xsi:type="style:SquareDescription" showIcon="false" labelExpression="service:getDescriptionAndProbability()" tooltipExpression="service:getHazardDescriptionAndProbability()" sizeComputationExpression="-1" labelPosition="node" resizeKind="NSEW" width="15" height="4" color="//@userColorsPalettes[name='FaultTreeColors']/@entries[name='VeryLightGrey']">
-            <borderColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
-            <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
-          </style>
-        </nodeMappings>
-        <edgeMappings name="SubeventLink" sourceMapping="//@ownedViewpoints[name='FaultTree']/@ownedRepresentations[name='GraphicFaultTree']/@defaultLayer/@nodeMappings[name='EventNode']/@borderedNodeMappings[name='GateBNode']" targetMapping="//@ownedViewpoints[name='FaultTree']/@ownedRepresentations[name='GraphicFaultTree']/@defaultLayer/@nodeMappings[name='EventNode']" targetFinderExpression="feature:subEvents">
-          <style sizeComputationExpression="2" routingStyle="tree" endsCentering="Both" centeredSourceMappings="//@ownedViewpoints[name='FaultTree']/@ownedRepresentations[name='GraphicFaultTree']/@defaultLayer/@nodeMappings[name='EventNode']/@borderedNodeMappings[name='GateBNode']" centeredTargetMappings="//@ownedViewpoints[name='FaultTree']/@ownedRepresentations[name='GraphicFaultTree']/@defaultLayer/@nodeMappings[name='EventNode']">
+        <edgeMappings name="SubBoxtLink" sourceMapping="//@ownedViewpoints[name='FaultTree']/@ownedRepresentations[name='IconicFaultTree']/@defaultLayer/@containerMappings[name='EventContainer']" targetMapping="//@ownedViewpoints[name='FaultTree']/@ownedRepresentations[name='IconicFaultTree']/@defaultLayer/@containerMappings[name='EventContainer']" targetFinderExpression="feature:subEvents">
+          <style sizeComputationExpression="2">
             <strokeColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
             <centerLabelStyleDescription>
               <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
             </centerLabelStyleDescription>
           </style>
         </edgeMappings>
-      </defaultLayer>
-    </ownedRepresentations>
-    <ownedRepresentations xsi:type="description_2:EditionTableDescription" name="MinimalCutSetTable" domainClass="FaultTree.FaultTree">
-      <metamodel href="../../org.osate.aadl2.errormodel.faulttree/model/FaultTree.ecore#/"/>
-      <ownedLineMappings name="MinimalCutSetsLine" label="Minimal Cutsets" reusedSubLines="//@ownedViewpoints[name='FaultTree']/@ownedRepresentations[name='MinimalCutSetTable']/@ownedLineMappings[name='MinimalCutSetsLine']" reusedInMappings="//@ownedViewpoints[name='FaultTree']/@ownedRepresentations[name='MinimalCutSetTable']/@ownedLineMappings[name='MinimalCutSetsLine']" domainClass="FaultTree.Event" semanticCandidatesExpression="service:getCutsets()" headerLabelExpression="feature:name"/>
-      <ownedColumnMappings name="ProbabilityColumn" label="Probability" headerLabelExpression="Probability" featureName="probability"/>
-      <ownedColumnMappings name="DescriptionColumn" label="Description" headerLabelExpression="Description" featureName="description"/>
-    </ownedRepresentations>
-    <ownedRepresentations xsi:type="description_2:EditionTableDescription" name="FaultTreeTable" domainClass="FaultTree.FaultTree">
-      <metamodel href="../../org.osate.aadl2.errormodel.faulttree/model/FaultTree.ecore#/"/>
-      <ownedLineMappings name="EventLine" reusedSubLines="//@ownedViewpoints[name='FaultTree']/@ownedRepresentations[name='FaultTreeTable']/@ownedLineMappings[name='EventLine']" reusedInMappings="//@ownedViewpoints[name='FaultTree']/@ownedRepresentations[name='FaultTreeTable']/@ownedLineMappings[name='EventLine']" domainClass="FaultTree.Event" semanticCandidatesExpression="service:getEvents()"/>
-      <ownedColumnMappings name="EventTypeColumn" label="Event Type" headerLabelExpression="Event Type" featureName="type"/>
-      <ownedColumnMappings name="LogicOperationColumn" label="Gate Logic" headerLabelExpression="Gate Logic" featureName="subEventLogic"/>
-    </ownedRepresentations>
-    <ownedRepresentations xsi:type="description_1:DiagramDescription" name="IconicFaultTree" domainClass="FaultTree.FaultTree" enablePopupBars="true">
-      <metamodel href="../../org.osate.aadl2.errormodel.faulttree/model/FaultTree.ecore#/"/>
-      <layout xsi:type="description_1:OrderedTreeLayout" childrenExpression="service:getEvents()" nodeMapping="//@ownedViewpoints[name='FaultTree']/@ownedRepresentations[name='IconicFaultTree']/@defaultLayer/@nodeMappings[name='EventBox']"/>
-      <diagramInitialisation>
-        <firstModelOperations xsi:type="tool:ChangeContext"/>
-      </diagramInitialisation>
-      <defaultLayer name="Default">
-        <nodeMappings name="EventBox" semanticCandidatesExpression="feature:events" domainClass="FaultTree::Event">
-          <style xsi:type="style:SquareDescription" labelExpression="service:getDescriptionAndProbability()" tooltipExpression="service:getHazardDescriptionAndProbability()" sizeComputationExpression="-1" labelPosition="node" resizeKind="NSEW" width="15" height="4" color="//@userColorsPalettes[name='FaultTreeColors']/@entries[name='VeryLightGrey']">
+        <containerMappings name="EventContainer" semanticCandidatesExpression="feature:events" domainClass="FaultTree::Event">
+          <style xsi:type="style:FlatContainerStyleDescription" borderSizeComputationExpression="1" labelExpression="service:getDescriptionAndProbability()" tooltipExpression="service:getHazardDescriptionAndProbability()" heightComputationExpression="6" backgroundColor="//@userColorsPalettes[name='FaultTreeColors']/@entries[name='VeryLightGrey']" foregroundColor="//@userColorsPalettes[name='FaultTreeColors']/@entries[name='VeryLightGrey']">
             <borderColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
             <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
           </style>
-        </nodeMappings>
-        <edgeMappings name="SubBoxtLink" sourceMapping="//@ownedViewpoints[name='FaultTree']/@ownedRepresentations[name='IconicFaultTree']/@defaultLayer/@nodeMappings[name='EventBox']" targetMapping="//@ownedViewpoints[name='FaultTree']/@ownedRepresentations[name='IconicFaultTree']/@defaultLayer/@nodeMappings[name='EventBox']" targetFinderExpression="feature:subEvents">
-          <style sizeComputationExpression="2" routingStyle="tree">
-            <strokeColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
-            <centerLabelStyleDescription>
-              <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
-            </centerLabelStyleDescription>
-          </style>
-        </edgeMappings>
+        </containerMappings>
       </defaultLayer>
     </ownedRepresentations>
     <ownedJavaExtensions qualifiedClassName="org.osate.aadl2.errormodel.faulttree.design.Services"/>
   </ownedViewpoints>
   <userColorsPalettes name="FaultTreeColors">
     <entries xsi:type="description:UserFixedColor" red="231" green="231" blue="231" name="VeryLightGrey"/>
+    <entries xsi:type="description:UserFixedColor" red="225" green="245" blue="255" name="VeryLightBlue"/>
   </userColorsPalettes>
 </description:Group>

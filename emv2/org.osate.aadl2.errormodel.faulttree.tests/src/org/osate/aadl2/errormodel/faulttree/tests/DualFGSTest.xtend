@@ -297,25 +297,25 @@ end FGSErrorModelLibrary;
 
 	val expected = '''
 <?xml version="1.0" encoding="ASCII"?>
-<FaultTree:FaultTree xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:FaultTree="http://www.aadl.info/FaultTree" name="dualfgs_fgs_composite-criticalmodefailure" description="Top Level Failure" root="//@events.6">
+<FaultTree:FaultTree xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:FaultTree="http://www.aadl.info/FaultTree" name="dualfgs_fgs_composite-criticalmodefailure_tree" root="//@events.6">
   <instanceRoot href="../../DualFGS_FGS_composite_Instance.aaxl2#/"/>
-  <events name="ac-failure" description="Component 'AC' failure event 'Failure'" referenceCount="1">
+  <events name="ac-failure" referenceCount="1">
     <relatedInstanceObject href="../../DualFGS_FGS_composite_Instance.aaxl2#//@componentInstance.5"/>
     <relatedEMV2Object href="../../../FGSErrorModellibrary.aadl#/0/@ownedPublicSection/@ownedAnnexLibrary.0/@parsedAnnexLibrary/@behaviors.4/@events.0"/>
   </events>
-  <events name="ap1-failure" description="Component 'AP1' failure event 'Failure'" referenceCount="1">
+  <events name="ap1-failure" referenceCount="1">
     <relatedInstanceObject href="../../DualFGS_FGS_composite_Instance.aaxl2#//@componentInstance.1"/>
     <relatedEMV2Object href="../../../FGSErrorModellibrary.aadl#/0/@ownedPublicSection/@ownedAnnexLibrary.0/@parsedAnnexLibrary/@behaviors.4/@events.0"/>
   </events>
-  <events name="fg1-failure" description="Component 'FG1' failure event 'Failure'" referenceCount="1">
+  <events name="fg1-failure" referenceCount="1">
     <relatedInstanceObject href="../../DualFGS_FGS_composite_Instance.aaxl2#//@componentInstance.3"/>
     <relatedEMV2Object href="../../../FGSErrorModellibrary.aadl#/0/@ownedPublicSection/@ownedAnnexLibrary.0/@parsedAnnexLibrary/@behaviors.4/@events.0"/>
   </events>
-  <events name="fg2-failure" description="Component 'FG2' failure event 'Failure'" referenceCount="1">
+  <events name="fg2-failure" referenceCount="1">
     <relatedInstanceObject href="../../DualFGS_FGS_composite_Instance.aaxl2#//@componentInstance.4"/>
     <relatedEMV2Object href="../../../FGSErrorModellibrary.aadl#/0/@ownedPublicSection/@ownedAnnexLibrary.0/@parsedAnnexLibrary/@behaviors.4/@events.0"/>
   </events>
-  <events name="network-failure" description="Component 'network' failure event 'Failure'" referenceCount="1">
+  <events name="network-failure" referenceCount="1">
     <relatedInstanceObject href="../../DualFGS_FGS_composite_Instance.aaxl2#//@componentInstance.0"/>
     <relatedEMV2Object href="../../../FGSErrorModellibrary.aadl#/0/@ownedPublicSection/@ownedAnnexLibrary.0/@parsedAnnexLibrary/@behaviors.4/@events.0"/>
   </events>
@@ -323,9 +323,9 @@ end FGSErrorModelLibrary;
     <relatedInstanceObject href="../../DualFGS_FGS_composite_Instance.aaxl2#/"/>
     <relatedEMV2Object href="../../../DualFGS.aadl#/0/@ownedPublicSection/@ownedClassifier.5/@ownedAnnexSubclause.0/@parsedAnnexSubclause/@states.2/@condition/@operands.1"/>
   </events>
-  <events name="dualfgs_fgs_composite-criticalmodefailure" description="Component 'FGS.composite' in failure mode 'CriticalModeFailure'" subEvents="//@events.5 //@events.0" referenceCount="1" type="Intermediate" subEventLogic="Xor">
+  <events name="dualfgs_fgs_composite-criticalmodefailure" subEvents="//@events.5 //@events.0" referenceCount="1" type="Intermediate" subEventLogic="Xor">
     <relatedInstanceObject href="../../DualFGS_FGS_composite_Instance.aaxl2#/"/>
-    <relatedEMV2Object href="../../../DualFGS.aadl#/0/@ownedPublicSection/@ownedClassifier.5/@ownedAnnexSubclause.0/@parsedAnnexSubclause/@states.2/@condition"/>
+    <relatedEMV2Object href="../../../FGSErrorModellibrary.aadl#/0/@ownedPublicSection/@ownedAnnexLibrary.0/@parsedAnnexLibrary/@behaviors.0/@states.2"/>
   </events>
   <events name="Intermediate6" subEvents="//@events.1 //@events.8" referenceCount="1" type="Intermediate">
     <relatedInstanceObject href="../../DualFGS_FGS_composite_Instance.aaxl2#/"/>

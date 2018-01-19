@@ -23,9 +23,10 @@ public class FTADialog extends TitleAreaDialog {
 	private Button faultTreeBox;
 	private Button mincutsetBox;
 	private Button faultTraceBox;
-	private FaultTreeType faultTreeType;
+	private Button graphicViewBox;
+	private static boolean isGraphicView = false;
+	private static FaultTreeType faultTreeType = FaultTreeType.FAULT_TREE;
 	private String target = "";
-	private boolean composite = false;
 
 	public FTADialog(Shell parentShell) {
 		super(parentShell);
@@ -39,15 +40,12 @@ public class FTADialog extends TitleAreaDialog {
 		target = targetname;
 	}
 
-	public void setComposite(boolean compositeparts) {
-		composite = compositeparts;
-	}
-
 	@Override
 	public void create() {
 		super.create();
 		setTitle("Fault-Tree Analysis" + (target.isEmpty() ? "" : " for " + target));
-		setMessage("Select Error state for composite parts fault tree, Out propagation for flow based fault tree.",
+		setMessage(
+				"Select error state for Parts Fault Tree, out propagation or state for flow based fault tree.",
 				IMessageProvider.INFORMATION);
 	}
 
@@ -61,7 +59,7 @@ public class FTADialog extends TitleAreaDialog {
 		container.setLayout(layout);
 
 		Label labelErrorMode = new Label(container, SWT.NONE);
-		labelErrorMode.setText("Error State or Outgoing Propagation");
+		labelErrorMode.setText("Select Error State or Outgoing Propagation");
 
 		errorMode = new Combo(container, SWT.READ_ONLY | SWT.BORDER);
 		String val[] = new String[values.size()];
@@ -71,20 +69,21 @@ public class FTADialog extends TitleAreaDialog {
 		errorMode.setItems(val);
 
 		errorMode.select(0);
-		faultTraceBox = new Button(container, SWT.RADIO);
-		faultTraceBox.setText("Fault Contributor Trace (dependent events marked by *)");
-		faultTraceBox.setSelection(false);
 		faultTreeBox = new Button(container, SWT.RADIO);
 		faultTreeBox.setText("Fault Tree with Computed Probability");
-		faultTreeBox.setSelection(true);
+		faultTreeBox.setSelection(faultTreeType.equals(FaultTreeType.FAULT_TREE));
 		mincutsetBox = new Button(container, SWT.RADIO);
 		mincutsetBox.setText("Minimal Cut Sets with Computed Probability");
-		mincutsetBox.setSelection(false);
-		if (composite) {
-			compositePartsBox = new Button(container, SWT.RADIO);
-			compositePartsBox.setText("Parts Fault Tree (based on composite error states*)");
-			compositePartsBox.setSelection(false);
-		}
+		mincutsetBox.setSelection(faultTreeType.equals(FaultTreeType.MINIMAL_CUT_SET));
+		faultTraceBox = new Button(container, SWT.RADIO);
+		faultTraceBox.setText("Fault Contributor Trace (dependent events marked by *)");
+		faultTraceBox.setSelection(faultTreeType.equals(FaultTreeType.FAULT_TRACE));
+		compositePartsBox = new Button(container, SWT.RADIO);
+		compositePartsBox.setText("Parts Fault Tree with Computed Probability (composite error states only)");
+		compositePartsBox.setSelection(faultTreeType.equals(FaultTreeType.COMPOSITE_PARTS));
+		graphicViewBox = new Button(container, SWT.CHECK);
+		graphicViewBox.setText("Show in graphical view (default is table view)");
+		graphicViewBox.setSelection(isGraphicView);
 		return area;
 	}
 
@@ -95,6 +94,7 @@ public class FTADialog extends TitleAreaDialog {
 
 	private void saveInput() {
 		value = errorMode.getText();
+		isGraphicView = graphicViewBox.getSelection();
 		if (compositePartsBox.getSelection()) {
 			faultTreeType = FaultTreeType.COMPOSITE_PARTS;
 		} else if (faultTreeBox.getSelection()) {
@@ -118,6 +118,10 @@ public class FTADialog extends TitleAreaDialog {
 
 	public FaultTreeType getFaultTreeType() {
 		return faultTreeType;
+	}
+
+	public boolean isGraphicView() {
+		return isGraphicView;
 	}
 
 }

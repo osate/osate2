@@ -2689,36 +2689,6 @@ public class EMV2Util {
 		return null;
 	}
 
-	/**
-	 * find ContainedNamedElement in list that matches the error type, i.e., whose error type contains the error type to be matched.
-	 * If no error type is to be matched, then return the only list element if the list is of size one.
-	 * The purpose is to find the corresponding Severity/Likelihood property to the hazard property with the respective error type.
-	 * @param match
-	 * @param cnelist
-	 * @return
-	 */
-	public static ContainedNamedElement findMatchingErrorType(ContainedNamedElement match,
-			EList<ContainedNamedElement> cnelist) {
-		if (cnelist == null || cnelist.isEmpty()) {
-			return null;
-		}
-		ErrorType et = getContainmentErrorType(match);
-		if (et == null) {
-			if (cnelist.size() == 1) {
-				return cnelist.get(0);
-			}
-			return null;
-		} else {
-			// we need to find an entry that supports the type
-			for (ContainedNamedElement containedNamedElement : cnelist) {
-				ErrorType candET = getContainmentErrorType(containedNamedElement);
-				if (EM2TypeSetUtil.contains(candET, et)) {
-					return containedNamedElement;
-				}
-			}
-		}
-		return null;
-	}
 
 	/**
 	 * take inheritance into account
@@ -2773,7 +2743,8 @@ public class EMV2Util {
 			if (!errorModelSubclause.getTransitions().isEmpty()) {
 				return true;
 			}
-			if (!errorModelSubclause.getUseBehavior().getTransitions().isEmpty()) {
+			if (errorModelSubclause.getUseBehavior() != null
+					&& !errorModelSubclause.getUseBehavior().getTransitions().isEmpty()) {
 				return true;
 			}
 		}

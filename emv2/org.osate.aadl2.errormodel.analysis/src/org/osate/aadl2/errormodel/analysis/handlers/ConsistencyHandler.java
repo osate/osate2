@@ -340,10 +340,6 @@ public final class ConsistencyHandler extends AaxlReadOnlyHandlerAsJob {
 						}
 
 					}
-//					if (!(EM2TypeSetUtil.contains(, ep2.getTypeSet()) && EM2TypeSetUtil.contains(ep2.getTypeSet(), ep.getTypeSet())))
-//					{
-//						error(componentInstance, "Some errors are not handled between " + EMV2Util.getPrintName(ep) + "/" + EMV2Util.getPrintName(ep.getTypeSet()) + " and " + EMV2Util.getPrintName(ep2) + "/" + EMV2Util.getPrintName(ep2.getTypeSet()));
-//						continue;
 
 				}
 			}
@@ -353,9 +349,6 @@ public final class ConsistencyHandler extends AaxlReadOnlyHandlerAsJob {
 						&& model.getAllPropagationSourceEnds(componentInstance, ep).size() == 0) {
 					error(componentInstance, "Incoming propagation " + EMV2Util.getPrintName(ep)
 					+ " is missing incoming propagation paths");
-
-					// OsateDebug.osateDebug("Component " + componentInstance + " does not handle IN propagation " +
-// ep.getName());
 				}
 			}
 

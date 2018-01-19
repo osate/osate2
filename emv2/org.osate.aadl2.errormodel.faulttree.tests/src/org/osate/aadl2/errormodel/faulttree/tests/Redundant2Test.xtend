@@ -438,14 +438,14 @@ end FTerrorlibrary;
 
 	val expected = '''
 <?xml version="1.0" encoding="ASCII"?>
-<FaultTree:FaultTree xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:FaultTree="http://www.aadl.info/FaultTree" name="redundant2_main2_composite-failstop" description="Top Level Failure" root="//@events.7">
+<FaultTree:FaultTree xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:FaultTree="http://www.aadl.info/FaultTree" name="redundant2_main2_composite-failstop_tree" root="//@events.16">
   <instanceRoot href="../../redundant2_main2_composite_Instance.aaxl2#/"/>
-  <events name="sensor1-valueout-latedelivery,outofrange" description="Component 'sensor1' with outgoing  failure 'LateDelivery,OutOfRange" referenceCount="1">
+  <events name="sensor1-valueout-latedelivery,outofrange" referenceCount="1">
     <relatedInstanceObject href="../../redundant2_main2_composite_Instance.aaxl2#//@componentInstance.1"/>
     <relatedErrorType href="../../../redundant2.aadl#/0/@ownedPublicSection/@ownedClassifier.7/@ownedAnnexSubclause.0/@parsedAnnexSubclause/@outgoingPropagationConditions.0/@condition/@operands.0/@constraint"/>
     <relatedEMV2Object href="../../../redundant2.aadl#/0/@ownedPublicSection/@ownedClassifier.4/@ownedAnnexSubclause.0/@parsedAnnexSubclause/@propagations.0"/>
   </events>
-  <events name="sensor2-valueout-latedelivery,outofrange" description="Component 'sensor2' with outgoing  failure 'LateDelivery,OutOfRange" referenceCount="1">
+  <events name="sensor2-valueout-latedelivery,outofrange" referenceCount="1">
     <relatedInstanceObject href="../../redundant2_main2_composite_Instance.aaxl2#//@componentInstance.2"/>
     <relatedErrorType href="../../../redundant2.aadl#/0/@ownedPublicSection/@ownedClassifier.7/@ownedAnnexSubclause.0/@parsedAnnexSubclause/@outgoingPropagationConditions.0/@condition/@operands.1/@constraint"/>
     <relatedEMV2Object href="../../../redundant2.aadl#/0/@ownedPublicSection/@ownedClassifier.4/@ownedAnnexSubclause.0/@parsedAnnexSubclause/@propagations.0"/>
@@ -455,26 +455,69 @@ end FTerrorlibrary;
     <relatedErrorType href="../../../redundant2.aadl#/0/@ownedPublicSection/@ownedClassifier.6/@ownedAnnexSubclause.0/@parsedAnnexSubclause/@transitions.0/@condition/@constraint"/>
     <relatedEMV2Object href="../../../redundant2.aadl#/0/@ownedPublicSection/@ownedClassifier.7/@ownedAnnexSubclause.0/@parsedAnnexSubclause/@outgoingPropagationConditions.0/@condition"/>
   </events>
-  <events name="voter.thr-failure-itemomission" description="Component 'voter.thr' failure event 'Failure' type 'ItemOmission'" referenceCount="1">
+  <events name="voter.thr-failure" referenceCount="1">
     <relatedInstanceObject href="../../redundant2_main2_composite_Instance.aaxl2#//@componentInstance.5/@componentInstance.0"/>
-    <relatedErrorType href="../../../redundant2.aadl#/0/@ownedPublicSection/@ownedClassifier.6/@ownedAnnexSubclause.0/@parsedAnnexSubclause/@transitions.0/@condition/@constraint"/>
     <relatedEMV2Object href="../../../FTerrorlibrary.aadl#/0/@ownedPublicSection/@ownedAnnexLibrary.0/@parsedAnnexLibrary/@behaviors.0/@events.1"/>
   </events>
-  <events name="mem-memfail-serviceerror" description="Component 'mem' failure source 'ServiceError'" referenceCount="1">
-    <relatedInstanceObject href="../../redundant2_main2_composite_Instance.aaxl2#//@componentInstance.4"/>
-    <relatedErrorType href="../../../redundant2.aadl#/0/@ownedPublicSection/@ownedClassifier.7/@ownedAnnexSubclause.0/@parsedAnnexSubclause/@flows.3/@typeTokenConstraint"/>
-    <relatedEMV2Object href="../../../redundant2.aadl#/0/@ownedPublicSection/@ownedClassifier.2/@ownedAnnexSubclause.0/@parsedAnnexSubclause/@flows.0"/>
-  </events>
-  <events name="voter.thr-computeerror-inconsistentvalue" description="Component 'voter.thr' failure event 'ComputeError' type 'InconsistentValue'" referenceCount="1">
+  <events name="voter.thr-computeerror" referenceCount="1">
     <relatedInstanceObject href="../../redundant2_main2_composite_Instance.aaxl2#//@componentInstance.5/@componentInstance.0"/>
-    <relatedErrorType href="../../../redundant2.aadl#/0/@ownedPublicSection/@ownedClassifier.6/@ownedAnnexSubclause.0/@parsedAnnexSubclause/@transitions.2/@condition/@constraint"/>
     <relatedEMV2Object href="../../../FTerrorlibrary.aadl#/0/@ownedPublicSection/@ownedAnnexLibrary.0/@parsedAnnexLibrary/@behaviors.0/@events.0"/>
   </events>
-  <events name="actuator-failure" description="Component 'actuator' failure event 'Failure'" referenceCount="1">
+  <events name="mem-memfail-itemomission" referenceCount="1">
+    <relatedInstanceObject href="../../redundant2_main2_composite_Instance.aaxl2#//@componentInstance.4"/>
+    <relatedErrorType href="../../../../../plugin/org.osate.aadl2.errormodel.contrib/resources/packages/ErrorLibrary.aadl#emv2$ErrorLibrary.ItemOmission"/>
+    <relatedEMV2Object href="../../../redundant2.aadl#/0/@ownedPublicSection/@ownedClassifier.2/@ownedAnnexSubclause.0/@parsedAnnexSubclause/@flows.0"/>
+  </events>
+  <events name="mem-memfail-serviceomission" referenceCount="1">
+    <relatedInstanceObject href="../../redundant2_main2_composite_Instance.aaxl2#//@componentInstance.4"/>
+    <relatedErrorType href="../../../../../plugin/org.osate.aadl2.errormodel.contrib/resources/packages/ErrorLibrary.aadl#emv2$ErrorLibrary.ServiceOmission"/>
+    <relatedEMV2Object href="../../../redundant2.aadl#/0/@ownedPublicSection/@ownedClassifier.2/@ownedAnnexSubclause.0/@parsedAnnexSubclause/@flows.0"/>
+  </events>
+  <events name="mem-memfail-transientserviceomission" referenceCount="1">
+    <relatedInstanceObject href="../../redundant2_main2_composite_Instance.aaxl2#//@componentInstance.4"/>
+    <relatedErrorType href="../../../../../plugin/org.osate.aadl2.errormodel.contrib/resources/packages/ErrorLibrary.aadl#emv2$ErrorLibrary.TransientServiceOmission"/>
+    <relatedEMV2Object href="../../../redundant2.aadl#/0/@ownedPublicSection/@ownedClassifier.2/@ownedAnnexSubclause.0/@parsedAnnexSubclause/@flows.0"/>
+  </events>
+  <events name="mem-memfail-lateservicestart" referenceCount="1">
+    <relatedInstanceObject href="../../redundant2_main2_composite_Instance.aaxl2#//@componentInstance.4"/>
+    <relatedErrorType href="../../../../../plugin/org.osate.aadl2.errormodel.contrib/resources/packages/ErrorLibrary.aadl#emv2$ErrorLibrary.LateServiceStart"/>
+    <relatedEMV2Object href="../../../redundant2.aadl#/0/@ownedPublicSection/@ownedClassifier.2/@ownedAnnexSubclause.0/@parsedAnnexSubclause/@flows.0"/>
+  </events>
+  <events name="mem-memfail-earlyservicetermination" referenceCount="1">
+    <relatedInstanceObject href="../../redundant2_main2_composite_Instance.aaxl2#//@componentInstance.4"/>
+    <relatedErrorType href="../../../../../plugin/org.osate.aadl2.errormodel.contrib/resources/packages/ErrorLibrary.aadl#emv2$ErrorLibrary.EarlyServiceTermination"/>
+    <relatedEMV2Object href="../../../redundant2.aadl#/0/@ownedPublicSection/@ownedClassifier.2/@ownedAnnexSubclause.0/@parsedAnnexSubclause/@flows.0"/>
+  </events>
+  <events name="mem-memfail-boundedomissioninterval" referenceCount="1">
+    <relatedInstanceObject href="../../redundant2_main2_composite_Instance.aaxl2#//@componentInstance.4"/>
+    <relatedErrorType href="../../../../../plugin/org.osate.aadl2.errormodel.contrib/resources/packages/ErrorLibrary.aadl#emv2$ErrorLibrary.BoundedOmissionInterval"/>
+    <relatedEMV2Object href="../../../redundant2.aadl#/0/@ownedPublicSection/@ownedClassifier.2/@ownedAnnexSubclause.0/@parsedAnnexSubclause/@flows.0"/>
+  </events>
+  <events name="mem-memfail-itemcommission" referenceCount="1">
+    <relatedInstanceObject href="../../redundant2_main2_composite_Instance.aaxl2#//@componentInstance.4"/>
+    <relatedErrorType href="../../../../../plugin/org.osate.aadl2.errormodel.contrib/resources/packages/ErrorLibrary.aadl#emv2$ErrorLibrary.ItemCommission"/>
+    <relatedEMV2Object href="../../../redundant2.aadl#/0/@ownedPublicSection/@ownedClassifier.2/@ownedAnnexSubclause.0/@parsedAnnexSubclause/@flows.0"/>
+  </events>
+  <events name="mem-memfail-servicecommission" referenceCount="1">
+    <relatedInstanceObject href="../../redundant2_main2_composite_Instance.aaxl2#//@componentInstance.4"/>
+    <relatedErrorType href="../../../../../plugin/org.osate.aadl2.errormodel.contrib/resources/packages/ErrorLibrary.aadl#emv2$ErrorLibrary.ServiceCommission"/>
+    <relatedEMV2Object href="../../../redundant2.aadl#/0/@ownedPublicSection/@ownedClassifier.2/@ownedAnnexSubclause.0/@parsedAnnexSubclause/@flows.0"/>
+  </events>
+  <events name="mem-memfail-earlyservicestart" referenceCount="1">
+    <relatedInstanceObject href="../../redundant2_main2_composite_Instance.aaxl2#//@componentInstance.4"/>
+    <relatedErrorType href="../../../../../plugin/org.osate.aadl2.errormodel.contrib/resources/packages/ErrorLibrary.aadl#emv2$ErrorLibrary.EarlyServiceStart"/>
+    <relatedEMV2Object href="../../../redundant2.aadl#/0/@ownedPublicSection/@ownedClassifier.2/@ownedAnnexSubclause.0/@parsedAnnexSubclause/@flows.0"/>
+  </events>
+  <events name="mem-memfail-lateservicetermination" referenceCount="1">
+    <relatedInstanceObject href="../../redundant2_main2_composite_Instance.aaxl2#//@componentInstance.4"/>
+    <relatedErrorType href="../../../../../plugin/org.osate.aadl2.errormodel.contrib/resources/packages/ErrorLibrary.aadl#emv2$ErrorLibrary.LateServiceTermination"/>
+    <relatedEMV2Object href="../../../redundant2.aadl#/0/@ownedPublicSection/@ownedClassifier.2/@ownedAnnexSubclause.0/@parsedAnnexSubclause/@flows.0"/>
+  </events>
+  <events name="actuator-failure" referenceCount="1">
     <relatedInstanceObject href="../../redundant2_main2_composite_Instance.aaxl2#//@componentInstance.3"/>
     <relatedEMV2Object href="../../../../../plugin/org.osate.aadl2.errormodel.contrib/resources/packages/ErrorLibrary.aadl#/0/@ownedPublicSection/@ownedAnnexLibrary.0/@parsedAnnexLibrary/@behaviors.0/@events.0"/>
   </events>
-  <events name="redundant2_main2_composite-failstop" description="Component 'main2.composite' in failure mode 'FailStop'" subEvents="//@events.6 //@events.2 //@events.3 //@events.4 //@events.5" referenceCount="1" type="Intermediate">
+  <events name="redundant2_main2_composite-failstop" subEvents="//@events.15 //@events.2 //@events.3 //@events.4 //@events.5 //@events.6 //@events.7 //@events.8 //@events.9 //@events.10 //@events.11 //@events.12 //@events.13 //@events.14" referenceCount="1" type="Intermediate">
     <relatedInstanceObject href="../../redundant2_main2_composite_Instance.aaxl2#/"/>
     <relatedEMV2Object href="../../../../../plugin/org.osate.aadl2.errormodel.contrib/resources/packages/ErrorLibrary.aadl#/0/@ownedPublicSection/@ownedAnnexLibrary.0/@parsedAnnexLibrary/@behaviors.0/@states.1"/>
   </events>
@@ -483,48 +526,148 @@ end FTerrorlibrary;
 
 	val expected2 = '''
 <?xml version="1.0" encoding="ASCII"?>
-<FaultTree:FaultTree xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:FaultTree="http://www.aadl.info/FaultTree" name="redundant2_main2_compositesametype-failstop" description="Top Level Failure" root="//@events.8">
+<FaultTree:FaultTree xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:FaultTree="http://www.aadl.info/FaultTree" name="redundant2_main2_compositesametype-failstop_tree" root="//@events.28">
   <instanceRoot href="../../redundant2_main2_compositesametype_Instance.aaxl2#/"/>
-  <events name="sensor1-valueout-latedelivery,outofrange" description="Component 'sensor1' with outgoing  failure 'LateDelivery,OutOfRange" referenceCount="1">
+  <events name="sensor1-ef0-latedelivery" referenceCount="1">
     <relatedInstanceObject href="../../redundant2_main2_compositesametype_Instance.aaxl2#//@componentInstance.1"/>
-    <relatedErrorType href="../../../redundant2.aadl#/0/@ownedPublicSection/@ownedClassifier.8/@ownedAnnexSubclause.0/@parsedAnnexSubclause/@flows.0/@typeTokenConstraint"/>
-    <relatedEMV2Object href="../../../redundant2.aadl#/0/@ownedPublicSection/@ownedClassifier.4/@ownedAnnexSubclause.0/@parsedAnnexSubclause/@propagations.0"/>
+    <relatedErrorType href="../../../../../plugin/org.osate.aadl2.errormodel.contrib/resources/packages/ErrorLibrary.aadl#emv2$ErrorLibrary.LateDelivery"/>
+    <relatedEMV2Object href="../../../redundant2.aadl#/0/@ownedPublicSection/@ownedClassifier.4/@ownedAnnexSubclause.0/@parsedAnnexSubclause/@flows.0"/>
   </events>
-  <events name="sensor2-valueout-latedelivery,outofrange" description="Component 'sensor2' with outgoing  failure 'LateDelivery,OutOfRange" referenceCount="1">
+  <events name="sensor1-ef1-belowrange" referenceCount="1">
+    <relatedInstanceObject href="../../redundant2_main2_compositesametype_Instance.aaxl2#//@componentInstance.1"/>
+    <relatedErrorType href="../../../../../plugin/org.osate.aadl2.errormodel.contrib/resources/packages/ErrorLibrary.aadl#emv2$ErrorLibrary.BelowRange"/>
+    <relatedEMV2Object href="../../../redundant2.aadl#/0/@ownedPublicSection/@ownedClassifier.4/@ownedAnnexSubclause.0/@parsedAnnexSubclause/@flows.1"/>
+  </events>
+  <events name="sensor1-ef1-aboverange" referenceCount="1">
+    <relatedInstanceObject href="../../redundant2_main2_compositesametype_Instance.aaxl2#//@componentInstance.1"/>
+    <relatedErrorType href="../../../../../plugin/org.osate.aadl2.errormodel.contrib/resources/packages/ErrorLibrary.aadl#emv2$ErrorLibrary.AboveRange"/>
+    <relatedEMV2Object href="../../../redundant2.aadl#/0/@ownedPublicSection/@ownedClassifier.4/@ownedAnnexSubclause.0/@parsedAnnexSubclause/@flows.1"/>
+  </events>
+  <events name="sensor2-ef0-latedelivery" referenceCount="1">
     <relatedInstanceObject href="../../redundant2_main2_compositesametype_Instance.aaxl2#//@componentInstance.2"/>
-    <relatedErrorType href="../../../redundant2.aadl#/0/@ownedPublicSection/@ownedClassifier.8/@ownedAnnexSubclause.0/@parsedAnnexSubclause/@flows.1/@typeTokenConstraint"/>
-    <relatedEMV2Object href="../../../redundant2.aadl#/0/@ownedPublicSection/@ownedClassifier.4/@ownedAnnexSubclause.0/@parsedAnnexSubclause/@propagations.0"/>
+    <relatedErrorType href="../../../../../plugin/org.osate.aadl2.errormodel.contrib/resources/packages/ErrorLibrary.aadl#emv2$ErrorLibrary.LateDelivery"/>
+    <relatedEMV2Object href="../../../redundant2.aadl#/0/@ownedPublicSection/@ownedClassifier.4/@ownedAnnexSubclause.0/@parsedAnnexSubclause/@flows.0"/>
   </events>
-  <events name="cpu-cpufail-itemomission" description="Component 'cpu' failure source 'ItemOmission'" referenceCount="1">
+  <events name="sensor2-ef1-belowrange" referenceCount="1">
+    <relatedInstanceObject href="../../redundant2_main2_compositesametype_Instance.aaxl2#//@componentInstance.2"/>
+    <relatedErrorType href="../../../../../plugin/org.osate.aadl2.errormodel.contrib/resources/packages/ErrorLibrary.aadl#emv2$ErrorLibrary.BelowRange"/>
+    <relatedEMV2Object href="../../../redundant2.aadl#/0/@ownedPublicSection/@ownedClassifier.4/@ownedAnnexSubclause.0/@parsedAnnexSubclause/@flows.1"/>
+  </events>
+  <events name="sensor2-ef1-aboverange" referenceCount="1">
+    <relatedInstanceObject href="../../redundant2_main2_compositesametype_Instance.aaxl2#//@componentInstance.2"/>
+    <relatedErrorType href="../../../../../plugin/org.osate.aadl2.errormodel.contrib/resources/packages/ErrorLibrary.aadl#emv2$ErrorLibrary.AboveRange"/>
+    <relatedEMV2Object href="../../../redundant2.aadl#/0/@ownedPublicSection/@ownedClassifier.4/@ownedAnnexSubclause.0/@parsedAnnexSubclause/@flows.1"/>
+  </events>
+  <events name="cpu-cpufail-itemomission" referenceCount="1">
     <relatedInstanceObject href="../../redundant2_main2_compositesametype_Instance.aaxl2#//@componentInstance.6"/>
-    <relatedErrorType href="../../../redundant2.aadl#/0/@ownedPublicSection/@ownedClassifier.6/@ownedAnnexSubclause.0/@parsedAnnexSubclause/@transitions.0/@condition/@constraint"/>
+    <relatedErrorType href="../../../../../plugin/org.osate.aadl2.errormodel.contrib/resources/packages/ErrorLibrary.aadl#emv2$ErrorLibrary.ItemOmission"/>
     <relatedEMV2Object href="../../../redundant2.aadl#/0/@ownedPublicSection/@ownedClassifier.1/@ownedAnnexSubclause.0/@parsedAnnexSubclause/@flows.0"/>
   </events>
-  <events name="sensor1-ef1-outofrange" description="Component 'sensor1' failure source 'OutOfRange'" referenceCount="1">
-    <relatedInstanceObject href="../../redundant2_main2_compositesametype_Instance.aaxl2#//@componentInstance.1"/>
-    <relatedErrorType href="../../../redundant2.aadl#/0/@ownedPublicSection/@ownedClassifier.8/@ownedAnnexSubclause.0/@parsedAnnexSubclause/@outgoingPropagationConditions.1/@typeToken"/>
-    <relatedEMV2Object href="../../../redundant2.aadl#/0/@ownedPublicSection/@ownedClassifier.4/@ownedAnnexSubclause.0/@parsedAnnexSubclause/@flows.1"/>
+  <events name="cpu-cpufail-serviceomission" referenceCount="1">
+    <relatedInstanceObject href="../../redundant2_main2_compositesametype_Instance.aaxl2#//@componentInstance.6"/>
+    <relatedErrorType href="../../../../../plugin/org.osate.aadl2.errormodel.contrib/resources/packages/ErrorLibrary.aadl#emv2$ErrorLibrary.ServiceOmission"/>
+    <relatedEMV2Object href="../../../redundant2.aadl#/0/@ownedPublicSection/@ownedClassifier.1/@ownedAnnexSubclause.0/@parsedAnnexSubclause/@flows.0"/>
   </events>
-  <events name="sensor2-ef1-outofrange" description="Component 'sensor2' failure source 'OutOfRange'" referenceCount="1">
-    <relatedInstanceObject href="../../redundant2_main2_compositesametype_Instance.aaxl2#//@componentInstance.2"/>
-    <relatedErrorType href="../../../redundant2.aadl#/0/@ownedPublicSection/@ownedClassifier.8/@ownedAnnexSubclause.0/@parsedAnnexSubclause/@outgoingPropagationConditions.1/@typeToken"/>
-    <relatedEMV2Object href="../../../redundant2.aadl#/0/@ownedPublicSection/@ownedClassifier.4/@ownedAnnexSubclause.0/@parsedAnnexSubclause/@flows.1"/>
+  <events name="cpu-cpufail-transientserviceomission" referenceCount="1">
+    <relatedInstanceObject href="../../redundant2_main2_compositesametype_Instance.aaxl2#//@componentInstance.6"/>
+    <relatedErrorType href="../../../../../plugin/org.osate.aadl2.errormodel.contrib/resources/packages/ErrorLibrary.aadl#emv2$ErrorLibrary.TransientServiceOmission"/>
+    <relatedEMV2Object href="../../../redundant2.aadl#/0/@ownedPublicSection/@ownedClassifier.1/@ownedAnnexSubclause.0/@parsedAnnexSubclause/@flows.0"/>
   </events>
-  <events name="Intermediate1" subEvents="//@events.3 //@events.4" referenceCount="1" type="Intermediate" subEventLogic="And">
-    <relatedInstanceObject href="../../redundant2_main2_compositesametype_Instance.aaxl2#//@componentInstance.5/@componentInstance.0"/>
-    <relatedErrorType href="../../../redundant2.aadl#/0/@ownedPublicSection/@ownedClassifier.8/@ownedAnnexSubclause.0/@parsedAnnexSubclause/@outgoingPropagationConditions.1/@typeToken"/>
-    <relatedEMV2Object href="../../../redundant2.aadl#/0/@ownedPublicSection/@ownedClassifier.8/@ownedAnnexSubclause.0/@parsedAnnexSubclause/@outgoingPropagationConditions.1/@condition"/>
+  <events name="cpu-cpufail-lateservicestart" referenceCount="1">
+    <relatedInstanceObject href="../../redundant2_main2_compositesametype_Instance.aaxl2#//@componentInstance.6"/>
+    <relatedErrorType href="../../../../../plugin/org.osate.aadl2.errormodel.contrib/resources/packages/ErrorLibrary.aadl#emv2$ErrorLibrary.LateServiceStart"/>
+    <relatedEMV2Object href="../../../redundant2.aadl#/0/@ownedPublicSection/@ownedClassifier.1/@ownedAnnexSubclause.0/@parsedAnnexSubclause/@flows.0"/>
   </events>
-  <events name="voter.thr-ef5-inconsistentvalue" description="Component 'voter.thr' failure source 'InconsistentValue'" referenceCount="1">
+  <events name="cpu-cpufail-earlyservicetermination" referenceCount="1">
+    <relatedInstanceObject href="../../redundant2_main2_compositesametype_Instance.aaxl2#//@componentInstance.6"/>
+    <relatedErrorType href="../../../../../plugin/org.osate.aadl2.errormodel.contrib/resources/packages/ErrorLibrary.aadl#emv2$ErrorLibrary.EarlyServiceTermination"/>
+    <relatedEMV2Object href="../../../redundant2.aadl#/0/@ownedPublicSection/@ownedClassifier.1/@ownedAnnexSubclause.0/@parsedAnnexSubclause/@flows.0"/>
+  </events>
+  <events name="cpu-cpufail-boundedomissioninterval" referenceCount="1">
+    <relatedInstanceObject href="../../redundant2_main2_compositesametype_Instance.aaxl2#//@componentInstance.6"/>
+    <relatedErrorType href="../../../../../plugin/org.osate.aadl2.errormodel.contrib/resources/packages/ErrorLibrary.aadl#emv2$ErrorLibrary.BoundedOmissionInterval"/>
+    <relatedEMV2Object href="../../../redundant2.aadl#/0/@ownedPublicSection/@ownedClassifier.1/@ownedAnnexSubclause.0/@parsedAnnexSubclause/@flows.0"/>
+  </events>
+  <events name="cpu-cpufail-itemcommission" referenceCount="1">
+    <relatedInstanceObject href="../../redundant2_main2_compositesametype_Instance.aaxl2#//@componentInstance.6"/>
+    <relatedErrorType href="../../../../../plugin/org.osate.aadl2.errormodel.contrib/resources/packages/ErrorLibrary.aadl#emv2$ErrorLibrary.ItemCommission"/>
+    <relatedEMV2Object href="../../../redundant2.aadl#/0/@ownedPublicSection/@ownedClassifier.1/@ownedAnnexSubclause.0/@parsedAnnexSubclause/@flows.0"/>
+  </events>
+  <events name="cpu-cpufail-servicecommission" referenceCount="1">
+    <relatedInstanceObject href="../../redundant2_main2_compositesametype_Instance.aaxl2#//@componentInstance.6"/>
+    <relatedErrorType href="../../../../../plugin/org.osate.aadl2.errormodel.contrib/resources/packages/ErrorLibrary.aadl#emv2$ErrorLibrary.ServiceCommission"/>
+    <relatedEMV2Object href="../../../redundant2.aadl#/0/@ownedPublicSection/@ownedClassifier.1/@ownedAnnexSubclause.0/@parsedAnnexSubclause/@flows.0"/>
+  </events>
+  <events name="cpu-cpufail-earlyservicestart" referenceCount="1">
+    <relatedInstanceObject href="../../redundant2_main2_compositesametype_Instance.aaxl2#//@componentInstance.6"/>
+    <relatedErrorType href="../../../../../plugin/org.osate.aadl2.errormodel.contrib/resources/packages/ErrorLibrary.aadl#emv2$ErrorLibrary.EarlyServiceStart"/>
+    <relatedEMV2Object href="../../../redundant2.aadl#/0/@ownedPublicSection/@ownedClassifier.1/@ownedAnnexSubclause.0/@parsedAnnexSubclause/@flows.0"/>
+  </events>
+  <events name="cpu-cpufail-lateservicetermination" referenceCount="1">
+    <relatedInstanceObject href="../../redundant2_main2_compositesametype_Instance.aaxl2#//@componentInstance.6"/>
+    <relatedErrorType href="../../../../../plugin/org.osate.aadl2.errormodel.contrib/resources/packages/ErrorLibrary.aadl#emv2$ErrorLibrary.LateServiceTermination"/>
+    <relatedEMV2Object href="../../../redundant2.aadl#/0/@ownedPublicSection/@ownedClassifier.1/@ownedAnnexSubclause.0/@parsedAnnexSubclause/@flows.0"/>
+  </events>
+  <events name="mem-memfail-itemomission" referenceCount="1">
+    <relatedInstanceObject href="../../redundant2_main2_compositesametype_Instance.aaxl2#//@componentInstance.4"/>
+    <relatedErrorType href="../../../redundant2.aadl#/0/@ownedPublicSection/@ownedClassifier.6/@ownedAnnexSubclause.0/@parsedAnnexSubclause/@transitions.0/@condition/@constraint"/>
+    <relatedEMV2Object href="../../../redundant2.aadl#/0/@ownedPublicSection/@ownedClassifier.2/@ownedAnnexSubclause.0/@parsedAnnexSubclause/@flows.0"/>
+  </events>
+  <events name="mem-memfail-serviceomission" referenceCount="1">
+    <relatedInstanceObject href="../../redundant2_main2_compositesametype_Instance.aaxl2#//@componentInstance.4"/>
+    <relatedErrorType href="../../../../../plugin/org.osate.aadl2.errormodel.contrib/resources/packages/ErrorLibrary.aadl#emv2$ErrorLibrary.ServiceOmission"/>
+    <relatedEMV2Object href="../../../redundant2.aadl#/0/@ownedPublicSection/@ownedClassifier.2/@ownedAnnexSubclause.0/@parsedAnnexSubclause/@flows.0"/>
+  </events>
+  <events name="mem-memfail-transientserviceomission" referenceCount="1">
+    <relatedInstanceObject href="../../redundant2_main2_compositesametype_Instance.aaxl2#//@componentInstance.4"/>
+    <relatedErrorType href="../../../../../plugin/org.osate.aadl2.errormodel.contrib/resources/packages/ErrorLibrary.aadl#emv2$ErrorLibrary.TransientServiceOmission"/>
+    <relatedEMV2Object href="../../../redundant2.aadl#/0/@ownedPublicSection/@ownedClassifier.2/@ownedAnnexSubclause.0/@parsedAnnexSubclause/@flows.0"/>
+  </events>
+  <events name="mem-memfail-lateservicestart" referenceCount="1">
+    <relatedInstanceObject href="../../redundant2_main2_compositesametype_Instance.aaxl2#//@componentInstance.4"/>
+    <relatedErrorType href="../../../../../plugin/org.osate.aadl2.errormodel.contrib/resources/packages/ErrorLibrary.aadl#emv2$ErrorLibrary.LateServiceStart"/>
+    <relatedEMV2Object href="../../../redundant2.aadl#/0/@ownedPublicSection/@ownedClassifier.2/@ownedAnnexSubclause.0/@parsedAnnexSubclause/@flows.0"/>
+  </events>
+  <events name="mem-memfail-earlyservicetermination" referenceCount="1">
+    <relatedInstanceObject href="../../redundant2_main2_compositesametype_Instance.aaxl2#//@componentInstance.4"/>
+    <relatedErrorType href="../../../../../plugin/org.osate.aadl2.errormodel.contrib/resources/packages/ErrorLibrary.aadl#emv2$ErrorLibrary.EarlyServiceTermination"/>
+    <relatedEMV2Object href="../../../redundant2.aadl#/0/@ownedPublicSection/@ownedClassifier.2/@ownedAnnexSubclause.0/@parsedAnnexSubclause/@flows.0"/>
+  </events>
+  <events name="mem-memfail-boundedomissioninterval" referenceCount="1">
+    <relatedInstanceObject href="../../redundant2_main2_compositesametype_Instance.aaxl2#//@componentInstance.4"/>
+    <relatedErrorType href="../../../../../plugin/org.osate.aadl2.errormodel.contrib/resources/packages/ErrorLibrary.aadl#emv2$ErrorLibrary.BoundedOmissionInterval"/>
+    <relatedEMV2Object href="../../../redundant2.aadl#/0/@ownedPublicSection/@ownedClassifier.2/@ownedAnnexSubclause.0/@parsedAnnexSubclause/@flows.0"/>
+  </events>
+  <events name="mem-memfail-itemcommission" referenceCount="1">
+    <relatedInstanceObject href="../../redundant2_main2_compositesametype_Instance.aaxl2#//@componentInstance.4"/>
+    <relatedErrorType href="../../../../../plugin/org.osate.aadl2.errormodel.contrib/resources/packages/ErrorLibrary.aadl#emv2$ErrorLibrary.ItemCommission"/>
+    <relatedEMV2Object href="../../../redundant2.aadl#/0/@ownedPublicSection/@ownedClassifier.2/@ownedAnnexSubclause.0/@parsedAnnexSubclause/@flows.0"/>
+  </events>
+  <events name="mem-memfail-servicecommission" referenceCount="1">
+    <relatedInstanceObject href="../../redundant2_main2_compositesametype_Instance.aaxl2#//@componentInstance.4"/>
+    <relatedErrorType href="../../../../../plugin/org.osate.aadl2.errormodel.contrib/resources/packages/ErrorLibrary.aadl#emv2$ErrorLibrary.ServiceCommission"/>
+    <relatedEMV2Object href="../../../redundant2.aadl#/0/@ownedPublicSection/@ownedClassifier.2/@ownedAnnexSubclause.0/@parsedAnnexSubclause/@flows.0"/>
+  </events>
+  <events name="mem-memfail-earlyservicestart" referenceCount="1">
+    <relatedInstanceObject href="../../redundant2_main2_compositesametype_Instance.aaxl2#//@componentInstance.4"/>
+    <relatedErrorType href="../../../../../plugin/org.osate.aadl2.errormodel.contrib/resources/packages/ErrorLibrary.aadl#emv2$ErrorLibrary.EarlyServiceStart"/>
+    <relatedEMV2Object href="../../../redundant2.aadl#/0/@ownedPublicSection/@ownedClassifier.2/@ownedAnnexSubclause.0/@parsedAnnexSubclause/@flows.0"/>
+  </events>
+  <events name="mem-memfail-lateservicetermination" referenceCount="1">
+    <relatedInstanceObject href="../../redundant2_main2_compositesametype_Instance.aaxl2#//@componentInstance.4"/>
+    <relatedErrorType href="../../../../../plugin/org.osate.aadl2.errormodel.contrib/resources/packages/ErrorLibrary.aadl#emv2$ErrorLibrary.LateServiceTermination"/>
+    <relatedEMV2Object href="../../../redundant2.aadl#/0/@ownedPublicSection/@ownedClassifier.2/@ownedAnnexSubclause.0/@parsedAnnexSubclause/@flows.0"/>
+  </events>
+  <events name="voter.thr-ef5-inconsistentvalue" referenceCount="1">
     <relatedInstanceObject href="../../redundant2_main2_compositesametype_Instance.aaxl2#//@componentInstance.5/@componentInstance.0"/>
     <relatedErrorType href="../../../redundant2.aadl#/0/@ownedPublicSection/@ownedClassifier.6/@ownedAnnexSubclause.0/@parsedAnnexSubclause/@transitions.2/@condition/@constraint"/>
     <relatedEMV2Object href="../../../redundant2.aadl#/0/@ownedPublicSection/@ownedClassifier.8/@ownedAnnexSubclause.0/@parsedAnnexSubclause/@flows.4"/>
   </events>
-  <events name="actuator-failure" description="Component 'actuator' failure event 'Failure'" referenceCount="1">
+  <events name="actuator-failure" referenceCount="1">
     <relatedInstanceObject href="../../redundant2_main2_compositesametype_Instance.aaxl2#//@componentInstance.3"/>
     <relatedEMV2Object href="../../../../../plugin/org.osate.aadl2.errormodel.contrib/resources/packages/ErrorLibrary.aadl#/0/@ownedPublicSection/@ownedAnnexLibrary.0/@parsedAnnexLibrary/@behaviors.0/@events.0"/>
   </events>
-  <events name="redundant2_main2_compositesametype-failstop" description="Component 'main2.compositesametype' in failure mode 'FailStop'" subEvents="//@events.7 //@events.0 //@events.1 //@events.2 //@events.5 //@events.6" referenceCount="1" type="Intermediate">
+  <events name="redundant2_main2_compositesametype-failstop" subEvents="//@events.27 //@events.0 //@events.1 //@events.2 //@events.3 //@events.4 //@events.5 //@events.6 //@events.7 //@events.8 //@events.9 //@events.10 //@events.11 //@events.12 //@events.13 //@events.14 //@events.15 //@events.16 //@events.17 //@events.18 //@events.19 //@events.20 //@events.21 //@events.22 //@events.23 //@events.24 //@events.25 //@events.26" referenceCount="1" type="Intermediate">
     <relatedInstanceObject href="../../redundant2_main2_compositesametype_Instance.aaxl2#/"/>
     <relatedEMV2Object href="../../../../../plugin/org.osate.aadl2.errormodel.contrib/resources/packages/ErrorLibrary.aadl#/0/@ownedPublicSection/@ownedAnnexLibrary.0/@parsedAnnexLibrary/@behaviors.0/@states.1"/>
   </events>
@@ -533,34 +676,102 @@ end FTerrorlibrary;
 	
 	val expected3 = '''
 <?xml version="1.0" encoding="ASCII"?>
-<FaultTree:FaultTree xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:FaultTree="http://www.aadl.info/FaultTree" name="redundant2_main2_transition-externaleffect-serviceomission" description="Top Level Failure" root="//@events.5">
+<FaultTree:FaultTree xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:FaultTree="http://www.aadl.info/FaultTree" name="redundant2_main2_transition-externaleffect-serviceomission_tree" root="//@events.19">
   <instanceRoot href="../../redundant2_main2_transition_Instance.aaxl2#/"/>
-  <events name="sensor1-valueout-latedelivery,outofrange" description="Component 'sensor1' with outgoing  failure 'LateDelivery,OutOfRange" referenceCount="1">
+  <events name="sensor1-valueout-latedelivery,outofrange" referenceCount="1">
     <relatedInstanceObject href="../../redundant2_main2_transition_Instance.aaxl2#//@componentInstance.1"/>
     <relatedErrorType href="../../../redundant2.aadl#/0/@ownedPublicSection/@ownedClassifier.7/@ownedAnnexSubclause.0/@parsedAnnexSubclause/@outgoingPropagationConditions.0/@condition/@operands.0/@constraint"/>
     <relatedEMV2Object href="../../../redundant2.aadl#/0/@ownedPublicSection/@ownedClassifier.4/@ownedAnnexSubclause.0/@parsedAnnexSubclause/@propagations.0"/>
   </events>
-  <events name="sensor2-valueout-latedelivery,outofrange" description="Component 'sensor2' with outgoing  failure 'LateDelivery,OutOfRange" referenceCount="1">
+  <events name="sensor2-valueout-latedelivery,outofrange" referenceCount="1">
     <relatedInstanceObject href="../../redundant2_main2_transition_Instance.aaxl2#//@componentInstance.2"/>
     <relatedErrorType href="../../../redundant2.aadl#/0/@ownedPublicSection/@ownedClassifier.7/@ownedAnnexSubclause.0/@parsedAnnexSubclause/@outgoingPropagationConditions.0/@condition/@operands.1/@constraint"/>
     <relatedEMV2Object href="../../../redundant2.aadl#/0/@ownedPublicSection/@ownedClassifier.4/@ownedAnnexSubclause.0/@parsedAnnexSubclause/@propagations.0"/>
   </events>
   <events name="Intermediate1" subEvents="//@events.0 //@events.1" referenceCount="1" type="Intermediate" subEventLogic="And">
     <relatedInstanceObject href="../../redundant2_main2_transition_Instance.aaxl2#//@componentInstance.5/@componentInstance.0"/>
-    <relatedErrorType href="../../../redundant2.aadl#/0/@ownedPublicSection/@ownedClassifier.7/@ownedAnnexSubclause.0/@parsedAnnexSubclause/@outgoingPropagationConditions.0/@typeToken"/>
+    <relatedErrorType href="../../../../../plugin/org.osate.aadl2.errormodel.contrib/resources/packages/ErrorLibrary.aadl#emv2$ErrorLibrary.ItemOmission"/>
     <relatedEMV2Object href="../../../redundant2.aadl#/0/@ownedPublicSection/@ownedClassifier.7/@ownedAnnexSubclause.0/@parsedAnnexSubclause/@outgoingPropagationConditions.0/@condition"/>
   </events>
-  <events name="voter.thr-computeerror-inconsistentvalue" description="Component 'voter.thr' failure event 'ComputeError' type 'InconsistentValue'" referenceCount="1">
+  <events name="voter.thr-failure" referenceCount="1">
     <relatedInstanceObject href="../../redundant2_main2_transition_Instance.aaxl2#//@componentInstance.5/@componentInstance.0"/>
-    <relatedErrorType href="../../../redundant2.aadl#/0/@ownedPublicSection/@ownedClassifier.7/@ownedAnnexSubclause.0/@parsedAnnexSubclause/@outgoingPropagationConditions.1/@typeToken"/>
-    <relatedEMV2Object href="../../../FTerrorlibrary.aadl#/0/@ownedPublicSection/@ownedAnnexLibrary.0/@parsedAnnexLibrary/@behaviors.0/@events.0"/>
-  </events>
-  <events name="voter.thr-failure-itemomission" description="Component 'voter.thr' failure event 'Failure' type 'ItemOmission'" referenceCount="1">
-    <relatedInstanceObject href="../../redundant2_main2_transition_Instance.aaxl2#//@componentInstance.5/@componentInstance.0"/>
-    <relatedErrorType href="../../../redundant2.aadl#/0/@ownedPublicSection/@ownedClassifier.7/@ownedAnnexSubclause.0/@parsedAnnexSubclause/@outgoingPropagationConditions.2/@typeToken"/>
     <relatedEMV2Object href="../../../FTerrorlibrary.aadl#/0/@ownedPublicSection/@ownedAnnexLibrary.0/@parsedAnnexLibrary/@behaviors.0/@events.1"/>
   </events>
-  <events name="redundant2_main2_transition-externaleffect-serviceomission" description="Component 'main2.transition' with outgoing  failure 'ServiceOmission" subEvents="//@events.2 //@events.3 //@events.4" referenceCount="1" type="Intermediate">
+  <events name="voter.thr-computeerror" referenceCount="1">
+    <relatedInstanceObject href="../../redundant2_main2_transition_Instance.aaxl2#//@componentInstance.5/@componentInstance.0"/>
+    <relatedEMV2Object href="../../../FTerrorlibrary.aadl#/0/@ownedPublicSection/@ownedAnnexLibrary.0/@parsedAnnexLibrary/@behaviors.0/@events.0"/>
+  </events>
+  <events name="mem-memfail-itemomission" referenceCount="1">
+    <relatedInstanceObject href="../../redundant2_main2_transition_Instance.aaxl2#//@componentInstance.4"/>
+    <relatedErrorType href="../../../../../plugin/org.osate.aadl2.errormodel.contrib/resources/packages/ErrorLibrary.aadl#emv2$ErrorLibrary.ItemOmission"/>
+    <relatedEMV2Object href="../../../redundant2.aadl#/0/@ownedPublicSection/@ownedClassifier.2/@ownedAnnexSubclause.0/@parsedAnnexSubclause/@flows.0"/>
+  </events>
+  <events name="mem-memfail-serviceomission" referenceCount="1">
+    <relatedInstanceObject href="../../redundant2_main2_transition_Instance.aaxl2#//@componentInstance.4"/>
+    <relatedErrorType href="../../../../../plugin/org.osate.aadl2.errormodel.contrib/resources/packages/ErrorLibrary.aadl#emv2$ErrorLibrary.ServiceOmission"/>
+    <relatedEMV2Object href="../../../redundant2.aadl#/0/@ownedPublicSection/@ownedClassifier.2/@ownedAnnexSubclause.0/@parsedAnnexSubclause/@flows.0"/>
+  </events>
+  <events name="mem-memfail-transientserviceomission" referenceCount="1">
+    <relatedInstanceObject href="../../redundant2_main2_transition_Instance.aaxl2#//@componentInstance.4"/>
+    <relatedErrorType href="../../../../../plugin/org.osate.aadl2.errormodel.contrib/resources/packages/ErrorLibrary.aadl#emv2$ErrorLibrary.TransientServiceOmission"/>
+    <relatedEMV2Object href="../../../redundant2.aadl#/0/@ownedPublicSection/@ownedClassifier.2/@ownedAnnexSubclause.0/@parsedAnnexSubclause/@flows.0"/>
+  </events>
+  <events name="mem-memfail-lateservicestart" referenceCount="1">
+    <relatedInstanceObject href="../../redundant2_main2_transition_Instance.aaxl2#//@componentInstance.4"/>
+    <relatedErrorType href="../../../../../plugin/org.osate.aadl2.errormodel.contrib/resources/packages/ErrorLibrary.aadl#emv2$ErrorLibrary.LateServiceStart"/>
+    <relatedEMV2Object href="../../../redundant2.aadl#/0/@ownedPublicSection/@ownedClassifier.2/@ownedAnnexSubclause.0/@parsedAnnexSubclause/@flows.0"/>
+  </events>
+  <events name="mem-memfail-earlyservicetermination" referenceCount="1">
+    <relatedInstanceObject href="../../redundant2_main2_transition_Instance.aaxl2#//@componentInstance.4"/>
+    <relatedErrorType href="../../../../../plugin/org.osate.aadl2.errormodel.contrib/resources/packages/ErrorLibrary.aadl#emv2$ErrorLibrary.EarlyServiceTermination"/>
+    <relatedEMV2Object href="../../../redundant2.aadl#/0/@ownedPublicSection/@ownedClassifier.2/@ownedAnnexSubclause.0/@parsedAnnexSubclause/@flows.0"/>
+  </events>
+  <events name="mem-memfail-boundedomissioninterval" referenceCount="1">
+    <relatedInstanceObject href="../../redundant2_main2_transition_Instance.aaxl2#//@componentInstance.4"/>
+    <relatedErrorType href="../../../../../plugin/org.osate.aadl2.errormodel.contrib/resources/packages/ErrorLibrary.aadl#emv2$ErrorLibrary.BoundedOmissionInterval"/>
+    <relatedEMV2Object href="../../../redundant2.aadl#/0/@ownedPublicSection/@ownedClassifier.2/@ownedAnnexSubclause.0/@parsedAnnexSubclause/@flows.0"/>
+  </events>
+  <events name="mem-memfail-itemcommission" referenceCount="1">
+    <relatedInstanceObject href="../../redundant2_main2_transition_Instance.aaxl2#//@componentInstance.4"/>
+    <relatedErrorType href="../../../../../plugin/org.osate.aadl2.errormodel.contrib/resources/packages/ErrorLibrary.aadl#emv2$ErrorLibrary.ItemCommission"/>
+    <relatedEMV2Object href="../../../redundant2.aadl#/0/@ownedPublicSection/@ownedClassifier.2/@ownedAnnexSubclause.0/@parsedAnnexSubclause/@flows.0"/>
+  </events>
+  <events name="mem-memfail-servicecommission" referenceCount="1">
+    <relatedInstanceObject href="../../redundant2_main2_transition_Instance.aaxl2#//@componentInstance.4"/>
+    <relatedErrorType href="../../../../../plugin/org.osate.aadl2.errormodel.contrib/resources/packages/ErrorLibrary.aadl#emv2$ErrorLibrary.ServiceCommission"/>
+    <relatedEMV2Object href="../../../redundant2.aadl#/0/@ownedPublicSection/@ownedClassifier.2/@ownedAnnexSubclause.0/@parsedAnnexSubclause/@flows.0"/>
+  </events>
+  <events name="mem-memfail-earlyservicestart" referenceCount="1">
+    <relatedInstanceObject href="../../redundant2_main2_transition_Instance.aaxl2#//@componentInstance.4"/>
+    <relatedErrorType href="../../../../../plugin/org.osate.aadl2.errormodel.contrib/resources/packages/ErrorLibrary.aadl#emv2$ErrorLibrary.EarlyServiceStart"/>
+    <relatedEMV2Object href="../../../redundant2.aadl#/0/@ownedPublicSection/@ownedClassifier.2/@ownedAnnexSubclause.0/@parsedAnnexSubclause/@flows.0"/>
+  </events>
+  <events name="mem-memfail-lateservicetermination" referenceCount="1">
+    <relatedInstanceObject href="../../redundant2_main2_transition_Instance.aaxl2#//@componentInstance.4"/>
+    <relatedErrorType href="../../../../../plugin/org.osate.aadl2.errormodel.contrib/resources/packages/ErrorLibrary.aadl#emv2$ErrorLibrary.LateServiceTermination"/>
+    <relatedEMV2Object href="../../../redundant2.aadl#/0/@ownedPublicSection/@ownedClassifier.2/@ownedAnnexSubclause.0/@parsedAnnexSubclause/@flows.0"/>
+  </events>
+  <events name="sensor1-ef1-belowrange" referenceCount="1">
+    <relatedInstanceObject href="../../redundant2_main2_transition_Instance.aaxl2#//@componentInstance.1"/>
+    <relatedErrorType href="../../../../../plugin/org.osate.aadl2.errormodel.contrib/resources/packages/ErrorLibrary.aadl#emv2$ErrorLibrary.BelowRange"/>
+    <relatedEMV2Object href="../../../redundant2.aadl#/0/@ownedPublicSection/@ownedClassifier.4/@ownedAnnexSubclause.0/@parsedAnnexSubclause/@flows.1"/>
+  </events>
+  <events name="sensor2-ef1-belowrange" referenceCount="1">
+    <relatedInstanceObject href="../../redundant2_main2_transition_Instance.aaxl2#//@componentInstance.2"/>
+    <relatedErrorType href="../../../../../plugin/org.osate.aadl2.errormodel.contrib/resources/packages/ErrorLibrary.aadl#emv2$ErrorLibrary.BelowRange"/>
+    <relatedEMV2Object href="../../../redundant2.aadl#/0/@ownedPublicSection/@ownedClassifier.4/@ownedAnnexSubclause.0/@parsedAnnexSubclause/@flows.1"/>
+  </events>
+  <events name="sensor1-ef1-aboverange" referenceCount="1">
+    <relatedInstanceObject href="../../redundant2_main2_transition_Instance.aaxl2#//@componentInstance.1"/>
+    <relatedErrorType href="../../../../../plugin/org.osate.aadl2.errormodel.contrib/resources/packages/ErrorLibrary.aadl#emv2$ErrorLibrary.AboveRange"/>
+    <relatedEMV2Object href="../../../redundant2.aadl#/0/@ownedPublicSection/@ownedClassifier.4/@ownedAnnexSubclause.0/@parsedAnnexSubclause/@flows.1"/>
+  </events>
+  <events name="sensor2-ef1-aboverange" referenceCount="1">
+    <relatedInstanceObject href="../../redundant2_main2_transition_Instance.aaxl2#//@componentInstance.2"/>
+    <relatedErrorType href="../../../../../plugin/org.osate.aadl2.errormodel.contrib/resources/packages/ErrorLibrary.aadl#emv2$ErrorLibrary.AboveRange"/>
+    <relatedEMV2Object href="../../../redundant2.aadl#/0/@ownedPublicSection/@ownedClassifier.4/@ownedAnnexSubclause.0/@parsedAnnexSubclause/@flows.1"/>
+  </events>
+  <events name="redundant2_main2_transition-externaleffect-serviceomission" subEvents="//@events.2 //@events.3 //@events.4 //@events.5 //@events.6 //@events.7 //@events.8 //@events.9 //@events.10 //@events.11 //@events.12 //@events.13 //@events.14 //@events.15 //@events.16 //@events.17 //@events.18" referenceCount="1" type="Intermediate">
     <relatedInstanceObject href="../../redundant2_main2_transition_Instance.aaxl2#/"/>
     <relatedErrorType href="../../../../../plugin/org.osate.aadl2.errormodel.contrib/resources/packages/ErrorLibrary.aadl#emv2$ErrorLibrary.ServiceOmission"/>
     <relatedEMV2Object href="../../../redundant2.aadl#/0/@ownedPublicSection/@ownedClassifier.12/@ownedAnnexSubclause.0/@parsedAnnexSubclause/@propagations.0"/>

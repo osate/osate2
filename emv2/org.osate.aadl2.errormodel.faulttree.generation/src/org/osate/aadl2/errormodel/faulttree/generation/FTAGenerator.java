@@ -24,7 +24,6 @@ import org.osate.aadl2.errormodel.PropagationGraph.util.PropagationGraphBackward
 import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.ConnectionInstance;
 import org.osate.aadl2.instance.SystemInstance;
-import org.osate.xtext.aadl2.errormodel.errorModel.ConditionExpression;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorState;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorEvent;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorPropagation;
@@ -44,11 +43,10 @@ public class FTAGenerator extends PropagationGraphBackwardTraversal {
 	public FaultTree getftaModel(ComponentInstance rootComponent, NamedElement rootStateOrPropagation,
 			ErrorTypes rootComponentTypes, FaultTreeType faultTreeType) {
 		if (ftaModel == null) {
-			Event ftaRootEvent;
-
+			Event ftaRootEvent = null;
+			String errorMsg = "";
 			ftaModel = FaultTreeFactory.eINSTANCE.createFaultTree();
 			ftaModel.setName(FaultTreeUtils.buildIdentifier(rootComponent, rootStateOrPropagation, rootComponentTypes));
-			ftaModel.setDescription("Top Level Failure");
 			ftaModel.setInstanceRoot(rootComponent);
 			ftaModel.setFaultTreeType(faultTreeType);
 
@@ -62,9 +60,18 @@ public class FTAGenerator extends PropagationGraphBackwardTraversal {
 							(ErrorBehaviorState) rootStateOrPropagation, rootComponentTypes);
 				}
 			} else {
-				ftaRootEvent = (Event) traverseOutgoingErrorPropagation(rootComponent,
-						(ErrorPropagation) rootStateOrPropagation,
-						rootComponentTypes);
+				if (faultTreeType.equals(FaultTreeType.COMPOSITE_PARTS)) {
+					errorMsg = "Select error state for composite parts fault tree";
+					ftaRootEvent = FaultTreeUtils.createIntermediateEvent(ftaModel, rootComponent,
+							rootStateOrPropagation, rootComponentTypes);
+					ftaModel.setMessage(errorMsg);
+					ftaModel.setRoot(ftaRootEvent);
+					return ftaModel;
+				} else {
+					ftaRootEvent = (Event) traverseOutgoingErrorPropagation(rootComponent,
+							(ErrorPropagation) rootStateOrPropagation,
+							rootComponentTypes);
+				}
 			}
 			if (ftaRootEvent == null) {
 				ftaRootEvent = FaultTreeUtils.createIntermediateEvent(ftaModel, rootComponent, rootStateOrPropagation,
@@ -77,38 +84,38 @@ public class FTAGenerator extends PropagationGraphBackwardTraversal {
 				topEvent.getSubEvents().add(ftaRootEvent);
 				ftaRootEvent = topEvent;
 			}
-//			flattenGates(ftaRootEvent);
-			cleanupXORGates(ftaRootEvent);
+			if (!faultTreeType.equals(FaultTreeType.FAULT_TRACE)) {
+				flattenGates(ftaRootEvent);
+				cleanupXORGates(ftaRootEvent);
 //			xformXORtoOR(emftaRootEvent);
-			for (Event event : ftaModel.getEvents()) {
-				EObject element = event.getRelatedEMV2Object();
-				if (element instanceof NamedElement) {
-					FaultTreeUtils.fillDescription(event);
-					FaultTreeUtils.fillProbability(event);
+				if (faultTreeType.equals(FaultTreeType.FAULT_TREE)) {
+					flattenGates(ftaRootEvent);
+					ftaRootEvent = optimizeGates(ftaRootEvent);
+					flattenGates(ftaRootEvent);
 				}
-			}
-			if (faultTreeType.equals(FaultTreeType.FAULT_TREE)) {
-				flattenGates(ftaRootEvent);
-				ftaRootEvent = optimizeGates(ftaRootEvent);
-				flattenGates(ftaRootEvent);
-			}
-			// remove gate with single event from root
-			if (ftaRootEvent.getSubEvents().size() == 1) {
-				Event subevent = ftaRootEvent.getSubEvents().get(0);
-				if (subevent.getType() == EventType.INTERMEDIATE) {
-					subevent.setName(ftaRootEvent.getName());
-					subevent.setDescription(ftaRootEvent.getDescription());
-					ftaRootEvent = subevent;
+				// remove gate with single event from root
+				if (ftaRootEvent.getSubEvents().size() == 1) {
+					Event subevent = ftaRootEvent.getSubEvents().get(0);
+					if (subevent.getType() == EventType.INTERMEDIATE) {
+						subevent.setName(ftaRootEvent.getName());
+						subevent.setMessage(ftaRootEvent.getMessage());
+						subevent.setRelatedInstanceObject(ftaRootEvent.getRelatedInstanceObject());
+						subevent.setRelatedErrorType(ftaRootEvent.getRelatedErrorType());
+						subevent.setRelatedEMV2Object(ftaRootEvent.getRelatedEMV2Object());
+						ftaRootEvent = subevent;
+					}
 				}
-			}
-			if (faultTreeType.equals(FaultTreeType.MINIMAL_CUT_SET)) {
-				ftaRootEvent = minimalCutSet(ftaRootEvent);
+				if (faultTreeType.equals(FaultTreeType.MINIMAL_CUT_SET)) {
+					ftaRootEvent = minimalCutSet(ftaRootEvent);
+				}
 			}
 			ftaRootEvent.setName(longName);
 			ftaModel.setRoot(ftaRootEvent);
 			FaultTreeUtils.removeEventOrphans(ftaModel);
+			// copy shared events so we display a tree
 			replicateSharedEvents(ftaRootEvent);
 			FaultTreeUtils.removeEventOrphans(ftaModel);
+			FaultTreeUtils.fillProbabilities(ftaModel);
 			FaultTreeUtils.computeProbabilities(ftaModel.getRoot());
 		}
 		return ftaModel;
@@ -126,7 +133,7 @@ public class FTAGenerator extends PropagationGraphBackwardTraversal {
 		if (subEvents.size() == 0) {
 			return null;
 		}
-		Event combined = FaultTreeUtils.findSharedSubtree(ftaModel, subEvents, LogicOperation.XOR);
+		Event combined = FaultTreeUtils.findSharedSubtree(ftaModel, subEvents, LogicOperation.XOR, component, el, type);
 		if (combined != null) {
 			return combined;
 		}
@@ -148,7 +155,7 @@ public class FTAGenerator extends PropagationGraphBackwardTraversal {
 //		if (subEvents.size() == 1) {
 //			return (Event) subEvents.get(0);
 //		}
-		Event combined = FaultTreeUtils.findSharedSubtree(ftaModel, subEvents, LogicOperation.OR);
+		Event combined = FaultTreeUtils.findSharedSubtree(ftaModel, subEvents, LogicOperation.OR, component, ne, type);
 		if (combined != null) {
 			return combined;
 		}
@@ -171,7 +178,7 @@ public class FTAGenerator extends PropagationGraphBackwardTraversal {
 //		if (subEvents.size() == 1) {
 //			return (Event) subEvents.get(0);
 //		}
-		Event combined = FaultTreeUtils.findSharedSubtree(ftaModel, subEvents, LogicOperation.AND);
+		Event combined = FaultTreeUtils.findSharedSubtree(ftaModel, subEvents, LogicOperation.AND, component, ne, type);
 		if (combined != null) {
 			return combined;
 		}
@@ -190,7 +197,8 @@ public class FTAGenerator extends PropagationGraphBackwardTraversal {
 		if (subEvents.size() == 0) {
 			return null;
 		}
-		Event combined = FaultTreeUtils.findSharedSubtree(ftaModel, subEvents, LogicOperation.PRIORITY_AND);
+		Event combined = FaultTreeUtils.findSharedSubtree(ftaModel, subEvents, LogicOperation.PRIORITY_AND, component,
+				ne, type);
 		if (combined != null) {
 			return combined;
 		}
@@ -976,19 +984,19 @@ public class FTAGenerator extends PropagationGraphBackwardTraversal {
 	}
 
 	@Override
-	protected EObject postProcessAnd(ComponentInstance component, ConditionExpression condition, ErrorTypes type,
+	protected EObject postProcessAnd(ComponentInstance component, Element condition, ErrorTypes type,
 			double scale, List<EObject> subResults) {
 		return finalizeAsAndEvents(component, condition, type, subResults);
 	}
 
 	@Override
-	protected EObject postProcessXor(ComponentInstance component, ConditionExpression condition, ErrorTypes type,
+	protected EObject postProcessXor(ComponentInstance component, Element condition, ErrorTypes type,
 			double scale, List<EObject> subResults) {
 		return finalizeAsXOrEvents(component, condition, type, subResults);
 	}
 
 	@Override
-	protected EObject postProcessOr(ComponentInstance component, ConditionExpression condition, ErrorTypes type,
+	protected EObject postProcessOr(ComponentInstance component, Element condition, ErrorTypes type,
 			double scale, List<EObject> subResults) {
 		return finalizeAsOrEvents(component, condition, type, subResults);
 	}

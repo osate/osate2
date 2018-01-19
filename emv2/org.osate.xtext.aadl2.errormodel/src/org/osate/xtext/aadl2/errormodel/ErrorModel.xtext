@@ -397,16 +397,6 @@ ErrorSource returns ErrorSource:
      ';'
   ;
 
-//ConnectionErrorSource returns ConnectionErrorSource:
-//	name=ID ':' ErrorSourceKeywords
-//	(connection=[aadl2::Connection|ID]|all?='all')
-//	(typeTokenConstraint=TypeTokenConstraint)?
-//  	('when'  (  failureModeType = TypeSetConstructor | failureModeDescription = STRING)
-//  	)?
-//     ( 'if' condition=CONDITION)?
-//     ';'
-//;
-
 ErrorSink returns ErrorSink:
   name=ID ':' ErrorSinkKeywords (incoming=[ErrorPropagation|ErrorPropagationPoint]|allIncoming?='all') (typeTokenConstraint=TypeTokenConstraint)?
   ';';

@@ -3,7 +3,7 @@
     xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="FaultTree" nsURI="http://www.aadl.info/FaultTree" nsPrefix="FaultTree">
   <eClassifiers xsi:type="ecore:EClass" name="FaultTree">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="description" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="message" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="faultTreeType" eType="#//FaultTreeType"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="root" eType="#//Event"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="instanceRoot" eType="ecore:EClass http://www.eclipse.org/emf/2002/Ecore#//EObject"/>
@@ -13,7 +13,7 @@
   <eClassifiers xsi:type="ecore:EClass" name="Event">
     <eOperations name="getProbability" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDouble"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="description" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="message" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="subEvents" upperBound="-1"
         eType="#//Event"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="k" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"

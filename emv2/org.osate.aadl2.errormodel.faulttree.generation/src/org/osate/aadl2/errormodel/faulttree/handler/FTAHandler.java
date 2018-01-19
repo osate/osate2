@@ -42,6 +42,7 @@ import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.handlers.HandlerUtil;
 import org.eclipse.xtext.ui.util.ResourceUtil;
 import org.osate.aadl2.Feature;
+import org.osate.aadl2.errormodel.FaultTree.FaultTree;
 import org.osate.aadl2.errormodel.FaultTree.FaultTreeType;
 import org.osate.aadl2.errormodel.PropagationGraph.PropagationGraph;
 import org.osate.aadl2.errormodel.PropagationGraph.PropagationPath;
@@ -63,6 +64,9 @@ public final class FTAHandler extends AbstractHandler {
 
 	private static String ERROR_STATE_NAME = null;
 	private static FaultTreeType FAULT_TREE_TYPE = FaultTreeType.FAULT_TREE;
+	private static boolean GRAPHIC_VIEW = false;
+	private static List<String> stateNames = null;
+
 
 	@Override
 	public Object execute(ExecutionEvent event) throws ExecutionException {
@@ -79,104 +83,103 @@ public final class FTAHandler extends AbstractHandler {
 			target = si;
 		}
 
-		if (!EMV2Util.hasCompositeErrorBehavior(target) && !EMV2Util.hasOutgoingPropagations(target)) {
+		if (!EMV2Util.hasComponentErrorBehaviorTransitions(target) && !EMV2Util.hasCompositeErrorBehavior(target)
+				&& !EMV2Util.hasOutgoingPropagations(target)) {
 			Dialog.showInfo("Fault Tree Analysis",
-					"Your system instance or selected component instance must have composite error behavior states or outgoing propagations.");
-			return null;
+					"Your system instance or selected component instance must have outgoing propagations, error state transitions, or composite error states.");
+			return IStatus.ERROR;
+		}
+		stateNames = new ArrayList<String>();
+		PropagationGraph currentPropagationGraph = Util.generatePropagationGraph(target.getSystemInstance(), false);
+		for (ErrorPropagation outprop : EMV2Util.getAllOutgoingErrorPropagations(target.getComponentClassifier())) {
+			EList<PropagationPath> paths = Util.getAllReversePropagationPaths(currentPropagationGraph, target, outprop);
+			if (paths.isEmpty()) {
+				continue;
+			}
+			if (!(outprop.getFeatureorPPRef().getFeatureorPP() instanceof Feature)) {
+				continue;
+			}
+			EList<TypeToken> result = EM2TypeSetUtil.generateAllLeafTypeTokens(outprop.getTypeSet(),
+					EMV2Util.getUseTypes(outprop));
+			for (TypeToken tt : result) {
+				String epName = CreateFTAModel.prefixOutgoingPropagation + EMV2Util.getPrintName(outprop)
+				+ EMV2Util.getPrintName(tt);
+				if (!stateNames.contains(epName)) {
+					stateNames.add(epName);
+				}
+			}
+		}
+
+		for (ErrorBehaviorState ebs : EMV2Util.getAllErrorBehaviorStates(target)) {
+			if (ebs.getTypeSet() == null) {
+				stateNames.add(CreateFTAModel.prefixState + EMV2Util.getPrintName(ebs));
+			} else {
+				EList<TypeToken> result = EM2TypeSetUtil.generateAllLeafTypeTokens(ebs.getTypeSet(),
+						EMV2Util.getUseTypes(ebs));
+				for (TypeToken tt : result) {
+					String epName = CreateFTAModel.prefixState + EMV2Util.getPrintName(ebs) + EMV2Util.getPrintName(tt);
+					if (!stateNames.contains(epName)) {
+						stateNames.add(epName);
+					}
+				}
+			}
+		}
+		if (stateNames.isEmpty()) {
+			Dialog.showInfo("Fault Tree Analysis", "Selected system must have error states or error propagations");
+			return IStatus.ERROR;
 		}
 
 		final Display d = PlatformUI.getWorkbench().getDisplay();
 		d.syncExec(() -> {
 			IWorkbenchWindow window;
 			Shell sh;
-			List<String> stateNames = new ArrayList<String>();
 
 			window = PlatformUI.getWorkbench().getActiveWorkbenchWindow();
 			sh = window.getShell();
 
-			PropagationGraph currentPropagationGraph = Util.generatePropagationGraph(target.getSystemInstance(), false);
-			for (ErrorPropagation outprop : EMV2Util.getAllOutgoingErrorPropagations(target.getComponentClassifier())) {
-				EList<PropagationPath> paths = Util.getAllReversePropagationPaths(currentPropagationGraph, target,
-						outprop);
-				if (paths.isEmpty()) {
-					continue;
-				}
-				if (!(outprop.getFeatureorPPRef().getFeatureorPP() instanceof Feature)) {
-					continue;
-				}
-				EList<TypeToken> result = EM2TypeSetUtil.generateAllLeafTypeTokens(outprop.getTypeSet(),
-						EMV2Util.getUseTypes(outprop));
-				for (TypeToken tt : result) {
-					String epName = CreateFTAModel.prefixOutgoingPropagation + EMV2Util.getPrintName(outprop)
-					+ EMV2Util.getPrintName(tt);
-					if (!stateNames.contains(epName)) {
-						stateNames.add(epName);
-					}
-				}
-			}
-
-			boolean compositeparts = false;
-//			for (CompositeState cebs : EMV2Util.getAllCompositeStates(target.getComponentClassifier())) {
-//				compositeparts = true;
-//				ErrorBehaviorState ebs = cebs.getState();
-//				if (cebs.getTypedToken() == null) {
-//					stateNames.add(CreateFTAModel.prefixState + EMV2Util.getPrintName(ebs));
-//				} else {
-//					EList<TypeToken> result = EM2TypeSetUtil.generateAllLeafTypeTokens(cebs.getTypedToken(),
-//							EMV2Util.getUseTypes(cebs));
-//					for (TypeToken tt : result) {
-//						String epName = CreateFTAModel.prefixState + EMV2Util.getPrintName(ebs)
-//						+ EMV2Util.getPrintName(tt);
-//						if (!stateNames.contains(epName)) {
-//							stateNames.add(epName);
-//						}
-//					}
-//				}
-//			}
-
-			for (ErrorBehaviorState ebs : EMV2Util.getAllErrorBehaviorStates(target)) {
-				compositeparts = true;
-				if (ebs.getTypeSet() == null) {
-					stateNames.add(CreateFTAModel.prefixState + EMV2Util.getPrintName(ebs));
-				} else {
-					EList<TypeToken> result = EM2TypeSetUtil.generateAllLeafTypeTokens(ebs.getTypeSet(),
-							EMV2Util.getUseTypes(ebs));
-					for (TypeToken tt : result) {
-						String epName = CreateFTAModel.prefixState + EMV2Util.getPrintName(ebs)
-						+ EMV2Util.getPrintName(tt);
-						if (!stateNames.contains(epName)) {
-							stateNames.add(epName);
-						}
-					}
-				}
-			}
-
 			FTADialog diag = new FTADialog(sh);
 			diag.setValues(stateNames);
-			diag.setComposite(compositeparts);
 			diag.setTarget(
 					"'" + (target instanceof SystemInstance ? target.getName() : target.getComponentInstancePath())
 					+ "'");
 			diag.open();
 			ERROR_STATE_NAME = diag.getValue();
 			FAULT_TREE_TYPE = diag.getFaultTreeType();
+			GRAPHIC_VIEW = diag.isGraphicView();
 		});
 
 		if (ERROR_STATE_NAME != null) {
-			URI newURI = EcoreUtil
-					.getURI(CreateFTAModel.createModel(target, ERROR_STATE_NAME, FAULT_TREE_TYPE));
+			if (FAULT_TREE_TYPE.equals(FaultTreeType.COMPOSITE_PARTS)
+					&& ERROR_STATE_NAME.startsWith(CreateFTAModel.prefixOutgoingPropagation)) {
+				Dialog.showInfo("Fault Tree Analysis",
+						"Select error state for composite parts fault tree");
+				return IStatus.ERROR;
+			}
+			if (FAULT_TREE_TYPE.equals(FaultTreeType.COMPOSITE_PARTS)
+					&& !EMV2Util.hasCompositeErrorBehavior(target)) {
+				Dialog.showInfo("Fault Tree Analysis",
+						"Selected system must have composite error states for composite parts fault tree analysis");
+				return IStatus.ERROR;
+			}
+			FaultTree ftmodel = CreateFTAModel.createModel(target, ERROR_STATE_NAME, FAULT_TREE_TYPE);
+			URI newURI = EcoreUtil.getURI(ftmodel);
 			if (newURI != null) {
-				if (FAULT_TREE_TYPE.equals(FaultTreeType.MINIMAL_CUT_SET)) {
-					SiriusUtil.INSTANCE.autoOpenModel(newURI, ResourceUtil.getFile(si.eResource()).getProject(),
-							"viewpoint:/org.osate.aadl2.errormodel.faulttree.design/FaultTree", "MinimalCutSetTable",
-							"Minimal Cutset");
-					return Status.OK_STATUS;
-				} else {
+				if (GRAPHIC_VIEW) {
 					SiriusUtil.INSTANCE.autoOpenModel(newURI, ResourceUtil.getFile(si.eResource()).getProject(),
 							"viewpoint:/org.osate.aadl2.errormodel.faulttree.design/FaultTree", "IconicFaultTree",
 							"Fault Tree");
-					return Status.OK_STATUS;
+				} else {
+					if (FAULT_TREE_TYPE.equals(FaultTreeType.MINIMAL_CUT_SET)) {
+						SiriusUtil.INSTANCE.autoOpenModel(newURI, ResourceUtil.getFile(si.eResource()).getProject(),
+								"viewpoint:/org.osate.aadl2.errormodel.faulttree.design/FaultTree",
+								"MinimalCutSetTable", "Minimal Cutset");
+					} else {
+						SiriusUtil.INSTANCE.autoOpenModel(newURI, ResourceUtil.getFile(si.eResource()).getProject(),
+								"viewpoint:/org.osate.aadl2.errormodel.faulttree.design/FaultTree", "FaultTreeTable",
+								"Fault Tree");
+					}
 				}
+				return Status.OK_STATUS;
 			}
 		}
 
