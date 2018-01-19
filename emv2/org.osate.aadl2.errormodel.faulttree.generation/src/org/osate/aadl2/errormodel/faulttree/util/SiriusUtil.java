@@ -13,7 +13,6 @@ import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
-import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.emf.transaction.RecordingCommand;
 import org.eclipse.emf.transaction.TransactionalEditingDomain;
 import org.eclipse.sirius.business.api.componentization.ViewpointRegistry;
@@ -40,6 +39,7 @@ import org.eclipse.sirius.viewpoint.DView;
 import org.eclipse.sirius.viewpoint.description.RepresentationDescription;
 import org.eclipse.sirius.viewpoint.description.Viewpoint;
 import org.eclipse.swt.widgets.Display;
+import org.osate.aadl2.errormodel.FaultTree.FaultTree;
 import org.osate.aadl2.util.OsateDebug;
 
 /**
@@ -340,7 +340,8 @@ public class SiriusUtil {
 	 * @param resourceUri
 	 * @param monitor
 	 */
-	public void createAndOpenSiruisView(final URI ftamodelUri, final IProject project, String viewPoint,
+	public void createAndOpenSiruisView(final URI ftamodelUri, final FaultTree ft, final IProject project,
+			String viewPoint,
 			String representation, IProgressMonitor monitor) {
 		URI viewpointURI = URI.createURI(viewPoint);
 
@@ -353,14 +354,13 @@ public class SiriusUtil {
 		}
 		if (existingSession != null) {
 			saveSession(existingSession, monitor);
-			ResourceSetImpl resset = new ResourceSetImpl();
 			EObject model = getModelFromSession(existingSession, semanticResourceURI);
 			// XXX this next piece of code tries to compensate for a bug in Sirius where it cannot find the model
 			// It should be there since the getSessionForProjectandResource would have put it there.
 			if (model == null) {
 				OsateDebug.osateDebug(
 						"Could not find semantic resource in session for URI " + semanticResourceURI.path());
-				model = resset.getEObject(ftamodelUri, true);
+				model = ft;
 			}
 			if (model == null) {
 				OsateDebug.osateDebug("Could not find model for URI " + ftamodelUri.path());
@@ -391,7 +391,8 @@ public class SiriusUtil {
 		}
 	}
 
-	public void autoOpenModel(final URI newURI, final IProject activeProject, final String viewPoint,
+	public void autoOpenModel(final URI newURI, final FaultTree ft, final IProject activeProject,
+			final String viewPoint,
 			final String representation, final String jobName) {
 
 		try {
@@ -403,7 +404,7 @@ public class SiriusUtil {
 
 					monitor.beginTask(jobName, 100);
 
-					createAndOpenSiruisView(newURI, activeProject, viewPoint, representation, monitor);
+					createAndOpenSiruisView(newURI, ft, activeProject, viewPoint, representation, monitor);
 //					}
 					monitor.done();
 
