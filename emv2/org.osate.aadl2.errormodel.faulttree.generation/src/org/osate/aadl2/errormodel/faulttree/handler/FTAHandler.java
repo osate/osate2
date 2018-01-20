@@ -29,10 +29,8 @@ import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.emf.common.util.EList;
-import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
-import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.swt.widgets.Display;
@@ -162,28 +160,25 @@ public final class FTAHandler extends AbstractHandler {
 				return IStatus.ERROR;
 			}
 			FaultTree ftmodel = CreateFTAModel.createModel(target, ERROR_STATE_NAME, FAULT_TREE_TYPE);
-			URI newURI = EcoreUtil.getURI(ftmodel);
-			if (newURI != null) {
 				if (GRAPHIC_VIEW) {
-					SiriusUtil.INSTANCE.autoOpenModel(newURI, ftmodel,
+				SiriusUtil.INSTANCE.autoOpenModel(ftmodel,
 							ResourceUtil.getFile(si.eResource()).getProject(),
 							"viewpoint:/org.osate.aadl2.errormodel.faulttree.design/FaultTree", "IconicFaultTree",
 							"Fault Tree");
 				} else {
 					if (FAULT_TREE_TYPE.equals(FaultTreeType.MINIMAL_CUT_SET)) {
-						SiriusUtil.INSTANCE.autoOpenModel(newURI, ftmodel,
+					SiriusUtil.INSTANCE.autoOpenModel(ftmodel,
 								ResourceUtil.getFile(si.eResource()).getProject(),
 								"viewpoint:/org.osate.aadl2.errormodel.faulttree.design/FaultTree",
 								"MinimalCutSetTable", "Minimal Cutset");
 					} else {
-						SiriusUtil.INSTANCE.autoOpenModel(newURI, ftmodel,
+					SiriusUtil.INSTANCE.autoOpenModel(ftmodel,
 								ResourceUtil.getFile(si.eResource()).getProject(),
 								"viewpoint:/org.osate.aadl2.errormodel.faulttree.design/FaultTree", "FaultTreeTable",
 								"Fault Tree");
 					}
 				}
 				return Status.OK_STATUS;
-			}
 		}
 
 		return IStatus.ERROR;

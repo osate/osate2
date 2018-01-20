@@ -13,6 +13,7 @@ import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
+import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.transaction.RecordingCommand;
 import org.eclipse.emf.transaction.TransactionalEditingDomain;
 import org.eclipse.sirius.business.api.componentization.ViewpointRegistry;
@@ -39,7 +40,6 @@ import org.eclipse.sirius.viewpoint.DView;
 import org.eclipse.sirius.viewpoint.description.RepresentationDescription;
 import org.eclipse.sirius.viewpoint.description.Viewpoint;
 import org.eclipse.swt.widgets.Display;
-import org.osate.aadl2.errormodel.FaultTree.FaultTree;
 import org.osate.aadl2.util.OsateDebug;
 
 /**
@@ -316,9 +316,10 @@ public class SiriusUtil {
 	 */
 	public Resource getResourceFromSession(Session session, URI uri) {
 		ResourceSet set = session.getTransactionalEditingDomain().getResourceSet();
+		URI normalizeduri = set.getURIConverter().normalize(uri);
 		for (Resource resource : session.getSemanticResources()) {
 			if (resource.getURI() != null) {
-				if (set.getURIConverter().normalize(resource.getURI()).equals(uri)) {
+				if (set.getURIConverter().normalize(resource.getURI()).equals(normalizeduri)) {
 					return resource;
 				}
 			}
@@ -340,12 +341,12 @@ public class SiriusUtil {
 	 * @param resourceUri
 	 * @param monitor
 	 */
-	public void createAndOpenSiruisView(final URI ftamodelUri, final FaultTree ft, final IProject project,
+	public void createAndOpenSiruisView(final EObject ft, final IProject project,
 			String viewPoint,
 			String representation, IProgressMonitor monitor) {
 		URI viewpointURI = URI.createURI(viewPoint);
 
-		URI semanticResourceURI = URI.createPlatformResourceURI(ftamodelUri.toPlatformString(true), true);
+		URI semanticResourceURI = EcoreUtil.getURI(ft); // URI.createPlatformResourceURI(ftamodelUri.toPlatformString(true), true);
 		Session existingSession = getSessionForProjectAndResource(project, semanticResourceURI, monitor);
 		if (existingSession == null) {
 			// give it a second try. null was returned the first time due to a class cast exception at the end of
@@ -363,7 +364,7 @@ public class SiriusUtil {
 				model = ft;
 			}
 			if (model == null) {
-				OsateDebug.osateDebug("Could not find model for URI " + ftamodelUri.path());
+				OsateDebug.osateDebug("Could not find model for URI " + semanticResourceURI.path());
 				return;
 			}
 			final Viewpoint faultTreeVP = getViewpoint(existingSession, viewpointURI, monitor);
@@ -391,7 +392,7 @@ public class SiriusUtil {
 		}
 	}
 
-	public void autoOpenModel(final URI newURI, final FaultTree ft, final IProject activeProject,
+	public void autoOpenModel(final EObject ft, final IProject activeProject,
 			final String viewPoint,
 			final String representation, final String jobName) {
 
@@ -404,7 +405,7 @@ public class SiriusUtil {
 
 					monitor.beginTask(jobName, 100);
 
-					createAndOpenSiruisView(newURI, ft, activeProject, viewPoint, representation, monitor);
+					createAndOpenSiruisView(ft, activeProject, viewPoint, representation, monitor);
 //					}
 					monitor.done();
 
