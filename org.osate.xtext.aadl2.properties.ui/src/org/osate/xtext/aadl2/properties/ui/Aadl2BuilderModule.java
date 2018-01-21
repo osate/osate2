@@ -1,8 +1,8 @@
-package org.osate.xtext.aadl2.ui;
+package org.osate.xtext.aadl2.properties.ui;
 
 import org.eclipse.xtext.builder.builderState.IBuilderState;
 import org.eclipse.xtext.service.AbstractGenericModule;
-import org.osate.xtext.aadl2.ui.builder.OsateClusteringBuilderState;
+import org.osate.xtext.aadl2.properties.ui.builder.OsateClusteringBuilderState;
 
 import com.google.inject.Binder;
 import com.google.inject.Scopes;

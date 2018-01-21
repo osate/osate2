@@ -1,4 +1,4 @@
-package org.osate.xtext.aadl2.ui.builder;
+package org.osate.xtext.aadl2.properties.ui.builder;
 
 import java.util.Collection;
 import java.util.List;
@@ -179,7 +179,7 @@ public class OsateClusteringBuilderState extends ClusteringBuilderState {
 							// Resolve links here!
 							try {
 								if (resource instanceof XtextResource) {
-									((XtextResource) resource).getCache().clear(resource);
+									// ((XtextResource) resource).getCache().clear(resource);
 								}
 								EcoreUtil2.resolveLazyCrossReferences(resource, cancelMonitor);
 								final IResourceDescription description = manager.getResourceDescription(resource);

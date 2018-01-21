@@ -214,6 +214,10 @@
              class="org.osate.xtext.aadl2.properties.ui.PropertiesUiStartup">
        </startup>
     </extension>
-
-
+   <extension
+          point="org.eclipse.xtext.ui.shared.overridingGuiceModule">
+       <module
+             class="org.osate.xtext.aadl2.properties.ui.Aadl2BuilderModule">
+       </module>
+    </extension>
 </plugin>
