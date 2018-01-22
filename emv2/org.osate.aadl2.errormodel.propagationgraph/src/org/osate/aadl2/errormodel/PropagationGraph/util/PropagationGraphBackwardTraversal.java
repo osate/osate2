@@ -383,7 +383,7 @@ public class PropagationGraphBackwardTraversal {
 		if (transitions.isEmpty()) {
 			// we cannot trace back to an error event triggering a transition
 			// give the opportunity to present the error state as Event
-			return processErrorBehaviorState(component, state, type);
+			return traverseCompositeErrorStateOnly(component, state, type);// processErrorBehaviorState(component, state, type);
 		} else {
 			// we have found an operational error state (no incoming transitions with error events)
 			// Do not include
