@@ -99,9 +99,9 @@ The Fault Impact Analysis shows no results since he have not added any connectio
 
 In the Fault Tree Analysis we generate a parts fault tree with the GPS FailStop state as the root. In this case, the composite state logic is used to determine the structure of the fault tree. The resulting fault tree directly reflects the composite state logic. If we had specified multiple levels of a system architecture, the fault tree would be a composite of the fragments specified in composite state declarations at each layer of the architecture.
 
-From the computed fault occurrence probability on the fault tree, we can see that the higher occurrence probability of the sensor dominates the fault occurrence probability of the GPS. The figure exceeds the desired target.
+From the computed fault occurrence probability on the fault tree, we can see that computed occurrence probability for GPS exceeds the the specified value.
 
-![FTA GPS](images/gps-1sensor-parts-faulttree.png "GPS FTA")
+![FTA GPS](images/gps-1sensor-parts-faulttree.png "FTA GPS")
 
 
 ## Transient and Persistent Faults in the Sensor
@@ -112,25 +112,29 @@ We can configure this specification into our physical parts design – see the s
 
 ![GPS Transient](images/GPS-TransientSensor.png "GPS Transient")
 
+As a result of distinguishing between transient and persistent failures the occurrence probability for GPS is reduced from 3.4e-4 to 1.9e-4, but still well above the desired value.
+
+![GPS Transient Tree](images/GPS-TransientSensor-Tree.png "GPS Transient Tree")
+
 ## Exploring Two Redundancy Options
-We define an alternative design with two sensors (GPS.parts_TwoSensor) to assess if this is sufficient for reaching the target failure occurrence probability. This is done by adding a second sensor as a subcomponent to the GPS system implementation, and by changing the composite state declaration to specify the two sensor failure with an AND operator. This indicates that the two sensors are assumed to be operating redundantly and one sensor is sufficient for operation.
+In this section we consider two ways of achieving reduced FailStop occurrence probability for the flight system. First, we explore improving the GPS reliability by replicating its sensor. Then we consider replicating the GPS within the design of teh flight system.
+
+We define an alternative design of GPS with two sensors (GPS.parts_TwoSensor) to assess if this is sufficient for reaching the target failure occurrence probability. We are replicating the sensor because it had the highest occurrence probability of all the GPS parts. We add a second sensor as a subcomponent to the GPS system implementation, and change the composite state declaration to specify the two sensor failure with an AND operator. This indicates that the two sensors are assumed to be operating redundantly and one sensor is sufficient for operation (GPS.parts_TwoSensor).
 
 ![GPS 2 Sensor](images/GPS-TwoSensor-Parts.png "GPS 2 Sensor")
 
-The resulting fault tree results including occurrence probability are shown in table view.
+The resulting fault tree reduces the occurrence probability to 8.8e-5. Note that the redundant sensors have an occurren probability of 6.3e-8, but the other parts limit the overall occurrence probability to e-5.
 
 ![GPS 2 Sensor](images/fta-gps2sensorstatetable.png "GPS 2 Sensor")
 
-The fault occurrence probability of this redundant sensor design may be too close to the target values as we are early in the system design. Therefore, the architect of the flight system can quickly explore the an alternative flight system architecture with a dual GPS design and determine whether this alternative provides a better solution with respect to the target occurrence probability for the flight system.
-FlightSystem.DualGPS is a specification of such a design.
+We can quickly explore a  flight system architecture with a replicated GFPS and determine whether it provides a better solution with respect to the target occurrence probability for the flight system. 
 
 ![FS Dual](images/FS-Dual-Graphic.png "FS Dual")
 
-The resulting fault tree results including occurrence probability are shown in table view.
+FlightSystem.DualGPSSingleSensor is a model of such a design using the GPS single sensor parts implementation. The resulting fault tree shows that the computed occurrence probability is smaller than the specified occurrence probability for the flight system.
 
-![FS Dual Tree](images/FS-Dual-Tree.png "FS Dual Tree")
+![FS Dual Tree](images/FS-Dual1Sensor-Tree.png "FS Dual Tree")
 
-Note that when considering architecture design alternative, architects may take into account other system characteristics, such as weight and electrical power consumption. By annotating the various physical part specifications in AADL with weight and electrical power properties we can support such analyses from the same AADL model.
 
 
 # GPS Functional Architecture and Physical System Binding
@@ -167,7 +171,7 @@ Fault Impact Analysis starts with each error source and traces the effect throug
 ![AADL GPSBasic FaultImpact](images/GPS-Basic-FaultImpact.png "AADL GPSBasic FaultImpact")
 FTA starts with an undesirable effect GPS can have on its operational environment, in our case out propagation of ServiceOmission from the GPS location port. We specify the undesirable effect as starting point for the generation of the fault tree by identifying the out propagation as the starting point in a dialog box after invoking the **Fault Tree Analysis** command. From that out propagation point the analysis traces backwards along connections as propagation paths, error flows through components, and state transitions triggers, if provided. Bindings will be included as propagation path once the binding is specified by the user (see next section).
 
-The resulting fault tree in its graphical view is shown below). The two instances of the sensor show up in the fault tree as an OR since the specification only includes error paths. The power supply and the network are included in the fault tree because the affect the performance of the sensors. The GPS processing unit itself is not shown as a contributor as the model does not include a specification of software as an error source. However, GPS processing is dependent on executing on a processor. This is indicated by an incoming error propagation point whose propagation path is not known until a deployment binding is specified (Undeveloped Event). In this case the fault tree event shows the expected incoming propagation with an expected occurrence probability that was specified with the incoming propagation.
+The resulting fault tree in its graphical view is shown below). The two instances of the sensor show up in the fault tree as an OR since the specification only includes error paths. The power supply and the network are included in the fault tree because the affect the performance of the sensors. The GPS processing unit itself is not shown as a contributor as the model does not include a specification of software as an error source. However, GPS processing is dependent on executing on a processor. This is indicated by an incoming error propagation point whose propagation path is not known until a deployment binding is specified (Undeveloped Event). In this case the fault tree event shows the incoming propagation with an expected occurrence probability that was specified with the incoming propagation.
 
 ![GPS Basic Tree](images/GPS-Basic-FaultTree.png "GPS Basic Tree")
 

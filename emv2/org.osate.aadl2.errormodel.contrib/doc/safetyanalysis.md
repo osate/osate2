@@ -353,11 +353,13 @@ An example of a composite error behavior state declaration is shown here.
 
 
 
-In our example, the package *GPSSystem* contains the top level GPS system with a number of implementations with different levels of detail and configurations. The parts model is represented by the system implementation *gps.parts_TwoSensor*. The composite error behavior specifies that the state **FailStop** for **GPS** holds if both sensors that act as satellite signal receivers fail (AND), or any of the other parts fail. 
+In our example, the package *GPSSystem* contains the top level GPS system with a number of implementations with different levels of detail and configurations. The parts model is represented by the system implementation *gps.parts_TwoSensor*. The composite error behavior specifies that the state **FailStop** for **GPS** holds if both of the replicated satellite signal receivers fail (AND), or any of the other parts fail. 
 
 
 
->This is similar to specifying reliability block diagrams (RBD) in a compositional manner, where the logic of the composite error behavior state corresponds to the logic represented graphically by parallel and serial blocks. The **parts fault tree** replaces the RBD command from earlier versions of OSATE.
+>This is similar to specifying reliability block diagrams (RBD) in a compositional manner, where the logic of the composite error behavior state corresponds to the logic represented graphically by parallel (AND) and sequenced (OR) blocks. The **parts fault tree** replaces the RBD command from earlier versions of OSATE.
+
+> Users can also achieve the effect of RBD by modeling components with error flows and connections. In the case of components with multiple incoming error propagations represewnting replication users declare an out propgation condition declaration that specifies which incoming error propagations represent input from replicated component with AND logic (see Flow-based Fault Tree Generation below).
 
 
 
@@ -409,7 +411,7 @@ When the user selects **Fault tree with computed occurrence probability** the fa
 
 The generated fault tree for our **GPS.basic** example is shown below. The **powersupply1** and **network** components contribute an **error event** and **error source** respectively, which were shown in the trace as dependent events. Those events have been moved up to become subevents under the top-level system event connected via an OR gate. 
 
-
+> Note that in a flow-based fault tree the occurrence probability of an outgoing error propagation consists of the occurrence probability of all error events within the the root system parts as well as any incoming error propagation.
 
 ![GPS flow-based FTA](images/GPS-Basic-FaultTree.png "GPS flow-based FTA")
 
