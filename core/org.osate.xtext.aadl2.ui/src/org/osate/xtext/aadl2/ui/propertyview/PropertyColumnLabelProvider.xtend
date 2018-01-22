@@ -46,6 +46,10 @@ import org.osate.aadl2.Property
 import org.osate.aadl2.PropertyAssociation
 import org.osate.aadl2.PropertySet
 import org.osate.xtext.aadl2.ui.MyAadl2Activator
+import org.eclipse.emf.ecore.EObject
+import org.osate.aadl2.Subcomponent
+import org.osate.aadl2.modelsupport.util.AadlUtil
+import org.osate.aadl2.instance.InstanceObject
 
 package class PropertyColumnLabelProvider extends ColumnLabelProvider {
 	val static MODE_ICON = "icons/propertyview/mode.gif"
@@ -79,7 +83,7 @@ package class PropertyColumnLabelProvider extends ColumnLabelProvider {
 					ModalPropertyValue: {
 						val modes = if (treeElementEObject.allInModes.empty) {
 							//This ModalPropertyValue exists in all modes that are not listed for other ModalPropertyValues
-							(propertyView.input.getEObject(true) as ComponentClassifier).allModes.filter[classifierMode |
+							getModesFromClassifierThatDeclaresModes(propertyView.input.getEObject(true)).filter[classifierMode |
 								(treeElementEObject.owner as PropertyAssociation).ownedValues.forall[!allInModes.contains(classifierMode)]
 							]
 						} else {
@@ -92,6 +96,30 @@ package class PropertyColumnLabelProvider extends ColumnLabelProvider {
 				RangeElement: treeElement.label
 				ListElement: "# " + treeElement.index
 			}
+		}
+	}
+	
+	/**
+	 * Get the ComponentClassifier that declares the modes that may appear in "in modes" clauses
+	 * property associations on this object.
+	 */
+	def private static getClassifierThatDeclaresModes(EObject propertySrc) {
+		if (propertySrc instanceof Subcomponent) {
+			// Subcomponent: use the classifier of the subcomponent
+			(propertySrc as Subcomponent).classifier
+		} else { // TODO: Check for instance model
+			/* Find the nearest enclosing classifier.  The below method could return a FeatureGroup in theory, 
+			 * but feature groups cannot have modes, so they wouldn't be encountered in this situation.
+			 */
+			AadlUtil.getContainingClassifier(propertySrc) as ComponentClassifier
+		}
+	}
+	
+	def private static getModesFromClassifierThatDeclaresModes(EObject propertySrc) {
+		if (propertySrc instanceof InstanceObject) {
+			(propertySrc as InstanceObject).systemInstance.systemOperationModes
+		} else {
+			getClassifierThatDeclaresModes(propertySrc).allModes
 		}
 	}
 	
