@@ -966,6 +966,7 @@ public class AgeDiagramBehavior extends DiagramBehavior implements GraphitiAgeDi
 		};
 
 		// Create the Graphiti AGE diagram which will own a Graphiti diagram and keep it updated with any changes to the AGE diagram
+		updatingFeatureWhileForcingNotDirty = true;
 		graphitiAgeDiagram = new GraphitiAgeDiagram(ageDiagram, dtp.getDiagram(), getEditingDomain(),
 				c -> executeFeature(new EmfCommandCustomFeature(c, fp), new CustomContext()), coloringProvider,
 				() -> {
@@ -973,7 +974,8 @@ public class AgeDiagramBehavior extends DiagramBehavior implements GraphitiAgeDi
 					final PictogramElement[] pes = getSelectedPictogramElements();
 					setPictogramElementsForSelection(pes);
 				});
-
+		updatingFeatureWhileForcingNotDirty = false;
+		
 		return dtp;
 	}
 
