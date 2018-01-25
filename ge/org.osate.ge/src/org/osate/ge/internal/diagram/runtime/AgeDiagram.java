@@ -303,7 +303,7 @@ public class AgeDiagram implements DiagramNode, ModifiableDiagramElementContaine
 
 		@Override
 		public void setPosition(final DiagramElement e, final Point value) {
-			if(!value.equals(e.getPosition())) {
+			if (!value.equals(e.getPosition())) {
 				// Determine the different between X and Y
 				final double dx = value.x - e.getX();
 				final double dy = value.y - e.getY();
