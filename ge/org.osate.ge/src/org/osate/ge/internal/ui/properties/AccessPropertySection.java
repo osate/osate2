@@ -1,28 +1,25 @@
 package org.osate.ge.internal.ui.properties;
 
+import java.util.Iterator;
 import java.util.Set;
 import java.util.stream.Collectors;
 
 import org.eclipse.core.runtime.Adapters;
-import org.eclipse.jface.layout.RowLayoutFactory;
 import org.eclipse.jface.viewers.IFilter;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.SelectionListener;
-import org.eclipse.swt.layout.FormAttachment;
-import org.eclipse.swt.layout.FormData;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
-import org.eclipse.swt.widgets.Label;
 import org.eclipse.ui.IWorkbenchPart;
 import org.eclipse.ui.views.properties.tabbed.AbstractPropertySection;
-import org.eclipse.ui.views.properties.tabbed.ITabbedPropertyConstants;
 import org.eclipse.ui.views.properties.tabbed.TabbedPropertySheetPage;
 import org.osate.aadl2.Access;
 import org.osate.aadl2.AccessType;
 import org.osate.ge.BusinessObjectSelection;
+import org.osate.ge.internal.ui.util.InternalPropertySectionUtil;
 import org.osate.ge.ui.properties.PropertySectionUtil;
 
 public class AccessPropertySection extends AbstractPropertySection {
@@ -37,7 +34,7 @@ public class AccessPropertySection extends AbstractPropertySection {
 	private Button providesBtn;
 	private Button requiresBtn;
 
-	private final SelectionListener directionSelectionListener = new SelectionAdapter() {
+	private final SelectionListener accessSelectionListener = new SelectionAdapter() {
 		@Override
 		public void widgetSelected(final SelectionEvent e) {
 			final Button btn = (Button) e.widget;
@@ -51,32 +48,19 @@ public class AccessPropertySection extends AbstractPropertySection {
 	@Override
 	public void createControls(final Composite parent, final TabbedPropertySheetPage aTabbedPropertySheetPage) {
 		super.createControls(parent, aTabbedPropertySheetPage);
+		final Composite composite = getWidgetFactory().createFlatFormComposite(parent);
+		final Composite directionContainer = InternalPropertySectionUtil.createRowLayoutComposite(getWidgetFactory(),
+				composite,
+				STANDARD_LABEL_WIDTH);
 
-		Composite composite = getWidgetFactory().createFlatFormComposite(parent);
+		providesBtn = InternalPropertySectionUtil.createButton(getWidgetFactory(), directionContainer,
+				AccessType.PROVIDES,
+				accessSelectionListener, "Provides", SWT.RADIO);
+		requiresBtn = InternalPropertySectionUtil.createButton(getWidgetFactory(), directionContainer,
+				AccessType.REQUIRES,
+				accessSelectionListener, "Requires", SWT.RADIO);
 
-		FormData ld;
-		final Composite directionContainer = getWidgetFactory().createComposite(composite);
-		directionContainer.setLayout(RowLayoutFactory.fillDefaults().wrap(false).create());
-		ld = new FormData();
-		ld.left = new FormAttachment(0, STANDARD_LABEL_WIDTH);
-		ld.right = new FormAttachment(100, 0);
-		ld.top = new FormAttachment(0, ITabbedPropertyConstants.VSPACE);
-		directionContainer.setLayoutData(ld);
-
-		providesBtn = getWidgetFactory().createButton(directionContainer, "Provides", SWT.RADIO);
-		providesBtn.setData(AccessType.PROVIDES);
-		providesBtn.addSelectionListener(directionSelectionListener);
-
-		requiresBtn = getWidgetFactory().createButton(directionContainer, "Requires", SWT.RADIO);
-		requiresBtn.setData(AccessType.REQUIRES);
-		requiresBtn.addSelectionListener(directionSelectionListener);
-
-		final Label label = getWidgetFactory().createLabel(composite, "Type:");
-		ld = new FormData();
-		ld.left = new FormAttachment(0, 0);
-		ld.right = new FormAttachment(directionContainer, -ITabbedPropertyConstants.HSPACE);
-		ld.top = new FormAttachment(directionContainer, 0, SWT.CENTER);
-		label.setLayoutData(ld);
+		InternalPropertySectionUtil.createSectionLabel(composite, getWidgetFactory(), "Access Type:");
 	}
 
 	@Override
@@ -88,11 +72,28 @@ public class AccessPropertySection extends AbstractPropertySection {
 
 	@Override
 	public void refresh() {
-		final Set<AccessType> selectedDirections = selectedBos.boStream(Access.class)
-				.map(a -> a.getKind()).collect(Collectors.toSet());
+		final Set<Access> selectedAccesses = selectedBos.boStream(Access.class).collect(Collectors.toSet());
 
-		providesBtn.setSelection(selectedDirections.contains(AccessType.PROVIDES));
-		requiresBtn.setSelection(selectedDirections.contains(AccessType.REQUIRES));
+		// Get initial value for buttons
+		final AccessType accessType = getAccessType(selectedAccesses);
+
+		// Set selection
+		providesBtn.setSelection(accessType == AccessType.PROVIDES);
+		requiresBtn.setSelection(accessType == AccessType.REQUIRES);
 	}
 
+	private static AccessType getAccessType(final Set<Access> selectedAccesses) {
+		final Iterator<Access> it = selectedAccesses.iterator();
+		// Initial value of buttons
+		final AccessType accessType = it.next().getKind();
+
+		while (it.hasNext()) {
+			// Check if all elements are of same access type
+			if (accessType != it.next().getKind()) {
+				return null;
+			}
+		}
+
+		return accessType;
+	}
 }
