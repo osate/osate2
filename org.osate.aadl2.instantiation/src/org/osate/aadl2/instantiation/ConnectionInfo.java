@@ -256,7 +256,7 @@ class ConnectionInfo {
 				}
 			}
 		}
-		return origFI;
+		return rootFI; // Issue 923: was origFI;
 	}
 
 	private ConnectionKind getKind(ConnectionInstanceEnd dst) {
