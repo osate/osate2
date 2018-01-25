@@ -152,7 +152,7 @@ Elements can only be renamed when viewing the element which contains it. For exa
 When renaming a model element from the AADL text editor, one should use the *Rename Element* menu option. Manually renaming model elements will result in broken linkages between AADL diagrams and the AADL model.
 
 ### Refining
-Appropriate elements can be refined by right-clicking on them and selecting *Refine* from the context menu. Once an element is refined. Deleting a refined element will only delete the refinement.
+Appropriate elements can be refined by double-clicking on the element and select the *AADL* tab of the *Properties* view.  Use the *Refined* section to refine the element.
 
 ### Instantiating
 When viewing a package diagram, component implementations can be instantiated by right-clicking on them and selecting *Instantiate* from the context menu. The instance model will be created in that projects *instances* folder in the AADL Navigator.
@@ -277,8 +277,8 @@ When viewing an implementation diagram, connections can be created by using the 
 ### Editing Connections
 The graphical editor supports refining, binding, configuring in modes, switching direction, and changing between unidirectional and bidirectional for appropriate AADL connections.
 
-#### Using the Context Menu to Edit Connections
-Right click on a connection and all appropriate editing options will appear on the context menu.
+#### Using the *Properties* View to Edit Connections
+Double-click on a connection and select the *AADL* tab from the *Properties* view.
 
 ### Connection_Pattern Property Visualization
 When working with arrays, the graphical editor supports visualization of the connection_pattern property. See @sec:arrays.
@@ -309,16 +309,18 @@ The editor allows classifier extensions to be specified in the package view. Tha
 
 3. Select the classifier that is being extended. An arrow will now appear. The type of arrow is determined whether the extension is an implementation or type extension.
 
-#### Using the Context Menu to Set Extended Classifier
+#### Using the *Properties* View to Set Extended Classifier
 Specifying an extension using the context menu allows extending classifiers in other packages.
 
-1. Right-click on the classifier which will be the extension and select *Set Extended Classifier...* from the context menu.
+1. Double-click on the classifier which will be the extension and select the *AADL* tab in the *Properties* view.
 
-2. Select the classifier to extend.
+2. Select *Choose...* from the *Extends* section.
+
+3. Select the classifier to extend.
 
 ![](../images/SetExtendedClassifier.png)
 
-3. Select *OK*. The appropriate arrow indicating the extension will appear.
+4. Select *OK*. The appropriate arrow indicating the extension will appear.
 
 ## Features
 The editor allows editing AADL features. Features may be displayed on the left or the right of their container.
@@ -327,18 +329,16 @@ The editor allows editing AADL features. Features may be displayed on the left o
 Features can be created by using the palette.
 
 ### Setting the Feature Classifier
-The classifier can be set on features such as feature groups, data ports, and access features. Set the classifier by right-clicking on the feature and selecting *Set Classifier...* from the context menu.
-
-![](../images/SetClassifier.png)
+The classifier can be set on features such as feature groups, data ports, and access features.  Set the classifier by double-clicking on the feature, selecting the *AADL* tab of the *Properties* view, and selecting *Choose...* from the *Classifier* section.
 
 ### Setting the Feature Direction (Directional Features Only)
-To set the direction of a directional feature, right-click on the feature and select *Set Direction to In*, *Set Direction to Out*, or *Set Direction to In and Out* from the context menu after setting the feature group's classifier.
+To set the direction of a directional feature, double-click on the feature and select the *AADL* tab of the *Properties* view.  Select *In*, *Out*, or *Bidirectional* of the *Direction* section.
 
 ### Setting Access Kind (Access Features Only)
-To set the direction of an access feature, right-click on the feature and select *Set Kind to Provides* or *Set Kind to Requires* from the context menu.
+To set the direction of an access feature, double-click on the feature and select the *AADL* tab of the *Properties* view.  Select desired access kind in the *Access Type* section.
 
 ### Setting a Feature Group as Inverse
-To set a feature group as either the inverse of or not the inverse of the selected feature group type, right-click on the feature group and select *Set to Inverse* or *Set to Not Inverse* from the context menu.
+To set a feature group as the inverse of the selected feature group type, double-click on the feature group and select the *AADL* tab of the *Properties* view.  Check the box in the *Inverse* section.
 
 ## Subcomponents
 The graphical editor allows editing subcomponents when viewing a component implementation diagram.
@@ -347,9 +347,7 @@ The graphical editor allows editing subcomponents when viewing a component imple
 When viewing a component implementation diagram, a subcomponent can be creating by using the palette. Drag the appropriate subcomponent type from the palette to the desired location. A new subcomponent will appear.
 
 ### Setting the Classifier
-Select the subcomponent classifier by right-clicking on the subcomponent and selecting *Set Classifier...* from the context menu. After selecting the classifier, the subcomponent will be updated to show the appropriate features.
-
-![](../images/SetClassifierSubComponent.png)
+Select the subcomponent classifier by double-clicking the subcomponent and selecting the *AADL* tab of the *Properties* view.  Select *Choose...* from the *Extends* section. 
 
 ### Opening the Type Diagram for a Subcomponent
 When viewing a component implementation diagram, the diagram for a subcomponent's type can be opened by right-clicking the appropriate subcomponent and selecting *Go to Type Diagram* from the context menu.
@@ -451,9 +449,7 @@ Select *Create End-To-End Flow Specification* from the toolbar, the dialog will 
 4. Specify a name for the End-To-End Flow Specification and select *OK* when done.
 
 ### Editing Flow Implementations and End-to-End Flows
-When editing a component implementation, flow implementations and end-to-end flow can be edited using the flow editor. It can be accessed by right-clicking in the diagram and selecting *Edit Flows...* from the context menu.
-
-![](../images/EditFlows.png)
+When editing a component implementation, flow implementations and end-to-end flow can be edited using the flow editor.  The flow editor can be accessed by double-clicking the component implementation, selecting the *AADL* tab in the *Properties* view, and selecting *Edit...* from the *Flows* section.
 
 ### Highlighting Flow Implementations and End-to-End Flow Specifications
 Selecting a flow implementation or end-to-end flow specification from the flow drop-down in the toolbar will highlight the flow.  Flow Implementations and End To End Flows that have segments that are not shown in the diagram will be marked with an asterisk(*) in the drop-down.
@@ -465,7 +461,7 @@ The graphical editor allows editing the modes and mode transitions defined in th
 When editing a component type, modes can be created by selecting *Mode* from the palette.
 
 ### Setting the Initial Mode
-A mode can be designated as the initial mode by right-clicking on it and selecting *Change to Initial Mode* from the context menu.
+A mode can be designated as the initial mode by double-clicking on the mode, selecting the *AADL* tab of the *Properties* view, and using the *Initial* section option.
 
 ### Creating Mode Transitions
 Mode transitions can be created using the palette.
@@ -480,12 +476,12 @@ Mode transitions can be created using the palette.
 5. Select *OK*. The new mode transition will appear.
 
 ### Setting Mode Transition Triggers
-A mode transition's trigger ports can be modified by right-clicking on the mode transition and selecting *Set Mode Transition Triggers...* from the context menu.
+A mode transition's trigger ports can be modified by double-clicking on the mode transition and selecting the *AADL* tab in the *Properties* view.  Select *Choose...* from the *Triggers* section to set the triggers.  Current port triggers are listed in the table located in the *Triggers* section.  Trigger ports that are not contained in all selected transitions are annotated with brackets("<*Port*>").
 
 ### Switching Between Derived and Non-derived Modes
 The editor allows specifying whether modes declared inside the component type are derived from its containing component. The usage of derived modes corresponds to a component type with a *requires modes* declaration while non-derived modes correspond to a component type with a *modes* declaration. 
 
-The component type can be swapped between using derived and non-derived modes by right-clicking inside the component type and selecting *Change to Derived Modes* or *Change to Non-derived Modes* from the context menu.
+The component type can be swapped between using derived and non-derived modes by double-clicking the component type, selecting the *AADL* tab of the *Properties* view, and selecting the desired option in the *Derived Modes* section.
 
 ### Highlighting
 Selecting a mode from the mode drop-down in the toolbar will highlight elements applicable to the mode.
@@ -515,27 +511,15 @@ When viewing a component implementation diagram, a binding property associations
 4. Select one or more elements from the diagram to bind to the initially selected element.
 5. Select *OK*.
 
-#### Using the Context Menu to Set Bindings
-1. Right-click on the diagram element for which to set the binding.
-2. Select *Bind...* from the context menu.
-
-![](../images/BindContextMenu.png)
-
-3. From the Bind dialog, select a binding property from the drop-down menu.
-4. Select one or more elements from the diagram to bind to the initially selected element.
-5. Select *OK*.
-
 ## Arrays{#sec:arrays}
 The graphical editor supports creating arrays for appropriate features and subcomponents.
 
 ### Creating Arrays
 When viewing a component type diagram or component implementation diagram, a feature or subcomponent array can be created, respectively.
 
-1. Right-click on the appropriate element.
-2. Select *Modify Dimensions...* from the context menu.
-3. From the Modify Dimensions dialog, select *Add*, then *Modify*.
-
-![](../images/ModifyDimensions.png)
+1. Double-click on the appropriate element.
+2. Select the *AADL* tab in the *Properties* view.
+3. In the *Dimensions* section, select *Add...*.
 
 4. From the Modify Dimension dialog, select desired type and value.
 
@@ -544,7 +528,7 @@ When viewing a component type diagram or component implementation diagram, a fea
 5. Select *OK*. The array dimensions will appear on the element.
 
 ### Editing Arrays
-To edit an array, right-click on a feature or subcomponent array and select *Modify Dimensions...* from the context menu.
+To edit an array, double-click on a feature or subcomponent, select the *AADL* tab in the *Properties* view, and use the *Dimensions* section options.
 
 #### Add Dimension
 1. From the *Modify Dimensions* dialog, select *Add*, then *Modify*.
@@ -554,10 +538,10 @@ To edit an array, right-click on a feature or subcomponent array and select *Mod
 3. Select *OK*. The new array dimension will appear.
 
 #### Change Dimension Order
-From the *Modify Dimensions* dialog, select the desired dimension and select *Up* or *Down*.
+From the *Dimensions* section of the *AADL* tab in the *Properties* view, select the desired dimension and select *Up* or *Down*.
 
 #### Delete Dimension
-From the *Modify Dimensions* dialog, select the desired dimension and select *Delete*.
+From the *Dimensions* section of the *AADL* tab in the *Properties* view, select the desired dimension and select *Delete*.
 
 ## Subprogram Call Sequences
 The graphical editor supports creating and editing subprogram call sequences.
@@ -582,7 +566,12 @@ When viewing a thread implementation diagram that contains a subprogram call seq
 ![](../images/SubprogramCallSequenceDiagram.png)
 
 ### Editing Subprogram Call Sequences
-To change a subprogram call's place in the order of a subprogram call sequence, right-click on the desired subprogram call and select *Move Up* or *Move Down*.
+The subprogram call's order in the subprogram call sequence can be changed from the *AADL* tab of the *Properties* view.
+
+1. Double-click on the desired subprogram call sequence.
+1. Select the *AADL* tab of the *Properties* view.
+1. Select the desired subprogram call in the table of the *Call Order* section.
+1. Select *Up* or *Down*.
 
 ## Annexes
 The graphical editor supports creating Annex Libraries and Annex Subclauses in appropriate AADL packages and classifiers, respectively.

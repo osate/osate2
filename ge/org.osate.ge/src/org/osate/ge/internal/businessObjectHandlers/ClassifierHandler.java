@@ -23,7 +23,6 @@ import org.eclipse.jface.window.Window;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.xtext.resource.IEObjectDescription;
 import org.osate.aadl2.Aadl2Factory;
-import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.AadlPackage;
 import org.osate.aadl2.Classifier;
 import org.osate.aadl2.ComponentImplementation;
@@ -58,6 +57,7 @@ import org.osate.ge.internal.di.InternalNames;
 import org.osate.ge.internal.graphics.AadlGraphics;
 import org.osate.ge.internal.services.NamingService;
 import org.osate.ge.internal.ui.dialogs.ElementSelectionDialog;
+import org.osate.ge.internal.util.AadlClassifierUtil;
 import org.osate.ge.internal.util.AadlImportsUtil;
 import org.osate.ge.internal.util.ImageHelper;
 import org.osate.ge.internal.util.Log;
@@ -65,6 +65,8 @@ import org.osate.ge.internal.util.ScopedEMFIndexRetrieval;
 import org.osate.ge.internal.util.StringUtil;
 import org.osate.ge.query.StandaloneQuery;
 import org.osate.ge.services.QueryService;
+
+import com.google.common.collect.Streams;
 
 public class ClassifierHandler {
 	private static final StandaloneQuery packageQuery = StandaloneQuery.create((root) -> root.ancestors().filter((fa) -> fa.getBusinessObject() instanceof AadlPackage));
@@ -77,38 +79,11 @@ public class ClassifierHandler {
 
 	@GetPaletteEntries
 	public PaletteEntry[] getPaletteEntries(final @Named(Names.DIAGRAM_BO) AadlPackage pkg) {
-		final Aadl2Package p = Aadl2Factory.eINSTANCE.getAadl2Package();
-		return new PaletteEntry[] {
-				createPaletteEntry(p.getAbstractType()),
-				createPaletteEntry(p.getAbstractImplementation()),
-				createPaletteEntry(p.getBusType()),
-				createPaletteEntry(p.getBusImplementation()),
-				createPaletteEntry(p.getDataType()),
-				createPaletteEntry(p.getDataImplementation()),
-				createPaletteEntry(p.getDeviceType()),
-				createPaletteEntry(p.getDeviceImplementation()),
-				createPaletteEntry(p.getFeatureGroupType()),
-				createPaletteEntry(p.getMemoryType()),
-				createPaletteEntry(p.getMemoryImplementation()),
-				createPaletteEntry(p.getProcessType()),
-				createPaletteEntry(p.getProcessImplementation()),
-				createPaletteEntry(p.getProcessorType()),
-				createPaletteEntry(p.getProcessorImplementation()),
-				createPaletteEntry(p.getSubprogramType()),
-				createPaletteEntry(p.getSubprogramImplementation()),
-				createPaletteEntry(p.getSubprogramGroupType()),
-				createPaletteEntry(p.getSubprogramGroupImplementation()),
-				createPaletteEntry(p.getSystemType()),
-				createPaletteEntry(p.getSystemImplementation()),
-				createPaletteEntry(p.getThreadType()),
-				createPaletteEntry(p.getThreadImplementation()),
-				createPaletteEntry(p.getThreadGroupType()),
-				createPaletteEntry(p.getThreadGroupImplementation()),
-				createPaletteEntry(p.getVirtualBusType()),
-				createPaletteEntry(p.getVirtualBusImplementation()),
-				createPaletteEntry(p.getVirtualProcessorType()),
-				createPaletteEntry(p.getVirtualProcessorImplementation())
-		};
+		return Streams
+				.concat(AadlClassifierUtil.getComponentTypes().keySet().stream(),
+						AadlClassifierUtil.getComponentImplementations().keySet().stream())
+				.sorted((eClass1, eClass2) -> StringUtil.camelCaseToUser(eClass1.getName())
+						.compareToIgnoreCase(StringUtil.camelCaseToUser(eClass2.getName()))).map(eClass -> createPaletteEntry(eClass)).toArray(PaletteEntry[]::new);
 	}
 
 	private static PaletteEntry createPaletteEntry(final EClass classifierType) {

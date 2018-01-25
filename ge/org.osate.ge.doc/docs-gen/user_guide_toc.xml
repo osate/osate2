@@ -63,7 +63,7 @@
 			<topic label="Creating Connections" href="docs-gen/user_guide.html#creating-connections">
 			</topic>
 			<topic label="Editing Connections" href="docs-gen/user_guide.html#editing-connections">
-				<topic label="Using the Context Menu to Edit Connections" href="docs-gen/user_guide.html#using-the-context-menu-to-edit-connections">
+				<topic label="Using the  View to Edit Connections" href="docs-gen/user_guide.html#using-the-properties-view-to-edit-connections">
 				</topic>
 			</topic>
 			<topic label="Connection_Pattern Property Visualization" href="docs-gen/user_guide.html#connection_pattern-property-visualization">
@@ -75,7 +75,7 @@
 			<topic label="Extending" href="docs-gen/user_guide.html#extending">
 				<topic label="Using the Palette to Extend a Classifier" href="docs-gen/user_guide.html#using-the-palette-to-extend-a-classifier">
 				</topic>
-				<topic label="Using the Context Menu to Set Extended Classifier" href="docs-gen/user_guide.html#using-the-context-menu-to-set-extended-classifier">
+				<topic label="Using the  View to Set Extended Classifier" href="docs-gen/user_guide.html#using-the-properties-view-to-set-extended-classifier">
 				</topic>
 			</topic>
 		</topic>
@@ -148,8 +148,6 @@
 			</topic>
 			<topic label="Setting Bindings" href="docs-gen/user_guide.html#setting-bindings">
 				<topic label="Using the Toolbar to Set Bindings" href="docs-gen/user_guide.html#using-the-toolbar-to-set-bindings">
-				</topic>
-				<topic label="Using the Context Menu to Set Bindings" href="docs-gen/user_guide.html#using-the-context-menu-to-set-bindings">
 				</topic>
 			</topic>
 		</topic>
