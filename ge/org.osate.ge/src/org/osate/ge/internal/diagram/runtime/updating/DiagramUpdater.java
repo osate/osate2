@@ -235,11 +235,6 @@ public class DiagramUpdater {
 				if(element.getGraphic() instanceof AgeConnection) {
 					// Add connection elements to the list so that they can be access later.
 					connectionElements.add(element);
-
-					// Set the bend points of the connection to prevent an incremental layout
-					if (isInFutureElementMap) {
-						m.setBendpoints(element, Collections.emptyList());
-					}
 				}
 
 				// Update the element's children
