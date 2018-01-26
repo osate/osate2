@@ -72,8 +72,8 @@ public class AadlFeatureUtil {
 	}
 
 	public static boolean canOwnFeatureType(final Classifier featureOwner, final EClass featureType) {
-		return getFeatureCreateMethod(featureOwner, featureType) != null &&
-				(!isProcessorFeatureType(featureType) || canOwnProcessorFeatures(featureOwner));
+		return featureOwner != null && getFeatureCreateMethod(featureOwner, featureType) != null
+				&& (!isProcessorFeatureType(featureType) || canOwnProcessorFeatures(featureOwner));
 	}
 
 	private static Method getFeatureCreateMethod(final Classifier featureOwner, final EClass featureType) {
@@ -91,14 +91,11 @@ public class AadlFeatureUtil {
 			return null;
 		}
 	}
-
+	
 	private static boolean canOwnProcessorFeatures(final Object bo) {
-		return bo instanceof SystemImplementation ||
-				bo instanceof ProcessImplementation ||
-				bo instanceof ThreadGroupImplementation ||
-				bo instanceof ThreadImplementation ||
-				bo instanceof DeviceImplementation ||
-				bo instanceof VirtualProcessorImplementation;
+		return bo instanceof SystemImplementation || bo instanceof ProcessImplementation
+				|| bo instanceof ThreadGroupImplementation || bo instanceof ThreadImplementation
+				|| bo instanceof DeviceImplementation || bo instanceof VirtualProcessorImplementation;
 	}
 
 	private static boolean isProcessorFeatureType(final EClass t) {

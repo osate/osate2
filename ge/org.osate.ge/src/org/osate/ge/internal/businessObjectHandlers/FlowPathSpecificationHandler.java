@@ -1,5 +1,7 @@
 package org.osate.ge.internal.businessObjectHandlers;
 
+import java.util.List;
+
 import javax.inject.Named;
 
 import org.osate.aadl2.ComponentType;
@@ -16,8 +18,6 @@ import org.osate.ge.PaletteEntry;
 import org.osate.ge.PaletteEntryBuilder;
 import org.osate.ge.di.CanCreate;
 import org.osate.ge.di.CanStartConnection;
-import org.osate.ge.di.Create;
-import org.osate.ge.di.GetCreateOwner;
 import org.osate.ge.di.GetGraphicalConfiguration;
 import org.osate.ge.di.GetPaletteEntries;
 import org.osate.ge.di.IsApplicable;
@@ -28,6 +28,10 @@ import org.osate.ge.graphics.ConnectionBuilder;
 import org.osate.ge.graphics.Graphic;
 import org.osate.ge.graphics.Style;
 import org.osate.ge.graphics.StyleBuilder;
+import org.osate.ge.internal.CreateOperation;
+import org.osate.ge.internal.CreateOperation.CreateStepResult;
+import org.osate.ge.internal.di.BuildCreateOperation;
+import org.osate.ge.internal.di.InternalNames;
 import org.osate.ge.internal.services.NamingService;
 import org.osate.ge.internal.util.AadlInheritanceUtil;
 import org.osate.ge.internal.util.ImageHelper;
@@ -89,7 +93,9 @@ public class FlowPathSpecificationHandler extends FlowSpecificationHandler {
 		}
 
 		return new PaletteEntry[] {
-				PaletteEntryBuilder.create().connectionCreation().label("Flow Path").icon(ImageHelper.getImage("FlowPath")).category(Categories.FLOWS).context(FlowKind.PATH).build(),
+				PaletteEntryBuilder.create().connectionCreation().label("Flow Path Specification")
+				.icon(ImageHelper.getImage("FlowPath")).category(Categories.FLOWS).context(FlowKind.PATH)
+				.build(),
 		};
 	}
 
@@ -111,43 +117,60 @@ public class FlowPathSpecificationHandler extends FlowSpecificationHandler {
 			@Named(Names.DESTINATION_BUSINESS_OBJECT_CONTEXT) final BusinessObjectContext dstBoc,
 			final QueryService queryService) {
 
-		final ComponentType srcComponentType = getComponentTypeByFeature(srcBoc, queryService);
-		final ComponentType dstComponentType = getComponentTypeByFeature(dstBoc, queryService);
-		return canOwnFlowSpecification(srcComponentType) &&
-				srcComponentType == dstComponentType &&
-				isValidFlowEnd(dstFeature, dstBoc, DirectionType.OUT, queryService);
+		final List<ComponentType> potentialOwners = getPotentialOwners(srcBoc, dstBoc, queryService);
+		if (potentialOwners.size() == 0) {
+			return false;
+
+		}
+		return isValidFlowEnd(dstFeature, dstBoc, DirectionType.OUT, queryService);
 	}
 
-	@GetCreateOwner
-	public BusinessObjectContext getCreateOwner(final @Named(Names.SOURCE_BUSINESS_OBJECT_CONTEXT) BusinessObjectContext srcBoc,
-			final QueryService queryService) {
-		return getComponentTypeBocByFeature(srcBoc, queryService);
+	private List<ComponentType> getPotentialOwners(final BusinessObjectContext srcBoc,
+			final BusinessObjectContext dstBoc, final QueryService queryService) {
+		final List<ComponentType> potentialOwners = getPotentialOwnersByFeature(srcBoc, queryService);
+		potentialOwners.retainAll(getPotentialOwnersByFeature(dstBoc, queryService));
+		return potentialOwners;
 	}
 
-	@Create
-	public FlowSpecification createFlowPath(final @Named(Names.MODIFY_BO) ComponentType ct,
+	@BuildCreateOperation
+	public void buildCreateOperation(@Named(InternalNames.OPERATION) final CreateOperation createOp,
 			final @Named(Names.SOURCE_BO) Feature srcFeature,
 			final @Named(Names.SOURCE_BUSINESS_OBJECT_CONTEXT) BusinessObjectContext srcBoc,
 			final @Named(Names.DESTINATION_BO) Feature dstFeature,
 			final @Named(Names.DESTINATION_BUSINESS_OBJECT_CONTEXT) BusinessObjectContext dstBoc,
-			final NamingService namingService,
-			final QueryService queryService) {
+			final QueryService queryService,
+			final NamingService namingService) {
 
-		final FlowSpecification fs = ct.createOwnedFlowSpecification();
-		fs.setKind(FlowKind.PATH);
-		fs.setName(getNewFlowSpecificationName(ct, namingService));
+		final BusinessObjectContext container = getFlowSpecificationOwnerBoc(srcBoc, queryService);
+		if (container == null) {
+			return;
+		}
 
-		// Create the flow ends
-		final FlowEnd inFlowEnd = fs.createInEnd();
-		inFlowEnd.setFeature(srcFeature);
-		inFlowEnd.setContext(getContext(srcBoc, queryService));
+		// Determine which classifier should own the new element
+		final ComponentType selectedClassifier = (ComponentType) ClassifierEditingUtil
+				.getClassifierToModify(getPotentialOwners(srcBoc, dstBoc, queryService));
+		if (selectedClassifier == null) {
+			return;
+		}
 
-		final FlowEnd outFlowEnd = fs.createOutEnd();
-		outFlowEnd.setFeature(dstFeature);
-		outFlowEnd.setContext(getContext(dstBoc, queryService));
+		createOp.addStep(selectedClassifier, (resource, ct) -> {
+			final FlowSpecification fs = ct.createOwnedFlowSpecification();
+			fs.setKind(FlowKind.PATH);
+			fs.setName(getNewFlowSpecificationName(ct, namingService));
 
-		ct.setNoFlows(false);
+			// Create the flow ends
+			final FlowEnd inFlowEnd = fs.createInEnd();
+			inFlowEnd.setFeature(srcFeature);
+			inFlowEnd.setContext(getContext(srcBoc, queryService));
 
-		return fs;
+			final FlowEnd outFlowEnd = fs.createOutEnd();
+			outFlowEnd.setFeature(dstFeature);
+			outFlowEnd.setContext(getContext(dstBoc, queryService));
+
+			ct.setNoFlows(false);
+
+			return new CreateStepResult(container, fs);
+		});
+
 	}
 }

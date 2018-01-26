@@ -1,59 +1,17 @@
 package org.osate.ge.internal.util;
 
-import java.util.LinkedHashMap;
-import java.util.Map;
+import java.util.Objects;
 import java.util.Optional;
 
 import org.eclipse.emf.ecore.EClass;
-import org.osate.aadl2.Aadl2Factory;
 import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.Classifier;
+import org.osate.aadl2.ComponentCategory;
 import org.osate.aadl2.ComponentImplementation;
 import org.osate.aadl2.Subcomponent;
 import org.osate.ge.internal.query.Queryable;
 
 public class AadlClassifierUtil {
-	public static Map<EClass, String> getComponentTypes() {
-		final LinkedHashMap<EClass, String> map = new LinkedHashMap<EClass, String>();
-		final Aadl2Package p = Aadl2Factory.eINSTANCE.getAadl2Package();
-		map.put(p.getAbstractType(), "createAbstractType");
-		map.put(p.getBusType(), "createBusType");
-		map.put(p.getDataType(), "createDataType");
-		map.put(p.getDeviceType(), "createDeviceType");
-		map.put(p.getFeatureGroupType(), "createGroupType");
-		map.put(p.getMemoryType(), "createMemoryType");
-		map.put(p.getProcessType(), "createProcessType");
-		map.put(p.getProcessorType(), "createProcessorType");
-		map.put(p.getSubprogramType(), "createSubprogramType");
-		map.put(p.getSubprogramGroupType(), "createSubprogramGroupType");
-		map.put(p.getSystemType(), "createSystemType");
-		map.put(p.getThreadType(), "createThreadType");
-		map.put(p.getThreadGroupType(), "createThreadGroupType");
-		map.put(p.getVirtualBusType(), "createVirtualBusType");
-		map.put(p.getVirtualProcessorType(), "createVirtualProcessorType");
-		return map;
-	}
-
-	public static Map<EClass, String> getComponentImplementations() {
-		final Aadl2Package p = Aadl2Factory.eINSTANCE.getAadl2Package();
-		final LinkedHashMap<EClass, String> map = new LinkedHashMap<EClass, String>();
-		map.put(p.getAbstractImplementation(), "createAbstractImplementation");
-		map.put(p.getBusImplementation(), "createBusImplementation");
-		map.put(p.getDataImplementation(), "createDataImplementation");
-		map.put(p.getDeviceImplementation(), "createDeviceImplementation");
-		map.put(p.getMemoryImplementation(), "createMemoryImplementation");
-		map.put(p.getProcessImplementation(), "createProcessImplementation");
-		map.put(p.getProcessorImplementation(), "createProcessorImplementation");
-		map.put(p.getSubprogramImplementation(), "createSubprogramImplementation");
-		map.put(p.getSubprogramGroupImplementation(), "createSubprogramGroupImplementation");
-		map.put(p.getSystemImplementation(), "createSystemImplementation");
-		map.put(p.getThreadImplementation(), "createThreadImplementation");
-		map.put(p.getThreadGroupImplementation(), "createThreadGroupImplementation");
-		map.put(p.getVirtualBusImplementation(), "createVirtualBusImplementation");
-		map.put(p.getVirtualProcessorImplementation(), "createVirtualProcessorImplementation");
-		return map;
-	}
-
 	/**
 	 * Returns a component implementation for a specified business object. Only component implementations and subcomponents are supported.
 	 * @param bo
@@ -73,5 +31,113 @@ public class AadlClassifierUtil {
 		}
 
 		return Optional.ofNullable(ci);
+	}
+
+	public static EClass getComponentTypeEClass(final ComponentCategory cc) {
+		Objects.requireNonNull(cc, "cc must not be null");
+
+		final Aadl2Package p = Aadl2Package.eINSTANCE;
+
+		switch (cc) {
+		case ABSTRACT:
+			return p.getAbstractType();
+
+		case BUS:
+			return p.getBusType();
+
+		case DATA:
+			return p.getDataType();
+
+		case DEVICE:
+			return p.getDeviceType();
+
+		case MEMORY:
+			return p.getMemoryType();
+
+		case PROCESS:
+			return p.getProcessType();
+
+		case PROCESSOR:
+			return p.getProcessorType();
+
+		case SUBPROGRAM:
+			return p.getSubprogramType();
+
+		case SUBPROGRAM_GROUP:
+			return p.getSubprogramGroupType();
+
+		case SYSTEM:
+			return p.getSystemType();
+
+		case THREAD:
+			return p.getThreadType();
+
+		case THREAD_GROUP:
+			return p.getThreadGroupType();
+
+		case VIRTUAL_BUS:
+			return p.getVirtualBusType();
+
+		case VIRTUAL_PROCESSOR:
+			return p.getVirtualProcessorType();
+
+		default:
+			throw new RuntimeException("Unexpected category: " + cc);
+
+		}
+	}
+
+	public static EClass getComponentImplementationEClass(final ComponentCategory cc) {
+		Objects.requireNonNull(cc, "cc must not be null");
+
+		final Aadl2Package p = Aadl2Package.eINSTANCE;
+
+		switch (cc) {
+		case ABSTRACT:
+			return p.getAbstractImplementation();
+
+		case BUS:
+			return p.getBusImplementation();
+
+		case DATA:
+			return p.getDataImplementation();
+
+		case DEVICE:
+			return p.getDeviceImplementation();
+
+		case MEMORY:
+			return p.getMemoryImplementation();
+
+		case PROCESS:
+			return p.getProcessImplementation();
+
+		case PROCESSOR:
+			return p.getProcessorImplementation();
+
+		case SUBPROGRAM:
+			return p.getSubprogramImplementation();
+
+		case SUBPROGRAM_GROUP:
+			return p.getSubprogramGroupImplementation();
+
+		case SYSTEM:
+			return p.getSystemImplementation();
+
+		case THREAD:
+			return p.getThreadImplementation();
+
+		case THREAD_GROUP:
+			return p.getThreadGroupImplementation();
+
+		case VIRTUAL_BUS:
+			return p.getVirtualBusImplementation();
+
+		case VIRTUAL_PROCESSOR:
+			return p.getVirtualProcessorImplementation();
+
+		default:
+			throw new RuntimeException("Unexpected category: " + cc);
+
+		}
 	}
 }

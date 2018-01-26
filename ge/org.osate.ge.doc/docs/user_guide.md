@@ -122,7 +122,11 @@ In some cases a connection between diagram elements will be represented by a dot
 - An AADL property reference value for which the referenced model element is hidden.
 
 ### Inherited Elements
-Elements which are inherited from another model element have a gray color. This indicates that any changes made to the model element will result in a change to model element other than the one in which it is contained in graphically. Modifying inherited elements directly is not supported at this time. To modify an inherited model element, modify the element in the context of its owner. For example, to modify an AADL feature which is inherited from another classifier, find the diagram element of the classifier which defines the feature and modify the feature. 
+Elements which are inherited from another model element have a gray color. This indicates that any changes made to the model element will result in a change to model element other than the one in which it is contained in graphically.
+
+
+### Indirect Editing
+To allow for easier editing, the editor allows editing classifiers in the context of related model elements. For example, a data port may be created inside a component implementation. Since AADL component implementations cannot contain data ports, the data port will be created inside the component implementation's type. In cases where there are multiple potential classifiers to edit, the editor will prompt to select a classifier.
 
 ### Editing Properties
 The properties sheet contains properties for the currently selected diagram elements. The properties sheet can be opened by double-clicking on a diagram element in the diagram or in the outline. Alternatively, the properties sheet can be opened by right-clicking on a diagram element in the diagram or outline and selecting *Properties...* from the context menu.
@@ -344,7 +348,7 @@ To set a feature group as the inverse of the selected feature group type, double
 The graphical editor allows editing subcomponents when viewing a component implementation diagram.
 
 ### Creating
-When viewing a component implementation diagram, a subcomponent can be creating by using the palette. Drag the appropriate subcomponent type from the palette to the desired location. A new subcomponent will appear.
+A subcomponent can be created by using the palette. Subcomponents can be added to component implementations or to subcomponents which have a component implementation defined. In the latter case, the subcomponent's component implementation will be modified.
 
 ### Setting the Classifier
 Select the subcomponent classifier by double-clicking the subcomponent and selecting the *AADL* tab of the *Properties* view.  Select *Choose...* from the *Extends* section. 
@@ -385,7 +389,7 @@ Select *Create Flow Implementation* from the toolbar, the dialog will appear.
 ![](../images/CreateFlowImplementationToolbar.png)
 
 #### Creating Source Flow Implementations
-1. Select a valid source flow specification in the top-level component implementation.
+1. Select a source flow specification.
 
 ![](../images/FlowImplSourceStep1.png)
 
@@ -400,7 +404,7 @@ Select *Create Flow Implementation* from the toolbar, the dialog will appear.
 4. Select *OK* when done.
 
 #### Creating Sink Flow Implementations
-1. Select a valid sink flow specification in the top-level component implementation.
+1. Select a valid sink flow specification..
 
 ![](../images/FlowImplSinkStep1.png)
 
@@ -415,7 +419,7 @@ Select *Create Flow Implementation* from the toolbar, the dialog will appear.
 4. Select *OK* when done.
 
 #### Creating Path Flow Implementations
-1. Select a valid path flow specification in the top-level component implementation.
+1. Select a valid path flow specification.
 
 ![](../images/FlowImplPathStep1.png)
 

@@ -34,6 +34,7 @@ import org.osate.aadl2.FlowSegment;
 import org.osate.aadl2.FlowSpecification;
 import org.osate.aadl2.ModeFeature;
 import org.osate.aadl2.NamedElement;
+import org.osate.aadl2.Subcomponent;
 import org.osate.ge.BusinessObjectContext;
 import org.osate.ge.di.Activate;
 import org.osate.ge.graphics.Color;
@@ -48,8 +49,6 @@ import org.osate.ge.internal.ui.util.DialogPlacementHelper;
 
 public class CreateFlowImplementationTool {
 	private ColoringService.Coloring coloring = null;
-	private BusinessObjectContext ciBoc;
-	private ComponentImplementation ci;
 	private CreateFlowImplementationDialog dlg;
 
 	@Activate
@@ -58,24 +57,21 @@ public class CreateFlowImplementationTool {
 			final UiService uiService,
 			final ColoringService coloringService) {
 		try {
-			ciBoc = ToolUtil.findComponentImplementationBoc(selectedBoc);
-			if (ciBoc != null) {
-				this.ci = (ComponentImplementation)ciBoc.getBusinessObject();
-				this.coloring = coloringService.adjustColors();
+			this.coloring = coloringService.adjustColors();
 
-				uiService.clearSelection();
-				dlg = new CreateFlowImplementationDialog(Display.getCurrent().getActiveShell(), coloring, uiService);
-				if (dlg.open() == Window.CANCEL) {
-					return;
-				}
+			uiService.clearSelection();
+			dlg = new CreateFlowImplementationDialog(Display.getCurrent().getActiveShell(), coloring, uiService);
+			if (dlg.open() == Window.CANCEL) {
+				return;
+			}
 
-				if (dlg != null) {
-					aadlModService.modify(ci, (resource, ci) -> {
-						ci.getOwnedFlowImplementations().add(dlg.createFlow());
-						ci.setNoFlows(false);
-						return null;
-					});
-				}
+			if (dlg != null) {
+				final ComponentImplementation ownerCi = dlg.getOwnerComponentImplementation();
+				aadlModService.modify(ownerCi, (resource, ci) -> {
+					ci.getOwnedFlowImplementations().add(dlg.createFlow());
+					ci.setNoFlows(false);
+					return null;
+				});
 			}
 		} finally {
 			uiService.deactivateActiveTool();
@@ -95,9 +91,6 @@ public class CreateFlowImplementationTool {
 			dlg.close();
 			dlg = null;
 		}
-
-		this.ciBoc = null;
-		this.ci = null;
 	}
 
 	@SelectionChanged
@@ -147,6 +140,10 @@ public class CreateFlowImplementationTool {
 				return false;
 			}
 
+			if (getOwnerComponentImplementation() == null) {
+				return false;
+			}
+
 			if(fs.getKind() == FlowKind.SOURCE) {
 				return getSelectedBocsOtherThanFirst().stream().filter(boc -> boc.getBusinessObject() instanceof Feature).count() == 1;
 			} else if(fs.getKind() == FlowKind.PATH) {
@@ -182,7 +179,7 @@ public class CreateFlowImplementationTool {
 			String msg;
 			String error = null;
 			if(userSelections.size() == 0) {
-				msg = "Select a top-level flow specification to implement.";
+				msg = "Select a flow specification to implement.";
 			} else if(selectingFlowIn()) {
 				msg = "Select a starting feature.";
 			} else if(isFlowComplete()) {
@@ -220,7 +217,8 @@ public class CreateFlowImplementationTool {
 				flowImpl.setKind(flowImpl.getSpecification().getKind());
 			}
 
-			if(userSelections.size() > 1) {
+			final BusinessObjectContext flowImplOwnerBoc = getOwnerBoc();
+			if (userSelections.size() > 1 && flowImplOwnerBoc != null) {
 				final List<DiagramElement> modesAndSegmentBocs = getSelectedBocsOtherThanFirst();
 				final List<BusinessObjectContext> featureBocs = modesAndSegmentBocs.stream().filter(boc -> boc.getBusinessObject() instanceof Feature).collect(Collectors.toCollection(ArrayList::new));
 				final List<BusinessObjectContext> flowElementBocs = modesAndSegmentBocs.stream().filter(boc -> boc.getBusinessObject() instanceof FlowElement).collect(Collectors.toCollection(ArrayList::new));
@@ -230,7 +228,7 @@ public class CreateFlowImplementationTool {
 				if(needsStartingFeature() && featureBocs.size() > nextFeatureIndex) {
 					final FlowEnd inEnd = flowImpl.createInEnd();
 					final BusinessObjectContext tmpBoc = featureBocs.get(nextFeatureIndex);
-					inEnd.setContext(ToolUtil.findContext(tmpBoc));
+					inEnd.setContext(ToolUtil.findContextExcludeOwner(tmpBoc, flowImplOwnerBoc));
 					inEnd.setFeature((Feature)tmpBoc.getBusinessObject());
 					nextFeatureIndex++;
 				}
@@ -238,14 +236,14 @@ public class CreateFlowImplementationTool {
 				if(needsEndingFeature() && featureBocs.size() > nextFeatureIndex) {
 					final FlowEnd outEnd = flowImpl.createOutEnd();
 					final BusinessObjectContext tmpBoc = featureBocs.get(nextFeatureIndex);
-					outEnd.setContext(ToolUtil.findContext(tmpBoc));
+					outEnd.setContext(ToolUtil.findContextExcludeOwner(tmpBoc, flowImplOwnerBoc));
 					outEnd.setFeature((Feature)tmpBoc.getBusinessObject());
 					nextFeatureIndex++;
 				}
 
 				for(final BusinessObjectContext tmpBoc : flowElementBocs) {
 					final FlowSegment newFlowSegment = flowImpl.createOwnedFlowSegment();
-					newFlowSegment.setContext(ToolUtil.findContext(tmpBoc));
+					newFlowSegment.setContext(ToolUtil.findContextExcludeOwner(tmpBoc, flowImplOwnerBoc));
 					newFlowSegment.setFlowElement((FlowElement)tmpBoc.getBusinessObject());
 				}
 
@@ -406,6 +404,36 @@ public class CreateFlowImplementationTool {
 
 			final BusinessObjectContext boc = userSelections.get(0);
 			return (FlowSpecification)boc.getBusinessObject();
+		}
+
+		/**
+		 * Returns the business object context for the owner of the new flow implementation
+		 * @return
+		 */
+		private BusinessObjectContext getOwnerBoc() {
+			// The flow specification should be the first thing selected by the user
+			if (userSelections.size() == 0) {
+				return null;
+			}
+
+			return userSelections.get(0).getParent();
+		}
+
+		/**
+		 * Returns the component implementation in which the flow specification is being created.
+		 * @return
+		 */
+		private ComponentImplementation getOwnerComponentImplementation() {
+			final BusinessObjectContext ownerBoc = getOwnerBoc();
+
+			final Object tmpBo = ownerBoc.getBusinessObject();
+			if (tmpBo instanceof ComponentImplementation) {
+				return (ComponentImplementation) tmpBo;
+			} else if (tmpBo instanceof Subcomponent) {
+				return ((Subcomponent) tmpBo).getComponentImplementation();
+			}
+
+			return null;
 		}
 
 		@Override

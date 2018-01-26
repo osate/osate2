@@ -1,5 +1,7 @@
 package org.osate.ge.internal.graphiti.features;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 import org.eclipse.e4.core.contexts.ContextInjectionFactory;
@@ -19,7 +21,10 @@ import org.osate.ge.di.GetBusinessObjectToModify;
 import org.osate.ge.di.GetCreateOwner;
 import org.osate.ge.di.Names;
 import org.osate.ge.internal.Categorized;
+import org.osate.ge.internal.CreateOperation.CreateStepResult;
 import org.osate.ge.internal.SimplePaletteEntry;
+import org.osate.ge.internal.di.BuildCreateOperation;
+import org.osate.ge.internal.di.InternalNames;
 import org.osate.ge.internal.diagram.runtime.DiagramElement;
 import org.osate.ge.internal.diagram.runtime.DiagramNode;
 import org.osate.ge.internal.diagram.runtime.RelativeBusinessObjectReference;
@@ -28,6 +33,7 @@ import org.osate.ge.internal.graphiti.GraphitiAgeDiagramProvider;
 import org.osate.ge.internal.graphiti.diagram.GraphitiAgeDiagram;
 import org.osate.ge.internal.services.AadlModificationService;
 import org.osate.ge.internal.services.ExtensionService;
+import org.osate.ge.internal.util.AnnotationUtil;
 import org.osate.ge.services.ReferenceBuilderService;
 
 // ICreateConnectionFeature implementation that delegates behavior to a business object handler
@@ -119,6 +125,9 @@ public class BoHandlerCreateConnectionFeature extends AbstractCreateConnectionFe
 			return null;
 		}
 
+		// CreateOperation is used for all code paths
+		final SimpleCreateOperation createOp = new SimpleCreateOperation();
+
 		final IEclipseContext eclipseCtx = extService.createChildContext();
 		try {
 			eclipseCtx.set(Names.PALETTE_ENTRY_CONTEXT, paletteEntry.getContext());
@@ -127,31 +136,57 @@ public class BoHandlerCreateConnectionFeature extends AbstractCreateConnectionFe
 			eclipseCtx.set(Names.DESTINATION_BO, dstElement.getBusinessObject());
 			eclipseCtx.set(Names.DESTINATION_BUSINESS_OBJECT_CONTEXT, dstElement);
 
-			final BusinessObjectContext ownerBoc = (BusinessObjectContext)ContextInjectionFactory.invoke(handler, GetCreateOwner.class, eclipseCtx);
-			if (!(ownerBoc instanceof DiagramNode)) {
-				throw new RuntimeException("Owner must be a diagram node");
-			}
+			// Check if the handler will modify the create operation directly
+			if (AnnotationUtil.hasMethodWithAnnotation(BuildCreateOperation.class, handler)) {
+				eclipseCtx.set(InternalNames.OPERATION, createOp);
+				ContextInjectionFactory.invoke(handler, BuildCreateOperation.class, eclipseCtx);
 
-			final Object boToModify = ContextInjectionFactory.invoke(handler,
-					GetBusinessObjectToModify.class, eclipseCtx, ownerBoc.getBusinessObject());
-			if (!(boToModify instanceof EObject)) {
-				throw new RuntimeException("Business object being modified must be an EObject");
-			}
-
-			final DiagramNode ownerNode = (DiagramNode)ownerBoc;
-
-			// Modify the model
-			aadlModService.modify((EObject) boToModify, (resource, ownerBo) -> {
-				eclipseCtx.set(Names.MODIFY_BO, ownerBo);
-				final Object newBo = ContextInjectionFactory.invoke(handler, Create.class, eclipseCtx, null);
-				if(newBo != null) {
-					final RelativeBusinessObjectReference newRef = refBuilder.getRelativeReference(newBo);
-					if(newRef != null) {
-						diagramUpdater.addToNextUpdate(ownerNode, newRef, null);
-					}
+				if (createOp.isEmpty()) {
+					return null;
+				}
+			} else {
+				final BusinessObjectContext ownerBoc = (BusinessObjectContext)ContextInjectionFactory.invoke(handler, GetCreateOwner.class, eclipseCtx);
+				if (!(ownerBoc instanceof DiagramNode)) {
+					throw new RuntimeException("Owner must be a diagram node");
 				}
 
-				return newBo;
+				final Object boToModify = ContextInjectionFactory.invoke(handler,
+						GetBusinessObjectToModify.class, eclipseCtx, ownerBoc.getBusinessObject());
+				if (!(boToModify instanceof EObject)) {
+					throw new RuntimeException("Business object being modified must be an EObject");
+				}
+
+				final DiagramNode ownerNode = (DiagramNode) ownerBoc;
+
+				createOp.addStep((EObject) boToModify, (resource, ownerBo) -> {
+					eclipseCtx.set(Names.MODIFY_BO, ownerBo);
+					final Object newBo = ContextInjectionFactory.invoke(handler, Create.class, eclipseCtx, null);
+					if(newBo != null) {
+						final RelativeBusinessObjectReference newRef = refBuilder.getRelativeReference(newBo);
+						if(newRef != null) {
+							diagramUpdater.addToNextUpdate(ownerNode, newRef, null);
+						}
+					}
+
+					return new CreateStepResult(ownerNode, newBo);
+				});
+			}
+
+			// Perform modification
+			final List<Object> newBos = new ArrayList<>(createOp.stepMap.size());
+			aadlModService.modify(createOp.stepMap, obj -> obj, results -> {
+				// Process results. Add created elements to the diagram
+				for (final CreateStepResult stepResult : results) {
+					if (stepResult != null && stepResult.newBo != null) {
+						final RelativeBusinessObjectReference newRef = refBuilder.getRelativeReference(stepResult.newBo);
+						if (newRef != null && stepResult.container instanceof DiagramNode) {
+							final DiagramNode containerNode = (DiagramNode) stepResult.container;
+							diagramUpdater.addToNextUpdate(containerNode, newRef, null);
+						}
+
+						newBos.add(stepResult.newBo);
+					}
+				}
 			});
 		} finally {
 			eclipseCtx.dispose();

@@ -8,8 +8,10 @@ import java.util.Collections;
 import java.util.Deque;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map.Entry;
 import java.util.Objects;
 import java.util.Set;
+import java.util.function.Consumer;
 import java.util.function.Function;
 
 import org.eclipse.core.resources.IProject;
@@ -56,6 +58,8 @@ import org.osate.ge.internal.services.ModelChangeNotifier.Lock;
 import org.osate.ge.internal.ui.xtext.AgeXtextUtil;
 import org.osate.ge.internal.util.Log;
 
+import com.google.common.collect.LinkedListMultimap;
+
 public class DefaultAadlModificationService implements AadlModificationService {
 	public static class ContextFunction extends SimpleServiceContextFunction<AadlModificationService> {
 		@Override
@@ -78,13 +82,31 @@ public class DefaultAadlModificationService implements AadlModificationService {
 		Objects.requireNonNull(objToBoToModifyMapper, "objToBoToModifyMapper must not be null");
 		Objects.requireNonNull(modifier, "modifier must not be null");
 
+		// Create a map containing a mapping from each specified object to the specified modifier so that a common modify() implementation can be used.
+		final LinkedListMultimap<I, MappedObjectModifier<E, R>> objectsToModifierMap = LinkedListMultimap.create(objs.size());
+		for (final I obj : objs) {
+			objectsToModifierMap.put(obj, modifier);
+		}
+
+		return modify(objectsToModifierMap, objToBoToModifyMapper, results -> {
+		});
+	}
+
+	@Override
+	public <I, E extends EObject, R> List<R> modify(
+			LinkedListMultimap<I, MappedObjectModifier<E, R>> objectsToModifierMap,
+			Function<I, E> objToBoToModifyMapper, final Consumer<List<R>> resultConsumer) {
+		Objects.requireNonNull(objectsToModifierMap, "objectsToModifierMap must not be null");
+		Objects.requireNonNull(objToBoToModifyMapper, "objToBoToModifyMapper must not be null");
+
 		class ModifyRunnable implements Runnable {
 			public List<R> result;
 
 			@Override
 			public void run() {
 				try (Lock lock = modelChangeNotifier.lock()) {
-					result = doModification(objs, objToBoToModifyMapper, modifier);
+					result = doModification(objectsToModifierMap, objToBoToModifyMapper);
+					resultConsumer.accept(result);
 				}
 			}
 		}
@@ -109,13 +131,17 @@ public class DefaultAadlModificationService implements AadlModificationService {
 	}
 
 	// Assumes that the modification notifier is already locked
-	private <I, E extends EObject, R> List<R> doModification(final List<I> inputObjects,
-			final Function<I, E> objToBoToModifyMapper, final MappedObjectModifier<E, R> modifier) {
-		final List<R> result = new ArrayList<>(inputObjects.size());
+	private <I, E extends EObject, R> List<R> doModification(
+			LinkedListMultimap<I, MappedObjectModifier<E, R>> inputObjectsToModifierMap,
+			final Function<I, E> objToBoToModifyMapper) {
+		final List<R> result = new ArrayList<>(inputObjectsToModifierMap.size());
 		final Set<IProject> projectsToBuild = new HashSet<>();
 
 		// Iterate over the input objects
-		for (final I obj : inputObjects) {
+		for (final Entry<I, MappedObjectModifier<E, R>> objToModifierEntry : inputObjectsToModifierMap.entries()) {
+			final I obj = objToModifierEntry.getKey();
+			final MappedObjectModifier<E, R> modifier = objToModifierEntry.getValue();
+
 			// Determine the object to modify
 			final E bo = objToBoToModifyMapper.apply(obj);
 

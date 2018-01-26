@@ -35,16 +35,17 @@
 <li><a href="#hidden-children"><span class="toc-section-number">3.1.3</span> Hidden Children</a></li>
 <li><a href="#abstracted-connections"><span class="toc-section-number">3.1.4</span> Abstracted Connections</a></li>
 <li><a href="#inherited-elements"><span class="toc-section-number">3.1.5</span> Inherited Elements</a></li>
-<li><a href="#editing-properties"><span class="toc-section-number">3.1.6</span> Editing Properties</a></li>
-<li><a href="#deleting"><span class="toc-section-number">3.1.7</span> Deleting</a></li>
-<li><a href="#renaming"><span class="toc-section-number">3.1.8</span> Renaming</a></li>
-<li><a href="#refining"><span class="toc-section-number">3.1.9</span> Refining</a></li>
-<li><a href="#instantiating"><span class="toc-section-number">3.1.10</span> Instantiating</a></li>
-<li><a href="#moving-shapes-using-arrow-keys"><span class="toc-section-number">3.1.11</span> Moving Shapes Using Arrow Keys</a></li>
-<li><a href="#selecting-a-diagram-elements-container"><span class="toc-section-number">3.1.12</span> Selecting a Diagram Element's Container</a></li>
-<li><a href="#sec:de_apperance"><span class="toc-section-number">3.1.13</span> Editing a Diagram Element's Appearance</a></li>
-<li><a href="#diagram-context-adjustment"><span class="toc-section-number">3.1.14</span> Diagram Context Adjustment</a></li>
-<li><a href="#sec:restore_missing_diagram_elements"><span class="toc-section-number">3.1.15</span> Restore Missing Diagram Elements</a></li>
+<li><a href="#indirect-editing"><span class="toc-section-number">3.1.6</span> Indirect Editing</a></li>
+<li><a href="#editing-properties"><span class="toc-section-number">3.1.7</span> Editing Properties</a></li>
+<li><a href="#deleting"><span class="toc-section-number">3.1.8</span> Deleting</a></li>
+<li><a href="#renaming"><span class="toc-section-number">3.1.9</span> Renaming</a></li>
+<li><a href="#refining"><span class="toc-section-number">3.1.10</span> Refining</a></li>
+<li><a href="#instantiating"><span class="toc-section-number">3.1.11</span> Instantiating</a></li>
+<li><a href="#moving-shapes-using-arrow-keys"><span class="toc-section-number">3.1.12</span> Moving Shapes Using Arrow Keys</a></li>
+<li><a href="#selecting-a-diagram-elements-container"><span class="toc-section-number">3.1.13</span> Selecting a Diagram Element's Container</a></li>
+<li><a href="#sec:de_apperance"><span class="toc-section-number">3.1.14</span> Editing a Diagram Element's Appearance</a></li>
+<li><a href="#diagram-context-adjustment"><span class="toc-section-number">3.1.15</span> Diagram Context Adjustment</a></li>
+<li><a href="#sec:restore_missing_diagram_elements"><span class="toc-section-number">3.1.16</span> Restore Missing Diagram Elements</a></li>
 </ul></li>
 <li><a href="#diagram-layout"><span class="toc-section-number">3.2</span> Diagram Layout</a><ul>
 <li><a href="#layout-commands"><span class="toc-section-number">3.2.1</span> Layout Commands</a></li>
@@ -207,7 +208,7 @@
 </div>
 <p>The diagram configuration dialog also allows selecting which AADL properties will be included in the diagram. The <em>communication_properties::timing</em> property is implicitly enabled and is represented by specialized graphical indicators. Delayed connections have a double bar indicator in the middle. Immediate connections have a double arrow in the middle.</p>
 <p>Connections which are manually enabled will be removed if the connection ends are not also included in the diagram.</p>
-<p>The <em>Select the Hide Connection Labels</em> option can be used to set the default visibility of labels for connections between diagram elements. Label visibility for individual elements can be controlled using the properties view described in section <a href="#sec:de_apperance">3.1.13</a>.</p>
+<p>The <em>Select the Hide Connection Labels</em> option can be used to set the default visibility of labels for connections between diagram elements. Label visibility for individual elements can be controlled using the properties view described in section <a href="#sec:de_apperance">3.1.14</a>.</p>
 <h3 id="showing-and-hiding-diagram-element-contents"><span class="header-section-number">3.1.2</span> Showing and Hiding Diagram Element Contents</h3>
 <p>Menu options available in a diagram element's context menu will modify the diagram configuration to show and hide contents of a selected element. Access the context menu by right-clicking on a diagram element.</p>
 <div id="tbl:show_hide_menu_items">
@@ -246,16 +247,18 @@
 <li>An AADL property reference value for which the referenced model element is hidden.</li>
 </ul>
 <h3 id="inherited-elements"><span class="header-section-number">3.1.5</span> Inherited Elements</h3>
-<p>Elements which are inherited from another model element have a gray color. This indicates that any changes made to the model element will result in a change to model element other than the one in which it is contained in graphically. Modifying inherited elements directly is not supported at this time. To modify an inherited model element, modify the element in the context of its owner. For example, to modify an AADL feature which is inherited from another classifier, find the diagram element of the classifier which defines the feature and modify the feature.</p>
-<h3 id="editing-properties"><span class="header-section-number">3.1.6</span> Editing Properties</h3>
+<p>Elements which are inherited from another model element have a gray color. This indicates that any changes made to the model element will result in a change to model element other than the one in which it is contained in graphically.</p>
+<h3 id="indirect-editing"><span class="header-section-number">3.1.6</span> Indirect Editing</h3>
+<p>To allow for easier editing, the editor allows editing classifiers in the context of related model elements. For example, a data port may be created inside a component implementation. Since AADL component implementations cannot contain data ports, the data port will be created inside the component implementation's type. In cases where there are multiple potential classifiers to edit, the editor will prompt to select a classifier.</p>
+<h3 id="editing-properties"><span class="header-section-number">3.1.7</span> Editing Properties</h3>
 <p>The properties sheet contains properties for the currently selected diagram elements. The properties sheet can be opened by double-clicking on a diagram element in the diagram or in the outline. Alternatively, the properties sheet can be opened by right-clicking on a diagram element in the diagram or outline and selecting <em>Properties...</em> from the context menu.</p>
-<h3 id="deleting"><span class="header-section-number">3.1.7</span> Deleting</h3>
+<h3 id="deleting"><span class="header-section-number">3.1.8</span> Deleting</h3>
 <p>An element can be deleted from the AADL model by selecting it and pressing the <em>Delete</em> key. An element can also be deleted by right-clicking on it and selecting <em>Delete</em> from the context menu.</p>
 <figure>
 <img src="../images/Delete.png" />
 </figure>
 <p>Elements can only be deleted when viewing the element which contains it. For example, a feature defined in a system type cannot be deleted while editing the diagram of a system implementation.</p>
-<h3 id="renaming"><span class="header-section-number">3.1.8</span> Renaming</h3>
+<h3 id="renaming"><span class="header-section-number">3.1.9</span> Renaming</h3>
 <p>An element can be renamed using the graphical editor.</p>
 <ol type="1">
 <li><p>Select the item to be renamed.</p></li>
@@ -270,27 +273,27 @@
 </ol>
 <p>Elements can only be renamed when viewing the element which contains it. For example, a feature defined in a system type cannot be renamed while editing the diagram of a system implementation.</p>
 <p>When renaming a model element from the AADL text editor, one should use the <em>Rename Element</em> menu option. Manually renaming model elements will result in broken linkages between AADL diagrams and the AADL model.</p>
-<h3 id="refining"><span class="header-section-number">3.1.9</span> Refining</h3>
+<h3 id="refining"><span class="header-section-number">3.1.10</span> Refining</h3>
 <p>Appropriate elements can be refined by double-clicking on the element and select the <em>AADL</em> tab of the <em>Properties</em> view. Use the <em>Refined</em> section to refine the element.</p>
-<h3 id="instantiating"><span class="header-section-number">3.1.10</span> Instantiating</h3>
+<h3 id="instantiating"><span class="header-section-number">3.1.11</span> Instantiating</h3>
 <p>When viewing a package diagram, component implementations can be instantiated by right-clicking on them and selecting <em>Instantiate</em> from the context menu. The instance model will be created in that projects <em>instances</em> folder in the AADL Navigator.</p>
 <figure>
 <img src="../images/Instantiate.png" />
 </figure>
-<h3 id="moving-shapes-using-arrow-keys"><span class="header-section-number">3.1.11</span> Moving Shapes Using Arrow Keys</h3>
+<h3 id="moving-shapes-using-arrow-keys"><span class="header-section-number">3.1.12</span> Moving Shapes Using Arrow Keys</h3>
 <ol type="1">
 <li><p>Select the item to be moved.</p></li>
 <li><p>Press the <strong>.</strong> key.</p></li>
 <li><p>Using the <em>Arrow</em> keys, move the item to desired location.</p></li>
 <li><p>Press the <em>Enter</em> key.</p></li>
 </ol>
-<h3 id="selecting-a-diagram-elements-container"><span class="header-section-number">3.1.12</span> Selecting a Diagram Element's Container</h3>
+<h3 id="selecting-a-diagram-elements-container"><span class="header-section-number">3.1.13</span> Selecting a Diagram Element's Container</h3>
 <p>Under some circumstances, it is difficult to select the desired diagram element due to the location of child diagram elements. The desired shape can be selected using the following steps.</p>
 <ol type="1">
 <li><p>Right-click on the child of the diagram element to be selected.</p></li>
 <li><p>Select <em>Select Container</em> from the context menu.</p></li>
 </ol>
-<h3 id="sec:de_apperance"><span class="header-section-number">3.1.13</span> Editing a Diagram Element's Appearance</h3>
+<h3 id="sec:de_apperance"><span class="header-section-number">3.1.14</span> Editing a Diagram Element's Appearance</h3>
 <p>The appearance of diagram elements can be edited by using the <em>Appearance</em> tab of the <em>Properties</em> view.</p>
 <p>An element's appearance can be changed using the following steps.</p>
 <ol type="1">
@@ -307,10 +310,10 @@
 <li>Background color can be edited by clicking the background color button and selecting the desired color.</li>
 </ul></li>
 </ol>
-<h3 id="diagram-context-adjustment"><span class="header-section-number">3.1.14</span> Diagram Context Adjustment</h3>
+<h3 id="diagram-context-adjustment"><span class="header-section-number">3.1.15</span> Diagram Context Adjustment</h3>
 <p>Diagrams are associated with model elements. Moving a model element between packages or renaming it or any of its containers from the AADL text editor without using the <em>Rename Element</em> menu option will break its association with diagrams.</p>
 <p>When opening a diagram, the <em>Missing Diagram Context</em> dialog will appear if the graphical editor is unable to find the model element associated with a diagram for any reason. If the element has been previously renamed, select the new name for the element and select <em>OK</em>.</p>
-<h3 id="sec:restore_missing_diagram_elements"><span class="header-section-number">3.1.15</span> Restore Missing Diagram Elements</h3>
+<h3 id="sec:restore_missing_diagram_elements"><span class="header-section-number">3.1.16</span> Restore Missing Diagram Elements</h3>
 <p>If a a model element is renamed from the AADL text editor without using the <em>Rename Element</em> menu option, the diagram element may disappear from diagrams in which it appears. In such cases it is possible to restore the diagram elements using the following steps. Note: if the diagram is saved after the diagram elements disappears, it will not be possible to restore the missing diagram elements.</p>
 <ol type="1">
 <li>Select <em>Edit-&gt;Restore Missing Diagram Elements</em>. A window containing diagram elements which have been removed from the diagram because the associated model element is missing will appear.</li>
@@ -517,7 +520,7 @@
 <h2 id="subcomponents"><span class="header-section-number">3.6</span> Subcomponents</h2>
 <p>The graphical editor allows editing subcomponents when viewing a component implementation diagram.</p>
 <h3 id="creating-2"><span class="header-section-number">3.6.1</span> Creating</h3>
-<p>When viewing a component implementation diagram, a subcomponent can be creating by using the palette. Drag the appropriate subcomponent type from the palette to the desired location. A new subcomponent will appear.</p>
+<p>A subcomponent can be created by using the palette. Subcomponents can be added to component implementations or to subcomponents which have a component implementation defined. In the latter case, the subcomponent's component implementation will be modified.</p>
 <h3 id="setting-the-classifier"><span class="header-section-number">3.6.2</span> Setting the Classifier</h3>
 <p>Select the subcomponent classifier by double-clicking the subcomponent and selecting the <em>AADL</em> tab of the <em>Properties</em> view. Select <em>Choose...</em> from the <em>Extends</em> section.</p>
 <h3 id="opening-the-type-diagram-for-a-subcomponent"><span class="header-section-number">3.6.3</span> Opening the Type Diagram for a Subcomponent</h3>
@@ -556,7 +559,7 @@
 </figure>
 <h4 id="creating-source-flow-implementations"><span class="header-section-number">3.7.2.2</span> Creating Source Flow Implementations</h4>
 <ol type="1">
-<li>Select a valid source flow specification in the top-level component implementation.</li>
+<li>Select a source flow specification.</li>
 </ol>
 <figure>
 <img src="../images/FlowImplSourceStep1.png" />
@@ -578,7 +581,7 @@
 </ol>
 <h4 id="creating-sink-flow-implementations"><span class="header-section-number">3.7.2.3</span> Creating Sink Flow Implementations</h4>
 <ol type="1">
-<li>Select a valid sink flow specification in the top-level component implementation.</li>
+<li>Select a valid sink flow specification..</li>
 </ol>
 <figure>
 <img src="../images/FlowImplSinkStep1.png" />
@@ -600,7 +603,7 @@
 </ol>
 <h4 id="creating-path-flow-implementations"><span class="header-section-number">3.7.2.4</span> Creating Path Flow Implementations</h4>
 <ol type="1">
-<li>Select a valid path flow specification in the top-level component implementation.</li>
+<li>Select a valid path flow specification.</li>
 </ol>
 <figure>
 <img src="../images/FlowImplPathStep1.png" />
@@ -789,7 +792,7 @@
 <h2 id="updating-the-diagram"><span class="header-section-number">4.4</span> Updating the Diagram</h2>
 <p>In most cases the graphical editor will automatically update diagrams to reflect changes to the AADL Model. If a diagram has not been updated for any reason, it can be updated manually by right-clicking inside the diagram and selecting <em>Update Diagram</em> from the context menu.</p>
 <h2 id="missing-diagram-elements-after-modification-of-aadl-source"><span class="header-section-number">4.5</span> Missing Diagram Elements After Modification of AADL Source</h2>
-<p>See section <a href="#sec:restore_missing_diagram_elements">3.1.15</a>.</p>
+<p>See section <a href="#sec:restore_missing_diagram_elements">3.1.16</a>.</p>
 <h2 id="reporting-bugs"><span class="header-section-number">4.6</span> Reporting Bugs</h2>
 <p>Bugs should be reported to the issue tracker on the graphical editor's <a href="https://github.com/osate/osate-ge">GitHub Site</a>.</p>
 <h1 id="notices"><span class="header-section-number">5</span> Notices</h1>

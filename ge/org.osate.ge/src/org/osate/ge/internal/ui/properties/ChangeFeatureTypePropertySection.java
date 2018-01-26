@@ -25,8 +25,10 @@ import org.osate.aadl2.Classifier;
 import org.osate.aadl2.DataPort;
 import org.osate.aadl2.DataSubcomponentType;
 import org.osate.aadl2.DirectedFeature;
+import org.osate.aadl2.DirectionType;
 import org.osate.aadl2.EventDataPort;
 import org.osate.aadl2.Feature;
+import org.osate.aadl2.FeatureGroup;
 import org.osate.aadl2.InternalFeature;
 import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.ProcessorFeature;
@@ -79,7 +81,6 @@ public class ChangeFeatureTypePropertySection extends AbstractPropertySection {
 		@Override
 		public void widgetSelected(final SelectionEvent e) {
 			if (selectedFeatureType != comboViewer.getStructuredSelection().getFirstElement()) {
-				// combo.get
 				selectedBos.modify(NamedElement.class, feature -> {
 					final Classifier featureOwner = feature.getContainingClassifier();
 					final NamedElement replacementFeature = AadlFeatureUtil.createFeature(featureOwner,
@@ -90,12 +91,8 @@ public class ChangeFeatureTypePropertySection extends AbstractPropertySection {
 
 // Handle copying the data feature classifier
 					if (replacementFeature instanceof DirectedFeature) {
-						if (!(feature instanceof DirectedFeature)) {
-							// Initialize to in if changing from non-directed to directed feature
-							final DirectedFeature replacementDirectedFeature = (DirectedFeature) replacementFeature;
-							replacementDirectedFeature.setIn(true);
-							replacementDirectedFeature.setOut(false);
-						}
+						final DirectedFeature replacementDirectedFeature = (DirectedFeature) replacementFeature;
+						setDirection(replacementDirectedFeature, getDirection(feature));
 
 						if (replacementFeature instanceof EventDataPort) {
 							((EventDataPort) replacementFeature)
@@ -111,6 +108,26 @@ public class ChangeFeatureTypePropertySection extends AbstractPropertySection {
 			}
 		}
 	};
+
+	private static void setDirection(final DirectedFeature feature, final DirectionType newDirection) {
+		if (feature instanceof AbstractFeature || feature instanceof FeatureGroup) {
+			feature.setIn(newDirection != DirectionType.IN_OUT && newDirection == DirectionType.IN);
+			feature.setOut(newDirection != DirectionType.IN_OUT && newDirection == DirectionType.OUT);
+		} else {
+			feature.setIn(newDirection == DirectionType.IN_OUT || newDirection == DirectionType.IN);
+			feature.setOut(newDirection == DirectionType.IN_OUT || newDirection == DirectionType.OUT);
+		}
+	}
+
+	/**
+	 * Returns replacement feature's direction.  Keep direction of original feature if possible.
+	 * @param feature - original feature
+	 * @return
+	 */
+	private static DirectionType getDirection(final NamedElement feature) {
+		// Get direction for replacement feature
+		return feature instanceof DirectedFeature ? ((DirectedFeature) feature).getDirection() : DirectionType.IN;
+	}
 
 	private final LabelProvider featureTypeLabelProvider = new LabelProvider() {
 		@Override

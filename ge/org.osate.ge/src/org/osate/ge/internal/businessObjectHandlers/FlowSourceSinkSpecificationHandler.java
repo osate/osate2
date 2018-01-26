@@ -15,8 +15,6 @@ import org.osate.ge.GraphicalConfigurationBuilder;
 import org.osate.ge.PaletteEntry;
 import org.osate.ge.PaletteEntryBuilder;
 import org.osate.ge.di.CanCreate;
-import org.osate.ge.di.Create;
-import org.osate.ge.di.GetCreateOwner;
 import org.osate.ge.di.GetGraphicalConfiguration;
 import org.osate.ge.di.GetPaletteEntries;
 import org.osate.ge.di.IsApplicable;
@@ -27,6 +25,10 @@ import org.osate.ge.graphics.Style;
 import org.osate.ge.graphics.StyleBuilder;
 import org.osate.ge.graphics.internal.FlowIndicatorBuilder;
 import org.osate.ge.graphics.internal.OrthogonalLineBuilder;
+import org.osate.ge.internal.CreateOperation;
+import org.osate.ge.internal.CreateOperation.CreateStepResult;
+import org.osate.ge.internal.di.BuildCreateOperation;
+import org.osate.ge.internal.di.InternalNames;
 import org.osate.ge.internal.services.NamingService;
 import org.osate.ge.internal.util.AadlInheritanceUtil;
 import org.osate.ge.internal.util.ImageHelper;
@@ -98,8 +100,12 @@ public class FlowSourceSinkSpecificationHandler extends FlowSpecificationHandler
 		}
 
 		return new PaletteEntry[] {
-				PaletteEntryBuilder.create().creation().label("Flow Source").icon(ImageHelper.getImage("FlowSource")).category(Categories.FLOWS).context(FlowKind.SOURCE).build(),
-				PaletteEntryBuilder.create().creation().label("Flow Sink").icon(ImageHelper.getImage("FlowSink")).category(Categories.FLOWS).context(FlowKind.SINK).build()
+				PaletteEntryBuilder.create().creation().label("Flow Source Specification")
+				.icon(ImageHelper.getImage("FlowSource")).category(Categories.FLOWS).context(FlowKind.SOURCE)
+				.build(),
+				PaletteEntryBuilder.create().creation().label("Flow Sink Specification")
+				.icon(ImageHelper.getImage("FlowSink")).category(Categories.FLOWS).context(FlowKind.SINK)
+				.build()
 		};
 	}
 
@@ -118,42 +124,50 @@ public class FlowSourceSinkSpecificationHandler extends FlowSpecificationHandler
 			throw new RuntimeException("Unexpected flow kind: " + flowKind);
 		}
 
-		final ComponentType ct = getComponentTypeByFeature(featureBoc, queryService);
-		return canOwnFlowSpecification(ct) && isValidFlowEnd(feature, featureBoc, requiredDirection, queryService);
+		return getPotentialOwnersByFeature(featureBoc, queryService).size() > 0
+				&& isValidFlowEnd(feature, featureBoc, requiredDirection, queryService);
 	}
 
-	@GetCreateOwner
-	public BusinessObjectContext getCreateOwner(final @Named(Names.TARGET_BUSINESS_OBJECT_CONTEXT) BusinessObjectContext targetBoc,
-			final QueryService queryService) {
-		return getComponentTypeBocByFeature(targetBoc, queryService);
-	}
-
-	@Create
-	public FlowSpecification createFlowSpecification(final @Named(Names.MODIFY_BO) ComponentType ct,
-			final @Named(Names.TARGET_BO) Feature feature,
+	@BuildCreateOperation
+	public void buildCreateOperation(@Named(InternalNames.OPERATION) final CreateOperation createOp,
 			final @Named(Names.TARGET_BUSINESS_OBJECT_CONTEXT) BusinessObjectContext featureBoc,
-			final @Named(Names.PALETTE_ENTRY_CONTEXT) FlowKind flowKind,
-			final NamingService namingService,
-			final QueryService queryService) {
-		final FlowSpecification fs = ct.createOwnedFlowSpecification();
-		fs.setKind(flowKind);
-		fs.setName(getNewFlowSpecificationName(ct, namingService));
+			final @Named(Names.TARGET_BO) Feature feature,
+			final @Named(Names.PALETTE_ENTRY_CONTEXT) FlowKind flowKind, final QueryService queryService,
+			final NamingService namingService) {
 
-		// Create the appropriate flow end depending on the type being created
-		final FlowEnd flowEnd;
-		if(flowKind == FlowKind.SOURCE) {
-			flowEnd = fs.createOutEnd();
-		} else if(flowKind == FlowKind.SINK) {
-			flowEnd = fs.createInEnd();
-		} else {
-			throw new RuntimeException("Unexpected flow kind: " + flowKind);
+		final BusinessObjectContext container = getFlowSpecificationOwnerBoc(featureBoc, queryService);
+		if (container == null) {
+			return;
 		}
-		flowEnd.setFeature(feature);
-		flowEnd.setContext(getContext(featureBoc, queryService));
 
-		// Clear the no flows flag
-		ct.setNoFlows(false);
+		// Determine which classifier should own the new element
+		final ComponentType selectedClassifier = (ComponentType) ClassifierEditingUtil
+				.getClassifierToModify(getPotentialOwnersByFeature(featureBoc, queryService));
+		if(selectedClassifier == null) {
+			return;
+		}
 
-		return fs;
+		createOp.addStep(selectedClassifier, (resource, ct) -> {
+			final FlowSpecification fs = ct.createOwnedFlowSpecification();
+			fs.setKind(flowKind);
+			fs.setName(getNewFlowSpecificationName(ct, namingService));
+
+			// Create the appropriate flow end depending on the type being created
+			final FlowEnd flowEnd;
+			if (flowKind == FlowKind.SOURCE) {
+				flowEnd = fs.createOutEnd();
+			} else if (flowKind == FlowKind.SINK) {
+				flowEnd = fs.createInEnd();
+			} else {
+				throw new RuntimeException("Unexpected flow kind: " + flowKind);
+			}
+			flowEnd.setFeature(feature);
+			flowEnd.setContext(getContext(featureBoc, queryService));
+
+			// Clear the no flows flag
+			ct.setNoFlows(false);
+
+			return new CreateStepResult(container, fs);
+		});
 	}
 }
