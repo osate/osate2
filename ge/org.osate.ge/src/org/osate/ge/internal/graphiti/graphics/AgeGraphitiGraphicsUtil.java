@@ -463,8 +463,13 @@ public class AgeGraphitiGraphicsUtil {
 		final int innerCircleY = (int) Math.round(halfCircleOuterHeight - innerCircleHeight / 2.0);
 
 		PropertyUtil.setIsStylingContainer(ga, true);
-		ga.setLineVisible(false);
-		ga.setFilled(false);
+
+		PropertyUtil.setIsStylingChild(ga, true);
+		ga.setBackground(white);
+		ga.setForeground(black);
+		ga.setLineWidth(2);
+		ga.setLineVisible(true);
+		ga.setFilled(true);
 
 		// Draw a half ellipse
 		int pointPerSemiCircle = 16;
