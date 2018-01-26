@@ -578,7 +578,8 @@ public class DefaultDiagramService implements DiagramService {
 		@Override
 		public void update(CanonicalBusinessObjectReference newCanonicalReference, RelativeBusinessObjectReference newRelativeReference) {
 			diagram.modify("Configure Diagram", m -> {
-				m.setDiagramConfiguration(new DiagramConfigurationBuilder().setContextBoReference(newCanonicalReference).build());
+				m.setDiagramConfiguration(new DiagramConfigurationBuilder(diagram.getConfiguration())
+						.setContextBoReference(newCanonicalReference).build());
 			});
 		}
 	}
