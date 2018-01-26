@@ -66,7 +66,7 @@ public class FlowPathSpecificationHandler extends FlowSpecificationHandler {
 
 		final StyleBuilder sb = StyleBuilder
 				.create(AadlInheritanceUtil.isInherited(boc) ? Styles.INHERITED_ELEMENT : Style.EMPTY)
-				.
+				.lineWidth(4.0).
 				backgroundColor(Color.BLACK);
 
 		if (partial) {
