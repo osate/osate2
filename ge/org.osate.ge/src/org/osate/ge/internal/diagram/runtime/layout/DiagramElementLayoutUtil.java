@@ -28,6 +28,7 @@ import org.eclipse.elk.core.util.IGraphElementVisitor;
 import org.eclipse.elk.graph.ElkEdge;
 import org.eclipse.elk.graph.ElkEdgeSection;
 import org.eclipse.elk.graph.ElkGraphElement;
+import org.eclipse.elk.graph.ElkGraphPackage;
 import org.eclipse.elk.graph.ElkLabel;
 import org.eclipse.elk.graph.ElkNode;
 import org.eclipse.elk.graph.ElkPort;
@@ -515,11 +516,12 @@ public class DiagramElementLayoutUtil {
 				continue;
 			}
 
-			final List<Point> bendpointsInParentCoordinateSystem = edgeSection.getBendPoints().stream()
-					.map(bp -> new Point(bp.getX(), bp.getY())).collect(Collectors.toCollection(LinkedList::new));
+			// Don't update connections if it wasn't updated. This prevents updating bendpoints to invalid values if an edge is not layed out.
+			if (edgeSection.eIsSet(ElkGraphPackage.eINSTANCE.getElkEdgeSection_StartX())
+					&& edgeSection.eIsSet(ElkGraphPackage.eINSTANCE.getElkEdgeSection_EndX())) {
+				final List<Point> bendpointsInParentCoordinateSystem = edgeSection.getBendPoints().stream()
+						.map(bp -> new Point(bp.getX(), bp.getY())).collect(Collectors.toCollection(LinkedList::new));
 
-			// Don't update connections if there weren't any bendpoints set. This prevents updating bendpoints to invalid values if an edge is not layed out.
-			if (bendpointsInParentCoordinateSystem.size() > 0) {
 				//
 				// Set bendpoints
 				//
