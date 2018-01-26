@@ -55,6 +55,7 @@ import org.osate.xtext.aadl2.formatting2.regionaccess.Aadl2TextRegionAccessBuild
 import org.osate.xtext.aadl2.generator.Aadl2OutputConfigurationProvider;
 import org.osate.xtext.aadl2.parsing.AnnexParserAgent;
 import org.osate.xtext.aadl2.resource.Aadl2DerivedStateComputer;
+import org.osate.xtext.aadl2.resource.NoCacheDerivedStateAwareResource;
 import org.osate.xtext.aadl2.resource.persistence.Aadl2ResourceStorageFacade;
 import org.osate.xtext.aadl2.scoping.Aadl2ImportedNamespaceAwareLocalScopeProvider;
 import org.osate.xtext.aadl2.scoping.Aadl2ScopeProvider;
@@ -97,7 +98,7 @@ public class Aadl2RuntimeModule extends org.osate.xtext.aadl2.AbstractAadl2Runti
 	 * // It has some problems. It recurses on the package in the outline view
 	 * DB: Fixing the reference problem. Reviewed getName() on
 	 * PublicPackageSection to fix the recurses problem. (non-Javadoc)
-	 * 
+	 *
 	 * @see
 	 * org.eclipse.xtext.service.DefaultRuntimeModule#bindIFragmentProvider()
 	 */
@@ -175,7 +176,7 @@ public class Aadl2RuntimeModule extends org.osate.xtext.aadl2.AbstractAadl2Runti
 
 	@Override
 	public Class<? extends XtextResource> bindXtextResource() {
-		return org.eclipse.xtext.resource.DerivedStateAwareResource.class;
+		return NoCacheDerivedStateAwareResource.class;
 	}
 
 	public Class<? extends IResourceDescription.Manager> bindIResourceDescriptionManager() {
@@ -210,11 +211,11 @@ public class Aadl2RuntimeModule extends org.osate.xtext.aadl2.AbstractAadl2Runti
 		binder.bind(ISerializer.class).annotatedWith(InstanceEnabledSerializerBinding.class)
 				.to(InstanceEnabledSerializer.class);
 	}
-	
+
 	public Class<? extends IEObjectDocumentationProvider> bindIEObjectDocumentationProvider() {
 		return Aadl2DocumentationProvider.class;
 	}
-    
+
 	public Class<? extends TextRegionAccessBuilder> bindTextRegionAccessBuilder() {
 		return Aadl2TextRegionAccessBuilder.class;
 	}
