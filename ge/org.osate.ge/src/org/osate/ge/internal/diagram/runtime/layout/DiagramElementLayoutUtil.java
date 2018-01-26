@@ -34,10 +34,12 @@ import org.eclipse.elk.graph.ElkPort;
 import org.eclipse.elk.graph.ElkShape;
 import org.eclipse.ui.IEditorPart;
 import org.osate.ge.DockingPosition;
+import org.osate.ge.graphics.Graphic;
 import org.osate.ge.graphics.Point;
 import org.osate.ge.graphics.internal.AgeConnection;
 import org.osate.ge.graphics.internal.AgeShape;
 import org.osate.ge.graphics.internal.Label;
+import org.osate.ge.graphics.internal.ModeGraphic;
 import org.osate.ge.internal.Activator;
 import org.osate.ge.internal.diagram.runtime.AgeDiagram;
 import org.osate.ge.internal.diagram.runtime.DiagramElement;
@@ -339,7 +341,15 @@ public class DiagramElementLayoutUtil {
 					minWidth = Math.max(40, Math.max(Math.max(maxLabelWidth, widthForPorts), widthForFlowIndicators));
 				}
 
-				double minHeight = Math.max(Math.max(25, labelHeightSum), heightForFlowIndicators);
+				double minHeight = Math.max(Math.max(35, labelHeightSum), heightForFlowIndicators);
+
+				// Special min height handling for initial modes
+				if (dn instanceof DiagramElement) {
+					final Graphic graphic = ((DiagramElement) dn).getGraphic();
+					if (graphic instanceof ModeGraphic && ((ModeGraphic) graphic).isInitialMode) {
+						minHeight += ModeGraphic.initialModeAreaHeight;
+					}
+				}
 
 				// Increase min width and min height for top level nodes.
 				if (dn != null && dn.getParent() instanceof AgeDiagram) {
