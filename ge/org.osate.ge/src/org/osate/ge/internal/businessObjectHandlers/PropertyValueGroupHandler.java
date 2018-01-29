@@ -49,12 +49,15 @@ public class PropertyValueGroupHandler {
 				return null;
 			}
 
-			// Don't show references from the parent to children unless it is based on a completely processed property association
-			if (pvg.getFirstValueBasedOnCompletelyProcessedAssociation() == null) {
-				final BusinessObjectContext parent = boc.getParent();
-				for (BusinessObjectContext tmp = referencedElement; tmp != null; tmp = tmp.getParent()) {
-					if(tmp == parent) {
+			// If the reference is from the child to an ancestor, show it as text if it is is based on a completely processed property association. Otherwise,
+			// don't show it at all.
+			final BusinessObjectContext parent = boc.getParent();
+			for (BusinessObjectContext tmp = referencedElement; tmp != null; tmp = tmp.getParent()) {
+				if (tmp == parent) {
+					if (pvg.getFirstValueBasedOnCompletelyProcessedAssociation() == null) {
 						return null;
+					} else {
+						return createTextGraphicalConfiguration();
 					}
 				}
 			}
