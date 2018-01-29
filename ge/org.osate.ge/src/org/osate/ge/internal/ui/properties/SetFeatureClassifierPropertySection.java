@@ -53,6 +53,7 @@ import org.osate.aadl2.SubprogramSubcomponentType;
 import org.osate.ge.BusinessObjectSelection;
 import org.osate.ge.internal.ui.dialogs.ElementSelectionDialog;
 import org.osate.ge.internal.ui.util.InternalPropertySectionUtil;
+import org.osate.ge.internal.util.AadlImportsUtil;
 import org.osate.ge.internal.util.ScopedEMFIndexRetrieval;
 import org.osate.ge.ui.properties.PropertySectionUtil;
 
@@ -173,18 +174,6 @@ public class SetFeatureClassifierPropertySection extends AbstractPropertySection
 				if (dlg.getFirstSelectedElement() != null) {
 					// Resolve the reference
 					selectedType = EcoreUtil.resolve((EObject) dlg.getFirstSelectedElement(), feature.eResource());
-					// Import its package if necessary
-					final AadlPackage pkg = (AadlPackage) feature.getElementRoot();
-					if (selectedType instanceof Classifier && ((Classifier) selectedType).getNamespace() != null
-							&& pkg != null) {
-						final PackageSection section = pkg.getPublicSection();
-						final AadlPackage selectedClassifierPkg = (AadlPackage) ((Classifier) selectedType)
-								.getNamespace().getOwner();
-						if (pkg != selectedClassifierPkg
-								&& !section.getImportedUnits().contains(selectedClassifierPkg)) {
-							section.getImportedUnits().add(selectedClassifierPkg);
-						}
-					}
 				} else {
 					selectedType = null;
 				}
@@ -197,6 +186,20 @@ public class SetFeatureClassifierPropertySection extends AbstractPropertySection
 		}
 
 		private void setFeatureClassifier(final NamedElement feature, final Object classifier) {
+			if (classifier != null) {
+				// Import its package if necessary
+				final AadlPackage pkg = (AadlPackage) feature.getElementRoot();
+				if (classifier instanceof Classifier && ((Classifier) classifier).getNamespace() != null
+						&& pkg != null) {
+					final PackageSection section = pkg.getPublicSection();
+					final AadlPackage selectedClassifierPkg = (AadlPackage) ((Classifier) classifier).getNamespace()
+							.getOwner();
+					if (selectedClassifierPkg != null && pkg != selectedClassifierPkg) {
+						AadlImportsUtil.addImportIfNeeded(section, selectedClassifierPkg);
+					}
+				}
+			}
+
 			final FeatureClassifierSetterInfo setterInfo = featureTypeToClassifierSetterMap.get(feature.eClass());
 			try {
 				final Method method = feature.getClass().getMethod(setterInfo.setterName, setterInfo.classifierClass);

@@ -67,6 +67,7 @@ import org.osate.aadl2.VirtualProcessorSubcomponentType;
 import org.osate.ge.BusinessObjectSelection;
 import org.osate.ge.internal.ui.dialogs.ElementSelectionDialog;
 import org.osate.ge.internal.ui.util.InternalPropertySectionUtil;
+import org.osate.ge.internal.util.AadlImportsUtil;
 import org.osate.ge.internal.util.ScopedEMFIndexRetrieval;
 import org.osate.ge.ui.properties.PropertySectionUtil;
 
@@ -130,19 +131,6 @@ public class SetSubcomponentClassifierPropertySection extends AbstractPropertySe
 					selectedSubcomponentType = (SubcomponentType) EcoreUtil
 							.resolve((EObject) dlg.getFirstSelectedElement(),
 									sc);
-
-					// Import its package if necessary
-					final AadlPackage pkg = (AadlPackage) sc.getElementRoot();
-					if (selectedSubcomponentType instanceof ComponentClassifier
-							&& selectedSubcomponentType.getNamespace() != null && pkg != null) {
-						final PackageSection section = pkg.getPublicSection();
-						final AadlPackage selectedClassifierPkg = (AadlPackage) selectedSubcomponentType
-								.getNamespace().getOwner();
-						if (pkg != selectedClassifierPkg
-								&& !section.getImportedUnits().contains(selectedClassifierPkg)) {
-							section.getImportedUnits().add(selectedClassifierPkg);
-						}
-					}
 				} else {
 					selectedSubcomponentType = null;
 				}
@@ -155,6 +143,21 @@ public class SetSubcomponentClassifierPropertySection extends AbstractPropertySe
 		}
 
 		private void setClassifier(final Subcomponent sc, final SubcomponentType selectedSubcomponentType) {
+			// Import as necessary
+			if (selectedSubcomponentType != null) {
+				// Import its package if necessary
+				final AadlPackage pkg = (AadlPackage) sc.getElementRoot();
+				if (selectedSubcomponentType instanceof ComponentClassifier
+						&& selectedSubcomponentType.getNamespace() != null && pkg != null) {
+					final PackageSection section = pkg.getPublicSection();
+					final AadlPackage selectedClassifierPkg = (AadlPackage) selectedSubcomponentType.getNamespace()
+							.getOwner();
+					if (selectedClassifierPkg != null && pkg != selectedClassifierPkg) {
+						AadlImportsUtil.addImportIfNeeded(section, selectedClassifierPkg);
+					}
+				}
+			}
+
 			if (sc instanceof SystemSubcomponent) {
 				((SystemSubcomponent) sc).setSystemSubcomponentType((SystemSubcomponentType) selectedSubcomponentType);
 			} else if (sc instanceof AbstractSubcomponent) {
