@@ -12,7 +12,7 @@ public class AgeDiagramUtil {
 
 		final DiagramElement containerElement = (DiagramElement)container;
 
-		final double minCompareDistanceToTopAndBottom = 10.0; // Gives greater preference to left and right when deciding docking position.
+		final double minCompareDistanceToTopAndBottom = 20.0; // Gives greater preference to left and right when deciding docking position.
 		final double distanceToLeft = Math.max(0, x);
 		final double distanceToRight = containerElement.getWidth() - Math.min(x + width, containerElement.getWidth());
 		final double distanceToTop = Math.max(minCompareDistanceToTopAndBottom, y);
