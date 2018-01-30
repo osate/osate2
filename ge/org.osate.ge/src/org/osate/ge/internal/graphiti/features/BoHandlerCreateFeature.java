@@ -28,6 +28,8 @@ import org.osate.ge.internal.di.InternalNames;
 import org.osate.ge.internal.diagram.runtime.AgeDiagramUtil;
 import org.osate.ge.internal.diagram.runtime.DiagramNode;
 import org.osate.ge.internal.diagram.runtime.RelativeBusinessObjectReference;
+import org.osate.ge.internal.diagram.runtime.layout.IncrementalLayoutMode;
+import org.osate.ge.internal.diagram.runtime.layout.LayoutPreferences;
 import org.osate.ge.internal.diagram.runtime.updating.DiagramUpdater;
 import org.osate.ge.internal.graphiti.services.GraphitiService;
 import org.osate.ge.internal.services.AadlModificationService;
@@ -148,7 +150,10 @@ public class BoHandlerCreateFeature extends AbstractCreateFeature implements Cat
 						final RelativeBusinessObjectReference newRef = refBuilder.getRelativeReference(stepResult.newBo);
 						if (newRef != null && stepResult.container instanceof DiagramNode) {
 							final DiagramNode containerNode = (DiagramNode) stepResult.container;
-							if (containerNode == targetNode) {
+							// Don't set the position if the incremental layout mode is set to diagram.
+							// This will ensure the shape is layed out even if it is a docked shape.
+							if (LayoutPreferences.getCurrentLayoutMode() != IncrementalLayoutMode.LAYOUT_DIAGRAM
+									&& containerNode == targetNode) {
 								diagramUpdater.addToNextUpdate(containerNode, newRef,
 										new Point(context.getX(), context.getY()));
 							} else {

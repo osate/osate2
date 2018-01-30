@@ -41,7 +41,6 @@ import org.osate.ge.graphics.internal.AgeConnection;
 import org.osate.ge.graphics.internal.AgeShape;
 import org.osate.ge.graphics.internal.Label;
 import org.osate.ge.graphics.internal.ModeGraphic;
-import org.osate.ge.internal.Activator;
 import org.osate.ge.internal.diagram.runtime.AgeDiagram;
 import org.osate.ge.internal.diagram.runtime.DiagramElement;
 import org.osate.ge.internal.diagram.runtime.DiagramElementPredicates;
@@ -51,7 +50,6 @@ import org.osate.ge.internal.diagram.runtime.Dimension;
 import org.osate.ge.internal.diagram.runtime.DockArea;
 import org.osate.ge.internal.diagram.runtime.styling.StyleCalculator;
 import org.osate.ge.internal.diagram.runtime.styling.StyleProvider;
-import org.osate.ge.internal.preferences.Preferences;
 import org.osate.ge.internal.query.Queryable;
 import org.osate.ge.internal.ui.editor.AgeDiagramEditor;
 
@@ -95,7 +93,7 @@ public class DiagramElementLayoutUtil {
 			nodesToLayout = Collections.singletonList(diagram);
 		} else {
 			// Only layout shapes. Also filter out any descendants of specified diagram elements
-			nodesToLayout = filterUnnecessaryNodes(diagramNodes);
+			nodesToLayout = filterUnnecessaryNodes(diagramNodes, true);
 		}
 
 		if (nodesToLayout.isEmpty()) {
@@ -146,12 +144,11 @@ public class DiagramElementLayoutUtil {
 		Objects.requireNonNull(mod, "mod must not be null");
 		Objects.requireNonNull(layoutInfoProvider, "layoutInfoProvider must not be null");
 
-		final IncrementalLayoutMode currentLayoutMode = IncrementalLayoutMode
-				.getById(Activator.getDefault().getPreferenceStore().getString(Preferences.INCREMENTAL_LAYOUT_MODE))
-				.orElse(IncrementalLayoutMode.LAYOUT_CONTENTS);
+		final IncrementalLayoutMode currentLayoutMode = LayoutPreferences.getCurrentLayoutMode();
 
 		final Collection<DiagramNode> nodesToLayout = DiagramElementLayoutUtil
-				.filterUnnecessaryNodes(getNodesToLayoutIncrementally(diagram, currentLayoutMode, new HashSet<>()));
+				.filterUnnecessaryNodes(getNodesToLayoutIncrementally(diagram, currentLayoutMode, new HashSet<>()),
+						currentLayoutMode == IncrementalLayoutMode.LAYOUT_DIAGRAM);
 		if (nodesToLayout.size() == 0) {
 			return;
 		}
@@ -397,16 +394,16 @@ public class DiagramElementLayoutUtil {
 	 *   Not a diagram.
 	 *   Not shapes
 	 *   Elements which have an ancestor in the specified list.
-	 *   Children of a docked element.
+	 *   Children of a docked element unless the current diagram mode is layout diagram.
 	 * @param diagramNodes
 	 * @return
 	 */
 	static Collection<DiagramNode> filterUnnecessaryNodes(final
-			Collection<? extends DiagramNode> diagramNodes)
+			Collection<? extends DiagramNode> diagramNodes, final boolean includeGroupChildren)
 	{
 		return diagramNodes.stream().filter(dn -> dn instanceof AgeDiagram || (dn instanceof DiagramElement
 				&& DiagramElementPredicates.isShape((DiagramElement) dn) && !containsAnyAncestor(diagramNodes, dn)
-				&& ((DiagramElement) dn).getDockArea() != DockArea.GROUP))
+				&& (includeGroupChildren || ((DiagramElement) dn).getDockArea() != DockArea.GROUP)))
 				.collect(Collectors.toList());
 	}
 
