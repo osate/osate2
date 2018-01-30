@@ -72,6 +72,7 @@ import org.eclipse.ui.IPartListener;
 import org.eclipse.ui.IWorkbenchPart;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.part.EditorPart;
+import org.eclipse.ui.views.contentoutline.ContentOutline;
 import org.eclipse.ui.views.properties.IPropertySheetPage;
 import org.eclipse.ui.views.properties.tabbed.ITabbedPropertySheetPageContributor;
 import org.eclipse.ui.views.properties.tabbed.TabbedPropertySheetPage;
@@ -401,13 +402,14 @@ public class AgeDiagramBehavior extends DiagramBehavior implements GraphitiAgeDi
 
 				@Override
 				public void partDeactivated(final IWorkbenchPart part) {
-					if (editor == part) {
-						toolHandler.deactivateActiveTool();
-					}
 				}
 
 				@Override
-				public void partActivated(final IWorkbenchPart part) {}
+				public void partActivated(final IWorkbenchPart part) {
+					if (editor != part && !(part instanceof ContentOutline)) {
+						toolHandler.deactivateActiveTool();
+					}
+				}
 
 				@Override
 				public void partBroughtToTop(final IWorkbenchPart part) {}
