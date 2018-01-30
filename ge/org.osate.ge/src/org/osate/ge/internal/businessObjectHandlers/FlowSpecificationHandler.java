@@ -94,9 +94,10 @@ class FlowSpecificationHandler {
 
 	protected static List<ComponentType> getPotentialOwnersByFeature(BusinessObjectContext featureBoc,
 			final QueryService queryService) {
+		final Context context = getContext(featureBoc, queryService);
 		final Feature feature = (Feature) featureBoc.getBusinessObject();
-		final String featureName = feature.getName();
-		if (featureName == null) {
+		final String childName = context == null ? feature.getName() : context.getName();
+		if (childName == null) {
 			return Collections.emptyList();
 		}
 
@@ -104,11 +105,11 @@ class FlowSpecificationHandler {
 		if (containerBoc == null) {
 			return Collections.emptyList();
 		}
-
 		final Element bo = (Element) containerBoc.getBusinessObject();
+
 		return ClassifierEditingUtil.getPotentialClassifierTypesForEditing(bo).stream()
 				.filter(tmpBo -> canOwnFlowSpecification(tmpBo)).map(ComponentType.class::cast)
-				.filter(ct -> hasFeatureWithName(ct, featureName))
+				.filter(ct -> hasFeatureWithName(ct, childName))
 				.collect(Collectors.toList());
 	}
 
