@@ -8,13 +8,27 @@ The following guidelines are suggested when using AADL for modeling a system.  T
 
 ### File Names
 
+#### AADL Packages
+
 An AADL file uses the file extenstion `.aadl`.
 
 The basename of an AADL file is the name of the public AADL package it contains with the separator `::` replaced by the hyphen `-`.
 
 > **Example**
-> 
+>
 > The public package `edu::sei::examples` is stored in the file `edu-sei-examples.aadl`.
+
+
+
+#### AADL Property Sets
+
+An AADL property set uses the file extenstion `.aadl`.
+
+The basename of the property set file is the name of the property set it contains.
+
+> **Example**
+>
+> The property set `basic_types` is stored in the file `basic_types.aadl`.
 
 
 
