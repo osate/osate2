@@ -242,7 +242,7 @@
           <with
                 variable="selection">
              <test
-                   property="org.osate.ge.singleNamedElementInComponentImplementation">
+                   property="org.osate.ge.namedElementsInSameComponentImplementation">
              </test>
           </with></enabledWhen>
     </handler>
@@ -994,7 +994,7 @@
            class="org.osate.ge.internal.expressions.SelectionPropertyTester"
            id="org.osate.ge.expressions.selectionPropertyTester"
            namespace="org.osate.ge"
-           properties="allAreDiagramElementsWithSameParent,singleNamedElementInComponentImplementation"
+           properties="allAreDiagramElementsWithSameParent,singleNamedElementInComponentImplementation,namedElementsInSameComponentImplementation"
            type="org.eclipse.jface.viewers.ISelection">
      </propertyTester>
   </extension>

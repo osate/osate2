@@ -1,9 +1,11 @@
 package org.osate.ge.internal.ui.tools;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 import javax.inject.Named;
 
@@ -27,6 +29,7 @@ import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Shell;
+import org.eclipse.xtext.util.Strings;
 import org.osate.aadl2.Aadl2Factory;
 import org.osate.aadl2.ArrayRange;
 import org.osate.aadl2.Classifier;
@@ -61,22 +64,25 @@ import org.osate.xtext.aadl2.properties.util.GetProperties;
 
 /**
  * The Set Binding Action presents a non-modal dialog to the user that allows create a property association for a standard AADL binding property.
- *
+ * Assumes that all selected elements are descendants of the same component implementation
  */
 public class SetBindingTool {
 	private SetBindingWindow currentWindow = null;
 
 	@Activate
-	public void activate(@Named(InternalNames.SELECTED_DIAGRAM_ELEMENT) final BusinessObjectContext selectedBoc,
+	public void activate(@Named(InternalNames.SELECTED_DIAGRAM_ELEMENTS) final BusinessObjectContext[] selectedBocs,
 			final AgeDiagramProvider diagramProvider,
 			final AadlModificationService aadlModService,
 			final UiService uiService) {
 		try {
-			final BusinessObjectContext componentImplementationBoc = ToolUtil.findComponentImplementationBoc(selectedBoc);
+			final BusinessObjectContext componentImplementationBoc = ToolUtil
+					.findComponentImplementationBoc(selectedBocs[0]);
 
 			// Open Dialog
-			if(currentWindow == null && componentImplementationBoc != null) {
-				currentWindow = new SetBindingWindow(Display.getCurrent().getActiveShell(), componentImplementationBoc, selectedBoc);
+			if (currentWindow == null && componentImplementationBoc != null) {
+				// TODO: Support multiple BOCs
+				currentWindow = new SetBindingWindow(Display.getCurrent().getActiveShell(), componentImplementationBoc,
+						selectedBocs);
 				if(currentWindow.open() == Window.OK) {
 					// Ensure the diagram is configured to show the specified binding property
 					final AgeDiagram diagram = diagramProvider.getAgeDiagram();
@@ -90,7 +96,7 @@ public class SetBindingTool {
 					}
 
 					// Create the property association
-					createPropertyAssociation(aadlModService);
+					createPropertyAssociations(aadlModService);
 				}
 
 				currentWindow = null;
@@ -117,8 +123,8 @@ public class SetBindingTool {
 
 	private static class SetBindingWindow extends TitleAreaDialog {
 		private final BusinessObjectContext componentImplementationBoc;
-		private final BusinessObjectContext bocToBind;
-		private final NamedElement elementToBind;
+		private final BusinessObjectContext[] bocsToBind;
+		private final NamedElement[] elementsToBind;
 		private ComboViewer bindingPropertyCombo;
 		private Label selectionStatusLabel;
 		private IStructuredSelection currentPropComboSel;
@@ -137,11 +143,12 @@ public class SetBindingTool {
 
 		public SetBindingWindow(final Shell parentShell,
 				final BusinessObjectContext componentImplementationBoc,
-				final BusinessObjectContext bocToBind) {
+				final BusinessObjectContext[] bocsToBind) {
 			super(parentShell);
 			this.componentImplementationBoc = Objects.requireNonNull(componentImplementationBoc, "componentImplementationBoc must not be null");
-			this.bocToBind = Objects.requireNonNull(bocToBind, "bocToBind must not be null");
-			this.elementToBind = (NamedElement)bocToBind.getBusinessObject();
+			this.bocsToBind = Objects.requireNonNull(bocsToBind, "bocsToBind must not be null");
+			this.elementsToBind = Arrays.stream(bocsToBind).map(boc -> (NamedElement) boc.getBusinessObject())
+					.toArray(size -> new NamedElement[size]);
 			setShellStyle(SWT.RESIZE | SWT.CLOSE | SWT.MODELESS | SWT.BORDER | SWT.TITLE);
 			setHelpAvailable(false);
 		}
@@ -151,8 +158,9 @@ public class SetBindingTool {
 			super.create();
 
 			setTitle("Select Elements");
-			setMessage("Select a binding property and the elements from the diagram to bind " + elementToBind.getName()
-			+ ".");
+			setMessage("Select a binding property and the elements from the diagram to bind " + Arrays
+					.stream(elementsToBind).map(e -> Strings.emptyIfNull(e.getName())).collect(Collectors.joining(","))
+					+ ".");
 			validate();
 		}
 
@@ -168,19 +176,19 @@ public class SetBindingTool {
 			container.setLayout(layout);
 
 			final List<Property> bindingProperties = new ArrayList<Property>();
-			addPropertyIfApplicable(bindingProperties, GetProperties.lookupPropertyDefinition(elementToBind,
+			addPropertyIfApplicable(bindingProperties, GetProperties.lookupPropertyDefinition(elementsToBind[0],
 					DeploymentProperties._NAME, DeploymentProperties.ACTUAL_CONNECTION_BINDING));
-			addPropertyIfApplicable(bindingProperties, GetProperties.lookupPropertyDefinition(elementToBind,
+			addPropertyIfApplicable(bindingProperties, GetProperties.lookupPropertyDefinition(elementsToBind[0],
 					DeploymentProperties._NAME, DeploymentProperties.ALLOWED_CONNECTION_BINDING));
-			addPropertyIfApplicable(bindingProperties, GetProperties.lookupPropertyDefinition(elementToBind,
+			addPropertyIfApplicable(bindingProperties, GetProperties.lookupPropertyDefinition(elementsToBind[0],
 					DeploymentProperties._NAME, DeploymentProperties.ACTUAL_FUNCTION_BINDING));
-			addPropertyIfApplicable(bindingProperties, GetProperties.lookupPropertyDefinition(elementToBind,
+			addPropertyIfApplicable(bindingProperties, GetProperties.lookupPropertyDefinition(elementsToBind[0],
 					DeploymentProperties._NAME, DeploymentProperties.ACTUAL_MEMORY_BINDING));
-			addPropertyIfApplicable(bindingProperties, GetProperties.lookupPropertyDefinition(elementToBind,
+			addPropertyIfApplicable(bindingProperties, GetProperties.lookupPropertyDefinition(elementsToBind[0],
 					DeploymentProperties._NAME, DeploymentProperties.ALLOWED_MEMORY_BINDING));
-			addPropertyIfApplicable(bindingProperties, GetProperties.lookupPropertyDefinition(elementToBind,
+			addPropertyIfApplicable(bindingProperties, GetProperties.lookupPropertyDefinition(elementsToBind[0],
 					DeploymentProperties._NAME, DeploymentProperties.ACTUAL_PROCESSOR_BINDING));
-			addPropertyIfApplicable(bindingProperties, GetProperties.lookupPropertyDefinition(elementToBind,
+			addPropertyIfApplicable(bindingProperties, GetProperties.lookupPropertyDefinition(elementsToBind[0],
 					DeploymentProperties._NAME, DeploymentProperties.ALLOWED_PROCESSOR_BINDING));
 
 			// Create combo box for selection type
@@ -202,8 +210,12 @@ public class SetBindingTool {
 
 		// Returns whether a property is applicable to the element to bind
 		private boolean isApplicable(final Property property) {
+			return Arrays.stream(elementsToBind).allMatch(e -> isApplicableForElement(property, e));
+		}
+
+		private static boolean isApplicableForElement(final Property property, final NamedElement element) {
 			for (final MetaclassReference mcr : property.getAppliesToMetaclasses()) {
-				if (mcr.getMetaclass() != null && mcr.getMetaclass().isSuperTypeOf(elementToBind.eClass())) {
+				if (mcr.getMetaclass() != null && mcr.getMetaclass().isSuperTypeOf(element.eClass())) {
 					return true;
 				}
 			}
@@ -288,8 +300,8 @@ public class SetBindingTool {
 			return componentImplementationBoc;
 		}
 
-		public BusinessObjectContext getBocToBind() {
-			return bocToBind;
+		public BusinessObjectContext[] getBocsToBind() {
+			return bocsToBind;
 		}
 
 		public Property getSelectedProperty() {
@@ -317,38 +329,40 @@ public class SetBindingTool {
 		}
 	};
 
-	private void createPropertyAssociation(final AadlModificationService aadlModService) {
+	private void createPropertyAssociations(final AadlModificationService aadlModService) {
 		final BusinessObjectContext ciBoc = currentWindow.getComponentImplementationBoc();
 		final ComponentImplementation ci = (ComponentImplementation)ciBoc.getBusinessObject();
 		aadlModService.modify(ci, new Modifier<ComponentClassifier, Object>() {
 			@Override
 			public Object modify(final Resource resource, final ComponentClassifier cc) {
-				final PropertyAssociation newPa = Aadl2Factory.eINSTANCE.createPropertyAssociation();
+				for (final BusinessObjectContext bocToBind : currentWindow.getBocsToBind()) {
+					final PropertyAssociation newPa = Aadl2Factory.eINSTANCE.createPropertyAssociation();
 
-				// Set property
-				newPa.setProperty(currentWindow.getSelectedProperty());
+					// Set property
+					newPa.setProperty(currentWindow.getSelectedProperty());
 
-				// Set applies to
-				if(ciBoc != currentWindow.getBocToBind()) {
-					setContainedNamedElementPath(newPa.createAppliesTo(), ciBoc, currentWindow.getBocToBind());
+					// Set applies to
+					if (ciBoc != bocToBind) {
+						setContainedNamedElementPath(newPa.createAppliesTo(), ciBoc, bocToBind);
+					}
+
+					// Create owned values
+					final ModalPropertyValue pv = newPa.createOwnedValue();
+					final ListValue lv = (ListValue) pv.createOwnedValue(Aadl2Factory.eINSTANCE.getAadl2Package()
+							.getListValue());
+
+					for (final BusinessObjectContext targetBoc : currentWindow.getTargetBocs()) {
+						// Ignore diagram selections
+						final ReferenceValue rv = (ReferenceValue) lv.createOwnedListElement(Aadl2Factory.eINSTANCE.getAadl2Package().getReferenceValue());
+						setContainedNamedElementPath(rv, ciBoc, targetBoc);
+					}
+
+					removeOldPropertyAssociation(ci, newPa);
+
+					// Add the property association
+					cc.setNoProperties(false);
+					cc.getOwnedPropertyAssociations().add(newPa);
 				}
-
-				// Create owned values
-				final ModalPropertyValue pv = newPa.createOwnedValue();
-				final ListValue lv = (ListValue) pv.createOwnedValue(Aadl2Factory.eINSTANCE.getAadl2Package()
-						.getListValue());
-
-				for (final BusinessObjectContext targetBoc : currentWindow.getTargetBocs()) {
-					// Ignore diagram selections
-					final ReferenceValue rv = (ReferenceValue) lv.createOwnedListElement(Aadl2Factory.eINSTANCE.getAadl2Package().getReferenceValue());
-					setContainedNamedElementPath(rv, ciBoc, targetBoc);
-				}
-
-				removeOldPropertyAssociation(ci, newPa);
-
-				// Add the property association
-				cc.setNoProperties(false);
-				cc.getOwnedPropertyAssociations().add(newPa);
 
 				return null;
 			}
