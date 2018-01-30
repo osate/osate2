@@ -1,7 +1,7 @@
 package org.osate.ge.internal.ui.editor;
 
 import java.util.Collections;
-import java.util.Iterator;
+import java.util.HashSet;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
@@ -24,10 +24,8 @@ import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.e4.core.contexts.ContextInjectionFactory;
 import org.eclipse.e4.core.contexts.IEclipseContext;
-import org.eclipse.emf.common.command.BasicCommandStack;
 import org.eclipse.emf.common.command.Command;
 import org.eclipse.emf.common.util.URI;
-import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.transaction.NotificationFilter;
 import org.eclipse.emf.transaction.ResourceSetChangeEvent;
@@ -40,16 +38,12 @@ import org.eclipse.gef.GraphicalEditPart;
 import org.eclipse.gef.palette.PaletteDrawer;
 import org.eclipse.gef.palette.PaletteRoot;
 import org.eclipse.graphiti.dt.IDiagramTypeProvider;
-import org.eclipse.graphiti.features.IFeature;
 import org.eclipse.graphiti.features.IFeatureProvider;
-import org.eclipse.graphiti.features.context.IContext;
 import org.eclipse.graphiti.features.context.IUpdateContext;
 import org.eclipse.graphiti.features.context.impl.CustomContext;
 import org.eclipse.graphiti.features.context.impl.UpdateContext;
-import org.eclipse.graphiti.mm.pictograms.Connection;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
-import org.eclipse.graphiti.mm.pictograms.Shape;
 import org.eclipse.graphiti.services.Graphiti;
 import org.eclipse.graphiti.ui.editor.DefaultPaletteBehavior;
 import org.eclipse.graphiti.ui.editor.DefaultPersistencyBehavior;
@@ -85,8 +79,18 @@ import org.osate.ge.di.Names;
 import org.osate.ge.graphics.Color;
 import org.osate.ge.internal.Activator;
 import org.osate.ge.internal.diagram.runtime.AgeDiagram;
+import org.osate.ge.internal.diagram.runtime.BeforeModificationsCompletedEvent;
+import org.osate.ge.internal.diagram.runtime.DiagramConfigurationChangedEvent;
 import org.osate.ge.internal.diagram.runtime.DiagramElement;
+import org.osate.ge.internal.diagram.runtime.DiagramElementField;
+import org.osate.ge.internal.diagram.runtime.DiagramElementPredicates;
+import org.osate.ge.internal.diagram.runtime.DiagramModificationListener;
 import org.osate.ge.internal.diagram.runtime.DiagramSerialization;
+import org.osate.ge.internal.diagram.runtime.DockArea;
+import org.osate.ge.internal.diagram.runtime.ElementAddedEvent;
+import org.osate.ge.internal.diagram.runtime.ElementRemovedEvent;
+import org.osate.ge.internal.diagram.runtime.ElementUpdatedEvent;
+import org.osate.ge.internal.diagram.runtime.ModificationsCompletedEvent;
 import org.osate.ge.internal.diagram.runtime.layout.DiagramElementLayoutUtil;
 import org.osate.ge.internal.diagram.runtime.layout.LayoutInfoProvider;
 import org.osate.ge.internal.graphiti.AgeDiagramTypeProvider;
@@ -97,7 +101,6 @@ import org.osate.ge.internal.graphiti.LegacyGraphitiDiagramConverter;
 import org.osate.ge.internal.graphiti.diagram.ColoringProvider;
 import org.osate.ge.internal.graphiti.diagram.GraphitiAgeDiagram;
 import org.osate.ge.internal.graphiti.features.EmfCommandCustomFeature;
-import org.osate.ge.internal.graphiti.features.UpdateDiagramFeature;
 import org.osate.ge.internal.services.ColoringService;
 import org.osate.ge.internal.services.DiagramService;
 import org.osate.ge.internal.services.ExtensionService;
@@ -113,10 +116,9 @@ public class AgeDiagramBehavior extends DiagramBehavior implements GraphitiAgeDi
 	private boolean updateWhenVisible = false;
 	private boolean updateQueued = false; // Only access by ui thread
 	private boolean updateQueuedRequireVisible = false;
-	private boolean forceNotDirty = false;
+	private boolean isDiagramDirty = false;
 	private volatile boolean dirtyModel = false;
 	private volatile boolean forceUpdateOnNextModelChange = false;
-	private boolean updatingFeatureWhileForcingNotDirty = false;
 	private ToolHandler toolHandler;
 	private IResourceChangeListener resourceChangeListener;
 	private AgeDiagram ageDiagram;
@@ -126,6 +128,58 @@ public class AgeDiagramBehavior extends DiagramBehavior implements GraphitiAgeDi
 		if(updateWhenVisible) {
 			updateDiagram(true);
 			updateWhenVisible = false;
+		}
+	};
+
+	// Listener that will set the diagram dirty flag when the diagram is modified.
+	private DiagramModificationListener ageDiagramModificationListener = new DiagramModificationListener() {
+		@Override
+		public void beforeModificationsCompleted(BeforeModificationsCompletedEvent e) {
+		}
+
+		@Override
+		public void modificationsCompleted(ModificationsCompletedEvent e) {
+		}
+
+		@Override
+		public void elementUpdated(final ElementUpdatedEvent e) {
+			// Ignore fields which are not serialized.
+			final HashSet<DiagramElementField> updatedFields = new HashSet<>(e.updatedFields);
+			updatedFields.remove(DiagramElementField.COMPLETENESS);
+			updatedFields.remove(DiagramElementField.NAME);
+			updatedFields.remove(DiagramElementField.GRAPHICAL_CONFIGURATION);
+
+			if (!DiagramElementPredicates.isResizeable(e.element)) {
+				updatedFields.remove(DiagramElementField.SIZE);
+			}
+
+			if (!DiagramElementPredicates.isMoveable(e.element)) {
+				updatedFields.remove(DiagramElementField.POSITION);
+			}
+
+			// Ignore dock area if element is a child of a dock are. DockArea = GROUP is not serialized.
+			if (e.element.getDockArea() == DockArea.GROUP) {
+				updatedFields.remove(DiagramElementField.DOCK_AREA);
+			}
+
+			if (updatedFields.size() > 0) {
+				isDiagramDirty = true;
+			}
+		}
+
+		@Override
+		public void elementRemoved(final ElementRemovedEvent e) {
+			isDiagramDirty = true;
+		}
+
+		@Override
+		public void elementAdded(final ElementAddedEvent e) {
+			isDiagramDirty = true;
+		}
+
+		@Override
+		public void diagramConfigurationChanged(final DiagramConfigurationChangedEvent e) {
+			isDiagramDirty = true;
 		}
 	};
 
@@ -607,52 +661,6 @@ public class AgeDiagramBehavior extends DiagramBehavior implements GraphitiAgeDi
 		};
 	}
 
-	/**
-	 * Returns the number of visible objects in the diagram. Only certain objects are checked. Used to decide whether the diagram has changed after an update
-	 * @return
-	 */
-	private int getVisibleObjectsInDiagram() {
-		int count = 0;
-		final Iterator<EObject> it = getDiagramTypeProvider().getDiagram().eAllContents();
-		while(it.hasNext()) {
-			final EObject obj = it.next();
-			if((obj instanceof Shape || obj instanceof Connection)) {
-				final PictogramElement pe = (PictogramElement)obj;
-				if(pe.isVisible()) {
-					count++;
-				}
-			}
-		}
-
-		return count;
-	}
-
-	@Override
-	public Object executeFeature(final IFeature feature, final IContext context) {
-		// If we are forcing the diagram to not be seen as dirty, decide whether to start using the typical dirty check
-		if(forceNotDirty) {
-			// Prevent the initial diagram update from making the diagram dirty if the number of objects doesn't change.
-			if(feature instanceof UpdateDiagramFeature) {
-				final int startCount = getVisibleObjectsInDiagram();
-				updatingFeatureWhileForcingNotDirty = true;
-				final Object retValue = super.executeFeature(feature, context);
-				updatingFeatureWhileForcingNotDirty = false;
-				final int endCount = getVisibleObjectsInDiagram();
-				if(startCount != endCount) {
-					forceNotDirty = false;
-				}
-
-				return retValue;
-			} else {
-				if(!updatingFeatureWhileForcingNotDirty) {
-					forceNotDirty = false;
-				}
-			}
-		}
-
-		return super.executeFeature(feature, context);
-	}
-
 	public void setDiagramContextIsValid(final boolean value) {
 		final boolean prevContextWasValid = diagramContextIsValid;
 		diagramContextIsValid = value;
@@ -670,26 +678,6 @@ public class AgeDiagramBehavior extends DiagramBehavior implements GraphitiAgeDi
 
 	public boolean isEditable() {
 		return diagramContextIsValid;
-	}
-
-	@Override
-	protected void editingDomainInitialized() {
-		super.editingDomainInitialized();
-
-		final TransactionalEditingDomain editingDomain = getEditingDomain();
-		if(editingDomain != null) {
-			final BasicCommandStack commandStack = (BasicCommandStack) editingDomain.getCommandStack();
-			if(commandStack != null) {
-				commandStack.addCommandStackListener(event -> {
-					if(!updatingFeatureWhileForcingNotDirty) {
-						forceNotDirty = false;
-					}
-				});
-
-				// Since we have successfully created a command stack listener, force the diagram to be seen as not dirty until there is a change
-				forceNotDirty = true;
-			}
-		}
 	}
 
 	/**
@@ -848,6 +836,7 @@ public class AgeDiagramBehavior extends DiagramBehavior implements GraphitiAgeDi
 				updateProjectByUri(uri);
 				final org.osate.ge.diagram.Diagram mmDiagram = DiagramSerialization.readMetaModelDiagram(uri);
 				ageDiagram = DiagramSerialization.createAgeDiagram(mmDiagram);
+				ageDiagram.addModificationListener(ageDiagramModificationListener);
 
 				// Display warning if the diagram is stored with a newer version of the diagram file format.
 				if(mmDiagram.getFormatVersion() > DiagramSerialization.FORMAT_VERSION) {
@@ -879,6 +868,9 @@ public class AgeDiagramBehavior extends DiagramBehavior implements GraphitiAgeDi
 					final AgeFeatureProvider fp = (AgeFeatureProvider)getDiagramTypeProvider().getFeatureProvider();
 					fp.getDiagramUpdater().clearGhosts();
 
+					// Reset the dirty flag
+					isDiagramDirty = false;
+
 					// Return a set containing the diagram resource
 					if(editingDomain.getResourceSet().getResources().size() == 1) {
 						return Collections.singleton(editingDomain.getResourceSet().getResources().get(0));
@@ -893,14 +885,9 @@ public class AgeDiagramBehavior extends DiagramBehavior implements GraphitiAgeDi
 				}
 			}
 
-			// Keep the forceNotDirty check
 			@Override
 			public boolean isDirty() {
-				if(forceNotDirty) {
-					return false;
-				}
-
-				return super.isDirty();
+				return isDiagramDirty;
 			}
 		};
 	}
@@ -916,8 +903,8 @@ public class AgeDiagramBehavior extends DiagramBehavior implements GraphitiAgeDi
 			throw new RuntimeException(e);
 		}
 
-		// Prevent the diagram from being marked as dirty. This may be overriden if the context is relinked
-		forceNotDirty = true;
+		// Prevent the diagram from being marked as dirty. This may be overridden if the context is relinked
+		isDiagramDirty = false;
 
 		final AgeFeatureProvider fp = (AgeFeatureProvider) dtp.getFeatureProvider();
 
@@ -929,11 +916,7 @@ public class AgeDiagramBehavior extends DiagramBehavior implements GraphitiAgeDi
 			final boolean workbenchIsVisible = isWorkbenchVisible();
 			final DiagramContextChecker.Result result = contextChecker.checkContextFullBuild(ageDiagram, workbenchIsVisible);
 
-			if (result.isContextValid()) {
-				if (result.wasContextUpdated()) {
-					forceNotDirty = false;
-				}
-			} else {
+			if (!result.isContextValid()) {
 				// If the workbench is not visible, then close the diagram to avoid an error which could have been avoided by relinking since
 				// we only prompts to relink if the workbench is visible.
 				if (!workbenchIsVisible) {
@@ -966,7 +949,6 @@ public class AgeDiagramBehavior extends DiagramBehavior implements GraphitiAgeDi
 		};
 
 		// Create the Graphiti AGE diagram which will own a Graphiti diagram and keep it updated with any changes to the AGE diagram
-		updatingFeatureWhileForcingNotDirty = true;
 		graphitiAgeDiagram = new GraphitiAgeDiagram(ageDiagram, dtp.getDiagram(), getEditingDomain(),
 				c -> executeFeature(new EmfCommandCustomFeature(c, fp), new CustomContext()), coloringProvider,
 				() -> {
@@ -974,8 +956,7 @@ public class AgeDiagramBehavior extends DiagramBehavior implements GraphitiAgeDi
 					final PictogramElement[] pes = getSelectedPictogramElements();
 					setPictogramElementsForSelection(pes);
 				});
-		updatingFeatureWhileForcingNotDirty = false;
-		
+
 		return dtp;
 	}
 
