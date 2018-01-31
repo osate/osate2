@@ -1,7 +1,21 @@
 # AADL Property Values
-This view can be used to display and edit property values in a structured manner which is often easier than navigating and manipulating the aadl text files directly.  Below is an example of the view in action.  It is displaying the properties of the process subcomponent `Sampler_B`.
+
+The "AADL Property Values" view is used to display and edit property values in a structured manner, which is often easier than navigating and manipulating the aadl text files directly.  Below is an example of the view in action.  It is displaying the properties of the process subcomponent `Sampler_B`.
 
 ![Example Screenshot](images/AadlPropertyValues/ExampleScreenshot.png)
+
+> **Example**
+>
+> The packages used as examples in this section can be imported into your workspace from the archive [PropertyViewerExamples.zip](examples/PropertyViewerExamples.zip).  Please see the help section on [importing projects into the Eclipse workspace]().
+>
+> Alternatively, you can view the AADL files directly:
+> - [mine.aadl](examples/PropertyViewExampeles/mine.aadl)
+> - [Navigation.aadl](examples/PropertyViewExampeles/Navigation.aadl)
+> - [NavTypes.aadl](examples/PropertyViewExampeles/NavTypes.aadl)
+> - [Page_88.aadl](examples/PropertyViewExampeles/Page_88.aadl)
+> - [Page_220.aadl](examples/PropertyViewExampeles/Page_220.aadl)
+
+
 
 ## Opening AADL Property Values
 From the main menu, select **Window** -> **Show View**.  If OSATE is currently in the AADL perspective, then you can select **AADL Property Values**.  Otherwise, select **Other...** and choose **AADL** -> **AADL Property Values**.
