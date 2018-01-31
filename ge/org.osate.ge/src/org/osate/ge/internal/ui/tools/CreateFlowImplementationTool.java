@@ -3,6 +3,7 @@ package org.osate.ge.internal.ui.tools;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.OptionalInt;
 import java.util.stream.Collectors;
 
 import javax.inject.Named;
@@ -25,6 +26,7 @@ import org.eclipse.swt.widgets.Shell;
 import org.osate.aadl2.Aadl2Factory;
 import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.ComponentImplementation;
+import org.osate.aadl2.Connection;
 import org.osate.aadl2.Feature;
 import org.osate.aadl2.FlowElement;
 import org.osate.aadl2.FlowEnd;
@@ -42,6 +44,7 @@ import org.osate.ge.internal.di.Deactivate;
 import org.osate.ge.internal.di.InternalNames;
 import org.osate.ge.internal.di.SelectionChanged;
 import org.osate.ge.internal.diagram.runtime.DiagramElement;
+import org.osate.ge.internal.diagram.runtime.DiagramNode;
 import org.osate.ge.internal.services.AadlModificationService;
 import org.osate.ge.internal.services.ColoringService;
 import org.osate.ge.internal.services.UiService;
@@ -175,22 +178,31 @@ public class CreateFlowImplementationTool {
 			return fs == null ? false : fs.getKind() == FlowKind.SINK;
 		}
 
-		private void updateMessage() {
+		private String getDirectionMessage() {
 			String msg;
-			String error = null;
-			if(userSelections.size() == 0) {
+			if (userSelections.size() == 0) {
 				msg = "Select a flow specification to implement.";
-			} else if(selectingFlowIn()) {
+			} else if (selectingFlowIn()) {
 				msg = "Select a starting feature.";
-			} else if(isFlowComplete()) {
+			} else if (isFlowComplete()) {
 				msg = "Select the OK button to create the flow implementation. Optionally, select a mode or mode transition.";
-			} else if(needsEndingFeature()) {
-				msg = "Select a flow element or ending feature. Optionally, select a mode or mode transition.";
-			} else if(needsEndingFlowSink()) {
+			} else if (needsEndingFeature()) {
+				if (selectingFlowEnd()) {
+					msg = "Select a flow element or ending feature. Optionally, select a mode or mode transition.";
+				} else {
+					msg = "Select a flow element. Optionally, select a mode or mode transition.";
+				}
+			} else if (needsEndingFlowSink()) {
 				msg = "Select a flow element or ending flow sink specification. Optionally, select a mode or mode transition.";
 			} else {
 				msg = ""; // Intended to be unreachable
 			}
+			return msg;
+		}
+
+		private void updateMessage() {
+			final String msg = getDirectionMessage();
+			String error = null;
 
 			if(multipleElementsSelected) {
 				error = "Multiple diagram elements selected. Select a single diagram element.";
@@ -263,6 +275,58 @@ public class CreateFlowImplementationTool {
 			return needsStartingFeature() && userSelections.size() == 1;
 		}
 
+		private boolean selectingSubcomponentFlow() {
+			if (selectingFlowSpecificationToImplement() || selectingFlowIn() || isFlowComplete()) {
+				return false;
+			}
+
+			final FlowImplementation flowImpl = createFlow();
+			if (flowImpl.getKind() == FlowKind.SOURCE && (flowImpl.getOwnedFlowSegments().size() % 2) == 0) {
+				return true;
+			} else if ((flowImpl.getKind() == FlowKind.SINK || flowImpl.getKind() == FlowKind.PATH)
+					&& (flowImpl.getOwnedFlowSegments().size() % 2) == 1) {
+				return true;
+			}
+
+			return false;
+		}
+
+		private boolean selectingConnectionFlow() {
+			if (selectingFlowSpecificationToImplement() || selectingFlowIn() || isFlowComplete()) {
+				return false;
+			}
+
+			final FlowImplementation flowImpl = createFlow();
+			if (flowImpl.getKind() == FlowKind.SOURCE && (flowImpl.getOwnedFlowSegments().size() % 2) == 1) {
+				return true;
+			} else if ((flowImpl.getKind() == FlowKind.SINK || flowImpl.getKind() == FlowKind.PATH)
+					&& (flowImpl.getOwnedFlowSegments().size() % 2) == 0) {
+				return true;
+			}
+
+			return false;
+		}
+
+		private boolean selectingFlowEnd() {
+			if (selectingFlowSpecificationToImplement() || selectingFlowIn() || !needsEndingFeature()
+					|| isFlowComplete()) {
+				return false;
+			}
+
+			final FlowImplementation flowImpl = createFlow();
+
+			if ((flowImpl.getKind() == FlowKind.SOURCE || flowImpl.getKind() == FlowKind.SINK)
+					&& (flowImpl.getOwnedFlowSegments().size() % 2) == 0) {
+				return true;
+			} else if (flowImpl.getKind() == FlowKind.PATH && (flowImpl.getOwnedFlowSegments().size() == 0
+					|| (flowImpl.getOwnedFlowSegments().size() % 2) == 1)) {
+				// For flow paths, require an odd number of flow segments if there are any flow segments
+				return true;
+			}
+
+			return false;
+		}
+
 		/**
 		 * @param de - the business object context for the selected diagram element
 		 * @return - true or false depending if the selected element was added to the flow implementation
@@ -276,24 +340,50 @@ public class CreateFlowImplementationTool {
 					add = true;
 				}
 			} else if(selectingFlowIn()) {
-				if(bo instanceof Feature) {
+				if (bo instanceof Feature && calculateDistanceToOwner(de).orElse(Integer.MAX_VALUE) <= 2) {
 					add = true;
 				}
 			} else { // Selecting flow segments and modes
-				if(bo instanceof ModeFeature ||
-						(!isFlowComplete() && (bo instanceof FlowElement || bo instanceof Feature))) {
+				if (bo instanceof ModeFeature) {
 					add = true;
+				} else {
+					if (selectingFlowEnd() && bo instanceof Feature
+							&& calculateDistanceToOwner(de).orElse(Integer.MAX_VALUE) <= 2) {
+						add = true;
+					} else if (selectingConnectionFlow() && bo instanceof Connection
+							&& calculateDistanceToOwner(de).orElse(Integer.MAX_VALUE) == 1) {
+						add = true;
+					} else if (selectingSubcomponentFlow() && bo instanceof FlowElement
+							&& calculateDistanceToOwner(de).orElse(Integer.MAX_VALUE) <= 2) {
+						add = true;
+					}
 				}
 			}
 
-			if(add) {
+			if (add && !userSelections.contains(de)) {
+				setErrorMessage(null);
+
 				// Don't allow duplicate selections
-				if(!userSelections.contains(de)) {
-					userSelections.add(de);
-				}
+				userSelections.add(de);
 
 				// Update the UI
 				update();
+			} else {
+				setErrorMessage("Invalid element selected. " + getDirectionMessage());
+			}
+		}
+
+		private OptionalInt calculateDistanceToOwner(final DiagramElement de) {
+			DiagramNode tmp = de;
+			int distance = 0;
+			while(true) {
+				distance++;
+				tmp = tmp.getParent();
+				if(tmp == null) {
+					return OptionalInt.empty();
+				} else if (tmp == getOwnerBoc()) {
+					return OptionalInt.of(distance);
+				}
 			}
 		}
 
@@ -350,20 +440,20 @@ public class CreateFlowImplementationTool {
 				flowStr += fi.getKind() + " ";
 				final int kindEndIndex = flowStr.length();
 
+				final List<String> flowSegmentStrings = new ArrayList<>();
 				if(needsStartingFeature() && fi.getInEnd() != null) {
-					flowStr += flowEndToString(fi.getInEnd()) + " -> ";
+					flowSegmentStrings.add(flowEndToString(fi.getInEnd()));
 				}
 
 				for(final FlowSegment seg : fi.getOwnedFlowSegments()) {
-					flowStr += flowSegmentToString(seg) + " ";
-					if(!(seg.getFlowElement() instanceof FlowSpecification && ((FlowSpecification)seg.getFlowElement()).getKind() == FlowKind.SINK)) {
-						flowStr += "-> ";
-					}
+					flowSegmentStrings.add(flowSegmentToString(seg));
 				}
 
 				if(needsEndingFeature() && fi.getOutEnd() != null) {
-					flowStr += " " + flowEndToString(fi.getOutEnd());
+					flowSegmentStrings.add(flowEndToString(fi.getOutEnd()));
 				}
+
+				flowStr += flowSegmentStrings.stream().collect(Collectors.joining(" -> "));
 
 				final int modeStartIndex = flowStr.length();
 				if(fi.getInModeOrTransitions().size() > 0) {
