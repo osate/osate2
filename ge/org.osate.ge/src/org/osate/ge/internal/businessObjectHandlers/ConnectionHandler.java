@@ -23,6 +23,7 @@ import org.osate.aadl2.Connection;
 import org.osate.aadl2.ConnectionEnd;
 import org.osate.aadl2.Context;
 import org.osate.aadl2.DataAccess;
+import org.osate.aadl2.Feature;
 import org.osate.aadl2.FeatureConnectionEnd;
 import org.osate.aadl2.FeatureGroupConnectionEnd;
 import org.osate.aadl2.ParameterConnectionEnd;
@@ -187,15 +188,15 @@ public class ConnectionHandler {
 	@CanStartConnection
 	public boolean canStartConnection(@Named(Names.SOURCE_BUSINESS_OBJECT_CONTEXT) final BusinessObjectContext srcBoc,
 			final @Named(Names.PALETTE_ENTRY_CONTEXT) EClass connectionType, final QueryService queryService) {
-		final ConnectedElement srcConnectedElement = getConnectedElementForBusinessObjectContext(srcBoc, connectionType,
-				false, null);
-		if (srcConnectedElement == null) {
+		if (!(srcBoc.getBusinessObject() instanceof ConnectionEnd)) {
 			return false;
 		}
 
+		final ConnectionEnd srcConnectionEnd = (ConnectionEnd)srcBoc.getBusinessObject();
+
 		// Perform type specific connection start connection validity check
 		final Class<?> connectionEndType = getConnectionEndType(connectionType);
-		if (connectionEndType == null || !connectionEndType.isInstance(srcConnectedElement.getConnectionEnd())) {
+		if (connectionEndType == null || !connectionEndType.isInstance(srcConnectionEnd)) {
 			return false;
 		}
 
@@ -220,6 +221,14 @@ public class ConnectionHandler {
 
 		// Ensure they are valid and are not the same
 		if (dstConnectedElement == null || EcoreUtil.equals(srcConnectedElement, dstConnectedElement)) {
+			return false;
+		}
+
+		// Can't connect two features that belong to the same classifier
+		if (!(srcConnectedElement.getContext() instanceof Subcomponent)
+				&& srcConnectedElement.getConnectionEnd() instanceof Feature
+				&& !(dstConnectedElement.getContext() instanceof Subcomponent)
+				&& srcConnectedElement.getConnectionEnd() instanceof Feature) {
 			return false;
 		}
 
