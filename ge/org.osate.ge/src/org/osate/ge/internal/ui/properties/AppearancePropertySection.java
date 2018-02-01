@@ -573,8 +573,11 @@ public class AppearancePropertySection extends AbstractPropertySection {
 		}
 
 		private static ImageData getImageData(final RGB rgb) {
+			final PaletteData paletteData = new PaletteData(
+					new RGB[] { rgb, new RGB(0, 0, 0) });
+
 			final ImageData data = new ImageData(COLOR_ICON_SIZE.x, COLOR_ICON_SIZE.y, 1,
-					new PaletteData(new RGB[] { rgb }));
+					paletteData);
 
 			for (int i = 0; i < COLOR_ICON_SIZE.y; i++) {
 				data.setPixel(0, i, 1);
