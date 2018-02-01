@@ -128,7 +128,6 @@ public class ClassifierCreationHelper {
 			return (ComponentType) c;
 		} else if (c instanceof ComponentImplementation) {
 			final ComponentImplementation ci = (ComponentImplementation) c;
-			System.err.println("B: " + ci.getType());
 			return ProxyUtil.resolveOrNull(ci.getType(), ComponentType.class, resourceSet);
 		} else {
 			throw new RuntimeException("Unexpected case: " + c);
