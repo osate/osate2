@@ -41,10 +41,14 @@ import java.util.concurrent.atomic.AtomicBoolean;
 import org.eclipse.core.commands.AbstractHandler;
 import org.eclipse.core.commands.ExecutionEvent;
 import org.eclipse.core.commands.ExecutionException;
+import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.NullProgressMonitor;
+import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.resource.ResourceSet;
+import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.jface.dialogs.ProgressMonitorDialog;
 import org.eclipse.jface.text.ITextSelection;
 import org.eclipse.jface.viewers.ISelection;
@@ -62,6 +66,7 @@ import org.eclipse.ui.views.contentoutline.ContentOutline;
 import org.eclipse.xtext.resource.EObjectAtOffsetHelper;
 import org.eclipse.xtext.ui.editor.XtextEditor;
 import org.eclipse.xtext.ui.editor.outline.impl.EObjectNode;
+import org.eclipse.xtext.ui.resource.XtextResourceSetProvider;
 import org.osate.aadl2.ComponentImplementation;
 import org.osate.aadl2.Element;
 import org.osate.aadl2.SubprogramGroupImplementation;
@@ -80,6 +85,8 @@ public class InstantiateHandler extends AbstractHandler {
 
 	@Inject
 	private EObjectAtOffsetHelper eObjectAtOffsetHelper;
+	@Inject
+	private XtextResourceSetProvider resourceSetProvider;
 
 	protected static final InternalErrorReporter internalErrorLogger = new LogInternalErrorReporter(
 			OsateCorePlugin.getDefault().getBundle());
@@ -136,7 +143,7 @@ public class InstantiateHandler extends AbstractHandler {
 					xtextEditor.doSave(new NullProgressMonitor());
 				}
 
-				xtextEditor.getDocument().readOnly(resource -> {
+				URI ccURI = xtextEditor.getDocument().readOnly(resource -> {
 					EObject targetElement = null;
 					if (selection instanceof IStructuredSelection) {
 						IStructuredSelection ss = (IStructuredSelection) selection;
@@ -158,43 +165,7 @@ public class InstantiateHandler extends AbstractHandler {
 										"Components of categories subprogram and subprogram group cannot be instantiated.\n"
 												+ "Selected " + targetElement.eClass().getName());
 							} else {
-								try {
-									AtomicBoolean instantiationSuccessful = new AtomicBoolean();
-									new ProgressMonitorDialog(HandlerUtil.getActiveShell(event)).run(true, true, monitor -> {
-										monitor.beginTask("Instantiating " + cc.getQualifiedName(), IProgressMonitor.UNKNOWN);
-										try {
-											instantiationSuccessful.set(InstantiateModel.buildInstanceModelFile(cc, monitor) != null);
-											if (monitor.isCanceled()) {
-												throw new InterruptedException();
-											}
-										} catch (InterruptedException e1) {
-											throw e1;
-										} catch (Exception e2) {
-											throw new InvocationTargetException(e2);
-										} finally {
-											monitor.done();
-										}
-									});
-									if (!instantiationSuccessful.get()) {
-										String message;
-										message = "Error when instantiating the model";
-										if (InstantiateModel.getErrorMessage() != null) {
-											message = message + " - reason: " + InstantiateModel.getErrorMessage()
-											+ "\nRefer to the help content and FAQ for more information";
-										}
-										Dialog.showError("Model Instantiate", message);
-									}
-								} catch (InvocationTargetException e3) {
-									if (e3.getCause() instanceof UnsupportedOperationException) {
-										Dialog.showError("Model Instantiate",
-												"Operation is not supported: " + e3.getCause().getMessage());
-									} else {
-										e3.getCause().printStackTrace();
-										Dialog.showError("Model Instantiate", "Error when instantiating the model");
-									}
-								} catch (InterruptedException e4) {
-									//Instantiation was canceled by the user.
-								}
+								return EcoreUtil.getURI(cc);
 							}
 						} else {
 							Dialog.showInfo("Model Instantiation",
@@ -205,8 +176,52 @@ public class InstantiateHandler extends AbstractHandler {
 					}
 					return null;
 				});
+				if (ccURI != null) {
+					instantiateFromURI(ccURI, xtextEditor.getResource().getProject(), event);
+				}
 			}
 		}
 		return null;
+	}
+
+	private void instantiateFromURI(URI uri, IProject project, ExecutionEvent event) {
+		ResourceSet rs = resourceSetProvider.get(project);
+		ComponentImplementation cc = (ComponentImplementation) rs.getEObject(uri, true);
+		try {
+			AtomicBoolean instantiationSuccessful = new AtomicBoolean();
+			new ProgressMonitorDialog(HandlerUtil.getActiveShell(event)).run(true, true, monitor -> {
+				monitor.beginTask("Instantiating " + cc.getQualifiedName(), IProgressMonitor.UNKNOWN);
+				try {
+					instantiationSuccessful.set(InstantiateModel.buildInstanceModelFile(cc, monitor) != null);
+					if (monitor.isCanceled()) {
+						throw new InterruptedException();
+					}
+				} catch (InterruptedException e1) {
+					throw e1;
+				} catch (Exception e2) {
+					throw new InvocationTargetException(e2);
+				} finally {
+					monitor.done();
+				}
+			});
+			if (!instantiationSuccessful.get()) {
+				String message;
+				message = "Error when instantiating the model";
+				if (InstantiateModel.getErrorMessage() != null) {
+					message = message + " - reason: " + InstantiateModel.getErrorMessage()
+							+ "\nRefer to the help content and FAQ for more information";
+				}
+				Dialog.showError("Model Instantiate", message);
+			}
+		} catch (InvocationTargetException e3) {
+			if (e3.getCause() instanceof UnsupportedOperationException) {
+				Dialog.showError("Model Instantiate", "Operation is not supported: " + e3.getCause().getMessage());
+			} else {
+				e3.getCause().printStackTrace();
+				Dialog.showError("Model Instantiate", "Error when instantiating the model");
+			}
+		} catch (InterruptedException e4) {
+			// Instantiation was canceled by the user.
+		}
 	}
 }
