@@ -172,6 +172,8 @@ abstract class AbstractNewFileWizard extends Wizard implements INewWizard {
 						
 						fieldLabel -> field
 					])
+					
+					addLocalControls(composite)
 				]
 			}
 			
@@ -214,6 +216,15 @@ abstract class AbstractNewFileWizard extends Wizard implements INewWizard {
 			wizardPage.description = '''Create a new «descriptionFileType» file.'''
 			wizardPage.pageComplete = false
 		])
+	}
+			
+	/**
+	 * A wizard may add more controls to the pane.  They will appear below the widgets created by the
+	 * {@link #addFields} functionality.  Keep in mind that the layout manager for the pane is a Grid with 
+	 * 2 columns. 
+	 */
+	def protected void addLocalControls(Composite parent) {
+		// by default does nothing
 	}
 	
 	def protected static boolean isValidId(String id) {
