@@ -459,10 +459,16 @@ public class AgeDiagramBehavior extends DiagramBehavior implements GraphitiAgeDi
 
 	@Override
 	protected void disposeAfterGefDispose() {
-		super.disposeAfterGefDispose();
+		try {
+			super.disposeAfterGefDispose();
 
-		if(toolHandler != null) {
-			toolHandler.dispose();
+			if (toolHandler != null) {
+				toolHandler.dispose();
+			}
+		} finally {
+			if (graphitiAgeDiagram != null) {
+				graphitiAgeDiagram.close();
+			}
 		}
 	}
 
