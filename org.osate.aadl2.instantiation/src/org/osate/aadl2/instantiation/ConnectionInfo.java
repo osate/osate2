@@ -256,7 +256,7 @@ class ConnectionInfo {
 				}
 			}
 		}
-		return origFI;
+		return rootFI;
 	}
 
 	private ConnectionKind getKind(ConnectionInstanceEnd dst) {
