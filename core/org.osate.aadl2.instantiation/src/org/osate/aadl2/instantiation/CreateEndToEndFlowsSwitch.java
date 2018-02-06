@@ -333,10 +333,10 @@ public class CreateEndToEndFlowsSwitch extends AadlProcessingSwitchWithProgress 
 				if (sci != null) {
 					processSubcomponentFlow(sci, etei, (FlowSpecification) fe, iter);
 				} else {
-					error(errorElement,
+					error(etei.getContainingComponentInstance(),
 							"Incomplete End-to-end flow instance " + etei.getName()
-									+ ": Could not find component instance for subcomponent " + sc.getName()
-									+ " in flow implementation " + errorElement.getName());
+							+ ": Could not find component instance for subcomponent " + sc.getName()
+							+ " in flow implementation " + errorElement.getName());
 				}
 			} else if (fe instanceof Subcomponent) {
 				ComponentInstance sci = ci.findSubcomponentInstance((Subcomponent) fe);
@@ -377,7 +377,7 @@ public class CreateEndToEndFlowsSwitch extends AadlProcessingSwitchWithProgress 
 			processFlowStep(ci, etei, fs, iter);
 			if (subImpl != null && AadlUtil.hasPortComponents(subImpl)) {
 				warning(etei, "End-to-end flow " + etei.getName() + " contains component " + ci.getName()
-						+ " with subcomponents, but no flow implementation " + fs.getName() + " to them");
+				+ " with subcomponents, but no flow implementation " + fs.getName() + " to them");
 			}
 		} else {
 			Iterator<FlowImplementation> itt = flowImpls.iterator();
@@ -440,7 +440,7 @@ public class CreateEndToEndFlowsSwitch extends AadlProcessingSwitchWithProgress 
 			return false;
 		}
 
-		continueFlow(ci, etei, new FlowIterator(flowImpl), flowImpl);
+		continueFlow(ci, etei, new FlowIterator(flowImpl), ci);
 		return true;
 	}
 
@@ -477,9 +477,9 @@ public class CreateEndToEndFlowsSwitch extends AadlProcessingSwitchWithProgress 
 					if (flowFilter != null) {
 						error(etei.getContainingComponentInstance(),
 								"Cannot create end to end flow '" + etei.getName()
-										+ "' because there are no semantic connections that continue the flow '"
-										+ flowFilter.getSpecification().getName() + "' from feature '"
-										+ flowFilter.getOutEnd().getFeature().getName() + "'");
+								+ "' because there are no semantic connections that continue the flow '"
+								+ flowFilter.getSpecification().getName() + "' from feature '"
+								+ flowFilter.getOutEnd().getFeature().getName() + "'");
 					}
 				}
 			} else {
@@ -573,8 +573,8 @@ public class CreateEndToEndFlowsSwitch extends AadlProcessingSwitchWithProgress 
 			result = flowIn == connDst;
 			if (!result) {
 				error(etei.getContainingComponentInstance(), "Cannot create end to end flow '" + etei.getName()
-						+ "' because the end of the semantic connection '" + conni.getComponentInstancePath()
-						+ "' does not connect to the start of flow '" + fimpl.getSpecification().getName() + "'");
+				+ "' because the end of the semantic connection '" + conni.getComponentInstancePath()
+				+ "' does not connect to the start of flow '" + fimpl.getSpecification().getName() + "'");
 			}
 		}
 		return result;
@@ -624,7 +624,7 @@ public class CreateEndToEndFlowsSwitch extends AadlProcessingSwitchWithProgress 
 
 			if (connis.isEmpty()) {
 				error(etei, "Incomplete end-to-end flow instance " + etei.getName()
-						+ ": Missing connection instance to " + ((NamedElement) da).getName());
+				+ ": Missing connection instance to " + ((NamedElement) da).getName());
 				connections.clear();
 			} else {
 				Iterator<ConnectionInstance> connIter = connis.iterator();
@@ -649,7 +649,7 @@ public class CreateEndToEndFlowsSwitch extends AadlProcessingSwitchWithProgress 
 						if (!errorReported) {
 							errorReported = true;
 							error(etei, "Data access feature " + da.getQualifiedName()
-									+ " is not a proxy for a data component.");
+							+ " is not a proxy for a data component.");
 						}
 					}
 
@@ -804,7 +804,7 @@ public class CreateEndToEndFlowsSwitch extends AadlProcessingSwitchWithProgress 
 
 			if (connis.isEmpty()) {
 				error(etei, "Incomplete end-to-end flow instance " + etei.getName()
-						+ ": Missing connection instance to " + ((NamedElement) ete).getName());
+				+ ": Missing connection instance to " + ((NamedElement) ete).getName());
 				connections.clear();
 			} else {
 				Iterator<ConnectionInstance> connIter = connis.iterator();
@@ -1245,7 +1245,7 @@ public class CreateEndToEndFlowsSwitch extends AadlProcessingSwitchWithProgress 
 			}
 			return false;
 		}
-		return true;
+	return true;
 	}
 
 	// -------------------------------------------------------------------------
