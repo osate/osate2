@@ -43,6 +43,7 @@ import org.osate.ui.OsateUiPlugin
 import org.osate.xtext.aadl2.properties.parser.antlr.lexer.InternalPropertiesLexer
 
 import static extension org.apache.commons.lang.StringUtils.ordinalIndexOf
+import org.eclipse.core.resources.IProject
 
 /**
  * Abstract wizard for creating new files. Each wizard contains a tree for selecting the parent folder and
@@ -53,6 +54,7 @@ import static extension org.apache.commons.lang.StringUtils.ordinalIndexOf
 abstract class AbstractNewFileWizard extends Wizard implements INewWizard {
 	val static HIDE_FOLDERS = #["instances", "diagrams", "imv"]
 	
+	protected var IProject project = null;
 	val String titleFileType
 	val String descriptionFileType
 	val protected String fileExtension
@@ -81,6 +83,8 @@ abstract class AbstractNewFileWizard extends Wizard implements INewWizard {
 			IFile: selectedElement.parent
 			IContainer: selectedElement
 		}
+		project = initialSelection?.getProject()
+		
 		windowTitle = '''New «titleFileType» Fle'''
 		defaultPageImageDescriptor = OsateUiPlugin.getImageDescriptor("icons/NewAadl2.gif")
 	}
@@ -96,15 +100,7 @@ abstract class AbstractNewFileWizard extends Wizard implements INewWizard {
 		]
 		try {
 			container.run(true, true, operation)
-			val activePage = workbench.activeWorkbenchWindow.activePage
-			val editorId = workbench.editorRegistry.getDefaultEditor(newFile.name).id
-			try {
-				val editor = activePage.openEditor(new FileEditorInput(newFile), editorId) as ITextEditor
-				editor.selectAndReveal(contents.ordinalIndexOf("\t", tabIndex) + 1, 0)
-			} catch (PartInitException e) {
-				log.log(new Status(IStatus.WARNING, pluginId, e.message, e))
-				MessageDialog.openWarning(container.shell, "Open Editor", e.message)
-			}
+			openEditor(newFile, contents)
 			true
 		} catch (InterruptedException e) {
 			false
@@ -112,6 +108,22 @@ abstract class AbstractNewFileWizard extends Wizard implements INewWizard {
 			log.log(new Status(IStatus.ERROR, pluginId, e.message, e))
 			MessageDialog.openError(container.shell, "Creation Problems", e.targetException.message)
 			false
+		}
+	}
+	
+	def void openEditor(IFile newFile, String contents) {
+		openDefaultEditor(newFile, contents)
+	}
+	
+	def final protected void openDefaultEditor(IFile newFile, String contents) {
+		val activePage = workbench.activeWorkbenchWindow.activePage
+		val editorId = workbench.editorRegistry.getDefaultEditor(newFile.name).id
+		try {
+			val editor = activePage.openEditor(new FileEditorInput(newFile), editorId) as ITextEditor
+			editor.selectAndReveal(contents.ordinalIndexOf("\t", tabIndex) + 1, 0)
+		} catch (PartInitException e) {
+			log.log(new Status(IStatus.WARNING, pluginId, e.message, e))
+			MessageDialog.openWarning(container.shell, "Open Editor", e.message)
 		}
 	}
 	
