@@ -167,6 +167,15 @@
         </actionProvider>
          <commonWizard
                type="new"
+               wizardId="org.osate.ui.wizards.AadlProjectWizardID">
+            <enablement>
+               <adapt
+                     type="org.eclipse.core.resources.IResource">
+               </adapt>
+            </enablement>
+         </commonWizard>
+         <commonWizard
+               type="new"
                wizardId="org.osate.ui.NewAadlPackageWizard">
             <enablement>
                <adapt
