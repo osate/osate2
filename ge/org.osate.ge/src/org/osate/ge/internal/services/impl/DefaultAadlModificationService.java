@@ -168,7 +168,7 @@ public class DefaultAadlModificationService implements AadlModificationService {
 				if (modifySafelyResult.modificationSuccessful) {
 					// Save the model
 					try {
-						res.save(SaveOptions.defaultOptions().toOptionsMap());
+						res.save(SaveOptions.newBuilder().format().getOptions().toOptionsMap());
 					} catch (final IOException e) {
 						throw new RuntimeException(e);
 					}
