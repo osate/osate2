@@ -51,7 +51,6 @@ import org.osate.aadl2.instance.ComponentInstance
 import org.osate.aadl2.instance.InstanceObject
 import org.osate.aadl2.instance.SystemInstance
 import org.osate.aadl2.properties.PropertyNotPresentException
-import org.osate.alisa.common.common.CommonFactory
 import org.osate.alisa.common.typing.CommonInterpreter
 import org.osate.assure.assure.AssuranceCaseResult
 import org.osate.assure.assure.ElseResult
