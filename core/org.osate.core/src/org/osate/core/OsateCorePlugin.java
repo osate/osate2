@@ -43,6 +43,9 @@ import java.util.MissingResourceException;
 import java.util.ResourceBundle;
 
 import org.eclipse.core.resources.IProject;
+import org.eclipse.core.resources.IResourceChangeEvent;
+import org.eclipse.core.resources.IResourceChangeListener;
+import org.eclipse.core.resources.IResourceDelta;
 import org.eclipse.core.resources.IWorkspace;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.IPath;
@@ -239,4 +242,18 @@ public class OsateCorePlugin extends AbstractUIPlugin {
 	public static String getFormattedMessage(String key, String[] args) {
 		return MessageFormat.format(getMessage(key), (Object[]) args);
 	}
+
+	private static class ProjectRenameHandler implements IResourceChangeListener {
+
+		@Override
+		public void resourceChanged(final IResourceChangeEvent event) {
+			System.out.println(event.getType());
+			final IResourceDelta deltaRoot = event.getDelta();
+			deltaRoot.accept(delta -> {
+
+			});
+		}
+
+	}
+
 }
