@@ -22,7 +22,7 @@ import org.eclipse.emf.ecore.util.EcoreUtil
 @RunWith(XtextRunner)
 @InjectWith(Aadl2UiInjectorProvider)
 class Issue986Test extends OsateTest {
-	val static PROJECT_LOCATION = "org.osate.core.tests/models/issue986/"
+	val static PROJECT_LOCATION = "org.osate.core.tests/models/Issue986/"
 	val static FILE1 = "package1.aadl"
 
 	val static WARNING_NO_CLASSIFIER = "Instantiated subcomponent doesn't have a component classifier"
