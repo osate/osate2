@@ -80,6 +80,9 @@ public class InstanceUtil {
 	 */
 	// TODO-LW: handle arrays
 	public static class InstantiatedClassifier {
+		/** Special value used to represent NULL return value in the classifier cache. */
+		public static final InstantiatedClassifier NULL = new InstantiatedClassifier(null, null);
+
 		/**
 		 *
 		 */
@@ -240,10 +243,10 @@ public class InstanceUtil {
 		InstantiatedClassifier ic = null;
 
 		if (classifierCache != null) {
-			ic = classifierCache.get(iobj);
-		}
-		if (ic != null) {
-			return ic;
+			final InstantiatedClassifier temp = classifierCache.get(iobj);
+			if (temp != null) {
+				return temp == InstantiatedClassifier.NULL ? null : temp;
+			}
 		}
 		if (iobj instanceof SystemInstance) {
 			ic = new InstantiatedClassifier(((SystemInstance) iobj).getComponentImplementation(), null);
@@ -281,8 +284,11 @@ public class InstanceUtil {
 							ic = new InstantiatedClassifier((ComponentClassifier) cpa.getSubcomponentType(),
 									cpa.getBindings());
 						} else {
-							ic = new InstantiatedClassifier(
-									((ComponentPrototype) prototype).getConstrainingClassifier(), noBindings);
+							// ISSUE 986: If the constraining classifier is missing (null), then don't create an InstantiatedClassifier object
+							final ComponentClassifier cc = ((ComponentPrototype) prototype).getConstrainingClassifier();
+							if (cc != null) {
+								ic = new InstantiatedClassifier(cc, noBindings);
+							}
 						}
 					} else if (prototype instanceof FeatureGroupPrototype) {
 						FeatureGroupPrototypeActual fpa = resolveFeatureGroupPrototype(prototype, iobj,
@@ -299,8 +305,8 @@ public class InstanceUtil {
 			}
 		}
 
-		if (classifierCache != null && ic != null) {
-			classifierCache.put(iobj, ic);
+		if (classifierCache != null) {
+			classifierCache.put(iobj, ic == null ? InstantiatedClassifier.NULL : ic);
 		}
 
 		return ic;
@@ -467,8 +473,9 @@ public class InstanceUtil {
 		for (ConnectionInstance ei : ci.getConnectionInstances()) {
 			for (ConnectionReference connref : ei.getConnectionReferences()) {
 //				Connection conn = connref.getConnection();
-				if (conn == connref.getConnection())// name.equalsIgnoreCase(conn.getName()))
+				if (conn == connref.getConnection()) {
 					return ei;
+				}
 			}
 		}
 		return null;
@@ -477,8 +484,9 @@ public class InstanceUtil {
 	public static ComponentInstance findConnectionContext(ConnectionInstance conni, Connection conn) {
 		for (ConnectionReference connref : conni.getConnectionReferences()) {
 //			Connection conn = connref.getConnection();
-			if (conn == connref.getConnection())// name.equalsIgnoreCase(conn.getName()))
+			if (conn == connref.getConnection()) {
 				return connref.getContext();
+			}
 		}
 		return null;
 	}
