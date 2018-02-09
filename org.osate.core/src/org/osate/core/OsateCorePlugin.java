@@ -38,22 +38,30 @@ package org.osate.core;
 import java.net.URL;
 import java.text.MessageFormat;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
 import java.util.MissingResourceException;
 import java.util.ResourceBundle;
+import java.util.Set;
 
 import org.eclipse.core.resources.IProject;
+import org.eclipse.core.resources.IProjectDescription;
+import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.IResourceChangeEvent;
 import org.eclipse.core.resources.IResourceChangeListener;
 import org.eclipse.core.resources.IResourceDelta;
+import org.eclipse.core.resources.IResourceDeltaVisitor;
 import org.eclipse.core.resources.IWorkspace;
 import org.eclipse.core.resources.ResourcesPlugin;
+import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
+import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.MultiStatus;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.core.runtime.Status;
+import org.eclipse.core.runtime.jobs.Job;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.osate.internal.workspace.AadlWorkspace;
 import org.osate.workspace.IAadlProject;
@@ -81,6 +89,8 @@ public class OsateCorePlugin extends AbstractUIPlugin {
 	private ResourceBundle resourceBundle;
 
 	private Map<String, Injector> injectors = new HashMap<String, Injector>();
+
+	private IResourceChangeListener projectRenameHandler = null;
 
 	public Injector getInjector(String languageName) {
 		return injectors.get(languageName);
@@ -113,6 +123,8 @@ public class OsateCorePlugin extends AbstractUIPlugin {
 	@Override
 	public void start(BundleContext context) throws Exception {
 		super.start(context);
+		projectRenameHandler = new ProjectRenameHandler();
+		ResourcesPlugin.getWorkspace().addResourceChangeListener(projectRenameHandler);
 	}
 
 	/**
@@ -120,6 +132,10 @@ public class OsateCorePlugin extends AbstractUIPlugin {
 	 */
 	@Override
 	public void stop(BundleContext context) throws Exception {
+		if (projectRenameHandler != null) {
+			ResourcesPlugin.getWorkspace().removeResourceChangeListener(projectRenameHandler);
+			projectRenameHandler = null;
+		}
 		injectors.clear();
 		super.stop(context);
 	}
@@ -243,17 +259,110 @@ public class OsateCorePlugin extends AbstractUIPlugin {
 		return MessageFormat.format(getMessage(key), (Object[]) args);
 	}
 
+	/**
+	 * When a project with an AADL Nature is renamed, we check the rest of the projects in the
+	 * workspace to see if they depended on the renamed project.  If so, we update them to
+	 * depend on the renamed project.
+	 */
 	private static class ProjectRenameHandler implements IResourceChangeListener {
-
 		@Override
 		public void resourceChanged(final IResourceChangeEvent event) {
-			System.out.println(event.getType());
-			final IResourceDelta deltaRoot = event.getDelta();
-			deltaRoot.accept(delta -> {
+			if (event.getType() == IResourceChangeEvent.POST_CHANGE) {
+				final IResourceDelta docDelta = event.getDelta();
+				if (docDelta != null) {
+					final RenameDeltaVisitor visitor = new RenameDeltaVisitor();
+					try {
+						docDelta.accept(visitor);
+						visitor.executeRename();
+					} catch (CoreException e) {
+						OsateCorePlugin.log(e);
+					}
+				}
+			}
+		}
+	}
 
-			});
+	/*
+	 * This is more complicated than seems necessary because I need to keep hold of the IProject
+	 * references as I don't really know how to produce them later. Also, assume that many
+	 * rename events could be reported at once because there is nothing that says that
+	 * cannot happen.
+	 */
+	private static class RenameDeltaVisitor implements IResourceDeltaVisitor {
+		private final Set<IProject> moved = new HashSet<>();
+		private final Map<String, IProject> movedTo = new HashMap<>();
+
+		@Override
+		public boolean visit(final IResourceDelta delta) throws CoreException {
+			final IResource resource = delta.getResource();
+			if (resource instanceof IProject) {
+				final IProject project = (IProject) resource;
+				final int flags = delta.getFlags();
+				if ((flags & IResourceDelta.MOVED_TO) != 0) {
+					moved.add(project);
+				}
+				if ((flags & IResourceDelta.MOVED_FROM) != 0) {
+					final IPath movedFromPath = delta.getMovedFromPath();
+					final String oldName = movedFromPath.segment(movedFromPath.segmentCount() - 1);
+					movedTo.put(oldName, project);
+				}
+			}
+			return true;
+		}
+
+		public void executeRename() {
+			final Job job = new RenameJob(moved, movedTo);
+			job.schedule();
+		}
+	}
+
+	private static class RenameJob extends Job {
+		private final Set<IProject> moved;
+		private final Map<String, IProject> movedTo;
+
+		public RenameJob(final Set<IProject> moved, final Map<String, IProject> movedTo) {
+			super("Rename AADL Project");
+			this.moved = moved;
+			this.movedTo = movedTo;
+		}
+
+		@Override
+		protected IStatus run(final IProgressMonitor monitor) {
+			/*
+			 * For each project in moved:
+			 * - check if the project it was moved to is AADL Nature (which would imply that it had AADL Nature originally)
+			 * - get the list of referencing projects. For each one that is open and has AADL Nature,
+			 * update the list of referenced projects
+			 */
+			try {
+				ResourcesPlugin.getWorkspace().run(innerMonitor -> {
+					for (final IProject before : moved) {
+						final IProject after = movedTo.get(before.getName());
+						if (AadlNature.hasNature(after)) {
+							for (final IProject referencingProject : before.getReferencingProjects()) {
+								// NB. hasNature() returns false if the project is not open
+								if (AadlNature.hasNature(referencingProject)) {
+									final IProjectDescription description = referencingProject.getDescription();
+									final IProject[] referencedProjects = description.getReferencedProjects();
+									for (int i = 0; i < referencedProjects.length; i++) {
+										if (referencedProjects[i].equals(before)) {
+											referencedProjects[i] = after;
+											break;
+										}
+									}
+									description.setReferencedProjects(referencedProjects);
+									referencingProject.setDescription(description, innerMonitor);
+								}
+							}
+						}
+					}
+				}, monitor);
+			} catch (CoreException e) {
+				OsateCorePlugin.log(e);
+			}
+
+			return Status.OK_STATUS;
 		}
 
 	}
-
 }
