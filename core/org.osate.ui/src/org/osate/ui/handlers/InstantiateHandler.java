@@ -35,61 +35,31 @@
 package org.osate.ui.handlers;
 
 import java.lang.reflect.InvocationTargetException;
-import java.util.Iterator;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 import org.eclipse.core.commands.AbstractHandler;
 import org.eclipse.core.commands.ExecutionEvent;
 import org.eclipse.core.commands.ExecutionException;
 import org.eclipse.core.resources.IProject;
-import org.eclipse.core.resources.IResource;
-import org.eclipse.core.runtime.IProgressMonitor;
-import org.eclipse.core.runtime.NullProgressMonitor;
+import org.eclipse.core.resources.ResourcesPlugin;
+import org.eclipse.core.runtime.SubMonitor;
 import org.eclipse.emf.common.util.URI;
-import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.ResourceSet;
-import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.jface.dialogs.ProgressMonitorDialog;
-import org.eclipse.jface.text.ITextSelection;
-import org.eclipse.jface.viewers.ISelection;
-import org.eclipse.jface.viewers.IStructuredSelection;
-import org.eclipse.jface.viewers.TreeSelection;
-import org.eclipse.ui.IEditorPart;
-import org.eclipse.ui.IEditorReference;
-import org.eclipse.ui.IWorkbench;
-import org.eclipse.ui.IWorkbenchPage;
-import org.eclipse.ui.IWorkbenchPart;
-import org.eclipse.ui.IWorkbenchWindow;
-import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.handlers.HandlerUtil;
-import org.eclipse.ui.views.contentoutline.ContentOutline;
-import org.eclipse.xtext.resource.EObjectAtOffsetHelper;
-import org.eclipse.xtext.ui.editor.XtextEditor;
 import org.eclipse.xtext.ui.editor.outline.impl.EObjectNode;
 import org.eclipse.xtext.ui.resource.XtextResourceSetProvider;
 import org.osate.aadl2.ComponentImplementation;
-import org.osate.aadl2.Element;
-import org.osate.aadl2.SubprogramGroupImplementation;
-import org.osate.aadl2.SubprogramImplementation;
+import org.osate.aadl2.instance.SystemInstance;
 import org.osate.aadl2.instantiation.InstantiateModel;
-import org.osate.aadl2.modelsupport.errorreporting.InternalErrorReporter;
-import org.osate.aadl2.modelsupport.errorreporting.LogInternalErrorReporter;
-import org.osate.core.OsateCorePlugin;
 import org.osate.ui.dialogs.Dialog;
-import org.osate.ui.navigator.AadlNavigator;
 import org.osate.xtext.aadl2.ui.internal.Aadl2Activator;
 
 import com.google.inject.Inject;
 
 public class InstantiateHandler extends AbstractHandler {
-
-	@Inject
-	private EObjectAtOffsetHelper eObjectAtOffsetHelper;
 	@Inject
 	private XtextResourceSetProvider resourceSetProvider;
-
-	protected static final InternalErrorReporter internalErrorLogger = new LogInternalErrorReporter(
-			OsateCorePlugin.getDefault().getBundle());
 
 	public InstantiateHandler() {
 		Aadl2Activator.getInstance().getInjector(Aadl2Activator.ORG_OSATE_XTEXT_AADL2_AADL2).injectMembers(this);
@@ -97,131 +67,41 @@ public class InstantiateHandler extends AbstractHandler {
 
 	@Override
 	public Object execute(ExecutionEvent event) throws ExecutionException {
-		IWorkbench wb = PlatformUI.getWorkbench();
-		IWorkbenchWindow win = wb.getActiveWorkbenchWindow();
-		IWorkbenchPage page = win.getActivePage();
-		IWorkbenchPart part = page.getActivePart();
-		final ISelection selection;
-		IEditorPart activeEditor = page.getActiveEditor();
-		if (part instanceof AadlNavigator) {
-			selection = page.getSelection();
-			if (selection instanceof TreeSelection) {
-				for (Iterator<?> iterator = ((TreeSelection) selection).iterator(); iterator.hasNext();) {
-					final Object f = iterator.next();
-					if (f instanceof IResource) {
-						IEditorReference[] editorRefs = PlatformUI.getWorkbench().getActiveWorkbenchWindow()
-								.getActivePage().getEditorReferences();
-						for (int i = 0; i < editorRefs.length; i++) {
-							IEditorReference edref = editorRefs[i];
-							String pname = edref.getPartName();
-							IEditorPart edpart = edref.getEditor(true);
-							String fname = ((IResource) f).getName();
-							if (pname.equals(fname)) {
-								page.closeEditor(edpart, true);
-							}
-						}
-
-						try {
-							InstantiateModel.rebuildInstanceModelFile((IResource) f);// res);
-						} catch (Exception e) {
-							e.printStackTrace();
-						}
-					}
-				}
-			}
-		} else if (activeEditor != null) {
-			XtextEditor xtextEditor = (activeEditor == null) ? null
-					: (XtextEditor) activeEditor.getAdapter(XtextEditor.class);
-			if (part instanceof ContentOutline) {
-				selection = ((ContentOutline) part).getSelection();
-			} else {
-				selection = xtextEditor.getSelectionProvider().getSelection();
-			}
-			if (xtextEditor != null) {
-				// make sure the model has been saved
-				if (xtextEditor.isDirty()) {
-					xtextEditor.doSave(new NullProgressMonitor());
-				}
-
-				URI ccURI = xtextEditor.getDocument().readOnly(resource -> {
-					EObject targetElement = null;
-					if (selection instanceof IStructuredSelection) {
-						IStructuredSelection ss = (IStructuredSelection) selection;
-						Object eon = ss.getFirstElement();
-						if (eon instanceof EObjectNode) {
-							targetElement = ((EObjectNode) eon).getEObject(resource);
-						}
-					} else {
-						targetElement = eObjectAtOffsetHelper.resolveContainedElementAt(resource,
-								((ITextSelection) selection).getOffset());
-					}
-
-					if (targetElement != null) {
-						if (targetElement instanceof Element) {
-							ComponentImplementation cc = ((Element) targetElement).getContainingComponentImpl();
-							if (cc instanceof SubprogramImplementation
-									|| cc instanceof SubprogramGroupImplementation) {
-								Dialog.showInfo("Model Instantiation",
-										"Components of categories subprogram and subprogram group cannot be instantiated.\n"
-												+ "Selected " + targetElement.eClass().getName());
-							} else {
-								return EcoreUtil.getURI(cc);
-							}
-						} else {
-							Dialog.showInfo("Model Instantiation",
-									"Please select an AADL model element. You selected "
-											+ targetElement.eClass().getName() + " " + targetElement.toString());
-						}
-						return null;
-					}
-					return null;
-				});
-				if (ccURI != null) {
-					instantiateFromURI(ccURI, xtextEditor.getResource().getProject(), event);
-				}
-			}
-		}
-		return null;
-	}
-
-	private void instantiateFromURI(URI uri, IProject project, ExecutionEvent event) {
-		ResourceSet rs = resourceSetProvider.get(project);
-		ComponentImplementation cc = (ComponentImplementation) rs.getEObject(uri, true);
+		EObjectNode node = (EObjectNode) HandlerUtil.getCurrentStructuredSelection(event).getFirstElement();
+		URI uri = node.getEObjectURI();
+		IProject project = ResourcesPlugin.getWorkspace().getRoot().getProject(uri.segment(1));
+		ResourceSet resourceSet = resourceSetProvider.get(project);
+		ComponentImplementation impl = (ComponentImplementation) resourceSet.getEObject(uri, true);
+		AtomicBoolean instantiationSuccessful = new AtomicBoolean();
 		try {
-			AtomicBoolean instantiationSuccessful = new AtomicBoolean();
 			new ProgressMonitorDialog(HandlerUtil.getActiveShell(event)).run(true, true, monitor -> {
-				monitor.beginTask("Instantiating " + cc.getQualifiedName(), IProgressMonitor.UNKNOWN);
+				SubMonitor subMonitor = SubMonitor.convert(monitor, "Instantiating " + impl.getQualifiedName(), 1);
 				try {
-					instantiationSuccessful.set(InstantiateModel.buildInstanceModelFile(cc, monitor) != null);
-					if (monitor.isCanceled()) {
-						throw new InterruptedException();
-					}
-				} catch (InterruptedException e1) {
-					throw e1;
-				} catch (Exception e2) {
-					throw new InvocationTargetException(e2);
-				} finally {
-					monitor.done();
+					SystemInstance instance = InstantiateModel.buildInstanceModelFile(impl, subMonitor.split(1));
+					instantiationSuccessful.set(instance != null);
+				} catch (Exception e) {
+					throw new InvocationTargetException(e);
 				}
 			});
 			if (!instantiationSuccessful.get()) {
-				String message;
-				message = "Error when instantiating the model";
+				String message = "Error when instantiating the model";
 				if (InstantiateModel.getErrorMessage() != null) {
 					message = message + " - reason: " + InstantiateModel.getErrorMessage()
 							+ "\nRefer to the help content and FAQ for more information";
 				}
 				Dialog.showError("Model Instantiate", message);
 			}
-		} catch (InvocationTargetException e3) {
-			if (e3.getCause() instanceof UnsupportedOperationException) {
-				Dialog.showError("Model Instantiate", "Operation is not supported: " + e3.getCause().getMessage());
+		} catch (InvocationTargetException e) {
+			if (e.getCause() instanceof UnsupportedOperationException) {
+				Dialog.showError("Model Instantiate", "Operation is not supported: " + e.getCause().getMessage());
 			} else {
-				e3.getCause().printStackTrace();
+				e.getCause().printStackTrace();
 				Dialog.showError("Model Instantiate", "Error when instantiating the model");
 			}
-		} catch (InterruptedException e4) {
+		} catch (InterruptedException e) {
 			// Instantiation was canceled by the user.
 		}
+
+		return null;
 	}
 }
