@@ -966,15 +966,6 @@
      </linkHelper>
   </extension>
   <extension
-        point="org.eclipse.ui.newWizards">
-     <wizard
-           category="org.osate.Wizard.category.ID"
-           class="org.osate.ge.internal.wizards.NewPackageWizard"
-           id="org.osate.ge.wizards.NewPackageWizard"
-           name="Aadl Package (Graphical)">
-     </wizard>
-  </extension>
-  <extension
         point="org.eclipse.core.expressions.propertyTesters">
      <propertyTester
            class="org.osate.ge.internal.expressions.ResourcePropertyTester"
