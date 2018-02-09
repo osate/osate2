@@ -363,6 +363,12 @@
                 visible="true">
           </separator>
           <command
+                commandId="org.osate.ui.reinstantiate">
+             <visibleWhen
+                   checkEnabled="true">
+             </visibleWhen>
+          </command>
+          <command
                 commandId="org.osate.ui.setAadlProjectProperties">
              <visibleWhen
                    checkEnabled="true">
@@ -807,6 +813,10 @@
              name="Instantiate">
        </command>
        <command
+             id="org.osate.ui.reinstantiate"
+             name="Reinstantiate">
+       </command>
+       <command
              id="org.osate.ui.reinstantiateAllAadl"
              name="%ReinstantiateAllModelsAction.label">
        </command>
@@ -891,6 +901,15 @@
                    </iterate>
                 </and>
              </with>
+          </enabledWhen>
+       </handler>
+       <handler
+             commandId="org.osate.ui.reinstantiate"
+             class="org.osate.ui.handlers.ReinstantiateHandler">
+          <enabledWhen>
+             <reference
+                   definitionId="org.osate.core.isInstanceFileSelected">
+             </reference>
           </enabledWhen>
        </handler>
        <handler
