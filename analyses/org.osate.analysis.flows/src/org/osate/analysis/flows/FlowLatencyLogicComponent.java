@@ -4,7 +4,6 @@ import java.util.List;
 
 import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.EndToEndFlowInstance;
-import org.osate.aadl2.instance.FeatureCategory;
 import org.osate.aadl2.instance.FeatureInstance;
 import org.osate.aadl2.instance.FlowElementInstance;
 import org.osate.aadl2.instance.FlowSpecificationInstance;
@@ -13,6 +12,7 @@ import org.osate.analysis.flows.model.LatencyContributorComponent;
 import org.osate.analysis.flows.model.LatencyReportEntry;
 import org.osate.analysis.flows.preferences.Values;
 import org.osate.xtext.aadl2.properties.util.ARINC653ScheduleWindow;
+import org.osate.xtext.aadl2.properties.util.CommunicationProperties;
 import org.osate.xtext.aadl2.properties.util.GetProperties;
 import org.osate.xtext.aadl2.properties.util.InstanceModelUtil;
 
@@ -43,13 +43,12 @@ public class FlowLatencyLogicComponent {
 		 * The component is periodic. Therefore it will sample its input unless we have an immediate connection or delayed connection
 		 */
 		boolean checkLastImmediate = false;
-		if (period > 0
-				&& ((InstanceModelUtil.isThread(componentInstance) || InstanceModelUtil.isDevice(componentInstance)
-						|| InstanceModelUtil.isAbstract(componentInstance))
+		if (period > 0 && ((InstanceModelUtil.isThread(componentInstance)
+				|| InstanceModelUtil.isDevice(componentInstance) || InstanceModelUtil.isAbstract(componentInstance))
 						? (!InstanceModelUtil.isSporadicComponent(componentInstance)
 								&& !InstanceModelUtil.isTimedComponent(componentInstance)
 								&& !InstanceModelUtil.isAperiodicComponent(componentInstance))
-								: true)) {
+						: true)) {
 			// period is set, and if thread, abstract, or device needs to be dispatched as periodic
 			LatencyContributorComponent samplingLatencyContributor = new LatencyContributorComponent(componentInstance);
 			samplingLatencyContributor.setSamplingPeriod(period);
@@ -179,10 +178,6 @@ public class FlowLatencyLogicComponent {
 			bestmethod = LatencyContributorMethod.PROCESSING_TIME;
 		}
 // For best case it does not make sense to use deadline
-//		if ((bestCaseValue == 0.0) && isAssignedDeadline) {
-//			bestCaseValue = deadline;
-//			bestmethod = LatencyContributorMethod.DEADLINE;
-//		}
 
 		if ((bestCaseValue == 0.0) && (expectedMin != 0.0)) {
 			bestCaseValue = expectedMin;
@@ -190,14 +185,15 @@ public class FlowLatencyLogicComponent {
 		}
 
 		// deal with queuing latency
-		if (InstanceModelUtil.isThread(componentInstance) || InstanceModelUtil.isDevice(componentInstance)) {
-			// take into account queuing delay
-			FeatureInstance fi = FlowLatencyUtil.getIncomingFeatureInstance(etef, flowElementInstance);
-			if (fi != null && (fi.getCategory() == FeatureCategory.EVENT_PORT
-					|| fi.getCategory() == FeatureCategory.EVENT_DATA_PORT)) {
+		// take into account queuing delay
+		FeatureInstance fi = FlowLatencyUtil.getIncomingFeatureInstance(etef, flowElementInstance);
+		if (fi != null) {
+			double qs = GetProperties.getQueueSize(fi);
+			boolean hasAssignedQueueSize = GetProperties.hasAssignedPropertyValue(fi,
+					CommunicationProperties.QUEUE_SIZE);
+			if (hasAssignedQueueSize && qs != 0) {
 				LatencyContributorComponent ql = new LatencyContributorComponent(componentInstance);
 				// take into account queuing delay on event and event data ports.
-				double qs = GetProperties.getQueueSize(fi);
 				double dl = 0.0;
 				if (InstanceModelUtil.isSporadicComponent(componentInstance)
 						|| InstanceModelUtil.isPeriodicComponent(componentInstance)) {
