@@ -137,7 +137,7 @@ The fault impact analysis works with AADL models annotated with EMV2 at various 
 
 Fault impact analysis starts with each error source and the optional **when** condition associated with it. The element of the condition become the original fault and the out propagation identified by the error source the first level effect. If the error source has multiple error types, i.e., a type set, the impact trace is generated for each error type.  
 
-
+> If the component has a component error behvior specification that includes error events, then the error event is considered an error source if it triggers a transition to an error behavior state that itself results in an out propagation, i.e., is identified in an out propagation condition declaration.
 
 For each component the outgoing propagations follow the connections or bindings to their destination component until an error sink, an outgoing error propagation external to the outermost system, or a cycle in the propagation are detected. For each incoming propagation error paths are used to identify outgoing propagations. If no error paths are specified for an incoming error propagation then all outgoing propagations are assumed to be affected by it.
 
@@ -205,11 +205,15 @@ When an impact trace termines a label indicates the reason for the end of the tr
 
 - **External Effect**: impact to the operational environment of the system, i.e., the impact trace reached an outgoing propagation of the top-level system.
 
-- **Cycle**: the impact trace reaches an element in the trace that has been previously visited with the same error type.
+- **Propagation Cycle**: the impact trace reaches an element in the trace that has previously propgated the same error type on the same outgoing propagation point.
 
 - **No feature with out propagation**: an outgoing propagation has an outgoing connection to a feature of the top-level system, where that feature does not have an error propagation declared. The out propgation of the connection source represents the external effect.
 
+- **No Outgoing Connection**: we have an outgoing propagation on a feature that is not connected to another component.
 
+- **No In Propagation**: the destination feature of a connection does not have an incoming propagation declared.
+
+- **No Binding**: the outgoing propagation is for a binding point, but the binding has not been specified yet. 
 
 Additional labels may be used for intermediate elements of the impact trace to indicate when an incoming type or type set is propagated as separate subtypes (**Subtype**), whether flow declarations in the core model are used when error flows are missing (**flowpath**), or when an incoming propagation is mapped to all outgoing propagations (**All out props**).
 

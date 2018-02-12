@@ -595,15 +595,15 @@ public class PropagateErrorSources {
 			if (fi != null) {
 				EList<ConnectionInstance> conns = fi.getSrcConnectionInstances();
 				if (conns.isEmpty()) {
-					reportEntry(entryText + effectText + " -> [No Outgoing Conn],,", depth);
+					reportEntry(entryText + effectText + " -> [No Outgoing Connection],,", depth);
 				} else {
 					for (ConnectionInstance connectionInstance : conns) {
 						reportEntry(entryText + "," + (tt != null ? EMV2Util.getPrintName(tt) + " " : "")
-								+ connectionInstance.getName() + "[No In Prop],,", depth);
+								+ connectionInstance.getName() + "[No In Propagation],,", depth);
 					}
 				}
 			} else {
-				reportEntry(entryText + effectText + " -> [No Outgoing Conn],,", depth);
+				reportEntry(entryText + effectText + " -> [No Binding],,", depth);
 			}
 		} else {
 			for (PropagationPath path : paths) {
