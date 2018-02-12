@@ -78,7 +78,15 @@ public class BehavioredImplementationOperations extends ComponentImplementationO
 	 */
 	public static EList<SubprogramCall> subprogramCalls(BehavioredImplementation behavioredImplementation) {
 		EList<SubprogramCall> allCalls = new EObjectEList<SubprogramCall>(SubprogramCall.class,
-				(InternalEObject) behavioredImplementation, Aadl2Package.BEHAVIORED_IMPLEMENTATION__SUBPROGRAM_CALL);
+				(InternalEObject) behavioredImplementation, Aadl2Package.BEHAVIORED_IMPLEMENTATION__SUBPROGRAM_CALL) {
+			private static final long serialVersionUID = 1L;
+
+			@Override
+			protected boolean isNotificationRequired() {
+				return false;
+			}
+		};
+
 		for (SubprogramCallSequence callSequence : behavioredImplementation.getOwnedSubprogramCallSequences()) {
 			allCalls.addAll(callSequence.getOwnedSubprogramCalls());
 		}
