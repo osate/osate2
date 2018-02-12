@@ -13,13 +13,17 @@
 		</topic>
 		<topic label="Opening an Element&#39;s Package Diagram" href="docs-gen/user_guide.html#opening-an-elements-package-diagram">
 		</topic>
-		<topic label="Opening the Type Diagram for a Component Implementation" href="docs-gen/user_guide.html#opening-the-type-diagram-for-a-component-implementation">
+		<topic label="Opening the Type Diagram for a Component Implementation or Subcomponent" href="docs-gen/user_guide.html#opening-the-type-diagram-for-a-component-implementation-or-subcomponent">
+		</topic>
+		<topic label="Opening the Implementation Diagram for a Component Implementation or Subcomponent" href="docs-gen/user_guide.html#opening-the-implementation-diagram-for-a-component-implementation-or-subcomponent">
 		</topic>
 		<topic label="Opening an AADL Instance Model" href="docs-gen/user_guide.html#opening-an-aadl-instance-model">
 		</topic>
 	</topic>
 	<topic label="Editing AADL Diagrams" href="docs-gen/user_guide.html#editing-aadl-diagrams">
 		<topic label="Basics" href="docs-gen/user_guide.html#basics">
+			<topic label="Diagram Types" href="docs-gen/user_guide.html#diagram-types">
+			</topic>
 			<topic label="Diagram Configuration" href="docs-gen/user_guide.html#diagram-configuration">
 			</topic>
 			<topic label="Showing and Hiding Diagram Element Contents" href="docs-gen/user_guide.html#showing-and-hiding-diagram-element-contents">

@@ -294,7 +294,7 @@ public class LayoutUtil {
 									lm.innerHeight, true, element.getGraphicalConfiguration().style);
 						}
 
-						// Rotate shape
+		// Rotate shape
 						if (shapeDockArea != null) {
 							AgeGraphitiGraphicsUtil.rotate(innerGa, shapeDockArea);
 						}

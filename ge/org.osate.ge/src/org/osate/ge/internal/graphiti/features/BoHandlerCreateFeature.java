@@ -26,11 +26,13 @@ import org.osate.ge.internal.SimplePaletteEntry;
 import org.osate.ge.internal.di.BuildCreateOperation;
 import org.osate.ge.internal.di.InternalNames;
 import org.osate.ge.internal.diagram.runtime.AgeDiagramUtil;
+import org.osate.ge.internal.diagram.runtime.DiagramElement;
 import org.osate.ge.internal.diagram.runtime.DiagramNode;
 import org.osate.ge.internal.diagram.runtime.RelativeBusinessObjectReference;
 import org.osate.ge.internal.diagram.runtime.layout.IncrementalLayoutMode;
 import org.osate.ge.internal.diagram.runtime.layout.LayoutPreferences;
 import org.osate.ge.internal.diagram.runtime.updating.DiagramUpdater;
+import org.osate.ge.internal.diagram.runtime.updating.FutureElementInfo;
 import org.osate.ge.internal.graphiti.services.GraphitiService;
 import org.osate.ge.internal.services.AadlModificationService;
 import org.osate.ge.internal.services.ExtensionService;
@@ -150,15 +152,28 @@ public class BoHandlerCreateFeature extends AbstractCreateFeature implements Cat
 						final RelativeBusinessObjectReference newRef = refBuilder.getRelativeReference(stepResult.newBo);
 						if (newRef != null && stepResult.container instanceof DiagramNode) {
 							final DiagramNode containerNode = (DiagramNode) stepResult.container;
+
+							// Set the new element as manual if and only if it does not match any of the container's filters
+							final boolean manual;
+							if (containerNode instanceof DiagramElement) {
+								manual = !((DiagramElement) containerNode)
+										.getContentFilters().stream()
+										.anyMatch(cf -> cf.test(stepResult.newBo));
+							} else {
+								manual = false;
+							}
+
 							// Don't set the position if the incremental layout mode is set to diagram.
 							// This will ensure the shape is layed out even if it is a docked shape.
+							final Point position;
 							if (LayoutPreferences.getCurrentLayoutMode() != IncrementalLayoutMode.LAYOUT_DIAGRAM
 									&& containerNode == targetNode) {
-								diagramUpdater.addToNextUpdate(containerNode, newRef,
-										new Point(context.getX(), context.getY()));
+								position = new Point(context.getX(), context.getY());
 							} else {
-								diagramUpdater.addToNextUpdate(containerNode, newRef, null);
+								position = null;
 							}
+							diagramUpdater.addToNextUpdate(containerNode, newRef,
+									new FutureElementInfo(manual, position));
 						}
 
 						newBos.add(stepResult.newBo);

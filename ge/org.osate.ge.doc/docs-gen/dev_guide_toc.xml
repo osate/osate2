@@ -11,12 +11,6 @@
 	<topic label="Extension Points" href="docs-gen/dev_guide.html#extension-points">
 		<topic label="Categories" href="docs-gen/dev_guide.html#categories">
 		</topic>
-		<topic label="Commands" href="docs-gen/dev_guide.html#commands">
-			<topic label="Required Annotations:" href="docs-gen/dev_guide.html#required-annotations">
-			</topic>
-			<topic label="Optional Annotations:" href="docs-gen/dev_guide.html#optional-annotations">
-			</topic>
-		</topic>
 		<topic label="Images" href="docs-gen/dev_guide.html#images">
 		</topic>
 		<topic label="Adding Support for a new Business Object" href="docs-gen/dev_guide.html#adding-support-for-a-new-business-object">
@@ -26,15 +20,15 @@
 				<topic label="Reference Builders" href="docs-gen/dev_guide.html#reference-builders">
 					<topic label="Examples" href="docs-gen/dev_guide.html#examples">
 					</topic>
-					<topic label="Required Annotations:" href="docs-gen/dev_guide.html#required-annotations-1">
+					<topic label="Required Annotations:" href="docs-gen/dev_guide.html#required-annotations">
 					</topic>
 				</topic>
 				<topic label="Reference Resolvers" href="docs-gen/dev_guide.html#reference-resolvers">
 					<topic label="Examples" href="docs-gen/dev_guide.html#examples-1">
 					</topic>
-					<topic label="Required Annotations:" href="docs-gen/dev_guide.html#required-annotations-2">
+					<topic label="Required Annotations:" href="docs-gen/dev_guide.html#required-annotations-1">
 					</topic>
-					<topic label="Optional Annotations:" href="docs-gen/dev_guide.html#optional-annotations-1">
+					<topic label="Optional Annotations:" href="docs-gen/dev_guide.html#optional-annotations">
 					</topic>
 				</topic>
 			</topic>
@@ -58,7 +52,7 @@
 		<topic label="Tooltip Contributors" href="docs-gen/dev_guide.html#tooltip-contributors">
 			<topic label="Examples" href="docs-gen/dev_guide.html#examples-3">
 			</topic>
-			<topic label="Required Annotations:" href="docs-gen/dev_guide.html#required-annotations-3">
+			<topic label="Required Annotations:" href="docs-gen/dev_guide.html#required-annotations-2">
 			</topic>
 		</topic>
 	</topic>

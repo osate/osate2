@@ -52,22 +52,19 @@ An existing AADL model can be opened in the graphical editor. Changes made to ei
 The graphical editor supports navigating between related diagrams in several ways.
 
 ## Opening an Associated Diagram
-Diagrams associated with a particular element can be opened by right-clicking on the element and selecting *Open Associated Diagram* from the context menu. 
-
-![](../images/OpenAssociatedDiagram.png)
+Diagrams associated with a particular element can be opened by right-clicking on the element and selecting *Open->Associated Diagram* from the context menu. 
 
 ## Creating a New Diagram
-AADL model elements may be represented by multiple diagrams. To create a new diagram right-click on an AADL package or classifier and select *Create Diagram...*.
+AADL model elements may be represented by multiple diagrams. To create a new diagram from the AADL text editor, right-click on an AADL package or classifier and select *Create Diagram...*. To create a new diagram from the diagram editor, right-click on an AADL package or classifier and select *Open->New Diagram...*.
 
 ## Opening an Element's Package Diagram
-When viewing a diagram, the package diagram associated with an element can be opened by right-clicking inside the diagram or element and selecting *Go to Package Diagram* from the context menu.
+The package diagram associated with an element can be opened by right-clicking an element and selecting *Open->Package Diagram* from the context menu.
 
-![](../images/GoToPackageDiagram.png)
+## Opening the Type Diagram for a Component Implementation or Subcomponent
+The diagram for a component implementation's or subcomponent's component type can be opened by right-clicking on an element and selecting *Open->Type Diagram* from the context menu.
 
-## Opening the Type Diagram for a Component Implementation
-When viewing a component implementation diagram, the diagram for the component implementation's type can be opened by right-clicking inside the diagram and selecting *Go to Type Diagram* from the context menu.
-
-![](../images/GoToTypeDiagram.png)
+## Opening the Implementation Diagram for a Component Implementation or Subcomponent
+The diagram for a component instance's or subcomponent's component implementation can be opened by right-clicking on an element and selecting *Open->Implementation Diagram* from the context menu.
 
 ## Opening an AADL Instance Model
 An AADL instance model can be viewed in the graphical editor. The instance model may not be modified using the graphical editor.
@@ -82,33 +79,48 @@ The graphical editor allows editing AADL models graphically. As changes are made
 ## Basics
 Many of the operations in the graphical editor apply to multiple types of elements.
 
+### Diagram Types
+When creating a diagram, a type must be specified. A diagram's type determines the default filters used by the contents of the diagram. It also determines which AADL properties are enabled by default. All diagram types are equally customizable. A diagram element's filters determines the child elements that are shown on the diagram.
+
++-------------------+-----------------------------------------------+-------------------------------------------------------------------------+--------------------------------------------------+
+| Diagram Type      | Availability                                  | Filters                                                                 | Properties                                       |
++===================+===============================================+=========================================================================+==================================================+
+| Custom            | Packages, Classifiers, and System Instances   | None                                                                    | None                                             |
++-------------------+-----------------------------------------------+-------------------------------------------------------------------------+--------------------------------------------------+
+| Package           | Packages                                      | - Packages:  Classifiers                                                | None                                             |
+|                   |                                               | - Classifiers: Generalizations                                          |                                                  |
++-------------------+-----------------------------------------------+-------------------------------------------------------------------------+--------------------------------------------------+
+| Structure         | Classifiers and System Instances              |- Classifiers: Features, Connections, Flow Specifications, Subcomponents | None                                             |
+|                   |                                               |- Subcomponents: Features, Connections, and Flow Specifications          |                                                  |
++-------------------+-----------------------------------------------+-------------------------------------------------------------------------+--------------------------------------------------+
+| Mode              | Component Classifiers                         | - Classifiers: Modes and Mode Transitions                               | None                                             |
++-------------------+-----------------------------------------------+-------------------------------------------------------------------------+--------------------------------------------------+
+| Processor Binding | Component Implementation and System Instances | - Classifiers: Systems, Processors, Virtual Processors,                 | Deployment_Properties::Actual_Processor_Binding  |
+|                   |                                               | - Devices, Threads, Thread Groups, and Processes                        |                                                  |
++-------------------+-----------------------------------------------+-------------------------------------------------------------------------+--------------------------------------------------+
+
+Table: Diagram Types {#tbl:diagram_types}
+
 ### Diagram Configuration
-Configuring a diagram allows customizing the contents of the diagram. To configure a diagram, right-click in the diagram and select *Configure Diagram...*. The diagram configuration dialog allows enabling specific diagram elements. Child elements may be enabled automatically based on the *Auto Children* setting of their container. 
-
-|Auto Children Setting | Description|
-|------------|------------------------------------|
-| *Minimal* | Enables a minimum set of children. This includes generalizations. |
-| *Type* | Enables children which are related to classifier types. These include generalizations, features, flow specifications, mode, mode transitions, and subcomponent type labels. |
-| *All* | Enables all children. | 
-
-Table: Auto Children Setting {#tbl:auto_children_setting}
+Configuring a diagram allows customizing the contents of the diagram. To configure a diagram, right-click in the diagram and select *Configure Diagram...*. The diagram configuration dialog allows enabling specific diagram elements. A diagram element may be enabled manually or by configuring the content filters for the containing element.
 
 The diagram configuration dialog also allows selecting which AADL properties will be included in the diagram. The *communication_properties::timing* property is implicitly enabled and is represented by specialized graphical indicators. Delayed connections have a double bar indicator in the middle. Immediate connections have a double arrow in the middle.
 
 Connections which are manually enabled will be removed if the connection ends are not also included in the diagram.
 
-The *Select the Hide Connection Labels* option can be used to set the default visibility of labels for connections between diagram elements. Label visibility for individual elements can be controlled using the properties view described in @sec:de_apperance.
+The *Hide Connection Labels* option can be used to set the default visibility of labels for connections between diagram elements. Label visibility for individual elements can be controlled using the properties view described in @sec:de_apperance.
 
 ### Showing and Hiding Diagram Element Contents
-Menu options available in a diagram element's context menu will modify the diagram configuration to show and hide contents of a selected element. Access the context menu by right-clicking on a diagram element.
+Menu options available in a diagram element's context menu will modify the diagram configuration to show and hide contents of a selected element. Access the context menu by right-clicking on a diagram element and selecting the *Show* menu. The *Show* menu allows toggling the filters enabled by the selected elements. Disabling a filter will not hide elements which been manually enabled.
 
 |Menu Option | Description|
 |------------|------------------------|
-| *Hide Contents* | Hides all contents. |
-| *Show Type Contents* | Sets the Auto Children setting to *Type*. |
-| *Show Contents* | Sets the Auto Children setting to *All*. | 
+| *All Filters* | Enables all filters for the selected elements. |
+| *Hide All Contents* | Disables all filters and disables all manually enabled elements inside the selected elements. |
+| *Reset Manual Descendants* | Disables all manually enabled elements inside the selected elements. |
+| *Custom...* | Allows elements to be manually enabled using the *Configure Diagram* dialog. |  
 
-Table: Menu items for Showing and Hiding Diagram Elements Contents {#tbl:show_hide_menu_items}
+Table: Additional Menu Items in the Show Menu {#tbl:show_hide_menu_items}
 
 ### Hidden Children
 Diagram elements which have children that are hidden have an asterisk appended to their labels.

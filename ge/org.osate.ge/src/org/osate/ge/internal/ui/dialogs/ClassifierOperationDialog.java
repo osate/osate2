@@ -133,6 +133,7 @@ public class ClassifierOperationDialog {
 			super(parentShell);
 			this.args = Objects.requireNonNull(args, "args must not be null");
 			setShellStyle(getShellStyle() | SWT.RESIZE);
+			this.setHelpAvailable(false);
 		}
 
 		@Override

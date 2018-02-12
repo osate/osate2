@@ -14,18 +14,28 @@ import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.emf.ecore.xmi.XMLResource;
+import org.osate.ge.ContentFilter;
+import org.osate.ge.DiagramType;
 import org.osate.ge.diagram.Diagram;
 import org.osate.ge.graphics.Color;
 import org.osate.ge.graphics.Point;
 import org.osate.ge.graphics.Style;
 import org.osate.ge.graphics.StyleBuilder;
+import org.osate.ge.internal.diagram.runtime.filtering.ContentFilterProvider;
+import org.osate.ge.internal.diagram.runtime.filtering.LegacyContentFilterMapping;
+import org.osate.ge.internal.diagram.runtime.types.CustomDiagramType;
+import org.osate.ge.internal.diagram.runtime.types.UnrecognizedDiagramType;
+import org.osate.ge.internal.services.ExtensionRegistryService;
+import org.osate.ge.internal.services.impl.DeclarativeReferenceType;
+
+import com.google.common.collect.ImmutableSet;
 
 /**
  * Class to help read and write the native diagram format used by the editor.
  *
  */
 public class DiagramSerialization {
-	public final static int FORMAT_VERSION = 3;
+	public final static int FORMAT_VERSION = 4;
 
 	private static Comparator<DiagramElement> elementComparator = (e1, e2) -> e1.getRelativeReference()
 			.compareTo(e2.getRelativeReference());
@@ -50,13 +60,24 @@ public class DiagramSerialization {
 		}
 	}
 
-	public static AgeDiagram createAgeDiagram(final org.osate.ge.diagram.Diagram mmDiagram) {
+	public static AgeDiagram createAgeDiagram(final org.osate.ge.diagram.Diagram mmDiagram,
+			final ExtensionRegistryService extRegistry) {
+		Objects.requireNonNull(extRegistry, "extRegistry is null");
+
 		// Set the id which should be used for new diagram elements.
 		final AgeDiagram ageDiagram = new AgeDiagram(getMaxIdForChildren(mmDiagram) + 1);
 
 		// Read the diagram configuration
-		final DiagramConfigurationBuilder configBuilder = new DiagramConfigurationBuilder(
-				ageDiagram.getConfiguration());
+
+		// Set the diagram type
+		final String diagramTypeId = mmDiagram.getConfig() == null || mmDiagram.getConfig().getType() == null
+				? CustomDiagramType.ID
+						: mmDiagram.getConfig().getType();
+		final DiagramType diagramType = extRegistry.getDiagramTypeById(diagramTypeId)
+				.orElseGet(() -> new UnrecognizedDiagramType(diagramTypeId));
+
+		final DiagramConfigurationBuilder configBuilder = new DiagramConfigurationBuilder(diagramType,
+				false);
 
 		if (mmDiagram.getConfig() != null) {
 			final org.osate.ge.diagram.DiagramConfiguration mmDiagramConfig = mmDiagram.getConfig();
@@ -83,7 +104,8 @@ public class DiagramSerialization {
 		}
 
 		//  Read elements
-		ageDiagram.modify("Read from File", m -> readElements(m, ageDiagram, mmDiagram, new HashSet<>()));
+		ageDiagram.modify("Read from File", m -> readElements(m, extRegistry,
+				ageDiagram, mmDiagram, new HashSet<>(), false));
 
 		return ageDiagram;
 	}
@@ -126,16 +148,18 @@ public class DiagramSerialization {
 		return max;
 	}
 
-	private static void readElements(final DiagramModification m, final DiagramNode container,
-			final org.osate.ge.diagram.DiagramNode mmContainer, final Set<Long> usedIdSet) {
+	private static void readElements(final DiagramModification m, final ContentFilterProvider contentFilterProvider,
+			final DiagramNode container, final org.osate.ge.diagram.DiagramNode mmContainer,
+			final Set<Long> usedIdSet, final boolean usingLegacyContentFilters) {
 		for (final org.osate.ge.diagram.DiagramElement mmElement : mmContainer.getElement()) {
-			createElement(m, container, mmContainer, mmElement, usedIdSet);
+			createElement(m, contentFilterProvider, container, mmElement, usedIdSet,
+					usingLegacyContentFilters);
 		}
 	}
 
-	private static void createElement(final DiagramModification m, final DiagramNode container,
-			final org.osate.ge.diagram.DiagramNode mmContainer, final org.osate.ge.diagram.DiagramElement mmChild,
-			final Set<Long> usedIdSet) {
+	private static void createElement(final DiagramModification m, final ContentFilterProvider contentFilterProvider,
+			final DiagramNode container, final org.osate.ge.diagram.DiagramElement mmChild, final Set<Long> usedIdSet,
+			boolean usingLegacyContentFilters) {
 		final String[] refSegs = toReferenceSegments(mmChild.getBo());
 		if (refSegs == null) {
 			throw new RuntimeException("Invalid element. Business Object not specified");
@@ -152,14 +176,46 @@ public class DiagramSerialization {
 			}
 		}
 
-		final String autoContentsFilterId = mmChild.getAutoContentsFilter();
-		if (autoContentsFilterId != null) {
-			final BuiltinContentsFilter autoContentsFilter = BuiltinContentsFilter.getById(autoContentsFilterId);
-			if (autoContentsFilter != null) {
-				newElement.setAutoContentsFilter(autoContentsFilter);
+		ImmutableSet.Builder<ContentFilter> contentFilterSetBuilder = ImmutableSet.builder();
+		if (mmChild.getContentFilters() != null) {
+			for (final String contentFilterId : mmChild.getContentFilters().getFilter()) {
+				contentFilterProvider.getContentFilterById(contentFilterId).ifPresent(contentFilter -> {
+					contentFilterSetBuilder.add(contentFilter);
+				});
 			}
 		}
+
+		final String legacyFilterId = mmChild.getAutoContentsFilter();
+		if (legacyFilterId != null) {
+			usingLegacyContentFilters = true;
+
+			// Get legacy content filters
+			LegacyContentFilterMapping.getById(legacyFilterId).ifPresent(legacyMapping -> {
+				// Add the equivalent content filters to the content filter set.
+				for (final String contentFilterId : legacyMapping.getContentFilterIds()) {
+					contentFilterProvider.getContentFilterById(contentFilterId).ifPresent(contentFilter -> {
+						contentFilterSetBuilder.add(contentFilter);
+					});
+				}
+			});
+		}
+		newElement.setContentFilters(contentFilterSetBuilder.build());
 		newElement.setManual(mmChild.isManual());
+
+		// Need to set default mode transition trigger connections, default annex library, and default annex subclauses as manual if loading diagrams which use the legacy content filter.
+		// Current filters do not include those objects because of issues with layout(mode transition trigger connections) or questionable usefulness(annex elements)
+		if(usingLegacyContentFilters) {
+			final String firstSegment = newElement.getRelativeReference().getSegments().get(0);
+			if (DeclarativeReferenceType.ANNEX_LIBRARY.getId().equals(firstSegment)
+					|| DeclarativeReferenceType.ANNEX_SUBCLAUSE.getId().equals(firstSegment)
+					|| DeclarativeReferenceType.MODE_TRANSITION_TRIGGER.getId().equals(firstSegment)) {
+				// Set the element and its parents as manual
+				for (DiagramElement tmp = newElement; tmp
+						.getParent() instanceof DiagramElement; tmp = (DiagramElement) tmp.getParent()) {
+					tmp.setManual(true);
+				}
+			}
+		}
 
 		// Size and Position
 		newElement.setPosition(convertPoint(mmChild.getPosition()));
@@ -205,7 +261,7 @@ public class DiagramSerialization {
 		}
 
 		// Create children
-		readElements(m, newElement, mmChild, usedIdSet);
+		readElements(m, contentFilterProvider, newElement, mmChild, usedIdSet, usingLegacyContentFilters);
 	}
 
 	private static Point convertPoint(final org.osate.ge.diagram.Point mmPoint) {
@@ -233,6 +289,7 @@ public class DiagramSerialization {
 
 		// Populate the diagram configuration
 		final DiagramConfiguration config = diagram.getConfiguration();
+		mmConfig.setType(config.getDiagramType().getId());
 		mmConfig.setContext(
 				config.getContextBoReference() == null ? null : config.getContextBoReference().toMetamodel());
 
@@ -286,8 +343,11 @@ public class DiagramSerialization {
 		}
 
 		newElement.setBo(e.getRelativeReference() == null ? null : e.getRelativeReference().toMetamodel());
-		if (e.getAutoContentsFilter() != null) {
-			newElement.setAutoContentsFilter(e.getAutoContentsFilter().id());
+
+		final org.osate.ge.diagram.ContentFilters contentFilters = new org.osate.ge.diagram.ContentFilters();
+		newElement.setContentFilters(contentFilters);
+		for (final ContentFilter contentFilter : e.getContentFilters()) {
+			contentFilters.getFilter().add(contentFilter.getId());
 		}
 
 		if (e.isManual()) {

@@ -44,7 +44,7 @@ public interface DiagramService {
 	 * @return
 	 */
 	default AgeDiagramEditor openOrCreateDiagramForBusinessObject(final Object bo) {
-		return openOrCreateDiagramForBusinessObject(bo, true, true);
+		return openOrCreateDiagramForBusinessObject(bo, true, false);
 	}
 
 	/**

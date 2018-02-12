@@ -21,6 +21,7 @@ import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
  * The following features are supported:
  * </p>
  * <ul>
+ *   <li>{@link org.osate.ge.diagram.DiagramConfiguration#getType <em>Type</em>}</li>
  *   <li>{@link org.osate.ge.diagram.DiagramConfiguration#getEnabledAadlProperties <em>Enabled Aadl Properties</em>}</li>
  *   <li>{@link org.osate.ge.diagram.DiagramConfiguration#getContext <em>Context</em>}</li>
  *   <li>{@link org.osate.ge.diagram.DiagramConfiguration#getConnectionPrimaryLabelsVisible <em>Connection Primary Labels Visible</em>}</li>
@@ -31,6 +32,26 @@ import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
  * @generated
  */
 public class DiagramConfiguration extends MinimalEObjectImpl.Container implements EObject {
+	/**
+	 * The default value of the '{@link #getType() <em>Type</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getType()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final String TYPE_EDEFAULT = null;
+
+	/**
+	 * The cached value of the '{@link #getType() <em>Type</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getType()
+	 * @generated
+	 * @ordered
+	 */
+	protected String type = TYPE_EDEFAULT;
+
 	/**
 	 * The cached value of the '{@link #getEnabledAadlProperties() <em>Enabled Aadl Properties</em>}' containment reference.
 	 * <!-- begin-user-doc -->
@@ -234,6 +255,39 @@ public class DiagramConfiguration extends MinimalEObjectImpl.Container implement
 	}
 
 	/**
+	 * Returns the value of the '<em><b>Type</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Type</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Type</em>' attribute.
+	 * @see #setType(String)
+	 * @see org.osate.ge.diagram.DiagramPackage#getDiagramConfiguration_Type()
+	 * @model dataType="org.eclipse.emf.ecore.xml.type.String"
+	 * @generated
+	 */
+	public String getType() {
+		return type;
+	}
+
+	/**
+	 * Sets the value of the '{@link org.osate.ge.diagram.DiagramConfiguration#getType <em>Type</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Type</em>' attribute.
+	 * @see #getType()
+	 * @generated
+	 */
+	public void setType(String newType) {
+		String oldType = type;
+		type = newType;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, DiagramPackage.DIAGRAM_CONFIGURATION__TYPE, oldType, type));
+	}
+
+	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -257,6 +311,8 @@ public class DiagramConfiguration extends MinimalEObjectImpl.Container implement
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
+			case DiagramPackage.DIAGRAM_CONFIGURATION__TYPE:
+				return getType();
 			case DiagramPackage.DIAGRAM_CONFIGURATION__ENABLED_AADL_PROPERTIES:
 				return getEnabledAadlProperties();
 			case DiagramPackage.DIAGRAM_CONFIGURATION__CONTEXT:
@@ -275,6 +331,9 @@ public class DiagramConfiguration extends MinimalEObjectImpl.Container implement
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
+			case DiagramPackage.DIAGRAM_CONFIGURATION__TYPE:
+				setType((String)newValue);
+				return;
 			case DiagramPackage.DIAGRAM_CONFIGURATION__ENABLED_AADL_PROPERTIES:
 				setEnabledAadlProperties((AadlPropertiesSet)newValue);
 				return;
@@ -296,6 +355,9 @@ public class DiagramConfiguration extends MinimalEObjectImpl.Container implement
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
+			case DiagramPackage.DIAGRAM_CONFIGURATION__TYPE:
+				setType(TYPE_EDEFAULT);
+				return;
 			case DiagramPackage.DIAGRAM_CONFIGURATION__ENABLED_AADL_PROPERTIES:
 				setEnabledAadlProperties((AadlPropertiesSet)null);
 				return;
@@ -317,6 +379,8 @@ public class DiagramConfiguration extends MinimalEObjectImpl.Container implement
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
+			case DiagramPackage.DIAGRAM_CONFIGURATION__TYPE:
+				return TYPE_EDEFAULT == null ? type != null : !TYPE_EDEFAULT.equals(type);
 			case DiagramPackage.DIAGRAM_CONFIGURATION__ENABLED_AADL_PROPERTIES:
 				return enabledAadlProperties != null;
 			case DiagramPackage.DIAGRAM_CONFIGURATION__CONTEXT:
@@ -337,7 +401,9 @@ public class DiagramConfiguration extends MinimalEObjectImpl.Container implement
 		if (eIsProxy()) return super.toString();
 
 		StringBuffer result = new StringBuffer(super.toString());
-		result.append(" (connectionPrimaryLabelsVisible: ");
+		result.append(" (type: ");
+		result.append(type);
+		result.append(", connectionPrimaryLabelsVisible: ");
 		result.append(connectionPrimaryLabelsVisible);
 		result.append(')');
 		return result.toString();

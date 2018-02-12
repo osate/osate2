@@ -26,6 +26,7 @@ import org.osate.ge.BusinessObjectContext;
 import org.osate.ge.internal.diagram.runtime.CanonicalBusinessObjectReference;
 import org.osate.ge.internal.diagram.runtime.DiagramSerialization;
 import org.osate.ge.internal.diagram.runtime.RelativeBusinessObjectReference;
+import org.osate.ge.internal.diagram.runtime.types.CustomDiagramType;
 import org.osate.ge.internal.query.Queryable;
 import org.osate.ge.internal.services.ProjectReferenceService;
 import org.osate.ge.internal.services.ReferenceService;
@@ -39,18 +40,32 @@ public class SavedDiagramIndex {
 		public final IFile diagramFile;
 		public final CanonicalBusinessObjectReference reference;
 		public final URI elementUri;
+		public final String diagramTypeId;
 
-		public IndexEntry(final IFile diagramFile, final CanonicalBusinessObjectReference reference) {
-			this(diagramFile, reference, null);
+		public static IndexEntry createDiagramEntry(final IFile diagramFile,
+				final CanonicalBusinessObjectReference reference, final String diagramTypeId) {
+			return new IndexEntry(diagramFile, reference, null, diagramTypeId);
 		}
 
-		public IndexEntry(final IFile diagramFile, final CanonicalBusinessObjectReference reference, final URI elementUri) {
+		public static IndexEntry createElementEntry(final IFile diagramFile,
+				final CanonicalBusinessObjectReference reference,
+				final URI elementUri) {
+			return new IndexEntry(diagramFile, reference, elementUri, null);
+		}
+
+		protected IndexEntry(final IFile diagramFile, final CanonicalBusinessObjectReference reference,
+				final URI elementUri, final String diagramTypeId) {
 			this.diagramFile = Objects.requireNonNull(diagramFile, "diagramFile must not be null");
 			this.reference = reference;
 			this.elementUri = elementUri;
+			this.diagramTypeId = diagramTypeId;
 
-			if(elementUri != null && reference == null) {
-				throw new RuntimeException("Reference must be set for elmeent index entries.");
+			if (elementUri != null) {
+				Objects.requireNonNull(reference, "Reference must be set for element index entries.");
+			}
+
+			if (elementUri == null) {
+				Objects.requireNonNull(diagramTypeId, "diagramTypeId must not be null for diagram index entries.");
 			}
 		}
 	}
@@ -58,13 +73,19 @@ public class SavedDiagramIndex {
 	private class DiagramFileIndex {
 		public final ProjectDiagramIndex projectDiagramIndex;
 		public final IFile diagramFile;
-		public boolean valid = false;
-		public CanonicalBusinessObjectReference context;
-		public Map<CanonicalBusinessObjectReference, URI> refToElementUriMap;
+		private boolean valid = false;
+		private String diagramTypeId;
+		private CanonicalBusinessObjectReference context;
+		private Map<CanonicalBusinessObjectReference, URI> refToElementUriMap;
 
 		public DiagramFileIndex(final ProjectDiagramIndex projectDiagramIndex, final IFile diagramFile) {
 			this.projectDiagramIndex = Objects.requireNonNull(projectDiagramIndex, "projectDiagramIndex must not be null");
 			this.diagramFile = Objects.requireNonNull(diagramFile, "diagramFile must not be null");
+		}
+
+		public String getDiagramTypeId() {
+			ensureValid();
+			return diagramTypeId;
 		}
 
 		public CanonicalBusinessObjectReference getContext() {
@@ -96,9 +117,13 @@ public class SavedDiagramIndex {
 					if(diagramResource.getContents().size() == 1) {
 						if(diagramResource.getContents().get(0) instanceof org.osate.ge.diagram.Diagram) {
 							final org.osate.ge.diagram.Diagram mmDiagram = (org.osate.ge.diagram.Diagram)diagramResource.getContents().get(0);
+							final org.osate.ge.diagram.DiagramConfiguration config = mmDiagram.getConfig();
+
+							// Set the diagram type id
+							diagramTypeId = config == null || config.getType() == null ? CustomDiagramType.ID
+									: config.getType();
 
 							// Get the Context Business Object
-							final org.osate.ge.diagram.DiagramConfiguration config = mmDiagram.getConfig();
 							Object contextBo = null;
 							if(config != null) {
 								context = DiagramSerialization.convert(config.getContext());
@@ -236,7 +261,9 @@ public class SavedDiagramIndex {
 	public synchronized List<IndexEntry> getDiagramsByProject(final Stream<IProject> projects) {
 		Objects.requireNonNull(projects, "projects must not be null");
 		return projects.flatMap(p -> getOrCreateProjectIndex(p).fileToIndexMap.entrySet().stream()).
-				map(e -> new IndexEntry(e.getKey(), e.getValue().context, null)).collect(Collectors.toList());
+				map(e -> IndexEntry.createDiagramEntry(e.getKey(), e.getValue().getContext(),
+						e.getValue().getDiagramTypeId()))
+				.collect(Collectors.toList());
 	}
 
 	public synchronized List<IndexEntry> getDiagramsByContext(final Stream<IProject> projects,
@@ -251,7 +278,9 @@ public class SavedDiagramIndex {
 
 		return projects.flatMap(p -> getOrCreateProjectIndex(p).getOrCreateFileToIndexMap().entrySet().stream()).
 				filter(e -> contexts.contains(e.getValue().getContext())).
-				map(e -> new IndexEntry(e.getKey(), e.getValue().getContext(), null)).collect(Collectors.toList());
+				map(e -> IndexEntry.createDiagramEntry(e.getKey(), e.getValue().getContext(),
+						e.getValue().getDiagramTypeId()))
+				.collect(Collectors.toList());
 	}
 
 	public synchronized List<IndexEntry> getElementUrisByReferences(final Stream<IProject> projects,
@@ -265,7 +294,7 @@ public class SavedDiagramIndex {
 						entrySet().
 						stream().
 						filter(e -> refs.contains(e.getKey())).
-						map(e -> new IndexEntry(i.getKey(), e.getKey(), e.getValue()))
+						map(e -> IndexEntry.createElementEntry(i.getKey(), e.getKey(), e.getValue()))
 						)
 				).collect(Collectors.toList());
 	}

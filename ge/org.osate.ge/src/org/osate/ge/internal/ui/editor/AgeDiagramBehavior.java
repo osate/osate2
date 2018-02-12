@@ -23,6 +23,7 @@ import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.e4.core.contexts.ContextInjectionFactory;
+import org.eclipse.e4.core.contexts.EclipseContextFactory;
 import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.emf.common.command.Command;
 import org.eclipse.emf.common.util.URI;
@@ -35,6 +36,7 @@ import org.eclipse.emf.transaction.TransactionalEditingDomain;
 import org.eclipse.gef.ContextMenuProvider;
 import org.eclipse.gef.EditPart;
 import org.eclipse.gef.GraphicalEditPart;
+import org.eclipse.gef.GraphicalViewer;
 import org.eclipse.gef.palette.PaletteDrawer;
 import org.eclipse.gef.palette.PaletteRoot;
 import org.eclipse.graphiti.dt.IDiagramTypeProvider;
@@ -49,10 +51,8 @@ import org.eclipse.graphiti.ui.editor.DefaultPaletteBehavior;
 import org.eclipse.graphiti.ui.editor.DefaultPersistencyBehavior;
 import org.eclipse.graphiti.ui.editor.DefaultRefreshBehavior;
 import org.eclipse.graphiti.ui.editor.DiagramBehavior;
-import org.eclipse.graphiti.ui.editor.DiagramEditorContextMenuProvider;
 import org.eclipse.graphiti.ui.editor.IDiagramContainerUI;
 import org.eclipse.graphiti.ui.editor.IDiagramEditorInput;
-import org.eclipse.graphiti.ui.internal.action.UpdateAction;
 import org.eclipse.graphiti.ui.platform.IConfigurationProvider;
 import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.jface.dialogs.ErrorDialog;
@@ -71,6 +71,7 @@ import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.IPartListener;
 import org.eclipse.ui.IWorkbenchPart;
 import org.eclipse.ui.PlatformUI;
+import org.eclipse.ui.internal.EditorSite;
 import org.eclipse.ui.part.EditorPart;
 import org.eclipse.ui.views.contentoutline.ContentOutline;
 import org.eclipse.ui.views.properties.IPropertySheetPage;
@@ -104,10 +105,13 @@ import org.osate.ge.internal.graphiti.diagram.GraphitiAgeDiagram;
 import org.osate.ge.internal.graphiti.features.EmfCommandCustomFeature;
 import org.osate.ge.internal.services.ColoringService;
 import org.osate.ge.internal.services.DiagramService;
+import org.osate.ge.internal.services.ExtensionRegistryService;
 import org.osate.ge.internal.services.ExtensionService;
 import org.osate.ge.internal.services.ModelChangeNotifier;
 import org.osate.ge.internal.services.ModelChangeNotifier.ChangeListener;
 import org.osate.ge.internal.ui.util.SelectionUtil;
+import org.osgi.framework.Bundle;
+import org.osgi.framework.FrameworkUtil;
 
 @SuppressWarnings("restriction")
 public class AgeDiagramBehavior extends DiagramBehavior implements GraphitiAgeDiagramProvider {
@@ -121,6 +125,7 @@ public class AgeDiagramBehavior extends DiagramBehavior implements GraphitiAgeDi
 	private volatile boolean dirtyModel = false;
 	private volatile boolean forceUpdateOnNextModelChange = false;
 	private ToolHandler toolHandler;
+	private ContextMenuProvider contextMenuProvider = null;
 	private IResourceChangeListener resourceChangeListener;
 	private AgeDiagram ageDiagram;
 	private AgeTabbedPropertySheetPage propertySheetPage;
@@ -619,6 +624,16 @@ public class AgeDiagramBehavior extends DiagramBehavior implements GraphitiAgeDi
 	protected DefaultRefreshBehavior createRefreshBehavior() {
 		return new DefaultRefreshBehavior(this) {
 			@Override
+			public void handleAutoUpdateAtStartup() {
+				// Perform incremental layout on startup.
+				final LayoutInfoProvider layoutInfoProvider = (LayoutInfoProvider) getDiagramTypeProvider()
+						.getCurrentToolBehaviorProvider()
+						.getAdapter(LayoutInfoProvider.class);
+				ageDiagram.modify("Incremental Layout",
+						m -> DiagramElementLayoutUtil.layoutIncrementally(ageDiagram, m, layoutInfoProvider));
+			}
+
+			@Override
 			protected void autoUpdate() {
 				IDiagramTypeProvider diagramTypeProvider = getDiagramTypeProvider();
 				Diagram diagram = diagramTypeProvider.getDiagram();
@@ -652,21 +667,33 @@ public class AgeDiagramBehavior extends DiagramBehavior implements GraphitiAgeDi
 
 	@Override
 	protected ContextMenuProvider createContextMenuProvider() {
-		return new DiagramEditorContextMenuProvider(getDiagramContainer().getGraphicalViewer(),
-				getDiagramContainer().getActionRegistry(),
-				getConfigurationProvider()) {
+		return new ContextMenuProvider(getDiagramContainer().getGraphicalViewer()) {
 
 			@Override
-			public void buildContextMenu(final IMenuManager manager) {
-				// Don't populate context menu when a tool is active
-				if(toolHandler == null  || !toolHandler.isToolActive()) {
-					super.buildContextMenu(manager);
-
-					// Remove update action. Instead, there is an Update Diagram custom feature.
-					manager.remove(UpdateAction.ACTION_ID);
-				}
+			public void buildContextMenu(final IMenuManager menu) {
 			}
 		};
+	}
+
+	// Disable registering of the context menu to allow disabling includeEditorInput in our overridden intiializeGraphicalViewer
+	@Override
+	protected boolean shouldRegisterContextMenu() {
+		return false;
+	}
+
+	@Override
+	protected void initializeGraphicalViewer() {
+		super.initializeGraphicalViewer();
+
+		// Register the context menu and disable includeEditorInput
+		final IWorkbenchPart parentPart = getParentPart();
+		final GraphicalViewer graphicalViewer = getDiagramContainer().getGraphicalViewer();
+		if (graphicalViewer != null && parentPart != null && parentPart.getSite() instanceof EditorSite) {
+			contextMenuProvider = createContextMenuProvider();
+			graphicalViewer.setContextMenu(contextMenuProvider);
+			((EditorSite) parentPart.getSite()).registerContextMenu(contextMenuProvider, graphicalViewer, false);
+		}
+
 	}
 
 	public void setDiagramContextIsValid(final boolean value) {
@@ -725,7 +752,7 @@ public class AgeDiagramBehavior extends DiagramBehavior implements GraphitiAgeDi
 		project = (IProject)projectResource;
 	}
 
-	// Prompts the user to convert the file if the input is a legacy(Graphiti) file.
+// Prompts the user to convert the file if the input is a legacy(Graphiti) file.
 	private void handleLegacyDiagramConversion(final IDiagramEditorInput input) {
 		if(input != null) {
 			final IResource resource = ResourcesPlugin.getWorkspace().getRoot().findMember(getPath(input.getUri()));
@@ -833,6 +860,12 @@ public class AgeDiagramBehavior extends DiagramBehavior implements GraphitiAgeDi
 			workspace.removeResourceChangeListener(resourceChangeListener);
 		}
 
+		// Dispose of the context menu provider
+		if (contextMenuProvider != null) {
+			contextMenuProvider.dispose();
+			contextMenuProvider = null;
+		}
+
 		super.disposeBeforeGefDispose();
 	}
 
@@ -843,12 +876,19 @@ public class AgeDiagramBehavior extends DiagramBehavior implements GraphitiAgeDi
 			public Diagram loadDiagram(final URI uri) {
 				updateProjectByUri(uri);
 				final org.osate.ge.diagram.Diagram mmDiagram = DiagramSerialization.readMetaModelDiagram(uri);
-				ageDiagram = DiagramSerialization.createAgeDiagram(mmDiagram);
+				final Bundle bundle = FrameworkUtil.getBundle(getClass());
+				final ExtensionRegistryService extRegistry = Objects.requireNonNull(EclipseContextFactory
+						.getServiceContext(bundle.getBundleContext()).get(ExtensionRegistryService.class),
+						"Unable to retrieve extension registry");
+
+				ageDiagram = DiagramSerialization.createAgeDiagram(mmDiagram, extRegistry);
 				ageDiagram.addModificationListener(ageDiagramModificationListener);
 
 				// Display warning if the diagram is stored with a newer version of the diagram file format.
 				if(mmDiagram.getFormatVersion() > DiagramSerialization.FORMAT_VERSION) {
-					MessageDialog.openWarning(Display.getCurrent().getActiveShell(), "Diagram Created with Newer Version of OSATE", "The diagram '" + uri.lastSegment() + "' was created with a newer version of the OSATE. Saving the diagram with the running version of OSATE may result in the loss of diagram information.");
+					MessageDialog.openWarning(Display.getCurrent().getActiveShell(),
+							"Diagram Created with Newer Version of OSATE", "The diagram '" + uri.lastSegment()
+							+ "' was created with a newer version of the OSATE. The diagram may not be correctly displayed. Saving the diagram with the running version of OSATE may result in the loss of diagram information.");
 				}
 
 				// Create an empty Graphiti diagram. It will be updated after in initDiagramTypeProvider() after the diagram type provider is initialized and
@@ -940,12 +980,6 @@ public class AgeDiagramBehavior extends DiagramBehavior implements GraphitiAgeDi
 
 			fp.getDiagramUpdater().updateDiagram(ageDiagram);
 		});
-
-		// Perform incremental layout
-		final LayoutInfoProvider layoutInfoProvider = (LayoutInfoProvider) dtp.getCurrentToolBehaviorProvider()
-				.getAdapter(LayoutInfoProvider.class);
-		ageDiagram.modify("Incremental Layout",
-				m -> DiagramElementLayoutUtil.layoutIncrementally(ageDiagram, m, layoutInfoProvider));
 
 		// Set the coloring service field. It is needed
 		final ColoringProvider coloringProvider = new ColoringProvider() {
@@ -1039,8 +1073,8 @@ public class AgeDiagramBehavior extends DiagramBehavior implements GraphitiAgeDi
 		}
 	}
 
-	// Update the property sheet selection if it has changed and the part the property sheet is interested in is the editor.
-	// This check is needed to avoid problems with outline selection.
+// Update the property sheet selection if it has changed and the part the property sheet is interested in is the editor.
+// This check is needed to avoid problems with outline selection.
 	@Override
 	public void selectPictogramElements(final PictogramElement[] pes) {
 		super.selectPictogramElements(pes);
@@ -1059,7 +1093,7 @@ public class AgeDiagramBehavior extends DiagramBehavior implements GraphitiAgeDi
 		}
 	}
 
-	// Special exception for handling errors during the initialization process.
+// Special exception for handling errors during the initialization process.
 	private static class InitializationException extends RuntimeException {
 		private static final long serialVersionUID = 2650849956029822898L;
 

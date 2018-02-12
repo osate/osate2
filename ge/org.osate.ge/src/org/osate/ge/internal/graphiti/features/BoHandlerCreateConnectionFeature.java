@@ -29,6 +29,7 @@ import org.osate.ge.internal.diagram.runtime.DiagramElement;
 import org.osate.ge.internal.diagram.runtime.DiagramNode;
 import org.osate.ge.internal.diagram.runtime.RelativeBusinessObjectReference;
 import org.osate.ge.internal.diagram.runtime.updating.DiagramUpdater;
+import org.osate.ge.internal.diagram.runtime.updating.FutureElementInfo;
 import org.osate.ge.internal.graphiti.GraphitiAgeDiagramProvider;
 import org.osate.ge.internal.graphiti.diagram.GraphitiAgeDiagram;
 import org.osate.ge.internal.services.AadlModificationService;
@@ -161,13 +162,6 @@ public class BoHandlerCreateConnectionFeature extends AbstractCreateConnectionFe
 				createOp.addStep((EObject) boToModify, (resource, ownerBo) -> {
 					eclipseCtx.set(Names.MODIFY_BO, ownerBo);
 					final Object newBo = ContextInjectionFactory.invoke(handler, Create.class, eclipseCtx, null);
-					if(newBo != null) {
-						final RelativeBusinessObjectReference newRef = refBuilder.getRelativeReference(newBo);
-						if(newRef != null) {
-							diagramUpdater.addToNextUpdate(ownerNode, newRef, null);
-						}
-					}
-
 					return new CreateStepResult(ownerNode, newBo);
 				});
 			}
@@ -181,7 +175,15 @@ public class BoHandlerCreateConnectionFeature extends AbstractCreateConnectionFe
 						final RelativeBusinessObjectReference newRef = refBuilder.getRelativeReference(stepResult.newBo);
 						if (newRef != null && stepResult.container instanceof DiagramNode) {
 							final DiagramNode containerNode = (DiagramNode) stepResult.container;
-							diagramUpdater.addToNextUpdate(containerNode, newRef, null);
+							final boolean manual;
+							if (containerNode instanceof DiagramElement) {
+								manual = !((DiagramElement) containerNode).getContentFilters().stream()
+										.anyMatch(cf -> cf.test(stepResult.newBo));
+							} else {
+								manual = false;
+							}
+
+							diagramUpdater.addToNextUpdate(containerNode, newRef, new FutureElementInfo(manual));
 						}
 
 						newBos.add(stepResult.newBo);

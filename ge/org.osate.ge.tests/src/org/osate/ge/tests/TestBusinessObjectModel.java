@@ -6,7 +6,6 @@ import org.osate.ge.graphics.ConnectionBuilder;
 import org.osate.ge.graphics.Graphic;
 import org.osate.ge.graphics.RectangleBuilder;
 import org.osate.ge.graphics.internal.AgeGraphicalConfiguration;
-import org.osate.ge.internal.diagram.runtime.BuiltinContentsFilter;
 import org.osate.ge.internal.diagram.runtime.DiagramConfiguration;
 import org.osate.ge.internal.diagram.runtime.DiagramElement;
 import org.osate.ge.internal.diagram.runtime.boTree.BusinessObjectNode;
@@ -14,22 +13,26 @@ import org.osate.ge.internal.diagram.runtime.boTree.Completeness;
 import org.osate.ge.internal.diagram.runtime.boTree.TreeUpdater;
 import org.osate.ge.internal.diagram.runtime.updating.DiagramElementInformationProvider;
 
+import com.google.common.collect.ImmutableSet;
+
 public class TestBusinessObjectModel implements DiagramElementInformationProvider, TreeUpdater {
 	public TestBusinessObject model;
-		
+
 	long nextNodeId;
-	
+
 	@Override
 	public BusinessObjectNode expandTree(DiagramConfiguration configuration, BusinessObjectNode tree, long nextNodeId) {
-		final BusinessObjectNode newTree = new BusinessObjectNode(null, nextNodeId, null, null, false, BuiltinContentsFilter.ALLOW_FUNDAMENTAL, Completeness.UNKNOWN);
+		final BusinessObjectNode newTree = new BusinessObjectNode(null, nextNodeId, null, null, false,
+				ImmutableSet.of(), Completeness.UNKNOWN);
 		this.nextNodeId = nextNodeId;
 		createNodes(newTree, model.children);
 		return newTree;
 	}
-	
+
 	private void createNodes(final BusinessObjectNode parent, final TestBusinessObject[] bos) {
 		for(final TestBusinessObject bo : bos) {
-			final BusinessObjectNode newNode = new BusinessObjectNode(parent, ++nextNodeId, bo.getRelativeReference(), bo, false, BuiltinContentsFilter.ALLOW_ALL, Completeness.UNKNOWN);
+			final BusinessObjectNode newNode = new BusinessObjectNode(parent, ++nextNodeId, bo.getRelativeReference(),
+					bo, true, ImmutableSet.of(), Completeness.UNKNOWN);
 			createNodes(newNode, bo.children);
 		}
 	}
@@ -39,7 +42,7 @@ public class TestBusinessObjectModel implements DiagramElementInformationProvide
 	public String getName(final DiagramElement element) {
 		return "ELEMENT: " + element.getRelativeReference().toString();
 	}
-	
+
 	@Override
 	public AgeGraphicalConfiguration getGraphicalConfiguration(final DiagramElement element) {
 		return (AgeGraphicalConfiguration)GraphicalConfigurationBuilder.create().
@@ -49,7 +52,7 @@ public class TestBusinessObjectModel implements DiagramElementInformationProvide
 			destination(getConnectionEnd(element)).
 			build();
 	}
-	
+
 	private Graphic getGraphic(final DiagramElement element) {
 		final TestBusinessObject testBo = (TestBusinessObject)element.getBusinessObject();
 		if(testBo.isConnection) {
@@ -58,12 +61,12 @@ public class TestBusinessObjectModel implements DiagramElementInformationProvide
 			return RectangleBuilder.create().build();
 		}
 	}
-	
+
 	private DockingPosition getDefaultDockingPosition(final DiagramElement element) {
 		final TestBusinessObject testBo = (TestBusinessObject)element.getBusinessObject();
 		return testBo.defaultDockingPosition;
 	}
-	
+
 	private DiagramElement getConnectionStart(final DiagramElement e) {
 		final TestBusinessObject bo = (TestBusinessObject)e.getBusinessObject();
 		return bo.connectionStartReference == null ? null : e.getContainer().getByRelativeReference(bo.connectionStartReference);

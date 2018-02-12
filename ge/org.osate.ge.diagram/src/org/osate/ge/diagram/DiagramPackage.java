@@ -306,13 +306,22 @@ public class DiagramPackage extends EPackageImpl {
 	public static final int DIAGRAM_ELEMENT__PRIMARY_LABEL_VISIBLE = DIAGRAM_NODE_FEATURE_COUNT + 14;
 
 	/**
+	 * The feature id for the '<em><b>Content Filters</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	public static final int DIAGRAM_ELEMENT__CONTENT_FILTERS = DIAGRAM_NODE_FEATURE_COUNT + 15;
+
+	/**
 	 * The number of structural features of the '<em>Element</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	public static final int DIAGRAM_ELEMENT_FEATURE_COUNT = DIAGRAM_NODE_FEATURE_COUNT + 15;
+	public static final int DIAGRAM_ELEMENT_FEATURE_COUNT = DIAGRAM_NODE_FEATURE_COUNT + 16;
 
 	/**
 	 * The number of operations of the '<em>Element</em>' class.
@@ -537,7 +546,7 @@ public class DiagramPackage extends EPackageImpl {
 	 * @see org.osate.ge.diagram.DiagramPackage#getColor()
 	 * @generated
 	 */
-	public static final int COLOR = 11;
+	public static final int COLOR = 12;
 
 	/**
 	 * The feature id for the '<em><b>Seg</b></em>' attribute list.
@@ -621,13 +630,22 @@ public class DiagramPackage extends EPackageImpl {
 	public static final int RELATIVE_BUSINESS_OBJECT_REFERENCE_OPERATION_COUNT = REFERENCE_OPERATION_COUNT + 0;
 
 	/**
+	 * The feature id for the '<em><b>Type</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	public static final int DIAGRAM_CONFIGURATION__TYPE = 0;
+
+	/**
 	 * The feature id for the '<em><b>Enabled Aadl Properties</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	public static final int DIAGRAM_CONFIGURATION__ENABLED_AADL_PROPERTIES = 0;
+	public static final int DIAGRAM_CONFIGURATION__ENABLED_AADL_PROPERTIES = 1;
 
 	/**
 	 * The feature id for the '<em><b>Context</b></em>' containment reference.
@@ -636,7 +654,7 @@ public class DiagramPackage extends EPackageImpl {
 	 * @generated
 	 * @ordered
 	 */
-	public static final int DIAGRAM_CONFIGURATION__CONTEXT = 1;
+	public static final int DIAGRAM_CONFIGURATION__CONTEXT = 2;
 
 	/**
 	 * The feature id for the '<em><b>Connection Primary Labels Visible</b></em>' attribute.
@@ -645,7 +663,7 @@ public class DiagramPackage extends EPackageImpl {
 	 * @generated
 	 * @ordered
 	 */
-	public static final int DIAGRAM_CONFIGURATION__CONNECTION_PRIMARY_LABELS_VISIBLE = 2;
+	public static final int DIAGRAM_CONFIGURATION__CONNECTION_PRIMARY_LABELS_VISIBLE = 3;
 
 	/**
 	 * The number of structural features of the '<em>Configuration</em>' class.
@@ -654,7 +672,7 @@ public class DiagramPackage extends EPackageImpl {
 	 * @generated
 	 * @ordered
 	 */
-	public static final int DIAGRAM_CONFIGURATION_FEATURE_COUNT = 3;
+	public static final int DIAGRAM_CONFIGURATION_FEATURE_COUNT = 4;
 
 	/**
 	 * The number of operations of the '<em>Configuration</em>' class.
@@ -664,6 +682,43 @@ public class DiagramPackage extends EPackageImpl {
 	 * @ordered
 	 */
 	public static final int DIAGRAM_CONFIGURATION_OPERATION_COUNT = 0;
+
+	/**
+	 * The meta object id for the '{@link org.osate.ge.diagram.ContentFilters <em>Content Filters</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.osate.ge.diagram.ContentFilters
+	 * @see org.osate.ge.diagram.DiagramPackage#getContentFilters()
+	 * @generated
+	 */
+	public static final int CONTENT_FILTERS = 11;
+
+	/**
+	 * The feature id for the '<em><b>Filter</b></em>' attribute list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	public static final int CONTENT_FILTERS__FILTER = 0;
+
+	/**
+	 * The number of structural features of the '<em>Content Filters</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	public static final int CONTENT_FILTERS_FEATURE_COUNT = 1;
+
+	/**
+	 * The number of operations of the '<em>Content Filters</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	public static final int CONTENT_FILTERS_OPERATION_COUNT = 0;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -741,6 +796,13 @@ public class DiagramPackage extends EPackageImpl {
 	 * @generated
 	 */
 	private EClass referenceEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass contentFiltersEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -1079,6 +1141,20 @@ public class DiagramPackage extends EPackageImpl {
 
 
 	/**
+	 * Returns the meta object for the containment reference '{@link org.osate.ge.diagram.DiagramElement#getContentFilters <em>Content Filters</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference '<em>Content Filters</em>'.
+	 * @see org.osate.ge.diagram.DiagramElement#getContentFilters()
+	 * @see #getDiagramElement()
+	 * @generated
+	 */
+	public EReference getDiagramElement_ContentFilters() {
+		return (EReference)diagramElementEClass.getEStructuralFeatures().get(15);
+	}
+
+
+	/**
 	 * Returns the meta object for the attribute '{@link org.osate.ge.diagram.DiagramElement#getId <em>Id</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1264,7 +1340,7 @@ public class DiagramPackage extends EPackageImpl {
 	 * @generated
 	 */
 	public EReference getDiagramConfiguration_EnabledAadlProperties() {
-		return (EReference)diagramConfigurationEClass.getEStructuralFeatures().get(0);
+		return (EReference)diagramConfigurationEClass.getEStructuralFeatures().get(1);
 	}
 
 	/**
@@ -1277,7 +1353,7 @@ public class DiagramPackage extends EPackageImpl {
 	 * @generated
 	 */
 	public EReference getDiagramConfiguration_Context() {
-		return (EReference)diagramConfigurationEClass.getEStructuralFeatures().get(1);
+		return (EReference)diagramConfigurationEClass.getEStructuralFeatures().get(2);
 	}
 
 	/**
@@ -1290,7 +1366,21 @@ public class DiagramPackage extends EPackageImpl {
 	 * @generated
 	 */
 	public EAttribute getDiagramConfiguration_ConnectionPrimaryLabelsVisible() {
-		return (EAttribute)diagramConfigurationEClass.getEStructuralFeatures().get(2);
+		return (EAttribute)diagramConfigurationEClass.getEStructuralFeatures().get(3);
+	}
+
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.osate.ge.diagram.DiagramConfiguration#getType <em>Type</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Type</em>'.
+	 * @see org.osate.ge.diagram.DiagramConfiguration#getType()
+	 * @see #getDiagramConfiguration()
+	 * @generated
+	 */
+	public EAttribute getDiagramConfiguration_Type() {
+		return (EAttribute)diagramConfigurationEClass.getEStructuralFeatures().get(0);
 	}
 
 
@@ -1318,6 +1408,33 @@ public class DiagramPackage extends EPackageImpl {
 	public EAttribute getReference_Seg() {
 		return (EAttribute)referenceEClass.getEStructuralFeatures().get(0);
 	}
+
+	/**
+	 * Returns the meta object for class '{@link org.osate.ge.diagram.ContentFilters <em>Content Filters</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Content Filters</em>'.
+	 * @see org.osate.ge.diagram.ContentFilters
+	 * @generated
+	 */
+	public EClass getContentFilters() {
+		return contentFiltersEClass;
+	}
+
+
+	/**
+	 * Returns the meta object for the attribute list '{@link org.osate.ge.diagram.ContentFilters#getFilter <em>Filter</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute list '<em>Filter</em>'.
+	 * @see org.osate.ge.diagram.ContentFilters#getFilter()
+	 * @see #getContentFilters()
+	 * @generated
+	 */
+	public EAttribute getContentFilters_Filter() {
+		return (EAttribute)contentFiltersEClass.getEStructuralFeatures().get(0);
+	}
+
 
 	/**
 	 * Returns the meta object for data type '{@link java.lang.String <em>Color</em>}'.
@@ -1386,6 +1503,7 @@ public class DiagramPackage extends EPackageImpl {
 		createEAttribute(diagramElementEClass, DIAGRAM_ELEMENT__FONT_SIZE);
 		createEAttribute(diagramElementEClass, DIAGRAM_ELEMENT__LINE_WIDTH);
 		createEAttribute(diagramElementEClass, DIAGRAM_ELEMENT__PRIMARY_LABEL_VISIBLE);
+		createEReference(diagramElementEClass, DIAGRAM_ELEMENT__CONTENT_FILTERS);
 
 		pointEClass = createEClass(POINT);
 		createEAttribute(pointEClass, POINT__X);
@@ -1406,12 +1524,16 @@ public class DiagramPackage extends EPackageImpl {
 		relativeBusinessObjectReferenceEClass = createEClass(RELATIVE_BUSINESS_OBJECT_REFERENCE);
 
 		diagramConfigurationEClass = createEClass(DIAGRAM_CONFIGURATION);
+		createEAttribute(diagramConfigurationEClass, DIAGRAM_CONFIGURATION__TYPE);
 		createEReference(diagramConfigurationEClass, DIAGRAM_CONFIGURATION__ENABLED_AADL_PROPERTIES);
 		createEReference(diagramConfigurationEClass, DIAGRAM_CONFIGURATION__CONTEXT);
 		createEAttribute(diagramConfigurationEClass, DIAGRAM_CONFIGURATION__CONNECTION_PRIMARY_LABELS_VISIBLE);
 
 		referenceEClass = createEClass(REFERENCE);
 		createEAttribute(referenceEClass, REFERENCE__SEG);
+
+		contentFiltersEClass = createEClass(CONTENT_FILTERS);
+		createEAttribute(contentFiltersEClass, CONTENT_FILTERS__FILTER);
 
 		// Create data types
 		colorEDataType = createEDataType(COLOR);
@@ -1477,6 +1599,7 @@ public class DiagramPackage extends EPackageImpl {
 		initEAttribute(getDiagramElement_FontSize(), theXMLTypePackage.getDoubleObject(), "fontSize", null, 0, 1, DiagramElement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getDiagramElement_LineWidth(), theXMLTypePackage.getDoubleObject(), "lineWidth", null, 0, 1, DiagramElement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getDiagramElement_PrimaryLabelVisible(), ecorePackage.getEBooleanObject(), "primaryLabelVisible", null, 0, 1, DiagramElement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getDiagramElement_ContentFilters(), this.getContentFilters(), null, "contentFilters", null, 0, 1, DiagramElement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(pointEClass, Point.class, "Point", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getPoint_X(), theXMLTypePackage.getDouble(), "x", null, 0, 1, Point.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -1497,12 +1620,16 @@ public class DiagramPackage extends EPackageImpl {
 		initEClass(relativeBusinessObjectReferenceEClass, RelativeBusinessObjectReference.class, "RelativeBusinessObjectReference", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
 		initEClass(diagramConfigurationEClass, DiagramConfiguration.class, "DiagramConfiguration", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getDiagramConfiguration_Type(), theXMLTypePackage.getString(), "type", null, 0, 1, DiagramConfiguration.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getDiagramConfiguration_EnabledAadlProperties(), this.getAadlPropertiesSet(), null, "enabledAadlProperties", null, 0, 1, DiagramConfiguration.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getDiagramConfiguration_Context(), this.getCanonicalBusinessObjectReference(), null, "context", null, 0, 1, DiagramConfiguration.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getDiagramConfiguration_ConnectionPrimaryLabelsVisible(), ecorePackage.getEBooleanObject(), "connectionPrimaryLabelsVisible", null, 0, 1, DiagramConfiguration.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(referenceEClass, Reference.class, "Reference", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getReference_Seg(), theXMLTypePackage.getString(), "seg", null, 0, -1, Reference.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(contentFiltersEClass, ContentFilters.class, "ContentFilters", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getContentFilters_Filter(), theXMLTypePackage.getString(), "filter", null, 0, -1, ContentFilters.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
 
 		// Initialize data types
 		initEDataType(colorEDataType, String.class, "Color", IS_SERIALIZABLE, !IS_GENERATED_INSTANCE_CLASS);
@@ -1692,6 +1819,14 @@ public class DiagramPackage extends EPackageImpl {
 		public static final EAttribute DIAGRAM_ELEMENT__PRIMARY_LABEL_VISIBLE = eINSTANCE.getDiagramElement_PrimaryLabelVisible();
 
 		/**
+		 * The meta object literal for the '<em><b>Content Filters</b></em>' containment reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		public static final EReference DIAGRAM_ELEMENT__CONTENT_FILTERS = eINSTANCE.getDiagramElement_ContentFilters();
+
+		/**
 		 * The meta object literal for the '<em><b>Id</b></em>' attribute feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -1842,6 +1977,14 @@ public class DiagramPackage extends EPackageImpl {
 		public static final EAttribute DIAGRAM_CONFIGURATION__CONNECTION_PRIMARY_LABELS_VISIBLE = eINSTANCE.getDiagramConfiguration_ConnectionPrimaryLabelsVisible();
 
 		/**
+		 * The meta object literal for the '<em><b>Type</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		public static final EAttribute DIAGRAM_CONFIGURATION__TYPE = eINSTANCE.getDiagramConfiguration_Type();
+
+		/**
 		 * The meta object literal for the '{@link org.osate.ge.diagram.Reference <em>Reference</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -1858,6 +2001,24 @@ public class DiagramPackage extends EPackageImpl {
 		 * @generated
 		 */
 		public static final EAttribute REFERENCE__SEG = eINSTANCE.getReference_Seg();
+
+		/**
+		 * The meta object literal for the '{@link org.osate.ge.diagram.ContentFilters <em>Content Filters</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.osate.ge.diagram.ContentFilters
+		 * @see org.osate.ge.diagram.DiagramPackage#getContentFilters()
+		 * @generated
+		 */
+		public static final EClass CONTENT_FILTERS = eINSTANCE.getContentFilters();
+
+		/**
+		 * The meta object literal for the '<em><b>Filter</b></em>' attribute list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		public static final EAttribute CONTENT_FILTERS__FILTER = eINSTANCE.getContentFilters_Filter();
 
 		/**
 		 * The meta object literal for the '<em>Color</em>' data type.

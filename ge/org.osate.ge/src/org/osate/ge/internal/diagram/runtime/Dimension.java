@@ -54,6 +54,11 @@ public class Dimension {
 		return true;
 	}
 
+	@Override
+	public String toString() {
+		return "(" + width + "," + height + ")";
+	}
+
 	public org.osate.ge.diagram.Dimension toMetamodel() {
 		final org.osate.ge.diagram.Dimension newDimension = new org.osate.ge.diagram.Dimension();
 		newDimension.setWidth(width);

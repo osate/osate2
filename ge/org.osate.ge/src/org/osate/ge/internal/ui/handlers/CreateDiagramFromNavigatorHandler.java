@@ -67,7 +67,7 @@ public class CreateDiagramFromNavigatorHandler extends AbstractHandler {
 							.getActiveWorkbenchWindow().getService(DiagramService.class);
 					final IFile file = diagramService.createDiagram(ne);
 					if(file != null) {
-						EditorUtil.openEditor(file, true);
+						EditorUtil.openEditor(file, false);
 					}
 				}
 			}

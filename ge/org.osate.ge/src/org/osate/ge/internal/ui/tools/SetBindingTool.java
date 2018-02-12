@@ -80,7 +80,6 @@ public class SetBindingTool {
 
 			// Open Dialog
 			if (currentWindow == null && componentImplementationBoc != null) {
-				// TODO: Support multiple BOCs
 				currentWindow = new SetBindingWindow(Display.getCurrent().getActiveShell(), componentImplementationBoc,
 						selectedBocs);
 				if(currentWindow.open() == Window.OK) {

@@ -42,7 +42,6 @@ import org.eclipse.graphiti.features.IFeature;
 import org.eclipse.graphiti.features.IFeatureProvider;
 import org.eclipse.graphiti.features.context.IDoubleClickContext;
 import org.eclipse.graphiti.features.context.IPictogramElementContext;
-import org.eclipse.graphiti.features.context.impl.CustomContext;
 import org.eclipse.graphiti.features.custom.ICustomFeature;
 import org.eclipse.graphiti.mm.algorithms.GraphicsAlgorithm;
 import org.eclipse.graphiti.mm.pictograms.ConnectionDecorator;
@@ -57,16 +56,12 @@ import org.eclipse.graphiti.tb.DefaultToolBehaviorProvider;
 import org.eclipse.graphiti.tb.IContextButtonPadData;
 import org.osate.aadl2.Generalization;
 import org.osate.ge.internal.Categorized;
-import org.osate.ge.internal.commands.GraphicalToTextualCommand;
 import org.osate.ge.internal.graphiti.features.AgeDoubleClickFeature;
-import org.osate.ge.internal.graphiti.features.CommandCustomFeature;
 import org.osate.ge.internal.graphiti.services.GraphitiService;
 import org.osate.ge.internal.services.ExtensionRegistryService.Category;
 import org.osate.ge.internal.services.ExtensionService;
 
 public class AgeToolBehaviorProvider extends DefaultToolBehaviorProvider {
-	private final static String GRAPHICAL_TO_TEXTUAL_FEATURE_HINT = "graphicalToTextualFeature";
-
 	private final IEclipseContext context;
 	private final ExtensionService extensionService;
 	private final AgeDoubleClickFeature defaultDoubleClickFeature;
@@ -138,25 +133,6 @@ public class AgeToolBehaviorProvider extends DefaultToolBehaviorProvider {
 			return shape;
 		}
 		return null;
-	}
-
-	//Execute when keyboard command is pressed.  Registered in plugin.xml
-	@Override
-	public ICustomFeature getCommandFeature(final CustomContext context, String hint){
-		//Use hint to verify command should be executed
-		if(GRAPHICAL_TO_TEXTUAL_FEATURE_HINT.equals(hint)){
-			for(final ICustomFeature customFeature : getFeatureProvider().getCustomFeatures(context)) {
-				if(customFeature instanceof CommandCustomFeature) {
-					if(((CommandCustomFeature) customFeature).getCommand() instanceof GraphicalToTextualCommand) {
-						if(customFeature.canExecute(context)){
-							return customFeature;
-						}
-						break;
-					}
-				}
-			}
-		}
-		return super.getCommandFeature(context, hint);
 	}
 
 	@Override

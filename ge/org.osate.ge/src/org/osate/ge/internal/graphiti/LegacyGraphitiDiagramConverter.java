@@ -6,6 +6,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
+
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
@@ -44,12 +45,12 @@ import org.osate.aadl2.instance.FeatureInstance;
 import org.osate.ge.diagram.AadlPropertiesSet;
 import org.osate.ge.diagram.DiagramConfiguration;
 import org.osate.ge.diagram.Dimension;
-import org.osate.ge.internal.diagram.runtime.BuiltinContentsFilter;
 import org.osate.ge.internal.diagram.runtime.DockArea;
+import org.osate.ge.internal.diagram.runtime.filtering.LegacyContentFilterMapping;
 import org.osate.ge.internal.graphiti.diagram.PropertyUtil;
 import org.osate.ge.internal.model.SubprogramCallOrder;
-import org.osate.ge.internal.services.ReferenceService;
 import org.osate.ge.internal.services.ProjectReferenceService;
+import org.osate.ge.internal.services.ReferenceService;
 import org.osate.ge.internal.ui.util.SelectionUtil;
 import org.osate.ge.services.ReferenceBuilderService;
 import org.osgi.framework.Bundle;
@@ -66,14 +67,14 @@ public class LegacyGraphitiDiagramConverter {
 		if(!(resource instanceof IFile)) {
 			throw new RuntimeException("Unable to retrieve file for resource.");
 		}
-		
+
 		// Load the graphiti diagram
 		final ResourceSet legacyResourceSet = new ResourceSetImpl();
 		final Diagram tmpDiagram = (Diagram)legacyResourceSet.getEObject(uri, true);
 		if(tmpDiagram == null) {
 			throw new RuntimeException("Unable to open legacy diagram");
-		}	
-		
+		}
+
 		try(final ByteArrayOutputStream os = new ByteArrayOutputStream()) {
 			// Build name that doesn't currently exist
 			final String baseName = tmpDiagram.getName().replaceAll("::|:|\\.", "_");
@@ -83,7 +84,7 @@ public class LegacyGraphitiDiagramConverter {
 				convertedFile = resource.getParent().getFile(new Path(baseName + "(" + nameCounter + ").aadl_diagram"));
 				nameCounter++;
 			}
-			
+
 			final URI convertedDiagramUri = URI.createPlatformResourceURI(convertedFile.getFullPath().toString(), true);
 			convertLegacyDiagram(tmpDiagram, convertedDiagramUri);
 			return convertedDiagramUri;
@@ -91,54 +92,54 @@ public class LegacyGraphitiDiagramConverter {
 			throw new RuntimeException(e);
 		}
 	}
-	
+
 	public void convertLegacyDiagram(final Diagram legacyDiagram, final URI uri) {
 		final org.osate.ge.internal.diagram.runtime.CanonicalBusinessObjectReference contextBoRef = LegacyDiagramUtil.getLegacyReference(legacyDiagram);
 		if(contextBoRef == null) {
 			throw new RuntimeException("Unable to get context business object reference from legacy diagram.");
 		}
-		
+
 		final IProject project = SelectionUtil.getProject(legacyDiagram.eResource());
-		
+
 		// Create objects for the context
-		final Bundle bundle = FrameworkUtil.getBundle(getClass());	
+		final Bundle bundle = FrameworkUtil.getBundle(getClass());
 		final IEclipseContext context =  EclipseContextFactory.getServiceContext(bundle.getBundleContext()).createChild();
 		try {
 			final ReferenceService globalReferenceService = Objects.requireNonNull(context.get(ReferenceService.class), "Unable to retrieve global reference service");
 			final ProjectReferenceService referenceService = globalReferenceService.getProjectReferenceService(project);
 			final Map<org.osate.ge.diagram.DiagramElement, Object> diagramElementToBoMap = new HashMap<>();
-			
+
 			// Convert to a metamodel diagram object
 			final org.osate.ge.diagram.Diagram diagram = new org.osate.ge.diagram.Diagram();
 			org.osate.ge.diagram.DiagramNode container = diagram;
-			
+
 			final Object contextBo = referenceService.resolve(contextBoRef);
-			
+
 			// Special handling for package diagrams
 			if(contextBo instanceof AadlPackage) {
 				final org.osate.ge.internal.diagram.runtime.RelativeBusinessObjectReference contextRelRef = referenceService.getRelativeReference(contextBo);
 				if(contextRelRef == null) {
 					throw new RuntimeException("Unable to retrieve relative reference for context business object");
 				}
-				
+
 				final org.osate.ge.diagram.DiagramElement newElement = new org.osate.ge.diagram.DiagramElement();
 				diagram.getElement().add(newElement);
 				newElement.setBo(contextRelRef.toMetamodel());
-				newElement.setAutoContentsFilter(BuiltinContentsFilter.ALLOW_ALL.id());
+				newElement.setAutoContentsFilter(LegacyContentFilterMapping.ALLOW_ALL.getId());
 				newElement.setManual(true);
-				diagramElementToBoMap.put(newElement, contextBo);				
+				diagramElementToBoMap.put(newElement, contextBo);
 				container = newElement;
-			} 
+			}
 
 
 			final DiagramConfiguration config = new DiagramConfiguration();
 			diagram.setConfig(config);
-			
+
 			// Set the context BO
 			config.setContext(contextBoRef.toMetamodel());
-			
-			// Build diagram configuration				
-			if(!(contextBo instanceof ComponentInstance)) {					
+
+			// Build diagram configuration
+			if(!(contextBo instanceof ComponentInstance)) {
 				// Add deployment properties based on whether they are enabled in the graphiti diagram
 				config.setEnabledAadlProperties(new AadlPropertiesSet());
 				addDeploymentBindingPropertyIfEnabled(config, legacyDiagram, "actual_connection");
@@ -148,44 +149,44 @@ public class LegacyGraphitiDiagramConverter {
 				addDeploymentBindingPropertyIfEnabled(config, legacyDiagram, "allowed_connection");
 				addDeploymentBindingPropertyIfEnabled(config, legacyDiagram, "allowed_memory");
 				addDeploymentBindingPropertyIfEnabled(config, legacyDiagram, "allowed_processor");
-			}						
+			}
 
 			final Map<Shape, org.osate.ge.diagram.DiagramElement> shapeToDiagramElementMap = new HashMap<>();
 			convertChildren(container, legacyDiagram, referenceService, shapeToDiagramElementMap, diagramElementToBoMap);
-				
+
 			// Process connections
 			for(final org.eclipse.graphiti.mm.pictograms.Connection c: legacyDiagram.getConnections()) {
 				// Skip connections which are not logical nodes
 				if(!isLogicalTreeNode(c)) {
 					continue;
 				}
-				
+
 				// Get canonical reference
 				final org.osate.ge.internal.diagram.runtime.CanonicalBusinessObjectReference canonicalRef = LegacyDiagramUtil.getLegacyReference(c);
 				if(canonicalRef == null) {
 					// Skip
 					continue;
 				}
-				
+
 				final Object bo = referenceService.resolve(canonicalRef);
 				if(bo == null) {
 					// Skip
 					continue;
 				}
-				
+
 				final org.osate.ge.internal.diagram.runtime.RelativeBusinessObjectReference relRef = referenceService.getRelativeReference(bo);
 				if(relRef == null) {
 					// Skip
 					continue;
 				}
-				
+
 				final org.osate.ge.diagram.DiagramElement connectionParent = findParent(diagram, c, bo, shapeToDiagramElementMap, diagramElementToBoMap, referenceService);
 				if(connectionParent != null) {
 					final org.osate.ge.diagram.DiagramElement newElement = new org.osate.ge.diagram.DiagramElement();
 					newElement.setBo(relRef.toMetamodel());
 					diagramElementToBoMap.put(newElement, bo);
 					connectionParent.getElement().add(newElement);
-					
+
 					// Convert Bendpoints
 					if(c instanceof FreeFormConnection) {
 						final FreeFormConnection ffc = (FreeFormConnection)c;
@@ -200,14 +201,14 @@ public class LegacyGraphitiDiagramConverter {
 							newElement.setBendpoints(convertedBendpoints);
 						}
 					}
-					
+
 					// Set Connection Name Position
 					for(final ConnectionDecorator cd : c.getConnectionDecorators()) {
 						// Use the position of any text decorator as the position of the label decorator
 						// Connections may have multiple text connection decorator check the decorator's name property
 						if(cd.getGraphicsAlgorithm() instanceof Text &&
 								(!(bo instanceof org.osate.aadl2.Connection) || connectionLabelDecoratorName.equalsIgnoreCase(PropertyUtil.getName(cd)
-								))) {
+										))) {
 							final GraphicsAlgorithm labelGa = cd.getGraphicsAlgorithm();
 							final org.osate.ge.diagram.Point convertedPoint = new org.osate.ge.diagram.Point();
 							convertedPoint.setX(labelGa.getX());
@@ -215,10 +216,10 @@ public class LegacyGraphitiDiagramConverter {
 							newElement.setPrimaryLabelPosition(convertedPoint);
 							break;
 						}
-					}					
+					}
 				}
 			}
-			
+
 			// Save the resource
 			final ResourceSet rs = new ResourceSetImpl();
 			final Resource resource = rs.createResource(uri);
@@ -230,33 +231,33 @@ public class LegacyGraphitiDiagramConverter {
 			}
 		} finally {
 			context.dispose();
-		}		
+		}
 	}
 
-	private org.osate.ge.diagram.DiagramElement findParent(final org.osate.ge.diagram.Diagram diagram, 
-			final org.eclipse.graphiti.mm.pictograms.Connection c, 
+	private org.osate.ge.diagram.DiagramElement findParent(final org.osate.ge.diagram.Diagram diagram,
+			final org.eclipse.graphiti.mm.pictograms.Connection c,
 			final Object bo,
 			final Map<Shape, org.osate.ge.diagram.DiagramElement> shapeToDiagramElementMap,
 			final Map<org.osate.ge.diagram.DiagramElement, Object> diagramElementToBoMap,
 			final ReferenceBuilderService refBuilder) {
-		AnchorContainer src = c.getStart().getParent();			
+		AnchorContainer src = c.getStart().getParent();
 		AnchorContainer dst = c.getEnd().getParent();
-		
+
 		// Mode Transitions reference an inner shape inside the mode so convert those references to the actual mode shape
 		if(bo instanceof ModeTransition) {
 			if(src instanceof ContainerShape) {
 				src = ((ContainerShape)src).getContainer();
 			}
-			
+
 			if(dst instanceof ContainerShape) {
 				dst = ((ContainerShape)dst).getContainer();
 			}
 		}
-		
+
 		// Get the elements from the anchor containers
 		final org.osate.ge.diagram.DiagramElement srcElement = shapeToDiagramElementMap.get(src);
 		final org.osate.ge.diagram.DiagramElement dstElement = shapeToDiagramElementMap.get(dst);
-		
+
 		if(bo instanceof Generalization) {
 			if(srcElement != null) {
 				return srcElement;
@@ -299,16 +300,16 @@ public class LegacyGraphitiDiagramConverter {
 							if(tmpBo instanceof Subcomponent || tmpBo instanceof ComponentClassifier) {
 								return (org.osate.ge.diagram.DiagramElement)temp1;
 							}
-							
+
 							temp1 = temp1.eContainer();
 						}
 						return null;
 					}
 					temp2 = temp2.eContainer();
 				}
-				
+
 				temp1 = temp1.eContainer();
-			}	
+			}
 		} else if(bo instanceof ConnectionReference) {
 			EObject tmpNode = srcElement.eContainer();
 			final org.osate.ge.internal.diagram.runtime.RelativeBusinessObjectReference crRelativeRef = refBuilder.getRelativeReference(bo);
@@ -333,15 +334,15 @@ public class LegacyGraphitiDiagramConverter {
 	private static boolean getShowConnectionBindingType(final Diagram diagram, final String bindingId) {
 		return !"false".equals(Graphiti.getPeService().getPropertyValue(diagram, showBindingPropertyKeyBase + bindingId));
 	}
-	
+
 	private static void addDeploymentBindingPropertyIfEnabled(final org.osate.ge.diagram.DiagramConfiguration config, final Diagram legacyDiagram, final String deploymentPropertyName) {
 		if(getShowConnectionBindingType(legacyDiagram, deploymentPropertyName)) {
 			config.getEnabledAadlProperties().getProperty().add("deployment_properties::" + deploymentPropertyName + "_binding");
 		}
-	}	
-	
-	private static void convertChildren(final org.osate.ge.diagram.DiagramNode convertedContainer, 
-			final ContainerShape containerShape, 
+	}
+
+	private static void convertChildren(final org.osate.ge.diagram.DiagramNode convertedContainer,
+			final ContainerShape containerShape,
 			final ProjectReferenceService referenceService,
 			final Map<Shape, org.osate.ge.diagram.DiagramElement> shapeToDiagramElementMap,
 			final Map<org.osate.ge.diagram.DiagramElement, Object> diagramElementToBoMap) {
@@ -349,7 +350,7 @@ public class LegacyGraphitiDiagramConverter {
 		for(final Shape child : containerShape.getChildren()) {
 			// Ignore shapes that are transient
 			if(PropertyUtil.isTransient(child)) {
-				continue;								
+				continue;
 			}
 
 			// Get canonical reference
@@ -358,71 +359,72 @@ public class LegacyGraphitiDiagramConverter {
 				// Ignore shapes for which a reference cannot be retrieved.
 				continue;
 			}
-			
+
 			final Object bo = referenceService.resolve(canonicalRef);
 			if(bo == null) {
 				// Ignore if the business object could not be retrieved.
 				continue;
 			}
-			
+
 			final org.osate.ge.internal.diagram.runtime.RelativeBusinessObjectReference relRef = referenceService.getRelativeReference(bo);
 			if(relRef == null) {
 				// Ignore if a relative reference can't be built.
 				continue;
 			}
-			
+
 			// Ignore non-logical tree nodes which do not represent feature instances
 			if(!isLogicalTreeNode(child) && !(bo instanceof FeatureInstance)) {
 				continue;
 			}
-			
+
 			final GraphicsAlgorithm ga = child.getGraphicsAlgorithm();
-			
+
 			// Create the new diagram element
 			final org.osate.ge.diagram.DiagramElement newElement = new org.osate.ge.diagram.DiagramElement();
 			convertedContainer.getElement().add(newElement);
 			newElement.setBo(relRef.toMetamodel());
 			newElement.setManual(true);
 			diagramElementToBoMap.put(newElement, bo);
-			
+
 			// For top level classifiers, show all contents. Will be true for classifier diagrams
-			if(convertedContainer instanceof org.osate.ge.diagram.Diagram) {
-				newElement.setAutoContentsFilter(BuiltinContentsFilter.ALLOW_ALL.id());		
+			if (convertedContainer instanceof org.osate.ge.diagram.Diagram) {
+				newElement.setAutoContentsFilter(LegacyContentFilterMapping.ALLOW_ALL.getId());
 			} else {
 				// Special handling of certain elements
-				if(bo instanceof Subcomponent) {
-					newElement.setAutoContentsFilter(BuiltinContentsFilter.ALLOW_TYPE.id());
-				} else if(bo instanceof SubprogramCallSequence || bo instanceof SubprogramCall || bo instanceof ComponentInstance) {
-					newElement.setAutoContentsFilter(BuiltinContentsFilter.ALLOW_ALL.id());
+				if (bo instanceof Subcomponent) {
+					newElement.setAutoContentsFilter(LegacyContentFilterMapping.ALLOW_TYPE.getId());
+				} else if (bo instanceof SubprogramCallSequence || bo instanceof SubprogramCall
+						|| bo instanceof ComponentInstance) {
+					newElement.setAutoContentsFilter(LegacyContentFilterMapping.ALLOW_ALL.getId());
 				}
 			}
-			
+
 			// Position
-			final org.osate.ge.diagram.Point position = new org.osate.ge.diagram.Point(); 
+			final org.osate.ge.diagram.Point position = new org.osate.ge.diagram.Point();
 			position.setX(ga.getX());
 			position.setY(ga.getY());
 			newElement.setPosition(position);
-			
+
 			// Set Size
 			final org.osate.ge.diagram.Dimension size = new Dimension();
 			size.setWidth(ga.getWidth());
 			size.setHeight(ga.getHeight());
 			newElement.setSize(size);
-			
+
 			// Set Dock Area
 			final DockArea dockArea = PropertyUtil.getDockArea(child);
 			if(dockArea != null) {
 				newElement.setDockArea(dockArea.id);
 			}
-	
+
 			shapeToDiagramElementMap.put(child, newElement);
-			
+
 			if(child instanceof ContainerShape) {
 				// Convert Children
 				convertChildren(newElement, (ContainerShape)child, referenceService, shapeToDiagramElementMap, diagramElementToBoMap);
 			}
 		}
-	}	
+	}
 
 	private static boolean isLogicalTreeNode(final PictogramElement pe) {
 		return "true".equals(Graphiti.getPeService().getPropertyValue(pe,isLogicalTreeNodePropertyName));
