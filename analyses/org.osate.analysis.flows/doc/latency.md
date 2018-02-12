@@ -120,7 +120,9 @@ The latency analysis supports the following settings:
     -   **Assume full queue (FQ)**: Use minimum compute execution time
         times the queue size to determine the best case queuing time.
 
-##Latency Contribution Calculation and Relevant Properties
+##Latency Contributors and Relevant Properties
+Latency analysis takes a range of latency contributors into account when calculating minimum and maximum latency for an end to end flow. Latency contributions may be latency budgets assigned to different elements in an end to end flow, i.e., to flow specifications of components and to connections. Once the AADL model reflects aspects of an architecture design, latency contributions based on design decisions are taken into consideration. They include processing time by components, sampling delay in sampled processing sceanarios or queuing delay in message based processing scenarios, partition delays when ARINC653 partitions are used, communication latency contributions by buses/networks and protocols.
+
 In this section we describe how different latency contributions are determined based on relevant property values in the AADL model.
 
 ###Latency Budgets Specified via Latency Property
@@ -132,151 +134,162 @@ The **latency** property allows user to associate a latency value with flow spec
 
 Users can perform end-to-end latency analysis on a system based on these latency budget specifications. They can do so for a system with one layer of subsystems, or subsystems expanded by additional layers of the architecture hierarchy. Different subsystems can be expanded to different levels of the hierarchy. Examples of such models are representing conceptual, functional, and task architectures. The analysis result ensures that latency budgets assigned to various components due not exceed expected end-to-end latencies as specified by the latency property on various end to end flows.
 
-The analysis will calculate the minimum and the maximum end-to-end latency by adding up the specified latencies of all the component flow specifications and of the connections. Absence of a latency property on connections or flow specifications is interpreted as a latency value of zero (marked as **no latency** in the report). If the end to end flow refers to a component without a flow specification then we look for a latency property value on the component.
+The analysis will calculate the minimum and the maximum end-to-end latency by adding up the specified latencies of all the component flow specifications and of the connections. Absence of a latency property on connections or flow specifications is interpreted as a latency value of zero (marked as **no latency** in the report). 
+
+The latency analysis report will identify if a latency budget assigned at a flow specification of an eclosing component is exceeded by the budgets assigned to elements included in a flow implementation.
 
 
-###Sampling Latency Contribution by Periodic Sampling Processing
+###Queuing Delay in Message-based Processing
 
-In embedded systems it is common to perform periodic sampled processing. Examples are displays refreshing at a specified rate, sensors sampling the physical environment at a given rate, application systems processing their input periodically (periodic threads). This can result in a **sampling** latency contribution, i.e., the amount of time incoming data is available in the incoming port until the component is dispatched.
+An application may perform message based processing. In AADL terms this means that messages arrive at event data ports or events arrive at event ports. These ports are considered queued ports. The queue size is specified by the *Queue\_Size* property.
 
-The *Period* property allows users to specify the time interval at which a component executes. We can annotate a system, abstract, process, thread group, thread, device component with a period. 
+Latency analysis adds queuing delay as latency contribution only if the user has explicitly assigned a queue size to the destination port of a connection.
 
-By default, we assume that the worst-case sampling latency is the period and the best-case sampling latency is zero. This is the **asynchronous system** case when the data arrives just after the periodically sampling unit has been dispatched. 
+The worst-case queuing delay assumes a full queue, i.e., is the product of queue size and worst-case processing time. For worst-case processing time the deadline is used and if not present the latency value of the flow specification. A preference setting allows the user to specify that worst-case execution time should be used instead of deadline. 
 
-We may also have a **synchronous system** scenario where both the sending and receiving task are dispatched according to the same clock. In this case, the sampling latency can be smaller. The second sampling unit is dispatched at the same time as the first sampling unit, i.e., their dispatch times are aligned. In this case, the sampling latency contribution is the difference between any processing and communication latency since the first sampling unit and the next period of the second sampling unit - effectively rounding up to the next period. The first sampling unit may be followed by non-sampling units before the second sampling unit. In this case the sum of processing and communication latencies is rounded up.
+The best-case queuing delay by default assumes an empty queue. However, in a preference setting the user can specify a full queue is to be assumed. In this case the queue size is multiplied by the best-case execution time.
+
+Users may specify functional architectures with queuing ports, i.e., event ports and event data ports may be associated with system or abstract components. If the ports have a queue size property value greater than zero queuing latency is added by the latency analysis. 
+
+>If users have not specified a deadline on the component the latency value associated with the flow specification is multiplied by th equeue size.
+
+In a task and communication architecture users may have specified devices and threads with queuing ports. In this case the deadline or worst-case execution time is used 
+
+> In the case of a periodic or sporadic task with a queue the period is used instead of the worst-case or best-case execution time to reflect the fact that queue processing is paced at the rate specified by the period.
+
+> In the case of a periodic or sporadic task with a queue the queue size is reduced by one in calculating the queuing latency to reflect the fact that the sampling latency of the periodic recipient accounts for one element.
+
+###Sampling Delay in Periodic Sampled Processing
+
+In embedded systems it is common to perform periodic sampled processing. Examples are displays refreshing at a specified rate, sensors sampling the physical environment at a given rate, application systems processing their input periodically (periodic threads). This can result in a sampling delay as latency contribution, i.e., the amount of time incoming data is in the incoming port until the component is dispatched.
+
+The **Period** property allows users to specify the time interval at which a component executes. We can annotate a system, abstract, process, thread group, thread, device component with a period. 
+
+We assume that the worst-case sampling latency contribution is the period, i.e., the recipient sampled just before the new value arrives, and the best-case sampling latency is zero, i.e., the new value arrives just before the recipient samples. 
+
+Users can also refine their functional architecture by indicating periodic processing by cetain components with a period property value. Alternatively, users may have developed a task and communication architecture ansd associate period property values with threads and devices.
+
+> In the case of sampled processing we distinguish between **synchronous** and **asynchronous** system scenario when both the sender and receiver execute periodically. In the synchronous case the sending and receiving periodic task are dispatched by the same clock, thus, the sampling delay may be less than a full period (see discussion below).  
+
+###Processing Times as Latency Contributors
+
+Users may have specified a **Deadline** property value for components. This property value represents the upper bound of worst-case completion time as long as the component is deemed as schedulable. 
+
+Users can specify **Compute\_Execution\_Time** property values for threads and devices. 
+
+The minimum value of **Compute\_Execution\_Time** is used as best-case latency contribution.
+
+The latency analysis uses explicitly assigned **Deadline** value as worst-case latency contribution. 
+
+>The latency analysis tool only considers explicitly set Deadline values. The default value of the Deadline is that of the Period value and is ignored by the latency analysis.
+
+Users can change the preference setting to use the worst-case Compute\_Execution\_Time (**ET** setting) instead of the Deadline (**DL** setting).
+
+>The compute execution time value does not necessarily represent the worst-case completion time. Users may specify a worst-case completion time through the Dealine property. In the future we will interface with scheduling analysis results to retrieve completion times.   
+
+The flow specification latency is used as processing latency contribution if the execution time (in ET) or deadline (in DL) is not set.
+
+
+###Sampled Processing in Synchronous System Scenarios
+
+We may have a **synchronous system** scenario where both the sending and receiving task are dispatched according to the same clock. In this case, the sampling latency can be smaller. The second sampling unit is dispatched at the same time as the first sampling unit, i.e., their dispatch times are aligned. In this case, the sampling latency contribution is the difference between any processing and communication latency since the first sampling unit and the next period of the second sampling unit - effectively rounding up to the next period. The first sampling unit may be followed by non-sampling units before the second sampling unit. In this case the sum of processing and communication latencies is rounded up.
 
 > The effect of sampling in a synchronized system context is that the sampling latency contribution evens out any variation in cumulative latency of incoming data, i.e., it acts as jitter buffer. For example, a periodic (I/O) task is sampling sensor input. The input is then processed by non-sampling tasks to minimize latency. To manage the cumulative latency variation (jitter) the output is sent to the actuator by the same I/O task at the beginning of the next frame. 
 
 > The cumulative processing and communication latency for the best case and worst case may round up to different multiples of sampling frames (period of the second sampling task). This results in frame-level jitter even if the min/max cumulative processing latency differs only by a few micro seconds, e.g., if one value just below and the other just above a multiple of the sampling frame.
 
-####When do we have Synchronous Sampling
+Different physical components, e.g., devices, processors, and buses are considered to operate asynchronously unless they have asigned the same **Referemce_Time** property value. 
 
-Different physical components, e.g., devices, processors, and buses are considered to operate asynchronously, while software components on the same processor are considered to operate synchronously.
+Software components bound to the same processor are considered to operate synchronously. Software components bound to different processor are considered to operate synchronously if the two processors have the same value for the **Referemce_Time** property.
 
-**Preference note**: A preference setting lets users choose whether components that have no indication of being synchronized, i.e., on the same processor, or are inherently asynchronous, i.e., different hardware components, should be handled as if synchronous or asynchronous.
+A preference setting lets users choose whether components that have no indication of being synchronized, i.e., on the same processor, or are inherently asynchronous, i.e., different hardware components, should be handled as if synchronous or asynchronous. This setting applies only to components that have not been explicitly identified as synchronous via the **Referemce_Time** property, or software components bound to the same processor.
 
-**Note**: In the future we will also interpret the *Reference\_time* property to recognize whether hardware components operate synchronously.
-
-###Execution Times and Deadlines as Latency Contributors
-
-Users may have specified a *Deadline* property value for components. This property represents the upper bound of worst-case completion time as long as the component is deemed as schedulable.
-
-Users can specify *Compute\_Execution\_Time* property values for threads and devices. The maximum value is used if the preference setting is set accordingly (see below). The minimum value is used for best-case latency analysis.
-
-**Note**: The compute execution time value does not necessarily represent the best/worst-case completion time. It represents the best case scenario of a thread executing first, without preemption, and without executing a recovery handler, in other words a best case lower
-bound.
-
-**Note**: The latency analysis tool only considers explicitly set Deadline values. The default value of the Deadline is that of the Period value. The latency analysis does not include the default value.
-
-**Note**: The flow specification latency is used as processing latency contribution if the execution time (in ET) or deadline (in DL) is not set.
-
-**Preference note**: The preference setting lets the user choose between using maximum execution time and deadline as the worst-case processing latency contribution.
 
 ###Mid-frame and Frame-delayed Communication
 
-The AADL thread model supports specification of immediate, and delayed connections between sampling units (periodic threads and devices).
+The AADL thread model supports specification of immediate, and delayed connections between periodically sampling components.
 
 -   An immediate connection means that although both tasks have the same dispatch time the second tasks waits for the completion of the first task. This corresponds to mid-frame communication in a Simulink control model.
 -   A delayed connection means that the second task always receives the output in the next sampling period, i.e., it is always frame-delayed. This ensures that for both the minimum latency and maximum latency we have a sampling latency of the second task period.
 
-Connections between periodic tasks are considered to be sampling connections if not specified as immediate or delayed connection. This means that a receiving periodic task will sample at its dispatch time, which may lead to frame-level latency jitter, as discussed earlier.
+>Immediate and delayed connection assure deterministic up and down sampling of tasks with harmonic periods. This means that a sensor providing readings at 50ms to a processing task operating at 100ms, the processing task will always see every other signal (or if the signals are queued will always see two signals in the queue). The effect is that this sampling pattern does not introduce additional noise into the signal.
 
-In a sequence of periodic tasks with immediate connections the deadline of the last task becomes the deadline of the sequence, i.e., the cumulative completion times must be within the deadline.
+In a sequence of periodic tasks with immediate connections the deadline of the last task becomes the deadline of the sequence. For worst-case latency contribution this deadline is used. For best-case latency contribution the sum of minimum compute execution times is used. 
 
-This leads to a minimum cumulative processing latency of the sequence as being the sum of minimum flow specification latency or the sum of minimum compute execution times. The maximum latency is the sum of maximum flow specification latencies or maximum compute execution time for each task.
+>The cumulative completion times must be within the deadline.
 
-**Preference note**: A preference setting lets the user choose between using maximum execution time and deadline (of the last task) as the worst-case latency contribution.
+If the deadline or cumpute execution time is not specified, the sum of maximum flow specification latencies is used for best/worst-case latency contribution.
 
-**Note**: A sequence of periodic tasks with immediate connections is similar to a periodic task followed by data-driven (aperiodic) tasks. The difference is that in the case of a sequence of aperiodic tasks each task execution time has to meet its own deadline, i.e., the cumulative maximum processing latency is bounded by the sum of task deadlines rather than the deadline of the last task.
+>A sequence of periodic tasks with immediate connections is similar to a periodic task followed by data-driven (aperiodic) tasks. The difference is that in the case of a sequence of aperiodic tasks each task execution time has to meet its own deadline, i.e., the cumulative maximum processing latency is bounded by the sum of task deadlines rather than the deadline of the last task.
 
-**Note**: Immediate and delayed connection assure deterministic up and down sampling of tasks with harmonic periods. This means that a sensor providing readings at 50ms to a processing task operating at 100ms, the processing task will always see every other signal (or if the signals are queued will always see two signals in the queue). The effect is that this sampling pattern does not introduce additional noise into the signal.
+Delayed connections always add a delay to the next frame as latency contribution. 
 
-**Note**: Immediate and delayed connections are typically not supported across synchronization domains, i.e., across processors and devices operating on independent clocks - unless clock drift is bounded and a Physically Asynchronous Logically Synchronous (PALS) protocol assures task dispatch level synchronicity.
+>Connections between periodic tasks are considered to be sampling connections if not specified as immediate or delayed connection. This means that a receiving periodic task may sample the old or the new value depending on the completion/send time of the sender. This may lead to frame-level latency jitter.
 
-###Communication Latency Contribution by Transfer Mechanisms
+###Communication Latency Contribution by Networks/Buses and Protocols
 
 In this section we discuss how latency contributions can be associated with communication transfer mechanisms that connections are bound to, i.e., virtual buses, buses, device, systems, and abstract components.
 
 ####Communication Latency Specifications for Protocols and Networks/Buses
 
-Users can indicate the intended transport mechanism via the *Actual\_Connection\_Binding* property or *Required\_Virtual\_Bus\_Class* property.
+Users can indicate the intended transport mechanism via the **Actual\_Connection\_Binding** property or **Required\_Virtual\_Bus\_Class** property.
 
 The latency analysis will take into account every element of an *Actual\_Connection\_Binding* as latency contributor. In the case of a virtual bus the analysis also includes the entities that the virtual bus is bound to according to its *Actual\_Connection\_Binding* property value. If the virtual bus or connection does not have a specified *Actual\_Connection\_Binding* property value, then the *Required\_Virtual\_Bus\_Class* property values are interpreted as latency contributors.
 
-A bus or virtual bus can have a *Transmission_Time* property value. It specifies a fixed time and a per byte time latency contribution. If this property is present and the sending port has a data type with a *Data_Size* property value, then the communication latency contribution is calculated from these values. 
+A bus or virtual bus can have a **Transmission_Time** property value. It specifies a fixed time and a per byte time latency contribution. If this property is present and the sending port has a data type with a *Data_Size* property value, then the communication latency contribution is calculated from these values. 
 
+The *Transmission_Time* property on a hardware component indicates the actual transfer time. For a virtual bus the transmission time represents any computational latency by the protocol, which may be dependent on the size of the data being processed.
 
-A bus or virtual bus can have a *Transmission\_Time* property value. It specifies a fixed time and a per byte time latency contribution. If this property is present and the sending port has a data type with a *Data\_Size* property value, then the communication latency contribution is calculated from these values.
+>The fixed time portion of Transmission_Time can be used to reflect worst-case queuing delays in the transfer.
 
-A virtual bus or bus may add protocol wrapper data to be transmitted, which is specified by a *Data_Size* property on the virtual bus or bus. This will be added to the size of the application data.
+A virtual bus or bus may add protocol wrapper data to be transmitted, which is specified by a **Data_Size** property on the virtual bus or bus. This will be added to the size of the application data when used in computing the transmission time.
 
-If *Transmission_Time* is not present, the *Latency* property value associated with the virtual bus, bus, or other component the connection is bound to, is used.
+If *Transmission_Time* is not present, the **Latency** property value associated with the virtual bus, bus, or other component the connection is bound to, is used.
 
-If the *Latency property* value is absent then no latency contribution is recorded. 
+If neither *Transmission_Time* nor *Latency property* is specified for the bus or virtual bus then no latency contribution is assumed. 
 
-More than one protocol may be involved in the connection communication, e.g., one protocol may use a second protocol to perform its transfer. The latency analysis adds each of the protocol latency contributions to
-the total. This allows users to specify latency overhead being added by each protocol. This overhead may be fixed or dependent on the size of the content.
+More than one protocol may be involved in the connection communication, e.g., one protocol may use a second protocol to perform its transfer. The latency analysis adds each of the protocol latency contributions to the total. This allows users to specify latency overhead being added by each protocol. 
 
-**Note**: If the connection has no binding, but the connection end points are bound or are devices, then the latency analysis attempts to determine the buses that connect the two hardware components between the endpoints.
+>If the connection has no binding, but the connection end points are bound or are devices, then the latency analysis attempts to determine the buses that connect the two hardware components between the endpoints.
 
-**Note**: If the connection has no connection binding or required virtual bus, or those contributions are zero, then the *Latency* property value attached to a connection is used as latency contribution.
+If the connection has no connection binding or required virtual bus, or those contributions are zero, then the **Latency** property value attached to a connection is used as latency contribution.
 
-**Note**: The *Transmission_Time* property on a hardware component indicates the actual transfer time. For a virtual bus the transmission time represents any computational latency by the protocol, which may be dependent on the size of the data being processed.
+####Periodically Sampling Buses and Protocols (virtual buses)
 
-**Note**: The protocol overhead can be captured by the fixed portion of the *Transmission_Time* property of a bus. Alternatively, it can be explicitly specified in a virtual bus (protocol) with Data_Size to account for the extra transmission cost. In addition, computational overhead of the protocol can be reflected as described above. 
+Buses and virtual buses may operate periodically. For example, a CANBus operates on a static time line with fixed slots for different transfer actions. This is specified by associating a **Period** property value with a virtual bus, bus, or other component acting as transfer mechanism. In this case a sampling latency is added for every connection that is bound to such a bus.
 
-####Periodically Sampling Buses and protocols (virtual buses)
+>When reflecting the sampling effect of communication the rules for asynchronous and synchronous sampling latency calculation and for determining whether synchronous sampling occurs apply here as well. In the synchronous case sampling latency contribution may be reduced from the full sampling period.
 
-Buses and virtual buses may operate periodically. For example, a CANBus operates on a static time line with fixed slots for different transfer actions. This is specified by associating a Period property value with a
-virtual bus, bus, or other component acting as transfer mechanism. In this case a sampling latency is added for every connection that is bound to such a bus.
-
-When reflecting the sampling effect of communication the rules for asynchronous and synchronous sampling latency calculation and for determining whether synchronous sampling occurs apply here as well. In the synchronous case sampling latency contribution may be reduced from the full sampling period.
-
-**Note:** When several protocols or the bus have a sampling period specified, the largest sampling period is used as it determines the transmission rate.
-
-###Queuing Latency Contributions
-
-AADL has event and event data ports that are queued ports. The port includes properties to specify the queue size (*Queue\_Size*) and policies for processing the queue.
-
-The worst-case queuing latency the latency analysis assumes a full queue and uses the product of the queue size and the worst-case execution time.
-
-**Preference note**: The deadline may be used if specified by Preference Settings DL. For the best-case queuing latency the latency analysis either assumes an empty queue (EQ) or full queue (FQ) using minimum execution time (as specified by Preference settings).
-
-**Note**: In the case of a periodic or sporadic task with a queue the period is used instead of the worst-case or best-case execution time to reflect the fact that queue processing is paced at the rate specified by the period.
-
-**Note**: In the case of a periodic or sporadic task with a queue the queue size is reduced by one in calculating the queuing latency to reflect the fact that the sampling latency of the periodic recipient accounts for one element.
+>When several protocols or the bus have a sampling period specified, the largest sampling period is used as it determines the transmission rate.
 
 ###Partitioned Systems
 
-Partitioned systems use the concept of virtual machine (represented by AADL virtual processor) to enforce address space protection of processes at runtime.
-
-In their simplest form partitions can be modeled by associating a *SEI::isPartition* property and a *SEI::Partition\_Latency* property to specify the time period of partition execution. This property can be associated with a process or abstract component containing threads. In this case the user does not have to explicitly model a partition using virtual processor components.
-
-The user can also use virtual processors to represent partitions. Virtual processors can be declared as subcomponents of processors, or they can be bound to processor. The latency analysis tools handles both
+Partitioned systems use the concept of virtual machine (represented by AADL virtual processor) to enforce address space protection of processes at runtime. 
+The user can use virtual processors to represent partitions. Virtual processors can be declared as subcomponents of processors, or they can be bound to processor. The latency analysis tools handles both
 modeling styles.
 
-The *SEI::Partition\_Latency* property can be used to specify the partition major frame for a virtual processor.
+The user can specify **ARINC653::Module\_Major\_Frame** on a processor to which partitions are bound to indicate the rate at which partitions are scheduled. 
 
-Alternatively, the user can specify *ARINC653::Module\_Major\_Frame* on a processor to which partitions are bound. The user can also specify a full partition schedule using the *ARINC653::Module\_Schedule* property, whose value is a list of records with the *Partition* field referring to the partition and the *Duration* field indicating the window size.
+The user can also specify a full partition schedule using the **ARINC653::Module\_Schedule** property, whose value is a list of records with the **Partition** field referring to the partition and the **Duration** field indicating the window size.
 
-The latency analysis will use the ARINC653 partition schedule information, the ARINC653 major frame information, or the SEI Partition Latency information in this order.
+The latency analysis will use the ARINC653 partition schedule information, or the ARINC653 major frame information if the schedule is absent.
 
-Partitions contribute two types of latency: partition output delay, and partition start delay.
+Partitions contribute two types of latency: **partition output delay**, and **partition start delay**.
 
-Partition output delay is due to the partition flushing its output at the major frame or at partition end.
+*Partition output delay* is due to the partition flushing its output at the **major frame** or at **partition end**.
 
-Partition start delay is due to a partition being scheduled in a particular partition schedule window, or because of the alignment of the partition major frame. In the latter case the latency analysis distinguishes between synchronous and asynchronous cross-partition communication. The same rules about alignment calculation as for sampled processing apply.
+*Partition start delay* is due to a partition being scheduled in a particular partition schedule window, or because of the alignment of the partition major frame. In the latter case the latency analysis distinguishes between synchronous and asynchronous cross-partition communication. The same rules about alignment calculation as for sampled processing apply.
 
-**Preference note**: A preference setting lets the user choose the partition major frame or the partition end as the time at which the output is flushed.
+A preference setting lets the user choose the partition *major frame* or the *partition end* as the time at which the output is flushed.
 
-**Note**: The latency of tasks within a single partition are calculated as before. However, when communication occurs across a partition boundary, communication is delayed until the next frame - determined by the partition period, or until the partition end output and the alignment between the sending and receiving partition - using the partition schedule or major frame property values.
+The latency of tasks within a single partition are calculated as before. However, when communication occurs across a partition boundary, communication is delayed until the next frame - determined by the partition period, or until the partition end output and the alignment between the sending and receiving partition - using the partition schedule or major frame property values.
 
-**Note**: A thread may have a period that is a multiple of the partition major frame. The latency analysis takes into account the additional sampling delay of the thread.
+>A thread may have a period that is a multiple of the partition major frame. The latency analysis takes into account the additional sampling delay of the thread.
 
-**Note**: Choosing the major frame as partition output assures that end to end latency is not affected by a change in the order in which partitions are allocated to a processor.
+>Choosing the major frame as partition output assures that end to end latency is not affected by a change in the order in which partitions are allocated to a processor.
 
 ###Latency Analysis and Modes
 
 Latency analysis takes into account modes. It executes the analysis for each of the modes. If you have mode-specific end-to-end flows or mode-specific property values you will get mode-specific results.
 
-**Note**: the analysis is currently not smart enough to avoid executing for all possible modes if and end-to-end flow is not affected by modes.
+>The analysis is currently not smart enough to avoid executing for all possible modes if and end-to-end flow is not affected by modes.
