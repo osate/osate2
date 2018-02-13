@@ -4,13 +4,10 @@ import org.eclipse.emf.common.util.BasicEList;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
-import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.xtext.resource.IEObjectDescription;
-import org.eclipse.xtext.resource.IResourceDescription;
 import org.eclipse.xtext.resource.IResourceDescriptions;
-import org.eclipse.xtext.resource.IResourceServiceProvider;
 import org.eclipse.xtext.resource.impl.ResourceDescriptionsProvider;
 import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.AadlPackage;
@@ -26,38 +23,23 @@ import org.osate.aadl2.util.Aadl2Util;
 
 import com.google.inject.Inject;
 
+/**
+ * @deprecated Use {@link org.eclipse.xtext.scoping.IScopeProvider IScopeProvider} or
+ * {@link org.eclipse.xtext.scoping.IGlobalScopeProvider IGlobalScopeProvider} instead.
+ */
+@Deprecated
 public class EMFIndexRetrieval {
 
 	@Inject
 	private static ResourceDescriptionsProvider rdp;
 
-	@Inject
-	private static IResourceServiceProvider.Registry rspr;
-
-	public static void registerResourceProviders(ResourceDescriptionsProvider frdp,
-			IResourceServiceProvider.Registry frspr) {
+	public static void registerResourceProviders(ResourceDescriptionsProvider frdp) {
 		rdp = frdp;
-		rspr = frspr;
-	}
-
-	private static IResourceDescription.Manager getManager(Resource res) {
-		IResourceServiceProvider resourceServiceProvider = rspr.getResourceServiceProvider(res.getURI());
-		return resourceServiceProvider.getResourceDescriptionManager();
 	}
 
 	public static void printEMFIndexEMV2(EObject context) {
 		IResourceDescriptions rds = rdp.getResourceDescriptions(context.eResource().getResourceSet());
-		Iterable<IResourceDescription> rdlist = rds.getAllResourceDescriptions();
-//		 	for (IResourceDescription iResourceDescription : rdlist) {
-//				Iterable<IReferenceDescription> reflist = iResourceDescription.getReferenceDescriptions();
-//				for (IReferenceDescription iReferenceDescription : reflist) {
-//					URI srcURI=iReferenceDescription.getSourceEObjectUri();
-//					URI dstURI = iReferenceDescription.getTargetEObjectUri();
-//					EReference ref = iReferenceDescription.getEReference();
-//					System.out.println("Ref ");
-//				}
-//			}
-		Iterable<IEObjectDescription> packagedlist = rds.getExportedObjects(); // dObjectsByType(Aadl2Package.eINSTANCE.getAadlPackage());
+		Iterable<IEObjectDescription> packagedlist = rds.getExportedObjects();
 		for (IEObjectDescription eod : packagedlist) {
 			System.out.println("EDesc: " + eod.getQualifiedName());
 		}
@@ -208,15 +190,6 @@ public class EMFIndexRetrieval {
 		}
 		return null;
 	}
-
-//	 /**
-//	 * get the Property Definition by looking it up in EMF index
-//	 * @param pdname String name of property Definition (predeclared properties do not have to be qualified)
-//	 * @return Property or null
-//	 */
-//	 public static Property getPropertyDefinitionInWorkspace(String pdname){
-//	 	 return getPropertyDefinitionInWorkspace(OsateResourceUtil.getResourceSet(), pdname);
-//	 }
 
 	/**
 	* get the Property Definition by looking it up in EMF index 
@@ -407,14 +380,9 @@ public class EMFIndexRetrieval {
 	* @return list of EObjects in IEObjectDescription format
 	*/
 	public static Iterable<IEObjectDescription> getAllEObjectsOfTypeInWorkspace(EClass eObjectType) {
-		EList<IEObjectDescription> packlist = new BasicEList<IEObjectDescription>();
 		IResourceDescriptions rds = rdp.getResourceDescriptions(OsateResourceUtil.getResourceSet());
 		Iterable<IEObjectDescription> packagedlist = rds.getExportedObjectsByType(eObjectType);
 		return packagedlist;
-//	 	 for (IEObjectDescription eod : packagedlist) {
-//	 			 packlist.add(eod);
-//	 	 }
-//	 	 return packlist;
 	}
 
 	/**
@@ -424,14 +392,9 @@ public class EMFIndexRetrieval {
 	* @return list of EObjects in IEObjectDescription format
 	*/
 	public static Iterable<IEObjectDescription> getAllEObjectsOfTypeInWorkspace(EObject context, EClass eObjectType) {
-		EList<IEObjectDescription> packlist = new BasicEList<IEObjectDescription>();
 		IResourceDescriptions rds = rdp.getResourceDescriptions(context.eResource().getResourceSet());
 		Iterable<IEObjectDescription> packagedlist = rds.getExportedObjectsByType(eObjectType);
 		return packagedlist;
-//	 	 for (IEObjectDescription eod : packagedlist) {
-//	 			 packlist.add(eod);
-//	 	 }
-//	 	 return packlist;
 	}
 
 	/**
