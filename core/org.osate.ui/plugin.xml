@@ -12,6 +12,21 @@
    </extension>
    
    <extension
+         point="org.eclipse.ui.propertyPages">
+      <page
+            class="org.osate.internal.ui.properties.ProjectPropertiesPage"
+            id="org.osate.internal.ui.properties.ProjectPropertiesPage"
+            name="AADL Properties">
+         <enabledWhen>
+            <adapt type="org.eclipse.core.resources.IProject">
+               <test property="org.eclipse.core.resources.projectNature" 
+                     value="org.osate.core.aadlnature"/>
+            </adapt>         
+         </enabledWhen>
+      </page>
+   </extension>
+   
+   <extension
          point="org.eclipse.ui.newWizards">
       <category
             id="org.osate.Wizard.category.ID"
