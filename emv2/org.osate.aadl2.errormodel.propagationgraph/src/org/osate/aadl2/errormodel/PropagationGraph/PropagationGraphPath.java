@@ -3,30 +3,31 @@
 package org.osate.aadl2.errormodel.PropagationGraph;
 
 import org.eclipse.emf.ecore.EObject;
+
 import org.osate.aadl2.instance.ConnectionInstance;
 
 /**
  * <!-- begin-user-doc -->
- * A representation of the model object '<em><b>Propagation Path</b></em>'.
+ * A representation of the model object '<em><b>Path</b></em>'.
  * <!-- end-user-doc -->
  *
  * <p>
  * The following features are supported:
  * </p>
  * <ul>
- *   <li>{@link org.osate.aadl2.errormodel.PropagationGraph.PropagationPath#getName <em>Name</em>}</li>
- *   <li>{@link org.osate.aadl2.errormodel.PropagationGraph.PropagationPath#getPathSrc <em>Path Src</em>}</li>
- *   <li>{@link org.osate.aadl2.errormodel.PropagationGraph.PropagationPath#getPathDst <em>Path Dst</em>}</li>
- *   <li>{@link org.osate.aadl2.errormodel.PropagationGraph.PropagationPath#isHighlight <em>Highlight</em>}</li>
- *   <li>{@link org.osate.aadl2.errormodel.PropagationGraph.PropagationPath#getType <em>Type</em>}</li>
- *   <li>{@link org.osate.aadl2.errormodel.PropagationGraph.PropagationPath#getConnection <em>Connection</em>}</li>
+ *   <li>{@link org.osate.aadl2.errormodel.PropagationGraph.PropagationGraphPath#getName <em>Name</em>}</li>
+ *   <li>{@link org.osate.aadl2.errormodel.PropagationGraph.PropagationGraphPath#getPathSrc <em>Path Src</em>}</li>
+ *   <li>{@link org.osate.aadl2.errormodel.PropagationGraph.PropagationGraphPath#getPathDst <em>Path Dst</em>}</li>
+ *   <li>{@link org.osate.aadl2.errormodel.PropagationGraph.PropagationGraphPath#isHighlight <em>Highlight</em>}</li>
+ *   <li>{@link org.osate.aadl2.errormodel.PropagationGraph.PropagationGraphPath#getType <em>Type</em>}</li>
+ *   <li>{@link org.osate.aadl2.errormodel.PropagationGraph.PropagationGraphPath#getConnection <em>Connection</em>}</li>
  * </ul>
  *
- * @see org.osate.aadl2.errormodel.PropagationGraph.PropagationGraphPackage#getPropagationPath()
+ * @see org.osate.aadl2.errormodel.PropagationGraph.PropagationGraphPackage#getPropagationGraphPath()
  * @model
  * @generated
  */
-public interface PropagationPath extends EObject {
+public interface PropagationGraphPath extends EObject {
 	/**
 	 * Returns the value of the '<em><b>Name</b></em>' attribute.
 	 * <!-- begin-user-doc -->
@@ -37,14 +38,14 @@ public interface PropagationPath extends EObject {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Name</em>' attribute.
 	 * @see #setName(String)
-	 * @see org.osate.aadl2.errormodel.PropagationGraph.PropagationGraphPackage#getPropagationPath_Name()
+	 * @see org.osate.aadl2.errormodel.PropagationGraph.PropagationGraphPackage#getPropagationGraphPath_Name()
 	 * @model
 	 * @generated
 	 */
 	String getName();
 
 	/**
-	 * Sets the value of the '{@link org.osate.aadl2.errormodel.PropagationGraph.PropagationPath#getName <em>Name</em>}' attribute.
+	 * Sets the value of the '{@link org.osate.aadl2.errormodel.PropagationGraph.PropagationGraphPath#getName <em>Name</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Name</em>' attribute.
@@ -63,14 +64,14 @@ public interface PropagationPath extends EObject {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Path Src</em>' containment reference.
 	 * @see #setPathSrc(PropagationPathEnd)
-	 * @see org.osate.aadl2.errormodel.PropagationGraph.PropagationGraphPackage#getPropagationPath_PathSrc()
+	 * @see org.osate.aadl2.errormodel.PropagationGraph.PropagationGraphPackage#getPropagationGraphPath_PathSrc()
 	 * @model containment="true"
 	 * @generated
 	 */
 	PropagationPathEnd getPathSrc();
 
 	/**
-	 * Sets the value of the '{@link org.osate.aadl2.errormodel.PropagationGraph.PropagationPath#getPathSrc <em>Path Src</em>}' containment reference.
+	 * Sets the value of the '{@link org.osate.aadl2.errormodel.PropagationGraph.PropagationGraphPath#getPathSrc <em>Path Src</em>}' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Path Src</em>' containment reference.
@@ -89,14 +90,14 @@ public interface PropagationPath extends EObject {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Path Dst</em>' containment reference.
 	 * @see #setPathDst(PropagationPathEnd)
-	 * @see org.osate.aadl2.errormodel.PropagationGraph.PropagationGraphPackage#getPropagationPath_PathDst()
+	 * @see org.osate.aadl2.errormodel.PropagationGraph.PropagationGraphPackage#getPropagationGraphPath_PathDst()
 	 * @model containment="true"
 	 * @generated
 	 */
 	PropagationPathEnd getPathDst();
 
 	/**
-	 * Sets the value of the '{@link org.osate.aadl2.errormodel.PropagationGraph.PropagationPath#getPathDst <em>Path Dst</em>}' containment reference.
+	 * Sets the value of the '{@link org.osate.aadl2.errormodel.PropagationGraph.PropagationGraphPath#getPathDst <em>Path Dst</em>}' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Path Dst</em>' containment reference.
@@ -115,14 +116,14 @@ public interface PropagationPath extends EObject {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Highlight</em>' attribute.
 	 * @see #setHighlight(boolean)
-	 * @see org.osate.aadl2.errormodel.PropagationGraph.PropagationGraphPackage#getPropagationPath_Highlight()
+	 * @see org.osate.aadl2.errormodel.PropagationGraph.PropagationGraphPackage#getPropagationGraphPath_Highlight()
 	 * @model transient="true"
 	 * @generated
 	 */
 	boolean isHighlight();
 
 	/**
-	 * Sets the value of the '{@link org.osate.aadl2.errormodel.PropagationGraph.PropagationPath#isHighlight <em>Highlight</em>}' attribute.
+	 * Sets the value of the '{@link org.osate.aadl2.errormodel.PropagationGraph.PropagationGraphPath#isHighlight <em>Highlight</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Highlight</em>' attribute.
@@ -143,14 +144,14 @@ public interface PropagationPath extends EObject {
 	 * @return the value of the '<em>Type</em>' attribute.
 	 * @see org.osate.aadl2.errormodel.PropagationGraph.PropagationType
 	 * @see #setType(PropagationType)
-	 * @see org.osate.aadl2.errormodel.PropagationGraph.PropagationGraphPackage#getPropagationPath_Type()
+	 * @see org.osate.aadl2.errormodel.PropagationGraph.PropagationGraphPackage#getPropagationGraphPath_Type()
 	 * @model
 	 * @generated
 	 */
 	PropagationType getType();
 
 	/**
-	 * Sets the value of the '{@link org.osate.aadl2.errormodel.PropagationGraph.PropagationPath#getType <em>Type</em>}' attribute.
+	 * Sets the value of the '{@link org.osate.aadl2.errormodel.PropagationGraph.PropagationGraphPath#getType <em>Type</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Type</em>' attribute.
@@ -170,14 +171,14 @@ public interface PropagationPath extends EObject {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Connection</em>' reference.
 	 * @see #setConnection(ConnectionInstance)
-	 * @see org.osate.aadl2.errormodel.PropagationGraph.PropagationGraphPackage#getPropagationPath_Connection()
+	 * @see org.osate.aadl2.errormodel.PropagationGraph.PropagationGraphPackage#getPropagationGraphPath_Connection()
 	 * @model
 	 * @generated
 	 */
 	ConnectionInstance getConnection();
 
 	/**
-	 * Sets the value of the '{@link org.osate.aadl2.errormodel.PropagationGraph.PropagationPath#getConnection <em>Connection</em>}' reference.
+	 * Sets the value of the '{@link org.osate.aadl2.errormodel.PropagationGraph.PropagationGraphPath#getConnection <em>Connection</em>}' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Connection</em>' reference.
@@ -186,4 +187,4 @@ public interface PropagationPath extends EObject {
 	 */
 	void setConnection(ConnectionInstance value);
 
-} // PropagationPath
+} // PropagationGraphPath

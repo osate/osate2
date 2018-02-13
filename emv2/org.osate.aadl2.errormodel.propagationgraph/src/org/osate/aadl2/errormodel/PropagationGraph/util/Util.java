@@ -1,5 +1,6 @@
 package org.osate.aadl2.errormodel.PropagationGraph.util;
 
+import java.util.Collection;
 import java.util.List;
 
 import org.eclipse.core.runtime.Path;
@@ -8,11 +9,12 @@ import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.xtext.EcoreUtil2;
+import org.osate.aadl2.DirectionType;
 import org.osate.aadl2.VirtualBus;
 import org.osate.aadl2.VirtualProcessor;
 import org.osate.aadl2.errormodel.PropagationGraph.PropagationGraph;
 import org.osate.aadl2.errormodel.PropagationGraph.PropagationGraphFactory;
-import org.osate.aadl2.errormodel.PropagationGraph.PropagationPath;
+import org.osate.aadl2.errormodel.PropagationGraph.PropagationGraphPath;
 import org.osate.aadl2.errormodel.PropagationGraph.PropagationPathEnd;
 import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.ConnectionInstance;
@@ -25,6 +27,8 @@ import org.osate.aadl2.modelsupport.resources.OsateResourceUtil;
 import org.osate.aadl2.modelsupport.util.AadlUtil;
 import org.osate.aadl2.util.Aadl2InstanceUtil;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorPropagation;
+import org.osate.xtext.aadl2.errormodel.errorModel.PropagationPath;
+import org.osate.xtext.aadl2.errormodel.errorModel.SubcomponentElement;
 import org.osate.xtext.aadl2.errormodel.util.EMV2Util;
 import org.osate.xtext.aadl2.properties.util.InstanceModelUtil;
 
@@ -220,6 +224,44 @@ public class Util {
 		}
 	}
 
+	protected static void populateUserDeclaredPropagationPaths(PropagationGraph pg, InstanceObject obj) {
+		if (obj instanceof ComponentInstance) {
+			ComponentInstance ci = (ComponentInstance) obj;
+			Collection<PropagationPath> pplist = EMV2Util.getAllPropagationPaths(ci.getComponentClassifier());
+			for (PropagationPath propagationPath : pplist) {
+				addUserDeclaredPropagationPath(pg, ci, propagationPath);
+			}
+		}
+	}
+
+	private static void addUserDeclaredPropagationPath(PropagationGraph pg, ComponentInstance ci, PropagationPath pp) {
+		ErrorPropagation srcEP = null;
+		ErrorPropagation dstEP = null;
+		ComponentInstance srcCI = getComponentInstance(ci, EMV2Util.getSubcomponents(pp.getSource()));
+		ComponentInstance dstCI = getComponentInstance(ci, EMV2Util.getSubcomponents(pp.getTarget()));
+		if (srcCI != null) {
+			srcEP = EMV2Util.findErrorPropagation(srcCI.getComponentClassifier(),
+					pp.getSource().getPropagationPoint().getName(), DirectionType.OUT);
+		}
+		if (dstCI != null) {
+			dstEP = EMV2Util.findErrorPropagation(srcCI.getComponentClassifier(),
+					pp.getTarget().getPropagationPoint().getName(), DirectionType.IN);
+		}
+		addPropagationpathRecord(pg, srcCI, srcEP, dstCI, dstEP);
+
+	}
+
+	private static ComponentInstance getComponentInstance(ComponentInstance ci, EList<SubcomponentElement> sublist) {
+		ComponentInstance result = ci;
+		for (SubcomponentElement subcomponentElement : sublist) {
+			result = result.findSubcomponentInstance(subcomponentElement.getSubcomponent());
+			if (result == null) {
+				return null;
+			}
+		}
+		return result;
+	}
+
 	private static boolean isActive(ConnectionInstance ci, SystemOperationMode som) {
 		if (som != null) {
 			List<SystemOperationMode> inSOMs = ci.getExistsInModes();
@@ -273,7 +315,7 @@ public class Util {
 	private static void addPropagationpathRecord(PropagationGraph pg, ComponentInstance srcCI, ErrorPropagation srcprop,
 			ComponentInstance dstCI, ErrorPropagation dstprop, ConnectionInstance connectionInstance) {
 		if (!existsPropagationPath(pg, srcCI, srcprop, dstCI, dstprop, connectionInstance)) {
-			PropagationPath path = PropagationGraphFactory.eINSTANCE.createPropagationPath();
+			PropagationGraphPath path = PropagationGraphFactory.eINSTANCE.createPropagationGraphPath();
 			PropagationPathEnd srcPE = PropagationGraphFactory.eINSTANCE.createPropagationPathEnd();
 			PropagationPathEnd dstPE = PropagationGraphFactory.eINSTANCE.createPropagationPathEnd();
 			srcPE.setComponentInstance(srcCI);
@@ -282,7 +324,7 @@ public class Util {
 			dstPE.setErrorPropagation(dstprop);
 			path.setPathSrc(srcPE);
 			path.setPathDst(dstPE);
-			pg.getPropagationPaths().add(path);
+			pg.getPropagationGraphPaths().add(path);
 			pg.getComponents().add(srcCI);
 			pg.getComponents().add(dstCI);
 			if (connectionInstance != null) {
@@ -294,7 +336,7 @@ public class Util {
 	private static void addPropagationpathRecord(PropagationGraph pg, ComponentInstance srcCI, ErrorPropagation srcprop,
 			ComponentInstance dstCI, ErrorPropagation dstprop) {
 		if (!existsPropagationPath(pg, srcCI, srcprop, dstCI, dstprop)) {
-			PropagationPath path = PropagationGraphFactory.eINSTANCE.createPropagationPath();
+			PropagationGraphPath path = PropagationGraphFactory.eINSTANCE.createPropagationGraphPath();
 			PropagationPathEnd srcPE = PropagationGraphFactory.eINSTANCE.createPropagationPathEnd();
 			PropagationPathEnd dstPE = PropagationGraphFactory.eINSTANCE.createPropagationPathEnd();
 			srcPE.setComponentInstance(srcCI);
@@ -303,7 +345,7 @@ public class Util {
 			dstPE.setErrorPropagation(dstprop);
 			path.setPathSrc(srcPE);
 			path.setPathDst(dstPE);
-			pg.getPropagationPaths().add(path);
+			pg.getPropagationGraphPaths().add(path);
 			pg.getComponents().add(srcCI);
 			pg.getComponents().add(dstCI);
 		}
@@ -311,7 +353,7 @@ public class Util {
 
 	private static void addPropagationpathRecord(PropagationGraph pg, ConnectionInstance srcConni,
 			ComponentInstance dstCI, ErrorPropagation dstprop) {
-		PropagationPath path = PropagationGraphFactory.eINSTANCE.createPropagationPath();
+		PropagationGraphPath path = PropagationGraphFactory.eINSTANCE.createPropagationGraphPath();
 		PropagationPathEnd srcPE = PropagationGraphFactory.eINSTANCE.createPropagationPathEnd();
 		PropagationPathEnd dstPE = PropagationGraphFactory.eINSTANCE.createPropagationPathEnd();
 		srcPE.setConnectionInstance(srcConni);
@@ -320,13 +362,13 @@ public class Util {
 		dstPE.setErrorPropagation(dstprop);
 		path.setPathSrc(srcPE);
 		path.setPathDst(dstPE);
-		pg.getPropagationPaths().add(path);
+		pg.getPropagationGraphPaths().add(path);
 		pg.getComponents().add(dstCI);
 	}
 
 	private static void addPropagationpathRecord(PropagationGraph pg, ComponentInstance srcCI, ErrorPropagation srcprop,
 			ConnectionInstance dstConni) {
-		PropagationPath path = PropagationGraphFactory.eINSTANCE.createPropagationPath();
+		PropagationGraphPath path = PropagationGraphFactory.eINSTANCE.createPropagationGraphPath();
 		PropagationPathEnd srcPE = PropagationGraphFactory.eINSTANCE.createPropagationPathEnd();
 		PropagationPathEnd dstPE = PropagationGraphFactory.eINSTANCE.createPropagationPathEnd();
 		srcPE.setComponentInstance(srcCI);
@@ -336,13 +378,13 @@ public class Util {
 		path.setPathSrc(srcPE);
 		path.setPathDst(dstPE);
 		// new PropagationPathRecord(srcCI, srcprop, dstCI, dstprop, connectionInstance);
-		pg.getPropagationPaths().add(path);
+		pg.getPropagationGraphPaths().add(path);
 		pg.getComponents().add(srcCI);
 	}
 
 	private static boolean existsPropagationPath(PropagationGraph pg, ComponentInstance srcCI, ErrorPropagation srcEP,
 			ComponentInstance dstCI, ErrorPropagation dstEP, ConnectionInstance conni) {
-		for (PropagationPath pp : pg.getPropagationPaths()) {
+		for (PropagationGraphPath pp : pg.getPropagationGraphPaths()) {
 			if (pp.getConnection() == conni && pp.getPathSrc() == srcCI && pp.getPathDst() == dstCI
 					&& pp.getPathSrc().getErrorPropagation() == srcEP
 					&& pp.getPathDst().getErrorPropagation() == dstEP) {
@@ -354,7 +396,7 @@ public class Util {
 
 	private static boolean existsPropagationPath(PropagationGraph pg, ComponentInstance srcCI, ErrorPropagation srcEP,
 			ComponentInstance dstCI, ErrorPropagation dstEP) {
-		for (PropagationPath pp : pg.getPropagationPaths()) {
+		for (PropagationGraphPath pp : pg.getPropagationGraphPaths()) {
 			if (pp.getPathSrc() == srcCI && pp.getPathDst() == dstCI && pp.getPathSrc().getErrorPropagation() == srcEP
 					&& pp.getPathDst().getErrorPropagation() == dstEP) {
 				return true;
@@ -472,10 +514,10 @@ public class Util {
 	 * @param outEP
 	 * @return
 	 */
-	public static EList<PropagationPath> getAllPropagationPaths(PropagationGraph pg, ComponentInstance ci,
+	public static EList<PropagationGraphPath> getAllPropagationPaths(PropagationGraph pg, ComponentInstance ci,
 			ErrorPropagation outEP) {
-		EList<PropagationPath> result = new BasicEList<PropagationPath>();
-		for (PropagationPath propagationPath : pg.getPropagationPaths()) {
+		EList<PropagationGraphPath> result = new BasicEList<PropagationGraphPath>();
+		for (PropagationGraphPath propagationPath : pg.getPropagationGraphPaths()) {
 			PropagationPathEnd src = propagationPath.getPathSrc();
 			if (src.getComponentInstance() == ci) {
 				if (src.getErrorPropagation() == outEP) {
@@ -494,9 +536,9 @@ public class Util {
 		return result;
 	}
 
-	public static EList<PropagationPath> getAllPropagationPaths(PropagationGraph pg, ConnectionInstance ci) {
-		EList<PropagationPath> result = new BasicEList<PropagationPath>();
-		for (PropagationPath propagationPath : pg.getPropagationPaths()) {
+	public static EList<PropagationGraphPath> getAllPropagationPaths(PropagationGraph pg, ConnectionInstance ci) {
+		EList<PropagationGraphPath> result = new BasicEList<PropagationGraphPath>();
+		for (PropagationGraphPath propagationPath : pg.getPropagationGraphPaths()) {
 			PropagationPathEnd src = propagationPath.getPathSrc();
 			if (src.getConnectionInstance() == ci) {
 				result.add(propagationPath);
@@ -505,10 +547,10 @@ public class Util {
 		return result;
 	}
 
-	public static EList<PropagationPath> getAllReversePropagationPaths(PropagationGraph pg, ComponentInstance ci,
+	public static EList<PropagationGraphPath> getAllReversePropagationPaths(PropagationGraph pg, ComponentInstance ci,
 			ErrorPropagation inEP) {
-		EList<PropagationPath> result = new BasicEList<PropagationPath>();
-		for (PropagationPath propagationPath : pg.getPropagationPaths()) {
+		EList<PropagationGraphPath> result = new BasicEList<PropagationGraphPath>();
+		for (PropagationGraphPath propagationPath : pg.getPropagationGraphPaths()) {
 			PropagationPathEnd src = propagationPath.getPathDst();
 			if (src.getComponentInstance() == ci && src.getErrorPropagation() == inEP) {
 				result.add(propagationPath);
@@ -517,9 +559,10 @@ public class Util {
 		return result;
 	}
 
-	public static EList<PropagationPath> getAllReversePropagationPaths(PropagationGraph pg, ConnectionInstance ci) {
-		EList<PropagationPath> result = new BasicEList<PropagationPath>();
-		for (PropagationPath propagationPath : pg.getPropagationPaths()) {
+	public static EList<PropagationGraphPath> getAllReversePropagationPaths(PropagationGraph pg,
+			ConnectionInstance ci) {
+		EList<PropagationGraphPath> result = new BasicEList<PropagationGraphPath>();
+		for (PropagationGraphPath propagationPath : pg.getPropagationGraphPaths()) {
 			PropagationPathEnd src = propagationPath.getPathDst();
 			if (src.getConnectionInstance() == ci) {
 				result.add(propagationPath);
@@ -531,7 +574,7 @@ public class Util {
 	public static EList<PropagationPathEnd> getAllPropagationDestinationEnds(PropagationGraph pg, ComponentInstance ci,
 			ErrorPropagation outEP) {
 		EList<PropagationPathEnd> result = new BasicEList<PropagationPathEnd>();
-		for (PropagationPath propagationPathRecord : pg.getPropagationPaths()) {
+		for (PropagationGraphPath propagationPathRecord : pg.getPropagationGraphPaths()) {
 			PropagationPathEnd src = propagationPathRecord.getPathSrc();
 			if (src.getComponentInstance() == ci && src.getErrorPropagation() == outEP) {
 				result.add(propagationPathRecord.getPathDst());
@@ -543,7 +586,7 @@ public class Util {
 	public static EList<PropagationPathEnd> getAllPropagationDestinationEnds(PropagationGraph pg,
 			ConnectionInstance ci) {
 		EList<PropagationPathEnd> result = new BasicEList<PropagationPathEnd>();
-		for (PropagationPath propagationPathRecord : pg.getPropagationPaths()) {
+		for (PropagationGraphPath propagationPathRecord : pg.getPropagationGraphPaths()) {
 			PropagationPathEnd src = propagationPathRecord.getPathSrc();
 			if (src.getConnectionInstance() == ci) {
 				result.add(propagationPathRecord.getPathDst());
@@ -555,7 +598,7 @@ public class Util {
 	public static EList<PropagationPathEnd> getAllPropagationSourceEnds(PropagationGraph pg, ComponentInstance ci,
 			ErrorPropagation inEP) {
 		EList<PropagationPathEnd> result = new BasicEList<PropagationPathEnd>();
-		for (PropagationPath propagationPathRecord : pg.getPropagationPaths()) {
+		for (PropagationGraphPath propagationPathRecord : pg.getPropagationGraphPaths()) {
 			PropagationPathEnd dst = propagationPathRecord.getPathDst();
 			if (dst.getComponentInstance() == ci && dst.getErrorPropagation() == inEP) {
 				result.add(propagationPathRecord.getPathSrc());
@@ -566,7 +609,7 @@ public class Util {
 
 	public static EList<PropagationPathEnd> getAllPropagationSourceEnds(PropagationGraph pg, ConnectionInstance ci) {
 		EList<PropagationPathEnd> result = new BasicEList<PropagationPathEnd>();
-		for (PropagationPath propagationPathRecord : pg.getPropagationPaths()) {
+		for (PropagationGraphPath propagationPathRecord : pg.getPropagationGraphPaths()) {
 			PropagationPathEnd dst = propagationPathRecord.getPathDst();
 			if (dst.getConnectionInstance() == ci) {
 				result.add(propagationPathRecord.getPathSrc());

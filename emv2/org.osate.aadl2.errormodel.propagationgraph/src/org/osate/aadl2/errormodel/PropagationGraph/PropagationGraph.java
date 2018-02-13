@@ -21,7 +21,7 @@ import org.osate.aadl2.instance.ConnectionInstance;
  *   <li>{@link org.osate.aadl2.errormodel.PropagationGraph.PropagationGraph#getName <em>Name</em>}</li>
  *   <li>{@link org.osate.aadl2.errormodel.PropagationGraph.PropagationGraph#getDescription <em>Description</em>}</li>
  *   <li>{@link org.osate.aadl2.errormodel.PropagationGraph.PropagationGraph#getComponents <em>Components</em>}</li>
- *   <li>{@link org.osate.aadl2.errormodel.PropagationGraph.PropagationGraph#getPropagationPaths <em>Propagation Paths</em>}</li>
+ *   <li>{@link org.osate.aadl2.errormodel.PropagationGraph.PropagationGraph#getPropagationGraphPaths <em>Propagation Graph Paths</em>}</li>
  *   <li>{@link org.osate.aadl2.errormodel.PropagationGraph.PropagationGraph#getConnections <em>Connections</em>}</li>
  *   <li>{@link org.osate.aadl2.errormodel.PropagationGraph.PropagationGraph#getRoot <em>Root</em>}</li>
  * </ul>
@@ -100,20 +100,20 @@ public interface PropagationGraph extends EObject {
 	EList<ComponentInstance> getComponents();
 
 	/**
-	 * Returns the value of the '<em><b>Propagation Paths</b></em>' containment reference list.
-	 * The list contents are of type {@link org.osate.aadl2.errormodel.PropagationGraph.PropagationPath}.
+	 * Returns the value of the '<em><b>Propagation Graph Paths</b></em>' containment reference list.
+	 * The list contents are of type {@link org.osate.aadl2.errormodel.PropagationGraph.PropagationGraphPath}.
 	 * <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of the '<em>Propagation Paths</em>' containment reference list isn't clear,
+	 * If the meaning of the '<em>Propagation Graph Paths</em>' containment reference list isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Propagation Paths</em>' containment reference list.
-	 * @see org.osate.aadl2.errormodel.PropagationGraph.PropagationGraphPackage#getPropagationGraph_PropagationPaths()
+	 * @return the value of the '<em>Propagation Graph Paths</em>' containment reference list.
+	 * @see org.osate.aadl2.errormodel.PropagationGraph.PropagationGraphPackage#getPropagationGraph_PropagationGraphPaths()
 	 * @model containment="true"
 	 * @generated
 	 */
-	EList<PropagationPath> getPropagationPaths();
+	EList<PropagationGraphPath> getPropagationGraphPaths();
 
 	/**
 	 * Returns the value of the '<em><b>Connections</b></em>' reference list.

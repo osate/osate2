@@ -72,8 +72,8 @@ public class PropagationGraphAdapterFactory extends AdapterFactoryImpl {
 				return createPropagationGraphAdapter();
 			}
 			@Override
-			public Adapter casePropagationPath(PropagationPath object) {
-				return createPropagationPathAdapter();
+			public Adapter casePropagationGraphPath(PropagationGraphPath object) {
+				return createPropagationGraphPathAdapter();
 			}
 			@Override
 			public Adapter casePropagationPathEnd(PropagationPathEnd object) {
@@ -114,16 +114,16 @@ public class PropagationGraphAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link org.osate.aadl2.errormodel.PropagationGraph.PropagationPath <em>Propagation Path</em>}'.
+	 * Creates a new adapter for an object of class '{@link org.osate.aadl2.errormodel.PropagationGraph.PropagationGraphPath <em>Path</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
 	 * @return the new adapter.
-	 * @see org.osate.aadl2.errormodel.PropagationGraph.PropagationPath
+	 * @see org.osate.aadl2.errormodel.PropagationGraph.PropagationGraphPath
 	 * @generated
 	 */
-	public Adapter createPropagationPathAdapter() {
+	public Adapter createPropagationGraphPathAdapter() {
 		return null;
 	}
 

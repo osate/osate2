@@ -47,7 +47,7 @@ import org.eclipse.emf.ecore.EObject;
 import org.osate.aadl2.Connection;
 import org.osate.aadl2.Feature;
 import org.osate.aadl2.errormodel.PropagationGraph.PropagationGraph;
-import org.osate.aadl2.errormodel.PropagationGraph.PropagationPath;
+import org.osate.aadl2.errormodel.PropagationGraph.PropagationGraphPath;
 import org.osate.aadl2.errormodel.PropagationGraph.PropagationPathEnd;
 import org.osate.aadl2.errormodel.PropagationGraph.util.Util;
 import org.osate.aadl2.instance.ComponentInstance;
@@ -589,7 +589,7 @@ public class PropagateErrorSources {
 		} else {
 			st.setVisitToken(tt);
 		}
-		EList<PropagationPath> paths = Util.getAllPropagationPaths(faultModel, ci, ep);
+		EList<PropagationGraphPath> paths = Util.getAllPropagationPaths(faultModel, ci, ep);
 		String effectText = "," + generateTypeTokenErrorPropText(ep, tt);
 		if (paths.isEmpty()) {
 			if (fi != null) {
@@ -606,7 +606,7 @@ public class PropagateErrorSources {
 				reportEntry(entryText + effectText + " -> [No Binding],,", depth);
 			}
 		} else {
-			for (PropagationPath path : paths) {
+			for (PropagationGraphPath path : paths) {
 				ConnectionInstance pathConni = path.getConnection();
 				TypeMappingSet typeEquivalence = EMV2Util
 						.getAllTypeEquivalenceMapping(ci.getContainingComponentInstance());

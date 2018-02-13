@@ -11,7 +11,7 @@ import org.osate.aadl2.DirectionType;
 import org.osate.aadl2.Element;
 import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.errormodel.PropagationGraph.PropagationGraph;
-import org.osate.aadl2.errormodel.PropagationGraph.PropagationPath;
+import org.osate.aadl2.errormodel.PropagationGraph.PropagationGraphPath;
 import org.osate.aadl2.errormodel.PropagationGraph.PropagationPathEnd;
 import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.ConnectionInstance;
@@ -653,7 +653,7 @@ public class PropagationGraphBackwardTraversal {
 		if (preResult != null) {
 			return preResult;
 		}
-		for (PropagationPath ppr : Util.getAllReversePropagationPaths(currentAnalysisModel, component,
+		for (PropagationGraphPath ppr : Util.getAllReversePropagationPaths(currentAnalysisModel, component,
 				errorPropagation)) {
 			// traverse incoming
 			PropagationPathEnd ppe = ppr.getPathSrc();

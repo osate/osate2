@@ -72,9 +72,9 @@ public class PropagationGraphSwitch<T> extends Switch<T> {
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
-			case PropagationGraphPackage.PROPAGATION_PATH: {
-				PropagationPath propagationPath = (PropagationPath)theEObject;
-				T result = casePropagationPath(propagationPath);
+			case PropagationGraphPackage.PROPAGATION_GRAPH_PATH: {
+				PropagationGraphPath propagationGraphPath = (PropagationGraphPath)theEObject;
+				T result = casePropagationGraphPath(propagationGraphPath);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -104,17 +104,17 @@ public class PropagationGraphSwitch<T> extends Switch<T> {
 	}
 
 	/**
-	 * Returns the result of interpreting the object as an instance of '<em>Propagation Path</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>Path</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>Propagation Path</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>Path</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public T casePropagationPath(PropagationPath object) {
+	public T casePropagationGraphPath(PropagationGraphPath object) {
 		return null;
 	}
 
