@@ -56,12 +56,18 @@ public class LatencyReport {
 				+ Values.getWorstCaseDeadlineLabel() + "-" + Values.getBestcaseEmptyQueueLabel();
 	}
 
+	public String getPreferencesDescription() {
+		return "with preference settings '" + Values.getSynchronousSystemDescription() + "', '"
+				+ Values.getMajorFrameDelayDescription() + "', '" + Values.getWorstCaseDeadlineDescription() + "', '"
+				+ Values.getBestcaseEmptyQueueDescription() + "'";
+	}
+
 	public Report export(AnalysisErrorReporterManager errMgr) {
 		Report genericReport;
 
 		genericReport = new Report(this.relatedInstance, "latency", "latency_" + getPreferencesSuffix(),
 				ReportType.TABLE);
-
+		genericReport.setTextContent("Latency analysis " + getPreferencesDescription());
 		for (LatencyReportEntry re : entries) {
 			genericReport.addSection(re.export());
 			re.generateMarkers(errMgr);
@@ -74,6 +80,8 @@ public class LatencyReport {
 
 		Result latencyReports = ResultUtil.createResult(this.name,
 				this.relatedInstance);
+		latencyReports.setAnalysis("Latency analysis");
+		latencyReports.setSource(getPreferencesDescription());
 		for (LatencyReportEntry re : entries) {
 			latencyReports.getSubResults().add(re.genResult());
 		}

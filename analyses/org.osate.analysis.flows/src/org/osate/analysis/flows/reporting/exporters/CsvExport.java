@@ -23,7 +23,7 @@ public class CsvExport extends GenericExport {
 	public StringBuffer getFileContent() {
 		StringBuffer result;
 		result = new StringBuffer();
-
+		result.append(report.getTextContent() + System.lineSeparator() + System.lineSeparator());
 		for (Section section : report.getSections()) {
 			for (Line line : section.getLines()) {
 				for (ReportedCell content : line.getContent()) {
