@@ -267,7 +267,11 @@ class AadlPropertyView extends ViewPart {
 	}
 
 	val ISelectionChangedListener selectionChangedListener = [
-		updateSelection(site.workbenchWindow.activePage.activeEditor as XtextEditor, selection)]
+		val editor = site.workbenchWindow.activePage.activeEditor
+		if (editor instanceof XtextEditor) {
+			updateSelection(editor, selection)
+		}
+	]
 
 	//This flag is necessary because calling IURIEditorOpener.open causes a model change event.  This event should be ignored when calling IURIEditorOpener.open
 	var modelListenerEnabled = true
