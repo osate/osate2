@@ -21,12 +21,12 @@
 		<xsemantics.version>1.12.1</xsemantics.version>
 
 		<osate.stable.url>http://www.aadl.info/aadl/osate/stable/${osate.stable.version}/update-site/</osate.stable.url>
-		<eclipse.stable.url>http://download.eclipse.org/releases/mars/201602261000</eclipse.stable.url>
+		<eclipse.stable.url>http://download.eclipse.org/releases/oxygen/201706281000</eclipse.stable.url>
 		<xtext.stable.url>http://download.eclipse.org/modeling/tmf/xtext/updates/releases/${xtext.stable.version}/</xtext.stable.url>
 		<emft.stable.url>http://download.eclipse.org/modeling/emft/mwe/updates/releases/${emft.stable.version}/</emft.stable.url>
 
 		<osate.testing.url>http://www.aadl.info/aadl/osate/testing/update-site/</osate.testing.url>
-		<eclipse.testing.url>http://download.eclipse.org/releases/mars/201602261000</eclipse.testing.url>
+		<eclipse.testing.url>http://download.eclipse.org/releases/oxygen/201706281000</eclipse.testing.url>
 		<xtext.testing.url>http://download.eclipse.org/modeling/tmf/xtext/updates/releases/${xtext.testing.version}/</xtext.testing.url>
 		<emft.testing.url>http://download.eclipse.org/modeling/emft/mwe/updates/releases/${emft.testing.version}/</emft.testing.url>
 
