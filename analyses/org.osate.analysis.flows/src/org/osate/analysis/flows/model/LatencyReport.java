@@ -57,9 +57,9 @@ public class LatencyReport {
 	}
 
 	public String getPreferencesDescription() {
-		return "with preference settings '" + Values.getSynchronousSystemDescription() + "', '"
-				+ Values.getMajorFrameDelayDescription() + "', '" + Values.getWorstCaseDeadlineDescription() + "', '"
-				+ Values.getBestcaseEmptyQueueDescription() + "'";
+		return "with preference settings: " + Values.getSynchronousSystemDescription() + "/"
+				+ Values.getMajorFrameDelayDescription() + "/" + Values.getWorstCaseDeadlineDescription() + "/"
+				+ Values.getBestcaseEmptyQueueDescription();
 	}
 
 	public Report export(AnalysisErrorReporterManager errMgr) {

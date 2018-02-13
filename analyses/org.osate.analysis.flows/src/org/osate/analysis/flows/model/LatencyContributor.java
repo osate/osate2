@@ -224,6 +224,8 @@ public abstract class LatencyContributor {
 				return ((InstanceObject) relatedElement).getComponentInstancePath();
 			}
 			return relatedElement.getQualifiedName();
+		} else if (this instanceof LatencyContributorConnection) {
+			return relatedElement.getQualifiedName();
 		}
 		return "";
 	}
