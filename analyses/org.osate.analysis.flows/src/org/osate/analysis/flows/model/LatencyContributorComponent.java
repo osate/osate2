@@ -10,10 +10,10 @@ import org.osate.aadl2.instance.ComponentInstance;
 /**
  * A latency Contributor represents something in the flow
  * that can contribute to increase/decrease the latency.
- * 
+ *
  * This class contains the result for a latency contributor
  * with min/max latency.
- * 
+ *
  * @author julien
  *
  */
@@ -23,6 +23,7 @@ public class LatencyContributorComponent extends LatencyContributor {
 		this.relatedElement = ci;
 	}
 
+	@Override
 	protected String getContributorType() {
 		ComponentInstance relatedComponentInstance;
 		ComponentType relatedComponentType;
@@ -30,21 +31,21 @@ public class LatencyContributorComponent extends LatencyContributor {
 		if (relatedElement instanceof ComponentInstance) {
 			relatedComponentInstance = (ComponentInstance) relatedElement;
 			if (relatedComponentInstance.getCategory() == ComponentCategory.VIRTUAL_BUS) {
-				return "Protocol";
+				return "protocol";
 			}
 			if (relatedComponentInstance.getCategory() == ComponentCategory.VIRTUAL_PROCESSOR) {
-				return "Partition";
+				return "partition";
 			}
 			return relatedComponentInstance.getCategory().getName();
 		}
 		if (relatedElement instanceof VirtualBus) {
-			return "Protocol";
+			return "protocol";
 		}
 		if (relatedElement instanceof ComponentClassifier) {
 			relatedComponentType = (ComponentType) relatedElement;
 			return relatedComponentType.getCategory().getName();
 		}
-		return "Component";
+		return "component";
 	}
 
 }

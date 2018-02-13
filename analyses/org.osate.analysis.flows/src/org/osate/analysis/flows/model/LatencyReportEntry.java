@@ -503,9 +503,9 @@ public class LatencyReportEntry {
 		section = new Section(sectionName + inMode);
 		line = new Line();
 		line.addHeaderContent("Latency analysis for end-to-end flow '" + sectionName + "' of system '" + systemName
-				+ "'" + inMode + " with preference settings " + Values.getSynchronousSystemLabel() + "-"
-				+ Values.getMajorFrameDelayLabel() + "-" + Values.getWorstCaseDeadlineLabel() + "-"
-				+ Values.getBestcaseEmptyQueueLabel());
+				+ "'" + inMode + " with preference settings '" + Values.getSynchronousSystemDescription() + "', '"
+				+ Values.getMajorFrameDelayDescription() + "', '" + Values.getWorstCaseDeadlineDescription() + "', '"
+				+ Values.getBestcaseEmptyQueueDescription() + "'");
 		section.addLine(line);
 		line = new Line();
 		section.addLine(line);
