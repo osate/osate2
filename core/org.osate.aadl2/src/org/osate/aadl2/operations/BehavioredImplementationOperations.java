@@ -36,7 +36,9 @@
 package org.osate.aadl2.operations;
 
 import org.eclipse.emf.common.util.EList;
-import org.eclipse.emf.ecore.util.BasicInternalEList;
+import org.eclipse.emf.ecore.InternalEObject;
+import org.eclipse.emf.ecore.util.EObjectEList;
+import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.BehavioredImplementation;
 import org.osate.aadl2.SubprogramCall;
 import org.osate.aadl2.SubprogramCallSequence;
@@ -75,7 +77,16 @@ public class BehavioredImplementationOperations extends ComponentImplementationO
 	 * @generated NOT
 	 */
 	public static EList<SubprogramCall> subprogramCalls(BehavioredImplementation behavioredImplementation) {
-		EList<SubprogramCall> allCalls = new BasicInternalEList<SubprogramCall>(SubprogramCall.class);
+		EList<SubprogramCall> allCalls = new EObjectEList<SubprogramCall>(SubprogramCall.class,
+				(InternalEObject) behavioredImplementation, Aadl2Package.BEHAVIORED_IMPLEMENTATION__SUBPROGRAM_CALL) {
+			private static final long serialVersionUID = 1L;
+
+			@Override
+			protected boolean isNotificationRequired() {
+				return false;
+			}
+		};
+
 		for (SubprogramCallSequence callSequence : behavioredImplementation.getOwnedSubprogramCallSequences()) {
 			allCalls.addAll(callSequence.getOwnedSubprogramCalls());
 		}
