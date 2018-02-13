@@ -149,12 +149,12 @@ import org.osgi.service.prefs.Preferences;
  * @author phf
  */
 public class InstantiateModel {
-	private static final String PREFS_QUALIFIER = "org.osate.aadl2.instantiation";
-	private static final String PREF_SOM_LIMIT = "org.osate.aadl2.instantiation.som_limit";
+	public static final String PREFS_QUALIFIER = "org.osate.aadl2.instantiation";
+	public static final String PREF_SOM_LIMIT = "org.osate.aadl2.instantiation.som_limit";
+	public static final int SOM_LIMIT = 1000;
 
 	/* The name for the single mode of a non-modal system */
 	public static final String NORMAL_SOM_NAME = "No Modes";
-	protected static final int SOM_LIMIT = 1000;
 	protected final AnalysisErrorReporterManager errManager;
 	protected final IProgressMonitor monitor;
 
@@ -2254,7 +2254,6 @@ public class InstantiateModel {
 		if (prefs != null) {
 			return prefs.getInt(PREF_SOM_LIMIT, SOM_LIMIT);
 		} else {
-			System.out.println("foo");
 			return SOM_LIMIT;
 		}
 	}
