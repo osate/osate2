@@ -4,7 +4,6 @@ import java.util.List;
 
 import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.EndToEndFlowInstance;
-import org.osate.aadl2.instance.FeatureCategory;
 import org.osate.aadl2.instance.FeatureInstance;
 import org.osate.aadl2.instance.FlowElementInstance;
 import org.osate.aadl2.instance.FlowSpecificationInstance;
@@ -13,6 +12,7 @@ import org.osate.analysis.flows.model.LatencyContributorComponent;
 import org.osate.analysis.flows.model.LatencyReportEntry;
 import org.osate.analysis.flows.preferences.Values;
 import org.osate.xtext.aadl2.properties.util.ARINC653ScheduleWindow;
+import org.osate.xtext.aadl2.properties.util.CommunicationProperties;
 import org.osate.xtext.aadl2.properties.util.GetProperties;
 import org.osate.xtext.aadl2.properties.util.InstanceModelUtil;
 
@@ -21,13 +21,11 @@ public class FlowLatencyLogicComponent {
 	public static void mapComponentInstance(final EndToEndFlowInstance etef,
 			final FlowElementInstance flowElementInstance, LatencyReportEntry entry) {
 		ComponentInstance componentInstance;
-		double expectedMin = 0.0;
-		double expectedMax = 0.0;
+		double expectedMin = GetProperties.getMinimumLatencyinMilliSec(flowElementInstance);
+		double expectedMax = GetProperties.getMaximumLatencyinMilliSec(flowElementInstance);
 
 		if (flowElementInstance instanceof FlowSpecificationInstance) {
 			componentInstance = flowElementInstance.getComponentInstance();
-			expectedMin = GetProperties.getMinimumLatencyinMilliSec(flowElementInstance);
-			expectedMax = GetProperties.getMaximumLatencyinMilliSec(flowElementInstance);
 		} else {
 			componentInstance = (ComponentInstance) flowElementInstance;
 		}
@@ -40,28 +38,17 @@ public class FlowLatencyLogicComponent {
 		boolean isAssignedDeadline = GetProperties.isAssignedDeadline(componentInstance);
 		double executionTimeLower = GetProperties.getScaledMinComputeExecutionTimeinMilliSec(componentInstance);
 		double executionTimeHigher = GetProperties.getScaledMaxComputeExecutionTimeinMilliSec(componentInstance);
-		if (Values.doDataSetProcessing()) {
-			FeatureInstance inport = FlowLatencyUtil.getIncomingFeatureInstance(etef, flowElementInstance);
-			if (inport != null) {
-				double dim = FlowLatencyUtil.getDimension(inport);
-				if (dim > 1) {
-					executionTimeHigher = executionTimeHigher * dim;
-					executionTimeLower = executionTimeLower * dim;
-				}
-			}
-		}
 
 		/**
 		 * The component is periodic. Therefore it will sample its input unless we have an immediate connection or delayed connection
 		 */
 		boolean checkLastImmediate = false;
-		if (period > 0
-				&& ((InstanceModelUtil.isThread(componentInstance) || InstanceModelUtil.isDevice(componentInstance)
-						|| InstanceModelUtil.isAbstract(componentInstance))
+		if (period > 0 && ((InstanceModelUtil.isThread(componentInstance)
+				|| InstanceModelUtil.isDevice(componentInstance) || InstanceModelUtil.isAbstract(componentInstance))
 						? (!InstanceModelUtil.isSporadicComponent(componentInstance)
 								&& !InstanceModelUtil.isTimedComponent(componentInstance)
 								&& !InstanceModelUtil.isAperiodicComponent(componentInstance))
-								: true)) {
+						: true)) {
 			// period is set, and if thread, abstract, or device needs to be dispatched as periodic
 			LatencyContributorComponent samplingLatencyContributor = new LatencyContributorComponent(componentInstance);
 			samplingLatencyContributor.setSamplingPeriod(period);
@@ -151,13 +138,21 @@ public class FlowLatencyLogicComponent {
 		double bestCaseValue = 0.0;
 		worstmethod = LatencyContributorMethod.UNKNOWN;
 
-		if (executionTimeHigher != 0.0 && !Values.doWorstCaseDeadline()) {
-			// Use execution time for worst-case if preferences specify not deadline
-			worstCaseValue = executionTimeHigher;
-			worstmethod = LatencyContributorMethod.PROCESSING_TIME;
+		LatencyContributorComponent processingLatencyContributor = new LatencyContributorComponent(componentInstance);
+
+		if (executionTimeHigher != 0.0) {
+			if (!Values.doWorstCaseDeadline()) {
+				// Use execution time for worst-case if preferences specify not deadline or no deadline is specified
+				worstCaseValue = executionTimeHigher;
+				worstmethod = LatencyContributorMethod.PROCESSING_TIME;
+			} else if (!isAssignedDeadline) {
+				worstCaseValue = executionTimeHigher;
+				worstmethod = LatencyContributorMethod.PROCESSING_TIME;
+				processingLatencyContributor.reportInfo("Using execution time as deadline was not set");
+			}
 		}
 
-		if ((worstCaseValue == 0.0) && isAssignedDeadline) {
+		if ((worstCaseValue == 0.0) && isAssignedDeadline && Values.doWorstCaseDeadline()) {
 			// use deadline if no execution time and deadline was explicitly assigned
 			worstCaseValue = deadline;
 			worstmethod = LatencyContributorMethod.DEADLINE;
@@ -171,6 +166,7 @@ public class FlowLatencyLogicComponent {
 			// if no flow spec value then use default deadline == period
 			worstCaseValue = deadline;
 			worstmethod = LatencyContributorMethod.DEADLINE;
+			processingLatencyContributor.reportInfo("Using deadline as execution time was not set");
 		}
 
 		/**
@@ -182,10 +178,6 @@ public class FlowLatencyLogicComponent {
 			bestmethod = LatencyContributorMethod.PROCESSING_TIME;
 		}
 // For best case it does not make sense to use deadline
-//		if ((bestCaseValue == 0.0) && isAssignedDeadline) {
-//			bestCaseValue = deadline;
-//			bestmethod = LatencyContributorMethod.DEADLINE;
-//		}
 
 		if ((bestCaseValue == 0.0) && (expectedMin != 0.0)) {
 			bestCaseValue = expectedMin;
@@ -193,14 +185,15 @@ public class FlowLatencyLogicComponent {
 		}
 
 		// deal with queuing latency
-		if (InstanceModelUtil.isThread(componentInstance) || InstanceModelUtil.isDevice(componentInstance)) {
-			// take into account queuing delay
-			FeatureInstance fi = FlowLatencyUtil.getIncomingFeatureInstance(etef, flowElementInstance);
-			if (fi != null && (fi.getCategory() == FeatureCategory.EVENT_PORT
-					|| fi.getCategory() == FeatureCategory.EVENT_DATA_PORT)) {
+		// take into account queuing delay
+		FeatureInstance fi = FlowLatencyUtil.getIncomingFeatureInstance(etef, flowElementInstance);
+		if (fi != null) {
+			double qs = GetProperties.getQueueSize(fi);
+			boolean hasAssignedQueueSize = GetProperties.hasAssignedPropertyValue(fi,
+					CommunicationProperties.QUEUE_SIZE);
+			if (hasAssignedQueueSize && qs != 0) {
 				LatencyContributorComponent ql = new LatencyContributorComponent(componentInstance);
 				// take into account queuing delay on event and event data ports.
-				double qs = GetProperties.getQueueSize(fi);
 				double dl = 0.0;
 				if (InstanceModelUtil.isSporadicComponent(componentInstance)
 						|| InstanceModelUtil.isPeriodicComponent(componentInstance)) {
@@ -234,7 +227,6 @@ public class FlowLatencyLogicComponent {
 			}
 		}
 
-		LatencyContributorComponent processingLatencyContributor = new LatencyContributorComponent(componentInstance);
 		processingLatencyContributor.setWorstCaseMethod(worstmethod);
 		processingLatencyContributor.setBestCaseMethod(bestmethod);
 		processingLatencyContributor.setMaximum(worstCaseValue);

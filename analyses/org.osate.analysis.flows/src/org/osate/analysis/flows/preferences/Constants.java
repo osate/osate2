@@ -10,25 +10,16 @@ public class Constants {
 		PARTITIONEND, MAJORFRAMEDELAYED
 	};
 
-	public static String REPORT_SUBTOTALS = "org.osate.analysis.flows.report_subtotals";
-
-	public static String REPORT_SUBTOTALS_YES = "yes";
-	public static String REPORT_SUBTOTALS_NO = "no";
+//	public static String REPORT_SUBTOTALS = "org.osate.analysis.flows.report_subtotals";
+//
+//	public static String REPORT_SUBTOTALS_YES = "yes";
+//	public static String REPORT_SUBTOTALS_NO = "no";
 
 	public static String WORST_CASE_DEADLINE = "org.osate.analysis.flows.report_worstcasedeadline";
 
 	public static String WORST_CASE_DEADLINE_YES = "worst case as deadline";
 	public static String WORST_CASE_DEADLINE_NO = "worst case as max compute execution time";
 
-	public static String DETAILS_MARKERS = "org.osate.analysis.flows.details_markers";
-
-	public static String DETAILS_MARKERS_YES = "yes";
-	public static String DETAILS_MARKERS_NO = "no";
-
-	public static String DATASET_PROCESSING = "org.osate.analysis.flows.dataset_processing";
-
-	public static String DATASET_PROCESSING_YES = "process as data set";
-	public static String DATASET_PROCESSING_NO = "process as data";
 
 	public static String BESTCASE_EMPTY_QUEUE = "org.osate.analysis.flows.bestcase_empty_queue";
 

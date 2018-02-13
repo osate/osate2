@@ -58,8 +58,8 @@ public class LatencyReportEntry {
 	}
 
 	public void finalizeReportEntry() {
-		minValue = getActualLatency(false);
-		maxValue = getActualLatency(true);
+		minValue = Math.round(getActualLatency(false) * 1000.0) / 1000.0;
+		maxValue = Math.round(getActualLatency(true) * 1000.0) / 1000.0;
 
 		minSpecifiedValue = getMinimumSpecifiedLatency();
 		maxSpecifiedValue = getMaximumSpecifiedLatency();
@@ -501,12 +501,11 @@ public class LatencyReportEntry {
 		String inMode = Aadl2Util.isPrintableSOMName(som) ? " in mode " + som.getName() : "";
 
 		section = new Section(sectionName + inMode);
-		String dspostfix = Values.getDataSetProcessingLabel();
 		line = new Line();
 		line.addHeaderContent("Latency analysis for end-to-end flow '" + sectionName + "' of system '" + systemName
 				+ "'" + inMode + " with preference settings " + Values.getSynchronousSystemLabel() + "-"
 				+ Values.getMajorFrameDelayLabel() + "-" + Values.getWorstCaseDeadlineLabel() + "-"
-				+ Values.getBestcaseEmptyQueueLabel() + (dspostfix.isEmpty() ? "" : "-" + dspostfix));
+				+ Values.getBestcaseEmptyQueueLabel());
 		section.addLine(line);
 		line = new Line();
 		section.addLine(line);
@@ -514,15 +513,15 @@ public class LatencyReportEntry {
 		line.addHeaderContent("Contributor");
 		line.addHeaderContent("Min Specified");
 		line.addHeaderContent("Min Actual");
-		if (Values.doReportSubtotals()) {
-			line.addHeaderContent("Min Subtotals");
-		}
+//		if (Values.doReportSubtotals()) {
+//			line.addHeaderContent("Min Subtotals");
+//		}
 		line.addHeaderContent("Min Method");
 		line.addHeaderContent("Max Specified");
 		line.addHeaderContent("Max Actual");
-		if (Values.doReportSubtotals()) {
-			line.addHeaderContent("Max Subtotals");
-		}
+//		if (Values.doReportSubtotals()) {
+//			line.addHeaderContent("Max Subtotals");
+//		}
 		line.addHeaderContent("Max Method");
 		line.addHeaderContent("Comments");
 		section.addLine(line);
@@ -539,15 +538,15 @@ public class LatencyReportEntry {
 		line.addContent("Latency Total");
 		line.addContent(minSpecifiedValue + "ms");
 		line.addContent(minValue + "ms");
-		if (Values.doReportSubtotals()) {
-			line.addHeaderContent("");
-		}
+//		if (Values.doReportSubtotals()) {
+//			line.addHeaderContent("");
+//		}
 		line.addContent("");
 		line.addContent(maxSpecifiedValue + "ms");
 		line.addContent(maxValue + "ms");
-		if (Values.doReportSubtotals()) {
-			line.addHeaderContent("");
-		}
+//		if (Values.doReportSubtotals()) {
+//			line.addHeaderContent("");
+//		}
 		line.addContent("");
 		section.addLine(line);
 
@@ -669,11 +668,6 @@ public class LatencyReportEntry {
 				errManager.error(this.relatedEndToEndFlow, getRelatedObjectLabel() + reportedCell.getMessage());
 			}
 		}
-		if (Values.doDetailsMarkers()) {
-			for (LatencyContributor lc : this.contributors) {
-				lc.generateMarkers(errManager);
-			}
-		}
 	}
 
 	public Result genResult() {
@@ -691,11 +685,10 @@ public class LatencyReportEntry {
 		String inMode = Aadl2Util.isPrintableSOMName(som) ? " in mode " + som.getName() : "";
 
 		Result result = ResultUtil.createResult(reportName + inMode, relatedEndToEndFlow);
-		String dspostfix = Values.getDataSetProcessingLabel();
 		String description = "Latency analysis for end-to-end flow '" + reportName + "' of system '" + systemName + "'"
 				+ inMode + " with preference settings " + Values.getSynchronousSystemLabel() + "-"
 				+ Values.getMajorFrameDelayLabel() + "-" + Values.getWorstCaseDeadlineLabel() + "-"
-				+ Values.getBestcaseEmptyQueueLabel() + (dspostfix.isEmpty() ? "" : "-" + dspostfix);
+				+ Values.getBestcaseEmptyQueueLabel();
 		addStringValue(result,description);
 
 		addRealValue(result, minValue);

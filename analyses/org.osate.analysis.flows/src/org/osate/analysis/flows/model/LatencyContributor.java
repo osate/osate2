@@ -535,14 +535,14 @@ public abstract class LatencyContributor {
 			myLine.addContent(""); // the min expected value
 		}
 		myLine.addContent(this.getTotalMinimum() + "ms");
-		if (Values.doReportSubtotals()) {
-			// don't report subtotals for subcontributors
-			if (level > 0) {
-				myLine.addContent("");
-			} else {
-				myLine.addContent(levelOpenLabel(level) + this.minSubtotal + "ms" + levelCloseLabel(level));
-			}
-		}
+//		if (Values.doReportSubtotals()) {
+//			// don't report subtotals for subcontributors
+//			if (level > 0) {
+//				myLine.addContent("");
+//			} else {
+//				myLine.addContent(levelOpenLabel(level) + this.minSubtotal + "ms" + levelCloseLabel(level));
+//			}
+//		}
 		myLine.addContent(mapMethodToString(bestCaseMethod));
 		if (this.expectedMax != 0.0) {
 			myLine.addContent(this.expectedMax + "ms");
@@ -550,14 +550,14 @@ public abstract class LatencyContributor {
 			myLine.addContent(""); // the min expected value
 		}
 		myLine.addContent(this.getTotalMaximum() + "ms");
-		if (Values.doReportSubtotals()) {
-			// don't report subtotals for subcontributors
-			if (level > 0) {
-				myLine.addContent("");
-			} else {
-				myLine.addContent(levelOpenLabel(level) + this.maxSubtotal + "ms" + levelCloseLabel(level));
-			}
-		}
+//		if (Values.doReportSubtotals()) {
+//			// don't report subtotals for subcontributors
+//			if (level > 0) {
+//				myLine.addContent("");
+//			} else {
+//				myLine.addContent(levelOpenLabel(level) + this.maxSubtotal + "ms" + levelCloseLabel(level));
+//			}
+//		}
 		myLine.addContent(mapMethodToString(worstCaseMethod));
 		myLine.addCells(this.getReportedIssues());
 		lines.add(myLine);
@@ -604,9 +604,8 @@ public abstract class LatencyContributor {
 		addRealValue(result, partitionOffset);
 		addRealValue(result, partitionDuration);
 		addRealValue(result, samplingPeriod);
-		addRealValue(result, minSubtotal);
-		addRealValue(result, minSubtotal);
-		addRealValue(result, maxSubtotal);
+//		addRealValue(result, minSubtotal);
+//		addRealValue(result, maxSubtotal);
 		addStringValue(result,worstCaseMethod.name());
 		addStringValue(result, bestCaseMethod.name());
 		addStringValue(result,isSynchronized.name());
