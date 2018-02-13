@@ -503,9 +503,7 @@ public class LatencyReportEntry {
 		section = new Section(sectionName + inMode);
 		line = new Line();
 		line.addHeaderContent("Latency analysis for end-to-end flow '" + sectionName + "' of system '" + systemName
-				+ "'" + inMode + " with preference settings " + Values.getSynchronousSystemLabel() + "-"
-				+ Values.getMajorFrameDelayLabel() + "-" + Values.getWorstCaseDeadlineLabel() + "-"
-				+ Values.getBestcaseEmptyQueueLabel());
+				+ "'" + inMode);
 		section.addLine(line);
 		line = new Line();
 		section.addLine(line);
@@ -686,9 +684,7 @@ public class LatencyReportEntry {
 
 		Result result = ResultUtil.createResult(reportName + inMode, relatedEndToEndFlow);
 		String description = "Latency analysis for end-to-end flow '" + reportName + "' of system '" + systemName + "'"
-				+ inMode + " with preference settings " + Values.getSynchronousSystemLabel() + "-"
-				+ Values.getMajorFrameDelayLabel() + "-" + Values.getWorstCaseDeadlineLabel() + "-"
-				+ Values.getBestcaseEmptyQueueLabel();
+				+ inMode;
 		addStringValue(result,description);
 
 		addRealValue(result, minValue);

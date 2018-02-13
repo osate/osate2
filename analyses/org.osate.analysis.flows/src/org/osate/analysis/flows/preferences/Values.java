@@ -59,6 +59,11 @@ public class Values {
 		return Values.doMajorFrameDelay() ? "MF" : "PE";
 	}
 
+	public static String getMajorFrameDelayDescription() {
+		return Values.doMajorFrameDelay() ? Constants.PARTITIONING_POLICY_MAJOR_FRAME_DELAYED_STR
+				: Constants.PARTITIONING_POLICY_PARTITION_END_STR;
+	}
+
 	public static String getMajorFrameDelayName() {
 		IPreferenceStore store = FlowanalysisPlugin.getDefault().getPreferenceStore();
 		return store.getString(Constants.PARTITONING_POLICY);
@@ -66,6 +71,10 @@ public class Values {
 
 	public static String getSynchronousSystemLabel() {
 		return Values.doSynchronousSystem() ? "SS" : "AS";
+	}
+
+	public static String getSynchronousSystemDescription() {
+		return Values.doSynchronousSystem() ? Constants.SYNCHRONOUS_SYSTEM_YES : Constants.SYNCHRONOUS_SYSTEM_NO;
 	}
 
 	public static String getSynchronousSystemName() {
@@ -77,6 +86,10 @@ public class Values {
 		return Values.doWorstCaseDeadline() ? "DL" : "ET";
 	}
 
+	public static String getWorstCaseDeadlineDescription() {
+		return Values.doWorstCaseDeadline() ? Constants.WORST_CASE_DEADLINE_YES : Constants.WORST_CASE_DEADLINE_NO;
+	}
+
 	public static String getWorstCaseDeadlineName() {
 		IPreferenceStore store = FlowanalysisPlugin.getDefault().getPreferenceStore();
 		return store.getString(Constants.WORST_CASE_DEADLINE);
@@ -84,6 +97,10 @@ public class Values {
 
 	public static String getBestcaseEmptyQueueLabel() {
 		return Values.doBestcaseEmptyQueue() ? "EQ" : "FQ";
+	}
+
+	public static String getBestcaseEmptyQueueDescription() {
+		return Values.doBestcaseEmptyQueue() ? Constants.BESTCASE_EMPTY_QUEUE_YES : Constants.BESTCASE_EMPTY_QUEUE_NO;
 	}
 
 	public static String getBestcaseEmptyQueueName() {

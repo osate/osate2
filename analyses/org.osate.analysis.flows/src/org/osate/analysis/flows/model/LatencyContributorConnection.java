@@ -6,10 +6,10 @@ import org.osate.analysis.flows.FlowLatencyUtil;
 /**
  * A latency Contributor represents something in the flow
  * that can contribute to increase/decrease the latency.
- * 
+ *
  * This class contains the result for a latency contributor
  * with min/max latency.
- * 
+ *
  * @author julien
  *
  */
@@ -20,20 +20,21 @@ public class LatencyContributorConnection extends LatencyContributor {
 		this.relatedElement = ci;
 	}
 
+	@Override
 	protected String getContributorType() {
 		if (FlowLatencyUtil.getConnectionType((ConnectionInstance) this.relatedElement) == ConnectionType.DELAYED) {
-			return "Delayed Connection";
+			return "delayed connection";
 		}
 
 		if (FlowLatencyUtil.getConnectionType((ConnectionInstance) this.relatedElement) == ConnectionType.IMMEDIATE) {
-			return "Immediate Connection";
+			return "immediate connection";
 		}
 
 		if (FlowLatencyUtil.getConnectionType((ConnectionInstance) this.relatedElement) == ConnectionType.SAMPLED) {
-			return "Connection";
+			return "connection";
 		}
 
-		return "Connection";
+		return "connection";
 	}
 
 }
