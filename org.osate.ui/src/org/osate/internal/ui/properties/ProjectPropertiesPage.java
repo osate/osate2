@@ -20,9 +20,12 @@ import org.osgi.service.prefs.BackingStoreException;
 import org.osgi.service.prefs.Preferences;
 
 public class ProjectPropertiesPage extends PropertyPage {
+	private static String BAD_VALUE = "Must be an integer >= 1";
+
 	private Text maxSOMText;
 	private Preferences preferences;
 	private int originalValue = -1;
+	private boolean isValid;
 
 	@Override
 	protected Control createContents(final Composite parent) {
@@ -38,6 +41,7 @@ public class ProjectPropertiesPage extends PropertyPage {
 		final IScopeContext context = new ProjectScope(project);
 		preferences = context.getNode(InstantiateModel.PREFS_QUALIFIER);
 		originalValue = getSOMLimit();
+		isValid = true;
 
 		final Composite composite = new Composite(parent, SWT.NONE);
 		composite.setLayout(new GridLayout(2, false));
@@ -49,6 +53,21 @@ public class ProjectPropertiesPage extends PropertyPage {
 		maxSOMText = new Text(composite, SWT.BORDER);
 		maxSOMText.setText(Integer.toString(getSOMLimit()));
 		maxSOMText.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false, 1, 1));
+		final Text localText = maxSOMText;
+		maxSOMText.addModifyListener(event -> {
+			final String s = localText.getText();
+			try {
+				final int v = Integer.parseInt(s);
+				if (v < 1) {
+					enterErrorState();
+				} else {
+					clearErrorState();
+				}
+			} catch (NumberFormatException e) {
+				enterErrorState();
+			}
+		});
+
 		return composite;
 	}
 
@@ -66,11 +85,25 @@ public class ProjectPropertiesPage extends PropertyPage {
 		return preferences.getInt(InstantiateModel.PREF_SOM_LIMIT, InstantiateModel.SOM_LIMIT);
 	}
 
+	private void enterErrorState() {
+		isValid = false;
+		setErrorMessage(BAD_VALUE);
+	}
+
+	private void clearErrorState() {
+		isValid = true;
+		setErrorMessage(null);
+	}
+
 	@Override
 	public boolean performOk() {
-		final int newLimit = Integer.parseInt(maxSOMText.getText());
-		setSOMLimit(newLimit);
-		return true;
+		if (isValid) {
+			final int newLimit = Integer.parseInt(maxSOMText.getText());
+			setSOMLimit(newLimit);
+			return true;
+		} else {
+			return false;
+		}
 	}
 
 	@Override
