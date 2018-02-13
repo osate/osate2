@@ -39,7 +39,6 @@ import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.handlers.HandlerUtil;
 import org.eclipse.xtext.ui.util.ResourceUtil;
-import org.osate.aadl2.Feature;
 import org.osate.aadl2.errormodel.FaultTree.FaultTree;
 import org.osate.aadl2.errormodel.FaultTree.FaultTreeType;
 import org.osate.aadl2.errormodel.PropagationGraph.PropagationGraph;
@@ -95,9 +94,10 @@ public final class FTAHandler extends AbstractHandler {
 			if (paths.isEmpty()) {
 				continue;
 			}
-			if (!(outprop.getFeatureorPPRef().getFeatureorPP() instanceof Feature)) {
-				continue;
-			}
+//			if (outprop.getFeatureorPPRef().getFeatureorPP() == null) {
+//				// filter out binding points
+//				continue;
+//			}
 			EList<TypeToken> result = EM2TypeSetUtil.generateAllLeafTypeTokens(outprop.getTypeSet(),
 					EMV2Util.getUseTypes(outprop));
 			for (TypeToken tt : result) {

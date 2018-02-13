@@ -47,7 +47,9 @@ public class Util {
 		List<ComponentInstance> compilist = EcoreUtil2.getAllContentsOfType(root, ComponentInstance.class);
 		for (ComponentInstance ci : compilist) {
 			populateBindingPaths(pg, ci);
+			populateUserDeclaredPropagationPaths(pg, ci);
 		}
+		populateUserDeclaredPropagationPaths(pg, root);
 		for (ConnectionInstance connectionInstance : cilist) {
 			if (!(completeConnectionsOnly && !connectionInstance.isComplete())) {
 				populateBindingPaths(pg, connectionInstance);
@@ -241,11 +243,19 @@ public class Util {
 		ComponentInstance dstCI = getComponentInstance(ci, EMV2Util.getSubcomponents(pp.getTarget()));
 		if (srcCI != null) {
 			srcEP = EMV2Util.findErrorPropagation(srcCI.getComponentClassifier(),
-					pp.getSource().getPropagationPoint().getName(), DirectionType.OUT);
+					EMV2Util.getPropagationPoint(pp.getSource()).getName(), DirectionType.OUT);
+			if (srcEP == null) {
+				srcEP = EMV2Util.findErrorPropagation(srcCI.getComponentClassifier(),
+						EMV2Util.getPropagationPoint(pp.getSource()).getName(), DirectionType.IN);
+			}
 		}
 		if (dstCI != null) {
-			dstEP = EMV2Util.findErrorPropagation(srcCI.getComponentClassifier(),
-					pp.getTarget().getPropagationPoint().getName(), DirectionType.IN);
+			dstEP = EMV2Util.findErrorPropagation(dstCI.getComponentClassifier(),
+					EMV2Util.getPropagationPoint(pp.getTarget()).getName(), DirectionType.IN);
+			if (dstEP == null) {
+				dstEP = EMV2Util.findErrorPropagation(dstCI.getComponentClassifier(),
+						EMV2Util.getPropagationPoint(pp.getTarget()).getName(), DirectionType.OUT);
+			}
 		}
 		addPropagationpathRecord(pg, srcCI, srcEP, dstCI, dstEP);
 
@@ -548,11 +558,11 @@ public class Util {
 	}
 
 	public static EList<PropagationGraphPath> getAllReversePropagationPaths(PropagationGraph pg, ComponentInstance ci,
-			ErrorPropagation inEP) {
+			ErrorPropagation targetEP) {
 		EList<PropagationGraphPath> result = new BasicEList<PropagationGraphPath>();
 		for (PropagationGraphPath propagationPath : pg.getPropagationGraphPaths()) {
-			PropagationPathEnd src = propagationPath.getPathDst();
-			if (src.getComponentInstance() == ci && src.getErrorPropagation() == inEP) {
+			PropagationPathEnd target = propagationPath.getPathDst();
+			if (target.getComponentInstance() == ci && target.getErrorPropagation() == targetEP) {
 				result.add(propagationPath);
 			}
 		}
