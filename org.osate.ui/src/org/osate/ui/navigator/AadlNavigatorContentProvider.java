@@ -68,6 +68,20 @@ public class AadlNavigatorContentProvider extends WorkbenchContentProvider {
 	private static final Object AAXL2_EXT = "aaxl2";
 
 	@Override
+	public boolean hasChildren(Object element) {
+		if (element instanceof IWorkspaceRoot || element instanceof VirtualPluginResources
+				|| element instanceof ContributedDirectory || element instanceof AadlPackage) {
+			return true;
+		} else if (element instanceof IFile) {
+			IFile modelFile = (IFile) element;
+			if (AADL_EXT.equals(modelFile.getFileExtension()) || AAXL2_EXT.equals(modelFile.getFileExtension())) {
+				return true;
+			}
+		}
+		return super.hasChildren(element);
+	}
+
+	@Override
 	public Object[] getChildren(Object element) {
 		if (element instanceof IWorkspaceRoot) {
 			List<Object> result = new ArrayList<>(Arrays.asList(super.getChildren(element)));
@@ -79,7 +93,8 @@ public class AadlNavigatorContentProvider extends WorkbenchContentProvider {
 				if (!firstSignificantIndex.isPresent() || firstSignificantIndex.getAsInt() == uri.segmentCount() - 1) {
 					return new ContributedAadlStorage(uri);
 				} else {
-					return new ContributedDirectory(Collections.singletonList(uri.segment(firstSignificantIndex.getAsInt())));
+					return new ContributedDirectory(
+							Collections.singletonList(uri.segment(firstSignificantIndex.getAsInt())));
 				}
 			}).distinct().toArray();
 		} else if (element instanceof ContributedDirectory) {
@@ -87,7 +102,8 @@ public class AadlNavigatorContentProvider extends WorkbenchContentProvider {
 			Stream<URI> inDirectory = PluginSupportUtil.getContributedAadl().stream().filter(uri -> {
 				OptionalInt firstSignificantIndex = PluginSupportUtil.getFirstSignificantIndex(uri);
 				if (firstSignificantIndex.isPresent() && firstSignificantIndex.getAsInt() < uri.segmentCount() - 1) {
-					List<String> uriDirectory = uri.segmentsList().subList(firstSignificantIndex.getAsInt(), uri.segmentCount() - 1);
+					List<String> uriDirectory = uri.segmentsList().subList(firstSignificantIndex.getAsInt(),
+							uri.segmentCount() - 1);
 					return isPrefix(directoryPath, uriDirectory);
 				} else {
 					return false;
@@ -95,7 +111,8 @@ public class AadlNavigatorContentProvider extends WorkbenchContentProvider {
 			});
 
 			return inDirectory.map(uri -> {
-				int nextSignificantIndex = PluginSupportUtil.getFirstSignificantIndex(uri).getAsInt() + directoryPath.size();
+				int nextSignificantIndex = PluginSupportUtil.getFirstSignificantIndex(uri).getAsInt()
+						+ directoryPath.size();
 				if (nextSignificantIndex == uri.segmentCount() - 1) {
 					return new ContributedAadlStorage(uri);
 				} else {

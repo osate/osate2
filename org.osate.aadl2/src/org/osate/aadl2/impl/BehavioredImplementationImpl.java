@@ -233,7 +233,7 @@ public abstract class BehavioredImplementationImpl extends ComponentImplementati
 	 */
 	@Override
 	public EList<SubprogramCall> getSubprogramCalls() {
-		// TODO: implement this method to return the 'Subprogram Call' reference list
+		// DONE: implement this method to return the 'Subprogram Call' reference list
 		return BehavioredImplementationOperations.subprogramCalls(this);
 	}
 
