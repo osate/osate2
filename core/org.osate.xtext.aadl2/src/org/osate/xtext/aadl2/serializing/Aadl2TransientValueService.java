@@ -50,6 +50,7 @@ public class Aadl2TransientValueService extends DefaultTransientValueService {
 				|| feature == Aadl2Package.eINSTANCE.getElement_OwnedComment()
 				|| feature == Aadl2Package.eINSTANCE.getDefaultAnnexLibrary_ParsedAnnexLibrary()
 				|| feature == Aadl2Package.eINSTANCE.getDefaultAnnexSubclause_ParsedAnnexSubclause()
+				|| feature == Aadl2Package.eINSTANCE.getBehavioredImplementation_SubprogramCall()
 				|| (owner instanceof ModalPath && feature == Aadl2Package.eINSTANCE.getModalElement_InMode())
 				|| (owner instanceof Subcomponent && feature == Aadl2Package.eINSTANCE.getModalElement_InMode())) {
 			return true;
