@@ -15,29 +15,48 @@ import org.osate.core.test.OsateTest
 
 import static org.junit.Assert.*
 import org.eclipse.emf.ecore.util.EcoreUtil
+import org.junit.Before
+import org.junit.After
+import org.osate.aadl2.instance.SystemInstance
 
 @RunWith(typeof(XtextRunner))
 @InjectWith(typeof(ErrorModelUiInjectorProvider))
-class Fta1Test extends OsateTest {
+class FTATests extends OsateTest {
 	override getProjectName() {
-		"test1"
+		"FTATests"
 	}
+
+	static boolean once = true
 	
 	val static modelroot = "org.osate.aadl2.errormodel.faulttree.tests/models/FTATests/"
-	
 
-/**
- * example of simple composite error state with an AND operator.
- * The subcomponents have two states and a transition triggered by an error event.
- * The error event is a Basic Event.
- */
-	@Test
-	def void basicfta() {
-		val aadlFile = "fta1Test.aadl"
-		val state = "state Failed"
-		createFiles(aadlFile  -> readFile(modelroot + aadlFile)) // TODO add all files to workspace
+//	var static FluentIssueCollection result
+	var static SystemInstance instance
+
+	@Before
+	override setUp() {
+	}
+
+	@After
+	override cleanUp() {
+	}
+
+	@Before
+	/**
+	 * All tests use the same model
+	 */
+	def void initWorkspace() {
+
+		if (once) {
+			once = false
+			createProject(projectName)
+			setResourceRoot("platform:/resource/" + projectName)
+		val fta1File = "fta1Test.aadl"
+		val fta2File = "fta2Test.aadl"
+		val errorlibFile = "ErrorModellibrary.aadl"
+		createFiles(fta1File -> readFile(modelroot + fta1File), fta2File -> readFile(modelroot + fta2File),errorlibFile -> readFile(modelroot + errorlibFile)) 
 		suppressSerialization
-		val result = testFile(aadlFile /*, referencedFile1, referencedFile2, etc. */ )
+		val result = testFile(fta1File ,errorlibFile,fta2File  )
 
 		// get the correct package
 		val pkg = result.resource.contents.head as AadlPackage
@@ -46,18 +65,30 @@ class Fta1Test extends OsateTest {
 
 		// instantiate
 		val sysImpl = cls.findFirst[name == 'main.i'] as SystemImplementation
-		val instance = InstantiateModel::buildInstanceModelFile(sysImpl)
-//		assertEquals("fta_main_i_Instance", instance.name)
+		instance = InstantiateModel::buildInstanceModelFile(sysImpl)
+		}
+	}
+	
+	
 
+/**
+ * example of simple composite error state with an AND operator.
+ * The subcomponents have two states and a transition triggered by an error event.
+ * The error event is a Basic Event.
+ */
+	@Test
+	def void fta1Test() {
+
+		val state = "state Failed"
 		val ft = CreateFTAModel.createFaultTree(instance,state)
 		val testuri = EcoreUtil.getURI(ft)
 		val file = workspaceRoot.getFile(new Path(testuri.toPlatformString(true)))
 		val actual = Files.readStreamIntoString(file.contents)
-		assertEquals('error', expected.trim, actual.trim)
+		assertEquals('error', expectedfta1.trim, actual.trim)
 	}
 
 
-	val expected = '''
+	val expectedfta1 = '''
 <?xml version="1.0" encoding="ASCII"?>
 <FaultTree:FaultTree xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:FaultTree="http://www.aadl.info/FaultTree" name="fta1test_main_i-failed_tree" root="//@events.2">
   <instanceRoot href="../../fta1Test_main_i_Instance.aaxl2#/"/>

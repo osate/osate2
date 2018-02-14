@@ -23,6 +23,7 @@ class Fta2Test extends OsateTest {
 		"test2"
 	}
 	
+	val static modelroot = "org.osate.aadl2.errormodel.faulttree.tests/models/FTATests/"
 
 /**
  * This test uses a composite error state declaration with an AND that references
@@ -34,7 +35,7 @@ class Fta2Test extends OsateTest {
 		val aadlFile = "fta2Test.aadl"
 		val errorlibFile = "ErrorModellibrary.aadl"
 		val state = "state Failed"
-		createFiles(aadlFile -> aadlText, errorlibFile -> errorlibText) 
+		createFiles(aadlFile -> readFile(modelroot + aadlFile), errorlibFile -> readFile(modelroot + errorlibFile)) 
 		suppressSerialization
 		val result = testFile(aadlFile , errorlibFile /*, referencedFile1, referencedFile2, etc. */ )
 
@@ -56,118 +57,10 @@ class Fta2Test extends OsateTest {
 		assertEquals('error', expected.trim, actual.trim)
 	}
 
-	val aadlText = '''
-package fta2test
-public
-
-
--- This test uses a composite error state declaration with an AND that references
--- the last two subcomponents in a flow. For each we trace backward along propagations
--- to include the input to the subcomponent.
-
-data mydata
-end mydata;
-
-system s
-features
-	datain : in data port mydata; 
-annex EMV2 {**
-	use types ErrorModelLibrary;
-	use behavior ErrorModelLibrary::Simple;
-	
-	error propagations
-		datain : in propagation {BadValue};
-	flows
-		f0 : error sink datain {BadValue};
-	end propagations;
-	component error behavior
-	transitions
-		t0 : Operational -[datain{BadValue}]-> Failed;
-	end component;
-**};
-end s;
-
-device sensor
-features
-	dataout : out data port mydata;
-annex EMV2 {**
-	use types ErrorModelLibrary;
-	use behavior ErrorModelLibrary::Simple;
-	error propagations
-		dataout : out propagation {BadValue};
-	flows
-		f0 : error source dataout {BadValue};
-	end propagations;
-**};	
-end sensor;
-
-system main
-end main;
-
-system implementation main.i
-subcomponents
-	s1 : system s;
-	s2 : system s;
-	sens1 : device sensor;
-	sens2 : device sensor;
-connections
-	c0 : port sens1.dataout -> s1.datain;
-	c1 : port sens2.dataout -> s2.datain;
-annex EMV2 {**
-	use types ErrorModelLibrary;
-	use behavior ErrorModelLibrary::Simple;
-	
-	composite error behavior
-		states
-			[s1.Failed and s2.Failed]-> Failed;
-		end composite;  
-	
-**};
-end main.i;
-
-end fta2test;
-	'''
-
-	val errorlibText = '''
-package ErrorModelLibrary
-public
-annex EMV2 {**
-	error types
-		NoValue : type;
-		BadValue : type;
-		LateValue : type;
-		NoService : type;
-	end types;
-
-	
-	error behavior Simple
-	events
-		Failure : error event ;
-	states
-		Operational : initial state ;
-		Failed : state ;
-	transitions
-		BadValueTransition : Operational -[ Failure ]-> Failed ;
-	end behavior ;
-		-- simple error model
-	error behavior Basic
-	events
-	    Failure : error event;
-	states
-	    Operational: initial state;
-	    Failed: state;
-	transitions
-	     Operational -[Failure]-> Failed;
-	end behavior;
-	
-**};
-
-end ErrorModelLibrary;
-	'''
 
 	val expected = '''
 <?xml version="1.0" encoding="ASCII"?>
-<FaultTree:FaultTree xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:FaultTree="http://www.aadl.info/FaultTree" name="fta2test_main_i-failed_tree" root="//@events.6">
+<FaultTree:FaultTree xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:FaultTree="http://www.aadl.info/FaultTree" name="fta2test_main_i-failed_tree" root="//@events.9">
   <instanceRoot href="../../fta2Test_main_i_Instance.aaxl2#/"/>
   <events name="sens1-f0-badvalue" referenceCount="1">
     <relatedInstanceObject href="../../fta2Test_main_i_Instance.aaxl2#//@componentInstance.0"/>
@@ -182,6 +75,14 @@ end ErrorModelLibrary;
     <relatedInstanceObject href="../../fta2Test_main_i_Instance.aaxl2#//@componentInstance.2"/>
     <relatedEMV2Object href="../../../ErrorModellibrary.aadl#/0/@ownedPublicSection/@ownedAnnexLibrary.0/@parsedAnnexLibrary/@behaviors.0/@states.1"/>
   </events>
+  <events name="sens1-failure" referenceCount="1" sharedEvent="true">
+    <relatedInstanceObject href="../../fta2Test_main_i_Instance.aaxl2#//@componentInstance.0"/>
+    <relatedEMV2Object href="../../../ErrorModellibrary.aadl#/0/@ownedPublicSection/@ownedAnnexLibrary.0/@parsedAnnexLibrary/@behaviors.0/@events.0"/>
+  </events>
+  <events name="Intermediate1" subEvents="//@events.2 //@events.3" referenceCount="1" type="Intermediate" subEventLogic="Xor">
+    <relatedInstanceObject href="../../fta2Test_main_i_Instance.aaxl2#/"/>
+    <relatedEMV2Object href="../../../fta2Test.aadl#/0/@ownedPublicSection/@ownedClassifier.4/@ownedAnnexSubclause.0/@parsedAnnexSubclause/@states.0/@condition/@operands.0"/>
+  </events>
   <events name="sens2-f0-badvalue" referenceCount="1">
     <relatedInstanceObject href="../../fta2Test_main_i_Instance.aaxl2#//@componentInstance.1"/>
     <relatedErrorType href="../../../fta2Test.aadl#/0/@ownedPublicSection/@ownedClassifier.1/@ownedAnnexSubclause.0/@parsedAnnexSubclause/@transitions.0/@condition/@constraint"/>
@@ -191,13 +92,21 @@ end ErrorModelLibrary;
     <relatedInstanceObject href="../../fta2Test_main_i_Instance.aaxl2#//@componentInstance.3"/>
     <relatedEMV2Object href="../../../ErrorModellibrary.aadl#/0/@ownedPublicSection/@ownedAnnexLibrary.0/@parsedAnnexLibrary/@behaviors.0/@events.0"/>
   </events>
-  <events name="s2-failed" subEvents="//@events.4 //@events.3" referenceCount="1" type="Intermediate">
+  <events name="s2-failed" subEvents="//@events.6 //@events.5" referenceCount="1" type="Intermediate">
     <relatedInstanceObject href="../../fta2Test_main_i_Instance.aaxl2#//@componentInstance.3"/>
     <relatedEMV2Object href="../../../ErrorModellibrary.aadl#/0/@ownedPublicSection/@ownedAnnexLibrary.0/@parsedAnnexLibrary/@behaviors.0/@states.1"/>
   </events>
-  <events name="fta2test_main_i-failed" subEvents="//@events.2 //@events.5" referenceCount="1" type="Intermediate" subEventLogic="And">
+  <events name="Intermediate2" subEvents="//@events.7 //@events.10" referenceCount="1" type="Intermediate" subEventLogic="Xor">
+    <relatedInstanceObject href="../../fta2Test_main_i_Instance.aaxl2#/"/>
+    <relatedEMV2Object href="../../../fta2Test.aadl#/0/@ownedPublicSection/@ownedClassifier.4/@ownedAnnexSubclause.0/@parsedAnnexSubclause/@states.0/@condition/@operands.1"/>
+  </events>
+  <events name="fta2test_main_i-failed" subEvents="//@events.4 //@events.8" referenceCount="1" type="Intermediate" subEventLogic="And">
     <relatedInstanceObject href="../../fta2Test_main_i_Instance.aaxl2#/"/>
     <relatedEMV2Object href="../../../ErrorModellibrary.aadl#/0/@ownedPublicSection/@ownedAnnexLibrary.0/@parsedAnnexLibrary/@behaviors.0/@states.1"/>
+  </events>
+  <events name="sens1-failure" referenceCount="1" sharedEvent="true">
+    <relatedInstanceObject href="../../fta2Test_main_i_Instance.aaxl2#//@componentInstance.0"/>
+    <relatedEMV2Object href="../../../ErrorModellibrary.aadl#/0/@ownedPublicSection/@ownedAnnexLibrary.0/@parsedAnnexLibrary/@behaviors.0/@events.0"/>
   </events>
 </FaultTree:FaultTree>
 	'''
