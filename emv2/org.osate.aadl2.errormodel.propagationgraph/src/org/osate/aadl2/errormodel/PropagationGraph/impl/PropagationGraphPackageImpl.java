@@ -15,7 +15,7 @@ import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.errormodel.PropagationGraph.PropagationGraph;
 import org.osate.aadl2.errormodel.PropagationGraph.PropagationGraphFactory;
 import org.osate.aadl2.errormodel.PropagationGraph.PropagationGraphPackage;
-import org.osate.aadl2.errormodel.PropagationGraph.PropagationPath;
+import org.osate.aadl2.errormodel.PropagationGraph.PropagationGraphPath;
 import org.osate.aadl2.errormodel.PropagationGraph.PropagationPathEnd;
 import org.osate.aadl2.errormodel.PropagationGraph.PropagationType;
 
@@ -42,7 +42,7 @@ public class PropagationGraphPackageImpl extends EPackageImpl implements Propaga
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	private EClass propagationPathEClass = null;
+	private EClass propagationGraphPathEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -166,7 +166,7 @@ public class PropagationGraphPackageImpl extends EPackageImpl implements Propaga
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getPropagationGraph_PropagationPaths() {
+	public EReference getPropagationGraph_PropagationGraphPaths() {
 		return (EReference)propagationGraphEClass.getEStructuralFeatures().get(3);
 	}
 
@@ -193,8 +193,8 @@ public class PropagationGraphPackageImpl extends EPackageImpl implements Propaga
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EClass getPropagationPath() {
-		return propagationPathEClass;
+	public EClass getPropagationGraphPath() {
+		return propagationGraphPathEClass;
 	}
 
 	/**
@@ -202,8 +202,8 @@ public class PropagationGraphPackageImpl extends EPackageImpl implements Propaga
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getPropagationPath_Name() {
-		return (EAttribute)propagationPathEClass.getEStructuralFeatures().get(0);
+	public EAttribute getPropagationGraphPath_Name() {
+		return (EAttribute)propagationGraphPathEClass.getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -211,8 +211,8 @@ public class PropagationGraphPackageImpl extends EPackageImpl implements Propaga
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getPropagationPath_PathSrc() {
-		return (EReference)propagationPathEClass.getEStructuralFeatures().get(1);
+	public EReference getPropagationGraphPath_PathSrc() {
+		return (EReference)propagationGraphPathEClass.getEStructuralFeatures().get(1);
 	}
 
 	/**
@@ -220,8 +220,8 @@ public class PropagationGraphPackageImpl extends EPackageImpl implements Propaga
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getPropagationPath_PathDst() {
-		return (EReference)propagationPathEClass.getEStructuralFeatures().get(2);
+	public EReference getPropagationGraphPath_PathDst() {
+		return (EReference)propagationGraphPathEClass.getEStructuralFeatures().get(2);
 	}
 
 	/**
@@ -229,8 +229,8 @@ public class PropagationGraphPackageImpl extends EPackageImpl implements Propaga
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getPropagationPath_Highlight() {
-		return (EAttribute)propagationPathEClass.getEStructuralFeatures().get(3);
+	public EAttribute getPropagationGraphPath_Highlight() {
+		return (EAttribute)propagationGraphPathEClass.getEStructuralFeatures().get(3);
 	}
 
 	/**
@@ -238,8 +238,8 @@ public class PropagationGraphPackageImpl extends EPackageImpl implements Propaga
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getPropagationPath_Type() {
-		return (EAttribute)propagationPathEClass.getEStructuralFeatures().get(4);
+	public EAttribute getPropagationGraphPath_Type() {
+		return (EAttribute)propagationGraphPathEClass.getEStructuralFeatures().get(4);
 	}
 
 	/**
@@ -247,8 +247,8 @@ public class PropagationGraphPackageImpl extends EPackageImpl implements Propaga
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getPropagationPath_Connection() {
-		return (EReference)propagationPathEClass.getEStructuralFeatures().get(5);
+	public EReference getPropagationGraphPath_Connection() {
+		return (EReference)propagationGraphPathEClass.getEStructuralFeatures().get(5);
 	}
 
 	/**
@@ -337,17 +337,17 @@ public class PropagationGraphPackageImpl extends EPackageImpl implements Propaga
 		createEAttribute(propagationGraphEClass, PROPAGATION_GRAPH__NAME);
 		createEAttribute(propagationGraphEClass, PROPAGATION_GRAPH__DESCRIPTION);
 		createEReference(propagationGraphEClass, PROPAGATION_GRAPH__COMPONENTS);
-		createEReference(propagationGraphEClass, PROPAGATION_GRAPH__PROPAGATION_PATHS);
+		createEReference(propagationGraphEClass, PROPAGATION_GRAPH__PROPAGATION_GRAPH_PATHS);
 		createEReference(propagationGraphEClass, PROPAGATION_GRAPH__CONNECTIONS);
 		createEReference(propagationGraphEClass, PROPAGATION_GRAPH__ROOT);
 
-		propagationPathEClass = createEClass(PROPAGATION_PATH);
-		createEAttribute(propagationPathEClass, PROPAGATION_PATH__NAME);
-		createEReference(propagationPathEClass, PROPAGATION_PATH__PATH_SRC);
-		createEReference(propagationPathEClass, PROPAGATION_PATH__PATH_DST);
-		createEAttribute(propagationPathEClass, PROPAGATION_PATH__HIGHLIGHT);
-		createEAttribute(propagationPathEClass, PROPAGATION_PATH__TYPE);
-		createEReference(propagationPathEClass, PROPAGATION_PATH__CONNECTION);
+		propagationGraphPathEClass = createEClass(PROPAGATION_GRAPH_PATH);
+		createEAttribute(propagationGraphPathEClass, PROPAGATION_GRAPH_PATH__NAME);
+		createEReference(propagationGraphPathEClass, PROPAGATION_GRAPH_PATH__PATH_SRC);
+		createEReference(propagationGraphPathEClass, PROPAGATION_GRAPH_PATH__PATH_DST);
+		createEAttribute(propagationGraphPathEClass, PROPAGATION_GRAPH_PATH__HIGHLIGHT);
+		createEAttribute(propagationGraphPathEClass, PROPAGATION_GRAPH_PATH__TYPE);
+		createEReference(propagationGraphPathEClass, PROPAGATION_GRAPH_PATH__CONNECTION);
 
 		propagationPathEndEClass = createEClass(PROPAGATION_PATH_END);
 		createEReference(propagationPathEndEClass, PROPAGATION_PATH_END__CONNECTION_INSTANCE);
@@ -397,17 +397,17 @@ public class PropagationGraphPackageImpl extends EPackageImpl implements Propaga
 		initEAttribute(getPropagationGraph_Name(), ecorePackage.getEString(), "name", null, 0, 1, PropagationGraph.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getPropagationGraph_Description(), ecorePackage.getEString(), "description", null, 0, 1, PropagationGraph.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getPropagationGraph_Components(), theInstancePackage.getComponentInstance(), null, "components", null, 0, -1, PropagationGraph.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getPropagationGraph_PropagationPaths(), this.getPropagationPath(), null, "propagationPaths", null, 0, -1, PropagationGraph.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getPropagationGraph_PropagationGraphPaths(), this.getPropagationGraphPath(), null, "propagationGraphPaths", null, 0, -1, PropagationGraph.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getPropagationGraph_Connections(), theInstancePackage.getConnectionInstance(), null, "connections", null, 0, -1, PropagationGraph.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getPropagationGraph_Root(), theInstancePackage.getComponentInstance(), null, "root", null, 0, 1, PropagationGraph.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
-		initEClass(propagationPathEClass, PropagationPath.class, "PropagationPath", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEAttribute(getPropagationPath_Name(), ecorePackage.getEString(), "name", null, 0, 1, PropagationPath.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getPropagationPath_PathSrc(), this.getPropagationPathEnd(), null, "pathSrc", null, 0, 1, PropagationPath.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getPropagationPath_PathDst(), this.getPropagationPathEnd(), null, "pathDst", null, 0, 1, PropagationPath.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getPropagationPath_Highlight(), ecorePackage.getEBoolean(), "highlight", null, 0, 1, PropagationPath.class, IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getPropagationPath_Type(), this.getPropagationType(), "type", null, 0, 1, PropagationPath.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getPropagationPath_Connection(), theInstancePackage.getConnectionInstance(), null, "connection", null, 0, 1, PropagationPath.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEClass(propagationGraphPathEClass, PropagationGraphPath.class, "PropagationGraphPath", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getPropagationGraphPath_Name(), ecorePackage.getEString(), "name", null, 0, 1, PropagationGraphPath.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getPropagationGraphPath_PathSrc(), this.getPropagationPathEnd(), null, "pathSrc", null, 0, 1, PropagationGraphPath.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getPropagationGraphPath_PathDst(), this.getPropagationPathEnd(), null, "pathDst", null, 0, 1, PropagationGraphPath.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getPropagationGraphPath_Highlight(), ecorePackage.getEBoolean(), "highlight", null, 0, 1, PropagationGraphPath.class, IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getPropagationGraphPath_Type(), this.getPropagationType(), "type", null, 0, 1, PropagationGraphPath.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getPropagationGraphPath_Connection(), theInstancePackage.getConnectionInstance(), null, "connection", null, 0, 1, PropagationGraphPath.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(propagationPathEndEClass, PropagationPathEnd.class, "PropagationPathEnd", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getPropagationPathEnd_ConnectionInstance(), theInstancePackage.getConnectionInstance(), null, "connectionInstance", null, 0, 1, PropagationPathEnd.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

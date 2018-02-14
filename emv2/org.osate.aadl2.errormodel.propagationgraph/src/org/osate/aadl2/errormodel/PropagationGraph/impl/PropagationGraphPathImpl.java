@@ -12,30 +12,31 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 
 import org.osate.aadl2.errormodel.PropagationGraph.PropagationGraphPackage;
-import org.osate.aadl2.errormodel.PropagationGraph.PropagationPath;
+import org.osate.aadl2.errormodel.PropagationGraph.PropagationGraphPath;
 import org.osate.aadl2.errormodel.PropagationGraph.PropagationPathEnd;
 import org.osate.aadl2.errormodel.PropagationGraph.PropagationType;
+
 import org.osate.aadl2.instance.ConnectionInstance;
 
 /**
  * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>Propagation Path</b></em>'.
+ * An implementation of the model object '<em><b>Path</b></em>'.
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * </p>
  * <ul>
- *   <li>{@link org.osate.aadl2.errormodel.PropagationGraph.impl.PropagationPathImpl#getName <em>Name</em>}</li>
- *   <li>{@link org.osate.aadl2.errormodel.PropagationGraph.impl.PropagationPathImpl#getPathSrc <em>Path Src</em>}</li>
- *   <li>{@link org.osate.aadl2.errormodel.PropagationGraph.impl.PropagationPathImpl#getPathDst <em>Path Dst</em>}</li>
- *   <li>{@link org.osate.aadl2.errormodel.PropagationGraph.impl.PropagationPathImpl#isHighlight <em>Highlight</em>}</li>
- *   <li>{@link org.osate.aadl2.errormodel.PropagationGraph.impl.PropagationPathImpl#getType <em>Type</em>}</li>
- *   <li>{@link org.osate.aadl2.errormodel.PropagationGraph.impl.PropagationPathImpl#getConnection <em>Connection</em>}</li>
+ *   <li>{@link org.osate.aadl2.errormodel.PropagationGraph.impl.PropagationGraphPathImpl#getName <em>Name</em>}</li>
+ *   <li>{@link org.osate.aadl2.errormodel.PropagationGraph.impl.PropagationGraphPathImpl#getPathSrc <em>Path Src</em>}</li>
+ *   <li>{@link org.osate.aadl2.errormodel.PropagationGraph.impl.PropagationGraphPathImpl#getPathDst <em>Path Dst</em>}</li>
+ *   <li>{@link org.osate.aadl2.errormodel.PropagationGraph.impl.PropagationGraphPathImpl#isHighlight <em>Highlight</em>}</li>
+ *   <li>{@link org.osate.aadl2.errormodel.PropagationGraph.impl.PropagationGraphPathImpl#getType <em>Type</em>}</li>
+ *   <li>{@link org.osate.aadl2.errormodel.PropagationGraph.impl.PropagationGraphPathImpl#getConnection <em>Connection</em>}</li>
  * </ul>
  *
  * @generated
  */
-public class PropagationPathImpl extends MinimalEObjectImpl.Container implements PropagationPath {
+public class PropagationGraphPathImpl extends MinimalEObjectImpl.Container implements PropagationGraphPath {
 	/**
 	 * The default value of the '{@link #getName() <em>Name</em>}' attribute.
 	 * <!-- begin-user-doc -->
@@ -131,7 +132,7 @@ public class PropagationPathImpl extends MinimalEObjectImpl.Container implements
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected PropagationPathImpl() {
+	protected PropagationGraphPathImpl() {
 		super();
 	}
 
@@ -142,7 +143,7 @@ public class PropagationPathImpl extends MinimalEObjectImpl.Container implements
 	 */
 	@Override
 	protected EClass eStaticClass() {
-		return PropagationGraphPackage.Literals.PROPAGATION_PATH;
+		return PropagationGraphPackage.Literals.PROPAGATION_GRAPH_PATH;
 	}
 
 	/**
@@ -163,7 +164,7 @@ public class PropagationPathImpl extends MinimalEObjectImpl.Container implements
 		String oldName = name;
 		name = newName;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, PropagationGraphPackage.PROPAGATION_PATH__NAME, oldName, name));
+			eNotify(new ENotificationImpl(this, Notification.SET, PropagationGraphPackage.PROPAGATION_GRAPH_PATH__NAME, oldName, name));
 	}
 
 	/**
@@ -184,7 +185,7 @@ public class PropagationPathImpl extends MinimalEObjectImpl.Container implements
 		PropagationPathEnd oldPathSrc = pathSrc;
 		pathSrc = newPathSrc;
 		if (eNotificationRequired()) {
-			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, PropagationGraphPackage.PROPAGATION_PATH__PATH_SRC, oldPathSrc, newPathSrc);
+			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, PropagationGraphPackage.PROPAGATION_GRAPH_PATH__PATH_SRC, oldPathSrc, newPathSrc);
 			if (msgs == null) msgs = notification; else msgs.add(notification);
 		}
 		return msgs;
@@ -199,14 +200,14 @@ public class PropagationPathImpl extends MinimalEObjectImpl.Container implements
 		if (newPathSrc != pathSrc) {
 			NotificationChain msgs = null;
 			if (pathSrc != null)
-				msgs = ((InternalEObject)pathSrc).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - PropagationGraphPackage.PROPAGATION_PATH__PATH_SRC, null, msgs);
+				msgs = ((InternalEObject)pathSrc).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - PropagationGraphPackage.PROPAGATION_GRAPH_PATH__PATH_SRC, null, msgs);
 			if (newPathSrc != null)
-				msgs = ((InternalEObject)newPathSrc).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - PropagationGraphPackage.PROPAGATION_PATH__PATH_SRC, null, msgs);
+				msgs = ((InternalEObject)newPathSrc).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - PropagationGraphPackage.PROPAGATION_GRAPH_PATH__PATH_SRC, null, msgs);
 			msgs = basicSetPathSrc(newPathSrc, msgs);
 			if (msgs != null) msgs.dispatch();
 		}
 		else if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, PropagationGraphPackage.PROPAGATION_PATH__PATH_SRC, newPathSrc, newPathSrc));
+			eNotify(new ENotificationImpl(this, Notification.SET, PropagationGraphPackage.PROPAGATION_GRAPH_PATH__PATH_SRC, newPathSrc, newPathSrc));
 	}
 
 	/**
@@ -227,7 +228,7 @@ public class PropagationPathImpl extends MinimalEObjectImpl.Container implements
 		PropagationPathEnd oldPathDst = pathDst;
 		pathDst = newPathDst;
 		if (eNotificationRequired()) {
-			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, PropagationGraphPackage.PROPAGATION_PATH__PATH_DST, oldPathDst, newPathDst);
+			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, PropagationGraphPackage.PROPAGATION_GRAPH_PATH__PATH_DST, oldPathDst, newPathDst);
 			if (msgs == null) msgs = notification; else msgs.add(notification);
 		}
 		return msgs;
@@ -242,14 +243,14 @@ public class PropagationPathImpl extends MinimalEObjectImpl.Container implements
 		if (newPathDst != pathDst) {
 			NotificationChain msgs = null;
 			if (pathDst != null)
-				msgs = ((InternalEObject)pathDst).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - PropagationGraphPackage.PROPAGATION_PATH__PATH_DST, null, msgs);
+				msgs = ((InternalEObject)pathDst).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - PropagationGraphPackage.PROPAGATION_GRAPH_PATH__PATH_DST, null, msgs);
 			if (newPathDst != null)
-				msgs = ((InternalEObject)newPathDst).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - PropagationGraphPackage.PROPAGATION_PATH__PATH_DST, null, msgs);
+				msgs = ((InternalEObject)newPathDst).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - PropagationGraphPackage.PROPAGATION_GRAPH_PATH__PATH_DST, null, msgs);
 			msgs = basicSetPathDst(newPathDst, msgs);
 			if (msgs != null) msgs.dispatch();
 		}
 		else if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, PropagationGraphPackage.PROPAGATION_PATH__PATH_DST, newPathDst, newPathDst));
+			eNotify(new ENotificationImpl(this, Notification.SET, PropagationGraphPackage.PROPAGATION_GRAPH_PATH__PATH_DST, newPathDst, newPathDst));
 	}
 
 	/**
@@ -270,7 +271,7 @@ public class PropagationPathImpl extends MinimalEObjectImpl.Container implements
 		boolean oldHighlight = highlight;
 		highlight = newHighlight;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, PropagationGraphPackage.PROPAGATION_PATH__HIGHLIGHT, oldHighlight, highlight));
+			eNotify(new ENotificationImpl(this, Notification.SET, PropagationGraphPackage.PROPAGATION_GRAPH_PATH__HIGHLIGHT, oldHighlight, highlight));
 	}
 
 	/**
@@ -291,7 +292,7 @@ public class PropagationPathImpl extends MinimalEObjectImpl.Container implements
 		PropagationType oldType = type;
 		type = newType == null ? TYPE_EDEFAULT : newType;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, PropagationGraphPackage.PROPAGATION_PATH__TYPE, oldType, type));
+			eNotify(new ENotificationImpl(this, Notification.SET, PropagationGraphPackage.PROPAGATION_GRAPH_PATH__TYPE, oldType, type));
 	}
 
 	/**
@@ -305,7 +306,7 @@ public class PropagationPathImpl extends MinimalEObjectImpl.Container implements
 			connection = (ConnectionInstance)eResolveProxy(oldConnection);
 			if (connection != oldConnection) {
 				if (eNotificationRequired())
-					eNotify(new ENotificationImpl(this, Notification.RESOLVE, PropagationGraphPackage.PROPAGATION_PATH__CONNECTION, oldConnection, connection));
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE, PropagationGraphPackage.PROPAGATION_GRAPH_PATH__CONNECTION, oldConnection, connection));
 			}
 		}
 		return connection;
@@ -329,7 +330,7 @@ public class PropagationPathImpl extends MinimalEObjectImpl.Container implements
 		ConnectionInstance oldConnection = connection;
 		connection = newConnection;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, PropagationGraphPackage.PROPAGATION_PATH__CONNECTION, oldConnection, connection));
+			eNotify(new ENotificationImpl(this, Notification.SET, PropagationGraphPackage.PROPAGATION_GRAPH_PATH__CONNECTION, oldConnection, connection));
 	}
 
 	/**
@@ -340,9 +341,9 @@ public class PropagationPathImpl extends MinimalEObjectImpl.Container implements
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
-			case PropagationGraphPackage.PROPAGATION_PATH__PATH_SRC:
+			case PropagationGraphPackage.PROPAGATION_GRAPH_PATH__PATH_SRC:
 				return basicSetPathSrc(null, msgs);
-			case PropagationGraphPackage.PROPAGATION_PATH__PATH_DST:
+			case PropagationGraphPackage.PROPAGATION_GRAPH_PATH__PATH_DST:
 				return basicSetPathDst(null, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
@@ -356,17 +357,17 @@ public class PropagationPathImpl extends MinimalEObjectImpl.Container implements
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-			case PropagationGraphPackage.PROPAGATION_PATH__NAME:
+			case PropagationGraphPackage.PROPAGATION_GRAPH_PATH__NAME:
 				return getName();
-			case PropagationGraphPackage.PROPAGATION_PATH__PATH_SRC:
+			case PropagationGraphPackage.PROPAGATION_GRAPH_PATH__PATH_SRC:
 				return getPathSrc();
-			case PropagationGraphPackage.PROPAGATION_PATH__PATH_DST:
+			case PropagationGraphPackage.PROPAGATION_GRAPH_PATH__PATH_DST:
 				return getPathDst();
-			case PropagationGraphPackage.PROPAGATION_PATH__HIGHLIGHT:
+			case PropagationGraphPackage.PROPAGATION_GRAPH_PATH__HIGHLIGHT:
 				return isHighlight();
-			case PropagationGraphPackage.PROPAGATION_PATH__TYPE:
+			case PropagationGraphPackage.PROPAGATION_GRAPH_PATH__TYPE:
 				return getType();
-			case PropagationGraphPackage.PROPAGATION_PATH__CONNECTION:
+			case PropagationGraphPackage.PROPAGATION_GRAPH_PATH__CONNECTION:
 				if (resolve) return getConnection();
 				return basicGetConnection();
 		}
@@ -381,22 +382,22 @@ public class PropagationPathImpl extends MinimalEObjectImpl.Container implements
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-			case PropagationGraphPackage.PROPAGATION_PATH__NAME:
+			case PropagationGraphPackage.PROPAGATION_GRAPH_PATH__NAME:
 				setName((String)newValue);
 				return;
-			case PropagationGraphPackage.PROPAGATION_PATH__PATH_SRC:
+			case PropagationGraphPackage.PROPAGATION_GRAPH_PATH__PATH_SRC:
 				setPathSrc((PropagationPathEnd)newValue);
 				return;
-			case PropagationGraphPackage.PROPAGATION_PATH__PATH_DST:
+			case PropagationGraphPackage.PROPAGATION_GRAPH_PATH__PATH_DST:
 				setPathDst((PropagationPathEnd)newValue);
 				return;
-			case PropagationGraphPackage.PROPAGATION_PATH__HIGHLIGHT:
+			case PropagationGraphPackage.PROPAGATION_GRAPH_PATH__HIGHLIGHT:
 				setHighlight((Boolean)newValue);
 				return;
-			case PropagationGraphPackage.PROPAGATION_PATH__TYPE:
+			case PropagationGraphPackage.PROPAGATION_GRAPH_PATH__TYPE:
 				setType((PropagationType)newValue);
 				return;
-			case PropagationGraphPackage.PROPAGATION_PATH__CONNECTION:
+			case PropagationGraphPackage.PROPAGATION_GRAPH_PATH__CONNECTION:
 				setConnection((ConnectionInstance)newValue);
 				return;
 		}
@@ -411,22 +412,22 @@ public class PropagationPathImpl extends MinimalEObjectImpl.Container implements
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-			case PropagationGraphPackage.PROPAGATION_PATH__NAME:
+			case PropagationGraphPackage.PROPAGATION_GRAPH_PATH__NAME:
 				setName(NAME_EDEFAULT);
 				return;
-			case PropagationGraphPackage.PROPAGATION_PATH__PATH_SRC:
+			case PropagationGraphPackage.PROPAGATION_GRAPH_PATH__PATH_SRC:
 				setPathSrc((PropagationPathEnd)null);
 				return;
-			case PropagationGraphPackage.PROPAGATION_PATH__PATH_DST:
+			case PropagationGraphPackage.PROPAGATION_GRAPH_PATH__PATH_DST:
 				setPathDst((PropagationPathEnd)null);
 				return;
-			case PropagationGraphPackage.PROPAGATION_PATH__HIGHLIGHT:
+			case PropagationGraphPackage.PROPAGATION_GRAPH_PATH__HIGHLIGHT:
 				setHighlight(HIGHLIGHT_EDEFAULT);
 				return;
-			case PropagationGraphPackage.PROPAGATION_PATH__TYPE:
+			case PropagationGraphPackage.PROPAGATION_GRAPH_PATH__TYPE:
 				setType(TYPE_EDEFAULT);
 				return;
-			case PropagationGraphPackage.PROPAGATION_PATH__CONNECTION:
+			case PropagationGraphPackage.PROPAGATION_GRAPH_PATH__CONNECTION:
 				setConnection((ConnectionInstance)null);
 				return;
 		}
@@ -441,17 +442,17 @@ public class PropagationPathImpl extends MinimalEObjectImpl.Container implements
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-			case PropagationGraphPackage.PROPAGATION_PATH__NAME:
+			case PropagationGraphPackage.PROPAGATION_GRAPH_PATH__NAME:
 				return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
-			case PropagationGraphPackage.PROPAGATION_PATH__PATH_SRC:
+			case PropagationGraphPackage.PROPAGATION_GRAPH_PATH__PATH_SRC:
 				return pathSrc != null;
-			case PropagationGraphPackage.PROPAGATION_PATH__PATH_DST:
+			case PropagationGraphPackage.PROPAGATION_GRAPH_PATH__PATH_DST:
 				return pathDst != null;
-			case PropagationGraphPackage.PROPAGATION_PATH__HIGHLIGHT:
+			case PropagationGraphPackage.PROPAGATION_GRAPH_PATH__HIGHLIGHT:
 				return highlight != HIGHLIGHT_EDEFAULT;
-			case PropagationGraphPackage.PROPAGATION_PATH__TYPE:
+			case PropagationGraphPackage.PROPAGATION_GRAPH_PATH__TYPE:
 				return type != TYPE_EDEFAULT;
-			case PropagationGraphPackage.PROPAGATION_PATH__CONNECTION:
+			case PropagationGraphPackage.PROPAGATION_GRAPH_PATH__CONNECTION:
 				return connection != null;
 		}
 		return super.eIsSet(featureID);
@@ -477,4 +478,4 @@ public class PropagationPathImpl extends MinimalEObjectImpl.Container implements
 		return result.toString();
 	}
 
-} //PropagationPathImpl
+} //PropagationGraphPathImpl

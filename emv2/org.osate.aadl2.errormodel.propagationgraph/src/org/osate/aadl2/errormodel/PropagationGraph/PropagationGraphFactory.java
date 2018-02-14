@@ -31,13 +31,13 @@ public interface PropagationGraphFactory extends EFactory {
 	PropagationGraph createPropagationGraph();
 
 	/**
-	 * Returns a new object of class '<em>Propagation Path</em>'.
+	 * Returns a new object of class '<em>Path</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Propagation Path</em>'.
+	 * @return a new object of class '<em>Path</em>'.
 	 * @generated
 	 */
-	PropagationPath createPropagationPath();
+	PropagationGraphPath createPropagationGraphPath();
 
 	/**
 	 * Returns a new object of class '<em>Propagation Path End</em>'.

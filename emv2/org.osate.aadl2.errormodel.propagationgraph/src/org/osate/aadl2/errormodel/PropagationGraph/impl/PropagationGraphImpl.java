@@ -21,8 +21,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
 
 import org.osate.aadl2.errormodel.PropagationGraph.PropagationGraph;
 import org.osate.aadl2.errormodel.PropagationGraph.PropagationGraphPackage;
-import org.osate.aadl2.errormodel.PropagationGraph.PropagationPath;
-
+import org.osate.aadl2.errormodel.PropagationGraph.PropagationGraphPath;
 import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.ConnectionInstance;
 
@@ -37,7 +36,7 @@ import org.osate.aadl2.instance.ConnectionInstance;
  *   <li>{@link org.osate.aadl2.errormodel.PropagationGraph.impl.PropagationGraphImpl#getName <em>Name</em>}</li>
  *   <li>{@link org.osate.aadl2.errormodel.PropagationGraph.impl.PropagationGraphImpl#getDescription <em>Description</em>}</li>
  *   <li>{@link org.osate.aadl2.errormodel.PropagationGraph.impl.PropagationGraphImpl#getComponents <em>Components</em>}</li>
- *   <li>{@link org.osate.aadl2.errormodel.PropagationGraph.impl.PropagationGraphImpl#getPropagationPaths <em>Propagation Paths</em>}</li>
+ *   <li>{@link org.osate.aadl2.errormodel.PropagationGraph.impl.PropagationGraphImpl#getPropagationGraphPaths <em>Propagation Graph Paths</em>}</li>
  *   <li>{@link org.osate.aadl2.errormodel.PropagationGraph.impl.PropagationGraphImpl#getConnections <em>Connections</em>}</li>
  *   <li>{@link org.osate.aadl2.errormodel.PropagationGraph.impl.PropagationGraphImpl#getRoot <em>Root</em>}</li>
  * </ul>
@@ -96,14 +95,14 @@ public class PropagationGraphImpl extends MinimalEObjectImpl.Container implement
 	protected EList<ComponentInstance> components;
 
 	/**
-	 * The cached value of the '{@link #getPropagationPaths() <em>Propagation Paths</em>}' containment reference list.
+	 * The cached value of the '{@link #getPropagationGraphPaths() <em>Propagation Graph Paths</em>}' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getPropagationPaths()
+	 * @see #getPropagationGraphPaths()
 	 * @generated
 	 * @ordered
 	 */
-	protected EList<PropagationPath> propagationPaths;
+	protected EList<PropagationGraphPath> propagationGraphPaths;
 
 	/**
 	 * The cached value of the '{@link #getConnections() <em>Connections</em>}' reference list.
@@ -203,11 +202,11 @@ public class PropagationGraphImpl extends MinimalEObjectImpl.Container implement
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EList<PropagationPath> getPropagationPaths() {
-		if (propagationPaths == null) {
-			propagationPaths = new EObjectContainmentEList<PropagationPath>(PropagationPath.class, this, PropagationGraphPackage.PROPAGATION_GRAPH__PROPAGATION_PATHS);
+	public EList<PropagationGraphPath> getPropagationGraphPaths() {
+		if (propagationGraphPaths == null) {
+			propagationGraphPaths = new EObjectContainmentEList<PropagationGraphPath>(PropagationGraphPath.class, this, PropagationGraphPackage.PROPAGATION_GRAPH__PROPAGATION_GRAPH_PATHS);
 		}
-		return propagationPaths;
+		return propagationGraphPaths;
 	}
 
 	/**
@@ -268,8 +267,8 @@ public class PropagationGraphImpl extends MinimalEObjectImpl.Container implement
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
-			case PropagationGraphPackage.PROPAGATION_GRAPH__PROPAGATION_PATHS:
-				return ((InternalEList<?>)getPropagationPaths()).basicRemove(otherEnd, msgs);
+			case PropagationGraphPackage.PROPAGATION_GRAPH__PROPAGATION_GRAPH_PATHS:
+				return ((InternalEList<?>)getPropagationGraphPaths()).basicRemove(otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -288,8 +287,8 @@ public class PropagationGraphImpl extends MinimalEObjectImpl.Container implement
 				return getDescription();
 			case PropagationGraphPackage.PROPAGATION_GRAPH__COMPONENTS:
 				return getComponents();
-			case PropagationGraphPackage.PROPAGATION_GRAPH__PROPAGATION_PATHS:
-				return getPropagationPaths();
+			case PropagationGraphPackage.PROPAGATION_GRAPH__PROPAGATION_GRAPH_PATHS:
+				return getPropagationGraphPaths();
 			case PropagationGraphPackage.PROPAGATION_GRAPH__CONNECTIONS:
 				return getConnections();
 			case PropagationGraphPackage.PROPAGATION_GRAPH__ROOT:
@@ -318,9 +317,9 @@ public class PropagationGraphImpl extends MinimalEObjectImpl.Container implement
 				getComponents().clear();
 				getComponents().addAll((Collection<? extends ComponentInstance>)newValue);
 				return;
-			case PropagationGraphPackage.PROPAGATION_GRAPH__PROPAGATION_PATHS:
-				getPropagationPaths().clear();
-				getPropagationPaths().addAll((Collection<? extends PropagationPath>)newValue);
+			case PropagationGraphPackage.PROPAGATION_GRAPH__PROPAGATION_GRAPH_PATHS:
+				getPropagationGraphPaths().clear();
+				getPropagationGraphPaths().addAll((Collection<? extends PropagationGraphPath>)newValue);
 				return;
 			case PropagationGraphPackage.PROPAGATION_GRAPH__CONNECTIONS:
 				getConnections().clear();
@@ -350,8 +349,8 @@ public class PropagationGraphImpl extends MinimalEObjectImpl.Container implement
 			case PropagationGraphPackage.PROPAGATION_GRAPH__COMPONENTS:
 				getComponents().clear();
 				return;
-			case PropagationGraphPackage.PROPAGATION_GRAPH__PROPAGATION_PATHS:
-				getPropagationPaths().clear();
+			case PropagationGraphPackage.PROPAGATION_GRAPH__PROPAGATION_GRAPH_PATHS:
+				getPropagationGraphPaths().clear();
 				return;
 			case PropagationGraphPackage.PROPAGATION_GRAPH__CONNECTIONS:
 				getConnections().clear();
@@ -377,8 +376,8 @@ public class PropagationGraphImpl extends MinimalEObjectImpl.Container implement
 				return DESCRIPTION_EDEFAULT == null ? description != null : !DESCRIPTION_EDEFAULT.equals(description);
 			case PropagationGraphPackage.PROPAGATION_GRAPH__COMPONENTS:
 				return components != null && !components.isEmpty();
-			case PropagationGraphPackage.PROPAGATION_GRAPH__PROPAGATION_PATHS:
-				return propagationPaths != null && !propagationPaths.isEmpty();
+			case PropagationGraphPackage.PROPAGATION_GRAPH__PROPAGATION_GRAPH_PATHS:
+				return propagationGraphPaths != null && !propagationGraphPaths.isEmpty();
 			case PropagationGraphPackage.PROPAGATION_GRAPH__CONNECTIONS:
 				return connections != null && !connections.isEmpty();
 			case PropagationGraphPackage.PROPAGATION_GRAPH__ROOT:

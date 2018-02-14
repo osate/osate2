@@ -38,7 +38,7 @@ import java.util.Collection;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.osate.aadl2.Element;
 import org.osate.aadl2.errormodel.PropagationGraph.PropagationGraph;
-import org.osate.aadl2.errormodel.PropagationGraph.PropagationPath;
+import org.osate.aadl2.errormodel.PropagationGraph.PropagationGraphPath;
 import org.osate.aadl2.errormodel.PropagationGraph.util.Util;
 import org.osate.aadl2.instance.InstanceObject;
 import org.osate.aadl2.instance.SystemInstance;
@@ -73,15 +73,15 @@ public class UnhandledFaultsHandler extends AaxlReadOnlyHandlerAsJob {
 
 		setCSVLog("UnhandledFaults", si);
 		PropagationGraph currentPropagationGraph = Util.generatePropagationGraph(si, false);
-		Collection<PropagationPath> pathlist = currentPropagationGraph.getPropagationPaths();
-		for (PropagationPath path : pathlist) {
+		Collection<PropagationGraphPath> pathlist = currentPropagationGraph.getPropagationGraphPaths();
+		for (PropagationGraphPath path : pathlist) {
 			checkPropagationPathErrorTypes(path);
 		}
 
 		monitor.done();
 	}
 
-	protected void checkPropagationPathErrorTypes(PropagationPath path) {
+	protected void checkPropagationPathErrorTypes(PropagationGraphPath path) {
 		ErrorPropagation srcprop = path.getPathSrc().getErrorPropagation();
 		ErrorPropagation dstprop = path.getPathDst().getErrorPropagation();
 		if (srcprop != null && dstprop != null) {

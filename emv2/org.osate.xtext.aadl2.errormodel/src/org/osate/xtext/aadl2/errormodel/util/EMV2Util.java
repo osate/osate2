@@ -3006,17 +3006,27 @@ public class EMV2Util {
 
 	public static EList<SubcomponentElement> getSubcomponents(QualifiedPropagationPoint propagationPoint) {
 		final EList<SubcomponentElement> list = new BasicEList<>();
-		for (QualifiedPropagationPoint current = propagationPoint; current != null; current = current.getNext()) {
+		for (QualifiedPropagationPoint current = propagationPoint; current.getSubcomponent() != null;) {
 			list.add(current.getSubcomponent());
+			current = current.getNext();
 		}
 		return list;
+	}
+
+	public static PropagationPoint getPropagationPoint(QualifiedPropagationPoint propagationPointPath) {
+		QualifiedPropagationPoint current = propagationPointPath;
+		while (current != null && current.getPropagationPoint() == null) {
+			current = current.getNext();
+		}
+		return current == null ? null : current.getPropagationPoint();
 	}
 
 	public static EList<SubcomponentElement> getSubcomponents(SConditionElement conditionElement) {
 		final EList<SubcomponentElement> list = new BasicEList<>();
 		for (QualifiedErrorBehaviorState current = conditionElement
-				.getQualifiedState(); current != null; current = current.getNext()) {
+				.getQualifiedState(); current.getSubcomponent() != null;) {
 			list.add(current.getSubcomponent());
+			current = current.getNext();
 		}
 		return list;
 	}
