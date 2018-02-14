@@ -63,7 +63,7 @@ public class ProjectPropertiesPage extends PropertyPage {
 				} else {
 					clearErrorState();
 				}
-			} catch (NumberFormatException e) {
+			} catch (final NumberFormatException e) {
 				enterErrorState();
 			}
 		});
