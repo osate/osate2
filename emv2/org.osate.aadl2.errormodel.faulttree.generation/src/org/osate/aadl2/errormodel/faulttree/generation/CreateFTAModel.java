@@ -24,21 +24,29 @@ public class CreateFTAModel {
 	public static final String prefixState = "state ";
 	public static final String prefixOutgoingPropagation = "outgoing propagation on ";
 
-	public static FaultTree createFaultTree(ComponentInstance selection, final String errorStateName) {
-		return createModel(selection, errorStateName, FaultTreeType.FAULT_TREE);
+	public static FaultTree createFaultTree(ComponentInstance selection, final String startingPoint) {
+		return createModel(selection, startingPoint, FaultTreeType.FAULT_TREE);
 	}
 
-	public static FaultTree createMinimalCutSet(ComponentInstance selection, final String errorStateName) {
-		return createModel(selection, errorStateName, FaultTreeType.MINIMAL_CUT_SET);
+	public static FaultTree createMinimalCutSet(ComponentInstance selection, final String startingPoint) {
+		return createModel(selection, startingPoint, FaultTreeType.MINIMAL_CUT_SET);
 	}
 
-	public static FaultTree createModel(ComponentInstance selection, final String errorStateName,
+	public static FaultTree createFaultTrace(ComponentInstance selection, final String startingPoint) {
+		return createModel(selection, startingPoint, FaultTreeType.FAULT_TRACE);
+	}
+
+	public static FaultTree createPartsFaultTree(ComponentInstance selection, final String startingPoint) {
+		return createModel(selection, startingPoint, FaultTreeType.COMPOSITE_PARTS);
+	}
+
+	public static FaultTree createModel(ComponentInstance selection, final String startingPoint,
 			FaultTreeType faultTreeType) {
 		NamedElement errorStateOrPropagation=null;
 		ErrorTypes errorType =null;
 
-		if (errorStateName.startsWith(prefixState)) {
-			String toProcess = errorStateName.replace(prefixState, "");
+		if (startingPoint.startsWith(prefixState)) {
+			String toProcess = startingPoint.replace(prefixState, "");
 			for (ErrorBehaviorState ebs : EMV2Util.getAllErrorBehaviorStates(selection)) {
 				if (ebs.getName().equalsIgnoreCase(toProcess)) {
 					errorStateOrPropagation = ebs;
@@ -47,8 +55,8 @@ public class CreateFTAModel {
 
 		}
 
-		if (errorStateName.startsWith(prefixOutgoingPropagation)) {
-			String toProcess = errorStateName.replace(prefixOutgoingPropagation, "");
+		if (startingPoint.startsWith(prefixOutgoingPropagation)) {
+			String toProcess = startingPoint.replace(prefixOutgoingPropagation, "");
 			for (ErrorPropagation opc : EMV2Util.getAllOutgoingErrorPropagations(selection.getComponentClassifier())) {
 				EList<TypeToken> result = EM2TypeSetUtil.generateAllLeafTypeTokens(opc.getTypeSet(),
 						EMV2Util.getUseTypes(opc));
