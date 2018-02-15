@@ -110,6 +110,7 @@ public class DefaultDiagramService implements DiagramService {
 			this.diagramTypeId = Objects.requireNonNull(diagramTypeId, "diagramTypeId must not be null");
 		}
 
+		@Override
 		public IFile getFile() {
 			return fileResource;
 		}
@@ -345,11 +346,9 @@ public class DefaultDiagramService implements DiagramService {
 		final Map<IFile, AgeDiagramEditor> fileToEditorMap = getOpenEditorsMap(projects);
 
 		// Add saved diagram files if they are not open
-		return savedDiagramIndex.getDiagramsByProject(projects.stream()).
-				stream().map(e -> new InternalDiagramReference(e.diagramFile, fileToEditorMap.get(e.diagramFile),
-						e.diagramTypeId))
-				.
-				collect(Collectors.toList());
+		return savedDiagramIndex.getDiagramsByProject(projects.stream()).stream().map(
+				e -> new InternalDiagramReference(e.diagramFile, fileToEditorMap.get(e.diagramFile), e.diagramTypeId))
+				.collect(Collectors.toList());
 	}
 
 	private static Map<IFile, AgeDiagramEditor> getOpenEditorsMap(final Collection<IProject> projects) {

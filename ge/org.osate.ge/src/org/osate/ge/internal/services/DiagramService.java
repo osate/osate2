@@ -31,6 +31,8 @@ public interface DiagramService {
 		 * @return the editor. Will be non-null if and only if isOpen() is true.
 		 */
 		AgeDiagramEditor getEditor();
+
+		IFile getFile();
 	}
 
 	List<? extends DiagramReference> findDiagramsByContextBusinessObject(final Object bo);
