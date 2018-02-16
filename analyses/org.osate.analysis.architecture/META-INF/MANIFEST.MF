@@ -13,7 +13,8 @@ Export-Package:
 Require-Bundle: org.osate.aadl2,
  org.osate.ui,
  org.osate.xtext.aadl2.properties;bundle-version="1.0.0",
- org.osate.xtext.aadl2;bundle-version="1.0.0"
-Eclipse-LazyStart: true
+ org.osate.xtext.aadl2;bundle-version="1.0.0",
+ org.osate.results;bundle-version="1.0.0"
+Bundle-ActivationPolicy: lazy
 Import-Package: org.osate.contribution.sei.names
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
