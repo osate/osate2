@@ -1,8 +1,6 @@
 # AADL Property Values
 
-The "AADL Property Values" view is used to display and edit property values in a structured manner, which is often easier than navigating and manipulating the aadl text files directly.  Below is an example of the view in action.  It is displaying the properties of the process subcomponent `Sampler_B`.
-
-![Example Screenshot](images/AadlPropertyValues/ExampleScreenshot.png)
+The `AADL Property Values` view is used to display and edit property values in a structured manner, which is often easier than navigating and manipulating the AADL text files directly.
 
 > **Example**
 >
@@ -15,71 +13,186 @@ The "AADL Property Values" view is used to display and edit property values in a
 > - [Page_88.aadl](examples/PropertyViewExampeles/Page_88.aadl)
 > - [Page_220.aadl](examples/PropertyViewExampeles/Page_220.aadl)
 
+Below is an example of the view in action.  It is displaying the properties of the process subcomponent `Sampler_B` of system implementation `Software.Basic` in project `Page_220`.
+
+![Example Screenshot](images/AadlPropertyValues/ExampleScreenshot.png)
 
 
-## Opening AADL Property Values
-From the main menu, select **Window** -> **Show View**.  If OSATE is currently in the AADL perspective, then you can select **AADL Property Values**.  Otherwise, select **Other...** and choose **AADL** -> **AADL Property Values**.
+
+## Opening the AADL Property Values View
+
+From the main menu, select `Window > Show View`.  If OSATE is currently in the `AADL perspective`, then you can select `AADL Property Values`.
+
+![Example Screenshot](images/AadlPropertyValues/Window_View_AadlPropertyValues.png)
+
+If you are not in the `AADL Perspective`, select `Other...` to bring up the `Show View` dialog box:
+
+![Example Screenshot](images/AadlPropertyValues/Window_View_Other.png)
+
+Choose `AADL > AADL Property Values` and click on the `Open` button.
+
+![Example Screenshot](images/AadlPropertyValues/ShowView.png)
+
+
 
 ## Selecting the Model Element
-The view displays all of the properties of the AADL model element that is currently selected in the AADL text editor or in the instance model elditor.  Selections can be made in the editor or in the outline view.
 
-## Structure
-The properties displayed are organized by their property sets. In the previous screenshot, the property `Period` is displayed under its property set `Timing_Properties`.  The view also provides these additional groupings:
-* **Lists**: A list value can be expanded to show its individual list elements.  This is shown in the screenshot above for the property `Source_Text`.
+The view displays all of the properties of the AADL model element that is currently selected in the worksapce.  Selections can be made in the editor or in the outline view.  For example, to show the properties of the process subcomponent `Sampler_B` of system implementation `Software.Basic` in project `Page_220` as shown above, you can 
+
+* Open `Page_220` in the editor and move the text cursor to be within the syntax for subcomponent `Sampler_B`.
+
+or
+
+* Select `Sampler_B` in the `Outline` view.
+
+
+
+## Property Value Structure
+
+The displayed properties are organized by property set.
+
+> **Example**
+> 
+> In the previous screenshot, the property `Period` is displayed under its property set `Timing_Properties`.
+
+The view also provides additional structure for certain types of property values:
+
+* **Lists**: A list value can be expanded to show its individual list elements.
 * **Records**: A record value can be expanded to show its fields.
 * **Ranges**: A range value can be expanded to show the minimum, maximum, and delta values.
 * **Modes**: A modal property value can be expanded to show the different values for each mode.
 
-## Status Column
-The status column in the view indicates where the property value comes from.  The status can be **local**, **local contained**, **shared local contained**, **inherited**, **default**, or **undefined**.
+> **Example**
+>
+> The screenshot above shows the expanded list value for the proeprty `Source_Text`.
 
-### Local Property Values
-A **local** property value is defined directly on the AADL model element in either its properties subclause or in curly braces.  In the previous screenshot, the properties `Source_Text` and `Period` are both **local** because they are defined in curly braces.  In the next screenshot, the properties `Car_Length`, `Car_Name`, and `Position` are all **local** because they are defined in the properties subclause of the device `car`.
 
-![Local Properties](images/AadlPropertyValues/Local.png)
+## The Property Status Column
+
+The `Status` column in the view indicates where the property value comes from based on the semantics of AADL.  The status is one of
+
+* **local**
+* **local contained**
+* **shared local contained**
+* **inherited**
+* **default**
+* **undefined**
+
+The following sections describe property status in more detail.
+
+
+
+### _Local_ Property Values
+
+A **local** property value is defined directly on the AADL model element in either its `properties` subclause or in curly braces.
+
+> ** Example **
+>
+> In the previous screenshot, the properties `Source_Text` and `Period` are both **local** because they are defined in curly braces.
+
+> ** Example **
+>
+> In the screenshot below, the properties `Car_Length`, `Car_Name`, and `Position` are all **local** because they are defined in the properties subclause of the device `car`.
+>
+> ![Local Properties](images/AadlPropertyValues/Local.png)
+
+> ** Example **
+>
+> The above screenshot also shows the expanded structure of the record values for properties `Car_Name` and `Position`.
+
+
 
 ### Contained Property Values
 
-A **local contained** property value is defined in the properties subclause of the containing classifier and is assigned to the selected model element with the applies to clause.  This status is only applicable to model elements which are immediate members of a classifier such as features, subcomponents, connections, flows, etc.  In the following screenshot, the view is showing the properties of the data port `GPS_Data`.  The property `Input_Rate` is **local contained** because its value is defined in the properties subclause of the containing process type `Blended_Navigation`.  Note the "applies to `GPS_Data`" at the end of the property value.
+Contained property values are those defined in a `properties` subclause and are applied to a nested model element using the `appies to` clause. In general, the property can be applied to an element nested several layers down in the containment hierarchy, e.g., to a sub-sub-subcomponent. _The `AADL Property Values` view only displays contained property values for the immediate children of a classifier._   To view the property values resulting from all contained property associations in a model, a system instance model must be created. The instantiation evaluates the applicable contained property associations and copies the resulting values as local associations into the instance model.
 
-![Local Contained Properties](images/AadlPropertyValues/LocalContained.png)
+The view distinguishes between a **local contained** and **shared local contained** property associations:
 
-**Shared local contained** is the same as **local contained** except that the property value is shared with other property holders.  In the following screenshot, the property value is applied to both `GPS_Data` and `INS_Data`.  The property `Input_Rate` is **shared local contained** because its value is not exclusive to `GPS_Data`, but it is also shared with `INS_Data`.
+* A **local contained** property value is one that is applied to a single element.
+* A **shared local contained** property value is one that is applied to multiple elements in the same clause.  (See the example below).
 
-![Shared Local Contained Properties](images/AadlPropertyValues/SharedLocalContained.png)
+> **Example**
+>
+> In the following screenshot, the view is showing the properties of the data port (feature) `GPS_Data`.  The property `Input_Rate` is **local contained** because its value is defined in the `properties` subclause of the containing process type `Blended_Navigation`.  Note the syntax `applies to GPS_Data` at the end of the property value.
+>
+> ![Local Contained Properties](images/AadlPropertyValues/LocalContained.png)
 
-Contained property values are defined in a properties subclause and are applied to a model element using the `appies to` clause. In general, the property can be applied to an element nested several layers down in the containment hierarchy, e.g., to a sub sub sub component. The AADL property view does not display these deeply nested property applications. To view the property values resulting from all contained property associations in a model, an instance model must be created. The instantiation evaluates the applicable contained property associations and copies the resulting values as local associations into the instance model.
+> **Example**
+>
+> Edit `Blended_Navigation` from the above example so that first property association `appplies to GPS_Data, INS_Data`.  Now the property `Input_Rate` on feature `INS_Data` (and `GPS_Data`) is **shared local contained**.
+>
+> ![Shared Local Contained Properties](images/AadlPropertyValues/SharedLocalContained.png)
 
-### Inherited Property Values
-**Inherited** indicates that the property value is defined in an extended classifier or in the component type if the selected model element is a component implementation.  Inherited property values can also come from a refined element. In the following screenshot, the thread `Prime_Reporter_One` is selected.  The property `Dispatch_Protocol` is **inherited** because it is defined in `Prime_Reporter` which is extended by `Prime_Reporter_One`.
 
-![Inherited Properties](images/AadlPropertyValues/Inherited.png)
+### _Inherited_ Property Values
+
+The **inherited** status indicates that the property association is declared 
+
+* In an ancestor of the selected classifier
+
+or
+
+* On an eement that is refined by the selected element
+
+> **Example**
+> 
+> In the following screenshot, the thread `Prime_Reporter_One` is selected.  The property `Dispatch_Protocol` is **inherited** because it is defined in `Prime_Reporter` which is extended by `Prime_Reporter_One`.
+>
+> ![Inherited Properties](images/AadlPropertyValues/Inherited.png)
+
+
 
 ### Default Property Values
-**Default** indicates that the property value is not defined on any model element, but instead comes from the property's default value declaration in the property set.  In the following screenshot, the properties `Active_Thread_Handling_Protocol`, `Active_Thread_Queue_Handling_Protocol`, `Deactivation_Policy`, and `Synchronized_Component` are all **default** because the values come from the property declaration.  This can be seen in the upper editor showing the property set `Thread_Properties`.  There the property `Active_Thread_Handling_Protocol` has the default value of `abort`.
 
-![Default Properties](images/AadlPropertyValues/Default.png)
+The **default** status indicates that the property value for the selected element is not defined on any model element, but instead comes from the property's default value declaration.
 
-Properties that take the default value are normally not shown in the view.  The toolbar button ![Toggle Default](images/AadlPropertyValues/filter_properties.gif) can be used to toggle the display of **default** properties.
+Properties with the **default** status are normally not shown in the view.  The toolbar button ![Toggle Default](images/AadlPropertyValues/filter_properties.gif) can be used to toggle the display of **default** properties.
 
-### Undefined Property Values
-**Undefined** indicates that the property has no value for the selected model element.  These properties are applicable to the selected element, so these properties could potentially have values for the selected property holder.  In the following screenshot, the properties `Criticality`, `Dispatch_Able`, `Dispatch_Trigger`, `POSIX_Scheduling_Policy`, and `Priority` are all **undefined** because they have no value.
+> **Example**
+>
+> In the following screenshot, the properties `Active_Thread_Handling_Protocol`, `Active_Thread_Queue_Handling_Protocol`, `Deactivation_Policy`, and `Synchronized_Component` are all **default** because their values come from the property declaration.  This can be seen in the upper editor showing the property set `Thread_Properties`.  There the property `Active_Thread_Handling_Protocol`, for example, has the default value of `abort`.
+>
+> ![Default Properties](images/AadlPropertyValues/Default.png)
 
-![Undefined Properties](images/AadlPropertyValues/Undefined.png)
+
+
+### _Undefined_ Property Values
+
+The **undefined** status indicates that the property has no value for the selected model element.  These properties are applicable to the selected element, so they could potentially have values for the selected property holder.
 
 Properties without a value are normally not shown in the view.  The toolbar button ![Toggle Undefined](images/AadlPropertyValues/nonexistent_property.gif) can be used to toggle the display of **undefined** properties.
 
+> **Example**
+>
+> In the following screenshot, the properties `Criticality`, `Dispatch_Able`, `Dispatch_Trigger`, `POSIX_Scheduling_Policy`, and `Priority` are all **undefined** because they have no value.
+>
+> ![Undefined Properties](images/AadlPropertyValues/Undefined.png)
+
+
+
 ## Property Filters
+
 The toolbar contains three buttons that influence which properties are displayed in the view:
+
 * ![Toggle Imported](images/AadlPropertyValues/filter_ps.png): Show only properties in property sets which are included in the package's with statements.
 * ![Toggle Undefined](images/AadlPropertyValues/nonexistent_property.gif): Show **undefined** properties.
 * ![Toggle Default](images/AadlPropertyValues/filter_properties.gif): Show **default** properties.
 
+
+
 ## Editing Values
-Properties with the status of **local**, **local contained**, or **shared local contained** can be edited directly in the view.  To begin editing, simply click on the property value in the view's table.  The table cell then becomes editable and you can type in the new value.  If there are syntax errors in your new value, then the error will be underlined in red and you can hover over the cell to see an error message.  Content assist is also available while editing by pressing Ctrl + Space.  This can be especially userfull when entering enumeration literals, unit literals, classifier values, or reference values.  When you are finished editing, press enter or click outside of the table cell and the new value will be updated in the AADL model.  Note that if you edit a property that is **shared local contained** then you will be editing the properties for all model elements that are listed in the applies to clause of the property association and share this value.
+
+Properties with the status of **local**, **local contained**, or **shared local contained** can be edited directly in the view.  To begin editing, simply click on the property value in the view's table.  The table cell becomes editable and you can type in the new value.  If there are syntax errors in your new value, then the error will be underlined in red and you can hover over the cell to see an error message.  Content assist is also available while editing by pressing `Ctrl + Space`.  This can be especially userfull when entering enumeration literals, unit literals, classifier values, or reference values.
+
+When you are finished editing, press enter or click outside of the table cell and the new value will be updated in the AADL model.  _Note that if you edit a property that is **shared local contained** then you will be editing the properties for all model elements that are listed in the `applies to` clause of the property association and share this value._
+
+
 
 ## Context Menu
+
 There are several actions available in the view's context menu when you right-click on a row in the view's table.
+
+![Context Menu](images/AadlPropertyValues/ContextMenu.png)
 
 ### Open Property Definition
 This action opens the declaration of the selected property set, property, or record field in the AADL text editor.
@@ -103,8 +216,10 @@ This action is enabled for **inherited**, **local**, **shared local contained**,
 
 ### Remove
 This action is enabled for **local**, **local contained**, and **shared local contained** properties.  It can be used to do one of the following:
+
 * Remove the selected property value.
 * Remove the selected record field from the record property value.
 * Remove the selected delta from the range property value.
 * Remove the selected item from the list property value.
+
 Note that executing this action on a **shared local contained** property impacts all model elements that share the selected property value.

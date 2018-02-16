@@ -14,7 +14,12 @@ public
 				Value_Range => 50.0 .. 50.0;
 				Rate_Unit => perSecond;
 				Rate_Distribution => Fixed;
-			] applies to GPS_Data, INS_Data;
+			] applies to GPS_Data;
+			Input_Rate => [
+				Value_Range => 100.0 .. 100.0;
+				Rate_Unit => perSecond;
+				Rate_Distribution => Fixed;
+			] applies to INS_Data;
 		end Blended_Navigation;
 	
 	process implementation Blended_Navigation.Simple
