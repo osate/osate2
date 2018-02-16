@@ -32,11 +32,8 @@ Select `General > Archive File`, and click on the `Next >` button.
 An `Archive file` wizard dialog will open.
 
 * The top section of the wizard allows you to choose the exact contents of the project to export.  In this case, as in most cases, you do not need to change the default selections; the whole project will be exported.
-
 * The bottom section of the wizard allows to control how the archive file is created.  Again, usually the default values are fine.  In this case, just make sure that `Save in zip format` is selected.
-
 * In the center of the wizard enter the pathname of the archive file to create, or use the `Browse...` button to use the file selection dialog to specify the pathname.
-
 * Click on the `Finish` button to begin the import process.
 
 ![](images/HowToExportAProject/ArchiveFile.png)
