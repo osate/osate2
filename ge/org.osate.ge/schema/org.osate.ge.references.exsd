@@ -20,6 +20,7 @@
          <choice minOccurs="0" maxOccurs="unbounded">
             <element ref="referenceBuilder"/>
             <element ref="referenceResolver"/>
+            <element ref="referenceLabelProvider"/>
          </choice>
          <attribute name="point" type="string" use="required">
             <annotation>
