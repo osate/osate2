@@ -28,11 +28,8 @@ Select `General > Existing Projects into Workspace`, and click on the `Next >` b
 An `Import Projects` wizard dialog will open.  (An archive may contain more than one project, although in our example it contains just one.)
 
 1. Select the `Select archive file` radio button.
-
-2. Click one the associated `Browse...` button to bring up a file selection to choose the archive file to import.  In this case, select the `PropertyViewerExamples.zip` that you downloaded earlier.
-
+2. Click one the associated `Browse...` button to bring up a file selection to choose the archive file to import.  In this case, select the `PropertyViewerExamples.zip` that you downloaded earlier.  
    The wizard dialog should look like the image below, except with your local pathname showing.  The projects contained in the archive are listed in the `Projects` section.  Here you can select which projects to import.  Our example has only one project, and we leave it selected.
-
 3. Click on the `Finish` button to begin the import process.
 
 ![](images/HowToImportAProject/ImportProjects.png)
