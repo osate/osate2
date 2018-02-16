@@ -12818,7 +12818,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
                             
                     otherlv_3=(Token)match(input,RULE_ID,FOLLOW_2); 
 
-                    		newLeafNode(otherlv_3, grammarAccess.getQualifiedPropagationPointAccess().getPropagationPointPropagationPointCrossReference_1_0()); 
+                    		newLeafNode(otherlv_3, grammarAccess.getQualifiedPropagationPointAccess().getPropagationPointNamedElementCrossReference_1_0()); 
                     	
 
                     }

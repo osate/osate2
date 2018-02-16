@@ -694,13 +694,17 @@ class ErrorModelScopeProvider extends PropertiesScopeProvider {
 			val lastSubcomponentClassifier = (context.eContainer as QualifiedPropagationPoint).subcomponent.subcomponent.allClassifier
 			if (lastSubcomponentClassifier !== null) {
 				val allSubclauses = lastSubcomponentClassifier.allContainingClassifierEMV2Subclauses
-				allSubclauses.map[points].flatten.scopeFor
+				val points = allSubclauses.map[points].flatten
+				val features = lastSubcomponentClassifier.getAllFeatures()
+				(points+features).scopeFor
 			} else {
 				IScope.NULLSCOPE
 			}
 		} else {
 			val allSubclauses = context.allContainingClassifierEMV2Subclauses
-			allSubclauses.map[points].flatten.scopeFor
+			val points = allSubclauses.map[points].flatten
+			val features = context.containingClassifier.getAllFeatures()
+			(points+features).scopeFor
 		}
 	}
 

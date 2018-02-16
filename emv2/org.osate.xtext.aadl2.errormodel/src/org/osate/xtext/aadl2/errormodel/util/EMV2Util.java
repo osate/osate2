@@ -3013,12 +3013,13 @@ public class EMV2Util {
 		return list;
 	}
 
-	public static PropagationPoint getPropagationPoint(QualifiedPropagationPoint propagationPointPath) {
+	public static NamedElement getEndPoint(QualifiedPropagationPoint propagationPointPath) {
 		QualifiedPropagationPoint current = propagationPointPath;
 		while (current != null && current.getPropagationPoint() == null) {
 			current = current.getNext();
 		}
-		return current == null ? null : current.getPropagationPoint();
+		return current == null ? null
+				: current.getPropagationPoint();
 	}
 
 	public static EList<SubcomponentElement> getSubcomponents(SConditionElement conditionElement) {

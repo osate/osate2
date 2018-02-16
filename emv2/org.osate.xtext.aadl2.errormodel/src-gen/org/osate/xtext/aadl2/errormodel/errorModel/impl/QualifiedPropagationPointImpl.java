@@ -6,14 +6,16 @@ import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
 
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 
+import org.osate.aadl2.NamedElement;
+
 import org.osate.aadl2.impl.ElementImpl;
 
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelPackage;
-import org.osate.xtext.aadl2.errormodel.errorModel.PropagationPoint;
 import org.osate.xtext.aadl2.errormodel.errorModel.QualifiedPropagationPoint;
 import org.osate.xtext.aadl2.errormodel.errorModel.SubcomponentElement;
 
@@ -62,7 +64,7 @@ public class QualifiedPropagationPointImpl extends ElementImpl implements Qualif
    * @generated
    * @ordered
    */
-  protected PropagationPoint propagationPoint;
+  protected NamedElement propagationPoint;
 
   /**
    * <!-- begin-user-doc -->
@@ -186,12 +188,12 @@ public class QualifiedPropagationPointImpl extends ElementImpl implements Qualif
    * <!-- end-user-doc -->
    * @generated
    */
-  public PropagationPoint getPropagationPoint()
+  public NamedElement getPropagationPoint()
   {
-    if (propagationPoint != null && propagationPoint.eIsProxy())
+    if (propagationPoint != null && ((EObject)propagationPoint).eIsProxy())
     {
       InternalEObject oldPropagationPoint = (InternalEObject)propagationPoint;
-      propagationPoint = (PropagationPoint)eResolveProxy(oldPropagationPoint);
+      propagationPoint = (NamedElement)eResolveProxy(oldPropagationPoint);
       if (propagationPoint != oldPropagationPoint)
       {
         if (eNotificationRequired())
@@ -206,7 +208,7 @@ public class QualifiedPropagationPointImpl extends ElementImpl implements Qualif
    * <!-- end-user-doc -->
    * @generated
    */
-  public PropagationPoint basicGetPropagationPoint()
+  public NamedElement basicGetPropagationPoint()
   {
     return propagationPoint;
   }
@@ -216,9 +218,9 @@ public class QualifiedPropagationPointImpl extends ElementImpl implements Qualif
    * <!-- end-user-doc -->
    * @generated
    */
-  public void setPropagationPoint(PropagationPoint newPropagationPoint)
+  public void setPropagationPoint(NamedElement newPropagationPoint)
   {
-    PropagationPoint oldPropagationPoint = propagationPoint;
+    NamedElement oldPropagationPoint = propagationPoint;
     propagationPoint = newPropagationPoint;
     if (eNotificationRequired())
       eNotify(new ENotificationImpl(this, Notification.SET, ErrorModelPackage.QUALIFIED_PROPAGATION_POINT__PROPAGATION_POINT, oldPropagationPoint, propagationPoint));
@@ -280,7 +282,7 @@ public class QualifiedPropagationPointImpl extends ElementImpl implements Qualif
         setNext((QualifiedPropagationPoint)newValue);
         return;
       case ErrorModelPackage.QUALIFIED_PROPAGATION_POINT__PROPAGATION_POINT:
-        setPropagationPoint((PropagationPoint)newValue);
+        setPropagationPoint((NamedElement)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -303,7 +305,7 @@ public class QualifiedPropagationPointImpl extends ElementImpl implements Qualif
         setNext((QualifiedPropagationPoint)null);
         return;
       case ErrorModelPackage.QUALIFIED_PROPAGATION_POINT__PROPAGATION_POINT:
-        setPropagationPoint((PropagationPoint)null);
+        setPropagationPoint((NamedElement)null);
         return;
     }
     super.eUnset(featureID);

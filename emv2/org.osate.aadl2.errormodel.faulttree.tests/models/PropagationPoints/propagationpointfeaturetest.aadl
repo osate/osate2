@@ -1,6 +1,7 @@
-package propagationpointstest
+package propagationpointfeaturetest
 public
--- this test a user defined connection between two user defined propagation points
+-- this test a user defined connection between a user defined propagation point and a subcomponent feature
+
 data mydata
 end mydata;
 
@@ -52,6 +53,8 @@ end computing;
 device actuator
 features
 	valuein : in data port mydata;
+ 	observation: out feature;
+	
 annex EMV2{**
  	use types ErrorLibrary;
  	use behavior ErrorLibrary::FailStop;
@@ -67,9 +70,6 @@ annex EMV2{**
  		p0: failstop -[]-> observation{ServiceOmission};
  		p1: operational -[valuein{ServiceOmission}]-> observation{ServiceOmission};
  	end component;
- 	propagation paths
- 	observation: propagation point;
- 	end paths;
 properties
 	emv2::OccurrenceDistribution => [ ProbabilityValue => 0.65e-9 ; Distribution => Poisson;] applies to Failure;
  **};
@@ -110,4 +110,4 @@ annex EMV2{**
 end main.commonsource;
 
 
-end propagationpointstest;
+end propagationpointfeaturetest;
