@@ -3351,15 +3351,6 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cTypeTokenConstraintTypeTokenConstraintParserRuleCall_4_0 = (RuleCall)cTypeTokenConstraintAssignment_4.eContents().get(0);
 		private final Keyword cSemicolonKeyword_5 = (Keyword)cGroup.eContents().get(5);
 		
-		////ConnectionErrorSource returns ConnectionErrorSource:
-		////	name=ID ':' ErrorSourceKeywords
-		////	(connection=[aadl2::Connection|ID]|all?='all')
-		////	(typeTokenConstraint=TypeTokenConstraint)?
-		////  	('when'  (  failureModeType = TypeSetConstructor | failureModeDescription = STRING)
-		////  	)?
-		////     ( 'if' condition=CONDITION)?
-		////     ';'
-		////;
 		//ErrorSink:
 		//	name=ID ':' ErrorSinkKeywords (incoming=[ErrorPropagation|ErrorPropagationPoint] | allIncoming?='all')
 		//	typeTokenConstraint=TypeTokenConstraint?
@@ -3671,16 +3662,18 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 		private final Assignment cNextAssignment_0_2 = (Assignment)cGroup_0.eContents().get(2);
 		private final RuleCall cNextQualifiedPropagationPointParserRuleCall_0_2_0 = (RuleCall)cNextAssignment_0_2.eContents().get(0);
 		private final Assignment cPropagationPointAssignment_1 = (Assignment)cAlternatives.eContents().get(1);
-		private final CrossReference cPropagationPointPropagationPointCrossReference_1_0 = (CrossReference)cPropagationPointAssignment_1.eContents().get(0);
-		private final RuleCall cPropagationPointPropagationPointIDTerminalRuleCall_1_0_1 = (RuleCall)cPropagationPointPropagationPointCrossReference_1_0.eContents().get(1);
+		private final CrossReference cPropagationPointNamedElementCrossReference_1_0 = (CrossReference)cPropagationPointAssignment_1.eContents().get(0);
+		private final RuleCall cPropagationPointNamedElementIDTerminalRuleCall_1_0_1 = (RuleCall)cPropagationPointNamedElementCrossReference_1_0.eContents().get(1);
 		
 		//QualifiedPropagationPoint:
-		//	subcomponent=SubcomponentElement '.' next=QualifiedPropagationPoint | propagationPoint=[PropagationPoint];
+		//	subcomponent=SubcomponentElement '.' next=QualifiedPropagationPoint | propagationPoint=[aadl2::NamedElement];
 		@Override public ParserRule getRule() { return rule; }
 
-		//subcomponent=SubcomponentElement '.' next=QualifiedPropagationPoint | propagationPoint=[PropagationPoint]
+		//// zero or more subcomponent references
+		//subcomponent=SubcomponentElement '.' next=QualifiedPropagationPoint | propagationPoint=[aadl2::NamedElement]
 		public Alternatives getAlternatives() { return cAlternatives; }
 
+		//// zero or more subcomponent references
 		//subcomponent=SubcomponentElement '.' next=QualifiedPropagationPoint
 		public Group getGroup_0() { return cGroup_0; }
 
@@ -3699,14 +3692,14 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 		//QualifiedPropagationPoint
 		public RuleCall getNextQualifiedPropagationPointParserRuleCall_0_2_0() { return cNextQualifiedPropagationPointParserRuleCall_0_2_0; }
 
-		//propagationPoint=[PropagationPoint]
+		//propagationPoint=[aadl2::NamedElement]
 		public Assignment getPropagationPointAssignment_1() { return cPropagationPointAssignment_1; }
 
-		//[PropagationPoint]
-		public CrossReference getPropagationPointPropagationPointCrossReference_1_0() { return cPropagationPointPropagationPointCrossReference_1_0; }
+		//[aadl2::NamedElement]
+		public CrossReference getPropagationPointNamedElementCrossReference_1_0() { return cPropagationPointNamedElementCrossReference_1_0; }
 
 		//ID
-		public RuleCall getPropagationPointPropagationPointIDTerminalRuleCall_1_0_1() { return cPropagationPointPropagationPointIDTerminalRuleCall_1_0_1; }
+		public RuleCall getPropagationPointNamedElementIDTerminalRuleCall_1_0_1() { return cPropagationPointNamedElementIDTerminalRuleCall_1_0_1; }
 	}
 
 	public class ErrorBehaviorStateMachineElements extends AbstractParserRuleElementFinder {
@@ -7348,15 +7341,6 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 		return getErrorSourceAccess().getRule();
 	}
 
-	////ConnectionErrorSource returns ConnectionErrorSource:
-	////	name=ID ':' ErrorSourceKeywords
-	////	(connection=[aadl2::Connection|ID]|all?='all')
-	////	(typeTokenConstraint=TypeTokenConstraint)?
-	////  	('when'  (  failureModeType = TypeSetConstructor | failureModeDescription = STRING)
-	////  	)?
-	////     ( 'if' condition=CONDITION)?
-	////     ';'
-	////;
 	//ErrorSink:
 	//	name=ID ':' ErrorSinkKeywords (incoming=[ErrorPropagation|ErrorPropagationPoint] | allIncoming?='all')
 	//	typeTokenConstraint=TypeTokenConstraint?
@@ -7415,7 +7399,7 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//QualifiedPropagationPoint:
-	//	subcomponent=SubcomponentElement '.' next=QualifiedPropagationPoint | propagationPoint=[PropagationPoint];
+	//	subcomponent=SubcomponentElement '.' next=QualifiedPropagationPoint | propagationPoint=[aadl2::NamedElement];
 	public QualifiedPropagationPointElements getQualifiedPropagationPointAccess() {
 		return pQualifiedPropagationPoint;
 	}

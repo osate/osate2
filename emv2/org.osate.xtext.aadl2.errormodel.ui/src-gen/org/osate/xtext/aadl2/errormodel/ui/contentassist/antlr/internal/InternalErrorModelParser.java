@@ -93432,17 +93432,17 @@ public class InternalErrorModelParser extends AbstractInternalContentAssistParse
             // InternalErrorModelParser.g:34958:1: ( ( RULE_ID ) )
             // InternalErrorModelParser.g:34959:1: ( RULE_ID )
             {
-             before(grammarAccess.getQualifiedPropagationPointAccess().getPropagationPointPropagationPointCrossReference_1_0()); 
+             before(grammarAccess.getQualifiedPropagationPointAccess().getPropagationPointNamedElementCrossReference_1_0()); 
             // InternalErrorModelParser.g:34960:1: ( RULE_ID )
             // InternalErrorModelParser.g:34961:1: RULE_ID
             {
-             before(grammarAccess.getQualifiedPropagationPointAccess().getPropagationPointPropagationPointIDTerminalRuleCall_1_0_1()); 
+             before(grammarAccess.getQualifiedPropagationPointAccess().getPropagationPointNamedElementIDTerminalRuleCall_1_0_1()); 
             match(input,RULE_ID,FOLLOW_2); 
-             after(grammarAccess.getQualifiedPropagationPointAccess().getPropagationPointPropagationPointIDTerminalRuleCall_1_0_1()); 
+             after(grammarAccess.getQualifiedPropagationPointAccess().getPropagationPointNamedElementIDTerminalRuleCall_1_0_1()); 
 
             }
 
-             after(grammarAccess.getQualifiedPropagationPointAccess().getPropagationPointPropagationPointCrossReference_1_0()); 
+             after(grammarAccess.getQualifiedPropagationPointAccess().getPropagationPointNamedElementCrossReference_1_0()); 
 
             }
 

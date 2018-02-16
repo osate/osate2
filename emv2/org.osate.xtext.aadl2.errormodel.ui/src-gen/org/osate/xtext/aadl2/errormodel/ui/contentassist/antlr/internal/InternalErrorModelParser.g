@@ -34956,12 +34956,12 @@ rule__QualifiedPropagationPoint__PropagationPointAssignment_1
     }
 :
 (
-{ before(grammarAccess.getQualifiedPropagationPointAccess().getPropagationPointPropagationPointCrossReference_1_0()); }
+{ before(grammarAccess.getQualifiedPropagationPointAccess().getPropagationPointNamedElementCrossReference_1_0()); }
 (
-{ before(grammarAccess.getQualifiedPropagationPointAccess().getPropagationPointPropagationPointIDTerminalRuleCall_1_0_1()); }
-	RULE_ID{ after(grammarAccess.getQualifiedPropagationPointAccess().getPropagationPointPropagationPointIDTerminalRuleCall_1_0_1()); }
+{ before(grammarAccess.getQualifiedPropagationPointAccess().getPropagationPointNamedElementIDTerminalRuleCall_1_0_1()); }
+	RULE_ID{ after(grammarAccess.getQualifiedPropagationPointAccess().getPropagationPointNamedElementIDTerminalRuleCall_1_0_1()); }
 )
-{ after(grammarAccess.getQualifiedPropagationPointAccess().getPropagationPointPropagationPointCrossReference_1_0()); }
+{ after(grammarAccess.getQualifiedPropagationPointAccess().getPropagationPointNamedElementCrossReference_1_0()); }
 )
 
 ;

@@ -5,6 +5,7 @@ package org.osate.xtext.aadl2.errormodel.errorModel;
 import org.eclipse.emf.ecore.EObject;
 
 import org.osate.aadl2.Element;
+import org.osate.aadl2.NamedElement;
 
 /**
  * <!-- begin-user-doc -->
@@ -87,12 +88,12 @@ public interface QualifiedPropagationPoint extends EObject, Element
    * </p>
    * <!-- end-user-doc -->
    * @return the value of the '<em>Propagation Point</em>' reference.
-   * @see #setPropagationPoint(PropagationPoint)
+   * @see #setPropagationPoint(NamedElement)
    * @see org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelPackage#getQualifiedPropagationPoint_PropagationPoint()
    * @model
    * @generated
    */
-  PropagationPoint getPropagationPoint();
+  NamedElement getPropagationPoint();
 
   /**
    * Sets the value of the '{@link org.osate.xtext.aadl2.errormodel.errorModel.QualifiedPropagationPoint#getPropagationPoint <em>Propagation Point</em>}' reference.
@@ -102,6 +103,6 @@ public interface QualifiedPropagationPoint extends EObject, Element
    * @see #getPropagationPoint()
    * @generated
    */
-  void setPropagationPoint(PropagationPoint value);
+  void setPropagationPoint(NamedElement value);
 
 } // QualifiedPropagationPoint

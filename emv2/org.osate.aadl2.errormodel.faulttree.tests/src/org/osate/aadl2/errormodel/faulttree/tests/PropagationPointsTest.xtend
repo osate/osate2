@@ -28,8 +28,8 @@ class PropagationPointsTest extends OsateTest {
 
 	static boolean once = true
 
-//	var static FluentIssueCollection result
 	var static SystemInstance instance
+	var static SystemInstance instance2
 
 	@Before
 	override setUp() {
@@ -45,13 +45,14 @@ class PropagationPointsTest extends OsateTest {
 	 */
 	def void initWorkspace() {
 		val aadlFile = "propagationpointstest.aadl"
+		val aadlFile2 = "propagationpointfeaturetest.aadl"
 		val modelroot = "org.osate.aadl2.errormodel.faulttree.tests/models/PropagationPoints/"
 
 		if (once) {
 			once = false
 			createProject(projectName)
 			setResourceRoot("platform:/resource/" + projectName)
-			createFiles(aadlFile -> readFile(modelroot + aadlFile))
+			createFiles(aadlFile -> readFile(modelroot + aadlFile),aadlFile2 -> readFile(modelroot + aadlFile2))
 			suppressSerialization
 			val result = testFile(aadlFile /*, referencedFile1, referencedFile2, etc. */ )
 			// get the correct package
@@ -63,6 +64,16 @@ class PropagationPointsTest extends OsateTest {
 			val sysImpl = cls.findFirst[name == 'main.commonsource'] as SystemImplementation
 
 			instance = InstantiateModel::buildInstanceModelFile(sysImpl)
+			val result2 = testFile(aadlFile2 /*, referencedFile1, referencedFile2, etc. */ )
+			// get the correct package
+			val pkg2 = result2.resource.contents.head as AadlPackage
+			val cls2 = pkg2.ownedPublicSection.ownedClassifiers
+			assertTrue('', cls2.exists[name == 'main.commonsource'])
+
+			// instantiate
+			val sysImpl2 = cls2.findFirst[name == 'main.commonsource'] as SystemImplementation
+
+			instance2 = InstantiateModel::buildInstanceModelFile(sysImpl2)
 		}
 	}
 
@@ -90,6 +101,39 @@ class PropagationPointsTest extends OsateTest {
 
 	@Test
 	def void propagationpointscutsets() {
+		val start = "outgoing propagation on observation{ServiceOmission}"
+		val cutsets = CreateFTAModel.createMinimalCutSet(instance, start)
+		assertEquals(cutsets.events.size, 8)
+		// three cutsets
+		assertEquals(cutsets.root.subEvents.size, 3)
+		val cutset1 = FaultTreeUtils.findEvent(cutsets, "Cutset1")
+		assertEquals(6.5e-10, cutset1.computedProbability, 0.1e-10)
+		val cutset2 = FaultTreeUtils.findEvent(cutsets, "Cutset2")
+		assertEquals(4.9e-15, cutset2.computedProbability, 0.1e-15)
+		val cutset3 = FaultTreeUtils.findEvent(cutsets, "Cutset3")
+		assertEquals(7.0e-8, cutset3.computedProbability, 0.1e-8)
+	}
+
+	@Test
+	def void propagationpointfeaturefaulttree() {
+		val start = "outgoing propagation on observation{ServiceOmission}"
+		val ft = CreateFTAModel.createFaultTree(instance, start)
+		assertEquals(ft.events.size, 6)
+		val andevent = FaultTreeUtils.findEvent(ft, "Intermediate1")
+		assertEquals(andevent.subEventLogic, LogicOperation.AND)
+		val actual = ft.root.computedProbability
+		assertEquals(7.1e-8, actual, 0.1e-8)
+	}
+
+	@Test
+	def void propagationpointfeaturefaulttrace() {
+		val start = "outgoing propagation on observation{ServiceOmission}"
+		val ftrace = CreateFTAModel.createFaultTrace(instance, start)
+		assertEquals(ftrace.events.size, 15)
+	}
+
+	@Test
+	def void propagationpointfeaturecutsets() {
 		val start = "outgoing propagation on observation{ServiceOmission}"
 		val cutsets = CreateFTAModel.createMinimalCutSet(instance, start)
 		assertEquals(cutsets.events.size, 8)

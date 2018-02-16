@@ -243,18 +243,18 @@ public class Util {
 		ComponentInstance dstCI = getComponentInstance(ci, EMV2Util.getSubcomponents(pp.getTarget()));
 		if (srcCI != null) {
 			srcEP = EMV2Util.findErrorPropagation(srcCI.getComponentClassifier(),
-					EMV2Util.getPropagationPoint(pp.getSource()).getName(), DirectionType.OUT);
+					EMV2Util.getEndPoint(pp.getSource()).getName(), DirectionType.OUT);
 			if (srcEP == null) {
 				srcEP = EMV2Util.findErrorPropagation(srcCI.getComponentClassifier(),
-						EMV2Util.getPropagationPoint(pp.getSource()).getName(), DirectionType.IN);
+						EMV2Util.getEndPoint(pp.getSource()).getName(), DirectionType.IN);
 			}
 		}
 		if (dstCI != null) {
 			dstEP = EMV2Util.findErrorPropagation(dstCI.getComponentClassifier(),
-					EMV2Util.getPropagationPoint(pp.getTarget()).getName(), DirectionType.IN);
+					EMV2Util.getEndPoint(pp.getTarget()).getName(), DirectionType.IN);
 			if (dstEP == null) {
 				dstEP = EMV2Util.findErrorPropagation(dstCI.getComponentClassifier(),
-						EMV2Util.getPropagationPoint(pp.getTarget()).getName(), DirectionType.OUT);
+						EMV2Util.getEndPoint(pp.getTarget()).getName(), DirectionType.OUT);
 			}
 		}
 		addPropagationpathRecord(pg, srcCI, srcEP, dstCI, dstEP);
