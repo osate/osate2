@@ -602,8 +602,12 @@ public class PropagateErrorSources {
 								+ connectionInstance.getName() + "[No In Propagation],,", depth);
 					}
 				}
-			} else {
+			} else if (EMV2Util.getPropagationPoint(ep) != null) {
+				reportEntry(entryText + effectText + " -> [No Propagation Point Connection],,", depth);
+			} else if (ep.getKind() != null) {
 				reportEntry(entryText + effectText + " -> [No Binding],,", depth);
+			} else {
+				reportEntry(entryText + effectText + " -> [Could not find propagation feature],,", depth);
 			}
 		} else {
 			for (PropagationGraphPath path : paths) {
