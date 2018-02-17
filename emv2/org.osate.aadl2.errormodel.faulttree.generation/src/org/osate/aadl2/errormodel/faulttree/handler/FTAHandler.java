@@ -98,7 +98,7 @@ public final class FTAHandler extends AbstractHandler {
 //				// filter out binding points
 //				continue;
 //			}
-			EList<TypeToken> result = EM2TypeSetUtil.generateAllLeafTypeTokens(outprop.getTypeSet(),
+			EList<TypeToken> result = EM2TypeSetUtil.flattenTypesetElements(outprop.getTypeSet(),
 					EMV2Util.getUseTypes(outprop));
 			for (TypeToken tt : result) {
 				String epName = CreateFTAModel.prefixOutgoingPropagation + EMV2Util.getPrintName(outprop)

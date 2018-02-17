@@ -303,6 +303,7 @@ connections
 	c0 : port sensor1.valueout -> voter.valuein1;
 	c1 : port sensor2.valueout -> voter.valuein2;
 	c2 : port voter.valueout -> actuator.valuein;
+	c3: feature actuator.actionout -> externaleffect;
 properties
 	actual_processor_binding => (reference (cpu)) applies to voter;
 	actual_memory_binding => (reference (mem)) applies to voter;
