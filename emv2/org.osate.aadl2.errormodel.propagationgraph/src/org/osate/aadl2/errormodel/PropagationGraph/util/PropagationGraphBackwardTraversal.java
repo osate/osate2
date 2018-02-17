@@ -122,11 +122,11 @@ public class PropagationGraphBackwardTraversal {
 						EList<TypeToken> result;
 						if (ep.getTypeTokenConstraint() != null) {
 							// get type from path constraint
-							result = EM2TypeSetUtil.generateAllLeafTypeTokens(ep.getTypeTokenConstraint(),
+							result = EM2TypeSetUtil.flattenTypesetElements(ep.getTypeTokenConstraint(),
 									EMV2Util.getUseTypes(ep));
 						} else {
 							// get incoming type from propagation
-							result = EM2TypeSetUtil.generateAllLeafTypeTokens(ep.getIncoming().getTypeSet(),
+							result = EM2TypeSetUtil.flattenTypesetElements(ep.getIncoming().getTypeSet(),
 									EMV2Util.getUseTypes(ep));
 						}
 						for (TypeToken typeToken : result) {
@@ -223,7 +223,7 @@ public class PropagationGraphBackwardTraversal {
 				stateResult = traverseErrorBehaviorState(component, state, newtype);
 			} else {
 				// multiple types to trace back
-				EList<TypeToken> types = EM2TypeSetUtil.generateAllLeafTypeTokens((TypeSet) newtype,
+				EList<TypeToken> types = EM2TypeSetUtil.flattenTypesetElements((TypeSet) newtype,
 						EMV2Util.getUseTypes(opc));
 				List<EObject> subResults = new LinkedList<EObject>();
 				for (TypeToken typeToken : types) {
@@ -341,7 +341,7 @@ public class PropagationGraphBackwardTraversal {
 						if (newtype instanceof ErrorType || newtype == null) {
 							stateResult = traverseErrorBehaviorState(component, ebt.getSource(), newtype);
 						} else if (newtype instanceof TypeSet) {
-							EList<TypeToken> leaftypes = EM2TypeSetUtil.generateAllLeafTypeTokens((TypeSet) newtype,
+							EList<TypeToken> leaftypes = EM2TypeSetUtil.flattenTypesetElements((TypeSet) newtype,
 									EMV2Util.getUseTypes(ebt));
 							List<EObject> subsubResults = new LinkedList<EObject>();
 							for (TypeToken typeToken : leaftypes) {
@@ -501,7 +501,7 @@ public class PropagationGraphBackwardTraversal {
 								} else {
 									// handle type set on states
 									// get incoming type from propagation
-									EList<TypeToken> leaftypes = EM2TypeSetUtil.generateAllLeafTypeTokens(
+							EList<TypeToken> leaftypes = EM2TypeSetUtil.flattenTypesetElements(
 											(TypeSet) referencedErrorType,
 											EMV2Util.getUseTypes(state));
 									List<EObject> subResults = new LinkedList<EObject>();
@@ -547,7 +547,7 @@ public class PropagationGraphBackwardTraversal {
 									// handle type set on states
 									// get incoming type from propagation
 									EList<TypeToken> leaftypes = EM2TypeSetUtil
-											.generateAllLeafTypeTokens((TypeSet) referencedErrorType, EMV2Util.getUseTypes(ep));
+									.flattenTypesetElements((TypeSet) referencedErrorType, EMV2Util.getUseTypes(ep));
 									List<EObject> subResults = new LinkedList<EObject>();
 									for (TypeToken typeToken : leaftypes) {
 										EList<ErrorTypes> tl = typeToken.getType();

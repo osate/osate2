@@ -580,6 +580,35 @@ public class EM2TypeSetUtil {
 	}
 
 	/**
+	 * generate all type tokens for a given typeset.
+	 * Do so for each leaf subtype.
+	 * @param typeSet
+	 * @return list of type tokens
+	 */
+	public static EList<TypeToken> flattenTypesetElements(TypeSet typeSet, List<ErrorModelLibrary> usetypes) {
+		EList<TypeToken> result = new BasicEList<TypeToken>();
+		if (typeSet == null) {
+			return result;
+		}
+		EList<TypeToken> typelist = typeSet.getTypeTokens();
+		for (TypeToken typeSetElement : typelist) {
+			// add all error type elements (but not their subtypes)
+			EList<ErrorTypes> elementtypes = typeSetElement.getType();
+			if (!elementtypes.isEmpty()) {
+				ErrorTypes first = elementtypes.get(0);
+				if (first instanceof ErrorType) {
+					// error type or type product
+					result.add(typeSetElement);
+				} else { // we have a type set that needs to be flattened
+					EList<TypeToken> etlist = flattenTypesetElements((TypeSet) first, usetypes);
+					result.addAll(etlist);
+				}
+			}
+		}
+		return result;
+	}
+
+	/**
 	 * Get all error types that are direct subtypes of et or any of its aliases.
 	 * If et is an alias we only find subtypes of the alias or its aliases
 	 * We look for any error type accessible in the TypeUseContext, i.e., subclause, type library, type mapping/xform set
