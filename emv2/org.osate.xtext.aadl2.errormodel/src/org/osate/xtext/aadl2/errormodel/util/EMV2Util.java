@@ -1954,7 +1954,7 @@ public class EMV2Util {
 	 * @param element
 	 * @return Error Model object that contains the expression
 	 */
-	public static EObject getConditionOwner(Element element) {
+	public static EObject getConditionOwner(EObject element) {
 		EObject container = element;
 		while (container != null && (container instanceof ConditionExpression)) {
 			container = container.eContainer();
@@ -2073,7 +2073,7 @@ public class EMV2Util {
 		return "";
 	}
 
-	public static String getName(Element el) {
+	public static String getName(EObject el) {
 		if (el instanceof ErrorPropagation) {
 			ErrorPropagation ep = (ErrorPropagation) el;
 			return getPropagationName(ep);

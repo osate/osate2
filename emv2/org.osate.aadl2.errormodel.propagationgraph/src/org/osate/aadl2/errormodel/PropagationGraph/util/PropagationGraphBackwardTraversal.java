@@ -269,7 +269,6 @@ public class PropagationGraphBackwardTraversal {
 		Collection<ErrorBehaviorTransition> transitions = EMV2Util.getAllErrorBehaviorTransitions(component);
 		for (ErrorBehaviorTransition ebt : transitions) {
 			ConditionExpression conditionExpression = null;
-			// XXX deal with types on states
 			double scale = 1;
 			boolean sameState = false;
 			ErrorTypes newtype = type;
@@ -615,8 +614,27 @@ public class PropagationGraphBackwardTraversal {
 								return null;
 							}
 							if (errorPropagation.getDirection() == DirectionType.IN) {
+						if (referencedErrorType instanceof ErrorType) {
 								return traverseIncomingErrorPropagation(relatedComponent, errorPropagation,
 										referencedErrorType);
+						} else {
+							// type set need to treat each element separately and put them in an OR
+							EList<TypeToken> tselements = EM2TypeSetUtil.flattenTypesetElements(
+									(TypeSet) referencedErrorType, EMV2Util.getUseTypes(errorPropagation));
+							if (tselements.size() == 1) {
+								return traverseIncomingErrorPropagation(relatedComponent, errorPropagation,
+										tselements.get(0).getType().get(0));
+							} else {
+								List<EObject> subResults = new LinkedList<EObject>();
+								for (TypeToken tt : tselements) {
+									EObject res = traverseIncomingErrorPropagation(relatedComponent, errorPropagation,
+											tt.getType().get(0));
+									subResults.add(res);
+								}
+								return postProcessOr(relatedComponent, conditionElement, referencedErrorType, scale,
+										subResults);
+							}
+						}
 							} else {
 								return traverseOutgoingErrorPropagation(relatedComponent, errorPropagation,
 										referencedErrorType);
