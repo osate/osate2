@@ -44,6 +44,7 @@ import org.osate.aadl2.modelsupport.util.AadlUtil;
 import org.osate.aadl2.util.Aadl2InstanceUtil;
 import org.osate.aadl2.util.Aadl2Util;
 import org.osate.aadl2.util.OsateDebug;
+import org.osate.xtext.aadl2.errormodel.errorModel.AllExpression;
 import org.osate.xtext.aadl2.errormodel.errorModel.AndExpression;
 import org.osate.xtext.aadl2.errormodel.errorModel.CompositeState;
 import org.osate.xtext.aadl2.errormodel.errorModel.ConditionElement;
@@ -68,6 +69,8 @@ import org.osate.xtext.aadl2.errormodel.errorModel.ErrorTypes;
 import org.osate.xtext.aadl2.errormodel.errorModel.EventOrPropagation;
 import org.osate.xtext.aadl2.errormodel.errorModel.FeatureorPPReference;
 import org.osate.xtext.aadl2.errormodel.errorModel.OrExpression;
+import org.osate.xtext.aadl2.errormodel.errorModel.OrlessExpression;
+import org.osate.xtext.aadl2.errormodel.errorModel.OrmoreExpression;
 import org.osate.xtext.aadl2.errormodel.errorModel.OutgoingPropagationCondition;
 import org.osate.xtext.aadl2.errormodel.errorModel.PropagationPath;
 import org.osate.xtext.aadl2.errormodel.errorModel.PropagationPoint;
@@ -1714,15 +1717,27 @@ public class EMV2Util {
 		if (ce instanceof ConditionElement) {
 			ConditionElement element = (ConditionElement) ce;
 			propagations.add(element);
-		}
-
-		if (ce instanceof AndExpression) {
+		} else if (ce instanceof AndExpression) {
 			AndExpression and = (AndExpression) ce;
 			for (ConditionExpression foobar : and.getOperands()) {
 				getAllConditionElementsFromConditionExpression(propagations, foobar);
 			}
-		}
-		if (ce instanceof OrExpression) {
+		} else if (ce instanceof OrExpression) {
+			OrExpression or = (OrExpression) ce;
+			for (ConditionExpression foobar : or.getOperands()) {
+				getAllConditionElementsFromConditionExpression(propagations, foobar);
+			}
+		} else if (ce instanceof OrmoreExpression) {
+			OrExpression or = (OrExpression) ce;
+			for (ConditionExpression foobar : or.getOperands()) {
+				getAllConditionElementsFromConditionExpression(propagations, foobar);
+			}
+		} else if (ce instanceof OrlessExpression) {
+			OrExpression or = (OrExpression) ce;
+			for (ConditionExpression foobar : or.getOperands()) {
+				getAllConditionElementsFromConditionExpression(propagations, foobar);
+			}
+		} else if (ce instanceof AllExpression) {
 			OrExpression or = (OrExpression) ce;
 			for (ConditionExpression foobar : or.getOperands()) {
 				getAllConditionElementsFromConditionExpression(propagations, foobar);
@@ -1948,7 +1963,6 @@ public class EMV2Util {
 		result.addAll(ebsm.getTransitions());
 	}
 
-
 	/**
 	 * get Error Behavior State Machine (ebsm) in context  of the element
 	 * This means the ebsm is either an enclosing container or the ebsm is referenced by an enclosing use behavior declaration.
@@ -2141,7 +2155,7 @@ public class EMV2Util {
 		}
 		if (epe.getEmv2PropagationKind() != null) {
 			return prefix + epe.getEmv2PropagationKind()
-			+ (epe.getErrorType() != null ? "." + epe.getErrorType().getName() : "");
+					+ (epe.getErrorType() != null ? "." + epe.getErrorType().getName() : "");
 		} else {
 			return getPathName(epe);
 		}
@@ -2676,7 +2690,6 @@ public class EMV2Util {
 		return null;
 	}
 
-
 	/**
 	 * take inheritance into account
 	 * @param ci
@@ -3005,14 +3018,13 @@ public class EMV2Util {
 		while (current != null && current.getPropagationPoint() == null) {
 			current = current.getNext();
 		}
-		return current == null ? null
-				: current.getPropagationPoint();
+		return current == null ? null : current.getPropagationPoint();
 	}
 
 	public static EList<SubcomponentElement> getSubcomponents(SConditionElement conditionElement) {
 		final EList<SubcomponentElement> list = new BasicEList<>();
-		for (QualifiedErrorBehaviorState current = conditionElement
-				.getQualifiedState(); current.getSubcomponent() != null;) {
+		for (QualifiedErrorBehaviorState current = conditionElement.getQualifiedState(); current
+				.getSubcomponent() != null;) {
 			list.add(current.getSubcomponent());
 			current = current.getNext();
 		}
