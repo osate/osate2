@@ -28,6 +28,7 @@ import org.osate.xtext.aadl2.errormodel.errorModel.ErrorPropagation;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorSource;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorTypes;
 import org.osate.xtext.aadl2.errormodel.errorModel.OutgoingPropagationCondition;
+import org.osate.xtext.aadl2.errormodel.errorModel.TypeSet;
 import org.osate.xtext.aadl2.errormodel.util.EMV2Properties;
 import org.osate.xtext.aadl2.errormodel.util.EMV2Util;
 
@@ -376,17 +377,20 @@ public class FaultTreeUtils {
 
 		if (errorModelArtifact instanceof ConditionExpression) {
 			while (errorModelArtifact instanceof ConditionExpression) {
-				errorModelArtifact = errorModelArtifact.eContainer();
+				errorModelArtifact = EMV2Util.getConditionOwner(errorModelArtifact);
 			}
 			String opcontext = "";
+			if (type instanceof TypeSet) {
+				opcontext = " on type set " + EMV2Util.getPrintName((TypeSet) type);
+			} else
 			if (errorModelArtifact instanceof ErrorBehaviorTransition) {
-				opcontext = " in transition";
+				opcontext = " in transition " + EMV2Util.getName(errorModelArtifact);
 			} else if (errorModelArtifact instanceof OutgoingPropagationCondition) {
-				opcontext = " in outgoing propagation condition";
+				opcontext = " in outgoing propagation condition " + EMV2Util.getName(errorModelArtifact);
 			} else if (errorModelArtifact instanceof ErrorDetection) {
-				opcontext = " in error detection";
+				opcontext = " in error detection " + EMV2Util.getName(errorModelArtifact);
 			} else if (errorModelArtifact instanceof CompositeState) {
-				opcontext = " in composite state";
+				opcontext = " in composite state " + EMV2Util.getName(errorModelArtifact);
 			}
 			description = "'" + event.getSubEventLogic() + "'" + opcontext;
 		}
