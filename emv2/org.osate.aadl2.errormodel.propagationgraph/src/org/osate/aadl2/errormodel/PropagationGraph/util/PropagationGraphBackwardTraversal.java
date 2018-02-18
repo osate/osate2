@@ -213,7 +213,7 @@ public class PropagationGraphBackwardTraversal {
 		}
 		ErrorBehaviorState state = opc.getState();
 		if (state != null) {
-			ErrorTypes newtype = null;
+			ErrorTypes newtype = type;
 			if (opc.getTypeTokenConstraint() != null) {
 				newtype = mapTargetType(opc.getTypeTokenConstraint(), type);
 			} else if (state.getTypeSet() != null) {
@@ -248,7 +248,7 @@ public class PropagationGraphBackwardTraversal {
 		} else if (conditionResult == null && stateResult != null) {
 			return stateResult;
 		}
-		// (conditionResult !=/== null && stateResult == null){
+		// else if (conditionResult !=/== null && stateResult == null){
 		return conditionResult;
 	}
 
@@ -357,6 +357,7 @@ public class PropagationGraphBackwardTraversal {
 							} else if (subsubResults.size() == 1) {
 								stateResult = subsubResults.get(0);
 							} else {
+								// XXX maybe OR instead of Xor
 								stateResult = postProcessXor(component, state, newtype, scale,
 										subsubResults);
 							}
@@ -1045,6 +1046,38 @@ public class PropagationGraphBackwardTraversal {
 	 * @return EObject (can be null )
 	 */
 	protected EObject postProcessXor(ComponentInstance component, Element condition, ErrorTypes type,
+			double scale, List<EObject> subResults) {
+//		OsateDebug.osateDebug("postProcessXor " + component.getName());
+		return null;
+	}
+
+	/**
+	 * pre process results Priority AND expression
+	 * called with non-empty subResults list
+	 * @param component
+	 * @param condition XOR expression
+	 * @param type Error Type
+	 * @param scale scaling factor for probability
+	 * @param subResults
+	 * @return EObject (can be null )
+	 */
+	protected EObject preProcessPriorityAnd(ComponentInstance component, Element condition, ErrorTypes type,
+			double scale) {
+//		OsateDebug.osateDebug("postProcessXor " + component.getName());
+		return null;
+	}
+
+	/**
+	 * post process results Priority AND expression
+	 * called with non-empty subResults list
+	 * @param component
+	 * @param condition XOR expression
+	 * @param type Error Type
+	 * @param scale scaling factor for probability
+	 * @param subResults
+	 * @return EObject (can be null )
+	 */
+	protected EObject postProcessPriorityAnd(ComponentInstance component, Element condition, ErrorTypes type,
 			double scale, List<EObject> subResults) {
 //		OsateDebug.osateDebug("postProcessXor " + component.getName());
 		return null;

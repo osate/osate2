@@ -1210,13 +1210,14 @@ public class EMV2Util {
 	 * @return
 	 */
 	private static OutgoingPropagationCondition findOwnOutgoingPropagationCondition(ErrorModelSubclause ems,
-			String name) {
+			ErrorPropagation ep) {
 		if (ems == null) {
 			return null;
 		}
 		EList<OutgoingPropagationCondition> outgoingPs = ems.getOutgoingPropagationConditions();
 		for (OutgoingPropagationCondition outgoingPropagationCondition : outgoingPs) {
-			if (name.equalsIgnoreCase(outgoingPropagationCondition.getName())) {
+			if (outgoingPropagationCondition.isAllPropagations()
+					|| EMV2Util.isSame(outgoingPropagationCondition.getOutgoing(), ep)) {
 				return outgoingPropagationCondition;
 			}
 		}
@@ -1224,20 +1225,20 @@ public class EMV2Util {
 	}
 
 	/**
-	 * find error detection in the specified context, i.e., its enclosing classifier subclause or inherited subclauses
+	 * find outgoing propagation condition in the specified context.
 	 * we look in the component error behavior sections .
 	 * @param context
-	 * @param name
+	 * @param ep
 	 * @return
 	 */
-	public static OutgoingPropagationCondition findOutgoingPropagationCondition(Element context, String name) {
+	public static OutgoingPropagationCondition findOutgoingPropagationCondition(Element context, ErrorPropagation ep) {
 		Classifier cl = getAssociatedClassifier(context);
 		if (cl == null) {
 			return null;
 		}
 		EList<ErrorModelSubclause> emslist = getAllContainingClassifierEMV2Subclauses(cl);
 		for (ErrorModelSubclause errorModelSubclause : emslist) {
-			OutgoingPropagationCondition res = findOwnOutgoingPropagationCondition(errorModelSubclause, name);
+			OutgoingPropagationCondition res = findOwnOutgoingPropagationCondition(errorModelSubclause, ep);
 			if (res != null) {
 				return res;
 			}

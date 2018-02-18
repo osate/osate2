@@ -92,7 +92,9 @@ public final class FTAHandler extends AbstractHandler {
 			EList<PropagationGraphPath> paths = Util.getAllReversePropagationPaths(currentPropagationGraph, target,
 					outprop);
 			if (paths.isEmpty()) {
-				continue;
+				if (EMV2Util.findOutgoingPropagationCondition(outprop, outprop) == null) {
+					continue;
+				}
 			}
 //			if (outprop.getFeatureorPPRef().getFeatureorPP() == null) {
 //				// filter out binding points
