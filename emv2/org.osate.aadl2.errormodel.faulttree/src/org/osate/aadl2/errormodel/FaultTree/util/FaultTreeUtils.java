@@ -376,9 +376,7 @@ public class FaultTreeUtils {
 		}
 
 		if (errorModelArtifact instanceof ConditionExpression) {
-			while (errorModelArtifact instanceof ConditionExpression) {
-				errorModelArtifact = EMV2Util.getConditionOwner(errorModelArtifact);
-			}
+			errorModelArtifact = EMV2Util.getConditionExpressionContext(errorModelArtifact);
 			String opcontext = "";
 			if (type instanceof TypeSet) {
 				opcontext = " on type set " + EMV2Util.getPrintName((TypeSet) type);

@@ -1948,19 +1948,6 @@ public class EMV2Util {
 		result.addAll(ebsm.getTransitions());
 	}
 
-	/**
-	 * get the EM object that contains the condition expression.
-	 * Traverses up the expression tree to the enclosing EM object
-	 * @param element
-	 * @return Error Model object that contains the expression
-	 */
-	public static EObject getConditionOwner(EObject element) {
-		EObject container = element;
-		while (container != null && (container instanceof ConditionExpression)) {
-			container = container.eContainer();
-		}
-		return container;
-	}
 
 	/**
 	 * get Error Behavior State Machine (ebsm) in context  of the element
@@ -2663,9 +2650,9 @@ public class EMV2Util {
 	 * @param ce Condition Expression
 	 * @return EObject
 	 */
-	public static EObject getConditionExpressionContext(ConditionExpression ce) {
+	public static EObject getConditionExpressionContext(EObject ce) {
 		EObject res = ce;
-		while (res instanceof ConditionExpression) {
+		while (res != null && res instanceof ConditionExpression) {
 			res = res.eContainer();
 		}
 		return res;

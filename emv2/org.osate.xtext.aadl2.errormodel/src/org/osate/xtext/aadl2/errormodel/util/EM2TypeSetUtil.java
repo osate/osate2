@@ -598,10 +598,16 @@ public class EM2TypeSetUtil {
 				ErrorTypes first = elementtypes.get(0);
 				if (first instanceof ErrorType) {
 					// error type or type product
-					result.add(typeSetElement);
+					if (!EM2TypeSetUtil.contains(result, typeSetElement)) {
+						result.add(typeSetElement);
+					}
 				} else { // we have a type set that needs to be flattened
 					EList<TypeToken> etlist = flattenTypesetElements((TypeSet) first, usetypes);
-					result.addAll(etlist);
+					for (TypeToken typeToken : etlist) {
+						if (!EM2TypeSetUtil.contains(result, typeToken)) {
+							result.add(typeToken);
+						}
+					}
 				}
 			}
 		}
