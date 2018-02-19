@@ -471,7 +471,6 @@ public class Util {
 				"bindings");
 		ErrorPropagation BCdstprop = EMV2Util.findIncomingErrorPropagation(comp.getComponentClassifier(),
 				resourcebindingKind);
-
 		if (BRsrcprop != null && BCdstprop != null) {
 			addPropagationpathRecord(pg, boundResource, BRsrcprop, comp, BCdstprop);
 		}
@@ -481,6 +480,9 @@ public class Util {
 				"bindings");
 		if (BCsrcprop != null && BRdstprop != null) {
 			addPropagationpathRecord(pg, comp, BCsrcprop, boundResource, BRdstprop);
+		}
+		for (ComponentInstance subci : comp.getComponentInstances()) {
+			populateBindingPropagationPaths(pg, subci, boundResource, resourcebindingKind);
 		}
 	}
 
