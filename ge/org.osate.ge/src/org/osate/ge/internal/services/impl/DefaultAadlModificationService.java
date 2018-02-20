@@ -25,6 +25,7 @@ import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.e4.core.contexts.IEclipseContext;
+import org.eclipse.emf.common.command.Command;
 import org.eclipse.emf.common.util.ECollections;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
@@ -383,14 +384,18 @@ public class DefaultAadlModificationService implements AadlModificationService {
 		public final boolean modificationSuccessful;
 		public final R modifierResult;
 	}
+
 	/**
 	 * Modifies the resource. If changes causes a validation error, the changes are reverted.
 	 * @param resource
+	 * @param element
 	 * @param modifier
+	 * @param testSerialization
 	 * @return
 	 */
 	@SuppressWarnings("unchecked")
-	private <E extends EObject, R> ModifySafelyResults<R> modifySafely(final XtextResource resource, final E element, final Modifier<E, R> modifier, final boolean testSerialization) {
+	private <E extends EObject, R> ModifySafelyResults<R> modifySafely(final XtextResource resource, final E element,
+			final Modifier<E, R> modifier, final boolean testSerialization) {
 		if(resource.getContents().size() < 1) {
 			return null;
 		}
@@ -398,36 +403,38 @@ public class DefaultAadlModificationService implements AadlModificationService {
 		final ResourceSet resourceSet = Objects.requireNonNull(resource.getResourceSet(),
 				"Unable to retrieve resource set");
 		TransactionalEditingDomain domain = null;
-		boolean createdEditingDomain = false;
 
 		R result = null;
 		boolean modificationSuccessful = false;
 		try {
 			domain = TransactionalEditingDomain.Factory.INSTANCE.getEditingDomain(resourceSet);
+
+			final Command undoCommand = domain == null ? null : domain.getCommandStack().getUndoCommand();
 			if (domain == null) {
-				domain = TransactionalEditingDomain.Factory.INSTANCE.createEditingDomain(resourceSet);
-				createdEditingDomain = true;
-			}
+				// Perform the modification without a transaction
+				result = modifier.modify(resource, element);
+			} else {
+				// Make modification in a transaction
+				final RecordingCommand cmd = new RecordingCommand(domain) {
+					private R modifierResult;
 
-			// Execute a new recording command
-			final RecordingCommand cmd = new RecordingCommand(domain) {
-				private R modifierResult;
+					@Override
+					protected void doExecute() {
+						modifierResult = modifier.modify(resource, element);
+					}
 
-				@Override
-				protected void doExecute() {
-					modifierResult = modifier.modify(resource, element);
+					@Override
+					public Collection<?> getResult() {
+						return Collections.singletonList(modifierResult);
+					}
+
+				};
+				domain.getCommandStack().execute(cmd);
+
+				final Object[] cmdResult = cmd.getResult().toArray();
+				if (cmdResult.length > 0) {
+					result = (R) cmdResult[0];
 				}
-
-				@Override
-				public Collection<?> getResult() {
-					return Collections.singletonList(modifierResult);
-				}
-
-			};
-			domain.getCommandStack().execute(cmd);
-			final Object[] cmdResult = cmd.getResult().toArray();
-			if(cmdResult.length > 0) {
-				result = (R)cmdResult[0];
 			}
 
 			// Try to serialize the resource. In some cases serialization can fail and leave a corrupt model if we are editing without an xtext document
@@ -435,6 +442,14 @@ public class DefaultAadlModificationService implements AadlModificationService {
 			if(testSerialization) {
 				final String serializedSrc = resource.getSerializer().serialize(resource.getContents().get(0));
 				modificationSuccessful = serializedSrc != null && !serializedSrc.trim().isEmpty();
+
+				if (!modificationSuccessful) {
+					while (domain != null && domain.getCommandStack().canUndo()
+							&& domain.getCommandStack().getUndoCommand() != undoCommand) {
+						domain.getCommandStack().undo();
+					}
+					result = null;
+				}
 			} else {
 				// Mark the modification as successful
 				modificationSuccessful = true;
@@ -442,15 +457,6 @@ public class DefaultAadlModificationService implements AadlModificationService {
 		} finally {
 			if (!modificationSuccessful) {
 				result = null;
-			}
-
-			// Flush and dispose of the editing domain
-			if (domain != null) {
-				domain.getCommandStack().flush();
-
-				if (createdEditingDomain) {
-					domain.dispose();
-				}
 			}
 		}
 

@@ -11,11 +11,12 @@ import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.emf.transaction.TransactionalEditingDomain;
 import org.eclipse.xtext.resource.XtextResourceSet;
 import org.eclipse.xtext.ui.resource.LiveScopeResourceSetInitializer;
 import org.osate.aadl2.AadlPackage;
-import org.osate.ge.internal.services.ModelChangeNotifier;
 import org.osate.ge.internal.services.AadlResourceService;
+import org.osate.ge.internal.services.ModelChangeNotifier;
 import org.osate.xtext.aadl2.ui.internal.Aadl2Activator;
 
 import com.google.inject.Injector;
@@ -90,6 +91,7 @@ public class DefaultAadlResourceService implements AadlResourceService {
 	}
 
 	private final XtextResourceSet resourceSet = new XtextResourceSet();
+	private final TransactionalEditingDomain editingDomain;
 	private final Map<URI, WeakPackageReference> elementUriToAadlPackageReference = new HashMap<>();
 	private final ReferenceQueue<SimpleAadlPackageReference> collectedAadlPkgReferenceQueue = new ReferenceQueue<>();
 	private final Thread referenceCleanupThread;
@@ -149,6 +151,9 @@ public class DefaultAadlResourceService implements AadlResourceService {
 		final Injector injector = Aadl2Activator.getInstance().getInjector(Aadl2Activator.ORG_OSATE_XTEXT_AADL2_AADL2);
 		injector.getInstance(LiveScopeResourceSetInitializer.class).initialize(resourceSet);
 
+		// Create the editing domain
+		editingDomain = TransactionalEditingDomain.Factory.INSTANCE.createEditingDomain(resourceSet);
+
 		// Start the reference cleanup thread
 		referenceCleanupThread = new Thread(referenceCleanupRunnable);
 		referenceCleanupThread.setDaemon(true);
@@ -159,6 +164,7 @@ public class DefaultAadlResourceService implements AadlResourceService {
 	}
 
 	public void dispose() {
+		editingDomain.dispose();
 		resourceSet.getResources().clear();
 		changeNotifier.removeChangeListener(changeListener);
 	}
