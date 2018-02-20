@@ -44,6 +44,7 @@ import org.osate.aadl2.modelsupport.util.AadlUtil;
 import org.osate.aadl2.util.Aadl2InstanceUtil;
 import org.osate.aadl2.util.Aadl2Util;
 import org.osate.aadl2.util.OsateDebug;
+import org.osate.xtext.aadl2.errormodel.errorModel.AllExpression;
 import org.osate.xtext.aadl2.errormodel.errorModel.AndExpression;
 import org.osate.xtext.aadl2.errormodel.errorModel.CompositeState;
 import org.osate.xtext.aadl2.errormodel.errorModel.ConditionElement;
@@ -68,6 +69,8 @@ import org.osate.xtext.aadl2.errormodel.errorModel.ErrorTypes;
 import org.osate.xtext.aadl2.errormodel.errorModel.EventOrPropagation;
 import org.osate.xtext.aadl2.errormodel.errorModel.FeatureorPPReference;
 import org.osate.xtext.aadl2.errormodel.errorModel.OrExpression;
+import org.osate.xtext.aadl2.errormodel.errorModel.OrlessExpression;
+import org.osate.xtext.aadl2.errormodel.errorModel.OrmoreExpression;
 import org.osate.xtext.aadl2.errormodel.errorModel.OutgoingPropagationCondition;
 import org.osate.xtext.aadl2.errormodel.errorModel.PropagationPath;
 import org.osate.xtext.aadl2.errormodel.errorModel.PropagationPoint;
@@ -1207,13 +1210,14 @@ public class EMV2Util {
 	 * @return
 	 */
 	private static OutgoingPropagationCondition findOwnOutgoingPropagationCondition(ErrorModelSubclause ems,
-			String name) {
+			ErrorPropagation ep) {
 		if (ems == null) {
 			return null;
 		}
 		EList<OutgoingPropagationCondition> outgoingPs = ems.getOutgoingPropagationConditions();
 		for (OutgoingPropagationCondition outgoingPropagationCondition : outgoingPs) {
-			if (name.equalsIgnoreCase(outgoingPropagationCondition.getName())) {
+			if (outgoingPropagationCondition.isAllPropagations()
+					|| EMV2Util.isSame(outgoingPropagationCondition.getOutgoing(), ep)) {
 				return outgoingPropagationCondition;
 			}
 		}
@@ -1221,20 +1225,20 @@ public class EMV2Util {
 	}
 
 	/**
-	 * find error detection in the specified context, i.e., its enclosing classifier subclause or inherited subclauses
+	 * find outgoing propagation condition in the specified context.
 	 * we look in the component error behavior sections .
 	 * @param context
-	 * @param name
+	 * @param ep
 	 * @return
 	 */
-	public static OutgoingPropagationCondition findOutgoingPropagationCondition(Element context, String name) {
+	public static OutgoingPropagationCondition findOutgoingPropagationCondition(Element context, ErrorPropagation ep) {
 		Classifier cl = getAssociatedClassifier(context);
 		if (cl == null) {
 			return null;
 		}
 		EList<ErrorModelSubclause> emslist = getAllContainingClassifierEMV2Subclauses(cl);
 		for (ErrorModelSubclause errorModelSubclause : emslist) {
-			OutgoingPropagationCondition res = findOwnOutgoingPropagationCondition(errorModelSubclause, name);
+			OutgoingPropagationCondition res = findOwnOutgoingPropagationCondition(errorModelSubclause, ep);
 			if (res != null) {
 				return res;
 			}
@@ -1714,15 +1718,27 @@ public class EMV2Util {
 		if (ce instanceof ConditionElement) {
 			ConditionElement element = (ConditionElement) ce;
 			propagations.add(element);
-		}
-
-		if (ce instanceof AndExpression) {
+		} else if (ce instanceof AndExpression) {
 			AndExpression and = (AndExpression) ce;
 			for (ConditionExpression foobar : and.getOperands()) {
 				getAllConditionElementsFromConditionExpression(propagations, foobar);
 			}
-		}
-		if (ce instanceof OrExpression) {
+		} else if (ce instanceof OrExpression) {
+			OrExpression or = (OrExpression) ce;
+			for (ConditionExpression foobar : or.getOperands()) {
+				getAllConditionElementsFromConditionExpression(propagations, foobar);
+			}
+		} else if (ce instanceof OrmoreExpression) {
+			OrExpression or = (OrExpression) ce;
+			for (ConditionExpression foobar : or.getOperands()) {
+				getAllConditionElementsFromConditionExpression(propagations, foobar);
+			}
+		} else if (ce instanceof OrlessExpression) {
+			OrExpression or = (OrExpression) ce;
+			for (ConditionExpression foobar : or.getOperands()) {
+				getAllConditionElementsFromConditionExpression(propagations, foobar);
+			}
+		} else if (ce instanceof AllExpression) {
 			OrExpression or = (OrExpression) ce;
 			for (ConditionExpression foobar : or.getOperands()) {
 				getAllConditionElementsFromConditionExpression(propagations, foobar);
@@ -1949,20 +1965,6 @@ public class EMV2Util {
 	}
 
 	/**
-	 * get the EM object that contains the condition expression.
-	 * Traverses up the expression tree to the enclosing EM object
-	 * @param element
-	 * @return Error Model object that contains the expression
-	 */
-	public static EObject getConditionOwner(Element element) {
-		EObject container = element;
-		while (container != null && (container instanceof ConditionExpression)) {
-			container = container.eContainer();
-		}
-		return container;
-	}
-
-	/**
 	 * get Error Behavior State Machine (ebsm) in context  of the element
 	 * This means the ebsm is either an enclosing container or the ebsm is referenced by an enclosing use behavior declaration.
 	 * @param element
@@ -2073,7 +2075,7 @@ public class EMV2Util {
 		return "";
 	}
 
-	public static String getName(Element el) {
+	public static String getName(EObject el) {
 		if (el instanceof ErrorPropagation) {
 			ErrorPropagation ep = (ErrorPropagation) el;
 			return getPropagationName(ep);
@@ -2154,7 +2156,7 @@ public class EMV2Util {
 		}
 		if (epe.getEmv2PropagationKind() != null) {
 			return prefix + epe.getEmv2PropagationKind()
-			+ (epe.getErrorType() != null ? "." + epe.getErrorType().getName() : "");
+					+ (epe.getErrorType() != null ? "." + epe.getErrorType().getName() : "");
 		} else {
 			return getPathName(epe);
 		}
@@ -2663,9 +2665,9 @@ public class EMV2Util {
 	 * @param ce Condition Expression
 	 * @return EObject
 	 */
-	public static EObject getConditionExpressionContext(ConditionExpression ce) {
+	public static EObject getConditionExpressionContext(EObject ce) {
 		EObject res = ce;
-		while (res instanceof ConditionExpression) {
+		while (res != null && res instanceof ConditionExpression) {
 			res = res.eContainer();
 		}
 		return res;
@@ -2688,7 +2690,6 @@ public class EMV2Util {
 		}
 		return null;
 	}
-
 
 	/**
 	 * take inheritance into account
@@ -3018,14 +3019,13 @@ public class EMV2Util {
 		while (current != null && current.getPropagationPoint() == null) {
 			current = current.getNext();
 		}
-		return current == null ? null
-				: current.getPropagationPoint();
+		return current == null ? null : current.getPropagationPoint();
 	}
 
 	public static EList<SubcomponentElement> getSubcomponents(SConditionElement conditionElement) {
 		final EList<SubcomponentElement> list = new BasicEList<>();
-		for (QualifiedErrorBehaviorState current = conditionElement
-				.getQualifiedState(); current.getSubcomponent() != null;) {
+		for (QualifiedErrorBehaviorState current = conditionElement.getQualifiedState(); current
+				.getSubcomponent() != null;) {
 			list.add(current.getSubcomponent());
 			current = current.getNext();
 		}
