@@ -502,7 +502,8 @@ public class LatencyReportEntry {
 
 		section = new Section(sectionName + inMode);
 		line = new Line();
-		line.addHeaderContent("Latency analysis for end-to-end flow '" + sectionName + "' of system '" + systemName
+		line.addHeaderContent(
+				"Latency results for end-to-end flow '" + sectionName + "' of system '" + systemName
 				+ "'" + inMode);
 		section.addLine(line);
 		line = new Line();
