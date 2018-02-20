@@ -335,7 +335,9 @@
           </separator>
           <command
                 commandId="org.osate.ui.instantiate">
-             <visibleWhen checkEnabled="true"/>
+             <visibleWhen
+                   checkEnabled="true">
+             </visibleWhen>
           </command>
           <menu
                 id="org.osate.ui.analysesOutlinePopup"
@@ -376,8 +378,7 @@
                 visible="true">
           </separator>
           <command
-                commandId="org.osate.ui.instantiate"
-                label="Reinstantiate">
+                commandId="org.osate.ui.reinstantiate">
              <visibleWhen
                    checkEnabled="true">
              </visibleWhen>
@@ -823,9 +824,12 @@
              name="Set As AADL_Project Property Set">
        </command>
        <command
-             description="Instantiate the system"
              id="org.osate.ui.instantiate"
              name="Instantiate">
+       </command>
+       <command
+             id="org.osate.ui.reinstantiate"
+             name="Reinstantiate">
        </command>
        <command
              id="org.osate.ui.reinstantiateAllAadl"
@@ -880,22 +884,48 @@
        <handler
              class="org.osate.ui.handlers.InstantiateHandler"
              commandId="org.osate.ui.instantiate">
-         <enabledWhen>
-            <with
-                  variable="selection">
-               <and>
-                  <count
-                        value="1">
-                  </count>
-                  <iterate>
-                  	 <or>
-	                     <instanceof value="org.osate.aadl2.ComponentImplementation"/>
-	                     <test property="org.osate.ui.superType" value="ComponentImplementation"/>
-	                 </or>
-                  </iterate>
-               </and>
-            </with>
-         </enabledWhen>
+          <enabledWhen>
+             <with
+                   variable="selection">
+                <and>
+                   <count
+                         value="1">
+                   </count>
+                   <iterate>
+                      <and>
+                         <test
+                               property="org.osate.ui.superType"
+                               value="ComponentImplementation"
+                               forcePluginActivation="true">
+                         </test>
+                         <not>
+                            <test
+                                  property="org.osate.ui.superType"
+                                  value="SubprogramImplementation"
+                                  forcePluginActivation="true">
+                            </test>
+                         </not>
+                         <not>
+                            <test
+                                  property="org.osate.ui.superType"
+                                  value="SubprogramGroupImplementation"
+                                  forcePluginActivation="true">
+                            </test>
+                         </not>
+                      </and>
+                   </iterate>
+                </and>
+             </with>
+          </enabledWhen>
+       </handler>
+       <handler
+             commandId="org.osate.ui.reinstantiate"
+             class="org.osate.ui.handlers.ReinstantiateHandler">
+          <enabledWhen>
+             <reference
+                   definitionId="org.osate.core.isInstanceFileSelected">
+             </reference>
+          </enabledWhen>
        </handler>
        <handler
              class="org.osate.ui.handlers.ReinstantiateAadl"
