@@ -80,8 +80,8 @@ public
 
 	memory segment
 		properties
-			ARINC653::Memory_Type => (Data_Memory, Code_Memory);
-			Byte_Count => 1000;
+			ARINC653::Memory_Kind => (Memory_Data, Memory_Code);
+			Memory_Size => 1000 Bytes;
 	end segment;
 
 	memory implementation segment.i
