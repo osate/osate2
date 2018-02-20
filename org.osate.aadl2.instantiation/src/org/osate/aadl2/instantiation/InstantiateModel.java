@@ -2156,7 +2156,8 @@ public class InstantiateModel {
 				}
 			}
 			if (somIndex == -1) {
-				errManager.error(root, "List of System Operation Modes is incomplete.");
+				errManager.warning(root,
+						"List of system operation modes is incomplete (see project property 'Instantiation')");
 			}
 		} else {
 			enumerateSystemOperationModes(root, instances, 1, skipped, currentModes, 0, limit);
