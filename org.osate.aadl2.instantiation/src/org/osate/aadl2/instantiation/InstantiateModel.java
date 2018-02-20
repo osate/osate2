@@ -51,9 +51,12 @@ import java.util.List;
 import java.util.Stack;
 
 import org.eclipse.core.resources.IFile;
+import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
+import org.eclipse.core.resources.ProjectScope;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.NullProgressMonitor;
+import org.eclipse.core.runtime.preferences.IScopeContext;
 import org.eclipse.emf.common.command.Command;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.TreeIterator;
@@ -134,6 +137,7 @@ import org.osate.aadl2.modelsupport.util.AadlUtil;
 import org.osate.aadl2.util.Aadl2InstanceUtil;
 import org.osate.aadl2.util.Aadl2Util;
 import org.osate.workspace.WorkspacePlugin;
+import org.osgi.service.prefs.Preferences;
 
 /**
  * This class implements the instantiation of models from a root system impl.
@@ -145,9 +149,12 @@ import org.osate.workspace.WorkspacePlugin;
  * @author phf
  */
 public class InstantiateModel {
+	public static final String PREFS_QUALIFIER = "org.osate.aadl2.instantiation";
+	public static final String PREF_SOM_LIMIT = "org.osate.aadl2.instantiation.som_limit";
+	public static final int SOM_LIMIT = 1000;
+
 	/* The name for the single mode of a non-modal system */
 	public static final String NORMAL_SOM_NAME = "No Modes";
-	protected static final int SOM_LIMIT = 1000;
 	protected final AnalysisErrorReporterManager errManager;
 	protected final IProgressMonitor monitor;
 
@@ -2084,7 +2091,8 @@ public class InstantiateModel {
 		final List<Element> allInstances = modeSearch.processPreOrderComponentInstance(root);
 		if (modeSearch.hasModalComponents) {
 			final ComponentInstance[] instances = allInstances.toArray(new ComponentInstance[0]);
-			enumerateSystemOperationModes(root, instances);
+			enumerateSystemOperationModes(root, instances,
+					getSOMLimit(OsateResourceUtil.convertToIResource(root.eResource()).getProject()));
 		} else {
 			/*
 			 * We have no modal elements, but we need to create a special SOM to
@@ -2114,7 +2122,8 @@ public class InstantiateModel {
 	 * of <code>instances</code>, this list holds the modal instances that
 	 * should be turned into a System Operation Mode object.
 	 */
-	protected void enumerateSystemOperationModes(final SystemInstance root, final ComponentInstance[] instances)
+	protected void enumerateSystemOperationModes(final SystemInstance root, final ComponentInstance[] instances,
+			final int limit)
 			throws InterruptedException {
 		final LinkedList<ComponentInstance> skipped = new LinkedList<ComponentInstance>();
 		final List<ModeInstance> currentModes = new ArrayList<ModeInstance>();
@@ -2143,14 +2152,15 @@ public class InstantiateModel {
 							}
 						}
 					}
-					somIndex = enumerateSystemOperationModes(root, instances, 1, skipped, nextModes, somIndex);
+					somIndex = enumerateSystemOperationModes(root, instances, 1, skipped, nextModes, somIndex, limit);
 				}
 			}
 			if (somIndex == -1) {
-				errManager.error(root, "List of System Operation Modes is incomplete.");
+				errManager.warning(root,
+						"List of system operation modes is incomplete (see project property 'Instantiation')");
 			}
 		} else {
-			enumerateSystemOperationModes(root, instances, 1, skipped, currentModes, 0);
+			enumerateSystemOperationModes(root, instances, 1, skipped, currentModes, 0, limit);
 		}
 	}
 
@@ -2173,12 +2183,12 @@ public class InstantiateModel {
 	 * should be turned into a System Operation Mode object.
 	 */
 	protected int enumerateSystemOperationModes(SystemInstance root, ComponentInstance[] instances, int currentInstance,
-			LinkedList<ComponentInstance> skipped, List<ModeInstance> modeState, int somIndex)
+			LinkedList<ComponentInstance> skipped, List<ModeInstance> modeState, int somIndex, int limit)
 			throws InterruptedException {
 		if (monitor.isCanceled()) {
 			throw new InterruptedException();
 		}
-		if (somIndex >= SOM_LIMIT) {
+		if (somIndex >= limit) {
 			return -1;
 		}
 		if (currentInstance == instances.length) {
@@ -2220,23 +2230,33 @@ public class InstantiateModel {
 							}
 						}
 						somIndex = enumerateSystemOperationModes(root, instances, currentInstance + 1, skipped,
-								nextModes, somIndex);
+								nextModes, somIndex, limit);
 					}
 				} else {
 					// non-modal component
 					somIndex = enumerateSystemOperationModes(root, instances, currentInstance + 1, skipped, modeState,
-							somIndex);
+							somIndex, limit);
 				}
 			} else {
 				// Skip the current component, it doesn't exist under the
 				// modeState
 				skipped.addLast(ci);
 				somIndex = enumerateSystemOperationModes(root, instances, currentInstance + 1, skipped, modeState,
-						somIndex);
+						somIndex, limit);
 				skipped.removeLast();
 			}
 		}
 		return somIndex;
+	}
+
+	private int getSOMLimit(final IProject project) {
+		final IScopeContext context = new ProjectScope(project);
+		final Preferences prefs = context.getNode(PREFS_QUALIFIER);
+		if (prefs != null) {
+			return prefs.getInt(PREF_SOM_LIMIT, SOM_LIMIT);
+		} else {
+			return SOM_LIMIT;
+		}
 	}
 
 	private boolean existsGiven(final List<ModeInstance> modeState, final List<ModeInstance> inModes)
