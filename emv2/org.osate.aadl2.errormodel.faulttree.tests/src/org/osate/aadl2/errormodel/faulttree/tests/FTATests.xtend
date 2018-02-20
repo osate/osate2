@@ -46,6 +46,7 @@ class FTATests extends OsateTest {
 	var static SystemInstance instanceredundant22
 	var static SystemInstance instanceredundant23
 	var static SystemInstance instancevoter
+	var static SystemInstance instanceDualFGS
 
 	val static stateFail = "state Failed"
 	val static stateFailStop = "state FailStop"
@@ -81,6 +82,9 @@ class FTATests extends OsateTest {
 			val voterFile = "voter.aadl"
 			val errorlibFile = "ErrorModellibrary.aadl"
 			val FTerrorlibFile = "FTerrorlibrary.aadl"
+			val dualfgsFile = "DualFGS.aadl"
+			val fgselibFile = "FGSErrorModelLibrary.aadl"
+			
 			createFiles(
 				fta1File -> readFile(modelroot + fta1File),
 				fta2File -> readFile(modelroot + fta2File),
@@ -92,6 +96,8 @@ class FTATests extends OsateTest {
 				redundantFile -> readFile(modelroot + redundantFile),
 				redundant2File -> readFile(modelroot + redundant2File),
 				voterFile -> readFile(modelroot + voterFile),
+				dualfgsFile -> readFile(modelroot + dualfgsFile),
+				fgselibFile -> readFile(modelroot + fgselibFile),
 				errorlibFile -> readFile(modelroot + errorlibFile),
 				FTerrorlibFile -> readFile(modelroot + FTerrorlibFile)
 			)
@@ -112,6 +118,7 @@ class FTATests extends OsateTest {
 			instanceredundant23 = instanceGenerator(pkg, "main2.transition")
 			
 			instancevoter = instanceGenerator(voterFile, "voter.i")
+			instanceDualFGS = instanceGenerator(dualfgsFile, "FGS.impl")
 		}
 	}
 
@@ -429,6 +436,37 @@ class FTATests extends OsateTest {
 		val sube1 = ft.root.subEvents.get(0)
 		assertTrue(sube1.relatedEMV2Object instanceof ErrorEvent)
 		assertEquals((sube1.relatedEMV2Object as NamedElement).name, "ComputeError")
+	}
+	
+	
+		@Test
+	def void DualFGSFaultTreeCriticalTest(){
+		val start = "state CriticalModeFailure"
+		val ft = CreateFTAModel.createFaultTree(instanceDualFGS, start)
+		assertEquals(ft.events.size, 9)
+		assertEquals(ft.root.subEvents.size, 2)
+		val sube1 = ft.root.subEvents.get(0)
+		assertEquals(ft.root.subEventLogic, LogicOperation.XOR)
+		assertEquals(sube1.subEventLogic, LogicOperation.AND)
+		assertEquals(sube1.subEvents.size, 2)
+		val subsube2 = sube1.subEvents.get(1)
+		assertEquals(subsube2.subEvents.size, 2)
+		assertEquals(subsube2.subEventLogic, LogicOperation.OR)
+		val subsubsube2 = subsube2.subEvents.get(1)
+		assertEquals(subsubsube2.subEvents.size, 2)
+		assertEquals(subsubsube2.subEventLogic, LogicOperation.AND)
+		val sube41 = subsubsube2.subEvents.get(0)
+		assertTrue(sube41.relatedEMV2Object instanceof ErrorEvent)
+		assertEquals((sube41.relatedEMV2Object as NamedElement).name, "Failure")
+		assertEquals((sube41.relatedInstanceObject as NamedElement).name, "FG1")
+		val sube42 = subsubsube2.subEvents.get(1)
+		assertTrue(sube42.relatedEMV2Object instanceof ErrorEvent)
+		assertEquals((sube42.relatedEMV2Object as NamedElement).name, "Failure")
+		assertEquals((sube42.relatedInstanceObject as NamedElement).name, "FG2")
+		val sube2 = ft.root.subEvents.get(1)
+		assertTrue(sube2.relatedEMV2Object instanceof ErrorEvent)
+		assertEquals((sube2.relatedEMV2Object as NamedElement).name, "Failure")
+		assertEquals((sube2.relatedInstanceObject as NamedElement).name, "AC")
 	}
 	
 }
