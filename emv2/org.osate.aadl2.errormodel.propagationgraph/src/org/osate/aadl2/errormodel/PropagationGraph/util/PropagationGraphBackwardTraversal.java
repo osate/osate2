@@ -47,6 +47,7 @@ import org.osate.xtext.aadl2.errormodel.util.EMV2Properties;
 import org.osate.xtext.aadl2.errormodel.util.EMV2Util;
 
 import com.google.common.collect.HashMultimap;
+import com.google.common.collect.Multiset;
 
 public class PropagationGraphBackwardTraversal {
 
@@ -112,9 +113,10 @@ public class PropagationGraphBackwardTraversal {
 				}
 			}
 		}
-
+		Multiset<ErrorFlow> content = handledFlows.keys();
+		Set<ErrorFlow> flows = handledFlows.keySet();
 		for (ErrorFlow ef : errorFlows) {
-			if (handledFlows.containsEntry(ef, type)) {
+			if (handledFlows.containsEntry(ef, EMV2Util.getPrintName(type))) {
 				continue;
 			}
 			if (ef instanceof ErrorPath) {
@@ -266,7 +268,14 @@ public class PropagationGraphBackwardTraversal {
 			}
 		}
 		Collection<ErrorFlow> efs = EMV2Util.getAllErrorFlows(component);
-		if (conditionResult != null && stateResult != null) {
+		if (conditionResult == null && stateResult != null) {
+			// error source
+			EList<ErrorFlow> flows = EMV2Util.findErrorFlow(efs, null, null, opc.getOutgoing(), type);
+			for (ErrorFlow errorFlow : flows) {
+				handledFlows.put(errorFlow, EMV2Util.getPrintName(type));
+			}
+		} else {
+			// error paths
 			Collection<ConditionElement> conde = EMV2Util
 					.getAllConditionElementsFromConditionExpression(opc.getCondition());
 			for (ConditionElement conditionElement : conde) {
@@ -279,17 +288,8 @@ public class PropagationGraphBackwardTraversal {
 					}
 				}
 			}
-			return processOutgoingErrorPropagationCondition(component, opc, type, conditionResult, stateResult);
-		} else if (conditionResult == null && stateResult != null) {
-			// error source
-			EList<ErrorFlow> flows = EMV2Util.findErrorFlow(efs, null, null, opc.getOutgoing(), type);
-			for (ErrorFlow errorFlow : flows) {
-				handledFlows.put(errorFlow, EMV2Util.getPrintName(type));
-			}
-			return stateResult;
 		}
-		// else if (conditionResult !=/== null && stateResult == null){
-		return conditionResult;
+		return processOutgoingErrorPropagationCondition(component, opc, type, conditionResult, stateResult);
 	}
 
 	/**
