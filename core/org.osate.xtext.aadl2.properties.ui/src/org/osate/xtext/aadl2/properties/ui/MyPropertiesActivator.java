@@ -36,7 +36,6 @@ package org.osate.xtext.aadl2.properties.ui;
 
 import org.apache.log4j.Logger;
 import org.eclipse.emf.ecore.EObject;
-import org.eclipse.xtext.resource.IResourceServiceProvider;
 import org.eclipse.xtext.resource.impl.ResourceDescriptionsProvider;
 import org.osate.aadl2.Property;
 import org.osate.aadl2.util.Aadl2Util;
@@ -54,20 +53,13 @@ public class MyPropertiesActivator extends PropertiesActivator {
 	@Inject
 	private ResourceDescriptionsProvider rdp;
 
-	@Inject
-	private IResourceServiceProvider.Registry rspr;
-
-	// if inject does not work
-//	private IResourceServiceProvider.Registry rspr =
-//			   IResourceServiceProvider.Registry.INSTANCE;
-
 	@Override
 	public void start(BundleContext context) throws Exception {
 		super.start(context);
 		try {
 			registerInjectorFor(ORG_OSATE_XTEXT_AADL2_PROPERTIES_PROPERTIES);
 
-			EMFIndexRetrieval.registerResourceProviders(rdp, rspr);
+			EMFIndexRetrieval.registerResourceProviders(rdp);
 
 			// DB bug #147 Added to provide property lookup service to meta-modem using GetProperties.
 			Aadl2Util.propertyService = new IPropertyService() {
