@@ -89,16 +89,16 @@ public final class FTAHandler extends AbstractHandler {
 		stateNames = new ArrayList<String>();
 		PropagationGraph currentPropagationGraph = Util.generatePropagationGraph(target.getSystemInstance(), false);
 		for (ErrorPropagation outprop : EMV2Util.getAllOutgoingErrorPropagations(target.getComponentClassifier())) {
-			EList<PropagationGraphPath> paths = Util.getAllReversePropagationPaths(currentPropagationGraph, target,
-					outprop);
-			if (paths.isEmpty()) {
-				if (!EMV2Util.existsOutgoingPropagationCondition(outprop, outprop)) {
-					continue;
-				}
-			}
 			EList<TypeToken> result = EM2TypeSetUtil.flattenTypesetElements(outprop.getTypeSet(),
 					EMV2Util.getUseTypes(outprop));
 			for (TypeToken tt : result) {
+				EList<PropagationGraphPath> paths = Util.getAllReversePropagationPaths(currentPropagationGraph, target,
+						outprop, tt.getType().get(0));
+				if (paths.isEmpty()) {
+					if (!EMV2Util.existsOutgoingPropagationCondition(outprop, outprop, tt.getType().get(0))) {
+						continue;
+					}
+				}
 				String epName = CreateFTAModel.prefixOutgoingPropagation + EMV2Util.getPrintName(outprop)
 				+ EMV2Util.getPrintName(tt);
 				if (!stateNames.contains(epName)) {
@@ -159,6 +159,11 @@ public final class FTAHandler extends AbstractHandler {
 				return IStatus.ERROR;
 			}
 			FaultTree ftmodel = CreateFTAModel.createModel(target, ERROR_STATE_NAME, FAULT_TREE_TYPE);
+			if (ftmodel == null) {
+				Dialog.showInfo("Fault Tree Analysis",
+						"No fault tree generated. Selected error propagation has no out propagation condition or path from an inner component");
+				return IStatus.ERROR;
+			}
 				if (GRAPHIC_VIEW) {
 				SiriusUtil.INSTANCE.autoOpenModel(ftmodel,
 							ResourceUtil.getFile(si.eResource()).getProject(),

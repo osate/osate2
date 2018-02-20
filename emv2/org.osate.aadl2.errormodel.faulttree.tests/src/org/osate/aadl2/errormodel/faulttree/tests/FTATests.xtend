@@ -7,8 +7,10 @@ import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.osate.aadl2.AadlPackage
+import org.osate.aadl2.ComponentImplementation
 import org.osate.aadl2.NamedElement
-import org.osate.aadl2.SystemImplementation
+import org.osate.aadl2.errormodel.FaultTree.EventType
+import org.osate.aadl2.errormodel.FaultTree.FaultTreeType
 import org.osate.aadl2.errormodel.FaultTree.LogicOperation
 import org.osate.aadl2.errormodel.faulttree.generation.CreateFTAModel
 import org.osate.aadl2.errormodel.tests.ErrorModelUiInjectorProvider
@@ -17,11 +19,11 @@ import org.osate.aadl2.instantiation.InstantiateModel
 import org.osate.core.test.OsateTest
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorState
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorEvent
+import org.osate.xtext.aadl2.errormodel.errorModel.ErrorSource
 
 import static org.junit.Assert.*
-import org.osate.aadl2.errormodel.FaultTree.FaultTreeType
-import org.osate.aadl2.errormodel.FaultTree.EventType
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorPropagation
+import org.osate.xtext.aadl2.errormodel.util.EMV2Util
 
 @RunWith(typeof(XtextRunner))
 @InjectWith(typeof(ErrorModelUiInjectorProvider))
@@ -43,6 +45,8 @@ class FTATests extends OsateTest {
 	var static SystemInstance instanceredundant21
 	var static SystemInstance instanceredundant22
 	var static SystemInstance instanceredundant23
+	var static SystemInstance instancevoter
+	var static SystemInstance instanceDualFGS
 
 	val static stateFail = "state Failed"
 	val static stateFailStop = "state FailStop"
@@ -75,8 +79,12 @@ class FTATests extends OsateTest {
 			val nestedcompositeFile = "nestedcomposite.aadl"
 			val redundantFile = "redundant.aadl"
 			val redundant2File = "redundant2.aadl"
+			val voterFile = "voter.aadl"
 			val errorlibFile = "ErrorModellibrary.aadl"
 			val FTerrorlibFile = "FTerrorlibrary.aadl"
+			val dualfgsFile = "DualFGS.aadl"
+			val fgselibFile = "FGSErrorModelLibrary.aadl"
+			
 			createFiles(
 				fta1File -> readFile(modelroot + fta1File),
 				fta2File -> readFile(modelroot + fta2File),
@@ -87,6 +95,9 @@ class FTATests extends OsateTest {
 				nestedcompositeFile -> readFile(modelroot + nestedcompositeFile),
 				redundantFile -> readFile(modelroot + redundantFile),
 				redundant2File -> readFile(modelroot + redundant2File),
+				voterFile -> readFile(modelroot + voterFile),
+				dualfgsFile -> readFile(modelroot + dualfgsFile),
+				fgselibFile -> readFile(modelroot + fgselibFile),
 				errorlibFile -> readFile(modelroot + errorlibFile),
 				FTerrorlibFile -> readFile(modelroot + FTerrorlibFile)
 			)
@@ -105,6 +116,9 @@ class FTATests extends OsateTest {
 			instanceredundant21 = instanceGenerator(pkg, "main2.composite")
 			instanceredundant22 = instanceGenerator(pkg, "main2.compositesametype")
 			instanceredundant23 = instanceGenerator(pkg, "main2.transition")
+			
+			instancevoter = instanceGenerator(voterFile, "voter.i")
+			instanceDualFGS = instanceGenerator(dualfgsFile, "FGS.impl")
 		}
 	}
 
@@ -112,7 +126,7 @@ class FTATests extends OsateTest {
 		val cls = pkg.ownedPublicSection.ownedClassifiers
 		assertTrue('', cls.exists[name == rootclassifier])
 		// instantiate
-		val sysImpl = cls.findFirst[name == rootclassifier] as SystemImplementation
+		val sysImpl = cls.findFirst[name == rootclassifier] as ComponentImplementation
 		return InstantiateModel::buildInstanceModelFile(sysImpl)
 	}
 
@@ -125,7 +139,7 @@ class FTATests extends OsateTest {
 		assertTrue('', cls.exists[name == rootclassifier])
 
 		// instantiate
-		val sysImpl = cls.findFirst[name == rootclassifier] as SystemImplementation
+		val sysImpl = cls.findFirst[name == rootclassifier] as ComponentImplementation
 		return InstantiateModel::buildInstanceModelFile(sysImpl)
 	}
 
@@ -213,7 +227,7 @@ class FTATests extends OsateTest {
 	@Test
 	def void common2Test() {
 		val ft = CreateFTAModel.createFaultTree(instancecommon2, stateFailStop)
-		assertEquals(ft.events.size, 5)
+		assertEquals(ft.events.size, 7)
 		assertEquals(ft.root.subEventLogic, LogicOperation.OR)
 		val sube1 = ft.root.subEvents.head
 		assertEquals((sube1.relatedEMV2Object as NamedElement).name, "FailStop")
@@ -229,7 +243,7 @@ class FTATests extends OsateTest {
 	@Test
 	def void common3Test() {
 		val ft = CreateFTAModel.createFaultTree(instancecommon3, stateFailStop)
-		assertEquals(ft.events.size, 5)
+		assertEquals(ft.events.size, 7)
 		assertEquals(ft.root.subEventLogic, LogicOperation.OR)
 		val sube1 = ft.root.subEvents.head
 		assertEquals((sube1.relatedEMV2Object as NamedElement).name, "FailStop")
@@ -316,16 +330,27 @@ class FTATests extends OsateTest {
 	@Test
 	def void redundant21Test() {
 		val ft = CreateFTAModel.createFaultTree(instanceredundant21, stateFailStop)
-		assertEquals(ft.events.size, 8)
+		assertEquals(ft.events.size, 14)
 		assertEquals(ft.root.subEventLogic, LogicOperation.OR)
-		assertEquals(ft.root.subEvents.size, 5)
+		assertEquals(ft.root.subEvents.size, 7)
 		val sube1 = ft.root.subEvents.get(1)
 		assertEquals((sube1.relatedInstanceObject as NamedElement).name, "thr")
 		assertEquals(sube1.subEventLogic, LogicOperation.AND)
 		assertEquals(sube1.subEvents.size, 2)
-		assertTrue(sube1.subEvents.head.relatedEMV2Object instanceof ErrorPropagation)
-		assertEquals((sube1.subEvents.head.relatedInstanceObject as NamedElement).name, "sensor1")
-		assertEquals((sube1.subEvents.get(1).relatedInstanceObject as NamedElement).name, "sensor2")
+		val subsube1 = sube1.subEvents.head
+		val subsube2 = sube1.subEvents.get(1)
+		assertEquals(subsube1.subEvents.size, 2)
+		assertEquals(subsube2.subEvents.size, 2)
+		assertTrue(subsube1.subEvents.head.relatedEMV2Object instanceof ErrorSource)
+		assertEquals((subsube1.subEvents.head.relatedInstanceObject as NamedElement).name, "sensor1")
+		assertEquals((subsube1.subEvents.get(1).relatedInstanceObject as NamedElement).name, "sensor1")
+		assertEquals((subsube1.subEvents.head.relatedErrorType as NamedElement).name, "LateDelivery")
+		assertEquals((subsube1.subEvents.get(1).relatedErrorType as NamedElement).name, "OutOfRange")
+		assertTrue(subsube2.subEvents.head.relatedEMV2Object instanceof ErrorSource)
+		assertEquals((subsube2.subEvents.head.relatedInstanceObject as NamedElement).name, "sensor2")
+		assertEquals((subsube2.subEvents.get(1).relatedInstanceObject as NamedElement).name, "sensor2")
+		assertEquals((subsube2.subEvents.head.relatedErrorType as NamedElement).name, "LateDelivery")
+		assertEquals((subsube2.subEvents.get(1).relatedErrorType as NamedElement).name, "OutOfRange")
 	}
 
 	@Test
@@ -341,16 +366,107 @@ class FTATests extends OsateTest {
 	def void redundant23Test() {
 		val start = "outgoing propagation on externaleffect{serviceomission}"
 		val ft = CreateFTAModel.createFaultTree(instanceredundant23, start)
-		assertEquals(ft.events.size, 5)
+		assertEquals(ft.events.size, 13)
 		assertEquals(ft.root.subEventLogic, LogicOperation.OR)
 		val sube1 = ft.root.subEvents.head
-		assertEquals((sube1.relatedEMV2Object as NamedElement).name, "FailStop")
 		assertEquals(sube1.subEventLogic, LogicOperation.AND)
-		assertTrue(sube1.relatedEMV2Object instanceof ErrorBehaviorState)
 		assertEquals(sube1.subEvents.size, 2)
-		assertTrue(sube1.subEvents.head.relatedEMV2Object instanceof ErrorEvent)
-		assertEquals((sube1.subEvents.head.relatedEMV2Object as ErrorEvent).name, "Failure")
-		assertEquals((sube1.subEvents.head.relatedInstanceObject as NamedElement).name, "a0")
-		assertEquals((sube1.subEvents.get(1).relatedInstanceObject as NamedElement).name, "a1")
+		val subsube1 = sube1.subEvents.head
+		val subsube2 = sube1.subEvents.get(1)
+		assertEquals(subsube1.subEvents.size, 2)
+		assertEquals(subsube2.subEvents.size, 2)
+		assertTrue(subsube1.subEvents.head.relatedEMV2Object instanceof ErrorSource)
+		assertEquals((subsube1.subEvents.head.relatedInstanceObject as NamedElement).name, "sensor1")
+		assertEquals((subsube1.subEvents.get(1).relatedInstanceObject as NamedElement).name, "sensor1")
+		assertEquals((subsube1.subEvents.head.relatedErrorType as NamedElement).name, "LateDelivery")
+		assertEquals((subsube1.subEvents.get(1).relatedErrorType as NamedElement).name, "OutOfRange")
+		assertTrue(subsube2.subEvents.head.relatedEMV2Object instanceof ErrorSource)
+		assertEquals((subsube2.subEvents.head.relatedInstanceObject as NamedElement).name, "sensor2")
+		assertEquals((subsube2.subEvents.get(1).relatedInstanceObject as NamedElement).name, "sensor2")
+		assertEquals((subsube2.subEvents.head.relatedErrorType as NamedElement).name, "LateDelivery")
+		assertEquals((subsube2.subEvents.get(1).relatedErrorType as NamedElement).name, "OutOfRange")
 	}
+	
+	
+	@Test
+	def void redundant2VoterFaultTreeTest(){
+		val start = "outgoing propagation on valueout{ItemOmission}"
+		val ft = CreateFTAModel.createFaultTree(instancevoter, start)
+		assertEquals(ft.events.size, 5)
+		assertEquals(ft.root.subEventLogic, LogicOperation.OR)
+		assertEquals(ft.root.subEvents.size, 2)
+		val sube1 = ft.root.subEvents.get(0)
+		assertEquals(sube1.subEventLogic, LogicOperation.AND)
+		assertEquals(sube1.subEvents.size, 2)
+		val subsube1 = sube1.subEvents.head
+		val subsube2 = sube1.subEvents.get(1)
+		assertTrue(subsube1.relatedEMV2Object instanceof ErrorPropagation)
+		assertEquals(EMV2Util.getPrintName(subsube1.relatedEMV2Object as NamedElement), "valuein1")
+		assertEquals((subsube1.relatedErrorType as NamedElement).name, "OutOfRange")
+		assertTrue(subsube2.relatedEMV2Object instanceof ErrorPropagation)
+		assertEquals(EMV2Util.getPrintName(subsube2.relatedEMV2Object as NamedElement), "valuein2")
+		assertEquals((subsube2.relatedErrorType as NamedElement).name, "OutOfRange")
+	}
+	@Test
+	def void redundant2VoterFaultTreeInconsistentValueTest(){
+		val start = "outgoing propagation on valueout{InconsistentValue}"
+		val ft = CreateFTAModel.createFaultTree(instancevoter, start)
+		assertEquals(ft.events.size, 2)
+		assertEquals(ft.root.subEvents.size, 1)
+		val sube1 = ft.root.subEvents.get(0)
+		assertTrue(sube1.relatedEMV2Object instanceof ErrorEvent)
+		assertEquals((sube1.relatedEMV2Object as NamedElement).name, "ComputeError")
+	}
+	@Test
+	def void redundant2VoterFaultTreeFailStopTest(){
+		val start = "state FailStop"
+		val ft = CreateFTAModel.createFaultTree(instancevoter, start)
+		assertEquals(ft.events.size, 2)
+		assertEquals(ft.root.subEvents.size, 1)
+		val sube1 = ft.root.subEvents.get(0)
+		assertTrue(sube1.relatedEMV2Object instanceof ErrorEvent)
+		assertEquals((sube1.relatedEMV2Object as NamedElement).name, "Failure")
+	}
+	@Test
+	def void redundant2VoterFaultTreeDegradedTest(){
+		val start = "state Degraded"
+		val ft = CreateFTAModel.createFaultTree(instancevoter, start)
+		assertEquals(ft.events.size, 2)
+		assertEquals(ft.root.subEvents.size, 1)
+		val sube1 = ft.root.subEvents.get(0)
+		assertTrue(sube1.relatedEMV2Object instanceof ErrorEvent)
+		assertEquals((sube1.relatedEMV2Object as NamedElement).name, "ComputeError")
+	}
+	
+	
+		@Test
+	def void DualFGSFaultTreeCriticalTest(){
+		val start = "state CriticalModeFailure"
+		val ft = CreateFTAModel.createFaultTree(instanceDualFGS, start)
+		assertEquals(ft.events.size, 9)
+		assertEquals(ft.root.subEvents.size, 2)
+		val sube1 = ft.root.subEvents.get(0)
+		assertEquals(ft.root.subEventLogic, LogicOperation.XOR)
+		assertEquals(sube1.subEventLogic, LogicOperation.AND)
+		assertEquals(sube1.subEvents.size, 2)
+		val subsube2 = sube1.subEvents.get(1)
+		assertEquals(subsube2.subEvents.size, 2)
+		assertEquals(subsube2.subEventLogic, LogicOperation.OR)
+		val subsubsube2 = subsube2.subEvents.get(1)
+		assertEquals(subsubsube2.subEvents.size, 2)
+		assertEquals(subsubsube2.subEventLogic, LogicOperation.AND)
+		val sube41 = subsubsube2.subEvents.get(0)
+		assertTrue(sube41.relatedEMV2Object instanceof ErrorEvent)
+		assertEquals((sube41.relatedEMV2Object as NamedElement).name, "Failure")
+		assertEquals((sube41.relatedInstanceObject as NamedElement).name, "FG1")
+		val sube42 = subsubsube2.subEvents.get(1)
+		assertTrue(sube42.relatedEMV2Object instanceof ErrorEvent)
+		assertEquals((sube42.relatedEMV2Object as NamedElement).name, "Failure")
+		assertEquals((sube42.relatedInstanceObject as NamedElement).name, "FG2")
+		val sube2 = ft.root.subEvents.get(1)
+		assertTrue(sube2.relatedEMV2Object instanceof ErrorEvent)
+		assertEquals((sube2.relatedEMV2Object as NamedElement).name, "Failure")
+		assertEquals((sube2.relatedInstanceObject as NamedElement).name, "AC")
+	}
+	
 }

@@ -27,8 +27,10 @@ import org.osate.aadl2.modelsupport.resources.OsateResourceUtil;
 import org.osate.aadl2.modelsupport.util.AadlUtil;
 import org.osate.aadl2.util.Aadl2InstanceUtil;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorPropagation;
+import org.osate.xtext.aadl2.errormodel.errorModel.ErrorTypes;
 import org.osate.xtext.aadl2.errormodel.errorModel.PropagationPath;
 import org.osate.xtext.aadl2.errormodel.errorModel.SubcomponentElement;
+import org.osate.xtext.aadl2.errormodel.util.EM2TypeSetUtil;
 import org.osate.xtext.aadl2.errormodel.util.EMV2Util;
 import org.osate.xtext.aadl2.properties.util.InstanceModelUtil;
 
@@ -566,6 +568,21 @@ public class Util {
 			PropagationPathEnd target = propagationPath.getPathDst();
 			if (target.getComponentInstance() == ci && target.getErrorPropagation() == targetEP) {
 				result.add(propagationPath);
+			}
+		}
+		return result;
+	}
+
+	public static EList<PropagationGraphPath> getAllReversePropagationPaths(PropagationGraph pg, ComponentInstance ci,
+			ErrorPropagation targetEP, ErrorTypes type) {
+		EList<PropagationGraphPath> result = new BasicEList<PropagationGraphPath>();
+		for (PropagationGraphPath propagationPath : pg.getPropagationGraphPaths()) {
+			PropagationPathEnd target = propagationPath.getPathDst();
+			if (target.getComponentInstance() == ci && target.getErrorPropagation() == targetEP) {
+				ErrorPropagation srcep = propagationPath.getPathSrc().getErrorPropagation();
+				if (srcep != null && EM2TypeSetUtil.contains(srcep.getTypeSet(), type)) {
+					result.add(propagationPath);
+				}
 			}
 		}
 		return result;

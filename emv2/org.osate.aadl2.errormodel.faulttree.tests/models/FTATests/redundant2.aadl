@@ -133,6 +133,10 @@ annex EMV2{**
  **};
 end voter_thr;
 
+thread implementation voter_thr.i
+	
+end voter_thr.i;
+
 thread voter_thr1
 	-- in this case out of range on both results in out of range
 	-- similarly late delivery on both results in late delivery

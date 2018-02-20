@@ -58,7 +58,7 @@ public class CreateFTAModel {
 		if (startingPoint.startsWith(prefixOutgoingPropagation)) {
 			String toProcess = startingPoint.replace(prefixOutgoingPropagation, "");
 			for (ErrorPropagation opc : EMV2Util.getAllOutgoingErrorPropagations(selection.getComponentClassifier())) {
-				EList<TypeToken> result = EM2TypeSetUtil.generateAllLeafTypeTokens(opc.getTypeSet(),
+				EList<TypeToken> result = EM2TypeSetUtil.flattenTypesetElements(opc.getTypeSet(),
 						EMV2Util.getUseTypes(opc));
 				for (TypeToken tt : result) {
 					String longName = EMV2Util.getPrintName(opc) + EMV2Util.getPrintName(tt);
@@ -68,6 +68,9 @@ public class CreateFTAModel {
 					}
 				}
 			}
+		}
+		if (errorStateOrPropagation == null) {
+			return null;
 		}
 		PropagationGraph currentPropagationGraph = Util.generatePropagationGraph(selection.getSystemInstance(), false);
 		FTAGenerator generator = new FTAGenerator(currentPropagationGraph);
