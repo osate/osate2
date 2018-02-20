@@ -92,14 +92,10 @@ public final class FTAHandler extends AbstractHandler {
 			EList<PropagationGraphPath> paths = Util.getAllReversePropagationPaths(currentPropagationGraph, target,
 					outprop);
 			if (paths.isEmpty()) {
-				if (EMV2Util.findOutgoingPropagationCondition(outprop, outprop) == null) {
+				if (!EMV2Util.existsOutgoingPropagationCondition(outprop, outprop)) {
 					continue;
 				}
 			}
-//			if (outprop.getFeatureorPPRef().getFeatureorPP() == null) {
-//				// filter out binding points
-//				continue;
-//			}
 			EList<TypeToken> result = EM2TypeSetUtil.flattenTypesetElements(outprop.getTypeSet(),
 					EMV2Util.getUseTypes(outprop));
 			for (TypeToken tt : result) {

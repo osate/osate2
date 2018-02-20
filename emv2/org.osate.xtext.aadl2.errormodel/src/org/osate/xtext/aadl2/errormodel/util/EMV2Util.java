@@ -728,6 +728,35 @@ public class EMV2Util {
 		return result;
 	}
 
+	/**
+	 * find the error flow whose incoming error propagation point is flowSource
+	 * @param eps List of error propagations
+	 * @param flowSource ErrorPropagation
+	 * @return ErrorFlow list
+	 */
+	public static EList<ErrorFlow> findErrorFlow(Collection<ErrorFlow> efs, ErrorPropagation flowSource,
+			ErrorTypes sourceType, ErrorPropagation flowTarget, ErrorTypes targetType) {
+		EList<ErrorFlow> result = new BasicEList<ErrorFlow>();
+		for (ErrorFlow ef : efs) {
+			if (ef instanceof ErrorPath && flowSource != null) {
+				ErrorPath ep = (ErrorPath) ef;
+				if (EMV2Util.isSame(flowSource, ep.getIncoming()) && EMV2Util.isSame(flowTarget, ep.getOutgoing())) {
+					if (EM2TypeSetUtil.contains(ep.getTypeTokenConstraint(), sourceType)
+							&& EM2TypeSetUtil.contains(ep.getTargetToken(), targetType)) {
+						result.add(ep);
+					}
+				}
+			} else if (ef instanceof ErrorSource) {
+				ErrorSource es = (ErrorSource) ef;
+				if (EMV2Util.isSame(flowTarget, es.getSourceModelElement())
+						&& EM2TypeSetUtil.contains(es.getTypeTokenConstraint(), targetType)) {
+					result.add(es);
+				}
+			}
+		}
+		return result;
+	}
+
 	public static boolean areEquivalent(ErrorPropagation ep1, ErrorPropagation ep2) {
 		String path1 = getPath(ep1.getFeatureorPPRef());
 		String path2 = getPath(ep2.getFeatureorPPRef());
@@ -1168,47 +1197,6 @@ public class EMV2Util {
 	 * @param name
 	 * @return
 	 */
-	private static ErrorDetection findOwnErrorDetection(ErrorModelSubclause ems, String name) {
-		if (ems == null) {
-			return null;
-		}
-		EList<ErrorDetection> detections = ems.getErrorDetections();
-		for (ErrorDetection errorDetection : detections) {
-			if (name.equalsIgnoreCase(errorDetection.getName())) {
-				return errorDetection;
-			}
-		}
-		return null;
-	}
-
-	/**
-	 * find error detection in the specified context, i.e., its enclosing classifier subclause or inherited subclauses
-	 * we look in the component error behavior sections .
-	 * @param context
-	 * @param name
-	 * @return
-	 */
-	public static ErrorDetection findErrorDetection(Element context, String name) {
-		Classifier cl = getAssociatedClassifier(context);
-		if (cl == null) {
-			return null;
-		}
-		EList<ErrorModelSubclause> emslist = getAllContainingClassifierEMV2Subclauses(cl);
-		for (ErrorModelSubclause errorModelSubclause : emslist) {
-			ErrorDetection res = findOwnErrorDetection(errorModelSubclause, name);
-			if (res != null) {
-				return res;
-			}
-		}
-		return null;
-	}
-
-	/**
-	 * find Error Detection in own subclause component error behavior
-	 * @param ems
-	 * @param name
-	 * @return
-	 */
 	private static OutgoingPropagationCondition findOwnOutgoingPropagationCondition(ErrorModelSubclause ems,
 			ErrorPropagation ep) {
 		if (ems == null) {
@@ -1231,19 +1219,19 @@ public class EMV2Util {
 	 * @param ep
 	 * @return
 	 */
-	public static OutgoingPropagationCondition findOutgoingPropagationCondition(Element context, ErrorPropagation ep) {
+	public static boolean existsOutgoingPropagationCondition(Element context, ErrorPropagation ep) {
 		Classifier cl = getAssociatedClassifier(context);
 		if (cl == null) {
-			return null;
+			return false;
 		}
 		EList<ErrorModelSubclause> emslist = getAllContainingClassifierEMV2Subclauses(cl);
 		for (ErrorModelSubclause errorModelSubclause : emslist) {
 			OutgoingPropagationCondition res = findOwnOutgoingPropagationCondition(errorModelSubclause, ep);
 			if (res != null) {
-				return res;
+				return true;
 			}
 		}
-		return null;
+		return false;
 	}
 
 	/**
