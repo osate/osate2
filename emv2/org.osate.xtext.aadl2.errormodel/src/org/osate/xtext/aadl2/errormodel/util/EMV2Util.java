@@ -1198,7 +1198,7 @@ public class EMV2Util {
 	 * @return
 	 */
 	private static OutgoingPropagationCondition findOwnOutgoingPropagationCondition(ErrorModelSubclause ems,
-			ErrorPropagation ep) {
+			ErrorPropagation ep, ErrorTypes type) {
 		if (ems == null) {
 			return null;
 		}
@@ -1206,7 +1206,9 @@ public class EMV2Util {
 		for (OutgoingPropagationCondition outgoingPropagationCondition : outgoingPs) {
 			if (outgoingPropagationCondition.isAllPropagations()
 					|| EMV2Util.isSame(outgoingPropagationCondition.getOutgoing(), ep)) {
-				return outgoingPropagationCondition;
+				if (EM2TypeSetUtil.contains(outgoingPropagationCondition.getTypeToken(), type)) {
+					return outgoingPropagationCondition;
+				}
 			}
 		}
 		return null;
@@ -1219,14 +1221,14 @@ public class EMV2Util {
 	 * @param ep
 	 * @return
 	 */
-	public static boolean existsOutgoingPropagationCondition(Element context, ErrorPropagation ep) {
+	public static boolean existsOutgoingPropagationCondition(Element context, ErrorPropagation ep, ErrorTypes type) {
 		Classifier cl = getAssociatedClassifier(context);
 		if (cl == null) {
 			return false;
 		}
 		EList<ErrorModelSubclause> emslist = getAllContainingClassifierEMV2Subclauses(cl);
 		for (ErrorModelSubclause errorModelSubclause : emslist) {
-			OutgoingPropagationCondition res = findOwnOutgoingPropagationCondition(errorModelSubclause, ep);
+			OutgoingPropagationCondition res = findOwnOutgoingPropagationCondition(errorModelSubclause, ep, type);
 			if (res != null) {
 				return true;
 			}
