@@ -16,7 +16,7 @@
       <page
             class="org.osate.internal.ui.properties.ProjectPropertiesPage"
             id="org.osate.internal.ui.properties.ProjectPropertiesPage"
-            name="AADL Properties">
+            name="Instantiation">
          <enabledWhen>
             <adapt type="org.eclipse.core.resources.IProject">
                <test property="org.eclipse.core.resources.projectNature" 
