@@ -47,7 +47,7 @@ public class ProjectPropertiesPage extends PropertyPage {
 		composite.setLayout(new GridLayout(2, false));
 
 		final Label label = new Label(composite, SWT.NONE);
-		label.setText("Maximum Number of System Operation Modes to generate:");
+		label.setText("Maximum number of system operation modes to generate:");
 		label.setLayoutData(new GridData(SWT.BEGINNING, SWT.CENTER, false, false, 1, 1));
 
 		maxSOMText = new Text(composite, SWT.BORDER);
