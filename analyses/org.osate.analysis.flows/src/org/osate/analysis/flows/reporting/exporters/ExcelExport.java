@@ -89,8 +89,10 @@ public class ExcelExport extends GenericExport {
 		sheet.addCell(label);
 	}
 
-	private void populateSheet(WritableSheet sheet, Section section) throws RowsExceededException, WriteException {
-		int row = 0;
+	private void populateSheet(WritableSheet sheet, Section section, String reportHeading)
+			throws RowsExceededException, WriteException {
+		addLabel(sheet, 0, 0, reportHeading, normalBold);
+		int row = 2;
 		for (Line line : section.getLines()) {
 			int col = 0;
 
@@ -150,7 +152,7 @@ public class ExcelExport extends GenericExport {
 				excelSheet = workbook.createSheet(section.getName(), sectionNumber);
 
 //				excelSheet = workbook.getSheet(sectionNumber);
-				populateSheet(excelSheet, section);
+				populateSheet(excelSheet, section, report.getTextContent());
 				sectionNumber++;
 			}
 
