@@ -47,7 +47,6 @@ import org.osate.xtext.aadl2.errormodel.util.EMV2Properties;
 import org.osate.xtext.aadl2.errormodel.util.EMV2Util;
 
 import com.google.common.collect.HashMultimap;
-import com.google.common.collect.Multiset;
 
 public class PropagationGraphBackwardTraversal {
 
@@ -113,8 +112,6 @@ public class PropagationGraphBackwardTraversal {
 				}
 			}
 		}
-		Multiset<ErrorFlow> content = handledFlows.keys();
-		Set<ErrorFlow> flows = handledFlows.keySet();
 		for (ErrorFlow ef : errorFlows) {
 			if (handledFlows.containsEntry(ef, EMV2Util.getPrintName(type))) {
 				continue;
@@ -127,7 +124,7 @@ public class PropagationGraphBackwardTraversal {
 				 * in the error types for the out propagation.
 				 * This is a fix for the JMR/SAVI WBS model.
 				 */
-				if (EMV2Util.isSame(ep.getOutgoing(), errorPropagation)) {
+				if (EMV2Util.isSame(ep.getOutgoing(), errorPropagation) || ep.isAllOutgoing()) {
 					if (ep.getTargetToken() != null && EM2TypeSetUtil.contains(ep.getTargetToken(), type)) {
 						// we have a type mapping
 						EList<TypeToken> result;
@@ -144,23 +141,47 @@ public class PropagationGraphBackwardTraversal {
 							EList<ErrorTypes> tl = typeToken.getType();
 							// TODO deal with type product
 							ErrorTypes newtype = tl.get(0);
-							EObject newEvent = traverseIncomingErrorPropagation(component, ep.getIncoming(), newtype);
-							if (newEvent != null) {
-								subResults.add(newEvent);
+							if (ep.isAllIncoming()) {
+								Collection<ErrorPropagation> inprops = EMV2Util
+										.getAllIncomingErrorPropagations(component);
+								for (ErrorPropagation eprop : inprops) {
+									EObject newEvent = traverseIncomingErrorPropagation(component, eprop, newtype);
+									if (newEvent != null) {
+										subResults.add(newEvent);
+									}
+								}
+
+							} else {
+								EObject newEvent = traverseIncomingErrorPropagation(component, ep.getIncoming(),
+										newtype);
+								if (newEvent != null) {
+									subResults.add(newEvent);
+								}
 							}
 						}
 					} else {
 						// no type mapping
-						EObject newEvent = traverseIncomingErrorPropagation(component, ep.getIncoming(), type);
-						if (newEvent != null) {
-							subResults.add(newEvent);
+						if (ep.isAllIncoming()) {
+							Collection<ErrorPropagation> inprops = EMV2Util.getAllIncomingErrorPropagations(component);
+							for (ErrorPropagation eprop : inprops) {
+								EObject newEvent = traverseIncomingErrorPropagation(component, eprop, type);
+								if (newEvent != null) {
+									subResults.add(newEvent);
+								}
+							}
+
+						} else {
+							EObject newEvent = traverseIncomingErrorPropagation(component, ep.getIncoming(), type);
+							if (newEvent != null) {
+								subResults.add(newEvent);
+							}
 						}
 					}
 				}
 			} else if (ef instanceof ErrorSource) {
 				ErrorSource errorSource = (ErrorSource) ef;
 
-				if (EMV2Util.isSame(errorSource.getSourceModelElement(), errorPropagation)) {
+				if (EMV2Util.isSame(errorSource.getSourceModelElement(), errorPropagation) || errorSource.isAll()) {
 					if (EM2TypeSetUtil.contains(errorSource.getTypeTokenConstraint(), type)) {
 						EObject newEvent = processErrorSource(component, errorSource, type);
 						if (newEvent != null) {
@@ -180,7 +201,8 @@ public class PropagationGraphBackwardTraversal {
 		for (ErrorFlow errorFlow : flows) {
 			if (errorFlow instanceof ErrorPath) {
 				ErrorPath ep = (ErrorPath) errorFlow;
-				if (EMV2Util.isSame(ep.getOutgoing(), eprop) && EM2TypeSetUtil.isSame(ep.getTargetToken(), type)) {
+				if ((EMV2Util.isSame(ep.getOutgoing(), eprop) || ep.isAllOutgoing())
+						&& EM2TypeSetUtil.isSame(ep.getTargetToken(), type)) {
 					return true;
 
 				}
@@ -192,7 +214,7 @@ public class PropagationGraphBackwardTraversal {
 	/**
 	 * determine the target type given the original type of a backward propagation.
 	 * Use the original if no constraint was provided (null)
-	 * If the original is contained in the constraint use it.
+	 * If the original is contained in the constraint use the original.
 	 * If not use the constraint as it may represent a mapping, e.g., for an error path
 	 * @param constraint ErrorTypes that is expected on the left hand side
 	 * @param original ErrroTypes that is the actual origin of the backward proapagation
