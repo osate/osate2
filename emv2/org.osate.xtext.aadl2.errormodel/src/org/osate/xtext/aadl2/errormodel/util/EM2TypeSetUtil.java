@@ -758,7 +758,7 @@ public class EM2TypeSetUtil {
 		EList<TypeTransformation> ttlist = tts.getTransformation();
 		for (TypeTransformation typeXform : ttlist) {
 			TypeSet src = typeXform.getSource();
-			if (contains(src, token)) {
+			if (contains(src, token) || typeXform.isAllSources()) {
 				return typeXform.getTarget().getTypeTokens().get(0);
 			}
 		}
