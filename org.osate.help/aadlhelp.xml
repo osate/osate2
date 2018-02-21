@@ -14,12 +14,7 @@
 		<topic href="html/start/rules-syntax.html" label="Rules - Syntax" />
 		<topic href="html/start/rules-naming.html" label="Style Guide" />
 	</topic>
-	<topic href="html/plugins/index.html" label="Plug-ins">
-		<topic href="html/plugins/imv.html" label="Graphical Model Viewer (IMV)" />
-		<topic href="html/plugins/sei.html" label="SEI validation tools" />
-		<topic href="html/plugins/functional-importer.html" label="Simulink bridge" />
-		<anchor id="_codegen_checker" />
-		<anchor id="_check_binding_constraints"/>
+	<topic href="html/plugins/index.html" label="Analyses">
 	</topic>
 
 	<topic href="html/std/section-1.html" label="Reference Manual">
