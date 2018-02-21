@@ -111,7 +111,7 @@ This brings up a window with a hierarchical list of settings on the left-hand si
 
 One setting of immediate interest is found under `General > Startup and Shutdown`.  By default the setting `Refresh workspace on startup` is not enabled.  Enabling it ensures that when starting up, OSATE updates its records to reflect any changes to the files in the workspace that may have occurred outside OSATE.
 
-![Preferences Window](images/OSATEUSerGuide/Preferences.png)
+![Preferences Window](images/OSATEUserGuide/Preferences.png)
 
 
 
@@ -123,4 +123,146 @@ You can manually initiate a refresh by selecting projects, folders, or files in 
 
 ## Creating an AADL Project
 
-Let us create an AADL Project in OSATE.   
+Let us create an AADL Project in OSATE.  To create a new AADL project in the workspace, click on the `New AADL Projec` button ![New AADL Project icon](images/OSATEUserGuide/NewAadlProjectButton.png) in the OSATE toolbar.  A new project wizard will open:
+
+![New Project Wizard](images/OSATEUserGuide/NewAadlProjectWizard.png)
+
+Enter `MyFirstAADLProject` as the project name and click on the `Finish` button.  The wizard creates a new project.  It is visible in the `AADL Navigator` view.  Note the small `A` on the project that indicates it is an AADL Project:
+
+![New Project Wizard](images/OSATEUserGuide/NewProjectNavigator.png)
+
+
+
+### Built-in Proprety Sets
+
+Also visible in the view is a library icon labeled `Plugin_Contributions`.  This view element collects all the AADL property sets avaoilable by default in OSATE:
+
+![Plugin Contributions](images/OSATEUserGuide/Plugin_Contributions.png)
+
+The `Predeclared_Property_Sets` are those that are specified by the AADL standard document and are provided by the core OSATE environment.  The others are specified in other documents and provided by plug-ins to OSATE.  For example `ARINC653` contains property sets specified in the ARINC653 annex to AADL and is provided by a plug-in.  Property sets in `Plugin_Contribution` may be used by any project in the workspace by providing the appropriate `with` clause in the package specification.  In particular, _they do not need to be copied into a project to be used_.
+
+
+
+### Crating an AADL Package
+
+Now that we have an AADL project in the workspace, we can populate it with an AADL Package:
+
+1. Select the project `MyFirstAADLProject`.
+2. Click on the `New AADL Package` button ![New AADL Project icon](images/OSATEUserGuide/NewAadlPackageButton.png) in the OSATE toolbar to bring up the AADL package wizard:
+![AADL Package Wizard](images/OSATEUserGuide/AadlPackageWizard.png)
+3. Enter`aadlmodel` for the package name and click on `Finish`.
+
+OSATE creates the file `aadlmodel.aadl` in the project, populates it with a skeleton package declaratoin, and opens it in the AADL text editor:
+
+![New Empty Package](images/OSATEUserGuide/EmptyPackage.png)
+
+Note that the wizard has radio buttons that allow you to specify whether the package should be opened in the text editor or the graphical editor.  By default the text editor is selected.
+
+Replace the contents of the editor with the simple model below:
+
+```
+package aadlmodel
+public
+	process MyProcess
+	end MyProcess;
+	
+	system MySystem
+	end MySystem;
+	
+	system implementation MySystem.i
+		subcomponents
+			sub1: process MyProcess;
+	end MySystem.i;
+end aadlmodel;
+```
+
+You can use copy-and-paste to copy the above into the editor, but if you type it directly, you can experience some of the syntwax-directed features of the aadl editor:
+
+* The editor automatically closes blocks.  For example, when you type `process MyProcess` and enter a new line, the editor automatically inserts `end MyProcess;`.
+
+* You can access the automatic completion (a.k.a. _autocomplete_) feature by typing `CTRL + Space` in Windows or `Command + Space` in MacOS.  This brinks up a small context menu displaying options ofr who the current string in the editor can be completed.  For example, below shows the result of activating autocomplete after typing `syst`:
+![Autocomplete](images/OSATEUserGuide/AutoComplete1.png)
+The menu shows that `syst` can be completed with the keywords `system`, and `system implementation`.  In this case we  want `system implementaton`.  You can select the compleletion with the moue or my using the arrow keys and hitting `return`.
+
+  The list of completions also shows two more options.   This are _templates_ that insert a more complete system type or system implementation declration into the text.
+
+* Autocompletion also works with declared names.  For example, below shows the result of activating autocomplete after typing `My`:
+![Autocomplete](images/OSATEUserGuide/AutoComplete2.png)
+In this case, autocomplet suggests the system type name `MySystem`.  In particular, it _does not_ suggest the process type name `MyProcess` because it would be erroneous in the context of declarating a system implementation.
+
+
+
+#### Error Markers
+
+As you type you will notcie that the editor underlines syntax errors in red.  The right sidebar of the editor will also show a small red`x` indicating that an _error marker_ exists for that line of text.  For example, before the declaration of the system implementation is completed, the package has several errors:
+
+![Error Markers](images/OSATEUserGuide/Errors.png)
+
+The details of the error markers are visible in the `Problems` view.  This is a standard Eclipse view.  Despite the name _Problems_, not all markers necessarily makrk problems or errors.  Some OSATE analsyses generate information markers (visible with a blue `i`) as output.
+
+The details of a marker can also be seen by hovering over the icon in the editor sidebar.
+
+Also note that the AADL project is marked in the navigator view to indicate that its contents have error markers.
+
+
+
+#### Save the Package
+
+Once you have the package entered into the editor, save it.  It should be error-free, without any markers:
+
+![Good Package](images/OSATEUserGuide/FinalPackage.png)
+
+
+
+## Navigating a Model
+
+OSATE provides many mechanisms for navigating through a model.
+
+
+
+### The `Outline` View
+
+The `Outline` view shows the model in the text editor as a tree structure. Selecting an element in the outline view causes the editor to move to that object in the text. You can disable this synchronization between the outline and the text with the double arrow button in the view's toolbar. You can also have the view sorted alphabetically instead of the order in the text by selecting the "a to z" icon.
+
+![Outline View Toolbar](images/OSATEUserGuide/OutlineToolbar.png)
+
+
+
+### Search
+
+You can search the text of a model using the standard Eclipse search facility under `Search > Search...` in the menu bar.  This brings up a search window.  It can also be used for search and replace.  The scope of the serach can also be specified.  In most cases you just want to make sure that the `File Search` tab is selected, and enter your search term in the `Containing text` field.  For example, the below will search for the string `end` in the project we created above:
+
+![Search Window](images/OSATEUserGuide/SearchWindow.png)
+
+When you click on the `Serach` button, Eclipse performs the search.  The results are displayed in the `Search` view:
+
+![Search View](images/OSATEUserGuide/SearchView.png)
+
+Double-clicking on a result in the view opens the editor to the location of the match.  All the matches are highlighted in the editor as well.
+
+
+
+### Hyperlinks
+
+All references to names in the AADL editor are linked to their declaration.  `CTRL`-clicking on the name will turn it into an active hyperlink and move the editor selection to the declaration of the name.  For example, `CTRL`-clicking on `MyProcess` in the subcomponent declaration of `MySystem` above, moves the selection to declaration of `MyProcess` earlier in the package.
+
+
+
+### Quick Outline
+
+A _quick outline_ can be brought up in the AADL text editor by typing `CTRL + o`.  The package outline will appear in a small window with a search box.  You can filter the displayed outline elements by typing in the search box:
+
+![Quick Outline](images/OSATEUserGuide/QuickOutline.png)
+
+Selecting an item in the outline will move the editor to the selected element.
+
+
+
+### Navigation History
+
+Much like a web browser, when you navigate to different locations within a file, follow references/links to other files, go to the location of a marker, or go to the result of a search, Eclipse keeps a history. Yellow navigation arrow buttons in the toolbar let you move back adn forth through the history:
+
+![Navigation Toolbar](images/OSATEUserGuide/NavigationHistory.png)
+
+
+
