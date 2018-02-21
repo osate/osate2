@@ -204,29 +204,52 @@ public class PropagateErrorSources {
 				if (EM2TypeSetUtil.isNoError(opc.getTypeToken()) || opc.getCondition() != null) {
 					continue;
 				}
-				if ((opc.getState() != null && targetstate.getName().equalsIgnoreCase(opc.getState().getName()))) {
+				if (opc.isAllStates() || (opc.getState() != null
+						&& targetstate.getName().equalsIgnoreCase(opc.getState().getName()))) {
 					// either typeless state or type is contained in opc type constraint on state
 					TypeSet statetypeconstraint = opc.getTypeTokenConstraint();
 					if (statetypeconstraint == null || statetype == null
 							|| EM2TypeSetUtil.contains(statetypeconstraint, statetype)) {
-						ErrorPropagation ep = opc.getOutgoing();
 						ErrorTypes outtype = opc.getTypeToken();
 						if (outtype == null) {
 							outtype = statetype;
 						}
-						if (outtype == null) {
-							if (eventtype != null) {
-								traceErrorPaths(ci, ep, eventtype, 2, componentText + ", " + "error event "
-										+ event.getName() + EMV2Util.getPrintName(eventtype));
-								handledPropagations.put(ep, EMV2Util.getPrintName(eventtype));
+						if (opc.isAllPropagations()) {
+							Collection<ErrorPropagation> oeps = EMV2Util
+									.getAllOutgoingErrorPropagations(ci.getComponentClassifier());
+							for (ErrorPropagation ep : oeps) {
+								if (outtype == null) {
+									if (eventtype != null) {
+										traceErrorPaths(ci, ep, eventtype, 2, componentText + ", " + "error event "
+												+ event.getName() + EMV2Util.getPrintName(eventtype));
+										handledPropagations.put(ep, EMV2Util.getPrintName(eventtype));
+									}
+								} else {
+									EList<TypeToken> result = EM2TypeSetUtil
+											.generateAllLeafTypeTokens((TypeSet) outtype, EMV2Util.getUseTypes(opc));
+									for (TypeToken tt : result) {
+										traceErrorPaths(ci, ep, tt, 2, componentText + ", " + "error event "
+												+ event.getName() + EMV2Util.getPrintName(eventtype));
+										handledPropagations.put(ep, EMV2Util.getPrintName(tt));
+									}
+								}
 							}
 						} else {
-							EList<TypeToken> result = EM2TypeSetUtil.generateAllLeafTypeTokens((TypeSet) outtype,
-									EMV2Util.getUseTypes(opc));
-							for (TypeToken tt : result) {
-								traceErrorPaths(ci, ep, tt, 2, componentText + ", " + "error event " + event.getName()
-										+ EMV2Util.getPrintName(eventtype));
-								handledPropagations.put(ep, EMV2Util.getPrintName(tt));
+							ErrorPropagation ep = opc.getOutgoing();
+							if (outtype == null) {
+								if (eventtype != null) {
+									traceErrorPaths(ci, ep, eventtype, 2, componentText + ", " + "error event "
+											+ event.getName() + EMV2Util.getPrintName(eventtype));
+									handledPropagations.put(ep, EMV2Util.getPrintName(eventtype));
+								}
+							} else {
+								EList<TypeToken> result = EM2TypeSetUtil.generateAllLeafTypeTokens((TypeSet) outtype,
+										EMV2Util.getUseTypes(opc));
+								for (TypeToken tt : result) {
+									traceErrorPaths(ci, ep, tt, 2, componentText + ", " + "error event "
+											+ event.getName() + EMV2Util.getPrintName(eventtype));
+									handledPropagations.put(ep, EMV2Util.getPrintName(tt));
+								}
 							}
 						}
 					}
@@ -253,8 +276,7 @@ public class PropagateErrorSources {
 				for (ErrorBehaviorTransition trans : EMV2Util.getAllErrorBehaviorTransitions(ci)) {
 					if (trans.getCondition() instanceof ConditionElement) {
 						ConditionElement conditionElement = (ConditionElement) trans.getCondition();
-						processTransition(ci, event, null, trans, conditionElement, componentText,
-								handledPropagations);
+						processTransition(ci, event, null, trans, conditionElement, componentText, handledPropagations);
 					} else if (trans.getCondition() instanceof OrmoreExpression) {
 						EList<ConditionExpression> elems = ((OrmoreExpression) trans.getCondition()).getOperands();
 						for (ConditionExpression conditionExpression : elems) {
@@ -338,7 +360,7 @@ public class PropagateErrorSources {
 						} else {
 							failuremodeText = failuremodeDesc;
 						}
-							traceErrorPaths(ci, ep, typeToken, 2, componentText + "," + failuremodeText);
+						traceErrorPaths(ci, ep, typeToken, 2, componentText + "," + failuremodeText);
 					}
 				}
 			}
@@ -728,48 +750,18 @@ public class PropagateErrorSources {
 				 * it as an error sink but as an error path and continue
 				 * to trace the flow using this additional error propagation.
 				 */
-				EList<OutgoingPropagationCondition> additionalPropagations = EMV2Util
-						.getAdditionalOutgoingPropagation(ci, ep);
-				// process should have returned false, but for safety we check again
-
-				if (additionalPropagations.size() == 0) {
-					/**
-					 * Here, we do not have any additional error propagation, we mark it as a sink.
-					 */
-					if (EM2TypeSetUtil.contains(ef.getTypeTokenConstraint(), tt)) {
-						String maskText = ", " + generateFailureModeText(ci, ep, tt) + " [Masked],";
+				if (EM2TypeSetUtil.contains(ef.getTypeTokenConstraint(), tt)) {
+					String maskText = ", " + generateFailureModeText(ci, ep, tt) + " [Masked],";
+					reportEntry(entryText + maskText, depth);
+					handled = true;
+				} else {
+					Collection<TypeToken> intersection = EM2TypeSetUtil
+							.getConstrainedTypeTokens(ef.getTypeTokenConstraint(), tt);
+					for (TypeToken typeToken : intersection) {
+						String maskText = ", " + generateFailureModeText(ci, ep, typeToken) + " [Masked],";
 						reportEntry(entryText + maskText, depth);
 						handled = true;
-					} else {
-						Collection<TypeToken> intersection = EM2TypeSetUtil
-								.getConstrainedTypeTokens(ef.getTypeTokenConstraint(), tt);
-						for (TypeToken typeToken : intersection) {
-							String maskText = ", " + generateFailureModeText(ci, ep, typeToken) + " [Masked],";
-							reportEntry(entryText + maskText, depth);
-							handled = true;
-						}
 					}
-				} else {
-					/**
-					 * We continue to trace the propagation flows
-					 * based on the additional errors propagated.
-					 */
-					for (OutgoingPropagationCondition opc : additionalPropagations) {
-						ErrorPropagation outp = opc.getOutgoing();
-
-						/**
-						 * We try to address all potential error propagation cases.
-						 */
-						if (!treated.contains(opc)) {
-							TypeToken newtt = EMV2Util.mapToken(outp.getTypeSet().getTypeTokens().get(0), ef);
-							treated.add(outp);
-							traceErrorPaths(ci, outp, newtt, depth + 1,
-									entryText + ", from state "
-											+ (opc.getState() != null ? opc.getState().getName() : "all") + " "
-											+ generateFailureModeText(ci, ep, tt));
-						}
-					}
-					handled = true;
 				}
 			} else if (ef instanceof ErrorPath) { // error path
 				Collection<ErrorPropagation> eplist = EMV2Util.getOutgoingPropagationOrAll((ErrorPath) ef);
