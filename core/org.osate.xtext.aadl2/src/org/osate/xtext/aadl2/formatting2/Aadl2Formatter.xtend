@@ -4,8 +4,10 @@
 package org.osate.xtext.aadl2.formatting2;
 
 import com.google.inject.Inject
+import org.eclipse.emf.ecore.EObject
 import org.eclipse.xtext.formatting2.AbstractFormatter2
 import org.eclipse.xtext.formatting2.IFormattableDocument
+import org.eclipse.xtext.formatting2.IHiddenRegionFormatter
 import org.eclipse.xtext.formatting2.regionaccess.ISemanticRegion
 import org.osate.aadl2.AadlBoolean
 import org.osate.aadl2.AadlInteger
@@ -206,7 +208,7 @@ class Aadl2Formatter extends AbstractFormatter2 {
 	
 	def dispatch void format(AadlBoolean aadlBoolean, extension IFormattableDocument document) {
 		if (aadlBoolean.name !== null) {
-			aadlBoolean.surround[indent].append[newLines = 1]
+			aadlBoolean.surround[indent].conditionalAppend(document, [newLines = 1])
 			aadlBoolean.regionFor.keyword(booleanTypeAccess.colonKeyword_1).prepend[noSpace].append[oneSpace]
 			aadlBoolean.regionFor.keyword(booleanTypeAccess.aadlbooleanKeyword_3).prepend[oneSpace].append[noSpace]
 		}
@@ -214,7 +216,7 @@ class Aadl2Formatter extends AbstractFormatter2 {
 	
 	def dispatch void format(AadlString aadlString, extension IFormattableDocument document) {
 		if (aadlString.name !== null) {
-			aadlString.surround[indent].append[newLines = 1]
+			aadlString.surround[indent].conditionalAppend(document, [newLines = 1])
 			aadlString.regionFor.keyword(stringTypeAccess.colonKeyword_1).prepend[noSpace].append[oneSpace]
 			aadlString.regionFor.keyword(stringTypeAccess.aadlstringKeyword_3).prepend[oneSpace].append[noSpace]
 		}
@@ -228,7 +230,7 @@ class Aadl2Formatter extends AbstractFormatter2 {
 				enumerationType.regionFor.keywords(unnamedEnumerationTypeAccess.commaKeyword_3_0)
 			)
 		} else {
-			enumerationType.surround[indent].append[newLines = 1]
+			enumerationType.surround[indent].conditionalAppend(document, [newLines = 1])
 			enumerationType.regionFor.keyword(enumerationTypeAccess.colonKeyword_1).prepend[noSpace].append[oneSpace]
 			enumerationType.regionFor.keyword(enumerationTypeAccess.enumerationKeyword_3).surround[oneSpace]
 			formatEnumerationTypeCommon(document, enumerationType.regionFor.keyword(enumerationTypeAccess.leftParenthesisKeyword_4),
@@ -257,7 +259,7 @@ class Aadl2Formatter extends AbstractFormatter2 {
 				unitsType.regionFor.keyword(unnamedUnitsTypeAccess.rightParenthesisKeyword_4), unitsType.regionFor.keywords(unnamedUnitsTypeAccess.commaKeyword_3_0)
 			)
 		} else {
-			unitsType.surround[indent].append[newLines = 1]
+			unitsType.surround[indent].conditionalAppend(document, [newLines = 1])
 			unitsType.regionFor.keyword(unitsTypeAccess.colonKeyword_1).prepend[noSpace].append[oneSpace]
 			unitsType.regionFor.keyword(unitsTypeAccess.unitsKeyword_3).surround[oneSpace]
 			formatUnitsTypeCommon(unitsType, document, unitsType.regionFor.keyword(unitsTypeAccess.leftParenthesisKeyword_4),
@@ -288,7 +290,7 @@ class Aadl2Formatter extends AbstractFormatter2 {
 		if (aadlReal.name === null) {
 			formatAadlRealCommon(aadlReal, document, aadlReal.regionFor.keyword(unnamedRealTypeAccess.unitsKeyword_3_1_0))
 		} else {
-			aadlReal.surround[indent].append[newLines = 1]
+			aadlReal.surround[indent].conditionalAppend(document, [newLines = 1])
 			aadlReal.regionFor.keyword(realTypeAccess.colonKeyword_1).prepend[noSpace].append[oneSpace]
 			aadlReal.regionFor.keyword(realTypeAccess.aadlrealKeyword_3).prepend[oneSpace]
 			
@@ -335,7 +337,7 @@ class Aadl2Formatter extends AbstractFormatter2 {
 		if (aadlInteger.name === null) {
 			formatAadlIntegerCommon(aadlInteger, document, aadlInteger.regionFor.keyword(unnamedIntegerTypeAccess.unitsKeyword_3_1_0))
 		} else {
-			aadlInteger.surround[indent].append[newLines = 1]
+			aadlInteger.surround[indent].conditionalAppend(document, [newLines = 1])
 			aadlInteger.regionFor.keyword(integerTypeAccess.colonKeyword_1).prepend[noSpace].append[oneSpace]
 			aadlInteger.regionFor.keyword(integerTypeAccess.aadlintegerKeyword_3).prepend[oneSpace]
 			
@@ -373,7 +375,7 @@ class Aadl2Formatter extends AbstractFormatter2 {
 			
 			formatRangeTypeCommon(rangeType, document, rangeType.regionFor.assignment(unnamedRangeTypeAccess.referencedNumberTypeAssignment_2_1))
 		} else {
-			rangeType.surround[indent].append[newLines = 1]
+			rangeType.surround[indent].conditionalAppend(document, [newLines = 1])
 			rangeType.regionFor.keyword(rangeTypeAccess.colonKeyword_1).prepend[noSpace].append[oneSpace]
 			rangeType.regionFor.keyword(rangeOfKeywordsAccess.rangeKeyword_0).surround[oneSpace]
 			
@@ -399,7 +401,7 @@ class Aadl2Formatter extends AbstractFormatter2 {
 				classifierType.regionFor.keywords(unnamedClassifierTypeAccess.commaKeyword_2_2_0)
 			)
 		} else {
-			classifierType.surround[indent].append[newLines = 1]
+			classifierType.surround[indent].conditionalAppend(document, [newLines = 1])
 			classifierType.regionFor.keyword(classifierTypeAccess.colonKeyword_1).prepend[noSpace].append[oneSpace]
 			classifierType.regionFor.keyword(classifierTypeAccess.classifierKeyword_3).prepend[oneSpace]
 			
@@ -445,7 +447,7 @@ class Aadl2Formatter extends AbstractFormatter2 {
 				referenceType.regionFor.keywords(unnamedReferenceTypeAccess.commaKeyword_2_2_0)
 			)
 		} else {
-			referenceType.surround[indent].append[newLines = 1]
+			referenceType.surround[indent].conditionalAppend(document, [newLines = 1])
 			referenceType.regionFor.keyword(referenceTypeAccess.colonKeyword_1).prepend[noSpace].append[oneSpace]
 			referenceType.regionFor.keyword(referenceTypeAccess.referenceKeyword_3).prepend[oneSpace]
 			
@@ -480,7 +482,7 @@ class Aadl2Formatter extends AbstractFormatter2 {
 				recordType.regionFor.keyword(unnamedRecordTypeAccess.rightParenthesisKeyword_3)
 			)
 		} else {
-			recordType.surround[indent].append[newLines = 1]
+			recordType.surround[indent].conditionalAppend(document, [newLines = 1])
 			recordType.regionFor.keyword(recordTypeAccess.colonKeyword_1).prepend[noSpace].append[oneSpace]
 			recordType.regionFor.keyword(recordTypeAccess.typeKeyword_2).append[oneSpace]
 			formatRecordTypeCommon(recordType, document, recordType.regionFor.keyword(recordTypeAccess.leftParenthesisKeyword_4),
@@ -513,7 +515,7 @@ class Aadl2Formatter extends AbstractFormatter2 {
 	}
 	
 	def dispatch void format(PropertyConstant propertyConstant, extension IFormattableDocument document) {
-		propertyConstant.surround[indent].append[newLines = 1]
+		propertyConstant.surround[indent].conditionalAppend(document, [newLines = 1])
 		propertyConstant.regionFor.keyword(propertyConstantAccess.colonKeyword_1).prepend[noSpace].append[oneSpace]
 		propertyConstant.regionFor.keyword(propertyConstantAccess.constantKeyword_2).append[oneSpace]
 		
@@ -607,7 +609,7 @@ class Aadl2Formatter extends AbstractFormatter2 {
 	}
 	
 	def dispatch void format(Property property, extension IFormattableDocument document) {
-		property.surround[indent].append[newLines = 1]
+		property.surround[indent].conditionalAppend(document, [newLines = 1])
 		property.regionFor.keyword(propertyDefinitionAccess.colonKeyword_1).prepend[noSpace].append[oneSpace]
 		property.regionFor.keyword(propertyDefinitionAccess.inheritInheritKeyword_2_0).append[oneSpace]
 		
@@ -757,7 +759,7 @@ class Aadl2Formatter extends AbstractFormatter2 {
 			PackageSection: 2
 			default: 1
 		}
-		packageRename.surround[indent].append[newLines = newLineCount]
+		packageRename.surround[indent].conditionalAppend(document, [newLines = newLineCount])
 		
 		//PackageRename parser rule
 		packageRename.regionFor.keyword(packageRenameAccess.renamesKeyword_1).surround[oneSpace]
@@ -778,7 +780,7 @@ class Aadl2Formatter extends AbstractFormatter2 {
 			PackageSection: 2
 			default: 1
 		}
-		featureGroupTypeRename.surround[indent].append[newLines = newLineCount]
+		featureGroupTypeRename.surround[indent].conditionalAppend(document, [newLines = newLineCount])
 		featureGroupTypeRename.regionFor.assignment(FGTRenameAccess.nameAssignment_0).append[oneSpace]
 		featureGroupTypeRename.regionFor.keyword(featureGroupKeywordsAccess.featureKeyword_0).surround[oneSpace]
 		featureGroupTypeRename.regionFor.keyword(featureGroupKeywordsAccess.groupKeyword_1).append[oneSpace]
@@ -792,7 +794,7 @@ class Aadl2Formatter extends AbstractFormatter2 {
 			PackageSection: 2
 			default: 1
 		}
-		componentTypeRename.surround[indent].append[newLines = newLineCount]
+		componentTypeRename.surround[indent].conditionalAppend(document, [newLines = newLineCount])
 		componentTypeRename.regionFor.assignment(CTRenameAccess.nameAssignment_0).append[oneSpace]
 		componentTypeRename.regionFor.assignment(CTRenameAccess.categoryAssignment_2).surround[oneSpace]
 		componentTypeRename.regionFor.keyword(CTRenameAccess.semicolonKeyword_4).prepend[noSpace]
@@ -805,7 +807,7 @@ class Aadl2Formatter extends AbstractFormatter2 {
 			PackageSection: 2
 			default: 1
 		}
-		defaultAnnexLibrary.surround[indent].append[newLines = newLineCount]
+		defaultAnnexLibrary.surround[indent].conditionalAppend(document, [newLines = newLineCount])
 		defaultAnnexLibrary.regionFor.assignment(defaultAnnexLibraryAccess.nameAssignment_1).surround[oneSpace]
 		defaultAnnexLibrary.regionFor.keyword(defaultAnnexLibraryAccess.semicolonKeyword_3).prepend[noSpace]
 	}
@@ -918,7 +920,7 @@ class Aadl2Formatter extends AbstractFormatter2 {
 			PackageSection: 2
 			default: 1
 		}
-		componentType.surround[indent].append[newLines = newLineCount]
+		componentType.surround[indent].conditionalAppend(document, [newLines = newLineCount])
 		
 		//Declaration line
 		if (componentType.ownedExtension === null) {
@@ -1073,7 +1075,7 @@ class Aadl2Formatter extends AbstractFormatter2 {
 	}
 	
 	def dispatch void format(DataPort dataPort, extension IFormattableDocument document) {
-		dataPort.surround[indent; indent].append[newLines = 1]
+		dataPort.surround[indent; indent].conditionalAppend(document, [newLines = 1])
 		
 		//Named
 		dataPort.regionFor.keyword(dataPortAccess.colonKeyword_1_0_1).prepend[noSpace].append[oneSpace]
@@ -1107,7 +1109,7 @@ class Aadl2Formatter extends AbstractFormatter2 {
 	}
 	
 	def dispatch void format(EventDataPort eventDataPort, extension IFormattableDocument document) {
-		eventDataPort.surround[indent; indent].append[newLines = 1]
+		eventDataPort.surround[indent; indent].conditionalAppend(document, [newLines = 1])
 		
 		//Named
 		eventDataPort.regionFor.keyword(eventDataPortAccess.colonKeyword_1_0_1).prepend[noSpace].append[oneSpace]
@@ -1135,7 +1137,7 @@ class Aadl2Formatter extends AbstractFormatter2 {
 	}
 	
 	def dispatch void format(EventPort eventPort, extension IFormattableDocument document) {
-		eventPort.surround[indent; indent].append[newLines = 1]
+		eventPort.surround[indent; indent].conditionalAppend(document, [newLines = 1])
 		
 		//Named
 		eventPort.regionFor.keyword(eventPortAccess.colonKeyword_1_0_1).prepend[noSpace].append[oneSpace]
@@ -1162,7 +1164,7 @@ class Aadl2Formatter extends AbstractFormatter2 {
 	}
 	
 	def dispatch void format(FeatureGroup featureGroup, extension IFormattableDocument document) {
-		featureGroup.surround[indent; indent].append[newLines = 1]
+		featureGroup.surround[indent; indent].conditionalAppend(document, [newLines = 1])
 		
 		//Named
 		featureGroup.regionFor.keyword(featureGroupAccess.colonKeyword_0_0_1).prepend[noSpace].append[oneSpace]
@@ -1194,7 +1196,7 @@ class Aadl2Formatter extends AbstractFormatter2 {
 	}
 	
 	def dispatch void format(Parameter parameter, extension IFormattableDocument document) {
-		parameter.surround[indent; indent].append[newLines = 1]
+		parameter.surround[indent; indent].conditionalAppend(document, [newLines = 1])
 		
 		//Named
 		parameter.regionFor.keyword(parameterAccess.colonKeyword_0_0_1).prepend[noSpace].append[oneSpace]
@@ -1221,7 +1223,7 @@ class Aadl2Formatter extends AbstractFormatter2 {
 	}
 	
 	def dispatch void format(SubprogramAccess subprogramAccess, extension IFormattableDocument document) {
-		subprogramAccess.surround[indent; indent].append[newLines = 1]
+		subprogramAccess.surround[indent; indent].conditionalAppend(document, [newLines = 1])
 		
 		//Named
 		subprogramAccess.regionFor.keyword(subprogramAccessAccess.colonKeyword_0_0_1).prepend[noSpace].append[oneSpace]
@@ -1244,7 +1246,7 @@ class Aadl2Formatter extends AbstractFormatter2 {
 	}
 	
 	def dispatch void format(SubprogramGroupAccess subprogramGroupAccess, extension IFormattableDocument document) {
-		subprogramGroupAccess.surround[indent; indent].append[newLines = 1]
+		subprogramGroupAccess.surround[indent; indent].conditionalAppend(document, [newLines = 1])
 		
 		//Named
 		subprogramGroupAccess.regionFor.keyword(subprogramGroupAccessAccess.colonKeyword_0_0_1).prepend[noSpace].append[oneSpace]
@@ -1269,7 +1271,7 @@ class Aadl2Formatter extends AbstractFormatter2 {
 	}
 	
 	def dispatch void format(BusAccess busAccess, extension IFormattableDocument document) {
-		busAccess.surround[indent; indent].append[newLines = 1]
+		busAccess.surround[indent; indent].conditionalAppend(document, [newLines = 1])
 		
 		//Named
 		busAccess.regionFor.keyword(busAccessAccess.colonKeyword_0_0_1).prepend[noSpace].append[oneSpace]
@@ -1293,7 +1295,7 @@ class Aadl2Formatter extends AbstractFormatter2 {
 	}
 	
 	def dispatch void format(DataAccess dataAccess, extension IFormattableDocument document) {
-		dataAccess.surround[indent; indent].append[newLines = 1]
+		dataAccess.surround[indent; indent].conditionalAppend(document, [newLines = 1])
 		
 		//Named
 		dataAccess.regionFor.keyword(dataAccessAccess.colonKeyword_0_0_1).prepend[noSpace].append[oneSpace]
@@ -1316,7 +1318,7 @@ class Aadl2Formatter extends AbstractFormatter2 {
 	}
 	
 	def dispatch void format(AbstractFeature abstractFeature, extension IFormattableDocument document) {
-		abstractFeature.surround[indent; indent].append[newLines = 1]
+		abstractFeature.surround[indent; indent].conditionalAppend(document, [newLines = 1])
 		
 		//Named
 		abstractFeature.regionFor.keyword(abstractFeatureAccess.colonKeyword_0_0_1).prepend[noSpace].append[oneSpace]
@@ -1343,7 +1345,7 @@ class Aadl2Formatter extends AbstractFormatter2 {
 	}
 	
 	def dispatch void format(Mode mode, extension IFormattableDocument document) {
-		mode.surround[indent; indent].append[newLines = 1]
+		mode.surround[indent; indent].conditionalAppend(document, [newLines = 1])
 		mode.regionFor.keyword(modeAccess.colonKeyword_1).prepend[noSpace].append[oneSpace]
 		mode.regionFor.keyword(modeAccess.initialInitialKeyword_2_0).append[oneSpace]
 		formatCurlyProperties(mode, document, mode.regionFor.keyword(modeAccess.leftCurlyBracketKeyword_4_0),
@@ -1353,7 +1355,7 @@ class Aadl2Formatter extends AbstractFormatter2 {
 	}
 	
 	def dispatch void format(ModeTransition modeTransition, extension IFormattableDocument document) {
-		modeTransition.surround[indent; indent].append[newLines = 1]
+		modeTransition.surround[indent; indent].conditionalAppend(document, [newLines = 1])
 		modeTransition.regionFor.keyword(modeTransitionAccess.colonKeyword_0_1).prepend[noSpace].append[oneSpace]
 		
 		//Triggers
@@ -1366,7 +1368,8 @@ class Aadl2Formatter extends AbstractFormatter2 {
 			prepend[noSpace].append[oneSpace; setNewLines(0, 0, 1); autowrap]
 		]
 		
-		if (rightMarker?.previousHiddenRegion?.multiline) {
+		val previousHidden = rightMarker?.previousHiddenRegion
+		if (previousHidden !== null && previousHidden.multiline) {
 			rightMarker.prepend[newLines = 1].append[oneSpace].surround[indent; indent]
 		} else {
 			rightMarker.prepend[noSpace].append[oneSpace]
@@ -1401,7 +1404,7 @@ class Aadl2Formatter extends AbstractFormatter2 {
 	}
 	
 	def dispatch void format(FeatureGroupPrototype featureGroupPrototype, extension IFormattableDocument document) {
-		featureGroupPrototype.surround[indent; indent].append[newLines = 1]
+		featureGroupPrototype.surround[indent; indent].conditionalAppend(document, [newLines = 1])
 		
 		//Named
 		featureGroupPrototype.regionFor.keyword(featureGroupPrototypeAccess.colonKeyword_0_0_1).prepend[noSpace].append[oneSpace]
@@ -1420,7 +1423,7 @@ class Aadl2Formatter extends AbstractFormatter2 {
 	}
 	
 	def dispatch void format(FeaturePrototype featurePrototype, extension IFormattableDocument document) {
-		featurePrototype.surround[indent; indent].append[newLines = 1]
+		featurePrototype.surround[indent; indent].conditionalAppend(document, [newLines = 1])
 		
 		//Named
 		featurePrototype.regionFor.keyword(featurePrototypeAccess.colonKeyword_0_0_1).prepend[noSpace].append[oneSpace]
@@ -1441,7 +1444,7 @@ class Aadl2Formatter extends AbstractFormatter2 {
 	}
 	
 	def private formatComponentPrototypeCommon(ComponentPrototype componentPrototype, extension IFormattableDocument document, ISemanticRegion constrainingClassifierAssignment) {
-		componentPrototype.surround[indent; indent].append[newLines = 1]
+		componentPrototype.surround[indent; indent].conditionalAppend(document, [newLines = 1])
 		
 		//Named and refined
 		componentPrototype.regionFor.keyword(":").prepend[noSpace].append[oneSpace]
@@ -1544,7 +1547,7 @@ class Aadl2Formatter extends AbstractFormatter2 {
 	}
 	
 	def dispatch void format(DefaultAnnexSubclause defaultAnnexSubclause, extension IFormattableDocument document) {
-		defaultAnnexSubclause.surround[indent].append[newLines = 1]
+		defaultAnnexSubclause.surround[indent].conditionalAppend(document, [newLines = 1])
 		defaultAnnexSubclause.regionFor.assignment(defaultAnnexSubclauseAccess.nameAssignment_1).surround[oneSpace]
 		
 		//In modes
@@ -1574,7 +1577,7 @@ class Aadl2Formatter extends AbstractFormatter2 {
 			PackageSection: 2
 			default: 1
 		}
-		featureGroupType.surround[indent].append[newLines = newLineCount]
+		featureGroupType.surround[indent].conditionalAppend(document, [newLines = newLineCount])
 		
 		featureGroupType.regionFor.keyword(featureGroupKeywordsAccess.groupKeyword_1).surround[oneSpace]
 		
@@ -1655,7 +1658,7 @@ class Aadl2Formatter extends AbstractFormatter2 {
 			PackageSection: 2
 			default: 1
 		}
-		componentImplementation.surround[indent].append[newLines = newLineCount]
+		componentImplementation.surround[indent].conditionalAppend(document, [newLines = newLineCount])
 		
 		//Declaration line
 		componentImplementation.ownedRealization.prepend[oneSpace].append[noSpace]
@@ -1837,7 +1840,7 @@ class Aadl2Formatter extends AbstractFormatter2 {
 	}
 	
 	def dispatch void format(EventSource eventSource, extension IFormattableDocument document) {
-		eventSource.surround[indent; indent].append[newLines = 1]
+		eventSource.surround[indent; indent].conditionalAppend(document, [newLines = 1])
 		eventSource.regionFor.keyword(eventSourceAccess.colonKeyword_1).prepend[noSpace].append[oneSpace]
 		formatCurlyProperties(eventSource, document,
 			eventSource.regionFor.keyword(eventSourceAccess.leftCurlyBracketKeyword_3_0),
@@ -1847,7 +1850,7 @@ class Aadl2Formatter extends AbstractFormatter2 {
 	}
 	
 	def dispatch void format(EventDataSource eventDataSource, extension IFormattableDocument document) {
-		eventDataSource.surround[indent; indent].append[newLines = 1]
+		eventDataSource.surround[indent; indent].conditionalAppend(document, [newLines = 1])
 		eventDataSource.regionFor.keyword(eventDataSourceAccess.colonKeyword_1).prepend[noSpace].append[oneSpace]
 		eventDataSource.regionFor.keyword(eventDataKeywordsAccess.eventKeyword_0).append[oneSpace]
 		eventDataSource.regionFor.assignment(eventDataSourceAccess.dataClassifierAssignment_3).prepend[oneSpace]
@@ -1859,7 +1862,7 @@ class Aadl2Formatter extends AbstractFormatter2 {
 	}
 	
 	def dispatch void format(PortProxy portProxy, extension IFormattableDocument document) {
-		portProxy.surround[indent; indent].append[newLines = 1]
+		portProxy.surround[indent; indent].conditionalAppend(document, [newLines = 1])
 		portProxy.regionFor.keyword(portProxyAccess.colonKeyword_1).prepend[noSpace].append[oneSpace]
 		portProxy.regionFor.assignment(portProxyAccess.dataClassifierAssignment_3).prepend[oneSpace]
 		formatCurlyProperties(portProxy, document,
@@ -1870,7 +1873,7 @@ class Aadl2Formatter extends AbstractFormatter2 {
 	}
 	
 	def dispatch void format(SubprogramProxy subprogramProxy, extension IFormattableDocument document) {
-		subprogramProxy.surround[indent; indent].append[newLines = 1]
+		subprogramProxy.surround[indent; indent].conditionalAppend(document, [newLines = 1])
 		subprogramProxy.regionFor.keyword(subprogramProxyAccess.colonKeyword_1).prepend[noSpace].append[oneSpace]
 		subprogramProxy.regionFor.assignment(subprogramProxyAccess.subprogramClassifierAssignment_3).prepend[oneSpace]
 		formatCurlyProperties(subprogramProxy, document,
@@ -1881,7 +1884,7 @@ class Aadl2Formatter extends AbstractFormatter2 {
 	}
 	
 	def dispatch void format(SubprogramCallSequence subprogramCallSequence, extension IFormattableDocument document) {
-		subprogramCallSequence.surround[indent; indent].append[newLines = 1]
+		subprogramCallSequence.surround[indent; indent].conditionalAppend(document, [newLines = 1])
 		subprogramCallSequence.regionFor.keyword(subprogramCallSequenceAccess.colonKeyword_1).prepend[noSpace].append[oneSpace]
 		subprogramCallSequence.regionFor.keyword(subprogramCallSequenceAccess.leftCurlyBracketKeyword_2).append[newLines = 1]
 		subprogramCallSequence.ownedSubprogramCalls.forEach[it.format(document)]
@@ -1911,7 +1914,7 @@ class Aadl2Formatter extends AbstractFormatter2 {
 	}
 	
 	def dispatch void format(SubprogramCall subprogramCall, extension IFormattableDocument document) {
-		subprogramCall.surround[indent].append[newLines = 1]
+		subprogramCall.surround[indent].conditionalAppend(document, [newLines = 1])
 		subprogramCall.regionFor.keyword(subprogramCallAccess.colonKeyword_2).prepend[noSpace].append[oneSpace]
 		subprogramCall.regionFor.keyword(subprogramCallAccess.subprogramKeyword_3).append[oneSpace]
 		subprogramCall.regionFor.keyword(subprogramCallAccess.fullStopKeyword_4_0_1).surround[noSpace]
@@ -1926,7 +1929,7 @@ class Aadl2Formatter extends AbstractFormatter2 {
 	def private formatSubcomponentCommon(Subcomponent subcomponent, extension IFormattableDocument document,
 		ISemanticRegion subcomponentTypeAssignment
 	) {
-		subcomponent.surround[indent; indent].append[newLines = 1]
+		subcomponent.surround[indent; indent].conditionalAppend(document, [newLines = 1])
 		
 		//Named and refined to
 		subcomponent.regionFor.keyword(":").prepend[noSpace].append[oneSpace]
@@ -2074,7 +2077,7 @@ class Aadl2Formatter extends AbstractFormatter2 {
 	}
 	
 	def private formatConnectionCommon(Connection connection, extension IFormattableDocument document) {
-		connection.surround[indent; indent].append[newLines = 1]
+		connection.surround[indent; indent].conditionalAppend(document, [newLines = 1])
 		
 		//Named and refined to
 		connection.regionFor.keyword(":").prepend[noSpace].append[oneSpace]
@@ -2133,7 +2136,7 @@ class Aadl2Formatter extends AbstractFormatter2 {
 	}
 	
 	def dispatch void format(FlowSpecification flowSpecification, extension IFormattableDocument document) {
-		flowSpecification.surround[indent; indent].append[newLines = 1]
+		flowSpecification.surround[indent; indent].conditionalAppend(document, [newLines = 1])
 		
 		//Named and refined to
 		flowSpecification.regionFor.keyword(":").prepend[noSpace].append[oneSpace]
@@ -2174,7 +2177,7 @@ class Aadl2Formatter extends AbstractFormatter2 {
 	}
 	
 	def dispatch void format(FlowImplementation flowImplementation, extension IFormattableDocument document) {
-		flowImplementation.surround[indent; indent].append[newLines = 1]
+		flowImplementation.surround[indent; indent].conditionalAppend(document, [newLines = 1])
 		
 		flowImplementation.regionFor.keyword(":").prepend[noSpace].append[oneSpace]
 		flowImplementation.regionFor.assignment(flowSourceImplAccess.kindAssignment_3).surround[oneSpace]
@@ -2212,7 +2215,7 @@ class Aadl2Formatter extends AbstractFormatter2 {
 	}
 	
 	def dispatch void format(EndToEndFlow endToEndFlow, extension IFormattableDocument document) {
-		endToEndFlow.surround[indent; indent].append[newLines = 1]
+		endToEndFlow.surround[indent; indent].conditionalAppend(document, [newLines = 1])
 		
 		if (endToEndFlow.refined === null) {
 			//Named
@@ -2256,5 +2259,16 @@ class Aadl2Formatter extends AbstractFormatter2 {
 	
 	def dispatch void format(EndToEndFlowSegment endToEndFlowSegment, extension IFormattableDocument document) {
 		endToEndFlowSegment.regionFor.keyword(ETESubcomponentFlowAccess.fullStopKeyword_0_1).surround[noSpace]
+	}
+	
+	/**
+	 * Appends if there is another semantic region after {@code appendAfter}.
+	 */
+	def private <T extends EObject> T conditionalAppend(T appendAfter, extension IFormattableDocument document,
+		(IHiddenRegionFormatter)=>void initializer) {
+		if (appendAfter?.regionForEObject?.nextSemanticRegion !== null) {
+			appendAfter.append(initializer)
+		}
+		appendAfter
 	}
 }
