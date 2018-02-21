@@ -118,3 +118,9 @@ One setting of immediate interest is found under `General > Startup and Shutdown
 ### Manual Refresh
 
 You can manually initiate a refresh by selecting projects, folders, or files in the `AADL Navigator` and invoking `File > Refresh` in main menu or `Refresh` in the navigator's context menu.
+
+
+
+## Creating an AADL Project
+
+Let us create an AADL Project in OSATE.   
