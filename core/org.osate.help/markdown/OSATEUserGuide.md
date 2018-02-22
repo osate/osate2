@@ -622,3 +622,254 @@ This action is enabled for **local**, **local contained**, and **shared local co
 * Remove the selected item from the list property value.
 
 Note that executing this action on a **shared local contained** property impacts all model elements that share the selected property value.
+
+
+
+## AADL Syntax Guide
+
+This section gives a brief overview of AADL syntax and naming rules.  The full AADL 2.1 grammer is available on a handy [syntax card](http://www.aadl.info/aadl/documents/AADL%20V2.1%20Syntax%20Card.pdf).
+
+A complete and formal definition of the syntax is given in the AADL standard and in the book [_Model-Based Engineering with AADL: An Introduction to the SAE Architecture Analysis & Design Language_](http://www.informit.com/store/product.aspx?isbn=0321888944).
+
+
+
+### AADL Identifier
+
+A name must
+* Start with a letter
+* May be continuted by any number of letters or digits or underscoares `_`
+* Not contain a space or special character
+
+> **Example**
+>
+>     pr_server
+
+> **Example**
+>
+>     MyProcess
+
+> **Example**
+>
+>     Thread_Listener2
+
+
+
+#### White Space
+
+Space, tab, and newline charactesr are considered white space.
+
+
+
+#### Case Sensitivity
+
+AADL is *case insensitive* for both keywords and identifiers.
+
+> **Example**
+>
+> The following is legal AADL syntax and the block end of the type definition is correctly matched with its beginning.
+>
+>     Process PR_Server
+>         -- ...
+>     END pr_SERVER;
+
+
+
+### Comments
+
+Comments start with the keyword `--` and go to the end of the line.  They may begin in the middle of a line.
+
+> **Example**
+>
+>     -- This comment starts on a line with no other AADL syntax
+>     process pr_process -- this comment follows other AADL syntax
+>     end pr_process;
+
+
+
+### Lists
+
+Lists are denoted inside of parentheses `(` `)`.  List elements are separated by a comma `,`.
+
+> **Example**
+>
+>     process pr_server
+>     properties
+>         Source_Text => ( "server.c", "server.h" );
+>     end pr_server;
+
+
+
+### Block Structure
+
+Component types, component implementations, feature group types, packages, and property sets must end with the keyword `end` followed by their name.
+
+> **Example**
+>
+>     process pr_server
+>         -- ...
+>     end pr_server;
+
+
+
+### Package Names
+
+A package name is a sequence of AADL identifiers separated by double colons `::`.  As with Java package names, sequence of identifiers provides nesting.
+
+> **Example**
+>
+> The following are non-nested package names:
+> * `MyComponents`
+> * `Libary`
+> * `local_components`
+
+> **Example**
+>
+> The package `aircaft::hardware` is nested in the package `aircraft`.
+
+
+
+### Property Set Names
+
+Property sets are named by a single identifer.
+
+> **Example**
+>
+>     property set data_types is
+>         -- ...
+>     end data_types;
+
+
+
+### Qualified Names
+
+Component types, component implementations, and feature group types declared in another package must have their names qualified by the name of the package in which they are declared.  The package name is separated from the type name using the double colon `::`.
+
+A name does not need to be qualified when used within the package in which it is declared.
+
+> **Example**
+>
+> The data type `data_frame` must be qualified by its package name `basic_types` because it is being referenced from the package `aircraft::software`.
+>
+>     package aircraft::software
+>     public
+>         thread thr_producer
+>         features
+>             out_data_stream : out event data port basic_types::data_frame;
+>         end thr_producer
+>     end aircraft::software
+
+
+
+### Component Implementation Names
+
+An implementation name is built from the name of a *component type* followed by a period `.` followed by a name for the implementation.
+
+> **Example**
+>
+>     process pr_server ... end pr_server;
+>     
+>     process implementation pr_server.single_threaded ... end pr_server.single_threaded;
+>     
+>     process implementation pr_server.multi_threaded ... end pr_server.multi_threaded;
+
+
+
+## AADL Style Guide
+
+The following guidelines are suggested when using AADL for modeling a system.  They are recommended in case you want to use a consistent naming rules and also want to share your models with other AADL users.
+
+
+
+### Files
+
+#### File Names
+
+##### AADL Packages
+
+An AADL file uses the file extenstion `.aadl`.
+
+The basename of an AADL file is the name of the public AADL package it contains with the separator `::` replaced by the hyphen `-`.
+
+> **Example**
+>
+> The public package `edu::sei::examples` is stored in the file `edu-sei-examples.aadl`.
+
+
+
+##### AADL Property Sets
+
+An AADL property set uses the file extenstion `.aadl`.
+
+The basename of the property set file is the name of the property set it contains.
+
+> **Example**
+>
+> The property set `basic_types` is stored in the file `basic_types.aadl`.
+
+
+
+#### Indentation
+
+Syntactic blocks should be indenteded in a consistent manner, using either spaces or tabs.
+
+> **Example**
+>
+> Here is AADL text using 4-space indentaton.
+>
+>     process pr_example
+>     features
+>         in1 : in event port;
+>         out1 : out event port;
+>     properties
+>         Property_Name => Property_Value;
+>     end myprocess;
+
+
+
+### AADL Entity Names
+
+#### Component Classifiers
+
+Start with the kind of the component.  Continue with a hint about the function/operation of the component.
+
+> **Example**
+>
+>     process pr_receive_http_request
+
+> **Example**
+>
+>     thread thread_gui_main
+
+> **Example**
+>
+>     device implementation dev_keyboard.usb_impl
+
+
+
+#### Features
+
+The feature name should provide information about what the feature does or provide contextual information.
+
+A `port` features should be prefixed by its direction (`in`, `out`, `in out`).
+
+> **Example**
+>
+>     in_one_minute_passed : in event port;
+
+> **Example**
+>
+>     out_cancelled : out event port;
+
+
+
+#### Connections
+
+Connections should use the prefix `conn_` and reference the source and destination subcomponents.  If you have several connections between the same two components, try to differentiate them using a suffix related to the connection's function or context.
+
+> **Example**
+>
+>     conn_src_dest : port src.out_cancelled -> dst.in_cancelled;
+
+> **Example**
+>
+>     conn_thermometer_controller_temperature: 

@@ -2,7 +2,7 @@
 
 This section gives a brief overview of AADL syntax and naming rules.  The full AADL 2.1 grammer is available on a handy [syntax card](http://www.aadl.info/aadl/documents/AADL%20V2.1%20Syntax%20Card.pdf).
 
-A complete and formal definition of the syntax is given in the AADL standard and in the book [_Model-Based Engineering with AADL: An Introduction to the SAE Architecture Analysis é Design Language_](http://www.informit.com/store/product.aspx?isbn=0321888944).
+A complete and formal definition of the syntax is given in the AADL standard and in the book [_Model-Based Engineering with AADL: An Introduction to the SAE Architecture Analysis & Design Language_](http://www.informit.com/store/product.aspx?isbn=0321888944).
 
 
 
