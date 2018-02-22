@@ -13,13 +13,17 @@
 		</topic>
 		<topic label="Opening an Element&#39;s Package Diagram" href="docs-gen/user_guide.html#opening-an-elements-package-diagram">
 		</topic>
-		<topic label="Opening the Type Diagram for a Component Implementation" href="docs-gen/user_guide.html#opening-the-type-diagram-for-a-component-implementation">
+		<topic label="Opening the Type Diagram for a Component Implementation or Subcomponent" href="docs-gen/user_guide.html#opening-the-type-diagram-for-a-component-implementation-or-subcomponent">
+		</topic>
+		<topic label="Opening the Implementation Diagram for a Component Implementation or Subcomponent" href="docs-gen/user_guide.html#opening-the-implementation-diagram-for-a-component-implementation-or-subcomponent">
 		</topic>
 		<topic label="Opening an AADL Instance Model" href="docs-gen/user_guide.html#opening-an-aadl-instance-model">
 		</topic>
 	</topic>
 	<topic label="Editing AADL Diagrams" href="docs-gen/user_guide.html#editing-aadl-diagrams">
 		<topic label="Basics" href="docs-gen/user_guide.html#basics">
+			<topic label="Diagram Types" href="docs-gen/user_guide.html#diagram-types">
+			</topic>
 			<topic label="Diagram Configuration" href="docs-gen/user_guide.html#diagram-configuration">
 			</topic>
 			<topic label="Showing and Hiding Diagram Element Contents" href="docs-gen/user_guide.html#showing-and-hiding-diagram-element-contents">
@@ -29,6 +33,8 @@
 			<topic label="Abstracted Connections" href="docs-gen/user_guide.html#abstracted-connections">
 			</topic>
 			<topic label="Inherited Elements" href="docs-gen/user_guide.html#inherited-elements">
+			</topic>
+			<topic label="Indirect Editing" href="docs-gen/user_guide.html#indirect-editing">
 			</topic>
 			<topic label="Editing Properties" href="docs-gen/user_guide.html#editing-properties">
 			</topic>
@@ -63,7 +69,7 @@
 			<topic label="Creating Connections" href="docs-gen/user_guide.html#creating-connections">
 			</topic>
 			<topic label="Editing Connections" href="docs-gen/user_guide.html#editing-connections">
-				<topic label="Using the Context Menu to Edit Connections" href="docs-gen/user_guide.html#using-the-context-menu-to-edit-connections">
+				<topic label="Using the  View to Edit Connections" href="docs-gen/user_guide.html#using-the-properties-view-to-edit-connections">
 				</topic>
 			</topic>
 			<topic label="Connection_Pattern Property Visualization" href="docs-gen/user_guide.html#connection_pattern-property-visualization">
@@ -75,7 +81,7 @@
 			<topic label="Extending" href="docs-gen/user_guide.html#extending">
 				<topic label="Using the Palette to Extend a Classifier" href="docs-gen/user_guide.html#using-the-palette-to-extend-a-classifier">
 				</topic>
-				<topic label="Using the Context Menu to Set Extended Classifier" href="docs-gen/user_guide.html#using-the-context-menu-to-set-extended-classifier">
+				<topic label="Using the  View to Set Extended Classifier" href="docs-gen/user_guide.html#using-the-properties-view-to-set-extended-classifier">
 				</topic>
 			</topic>
 		</topic>
@@ -148,8 +154,6 @@
 			</topic>
 			<topic label="Setting Bindings" href="docs-gen/user_guide.html#setting-bindings">
 				<topic label="Using the Toolbar to Set Bindings" href="docs-gen/user_guide.html#using-the-toolbar-to-set-bindings">
-				</topic>
-				<topic label="Using the Context Menu to Set Bindings" href="docs-gen/user_guide.html#using-the-context-menu-to-set-bindings">
 				</topic>
 			</topic>
 		</topic>

@@ -39,8 +39,7 @@ public class DiagramUpdater {
 	private final Map<DiagramNode, Map<RelativeBusinessObjectReference, DiagramElement>> containerToRelativeReferenceToGhostMap = new HashMap<>();
 
 	// Holds information regarding diagram elements which have not been created. The DiagramNode is the parent of the new element.
-	// The Point is the position. It may be null to indicate that an element should be added as a manually added element but that a position hasn't been specified.
-	private final Map<DiagramNode, Map<RelativeBusinessObjectReference, Point>> futureElementToPositionMap = new HashMap<>();
+	private final Map<DiagramNode, Map<RelativeBusinessObjectReference, FutureElementInfo>> futureElementInfoMap = new HashMap<>();
 
 	public DiagramUpdater(final TreeUpdater boTreeExpander,
 			final DiagramElementInformationProvider infoProvider) {
@@ -56,20 +55,20 @@ public class DiagramUpdater {
 	 */
 	public void addToNextUpdate(final DiagramNode parentDiagramNode,
 			final RelativeBusinessObjectReference ref,
-			final Point newElementPosition) {
-		Map<RelativeBusinessObjectReference, Point> m = futureElementToPositionMap.get(parentDiagramNode);
+			final FutureElementInfo newElementInfo) {
+		Map<RelativeBusinessObjectReference, FutureElementInfo> m = futureElementInfoMap.get(parentDiagramNode);
 		if(m == null) {
 			m = new HashMap<>();
-			futureElementToPositionMap.put(parentDiagramNode, m);
+			futureElementInfoMap.put(parentDiagramNode, m);
 		}
-		m.put(ref, newElementPosition);
+		m.put(ref, newElementInfo);
 	}
 
 	// Updates the diagram.
 	// As part of the update process the auto content filter settings may be cleared for non-manual nodes.
 	public void updateDiagram(final AgeDiagram diagram) {
 		// Create an updated business object tree based on the current state of the diagram and pending elements
-		final BusinessObjectNode tree = DiagramToBusinessObjectTreeConverter.createBusinessObjectNode(diagram, futureElementToPositionMap, containerToRelativeReferenceToGhostMap);
+		final BusinessObjectNode tree = DiagramToBusinessObjectTreeConverter.createBusinessObjectNode(diagram, futureElementInfoMap, containerToRelativeReferenceToGhostMap);
 		updateDiagram(diagram, tree);
 	}
 
@@ -93,7 +92,7 @@ public class DiagramUpdater {
 		});
 
 		// Remove all entries from the future elements map regardless of whether they were created or not. This ensures that unused positions aren't retained indefinitely
-		futureElementToPositionMap.clear();
+		futureElementInfoMap.clear();
 	}
 
 	/**
@@ -194,7 +193,7 @@ public class DiagramUpdater {
 			}
 
 			// Set fields
-			m.setAutoContentsFilter(element, n.getAutoContentsFilter());
+			m.setContentFilters(element, n.getContentFilters());
 			m.setManual(element, n.isManual());
 			m.setCompleteness(element, n.getCompleteness());
 
@@ -225,9 +224,12 @@ public class DiagramUpdater {
 
 				// Set the initial position if there is a value in the future element position map
 				// Set the position after the dock area so that setPosition() will know whether the element is dockable.
-				final Map<RelativeBusinessObjectReference, Point> futureElementPositions = futureElementToPositionMap.get(container);
-				final boolean isInFutureElementMap = futureElementPositions == null ? false : futureElementPositions.containsKey(n.getRelativeReference());
-				final Point initialPosition = isInFutureElementMap ? futureElementPositions.get(n.getRelativeReference()) : null;
+				final Map<RelativeBusinessObjectReference, FutureElementInfo> futureElementInfos = futureElementInfoMap
+						.get(container);
+				final FutureElementInfo futureElementInfo = futureElementInfos == null ? null
+						: futureElementInfos.get(n.getRelativeReference());
+				final Point initialPosition = futureElementInfo != null ? futureElementInfo.position
+								: null;
 				if(initialPosition != null) {
 					m.setPosition(element, initialPosition);
 				}
@@ -235,11 +237,6 @@ public class DiagramUpdater {
 				if(element.getGraphic() instanceof AgeConnection) {
 					// Add connection elements to the list so that they can be access later.
 					connectionElements.add(element);
-
-					// Set the bend points of the connection to prevent an incremental layout
-					if (isInFutureElementMap) {
-						m.setBendpoints(element, Collections.emptyList());
-					}
 				}
 
 				// Update the element's children

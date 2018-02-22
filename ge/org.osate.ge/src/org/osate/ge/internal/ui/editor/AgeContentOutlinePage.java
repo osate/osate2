@@ -1,11 +1,8 @@
 package org.osate.ge.internal.ui.editor;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.HashSet;
-import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
 
@@ -14,22 +11,12 @@ import org.eclipse.core.runtime.preferences.IEclipsePreferences.IPreferenceChang
 import org.eclipse.core.runtime.preferences.InstanceScope;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.gef.ui.actions.ActionRegistry;
-import org.eclipse.graphiti.dt.IDiagramTypeProvider;
-import org.eclipse.graphiti.features.IDeleteFeature;
-import org.eclipse.graphiti.features.IDirectEditingFeature;
-import org.eclipse.graphiti.features.context.ICustomContext;
-import org.eclipse.graphiti.features.context.impl.CustomContext;
-import org.eclipse.graphiti.features.context.impl.DeleteContext;
-import org.eclipse.graphiti.features.context.impl.DirectEditingContext;
-import org.eclipse.graphiti.features.context.impl.MultiDeleteInfo;
-import org.eclipse.graphiti.features.custom.ICustomFeature;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.jface.action.IStatusLineManager;
 import org.eclipse.jface.action.IToolBarManager;
 import org.eclipse.jface.action.MenuManager;
-import org.eclipse.jface.dialogs.InputDialog;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.ITreeContentProvider;
 import org.eclipse.jface.viewers.LabelProvider;
@@ -39,13 +26,10 @@ import org.eclipse.jface.viewers.TreeSelection;
 import org.eclipse.jface.viewers.TreeViewer;
 import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.jface.viewers.ViewerComparator;
-import org.eclipse.jface.window.Window;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.widgets.Composite;
-import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Menu;
-import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Tree;
 import org.eclipse.ui.IActionBars;
 import org.eclipse.ui.ISharedImages;
@@ -57,7 +41,6 @@ import org.osate.ge.internal.Activator;
 import org.osate.ge.internal.diagram.runtime.DiagramElement;
 import org.osate.ge.internal.diagram.runtime.DiagramNode;
 import org.osate.ge.internal.graphiti.diagram.GraphitiAgeDiagram;
-import org.osate.ge.internal.graphiti.features.BoHandlerDirectEditFeature;
 import org.osate.ge.internal.ui.util.ImageUiHelper;
 import org.osate.ge.internal.ui.util.UiUtil;
 import org.osate.ge.internal.util.StringUtil;
@@ -118,7 +101,6 @@ public class AgeContentOutlinePage extends ContentOutlinePage {
 	public void createControl(final Composite parent) {
 		super.createControl(parent);
 
-		final IDiagramTypeProvider diagramTypeProvider = editor.getDiagramTypeProvider();
 		final TreeViewer viewer =  getTreeViewer();
 		viewer.setContentProvider(new ITreeContentProvider() {
 			@Override
@@ -209,90 +191,6 @@ public class AgeContentOutlinePage extends ContentOutlinePage {
 		final MenuManager menuMgr = new MenuManager();
 		menuMgr.setRemoveAllWhenShown(true);
 
-		menuMgr.addMenuListener(contextMenu -> {
-			final PictogramElement[] treePes = getCurrentlySelectedPictogramElements();
-			final ICustomContext context = new CustomContext(treePes);
-			final ICustomFeature[] customFeatures = diagramTypeProvider.getFeatureProvider().getCustomFeatures(context);
-
-			// Renaming
-			if(context.getPictogramElements().length > 0) {
-				final PictogramElement pe1 = context.getPictogramElements()[0];
-				final DirectEditingContext directEditingContext = getDirectEditingContext(pe1);
-				if(directEditingContext != null) {
-					final IDirectEditingFeature directEditingFeature = editor.getDiagramTypeProvider().getFeatureProvider().getDirectEditingFeature(directEditingContext);
-					if(context.getPictogramElements().length == 1 && directEditingFeature.canDirectEdit(directEditingContext)) {
-						menuMgr.add(new Action("Rename...") {
-							@Override
-							public void run() {
-								final RenameDialog nameDialog = new RenameDialog(Display.getCurrent().getActiveShell(), directEditingFeature, directEditingContext);
-								if(nameDialog.open() == Window.CANCEL || nameDialog.getValue() == null) {
-									return;
-								}
-
-								directEditingFeature.setValue(nameDialog.getValue(), directEditingContext);
-								directEditingFeature.execute(directEditingContext);
-							}
-						});
-					}
-				}
-			}
-
-			// Delete
-			final HashMap<DeleteContext, IDeleteFeature> deleteContextToFeatureMap = new LinkedHashMap<>();
-			for(final PictogramElement pe2 : context.getPictogramElements()) {
-				final DeleteContext deleteContext = new DeleteContext(pe2);
-				final IDeleteFeature deleteFeature = diagramTypeProvider.getFeatureProvider().getDeleteFeature(deleteContext);
-
-				if(context.getPictogramElements().length > 1) {
-					deleteContext.setMultiDeleteInfo(new MultiDeleteInfo(false, false, context.getPictogramElements().length));
-				}
-
-				if(!deleteFeature.canDelete(deleteContext)) {
-					deleteContextToFeatureMap.clear();
-					break;
-				} else {
-					deleteContextToFeatureMap.put(deleteContext, deleteFeature);
-				}
-			}
-
-			if(!deleteContextToFeatureMap.isEmpty()) {
-				final Map.Entry<DeleteContext, IDeleteFeature> firstEntry = deleteContextToFeatureMap.entrySet().iterator().next();
-
-				if(firstEntry.getKey().getMultiDeleteInfo() != null) {
-					firstEntry.getKey().getMultiDeleteInfo().setShowDialog(true);
-				}
-
-				contextMenu.add(new Action("Delete") {
-					@Override
-					public void run() {
-						for(final DeleteContext deleteContext : deleteContextToFeatureMap.keySet()) {
-							final IDeleteFeature deleteFeature = deleteContextToFeatureMap.get(deleteContext);
-							editor.getDiagramBehavior().executeFeature(deleteFeature, deleteContext);
-							if(deleteContext.getMultiDeleteInfo() != null && deleteContext.getMultiDeleteInfo().isDeleteCanceled()) {
-								break;
-							}
-						}
-					}
-				});
-			}
-
-			// Custom Features
-			for(int i = 0; i < customFeatures.length; i++) {
-				final ICustomFeature customFeature = customFeatures[i];
-				if(customFeature.isAvailable(context)) {
-					final Action customFeatAction = new Action(customFeature.getName()) {
-						@Override
-						public void run() {
-							editor.getDiagramBehavior().executeFeature(customFeature, context);
-						};
-					};
-
-					customFeatAction.setEnabled(customFeature.canExecute(context));
-					contextMenu.add(customFeatAction);
-				}
-			}
-		});
-
 		final Tree tree = viewer.getTree();
 		final Menu menu = menuMgr.createContextMenu(tree);
 		tree.setMenu(menu);
@@ -376,17 +274,6 @@ public class AgeContentOutlinePage extends ContentOutlinePage {
 		super.selectionChanged(event);
 	};
 
-	/**
-	 * Get DirectEditingContext
-	 * @param pe - selected PictogramElement
-	 * @return DirectEditingContext
-	 */
-	private static DirectEditingContext getDirectEditingContext(final PictogramElement pe) {
-		final DirectEditingContext ctx = new DirectEditingContext(pe, pe.getGraphicsAlgorithm());
-		ctx.putProperty(BoHandlerDirectEditFeature.PROPERTY_REQUIRE_PRIMARY_LABEL, Boolean.FALSE);
-		return ctx;
-	}
-
 	private class ToggleLinkWithEditorAction extends Action {
 		public ToggleLinkWithEditorAction() {
 			super("Link With Editor", SWT.TOGGLE);
@@ -459,20 +346,5 @@ public class AgeContentOutlinePage extends ContentOutlinePage {
 		}
 
 		return selectedDiagramNodes;
-	}
-
-	// Rename Dialog
-	private static class RenameDialog extends InputDialog {
-		public RenameDialog(final Shell parentShell, final IDirectEditingFeature directEditingFeature, final DirectEditingContext directEditingContext) {
-			super(parentShell, "Rename", "Enter Name", directEditingFeature.getInitialValue(directEditingContext), newName -> directEditingFeature.checkValueValid(newName, directEditingContext));
-
-			setShellStyle(getShellStyle() | SWT.RESIZE);
-		}
-
-		@Override
-		protected void configureShell(final Shell shell) {
-			super.configureShell(shell);
-			shell.setMinimumSize(225, 185);
-		}
 	}
 }

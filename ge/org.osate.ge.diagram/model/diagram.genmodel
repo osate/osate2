@@ -33,6 +33,8 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute diagram.ecore#//DiagramElement/fontColor"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute diagram.ecore#//DiagramElement/fontSize"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute diagram.ecore#//DiagramElement/lineWidth"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute diagram.ecore#//DiagramElement/primaryLabelVisible"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference diagram.ecore#//DiagramElement/contentFilters"/>
     </genClasses>
     <genClasses ecoreClass="diagram.ecore#//Point">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute diagram.ecore#//Point/x"/>
@@ -51,11 +53,16 @@
     <genClasses ecoreClass="diagram.ecore#//CanonicalBusinessObjectReference"/>
     <genClasses ecoreClass="diagram.ecore#//RelativeBusinessObjectReference"/>
     <genClasses ecoreClass="diagram.ecore#//DiagramConfiguration">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute diagram.ecore#//DiagramConfiguration/type"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference diagram.ecore#//DiagramConfiguration/enabledAadlProperties"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference diagram.ecore#//DiagramConfiguration/context"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute diagram.ecore#//DiagramConfiguration/connectionPrimaryLabelsVisible"/>
     </genClasses>
     <genClasses ecoreClass="diagram.ecore#//Reference">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute diagram.ecore#//Reference/seg"/>
+    </genClasses>
+    <genClasses ecoreClass="diagram.ecore#//ContentFilters">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute diagram.ecore#//ContentFilters/filter"/>
     </genClasses>
   </genPackages>
 </genmodel:GenModel>

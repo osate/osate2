@@ -8,8 +8,10 @@ import java.util.Collections;
 import java.util.Deque;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map.Entry;
 import java.util.Objects;
 import java.util.Set;
+import java.util.function.Consumer;
 import java.util.function.Function;
 
 import org.eclipse.core.resources.IProject;
@@ -23,7 +25,7 @@ import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.e4.core.contexts.IEclipseContext;
-import org.eclipse.emf.common.util.Diagnostic;
+import org.eclipse.emf.common.command.Command;
 import org.eclipse.emf.common.util.ECollections;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
@@ -57,6 +59,8 @@ import org.osate.ge.internal.services.ModelChangeNotifier.Lock;
 import org.osate.ge.internal.ui.xtext.AgeXtextUtil;
 import org.osate.ge.internal.util.Log;
 
+import com.google.common.collect.LinkedListMultimap;
+
 public class DefaultAadlModificationService implements AadlModificationService {
 	public static class ContextFunction extends SimpleServiceContextFunction<AadlModificationService> {
 		@Override
@@ -79,13 +83,31 @@ public class DefaultAadlModificationService implements AadlModificationService {
 		Objects.requireNonNull(objToBoToModifyMapper, "objToBoToModifyMapper must not be null");
 		Objects.requireNonNull(modifier, "modifier must not be null");
 
+		// Create a map containing a mapping from each specified object to the specified modifier so that a common modify() implementation can be used.
+		final LinkedListMultimap<I, MappedObjectModifier<E, R>> objectsToModifierMap = LinkedListMultimap.create(objs.size());
+		for (final I obj : objs) {
+			objectsToModifierMap.put(obj, modifier);
+		}
+
+		return modify(objectsToModifierMap, objToBoToModifyMapper, results -> {
+		});
+	}
+
+	@Override
+	public <I, E extends EObject, R> List<R> modify(
+			LinkedListMultimap<I, MappedObjectModifier<E, R>> objectsToModifierMap,
+			Function<I, E> objToBoToModifyMapper, final Consumer<List<R>> resultConsumer) {
+		Objects.requireNonNull(objectsToModifierMap, "objectsToModifierMap must not be null");
+		Objects.requireNonNull(objToBoToModifyMapper, "objToBoToModifyMapper must not be null");
+
 		class ModifyRunnable implements Runnable {
 			public List<R> result;
 
 			@Override
 			public void run() {
 				try (Lock lock = modelChangeNotifier.lock()) {
-					result = doModification(objs, objToBoToModifyMapper, modifier);
+					result = doModification(objectsToModifierMap, objToBoToModifyMapper);
+					resultConsumer.accept(result);
 				}
 			}
 		}
@@ -93,7 +115,6 @@ public class DefaultAadlModificationService implements AadlModificationService {
 		// We want to run the modification in the display thread. Executing in the display thread will allow the diagram editor updates to be ran synchronously
 		final ModifyRunnable modifyRunnable = new ModifyRunnable();
 		if (Display.getDefault().getThread() == Thread.currentThread()) {
-			Log.info("Executing modification without a thread switch");
 			try {
 				modifyRunnable.run();
 			} catch (RuntimeException ex) {
@@ -111,13 +132,17 @@ public class DefaultAadlModificationService implements AadlModificationService {
 	}
 
 	// Assumes that the modification notifier is already locked
-	private <I, E extends EObject, R> List<R> doModification(final List<I> inputObjects,
-			final Function<I, E> objToBoToModifyMapper, final MappedObjectModifier<E, R> modifier) {
-		final List<R> result = new ArrayList<>(inputObjects.size());
+	private <I, E extends EObject, R> List<R> doModification(
+			LinkedListMultimap<I, MappedObjectModifier<E, R>> inputObjectsToModifierMap,
+			final Function<I, E> objToBoToModifyMapper) {
+		final List<R> result = new ArrayList<>(inputObjectsToModifierMap.size());
 		final Set<IProject> projectsToBuild = new HashSet<>();
 
 		// Iterate over the input objects
-		for (final I obj : inputObjects) {
+		for (final Entry<I, MappedObjectModifier<E, R>> objToModifierEntry : inputObjectsToModifierMap.entries()) {
+			final I obj = objToModifierEntry.getKey();
+			final MappedObjectModifier<E, R> modifier = objToModifierEntry.getValue();
+
 			// Determine the object to modify
 			final E bo = objToBoToModifyMapper.apply(obj);
 
@@ -144,7 +169,7 @@ public class DefaultAadlModificationService implements AadlModificationService {
 				if (modifySafelyResult.modificationSuccessful) {
 					// Save the model
 					try {
-						res.save(SaveOptions.defaultOptions().toOptionsMap());
+						res.save(SaveOptions.newBuilder().format().getOptions().toOptionsMap());
 					} catch (final IOException e) {
 						throw new RuntimeException(e);
 					}
@@ -194,7 +219,7 @@ public class DefaultAadlModificationService implements AadlModificationService {
 								final EObject objectToModify = res.getResourceSet().getEObject(modificationObjectUri,
 										true);
 								if (objectToModify == null) {
-									return null;
+									return new ModifySafelyResults<R>(false, null);
 								}
 
 								if (parsedAnnexRoot != null && (objectToModify instanceof DefaultAnnexLibrary
@@ -359,77 +384,80 @@ public class DefaultAadlModificationService implements AadlModificationService {
 		public final boolean modificationSuccessful;
 		public final R modifierResult;
 	}
+
 	/**
 	 * Modifies the resource. If changes causes a validation error, the changes are reverted.
 	 * @param resource
+	 * @param element
 	 * @param modifier
+	 * @param testSerialization
 	 * @return
 	 */
 	@SuppressWarnings("unchecked")
-	private <E extends EObject, R> ModifySafelyResults<R> modifySafely(final XtextResource resource, final E element, final Modifier<E, R> modifier, final boolean testSerialization) {
+	private <E extends EObject, R> ModifySafelyResults<R> modifySafely(final XtextResource resource, final E element,
+			final Modifier<E, R> modifier, final boolean testSerialization) {
 		if(resource.getContents().size() < 1) {
 			return null;
 		}
 
-		// Create a new editing domain
-		final TransactionalEditingDomain domain = Objects.requireNonNull(TransactionalEditingDomain.Registry.INSTANCE.getEditingDomain("org.osate.aadl2.ModelEditingDomain"), "unable to retrieve editing domain");
+		final ResourceSet resourceSet = Objects.requireNonNull(resource.getResourceSet(),
+				"Unable to retrieve resource set");
+		TransactionalEditingDomain domain = null;
 
 		R result = null;
 		boolean modificationSuccessful = false;
 		try {
-			// Execute a new recording command
-			final RecordingCommand cmd = new RecordingCommand(domain) {
-				private R modifierResult;
+			domain = TransactionalEditingDomain.Factory.INSTANCE.getEditingDomain(resourceSet);
 
-				@Override
-				protected void doExecute() {
-					modifierResult = modifier.modify(resource, element);
+			final Command undoCommand = domain == null ? null : domain.getCommandStack().getUndoCommand();
+			if (domain == null) {
+				// Perform the modification without a transaction
+				result = modifier.modify(resource, element);
+			} else {
+				// Make modification in a transaction
+				final RecordingCommand cmd = new RecordingCommand(domain) {
+					private R modifierResult;
+
+					@Override
+					protected void doExecute() {
+						modifierResult = modifier.modify(resource, element);
+					}
+
+					@Override
+					public Collection<?> getResult() {
+						return Collections.singletonList(modifierResult);
+					}
+
+				};
+				domain.getCommandStack().execute(cmd);
+
+				final Object[] cmdResult = cmd.getResult().toArray();
+				if (cmdResult.length > 0) {
+					result = (R) cmdResult[0];
 				}
-
-				@Override
-				public Collection<?> getResult() {
-					return Collections.singletonList(modifierResult);
-				}
-
-			};
-			domain.getCommandStack().execute(cmd);
-			final Object[] cmdResult = cmd.getResult().toArray();
-			if(cmdResult.length > 0) {
-				result = (R)cmdResult[0];
 			}
 
 			// Try to serialize the resource. In some cases serialization can fail and leave a corrupt model if we are editing without an xtext document
 			// The real serialization will occur later.
 			if(testSerialization) {
-				resource.getSerializer().serialize(resource.getContents().get(0));
-			}
+				final String serializedSrc = resource.getSerializer().serialize(resource.getContents().get(0));
+				modificationSuccessful = serializedSrc != null && !serializedSrc.trim().isEmpty();
 
-			// Mark the modification as successful
-			modificationSuccessful = true;
-		} finally {
-			// Undo the changes if any of the validators fail
-			final List<Diagnostic> concreteValidationErrors = resource.validateConcreteSyntax();
-			// Disabled checking for resource errors because that includes errors that will occur in normal operations(unless refactoring/chain deleting/modification is implemented)
-			if(!modificationSuccessful || (/*resource.getErrors().size() > 0 || */concreteValidationErrors.size() > 0) && domain.getCommandStack().canUndo()) {
-				Log.error("Error. Undoing modification");
-
-				if(concreteValidationErrors.size() > 0) {
-					Log.error("Concrete Syntax Validation Errors:");
-					for(final Diagnostic diag : concreteValidationErrors) {
-						Log.error(diag.toString());
+				if (!modificationSuccessful) {
+					while (domain != null && domain.getCommandStack().canUndo()
+							&& domain.getCommandStack().getUndoCommand() != undoCommand) {
+						domain.getCommandStack().undo();
 					}
+					result = null;
 				}
-
-				if(domain.getCommandStack().canUndo()) {
-					domain.getCommandStack().undo();
-				}
-
-				modificationSuccessful = false;
+			} else {
+				// Mark the modification as successful
+				modificationSuccessful = true;
+			}
+		} finally {
+			if (!modificationSuccessful) {
 				result = null;
 			}
-
-			// Flush and dispose of the editing domain
-			domain.getCommandStack().flush();
 		}
 
 		return new ModifySafelyResults<R>(modificationSuccessful, result);

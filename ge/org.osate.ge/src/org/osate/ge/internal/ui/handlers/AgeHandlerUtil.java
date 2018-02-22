@@ -54,4 +54,14 @@ class AgeHandlerUtil {
 		final ISelection selection = (ISelection) selectionObj;
 		return SelectionUtil.getSelectedDiagramElements(selection);
 	}
+
+	public static IEditorPart getActiveEditorFromContext(final Object evaluationContext) {
+		if (!(evaluationContext instanceof IEvaluationContext)) {
+			return null;
+		}
+
+		final IEvaluationContext context = (IEvaluationContext) evaluationContext;
+		final Object editorObj = context.getVariable(ISources.ACTIVE_EDITOR_NAME);
+		return editorObj instanceof IEditorPart ? (IEditorPart) editorObj : null;
+	}
 }

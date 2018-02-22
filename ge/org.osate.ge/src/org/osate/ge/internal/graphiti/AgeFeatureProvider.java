@@ -54,7 +54,6 @@ import org.eclipse.graphiti.features.IResizeShapeFeature;
 import org.eclipse.graphiti.features.IUpdateFeature;
 import org.eclipse.graphiti.features.context.IAddBendpointContext;
 import org.eclipse.graphiti.features.context.IAddContext;
-import org.eclipse.graphiti.features.context.ICustomContext;
 import org.eclipse.graphiti.features.context.IDeleteContext;
 import org.eclipse.graphiti.features.context.IDirectEditingContext;
 import org.eclipse.graphiti.features.context.ILayoutContext;
@@ -66,7 +65,6 @@ import org.eclipse.graphiti.features.context.IRemoveBendpointContext;
 import org.eclipse.graphiti.features.context.IRemoveContext;
 import org.eclipse.graphiti.features.context.IResizeShapeContext;
 import org.eclipse.graphiti.features.context.IUpdateContext;
-import org.eclipse.graphiti.features.custom.ICustomFeature;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.ui.features.DefaultFeatureProvider;
@@ -76,7 +74,6 @@ import org.osate.ge.di.Names;
 import org.osate.ge.internal.SimplePaletteEntry;
 import org.osate.ge.internal.diagram.runtime.AgeDiagram;
 import org.osate.ge.internal.diagram.runtime.AgeDiagramUtil;
-import org.osate.ge.internal.diagram.runtime.BuiltinContentsFilter;
 import org.osate.ge.internal.diagram.runtime.CanonicalBusinessObjectReference;
 import org.osate.ge.internal.diagram.runtime.DiagramElement;
 import org.osate.ge.internal.diagram.runtime.DiagramNode;
@@ -96,11 +93,6 @@ import org.osate.ge.internal.graphiti.features.BoHandlerCreateConnectionFeature;
 import org.osate.ge.internal.graphiti.features.BoHandlerCreateFeature;
 import org.osate.ge.internal.graphiti.features.BoHandlerDeleteFeature;
 import org.osate.ge.internal.graphiti.features.BoHandlerDirectEditFeature;
-import org.osate.ge.internal.graphiti.features.CommandCustomFeature;
-import org.osate.ge.internal.graphiti.features.ConfigureDiagramFeature;
-import org.osate.ge.internal.graphiti.features.SelectAncestorFeature;
-import org.osate.ge.internal.graphiti.features.SetAutoContentFilterFeature;
-import org.osate.ge.internal.graphiti.features.UpdateDiagramCustomFeature;
 import org.osate.ge.internal.graphiti.features.UpdateDiagramFeature;
 import org.osate.ge.internal.graphiti.services.GraphitiService;
 import org.osate.ge.internal.services.AadlModificationService;
@@ -127,8 +119,8 @@ public class AgeFeatureProvider extends DefaultFeatureProvider {
 	private IRemoveBendpointFeature removeBendpointFeature;
 	private UpdateDiagramFeature updateDiagramFeature;
 	private DiagramUpdater diagramUpdater;
-	private ConfigureDiagramFeature configureDiagramFeature;
 	private DefaultDiagramElementGraphicalConfigurationProvider deInfoProvider;
+	private TreeUpdater boTreeExpander;
 
 	public AgeFeatureProvider(final IDiagramTypeProvider dtp) {
 		super(dtp);
@@ -157,7 +149,7 @@ public class AgeFeatureProvider extends DefaultFeatureProvider {
 		// Create the refresh diagram feature
 		final DefaultBusinessObjectNodeFactory nodeFactory = new DefaultBusinessObjectNodeFactory(referenceResolver);
 		final QueryService queryService = Objects.requireNonNull(eclipseContext.get(QueryService.class), "unable to retrieve query service");
-		final TreeUpdater boTreeExpander = new DefaultTreeUpdater(graphitiService, extService, referenceResolver,
+		boTreeExpander = new DefaultTreeUpdater(graphitiService, extService, referenceResolver,
 				queryService, nodeFactory);
 		deInfoProvider = new DefaultDiagramElementGraphicalConfigurationProvider(referenceResolver, extService);
 		diagramUpdater = new DiagramUpdater(boTreeExpander, deInfoProvider);
@@ -166,10 +158,6 @@ public class AgeFeatureProvider extends DefaultFeatureProvider {
 				"unable to retrieve system instance loading service");
 		this.updateDiagramFeature = new UpdateDiagramFeature(this, graphitiService, diagramUpdater, graphitiService,
 				referenceResolver, systemInstanceLoader);
-
-		// Create the configure diagram feature
-		this.configureDiagramFeature = new ConfigureDiagramFeature(this, boTreeExpander, diagramUpdater,
-				graphitiService, referenceResolver, extService, graphitiService, graphitiService);
 	}
 
 	@Override
@@ -189,8 +177,8 @@ public class AgeFeatureProvider extends DefaultFeatureProvider {
 		return diagramUpdater;
 	}
 
-	public ICustomFeature getConfigureDiagramFeature() {
-		return configureDiagramFeature;
+	public TreeUpdater getBoTreeUpdater() {
+		return boTreeExpander;
 	}
 
 	/**
@@ -289,35 +277,10 @@ public class AgeFeatureProvider extends DefaultFeatureProvider {
 		return defaultDeleteFeature;
 	}
 
-	@Override
-	public ICustomFeature[] getCustomFeatures(final ICustomContext context) {
-		final ArrayList<ICustomFeature> features = new ArrayList<ICustomFeature>();
-		addCustomFeatures(features);
-		return features.toArray(new ICustomFeature[] {});
-	}
-
 	// Don't allow reconnection
 	@Override
 	public IReconnectionFeature getReconnectionFeature(IReconnectionContext context) {
 		return null;
-	}
-
-	/**
-	 * Method used to additively build a list of custom features. Subclasses can override to add additional custom features while including those supported by parent classes.
-	 * @param features
-	 */
-	protected void addCustomFeatures(final List<ICustomFeature> features) {
-		features.add(configureDiagramFeature);
-		features.add(make(UpdateDiagramCustomFeature.class));
-		features.add(make(SelectAncestorFeature.class));
-		features.add(new SetAutoContentFilterFeature(this, graphitiService, BuiltinContentsFilter.ALLOW_FUNDAMENTAL));
-		features.add(new SetAutoContentFilterFeature(this, graphitiService, BuiltinContentsFilter.ALLOW_TYPE));
-		features.add(new SetAutoContentFilterFeature(this, graphitiService, BuiltinContentsFilter.ALLOW_ALL));
-
-		// Commands
-		for(final Object cmd : extService.getCommands()) {
-			features.add(new CommandCustomFeature(cmd, extService, aadlModService, graphitiService, this));
-		}
 	}
 
 	@Override

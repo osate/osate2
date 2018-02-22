@@ -1,5 +1,7 @@
 package org.osate.ge.internal.graphiti.features;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 import org.eclipse.e4.core.contexts.ContextInjectionFactory;
@@ -19,15 +21,22 @@ import org.osate.ge.di.GetCreateOwner;
 import org.osate.ge.di.Names;
 import org.osate.ge.graphics.Point;
 import org.osate.ge.internal.Categorized;
+import org.osate.ge.internal.CreateOperation.CreateStepResult;
 import org.osate.ge.internal.SimplePaletteEntry;
+import org.osate.ge.internal.di.BuildCreateOperation;
 import org.osate.ge.internal.di.InternalNames;
 import org.osate.ge.internal.diagram.runtime.AgeDiagramUtil;
+import org.osate.ge.internal.diagram.runtime.DiagramElement;
 import org.osate.ge.internal.diagram.runtime.DiagramNode;
 import org.osate.ge.internal.diagram.runtime.RelativeBusinessObjectReference;
+import org.osate.ge.internal.diagram.runtime.layout.IncrementalLayoutMode;
+import org.osate.ge.internal.diagram.runtime.layout.LayoutPreferences;
 import org.osate.ge.internal.diagram.runtime.updating.DiagramUpdater;
+import org.osate.ge.internal.diagram.runtime.updating.FutureElementInfo;
 import org.osate.ge.internal.graphiti.services.GraphitiService;
 import org.osate.ge.internal.services.AadlModificationService;
 import org.osate.ge.internal.services.ExtensionService;
+import org.osate.ge.internal.util.AnnotationUtil;
 import org.osate.ge.services.ReferenceBuilderService;
 
 // ICreateFeature implementation that delegates behavior to a business object handler
@@ -98,39 +107,85 @@ public class BoHandlerCreateFeature extends AbstractCreateFeature implements Cat
 			return EMPTY;
 		}
 
-		final DiagramNode ownerNode = getOwnerDiagramNode(targetNode);
-		final EObject boToModify = getBusinessObjectToModify(targetNode, ownerNode.getBusinessObject());
+		final DockingPosition targetDockingPosition = AgeDiagramUtil.determineDockingPosition(targetNode,
+				context.getX(), context.getY(), 0, 0);
 
-		final DockingPosition targetDockingPosition = AgeDiagramUtil.determineDockingPosition(targetNode, context.getX(), context.getY(), 0, 0);
-		// Modify the AADL model
-		final Object newBo = aadlModService.modify(boToModify, (resource, boToModify1) -> {
-			final IEclipseContext eclipseCtx = extService.createChildContext();
-			try {
-				eclipseCtx.set(Names.PALETTE_ENTRY_CONTEXT, paletteEntry.getContext());
-				eclipseCtx.set(Names.MODIFY_BO, boToModify1);
-				eclipseCtx.set(Names.TARGET_BO, targetNode.getBusinessObject());
-				eclipseCtx.set(InternalNames.PROJECT, graphitiService.getProject());
-				eclipseCtx.set(Names.DOCKING_POSITION, targetDockingPosition); // Specify even if the shape will not be docked.
-				eclipseCtx.set(Names.TARGET_BUSINESS_OBJECT_CONTEXT, targetNode);
-				final Object newBo1 = ContextInjectionFactory.invoke(handler, Create.class, eclipseCtx);
-				if(newBo1 != null) {
-					final RelativeBusinessObjectReference newRef = refBuilder.getRelativeReference(newBo1);
-					if(newRef != null) {
-						if(ownerNode == targetNode) {
-							diagramUpdater.addToNextUpdate(ownerNode, newRef, new Point(context.getX(), context.getY()));
-						} else {
-							diagramUpdater.addToNextUpdate(ownerNode, newRef, null);
+		// CreateOperation is used for all code paths
+		final SimpleCreateOperation createOp = new SimpleCreateOperation();
+
+		final IEclipseContext eclipseCtx = extService.createChildContext();
+		try {
+			eclipseCtx.set(Names.PALETTE_ENTRY_CONTEXT, paletteEntry.getContext());
+			eclipseCtx.set(Names.TARGET_BO, targetNode.getBusinessObject());
+			eclipseCtx.set(InternalNames.PROJECT, graphitiService.getProject());
+			eclipseCtx.set(Names.DOCKING_POSITION, targetDockingPosition); // Specify even if the shape will not be docked.
+			eclipseCtx.set(Names.TARGET_BUSINESS_OBJECT_CONTEXT, targetNode);
+
+			// Check if the handler will modify the create operation directly
+			if (AnnotationUtil.hasMethodWithAnnotation(BuildCreateOperation.class, handler)) {
+				eclipseCtx.set(InternalNames.OPERATION, createOp);
+				ContextInjectionFactory.invoke(handler,
+						BuildCreateOperation.class,
+						eclipseCtx);
+
+				if(createOp.isEmpty()) {
+					return EMPTY;
+				}
+			} else {
+				// Otherwise, create a single step based on other annotated methods
+				final DiagramNode ownerNode = getOwnerDiagramNode(targetNode);
+				final EObject boToModify = getBusinessObjectToModify(targetNode, ownerNode.getBusinessObject());
+
+				createOp.addStep(boToModify, (resource, boToModify1) -> {
+					eclipseCtx.set(Names.MODIFY_BO, boToModify1);
+					final Object newBo1 = ContextInjectionFactory.invoke(handler, Create.class, eclipseCtx);
+					return new CreateStepResult(ownerNode, newBo1);
+				});
+			}
+
+			// Perform modification
+			final List<Object> newBos = new ArrayList<>(createOp.stepMap.size());
+			aadlModService.modify(createOp.stepMap, obj -> obj, results -> {
+				// Process results. Add created elements to the diagram
+				for (final CreateStepResult stepResult : results) {
+					if (stepResult != null && stepResult.newBo != null) {
+						final RelativeBusinessObjectReference newRef = refBuilder.getRelativeReference(stepResult.newBo);
+						if (newRef != null && stepResult.container instanceof DiagramNode) {
+							final DiagramNode containerNode = (DiagramNode) stepResult.container;
+
+							// Set the new element as manual if and only if it does not match any of the container's filters
+							final boolean manual;
+							if (containerNode instanceof DiagramElement) {
+								manual = !((DiagramElement) containerNode)
+										.getContentFilters().stream()
+										.anyMatch(cf -> cf.test(stepResult.newBo));
+							} else {
+								manual = false;
+							}
+
+							// Don't set the position if the incremental layout mode is set to diagram.
+							// This will ensure the shape is layed out even if it is a docked shape.
+							final Point position;
+							if (LayoutPreferences.getCurrentLayoutMode() != IncrementalLayoutMode.LAYOUT_DIAGRAM
+									&& containerNode == targetNode) {
+								position = new Point(context.getX(), context.getY());
+							} else {
+								position = null;
+							}
+							diagramUpdater.addToNextUpdate(containerNode, newRef,
+									new FutureElementInfo(manual, position));
 						}
+
+						newBos.add(stepResult.newBo);
 					}
 				}
+			});
 
-				return newBo1 == null ? EMPTY : newBo1;
-			} finally {
-				eclipseCtx.dispose();
-			}
-		});
-
-		return newBo == null ? EMPTY : new Object[] {newBo};
+			// Return new business objects
+			return newBos.isEmpty() ? EMPTY : newBos.toArray();
+		} finally {
+			eclipseCtx.dispose();
+		}
 	}
 
 	private DiagramNode getOwnerDiagramNode(final DiagramNode targetNode) {

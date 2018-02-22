@@ -9,8 +9,10 @@ import java.util.Map;
 import java.util.Objects;
 
 import org.osate.ge.BusinessObjectContext;
-import org.osate.ge.internal.diagram.runtime.ContentsFilter;
+import org.osate.ge.ContentFilter;
 import org.osate.ge.internal.diagram.runtime.RelativeBusinessObjectReference;
+
+import com.google.common.collect.ImmutableSet;
 
 public class BusinessObjectNode implements BusinessObjectContext {
 	private BusinessObjectNode parent;
@@ -18,7 +20,7 @@ public class BusinessObjectNode implements BusinessObjectContext {
 	private final RelativeBusinessObjectReference relativeReference; // May be null only for root nodes.
 	private Object bo; // May be null for root nodes
 	private boolean manual = false; // Species whether the object was manually specified(true) or if it was created automatically based on the auto contents filter or other mechanism.
-	private ContentsFilter autoContentsFilter;
+	private ImmutableSet<ContentFilter> contentFilters;
 	private Map<RelativeBusinessObjectReference, BusinessObjectNode> children;
 	private Completeness completeness = Completeness.UNKNOWN; // DefaultTreeExpander populates this field.
 
@@ -27,14 +29,14 @@ public class BusinessObjectNode implements BusinessObjectContext {
 			final RelativeBusinessObjectReference relativeReference,
 			final Object bo,
 			final boolean manual,
-			final ContentsFilter autoContentsFilter,
+			final ImmutableSet<ContentFilter> contentFilters,
 			final Completeness completeness) {
 		this.parent = parent;
 		this.id = id;
 		this.relativeReference = relativeReference;
 		this.bo = bo;
 		this.manual = manual;
-		this.autoContentsFilter = autoContentsFilter;
+		this.contentFilters = contentFilters;
 		this.completeness = Objects.requireNonNull(completeness, "completeness must not be null");
 
 		if(parent != null) {
@@ -72,12 +74,12 @@ public class BusinessObjectNode implements BusinessObjectContext {
 		this.manual = value;
 	}
 
-	public final ContentsFilter getAutoContentsFilter() {
-		return autoContentsFilter;
+	public final ImmutableSet<ContentFilter> getContentFilters() {
+		return contentFilters;
 	}
 
-	public final void setAutoContentsFilter(final ContentsFilter value) {
-		this.autoContentsFilter = value;
+	public final void setContentFilters(final ImmutableSet<ContentFilter> value) {
+		this.contentFilters = Objects.requireNonNull(value, "value must not be null");
 	}
 
 	public final Completeness getCompleteness() {
@@ -141,7 +143,8 @@ public class BusinessObjectNode implements BusinessObjectContext {
 	 * @return
 	 */
 	private BusinessObjectNode copy(final BusinessObjectNode newParent) {
-		final BusinessObjectNode newNode = new BusinessObjectNode(newParent, id, relativeReference, bo, manual, autoContentsFilter, completeness);
+		final BusinessObjectNode newNode = new BusinessObjectNode(newParent, id, relativeReference, bo, manual,
+				contentFilters, completeness);
 		for(final BusinessObjectNode child : getChildren()) {
 			child.copy(newNode);
 		}
@@ -170,21 +173,6 @@ public class BusinessObjectNode implements BusinessObjectContext {
 		}
 
 		return t;
-	}
-
-	/**
-	 * Returns true if any of the descendants of the node are manual.
-	 * @param n
-	 * @return
-	 */
-	public static boolean hasManualDescendant(final BusinessObjectNode n) {
-		for(final BusinessObjectNode child : n.getChildren()) {
-			if(child.isManual() || hasManualDescendant(child)) {
-				return true;
-			}
-		}
-
-		return false;
 	}
 
 	private static long getMaxIdForChildren(final BusinessObjectNode n) {

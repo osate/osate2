@@ -1,10 +1,13 @@
 package org.osate.ge.internal.businessObjectHandlers;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.inject.Named;
 
+import org.eclipse.core.resources.IProject;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.osate.aadl2.AbstractFeature;
@@ -42,7 +45,6 @@ import org.osate.ge.PaletteEntryBuilder;
 import org.osate.ge.di.CanCreate;
 import org.osate.ge.di.CanDelete;
 import org.osate.ge.di.CanRename;
-import org.osate.ge.di.Create;
 import org.osate.ge.di.GetGraphicalConfiguration;
 import org.osate.ge.di.GetName;
 import org.osate.ge.di.GetNameForEditing;
@@ -53,6 +55,10 @@ import org.osate.ge.di.ValidateName;
 import org.osate.ge.graphics.Style;
 import org.osate.ge.graphics.StyleBuilder;
 import org.osate.ge.graphics.internal.FeatureGraphic;
+import org.osate.ge.internal.CreateOperation;
+import org.osate.ge.internal.CreateOperation.CreateStepResult;
+import org.osate.ge.internal.di.BuildCreateOperation;
+import org.osate.ge.internal.di.InternalNames;
 import org.osate.ge.internal.graphics.AadlGraphics;
 import org.osate.ge.internal.services.NamingService;
 import org.osate.ge.internal.util.AadlArrayUtil;
@@ -61,29 +67,14 @@ import org.osate.ge.internal.util.AadlInheritanceUtil;
 import org.osate.ge.internal.util.AadlPrototypeUtil;
 import org.osate.ge.internal.util.ImageHelper;
 import org.osate.ge.internal.util.StringUtil;
-import org.osate.ge.query.StandaloneQuery;
 import org.osate.ge.services.QueryService;
 
 public class FeatureHandler {
-	private static final StandaloneQuery parentQuery = StandaloneQuery.create((root) -> root.ancestors().first());
-
 	@IsApplicable
+	@CanRename
+	@CanDelete
 	public boolean isApplicable(final @Named(Names.BUSINESS_OBJECT) Object bo) {
 		return bo instanceof Feature || bo instanceof InternalFeature || bo instanceof ProcessorFeature;
-	}
-
-	@CanDelete
-	public boolean canEdit(final @Named(Names.BUSINESS_OBJECT) NamedElement feature,
-			final @Named(Names.BUSINESS_OBJECT_CONTEXT) BusinessObjectContext boc, final QueryService queryService) {
-		final Object containerBo = queryService.getFirstBusinessObject(parentQuery, boc);
-		return feature.getContainingClassifier() == containerBo;
-	}
-
-	@CanRename
-	public boolean canRename(final @Named(Names.BUSINESS_OBJECT) NamedElement feature,
-			final @Named(Names.BUSINESS_OBJECT_CONTEXT) BusinessObjectContext boc, final QueryService queryService) {
-		return canEdit(feature, boc, queryService)
-				&& (!(feature instanceof Feature) || ((Feature) feature).getRefined() == null);
 	}
 
 	@GetPaletteEntries
@@ -93,12 +84,8 @@ public class FeatureHandler {
 		}
 
 		final List<PaletteEntry> entries = new ArrayList<PaletteEntry>();
-		final Classifier classifier = diagramBo instanceof Classifier ? (Classifier) diagramBo : null;
-
 		for (EClass featureType : AadlFeatureUtil.getFeatureTypes()) {
-			if (classifier == null || AadlFeatureUtil.canOwnFeatureType(classifier, featureType)) {
-				entries.add(createPaletteEntry(featureType));
-			}
+			entries.add(createPaletteEntry(featureType));
 		}
 
 		return entries.toArray(new PaletteEntry[entries.size()]);
@@ -113,39 +100,76 @@ public class FeatureHandler {
 	@CanCreate
 	public boolean canCreate(final @Named(Names.TARGET_BO) EObject targetBo,
 			final @Named(Names.PALETTE_ENTRY_CONTEXT) EClass featureType) {
-		// The container must be a Feature Group Type or a ComponentType and it must have a method to create the feature type that is controlled by this pattern
-		return (targetBo instanceof FeatureGroupType || targetBo instanceof ComponentType
-				|| targetBo instanceof ComponentImplementation)
-				&& AadlFeatureUtil.canOwnFeatureType((Classifier) targetBo, featureType);
+		// Return true if there is a potential owner or if the target is a feature group or subcomponent without a classifier.
+		// The latter case is needed to allow displaying an error message.
+		return getPotentialOwners(targetBo, featureType).size() > 0
+				|| ClassifierEditingUtil.isSubcomponentOrFeatureGroupWithoutClassifier(targetBo);
 	}
 
-	@Create
-	public NamedElement createBusinessObject(@Named(Names.MODIFY_BO) final Classifier classifier,
+	@BuildCreateOperation
+	public void buildCreateOperation(@Named(InternalNames.OPERATION) final CreateOperation createOp,
+			final @Named(Names.TARGET_BO) EObject targetBo,
+			final @Named(Names.TARGET_BUSINESS_OBJECT_CONTEXT) BusinessObjectContext targetBoc,
 			final @Named(Names.PALETTE_ENTRY_CONTEXT) EClass featureType,
-			final @Named(Names.DOCKING_POSITION) DockingPosition dockingPosition, final NamingService namingService) {
-		final String newFeatureName = namingService.buildUniqueIdentifier(classifier, "new_feature");
+			final @Named(Names.DOCKING_POSITION) DockingPosition dockingPosition,
+			final @Named(InternalNames.PROJECT) IProject project,
+			final QueryService queryService, final NamingService namingService) {
 
-		final NamedElement newFeature = AadlFeatureUtil.createFeature(classifier, featureType);
-		newFeature.setName(newFeatureName);
+		if (!ClassifierEditingUtil.showMessageIfSubcomponentOrFeatureGroupWithoutClassifier(targetBo,
+				"Set a classifier before creating a feature.")) {
+			// Determine which classifier should own the new element
+			final Classifier selectedClassifier = ClassifierEditingUtil
+					.getClassifierToModify(getPotentialOwners(targetBo, featureType));
 
-		// Set in or out based on target docking position
-		final boolean isRight = dockingPosition == DockingPosition.RIGHT;
-		if (newFeature instanceof DirectedFeature) {
-			if (!(newFeature instanceof FeatureGroup)) {
-				final DirectedFeature newDirectedFeature = (DirectedFeature) newFeature;
-				newDirectedFeature.setIn(!isRight);
-				newDirectedFeature.setOut(isRight);
+			if (selectedClassifier == null) {
+				return;
 			}
-		} else if (newFeature instanceof Access) {
-			final Access access = (Access) newFeature;
-			access.setKind(isRight ? AccessType.PROVIDES : AccessType.REQUIRES);
+
+			// Create the feature
+			createOp.addStep(selectedClassifier, (resource, owner) -> {
+				final String newFeatureName = namingService.buildUniqueIdentifier(owner, "new_feature");
+
+				final NamedElement newFeature = AadlFeatureUtil.createFeature(owner, featureType);
+				newFeature.setName(newFeatureName);
+
+				// Set in or out based on target docking position
+				final boolean isRight = dockingPosition == DockingPosition.RIGHT;
+				if (newFeature instanceof DirectedFeature) {
+					if (!(newFeature instanceof FeatureGroup)) {
+						final DirectedFeature newDirectedFeature = (DirectedFeature) newFeature;
+						newDirectedFeature.setIn(!isRight);
+						newDirectedFeature.setOut(isRight);
+					}
+				} else if (newFeature instanceof Access) {
+					final Access access = (Access) newFeature;
+					access.setKind(isRight ? AccessType.PROVIDES : AccessType.REQUIRES);
+				}
+
+				if (owner instanceof ComponentType) {
+					((ComponentType) owner).setNoFeatures(false);
+				}
+
+				return new CreateStepResult(targetBoc, newFeature);
+			});
+		}
+	}
+
+	/**
+	 * Returns potential owners. If there are multiple potential owners, the first one is guaranteed to be the most specific and should be the default value.
+	 * @param targetBo
+	 * @param featureType
+	 * @return
+	 */
+	private static List<Classifier> getPotentialOwners(final EObject targetBo, final EClass featureType) {
+		// Check if the target can own the feature type
+		if ((targetBo instanceof FeatureGroupType || targetBo instanceof ComponentType
+				|| targetBo instanceof ComponentImplementation)
+				&& AadlFeatureUtil.canOwnFeatureType((Classifier) targetBo, featureType)) {
+			return Collections.singletonList((Classifier) targetBo);
 		}
 
-		if (classifier instanceof ComponentType) {
-			((ComponentType) classifier).setNoFeatures(false);
-		}
-
-		return newFeature;
+		return ClassifierEditingUtil.getPotentialClassifierTypesForEditing(targetBo).stream()
+				.filter(c -> AadlFeatureUtil.canOwnFeatureType(c, featureType)).collect(Collectors.toList());
 	}
 
 	@GetGraphicalConfiguration

@@ -52,22 +52,19 @@ An existing AADL model can be opened in the graphical editor. Changes made to ei
 The graphical editor supports navigating between related diagrams in several ways.
 
 ## Opening an Associated Diagram
-Diagrams associated with a particular element can be opened by right-clicking on the element and selecting *Open Associated Diagram* from the context menu. 
-
-![](../images/OpenAssociatedDiagram.png)
+Diagrams associated with a particular element can be opened by right-clicking on the element and selecting *Open->Associated Diagram* from the context menu. 
 
 ## Creating a New Diagram
-AADL model elements may be represented by multiple diagrams. To create a new diagram right-click on an AADL package or classifier and select *Create Diagram...*.
+AADL model elements may be represented by multiple diagrams. To create a new diagram from the AADL text editor, right-click on an AADL package or classifier and select *Create Diagram...*. To create a new diagram from the diagram editor, right-click on an AADL package or classifier and select *Open->New Diagram...*.
 
 ## Opening an Element's Package Diagram
-When viewing a diagram, the package diagram associated with an element can be opened by right-clicking inside the diagram or element and selecting *Go to Package Diagram* from the context menu.
+The package diagram associated with an element can be opened by right-clicking an element and selecting *Open->Package Diagram* from the context menu.
 
-![](../images/GoToPackageDiagram.png)
+## Opening the Type Diagram for a Component Implementation or Subcomponent
+The diagram for a component implementation's or subcomponent's component type can be opened by right-clicking on an element and selecting *Open->Type Diagram* from the context menu.
 
-## Opening the Type Diagram for a Component Implementation
-When viewing a component implementation diagram, the diagram for the component implementation's type can be opened by right-clicking inside the diagram and selecting *Go to Type Diagram* from the context menu.
-
-![](../images/GoToTypeDiagram.png)
+## Opening the Implementation Diagram for a Component Implementation or Subcomponent
+The diagram for a component instance's or subcomponent's component implementation can be opened by right-clicking on an element and selecting *Open->Implementation Diagram* from the context menu.
 
 ## Opening an AADL Instance Model
 An AADL instance model can be viewed in the graphical editor. The instance model may not be modified using the graphical editor.
@@ -82,33 +79,48 @@ The graphical editor allows editing AADL models graphically. As changes are made
 ## Basics
 Many of the operations in the graphical editor apply to multiple types of elements.
 
+### Diagram Types
+When creating a diagram, a type must be specified. A diagram's type determines the default filters used by the contents of the diagram. It also determines which AADL properties are enabled by default. All diagram types are equally customizable. A diagram element's filters determines the child elements that are shown on the diagram.
+
++-------------------+-----------------------------------------------+-------------------------------------------------------------------------+--------------------------------------------------+
+| Diagram Type      | Availability                                  | Filters                                                                 | Properties                                       |
++===================+===============================================+=========================================================================+==================================================+
+| Custom            | Packages, Classifiers, and System Instances   | None                                                                    | None                                             |
++-------------------+-----------------------------------------------+-------------------------------------------------------------------------+--------------------------------------------------+
+| Package           | Packages                                      | - Packages:  Classifiers                                                | None                                             |
+|                   |                                               | - Classifiers: Generalizations                                          |                                                  |
++-------------------+-----------------------------------------------+-------------------------------------------------------------------------+--------------------------------------------------+
+| Structure         | Classifiers and System Instances              |- Classifiers: Features, Connections, Flow Specifications, Subcomponents | None                                             |
+|                   |                                               |- Subcomponents: Features, Connections, and Flow Specifications          |                                                  |
++-------------------+-----------------------------------------------+-------------------------------------------------------------------------+--------------------------------------------------+
+| Mode              | Component Classifiers                         | - Classifiers: Modes and Mode Transitions                               | None                                             |
++-------------------+-----------------------------------------------+-------------------------------------------------------------------------+--------------------------------------------------+
+| Processor Binding | Component Implementation and System Instances | - Classifiers: Systems, Processors, Virtual Processors,                 | Deployment_Properties::Actual_Processor_Binding  |
+|                   |                                               | - Devices, Threads, Thread Groups, and Processes                        |                                                  |
++-------------------+-----------------------------------------------+-------------------------------------------------------------------------+--------------------------------------------------+
+
+Table: Diagram Types {#tbl:diagram_types}
+
 ### Diagram Configuration
-Configuring a diagram allows customizing the contents of the diagram. To configure a diagram, right-click in the diagram and select *Configure Diagram...*. The diagram configuration dialog allows enabling specific diagram elements. Child elements may be enabled automatically based on the *Auto Children* setting of their container. 
-
-|Auto Children Setting | Description|
-|------------|------------------------------------|
-| *Minimal* | Enables a minimum set of children. This includes generalizations. |
-| *Type* | Enables children which are related to classifier types. These include generalizations, features, flow specifications, mode, mode transitions, and subcomponent type labels. |
-| *All* | Enables all children. | 
-
-Table: Auto Children Setting {#tbl:auto_children_setting}
+Configuring a diagram allows customizing the contents of the diagram. To configure a diagram, right-click in the diagram and select *Configure Diagram...*. The diagram configuration dialog allows enabling specific diagram elements. A diagram element may be enabled manually or by configuring the content filters for the containing element.
 
 The diagram configuration dialog also allows selecting which AADL properties will be included in the diagram. The *communication_properties::timing* property is implicitly enabled and is represented by specialized graphical indicators. Delayed connections have a double bar indicator in the middle. Immediate connections have a double arrow in the middle.
 
 Connections which are manually enabled will be removed if the connection ends are not also included in the diagram.
 
-The *Select the Hide Connection Labels* option can be used to set the default visibility of labels for connections between diagram elements. Label visibility for individual elements can be controlled using the properties view described in @sec:de_apperance.
+The *Hide Connection Labels* option can be used to set the default visibility of labels for connections between diagram elements. Label visibility for individual elements can be controlled using the properties view described in @sec:de_apperance.
 
 ### Showing and Hiding Diagram Element Contents
-Menu options available in a diagram element's context menu will modify the diagram configuration to show and hide contents of a selected element. Access the context menu by right-clicking on a diagram element.
+Menu options available in a diagram element's context menu will modify the diagram configuration to show and hide contents of a selected element. Access the context menu by right-clicking on a diagram element and selecting the *Show* menu. The *Show* menu allows toggling the filters enabled by the selected elements. Disabling a filter will not hide elements which been manually enabled.
 
 |Menu Option | Description|
 |------------|------------------------|
-| *Hide Contents* | Hides all contents. |
-| *Show Type Contents* | Sets the Auto Children setting to *Type*. |
-| *Show Contents* | Sets the Auto Children setting to *All*. | 
+| *All Filters* | Enables all filters for the selected elements. |
+| *Hide All Contents* | Disables all filters and disables all manually enabled elements inside the selected elements. |
+| *Reset Manual Descendants* | Disables all manually enabled elements inside the selected elements. |
+| *Custom...* | Allows elements to be manually enabled using the *Configure Diagram* dialog. |  
 
-Table: Menu items for Showing and Hiding Diagram Elements Contents {#tbl:show_hide_menu_items}
+Table: Additional Menu Items in the Show Menu {#tbl:show_hide_menu_items}
 
 ### Hidden Children
 Diagram elements which have children that are hidden have an asterisk appended to their labels.
@@ -122,7 +134,11 @@ In some cases a connection between diagram elements will be represented by a dot
 - An AADL property reference value for which the referenced model element is hidden.
 
 ### Inherited Elements
-Elements which are inherited from another model element have a gray color. This indicates that any changes made to the model element will result in a change to model element other than the one in which it is contained in graphically. Modifying inherited elements directly is not supported at this time. To modify an inherited model element, modify the element in the context of its owner. For example, to modify an AADL feature which is inherited from another classifier, find the diagram element of the classifier which defines the feature and modify the feature. 
+Elements which are inherited from another model element have a gray color. This indicates that any changes made to the model element will result in a change to model element other than the one in which it is contained in graphically.
+
+
+### Indirect Editing
+To allow for easier editing, the editor allows editing classifiers in the context of related model elements. For example, a data port may be created inside a component implementation. Since AADL component implementations cannot contain data ports, the data port will be created inside the component implementation's type. In cases where there are multiple potential classifiers to edit, the editor will prompt to select a classifier.
 
 ### Editing Properties
 The properties sheet contains properties for the currently selected diagram elements. The properties sheet can be opened by double-clicking on a diagram element in the diagram or in the outline. Alternatively, the properties sheet can be opened by right-clicking on a diagram element in the diagram or outline and selecting *Properties...* from the context menu.
@@ -152,7 +168,7 @@ Elements can only be renamed when viewing the element which contains it. For exa
 When renaming a model element from the AADL text editor, one should use the *Rename Element* menu option. Manually renaming model elements will result in broken linkages between AADL diagrams and the AADL model.
 
 ### Refining
-Appropriate elements can be refined by right-clicking on them and selecting *Refine* from the context menu. Once an element is refined. Deleting a refined element will only delete the refinement.
+Appropriate elements can be refined by double-clicking on the element and select the *AADL* tab of the *Properties* view.  Use the *Refined* section to refine the element.
 
 ### Instantiating
 When viewing a package diagram, component implementations can be instantiated by right-clicking on them and selecting *Instantiate* from the context menu. The instance model will be created in that projects *instances* folder in the AADL Navigator.
@@ -249,8 +265,8 @@ When an element has been added to the diagram and needs to be positioned or size
 
 |Mode| Description|
 |-------|--------------------------------------------------|
-| *Diagram* | Each time the editor needs to position an element, a layout will be performed on the entire diagram. User adjustments to the diagram layout will be replaced. This reduces the amount of user control over the layout.|
-| *Container* | When an element is found that has neither a size or position, a layout is performed on the diagram element's container. Any manual layout information in the diagram element's container will be replaced. If the shape is created and positioned using the palette, the layout will only be performed on the contents of the new element. |
+| *Diagram* | Each time the editor needs to position or size an element, a layout will be performed on the entire diagram. User adjustments to the diagram layout will be replaced. This reduces the amount of user control over the layout.|
+| *Container* | When an element is found that has neither a size or position, a layout is performed on the diagram element's container. Any manual layout information in the diagram element's container will be replaced. If the shape is created and positioned using the palette, the layout will only be performed on the contents of the new element. If a connection is created using the palette, the layout will be performed on the connection's container. |
 | *Contents* | This is the default setting. A layout is performed on the contents of any element which does not have a size or position. This option is the least disruptive to the existing layout. However, new elements may overlap with existing elements. The *Layout Contents* menu item can be used to manually layout the contents of a container as needed. If a feature is added, it will be positioned after other features on the appropriate edge. If none of the siblings of an element have a position or size, then the layout will be performed on the container instead. This is done to provide a better layout in cases when an element does not have a user specified layout. |
 
 Table: Incremental Layout Modes {#tbl:incremental_layout_modes}
@@ -258,7 +274,7 @@ Table: Incremental Layout Modes {#tbl:incremental_layout_modes}
 ### Known Layout Issues and Limitations
 
 * Connections between multiple levels of the diagram hierarchy are not routed out. Such connections usually represent property values such as bindings. Such connections must be routed manually.
-* Mode transition triggers are not routed out. The recommended workaround is to show the mode transition triggers as text labels.
+* Mode transition triggers are not routed. The recommended workaround is to show the mode transition triggers as text labels.
 * Flow source and sinks are not consider when laying out the diagram.
 * The automatic layout for flow path may produce unexpected routing and label placement for the flow path. To workaround this issue, it is recommended to disable labels for flow paths.	
 	
@@ -277,8 +293,8 @@ When viewing an implementation diagram, connections can be created by using the 
 ### Editing Connections
 The graphical editor supports refining, binding, configuring in modes, switching direction, and changing between unidirectional and bidirectional for appropriate AADL connections.
 
-#### Using the Context Menu to Edit Connections
-Right click on a connection and all appropriate editing options will appear on the context menu.
+#### Using the *Properties* View to Edit Connections
+Double-click on a connection and select the *AADL* tab from the *Properties* view.
 
 ### Connection_Pattern Property Visualization
 When working with arrays, the graphical editor supports visualization of the connection_pattern property. See @sec:arrays.
@@ -309,16 +325,18 @@ The editor allows classifier extensions to be specified in the package view. Tha
 
 3. Select the classifier that is being extended. An arrow will now appear. The type of arrow is determined whether the extension is an implementation or type extension.
 
-#### Using the Context Menu to Set Extended Classifier
+#### Using the *Properties* View to Set Extended Classifier
 Specifying an extension using the context menu allows extending classifiers in other packages.
 
-1. Right-click on the classifier which will be the extension and select *Set Extended Classifier...* from the context menu.
+1. Double-click on the classifier which will be the extension and select the *AADL* tab in the *Properties* view.
 
-2. Select the classifier to extend.
+2. Select *Choose...* from the *Extends* section.
+
+3. Select the classifier to extend.
 
 ![](../images/SetExtendedClassifier.png)
 
-3. Select *OK*. The appropriate arrow indicating the extension will appear.
+4. Select *OK*. The appropriate arrow indicating the extension will appear.
 
 ## Features
 The editor allows editing AADL features. Features may be displayed on the left or the right of their container.
@@ -327,29 +345,25 @@ The editor allows editing AADL features. Features may be displayed on the left o
 Features can be created by using the palette.
 
 ### Setting the Feature Classifier
-The classifier can be set on features such as feature groups, data ports, and access features. Set the classifier by right-clicking on the feature and selecting *Set Classifier...* from the context menu.
-
-![](../images/SetClassifier.png)
+The classifier can be set on features such as feature groups, data ports, and access features.  Set the classifier by double-clicking on the feature, selecting the *AADL* tab of the *Properties* view, and selecting *Choose...* from the *Classifier* section.
 
 ### Setting the Feature Direction (Directional Features Only)
-To set the direction of a directional feature, right-click on the feature and select *Set Direction to In*, *Set Direction to Out*, or *Set Direction to In and Out* from the context menu after setting the feature group's classifier.
+To set the direction of a directional feature, double-click on the feature and select the *AADL* tab of the *Properties* view.  Select *In*, *Out*, or *Bidirectional* of the *Direction* section.
 
 ### Setting Access Kind (Access Features Only)
-To set the direction of an access feature, right-click on the feature and select *Set Kind to Provides* or *Set Kind to Requires* from the context menu.
+To set the direction of an access feature, double-click on the feature and select the *AADL* tab of the *Properties* view.  Select desired access kind in the *Access Type* section.
 
 ### Setting a Feature Group as Inverse
-To set a feature group as either the inverse of or not the inverse of the selected feature group type, right-click on the feature group and select *Set to Inverse* or *Set to Not Inverse* from the context menu.
+To set a feature group as the inverse of the selected feature group type, double-click on the feature group and select the *AADL* tab of the *Properties* view.  Check the box in the *Inverse* section.
 
 ## Subcomponents
 The graphical editor allows editing subcomponents when viewing a component implementation diagram.
 
 ### Creating
-When viewing a component implementation diagram, a subcomponent can be creating by using the palette. Drag the appropriate subcomponent type from the palette to the desired location. A new subcomponent will appear.
+A subcomponent can be created by using the palette. Subcomponents can be added to component implementations or to subcomponents which have a component implementation defined. In the latter case, the subcomponent's component implementation will be modified.
 
 ### Setting the Classifier
-Select the subcomponent classifier by right-clicking on the subcomponent and selecting *Set Classifier...* from the context menu. After selecting the classifier, the subcomponent will be updated to show the appropriate features.
-
-![](../images/SetClassifierSubComponent.png)
+Select the subcomponent classifier by double-clicking the subcomponent and selecting the *AADL* tab of the *Properties* view.  Select *Choose...* from the *Extends* section. 
 
 ### Opening the Type Diagram for a Subcomponent
 When viewing a component implementation diagram, the diagram for a subcomponent's type can be opened by right-clicking the appropriate subcomponent and selecting *Go to Type Diagram* from the context menu.
@@ -387,7 +401,7 @@ Select *Create Flow Implementation* from the toolbar, the dialog will appear.
 ![](../images/CreateFlowImplementationToolbar.png)
 
 #### Creating Source Flow Implementations
-1. Select a valid source flow specification in the top-level component implementation.
+1. Select a source flow specification.
 
 ![](../images/FlowImplSourceStep1.png)
 
@@ -402,7 +416,7 @@ Select *Create Flow Implementation* from the toolbar, the dialog will appear.
 4. Select *OK* when done.
 
 #### Creating Sink Flow Implementations
-1. Select a valid sink flow specification in the top-level component implementation.
+1. Select a valid sink flow specification..
 
 ![](../images/FlowImplSinkStep1.png)
 
@@ -417,7 +431,7 @@ Select *Create Flow Implementation* from the toolbar, the dialog will appear.
 4. Select *OK* when done.
 
 #### Creating Path Flow Implementations
-1. Select a valid path flow specification in the top-level component implementation.
+1. Select a valid path flow specification.
 
 ![](../images/FlowImplPathStep1.png)
 
@@ -451,9 +465,7 @@ Select *Create End-To-End Flow Specification* from the toolbar, the dialog will 
 4. Specify a name for the End-To-End Flow Specification and select *OK* when done.
 
 ### Editing Flow Implementations and End-to-End Flows
-When editing a component implementation, flow implementations and end-to-end flow can be edited using the flow editor. It can be accessed by right-clicking in the diagram and selecting *Edit Flows...* from the context menu.
-
-![](../images/EditFlows.png)
+When editing a component implementation, flow implementations and end-to-end flow can be edited using the flow editor.  The flow editor can be accessed by double-clicking the component implementation, selecting the *AADL* tab in the *Properties* view, and selecting *Edit...* from the *Flows* section.
 
 ### Highlighting Flow Implementations and End-to-End Flow Specifications
 Selecting a flow implementation or end-to-end flow specification from the flow drop-down in the toolbar will highlight the flow.  Flow Implementations and End To End Flows that have segments that are not shown in the diagram will be marked with an asterisk(*) in the drop-down.
@@ -465,7 +477,7 @@ The graphical editor allows editing the modes and mode transitions defined in th
 When editing a component type, modes can be created by selecting *Mode* from the palette.
 
 ### Setting the Initial Mode
-A mode can be designated as the initial mode by right-clicking on it and selecting *Change to Initial Mode* from the context menu.
+A mode can be designated as the initial mode by double-clicking on the mode, selecting the *AADL* tab of the *Properties* view, and using the *Initial* section option.
 
 ### Creating Mode Transitions
 Mode transitions can be created using the palette.
@@ -480,12 +492,12 @@ Mode transitions can be created using the palette.
 5. Select *OK*. The new mode transition will appear.
 
 ### Setting Mode Transition Triggers
-A mode transition's trigger ports can be modified by right-clicking on the mode transition and selecting *Set Mode Transition Triggers...* from the context menu.
+A mode transition's trigger ports can be modified by double-clicking on the mode transition and selecting the *AADL* tab in the *Properties* view.  Select *Choose...* from the *Triggers* section to set the triggers.  Current port triggers are listed in the table located in the *Triggers* section.  Trigger ports that are not contained in all selected transitions are annotated with brackets("<*Port*>").
 
 ### Switching Between Derived and Non-derived Modes
 The editor allows specifying whether modes declared inside the component type are derived from its containing component. The usage of derived modes corresponds to a component type with a *requires modes* declaration while non-derived modes correspond to a component type with a *modes* declaration. 
 
-The component type can be swapped between using derived and non-derived modes by right-clicking inside the component type and selecting *Change to Derived Modes* or *Change to Non-derived Modes* from the context menu.
+The component type can be swapped between using derived and non-derived modes by double-clicking the component type, selecting the *AADL* tab of the *Properties* view, and selecting the desired option in the *Derived Modes* section.
 
 ### Highlighting
 Selecting a mode from the mode drop-down in the toolbar will highlight elements applicable to the mode.
@@ -515,27 +527,15 @@ When viewing a component implementation diagram, a binding property associations
 4. Select one or more elements from the diagram to bind to the initially selected element.
 5. Select *OK*.
 
-#### Using the Context Menu to Set Bindings
-1. Right-click on the diagram element for which to set the binding.
-2. Select *Bind...* from the context menu.
-
-![](../images/BindContextMenu.png)
-
-3. From the Bind dialog, select a binding property from the drop-down menu.
-4. Select one or more elements from the diagram to bind to the initially selected element.
-5. Select *OK*.
-
 ## Arrays{#sec:arrays}
 The graphical editor supports creating arrays for appropriate features and subcomponents.
 
 ### Creating Arrays
 When viewing a component type diagram or component implementation diagram, a feature or subcomponent array can be created, respectively.
 
-1. Right-click on the appropriate element.
-2. Select *Modify Dimensions...* from the context menu.
-3. From the Modify Dimensions dialog, select *Add*, then *Modify*.
-
-![](../images/ModifyDimensions.png)
+1. Double-click on the appropriate element.
+2. Select the *AADL* tab in the *Properties* view.
+3. In the *Dimensions* section, select *Add...*.
 
 4. From the Modify Dimension dialog, select desired type and value.
 
@@ -544,7 +544,7 @@ When viewing a component type diagram or component implementation diagram, a fea
 5. Select *OK*. The array dimensions will appear on the element.
 
 ### Editing Arrays
-To edit an array, right-click on a feature or subcomponent array and select *Modify Dimensions...* from the context menu.
+To edit an array, double-click on a feature or subcomponent, select the *AADL* tab in the *Properties* view, and use the *Dimensions* section options.
 
 #### Add Dimension
 1. From the *Modify Dimensions* dialog, select *Add*, then *Modify*.
@@ -554,10 +554,10 @@ To edit an array, right-click on a feature or subcomponent array and select *Mod
 3. Select *OK*. The new array dimension will appear.
 
 #### Change Dimension Order
-From the *Modify Dimensions* dialog, select the desired dimension and select *Up* or *Down*.
+From the *Dimensions* section of the *AADL* tab in the *Properties* view, select the desired dimension and select *Up* or *Down*.
 
 #### Delete Dimension
-From the *Modify Dimensions* dialog, select the desired dimension and select *Delete*.
+From the *Dimensions* section of the *AADL* tab in the *Properties* view, select the desired dimension and select *Delete*.
 
 ## Subprogram Call Sequences
 The graphical editor supports creating and editing subprogram call sequences.
@@ -582,7 +582,12 @@ When viewing a thread implementation diagram that contains a subprogram call seq
 ![](../images/SubprogramCallSequenceDiagram.png)
 
 ### Editing Subprogram Call Sequences
-To change a subprogram call's place in the order of a subprogram call sequence, right-click on the desired subprogram call and select *Move Up* or *Move Down*.
+The subprogram call's order in the subprogram call sequence can be changed from the *AADL* tab of the *Properties* view.
+
+1. Double-click on the desired subprogram call sequence.
+1. Select the *AADL* tab of the *Properties* view.
+1. Select the desired subprogram call in the table of the *Call Order* section.
+1. Select *Up* or *Down*.
 
 ## Annexes
 The graphical editor supports creating Annex Libraries and Annex Subclauses in appropriate AADL packages and classifiers, respectively.

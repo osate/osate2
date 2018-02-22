@@ -5,20 +5,42 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
+import org.osate.ge.DiagramType;
+
 public class DiagramConfigurationBuilder {
+	private DiagramType diagramType;
 	private CanonicalBusinessObjectReference contextBoReference;
 	private final Set<String> lcEnabledAadlPropertyNames = new HashSet<>();
 	private Boolean connectionPrimaryLabelsVisible;
 
-	public DiagramConfigurationBuilder() {
+	/**
+	 *
+	 * @param diagramType
+	 * @param populateDefaults if true then the value of fields will be populated based on the specified diagram type.
+	 */
+	public DiagramConfigurationBuilder(final DiagramType diagramType, final boolean populateDefaults) {
+		this.diagramType = Objects.requireNonNull(diagramType, "diagramType must not be null");
 		this.contextBoReference = null;
+
+		if (populateDefaults) {
+			for (final String propertyName : this.diagramType.getDefaultAadlPropertyNames()) {
+				addAadlProperty(propertyName);
+			}
+
+			connectionPrimaryLabelsVisible(diagramType.getDefaultConnectionPrimaryLabelsVisible());
+		}
 	}
 
 	public DiagramConfigurationBuilder(final DiagramConfiguration config) {
 		Objects.requireNonNull(config, "config must not be null");
+		this.diagramType = config.getDiagramType();
 		this.contextBoReference = config.getContextBoReference();
 		this.lcEnabledAadlPropertyNames.addAll(config.getEnabledAadlPropertyNames());
 		this.connectionPrimaryLabelsVisible = config.getConnectionPrimaryLabelsVisible();
+	}
+
+	public DiagramType getDiagramType() {
+		return this.diagramType;
 	}
 
 	public CanonicalBusinessObjectReference getContextBoReference() {
@@ -54,6 +76,7 @@ public class DiagramConfigurationBuilder {
 	}
 
 	public DiagramConfiguration build() {
-		return new DiagramConfiguration(contextBoReference, lcEnabledAadlPropertyNames, connectionPrimaryLabelsVisible);
+		return new DiagramConfiguration(diagramType, contextBoReference, lcEnabledAadlPropertyNames,
+				connectionPrimaryLabelsVisible);
 	}
 }

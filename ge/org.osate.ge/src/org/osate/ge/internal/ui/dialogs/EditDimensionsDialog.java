@@ -23,7 +23,6 @@ import org.eclipse.jface.viewers.LabelProvider;
 import org.eclipse.jface.viewers.ListViewer;
 import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.jface.viewers.ViewerComparator;
-import org.eclipse.jface.window.IShellProvider;
 import org.eclipse.jface.window.Window;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.StackLayout;
@@ -229,7 +228,8 @@ public class EditDimensionsDialog extends TitleAreaDialog {
 
 		if(dim != null) {
 			// Show the editor dimension dialog. If the user selects OK, it will modify the passed in object.
-			final EditDimensionDialog dlg = new EditDimensionDialog(EditDimensionsDialog.this, projectContext, dim);
+			final EditDimensionDialog dlg = new EditDimensionDialog(EditDimensionsDialog.this.getShell(),
+					projectContext, dim);
 			if(dlg.open() == Window.CANCEL) {
 				return;
 			}
@@ -270,7 +270,7 @@ public class EditDimensionsDialog extends TitleAreaDialog {
 	}
 
 	// Dialog for modifying a single dimension. Modifies the object passed to it.
-	private static class EditDimensionDialog extends Dialog {
+	public static class EditDimensionDialog extends Dialog {
 		private static String unspecifiedTxt = "Unspecified";
 		private static String numberTxt = "Number";
 		private static String propertyConstantTxt = "Property Constant";
@@ -286,7 +286,8 @@ public class EditDimensionsDialog extends TitleAreaDialog {
 		private Composite propertyConstantPane;
 		private ComboViewer propertyConstantCmb;
 
-		public EditDimensionDialog(final IShellProvider parentShell, final IProject projectContext, final ArrayDimension dimension) {
+		public EditDimensionDialog(final Shell parentShell, final IProject projectContext,
+				final ArrayDimension dimension) {
 			super(parentShell);
 			this.projectContext = projectContext;
 			this.dimension = dimension;
@@ -359,10 +360,10 @@ public class EditDimensionsDialog extends TitleAreaDialog {
 
 			// Set initial values
 			final ArraySize dimSize = dimension.getSize();
-			if(dimSize != null) {
-				if(dimSize.getSizeProperty() == null) {
-					numberValue.setSelection((int)dimSize.getSize());
-				} else if(dimSize.getSizeProperty() instanceof PropertyConstant) {
+			if (dimSize != null) {
+				if (dimSize.getSizeProperty() == null) {
+					numberValue.setSelection((int) dimSize.getSize());
+				} else if (dimSize.getSizeProperty() instanceof PropertyConstant) {
 					propertyConstantCmb.setSelection(new StructuredSelection(dimSize.getSizeProperty()));
 				}
 			}

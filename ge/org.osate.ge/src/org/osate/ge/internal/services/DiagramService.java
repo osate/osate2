@@ -31,6 +31,8 @@ public interface DiagramService {
 		 * @return the editor. Will be non-null if and only if isOpen() is true.
 		 */
 		AgeDiagramEditor getEditor();
+
+		IFile getFile();
 	}
 
 	List<? extends DiagramReference> findDiagramsByContextBusinessObject(final Object bo);
@@ -44,7 +46,7 @@ public interface DiagramService {
 	 * @return
 	 */
 	default AgeDiagramEditor openOrCreateDiagramForBusinessObject(final Object bo) {
-		return openOrCreateDiagramForBusinessObject(bo, true, true);
+		return openOrCreateDiagramForBusinessObject(bo, true, false);
 	}
 
 	/**

@@ -32,7 +32,7 @@ public class CreateDiagramHandler extends AbstractHandler {
 	@Override
 	public Object execute(final ExecutionEvent event) throws ExecutionException {
 		try {
-			Log.ok(getClass().getSimpleName() + " Started");			
+			Log.ok(getClass().getSimpleName() + " Started");
 
 			// Determine the classifier
 			final Classifier classifier = getSelectedClassifier();
@@ -48,28 +48,28 @@ public class CreateDiagramHandler extends AbstractHandler {
 				final DiagramService diagramService = (DiagramService)PlatformUI.getWorkbench().getActiveWorkbenchWindow().getService(DiagramService.class);
 				diagramFile = diagramService.createDiagram(classifier);
 			}
-			
+
 			if(diagramFile != null) {
-				EditorUtil.openEditor(diagramFile, true);
+				EditorUtil.openEditor(diagramFile, false);
 			}
-			
+
 			Log.ok(getClass().getSimpleName() + " Finished");
 		} catch(RuntimeException e) {
 			MessageDialog.openError(PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell(), Activator.PLUGIN_ID, "Error creating diagram: " + e.getMessage());
 			Log.error("Error creating diagram", e);
 			throw e;
 		}
-		
+
 		return null;
 	}
-	
+
 	private Classifier getSelectedClassifier() {
 		EObject obj = SelectionUtil.getSelectedObject();
 		while(obj instanceof Element) {
 			if(obj instanceof Classifier) {
 				return (Classifier)obj;
 			}
-			
+
 			obj = obj.eContainer();
 		}
 

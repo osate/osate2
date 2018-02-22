@@ -35,9 +35,6 @@ import org.osate.ge.internal.graphiti.diagram.PropertyUtil;
 
 // This class does not fully support the passed in styles. The class was transitioned to use the Style class to ease the transition to GEF.
 public class AgeGraphitiGraphicsUtil {
-	private final static int initialModeEllipseSize = 10;
-	private final static int spacingBetweenInitialModeEllipseAndMode = 10;
-	private final static int initialModeAreaHeight = initialModeEllipseSize + spacingBetweenInitialModeEllipseAndMode;
 	private final static int folderTabHeight = 9;
 	private final static int folderMaxTabWidth = 100;
 	private final static double folderTabOffsetAngle = 30.0;
@@ -463,8 +460,13 @@ public class AgeGraphitiGraphicsUtil {
 		final int innerCircleY = (int) Math.round(halfCircleOuterHeight - innerCircleHeight / 2.0);
 
 		PropertyUtil.setIsStylingContainer(ga, true);
-		ga.setLineVisible(false);
-		ga.setFilled(false);
+
+		PropertyUtil.setIsStylingChild(ga, true);
+		ga.setBackground(white);
+		ga.setForeground(black);
+		ga.setLineWidth(2);
+		ga.setLineVisible(true);
+		ga.setFilled(true);
 
 		// Draw a half ellipse
 		int pointPerSemiCircle = 16;
@@ -551,8 +553,8 @@ public class AgeGraphitiGraphicsUtil {
 		int modeHeight = height;
 		if (mg.isInitialMode) {
 			// Reduce the size of the mode symbol to accommodate the initial mode indicator.
-			modeHeight -= initialModeAreaHeight;
-			width = Math.max(width, initialModeEllipseSize);
+			modeHeight -= ModeGraphic.initialModeAreaHeight;
+			width = Math.max(width, ModeGraphic.initialModeEllipseSize);
 		}
 		gaService.setSize(ga, width, height);
 
@@ -571,25 +573,25 @@ public class AgeGraphitiGraphicsUtil {
 		modeGa.setFilled(fillBackground);
 
 		// Set size and position
-		modeGa.setY(mg.isInitialMode ? initialModeAreaHeight : 0);
+		modeGa.setY(mg.isInitialMode ? ModeGraphic.initialModeAreaHeight : 0);
 		modeGa.setWidth(requestedWidth);
 		modeGa.setHeight(requestedHeight);
 
 		if (mg.isInitialMode) {
 			// Create ellipse for the initial mode indicator
 			final GraphicsAlgorithm initialModeEllipse = gaService.createEllipse(ga);
-			initialModeEllipse.setWidth(initialModeEllipseSize);
-			initialModeEllipse.setHeight(initialModeEllipseSize);
+			initialModeEllipse.setWidth(ModeGraphic.initialModeEllipseSize);
+			initialModeEllipse.setHeight(ModeGraphic.initialModeEllipseSize);
 			initialModeEllipse.setBackground(black);
 			initialModeEllipse.setForeground(black);
-			initialModeEllipse.setX(Math.max(0, requestedWidth / 2 - initialModeEllipseSize * 3));
+			initialModeEllipse.setX(Math.max(0, requestedWidth / 2 - ModeGraphic.initialModeEllipseSize * 3));
 			initialModeEllipse.setY(0);
 
 			// Create polyline which connects the initial mode indicator and the mode
-			final int lineStartX = initialModeEllipse.getX() + initialModeEllipseSize / 2;
-			final int lineStartY = initialModeEllipseSize / 2;
+			final int lineStartX = initialModeEllipse.getX() + ModeGraphic.initialModeEllipseSize / 2;
+			final int lineStartY = ModeGraphic.initialModeEllipseSize / 2;
 			final int lineEndX = requestedWidth / 2;
-			final int lineEndY = initialModeAreaHeight;
+			final int lineEndY = ModeGraphic.initialModeAreaHeight;
 			final int lineDx = lineEndX - lineStartX;
 			final int lineDy = lineEndY - lineStartY;
 			final org.eclipse.graphiti.mm.algorithms.Polyline polyline = gaService.createPolyline(ga,
@@ -621,7 +623,7 @@ public class AgeGraphitiGraphicsUtil {
 	 */
 	public static int getCenteringOffsetY(final Graphic graphic) {
 		if (graphic instanceof ModeGraphic && ((ModeGraphic) graphic).isInitialMode) {
-			return initialModeAreaHeight;
+			return ModeGraphic.initialModeAreaHeight;
 		}
 
 		return 0;

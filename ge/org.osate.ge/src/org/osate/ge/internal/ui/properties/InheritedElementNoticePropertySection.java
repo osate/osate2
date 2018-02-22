@@ -17,6 +17,7 @@ import org.eclipse.ui.views.properties.tabbed.AbstractPropertySection;
 import org.eclipse.ui.views.properties.tabbed.TabbedPropertySheetPage;
 import org.osate.aadl2.Classifier;
 import org.osate.aadl2.Element;
+import org.osate.aadl2.instance.InstanceObject;
 import org.osate.ge.BusinessObjectSelection;
 import org.osate.ge.ui.properties.PropertySectionUtil;
 
@@ -73,9 +74,10 @@ public class InheritedElementNoticePropertySection extends AbstractPropertySecti
 	@Override
 	public void refresh() {
 		final boolean visible = selectedBos.bocStream()
-				.anyMatch(boc -> !(((Element) boc.getBusinessObject()) instanceof Classifier) && boc.getParent() != null
-				&& boc.getParent().getBusinessObject() != ((Element) boc.getBusinessObject())
-				.getContainingClassifier());
+				.anyMatch(boc -> !(boc.getBusinessObject() instanceof Classifier
+						|| boc.getBusinessObject() instanceof InstanceObject) && boc.getParent() != null
+						&& boc.getParent().getBusinessObject() != ((Element) boc.getBusinessObject())
+						.getContainingClassifier());
 
 		warningComposite.setVisible(visible);
 		warningComposite.setLayoutData(

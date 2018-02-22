@@ -77,6 +77,8 @@
 <dd>
 <div class="block">Gets a result.</div>
 </dd>
+<dt><span class="memberNameLink"><a href="../org/osate/ge/DiagramType.html#getApplicableDefaultContentFilters-java.lang.Object-org.osate.ge.internal.diagram.runtime.filtering.ContentFilterProvider-">getApplicableDefaultContentFilters(Object, ContentFilterProvider)</a></span> - Method in interface org.osate.ge.<a href="../org/osate/ge/DiagramType.html" title="interface in org.osate.ge">DiagramType</a></dt>
+<dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="../org/osate/ge/graphics/Style.html#getBackgroundColor--">getBackgroundColor()</a></span> - Method in class org.osate.ge.graphics.<a href="../org/osate/ge/graphics/Style.html" title="class in org.osate.ge.graphics">Style</a></dt>
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="../org/osate/ge/graphics/Color.html#getBlue--">getBlue()</a></span> - Method in class org.osate.ge.graphics.<a href="../org/osate/ge/graphics/Color.html" title="class in org.osate.ge.graphics">Color</a></dt>
@@ -98,6 +100,18 @@
 <dd>
 <div class="block">
  This annotation must not be applied to more than one method per class.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="../org/osate/ge/DiagramType.html#getDefaultAadlPropertyNames--">getDefaultAadlPropertyNames()</a></span> - Method in interface org.osate.ge.<a href="../org/osate/ge/DiagramType.html" title="interface in org.osate.ge">DiagramType</a></dt>
+<dd>
+<div class="block">Returns the set of all AADL properties that are added to the diagram configuration by default.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="../org/osate/ge/DiagramType.html#getDefaultConnectionPrimaryLabelsVisible--">getDefaultConnectionPrimaryLabelsVisible()</a></span> - Method in interface org.osate.ge.<a href="../org/osate/ge/DiagramType.html" title="interface in org.osate.ge">DiagramType</a></dt>
+<dd>
+<div class="block">Returns the default value for the connection primary labels visible configuration option.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="../org/osate/ge/DiagramType.html#getDefaultContentFilters-java.lang.Object-">getDefaultContentFilters(Object)</a></span> - Method in interface org.osate.ge.<a href="../org/osate/ge/DiagramType.html" title="interface in org.osate.ge">DiagramType</a></dt>
+<dd>
+<div class="block">Returns the IDs of the default content filters for a business object.</div>
 </dd>
 <dt><span class="memberNameLink"><a href="../org/osate/ge/DockingPosition.html#getDefaultDockArea--">getDefaultDockArea()</a></span> - Method in enum org.osate.ge.<a href="../org/osate/ge/DockingPosition.html" title="enum in org.osate.ge">DockingPosition</a></dt>
 <dd>&nbsp;</dd>
@@ -132,19 +146,26 @@
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="../org/osate/ge/graphics/Style.html#getHorizontalLabelPosition--">getHorizontalLabelPosition()</a></span> - Method in class org.osate.ge.graphics.<a href="../org/osate/ge/graphics/Style.html" title="class in org.osate.ge.graphics">Style</a></dt>
 <dd>&nbsp;</dd>
-<dt><a href="../org/osate/ge/di/GetLabel.html" title="annotation in org.osate.ge.di"><span class="typeNameLink">GetLabel</span></a> - Annotation Type in <a href="../org/osate/ge/di/package-summary.html">org.osate.ge.di</a></dt>
+<dt><span class="memberNameLink"><a href="../org/osate/ge/ContentFilter.html#getId--">getId()</a></span> - Method in interface org.osate.ge.<a href="../org/osate/ge/ContentFilter.html" title="interface in org.osate.ge">ContentFilter</a></dt>
+<dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="../org/osate/ge/DiagramType.html#getId--">getId()</a></span> - Method in interface org.osate.ge.<a href="../org/osate/ge/DiagramType.html" title="interface in org.osate.ge">DiagramType</a></dt>
 <dd>
-<div class="block">
- This annotation must not be applied to more than one method per class.</div>
+<div class="block">Returns a unique identifier for the diagram type.</div>
 </dd>
 <dt><span class="memberNameLink"><a href="../org/osate/ge/graphics/Style.html#getLineStyle--">getLineStyle()</a></span> - Method in class org.osate.ge.graphics.<a href="../org/osate/ge/graphics/Style.html" title="class in org.osate.ge.graphics">Style</a></dt>
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="../org/osate/ge/graphics/Style.html#getLineWidth--">getLineWidth()</a></span> - Method in class org.osate.ge.graphics.<a href="../org/osate/ge/graphics/Style.html" title="class in org.osate.ge.graphics">Style</a></dt>
 <dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="../org/osate/ge/ContentFilter.html#getName--">getName()</a></span> - Method in interface org.osate.ge.<a href="../org/osate/ge/ContentFilter.html" title="interface in org.osate.ge">ContentFilter</a></dt>
+<dd>&nbsp;</dd>
 <dt><a href="../org/osate/ge/di/GetName.html" title="annotation in org.osate.ge.di"><span class="typeNameLink">GetName</span></a> - Annotation Type in <a href="../org/osate/ge/di/package-summary.html">org.osate.ge.di</a></dt>
 <dd>
 <div class="block">
  This annotation must not be applied to more than one method per class.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="../org/osate/ge/DiagramType.html#getName--">getName()</a></span> - Method in interface org.osate.ge.<a href="../org/osate/ge/DiagramType.html" title="interface in org.osate.ge">DiagramType</a></dt>
+<dd>
+<div class="block">Returns the UI friendly name for the diagram type.</div>
 </dd>
 <dt><a href="../org/osate/ge/di/GetNameForEditing.html" title="annotation in org.osate.ge.di"><span class="typeNameLink">GetNameForEditing</span></a> - Annotation Type in <a href="../org/osate/ge/di/package-summary.html">org.osate.ge.di</a></dt>
 <dd>
@@ -164,6 +185,10 @@
 </dd>
 <dt><span class="memberNameLink"><a href="../org/osate/ge/BusinessObjectContext.html#getParent--">getParent()</a></span> - Method in interface org.osate.ge.<a href="../org/osate/ge/BusinessObjectContext.html" title="interface in org.osate.ge">BusinessObjectContext</a></dt>
 <dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="../org/osate/ge/ContentFilter.html#getParentId--">getParentId()</a></span> - Method in interface org.osate.ge.<a href="../org/osate/ge/ContentFilter.html" title="interface in org.osate.ge">ContentFilter</a></dt>
+<dd>
+<div class="block">Optional.</div>
+</dd>
 <dt><span class="memberNameLink"><a href="../org/osate/ge/graphics/Style.html#getPrimaryLabelVisible--">getPrimaryLabelVisible()</a></span> - Method in class org.osate.ge.graphics.<a href="../org/osate/ge/graphics/Style.html" title="class in org.osate.ge.graphics">Style</a></dt>
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="../org/osate/ge/query/FilterArguments.html#getQueryArgument--">getQueryArgument()</a></span> - Method in interface org.osate.ge.query.<a href="../org/osate/ge/query/FilterArguments.html" title="interface in org.osate.ge.query">FilterArguments</a></dt>

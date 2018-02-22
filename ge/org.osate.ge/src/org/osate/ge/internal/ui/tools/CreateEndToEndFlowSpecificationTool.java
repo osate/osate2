@@ -30,13 +30,11 @@ import org.eclipse.swt.widgets.Text;
 import org.osate.aadl2.Aadl2Factory;
 import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.ComponentImplementation;
-import org.osate.aadl2.ConnectionEnd;
 import org.osate.aadl2.Context;
 import org.osate.aadl2.Element;
 import org.osate.aadl2.EndToEndFlow;
 import org.osate.aadl2.EndToEndFlowElement;
 import org.osate.aadl2.EndToEndFlowSegment;
-import org.osate.aadl2.Feature;
 import org.osate.aadl2.FlowKind;
 import org.osate.aadl2.FlowSpecification;
 import org.osate.aadl2.ModeFeature;
@@ -375,21 +373,7 @@ public class CreateEndToEndFlowSpecificationTool {
 				if (prevEle != null) {
 					if ((prevEle instanceof org.osate.aadl2.Connection)
 							&& (selectedEle instanceof FlowSpecification) && isValidSubcomponent((Context) getRefinedElement(context))) {
-						final FlowSpecification segFs = (FlowSpecification)selectedEle;
-						final org.osate.aadl2.Connection con = (org.osate.aadl2.Connection)prevEle;
-						final Element flowInFeature = getRefinedElement(segFs.getInEnd().getFeature());
-						if (segFs.getKind() == FlowKind.SINK || segFs.getKind() == FlowKind.PATH) {
-							if (con.isBidirectional()) {
-								if (areEquivalent(con.getDestination().getConnectionEnd(), flowInFeature)
-										|| areEquivalent(con.getSource().getConnectionEnd(), flowInFeature)) {
-									return true;
-								}
-							} else {
-								if (areEquivalent(con.getDestination().getConnectionEnd(), flowInFeature)) {
-									return true;
-								}
-							}
-						}
+						return true;
 					} else if ((prevEle instanceof FlowSpecification)
 							&& (selectedEle instanceof org.osate.aadl2.Connection)) {
 						final FlowSpecification segFs = (FlowSpecification)prevEle;
@@ -419,37 +403,16 @@ public class CreateEndToEndFlowSpecificationTool {
 		 * @param context - context of the connection
 		 */
 		private boolean isValidConnection(final FlowSpecification fs, final org.osate.aadl2.Connection connection, final Context context) {
-			final ConnectionEnd destCE = (ConnectionEnd)getRefinedElement(connection.getDestination().getConnectionEnd());
-			final ConnectionEnd srcCE = (ConnectionEnd)getRefinedElement(connection.getSource().getConnectionEnd());
 			if (context != null && !isValidSubcomponent((Context)getRefinedElement(context))) {
 				return false;
 			}
 
 			if (connection.getDestination().getContext() != null && connection.getSource().getContext() != null) {
-				final Feature flowFeature = (Feature)getRefinedElement(fs.getKind() == FlowKind.SINK ? fs.getInEnd().getFeature() : fs.getOutEnd().getFeature());
-				if (fs.getKind() == FlowKind.PATH) {
-					final Feature inFlowFeature = (Feature)getRefinedElement(fs.getInEnd().getFeature());
-					if (connection.isBidirectional()) {
-						return areEquivalent(inFlowFeature, destCE)
-								|| areEquivalent(inFlowFeature, srcCE)
-								|| areEquivalent(flowFeature, destCE)
-								|| areEquivalent(flowFeature, srcCE);
-					} else {
-						return areEquivalent(flowFeature, srcCE)
-								|| areEquivalent(inFlowFeature, destCE);
-					}
-				} else if (fs.getKind() == FlowKind.SINK) {
-					return areEquivalent(flowFeature, srcCE) || areEquivalent(flowFeature, destCE);
-				} else {
-					if (connection.isBidirectional()) {
-						return areEquivalent(flowFeature, destCE) || areEquivalent(flowFeature, srcCE);
-					}
-					return areEquivalent(flowFeature, srcCE);
-				}
+				return true;
 			}
+
 			return false;
 		}
-
 
 		@Override
 		protected void configureShell(final Shell newShell) {

@@ -27,7 +27,7 @@ public class ToolUtil {
 		return null;
 	}
 
-	public static BusinessObjectContext findContextAncestorBoc(final BusinessObjectContext boc) {
+	private static BusinessObjectContext findContextAncestorBoc(final BusinessObjectContext boc) {
 		BusinessObjectContext tmp = boc.getParent();
 		while(tmp != null) {
 			if(tmp.getBusinessObject() instanceof Context) {
@@ -43,5 +43,18 @@ public class ToolUtil {
 	public static Context findContext(final BusinessObjectContext boc) {
 		final BusinessObjectContext contextBoc = findContextAncestorBoc(boc);
 		return contextBoc == null ? null : (Context)contextBoc.getBusinessObject();
+	}
+
+	/**
+	 * Finds a context. If the context BOC is the specified owner BOC, null is returned. It is expected that the owner's business object will be a valid context and is a container
+	 * of the specified BOC. In such cases the function will return a context only if it is inside the owner business object context.
+	 * @param boc
+	 * @param ownerBoc
+	 * @return
+	 */
+	public static Context findContextExcludeOwner(final BusinessObjectContext boc,
+			final BusinessObjectContext ownerBoc) {
+		final BusinessObjectContext contextBoc = findContextAncestorBoc(boc);
+		return contextBoc == null || contextBoc == ownerBoc ? null : (Context) contextBoc.getBusinessObject();
 	}
 }

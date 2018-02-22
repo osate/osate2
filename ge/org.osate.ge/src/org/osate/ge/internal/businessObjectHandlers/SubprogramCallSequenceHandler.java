@@ -9,7 +9,6 @@ import org.osate.aadl2.AadlPackage;
 import org.osate.aadl2.BehavioredImplementation;
 import org.osate.aadl2.CallContext;
 import org.osate.aadl2.CalledSubprogram;
-import org.osate.aadl2.ComponentImplementation;
 import org.osate.aadl2.SubprogramCall;
 import org.osate.aadl2.SubprogramCallSequence;
 import org.osate.ge.BusinessObjectContext;
@@ -38,14 +37,13 @@ import org.osate.ge.internal.ui.dialogs.SelectSubprogramDialog;
 import org.osate.ge.internal.util.AadlHelper;
 import org.osate.ge.internal.util.AadlInheritanceUtil;
 import org.osate.ge.internal.util.ImageHelper;
-import org.osate.ge.query.StandaloneQuery;
-import org.osate.ge.services.QueryService;
 
 public class SubprogramCallSequenceHandler {
-	private static final StandaloneQuery componentImplementationQuery = StandaloneQuery.create((root) -> root.ancestors().filter((fa) -> fa.getBusinessObject() instanceof ComponentImplementation).first());
 	private Graphic graphic = RectangleBuilder.create().build();
 
 	@IsApplicable
+	@CanRename
+	@CanDelete
 	public boolean isApplicable(final @Named(Names.BUSINESS_OBJECT) SubprogramCallSequence cs) {
 		return true;
 	}
@@ -75,18 +73,6 @@ public class SubprogramCallSequenceHandler {
 	@GetName
 	public String getName(final @Named(Names.BUSINESS_OBJECT) SubprogramCallSequence cs) {
 		return cs.getName();
-	}
-
-	@CanRename
-	@CanDelete
-	public boolean canEdit(final @Named(Names.BUSINESS_OBJECT) SubprogramCallSequence cs,
-			final @Named(Names.BUSINESS_OBJECT_CONTEXT) BusinessObjectContext boc,
-			final QueryService queryService) {
-		return cs.getContainingClassifier() == getComponentImplementation(boc, queryService);
-	}
-
-	private ComponentImplementation getComponentImplementation(final BusinessObjectContext csBoc, final QueryService queryService) {
-		return (ComponentImplementation)queryService.getFirstBusinessObject(componentImplementationQuery, csBoc);
 	}
 
 	@ValidateName

@@ -24,6 +24,8 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.SelectionListener;
+import org.eclipse.swt.layout.FormAttachment;
+import org.eclipse.swt.layout.FormData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Combo;
@@ -31,6 +33,7 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.ui.IWorkbenchPart;
 import org.eclipse.ui.views.properties.tabbed.AbstractPropertySection;
+import org.eclipse.ui.views.properties.tabbed.ITabbedPropertyConstants;
 import org.eclipse.ui.views.properties.tabbed.TabbedPropertySheetPage;
 import org.osate.aadl2.ComponentClassifier;
 import org.osate.aadl2.ModalElement;
@@ -59,18 +62,13 @@ public class ConfigureInModesSection extends AbstractPropertySection {
 	@Override
 	public void createControls(final Composite parent, final TabbedPropertySheetPage aTabbedPropertySheetPage) {
 		super.createControls(parent, aTabbedPropertySheetPage);
-		parent.setLayout(new GridLayout());
-		GridDataFactory.fillDefaults().grab(true, true).applyTo(parent);
-
 		container = getWidgetFactory().createFlatFormComposite(parent);
-		container.setLayout(new GridLayout(2, false));
-		GridDataFactory.fillDefaults().grab(false, true).applyTo(container);
 
-		final Composite labelComp = getWidgetFactory().createComposite(container);
-		labelComp.setLayout(new GridLayout());
-		GridDataFactory.fillDefaults().applyTo(labelComp);
-		final Label label = getWidgetFactory().createLabel(labelComp, "In Modes:");
-		GridDataFactory.fillDefaults().applyTo(label);
+		final Label label = getWidgetFactory().createLabel(container, "In Modes:");
+		final FormData fd = new FormData();
+		fd.left = new FormAttachment(0, 0);
+		fd.top = new FormAttachment(0, ITabbedPropertyConstants.VMARGIN);
+		label.setLayoutData(fd);
 	}
 
 	@Override
@@ -194,9 +192,12 @@ public class ConfigureInModesSection extends AbstractPropertySection {
 
 		final int horizontalSpan = derivedModes == null ? 1 : 3;
 		composite = getWidgetFactory().createComposite(container);
+		FormData fd;
+		fd = new FormData();
+		fd.left = new FormAttachment(0, STANDARD_LABEL_WIDTH);
+		composite.setLayoutData(fd);
 		final GridLayout layout = new GridLayout(horizontalSpan, false);
 		composite.setLayout(layout);
-		GridDataFactory.fillDefaults().grab(true, true).applyTo(composite);
 
 		// Determine if there is at least one mode feature is enabled. If no mode features are enabled then the selected elements do not have any
 		// applicable mode features in common.

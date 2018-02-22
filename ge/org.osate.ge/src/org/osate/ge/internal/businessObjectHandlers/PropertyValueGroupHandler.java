@@ -49,13 +49,14 @@ public class PropertyValueGroupHandler {
 				return null;
 			}
 
-			// Don't show references from the parent to children unless it is based on a completely processed property association
-			if (pvg.getFirstValueBasedOnCompletelyProcessedAssociation() == null) {
-				final BusinessObjectContext parent = boc.getParent();
-				for (BusinessObjectContext tmp = referencedElement; tmp != null; tmp = tmp.getParent()) {
-					if(tmp == parent) {
-						return null;
-					}
+			// If the reference is from the child to an ancestor or from an ancestor to a child, show it as text if it is is based on a completely processed
+			// property association. Otherwise, don't show it at all.
+			final BusinessObjectContext parent = boc.getParent();
+			if (isAncestor(parent, referencedElement) || isAncestor(referencedElement, parent)) {
+				if (pvg.getFirstValueBasedOnCompletelyProcessedAssociation() == null) {
+					return null;
+				} else {
+					return createTextGraphicalConfiguration();
 				}
 			}
 
@@ -66,6 +67,20 @@ public class PropertyValueGroupHandler {
 					destination(referencedElement).
 					build();
 		}
+	}
+
+	/**
+	 * Returns whether potential ancestor is an ancestor of boc
+	 * @return
+	 */
+	private static boolean isAncestor(final BusinessObjectContext potentialAncestor, final BusinessObjectContext boc) {
+		for (BusinessObjectContext tmp = boc; tmp != null; tmp = tmp.getParent()) {
+			if (tmp == potentialAncestor) {
+				return true;
+			}
+		}
+
+		return false;
 	}
 
 	private GraphicalConfiguration createTextGraphicalConfiguration() {

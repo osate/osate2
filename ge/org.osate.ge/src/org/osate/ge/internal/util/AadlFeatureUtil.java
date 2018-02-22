@@ -33,9 +33,9 @@ public class AadlFeatureUtil {
 	 */
 	private static Map<EClass, String> createFeatureTypeToCreateMethodMap() {
 		final LinkedHashMap<EClass, String> map = new LinkedHashMap<EClass, String>();
-		
+
 		final Aadl2Package p = Aadl2Factory.eINSTANCE.getAadl2Package();
-		
+
 		// Regular Features
 		map.put(p.getAbstractFeature(), "createOwnedAbstractFeature");
 		map.put(p.getBusAccess(), "createOwnedBusAccess");
@@ -47,22 +47,22 @@ public class AadlFeatureUtil {
 		map.put(p.getParameter(), "createOwnedParameter");
 		map.put(p.getSubprogramAccess(), "createOwnedSubprogramAccess");
 		map.put(p.getSubprogramGroupAccess(), "createOwnedSubprogramGroupAccess");
-		
+
 		// Internal Features
 		map.put(p.getEventSource(), "createOwnedEventSource");
 		map.put(p.getEventDataSource(), "createOwnedEventDataSource");
-		
+
 		// Processor Features
 		map.put(p.getSubprogramProxy(), "createOwnedSubprogramProxy");
 		map.put(p.getPortProxy(), "createOwnedPortProxy");
-		
+
 		return Collections.unmodifiableMap(map);
 	}
-	
+
 	public static Collection<EClass> getFeatureTypes() {
 		return featureTypeToCreateMethodNameMap.keySet();
 	}
-	
+
 	public static NamedElement createFeature(final Classifier featureOwner, final EClass featureClass) {
 		try {
 			return (NamedElement)getFeatureCreateMethod(featureOwner, featureClass).invoke(featureOwner);
@@ -70,11 +70,11 @@ public class AadlFeatureUtil {
 			throw new RuntimeException(e);
 		}
 	}
-	
+
 	public static boolean canOwnFeatureType(final Classifier featureOwner, final EClass featureType) {
-		return getFeatureCreateMethod(featureOwner, featureType) != null &&
-				(!isProcessorFeatureType(featureType) || canOwnProcessorFeatures(featureOwner));
-	}	
+		return featureOwner != null && getFeatureCreateMethod(featureOwner, featureType) != null
+				&& (!isProcessorFeatureType(featureType) || canOwnProcessorFeatures(featureOwner));
+	}
 
 	private static Method getFeatureCreateMethod(final Classifier featureOwner, final EClass featureType) {
 		// Determine the method name for the type of feature
@@ -82,7 +82,7 @@ public class AadlFeatureUtil {
 		if(methodName == null) {
 			return null;
 		}
-		
+
 		// Get the method
 		try {
 			final Method method = featureOwner.getClass().getMethod(methodName);
@@ -90,24 +90,21 @@ public class AadlFeatureUtil {
 		} catch(final Exception ex) {
 			return null;
 		}
-	}	
+	}
 	
 	private static boolean canOwnProcessorFeatures(final Object bo) {
-		return bo instanceof SystemImplementation || 
-				bo instanceof ProcessImplementation || 
-				bo instanceof ThreadGroupImplementation || 
-				bo instanceof ThreadImplementation || 
-				bo instanceof DeviceImplementation || 
-				bo instanceof VirtualProcessorImplementation;
-	}	
-	
+		return bo instanceof SystemImplementation || bo instanceof ProcessImplementation
+				|| bo instanceof ThreadGroupImplementation || bo instanceof ThreadImplementation
+				|| bo instanceof DeviceImplementation || bo instanceof VirtualProcessorImplementation;
+	}
+
 	private static boolean isProcessorFeatureType(final EClass t) {
 		final Aadl2Package p = Aadl2Factory.eINSTANCE.getAadl2Package();
 		return p.getProcessorFeature().isSuperTypeOf(t);
 	}
-	
+
 	/**
-	 * Returns all the features owned by the feature group type or the type it extends. It does not return features from the inverse and in the case of refined features, 
+	 * Returns all the features owned by the feature group type or the type it extends. It does not return features from the inverse and in the case of refined features,
 	 * only returns the refined feature.
 	 * @param fgt
 	 * @return
@@ -123,7 +120,7 @@ public class AadlFeatureUtil {
 						wasRefined = true;
 					}
 				}
-				
+
 				if(!wasRefined) {
 					features.add(newFeature);
 				}
@@ -133,44 +130,44 @@ public class AadlFeatureUtil {
 
 		return features;
 	}
-		
+
 	public static EList<Feature> getAllDeclaredFeatures(final Classifier classifier) {
 		if(classifier instanceof FeatureGroupType) {
 			return getAllOwnedFeatures((FeatureGroupType)classifier);
-		} 
-		
+		}
+
 		return classifier.getAllFeatures();
 	}
-	
+
 	public static EList<Feature> getAllFeatures(final FeatureGroupType fgt) {
 		final EList<Feature> owned = getAllOwnedFeatures(fgt);
 		final FeatureGroupType inverseFgt = fgt.getInverse();
 		if (owned.isEmpty() && !Aadl2Util.isNull(inverseFgt)) {
 			return getAllOwnedFeatures(inverseFgt);
 		}
-		
+
 		return owned;
 	}
-			
+
 	public static boolean isFeatureInverted(final BusinessObjectContext featureBoc) {
 		final BusinessObjectContext parent = featureBoc.getParent();
 		if(parent == null) {
 			return false;
 		}
-			
+
 		return isFeatureInvertedByContainer(parent);
 	}
-	
+
 	private static boolean isFeatureInvertedByContainer(final BusinessObjectContext featureParentBoc) {
 		boolean isInverted = false;
-		
+
 		BusinessObjectContext parent = featureParentBoc;
 		while(parent != null) {
 			final Object parentBo = parent.getBusinessObject();
 			if(parentBo instanceof FeatureGroup) {
 				final FeatureGroup fg = (FeatureGroup)parentBo;
 				isInverted ^= fg.isInverse();
-				
+
 				// This feature group type is not necessarily the one that owned the feature... Could be inverse.. Could be refined, etc..
 				// Check if the feature group type was implicitly defined via an inverse
 				final FeatureGroupType fgt = getFeatureGroupType(parent, fg);
@@ -181,11 +178,11 @@ public class AadlFeatureUtil {
 
 			parent = parent.getParent();
 		}
-		
+
 		return isInverted;
 	}
-	
-	// Prototype Related Methods	
+
+	// Prototype Related Methods
 	public static FeatureGroupType getFeatureGroupType(BusinessObjectContext boc, final FeatureGroup fg) {
 		if(fg.getFeatureGroupPrototype() == null) {
 			return fg.getAllFeatureGroupType();

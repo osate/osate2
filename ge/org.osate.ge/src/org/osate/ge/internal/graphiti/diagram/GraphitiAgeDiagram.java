@@ -923,7 +923,7 @@ public class GraphitiAgeDiagram implements NodePictogramBiMap, AutoCloseable {
 							// Remove the mapping
 							removeMappingForBranch(element);
 						}
-
+						
 						if (needFullUpdate) {
 							createUpdateElementsFromAgeDiagram(event.mod);
 						} else {

@@ -75,6 +75,7 @@ public class DiagramFactory extends EFactoryImpl {
 			case DiagramPackage.CANONICAL_BUSINESS_OBJECT_REFERENCE: return createCanonicalBusinessObjectReference();
 			case DiagramPackage.RELATIVE_BUSINESS_OBJECT_REFERENCE: return createRelativeBusinessObjectReference();
 			case DiagramPackage.DIAGRAM_CONFIGURATION: return createDiagramConfiguration();
+			case DiagramPackage.CONTENT_FILTERS: return createContentFilters();
 			default:
 				throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
 		}
@@ -208,6 +209,16 @@ public class DiagramFactory extends EFactoryImpl {
 	public DiagramConfiguration createDiagramConfiguration() {
 		DiagramConfiguration diagramConfiguration = new DiagramConfiguration();
 		return diagramConfiguration;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public ContentFilters createContentFilters() {
+		ContentFilters contentFilters = new ContentFilters();
+		return contentFilters;
 	}
 
 	/**

@@ -45,6 +45,7 @@ public class SubprogramCallHandler {
 	private Style style = StyleBuilder.create().dashed().labelsCenter().build();
 
 	@IsApplicable
+	@CanRename
 	public boolean isApplicable(final @Named(Names.BUSINESS_OBJECT) SubprogramCall call) {
 		return true;
 	}
@@ -72,11 +73,6 @@ public class SubprogramCallHandler {
 	@GetName
 	public String getName(final @Named(Names.BUSINESS_OBJECT) SubprogramCall call) {
 		return call.getName();
-	}
-
-	@CanRename
-	public boolean canRename(final @Named(Names.BUSINESS_OBJECT) SubprogramCall call, final @Named(Names.BUSINESS_OBJECT_CONTEXT) BusinessObjectContext boc, final QueryService queryService) {
-		return call.getContainingClassifier() == getBehavioredImplementation(boc, queryService);
 	}
 
 	private BehavioredImplementation getBehavioredImplementation(final BusinessObjectContext callBoc, final QueryService queryService) {
@@ -129,18 +125,8 @@ public class SubprogramCallHandler {
 
 	@CanDelete
 	public boolean canDelete(final @Named(Names.BUSINESS_OBJECT) SubprogramCall call, final @Named(Names.BUSINESS_OBJECT_CONTEXT) BusinessObjectContext boc, final QueryService queryService) {
-		if(call.eContainer() instanceof SubprogramCallSequence) {
-			final SubprogramCallSequence cs = (SubprogramCallSequence)call.eContainer();
-
-			// Don't allow deleting the last subprogram call
-			if(cs.getOwnedSubprogramCalls().size() <= 1) {
-				return false;
-			}
-
-			// ensure the that call sequence is owned by the component implementation depicted by the shape
-			return call.getContainingClassifier() == getBehavioredImplementation(boc, queryService);
-		}
-
-		return false;
+		// Don't allow deleting the last subprogram call
+		return call.eContainer() instanceof SubprogramCallSequence
+				&& ((SubprogramCallSequence) call.eContainer()).getOwnedSubprogramCalls().size() > 1;
 	}
 }

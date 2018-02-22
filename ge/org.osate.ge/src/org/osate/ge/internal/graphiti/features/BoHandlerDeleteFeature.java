@@ -153,11 +153,13 @@ public class BoHandlerDeleteFeature extends AbstractFeature implements IDeleteFe
 				return false;
 			}
 
-			final String elementName = (bo instanceof NamedElement) ? ((NamedElement) bo).getName() : null;
-			final String msg = (elementName != null) ? MessageFormat.format("Are you sure you want to delete {0}?", elementName) : "Are you sure you want to delete this element?";
-			if(!MessageDialog.openQuestion(PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell(), "Confirm Delete", msg)) {
-				return false;
-			}
+			final String elementName = (bo instanceof NamedElement) ? ((NamedElement) bo).getQualifiedName() : null;
+			final String msg = (elementName != null)
+					? MessageFormat.format("Are you sure you want to delete ''{0}''?", elementName)
+							: "Are you sure you want to delete this element?";
+					if(!MessageDialog.openQuestion(PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell(), "Confirm Delete", msg)) {
+						return false;
+					}
 		} else {
 			if(multiDeleteInfo.isDeleteCanceled()) {
 				return false;

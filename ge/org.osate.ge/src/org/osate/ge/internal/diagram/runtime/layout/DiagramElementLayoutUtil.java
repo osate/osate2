@@ -28,17 +28,19 @@ import org.eclipse.elk.core.util.IGraphElementVisitor;
 import org.eclipse.elk.graph.ElkEdge;
 import org.eclipse.elk.graph.ElkEdgeSection;
 import org.eclipse.elk.graph.ElkGraphElement;
+import org.eclipse.elk.graph.ElkGraphPackage;
 import org.eclipse.elk.graph.ElkLabel;
 import org.eclipse.elk.graph.ElkNode;
 import org.eclipse.elk.graph.ElkPort;
 import org.eclipse.elk.graph.ElkShape;
 import org.eclipse.ui.IEditorPart;
 import org.osate.ge.DockingPosition;
+import org.osate.ge.graphics.Graphic;
 import org.osate.ge.graphics.Point;
 import org.osate.ge.graphics.internal.AgeConnection;
 import org.osate.ge.graphics.internal.AgeShape;
 import org.osate.ge.graphics.internal.Label;
-import org.osate.ge.internal.Activator;
+import org.osate.ge.graphics.internal.ModeGraphic;
 import org.osate.ge.internal.diagram.runtime.AgeDiagram;
 import org.osate.ge.internal.diagram.runtime.DiagramElement;
 import org.osate.ge.internal.diagram.runtime.DiagramElementPredicates;
@@ -48,7 +50,6 @@ import org.osate.ge.internal.diagram.runtime.Dimension;
 import org.osate.ge.internal.diagram.runtime.DockArea;
 import org.osate.ge.internal.diagram.runtime.styling.StyleCalculator;
 import org.osate.ge.internal.diagram.runtime.styling.StyleProvider;
-import org.osate.ge.internal.preferences.Preferences;
 import org.osate.ge.internal.query.Queryable;
 import org.osate.ge.internal.ui.editor.AgeDiagramEditor;
 
@@ -92,7 +93,7 @@ public class DiagramElementLayoutUtil {
 			nodesToLayout = Collections.singletonList(diagram);
 		} else {
 			// Only layout shapes. Also filter out any descendants of specified diagram elements
-			nodesToLayout = filterUnnecessaryNodes(diagramNodes);
+			nodesToLayout = filterUnnecessaryNodes(diagramNodes, true);
 		}
 
 		if (nodesToLayout.isEmpty()) {
@@ -143,12 +144,11 @@ public class DiagramElementLayoutUtil {
 		Objects.requireNonNull(mod, "mod must not be null");
 		Objects.requireNonNull(layoutInfoProvider, "layoutInfoProvider must not be null");
 
-		final IncrementalLayoutMode currentLayoutMode = IncrementalLayoutMode
-				.getById(Activator.getDefault().getPreferenceStore().getString(Preferences.INCREMENTAL_LAYOUT_MODE))
-				.orElse(IncrementalLayoutMode.LAYOUT_CONTENTS);
+		final IncrementalLayoutMode currentLayoutMode = LayoutPreferences.getCurrentLayoutMode();
 
 		final Collection<DiagramNode> nodesToLayout = DiagramElementLayoutUtil
-				.filterUnnecessaryNodes(getNodesToLayoutIncrementally(diagram, currentLayoutMode, new HashSet<>()));
+				.filterUnnecessaryNodes(getNodesToLayoutIncrementally(diagram, currentLayoutMode, new HashSet<>()),
+						currentLayoutMode == IncrementalLayoutMode.LAYOUT_DIAGRAM);
 		if (nodesToLayout.size() == 0) {
 			return;
 		}
@@ -339,7 +339,15 @@ public class DiagramElementLayoutUtil {
 					minWidth = Math.max(40, Math.max(Math.max(maxLabelWidth, widthForPorts), widthForFlowIndicators));
 				}
 
-				double minHeight = Math.max(Math.max(25, labelHeightSum), heightForFlowIndicators);
+				double minHeight = Math.max(Math.max(35, labelHeightSum), heightForFlowIndicators);
+
+				// Special min height handling for initial modes
+				if (dn instanceof DiagramElement) {
+					final Graphic graphic = ((DiagramElement) dn).getGraphic();
+					if (graphic instanceof ModeGraphic && ((ModeGraphic) graphic).isInitialMode) {
+						minHeight += ModeGraphic.initialModeAreaHeight;
+					}
+				}
 
 				// Increase min width and min height for top level nodes.
 				if (dn != null && dn.getParent() instanceof AgeDiagram) {
@@ -386,16 +394,16 @@ public class DiagramElementLayoutUtil {
 	 *   Not a diagram.
 	 *   Not shapes
 	 *   Elements which have an ancestor in the specified list.
-	 *   Children of a docked element.
+	 *   Children of a docked element unless the current diagram mode is layout diagram.
 	 * @param diagramNodes
 	 * @return
 	 */
 	static Collection<DiagramNode> filterUnnecessaryNodes(final
-			Collection<? extends DiagramNode> diagramNodes)
+			Collection<? extends DiagramNode> diagramNodes, final boolean includeGroupChildren)
 	{
 		return diagramNodes.stream().filter(dn -> dn instanceof AgeDiagram || (dn instanceof DiagramElement
 				&& DiagramElementPredicates.isShape((DiagramElement) dn) && !containsAnyAncestor(diagramNodes, dn)
-				&& ((DiagramElement) dn).getDockArea() != DockArea.GROUP))
+				&& (includeGroupChildren || ((DiagramElement) dn).getDockArea() != DockArea.GROUP)))
 				.collect(Collectors.toList());
 	}
 
@@ -505,77 +513,89 @@ public class DiagramElementLayoutUtil {
 				continue;
 			}
 
-			final List<Point> bendpointsInParentCoordinateSystem = edgeSection.getBendPoints().stream()
-					.map(bp -> new Point(bp.getX(), bp.getY())).collect(Collectors.toCollection(LinkedList::new));
+			// Don't update connections if it wasn't updated. This prevents updating bendpoints to invalid values if an edge is not layed out.
+			if (edgeSection.eIsSet(ElkGraphPackage.eINSTANCE.getElkEdgeSection_StartX())
+					&& edgeSection.eIsSet(ElkGraphPackage.eINSTANCE.getElkEdgeSection_EndX())) {
+				final List<Point> bendpointsInParentCoordinateSystem = edgeSection.getBendPoints().stream()
+						.map(bp -> new Point(bp.getX(), bp.getY())).collect(Collectors.toCollection(LinkedList::new));
 
-			//
-			// Set bendpoints
-			//
+				//
+				// Set bendpoints
+				//
 
-			// Add the start and end points to the bendpoints list if the the start/end element is not a node. This is needed
-			// because the behavior of Graphiti chopbox anchors differ from ELK routing.
-			// For ports the start and end points are unnecessary and will actually be located inside the port graphic.
-			final boolean srcIsPort = edge.getSources().size() == 1 ? edge.getSources().get(0) instanceof ElkPort
-					: false;
-			final boolean dstIsPort = edge.getTargets().size() == 1 ? edge.getTargets().get(0) instanceof ElkPort
-					: false;
+				// Add the start and end points to the bendpoints list if the the start/end element is not a node. This is needed
+				// because the behavior of Graphiti chopbox anchors differ from ELK routing.
+				// For ports the start and end points are unnecessary and will actually be located inside the port graphic.
+				final boolean srcIsPort = edge.getSources().size() == 1 ? edge.getSources().get(0) instanceof ElkPort
+						: false;
+				final boolean dstIsPort = edge.getTargets().size() == 1 ? edge.getTargets().get(0) instanceof ElkPort
+						: false;
 
-			if (!srcIsPort) {
-				bendpointsInParentCoordinateSystem.add(0, new Point(edgeSection.getStartX(), edgeSection.getStartY()));
-			}
-
-			if (!dstIsPort) {
-				bendpointsInParentCoordinateSystem.add(new Point(edgeSection.getEndX(), edgeSection.getEndY()));
-			}
-
-			// Adjust newly added bendpoints so that the connection arrows will face the appropriate direction
-			if (!srcIsPort && bendpointsInParentCoordinateSystem.size() >= 2) {
-				bendpointsInParentCoordinateSystem.set(0, getAdjacentPoint(bendpointsInParentCoordinateSystem.get(0),
-						bendpointsInParentCoordinateSystem.get(1), startAndEndBendpointDistance));
-			}
-
-			if (!dstIsPort && bendpointsInParentCoordinateSystem.size() >= 2) {
-				bendpointsInParentCoordinateSystem.set(bendpointsInParentCoordinateSystem.size() - 1, getAdjacentPoint(
-						bendpointsInParentCoordinateSystem.get(bendpointsInParentCoordinateSystem.size() - 1),
-						bendpointsInParentCoordinateSystem.get(bendpointsInParentCoordinateSystem.size() - 2),
-						startAndEndBendpointDistance));
-			}
-
-
-			// Get the absolute coordinate in the diagram of the edge's ELK container.
-			final Point elkContainerPosition;
-			if (edge.getContainingNode() == mapping.getLayoutGraph()) {
-				// Special handling for edges that are children of the ELK root. Usually occurs when Layout Contents is used. In that case there isn't a Diagram
-				// Node available. Use the first and only child of the top level ELK node.
-				if (mapping.getLayoutGraph().getChildren().size() == 1) {
-					final ElkNode topLayoutElkNode = mapping.getLayoutGraph().getChildren().get(0);
-					final Point topLayoutElkNodePosition = getAbsolutePosition((DiagramNode) mapping.getGraphMap().get(topLayoutElkNode));
-					elkContainerPosition = new Point(topLayoutElkNodePosition.x - topLayoutElkNode.getX(), topLayoutElkNodePosition.y - topLayoutElkNode.getY());
-				} else {
-					elkContainerPosition = new Point(0, 0);
+				if (!srcIsPort) {
+					bendpointsInParentCoordinateSystem.add(0,
+							new Point(edgeSection.getStartX(), edgeSection.getStartY()));
 				}
-			} else {
-				elkContainerPosition = getAbsolutePosition(
-						(DiagramNode) mapping.getGraphMap().get(edge.getContainingNode()));
+
+				if (!dstIsPort) {
+					bendpointsInParentCoordinateSystem.add(new Point(edgeSection.getEndX(), edgeSection.getEndY()));
+				}
+
+				// Adjust newly added bendpoints so that the connection arrows will face the appropriate direction
+				if (!srcIsPort && bendpointsInParentCoordinateSystem.size() >= 2) {
+					bendpointsInParentCoordinateSystem.set(0,
+							getAdjacentPoint(bendpointsInParentCoordinateSystem.get(0),
+									bendpointsInParentCoordinateSystem.get(1), startAndEndBendpointDistance));
+				}
+
+				if (!dstIsPort && bendpointsInParentCoordinateSystem.size() >= 2) {
+					bendpointsInParentCoordinateSystem.set(bendpointsInParentCoordinateSystem.size() - 1,
+							getAdjacentPoint(
+									bendpointsInParentCoordinateSystem
+									.get(bendpointsInParentCoordinateSystem.size() - 1),
+									bendpointsInParentCoordinateSystem
+									.get(bendpointsInParentCoordinateSystem.size() - 2),
+									startAndEndBendpointDistance));
+				}
+
+				// Get the absolute coordinate in the diagram of the edge's ELK container.
+				final Point elkContainerPosition;
+				if (edge.getContainingNode() == mapping.getLayoutGraph()) {
+					// Special handling for edges that are children of the ELK root. Usually occurs when Layout Contents is used. In that case there isn't a
+					// Diagram
+					// Node available. Use the first and only child of the top level ELK node.
+					if (mapping.getLayoutGraph().getChildren().size() == 1) {
+						final ElkNode topLayoutElkNode = mapping.getLayoutGraph().getChildren().get(0);
+						final Point topLayoutElkNodePosition = getAbsolutePosition(
+								(DiagramNode) mapping.getGraphMap().get(topLayoutElkNode));
+						elkContainerPosition = new Point(topLayoutElkNodePosition.x - topLayoutElkNode.getX(),
+								topLayoutElkNodePosition.y - topLayoutElkNode.getY());
+					} else {
+						elkContainerPosition = new Point(0, 0);
+					}
+				} else {
+					elkContainerPosition = getAbsolutePosition(
+							(DiagramNode) mapping.getGraphMap().get(edge.getContainingNode()));
+				}
+
+				final List<Point> bendpointsInAbsoluteCoordinateSystem = bendpointsInParentCoordinateSystem.stream()
+						.map(p -> new Point(p.x + elkContainerPosition.x, p.y + elkContainerPosition.y))
+						.collect(Collectors.toList());
+
+				m.setBendpoints(de, bendpointsInAbsoluteCoordinateSystem);
+
+				// For the midpoint calculation, the start and end points are needed. Add them if they have not already been added.
+				if (srcIsPort) {
+					bendpointsInParentCoordinateSystem.add(0,
+							new Point(edgeSection.getStartX(), edgeSection.getStartY()));
+				}
+
+				if (dstIsPort) {
+					bendpointsInParentCoordinateSystem.add(new Point(edgeSection.getEndX(), edgeSection.getEndY()));
+				}
+
+				// Set Label Positions
+				setLabelPositionsForEdge(mapping, m, edge, findMidpoint(bendpointsInParentCoordinateSystem));
 			}
-
-			final List<Point> bendpointsInAbsoluteCoordinateSystem = bendpointsInParentCoordinateSystem.stream()
-					.map(p -> new Point(p.x + elkContainerPosition.x, p.y + elkContainerPosition.y))
-					.collect(Collectors.toList());
-
-			m.setBendpoints(de, bendpointsInAbsoluteCoordinateSystem);
-
-			// For the midpoint calculation, the start and end points are needed. Add them if they have not already been added.
-			if (srcIsPort) {
-				bendpointsInParentCoordinateSystem.add(0, new Point(edgeSection.getStartX(), edgeSection.getStartY()));
-			}
-
-			if (dstIsPort) {
-				bendpointsInParentCoordinateSystem.add(new Point(edgeSection.getEndX(), edgeSection.getEndY()));
-			}
-
-			// Set Label Positions
-			setLabelPositionsForEdge(mapping, m, edge, findMidpoint(bendpointsInParentCoordinateSystem));
 		}
 	}
 

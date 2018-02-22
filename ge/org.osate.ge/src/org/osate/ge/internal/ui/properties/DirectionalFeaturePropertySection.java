@@ -1,5 +1,6 @@
 package org.osate.ge.internal.ui.properties;
 
+import java.util.Iterator;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -65,7 +66,7 @@ public class DirectionalFeaturePropertySection extends AbstractPropertySection {
 	public void createControls(final Composite parent, final TabbedPropertySheetPage aTabbedPropertySheetPage) {
 		super.createControls(parent, aTabbedPropertySheetPage);
 
-		Composite composite = getWidgetFactory().createFlatFormComposite(parent);
+		final Composite composite = getWidgetFactory().createFlatFormComposite(parent);
 
 		FormData ld;
 		final Composite directionContainer = getWidgetFactory().createComposite(composite);
@@ -84,7 +85,7 @@ public class DirectionalFeaturePropertySection extends AbstractPropertySection {
 		outBtn.setData(DirectionType.OUT);
 		outBtn.addSelectionListener(directionSelectionListener);
 
-		inOutBtn = getWidgetFactory().createButton(directionContainer, "In/Out", SWT.RADIO);
+		inOutBtn = getWidgetFactory().createButton(directionContainer, "Bidirectional", SWT.RADIO);
 		inOutBtn.setData(DirectionType.IN_OUT);
 		inOutBtn.addSelectionListener(directionSelectionListener);
 
@@ -105,12 +106,28 @@ public class DirectionalFeaturePropertySection extends AbstractPropertySection {
 
 	@Override
 	public void refresh() {
-		final Set<DirectionType> selectedDirections = selectedBos.boStream(DirectedFeature.class)
-				.map(df -> df.getDirection()).collect(Collectors.toSet());
-
-		inBtn.setSelection(selectedDirections.contains(DirectionType.IN));
-		outBtn.setSelection(selectedDirections.contains(DirectionType.OUT));
-		inOutBtn.setSelection(selectedDirections.contains(DirectionType.IN_OUT));
+		final Set<DirectedFeature> selectedDirections = selectedBos.boStream(DirectedFeature.class)
+				.collect(Collectors.toSet());
+		// Get initial button value
+		final DirectionType directionType = getDirectionType(selectedDirections);
+		// Set selection
+		inBtn.setSelection(directionType == DirectionType.IN);
+		outBtn.setSelection(directionType == DirectionType.OUT);
+		inOutBtn.setSelection(directionType == DirectionType.IN_OUT);
 	}
 
+	private static DirectionType getDirectionType(final Set<DirectedFeature> selectedDirections) {
+		final Iterator<DirectedFeature> it = selectedDirections.iterator();
+		// Initial value of buttons
+		final DirectionType directionType = it.next().getDirection();
+
+		while (it.hasNext()) {
+			// Check if all elements are of same direction type
+			if (directionType != it.next().getDirection()) {
+				return null;
+			}
+		}
+
+		return directionType;
+	}
 }

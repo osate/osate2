@@ -9,15 +9,23 @@
 package org.osate.ge.internal.ui.dialogs;
 
 import java.lang.reflect.Array;
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 import java.util.Objects;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.jface.viewers.ILabelProvider;
+import org.eclipse.jface.window.Window;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.events.SelectionAdapter;
+import org.eclipse.swt.events.SelectionEvent;
+import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Control;
+import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.dialogs.FilteredList;
 import org.eclipse.xtext.resource.IEObjectDescription;
@@ -31,10 +39,29 @@ import org.eclipse.xtext.resource.IEObjectDescription;
 public class ElementSelectionDialog {
 	private static final Object nullObject = new Object(); // Object that represents a null value. ElementListSelectionDialog does not support having null elements
 	private final org.eclipse.ui.dialogs.ElementListSelectionDialog dlg;
+	private final boolean preferEObjects; // If true, then the widget will attempt to retrieve the EObject from the EObjectDescription
 
+	// Prefers EObject as values
 	public ElementSelectionDialog(final Shell parentShell, final String dlgTitle, final String prompt,
 			final Collection<?> elementDescriptions) {
-		dlg = new AgeElementListSelectionDialog(parentShell, new ElementLabelProvider(nullObject));
+		this(parentShell, dlgTitle, prompt, elementDescriptions, null, null, true);
+	}
+
+	public ElementSelectionDialog(final Shell parentShell, final String dlgTitle, final String prompt,
+			final Collection<?> elementDescriptions, final boolean preferEObjects) {
+		this(parentShell, dlgTitle, prompt, elementDescriptions, null, null, preferEObjects);
+	}
+
+	public ElementSelectionDialog(final Shell parentShell, final String dlgTitle, final String prompt,
+			final Collection<?> elementDescriptions, final String secondaryElementsDescriptions,
+			final Collection<?> secondaryElements, final boolean preferEObjects) {
+		this.preferEObjects = preferEObjects;
+
+		final Object[] secondaryElementsArray = secondaryElements == null ? null
+				: convertToNullObject(secondaryElements.toArray());
+
+		dlg = new AgeElementListSelectionDialog(parentShell, new ElementLabelProvider(nullObject),
+				secondaryElementsDescriptions, secondaryElementsArray);
 		dlg.setTitle(dlgTitle);
 		dlg.setMessage(prompt);
 		dlg.setHelpAvailable(false);
@@ -103,7 +130,7 @@ public class ElementSelectionDialog {
 			final Object obj = results[i];
 			if(obj == null) {
 				selectedElements[i] = null;
-			} else if(obj instanceof IEObjectDescription) {
+			} else if (obj instanceof IEObjectDescription && preferEObjects) {
 				final EObject element = ((IEObjectDescription)obj).getEObjectOrProxy();
 				selectedElements[i] = (T)element;
 			} else {
@@ -132,10 +159,16 @@ public class ElementSelectionDialog {
 
 	private static class AgeElementListSelectionDialog extends org.eclipse.ui.dialogs.ElementListSelectionDialog {
 		private final ILabelProvider labelProvider;
+		private Object[] primaryElements;
+		private final String secondaryElementsDescription;
+		private final Object[] secondaryElements;
 
-		public AgeElementListSelectionDialog(final Shell parentShell, final ILabelProvider labelProvider) {
+		public AgeElementListSelectionDialog(final Shell parentShell, final ILabelProvider labelProvider,
+				final String secondaryElementsDescription, final Object[] secondaryElements) {
 			super(parentShell, labelProvider);
 			this.labelProvider = Objects.requireNonNull(labelProvider, "labelProvider must not be null");
+			this.secondaryElementsDescription = secondaryElementsDescription;
+			this.secondaryElements = secondaryElements;
 			setShellStyle(getShellStyle() | SWT.RESIZE);
 		}
 
@@ -146,13 +179,37 @@ public class ElementSelectionDialog {
 		}
 
 		@Override
+		protected Control createDialogArea(final Composite parent) {
+			final Composite contents = (Composite) super.createDialogArea(parent);
+
+			if (secondaryElementsDescription != null && this.secondaryElements != null) {
+				final Button cb = new Button(contents, SWT.CHECK);
+				cb.setText(secondaryElementsDescription);
+				cb.addSelectionListener(new SelectionAdapter() {
+
+					@Override
+					public void widgetSelected(final SelectionEvent e) {
+						setListElements(cb.getSelection() ? secondaryElements : primaryElements);
+					}
+				});
+			}
+
+			return contents;
+		}
+
+		@Override
+		public void setElements(final Object[] elements) {
+			super.setElements(elements);
+			this.primaryElements = elements;
+		}
+
+		@Override
 		protected FilteredList createFilteredList(final Composite parent) {
 			final FilteredList fl = super.createFilteredList(parent);
 			fl.setFilterMatcher(new AgeFilterMatcher(labelProvider));
 
 			return fl;
 		}
-
 	}
 
 	private static class AgeFilterMatcher implements FilteredList.FilterMatcher {
@@ -194,6 +251,24 @@ public class ElementSelectionDialog {
 
 			return regex.matcher(txt).matches();
 		}
+	}
+
+	public static void main(final String[] args) {
+		final List<Object> options = new ArrayList<>();
+		options.add("A");
+		options.add("B");
+
+		final List<Object> secondaryOptions = new ArrayList<>();
+		secondaryOptions.add("C");
+		secondaryOptions.add("D");
+
+		Display.getDefault().syncExec(() -> {
+			final ElementSelectionDialog dlg = new ElementSelectionDialog(new Shell(), "Test", "Test Prompt", options,
+					"Show Others", secondaryOptions, false);
+			if (dlg.open() == Window.OK) {
+				System.out.println("First Selected Element: " + dlg.getFirstSelectedElement());
+			}
+		});
 	}
 
 }

@@ -2,12 +2,13 @@
 <?eclipse version="3.4"?>
 <plugin>
    <extension-point id="org.osate.ge.tooltips" name="Tooltips" schema="schema/org.osate.ge.tooltips.exsd"/>
-   <extension-point id="org.osate.ge.commands" name="Tools" schema="schema/org.osate.ge.commands.exsd"/>
    <extension-point id="org.osate.ge.categories" name="Categories" schema="schema/org.osate.ge.categories.exsd"/>
    <extension-point id="org.osate.ge.images" name="Images" schema="schema/org.osate.ge.images.exsd"/>
    <extension-point id="org.osate.ge.references" name="Reference Handling" schema="schema/org.osate.ge.references.exsd"/>
    <extension-point id="org.osate.ge.businessObjectHandlers" name="Business Object Handlers" schema="schema/org.osate.ge.businessObjectHandlers.exsd"/>
    <extension-point id="org.osate.ge.businessObjectProviders" name="Business Object Providers" schema="schema/org.osate.ge.businessObjectProviders.exsd"/>
+   <extension-point id="org.osate.ge.contentFilters" name="Content Filters" schema="schema/org.osate.ge.contentFilters.exsd"/>
+   <extension-point id="org.osate.ge.diagramTypes" name="Diagram Types" schema="schema/org.osate.ge.diagramTypes.exsd"/>
 	<extension point="org.eclipse.ui.commands">
     <category
           id="org.osate.ge.commands.categories.tool"
@@ -127,6 +128,75 @@
             id="org.osate.ge.restoreMissingDiagramElements"
             name="Restore Missing Diagram Elements...">
       </command>
+      <command
+            id="org.osate.ge.toggleContentFilter"
+            name="Toggle Content Filter">
+         <commandParameter
+               id="contentsFilterId"
+               name="Contents Filter ID"
+               optional="false">
+         </commandParameter>
+      </command>
+      <command
+            id="org.osate.ge.toggleAllFilters"
+            name="Toggle All Filters">
+      </command>
+      <command
+            id="org.osate.ge.hideAllContents"
+            name="Hide All Contents">
+      </command>
+      <command
+            id="org.osate.ge.configureDiagram"
+            name="Configure Diagram...">
+      </command>
+      <command
+            id="org.osate.ge.goToAadlSource"
+            name="Go to AADL Source">
+      </command>
+      <command
+            id="org.osate.ge.openAssociatedDiagram"
+            name="Open Associated Diagram">
+      </command>
+      <command
+            id="org.osate.ge.createNewDiagram"
+            name="Create New Diagram">
+      </command>
+      <command
+            id="org.osate.ge.goToTypeDiagram"
+            name="Go to Type Diagram">
+      </command>
+      <command
+            id="org.osate.ge.goToPackageDiagram"
+            name="Go to Package Diagram">
+      </command>
+      <command
+            id="org.osate.ge.instantiate"
+            name="Instantiate">
+      </command>
+      <command
+            id="org.osate.ge.selectContainer"
+            name="Select Container">
+      </command>
+      <command
+            id="org.osate.ge.delete"
+            name="Delete">
+      </command>
+      <command
+            id="org.osate.ge.rename"
+            name="Rename...">
+      </command>
+      <command
+            id="org.osate.ge.saveImage"
+            name="Export Diagram...">
+      </command>
+      <command
+            id="org.osate.ge.setDescendantsToAutomatic"
+            name="Set Descendants to Automatic">
+      </command>
+      <command
+            id="org.osate.ge.goToImplementationDiagram"
+            name="Go to Implementation Diagram">
+      </command>
    </extension>
  <extension
        point="org.eclipse.ui.handlers">
@@ -242,7 +312,7 @@
           <with
                 variable="selection">
              <test
-                   property="org.osate.ge.singleNamedElementInComponentImplementation">
+                   property="org.osate.ge.namedElementsInSameComponentImplementation">
              </test>
           </with></enabledWhen>
     </handler>
@@ -348,6 +418,70 @@
     <handler
           class="org.osate.ge.internal.ui.handlers.RestoreMissingDiagramElementsHandler"
           commandId="org.osate.ge.restoreMissingDiagramElements">
+    </handler>
+    <handler
+          class="org.osate.ge.internal.ui.handlers.ToggleContentFilterHandler"
+          commandId="org.osate.ge.toggleContentFilter">
+    </handler>
+    <handler
+          class="org.osate.ge.internal.ui.handlers.ToggleAllFiltersHandler"
+          commandId="org.osate.ge.toggleAllFilters">
+    </handler>
+    <handler
+          class="org.osate.ge.internal.ui.handlers.HideAllContentsHandler"
+          commandId="org.osate.ge.hideAllContents">
+    </handler>
+    <handler
+          class="org.osate.ge.internal.ui.handlers.ConfigureDiagramHandler"
+          commandId="org.osate.ge.configureDiagram">
+    </handler>
+    <handler
+          class="org.osate.ge.internal.ui.handlers.GoToAadlSourceHandler"
+          commandId="org.osate.ge.goToAadlSource">
+    </handler>
+    <handler
+          class="org.osate.ge.internal.ui.handlers.OpenAssociatedDiagramHandler"
+          commandId="org.osate.ge.openAssociatedDiagram">
+    </handler>
+    <handler
+          class="org.osate.ge.internal.ui.handlers.CreateNewDiagramHandler"
+          commandId="org.osate.ge.createNewDiagram">
+    </handler>
+    <handler
+          class="org.osate.ge.internal.ui.handlers.GoToTypeDiagramHandler"
+          commandId="org.osate.ge.goToTypeDiagram">
+    </handler>
+    <handler
+          class="org.osate.ge.internal.ui.handlers.GoToPackageDiagramHandler"
+          commandId="org.osate.ge.goToPackageDiagram">
+    </handler>
+    <handler
+          class="org.osate.ge.internal.ui.handlers.InstantiateHandler"
+          commandId="org.osate.ge.instantiate">
+    </handler>
+    <handler
+          class="org.osate.ge.internal.ui.handlers.SelectContainerHandler"
+          commandId="org.osate.ge.selectContainer">
+    </handler>
+    <handler
+          class="org.osate.ge.internal.ui.handlers.DeleteHandler"
+          commandId="org.osate.ge.delete">
+    </handler>
+    <handler
+          class="org.osate.ge.internal.ui.handlers.RenameHandler"
+          commandId="org.osate.ge.rename">
+    </handler>
+    <handler
+          class="org.osate.ge.internal.ui.handlers.SaveImageHandler"
+          commandId="org.osate.ge.saveImage">
+    </handler>
+    <handler
+          class="org.osate.ge.internal.ui.handlers.SetDescendantsToAutomaticHandler"
+          commandId="org.osate.ge.setDescendantsToAutomatic">
+    </handler>
+    <handler
+          class="org.osate.ge.internal.ui.handlers.GoToImplementationDiagramHandler"
+          commandId="org.osate.ge.goToImplementationDiagram">
     </handler>
  </extension>
        
@@ -616,6 +750,45 @@
  <menuContribution
        allPopups="false"
        locationURI="popup:org.osate.ge.editor.AgeDiagramEditor">
+    <command
+          commandId="org.osate.ge.configureDiagram"
+          label="Configure Diagram..."
+          style="push">
+    </command>
+    <menu
+          id="org.osate.ge.showMenu"
+          label="Show">
+       <command
+             commandId="org.osate.ge.toggleAllFilters"
+             label="All Filters"
+             style="toggle">
+       </command>
+       <separator
+             name="org.osate.ge.separator1"
+             visible="true">
+       </separator>
+       <dynamic
+             class="org.osate.ge.internal.ui.editor.ToggleFiltersContributionItem"
+             id="org.osate.ge.toggleFilters">
+       </dynamic>
+       <command
+             commandId="org.osate.ge.hideAllContents"
+             style="push">
+       </command>
+       <command
+             commandId="org.osate.ge.setDescendantsToAutomatic"
+             style="push">
+       </command>
+       <separator
+             name="org.osate.ge.separator10"
+             visible="true">
+       </separator>
+       <command
+             commandId="org.osate.ge.configureDiagram"
+             label="Custom..."
+             style="push">
+       </command>
+    </menu>
     <menu
           id="org.osate.ge.layoutMenu"
           label="Layout">
@@ -628,105 +801,214 @@
              style="push">
        </command>
        <separator
-             name="org.osate.ge.separator1" visible="true">
+             name="org.osate.ge.separator1"
+             visible="true">
        </separator>
-	   <command
-           commandId="org.osate.ge.commands.alignLeft"
-           icon="./icons/gef/alignleft.gif"
-           disabledIcon="./icons/gef/alignleft_d.gif"
-           style="push">
-     </command>
-     <command
-           commandId="org.osate.ge.commands.alignCenter"
-           icon="./icons/gef/aligncenter.gif"
-           disabledIcon="./icons/gef/aligncenter_d.gif"
-           style="push">
-     </command>
-     <command
-           commandId="org.osate.ge.commands.alignRight"
-           icon="./icons/gef/alignright.gif"
-           disabledIcon="./icons/gef/alignright_d.gif"
-           style="push">
-     </command>
-     <separator
-           name="org.osate.ge.separator2" visible="true">
-     </separator>
-     <command
-           commandId="org.osate.ge.commands.alignTop"
-           icon="./icons/gef/aligntop.gif"
-           disabledIcon="./icons/gef/aligntop_d.gif"
-           style="push">
-     </command>
-     <command
-           commandId="org.osate.ge.commands.alignMiddle"
-           icon="./icons/gef/alignmid.gif"
-           disabledIcon="./icons/gef/alignmid_d.gif"
-           style="push">
-     </command>
-     <command
-           commandId="org.osate.ge.commands.alignBottom"
-           icon="./icons/gef/alignbottom.gif"
-           disabledIcon="./icons/gef/alignbottom_d.gif"
-           style="push">
-     </command>
-     <separator
-           name="org.osate.ge.separator3" visible="true">
-     </separator>
-     <command
-           commandId="org.osate.ge.commands.distributeHorizontally"
-           disabledIcon="icons/DistributeHorizontally_Disabled.gif"
-           icon="icons/DistributeHorizontally.gif"
-           style="push">
-     </command>
-     <command
-           commandId="org.osate.ge.commands.distributeVertically"
-           disabledIcon="icons/DistributeVertically_Disabled.gif"
-           icon="icons/DistributeVertically.gif"
-           style="push">
-     </command>
-	 <separator
-           name="org.osate.ge.separator4" visible="true">
-     </separator>
-     <command
-           commandId="org.osate.ge.commands.arrangeInGrid"
-           disabledIcon="icons/GridLayout_Disabled.gif"
-           icon="icons/GridLayout.gif"
-           label="Arrange in Grid"
-           style="push">
-     </command>
-     <command
-           commandId="org.osate.ge.commands.arrangeInCircle"
-           disabledIcon="icons/RadialLayout_Disabled.gif"
-           icon="icons/RadialLayout.gif"
-           label="Arrange in Circle"
-           style="push">
-     </command>
-     <separator
-           name="org.osate.ge.separator5" visible="true">
-     </separator>
-     <command
-           commandId="org.osate.ge.commands.matchWidth"
-           icon="./icons/gef/matchwidth.gif"
-           disabledIcon="./icons/gef/matchwidth_d.gif"
-           style="push">
-     </command>
-     <command
-           commandId="org.osate.ge.commands.matchHeight"
-           icon="./icons/gef/matchheight.gif"
-           disabledIcon="./icons/gef/matchheight_d.gif"
-           style="push">
-     </command>
-     <command
-           commandId="org.osate.ge.commands.matchSize"
-           icon="./icons/gef/matchsize.gif"
-           disabledIcon="./icons/gef/matchsize_d.gif"
-           style="push">
-     </command>
+       <command
+             commandId="org.osate.ge.commands.alignLeft"
+             disabledIcon="./icons/gef/alignleft_d.gif"
+             icon="./icons/gef/alignleft.gif"
+             style="push">
+       </command>
+       <command
+             commandId="org.osate.ge.commands.alignCenter"
+             disabledIcon="./icons/gef/aligncenter_d.gif"
+             icon="./icons/gef/aligncenter.gif"
+             style="push">
+       </command>
+       <command
+             commandId="org.osate.ge.commands.alignRight"
+             disabledIcon="./icons/gef/alignright_d.gif"
+             icon="./icons/gef/alignright.gif"
+             style="push">
+       </command>
+       <separator
+             name="org.osate.ge.separator2"
+             visible="true">
+       </separator>
+       <command
+             commandId="org.osate.ge.commands.alignTop"
+             disabledIcon="./icons/gef/aligntop_d.gif"
+             icon="./icons/gef/aligntop.gif"
+             style="push">
+       </command>
+       <command
+             commandId="org.osate.ge.commands.alignMiddle"
+             disabledIcon="./icons/gef/alignmid_d.gif"
+             icon="./icons/gef/alignmid.gif"
+             style="push">
+       </command>
+       <command
+             commandId="org.osate.ge.commands.alignBottom"
+             disabledIcon="./icons/gef/alignbottom_d.gif"
+             icon="./icons/gef/alignbottom.gif"
+             style="push">
+       </command>
+       <separator
+             name="org.osate.ge.separator3"
+             visible="true">
+       </separator>
+       <command
+             commandId="org.osate.ge.commands.distributeHorizontally"
+             disabledIcon="icons/DistributeHorizontally_Disabled.gif"
+             icon="icons/DistributeHorizontally.gif"
+             style="push">
+       </command>
+       <command
+             commandId="org.osate.ge.commands.distributeVertically"
+             disabledIcon="icons/DistributeVertically_Disabled.gif"
+             icon="icons/DistributeVertically.gif"
+             style="push">
+       </command>
+       <separator
+             name="org.osate.ge.separator4"
+             visible="true">
+       </separator>
+       <command
+             commandId="org.osate.ge.commands.arrangeInGrid"
+             disabledIcon="icons/GridLayout_Disabled.gif"
+             icon="icons/GridLayout.gif"
+             label="Arrange in Grid"
+             style="push">
+       </command>
+       <command
+             commandId="org.osate.ge.commands.arrangeInCircle"
+             disabledIcon="icons/RadialLayout_Disabled.gif"
+             icon="icons/RadialLayout.gif"
+             label="Arrange in Circle"
+             style="push">
+       </command>
+       <separator
+             name="org.osate.ge.separator5"
+             visible="true">
+       </separator>
+       <command
+             commandId="org.osate.ge.commands.matchWidth"
+             disabledIcon="./icons/gef/matchwidth_d.gif"
+             icon="./icons/gef/matchwidth.gif"
+             style="push">
+       </command>
+       <command
+             commandId="org.osate.ge.commands.matchHeight"
+             disabledIcon="./icons/gef/matchheight_d.gif"
+             icon="./icons/gef/matchheight.gif"
+             style="push">
+       </command>
+       <command
+             commandId="org.osate.ge.commands.matchSize"
+             disabledIcon="./icons/gef/matchsize_d.gif"
+             icon="./icons/gef/matchsize.gif"
+             style="push">
+       </command>
     </menu>
+    <separator
+          name="org.osate.ge.separator13"
+          visible="true">
+    </separator>
+    <menu
+          id="org.osate.ge.openMenu"
+          label="Open">
+       <command
+             commandId="org.osate.ge.createNewDiagram"
+             label="New Diagram..."
+             style="push">
+          <visibleWhen
+                checkEnabled="true">
+          </visibleWhen>
+       </command>
+       <separator
+             name="org.osate.ge.separator6"
+             visible="true">
+       </separator>
+       <command
+             commandId="org.osate.ge.openAssociatedDiagram"
+             label="Associated Diagram"
+             style="push">
+          <visibleWhen
+                checkEnabled="true">
+          </visibleWhen>
+       </command>
+       <command
+             commandId="org.osate.ge.goToPackageDiagram"
+             label="Package Diagram"
+             style="push">
+          <visibleWhen
+                checkEnabled="true">
+          </visibleWhen>
+       </command>
+       <command
+             commandId="org.osate.ge.goToTypeDiagram"
+             label="Type Diagram"
+             style="push">
+          <visibleWhen
+                checkEnabled="true">
+          </visibleWhen>
+       </command>
+       <command
+             commandId="org.osate.ge.goToImplementationDiagram"
+             label="Implementation Diagram"
+             style="push">
+          <visibleWhen
+                checkEnabled="true">
+          </visibleWhen>
+       </command>
+       <separator
+             name="org.osate.ge.separator5"
+             visible="true">
+       </separator>
+       <command
+             commandId="org.osate.ge.goToAadlSource"
+             label="AADL Source"
+             style="push">
+          <visibleWhen
+                checkEnabled="true">
+          </visibleWhen>
+       </command>
+    </menu>
+    <command
+          commandId="org.osate.ge.selectContainer"
+          style="push">
+    </command>
+    <separator
+          name="org.osate.ge.separator3"
+          visible="true">
+    </separator>
+    <command
+          commandId="org.osate.ge.instantiate"
+          style="push">
+       <visibleWhen
+             checkEnabled="true">
+       </visibleWhen>
+    </command>
+    <separator
+          name="org.osate.ge.separator4"
+          visible="true">
+    </separator>
+    <command
+          commandId="org.osate.ge.delete"
+          style="push">
+    </command>
+    <command
+          commandId="org.osate.ge.rename"
+          style="push">
+    </command>
     <command
           commandId="org.osate.ge.commands.properties"
           style="push">
     </command>
+    <separator
+          name="org.osate.ge.separator7"
+          visible="true">
+    </separator>
+    <command
+          commandId="org.osate.ge.saveImage"
+          label="Export Diagram..."
+          style="push">
+    </command>
+    <separator
+          name="third_party"
+          visible="true">
+    </separator>
  </menuContribution>
  <menuContribution
        allPopups="false"
@@ -966,15 +1248,6 @@
      </linkHelper>
   </extension>
   <extension
-        point="org.eclipse.ui.newWizards">
-     <wizard
-           category="org.osate.Wizard.category.ID"
-           class="org.osate.ge.internal.wizards.NewPackageWizard"
-           id="org.osate.ge.wizards.NewPackageWizard"
-           name="Aadl Package (Graphical)">
-     </wizard>
-  </extension>
-  <extension
         point="org.eclipse.core.expressions.propertyTesters">
      <propertyTester
            class="org.osate.ge.internal.expressions.ResourcePropertyTester"
@@ -994,7 +1267,7 @@
            class="org.osate.ge.internal.expressions.SelectionPropertyTester"
            id="org.osate.ge.expressions.selectionPropertyTester"
            namespace="org.osate.ge"
-           properties="allAreDiagramElementsWithSameParent,singleNamedElementInComponentImplementation"
+           properties="allAreDiagramElementsWithSameParent,singleNamedElementInComponentImplementation,namedElementsInSameComponentImplementation"
            type="org.eclipse.jface.viewers.ISelection">
      </propertyTester>
   </extension>
@@ -1010,14 +1283,10 @@
  <extension
        point="org.eclipse.ui.bindings">
     <key
-    	  commandId="org.eclipse.graphiti.ui.featureExecutionCommand"
-          contextId="org.eclipse.ui.contexts.dialogAndWindow"
+          commandId="org.osate.ge.goToAadlSource"
+          contextId="org.eclipse.ui.contexts.window"
           schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"
           sequence="M1+M2+V">
-        <parameter
-        	id="org.eclipse.graphiti.ui.featureHint"
-        	value="graphicalToTextualFeature">
-        </parameter>
     </key>
     <key
           commandId="org.osate.ge.commands.opendiagram"
@@ -1639,85 +1908,6 @@
        </handler>
     </extension>
     <extension
-          point="org.osate.ge.commands">
-       <command
-             class="org.osate.ge.internal.commands.OpenAssociatedDiagramCommand"></command>
-       <command
-             class="org.osate.ge.internal.commands.CreateNewDiagramCommand"></command>
-       <commandContributor
-             class="org.osate.ge.internal.commands.SetInitialModeCommandContributor">
-       </commandContributor>
-       <command
-             class="org.osate.ge.internal.commands.ComponentImplementationToTypeCommand">
-       </command>
-       <command
-       		 class="org.osate.ge.internal.commands.SubcomponentToTypeCommand">
-       </command>
-       <command
-             class="org.osate.ge.internal.commands.GoToPackageDiagramCommand">
-       </command>
-       <command
-             class="org.osate.ge.internal.commands.GraphicalToTextualCommand">
-       </command>
-       <command
-             class="org.osate.ge.internal.commands.SetFeatureClassifierCommand">
-       </command>
-       <command
-             class="org.osate.ge.internal.commands.InstantiateComponentImplementationCommand">
-       </command>
-       <command
-             class="org.osate.ge.internal.commands.SwitchDirectionOfConnectionCommand">
-       </command>
-       <command
-             class="org.osate.ge.internal.commands.SetDimensionsCommand">
-       </command>
-       <commandContributor
-             class="org.osate.ge.internal.commands.SetDerivedModesCommandContributor">
-       </commandContributor>
-       <command
-             class="org.osate.ge.internal.commands.SetModeTransitionTriggersCommand">
-       </command>
-       <command
-             class="org.osate.ge.internal.commands.EditFlowsCommand">
-       </command>
-       <command
-             class="org.osate.ge.internal.commands.SetSubcomponentClassifierCommand">
-       </command>
-       <command
-             class="org.osate.ge.internal.commands.RefineSubcomponentCommand">
-       </command>
-       <commandContributor
-             class="org.osate.ge.internal.commands.SetConnectionBidirectionalityCommandContributor">
-       </commandContributor>
-       <command
-             class="org.osate.ge.internal.commands.MoveSubprogramCallUpCommand">
-       </command>
-       <command
-             class="org.osate.ge.internal.commands.MoveSubprogramCallDownCommand">
-       </command>
-       <command
-             class="org.osate.ge.internal.commands.PackageSetExtendedClassifierCommand">
-       </command>
-       <commandContributor
-             class="org.osate.ge.internal.commands.ChangeFeatureTypeCommandContributor">
-       </commandContributor>
-       <commandContributor
-             class="org.osate.ge.internal.commands.SetFeatureGroupInverseCommandContributor">
-       </commandContributor>
-       <commandContributor
-             class="org.osate.ge.internal.commands.ChangeSubcomponentTypeCommandContributor">
-       </commandContributor>
-       <command
-             class="org.osate.ge.internal.commands.RefineFeatureCommand">
-       </command>
-       <command
-             class="org.osate.ge.internal.commands.RefineFlowSpecificationCommand">
-       </command>
-       <command
-             class="org.osate.ge.internal.commands.RefineConnectionCommand">
-       </command>
-    </extension>
-    <extension
           point="org.osate.ge.businessObjectProviders">
        <provider
              class="org.osate.ge.internal.AadlBusinessObjectProvider">
@@ -1768,24 +1958,122 @@
                tab="org.osate.ge.ui.properties.aadlTab">
          </propertySection>
          <propertySection
-               afterSection="org.osate.ge.ui.properties.inheritedElementOwnerNoticeSection"
+               afterSection="org.osate.ge.ui.properties.changeFeatureTypePropertySection"
                class="org.osate.ge.internal.ui.properties.DirectionalFeaturePropertySection"
                filter="org.osate.ge.internal.ui.properties.DirectionalFeaturePropertySection$Filter"
-               id="org.osate.ge.ui.properties.elementOwnerWarningSection"
+               id="org.osate.ge.ui.properties.directionalFeatureSection"
                tab="org.osate.ge.ui.properties.aadlTab">
          </propertySection>
          <propertySection
-               afterSection="org.osate.ge.ui.properties.inheritedElementOwnerNoticeSection"
+               afterSection="org.osate.ge.ui.properties.accessSection"
+               class="org.osate.ge.internal.ui.properties.SetFeatureClassifierPropertySection"
+               filter="org.osate.ge.internal.ui.properties.SetFeatureClassifierPropertySection$Filter"
+               id="org.osate.ge.ui.properties.setFeatureClassifierPropertySection"
+               tab="org.osate.ge.ui.properties.aadlTab">
+         </propertySection>
+         <propertySection
+               afterSection="org.osate.ge.ui.properties.changeFeatureTypePropertySection"
                class="org.osate.ge.internal.ui.properties.AccessPropertySection"
                filter="org.osate.ge.internal.ui.properties.AccessPropertySection$Filter"
                id="org.osate.ge.ui.properties.accessSection"
                tab="org.osate.ge.ui.properties.aadlTab">
          </propertySection>
          <propertySection
-               afterSection="org.osate.ge.ui.properties.inheritedElementOwnerNoticeSection"
+               afterSection="org.osate.ge.ui.properties.setDerivedModesPropertySection"
                class="org.osate.ge.internal.ui.properties.ConfigureInModesSection"
                filter="org.osate.ge.internal.ui.properties.ConfigureInModesSection$Filter"
                id="org.osate.ge.ui.properties.configureInModesSection"
+               tab="org.osate.ge.ui.properties.aadlTab">
+         </propertySection>
+         <propertySection
+               afterSection="org.osate.ge.ui.properties.refineElementPropertySection"
+               class="org.osate.ge.internal.ui.properties.ChangeFeatureTypePropertySection"
+               filter="org.osate.ge.internal.ui.properties.ChangeFeatureTypePropertySection$Filter"
+               id="org.osate.ge.ui.properties.changeFeatureTypePropertySection"
+               tab="org.osate.ge.ui.properties.aadlTab">
+         </propertySection>
+         <propertySection
+               afterSection="org.osate.ge.ui.properties.changeFeatureTypePropertySection"
+               class="org.osate.ge.internal.ui.properties.ChangeSubcomponentTypePropertySection"
+               filter="org.osate.ge.internal.ui.properties.ChangeSubcomponentTypePropertySection$Filter"
+               id="org.osate.ge.ui.properties.changeSubcomponentTypePropertySection"
+               tab="org.osate.ge.ui.properties.aadlTab">
+         </propertySection>
+         <propertySection
+               afterSection="org.osate.ge.ui.properties.inheritedElementOwnerNoticeSection"
+               class="org.osate.ge.internal.ui.properties.SwitchDirectionOfConnectionPropertySection"
+               filter="org.osate.ge.internal.ui.properties.SwitchDirectionOfConnectionPropertySection$Filter"
+               id="org.osate.ge.ui.properties.switchDirectionOfConnectionPropertySection"
+               tab="org.osate.ge.ui.properties.aadlTab">
+         </propertySection>
+         <propertySection
+               afterSection="org.osate.ge.ui.properties.inheritedElementOwnerNoticeSection"
+               class="org.osate.ge.internal.ui.properties.EditFlowsPropertySection"
+               filter="org.osate.ge.internal.ui.properties.EditFlowsPropertySection$Filter"
+               id="org.osate.ge.ui.properties.editFlowsPropertySection"
+               tab="org.osate.ge.ui.properties.aadlTab">
+         </propertySection>
+         <propertySection
+               afterSection="org.osate.ge.ui.properties.inheritedElementOwnerNoticeSection"
+               class="org.osate.ge.internal.ui.properties.SetSubprogramCallSequenceOrderPropertySection"
+               filter="org.osate.ge.internal.ui.properties.SetSubprogramCallSequenceOrderPropertySection$Filter"
+               id="org.osate.ge.ui.properties.setSubprogramCallSequenceOrderPropertySection"
+               tab="org.osate.ge.ui.properties.aadlTab">
+         </propertySection>
+         <propertySection
+               afterSection="org.osate.ge.ui.properties.inheritedElementOwnerNoticeSection"
+               class="org.osate.ge.internal.ui.properties.SetExtendedClassifierPropertySection"
+               filter="org.osate.ge.internal.ui.properties.SetExtendedClassifierPropertySection$Filter"
+               id="org.osate.ge.ui.properties.setExtendedClassifierPropertySection"
+               tab="org.osate.ge.ui.properties.aadlTab">
+         </propertySection>
+         <propertySection
+               afterSection="org.osate.ge.internal.ui.properties.InheritedElementNoticePropertySection"
+               class="org.osate.ge.internal.ui.properties.RefineElementPropertySection"
+               filter="org.osate.ge.internal.ui.properties.RefineElementPropertySection$Filter"
+               id="org.osate.ge.ui.properties.refineElementPropertySection"
+               tab="org.osate.ge.ui.properties.aadlTab">
+         </propertySection>
+         <propertySection
+               afterSection="org.osate.ge.ui.properties.setDimensionsPropertySection"
+               class="org.osate.ge.internal.ui.properties.SetDerivedModesPropertySection"
+               filter="org.osate.ge.internal.ui.properties.SetDerivedModesPropertySection$Filter"
+               id="org.osate.ge.ui.properties.setDerivedModesPropertySection"
+               tab="org.osate.ge.ui.properties.aadlTab">
+         </propertySection>
+         <propertySection
+               afterSection="org.osate.ge.ui.properties.setSubcomponentClassifierPropertySection"
+               class="org.osate.ge.internal.ui.properties.SetDimensionsPropertySection"
+               filter="org.osate.ge.internal.ui.properties.SetDimensionsPropertySection$Filter"
+               id="org.osate.ge.ui.properties.setDimensionsPropertySection"
+               tab="org.osate.ge.ui.properties.aadlTab">
+         </propertySection>
+         <propertySection
+               afterSection="org.osate.ge.ui.properties.inheritedElementOwnerNoticeSection"
+               class="org.osate.ge.internal.ui.properties.SetFeatureGroupInversePropertySection"
+               filter="org.osate.ge.internal.ui.properties.SetFeatureGroupInversePropertySection$Filter"
+               id="org.osate.ge.ui.properties.setFeatureGroupInversePropertySection"
+               tab="org.osate.ge.ui.properties.aadlTab">
+         </propertySection>
+         <propertySection
+               afterSection="org.osate.ge.ui.properties.inheritedElementOwnerNoticeSection"
+               class="org.osate.ge.internal.ui.properties.SetInitialModePropertySection"
+               filter="org.osate.ge.internal.ui.properties.SetInitialModePropertySection$Filter"
+               id="org.osate.ge.ui.properties.setInitialModePropertySection"
+               tab="org.osate.ge.ui.properties.aadlTab">
+         </propertySection>
+         <propertySection
+               afterSection="org.osate.ge.ui.properties.inheritedElementOwnerNoticeSection"
+               class="org.osate.ge.internal.ui.properties.SetModeTransitionTriggerPropertySection"
+               filter="org.osate.ge.internal.ui.properties.SetModeTransitionTriggerPropertySection$Filter"
+               id="org.osate.ge.ui.properties.setModeTransitionTriggerPropertySection"
+               tab="org.osate.ge.ui.properties.aadlTab">
+         </propertySection>
+         <propertySection
+               afterSection="org.osate.ge.ui.properties.changeSubcomponentTypePropertySection"
+               class="org.osate.ge.internal.ui.properties.SetSubcomponentClassifierPropertySection"
+               filter="org.osate.ge.internal.ui.properties.SetSubcomponentClassifierPropertySection$Filter"
+               id="org.osate.ge.ui.properties.setSubcomponentClassifierPropertySection"
                tab="org.osate.ge.ui.properties.aadlTab">
          </propertySection>
       </propertySections>
@@ -1868,5 +2156,101 @@
       <initializer
             class="org.osate.ge.internal.preferences.PreferenceInitializer">
       </initializer>
+   </extension>
+   <extension
+         point="org.osate.ge.contentFilters">
+      <contentFilter
+            class="org.osate.ge.internal.diagram.runtime.filtering.GeneralizationFilter">
+      </contentFilter>
+      <contentFilter
+            class="org.osate.ge.internal.diagram.runtime.filtering.SubcomponentTypeFilter">
+      </contentFilter>
+      <contentFilter
+            class="org.osate.ge.internal.diagram.runtime.filtering.SubprogramCallOrderFilter">
+      </contentFilter>
+      <contentFilter
+            class="org.osate.ge.internal.diagram.runtime.filtering.CalledSubprogramFilter">
+      </contentFilter>
+      <contentFilter
+            class="org.osate.ge.internal.diagram.runtime.filtering.FeatureFilter">
+      </contentFilter>
+      <contentFilter
+            class="org.osate.ge.internal.diagram.runtime.filtering.ModeTransitionTriggerNameFilter">
+      </contentFilter>
+      <contentFilter
+            class="org.osate.ge.internal.diagram.runtime.filtering.ModeTransitionFilter">
+      </contentFilter>
+      <contentFilter
+            class="org.osate.ge.internal.diagram.runtime.filtering.ModeFilter">
+      </contentFilter>
+      <contentFilter
+            class="org.osate.ge.internal.diagram.runtime.filtering.FlowSpecificationFilter">
+      </contentFilter>
+      <contentFilter
+            class="org.osate.ge.internal.diagram.runtime.filtering.ClassifierFilter">
+      </contentFilter>
+      <contentFilter
+            class="org.osate.ge.internal.diagram.runtime.filtering.ConnectionFilter">
+      </contentFilter>
+      <contentFilter
+            class="org.osate.ge.internal.diagram.runtime.filtering.SubcomponentFilter">
+      </contentFilter>
+      <contentFilter
+            class="org.osate.ge.internal.diagram.runtime.filtering.SubprogramCallFilter">
+      </contentFilter>
+      <contentFilter
+            class="org.osate.ge.internal.diagram.runtime.filtering.SubprogramCallSequenceFilter">
+      </contentFilter>
+      <contentFilter
+            class="org.osate.ge.internal.diagram.runtime.filtering.ProcessorFeatureFilter">
+      </contentFilter>
+      <contentFilter
+            class="org.osate.ge.internal.diagram.runtime.filtering.InternalFeatureFilter">
+      </contentFilter>
+      <contentFilter
+            class="org.osate.ge.internal.diagram.runtime.filtering.FeatureCategoryFilterFactory">
+      </contentFilter>
+      <contentFilter
+            class="org.osate.ge.internal.diagram.runtime.filtering.FlowSpecificationKindFilterFactory">
+      </contentFilter>
+      <contentFilter
+            class="org.osate.ge.internal.diagram.runtime.filtering.AccessConnectionFilter">
+      </contentFilter>
+      <contentFilter
+            class="org.osate.ge.internal.diagram.runtime.filtering.FeatureConnectionFilter">
+      </contentFilter>
+      <contentFilter
+            class="org.osate.ge.internal.diagram.runtime.filtering.FeatureGroupConnectionFilter">
+      </contentFilter>
+      <contentFilter
+            class="org.osate.ge.internal.diagram.runtime.filtering.ParameterConnectionFilter">
+      </contentFilter>
+      <contentFilter
+            class="org.osate.ge.internal.diagram.runtime.filtering.PortConnectionFilter">
+      </contentFilter>
+      <contentFilter
+            class="org.osate.ge.internal.diagram.runtime.filtering.FeatureGroupTypeFilter">
+      </contentFilter>
+      <contentFilter
+            class="org.osate.ge.internal.diagram.runtime.filtering.ComponentCategoryFilterFactory">
+      </contentFilter>
+   </extension>
+   <extension
+         point="org.osate.ge.diagramTypes">
+      <diagramType
+            class="org.osate.ge.internal.diagram.runtime.types.CustomDiagramType">
+      </diagramType>
+      <diagramType
+            class="org.osate.ge.internal.diagram.runtime.types.PackageDiagramType">
+      </diagramType>
+      <diagramType
+            class="org.osate.ge.internal.diagram.runtime.types.StructureDiagramType">
+      </diagramType>
+      <diagramType
+            class="org.osate.ge.internal.diagram.runtime.types.ModeDiagramType">
+      </diagramType>
+      <diagramType
+            class="org.osate.ge.internal.diagram.runtime.types.ProcessorBindingDiagramType">
+      </diagramType>
    </extension>
 </plugin>

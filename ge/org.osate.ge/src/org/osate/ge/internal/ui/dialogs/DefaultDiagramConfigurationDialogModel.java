@@ -1,7 +1,6 @@
 package org.osate.ge.internal.ui.dialogs;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
@@ -14,11 +13,11 @@ import org.eclipse.xtext.resource.IEObjectDescription;
 import org.osate.aadl2.Aadl2Factory;
 import org.osate.aadl2.NamedElement;
 import org.osate.ge.BusinessObjectContext;
-import org.osate.ge.internal.diagram.runtime.BuiltinContentsFilter;
+import org.osate.ge.ContentFilter;
+import org.osate.ge.DiagramType;
 import org.osate.ge.internal.diagram.runtime.CanonicalBusinessObjectReference;
-import org.osate.ge.internal.diagram.runtime.ContentsFilter;
 import org.osate.ge.internal.diagram.runtime.RelativeBusinessObjectReference;
-import org.osate.ge.internal.model.PropertyValueGroup;
+import org.osate.ge.internal.diagram.runtime.filtering.Filtering;
 import org.osate.ge.internal.query.Queryable;
 import org.osate.ge.internal.services.ExtensionService;
 import org.osate.ge.internal.services.ProjectProvider;
@@ -30,10 +29,13 @@ import org.osate.ge.internal.util.BusinessObjectProviderHelper;
 import org.osate.ge.internal.util.ScopedEMFIndexRetrieval;
 import org.osate.ge.internal.util.StringUtil;
 
+import com.google.common.collect.ImmutableSet;
+
 public class DefaultDiagramConfigurationDialogModel implements DiagramConfigurationDialog.Model, AutoCloseable {
 	private final ProjectReferenceService referenceService;
 	private final ExtensionService extService;
 	private final ProjectProvider projectProvider;
+	private final DiagramType diagramType;
 	private final BusinessObjectProviderHelper bopHelper;
 	private final BusinessObjectContextHelper bocHelper;
 	private long nextNodeId;
@@ -41,10 +43,12 @@ public class DefaultDiagramConfigurationDialogModel implements DiagramConfigurat
 	public DefaultDiagramConfigurationDialogModel(final ProjectReferenceService referenceService,
 			final ExtensionService extService,
 			final ProjectProvider projectProvider,
+			final DiagramType diagramType,
 			final long nextNodeId) {
 		this.referenceService = Objects.requireNonNull(referenceService, "referenceService must not be null");
 		this.extService = Objects.requireNonNull(extService, "extService must not be null");
 		this.projectProvider = Objects.requireNonNull(projectProvider, "projectProvider must not be null");
+		this.diagramType = Objects.requireNonNull(diagramType, "diagramType must not be null");
 		this.bopHelper = new BusinessObjectProviderHelper(extService);
 		this.bocHelper = new BusinessObjectContextHelper(extService);
 		this.nextNodeId = nextNodeId;
@@ -70,17 +74,18 @@ public class DefaultDiagramConfigurationDialogModel implements DiagramConfigurat
 
 	@Override
 	public String getName(final BusinessObjectContext boc) {
-		return UiUtil.getDescription(boc, extService, bocHelper);
+		// Pad with an extra space to avoid text from being clipped.
+		return UiUtil.getDescription(boc, extService, bocHelper) + " ";
 	}
 
 	@Override
-	public Collection<ContentsFilter> getContentsFilters() {
-		return Arrays.asList(BuiltinContentsFilter.values());
+	public ImmutableSet<ContentFilter> getApplicableContentFilters(final Object bo) {
+		return extService.getApplicableContentFilters(bo);
 	}
 
 	@Override
-	public ContentsFilter getDefaultContentsFilter(final Object bo) {
-		return BuiltinContentsFilter.getDefault(bo);
+	public ImmutableSet<ContentFilter> getDefaultContentFilters(final Object bo) {
+		return diagramType.getApplicableDefaultContentFilters(bo, extService);
 	}
 
 	@Override
@@ -136,8 +141,8 @@ public class DefaultDiagramConfigurationDialogModel implements DiagramConfigurat
 	}
 
 	@Override
-	public boolean showBusinessObject(final Object bo) {
-		return !(BuiltinContentsFilter.ALLOW_FUNDAMENTAL.test(bo) || bo instanceof PropertyValueGroup);
+	public boolean shouldShowBusinessObject(final Object bo) {
+		return Filtering.isConfigurable(bo);
 	}
 
 	@Override

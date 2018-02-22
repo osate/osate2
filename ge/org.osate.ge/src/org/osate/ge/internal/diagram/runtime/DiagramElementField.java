@@ -3,7 +3,7 @@ package org.osate.ge.internal.diagram.runtime;
 public enum DiagramElementField {
 	ID,
 	MANUAL,
-	AUTO_CONTENTS_FILTER,
+	CONTENT_FILTERS,
 	COMPLETENESS,
 	NAME,
 	GRAPHICAL_CONFIGURATION,

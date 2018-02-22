@@ -54,6 +54,10 @@ public class ConnectionReferenceHandler {
 			partial = true;
 		}
 
+		if (src == dst) {
+			return null;
+		}
+
 		return GraphicalConfigurationBuilder.create().
 				graphic(graphic).
 				style(partial ? partialStyle : style).

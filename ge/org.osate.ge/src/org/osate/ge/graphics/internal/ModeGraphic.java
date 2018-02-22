@@ -1,6 +1,11 @@
 package org.osate.ge.graphics.internal;
 
 public class ModeGraphic implements AgeShape {
+	// Mode graphics specific constants shared between graphiti and non-graphiti specific code
+	public final static int initialModeEllipseSize = 10;
+	public final static int spacingBetweenInitialModeEllipseAndMode = 10;
+	public final static int initialModeAreaHeight = initialModeEllipseSize + spacingBetweenInitialModeEllipseAndMode;
+
 	public final boolean isInitialMode;
 
 	public ModeGraphic(final boolean isInitialMode) {
