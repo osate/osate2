@@ -180,7 +180,7 @@ You can use copy-and-paste to copy the above into the editor, but if you type it
 
 * The editor automatically closes blocks.  For example, when you type `process MyProcess` and enter a new line, the editor automatically inserts `end MyProcess;`.
 
-* You can access the automatic completion (a.k.a. _autocomplete_) feature by typing `CTRL + Space` in Windows or `Command + Space` in MacOS.  This brinks up a small context menu displaying options ofr who the current string in the editor can be completed.  For example, below shows the result of activating autocomplete after typing `syst`:
+* You can access the automatic completion (a.k.a. _autocomplete_) feature by typing `CTRL + Space` in Windows or `Command + Space` in MacOS.  This brings up a small context menu displaying options ofr who the current string in the editor can be completed.  For example, below shows the result of activating autocomplete after typing `syst`:
 ![Autocomplete](images/OSATEUserGuide/AutoComplete1.png)
 The menu shows that `syst` can be completed with the keywords `system`, and `system implementation`.  In this case we  want `system implementaton`.  You can select the compleletion with the moue or my using the arrow keys and hitting `return`.
 
@@ -263,6 +263,40 @@ Selecting an item in the outline will move the editor to the selected element.
 Much like a web browser, when you navigate to different locations within a file, follow references/links to other files, go to the location of a marker, or go to the result of a search, Eclipse keeps a history. Yellow navigation arrow buttons in the toolbar let you move back adn forth through the history:
 
 ![Navigation Toolbar](images/OSATEUserGuide/NavigationHistory.png)
+
+
+
+## Instance Models
+
+Most analyses are executed over the _instance model_ of a system.  The instance model represnts the complete nested architecture of a system, and is built from a root system implementation classifier.
+
+To create an instance model of your system
+
+1. Open the AADL package that conatins the system implementation you want to instantiate.  For this example, we open `aadlmodel` from above.
+2. Select the system implementation in the `Outline` view.  Here we select `MySystem.i`.
+3. Select `Instantiate` from the context menu.
+![Context Menu](images/OSATEUserGuide/Instantiate.png)
+
+The instance model is created and placed in directory called `instances` in the project.  This directory is created if it does not already exist.  The instance model built from system implementation `my::package::system.impl` is named `my_package_systemm_impl_Instance.aaxl2`.  This is an xml-based model description that is not readily readable by people.  It can be opened and viewed in a hierachical manner in OSATE.  Here we see the model we just generated:
+
+![Context Menu](images/OSATEUserGuide/InstanceModel.png)
+
+
+
+### Back-links
+
+Each element in the instance model links back to declarative model element that it is derived from.  You can follow this link by selecting an element of the instance model in the instance model editor or in the `Outline` view and choosing `Goto Instance Object Source` in the context menu.  For example, the process `sub1` element of the instance model links to the `sub1` subcomponent declaration in the declarative package:
+
+![Context Menu](images/OSATEUserGuide/ObjectSource.png)
+
+
+
+### Errors
+
+The instantiation process may generate error and warning markers on the instantiate model.  This occurs for example when the declarative model is underspecified or has inconsistencies.
+
+
+
 
 
 
