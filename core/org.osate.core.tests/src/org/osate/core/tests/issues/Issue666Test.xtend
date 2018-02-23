@@ -64,8 +64,8 @@ class Issue666Test extends OsateTest {
 					eResource.convertToIResource.findMarkers(IMarker.PROBLEM, true, IResource.DEPTH_ONE) => [
 						1.assertEquals(size)
 						head => [
-							IMarker.SEVERITY_ERROR.assertEquals(attributes.get(IMarker.SEVERITY))
-							"List of System Operation Modes is incomplete.".assertEquals(attributes.get(IMarker.MESSAGE))
+							IMarker.SEVERITY_WARNING.assertEquals(attributes.get(IMarker.SEVERITY))
+							"List of system operation modes is incomplete (see project property 'Instantiation')".assertEquals(attributes.get(IMarker.MESSAGE))
 						]
 					]
 				]
