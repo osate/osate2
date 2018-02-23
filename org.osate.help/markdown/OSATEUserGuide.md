@@ -397,13 +397,63 @@ The wizard dialog will close when the export process finishes.  The new archive 
 
 
 
+## Analyzing Models
+
+Once you have a system model, you can use OSATE to analyze the model to confirm that the design meets your intended criteria.  In this section we run a latency analysis over the end-to-end flows of a system.
+
+> **Example**
+>
+> This section uses the project `latency-case-study` found in the archive [`latency-case-study.zip`](examples/latency-case-study.zip).  Follow the instructions above to import the project into your workspace.
+
+
+
+### Instantiate the Model
+
+The latency analysis operates on the system instance model, so we first need to create an instance model:
+
+1. Open the package `integration`.
+2. Use the `Outline` view to create an instance model from the system implementation `integration.software_integrated`.
+
+
+
+### Analyze the Model
+
+3. Select the new `.aaxl2` instance model file in the project.
+4. Select `Analyses > Timing > Check Flow Latency` from the main menu to execute the latency analysis:
+ ![](images/OSATEUserGuide/FlowLatencyMenu.png)
+
+The analysis executes and you may see a progress bar at the bottom of the OSATE workbench.
+
+
+
+### Analysis Results
+
+The analysis generates results in two ways:
+
+* As warning and errors markers.
+* As files in the `reports/latency` directory of the project.
+
+The analysis reports 4 error markers and 2 warning markers:
+
+![Latency Analysis Markers](images/OSATEUserGuide/LatencyMarkers.png)
+
+Here we see that the end-to-end flows `etef0` and `etef1` fail to meet the expected latency contraints.  Double-clicking on the markers will open the flow element in the instance model editor.  From there you can use the `Goto Instance Object Source` command to jump to the AADL source where the flows are declared.
+
+The files in the `reports` directory contain more specific results (in three different formats).  Below shows a portion of the `.csc` file opened in a spreadsheet application:
+
+![CSV Results](images/OSATEUserGuide/Latency_CSV.png)
+
+Here we see the full results for the end-to-end flow `etef0`, includingng individual components' contributions to the latency.
+
+
+
 ## AADL Property Values
 
 The `AADL Property Values` view is used to display and edit property values in a structured manner, which is often easier than navigating and manipulating the AADL text files directly.
 
 > **Example**
 >
-> The packages used as examples in this section can be imported into your workspace from the archive [PropertyViewerExamples.zip](examples/PropertyViewerExamples.zip).  Please see the help section on [importing projects into the Eclipse workspace]().
+> The packages used as examples in this section can be imported into your workspace from the archive [PropertyViewerExamples.zip](examples/PropertyViewerExamples.zip).  Please see the help section on importing projects into the Eclipse workspace.
 >
 > Alternatively, you can view the AADL files directly:
 > - [mine.aadl](examples/PropertyViewExampeles/mine.aadl)
