@@ -399,7 +399,12 @@ The wizard dialog will close when the export process finishes.  The new archive 
 
 ## Analyzing Models
 
-Once you have a system model, you can use OSATE to analyze the model to confirm that the design meets your intended criteria.  In this section we run a latency analysis over the end-to-end flows of a system.
+Once you have a system model, you can use OSATE to analyze the model to confirm that the design meets your intended criteria.  In this section we run a latency analysis over the end-to-end flows of a system.  This section is not meant to be a tutorial on using any specific analysis, but instead is demonstration of
+
+* How to execute a typical analysis over a model.
+* Typical ways an analysis may report results.
+
+
 
 > **Example**
 >
