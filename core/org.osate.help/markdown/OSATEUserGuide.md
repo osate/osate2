@@ -4,30 +4,31 @@ OSATE is a complete modeling environment providing support for describing AADL m
 
 This manual provides an overview of the basic features of OSATE and describes how to work with AADL models:
 
-* Eclipse Basics
-* Creating an AADL Project
-* Writing Your First AADL Model
-* Navigating the AADL Text Editor
-* Instantiating Your Model
-* Viewing AADL Prop
+* [Eclipse Basics](#basics)
+* [Creating an AADL Project](#project)
+* [Navigating an AADL Model](#navigation)
+* [Instantiating Your Model](#instance)
+* [Importing and Exporting Models](#in_out)
+* [Analyzing a Model](#analysis)
+* [Viewing AADL Property Values](#properties)
 
 This manual also includes as reference material
 
-* AADL Syntax Rules
-* Suggested AADL Style Guide
+* [AADL Syntax Rules](#syntax)
+* [Suggested AADL Style Guide](#style)
 
 
 
-## Eclipse Basics
+## <span id="basics">Eclipse Basics</span>
 
 OSATE is built on the Eclipse framework.  You may be familiar with Eclipse from using it for Java development.  OSATE inherits many concepts from Eclipse including
 
 * **The Workbench.**  The main UI.
-* **Projects.**   Work is divided into projects that group together related files.  Projects may be closed when they are not in use to prevent then from taking up OSATE reousrces and to prevent accidental modification.
-* **Views.**  A view is a read-only display of information.  A view may be connected to a specific object in the OSATE workspace (often times the currenty selected object).
+* **Projects.**   Work is divided into projects that group together related files.  Projects may be closed when they are not in use to prevent then from taking up OSATE resources and to prevent accidental modification.
+* **Views.**  A view is a read-only display of information.  A view may be connected to a specific object in the OSATE workspace (often times the currently selected element).
 * **Editors.**  Not surprisingly, an editor provides write access to information in a project.  For example, OSATE has both a textual and graphical editor for AADL packages.
-* **Perspectives.**  A perspective is a prearranged collection of views, editors, and toolbars focused around a particular task.  In OSATE you really only care about the `AADL` perspective.
-* **Markers.**   A marker is a piece if information attached to a location in a file.  They are commonly used to report errors and warnings about files.  For example, OSATE uses markers to report syntax errors in AADL files.  Ananlysis plug-ins often use markers to communicate their results.  Markers are visible in several ways.  They are most commonly interacted with as annotations within editors and as a list in the `Problems` view.
+* **Perspectives.**  A perspective is a prearranged collection of views, editors, and toolbars focused around a particular task.  In OSATE, you mainly use the `AADL` perspective.
+* **Markers.**   A marker is a piece of information attached to a location in a file.  They are commonly used to report errors and warnings about files.  For example, OSATE uses markers to report syntax errors in AADL files.  Ananlysis plug-ins often use markers to communicate their results.  Markers are visible in several ways.  They are most commonly interacted with as annotations within editors and as a list in the `Problems` view.
 
 
 
@@ -37,7 +38,7 @@ If you are unfamiliar with Eclipse, the "Workbench User Guide" in the Eclipse he
 
 ![Menu Bar](images/OSATEUserGuide/help1.png)
 
-A new broweser window will open with a table of contents on the left-hand side.  The `Workbench User Guide` is he first document in the list:
+A new browser window will open with a table of contents on the left-hand side.  The `Workbench User Guide` is the first document in the list:
 
 ![Help Window](images/OSATEUserGuide/help2.png)
 
@@ -45,11 +46,11 @@ A new broweser window will open with a table of contents on the left-hand side. 
 
 ### The Workbench
 
-All work in the OSATE is done through a _Workbench_.  This is the main window, and it generally fills most or all your screen.  The look and contents of the workbench are highly customizable, but it is uncommon to deviate too much from its default layout.  Generally it has 
+All work in the OSATE is done through a _Workbench_.  This is the main window, and it generally fills most or all of your screen.  The look and contents of the workbench are highly customizable, but it is uncommon to deviate too much from its default layout.  Generally it has 
 
 * A row of toolbars along the top.
-* A "navigator" view along the left-hand side.  This view displays all the available projects and their contents.  OSATE uses a customized `AADL Navigator` that also displays globally available AADL property sets provided by plug-ins.
-* An "outline" view on the right-hand side.  This view interacts with the active editor window and displays a structured semantic or syntactic outline of the contents of the editor.  It can be used to quickly navigate the contents of the editor.
+* A _navigator_ view along the left-hand side.  This view displays all the available projects and their contents.  OSATE uses a customized `AADL Navigator` that also displays globally available AADL property sets provided by plug-ins.
+* An _outline_ view on the right-hand side.  This view interacts with the active editor window and displays a structured semantic or syntactic outline of the contents of the editor.  It can be used to quickly navigate the contents of the editor.
 * The `Problems` view along the bottom.  This view is used to interact with markers.
 
 The rest of the center space of the workbench is used to hold editor windows.  This layout can be seen in the workbench window below that is set to the OSATE `AADL` perspective:
@@ -59,8 +60,8 @@ The rest of the center space of the workbench is used to hold editor windows.  T
 There are several other features of the workbench visible in the above image:
 
 * Views can have their own toolbars.
-* Views can be stacked into "tabbed" layouts.  Tihs is visible along the bottom of the workbench where there are tabs for the `Problems`, `Properties`, and `AADL Property Values` views.
-* Views can have their own menus.  The menu is accessible by clicking on the downward facing triangle in the top right of the view's toolbar: ![](images/OSATEUserGuide/ViewMenu.png).
+* Views can be stacked into tabbed layouts.  This is visible along the bottom of the workbench where there are tabs for the `Problems`, `Properties`, and `AADL Property Values` views.
+* Views can have their own menus.  The menu is accessible by clicking on the downward facing triangle in the top right of the toolbar of the view: ![](images/OSATEUserGuide/ViewMenu.png).
 * Views can be minimized or maximized within the workbench window using the toolbar buttons ![](images/OSATEUserGuide/MinMax.png).
 * Views can be closed by clicking on the "x" icon on their tab.
 
@@ -70,19 +71,19 @@ There are several other features of the workbench visible in the above image:
 
 As an Eclipse-based application, OSATE makes its commands available in multiple modalities.  A single command is usually available
 
-* In an OSATE menu
-* In a toolbar
-* In a context menu, when appropriate to the currently selected object.  (A context menu is uaually opened with a right-click in Windows, ore a `CTRL` + click in MacOS.)
+* In an OSATE menu.
+* In a toolbar.
+* In a context menu, when appropriate to the currently selected object.  (A context menu is uaually opened with a right-click in Windows, or a `CTRL` + click in MacOS.)
 
 
 
 #### Missing Views
 
-If you accidently close a view or simply want to add an additioanl view to the workbench, you can open a view by using the `Window > Show View` submenu in the main OSATE menubar:
+If you accidently close a view or simply want to add an additional view to the workbench, you can open a view by using the `Window > Show View` submenu in the main OSATE menubar:
 
 ![Show View Menu](images/OSATEUserGuide/ShowView.png)
 
-This menu is populated with views specific to the current perspective.  Here we see the `AADL Navigator` and `AADL Property Values` views specific to the `AADL` perspective.  If you do not see the view you need listed, choose the `Other...` option to bring up the `Show View` Dialog:
+This menu is populated with views specific to the current perspective.  Here we see the `AADL Navigator` and `AADL Property Values` views specific to the `AADL` perspective.  If you do not see the view you need listed, choose the `Other...` option to bring up the `Show View` dialog:
 
 ![Show View Dialog](images/OSATEUserGuide/ShowViewDialog.png)
 
@@ -92,7 +93,7 @@ This dialog lists all the views avaible.  Views are grouped by category.  Above 
 
 #### Reseting the Perspective
 
-If you open/close too many new views, rearrange your views, or otherwise put you workbench in a state that find unusable, you can bring it back to good state by resetting the perspective.  In the case of OSATE, you should reset the `AADL` perspective by bringing up the _context menu_ on the `AAADL` perspecitive icon on the right side of the workbench toolbar, and selecting `reset`:
+If you open/close too many views, rearrange your views, or otherwise put the workbench in a state that you find unusable, you can bring it back to good state by resetting the perspective.  In the case of OSATE, you should reset the `AADL` perspective by bringing up the _context menu_ on the `AAADL` perspecitive icon on the right side of the workbench toolbar, and selecting `reset`:
 
 ![Reset Perspective](images/OSATEUserGuide/ResetPerspective.png)
 
@@ -117,17 +118,17 @@ One setting of immediate interest is found under `General > Startup and Shutdown
 
 ### Manual Refresh
 
-You can manually initiate a refresh by selecting projects, folders, or files in the `AADL Navigator` and invoking `File > Refresh` in main menu or `Refresh` in the navigator's context menu.
+You can manually initiate a refresh by selecting projects, folders, or files in the `AADL Navigator` and invoking `File > Refresh` in the main menu or `Refresh` in the navigator's context menu.
 
 
 
-## Creating an AADL Project
+## <span id="project">Creating an AADL Project</span>
 
-Let us create an AADL Project in OSATE.  To create a new AADL project in the workspace, click on the `New AADL Projec` button ![New AADL Project icon](images/OSATEUserGuide/NewAadlProjectButton.png) in the OSATE toolbar.  A new project wizard will open:
+Let us create an AADL Project in OSATE.  To create a new AADL project in the workspace, click on the `New AADL Project` button ![New AADL Project icon](images/OSATEUserGuide/NewAadlProjectButton.png) in the OSATE toolbar.  A new project wizard will open:
 
 ![New Project Wizard](images/OSATEUserGuide/NewAadlProjectWizard.png)
 
-Enter `MyFirstAADLProject` as the project name and click on the `Finish` button.  The wizard creates a new project.  It is visible in the `AADL Navigator` view.  Note the small `A` on the project that indicates it is an AADL Project:
+Enter `MyFirstAADLProject` as the project name and click on the `Finish` button.  The wizard creates a new project.  It is visible in the `AADL Navigator` view.  Note the small `A` on the project that indicates it is an AADL project:
 
 ![New Project Wizard](images/OSATEUserGuide/NewProjectNavigator.png)
 
@@ -135,15 +136,17 @@ Enter `MyFirstAADLProject` as the project name and click on the `Finish` button.
 
 ### Built-in Proprety Sets
 
-Also visible in the view is a library icon labeled `Plugin_Contributions`.  This view element collects all the AADL property sets avaoilable by default in OSATE:
+Also visible in the view is a library icon labeled `Plugin_Contributions`.  This view element collects all the AADL property sets available by default in OSATE:
 
 ![Plugin Contributions](images/OSATEUserGuide/Plugin_Contributions.png)
 
-The `Predeclared_Property_Sets` are those that are specified by the AADL standard document and are provided by the core OSATE environment.  The others are specified in other documents and provided by plug-ins to OSATE.  For example `ARINC653` contains property sets specified in the ARINC653 annex to AADL and is provided by a plug-in.  Property sets in `Plugin_Contribution` may be used by any project in the workspace by providing the appropriate `with` clause in the package specification.  In particular, _they do not need to be copied into a project to be used_.
+The `Predeclared_Property_Sets` are those that are specified by the AADL standard document and are provided by the core OSATE environment.  The others are specified in other documents and provided by plug-ins to OSATE.  For example `ARINC653` contains property sets specified in the ARINC653 annex to AADL and is provided by a plug-in.
+
+Property sets in `Plugin_Contribution` may be used by any project in the workspace by providing the appropriate `with` clause in the package specification.  In particular, _they do not need to be copied into a project to be used_.
 
 
 
-### Crating an AADL Package
+### Creating an AADL Package
 
 Now that we have an AADL project in the workspace, we can populate it with an AADL Package:
 
@@ -152,7 +155,7 @@ Now that we have an AADL project in the workspace, we can populate it with an AA
 ![AADL Package Wizard](images/OSATEUserGuide/AadlPackageWizard.png)
 3. Enter`aadlmodel` for the package name and click on `Finish`.
 
-OSATE creates the file `aadlmodel.aadl` in the project, populates it with a skeleton package declaratoin, and opens it in the AADL text editor:
+OSATE creates the file `aadlmodel.aadl` in the project, populates it with a skeleton package declaration, and opens it in the AADL text editor:
 
 ![New Empty Package](images/OSATEUserGuide/EmptyPackage.png)
 
@@ -176,29 +179,29 @@ public
 end aadlmodel;
 ```
 
-You can use copy-and-paste to copy the above into the editor, but if you type it directly, you can experience some of the syntwax-directed features of the aadl editor:
+You can use copy-and-paste to copy the above into the editor, but if you type it directly, you can experience some of the syntax-directed features of the aadl editor:
 
 * The editor automatically closes blocks.  For example, when you type `process MyProcess` and enter a new line, the editor automatically inserts `end MyProcess;`.
 
-* You can access the automatic completion (a.k.a. _autocomplete_) feature by typing `CTRL + Space` in Windows or `Command + Space` in MacOS.  This brings up a small context menu displaying options ofr who the current string in the editor can be completed.  For example, below shows the result of activating autocomplete after typing `syst`:
+* You can access the automatic completion (a.k.a. _autocomplete_) feature by typing `CTRL + Space` in Windows or `Command + Space` in MacOS.  This brings up a small context menu displaying options for how the current string in the editor can be completed.  For example, below shows the result of activating autocomplete after typing `syst`:
 ![Autocomplete](images/OSATEUserGuide/AutoComplete1.png)
-The menu shows that `syst` can be completed with the keywords `system`, and `system implementation`.  In this case we  want `system implementaton`.  You can select the compleletion with the moue or my using the arrow keys and hitting `return`.
+The menu shows that `syst` can be completed with the keywords `system` or `system implementation`.  In this case, we want `system implementaton`.  You can select the completion with the mouse or by using the arrow keys and hitting `return`.
 
-  The list of completions also shows two more options.   This are _templates_ that insert a more complete system type or system implementation declration into the text.
+  The list of completions also shows two more options.   These are _templates_ that insert a more complete system type or system implementation declaration into the text.
 
 * Autocompletion also works with declared names.  For example, below shows the result of activating autocomplete after typing `My`:
 ![Autocomplete](images/OSATEUserGuide/AutoComplete2.png)
-In this case, autocomplet suggests the system type name `MySystem`.  In particular, it _does not_ suggest the process type name `MyProcess` because it would be erroneous in the context of declarating a system implementation.
+In this case, autocomplete suggests the system type name `MySystem`.  In particular, it _does not_ suggest the process type name `MyProcess` because it would be erroneous in the context of declaraing a system implementation.
 
 
 
 #### Error Markers
 
-As you type you will notcie that the editor underlines syntax errors in red.  The right sidebar of the editor will also show a small red`x` indicating that an _error marker_ exists for that line of text.  For example, before the declaration of the system implementation is completed, the package has several errors:
+As you type you will notice that the editor underlines syntax errors in red.  The right sidebar of the editor will also show a small red`x` indicating that an _error marker_ exists for that line of text.  For example, before the declaration of the system implementation is completed, the package has several errors:
 
 ![Error Markers](images/OSATEUserGuide/Errors.png)
 
-The details of the error markers are visible in the `Problems` view.  This is a standard Eclipse view.  Despite the name _Problems_, not all markers necessarily makrk problems or errors.  Some OSATE analsyses generate information markers (visible with a blue `i`) as output.
+The details of the error markers are visible in the `Problems` view.  This is a standard Eclipse view.  Despite the name _Problems_, not all markers necessarily mark problems or errors.  Some OSATE analsyses generate information markers (visible with a blue `i`) as output.
 
 The details of a marker can also be seen by hovering over the icon in the editor sidebar.
 
@@ -206,7 +209,7 @@ Also note that the AADL project is marked in the navigator view to indicate that
 
 
 
-#### Save the Package
+#### <span id="save">Save the Package</a>
 
 Once you have the package entered into the editor, save it.  It should be error-free, without any markers:
 
@@ -214,7 +217,7 @@ Once you have the package entered into the editor, save it.  It should be error-
 
 
 
-## Navigating a Model
+## <span id="navigation">Navigating a Model</span>
 
 OSATE provides many mechanisms for navigating through a model.
 
@@ -230,11 +233,11 @@ The `Outline` view shows the model in the text editor as a tree structure. Selec
 
 ### Search
 
-You can search the text of a model using the standard Eclipse search facility under `Search > Search...` in the menu bar.  This brings up a search window.  It can also be used for search and replace.  The scope of the serach can also be specified.  In most cases you just want to make sure that the `File Search` tab is selected, and enter your search term in the `Containing text` field.  For example, the below will search for the string `end` in the project we created above:
+You can search the text of a model using the standard Eclipse search facility under `Search > Search...` in the menu bar.  This brings up a search window.  It can also be used for search and replace.  The scope of the search can also be specified.  In most cases you just want to make sure that the `File Search` tab is selected, and enter your search term in the `Containing text` field.  For example, the below will search for the string `end` in the project we created above:
 
 ![Search Window](images/OSATEUserGuide/SearchWindow.png)
 
-When you click on the `Serach` button, Eclipse performs the search.  The results are displayed in the `Search` view:
+When you click on the `Search` button, Eclipse performs the search.  The results are displayed in the `Search` view:
 
 ![Search View](images/OSATEUserGuide/SearchView.png)
 
@@ -244,7 +247,7 @@ Double-clicking on a result in the view opens the editor to the location of the 
 
 ### Hyperlinks
 
-All references to names in the AADL editor are linked to their declaration.  `CTRL`-clicking on the name will turn it into an active hyperlink and move the editor selection to the declaration of the name.  For example, `CTRL`-clicking on `MyProcess` in the subcomponent declaration of `MySystem` above, moves the selection to declaration of `MyProcess` earlier in the package.
+All references to names in the AADL editor are linked to their declaration.  `CTRL`-clicking on the name will turn it into an active hyperlink and move the editor selection to the declaration of the name.  For example, `CTRL`-clicking on `MyProcess` in the subcomponent declaration of `MySystem` [above](#save), moves the selection to the declaration of `MyProcess` earlier in the package.
 
 
 
@@ -260,19 +263,19 @@ Selecting an item in the outline will move the editor to the selected element.
 
 ### Navigation History
 
-Much like a web browser, when you navigate to different locations within a file, follow references/links to other files, go to the location of a marker, or go to the result of a search, Eclipse keeps a history. Yellow navigation arrow buttons in the toolbar let you move back adn forth through the history:
+Much like a web browser, when you navigate to different locations within a file, follow references/links to other files, go to the location of a marker, or go to the result of a search, Eclipse keeps a history. Yellow navigation arrow buttons in the toolbar let you move back and forth through the history:
 
 ![Navigation Toolbar](images/OSATEUserGuide/NavigationHistory.png)
 
 
 
-## Instance Models
+## <span id="instance">Instance Models</span>
 
 Most analyses are executed over the _instance model_ of a system.  The instance model represnts the complete nested architecture of a system, and is built from a root system implementation classifier.
 
 To create an instance model of your system
 
-1. Open the AADL package that conatins the system implementation you want to instantiate.  For this example, we open `aadlmodel` from above.
+1. Open the AADL package that conatins the system implementation you want to instantiate.  For this example, we open `aadlmodel` from [above](#save).
 2. Select the system implementation in the `Outline` view.  Here we select `MySystem.i`.
 3. Select `Instantiate` from the context menu.
 ![Context Menu](images/OSATEUserGuide/Instantiate.png)
@@ -293,17 +296,17 @@ Each element in the instance model links back to declarative model element that 
 
 ### Errors
 
-The instantiation process may generate error and warning markers on the instantiate model.  This occurs for example when the declarative model is underspecified or has inconsistencies.
+The instantiation process may generate error and warning markers on the instantiated model.  This occurs, for example, when the declarative model is underspecified or has inconsistencies.
 
 
 
-## Importing and Exporting Projects
+## <span id="in_out">Importing and Exporting Projects</span>
 
 Eclipse can import/export projects from/to `.zip` files.  This is a simple way to share your work with other users, but not the best approach for collaborative work where you would want to use a version control system.
 
 
 
-### How To Import a Project
+### <span id="import">How To Import a Project</span>
 
 Here we show how to import an AADL project containing `.aadl` model files, but these instructions are not specific to OSATE or working with AADL source files.
 
@@ -333,7 +336,8 @@ Select `General > Existing Projects into Workspace`, and click on the `Next >` b
 An `Import Projects` wizard dialog will open.  (An archive may contain more than one project, although in our example it contains just one.)
 
 1. Select the `Select archive file` radio button.
-2. Click one the associated `Browse...` button to bring up a file selection to choose the archive file to import.  In this case, select the `PropertyViewerExamples.zip` that you downloaded earlier.  
+2. Click on the associated `Browse...` button to bring up a file selection dialog to choose the archive file to import.  In this case, select the `PropertyViewerExamples.zip` that you downloaded earlier.
+
    The wizard dialog should look like the image below, except with your local pathname showing.  The projects contained in the archive are listed in the `Projects` section.  Here you can select which projects to import.  Our example has only one project, and we leave it selected.
 3. Click on the `Finish` button to begin the import process.
 
@@ -355,7 +359,7 @@ Here we show how to export an AADL project containing `.aadl` model files, but t
 
 > **Example**
 >
-> In this section we export the project that we imported into the workspace in the presious section.  Below it is assumed that you have a project named `PropertyViewerExamples` in your workspace.
+> In this section we export the project that we imported into the workspace in the [previous](#import) section.  Below it is assumed that you have a project named `PropertyViewerExamples` in your workspace.
 
 
 
@@ -385,7 +389,7 @@ An `Archive file` wizard dialog will open.
 * The top section of the wizard allows you to choose the exact contents of the project to export.  In this case, as in most cases, you do not need to change the default selections; the whole project will be exported.
 * The bottom section of the wizard allows to control how the archive file is created.  Again, usually the default values are fine.  In this case, just make sure that `Save in zip format` is selected.
 * In the center of the wizard enter the pathname of the archive file to create, or use the `Browse...` button to use the file selection dialog to specify the pathname.
-* Click on the `Finish` button to begin the import process.
+* Click on the `Finish` button to begin the export process.
 
 ![](images/HowToExportAProject/ArchiveFile.png)
 
@@ -397,9 +401,9 @@ The wizard dialog will close when the export process finishes.  The new archive 
 
 
 
-## Analyzing Models
+## <span id="analysis">Analyzing Models</span>
 
-Once you have a system model, you can use OSATE to analyze the model to confirm that the design meets your intended criteria.  In this section we run a latency analysis over the end-to-end flows of a system.  This section is not meant to be a tutorial on using any specific analysis, but instead is demonstration of
+Once you have a system model, you can use OSATE to analyze the model to confirm that the design meets your intended criteria.  In this section we run a latency analysis over the end-to-end flows of a system.  This section is not meant to be a tutorial on using any specific analysis, but instead is a demonstration of
 
 * How to execute a typical analysis over a model.
 * Typical ways an analysis may report results.
@@ -408,7 +412,7 @@ Once you have a system model, you can use OSATE to analyze the model to confirm 
 
 > **Example**
 >
-> This section uses the project `latency-case-study` found in the archive [`latency-case-study.zip`](examples/latency-case-study.zip).  Follow the instructions above to import the project into your workspace.
+> This section uses the project `latency-case-study` found in the archive [`latency-case-study.zip`](examples/latency-case-study.zip).  Follow the [instructions above](#import) to import the project into your workspace.
 
 
 
@@ -442,9 +446,12 @@ The analysis reports 4 error markers and 2 warning markers:
 
 ![Latency Analysis Markers](images/OSATEUserGuide/LatencyMarkers.png)
 
-Here we see that the end-to-end flows `etef0` and `etef1` fail to meet the expected latency contraints.  Double-clicking on the markers will open the flow element in the instance model editor.  From there you can use the `Goto Instance Object Source` command to jump to the AADL source where the flows are declared.
+Here we see that the end-to-end flows `etef0` and `etef1` fail to meet the expected latency contraints.
 
-The files in the `reports` directory contain more specific results (in three different formats).  Below shows a portion of the `.csc` file opened in a spreadsheet application:
+* Double-clicking on the markers will open the flow element in the instance model editor.
+* From there you can use the `Goto Instance Object Source` command to jump to the AADL source where the flows are declared.
+
+The files in the `reports` directory contain more specific results (in three different formats).  Below shows a portion of the `.csv` file opened in a spreadsheet application:
 
 ![CSV Results](images/OSATEUserGuide/Latency_CSV.png)
 
@@ -452,7 +459,7 @@ Here we see the full results for the end-to-end flow `etef0`, includingng indivi
 
 
 
-## AADL Property Values
+## <span id="properties">AADL Property Values</span>
 
 The `AADL Property Values` view is used to display and edit property values in a structured manner, which is often easier than navigating and manipulating the AADL text files directly.
 
@@ -469,7 +476,7 @@ The `AADL Property Values` view is used to display and edit property values in a
 
 Below is an example of the view in action.  It is displaying the properties of the process subcomponent `Sampler_B` of system implementation `Software.Basic` in project `Page_220`.
 
-![Example Screenshot](images/AadlPropertyValues/ExampleScreenshot.png)
+<span id="values1">![Example Screenshot](images/AadlPropertyValues/ExampleScreenshot.png)</span>
 
 
 
@@ -507,7 +514,7 @@ The displayed properties are organized by property set.
 
 > **Example**
 > 
-> In the previous screenshot, the property `Period` is displayed under its property set `Timing_Properties`.
+> In the [previous screenshot](#values1), the property `Period` is displayed under its property set `Timing_Properties`.
 
 The view also provides additional structure for certain types of property values:
 
@@ -518,7 +525,7 @@ The view also provides additional structure for certain types of property values
 
 > **Example**
 >
-> The screenshot above shows the expanded list value for the proeprty `Source_Text`.
+> The [screenshot above](#values1) shows the expanded list value for the property `Source_Text`.
 
 
 ### The Property Status Column
@@ -542,7 +549,7 @@ A **local** property value is defined directly on the AADL model element in eith
 
 > ** Example **
 >
-> In the previous screenshot, the properties `Source_Text` and `Period` are both **local** because they are defined in curly braces.
+> In the [previous screenshot](#values1), the properties `Source_Text` and `Period` are both **local** because they are defined in curly braces.
 
 > ** Example **
 >
@@ -560,7 +567,7 @@ A **local** property value is defined directly on the AADL model element in eith
 
 Contained property values are those defined in a `properties` subclause and are applied to a nested model element using the `appies to` clause. In general, the property can be applied to an element nested several layers down in the containment hierarchy, e.g., to a sub-sub-subcomponent. _The `AADL Property Values` view only displays contained property values for the immediate children of a classifier._   To view the property values resulting from all contained property associations in a model, a system instance model must be created. The instantiation evaluates the applicable contained property associations and copies the resulting values as local associations into the instance model.
 
-The view distinguishes between a **local contained** and **shared local contained** property associations:
+The view distinguishes between a **local contained** and **shared local contained** property association:
 
 * A **local contained** property value is one that is applied to a single element.
 * A **shared local contained** property value is one that is applied to multiple elements in the same clause.  (See the example below).
@@ -573,7 +580,7 @@ The view distinguishes between a **local contained** and **shared local containe
 
 > **Example**
 >
-> Edit `Blended_Navigation` from the above example so that first property association `appplies to GPS_Data, INS_Data`.  Now the property `Input_Rate` on feature `INS_Data` (and `GPS_Data`) is **shared local contained**.
+> Edit `Blended_Navigation` from the above example so that first property association `applies to GPS_Data, INS_Data` (see below).  Now the property `Input_Rate` on feature `INS_Data` (and `GPS_Data`) is **shared local contained**.
 >
 > ![Shared Local Contained Properties](images/AadlPropertyValues/SharedLocalContained.png)
 
@@ -586,7 +593,7 @@ The **inherited** status indicates that the property association is declared
 
 or
 
-* On an eement that is refined by the selected element
+* On an element that is refined by the selected element
 
 > **Example**
 > 
@@ -596,7 +603,7 @@ or
 
 
 
-#### Default Property Values
+#### _Default_ Property Values
 
 The **default** status indicates that the property value for the selected element is not defined on any model element, but instead comes from the property's default value declaration.
 
@@ -636,9 +643,9 @@ The toolbar contains three buttons that influence which properties are displayed
 
 ### Editing Values
 
-Properties with the status of **local**, **local contained**, or **shared local contained** can be edited directly in the view.  To begin editing, simply click on the property value in the view's table.  The table cell becomes editable and you can type in the new value.  If there are syntax errors in your new value, then the error will be underlined in red and you can hover over the cell to see an error message.  Content assist is also available while editing by pressing `Ctrl + Space`.  This can be especially userfull when entering enumeration literals, unit literals, classifier values, or reference values.
+Properties with the status of **local**, **local contained**, or **shared local contained** can be edited directly in the view.  To begin editing, simply click on the property value in the view's table.  The table cell becomes editable and you can type in the new value.  If there are syntax errors in your new value, then the error will be underlined in red and you can hover over the cell to see an error message.  Content assist is also available while editing by pressing `Ctrl + Space`.  This can be especially useful when entering enumeration literals, unit literals, classifier values, or reference values.
 
-When you are finished editing, press enter or click outside of the table cell and the new value will be updated in the AADL model.  _Note that if you edit a property that is **shared local contained** then you will be editing the properties for all model elements that are listed in the `applies to` clause of the property association and share this value._
+When you are finished editing, press enter or click outside of the table cell and the new value will be updated in the AADL model.  _If you edit a property that is **shared local contained** then you will be editing the value for all model elements that are listed in the `applies to` clause of the property association._
 
 
 
@@ -648,27 +655,48 @@ There are several actions available in the view's context menu when you right-cl
 
 ![Context Menu](images/AadlPropertyValues/ContextMenu.png)
 
+
+
 #### Open Property Definition
+
 This action opens the declaration of the selected property set, property, or record field in the AADL text editor.
 
+
+
 #### Open Property Association
-This action opens the property association that provides the deisplayed property value in the AADL text editor.  This action is enabled for properties that are **local**, **local contained**, or **inherited**.  If the action is executed on an **inherited** property, then the view will be updated as well such that the selected property is shown as a **local** property.
+
+This action opens the property association that provides the displayed property value in the AADL text editor.  This action is enabled for properties that are **local**, **local contained**, or **inherited**.  If the action is executed on an **inherited** property, then the view will be updated as well such that the selected property is shown as a **local** property.
 
 This action is especially useful in an instance model to find out which contained property association in the declarative model is used to provide an instance property value.
 
+
+
 #### Create Local Property Association
+
 This action is enabled for **inherited**, **default**, and **undefined** properties.  Executing this action will creates a new **local** value for the selected property and begins the editing process. The new property association is inserted in curly braces with the current model element in the AADL text editor.
 
+
+
 #### Create Local Contained Property Association
+
 This action is enabled for **inherited**, **default**, and **undefined** properties.  Executing this action creates a new **local contained** value for the selected property and begins the editing process.
 
+
+
 #### Make Local
+
 This action is enabled for **inherited**, **local contained**, **shared local contained**, and **default** properties.  Executing this action creates a new **local** property association with the same value as was displayed in the view when the action was executed.  In other words, the existing value is copied into the new **local** value.
 
+
+
 #### Make Local Contained
+
 This action is enabled for **inherited**, **local**, **shared local contained**, and **default** properties.  Executing this action creates a new **local contained** property with the same value as was displayed in the view when the action was executed.  In other words, the existing value is copied into the new **local contained** value.
 
+
+
 #### Remove
+
 This action is enabled for **local**, **local contained**, and **shared local contained** properties.  It can be used to do one of the following:
 
 * Remove the selected property value.
@@ -680,7 +708,7 @@ Note that executing this action on a **shared local contained** property impacts
 
 
 
-## AADL Syntax Guide
+## <span id="syntax">AADL Syntax Guide</span>
 
 This section gives a brief overview of AADL syntax and naming rules.  The full AADL 2.1 grammer is available on a handy [syntax card](http://www.aadl.info/aadl/documents/AADL%20V2.1%20Syntax%20Card.pdf).
 
@@ -691,9 +719,10 @@ A complete and formal definition of the syntax is given in the AADL standard and
 ### AADL Identifier
 
 A name must
-* Start with a letter
-* May be continuted by any number of letters or digits or underscoares `_`
-* Not contain a space or special character
+
+* Start with a letter.
+* May be continuted by any number of letters or digits or underscoares `_`.
+* Not contain a space or special character.
 
 > **Example**
 >
@@ -711,7 +740,7 @@ A name must
 
 #### White Space
 
-Space, tab, and newline charactesr are considered white space.
+Space, tab, and newline characters are considered white space.
 
 
 
@@ -768,7 +797,7 @@ Component types, component implementations, feature group types, packages, and p
 
 ### Package Names
 
-A package name is a sequence of AADL identifiers separated by double colons `::`.  As with Java package names, sequence of identifiers provides nesting.
+A package name is a sequence of AADL identifiers separated by double colons `::`.  As with Java package names, the sequence of identifiers provides nesting.
 
 > **Example**
 >
@@ -829,7 +858,7 @@ An implementation name is built from the name of a *component type* followed by 
 
 
 
-## AADL Style Guide
+## <span id="style">AADL Style Guide</span>
 
 The following guidelines are suggested when using AADL for modeling a system.  They are recommended in case you want to use a consistent naming rules and also want to share your models with other AADL users.
 
