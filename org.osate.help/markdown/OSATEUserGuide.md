@@ -401,7 +401,7 @@ The wizard dialog will close when the export process finishes.  The new archive 
 
 
 
-### <span id="git">Importing a Project from a git Repository</span>
+### <span id="git">Importing a Project from a Git Repository</span>
 
 While archive files provide a quick-and-dirty mechanism for sharing projects, the become problematic when you want to collaborate.  It is better to store projects in a version control system (VCS) so that changes to the models can be coordianted.  Eclipse (and thus OSATE) supports all the popular VCS, including **svn** and **git**.  In this section, we show how to import a project from a git repository.
 
@@ -426,6 +426,87 @@ OSATE removes the project from the workspace and deletes the contents of the wor
 
 
 
+### Adding a Git Repository
+
+#### Open the Git Perspective
+
+Work with git repositories is performed in the `git` perspective.  Open and switch to the perspective by
+
+1. Clicking on the `Open Perspective` button ![](images/OSATEUserGuide/OpenPerspective.png) on the top right of the toolbar.
+
+2. Choose `Git` in the `Open Perspective` dialog:
+   ![Perspectives Dialog](images/OSATEUserGuide/PerspectiveDialog.png)
+
+3. Click on `Open`.
+
+The OSATE workbench reconfigures to show an (empty) list of repositories on the left-hand side:
+
+![Git Perspective](images/OSATEUserGuide/GitPerspective.png)
+
+
+
+#### Clone a Repository
+
+You need to clone a repository before you can import a project from it.  In this case, we are going to clone the AADL examples repository.
+
+1. Click on the `Clone repository` ![](images/OSATEUserGuide/Clone.png) button in the toolbar of the `Git Repositories` view.
+
+2. The clone wizard opens.  Enter the URI of the repository in the `URI` field.  In this case we use `https://github.com/osate/examples`.  The wizard automatically fills in the `Host` and `Repository path` fields.
+
+  Because you only need read access to the examples, you do not need to enter a user name or password.  In general, however, your repositories will probably require authentication and you would enter the credentials here.
+  
+  Click on `Next >`
+
+  ![Wizard](images/OSATEUserGuide/CloneDialog.png)
+
+3. The wizard now asks which brances to clone.  Here there is only one: `master`.  
+
+   Leave it selected and click on `Next >`.
+   
+  ![Wizard](images/OSATEUserGuide/BranchSelection.png)
+
+4. The wizard now asks where to store the cloned repository.  The default location is in the `git` directory in the the root of your user directory.  There is generally no reason to change this.
+
+  Click on `Finish`.
+  
+  ![Wizard](images/OSATEUserGuide/LocalDestination.png)
+
+OSATE now clones the repository.  This may take a few minutes.  When it is finished, the repository appears in the `Git Repositories` view.
+
+![Wizard](images/OSATEUserGuide/Cloned.png)
+
+
+
+### Import a Project
+
+Now that the repository is cloned, we can import a project from it into the workspace:
+
+1. Select the project to import in the `Git Repositories` view.  In this case we select `PropertyViewerExamples` under the `Working Tree`.
+
+2. Open the context menu and choose `Import Projects...`.
+
+  ![Context Menu](images/OSATEUserGuide/ImportProjects.png)
+
+3. The import projects wizard opens.  Just click on `Finish`.
+
+  ![Context Menu](images/OSATEUserGuide/ImportProjectsWizard.png)
+
+OSATE imports the shared project into your workspace.
+
+
+
+### Return to the AADL Perspective
+
+Return to the `AADL` perspective by clicking on the `AADL Perspective` button ![](images/OSATEUserGuide/AadlPerspectiveButton.png) on the top-right of the workbench toolbar.
+
+![AADL View](images/OSATEUserGuide/ImportedGitProject.png)
+
+The imported project is visible in the `AADL Navigator` view.  It is annotated with a small orange cylinder that indicates the contents are under version control.  The project label itself is also annotated indicating the the contents come from the _example_ repository and are from the _master_ branch.
+
+You can now proceed to use the project in your workspace. 
+
+
+
 ## <span id="analysis">Analyzing Models</span>
 
 Once you have a system model, you can use OSATE to analyze the model to confirm that the design meets your intended criteria.  In this section we run a latency analysis over the end-to-end flows of a system.  This section is not meant to be a tutorial on using any specific analysis, but instead is a demonstration of
@@ -437,7 +518,7 @@ Once you have a system model, you can use OSATE to analyze the model to confirm 
 
 > **Example**
 >
-> This section uses the project `latency-case-study` found in the archive [`latency-case-study.zip`](examples/latency-case-study.zip).  Follow the [instructions above](#import) to import the project into your workspace.
+> This section uses the project [`latency-case-study`](https://github.com/osate/examples/tree/master/latency-case-study) found in the `examples` git repository.  Follow the [instructions above](#git) to import the project into your workspace.
 
 
 
@@ -490,14 +571,7 @@ The `AADL Property Values` view is used to display and edit property values in a
 
 > **Example**
 >
-> The packages used as examples in this section can be imported into your workspace from the archive [PropertyViewerExamples.zip](examples/PropertyViewerExamples.zip).  Please see the help section on importing projects into the Eclipse workspace.
->
-> Alternatively, you can view the AADL files directly:
-> - [mine.aadl](examples/PropertyViewExampeles/mine.aadl)
-> - [Navigation.aadl](examples/PropertyViewExampeles/Navigation.aadl)
-> - [NavTypes.aadl](examples/PropertyViewExampeles/NavTypes.aadl)
-> - [Page_88.aadl](examples/PropertyViewExampeles/Page_88.aadl)
-> - [Page_220.aadl](examples/PropertyViewExampeles/Page_220.aadl)
+> The packages used as examples in this section can be imported into your workspace from the [`PropertyViewExamples`](https://github.com/osate/examples/tree/master/ProperyViewerExamples) project in the `examples` git repository.  Please see the help section on [importing projects into the Eclipse workspace](#git).
 
 Below is an example of the view in action.  It is displaying the properties of the process subcomponent `Sampler_B` of system implementation `Software.Basic` in project `Page_220`.
 
