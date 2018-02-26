@@ -1,0 +1,14 @@
+package sum_exceed_gross
+public
+	with SEI;
+	
+	system s1
+	end s1;
+	
+	system implementation s1.i1
+		subcomponents
+			sub1: system {SEI::GrossWeight => 2.0 kg;};
+		properties
+			SEI::GrossWeight => 1.0 kg;
+	end s1.i1;
+end sum_exceed_gross;

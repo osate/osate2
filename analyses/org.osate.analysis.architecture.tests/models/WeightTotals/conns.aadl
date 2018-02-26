@@ -1,0 +1,24 @@
+package conns
+public
+	with SEI;
+	
+	system s1
+	end s1;
+	
+	system implementation s1.i1
+		subcomponents
+			sub1: bus;
+			sub2: processor proc1;
+			sub3: processor proc1;
+			sub4: processor proc1;
+		connections
+			conn1: bus access sub2.ba1 -> sub1 {SEI::GrossWeight => 1.0 kg;};
+			conn2: bus access sub3.ba1 -> sub1 {SEI::NetWeight => 1.0 kg;};
+			conn3: bus access sub4.ba1 -> sub1;
+	end s1.i1;
+	
+	processor proc1
+		features
+			ba1: requires bus access;
+	end proc1;
+end conns;
