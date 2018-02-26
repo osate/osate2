@@ -50,6 +50,7 @@ Service-Component: components/DefaultExtensionRegistryService.xml,
  components/DefaultAadlResourceService.xml,
  components/DefaultGraphicalEditorService.xml,
  components/DefaultModelChangeNotifier.xml,
+ components/DefaultNamingService.xml,
  components/DefaultAadlModificationService.xml
 Export-Package: org.osate.ge,
  org.osate.ge.internal.services;x-friends:="org.osate.ui",

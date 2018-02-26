@@ -1,6 +1,10 @@
 package org.osate.ge.internal.ui.properties;
 
+import java.util.Objects;
+
 import org.eclipse.core.runtime.Adapters;
+import org.eclipse.e4.core.contexts.EclipseContextFactory;
+import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.jface.viewers.IFilter;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.window.Window;
@@ -25,6 +29,8 @@ import org.osate.ge.internal.services.NamingService;
 import org.osate.ge.internal.ui.dialogs.EditFlowsDialog;
 import org.osate.ge.internal.ui.util.InternalPropertySectionUtil;
 import org.osate.ge.ui.properties.PropertySectionUtil;
+import org.osgi.framework.Bundle;
+import org.osgi.framework.FrameworkUtil;
 
 public class EditFlowsPropertySection extends AbstractPropertySection {
 	public static class Filter implements IFilter {
@@ -34,7 +40,6 @@ public class EditFlowsPropertySection extends AbstractPropertySection {
 		}
 	}
 
-	private NamingService namingService;
 	private BusinessObjectSelection selectedBos;
 	private Button editFlowsBtn;
 
@@ -42,6 +47,12 @@ public class EditFlowsPropertySection extends AbstractPropertySection {
 		@Override
 		public void widgetSelected(final SelectionEvent e) {
 			selectedBos.modify(ComponentImplementation.class, compImpl -> {
+				final Bundle bundle = FrameworkUtil.getBundle(getClass());
+				final IEclipseContext context = EclipseContextFactory.getServiceContext(bundle.getBundleContext())
+						.createChild();
+				final NamingService namingService = Objects.requireNonNull(context.getActive(NamingService.class),
+						"Unable to retrieve naming service");
+
 				// Show the edit flows dialog
 				final EditFlowsDialog dlg = new EditFlowsDialog(Display.getCurrent().getActiveShell(), namingService,
 						compImpl);
@@ -82,7 +93,6 @@ public class EditFlowsPropertySection extends AbstractPropertySection {
 	public void setInput(final IWorkbenchPart part, final ISelection selection) {
 		super.setInput(part, selection);
 		selectedBos = Adapters.adapt(selection, BusinessObjectSelection.class);
-		namingService = Adapters.adapt(part, NamingService.class);
 	}
 
 	@Override
