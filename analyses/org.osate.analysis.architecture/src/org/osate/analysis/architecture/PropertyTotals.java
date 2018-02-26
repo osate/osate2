@@ -45,7 +45,6 @@ import org.osate.aadl2.ComponentCategory;
 import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.ConnectionInstance;
-import org.osate.aadl2.instance.SystemInstance;
 import org.osate.aadl2.modelsupport.modeltraversal.AadlProcessingSwitchWithProgress;
 import org.osate.ui.handlers.AbstractAaxlHandler;
 import org.osate.xtext.aadl2.properties.util.GetProperties;
@@ -177,20 +176,6 @@ public/* final */class PropertyTotals extends AadlProcessingSwitchWithProgress {
 			}
 		}
 		return weight;
-	}
-
-	public String getPrintName(ComponentInstance ci) {
-		String res = null;
-		if (ci instanceof SystemInstance) {
-			res = ci.getComponentClassifier().getName();
-		} else {
-			if (ci.getComponentClassifier() != null) {
-				res = ci.getName() + ": " + ci.getComponentClassifier().getName();
-			} else {
-				res = ci.getName();
-			}
-		}
-		return res;
 	}
 
 	private void reportwarning(final NamedElement obj, final String msg) {
