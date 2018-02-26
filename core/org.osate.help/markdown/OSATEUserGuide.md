@@ -134,7 +134,7 @@ Enter `MyFirstAADLProject` as the project name and click on the `Finish` button.
 
 
 
-### Built-in Proprety Sets
+### Built-in Property Sets
 
 Also visible in the view is a library icon labeled `Plugin_Contributions`.  This view element collects all the AADL property sets available by default in OSATE:
 
@@ -302,7 +302,7 @@ The instantiation process may generate error and warning markers on the instanti
 
 ## <span id="in_out">Importing and Exporting Projects</span>
 
-Eclipse can import/export projects from/to `.zip` files.  This is a simple way to share your work with other users, but not the best approach for collaborative work where you would want to use a version control system.
+Eclipse can import/export projects from/to `.zip` files.  This is a simple way to share your work with other users, but not the best approach for collaborative work where you would want to use a [version control system](#git).  
 
 
 
@@ -398,6 +398,31 @@ An `Archive file` wizard dialog will open.
 #### Use Your New Archive
 
 The wizard dialog will close when the export process finishes.  The new archive file will be created where you specified.  You can now share this archive with other users.
+
+
+
+### <span id="git">Importing a Project from a git Repository</span>
+
+While archive files provide a quick-and-dirty mechanism for sharing projects, the become problematic when you want to collaborate.  It is better to store projects in a version control system (VCS) so that changes to the models can be coordianted.  Eclipse (and thus OSATE) supports all the popular VCS, including **svn** and **git**.  In this section, we show how to import a project from a git repository.
+
+
+
+#### Clean Up Your Workspace (Removing a Project)
+
+We are going to reimport the `PropertyViewerExamples` project, but this time using git.  So if you already have the project in your workspace from the [previous section](#import), you will need to delete it:
+
+1. Select the project in the `AADL Navigator`.
+
+2. Select `Delete` in the context menu.
+   ![Context Menu](images/OSATEUserGuide/DeleteContextMenu.png)
+   (You can also use the `Delete` key as a shortcut.)
+
+3. OSATE presents a confirmation dialog box.  Make sure to check `Delete project contents on disk`:
+   ![Confirmation dialog](images/OSATEUserGuide/DeleteDialog.png)
+
+4. Click on `OK`.
+
+OSATE removes the project from the workspace and deletes the contents of the workspace from the file system.
 
 
 
