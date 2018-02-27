@@ -403,7 +403,7 @@ The wizard dialog will close when the export process finishes.  The new archive 
 
 ### <span id="git">Importing a Project from a Git Repository</span>
 
-While archive files provide a quick-and-dirty mechanism for sharing projects, the become problematic when you want to collaborate.  It is better to store projects in a version control system (VCS) so that changes to the models can be coordianted.  Eclipse (and thus OSATE) supports all the popular VCS, including **svn** and **git**.  In this section, we show how to import a project from a git repository.
+While archive files provide a quick-and-dirty mechanism for sharing projects, this becomes problematic when you want to collaborate.  It is better to store projects in a version control system (VCS) so that changes to the models can be coordianted.  Eclipse (and thus OSATE) supports all the popular VCS, including **svn** and **git**.  In this section, we show how to import a project from a git repository.
 
 
 
