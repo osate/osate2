@@ -1,6 +1,5 @@
 package org.osate.ge.internal.ui.handlers;
 
-import java.util.List;
 import java.util.Objects;
 
 import org.eclipse.core.commands.AbstractHandler;
@@ -12,7 +11,6 @@ import org.eclipse.graphiti.features.context.ISaveImageContext;
 import org.eclipse.graphiti.features.context.impl.SaveImageContext;
 import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.handlers.HandlerUtil;
-import org.osate.ge.internal.diagram.runtime.DiagramElement;
 import org.osate.ge.internal.graphiti.diagram.GraphitiAgeDiagram;
 import org.osate.ge.internal.ui.editor.AgeDiagramEditor;
 
@@ -55,13 +53,8 @@ public class SaveImageHandler extends AbstractHandler {
 			throw new RuntimeException("Unexpected editor: " + activeEditor);
 		}
 
-		// Get diagram and selected elements
-		final List<DiagramElement> selectedDiagramElements = AgeHandlerUtil.getSelectedDiagramElements(event);
-		if (selectedDiagramElements.size() == 0) {
-			throw new RuntimeException("No element selected");
-		}
-
 		final AgeDiagramEditor ageEditor = (AgeDiagramEditor) activeEditor;
+
 		final IFeatureProvider fp = Objects.requireNonNull(ageEditor.getDiagramTypeProvider().getFeatureProvider(),
 				"Unable to retrieve feature provider");
 

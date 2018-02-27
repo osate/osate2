@@ -1,10 +1,8 @@
 package org.osate.ge.internal.ui.handlers;
 
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
-import java.util.Set;
 
 import org.eclipse.core.commands.AbstractHandler;
 import org.eclipse.core.commands.ExecutionEvent;
@@ -63,13 +61,9 @@ public class ToggleAllFiltersHandler extends AbstractHandler implements IElement
 			diagram.modify("Enable All Filters", m -> {
 				// Update all applicable content filters which do not have a parent to each element
 				for (final DiagramElement e : selectedDiagramElements) {
-					final Set<ContentFilter> newContentFilters = new HashSet<>(e.getContentFilters());
-					for (final ContentFilter filter : extService.getContentFilters()) {
-						if (filter.getParentId() == null && filter.isApplicable(e.getBusinessObject())) {
-							newContentFilters.add(filter);
-						}
-					}
-					m.setContentFilters(e, ImmutableSet.copyOf(newContentFilters));
+					final ImmutableSet<ContentFilter> newContentFilters = extService.getApplicableContentFilters(e.getBusinessObject()).stream().filter(cf -> cf.getParentId() == null)
+							.collect(ImmutableSet.toImmutableSet());
+					m.setContentFilters(e, newContentFilters);
 				}
 			});
 		} else {

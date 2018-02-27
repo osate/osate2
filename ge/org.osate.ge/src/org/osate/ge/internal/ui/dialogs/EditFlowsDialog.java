@@ -40,6 +40,7 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Shell;
+import org.eclipse.xtext.util.Strings;
 import org.osate.aadl2.Aadl2Factory;
 import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.ComponentClassifier;
@@ -147,7 +148,7 @@ public class EditFlowsDialog extends TitleAreaDialog {
 	@Override
 	protected void configureShell(final Shell newShell) {
 		super.configureShell(newShell);
-		newShell.setText("Edit Flows");
+		newShell.setText("Edit Flows for " + Strings.emptyIfNull(ci.getQualifiedName()));
 		newShell.setMinimumSize(550, 250);
 	}
 
@@ -194,7 +195,7 @@ public class EditFlowsDialog extends TitleAreaDialog {
 	@Override
 	public void create() {
 		super.create();
-		setTitle("Flows");
+		setTitle("Flows for " + Strings.emptyIfNull(ci.getQualifiedName()));
 	}
 
 	@Override
