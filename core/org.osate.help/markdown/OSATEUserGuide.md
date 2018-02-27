@@ -319,15 +319,15 @@ Here we show how to import an AADL project containing `.aadl` model files, but t
 
 Open the import wizard by selecting `Import...` from the context menu of the `AADL Navigator` view:
 
-![](images/HowToImportAProject/ContextMenu_Import.png)
+![](images/OSATEUserGuide/ContextMenu_Import.png)
 
 You should see a dialog like this:
 
-![](images/HowToImportAProject/ImportWizard1.png)
+![](images/OSATEUserGuide/ImportWizard1.png)
 
 Select `General > Existing Projects into Workspace`, and click on the `Next >` button.
 
-![](images/HowToImportAProject/ImportWizard2.png)
+![](images/OSATEUserGuide/ImportWizard2.png)
 
 
 
@@ -341,7 +341,7 @@ An `Import Projects` wizard dialog will open.  (An archive may contain more than
    The wizard dialog should look like the image below, except with your local pathname showing.  The projects contained in the archive are listed in the `Projects` section.  Here you can select which projects to import.  Our example has only one project, and we leave it selected.
 3. Click on the `Finish` button to begin the import process.
 
-![](images/HowToImportAProject/ImportProjects.png)
+![](images/OSATEUserGuide/ImportProjects1.png)
 
 
 
@@ -349,7 +349,7 @@ An `Import Projects` wizard dialog will open.  (An archive may contain more than
 
 The wizard dialog will close when the import process finishes.  The imported project (or projects) will be visible in your workspace.  In the case of our example, you should see a project named `PropertyViewerExamples` that contains five `.aadl` files.
 
-![](images/HowToImportAProject/Workspace.png)
+![](images/OSATEUserGuide/Workspace.png)
 
 
 
@@ -370,15 +370,15 @@ Open the export wizard by
 1. Selecting the project `PropertyViewerExamples` in the `AADL Navigator`.
 2. Selecting `Export...` from the context menu.
 
-![](images/HowToExportAProject/ContextMenu_Export.png)
+![](images/OSATEUserGuide/ContextMenu_Export.png)
 
 You should see a dialog like this:
 
-![](images/HowToExportAProject/ExportWizard1.png)
+![](images/OSATEUserGuide/ExportWizard1.png)
 
 Select `General > Archive File`, and click on the `Next >` button.
 
-![](images/HowToExportAProject/ExportWizard2.png)
+![](images/OSATEUserGuide/ExportWizard2.png)
 
 
 
@@ -391,7 +391,7 @@ An `Archive file` wizard dialog will open.
 * In the center of the wizard enter the pathname of the archive file to create, or use the `Browse...` button to use the file selection dialog to specify the pathname.
 * Click on the `Finish` button to begin the export process.
 
-![](images/HowToExportAProject/ArchiveFile.png)
+![](images/OSATEUserGuide/ArchiveFile.png)
 
 
 
@@ -575,7 +575,7 @@ The `AADL Property Values` view is used to display and edit property values in a
 
 Below is an example of the view in action.  It is displaying the properties of the process subcomponent `Sampler_B` of system implementation `Software.Basic` in project `Page_220`.
 
-<span id="values1">![Example Screenshot](images/AadlPropertyValues/ExampleScreenshot.png)</span>
+<span id="values1">![Example Screenshot](images/OSATEUserGuide/ExampleScreenshot.png)</span>
 
 
 
@@ -583,15 +583,15 @@ Below is an example of the view in action.  It is displaying the properties of t
 
 From the main menu, select `Window > Show View`.  If OSATE is currently in the `AADL perspective`, then you can select `AADL Property Values`.
 
-![Example Screenshot](images/AadlPropertyValues/Window_View_AadlPropertyValues.png)
+![Example Screenshot](images/OSATEUserGuide/Window_View_OSATEUserGuide.png)
 
 If you are not in the `AADL Perspective`, select `Other...` to bring up the `Show View` dialog box:
 
-![Example Screenshot](images/AadlPropertyValues/Window_View_Other.png)
+![Example Screenshot](images/OSATEUserGuide/Window_View_Other.png)
 
 Choose `AADL > AADL Property Values` and click on the `Open` button.
 
-![Example Screenshot](images/AadlPropertyValues/ShowView.png)
+![Example Screenshot](images/OSATEUserGuide/ShowView2.png)
 
 
 
@@ -654,7 +654,7 @@ A **local** property value is defined directly on the AADL model element in eith
 >
 > In the screenshot below, the properties `Car_Length`, `Car_Name`, and `Position` are all **local** because they are defined in the properties subclause of the device `car`.
 >
-> ![Local Properties](images/AadlPropertyValues/Local.png)
+> ![Local Properties](images/OSATEUserGuide/Local.png)
 
 > ** Example **
 >
@@ -675,13 +675,13 @@ The view distinguishes between a **local contained** and **shared local containe
 >
 > In the following screenshot, the view is showing the properties of the data port (feature) `GPS_Data`.  The property `Input_Rate` is **local contained** because its value is defined in the `properties` subclause of the containing process type `Blended_Navigation`.  Note the syntax `applies to GPS_Data` at the end of the property value.
 >
-> ![Local Contained Properties](images/AadlPropertyValues/LocalContained.png)
+> ![Local Contained Properties](images/OSATEUserGuide/LocalContained.png)
 
 > **Example**
 >
 > Edit `Blended_Navigation` from the above example so that first property association `applies to GPS_Data, INS_Data` (see below).  Now the property `Input_Rate` on feature `INS_Data` (and `GPS_Data`) is **shared local contained**.
 >
-> ![Shared Local Contained Properties](images/AadlPropertyValues/SharedLocalContained.png)
+> ![Shared Local Contained Properties](images/OSATEUserGuide/SharedLocalContained.png)
 
 
 #### _Inherited_ Property Values
@@ -698,7 +698,7 @@ or
 > 
 > In the following screenshot, the thread `Prime_Reporter_One` is selected.  The property `Dispatch_Protocol` is **inherited** because it is defined in `Prime_Reporter` which is extended by `Prime_Reporter_One`.
 >
-> ![Inherited Properties](images/AadlPropertyValues/Inherited.png)
+> ![Inherited Properties](images/OSATEUserGuide/Inherited.png)
 
 
 
@@ -706,13 +706,13 @@ or
 
 The **default** status indicates that the property value for the selected element is not defined on any model element, but instead comes from the property's default value declaration.
 
-Properties with the **default** status are normally not shown in the view.  The toolbar button ![Toggle Default](images/AadlPropertyValues/filter_properties.gif) can be used to toggle the display of **default** properties.
+Properties with the **default** status are normally not shown in the view.  The toolbar button ![Toggle Default](images/OSATEUserGuide/filter_properties.gif) can be used to toggle the display of **default** properties.
 
 > **Example**
 >
 > In the following screenshot, the properties `Active_Thread_Handling_Protocol`, `Active_Thread_Queue_Handling_Protocol`, `Deactivation_Policy`, and `Synchronized_Component` are all **default** because their values come from the property declaration.  This can be seen in the upper editor showing the property set `Thread_Properties`.  There the property `Active_Thread_Handling_Protocol`, for example, has the default value of `abort`.
 >
-> ![Default Properties](images/AadlPropertyValues/Default.png)
+> ![Default Properties](images/OSATEUserGuide/Default.png)
 
 
 
@@ -720,13 +720,13 @@ Properties with the **default** status are normally not shown in the view.  The 
 
 The **undefined** status indicates that the property has no value for the selected model element.  These properties are applicable to the selected element, so they could potentially have values for the selected property holder.
 
-Properties without a value are normally not shown in the view.  The toolbar button ![Toggle Undefined](images/AadlPropertyValues/nonexistent_property.gif) can be used to toggle the display of **undefined** properties.
+Properties without a value are normally not shown in the view.  The toolbar button ![Toggle Undefined](images/OSATEUserGuide/nonexistent_property.gif) can be used to toggle the display of **undefined** properties.
 
 > **Example**
 >
 > In the following screenshot, the properties `Criticality`, `Dispatch_Able`, `Dispatch_Trigger`, `POSIX_Scheduling_Policy`, and `Priority` are all **undefined** because they have no value.
 >
-> ![Undefined Properties](images/AadlPropertyValues/Undefined.png)
+> ![Undefined Properties](images/OSATEUserGuide/Undefined.png)
 
 
 
@@ -734,9 +734,9 @@ Properties without a value are normally not shown in the view.  The toolbar butt
 
 The toolbar contains three buttons that influence which properties are displayed in the view:
 
-* ![Toggle Imported](images/AadlPropertyValues/filter_ps.png): Show only properties in property sets which are included in the package's with statements.
-* ![Toggle Undefined](images/AadlPropertyValues/nonexistent_property.gif): Show **undefined** properties.
-* ![Toggle Default](images/AadlPropertyValues/filter_properties.gif): Show **default** properties.
+* ![Toggle Imported](images/OSATEUserGuide/filter_ps.png): Show only properties in property sets which are included in the package's with statements.
+* ![Toggle Undefined](images/OSATEUserGuide/nonexistent_property.gif): Show **undefined** properties.
+* ![Toggle Default](images/OSATEUserGuide/filter_properties.gif): Show **default** properties.
 
 
 
@@ -752,7 +752,7 @@ When you are finished editing, press enter or click outside of the table cell an
 
 There are several actions available in the view's context menu when you right-click on a row in the view's table.
 
-![Context Menu](images/AadlPropertyValues/ContextMenu.png)
+![Context Menu](images/OSATEUserGuide/ContextMenu.png)
 
 
 
