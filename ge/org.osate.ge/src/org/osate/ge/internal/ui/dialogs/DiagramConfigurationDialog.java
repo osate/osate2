@@ -3,8 +3,10 @@ package org.osate.ge.internal.ui.dialogs;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
@@ -122,7 +124,7 @@ public class DiagramConfigurationDialog {
 			super.configureShell(newShell);
 			newShell.setText("Configure Diagram");
 			newShell.setMinimumSize(250, 400);
-			newShell.setSize(900, 550);
+			newShell.setSize(1300, 1000);
 		}
 
 		@Override
@@ -161,7 +163,8 @@ public class DiagramConfigurationDialog {
 			modelElementSelectionGroup
 			.setLayoutData(GridDataFactory.fillDefaults().grab(true, true).span(2, 1).create());
 
-			boTreeViewer = new CheckboxTreeViewer(modelElementSelectionGroup, SWT.FULL_SELECTION | SWT.BORDER);
+			boTreeViewer = new CheckboxTreeViewer(modelElementSelectionGroup,
+					SWT.MULTI | SWT.FULL_SELECTION | SWT.BORDER);
 			boTreeViewer.setUseHashlookup(true);
 
 			// Update item when checked
@@ -231,68 +234,89 @@ public class DiagramConfigurationDialog {
 			});
 
 			//
+			// Content Filters Group
+			//
+			final Group contentFiltersGroup = new Group(modelElementSelectionGroup, SWT.NONE);
+			contentFiltersGroup.setText("Filters:");
+			contentFiltersGroup.setLayout(GridLayoutFactory.swtDefaults().numColumns(2).create());
+			contentFiltersGroup.setLayoutData(GridDataFactory.fillDefaults().grab(false, true).create());
+
+			//
 			// List for configuring the content filters
 			//
-			contentFiltersViewer = new CheckboxTreeViewer(modelElementSelectionGroup, SWT.BORDER);
+			contentFiltersViewer = new CheckboxTreeViewer(contentFiltersGroup, SWT.BORDER);
 			contentFiltersViewer.getTree().setLayoutData(GridDataFactory.fillDefaults().grab(false, true).span(1, 1)
 					.minSize(SWT.DEFAULT, 100).hint(300, SWT.DEFAULT).create());
 			contentFiltersViewer.setComparator(new ViewerComparator());
 			contentFiltersViewer.setContentProvider(new ContentFilterTreeContentProvider());
 
-			boTreeViewer.addSelectionChangedListener(event -> {
-				final BusinessObjectNode selectedBoNode = getSelectedBusinessObjectNode();
-
-				contentFiltersViewer.setInput(selectedBoNode == null ? null
-						: model.getApplicableContentFilters(selectedBoNode.getBusinessObject()));
-
-				contentFiltersViewer.getTree().setEnabled(selectedBoNode != null);
-			});
-
 			contentFiltersViewer.setCheckStateProvider(new ICheckStateProvider() {
 				@Override
 				public boolean isGrayed(final Object element) {
-					final BusinessObjectNode selectedNode = getSelectedBusinessObjectNode();
-					if (selectedNode == null) {
-						return false;
-					}
-
+					final List<BusinessObjectNode> selectedBoNodes = getSelectedBusinessObjectNodes();
 					final ContentFilter filter = (ContentFilter) element;
 
-					// Should be grayed if any of descendants are in content filter set
-					return ContentFilterUtil.anyDescendantsEnabled(filter, selectedNode.getContentFilters(),
-							getCurrentApplicableContentFilters());
+					// Should be grayed if any of descendants are in content filter set for any of the bo nodes
+					for (final BusinessObjectNode boNode : selectedBoNodes) {
+						if (ContentFilterUtil.anyDescendantsEnabled(filter, boNode.getContentFilters(),
+								getCurrentApplicableContentFilters(boNode.getBusinessObject()))) {
+							return true;
+						}
+					}
+
+					// The filter should be grayed if there are enabled and disabled states for different business objects for which the filter is applicable.
+					boolean applicableFilterIsEnabled = false;
+					boolean applicableFilterIsDisabled = false;
+					for (final BusinessObjectNode boNode : selectedBoNodes) {
+						if (filter.isApplicable(boNode.getBusinessObject())) {
+							if (isFilterEnabled(filter, boNode)) {
+								applicableFilterIsEnabled = true;
+							} else {
+								applicableFilterIsDisabled = true;
+							}
+
+							if (applicableFilterIsEnabled && applicableFilterIsDisabled) {
+								return true;
+							}
+						}
+					}
+
+					return false;
+				}
+
+				private boolean isFilterEnabled(final ContentFilter filter, final BusinessObjectNode boNode) {
+					return boNode.getContentFilters().contains(filter)
+							|| ContentFilterUtil.anyAncestorsEnabled(filter, boNode.getContentFilters(),
+									getCurrentApplicableContentFilters(boNode.getBusinessObject()));
 				}
 
 				@Override
 				public boolean isChecked(final Object element) {
-					final BusinessObjectNode selectedNode = getSelectedBusinessObjectNode();
-					if (selectedNode == null) {
-						return false;
-					}
+					final List<BusinessObjectNode> selectedBoNodes = getSelectedBusinessObjectNodes();
 
 					final ContentFilter filter = (ContentFilter) element;
 
 					// Should be checked if in content filter set, any of it's children are in the set, or if it's parent is in the set.
-					return selectedNode.getContentFilters().contains(element) || isGrayed(element)
-							|| ContentFilterUtil.anyAncestorsEnabled(filter, selectedNode.getContentFilters(),
-									getCurrentApplicableContentFilters());
+					if (isGrayed(element)) {
+						return true;
+					}
+
+					return selectedBoNodes.stream().anyMatch(boNode -> isFilterEnabled(filter, boNode));
 				}
 			});
 
 			contentFiltersViewer.addCheckStateListener(event -> {
-				final BusinessObjectNode selectedNode = getSelectedBusinessObjectNode();
-				if (selectedNode == null) {
-					return;
-				}
-
+				final List<BusinessObjectNode> selectedBoNodes = getSelectedBusinessObjectNodes();
 				final ContentFilter updatedFilter = (ContentFilter) event.getElement();
 
 				// Update the content filters
-				final ImmutableSet<ContentFilter> newContentFilters = ContentFilterUtil.updateContentFilterSet(
-						selectedNode.getContentFilters(), getCurrentApplicableContentFilters(), updatedFilter,
-						event.getChecked());
-
-				selectedNode.setContentFilters(newContentFilters);
+				for (final BusinessObjectNode boNode : selectedBoNodes) {
+					final ImmutableSet<ContentFilter> newContentFilters = ContentFilterUtil.updateContentFilterSet(
+							boNode.getContentFilters(), getCurrentApplicableContentFilters(boNode.getBusinessObject()),
+							updatedFilter,
+							event.getChecked());
+					boNode.setContentFilters(newContentFilters);
+				}
 
 				updateTree();
 			});
@@ -303,6 +327,57 @@ public class DiagramConfigurationDialog {
 					return ((ContentFilter) element).getName();
 				}
 			});
+
+			final Composite contentFiltersButtons = new Composite(contentFiltersGroup, SWT.NONE);
+			contentFiltersButtons.setLayoutData(GridDataFactory.fillDefaults().grab(false, true).create());
+			contentFiltersButtons.setLayout(GridLayoutFactory.swtDefaults().numColumns(1).create());
+
+			final Button selectAllContentFiltersBtn = new Button(contentFiltersButtons, SWT.PUSH);
+			selectAllContentFiltersBtn.setLayoutData(GridDataFactory.fillDefaults().grab(true, false).create());
+			selectAllContentFiltersBtn.setText("Select All");
+			selectAllContentFiltersBtn.setEnabled(false);
+			selectAllContentFiltersBtn.addSelectionListener(new SelectionAdapter() {
+
+				@Override
+				public void widgetSelected(SelectionEvent e) {
+					final List<BusinessObjectNode> selectedBoNodes = getSelectedBusinessObjectNodes();
+					selectedBoNodes.forEach(selectedNode -> {
+						final ImmutableSet<ContentFilter> newContentFilters = getCurrentApplicableContentFilters(
+								selectedNode.getBusinessObject()).stream().filter(cf -> cf.getParentId() == null)
+								.collect(ImmutableSet.toImmutableSet());
+						selectedNode.setContentFilters(newContentFilters);
+					});
+
+					updateTree();
+				}
+			});
+
+			final Button deselectAllContentFiltersBtn = new Button(contentFiltersButtons, SWT.PUSH);
+			deselectAllContentFiltersBtn.setLayoutData(GridDataFactory.fillDefaults().grab(true, false).create());
+			deselectAllContentFiltersBtn.setText("Deselect All");
+			deselectAllContentFiltersBtn.setEnabled(false);
+			deselectAllContentFiltersBtn.addSelectionListener(new SelectionAdapter() {
+				@Override
+				public void widgetSelected(SelectionEvent e) {
+					final List<BusinessObjectNode> selectedBoNodes = getSelectedBusinessObjectNodes();
+					selectedBoNodes.forEach(selectedNode -> selectedNode.setContentFilters(ImmutableSet.of()));
+
+					updateTree();
+				}
+			});
+
+			boTreeViewer.addSelectionChangedListener(event -> {
+				final List<BusinessObjectNode> selectedBoNodes = getSelectedBusinessObjectNodes();
+				final Set<ContentFilter> applicableContentFilters = new HashSet<>();
+				selectedBoNodes.forEach(boNode -> {
+					applicableContentFilters.addAll(model.getApplicableContentFilters(boNode.getBusinessObject()));
+				});
+				contentFiltersViewer.setInput(ImmutableSet.copyOf(applicableContentFilters));
+				contentFiltersViewer.getTree().setEnabled(!selectedBoNodes.isEmpty());
+				selectAllContentFiltersBtn.setEnabled(!applicableContentFilters.isEmpty());
+				deselectAllContentFiltersBtn.setEnabled(!applicableContentFilters.isEmpty());
+			});
+
 
 			// AADL Properties Widgets
 			final Label aadlPropertiesLabel = new Label(container, SWT.NONE);
@@ -457,20 +532,22 @@ public class DiagramConfigurationDialog {
 		}
 
 		@SuppressWarnings("unchecked")
-		private final ImmutableSet<ContentFilter> getCurrentApplicableContentFilters() {
-			return (ImmutableSet<ContentFilter>) contentFiltersViewer.getInput();
+		private final ImmutableSet<ContentFilter> getCurrentApplicableContentFilters(final Object bo) {
+			return ((ImmutableSet<ContentFilter>) contentFiltersViewer.getInput()).stream()
+					.filter(cf -> cf.isApplicable(bo)).collect(ImmutableSet.toImmutableSet());
 		}
 
-		private final BusinessObjectNode getSelectedBusinessObjectNode() {
+		@SuppressWarnings("unchecked")
+		private final List<BusinessObjectNode> getSelectedBusinessObjectNodes() {
 			final ISelection boNodeSelection = boTreeViewer.getSelection();
-			final BusinessObjectNode selectedBoNode;
+			final List<BusinessObjectNode> selectedBoNodes;
 			if (boNodeSelection instanceof StructuredSelection && !boNodeSelection.isEmpty()) {
-				selectedBoNode = (BusinessObjectNode) ((StructuredSelection) boNodeSelection).getFirstElement();
+				selectedBoNodes = ((StructuredSelection) boNodeSelection).toList();
 			} else {
-				selectedBoNode = null;
+				selectedBoNodes = Collections.emptyList();
 			}
 
-			return selectedBoNode;
+			return selectedBoNodes;
 		}
 
 		private void setBranchIsManual(final BusinessObjectNode node, final boolean value) {
