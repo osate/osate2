@@ -459,7 +459,7 @@ You need to clone a repository before you can import a project from it.  In this
 
   ![Wizard](images/OSATEUserGuide/CloneDialog.png)
 
-3. The wizard now asks which brances to clone.  Here there is only one: `master`.  
+3. The wizard now asks which branches to clone.  Here there is only one: `master`.  
 
    Leave it selected and click on `Next >`.
    
@@ -571,7 +571,7 @@ The `AADL Property Values` view is used to display and edit property values in a
 
 > **Example**
 >
-> The packages used as examples in this section can be imported into your workspace from the [`PropertyViewExamples`](https://github.com/osate/examples/tree/master/ProperyViewerExamples) project in the `examples` git repository.  Please see the help section on [importing projects into the Eclipse workspace](#git).
+> The packages used as examples in this section can be imported into your workspace from the [`PropertyViewerExamples`](https://github.com/osate/examples/tree/master/ProperyViewerExamples) project in the `examples` git repository.  Please see the help section on [importing projects into the Eclipse workspace](#git).
 
 Below is an example of the view in action.  It is displaying the properties of the process subcomponent `Sampler_B` of system implementation `Software.Basic` in project `Page_220`.
 
