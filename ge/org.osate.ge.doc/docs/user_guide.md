@@ -277,6 +277,7 @@ Table: Incremental Layout Modes {#tbl:incremental_layout_modes}
 * Mode transition triggers are not routed. The recommended workaround is to show the mode transition triggers as text labels.
 * Flow source and sinks are not consider when laying out the diagram.
 * The automatic layout for flow path may produce unexpected routing and label placement for the flow path. To workaround this issue, it is recommended to disable labels for flow paths.	
+* Flow paths other than those which include a feature on the left side and a feature on the right side of the container will not layout correctly. To workaround this issue, it is recommended to adjust the location of the features.
 	
 ## Connections
 The graphical editor allows editing AADL connections such as access, feature, feature group, parameter, and port.
