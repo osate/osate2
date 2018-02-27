@@ -24,6 +24,7 @@ import org.osate.aadl2.ComponentImplementation;
 import org.osate.aadl2.EndToEndFlow;
 import org.osate.aadl2.Flow;
 import org.osate.aadl2.FlowImplementation;
+import org.osate.aadl2.Subcomponent;
 import org.osate.ge.BusinessObjectSelection;
 import org.osate.ge.internal.services.NamingService;
 import org.osate.ge.internal.ui.dialogs.EditFlowsDialog;
@@ -36,27 +37,43 @@ public class EditFlowsPropertySection extends AbstractPropertySection {
 	public static class Filter implements IFilter {
 		@Override
 		public boolean select(final Object toTest) {
-			return PropertySectionUtil.isBoCompatible(toTest, bo -> bo instanceof ComponentImplementation);
+			return PropertySectionUtil.isBoCompatible(toTest, bo -> getComponentImplementation(bo) != null);
 		}
 	}
 
 	private BusinessObjectSelection selectedBos;
 	private Button editFlowsBtn;
 
+	private static ComponentImplementation getComponentImplementation(final Object bo) {
+		if (bo instanceof ComponentImplementation) {
+			return (ComponentImplementation) bo;
+		} else if (bo instanceof Subcomponent) {
+			return ((Subcomponent) bo).getComponentImplementation();
+		}
+
+		return null;
+	}
+
 	private final SelectionListener editFlowsSelectionListener = new SelectionAdapter() {
 		@Override
 		public void widgetSelected(final SelectionEvent e) {
-			selectedBos.modify(ComponentImplementation.class, compImpl -> {
-				final Bundle bundle = FrameworkUtil.getBundle(getClass());
-				final IEclipseContext context = EclipseContextFactory.getServiceContext(bundle.getBundleContext())
-						.createChild();
-				final NamingService namingService = Objects.requireNonNull(context.getActive(NamingService.class),
-						"Unable to retrieve naming service");
+			final Bundle bundle = FrameworkUtil.getBundle(getClass());
+			final IEclipseContext context = EclipseContextFactory.getServiceContext(bundle.getBundleContext())
+					.createChild();
+			final NamingService namingService = Objects.requireNonNull(context.getActive(NamingService.class),
+					"Unable to retrieve naming service");
 
-				// Show the edit flows dialog
-				final EditFlowsDialog dlg = new EditFlowsDialog(Display.getCurrent().getActiveShell(), namingService,
-						compImpl);
-				if (dlg.open() != Window.CANCEL) {
+			final ComponentImplementation readonlyComponentImplementation = selectedBos.bocStream().findFirst()
+					.map(boc -> getComponentImplementation(boc.getBusinessObject())).orElse(null);
+			if (readonlyComponentImplementation == null) {
+				return;
+			}
+
+			// Show the edit flows dialog
+			final EditFlowsDialog dlg = new EditFlowsDialog(Display.getCurrent().getActiveShell(), namingService,
+					readonlyComponentImplementation);
+			if (dlg.open() != Window.CANCEL) {
+				selectedBos.modify(boc -> getComponentImplementation(boc.getBusinessObject()), (compImpl, boc) -> {
 					// Clear existing flows
 					compImpl.getOwnedEndToEndFlows().clear();
 					compImpl.getOwnedFlowImplementations().clear();
@@ -70,8 +87,8 @@ public class EditFlowsPropertySection extends AbstractPropertySection {
 							compImpl.setNoFlows(false);
 						}
 					}
-				}
-			});
+				});
+			}
 		}
 	};
 
