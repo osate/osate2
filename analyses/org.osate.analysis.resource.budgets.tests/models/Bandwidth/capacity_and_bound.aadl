@@ -1,0 +1,21 @@
+package capacity_and_bound
+public
+	with SEI;
+	
+	system s1
+	end s1;
+	
+	system implementation s1.i1
+		subcomponents
+			sub1: bus {SEI::BandWidthCapacity => 1.0 bitsps;};
+			sub2: process ps1;
+			sub3: process ps1;
+		connections
+			conn1: port sub2.f1 -> sub3.f1 {Actual_Connection_Binding => (reference (sub1));};
+	end s1.i1;
+	
+	process ps1
+		features
+			f1: in out data port;
+	end ps1;
+end capacity_and_bound;

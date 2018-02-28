@@ -1,0 +1,18 @@
+package missing_reference_processor
+public
+	system s1
+	end s1;
+	
+	system implementation s1.i1
+		subcomponents
+			sub1: process ps1.i1;
+	end s1.i1;
+	
+	process ps1
+	end ps1;
+	
+	process implementation ps1.i1
+		subcomponents
+			sub2: thread {Compute_Execution_Time => 1 ms .. 2 ms;};
+	end ps1.i1;
+end missing_reference_processor;

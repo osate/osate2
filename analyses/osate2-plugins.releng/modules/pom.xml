@@ -33,6 +33,7 @@
 
 		<module>../../org.osate.analysis.flows.tests</module>
 		<module>../../org.osate.analysis.architecture.tests</module>
+		<module>../../org.osate.analysis.resource.budgets.tests</module>
 	</modules>
 
 </project>

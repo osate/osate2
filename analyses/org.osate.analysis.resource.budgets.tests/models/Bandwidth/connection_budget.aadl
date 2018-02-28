@@ -1,0 +1,37 @@
+package connection_budget
+public
+	with SEI;
+	
+	system s1
+	end s1;
+	
+	system implementation s1.i1
+		subcomponents
+			sub1: bus {SEI::BandWidthCapacity => 1.0 KBytesps;};
+			sub2: bus {SEI::BandWidthCapacity => 1.0 KBytesps;};
+			sub3: process ps1;
+			sub4: process ps1;
+		connections
+			conn1: port sub3.f1 -> sub4.f1 {
+				Actual_Connection_Binding => (reference (sub1));
+				SEI::BandWidthBudget => 1.0 KBytesps;
+			};
+			conn2: port sub3.f2 -> sub4.f1 {
+				Actual_Connection_Binding => (reference (sub2));
+				SEI::BandWidthBudget => 1.0 KBytesps;
+			};
+			conn3: port sub3.f3 -> sub4.f1 {
+				Actual_Connection_Binding => (reference (sub2));
+				SEI::BandWidthBudget => 1.0 KBytesps;
+			};
+	end s1.i1;
+	
+	process ps1
+		features
+			f1: in out data port;
+			f2: in out data port {Data_Size => 1 KByte;};
+			f3: in out data port {Data_Size => 2 KByte;};
+		properties
+			Period => 1 sec;
+	end ps1;
+end connection_budget;
