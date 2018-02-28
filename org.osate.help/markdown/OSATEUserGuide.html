@@ -10,8 +10,7 @@
 </head>
 <body class="markdown haroopad">
 <h1 id="osate-user-guide"><a name="osate-user-guide" href="#osate-user-guide"></a>OSATE User Guide</h1><p>OSATE is a complete modeling environment providing support for describing AADL models. It is composed of many features to model and analyse systems.  Also, a user can build their own tools based on OSATE and extend its initial capability.</p><p>This manual provides an overview of the basic features of OSATE and describes how to work with AADL models:</p><ul>
-<li><a href="#basics">Eclipse Basics</a></li><li><a href="#project">Creating an AADL Project</a></li><li><a href="#navigation">Navigating an AADL Model</a></li><li><a href="#instance">Instantiating Your Model</a></li><li><a href="#in_out">Importing and Exporting Models</a></li><li><a href="#analysis">Analyzing a Model</a></li><li><a href="#properties">Viewing AADL Property Values</a></li></ul><p>This manual also includes as reference material</p><ul>
-<li><a href="#syntax">AADL Syntax Rules</a></li><li><a href="#style">Suggested AADL Style Guide</a></li></ul><h2 id="eclipse-basics"><a name="eclipse-basics" href="#eclipse-basics"></a><span id="basics">Eclipse Basics</span></h2><p>OSATE is built on the Eclipse framework.  You may be familiar with Eclipse from using it for Java development.  OSATE inherits many concepts from Eclipse including</p><ul>
+<li><a href="#basics">Eclipse Basics</a></li><li><a href="#project">Creating an AADL Project</a></li><li><a href="#navigation">Navigating an AADL Model</a></li><li><a href="#instance">Instantiating Your Model</a></li><li><a href="#in_out">Importing and Exporting Models</a></li><li><a href="#analysis">Analyzing a Model</a></li><li><a href="#properties">Viewing AADL Property Values</a></li></ul><h2 id="eclipse-basics"><a name="eclipse-basics" href="#eclipse-basics"></a><span id="basics">Eclipse Basics</span></h2><p>OSATE is built on the Eclipse framework.  You may be familiar with Eclipse from using it for Java development.  OSATE inherits many concepts from Eclipse including</p><ul>
 <li><strong>The Workbench.</strong>  The main UI.</li><li><strong>Projects.</strong>   Work is divided into projects that group together related files.  Projects may be closed when they are not in use to prevent then from taking up OSATE resources and to prevent accidental modification.</li><li><strong>Views.</strong>  A view is a read-only display of information.  A view may be connected to a specific object in the OSATE workspace (often times the currently selected element).</li><li><strong>Editors.</strong>  Not surprisingly, an editor provides write access to information in a project.  For example, OSATE has both a textual and graphical editor for AADL packages.</li><li><strong>Perspectives.</strong>  A perspective is a prearranged collection of views, editors, and toolbars focused around a particular task.  In OSATE, you mainly use the <code>AADL</code> perspective.</li><li><strong>Markers.</strong>   A marker is a piece of information attached to a location in a file.  They are commonly used to report errors and warnings about files.  For example, OSATE uses markers to report syntax errors in AADL files.  Ananlysis plug-ins often use markers to communicate their results.  Markers are visible in several ways.  They are most commonly interacted with as annotations within editors and as a list in the <code>Problems</code> view.</li></ul><h3 id="eclipse-help"><a name="eclipse-help" href="#eclipse-help"></a>Eclipse Help</h3><p>If you are unfamiliar with Eclipse, the “Workbench User Guide” in the Eclipse help system is an excellent introduction.  This can be accessed in OSATE by going to the <code>Help</code> menu in the main OSATE window and selecting <code>Help Contents</code>:</p><p><img src="images/OSATEUserGuide/help1.png" alt="Menu Bar"></p><p>A new browser window will open with a table of contents on the left-hand side.  The <code>Workbench User Guide</code> is the first document in the list:</p><p><img src="images/OSATEUserGuide/help2.png" alt="Help Window"></p><h3 id="the-workbench"><a name="the-workbench" href="#the-workbench"></a>The Workbench</h3><p>All work in the OSATE is done through a <em>Workbench</em>.  This is the main window, and it generally fills most or all of your screen.  The look and contents of the workbench are highly customizable, but it is uncommon to deviate too much from its default layout.  Generally it has </p><ul>
 <li>A row of toolbars along the top.</li><li>A <em>navigator</em> view along the left-hand side.  This view displays all the available projects and their contents.  OSATE uses a customized <code>AADL Navigator</code> that also displays globally available AADL property sets provided by plug-ins.</li><li>An <em>outline</em> view on the right-hand side.  This view interacts with the active editor window and displays a structured semantic or syntactic outline of the contents of the editor.  It can be used to quickly navigate the contents of the editor.</li><li>The <code>Problems</code> view along the bottom.  This view is used to interact with markers.</li></ul><p>The rest of the center space of the workbench is used to hold editor windows.  This layout can be seen in the workbench window below that is set to the OSATE <code>AADL</code> perspective:</p><p><img src="images/OSATEUserGuide/workbench.png" alt="Workbench"></p><p>There are several other features of the workbench visible in the above image:</p><ul>
 <li>Views can have their own toolbars.</li><li>Views can be stacked into tabbed layouts.  This is visible along the bottom of the workbench where there are tabs for the <code>Problems</code>, <code>Properties</code>, and <code>AADL Property Values</code> views.</li><li>Views can have their own menus.  The menu is accessible by clicking on the downward facing triangle in the top right of the toolbar of the view: <img src="images/OSATEUserGuide/ViewMenu.png" alt="">.</li><li>Views can be minimized or maximized within the workbench window using the toolbar buttons <img src="images/OSATEUserGuide/MinMax.png" alt="">.</li><li>Views can be closed by clicking on the “x” icon on their tab.</li></ul><h4 id="commands"><a name="commands" href="#commands"></a>Commands</h4><p>As an Eclipse-based application, OSATE makes its commands available in multiple modalities.  A single command is usually available</p><ul>
@@ -140,144 +139,7 @@ end aadlmodel;
 <p><img src="images/OSATEUserGuide/Undefined.png" alt="Undefined Properties"></p>
 </blockquote><h3 id="property-filters"><a name="property-filters" href="#property-filters"></a>Property Filters</h3><p>The toolbar contains three buttons that influence which properties are displayed in the view:</p><ul>
 <li><img src="images/OSATEUserGuide/filter_ps.png" alt="Toggle Imported">: Show only properties in property sets which are included in the package’s with statements.</li><li><img src="images/OSATEUserGuide/nonexistent_property.gif" alt="Toggle Undefined">: Show <strong>undefined</strong> properties.</li><li><img src="images/OSATEUserGuide/filter_properties.gif" alt="Toggle Default">: Show <strong>default</strong> properties.</li></ul><h3 id="editing-values"><a name="editing-values" href="#editing-values"></a>Editing Values</h3><p>Properties with the status of <strong>local</strong>, <strong>local contained</strong>, or <strong>shared local contained</strong> can be edited directly in the view.  To begin editing, simply click on the property value in the view’s table.  The table cell becomes editable and you can type in the new value.  If there are syntax errors in your new value, then the error will be underlined in red and you can hover over the cell to see an error message.  Content assist is also available while editing by pressing <code>Ctrl + Space</code>.  This can be especially useful when entering enumeration literals, unit literals, classifier values, or reference values.</p><p>When you are finished editing, press enter or click outside of the table cell and the new value will be updated in the AADL model.  <em>If you edit a property that is <strong>shared local contained</strong> then you will be editing the value for all model elements that are listed in the <code>applies to</code> clause of the property association.</em></p><h3 id="context-menu"><a name="context-menu" href="#context-menu"></a>Context Menu</h3><p>There are several actions available in the view’s context menu when you right-click on a row in the view’s table.</p><p><img src="images/OSATEUserGuide/ContextMenu.png" alt="Context Menu"></p><h4 id="open-property-definition"><a name="open-property-definition" href="#open-property-definition"></a>Open Property Definition</h4><p>This action opens the declaration of the selected property set, property, or record field in the AADL text editor.</p><h4 id="open-property-association"><a name="open-property-association" href="#open-property-association"></a>Open Property Association</h4><p>This action opens the property association that provides the displayed property value in the AADL text editor.  This action is enabled for properties that are <strong>local</strong>, <strong>local contained</strong>, or <strong>inherited</strong>.  If the action is executed on an <strong>inherited</strong> property, then the view will be updated as well such that the selected property is shown as a <strong>local</strong> property.</p><p>This action is especially useful in an instance model to find out which contained property association in the declarative model is used to provide an instance property value.</p><h4 id="create-local-property-association"><a name="create-local-property-association" href="#create-local-property-association"></a>Create Local Property Association</h4><p>This action is enabled for <strong>inherited</strong>, <strong>default</strong>, and <strong>undefined</strong> properties.  Executing this action will creates a new <strong>local</strong> value for the selected property and begins the editing process. The new property association is inserted in curly braces with the current model element in the AADL text editor.</p><h4 id="create-local-contained-property-association"><a name="create-local-contained-property-association" href="#create-local-contained-property-association"></a>Create Local Contained Property Association</h4><p>This action is enabled for <strong>inherited</strong>, <strong>default</strong>, and <strong>undefined</strong> properties.  Executing this action creates a new <strong>local contained</strong> value for the selected property and begins the editing process.</p><h4 id="make-local"><a name="make-local" href="#make-local"></a>Make Local</h4><p>This action is enabled for <strong>inherited</strong>, <strong>local contained</strong>, <strong>shared local contained</strong>, and <strong>default</strong> properties.  Executing this action creates a new <strong>local</strong> property association with the same value as was displayed in the view when the action was executed.  In other words, the existing value is copied into the new <strong>local</strong> value.</p><h4 id="make-local-contained"><a name="make-local-contained" href="#make-local-contained"></a>Make Local Contained</h4><p>This action is enabled for <strong>inherited</strong>, <strong>local</strong>, <strong>shared local contained</strong>, and <strong>default</strong> properties.  Executing this action creates a new <strong>local contained</strong> property with the same value as was displayed in the view when the action was executed.  In other words, the existing value is copied into the new <strong>local contained</strong> value.</p><h4 id="remove"><a name="remove" href="#remove"></a>Remove</h4><p>This action is enabled for <strong>local</strong>, <strong>local contained</strong>, and <strong>shared local contained</strong> properties.  It can be used to do one of the following:</p><ul>
-<li>Remove the selected property value.</li><li>Remove the selected record field from the record property value.</li><li>Remove the selected delta from the range property value.</li><li>Remove the selected item from the list property value.</li></ul><p>Note that executing this action on a <strong>shared local contained</strong> property impacts all model elements that share the selected property value.</p><h2 id="aadl-syntax-guide"><a name="aadl-syntax-guide" href="#aadl-syntax-guide"></a><span id="syntax">AADL Syntax Guide</span></h2><p>This section gives a brief overview of AADL syntax and naming rules.  The full AADL 2.1 grammer is available on a handy <a href="http://www.aadl.info/aadl/documents/AADL%20V2.1%20Syntax%20Card.pdf">syntax card</a>.</p><p>A complete and formal definition of the syntax is given in the AADL standard and in the book <a href="http://www.informit.com/store/product.aspx?isbn=0321888944"><em>Model-Based Engineering with AADL: An Introduction to the SAE Architecture Analysis &amp; Design Language</em></a>.</p><h3 id="aadl-identifier"><a name="aadl-identifier" href="#aadl-identifier"></a>AADL Identifier</h3><p>A name must</p><ul>
-<li>Start with a letter.</li><li>May be continuted by any number of letters or digits or underscoares <code>_</code>.</li><li>Not contain a space or special character.</li></ul><blockquote>
-<p><strong>Example</strong></p>
-<pre><code data-origin="<pre><code>pr_server
-</code></pre>">pr_server
-</code></pre><p><strong>Example</strong></p>
-<pre><code data-origin="<pre><code>MyProcess
-</code></pre>">MyProcess
-</code></pre><p><strong>Example</strong></p>
-<pre><code data-origin="<pre><code>Thread_Listener2
-</code></pre>">Thread_Listener2
-</code></pre></blockquote><h4 id="white-space"><a name="white-space" href="#white-space"></a>White Space</h4><p>Space, tab, and newline characters are considered white space.</p><h4 id="case-sensitivity"><a name="case-sensitivity" href="#case-sensitivity"></a>Case Sensitivity</h4><p>AADL is <em>case insensitive</em> for both keywords and identifiers.</p><blockquote>
-<p><strong>Example</strong></p>
-<p>The following is legal AADL syntax and the block end of the type definition is correctly matched with its beginning.</p>
-<pre><code data-origin="<pre><code>Process PR_Server
-    -- ...
-END pr_SERVER;
-</code></pre>">Process PR_Server
-    -- ...
-END pr_SERVER;
-</code></pre></blockquote><h3 id="comments"><a name="comments" href="#comments"></a>Comments</h3><p>Comments start with the keyword <code>--</code> and go to the end of the line.  They may begin in the middle of a line.</p><blockquote>
-<p><strong>Example</strong></p>
-<pre><code data-origin="<pre><code>-- This comment starts on a line with no other AADL syntax
-process pr_process -- this comment follows other AADL syntax
-end pr_process;
-</code></pre>">-- This comment starts on a line with no other AADL syntax
-process pr_process -- this comment follows other AADL syntax
-end pr_process;
-</code></pre></blockquote><h3 id="lists"><a name="lists" href="#lists"></a>Lists</h3><p>Lists are denoted inside of parentheses <code>(</code> <code>)</code>.  List elements are separated by a comma <code>,</code>.</p><blockquote>
-<p><strong>Example</strong></p>
-<pre><code data-origin="<pre><code>process pr_server
-properties
-    Source_Text =&amp;gt; ( &quot;server.c&quot;, &quot;server.h&quot; );
-end pr_server;
-</code></pre>">process pr_server
-properties
-    Source_Text =&gt; ( "server.c", "server.h" );
-end pr_server;
-</code></pre></blockquote><h3 id="block-structure"><a name="block-structure" href="#block-structure"></a>Block Structure</h3><p>Component types, component implementations, feature group types, packages, and property sets must end with the keyword <code>end</code> followed by their name.</p><blockquote>
-<p><strong>Example</strong></p>
-<pre><code data-origin="<pre><code>process pr_server
-    -- ...
-end pr_server;
-</code></pre>">process pr_server
-    -- ...
-end pr_server;
-</code></pre></blockquote><h3 id="package-names"><a name="package-names" href="#package-names"></a>Package Names</h3><p>A package name is a sequence of AADL identifiers separated by double colons <code>::</code>.  As with Java package names, the sequence of identifiers provides nesting.</p><blockquote>
-<p><strong>Example</strong></p>
-<p>The following are non-nested package names:</p>
-<ul>
-<li><code>MyComponents</code></li><li><code>Libary</code></li><li><code>local_components</code></li></ul>
-<p><strong>Example</strong></p>
-<p>The package <code>aircaft::hardware</code> is nested in the package <code>aircraft</code>.</p>
-</blockquote><h3 id="property-set-names"><a name="property-set-names" href="#property-set-names"></a>Property Set Names</h3><p>Property sets are named by a single identifer.</p><blockquote>
-<p><strong>Example</strong></p>
-<pre><code data-origin="<pre><code>property set data_types is
-    -- ...
-end data_types;
-</code></pre>">property set data_types is
-    -- ...
-end data_types;
-</code></pre></blockquote><h3 id="qualified-names"><a name="qualified-names" href="#qualified-names"></a>Qualified Names</h3><p>Component types, component implementations, and feature group types declared in another package must have their names qualified by the name of the package in which they are declared.  The package name is separated from the type name using the double colon <code>::</code>.</p><p>A name does not need to be qualified when used within the package in which it is declared.</p><blockquote>
-<p><strong>Example</strong></p>
-<p>The data type <code>data_frame</code> must be qualified by its package name <code>basic_types</code> because it is being referenced from the package <code>aircraft::software</code>.</p>
-<pre><code data-origin="<pre><code>package aircraft::software
-public
-    thread thr_producer
-    features
-        out_data_stream : out event data port basic_types::data_frame;
-    end thr_producer
-end aircraft::software
-</code></pre>">package aircraft::software
-public
-    thread thr_producer
-    features
-        out_data_stream : out event data port basic_types::data_frame;
-    end thr_producer
-end aircraft::software
-</code></pre></blockquote><h3 id="component-implementation-names"><a name="component-implementation-names" href="#component-implementation-names"></a>Component Implementation Names</h3><p>An implementation name is built from the name of a <em>component type</em> followed by a period <code>.</code> followed by a name for the implementation.</p><blockquote>
-<p><strong>Example</strong></p>
-<pre><code data-origin="<pre><code>process pr_server ... end pr_server;
-
-process implementation pr_server.single_threaded ... end pr_server.single_threaded;
-
-process implementation pr_server.multi_threaded ... end pr_server.multi_threaded;
-</code></pre>">process pr_server ... end pr_server;
-
-process implementation pr_server.single_threaded ... end pr_server.single_threaded;
-
-process implementation pr_server.multi_threaded ... end pr_server.multi_threaded;
-</code></pre></blockquote><h2 id="aadl-style-guide"><a name="aadl-style-guide" href="#aadl-style-guide"></a><span id="style">AADL Style Guide</span></h2><p>The following guidelines are suggested when using AADL for modeling a system.  They are recommended in case you want to use a consistent naming rules and also want to share your models with other AADL users.</p><h3 id="files"><a name="files" href="#files"></a>Files</h3><h4 id="file-names"><a name="file-names" href="#file-names"></a>File Names</h4><h5 id="aadl-packages"><a name="aadl-packages" href="#aadl-packages"></a>AADL Packages</h5><p>An AADL file uses the file extenstion <code>.aadl</code>.</p><p>The basename of an AADL file is the name of the public AADL package it contains with the separator <code>::</code> replaced by the hyphen <code>-</code>.</p><blockquote>
-<p><strong>Example</strong></p>
-<p>The public package <code>edu::sei::examples</code> is stored in the file <code>edu-sei-examples.aadl</code>.</p>
-</blockquote><h5 id="aadl-property-sets"><a name="aadl-property-sets" href="#aadl-property-sets"></a>AADL Property Sets</h5><p>An AADL property set uses the file extenstion <code>.aadl</code>.</p><p>The basename of the property set file is the name of the property set it contains.</p><blockquote>
-<p><strong>Example</strong></p>
-<p>The property set <code>basic_types</code> is stored in the file <code>basic_types.aadl</code>.</p>
-</blockquote><h4 id="indentation"><a name="indentation" href="#indentation"></a>Indentation</h4><p>Syntactic blocks should be indenteded in a consistent manner, using either spaces or tabs.</p><blockquote>
-<p><strong>Example</strong></p>
-<p>Here is AADL text using 4-space indentaton.</p>
-<pre><code data-origin="<pre><code>process pr_example
-features
-    in1 : in event port;
-    out1 : out event port;
-properties
-    Property_Name =&amp;gt; Property_Value;
-end myprocess;
-</code></pre>">process pr_example
-features
-    in1 : in event port;
-    out1 : out event port;
-properties
-    Property_Name =&gt; Property_Value;
-end myprocess;
-</code></pre></blockquote><h3 id="aadl-entity-names"><a name="aadl-entity-names" href="#aadl-entity-names"></a>AADL Entity Names</h3><h4 id="component-classifiers"><a name="component-classifiers" href="#component-classifiers"></a>Component Classifiers</h4><p>Start with the kind of the component.  Continue with a hint about the function/operation of the component.</p><blockquote>
-<p><strong>Example</strong></p>
-<pre><code data-origin="<pre><code>process pr_receive_http_request
-</code></pre>">process pr_receive_http_request
-</code></pre><p><strong>Example</strong></p>
-<pre><code data-origin="<pre><code>thread thread_gui_main
-</code></pre>">thread thread_gui_main
-</code></pre><p><strong>Example</strong></p>
-<pre><code data-origin="<pre><code>device implementation dev_keyboard.usb_impl
-</code></pre>">device implementation dev_keyboard.usb_impl
-</code></pre></blockquote><h4 id="features"><a name="features" href="#features"></a>Features</h4><p>The feature name should provide information about what the feature does or provide contextual information.</p><p>A <code>port</code> features should be prefixed by its direction (<code>in</code>, <code>out</code>, <code>in out</code>).</p><blockquote>
-<p><strong>Example</strong></p>
-<pre><code data-origin="<pre><code>in_one_minute_passed : in event port;
-</code></pre>">in_one_minute_passed : in event port;
-</code></pre><p><strong>Example</strong></p>
-<pre><code data-origin="<pre><code>out_cancelled : out event port;
-</code></pre>">out_cancelled : out event port;
-</code></pre></blockquote><h4 id="connections"><a name="connections" href="#connections"></a>Connections</h4><p>Connections should use the prefix <code>conn_</code> and reference the source and destination subcomponents.  If you have several connections between the same two components, try to differentiate them using a suffix related to the connection’s function or context.</p><blockquote>
-<p><strong>Example</strong></p>
-<pre><code data-origin="<pre><code>conn_src_dest : port src.out_cancelled -&amp;gt; dst.in_cancelled;
-</code></pre>">conn_src_dest : port src.out_cancelled -&gt; dst.in_cancelled;
-</code></pre><p><strong>Example</strong></p>
-<pre><code data-origin="<pre><code>conn_thermometer_controller_temperature: 
-</code></pre>">conn_thermometer_controller_temperature: 
-</code></pre></blockquote>
+<li>Remove the selected property value.</li><li>Remove the selected record field from the record property value.</li><li>Remove the selected delta from the range property value.</li><li>Remove the selected item from the list property value.</li></ul><p>Note that executing this action on a <strong>shared local contained</strong> property impacts all model elements that share the selected property value.</p>
 
 <footer style="position:fixed; font-size:.8em; text-align:right; bottom:0px; margin-left:-25px; height:20px; width:100%;">generated by <a href="http://pad.haroopress.com" target="_blank">haroopad</a></footer>
 </body>
