@@ -11,8 +11,6 @@
 		<topic href="html/start2/OSATEUserGuide.html#in_out" label="Importing and Exporting Models" />
 		<topic href="html/start2/OSATEUserGuide.html#analysis" label="Analyzing Models" />
 		<topic href="html/start2/OSATEUserGuide.html#properties" label="Viewing AADL Property Values" />
-		<topic href="html/start2/OSATEUserGuide.html#syntax" label="AADL Syntax Rules" />
-		<topic href="html/start2/OSATEUserGuide.html#style" label="Suggested AADL Style Guide" />
 	</topic>
 	<topic href="html/plugins/index.html" label="Plug-ins">
 		<topic href="html/plugins/imv.html" label="Graphical Model Viewer (IMV)" />
