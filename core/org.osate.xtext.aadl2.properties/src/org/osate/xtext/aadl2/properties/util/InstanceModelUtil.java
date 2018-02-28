@@ -584,8 +584,8 @@ public class InstanceModelUtil {
 		}
 		SystemInstance root = associatedObject.getSystemInstance();
 
-		if ((associatedObject.getComponentClassifier().getCategory() == ComponentCategory.PROCESSOR)
-				|| (associatedObject.getComponentClassifier().getCategory() == ComponentCategory.VIRTUAL_PROCESSOR)) {
+		if ((associatedObject.getCategory() == ComponentCategory.PROCESSOR)
+				|| (associatedObject.getCategory() == ComponentCategory.VIRTUAL_PROCESSOR)) {
 			boundComponents = new ForAllElement() {
 				@Override
 				protected boolean suchThat(Element obj) {
@@ -598,7 +598,7 @@ public class InstanceModelUtil {
 			}.processPreOrderComponentInstance(root);
 		}
 
-		if (associatedObject.getComponentClassifier().getCategory() == ComponentCategory.MEMORY) {
+		if (associatedObject.getCategory() == ComponentCategory.MEMORY) {
 			boundComponents = new ForAllElement() {
 				@Override
 				protected boolean suchThat(Element obj) {
