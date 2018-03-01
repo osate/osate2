@@ -135,7 +135,8 @@ public class SubcomponentHandler {
 	@CanCreate
 	public boolean canCreate(final @Named(Names.TARGET_BO) Element bo,
 			final @Named(Names.PALETTE_ENTRY_CONTEXT) EClass subcomponentType) {
-		return getPotentialOwners(bo, subcomponentType).size() > 0 || bo instanceof Subcomponent;
+		return getPotentialOwners(bo, subcomponentType).size() > 0
+				|| ClassifierEditingUtil.isSubcomponentWithoutClassifier(bo);
 	}
 
 	@BuildCreateOperation
