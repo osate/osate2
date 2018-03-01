@@ -24,6 +24,8 @@ import org.osate.ge.graphics.StyleBuilder;
 import org.osate.ge.internal.diagram.runtime.filtering.ContentFilterProvider;
 import org.osate.ge.internal.diagram.runtime.filtering.LegacyContentFilterMapping;
 import org.osate.ge.internal.diagram.runtime.types.CustomDiagramType;
+import org.osate.ge.internal.diagram.runtime.types.PackageDiagramType;
+import org.osate.ge.internal.diagram.runtime.types.StructureDiagramType;
 import org.osate.ge.internal.diagram.runtime.types.UnrecognizedDiagramType;
 import org.osate.ge.internal.services.ExtensionRegistryService;
 import org.osate.ge.internal.services.impl.DeclarativeReferenceType;
@@ -70,9 +72,27 @@ public class DiagramSerialization {
 		// Read the diagram configuration
 
 		// Set the diagram type
-		final String diagramTypeId = mmDiagram.getConfig() == null || mmDiagram.getConfig().getType() == null
-				? CustomDiagramType.ID
-						: mmDiagram.getConfig().getType();
+		final String diagramTypeId;
+		if (mmDiagram.getConfig() == null || mmDiagram.getConfig().getType() == null) {
+			// Assign a diagram type ID if the diagram does not have specify one.
+			String autoAssignedDiagramTypeId = CustomDiagramType.ID;
+
+			// Set the diagram type based on the diagram's context
+			if(mmDiagram.getConfig() != null) {
+				final CanonicalBusinessObjectReference contextRef = convert(mmDiagram.getConfig().getContext());
+				if (contextRef != null && contextRef.getSegments().size() > 1) {
+					if (DeclarativeReferenceType.PACKAGE.getId().equals(contextRef.getSegments().get(0))) {
+						autoAssignedDiagramTypeId = PackageDiagramType.ID;
+					} else if (DeclarativeReferenceType.CLASSIFIER.getId().equals(contextRef.getSegments().get(0))) {
+						autoAssignedDiagramTypeId = StructureDiagramType.ID;
+					}
+				}
+			}
+
+			diagramTypeId = autoAssignedDiagramTypeId;
+		} else {
+			diagramTypeId = mmDiagram.getConfig().getType();
+		}
 		final DiagramType diagramType = extRegistry.getDiagramTypeById(diagramTypeId)
 				.orElseGet(() -> new UnrecognizedDiagramType(diagramTypeId));
 
