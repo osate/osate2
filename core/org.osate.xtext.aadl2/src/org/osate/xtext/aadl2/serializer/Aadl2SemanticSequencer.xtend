@@ -69,10 +69,9 @@ class Aadl2SemanticSequencer extends AbstractAadl2SemanticSequencer {
 				// otherwise use the original annex text
 				if (parsedLibrary !== null && annexUnparser !== null) {
 					try {
-						val text = '''{**«annexUnparser.unparseAnnexLibrary(parsedLibrary, "  ")»**}'''
-						val domain = TransactionalEditingDomain.Registry.INSTANCE.getEditingDomain("org.osate.aadl2.ModelEditingDomain")
-						domain.commandStack.execute(new RecordingCommand(domain) {
-							override protected doExecute() {
+						performModification(semanticObject, new Runnable() {
+							override public run() {
+								val text = '''{**«annexUnparser.unparseAnnexLibrary(parsedLibrary, "  ")»**}'''
 								(semanticObject as DefaultAnnexLibrary).sourceText = text
 							}
 						})
@@ -89,12 +88,11 @@ class Aadl2SemanticSequencer extends AbstractAadl2SemanticSequencer {
 				// otherwise use the original annex text
 				if (parsedSubclause !== null && annexUnparser !== null) {
 					try {
-						val text = '''{**«annexUnparser.unparseAnnexSubclause(parsedSubclause, "  ")»**}'''
-						val domain = TransactionalEditingDomain.Registry.INSTANCE.getEditingDomain("org.osate.aadl2.ModelEditingDomain")
-						domain.commandStack.execute(new RecordingCommand(domain) {
-							override protected doExecute() {
+						performModification(semanticObject, new Runnable() {
+							override public run() {
+								val text = '''{**«annexUnparser.unparseAnnexSubclause(parsedSubclause, "  ")»**}'''
 								(semanticObject as DefaultAnnexSubclause).sourceText = text
-							}
+							}				
 						})
 					} catch (Exception e) {
 						throw new RuntimeException('''Error while serializing «semanticObject.name» annex subclause''', e)
@@ -105,6 +103,26 @@ class Aadl2SemanticSequencer extends AbstractAadl2SemanticSequencer {
 			default: super.createSequence(context, semanticObject)
 		}
 	}
+	
+	def protected performModification(EObject semanticObject, Runnable runnable) {
+		val resourceSet = semanticObject?.eResource()?.getResourceSet()
+		var TransactionalEditingDomain domain
+		if(resourceSet !== null) {
+			domain = TransactionalEditingDomain.Factory.INSTANCE.getEditingDomain(resourceSet);
+		}
+		
+		if(domain === null) {
+			runnable.run();
+		} else {
+			domain.commandStack.execute(new RecordingCommand(domain) {
+				override protected doExecute() {
+					runnable.run();
+				}
+			})
+		}
+				
+		return domain
+	} 
 	
 	override protected sequence_FlowPathSpec_FlowSinkSpec_FlowSourceSpec_FlowSpecRefinement(ISerializationContext context, FlowSpecification spec) {
 		if (spec.refined !== null) {
