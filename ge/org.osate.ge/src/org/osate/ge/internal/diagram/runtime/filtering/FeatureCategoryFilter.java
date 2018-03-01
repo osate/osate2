@@ -2,7 +2,7 @@ package org.osate.ge.internal.diagram.runtime.filtering;
 
 import java.util.Objects;
 
-import org.eclipse.graphiti.features.impl.AbstractFeature;
+import org.osate.aadl2.AbstractFeature;
 import org.osate.aadl2.BusAccess;
 import org.osate.aadl2.Classifier;
 import org.osate.aadl2.DataAccess;
