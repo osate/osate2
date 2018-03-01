@@ -37,25 +37,33 @@ public class FeatureInstanceHandler {
 	}
 
 	private FeatureGraphic getGraphicalRepresentation(final FeatureInstance fi) {
-		// Determine the direction of access feature instances using the type of the feature.
-		// This is needed because as of 2016-12-09 access feature instances have a direction of IN OUT. The AccessType may not be reliable because it could be inverted
-		// by being inside an inverse of feature group.
-		// TODO: Fix when/if OSATE provides direction.
-		final DirectionType direction;
-		if(fi.getFeature() instanceof Access) {
-			direction = ((Access)fi.getFeature()).getKind() == AccessType.PROVIDES ? DirectionType.OUT : DirectionType.IN;
-		} else {
-			direction = fi.getDirection();
-		}
+		final DirectionType direction = getDirection(fi);
 		return AadlGraphics.getFeatureGraphic(fi.getFeature().eClass(), direction);
 	}
 
 	private DockingPosition getDefaultDockingPosition(final FeatureInstance fi) {
-		return fi.getDirection() == DirectionType.OUT ? DockingPosition.RIGHT : DockingPosition.LEFT;
+		return getDirection(fi) == DirectionType.OUT ? DockingPosition.RIGHT : DockingPosition.LEFT;
 	}
 
 	@GetName
 	public String getName(final @Named(Names.BUSINESS_OBJECT) FeatureInstance fi) {
 		return fi.getName();
+	}
+
+	private DirectionType getDirection(final FeatureInstance fi) {
+		// Determine the direction of access feature instances using the type of the feature.
+		// This is needed because as of 2016-12-09 access feature instances have a direction of IN OUT. The AccessType may not be reliable because it could be
+		// inverted
+		// by being inside an inverse of feature group.
+		// TODO: Fix when/if OSATE provides direction.
+		final DirectionType direction;
+		if (fi.getFeature() instanceof Access) {
+			direction = ((Access) fi.getFeature()).getKind() == AccessType.PROVIDES ? DirectionType.OUT
+					: DirectionType.IN;
+		} else {
+			direction = fi.getDirection();
+		}
+
+		return direction;
 	}
 }
