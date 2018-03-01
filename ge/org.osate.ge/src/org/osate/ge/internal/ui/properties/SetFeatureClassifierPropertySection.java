@@ -32,6 +32,7 @@ import org.eclipse.ui.views.properties.tabbed.AbstractPropertySection;
 import org.eclipse.ui.views.properties.tabbed.ITabbedPropertyConstants;
 import org.eclipse.ui.views.properties.tabbed.TabbedPropertySheetPage;
 import org.eclipse.xtext.resource.IEObjectDescription;
+import org.eclipse.xtext.util.Strings;
 import org.osate.aadl2.Aadl2Factory;
 import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.AadlPackage;
@@ -43,6 +44,7 @@ import org.osate.aadl2.DataClassifier;
 import org.osate.aadl2.DataSubcomponentType;
 import org.osate.aadl2.Feature;
 import org.osate.aadl2.FeatureClassifier;
+import org.osate.aadl2.FeatureGroup;
 import org.osate.aadl2.FeatureType;
 import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.PackageSection;
@@ -232,10 +234,10 @@ public class SetFeatureClassifierPropertySection extends AbstractPropertySection
 
 	private static String getFeatureClassifierLabel(final List<Feature> features) {
 		final Iterator<Feature> it = features.iterator();
-		final FeatureClassifier fc = it.next().getFeatureClassifier();
+		final EObject fc = getAllFeatureClassifier(it.next());
 		while (it.hasNext()) {
 			// If feature classifiers are not the same, set to multiple
-			if (fc != it.next().getFeatureClassifier()) {
+			if (fc != getAllFeatureClassifier(it.next())) {
 				return "<Multiple>";
 			}
 		}
@@ -243,13 +245,31 @@ public class SetFeatureClassifierPropertySection extends AbstractPropertySection
 		return getFeatureClassifierName(fc);
 	}
 
-	private static String getFeatureClassifierName(final FeatureClassifier fc) {
-		if (fc != null && fc.eResource() != null) {
-			return fc.eResource().getURI().trimFileExtension().lastSegment() + "::"
-					+ ((NamedElement) fc).getName();
+	private static EObject getAllFeatureClassifier(Feature feature) {
+		if(feature instanceof FeatureGroup) {
+			final FeatureGroup fg = (FeatureGroup)feature;
+			return fg.getAllClassifier();
 		}
 
-		return "<None>";
+		FeatureClassifier result;
+		do {
+			result = feature.getFeatureClassifier();
+			feature = feature.getRefined();
+		} while (feature != null && result == null);
+
+		return result;
+	}
+
+	private static String getFeatureClassifierName(final EObject fc) {
+		if (fc == null) {
+			return "<None>";
+		} else if (fc instanceof NamedElement) {
+			return Strings.emptyIfNull(((NamedElement) fc).getQualifiedName());
+		} else if (fc instanceof Prototype) {
+			return "<Prototype>";
+		} else {
+			return "";
+		}
 	}
 
 	/**
