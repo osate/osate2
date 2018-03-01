@@ -135,7 +135,8 @@ public class SubcomponentHandler {
 	@CanCreate
 	public boolean canCreate(final @Named(Names.TARGET_BO) Element bo,
 			final @Named(Names.PALETTE_ENTRY_CONTEXT) EClass subcomponentType) {
-		return getPotentialOwners(bo, subcomponentType).size() > 0 || bo instanceof Subcomponent;
+		return getPotentialOwners(bo, subcomponentType).size() > 0
+				|| ClassifierEditingUtil.isSubcomponentWithoutClassifier(bo);
 	}
 
 	@BuildCreateOperation
@@ -150,7 +151,7 @@ public class SubcomponentHandler {
 			if (!(tmpSc.getClassifier() instanceof ComponentImplementation)) {
 				MessageDialog.openError(Display.getDefault().getActiveShell(), "Component Implementation Not Set",
 						"The subcomponent '" + tmpSc.getQualifiedName()
-								+ "' does not have a component implementation set. Set a component implementation before creating a subcomponent.");
+						+ "' does not have a component implementation set. Set a component implementation before creating a subcomponent.");
 				return;
 			}
 		}
@@ -177,7 +178,12 @@ public class SubcomponentHandler {
 	private static List<ComponentImplementation> getPotentialOwners(final Element bo,
 			final EClass subcomponentType) {
 		if (bo instanceof ComponentImplementation) {
-			return Collections.singletonList((ComponentImplementation) bo);
+			final ComponentImplementation ci = (ComponentImplementation) bo;
+			if (AadlSubcomponentUtil.canContainSubcomponentType(ci, subcomponentType)) {
+				return Collections.singletonList(ci);
+			} else {
+				return Collections.emptyList();
+			}
 		} else if (bo instanceof Subcomponent) {
 			final ComponentImplementation ci = ((Subcomponent) bo).getComponentImplementation();
 			if (ci == null) {
