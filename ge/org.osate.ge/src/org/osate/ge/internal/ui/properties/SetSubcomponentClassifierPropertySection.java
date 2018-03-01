@@ -27,6 +27,7 @@ import org.eclipse.ui.views.properties.tabbed.AbstractPropertySection;
 import org.eclipse.ui.views.properties.tabbed.ITabbedPropertyConstants;
 import org.eclipse.ui.views.properties.tabbed.TabbedPropertySheetPage;
 import org.eclipse.xtext.resource.IEObjectDescription;
+import org.eclipse.xtext.util.Strings;
 import org.osate.aadl2.Aadl2Factory;
 import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.AadlPackage;
@@ -42,6 +43,7 @@ import org.osate.aadl2.DeviceSubcomponent;
 import org.osate.aadl2.DeviceSubcomponentType;
 import org.osate.aadl2.MemorySubcomponent;
 import org.osate.aadl2.MemorySubcomponentType;
+import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.PackageSection;
 import org.osate.aadl2.ProcessSubcomponent;
 import org.osate.aadl2.ProcessSubcomponentType;
@@ -294,21 +296,35 @@ public class SetSubcomponentClassifierPropertySection extends AbstractPropertySe
 
 	private static String getSubcomponentClassifierLabel(final List<Subcomponent> scs) {
 		final Iterator<Subcomponent> it = scs.iterator();
-		final ComponentClassifier cc = it.next().getClassifier();
+		final SubcomponentType st = getAllSubcomponentType(it.next());
 		while (it.hasNext()) {
-			if (cc != it.next().getClassifier()) {
+			if (st != getAllSubcomponentType(it.next())) {
 				return "<Multiple>";
 			}
 		}
 
-		return getSubcomponentClassifierName(cc);
+		return getSubcomponentTypeName(st);
 	}
 
-	private static String getSubcomponentClassifierName(final ComponentClassifier cc) {
-		if (cc != null && cc.eResource() != null) {
-			return cc.eResource().getURI().trimFileExtension().lastSegment() + "::" + cc.getName();
-		}
+	private static SubcomponentType getAllSubcomponentType(Subcomponent sc) {
+		SubcomponentType result;
+		do {
+			result = sc.getSubcomponentType();
+			sc = sc.getRefined();
+		} while (sc != null && result == null);
 
-		return "<None>";
+		return result;
+	}
+
+	private static String getSubcomponentTypeName(final SubcomponentType st) {
+		if (st == null) {
+			return "<None>";
+		} else if (st instanceof NamedElement) {
+			return Strings.emptyIfNull(((NamedElement) st).getQualifiedName());
+		} else if (st instanceof Prototype) {
+			return "<Prototype>";
+		} else {
+			return "";
+		}
 	}
 }
