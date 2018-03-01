@@ -132,7 +132,6 @@ public final class CheckFlowLatency extends AbstractInstanceOrDeclarativeModelRe
 	}
 
 	public void invoke(IProgressMonitor monitor, SystemInstance root, SystemOperationMode som) {
-		summaryReport = new StringBuffer();
 		initializeAnalysis(root);
 		analyzeInstanceModel(monitor, null, root, som);
 		finalizeAnalysis();
@@ -152,7 +151,6 @@ public final class CheckFlowLatency extends AbstractInstanceOrDeclarativeModelRe
 	public Result invokeAndGetResult(IProgressMonitor monitor,
 			SystemInstance root,
 			SystemOperationMode som) {
-		summaryReport = new StringBuffer();
 		initializeAnalysis(root);
 		analyzeInstanceModel(monitor, null, root, som);
 		Result results = latreport.genResult();
