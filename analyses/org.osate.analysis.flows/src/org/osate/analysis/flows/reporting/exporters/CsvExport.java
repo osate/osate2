@@ -7,7 +7,6 @@ import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.osate.aadl2.modelsupport.util.AadlUtil;
-import org.osate.aadl2.util.OsateDebug;
 import org.osate.analysis.flows.reporting.model.Line;
 import org.osate.analysis.flows.reporting.model.Report;
 import org.osate.analysis.flows.reporting.model.ReportedCell;
@@ -57,7 +56,6 @@ public class CsvExport extends GenericExport {
 						file.create(input, true, null);
 					}
 				} catch (final CoreException e) {
-					OsateDebug.osateDebug("CsvExport", "Fail to create the report");
 				}
 			}
 		}

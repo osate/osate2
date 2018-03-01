@@ -60,16 +60,13 @@ public class FlowLatencyAnalysisSwitch extends AadlProcessingSwitchWithProgress 
 	LatencyReport report;
 	SystemOperationMode som;
 
-	public FlowLatencyAnalysisSwitch(final IProgressMonitor monitor, SystemInstance si, LatencyReport r,
+	public FlowLatencyAnalysisSwitch(final IProgressMonitor monitor,SystemInstance si, LatencyReport r,
 			SystemOperationMode som) {
-		super(monitor, PROCESS_BOTTOM_UP_COMPONENT_IMPL);
+		super(monitor, PROCESS_PRE_ORDER_ALL);
 		this.report = r; // new LatencyReport(si)
 		this.som = som;
 	}
 
-//	public LatencyReport getReport() {
-//		return this.report;
-//	}
 
 	@Override
 	protected final void initSwitches() {

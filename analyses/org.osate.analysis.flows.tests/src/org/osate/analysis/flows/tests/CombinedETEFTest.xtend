@@ -40,10 +40,9 @@ class CombinedETEFTest extends OsateTest {
 		assertEquals("Test_Impl_Instance", instance.name)
 
 		// check flow latency
-		val errorManager = AnalysisErrorReporterManager.NULL_ERROR_MANANGER
 		val checker = new CheckFlowLatency()
 		val som = instance.systemOperationModes.head
-		val latencyresult = checker.invokeAndGetResult(new NullProgressMonitor, errorManager, instance, som)
+		val latencyresult = checker.invokeAndGetResult(new NullProgressMonitor,  instance, som)
 		val resab = latencyresult.subResults.get(0)
 		assertTrue((resab.values.get(1) as RealValue).value == (20.0))
 		assertTrue((resab.values.get(2) as RealValue).value == (20.0))
