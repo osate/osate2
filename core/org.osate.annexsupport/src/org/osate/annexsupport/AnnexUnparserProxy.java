@@ -66,7 +66,7 @@ public class AnnexUnparserProxy extends AnnexProxy implements AnnexUnparser {
 		if (unparser == null) {
 			return "";
 		}
-		return unparser.unparseAnnexLibrary(library, indent);
+		return unparser.unparseAnnexLibrary(library, indent).replaceAll("^ +", "");
 	}
 
 	/*
@@ -82,7 +82,7 @@ public class AnnexUnparserProxy extends AnnexProxy implements AnnexUnparser {
 		if (unparser == null) {
 			return "";
 		}
-		return unparser.unparseAnnexSubclause(subclause, indent);
+		return unparser.unparseAnnexSubclause(subclause, indent).replaceAll("^ +", "");
 	}
 
 	private AnnexUnparser getUnparser() {
