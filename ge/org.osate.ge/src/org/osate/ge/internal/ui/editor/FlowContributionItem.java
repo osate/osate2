@@ -166,7 +166,8 @@ public class FlowContributionItem extends ComboContributionItem {
 		return Stream
 				.concat(ci.getAllEndToEndFlows().stream(),
 						ci.getAllFlowImplementations().stream().map(fi -> fi.getSpecification()))
-				.distinct().map(flow -> AadlFlowSpecificationUtil.createFlowSegmentReference(flow, flowContainerBoc));
+				.filter(f -> f != null).distinct()
+				.map(flow -> AadlFlowSpecificationUtil.createFlowSegmentReference(flow, flowContainerBoc));
 	}
 
 	private static String getName(final FlowSegmentReference highlightableFlowElement) {
