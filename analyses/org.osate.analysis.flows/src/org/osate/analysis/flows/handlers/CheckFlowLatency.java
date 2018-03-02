@@ -124,10 +124,8 @@ public final class CheckFlowLatency extends AbstractInstanceOrDeclarativeModelRe
 	protected void analyzeInstanceModel(IProgressMonitor monitor, AnalysisErrorReporterManager errManager,
 			SystemInstance root, SystemOperationMode som) {
 		monitor.beginTask(getActionName(), 1);
-		FlowLatencyAnalysisSwitch flas = new FlowLatencyAnalysisSwitch(monitor,root, latreport, som);
-
+		FlowLatencyAnalysisSwitch flas = new FlowLatencyAnalysisSwitch(monitor, root, latreport);
 		flas.processPreOrderAll(root);
-
 		monitor.done();
 	}
 
@@ -138,22 +136,4 @@ public final class CheckFlowLatency extends AbstractInstanceOrDeclarativeModelRe
 	}
 
 
-	/**
-	 * Invoke the analysis but return the report object rather than writing it to disk.
-	 *
-	 * @param monitor The progress monitor to use
-	 * @param errManager [Optional] The error manager to use, or null if one should be created
-	 * @param root The root system instance
-	 * @param som The mode to run the analysis in
-	 * @return A populated report.
-	 */
-
-	public Result invokeAndGetResult(IProgressMonitor monitor,
-			SystemInstance root,
-			SystemOperationMode som) {
-		initializeAnalysis(root);
-		analyzeInstanceModel(monitor, null, root, som);
-		Result results = latreport.genResult();
-		return results;
-	}
 }

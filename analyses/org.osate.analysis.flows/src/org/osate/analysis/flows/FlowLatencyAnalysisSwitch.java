@@ -64,6 +64,7 @@ import org.osate.analysis.flows.model.LatencyContributorConnection;
 import org.osate.analysis.flows.model.LatencyReport;
 import org.osate.analysis.flows.model.LatencyReportEntry;
 import org.osate.analysis.flows.preferences.Values;
+import org.osate.result.Result;
 import org.osate.xtext.aadl2.properties.util.ARINC653ScheduleWindow;
 import org.osate.xtext.aadl2.properties.util.CommunicationProperties;
 import org.osate.xtext.aadl2.properties.util.GetProperties;
@@ -77,13 +78,19 @@ import org.osate.xtext.aadl2.properties.util.InstanceModelUtil;
  */
 public class FlowLatencyAnalysisSwitch extends AadlProcessingSwitchWithProgress {
 	LatencyReport report;
-	SystemOperationMode som;
+//	SystemOperationMode som;
 
-	public FlowLatencyAnalysisSwitch(final IProgressMonitor monitor,SystemInstance si, LatencyReport r,
-			SystemOperationMode som) {
+	public FlowLatencyAnalysisSwitch(final IProgressMonitor monitor, SystemInstance si) {
+		this(monitor, si, null);
+	}
+
+	public FlowLatencyAnalysisSwitch(final IProgressMonitor monitor, SystemInstance si, LatencyReport latreport) {
 		super(monitor, PROCESS_PRE_ORDER_ALL);
-		this.report = r; // new LatencyReport(si)
-		this.som = som;
+		if (latreport == null) {
+			report = new LatencyReport(si);
+		} else {
+			report = latreport;
+		}
 	}
 
 
@@ -107,7 +114,7 @@ public class FlowLatencyAnalysisSwitch extends AadlProcessingSwitchWithProgress 
 				if (etef.getFlowElements().isEmpty()) {
 					return DONE;
 				}
-				entry = new LatencyReportEntry(etef, som);
+				entry = new LatencyReportEntry(etef, etef.getSystemInstance().getCurrentSystemOperationMode());
 
 				for (FlowElementInstance fei : etef.getFlowElements()) {
 					mapFlowElementInstance(etef, fei, entry);
@@ -661,6 +668,22 @@ public class FlowLatencyAnalysisSwitch extends AadlProcessingSwitchWithProgress 
 				latencyContributor.addSubContributor(samplingLatencyContributor);
 			}
 		}
+	}
+
+	/**
+	 * Invoke the analysis but return the report object rather than writing it to disk.
+	 *
+	 * @param monitor The progress monitor to use
+	 * @param root The root system instance
+	 * @param som The mode to run the analysis in
+	 * @return A populated report in Result format.
+	 */
+	public Result invokeAndGetResult(SystemInstance root, SystemOperationMode som) {
+		root.setCurrentSystemOperationMode(som);
+		this.processPreOrderAll(root);
+		Result results = report.genResult();
+		root.clearCurrentSystemOperationMode();
+		return results;
 	}
 
 

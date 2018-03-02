@@ -8,15 +8,14 @@ import org.junit.runner.RunWith
 import org.osate.aadl2.AadlPackage
 import org.osate.aadl2.SystemImplementation
 import org.osate.aadl2.instantiation.InstantiateModel
-import org.osate.aadl2.modelsupport.errorreporting.AnalysisErrorReporterManager
-import org.osate.analysis.flows.handlers.CheckFlowLatency
+import org.osate.analysis.flows.FlowLatencyAnalysisSwitch
 import org.osate.core.test.Aadl2UiInjectorProvider
 import org.osate.core.test.OsateTest
-import org.osate.result.Result
+import org.osate.result.RealValue
+
+import static org.junit.Assert.*
 
 import static extension org.junit.Assert.assertEquals
-import static extension org.junit.Assert.assertTrue
-import org.osate.result.RealValue
 
 @RunWith(typeof(XtextRunner))
 @InjectWith(typeof(Aadl2UiInjectorProvider))
@@ -38,9 +37,9 @@ class FlowLatencyTest extends OsateTest {
 		assertEquals("stub_i_Instance", instance.name)
 
 		// check flow latency
-		val checker = new CheckFlowLatency()
+		val checker = new FlowLatencyAnalysisSwitch(new NullProgressMonitor,  instance)
 		val som = instance.systemOperationModes.head
-		val latencyresult = checker.invokeAndGetResult(new NullProgressMonitor,  instance, som)
+		val latencyresult = checker.invokeAndGetResult( instance, som)
 		val res = latencyresult.subResults.get(0)
 		assertTrue((res.values.get(1) as RealValue).value == (304.0))
 		assertTrue((res.values.get(2) as RealValue).value == (504.0))
