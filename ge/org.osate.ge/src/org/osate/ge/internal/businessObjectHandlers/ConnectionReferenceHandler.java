@@ -58,6 +58,21 @@ public class ConnectionReferenceHandler {
 			return null;
 		}
 
+		// Don't display connection references when one endpoint is an ancestor of the other. This can happen for a subset of partial connections.
+		if (src != null && dst != null) {
+			for(BusinessObjectContext srcAncestor = src.getParent(); srcAncestor != null; srcAncestor = srcAncestor.getParent()) {
+				if(srcAncestor == dst) {
+					return null;
+				}
+			}
+
+			for(BusinessObjectContext dstAncestor = dst.getParent(); dstAncestor != null; dstAncestor = dstAncestor.getParent()) {
+				if(dstAncestor == src) {
+					return null;
+				}
+			}
+		}
+
 		return GraphicalConfigurationBuilder.create().
 				graphic(graphic).
 				style(partial ? partialStyle : style).

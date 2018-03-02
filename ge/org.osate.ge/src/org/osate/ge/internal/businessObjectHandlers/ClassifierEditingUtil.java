@@ -127,6 +127,14 @@ public class ClassifierEditingUtil {
 		return selectedClassifier;
 	}
 
+	public static boolean isSubcomponentWithoutClassifier(final Object bo) {
+		if (bo instanceof Subcomponent) {
+			return ((Subcomponent) bo).getClassifier() == null;
+		}
+
+		return false;
+	}
+
 	public static boolean isSubcomponentOrFeatureGroupWithoutClassifier(final Object bo) {
 		if (bo instanceof Subcomponent) {
 			return ((Subcomponent) bo).getClassifier() == null;
