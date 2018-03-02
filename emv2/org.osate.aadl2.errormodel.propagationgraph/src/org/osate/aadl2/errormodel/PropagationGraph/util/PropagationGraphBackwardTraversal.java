@@ -306,6 +306,20 @@ public class PropagationGraphBackwardTraversal {
 		}
 		Collection<ErrorFlow> efs = EMV2Util.getAllErrorFlows(component);
 		if (conditionResult == null && stateResult != null) {
+			for (ErrorBehaviorTransition trans : EMV2Util.getAllErrorBehaviorTransitions(component)) {
+				Collection<ConditionElement> conde = EMV2Util
+						.getAllConditionElementsFromConditionExpression(trans.getCondition());
+				for (ConditionElement conditionElement : conde) {
+					EventOrPropagation eop = EMV2Util.getErrorEventOrPropagation(conditionElement);
+					if (eop instanceof ErrorPropagation) {
+						EList<ErrorFlow> flows = EMV2Util.findErrorFlow(efs, (ErrorPropagation) eop,
+								conditionElement.getConstraint(), opc.getOutgoing(), type);
+						for (ErrorFlow errorFlow : flows) {
+							handledFlows.put(errorFlow, EMV2Util.getPrintName(type));
+						}
+					}
+				}
+			}
 			// error source
 			EList<ErrorFlow> flows = EMV2Util.findErrorFlow(efs, null, null, opc.getOutgoing(), type);
 			for (ErrorFlow errorFlow : flows) {

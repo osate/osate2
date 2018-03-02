@@ -738,12 +738,13 @@ public class EMV2Util {
 			ErrorTypes sourceType, ErrorPropagation flowTarget, ErrorTypes targetType) {
 		EList<ErrorFlow> result = new BasicEList<ErrorFlow>();
 		for (ErrorFlow ef : efs) {
-			if (ef instanceof ErrorPath // && flowSource != null
+			if (ef instanceof ErrorPath && flowSource != null
 			) {
 				ErrorPath ep = (ErrorPath) ef;
-				if (// EMV2Util.isSame(flowSource, ep.getIncoming()) &&
+				if (EMV2Util.isSame(flowSource, ep.getIncoming()) &&
 				EMV2Util.isSame(flowTarget, ep.getOutgoing())) {
-					if (// EM2TypeSetUtil.contains(ep.getTypeTokenConstraint(), sourceType)&&
+					if (EM2TypeSetUtil.contains(ep.getTypeTokenConstraint(), sourceType)
+							&&
 					EM2TypeSetUtil.contains(ep.getTargetToken(), targetType)) {
 						result.add(ep);
 					}
