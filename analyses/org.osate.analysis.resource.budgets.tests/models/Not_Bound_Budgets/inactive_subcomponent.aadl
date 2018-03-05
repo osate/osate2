@@ -1,0 +1,13 @@
+package inactive_subcomponent
+public
+	system s1
+		modes
+			m1: initial mode;
+			m2: mode;
+	end s1;
+	
+	system implementation s1.i1
+		subcomponents
+			sub1: system in modes (m1);
+	end s1.i1;
+end inactive_subcomponent;

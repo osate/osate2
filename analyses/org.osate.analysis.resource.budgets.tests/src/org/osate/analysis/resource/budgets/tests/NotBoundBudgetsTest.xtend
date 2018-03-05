@@ -7,7 +7,7 @@ import org.junit.Test
 import org.junit.runner.RunWith
 import org.osate.aadl2.AadlPackage
 import org.osate.aadl2.SystemImplementation
-import org.osate.analysis.resource.budgets.handlers.DoBoundSwitchBandWidthAnalysis
+import org.osate.analysis.resource.budgets.handlers.DoResourceBudget
 import org.osate.core.test.Aadl2UiInjectorProvider
 import org.osate.core.test.OsateTest
 
@@ -16,23 +16,21 @@ import static extension org.osate.aadl2.instantiation.InstantiateModel.buildInst
 
 @RunWith(XtextRunner)
 @InjectWith(Aadl2UiInjectorProvider)
-class BandwidthTest extends OsateTest {
-	val static DIR_NAME = "org.osate.analysis.resource.budgets.tests/models/Bandwidth/"
+class NotBoundBudgetsTest extends OsateTest {
+	val static DIR_NAME = "org.osate.analysis.resource.budgets.tests/models/Not_Bound_Budgets/"
 	
 	@Test
-	def void testBandwidth() {
+	def void testNotBoundBudgets() {
 		val fileNames = #[
-			"missing_reference_processor",
-			"broadcast",
-			"no_capacity_but_bound",
-			"capacity",
-			"capacity_and_bound",
-			"modal",
-			"connection_budget",
-			"actual_only",
-			"connection_not_active",
-			"broadcast_with_connection",
-			"source_not_feature"
+			"empty",
+			"virtual_processors",
+			"MIPS_Budget",
+			"memories",
+			"memory_budget",
+			"RAM_Budget",
+			"ROM_Budget",
+			"inactive_subcomponent",
+			"processors"
 		].map[it + ".aadl"]
 		createFiles(fileNames.map[it -> readFile(DIR_NAME + it)])
 		suppressSerialization
@@ -42,10 +40,10 @@ class BandwidthTest extends OsateTest {
 				"s1.i1".assertEquals(name)
 				buildInstanceModelFile => [
 					"s1_i1_Instance".assertEquals(name)
-					val dbsba = new DoBoundSwitchBandWidthAnalysis
-					dbsba.setErrManager
-					dbsba.setSummaryReport
-					dbsba.doAaxlAction(new NullProgressMonitor, it)
+					val analysis = new DoResourceBudget
+					analysis.setErrManager
+					analysis.setSummaryReport
+					analysis.doAaxlAction(new NullProgressMonitor, it)
 				]
 			]
 		]]

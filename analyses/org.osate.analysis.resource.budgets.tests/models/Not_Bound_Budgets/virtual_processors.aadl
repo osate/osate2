@@ -1,0 +1,10 @@
+package virtual_processors
+public
+	system s1
+	end s1;
+	
+	system implementation s1.i1
+		subcomponents
+			sub1: virtual processor;
+	end s1.i1;
+end virtual_processors;

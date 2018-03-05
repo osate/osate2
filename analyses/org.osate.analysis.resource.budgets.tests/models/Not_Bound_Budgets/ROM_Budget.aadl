@@ -1,0 +1,13 @@
+package ROM_Budget
+public
+	with SEI;
+	
+	system s1
+	end s1;
+	
+	system implementation s1.i1
+		subcomponents
+			sub1: memory {SEI::ROMCapacity => 1.0 KByte;};
+			sub2: process {SEI::ROMBudget => 1.0 KByte;};
+	end s1.i1;
+end ROM_Budget;

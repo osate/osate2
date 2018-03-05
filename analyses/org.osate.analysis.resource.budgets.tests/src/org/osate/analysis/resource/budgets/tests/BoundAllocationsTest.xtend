@@ -22,36 +22,34 @@ class BoundAllocationsTest extends OsateTest {
 	@Test
 	def void testBoundAllocations() {
 		val fileNames = #[
-			"empty.aadl",
-			"processors.aadl",
-			"virtual_processors.aadl",
-			"bound_processor.aadl",
-			"bound_virtual_processors.aadl",
-			"hardware_bound_to_processor.aadl",
-			"bound_with_subcomponents.aadl",
-			"top_system_bound.aadl",
-			"exceed_budget.aadl",
-			"below_budget.aadl",
-			"memories.aadl",
-			"bound_memory.aadl",
-			"rom_budget.aadl"
-		]
+			"empty",
+			"processors",
+			"virtual_processors",
+			"bound_processor",
+			"bound_virtual_processors",
+			"hardware_bound_to_processor",
+			"bound_with_subcomponents",
+			"top_system_bound",
+			"exceed_budget",
+			"below_budget",
+			"memories",
+			"bound_memory",
+			"rom_budget"
+		].map[it + ".aadl"]
 		createFiles(fileNames.map[it -> readFile(DIR_NAME + it)])
 		suppressSerialization
-		fileNames.forEach[fileName |
-			testFile(fileName).resource.contents.head as AadlPackage => [
-				fileName.subSequence(0, fileName.lastIndexOf(".")).assertEquals(name)
-				publicSection.ownedClassifiers.get(1) as SystemImplementation => [
-					"s1.i1".assertEquals(name)
-					buildInstanceModelFile => [
-						"s1_i1_Instance".assertEquals(name)
-						val drb = new DoBoundResourceAnalysis
-						drb.setErrManager
-						drb.setSummaryReport
-						drb.doAaxlAction(new NullProgressMonitor, it)
-					]
+		fileNames.forEach[fileName | testFile(fileName).resource.contents.head as AadlPackage => [
+			fileName.subSequence(0, fileName.lastIndexOf(".")).assertEquals(name)
+			publicSection.ownedClassifiers.get(1) as SystemImplementation => [
+				"s1.i1".assertEquals(name)
+				buildInstanceModelFile => [
+					"s1_i1_Instance".assertEquals(name)
+					val drb = new DoBoundResourceAnalysis
+					drb.setErrManager
+					drb.setSummaryReport
+					drb.doAaxlAction(new NullProgressMonitor, it)
 				]
 			]
-		]
+		]]
 	}
 }
