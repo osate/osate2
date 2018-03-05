@@ -749,7 +749,7 @@ public class EMV2Util {
 				}
 			} else if (ef instanceof ErrorSource) {
 				ErrorSource es = (ErrorSource) ef;
-				if (EMV2Util.isSame(flowTarget, es.getSourceModelElement())
+				if (!es.isAll() && EMV2Util.isSame(flowTarget, es.getSourceModelElement())
 						&& EM2TypeSetUtil.contains(es.getTypeTokenConstraint(), targetType)) {
 					result.add(es);
 				}
