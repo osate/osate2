@@ -217,8 +217,8 @@ abstract class AbstractNewFileWizard extends Wizard implements INewWizard {
 							fieldLabel + " cannot be empty."
 						} else if (!fieldValidators.get(fieldLabel).apply(field.text)) {
 							'''The «fieldLabel» '«field.text»' is not valid.'''
-						} else if (fieldLabel == fields.keySet.head && file.exists) {
-							"'" + getFileName(fields.values.head.text) + "' already exists."
+						} else if (fieldLabel == fields.keySet.head) {
+							return validateFileName(fields.values.head.text)
 						}
 					].filterNull.head
 				}
@@ -229,7 +229,15 @@ abstract class AbstractNewFileWizard extends Wizard implements INewWizard {
 			wizardPage.pageComplete = false
 		])
 	}
-			
+	
+	def protected String validateFileName(String name) {
+		if (file.exists) {
+			return "'" + getFileName(name) + "' already exists.";
+		} else {
+			return null; // No error message
+		}
+	}
+	
 	/**
 	 * A wizard may add more controls to the pane.  They will appear below the widgets created by the
 	 * {@link #addFields} functionality.  Keep in mind that the layout manager for the pane is a Grid with 
