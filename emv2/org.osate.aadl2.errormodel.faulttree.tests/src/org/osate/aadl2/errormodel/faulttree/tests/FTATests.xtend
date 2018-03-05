@@ -49,6 +49,7 @@ class FTATests extends OsateTest {
 	var static SystemInstance instanceDualFGS
 	var static SystemInstance instanceFilteredFlow
 	var static SystemInstance instanceAllFlows
+	var static SystemInstance instanceOptimize
 
 	val static stateFail = "state Failed"
 	val static stateFailStop = "state FailStop"
@@ -88,6 +89,7 @@ class FTATests extends OsateTest {
 			val fgselibFile = "FGSErrorModelLibrary.aadl"
 			val filteredflowsFile = "FilteredFlows.aadl"
 			val allflowsFile = "AllFlows.aadl"
+			val optimizeFile = "OptimizeTree.aadl"
 			
 			createFiles(
 				fta1File -> readFile(modelroot + fta1File),
@@ -103,6 +105,7 @@ class FTATests extends OsateTest {
 				dualfgsFile -> readFile(modelroot + dualfgsFile),
 				filteredflowsFile -> readFile(modelroot + filteredflowsFile),
 				allflowsFile -> readFile(modelroot + allflowsFile),
+				optimizeFile -> readFile(modelroot + optimizeFile),
 				fgselibFile -> readFile(modelroot + fgselibFile),
 				errorlibFile -> readFile(modelroot + errorlibFile),
 				FTerrorlibFile -> readFile(modelroot + FTerrorlibFile)
@@ -127,6 +130,7 @@ class FTATests extends OsateTest {
 			instanceDualFGS = instanceGenerator(dualfgsFile, "FGS.impl")
 			instanceFilteredFlow = instanceGenerator(filteredflowsFile, "FGS.impl")
 			instanceAllFlows = instanceGenerator(allflowsFile, "FGS.impl")
+			instanceOptimize = instanceGenerator(optimizeFile, "Top.impl")
 		}
 	}
 
@@ -632,6 +636,101 @@ class FTATests extends OsateTest {
 		val sube1 = ft.root.subEvents.get(0)
 		assertEquals(sube1.subEventLogic, LogicOperation.OR)
 		assertEquals(sube1.subEvents.size, 3)
+	}
+	
+		@Test
+	def void allOptimizeFaultTreeTest1() {
+	val stateFailStop = "state FailStop"
+		val ft = CreateFTAModel.createFaultTree(instanceOptimize, stateFailStop)
+		assertEquals(ft.events.size, 5)
+		assertEquals(ft.root.subEvents.size, 2)
+		assertEquals(ft.root.subEventLogic, LogicOperation.AND)
+		val sube1 = ft.root.subEvents.get(0)
+		assertEquals(sube1.subEventLogic, LogicOperation.OR)
+		assertEquals(sube1.subEvents.size, 2)
+		val sube11 = sube1.subEvents.get(0)
+		assertTrue(sube11.relatedEMV2Object instanceof ErrorBehaviorState)
+		assertEquals((sube11.relatedEMV2Object as NamedElement).name, "FailStop")
+		assertEquals((sube11.relatedInstanceObject as NamedElement).name, "Sub2")
+		val sube12 = sube1.subEvents.get(1)
+		assertTrue(sube12.relatedEMV2Object instanceof ErrorBehaviorState)
+		assertEquals((sube12.relatedEMV2Object as NamedElement).name, "FailStop")
+		assertEquals((sube12.relatedInstanceObject as NamedElement).name, "Sub3")
+		val sube2 = ft.root.subEvents.get(1)
+		assertTrue(sube2.relatedEMV2Object instanceof ErrorBehaviorState)
+		assertEquals((sube2.relatedEMV2Object as NamedElement).name, "FailStop")
+		assertEquals((sube2.relatedInstanceObject as NamedElement).name, "Sub1")
+	}
+		@Test
+	def void allOptimizeFaultTraceTest2() {
+	val stateFailStop = "state Fail1"
+		val ft = CreateFTAModel.createFaultTree(instanceOptimize, stateFailStop)
+		assertEquals(ft.events.size, 5)
+		assertEquals(ft.root.subEvents.size, 2)
+		assertEquals(ft.root.subEventLogic, LogicOperation.OR)
+		val sube1 = ft.root.subEvents.get(0)
+		assertEquals(sube1.subEventLogic, LogicOperation.AND)
+		assertEquals(sube1.subEvents.size, 2)
+		val sube11 = sube1.subEvents.get(0)
+		assertTrue(sube11.relatedEMV2Object instanceof ErrorBehaviorState)
+		assertEquals((sube11.relatedEMV2Object as NamedElement).name, "FailStop")
+		assertEquals((sube11.relatedInstanceObject as NamedElement).name, "Sub2")
+		val sube12 = sube1.subEvents.get(1)
+		assertTrue(sube12.relatedEMV2Object instanceof ErrorBehaviorState)
+		assertEquals((sube12.relatedEMV2Object as NamedElement).name, "FailStop")
+		assertEquals((sube12.relatedInstanceObject as NamedElement).name, "Sub3")
+		val sube2 = ft.root.subEvents.get(1)
+		assertTrue(sube2.relatedEMV2Object instanceof ErrorBehaviorState)
+		assertEquals((sube2.relatedEMV2Object as NamedElement).name, "FailStop")
+		assertEquals((sube2.relatedInstanceObject as NamedElement).name, "Sub1")
+	}
+		@Test
+	def void allOptimizeFaultTraceTest3() {
+	val stateFailStop = "state Fail2"
+		val ft = CreateFTAModel.createFaultTree(instanceOptimize, stateFailStop)
+		assertEquals(ft.events.size, 5)
+		assertEquals(ft.root.subEvents.size, 2)
+		assertEquals(ft.root.subEventLogic, LogicOperation.AND)
+		val sube1 = ft.root.subEvents.get(0)
+		assertEquals(sube1.subEventLogic, LogicOperation.XOR)
+		assertEquals(sube1.subEvents.size, 2)
+		val sube11 = sube1.subEvents.get(0)
+		assertTrue(sube11.relatedEMV2Object instanceof ErrorBehaviorState)
+		assertEquals((sube11.relatedEMV2Object as NamedElement).name, "FailStop")
+		assertEquals((sube11.relatedInstanceObject as NamedElement).name, "Sub2")
+		val sube12 = sube1.subEvents.get(1)
+		assertTrue(sube12.relatedEMV2Object instanceof ErrorBehaviorState)
+		assertEquals((sube12.relatedEMV2Object as NamedElement).name, "FailStop")
+		assertEquals((sube12.relatedInstanceObject as NamedElement).name, "Sub3")
+		val sube2 = ft.root.subEvents.get(1)
+		assertTrue(sube2.relatedEMV2Object instanceof ErrorBehaviorState)
+		assertEquals((sube2.relatedEMV2Object as NamedElement).name, "FailStop")
+		assertEquals((sube2.relatedInstanceObject as NamedElement).name, "Sub1")
+	}
+		@Test
+	def void allOptimizeFaultTraceTest4() {
+	val stateFailStop = "state Fail3"
+		val ft = CreateFTAModel.createFaultTree(instanceOptimize, stateFailStop)
+		assertEquals(ft.events.size, 10)
+		assertEquals(ft.root.subEvents.size, 2)
+		assertEquals(ft.root.subEventLogic, LogicOperation.AND)
+		val sube1 = ft.root.subEvents.get(0)
+		assertEquals(sube1.subEventLogic, LogicOperation.XOR)
+		assertEquals(sube1.subEvents.size, 2)
+		val sube11 = sube1.subEvents.get(0)
+		assertEquals(sube11.subEvents.size, 3)
+		assertEquals(sube11.subEventLogic, LogicOperation.OR)
+		val sube111 = sube11.subEvents.get(2)
+		assertEquals(sube111.subEvents.size, 2)
+		assertEquals(sube111.subEventLogic, LogicOperation.AND)
+		val sube12 = sube1.subEvents.get(1)
+		assertTrue(sube12.relatedEMV2Object instanceof ErrorBehaviorState)
+		assertEquals((sube12.relatedEMV2Object as NamedElement).name, "FailStop")
+		assertEquals((sube12.relatedInstanceObject as NamedElement).name, "Sub3")
+		val sube2 = ft.root.subEvents.get(1)
+		assertTrue(sube2.relatedEMV2Object instanceof ErrorBehaviorState)
+		assertEquals((sube2.relatedEMV2Object as NamedElement).name, "FailStop")
+		assertEquals((sube2.relatedInstanceObject as NamedElement).name, "Sub1")
 	}
 	
 	
