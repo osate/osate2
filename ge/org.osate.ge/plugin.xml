@@ -1416,6 +1416,10 @@
              class="org.osate.ge.internal.tooltips.PropertyValueTooltipContributor"
              priority="1">
        </tooltipContributor>
+       <tooltipContributor
+       		 class="org.osate.ge.internal.tooltips.ImageErrorTooltipContributor"
+       		 priority="1">
+       </tooltipContributor>
     </extension>
 
     <extension

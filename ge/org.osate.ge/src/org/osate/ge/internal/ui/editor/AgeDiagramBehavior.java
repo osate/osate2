@@ -881,7 +881,7 @@ public class AgeDiagramBehavior extends DiagramBehavior implements GraphitiAgeDi
 						.getServiceContext(bundle.getBundleContext()).get(ExtensionRegistryService.class),
 						"Unable to retrieve extension registry");
 
-				ageDiagram = DiagramSerialization.createAgeDiagram(mmDiagram, extRegistry);
+				ageDiagram = DiagramSerialization.createAgeDiagram(getProject(), mmDiagram, extRegistry);
 				ageDiagram.addModificationListener(ageDiagramModificationListener);
 
 				// Display warning if the diagram is stored with a newer version of the diagram file format.
@@ -906,7 +906,7 @@ public class AgeDiagramBehavior extends DiagramBehavior implements GraphitiAgeDi
 					}
 
 					// Save the file
-					DiagramSerialization.write(ageDiagram, getInput().getUri());
+					DiagramSerialization.write(getProject(), ageDiagram, getInput().getUri());
 
 					// Clear legacy persistent properties
 					final DiagramService diagramService = Objects.requireNonNull((DiagramService)getAdapter(DiagramService.class), "unable to retrieve diagram service");

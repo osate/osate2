@@ -9,6 +9,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.stream.Collectors;
 
+import org.eclipse.core.runtime.IPath;
 import org.eclipse.graphiti.mm.algorithms.GraphicsAlgorithm;
 import org.eclipse.graphiti.mm.algorithms.Text;
 import org.eclipse.graphiti.mm.algorithms.styles.Point;
@@ -20,6 +21,8 @@ import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.mm.pictograms.Shape;
 import org.eclipse.graphiti.services.Graphiti;
 import org.eclipse.graphiti.services.IGaService;
+import org.eclipse.graphiti.ui.services.GraphitiUi;
+import org.eclipse.graphiti.util.IColorConstant;
 import org.osate.ge.graphics.Graphic;
 import org.osate.ge.graphics.LabelPosition;
 import org.osate.ge.graphics.Style;
@@ -32,6 +35,7 @@ import org.osate.ge.internal.diagram.runtime.DiagramModification;
 import org.osate.ge.internal.diagram.runtime.DiagramNode;
 import org.osate.ge.internal.diagram.runtime.Dimension;
 import org.osate.ge.internal.diagram.runtime.DockArea;
+import org.osate.ge.internal.graphiti.AgeGraphicsAlgorithmRendererFactory;
 import org.osate.ge.internal.graphiti.AnchorNames;
 import org.osate.ge.internal.graphiti.ShapeNames;
 import org.osate.ge.internal.graphiti.graphics.AgeGraphitiGraphicsUtil;
@@ -246,7 +250,6 @@ public class LayoutUtil {
 
 						// Group feature shapes based on docking area
 						final Map<DockArea, List<Shape>> dockAreaToShapesMap = buildDockAreaToChildrenMap(shape);
-
 						// Adjust shapes so they do not overlap
 						cleanupOverlappingDockedShapes(shapeDockArea, dockAreaToShapesMap, diagramNodeProvider);
 
@@ -290,11 +293,26 @@ public class LayoutUtil {
 							innerGa = AgeGraphitiGraphicsUtil.createGraphicsAlgorithm(graphitiDiagram, shapeGa, gr, lm.innerHeight,
 									lm.innerWidth, true, element.getGraphicalConfiguration().style);
 						} else {
-							innerGa = AgeGraphitiGraphicsUtil.createGraphicsAlgorithm(graphitiDiagram, shapeGa, gr, lm.innerWidth,
-									lm.innerHeight, true, element.getGraphicalConfiguration().style);
+							// Check if diagram element is an image figure
+							if (DiagramElementPredicates.supportsImage(element)
+									&& Boolean.TRUE.equals(element.getStyle().getShowAsImage())) {
+								innerGa = GraphitiUi.getGaService().createPlatformGraphicsAlgorithm(shapeGa,
+										AgeGraphicsAlgorithmRendererFactory.IMAGE_FIGURE);
+								innerGa.setWidth(lm.innerWidth);
+								innerGa.setHeight(lm.innerHeight);
+								// Initialize for style overrides
+								innerGa.setForeground(GraphitiUi.getGaService().manageColor(graphitiDiagram, IColorConstant.BLACK));
+								innerGa.setBackground(GraphitiUi.getGaService().manageColor(graphitiDiagram, IColorConstant.WHITE));
+								PropertyUtil.setIsStylingChild(innerGa, true);
+								final IPath imagePath = element.getStyle().getImagePath();
+								PropertyUtil.setImage(innerGa, imagePath.toPortableString());
+							} else {
+								innerGa = AgeGraphitiGraphicsUtil.createGraphicsAlgorithm(graphitiDiagram, shapeGa, gr, lm.innerWidth,
+										lm.innerHeight, true, element.getGraphicalConfiguration().style);
+							}
 						}
 
-		// Rotate shape
+						// Rotate shape
 						if (shapeDockArea != null) {
 							AgeGraphitiGraphicsUtil.rotate(innerGa, shapeDockArea);
 						}

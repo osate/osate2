@@ -206,6 +206,7 @@ An element's appearance can be changed using the following steps.
 	- The *Label Visibility* option allows hiding or showing the diagram element's label.
 	- Font size can be edited by selecting the font size drop-down menu.
 	- Line width can be edited by selecting the line width drop-down menu.
+	- Elements can be displayed as an image by selecting the set image button, selecting *Select...*, and then selecting the desired image. Only images contained in referenced projects may be selected. To reference other projects, edit the project's properties. Whether an element is displayed as an image or using standard notation can be toggled by selecting the *Show as Image* check box.  The editor supports the following image file types: bmp, png, jpg, gif.
 	- Outline color can be edited by clicking the outline button and selecting the desired color.
 	- Font color can be edited by clicking the font color button and selecting the desired color.
 	- Background color can be edited by clicking the background color button and selecting the desired color.

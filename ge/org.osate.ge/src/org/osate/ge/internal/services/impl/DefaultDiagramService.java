@@ -326,7 +326,7 @@ public class DefaultDiagramService implements DiagramService {
 		final IFile newDiagramFile = result.getDiagramFile();
 
 		final URI newDiagramUri = URI.createPlatformResourceURI(newDiagramFile.getFullPath().toString(), true);
-		DiagramSerialization.write(diagram, newDiagramUri);
+		DiagramSerialization.write(project, diagram, newDiagramUri);
 
 		try {
 			newDiagramFile.refreshLocal(IResource.DEPTH_INFINITE, null);

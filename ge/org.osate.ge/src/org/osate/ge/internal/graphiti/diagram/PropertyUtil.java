@@ -14,6 +14,7 @@ public class PropertyUtil {
 	private static final String IS_LAYED_OUT_KEY = "is_layed_out"; // Whether the shape has been layed out by the automatic layout algorithm
 	private static final String IS_STYLING_CONTAINER_KEY = "is_styling_container"; // True if the GA's children should be checked during styling
 	private static final String IS_STYLING_CHILD_KEY = "is_styling_child"; // True if the GA's color should be adjusted during styling
+	private static final String IMAGE_KEY = "image_path"; // Image path stored as a portable string
 
 	// True if the GA's outline should be adjusted during styling. Outline styling
 	// will be performed if either the styling child or styling outline value is set.
@@ -85,6 +86,14 @@ public class PropertyUtil {
 
 	public static void setIsStylingChild(final GraphicsAlgorithm ga, boolean value) {
 		Graphiti.getPeService().setPropertyValue(ga, IS_STYLING_CHILD_KEY, value ? "true" : "false");
+	}
+
+	public static String getImage(final PropertyContainer pc) {
+		return Graphiti.getPeService().getPropertyValue(pc, IMAGE_KEY);
+	}
+
+	public static void setImage(final GraphicsAlgorithm ga, String value) {
+		Graphiti.getPeService().setPropertyValue(ga, IMAGE_KEY, value);
 	}
 
 	public static boolean isStylingOutlineEnabled(final GraphicsAlgorithm ga) {

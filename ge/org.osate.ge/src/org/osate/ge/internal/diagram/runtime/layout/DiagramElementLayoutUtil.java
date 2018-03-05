@@ -37,6 +37,7 @@ import org.eclipse.ui.IEditorPart;
 import org.osate.ge.DockingPosition;
 import org.osate.ge.graphics.Graphic;
 import org.osate.ge.graphics.Point;
+import org.osate.ge.graphics.Style;
 import org.osate.ge.graphics.internal.AgeConnection;
 import org.osate.ge.graphics.internal.AgeShape;
 import org.osate.ge.graphics.internal.Label;
@@ -341,11 +342,19 @@ public class DiagramElementLayoutUtil {
 
 				double minHeight = Math.max(Math.max(35, labelHeightSum), heightForFlowIndicators);
 
-				// Special min height handling for initial modes
 				if (dn instanceof DiagramElement) {
+					// Special min height handling for initial modes
 					final Graphic graphic = ((DiagramElement) dn).getGraphic();
 					if (graphic instanceof ModeGraphic && ((ModeGraphic) graphic).isInitialMode) {
 						minHeight += ModeGraphic.initialModeAreaHeight;
+					}
+
+					// Special min size handling for elements shown as image
+					final Style style = ((DiagramElement) dn).getStyle();
+					if (style != null && Boolean.TRUE.equals(style.getShowAsImage())) {
+						final Dimension dim = ((DiagramElement) dn).getSize();
+						minHeight = dim.height;
+						minWidth = dim.width;
 					}
 				}
 

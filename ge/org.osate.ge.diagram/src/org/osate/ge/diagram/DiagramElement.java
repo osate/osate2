@@ -4,6 +4,7 @@ package org.osate.ge.diagram;
 
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
+
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 
@@ -33,6 +34,8 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
  *   <li>{@link org.osate.ge.diagram.DiagramElement#getFontSize <em>Font Size</em>}</li>
  *   <li>{@link org.osate.ge.diagram.DiagramElement#getLineWidth <em>Line Width</em>}</li>
  *   <li>{@link org.osate.ge.diagram.DiagramElement#getPrimaryLabelVisible <em>Primary Label Visible</em>}</li>
+ *   <li>{@link org.osate.ge.diagram.DiagramElement#getImage <em>Image</em>}</li>
+ *   <li>{@link org.osate.ge.diagram.DiagramElement#getShowAsImage <em>Show As Image</em>}</li>
  *   <li>{@link org.osate.ge.diagram.DiagramElement#getContentFilters <em>Content Filters</em>}</li>
  * </ul>
  *
@@ -292,6 +295,46 @@ public class DiagramElement extends DiagramNode {
 	protected Boolean primaryLabelVisible = PRIMARY_LABEL_VISIBLE_EDEFAULT;
 
 	/**
+	 * The default value of the '{@link #getImage() <em>Image</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getImage()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final String IMAGE_EDEFAULT = null;
+
+	/**
+	 * The cached value of the '{@link #getImage() <em>Image</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getImage()
+	 * @generated
+	 * @ordered
+	 */
+	protected String image = IMAGE_EDEFAULT;
+
+	/**
+	 * The default value of the '{@link #getShowAsImage() <em>Show As Image</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getShowAsImage()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final Boolean SHOW_AS_IMAGE_EDEFAULT = null;
+
+	/**
+	 * The cached value of the '{@link #getShowAsImage() <em>Show As Image</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getShowAsImage()
+	 * @generated
+	 * @ordered
+	 */
+	protected Boolean showAsImage = SHOW_AS_IMAGE_EDEFAULT;
+
+	/**
 	 * The cached value of the '{@link #getContentFilters() <em>Content Filters</em>}' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -318,6 +361,39 @@ public class DiagramElement extends DiagramNode {
 	@Override
 	protected EClass eStaticClass() {
 		return DiagramPackage.Literals.DIAGRAM_ELEMENT;
+	}
+
+	/**
+	 * Returns the value of the '<em><b>Id</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Id</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Id</em>' attribute.
+	 * @see #setId(Long)
+	 * @see org.osate.ge.diagram.DiagramPackage#getDiagramElement_Id()
+	 * @model id="true" dataType="org.eclipse.emf.ecore.xml.type.LongObject"
+	 * @generated
+	 */
+	public Long getId() {
+		return id;
+	}
+
+	/**
+	 * Sets the value of the '{@link org.osate.ge.diagram.DiagramElement#getId <em>Id</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Id</em>' attribute.
+	 * @see #getId()
+	 * @generated
+	 */
+	public void setId(Long newId) {
+		Long oldId = id;
+		id = newId;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, DiagramPackage.DIAGRAM_ELEMENT__ID, oldId, id));
 	}
 
 	/**
@@ -412,10 +488,6 @@ public class DiagramElement extends DiagramNode {
 	/**
 	 * Returns the value of the '<em><b>Auto Contents Filter</b></em>' attribute.
 	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Auto Contents Filter</em>' attribute isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
 	 * Deprecated
@@ -896,10 +968,76 @@ public class DiagramElement extends DiagramNode {
 	}
 
 	/**
+	 * Returns the value of the '<em><b>Image</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Image</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Image</em>' attribute.
+	 * @see #setImage(String)
+	 * @see org.osate.ge.diagram.DiagramPackage#getDiagramElement_Image()
+	 * @model dataType="org.eclipse.emf.ecore.xml.type.String"
+	 * @generated
+	 */
+	public String getImage() {
+		return image;
+	}
+
+	/**
+	 * Sets the value of the '{@link org.osate.ge.diagram.DiagramElement#getImage <em>Image</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Image</em>' attribute.
+	 * @see #getImage()
+	 * @generated
+	 */
+	public void setImage(String newImage) {
+		String oldImage = image;
+		image = newImage;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, DiagramPackage.DIAGRAM_ELEMENT__IMAGE, oldImage, image));
+	}
+
+	/**
+	 * Returns the value of the '<em><b>Show As Image</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Show As Image</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Show As Image</em>' attribute.
+	 * @see #setShowAsImage(Boolean)
+	 * @see org.osate.ge.diagram.DiagramPackage#getDiagramElement_ShowAsImage()
+	 * @model
+	 * @generated
+	 */
+	public Boolean getShowAsImage() {
+		return showAsImage;
+	}
+
+	/**
+	 * Sets the value of the '{@link org.osate.ge.diagram.DiagramElement#getShowAsImage <em>Show As Image</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Show As Image</em>' attribute.
+	 * @see #getShowAsImage()
+	 * @generated
+	 */
+	public void setShowAsImage(Boolean newShowAsImage) {
+		Boolean oldShowAsImage = showAsImage;
+		showAsImage = newShowAsImage;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, DiagramPackage.DIAGRAM_ELEMENT__SHOW_AS_IMAGE, oldShowAsImage, showAsImage));
+	}
+
+	/**
 	 * Returns the value of the '<em><b>Content Filters</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of the '<em>Content Filters</em>' attribute list isn't clear,
+	 * If the meaning of the '<em>Content Filters</em>' containment reference isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
@@ -948,39 +1086,6 @@ public class DiagramElement extends DiagramNode {
 		}
 		else if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, DiagramPackage.DIAGRAM_ELEMENT__CONTENT_FILTERS, newContentFilters, newContentFilters));
-	}
-
-	/**
-	 * Returns the value of the '<em><b>Id</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Id</em>' attribute isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
-	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Id</em>' attribute.
-	 * @see #setId(Long)
-	 * @see org.osate.ge.diagram.DiagramPackage#getDiagramElement_Id()
-	 * @model id="true" dataType="org.eclipse.emf.ecore.xml.type.LongObject"
-	 * @generated
-	 */
-	public Long getId() {
-		return id;
-	}
-
-	/**
-	 * Sets the value of the '{@link org.osate.ge.diagram.DiagramElement#getId <em>Id</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Id</em>' attribute.
-	 * @see #getId()
-	 * @generated
-	 */
-	public void setId(Long newId) {
-		Long oldId = id;
-		id = newId;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, DiagramPackage.DIAGRAM_ELEMENT__ID, oldId, id));
 	}
 
 	/**
@@ -1045,6 +1150,10 @@ public class DiagramElement extends DiagramNode {
 				return getLineWidth();
 			case DiagramPackage.DIAGRAM_ELEMENT__PRIMARY_LABEL_VISIBLE:
 				return getPrimaryLabelVisible();
+			case DiagramPackage.DIAGRAM_ELEMENT__IMAGE:
+				return getImage();
+			case DiagramPackage.DIAGRAM_ELEMENT__SHOW_AS_IMAGE:
+				return getShowAsImage();
 			case DiagramPackage.DIAGRAM_ELEMENT__CONTENT_FILTERS:
 				return getContentFilters();
 		}
@@ -1056,7 +1165,6 @@ public class DiagramElement extends DiagramNode {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@SuppressWarnings("unchecked")
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
@@ -1104,6 +1212,12 @@ public class DiagramElement extends DiagramNode {
 				return;
 			case DiagramPackage.DIAGRAM_ELEMENT__PRIMARY_LABEL_VISIBLE:
 				setPrimaryLabelVisible((Boolean)newValue);
+				return;
+			case DiagramPackage.DIAGRAM_ELEMENT__IMAGE:
+				setImage((String)newValue);
+				return;
+			case DiagramPackage.DIAGRAM_ELEMENT__SHOW_AS_IMAGE:
+				setShowAsImage((Boolean)newValue);
 				return;
 			case DiagramPackage.DIAGRAM_ELEMENT__CONTENT_FILTERS:
 				setContentFilters((ContentFilters)newValue);
@@ -1165,6 +1279,12 @@ public class DiagramElement extends DiagramNode {
 			case DiagramPackage.DIAGRAM_ELEMENT__PRIMARY_LABEL_VISIBLE:
 				setPrimaryLabelVisible(PRIMARY_LABEL_VISIBLE_EDEFAULT);
 				return;
+			case DiagramPackage.DIAGRAM_ELEMENT__IMAGE:
+				setImage(IMAGE_EDEFAULT);
+				return;
+			case DiagramPackage.DIAGRAM_ELEMENT__SHOW_AS_IMAGE:
+				setShowAsImage(SHOW_AS_IMAGE_EDEFAULT);
+				return;
 			case DiagramPackage.DIAGRAM_ELEMENT__CONTENT_FILTERS:
 				setContentFilters((ContentFilters)null);
 				return;
@@ -1210,6 +1330,10 @@ public class DiagramElement extends DiagramNode {
 				return LINE_WIDTH_EDEFAULT == null ? lineWidth != null : !LINE_WIDTH_EDEFAULT.equals(lineWidth);
 			case DiagramPackage.DIAGRAM_ELEMENT__PRIMARY_LABEL_VISIBLE:
 				return PRIMARY_LABEL_VISIBLE_EDEFAULT == null ? primaryLabelVisible != null : !PRIMARY_LABEL_VISIBLE_EDEFAULT.equals(primaryLabelVisible);
+			case DiagramPackage.DIAGRAM_ELEMENT__IMAGE:
+				return IMAGE_EDEFAULT == null ? image != null : !IMAGE_EDEFAULT.equals(image);
+			case DiagramPackage.DIAGRAM_ELEMENT__SHOW_AS_IMAGE:
+				return SHOW_AS_IMAGE_EDEFAULT == null ? showAsImage != null : !SHOW_AS_IMAGE_EDEFAULT.equals(showAsImage);
 			case DiagramPackage.DIAGRAM_ELEMENT__CONTENT_FILTERS:
 				return contentFilters != null;
 		}
@@ -1246,6 +1370,10 @@ public class DiagramElement extends DiagramNode {
 		result.append(lineWidth);
 		result.append(", primaryLabelVisible: ");
 		result.append(primaryLabelVisible);
+		result.append(", image: ");
+		result.append(image);
+		result.append(", showAsImage: ");
+		result.append(showAsImage);
 		result.append(')');
 		return result.toString();
 	}

@@ -112,6 +112,39 @@ public class DiagramConfiguration extends MinimalEObjectImpl.Container implement
 	}
 
 	/**
+	 * Returns the value of the '<em><b>Type</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Type</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Type</em>' attribute.
+	 * @see #setType(String)
+	 * @see org.osate.ge.diagram.DiagramPackage#getDiagramConfiguration_Type()
+	 * @model dataType="org.eclipse.emf.ecore.xml.type.String"
+	 * @generated
+	 */
+	public String getType() {
+		return type;
+	}
+
+	/**
+	 * Sets the value of the '{@link org.osate.ge.diagram.DiagramConfiguration#getType <em>Type</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Type</em>' attribute.
+	 * @see #getType()
+	 * @generated
+	 */
+	public void setType(String newType) {
+		String oldType = type;
+		type = newType;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, DiagramPackage.DIAGRAM_CONFIGURATION__TYPE, oldType, type));
+	}
+
+	/**
 	 * Returns the value of the '<em><b>Enabled Aadl Properties</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <p>
@@ -252,39 +285,6 @@ public class DiagramConfiguration extends MinimalEObjectImpl.Container implement
 		connectionPrimaryLabelsVisible = newConnectionPrimaryLabelsVisible;
 		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, DiagramPackage.DIAGRAM_CONFIGURATION__CONNECTION_PRIMARY_LABELS_VISIBLE, oldConnectionPrimaryLabelsVisible, connectionPrimaryLabelsVisible));
-	}
-
-	/**
-	 * Returns the value of the '<em><b>Type</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Type</em>' attribute isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
-	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Type</em>' attribute.
-	 * @see #setType(String)
-	 * @see org.osate.ge.diagram.DiagramPackage#getDiagramConfiguration_Type()
-	 * @model dataType="org.eclipse.emf.ecore.xml.type.String"
-	 * @generated
-	 */
-	public String getType() {
-		return type;
-	}
-
-	/**
-	 * Sets the value of the '{@link org.osate.ge.diagram.DiagramConfiguration#getType <em>Type</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Type</em>' attribute.
-	 * @see #getType()
-	 * @generated
-	 */
-	public void setType(String newType) {
-		String oldType = type;
-		type = newType;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, DiagramPackage.DIAGRAM_CONFIGURATION__TYPE, oldType, type));
 	}
 
 	/**
