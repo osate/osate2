@@ -47,6 +47,7 @@ class FTATests extends OsateTest {
 	var static SystemInstance instanceredundant23
 	var static SystemInstance instancevoter
 	var static SystemInstance instanceDualFGS
+	var static SystemInstance instanceFilteredFlow
 
 	val static stateFail = "state Failed"
 	val static stateFailStop = "state FailStop"
@@ -84,6 +85,7 @@ class FTATests extends OsateTest {
 			val FTerrorlibFile = "FTerrorlibrary.aadl"
 			val dualfgsFile = "DualFGS.aadl"
 			val fgselibFile = "FGSErrorModelLibrary.aadl"
+			val filteredflowsFile = "FilteredFlows.aadl"
 			
 			createFiles(
 				fta1File -> readFile(modelroot + fta1File),
@@ -97,6 +99,7 @@ class FTATests extends OsateTest {
 				redundant2File -> readFile(modelroot + redundant2File),
 				voterFile -> readFile(modelroot + voterFile),
 				dualfgsFile -> readFile(modelroot + dualfgsFile),
+				filteredflowsFile -> readFile(modelroot + filteredflowsFile),
 				fgselibFile -> readFile(modelroot + fgselibFile),
 				errorlibFile -> readFile(modelroot + errorlibFile),
 				FTerrorlibFile -> readFile(modelroot + FTerrorlibFile)
@@ -119,6 +122,7 @@ class FTATests extends OsateTest {
 			
 			instancevoter = instanceGenerator(voterFile, "voter.i")
 			instanceDualFGS = instanceGenerator(dualfgsFile, "FGS.impl")
+			instanceFilteredFlow = instanceGenerator(filteredflowsFile, "FGS.impl")
 		}
 	}
 
@@ -468,5 +472,21 @@ class FTATests extends OsateTest {
 		assertEquals((sube2.relatedEMV2Object as NamedElement).name, "Failure")
 		assertEquals((sube2.relatedInstanceObject as NamedElement).name, "AC")
 	}
+	
+		@Test
+	def void filteredFlowTest() {
+		val start = "outgoing propagation on outport{NoValue}"
+		val ft = CreateFTAModel.createFaultTrace(instanceFilteredFlow, start)
+		assertEquals(ft.events.size, 9)
+		assertEquals(ft.root.subEvents.size, 1)
+		val sube1 = ft.root.subEvents.get(0)
+		assertEquals(sube1.subEventLogic, LogicOperation.OR)
+		assertEquals(sube1.subEvents.size, 2)
+		val subsube1 = sube1.subEvents.get(0)
+		assertEquals(subsube1.subEvents.size, 1)
+		val subsubsube1 = subsube1.subEvents.get(0)
+		assertEquals(subsubsube1.subEvents.size, 1)
+	}
+	
 	
 }
