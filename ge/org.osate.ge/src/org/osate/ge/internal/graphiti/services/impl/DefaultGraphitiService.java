@@ -91,6 +91,11 @@ public class DefaultGraphitiService implements GraphitiService {
 	}
 
 	@Override
+	public Dimension getAnnotationLabelSize(final DiagramElement de) {
+		return getChildShapeSize(de, ShapeNames.annotationShapeName);
+	}
+
+	@Override
 	public Dimension getPortGraphicSize(final DiagramElement dockedElement) {
 		final Graphic g = dockedElement.getGraphic();
 		if (g instanceof FeatureGraphic) {

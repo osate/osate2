@@ -11,9 +11,16 @@ public interface LayoutInfoProvider {
 	/**
 	 *
 	 * @param de
-	 * @return null if a size cannot be determined.
+	 * @return a valid size. Must never return null.
 	 */
 	Dimension getPrimaryLabelSize(DiagramElement de);
+
+	/**
+	 *
+	 * @param de
+	 * @return a valid size. Must never return null.
+	 */
+	Dimension getAnnotationLabelSize(DiagramElement de);
 
 	/**
 	 * Returns the unrotated size of the port for a docked diagram element.
