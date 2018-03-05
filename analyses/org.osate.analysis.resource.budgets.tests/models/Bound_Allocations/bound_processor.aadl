@@ -1,0 +1,24 @@
+package bound_processor
+public
+	with SEI;
+	
+	system s1
+	end s1;
+	
+	system implementation s1.i1
+		subcomponents
+			sub1: process;
+			sub2: processor;
+			sub3: process;
+			sub4: processor {SEI::MIPSCapacity => 1.0 MIPS;};
+			sub5: process {SEI::MIPSBudget => 1.0 MIPS;};
+			sub6: processor;
+			sub7: process {SEI::MIPSBudget => 1.0 MIPS;};
+			sub8: processor {SEI::MIPSCapacity => 1.0 MIPS;};
+		properties
+			Actual_Processor_Binding => (reference (sub2)) applies to sub1;
+			Actual_Processor_Binding => (reference (sub4)) applies to sub3;
+			Actual_Processor_Binding => (reference (sub6)) applies to sub5;
+			Actual_Processor_Binding => (reference (sub8)) applies to sub7;
+	end s1.i1;
+end bound_processor;

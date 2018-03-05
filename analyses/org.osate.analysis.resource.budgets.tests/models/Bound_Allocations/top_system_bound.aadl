@@ -1,0 +1,28 @@
+package top_system_bound
+public
+	system s1
+	end s1;
+	
+	system implementation s1.i1
+		subcomponents
+			sub1: processor;
+			sub2: bus;
+			sub3: virtual processor;
+			sub4: memory;
+			sub5: device;
+			sub6: system s2;
+			sub7: system s3;
+		properties
+			Actual_Processor_Binding => (reference (sub1));
+	end s1.i1;
+	
+	system s2
+		features
+			f1: requires bus access;
+	end s2;
+	
+	system s3
+		features
+			f2: feature;
+	end s3;
+end top_system_bound;

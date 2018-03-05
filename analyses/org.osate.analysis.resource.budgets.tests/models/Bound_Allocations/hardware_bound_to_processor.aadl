@@ -1,0 +1,13 @@
+package hardware_bound_to_processor
+public
+	system s1
+	end s1;
+	
+	system implementation s1.i1
+		subcomponents
+			sub1: system;
+			sub2: processor;
+		properties
+			Actual_Processor_Binding => (reference (sub2)) applies to sub1;
+	end s1.i1;
+end hardware_bound_to_processor;

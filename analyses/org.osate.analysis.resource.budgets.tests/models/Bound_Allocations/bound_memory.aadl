@@ -1,0 +1,32 @@
+package bound_memory
+public
+	with SEI;
+	
+	system s1
+	end s1;
+	
+	system implementation s1.i1
+		subcomponents
+			sub1: data;
+			sub2: memory {Memory_Size => 1 KByte;};
+			sub3: data;
+			sub4: memory {SEI::ROMCapacity => 1.0 KByte;};
+			sub5: data {Data_Size => 1 KByte;};
+			sub6: memory {Memory_Size => 1 KByte;};
+			sub7: data d1.i1;
+			sub8: memory {Memory_Size => 1 KByte;};
+		properties
+			Actual_Memory_Binding => (reference (sub2)) applies to sub1;
+			Actual_Memory_Binding => (reference (sub4)) applies to sub3;
+			Actual_Memory_Binding => (reference (sub6)) applies to sub5;
+			Actual_Memory_Binding => (reference (sub8)) applies to sub7;
+	end s1.i1;
+	
+	data d1
+	end d1;
+	
+	data implementation d1.i1
+		subcomponents
+			sub1: data;
+	end d1.i1;
+end bound_memory;

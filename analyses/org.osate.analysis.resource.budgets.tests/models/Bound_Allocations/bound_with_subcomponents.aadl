@@ -1,0 +1,41 @@
+package bound_with_subcomponents
+public
+	with SEI;
+	
+	system s1
+	end s1;
+	
+	system implementation s1.i1
+		subcomponents
+			sub1: process ps1.i1;
+			sub2: processor;
+			sub3: system s1.i2;
+			sub4: processor;
+		properties
+			Actual_Processor_Binding => (reference (sub2)) applies to sub1;
+			Actual_Processor_Binding => (reference (sub4)) applies to sub3;
+	end s1.i1;
+	
+	system implementation s1.i2
+		subcomponents
+			sub5: device dev1.i1 {SEI::MIPSBudget => 1.0 MIPS;};
+			sub6: device dev1.i1;
+	end s1.i2;
+	
+	process ps1
+	end ps1;
+	
+	process implementation ps1.i1
+		subcomponents
+			sub7: thread;
+			subx: thread {SEI::MIPSBudget => 1.0 MIPS;};
+	end ps1.i1;
+	
+	device dev1
+	end dev1;
+	
+	device implementation dev1.i1
+		subcomponents
+			sub8: data;
+	end dev1.i1;
+end bound_with_subcomponents;
