@@ -20,16 +20,6 @@
     </category>
 	   <command id="org.osate.ge.commands.opendiagram" name="Open Diagram" defaultHandler="org.osate.ge.internal.ui.handlers.OpenDiagramHandler"></command>
 	   <command id="org.osate.ge.commands.creatediagram" name="Create Diagram..." defaultHandler="org.osate.ge.internal.ui.handlers.CreateDiagramHandler"></command>
-	   <command 
-	   		id="org.osate.ge.commands.open.diagram.from.navigator"
-			name="Open Diagram" 
-			description="Open Diagram">
-		</command>
-			   <command 
-	   		id="org.osate.ge.commands.create.diagram.from.navigator"
-			name="Create Diagram..." 
-			description="Create Diagram">
-		</command>
       <command
             categoryId="org.osate.ge.commands.categories.layout"
             id="org.osate.ge.commands.arrangeInGrid"
@@ -511,7 +501,7 @@
        <menuContribution
             locationURI="popup:org.osate.ui.navigator.AadlNavigator?after=osate_begin">
          <command
-             commandId="org.osate.ge.commands.open.diagram.from.navigator"
+             commandId="org.osate.ge.commands.opendiagram"
              label="Open Diagram"
              tooltip="Open Diagram" 
              style="push"
@@ -523,7 +513,7 @@
          </command>
          
          <command
-             commandId="org.osate.ge.commands.create.diagram.from.navigator"
+             commandId="org.osate.ge.commands.creatediagram"
              label="Create Diagram..."
              tooltip="Create Diagram" 
              style="push">
@@ -1221,8 +1211,10 @@
         <includes>
            <contentExtension
                  isRoot="false"
-                 pattern="org.osate.ge.*">
+                 pattern="org.osate.ge.navigatorContent">
            </contentExtension>
+           <contentExtension
+                 pattern="org.osate.ge.linkHelper"/>
         </includes>
      </viewerContentBinding>
      <viewerContentBinding
@@ -1230,10 +1222,35 @@
         <includes>
            <contentExtension
                  isRoot="false"
-                 pattern="org.osate.ge.*">
+                 pattern="org.osate.ge.navigatorContent">
            </contentExtension>
+           <contentExtension
+                 pattern="org.osate.ge.linkHelper"/>
         </includes>
      </viewerContentBinding>
+     <viewerContentBinding
+            viewerId="org.osate.ge.diagramsView">
+         <includes>
+            <contentExtension pattern="org.eclipse.ui.navigator.resources.workingSets"/>
+            <contentExtension pattern="org.eclipse.ui.navigator.resources.filters.*"/>
+            <contentExtension
+                  pattern="org.osate.ge.internal.ui.diagramNavigator.content">
+            </contentExtension>
+            <contentExtension pattern="org.osate.ui.navigator.AadlNavigatorLinkHelper"/>
+            <contentExtension pattern="org.osate.ge.linkHelper"/>
+         </includes>
+      </viewerContentBinding>
+      <viewerActionBinding
+        	viewerId="org.osate.ge.diagramsView">
+     		<includes>
+     			<actionExtension pattern="org.eclipse.ui.navigator.resources.*" />
+     		</includes>
+	  </viewerActionBinding>
+      <viewer viewerId="org.osate.ge.diagramsView">
+          <options>      
+              <property name="org.eclipse.ui.navigator.hideAvailableCustomizationsDialog" value="true"/>
+          </options> 
+      </viewer>
   </extension>
   
   <extension
@@ -1294,12 +1311,6 @@
           schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"
           sequence="M1+M2+V">
     </key>
-
-     <key
-          commandId="org.osate.ge.commands.open.diagram.from.navigator"
-          schemeId="org.osate.ge.key.bindings"
-          sequence="M1+Enter">
-     </key>
      <scheme
            id="org.osate.ge.key.bindings"
            parentId="org.eclipse.ui.defaultAcceleratorConfiguration"
@@ -1348,28 +1359,6 @@
        </with>
     </definition>
  </extension>
-    <extension
-         point="org.eclipse.ui.handlers">
-      <handler
-            class="org.osate.ge.internal.ui.handlers.OpenDiagramFromNavigatorHandler"
-            commandId="org.osate.ge.commands.open.diagram.from.navigator">
-         <enabledWhen>
-            <reference
-                  definitionId="org.osate.ge.compatibleElementSelected">
-            </reference>
-         </enabledWhen>
-      </handler>
-      
-      <handler
-            class="org.osate.ge.internal.ui.handlers.CreateDiagramFromNavigatorHandler"
-            commandId="org.osate.ge.commands.create.diagram.from.navigator">
-         <enabledWhen>
-            <reference
-                  definitionId="org.osate.ge.compatibleElementSelected">
-            </reference>
-         </enabledWhen>
-      </handler>
-   </extension>
     <extension
           point="org.eclipse.core.expressions.definitions">
        <definition id="org.osate.ge.compatibleElementSelected">
@@ -2252,5 +2241,85 @@
       <diagramType
             class="org.osate.ge.internal.diagram.runtime.types.ProcessorBindingDiagramType">
       </diagramType>
+   </extension>
+   <extension
+         point="org.eclipse.ui.views">
+      <view
+            allowMultiple="false"
+            category="aadl.view_category"
+            class="org.osate.ge.internal.ui.navigator.DiagramsView"
+            icon="icons/tango/x-office-drawing.png"
+            id="org.osate.ge.diagramsView"
+            name="AADL Diagrams"
+            restorable="true">
+      </view>
+   </extension>
+   <extension
+         point="org.eclipse.ui.navigator.navigatorContent">     
+	<navigatorContent
+            activeByDefault="true"
+            contentProvider="org.osate.ge.internal.ui.navigator.DiagramNavigatorContentProvider"
+            id="org.osate.ge.internal.ui.diagramNavigator.content"
+            labelProvider="org.osate.ge.internal.ui.navigator.DiagramNavigatorLabelProvider"
+            name="AADL Diagrams"
+            priority="lowest">
+         <triggerPoints>
+            <or>
+               <instanceof
+                     value="org.eclipse.core.resources.IResource">
+               </instanceof>
+               <instanceof
+                     value="org.osate.ge.internal.ui.navigator.DiagramGroup">
+               </instanceof>
+            </or>
+         </triggerPoints>
+         <possibleChildren>
+            <or>
+               <instanceof
+                     value="org.eclipse.core.resources.IResource">
+               </instanceof>
+               <instanceof
+                     value="org.osate.ge.internal.ui.navigator.DiagramGroup">
+               </instanceof>
+            </or>
+         </possibleChildren>
+         <actionProvider
+               class="org.osate.ge.internal.ui.navigator.DiagramNavigatorActionProvider"
+               id="org.osate.ge.internal.ui.diagramNavigator.editActions">
+         </actionProvider>
+         <commonWizard
+               type="new"
+               wizardId="org.osate.ui.NewAadlPackageWizard">
+            <enablement>
+               <adapt
+                     type="org.eclipse.core.resources.IResource">
+               </adapt>
+            </enablement>
+         </commonWizard>
+         <commonWizard
+               type="new"
+               wizardId="org.osate.ui.wizards.AadlProjectWizardID">
+            <enablement>
+               <adapt
+                     type="org.eclipse.core.resources.IResource">
+               </adapt>
+            </enablement>
+         </commonWizard>
+      </navigatorContent>
+   </extension>
+   <extension
+         point="org.eclipse.ui.perspectiveExtensions">
+      <perspectiveExtension
+            targetID="org.osate.ui.perspective.AadlPerspective">
+         <view
+               id="org.osate.ge.diagramsView"
+               minimized="false"
+               relationship="stack"
+               relative="org.osate.ui.navigator.AadlNavigator">
+         </view>
+         <viewShortcut
+               id="org.osate.ge.diagramsView">
+         </viewShortcut>
+      </perspectiveExtension>
    </extension>
 </plugin>

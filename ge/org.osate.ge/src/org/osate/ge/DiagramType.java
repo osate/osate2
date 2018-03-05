@@ -19,6 +19,14 @@ public interface DiagramType {
 	String getName();
 
 	/**
+	 * Returns the plural UI friendly name for the diagram type.
+	 * @return
+	 */
+	default String getPluralName() {
+		return getName() + "s";
+	}
+
+	/**
 	 * Returns whether the diagram type supports the use of a specified business object as a context.
 	 * @param contextBo
 	 * @return

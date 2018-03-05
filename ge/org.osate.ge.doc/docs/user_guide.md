@@ -47,15 +47,24 @@ An existing AADL model can be opened in the graphical editor. Changes made to ei
 	
 4. You can also use the keyboard shortcut *Ctrl+Shift+V* to switch between the selected element in the
    diagram and the selected element in the source file.
-   
+  
+## Creating a New Diagram
+AADL model elements may be represented by multiple diagrams. To create a new diagram from the AADL text editor, right-click on an AADL package or classifier and select *Create Diagram...*. To create a new diagram from the diagram editor, right-click on an AADL package or classifier and select *Open->New Diagram...*.
+
 # Navigating Between Diagrams
-The graphical editor supports navigating between related diagrams in several ways.
+The graphical editor supports several methods for navigating between diagrams.
+
+## Using the AADL Diagrams View
+The *AADL Diagrams* view shows the diagrams contained in the workspace. To open the *AADL Diagrams* view:
+
+1. Select *Windows->Show View->Other...* from the top-level menu. The *Show View* window will appear.
+2. Select *AADL/AADL Diagrams*.
+3. Select *Open*. The *AADL Diagrams* view will be opened.
+
+By default, the *AADL Diagrams* view will group diagrams by the diagram type and the diagram's context. Grouping can be customized using the *Group By Type* and *Group by Context* options in the view menu (![View Menu](../images/ui_view_menu_icon.png)) for the *AADL Diagrams* view. Selecting *Show Decorations* from the view menu will toggle display of the context and type for diagrams which are not grouped.
 
 ## Opening an Associated Diagram
 Diagrams associated with a particular element can be opened by right-clicking on the element and selecting *Open->Associated Diagram* from the context menu. 
-
-## Creating a New Diagram
-AADL model elements may be represented by multiple diagrams. To create a new diagram from the AADL text editor, right-click on an AADL package or classifier and select *Create Diagram...*. To create a new diagram from the diagram editor, right-click on an AADL package or classifier and select *Open->New Diagram...*.
 
 ## Opening an Element's Package Diagram
 The package diagram associated with an element can be opened by right-clicking an element and selecting *Open->Package Diagram* from the context menu.

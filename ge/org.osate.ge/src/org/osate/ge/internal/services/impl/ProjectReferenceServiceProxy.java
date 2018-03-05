@@ -55,8 +55,8 @@ public class ProjectReferenceServiceProxy implements ProjectReferenceService {
 	}
 
 	@Override
-	public String getLabel(final CanonicalBusinessObjectReference ref) {
-		return referenceService.getLabel(ref);
+	public String getLabel(final CanonicalBusinessObjectReference ref, final IProject project) {
+		return referenceService.getLabel(ref, project);
 	}
 
 	@Override

@@ -17,7 +17,7 @@
     catch(err) {
     }
 //-->
-var methods = {"i0":18,"i1":6,"i2":18,"i3":6,"i4":6,"i5":6,"i6":6,"i7":18};
+var methods = {"i0":18,"i1":6,"i2":18,"i3":6,"i4":6,"i5":6,"i6":18,"i7":6,"i8":18};
 var tabs = {65535:["t0","All Methods"],2:["t2","Instance Methods"],4:["t3","Abstract Methods"],16:["t5","Default Methods"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
@@ -155,12 +155,18 @@ var activeTableTab = "activeTableTab";
 </td>
 </tr>
 <tr id="i6" class="altColor">
+<td class="colFirst"><code>default java.lang.String</code></td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../org/osate/ge/DiagramType.html#getPluralName--">getPluralName</a></span>()</code>
+<div class="block">Returns the plural UI friendly name for the diagram type.</div>
+</td>
+</tr>
+<tr id="i7" class="rowColor">
 <td class="colFirst"><code>boolean</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../org/osate/ge/DiagramType.html#isApplicableToContext-java.lang.Object-">isApplicableToContext</a></span>(java.lang.Object&nbsp;contextBo)</code>
 <div class="block">Returns whether the diagram type supports the use of a specified business object as a context.</div>
 </td>
 </tr>
-<tr id="i7" class="rowColor">
+<tr id="i8" class="altColor">
 <td class="colFirst"><code>default boolean</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../org/osate/ge/DiagramType.html#isUserCreatable--">isUserCreatable</a></span>()</code>
 <div class="block">Returns whether the diagram type is one that should be provided to the user as an option when creating a diagram.</div>
@@ -202,6 +208,19 @@ var activeTableTab = "activeTableTab";
 <h4>getName</h4>
 <pre>java.lang.String&nbsp;getName()</pre>
 <div class="block">Returns the UI friendly name for the diagram type.</div>
+<dl>
+<dt><span class="returnLabel">Returns:</span></dt>
+</dl>
+</li>
+</ul>
+<a name="getPluralName--">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getPluralName</h4>
+<pre>default&nbsp;java.lang.String&nbsp;getPluralName()</pre>
+<div class="block">Returns the plural UI friendly name for the diagram type.</div>
 <dl>
 <dt><span class="returnLabel">Returns:</span></dt>
 </dl>

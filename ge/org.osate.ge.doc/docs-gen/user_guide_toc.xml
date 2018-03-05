@@ -5,11 +5,13 @@
 		</topic>
 		<topic label="Opening an Existing AADL Model" href="docs-gen/user_guide.html#opening-an-existing-aadl-model">
 		</topic>
+		<topic label="Creating a New Diagram" href="docs-gen/user_guide.html#creating-a-new-diagram">
+		</topic>
 	</topic>
 	<topic label="Navigating Between Diagrams" href="docs-gen/user_guide.html#navigating-between-diagrams">
-		<topic label="Opening an Associated Diagram" href="docs-gen/user_guide.html#opening-an-associated-diagram">
+		<topic label="Using the AADL Diagrams View" href="docs-gen/user_guide.html#using-the-aadl-diagrams-view">
 		</topic>
-		<topic label="Creating a New Diagram" href="docs-gen/user_guide.html#creating-a-new-diagram">
+		<topic label="Opening an Associated Diagram" href="docs-gen/user_guide.html#opening-an-associated-diagram">
 		</topic>
 		<topic label="Opening an Element&#39;s Package Diagram" href="docs-gen/user_guide.html#opening-an-elements-package-diagram">
 		</topic>
