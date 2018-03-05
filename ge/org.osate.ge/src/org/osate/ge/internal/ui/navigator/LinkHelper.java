@@ -24,7 +24,7 @@ public class LinkHelper implements ILinkHelper {
 		if(file != null) {
 			return new StructuredSelection(file);
 		}
-		
+
 		return StructuredSelection.EMPTY;
 	}
 

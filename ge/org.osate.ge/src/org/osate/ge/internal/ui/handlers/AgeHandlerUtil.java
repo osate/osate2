@@ -1,12 +1,12 @@
 package org.osate.ge.internal.ui.handlers;
 
-import java.util.Collections;
 import java.util.List;
 
 import org.eclipse.core.commands.ExecutionEvent;
 import org.eclipse.core.expressions.IEvaluationContext;
 import org.eclipse.core.runtime.Adapters;
 import org.eclipse.jface.viewers.ISelection;
+import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.ISources;
 import org.eclipse.ui.handlers.HandlerUtil;
@@ -41,18 +41,22 @@ class AgeHandlerUtil {
 	}
 
 	public static List<DiagramElement> getSelectedDiagramElementsFromContext(final Object evaluationContext) {
+		final ISelection selection = getSelectionFromContext(evaluationContext);
+		return SelectionUtil.getSelectedDiagramElements(selection);
+	}
+
+	public static ISelection getSelectionFromContext(final Object evaluationContext) {
 		if (!(evaluationContext instanceof IEvaluationContext)) {
-			return Collections.emptyList();
+			return StructuredSelection.EMPTY;
 		}
 
 		final IEvaluationContext context = (IEvaluationContext) evaluationContext;
 		final Object selectionObj = context.getVariable(ISources.ACTIVE_CURRENT_SELECTION_NAME);
 		if (!(selectionObj instanceof ISelection)) {
-			return Collections.emptyList();
+			return StructuredSelection.EMPTY;
 		}
 
-		final ISelection selection = (ISelection) selectionObj;
-		return SelectionUtil.getSelectedDiagramElements(selection);
+		return (ISelection) selectionObj;
 	}
 
 	public static IEditorPart getActiveEditorFromContext(final Object evaluationContext) {

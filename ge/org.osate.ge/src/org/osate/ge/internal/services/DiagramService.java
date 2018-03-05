@@ -24,6 +24,12 @@ import org.osate.ge.internal.ui.editor.AgeDiagramEditor;
  */
 public interface DiagramService {
 	static interface DiagramReference {
+		/**
+		 * Returns whether the diagram is valid. If it is valid then getDiagramTypeId() and getContextReference() will return valid values.
+		 * @return
+		 */
+		boolean isValid();
+
 		boolean isOpen();
 
 		/**
@@ -33,11 +39,23 @@ public interface DiagramService {
 		AgeDiagramEditor getEditor();
 
 		IFile getFile();
+
+		/**
+		 *
+		 * @return will return null if the diagram is not valid.
+		 */
+		String getDiagramTypeId();
+
+		/**
+		 *
+		 * @return will return null if the diagram is not valid.
+		 */
+		CanonicalBusinessObjectReference getContextReference();
 	}
 
-	List<? extends DiagramReference> findDiagramsByContextBusinessObject(final Object bo);
+	List<DiagramReference> findDiagramsByContextBusinessObject(final Object bo);
 
-	List<? extends DiagramReference> findDiagrams(Set<IProject> projects);
+	List<DiagramReference> findDiagrams(Set<IProject> projects);
 
 
 	/**

@@ -20,10 +20,11 @@
 <li><a href="#getting-started"><span class="toc-section-number">1</span> Getting Started</a><ul>
 <li><a href="#creating-a-new-aadl-package"><span class="toc-section-number">1.1</span> Creating a new AADL Package</a></li>
 <li><a href="#opening-an-existing-aadl-model"><span class="toc-section-number">1.2</span> Opening an Existing AADL Model</a></li>
+<li><a href="#creating-a-new-diagram"><span class="toc-section-number">1.3</span> Creating a New Diagram</a></li>
 </ul></li>
 <li><a href="#navigating-between-diagrams"><span class="toc-section-number">2</span> Navigating Between Diagrams</a><ul>
-<li><a href="#opening-an-associated-diagram"><span class="toc-section-number">2.1</span> Opening an Associated Diagram</a></li>
-<li><a href="#creating-a-new-diagram"><span class="toc-section-number">2.2</span> Creating a New Diagram</a></li>
+<li><a href="#using-the-aadl-diagrams-view"><span class="toc-section-number">2.1</span> Using the AADL Diagrams View</a></li>
+<li><a href="#opening-an-associated-diagram"><span class="toc-section-number">2.2</span> Opening an Associated Diagram</a></li>
 <li><a href="#opening-an-elements-package-diagram"><span class="toc-section-number">2.3</span> Opening an Element's Package Diagram</a></li>
 <li><a href="#opening-the-type-diagram-for-a-component-implementation-or-subcomponent"><span class="toc-section-number">2.4</span> Opening the Type Diagram for a Component Implementation or Subcomponent</a></li>
 <li><a href="#opening-the-implementation-diagram-for-a-component-implementation-or-subcomponent"><span class="toc-section-number">2.5</span> Opening the Implementation Diagram for a Component Implementation or Subcomponent</a></li>
@@ -148,12 +149,20 @@
 <li><p>Select <em>Open Diagram</em> to open the diagram for the selected classifier. If a classifier is not selected, <em>Open Diagram</em> opens the package diagram for the selected package. The diagram will be created if one does not already exist. The appropriate diagram will appear in the graphical editor.</p></li>
 <li><p>You can also use the keyboard shortcut <em>Ctrl+Shift+V</em> to switch between the selected element in the diagram and the selected element in the source file.</p></li>
 </ol>
-<h1 id="navigating-between-diagrams"><span class="header-section-number">2</span> Navigating Between Diagrams</h1>
-<p>The graphical editor supports navigating between related diagrams in several ways.</p>
-<h2 id="opening-an-associated-diagram"><span class="header-section-number">2.1</span> Opening an Associated Diagram</h2>
-<p>Diagrams associated with a particular element can be opened by right-clicking on the element and selecting <em>Open-&gt;Associated Diagram</em> from the context menu.</p>
-<h2 id="creating-a-new-diagram"><span class="header-section-number">2.2</span> Creating a New Diagram</h2>
+<h2 id="creating-a-new-diagram"><span class="header-section-number">1.3</span> Creating a New Diagram</h2>
 <p>AADL model elements may be represented by multiple diagrams. To create a new diagram from the AADL text editor, right-click on an AADL package or classifier and select <em>Create Diagram...</em>. To create a new diagram from the diagram editor, right-click on an AADL package or classifier and select <em>Open-&gt;New Diagram...</em>.</p>
+<h1 id="navigating-between-diagrams"><span class="header-section-number">2</span> Navigating Between Diagrams</h1>
+<p>The graphical editor supports several methods for navigating between diagrams.</p>
+<h2 id="using-the-aadl-diagrams-view"><span class="header-section-number">2.1</span> Using the AADL Diagrams View</h2>
+<p>The <em>AADL Diagrams</em> view shows the diagrams contained in the workspace. To open the <em>AADL Diagrams</em> view:</p>
+<ol type="1">
+<li>Select <em>Windows-&gt;Show View-&gt;Other...</em> from the top-level menu. The <em>Show View</em> window will appear.</li>
+<li>Select <em>AADL/AADL Diagrams</em>.</li>
+<li>Select <em>Open</em>. The <em>AADL Diagrams</em> view will be opened.</li>
+</ol>
+<p>By default, the <em>AADL Diagrams</em> view will group diagrams by the diagram type and the diagram's context. Grouping can be customized using the <em>Group By Type</em> and <em>Group by Context</em> options in the view menu (<img src="../images/ui_view_menu_icon.png" alt="View Menu" />) for the <em>AADL Diagrams</em> view. Selecting <em>Show Decorations</em> from the view menu will toggle display of the context and type for diagrams which are not grouped.</p>
+<h2 id="opening-an-associated-diagram"><span class="header-section-number">2.2</span> Opening an Associated Diagram</h2>
+<p>Diagrams associated with a particular element can be opened by right-clicking on the element and selecting <em>Open-&gt;Associated Diagram</em> from the context menu.</p>
 <h2 id="opening-an-elements-package-diagram"><span class="header-section-number">2.3</span> Opening an Element's Package Diagram</h2>
 <p>The package diagram associated with an element can be opened by right-clicking an element and selecting <em>Open-&gt;Package Diagram</em> from the context menu.</p>
 <h2 id="opening-the-type-diagram-for-a-component-implementation-or-subcomponent"><span class="header-section-number">2.4</span> Opening the Type Diagram for a Component Implementation or Subcomponent</h2>

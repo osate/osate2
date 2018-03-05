@@ -260,11 +260,14 @@ public class DefaultReferenceService implements ReferenceService {
 	}
 
 	@Override
-	public String getLabel(final CanonicalBusinessObjectReference ref) {
+	public String getLabel(final CanonicalBusinessObjectReference ref, final IProject project) {
 		Objects.requireNonNull(ref, "ref must not be null");
+		Objects.requireNonNull(project, "project must not be null");
+
 		try {
 			// Set context fields
 			argCtx.set(InternalNames.REFERENCE, ref);
+			argCtx.set(InternalNames.PROJECT, project);
 			for (final Object refLabelProvider : referenceLabelProviders) {
 				final String label = (String) ContextInjectionFactory.invoke(refLabelProvider,
 						GetCanonicalReferenceLabel.class,
@@ -275,7 +278,8 @@ public class DefaultReferenceService implements ReferenceService {
 			}
 		} finally {
 			// Remove entries from context
-			argCtx.remove(Names.BUSINESS_OBJECT);
+			argCtx.remove(InternalNames.PROJECT);
+			argCtx.remove(InternalNames.REFERENCE);
 		}
 
 		return null;
@@ -296,7 +300,7 @@ public class DefaultReferenceService implements ReferenceService {
 			}
 		} finally {
 			// Remove entries from context
-			argCtx.remove(Names.BUSINESS_OBJECT);
+			argCtx.remove(InternalNames.REFERENCE);
 		}
 
 		return null;

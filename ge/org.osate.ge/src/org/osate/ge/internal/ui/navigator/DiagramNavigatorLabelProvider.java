@@ -1,0 +1,165 @@
+package org.osate.ge.internal.ui.navigator;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Objects;
+import java.util.Optional;
+import java.util.stream.Collectors;
+
+import org.eclipse.core.resources.IFile;
+import org.eclipse.core.resources.IProject;
+import org.eclipse.e4.core.contexts.EclipseContextFactory;
+import org.eclipse.e4.core.contexts.IEclipseContext;
+import org.eclipse.jface.viewers.DecoratingLabelProvider;
+import org.eclipse.jface.viewers.StyledString;
+import org.eclipse.jface.viewers.StyledString.Styler;
+import org.eclipse.swt.SWT;
+import org.eclipse.swt.graphics.Image;
+import org.eclipse.swt.graphics.TextStyle;
+import org.eclipse.swt.widgets.Display;
+import org.eclipse.ui.IMemento;
+import org.eclipse.ui.ISharedImages;
+import org.eclipse.ui.PlatformUI;
+import org.eclipse.ui.model.WorkbenchLabelProvider;
+import org.eclipse.ui.navigator.ICommonContentExtensionSite;
+import org.eclipse.ui.navigator.ICommonLabelProvider;
+import org.eclipse.ui.navigator.IExtensionStateModel;
+import org.osate.ge.DiagramType;
+import org.osate.ge.internal.diagram.runtime.types.DiagramTypeProvider;
+import org.osate.ge.internal.services.DiagramService;
+import org.osate.ge.internal.services.DiagramService.DiagramReference;
+import org.osate.ge.internal.services.ExtensionRegistryService;
+import org.osate.ge.internal.services.ReferenceLabelService;
+import org.osate.ge.internal.services.ReferenceService;
+import org.osgi.framework.Bundle;
+import org.osgi.framework.FrameworkUtil;
+
+public class DiagramNavigatorLabelProvider extends DecoratingLabelProvider
+implements org.eclipse.jface.viewers.DelegatingStyledCellLabelProvider.IStyledLabelProvider,
+ICommonLabelProvider {
+	private final DiagramService diagramService;
+	private final DiagramTypeProvider dtProvider;
+	private final ReferenceLabelService referenceLabelService;
+	private IExtensionStateModel stateModel;
+	private final Styler annotationStyler = new Styler() {
+		@Override
+		public void applyStyles(TextStyle textStyle) {
+			textStyle.foreground = Display.getDefault().getSystemColor(SWT.COLOR_DARK_YELLOW);
+		}
+	};
+
+	public DiagramNavigatorLabelProvider() {
+		super(new WorkbenchLabelProvider(), null);
+
+		final Bundle bundle = FrameworkUtil.getBundle(getClass());
+		final IEclipseContext context = EclipseContextFactory.getServiceContext(bundle.getBundleContext())
+				.createChild();
+		diagramService = Objects.requireNonNull(context.get(DiagramService.class), "Unable to get diagram service");
+		dtProvider = Objects.requireNonNull(context.get(ExtensionRegistryService.class),
+				"Unable to get extension registry");
+		referenceLabelService = Objects.requireNonNull(context.get(ReferenceService.class),
+				"Unable to get reference service");
+	}
+
+	@Override
+	public void init(ICommonContentExtensionSite aConfig) {
+		stateModel = aConfig.getExtensionStateModel();
+	}
+
+	@Override
+	public void restoreState(IMemento aMemento) {
+	}
+
+	@Override
+	public void saveState(IMemento aMemento) {
+	}
+
+	@Override
+	public String getDescription(Object anElement) {
+		return null;
+	}
+
+	@Override
+	public String getText(final Object element) {
+		if (element instanceof DiagramGroup) {
+			final DiagramGroup dg = (DiagramGroup) element;
+			if (dg.isContextReferenceValid()) {
+				if (dg.getContextReference() == null) {
+					return "<No Context>";
+				} else {
+					final String contextLabel = referenceLabelService.getLabel(dg.getContextReference(),
+							dg.getProject());
+					return contextLabel == null ? "Unrecognized Context: " + dg.getContextReference() : contextLabel;
+				}
+			} else if (dg.getDiagramTypeId() != null) {
+				final Optional<DiagramType> dtOpt = dtProvider.getDiagramTypeById(dg.getDiagramTypeId());
+				return dtOpt.map(dt -> dt.getPluralName())
+						.orElseGet(() -> "Unrecognized Diagram Type : " + dg.getDiagramTypeId());
+			} else {
+				throw new RuntimeException("Unexpected case. Diagram type and context reference are both null");
+			}
+		}
+
+		return super.getText(element);
+	}
+
+	@Override
+	public StyledString getStyledText(Object element) {
+		if (element instanceof DiagramGroup) {
+			return new StyledString(getText(element));
+		} else if (element instanceof IFile) {
+			final IFile file = (IFile) element;
+
+			final IProject project = file.getProject();
+			if (project != null) {
+				final Optional<DiagramReference> optDiagramRef = diagramService
+						.findDiagrams(Collections.singleton(project)).stream()
+						.filter(dr -> dr.isValid() && file.equals(dr.getFile())).findAny();
+				if (optDiagramRef.isPresent()) {
+					final DiagramReference diagramRef = optDiagramRef.get();
+					final StyledString diagramLabel = new StyledString(diagramService.getName(diagramRef.getFile()));
+
+					// Handle diagram type and context annotations
+					if (DiagramNavigatorProperties.getShowAnnotations(stateModel)) {
+						// Context
+						List<String> annotations = new ArrayList<>();
+						if (!DiagramNavigatorProperties.getGroupByDiagramContext(stateModel)) {
+							final String contextLabel = referenceLabelService.getLabel(diagramRef.getContextReference(),
+									project);
+							if (contextLabel != null) {
+								annotations.add(contextLabel);
+							}
+						}
+
+						// Diagram Type
+						if (!DiagramNavigatorProperties.getGroupByDiagramType(stateModel)) {
+							dtProvider.getDiagramTypeById(diagramRef.getDiagramTypeId())
+							.ifPresent(dt -> annotations.add(dt.getName()));
+						}
+
+						// Build label based on annotations
+						if (annotations.size() > 0) {
+							diagramLabel.append(" [" + annotations.stream().collect(Collectors.joining("; ")) + "]",
+									annotationStyler);
+						}
+
+					}
+
+					return diagramLabel;
+				}
+			}
+		}
+
+		return ((WorkbenchLabelProvider) getLabelProvider()).getStyledText(element);
+	}
+
+	@Override
+	public Image getImage(final Object element) {
+		final ISharedImages images = PlatformUI.getWorkbench().getSharedImages();
+		if (element instanceof DiagramGroup) {
+			return images.getImage(ISharedImages.IMG_OBJ_FOLDER);
+		}
+		return super.getImage(element);
+	}
+}

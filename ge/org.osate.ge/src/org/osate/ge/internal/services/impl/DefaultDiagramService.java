@@ -98,21 +98,23 @@ public class DefaultDiagramService implements DiagramService {
 
 	// Implementation of DiagramReference
 	private static class InternalDiagramReference implements DiagramReference {
-		private final IFile fileResource;
+		private final SavedDiagramIndex.DiagramIndexEntry indexEntry;
 		private final AgeDiagramEditor editor;
-		private final String diagramTypeId;
 
-		private InternalDiagramReference(final IFile file,
-				final AgeDiagramEditor editor,
-				final String diagramTypeId) {
-			this.fileResource = Objects.requireNonNull(file, "file must not be null");
+		private InternalDiagramReference(final SavedDiagramIndex.DiagramIndexEntry indexEntry,
+				final AgeDiagramEditor editor) {
+			this.indexEntry = Objects.requireNonNull(indexEntry, "indexEntry must not be null");
 			this.editor = editor;
-			this.diagramTypeId = Objects.requireNonNull(diagramTypeId, "diagramTypeId must not be null");
+		}
+
+		@Override
+		public boolean isValid() {
+			return indexEntry.getDiagramTypeId() != null;
 		}
 
 		@Override
 		public IFile getFile() {
-			return fileResource;
+			return indexEntry.getDiagramFile();
 		}
 
 		@Override
@@ -123,6 +125,16 @@ public class DefaultDiagramService implements DiagramService {
 		@Override
 		public boolean isOpen() {
 			return editor != null;
+		}
+
+		@Override
+		public String getDiagramTypeId() {
+			return indexEntry.getDiagramTypeId();
+		}
+
+		@Override
+		public CanonicalBusinessObjectReference getContextReference() {
+			return indexEntry.getContext();
 		}
 	}
 
@@ -152,7 +164,7 @@ public class DefaultDiagramService implements DiagramService {
 	}
 
 	@Override
-	public List<InternalDiagramReference> findDiagramsByContextBusinessObject(final Object bo) {
+	public List<DiagramReference> findDiagramsByContextBusinessObject(final Object bo) {
 		final CanonicalBusinessObjectReference boReference = referenceService.getCanonicalReference(bo);
 		if(boReference == null) {
 			throw new RuntimeException("Unable to get canonical reference for business object : " + bo);
@@ -176,8 +188,7 @@ public class DefaultDiagramService implements DiagramService {
 
 		// Add saved diagram files if they are not open
 		return savedDiagramIndex.getDiagramsByContext(relevantProjects.stream(), boReference).stream()
-				.map(e -> new InternalDiagramReference(e.diagramFile, fileToEditorMap.get(e.diagramFile),
-						e.diagramTypeId))
+				.map(e -> new InternalDiagramReference(e, fileToEditorMap.get(e.getDiagramFile())))
 				.
 				collect(Collectors.toList());
 	}
@@ -185,11 +196,12 @@ public class DefaultDiagramService implements DiagramService {
 	@Override
 	public AgeDiagramEditor openOrCreateDiagramForBusinessObject(final Object bo, final boolean promptForCreate, final boolean promptForConfigureAfterCreate) {
 		// Look for an existing diagram
-		final List<InternalDiagramReference> diagramRefs = findDiagramsByContextBusinessObject(bo);
+		final List<DiagramReference> diagramRefs = findDiagramsByContextBusinessObject(bo).stream()
+				.filter(dr -> dr.isValid()).collect(Collectors.toList());
 
 		// If there is just one diagram, open it
 		if(diagramRefs.size() == 1) {
-			final InternalDiagramReference diagramRef = diagramRefs.get(0);
+			final DiagramReference diagramRef = diagramRefs.get(0);
 			if(diagramRef.isOpen()) {
 				Log.info("Existing diagram found. Activating existing editor...");
 				PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().activate(diagramRef.getEditor());
@@ -213,12 +225,12 @@ public class DefaultDiagramService implements DiagramService {
 				return null;
 			}
 		} else {
-			final InternalDiagramReference diagramRef = promptForDiagram(diagramRefs);
+			final DiagramReference diagramRef = promptForDiagram(diagramRefs);
 			return diagramRef == null ? null : EditorUtil.openEditor(diagramRef.getFile(), false);
 		}
 	}
 
-	private InternalDiagramReference promptForDiagram(final List<InternalDiagramReference> diagramRefs) {
+	private DiagramReference promptForDiagram(final List<DiagramReference> diagramRefs) {
 		// Sort the diagram references
 		final InternalDiagramReference[] sortedDiagramRefs = diagramRefs.stream().sorted((r1, r2) -> getName(r1.getFile()).compareToIgnoreCase(getName(r2.getFile()))).toArray(InternalDiagramReference[]::new);
 
@@ -233,8 +245,8 @@ public class DefaultDiagramService implements DiagramService {
 			public String getText(final Object element) {
 				if(element instanceof InternalDiagramReference) {
 					final InternalDiagramReference diagramRef = (InternalDiagramReference)element;
-					final String diagramTypeName = extRegistry.getDiagramTypeById(diagramRef.diagramTypeId)
-							.orElseGet(() -> new UnrecognizedDiagramType(diagramRef.diagramTypeId)).getName();
+					final String diagramTypeName = extRegistry.getDiagramTypeById(diagramRef.getDiagramTypeId())
+							.orElseGet(() -> new UnrecognizedDiagramType(diagramRef.getDiagramTypeId())).getName();
 					return getName(diagramRef.getFile()) + " (" + diagramTypeName + ")";
 				}
 
@@ -342,12 +354,12 @@ public class DefaultDiagramService implements DiagramService {
 	 * @return
 	 */
 	@Override
-	public List<InternalDiagramReference> findDiagrams(final Set<IProject> projects) {
+	public List<DiagramReference> findDiagrams(final Set<IProject> projects) {
 		final Map<IFile, AgeDiagramEditor> fileToEditorMap = getOpenEditorsMap(projects);
 
 		// Add saved diagram files if they are not open
 		return savedDiagramIndex.getDiagramsByProject(projects.stream()).stream().map(
-				e -> new InternalDiagramReference(e.diagramFile, fileToEditorMap.get(e.diagramFile), e.diagramTypeId))
+				e -> new InternalDiagramReference(e, fileToEditorMap.get(e.getDiagramFile())))
 				.collect(Collectors.toList());
 	}
 
@@ -725,7 +737,8 @@ public class DefaultDiagramService implements DiagramService {
 				// Create updateable references for saved diagrams
 				savedDiagramIndex.getDiagramsByContexts(relevantProjects.stream(), originalCanonicalReferences).
 				forEach(e -> {
-					references.addReference(e.diagramFile, e.reference, new SavedDiagramContextReference());
+					references.addReference(e.getDiagramFile(), e.getContext(),
+							new SavedDiagramContextReference());
 				});
 
 				savedDiagramIndex.getElementUrisByReferences(relevantProjects.stream(), originalCanonicalReferences).

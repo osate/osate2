@@ -971,7 +971,8 @@ public class AgeDiagramBehavior extends DiagramBehavior implements GraphitiAgeDi
 					closeDiagramContainer();
 				}
 
-				final String refContextLabel = dtp.getProjectReferenceService().getLabel(ageDiagram.getConfiguration().getContextBoReference());
+				final String refContextLabel = dtp.getProjectReferenceService()
+						.getLabel(ageDiagram.getConfiguration().getContextBoReference(), project);
 
 				throw new InitializationException("Unable to resolve context: "
 						+ (refContextLabel == null ? ageDiagram.getConfiguration().getContextBoReference().toString()
