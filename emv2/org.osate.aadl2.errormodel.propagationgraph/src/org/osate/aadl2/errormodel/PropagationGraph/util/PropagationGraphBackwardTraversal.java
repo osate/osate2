@@ -86,7 +86,7 @@ public class PropagationGraphBackwardTraversal {
 		for (OutgoingPropagationCondition opc : EMV2Util.getAllOutgoingPropagationConditions(component)) {
 			if ((opc.getTypeToken() != null && !EM2TypeSetUtil.isNoError(opc.getTypeToken()))
 					|| opc.getTypeToken() == null) {
-				if ((EMV2Util.isSame(opc.getOutgoing(), errorPropagation) || opc.isAllPropagations())
+				if (opc.isAllPropagations() || (EMV2Util.isSame(opc.getOutgoing(), errorPropagation))
 						&& EM2TypeSetUtil.contains(opc.getTypeToken(), type)) {
 					EObject res = handleOutgoingErrorPropagationCondition(component, opc, type, handledFlows,
 							errorFlows);
@@ -196,7 +196,7 @@ public class PropagationGraphBackwardTraversal {
 			} else if (ef instanceof ErrorSource) {
 				ErrorSource errorSource = (ErrorSource) ef;
 
-				if (EMV2Util.isSame(errorSource.getSourceModelElement(), errorPropagation) || errorSource.isAll()) {
+				if (errorSource.isAll() || EMV2Util.isSame(errorSource.getSourceModelElement(), errorPropagation)) {
 					if (EM2TypeSetUtil.contains(errorSource.getTypeTokenConstraint(), type)) {
 						EObject newEvent = processErrorSource(component, errorSource, type);
 						if (newEvent != null) {
@@ -216,7 +216,7 @@ public class PropagationGraphBackwardTraversal {
 		for (ErrorFlow errorFlow : flows) {
 			if (errorFlow instanceof ErrorPath) {
 				ErrorPath ep = (ErrorPath) errorFlow;
-				if ((EMV2Util.isSame(ep.getOutgoing(), eprop) || ep.isAllOutgoing())
+				if ((ep.isAllOutgoing() || EMV2Util.isSame(ep.getOutgoing(), eprop))
 						&& EM2TypeSetUtil.isSame(ep.getTargetToken(), type)) {
 					return true;
 
