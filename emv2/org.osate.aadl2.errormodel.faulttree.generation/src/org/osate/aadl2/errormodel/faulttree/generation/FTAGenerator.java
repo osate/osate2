@@ -565,7 +565,7 @@ public class FTAGenerator extends PropagationGraphBackwardTraversal {
 			removeZeroOneEventSubGates(res);
 		}
 		if (res.getSubEventLogic() == LogicOperation.AND) {
-			Event tmp = transformSubgates(rootevent, LogicOperation.OR, res.getSubEventLogic());
+			Event tmp = transformSubgates(res, LogicOperation.OR, res.getSubEventLogic());
 			if (tmp != res) {
 				res = tmp;
 				flattenSubgates(res);
