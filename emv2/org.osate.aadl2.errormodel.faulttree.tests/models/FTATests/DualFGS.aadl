@@ -120,10 +120,10 @@ composite error behavior
     [all(AP1.Operational , AP2.Operational
  , FG1.Operational , FG2.Operational , AC.Operational , Network.Operational)]->Operational ;
     [AC.Operational and Network.Operational and
-  1 ormore (FG1.Failed, AP1.Failed) and 
-     FG2.Operational and AP2.Operational
-  or 1 ormore (FG2.Failed, AP2.Failed) and 
-     FG1.Operational and AP1.Operational]-> NoncriticalModeFailure;
+  ((1 ormore (FG1.Failed, AP1.Failed) and 
+     FG2.Operational and AP2.Operational)
+  or (1 ormore (FG2.Failed, AP2.Failed) and 
+     FG1.Operational and AP1.Operational))]-> NoncriticalModeFailure;
     [1 ormore(AC.Failed , network.Failed ,
     1 ormore (AP1.Failed, FG1.Failed) 
     and 1 ormore (AP2.Failed, FG2.Failed)) ]->CriticalModefailure ;
