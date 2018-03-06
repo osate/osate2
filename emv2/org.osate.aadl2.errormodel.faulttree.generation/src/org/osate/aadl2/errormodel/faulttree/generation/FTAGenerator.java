@@ -680,18 +680,7 @@ public class FTAGenerator extends PropagationGraphBackwardTraversal {
 						EList<Event> rem = se.getSubEvents();
 						rem.removeAll(intersection);
 					}
-					// create intermediate topgate for subset of gates and remove from original top gate
-					Event newsubtopevent = FaultTreeUtils.createIntermediateEvent(ftaModel,
-							(ComponentInstance) topevent.getRelatedInstanceObject(),
-							topevent.getRelatedEMV2Object(),
-							(ErrorTypes) topevent.getRelatedErrorType());
-					newsubtopevent.setSubEventLogic(topgt);
-					newsubtopevent.getSubEvents().addAll(todo);
 					topevent.getSubEvents().removeAll(todo);
-					newtopevent.getSubEvents().add(newsubtopevent);
-					removeCommonEventsFromSubgates(newsubtopevent, gt);
-					flattenSubgates(newsubtopevent);
-					removeZeroOneEventSubGates(newsubtopevent);
 					flattenSubgates(newtopevent);
 					removeZeroOneEventSubGates(newtopevent);
 					flattenSubgates(topevent);
@@ -813,7 +802,7 @@ public class FTAGenerator extends PropagationGraphBackwardTraversal {
 	}
 
 	/**
-	 * find events in subgates that already exist in enclosing gate
+	 * find subevents that contain other subevents of the topevent and remove them if they do contain one.
 	 * Law of Absorption
 	 * @param topevent
 	 * @param gt
