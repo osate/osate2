@@ -14,6 +14,7 @@ import org.eclipse.swt.layout.GridData
 import org.eclipse.swt.SWT
 import org.eclipse.swt.layout.GridLayout
 import org.eclipse.swt.widgets.Button
+import org.eclipse.xtext.scoping.IGlobalScopeProvider
 import org.eclipse.core.resources.IFile
 import org.eclipse.emf.common.util.URI
 import org.eclipse.core.runtime.CoreException
@@ -28,6 +29,13 @@ import org.eclipse.core.runtime.Status
 import org.eclipse.core.runtime.NullProgressMonitor
 import org.osate.aadl2.NamedElement
 import org.eclipse.xtext.resource.XtextResourceSet
+import org.osate.aadl2.Aadl2Package
+import org.eclipse.core.resources.IContainer
+import org.osate.aadl2.modelsupport.resources.OsateResourceUtil
+import org.eclipse.emf.ecore.resource.Resource
+import org.eclipse.xtext.naming.QualifiedName
+import org.eclipse.core.runtime.Path
+import org.eclipse.core.resources.IFolder
 
 class NewAadlPackageWizard extends AbstractNewFileWizard {
 	val PACKAGE_LABEL = "AADL package name"
@@ -37,6 +45,9 @@ class NewAadlPackageWizard extends AbstractNewFileWizard {
 	
 	private Button textButton;
 	private Button graphicalButton;
+
+	@Inject
+	IGlobalScopeProvider globalScopeProvider
 	
 	new() {
 		super("AADL Package", "AADL package", "aadl", 1, OsateUiPlugin.^default.log, OsateUiPlugin.PLUGIN_ID)
@@ -67,6 +78,26 @@ class NewAadlPackageWizard extends AbstractNewFileWizard {
 			graphicalButton.setSelection(false)
 		]
 	}
+		
+	// Not going to get here if no project is selected
+	override String validateFileName(IContainer parent, String packageName) {
+		/* Parent might be a Project, which causes problems below, so lets append
+		 * a bogus folder to it.
+		 */
+		val IFolder fakeFolder = parent.getFolder(Path.forPosix(".fake"))
+		val Resource rsrc = OsateResourceUtil.getResource(fakeFolder)
+		val scope = globalScopeProvider.getScope(
+			rsrc, Aadl2Package.eINSTANCE.getPackageRename_RenamedPackage(), null
+		)
+		val splits = packageName.split("::")
+		val qualifiedName = QualifiedName.create(splits);
+		if (scope.getSingleElement(qualifiedName) !== null) {
+			return "Package '" + packageName + "' already exists in scope."
+		} else {
+			return null; // No error message
+		}
+	}
+	
 	
 	override void openEditor(IFile newFile, String contents) {
 		if (textButton.getSelection()) {
