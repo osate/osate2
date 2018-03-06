@@ -645,11 +645,6 @@ public class FTAGenerator extends PropagationGraphBackwardTraversal {
 							(ComponentInstance) topevent.getRelatedInstanceObject(),
 							topevent.getRelatedEMV2Object(),
 							(ErrorTypes) topevent.getRelatedErrorType());
-					if (!topevent.getName().startsWith("Intermediate")) {
-						String newname = newtopevent.getName();
-						newtopevent.setName(topevent.getName());
-						topevent.setName(newname);
-					}
 					newtopevent.setSubEventLogic(gt);
 					newtopevent.getSubEvents().add(topevent);
 					for (Event event : intersection) {
