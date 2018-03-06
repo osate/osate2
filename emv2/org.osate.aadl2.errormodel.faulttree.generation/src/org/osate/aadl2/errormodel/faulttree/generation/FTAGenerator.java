@@ -519,34 +519,7 @@ public class FTAGenerator extends PropagationGraphBackwardTraversal {
 		Event res = rootevent;
 		List<Event> toAdd = new LinkedList<Event>();
 		List<Event> toRemove = new LinkedList<Event>();
-		if (res.getSubEventLogic() == LogicOperation.AND) {
-			Event tmp = transformSubgates(rootevent, LogicOperation.OR, res.getSubEventLogic());
-			if (tmp != res) {
-				res = tmp;
-				flattenSubgates(res);
-				removeZeroOneEventSubGates(res);
-			}
-		}
-		if (res.getSubEventLogic() == LogicOperation.OR || res.getSubEventLogic() == LogicOperation.XOR) {
-			Event tmp = transformSubgates(res, LogicOperation.AND, res.getSubEventLogic());
-			if (tmp != res) {
-				res = tmp;
-				flattenSubgates(res);
-				removeZeroOneEventSubGates(res);
-			}
-		}
-		if (res.getSubEventLogic() == LogicOperation.AND || res.getSubEventLogic() == LogicOperation.XOR) {
-			res = removeSubEventsCommonWithEnclosingEvents(res, LogicOperation.OR);
-		}
-		if (res.getSubEventLogic() == LogicOperation.OR) {
-			res = removeSubEventsCommonWithEnclosingEvents(res, LogicOperation.AND);
-		}
-		if (res.getSubEventLogic() == LogicOperation.OR) {
-			res = removeSubEventsCommonWithEnclosingEvents(res, LogicOperation.PRIORITY_AND);
-		}
-		if (res.getSubEventLogic() == LogicOperation.OR) {
-			res = removeSubEventsCommonWithEnclosingEvents(res, LogicOperation.XOR);
-		}
+		res = optimizeEvent(res);
 		// now we recurse to do bottom up transformation
 		List<Event> subEvents = res.getSubEvents();
 		for (Event event : subEvents) {
@@ -564,8 +537,28 @@ public class FTAGenerator extends PropagationGraphBackwardTraversal {
 			flattenSubgates(res);
 			removeZeroOneEventSubGates(res);
 		}
-		if (res.getSubEventLogic() == LogicOperation.AND) {
+		res = optimizeEvent(res);
+		if (res.getSubEvents().size() == 1 && res.getType() != EventType.INTERMEDIATE) {
+			res = res.getSubEvents().get(0);
+		}
+		if (!rootname.startsWith("Intermediate")) {
+			res.setName(rootname);
+		}
+		return res;
+	}
+
+	private Event optimizeEvent(Event rootevent) {
+		Event res = rootevent;
+		if (res.getSubEventLogic() == LogicOperation.AND || res.getSubEventLogic() == LogicOperation.PRIORITY_AND) {
 			Event tmp = transformSubgates(res, LogicOperation.OR, res.getSubEventLogic());
+			if (tmp != res) {
+				res = tmp;
+				flattenSubgates(res);
+				removeZeroOneEventSubGates(res);
+			}
+		}
+		if (res.getSubEventLogic() == LogicOperation.AND || res.getSubEventLogic() == LogicOperation.PRIORITY_AND) {
+			Event tmp = transformSubgates(res, LogicOperation.XOR, res.getSubEventLogic());
 			if (tmp != res) {
 				res = tmp;
 				flattenSubgates(res);
@@ -580,7 +573,15 @@ public class FTAGenerator extends PropagationGraphBackwardTraversal {
 				removeZeroOneEventSubGates(res);
 			}
 		}
-		if (res.getSubEventLogic() == LogicOperation.AND || res.getSubEventLogic() == LogicOperation.XOR) {
+		if (res.getSubEventLogic() == LogicOperation.OR || res.getSubEventLogic() == LogicOperation.XOR) {
+			Event tmp = transformSubgates(res, LogicOperation.PRIORITY_AND, res.getSubEventLogic());
+			if (tmp != res) {
+				res = tmp;
+				flattenSubgates(res);
+				removeZeroOneEventSubGates(res);
+			}
+		}
+		if (res.getSubEventLogic() == LogicOperation.AND ) {
 			res = removeSubEventsCommonWithEnclosingEvents(res, LogicOperation.OR);
 		}
 		if (res.getSubEventLogic() == LogicOperation.OR) {
@@ -589,17 +590,8 @@ public class FTAGenerator extends PropagationGraphBackwardTraversal {
 		if (res.getSubEventLogic() == LogicOperation.OR) {
 			res = removeSubEventsCommonWithEnclosingEvents(res, LogicOperation.PRIORITY_AND);
 		}
-		if (res.getSubEventLogic() == LogicOperation.OR) {
-			res = removeSubEventsCommonWithEnclosingEvents(res, LogicOperation.XOR);
-		}
 		flattenSubgates(res);
 		removeZeroOneEventSubGates(res);
-		if (res.getSubEvents().size() == 1 && res.getType() != EventType.INTERMEDIATE) {
-			res = res.getSubEvents().get(0);
-		}
-		if (!rootname.startsWith("Intermediate")) {
-			res.setName(rootname);
-		}
 		return res;
 	}
 
