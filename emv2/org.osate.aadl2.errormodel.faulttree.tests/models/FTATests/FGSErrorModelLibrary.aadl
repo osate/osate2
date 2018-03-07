@@ -7,6 +7,11 @@ annex EMV2 {**
 		LateValue : type;
 		NoService : type;
 	end types;
+error behavior TwoState
+states
+  Operational: initial state; 
+  FailStop: state; 
+end behavior;
 
 error behavior ThreeState
 states

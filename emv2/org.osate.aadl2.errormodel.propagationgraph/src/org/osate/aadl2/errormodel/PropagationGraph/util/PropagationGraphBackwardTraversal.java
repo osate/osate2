@@ -86,7 +86,7 @@ public class PropagationGraphBackwardTraversal {
 		for (OutgoingPropagationCondition opc : EMV2Util.getAllOutgoingPropagationConditions(component)) {
 			if ((opc.getTypeToken() != null && !EM2TypeSetUtil.isNoError(opc.getTypeToken()))
 					|| opc.getTypeToken() == null) {
-				if ((EMV2Util.isSame(opc.getOutgoing(), errorPropagation) || opc.isAllPropagations())
+				if (opc.isAllPropagations() || (EMV2Util.isSame(opc.getOutgoing(), errorPropagation))
 						&& EM2TypeSetUtil.contains(opc.getTypeToken(), type)) {
 					EObject res = handleOutgoingErrorPropagationCondition(component, opc, type, handledFlows,
 							errorFlows);
@@ -124,7 +124,7 @@ public class PropagationGraphBackwardTraversal {
 				 * in the error types for the out propagation.
 				 * This is a fix for the JMR/SAVI WBS model.
 				 */
-				if (EMV2Util.isSame(ep.getOutgoing(), errorPropagation) || ep.isAllOutgoing()) {
+				if (ep.isAllOutgoing() || EMV2Util.isSame(ep.getOutgoing(), errorPropagation)) {
 					if (ep.getTargetToken() != null) {
 						if (EM2TypeSetUtil.contains(ep.getTargetToken(), type)) {
 							// we have a type mapping
@@ -196,7 +196,7 @@ public class PropagationGraphBackwardTraversal {
 			} else if (ef instanceof ErrorSource) {
 				ErrorSource errorSource = (ErrorSource) ef;
 
-				if (EMV2Util.isSame(errorSource.getSourceModelElement(), errorPropagation) || errorSource.isAll()) {
+				if (errorSource.isAll() || EMV2Util.isSame(errorSource.getSourceModelElement(), errorPropagation)) {
 					if (EM2TypeSetUtil.contains(errorSource.getTypeTokenConstraint(), type)) {
 						EObject newEvent = processErrorSource(component, errorSource, type);
 						if (newEvent != null) {
@@ -216,7 +216,7 @@ public class PropagationGraphBackwardTraversal {
 		for (ErrorFlow errorFlow : flows) {
 			if (errorFlow instanceof ErrorPath) {
 				ErrorPath ep = (ErrorPath) errorFlow;
-				if ((EMV2Util.isSame(ep.getOutgoing(), eprop) || ep.isAllOutgoing())
+				if ((ep.isAllOutgoing() || EMV2Util.isSame(ep.getOutgoing(), eprop))
 						&& EM2TypeSetUtil.isSame(ep.getTargetToken(), type)) {
 					return true;
 
@@ -304,7 +304,6 @@ public class PropagationGraphBackwardTraversal {
 				}
 			}
 		}
-		Collection<ErrorFlow> efs = EMV2Util.getAllErrorFlows(component);
 		if (conditionResult == null && stateResult != null) {
 			for (ErrorBehaviorTransition trans : EMV2Util.getAllErrorBehaviorTransitions(component)) {
 				if (state == trans.getTarget()) {
@@ -313,7 +312,7 @@ public class PropagationGraphBackwardTraversal {
 				for (ConditionElement conditionElement : conde) {
 					EventOrPropagation eop = EMV2Util.getErrorEventOrPropagation(conditionElement);
 					if (eop instanceof ErrorPropagation) {
-						EList<ErrorFlow> flows = EMV2Util.findErrorFlow(efs, (ErrorPropagation) eop,
+							EList<ErrorFlow> flows = EMV2Util.findErrorFlow(errorFlows, (ErrorPropagation) eop,
 								conditionElement.getConstraint(), opc.getOutgoing(), type);
 						for (ErrorFlow errorFlow : flows) {
 							handledFlows.put(errorFlow, EMV2Util.getPrintName(type));
@@ -323,7 +322,7 @@ public class PropagationGraphBackwardTraversal {
 				}
 			}
 			// error source
-			EList<ErrorFlow> flows = EMV2Util.findErrorFlow(efs, null, null, opc.getOutgoing(), type);
+			EList<ErrorFlow> flows = EMV2Util.findErrorFlow(errorFlows, null, null, opc.getOutgoing(), type);
 			for (ErrorFlow errorFlow : flows) {
 				handledFlows.put(errorFlow, EMV2Util.getPrintName(type));
 			}
@@ -334,7 +333,7 @@ public class PropagationGraphBackwardTraversal {
 			for (ConditionElement conditionElement : conde) {
 				EventOrPropagation eop = EMV2Util.getErrorEventOrPropagation(conditionElement);
 				if (eop instanceof ErrorPropagation) {
-					EList<ErrorFlow> flows = EMV2Util.findErrorFlow(efs, (ErrorPropagation) eop,
+					EList<ErrorFlow> flows = EMV2Util.findErrorFlow(errorFlows, (ErrorPropagation) eop,
 							conditionElement.getConstraint(), opc.getOutgoing(), type);
 					for (ErrorFlow errorFlow : flows) {
 						handledFlows.put(errorFlow, EMV2Util.getPrintName(type));
