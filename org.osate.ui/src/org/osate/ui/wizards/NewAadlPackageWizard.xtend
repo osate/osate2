@@ -81,7 +81,7 @@ class NewAadlPackageWizard extends AbstractNewFileWizard {
 		
 	// Not going to get here if no project is selected
 	override String validateFileName(IContainer parent, String packageName) {
-		/* Parent might be a Project, which causes problems below, so lets append
+		/* Parent might be a Project, which causes problems below, so let's append
 		 * a bogus folder to it.
 		 */
 		val IFolder fakeFolder = parent.getFolder(Path.forPosix(".fake"))
@@ -89,8 +89,8 @@ class NewAadlPackageWizard extends AbstractNewFileWizard {
 		val scope = globalScopeProvider.getScope(
 			rsrc, Aadl2Package.eINSTANCE.getPackageRename_RenamedPackage(), null
 		)
-		val splits = packageName.split("::")
-		val qualifiedName = QualifiedName.create(splits);
+		val segments = packageName.split("::")
+		val qualifiedName = QualifiedName.create(segments);
 		if (scope.getSingleElement(qualifiedName) !== null) {
 			return "Package '" + packageName + "' already exists in scope."
 		} else {
