@@ -582,13 +582,13 @@ public class FTAGenerator extends PropagationGraphBackwardTraversal {
 			}
 		}
 		if (res.getSubEventLogic() == LogicOperation.AND ) {
-			res = removeSubEventsCommonWithEnclosingEvents(res, LogicOperation.OR);
+			res = removeSubEventsCommonWithEnclosingEvents(res, LogicOperation.AND, LogicOperation.OR);
 		}
 		if (res.getSubEventLogic() == LogicOperation.OR) {
-			res = removeSubEventsCommonWithEnclosingEvents(res, LogicOperation.AND);
+			res = removeSubEventsCommonWithEnclosingEvents(res, LogicOperation.OR, LogicOperation.AND);
 		}
 		if (res.getSubEventLogic() == LogicOperation.OR) {
-			res = removeSubEventsCommonWithEnclosingEvents(res, LogicOperation.PRIORITY_AND);
+			res = removeSubEventsCommonWithEnclosingEvents(res, LogicOperation.OR, LogicOperation.PRIORITY_AND);
 		}
 		flattenSubgates(res);
 		removeZeroOneEventSubGates(res);
@@ -795,7 +795,7 @@ public class FTAGenerator extends PropagationGraphBackwardTraversal {
 	 * @param gt
 	 * @return Event topevent
 	 */
-	private Event removeSubEventsCommonWithEnclosingEvents(Event topevent, LogicOperation gt) {
+	private Event removeSubEventsCommonWithEnclosingEvents(Event topevent, LogicOperation topgt, LogicOperation gt) {
 		List<Event> subEvents = topevent.getSubEvents();
 		if (subEvents.isEmpty()) {
 			return null;
@@ -806,6 +806,16 @@ public class FTAGenerator extends PropagationGraphBackwardTraversal {
 				if (subse != se && !subse.getSubEvents().isEmpty() && (subse.getSubEventLogic() == gt)) {
 					if (subse.getSubEvents().contains(se)) {
 						toRemove.add(subse);
+					} else {
+						for (Event subsub : subse.getSubEvents()) {
+							if (subsub.getSubEventLogic() == topgt) {
+								if (subsub.getSubEvents().contains(se)) {
+									if (topgt == LogicOperation.OR || topgt == LogicOperation.AND) {
+										subsub.getSubEvents().remove(se);
+									}
+								}
+							}
+						}
 					}
 				}
 			}
