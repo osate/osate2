@@ -761,7 +761,6 @@ public class PropagationGraphBackwardTraversal {
 		for (PropagationGraphPath ppr : Util.getAllReversePropagationPaths(currentAnalysisModel, component,
 				errorPropagation)) {
 			// traverse incoming
-			PropagationPathEnd ppe = ppr.getPathSrc();
 			if (ppr.getConnection() != null) {
 				ErrorSource ces = EMV2Util.findConnectionErrorSourceForConnection(ppr.getConnection());
 				// the type constraint has to come from the error source as the connection does not have one
@@ -771,7 +770,17 @@ public class PropagationGraphBackwardTraversal {
 						subResults.add(result);
 					}
 				}
+				for (PropagationPathEnd ppe : Util.getAllPropagationSourceEnds(currentAnalysisModel,
+						ppr.getConnection())) {
+					ComponentInstance componentSource = ppe.getComponentInstance();
+					ErrorPropagation propagationSource = ppe.getErrorPropagation();
+					EObject result = traverseOutgoingErrorPropagation(componentSource, propagationSource, type);
+					if (result != null) {
+						subResults.add(result);
+					}
+				}
 			} else {
+				PropagationPathEnd ppe = ppr.getPathSrc();
 				ComponentInstance componentSource = ppe.getComponentInstance();
 				ErrorPropagation propagationSource = ppe.getErrorPropagation();
 				if (propagationSource.getDirection() == DirectionType.IN) {
