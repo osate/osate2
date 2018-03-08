@@ -17106,12 +17106,12 @@ rule__ResoluteMethod__MethodReferenceAssignment_1
     }
 :
 (
-{ before(grammarAccess.getResoluteMethodAccess().getMethodReferenceFunctionDefinitionCrossReference_1_0()); }
+{ before(grammarAccess.getResoluteMethodAccess().getMethodReferenceEObjectCrossReference_1_0()); }
 (
-{ before(grammarAccess.getResoluteMethodAccess().getMethodReferenceFunctionDefinitionIDTerminalRuleCall_1_0_1()); }
-	RULE_ID{ after(grammarAccess.getResoluteMethodAccess().getMethodReferenceFunctionDefinitionIDTerminalRuleCall_1_0_1()); }
+{ before(grammarAccess.getResoluteMethodAccess().getMethodReferenceEObjectIDTerminalRuleCall_1_0_1()); }
+	RULE_ID{ after(grammarAccess.getResoluteMethodAccess().getMethodReferenceEObjectIDTerminalRuleCall_1_0_1()); }
 )
-{ after(grammarAccess.getResoluteMethodAccess().getMethodReferenceFunctionDefinitionCrossReference_1_0()); }
+{ after(grammarAccess.getResoluteMethodAccess().getMethodReferenceEObjectCrossReference_1_0()); }
 )
 
 ;

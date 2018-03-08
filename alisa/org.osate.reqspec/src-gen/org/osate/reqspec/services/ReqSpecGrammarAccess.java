@@ -2971,30 +2971,30 @@ public class ReqSpecGrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cErrorKeyword_1_1_1 = (Keyword)cGroup_1_1.eContents().get(1);
 		private final Keyword cStateKeyword_1_1_2 = (Keyword)cGroup_1_1.eContents().get(2);
 		private final Assignment cInErrorStateAssignment_1_1_3 = (Assignment)cGroup_1_1.eContents().get(3);
-		private final CrossReference cInErrorStateErrorBehaviorStateCrossReference_1_1_3_0 = (CrossReference)cInErrorStateAssignment_1_1_3.eContents().get(0);
-		private final RuleCall cInErrorStateErrorBehaviorStateIDTerminalRuleCall_1_1_3_0_1 = (RuleCall)cInErrorStateErrorBehaviorStateCrossReference_1_1_3_0.eContents().get(1);
+		private final CrossReference cInErrorStateEObjectCrossReference_1_1_3_0 = (CrossReference)cInErrorStateAssignment_1_1_3.eContents().get(0);
+		private final RuleCall cInErrorStateEObjectIDTerminalRuleCall_1_1_3_0_1 = (RuleCall)cInErrorStateEObjectCrossReference_1_1_3_0.eContents().get(1);
 		private final Group cGroup_1_1_4 = (Group)cGroup_1_1.eContents().get(4);
 		private final Keyword cCommaKeyword_1_1_4_0 = (Keyword)cGroup_1_1_4.eContents().get(0);
 		private final Assignment cInErrorStateAssignment_1_1_4_1 = (Assignment)cGroup_1_1_4.eContents().get(1);
-		private final CrossReference cInErrorStateErrorBehaviorStateCrossReference_1_1_4_1_0 = (CrossReference)cInErrorStateAssignment_1_1_4_1.eContents().get(0);
-		private final RuleCall cInErrorStateErrorBehaviorStateIDTerminalRuleCall_1_1_4_1_0_1 = (RuleCall)cInErrorStateErrorBehaviorStateCrossReference_1_1_4_1_0.eContents().get(1);
+		private final CrossReference cInErrorStateEObjectCrossReference_1_1_4_1_0 = (CrossReference)cInErrorStateAssignment_1_1_4_1.eContents().get(0);
+		private final RuleCall cInErrorStateEObjectIDTerminalRuleCall_1_1_4_1_0_1 = (RuleCall)cInErrorStateEObjectCrossReference_1_1_4_1_0.eContents().get(1);
 		private final Assignment cConditionAssignment_1_2 = (Assignment)cAlternatives_1.eContents().get(2);
 		private final RuleCall cConditionAExpressionParserRuleCall_1_2_0 = (RuleCall)cConditionAssignment_1_2.eContents().get(0);
 		
 		//WhenCondition:
 		//	'when' ('in' 'mode' inMode+=[aadl2::Mode] (',' inMode+=[aadl2::Mode])* | 'in' 'error' 'state'
-		//	inErrorState+=[emv2::ErrorBehaviorState] (',' inErrorState+=[emv2::ErrorBehaviorState])* | condition=AExpression);
+		//	inErrorState+=[ecore::EObject] (',' inErrorState+=[ecore::EObject])* | condition=AExpression);
 		@Override public ParserRule getRule() { return rule; }
 
 		//'when' ('in' 'mode' inMode+=[aadl2::Mode] (',' inMode+=[aadl2::Mode])* | 'in' 'error' 'state'
-		//inErrorState+=[emv2::ErrorBehaviorState] (',' inErrorState+=[emv2::ErrorBehaviorState])* | condition=AExpression)
+		//inErrorState+=[ecore::EObject] (',' inErrorState+=[ecore::EObject])* | condition=AExpression)
 		public Group getGroup() { return cGroup; }
 
 		//'when'
 		public Keyword getWhenKeyword_0() { return cWhenKeyword_0; }
 
-		//'in' 'mode' inMode+=[aadl2::Mode] (',' inMode+=[aadl2::Mode])* | 'in' 'error' 'state'
-		//inErrorState+=[emv2::ErrorBehaviorState] (',' inErrorState+=[emv2::ErrorBehaviorState])* | condition=AExpression
+		//'in' 'mode' inMode+=[aadl2::Mode] (',' inMode+=[aadl2::Mode])* | 'in' 'error' 'state' inErrorState+=[ecore::EObject]
+		//(',' inErrorState+=[ecore::EObject])* | condition=AExpression
 		public Alternatives getAlternatives_1() { return cAlternatives_1; }
 
 		//'in' 'mode' inMode+=[aadl2::Mode] (',' inMode+=[aadl2::Mode])*
@@ -3030,7 +3030,7 @@ public class ReqSpecGrammarAccess extends AbstractGrammarElementFinder {
 		//ID
 		public RuleCall getInModeModeIDTerminalRuleCall_1_0_3_1_0_1() { return cInModeModeIDTerminalRuleCall_1_0_3_1_0_1; }
 
-		//'in' 'error' 'state' inErrorState+=[emv2::ErrorBehaviorState] (',' inErrorState+=[emv2::ErrorBehaviorState])*
+		//'in' 'error' 'state' inErrorState+=[ecore::EObject] (',' inErrorState+=[ecore::EObject])*
 		public Group getGroup_1_1() { return cGroup_1_1; }
 
 		//'in'
@@ -3042,29 +3042,29 @@ public class ReqSpecGrammarAccess extends AbstractGrammarElementFinder {
 		//'state'
 		public Keyword getStateKeyword_1_1_2() { return cStateKeyword_1_1_2; }
 
-		//inErrorState+=[emv2::ErrorBehaviorState]
+		//inErrorState+=[ecore::EObject]
 		public Assignment getInErrorStateAssignment_1_1_3() { return cInErrorStateAssignment_1_1_3; }
 
-		//[emv2::ErrorBehaviorState]
-		public CrossReference getInErrorStateErrorBehaviorStateCrossReference_1_1_3_0() { return cInErrorStateErrorBehaviorStateCrossReference_1_1_3_0; }
+		//[ecore::EObject]
+		public CrossReference getInErrorStateEObjectCrossReference_1_1_3_0() { return cInErrorStateEObjectCrossReference_1_1_3_0; }
 
 		//ID
-		public RuleCall getInErrorStateErrorBehaviorStateIDTerminalRuleCall_1_1_3_0_1() { return cInErrorStateErrorBehaviorStateIDTerminalRuleCall_1_1_3_0_1; }
+		public RuleCall getInErrorStateEObjectIDTerminalRuleCall_1_1_3_0_1() { return cInErrorStateEObjectIDTerminalRuleCall_1_1_3_0_1; }
 
-		//(',' inErrorState+=[emv2::ErrorBehaviorState])*
+		//(',' inErrorState+=[ecore::EObject])*
 		public Group getGroup_1_1_4() { return cGroup_1_1_4; }
 
 		//','
 		public Keyword getCommaKeyword_1_1_4_0() { return cCommaKeyword_1_1_4_0; }
 
-		//inErrorState+=[emv2::ErrorBehaviorState]
+		//inErrorState+=[ecore::EObject]
 		public Assignment getInErrorStateAssignment_1_1_4_1() { return cInErrorStateAssignment_1_1_4_1; }
 
-		//[emv2::ErrorBehaviorState]
-		public CrossReference getInErrorStateErrorBehaviorStateCrossReference_1_1_4_1_0() { return cInErrorStateErrorBehaviorStateCrossReference_1_1_4_1_0; }
+		//[ecore::EObject]
+		public CrossReference getInErrorStateEObjectCrossReference_1_1_4_1_0() { return cInErrorStateEObjectCrossReference_1_1_4_1_0; }
 
 		//ID
-		public RuleCall getInErrorStateErrorBehaviorStateIDTerminalRuleCall_1_1_4_1_0_1() { return cInErrorStateErrorBehaviorStateIDTerminalRuleCall_1_1_4_1_0_1; }
+		public RuleCall getInErrorStateEObjectIDTerminalRuleCall_1_1_4_1_0_1() { return cInErrorStateEObjectIDTerminalRuleCall_1_1_4_1_0_1; }
 
 		//condition=AExpression
 		public Assignment getConditionAssignment_1_2() { return cConditionAssignment_1_2; }
@@ -3784,7 +3784,7 @@ public class ReqSpecGrammarAccess extends AbstractGrammarElementFinder {
 
 	//WhenCondition:
 	//	'when' ('in' 'mode' inMode+=[aadl2::Mode] (',' inMode+=[aadl2::Mode])* | 'in' 'error' 'state'
-	//	inErrorState+=[emv2::ErrorBehaviorState] (',' inErrorState+=[emv2::ErrorBehaviorState])* | condition=AExpression);
+	//	inErrorState+=[ecore::EObject] (',' inErrorState+=[ecore::EObject])* | condition=AExpression);
 	public WhenConditionElements getWhenConditionAccess() {
 		return pWhenCondition;
 	}

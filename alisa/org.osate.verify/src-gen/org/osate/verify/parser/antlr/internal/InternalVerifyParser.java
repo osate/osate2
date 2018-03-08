@@ -7434,7 +7434,7 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
             otherlv_1=(Token)match(input,RULE_ID,FOLLOW_2); if (state.failed) return current;
             if ( state.backtracking==0 ) {
 
-              		newLeafNode(otherlv_1, grammarAccess.getResoluteMethodAccess().getMethodReferenceFunctionDefinitionCrossReference_1_0()); 
+              		newLeafNode(otherlv_1, grammarAccess.getResoluteMethodAccess().getMethodReferenceEObjectCrossReference_1_0()); 
               	
             }
 

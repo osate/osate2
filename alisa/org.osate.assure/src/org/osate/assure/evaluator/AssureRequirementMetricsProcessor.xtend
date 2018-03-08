@@ -25,7 +25,7 @@ import static extension java.util.Collections.disjoint
 import static extension org.eclipse.emf.ecore.util.EcoreUtil.resolve
 import static extension org.eclipse.emf.ecore.util.EcoreUtil.resolveAll
 import static extension org.eclipse.xtext.EcoreUtil2.getContainerOfType
-import static extension org.osate.xtext.aadl2.errormodel.util.EMV2Util.hasEMV2Subclause
+//import static extension org.osate.xtext.aadl2.errormodel.util.EMV2Util.hasEMV2Subclause
 import org.osate.aadl2.Feature
 
 @ImplementedBy(AssureRequirementMetricsProcessor)
@@ -110,7 +110,7 @@ class AssureRequirementMetricsProcessor implements IAssureRequirementMetricsProc
 		modelResult.metrics.featuresRequirementsCount = targetReqs.map[requirements].flatten.map[targetElement].filter(Feature).toSet.size		
 		modelResult.metrics.noVerificationPlansCount = verificationPlans.filter[vp | vp.claim.nullOrEmpty].size
 		modelResult.metrics.exceptionsCount = exceptionReqCount + mitigatesReqCount
-		modelResult.metrics.reqTargetHasEMV2SubclauseCount = targetReqs.map[requirements.filter[target.hasEMV2Subclause]].flatten.filter[filterRequirement(categoryFilter)].size
+//		modelResult.metrics.reqTargetHasEMV2SubclauseCount = targetReqs.map[requirements.filter[target.hasEMV2Subclause]].flatten.filter[filterRequirement(categoryFilter)].size
 
 		modelResult.subsystemResult.forEach[subsystemResult|subsystemResult.process]	
 		modelResult.subAssuranceCase.forEach[subAssuranceCase|subAssuranceCase.process]
@@ -159,7 +159,7 @@ class AssureRequirementMetricsProcessor implements IAssureRequirementMetricsProc
 		caseResult.metrics.featuresRequirementsCount = sysReqs.map[requirements].flatten.filter[filterRequirement(categoryFilter)].map[targetElement].filter(ClassifierFeature).toSet.size	
 		caseResult.metrics.noVerificationPlansCount = verificationPlans.filter[vp | vp.claim.nullOrEmpty].size
 		caseResult.metrics.exceptionsCount = exceptionReqCount + mitigatesReqCount
-		caseResult.metrics.reqTargetHasEMV2SubclauseCount = sysReqs.map[requirements.filter[target.hasEMV2Subclause]].flatten.filter[filterRequirement(categoryFilter)].size
+//		caseResult.metrics.reqTargetHasEMV2SubclauseCount = sysReqs.map[requirements.filter[target.hasEMV2Subclause]].flatten.filter[filterRequirement(categoryFilter)].size
 
 		caseResult.subsystemResult.forEach[subcaseResult|subcaseResult.process]
 	}

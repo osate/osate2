@@ -2573,7 +2573,7 @@ ruleResoluteMethod returns [EObject current=null]
         }
 	otherlv_1=RULE_ID
 	{
-		newLeafNode(otherlv_1, grammarAccess.getResoluteMethodAccess().getMethodReferenceFunctionDefinitionCrossReference_1_0()); 
+		newLeafNode(otherlv_1, grammarAccess.getResoluteMethodAccess().getMethodReferenceEObjectCrossReference_1_0()); 
 	}
 
 )

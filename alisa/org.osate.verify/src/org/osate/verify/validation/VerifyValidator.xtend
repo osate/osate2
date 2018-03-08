@@ -50,6 +50,7 @@ import org.osate.verify.verify.VerificationMethod
 import org.osate.verify.verify.VerificationMethodRegistry
 import org.osate.verify.verify.VerificationPlan
 import org.osate.verify.verify.VerifyPackage
+import com.rockwellcollins.atc.resolute.resolute.FunctionDefinition
 
 /**
  * Custom validation rules. 
@@ -238,8 +239,12 @@ class VerifyValidator extends VerifyTypeSystemValidator {
 		switch methodKind : vm.methodKind {
 			ResoluteMethod: {
 				val fparams = vm.formals
-				val aparams = methodKind.methodReference.args
-				val methodRefName = methodKind.methodReference.name
+				val mref = methodKind.methodReference as FunctionDefinition
+				if (mref === null){
+					return
+				}
+				val aparams = mref.args
+				val methodRefName = mref.name
 				val hasComponentType = vm.targetType !== null
 				val fcount = if (hasComponentType) {
 						fparams.size + 1

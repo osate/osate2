@@ -15,8 +15,6 @@
  */
 package org.osate.assure.assure.impl;
 
-import com.rockwellcollins.atc.resolute.resolute.ResolutePackage;
-
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EEnum;
@@ -65,8 +63,6 @@ import org.osate.reqspec.reqSpec.ReqSpecPackage;
 import org.osate.result.ResultPackage;
 
 import org.osate.verify.verify.VerifyPackage;
-
-import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelPackage;
 
 /**
  * <!-- begin-user-doc -->
@@ -281,8 +277,6 @@ public class AssurePackageImpl extends EPackageImpl implements AssurePackage
     CommonPackage.eINSTANCE.eClass();
     CategoriesPackage.eINSTANCE.eClass();
     OrganizationPackage.eINSTANCE.eClass();
-    ErrorModelPackage.eINSTANCE.eClass();
-    ResolutePackage.eINSTANCE.eClass();
 
     // Create package meta-data objects
     theAssurePackage.createPackageContents();

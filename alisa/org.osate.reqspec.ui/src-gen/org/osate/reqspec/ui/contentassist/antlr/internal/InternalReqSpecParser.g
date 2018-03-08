@@ -25522,12 +25522,12 @@ rule__WhenCondition__InErrorStateAssignment_1_1_3
     }
 :
 (
-{ before(grammarAccess.getWhenConditionAccess().getInErrorStateErrorBehaviorStateCrossReference_1_1_3_0()); }
+{ before(grammarAccess.getWhenConditionAccess().getInErrorStateEObjectCrossReference_1_1_3_0()); }
 (
-{ before(grammarAccess.getWhenConditionAccess().getInErrorStateErrorBehaviorStateIDTerminalRuleCall_1_1_3_0_1()); }
-	RULE_ID{ after(grammarAccess.getWhenConditionAccess().getInErrorStateErrorBehaviorStateIDTerminalRuleCall_1_1_3_0_1()); }
+{ before(grammarAccess.getWhenConditionAccess().getInErrorStateEObjectIDTerminalRuleCall_1_1_3_0_1()); }
+	RULE_ID{ after(grammarAccess.getWhenConditionAccess().getInErrorStateEObjectIDTerminalRuleCall_1_1_3_0_1()); }
 )
-{ after(grammarAccess.getWhenConditionAccess().getInErrorStateErrorBehaviorStateCrossReference_1_1_3_0()); }
+{ after(grammarAccess.getWhenConditionAccess().getInErrorStateEObjectCrossReference_1_1_3_0()); }
 )
 
 ;
@@ -25541,12 +25541,12 @@ rule__WhenCondition__InErrorStateAssignment_1_1_4_1
     }
 :
 (
-{ before(grammarAccess.getWhenConditionAccess().getInErrorStateErrorBehaviorStateCrossReference_1_1_4_1_0()); }
+{ before(grammarAccess.getWhenConditionAccess().getInErrorStateEObjectCrossReference_1_1_4_1_0()); }
 (
-{ before(grammarAccess.getWhenConditionAccess().getInErrorStateErrorBehaviorStateIDTerminalRuleCall_1_1_4_1_0_1()); }
-	RULE_ID{ after(grammarAccess.getWhenConditionAccess().getInErrorStateErrorBehaviorStateIDTerminalRuleCall_1_1_4_1_0_1()); }
+{ before(grammarAccess.getWhenConditionAccess().getInErrorStateEObjectIDTerminalRuleCall_1_1_4_1_0_1()); }
+	RULE_ID{ after(grammarAccess.getWhenConditionAccess().getInErrorStateEObjectIDTerminalRuleCall_1_1_4_1_0_1()); }
 )
-{ after(grammarAccess.getWhenConditionAccess().getInErrorStateErrorBehaviorStateCrossReference_1_1_4_1_0()); }
+{ after(grammarAccess.getWhenConditionAccess().getInErrorStateEObjectCrossReference_1_1_4_1_0()); }
 )
 
 ;

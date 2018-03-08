@@ -17,15 +17,7 @@
 package org.osate.assure.evaluator
 
 import com.google.inject.ImplementedBy
-import com.rockwellcollins.atc.resolute.analysis.execution.EvaluationContext
-import com.rockwellcollins.atc.resolute.analysis.execution.ResoluteInterpreter
-import com.rockwellcollins.atc.resolute.analysis.results.ClaimResult
-import com.rockwellcollins.atc.resolute.resolute.ClaimBody
-import com.rockwellcollins.atc.resolute.resolute.FnCallExpr
-import com.rockwellcollins.atc.resolute.resolute.NestedDotID
-import com.rockwellcollins.atc.resolute.resolute.ProveStatement
-import com.rockwellcollins.atc.resolute.resolute.ResoluteFactory
-import com.rockwellcollins.atc.resolute.resolute.ThisExpr
+//import com.rockwellcollins.atc.resolute.resolute.ClaimBody
 import it.xsemantics.runtime.RuleEnvironment
 import it.xsemantics.runtime.RuleFailedException
 import java.util.ArrayList
@@ -41,18 +33,15 @@ import org.eclipse.xtext.resource.IResourceServiceProvider
 import org.junit.runner.JUnitCore
 import org.osate.aadl2.Aadl2Factory
 import org.osate.aadl2.BooleanLiteral
-import org.osate.aadl2.IntegerLiteral
 import org.osate.aadl2.NumberValue
 import org.osate.aadl2.PropertyExpression
 import org.osate.aadl2.PropertyValue
-import org.osate.aadl2.RealLiteral
-import org.osate.aadl2.StringLiteral
 import org.osate.aadl2.instance.ComponentInstance
 import org.osate.aadl2.instance.InstanceObject
-import org.osate.aadl2.instance.SystemInstance
 import org.osate.aadl2.properties.PropertyNotPresentException
 import org.osate.alisa.common.typing.CommonInterpreter
 import org.osate.assure.assure.AssuranceCaseResult
+import org.osate.assure.assure.ClaimResult
 import org.osate.assure.assure.ElseResult
 import org.osate.assure.assure.ElseType
 import org.osate.assure.assure.ModelResult
@@ -66,6 +55,9 @@ import org.osate.assure.assure.VerificationExecutionState
 import org.osate.assure.assure.VerificationResult
 import org.osate.assure.util.AssureUtilExtension
 import org.osate.categories.categories.CategoryFilter
+import org.osate.result.IssueType
+import org.osate.result.Result
+import org.osate.result.ResultFactory
 import org.osate.verify.util.VerificationMethodDispatchers
 import org.osate.verify.verify.AgreeMethod
 import org.osate.verify.verify.FormalParameter
@@ -81,10 +73,7 @@ import static extension org.eclipse.emf.ecore.util.EcoreUtil.getURI
 import static extension org.osate.alisa.common.util.CommonUtilExtension.*
 import static extension org.osate.assure.util.AssureUtilExtension.*
 import static extension org.osate.verify.util.VerifyUtilExtension.*
-import org.osate.result.ResultFactory
-import org.osate.result.Result
-import com.rockwellcollins.atc.resolute.resolute.FunctionDefinition
-import org.osate.result.IssueType
+import org.osate.verify.util.ExecuteUtil
 
 @ImplementedBy(AssureProcessor)
 interface IAssureProcessor {
@@ -169,7 +158,7 @@ class AssureProcessor implements IAssureProcessor {
 		caseResult.subsystemResult.forEach[subcaseResult|subcaseResult.process]
 	}
 
-	def dispatch void process(org.osate.assure.assure.ClaimResult claimResult) {
+	def dispatch void process(ClaimResult claimResult) {
 		if (claimResult.targetReference.requirement.requirement.evaluateRequirementFilter(filter)) {
 			vals.clear
 			computes.clear
@@ -406,7 +395,7 @@ class AssureProcessor implements IAssureProcessor {
 					updateProgress(verificationResult)
 				}
 				ResoluteMethod: {
-						val proveri = executeResoluteFunction(methodtype.methodReference, instanceroot, targetComponent,parameterObjects)
+						val proveri = ExecuteUtil.executeResoluteFunction(methodtype.methodReference, instanceroot, targetComponent,parameterObjects)
 						if (proveri.issueType == IssueType.SUCCESS) {
 							setToSuccess(verificationResult)
 						} else {
@@ -416,7 +405,7 @@ class AssureProcessor implements IAssureProcessor {
 					updateProgress(verificationResult)
 				}
 				AgreeMethod: {
-					AssureUtilExtension.initializeResoluteContext(instanceroot);
+//					AssureUtilExtension.initializeResoluteContext(instanceroot);
 
 					val agreemethod = methodtype
 
@@ -584,14 +573,6 @@ class AssureProcessor implements IAssureProcessor {
 		} else {
 			new HashMap
 		}
-	}
-	
-	def isClaimFunction(ResoluteMethod rm){
-		val found = rm.methodReference
-		if(found !== null && (found.body instanceof ClaimBody)){
-			return true
-		}
-		return false
 	}
 
 

@@ -15,7 +15,7 @@
  */
 package org.osate.verify.verify;
 
-import com.rockwellcollins.atc.resolute.resolute.FunctionDefinition;
+import org.eclipse.emf.ecore.EObject;
 
 /**
  * <!-- begin-user-doc -->
@@ -44,12 +44,12 @@ public interface ResoluteMethod extends MethodKind
    * </p>
    * <!-- end-user-doc -->
    * @return the value of the '<em>Method Reference</em>' reference.
-   * @see #setMethodReference(FunctionDefinition)
+   * @see #setMethodReference(EObject)
    * @see org.osate.verify.verify.VerifyPackage#getResoluteMethod_MethodReference()
    * @model
    * @generated
    */
-  FunctionDefinition getMethodReference();
+  EObject getMethodReference();
 
   /**
    * Sets the value of the '{@link org.osate.verify.verify.ResoluteMethod#getMethodReference <em>Method Reference</em>}' reference.
@@ -59,6 +59,6 @@ public interface ResoluteMethod extends MethodKind
    * @see #getMethodReference()
    * @generated
    */
-  void setMethodReference(FunctionDefinition value);
+  void setMethodReference(EObject value);
 
 } // ResoluteMethod

@@ -48686,23 +48686,23 @@ public class InternalVerifyParser extends AbstractInternalContentAssistParser {
             // InternalVerify.g:17109:1: ( RULE_ID )
             {
             if ( state.backtracking==0 ) {
-               before(grammarAccess.getResoluteMethodAccess().getMethodReferenceFunctionDefinitionCrossReference_1_0()); 
+               before(grammarAccess.getResoluteMethodAccess().getMethodReferenceEObjectCrossReference_1_0()); 
             }
             // InternalVerify.g:17110:1: ( RULE_ID )
             // InternalVerify.g:17111:1: RULE_ID
             {
             if ( state.backtracking==0 ) {
-               before(grammarAccess.getResoluteMethodAccess().getMethodReferenceFunctionDefinitionIDTerminalRuleCall_1_0_1()); 
+               before(grammarAccess.getResoluteMethodAccess().getMethodReferenceEObjectIDTerminalRuleCall_1_0_1()); 
             }
             match(input,RULE_ID,FOLLOW_2); if (state.failed) return ;
             if ( state.backtracking==0 ) {
-               after(grammarAccess.getResoluteMethodAccess().getMethodReferenceFunctionDefinitionIDTerminalRuleCall_1_0_1()); 
+               after(grammarAccess.getResoluteMethodAccess().getMethodReferenceEObjectIDTerminalRuleCall_1_0_1()); 
             }
 
             }
 
             if ( state.backtracking==0 ) {
-               after(grammarAccess.getResoluteMethodAccess().getMethodReferenceFunctionDefinitionCrossReference_1_0()); 
+               after(grammarAccess.getResoluteMethodAccess().getMethodReferenceEObjectCrossReference_1_0()); 
             }
 
             }

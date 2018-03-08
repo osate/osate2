@@ -22,8 +22,6 @@ import org.eclipse.emf.ecore.EObject;
 import org.osate.aadl2.Mode;
 import org.osate.aadl2.PropertyExpression;
 
-import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorState;
-
 /**
  * <!-- begin-user-doc -->
  * A representation of the model object '<em><b>When Condition</b></em>'.
@@ -62,7 +60,7 @@ public interface WhenCondition extends EObject
 
   /**
    * Returns the value of the '<em><b>In Error State</b></em>' reference list.
-   * The list contents are of type {@link org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorState}.
+   * The list contents are of type {@link org.eclipse.emf.ecore.EObject}.
    * <!-- begin-user-doc -->
    * <p>
    * If the meaning of the '<em>In Error State</em>' reference list isn't clear,
@@ -74,7 +72,7 @@ public interface WhenCondition extends EObject
    * @model
    * @generated
    */
-  EList<ErrorBehaviorState> getInErrorState();
+  EList<EObject> getInErrorState();
 
   /**
    * Returns the value of the '<em><b>Condition</b></em>' containment reference.

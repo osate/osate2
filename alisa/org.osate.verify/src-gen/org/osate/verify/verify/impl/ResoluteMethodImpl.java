@@ -15,11 +15,10 @@
  */
 package org.osate.verify.verify.impl;
 
-import com.rockwellcollins.atc.resolute.resolute.FunctionDefinition;
-
 import org.eclipse.emf.common.notify.Notification;
 
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
@@ -50,7 +49,7 @@ public class ResoluteMethodImpl extends MethodKindImpl implements ResoluteMethod
    * @generated
    * @ordered
    */
-  protected FunctionDefinition methodReference;
+  protected EObject methodReference;
 
   /**
    * <!-- begin-user-doc -->
@@ -78,12 +77,12 @@ public class ResoluteMethodImpl extends MethodKindImpl implements ResoluteMethod
    * <!-- end-user-doc -->
    * @generated
    */
-  public FunctionDefinition getMethodReference()
+  public EObject getMethodReference()
   {
     if (methodReference != null && methodReference.eIsProxy())
     {
       InternalEObject oldMethodReference = (InternalEObject)methodReference;
-      methodReference = (FunctionDefinition)eResolveProxy(oldMethodReference);
+      methodReference = eResolveProxy(oldMethodReference);
       if (methodReference != oldMethodReference)
       {
         if (eNotificationRequired())
@@ -98,7 +97,7 @@ public class ResoluteMethodImpl extends MethodKindImpl implements ResoluteMethod
    * <!-- end-user-doc -->
    * @generated
    */
-  public FunctionDefinition basicGetMethodReference()
+  public EObject basicGetMethodReference()
   {
     return methodReference;
   }
@@ -108,9 +107,9 @@ public class ResoluteMethodImpl extends MethodKindImpl implements ResoluteMethod
    * <!-- end-user-doc -->
    * @generated
    */
-  public void setMethodReference(FunctionDefinition newMethodReference)
+  public void setMethodReference(EObject newMethodReference)
   {
-    FunctionDefinition oldMethodReference = methodReference;
+    EObject oldMethodReference = methodReference;
     methodReference = newMethodReference;
     if (eNotificationRequired())
       eNotify(new ENotificationImpl(this, Notification.SET, VerifyPackage.RESOLUTE_METHOD__METHOD_REFERENCE, oldMethodReference, methodReference));
@@ -144,7 +143,7 @@ public class ResoluteMethodImpl extends MethodKindImpl implements ResoluteMethod
     switch (featureID)
     {
       case VerifyPackage.RESOLUTE_METHOD__METHOD_REFERENCE:
-        setMethodReference((FunctionDefinition)newValue);
+        setMethodReference((EObject)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -161,7 +160,7 @@ public class ResoluteMethodImpl extends MethodKindImpl implements ResoluteMethod
     switch (featureID)
     {
       case VerifyPackage.RESOLUTE_METHOD__METHOD_REFERENCE:
-        setMethodReference((FunctionDefinition)null);
+        setMethodReference((EObject)null);
         return;
     }
     super.eUnset(featureID);

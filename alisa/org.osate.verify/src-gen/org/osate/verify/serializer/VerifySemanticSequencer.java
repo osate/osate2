@@ -517,7 +517,7 @@ public class VerifySemanticSequencer extends CommonSemanticSequencer {
 	 *     ResoluteMethod returns ResoluteMethod
 	 *
 	 * Constraint:
-	 *     methodReference=[FunctionDefinition|ID]
+	 *     methodReference=[EObject|ID]
 	 */
 	protected void sequence_ResoluteMethod(ISerializationContext context, ResoluteMethod semanticObject) {
 		if (errorAcceptor != null) {
@@ -525,7 +525,7 @@ public class VerifySemanticSequencer extends CommonSemanticSequencer {
 				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, VerifyPackage.Literals.RESOLUTE_METHOD__METHOD_REFERENCE));
 		}
 		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
-		feeder.accept(grammarAccess.getResoluteMethodAccess().getMethodReferenceFunctionDefinitionIDTerminalRuleCall_1_0_1(), semanticObject.eGet(VerifyPackage.Literals.RESOLUTE_METHOD__METHOD_REFERENCE, false));
+		feeder.accept(grammarAccess.getResoluteMethodAccess().getMethodReferenceEObjectIDTerminalRuleCall_1_0_1(), semanticObject.eGet(VerifyPackage.Literals.RESOLUTE_METHOD__METHOD_REFERENCE, false));
 		feeder.finish();
 	}
 	
