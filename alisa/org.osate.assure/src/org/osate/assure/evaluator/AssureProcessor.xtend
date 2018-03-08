@@ -83,6 +83,8 @@ import static extension org.osate.assure.util.AssureUtilExtension.*
 import static extension org.osate.verify.util.VerifyUtilExtension.*
 import org.osate.result.ResultFactory
 import org.osate.result.Result
+import com.rockwellcollins.atc.resolute.resolute.FunctionDefinition
+import org.osate.result.IssueType
 
 @ImplementedBy(AssureProcessor)
 interface IAssureProcessor {
@@ -404,27 +406,12 @@ class AssureProcessor implements IAssureProcessor {
 					updateProgress(verificationResult)
 				}
 				ResoluteMethod: {
-					// The parameters are objects from the Properties Meta model. Resolute likes them this way
-					AssureUtilExtension.initializeResoluteContext(instanceroot);
-					val EvaluationContext context = new EvaluationContext(instanceroot, sets, featToConnsMap);
-					// check for claim function or compute function
-					val ResoluteInterpreter interpreter = new ResoluteInterpreter(context);
-					val provecall = createWrapperProveCall(methodtype, targetComponent, parameterObjects)
-					if (provecall === null) {
-						setToError(verificationResult,
-							"Could not find Resolute Function " + verificationResult.method.name)
-					} else {
-
-						// using com.rockwellcollins.atc.resolute.analysis.results.ClaimResult
-						val ClaimResult proof = interpreter.evaluateProveStatement(provecall) as ClaimResult
-							val proveri = ResultFactory.eINSTANCE.createIssue
-							proof.doResoluteResults(proveri)
-						if (proof.valid) {
+						val proveri = executeResoluteFunction(methodtype.methodReference, instanceroot, targetComponent,parameterObjects)
+						if (proveri.issueType == IssueType.SUCCESS) {
 							setToSuccess(verificationResult)
 						} else {
 							setToFail(verificationResult, proveri.issues)
 						}
-					}
 					verificationResult.eResource.save(null)
 					updateProgress(verificationResult)
 				}
@@ -607,69 +594,6 @@ class AssureProcessor implements IAssureProcessor {
 		return false
 	}
 
-	def ProveStatement createWrapperProveCall(ResoluteMethod rm, ComponentInstance ci,
-		List<PropertyExpression> params) {
-		val found = rm.methodReference
-		val factory = ResoluteFactory.eINSTANCE
-		if (found === null) return null
-		val call = factory.createFnCallExpr
-		call.fn = found
-		call.args.add(createComponentinstanceReference(ci))
-		addParams(call, params)
-		val prove = factory.createProveStatement
-		prove.expr = call
-		prove
-	}
-
-	def ThisExpr createComponentinstanceReference(ComponentInstance ci) {
-		val factory = ResoluteFactory.eINSTANCE
-		var NestedDotID nid = null
-		var nci = ci
-		while (!(nci instanceof SystemInstance)) {
-			val x = factory.createNestedDotID
-			x.base = nci.subcomponent
-			x.sub = nid
-			nid = x
-			nci = nci.eContainer as ComponentInstance
-		}
-		val te = factory.createThisExpr
-		te.sub = nid
-		te
-	}
-
-	def addParams(FnCallExpr call, List<PropertyExpression> params) {
-		for (p : params) {
-			if (p instanceof RealLiteral) {
-				val realval = ResoluteFactory.eINSTANCE.createRealExpr
-				realval.^val = p
-				call.args.add(realval)
-			} else if (p instanceof IntegerLiteral) {
-				val intval = ResoluteFactory.eINSTANCE.createIntExpr
-				intval.^val = p
-				call.args.add(intval)
-			} else if (p instanceof StringLiteral) {
-				val stringval = ResoluteFactory.eINSTANCE.createStringExpr
-				stringval.^val = p
-				call.args.add(stringval)
-			} else if (p instanceof BooleanLiteral) {
-				val stringval = ResoluteFactory.eINSTANCE.createBoolExpr
-				stringval.^val = p
-				call.args.add(stringval)
-			}
-		}
-	}
-
-	def createWrapperFnCall(ResoluteMethod vr, List<PropertyExpression> params) {
-		val found = vr.methodReference
-		val factory = ResoluteFactory.eINSTANCE
-		val target = factory.createIdExpr
-		target.id = vr.caseTargetModelElement
-		val call = factory.createFnCallExpr
-		call.fn = found
-		call.args.add(target)
-		addParams(call, params)
-		call
-	}
 
 	def boolean checkProperties(InstanceObject io, VerificationActivityResult vaResult) {
 		val method = vaResult.method
@@ -712,7 +636,7 @@ class AssureProcessor implements IAssureProcessor {
 								vaResult.addFailIssue(io,
 									"Property " + property.getQualifiedName() + ": Value in model (" +
 										modelValue + unit.name + ") does not match required value (" +
-										reqValue + unit.name + ")", "")
+										reqValue + unit.name + ")")
 								vaResult.setToFail
 							}
 						} else {
@@ -720,7 +644,7 @@ class AssureProcessor implements IAssureProcessor {
 								vaResult.addFailIssue(io,
 									"Property " + property.getQualifiedName() + ": Value in model (" +
 										modelPropValue + ") does not match required value (" +
-										value + ")", "")
+										value + ")")
 								vaResult.setToFail
 							}
 						}
