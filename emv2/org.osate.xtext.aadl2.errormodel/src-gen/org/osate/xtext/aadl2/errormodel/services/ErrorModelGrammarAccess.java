@@ -3223,22 +3223,22 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cFailureModeDescriptionSTRINGTerminalRuleCall_5_1_2_0 = (RuleCall)cFailureModeDescriptionAssignment_5_1_2.eContents().get(0);
 		private final Group cGroup_6 = (Group)cGroup.eContents().get(6);
 		private final Keyword cIfKeyword_6_0 = (Keyword)cGroup_6.eContents().get(0);
-		private final Assignment cConditionAssignment_6_1 = (Assignment)cGroup_6.eContents().get(1);
-		private final RuleCall cConditionCONDITIONParserRuleCall_6_1_0 = (RuleCall)cConditionAssignment_6_1.eContents().get(0);
+		private final Assignment cFlowconditionAssignment_6_1 = (Assignment)cGroup_6.eContents().get(1);
+		private final RuleCall cFlowconditionCONDITIONParserRuleCall_6_1_0 = (RuleCall)cFlowconditionAssignment_6_1.eContents().get(0);
 		private final Keyword cSemicolonKeyword_7 = (Keyword)cGroup.eContents().get(7);
 		
 		//ErrorSource:
 		//	name=ID ':' ErrorSourceKeywords (sourceModelElement=[aadl2::NamedElement|ErrorPropagationPoint] | all?='all')
 		//	typeTokenConstraint=TypeTokenConstraint? ('when' (failureModeReference=[ErrorBehaviorState]
 		//	failureModeType=TypeSetReference? | failureModeType=TypeSetConstructor | failureModeDescription=STRING))? ('if'
-		//	condition=CONDITION)?
+		//	flowcondition=CONDITION)?
 		//	';';
 		@Override public ParserRule getRule() { return rule; }
 
 		//name=ID ':' ErrorSourceKeywords (sourceModelElement=[aadl2::NamedElement|ErrorPropagationPoint] | all?='all')
 		//typeTokenConstraint=TypeTokenConstraint? ('when' (failureModeReference=[ErrorBehaviorState]
 		//failureModeType=TypeSetReference? | failureModeType=TypeSetConstructor | failureModeDescription=STRING))? ('if'
-		//condition=CONDITION)? ';'
+		//flowcondition=CONDITION)? ';'
 		public Group getGroup() { return cGroup; }
 
 		//name=ID
@@ -3318,17 +3318,17 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 		//STRING
 		public RuleCall getFailureModeDescriptionSTRINGTerminalRuleCall_5_1_2_0() { return cFailureModeDescriptionSTRINGTerminalRuleCall_5_1_2_0; }
 
-		//('if' condition=CONDITION)?
+		//('if' flowcondition=CONDITION)?
 		public Group getGroup_6() { return cGroup_6; }
 
 		//'if'
 		public Keyword getIfKeyword_6_0() { return cIfKeyword_6_0; }
 
-		//condition=CONDITION
-		public Assignment getConditionAssignment_6_1() { return cConditionAssignment_6_1; }
+		//flowcondition=CONDITION
+		public Assignment getFlowconditionAssignment_6_1() { return cFlowconditionAssignment_6_1; }
 
 		//CONDITION
-		public RuleCall getConditionCONDITIONParserRuleCall_6_1_0() { return cConditionCONDITIONParserRuleCall_6_1_0; }
+		public RuleCall getFlowconditionCONDITIONParserRuleCall_6_1_0() { return cFlowconditionCONDITIONParserRuleCall_6_1_0; }
 
 		//';'
 		public Keyword getSemicolonKeyword_7() { return cSemicolonKeyword_7; }
@@ -3349,16 +3349,20 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cAllIncomingAllKeyword_3_1_0 = (Keyword)cAllIncomingAssignment_3_1.eContents().get(0);
 		private final Assignment cTypeTokenConstraintAssignment_4 = (Assignment)cGroup.eContents().get(4);
 		private final RuleCall cTypeTokenConstraintTypeTokenConstraintParserRuleCall_4_0 = (RuleCall)cTypeTokenConstraintAssignment_4.eContents().get(0);
-		private final Keyword cSemicolonKeyword_5 = (Keyword)cGroup.eContents().get(5);
+		private final Group cGroup_5 = (Group)cGroup.eContents().get(5);
+		private final Keyword cIfKeyword_5_0 = (Keyword)cGroup_5.eContents().get(0);
+		private final Assignment cFlowconditionAssignment_5_1 = (Assignment)cGroup_5.eContents().get(1);
+		private final RuleCall cFlowconditionCONDITIONParserRuleCall_5_1_0 = (RuleCall)cFlowconditionAssignment_5_1.eContents().get(0);
+		private final Keyword cSemicolonKeyword_6 = (Keyword)cGroup.eContents().get(6);
 		
 		//ErrorSink:
 		//	name=ID ':' ErrorSinkKeywords (incoming=[ErrorPropagation|ErrorPropagationPoint] | allIncoming?='all')
-		//	typeTokenConstraint=TypeTokenConstraint?
+		//	typeTokenConstraint=TypeTokenConstraint? ('if' flowcondition=CONDITION)?
 		//	';';
 		@Override public ParserRule getRule() { return rule; }
 
 		//name=ID ':' ErrorSinkKeywords (incoming=[ErrorPropagation|ErrorPropagationPoint] | allIncoming?='all')
-		//typeTokenConstraint=TypeTokenConstraint? ';'
+		//typeTokenConstraint=TypeTokenConstraint? ('if' flowcondition=CONDITION)? ';'
 		public Group getGroup() { return cGroup; }
 
 		//name=ID
@@ -3397,8 +3401,20 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 		//TypeTokenConstraint
 		public RuleCall getTypeTokenConstraintTypeTokenConstraintParserRuleCall_4_0() { return cTypeTokenConstraintTypeTokenConstraintParserRuleCall_4_0; }
 
+		//('if' flowcondition=CONDITION)?
+		public Group getGroup_5() { return cGroup_5; }
+
+		//'if'
+		public Keyword getIfKeyword_5_0() { return cIfKeyword_5_0; }
+
+		//flowcondition=CONDITION
+		public Assignment getFlowconditionAssignment_5_1() { return cFlowconditionAssignment_5_1; }
+
+		//CONDITION
+		public RuleCall getFlowconditionCONDITIONParserRuleCall_5_1_0() { return cFlowconditionCONDITIONParserRuleCall_5_1_0; }
+
 		//';'
-		public Keyword getSemicolonKeyword_5() { return cSemicolonKeyword_5; }
+		public Keyword getSemicolonKeyword_6() { return cSemicolonKeyword_6; }
 	}
 
 	public class ErrorPathElements extends AbstractParserRuleElementFinder {
@@ -3431,18 +3447,24 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 		private final Assignment cTypeMappingSetAssignment_7_1_1 = (Assignment)cGroup_7_1.eContents().get(1);
 		private final CrossReference cTypeMappingSetTypeMappingSetCrossReference_7_1_1_0 = (CrossReference)cTypeMappingSetAssignment_7_1_1.eContents().get(0);
 		private final RuleCall cTypeMappingSetTypeMappingSetQEMREFParserRuleCall_7_1_1_0_1 = (RuleCall)cTypeMappingSetTypeMappingSetCrossReference_7_1_1_0.eContents().get(1);
-		private final Keyword cSemicolonKeyword_8 = (Keyword)cGroup.eContents().get(8);
+		private final Group cGroup_8 = (Group)cGroup.eContents().get(8);
+		private final Keyword cIfKeyword_8_0 = (Keyword)cGroup_8.eContents().get(0);
+		private final Assignment cFlowconditionAssignment_8_1 = (Assignment)cGroup_8.eContents().get(1);
+		private final RuleCall cFlowconditionCONDITIONParserRuleCall_8_1_0 = (RuleCall)cFlowconditionAssignment_8_1.eContents().get(0);
+		private final Keyword cSemicolonKeyword_9 = (Keyword)cGroup.eContents().get(9);
 		
 		//ErrorPath:
 		//	name=ID ':' ErrorPathKeywords (incoming=[ErrorPropagation|ErrorPropagationPoint] | allIncoming?='all')
 		//	typeTokenConstraint=TypeTokenConstraint? '->' (outgoing=[ErrorPropagation|ErrorPropagationPoint] |
-		//	allOutgoing?='all') (targetToken=TypeToken | UseMappingsKeywords typeMappingSet=[TypeMappingSet|QEMREF])?
+		//	allOutgoing?='all') (targetToken=TypeToken | UseMappingsKeywords typeMappingSet=[TypeMappingSet|QEMREF])? ('if'
+		//	flowcondition=CONDITION)?
 		//	';';
 		@Override public ParserRule getRule() { return rule; }
 
 		//name=ID ':' ErrorPathKeywords (incoming=[ErrorPropagation|ErrorPropagationPoint] | allIncoming?='all')
 		//typeTokenConstraint=TypeTokenConstraint? '->' (outgoing=[ErrorPropagation|ErrorPropagationPoint] | allOutgoing?='all')
-		//(targetToken=TypeToken | UseMappingsKeywords typeMappingSet=[TypeMappingSet|QEMREF])? ';'
+		//(targetToken=TypeToken | UseMappingsKeywords typeMappingSet=[TypeMappingSet|QEMREF])? ('if' flowcondition=CONDITION)?
+		//';'
 		public Group getGroup() { return cGroup; }
 
 		//name=ID
@@ -3526,8 +3548,20 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 		//QEMREF
 		public RuleCall getTypeMappingSetTypeMappingSetQEMREFParserRuleCall_7_1_1_0_1() { return cTypeMappingSetTypeMappingSetQEMREFParserRuleCall_7_1_1_0_1; }
 
+		//('if' flowcondition=CONDITION)?
+		public Group getGroup_8() { return cGroup_8; }
+
+		//'if'
+		public Keyword getIfKeyword_8_0() { return cIfKeyword_8_0; }
+
+		//flowcondition=CONDITION
+		public Assignment getFlowconditionAssignment_8_1() { return cFlowconditionAssignment_8_1; }
+
+		//CONDITION
+		public RuleCall getFlowconditionCONDITIONParserRuleCall_8_1_0() { return cFlowconditionCONDITIONParserRuleCall_8_1_0; }
+
 		//';'
-		public Keyword getSemicolonKeyword_8() { return cSemicolonKeyword_8; }
+		public Keyword getSemicolonKeyword_9() { return cSemicolonKeyword_9; }
 	}
 
 	public class ErrorPropagationPointElements extends AbstractParserRuleElementFinder {
@@ -4459,15 +4493,6 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 		private final Assignment cOperandsAssignment_1_2 = (Assignment)cGroup_1.eContents().get(2);
 		private final RuleCall cOperandsAndExpressionParserRuleCall_1_2_0 = (RuleCall)cOperandsAssignment_1_2.eContents().get(0);
 		
-		////ConnectionErrorSource returns ConnectionErrorSource:
-		////	name=ID ':' ErrorSourceKeywords
-		////	(connection=[aadl2::Connection|ID]|all?='all')
-		////	(typeTokenConstraint=TypeTokenConstraint)?
-		////  	('when'  (  failureModeType = TypeSetConstructor | failureModeDescription = STRING)
-		////  	)?
-		////     ( 'if' condition=CONDITION)?
-		////     ';'
-		////;
 		//// condition expression for component specific transitions 
 		//// based on error events and incoming propagations
 		//ConditionExpression:
@@ -7331,7 +7356,7 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 	//	name=ID ':' ErrorSourceKeywords (sourceModelElement=[aadl2::NamedElement|ErrorPropagationPoint] | all?='all')
 	//	typeTokenConstraint=TypeTokenConstraint? ('when' (failureModeReference=[ErrorBehaviorState]
 	//	failureModeType=TypeSetReference? | failureModeType=TypeSetConstructor | failureModeDescription=STRING))? ('if'
-	//	condition=CONDITION)?
+	//	flowcondition=CONDITION)?
 	//	';';
 	public ErrorSourceElements getErrorSourceAccess() {
 		return pErrorSource;
@@ -7343,7 +7368,7 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 
 	//ErrorSink:
 	//	name=ID ':' ErrorSinkKeywords (incoming=[ErrorPropagation|ErrorPropagationPoint] | allIncoming?='all')
-	//	typeTokenConstraint=TypeTokenConstraint?
+	//	typeTokenConstraint=TypeTokenConstraint? ('if' flowcondition=CONDITION)?
 	//	';';
 	public ErrorSinkElements getErrorSinkAccess() {
 		return pErrorSink;
@@ -7356,7 +7381,8 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 	//ErrorPath:
 	//	name=ID ':' ErrorPathKeywords (incoming=[ErrorPropagation|ErrorPropagationPoint] | allIncoming?='all')
 	//	typeTokenConstraint=TypeTokenConstraint? '->' (outgoing=[ErrorPropagation|ErrorPropagationPoint] |
-	//	allOutgoing?='all') (targetToken=TypeToken | UseMappingsKeywords typeMappingSet=[TypeMappingSet|QEMREF])?
+	//	allOutgoing?='all') (targetToken=TypeToken | UseMappingsKeywords typeMappingSet=[TypeMappingSet|QEMREF])? ('if'
+	//	flowcondition=CONDITION)?
 	//	';';
 	public ErrorPathElements getErrorPathAccess() {
 		return pErrorPath;
@@ -7519,15 +7545,6 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 		return getBranchValueAccess().getRule();
 	}
 
-	////ConnectionErrorSource returns ConnectionErrorSource:
-	////	name=ID ':' ErrorSourceKeywords
-	////	(connection=[aadl2::Connection|ID]|all?='all')
-	////	(typeTokenConstraint=TypeTokenConstraint)?
-	////  	('when'  (  failureModeType = TypeSetConstructor | failureModeDescription = STRING)
-	////  	)?
-	////     ( 'if' condition=CONDITION)?
-	////     ';'
-	////;
 	//// condition expression for component specific transitions 
 	//// based on error events and incoming propagations
 	//ConditionExpression:

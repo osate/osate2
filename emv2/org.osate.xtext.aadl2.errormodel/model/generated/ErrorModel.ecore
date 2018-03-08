@@ -133,6 +133,7 @@
   <eClassifiers xsi:type="ecore:EClass" name="ErrorFlow" eSuperTypes="platform:/resource/org.osate.aadl2/model/aadl2.ecore#//NamedElement">
     <eStructuralFeatures xsi:type="ecore:EReference" name="typeTokenConstraint" eType="#//TypeSet"
         containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="flowcondition" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="ErrorSource" eSuperTypes="#//ErrorFlow">
     <eStructuralFeatures xsi:type="ecore:EReference" name="sourceModelElement" eType="ecore:EClass platform:/resource/org.osate.aadl2/model/aadl2.ecore#//NamedElement"/>
@@ -142,7 +143,6 @@
         containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="failureModeDescription"
         eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="condition" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="ErrorSink" eSuperTypes="#//ErrorFlow">
     <eStructuralFeatures xsi:type="ecore:EReference" name="incoming" eType="#//ErrorPropagation"/>
