@@ -786,6 +786,36 @@ public class EM2TypeSetUtil {
 		return null;
 	}
 
+	public static ErrorTypes reverseMapTypeTokenToContributor(ErrorTypes targettoken, TypeTransformationSet tts) {
+		if (tts == null) {
+			return targettoken;
+		}
+		EList<TypeTransformation> ttlist = tts.getTransformation();
+		for (TypeTransformation typeXform : ttlist) {
+			TypeSet target = typeXform.getTarget();
+			TypeSet contrib = typeXform.getContributor();
+			if (contains(target, targettoken)) {
+				return contrib;
+			}
+		}
+		return targettoken;
+	}
+
+	public static ErrorTypes reverseMapTypeTokenToSource(ErrorTypes targettoken, TypeTransformationSet tts) {
+		if (tts == null) {
+			return targettoken;
+		}
+		EList<TypeTransformation> ttlist = tts.getTransformation();
+		for (TypeTransformation typeXform : ttlist) {
+			TypeSet target = typeXform.getTarget();
+			TypeSet src = typeXform.getSource();
+			if (contains(target, targettoken)) {
+				return src;
+			}
+		}
+		return targettoken;
+	}
+
 	public static boolean isNoError(ErrorTypes type) {
 		return type instanceof TypeSet ? isNoError((TypeSet) type) : false;
 	}

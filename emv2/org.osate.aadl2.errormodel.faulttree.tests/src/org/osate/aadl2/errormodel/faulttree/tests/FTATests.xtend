@@ -24,6 +24,7 @@ import org.osate.xtext.aadl2.errormodel.errorModel.ErrorSource
 import static org.junit.Assert.*
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorPropagation
 import org.osate.xtext.aadl2.errormodel.util.EMV2Util
+import org.osate.aadl2.instance.ConnectionInstance
 
 @RunWith(typeof(XtextRunner))
 @InjectWith(typeof(ErrorModelUiInjectorProvider))
@@ -122,7 +123,7 @@ class FTATests extends OsateTest {
 
 			val result = testFile(redundant2File)
 			val pkg = result.resource.contents.head as AadlPackage
-			instanceredundant21 = instanceGenerator(pkg, "main2.composite")
+			instanceredundant21 = instanceGenerator(pkg, "main2.connection")
 			instanceredundant22 = instanceGenerator(pkg, "main2.compositesametype")
 			instanceredundant23 = instanceGenerator(pkg, "main2.transition")
 			
@@ -340,12 +341,12 @@ class FTATests extends OsateTest {
 	}
 
 	@Test
-	def void redundant21Test() {
+	def void redundant21ConnectionBindingTest() {
 		val ft = CreateFTAModel.createFaultTree(instanceredundant21, stateFailStop)
-		assertEquals(ft.events.size, 14)
+		assertEquals(ft.events.size, 16)
 		assertEquals(ft.root.subEventLogic, LogicOperation.OR)
-		assertEquals(ft.root.subEvents.size, 7)
-		val sube1 = ft.root.subEvents.get(1)
+		assertEquals(ft.root.subEvents.size, 9)
+		val sube1 = ft.root.subEvents.get(2)
 		assertEquals((sube1.relatedInstanceObject as NamedElement).name, "thr")
 		assertEquals(sube1.subEventLogic, LogicOperation.AND)
 		assertEquals(sube1.subEvents.size, 2)
@@ -363,12 +364,14 @@ class FTATests extends OsateTest {
 		assertEquals((subsube2.subEvents.get(1).relatedInstanceObject as NamedElement).name, "sensor2")
 		assertEquals((subsube2.subEvents.head.relatedErrorType as NamedElement).name, "LateDelivery")
 		assertEquals((subsube2.subEvents.get(1).relatedErrorType as NamedElement).name, "OutOfRange")
+		val sube8 = ft.root.subEvents.get(7)
+		assertTrue(sube8.relatedInstanceObject instanceof ConnectionInstance)
 	}
 
 	@Test
 	def void redundant22Test() {
 		val ft = CreateFTAModel.createFaultTree(instanceredundant22, stateFailStop)
-		assertEquals(ft.events.size, 10)
+		assertEquals(ft.events.size, 11)
 		assertEquals(ft.root.subEventLogic, LogicOperation.OR)
 		val sube1 = ft.root.subEvents.head
 		assertEquals((sube1.relatedInstanceObject as NamedElement).name, "actuator")
@@ -378,9 +381,9 @@ class FTATests extends OsateTest {
 	def void redundant23Test() {
 		val start = "outgoing propagation on externaleffect{serviceomission}"
 		val ft = CreateFTAModel.createFaultTree(instanceredundant23, start)
-		assertEquals(ft.events.size, 13)
+		assertEquals(ft.events.size, 14)
 		assertEquals(ft.root.subEventLogic, LogicOperation.OR)
-		val sube1 = ft.root.subEvents.head
+		val sube1 = ft.root.subEvents.get(1)
 		assertEquals(sube1.subEventLogic, LogicOperation.AND)
 		assertEquals(sube1.subEvents.size, 2)
 		val subsube1 = sube1.subEvents.head

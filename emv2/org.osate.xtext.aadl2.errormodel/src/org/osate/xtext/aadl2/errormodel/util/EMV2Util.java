@@ -652,7 +652,7 @@ public class EMV2Util {
 			if (cl != null) {
 				Collection<ErrorSource> ceslist = getAllConnectionErrorSources(cl);
 				for (ErrorSource ces : ceslist) {
-					if (ces.getSourceModelElement().getName().equalsIgnoreCase(conn.getName())) {
+					if (ces.isAll() || ces.getSourceModelElement().getName().equalsIgnoreCase(conn.getName())) {
 						return ces;
 					}
 				}
