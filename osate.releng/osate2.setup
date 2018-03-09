@@ -784,13 +784,6 @@
       </annotation>
       <description>Clone SMACCM repository</description>
     </setupTask>
-    <setupTask
-        xsi:type="setup.p2:P2Task">
-      <requirement
-          name="net.dependableos.dcase.feature.feature.group"/>
-      <repository
-          url="http://www.dimensions-japan.org/dcase/eclipse"/>
-    </setupTask>
   </setupTask>
   <setupTask
       xsi:type="setup:CompoundTask"
