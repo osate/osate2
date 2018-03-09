@@ -16,10 +16,6 @@ import org.osate.aadl2.errormodel.PropagationGraph.PropagationGraphPath;
 import org.osate.aadl2.errormodel.PropagationGraph.PropagationPathEnd;
 import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.ConnectionInstance;
-import org.osate.execute.ExecuteJava;
-import org.osate.execute.ExecuteResoluteUtil;
-import org.osate.result.Issue;
-import org.osate.result.IssueType;
 import org.osate.xtext.aadl2.errormodel.errorModel.AllExpression;
 import org.osate.xtext.aadl2.errormodel.errorModel.AndExpression;
 import org.osate.xtext.aadl2.errormodel.errorModel.BranchValue;
@@ -121,7 +117,7 @@ public class PropagationGraphBackwardTraversal {
 			if (handledFlows.containsEntry(ef, EMV2Util.getPrintName(type))) {
 				continue;
 			}
-			if (!conditionHolds(ef, component)) {
+			if (!PropagationPathsUtil.conditionHolds(ef, component)) {
 				continue;
 			}
 			if (ef instanceof ErrorPath) {
@@ -693,10 +689,9 @@ public class PropagationGraphBackwardTraversal {
 					ErrorTypes referencedErrorType = conditionElement.getConstraint() != null
 							? mapTargetType(conditionElement.getConstraint(), type)
 							: mapTargetType(((ErrorEvent) errorModelElement).getTypeSet(), type);
-					if (conditionHolds((ErrorEvent) errorModelElement, component)) {
-
+					if (PropagationPathsUtil.conditionHolds((ErrorEvent) errorModelElement, component)) {
+						return processErrorEvent(component, (ErrorEvent) errorModelElement, referencedErrorType, scale);
 					}
-					return processErrorEvent(component, (ErrorEvent) errorModelElement, referencedErrorType, scale);
 				}
 
 				/**
@@ -899,50 +894,50 @@ public class PropagationGraphBackwardTraversal {
 		return traverseCompositeErrorState(component, state, type, true);
 	}
 
-
-	public boolean conditionHolds(ErrorFlow ef, ComponentInstance target) {
-		if (ef.getFlowcondition() != null) {
-			String conditionFcn = ef.getFlowcondition();
-			return executeCondition(conditionFcn, target);
-		}
-		return true;
-	}
-
-	public boolean conditionHolds(ErrorEvent ef, ComponentInstance target) {
-		if (ef.getFlowcondition() != null) {
-			String conditionFcn = ef.getFlowcondition();
-			return executeCondition(conditionFcn, target);
-		}
-		return true;
-	}
-
-	private static boolean RESOLUTE_INSTALLED;
-	static {
-		try {
-			ExecuteResoluteUtil.eInstance.tryLoad();
-			RESOLUTE_INSTALLED = true;
-		} catch (NoClassDefFoundError e) {
-			RESOLUTE_INSTALLED = false;
-		}
-	}
-
-	public boolean executeCondition(String conditionFcn, ComponentInstance target) {
-		if (conditionFcn.contains(".")) {
-			// Java class reference
-			Object res = ExecuteJava.eInstance.workspaceInvoke(conditionFcn, target);
-			if (res instanceof Boolean) {
-				return (Boolean) res;
-			} else {
-				return true;
-			}
-		} else if (RESOLUTE_INSTALLED) {
-			Issue res = ExecuteResoluteUtil.eInstance.executeResoluteFunction(conditionFcn, target.getSystemInstance(),
-					target, null);
-			return res != null && res.getIssueType() == IssueType.SUCCESS;
-		} else {
-			return true;
-		}
-	}
+//
+//	public boolean conditionHolds(ErrorFlow ef, ComponentInstance target) {
+//		if (ef.getFlowcondition() != null) {
+//			String conditionFcn = ef.getFlowcondition();
+//			return executeCondition(conditionFcn, target);
+//		}
+//		return true;
+//	}
+//
+//	public boolean conditionHolds(ErrorEvent ef, ComponentInstance target) {
+//		if (ef.getFlowcondition() != null) {
+//			String conditionFcn = ef.getFlowcondition();
+//			return executeCondition(conditionFcn, target);
+//		}
+//		return true;
+//	}
+//
+//	private static boolean RESOLUTE_INSTALLED;
+//	static {
+//		try {
+//			ExecuteResoluteUtil.eInstance.tryLoad();
+//			RESOLUTE_INSTALLED = true;
+//		} catch (NoClassDefFoundError e) {
+//			RESOLUTE_INSTALLED = false;
+//		}
+//	}
+//
+//	public boolean executeCondition(String conditionFcn, ComponentInstance target) {
+//		if (conditionFcn.contains(".")) {
+//			// Java class reference
+//			Object res = ExecuteJava.eInstance.workspaceInvoke(conditionFcn, target);
+//			if (res instanceof Boolean) {
+//				return (Boolean) res;
+//			} else {
+//				return true;
+//			}
+//		} else if (RESOLUTE_INSTALLED) {
+//			Issue res = ExecuteResoluteUtil.eInstance.executeResoluteFunction(conditionFcn, target.getSystemInstance(),
+//					target, null);
+//			return res != null && res.getIssueType() == IssueType.SUCCESS;
+//		} else {
+//			return true;
+//		}
+//	}
 
 
 //	methods to be overwritten by applications

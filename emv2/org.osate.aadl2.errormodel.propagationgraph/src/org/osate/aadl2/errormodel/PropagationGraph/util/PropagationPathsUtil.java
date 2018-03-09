@@ -26,6 +26,12 @@ import org.osate.aadl2.instance.SystemOperationMode;
 import org.osate.aadl2.modelsupport.resources.OsateResourceUtil;
 import org.osate.aadl2.modelsupport.util.AadlUtil;
 import org.osate.aadl2.util.Aadl2InstanceUtil;
+import org.osate.execute.ExecuteJava;
+import org.osate.execute.ExecuteResoluteUtil;
+import org.osate.result.Issue;
+import org.osate.result.IssueType;
+import org.osate.xtext.aadl2.errormodel.errorModel.ErrorEvent;
+import org.osate.xtext.aadl2.errormodel.errorModel.ErrorFlow;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorPropagation;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorTypes;
 import org.osate.xtext.aadl2.errormodel.errorModel.PropagationPath;
@@ -646,6 +652,50 @@ public class PropagationPathsUtil {
 			}
 		}
 		return result;
+	}
+
+	public static boolean conditionHolds(ErrorFlow ef, ComponentInstance target) {
+		if (ef.getFlowcondition() != null) {
+			String conditionFcn = ef.getFlowcondition();
+			return executeCondition(conditionFcn, target);
+		}
+		return true;
+	}
+
+	public static boolean conditionHolds(ErrorEvent ef, ComponentInstance target) {
+		if (ef.getFlowcondition() != null) {
+			String conditionFcn = ef.getFlowcondition();
+			return executeCondition(conditionFcn, target);
+		}
+		return true;
+	}
+
+	private static boolean RESOLUTE_INSTALLED;
+	static {
+		try {
+			ExecuteResoluteUtil.eInstance.tryLoad();
+			RESOLUTE_INSTALLED = true;
+		} catch (NoClassDefFoundError e) {
+			RESOLUTE_INSTALLED = false;
+		}
+	}
+
+	public static boolean executeCondition(String conditionFcn, ComponentInstance target) {
+		if (conditionFcn.contains(".")) {
+			// Java class reference
+			Object res = ExecuteJava.eInstance.workspaceInvoke(conditionFcn, target);
+			if (res instanceof Boolean) {
+				return (Boolean) res;
+			} else {
+				return true;
+			}
+		} else if (RESOLUTE_INSTALLED) {
+			Issue res = ExecuteResoluteUtil.eInstance.executeResoluteFunction(conditionFcn, target.getSystemInstance(),
+					target, null);
+			return res != null && res.getIssueType() == IssueType.SUCCESS;
+		} else {
+			return true;
+		}
 	}
 
 }
