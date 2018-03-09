@@ -73,7 +73,7 @@ import static extension org.eclipse.emf.ecore.util.EcoreUtil.getURI
 import static extension org.osate.alisa.common.util.CommonUtilExtension.*
 import static extension org.osate.assure.util.AssureUtilExtension.*
 import static extension org.osate.verify.util.VerifyUtilExtension.*
-import org.osate.verify.util.ExecuteUtil
+import org.osate.execute.ExecuteResoluteUtil
 
 @ImplementedBy(AssureProcessor)
 interface IAssureProcessor {
@@ -395,7 +395,7 @@ class AssureProcessor implements IAssureProcessor {
 					updateProgress(verificationResult)
 				}
 				ResoluteMethod: {
-						val proveri = ExecuteUtil.executeResoluteFunction(methodtype.methodReference, instanceroot, targetComponent,parameterObjects)
+						val proveri = ExecuteResoluteUtil.eInstance.executeResoluteFunction(methodtype.methodReference,  instanceroot, targetComponent,parameterObjects)
 						if (proveri.issueType == IssueType.SUCCESS) {
 							setToSuccess(verificationResult)
 						} else {
