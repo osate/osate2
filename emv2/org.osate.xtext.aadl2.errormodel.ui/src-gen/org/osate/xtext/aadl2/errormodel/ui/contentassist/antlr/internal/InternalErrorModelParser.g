@@ -20423,9 +20423,9 @@ rule__ErrorEvent__Group_4__1__Impl
     }
 :
 (
-{ before(grammarAccess.getErrorEventAccess().getConditionAssignment_4_1()); }
-(rule__ErrorEvent__ConditionAssignment_4_1)
-{ after(grammarAccess.getErrorEventAccess().getConditionAssignment_4_1()); }
+{ before(grammarAccess.getErrorEventAccess().getFlowconditionAssignment_4_1()); }
+(rule__ErrorEvent__FlowconditionAssignment_4_1)
+{ after(grammarAccess.getErrorEventAccess().getFlowconditionAssignment_4_1()); }
 )
 
 ;
@@ -35349,14 +35349,14 @@ finally {
 	restoreStackSize(stackSize);
 }
 
-rule__ErrorEvent__ConditionAssignment_4_1
+rule__ErrorEvent__FlowconditionAssignment_4_1
     @init {
 		int stackSize = keepStackSize();
     }
 :
 (
-{ before(grammarAccess.getErrorEventAccess().getConditionCONDITIONParserRuleCall_4_1_0()); }
-	ruleCONDITION{ after(grammarAccess.getErrorEventAccess().getConditionCONDITIONParserRuleCall_4_1_0()); }
+{ before(grammarAccess.getErrorEventAccess().getFlowconditionCONDITIONParserRuleCall_4_1_0()); }
+	ruleCONDITION{ after(grammarAccess.getErrorEventAccess().getFlowconditionCONDITIONParserRuleCall_4_1_0()); }
 )
 
 ;

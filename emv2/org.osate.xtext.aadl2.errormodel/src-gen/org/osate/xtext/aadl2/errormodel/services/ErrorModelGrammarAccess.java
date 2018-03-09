@@ -3944,17 +3944,17 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cTypeSetTypeSetReferenceParserRuleCall_3_0 = (RuleCall)cTypeSetAssignment_3.eContents().get(0);
 		private final Group cGroup_4 = (Group)cGroup.eContents().get(4);
 		private final Keyword cIfKeyword_4_0 = (Keyword)cGroup_4.eContents().get(0);
-		private final Assignment cConditionAssignment_4_1 = (Assignment)cGroup_4.eContents().get(1);
-		private final RuleCall cConditionCONDITIONParserRuleCall_4_1_0 = (RuleCall)cConditionAssignment_4_1.eContents().get(0);
+		private final Assignment cFlowconditionAssignment_4_1 = (Assignment)cGroup_4.eContents().get(1);
+		private final RuleCall cFlowconditionCONDITIONParserRuleCall_4_1_0 = (RuleCall)cFlowconditionAssignment_4_1.eContents().get(0);
 		private final Keyword cSemicolonKeyword_5 = (Keyword)cGroup.eContents().get(5);
 		
 		//ErrorEvent:
 		//	name=ID ':' ErrorEventKeywords
-		//	typeSet=TypeSetReference? ('if' condition=CONDITION)?
+		//	typeSet=TypeSetReference? ('if' flowcondition=CONDITION)?
 		//	';';
 		@Override public ParserRule getRule() { return rule; }
 
-		//name=ID ':' ErrorEventKeywords typeSet=TypeSetReference? ('if' condition=CONDITION)? ';'
+		//name=ID ':' ErrorEventKeywords typeSet=TypeSetReference? ('if' flowcondition=CONDITION)? ';'
 		public Group getGroup() { return cGroup; }
 
 		//name=ID
@@ -3975,17 +3975,17 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 		//TypeSetReference
 		public RuleCall getTypeSetTypeSetReferenceParserRuleCall_3_0() { return cTypeSetTypeSetReferenceParserRuleCall_3_0; }
 
-		//('if' condition=CONDITION)?
+		//('if' flowcondition=CONDITION)?
 		public Group getGroup_4() { return cGroup_4; }
 
 		//'if'
 		public Keyword getIfKeyword_4_0() { return cIfKeyword_4_0; }
 
-		//condition=CONDITION
-		public Assignment getConditionAssignment_4_1() { return cConditionAssignment_4_1; }
+		//flowcondition=CONDITION
+		public Assignment getFlowconditionAssignment_4_1() { return cFlowconditionAssignment_4_1; }
 
 		//CONDITION
-		public RuleCall getConditionCONDITIONParserRuleCall_4_1_0() { return cConditionCONDITIONParserRuleCall_4_1_0; }
+		public RuleCall getFlowconditionCONDITIONParserRuleCall_4_1_0() { return cFlowconditionCONDITIONParserRuleCall_4_1_0; }
 
 		//';'
 		public Keyword getSemicolonKeyword_5() { return cSemicolonKeyword_5; }
@@ -7461,7 +7461,7 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 
 	//ErrorEvent:
 	//	name=ID ':' ErrorEventKeywords
-	//	typeSet=TypeSetReference? ('if' condition=CONDITION)?
+	//	typeSet=TypeSetReference? ('if' flowcondition=CONDITION)?
 	//	';';
 	public ErrorEventElements getErrorEventAccess() {
 		return pErrorEvent;

@@ -449,7 +449,7 @@ ErrorBehaviorEvent returns ErrorBehaviorEvent:
 ErrorEvent returns ErrorEvent:
     name=ID ':' ErrorEventKeywords
     (typeSet=TypeSetReference)?
-     ( 'if' condition=CONDITION)?
+     ( 'if' flowcondition=CONDITION )?
   	';'
 ; // add event condition 
     

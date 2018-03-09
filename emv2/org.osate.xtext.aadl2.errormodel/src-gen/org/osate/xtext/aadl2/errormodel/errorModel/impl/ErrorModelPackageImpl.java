@@ -1595,7 +1595,7 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
    * <!-- end-user-doc -->
    * @generated
    */
-  public EAttribute getErrorEvent_Condition()
+  public EAttribute getErrorEvent_Flowcondition()
   {
     return (EAttribute)errorEventEClass.getEStructuralFeatures().get(1);
   }
@@ -2614,7 +2614,7 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
 
     errorEventEClass = createEClass(ERROR_EVENT);
     createEReference(errorEventEClass, ERROR_EVENT__TYPE_SET);
-    createEAttribute(errorEventEClass, ERROR_EVENT__CONDITION);
+    createEAttribute(errorEventEClass, ERROR_EVENT__FLOWCONDITION);
 
     repairEventEClass = createEClass(REPAIR_EVENT);
     createEReference(repairEventEClass, REPAIR_EVENT__EVENT_INITIATOR);
@@ -2951,7 +2951,7 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
 
     initEClass(errorEventEClass, ErrorEvent.class, "ErrorEvent", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEReference(getErrorEvent_TypeSet(), this.getTypeSet(), null, "typeSet", null, 0, 1, ErrorEvent.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEAttribute(getErrorEvent_Condition(), theEcorePackage.getEString(), "condition", null, 0, 1, ErrorEvent.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getErrorEvent_Flowcondition(), theEcorePackage.getEString(), "flowcondition", null, 0, 1, ErrorEvent.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(repairEventEClass, RepairEvent.class, "RepairEvent", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEReference(getRepairEvent_EventInitiator(), theAadl2Package.getNamedElement(), null, "eventInitiator", null, 0, -1, RepairEvent.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

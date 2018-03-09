@@ -3060,18 +3060,6 @@ public class EMV2Util {
 		return (ep != null) && (ep.getKind() != null) && (ep.getKind().equalsIgnoreCase("processor"));
 	}
 
-	public static boolean conditionHolds(ErrorFlow ef, ComponentInstance target) {
-		if (ef.getFlowcondition() == null) {
-			return true;
-		}
-		String conditionFcn = ef.getFlowcondition();
-		if (conditionFcn.contains(".")) {
-			// Java class reference
-		} else {
-			// Resolute Claim Function reference
-		}
-		return true;
-	}
 
 
 }

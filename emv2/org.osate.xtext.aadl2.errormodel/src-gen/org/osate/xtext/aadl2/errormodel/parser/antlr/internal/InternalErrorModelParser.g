@@ -5346,16 +5346,16 @@ ruleErrorEventKeywords
 (
 (
 		{ 
-	        newCompositeNode(grammarAccess.getErrorEventAccess().getConditionCONDITIONParserRuleCall_4_1_0()); 
+	        newCompositeNode(grammarAccess.getErrorEventAccess().getFlowconditionCONDITIONParserRuleCall_4_1_0()); 
 	    }
-		lv_condition_5_0=ruleCONDITION		{
+		lv_flowcondition_5_0=ruleCONDITION		{
 	        if ($current==null) {
 	            $current = createModelElementForParent(grammarAccess.getErrorEventRule());
 	        }
        		set(
        			$current, 
-       			"condition",
-        		lv_condition_5_0, 
+       			"flowcondition",
+        		lv_flowcondition_5_0, 
         		"org.osate.xtext.aadl2.errormodel.ErrorModel.CONDITION");
 	        afterParserOrEnumRuleCall();
 	    }
