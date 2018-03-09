@@ -6,7 +6,7 @@
          point="org.eclipse.ui.preferencePages">
       <page
             id="org.osate.internal.ui.preferences.OsatePreferencePage"
-            name="OSATE Preferences"
+            name="OSATE"
             class="org.osate.internal.ui.preferences.OsatePreferencePage">
       </page>
    </extension>
