@@ -49,7 +49,7 @@ import org.osate.aadl2.Feature;
 import org.osate.aadl2.errormodel.PropagationGraph.PropagationGraph;
 import org.osate.aadl2.errormodel.PropagationGraph.PropagationGraphPath;
 import org.osate.aadl2.errormodel.PropagationGraph.PropagationPathEnd;
-import org.osate.aadl2.errormodel.PropagationGraph.util.Util;
+import org.osate.aadl2.errormodel.PropagationGraph.util.PropagationPathsUtil;
 import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.ConnectionInstance;
 import org.osate.aadl2.instance.ConnectionInstanceEnd;
@@ -101,7 +101,7 @@ public class PropagateErrorSources {
 
 	public PropagateErrorSources(String reportType, ComponentInstance root) {
 		report = new WriteToFile(reportType, root);
-		faultModel = Util.generatePropagationGraph(root, false);
+		faultModel = PropagationPathsUtil.generatePropagationGraph(root, false);
 		visited = new HashSet<EObject>();
 		alreadyTreated = new HashMap<ComponentInstance, List<String>>();
 
@@ -409,7 +409,7 @@ public class PropagateErrorSources {
 			String connName = ces.getSourceModelElement().getName();
 			ConnectionInstance conni = InstanceUtil.findConnectionInstance(root,
 					(Connection) ces.getSourceModelElement());
-			EList<PropagationPathEnd> ends = Util.getAllPropagationDestinationEnds(faultModel, conni);
+			EList<PropagationPathEnd> ends = PropagationPathsUtil.getAllPropagationDestinationEnds(faultModel, conni);
 			if (ends.size() == 0) {
 				return;
 			}
@@ -602,7 +602,7 @@ public class PropagateErrorSources {
 		} else {
 			st.setVisitToken(tt);
 		}
-		EList<PropagationGraphPath> paths = Util.getAllPropagationPaths(faultModel, ci, ep);
+		EList<PropagationGraphPath> paths = PropagationPathsUtil.getAllPropagationPaths(faultModel, ci, ep);
 		String effectText = "," + generateTypeTokenErrorPropText(ep, tt);
 		if (paths.isEmpty()) {
 			if (fi != null) {
@@ -656,7 +656,7 @@ public class PropagateErrorSources {
 				String connSymbol = " -> ";
 				if (dstConni != null) {
 					// we have a connection binding path with a connection instance as target
-					dstEnds = Util.getAllPropagationDestinationEnds(faultModel, dstConni);
+					dstEnds = PropagationPathsUtil.getAllPropagationDestinationEnds(faultModel, dstConni);
 					connSymbol = " -Conn-> ";
 					// find the connection transformation rules
 					ComponentInstance contextCI = dstConni.getComponentInstance();

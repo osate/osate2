@@ -34,7 +34,7 @@ import org.osate.xtext.aadl2.errormodel.util.EM2TypeSetUtil;
 import org.osate.xtext.aadl2.errormodel.util.EMV2Util;
 import org.osate.xtext.aadl2.properties.util.InstanceModelUtil;
 
-public class Util {
+public class PropagationPathsUtil {
 
 	public static PropagationGraph generatePropagationGraph(ComponentInstance root, boolean completeConnectionsOnly) {
 		PropagationGraph pg = PropagationGraphFactory.eINSTANCE.createPropagationGraph();

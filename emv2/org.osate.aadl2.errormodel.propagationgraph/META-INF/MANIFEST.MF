@@ -14,5 +14,7 @@ Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.emf.ecore;visibility:=reexport,
  org.osate.aadl2;visibility:=reexport,
  org.osate.xtext.aadl2.errormodel;visibility:=reexport,
- org.osate.aadl2.modelsupport
+ org.osate.aadl2.modelsupport,
+ org.osate.execute;bundle-version="1.0.0",
+ org.osate.results
 Bundle-ActivationPolicy: lazy
