@@ -34,7 +34,6 @@ import org.osate.aadl2.util.Aadl2Util
 import org.osate.alisa.common.common.AFunctionCall
 import org.osate.alisa.workbench.alisa.AssuranceCase
 import org.osate.alisa.workbench.alisa.AssurancePlan
-import org.osate.alisa.workbench.util.IAlisaGlobalReferenceFinder
 import org.osate.assure.assure.AssuranceCaseResult
 import org.osate.assure.assure.AssureFactory
 import org.osate.assure.assure.ClaimResult
@@ -71,7 +70,6 @@ import org.osate.verify.verify.VerificationValidation
 import static extension org.osate.alisa.common.util.CommonUtilExtension.*
 import static extension org.osate.reqspec.util.ReqSpecUtilExtension.*
 import static extension org.osate.verify.util.VerifyUtilExtension.*
-import org.osate.aadl2.modelsupport.util.AadlUtil
 
 @ImplementedBy(AssureConstructor)
 interface IAssureConstructor {
@@ -91,18 +89,13 @@ class AssureConstructor implements IAssureConstructor {
 
 	var EList<Claim> globalClaims
 	
-//	var ResultReport issueReport
 
 	override generateFullAssuranceCase(AssuranceCase acs) {
-//		issueReport = createReport("AssureGeneration",acs)
 		globalPlans = new UniqueEList()
 		globalClaims = new UniqueEList()
 		acs.constructAssuranceCaseResult(null)
 	}
 	
-//	def ResultReport getIssueReport(){
-//		issueReport
-//	}
 
 	def constructAssuranceCaseResult(AssuranceCase acs, ComponentClassifier cl) {
 		var AssuranceCaseResult acr = factory.createAssuranceCaseResult
@@ -121,16 +114,12 @@ class AssureConstructor implements IAssureConstructor {
 				if (modelResultInstance !== null) {
 					mrs.add(modelResultInstance)
 				}
-//			} else {
-//				addError(issueReport.issues, "Assurance plan "+acp.name+" target not for assurance case " + acs.name + " classifier " +acs.system.name,
-//					acp,"")
 			}
 		}
 		acr
 	}
 
 	def constructModelResult(AssurancePlan acp) {
-		// XXX TODO Revisit later should we auto include all global if no explicit global assure
 //		deal with assure global plans
 		var Iterable<VerificationPlan> myplans = Collections.EMPTY_LIST
 
@@ -300,16 +289,13 @@ class AssureConstructor implements IAssureConstructor {
 			claimResult.modelElement = forTargetElement
 		}
 
-		// val subclaims = if(claim.subclaim !== null) doGenerateSubclaims(claim) else ''''''
 		if (claim.subclaim !== null) {
 			for (subclaim : claim?.subclaim) {
-				// claimResult.subClaimResult += subclaim.construct //Does the same as next line with no targetElement
 				generateClaimResult(subclaim, claimResult.subClaimResult, claim.requirement.targetElement)
 			}
 		}
 
 		if (claim.assert !== null) {
-			// TODO: Need to check
 			claimResult.verificationActivityResult.construct(claim.assert)
 		} else {
 			for (claimva : claimvas) {
@@ -337,8 +323,6 @@ class AssureConstructor implements IAssureConstructor {
 		predicate
 	}
 
-	@Inject IAlisaGlobalReferenceFinder refFinder
-
 	// subAssuranceCaseList could be null because SubsystemResult doesn't have subAssuranceCase. 
 	// Let's see if it is used when null
 	def void generateSubsystemPlans(
@@ -355,17 +339,7 @@ class AssureConstructor implements IAssureConstructor {
 			subc.generateSubsystemGlobalOnly(parentap, subsystemResultList)
 			return
 		}
-//		val subacs = refFinder.getAssuranceCases(cc)
-//		if (subacs.empty) {
 			subc.generateSubsystemVerificationPlansGlobals(parentap, subsystemResultList)
-//		} else {
-//
-//			// This is for adding subAssuranceCases
-//			for (subac : subacs) {
-//
-//				subAssuranceCaseList.add(subac.constructAssuranceCaseResult(cc))
-//			}
-//		}
 	}
 
 	/**
