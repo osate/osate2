@@ -60,7 +60,7 @@
         	category="org.osate.internal.ui.preferences.OsatePreferencePage"
             class="org.osate.xtext.aadl2.ui.Aadl2ExecutableExtensionFactory:org.osate.xtext.aadl2.ui.editor.preferences.Aadl2TextEditorPage"
             id="org.osate.xtext.aadl2.Aadl2"
-            name="Aadl2 Text Editor">
+            name="AADL Text Editor">
             <keywordReference id="org.osate.xtext.aadl2.ui.keyword_Aadl2"/>
         </page>
         <page
