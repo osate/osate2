@@ -971,8 +971,6 @@
       <requirement
           name="org.eclipse.sdk"/>
       <requirement
-          name="net.dependableos.dcase.feature.feature.group"/>
-      <requirement
           name="*"/>
       <sourceLocator
           rootFolder="${git.clone.smaccm.location/fm-workbench/agree}">
@@ -997,8 +995,6 @@
             url="http://download.eclipse.org/releases/oxygen"/>
         <repository
             url="http://dl.bintray.com/itemis/generic/xtext-testing/updates/"/>
-        <repository
-            url="http://www.dimensions-japan.org/dcase/eclipse"/>
       </repositoryList>
     </targlet>
     <targlet
