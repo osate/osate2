@@ -26,7 +26,7 @@ import org.osate.aadl2.instance.SystemOperationMode;
 import org.osate.aadl2.modelsupport.resources.OsateResourceUtil;
 import org.osate.aadl2.modelsupport.util.AadlUtil;
 import org.osate.aadl2.util.Aadl2InstanceUtil;
-import org.osate.execute.ExecuteJava;
+import org.osate.execute.ExecuteJavaUtil;
 import org.osate.execute.ExecuteResoluteUtil;
 import org.osate.result.Issue;
 import org.osate.result.IssueType;
@@ -683,19 +683,20 @@ public class PropagationPathsUtil {
 	public static boolean executeCondition(String conditionFcn, ComponentInstance target) {
 		if (conditionFcn.contains(".")) {
 			// Java class reference
-			Object res = ExecuteJava.eInstance.workspaceInvoke(conditionFcn, target);
+			Object res = ExecuteJavaUtil.eInstance.invokeJavaMethod(conditionFcn, target);
 			if (res instanceof Boolean) {
 				return (Boolean) res;
 			} else {
 				return true;
 			}
-		} else if (RESOLUTE_INSTALLED) {
-			Issue res = ExecuteResoluteUtil.eInstance.executeResoluteFunction(conditionFcn, target.getSystemInstance(),
-					target, null);
-			return res != null && res.getIssueType() == IssueType.SUCCESS;
 		} else {
-			return true;
+			if (RESOLUTE_INSTALLED) {
+				Issue res = ExecuteResoluteUtil.eInstance.executeResoluteFunction(conditionFcn,
+						target.getSystemInstance(), target, null);
+				return res != null && res.getIssueType() == IssueType.SUCCESS;
+			} else {
+				return true;
+			}
 		}
 	}
-
 }
