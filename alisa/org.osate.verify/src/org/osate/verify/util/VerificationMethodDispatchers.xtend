@@ -25,6 +25,7 @@ import org.eclipse.core.resources.ResourcesPlugin
 import org.eclipse.emf.common.util.EList
 import org.eclipse.jdt.core.IClasspathEntry
 import org.eclipse.jdt.core.JavaCore
+import org.osate.aadl2.Aadl2Package
 import org.osate.aadl2.AadlBoolean
 import org.osate.aadl2.AadlInteger
 import org.osate.aadl2.AadlReal
@@ -40,18 +41,18 @@ import org.osate.aadl2.instance.ConnectionInstance
 import org.osate.aadl2.instance.EndToEndFlowInstance
 import org.osate.aadl2.instance.FeatureInstance
 import org.osate.aadl2.instance.InstanceObject
+import org.osate.aadl2.instance.InstancePackage
 import org.osate.aadl2.instance.ModeInstance
+import org.osate.execute.ExecuteJavaUtil
 import org.osate.verify.verify.FormalParameter
 import org.osate.verify.verify.JavaMethod
+import org.osate.verify.verify.JavaParameter
 import org.osate.verify.verify.PluginMethod
 import org.osate.verify.verify.TargetType
 import org.osate.verify.verify.VerificationMethod
 
 import static extension org.osate.verify.analysisplugins.AnalysisPluginInterface.*
-import org.osate.aadl2.Aadl2Package
-import org.osate.aadl2.instance.InstancePackage
-import org.osate.verify.verify.JavaParameter
-import org.osate.aadl2.NamedElement
+import java.lang.reflect.Method
 
 class VerificationMethodDispatchers {
 
@@ -69,230 +70,92 @@ class VerificationMethodDispatchers {
 			case "MaxFlowLatencyAnalysis",
 			case "MinFlowLatencyAnalysis",
 			case "FlowLatencyJitterAnalysis":
-				if (target === null) true else target.flowLatencyAnalysis(parameters.map[p|(p as StringLiteral).value])
+				if(target === null) true else target.flowLatencyAnalysis(parameters.map[p|(p as StringLiteral).value])
 			case "A429Consistency":
-				if (target === null) true else target.A429Consistency
+				if(target === null) true else target.A429Consistency
 			case "ConnectionBindingConsistency":
-				if (target === null) true else target.ConnectionBindingConsistency
+				if(target === null) true else target.ConnectionBindingConsistency
 			case "PortDataConsistency":
-				if (target === null) true else target.PortDataConsistency
+				if(target === null) true else target.PortDataConsistency
 			case "MassAnalysis":
-				if (target === null) true else target.MassAnalysis
+				if(target === null) true else target.MassAnalysis
 			case "BoundResourceAnalysis":
-				if (target === null) true else target.BoundResourceAnalysis
+				if(target === null) true else target.BoundResourceAnalysis
 			case "NetworkBandwidthAnalysis":
-				if (target === null) true else target.NetworkBandWidthAnalysis
+				if(target === null) true else target.NetworkBandWidthAnalysis
 			case "PowerAnalysis":
-				if (target === null) true else target.PowerAnalysis
+				if(target === null) true else target.PowerAnalysis
 			case "ResourceBudgets":
-				if (target === null) true else target.ResourceBudget
+				if(target === null) true else target.ResourceBudget
 			case "BinPack":
-				if (target === null) true else target.Binpack
+				if(target === null) true else target.Binpack
 			case "CheckSafety":
-				if (target === null) true else target.CheckSafety
+				if(target === null) true else target.CheckSafety
 			case "CheckSecurity":
-				if (target === null) true else target.CheckSecurity
+				if(target === null) true else target.CheckSecurity
 			default:
 				null
 		}
 	}
 
 	// invoke method in workspace project
-	def Object workspaceInvoke(JavaMethod vm, InstanceObject target, List<PropertyExpression> parameters) {
-		val i = vm.methodPath.lastIndexOf('.')
-		if (i == -1)
-			return null;
-		val className = vm.methodPath.substring(0, i)
-		val methodName = vm.methodPath.substring(i + 1)
+	def Object invokeJavaMethod(JavaMethod vm, InstanceObject target, List<PropertyExpression> parameters) {
 		val EList<FormalParameter> formalparameters = (vm.eContainer as VerificationMethod).formals
-
-		try {
-			val workspaceRoot = ResourcesPlugin.workspace.root
-			val model = JavaCore.create(workspaceRoot)
-
-			val projects = model.javaProjects.filter[findType(className) !== null].toSet
-			if (projects.isEmpty) {
-				throw new IllegalArgumentException('No such method: ' + vm.methodPath)
-			} else if (projects.size > 1) {
-				throw new IllegalArgumentException('Multiple methods found for ' + vm.methodPath)
-			}
-			var changed = true
-			while (changed) {
-				val referenced = projects.map [ p |
-					val cpes = p.getResolvedClasspath(true).filter[entryKind == IClasspathEntry.CPE_PROJECT]
-					val paths = cpes.map[it.path]
-					paths.map[model.getJavaProject(it.toString)]
-				].flatten
-				changed = projects += referenced
-			}
-			val urls = projects.map [ p |
-				val file = workspaceRoot.getFile(p.outputLocation)
-				new URL(file.locationURI + "/")
-			]
-
-			val parent = class.classLoader
-			val loader = new URLClassLoader(urls, parent);
-			val clazz = Class.forName(className, true, loader);
-			val instance = clazz.newInstance
-
-			val newClasses = newArrayList()
-			newClasses.add(forTargetType((vm.eContainer as VerificationMethod)))
-			for (par : formalparameters) {
-				val cl = getJavaClass(par,vm);
-				newClasses.add(cl);
-			}
-
-			val method = clazz.getMethod(methodName, newClasses)
-			val objects = new ArrayList()
-			objects.add(target)
-			val fpiter = formalparameters.iterator
-			for (o : parameters) {
-				val fp = fpiter.next
-				objects.add(toJavaActual(fp,o,vm))
-			}
-			method.invoke(instance, objects.toArray)
-		} catch (Exception e) {
-			if (e instanceof InvocationTargetException) {
-				throw e.targetException
-			}
-			throw e
+		val newClasses = newArrayList()
+		newClasses.add(forTargetType((vm.eContainer as VerificationMethod)))
+		for (par : formalparameters) {
+			val cl = getJavaClass(par, vm);
+			newClasses.add(cl);
 		}
-	}
-
-	// invoke method in workspace project
-	def Object workspaceInvoke(String javaMethod, NamedElement target) {
-		val i = javaMethod.lastIndexOf('.')
-		if (i == -1)
-			return null;
-		val className = javaMethod.substring(0, i)
-		val methodName = javaMethod.substring(i + 1)
-		try {
-			val workspaceRoot = ResourcesPlugin.workspace.root
-			val model = JavaCore.create(workspaceRoot)
-
-			val projects = model.javaProjects.filter[findType(className) !== null].toSet
-			if (projects.isEmpty) {
-				throw new IllegalArgumentException('No such method: ' + javaMethod)
-			} else if (projects.size > 1) {
-				throw new IllegalArgumentException('Multiple methods found for ' + javaMethod)
-			}
-			var changed = true
-			while (changed) {
-				val referenced = projects.map [ p |
-					val cpes = p.getResolvedClasspath(true).filter[entryKind == IClasspathEntry.CPE_PROJECT]
-					val paths = cpes.map[it.path]
-					paths.map[model.getJavaProject(it.toString)]
-				].flatten
-				changed = projects += referenced
-			}
-			val urls = projects.map [ p |
-				val file = workspaceRoot.getFile(p.outputLocation)
-				new URL(file.locationURI + "/")
-			]
-
-			val parent = class.classLoader
-			val loader = new URLClassLoader(urls, parent);
-			val clazz = Class.forName(className, true, loader);
-			val instance = clazz.newInstance
-
-			val newClasses = newArrayList()
-//			if (target instanceof ComponentInstance){
-//				newClasses.add(ComponentInstance)
-//			} else if (target instanceof InstanceObject){
-//				newClasses.add(InstanceObject)
-//			} else {
-//				newClasses.add(NamedElement)
-//			}
-			newClasses.add(NamedElement)
-			val method = clazz.getMethod(methodName, newClasses)
-			val objects = new ArrayList()
-			objects.add(target)
-			method.invoke(instance, objects.toArray)
-		} catch (Exception e) {
-			if (e instanceof InvocationTargetException) {
-				throw e.targetException
-			}
-			throw e
+		val objects = new ArrayList()
+		objects.add(target)
+		val fpiter = formalparameters.iterator
+		for (o : parameters) {
+			val fp = fpiter.next
+			objects.add(toJavaActual(fp, o, vm))
 		}
+		ExecuteJavaUtil.eInstance.invokeJavaMethod(vm.methodPath, newClasses, objects)
 	}
 
 	// Method returns null if Java class was found.
 	// Otherwise it returns an error message
-	def String methodExists(JavaMethod vm) {
+	def Method getJavaMethod(JavaMethod vm) {
 		val EList<FormalParameter> parameters = (vm.eContainer as VerificationMethod).formals
-		val i = vm.methodPath.lastIndexOf('.')
-		if (i == -1) {
-			throw new IllegalArgumentException("Java method '" + vm.methodPath + "' is missing Class")
+		val newClasses = newArrayList()
+		newClasses.add(forTargetType((vm.eContainer as VerificationMethod)))
+		for (par : parameters) {
+			val cl = getJavaClass(par, vm);
+			newClasses.add(cl);
 		}
-		val className = vm.methodPath.substring(0, i)
-		val methodName = vm.methodPath.substring(i + 1)
-		try {
-			val workspaceRoot = ResourcesPlugin.workspace.root
-			val model = JavaCore.create(workspaceRoot)
-
-			val projects = model.javaProjects.filter[findType(className) !== null].toSet
-			if (projects.isEmpty) {
-				throw new IllegalArgumentException('No such method: ' + vm.methodPath)
-			} else if (projects.size > 1) {
-				throw new IllegalArgumentException('Multiple methods found for ' + vm.methodPath)
-			}
-			var changed = true
-			while (changed) {
-				val referenced = projects.map [ p |
-					val cpes = p.getResolvedClasspath(true).filter[entryKind == IClasspathEntry.CPE_PROJECT]
-					val paths = cpes.map[it.path]
-					paths.map[model.getJavaProject(it.toString)]
-				].flatten
-				changed = projects += referenced
-			}
-			val urls = projects.map [ p |
-				val file = workspaceRoot.getFile(p.outputLocation)
-				new URL(file.locationURI + "/")
-			]
-
-			val parent = class.classLoader
-			val loader = new URLClassLoader(urls, parent);
-			val clazz = Class.forName(className, true, loader);
-			val newClasses = newArrayList()
-			newClasses.add(forTargetType((vm.eContainer as VerificationMethod)))
-			for (par : parameters) {
-				val cl = getJavaClass(par,vm);
-				newClasses.add(cl);
-			}
-
-			val method = clazz.getMethod(methodName, newClasses)
-			if (method === null)
-				throw new IllegalArgumentException("Method " + methodName + " not found in class instance")
-		} catch (Exception e) {
-			if (e instanceof InvocationTargetException) {
-				return e.targetException.toString
-			}
-			return e.toString
-		}
-		return null
+		ExecuteJavaUtil.eInstance.getJavaMethod(vm.methodPath, newClasses)
 	}
 
-	
-	def Class<?> forTargetType(VerificationMethod vm){
-		switch (vm.targetType){
-			case TargetType.FEATURE: typeof(FeatureInstance)
-			case COMPONENT: { typeof(ComponentInstance)
+	def Class<?> forTargetType(VerificationMethod vm) {
+		switch (vm.targetType) {
+			case TargetType.FEATURE:
+				typeof(FeatureInstance)
+			case COMPONENT: {
+				typeof(ComponentInstance)
 			}
-			case CONNECTION: {typeof(ConnectionInstance)
+			case CONNECTION: {
+				typeof(ConnectionInstance)
 			}
-			case ELEMENT: { typeof(InstanceObject)
+			case ELEMENT: {
+				typeof(InstanceObject)
 			}
-			case FLOW: {typeof(EndToEndFlowInstance)
+			case FLOW: {
+				typeof(EndToEndFlowInstance)
 			}
-			case MODE: {typeof(ModeInstance)
+			case MODE: {
+				typeof(ModeInstance)
 			}
 		}
 	}
-	
-	def Class<?> getJavaClass(FormalParameter fp, JavaMethod vm){
+
+	def Class<?> getJavaClass(FormalParameter fp, JavaMethod vm) {
 		val jparameters = vm.params
-		for (jp : jparameters){
-			if (fp.name.equalsIgnoreCase(jp.name)){
+		for (jp : jparameters) {
+			if (fp.name.equalsIgnoreCase(jp.name)) {
 				return forName(jp.parameterType)
 			}
 		}
@@ -316,37 +179,52 @@ class VerificationMethodDispatchers {
 	 */
 	def Class<?> forName(String name) throws ClassNotFoundException {
 		switch (name) {
-			case void.name: return typeof(void)
-			case boolean.name: return typeof(boolean)
-			case byte.name: return typeof(byte)
-			case char.name: return typeof(char)
-			case short.name: return typeof(short)
-			case int.name: return typeof(int)
-			case float.name: return typeof(float)
-			case long.name: return typeof(long)
-			case double.name: return typeof(double)
-			case String.name: return typeof(String)
-			case "Double": return typeof(Double)
-			case "Long": return typeof(Long)
-			case AadlReal.name: return typeof(RealLiteral)
-			case AadlInteger.name: return typeof(IntegerLiteral)
-			case AadlBoolean.name: return typeof(BooleanLiteral)
+			case void.name:
+				return typeof(void)
+			case boolean.name:
+				return typeof(boolean)
+			case byte.name:
+				return typeof(byte)
+			case char.name:
+				return typeof(char)
+			case short.name:
+				return typeof(short)
+			case int.name:
+				return typeof(int)
+			case float.name:
+				return typeof(float)
+			case long.name:
+				return typeof(long)
+			case double.name:
+				return typeof(double)
+			case String.name:
+				return typeof(String)
+			case "Double":
+				return typeof(Double)
+			case "Long":
+				return typeof(Long)
+			case AadlReal.name:
+				return typeof(RealLiteral)
+			case AadlInteger.name:
+				return typeof(IntegerLiteral)
+			case AadlBoolean.name:
+				return typeof(BooleanLiteral)
 			default: {
 				var ecl = Aadl2Package.eINSTANCE.getEClassifier(name);
-				if (ecl === null){
+				if (ecl === null) {
 					InstancePackage.eINSTANCE.getEClassifier(name)
 				}
-				if (ecl !== null) return ecl.instanceClass
+				if(ecl !== null) return ecl.instanceClass
 				return Class.forName(name)
 			}
 		}
 	}
-	
-	def Object toJavaActual(FormalParameter formal, PropertyExpression actual, JavaMethod vm){
+
+	def Object toJavaActual(FormalParameter formal, PropertyExpression actual, JavaMethod vm) {
 		val jparameters = vm.params
-		for (jp : jparameters){
-			if (formal.name.equalsIgnoreCase(jp.name)){
-				return convertToJavaObject(jp,actual)
+		for (jp : jparameters) {
+			if (formal.name.equalsIgnoreCase(jp.name)) {
+				return convertToJavaObject(jp, actual)
 			}
 		}
 		actual
@@ -355,8 +233,9 @@ class VerificationMethodDispatchers {
 	def Object convertToJavaObject(JavaParameter formalParam, PropertyExpression actual) {
 		var Object result = actual
 		switch (actual) {
-			RealLiteral: if (formalParam.parameterType.equalsIgnoreCase("double") ||
-				formalParam.parameterType.equalsIgnoreCase("real")) result = actual.value
+			RealLiteral:
+				if(formalParam.parameterType.equalsIgnoreCase("double") ||
+					formalParam.parameterType.equalsIgnoreCase("real")) result = actual.value
 			IntegerLiteral: {
 				if (formalParam.parameterType.equalsIgnoreCase("long")) {
 					result = actual.value
@@ -364,52 +243,12 @@ class VerificationMethodDispatchers {
 					result = actual.value.intValue
 				}
 			}
-			StringLiteral: if (formalParam.parameterType.equalsIgnoreCase("string")) result = actual.value
-			BooleanLiteral: if (formalParam.parameterType.equalsIgnoreCase("boolean")) result = actual.isValue
+			StringLiteral:
+				if(formalParam.parameterType.equalsIgnoreCase("string")) result = actual.value
+			BooleanLiteral:
+				if(formalParam.parameterType.equalsIgnoreCase("boolean")) result = actual.isValue
 		}
 		return result
-	}
-
-	def String classExists(String className) {
-		try {
-			findClass(className);
-		} catch (Exception e) {
-			if (e instanceof InvocationTargetException) {
-				return e.targetException.toString
-			}
-			return e.toString
-		}
-		return null
-	}
-
-	def Class<?> findClass(String className) {
-		val workspaceRoot = ResourcesPlugin.workspace.root
-		val model = JavaCore.create(workspaceRoot)
-
-		val projects = model.javaProjects.filter[findType(className) !== null].toSet
-		if (projects.isEmpty) {
-			throw new IllegalArgumentException('No such class: ' + className)
-		} else if (projects.size > 1) {
-			throw new IllegalArgumentException('Multiple methods found for ' + className)
-		}
-		var changed = true
-		while (changed) {
-			val referenced = projects.map [ p |
-				val cpes = p.getResolvedClasspath(true).filter[entryKind == IClasspathEntry.CPE_PROJECT]
-				val paths = cpes.map[it.path]
-				paths.map[model.getJavaProject(it.toString)]
-			].flatten
-			changed = projects += referenced
-		}
-		val urls = projects.map [ p |
-			val file = workspaceRoot.getFile(p.outputLocation)
-			new URL(file.locationURI + "/")
-		]
-
-		val parent = class.classLoader
-		val loader = new URLClassLoader(urls, parent);
-		val clazz = Class.forName(className, true, loader);
-		return clazz
 	}
 
 }

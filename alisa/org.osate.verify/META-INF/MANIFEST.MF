@@ -37,7 +37,8 @@ Require-Bundle: org.eclipse.xtext;visibility:=reexport,
  org.osate.results;bundle-version="1.0.0",
  org.osate.organization;bundle-version="1.0.0",
  com.rockwellcollins.atc.resolute.analysis;bundle-version="1.0.0",
- org.eclipse.jface;bundle-version="3.13.2"
+ org.eclipse.jface;bundle-version="3.13.2",
+ org.osate.execute;bundle-version="1.0.0"
 Import-Package: org.apache.log4j
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Export-Package: org.osate.verify,

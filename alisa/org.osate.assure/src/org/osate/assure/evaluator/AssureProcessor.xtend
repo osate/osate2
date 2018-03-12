@@ -17,7 +17,6 @@
 package org.osate.assure.evaluator
 
 import com.google.inject.ImplementedBy
-//import com.rockwellcollins.atc.resolute.resolute.ClaimBody
 import it.xsemantics.runtime.RuleEnvironment
 import it.xsemantics.runtime.RuleFailedException
 import java.util.ArrayList
@@ -55,6 +54,8 @@ import org.osate.assure.assure.VerificationExecutionState
 import org.osate.assure.assure.VerificationResult
 import org.osate.assure.util.AssureUtilExtension
 import org.osate.categories.categories.CategoryFilter
+import org.osate.execute.ExecuteJavaUtil
+import org.osate.execute.ExecuteResoluteUtil
 import org.osate.result.IssueType
 import org.osate.result.Result
 import org.osate.result.ResultFactory
@@ -73,7 +74,6 @@ import static extension org.eclipse.emf.ecore.util.EcoreUtil.getURI
 import static extension org.osate.alisa.common.util.CommonUtilExtension.*
 import static extension org.osate.assure.util.AssureUtilExtension.*
 import static extension org.osate.verify.util.VerifyUtilExtension.*
-import org.osate.execute.ExecuteResoluteUtil
 
 @ImplementedBy(AssureProcessor)
 interface IAssureProcessor {
@@ -92,8 +92,9 @@ interface IAssureProcessor {
  */
 class AssureProcessor implements IAssureProcessor {
 
-	var CommonInterpreter interpreter = IResourceServiceProvider.Registry.INSTANCE.getResourceServiceProvider(URI.createFileURI("dummy.___common___")).get(CommonInterpreter)
-	
+	var CommonInterpreter interpreter = IResourceServiceProvider.Registry.INSTANCE.getResourceServiceProvider(
+		URI.createFileURI("dummy.___common___")).get(CommonInterpreter)
+
 	var IProgressMonitor progressmonitor
 
 	@Accessors(PUBLIC_SETTER)
@@ -108,10 +109,25 @@ class AssureProcessor implements IAssureProcessor {
 	var long start = 0
 
 	var CategoryFilter filter;
+	var private static boolean RESOLUTE_INSTALLED;
+	var private static boolean AGREE_INSTALLED;
 
 	new() {
 		env.add('vals', vals)
 		env.add('computes', computes)
+		try {
+			ExecuteResoluteUtil.eInstance.tryLoad();
+			RESOLUTE_INSTALLED = true;
+		} catch (NoClassDefFoundError e) {
+			RESOLUTE_INSTALLED = false;
+		}
+		try {
+			new AgreeVerifySingleHandler(null);
+			AGREE_INSTALLED = true;
+		} catch (NoClassDefFoundError e) {
+			AGREE_INSTALLED = false;
+		}
+
 	}
 
 	def void startSubTask(VerificationActivityResult vaResult) {
@@ -171,7 +187,7 @@ class AssureProcessor implements IAssureProcessor {
 	def dispatch void process(VerificationActivityResult vaResult) {
 
 		if (vaResult.targetReference.verificationActivity.evaluateVerificationActivityFilter(filter) &&
-				vaResult.targetReference.verificationActivity.evaluateVerificationMethodFilter(filter)) {
+			vaResult.targetReference.verificationActivity.evaluateVerificationMethodFilter(filter)) {
 			startSubTask(vaResult)
 			if (vaResult.executionState != VerificationExecutionState.TODO) {
 				doneSubTask(vaResult)
@@ -239,6 +255,7 @@ class AssureProcessor implements IAssureProcessor {
 	 * null or bool for analysis with results in marker/diagnostic, or the result report object
 	 */
 	def void runVerificationMethod(VerificationResult verificationResult) {
+		val issue = null
 		if (progressmonitor.isCanceled)
 			throw new OperationCanceledException
 
@@ -268,12 +285,12 @@ class AssureProcessor implements IAssureProcessor {
 			}
 		env.add("component", targetComponent)
 		env.add("element", targetElement)
-		
-		if (verificationResult instanceof PredicateResult){
+
+		if (verificationResult instanceof PredicateResult) {
 			evaluatePredicate(verificationResult)
 			return
 		}
-		
+
 		// parameters are those specified as part of the method call in the verification activity
 		var Iterable<? extends EObject> parameters
 		if (verificationResult instanceof VerificationActivityResult) {
@@ -376,7 +393,6 @@ class AssureProcessor implements IAssureProcessor {
 						]
 						if (verificationResult.success) {
 							// execute value predicate
-							
 						}
 					}
 					verificationResult.eResource.save(null)
@@ -395,34 +411,42 @@ class AssureProcessor implements IAssureProcessor {
 					updateProgress(verificationResult)
 				}
 				ResoluteMethod: {
-						val proveri = ExecuteResoluteUtil.eInstance.executeResoluteFunction(methodtype.methodReference,  instanceroot, targetComponent,parameterObjects)
+					if (RESOLUTE_INSTALLED) {
+						val proveri = ExecuteResoluteUtil.eInstance.executeResoluteFunction(methodtype.methodReference,
+							instanceroot, targetComponent, parameterObjects)
 						if (proveri.issueType == IssueType.SUCCESS) {
 							setToSuccess(verificationResult)
 						} else {
 							setToFail(verificationResult, proveri.issues)
 						}
-					verificationResult.eResource.save(null)
-					updateProgress(verificationResult)
+						verificationResult.eResource.save(null)
+						updateProgress(verificationResult)
+					} else {
+						setToError(verificationResult, "Resolute not installed")
+					}
 				}
 				AgreeMethod: {
+					if (AGREE_INSTALLED) {
 //					AssureUtilExtension.initializeResoluteContext(instanceroot);
+						val agreemethod = methodtype
 
-					val agreemethod = methodtype
-
-					if (agreemethod.isAll) { // is recursive
-						// System.out.println("AgreeMethodAgreeMethodAgreeMethod executeURI ALL   ");
-					} else if (agreemethod.singleLayer) {
-						val AgreeVerifySingleHandler verHandler = new AgreeVerifySingleHandler (verificationResult);
-					// verHandler.executeSystemInstance(instanceroot, progressTreeViewer);
-					// Currently Agree does not work on Flows or Connections so this is valid
-						verHandler.executeSystemInstance(target as ComponentInstance, null);
+						if (agreemethod.isAll) { // is recursive
+							// System.out.println("AgreeMethodAgreeMethodAgreeMethod executeURI ALL   ");
+						} else if (agreemethod.singleLayer) {
+							val AgreeVerifySingleHandler verHandler = new AgreeVerifySingleHandler(verificationResult);
+							// verHandler.executeSystemInstance(instanceroot, progressTreeViewer);
+							// Currently Agree does not work on Flows or Connections so this is valid
+							verHandler.executeSystemInstance(target as ComponentInstance, null);
+						}
+					} else {
+						setToError(verificationResult, "Agree not installed")
 					}
 
 				// Should not save here because it is job based
 				// verificationResult.eResource.save(null)
 				}
 				JUnit4Method: {
-					val test = VerificationMethodDispatchers.eInstance.findClass(methodtype.classPath);
+					val test = ExecuteJavaUtil.eInstance.findClass(methodtype.classPath);
 					val junit = new JUnitCore();
 					val result = junit.run(test);
 					if (result.failureCount == 0) {
@@ -435,6 +459,7 @@ class AssureProcessor implements IAssureProcessor {
 					verificationResult.eResource.save(null)
 				}
 				ManualMethod: {
+
 					verificationResult.eResource.save(null)
 					updateProgress(verificationResult)
 				}
@@ -498,7 +523,8 @@ class AssureProcessor implements IAssureProcessor {
 			val predicate = predicateResult.predicate
 			val result = interpreter.interpretExpression(env, predicate.xpression)
 			if (result.failed) {
-				setToError(predicateResult, "Could not evaluate value predicate: " + getFailedMsg(result.ruleFailedException), null)
+				setToError(predicateResult,
+					"Could not evaluate value predicate: " + getFailedMsg(result.ruleFailedException), null)
 			} else {
 				val success = (result.value as BooleanLiteral).getValue
 				if (success) {
@@ -521,21 +547,21 @@ class AssureProcessor implements IAssureProcessor {
 			updateProgress(predicateResult)
 		}
 	}
-	
-	def String getFailedMsg(RuleFailedException e){
+
+	def String getFailedMsg(RuleFailedException e) {
 		var tmp = e;
-		while (tmp.cause !== null){
+		while (tmp.cause !== null) {
 			tmp = tmp.cause as RuleFailedException;
 		}
 		return tmp.message
 	}
-	
+
 	def executeJavaMethod(VerificationResult verificationResult, VerificationMethod method, InstanceObject target,
 		List<PropertyExpression> parameters) {
 		val methodtype = method.methodKind as JavaMethod
-		val returned = VerificationMethodDispatchers.eInstance.workspaceInvoke(methodtype, target, parameters)
+		val returned = VerificationMethodDispatchers.eInstance.invokeJavaMethod(methodtype, target, parameters)
 		if (returned !== null) {
-			if ( returned instanceof Boolean && (method.isPredicate || method.results.empty)) {
+			if (returned instanceof Boolean && (method.isPredicate || method.results.empty)) {
 				if (returned != true) {
 					setToFail(verificationResult, "", target);
 				} else {
@@ -552,14 +578,14 @@ class AssureProcessor implements IAssureProcessor {
 				returned
 			} else if (returned instanceof Result) {
 //				verificationResult.resultReport = returned
-				if (returned.issues.empty){
-				setToSuccess(verificationResult,"",target)
+				if (returned.issues.empty) {
+					setToSuccess(verificationResult, "", target)
 				} else {
 					verificationResult.issues.addAll(returned.issues)
-					setToFail(verificationResult,"",target)
+					setToFail(verificationResult, "", target)
 				}
 				new HashMap
-			} else if (method.results.size == 1 ){
+			} else if (method.results.size == 1) {
 				val resparam = method.results.head
 				setToSuccess(verificationResult)
 				val res = new HashMap
@@ -567,14 +593,14 @@ class AssureProcessor implements IAssureProcessor {
 				res.put(resparam.name, returned)
 				res
 			} else {
-				setToError(verificationResult, "Expected more than one result value as ResultReport or HashMap", target);
+				setToError(verificationResult, "Expected more than one result value as ResultReport or HashMap",
+					target);
 				new HashMap
 			}
 		} else {
 			new HashMap
 		}
 	}
-
 
 	def boolean checkProperties(InstanceObject io, VerificationActivityResult vaResult) {
 		val method = vaResult.method
@@ -592,20 +618,18 @@ class AssureProcessor implements IAssureProcessor {
 			try {
 				val expResult = interpreter.interpretExpression(env, exp)
 				if (expResult.failed) {
-					setToError(vaResult,
-						"Could not evaluate expression for " + property.name + ": " +
-							expResult.ruleFailedException, null)
+					setToError(vaResult, "Could not evaluate expression for " + property.name + ": " +
+						expResult.ruleFailedException, null)
 					success = false
 				} else {
 					var PropertyValue modelPropValue = null
-					val propertyIsSet = 
-							try {
-								val modelExp = io.getSimplePropertyValue(property)
-								modelPropValue = if (modelExp instanceof PropertyValue) modelExp else null
-								true
-							} catch (PropertyNotPresentException e) {
-								false
-							}
+					val propertyIsSet = try {
+							val modelExp = io.getSimplePropertyValue(property)
+							modelPropValue = if(modelExp instanceof PropertyValue) modelExp else null
+							true
+						} catch (PropertyNotPresentException e) {
+							false
+						}
 					val value = expResult.value
 					if (propertyIsSet) {
 						if (value instanceof NumberValue) {
@@ -615,17 +639,15 @@ class AssureProcessor implements IAssureProcessor {
 
 							if (reqValue != modelValue) {
 								vaResult.addFailIssue(io,
-									"Property " + property.getQualifiedName() + ": Value in model (" +
-										modelValue + unit.name + ") does not match required value (" +
-										reqValue + unit.name + ")")
+									"Property " + property.getQualifiedName() + ": Value in model (" + modelValue +
+										unit.name + ") does not match required value (" + reqValue + unit.name + ")")
 								vaResult.setToFail
 							}
 						} else {
 							if (value != modelPropValue) {
 								vaResult.addFailIssue(io,
-									"Property " + property.getQualifiedName() + ": Value in model (" +
-										modelPropValue + ") does not match required value (" +
-										value + ")")
+									"Property " + property.getQualifiedName() + ": Value in model (" + modelPropValue +
+										") does not match required value (" + value + ")")
 								vaResult.setToFail
 							}
 						}
@@ -644,4 +666,3 @@ class AssureProcessor implements IAssureProcessor {
 		success
 	}
 }
-

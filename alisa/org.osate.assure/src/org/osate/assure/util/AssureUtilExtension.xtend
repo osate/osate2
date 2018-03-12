@@ -1350,12 +1350,10 @@ class AssureUtilExtension {
 		var si = instanceModelRecord.get(cimpl.name) as SystemInstance
 		if (si === null) {
 
-			System.out.println("\tInstantiating " + cimpl.getQualifiedName())
 
 			// ------------Tried Method1
 			si = cimpl.buildInstanceModelFile
 			setInstanceModel(cimpl, si)
-			System.out.println("\tFinished Instantiating " + cimpl.getQualifiedName())
 		}
 
 		si = instanceModelRecord.get(cimpl.name) as SystemInstance

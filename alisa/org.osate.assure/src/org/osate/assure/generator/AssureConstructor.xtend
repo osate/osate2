@@ -70,6 +70,7 @@ import org.osate.verify.verify.VerificationValidation
 import static extension org.osate.alisa.common.util.CommonUtilExtension.*
 import static extension org.osate.reqspec.util.ReqSpecUtilExtension.*
 import static extension org.osate.verify.util.VerifyUtilExtension.*
+import org.osate.execute.ExecuteJavaUtil
 
 @ImplementedBy(AssureConstructor)
 interface IAssureConstructor {
@@ -247,7 +248,7 @@ class AssureConstructor implements IAssureConstructor {
 			if (cond instanceof AFunctionCall) {
 				val fname = cond.function
 				claim.containingRequirementSet
-				val res = VerificationMethodDispatchers.eInstance.workspaceInvoke(fname, cc)
+				val res = ExecuteJavaUtil.eInstance.invokeJavaMethod(fname, cc)
 				if (res instanceof Boolean) {
 					if (!res) return
 				}
