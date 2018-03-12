@@ -1,0 +1,22 @@
+package budget_exceeds_supply
+public
+	with SEI;
+	
+	system s1
+	end s1;
+	
+	system implementation s1.i1
+		subcomponents
+			sub1: bus {SEI::PowerCapacity => 2.0 mW;};
+			sub2: abstract a1;
+		connections
+			conn1: bus access sub1 -> sub2.f1;
+			conn2: bus access sub1 -> sub2.f2;
+	end s1.i1;
+	
+	abstract a1
+		features
+			f1: requires bus access {SEI::PowerBudget => 2.0 mW;};
+			f2: requires bus access {SEI::PowerSupply => 1.0 mW;};
+	end a1;
+end budget_exceeds_supply;

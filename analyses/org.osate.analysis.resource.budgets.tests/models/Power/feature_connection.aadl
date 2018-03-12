@@ -1,0 +1,45 @@
+package feature_connection
+public
+	with SEI;
+	
+	system s1
+	end s1;
+	
+	system implementation s1.i1
+		subcomponents
+			sub1: abstract a1;
+			sub2: abstract a2;
+			sub3: abstract a3;
+		connections
+			conn1: feature sub1.f1 -> sub2.f3;
+			conn2: feature sub2.f5 -> sub1.f1;
+			conn3: feature sub1.f2 -> sub2.f3;
+			conn4: feature sub1.f2 -> sub3.f7;
+			conn5: feature sub2.f3 -> sub1.f3;
+			conn6: feature sub2.f5 -> sub1.f3;
+	end s1.i1;
+	
+	abstract a1
+		features
+			f1: feature;
+			f2: feature {SEI::PowerSupply => 1.0 mW;};
+			f3: feature {SEI::PowerBudget => 1.0 mW;};
+	end a1;
+	
+	abstract a2
+		features
+			f3: feature {SEI::PowerBudget => 1.0 mW;};
+			f4: feature;
+			f5: feature {SEI::PowerBudget => 1.0 mW;};
+			f6: feature {SEI::PowerBudget => 1.0 mW;};
+		properties
+			SEI::PowerCapacity => 1.0 mW;
+	end a2;
+	
+	abstract a3
+		features
+			f7: feature;
+		properties
+			SEI::PowerCapacity => 1.0 mW;
+	end a3;
+end feature_connection;
