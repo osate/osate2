@@ -51,8 +51,8 @@ import org.osate.verify.verify.VerificationMethodRegistry
 import org.osate.verify.verify.VerificationPlan
 import org.osate.verify.verify.VerifyPackage
 import com.rockwellcollins.atc.resolute.resolute.FunctionDefinition
-import org.osate.execute.ExecuteJavaUtil
 import com.rockwellcollins.atc.resolute.resolute.impl.FunctionDefinitionImpl
+import org.osate.verify.util.ExecuteJavaUtil
 
 /**
  * Custom validation rules. 

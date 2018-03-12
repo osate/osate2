@@ -70,7 +70,7 @@ import org.osate.verify.verify.VerificationValidation
 import static extension org.osate.alisa.common.util.CommonUtilExtension.*
 import static extension org.osate.reqspec.util.ReqSpecUtilExtension.*
 import static extension org.osate.verify.util.VerifyUtilExtension.*
-import org.osate.execute.ExecuteJavaUtil
+import org.osate.verify.util.ExecuteJavaUtil
 
 @ImplementedBy(AssureConstructor)
 interface IAssureConstructor {

@@ -43,7 +43,6 @@ import org.osate.aadl2.instance.FeatureInstance
 import org.osate.aadl2.instance.InstanceObject
 import org.osate.aadl2.instance.InstancePackage
 import org.osate.aadl2.instance.ModeInstance
-import org.osate.execute.ExecuteJavaUtil
 import org.osate.verify.verify.FormalParameter
 import org.osate.verify.verify.JavaMethod
 import org.osate.verify.verify.JavaParameter
