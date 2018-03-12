@@ -54,7 +54,6 @@ import org.osate.assure.assure.VerificationExecutionState
 import org.osate.assure.assure.VerificationResult
 import org.osate.assure.util.AssureUtilExtension
 import org.osate.categories.categories.CategoryFilter
-import org.osate.execute.ExecuteResoluteUtil
 import org.osate.result.IssueType
 import org.osate.result.Result
 import org.osate.result.ResultFactory
@@ -74,6 +73,7 @@ import static extension org.osate.alisa.common.util.CommonUtilExtension.*
 import static extension org.osate.assure.util.AssureUtilExtension.*
 import static extension org.osate.verify.util.VerifyUtilExtension.*
 import org.osate.verify.util.ExecuteJavaUtil
+import org.osate.verify.util.ExecuteResoluteUtil
 
 @ImplementedBy(AssureProcessor)
 interface IAssureProcessor {
