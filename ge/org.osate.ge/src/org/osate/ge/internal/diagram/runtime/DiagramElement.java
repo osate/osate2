@@ -13,12 +13,14 @@ import org.osate.ge.graphics.Point;
 import org.osate.ge.graphics.Style;
 import org.osate.ge.graphics.internal.AgeGraphicalConfiguration;
 import org.osate.ge.internal.diagram.runtime.boTree.Completeness;
+import org.osate.ge.internal.query.RelativeReferenceProvider;
 import org.osate.ge.internal.query.Queryable;
 
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableSet;
 
-public class DiagramElement implements DiagramNode, ModifiableDiagramElementContainer, BusinessObjectContext {
+public class DiagramElement
+		implements DiagramNode, ModifiableDiagramElementContainer, BusinessObjectContext, RelativeReferenceProvider {
 	private final DiagramNode container;
 
 	private Long id;
