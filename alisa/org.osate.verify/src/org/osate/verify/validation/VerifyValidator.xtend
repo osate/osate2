@@ -50,6 +50,9 @@ import org.osate.verify.verify.VerificationMethod
 import org.osate.verify.verify.VerificationMethodRegistry
 import org.osate.verify.verify.VerificationPlan
 import org.osate.verify.verify.VerifyPackage
+import com.rockwellcollins.atc.resolute.resolute.FunctionDefinition
+import com.rockwellcollins.atc.resolute.resolute.impl.FunctionDefinitionImpl
+import org.osate.verify.util.ExecuteJavaUtil
 
 /**
  * Custom validation rules. 
@@ -84,18 +87,18 @@ class VerifyValidator extends VerifyTypeSystemValidator {
 
 	@Check
 	def checkMethodPath(JavaMethod method) {
-		val result = VerificationMethodDispatchers.eInstance.methodExists(method)
-		if (result !== null) {
-			warning("Could not find method: " + result, VerifyPackage.Literals.JAVA_METHOD__METHOD_PATH,
+		val result = VerificationMethodDispatchers.eInstance.getJavaMethod(method)
+		if (result === null) {
+			warning("Could not find method: " + method.methodPath, VerifyPackage.Literals.JAVA_METHOD__METHOD_PATH,
 				INCORRECT_METHOD_PATH)
 		}
 	}
 
 	@Check
 	def checkClassPath(JUnit4Method method) {
-		val result = VerificationMethodDispatchers.eInstance.classExists(method.classPath)
-		if (result !== null) {
-			warning("Could not find JUnit4 test class: " + result, VerifyPackage.Literals.JUNIT4_METHOD__CLASS_PATH,
+		val result = ExecuteJavaUtil.eInstance.findClass(method.classPath)
+		if (result === null) {
+			warning("Could not find JUnit4 test class: " + method.classPath, VerifyPackage.Literals.JUNIT4_METHOD__CLASS_PATH,
 				INCORRECT_CLASS_PATH)
 		}
 	}
@@ -238,8 +241,13 @@ class VerifyValidator extends VerifyTypeSystemValidator {
 		switch methodKind : vm.methodKind {
 			ResoluteMethod: {
 				val fparams = vm.formals
-				val aparams = methodKind.methodReference.args
-				val methodRefName = methodKind.methodReference.name
+				val mreforproxy = methodKind.methodReference 
+				if (mreforproxy === null || !(mreforproxy instanceof FunctionDefinition)){
+					return
+				}
+				val mref = mreforproxy as FunctionDefinition
+				val aparams = mref.args
+				val methodRefName = mref.name
 				val hasComponentType = vm.targetType !== null
 				val fcount = if (hasComponentType) {
 						fparams.size + 1

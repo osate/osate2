@@ -15,8 +15,6 @@
  */
 package org.osate.verify.verify.impl;
 
-import com.rockwellcollins.atc.resolute.resolute.ResolutePackage;
-
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EEnum;
@@ -63,8 +61,6 @@ import org.osate.verify.verify.VerificationPrecondition;
 import org.osate.verify.verify.VerificationValidation;
 import org.osate.verify.verify.VerifyFactory;
 import org.osate.verify.verify.VerifyPackage;
-
-import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelPackage;
 
 /**
  * <!-- begin-user-doc -->
@@ -298,14 +294,12 @@ public class VerifyPackageImpl extends EPackageImpl implements VerifyPackage
     isInited = true;
 
     // Initialize simple dependencies
-    ResolutePackage.eINSTANCE.eClass();
     EcorePackage.eINSTANCE.eClass();
     Aadl2Package.eINSTANCE.eClass();
     CommonPackage.eINSTANCE.eClass();
     CategoriesPackage.eINSTANCE.eClass();
     ReqSpecPackage.eINSTANCE.eClass();
     OrganizationPackage.eINSTANCE.eClass();
-    ErrorModelPackage.eINSTANCE.eClass();
 
     // Create package meta-data objects
     theVerifyPackage.createPackageContents();
@@ -1432,7 +1426,6 @@ public class VerifyPackageImpl extends EPackageImpl implements VerifyPackage
     CommonPackage theCommonPackage = (CommonPackage)EPackage.Registry.INSTANCE.getEPackage(CommonPackage.eNS_URI);
     Aadl2Package theAadl2Package = (Aadl2Package)EPackage.Registry.INSTANCE.getEPackage(Aadl2Package.eNS_URI);
     CategoriesPackage theCategoriesPackage = (CategoriesPackage)EPackage.Registry.INSTANCE.getEPackage(CategoriesPackage.eNS_URI);
-    ResolutePackage theResolutePackage = (ResolutePackage)EPackage.Registry.INSTANCE.getEPackage(ResolutePackage.eNS_URI);
 
     // Create type parameters
 
@@ -1526,7 +1519,7 @@ public class VerifyPackageImpl extends EPackageImpl implements VerifyPackage
     initEClass(methodKindEClass, MethodKind.class, "MethodKind", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
     initEClass(resoluteMethodEClass, ResoluteMethod.class, "ResoluteMethod", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEReference(getResoluteMethod_MethodReference(), theResolutePackage.getFunctionDefinition(), null, "methodReference", null, 0, 1, ResoluteMethod.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getResoluteMethod_MethodReference(), theEcorePackage.getEObject(), null, "methodReference", null, 0, 1, ResoluteMethod.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(javaMethodEClass, JavaMethod.class, "JavaMethod", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEAttribute(getJavaMethod_MethodPath(), theEcorePackage.getEString(), "methodPath", null, 0, 1, JavaMethod.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

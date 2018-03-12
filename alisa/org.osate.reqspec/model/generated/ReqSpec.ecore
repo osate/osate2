@@ -131,7 +131,7 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="inMode" unique="false"
         upperBound="-1" eType="ecore:EClass platform:/resource/org.osate.aadl2/model/aadl2.ecore#//Mode"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="inErrorState" unique="false"
-        upperBound="-1" eType="ecore:EClass platform:/resource/org.osate.xtext.aadl2.errormodel/model/generated/ErrorModel.ecore#//ErrorBehaviorState"/>
+        upperBound="-1" eType="ecore:EClass platform:/resource/org.eclipse.emf.ecore/model/Ecore.ecore#//EObject"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="condition" eType="ecore:EClass platform:/resource/org.osate.aadl2/model/aadl2.ecore#//PropertyExpression"
         containment="true"/>
   </eClassifiers>

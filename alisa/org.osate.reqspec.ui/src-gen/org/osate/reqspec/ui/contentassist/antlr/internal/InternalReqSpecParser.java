@@ -74131,23 +74131,23 @@ public class InternalReqSpecParser extends AbstractInternalContentAssistParser {
             // InternalReqSpecParser.g:25525:1: ( RULE_ID )
             {
             if ( state.backtracking==0 ) {
-               before(grammarAccess.getWhenConditionAccess().getInErrorStateErrorBehaviorStateCrossReference_1_1_3_0()); 
+               before(grammarAccess.getWhenConditionAccess().getInErrorStateEObjectCrossReference_1_1_3_0()); 
             }
             // InternalReqSpecParser.g:25526:1: ( RULE_ID )
             // InternalReqSpecParser.g:25527:1: RULE_ID
             {
             if ( state.backtracking==0 ) {
-               before(grammarAccess.getWhenConditionAccess().getInErrorStateErrorBehaviorStateIDTerminalRuleCall_1_1_3_0_1()); 
+               before(grammarAccess.getWhenConditionAccess().getInErrorStateEObjectIDTerminalRuleCall_1_1_3_0_1()); 
             }
             match(input,RULE_ID,FollowSets000.FOLLOW_2); if (state.failed) return ;
             if ( state.backtracking==0 ) {
-               after(grammarAccess.getWhenConditionAccess().getInErrorStateErrorBehaviorStateIDTerminalRuleCall_1_1_3_0_1()); 
+               after(grammarAccess.getWhenConditionAccess().getInErrorStateEObjectIDTerminalRuleCall_1_1_3_0_1()); 
             }
 
             }
 
             if ( state.backtracking==0 ) {
-               after(grammarAccess.getWhenConditionAccess().getInErrorStateErrorBehaviorStateCrossReference_1_1_3_0()); 
+               after(grammarAccess.getWhenConditionAccess().getInErrorStateEObjectCrossReference_1_1_3_0()); 
             }
 
             }
@@ -74184,23 +74184,23 @@ public class InternalReqSpecParser extends AbstractInternalContentAssistParser {
             // InternalReqSpecParser.g:25544:1: ( RULE_ID )
             {
             if ( state.backtracking==0 ) {
-               before(grammarAccess.getWhenConditionAccess().getInErrorStateErrorBehaviorStateCrossReference_1_1_4_1_0()); 
+               before(grammarAccess.getWhenConditionAccess().getInErrorStateEObjectCrossReference_1_1_4_1_0()); 
             }
             // InternalReqSpecParser.g:25545:1: ( RULE_ID )
             // InternalReqSpecParser.g:25546:1: RULE_ID
             {
             if ( state.backtracking==0 ) {
-               before(grammarAccess.getWhenConditionAccess().getInErrorStateErrorBehaviorStateIDTerminalRuleCall_1_1_4_1_0_1()); 
+               before(grammarAccess.getWhenConditionAccess().getInErrorStateEObjectIDTerminalRuleCall_1_1_4_1_0_1()); 
             }
             match(input,RULE_ID,FollowSets000.FOLLOW_2); if (state.failed) return ;
             if ( state.backtracking==0 ) {
-               after(grammarAccess.getWhenConditionAccess().getInErrorStateErrorBehaviorStateIDTerminalRuleCall_1_1_4_1_0_1()); 
+               after(grammarAccess.getWhenConditionAccess().getInErrorStateEObjectIDTerminalRuleCall_1_1_4_1_0_1()); 
             }
 
             }
 
             if ( state.backtracking==0 ) {
-               after(grammarAccess.getWhenConditionAccess().getInErrorStateErrorBehaviorStateCrossReference_1_1_4_1_0()); 
+               after(grammarAccess.getWhenConditionAccess().getInErrorStateEObjectCrossReference_1_1_4_1_0()); 
             }
 
             }

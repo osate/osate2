@@ -5054,7 +5054,7 @@ ruleWhenCondition returns [EObject current=null]
         }
 	otherlv_9=RULE_ID
 	{
-		newLeafNode(otherlv_9, grammarAccess.getWhenConditionAccess().getInErrorStateErrorBehaviorStateCrossReference_1_1_3_0()); 
+		newLeafNode(otherlv_9, grammarAccess.getWhenConditionAccess().getInErrorStateEObjectCrossReference_1_1_3_0()); 
 	}
 
 )
@@ -5072,7 +5072,7 @@ ruleWhenCondition returns [EObject current=null]
         }
 	otherlv_11=RULE_ID
 	{
-		newLeafNode(otherlv_11, grammarAccess.getWhenConditionAccess().getInErrorStateErrorBehaviorStateCrossReference_1_1_4_1_0()); 
+		newLeafNode(otherlv_11, grammarAccess.getWhenConditionAccess().getInErrorStateEObjectCrossReference_1_1_4_1_0()); 
 	}
 
 )

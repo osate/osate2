@@ -23,6 +23,7 @@ import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.common.util.EList;
 
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
@@ -35,8 +36,6 @@ import org.osate.aadl2.PropertyExpression;
 
 import org.osate.reqspec.reqSpec.ReqSpecPackage;
 import org.osate.reqspec.reqSpec.WhenCondition;
-
-import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorState;
 
 /**
  * <!-- begin-user-doc -->
@@ -73,7 +72,7 @@ public class WhenConditionImpl extends MinimalEObjectImpl.Container implements W
    * @generated
    * @ordered
    */
-  protected EList<ErrorBehaviorState> inErrorState;
+  protected EList<EObject> inErrorState;
 
   /**
    * The cached value of the '{@link #getCondition() <em>Condition</em>}' containment reference.
@@ -125,11 +124,11 @@ public class WhenConditionImpl extends MinimalEObjectImpl.Container implements W
    * <!-- end-user-doc -->
    * @generated
    */
-  public EList<ErrorBehaviorState> getInErrorState()
+  public EList<EObject> getInErrorState()
   {
     if (inErrorState == null)
     {
-      inErrorState = new EObjectResolvingEList<ErrorBehaviorState>(ErrorBehaviorState.class, this, ReqSpecPackage.WHEN_CONDITION__IN_ERROR_STATE);
+      inErrorState = new EObjectResolvingEList<EObject>(EObject.class, this, ReqSpecPackage.WHEN_CONDITION__IN_ERROR_STATE);
     }
     return inErrorState;
   }
@@ -235,7 +234,7 @@ public class WhenConditionImpl extends MinimalEObjectImpl.Container implements W
         return;
       case ReqSpecPackage.WHEN_CONDITION__IN_ERROR_STATE:
         getInErrorState().clear();
-        getInErrorState().addAll((Collection<? extends ErrorBehaviorState>)newValue);
+        getInErrorState().addAll((Collection<? extends EObject>)newValue);
         return;
       case ReqSpecPackage.WHEN_CONDITION__CONDITION:
         setCondition((PropertyExpression)newValue);

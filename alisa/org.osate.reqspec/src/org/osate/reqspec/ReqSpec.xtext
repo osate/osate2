@@ -3,7 +3,7 @@ grammar org.osate.reqspec.ReqSpec with org.osate.alisa.common.Common
 generate reqSpec "http://www.osate.org/reqspec/ReqSpec"
 
 import "http://aadl.info/AADL/2.0" as aadl2
-import "http://www.aadl.info/EMV2" as emv2
+//import "http://www.aadl.info/EMV2" as emv2
 import "http://www.osate.org/categories/Categories" as categories
 import "http://www.osate.org/organization/Organization" as org
 import "http://www.osate.org/alisa/common/Common" as common
@@ -228,7 +228,7 @@ IncludeGlobalRequirement returns IncludeGlobalRequirement:
 WhenCondition:
 	'when' 
 	(( 'in' 'mode' inMode+=[aadl2::Mode|ID](',' inMode+=[aadl2::Mode|ID])* )
-	| ( 'in' 'error' 'state' inErrorState+=[emv2::ErrorBehaviorState|ID](',' inErrorState+=[emv2::ErrorBehaviorState|ID])* )
+	| ( 'in' 'error' 'state' inErrorState+=[ecore::EObject|ID](',' inErrorState+=[ecore::EObject|ID])* )
 	| (condition=AExpression)
 	)
 ;
