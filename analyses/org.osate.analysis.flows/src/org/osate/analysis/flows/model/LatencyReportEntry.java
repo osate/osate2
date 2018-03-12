@@ -472,15 +472,15 @@ public class LatencyReportEntry {
 	}
 
 	private void reportSummaryError(String str) {
-		issues.add(ResultUtil.createError(str, relatedEndToEndFlow, ""));
+		issues.add(ResultUtil.createError(str, relatedEndToEndFlow));
 	}
 
 	private void reportSummarySuccess(String str) {
-		issues.add(ResultUtil.createSuccess(str, relatedEndToEndFlow, ""));
+		issues.add(ResultUtil.createSuccess(str, relatedEndToEndFlow));
 	}
 
 	private void reportSummaryWarning(String str) {
-		issues.add(ResultUtil.createWarning(str, relatedEndToEndFlow, ""));
+		issues.add(ResultUtil.createWarning(str, relatedEndToEndFlow));
 	}
 
 	public Section export() {

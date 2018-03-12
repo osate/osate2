@@ -147,39 +147,39 @@ public abstract class LatencyContributor {
 	}
 
 	public void reportError(String str) {
-		issues.add(createIssue(str, this.relatedElement, IssueType.ERROR, ""));
+		issues.add(createIssue(str, this.relatedElement, IssueType.ERROR));
 	}
 
 	public void reportSuccess(String str) {
-		issues.add(createIssue(str, this.relatedElement, IssueType.SUCCESS, ""));
+		issues.add(createIssue(str, this.relatedElement, IssueType.SUCCESS));
 	}
 
 	public void reportInfo(String str) {
-		issues.add(createIssue(str, this.relatedElement, IssueType.INFO, ""));
+		issues.add(createIssue(str, this.relatedElement, IssueType.INFO));
 	}
 
 	public void reportWarning(String str) {
-		issues.add(createIssue(str, this.relatedElement, IssueType.WARNING, ""));
+		issues.add(createIssue(str, this.relatedElement, IssueType.WARNING));
 	}
 
 	public void reportError(boolean doMaximum, String str) {
 		issues.add(createIssue(FlowLatencyUtil.getMinMaxLabel(doMaximum) + str,
-				this.relatedElement, IssueType.ERROR, ""));
+				this.relatedElement, IssueType.ERROR));
 	}
 
 	public void reportSuccess(boolean doMaximum, String str) {
 		issues.add(createIssue(FlowLatencyUtil.getMinMaxLabel(doMaximum) + str,
-				this.relatedElement, IssueType.SUCCESS, ""));
+				this.relatedElement, IssueType.SUCCESS));
 	}
 
 	public void reportInfo(boolean doMaximum, String str) {
 		issues.add(createIssue(FlowLatencyUtil.getMinMaxLabel(doMaximum) + str,
-				this.relatedElement, IssueType.INFO, ""));
+				this.relatedElement, IssueType.INFO));
 	}
 
 	public void reportWarning(boolean doMaximum, String str) {
 		issues.add(createIssue(FlowLatencyUtil.getMinMaxLabel(doMaximum) + str,
-				this.relatedElement, IssueType.WARNING, ""));
+				this.relatedElement, IssueType.WARNING));
 	}
 
 	public void reportErrorOnce(boolean doMaximum, String str) {
