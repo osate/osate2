@@ -19,7 +19,7 @@ public class Page extends FieldEditorPreferencePage implements IWorkbenchPrefere
 	public Page() {
 		super(GRID);
 		setPreferenceStore(FlowanalysisPlugin.getDefault().getPreferenceStore());
-		setDescription("Configuration for the Latency Analysis Plugin");
+//		setDescription("Configuration for the flow latency analysis");
 	}
 
 	/**
@@ -30,15 +30,15 @@ public class Page extends FieldEditorPreferencePage implements IWorkbenchPrefere
 	@Override
 	public void createFieldEditors() {
 		RadioGroupFieldEditor synchronousSystem = new RadioGroupFieldEditor(Constants.SYNCHRONOUS_SYSTEM,
-				"Treat as synchronous or asynchronous system", 1,
+				"System type", 1,
 				new String[][] { { "Asynchronous system (AS)", Constants.SYNCHRONOUS_SYSTEM_NO },
 			{ "Synchronous system (SS)", Constants.SYNCHRONOUS_SYSTEM_YES } },
 				getFieldEditorParent(), true);
 		addField(synchronousSystem);
 		RadioGroupFieldEditor partitioningPolicy = new RadioGroupFieldEditor(Constants.PARTITONING_POLICY,
-				"Partition Output Policy", 1,
-				new String[][] { { "Partition End (PE)", Constants.PARTITIONING_POLICY_PARTITION_END_STR },
-			{ "Major Frame Delayed (MF)", Constants.PARTITIONING_POLICY_MAJOR_FRAME_DELAYED_STR } },
+				"Partition output policy", 1,
+				new String[][] { { "Partition end (PE)", Constants.PARTITIONING_POLICY_PARTITION_END_STR },
+						{ "Major frame delayed (MF)", Constants.PARTITIONING_POLICY_MAJOR_FRAME_DELAYED_STR } },
 				getFieldEditorParent(), true);
 		addField(partitioningPolicy);
 		RadioGroupFieldEditor worstCaseDeadline = new RadioGroupFieldEditor(Constants.WORST_CASE_DEADLINE,
@@ -48,9 +48,9 @@ public class Page extends FieldEditorPreferencePage implements IWorkbenchPrefere
 				getFieldEditorParent(), true);
 		addField(worstCaseDeadline);
 		RadioGroupFieldEditor bcEmptyQueue = new RadioGroupFieldEditor(Constants.BESTCASE_EMPTY_QUEUE,
-				"Best case queuing latency on incoming ports", 1,
-				new String[][] { { "Assume empty queue (EQ)", Constants.BESTCASE_EMPTY_QUEUE_YES },
-			{ "Assume full queue (FQ)", Constants.BESTCASE_EMPTY_QUEUE_NO } },
+				"For best-case queuing latency on incoming ports", 1,
+				new String[][] { { "Assume an empty queue (EQ)", Constants.BESTCASE_EMPTY_QUEUE_YES },
+						{ "Assume a full queue (FQ)", Constants.BESTCASE_EMPTY_QUEUE_NO } },
 				getFieldEditorParent(), true);
 		addField(bcEmptyQueue);
 //		RadioGroupFieldEditor reportSubtotals = new RadioGroupFieldEditor(Constants.REPORT_SUBTOTALS,

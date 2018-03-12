@@ -23,7 +23,7 @@
             category="org.osate.internal.ui.preferences.OsatePreferencePage"
             class="org.osate.analysis.flows.preferences.Page"
             id="org.osate.analysis.flows.PreferencePage"
-            name="Flow Analysis">
+            name="Flow Latency Analysis">
       </page>
    </extension>
    <extension
