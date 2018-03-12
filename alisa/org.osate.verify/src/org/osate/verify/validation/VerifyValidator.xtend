@@ -242,7 +242,7 @@ class VerifyValidator extends VerifyTypeSystemValidator {
 			ResoluteMethod: {
 				val fparams = vm.formals
 				val mreforproxy = methodKind.methodReference 
-				if (mreforproxy === null || mreforproxy.eIsProxy){
+				if (mreforproxy === null || !(mreforproxy instanceof FunctionDefinition)){
 					return
 				}
 				val mref = mreforproxy as FunctionDefinition
