@@ -3,6 +3,7 @@ package org.osate.verify.linking;
 import java.util.Collections;
 import java.util.List;
 
+import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.xtext.linking.impl.DefaultLinkingService;
@@ -10,6 +11,8 @@ import org.eclipse.xtext.linking.impl.IllegalNodeException;
 import org.eclipse.xtext.nodemodel.INode;
 import org.eclipse.xtext.resource.IEObjectDescription;
 import org.osate.verify.verify.ResoluteMethod;
+
+import com.rockwellcollins.atc.resolute.resolute.ResolutePackage;
 
 public class VerifyLinkingService extends DefaultLinkingService {// PropertiesLinkingService {
 	@Override
@@ -36,7 +39,9 @@ public class VerifyLinkingService extends DefaultLinkingService {// PropertiesLi
 
 	private EObject getFromScope(EObject context, EReference reference, String name) {
 		for (IEObjectDescription description : getScope(context, reference).getAllElements()) {
-			if (!description.getName().isEmpty() && description.getName().getLastSegment().equalsIgnoreCase(name)) {
+			EClass ec = description.getEClass();
+			if (!description.getName().isEmpty() && description.getName().getLastSegment().equalsIgnoreCase(name)
+					&& ec == ResolutePackage.eINSTANCE.getFunctionDefinition()) {
 				return description.getEObjectOrProxy();
 			}
 		}
