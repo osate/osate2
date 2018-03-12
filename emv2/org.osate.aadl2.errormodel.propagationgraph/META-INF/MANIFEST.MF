@@ -15,6 +15,9 @@ Require-Bundle: org.eclipse.core.runtime,
  org.osate.aadl2;visibility:=reexport,
  org.osate.xtext.aadl2.errormodel;visibility:=reexport,
  org.osate.aadl2.modelsupport,
- org.osate.execute;bundle-version="1.0.0",
- org.osate.results
+ org.osate.results,
+ com.rockwellcollins.atc.resolute;bundle-version="1.0.0";resolution:=optional,
+ com.rockwellcollins.atc.resolute.analysis;bundle-version="1.0.0";resolution:=optional,
+ com.rockwellcollins.atc.resolute.ui;bundle-version="1.0.0";resolution:=optional,
+ org.eclipse.jdt.core;bundle-version="3.13.100";resolution:=optional
 Bundle-ActivationPolicy: lazy

@@ -26,8 +26,6 @@ import org.osate.aadl2.instance.SystemOperationMode;
 import org.osate.aadl2.modelsupport.resources.OsateResourceUtil;
 import org.osate.aadl2.modelsupport.util.AadlUtil;
 import org.osate.aadl2.util.Aadl2InstanceUtil;
-import org.osate.execute.ExecuteJavaUtil;
-import org.osate.execute.ExecuteResoluteUtil;
 import org.osate.result.Issue;
 import org.osate.result.IssueType;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorEvent;
