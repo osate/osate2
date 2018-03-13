@@ -80,9 +80,10 @@
     <extension
             point="org.eclipse.ui.preferencePages">
         <page
+            category="org.osate.internal.ui.preferences.OsatePreferencePage"
             class="org.osate.aadl2.instance.textual.ui.InstanceExecutableExtensionFactory:org.eclipse.xtext.ui.editor.preferences.LanguageRootPreferencePage"
             id="org.osate.aadl2.instance.textual.Instance"
-            name="Instance">
+            name="Instance Model Text Editor">
             <keywordReference id="org.osate.aadl2.instance.textual.ui.keyword_Instance"/>
         </page>
         <page
@@ -92,13 +93,13 @@
             name="Syntax Coloring">
             <keywordReference id="org.osate.aadl2.instance.textual.ui.keyword_Instance"/>
         </page>
-        <page
+        <!--page
             category="org.osate.aadl2.instance.textual.Instance"
             class="org.osate.aadl2.instance.textual.ui.InstanceExecutableExtensionFactory:org.eclipse.xtext.ui.editor.templates.XtextTemplatePreferencePage"
             id="org.osate.aadl2.instance.textual.Instance.templates"
             name="Templates">
             <keywordReference id="org.osate.aadl2.instance.textual.ui.keyword_Instance"/>
-        </page>
+        </page-->
     </extension>
     <!--extension
             point="org.eclipse.ui.propertyPages">
@@ -333,7 +334,7 @@
          </command>
       </menuContribution>
    </extension>
-   <extension point="org.eclipse.ui.preferencePages">
+   <!--extension point="org.eclipse.ui.preferencePages">
 	    <page
 	        category="org.osate.aadl2.instance.textual.Instance"
 	        class="org.osate.aadl2.instance.textual.ui.InstanceExecutableExtensionFactory:org.eclipse.xtext.ui.refactoring.ui.RefactoringPreferencePage"
@@ -341,7 +342,7 @@
 	        name="Refactoring">
 	        <keywordReference id="org.osate.aadl2.instance.textual.ui.keyword_Instance"/>
 	    </page>
-	</extension>
+	</extension-->
 
   <extension point="org.eclipse.compare.contentViewers">
     <viewer id="org.osate.aadl2.instance.textual.Instance.compare.contentViewers"
