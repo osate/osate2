@@ -9,6 +9,12 @@
             name="OSATE"
             class="org.osate.internal.ui.preferences.OsatePreferencePage">
       </page>
+      <page
+      		id="org.osate.internal.ui.preferences.OsateAnalysisPage"
+      		category="org.osate.internal.ui.preferences.OsatePreferencePage"
+      		name="Analysis"
+      		class="org.osate.ui.preferences.BlankPreferencePage">
+      </page>
    </extension>
    
    <extension
