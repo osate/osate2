@@ -19,7 +19,7 @@ public class Page extends FieldEditorPreferencePage implements IWorkbenchPrefere
 	public Page() {
 		super(GRID);
 		setPreferenceStore(FlowanalysisPlugin.getDefault().getPreferenceStore());
-//		setDescription("Configuration for the flow latency analysis");
+		setDescription("Settings for the flow latency analysis");
 	}
 
 	/**
