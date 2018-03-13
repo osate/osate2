@@ -7,7 +7,7 @@
       <page
             id="org.osate.internal.ui.preferences.OsatePreferencePage"
             name="OSATE"
-            class="org.osate.internal.ui.preferences.OsatePreferencePage">
+            class="org.osate.ui.preferences.BlankPreferencePage">
       </page>
       <page
       		id="org.osate.ui.preferences.OsateAnalysisPage"
