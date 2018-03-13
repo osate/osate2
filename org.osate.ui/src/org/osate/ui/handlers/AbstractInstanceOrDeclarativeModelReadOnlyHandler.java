@@ -55,17 +55,17 @@ public abstract class AbstractInstanceOrDeclarativeModelReadOnlyHandler extends 
 	private static final String INITIAL_MODE_LABEL = "Initial Mode";
 	private static final String CHOOSE_MODE_LABEL = "Choose Mode...";
 	private static final String ALL_MODES_LABEL = "All Modes";
-	
+
 	private static final String[] ALL_MODE_CHOICE_LABELS = { INITIAL_MODE_LABEL, CHOOSE_MODE_LABEL, ALL_MODES_LABEL };
 	private static final String[] SINGLE_MODE_CHOICE_LABELS = { INITIAL_MODE_LABEL, CHOOSE_MODE_LABEL };
-	
+
 	private static final int INITIAL_MODE = 0;
 	private static final int CHOOSE_MODE = 1;
-	
+
 	private static final int DEFAULT_MODE_CHOICE = INITIAL_MODE;
-	
+
 	private int lastDefaultModeChoice = DEFAULT_MODE_CHOICE;
-	
+
 	/**
 	 * Should instance models be analyzed in a single mode only?  If this
 	 * returns <code>true</code>, then the user is not allowed to choose
@@ -76,7 +76,7 @@ public abstract class AbstractInstanceOrDeclarativeModelReadOnlyHandler extends 
 	protected boolean analyzeInSingleModeOnly() {
 		return false;
 	}
-	
+
 	@Override
 	public final void doAaxlAction(final IProgressMonitor monitor, final Element obj) {
 		final NamedElement root = ((NamedElement) obj).getElementRoot();
@@ -114,7 +114,6 @@ public abstract class AbstractInstanceOrDeclarativeModelReadOnlyHandler extends 
 				if (initializeAnalysis(si)) {
 					final AnalysisErrorReporterManager errManager = getErrorManager();
 					if (chosenSOM != null) {
-						si.setCurrentSystemOperationMode(chosenSOM);
 						analyzeInstanceModelInMode(monitor, errManager, si, chosenSOM);
 					} else {
 						final SOMIterator soms = new SOMIterator(si);
@@ -133,15 +132,16 @@ public abstract class AbstractInstanceOrDeclarativeModelReadOnlyHandler extends 
 			}
 		}
 	}
-	
+
 	private void analyzeInstanceModelInMode(final IProgressMonitor monitor,
 			final AnalysisErrorReporterManager errManager, final SystemInstance si, final SystemOperationMode som) {
 		errManager.addPrefix(Aadl2Util.getPrintableSOMName(som) + ": ");
+		si.setCurrentSystemOperationMode(som);
 		analyzeInstanceModel(monitor, errManager, si, som);
 		si.clearCurrentSystemOperationMode();
 		errManager.removePrefix();
 	}
-	
+
 	/**
 	 * Analyze the model starting from a declarative model element.
 	 * @param monitor The progress monitor to use.
@@ -152,7 +152,7 @@ public abstract class AbstractInstanceOrDeclarativeModelReadOnlyHandler extends 
 	 */
 	protected abstract void analyzeDeclarativeModel(IProgressMonitor monitor, AnalysisErrorReporterManager errManager,
 			Element declarativeObject);
-	
+
 	/**
 	 * Analyze a system instance model in a particular system operation mode.
 	 * The model is already projected into the given SOM, and the error
@@ -166,7 +166,7 @@ public abstract class AbstractInstanceOrDeclarativeModelReadOnlyHandler extends 
 	 */
 	protected abstract void analyzeInstanceModel(IProgressMonitor monitor, AnalysisErrorReporterManager errManager,
 			SystemInstance root, SystemOperationMode som);
-	
+
 	/**
 	 * Initialize the state of analysis.  For example,
 	 * this can open a dialog box to get additional parameters to the
@@ -183,7 +183,7 @@ public abstract class AbstractInstanceOrDeclarativeModelReadOnlyHandler extends 
 	protected boolean initializeAnalysis(NamedElement object) {
 		return true;
 	}
-	
+
 	/**
 	 * finalize the state of analysis.  For example,
 	 * this can close a report being generated.
