@@ -33,7 +33,6 @@
 		<module>../../org.osate.discovery</module>
 		<module>../../org.osate.help</module>
 		<module>../../org.osate.pluginsupport</module>
-		<module>../../org.osate.resolute.help</module>
 		<module>../../org.osate.results</module>
 		<module>../../org.osate.ui</module>
 		<module>../../org.osate.workspace</module>
