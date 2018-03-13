@@ -100,7 +100,7 @@
             <keywordReference id="org.osate.aadl2.instance.textual.ui.keyword_Instance"/>
         </page>
     </extension>
-    <extension
+    <!--extension
             point="org.eclipse.ui.propertyPages">
         <page
             class="org.osate.aadl2.instance.textual.ui.InstanceExecutableExtensionFactory:org.eclipse.xtext.ui.editor.preferences.LanguageRootPreferencePage"
@@ -112,7 +112,7 @@
 			</enabledWhen>
 	        <filter name="projectNature" value="org.eclipse.xtext.ui.shared.xtextNature"/>
         </page>
-    </extension>
+    </extension-->
     <extension
         point="org.eclipse.ui.keywords">
         <keyword
