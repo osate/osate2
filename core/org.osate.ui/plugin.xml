@@ -20,7 +20,19 @@
    <extension
          point="org.eclipse.ui.propertyPages">
       <page
-            class="org.osate.internal.ui.properties.ProjectPropertiesPage"
+            class="org.osate.ui.properties.BlankPropertyPage"
+            id="org.osate.ui.properties.OSATE"
+            name="OSATE">
+         <enabledWhen>
+            <adapt type="org.eclipse.core.resources.IProject">
+               <test property="org.eclipse.core.resources.projectNature" 
+                     value="org.osate.core.aadlnature"/>
+            </adapt>         
+         </enabledWhen>
+      </page>
+      <page
+            class="org.osate.internal.ui.properties.InstantiationPropertyPage"
+            category="org.osate.ui.properties.OSATE"
             id="org.osate.internal.ui.properties.ProjectPropertiesPage"
             name="Instantiation">
          <enabledWhen>
