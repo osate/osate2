@@ -218,6 +218,10 @@ public class ConnectionHandler {
 		// Get the connection elements for the source and destination
 		final ConnectedElement srcConnectedElement = getConnectedElementForBusinessObjectContext(srcBoc, connectionType,
 				false, ownerBoc);
+		if (srcConnectedElement == null) {
+			return false;
+		}
+
 		final ConnectedElement dstConnectedElement = getConnectedElementForBusinessObjectContext(dstBoc, connectionType,
 				!(srcConnectedElement.getContext() instanceof Subcomponent), ownerBoc);
 
