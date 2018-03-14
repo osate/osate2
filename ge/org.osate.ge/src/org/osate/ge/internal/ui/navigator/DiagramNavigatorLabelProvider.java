@@ -53,8 +53,7 @@ ICommonLabelProvider {
 		super(new WorkbenchLabelProvider(), null);
 
 		final Bundle bundle = FrameworkUtil.getBundle(getClass());
-		final IEclipseContext context = EclipseContextFactory.getServiceContext(bundle.getBundleContext())
-				.createChild();
+		final IEclipseContext context = EclipseContextFactory.getServiceContext(bundle.getBundleContext());
 		diagramService = Objects.requireNonNull(context.get(DiagramService.class), "Unable to get diagram service");
 		dtProvider = Objects.requireNonNull(context.get(ExtensionRegistryService.class),
 				"Unable to get extension registry");

@@ -126,7 +126,7 @@ public class DefaultReferenceService implements ReferenceService {
 		referenceLabelProviders = instantiateReferenceLabelProviders();
 
 		final Bundle bundle = FrameworkUtil.getBundle(getClass());
-		serviceContext = EclipseContextFactory.getServiceContext(bundle.getBundleContext()).createChild();
+		serviceContext = EclipseContextFactory.getServiceContext(bundle.getBundleContext());
 
 		// Start listening to model changes
 		modelChangeNotifier.addChangeListener(modelChangeListener);
@@ -246,7 +246,8 @@ public class DefaultReferenceService implements ReferenceService {
 		if(result == null) {
 			// Create a new context
 			final Bundle bundle = FrameworkUtil.getBundle(getClass());
-			final IEclipseContext ctx = EclipseContextFactory.getServiceContext(bundle.getBundleContext()).createChild();
+			final IEclipseContext ctx = EclipseContextFactory.getServiceContext(bundle.getBundleContext())
+					.createChild(); // Will be disposed when ProjectReferenceServiceReference is disposed.
 
 			// Create the reference service
 			result = new DefaultProjectReferenceService(this, this, project, ctx);

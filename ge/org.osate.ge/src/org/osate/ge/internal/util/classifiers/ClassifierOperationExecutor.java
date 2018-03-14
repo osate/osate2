@@ -1,11 +1,9 @@
 package org.osate.ge.internal.util.classifiers;
 
 import java.util.Objects;
-import java.util.function.Supplier;
 
 import org.eclipse.core.resources.IProject;
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.xtext.ui.resource.XtextLiveScopeResourceSetProvider;
@@ -22,12 +20,12 @@ import org.osate.aadl2.PackageSection;
 import org.osate.aadl2.Realization;
 import org.osate.aadl2.TypeExtension;
 import org.osate.ge.BusinessObjectContext;
-import org.osate.ge.internal.CreateOperation;
-import org.osate.ge.internal.CreateOperation.CreateStepResult;
 import org.osate.ge.internal.services.NamingService;
 import org.osate.ge.internal.util.AadlClassifierUtil;
 import org.osate.ge.internal.util.AadlImportsUtil;
 import org.osate.ge.internal.util.AadlNameUtil;
+import org.osate.ge.operations.OperationBuilder;
+import org.osate.ge.operations.StepResultBuilder;
 import org.osate.xtext.aadl2.ui.internal.Aadl2Activator;
 
 import com.google.inject.Injector;
@@ -43,120 +41,119 @@ public class ClassifierOperationExecutor {
 		this.classifierCreationHelper = new ClassifierCreationHelper(namingService, resourceSet);
 	}
 
-	public void execute(final CreateOperation createOp, final ClassifierOperation op,
+	public void execute(final OperationBuilder<?> operation, final ClassifierOperation classifierOp,
 			final BusinessObjectContext primaryPkgBoc) {
-		final Supplier<Classifier> baseOperationResult = addStep(createOp, op.getBasePart(), null, () -> null, null);
-		addStep(createOp, op.getPrimaryPart(), op.getBasePart(), baseOperationResult, primaryPkgBoc);
+		final OperationBuilder<Classifier> baseOp = addStep(operation, classifierOp.getBasePart(), null, null);
+		addStep(baseOp, classifierOp.getPrimaryPart(), classifierOp.getBasePart(), primaryPkgBoc);
 	}
 
-	private Supplier<Classifier> addStep(final CreateOperation createOp, final ClassifierOperationPart part,
-			final ClassifierOperationPart basePart, final Supplier<Classifier> baseOperationResultSupplier,
-			final BusinessObjectContext pkgBoc) {
+	/**
+	 *
+	 * @param operation
+	 * @param part
+	 * @param basePart
+	 * @param pkgBoc if non-null then the operation result will indicate that the object should be added to the diagram.
+	 * @return
+	 */
+	private OperationBuilder<Classifier> addStep(final OperationBuilder<?> operation,
+			final ClassifierOperationPart part,
+			final ClassifierOperationPart basePart, final BusinessObjectContext pkgBoc) {
 		Objects.requireNonNull(part, "part must not be null");
 		Objects.requireNonNull(part.getType(), "operation part type must not be null");
 
 		switch (part.getType()) {
 		case EXISTING:
-			final Classifier existingClassifier = classifierCreationHelper.getResolvedClassifier(part.getSelectedClassifier());
-			return () -> existingClassifier;
+			return operation.supply(() -> StepResultBuilder
+					.create(classifierCreationHelper.getResolvedClassifier(part.getSelectedClassifier())).build());
 
 		case NEW_COMPONENT_IMPLEMENTATION:
 		case NEW_COMPONENT_TYPE:
 		case NEW_FEATURE_GROUP_TYPE:
 			final EClass creationEClass = getCreationEClass(part);
 
-			final PackageSection section = classifierCreationHelper.getResolvedPublicSection(part.getSelectedPackage());
+			final PackageSection unmodifiableSection = classifierCreationHelper
+					.getResolvedPublicSection(part.getSelectedPackage());
 
-			class CreateClassifierStepHandler implements CreateOperation.CreateStepHandler<PackageSection> {
-				public CreateStepResult result;
+			return operation.modifyModel(unmodifiableSection, (tag, prevResult) -> tag, (tag, section, prevResult) -> {
+				// Create the new classifier
+				final Classifier newClassifier = section.createOwnedClassifier(creationEClass);
 
-				@Override
-				public CreateStepResult modify(final Resource resource, final PackageSection section) {
-					// Create the new classifier
-					final Classifier newClassifier = section.createOwnedClassifier(creationEClass);
+				// Set name
+				newClassifier.setName(classifierCreationHelper.getName(part, basePart));
 
-					// Set name
-					newClassifier.setName(classifierCreationHelper.getName(part, basePart));
+				final Classifier baseOperationResult = resolveWithLiveResourceSetOrThrowIfProxy(
+						(Classifier) prevResult);
 
-					final Classifier baseOperationResult = resolveWithLiveResourceSetOrThrowIfProxy(
-							baseOperationResultSupplier.get());
+				// Handle component implementations
+				if (newClassifier instanceof ComponentImplementation) {
+					final ComponentImplementation newImpl = (ComponentImplementation) newClassifier;
+					final ComponentType baseComponentType;
+					if (baseOperationResult instanceof ComponentType) {
+						final Realization realization = newImpl.createOwnedRealization();
+						baseComponentType = (ComponentType) baseOperationResult;
+						realization.setImplemented(baseComponentType);
+					} else if (baseOperationResult instanceof ComponentImplementation) {
+						final ComponentImplementation baseImpl = (ComponentImplementation) baseOperationResult;
+						final ImplementationExtension extension = newImpl.createOwnedExtension();
+						extension.setExtended(baseImpl);
 
-					// Handle component implementations
-					if (newClassifier instanceof ComponentImplementation) {
-						final ComponentImplementation newImpl = (ComponentImplementation) newClassifier;
-						final ComponentType baseComponentType;
-						if (baseOperationResult instanceof ComponentType) {
-							final Realization realization = newImpl.createOwnedRealization();
-							baseComponentType = (ComponentType) baseOperationResult;
-							realization.setImplemented(baseComponentType);
-						} else if (baseOperationResult instanceof ComponentImplementation) {
-							final ComponentImplementation baseImpl = (ComponentImplementation) baseOperationResult;
-							final ImplementationExtension extension = newImpl.createOwnedExtension();
-							extension.setExtended(baseImpl);
+						final Realization realization = newImpl.createOwnedRealization();
+						realization.setImplemented(baseImpl.getType());
 
-							final Realization realization = newImpl.createOwnedRealization();
-							realization.setImplemented(baseImpl.getType());
+						baseComponentType = baseImpl.getType();
 
-							baseComponentType = baseImpl.getType();
-
-							// Import the base implementation's package
-							final AadlPackage baseImplPkg = (AadlPackage) baseImpl.getNamespace().getOwner();
-							AadlImportsUtil.addImportIfNeeded(section, baseImplPkg);
-						} else {
-							throw new RuntimeException("Invalid base classifier: " + baseOperationResult);
-						}
-
-						// Get the base component type
-						if (baseComponentType == null) {
-							throw new RuntimeException("Unable to determine base component type");
-						}
-
-						if (!AadlNameUtil.namesAreEqual(section, baseComponentType.getNamespace())) {
-							// Import the package if necessary
-							final AadlPackage baseComponentTypePkg = (AadlPackage) baseComponentType.getNamespace()
-									.getOwner();
-							AadlImportsUtil.addImportIfNeeded(section, baseComponentTypePkg);
-
-							// Create an alias for the component type
-							final ClassifierCreationHelper.RenamedTypeDetails aliasDetails = classifierCreationHelper
-									.getRenamedType(section, baseComponentTypePkg, baseComponentType.getName());
-							if (!aliasDetails.exists) {
-								final ComponentTypeRename ctr = section.createOwnedComponentTypeRename();
-								ctr.setName(aliasDetails.aliasName);
-								ctr.setCategory(baseComponentType.getCategory());
-								ctr.setRenamedComponentType(baseComponentType);
-							}
-						}
-
-					} else if (newClassifier instanceof ComponentType && baseOperationResult instanceof ComponentType) {
-						final ComponentType newType = (ComponentType) newClassifier;
-						final TypeExtension extension = newType.createOwnedExtension();
-						extension.setExtended((ComponentType) baseOperationResult);
-					} else if (newClassifier instanceof FeatureGroupType
-							&& baseOperationResult instanceof FeatureGroupType) {
-						final FeatureGroupType newFgt = (FeatureGroupType) newClassifier;
-						final GroupExtension extension = newFgt.createOwnedExtension();
-						extension.setExtended((FeatureGroupType) baseOperationResult);
+						// Import the base implementation's package
+						final AadlPackage baseImplPkg = (AadlPackage) baseImpl.getNamespace().getOwner();
+						AadlImportsUtil.addImportIfNeeded(section, baseImplPkg);
+					} else {
+						throw new RuntimeException("Invalid base classifier: " + baseOperationResult);
 					}
 
-					result = newClassifier == null ? null
-							: new CreateStepResult(pkgBoc, newClassifier);
+					// Get the base component type
+					if (baseComponentType == null) {
+						throw new RuntimeException("Unable to determine base component type");
+					}
 
-					return result;
+					if (!AadlNameUtil.namesAreEqual(section, baseComponentType.getNamespace())) {
+						// Import the package if necessary
+						final AadlPackage baseComponentTypePkg = (AadlPackage) baseComponentType.getNamespace()
+								.getOwner();
+						AadlImportsUtil.addImportIfNeeded(section, baseComponentTypePkg);
+
+						// Create an alias for the component type
+						final ClassifierCreationHelper.RenamedTypeDetails aliasDetails = classifierCreationHelper
+								.getRenamedType(section, baseComponentTypePkg, baseComponentType.getName());
+						if (!aliasDetails.exists) {
+							final ComponentTypeRename ctr = section.createOwnedComponentTypeRename();
+							ctr.setName(aliasDetails.aliasName);
+							ctr.setCategory(baseComponentType.getCategory());
+							ctr.setRenamedComponentType(baseComponentType);
+						}
+					}
+
+				} else if (newClassifier instanceof ComponentType && baseOperationResult instanceof ComponentType) {
+					final ComponentType newType = (ComponentType) newClassifier;
+					final TypeExtension extension = newType.createOwnedExtension();
+					extension.setExtended((ComponentType) baseOperationResult);
+				} else if (newClassifier instanceof FeatureGroupType
+						&& baseOperationResult instanceof FeatureGroupType) {
+					final FeatureGroupType newFgt = (FeatureGroupType) newClassifier;
+					final GroupExtension extension = newFgt.createOwnedExtension();
+					extension.setExtended((FeatureGroupType) baseOperationResult);
 				}
 
-			}
+				final StepResultBuilder<Classifier> resultBuilder = StepResultBuilder.create(newClassifier);
 
-			final CreateClassifierStepHandler stepHandler = new CreateClassifierStepHandler();
-			createOp.addStep(section, stepHandler);
+				// Hint for adding to diagram
+				if (pkgBoc != null && newClassifier != null) {
+					resultBuilder.showNewBusinessObject(pkgBoc, newClassifier);
+				}
 
-			// Create a supplier that will be used to retrieve the previous result
-			return () -> {
-				return stepHandler.result == null ? null : (Classifier) stepHandler.result.newBo;
-			};
+				return resultBuilder.build();
+			});
 
 		case NONE:
-			return () -> null;
+			return operation.map(prevResult -> StepResultBuilder.create((Classifier) null).build());
 
 		default:
 			throw new RuntimeException("Unexpected operation: " + part.getType());
@@ -164,8 +161,8 @@ public class ClassifierOperationExecutor {
 
 	}
 
-	// Resolves the classifier using a new resource set. Using the ClassifierCreationHelper to resolve the base classifier does not
-	// work if the classifier was just created. Throws if the classifier is a proxy and cannot be resolved
+// Resolves the classifier using a new resource set. Using the ClassifierCreationHelper to resolve the base classifier does not
+// work if the classifier was just created. Throws if the classifier is a proxy and cannot be resolved
 	private Classifier resolveWithLiveResourceSetOrThrowIfProxy(final Classifier c) {
 		if (c == null || !c.eIsProxy()) {
 			return c;

@@ -117,24 +117,22 @@ public class BoHandlerDeleteFeature extends AbstractFeature implements IDeleteFe
 
 		if(bo instanceof EObject) {
 			final EObject boEObj = (EObject)bo;
-			aadlModService.modify(boEObj, (resource, boEObj1) -> {
-				EcoreUtil.remove(boEObj1);
-				return null;
+			aadlModService.modify(boEObj, (boToModify) -> {
+				EcoreUtil.remove(boToModify);
 			});
 		} else if(bo instanceof EmfContainerProvider) {
 			final EObject ownerBo = ((EmfContainerProvider)bo).getEmfContainer();
-			aadlModService.modify(ownerBo, (resource, ownerBo1) -> {
+			aadlModService.modify(ownerBo, (boToModify) -> {
 				// Call delete
 				final IEclipseContext eclipseCtx = extService.createChildContext();
 				try {
 					eclipseCtx.set(Names.BUSINESS_OBJECT, bo);
-					eclipseCtx.set(Names.MODIFY_BO, ownerBo1);
+					eclipseCtx.set(Names.MODIFY_BO, boToModify);
 					final Object boHandler = de.getBusinessObjectHandler();
 					ContextInjectionFactory.invoke(boHandler, Delete.class, eclipseCtx);
 				} finally {
 					eclipseCtx.dispose();
 				}
-				return null;
 			});
 		} else {
 			// canDelete() should have returned false in this case

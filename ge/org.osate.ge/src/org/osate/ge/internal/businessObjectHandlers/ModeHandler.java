@@ -21,6 +21,7 @@ import org.osate.ge.GraphicalConfiguration;
 import org.osate.ge.GraphicalConfigurationBuilder;
 import org.osate.ge.PaletteEntry;
 import org.osate.ge.PaletteEntryBuilder;
+import org.osate.ge.di.BuildCreateOperation;
 import org.osate.ge.di.CanCreate;
 import org.osate.ge.di.CanDelete;
 import org.osate.ge.di.CanRename;
@@ -34,13 +35,12 @@ import org.osate.ge.graphics.Graphic;
 import org.osate.ge.graphics.Style;
 import org.osate.ge.graphics.StyleBuilder;
 import org.osate.ge.graphics.internal.ModeGraphicBuilder;
-import org.osate.ge.internal.CreateOperation;
-import org.osate.ge.internal.CreateOperation.CreateStepResult;
-import org.osate.ge.internal.di.BuildCreateOperation;
-import org.osate.ge.internal.di.InternalNames;
 import org.osate.ge.internal.services.NamingService;
 import org.osate.ge.internal.util.AadlInheritanceUtil;
 import org.osate.ge.internal.util.ImageHelper;
+import org.osate.ge.operations.Operation;
+import org.osate.ge.operations.StepResult;
+import org.osate.ge.operations.StepResultBuilder;
 import org.osate.ge.services.QueryService;
 
 public class ModeHandler {
@@ -93,13 +93,12 @@ public class ModeHandler {
 	}
 
 	@BuildCreateOperation
-	public void buildCreateOperation(@Named(InternalNames.OPERATION) final CreateOperation createOp,
-			final @Named(Names.TARGET_BO) EObject target,
+	public Operation buildCreateOperation(final @Named(Names.TARGET_BO) EObject target,
 			final @Named(Names.TARGET_BUSINESS_OBJECT_CONTEXT) BusinessObjectContext targetBoc,
 			final QueryService queryService, final NamingService namingService) {
 		if (ClassifierEditingUtil.showMessageIfSubcomponentOrFeatureGroupWithoutClassifier(target,
 				"Set a classifier before creating a mode.")) {
-			return;
+			return null;
 		}
 
 		final List<ComponentClassifier> potentialOwners = getPotentialOwners(target);
@@ -112,20 +111,22 @@ public class ModeHandler {
 				final ComponentClassifier selectedClassifier = (ComponentClassifier) ClassifierEditingUtil
 						.getClassifierToModify(potentialOwners, forcePrompt);
 				if (selectedClassifier == null) {
-					return;
+					return null;
 				}
 
-				createOp.addStep(selectedClassifier, (resource, owner) -> {
-					final String newModeName = namingService.buildUniqueIdentifier(owner, "new_mode");
+				return Operation.create(createOp -> {
+					createOp.supply(() -> StepResult.forValue(selectedClassifier)).modifyPreviousResult(boToModify -> {
+						final String newModeName = namingService.buildUniqueIdentifier(boToModify, "new_mode");
 
-					final Mode newMode = owner.createOwnedMode();
-					newMode.setInitial(false);
-					newMode.setName(newModeName);
+						final Mode newMode = boToModify.createOwnedMode();
+						newMode.setInitial(false);
+						newMode.setName(newModeName);
 
-					// Clear the no modes flag
-					owner.setNoModes(false);
+						// Clear the no modes flag
+						boToModify.setNoModes(false);
 
-					return new CreateStepResult(targetBoc, newMode);
+						return StepResultBuilder.create().showNewBusinessObject(targetBoc, newMode).build();
+					});
 				});
 	}
 

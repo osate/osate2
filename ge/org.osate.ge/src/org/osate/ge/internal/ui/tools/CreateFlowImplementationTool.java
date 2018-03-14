@@ -70,10 +70,9 @@ public class CreateFlowImplementationTool {
 
 			if (dlg != null) {
 				final ComponentImplementation ownerCi = dlg.getOwnerComponentImplementation();
-				aadlModService.modify(ownerCi, (resource, ci) -> {
+				aadlModService.modify(ownerCi, ci -> {
 					ci.getOwnedFlowImplementations().add(dlg.createFlow());
 					ci.setNoFlows(false);
-					return null;
 				});
 			}
 		} finally {
