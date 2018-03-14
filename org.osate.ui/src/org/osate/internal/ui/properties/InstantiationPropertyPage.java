@@ -19,7 +19,7 @@ import org.osate.ui.OsateUiPlugin;
 import org.osgi.service.prefs.BackingStoreException;
 import org.osgi.service.prefs.Preferences;
 
-public class ProjectPropertiesPage extends PropertyPage {
+public class InstantiationPropertyPage extends PropertyPage {
 	private static String BAD_VALUE = "Must be an integer >= 1";
 
 	private Text maxSOMText;
