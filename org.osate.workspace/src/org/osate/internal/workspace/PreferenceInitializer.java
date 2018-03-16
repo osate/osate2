@@ -46,7 +46,7 @@ public class PreferenceInitializer extends AbstractPreferenceInitializer {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @seeorg.eclipse.core.runtime.preferences.AbstractPreferenceInitializer#
 	 * initializeDefaultPreferences()
 	 */
@@ -57,6 +57,7 @@ public class PreferenceInitializer extends AbstractPreferenceInitializer {
 		 */
 		IPreferenceStore store = WorkspacePlugin.getDefault().getPreferenceStore();
 		store.setDefault(WorkspacePlugin.EXPAND_DEFAULT_FLAG, false);
+		store.setDefault(WorkspacePlugin.MAX_SOM, WorkspacePlugin.MAX_SOM_DEFAULT);
 		store.setDefault(WorkspacePlugin.AUTO_REINSTANTIATE, true);
 		store.setDefault(WorkspacePlugin.AUTO_INDENT, true);
 		store.setDefault(WorkspacePlugin.AUTO_COMPLETE, true);
