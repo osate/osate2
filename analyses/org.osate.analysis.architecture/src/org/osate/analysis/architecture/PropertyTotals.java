@@ -45,6 +45,9 @@ import org.osate.aadl2.ComponentCategory;
 import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.ConnectionInstance;
+import org.osate.aadl2.instance.ConnectionInstanceEnd;
+import org.osate.aadl2.instance.FeatureCategory;
+import org.osate.aadl2.instance.FeatureInstance;
 import org.osate.aadl2.instance.SystemInstance;
 import org.osate.aadl2.modelsupport.modeltraversal.AadlProcessingSwitchWithProgress;
 import org.osate.ui.handlers.AbstractAaxlHandler;
@@ -106,16 +109,23 @@ public/* final */class PropertyTotals extends AadlProcessingSwitchWithProgress {
 		}
 		EList<ConnectionInstance> connl = ci.getConnectionInstances();
 		for (ConnectionInstance connectionInstance : connl) {
-			double netconn = GetProperties.getNetWeight(connectionInstance, 0.0);
-			double grossconn = GetProperties.getGrossWeight(connectionInstance, 0.0);
-			weight += netconn > 0 ? netconn : grossconn;
-			if (netconn > 0 || grossconn > 0) {
-				String ResultMsg = String.format(
-						connectionInstance.getName() + ": Weight of access connection is %.3f kg",
-						netconn > 0 ? netconn : grossconn);
-				reportinfo(connectionInstance, ResultMsg);
+			ConnectionInstanceEnd source = connectionInstance.getSource();
+			ConnectionInstanceEnd destination = connectionInstance.getDestination();
+			if ((source instanceof FeatureInstance
+					&& ((FeatureInstance) source).getCategory() == FeatureCategory.BUS_ACCESS)
+					|| (destination instanceof FeatureInstance
+							&& ((FeatureInstance) destination).getCategory() == FeatureCategory.BUS_ACCESS)) {
+				double netconn = GetProperties.getNetWeight(connectionInstance, 0.0);
+				double grossconn = GetProperties.getGrossWeight(connectionInstance, 0.0);
+				weight += netconn > 0 ? netconn : grossconn;
+				if (netconn > 0 || grossconn > 0) {
+					String ResultMsg = String.format(
+							connectionInstance.getName() + ": Weight of access connection is %.3f kg",
+							netconn > 0 ? netconn : grossconn);
+					reportinfo(connectionInstance, ResultMsg);
+				}
+				sublimit += GetProperties.getWeightLimit(connectionInstance, 0.0);
 			}
-			sublimit += GetProperties.getWeightLimit(connectionInstance, 0.0);
 		}
 		if (weight == 0.0 && cil.isEmpty()) {
 			if (gross == 0 && net > 0) {
