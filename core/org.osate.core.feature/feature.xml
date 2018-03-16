@@ -2,7 +2,7 @@
 <feature
       id="org.osate.core.feature"
       label="Open Source AADL Tool Environment"
-      version="2.3.2.vfinal"
+      version="2.3.3.qualifier"
       provider-name="CMU SEI"
       plugin="org.osate.branding"
       image="icons/osateupdate_120.jpg"
@@ -220,13 +220,6 @@ to the terms of the license set forth at http://www.aadl.info/OSATELicense.html.
 
    <plugin
          id="org.osate.contribution.sei"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-
-   <plugin
-         id="org.osate.resolute.help"
          download-size="0"
          install-size="0"
          version="0.0.0"
