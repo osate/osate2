@@ -42,7 +42,7 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="executionState" eType="#//VerificationExecutionState"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="resultState" eType="#//VerificationResultState"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="issues" upperBound="-1"
-        eType="ecore:EClass platform:/resource/org.osate.results/model/Result.ecore#//Issue"
+        eType="ecore:EClass platform:/resource/org.osate.results/model/Result.ecore#//Diagnostic"
         containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="results" eType="ecore:EClass platform:/resource/org.osate.results/model/Result.ecore#//Result"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="message" eType="ecore:EDataType platform:/resource/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>

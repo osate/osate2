@@ -62,8 +62,8 @@ import org.osate.assure.assure.VerificationResultState
 import org.osate.categories.categories.CategoryFilter
 import org.osate.reqspec.reqSpec.InformalPredicate
 import org.osate.reqspec.reqSpec.ValuePredicate
-import org.osate.result.Issue
-import org.osate.result.IssueType
+import org.osate.result.Diagnostic
+import org.osate.result.DiagnosticType
 import org.osate.result.ResultFactory
 import org.osate.verify.verify.Claim
 import org.osate.verify.verify.VerificationActivity
@@ -242,9 +242,9 @@ class AssureUtilExtension {
 			]
 		}
 		targetmarkers.forEach[em|verificationActivityResult.addMarkerIssue(null /*instance*/ , em)]
-		if (verificationActivityResult.issues.exists[ri|ri.issueType == IssueType.FAIL]) {
+		if (verificationActivityResult.issues.exists[ri|ri.type == DiagnosticType.FAILURE]) {
 			verificationActivityResult.setToFail
-		} else if (verificationActivityResult.issues.exists[ri|ri.issueType == IssueType.ERROR]) {
+		} else if (verificationActivityResult.issues.exists[ri|ri.type == DiagnosticType.ERROR]) {
 			verificationActivityResult.setToError
 		} else {
 			verificationActivityResult.setToSuccess
@@ -264,7 +264,7 @@ class AssureUtilExtension {
 		return ""
 	}
 
-	def static Issue addMarkerIssue(VerificationResult vr, EObject target, IMarker marker) {
+	def static Diagnostic addMarkerIssue(VerificationResult vr, EObject target, IMarker marker) {
 		val msg = marker.getAttribute(IMarker.MESSAGE) as String
 		switch (marker.getAttribute(IMarker.SEVERITY)) {
 			case IMarker.SEVERITY_ERROR: addFailIssue(vr, target, msg)
@@ -273,37 +273,37 @@ class AssureUtilExtension {
 		}
 	}
 
-	def static Issue addErrorIssue(VerificationResult vr, EObject target, String message) {
-		addIssue(vr,IssueType.ERROR, target, message)
+	def static Diagnostic addErrorIssue(VerificationResult vr, EObject target, String message) {
+		addIssue(vr,DiagnosticType.ERROR, target, message)
 	}
 
-	def static Issue addIssue(VerificationResult vr, IssueType type, EObject target, String message) {
-		val issue = ResultFactory.eINSTANCE.createIssue
+	def static Diagnostic addIssue(VerificationResult vr, DiagnosticType type, EObject target, String message) {
+		val issue = ResultFactory.eINSTANCE.createDiagnostic
 		issue.message = message ?: "no message"
-		issue.issueType = type;
+		issue.type = type;
 		issue.sourceReference = target
 		vr.issues.add(issue)
 		issue
 	}
 
-	def static Issue addFailIssue(VerificationResult vr, EObject target, String message) {
-		addIssue(vr, IssueType.FAIL,target, message)
+	def static Diagnostic addFailIssue(VerificationResult vr, EObject target, String message) {
+		addIssue(vr, DiagnosticType.FAILURE,target, message)
 	}
 
-	def static Issue addInfoIssue(VerificationResult vr, EObject target, String message) {
-		addIssue(vr, IssueType.INFO,target, message)
+	def static Diagnostic addInfoIssue(VerificationResult vr, EObject target, String message) {
+		addIssue(vr, DiagnosticType.INFO,target, message)
 	}
 
-	def static Issue addSuccessIssue(VerificationResult vr, EObject target, String message) {
-		addIssue(vr, IssueType.SUCCESS,target, message)
+	def static Diagnostic addSuccessIssue(VerificationResult vr, EObject target, String message) {
+		addIssue(vr, DiagnosticType.SUCCESS,target, message)
 	}
 
-	def static Issue addWarningIssue(VerificationResult vr, EObject target, String message) {
-		addIssue(vr, IssueType.WARNING,target, message)
+	def static Diagnostic addWarningIssue(VerificationResult vr, EObject target, String message) {
+		addIssue(vr, DiagnosticType.WARNING,target, message)
 	}
 
 
-	def static void doJUnitResults(Result rr, Issue ri) {
+	def static void doJUnitResults(Result rr, Diagnostic ri) {
 		val failist = rr.failures
 		failist.forEach [ failed |
 			ri.addFailIssue(null, failed.message)
@@ -311,21 +311,21 @@ class AssureUtilExtension {
 	}
 
 
-	def static Issue addIssue(Issue ri, IssueType type, EObject target, String message) {
-		val issue = ResultFactory.eINSTANCE.createIssue
+	def static Diagnostic addIssue(Diagnostic ri, DiagnosticType type, EObject target, String message) {
+		val issue = ResultFactory.eINSTANCE.createDiagnostic
 		issue.message = message
-		issue.issueType = type;
+		issue.type = type;
 		issue.sourceReference = target
 		ri.issues.add(issue)
 		issue
 	}
 
-	def static Issue addFailIssue(Issue ri, EObject target, String message) {
-		addIssue(ri, IssueType.FAIL, target, message)
+	def static Diagnostic addFailIssue(Diagnostic ri, EObject target, String message) {
+		addIssue(ri, DiagnosticType.FAILURE, target, message)
 	}
 
-	def static Issue addSuccessIssue(Issue ri, EObject target, String message) {
-		addIssue(ri, IssueType.SUCCESS, target, message)
+	def static Diagnostic addSuccessIssue(Diagnostic ri, EObject target, String message) {
+		addIssue(ri, DiagnosticType.SUCCESS, target, message)
 	}
 
 	def static getTotalCount(AssureResult ar) {
@@ -799,7 +799,7 @@ class AssureUtilExtension {
 			verificationActivityResult.propagateCountChangeUp
 	}
 
-	def static void setToSuccess(VerificationResult verificationActivityResult, List<Issue> rl) {
+	def static void setToSuccess(VerificationResult verificationActivityResult, List<Diagnostic> rl) {
 		verificationActivityResult.issues.addAll(rl);
 		if (verificationActivityResult.updateOwnResultState(VerificationResultState.SUCCESS))
 			verificationActivityResult.propagateCountChangeUp
@@ -835,7 +835,7 @@ class AssureUtilExtension {
 		verificationActivityResult.setToFail
 	}
 
-	def static void setToFail(VerificationResult verificationActivityResult, List<Issue> rl) {
+	def static void setToFail(VerificationResult verificationActivityResult, List<Diagnostic> rl) {
 		verificationActivityResult.issues.addAll(rl);
 		verificationActivityResult.setToFail
 	}
@@ -1283,7 +1283,7 @@ class AssureUtilExtension {
 		""
 	}
 
-	def static String constructMessage(Issue ri) {
+	def static String constructMessage(Diagnostic ri) {
 		if (ri.message !== null)
 			return ri.message + if(ri.exceptionType !== null) ( " [" + ri.exceptionType + "]" ) else ""
 		if(ri.exceptionType !== null) return ri.exceptionType

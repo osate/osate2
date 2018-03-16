@@ -54,9 +54,11 @@ import org.osate.assure.assure.VerificationExecutionState
 import org.osate.assure.assure.VerificationResult
 import org.osate.assure.util.AssureUtilExtension
 import org.osate.categories.categories.CategoryFilter
-import org.osate.result.IssueType
+import org.osate.result.DiagnosticType
 import org.osate.result.Result
 import org.osate.result.ResultFactory
+import org.osate.verify.util.ExecuteJavaUtil
+import org.osate.verify.util.ExecuteResoluteUtil
 import org.osate.verify.util.VerificationMethodDispatchers
 import org.osate.verify.verify.AgreeMethod
 import org.osate.verify.verify.FormalParameter
@@ -72,8 +74,6 @@ import static extension org.eclipse.emf.ecore.util.EcoreUtil.getURI
 import static extension org.osate.alisa.common.util.CommonUtilExtension.*
 import static extension org.osate.assure.util.AssureUtilExtension.*
 import static extension org.osate.verify.util.VerifyUtilExtension.*
-import org.osate.verify.util.ExecuteJavaUtil
-import org.osate.verify.util.ExecuteResoluteUtil
 
 @ImplementedBy(AssureProcessor)
 interface IAssureProcessor {
@@ -414,7 +414,7 @@ class AssureProcessor implements IAssureProcessor {
 					if (RESOLUTE_INSTALLED) {
 						val proveri = ExecuteResoluteUtil.eInstance.executeResoluteFunction(methodtype.methodReference,
 							instanceroot, targetComponent, parameterObjects)
-						if (proveri.issueType == IssueType.SUCCESS) {
+						if (proveri.type == DiagnosticType.SUCCESS) {
 							setToSuccess(verificationResult)
 						} else {
 							setToFail(verificationResult, proveri.issues)
@@ -452,7 +452,7 @@ class AssureProcessor implements IAssureProcessor {
 					if (result.failureCount == 0) {
 						setToSuccess(verificationResult)
 					} else {
-						val proveri = ResultFactory.eINSTANCE.createIssue
+						val proveri = ResultFactory.eINSTANCE.createDiagnostic
 						result.doJUnitResults(proveri)
 						setToFail(verificationResult, proveri.issues)
 					}
@@ -578,10 +578,10 @@ class AssureProcessor implements IAssureProcessor {
 				returned
 			} else if (returned instanceof Result) {
 //				verificationResult.resultReport = returned
-				if (returned.issues.empty) {
+				if (returned.diagnostics.empty) {
 					setToSuccess(verificationResult, "", target)
 				} else {
-					verificationResult.issues.addAll(returned.issues)
+					verificationResult.issues.addAll(returned.diagnostics)
 					setToFail(verificationResult, "", target)
 				}
 				new HashMap

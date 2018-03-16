@@ -205,17 +205,16 @@ NestedClaimReference:
 	requirement=[ReqSpec::Requirement|ID] ('.' sub=NestedClaimReference)?
 ;
 
-ResultIssue returns results::Issue:
-	issueType=ResultIssueType
+ResultIssue returns results::Diagnostic:
+	type=ResultIssueType
 	message=STRING
 	('source' sourceReference=[ecore::EObject|NoQuoteString])?
 	('exception' exceptionType = STRING)?
-	('diagnostic' diagnostic = STRING)?
 	('[' issues+=ResultIssue*']')?
 ;
 
 
-enum ResultIssueType returns results::IssueType:
-	NONE = 'none'| ERROR='error' |  WARNING='warning' | INFO='info' | SUCCESS='success' | FAIL='fail' 
+enum ResultIssueType returns results::DiagnosticType:
+	NONE = 'none'| ERROR='error' |  WARNING='warning' | INFO='info' | SUCCESS='success' | FAILURE='fail' 
 ;
 

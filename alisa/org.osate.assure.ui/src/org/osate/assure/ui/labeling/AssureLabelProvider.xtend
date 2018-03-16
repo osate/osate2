@@ -20,28 +20,30 @@
 package org.osate.assure.ui.labeling
 
 import com.google.inject.Inject
-import org.osate.assure.assure.ClaimResult
-import static extension org.osate.assure.util.AssureUtilExtension.*
-import org.osate.assure.assure.VerificationActivityResult
+import org.eclipse.emf.edit.ui.provider.AdapterFactoryLabelProvider
+import org.eclipse.xtext.ui.label.DefaultEObjectLabelProvider
 import org.osate.assure.assure.AssuranceCaseResult
-import org.osate.assure.assure.ValidationResult
-import org.osate.assure.assure.ThenResult
+import org.osate.assure.assure.ClaimResult
 import org.osate.assure.assure.ElseResult
-import org.osate.result.Issue
-import org.osate.result.IssueType
 import org.osate.assure.assure.ModelResult
-import org.osate.assure.assure.SubsystemResult
 import org.osate.assure.assure.PreconditionResult
+import org.osate.assure.assure.SubsystemResult
+import org.osate.assure.assure.ThenResult
+import org.osate.assure.assure.ValidationResult
+import org.osate.assure.assure.VerificationActivityResult
+import org.osate.result.Diagnostic
+
+import static extension org.osate.assure.util.AssureUtilExtension.*
 
 /**
  * Provides labels for a EObjects.
  * 
  * see http://www.eclipse.org/Xtext/documentation.html#labelProvider
  */
-class AssureLabelProvider extends org.eclipse.xtext.ui.label.DefaultEObjectLabelProvider {
+class AssureLabelProvider extends DefaultEObjectLabelProvider {
 
 	@Inject
-	new(org.eclipse.emf.edit.ui.provider.AdapterFactoryLabelProvider delegate) {
+	new(AdapterFactoryLabelProvider delegate) {
 		super(delegate);
 	}
 
@@ -81,7 +83,7 @@ class AssureLabelProvider extends org.eclipse.xtext.ui.label.DefaultEObjectLabel
 		+ ele.assureResultCounts
 	}
 	
-	def text(Issue ele) {
+	def text(Diagnostic ele) {
 		return "Issue "+(ele.sourceReference?.constructLabel?:"")+ ele.constructMessage
 	}
 	
@@ -92,13 +94,13 @@ class AssureLabelProvider extends org.eclipse.xtext.ui.label.DefaultEObjectLabel
 		'then: '+ ele.assureResultCounts
 	}
 
-	def image(Issue ele) {
-		switch(ele.issueType){
+	def image(Diagnostic ele) {
+		switch(ele.type){
 			case ERROR: 'error.png'
 			case SUCCESS: 'valid.png'
 			case WARNING: 'warning.png'
 			case INFO: 'info.png'
-			case FAIL: 'invalid.png'
+			case FAILURE: 'invalid.png'
 			case NONE: 'questionmark.png'
 		}
 	}

@@ -17,7 +17,7 @@ package org.osate.assure.assure;
 
 import org.eclipse.emf.common.util.EList;
 
-import org.osate.result.Issue;
+import org.osate.result.Diagnostic;
 import org.osate.result.Result;
 
 /**
@@ -102,7 +102,7 @@ public interface VerificationResult extends AssureResult, VerificationExpr
 
   /**
    * Returns the value of the '<em><b>Issues</b></em>' containment reference list.
-   * The list contents are of type {@link org.osate.result.Issue}.
+   * The list contents are of type {@link org.osate.result.Diagnostic}.
    * <!-- begin-user-doc -->
    * <p>
    * If the meaning of the '<em>Issues</em>' containment reference list isn't clear,
@@ -114,7 +114,7 @@ public interface VerificationResult extends AssureResult, VerificationExpr
    * @model containment="true"
    * @generated
    */
-  EList<Issue> getIssues();
+  EList<Diagnostic> getIssues();
 
   /**
    * Returns the value of the '<em><b>Results</b></em>' reference.

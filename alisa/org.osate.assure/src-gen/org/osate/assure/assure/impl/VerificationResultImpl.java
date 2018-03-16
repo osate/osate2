@@ -35,7 +35,7 @@ import org.osate.assure.assure.VerificationExecutionState;
 import org.osate.assure.assure.VerificationResult;
 import org.osate.assure.assure.VerificationResultState;
 
-import org.osate.result.Issue;
+import org.osate.result.Diagnostic;
 import org.osate.result.Result;
 
 /**
@@ -105,7 +105,7 @@ public class VerificationResultImpl extends AssureResultImpl implements Verifica
    * @generated
    * @ordered
    */
-  protected EList<Issue> issues;
+  protected EList<Diagnostic> issues;
 
   /**
    * The cached value of the '{@link #getResults() <em>Results</em>}' reference.
@@ -209,11 +209,11 @@ public class VerificationResultImpl extends AssureResultImpl implements Verifica
    * <!-- end-user-doc -->
    * @generated
    */
-  public EList<Issue> getIssues()
+  public EList<Diagnostic> getIssues()
   {
     if (issues == null)
     {
-      issues = new EObjectContainmentEList<Issue>(Issue.class, this, AssurePackage.VERIFICATION_RESULT__ISSUES);
+      issues = new EObjectContainmentEList<Diagnostic>(Diagnostic.class, this, AssurePackage.VERIFICATION_RESULT__ISSUES);
     }
     return issues;
   }
@@ -344,7 +344,7 @@ public class VerificationResultImpl extends AssureResultImpl implements Verifica
         return;
       case AssurePackage.VERIFICATION_RESULT__ISSUES:
         getIssues().clear();
-        getIssues().addAll((Collection<? extends Issue>)newValue);
+        getIssues().addAll((Collection<? extends Diagnostic>)newValue);
         return;
       case AssurePackage.VERIFICATION_RESULT__RESULTS:
         setResults((Result)newValue);

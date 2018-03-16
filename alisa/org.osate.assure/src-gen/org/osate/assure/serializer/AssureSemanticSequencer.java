@@ -71,7 +71,7 @@ import org.osate.assure.assure.ThenResult;
 import org.osate.assure.assure.ValidationResult;
 import org.osate.assure.assure.VerificationActivityResult;
 import org.osate.assure.services.AssureGrammarAccess;
-import org.osate.result.Issue;
+import org.osate.result.Diagnostic;
 import org.osate.result.ResultPackage;
 
 @SuppressWarnings("all")
@@ -269,8 +269,8 @@ public class AssureSemanticSequencer extends CommonSemanticSequencer {
 			}
 		else if (epackage == ResultPackage.eINSTANCE)
 			switch (semanticObject.eClass().getClassifierID()) {
-			case ResultPackage.ISSUE:
-				sequence_ResultIssue(context, (Issue) semanticObject); 
+			case ResultPackage.DIAGNOSTIC:
+				sequence_ResultIssue(context, (Diagnostic) semanticObject); 
 				return; 
 			}
 		if (errorAcceptor != null)
@@ -490,19 +490,12 @@ public class AssureSemanticSequencer extends CommonSemanticSequencer {
 	
 	/**
 	 * Contexts:
-	 *     ResultIssue returns Issue
+	 *     ResultIssue returns Diagnostic
 	 *
 	 * Constraint:
-	 *     (
-	 *         issueType=ResultIssueType 
-	 *         message=STRING 
-	 *         sourceReference=[EObject|NoQuoteString]? 
-	 *         exceptionType=STRING? 
-	 *         diagnostic=STRING? 
-	 *         issues+=ResultIssue*
-	 *     )
+	 *     (type=ResultIssueType message=STRING sourceReference=[EObject|NoQuoteString]? exceptionType=STRING? issues+=ResultIssue*)
 	 */
-	protected void sequence_ResultIssue(ISerializationContext context, Issue semanticObject) {
+	protected void sequence_ResultIssue(ISerializationContext context, Diagnostic semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	
