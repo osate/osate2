@@ -31,7 +31,7 @@ public interface StringValue extends Value {
 	 * @return the value of the '<em>Value</em>' attribute.
 	 * @see #setValue(String)
 	 * @see org.osate.result.ResultPackage#getStringValue_Value()
-	 * @model
+	 * @model required="true"
 	 * @generated
 	 */
 	String getValue();
