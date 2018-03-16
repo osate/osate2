@@ -42,6 +42,7 @@ import org.osate.ge.internal.services.NamingService;
 import org.osate.ge.internal.ui.dialogs.ModeTransitionTriggerSelectionDialog;
 import org.osate.ge.internal.ui.dialogs.ModeTransitionTriggerSelectionDialog.ModeTransitionTriggerInfo;
 import org.osate.ge.internal.util.AadlInheritanceUtil;
+import org.osate.ge.internal.util.EditingUtil;
 import org.osate.ge.internal.util.ImageHelper;
 import org.osate.ge.operations.Operation;
 import org.osate.ge.operations.StepResult;
@@ -142,8 +143,8 @@ public class ModeTransitionHandler {
 		}
 
 		// Determine which classifier should own the new element
-		final ComponentClassifier selectedClassifier = (ComponentClassifier) ClassifierEditingUtil
-				.getClassifierToModify(getPotentialOwners(srcBoc, dstBoc, queryService));
+		final ComponentClassifier selectedClassifier = (ComponentClassifier) EditingUtil
+				.getBusinessObjectToModify(getPotentialOwners(srcBoc, dstBoc, queryService));
 		if (selectedClassifier == null) {
 			return null;
 		}
@@ -214,7 +215,7 @@ public class ModeTransitionHandler {
 
 		final Element bo = (Element) containerBoc.getBusinessObject();
 
-		return ClassifierEditingUtil.getPotentialComponentClassifiers(bo).stream()
+		return EditingUtil.getPotentialComponentClassifiers(bo).stream()
 				.filter(tmpBo -> tmpBo instanceof ComponentClassifier
 						&& !(((ComponentClassifier) tmpBo).isDerivedModes()))
 				.filter(cc -> hasModeWithName(cc, modeName)).collect(Collectors.toList());

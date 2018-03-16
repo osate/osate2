@@ -33,7 +33,6 @@ import org.osate.aadl2.SubprogramProxy;
 import org.osate.aadl2.modelsupport.util.ResolvePrototypeUtil;
 import org.osate.ge.BusinessObjectContext;
 import org.osate.ge.Categories;
-import org.osate.ge.ClassifierSelectionOperationBuilder;
 import org.osate.ge.DockingPosition;
 import org.osate.ge.GraphicalConfiguration;
 import org.osate.ge.GraphicalConfigurationBuilder;
@@ -63,6 +62,7 @@ import org.osate.ge.internal.util.AadlPrototypeUtil;
 import org.osate.ge.internal.util.ImageHelper;
 import org.osate.ge.internal.util.StringUtil;
 import org.osate.ge.operations.Operation;
+import org.osate.ge.operations.OperationBuilderHelper;
 import org.osate.ge.operations.StepResultBuilder;
 import org.osate.ge.services.QueryService;
 
@@ -94,8 +94,8 @@ public class FeatureHandler {
 				.build();
 	}
 
-	private static ClassifierSelectionOperationBuilder<Classifier> getClassifierOpBuilder(final EClass featureType) {
-		return ClassifierSelectionOperationBuilder.classifiers()
+	private static OperationBuilderHelper<Classifier> getClassifierOpBuilder(final EClass featureType) {
+		return OperationBuilderHelper.classifiers()
 				.filter(c -> AadlFeatureUtil.canOwnFeatureType(c, featureType));
 	}
 

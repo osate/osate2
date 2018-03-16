@@ -13,7 +13,6 @@ import org.osate.aadl2.Element;
 import org.osate.aadl2.Subcomponent;
 import org.osate.ge.BusinessObjectContext;
 import org.osate.ge.Categories;
-import org.osate.ge.ClassifierSelectionOperationBuilder;
 import org.osate.ge.GraphicalConfiguration;
 import org.osate.ge.GraphicalConfigurationBuilder;
 import org.osate.ge.PaletteEntry;
@@ -40,6 +39,7 @@ import org.osate.ge.internal.util.AadlSubcomponentUtil;
 import org.osate.ge.internal.util.ImageHelper;
 import org.osate.ge.internal.util.StringUtil;
 import org.osate.ge.operations.Operation;
+import org.osate.ge.operations.OperationBuilderHelper;
 import org.osate.ge.operations.StepResultBuilder;
 import org.osate.ge.services.QueryService;
 
@@ -128,9 +128,9 @@ public class SubcomponentHandler {
 		return paletteEntries.toArray(new PaletteEntry[paletteEntries.size()]);
 	}
 
-	private static ClassifierSelectionOperationBuilder<ComponentImplementation> getClassifierOpBuilder(
+	private static OperationBuilderHelper<ComponentImplementation> getClassifierOpBuilder(
 			final EClass subcomponentType) {
-		return ClassifierSelectionOperationBuilder.componentImplementations()
+		return OperationBuilderHelper.componentImplementations()
 				.filter(ci -> AadlSubcomponentUtil.canContainSubcomponentType(ci, subcomponentType));
 	}
 

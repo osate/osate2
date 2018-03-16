@@ -15,7 +15,6 @@ import org.osate.aadl2.SubprogramCall;
 import org.osate.aadl2.SubprogramCallSequence;
 import org.osate.ge.BusinessObjectContext;
 import org.osate.ge.Categories;
-import org.osate.ge.ClassifierSelectionOperationBuilder;
 import org.osate.ge.GraphicalConfiguration;
 import org.osate.ge.GraphicalConfigurationBuilder;
 import org.osate.ge.PaletteEntry;
@@ -41,6 +40,7 @@ import org.osate.ge.internal.util.AadlHelper;
 import org.osate.ge.internal.util.AadlInheritanceUtil;
 import org.osate.ge.internal.util.ImageHelper;
 import org.osate.ge.operations.Operation;
+import org.osate.ge.operations.OperationBuilderHelper;
 import org.osate.ge.operations.StepResult;
 import org.osate.ge.operations.StepResultBuilder;
 
@@ -88,8 +88,8 @@ public class SubprogramCallSequenceHandler {
 		return namingService.checkNameValidity(cs, value);
 	}
 
-	private static ClassifierSelectionOperationBuilder<ComponentImplementation> getClassifierOpBuilder() {
-		return ClassifierSelectionOperationBuilder.componentImplementations()
+	private static OperationBuilderHelper<ComponentImplementation> getClassifierOpBuilder() {
+		return OperationBuilderHelper.componentImplementations()
 				.filter(ci -> ci instanceof BehavioredImplementation);
 	}
 

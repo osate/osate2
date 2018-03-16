@@ -32,7 +32,6 @@ import org.osate.aadl2.SubprogramCall;
 import org.osate.aadl2.SubprogramGroupAccess;
 import org.osate.ge.BusinessObjectContext;
 import org.osate.ge.Categories;
-import org.osate.ge.ClassifierSelectionOperationBuilder;
 import org.osate.ge.GraphicalConfiguration;
 import org.osate.ge.GraphicalConfigurationBuilder;
 import org.osate.ge.PaletteEntry;
@@ -59,6 +58,7 @@ import org.osate.ge.internal.util.AadlInheritanceUtil;
 import org.osate.ge.internal.util.ImageHelper;
 import org.osate.ge.internal.util.StringUtil;
 import org.osate.ge.operations.Operation;
+import org.osate.ge.operations.OperationBuilderHelper;
 import org.osate.ge.operations.StepResultBuilder;
 import org.osate.ge.query.StandaloneQuery;
 import org.osate.ge.services.QueryService;
@@ -201,8 +201,8 @@ public class ConnectionHandler {
 		return true;
 	}
 
-	private static ClassifierSelectionOperationBuilder<ComponentImplementation> getClassifierOpBuilder() {
-		return ClassifierSelectionOperationBuilder.componentImplementations();
+	private static OperationBuilderHelper<ComponentImplementation> getClassifierOpBuilder() {
+		return OperationBuilderHelper.componentImplementations();
 	}
 
 	@CanCreate
