@@ -62,7 +62,11 @@
 		<topic label="Diagram Layout" href="docs-gen/user_guide.html#diagram-layout">
 			<topic label="Layout Commands" href="docs-gen/user_guide.html#layout-commands">
 			</topic>
-			<topic label="Incremental Layout" href="docs-gen/user_guide.html#incremental-layout">
+			<topic label="Layout Preferences" href="docs-gen/user_guide.html#layout-preferences">
+				<topic label="Incremental Layout" href="docs-gen/user_guide.html#incremental-layout">
+				</topic>
+				<topic label="Layout Feature Based on Direction" href="docs-gen/user_guide.html#layout-feature-based-on-direction">
+				</topic>
 			</topic>
 			<topic label="Known Layout Issues and Limitations" href="docs-gen/user_guide.html#known-layout-issues-and-limitations">
 			</topic>
