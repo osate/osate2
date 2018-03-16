@@ -16,8 +16,8 @@ import org.osate.analysis.flows.preferences.Values;
 import org.osate.analysis.flows.reporting.model.Line;
 import org.osate.analysis.flows.reporting.model.ReportSeverity;
 import org.osate.result.Contributor;
-import org.osate.result.Issue;
-import org.osate.result.IssueType;
+import org.osate.result.Diagnostic;
+import org.osate.result.DiagnosticType;
 import org.osate.result.ResultFactory;
 
 /**
@@ -92,7 +92,7 @@ public abstract class LatencyContributor {
 	 */
 	private double samplingPeriod;
 
-	List<Issue> issues;
+	List<Diagnostic> issues;
 
 	/**
 	 * Sampling of incoming communication is synchronous
@@ -137,49 +137,49 @@ public abstract class LatencyContributor {
 		this.partitionOffset = 0.0;
 		this.partitionDuration = 0.0;
 		this.subContributors = new ArrayList<LatencyContributor>();
-		this.issues = new ArrayList<Issue>();
+		this.issues = new ArrayList<Diagnostic>();
 		this.maxSubtotal = 0.0;
 		this.minSubtotal = 0.0;
 	}
 
-	protected List<Issue> getReportedIssues() {
+	protected List<Diagnostic> getReportedIssues() {
 		return this.issues;
 	}
 
 	public void reportError(String str) {
-		issues.add(createIssue(str, this.relatedElement, IssueType.ERROR));
+		issues.add(createIssue(str, this.relatedElement, DiagnosticType.ERROR));
 	}
 
 	public void reportSuccess(String str) {
-		issues.add(createIssue(str, this.relatedElement, IssueType.SUCCESS));
+		issues.add(createIssue(str, this.relatedElement, DiagnosticType.SUCCESS));
 	}
 
 	public void reportInfo(String str) {
-		issues.add(createIssue(str, this.relatedElement, IssueType.INFO));
+		issues.add(createIssue(str, this.relatedElement, DiagnosticType.INFO));
 	}
 
 	public void reportWarning(String str) {
-		issues.add(createIssue(str, this.relatedElement, IssueType.WARNING));
+		issues.add(createIssue(str, this.relatedElement, DiagnosticType.WARNING));
 	}
 
 	public void reportError(boolean doMaximum, String str) {
 		issues.add(createIssue(FlowLatencyUtil.getMinMaxLabel(doMaximum) + str,
-				this.relatedElement, IssueType.ERROR));
+				this.relatedElement, DiagnosticType.ERROR));
 	}
 
 	public void reportSuccess(boolean doMaximum, String str) {
 		issues.add(createIssue(FlowLatencyUtil.getMinMaxLabel(doMaximum) + str,
-				this.relatedElement, IssueType.SUCCESS));
+				this.relatedElement, DiagnosticType.SUCCESS));
 	}
 
 	public void reportInfo(boolean doMaximum, String str) {
 		issues.add(createIssue(FlowLatencyUtil.getMinMaxLabel(doMaximum) + str,
-				this.relatedElement, IssueType.INFO));
+				this.relatedElement, DiagnosticType.INFO));
 	}
 
 	public void reportWarning(boolean doMaximum, String str) {
 		issues.add(createIssue(FlowLatencyUtil.getMinMaxLabel(doMaximum) + str,
-				this.relatedElement, IssueType.WARNING));
+				this.relatedElement, DiagnosticType.WARNING));
 	}
 
 	public void reportErrorOnce(boolean doMaximum, String str) {
@@ -575,15 +575,15 @@ public abstract class LatencyContributor {
 	}
 
 	public void generateMarkers(AnalysisErrorReporterManager errManager) {
-		List<Issue> doIssues = this.getReportedIssues();
-		for (Issue reportedCell : doIssues) {
-			if (reportedCell.getIssueType() == IssueType.INFO) {
+		List<Diagnostic> doIssues = this.getReportedIssues();
+		for (Diagnostic reportedCell : doIssues) {
+			if (reportedCell.getType() == DiagnosticType.INFO) {
 				errManager.info(this.relatedElement, reportedCell.getMessage());
-			} else if (reportedCell.getIssueType() == IssueType.SUCCESS) {
+			} else if (reportedCell.getType() == DiagnosticType.SUCCESS) {
 				errManager.info(this.relatedElement, getRelatedObjectLabel() + reportedCell.getMessage());
-			} else if (reportedCell.getIssueType() == IssueType.WARNING) {
+			} else if (reportedCell.getType() == DiagnosticType.WARNING) {
 				errManager.warning(this.relatedElement, getRelatedObjectLabel() + reportedCell.getMessage());
-			} else if (reportedCell.getIssueType() == IssueType.ERROR) {
+			} else if (reportedCell.getType() == DiagnosticType.ERROR) {
 				errManager.error(this.relatedElement, getRelatedObjectLabel() + reportedCell.getMessage());
 			}
 		}
@@ -597,7 +597,7 @@ public abstract class LatencyContributor {
 
 		Contributor result = ResultFactory.eINSTANCE.createContributor();
 		result.setSourceReference(relatedElement);
-		result.getIssues().addAll(issues);
+		result.getDiagnostics().addAll(issues);
 		addRealValue(result, minValue);
 		addRealValue(result, maxValue);
 		addRealValue(result, expectedMin);

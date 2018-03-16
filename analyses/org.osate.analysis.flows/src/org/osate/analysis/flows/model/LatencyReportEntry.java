@@ -20,8 +20,8 @@ import org.osate.analysis.flows.reporting.model.Line;
 import org.osate.analysis.flows.reporting.model.ReportSeverity;
 import org.osate.analysis.flows.reporting.model.ReportedCell;
 import org.osate.analysis.flows.reporting.model.Section;
-import org.osate.result.Issue;
-import org.osate.result.IssueType;
+import org.osate.result.Diagnostic;
+import org.osate.result.DiagnosticType;
 import org.osate.result.Result;
 import org.osate.result.util.ResultUtil;
 import org.osate.xtext.aadl2.properties.util.GetProperties;
@@ -36,7 +36,7 @@ public class LatencyReportEntry {
 
 	List<LatencyContributor> contributors;
 	EndToEndFlowInstance relatedEndToEndFlow;
-	List<Issue> issues;
+	List<Diagnostic> issues;
 	// lastSampled may be a task, partition if no tasks inside the partition, sampling bus, or a sampling device/system
 	LatencyContributor lastSampled = null;
 	SystemOperationMode som = null;
@@ -489,7 +489,7 @@ public class LatencyReportEntry {
 		Line line;
 		String sectionName;
 
-		issues = new ArrayList<Issue>();
+		issues = new ArrayList<Diagnostic>();
 
 		if (relatedEndToEndFlow != null) {
 			sectionName = relatedEndToEndFlow.getComponentInstancePath();
@@ -629,10 +629,10 @@ public class LatencyReportEntry {
 			line = new Line();
 			line.addHeaderContent("End to end Latency Summary");
 			section.addLine(line);
-			for (Issue issue : issues) {
+			for (Diagnostic issue : issues) {
 				line = new Line();
 				String msg = issue.getMessage();
-				ReportedCell issueLabel = new ReportedCell(issue.getIssueType(), issue.getIssueType().toString());
+				ReportedCell issueLabel = new ReportedCell(issue.getType(), issue.getType().toString());
 				line.addCell(issueLabel);
 				line.addContent(msg);
 				section.addLine(line);
@@ -655,15 +655,15 @@ public class LatencyReportEntry {
 	}
 
 	public void generateMarkers(AnalysisErrorReporterManager errManager) {
-		List<Issue> doIssues = this.issues;
-		for (Issue reportedCell : doIssues) {
-			if (reportedCell.getIssueType() == IssueType.INFO) {
+		List<Diagnostic> doIssues = this.issues;
+		for (Diagnostic reportedCell : doIssues) {
+			if (reportedCell.getType() == DiagnosticType.INFO) {
 				errManager.info(this.relatedEndToEndFlow, reportedCell.getMessage());
-			} else if (reportedCell.getIssueType() == IssueType.SUCCESS) {
+			} else if (reportedCell.getType() == DiagnosticType.SUCCESS) {
 				errManager.info(this.relatedEndToEndFlow, getRelatedObjectLabel() + reportedCell.getMessage());
-			} else if (reportedCell.getIssueType() == IssueType.WARNING) {
+			} else if (reportedCell.getType() == DiagnosticType.WARNING) {
 				errManager.warning(this.relatedEndToEndFlow, getRelatedObjectLabel() + reportedCell.getMessage());
-			} else if (reportedCell.getIssueType() == IssueType.ERROR) {
+			} else if (reportedCell.getType() == DiagnosticType.ERROR) {
 				errManager.error(this.relatedEndToEndFlow, getRelatedObjectLabel() + reportedCell.getMessage());
 			}
 		}
@@ -672,7 +672,7 @@ public class LatencyReportEntry {
 	public Result genResult() {
 		String reportName;
 
-		issues = new ArrayList<Issue>();
+		issues = new ArrayList<Diagnostic>();
 
 		if (relatedEndToEndFlow != null) {
 			reportName = relatedEndToEndFlow.getComponentInstancePath();
@@ -757,7 +757,7 @@ public class LatencyReportEntry {
 		} else {
 			reportSummaryWarning("Expected end to end latency is not specified");
 		}
-		result.getIssues().addAll(issues);
+		result.getDiagnostics().addAll(issues);
 
 		for (LatencyContributor latencyContributor : contributors) {
 			result.getContributors().add(latencyContributor.genResult());

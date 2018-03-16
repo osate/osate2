@@ -15,9 +15,6 @@ import org.osate.result.util.ResultUtil;
  * produced by the latency analysis. It contains several
  * LatencyReportEntry, each one representing
  * an end to end flow latency.
- *
- * @author julien
- *
  */
 public class LatencyReport {
 	private List<LatencyReportEntry> entries;
@@ -79,7 +76,7 @@ public class LatencyReport {
 		Result latencyReports = ResultUtil.createResult(this.name,
 				this.relatedInstance);
 		latencyReports.setAnalysis("Latency analysis");
-		latencyReports.setSource(getPreferencesDescription());
+		latencyReports.setInfo(getPreferencesDescription());
 		for (LatencyReportEntry re : entries) {
 			latencyReports.getSubResults().add(re.genResult());
 		}

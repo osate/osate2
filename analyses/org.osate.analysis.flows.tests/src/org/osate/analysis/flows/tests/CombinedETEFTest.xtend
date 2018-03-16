@@ -52,7 +52,7 @@ class CombinedETEFTest extends OsateTest {
 		assertTrue((resab.values.get(5) as RealValue).value == (0.0))
 		assertTrue((resab.values.get(6) as RealValue).value == (0.0))
 		resab.contributors.size.assertEquals(3)
-		resab.issues.size.assertEquals(1)
+		resab.diagnostics.size.assertEquals(1)
 
 		val rescd = latencyresult.subResults.get(1)
 		assertTrue((rescd.values.get(1) as RealValue).value == (20.0))
@@ -62,7 +62,7 @@ class CombinedETEFTest extends OsateTest {
 		assertTrue((rescd.values.get(5) as RealValue).value == (0.0))
 		assertTrue((rescd.values.get(6) as RealValue).value == (0.0))
 		rescd.contributors.size.assertEquals(3)
-		rescd.issues.size.assertEquals(1)
+		rescd.diagnostics.size.assertEquals(1)
 
 		val restotal = latencyresult.subResults.get(2)
 		assertTrue((restotal.values.get(1) as RealValue).value == (40.0))
@@ -72,7 +72,7 @@ class CombinedETEFTest extends OsateTest {
 		assertTrue((restotal.values.get(5) as RealValue).value == (20.0))
 		assertTrue((restotal.values.get(6) as RealValue).value == (30.0))
 		restotal.contributors.size.assertEquals(7)
-		restotal.issues.size.assertEquals(4)
+		restotal.diagnostics.size.assertEquals(4)
 
 	}
 
