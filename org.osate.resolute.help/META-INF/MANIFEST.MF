@@ -1,6 +1,0 @@
-Manifest-Version: 1.0
-Bundle-ManifestVersion: 2
-Bundle-Name: Resolute Help
-Bundle-SymbolicName: org.osate.resolute.help;singleton:=true
-Bundle-Version: 1.0.0.qualifier
-Bundle-Vendor: CMU/SEI
