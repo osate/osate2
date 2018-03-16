@@ -59,7 +59,7 @@ public class ResultFactoryImpl extends EFactoryImpl implements ResultFactory {
 		switch (eClass.getClassifierID()) {
 			case ResultPackage.RESULT: return createResult();
 			case ResultPackage.CONTRIBUTOR: return createContributor();
-			case ResultPackage.ISSUE: return createIssue();
+			case ResultPackage.DIAGNOSTIC: return createDiagnostic();
 			case ResultPackage.INTEGER_VALUE: return createIntegerValue();
 			case ResultPackage.REAL_VALUE: return createRealValue();
 			case ResultPackage.STRING_VALUE: return createStringValue();
@@ -77,8 +77,8 @@ public class ResultFactoryImpl extends EFactoryImpl implements ResultFactory {
 	@Override
 	public Object createFromString(EDataType eDataType, String initialValue) {
 		switch (eDataType.getClassifierID()) {
-			case ResultPackage.ISSUE_TYPE:
-				return createIssueTypeFromString(eDataType, initialValue);
+			case ResultPackage.DIAGNOSTIC_TYPE:
+				return createDiagnosticTypeFromString(eDataType, initialValue);
 			default:
 				throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier");
 		}
@@ -92,8 +92,8 @@ public class ResultFactoryImpl extends EFactoryImpl implements ResultFactory {
 	@Override
 	public String convertToString(EDataType eDataType, Object instanceValue) {
 		switch (eDataType.getClassifierID()) {
-			case ResultPackage.ISSUE_TYPE:
-				return convertIssueTypeToString(eDataType, instanceValue);
+			case ResultPackage.DIAGNOSTIC_TYPE:
+				return convertDiagnosticTypeToString(eDataType, instanceValue);
 			default:
 				throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier");
 		}
@@ -124,9 +124,9 @@ public class ResultFactoryImpl extends EFactoryImpl implements ResultFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public Issue createIssue() {
-		IssueImpl issue = new IssueImpl();
-		return issue;
+	public Diagnostic createDiagnostic() {
+		DiagnosticImpl diagnostic = new DiagnosticImpl();
+		return diagnostic;
 	}
 
 	/**
@@ -174,8 +174,8 @@ public class ResultFactoryImpl extends EFactoryImpl implements ResultFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public IssueType createIssueTypeFromString(EDataType eDataType, String initialValue) {
-		IssueType result = IssueType.get(initialValue);
+	public DiagnosticType createDiagnosticTypeFromString(EDataType eDataType, String initialValue) {
+		DiagnosticType result = DiagnosticType.get(initialValue);
 		if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
 		return result;
 	}
@@ -185,7 +185,7 @@ public class ResultFactoryImpl extends EFactoryImpl implements ResultFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public String convertIssueTypeToString(EDataType eDataType, Object instanceValue) {
+	public String convertDiagnosticTypeToString(EDataType eDataType, Object instanceValue) {
 		return instanceValue == null ? null : instanceValue.toString();
 	}
 

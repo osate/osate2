@@ -20,7 +20,7 @@ import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 
 import org.osate.result.Contributor;
-import org.osate.result.Issue;
+import org.osate.result.Diagnostic;
 import org.osate.result.ResultPackage;
 import org.osate.result.Value;
 
@@ -32,10 +32,10 @@ import org.osate.result.Value;
  * The following features are implemented:
  * </p>
  * <ul>
- *   <li>{@link org.osate.result.impl.ContributorImpl#getSource <em>Source</em>}</li>
+ *   <li>{@link org.osate.result.impl.ContributorImpl#getInfo <em>Info</em>}</li>
  *   <li>{@link org.osate.result.impl.ContributorImpl#getSourceReference <em>Source Reference</em>}</li>
  *   <li>{@link org.osate.result.impl.ContributorImpl#getValues <em>Values</em>}</li>
- *   <li>{@link org.osate.result.impl.ContributorImpl#getIssues <em>Issues</em>}</li>
+ *   <li>{@link org.osate.result.impl.ContributorImpl#getDiagnostics <em>Diagnostics</em>}</li>
  *   <li>{@link org.osate.result.impl.ContributorImpl#getSubContributors <em>Sub Contributors</em>}</li>
  * </ul>
  *
@@ -43,24 +43,24 @@ import org.osate.result.Value;
  */
 public class ContributorImpl extends MinimalEObjectImpl.Container implements Contributor {
 	/**
-	 * The default value of the '{@link #getSource() <em>Source</em>}' attribute.
+	 * The default value of the '{@link #getInfo() <em>Info</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getSource()
+	 * @see #getInfo()
 	 * @generated
 	 * @ordered
 	 */
-	protected static final String SOURCE_EDEFAULT = null;
+	protected static final String INFO_EDEFAULT = null;
 
 	/**
-	 * The cached value of the '{@link #getSource() <em>Source</em>}' attribute.
+	 * The cached value of the '{@link #getInfo() <em>Info</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getSource()
+	 * @see #getInfo()
 	 * @generated
 	 * @ordered
 	 */
-	protected String source = SOURCE_EDEFAULT;
+	protected String info = INFO_EDEFAULT;
 
 	/**
 	 * The cached value of the '{@link #getSourceReference() <em>Source Reference</em>}' reference.
@@ -83,14 +83,14 @@ public class ContributorImpl extends MinimalEObjectImpl.Container implements Con
 	protected EList<Value> values;
 
 	/**
-	 * The cached value of the '{@link #getIssues() <em>Issues</em>}' containment reference list.
+	 * The cached value of the '{@link #getDiagnostics() <em>Diagnostics</em>}' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getIssues()
+	 * @see #getDiagnostics()
 	 * @generated
 	 * @ordered
 	 */
-	protected EList<Issue> issues;
+	protected EList<Diagnostic> diagnostics;
 
 	/**
 	 * The cached value of the '{@link #getSubContributors() <em>Sub Contributors</em>}' containment reference list.
@@ -126,8 +126,8 @@ public class ContributorImpl extends MinimalEObjectImpl.Container implements Con
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public String getSource() {
-		return source;
+	public String getInfo() {
+		return info;
 	}
 
 	/**
@@ -135,11 +135,11 @@ public class ContributorImpl extends MinimalEObjectImpl.Container implements Con
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setSource(String newSource) {
-		String oldSource = source;
-		source = newSource;
+	public void setInfo(String newInfo) {
+		String oldInfo = info;
+		info = newInfo;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, ResultPackage.CONTRIBUTOR__SOURCE, oldSource, source));
+			eNotify(new ENotificationImpl(this, Notification.SET, ResultPackage.CONTRIBUTOR__INFO, oldInfo, info));
 	}
 
 	/**
@@ -197,11 +197,11 @@ public class ContributorImpl extends MinimalEObjectImpl.Container implements Con
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EList<Issue> getIssues() {
-		if (issues == null) {
-			issues = new EObjectContainmentEList<Issue>(Issue.class, this, ResultPackage.CONTRIBUTOR__ISSUES);
+	public EList<Diagnostic> getDiagnostics() {
+		if (diagnostics == null) {
+			diagnostics = new EObjectContainmentEList<Diagnostic>(Diagnostic.class, this, ResultPackage.CONTRIBUTOR__DIAGNOSTICS);
 		}
-		return issues;
+		return diagnostics;
 	}
 
 	/**
@@ -226,8 +226,8 @@ public class ContributorImpl extends MinimalEObjectImpl.Container implements Con
 		switch (featureID) {
 			case ResultPackage.CONTRIBUTOR__VALUES:
 				return ((InternalEList<?>)getValues()).basicRemove(otherEnd, msgs);
-			case ResultPackage.CONTRIBUTOR__ISSUES:
-				return ((InternalEList<?>)getIssues()).basicRemove(otherEnd, msgs);
+			case ResultPackage.CONTRIBUTOR__DIAGNOSTICS:
+				return ((InternalEList<?>)getDiagnostics()).basicRemove(otherEnd, msgs);
 			case ResultPackage.CONTRIBUTOR__SUB_CONTRIBUTORS:
 				return ((InternalEList<?>)getSubContributors()).basicRemove(otherEnd, msgs);
 		}
@@ -242,15 +242,15 @@ public class ContributorImpl extends MinimalEObjectImpl.Container implements Con
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-			case ResultPackage.CONTRIBUTOR__SOURCE:
-				return getSource();
+			case ResultPackage.CONTRIBUTOR__INFO:
+				return getInfo();
 			case ResultPackage.CONTRIBUTOR__SOURCE_REFERENCE:
 				if (resolve) return getSourceReference();
 				return basicGetSourceReference();
 			case ResultPackage.CONTRIBUTOR__VALUES:
 				return getValues();
-			case ResultPackage.CONTRIBUTOR__ISSUES:
-				return getIssues();
+			case ResultPackage.CONTRIBUTOR__DIAGNOSTICS:
+				return getDiagnostics();
 			case ResultPackage.CONTRIBUTOR__SUB_CONTRIBUTORS:
 				return getSubContributors();
 		}
@@ -266,8 +266,8 @@ public class ContributorImpl extends MinimalEObjectImpl.Container implements Con
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-			case ResultPackage.CONTRIBUTOR__SOURCE:
-				setSource((String)newValue);
+			case ResultPackage.CONTRIBUTOR__INFO:
+				setInfo((String)newValue);
 				return;
 			case ResultPackage.CONTRIBUTOR__SOURCE_REFERENCE:
 				setSourceReference((EObject)newValue);
@@ -276,9 +276,9 @@ public class ContributorImpl extends MinimalEObjectImpl.Container implements Con
 				getValues().clear();
 				getValues().addAll((Collection<? extends Value>)newValue);
 				return;
-			case ResultPackage.CONTRIBUTOR__ISSUES:
-				getIssues().clear();
-				getIssues().addAll((Collection<? extends Issue>)newValue);
+			case ResultPackage.CONTRIBUTOR__DIAGNOSTICS:
+				getDiagnostics().clear();
+				getDiagnostics().addAll((Collection<? extends Diagnostic>)newValue);
 				return;
 			case ResultPackage.CONTRIBUTOR__SUB_CONTRIBUTORS:
 				getSubContributors().clear();
@@ -296,8 +296,8 @@ public class ContributorImpl extends MinimalEObjectImpl.Container implements Con
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-			case ResultPackage.CONTRIBUTOR__SOURCE:
-				setSource(SOURCE_EDEFAULT);
+			case ResultPackage.CONTRIBUTOR__INFO:
+				setInfo(INFO_EDEFAULT);
 				return;
 			case ResultPackage.CONTRIBUTOR__SOURCE_REFERENCE:
 				setSourceReference((EObject)null);
@@ -305,8 +305,8 @@ public class ContributorImpl extends MinimalEObjectImpl.Container implements Con
 			case ResultPackage.CONTRIBUTOR__VALUES:
 				getValues().clear();
 				return;
-			case ResultPackage.CONTRIBUTOR__ISSUES:
-				getIssues().clear();
+			case ResultPackage.CONTRIBUTOR__DIAGNOSTICS:
+				getDiagnostics().clear();
 				return;
 			case ResultPackage.CONTRIBUTOR__SUB_CONTRIBUTORS:
 				getSubContributors().clear();
@@ -323,14 +323,14 @@ public class ContributorImpl extends MinimalEObjectImpl.Container implements Con
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-			case ResultPackage.CONTRIBUTOR__SOURCE:
-				return SOURCE_EDEFAULT == null ? source != null : !SOURCE_EDEFAULT.equals(source);
+			case ResultPackage.CONTRIBUTOR__INFO:
+				return INFO_EDEFAULT == null ? info != null : !INFO_EDEFAULT.equals(info);
 			case ResultPackage.CONTRIBUTOR__SOURCE_REFERENCE:
 				return sourceReference != null;
 			case ResultPackage.CONTRIBUTOR__VALUES:
 				return values != null && !values.isEmpty();
-			case ResultPackage.CONTRIBUTOR__ISSUES:
-				return issues != null && !issues.isEmpty();
+			case ResultPackage.CONTRIBUTOR__DIAGNOSTICS:
+				return diagnostics != null && !diagnostics.isEmpty();
 			case ResultPackage.CONTRIBUTOR__SUB_CONTRIBUTORS:
 				return subContributors != null && !subContributors.isEmpty();
 		}
@@ -347,8 +347,8 @@ public class ContributorImpl extends MinimalEObjectImpl.Container implements Con
 		if (eIsProxy()) return super.toString();
 
 		StringBuffer result = new StringBuffer(super.toString());
-		result.append(" (source: ");
-		result.append(source);
+		result.append(" (info: ");
+		result.append(info);
 		result.append(')');
 		return result.toString();
 	}
