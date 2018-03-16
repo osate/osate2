@@ -15,6 +15,12 @@
       		name="Analysis"
       		class="org.osate.ui.preferences.BlankPreferencePage">
       </page>
+      <page
+      		id="org.osate.ui.preferences.OsateInstantiationPage"
+      		category="org.osate.internal.ui.preferences.OsatePreferencePage"
+      		name="Instantiation"
+      		class="org.osate.internal.ui.preferences.InstantiationPreferencePage">
+      </page>
    </extension>
    
    <extension
