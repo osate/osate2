@@ -31,7 +31,7 @@ public interface BooleanValue extends Value {
 	 * @return the value of the '<em>Value</em>' attribute.
 	 * @see #setValue(boolean)
 	 * @see org.osate.result.ResultPackage#getBooleanValue_Value()
-	 * @model
+	 * @model required="true"
 	 * @generated
 	 */
 	boolean isValue();
