@@ -40,13 +40,13 @@ public interface ResultFactory extends EFactory {
 	Contributor createContributor();
 
 	/**
-	 * Returns a new object of class '<em>Issue</em>'.
+	 * Returns a new object of class '<em>Diagnostic</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Issue</em>'.
+	 * @return a new object of class '<em>Diagnostic</em>'.
 	 * @generated
 	 */
-	Issue createIssue();
+	Diagnostic createDiagnostic();
 
 	/**
 	 * Returns a new object of class '<em>Integer Value</em>'.

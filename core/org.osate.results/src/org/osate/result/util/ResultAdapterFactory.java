@@ -76,8 +76,8 @@ public class ResultAdapterFactory extends AdapterFactoryImpl {
 				return createContributorAdapter();
 			}
 			@Override
-			public Adapter caseIssue(Issue object) {
-				return createIssueAdapter();
+			public Adapter caseDiagnostic(Diagnostic object) {
+				return createDiagnosticAdapter();
 			}
 			@Override
 			public Adapter caseValue(Value object) {
@@ -148,16 +148,16 @@ public class ResultAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link org.osate.result.Issue <em>Issue</em>}'.
+	 * Creates a new adapter for an object of class '{@link org.osate.result.Diagnostic <em>Diagnostic</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
 	 * @return the new adapter.
-	 * @see org.osate.result.Issue
+	 * @see org.osate.result.Diagnostic
 	 * @generated
 	 */
-	public Adapter createIssueAdapter() {
+	public Adapter createDiagnosticAdapter() {
 		return null;
 	}
 

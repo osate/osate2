@@ -15,10 +15,10 @@ import org.eclipse.emf.ecore.EObject;
  * The following features are supported:
  * </p>
  * <ul>
- *   <li>{@link org.osate.result.Contributor#getSource <em>Source</em>}</li>
+ *   <li>{@link org.osate.result.Contributor#getInfo <em>Info</em>}</li>
  *   <li>{@link org.osate.result.Contributor#getSourceReference <em>Source Reference</em>}</li>
  *   <li>{@link org.osate.result.Contributor#getValues <em>Values</em>}</li>
- *   <li>{@link org.osate.result.Contributor#getIssues <em>Issues</em>}</li>
+ *   <li>{@link org.osate.result.Contributor#getDiagnostics <em>Diagnostics</em>}</li>
  *   <li>{@link org.osate.result.Contributor#getSubContributors <em>Sub Contributors</em>}</li>
  * </ul>
  *
@@ -28,30 +28,30 @@ import org.eclipse.emf.ecore.EObject;
  */
 public interface Contributor extends EObject {
 	/**
-	 * Returns the value of the '<em><b>Source</b></em>' attribute.
+	 * Returns the value of the '<em><b>Info</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of the '<em>Source</em>' attribute isn't clear,
+	 * If the meaning of the '<em>Info</em>' attribute isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Source</em>' attribute.
-	 * @see #setSource(String)
-	 * @see org.osate.result.ResultPackage#getContributor_Source()
+	 * @return the value of the '<em>Info</em>' attribute.
+	 * @see #setInfo(String)
+	 * @see org.osate.result.ResultPackage#getContributor_Info()
 	 * @model
 	 * @generated
 	 */
-	String getSource();
+	String getInfo();
 
 	/**
-	 * Sets the value of the '{@link org.osate.result.Contributor#getSource <em>Source</em>}' attribute.
+	 * Sets the value of the '{@link org.osate.result.Contributor#getInfo <em>Info</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Source</em>' attribute.
-	 * @see #getSource()
+	 * @param value the new value of the '<em>Info</em>' attribute.
+	 * @see #getInfo()
 	 * @generated
 	 */
-	void setSource(String value);
+	void setInfo(String value);
 
 	/**
 	 * Returns the value of the '<em><b>Source Reference</b></em>' reference.
@@ -96,20 +96,20 @@ public interface Contributor extends EObject {
 	EList<Value> getValues();
 
 	/**
-	 * Returns the value of the '<em><b>Issues</b></em>' containment reference list.
-	 * The list contents are of type {@link org.osate.result.Issue}.
+	 * Returns the value of the '<em><b>Diagnostics</b></em>' containment reference list.
+	 * The list contents are of type {@link org.osate.result.Diagnostic}.
 	 * <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of the '<em>Issues</em>' containment reference list isn't clear,
+	 * If the meaning of the '<em>Diagnostics</em>' containment reference list isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Issues</em>' containment reference list.
-	 * @see org.osate.result.ResultPackage#getContributor_Issues()
+	 * @return the value of the '<em>Diagnostics</em>' containment reference list.
+	 * @see org.osate.result.ResultPackage#getContributor_Diagnostics()
 	 * @model containment="true"
 	 * @generated
 	 */
-	EList<Issue> getIssues();
+	EList<Diagnostic> getDiagnostics();
 
 	/**
 	 * Returns the value of the '<em><b>Sub Contributors</b></em>' containment reference list.
