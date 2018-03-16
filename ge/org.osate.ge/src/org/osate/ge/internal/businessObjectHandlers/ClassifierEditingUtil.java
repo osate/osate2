@@ -13,6 +13,7 @@ import org.osate.aadl2.Classifier;
 import org.osate.aadl2.ComponentClassifier;
 import org.osate.aadl2.ComponentImplementation;
 import org.osate.aadl2.ComponentType;
+import org.osate.aadl2.Element;
 import org.osate.aadl2.FeatureGroup;
 import org.osate.aadl2.FeatureGroupType;
 import org.osate.aadl2.NamedElement;
@@ -46,11 +47,8 @@ public class ClassifierEditingUtil {
 			final Object bo, final Class<ClassifierType> classifierClass, final Predicate<ClassifierType> filter,
 			final boolean includeAllWhenBoIsMatch) {
 		if (!includeAllWhenBoIsMatch) {
-			if (classifierClass.isInstance(bo)) {
-				final ClassifierType classifier = classifierClass.cast(bo);
-				if (filter.test(classifier)) {
-					return Collections.singletonList(classifier);
-				}
+			if(matches(bo, classifierClass, filter)) {
+				return Collections.singletonList(classifierClass.cast(bo));
 			}
 		}
 
@@ -162,22 +160,38 @@ public class ClassifierEditingUtil {
 		return selectedClassifier;
 	}
 
-	public static boolean isSubcomponentWithoutClassifier(final Object bo) {
+	private static <ClassifierType> boolean matches(final Object bo, final Class<ClassifierType> classifierClass,
+			final Predicate<ClassifierType> filter) {
+		if (!classifierClass.isInstance(bo)) {
+			return false;
+		}
+
+		final ClassifierType classifier = classifierClass.cast(bo);
+		return filter.test(classifier);
+	}
+
+	public static <ClassifierType> boolean isSubcomponentWithoutMatchingClassifier(final Object bo,
+			final Class<ClassifierType> classifierClass, final Predicate<ClassifierType> filter) {
 		if (bo instanceof Subcomponent) {
-			return ((Subcomponent) bo).getAllClassifier() == null;
+			return !matches(((Subcomponent) bo).getAllClassifier(), classifierClass, filter);
 		}
 
 		return false;
 	}
 
-	public static boolean isSubcomponentOrFeatureGroupWithoutClassifier(final Object bo) {
-		if (bo instanceof Subcomponent) {
-			return ((Subcomponent) bo).getAllClassifier() == null;
-		} else if (bo instanceof FeatureGroup) {
-			return ((FeatureGroup) bo).getAllFeatureGroupType() == null;
+	public static <ClassifierType> boolean isFeatureGroupWithoutMatchingClassifier(final Object bo,
+			final Class<ClassifierType> classifierClass, final Predicate<ClassifierType> filter) {
+		if (bo instanceof FeatureGroup) {
+			return !matches(((Subcomponent) bo).getAllClassifier(), classifierClass, filter);
 		}
 
 		return false;
+	}
+
+	public static <ClassifierType> boolean isSubcomponentOrFeatureGroupWithoutMatchingClassifier(final Object bo,
+			final Class<ClassifierType> classifierClass, final Predicate<ClassifierType> filter) {
+		return isSubcomponentWithoutMatchingClassifier(bo, classifierClass, filter)
+				|| isFeatureGroupWithoutMatchingClassifier(bo, classifierClass, filter);
 	}
 
 	/**
@@ -187,13 +201,25 @@ public class ClassifierEditingUtil {
 	 */
 	public static boolean showMessageIfSubcomponentOrFeatureGroupWithoutClassifier(final Object bo,
 			final String secondaryMsg) {
-		final boolean showMsg = isSubcomponentOrFeatureGroupWithoutClassifier(bo);
-		if (ClassifierEditingUtil.isSubcomponentOrFeatureGroupWithoutClassifier(bo)) {
+		return showMessageIfSubcomponentOrFeatureGroupWithoutMatchingClassifier(bo, secondaryMsg, Element.class,
+				c -> true);
+	}
+
+	/**
+	 * Returns true if the element was a subcomponent or feature group without a matching classifier and the error was shown.
+	 * @param bo
+	 * @return
+	 */
+	public static <ClassifierType> boolean showMessageIfSubcomponentOrFeatureGroupWithoutMatchingClassifier(
+			final Object bo, final String secondaryMsg, final Class<ClassifierType> classifierClass,
+			final Predicate<ClassifierType> filter) {
+		final boolean showMsg = isSubcomponentOrFeatureGroupWithoutMatchingClassifier(bo, classifierClass, filter);
+		if (showMsg) {
 			final String targetDescription = bo instanceof NamedElement
 					? ("The element '" + ((NamedElement) bo).getQualifiedName() + "'")
 							: "The target element";
 					MessageDialog.openError(Display.getDefault().getActiveShell(), "Classifier Not Set",
-							targetDescription + " does not have a classifier. " + secondaryMsg);
+							targetDescription + " does not have an appropriate classifier. " + secondaryMsg);
 		}
 
 		return showMsg;

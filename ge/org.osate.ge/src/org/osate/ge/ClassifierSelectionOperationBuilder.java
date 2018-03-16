@@ -20,6 +20,7 @@ public class ClassifierSelectionOperationBuilder<ClassifierType extends Classifi
 	private final Class<ClassifierType> classifierType;
 	private Predicate<ClassifierType> filter = c -> true; // Filter for selecting those from the classifier. These filters are and'ed together
 	private boolean includeAllWhenBoIsMatch = false;
+	private String allowedClassifierDescription = "classifier";
 
 	private ClassifierSelectionOperationBuilder(Class<ClassifierType> classifierType) {
 		this.classifierType = Objects.requireNonNull(classifierType, "classifierType must not be null");
@@ -30,28 +31,38 @@ public class ClassifierSelectionOperationBuilder<ClassifierType extends Classifi
 	}
 
 	public static ClassifierSelectionOperationBuilder<ComponentImplementation> componentImplementations() {
-		return new ClassifierSelectionOperationBuilder<>(ComponentImplementation.class);
+		return new ClassifierSelectionOperationBuilder<>(ComponentImplementation.class)
+				.allowedClassifierDescription("component implementation");
 	}
 
 	public static ClassifierSelectionOperationBuilder<ComponentType> componentTypes() {
-		return new ClassifierSelectionOperationBuilder<>(ComponentType.class);
+		return new ClassifierSelectionOperationBuilder<>(ComponentType.class)
+				.allowedClassifierDescription("component type");
 	}
 
 	public static ClassifierSelectionOperationBuilder<ComponentClassifier> componentClassifiers() {
-		return new ClassifierSelectionOperationBuilder<>(ComponentClassifier.class);
+		return new ClassifierSelectionOperationBuilder<>(ComponentClassifier.class)
+				.allowedClassifierDescription("component classifier");
 	}
 
 	public static ClassifierSelectionOperationBuilder<FeatureGroupType> featureGroupTypes() {
-		return new ClassifierSelectionOperationBuilder<>(FeatureGroupType.class);
+		return new ClassifierSelectionOperationBuilder<>(FeatureGroupType.class)
+				.allowedClassifierDescription("feature group");
 	}
 
 	public static ClassifierSelectionOperationBuilder<Classifier> classifierTypes() {
 		return new ClassifierSelectionOperationBuilder<>(Classifier.class)
-				.filter(c -> c instanceof ComponentType || c instanceof FeatureGroupType);
+				.filter(c -> c instanceof ComponentType || c instanceof FeatureGroupType)
+				.allowedClassifierDescription("component or feature group type");
 	}
 
 	public ClassifierSelectionOperationBuilder<ClassifierType> filter(final Predicate<ClassifierType> value) {
 		this.filter = this.filter.and(value);
+		return this;
+	}
+
+	private ClassifierSelectionOperationBuilder<ClassifierType> allowedClassifierDescription(final String value) {
+		this.allowedClassifierDescription = Objects.requireNonNull(value, "value must not be null");
 		return this;
 	}
 
@@ -67,8 +78,8 @@ public class ClassifierSelectionOperationBuilder<ClassifierType extends Classifi
 
 	public OperationBuilder<ClassifierType> buildOperation(final OperationBuilder<?> operation, final Object targetBo) {
 		return operation.supply(() -> {
-			if (ClassifierEditingUtil.showMessageIfSubcomponentOrFeatureGroupWithoutClassifier(targetBo,
-					"Set a classifier.")) {
+			if (ClassifierEditingUtil.showMessageIfSubcomponentOrFeatureGroupWithoutMatchingClassifier(targetBo,
+					"Set a " + allowedClassifierDescription + ".", classifierType, filter)) {
 				return StepResult.abort();
 			}
 
@@ -92,11 +103,11 @@ public class ClassifierSelectionOperationBuilder<ClassifierType extends Classifi
 	public boolean canBuildOperation(final Object bo) {
 		// Return true for subcomponents / feature groups which do not have a classifier assigned so that the operation can show an explanation.
 		if (ComponentClassifier.class.isAssignableFrom(classifierType)) {
-			if (ClassifierEditingUtil.isSubcomponentWithoutClassifier(bo)) {
+			if (ClassifierEditingUtil.isSubcomponentWithoutMatchingClassifier(bo, classifierType, filter)) {
 				return true;
 			}
 		} else {
-			if (ClassifierEditingUtil.isSubcomponentOrFeatureGroupWithoutClassifier(bo)) {
+			if (ClassifierEditingUtil.isSubcomponentOrFeatureGroupWithoutMatchingClassifier(bo, classifierType, filter)) {
 				return true;
 			}
 		}
