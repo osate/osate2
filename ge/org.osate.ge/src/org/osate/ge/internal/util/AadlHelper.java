@@ -32,20 +32,20 @@ import org.osate.aadl2.SubprogramCallSequence;
 public class AadlHelper {
 	/**
 	 * Ensure that an element's package has the necessary imports to reference a specified object.
-	 * @param pkgContext is the object that needs to referenced the containing object
+	 * @param pkgContext is the object that needs to reference the containing object
 	 * @param referencedObject is the object which needs to be referenced
 	 */
 	public static void ensurePackageIsImported(final Element pkgContext, final Object referencedObject) {
 		if(referencedObject instanceof Classifier) {
 			Classifier referencedClassifier = (Classifier)referencedObject;
-			
+
 			final AadlPackage pkg = (AadlPackage)pkgContext.getElementRoot();
 			if(pkg != null) {
-				final PackageSection section = pkg.getPublicSection();				
+				final PackageSection section = pkg.getPublicSection();
 				if(referencedClassifier.eIsProxy()) {
 					referencedClassifier = (Classifier)EcoreUtil.resolve(referencedClassifier, pkgContext.eResource());
-				} 
-				
+				}
+
 				if(referencedClassifier.getNamespace() != null) {
 					final AadlPackage classifierPkg = (AadlPackage)referencedClassifier.getNamespace().getOwner();
 					if(pkg != classifierPkg && !section.getImportedUnits().contains(classifierPkg)) {
@@ -55,7 +55,7 @@ public class AadlHelper {
 			}
 		}
 	}
-	
+
 	/**
 	 * Checks whether the named elements have the same name. Ignores case.
 	 * @param ne1
@@ -66,16 +66,16 @@ public class AadlHelper {
 		if(ne1 == null || ne2 == null) {
 			return ne1 == ne2;
 		}
-		
+
 		if(ne1 == ne2) {
 			return true;
 		}
-		
+
 		final String n1 = ne1.getName();
 		final String n2 = ne2.getName();
 		return n1 != null && n1.equalsIgnoreCase(n2);
 	}
-	
+
 	public static List<InternalFeature> getAllInternalFeatures(final ComponentImplementation ci) {
 		EList<InternalFeature> returnList = new BasicEList<InternalFeature>();
 		ComponentImplementation tmpCi = ci;
@@ -86,7 +86,7 @@ public class AadlHelper {
 
 		return returnList;
 	}
-	
+
 	public static List<ProcessorFeature> getAllProcessorFeatures(final ComponentImplementation ci) {
 		EList<ProcessorFeature> returnList = new BasicEList<ProcessorFeature>();
 		ComponentImplementation tmpCi = ci;
@@ -94,7 +94,7 @@ public class AadlHelper {
 			returnList.addAll(tmpCi.getOwnedProcessorFeatures());
 			tmpCi = tmpCi.getExtended();
 		}
-		
+
 		return returnList;
 	}
 
@@ -108,10 +108,10 @@ public class AadlHelper {
 			}
 			tmpCi = tmpCi.getExtended();
 		}
-		
+
 		return returnList;
 	}
-	
+
 	/**
 	 * If the element is a refinable element, returns the root refined element. That is, it returns the refined element which is not refined.
 	 * Otherwise it returns the specified element.
@@ -126,7 +126,7 @@ public class AadlHelper {
 				refined = ((RefinableElement) ne).getRefinedElement();
 			} while(refined != null);
 		}
-		
+
 		return ne;
 	}
 }

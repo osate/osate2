@@ -26,16 +26,17 @@ import org.eclipse.ui.views.properties.tabbed.AbstractPropertySection;
 import org.eclipse.ui.views.properties.tabbed.ITabbedPropertyConstants;
 import org.eclipse.ui.views.properties.tabbed.TabbedPropertySheetPage;
 import org.eclipse.xtext.resource.IEObjectDescription;
+import org.eclipse.xtext.util.Strings;
 import org.osate.aadl2.Aadl2Factory;
-import org.osate.aadl2.AadlPackage;
 import org.osate.aadl2.Classifier;
 import org.osate.aadl2.ComponentImplementation;
 import org.osate.aadl2.ComponentType;
 import org.osate.aadl2.FeatureGroupType;
-import org.osate.aadl2.PackageSection;
+import org.osate.aadl2.NamedElement;
 import org.osate.ge.BusinessObjectSelection;
 import org.osate.ge.internal.ui.dialogs.ElementSelectionDialog;
 import org.osate.ge.internal.ui.util.InternalPropertySectionUtil;
+import org.osate.ge.internal.util.AadlHelper;
 import org.osate.ge.internal.util.ScopedEMFIndexRetrieval;
 import org.osate.ge.ui.properties.PropertySectionUtil;
 
@@ -69,8 +70,7 @@ public class SetExtendedClassifierPropertySection extends AbstractPropertySectio
 		extendedClassifier.setLayoutData(fd);
 
 		chooseBtn = InternalPropertySectionUtil.createButton(getWidgetFactory(), container, null,
-				setExtendedClassifierListener,
-				"Choose...", SWT.PUSH);
+				setExtendedClassifierListener, "Choose...", SWT.PUSH);
 
 		fd = new FormData();
 		fd.left = new FormAttachment(extendedClassifier, ITabbedPropertyConstants.HSPACE);
@@ -94,37 +94,26 @@ public class SetExtendedClassifierPropertySection extends AbstractPropertySectio
 			final ElementSelectionDialog dlg = new ElementSelectionDialog(Display.getCurrent().getActiveShell(),
 					"Select a Classifier", "Select a classifier to extend.", extensibleClassifierDescs);
 			if (dlg.open() != Window.CANCEL) {
-				final AadlPackage pkg = (AadlPackage) classifier.eResource().getContents().get(0);
-				final PackageSection section = pkg.getPublicSection();
-
 				// Resolve the selected classifier
-				final Classifier selectedClassifier = (dlg.getFirstSelectedElement() != null
+				final Classifier classifierToExtend = (dlg.getFirstSelectedElement() != null
 						&& ((EObject) dlg.getFirstSelectedElement()).eIsProxy())
 						? (Classifier) EcoreUtil.resolve(((EObject) dlg.getFirstSelectedElement()),
 								classifier.eResource())
 								: (Classifier) dlg.getFirstSelectedElement();
-						if (selectedClassifier != null) {
-							// Import the package if necessary
-							if (selectedClassifier.getNamespace() != null) {
-								final AadlPackage selectedClassifierPkg = (AadlPackage) selectedClassifier.getNamespace()
-										.getOwner();
-								if (pkg != selectedClassifierPkg
-										&& !section.getImportedUnits().contains(selectedClassifierPkg)) {
-									section.getImportedUnits().add(selectedClassifierPkg);
-								}
-							}
+						if (classifierToExtend != null) {
+							selectedBos.modify(Classifier.class, classifierToModify -> {
+								AadlHelper.ensurePackageIsImported(classifierToModify, classifierToExtend);
 
-							selectedBos.modify(Classifier.class, selClassifier -> {
 								// Extend the classifier
-								if (selClassifier instanceof ComponentType) {
-									((ComponentType) selClassifier).createOwnedExtension()
-									.setExtended((ComponentType) selectedClassifier);
-								} else if (selClassifier instanceof ComponentImplementation) {
-									((ComponentImplementation) selClassifier).createOwnedExtension()
-									.setExtended((ComponentImplementation) selectedClassifier);
-								} else if (selClassifier instanceof FeatureGroupType) {
-									((FeatureGroupType) selClassifier).createOwnedExtension()
-									.setExtended((FeatureGroupType) selectedClassifier);
+								if (classifierToModify instanceof ComponentType) {
+									((ComponentType) classifierToModify).createOwnedExtension()
+									.setExtended((ComponentType) classifierToExtend);
+								} else if (classifierToModify instanceof ComponentImplementation) {
+									((ComponentImplementation) classifierToModify).createOwnedExtension()
+									.setExtended((ComponentImplementation) classifierToExtend);
+								} else if (classifierToModify instanceof FeatureGroupType) {
+									((FeatureGroupType) classifierToModify).createOwnedExtension()
+									.setExtended((FeatureGroupType) classifierToExtend);
 								}
 							});
 						}
@@ -153,22 +142,32 @@ public class SetExtendedClassifierPropertySection extends AbstractPropertySectio
 			}
 		}
 
-		return extClassifier == null ? "<None>" : extClassifier.getName();
+		return getClassifierName(extClassifier);
+	}
+
+	private static String getClassifierName(final Classifier c) {
+		if (c == null) {
+			return "<None>";
+		} else if (c instanceof NamedElement) {
+			return Strings.emptyIfNull(((NamedElement) c).getQualifiedName());
+		} else {
+			return "";
+		}
 	}
 
 	private static Classifier getExtended(final Classifier classifier) {
-		Object extendObject;
+		Classifier extendedObject;
 		if (classifier instanceof ComponentType) {
-			extendObject = ((ComponentType) classifier).getExtended();
+			extendedObject = ((ComponentType) classifier).getExtended();
 		} else if (classifier instanceof ComponentImplementation) {
-			extendObject = ((ComponentImplementation) classifier).getExtended();
+			extendedObject = ((ComponentImplementation) classifier).getExtended();
 		} else if (classifier instanceof FeatureGroupType) {
-			extendObject = ((FeatureGroupType) classifier).getExtended();
+			extendedObject = ((FeatureGroupType) classifier).getExtended();
 		} else {
 			throw new RuntimeException("Unsupported type: " + classifier);
 		}
 
-		return extendObject == null ? null : (Classifier) extendObject;
+		return extendedObject == null ? null : extendedObject;
 	}
 
 	/**

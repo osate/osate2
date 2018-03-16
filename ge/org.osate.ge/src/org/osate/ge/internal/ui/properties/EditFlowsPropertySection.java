@@ -58,8 +58,7 @@ public class EditFlowsPropertySection extends AbstractPropertySection {
 		@Override
 		public void widgetSelected(final SelectionEvent e) {
 			final Bundle bundle = FrameworkUtil.getBundle(getClass());
-			final IEclipseContext context = EclipseContextFactory.getServiceContext(bundle.getBundleContext())
-					.createChild();
+			final IEclipseContext context = EclipseContextFactory.getServiceContext(bundle.getBundleContext());
 			final NamingService namingService = Objects.requireNonNull(context.getActive(NamingService.class),
 					"Unable to retrieve naming service");
 

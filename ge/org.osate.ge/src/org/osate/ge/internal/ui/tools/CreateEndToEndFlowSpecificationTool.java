@@ -81,12 +81,11 @@ public class CreateEndToEndFlowSpecificationTool {
 				}
 
 				if (dlg != null && !dlg.getFlows().isEmpty()) {
-					aadlModService.modify(ci, (resource, ci) -> {
+					aadlModService.modify(ci, ci -> {
 						for (EndToEndFlow eteFlow : dlg.getFlows()) {
 							ci.getOwnedEndToEndFlows().add(eteFlow);
 							ci.setNoFlows(false);
 						}
-						return null;
 					});
 				}
 			}

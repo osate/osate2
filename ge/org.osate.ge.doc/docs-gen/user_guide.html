@@ -52,7 +52,7 @@
 </ul></li>
 <li><a href="#diagram-layout"><span class="toc-section-number">3.2</span> Diagram Layout</a><ul>
 <li><a href="#layout-commands"><span class="toc-section-number">3.2.1</span> Layout Commands</a></li>
-<li><a href="#incremental-layout"><span class="toc-section-number">3.2.2</span> Incremental Layout</a></li>
+<li><a href="#layout-preferences"><span class="toc-section-number">3.2.2</span> Layout Preferences</a></li>
 <li><a href="#known-layout-issues-and-limitations"><span class="toc-section-number">3.2.3</span> Known Layout Issues and Limitations</a></li>
 </ul></li>
 <li><a href="#connections"><span class="toc-section-number">3.3</span> Connections</a><ul>
@@ -452,18 +452,18 @@
 </tbody>
 </table>
 </div>
-<h3 id="incremental-layout"><span class="header-section-number">3.2.2</span> Incremental Layout</h3>
-<p>When an element has been added to the diagram and needs to be positioned or sized, an incremental layout is performed. The behavior of the incremental layout can be configured by selecting a mode from the preferences dialog.</p>
+<h3 id="layout-preferences"><span class="header-section-number">3.2.2</span> Layout Preferences</h3>
+<p>The preferences dialog contains preferences which affect the layout behavior of the graphical editor. To edit layout preferences:</p>
 <ol type="1">
 <li><p>Select <em>Window-&gt;Preferences</em></p></li>
-<li><p>Select to <em>OSATE Preferences-&gt;Diagram</em></p></li>
+<li><p>Select <em>OSATE Preferences-&gt;Diagrams</em></p></li>
+<li><p>Modify the preferences as desired.</p></li>
 </ol>
 <figure>
 <img src="../images/preferences.png" />
 </figure>
-<ol start="3" type="1">
-<li>Select the desired <em>Incremental Layout Mode</em>. The modes are described in table <a href="#tbl:incremental_layout_modes">4</a>.</li>
-</ol>
+<h4 id="incremental-layout"><span class="header-section-number">3.2.2.1</span> Incremental Layout</h4>
+<p>When an element has been added to the diagram and needs to be positioned or sized, an incremental layout is performed. The behavior of the incremental layout can be configured by selecting a mode from the preferences dialog. From the preferences dialog select the desired <em>Incremental Layout Mode</em>. The modes are described in table <a href="#tbl:incremental_layout_modes">4</a>.</p>
 <div id="tbl:incremental_layout_modes">
 <table style="width:82%;">
 <caption>Table 4: Incremental Layout Modes</caption>
@@ -493,9 +493,11 @@
 </tbody>
 </table>
 </div>
+<h4 id="layout-feature-based-on-direction"><span class="header-section-number">3.2.2.2</span> Layout Feature Based on Direction</h4>
+<p>When the <em>Layout Features Based on Direction</em> preference is enabled, the graphical editor will position ports based on the feature's direction. Input features will be placed on the left side and output features will be placed on the right side. If the preference is disabled, the layout algorithm will decide the side on which to place the feature.</p>
 <h3 id="known-layout-issues-and-limitations"><span class="header-section-number">3.2.3</span> Known Layout Issues and Limitations</h3>
 <ul>
-<li>Connections between multiple levels of the diagram hierarchy are not routed out. Such connections usually represent property values such as bindings. Such connections must be routed manually.</li>
+<li>Connections between multiple levels of the diagram hierarchy are not automatically routed and must be routed manually. Such connections usually represent property values such as bindings.</li>
 <li>Mode transition triggers are not routed. The recommended workaround is to show the mode transition triggers as text labels.</li>
 <li>Flow source and sinks are not consider when laying out the diagram.</li>
 <li>The automatic layout for flow path may produce unexpected routing and label placement for the flow path. To workaround this issue, it is recommended to disable labels for flow paths.<br />

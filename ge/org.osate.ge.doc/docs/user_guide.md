@@ -262,16 +262,19 @@ Layout menu items are available from the *Edit->Layout* menu or by right clickin
 
 Table: Layout Menu Items {#tbl:layout_menu_items}
 
-### Incremental Layout
-When an element has been added to the diagram and needs to be positioned or sized, an incremental layout is performed. The behavior of the incremental layout can be configured by selecting a mode from the preferences dialog.
+### Layout Preferences
+The preferences dialog contains preferences which affect the layout behavior of the graphical editor. To edit layout preferences:
 
 1. Select *Window->Preferences*
 
-2. Select to *OSATE Preferences->Diagram*
+2. Select *OSATE Preferences->Diagrams*
+
+3. Modify the preferences as desired.
 
 ![](../images/preferences.png)
 
-3. Select the desired *Incremental Layout Mode*. The modes are described in @tbl:incremental_layout_modes.
+#### Incremental Layout
+When an element has been added to the diagram and needs to be positioned or sized, an incremental layout is performed. The behavior of the incremental layout can be configured by selecting a mode from the preferences dialog. From the preferences dialog select the desired *Incremental Layout Mode*. The modes are described in @tbl:incremental_layout_modes.
 
 |Mode| Description|
 |-------|--------------------------------------------------|
@@ -281,9 +284,11 @@ When an element has been added to the diagram and needs to be positioned or size
 
 Table: Incremental Layout Modes {#tbl:incremental_layout_modes}
 
-### Known Layout Issues and Limitations
+#### Layout Feature Based on Direction
+When the *Layout Features Based on Direction* preference is enabled, the graphical editor will position ports based on the feature's direction. Input features will be placed on the left side and output features will be placed on the right side. If the preference is disabled, the layout algorithm will decide the side on which to place the feature.
 
-* Connections between multiple levels of the diagram hierarchy are not routed out. Such connections usually represent property values such as bindings. Such connections must be routed manually.
+### Known Layout Issues and Limitations
+* Connections between multiple levels of the diagram hierarchy are not automatically routed and must be routed manually. Such connections usually represent property values such as bindings.
 * Mode transition triggers are not routed. The recommended workaround is to show the mode transition triggers as text labels.
 * Flow source and sinks are not consider when laying out the diagram.
 * The automatic layout for flow path may produce unexpected routing and label placement for the flow path. To workaround this issue, it is recommended to disable labels for flow paths.	

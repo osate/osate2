@@ -12,5 +12,6 @@ public class PreferenceInitializer extends AbstractPreferenceInitializer {
 		final IPreferenceStore store = Activator.getDefault().getPreferenceStore();
 		store.setDefault(Preferences.INCREMENTAL_LAYOUT_MODE,
 				IncrementalLayoutMode.LAYOUT_CONTENTS.id);
+		store.setDefault(Preferences.LAYOUT_PORTS_ON_DEFAULT_SIDES, false);
 	}
 }

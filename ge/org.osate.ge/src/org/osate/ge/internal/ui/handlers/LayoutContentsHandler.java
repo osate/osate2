@@ -10,8 +10,8 @@ import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.handlers.HandlerUtil;
 import org.osate.ge.internal.diagram.runtime.DiagramElement;
 import org.osate.ge.internal.diagram.runtime.DiagramElementPredicates;
-import org.osate.ge.internal.diagram.runtime.layout.LayoutOptionsBuilder;
 import org.osate.ge.internal.diagram.runtime.layout.DiagramElementLayoutUtil;
+import org.osate.ge.internal.diagram.runtime.layout.LayoutOptions;
 
 /**
  * Lays out the contents of selected shapes. Repositions top-level ports.
@@ -24,7 +24,7 @@ public class LayoutContentsHandler extends AbstractHandler {
 				"unable to retrieve active editor");
 		final List<DiagramElement> selectedDiagramElements = AgeHandlerUtil.getSelectedDiagramElements(event);
 		DiagramElementLayoutUtil.layout("Layout Contents", editorPart, selectedDiagramElements,
-				new LayoutOptionsBuilder().build());
+				LayoutOptions.createFromPreferences());
 		return null;
 	}
 

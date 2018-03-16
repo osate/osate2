@@ -23,12 +23,13 @@ class LayoutDebugUtil {
 	private static final boolean enabled = false;
 	private static final String magicProjectName = "__osate_ge_debug";
 
-	static void saveElkGraphToDebugProject(final ElkNode g) {
+	static void saveElkGraphToDebugProject(final ElkNode g, final String suffix) {
 		if (enabled) {
 			final IProject project = ResourcesPlugin.getWorkspace().getRoot().getProject(magicProjectName);
 			if (project != null && project.exists()) {
 				final URI uri = URI
-						.createPlatformResourceURI(project.getFile("layout_graph.elkg").getFullPath().toString(), true);
+						.createPlatformResourceURI(
+								project.getFile("layout_graph_" + suffix + ".elkg").getFullPath().toString(), true);
 
 				// Save the resource
 				final ResourceSet rs = new ResourceSetImpl();

@@ -35,6 +35,7 @@ import org.osate.ge.GraphicalConfiguration;
 import org.osate.ge.GraphicalConfigurationBuilder;
 import org.osate.ge.PaletteEntry;
 import org.osate.ge.PaletteEntryBuilder;
+import org.osate.ge.di.BuildCreateOperation;
 import org.osate.ge.di.CanCreate;
 import org.osate.ge.di.CanDelete;
 import org.osate.ge.di.CanRename;
@@ -45,8 +46,6 @@ import org.osate.ge.di.GetPaletteEntries;
 import org.osate.ge.di.IsApplicable;
 import org.osate.ge.di.Names;
 import org.osate.ge.di.ValidateName;
-import org.osate.ge.internal.CreateOperation;
-import org.osate.ge.internal.di.BuildCreateOperation;
 import org.osate.ge.internal.di.InternalNames;
 import org.osate.ge.internal.graphics.AadlGraphics;
 import org.osate.ge.internal.services.NamingService;
@@ -61,6 +60,7 @@ import org.osate.ge.internal.util.classifiers.ClassifierOperation;
 import org.osate.ge.internal.util.classifiers.ClassifierOperationExecutor;
 import org.osate.ge.internal.util.classifiers.ClassifierOperationPart;
 import org.osate.ge.internal.util.classifiers.ClassifierOperationPartType;
+import org.osate.ge.operations.Operation;
 import org.osate.ge.query.StandaloneQuery;
 import org.osate.ge.services.QueryService;
 
@@ -207,17 +207,15 @@ public class ClassifierHandler {
 	}
 
 	@BuildCreateOperation
-	public void buildCreateOperation(@Named(InternalNames.OPERATION) final CreateOperation createOp,
-			@Named(Names.TARGET_BO) final EObject targetBo,
+	public Operation buildCreateOperation(@Named(Names.TARGET_BO) final EObject targetBo,
 			final @Named(Names.PALETTE_ENTRY_CONTEXT) PaletteEntryContext paletteEntryContext,
 			final @Named(InternalNames.PROJECT) IProject project,
 			final @Named(Names.TARGET_BUSINESS_OBJECT_CONTEXT) BusinessObjectContext targetBoc,
 			final QueryService queryService,
 			final NamingService namingService) {
-
 		final BusinessObjectContext pkgBoc = getPackageBoc(targetBoc, queryService);
 		if (pkgBoc == null) {
-			return;
+			return null;
 		}
 
 		final AadlPackage pkg = (AadlPackage) pkgBoc.getBusinessObject();
@@ -225,11 +223,13 @@ public class ClassifierHandler {
 		final ClassifierOperation args = buildCreateOperations(pkg, targetBo, paletteEntryContext, project,
 				namingService, rs);
 		if (args == null) {
-			return;
+			return null;
 		}
 
-		final ClassifierOperationExecutor opExec = new ClassifierOperationExecutor(namingService, rs, project);
-		opExec.execute(createOp, args, pkgBoc);
+		return Operation.create(createOp -> {
+			final ClassifierOperationExecutor opExec = new ClassifierOperationExecutor(namingService, rs, project);
+			opExec.execute(createOp, args, pkgBoc);
+		});
 	}
 
 	private BusinessObjectContext getPackageBoc(final BusinessObjectContext targetBoc,

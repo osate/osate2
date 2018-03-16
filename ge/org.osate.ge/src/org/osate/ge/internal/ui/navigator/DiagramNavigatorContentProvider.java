@@ -26,8 +26,7 @@ public class DiagramNavigatorContentProvider extends WorkbenchContentProvider im
 	@Override
 	public void init(ICommonContentExtensionSite aConfig) {
 		final Bundle bundle = FrameworkUtil.getBundle(getClass());
-		final IEclipseContext context = EclipseContextFactory.getServiceContext(bundle.getBundleContext())
-				.createChild();
+		final IEclipseContext context = EclipseContextFactory.getServiceContext(bundle.getBundleContext());
 		diagramService = Objects.requireNonNull(context.get(DiagramService.class), "Unable to get diagram service");
 
 		stateModel = aConfig.getExtensionStateModel();

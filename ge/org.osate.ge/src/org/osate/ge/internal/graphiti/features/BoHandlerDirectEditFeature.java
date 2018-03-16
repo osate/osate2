@@ -221,7 +221,7 @@ public class BoHandlerDirectEditFeature extends AbstractDirectEditingFeature imp
 						Collections.singleton(canonicalRef));
 			}
 
-			aadlModService.modify(bo, (resource, boToModify) -> {
+			aadlModService.modify(bo, (boToModify) -> {
 				final IEclipseContext childCtx = extService.createChildContext();
 				try {
 					childCtx.set(Names.BUSINESS_OBJECT, boToModify);
@@ -261,8 +261,6 @@ public class BoHandlerDirectEditFeature extends AbstractDirectEditingFeature imp
 						}
 					});
 				}
-
-				return null;
 			});
 
 		} else { // Rename using LTK

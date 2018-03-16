@@ -121,7 +121,7 @@ public class AgeRenameParticipant extends RenameParticipant {
 
 		// Get global services
 		final Bundle bundle = FrameworkUtil.getBundle(getClass());
-		final IEclipseContext context =  EclipseContextFactory.getServiceContext(bundle.getBundleContext()).createChild();
+		final IEclipseContext context = EclipseContextFactory.getServiceContext(bundle.getBundleContext());
 		referenceService = Objects.requireNonNull(context.get(ReferenceService.class), "Unable to get reference service");
 		diagramService = Objects.requireNonNull(context.get(DiagramService.class), "Unable to get diagram service");
 
