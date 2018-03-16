@@ -35,9 +35,9 @@ bus transport
 annex EMV2 {**
 	use types errorlibrary;
 	error propagations
-		bindings: out propagation {ServiceOmission};
+		bindings: out propagation {ServiceOmission,ItemOmission};
 	flows
-		busfail : error source  bindings{ServiceOmission};
+		transientfail : error source  bindings{ItemOmission};
 	end propagations;
 **};
 end transport;
@@ -224,7 +224,8 @@ end main2;
 -- in this configuration we map the actuator fail state into the top system fail state.
 -- This requires that all incoming propagations result in a transition of the actuator to the fail state.
 -- This error behavior is specified in actuator.failstate.
-system implementation main2.composite
+-- this model includes connection as error source and a connection binding propagation
+system implementation main2.connection
 subcomponents
 	sensor1 : device sensor;
 	sensor2 : device sensor;
@@ -248,12 +249,18 @@ properties
 annex EMV2{**
  	use types ErrorLibrary;
  	use behavior ErrorLibrary::FailStop;
+ 	error propagations
+ 	connection : in propagation {ItemOmission};
+ 	end propagations;
  	composite error behavior 
  	states
  		[ actuator.failstop ]-> FailStop;
  	end composite;
+	connection error
+		connectionErrorSource2: error source all {InconsistentValue}; 
+	end connection;
  **};
-end main2.composite;
+end main2.connection;
 
 system implementation main2.compositesametype
 subcomponents

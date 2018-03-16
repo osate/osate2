@@ -42,6 +42,7 @@ import org.osate.xtext.aadl2.errormodel.errorModel.SConditionElement;
 import org.osate.xtext.aadl2.errormodel.errorModel.TransitionBranch;
 import org.osate.xtext.aadl2.errormodel.errorModel.TypeSet;
 import org.osate.xtext.aadl2.errormodel.errorModel.TypeToken;
+import org.osate.xtext.aadl2.errormodel.errorModel.TypeTransformationSet;
 import org.osate.xtext.aadl2.errormodel.util.EM2TypeSetUtil;
 import org.osate.xtext.aadl2.errormodel.util.EMV2Properties;
 import org.osate.xtext.aadl2.errormodel.util.EMV2Util;
@@ -86,7 +87,7 @@ public class PropagationGraphBackwardTraversal {
 		for (OutgoingPropagationCondition opc : EMV2Util.getAllOutgoingPropagationConditions(component)) {
 			if ((opc.getTypeToken() != null && !EM2TypeSetUtil.isNoError(opc.getTypeToken()))
 					|| opc.getTypeToken() == null) {
-				if ((EMV2Util.isSame(opc.getOutgoing(), errorPropagation) || opc.isAllPropagations())
+				if (opc.isAllPropagations() || (EMV2Util.isSame(opc.getOutgoing(), errorPropagation))
 						&& EM2TypeSetUtil.contains(opc.getTypeToken(), type)) {
 					EObject res = handleOutgoingErrorPropagationCondition(component, opc, type, handledFlows,
 							errorFlows);
@@ -124,7 +125,7 @@ public class PropagationGraphBackwardTraversal {
 				 * in the error types for the out propagation.
 				 * This is a fix for the JMR/SAVI WBS model.
 				 */
-				if (EMV2Util.isSame(ep.getOutgoing(), errorPropagation) || ep.isAllOutgoing()) {
+				if (ep.isAllOutgoing() || EMV2Util.isSame(ep.getOutgoing(), errorPropagation)) {
 					if (ep.getTargetToken() != null) {
 						if (EM2TypeSetUtil.contains(ep.getTargetToken(), type)) {
 							// we have a type mapping
@@ -196,7 +197,7 @@ public class PropagationGraphBackwardTraversal {
 			} else if (ef instanceof ErrorSource) {
 				ErrorSource errorSource = (ErrorSource) ef;
 
-				if (EMV2Util.isSame(errorSource.getSourceModelElement(), errorPropagation) || errorSource.isAll()) {
+				if (errorSource.isAll() || EMV2Util.isSame(errorSource.getSourceModelElement(), errorPropagation)) {
 					if (EM2TypeSetUtil.contains(errorSource.getTypeTokenConstraint(), type)) {
 						EObject newEvent = processErrorSource(component, errorSource, type);
 						if (newEvent != null) {
@@ -216,7 +217,7 @@ public class PropagationGraphBackwardTraversal {
 		for (ErrorFlow errorFlow : flows) {
 			if (errorFlow instanceof ErrorPath) {
 				ErrorPath ep = (ErrorPath) errorFlow;
-				if ((EMV2Util.isSame(ep.getOutgoing(), eprop) || ep.isAllOutgoing())
+				if ((ep.isAllOutgoing() || EMV2Util.isSame(ep.getOutgoing(), eprop))
 						&& EM2TypeSetUtil.isSame(ep.getTargetToken(), type)) {
 					return true;
 
@@ -304,7 +305,6 @@ public class PropagationGraphBackwardTraversal {
 				}
 			}
 		}
-		Collection<ErrorFlow> efs = EMV2Util.getAllErrorFlows(component);
 		if (conditionResult == null && stateResult != null) {
 			for (ErrorBehaviorTransition trans : EMV2Util.getAllErrorBehaviorTransitions(component)) {
 				if (state == trans.getTarget()) {
@@ -313,7 +313,7 @@ public class PropagationGraphBackwardTraversal {
 				for (ConditionElement conditionElement : conde) {
 					EventOrPropagation eop = EMV2Util.getErrorEventOrPropagation(conditionElement);
 					if (eop instanceof ErrorPropagation) {
-						EList<ErrorFlow> flows = EMV2Util.findErrorFlow(efs, (ErrorPropagation) eop,
+							EList<ErrorFlow> flows = EMV2Util.findErrorFlow(errorFlows, (ErrorPropagation) eop,
 								conditionElement.getConstraint(), opc.getOutgoing(), type);
 						for (ErrorFlow errorFlow : flows) {
 							handledFlows.put(errorFlow, EMV2Util.getPrintName(type));
@@ -323,7 +323,7 @@ public class PropagationGraphBackwardTraversal {
 				}
 			}
 			// error source
-			EList<ErrorFlow> flows = EMV2Util.findErrorFlow(efs, null, null, opc.getOutgoing(), type);
+			EList<ErrorFlow> flows = EMV2Util.findErrorFlow(errorFlows, null, null, opc.getOutgoing(), type);
 			for (ErrorFlow errorFlow : flows) {
 				handledFlows.put(errorFlow, EMV2Util.getPrintName(type));
 			}
@@ -334,7 +334,7 @@ public class PropagationGraphBackwardTraversal {
 			for (ConditionElement conditionElement : conde) {
 				EventOrPropagation eop = EMV2Util.getErrorEventOrPropagation(conditionElement);
 				if (eop instanceof ErrorPropagation) {
-					EList<ErrorFlow> flows = EMV2Util.findErrorFlow(efs, (ErrorPropagation) eop,
+					EList<ErrorFlow> flows = EMV2Util.findErrorFlow(errorFlows, (ErrorPropagation) eop,
 							conditionElement.getConstraint(), opc.getOutgoing(), type);
 					for (ErrorFlow errorFlow : flows) {
 						handledFlows.put(errorFlow, EMV2Util.getPrintName(type));
@@ -762,7 +762,7 @@ public class PropagationGraphBackwardTraversal {
 		for (PropagationGraphPath ppr : Util.getAllReversePropagationPaths(currentAnalysisModel, component,
 				errorPropagation)) {
 			// traverse incoming
-			PropagationPathEnd ppe = ppr.getPathSrc();
+			ErrorTypes srctype = type;
 			if (ppr.getConnection() != null) {
 				ErrorSource ces = EMV2Util.findConnectionErrorSourceForConnection(ppr.getConnection());
 				// the type constraint has to come from the error source as the connection does not have one
@@ -772,22 +772,73 @@ public class PropagationGraphBackwardTraversal {
 						subResults.add(result);
 					}
 				}
-			} else {
+				ComponentInstance contextCI = ppr.getConnection().getComponentInstance();
+				TypeTransformationSet tts = EMV2Util.getAllTypeTransformationSet(contextCI);
+
+				for (PropagationPathEnd ppe : Util.getAllPropagationSourceEnds(currentAnalysisModel,
+						ppr.getConnection())) {
+					ComponentInstance componentSource = ppe.getComponentInstance();
+					ErrorPropagation propagationSource = ppe.getErrorPropagation();
+					ErrorTypes newtype = EM2TypeSetUtil.reverseMapTypeTokenToContributor(type, tts);
+					if (newtype instanceof ErrorType) {
+						EObject result = traverseOutgoingErrorPropagation(componentSource, propagationSource, newtype);
+						if (result != null) {
+							subResults.add(result);
+						}
+					} else {
+						EList<TypeToken> ttlist = EM2TypeSetUtil.flattenTypesetElements((TypeSet) newtype,
+								EMV2Util.getUseTypes(propagationSource));
+						for (TypeToken typeToken : ttlist) {
+							EList<ErrorTypes> tl = typeToken.getType();
+							// TODO deal with type product
+							ErrorTypes ntype = tl.get(0);
+							EObject result = traverseOutgoingErrorPropagation(componentSource, propagationSource,
+									ntype);
+							if (result != null) {
+								subResults.add(result);
+							}
+						}
+					}
+				}
+				srctype = EM2TypeSetUtil.reverseMapTypeTokenToSource(type, tts);
+			}
+				PropagationPathEnd ppe = ppr.getPathSrc();
 				ComponentInstance componentSource = ppe.getComponentInstance();
 				ErrorPropagation propagationSource = ppe.getErrorPropagation();
+			if (srctype instanceof ErrorType) {
 				if (propagationSource.getDirection() == DirectionType.IN) {
 					// we have an external incoming propagation
-					EObject result = processIncomingErrorPropagation(componentSource, propagationSource, type);
+					EObject result = processIncomingErrorPropagation(componentSource, propagationSource, srctype);
 					if (result != null) {
 						subResults.add(result);
 					}
 				} else {
-					EObject result = traverseOutgoingErrorPropagation(componentSource, propagationSource, type);
+					EObject result = traverseOutgoingErrorPropagation(componentSource, propagationSource, srctype);
 					if (result != null) {
 						subResults.add(result);
 					}
+					}
+				} else {
+				EList<TypeToken> ttlist = EM2TypeSetUtil.flattenTypesetElements((TypeSet) srctype,
+						EMV2Util.getUseTypes(propagationSource));
+				for (TypeToken typeToken : ttlist) {
+					EList<ErrorTypes> tl = typeToken.getType();
+					// TODO deal with type product
+					ErrorTypes ntype = tl.get(0);
+					if (propagationSource.getDirection() == DirectionType.IN) {
+						// we have an external incoming propagation
+						EObject result = processIncomingErrorPropagation(componentSource, propagationSource, ntype);
+						if (result != null) {
+							subResults.add(result);
+						}
+					} else {
+						EObject result = traverseOutgoingErrorPropagation(componentSource, propagationSource, ntype);
+						if (result != null) {
+							subResults.add(result);
+						}
+					}
+					}
 				}
-			}
 		}
 		if (!subResults.isEmpty()) {
 			return postProcessIncomingErrorPropagation(component, errorPropagation, type, subResults);

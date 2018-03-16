@@ -336,6 +336,7 @@ public class Util {
 			dstPE.setErrorPropagation(dstprop);
 			path.setPathSrc(srcPE);
 			path.setPathDst(dstPE);
+			path.setConnection(connectionInstance);
 			pg.getPropagationGraphPaths().add(path);
 			pg.getComponents().add(srcCI);
 			pg.getComponents().add(dstCI);
