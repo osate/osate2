@@ -149,9 +149,10 @@ import org.osgi.service.prefs.Preferences;
  * @author phf
  */
 public class InstantiateModel {
+	// Project properties that are set via a PropertyPage
 	public static final String PREFS_QUALIFIER = "org.osate.aadl2.instantiation";
 	public static final String PREF_SOM_LIMIT = "org.osate.aadl2.instantiation.som_limit";
-	public static final int SOM_LIMIT = 1000;
+	public static final String PREF_SOM_USE_WORKSPACE = "org.osage.aadl2.instantiation.som_use_workspace";
 
 	/* The name for the single mode of a non-modal system */
 	public static final String NORMAL_SOM_NAME = "No Modes";
@@ -2252,11 +2253,16 @@ public class InstantiateModel {
 	private int getSOMLimit(final IProject project) {
 		final IScopeContext context = new ProjectScope(project);
 		final Preferences prefs = context.getNode(PREFS_QUALIFIER);
-		if (prefs != null) {
-			return prefs.getInt(PREF_SOM_LIMIT, SOM_LIMIT);
-		} else {
-			return SOM_LIMIT;
+
+		int somLimit = -1;
+		if (!prefs.getBoolean(PREF_SOM_USE_WORKSPACE, true)) {
+			somLimit = prefs.getInt(PREF_SOM_LIMIT, -1);
 		}
+		// It's possible the above may have failed for some reason, in which case we revert to the workspace preferences
+		if (somLimit == -1) {
+			somLimit = WorkspacePlugin.getDefault().getSOMLimit();
+		}
+		return somLimit;
 	}
 
 	private boolean existsGiven(final List<ModeInstance> modeState, final List<ModeInstance> inModes)
