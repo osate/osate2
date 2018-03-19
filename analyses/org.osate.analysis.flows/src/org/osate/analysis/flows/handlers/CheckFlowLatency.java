@@ -52,6 +52,7 @@ import org.osate.aadl2.modelsupport.resources.OsateResourceUtil;
 import org.osate.aadl2.modelsupport.util.AadlUtil;
 import org.osate.analysis.flows.FlowLatencyAnalysisSwitch;
 import org.osate.analysis.flows.model.LatencyReport;
+import org.osate.analysis.flows.model.LatencyReportEntry;
 import org.osate.analysis.flows.reporting.exporters.CsvExport;
 import org.osate.analysis.flows.reporting.exporters.ExcelExport;
 import org.osate.analysis.flows.reporting.model.Report;
@@ -90,12 +91,15 @@ public final class CheckFlowLatency extends AbstractInstanceOrDeclarativeModelRe
 	@Override
 	protected boolean finalizeAnalysis() {
 		if (latreport != null && !latreport.getEntries().isEmpty()) {
-			Report report = latreport.export(errManager);
-
+			// do cvs and xsl reports
+			Report report = latreport.export();
 			CsvExport csvExport = new CsvExport(report);
 			csvExport.save();
 			ExcelExport excelExport = new ExcelExport(report);
 			excelExport.save();
+
+			generateMarkers(latreport, errManager);
+
 
 			Result results = latreport.genResult();
 			SystemInstance root = latreport.getRootinstance();
@@ -105,64 +109,31 @@ public final class CheckFlowLatency extends AbstractInstanceOrDeclarativeModelRe
 					.appendSegment("latency")
 					.appendSegment(rootname + "__latency_" + latreport.getPreferencesSuffix() + ".result");
 			AadlUtil.makeSureFoldersExist(new Path(latencyURI.toPlatformString(true)));
-			URI newuri = OsateResourceUtil.saveEMFModel(results, latencyURI, root);
+			OsateResourceUtil.saveEMFModel(results, latencyURI, root);
 		}
 		return true;
 	};
+
+	private void generateMarkers(LatencyReport report, AnalysisErrorReporterManager errMgr) {
+		for (LatencyReportEntry re : report.getEntries()) {
+			re.generateMarkers(errMgr);
+		}
+	}
 
 	@Override
 	protected void analyzeInstanceModel(IProgressMonitor monitor, AnalysisErrorReporterManager errManager,
 			SystemInstance root, SystemOperationMode som) {
 		monitor.beginTask(getActionName(), 1);
-		FlowLatencyAnalysisSwitch flas = new FlowLatencyAnalysisSwitch(monitor, root, latreport, som);
-
+		FlowLatencyAnalysisSwitch flas = new FlowLatencyAnalysisSwitch(monitor, root, latreport);
 		flas.processPreOrderAll(root);
-
 		monitor.done();
 	}
 
 	public void invoke(IProgressMonitor monitor, SystemInstance root, SystemOperationMode som) {
-		invoke(monitor, null, root, som);
-	}
-
-	public void invoke(IProgressMonitor monitor, AnalysisErrorReporterManager errManager, SystemInstance root,
-			SystemOperationMode som) {
-		this.errManager = errManager != null ? errManager
-				: new AnalysisErrorReporterManager(getAnalysisErrorReporterFactory());
-		summaryReport = new StringBuffer();
 		initializeAnalysis(root);
-		analyzeInstanceModel(monitor, this.errManager, root, som);
+		analyzeInstanceModel(monitor, null, root, som);
 		finalizeAnalysis();
 	}
 
-	/**
-	 * Invoke the analysis but return the report object rather than writing it to disk.
-	 *
-	 * @param monitor The progress monitor to use
-	 * @param errManager [Optional] The error manager to use, or null if one should be created
-	 * @param root The root system instance
-	 * @param som The mode to run the analysis in
-	 * @return A populated report.
-	 */
-	public LatencyReport invokeAndGetReport(IProgressMonitor monitor, AnalysisErrorReporterManager errManager,
-			SystemInstance root, SystemOperationMode som) {
-		this.errManager = errManager != null ? errManager
-				: new AnalysisErrorReporterManager(getAnalysisErrorReporterFactory());
-		summaryReport = new StringBuffer();
-		initializeAnalysis(root);
-		analyzeInstanceModel(monitor, this.errManager, root, som);
-		return latreport;
-	}
 
-	public Result invokeAndGetResult(IProgressMonitor monitor, AnalysisErrorReporterManager errManager,
-			SystemInstance root,
-			SystemOperationMode som) {
-		this.errManager = errManager != null ? errManager
-				: new AnalysisErrorReporterManager(getAnalysisErrorReporterFactory());
-		summaryReport = new StringBuffer();
-		initializeAnalysis(root);
-		analyzeInstanceModel(monitor, this.errManager, root, som);
-		Result results = latreport.genResult();
-		return results;
-	}
 }
