@@ -31,6 +31,7 @@ import org.osate.ge.graphics.Style;
 import org.osate.ge.graphics.StyleBuilder;
 import org.osate.ge.internal.services.NamingService;
 import org.osate.ge.internal.util.AadlInheritanceUtil;
+import org.osate.ge.internal.util.EditingUtil;
 import org.osate.ge.internal.util.ImageHelper;
 import org.osate.ge.operations.Operation;
 import org.osate.ge.operations.StepResultBuilder;
@@ -144,7 +145,7 @@ public class FlowPathSpecificationHandler extends FlowSpecificationHandler {
 		}
 
 		return Operation.create(createOp -> {
-			ClassifierEditingUtil.selectClassifier(createOp, getPotentialOwners(srcBoc, dstBoc, queryService))
+			EditingUtil.selectClassifier(createOp, getPotentialOwners(srcBoc, dstBoc, queryService))
 			.modifyPreviousResult(ct -> {
 				final FlowSpecification fs = ct.createOwnedFlowSpecification();
 				fs.setKind(FlowKind.PATH);

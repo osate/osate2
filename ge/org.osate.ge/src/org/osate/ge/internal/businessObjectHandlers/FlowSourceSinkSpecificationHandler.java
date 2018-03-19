@@ -27,6 +27,7 @@ import org.osate.ge.graphics.internal.FlowIndicatorBuilder;
 import org.osate.ge.graphics.internal.OrthogonalLineBuilder;
 import org.osate.ge.internal.services.NamingService;
 import org.osate.ge.internal.util.AadlInheritanceUtil;
+import org.osate.ge.internal.util.EditingUtil;
 import org.osate.ge.internal.util.ImageHelper;
 import org.osate.ge.operations.Operation;
 import org.osate.ge.operations.StepResultBuilder;
@@ -138,7 +139,7 @@ public class FlowSourceSinkSpecificationHandler extends FlowSpecificationHandler
 		}
 
 		return Operation.create(createOp -> {
-			ClassifierEditingUtil.selectClassifier(createOp, getPotentialOwnersByFeature(featureBoc, queryService))
+			EditingUtil.selectClassifier(createOp, getPotentialOwnersByFeature(featureBoc, queryService))
 					.modifyPreviousResult(ct -> {
 						final FlowSpecification fs = ct.createOwnedFlowSpecification();
 						fs.setKind(flowKind);

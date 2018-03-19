@@ -37,6 +37,7 @@ import org.osate.ge.graphics.StyleBuilder;
 import org.osate.ge.graphics.internal.ModeGraphicBuilder;
 import org.osate.ge.internal.services.NamingService;
 import org.osate.ge.internal.util.AadlInheritanceUtil;
+import org.osate.ge.internal.util.EditingUtil;
 import org.osate.ge.internal.util.ImageHelper;
 import org.osate.ge.operations.Operation;
 import org.osate.ge.operations.StepResult;
@@ -96,7 +97,7 @@ public class ModeHandler {
 	public Operation buildCreateOperation(final @Named(Names.TARGET_BO) EObject target,
 			final @Named(Names.TARGET_BUSINESS_OBJECT_CONTEXT) BusinessObjectContext targetBoc,
 			final QueryService queryService, final NamingService namingService) {
-		if (ClassifierEditingUtil.showMessageIfSubcomponentOrFeatureGroupWithoutClassifier(target,
+		if (EditingUtil.showMessageIfSubcomponentOrFeatureGroupWithoutClassifier(target,
 				"Set a classifier before creating a mode.")) {
 			return null;
 		}
@@ -108,8 +109,8 @@ public class ModeHandler {
 				&& ((Subcomponent) target).getClassifier() instanceof ComponentImplementation))
 				&& potentialOwners.size() > 0 && !(potentialOwners.get(0) instanceof ComponentImplementation);
 
-				final ComponentClassifier selectedClassifier = (ComponentClassifier) ClassifierEditingUtil
-						.getClassifierToModify(potentialOwners, forcePrompt);
+				final ComponentClassifier selectedClassifier = (ComponentClassifier) EditingUtil
+						.getBusinessObjectToModify(potentialOwners, forcePrompt);
 				if (selectedClassifier == null) {
 					return null;
 				}

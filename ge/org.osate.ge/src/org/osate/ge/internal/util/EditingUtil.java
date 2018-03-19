@@ -1,4 +1,4 @@
-package org.osate.ge.internal.businessObjectHandlers;
+package org.osate.ge.internal.util;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -21,13 +21,13 @@ import org.osate.ge.internal.ui.dialogs.ElementSelectionDialog;
 import org.osate.ge.operations.OperationBuilder;
 import org.osate.ge.operations.StepResult;
 
-public class ClassifierEditingUtil {
+public class EditingUtil {
 	public static final <ClassifierType extends Classifier> OperationBuilder<ClassifierType> selectClassifier(
 			final OperationBuilder<?> operation, final List<ClassifierType> potentialClassifiers) {
 		return operation.supply(() -> {
 			// Determine which classifier should own the new element
-			final ClassifierType selectedClassifier = (ClassifierType) ClassifierEditingUtil
-					.getClassifierToModify(potentialClassifiers);
+			final ClassifierType selectedClassifier = (ClassifierType) EditingUtil
+					.getBusinessObjectToModify(potentialClassifiers);
 			if (selectedClassifier == null) {
 				return StepResult.abort();
 			}
@@ -42,15 +42,12 @@ public class ClassifierEditingUtil {
 	 * @param bo
 	 * @return
 	 */
-	public static <ClassifierType extends Classifier> List<ClassifierType> getPotentialClassifiersForEditing(
+	public static <ClassifierType> List<ClassifierType> getPotentialClassifiersForEditing(
 			final Object bo, final Class<ClassifierType> classifierClass, final Predicate<ClassifierType> filter,
 			final boolean includeAllWhenBoIsMatch) {
 		if (!includeAllWhenBoIsMatch) {
-			if (classifierClass.isInstance(bo)) {
-				final ClassifierType classifier = classifierClass.cast(bo);
-				if (filter.test(classifier)) {
-					return Collections.singletonList(classifier);
-				}
+			if (matches(bo, classifierClass, filter)) {
+				return Collections.singletonList(classifierClass.cast(bo));
 			}
 		}
 
@@ -124,45 +121,45 @@ public class ClassifierEditingUtil {
 		return getPotentialComponentClassifiers(bo, cc -> true);
 	}
 
-	public static <ClassifierType extends Classifier> ClassifierType getClassifierToModify(
-			final List<ClassifierType> potentialClassifiers) {
-		return getClassifierToModify(potentialClassifiers, false);
+	public static <BusinessObjectType> BusinessObjectType getBusinessObjectToModify(
+			final List<BusinessObjectType> potentialBusinessObjects) {
+		return getBusinessObjectToModify(potentialBusinessObjects, false);
 	}
 
 	/**
-	 * Returns the classifier from the specified list which should be modified. If there are multiple classifiers in the specified list,
+	 * Returns the business object from the specified list which should be modified. If there are multiple objects in the specified list,
 	 * the user will be prompted to select one. The first element will be the default. Must be called from the UI thread.
-	 * @param potentialClassifiers must have at least one element. If empty, an exception will be thrown.
-	 * @return the classifier to modify. Will return null if the user cancels the selection prompt.
+	 * @param potentialBusinessObjects must have at least one element. If empty, an exception will be thrown.
+	 * @return the object to modify. Will return null if the user cancels the selection prompt.
 	 */
 	@SuppressWarnings("unchecked")
-	public static <ClassifierType extends Classifier> ClassifierType getClassifierToModify(
-			final List<ClassifierType> potentialClassifiers,
+	public static <BusinessObjectType> BusinessObjectType getBusinessObjectToModify(
+			final List<BusinessObjectType> potentialBusinessObjects,
 			final boolean forcePrompt) {
-		if (potentialClassifiers.isEmpty()) {
-			throw new RuntimeException("potentialClassifiers is empty");
+		if (potentialBusinessObjects.isEmpty()) {
+			throw new RuntimeException("potentialBusinessObjects is empty");
 		}
 
-		// Determine which classifier should own the new element
-		final ClassifierType selectedClassifier;
-		if (forcePrompt || potentialClassifiers.size() > 1) {
+		// Determine which business object should be modified
+		final BusinessObjectType selectedBo;
+		if (forcePrompt || potentialBusinessObjects.size() > 1) {
 			// Prompt the user for the classifier
 			final ElementSelectionDialog dlg = new ElementSelectionDialog(Display.getCurrent().getActiveShell(),
-					"Select a Classifier to Modify", "Select a classifier to modify.", potentialClassifiers);
-			dlg.setInitialSelections(new Object[] { potentialClassifiers.get(0) });
+					"Select an Element to Modify", "Select an element to modify.", potentialBusinessObjects);
+			dlg.setInitialSelections(new Object[] { potentialBusinessObjects.get(0) });
 			if (dlg.open() == Window.CANCEL) {
 				return null;
 			}
 
-			selectedClassifier = (ClassifierType) dlg.getFirstSelectedElement();
+			selectedBo = (BusinessObjectType) dlg.getFirstSelectedElement();
 		} else {
-			selectedClassifier = potentialClassifiers.get(0);
+			selectedBo = potentialBusinessObjects.get(0);
 		}
 
-		return selectedClassifier;
+		return selectedBo;
 	}
 
-	public static boolean isSubcomponentWithoutClassifier(final Object bo) {
+	public static <ClassifierType> boolean isSubcomponentWithoutClassifier(final Object bo) {
 		if (bo instanceof Subcomponent) {
 			return ((Subcomponent) bo).getAllClassifier() == null;
 		}
@@ -170,14 +167,16 @@ public class ClassifierEditingUtil {
 		return false;
 	}
 
-	public static boolean isSubcomponentOrFeatureGroupWithoutClassifier(final Object bo) {
-		if (bo instanceof Subcomponent) {
-			return ((Subcomponent) bo).getAllClassifier() == null;
-		} else if (bo instanceof FeatureGroup) {
-			return ((FeatureGroup) bo).getAllFeatureGroupType() == null;
+	public static <ClassifierType> boolean isFeatureGroupWithoutClassifier(final Object bo) {
+		if (bo instanceof FeatureGroup) {
+			return ((FeatureGroup) bo).getAllClassifier() == null;
 		}
 
 		return false;
+	}
+
+	public static <ClassifierType> boolean isSubcomponentOrFeatureGroupWithoutClassifier(final Object bo) {
+		return isSubcomponentWithoutClassifier(bo) || isFeatureGroupWithoutClassifier(bo);
 	}
 
 	/**
@@ -188,7 +187,7 @@ public class ClassifierEditingUtil {
 	public static boolean showMessageIfSubcomponentOrFeatureGroupWithoutClassifier(final Object bo,
 			final String secondaryMsg) {
 		final boolean showMsg = isSubcomponentOrFeatureGroupWithoutClassifier(bo);
-		if (ClassifierEditingUtil.isSubcomponentOrFeatureGroupWithoutClassifier(bo)) {
+		if (showMsg) {
 			final String targetDescription = bo instanceof NamedElement
 					? ("The element '" + ((NamedElement) bo).getQualifiedName() + "'")
 							: "The target element";
@@ -197,5 +196,22 @@ public class ClassifierEditingUtil {
 		}
 
 		return showMsg;
+	}
+
+	/**
+	 * Returns true if the specified object is of the specified class and passes the specified filter.
+	 * @param bo
+	 * @param targetClass
+	 * @param filter
+	 * @return
+	 */
+	public static <BusinessObjectType> boolean matches(final Object bo, final Class<BusinessObjectType> targetClass,
+			final Predicate<BusinessObjectType> filter) {
+		if (!targetClass.isInstance(bo)) {
+			return false;
+		}
+
+		final BusinessObjectType targetBo = targetClass.cast(bo);
+		return filter.test(targetBo);
 	}
 }

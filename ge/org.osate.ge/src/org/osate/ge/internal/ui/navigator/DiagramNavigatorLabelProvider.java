@@ -35,6 +35,8 @@ import org.osate.ge.internal.services.ReferenceService;
 import org.osgi.framework.Bundle;
 import org.osgi.framework.FrameworkUtil;
 
+import com.google.common.io.Files;
+
 public class DiagramNavigatorLabelProvider extends DecoratingLabelProvider
 implements org.eclipse.jface.viewers.DelegatingStyledCellLabelProvider.IStyledLabelProvider,
 ICommonLabelProvider {
@@ -98,6 +100,8 @@ ICommonLabelProvider {
 			} else {
 				throw new RuntimeException("Unexpected case. Diagram type and context reference are both null");
 			}
+		} else if (element instanceof IFile) {
+			return Files.getNameWithoutExtension(diagramService.getName(((IFile) element)));
 		}
 
 		return super.getText(element);
@@ -117,7 +121,7 @@ ICommonLabelProvider {
 						.filter(dr -> dr.isValid() && file.equals(dr.getFile())).findAny();
 				if (optDiagramRef.isPresent()) {
 					final DiagramReference diagramRef = optDiagramRef.get();
-					final StyledString diagramLabel = new StyledString(diagramService.getName(diagramRef.getFile()));
+					final StyledString diagramLabel = new StyledString(getText(diagramRef.getFile()));
 
 					// Handle diagram type and context annotations
 					if (DiagramNavigatorProperties.getShowAnnotations(stateModel)) {
