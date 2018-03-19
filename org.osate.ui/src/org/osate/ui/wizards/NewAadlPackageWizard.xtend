@@ -33,9 +33,9 @@ import org.osate.aadl2.Aadl2Package
 import org.eclipse.core.resources.IContainer
 import org.osate.aadl2.modelsupport.resources.OsateResourceUtil
 import org.eclipse.emf.ecore.resource.Resource
-import org.eclipse.xtext.naming.QualifiedName
 import org.eclipse.core.runtime.Path
 import org.eclipse.core.resources.IFolder
+import org.eclipse.xtext.naming.IQualifiedNameConverter
 
 class NewAadlPackageWizard extends AbstractNewFileWizard {
 	val PACKAGE_LABEL = "AADL package name"
@@ -48,6 +48,8 @@ class NewAadlPackageWizard extends AbstractNewFileWizard {
 
 	@Inject
 	IGlobalScopeProvider globalScopeProvider
+	@Inject
+	IQualifiedNameConverter qNameConverter;
 	
 	new() {
 		super("AADL Package", "AADL package", "aadl", 1, OsateUiPlugin.^default.log, OsateUiPlugin.PLUGIN_ID)
@@ -89,8 +91,9 @@ class NewAadlPackageWizard extends AbstractNewFileWizard {
 		val scope = globalScopeProvider.getScope(
 			rsrc, Aadl2Package.eINSTANCE.getPackageRename_RenamedPackage(), null
 		)
-		val segments = packageName.split("::")
-		val qualifiedName = QualifiedName.create(segments);
+		val qualifiedName = qNameConverter.toQualifiedName(packageName);
+//		val segments = packageName.split("::")
+//		val qualifiedName = QualifiedName.create(segments);
 		if (scope.getSingleElement(qualifiedName) !== null) {
 			return "Package '" + packageName + "' already exists in scope."
 		} else {
