@@ -510,7 +510,7 @@ public class AgreeVerifySingleHandler extends VerifySingleHandler {
 		if (var.compInst == null || var.reference == null) {
 			return null;
 		}
-		return LustreAstBuilder.getRelativeLocation(var.compInst.getInstanceObjectPath());
+		return LustreAstBuilder.getRelativeLocation("", var.compInst.getInstanceObjectPath());
 	}
 
 	private String getReferenceStr(AgreeVar var) {
