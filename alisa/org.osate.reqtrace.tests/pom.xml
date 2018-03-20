@@ -15,13 +15,13 @@
 	<packaging>eclipse-test-plugin</packaging>
 	<repositories>
 		<repository>
-			<id>oxygen</id>
-			<url>http://download.eclipse.org/releases/oxygen/201706281000</url>
+			<id>eclipse</id>
+			<url>${eclipse.repo.url}</url>
 			<layout>p2</layout>
 		</repository>
 		<repository>
-			<id>xtext-utils</id>
-			<url>https://dl.bintray.com/itemis/generic/xtext-testing/updates/</url>
+			<id>xtext-testing</id>
+			<url>${xtext-testing.repo.url}</url>
 			<layout>p2</layout>
 		</repository>
 	</repositories>

@@ -1,39 +1,40 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd" xmlns="http://maven.apache.org/POM/4.0.0"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-  <modelVersion>4.0.0</modelVersion>
-  <parent>
+<project
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
+	xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
 		<groupId>org.osate</groupId>
 		<artifactId>alisa.parent</artifactId>
 		<version>2.3.3-SNAPSHOT</version>
 		<relativePath>../alisa.releng/pom.xml</relativePath>
-  </parent>
-  <groupId>org.osate</groupId>
-  <artifactId>org.osate.alisa.workbench.tests</artifactId>
-  <version>1.0.0-SNAPSHOT</version>
-  <packaging>eclipse-test-plugin</packaging>
+	</parent>
+	<groupId>org.osate</groupId>
+	<artifactId>org.osate.alisa.workbench.tests</artifactId>
+	<version>1.0.0-SNAPSHOT</version>
+	<packaging>eclipse-test-plugin</packaging>
 	<repositories>
 		<repository>
-			<id>oxygen</id>
-			<url>http://download.eclipse.org/releases/oxygen/201706281000</url>
+			<id>eclipse</id>
+			<url>${eclipse.repo.url}</url>
 			<layout>p2</layout>
 		</repository>
 		<repository>
-			<id>xtext-utils</id>
-			<url>https://dl.bintray.com/itemis/generic/xtext-testing/updates/</url>
+			<id>xtext-testing</id>
+			<url>${xtext-testing.repo.url}</url>
 			<layout>p2</layout>
 		</repository>
 	</repositories>
 	<build>
 		<plugins>
-				<plugin>
-					<groupId>org.eclipse.tycho</groupId>
-					<artifactId>tycho-surefire-plugin</artifactId>
-					<version>${tycho.version}</version>
-					<configuration>
-						<failIfNoTests>false</failIfNoTests>
-					</configuration>
-				</plugin>
+			<plugin>
+				<groupId>org.eclipse.tycho</groupId>
+				<artifactId>tycho-surefire-plugin</artifactId>
+				<version>${tycho.version}</version>
+				<configuration>
+					<failIfNoTests>false</failIfNoTests>
+				</configuration>
+			</plugin>
 			<plugin>
 				<groupId>org.eclipse.tycho</groupId>
 				<artifactId>target-platform-configuration</artifactId>
