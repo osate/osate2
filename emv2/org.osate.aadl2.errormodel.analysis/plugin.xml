@@ -2,6 +2,23 @@
 <?eclipse version="3.0"?>
 <plugin>
    <extension
+         point="org.eclipse.core.runtime.preferences">
+      <initializer
+            class="org.osate.aadl2.errormodel.analysis.PreferenceInitializer">
+      </initializer>
+   </extension>
+
+   <extension
+         point="org.eclipse.ui.preferencePages">
+      <page
+      		id="org.osate.aadl2.errormodel.analysis.ui.preferences.FHAPreferencePage"
+      		category="org.osate.ui.preferences.OsateAnalysisPage"
+      		name="Functional Hazard Assessment"
+      		class="org.osate.aadl2.errormodel.analysis.ui.preferences.FHAPreferencePage">
+      </page>
+   </extension>
+
+   <extension
          id="FaultImpactMarker"
          name="Fault Impact Marker"
          point="org.eclipse.core.resources.markers">
