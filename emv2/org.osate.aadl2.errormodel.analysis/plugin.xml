@@ -52,16 +52,16 @@
             id="org.osate.aadl2.errormodel.analysis.fha"
             name="%FHA.label">
       </command>
-      <command
+      <!--command
             categoryId="org.osate.aadl2.errormodel.analysis.category"
             id="org.osate.aadl2.errormodel.analysis.arp4761FHA"
             name="%ARP4761FHA.label">
-      </command>
-      <command
+      </command-->
+      <!--command
             categoryId="org.osate.aadl2.errormodel.analysis.category"
             id="org.osate.aadl2.errormodel.analysis.milstd882FHA"
             name="%MILSTD882FHA.label">
-      </command>
+      </command-->
       <command
             categoryId="org.osate.aadl2.errormodel.analysis.category"
             id="org.osate.aadl2.errormodel.analysis.faultImpact"
@@ -99,7 +99,7 @@
             </or>
          </enabledWhen>
       </handler>
-      <handler
+      <!--handler
             class="org.osate.aadl2.errormodel.analysis.handlers.ARP4761FHAHandler"
             commandId="org.osate.aadl2.errormodel.analysis.arp4761FHA">
          <enabledWhen>
@@ -122,8 +122,8 @@
                </with>
             </or>
          </enabledWhen>
-      </handler>
-      <handler
+      </handler-->
+      <!--handler
             class="org.osate.aadl2.errormodel.analysis.handlers.MILSTD882FHAHandler"
             commandId="org.osate.aadl2.errormodel.analysis.milstd882FHA">
          <enabledWhen>
@@ -146,7 +146,7 @@
                </with>
             </or>
          </enabledWhen>
-      </handler>
+      </handler-->
       <handler
             class="org.osate.aadl2.errormodel.analysis.handlers.FaultImpactHandler"
             commandId="org.osate.aadl2.errormodel.analysis.faultImpact">
@@ -202,14 +202,14 @@
             commandId="org.osate.aadl2.errormodel.analysis.fha"
             icon="icons/fha.png">
       </image>
-      <image
+      <!--image
             commandId="org.osate.aadl2.errormodel.analysis.arp4761FHA"
             icon="icons/fha_a.png">
-      </image>
-      <image
+      </image-->
+      <!--image
             commandId="org.osate.aadl2.errormodel.analysis.milstd882FHA"
             icon="icons/fha_m.png">
-      </image>
+      </image-->
       <image
             commandId="org.osate.aadl2.errormodel.analysis.faultImpact"
             icon="icons/FaultImpact.gif">
@@ -232,12 +232,12 @@
          <command
                commandId="org.osate.aadl2.errormodel.analysis.fha">
          </command>
-         <command
+         <!--command
                commandId="org.osate.aadl2.errormodel.analysis.arp4761FHA">
-         </command>
-         <command
+         </command-->
+         <!--command
                commandId="org.osate.aadl2.errormodel.analysis.milstd882FHA">
-         </command>
+         </command-->
          <command
                commandId="org.osate.aadl2.errormodel.analysis.faultImpact">
          </command>
@@ -266,8 +266,8 @@
             locationURI="toolbar:org.osate.ui.safetyToolbar?after=core">
          <command
                commandId="org.osate.aadl2.errormodel.analysis.fha"
-               tooltip="Run functional hazard assessment"
-               style="pulldown">
+               tooltip="Run functional hazard assessment">
+               <!--style="pulldown"-->
             <!--
                Remove visibleWhen on the command when this bug is fixed:
                https://bugs.eclipse.org/bugs/show_bug.cgi?id=201589
@@ -305,12 +305,12 @@
          <command
                commandId="org.osate.aadl2.errormodel.analysis.fha">
          </command>
-         <command
+         <!--command
                commandId="org.osate.aadl2.errormodel.analysis.arp4761FHA">
-         </command>
-         <command
+         </command-->
+         <!--command
                commandId="org.osate.aadl2.errormodel.analysis.milstd882FHA">
-         </command>
+         </command-->
       </menuContribution>
       <menuContribution
             locationURI="popup:org.osate.ui.semanticChecksNavigatorPopup?after=emv2">
@@ -329,18 +329,18 @@
                   checkEnabled="true">
             </visibleWhen>
          </command>
-         <command
+         <!--command
                commandId="org.osate.aadl2.errormodel.analysis.arp4761FHA">
             <visibleWhen
                   checkEnabled="true">
             </visibleWhen>
-         </command>
-         <command
+         </command-->
+         <!--command
                commandId="org.osate.aadl2.errormodel.analysis.milstd882FHA">
             <visibleWhen
                   checkEnabled="true">
             </visibleWhen>
-         </command>
+         </command-->
          <command
                commandId="org.osate.aadl2.errormodel.analysis.faultImpact">
             <visibleWhen
