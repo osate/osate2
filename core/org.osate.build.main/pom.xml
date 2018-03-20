@@ -20,6 +20,10 @@
 		<test.logging.1>-Dorg.apache.commons.logging.Log=org.apache.commons.logging.impl.SimpleLog</test.logging.1>
 		<test.logging.2>-Dorg.apache.commons.logging.simplelog.defaultlog=error</test.logging.2>
 		<test.logging>${test.logging.1} ${test.logging.2}</test.logging>
+		
+		<!-- The following are for use in poms for test plugins -->
+		<eclipse.repo.url>http://download.eclipse.org/releases/oxygen/201712201001/</eclipse.repo.url>
+		<xtext-testing.repo.url>https://dl.bintray.com/itemis/generic/xtext-testing/updates/0.2/</xtext-testing.repo.url>
 	</properties>
 
 	<profiles>
