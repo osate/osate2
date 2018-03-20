@@ -1,7 +1,9 @@
 package org.osate.aadl2.errormodel.analysis;
 
+import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.osate.aadl2.errormodel.analysis.fha.FHAReport;
+import org.osate.aadl2.errormodel.analysis.fha.FHAReport.HazardFormat;
 import org.osgi.framework.BundleContext;
 
 /**
@@ -56,6 +58,11 @@ public class Activator extends AbstractUIPlugin {
 	 */
 	public static Activator getDefault() {
 		return plugin;
+	}
+
+	public HazardFormat getHazardFormatPreference() {
+		final IPreferenceStore store = getPreferenceStore();
+		return HazardFormat.valueOf(store.getString(HAZARD_FORMAT_PREF));
 	}
 
 }
