@@ -92,8 +92,6 @@ class NewAadlPackageWizard extends AbstractNewFileWizard {
 			rsrc, Aadl2Package.eINSTANCE.getPackageRename_RenamedPackage(), null
 		)
 		val qualifiedName = qNameConverter.toQualifiedName(packageName);
-//		val segments = packageName.split("::")
-//		val qualifiedName = QualifiedName.create(segments);
 		if (scope.getSingleElement(qualifiedName) !== null) {
 			return "Package '" + packageName + "' already exists in scope."
 		} else {
