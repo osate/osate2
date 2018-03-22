@@ -195,7 +195,7 @@
           commandId="org.osate.ge.commands.arrangeInGrid">
        <enabledWhen>
           <reference
-                definitionId="org.osate.ge.expresions.undockedMoveableShapesWithSameParent">
+                definitionId="org.osate.ge.expressions.undockedMoveableShapesWithSameParent">
           </reference>
        </enabledWhen>
     </handler>
@@ -204,7 +204,7 @@
           commandId="org.osate.ge.commands.arrangeInCircle">
        <enabledWhen>
           <reference
-                definitionId="org.osate.ge.expresions.undockedMoveableShapesWithSameParent">
+                definitionId="org.osate.ge.expressions.undockedMoveableShapesWithSameParent">
           </reference>
        </enabledWhen>
     </handler>
@@ -213,7 +213,7 @@
           commandId="org.osate.ge.commands.distributeHorizontally">
        <enabledWhen>
           <reference
-                definitionId="org.osate.ge.expresions.canDistribute">
+                definitionId="org.osate.ge.expressions.canDistribute">
           </reference>
        </enabledWhen>
     </handler>
@@ -222,7 +222,7 @@
           commandId="org.osate.ge.commands.distributeVertically">
        <enabledWhen>
           <reference
-                definitionId="org.osate.ge.expresions.canDistribute">
+                definitionId="org.osate.ge.expressions.canDistribute">
           </reference>
        </enabledWhen>
     </handler>
@@ -334,7 +334,7 @@
           commandId="org.osate.ge.commands.alignLeft">
        <enabledWhen>
           <reference
-                definitionId="org.osate.ge.expresions.undockedMoveableShapesWithSameParent">
+                definitionId="org.osate.ge.expressions.undockedMoveableShapesWithSameParent">
           </reference>
        </enabledWhen>
     </handler>
@@ -343,7 +343,7 @@
           commandId="org.osate.ge.commands.alignCenter">
        <enabledWhen>
           <reference
-                definitionId="org.osate.ge.expresions.undockedMoveableShapesWithSameParent">
+                definitionId="org.osate.ge.expressions.undockedMoveableShapesWithSameParent">
           </reference>
        </enabledWhen>
     </handler>
@@ -352,7 +352,7 @@
           commandId="org.osate.ge.commands.alignRight">
        <enabledWhen>
           <reference
-                definitionId="org.osate.ge.expresions.undockedMoveableShapesWithSameParent">
+                definitionId="org.osate.ge.expressions.undockedMoveableShapesWithSameParent">
           </reference>
        </enabledWhen>
     </handler>
@@ -361,7 +361,7 @@
           commandId="org.osate.ge.commands.alignTop">
        <enabledWhen>
           <reference
-                definitionId="org.osate.ge.expresions.undockedMoveableShapesWithSameParent">
+                definitionId="org.osate.ge.expressions.undockedMoveableShapesWithSameParent">
           </reference>
        </enabledWhen>
     </handler>
@@ -370,7 +370,7 @@
           commandId="org.osate.ge.commands.alignMiddle">
        <enabledWhen>
           <reference
-                definitionId="org.osate.ge.expresions.undockedMoveableShapesWithSameParent">
+                definitionId="org.osate.ge.expressions.undockedMoveableShapesWithSameParent">
           </reference>
        </enabledWhen>
     </handler>
@@ -379,7 +379,7 @@
           commandId="org.osate.ge.commands.alignBottom">
        <enabledWhen>
           <reference
-                definitionId="org.osate.ge.expresions.undockedMoveableShapesWithSameParent">
+                definitionId="org.osate.ge.expressions.undockedMoveableShapesWithSameParent">
           </reference>
        </enabledWhen>
     </handler>
@@ -392,7 +392,7 @@
           commandId="org.osate.ge.layoutDiagram">
        <enabledWhen>
           <reference
-                definitionId="org.osate.ge.expresions.editorIsActive">
+                definitionId="org.osate.ge.expressions.editorIsActive">
           </reference>
        </enabledWhen>
     </handler>
@@ -401,7 +401,7 @@
           commandId="org.osate.ge.layoutContents">
        <enabledWhen>
           <reference
-                definitionId="org.osate.ge.expresions.editorIsActive">
+                definitionId="org.osate.ge.expressions.editorIsActive">
           </reference>
        </enabledWhen>
     </handler>
@@ -537,7 +537,7 @@
 				<visibleWhen
 	                   checkEnabled="false">
                        <reference
-                             definitionId="org.osate.ge.expresions.editorIsActive">
+                             definitionId="org.osate.ge.expressions.editorIsActive">
                        </reference>
 	        	</visibleWhen>
              </command>
@@ -549,7 +549,7 @@
 				<visibleWhen
 	                   checkEnabled="false">
                        <reference
-                             definitionId="org.osate.ge.expresions.editorIsActive">
+                             definitionId="org.osate.ge.expressions.editorIsActive">
                        </reference>
 	        	</visibleWhen>
              </command>
@@ -561,7 +561,7 @@
 				<visibleWhen
 	                   checkEnabled="false">
                        <reference
-                             definitionId="org.osate.ge.expresions.editorIsActive">
+                             definitionId="org.osate.ge.expressions.editorIsActive">
                        </reference>
 	        	</visibleWhen>
              </command>
@@ -576,7 +576,7 @@
 				<visibleWhen
 	                   checkEnabled="false">
                        <reference
-                             definitionId="org.osate.ge.expresions.editorIsActive">
+                             definitionId="org.osate.ge.expressions.editorIsActive">
                        </reference>
 	        	</visibleWhen>
              </command>
@@ -588,7 +588,7 @@
 				<visibleWhen
 	                   checkEnabled="false">
                        <reference
-                             definitionId="org.osate.ge.expresions.editorIsActive">
+                             definitionId="org.osate.ge.expressions.editorIsActive">
                        </reference>
 	        	</visibleWhen>
              </command>
@@ -600,7 +600,7 @@
 				<visibleWhen
 	                   checkEnabled="false">
                        <reference
-                             definitionId="org.osate.ge.expresions.editorIsActive">
+                             definitionId="org.osate.ge.expressions.editorIsActive">
                        </reference>
 	        	</visibleWhen>
              </command>
@@ -615,7 +615,7 @@
                 <visibleWhen
                       checkEnabled="false">
                    <reference
-                         definitionId="org.osate.ge.expresions.editorIsActive">
+                         definitionId="org.osate.ge.expressions.editorIsActive">
                    </reference>
                 </visibleWhen>
              </command>
@@ -627,7 +627,7 @@
                 <visibleWhen
                       checkEnabled="false">
                    <reference
-                         definitionId="org.osate.ge.expresions.editorIsActive">
+                         definitionId="org.osate.ge.expressions.editorIsActive">
                    </reference>
                 </visibleWhen>
              </command>
@@ -642,7 +642,7 @@
                 <visibleWhen
                       checkEnabled="false">
                    <reference
-                         definitionId="org.osate.ge.expresions.editorIsActive">
+                         definitionId="org.osate.ge.expressions.editorIsActive">
                    </reference>
                 </visibleWhen>
              </command>
@@ -655,7 +655,7 @@
                     <visibleWhen
 	                   checkEnabled="false">
                        <reference
-                             definitionId="org.osate.ge.expresions.editorIsActive">
+                             definitionId="org.osate.ge.expressions.editorIsActive">
                        </reference>
 	        	</visibleWhen>
              </command>
@@ -670,7 +670,7 @@
                 <visibleWhen
                       checkEnabled="false">
                    <reference
-                         definitionId="org.osate.ge.expresions.editorIsActive">
+                         definitionId="org.osate.ge.expressions.editorIsActive">
                    </reference>
                 </visibleWhen>
              </command>
@@ -682,7 +682,7 @@
                 <visibleWhen
                       checkEnabled="false">
                    <reference
-                         definitionId="org.osate.ge.expresions.editorIsActive">
+                         definitionId="org.osate.ge.expressions.editorIsActive">
                    </reference>
                 </visibleWhen>
              </command>
@@ -694,7 +694,7 @@
                 <visibleWhen
                       checkEnabled="false">
                    <reference
-                         definitionId="org.osate.ge.expresions.editorIsActive">
+                         definitionId="org.osate.ge.expressions.editorIsActive">
                    </reference>
                 </visibleWhen>
              </command>
@@ -709,7 +709,7 @@
                 <visibleWhen
                       checkEnabled="false">
                    <reference
-                         definitionId="org.osate.ge.expresions.editorIsActive">
+                         definitionId="org.osate.ge.expressions.editorIsActive">
                    </reference>
                 </visibleWhen>
              </command>
@@ -720,7 +720,7 @@
                 <visibleWhen
                       checkEnabled="false">
                    <reference
-                         definitionId="org.osate.ge.expresions.editorIsActive">
+                         definitionId="org.osate.ge.expressions.editorIsActive">
                    </reference>
                 </visibleWhen>
              </command>
@@ -731,7 +731,7 @@
                 <visibleWhen
                       checkEnabled="false">
                    <reference
-                         definitionId="org.osate.ge.expresions.editorIsActive">
+                         definitionId="org.osate.ge.expressions.editorIsActive">
                    </reference>
                 </visibleWhen>
              </command>
@@ -1009,7 +1009,7 @@
        <visibleWhen
              checkEnabled="false">
           <reference
-                definitionId="org.osate.ge.expresions.editorIsActive">
+                definitionId="org.osate.ge.expressions.editorIsActive">
           </reference>
        </visibleWhen>
     </command>
@@ -2074,7 +2074,7 @@
    <extension
          point="org.eclipse.core.expressions.definitions">
       <definition
-            id="org.osate.ge.expresions.undockedMoveableShapesWithSameParent">
+            id="org.osate.ge.expressions.undockedMoveableShapesWithSameParent">
          <with
                variable="selection">
             <and>
@@ -2100,7 +2100,7 @@
          </with>
       </definition>
       <definition
-            id="org.osate.ge.expresions.canDistribute">
+            id="org.osate.ge.expressions.canDistribute">
          <with
                variable="selection">
             <and>
@@ -2126,7 +2126,7 @@
          </with>
       </definition>
       <definition
-            id="org.osate.ge.expresions.editorIsActive">
+            id="org.osate.ge.expressions.editorIsActive">
          <with
                variable="activeEditorId">
             <equals
@@ -2309,7 +2309,18 @@
                </adapt>
             </enablement>
          </commonWizard>
+         <commonWizard
+               type="new"
+               wizardId="org.osate.ge.newDiagramWizard">
+            <enablement></enablement>
+         </commonWizard>
       </navigatorContent>
+ <commonWizard
+       associatedExtensionId="org.osate.ui.navigator.content"
+       type="new"
+       wizardId="org.osate.ge.newDiagramWizard">
+    <enablement></enablement>
+ </commonWizard>
    </extension>
    <extension
          point="org.eclipse.ui.perspectiveExtensions">
@@ -2325,5 +2336,17 @@
                id="org.osate.ge.diagramsView">
          </viewShortcut>
       </perspectiveExtension>
+   </extension>
+   <extension
+         point="org.eclipse.ui.newWizards">
+      <wizard
+            category="org.osate.Wizard.category.ID"
+            class="org.osate.ge.internal.ui.wizards.NewDiagramWizard"
+            id="org.osate.ge.newDiagramWizard"
+            name="AADL Diagram">
+         <selection
+               class="org.eclipse.core.resources.IResource">
+         </selection>
+      </wizard>
    </extension>
 </plugin>
