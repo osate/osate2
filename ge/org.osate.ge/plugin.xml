@@ -1178,9 +1178,19 @@
 		</factory>
   <factory
         adaptableType="org.eclipse.jface.viewers.ISelection"
-        class="org.osate.ge.internal.ui.properties.AgeBusinessObjectSelectionAdapterFactory">
+        class="org.osate.ge.internal.selection.AgeBusinessObjectSelectionAdapterFactory">
      <adapter
            type="org.osate.ge.BusinessObjectSelection">
+     </adapter>
+  </factory>
+    <factory
+        adaptableType="org.osate.ge.BusinessObjectSelection"
+        class="org.osate.ge.internal.selection.BusinessObjectSelectionExpressionAdapterFactory">
+     <adapter
+           type="org.eclipse.core.expressions.ICountable">
+     </adapter>
+     <adapter
+           type="org.eclipse.core.expressions.IIterable">
      </adapter>
   </factory>
 	</extension>
