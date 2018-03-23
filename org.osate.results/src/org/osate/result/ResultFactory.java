@@ -22,13 +22,13 @@ public interface ResultFactory extends EFactory {
 	ResultFactory eINSTANCE = org.osate.result.impl.ResultFactoryImpl.init();
 
 	/**
-	 * Returns a new object of class '<em>Result</em>'.
+	 * Returns a new object of class '<em>Analysis Result</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Result</em>'.
+	 * @return a new object of class '<em>Analysis Result</em>'.
 	 * @generated
 	 */
-	Result createResult();
+	AnalysisResult createAnalysisResult();
 
 	/**
 	 * Returns a new object of class '<em>Contributor</em>'.
