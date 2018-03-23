@@ -57,7 +57,7 @@ public class ResultFactoryImpl extends EFactoryImpl implements ResultFactory {
 	@Override
 	public EObject create(EClass eClass) {
 		switch (eClass.getClassifierID()) {
-			case ResultPackage.RESULT: return createResult();
+			case ResultPackage.ANALYSIS_RESULT: return createAnalysisResult();
 			case ResultPackage.CONTRIBUTOR: return createContributor();
 			case ResultPackage.DIAGNOSTIC: return createDiagnostic();
 			case ResultPackage.INTEGER_VALUE: return createIntegerValue();
@@ -104,9 +104,9 @@ public class ResultFactoryImpl extends EFactoryImpl implements ResultFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public Result createResult() {
-		ResultImpl result = new ResultImpl();
-		return result;
+	public AnalysisResult createAnalysisResult() {
+		AnalysisResultImpl analysisResult = new AnalysisResultImpl();
+		return analysisResult;
 	}
 
 	/**
