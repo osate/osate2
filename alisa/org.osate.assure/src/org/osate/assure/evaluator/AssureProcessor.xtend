@@ -55,7 +55,6 @@ import org.osate.assure.assure.VerificationResult
 import org.osate.assure.util.AssureUtilExtension
 import org.osate.categories.categories.CategoryFilter
 import org.osate.result.DiagnosticType
-import org.osate.result.Result
 import org.osate.result.ResultFactory
 import org.osate.verify.util.ExecuteJavaUtil
 import org.osate.verify.util.ExecuteResoluteUtil
@@ -74,6 +73,7 @@ import static extension org.eclipse.emf.ecore.util.EcoreUtil.getURI
 import static extension org.osate.alisa.common.util.CommonUtilExtension.*
 import static extension org.osate.assure.util.AssureUtilExtension.*
 import static extension org.osate.verify.util.VerifyUtilExtension.*
+import org.osate.result.AnalysisResult
 
 @ImplementedBy(AssureProcessor)
 interface IAssureProcessor {
@@ -569,14 +569,14 @@ class AssureProcessor implements IAssureProcessor {
 				}
 				new HashMap
 			} else if (returned instanceof HashMap<?, ?>) {
-				val report = returned.get("_result_report_") as Result
+				val report = returned.get("_result_report_") as AnalysisResult
 				if (report !== null) {
 					verificationResult.results = report
 				} else {
 					setToSuccess(verificationResult, "", target)
 				}
 				returned
-			} else if (returned instanceof Result) {
+			} else if (returned instanceof AnalysisResult) {
 //				verificationResult.resultReport = returned
 				if (returned.diagnostics.empty) {
 					setToSuccess(verificationResult, "", target)

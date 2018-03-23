@@ -17,8 +17,8 @@ package org.osate.assure.assure;
 
 import org.eclipse.emf.common.util.EList;
 
+import org.osate.result.AnalysisResult;
 import org.osate.result.Diagnostic;
-import org.osate.result.Result;
 
 /**
  * <!-- begin-user-doc -->
@@ -125,12 +125,12 @@ public interface VerificationResult extends AssureResult, VerificationExpr
    * </p>
    * <!-- end-user-doc -->
    * @return the value of the '<em>Results</em>' reference.
-   * @see #setResults(Result)
+   * @see #setResults(AnalysisResult)
    * @see org.osate.assure.assure.AssurePackage#getVerificationResult_Results()
    * @model
    * @generated
    */
-  Result getResults();
+  AnalysisResult getResults();
 
   /**
    * Sets the value of the '{@link org.osate.assure.assure.VerificationResult#getResults <em>Results</em>}' reference.
@@ -140,7 +140,7 @@ public interface VerificationResult extends AssureResult, VerificationExpr
    * @see #getResults()
    * @generated
    */
-  void setResults(Result value);
+  void setResults(AnalysisResult value);
 
   /**
    * Returns the value of the '<em><b>Message</b></em>' attribute.

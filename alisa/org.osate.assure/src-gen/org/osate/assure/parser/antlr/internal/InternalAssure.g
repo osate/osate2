@@ -760,7 +760,7 @@ rulePreconditionResult returns [EObject current=null]
 	        }
         }
 		{ 
-	        newCompositeNode(grammarAccess.getPreconditionResultAccess().getResultsResultCrossReference_9_1_0()); 
+	        newCompositeNode(grammarAccess.getPreconditionResultAccess().getResultsAnalysisResultCrossReference_9_1_0()); 
 	    }
 		ruleQualifiedName		{ 
 	        afterParserOrEnumRuleCall();
@@ -947,7 +947,7 @@ ruleValidationResult returns [EObject current=null]
 	        }
         }
 		{ 
-	        newCompositeNode(grammarAccess.getValidationResultAccess().getResultsResultCrossReference_9_1_0()); 
+	        newCompositeNode(grammarAccess.getValidationResultAccess().getResultsAnalysisResultCrossReference_9_1_0()); 
 	    }
 		ruleQualifiedName		{ 
 	        afterParserOrEnumRuleCall();
@@ -1137,7 +1137,7 @@ ruleVerificationActivityResult returns [EObject current=null]
 	        }
         }
 		{ 
-	        newCompositeNode(grammarAccess.getVerificationActivityResultAccess().getResultsResultCrossReference_9_1_0()); 
+	        newCompositeNode(grammarAccess.getVerificationActivityResultAccess().getResultsAnalysisResultCrossReference_9_1_0()); 
 	    }
 		ruleQualifiedName		{ 
 	        afterParserOrEnumRuleCall();
@@ -1363,7 +1363,7 @@ rulePredicateResult returns [EObject current=null]
 	        }
         }
 		{ 
-	        newCompositeNode(grammarAccess.getPredicateResultAccess().getResultsResultCrossReference_9_1_0()); 
+	        newCompositeNode(grammarAccess.getPredicateResultAccess().getResultsAnalysisResultCrossReference_9_1_0()); 
 	    }
 		ruleQualifiedName		{ 
 	        afterParserOrEnumRuleCall();

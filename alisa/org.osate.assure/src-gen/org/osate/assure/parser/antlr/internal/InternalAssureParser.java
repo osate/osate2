@@ -1995,7 +1995,7 @@ public class InternalAssureParser extends AbstractInternalAntlrParser {
                     }
                     if ( state.backtracking==0 ) {
                        
-                      	        newCompositeNode(grammarAccess.getPreconditionResultAccess().getResultsResultCrossReference_9_1_0()); 
+                      	        newCompositeNode(grammarAccess.getPreconditionResultAccess().getResultsAnalysisResultCrossReference_9_1_0()); 
                       	    
                     }
                     pushFollow(FOLLOW_31);
@@ -2471,7 +2471,7 @@ public class InternalAssureParser extends AbstractInternalAntlrParser {
                     }
                     if ( state.backtracking==0 ) {
                        
-                      	        newCompositeNode(grammarAccess.getValidationResultAccess().getResultsResultCrossReference_9_1_0()); 
+                      	        newCompositeNode(grammarAccess.getValidationResultAccess().getResultsAnalysisResultCrossReference_9_1_0()); 
                       	    
                     }
                     pushFollow(FOLLOW_31);
@@ -2954,7 +2954,7 @@ public class InternalAssureParser extends AbstractInternalAntlrParser {
                     }
                     if ( state.backtracking==0 ) {
                        
-                      	        newCompositeNode(grammarAccess.getVerificationActivityResultAccess().getResultsResultCrossReference_9_1_0()); 
+                      	        newCompositeNode(grammarAccess.getVerificationActivityResultAccess().getResultsAnalysisResultCrossReference_9_1_0()); 
                       	    
                     }
                     pushFollow(FOLLOW_35);
@@ -3525,7 +3525,7 @@ public class InternalAssureParser extends AbstractInternalAntlrParser {
                     }
                     if ( state.backtracking==0 ) {
                        
-                      	        newCompositeNode(grammarAccess.getPredicateResultAccess().getResultsResultCrossReference_9_1_0()); 
+                      	        newCompositeNode(grammarAccess.getPredicateResultAccess().getResultsAnalysisResultCrossReference_9_1_0()); 
                       	    
                     }
                     pushFollow(FOLLOW_31);

@@ -35,8 +35,8 @@ import org.osate.assure.assure.VerificationExecutionState;
 import org.osate.assure.assure.VerificationResult;
 import org.osate.assure.assure.VerificationResultState;
 
+import org.osate.result.AnalysisResult;
 import org.osate.result.Diagnostic;
-import org.osate.result.Result;
 
 /**
  * <!-- begin-user-doc -->
@@ -115,7 +115,7 @@ public class VerificationResultImpl extends AssureResultImpl implements Verifica
    * @generated
    * @ordered
    */
-  protected Result results;
+  protected AnalysisResult results;
 
   /**
    * The default value of the '{@link #getMessage() <em>Message</em>}' attribute.
@@ -223,12 +223,12 @@ public class VerificationResultImpl extends AssureResultImpl implements Verifica
    * <!-- end-user-doc -->
    * @generated
    */
-  public Result getResults()
+  public AnalysisResult getResults()
   {
     if (results != null && results.eIsProxy())
     {
       InternalEObject oldResults = (InternalEObject)results;
-      results = (Result)eResolveProxy(oldResults);
+      results = (AnalysisResult)eResolveProxy(oldResults);
       if (results != oldResults)
       {
         if (eNotificationRequired())
@@ -243,7 +243,7 @@ public class VerificationResultImpl extends AssureResultImpl implements Verifica
    * <!-- end-user-doc -->
    * @generated
    */
-  public Result basicGetResults()
+  public AnalysisResult basicGetResults()
   {
     return results;
   }
@@ -253,9 +253,9 @@ public class VerificationResultImpl extends AssureResultImpl implements Verifica
    * <!-- end-user-doc -->
    * @generated
    */
-  public void setResults(Result newResults)
+  public void setResults(AnalysisResult newResults)
   {
-    Result oldResults = results;
+    AnalysisResult oldResults = results;
     results = newResults;
     if (eNotificationRequired())
       eNotify(new ENotificationImpl(this, Notification.SET, AssurePackage.VERIFICATION_RESULT__RESULTS, oldResults, results));
@@ -347,7 +347,7 @@ public class VerificationResultImpl extends AssureResultImpl implements Verifica
         getIssues().addAll((Collection<? extends Diagnostic>)newValue);
         return;
       case AssurePackage.VERIFICATION_RESULT__RESULTS:
-        setResults((Result)newValue);
+        setResults((AnalysisResult)newValue);
         return;
       case AssurePackage.VERIFICATION_RESULT__MESSAGE:
         setMessage((String)newValue);
@@ -376,7 +376,7 @@ public class VerificationResultImpl extends AssureResultImpl implements Verifica
         getIssues().clear();
         return;
       case AssurePackage.VERIFICATION_RESULT__RESULTS:
-        setResults((Result)null);
+        setResults((AnalysisResult)null);
         return;
       case AssurePackage.VERIFICATION_RESULT__MESSAGE:
         setMessage(MESSAGE_EDEFAULT);

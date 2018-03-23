@@ -410,7 +410,7 @@ public class AssureSemanticSequencer extends CommonSemanticSequencer {
 	 *         executionState=VerificationExecutionState 
 	 *         resultState=VerificationResultState 
 	 *         issues+=ResultIssue* 
-	 *         results=[Result|QualifiedName]? 
+	 *         results=[AnalysisResult|QualifiedName]? 
 	 *         metrics=Metrics 
 	 *         message=STRING?
 	 *     )
@@ -431,7 +431,7 @@ public class AssureSemanticSequencer extends CommonSemanticSequencer {
 	 *         executionState=VerificationExecutionState 
 	 *         resultState=VerificationResultState 
 	 *         issues+=ResultIssue* 
-	 *         results=[Result|QualifiedName]? 
+	 *         results=[AnalysisResult|QualifiedName]? 
 	 *         metrics=Metrics 
 	 *         message=STRING?
 	 *     )
@@ -538,7 +538,7 @@ public class AssureSemanticSequencer extends CommonSemanticSequencer {
 	 *         executionState=VerificationExecutionState 
 	 *         resultState=VerificationResultState 
 	 *         issues+=ResultIssue* 
-	 *         results=[Result|QualifiedName]? 
+	 *         results=[AnalysisResult|QualifiedName]? 
 	 *         metrics=Metrics 
 	 *         message=STRING?
 	 *     )
@@ -560,7 +560,7 @@ public class AssureSemanticSequencer extends CommonSemanticSequencer {
 	 *         executionState=VerificationExecutionState 
 	 *         resultState=VerificationResultState 
 	 *         issues+=ResultIssue* 
-	 *         results=[Result|QualifiedName]? 
+	 *         results=[AnalysisResult|QualifiedName]? 
 	 *         metrics=Metrics 
 	 *         message=STRING? 
 	 *         preconditionResult=PreconditionResult? 

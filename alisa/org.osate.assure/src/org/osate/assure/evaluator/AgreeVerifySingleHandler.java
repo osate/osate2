@@ -545,7 +545,7 @@ public class AgreeVerifySingleHandler extends VerifySingleHandler {
 		} else if (reference instanceof PropertyStatement) {
 			return prefix + seperator + ((PropertyStatement) reference).getName();
 		} else if (reference instanceof ComponentType || reference instanceof ComponentImplementation) {
-			return "Result";
+			return "AnalysisResult";
 		}
 		throw new AgreeException("Unhandled reference type: '" + reference.getClass().getName() + "'");
 	}
