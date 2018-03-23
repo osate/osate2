@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ecore:EPackage xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="result" nsURI="http://www.osate.org/result/Result" nsPrefix="result">
-  <eClassifiers xsi:type="ecore:EClass" name="Result">
+  <eClassifiers xsi:type="ecore:EClass" name="AnalysisResult">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="analysis" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="info" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="sourceReference" eType="ecore:EClass http://www.eclipse.org/emf/2002/Ecore#//EObject"/>
@@ -12,7 +12,7 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="contributors" upperBound="-1"
         eType="#//Contributor" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="subResults" upperBound="-1"
-        eType="#//Result" containment="true"/>
+        eType="#//AnalysisResult" containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Contributor">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="info" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>

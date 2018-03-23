@@ -66,11 +66,11 @@ public class ResultSwitch<T> extends Switch<T> {
 	@Override
 	protected T doSwitch(int classifierID, EObject theEObject) {
 		switch (classifierID) {
-			case ResultPackage.RESULT: {
-				Result result = (Result)theEObject;
-				T theResult = caseResult(result);
-				if (theResult == null) theResult = defaultCase(theEObject);
-				return theResult;
+			case ResultPackage.ANALYSIS_RESULT: {
+				AnalysisResult analysisResult = (AnalysisResult)theEObject;
+				T result = caseAnalysisResult(analysisResult);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
 			}
 			case ResultPackage.CONTRIBUTOR: {
 				Contributor contributor = (Contributor)theEObject;
@@ -123,17 +123,17 @@ public class ResultSwitch<T> extends Switch<T> {
 	}
 
 	/**
-	 * Returns the result of interpreting the object as an instance of '<em>Result</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>Analysis Result</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>Result</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>Analysis Result</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public T caseResult(Result object) {
+	public T caseAnalysisResult(AnalysisResult object) {
 		return null;
 	}
 
