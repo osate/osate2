@@ -28,7 +28,7 @@ import org.osate.aadl2.instance.ConnectionInstance
 
 @RunWith(typeof(XtextRunner))
 @InjectWith(typeof(ErrorModelUiInjectorProvider))
-class FTATests extends OsateTest {
+class FTATest extends OsateTest {
 	override getProjectName() {
 		"FTATests"
 	}

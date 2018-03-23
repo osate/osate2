@@ -20,6 +20,7 @@
 		<module>../../org.osate.aadl2.errormodel.faulttree.design</module>
 		<module>../../org.osate.aadl2.errormodel.faulttree.edit</module>
 		<module>../../org.osate.aadl2.errormodel.faulttree.generation</module>
+		<module>../../org.osate.aadl2.errormodel.faulttree.tests</module>
 		<module>../../org.osate.aadl2.errormodel.propagationgraph</module>
 		<module>../../org.osate.aadl2.errormodel.analysis</module>
 		<module>../../org.osate.aadl2.errormodel.contrib</module>
