@@ -22,7 +22,7 @@ import org.osate.analysis.flows.reporting.model.ReportedCell;
 import org.osate.analysis.flows.reporting.model.Section;
 import org.osate.result.Diagnostic;
 import org.osate.result.DiagnosticType;
-import org.osate.result.Result;
+import org.osate.result.AnalysisResult;
 import org.osate.result.util.ResultUtil;
 import org.osate.xtext.aadl2.properties.util.GetProperties;
 
@@ -669,7 +669,7 @@ public class LatencyReportEntry {
 		}
 	}
 
-	public Result genResult() {
+	public AnalysisResult genResult() {
 		String reportName;
 
 		issues = new ArrayList<Diagnostic>();
@@ -683,7 +683,7 @@ public class LatencyReportEntry {
 		String systemName = si.getComponentClassifier().getName();
 		String inMode = Aadl2Util.isPrintableSOMName(som) ? " in mode " + som.getName() : "";
 
-		Result result = ResultUtil.createResult(reportName + inMode, relatedEndToEndFlow);
+		AnalysisResult result = ResultUtil.createResult(reportName + inMode, relatedEndToEndFlow);
 		String description = "Latency analysis for end-to-end flow '" + reportName + "' of system '" + systemName + "'"
 				+ inMode;
 		addStringValue(result,description);

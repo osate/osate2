@@ -7,7 +7,7 @@ import org.osate.aadl2.instance.SystemInstance;
 import org.osate.analysis.flows.preferences.Values;
 import org.osate.analysis.flows.reporting.model.Report;
 import org.osate.analysis.flows.reporting.model.Report.ReportType;
-import org.osate.result.Result;
+import org.osate.result.AnalysisResult;
 import org.osate.result.util.ResultUtil;
 
 /**
@@ -71,9 +71,9 @@ public class LatencyReport {
 		return genericReport;
 	}
 
-	public Result genResult() {
+	public AnalysisResult genResult() {
 
-		Result latencyReports = ResultUtil.createResult(this.name,
+		AnalysisResult latencyReports = ResultUtil.createResult(this.name,
 				this.relatedInstance);
 		latencyReports.setAnalysis("Latency analysis");
 		latencyReports.setInfo(getPreferencesDescription());
