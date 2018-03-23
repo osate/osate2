@@ -15,14 +15,14 @@
       <genEnumLiterals ecoreEnumLiteral="Result.ecore#//DiagnosticType/SUCCESS"/>
       <genEnumLiterals ecoreEnumLiteral="Result.ecore#//DiagnosticType/FAILURE"/>
     </genEnums>
-    <genClasses ecoreClass="Result.ecore#//Result">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Result.ecore#//Result/analysis"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Result.ecore#//Result/info"/>
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Result.ecore#//Result/sourceReference"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Result.ecore#//Result/values"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Result.ecore#//Result/diagnostics"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Result.ecore#//Result/contributors"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Result.ecore#//Result/subResults"/>
+    <genClasses ecoreClass="Result.ecore#//AnalysisResult">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Result.ecore#//AnalysisResult/analysis"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Result.ecore#//AnalysisResult/info"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Result.ecore#//AnalysisResult/sourceReference"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Result.ecore#//AnalysisResult/values"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Result.ecore#//AnalysisResult/diagnostics"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Result.ecore#//AnalysisResult/contributors"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Result.ecore#//AnalysisResult/subResults"/>
     </genClasses>
     <genClasses ecoreClass="Result.ecore#//Contributor">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Result.ecore#//Contributor/info"/>

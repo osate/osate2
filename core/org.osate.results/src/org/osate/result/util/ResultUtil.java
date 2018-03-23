@@ -1,13 +1,13 @@
 package org.osate.result.util;
 
 import org.eclipse.emf.ecore.EObject;
+import org.osate.result.AnalysisResult;
 import org.osate.result.BooleanValue;
 import org.osate.result.Contributor;
 import org.osate.result.Diagnostic;
 import org.osate.result.DiagnosticType;
 import org.osate.result.IntegerValue;
 import org.osate.result.RealValue;
-import org.osate.result.Result;
 import org.osate.result.ResultFactory;
 import org.osate.result.StringValue;
 
@@ -45,14 +45,14 @@ public class ResultUtil {
 		return issue;
 	}
 
-	public static Result createResult(String name, EObject target) {
-		Result result = ResultFactory.eINSTANCE.createResult();
+	public static AnalysisResult createResult(String name, EObject target) {
+		AnalysisResult result = ResultFactory.eINSTANCE.createAnalysisResult();
 		result.setSourceReference(target);
 		result.setAnalysis(name);
 		return result;
 	}
 
-	public static void addIntegerValue(Result result, long value) {
+	public static void addIntegerValue(AnalysisResult result, long value) {
 		IntegerValue res = ResultFactory.eINSTANCE.createIntegerValue();
 		res.setValue(value);
 		result.getValues().add(res);
@@ -64,7 +64,7 @@ public class ResultUtil {
 		contributor.getValues().add(res);
 	}
 
-	public static void addIntegerValue(Result result, long value, String unit) {
+	public static void addIntegerValue(AnalysisResult result, long value, String unit) {
 		IntegerValue res = ResultFactory.eINSTANCE.createIntegerValue();
 		res.setValue(value);
 		res.setUnit(unit);
@@ -78,7 +78,7 @@ public class ResultUtil {
 		contributor.getValues().add(res);
 	}
 
-	public static void addRealValue(Result result, double value) {
+	public static void addRealValue(AnalysisResult result, double value) {
 		RealValue res = ResultFactory.eINSTANCE.createRealValue();
 		res.setValue(value);
 		result.getValues().add(res);
@@ -90,7 +90,7 @@ public class ResultUtil {
 		contributor.getValues().add(res);
 	}
 
-	public static void addRealValue(Result result, double value, String unit) {
+	public static void addRealValue(AnalysisResult result, double value, String unit) {
 		RealValue res = ResultFactory.eINSTANCE.createRealValue();
 		res.setValue(value);
 		res.setUnit(unit);
@@ -104,7 +104,7 @@ public class ResultUtil {
 		contributor.getValues().add(res);
 	}
 
-	public static void addStringValue(Result result, String value) {
+	public static void addStringValue(AnalysisResult result, String value) {
 		StringValue res = ResultFactory.eINSTANCE.createStringValue();
 		res.setValue(value);
 		result.getValues().add(res);
@@ -116,7 +116,7 @@ public class ResultUtil {
 		contributor.getValues().add(res);
 	}
 
-	public static void addBooleanValue(Result result, boolean value) {
+	public static void addBooleanValue(AnalysisResult result, boolean value) {
 		BooleanValue res = ResultFactory.eINSTANCE.createBooleanValue();
 		res.setValue(value);
 		result.getValues().add(res);

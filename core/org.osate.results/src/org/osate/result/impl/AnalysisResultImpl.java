@@ -21,30 +21,30 @@ import org.eclipse.emf.ecore.util.InternalEList;
 
 import org.osate.result.Contributor;
 import org.osate.result.Diagnostic;
-import org.osate.result.Result;
+import org.osate.result.AnalysisResult;
 import org.osate.result.ResultPackage;
 import org.osate.result.Value;
 
 /**
  * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>Result</b></em>'.
+ * An implementation of the model object '<em><b>AnalysisResult</b></em>'.
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * </p>
  * <ul>
- *   <li>{@link org.osate.result.impl.ResultImpl#getAnalysis <em>Analysis</em>}</li>
- *   <li>{@link org.osate.result.impl.ResultImpl#getInfo <em>Info</em>}</li>
- *   <li>{@link org.osate.result.impl.ResultImpl#getSourceReference <em>Source Reference</em>}</li>
- *   <li>{@link org.osate.result.impl.ResultImpl#getValues <em>Values</em>}</li>
- *   <li>{@link org.osate.result.impl.ResultImpl#getDiagnostics <em>Diagnostics</em>}</li>
- *   <li>{@link org.osate.result.impl.ResultImpl#getContributors <em>Contributors</em>}</li>
- *   <li>{@link org.osate.result.impl.ResultImpl#getSubResults <em>Sub Results</em>}</li>
+ *   <li>{@link org.osate.result.impl.AnalysisResultImpl#getAnalysis <em>Analysis</em>}</li>
+ *   <li>{@link org.osate.result.impl.AnalysisResultImpl#getInfo <em>Info</em>}</li>
+ *   <li>{@link org.osate.result.impl.AnalysisResultImpl#getSourceReference <em>Source Reference</em>}</li>
+ *   <li>{@link org.osate.result.impl.AnalysisResultImpl#getValues <em>Values</em>}</li>
+ *   <li>{@link org.osate.result.impl.AnalysisResultImpl#getDiagnostics <em>Diagnostics</em>}</li>
+ *   <li>{@link org.osate.result.impl.AnalysisResultImpl#getContributors <em>Contributors</em>}</li>
+ *   <li>{@link org.osate.result.impl.AnalysisResultImpl#getSubResults <em>Sub Results</em>}</li>
  * </ul>
  *
  * @generated
  */
-public class ResultImpl extends MinimalEObjectImpl.Container implements Result {
+public class AnalysisResultImpl extends MinimalEObjectImpl.Container implements AnalysisResult {
 	/**
 	 * The default value of the '{@link #getAnalysis() <em>Analysis</em>}' attribute.
 	 * <!-- begin-user-doc -->
@@ -133,14 +133,14 @@ public class ResultImpl extends MinimalEObjectImpl.Container implements Result {
 	 * @generated
 	 * @ordered
 	 */
-	protected EList<Result> subResults;
+	protected EList<AnalysisResult> subResults;
 
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected ResultImpl() {
+	protected AnalysisResultImpl() {
 		super();
 	}
 
@@ -151,7 +151,7 @@ public class ResultImpl extends MinimalEObjectImpl.Container implements Result {
 	 */
 	@Override
 	protected EClass eStaticClass() {
-		return ResultPackage.Literals.RESULT;
+		return ResultPackage.Literals.ANALYSIS_RESULT;
 	}
 
 	/**
@@ -172,7 +172,7 @@ public class ResultImpl extends MinimalEObjectImpl.Container implements Result {
 		String oldAnalysis = analysis;
 		analysis = newAnalysis;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, ResultPackage.RESULT__ANALYSIS, oldAnalysis, analysis));
+			eNotify(new ENotificationImpl(this, Notification.SET, ResultPackage.ANALYSIS_RESULT__ANALYSIS, oldAnalysis, analysis));
 	}
 
 	/**
@@ -193,7 +193,7 @@ public class ResultImpl extends MinimalEObjectImpl.Container implements Result {
 		String oldInfo = info;
 		info = newInfo;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, ResultPackage.RESULT__INFO, oldInfo, info));
+			eNotify(new ENotificationImpl(this, Notification.SET, ResultPackage.ANALYSIS_RESULT__INFO, oldInfo, info));
 	}
 
 	/**
@@ -207,7 +207,7 @@ public class ResultImpl extends MinimalEObjectImpl.Container implements Result {
 			sourceReference = eResolveProxy(oldSourceReference);
 			if (sourceReference != oldSourceReference) {
 				if (eNotificationRequired())
-					eNotify(new ENotificationImpl(this, Notification.RESOLVE, ResultPackage.RESULT__SOURCE_REFERENCE, oldSourceReference, sourceReference));
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE, ResultPackage.ANALYSIS_RESULT__SOURCE_REFERENCE, oldSourceReference, sourceReference));
 			}
 		}
 		return sourceReference;
@@ -231,7 +231,7 @@ public class ResultImpl extends MinimalEObjectImpl.Container implements Result {
 		EObject oldSourceReference = sourceReference;
 		sourceReference = newSourceReference;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, ResultPackage.RESULT__SOURCE_REFERENCE, oldSourceReference, sourceReference));
+			eNotify(new ENotificationImpl(this, Notification.SET, ResultPackage.ANALYSIS_RESULT__SOURCE_REFERENCE, oldSourceReference, sourceReference));
 	}
 
 	/**
@@ -241,7 +241,7 @@ public class ResultImpl extends MinimalEObjectImpl.Container implements Result {
 	 */
 	public EList<Value> getValues() {
 		if (values == null) {
-			values = new EObjectContainmentEList<Value>(Value.class, this, ResultPackage.RESULT__VALUES);
+			values = new EObjectContainmentEList<Value>(Value.class, this, ResultPackage.ANALYSIS_RESULT__VALUES);
 		}
 		return values;
 	}
@@ -253,7 +253,7 @@ public class ResultImpl extends MinimalEObjectImpl.Container implements Result {
 	 */
 	public EList<Diagnostic> getDiagnostics() {
 		if (diagnostics == null) {
-			diagnostics = new EObjectContainmentEList<Diagnostic>(Diagnostic.class, this, ResultPackage.RESULT__DIAGNOSTICS);
+			diagnostics = new EObjectContainmentEList<Diagnostic>(Diagnostic.class, this, ResultPackage.ANALYSIS_RESULT__DIAGNOSTICS);
 		}
 		return diagnostics;
 	}
@@ -265,7 +265,7 @@ public class ResultImpl extends MinimalEObjectImpl.Container implements Result {
 	 */
 	public EList<Contributor> getContributors() {
 		if (contributors == null) {
-			contributors = new EObjectContainmentEList<Contributor>(Contributor.class, this, ResultPackage.RESULT__CONTRIBUTORS);
+			contributors = new EObjectContainmentEList<Contributor>(Contributor.class, this, ResultPackage.ANALYSIS_RESULT__CONTRIBUTORS);
 		}
 		return contributors;
 	}
@@ -275,9 +275,9 @@ public class ResultImpl extends MinimalEObjectImpl.Container implements Result {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EList<Result> getSubResults() {
+	public EList<AnalysisResult> getSubResults() {
 		if (subResults == null) {
-			subResults = new EObjectContainmentEList<Result>(Result.class, this, ResultPackage.RESULT__SUB_RESULTS);
+			subResults = new EObjectContainmentEList<AnalysisResult>(AnalysisResult.class, this, ResultPackage.ANALYSIS_RESULT__SUB_RESULTS);
 		}
 		return subResults;
 	}
@@ -290,13 +290,13 @@ public class ResultImpl extends MinimalEObjectImpl.Container implements Result {
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
-			case ResultPackage.RESULT__VALUES:
+			case ResultPackage.ANALYSIS_RESULT__VALUES:
 				return ((InternalEList<?>)getValues()).basicRemove(otherEnd, msgs);
-			case ResultPackage.RESULT__DIAGNOSTICS:
+			case ResultPackage.ANALYSIS_RESULT__DIAGNOSTICS:
 				return ((InternalEList<?>)getDiagnostics()).basicRemove(otherEnd, msgs);
-			case ResultPackage.RESULT__CONTRIBUTORS:
+			case ResultPackage.ANALYSIS_RESULT__CONTRIBUTORS:
 				return ((InternalEList<?>)getContributors()).basicRemove(otherEnd, msgs);
-			case ResultPackage.RESULT__SUB_RESULTS:
+			case ResultPackage.ANALYSIS_RESULT__SUB_RESULTS:
 				return ((InternalEList<?>)getSubResults()).basicRemove(otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
@@ -310,20 +310,20 @@ public class ResultImpl extends MinimalEObjectImpl.Container implements Result {
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-			case ResultPackage.RESULT__ANALYSIS:
+			case ResultPackage.ANALYSIS_RESULT__ANALYSIS:
 				return getAnalysis();
-			case ResultPackage.RESULT__INFO:
+			case ResultPackage.ANALYSIS_RESULT__INFO:
 				return getInfo();
-			case ResultPackage.RESULT__SOURCE_REFERENCE:
+			case ResultPackage.ANALYSIS_RESULT__SOURCE_REFERENCE:
 				if (resolve) return getSourceReference();
 				return basicGetSourceReference();
-			case ResultPackage.RESULT__VALUES:
+			case ResultPackage.ANALYSIS_RESULT__VALUES:
 				return getValues();
-			case ResultPackage.RESULT__DIAGNOSTICS:
+			case ResultPackage.ANALYSIS_RESULT__DIAGNOSTICS:
 				return getDiagnostics();
-			case ResultPackage.RESULT__CONTRIBUTORS:
+			case ResultPackage.ANALYSIS_RESULT__CONTRIBUTORS:
 				return getContributors();
-			case ResultPackage.RESULT__SUB_RESULTS:
+			case ResultPackage.ANALYSIS_RESULT__SUB_RESULTS:
 				return getSubResults();
 		}
 		return super.eGet(featureID, resolve, coreType);
@@ -338,30 +338,30 @@ public class ResultImpl extends MinimalEObjectImpl.Container implements Result {
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-			case ResultPackage.RESULT__ANALYSIS:
+			case ResultPackage.ANALYSIS_RESULT__ANALYSIS:
 				setAnalysis((String)newValue);
 				return;
-			case ResultPackage.RESULT__INFO:
+			case ResultPackage.ANALYSIS_RESULT__INFO:
 				setInfo((String)newValue);
 				return;
-			case ResultPackage.RESULT__SOURCE_REFERENCE:
+			case ResultPackage.ANALYSIS_RESULT__SOURCE_REFERENCE:
 				setSourceReference((EObject)newValue);
 				return;
-			case ResultPackage.RESULT__VALUES:
+			case ResultPackage.ANALYSIS_RESULT__VALUES:
 				getValues().clear();
 				getValues().addAll((Collection<? extends Value>)newValue);
 				return;
-			case ResultPackage.RESULT__DIAGNOSTICS:
+			case ResultPackage.ANALYSIS_RESULT__DIAGNOSTICS:
 				getDiagnostics().clear();
 				getDiagnostics().addAll((Collection<? extends Diagnostic>)newValue);
 				return;
-			case ResultPackage.RESULT__CONTRIBUTORS:
+			case ResultPackage.ANALYSIS_RESULT__CONTRIBUTORS:
 				getContributors().clear();
 				getContributors().addAll((Collection<? extends Contributor>)newValue);
 				return;
-			case ResultPackage.RESULT__SUB_RESULTS:
+			case ResultPackage.ANALYSIS_RESULT__SUB_RESULTS:
 				getSubResults().clear();
-				getSubResults().addAll((Collection<? extends Result>)newValue);
+				getSubResults().addAll((Collection<? extends AnalysisResult>)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -375,25 +375,25 @@ public class ResultImpl extends MinimalEObjectImpl.Container implements Result {
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-			case ResultPackage.RESULT__ANALYSIS:
+			case ResultPackage.ANALYSIS_RESULT__ANALYSIS:
 				setAnalysis(ANALYSIS_EDEFAULT);
 				return;
-			case ResultPackage.RESULT__INFO:
+			case ResultPackage.ANALYSIS_RESULT__INFO:
 				setInfo(INFO_EDEFAULT);
 				return;
-			case ResultPackage.RESULT__SOURCE_REFERENCE:
+			case ResultPackage.ANALYSIS_RESULT__SOURCE_REFERENCE:
 				setSourceReference((EObject)null);
 				return;
-			case ResultPackage.RESULT__VALUES:
+			case ResultPackage.ANALYSIS_RESULT__VALUES:
 				getValues().clear();
 				return;
-			case ResultPackage.RESULT__DIAGNOSTICS:
+			case ResultPackage.ANALYSIS_RESULT__DIAGNOSTICS:
 				getDiagnostics().clear();
 				return;
-			case ResultPackage.RESULT__CONTRIBUTORS:
+			case ResultPackage.ANALYSIS_RESULT__CONTRIBUTORS:
 				getContributors().clear();
 				return;
-			case ResultPackage.RESULT__SUB_RESULTS:
+			case ResultPackage.ANALYSIS_RESULT__SUB_RESULTS:
 				getSubResults().clear();
 				return;
 		}
@@ -408,19 +408,19 @@ public class ResultImpl extends MinimalEObjectImpl.Container implements Result {
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-			case ResultPackage.RESULT__ANALYSIS:
+			case ResultPackage.ANALYSIS_RESULT__ANALYSIS:
 				return ANALYSIS_EDEFAULT == null ? analysis != null : !ANALYSIS_EDEFAULT.equals(analysis);
-			case ResultPackage.RESULT__INFO:
+			case ResultPackage.ANALYSIS_RESULT__INFO:
 				return INFO_EDEFAULT == null ? info != null : !INFO_EDEFAULT.equals(info);
-			case ResultPackage.RESULT__SOURCE_REFERENCE:
+			case ResultPackage.ANALYSIS_RESULT__SOURCE_REFERENCE:
 				return sourceReference != null;
-			case ResultPackage.RESULT__VALUES:
+			case ResultPackage.ANALYSIS_RESULT__VALUES:
 				return values != null && !values.isEmpty();
-			case ResultPackage.RESULT__DIAGNOSTICS:
+			case ResultPackage.ANALYSIS_RESULT__DIAGNOSTICS:
 				return diagnostics != null && !diagnostics.isEmpty();
-			case ResultPackage.RESULT__CONTRIBUTORS:
+			case ResultPackage.ANALYSIS_RESULT__CONTRIBUTORS:
 				return contributors != null && !contributors.isEmpty();
-			case ResultPackage.RESULT__SUB_RESULTS:
+			case ResultPackage.ANALYSIS_RESULT__SUB_RESULTS:
 				return subResults != null && !subResults.isEmpty();
 		}
 		return super.eIsSet(featureID);
@@ -444,4 +444,4 @@ public class ResultImpl extends MinimalEObjectImpl.Container implements Result {
 		return result.toString();
 	}
 
-} //ResultImpl
+} //AnalysisResultImpl
