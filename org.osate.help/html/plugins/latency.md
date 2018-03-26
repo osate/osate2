@@ -112,7 +112,7 @@ The latency analysis supports the following settings:
 -   **For worst-case processing time use**: Users can choose between deadline
     and worst-case execution time as worst case processing time. For best case we always use execution time.
     -   **Deadline (DL) \[default\]**: Deadline represents the worst-case completion time assuming the tasks are schedulable.
-    -   **Maximum compute execution Time (ET)**: Maximum compute execution time is useful when processing time is considered without resource scheduling. 
+    -   **Maximum compute execution time (ET)**: Maximum compute execution time is useful when processing time is considered without resource scheduling. 
 -   **For best-case queuing latency on incoming ports**: Affects how the best case
     queuing delay is determined. For worst-case we always use full queue.
     -   **Assume empty queue (EQ) \[default\]**: No delay as the queue
