@@ -1,25 +1,21 @@
 package org.osate.analysis.flows.tests
 
 import org.eclipse.core.runtime.NullProgressMonitor
-import org.eclipse.core.runtime.Path
-import org.eclipse.emf.common.util.URI
 import org.eclipse.xtext.testing.InjectWith
 import org.eclipse.xtext.testing.XtextRunner
-import org.eclipse.xtext.util.Files
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.osate.aadl2.AadlPackage
 import org.osate.aadl2.SystemImplementation
 import org.osate.aadl2.instantiation.InstantiateModel
-import org.osate.aadl2.modelsupport.errorreporting.AnalysisErrorReporterManager
-import org.osate.analysis.flows.handlers.CheckFlowLatency
+import org.osate.analysis.flows.FlowLatencyAnalysisSwitch
 import org.osate.core.test.Aadl2UiInjectorProvider
 import org.osate.core.test.OsateTest
+import org.osate.result.RealValue
+
+import static org.junit.Assert.*
 
 import static extension org.junit.Assert.assertEquals
-import static extension org.junit.Assert.assertTrue
-import org.osate.result.RealValue
-import org.osate.analysis.flows.FlowLatencyAnalysisSwitch
 
 @RunWith(typeof(XtextRunner))
 @InjectWith(typeof(Aadl2UiInjectorProvider))

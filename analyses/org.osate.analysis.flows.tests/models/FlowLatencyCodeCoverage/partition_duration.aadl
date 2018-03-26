@@ -1,0 +1,36 @@
+--TODO: Finish test after asking Peter about src vs dst possible bug.
+--FlowLatencyAnalysisSwitch: 471: mapConnectionInstance(EndToEndFlowInstance, FlowElementInstance, LatencyReportEntry)
+--On line 468, srcPartition is passed to FlowLatencyUtil.getModuleSchedule. Should this be dstPartition?
+
+package partition_duration
+public
+	system s1
+	end s1;
+	
+	system implementation s1.i1
+		subcomponents
+			sub1: abstract a1;
+			sub2: abstract a2;
+			sub3: virtual processor {Period => 1 ms;};
+		connections
+			conn1: feature sub1.f1 -> sub2.f2;
+		flows
+			etef1: end to end flow sub1.fsource1 -> conn1 -> sub2.fsink1;
+		properties
+			Actual_Processor_Binding => (reference (sub3)) applies to sub2;
+	end s1.i1;
+	
+	abstract a1
+		features
+			f1: feature;
+		flows
+			fsource1: flow source f1;
+	end a1;
+	
+	abstract a2
+		features
+			f2: feature;
+		flows
+			fsink1: flow sink f2;
+	end a2;
+end partition_duration;
