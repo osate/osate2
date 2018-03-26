@@ -20,10 +20,10 @@
       <extension
          point="org.eclipse.ui.preferencePages">
       <page
-            category="org.osate.internal.ui.preferences.OsatePreferencePage"
+            category="org.osate.ui.preferences.OsateAnalysisPage"
             class="org.osate.analysis.flows.preferences.Page"
             id="org.osate.analysis.flows.PreferencePage"
-            name="Flow Analysis">
+            name="Flow Latency">
       </page>
    </extension>
    <extension
