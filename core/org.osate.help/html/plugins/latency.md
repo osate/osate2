@@ -85,12 +85,12 @@ The multi-tier aircraft example illustrates the evolution of an aircraft system 
 
 ##Preference Settings for Latency Analysis
 
-The latency analysis offers several preference settings that affect how latency is calculated. This allows users to perform trade studies along certain dimensions without changing the model. The preference settings can be found under the menu **Window/Preferences** then **OSATE Preferences/Flow Analysis**. 
+The latency analysis offers several preference settings that affect how latency is calculated. This allows users to perform trade studies along certain dimensions without changing the model. The preference settings can be found under the menu **Window/Preferences** then **OSATE/Analysis/Flow Latency**. 
 ![preference settings](images/preferencesettings.png "preference settings")
 
 The latency analysis supports the following settings:
 
--   **Treat as synchronous or asynchronous system**. Used to assess the sampling latency between periodic components that are not inherently synchronous (threads or partitions on the same processor) or explicitly specified as synchronous by referring to the same *Reference_Time* property value.  
+-   **System type**. Used to assess the sampling latency between periodic components that are not inherently synchronous (threads or partitions on the same processor) or explicitly specified as synchronous by referring to the same *Reference_Time* property value.  
     -   **Asynchronous system (AS) \[default\]**: The components are not
         time synchronized, i.e., dispatches may have time shift.
     -   **Synchronous system (SS)**: The components are time
@@ -98,22 +98,22 @@ The latency analysis supports the following settings:
         across systems.
 -   **Partition output policy**. Used to reflect latency contribution by 
     inter-partition communication due to different inter-communication policies in partitioned systems.
-    -   **Major Frame delayed (MF) \[default\]**: assume that
+    -   **Partition end (PE)**: assume that inter-partitions connections
+        are available at the end of the partition whose task sends data.
+        If a task in partition A sends a data to a task in partition B,
+        the later will receive the data in the same major frame if
+        partition B is executed after partition A.
+    -   **Major frame delayed (MF) \[default\]**: assume that
         inter-partitions connections are flushed/realized at the end of
         the major frame. If a task in partition A sends a data to a task
         in partition B, the fresh data will be available only after
         completion of all remaining partitions, regardless the execution
         order of partition A or partition B.
-    -   **Partition End (PE)**: assume that inter-partitions connections
-        are available at the end of the partition whose task sends data.
-        If a task in partition A sends a data to a task in partition B,
-        the later will receive the data in the same major frame if
-        partition B is executed after partition A.
--   **Worst-case processing time**: Users can choose between deadline
+-   **For worst-case processing time use**: Users can choose between deadline
     and worst-case execution time as worst case processing time. For best case we always use execution time.
     -   **Deadline (DL) \[default\]**: Deadline represents the worst-case completion time assuming the tasks are schedulable.
-    -   **Maximum Compute Execution Time (ET)**: Maximum compute execution time is useful when processing time is considered without resource scheduling. 
--   **Queuing latency on incoming ports**: Affects how the best case
+    -   **Maximum compute execution Time (ET)**: Maximum compute execution time is useful when processing time is considered without resource scheduling. 
+-   **For best-case queuing latency on incoming ports**: Affects how the best case
     queuing delay is determined. For worst-case we always use full queue.
     -   **Assume empty queue (EQ) \[default\]**: No delay as the queue
         is assumed to be empty.
@@ -198,11 +198,11 @@ We may have a **synchronous system** scenario where both the sending and receivi
 
 > The cumulative processing and communication latency for the best case and worst case may round up to different multiples of sampling frames (period of the second sampling task). This results in frame-level jitter even if the min/max cumulative processing latency differs only by a few micro seconds, e.g., if one value just below and the other just above a multiple of the sampling frame.
 
-Different physical components, e.g., devices, processors, and buses are considered to operate asynchronously unless they have asigned the same **Referemce_Time** property value. 
+Different physical components, e.g., devices, processors, and buses are considered to operate asynchronously unless they have asigned the same **Reference_Time** property value. 
 
-Software components bound to the same processor are considered to operate synchronously. Software components bound to different processor are considered to operate synchronously if the two processors have the same value for the **Referemce_Time** property.
+Software components bound to the same processor are considered to operate synchronously. Software components bound to different processor are considered to operate synchronously if the two processors have the same value for the **Reference_Time** property.
 
-A preference setting lets users choose whether components that have no indication of being synchronized, i.e., on the same processor, or are inherently asynchronous, i.e., different hardware components, should be handled as if synchronous or asynchronous. This setting applies only to components that have not been explicitly identified as synchronous via the **Referemce_Time** property, or software components bound to the same processor.
+A preference setting lets users choose whether components that have no indication of being synchronized, i.e., on the same processor, or are inherently asynchronous, i.e., different hardware components, should be handled as if synchronous or asynchronous. This setting applies only to components that have not been explicitly identified as synchronous via the **Reference_Time** property, or software components bound to the same processor.
 
 
 ###Mid-frame and Frame-delayed Communication
