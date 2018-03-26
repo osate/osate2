@@ -46,7 +46,7 @@
             </and>
         </definition>
     </extension>
-    <extension
+    <!--extension
             point="org.eclipse.ui.preferencePages">
         <page
             class="org.osate.xtext.aadl2.properties.ui.PropertiesExecutableExtensionFactory:org.eclipse.xtext.ui.editor.preferences.LanguageRootPreferencePage"
@@ -68,7 +68,7 @@
             name="Templates">
             <keywordReference id="org.osate.xtext.aadl2.properties.ui.keyword_Properties"/>
         </page>
-    </extension>
+    </extension-->
     <extension
         point="org.eclipse.ui.keywords">
         <keyword
