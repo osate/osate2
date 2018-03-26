@@ -9,7 +9,11 @@ public class Aadl2TextEditorPage extends LanguageRootPreferencePage {
 
 	@Override
 	protected void createFieldEditors() {
-		super.createFieldEditors();
+		/*
+		 * Don't call super-implementation because we don't want the
+		 * "reset prompts" button.
+		 */
+//		super.createFieldEditors();
 		addField(new BooleanFieldEditor(WorkspacePlugin.AUTO_INDENT, "&AutoIndent next line after keywords",
 				getFieldEditorParent()));
 		addField(new BooleanFieldEditor(WorkspacePlugin.AUTO_COMPLETE,
