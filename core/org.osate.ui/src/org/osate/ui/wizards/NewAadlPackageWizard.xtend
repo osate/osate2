@@ -61,7 +61,7 @@ class NewAadlPackageWizard extends AbstractNewFileWizard {
 			]
 			graphicalButton = new Button(radios, SWT.RADIO.bitwiseOr(SWT.LEFT)) => [button |
 				button.layoutData = new GridData(SWT.BEGINNING, SWT.TOP, false, false)
-				button.setText("Graphical Editor")
+				button.setText("Diagram Editor")
 			]
 			textButton.setSelection(true)
 			graphicalButton.setSelection(false)
