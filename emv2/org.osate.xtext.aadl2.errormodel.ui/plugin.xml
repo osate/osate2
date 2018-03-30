@@ -47,7 +47,7 @@
             </and>
         </definition>
     </extension>
-    <extension
+    <!--extension
             point="org.eclipse.ui.preferencePages">
         <page
        	 	category="org.osate.internal.ui.preferences.OsatePreferencePage"
@@ -70,7 +70,7 @@
             name="Templates">
             <keywordReference id="org.osate.xtext.aadl2.errormodel.ui.keyword_ErrorModel"/>
         </page>
-    </extension>
+    </extension-->
     <extension
         point="org.eclipse.ui.keywords">
         <keyword

@@ -1,6 +1,5 @@
 package org.osate.aadl2.errormodel.faulttree.tests
 
-import com.itemis.xtext.testing.FluentIssueCollection
 import org.eclipse.xtext.testing.InjectWith
 import org.eclipse.xtext.testing.XtextRunner
 import org.junit.After
@@ -13,11 +12,11 @@ import org.osate.aadl2.errormodel.FaultTree.LogicOperation
 import org.osate.aadl2.errormodel.FaultTree.util.FaultTreeUtils
 import org.osate.aadl2.errormodel.faulttree.generation.CreateFTAModel
 import org.osate.aadl2.errormodel.tests.ErrorModelUiInjectorProvider
+import org.osate.aadl2.instance.SystemInstance
 import org.osate.aadl2.instantiation.InstantiateModel
 import org.osate.core.test.OsateTest
 
 import static org.junit.Assert.*
-import org.osate.aadl2.instance.SystemInstance
 
 @RunWith(XtextRunner)
 @InjectWith(ErrorModelUiInjectorProvider)
