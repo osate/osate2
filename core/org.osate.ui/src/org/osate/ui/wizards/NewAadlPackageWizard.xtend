@@ -80,22 +80,47 @@ class NewAadlPackageWizard extends AbstractNewFileWizard {
 			graphicalButton.setSelection(false)
 		]
 	}
-		
-	// Not going to get here if no project is selected
-	override String validateFileName(IContainer parent, String packageName) {
+	
+	def private findPackageInScope(IContainer parent, String packageName) {
 		/* Parent might be a Project, which causes problems below, so let's append
 		 * a bogus folder to it.
 		 */
 		val IFolder fakeFolder = parent.getFolder(Path.forPosix(".fake"))
 		val Resource rsrc = OsateResourceUtil.getResource(fakeFolder)
-		val scope = globalScopeProvider.getScope(
-			rsrc, Aadl2Package.eINSTANCE.getPackageRename_RenamedPackage(), null
-		)
+		val scope = globalScopeProvider.getScope(rsrc, Aadl2Package.eINSTANCE.getPackageRename_RenamedPackage(), null)
 		val qualifiedName = qNameConverter.toQualifiedName(packageName);
-		if (scope.getSingleElement(qualifiedName) !== null) {
-			return "Package '" + packageName + "' already exists in scope."
+		return scope.getSingleElement(qualifiedName)
+	}
+		
+	// Not going to get here if no project is selected
+	override String validateFileName(IContainer parent, String packageName) {
+		val found1 = findPackageInScope(parent, packageName)
+		if (found1 !== null) {
+			val foundFile = OsateResourceUtil.getOsateIFile(found1.EObjectURI)
+			val foundProject = foundFile.getProject()
+			if (foundProject === parent.getProject()) {
+				return "Package '" + packageName + "' already exists in the selected project: '" + foundFile.projectRelativePath + "'"
+			} else {
+				return "Package '" + packageName + "' already exists in project '" + foundProject.name + "' that the selected project depends on: '" + foundFile.projectRelativePath + "'"
+			}
 		} else {
-			return null; // No error message
+			/* See if the package exists in scope in any project that depends on the current project.
+			 * This isn't an error for the current project, but it will mess up other projects.
+			 */
+			for (user : parent.getProject().referencingProjects) {
+				val found2 = findPackageInScope(user, packageName)
+				if (found2 !== null) {
+					val foundFile = OsateResourceUtil.getOsateIFile(found2.EObjectURI)
+					val foundProject = foundFile.getProject()
+					if (foundProject != user) {
+						return "Package '" + packageName + "' already exists in project '" + foundProject.name + "' that is depended on by project '" + user.name + "' that depends on the selected project: '" + foundFile.projectRelativePath + "'"
+					} else {
+						return "Package '" + packageName + "' already exists in project '" + user.name + "' that depends on the selected project: '" + foundFile.projectRelativePath + "'"
+					}
+				}
+			}
+			
+			return null // No error message
 		}
 	}
 	
