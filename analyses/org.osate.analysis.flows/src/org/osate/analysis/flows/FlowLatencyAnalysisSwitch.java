@@ -465,7 +465,7 @@ public class FlowLatencyAnalysisSwitch extends AadlProcessingSwitchWithProgress 
 		if (dstPartition != null && srcPartition != dstPartition) {
 			// add partition latency if the destination is a partition and it is different from the source partition (or null)
 			double partitionLatency = FlowLatencyUtil.getPartitionPeriod(dstPartition);
-			List<ARINC653ScheduleWindow> schedule = FlowLatencyUtil.getModuleSchedule(srcPartition);
+			List<ARINC653ScheduleWindow> schedule = FlowLatencyUtil.getModuleSchedule(dstPartition);
 			double partitionDuration = FlowLatencyUtil.getPartitionDuration(dstPartition, schedule);
 			if (partitionDuration != -1) {
 				LatencyContributorComponent platencyContributor = new LatencyContributorComponent(dstPartition);
