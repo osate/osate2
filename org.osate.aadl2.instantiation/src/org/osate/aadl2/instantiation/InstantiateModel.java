@@ -570,6 +570,11 @@ public class InstantiateModel {
 				throw new InterruptedException();
 			}
 			ModeInstance mi = InstanceFactory.eINSTANCE.createModeInstance();
+			/*
+			 * Used to add the mode instance to the component instance at the end of the loop,
+			 * but moved it here so that we can report errors on it.
+			 */
+			ci.getModeInstances().add(mi);
 
 			mi.setMode(m);
 			mi.setName(m.getName());
@@ -584,17 +589,34 @@ public class InstantiateModel {
 				Subcomponent sub = ci.getSubcomponent();
 				ComponentInstance parentci = ci.getContainingComponentInstance();
 
-				for (ModeBinding mb : sub.getOwnedModeBindings()) {
-					if (monitor.isCanceled()) {
-						throw new InterruptedException();
+				final EList<ModeBinding> ownedModeBindings = sub.getOwnedModeBindings();
+				if (ownedModeBindings == null || ownedModeBindings.isEmpty()) {
+					// Implicit mode map, must find modes of the same name in the containing component
+					ModeInstance foundParentMode = null;
+					for (ModeInstance pmi : parentci.getModeInstances()) {
+						if (pmi.getName().equalsIgnoreCase(m.getName())) {
+							foundParentMode = pmi;
+							break;
+						}
 					}
-					if (mb.getDerivedMode() == m || mb.getDerivedMode() == null
-							&& mb.getParentMode().getName().equalsIgnoreCase(m.getName())) {
-						mi.getParents().add(parentci.findModeInstance(mb.getParentMode()));
+					if (foundParentMode == null) {
+						errManager.error(mi, "Required mode '" + m.getName() + "' not found in containing component");
+					} else {
+						mi.getParents().add(foundParentMode);
+					}
+				} else {
+					for (ModeBinding mb : ownedModeBindings) {
+						if (monitor.isCanceled()) {
+							throw new InterruptedException();
+						}
+						if (mb.getDerivedMode() == m || mb.getDerivedMode() == null
+								&& mb.getParentMode().getName().equalsIgnoreCase(m.getName())) {
+							mi.getParents().add(parentci.findModeInstance(mb.getParentMode()));
+							break;
+						}
 					}
 				}
 			}
-			ci.getModeInstances().add(mi);
 		}
 		for (ModeTransition m : modetrans) {
 			if (monitor.isCanceled()) {
