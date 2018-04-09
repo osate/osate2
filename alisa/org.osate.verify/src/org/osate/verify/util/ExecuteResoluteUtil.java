@@ -233,7 +233,7 @@ public class ExecuteResoluteUtil {
 	}
 
 	private Diagnostic addIssue(Diagnostic ri, DiagnosticType type, EObject target, String message) {
-		Diagnostic issue = ResultUtil.createIssue(message, target, type);
+		Diagnostic issue = ResultUtil.createDiagnostic(message, target, type);
 		if (target instanceof FailExpr) {
 			if (message.length() > 14) {
 				issue.setMessage(message.substring(15));
