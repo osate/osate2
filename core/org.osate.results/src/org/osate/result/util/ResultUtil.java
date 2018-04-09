@@ -14,30 +14,30 @@ import org.osate.result.StringValue;
 public class ResultUtil {
 
 	public static Diagnostic createError(String msg, EObject target) {
-		return createIssue(msg, target, DiagnosticType.ERROR);
+		return createDiagnostic(msg, target, DiagnosticType.ERROR);
 	}
 
 	public static Diagnostic createWarning(String msg, EObject target) {
-		return createIssue(msg, target, DiagnosticType.WARNING);
+		return createDiagnostic(msg, target, DiagnosticType.WARNING);
 	}
 
 	public static Diagnostic createInfo(String msg, EObject target) {
-		return createIssue(msg, target, DiagnosticType.INFO);
+		return createDiagnostic(msg, target, DiagnosticType.INFO);
 	}
 
 	public static Diagnostic createSuccess(String msg, EObject target) {
-		return createIssue(msg, target, DiagnosticType.SUCCESS);
+		return createDiagnostic(msg, target, DiagnosticType.SUCCESS);
 	}
 
 	public static Diagnostic createFailure(String msg, EObject target) {
-		return createIssue(msg, target, DiagnosticType.FAILURE);
+		return createDiagnostic(msg, target, DiagnosticType.FAILURE);
 	}
 
 	public static Diagnostic createNone(String msg, EObject target) {
-		return createIssue(msg, target, DiagnosticType.NONE);
+		return createDiagnostic(msg, target, DiagnosticType.NONE);
 	}
 
-	public static Diagnostic createIssue(String msg, EObject target, DiagnosticType rit) {
+	public static Diagnostic createDiagnostic(String msg, EObject target, DiagnosticType rit) {
 		Diagnostic issue = ResultFactory.eINSTANCE.createDiagnostic();
 		issue.setSourceReference(target);
 		issue.setMessage(msg);
@@ -45,30 +45,17 @@ public class ResultUtil {
 		return issue;
 	}
 
-	public static AnalysisResult createResult(String name, EObject target) {
+	public static AnalysisResult createAnalysisResult(String name, EObject target) {
 		AnalysisResult result = ResultFactory.eINSTANCE.createAnalysisResult();
 		result.setSourceReference(target);
 		result.setAnalysis(name);
 		return result;
 	}
 
-	public static void addIntegerValue(AnalysisResult result, long value) {
-		IntegerValue res = ResultFactory.eINSTANCE.createIntegerValue();
-		res.setValue(value);
-		result.getValues().add(res);
-	}
-
 	public static void addIntegerValue(Contributor contributor, long value) {
 		IntegerValue res = ResultFactory.eINSTANCE.createIntegerValue();
 		res.setValue(value);
 		contributor.getValues().add(res);
-	}
-
-	public static void addIntegerValue(AnalysisResult result, long value, String unit) {
-		IntegerValue res = ResultFactory.eINSTANCE.createIntegerValue();
-		res.setValue(value);
-		res.setUnit(unit);
-		result.getValues().add(res);
 	}
 
 	public static void addIntegerValue(Contributor contributor, long value, String unit) {
@@ -78,23 +65,10 @@ public class ResultUtil {
 		contributor.getValues().add(res);
 	}
 
-	public static void addRealValue(AnalysisResult result, double value) {
-		RealValue res = ResultFactory.eINSTANCE.createRealValue();
-		res.setValue(value);
-		result.getValues().add(res);
-	}
-
 	public static void addRealValue(Contributor contributor, double value) {
 		RealValue res = ResultFactory.eINSTANCE.createRealValue();
 		res.setValue(value);
 		contributor.getValues().add(res);
-	}
-
-	public static void addRealValue(AnalysisResult result, double value, String unit) {
-		RealValue res = ResultFactory.eINSTANCE.createRealValue();
-		res.setValue(value);
-		res.setUnit(unit);
-		result.getValues().add(res);
 	}
 
 	public static void addRealValue(Contributor contributor, double value, String unit) {
@@ -104,22 +78,10 @@ public class ResultUtil {
 		contributor.getValues().add(res);
 	}
 
-	public static void addStringValue(AnalysisResult result, String value) {
-		StringValue res = ResultFactory.eINSTANCE.createStringValue();
-		res.setValue(value);
-		result.getValues().add(res);
-	}
-
 	public static void addStringValue(Contributor contributor, String value) {
 		StringValue res = ResultFactory.eINSTANCE.createStringValue();
 		res.setValue(value);
 		contributor.getValues().add(res);
-	}
-
-	public static void addBooleanValue(AnalysisResult result, boolean value) {
-		BooleanValue res = ResultFactory.eINSTANCE.createBooleanValue();
-		res.setValue(value);
-		result.getValues().add(res);
 	}
 
 	public static void addBooleanValue(Contributor contributor, boolean value) {
