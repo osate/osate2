@@ -144,6 +144,9 @@ public interface Diagnostic extends EObject {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * @deprecated
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Issues</em>' containment reference list.
 	 * @see org.osate.result.ResultPackage#getDiagnostic_Issues()
 	 * @model containment="true"
