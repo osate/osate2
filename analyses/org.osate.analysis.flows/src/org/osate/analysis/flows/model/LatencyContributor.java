@@ -15,13 +15,13 @@ import org.osate.analysis.flows.FlowLatencyUtil;
 import org.osate.analysis.flows.preferences.Values;
 import org.osate.analysis.flows.reporting.model.Line;
 import org.osate.analysis.flows.reporting.model.ReportSeverity;
-import org.osate.result.Contributor;
 import org.osate.result.Diagnostic;
 import org.osate.result.DiagnosticType;
+import org.osate.result.Result;
 import org.osate.result.ResultFactory;
 
 /**
- * A latency Contributor represents something in the flow
+ * A latency Result represents something in the flow
  * that can contribute to increase/decrease the latency.
  *
  * This class contains the result for a latency contributor
@@ -589,13 +589,13 @@ public abstract class LatencyContributor {
 		}
 	}
 
-	public Contributor genResult() {
+	public Result genResult() {
 		return genResult(0);
 	}
 
-	public Contributor genResult(int level) {
+	public Result genResult(int level) {
 
-		Contributor result = ResultFactory.eINSTANCE.createContributor();
+		Result result = ResultFactory.eINSTANCE.createResult();
 		result.setSourceReference(relatedElement);
 		result.getDiagnostics().addAll(issues);
 		addRealValue(result, minValue);
@@ -615,7 +615,7 @@ public abstract class LatencyContributor {
 		 * We also add the lines of all the sub-contributors.
 		 */
 		for (LatencyContributor lc : this.subContributors) {
-			result.getSubContributors().add(lc.genResult(level + 1));
+			result.getSubResults().add(lc.genResult(level + 1));
 		}
 		return result;
 	}

@@ -47,7 +47,7 @@ class FlowLatencyTest extends OsateTest {
 		assertTrue((res.values.get(4) as RealValue).value == (4.0))
 		assertTrue((res.values.get(5) as RealValue).value == (300.0))
 		assertTrue((res.values.get(6) as RealValue).value == (300.0))
-		res.subContributors.size.assertEquals(17)
+		res.subResults.size.assertEquals(17)
 	}
 
 	val pullprotocolsText = '''

@@ -4,7 +4,7 @@ import org.osate.aadl2.instance.ConnectionInstance;
 import org.osate.analysis.flows.FlowLatencyUtil;
 
 /**
- * A latency Contributor represents something in the flow
+ * A latency Result represents something in the flow
  * that can contribute to increase/decrease the latency.
  *
  * This class contains the result for a latency contributor
