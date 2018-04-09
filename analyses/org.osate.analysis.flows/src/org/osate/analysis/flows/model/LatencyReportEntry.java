@@ -20,9 +20,10 @@ import org.osate.analysis.flows.reporting.model.Line;
 import org.osate.analysis.flows.reporting.model.ReportSeverity;
 import org.osate.analysis.flows.reporting.model.ReportedCell;
 import org.osate.analysis.flows.reporting.model.Section;
+import org.osate.result.Contributor;
 import org.osate.result.Diagnostic;
 import org.osate.result.DiagnosticType;
-import org.osate.result.AnalysisResult;
+import org.osate.result.ResultFactory;
 import org.osate.result.util.ResultUtil;
 import org.osate.xtext.aadl2.properties.util.GetProperties;
 
@@ -669,7 +670,7 @@ public class LatencyReportEntry {
 		}
 	}
 
-	public AnalysisResult genResult() {
+	public Contributor genResult() {
 		String reportName;
 
 		issues = new ArrayList<Diagnostic>();
@@ -683,7 +684,9 @@ public class LatencyReportEntry {
 		String systemName = si.getComponentClassifier().getName();
 		String inMode = Aadl2Util.isPrintableSOMName(som) ? " in mode " + som.getName() : "";
 
-		AnalysisResult result = ResultUtil.createResult(reportName + inMode, relatedEndToEndFlow);
+		Contributor result = ResultFactory.eINSTANCE.createContributor();
+		result.setSourceReference(relatedEndToEndFlow);
+
 		String description = "Latency analysis for end-to-end flow '" + reportName + "' of system '" + systemName + "'"
 				+ inMode;
 		addStringValue(result,description);
@@ -760,7 +763,7 @@ public class LatencyReportEntry {
 		result.getDiagnostics().addAll(issues);
 
 		for (LatencyContributor latencyContributor : contributors) {
-			result.getContributors().add(latencyContributor.genResult());
+			result.getSubContributors().add(latencyContributor.genResult());
 		}
 
 		return result;

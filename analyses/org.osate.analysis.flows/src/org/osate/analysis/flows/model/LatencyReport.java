@@ -73,12 +73,12 @@ public class LatencyReport {
 
 	public AnalysisResult genResult() {
 
-		AnalysisResult latencyReports = ResultUtil.createResult(this.name,
+		AnalysisResult latencyReports = ResultUtil.createAnalysisResult(this.name,
 				this.relatedInstance);
 		latencyReports.setAnalysis("Latency analysis");
 		latencyReports.setInfo(getPreferencesDescription());
 		for (LatencyReportEntry re : entries) {
-			latencyReports.getSubResults().add(re.genResult());
+			latencyReports.getContributors().add(re.genResult());
 		}
 		return latencyReports;
 	}

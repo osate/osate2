@@ -3,7 +3,7 @@ package org.osate.analysis.flows.model;
 
 import static org.osate.result.util.ResultUtil.addRealValue;
 import static org.osate.result.util.ResultUtil.addStringValue;
-import static org.osate.result.util.ResultUtil.createIssue;
+import static org.osate.result.util.ResultUtil.createDiagnostic;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -147,38 +147,38 @@ public abstract class LatencyContributor {
 	}
 
 	public void reportError(String str) {
-		issues.add(createIssue(str, this.relatedElement, DiagnosticType.ERROR));
+		issues.add(createDiagnostic(str, this.relatedElement, DiagnosticType.ERROR));
 	}
 
 	public void reportSuccess(String str) {
-		issues.add(createIssue(str, this.relatedElement, DiagnosticType.SUCCESS));
+		issues.add(createDiagnostic(str, this.relatedElement, DiagnosticType.SUCCESS));
 	}
 
 	public void reportInfo(String str) {
-		issues.add(createIssue(str, this.relatedElement, DiagnosticType.INFO));
+		issues.add(createDiagnostic(str, this.relatedElement, DiagnosticType.INFO));
 	}
 
 	public void reportWarning(String str) {
-		issues.add(createIssue(str, this.relatedElement, DiagnosticType.WARNING));
+		issues.add(createDiagnostic(str, this.relatedElement, DiagnosticType.WARNING));
 	}
 
 	public void reportError(boolean doMaximum, String str) {
-		issues.add(createIssue(FlowLatencyUtil.getMinMaxLabel(doMaximum) + str,
+		issues.add(createDiagnostic(FlowLatencyUtil.getMinMaxLabel(doMaximum) + str,
 				this.relatedElement, DiagnosticType.ERROR));
 	}
 
 	public void reportSuccess(boolean doMaximum, String str) {
-		issues.add(createIssue(FlowLatencyUtil.getMinMaxLabel(doMaximum) + str,
+		issues.add(createDiagnostic(FlowLatencyUtil.getMinMaxLabel(doMaximum) + str,
 				this.relatedElement, DiagnosticType.SUCCESS));
 	}
 
 	public void reportInfo(boolean doMaximum, String str) {
-		issues.add(createIssue(FlowLatencyUtil.getMinMaxLabel(doMaximum) + str,
+		issues.add(createDiagnostic(FlowLatencyUtil.getMinMaxLabel(doMaximum) + str,
 				this.relatedElement, DiagnosticType.INFO));
 	}
 
 	public void reportWarning(boolean doMaximum, String str) {
-		issues.add(createIssue(FlowLatencyUtil.getMinMaxLabel(doMaximum) + str,
+		issues.add(createDiagnostic(FlowLatencyUtil.getMinMaxLabel(doMaximum) + str,
 				this.relatedElement, DiagnosticType.WARNING));
 	}
 
