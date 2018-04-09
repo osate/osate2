@@ -19,29 +19,29 @@ import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 
-import org.osate.result.Contributor;
+import org.osate.result.Result;
 import org.osate.result.Diagnostic;
 import org.osate.result.ResultPackage;
 import org.osate.result.Value;
 
 /**
  * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>Contributor</b></em>'.
+ * An implementation of the model object '<em><b>Result</b></em>'.
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * </p>
  * <ul>
- *   <li>{@link org.osate.result.impl.ContributorImpl#getInfo <em>Info</em>}</li>
- *   <li>{@link org.osate.result.impl.ContributorImpl#getSourceReference <em>Source Reference</em>}</li>
- *   <li>{@link org.osate.result.impl.ContributorImpl#getValues <em>Values</em>}</li>
- *   <li>{@link org.osate.result.impl.ContributorImpl#getDiagnostics <em>Diagnostics</em>}</li>
- *   <li>{@link org.osate.result.impl.ContributorImpl#getSubContributors <em>Sub Contributors</em>}</li>
+ *   <li>{@link org.osate.result.impl.ResultImpl#getInfo <em>Info</em>}</li>
+ *   <li>{@link org.osate.result.impl.ResultImpl#getSourceReference <em>Source Reference</em>}</li>
+ *   <li>{@link org.osate.result.impl.ResultImpl#getValues <em>Values</em>}</li>
+ *   <li>{@link org.osate.result.impl.ResultImpl#getDiagnostics <em>Diagnostics</em>}</li>
+ *   <li>{@link org.osate.result.impl.ResultImpl#getSubResults <em>Sub Results</em>}</li>
  * </ul>
  *
  * @generated
  */
-public class ContributorImpl extends MinimalEObjectImpl.Container implements Contributor {
+public class ResultImpl extends MinimalEObjectImpl.Container implements Result {
 	/**
 	 * The default value of the '{@link #getInfo() <em>Info</em>}' attribute.
 	 * <!-- begin-user-doc -->
@@ -93,21 +93,21 @@ public class ContributorImpl extends MinimalEObjectImpl.Container implements Con
 	protected EList<Diagnostic> diagnostics;
 
 	/**
-	 * The cached value of the '{@link #getSubContributors() <em>Sub Contributors</em>}' containment reference list.
+	 * The cached value of the '{@link #getSubResults() <em>Sub Results</em>}' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getSubContributors()
+	 * @see #getSubResults()
 	 * @generated
 	 * @ordered
 	 */
-	protected EList<Contributor> subContributors;
+	protected EList<Result> subResults;
 
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected ContributorImpl() {
+	protected ResultImpl() {
 		super();
 	}
 
@@ -118,7 +118,7 @@ public class ContributorImpl extends MinimalEObjectImpl.Container implements Con
 	 */
 	@Override
 	protected EClass eStaticClass() {
-		return ResultPackage.Literals.CONTRIBUTOR;
+		return ResultPackage.Literals.RESULT;
 	}
 
 	/**
@@ -139,7 +139,7 @@ public class ContributorImpl extends MinimalEObjectImpl.Container implements Con
 		String oldInfo = info;
 		info = newInfo;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, ResultPackage.CONTRIBUTOR__INFO, oldInfo, info));
+			eNotify(new ENotificationImpl(this, Notification.SET, ResultPackage.RESULT__INFO, oldInfo, info));
 	}
 
 	/**
@@ -153,7 +153,7 @@ public class ContributorImpl extends MinimalEObjectImpl.Container implements Con
 			sourceReference = eResolveProxy(oldSourceReference);
 			if (sourceReference != oldSourceReference) {
 				if (eNotificationRequired())
-					eNotify(new ENotificationImpl(this, Notification.RESOLVE, ResultPackage.CONTRIBUTOR__SOURCE_REFERENCE, oldSourceReference, sourceReference));
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE, ResultPackage.RESULT__SOURCE_REFERENCE, oldSourceReference, sourceReference));
 			}
 		}
 		return sourceReference;
@@ -177,7 +177,7 @@ public class ContributorImpl extends MinimalEObjectImpl.Container implements Con
 		EObject oldSourceReference = sourceReference;
 		sourceReference = newSourceReference;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, ResultPackage.CONTRIBUTOR__SOURCE_REFERENCE, oldSourceReference, sourceReference));
+			eNotify(new ENotificationImpl(this, Notification.SET, ResultPackage.RESULT__SOURCE_REFERENCE, oldSourceReference, sourceReference));
 	}
 
 	/**
@@ -187,7 +187,7 @@ public class ContributorImpl extends MinimalEObjectImpl.Container implements Con
 	 */
 	public EList<Value> getValues() {
 		if (values == null) {
-			values = new EObjectContainmentEList<Value>(Value.class, this, ResultPackage.CONTRIBUTOR__VALUES);
+			values = new EObjectContainmentEList<Value>(Value.class, this, ResultPackage.RESULT__VALUES);
 		}
 		return values;
 	}
@@ -199,7 +199,7 @@ public class ContributorImpl extends MinimalEObjectImpl.Container implements Con
 	 */
 	public EList<Diagnostic> getDiagnostics() {
 		if (diagnostics == null) {
-			diagnostics = new EObjectContainmentEList<Diagnostic>(Diagnostic.class, this, ResultPackage.CONTRIBUTOR__DIAGNOSTICS);
+			diagnostics = new EObjectContainmentEList<Diagnostic>(Diagnostic.class, this, ResultPackage.RESULT__DIAGNOSTICS);
 		}
 		return diagnostics;
 	}
@@ -209,11 +209,11 @@ public class ContributorImpl extends MinimalEObjectImpl.Container implements Con
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EList<Contributor> getSubContributors() {
-		if (subContributors == null) {
-			subContributors = new EObjectContainmentEList<Contributor>(Contributor.class, this, ResultPackage.CONTRIBUTOR__SUB_CONTRIBUTORS);
+	public EList<Result> getSubResults() {
+		if (subResults == null) {
+			subResults = new EObjectContainmentEList<Result>(Result.class, this, ResultPackage.RESULT__SUB_RESULTS);
 		}
-		return subContributors;
+		return subResults;
 	}
 
 	/**
@@ -224,12 +224,12 @@ public class ContributorImpl extends MinimalEObjectImpl.Container implements Con
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
-			case ResultPackage.CONTRIBUTOR__VALUES:
+			case ResultPackage.RESULT__VALUES:
 				return ((InternalEList<?>)getValues()).basicRemove(otherEnd, msgs);
-			case ResultPackage.CONTRIBUTOR__DIAGNOSTICS:
+			case ResultPackage.RESULT__DIAGNOSTICS:
 				return ((InternalEList<?>)getDiagnostics()).basicRemove(otherEnd, msgs);
-			case ResultPackage.CONTRIBUTOR__SUB_CONTRIBUTORS:
-				return ((InternalEList<?>)getSubContributors()).basicRemove(otherEnd, msgs);
+			case ResultPackage.RESULT__SUB_RESULTS:
+				return ((InternalEList<?>)getSubResults()).basicRemove(otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -242,17 +242,17 @@ public class ContributorImpl extends MinimalEObjectImpl.Container implements Con
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-			case ResultPackage.CONTRIBUTOR__INFO:
+			case ResultPackage.RESULT__INFO:
 				return getInfo();
-			case ResultPackage.CONTRIBUTOR__SOURCE_REFERENCE:
+			case ResultPackage.RESULT__SOURCE_REFERENCE:
 				if (resolve) return getSourceReference();
 				return basicGetSourceReference();
-			case ResultPackage.CONTRIBUTOR__VALUES:
+			case ResultPackage.RESULT__VALUES:
 				return getValues();
-			case ResultPackage.CONTRIBUTOR__DIAGNOSTICS:
+			case ResultPackage.RESULT__DIAGNOSTICS:
 				return getDiagnostics();
-			case ResultPackage.CONTRIBUTOR__SUB_CONTRIBUTORS:
-				return getSubContributors();
+			case ResultPackage.RESULT__SUB_RESULTS:
+				return getSubResults();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -266,23 +266,23 @@ public class ContributorImpl extends MinimalEObjectImpl.Container implements Con
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-			case ResultPackage.CONTRIBUTOR__INFO:
+			case ResultPackage.RESULT__INFO:
 				setInfo((String)newValue);
 				return;
-			case ResultPackage.CONTRIBUTOR__SOURCE_REFERENCE:
+			case ResultPackage.RESULT__SOURCE_REFERENCE:
 				setSourceReference((EObject)newValue);
 				return;
-			case ResultPackage.CONTRIBUTOR__VALUES:
+			case ResultPackage.RESULT__VALUES:
 				getValues().clear();
 				getValues().addAll((Collection<? extends Value>)newValue);
 				return;
-			case ResultPackage.CONTRIBUTOR__DIAGNOSTICS:
+			case ResultPackage.RESULT__DIAGNOSTICS:
 				getDiagnostics().clear();
 				getDiagnostics().addAll((Collection<? extends Diagnostic>)newValue);
 				return;
-			case ResultPackage.CONTRIBUTOR__SUB_CONTRIBUTORS:
-				getSubContributors().clear();
-				getSubContributors().addAll((Collection<? extends Contributor>)newValue);
+			case ResultPackage.RESULT__SUB_RESULTS:
+				getSubResults().clear();
+				getSubResults().addAll((Collection<? extends Result>)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -296,20 +296,20 @@ public class ContributorImpl extends MinimalEObjectImpl.Container implements Con
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-			case ResultPackage.CONTRIBUTOR__INFO:
+			case ResultPackage.RESULT__INFO:
 				setInfo(INFO_EDEFAULT);
 				return;
-			case ResultPackage.CONTRIBUTOR__SOURCE_REFERENCE:
+			case ResultPackage.RESULT__SOURCE_REFERENCE:
 				setSourceReference((EObject)null);
 				return;
-			case ResultPackage.CONTRIBUTOR__VALUES:
+			case ResultPackage.RESULT__VALUES:
 				getValues().clear();
 				return;
-			case ResultPackage.CONTRIBUTOR__DIAGNOSTICS:
+			case ResultPackage.RESULT__DIAGNOSTICS:
 				getDiagnostics().clear();
 				return;
-			case ResultPackage.CONTRIBUTOR__SUB_CONTRIBUTORS:
-				getSubContributors().clear();
+			case ResultPackage.RESULT__SUB_RESULTS:
+				getSubResults().clear();
 				return;
 		}
 		super.eUnset(featureID);
@@ -323,16 +323,16 @@ public class ContributorImpl extends MinimalEObjectImpl.Container implements Con
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-			case ResultPackage.CONTRIBUTOR__INFO:
+			case ResultPackage.RESULT__INFO:
 				return INFO_EDEFAULT == null ? info != null : !INFO_EDEFAULT.equals(info);
-			case ResultPackage.CONTRIBUTOR__SOURCE_REFERENCE:
+			case ResultPackage.RESULT__SOURCE_REFERENCE:
 				return sourceReference != null;
-			case ResultPackage.CONTRIBUTOR__VALUES:
+			case ResultPackage.RESULT__VALUES:
 				return values != null && !values.isEmpty();
-			case ResultPackage.CONTRIBUTOR__DIAGNOSTICS:
+			case ResultPackage.RESULT__DIAGNOSTICS:
 				return diagnostics != null && !diagnostics.isEmpty();
-			case ResultPackage.CONTRIBUTOR__SUB_CONTRIBUTORS:
-				return subContributors != null && !subContributors.isEmpty();
+			case ResultPackage.RESULT__SUB_RESULTS:
+				return subResults != null && !subResults.isEmpty();
 		}
 		return super.eIsSet(featureID);
 	}
@@ -353,4 +353,4 @@ public class ContributorImpl extends MinimalEObjectImpl.Container implements Con
 		return result.toString();
 	}
 
-} //ContributorImpl
+} //ResultImpl

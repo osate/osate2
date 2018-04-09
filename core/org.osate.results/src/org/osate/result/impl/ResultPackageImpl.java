@@ -11,11 +11,11 @@ import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.impl.EPackageImpl;
 
 import org.osate.result.BooleanValue;
-import org.osate.result.Contributor;
 import org.osate.result.Diagnostic;
 import org.osate.result.DiagnosticType;
 import org.osate.result.IntegerValue;
 import org.osate.result.RealValue;
+import org.osate.result.Result;
 import org.osate.result.AnalysisResult;
 import org.osate.result.ResultFactory;
 import org.osate.result.ResultPackage;
@@ -41,7 +41,7 @@ public class ResultPackageImpl extends EPackageImpl implements ResultPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	private EClass contributorEClass = null;
+	private EClass resultEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -212,8 +212,8 @@ public class ResultPackageImpl extends EPackageImpl implements ResultPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EClass getContributor() {
-		return contributorEClass;
+	public EClass getResult() {
+		return resultEClass;
 	}
 
 	/**
@@ -221,8 +221,8 @@ public class ResultPackageImpl extends EPackageImpl implements ResultPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getContributor_Info() {
-		return (EAttribute)contributorEClass.getEStructuralFeatures().get(0);
+	public EAttribute getResult_Info() {
+		return (EAttribute)resultEClass.getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -230,8 +230,8 @@ public class ResultPackageImpl extends EPackageImpl implements ResultPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getContributor_SourceReference() {
-		return (EReference)contributorEClass.getEStructuralFeatures().get(1);
+	public EReference getResult_SourceReference() {
+		return (EReference)resultEClass.getEStructuralFeatures().get(1);
 	}
 
 	/**
@@ -239,8 +239,8 @@ public class ResultPackageImpl extends EPackageImpl implements ResultPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getContributor_Values() {
-		return (EReference)contributorEClass.getEStructuralFeatures().get(2);
+	public EReference getResult_Values() {
+		return (EReference)resultEClass.getEStructuralFeatures().get(2);
 	}
 
 	/**
@@ -248,8 +248,8 @@ public class ResultPackageImpl extends EPackageImpl implements ResultPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getContributor_Diagnostics() {
-		return (EReference)contributorEClass.getEStructuralFeatures().get(3);
+	public EReference getResult_Diagnostics() {
+		return (EReference)resultEClass.getEStructuralFeatures().get(3);
 	}
 
 	/**
@@ -257,8 +257,8 @@ public class ResultPackageImpl extends EPackageImpl implements ResultPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getContributor_SubContributors() {
-		return (EReference)contributorEClass.getEStructuralFeatures().get(4);
+	public EReference getResult_SubResults() {
+		return (EReference)resultEClass.getEStructuralFeatures().get(4);
 	}
 
 	/**
@@ -467,12 +467,12 @@ public class ResultPackageImpl extends EPackageImpl implements ResultPackage {
 		createEReference(analysisResultEClass, ANALYSIS_RESULT__CONTRIBUTORS);
 		createEReference(analysisResultEClass, ANALYSIS_RESULT__DIAGNOSTICS);
 
-		contributorEClass = createEClass(CONTRIBUTOR);
-		createEAttribute(contributorEClass, CONTRIBUTOR__INFO);
-		createEReference(contributorEClass, CONTRIBUTOR__SOURCE_REFERENCE);
-		createEReference(contributorEClass, CONTRIBUTOR__VALUES);
-		createEReference(contributorEClass, CONTRIBUTOR__DIAGNOSTICS);
-		createEReference(contributorEClass, CONTRIBUTOR__SUB_CONTRIBUTORS);
+		resultEClass = createEClass(RESULT);
+		createEAttribute(resultEClass, RESULT__INFO);
+		createEReference(resultEClass, RESULT__SOURCE_REFERENCE);
+		createEReference(resultEClass, RESULT__VALUES);
+		createEReference(resultEClass, RESULT__DIAGNOSTICS);
+		createEReference(resultEClass, RESULT__SUB_RESULTS);
 
 		diagnosticEClass = createEClass(DIAGNOSTIC);
 		createEAttribute(diagnosticEClass, DIAGNOSTIC__TYPE);
@@ -540,15 +540,15 @@ public class ResultPackageImpl extends EPackageImpl implements ResultPackage {
 		initEAttribute(getAnalysisResult_Analysis(), ecorePackage.getEString(), "analysis", null, 0, 1, AnalysisResult.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getAnalysisResult_Info(), ecorePackage.getEString(), "info", null, 0, 1, AnalysisResult.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getAnalysisResult_SourceReference(), ecorePackage.getEObject(), null, "sourceReference", null, 0, 1, AnalysisResult.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getAnalysisResult_Contributors(), this.getContributor(), null, "contributors", null, 0, -1, AnalysisResult.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getAnalysisResult_Contributors(), this.getResult(), null, "contributors", null, 0, -1, AnalysisResult.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getAnalysisResult_Diagnostics(), this.getDiagnostic(), null, "diagnostics", null, 0, -1, AnalysisResult.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
-		initEClass(contributorEClass, Contributor.class, "Contributor", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEAttribute(getContributor_Info(), ecorePackage.getEString(), "info", null, 0, 1, Contributor.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getContributor_SourceReference(), ecorePackage.getEObject(), null, "sourceReference", null, 0, 1, Contributor.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getContributor_Values(), this.getValue(), null, "values", null, 0, -1, Contributor.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getContributor_Diagnostics(), this.getDiagnostic(), null, "diagnostics", null, 0, -1, Contributor.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getContributor_SubContributors(), this.getContributor(), null, "subContributors", null, 0, -1, Contributor.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEClass(resultEClass, Result.class, "Result", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getResult_Info(), ecorePackage.getEString(), "info", null, 0, 1, Result.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getResult_SourceReference(), ecorePackage.getEObject(), null, "sourceReference", null, 0, 1, Result.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getResult_Values(), this.getValue(), null, "values", null, 0, -1, Result.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getResult_Diagnostics(), this.getDiagnostic(), null, "diagnostics", null, 0, -1, Result.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getResult_SubResults(), this.getResult(), null, "subResults", null, 0, -1, Result.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(diagnosticEClass, Diagnostic.class, "Diagnostic", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getDiagnostic_Type(), this.getDiagnosticType(), "type", "NONE", 0, 1, Diagnostic.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
