@@ -106,7 +106,7 @@ public interface AnalysisResult extends EObject {
 
 	/**
 	 * Returns the value of the '<em><b>Contributors</b></em>' containment reference list.
-	 * The list contents are of type {@link org.osate.result.Contributor}.
+	 * The list contents are of type {@link org.osate.result.Result}.
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Contributors</em>' containment reference list isn't clear,
@@ -118,7 +118,7 @@ public interface AnalysisResult extends EObject {
 	 * @model containment="true"
 	 * @generated
 	 */
-	EList<Contributor> getContributors();
+	EList<Result> getContributors();
 
 	/**
 	 * Returns the value of the '<em><b>Diagnostics</b></em>' reference list.
