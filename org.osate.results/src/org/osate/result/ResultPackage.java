@@ -95,16 +95,16 @@ public interface ResultPackage extends EPackage {
 	int ANALYSIS_RESULT__SOURCE_REFERENCE = 2;
 
 	/**
-	 * The feature id for the '<em><b>Values</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Contributors</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int ANALYSIS_RESULT__VALUES = 3;
+	int ANALYSIS_RESULT__CONTRIBUTORS = 3;
 
 	/**
-	 * The feature id for the '<em><b>Diagnostics</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Diagnostics</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -113,31 +113,13 @@ public interface ResultPackage extends EPackage {
 	int ANALYSIS_RESULT__DIAGNOSTICS = 4;
 
 	/**
-	 * The feature id for the '<em><b>Contributors</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int ANALYSIS_RESULT__CONTRIBUTORS = 5;
-
-	/**
-	 * The feature id for the '<em><b>Sub Results</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int ANALYSIS_RESULT__SUB_RESULTS = 6;
-
-	/**
 	 * The number of structural features of the '<em>Analysis Result</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int ANALYSIS_RESULT_FEATURE_COUNT = 7;
+	int ANALYSIS_RESULT_FEATURE_COUNT = 5;
 
 	/**
 	 * The number of operations of the '<em>Analysis Result</em>' class.
@@ -551,28 +533,6 @@ public interface ResultPackage extends EPackage {
 	EReference getAnalysisResult_SourceReference();
 
 	/**
-	 * Returns the meta object for the containment reference list '{@link org.osate.result.AnalysisResult#getValues <em>Values</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference list '<em>Values</em>'.
-	 * @see org.osate.result.AnalysisResult#getValues()
-	 * @see #getAnalysisResult()
-	 * @generated
-	 */
-	EReference getAnalysisResult_Values();
-
-	/**
-	 * Returns the meta object for the containment reference list '{@link org.osate.result.AnalysisResult#getDiagnostics <em>Diagnostics</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference list '<em>Diagnostics</em>'.
-	 * @see org.osate.result.AnalysisResult#getDiagnostics()
-	 * @see #getAnalysisResult()
-	 * @generated
-	 */
-	EReference getAnalysisResult_Diagnostics();
-
-	/**
 	 * Returns the meta object for the containment reference list '{@link org.osate.result.AnalysisResult#getContributors <em>Contributors</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -584,15 +544,15 @@ public interface ResultPackage extends EPackage {
 	EReference getAnalysisResult_Contributors();
 
 	/**
-	 * Returns the meta object for the containment reference list '{@link org.osate.result.AnalysisResult#getSubResults <em>Sub Results</em>}'.
+	 * Returns the meta object for the reference list '{@link org.osate.result.AnalysisResult#getDiagnostics <em>Diagnostics</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference list '<em>Sub Results</em>'.
-	 * @see org.osate.result.AnalysisResult#getSubResults()
+	 * @return the meta object for the reference list '<em>Diagnostics</em>'.
+	 * @see org.osate.result.AnalysisResult#getDiagnostics()
 	 * @see #getAnalysisResult()
 	 * @generated
 	 */
-	EReference getAnalysisResult_SubResults();
+	EReference getAnalysisResult_Diagnostics();
 
 	/**
 	 * Returns the meta object for class '{@link org.osate.result.Contributor <em>Contributor</em>}'.
@@ -919,22 +879,6 @@ public interface ResultPackage extends EPackage {
 		EReference ANALYSIS_RESULT__SOURCE_REFERENCE = eINSTANCE.getAnalysisResult_SourceReference();
 
 		/**
-		 * The meta object literal for the '<em><b>Values</b></em>' containment reference list feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EReference ANALYSIS_RESULT__VALUES = eINSTANCE.getAnalysisResult_Values();
-
-		/**
-		 * The meta object literal for the '<em><b>Diagnostics</b></em>' containment reference list feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EReference ANALYSIS_RESULT__DIAGNOSTICS = eINSTANCE.getAnalysisResult_Diagnostics();
-
-		/**
 		 * The meta object literal for the '<em><b>Contributors</b></em>' containment reference list feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -943,12 +887,12 @@ public interface ResultPackage extends EPackage {
 		EReference ANALYSIS_RESULT__CONTRIBUTORS = eINSTANCE.getAnalysisResult_Contributors();
 
 		/**
-		 * The meta object literal for the '<em><b>Sub Results</b></em>' containment reference list feature.
+		 * The meta object literal for the '<em><b>Diagnostics</b></em>' reference list feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EReference ANALYSIS_RESULT__SUB_RESULTS = eINSTANCE.getAnalysisResult_SubResults();
+		EReference ANALYSIS_RESULT__DIAGNOSTICS = eINSTANCE.getAnalysisResult_Diagnostics();
 
 		/**
 		 * The meta object literal for the '{@link org.osate.result.impl.ContributorImpl <em>Contributor</em>}' class.
