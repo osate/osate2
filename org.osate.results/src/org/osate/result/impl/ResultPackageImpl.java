@@ -194,7 +194,7 @@ public class ResultPackageImpl extends EPackageImpl implements ResultPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getAnalysisResult_Values() {
+	public EReference getAnalysisResult_Contributors() {
 		return (EReference)analysisResultEClass.getEStructuralFeatures().get(3);
 	}
 
@@ -205,24 +205,6 @@ public class ResultPackageImpl extends EPackageImpl implements ResultPackage {
 	 */
 	public EReference getAnalysisResult_Diagnostics() {
 		return (EReference)analysisResultEClass.getEStructuralFeatures().get(4);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EReference getAnalysisResult_Contributors() {
-		return (EReference)analysisResultEClass.getEStructuralFeatures().get(5);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EReference getAnalysisResult_SubResults() {
-		return (EReference)analysisResultEClass.getEStructuralFeatures().get(6);
 	}
 
 	/**
@@ -482,10 +464,8 @@ public class ResultPackageImpl extends EPackageImpl implements ResultPackage {
 		createEAttribute(analysisResultEClass, ANALYSIS_RESULT__ANALYSIS);
 		createEAttribute(analysisResultEClass, ANALYSIS_RESULT__INFO);
 		createEReference(analysisResultEClass, ANALYSIS_RESULT__SOURCE_REFERENCE);
-		createEReference(analysisResultEClass, ANALYSIS_RESULT__VALUES);
-		createEReference(analysisResultEClass, ANALYSIS_RESULT__DIAGNOSTICS);
 		createEReference(analysisResultEClass, ANALYSIS_RESULT__CONTRIBUTORS);
-		createEReference(analysisResultEClass, ANALYSIS_RESULT__SUB_RESULTS);
+		createEReference(analysisResultEClass, ANALYSIS_RESULT__DIAGNOSTICS);
 
 		contributorEClass = createEClass(CONTRIBUTOR);
 		createEAttribute(contributorEClass, CONTRIBUTOR__INFO);
@@ -560,10 +540,8 @@ public class ResultPackageImpl extends EPackageImpl implements ResultPackage {
 		initEAttribute(getAnalysisResult_Analysis(), ecorePackage.getEString(), "analysis", null, 0, 1, AnalysisResult.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getAnalysisResult_Info(), ecorePackage.getEString(), "info", null, 0, 1, AnalysisResult.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getAnalysisResult_SourceReference(), ecorePackage.getEObject(), null, "sourceReference", null, 0, 1, AnalysisResult.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getAnalysisResult_Values(), this.getValue(), null, "values", null, 0, -1, AnalysisResult.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getAnalysisResult_Diagnostics(), this.getDiagnostic(), null, "diagnostics", null, 0, -1, AnalysisResult.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getAnalysisResult_Contributors(), this.getContributor(), null, "contributors", null, 0, -1, AnalysisResult.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getAnalysisResult_SubResults(), this.getAnalysisResult(), null, "subResults", null, 0, -1, AnalysisResult.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getAnalysisResult_Diagnostics(), this.getDiagnostic(), null, "diagnostics", null, 0, -1, AnalysisResult.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(contributorEClass, Contributor.class, "Contributor", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getContributor_Info(), ecorePackage.getEString(), "info", null, 0, 1, Contributor.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

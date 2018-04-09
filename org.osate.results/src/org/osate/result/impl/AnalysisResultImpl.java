@@ -17,13 +17,13 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
+import org.eclipse.emf.ecore.util.EObjectResolvingEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 
 import org.osate.result.Contributor;
 import org.osate.result.Diagnostic;
 import org.osate.result.AnalysisResult;
 import org.osate.result.ResultPackage;
-import org.osate.result.Value;
 
 /**
  * <!-- begin-user-doc -->
@@ -36,10 +36,8 @@ import org.osate.result.Value;
  *   <li>{@link org.osate.result.impl.AnalysisResultImpl#getAnalysis <em>Analysis</em>}</li>
  *   <li>{@link org.osate.result.impl.AnalysisResultImpl#getInfo <em>Info</em>}</li>
  *   <li>{@link org.osate.result.impl.AnalysisResultImpl#getSourceReference <em>Source Reference</em>}</li>
- *   <li>{@link org.osate.result.impl.AnalysisResultImpl#getValues <em>Values</em>}</li>
- *   <li>{@link org.osate.result.impl.AnalysisResultImpl#getDiagnostics <em>Diagnostics</em>}</li>
  *   <li>{@link org.osate.result.impl.AnalysisResultImpl#getContributors <em>Contributors</em>}</li>
- *   <li>{@link org.osate.result.impl.AnalysisResultImpl#getSubResults <em>Sub Results</em>}</li>
+ *   <li>{@link org.osate.result.impl.AnalysisResultImpl#getDiagnostics <em>Diagnostics</em>}</li>
  * </ul>
  *
  * @generated
@@ -96,26 +94,6 @@ public class AnalysisResultImpl extends MinimalEObjectImpl.Container implements 
 	protected EObject sourceReference;
 
 	/**
-	 * The cached value of the '{@link #getValues() <em>Values</em>}' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getValues()
-	 * @generated
-	 * @ordered
-	 */
-	protected EList<Value> values;
-
-	/**
-	 * The cached value of the '{@link #getDiagnostics() <em>Diagnostics</em>}' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getDiagnostics()
-	 * @generated
-	 * @ordered
-	 */
-	protected EList<Diagnostic> diagnostics;
-
-	/**
 	 * The cached value of the '{@link #getContributors() <em>Contributors</em>}' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -126,14 +104,14 @@ public class AnalysisResultImpl extends MinimalEObjectImpl.Container implements 
 	protected EList<Contributor> contributors;
 
 	/**
-	 * The cached value of the '{@link #getSubResults() <em>Sub Results</em>}' containment reference list.
+	 * The cached value of the '{@link #getDiagnostics() <em>Diagnostics</em>}' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getSubResults()
+	 * @see #getDiagnostics()
 	 * @generated
 	 * @ordered
 	 */
-	protected EList<AnalysisResult> subResults;
+	protected EList<Diagnostic> diagnostics;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -239,30 +217,6 @@ public class AnalysisResultImpl extends MinimalEObjectImpl.Container implements 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EList<Value> getValues() {
-		if (values == null) {
-			values = new EObjectContainmentEList<Value>(Value.class, this, ResultPackage.ANALYSIS_RESULT__VALUES);
-		}
-		return values;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EList<Diagnostic> getDiagnostics() {
-		if (diagnostics == null) {
-			diagnostics = new EObjectContainmentEList<Diagnostic>(Diagnostic.class, this, ResultPackage.ANALYSIS_RESULT__DIAGNOSTICS);
-		}
-		return diagnostics;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	public EList<Contributor> getContributors() {
 		if (contributors == null) {
 			contributors = new EObjectContainmentEList<Contributor>(Contributor.class, this, ResultPackage.ANALYSIS_RESULT__CONTRIBUTORS);
@@ -275,11 +229,11 @@ public class AnalysisResultImpl extends MinimalEObjectImpl.Container implements 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EList<AnalysisResult> getSubResults() {
-		if (subResults == null) {
-			subResults = new EObjectContainmentEList<AnalysisResult>(AnalysisResult.class, this, ResultPackage.ANALYSIS_RESULT__SUB_RESULTS);
+	public EList<Diagnostic> getDiagnostics() {
+		if (diagnostics == null) {
+			diagnostics = new EObjectResolvingEList<Diagnostic>(Diagnostic.class, this, ResultPackage.ANALYSIS_RESULT__DIAGNOSTICS);
 		}
-		return subResults;
+		return diagnostics;
 	}
 
 	/**
@@ -290,14 +244,8 @@ public class AnalysisResultImpl extends MinimalEObjectImpl.Container implements 
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
-			case ResultPackage.ANALYSIS_RESULT__VALUES:
-				return ((InternalEList<?>)getValues()).basicRemove(otherEnd, msgs);
-			case ResultPackage.ANALYSIS_RESULT__DIAGNOSTICS:
-				return ((InternalEList<?>)getDiagnostics()).basicRemove(otherEnd, msgs);
 			case ResultPackage.ANALYSIS_RESULT__CONTRIBUTORS:
 				return ((InternalEList<?>)getContributors()).basicRemove(otherEnd, msgs);
-			case ResultPackage.ANALYSIS_RESULT__SUB_RESULTS:
-				return ((InternalEList<?>)getSubResults()).basicRemove(otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -317,14 +265,10 @@ public class AnalysisResultImpl extends MinimalEObjectImpl.Container implements 
 			case ResultPackage.ANALYSIS_RESULT__SOURCE_REFERENCE:
 				if (resolve) return getSourceReference();
 				return basicGetSourceReference();
-			case ResultPackage.ANALYSIS_RESULT__VALUES:
-				return getValues();
-			case ResultPackage.ANALYSIS_RESULT__DIAGNOSTICS:
-				return getDiagnostics();
 			case ResultPackage.ANALYSIS_RESULT__CONTRIBUTORS:
 				return getContributors();
-			case ResultPackage.ANALYSIS_RESULT__SUB_RESULTS:
-				return getSubResults();
+			case ResultPackage.ANALYSIS_RESULT__DIAGNOSTICS:
+				return getDiagnostics();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -347,21 +291,13 @@ public class AnalysisResultImpl extends MinimalEObjectImpl.Container implements 
 			case ResultPackage.ANALYSIS_RESULT__SOURCE_REFERENCE:
 				setSourceReference((EObject)newValue);
 				return;
-			case ResultPackage.ANALYSIS_RESULT__VALUES:
-				getValues().clear();
-				getValues().addAll((Collection<? extends Value>)newValue);
-				return;
-			case ResultPackage.ANALYSIS_RESULT__DIAGNOSTICS:
-				getDiagnostics().clear();
-				getDiagnostics().addAll((Collection<? extends Diagnostic>)newValue);
-				return;
 			case ResultPackage.ANALYSIS_RESULT__CONTRIBUTORS:
 				getContributors().clear();
 				getContributors().addAll((Collection<? extends Contributor>)newValue);
 				return;
-			case ResultPackage.ANALYSIS_RESULT__SUB_RESULTS:
-				getSubResults().clear();
-				getSubResults().addAll((Collection<? extends AnalysisResult>)newValue);
+			case ResultPackage.ANALYSIS_RESULT__DIAGNOSTICS:
+				getDiagnostics().clear();
+				getDiagnostics().addAll((Collection<? extends Diagnostic>)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -384,17 +320,11 @@ public class AnalysisResultImpl extends MinimalEObjectImpl.Container implements 
 			case ResultPackage.ANALYSIS_RESULT__SOURCE_REFERENCE:
 				setSourceReference((EObject)null);
 				return;
-			case ResultPackage.ANALYSIS_RESULT__VALUES:
-				getValues().clear();
-				return;
-			case ResultPackage.ANALYSIS_RESULT__DIAGNOSTICS:
-				getDiagnostics().clear();
-				return;
 			case ResultPackage.ANALYSIS_RESULT__CONTRIBUTORS:
 				getContributors().clear();
 				return;
-			case ResultPackage.ANALYSIS_RESULT__SUB_RESULTS:
-				getSubResults().clear();
+			case ResultPackage.ANALYSIS_RESULT__DIAGNOSTICS:
+				getDiagnostics().clear();
 				return;
 		}
 		super.eUnset(featureID);
@@ -414,14 +344,10 @@ public class AnalysisResultImpl extends MinimalEObjectImpl.Container implements 
 				return INFO_EDEFAULT == null ? info != null : !INFO_EDEFAULT.equals(info);
 			case ResultPackage.ANALYSIS_RESULT__SOURCE_REFERENCE:
 				return sourceReference != null;
-			case ResultPackage.ANALYSIS_RESULT__VALUES:
-				return values != null && !values.isEmpty();
-			case ResultPackage.ANALYSIS_RESULT__DIAGNOSTICS:
-				return diagnostics != null && !diagnostics.isEmpty();
 			case ResultPackage.ANALYSIS_RESULT__CONTRIBUTORS:
 				return contributors != null && !contributors.isEmpty();
-			case ResultPackage.ANALYSIS_RESULT__SUB_RESULTS:
-				return subResults != null && !subResults.isEmpty();
+			case ResultPackage.ANALYSIS_RESULT__DIAGNOSTICS:
+				return diagnostics != null && !diagnostics.isEmpty();
 		}
 		return super.eIsSet(featureID);
 	}
