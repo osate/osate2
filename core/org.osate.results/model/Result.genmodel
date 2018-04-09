@@ -22,12 +22,12 @@
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Result.ecore#//AnalysisResult/contributors"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Result.ecore#//AnalysisResult/diagnostics"/>
     </genClasses>
-    <genClasses ecoreClass="Result.ecore#//Contributor">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Result.ecore#//Contributor/info"/>
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Result.ecore#//Contributor/sourceReference"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Result.ecore#//Contributor/values"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Result.ecore#//Contributor/diagnostics"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Result.ecore#//Contributor/subContributors"/>
+    <genClasses ecoreClass="Result.ecore#//Result">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Result.ecore#//Result/info"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Result.ecore#//Result/sourceReference"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Result.ecore#//Result/values"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Result.ecore#//Result/diagnostics"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Result.ecore#//Result/subResults"/>
     </genClasses>
     <genClasses ecoreClass="Result.ecore#//Diagnostic">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Result.ecore#//Diagnostic/type"/>

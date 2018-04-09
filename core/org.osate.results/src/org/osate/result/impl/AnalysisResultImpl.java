@@ -19,9 +19,8 @@ import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.EObjectResolvingEList;
 import org.eclipse.emf.ecore.util.InternalEList;
-
-import org.osate.result.Contributor;
 import org.osate.result.Diagnostic;
+import org.osate.result.Result;
 import org.osate.result.AnalysisResult;
 import org.osate.result.ResultPackage;
 
@@ -101,7 +100,7 @@ public class AnalysisResultImpl extends MinimalEObjectImpl.Container implements 
 	 * @generated
 	 * @ordered
 	 */
-	protected EList<Contributor> contributors;
+	protected EList<Result> contributors;
 
 	/**
 	 * The cached value of the '{@link #getDiagnostics() <em>Diagnostics</em>}' reference list.
@@ -217,9 +216,9 @@ public class AnalysisResultImpl extends MinimalEObjectImpl.Container implements 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EList<Contributor> getContributors() {
+	public EList<Result> getContributors() {
 		if (contributors == null) {
-			contributors = new EObjectContainmentEList<Contributor>(Contributor.class, this, ResultPackage.ANALYSIS_RESULT__CONTRIBUTORS);
+			contributors = new EObjectContainmentEList<Result>(Result.class, this, ResultPackage.ANALYSIS_RESULT__CONTRIBUTORS);
 		}
 		return contributors;
 	}
@@ -293,7 +292,7 @@ public class AnalysisResultImpl extends MinimalEObjectImpl.Container implements 
 				return;
 			case ResultPackage.ANALYSIS_RESULT__CONTRIBUTORS:
 				getContributors().clear();
-				getContributors().addAll((Collection<? extends Contributor>)newValue);
+				getContributors().addAll((Collection<? extends Result>)newValue);
 				return;
 			case ResultPackage.ANALYSIS_RESULT__DIAGNOSTICS:
 				getDiagnostics().clear();

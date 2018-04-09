@@ -31,13 +31,13 @@ public interface ResultFactory extends EFactory {
 	AnalysisResult createAnalysisResult();
 
 	/**
-	 * Returns a new object of class '<em>Contributor</em>'.
+	 * Returns a new object of class '<em>Result</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Contributor</em>'.
+	 * @return a new object of class '<em>Result</em>'.
 	 * @generated
 	 */
-	Contributor createContributor();
+	Result createResult();
 
 	/**
 	 * Returns a new object of class '<em>Diagnostic</em>'.
