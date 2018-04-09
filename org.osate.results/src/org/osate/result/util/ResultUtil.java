@@ -3,7 +3,7 @@ package org.osate.result.util;
 import org.eclipse.emf.ecore.EObject;
 import org.osate.result.AnalysisResult;
 import org.osate.result.BooleanValue;
-import org.osate.result.Contributor;
+import org.osate.result.Result;
 import org.osate.result.Diagnostic;
 import org.osate.result.DiagnosticType;
 import org.osate.result.IntegerValue;
@@ -52,39 +52,39 @@ public class ResultUtil {
 		return result;
 	}
 
-	public static void addIntegerValue(Contributor contributor, long value) {
+	public static void addIntegerValue(Result contributor, long value) {
 		IntegerValue res = ResultFactory.eINSTANCE.createIntegerValue();
 		res.setValue(value);
 		contributor.getValues().add(res);
 	}
 
-	public static void addIntegerValue(Contributor contributor, long value, String unit) {
+	public static void addIntegerValue(Result contributor, long value, String unit) {
 		IntegerValue res = ResultFactory.eINSTANCE.createIntegerValue();
 		res.setValue(value);
 		res.setUnit(unit);
 		contributor.getValues().add(res);
 	}
 
-	public static void addRealValue(Contributor contributor, double value) {
+	public static void addRealValue(Result contributor, double value) {
 		RealValue res = ResultFactory.eINSTANCE.createRealValue();
 		res.setValue(value);
 		contributor.getValues().add(res);
 	}
 
-	public static void addRealValue(Contributor contributor, double value, String unit) {
+	public static void addRealValue(Result contributor, double value, String unit) {
 		RealValue res = ResultFactory.eINSTANCE.createRealValue();
 		res.setValue(value);
 		res.setUnit(unit);
 		contributor.getValues().add(res);
 	}
 
-	public static void addStringValue(Contributor contributor, String value) {
+	public static void addStringValue(Result contributor, String value) {
 		StringValue res = ResultFactory.eINSTANCE.createStringValue();
 		res.setValue(value);
 		contributor.getValues().add(res);
 	}
 
-	public static void addBooleanValue(Contributor contributor, boolean value) {
+	public static void addBooleanValue(Result contributor, boolean value) {
 		BooleanValue res = ResultFactory.eINSTANCE.createBooleanValue();
 		res.setValue(value);
 		contributor.getValues().add(res);
