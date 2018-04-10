@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <toc link_to="../org.osate.help/aadlhelp.xml#_latency" label="Flow Latency Analysis">
    <topic href="help/html/latency.html" label="Flow Latency Analysis">
-      <topic href="help/html/latency.html#usage,-result-reports,-and-examples" label="Usage, Result Reports, and Examples">
+      <topic href="help/html/latency.html#usage-result-reports-and-examples" label="Usage, Result Reports, and Examples">
          <topic href="help/html/latency.html#invoking-the-latency-analysis" label="Invoking the Latency Analysis"></topic>
          <topic href="help/html/latency.html#latency-analysis-result-reports" label="Latency Analysis Result Reports"></topic>
          <topic href="help/html/latency.html#latency-analysis-report-content" label="Latency Analysis Report Content"></topic>
