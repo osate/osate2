@@ -18,7 +18,6 @@ import org.eclipse.core.runtime.IProgressMonitor
 import org.eclipse.core.runtime.NullProgressMonitor
 import org.eclipse.core.runtime.Path
 import org.eclipse.core.runtime.Status
-import org.eclipse.core.runtime.jobs.MultiRule
 import org.eclipse.emf.common.util.URI
 import org.eclipse.emf.ecore.resource.ResourceSet
 import org.eclipse.emf.transaction.RecordingCommand
@@ -32,7 +31,6 @@ import org.eclipse.jface.layout.TreeColumnLayout
 import org.eclipse.jface.resource.ImageDescriptor
 import org.eclipse.jface.viewers.ArrayContentProvider
 import org.eclipse.jface.viewers.ColumnLabelProvider
-import org.eclipse.jface.viewers.ColumnPixelData
 import org.eclipse.jface.viewers.ColumnViewerToolTipSupport
 import org.eclipse.jface.viewers.ColumnWeightData
 import org.eclipse.jface.viewers.ComboBoxViewerCellEditor
@@ -47,11 +45,11 @@ import org.eclipse.swt.custom.SashForm
 import org.eclipse.swt.graphics.Color
 import org.eclipse.swt.widgets.Composite
 import org.eclipse.ui.part.ViewPart
+import org.eclipse.xtext.EcoreUtil2
 import org.eclipse.xtext.resource.IResourceDescriptions
 import org.eclipse.xtext.ui.editor.GlobalURIEditorOpener
 import org.eclipse.xtext.ui.resource.IResourceSetProvider
 import org.osate.aadl2.util.Activator
-import org.osate.result.Issue
 import org.osate.alisa.workbench.alisa.AlisaPackage
 import org.osate.alisa.workbench.alisa.AssuranceCase
 import org.osate.alisa.workbench.alisa.AssurancePlan
@@ -72,16 +70,14 @@ import org.osate.assure.assure.ValidationResult
 import org.osate.assure.assure.VerificationActivityResult
 import org.osate.assure.evaluator.IAssureProcessor
 import org.osate.assure.generator.IAssureConstructor
-import org.osate.assure.ui.labeling.AssureColorBlockCountHolder
 import org.osate.assure.util.AssureUtilExtension
 import org.osate.categories.categories.CategoriesPackage
 import org.osate.categories.categories.CategoryFilter
+import org.osate.result.Diagnostic
 import org.osate.verify.util.VerifyUtilExtension
 
 import static extension org.eclipse.emf.ecore.util.EcoreUtil.getURI
 import static extension org.osate.assure.util.AssureUtilExtension.*
-import org.eclipse.xtext.EcoreUtil2
-import org.eclipse.emf.ecore.EObject
 
 class AlisaView extends ViewPart {
 	val static ASSURANCE_CASE_URIS_KEY = "ASSURANCE_CASE_URIS_KEY"
@@ -416,7 +412,7 @@ class AlisaView extends ViewPart {
 								"Validation " + eObject.name
 							PreconditionResult:
 								"Precondition " + eObject.name
-							Issue:
+							Diagnostic:
 								"Issue " + (eObject.sourceReference?.constructLabel ?: eObject.constructMessage)
 							ElseResult:
 								"else"
@@ -438,13 +434,13 @@ class AlisaView extends ViewPart {
 
 					override getImage(Object element) {
 						val imageFileName = switch eObject : resourceSetForUI.getEObject(element as URI, true) {
-							Issue:
-								switch eObject.issueType {
+							Diagnostic:
+								switch eObject.type {
 									case ERROR: "error.png"
 									case SUCCESS: "valid.png"
 									case WARNING: "warning.png"
 									case INFO: "info.png"
-									case FAIL: "invalid.png"
+									case FAILURE: "invalid.png"
 									case NONE: "questionmark.png"
 								}
 							AssureResult case eObject.successful:
@@ -541,7 +537,7 @@ class AlisaView extends ViewPart {
 							AssuranceCaseResult: eObject.constructMessage
 							ModelResult: eObject.constructMessage
 							SubsystemResult: eObject.constructMessage
-							Issue: eObject.constructMessage
+							Diagnostic: eObject.constructMessage
 							ElseResult: "else"
 							ThenResult: "then"
 							PredicateResult: eObject.constructMessage

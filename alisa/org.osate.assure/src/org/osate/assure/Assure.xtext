@@ -68,7 +68,7 @@ PreconditionResult returns VerificationResult:
 		issues+=ResultIssue*
 		']'
 	)?
-	('results' results=[results::Result|QualifiedName])? // pointer to separate report
+	('results' results=[results::AnalysisResult|QualifiedName])? // pointer to separate report
 	metrics=Metrics
 	('message' message= STRING)?
 	']'  
@@ -84,7 +84,7 @@ ValidationResult returns VerificationResult:
 		issues+=ResultIssue*
 		']'
 	)?
-	('results' results=[results::Result|QualifiedName])? // pointer to separate report
+	('results' results=[results::AnalysisResult|QualifiedName])? // pointer to separate report
 	metrics=Metrics
 	('message' message= STRING)?
 	']'  
@@ -101,7 +101,7 @@ VerificationActivityResult returns VerificationResult:
 		issues+=ResultIssue*
 		']'
 	)?
-	('results' results=[results::Result|QualifiedName])? 
+	('results' results=[results::AnalysisResult|QualifiedName])? 
 	metrics=Metrics
 	('message' message= STRING)?
 	preconditionResult= PreconditionResult?
@@ -119,7 +119,7 @@ PredicateResult returns VerificationResult:
 		issues+=ResultIssue*
 		']'
 	)?
-	('results' results=[results::Result|QualifiedName])? 
+	('results' results=[results::AnalysisResult|QualifiedName])? 
 	metrics=Metrics
 	('message' message= STRING)?
 	']'  
@@ -205,17 +205,16 @@ NestedClaimReference:
 	requirement=[ReqSpec::Requirement|ID] ('.' sub=NestedClaimReference)?
 ;
 
-ResultIssue returns results::Issue:
-	issueType=ResultIssueType
+ResultIssue returns results::Diagnostic:
+	type=ResultIssueType
 	message=STRING
 	('source' sourceReference=[ecore::EObject|NoQuoteString])?
 	('exception' exceptionType = STRING)?
-	('diagnostic' diagnostic = STRING)?
 	('[' issues+=ResultIssue*']')?
 ;
 
 
-enum ResultIssueType returns results::IssueType:
-	NONE = 'none'| ERROR='error' |  WARNING='warning' | INFO='info' | SUCCESS='success' | FAIL='fail' 
+enum ResultIssueType returns results::DiagnosticType:
+	NONE = 'none'| ERROR='error' |  WARNING='warning' | INFO='info' | SUCCESS='success' | FAILURE='fail' 
 ;
 

@@ -760,7 +760,7 @@ rulePreconditionResult returns [EObject current=null]
 	        }
         }
 		{ 
-	        newCompositeNode(grammarAccess.getPreconditionResultAccess().getResultsResultCrossReference_9_1_0()); 
+	        newCompositeNode(grammarAccess.getPreconditionResultAccess().getResultsAnalysisResultCrossReference_9_1_0()); 
 	    }
 		ruleQualifiedName		{ 
 	        afterParserOrEnumRuleCall();
@@ -947,7 +947,7 @@ ruleValidationResult returns [EObject current=null]
 	        }
         }
 		{ 
-	        newCompositeNode(grammarAccess.getValidationResultAccess().getResultsResultCrossReference_9_1_0()); 
+	        newCompositeNode(grammarAccess.getValidationResultAccess().getResultsAnalysisResultCrossReference_9_1_0()); 
 	    }
 		ruleQualifiedName		{ 
 	        afterParserOrEnumRuleCall();
@@ -1137,7 +1137,7 @@ ruleVerificationActivityResult returns [EObject current=null]
 	        }
         }
 		{ 
-	        newCompositeNode(grammarAccess.getVerificationActivityResultAccess().getResultsResultCrossReference_9_1_0()); 
+	        newCompositeNode(grammarAccess.getVerificationActivityResultAccess().getResultsAnalysisResultCrossReference_9_1_0()); 
 	    }
 		ruleQualifiedName		{ 
 	        afterParserOrEnumRuleCall();
@@ -1363,7 +1363,7 @@ rulePredicateResult returns [EObject current=null]
 	        }
         }
 		{ 
-	        newCompositeNode(grammarAccess.getPredicateResultAccess().getResultsResultCrossReference_9_1_0()); 
+	        newCompositeNode(grammarAccess.getPredicateResultAccess().getResultsAnalysisResultCrossReference_9_1_0()); 
 	    }
 		ruleQualifiedName		{ 
 	        afterParserOrEnumRuleCall();
@@ -2451,16 +2451,16 @@ ruleResultIssue returns [EObject current=null]
 ((
 (
 		{ 
-	        newCompositeNode(grammarAccess.getResultIssueAccess().getIssueTypeResultIssueTypeEnumRuleCall_0_0()); 
+	        newCompositeNode(grammarAccess.getResultIssueAccess().getTypeResultIssueTypeEnumRuleCall_0_0()); 
 	    }
-		lv_issueType_0_0=ruleResultIssueType		{
+		lv_type_0_0=ruleResultIssueType		{
 	        if ($current==null) {
 	            $current = createModelElementForParent(grammarAccess.getResultIssueRule());
 	        }
        		set(
        			$current, 
-       			"issueType",
-        		lv_issueType_0_0, 
+       			"type",
+        		lv_type_0_0, 
         		"org.osate.assure.Assure.ResultIssueType");
 	        afterParserOrEnumRuleCall();
 	    }
@@ -2525,53 +2525,31 @@ ruleResultIssue returns [EObject current=null]
 	    }
 
 )
-))?(	otherlv_6='diagnostic' 
+))?(	otherlv_6='[' 
     {
-    	newLeafNode(otherlv_6, grammarAccess.getResultIssueAccess().getDiagnosticKeyword_4_0());
-    }
-(
-(
-		lv_diagnostic_7_0=RULE_STRING
-		{
-			newLeafNode(lv_diagnostic_7_0, grammarAccess.getResultIssueAccess().getDiagnosticSTRINGTerminalRuleCall_4_1_0()); 
-		}
-		{
-	        if ($current==null) {
-	            $current = createModelElement(grammarAccess.getResultIssueRule());
-	        }
-       		setWithLastConsumed(
-       			$current, 
-       			"diagnostic",
-        		lv_diagnostic_7_0, 
-        		"org.eclipse.xtext.common.Terminals.STRING");
-	    }
-
-)
-))?(	otherlv_8='[' 
-    {
-    	newLeafNode(otherlv_8, grammarAccess.getResultIssueAccess().getLeftSquareBracketKeyword_5_0());
+    	newLeafNode(otherlv_6, grammarAccess.getResultIssueAccess().getLeftSquareBracketKeyword_4_0());
     }
 (
 (
 		{ 
-	        newCompositeNode(grammarAccess.getResultIssueAccess().getIssuesResultIssueParserRuleCall_5_1_0()); 
+	        newCompositeNode(grammarAccess.getResultIssueAccess().getIssuesResultIssueParserRuleCall_4_1_0()); 
 	    }
-		lv_issues_9_0=ruleResultIssue		{
+		lv_issues_7_0=ruleResultIssue		{
 	        if ($current==null) {
 	            $current = createModelElementForParent(grammarAccess.getResultIssueRule());
 	        }
        		add(
        			$current, 
        			"issues",
-        		lv_issues_9_0, 
+        		lv_issues_7_0, 
         		"org.osate.assure.Assure.ResultIssue");
 	        afterParserOrEnumRuleCall();
 	    }
 
 )
-)*	otherlv_10=']' 
+)*	otherlv_8=']' 
     {
-    	newLeafNode(otherlv_10, grammarAccess.getResultIssueAccess().getRightSquareBracketKeyword_5_2());
+    	newLeafNode(otherlv_8, grammarAccess.getResultIssueAccess().getRightSquareBracketKeyword_4_2());
     }
 )?)
 ;
@@ -5221,8 +5199,8 @@ ruleResultIssueType returns [Enumerator current=null]
 )
     |(	enumLiteral_5='fail' 
 	{
-        $current = grammarAccess.getResultIssueTypeAccess().getFAILEnumLiteralDeclaration_5().getEnumLiteral().getInstance();
-        newLeafNode(enumLiteral_5, grammarAccess.getResultIssueTypeAccess().getFAILEnumLiteralDeclaration_5()); 
+        $current = grammarAccess.getResultIssueTypeAccess().getFAILUREEnumLiteralDeclaration_5().getEnumLiteral().getInstance();
+        newLeafNode(enumLiteral_5, grammarAccess.getResultIssueTypeAccess().getFAILUREEnumLiteralDeclaration_5()); 
     }
 ));
 

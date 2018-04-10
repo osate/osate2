@@ -47,7 +47,7 @@ import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.annexsupport.AnnexUtil;
 import org.osate.assure.assure.VerificationResult;
 import org.osate.assure.util.AssureUtilExtension;
-import org.osate.result.Issue;
+import org.osate.result.Diagnostic;
 import org.osate.result.ResultFactory;
 
 import com.rockwellcollins.atc.agree.agree.AgreeContractSubclause;
@@ -294,9 +294,10 @@ public class AgreeVerifySingleHandler extends VerifySingleHandler {
 				case ERROR:
 				case WAITING:
 					// case VALID_REFINED:
-					Issue topResultIssue = ResultFactory.eINSTANCE.createIssue();
-					for (Iterator iterator2 = jKindResult.getPropertyResults().iterator(); iterator2.hasNext();) {
-						PropertyResult propertyResult = (PropertyResult) iterator2.next();
+					Diagnostic topResultIssue = ResultFactory.eINSTANCE.createDiagnostic();
+					for (Iterator<PropertyResult> iterator2 = jKindResult.getPropertyResults().iterator(); iterator2
+							.hasNext();) {
+						PropertyResult propertyResult = iterator2.next();
 
 						System.out.println(
 								"AgreeVerifySingleHandler.updateAgreeResults() Invalid --" + propertyResult.getName());
@@ -544,7 +545,7 @@ public class AgreeVerifySingleHandler extends VerifySingleHandler {
 		} else if (reference instanceof PropertyStatement) {
 			return prefix + seperator + ((PropertyStatement) reference).getName();
 		} else if (reference instanceof ComponentType || reference instanceof ComponentImplementation) {
-			return "Result";
+			return "AnalysisResult";
 		}
 		throw new AgreeException("Unhandled reference type: '" + reference.getClass().getName() + "'");
 	}

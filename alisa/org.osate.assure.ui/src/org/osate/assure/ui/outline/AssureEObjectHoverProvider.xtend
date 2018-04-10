@@ -16,14 +16,14 @@
 
 package org.osate.assure.ui.outline
 
-import org.eclipse.xtext.ui.editor.hover.html.DefaultEObjectHoverProvider
 import org.eclipse.emf.ecore.EObject
+import org.eclipse.xtext.ui.editor.hover.html.DefaultEObjectHoverProvider
+import org.osate.assure.assure.AssuranceCaseResult
 import org.osate.assure.assure.ClaimResult
-import org.osate.assure.assure.VerificationActivityResult
 import org.osate.assure.assure.PreconditionResult
 import org.osate.assure.assure.ValidationResult
-import org.osate.assure.assure.AssuranceCaseResult
-import org.osate.result.Issue
+import org.osate.assure.assure.VerificationActivityResult
+import org.osate.result.Diagnostic
 
 class AssureEObjectHoverProvider extends DefaultEObjectHoverProvider {
 	override getHoverInfoAsHtml(EObject o){
@@ -33,7 +33,7 @@ class AssureEObjectHoverProvider extends DefaultEObjectHoverProvider {
 			VerificationActivityResult: return o.message?:"No message"
 			ValidationResult: return o.message?:"No message"
 			PreconditionResult: return o.message?:"No message"
-			Issue: return o.message?:"No message"
+			Diagnostic: return o.message?:"No message"
 		}
 		return super.getHoverInfoAsHtml(o)
 	}

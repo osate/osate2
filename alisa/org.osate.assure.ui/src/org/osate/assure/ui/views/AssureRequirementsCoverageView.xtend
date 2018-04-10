@@ -7,9 +7,11 @@ import java.util.List
 import java.util.Optional
 import java.util.concurrent.atomic.AtomicBoolean
 import java.util.concurrent.atomic.AtomicReference
+import org.eclipse.core.resources.IProject
 import org.eclipse.core.resources.IResourceChangeEvent
 import org.eclipse.core.resources.IResourceChangeListener
 import org.eclipse.core.resources.ResourcesPlugin
+import org.eclipse.core.runtime.NullProgressMonitor
 import org.eclipse.core.runtime.Path
 import org.eclipse.emf.common.util.URI
 import org.eclipse.emf.ecore.resource.ResourceSet
@@ -38,7 +40,6 @@ import org.eclipse.xtext.resource.IResourceDescriptions
 import org.eclipse.xtext.ui.editor.GlobalURIEditorOpener
 import org.eclipse.xtext.ui.resource.IResourceSetProvider
 import org.osate.aadl2.util.Activator
-import org.osate.result.Issue
 import org.osate.alisa.workbench.alisa.AlisaPackage
 import org.osate.alisa.workbench.alisa.AssuranceCase
 import org.osate.alisa.workbench.alisa.AssurancePlan
@@ -50,6 +51,7 @@ import org.osate.assure.assure.ElseResult
 import org.osate.assure.assure.Metrics
 import org.osate.assure.assure.ModelResult
 import org.osate.assure.assure.PreconditionResult
+import org.osate.assure.assure.PredicateResult
 import org.osate.assure.assure.QualifiedClaimReference
 import org.osate.assure.assure.QualifiedVAReference
 import org.osate.assure.assure.SubsystemResult
@@ -61,12 +63,10 @@ import org.osate.assure.evaluator.IAssureRequirementMetricsProcessor
 import org.osate.assure.generator.IAssureConstructor
 import org.osate.categories.categories.CategoriesPackage
 import org.osate.categories.categories.CategoryFilter
+import org.osate.result.Diagnostic
 
 import static extension org.eclipse.emf.ecore.util.EcoreUtil.getURI
 import static extension org.osate.assure.util.AssureUtilExtension.*
-import org.eclipse.core.resources.IProject
-import org.eclipse.core.runtime.NullProgressMonitor
-import org.osate.assure.assure.PredicateResult
 
 class AssureRequirementsCoverageView extends ViewPart {
 	val static ASSURANCE_CASE_URIS_KEY = "ASSURANCE_CASE_URIS_KEY"
@@ -352,7 +352,7 @@ class AssureRequirementsCoverageView extends ViewPart {
 							VerificationActivityResult: "Evidence " + eObject.name
 							ValidationResult: "Validation " + eObject.name
 							PreconditionResult: "Precondition " + eObject.name
-							Issue: "Issue " + (eObject.sourceReference?.constructLabel ?: eObject.constructMessage)
+							Diagnostic: "Issue " + (eObject.sourceReference?.constructLabel ?: eObject.constructMessage)
 							ElseResult: "else"
 							ThenResult: "then"
 							default: "?"
@@ -361,13 +361,13 @@ class AssureRequirementsCoverageView extends ViewPart {
 
 					override getImage(Object element) {
 						val fileName = switch eObject : resourceSetForUI.getEObject(element as URI, true) {
-							Issue:
-								switch eObject.issueType {
+							Diagnostic:
+								switch eObject.type {
 									case ERROR: "error.png"
 									case SUCCESS: "valid.png"
 									case WARNING: "warning.png"
 									case INFO: "info.png"
-									case FAIL: "invalid.png"
+									case FAILURE: "invalid.png"
 									case NONE: "questionmark.png"
 								}
 							AssuranceCaseResult:
@@ -410,7 +410,7 @@ class AssureRequirementsCoverageView extends ViewPart {
 								val cumulativeNoPlan = eObject.cumulativeRequirementsWithoutPlanClaimCount
 								'''«noPlan» of «reqs» | Cume: «cumulativeNoPlan» of «eObject.cumulativeRequirementsCount»'''
 							}
-							Issue:
+							Diagnostic:
 								eObject.sourceReference?.constructLabel ?: eObject.constructMessage
 							ElseResult:
 								"else"
@@ -465,7 +465,7 @@ class AssureRequirementsCoverageView extends ViewPart {
 										eObject.cumulativeTotalQualityCategorysCount)
 										'''«qualityReqs» of «totalQuality» | Cume: «percent»'''
 									}
-									Issue:
+									Diagnostic:
 										eObject.sourceReference?.constructLabel ?: eObject.constructMessage
 									ElseResult:
 										"else"
@@ -517,7 +517,7 @@ class AssureRequirementsCoverageView extends ViewPart {
 										val cumulativeFeatures = eObject.cumulativeFeaturesCount
 										'''«featuresReqs» for «features» | Cume: «cumulativeFeaturesReqs» for «cumulativeFeatures»'''
 									}
-									Issue:
+									Diagnostic:
 										eObject.sourceReference?.constructLabel ?: eObject.constructMessage
 									ElseResult:
 										"else"
@@ -561,7 +561,7 @@ class AssureRequirementsCoverageView extends ViewPart {
 									ModelResult,
 									SubsystemResult: eObject.metrics.noVerificationPlansCount + " | Cume: " +
 										eObject.cumulativeNoVerificationPlansCount
-									Issue: eObject.sourceReference?.constructLabel ?: eObject.constructMessage
+									Diagnostic: eObject.sourceReference?.constructLabel ?: eObject.constructMessage
 									ElseResult: "else"
 									ThenResult: "then"
 									default: "?"

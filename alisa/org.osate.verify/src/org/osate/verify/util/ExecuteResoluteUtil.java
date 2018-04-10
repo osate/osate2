@@ -20,8 +20,8 @@ import org.osate.aadl2.StringLiteral;
 import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.ConnectionInstance;
 import org.osate.aadl2.instance.SystemInstance;
-import org.osate.result.Issue;
-import org.osate.result.IssueType;
+import org.osate.result.Diagnostic;
+import org.osate.result.DiagnosticType;
 import org.osate.result.ResultFactory;
 import org.osate.result.util.ResultUtil;
 
@@ -121,7 +121,8 @@ public class ExecuteResoluteUtil {
 	 * The return value is an Issue object with subissues for the list of issues returned in the Resolute ClaimResult.
 	 * If the proof fails then the top Issue is set to FAIL, if successful it is set to SUCCESS
 	 */
-	public Issue executeResoluteFunction(String fundef, SystemInstance instanceroot, ComponentInstance targetComponent,
+	public Diagnostic executeResoluteFunction(String fundef, SystemInstance instanceroot,
+			ComponentInstance targetComponent,
 		List<PropertyExpression> parameterObjects) {
 		Iterable<IEObjectDescription> allentries = gscope.getScope(instanceroot.eResource(), ResolutePackage.eINSTANCE.getFnCallExpr_Fn(), null).
 			getAllElements();
@@ -136,21 +137,22 @@ public class ExecuteResoluteUtil {
 		return null;
 	}
 
-	public Issue executeResoluteFunction(EObject fundef, SystemInstance instanceroot, ComponentInstance targetComponent,
+	public Diagnostic executeResoluteFunction(EObject fundef, SystemInstance instanceroot,
+			ComponentInstance targetComponent,
 		List<PropertyExpression> parameterObjects) {
 		FunctionDefinition fd = ( FunctionDefinition)fundef ;
 		initializeResoluteContext(instanceroot);
 		EvaluationContext context = new EvaluationContext(instanceroot, sets, featToConnsMap);
 		// check for claim function
-		 ResoluteInterpreter interpreter = new ResoluteInterpreter(context);
-		Issue proveri = ResultFactory.eINSTANCE.createIssue();
+		ResoluteInterpreter interpreter = new ResoluteInterpreter(context);
+		Diagnostic proveri = ResultFactory.eINSTANCE.createDiagnostic();
 		ProveStatement provecall = createWrapperProveCall(fd, targetComponent, parameterObjects);
 		if (provecall != null) {
 			// using com.rockwellcollins.atc.resolute.analysis.results.ClaimResult
 			ResoluteResult proof = interpreter.evaluateProveStatement(provecall) ;
 			doResoluteResults(proof, proveri);
 		} else {
-			proveri.setIssueType(IssueType.FAIL);
+			proveri.setType(DiagnosticType.FAILURE);
 			proveri.setMessage("Could not find Resolute Function " + fd.getName());
 			proveri.setSourceReference (targetComponent);
 		}
@@ -211,26 +213,27 @@ public class ExecuteResoluteUtil {
 
 	static private ResoluteResultContentProvider resoluteContent = new ResoluteResultContentProvider();
 
-	private void doResoluteResults(ResoluteResult rr, Issue ri) {
+	private void doResoluteResults(ResoluteResult rr, Diagnostic ri) {
 		if (rr.isValid()) {
-			ri.setIssueType(IssueType.SUCCESS);
+			ri.setType(DiagnosticType.SUCCESS);
 		} else {
-			ri.setIssueType(IssueType.FAIL);
+			ri.setType(DiagnosticType.FAILURE);
 		}
 		Object[] subrrs = resoluteContent.getChildren(rr);
 		for (Object subrr : subrrs) {
 			ClaimResult subclaim = (ClaimResult) subrr;
 			if (subclaim.isValid()) {
 				doResoluteResults(subclaim,
-						addIssue(ri, IssueType.SUCCESS, subclaim.getLocation(), subclaim.getText()));
+						addIssue(ri, DiagnosticType.SUCCESS, subclaim.getLocation(), subclaim.getText()));
 			} else {
-				doResoluteResults(subclaim, addIssue(ri, IssueType.FAIL, subclaim.getLocation(), subclaim.getText()));
+				doResoluteResults(subclaim,
+						addIssue(ri, DiagnosticType.FAILURE, subclaim.getLocation(), subclaim.getText()));
 			}
 		}
 	}
 
-	private Issue addIssue(Issue ri, IssueType type, EObject target, String message) {
-		Issue issue = ResultUtil.createIssue(message, target, type);
+	private Diagnostic addIssue(Diagnostic ri, DiagnosticType type, EObject target, String message) {
+		Diagnostic issue = ResultUtil.createDiagnostic(message, target, type);
 		if (target instanceof FailExpr) {
 			if (message.length() > 14) {
 				issue.setMessage(message.substring(15));
