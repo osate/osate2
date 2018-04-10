@@ -177,10 +177,10 @@ flow.
 ### Examples
 
 The latency case study example can be found at 
-<http://www.github.com/osate/examples/latency-case-study>. There is a paper 
+<https://github.com/osate/examples/tree/master/latency-case-study>. There is a paper 
 describing this case study at 
-<http://e-archivo.uc3m.es/bitstream/handle/10016/19688/incremental_REACTION_2014
-.pdf>. In this case study we go through a progression from a functional 
+<http://e-archivo.uc3m.es/bitstream/handle/10016/19688/incremental_REACTION_2014.pdf>. 
+In this case study we go through a progression from a functional 
 architecture with latency budgets to a task and communication architecture that 
 represents the application using the sampled processing paradigm and its 
 deployment on various hardware platforms.
