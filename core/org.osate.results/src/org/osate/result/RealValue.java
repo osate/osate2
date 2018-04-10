@@ -23,6 +23,7 @@ package org.osate.result;
 public interface RealValue extends Value {
 	/**
 	 * Returns the value of the '<em><b>Value</b></em>' attribute.
+	 * The default value is <code>"0.0"</code>.
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Value</em>' attribute isn't clear,
@@ -32,7 +33,7 @@ public interface RealValue extends Value {
 	 * @return the value of the '<em>Value</em>' attribute.
 	 * @see #setValue(double)
 	 * @see org.osate.result.ResultPackage#getRealValue_Value()
-	 * @model required="true"
+	 * @model default="0.0" required="true"
 	 * @generated
 	 */
 	double getValue();
