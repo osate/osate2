@@ -32,7 +32,10 @@
 					<inputDirectory>${project.basedir}/help/markdown/</inputDirectory>
 					<outputDirectory>${project.basedir}/help/html/</outputDirectory>
 					<copyDirectories>images</copyDirectories>
-					<pegdownExtensions>EXTANCHORLINKS</pegdownExtensions>
+					<attributes>
+						<attribute>BlockQuote|style="font-size:90%"</attribute>
+					</attributes>
+					<pegdownExtensions>EXTANCHORLINKS,TOC</pegdownExtensions>
 				</configuration>
 			</plugin>
 		</plugins>
