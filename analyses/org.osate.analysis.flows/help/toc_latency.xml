@@ -16,7 +16,7 @@
          <topic href="help/html/latency.html#processing-times-as-latency-contributors" label="Processing Times as Latency Contributors"></topic>
          <topic href="help/html/latency.html#sampled-processing-in-synchronous-system-scenarios" label="Sampled Processing in Synchronous System Scenarios"></topic>
          <topic href="help/html/latency.html#mid-frame-and-frame-delayed-communication" label="Mid-frame and Frame-delayed Communication"></topic>
-         <topic href="help/html/latency.html#communication-latency-contribution-by-networks/buses-and-protocols" label="Communication Latency Contribution by Networks/Buses and Protocols"></topic>
+         <topic href="help/html/latency.html#communication-latency-contribution-by-networksbuses-and-protocols" label="Communication Latency Contribution by Networks/Buses and Protocols"></topic>
          <topic href="help/html/latency.html#partitioned-systems" label="Partitioned Systems"></topic>
          <topic href="help/html/latency.html#latency-analysis-and-modes" label="Latency Analysis and Modes"></topic>
       </topic>
