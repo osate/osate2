@@ -40,14 +40,14 @@ class FlowLatencyTest extends OsateTest {
 		val checker = new FlowLatencyAnalysisSwitch(new NullProgressMonitor,  instance)
 		val som = instance.systemOperationModes.head
 		val latencyresult = checker.invokeAndGetResult( instance, som)
-		val res = latencyresult.subResults.get(0)
+		val res = latencyresult.contributors.get(0)
 		assertTrue((res.values.get(1) as RealValue).value == (304.0))
 		assertTrue((res.values.get(2) as RealValue).value == (504.0))
 		assertTrue((res.values.get(3) as RealValue).value == (4.0))
 		assertTrue((res.values.get(4) as RealValue).value == (4.0))
 		assertTrue((res.values.get(5) as RealValue).value == (300.0))
 		assertTrue((res.values.get(6) as RealValue).value == (300.0))
-		res.contributors.size.assertEquals(17)
+		res.subResults.size.assertEquals(17)
 	}
 
 	val pullprotocolsText = '''

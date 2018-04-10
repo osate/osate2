@@ -7,7 +7,7 @@ import org.osate.aadl2.instance.SystemInstance;
 import org.osate.analysis.flows.preferences.Values;
 import org.osate.analysis.flows.reporting.model.Report;
 import org.osate.analysis.flows.reporting.model.Report.ReportType;
-import org.osate.result.Result;
+import org.osate.result.AnalysisResult;
 import org.osate.result.util.ResultUtil;
 
 /**
@@ -15,9 +15,6 @@ import org.osate.result.util.ResultUtil;
  * produced by the latency analysis. It contains several
  * LatencyReportEntry, each one representing
  * an end to end flow latency.
- *
- * @author julien
- *
  */
 public class LatencyReport {
 	private List<LatencyReportEntry> entries;
@@ -74,14 +71,14 @@ public class LatencyReport {
 		return genericReport;
 	}
 
-	public Result genResult() {
+	public AnalysisResult genResult() {
 
-		Result latencyReports = ResultUtil.createResult(this.name,
+		AnalysisResult latencyReports = ResultUtil.createAnalysisResult(this.name,
 				this.relatedInstance);
 		latencyReports.setAnalysis("Latency analysis");
-		latencyReports.setSource(getPreferencesDescription());
+		latencyReports.setInfo(getPreferencesDescription());
 		for (LatencyReportEntry re : entries) {
-			latencyReports.getSubResults().add(re.genResult());
+			latencyReports.getContributors().add(re.genResult());
 		}
 		return latencyReports;
 	}
