@@ -43,7 +43,11 @@ class FlowLatencyCodeCoverageTest extends OsateTest {
 			"data_port_connection",
 			"bound_to_vb",
 			"latency",
-			"hardware"
+			"hardware",
+			"partition_duration",
+			"bound_to_processor",
+			"required_vb",
+			"transmission_time"
 		].map[it + ".aadl"]
 		createFiles(fileNames.map[it -> readFile(DIR_NAME + it)])
 		suppressSerialization
