@@ -110,4 +110,13 @@
          </command>
       </menuContribution>
    </extension>
+   <extension
+         id="toc_latency"
+         name="Flow Latency Analysis Help Table of Contents"
+         point="org.eclipse.help.toc">
+      <toc
+            file="help/toc_latency.xml"
+            primary="true">
+      </toc>
+   </extension>
 </plugin>
