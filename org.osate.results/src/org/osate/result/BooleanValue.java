@@ -22,6 +22,7 @@ package org.osate.result;
 public interface BooleanValue extends Value {
 	/**
 	 * Returns the value of the '<em><b>Value</b></em>' attribute.
+	 * The default value is <code>"false"</code>.
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Value</em>' attribute isn't clear,
@@ -31,7 +32,7 @@ public interface BooleanValue extends Value {
 	 * @return the value of the '<em>Value</em>' attribute.
 	 * @see #setValue(boolean)
 	 * @see org.osate.result.ResultPackage#getBooleanValue_Value()
-	 * @model
+	 * @model default="false" required="true"
 	 * @generated
 	 */
 	boolean isValue();
