@@ -8,7 +8,7 @@ import org.osate.aadl2.AadlPackage
 import org.osate.core.test.Aadl2UiInjectorProvider
 import org.osate.core.test.OsateTest
 
-import static org.junit.Assert.*
+import static extension org.junit.Assert.*
 import org.osate.aadl2.SystemImplementation
 import org.osate.aadl2.instantiation.InstantiateModel
 import org.osate.aadl2.instance.SystemInstance
@@ -18,6 +18,12 @@ import org.osate.aadl2.instance.ModeInstance
 import java.util.List
 import org.osate.aadl2.instance.SystemOperationMode
 import org.osate.aadl2.Mode
+import com.itemis.xtext.testing.FluentIssueCollection
+import org.eclipse.core.resources.IResource
+import org.eclipse.core.resources.IMarker
+import static extension org.osate.aadl2.modelsupport.resources.OsateResourceUtil.convertToIResource
+import org.eclipse.emf.ecore.util.EcoreUtil
+import org.eclipse.emf.ecore.EObject
 
 @RunWith(XtextRunner)
 @InjectWith(Aadl2UiInjectorProvider)
@@ -26,6 +32,7 @@ class Issue1092Test extends OsateTest {
 	val static IMPLICIT_MAPPING_TEST = "ImplicitMapping.aadl"
 	val static EXPLICIT_MAPPING_TEST = "ExplicitMapping.aadl"
 	val static REGULAR_MODES_TEST = "RegularModes.aadl"
+	val static UNMAPPED_MODES_TEST = "UnmappedModes.aadl"
 
 	@Test
 	def void testImplicitMapping() {
@@ -178,6 +185,57 @@ class Issue1092Test extends OsateTest {
 		testPropertyValueModes(t2_propVals.get(1).getInModes(), som1, som3, som5, som7)
 	}
 
+	@Test
+	def void testUnmappedModes() {
+		val pkg = getPackage(UNMAPPED_MODES_TEST, PROJECT_LOCATION + UNMAPPED_MODES_TEST)
+		
+		val instance = getSystemInstance(pkg, "main.impl", "main_impl_Instance")
+		val markers = instance.eResource.convertToIResource.findMarkers(IMarker.PROBLEM, true, IResource.DEPTH_ONE)
+		assertTrue("Instance model should have exactly 4 errors", markers.length == 4)
+
+		val proc = instance.componentInstances.get(0)
+		assertTrue("System is expected to have exactly one subcomponent", instance.componentInstances.size() == 1)
+		assertTrue("Process 'proc' is expected as the only child of system", proc.name.equals("proc"))
+		assertTrue("Process 'proc' is expected to exactly 2 modes", proc.modeInstances.size == 2)
+		val proc_m1 = getAndTestElement(proc.modeInstances, 0,
+			"Mode 'm1' is expected as the first mode of 'proc'", [m | m.name.equals("m1")])
+		val proc_m2 = getAndTestElement(proc.modeInstances, 1, 
+			"Mode 'm2' is expected as the second mode of 'proc'", [m | m.name.equals("m2")])
+		
+		assertTrue("Process 'proc' is expected to have exactly 2 subcomponents", proc.componentInstances.size == 2)
+		val t1 = getAndTestElement(proc.componentInstances, 0,
+			"Thread 't1' is expected as the first subcomponent of 'proc'", [t | t.name.equals("t1")])
+		val t2 = getAndTestElement(proc.componentInstances, 1,
+			"Thread 't2' is expected as the second subcomponent of 'proc'", [t | t.name.equals("t2")])
+		
+		val t1_modes = testThreadUnmappedModes(markers, t1, "x1", "x2")
+		val t2_modes = testThreadUnmappedModes(markers, t2, "x1", "x2")
+		
+		assertTrue("System is expected to have exactly 8 system operation modes", instance.systemOperationModes.size == 8)
+		val som0 = testSystemOperationMode(instance.systemOperationModes.get(0), proc_m1, t1_modes.get(0), t2_modes.get(0))
+		val som1 = testSystemOperationMode(instance.systemOperationModes.get(1), proc_m1, t1_modes.get(0), t2_modes.get(1))
+		val som2 = testSystemOperationMode(instance.systemOperationModes.get(2), proc_m1, t1_modes.get(1), t2_modes.get(0))
+		val som3 = testSystemOperationMode(instance.systemOperationModes.get(3), proc_m1, t1_modes.get(1), t2_modes.get(1))
+		val som4 = testSystemOperationMode(instance.systemOperationModes.get(4), proc_m2, t1_modes.get(0), t2_modes.get(0))
+		val som5 = testSystemOperationMode(instance.systemOperationModes.get(5), proc_m2, t1_modes.get(0), t2_modes.get(1))
+		val som6 = testSystemOperationMode(instance.systemOperationModes.get(6), proc_m2, t1_modes.get(1), t2_modes.get(0))
+		val som7 = testSystemOperationMode(instance.systemOperationModes.get(7), proc_m2, t1_modes.get(1), t2_modes.get(1))
+		
+		val t1_props = t1.ownedPropertyAssociations
+		assertTrue("Thread 't1' is expected to have exactly 1 property association", t1_props.size == 1)
+		val t1_propVals = t1_props.get(0).ownedValues
+		assertTrue("Thread 't1' is expected to have exactly 2 property values", t1_propVals.size == 2)
+		testPropertyValueModes(t1_propVals.get(0).getInModes(), som0, som1, som4, som5)
+		testPropertyValueModes(t1_propVals.get(1).getInModes(), som2, som3, som6, som7)
+		
+		val t2_props = t2.ownedPropertyAssociations
+		assertTrue("Thread 't2' is expected to have exactly 1 property association", t2_props.size == 1)
+		val t2_propVals = t2_props.get(0).ownedValues
+		assertTrue("Thread 't2' is expected to have exactly 2 property values", t2_propVals.size == 2)
+		testPropertyValueModes(t2_propVals.get(0).getInModes(), som0, som2, som4, som6)
+		testPropertyValueModes(t2_propVals.get(1).getInModes(), som1, som3, som5, som7)
+	}
+
 	private def static void testPropertyValueModes(List<Mode> actualModes, SystemOperationMode... testModes) {
 		assertTrue("The property value is expected to have exactly " + testModes.length + " modes", actualModes.size == testModes.length)
 		for (mi : testModes) {
@@ -192,6 +250,33 @@ class Issue1092Test extends OsateTest {
 			assertTrue("System operation mode '" + som.name + "' is expected to have mode '" + mi.name + "' as a current mode", som.currentModes.contains(mi))
 		}
 		return som
+	}
+	
+	private def static List<ModeInstance> testThreadUnmappedModes(IMarker[] markers, ComponentInstance t, String t_m1_name, String t_m2_name) {
+		assertTrue("Thread '" + t.name + "' is expected to have exactly 2 modes", t.modeInstances.size == 2)
+		val t_m1 = getAndTestElement(t.modeInstances, 0,
+			"Mode '" + t_m1_name + "' is expected as the first mode of '" + t.name + "'", [m | m.name.equals(t_m1_name)])
+		val t_m2 = getAndTestElement(t.modeInstances, 1,
+			"Mode '" + t_m2_name + "' is expected as the second mode of '" + t.name + "'", [m | m.name.equals(t_m2_name)])
+		
+		
+		assertTrue("Mode '" + t_m1.name + "' of '" + t.name + "' is expected to be derived", t_m1.isDerived)
+		assertTrue("Mode '" + t_m1.name + "' of '" + t.name + "' is expected to have no parents", t_m1.parents.isEmpty())
+		testForError(markers, t_m1, "Required mode '" + t_m1_name + "' not found in containing component")
+		
+		assertTrue("Mode '" + t_m2.name + "' of '" + t.name + "' is expected to be derived", t_m2.isDerived)
+		assertTrue("Mode '" + t_m2.name + "' of '" + t.name + "' is expected to have no parents", t_m2.parents.isEmpty())
+		testForError(markers, t_m2, "Required mode '" + t_m2_name + "' not found in containing component")
+		
+		return #[t_m1, t_m2]
+	}
+	
+	private def static void testForError(IMarker[] markers, EObject e, String errMessage) {
+		val uri = EcoreUtil.getURI(e).toString()
+		markers.findFirst[getAttribute("uri").equals(uri)] => [
+			IMarker.SEVERITY_ERROR.assertEquals(attributes.get(IMarker.SEVERITY))
+			assertEquals(attributes.get(IMarker.MESSAGE), errMessage)			
+		]
 	}
 	
 	private def static List<ModeInstance> testThreadRegularModes(ComponentInstance t, String t_m1_name, String t_m2_name) {
@@ -231,10 +316,14 @@ class Issue1092Test extends OsateTest {
 		return element
 	}
 	
-	private def AadlPackage getPackage(String fname, String path) {
+	private def FluentIssueCollection getFluentIssueCollection(String fname, String path) {
 		createFiles(fname -> readFile(path))
 		ignoreSerializationDifferences
-		testFile(fname).resource.contents.head as AadlPackage
+		testFile(fname)
+	}
+	
+	private def AadlPackage getPackage(String fname, String path) {
+		getFluentIssueCollection(fname, path).resource.contents.head as AadlPackage
 	}
 	
 	private def static SystemInstance getSystemInstance(
