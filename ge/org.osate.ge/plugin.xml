@@ -2319,18 +2319,7 @@
                </adapt>
             </enablement>
          </commonWizard>
-         <commonWizard
-               type="new"
-               wizardId="org.osate.ge.newDiagramWizard">
-            <enablement></enablement>
-         </commonWizard>
       </navigatorContent>
- <commonWizard
-       associatedExtensionId="org.osate.ui.navigator.content"
-       type="new"
-       wizardId="org.osate.ge.newDiagramWizard">
-    <enablement></enablement>
- </commonWizard>
    </extension>
    <extension
          point="org.eclipse.ui.perspectiveExtensions">
@@ -2346,17 +2335,5 @@
                id="org.osate.ge.diagramsView">
          </viewShortcut>
       </perspectiveExtension>
-   </extension>
-   <extension
-         point="org.eclipse.ui.newWizards">
-      <wizard
-            category="org.osate.Wizard.category.ID"
-            class="org.osate.ge.internal.ui.wizards.NewDiagramWizard"
-            id="org.osate.ge.newDiagramWizard"
-            name="AADL Diagram">
-         <selection
-               class="org.eclipse.core.resources.IResource">
-         </selection>
-      </wizard>
    </extension>
 </plugin>
