@@ -1,5 +1,6 @@
 package org.osate.analysis.flows.tests
 
+import com.itemis.xtext.testing.FluentIssueCollection
 import org.eclipse.core.runtime.NullProgressMonitor
 import org.eclipse.xtext.testing.InjectWith
 import org.eclipse.xtext.testing.XtextRunner
@@ -38,6 +39,7 @@ class FlowLatencyCodeCoverageTest extends OsateTest {
 			"dispatch",
 			"immediate",
 			"partition",
+			"partition2",
 			"execution_time",
 			"queuing",
 			"data_port_connection",
@@ -114,5 +116,41 @@ class FlowLatencyCodeCoverageTest extends OsateTest {
 				]
 			]
 		]
+	}
+	
+	/**
+	 * This method is only for testing a file which has a validation error. After issue #1124 is fixed,
+	 * connect_to_subcomponent should be moved into testFlowLatency().
+	 * See https://github.com/osate/osate2-core/issues/1124
+	 */
+	@Test
+	def void testConnectToSubcomponent() {
+		val connectToSubcomponentFileName = "connect_to_subcomponent.aadl"
+		createFiles(connectToSubcomponentFileName -> readFile(DIR_NAME + connectToSubcomponentFileName))
+		suppressSerialization
+		val testFileResult = testFile(connectToSubcomponentFileName)
+		val issueCollection = new FluentIssueCollection(testFileResult.resource, newArrayList, newArrayList)
+		testFileResult.resource.contents.head as AadlPackage => [
+			"connect_to_subcomponent".assertEquals(name)
+			publicSection.ownedClassifiers.get(1) as SystemImplementation => [
+				"s1.i1".assertEquals(name)
+				buildInstanceModelFile => [
+					"s1_i1_Instance".assertEquals(name)
+					new FlowLatencyAnalysisSwitch(new NullProgressMonitor, it).processPreOrderAll(it)
+				]
+			]
+			publicSection.ownedClassifiers.get(3) as SystemImplementation => [
+				"s2.i1".assertEquals(name)
+				ownedEndToEndFlows.head => [
+					"etef1".assertEquals(name)
+					ownedEndToEndFlowSegments.get(2) => [
+						"f1".assertEquals(flowElement.name)
+						assertError(testFileResult.issues, issueCollection, "Illegal reference to 'f1'.  Cannot refer to a data access except for the first and last segment of an end-to-end flow.")
+					]
+				]
+			]
+		]
+		issueCollection.sizeIs(issueCollection.issues.size)
+		assertConstraints(issueCollection)
 	}
 }
