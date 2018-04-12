@@ -188,10 +188,6 @@ class AssureUtilExtension {
 		req?.targetElement ?: req.targetClassifier ?: cr.caseTargetClassifier
 	}
 
-	def static boolean isConnections(EObject assureObject) {
-		assureObject.claimResult.target?.connections
-	}
-
 	def static SystemInstance getAssuranceCaseInstanceModel(VerificationResult assureObject) {
 		val rac = assureObject.modelResult?.target
 		if(rac === null) return null
