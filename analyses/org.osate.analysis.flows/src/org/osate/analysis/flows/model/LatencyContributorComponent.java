@@ -8,7 +8,7 @@ import org.osate.aadl2.VirtualBus;
 import org.osate.aadl2.instance.ComponentInstance;
 
 /**
- * A latency Contributor represents something in the flow
+ * A latency Result represents something in the flow
  * that can contribute to increase/decrease the latency.
  *
  * This class contains the result for a latency contributor

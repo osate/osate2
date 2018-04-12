@@ -1,25 +1,21 @@
 package org.osate.analysis.flows.tests
 
 import org.eclipse.core.runtime.NullProgressMonitor
-import org.eclipse.core.runtime.Path
-import org.eclipse.emf.common.util.URI
 import org.eclipse.xtext.testing.InjectWith
 import org.eclipse.xtext.testing.XtextRunner
-import org.eclipse.xtext.util.Files
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.osate.aadl2.AadlPackage
 import org.osate.aadl2.SystemImplementation
 import org.osate.aadl2.instantiation.InstantiateModel
-import org.osate.aadl2.modelsupport.errorreporting.AnalysisErrorReporterManager
-import org.osate.analysis.flows.handlers.CheckFlowLatency
+import org.osate.analysis.flows.FlowLatencyAnalysisSwitch
 import org.osate.core.test.Aadl2UiInjectorProvider
 import org.osate.core.test.OsateTest
+import org.osate.result.RealValue
+
+import static org.junit.Assert.*
 
 import static extension org.junit.Assert.assertEquals
-import static extension org.junit.Assert.assertTrue
-import org.osate.result.RealValue
-import org.osate.analysis.flows.FlowLatencyAnalysisSwitch
 
 @RunWith(typeof(XtextRunner))
 @InjectWith(typeof(Aadl2UiInjectorProvider))
@@ -44,35 +40,35 @@ class CombinedETEFTest extends OsateTest {
 		val som = instance.systemOperationModes.head
 		val checker = new FlowLatencyAnalysisSwitch(new NullProgressMonitor,  instance)
 		val latencyresult = checker.invokeAndGetResult(instance, som)
-		val resab = latencyresult.subResults.get(0)
+		val resab = latencyresult.results.get(0)
 		assertTrue((resab.values.get(1) as RealValue).value == (20.0))
 		assertTrue((resab.values.get(2) as RealValue).value == (20.0))
 		assertTrue((resab.values.get(3) as RealValue).value == (20.0))
 		assertTrue((resab.values.get(4) as RealValue).value == (20.0))
 		assertTrue((resab.values.get(5) as RealValue).value == (0.0))
 		assertTrue((resab.values.get(6) as RealValue).value == (0.0))
-		resab.contributors.size.assertEquals(3)
-		resab.issues.size.assertEquals(1)
+		resab.subResults.size.assertEquals(3)
+		resab.diagnostics.size.assertEquals(1)
 
-		val rescd = latencyresult.subResults.get(1)
+		val rescd = latencyresult.results.get(1)
 		assertTrue((rescd.values.get(1) as RealValue).value == (20.0))
 		assertTrue((rescd.values.get(2) as RealValue).value == (20.0))
 		assertTrue((rescd.values.get(3) as RealValue).value == (20.0))
 		assertTrue((rescd.values.get(4) as RealValue).value == (20.0))
 		assertTrue((rescd.values.get(5) as RealValue).value == (0.0))
 		assertTrue((rescd.values.get(6) as RealValue).value == (0.0))
-		rescd.contributors.size.assertEquals(3)
-		rescd.issues.size.assertEquals(1)
+		rescd.subResults.size.assertEquals(3)
+		rescd.diagnostics.size.assertEquals(1)
 
-		val restotal = latencyresult.subResults.get(2)
+		val restotal = latencyresult.results.get(2)
 		assertTrue((restotal.values.get(1) as RealValue).value == (40.0))
 		assertTrue((restotal.values.get(2) as RealValue).value == (40.0))
 		assertTrue((restotal.values.get(3) as RealValue).value == (40.0))
 		assertTrue((restotal.values.get(4) as RealValue).value == (40.0))
 		assertTrue((restotal.values.get(5) as RealValue).value == (20.0))
 		assertTrue((restotal.values.get(6) as RealValue).value == (30.0))
-		restotal.contributors.size.assertEquals(7)
-		restotal.issues.size.assertEquals(4)
+		restotal.subResults.size.assertEquals(7)
+		restotal.diagnostics.size.assertEquals(4)
 
 	}
 

@@ -56,7 +56,7 @@ import org.osate.analysis.flows.model.LatencyReportEntry;
 import org.osate.analysis.flows.reporting.exporters.CsvExport;
 import org.osate.analysis.flows.reporting.exporters.ExcelExport;
 import org.osate.analysis.flows.reporting.model.Report;
-import org.osate.result.Result;
+import org.osate.result.AnalysisResult;
 import org.osate.ui.dialogs.Dialog;
 import org.osate.ui.handlers.AbstractInstanceOrDeclarativeModelReadOnlyHandler;
 
@@ -101,7 +101,7 @@ public final class CheckFlowLatency extends AbstractInstanceOrDeclarativeModelRe
 			generateMarkers(latreport, errManager);
 
 
-			Result results = latreport.genResult();
+			AnalysisResult results = latreport.genResult();
 			SystemInstance root = latreport.getRootinstance();
 			URI rootURI = EcoreUtil.getURI(root).trimFragment().trimFileExtension();
 			String rootname = rootURI.lastSegment();
