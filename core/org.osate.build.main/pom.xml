@@ -186,8 +186,7 @@
 				</property>
 			</activation>
 			<properties>
-				<tycho.testArgLine>
-				</tycho.testArgLine>
+				<tycho.testArgLine> </tycho.testArgLine>
 			</properties>
 		</profile>
 		<profile>
