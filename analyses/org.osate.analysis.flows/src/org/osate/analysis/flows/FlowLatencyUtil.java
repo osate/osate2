@@ -23,7 +23,7 @@ import org.osate.xtext.aadl2.properties.util.GetProperties;
 import org.osate.xtext.aadl2.properties.util.InstanceModelUtil;
 
 public class FlowLatencyUtil {
-
+	//XXX: [Code Coverage] Dead code.
 	public static String getEndToEndFlowString(EndToEndFlowInstance etef) {
 		StringBuffer ret;
 		boolean firstPassed = false;
@@ -42,6 +42,7 @@ public class FlowLatencyUtil {
 		return ret.toString();
 	}
 
+	//XXX: [Code Coverage] Dead code.
 	public static boolean hasPreviousConnection(final EndToEndFlowInstance etef,
 			final FlowElementInstance flowElementInstance) {
 		return etef.getFlowElements().indexOf(flowElementInstance) > 0;
@@ -90,6 +91,7 @@ public class FlowLatencyUtil {
 		return false;
 	}
 
+	//XXX: [Code Coverage] Dead code.
 	public static boolean isNextConnectionDelayed(final EndToEndFlowInstance etef,
 			final FlowElementInstance flowElementInstance) {
 		ConnectionInstance nextElement = getNextConnection(etef, flowElementInstance);
@@ -100,6 +102,7 @@ public class FlowLatencyUtil {
 		return false;
 	}
 
+	//XXX: [Code Coverage] Dead code.
 	public static boolean isPreviousConnectionSampled(final EndToEndFlowInstance etef,
 			final FlowElementInstance flowElementInstance) {
 		ConnectionInstance nextElement = getPreviousConnection(etef, flowElementInstance);
@@ -110,6 +113,7 @@ public class FlowLatencyUtil {
 		return false;
 	}
 
+	//XXX: [Code Coverage] Dead code.
 	public static boolean isNextConnectionSampled(final EndToEndFlowInstance etef,
 			final FlowElementInstance flowElementInstance) {
 		ConnectionInstance nextElement = getNextConnection(etef, flowElementInstance);
@@ -123,9 +127,11 @@ public class FlowLatencyUtil {
 	public static ConnectionType getConnectionType(final ConnectionInstance conn) {
 		EnumerationLiteral el = GetProperties.getConnectionTiming(conn);
 
+		//XXX: [Code Coverage] el cannot be null.
 		if ((el != null) && (el.getName().equalsIgnoreCase("immediate"))) {
 			return ConnectionType.IMMEDIATE;
 		}
+		//XXX: [Code Coverage] el cannot be null.
 		if ((el != null) && (el.getName().equalsIgnoreCase("delayed"))) {
 			return ConnectionType.DELAYED;
 		}
@@ -172,6 +178,7 @@ public class FlowLatencyUtil {
 	 * @param flowElementInstance - the element to search from
 	 * @return - the flow element period that is a thread and is after flowElementInstance
 	 */
+	//XXX: [Code Coverage] Dead code.
 	public static double getNextThreadOrDevicePeriod(final EndToEndFlowInstance etef,
 			final FlowElementInstance flowElementInstance) {
 		ComponentInstance ci = getNextFlowElement(etef, flowElementInstance).getComponentInstance();
@@ -189,6 +196,7 @@ public class FlowLatencyUtil {
 	 * @param flowElementInstance - the element to search from
 	 * @return - the flow element that is a task and is after flowElementInstance
 	 */
+	//XXX: [Code Coverage] Dead code.
 	public static double getNextSamplingComponentPeriod(final EndToEndFlowInstance etef,
 			final FlowElementInstance flowElementInstance) {
 		ComponentInstance ci = getNextFlowElement(etef, flowElementInstance).getComponentInstance();
@@ -277,6 +285,7 @@ public class FlowLatencyUtil {
 	 * @param componentInstance system, process, thread or other entity bound to a processor and running inside a partition.
 	 * @return partition period supported by processor
 	 */
+	//XXX: [Code Coverage] Dead code.
 	public static double getARINC653ProcessorMajorFrameFromSchedule(ComponentInstance processorInstance) {
 		double res = 0.0;
 		List<ARINC653ScheduleWindow> schedule = GetProperties.getModuleSchedule(processorInstance);
@@ -308,6 +317,7 @@ public class FlowLatencyUtil {
 		/**
 		 * The partition must be a virtual processor component.
 		 */
+		//XXX: [Code Coverage] partition is always a virtual processor.
 		if (partition.getCategory() != ComponentCategory.VIRTUAL_PROCESSOR) {
 			return null;
 		}
@@ -318,6 +328,7 @@ public class FlowLatencyUtil {
 		if (module == null) {
 			module = partition.getContainingComponentInstance();
 		}
+		//XXX: [Code Coverage] module cannot be null.
 		if ((module != null) && (module.getCategory() != ComponentCategory.VIRTUAL_PROCESSOR)) {
 			return module;
 		}
@@ -332,6 +343,10 @@ public class FlowLatencyUtil {
 	 */
 	public static double getPartitionFrameOffset(ComponentInstance partition, List<ARINC653ScheduleWindow> schedule) {
 		double res = 0.0;
+		/*
+		 * XXX: [Code Coverage] schedule is never empty. Could be empty after fixing
+		 * https://github.com/osate/osate2-core/issues/1127
+		 */
 		if ((schedule == null) || (schedule.size() == 0)) {
 			return -1;
 		}
@@ -342,6 +357,10 @@ public class FlowLatencyUtil {
 
 			res = res + window.getTime();
 		}
+		/*
+		 * XXX: [Code Coverage] partition is always in schedule. Could be covered after fixing
+		 * https://github.com/osate/osate2-core/issues/1127
+		 */
 		return 0;
 	}
 
@@ -356,6 +375,10 @@ public class FlowLatencyUtil {
 	public static double getPartitionDuration(ComponentInstance partition, List<ARINC653ScheduleWindow> schedule) {
 		if ((schedule == null) || (schedule.size() == 0)) {
 			double wcet = GetProperties.getScaledMaxComputeExecutionTimeinMilliSec(partition);
+			/*
+			 * XXX: [Code Coverage] Compute_Execution_Time doesn't apply to virtual processor. Should be
+			 * Execution_Time. https://github.com/osate/osate2-core/issues/1127
+			 */
 			if (wcet > 0) {
 				return wcet;
 			}
@@ -372,6 +395,7 @@ public class FlowLatencyUtil {
 	public static List<ARINC653ScheduleWindow> getModuleSchedule(ComponentInstance partition) {
 		ComponentInstance module;
 		List<ARINC653ScheduleWindow> schedule = null;
+		//XXX: [Code Coverage] partition cannot be null.
 		if (partition == null) {
 			return schedule;
 		}
@@ -449,6 +473,7 @@ public class FlowLatencyUtil {
 		}
 	}
 
+	//XXX: [Code Coverage] Dead code.
 	public static double getDimension(final NamedElement ne) {
 		Property dimension = GetProperties.lookupPropertyDefinition(ne, DataModel._NAME, DataModel.Dimension);
 		List<? extends PropertyExpression> propertyValues;
