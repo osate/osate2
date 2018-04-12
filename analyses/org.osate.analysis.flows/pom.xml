@@ -20,6 +20,15 @@
 				<groupId>com.ruleoftech</groupId>
 				<artifactId>markdown-page-generator-plugin</artifactId>
 				<version>2.1.0</version>
+				<configuration>
+					<inputDirectory>${project.basedir}/markdown/</inputDirectory>
+					<outputDirectory>${project.basedir}/html/</outputDirectory>
+					<copyDirectories>images,css</copyDirectories>
+					<attributes>
+						<attribute>BlockQuote|style="font-size:90%"</attribute>
+					</attributes>
+					<pegdownExtensions>EXTANCHORLINKS,TOC</pegdownExtensions>
+				</configuration>
 			</plugin>
 		</plugins>
 	</build>
