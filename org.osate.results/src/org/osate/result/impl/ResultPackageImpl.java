@@ -194,7 +194,7 @@ public class ResultPackageImpl extends EPackageImpl implements ResultPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getAnalysisResult_Contributors() {
+	public EReference getAnalysisResult_Results() {
 		return (EReference)analysisResultEClass.getEStructuralFeatures().get(3);
 	}
 
@@ -464,7 +464,7 @@ public class ResultPackageImpl extends EPackageImpl implements ResultPackage {
 		createEAttribute(analysisResultEClass, ANALYSIS_RESULT__ANALYSIS);
 		createEAttribute(analysisResultEClass, ANALYSIS_RESULT__INFO);
 		createEReference(analysisResultEClass, ANALYSIS_RESULT__SOURCE_REFERENCE);
-		createEReference(analysisResultEClass, ANALYSIS_RESULT__CONTRIBUTORS);
+		createEReference(analysisResultEClass, ANALYSIS_RESULT__RESULTS);
 		createEReference(analysisResultEClass, ANALYSIS_RESULT__DIAGNOSTICS);
 
 		resultEClass = createEClass(RESULT);
@@ -540,7 +540,7 @@ public class ResultPackageImpl extends EPackageImpl implements ResultPackage {
 		initEAttribute(getAnalysisResult_Analysis(), ecorePackage.getEString(), "analysis", null, 0, 1, AnalysisResult.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getAnalysisResult_Info(), ecorePackage.getEString(), "info", null, 0, 1, AnalysisResult.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getAnalysisResult_SourceReference(), ecorePackage.getEObject(), null, "sourceReference", null, 0, 1, AnalysisResult.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getAnalysisResult_Contributors(), this.getResult(), null, "contributors", null, 0, -1, AnalysisResult.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getAnalysisResult_Results(), this.getResult(), null, "results", null, 0, -1, AnalysisResult.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getAnalysisResult_Diagnostics(), this.getDiagnostic(), null, "diagnostics", null, 0, -1, AnalysisResult.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(resultEClass, Result.class, "Result", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
