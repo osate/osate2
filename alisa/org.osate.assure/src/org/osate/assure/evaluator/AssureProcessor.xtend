@@ -54,6 +54,7 @@ import org.osate.assure.assure.VerificationExecutionState
 import org.osate.assure.assure.VerificationResult
 import org.osate.assure.util.AssureUtilExtension
 import org.osate.categories.categories.CategoryFilter
+import org.osate.result.AnalysisResult
 import org.osate.result.DiagnosticType
 import org.osate.result.ResultFactory
 import org.osate.verify.util.ExecuteJavaUtil
@@ -72,8 +73,8 @@ import org.osate.xtext.aadl2.properties.util.PropertyUtils
 import static extension org.eclipse.emf.ecore.util.EcoreUtil.getURI
 import static extension org.osate.alisa.common.util.CommonUtilExtension.*
 import static extension org.osate.assure.util.AssureUtilExtension.*
+import static extension org.osate.assure.util.ResultsHelperUtilExtension.*
 import static extension org.osate.verify.util.VerifyUtilExtension.*
-import org.osate.result.AnalysisResult
 
 @ImplementedBy(AssureProcessor)
 interface IAssureProcessor {
@@ -255,7 +256,6 @@ class AssureProcessor implements IAssureProcessor {
 	 * null or bool for analysis with results in marker/diagnostic, or the result report object
 	 */
 	def void runVerificationMethod(VerificationResult verificationResult) {
-		val issue = null
 		if (progressmonitor.isCanceled)
 			throw new OperationCanceledException
 
@@ -274,15 +274,6 @@ class AssureProcessor implements IAssureProcessor {
 		}
 		// target element is the element referred to by the requirement. This may be empty
 		val targetElement = verificationResult.caseTargetModelElement
-		var InstanceObject target = if (targetElement !== null) {
-				if (targetElement.eIsProxy) {
-					setToError(verificationResult, "Unresolved target element for claim", targetComponent)
-					return
-				}
-				targetComponent.findElementInstance(targetElement) ?: targetComponent
-			} else {
-				targetComponent
-			}
 		env.add("component", targetComponent)
 		env.add("element", targetElement)
 
@@ -364,6 +355,16 @@ class AssureProcessor implements IAssureProcessor {
 				parameterObjects.add(actual)
 			}
 		}
+
+		val InstanceObject target = if (targetElement !== null) {
+				if (targetElement.eIsProxy) {
+					setToError(verificationResult, "Unresolved target element for claim", targetComponent)
+					return
+				}
+				targetComponent.findElementInstance(targetElement) ?: targetComponent
+			} else {
+				targetComponent
+			}
 
 		if (verificationResult instanceof VerificationActivityResult) {
 			val success = checkProperties(target, verificationResult)
@@ -452,9 +453,9 @@ class AssureProcessor implements IAssureProcessor {
 					if (result.failureCount == 0) {
 						setToSuccess(verificationResult)
 					} else {
-						val proveri = ResultFactory.eINSTANCE.createDiagnostic
+						val proveri = ResultFactory.eINSTANCE.createResult
 						result.doJUnitResults(proveri)
-						setToFail(verificationResult, proveri.issues)
+						setToFail(verificationResult, proveri.diagnostics)
 					}
 					verificationResult.eResource.save(null)
 				}
@@ -476,7 +477,7 @@ class AssureProcessor implements IAssureProcessor {
 			verificationResult.eResource.save(null)
 			updateProgress(verificationResult)
 		}
-	// verificationResult.eResource.save(null)
+// verificationResult.eResource.save(null)
 	}
 
 	def updateRequirementsCoverage() {
@@ -577,14 +578,28 @@ class AssureProcessor implements IAssureProcessor {
 				}
 				returned
 			} else if (returned instanceof AnalysisResult) {
-//				verificationResult.resultReport = returned
-				if (returned.diagnostics.empty) {
-					setToSuccess(verificationResult, "", target)
+				if (returned.results.empty) {
 				} else {
-					verificationResult.issues.addAll(returned.diagnostics)
-					setToFail(verificationResult, "", target)
+					val returnedResult = returned.results.head
+						verificationResult.issues.addAll(returnedResult.diagnostics)
+					if (!hasFailures(returnedResult)) {
+						setToSuccess(verificationResult, "", target)
+					} else {
+						setToFail(verificationResult, "", target)
+					}
+					val resmap = new HashMap
+					val vals = returnedResult.values
+					val mresults = method.results
+					for (var i = 0; i < vals.length; i++) {
+						val value = vals.get(i) as Object
+						if (i < mresults.size) {
+							resmap.put(mresults.get(i).name, value)
+						} else {
+							resmap.put("result" + 1, value)
+						}
+					}
+					resmap
 				}
-				new HashMap
 			} else if (method.results.size == 1) {
 				val resparam = method.results.head
 				setToSuccess(verificationResult)

@@ -159,7 +159,10 @@ class CommonUtilExtension {
 			Subcomponent: return findElementInstanceInList(io.componentInstances, n)
 			Feature: return findElementInstanceInList(io.featureInstances, n)
 			FlowSpecification: return findElementInstanceInList(io.flowSpecifications, n)
-			Connection: return findConnectionInstance(io.connectionInstances,n)
+			Connection: {
+				val conns= findConnectionInstance(io.connectionInstances,n)
+				return if (conns.empty) null else conns.head
+			}
 		}
 		return null
 	}
@@ -172,15 +175,18 @@ class CommonUtilExtension {
 		return null
 	}
 
-	def static ConnectionInstance findConnectionInstance(Collection<ConnectionInstance> connilist, String name) {
+	def static Collection<ConnectionInstance> findConnectionInstance(Collection<ConnectionInstance> connilist, String name) {
+		val Collection<ConnectionInstance> result = newArrayList()
 		for (ei : connilist) {
 			for (connref : ei.connectionReferences) {
 				val conn = connref.connection
 				if (conn.isAcross &&
-					name.equalsIgnoreCase(conn.name)) return ei
+					name.equalsIgnoreCase(conn.name)) {
+						result.add(ei)
+					}
 			}
 		}
-		return null
+		return result
 	}
 
 	def static getCrossConnections(ComponentImplementation ci) {
