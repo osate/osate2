@@ -111,6 +111,7 @@ public class FlowLatencyAnalysisSwitch extends AadlProcessingSwitchWithProgress 
 			public String caseEndToEndFlowInstance(final EndToEndFlowInstance etef) {
 				LatencyReportEntry entry;
 
+				//XXX: [Code Coverage] etef.getFlowElements() cannot be empty.
 				if (etef.getFlowElements().isEmpty()) {
 					return DONE;
 				}
@@ -330,6 +331,10 @@ public class FlowLatencyAnalysisSwitch extends AadlProcessingSwitchWithProgress 
 					ql.reportInfo("Sporadic or periodic has period delay per queue element");
 //					in some circumstances we may want to subtract one element
 					// Example: Periodic or Sporadic thread samples, thus its sampling latency reflects the first element waiting
+					/*
+					 * XXX: [Code Coverage] qs has already been checked that it is not zero. Queue_Size
+					 * cannot be negative.
+					 */
 					if (qs > 0) {
 						// subtract one since the arriving element becomes the last element
 						qs = qs - 1;
@@ -499,7 +504,7 @@ public class FlowLatencyAnalysisSwitch extends AadlProcessingSwitchWithProgress 
 	 */
 	public void processTransmissionTime(NamedElement targetMedium, double datasizeinbyte,
 			LatencyContributor latencyContributor) {
-
+		//XXX: [Code Coverage] targetMedium cannot be null.
 		if (targetMedium != null) {
 
 			double maxBusLatency = GetProperties.getMaximumLatencyinMilliSec(targetMedium);
@@ -569,7 +574,9 @@ public class FlowLatencyAnalysisSwitch extends AadlProcessingSwitchWithProgress 
 			 * If we have that we want to use that virtual bus overhead
 			 */
 			List<ComponentClassifier> protocols = GetProperties.getRequiredVirtualBusClass(connorvb);
+			//XXX: [Code Coverage] protocols cannot be null.
 			if ((protocols != null) && (protocols.size() > 0)) {
+				//XXX: [Code Coverage] willDoBuses is always true if willDoVirtualBuses is false.
 				if (willDoBuses) {
 					latencyContributor.reportInfo("Adding required virtual bus contributions to bound bus");
 				}
@@ -610,6 +617,7 @@ public class FlowLatencyAnalysisSwitch extends AadlProcessingSwitchWithProgress 
 
 	}
 
+	//XXX: [Code Coverage] First parameter should be ConnectionInstance. Recursive call is a no-op.
 	public void processActualConnectionBindingsSampling(NamedElement connorvb, LatencyContributor latencyContributor) {
 		boolean willDoVirtualBuses = false;
 		boolean willDoBuses = false;
@@ -630,6 +638,7 @@ public class FlowLatencyAnalysisSwitch extends AadlProcessingSwitchWithProgress 
 			 */
 			if (!willDoVirtualBuses) {
 				List<ComponentClassifier> protocols = GetProperties.getRequiredVirtualBusClass(connorvb);
+				//XXX: [Code Coverage] protocols cannot be null.
 				if ((protocols != null) && (protocols.size() > 0)) {
 					if (willDoBuses) {
 						latencyContributor.reportInfo("Adding required virtual bus contributions to bound bus");
@@ -656,6 +665,7 @@ public class FlowLatencyAnalysisSwitch extends AadlProcessingSwitchWithProgress 
 		 * we add the bus/VB sampling time as a subcontributor.
 		 */
 
+		//XXX: [Code Coverage] boundBus cannot be null.
 		if (boundBus != null) {
 			double period = GetProperties.getPeriodinMS(boundBus);
 			if (period > 0) {
