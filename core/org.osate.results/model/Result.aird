@@ -651,9 +651,9 @@
         <actualMapping xmi:type="description_1:NodeMapping" href="platform:/plugin/org.eclipse.emf.ecoretools.design/description/ecore.odesign#//@ownedViewpoints[name='Design']/@ownedRepresentations[name='Entities']/@defaultLayer/@containerMappings[name='EC%20EClass']/@subNodeMappings[name='EC%20EAttribute']"/>
       </ownedElements>
     </ownedDiagramElements>
-    <ownedDiagramElements xmi:type="diagram:DEdge" xmi:id="_FxF-wBDzEeiNlKlFlyInhA" name="[0..*] contributors" sourceNode="_FveOIBDzEeiNlKlFlyInhA" targetNode="_FvrCcBDzEeiNlKlFlyInhA">
-      <target xmi:type="ecore:EReference" href="Result.ecore#//AnalysisResult/contributors"/>
-      <semanticElements xmi:type="ecore:EReference" href="Result.ecore#//AnalysisResult/contributors"/>
+    <ownedDiagramElements xmi:type="diagram:DEdge" xmi:id="_FxF-wBDzEeiNlKlFlyInhA" name="[0..*] results" sourceNode="_FveOIBDzEeiNlKlFlyInhA" targetNode="_FvrCcBDzEeiNlKlFlyInhA">
+      <target xmi:type="ecore:EReference" href="Result.ecore#//AnalysisResult/results"/>
+      <semanticElements xmi:type="ecore:EReference" href="Result.ecore#//AnalysisResult/results"/>
       <ownedStyle xmi:type="diagram:EdgeStyle" xmi:id="_FxHM4BDzEeiNlKlFlyInhA" description="_Fw_REBDzEeiNlKlFlyInhA" sourceArrow="FillDiamond" routingStyle="manhattan" strokeColor="0,0,0">
         <centerLabelStyle xmi:type="diagram:CenterLabelStyle" xmi:id="_FxHM4RDzEeiNlKlFlyInhA" showIcon="false">
           <customFeatures>labelSize</customFeatures>
