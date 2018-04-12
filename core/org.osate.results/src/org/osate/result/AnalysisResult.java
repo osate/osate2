@@ -17,7 +17,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link org.osate.result.AnalysisResult#getAnalysis <em>Analysis</em>}</li>
  *   <li>{@link org.osate.result.AnalysisResult#getInfo <em>Info</em>}</li>
  *   <li>{@link org.osate.result.AnalysisResult#getSourceReference <em>Source Reference</em>}</li>
- *   <li>{@link org.osate.result.AnalysisResult#getContributors <em>Contributors</em>}</li>
+ *   <li>{@link org.osate.result.AnalysisResult#getResults <em>Results</em>}</li>
  *   <li>{@link org.osate.result.AnalysisResult#getDiagnostics <em>Diagnostics</em>}</li>
  * </ul>
  *
@@ -105,20 +105,20 @@ public interface AnalysisResult extends EObject {
 	void setSourceReference(EObject value);
 
 	/**
-	 * Returns the value of the '<em><b>Contributors</b></em>' containment reference list.
+	 * Returns the value of the '<em><b>Results</b></em>' containment reference list.
 	 * The list contents are of type {@link org.osate.result.Result}.
 	 * <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of the '<em>Contributors</em>' containment reference list isn't clear,
+	 * If the meaning of the '<em>Results</em>' containment reference list isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Contributors</em>' containment reference list.
-	 * @see org.osate.result.ResultPackage#getAnalysisResult_Contributors()
+	 * @return the value of the '<em>Results</em>' containment reference list.
+	 * @see org.osate.result.ResultPackage#getAnalysisResult_Results()
 	 * @model containment="true"
 	 * @generated
 	 */
-	EList<Result> getContributors();
+	EList<Result> getResults();
 
 	/**
 	 * Returns the value of the '<em><b>Diagnostics</b></em>' reference list.

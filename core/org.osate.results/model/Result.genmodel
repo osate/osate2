@@ -19,7 +19,7 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Result.ecore#//AnalysisResult/analysis"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Result.ecore#//AnalysisResult/info"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Result.ecore#//AnalysisResult/sourceReference"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Result.ecore#//AnalysisResult/contributors"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Result.ecore#//AnalysisResult/results"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Result.ecore#//AnalysisResult/diagnostics"/>
     </genClasses>
     <genClasses ecoreClass="Result.ecore#//Result">
