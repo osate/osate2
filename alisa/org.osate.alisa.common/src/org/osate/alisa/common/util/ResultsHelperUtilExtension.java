@@ -1,4 +1,4 @@
-package org.osate.assure.util;
+package org.osate.alisa.common.util;
 
 import org.eclipse.emf.ecore.EObject;
 import org.osate.result.AnalysisResult;

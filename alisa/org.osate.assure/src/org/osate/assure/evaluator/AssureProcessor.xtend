@@ -73,7 +73,7 @@ import org.osate.xtext.aadl2.properties.util.PropertyUtils
 import static extension org.eclipse.emf.ecore.util.EcoreUtil.getURI
 import static extension org.osate.alisa.common.util.CommonUtilExtension.*
 import static extension org.osate.assure.util.AssureUtilExtension.*
-import static extension org.osate.assure.util.ResultsHelperUtilExtension.*
+import static extension org.osate.alisa.common.util.ResultsHelperUtilExtension.*
 import static extension org.osate.verify.util.VerifyUtilExtension.*
 
 @ImplementedBy(AssureProcessor)
@@ -415,10 +415,10 @@ class AssureProcessor implements IAssureProcessor {
 					if (RESOLUTE_INSTALLED) {
 						val proveri = ExecuteResoluteUtil.eInstance.executeResoluteFunction(methodtype.methodReference,
 							instanceroot, targetComponent, parameterObjects)
-						if (proveri.type == DiagnosticType.SUCCESS) {
+						if (!proveri.hasFailures()) {
 							setToSuccess(verificationResult)
 						} else {
-							setToFail(verificationResult, proveri.issues)
+							setToFail(verificationResult, proveri.getDiagnostics)
 						}
 						verificationResult.eResource.save(null)
 						updateProgress(verificationResult)

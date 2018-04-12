@@ -73,7 +73,7 @@ import static extension org.osate.aadl2.instantiation.InstantiateModel.buildInst
 import static extension org.osate.alisa.common.util.CommonUtilExtension.*
 import static extension org.osate.reqspec.util.ReqSpecUtilExtension.*
 import static extension org.osate.verify.util.VerifyUtilExtension.*
-import static extension org.osate.assure.util.ResultsHelperUtilExtension.*
+import static extension org.osate.alisa.common.util.ResultsHelperUtilExtension.*
 import org.osate.result.Result
 
 class AssureUtilExtension {

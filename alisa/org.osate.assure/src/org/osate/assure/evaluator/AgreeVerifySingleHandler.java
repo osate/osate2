@@ -44,10 +44,10 @@ import org.osate.aadl2.Element;
 import org.osate.aadl2.EventDataPort;
 import org.osate.aadl2.FeatureGroup;
 import org.osate.aadl2.instance.ComponentInstance;
+import org.osate.alisa.common.util.ResultsHelperUtilExtension;
 import org.osate.annexsupport.AnnexUtil;
 import org.osate.assure.assure.VerificationResult;
 import org.osate.assure.util.AssureUtilExtension;
-import org.osate.assure.util.ResultsHelperUtilExtension;
 import org.osate.result.Result;
 import org.osate.result.ResultFactory;
 

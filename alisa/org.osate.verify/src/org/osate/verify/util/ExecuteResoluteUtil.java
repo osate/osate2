@@ -20,10 +20,9 @@ import org.osate.aadl2.StringLiteral;
 import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.ConnectionInstance;
 import org.osate.aadl2.instance.SystemInstance;
-import org.osate.result.Diagnostic;
-import org.osate.result.DiagnosticType;
+import org.osate.alisa.common.util.ResultsHelperUtilExtension;
+import org.osate.result.Result;
 import org.osate.result.ResultFactory;
-import org.osate.result.util.ResultUtil;
 
 import com.google.inject.Inject;
 import com.google.inject.Injector;
@@ -32,10 +31,8 @@ import com.rockwellcollins.atc.resolute.analysis.execution.FeatureToConnectionsM
 import com.rockwellcollins.atc.resolute.analysis.execution.NamedElementComparator;
 import com.rockwellcollins.atc.resolute.analysis.execution.ResoluteInterpreter;
 import com.rockwellcollins.atc.resolute.analysis.results.ClaimResult;
-import com.rockwellcollins.atc.resolute.analysis.results.ResoluteResult;
 import com.rockwellcollins.atc.resolute.analysis.views.ResoluteResultContentProvider;
 import com.rockwellcollins.atc.resolute.resolute.BoolExpr;
-import com.rockwellcollins.atc.resolute.resolute.FailExpr;
 import com.rockwellcollins.atc.resolute.resolute.FnCallExpr;
 import com.rockwellcollins.atc.resolute.resolute.FunctionDefinition;
 import com.rockwellcollins.atc.resolute.resolute.IntExpr;
@@ -121,7 +118,7 @@ public class ExecuteResoluteUtil {
 	 * The return value is an Issue object with subissues for the list of issues returned in the Resolute ClaimResult.
 	 * If the proof fails then the top Issue is set to FAIL, if successful it is set to SUCCESS
 	 */
-	public Diagnostic executeResoluteFunction(String fundef, SystemInstance instanceroot,
+	public Result executeResoluteFunction(String fundef, SystemInstance instanceroot,
 			ComponentInstance targetComponent,
 		List<PropertyExpression> parameterObjects) {
 		Iterable<IEObjectDescription> allentries = gscope.getScope(instanceroot.eResource(), ResolutePackage.eINSTANCE.getFnCallExpr_Fn(), null).
@@ -137,7 +134,7 @@ public class ExecuteResoluteUtil {
 		return null;
 	}
 
-	public Diagnostic executeResoluteFunction(EObject fundef, SystemInstance instanceroot,
+	public Result executeResoluteFunction(EObject fundef, SystemInstance instanceroot,
 			ComponentInstance targetComponent,
 		List<PropertyExpression> parameterObjects) {
 		FunctionDefinition fd = ( FunctionDefinition)fundef ;
@@ -145,16 +142,15 @@ public class ExecuteResoluteUtil {
 		EvaluationContext context = new EvaluationContext(instanceroot, sets, featToConnsMap);
 		// check for claim function
 		ResoluteInterpreter interpreter = new ResoluteInterpreter(context);
-		Diagnostic proveri = ResultFactory.eINSTANCE.createDiagnostic();
+		Result proveri = ResultFactory.eINSTANCE.createResult();
 		ProveStatement provecall = createWrapperProveCall(fd, targetComponent, parameterObjects);
 		if (provecall != null) {
 			// using com.rockwellcollins.atc.resolute.analysis.results.ClaimResult
-			ResoluteResult proof = interpreter.evaluateProveStatement(provecall) ;
+			ClaimResult proof = interpreter.evaluateProveStatement(provecall);
 			doResoluteResults(proof, proveri);
 		} else {
-			proveri.setType(DiagnosticType.FAILURE);
-			proveri.setMessage("Could not find Resolute Function " + fd.getName());
-			proveri.setSourceReference (targetComponent);
+			ResultsHelperUtilExtension.addFailureIssue(proveri, targetComponent,
+					"Could not find Resolute Function " + fd.getName());
 		}
 		return proveri;
 	}
@@ -213,35 +209,19 @@ public class ExecuteResoluteUtil {
 
 	static private ResoluteResultContentProvider resoluteContent = new ResoluteResultContentProvider();
 
-	private void doResoluteResults(ResoluteResult rr, Diagnostic ri) {
+	private void doResoluteResults(ClaimResult rr, Result ri) {
 		if (rr.isValid()) {
-			ri.setType(DiagnosticType.SUCCESS);
+			ResultsHelperUtilExtension.addSuccessIssue(ri, rr.getLocation(), rr.getText());
 		} else {
-			ri.setType(DiagnosticType.FAILURE);
+			ResultsHelperUtilExtension.addFailureIssue(ri, rr.getLocation(), rr.getText());
 		}
 		Object[] subrrs = resoluteContent.getChildren(rr);
 		for (Object subrr : subrrs) {
 			ClaimResult subclaim = (ClaimResult) subrr;
-			if (subclaim.isValid()) {
-				doResoluteResults(subclaim,
-						addIssue(ri, DiagnosticType.SUCCESS, subclaim.getLocation(), subclaim.getText()));
-			} else {
-				doResoluteResults(subclaim,
-						addIssue(ri, DiagnosticType.FAILURE, subclaim.getLocation(), subclaim.getText()));
-			}
+			Result res = ResultFactory.eINSTANCE.createResult();
+			ri.getSubResults().add(res);
+			doResoluteResults(subclaim, res);
 		}
-	}
-
-	private Diagnostic addIssue(Diagnostic ri, DiagnosticType type, EObject target, String message) {
-		Diagnostic issue = ResultUtil.createDiagnostic(message, target, type);
-		if (target instanceof FailExpr) {
-			if (message.length() > 14) {
-				issue.setMessage(message.substring(15));
-				issue.setSourceReference(null);
-			}
-		}
-		ri.getIssues().add(issue);
-		return issue;
 	}
 
 
