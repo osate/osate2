@@ -1,6 +1,7 @@
 package org.osate.assure.util;
 
 import org.eclipse.emf.ecore.EObject;
+import org.osate.result.AnalysisResult;
 import org.osate.result.Diagnostic;
 import org.osate.result.DiagnosticType;
 import org.osate.result.Result;
@@ -32,6 +33,15 @@ public class ResultsHelperUtilExtension {
 		}
 		for (Result subres : res.getSubResults()) {
 			if (hasFailures(subres)) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	public static boolean hasFailures(AnalysisResult res) {
+		for (Result r : res.getResults()) {
+			if (hasFailures(r)) {
 				return true;
 			}
 		}

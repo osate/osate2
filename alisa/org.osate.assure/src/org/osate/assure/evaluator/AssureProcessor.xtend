@@ -578,16 +578,17 @@ class AssureProcessor implements IAssureProcessor {
 				}
 				returned
 			} else if (returned instanceof AnalysisResult) {
+				val resmap = new HashMap
 				if (returned.results.empty) {
+					setToError(verificationResult, "No 'Result' object returned by analysis method", target)
 				} else {
-					val returnedResult = returned.results.head
-						verificationResult.issues.addAll(returnedResult.diagnostics)
-					if (!hasFailures(returnedResult)) {
+					if (!hasFailures(returned)) {
 						setToSuccess(verificationResult, "", target)
 					} else {
 						setToFail(verificationResult, "", target)
 					}
-					val resmap = new HashMap
+					val returnedResult = returned.results.head
+					verificationResult.issues.addAll(returnedResult.diagnostics)
 					val vals = returnedResult.values
 					val mresults = method.results
 					for (var i = 0; i < vals.length; i++) {
@@ -598,8 +599,8 @@ class AssureProcessor implements IAssureProcessor {
 							resmap.put("result" + 1, value)
 						}
 					}
-					resmap
 				}
+				resmap
 			} else if (method.results.size == 1) {
 				val resparam = method.results.head
 				setToSuccess(verificationResult)
