@@ -5,7 +5,7 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="analysis" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="info" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="sourceReference" eType="ecore:EClass http://www.eclipse.org/emf/2002/Ecore#//EObject"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="contributors" upperBound="-1"
+    <eStructuralFeatures xsi:type="ecore:EReference" name="results" upperBound="-1"
         eType="#//Result" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="diagnostics" upperBound="-1"
         eType="#//Diagnostic">

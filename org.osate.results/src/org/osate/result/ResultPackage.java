@@ -95,13 +95,13 @@ public interface ResultPackage extends EPackage {
 	int ANALYSIS_RESULT__SOURCE_REFERENCE = 2;
 
 	/**
-	 * The feature id for the '<em><b>Contributors</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Results</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int ANALYSIS_RESULT__CONTRIBUTORS = 3;
+	int ANALYSIS_RESULT__RESULTS = 3;
 
 	/**
 	 * The feature id for the '<em><b>Diagnostics</b></em>' reference list.
@@ -533,15 +533,15 @@ public interface ResultPackage extends EPackage {
 	EReference getAnalysisResult_SourceReference();
 
 	/**
-	 * Returns the meta object for the containment reference list '{@link org.osate.result.AnalysisResult#getContributors <em>Contributors</em>}'.
+	 * Returns the meta object for the containment reference list '{@link org.osate.result.AnalysisResult#getResults <em>Results</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference list '<em>Contributors</em>'.
-	 * @see org.osate.result.AnalysisResult#getContributors()
+	 * @return the meta object for the containment reference list '<em>Results</em>'.
+	 * @see org.osate.result.AnalysisResult#getResults()
 	 * @see #getAnalysisResult()
 	 * @generated
 	 */
-	EReference getAnalysisResult_Contributors();
+	EReference getAnalysisResult_Results();
 
 	/**
 	 * Returns the meta object for the reference list '{@link org.osate.result.AnalysisResult#getDiagnostics <em>Diagnostics</em>}'.
@@ -879,12 +879,12 @@ public interface ResultPackage extends EPackage {
 		EReference ANALYSIS_RESULT__SOURCE_REFERENCE = eINSTANCE.getAnalysisResult_SourceReference();
 
 		/**
-		 * The meta object literal for the '<em><b>Contributors</b></em>' containment reference list feature.
+		 * The meta object literal for the '<em><b>Results</b></em>' containment reference list feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EReference ANALYSIS_RESULT__CONTRIBUTORS = eINSTANCE.getAnalysisResult_Contributors();
+		EReference ANALYSIS_RESULT__RESULTS = eINSTANCE.getAnalysisResult_Results();
 
 		/**
 		 * The meta object literal for the '<em><b>Diagnostics</b></em>' reference list feature.
