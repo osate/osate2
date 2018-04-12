@@ -40,7 +40,7 @@ class CombinedETEFTest extends OsateTest {
 		val som = instance.systemOperationModes.head
 		val checker = new FlowLatencyAnalysisSwitch(new NullProgressMonitor,  instance)
 		val latencyresult = checker.invokeAndGetResult(instance, som)
-		val resab = latencyresult.contributors.get(0)
+		val resab = latencyresult.results.get(0)
 		assertTrue((resab.values.get(1) as RealValue).value == (20.0))
 		assertTrue((resab.values.get(2) as RealValue).value == (20.0))
 		assertTrue((resab.values.get(3) as RealValue).value == (20.0))
@@ -50,7 +50,7 @@ class CombinedETEFTest extends OsateTest {
 		resab.subResults.size.assertEquals(3)
 		resab.diagnostics.size.assertEquals(1)
 
-		val rescd = latencyresult.contributors.get(1)
+		val rescd = latencyresult.results.get(1)
 		assertTrue((rescd.values.get(1) as RealValue).value == (20.0))
 		assertTrue((rescd.values.get(2) as RealValue).value == (20.0))
 		assertTrue((rescd.values.get(3) as RealValue).value == (20.0))
@@ -60,7 +60,7 @@ class CombinedETEFTest extends OsateTest {
 		rescd.subResults.size.assertEquals(3)
 		rescd.diagnostics.size.assertEquals(1)
 
-		val restotal = latencyresult.contributors.get(2)
+		val restotal = latencyresult.results.get(2)
 		assertTrue((restotal.values.get(1) as RealValue).value == (40.0))
 		assertTrue((restotal.values.get(2) as RealValue).value == (40.0))
 		assertTrue((restotal.values.get(3) as RealValue).value == (40.0))

@@ -78,7 +78,7 @@ public class LatencyReport {
 		latencyReports.setAnalysis("Latency analysis");
 		latencyReports.setInfo(getPreferencesDescription());
 		for (LatencyReportEntry re : entries) {
-			latencyReports.getContributors().add(re.genResult());
+			latencyReports.getResults().add(re.genResult());
 		}
 		return latencyReports;
 	}
