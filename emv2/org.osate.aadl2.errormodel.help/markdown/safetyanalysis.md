@@ -1,6 +1,6 @@
 # Safety Analysis with Error Model V2
 
-
+[TOC levels=2-4 bullet hierarchy]
 
 ## Introduction
 

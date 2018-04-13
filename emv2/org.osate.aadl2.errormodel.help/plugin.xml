@@ -3,12 +3,11 @@
 <plugin>
 
    <extension
+         id="toc_emv2"
+         name="EMV2 Help Table of Contents"
          point="org.eclipse.help.toc">
       <toc
-            file="toc.xml">
-      </toc>
-      <toc
-            file="testToc.xml"
+            file="toc_emv2.xml"
             primary="true">
       </toc>
    </extension>

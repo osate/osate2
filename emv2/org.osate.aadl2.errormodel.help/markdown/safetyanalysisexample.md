@@ -1,5 +1,6 @@
 # Safety Analysis of a GPS System
 
+[TOC levels=2-4 bullet hierarchy]
 
 ## Introduction
 
