@@ -19,6 +19,7 @@ import org.eclipse.ui.IWorkbenchCommandConstants;
 import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.actions.ActionFactory;
+import org.eclipse.ui.actions.CopyResourceAction;
 import org.eclipse.ui.actions.DeleteResourceAction;
 import org.eclipse.ui.actions.MoveResourceAction;
 import org.eclipse.ui.actions.RenameResourceAction;
@@ -35,6 +36,7 @@ public class DiagramNavigatorActionProvider extends CommonActionProvider {
 	private IExtensionStateModel stateModel;
 	private StructuredViewer viewer;
 	private boolean contibutedViewMenuActions = false;
+	private CopyResourceAction copyAction;
 	private DeleteResourceAction deleteAction;
 	private RenameResourceAction renameAction;
 	private MoveResourceAction moveAction;
@@ -79,6 +81,11 @@ public class DiagramNavigatorActionProvider extends CommonActionProvider {
 		final Tree tree = (Tree) anActionSite.getStructuredViewer().getControl();
 		final IShellProvider sp = () -> anActionSite.getViewSite().getShell();
 
+		copyAction = new CopyResourceAction(sp);
+		copyAction.setDisabledImageDescriptor(images.getImageDescriptor(ISharedImages.IMG_TOOL_COPY_DISABLED));
+		copyAction.setImageDescriptor(images.getImageDescriptor(ISharedImages.IMG_TOOL_COPY));
+		copyAction.setActionDefinitionId(IWorkbenchCommandConstants.EDIT_COPY);
+
 		deleteAction = new DeleteResourceAction(sp);
 		deleteAction.setDisabledImageDescriptor(images.getImageDescriptor(ISharedImages.IMG_TOOL_DELETE_DISABLED));
 		deleteAction.setImageDescriptor(images.getImageDescriptor(ISharedImages.IMG_TOOL_DELETE));
@@ -105,6 +112,9 @@ public class DiagramNavigatorActionProvider extends CommonActionProvider {
 				IResource.PROJECT | IResource.FOLDER | IResource.FILE);
 
 		if (selectionContainsOnlyResources) {
+			copyAction.selectionChanged(selection);
+			menu.appendToGroup(ICommonMenuConstants.GROUP_EDIT, copyAction);
+
 			deleteAction.selectionChanged(selection);
 			menu.appendToGroup(ICommonMenuConstants.GROUP_EDIT, deleteAction);
 
@@ -130,6 +140,7 @@ public class DiagramNavigatorActionProvider extends CommonActionProvider {
 		updateActionBars();
 
 		// Configure actions
+		actionBars.setGlobalActionHandler(ActionFactory.COPY.getId(), copyAction);
 		actionBars.setGlobalActionHandler(ActionFactory.DELETE.getId(), deleteAction);
 		actionBars.setGlobalActionHandler(ActionFactory.MOVE.getId(), moveAction);
 		actionBars.setGlobalActionHandler(ActionFactory.RENAME.getId(), renameAction);
@@ -152,6 +163,7 @@ public class DiagramNavigatorActionProvider extends CommonActionProvider {
 	@Override
 	public void updateActionBars() {
 		final IStructuredSelection selection = (IStructuredSelection) getContext().getSelection();
+		copyAction.selectionChanged(selection);
 		deleteAction.selectionChanged(selection);
 		moveAction.selectionChanged(selection);
 		renameAction.selectionChanged(selection);
