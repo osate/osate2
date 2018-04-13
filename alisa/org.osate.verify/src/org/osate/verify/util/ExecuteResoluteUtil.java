@@ -20,9 +20,8 @@ import org.osate.aadl2.StringLiteral;
 import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.ConnectionInstance;
 import org.osate.aadl2.instance.SystemInstance;
-import org.osate.alisa.common.util.ResultsHelperUtilExtension;
-import org.osate.result.Result;
-import org.osate.result.ResultFactory;
+import org.osate.result.Diagnostic;
+import org.osate.result.util.ResultUtil;
 
 import com.google.inject.Inject;
 import com.google.inject.Injector;
@@ -112,13 +111,7 @@ public class ExecuteResoluteUtil {
 	@Inject
 	IGlobalScopeProvider gscope;
 
-	/**
-	 * invokes Resolute claim function on target component instance. instanceroot is used to initialize the Resolute evaluation context.
-	 * parameterObjects can be null or an empty list.
-	 * The return value is an Issue object with subissues for the list of issues returned in the Resolute ClaimResult.
-	 * If the proof fails then the top Issue is set to FAIL, if successful it is set to SUCCESS
-	 */
-	public Result executeResoluteFunction(String fundef, SystemInstance instanceroot,
+	public Diagnostic executeResoluteFunction(String fundef, SystemInstance instanceroot,
 			ComponentInstance targetComponent,
 		List<PropertyExpression> parameterObjects) {
 		Iterable<IEObjectDescription> allentries = gscope.getScope(instanceroot.eResource(), ResolutePackage.eINSTANCE.getFnCallExpr_Fn(), null).
@@ -134,7 +127,13 @@ public class ExecuteResoluteUtil {
 		return null;
 	}
 
-	public Result executeResoluteFunction(EObject fundef, SystemInstance instanceroot,
+	/**
+	 * invokes Resolute claim function on target component instance. instanceroot is used to initialize the Resolute evaluation context.
+	 * parameterObjects can be null or an empty list.
+	 * The return value is an Issue object with subissues for the list of issues returned in the Resolute ClaimResult.
+	 * If the proof fails then the top Issue is set to FAIL, if successful it is set to SUCCESS
+	 */
+	public Diagnostic executeResoluteFunction(EObject fundef, SystemInstance instanceroot,
 			ComponentInstance targetComponent,
 		List<PropertyExpression> parameterObjects) {
 		FunctionDefinition fd = ( FunctionDefinition)fundef ;
@@ -142,17 +141,14 @@ public class ExecuteResoluteUtil {
 		EvaluationContext context = new EvaluationContext(instanceroot, sets, featToConnsMap);
 		// check for claim function
 		ResoluteInterpreter interpreter = new ResoluteInterpreter(context);
-		Result proveri = ResultFactory.eINSTANCE.createResult();
 		ProveStatement provecall = createWrapperProveCall(fd, targetComponent, parameterObjects);
 		if (provecall != null) {
 			// using com.rockwellcollins.atc.resolute.analysis.results.ClaimResult
 			ClaimResult proof = interpreter.evaluateProveStatement(provecall);
-			doResoluteResults(proof, proveri);
+			return doResoluteResults(proof);
 		} else {
-			ResultsHelperUtilExtension.addFailureIssue(proveri, targetComponent,
-					"Could not find Resolute Function " + fd.getName());
+			return ResultUtil.createError("Could not find Resolute Function " + fd.getName(), targetComponent);
 		}
-		return proveri;
 	}
 
 	private ProveStatement createWrapperProveCall(FunctionDefinition fd, ComponentInstance ci,
@@ -209,19 +205,20 @@ public class ExecuteResoluteUtil {
 
 	static private ResoluteResultContentProvider resoluteContent = new ResoluteResultContentProvider();
 
-	private void doResoluteResults(ClaimResult rr, Result ri) {
+	private Diagnostic doResoluteResults(ClaimResult rr) {
+		Diagnostic ri = null;
 		if (rr.isValid()) {
-			ResultsHelperUtilExtension.addSuccessIssue(ri, rr.getLocation(), rr.getText());
+			ri = ResultUtil.createSuccess(rr.getText(), rr.getLocation());
 		} else {
-			ResultsHelperUtilExtension.addFailureIssue(ri, rr.getLocation(), rr.getText());
+			ri = ResultUtil.createFailure(rr.getText(), rr.getLocation());
 		}
 		Object[] subrrs = resoluteContent.getChildren(rr);
 		for (Object subrr : subrrs) {
 			ClaimResult subclaim = (ClaimResult) subrr;
-			Result res = ResultFactory.eINSTANCE.createResult();
-			ri.getSubResults().add(res);
-			doResoluteResults(subclaim, res);
+			// in the future we may need to create an intermediary Result object
+			ri.getIssues().add(doResoluteResults(subclaim));
 		}
+		return ri;
 	}
 
 

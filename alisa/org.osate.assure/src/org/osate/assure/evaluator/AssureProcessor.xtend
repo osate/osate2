@@ -75,6 +75,8 @@ import static extension org.osate.alisa.common.util.CommonUtilExtension.*
 import static extension org.osate.assure.util.AssureUtilExtension.*
 import static extension org.osate.alisa.common.util.ResultsHelperUtilExtension.*
 import static extension org.osate.verify.util.VerifyUtilExtension.*
+import org.osate.result.Diagnostic
+import org.osate.result.Result
 
 @ImplementedBy(AssureProcessor)
 interface IAssureProcessor {
@@ -415,10 +417,15 @@ class AssureProcessor implements IAssureProcessor {
 					if (RESOLUTE_INSTALLED) {
 						val proveri = ExecuteResoluteUtil.eInstance.executeResoluteFunction(methodtype.methodReference,
 							instanceroot, targetComponent, parameterObjects)
-						if (!proveri.hasFailures()) {
+						if (proveri.type == DiagnosticType.SUCCESS) {
 							setToSuccess(verificationResult)
-						} else {
-							setToFail(verificationResult, proveri.getDiagnostics)
+							verificationResult.issues += proveri.issues
+						} else if (proveri.type == DiagnosticType.FAILURE){
+							setToFail(verificationResult)
+							verificationResult.issues += proveri.issues
+						} else if (proveri.type == DiagnosticType.ERROR){
+							setToError(verificationResult)
+							verificationResult.issues += proveri
 						}
 						verificationResult.eResource.save(null)
 						updateProgress(verificationResult)
@@ -577,19 +584,24 @@ class AssureProcessor implements IAssureProcessor {
 					setToSuccess(verificationResult, "", target)
 				}
 				returned
-			} else if (returned instanceof AnalysisResult) {
-				val resmap = new HashMap
-				if (returned.results.empty) {
-					setToError(verificationResult, "No 'Result' object returned by analysis method", target)
-				} else {
+			} else if (returned instanceof Diagnostic) {
 					if (!hasFailures(returned)) {
 						setToSuccess(verificationResult, "", target)
 					} else {
 						setToFail(verificationResult, "", target)
 					}
-					val returnedResult = returned.results.head
-					verificationResult.issues.addAll(returnedResult.diagnostics)
-					val vals = returnedResult.values
+					verificationResult.issues.add(returned)
+				new HashMap
+			} else if (returned instanceof Result) {
+				val issues = returned.diagnostics
+					if (!hasFailures(returned)) {
+						setToSuccess(verificationResult, "", target)
+					} else {
+						setToFail(verificationResult, "", target)
+					}
+					verificationResult.issues.addAll(issues)
+					val resmap = new HashMap
+					val vals = returned.values
 					val mresults = method.results
 					for (var i = 0; i < vals.length; i++) {
 						val value = vals.get(i) as Object
@@ -599,8 +611,6 @@ class AssureProcessor implements IAssureProcessor {
 							resmap.put("result" + 1, value)
 						}
 					}
-				}
-				resmap
 			} else if (method.results.size == 1) {
 				val resparam = method.results.head
 				setToSuccess(verificationResult)
