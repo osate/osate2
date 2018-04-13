@@ -1012,7 +1012,8 @@ public class InstantiateModel {
 			FeatureGroupType parentFgt;
 			List<Feature> fgFeatures;
 
-			if (localFeatures.isEmpty() && inverseFgt != null) {
+			// Issue #818: Don't infer the features if the inverse feature group extends another feature group
+			if (localFeatures.isEmpty() && inverseFgt != null && fgt.getExtended() == null) {
 				baseFgt = inverseFgt;
 				localFeatures = inverseFgt.getOwnedFeatures();
 				inverse = !inverse;
