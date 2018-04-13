@@ -229,7 +229,7 @@ WhenCondition:
 	'when' 
 	(( 'in' 'mode' inMode+=[aadl2::Mode|ID](',' inMode+=[aadl2::Mode|ID])* )
 	| ( 'in' 'error' 'state' inErrorState+=[ecore::EObject|ID](',' inErrorState+=[ecore::EObject|ID])* )
-	| (condition=AExpression)
+	| (condition=QualifiedName'('')')
 	)
 ;
 

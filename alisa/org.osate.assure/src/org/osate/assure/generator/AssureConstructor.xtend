@@ -31,7 +31,7 @@ import org.osate.aadl2.ComponentImplementation
 import org.osate.aadl2.NamedElement
 import org.osate.aadl2.Subcomponent
 import org.osate.aadl2.util.Aadl2Util
-import org.osate.alisa.common.common.AFunctionCall
+import org.osate.alisa.common.util.ExecuteJavaUtil
 import org.osate.alisa.workbench.alisa.AssuranceCase
 import org.osate.alisa.workbench.alisa.AssurancePlan
 import org.osate.assure.assure.AssuranceCaseResult
@@ -54,7 +54,6 @@ import org.osate.reqspec.reqSpec.RequirementSet
 import org.osate.reqspec.reqSpec.SystemRequirementSet
 import org.osate.reqspec.reqSpec.ValuePredicate
 import org.osate.verify.util.IVerifyGlobalReferenceFinder
-import org.osate.verify.util.VerificationMethodDispatchers
 import org.osate.verify.verify.AllExpr
 import org.osate.verify.verify.ArgumentExpr
 import org.osate.verify.verify.Claim
@@ -70,7 +69,6 @@ import org.osate.verify.verify.VerificationValidation
 import static extension org.osate.alisa.common.util.CommonUtilExtension.*
 import static extension org.osate.reqspec.util.ReqSpecUtilExtension.*
 import static extension org.osate.verify.util.VerifyUtilExtension.*
-import org.osate.verify.util.ExecuteJavaUtil
 
 @ImplementedBy(AssureConstructor)
 interface IAssureConstructor {
@@ -245,11 +243,10 @@ class AssureConstructor implements IAssureConstructor {
 		val req = claim.requirement
 		val when = req.whencondition
 		if (when !== null) {
-			val cond = when.condition
-			if (cond instanceof AFunctionCall) {
-				val fname = cond.function
+			val function = when.condition
+			if (function !== null) {
 				val ne = req.targetElement?:cc
-				val res = ExecuteJavaUtil.eInstance.invokeJavaMethod(fname, ne)
+				val res = ExecuteJavaUtil.eInstance.invokeJavaMethod(function, ne)
 				if (res instanceof Boolean) {
 					if (!res) return
 				}

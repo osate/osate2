@@ -1,4 +1,4 @@
-package org.osate.verify.util
+package org.osate.alisa.common.util
 
 import java.lang.reflect.InvocationTargetException
 import java.net.URL
@@ -12,7 +12,9 @@ import org.osate.aadl2.NamedElement
 import java.lang.reflect.Method
 
 class ExecuteJavaUtil {
-
+	// generic reflective invocation of Java methods.
+	// One set of methods assumes as single parameter - model target model element. The Java method is assumed to expect an EObject
+	// The second set of methods gets both the method parameter classes and actual obejcts to be passed.
 
 	public static ExecuteJavaUtil eInstance = new ExecuteJavaUtil();
 
@@ -74,11 +76,11 @@ class ExecuteJavaUtil {
 		}
 	}
 	
-		
+	// returns the Java method or null. 	
 	def Method getJavaMethod(String javaMethod, ArrayList<Class<?>> paramClasses) {
 		val i = javaMethod.lastIndexOf('.')
 		if (i == -1) {
-			throw new IllegalArgumentException("Java method '" + javaMethod + "' is missing Class")
+			return null
 		}
 		val className = javaMethod.substring(0, i)
 		val methodName = javaMethod.substring(i + 1)
@@ -88,9 +90,9 @@ class ExecuteJavaUtil {
 
 			val projects = model.javaProjects.filter[findType(className) !== null].toSet
 			if (projects.isEmpty) {
-				throw new IllegalArgumentException('No such method: ' + javaMethod)
+				return null
 			} else if (projects.size > 1) {
-				throw new IllegalArgumentException('Multiple methods found for ' + javaMethod)
+				return null
 			}
 			var changed = true
 			while (changed) {
@@ -116,9 +118,10 @@ class ExecuteJavaUtil {
 		}
 	}
 	
-	def getJavaMethod(String javaMethod){
+	// use in validation of when condition method
+	def Method getJavaMethod(String javaMethod){
 		val newClasses = newArrayList()
-		newClasses.add(NamedElement)
+		newClasses.add(EObject)
 		getJavaMethod(javaMethod,newClasses)
 	}
 	

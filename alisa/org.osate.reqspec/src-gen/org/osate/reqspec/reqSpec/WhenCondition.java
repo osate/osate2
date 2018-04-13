@@ -20,7 +20,6 @@ import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
 
 import org.osate.aadl2.Mode;
-import org.osate.aadl2.PropertyExpression;
 
 /**
  * <!-- begin-user-doc -->
@@ -75,29 +74,29 @@ public interface WhenCondition extends EObject
   EList<EObject> getInErrorState();
 
   /**
-   * Returns the value of the '<em><b>Condition</b></em>' containment reference.
+   * Returns the value of the '<em><b>Condition</b></em>' attribute.
    * <!-- begin-user-doc -->
    * <p>
-   * If the meaning of the '<em>Condition</em>' containment reference isn't clear,
+   * If the meaning of the '<em>Condition</em>' attribute isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Condition</em>' containment reference.
-   * @see #setCondition(PropertyExpression)
+   * @return the value of the '<em>Condition</em>' attribute.
+   * @see #setCondition(String)
    * @see org.osate.reqspec.reqSpec.ReqSpecPackage#getWhenCondition_Condition()
-   * @model containment="true"
+   * @model
    * @generated
    */
-  PropertyExpression getCondition();
+  String getCondition();
 
   /**
-   * Sets the value of the '{@link org.osate.reqspec.reqSpec.WhenCondition#getCondition <em>Condition</em>}' containment reference.
+   * Sets the value of the '{@link org.osate.reqspec.reqSpec.WhenCondition#getCondition <em>Condition</em>}' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Condition</em>' containment reference.
+   * @param value the new value of the '<em>Condition</em>' attribute.
    * @see #getCondition()
    * @generated
    */
-  void setCondition(PropertyExpression value);
+  void setCondition(String value);
 
 } // WhenCondition

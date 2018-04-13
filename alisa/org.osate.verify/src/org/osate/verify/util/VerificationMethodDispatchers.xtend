@@ -16,15 +16,10 @@
 
 package org.osate.verify.util
 
-import java.lang.reflect.InvocationTargetException
-import java.net.URL
-import java.net.URLClassLoader
+import java.lang.reflect.Method
 import java.util.ArrayList
 import java.util.List
-import org.eclipse.core.resources.ResourcesPlugin
 import org.eclipse.emf.common.util.EList
-import org.eclipse.jdt.core.IClasspathEntry
-import org.eclipse.jdt.core.JavaCore
 import org.osate.aadl2.Aadl2Package
 import org.osate.aadl2.AadlBoolean
 import org.osate.aadl2.AadlInteger
@@ -43,6 +38,7 @@ import org.osate.aadl2.instance.FeatureInstance
 import org.osate.aadl2.instance.InstanceObject
 import org.osate.aadl2.instance.InstancePackage
 import org.osate.aadl2.instance.ModeInstance
+import org.osate.alisa.common.util.ExecuteJavaUtil
 import org.osate.verify.verify.FormalParameter
 import org.osate.verify.verify.JavaMethod
 import org.osate.verify.verify.JavaParameter
@@ -51,7 +47,6 @@ import org.osate.verify.verify.TargetType
 import org.osate.verify.verify.VerificationMethod
 
 import static extension org.osate.verify.analysisplugins.AnalysisPluginInterface.*
-import java.lang.reflect.Method
 
 class VerificationMethodDispatchers {
 
@@ -97,7 +92,7 @@ class VerificationMethodDispatchers {
 		}
 	}
 
-	// invoke method in workspace project
+	// invoke Java method by first converting the actual parameters of a verification activity to a basic Java format for reflective call
 	def Object invokeJavaMethod(JavaMethod vm, InstanceObject target, List<PropertyExpression> parameters) {
 		val EList<FormalParameter> formalparameters = (vm.eContainer as VerificationMethod).formals
 		val newClasses = newArrayList()
@@ -116,8 +111,7 @@ class VerificationMethodDispatchers {
 		ExecuteJavaUtil.eInstance.invokeJavaMethod(vm.methodPath, newClasses, objects)
 	}
 
-	// Method returns null if Java class was found.
-	// Otherwise it returns an error message
+	// Method returns Method. returns null if method not found
 	def Method getJavaMethod(JavaMethod vm) {
 		val EList<FormalParameter> parameters = (vm.eContainer as VerificationMethod).formals
 		val newClasses = newArrayList()

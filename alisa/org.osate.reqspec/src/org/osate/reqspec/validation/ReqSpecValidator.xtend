@@ -52,6 +52,8 @@ import org.osate.reqspec.reqSpec.SystemRequirementSet
 import org.osate.reqspec.util.IReqspecGlobalReferenceFinder
 
 import static extension org.osate.reqspec.util.ReqSpecUtilExtension.*
+import org.osate.reqspec.reqSpec.WhenCondition
+import org.osate.alisa.common.util.ExecuteJavaUtil
 
 /**
  * Custom validation rules. 
@@ -81,6 +83,7 @@ class ReqSpecValidator extends AbstractReqSpecValidator {
   public static val GOALDOC_FILE_EXT = "goaldoc"
   public static val CONSTANTS_FILE_EXT = "constants"
   public static val INCORRECT_GLOBAL_REQUIREMENT_INCLUDE = "org.osate.reqspec.validation.incorrect.global.requirement.include"
+  public static val CONDITION_METHOD_NOT_FOUND = "org.osate.reqspec.validation.condition.method.not.found"
   public static val DUPLICATE_GLOBALREQUIREMENTS = 'org.osate.reqspec.validation.duplicate.globalrequirements'
 
 
@@ -523,6 +526,14 @@ class ReqSpecValidator extends AbstractReqSpecValidator {
 		if (!(igr.include instanceof GlobalRequirementSet || igr.include instanceof Requirement)){
 			error("Must include global requirements or requirement in global requirements." , igr,  
 								ReqSpecPackage.Literals.INCLUDE_GLOBAL_REQUIREMENT__INCLUDE, INCORRECT_GLOBAL_REQUIREMENT_INCLUDE)
+		}
+	}
+	
+	@Check(CheckType.FAST)
+	def void checkWhenCondition(WhenCondition wc) {
+		if (ExecuteJavaUtil.eInstance.getJavaMethod (wc.condition)===null){
+			error("Could not find Java method " + wc.condition+" with single EObject parameter",  
+								ReqSpecPackage.Literals.WHEN_CONDITION__CONDITION, CONDITION_METHOD_NOT_FOUND)
 		}
 	}
 	

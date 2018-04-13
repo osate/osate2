@@ -987,9 +987,9 @@ public class ReqSpecPackageImpl extends EPackageImpl implements ReqSpecPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getWhenCondition_Condition()
+  public EAttribute getWhenCondition_Condition()
   {
-    return (EReference)whenConditionEClass.getEStructuralFeatures().get(2);
+    return (EAttribute)whenConditionEClass.getEStructuralFeatures().get(2);
   }
 
   /**
@@ -1294,7 +1294,7 @@ public class ReqSpecPackageImpl extends EPackageImpl implements ReqSpecPackage
     whenConditionEClass = createEClass(WHEN_CONDITION);
     createEReference(whenConditionEClass, WHEN_CONDITION__IN_MODE);
     createEReference(whenConditionEClass, WHEN_CONDITION__IN_ERROR_STATE);
-    createEReference(whenConditionEClass, WHEN_CONDITION__CONDITION);
+    createEAttribute(whenConditionEClass, WHEN_CONDITION__CONDITION);
 
     reqPredicateEClass = createEClass(REQ_PREDICATE);
 
@@ -1454,7 +1454,7 @@ public class ReqSpecPackageImpl extends EPackageImpl implements ReqSpecPackage
     initEClass(whenConditionEClass, WhenCondition.class, "WhenCondition", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEReference(getWhenCondition_InMode(), theAadl2Package.getMode(), null, "inMode", null, 0, -1, WhenCondition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getWhenCondition_InErrorState(), theEcorePackage.getEObject(), null, "inErrorState", null, 0, -1, WhenCondition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getWhenCondition_Condition(), theAadl2Package.getPropertyExpression(), null, "condition", null, 0, 1, WhenCondition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getWhenCondition_Condition(), theEcorePackage.getEString(), "condition", null, 0, 1, WhenCondition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(reqPredicateEClass, ReqPredicate.class, "ReqPredicate", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 

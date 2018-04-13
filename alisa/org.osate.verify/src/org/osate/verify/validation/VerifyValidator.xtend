@@ -21,6 +21,7 @@ package org.osate.verify.validation
 
 import com.google.inject.Inject
 import com.rockwellcollins.atc.resolute.resolute.BaseType
+import com.rockwellcollins.atc.resolute.resolute.FunctionDefinition
 import java.util.ArrayList
 import java.util.List
 import org.eclipse.emf.ecore.EObject
@@ -34,6 +35,7 @@ import org.osate.aadl2.AadlReal
 import org.osate.aadl2.AadlString
 import org.osate.aadl2.PropertyType
 import org.osate.alisa.common.common.PropertyRef
+import org.osate.alisa.common.util.ExecuteJavaUtil
 import org.osate.reqspec.reqSpec.SystemRequirementSet
 import org.osate.verify.typing.validation.VerifyTypeSystemValidator
 import org.osate.verify.util.IVerifyGlobalReferenceFinder
@@ -50,9 +52,6 @@ import org.osate.verify.verify.VerificationMethod
 import org.osate.verify.verify.VerificationMethodRegistry
 import org.osate.verify.verify.VerificationPlan
 import org.osate.verify.verify.VerifyPackage
-import com.rockwellcollins.atc.resolute.resolute.FunctionDefinition
-import com.rockwellcollins.atc.resolute.resolute.impl.FunctionDefinitionImpl
-import org.osate.verify.util.ExecuteJavaUtil
 
 /**
  * Custom validation rules. 

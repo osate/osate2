@@ -5077,12 +5077,12 @@ ruleWhenCondition returns [EObject current=null]
 
 )
 ))*)
-    |(
+    |((
 (
 		{ 
-	        newCompositeNode(grammarAccess.getWhenConditionAccess().getConditionAExpressionParserRuleCall_1_2_0()); 
+	        newCompositeNode(grammarAccess.getWhenConditionAccess().getConditionQualifiedNameParserRuleCall_1_2_0_0()); 
 	    }
-		lv_condition_12_0=ruleAExpression		{
+		lv_condition_12_0=ruleQualifiedName		{
 	        if ($current==null) {
 	            $current = createModelElementForParent(grammarAccess.getWhenConditionRule());
 	        }
@@ -5090,11 +5090,21 @@ ruleWhenCondition returns [EObject current=null]
        			$current, 
        			"condition",
         		lv_condition_12_0, 
-        		"org.osate.alisa.common.Common.AExpression");
+        		"org.osate.alisa.common.Common.QualifiedName");
 	        afterParserOrEnumRuleCall();
 	    }
 
 )
+)
+	otherlv_13=LeftParenthesis
+    {
+    	newLeafNode(otherlv_13, grammarAccess.getWhenConditionAccess().getLeftParenthesisKeyword_1_2_1());
+    }
+
+	otherlv_14=RightParenthesis
+    {
+    	newLeafNode(otherlv_14, grammarAccess.getWhenConditionAccess().getRightParenthesisKeyword_1_2_2());
+    }
 )))
 ;
 
