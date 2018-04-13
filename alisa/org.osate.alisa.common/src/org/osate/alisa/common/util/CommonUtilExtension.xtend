@@ -160,7 +160,7 @@ class CommonUtilExtension {
 			Feature: return findElementInstanceInList(io.featureInstances, n)
 			FlowSpecification: return findElementInstanceInList(io.flowSpecifications, n)
 			Connection: {
-				val conns= findConnectionInstance(io.connectionInstances,n)
+				val conns= findConnectionInstances(io.connectionInstances,n)
 				return if (conns.empty) null else conns.head
 			}
 		}
@@ -175,7 +175,7 @@ class CommonUtilExtension {
 		return null
 	}
 
-	def static Collection<ConnectionInstance> findConnectionInstance(Collection<ConnectionInstance> connilist, String name) {
+	def static Collection<ConnectionInstance> findConnectionInstances(Collection<ConnectionInstance> connilist, String name) {
 		val Collection<ConnectionInstance> result = newArrayList()
 		for (ei : connilist) {
 			for (connref : ei.connectionReferences) {

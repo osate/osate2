@@ -1,5 +1,7 @@
 package org.osate.alisa.common.util;
 
+import java.util.Collection;
+
 import org.eclipse.emf.ecore.EObject;
 import org.osate.result.AnalysisResult;
 import org.osate.result.Diagnostic;
@@ -55,6 +57,24 @@ public class ResultsHelperUtilExtension {
 		}
 		for (Diagnostic r : res.getIssues()) {
 			if (hasFailures(r)) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	public static boolean hasFailures(Collection<Diagnostic> res) {
+		for (Diagnostic r : res) {
+			if (hasFailures(r)) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	public static boolean hasErrors(Collection<Diagnostic> res) {
+		for (Diagnostic r : res) {
+			if (hasErrors(r)) {
 				return true;
 			}
 		}

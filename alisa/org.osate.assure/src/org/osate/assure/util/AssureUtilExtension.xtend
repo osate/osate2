@@ -186,7 +186,7 @@ class AssureUtilExtension {
 		val res = cr.modelElement
 		if(!Aadl2Util.isNull(res)) return res
 		val req = cr.target
-		req?.targetElement ?: req.targetClassifier ?: cr.caseTargetClassifier
+		req?.targetElement //?: req.targetClassifier ?: cr.caseTargetClassifier
 	}
 
 	def static SystemInstance getAssuranceCaseInstanceModel(VerificationResult assureObject) {
