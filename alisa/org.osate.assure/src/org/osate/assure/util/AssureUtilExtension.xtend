@@ -25,7 +25,6 @@ import org.eclipse.emf.ecore.EObject
 import org.eclipse.emf.ecore.util.EcoreUtil
 import org.eclipse.xtext.EcoreUtil2
 import org.eclipse.xtext.resource.XtextResource
-import org.junit.runner.Result
 import org.osate.aadl2.ComponentClassifier
 import org.osate.aadl2.ComponentImplementation
 import org.osate.aadl2.IntegerLiteral
@@ -74,6 +73,8 @@ import static extension org.osate.aadl2.instantiation.InstantiateModel.buildInst
 import static extension org.osate.alisa.common.util.CommonUtilExtension.*
 import static extension org.osate.reqspec.util.ReqSpecUtilExtension.*
 import static extension org.osate.verify.util.VerifyUtilExtension.*
+import static extension org.osate.alisa.common.util.ResultsHelperUtilExtension.*
+import org.osate.result.Result
 
 class AssureUtilExtension {
 
@@ -185,11 +186,7 @@ class AssureUtilExtension {
 		val res = cr.modelElement
 		if(!Aadl2Util.isNull(res)) return res
 		val req = cr.target
-		req?.targetElement ?: req.targetClassifier ?: cr.caseTargetClassifier
-	}
-
-	def static boolean isConnections(EObject assureObject) {
-		assureObject.claimResult.target?.connections
+		req?.targetElement //?: req.targetClassifier ?: cr.caseTargetClassifier
 	}
 
 	def static SystemInstance getAssuranceCaseInstanceModel(VerificationResult assureObject) {
@@ -303,30 +300,13 @@ class AssureUtilExtension {
 	}
 
 
-	def static void doJUnitResults(Result rr, Diagnostic ri) {
+	def static void doJUnitResults(org.junit.runner.Result rr, Result ri) {
 		val failist = rr.failures
 		failist.forEach [ failed |
-			ri.addFailIssue(null, failed.message)
+			ri.addFailureIssue(null, failed.message)
 		]
 	}
 
-
-	def static Diagnostic addIssue(Diagnostic ri, DiagnosticType type, EObject target, String message) {
-		val issue = ResultFactory.eINSTANCE.createDiagnostic
-		issue.message = message
-		issue.type = type;
-		issue.sourceReference = target
-		ri.issues.add(issue)
-		issue
-	}
-
-	def static Diagnostic addFailIssue(Diagnostic ri, EObject target, String message) {
-		addIssue(ri, DiagnosticType.FAILURE, target, message)
-	}
-
-	def static Diagnostic addSuccessIssue(Diagnostic ri, EObject target, String message) {
-		addIssue(ri, DiagnosticType.SUCCESS, target, message)
-	}
 
 	def static getTotalCount(AssureResult ar) {
 		val counts = ar.metrics
@@ -841,12 +821,12 @@ class AssureUtilExtension {
 	}
 
 	def static void setToFail(VerificationResult verificationActivityResult, Throwable e) {
-		verificationActivityResult.addFailIssue(null, e.message ?: e.toString); // e.getClass().getName());
+		verificationActivityResult.addFailIssue(null, e.message ?: e.toString); 
 		verificationActivityResult.setToFail
 	}
 
 	def static void setToError(VerificationResult verificationActivityResult, Throwable e) {
-		verificationActivityResult.addErrorIssue(null, e.message ?: e.toString); // e.getClass().getName());
+		verificationActivityResult.addErrorIssue(null, e.message ?: e.toString); 
 		verificationActivityResult.setToError
 	}
 
@@ -1168,6 +1148,7 @@ class AssureUtilExtension {
 		val va = vr.target
 		if(va.title !== null) return va.title
 		val vm = va.method
+		if (vm == null) return ""
 		if(vm.description !== null) return vm.description.toText(null) // va.target)
 		if(vm.title !== null) return vm.title
 		return ""

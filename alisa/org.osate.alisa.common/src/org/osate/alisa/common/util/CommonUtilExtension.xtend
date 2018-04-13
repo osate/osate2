@@ -49,6 +49,8 @@ import org.osate.alisa.common.common.Description
 import org.osate.alisa.common.common.DescriptionElement
 import org.osate.alisa.common.common.ValDeclaration
 import org.osate.alisa.common.typing.CommonInterpreter
+import org.osate.aadl2.Connection
+import java.util.Collection
 
 class CommonUtilExtension {
 
@@ -157,6 +159,10 @@ class CommonUtilExtension {
 			Subcomponent: return findElementInstanceInList(io.componentInstances, n)
 			Feature: return findElementInstanceInList(io.featureInstances, n)
 			FlowSpecification: return findElementInstanceInList(io.flowSpecifications, n)
+			Connection: {
+				val conns= findConnectionInstances(io.connectionInstances,n)
+				return if (conns.empty) null else conns.head
+			}
 		}
 		return null
 	}
@@ -169,21 +175,22 @@ class CommonUtilExtension {
 		return null
 	}
 
-	def static ConnectionInstance findConnectionInstance(ComponentInstance ci, String name) {
-		for (ei : ci.connectionInstances) {
+	def static Collection<ConnectionInstance> findConnectionInstances(Collection<ConnectionInstance> connilist, String name) {
+		val Collection<ConnectionInstance> result = newArrayList()
+		for (ei : connilist) {
 			for (connref : ei.connectionReferences) {
 				val conn = connref.connection
-				if (conn.source.context instanceof Subcomponent && conn.destination.context instanceof Subcomponent &&
-					name.equalsIgnoreCase(conn.name)) return ei
+				if (conn.isAcross &&
+					name.equalsIgnoreCase(conn.name)) {
+						result.add(ei)
+					}
 			}
 		}
-		return null
+		return result
 	}
 
 	def static getCrossConnections(ComponentImplementation ci) {
-		ci.allConnections.filter [ conn |
-			conn.source.context instanceof Subcomponent && conn.destination.context instanceof Subcomponent
-		]
+		ci.allConnections.filter [ conn | conn.isAcross	]
 	}
 
 	def static findElementInstance(ComponentInstance io, String elementName) {

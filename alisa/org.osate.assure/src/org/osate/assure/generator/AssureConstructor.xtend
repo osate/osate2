@@ -242,13 +242,14 @@ class AssureConstructor implements IAssureConstructor {
 	}
 
 	def void generateAllClaimResult(Claim claim, ComponentClassifier cc, EList<ClaimResult> claimResultlist) {
-		val when = claim.requirement.whencondition
+		val req = claim.requirement
+		val when = req.whencondition
 		if (when !== null) {
 			val cond = when.condition
 			if (cond instanceof AFunctionCall) {
 				val fname = cond.function
-				claim.containingRequirementSet
-				val res = ExecuteJavaUtil.eInstance.invokeJavaMethod(fname, cc)
+				val ne = req.targetElement?:cc
+				val res = ExecuteJavaUtil.eInstance.invokeJavaMethod(fname, ne)
 				if (res instanceof Boolean) {
 					if (!res) return
 				}

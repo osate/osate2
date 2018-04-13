@@ -44,10 +44,11 @@ import org.osate.aadl2.Element;
 import org.osate.aadl2.EventDataPort;
 import org.osate.aadl2.FeatureGroup;
 import org.osate.aadl2.instance.ComponentInstance;
+import org.osate.alisa.common.util.ResultsHelperUtilExtension;
 import org.osate.annexsupport.AnnexUtil;
 import org.osate.assure.assure.VerificationResult;
 import org.osate.assure.util.AssureUtilExtension;
-import org.osate.result.Diagnostic;
+import org.osate.result.Result;
 import org.osate.result.ResultFactory;
 
 import com.rockwellcollins.atc.agree.agree.AgreeContractSubclause;
@@ -294,7 +295,7 @@ public class AgreeVerifySingleHandler extends VerifySingleHandler {
 				case ERROR:
 				case WAITING:
 					// case VALID_REFINED:
-					Diagnostic topResultIssue = ResultFactory.eINSTANCE.createDiagnostic();
+					Result topResultIssue = ResultFactory.eINSTANCE.createResult();
 					for (Iterator<PropertyResult> iterator2 = jKindResult.getPropertyResults().iterator(); iterator2
 							.hasNext();) {
 						PropertyResult propertyResult = iterator2.next();
@@ -307,7 +308,8 @@ public class AgreeVerifySingleHandler extends VerifySingleHandler {
 
 						switch (propertyResult.getStatus()) {
 						case VALID:
-							AssureUtilExtension.addSuccessIssue(topResultIssue, target, propertyResult.getName());
+							ResultsHelperUtilExtension.addSuccessIssue(topResultIssue, target,
+									propertyResult.getName());
 							break;
 
 						case WORKING:
@@ -317,7 +319,7 @@ public class AgreeVerifySingleHandler extends VerifySingleHandler {
 						case ERROR:
 						case WAITING:
 							// case VALID_REFINED:
-							AssureUtilExtension.addFailIssue(topResultIssue, target,
+							ResultsHelperUtilExtension.addFailureIssue(topResultIssue, target,
 									propertyResult.getStatus().toString() + "-" + propertyResult.getName());
 							break;
 
@@ -326,7 +328,7 @@ public class AgreeVerifySingleHandler extends VerifySingleHandler {
 						}
 					}
 					// System.out.println("AgreeVerifySingleHandler.updateAgreeResults() setToFail");
-					AssureUtilExtension.setToFail(verificationResult, topResultIssue.getIssues());
+					AssureUtilExtension.setToFail(verificationResult, topResultIssue.getDiagnostics());
 				default:
 
 				}
