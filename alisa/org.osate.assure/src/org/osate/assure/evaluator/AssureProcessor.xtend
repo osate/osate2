@@ -585,10 +585,14 @@ class AssureProcessor implements IAssureProcessor {
 				}
 				returned
 			} else if (returned instanceof Diagnostic) {
-					if (!hasFailures(returned)) {
-						setToSuccess(verificationResult, "", target)
+					if (returned.type == DiagnosticType.SUCCESS) {
+						setToSuccess(verificationResult)
+					} else if (returned.type == DiagnosticType.FAILURE){
+						setToFail(verificationResult)
+					} else if (returned.type == DiagnosticType.ERROR){
+						setToError(verificationResult)
 					} else {
-						setToFail(verificationResult, "", target)
+						setToSuccess(verificationResult)
 					}
 					verificationResult.issues.add(returned)
 				new HashMap
