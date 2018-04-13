@@ -429,10 +429,10 @@ public class InstanceModelUtil {
 
 	/**
 	 * return the hardware component of the connection instance end.
-	 * If it is a hardware component or device return it. 
+	 * If it is a hardware component or device return it.
 	 * If it is a software component, return the processor it is bound to.
 	 * If it is a component instance (BUS), return the bus
-	 * If it is a DATA, SUBPROGRAM, or SUBPROGRAM GROUP component instance, then return the memory it is bound to. 
+	 * If it is a DATA, SUBPROGRAM, or SUBPROGRAM GROUP component instance, then return the memory it is bound to.
 	 * @param cie
 	 * @return hw component instance
 	 */
@@ -459,8 +459,9 @@ public class InstanceModelUtil {
 	 */
 	public static ComponentInstance getBoundPhysicalProcessor(ComponentInstance componentInstance) {
 		List<ComponentInstance> cil = getProcessorBinding(componentInstance);
-		if (cil.isEmpty())
+		if (cil.isEmpty()) {
 			return null;
+		}
 		for (ComponentInstance ci : cil) {
 			if (isProcessor(ci) || isSystem(ci) || isAbstract(ci)) {
 				return ci;
@@ -554,8 +555,9 @@ public class InstanceModelUtil {
 		for (ComponentInstance boundCompInstance : bindinglist) {
 			if (isVirtualProcessor(boundCompInstance)) {
 				result.add(boundCompInstance);
-				if (doAll)
+				if (doAll) {
 					addBoundVirtualProcessors(boundCompInstance, result, doAll);
+				}
 			}
 		}
 	}
@@ -720,7 +722,7 @@ public class InstanceModelUtil {
 	}
 
 	/**
-	 * true if connection or virtual bus instance has connection binding 
+	 * true if connection or virtual bus instance has connection binding
 	 * @param boundObject
 	 * @return
 	 */
@@ -730,7 +732,8 @@ public class InstanceModelUtil {
 	}
 
 	/**
-	 * return the processor or virtual processor that the component is directly bound to
+	 * return set of components the specified instance object (connection or virtual bus) is bound to.
+	 * Takes into account virtual buses contained in buses or virtual buses
 	 * @param io
 	 * @return
 	 */
@@ -754,7 +757,7 @@ public class InstanceModelUtil {
 	}
 
 	/**
-	 * HW instances that connection instance is directly or indirectly bound to 
+	 * HW instances that connection instance is directly or indirectly bound to
 	 * It could be bound to a virtual bus which in turn is bound to a bus
 	 * or a device, processor, memory
 	 * @param connectionInstance
@@ -851,7 +854,7 @@ public class InstanceModelUtil {
 	/**
 	 * true if the processor of the port connection source is connected to the
 	 * specified bus
-	 * 
+	 *
 	 * @param pci
 	 * @param curBus
 	 * @return
@@ -870,10 +873,10 @@ public class InstanceModelUtil {
 	 * Get the bus for a connection. If the bus is not found, we try
 	 * to get the bus by inspecting the component bound (processor)
 	 * to each part of the connection (thread/process/device).
-	 * 
+	 *
 	 * If the connection is directly bound to a bus through the property
 	 * mechanism, we automatically return it.
-	 * 
+	 *
 	 * @param connectionInstance - the connection instance
 	 * @return the bus bound to the connection.
 	 */
@@ -889,7 +892,7 @@ public class InstanceModelUtil {
 	/**
 	 * returns list of buses connecting to HW components. Can be empty list (if
 	 * same component), or null (no connection).
-	 * 
+	 *
 	 * @param source HW component
 	 * @param destination HW component
 	 * @return list of buses involved in the physical connection
@@ -902,7 +905,7 @@ public class InstanceModelUtil {
 	/**
 	 * returns list of buses connecting to HW components. Can be empty list (if
 	 * same component), or null (no connection).
-	 * 
+	 *
 	 * @param source HW component
 	 * @param destination HW component
 	 * @return list of buses involved in the physical connection
@@ -961,7 +964,7 @@ public class InstanceModelUtil {
 
 	/**
 	 * list of buses the hardware component is directly connected to
-	 * 
+	 *
 	 * @param HWcomp ComponentInstance hardware component
 	 * @return list of buses
 	 */
@@ -987,7 +990,7 @@ public class InstanceModelUtil {
 
 	/**
 	* is hardware component connected (directly) to the given bus
-	* 
+	*
 	* @param HWcomp ComponentInstance hardware component
 	* @param bus ComponentInstance bus component
 	* @return true if they are connected by bus access connection
@@ -1014,7 +1017,7 @@ public class InstanceModelUtil {
 	/**
 	 * is hardware component connected (directly) to the given bus, incl. bus to
 	 * bus
-	 * 
+	 *
 	 * @param HWcomp ComponentInstance hardware component
 	 * @param bus ComponentInstance bus component
 	 * @return access connection instance if they are connected by bus access
