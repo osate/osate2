@@ -2978,23 +2978,26 @@ public class ReqSpecGrammarAccess extends AbstractGrammarElementFinder {
 		private final Assignment cInErrorStateAssignment_1_1_4_1 = (Assignment)cGroup_1_1_4.eContents().get(1);
 		private final CrossReference cInErrorStateEObjectCrossReference_1_1_4_1_0 = (CrossReference)cInErrorStateAssignment_1_1_4_1.eContents().get(0);
 		private final RuleCall cInErrorStateEObjectIDTerminalRuleCall_1_1_4_1_0_1 = (RuleCall)cInErrorStateEObjectCrossReference_1_1_4_1_0.eContents().get(1);
-		private final Assignment cConditionAssignment_1_2 = (Assignment)cAlternatives_1.eContents().get(2);
-		private final RuleCall cConditionAExpressionParserRuleCall_1_2_0 = (RuleCall)cConditionAssignment_1_2.eContents().get(0);
+		private final Group cGroup_1_2 = (Group)cAlternatives_1.eContents().get(2);
+		private final Assignment cConditionAssignment_1_2_0 = (Assignment)cGroup_1_2.eContents().get(0);
+		private final RuleCall cConditionQualifiedNameParserRuleCall_1_2_0_0 = (RuleCall)cConditionAssignment_1_2_0.eContents().get(0);
+		private final Keyword cLeftParenthesisKeyword_1_2_1 = (Keyword)cGroup_1_2.eContents().get(1);
+		private final Keyword cRightParenthesisKeyword_1_2_2 = (Keyword)cGroup_1_2.eContents().get(2);
 		
 		//WhenCondition:
 		//	'when' ('in' 'mode' inMode+=[aadl2::Mode] (',' inMode+=[aadl2::Mode])* | 'in' 'error' 'state'
-		//	inErrorState+=[ecore::EObject] (',' inErrorState+=[ecore::EObject])* | condition=AExpression);
+		//	inErrorState+=[ecore::EObject] (',' inErrorState+=[ecore::EObject])* | condition=QualifiedName '(' ')');
 		@Override public ParserRule getRule() { return rule; }
 
 		//'when' ('in' 'mode' inMode+=[aadl2::Mode] (',' inMode+=[aadl2::Mode])* | 'in' 'error' 'state'
-		//inErrorState+=[ecore::EObject] (',' inErrorState+=[ecore::EObject])* | condition=AExpression)
+		//inErrorState+=[ecore::EObject] (',' inErrorState+=[ecore::EObject])* | condition=QualifiedName '(' ')')
 		public Group getGroup() { return cGroup; }
 
 		//'when'
 		public Keyword getWhenKeyword_0() { return cWhenKeyword_0; }
 
 		//'in' 'mode' inMode+=[aadl2::Mode] (',' inMode+=[aadl2::Mode])* | 'in' 'error' 'state' inErrorState+=[ecore::EObject]
-		//(',' inErrorState+=[ecore::EObject])* | condition=AExpression
+		//(',' inErrorState+=[ecore::EObject])* | condition=QualifiedName '(' ')'
 		public Alternatives getAlternatives_1() { return cAlternatives_1; }
 
 		//'in' 'mode' inMode+=[aadl2::Mode] (',' inMode+=[aadl2::Mode])*
@@ -3066,11 +3069,20 @@ public class ReqSpecGrammarAccess extends AbstractGrammarElementFinder {
 		//ID
 		public RuleCall getInErrorStateEObjectIDTerminalRuleCall_1_1_4_1_0_1() { return cInErrorStateEObjectIDTerminalRuleCall_1_1_4_1_0_1; }
 
-		//condition=AExpression
-		public Assignment getConditionAssignment_1_2() { return cConditionAssignment_1_2; }
+		//condition=QualifiedName '(' ')'
+		public Group getGroup_1_2() { return cGroup_1_2; }
 
-		//AExpression
-		public RuleCall getConditionAExpressionParserRuleCall_1_2_0() { return cConditionAExpressionParserRuleCall_1_2_0; }
+		//condition=QualifiedName
+		public Assignment getConditionAssignment_1_2_0() { return cConditionAssignment_1_2_0; }
+
+		//QualifiedName
+		public RuleCall getConditionQualifiedNameParserRuleCall_1_2_0_0() { return cConditionQualifiedNameParserRuleCall_1_2_0_0; }
+
+		//'('
+		public Keyword getLeftParenthesisKeyword_1_2_1() { return cLeftParenthesisKeyword_1_2_1; }
+
+		//')'
+		public Keyword getRightParenthesisKeyword_1_2_2() { return cRightParenthesisKeyword_1_2_2; }
 	}
 
 	public class ReqPredicateElements extends AbstractParserRuleElementFinder {
@@ -3784,7 +3796,7 @@ public class ReqSpecGrammarAccess extends AbstractGrammarElementFinder {
 
 	//WhenCondition:
 	//	'when' ('in' 'mode' inMode+=[aadl2::Mode] (',' inMode+=[aadl2::Mode])* | 'in' 'error' 'state'
-	//	inErrorState+=[ecore::EObject] (',' inErrorState+=[ecore::EObject])* | condition=AExpression);
+	//	inErrorState+=[ecore::EObject] (',' inErrorState+=[ecore::EObject])* | condition=QualifiedName '(' ')');
 	public WhenConditionElements getWhenConditionAccess() {
 		return pWhenCondition;
 	}

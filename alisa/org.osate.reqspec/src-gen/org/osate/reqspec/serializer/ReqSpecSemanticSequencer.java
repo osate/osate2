@@ -702,7 +702,7 @@ public class ReqSpecSemanticSequencer extends CommonSemanticSequencer {
 	 *     WhenCondition returns WhenCondition
 	 *
 	 * Constraint:
-	 *     ((inMode+=[Mode|ID] inMode+=[Mode|ID]*) | (inErrorState+=[EObject|ID] inErrorState+=[EObject|ID]*) | condition=AExpression)
+	 *     ((inMode+=[Mode|ID] inMode+=[Mode|ID]*) | (inErrorState+=[EObject|ID] inErrorState+=[EObject|ID]*) | condition=QualifiedName)
 	 */
 	protected void sequence_WhenCondition(ISerializationContext context, WhenCondition semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);

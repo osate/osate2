@@ -32,13 +32,16 @@ import org.eclipse.xtext.resource.IResourceServiceProvider
 import org.junit.runner.JUnitCore
 import org.osate.aadl2.Aadl2Factory
 import org.osate.aadl2.BooleanLiteral
+import org.osate.aadl2.NamedElement
 import org.osate.aadl2.NumberValue
 import org.osate.aadl2.PropertyExpression
 import org.osate.aadl2.PropertyValue
 import org.osate.aadl2.instance.ComponentInstance
+import org.osate.aadl2.instance.ConnectionInstance
 import org.osate.aadl2.instance.InstanceObject
 import org.osate.aadl2.properties.PropertyNotPresentException
 import org.osate.alisa.common.typing.CommonInterpreter
+import org.osate.alisa.common.util.ExecuteJavaUtil
 import org.osate.assure.assure.AssuranceCaseResult
 import org.osate.assure.assure.ClaimResult
 import org.osate.assure.assure.ElseResult
@@ -54,10 +57,14 @@ import org.osate.assure.assure.VerificationExecutionState
 import org.osate.assure.assure.VerificationResult
 import org.osate.assure.util.AssureUtilExtension
 import org.osate.categories.categories.CategoryFilter
-import org.osate.result.AnalysisResult
+import org.osate.result.BooleanValue
+import org.osate.result.Diagnostic
 import org.osate.result.DiagnosticType
+import org.osate.result.IntegerValue
+import org.osate.result.RealValue
+import org.osate.result.Result
 import org.osate.result.ResultFactory
-import org.osate.verify.util.ExecuteJavaUtil
+import org.osate.result.StringValue
 import org.osate.verify.util.ExecuteResoluteUtil
 import org.osate.verify.util.VerificationMethodDispatchers
 import org.osate.verify.verify.AgreeMethod
@@ -72,18 +79,9 @@ import org.osate.xtext.aadl2.properties.util.PropertyUtils
 
 import static extension org.eclipse.emf.ecore.util.EcoreUtil.getURI
 import static extension org.osate.alisa.common.util.CommonUtilExtension.*
-import static extension org.osate.assure.util.AssureUtilExtension.*
 import static extension org.osate.alisa.common.util.ResultsHelperUtilExtension.*
+import static extension org.osate.assure.util.AssureUtilExtension.*
 import static extension org.osate.verify.util.VerifyUtilExtension.*
-import org.osate.result.Diagnostic
-import org.osate.result.Result
-import org.osate.aadl2.NamedElement
-import org.osate.aadl2.instance.ConnectionInstance
-import org.osate.alisa.common.util.ResultsHelperUtilExtension
-import org.osate.result.BooleanValue
-import org.osate.result.IntegerValue
-import org.osate.result.RealValue
-import org.osate.result.StringValue
 
 @ImplementedBy(AssureProcessor)
 interface IAssureProcessor {
@@ -365,24 +363,6 @@ class AssureProcessor implements IAssureProcessor {
 			}
 		}
 
-		val InstanceObject target = if (targetElement !== null) {
-				if (targetElement.eIsProxy) {
-					setToError(verificationResult, "Unresolved target element for claim", targetComponent)
-					return
-				}
-				targetComponent.findElementInstance(targetElement) ?: targetComponent
-			} else {
-				targetComponent
-			}
-
-		if (verificationResult instanceof VerificationActivityResult) {
-			val success = checkProperties(target, verificationResult)
-			if (!success) {
-				verificationResult.eResource.save(null)
-				updateProgress(verificationResult)
-				return;
-			}
-		}
 
 		try {
 			val methodtype = method.methodKind
@@ -397,6 +377,11 @@ class AssureProcessor implements IAssureProcessor {
 					// The parameters are objects from the Properties Meta model. It is up to the plugin interface method to convert to Java base types
 					val res = VerificationMethodDispatchers.eInstance.
 						dispatchVerificationMethod(methodtype, instanceroot, parameterObjects) // returning the marker or diagnostic id as string
+					val InstanceObject target = if (targetElement !== null && !targetElement.eIsProxy) {
+							targetComponent.findElementInstance(targetElement) ?: targetComponent
+						} else {
+							targetComponent
+						}
 					if (res instanceof String) {
 						addMarkersAsResult(verificationResult, target, res, method)
 					} else {

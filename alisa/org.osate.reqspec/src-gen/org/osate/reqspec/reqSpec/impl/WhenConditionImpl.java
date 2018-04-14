@@ -18,13 +18,11 @@ package org.osate.reqspec.reqSpec.impl;
 import java.util.Collection;
 
 import org.eclipse.emf.common.notify.Notification;
-import org.eclipse.emf.common.notify.NotificationChain;
 
 import org.eclipse.emf.common.util.EList;
 
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
-import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
@@ -32,7 +30,6 @@ import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 import org.eclipse.emf.ecore.util.EObjectResolvingEList;
 
 import org.osate.aadl2.Mode;
-import org.osate.aadl2.PropertyExpression;
 
 import org.osate.reqspec.reqSpec.ReqSpecPackage;
 import org.osate.reqspec.reqSpec.WhenCondition;
@@ -75,14 +72,24 @@ public class WhenConditionImpl extends MinimalEObjectImpl.Container implements W
   protected EList<EObject> inErrorState;
 
   /**
-   * The cached value of the '{@link #getCondition() <em>Condition</em>}' containment reference.
+   * The default value of the '{@link #getCondition() <em>Condition</em>}' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @see #getCondition()
    * @generated
    * @ordered
    */
-  protected PropertyExpression condition;
+  protected static final String CONDITION_EDEFAULT = null;
+
+  /**
+   * The cached value of the '{@link #getCondition() <em>Condition</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getCondition()
+   * @generated
+   * @ordered
+   */
+  protected String condition = CONDITION_EDEFAULT;
 
   /**
    * <!-- begin-user-doc -->
@@ -138,7 +145,7 @@ public class WhenConditionImpl extends MinimalEObjectImpl.Container implements W
    * <!-- end-user-doc -->
    * @generated
    */
-  public PropertyExpression getCondition()
+  public String getCondition()
   {
     return condition;
   }
@@ -148,53 +155,12 @@ public class WhenConditionImpl extends MinimalEObjectImpl.Container implements W
    * <!-- end-user-doc -->
    * @generated
    */
-  public NotificationChain basicSetCondition(PropertyExpression newCondition, NotificationChain msgs)
+  public void setCondition(String newCondition)
   {
-    PropertyExpression oldCondition = condition;
+    String oldCondition = condition;
     condition = newCondition;
     if (eNotificationRequired())
-    {
-      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, ReqSpecPackage.WHEN_CONDITION__CONDITION, oldCondition, newCondition);
-      if (msgs == null) msgs = notification; else msgs.add(notification);
-    }
-    return msgs;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public void setCondition(PropertyExpression newCondition)
-  {
-    if (newCondition != condition)
-    {
-      NotificationChain msgs = null;
-      if (condition != null)
-        msgs = ((InternalEObject)condition).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - ReqSpecPackage.WHEN_CONDITION__CONDITION, null, msgs);
-      if (newCondition != null)
-        msgs = ((InternalEObject)newCondition).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - ReqSpecPackage.WHEN_CONDITION__CONDITION, null, msgs);
-      msgs = basicSetCondition(newCondition, msgs);
-      if (msgs != null) msgs.dispatch();
-    }
-    else if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, ReqSpecPackage.WHEN_CONDITION__CONDITION, newCondition, newCondition));
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  @Override
-  public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs)
-  {
-    switch (featureID)
-    {
-      case ReqSpecPackage.WHEN_CONDITION__CONDITION:
-        return basicSetCondition(null, msgs);
-    }
-    return super.eInverseRemove(otherEnd, featureID, msgs);
+      eNotify(new ENotificationImpl(this, Notification.SET, ReqSpecPackage.WHEN_CONDITION__CONDITION, oldCondition, condition));
   }
 
   /**
@@ -237,7 +203,7 @@ public class WhenConditionImpl extends MinimalEObjectImpl.Container implements W
         getInErrorState().addAll((Collection<? extends EObject>)newValue);
         return;
       case ReqSpecPackage.WHEN_CONDITION__CONDITION:
-        setCondition((PropertyExpression)newValue);
+        setCondition((String)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -260,7 +226,7 @@ public class WhenConditionImpl extends MinimalEObjectImpl.Container implements W
         getInErrorState().clear();
         return;
       case ReqSpecPackage.WHEN_CONDITION__CONDITION:
-        setCondition((PropertyExpression)null);
+        setCondition(CONDITION_EDEFAULT);
         return;
     }
     super.eUnset(featureID);
@@ -281,9 +247,26 @@ public class WhenConditionImpl extends MinimalEObjectImpl.Container implements W
       case ReqSpecPackage.WHEN_CONDITION__IN_ERROR_STATE:
         return inErrorState != null && !inErrorState.isEmpty();
       case ReqSpecPackage.WHEN_CONDITION__CONDITION:
-        return condition != null;
+        return CONDITION_EDEFAULT == null ? condition != null : !CONDITION_EDEFAULT.equals(condition);
     }
     return super.eIsSet(featureID);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public String toString()
+  {
+    if (eIsProxy()) return super.toString();
+
+    StringBuffer result = new StringBuffer(super.toString());
+    result.append(" (condition: ");
+    result.append(condition);
+    result.append(')');
+    return result.toString();
   }
 
 } //WhenConditionImpl

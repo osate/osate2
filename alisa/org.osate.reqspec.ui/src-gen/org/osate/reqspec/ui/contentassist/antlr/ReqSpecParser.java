@@ -192,6 +192,7 @@ public class ReqSpecParser extends AbstractContentAssistParser {
 					put(grammarAccess.getWhenConditionAccess().getGroup_1_0_3(), "rule__WhenCondition__Group_1_0_3__0");
 					put(grammarAccess.getWhenConditionAccess().getGroup_1_1(), "rule__WhenCondition__Group_1_1__0");
 					put(grammarAccess.getWhenConditionAccess().getGroup_1_1_4(), "rule__WhenCondition__Group_1_1_4__0");
+					put(grammarAccess.getWhenConditionAccess().getGroup_1_2(), "rule__WhenCondition__Group_1_2__0");
 					put(grammarAccess.getInformalPredicateAccess().getGroup(), "rule__InformalPredicate__Group__0");
 					put(grammarAccess.getValuePredicateAccess().getGroup(), "rule__ValuePredicate__Group__0");
 					put(grammarAccess.getValuePredicateAccess().getGroup_3(), "rule__ValuePredicate__Group_3__0");
@@ -449,7 +450,7 @@ public class ReqSpecParser extends AbstractContentAssistParser {
 					put(grammarAccess.getWhenConditionAccess().getInModeAssignment_1_0_3_1(), "rule__WhenCondition__InModeAssignment_1_0_3_1");
 					put(grammarAccess.getWhenConditionAccess().getInErrorStateAssignment_1_1_3(), "rule__WhenCondition__InErrorStateAssignment_1_1_3");
 					put(grammarAccess.getWhenConditionAccess().getInErrorStateAssignment_1_1_4_1(), "rule__WhenCondition__InErrorStateAssignment_1_1_4_1");
-					put(grammarAccess.getWhenConditionAccess().getConditionAssignment_1_2(), "rule__WhenCondition__ConditionAssignment_1_2");
+					put(grammarAccess.getWhenConditionAccess().getConditionAssignment_1_2_0(), "rule__WhenCondition__ConditionAssignment_1_2_0");
 					put(grammarAccess.getInformalPredicateAccess().getDescriptionAssignment_2(), "rule__InformalPredicate__DescriptionAssignment_2");
 					put(grammarAccess.getValuePredicateAccess().getXpressionAssignment_2(), "rule__ValuePredicate__XpressionAssignment_2");
 					put(grammarAccess.getValuePredicateAccess().getDesiredValueAssignment_3_1(), "rule__ValuePredicate__DesiredValueAssignment_3_1");

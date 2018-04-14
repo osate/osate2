@@ -1263,7 +1263,7 @@ public interface ReqSpecPackage extends EPackage
   int WHEN_CONDITION__IN_ERROR_STATE = 1;
 
   /**
-   * The feature id for the '<em><b>Condition</b></em>' containment reference.
+   * The feature id for the '<em><b>Condition</b></em>' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
@@ -2518,15 +2518,15 @@ public interface ReqSpecPackage extends EPackage
   EReference getWhenCondition_InErrorState();
 
   /**
-   * Returns the meta object for the containment reference '{@link org.osate.reqspec.reqSpec.WhenCondition#getCondition <em>Condition</em>}'.
+   * Returns the meta object for the attribute '{@link org.osate.reqspec.reqSpec.WhenCondition#getCondition <em>Condition</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for the containment reference '<em>Condition</em>'.
+   * @return the meta object for the attribute '<em>Condition</em>'.
    * @see org.osate.reqspec.reqSpec.WhenCondition#getCondition()
    * @see #getWhenCondition()
    * @generated
    */
-  EReference getWhenCondition_Condition();
+  EAttribute getWhenCondition_Condition();
 
   /**
    * Returns the meta object for class '{@link org.osate.reqspec.reqSpec.ReqPredicate <em>Req Predicate</em>}'.
@@ -3345,12 +3345,12 @@ public interface ReqSpecPackage extends EPackage
     EReference WHEN_CONDITION__IN_ERROR_STATE = eINSTANCE.getWhenCondition_InErrorState();
 
     /**
-     * The meta object literal for the '<em><b>Condition</b></em>' containment reference feature.
+     * The meta object literal for the '<em><b>Condition</b></em>' attribute feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    EReference WHEN_CONDITION__CONDITION = eINSTANCE.getWhenCondition_Condition();
+    EAttribute WHEN_CONDITION__CONDITION = eINSTANCE.getWhenCondition_Condition();
 
     /**
      * The meta object literal for the '{@link org.osate.reqspec.reqSpec.impl.ReqPredicateImpl <em>Req Predicate</em>}' class.
