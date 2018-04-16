@@ -30,6 +30,7 @@ import com.rockwellcollins.atc.resolute.analysis.execution.FeatureToConnectionsM
 import com.rockwellcollins.atc.resolute.analysis.execution.NamedElementComparator;
 import com.rockwellcollins.atc.resolute.analysis.execution.ResoluteInterpreter;
 import com.rockwellcollins.atc.resolute.analysis.results.ClaimResult;
+import com.rockwellcollins.atc.resolute.analysis.results.ResoluteResult;
 import com.rockwellcollins.atc.resolute.analysis.views.ResoluteResultContentProvider;
 import com.rockwellcollins.atc.resolute.resolute.BoolExpr;
 import com.rockwellcollins.atc.resolute.resolute.FnCallExpr;
@@ -144,7 +145,7 @@ public class ExecuteResoluteUtil {
 		ProveStatement provecall = createWrapperProveCall(fd, targetComponent, parameterObjects);
 		if (provecall != null) {
 			// using com.rockwellcollins.atc.resolute.analysis.results.ClaimResult
-			ClaimResult proof = interpreter.evaluateProveStatement(provecall);
+			ResoluteResult proof = interpreter.evaluateProveStatement(provecall);
 			return doResoluteResults(proof);
 		} else {
 			return ResultUtil.createError("Could not find Resolute Function " + fd.getName(), targetComponent);
@@ -205,8 +206,10 @@ public class ExecuteResoluteUtil {
 
 	static private ResoluteResultContentProvider resoluteContent = new ResoluteResultContentProvider();
 
-	private Diagnostic doResoluteResults(ClaimResult rr) {
+	private Diagnostic doResoluteResults(ResoluteResult resRes) {
 		Diagnostic ri = null;
+		if (resRes instanceof ClaimResult) {
+			ClaimResult rr = (ClaimResult) resRes;
 		if (rr.isValid()) {
 			ri = ResultUtil.createSuccess(rr.getText(), rr.getLocation());
 		} else {
@@ -217,6 +220,7 @@ public class ExecuteResoluteUtil {
 			ClaimResult subclaim = (ClaimResult) subrr;
 			// in the future we may need to create an intermediary Result object
 			ri.getIssues().add(doResoluteResults(subclaim));
+		}
 		}
 		return ri;
 	}
