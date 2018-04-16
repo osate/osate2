@@ -24,13 +24,19 @@ import static extension org.osate.reqspec.util.ReqSpecUtilExtension.*
 import static extension org.osate.verify.util.VerifyUtilExtension.*
 import org.osate.reqspec.reqSpec.Requirement
 import org.osate.verify.verify.Claim
+import org.osate.verify.verify.VerificationMethod
+import org.osate.aadl2.ComponentClassifier
 
 class VerifyEObjectHoverProvider extends DefaultEObjectHoverProvider {
 		override getHoverInfoAsHtml (EObject o){ 
 		switch (o){
 			VerificationActivity: {
-				val Requirement req = o.containingClaim.requirement
-				return reqText(req)
+				val vm = o.method
+				val target = o.containingClaim?.requirement?.targetClassifier
+				return vaText(vm, target)
+				}
+			VerificationMethod: {
+				return vmText(o)
 				}
 			Claim: {
 				val Requirement req = o.requirement
@@ -40,6 +46,22 @@ class VerifyEObjectHoverProvider extends DefaultEObjectHoverProvider {
 		return super.getHoverInfoAsHtml(o)
 	}
 	
+	def vaText(VerificationMethod vm, ComponentClassifier target){
+				val z =  (vm.title?:"") 
+				var zz = (vm.description?.toText(target))?:""
+				if (zz.length > 0) zz = ": " + zz
+				val res = "Method "+vm.name+": "+ z + zz
+			return res
+	}
+	
+	def vmText(VerificationMethod vm){
+				val z =  (vm.title?:"") 
+				var zz = (vm.description?.toText(null))?:""
+				if (zz.length > 0) zz = ": " + zz
+				val res = "Method "+vm.name+": "+ z + zz
+			return res
+	}
+		
 	def reqText(Requirement req){
 				val z =  (req.title?:"") 
 				var zz = (req.description?.toText(req.targetClassifier))?:""
