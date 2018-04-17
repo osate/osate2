@@ -200,22 +200,13 @@ public interface AlisaPackage extends EPackage
   int ASSURANCE_PLAN__ASSURE = 4;
 
   /**
-   * The feature id for the '<em><b>Assure Self</b></em>' reference list.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int ASSURANCE_PLAN__ASSURE_SELF = 5;
-
-  /**
    * The feature id for the '<em><b>Assure Global</b></em>' reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int ASSURANCE_PLAN__ASSURE_GLOBAL = 6;
+  int ASSURANCE_PLAN__ASSURE_GLOBAL = 5;
 
   /**
    * The feature id for the '<em><b>Assure Subsystems</b></em>' reference list.
@@ -224,7 +215,7 @@ public interface AlisaPackage extends EPackage
    * @generated
    * @ordered
    */
-  int ASSURANCE_PLAN__ASSURE_SUBSYSTEMS = 7;
+  int ASSURANCE_PLAN__ASSURE_SUBSYSTEMS = 6;
 
   /**
    * The feature id for the '<em><b>Assure All</b></em>' attribute.
@@ -233,7 +224,7 @@ public interface AlisaPackage extends EPackage
    * @generated
    * @ordered
    */
-  int ASSURANCE_PLAN__ASSURE_ALL = 8;
+  int ASSURANCE_PLAN__ASSURE_ALL = 7;
 
   /**
    * The feature id for the '<em><b>Assume Subsystems</b></em>' reference list.
@@ -242,7 +233,7 @@ public interface AlisaPackage extends EPackage
    * @generated
    * @ordered
    */
-  int ASSURANCE_PLAN__ASSUME_SUBSYSTEMS = 9;
+  int ASSURANCE_PLAN__ASSUME_SUBSYSTEMS = 8;
 
   /**
    * The feature id for the '<em><b>Assume All</b></em>' attribute.
@@ -251,7 +242,7 @@ public interface AlisaPackage extends EPackage
    * @generated
    * @ordered
    */
-  int ASSURANCE_PLAN__ASSUME_ALL = 10;
+  int ASSURANCE_PLAN__ASSUME_ALL = 9;
 
   /**
    * The feature id for the '<em><b>Issues</b></em>' attribute list.
@@ -260,7 +251,7 @@ public interface AlisaPackage extends EPackage
    * @generated
    * @ordered
    */
-  int ASSURANCE_PLAN__ISSUES = 11;
+  int ASSURANCE_PLAN__ISSUES = 10;
 
   /**
    * The number of structural features of the '<em>Assurance Plan</em>' class.
@@ -269,7 +260,7 @@ public interface AlisaPackage extends EPackage
    * @generated
    * @ordered
    */
-  int ASSURANCE_PLAN_FEATURE_COUNT = 12;
+  int ASSURANCE_PLAN_FEATURE_COUNT = 11;
 
   /**
    * The meta object id for the '{@link org.osate.alisa.workbench.alisa.impl.AssuranceTaskImpl <em>Assurance Task</em>}' class.
@@ -485,17 +476,6 @@ public interface AlisaPackage extends EPackage
    * @generated
    */
   EReference getAssurancePlan_Assure();
-
-  /**
-   * Returns the meta object for the reference list '{@link org.osate.alisa.workbench.alisa.AssurancePlan#getAssureSelf <em>Assure Self</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the reference list '<em>Assure Self</em>'.
-   * @see org.osate.alisa.workbench.alisa.AssurancePlan#getAssureSelf()
-   * @see #getAssurancePlan()
-   * @generated
-   */
-  EReference getAssurancePlan_AssureSelf();
 
   /**
    * Returns the meta object for the reference list '{@link org.osate.alisa.workbench.alisa.AssurancePlan#getAssureGlobal <em>Assure Global</em>}'.
@@ -736,14 +716,6 @@ public interface AlisaPackage extends EPackage
      * @generated
      */
     EReference ASSURANCE_PLAN__ASSURE = eINSTANCE.getAssurancePlan_Assure();
-
-    /**
-     * The meta object literal for the '<em><b>Assure Self</b></em>' reference list feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EReference ASSURANCE_PLAN__ASSURE_SELF = eINSTANCE.getAssurancePlan_AssureSelf();
 
     /**
      * The meta object literal for the '<em><b>Assure Global</b></em>' reference list feature.

@@ -40,7 +40,6 @@ import org.osate.verify.verify.VerificationPlan;
  *   <li>{@link org.osate.alisa.workbench.alisa.AssurancePlan#getTarget <em>Target</em>}</li>
  *   <li>{@link org.osate.alisa.workbench.alisa.AssurancePlan#getDescription <em>Description</em>}</li>
  *   <li>{@link org.osate.alisa.workbench.alisa.AssurancePlan#getAssure <em>Assure</em>}</li>
- *   <li>{@link org.osate.alisa.workbench.alisa.AssurancePlan#getAssureSelf <em>Assure Self</em>}</li>
  *   <li>{@link org.osate.alisa.workbench.alisa.AssurancePlan#getAssureGlobal <em>Assure Global</em>}</li>
  *   <li>{@link org.osate.alisa.workbench.alisa.AssurancePlan#getAssureSubsystems <em>Assure Subsystems</em>}</li>
  *   <li>{@link org.osate.alisa.workbench.alisa.AssurancePlan#isAssureAll <em>Assure All</em>}</li>
@@ -174,22 +173,6 @@ public interface AssurancePlan extends EObject
    * @generated
    */
   EList<VerificationPlan> getAssure();
-
-  /**
-   * Returns the value of the '<em><b>Assure Self</b></em>' reference list.
-   * The list contents are of type {@link org.osate.verify.verify.VerificationPlan}.
-   * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Assure Self</em>' reference list isn't clear,
-   * there really should be more of a description here...
-   * </p>
-   * <!-- end-user-doc -->
-   * @return the value of the '<em>Assure Self</em>' reference list.
-   * @see org.osate.alisa.workbench.alisa.AlisaPackage#getAssurancePlan_AssureSelf()
-   * @model
-   * @generated
-   */
-  EList<VerificationPlan> getAssureSelf();
 
   /**
    * Returns the value of the '<em><b>Assure Global</b></em>' reference list.

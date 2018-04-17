@@ -55,7 +55,6 @@ import org.osate.verify.verify.VerificationPlan;
  *   <li>{@link org.osate.alisa.workbench.alisa.impl.AssurancePlanImpl#getTarget <em>Target</em>}</li>
  *   <li>{@link org.osate.alisa.workbench.alisa.impl.AssurancePlanImpl#getDescription <em>Description</em>}</li>
  *   <li>{@link org.osate.alisa.workbench.alisa.impl.AssurancePlanImpl#getAssure <em>Assure</em>}</li>
- *   <li>{@link org.osate.alisa.workbench.alisa.impl.AssurancePlanImpl#getAssureSelf <em>Assure Self</em>}</li>
  *   <li>{@link org.osate.alisa.workbench.alisa.impl.AssurancePlanImpl#getAssureGlobal <em>Assure Global</em>}</li>
  *   <li>{@link org.osate.alisa.workbench.alisa.impl.AssurancePlanImpl#getAssureSubsystems <em>Assure Subsystems</em>}</li>
  *   <li>{@link org.osate.alisa.workbench.alisa.impl.AssurancePlanImpl#isAssureAll <em>Assure All</em>}</li>
@@ -137,16 +136,6 @@ public class AssurancePlanImpl extends MinimalEObjectImpl.Container implements A
    * @ordered
    */
   protected EList<VerificationPlan> assure;
-
-  /**
-   * The cached value of the '{@link #getAssureSelf() <em>Assure Self</em>}' reference list.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getAssureSelf()
-   * @generated
-   * @ordered
-   */
-  protected EList<VerificationPlan> assureSelf;
 
   /**
    * The cached value of the '{@link #getAssureGlobal() <em>Assure Global</em>}' reference list.
@@ -405,20 +394,6 @@ public class AssurancePlanImpl extends MinimalEObjectImpl.Container implements A
    * <!-- end-user-doc -->
    * @generated
    */
-  public EList<VerificationPlan> getAssureSelf()
-  {
-    if (assureSelf == null)
-    {
-      assureSelf = new EObjectResolvingEList<VerificationPlan>(VerificationPlan.class, this, AlisaPackage.ASSURANCE_PLAN__ASSURE_SELF);
-    }
-    return assureSelf;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
   public EList<VerificationPlan> getAssureGlobal()
   {
     if (assureGlobal == null)
@@ -553,8 +528,6 @@ public class AssurancePlanImpl extends MinimalEObjectImpl.Container implements A
         return getDescription();
       case AlisaPackage.ASSURANCE_PLAN__ASSURE:
         return getAssure();
-      case AlisaPackage.ASSURANCE_PLAN__ASSURE_SELF:
-        return getAssureSelf();
       case AlisaPackage.ASSURANCE_PLAN__ASSURE_GLOBAL:
         return getAssureGlobal();
       case AlisaPackage.ASSURANCE_PLAN__ASSURE_SUBSYSTEMS:
@@ -597,10 +570,6 @@ public class AssurancePlanImpl extends MinimalEObjectImpl.Container implements A
       case AlisaPackage.ASSURANCE_PLAN__ASSURE:
         getAssure().clear();
         getAssure().addAll((Collection<? extends VerificationPlan>)newValue);
-        return;
-      case AlisaPackage.ASSURANCE_PLAN__ASSURE_SELF:
-        getAssureSelf().clear();
-        getAssureSelf().addAll((Collection<? extends VerificationPlan>)newValue);
         return;
       case AlisaPackage.ASSURANCE_PLAN__ASSURE_GLOBAL:
         getAssureGlobal().clear();
@@ -653,9 +622,6 @@ public class AssurancePlanImpl extends MinimalEObjectImpl.Container implements A
       case AlisaPackage.ASSURANCE_PLAN__ASSURE:
         getAssure().clear();
         return;
-      case AlisaPackage.ASSURANCE_PLAN__ASSURE_SELF:
-        getAssureSelf().clear();
-        return;
       case AlisaPackage.ASSURANCE_PLAN__ASSURE_GLOBAL:
         getAssureGlobal().clear();
         return;
@@ -698,8 +664,6 @@ public class AssurancePlanImpl extends MinimalEObjectImpl.Container implements A
         return description != null;
       case AlisaPackage.ASSURANCE_PLAN__ASSURE:
         return assure != null && !assure.isEmpty();
-      case AlisaPackage.ASSURANCE_PLAN__ASSURE_SELF:
-        return assureSelf != null && !assureSelf.isEmpty();
       case AlisaPackage.ASSURANCE_PLAN__ASSURE_GLOBAL:
         return assureGlobal != null && !assureGlobal.isEmpty();
       case AlisaPackage.ASSURANCE_PLAN__ASSURE_SUBSYSTEMS:

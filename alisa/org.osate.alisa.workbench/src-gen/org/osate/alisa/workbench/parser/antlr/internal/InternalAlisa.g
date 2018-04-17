@@ -390,9 +390,9 @@ ruleAssurancePlan returns [EObject current=null]
     {
     	newLeafNode(otherlv_12, grammarAccess.getAssurancePlanAccess().getAssureKeyword_7_2_0());
     }
-	otherlv_13='self' 
+	otherlv_13='global' 
     {
-    	newLeafNode(otherlv_13, grammarAccess.getAssurancePlanAccess().getSelfKeyword_7_2_1());
+    	newLeafNode(otherlv_13, grammarAccess.getAssurancePlanAccess().getGlobalKeyword_7_2_1());
     }
 (
 (
@@ -402,7 +402,7 @@ ruleAssurancePlan returns [EObject current=null]
 	        }
         }
 		{ 
-	        newCompositeNode(grammarAccess.getAssurancePlanAccess().getAssureSelfVerificationPlanCrossReference_7_2_2_0()); 
+	        newCompositeNode(grammarAccess.getAssurancePlanAccess().getAssureGlobalVerificationPlanCrossReference_7_2_2_0()); 
 	    }
 		ruleQualifiedName		{ 
 	        afterParserOrEnumRuleCall();
@@ -425,44 +425,9 @@ ruleAssurancePlan returns [EObject current=null]
     {
     	newLeafNode(otherlv_15, grammarAccess.getAssurancePlanAccess().getAssureKeyword_7_3_0());
     }
-	otherlv_16='global' 
+	otherlv_16='subsystem' 
     {
-    	newLeafNode(otherlv_16, grammarAccess.getAssurancePlanAccess().getGlobalKeyword_7_3_1());
-    }
-(
-(
-		{
-			if ($current==null) {
-	            $current = createModelElement(grammarAccess.getAssurancePlanRule());
-	        }
-        }
-		{ 
-	        newCompositeNode(grammarAccess.getAssurancePlanAccess().getAssureGlobalVerificationPlanCrossReference_7_3_2_0()); 
-	    }
-		ruleQualifiedName		{ 
-	        afterParserOrEnumRuleCall();
-	    }
-
-)
-)+))
-					{ 
-	 				  getUnorderedGroupHelper().returnFromSelection(grammarAccess.getAssurancePlanAccess().getUnorderedGroup_7());
-	 				}
- 				)
-			)  |
-
-			( 
-				{getUnorderedGroupHelper().canSelect(grammarAccess.getAssurancePlanAccess().getUnorderedGroup_7(), 4)}?=>(
-					{ 
-	 				  getUnorderedGroupHelper().select(grammarAccess.getAssurancePlanAccess().getUnorderedGroup_7(), 4);
-	 				}
-					({true}?=>(	otherlv_18='assure' 
-    {
-    	newLeafNode(otherlv_18, grammarAccess.getAssurancePlanAccess().getAssureKeyword_7_4_0());
-    }
-	otherlv_19='subsystem' 
-    {
-    	newLeafNode(otherlv_19, grammarAccess.getAssurancePlanAccess().getSubsystemKeyword_7_4_1());
+    	newLeafNode(otherlv_16, grammarAccess.getAssurancePlanAccess().getSubsystemKeyword_7_3_1());
     }
 ((
 (
@@ -471,18 +436,18 @@ ruleAssurancePlan returns [EObject current=null]
 	            $current = createModelElement(grammarAccess.getAssurancePlanRule());
 	        }
         }
-	otherlv_20=RULE_ID
+	otherlv_17=RULE_ID
 	{
-		newLeafNode(otherlv_20, grammarAccess.getAssurancePlanAccess().getAssureSubsystemsSubcomponentCrossReference_7_4_2_0_0()); 
+		newLeafNode(otherlv_17, grammarAccess.getAssurancePlanAccess().getAssureSubsystemsSubcomponentCrossReference_7_3_2_0_0()); 
 	}
 
 )
 )+
     |(
 (
-		lv_assureAll_21_0=	'all' 
+		lv_assureAll_18_0=	'all' 
     {
-        newLeafNode(lv_assureAll_21_0, grammarAccess.getAssurancePlanAccess().getAssureAllAllKeyword_7_4_2_1_0());
+        newLeafNode(lv_assureAll_18_0, grammarAccess.getAssurancePlanAccess().getAssureAllAllKeyword_7_3_2_1_0());
     }
  
 	    {
@@ -501,17 +466,17 @@ ruleAssurancePlan returns [EObject current=null]
 			)  |
 
 			( 
-				{getUnorderedGroupHelper().canSelect(grammarAccess.getAssurancePlanAccess().getUnorderedGroup_7(), 5)}?=>(
+				{getUnorderedGroupHelper().canSelect(grammarAccess.getAssurancePlanAccess().getUnorderedGroup_7(), 4)}?=>(
 					{ 
-	 				  getUnorderedGroupHelper().select(grammarAccess.getAssurancePlanAccess().getUnorderedGroup_7(), 5);
+	 				  getUnorderedGroupHelper().select(grammarAccess.getAssurancePlanAccess().getUnorderedGroup_7(), 4);
 	 				}
-					({true}?=>(	otherlv_22='assume' 
+					({true}?=>(	otherlv_19='assume' 
     {
-    	newLeafNode(otherlv_22, grammarAccess.getAssurancePlanAccess().getAssumeKeyword_7_5_0());
+    	newLeafNode(otherlv_19, grammarAccess.getAssurancePlanAccess().getAssumeKeyword_7_4_0());
     }
-	otherlv_23='subsystem' 
+	otherlv_20='subsystem' 
     {
-    	newLeafNode(otherlv_23, grammarAccess.getAssurancePlanAccess().getSubsystemKeyword_7_5_1());
+    	newLeafNode(otherlv_20, grammarAccess.getAssurancePlanAccess().getSubsystemKeyword_7_4_1());
     }
 ((
 (
@@ -520,18 +485,18 @@ ruleAssurancePlan returns [EObject current=null]
 	            $current = createModelElement(grammarAccess.getAssurancePlanRule());
 	        }
         }
-	otherlv_24=RULE_ID
+	otherlv_21=RULE_ID
 	{
-		newLeafNode(otherlv_24, grammarAccess.getAssurancePlanAccess().getAssumeSubsystemsSubcomponentCrossReference_7_5_2_0_0()); 
+		newLeafNode(otherlv_21, grammarAccess.getAssurancePlanAccess().getAssumeSubsystemsSubcomponentCrossReference_7_4_2_0_0()); 
 	}
 
 )
 )+
     |(
 (
-		lv_assumeAll_25_0=	'all' 
+		lv_assumeAll_22_0=	'all' 
     {
-        newLeafNode(lv_assumeAll_25_0, grammarAccess.getAssurancePlanAccess().getAssumeAllAllKeyword_7_5_2_1_0());
+        newLeafNode(lv_assumeAll_22_0, grammarAccess.getAssurancePlanAccess().getAssumeAllAllKeyword_7_4_2_1_0());
     }
  
 	    {
@@ -550,19 +515,19 @@ ruleAssurancePlan returns [EObject current=null]
 			)  |
 
 			( 
-				{getUnorderedGroupHelper().canSelect(grammarAccess.getAssurancePlanAccess().getUnorderedGroup_7(), 6)}?=>(
+				{getUnorderedGroupHelper().canSelect(grammarAccess.getAssurancePlanAccess().getUnorderedGroup_7(), 5)}?=>(
 					{ 
-	 				  getUnorderedGroupHelper().select(grammarAccess.getAssurancePlanAccess().getUnorderedGroup_7(), 6);
+	 				  getUnorderedGroupHelper().select(grammarAccess.getAssurancePlanAccess().getUnorderedGroup_7(), 5);
 	 				}
-					({true}?=>(	otherlv_26='issues' 
+					({true}?=>(	otherlv_23='issues' 
     {
-    	newLeafNode(otherlv_26, grammarAccess.getAssurancePlanAccess().getIssuesKeyword_7_6_0());
+    	newLeafNode(otherlv_23, grammarAccess.getAssurancePlanAccess().getIssuesKeyword_7_5_0());
     }
 (
 (
-		lv_issues_27_0=RULE_STRING
+		lv_issues_24_0=RULE_STRING
 		{
-			newLeafNode(lv_issues_27_0, grammarAccess.getAssurancePlanAccess().getIssuesSTRINGTerminalRuleCall_7_6_1_0()); 
+			newLeafNode(lv_issues_24_0, grammarAccess.getAssurancePlanAccess().getIssuesSTRINGTerminalRuleCall_7_5_1_0()); 
 		}
 		{
 	        if ($current==null) {
@@ -571,7 +536,7 @@ ruleAssurancePlan returns [EObject current=null]
        		addWithLastConsumed(
        			$current, 
        			"issues",
-        		lv_issues_27_0, 
+        		lv_issues_24_0, 
         		"org.eclipse.xtext.common.Terminals.STRING");
 	    }
 
@@ -590,9 +555,9 @@ ruleAssurancePlan returns [EObject current=null]
 	  getUnorderedGroupHelper().leave(grammarAccess.getAssurancePlanAccess().getUnorderedGroup_7());
 	}
 
-)	otherlv_28=']' 
+)	otherlv_25=']' 
     {
-    	newLeafNode(otherlv_28, grammarAccess.getAssurancePlanAccess().getRightSquareBracketKeyword_8());
+    	newLeafNode(otherlv_25, grammarAccess.getAssurancePlanAccess().getRightSquareBracketKeyword_8());
     }
 )
 ;
