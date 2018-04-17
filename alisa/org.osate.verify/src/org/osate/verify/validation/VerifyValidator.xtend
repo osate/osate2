@@ -33,6 +33,9 @@ import org.osate.aadl2.AadlBoolean
 import org.osate.aadl2.AadlInteger
 import org.osate.aadl2.AadlReal
 import org.osate.aadl2.AadlString
+import org.osate.aadl2.Connection
+import org.osate.aadl2.EndToEndFlow
+import org.osate.aadl2.Feature
 import org.osate.aadl2.PropertyType
 import org.osate.alisa.common.common.PropertyRef
 import org.osate.alisa.common.util.ExecuteJavaUtil
@@ -45,6 +48,7 @@ import org.osate.verify.verify.JUnit4Method
 import org.osate.verify.verify.JavaMethod
 import org.osate.verify.verify.PluginMethod
 import org.osate.verify.verify.ResoluteMethod
+import org.osate.verify.verify.TargetType
 import org.osate.verify.verify.Verification
 import org.osate.verify.verify.VerificationActivity
 import org.osate.verify.verify.VerificationCondition
@@ -54,12 +58,6 @@ import org.osate.verify.verify.VerificationPlan
 import org.osate.verify.verify.VerifyPackage
 
 import static extension org.osate.verify.util.VerifyUtilExtension.*
-import static extension org.osate.reqspec.util.ReqSpecUtilExtension.*
-import org.osate.verify.verify.TargetType
-import org.osate.aadl2.ComponentCategory
-import org.osate.aadl2.Feature
-import org.osate.aadl2.EndToEndFlow
-import org.osate.aadl2.Connection
 
 /**
  * Custom validation rules. 
@@ -143,7 +141,7 @@ class VerifyValidator extends VerifyTypeSystemValidator {
 			val req = va.containingClaim?.requirement
 			val target = req?.targetElement
 			val cat = req?.componentCategory
-			if ((target === null || cat !== null) && !req.connections){
+			if ((target === null || !cat.empty) && !req.connections){
 				if (!(vm.targetType === TargetType.COMPONENT|| vm.targetType === TargetType.ELEMENT|| vm.targetType === TargetType.ROOT)){
 				error(
 				"Requirement is for component while verification method is not for component, element, or root",
