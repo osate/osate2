@@ -133,10 +133,16 @@ model. The same icon is used in the tool bar to identify the command.
 
 ![FHA Invocation](images/InvokeFHA.png "FHA Invocation")
 
-You will find three variant of the **Functional Hazard Assessment** command. The generic command 
-looks for EMV2::Hazards property values. The **Functional Hazard Assessment (ARP4761)** command 
-generates a report for APR4761::Hazards values. Finally, the 
-**Functional Hazard Assessment (MILSTD882)** command generates a report for MILSTD882::Hazards values.
+The **Functional Hazard Assessment** command uses one of three property sets.  The set that it uses is 
+controlled by the `OSATE > Analysis > Functional Hazard Assessment` pane in the OSATE
+preferences window:
+
+![FHA Preferences Pane](images/FHAPreferences.png "FHA Preferences Pane")
+
+The radio button has three settings:
+* **EMV2** to use the `EMV2::Hazards` property set
+* **MILSTD882** to use the `MILSTD882::Hazards` property set
+* **ARP4761** to use the `ARP4761::Hazards` property set
 
 The FHA report is a cvs file that can be found in the **reports** folder under the **FHA** 
 sub-folder.
