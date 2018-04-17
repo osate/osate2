@@ -14,7 +14,7 @@ public
 	    	-- Inverse of the extended feature group, members inferred
 	    	inverseExtendedInferred: feature group inverseExtendedInferred;
 	    	-- Inverse of the extended feature group, explicit members
-	  		inverseExplicitExplicit: feature group InverseExtendedExplicit;
+	  		inverseExtendedExplicit: feature group InverseExtendedExplicit;
 			    
 			-- Extended feature group, but doesn't add any new members
 	    	emptyExtendedFeatureGroup: feature group EmptyExtendedFeatureGroup;
