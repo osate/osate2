@@ -64,7 +64,7 @@ import org.osate.analysis.flows.model.LatencyContributorConnection;
 import org.osate.analysis.flows.model.LatencyReport;
 import org.osate.analysis.flows.model.LatencyReportEntry;
 import org.osate.analysis.flows.preferences.Values;
-import org.osate.result.Result;
+import org.osate.result.AnalysisResult;
 import org.osate.xtext.aadl2.properties.util.ARINC653ScheduleWindow;
 import org.osate.xtext.aadl2.properties.util.CommunicationProperties;
 import org.osate.xtext.aadl2.properties.util.GetProperties;
@@ -686,12 +686,12 @@ public class FlowLatencyAnalysisSwitch extends AadlProcessingSwitchWithProgress 
 	 * @param monitor The progress monitor to use
 	 * @param root The root system instance
 	 * @param som The mode to run the analysis in
-	 * @return A populated report in Result format.
+	 * @return A populated report in AnalysisResult format.
 	 */
-	public Result invokeAndGetResult(SystemInstance root, SystemOperationMode som) {
+	public AnalysisResult invokeAndGetResult(SystemInstance root, SystemOperationMode som) {
 		root.setCurrentSystemOperationMode(som);
 		this.processPreOrderAll(root);
-		Result results = report.genResult();
+		AnalysisResult results = report.genResult();
 		root.clearCurrentSystemOperationMode();
 		return results;
 	}
