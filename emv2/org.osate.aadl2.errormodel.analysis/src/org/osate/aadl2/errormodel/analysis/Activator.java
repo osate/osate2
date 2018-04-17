@@ -1,6 +1,9 @@
 package org.osate.aadl2.errormodel.analysis;
 
+import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
+import org.osate.aadl2.errormodel.analysis.fha.FHAReport;
+import org.osate.aadl2.errormodel.analysis.fha.FHAReport.HazardFormat;
 import org.osgi.framework.BundleContext;
 
 /**
@@ -10,6 +13,12 @@ public class Activator extends AbstractUIPlugin {
 
 	// The plug-in ID
 	public static final String PLUGIN_ID = "org.osate.aadl2.errormodel.analysis"; //$NON-NLS-1$
+
+	/**
+	 * Name of the preference for which version of the analysis to use.
+	 */
+	public static final String HAZARD_FORMAT_PREF = "hazardFormat";
+	public static final String HAZARD_FORMAT_DEFAULT = FHAReport.HazardFormat.EMV2.name();
 
 	// The shared instance
 	private static Activator plugin;
@@ -22,7 +31,7 @@ public class Activator extends AbstractUIPlugin {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see org.eclipse.ui.plugin.AbstractUIPlugin#start(org.osgi.framework.BundleContext)
 	 */
 	@Override
@@ -33,7 +42,7 @@ public class Activator extends AbstractUIPlugin {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see org.eclipse.ui.plugin.AbstractUIPlugin#stop(org.osgi.framework.BundleContext)
 	 */
 	@Override
@@ -49,6 +58,11 @@ public class Activator extends AbstractUIPlugin {
 	 */
 	public static Activator getDefault() {
 		return plugin;
+	}
+
+	public HazardFormat getHazardFormatPreference() {
+		final IPreferenceStore store = getPreferenceStore();
+		return HazardFormat.valueOf(store.getString(HAZARD_FORMAT_PREF));
 	}
 
 }
