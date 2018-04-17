@@ -41,16 +41,6 @@ class AlisaValidator extends AbstractAlisaValidator {
 	public static val ASSURANCE_PLAN_OWN_INVALID_VERIFICATION_PLANS = 'org.osate.alisa.workbench.validation.assurance.plan.own.invalid.verification.plans'
 	public static val ASSURANCE_PLAN_TARGET_INCORRECT = 'org.osate.alisa.workbench.validation.assurance.plan.target.incorrect'
 
-//  public static val INVALID_NAME = 'invalidName'
-//
-//	@Check
-//	def checkGreetingStartsWithCapital(Greeting greeting) {
-//		if (!Character.isUpperCase(greeting.name.charAt(0))) {
-//			warning('Name should start with a capital', 
-//					MyDslPackage.Literals.GREETING__NAME,
-//					INVALID_NAME)
-//		}
-//	}
 	@Inject extension IVerifyGlobalReferenceFinder referenceFinder
 
 	@Check(CheckType.NORMAL)

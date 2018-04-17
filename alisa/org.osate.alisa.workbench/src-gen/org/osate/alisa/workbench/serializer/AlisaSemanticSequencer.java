@@ -254,6 +254,7 @@ public class AlisaSemanticSequencer extends CommonSemanticSequencer {
 	 *         (
 	 *             description=Description | 
 	 *             assure+=[VerificationPlan|QualifiedName] | 
+	 *             assureSelf+=[VerificationPlan|QualifiedName] | 
 	 *             assureGlobal+=[VerificationPlan|QualifiedName] | 
 	 *             assureSubsystems+=[Subcomponent|ID] | 
 	 *             assureAll?='all' | 

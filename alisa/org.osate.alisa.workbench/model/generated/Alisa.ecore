@@ -21,6 +21,8 @@
         containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="assure" unique="false"
         upperBound="-1" eType="ecore:EClass platform:/resource/org.osate.verify/model/generated/Verify.ecore#//VerificationPlan"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="assureSelf" unique="false"
+        upperBound="-1" eType="ecore:EClass platform:/resource/org.osate.verify/model/generated/Verify.ecore#//VerificationPlan"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="assureGlobal" unique="false"
         upperBound="-1" eType="ecore:EClass platform:/resource/org.osate.verify/model/generated/Verify.ecore#//VerificationPlan"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="assureSubsystems" unique="false"

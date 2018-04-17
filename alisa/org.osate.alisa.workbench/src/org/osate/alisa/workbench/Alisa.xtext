@@ -22,6 +22,7 @@ AssurancePlan:
 	'['(
 	(description=Description)?
 	& ('assure' assure+=[Verify::VerificationPlan|QualifiedName]+)?
+	& ('assure' 'self' assureSelf+=[Verify::VerificationPlan|QualifiedName]+)?
 	& ('assure''global' assureGlobal+=[Verify::VerificationPlan|QualifiedName]+)?
 	& ('assure' 'subsystem' (assureSubsystems+=[aadl2::Subcomponent|ID]+|assureAll?='all'))?
 	& ('assume' 'subsystem' (assumeSubsystems+=[aadl2::Subcomponent|ID]+|assumeAll?='all'))?
