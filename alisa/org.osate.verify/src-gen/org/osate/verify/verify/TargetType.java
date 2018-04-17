@@ -90,7 +90,17 @@ public enum TargetType implements Enumerator
    * @generated
    * @ordered
    */
-  ELEMENT(5, "ELEMENT", "element");
+  ELEMENT(5, "ELEMENT", "element"),
+
+  /**
+   * The '<em><b>ROOT</b></em>' literal object.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #ROOT_VALUE
+   * @generated
+   * @ordered
+   */
+  ROOT(6, "ROOT", "root");
 
   /**
    * The '<em><b>COMPONENT</b></em>' literal value.
@@ -183,6 +193,21 @@ public enum TargetType implements Enumerator
   public static final int ELEMENT_VALUE = 5;
 
   /**
+   * The '<em><b>ROOT</b></em>' literal value.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of '<em><b>ROOT</b></em>' literal object isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @see #ROOT
+   * @model literal="root"
+   * @generated
+   * @ordered
+   */
+  public static final int ROOT_VALUE = 6;
+
+  /**
    * An array of all the '<em><b>Target Type</b></em>' enumerators.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -197,6 +222,7 @@ public enum TargetType implements Enumerator
       FLOW,
       MODE,
       ELEMENT,
+      ROOT,
     };
 
   /**
@@ -267,6 +293,7 @@ public enum TargetType implements Enumerator
       case FLOW_VALUE: return FLOW;
       case MODE_VALUE: return MODE;
       case ELEMENT_VALUE: return ELEMENT;
+      case ROOT_VALUE: return ROOT;
     }
     return null;
   }

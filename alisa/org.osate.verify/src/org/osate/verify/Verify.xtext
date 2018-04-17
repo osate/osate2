@@ -127,7 +127,7 @@ VerificationMethodRegistry returns VerificationMethodRegistry:
 FormalParameter returns FormalParameter:
 	name=ID ':' (type=TypeRef | 'typeof' type=PropertyRef) ('in' unit=[aadl2::UnitLiteral|ID])?;
 
-enum TargetType: COMPONENT='component'|FEATURE='feature'|CONNECTION='connection'|FLOW='flow'|MODE='mode'|ELEMENT='element';
+enum TargetType: COMPONENT='component'|FEATURE='feature'|CONNECTION='connection'|FLOW='flow'|MODE='mode'|ELEMENT='element'|ROOT='root';
 
 VerificationMethod:
 	'method' name=ID 

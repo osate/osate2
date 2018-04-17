@@ -664,7 +664,6 @@ class AssureUtilExtension {
 	private def static ModelResult recomputeAllCounts(ModelResult modelResult, CategoryFilter filter) {
 		modelResult.recomputeAllCounts(modelResult.claimResult, filter)
 		modelResult.recomputeAllCounts(modelResult.subsystemResult, filter)
-		modelResult.recomputeAllCounts(modelResult.subAssuranceCase, filter)
 		modelResult
 	}
 
@@ -968,7 +967,6 @@ class AssureUtilExtension {
 		modelResult.resetCounts
 		modelResult.claimResult.forEach[e|e.addTo(modelResult)]
 		modelResult.subsystemResult.forEach[e|e.addTo(modelResult)]
-		modelResult.subAssuranceCase.forEach[e|e.addTo(modelResult)]
 		modelResult
 	}
 

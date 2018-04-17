@@ -15,6 +15,7 @@
       <genEnumLiterals ecoreEnumLiteral="Verify.ecore#//TargetType/FLOW"/>
       <genEnumLiterals ecoreEnumLiteral="Verify.ecore#//TargetType/MODE"/>
       <genEnumLiterals ecoreEnumLiteral="Verify.ecore#//TargetType/ELEMENT"/>
+      <genEnumLiterals ecoreEnumLiteral="Verify.ecore#//TargetType/ROOT"/>
     </genEnums>
     <genClasses ecoreClass="Verify.ecore#//Verification">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Verify.ecore#//Verification/contents"/>

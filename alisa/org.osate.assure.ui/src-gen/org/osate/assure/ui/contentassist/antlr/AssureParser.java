@@ -49,7 +49,6 @@ public class AssureParser extends AbstractContentAssistParser {
 			nameMappings = new HashMap<AbstractElement, String>() {
 				private static final long serialVersionUID = 1L;
 				{
-					put(grammarAccess.getModelResultAccess().getAlternatives_8(), "rule__ModelResult__Alternatives_8");
 					put(grammarAccess.getAssureResultAccess().getAlternatives(), "rule__AssureResult__Alternatives");
 					put(grammarAccess.getVerificationExprAccess().getAlternatives(), "rule__VerificationExpr__Alternatives");
 					put(grammarAccess.getQualifiedVerificationPlanElementReferenceAccess().getAlternatives(), "rule__QualifiedVerificationPlanElementReference__Alternatives");
@@ -233,8 +232,7 @@ public class AssureParser extends AbstractContentAssistParser {
 					put(grammarAccess.getModelResultAccess().getMetricsAssignment_5(), "rule__ModelResult__MetricsAssignment_5");
 					put(grammarAccess.getModelResultAccess().getMessageAssignment_6_1(), "rule__ModelResult__MessageAssignment_6_1");
 					put(grammarAccess.getModelResultAccess().getClaimResultAssignment_7(), "rule__ModelResult__ClaimResultAssignment_7");
-					put(grammarAccess.getModelResultAccess().getSubsystemResultAssignment_8_0(), "rule__ModelResult__SubsystemResultAssignment_8_0");
-					put(grammarAccess.getModelResultAccess().getSubAssuranceCaseAssignment_8_1(), "rule__ModelResult__SubAssuranceCaseAssignment_8_1");
+					put(grammarAccess.getModelResultAccess().getSubsystemResultAssignment_8(), "rule__ModelResult__SubsystemResultAssignment_8");
 					put(grammarAccess.getSubsystemResultAccess().getTargetSystemAssignment_1(), "rule__SubsystemResult__TargetSystemAssignment_1");
 					put(grammarAccess.getSubsystemResultAccess().getMetricsAssignment_3(), "rule__SubsystemResult__MetricsAssignment_3");
 					put(grammarAccess.getSubsystemResultAccess().getMessageAssignment_4_1(), "rule__SubsystemResult__MessageAssignment_4_1");

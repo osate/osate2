@@ -113,7 +113,6 @@ class AssureRequirementMetricsProcessor implements IAssureRequirementMetricsProc
 //		modelResult.metrics.reqTargetHasEMV2SubclauseCount = targetReqs.map[requirements.filter[target.hasEMV2Subclause]].flatten.filter[filterRequirement(categoryFilter)].size
 
 		modelResult.subsystemResult.forEach[subsystemResult|subsystemResult.process]	
-		modelResult.subAssuranceCase.forEach[subAssuranceCase|subAssuranceCase.process]
 	}
 
 

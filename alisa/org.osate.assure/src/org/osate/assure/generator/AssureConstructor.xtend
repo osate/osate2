@@ -69,6 +69,8 @@ import org.osate.verify.verify.VerificationValidation
 import static extension org.osate.alisa.common.util.CommonUtilExtension.*
 import static extension org.osate.reqspec.util.ReqSpecUtilExtension.*
 import static extension org.osate.verify.util.VerifyUtilExtension.*
+import org.osate.reqspec.util.IReqspecGlobalReferenceFinder
+import org.osate.verify.verify.TargetType
 
 @ImplementedBy(AssureConstructor)
 interface IAssureConstructor {
@@ -88,10 +90,13 @@ class AssureConstructor implements IAssureConstructor {
 
 	var EList<Claim> globalClaims
 	
+	var isRoot = true;
+	
 
 	override generateFullAssuranceCase(AssuranceCase acs) {
 		globalPlans = new UniqueEList()
 		globalClaims = new UniqueEList()
+		isRoot = true
 		acs.constructAssuranceCaseResult(null)
 	}
 	
@@ -137,9 +142,9 @@ class AssureConstructor implements IAssureConstructor {
 		mr.metrics = factory.createMetrics
 		mr.metrics.tbdCount = 0
 
-		doAssurancePlanClaimResultsParts(acp, myplans, cc, mr.claimResult, mr.subsystemResult, mr.subAssuranceCase, false)
+		doAssurancePlanClaimResultsParts(acp, myplans, cc, mr.claimResult, mr.subsystemResult,  false)
 
-		if (mr.claimResult.length == 0 && mr.subsystemResult.length == 0 && mr.subAssuranceCase.length == 0) return null
+		if (mr.claimResult.length == 0 && mr.subsystemResult.length == 0 ) return null
 
 		mr
 	}
@@ -150,35 +155,33 @@ class AssureConstructor implements IAssureConstructor {
 		Iterable<VerificationPlan> vplans,
 		ComponentClassifier cc,
 		EList<ClaimResult> claimResultList,
-		EList<SubsystemResult> subsystemResultList,
-		EList<AssuranceCaseResult> subAssuranceCaseList, boolean globalOnly
+		EList<SubsystemResult> subsystemResultList, boolean globalOnly
 	) {
 		// first collect any global and self includes
-		val selfPlans = new BasicEList()
-		val selfClaims = new BasicEList()
+		val selfPlans = new UniqueEList()
+		val selfClaims = new UniqueEList()
+		// remember top so we can remove any added items at the end
 		val globalPlansTop = globalPlans.size
 		val globalClaimsTop = globalClaims.size
-
-		// val EList<ClaimResult> returnList =  new BasicEList()
-		for (vplan : vplans) {
-			val reqs = vplan.requirementSet
+		val sysreqs = rRreferenceFinder.getSystemRequirementSets(cc)
+		for (reqs : sysreqs) {
 			if (reqs instanceof SystemRequirementSet) {
 				val includes = reqs.include
 				for (incl : includes) {
 					if (incl.include instanceof RequirementSet) {
 						if (incl.componentCategory.matchingCategory(cc.category)) {
-							val plans = referenceFinder.
-								getAllVerificationPlansForRequirements(incl.include as RequirementSet, vplan)
+							val plans = vReferenceFinder.
+								getAllVerificationPlansForRequirements(incl.include as RequirementSet, reqs)
 							if (incl.self) {
 								selfPlans.addAll(plans)
 							} else {
 								globalPlans.addAll(plans)
 							}
 						}
-					} else {
+					} else if (incl.include instanceof Requirement){
 						val greq = incl.include as Requirement
 						val greqs = greq.containingRequirementSet
-						val plans = referenceFinder.getAllVerificationPlansForRequirements(greqs, vplan)
+						val plans = vReferenceFinder.getAllVerificationPlansForRequirements(greqs, reqs)
 						for (vp : plans) {
 							for (claim : vp.claim) {
 								if (claim.requirement.name.equals(greq.name)) {
@@ -223,7 +226,7 @@ class AssureConstructor implements IAssureConstructor {
 
 		if (cc instanceof ComponentImplementation) {
 			for (subc : cc.allSubcomponents) {
-				subc.generateSubsystemPlans(assurancePlan, subsystemResultList, subAssuranceCaseList, globalOnly)
+				subc.generateSubsystemPlans(assurancePlan, subsystemResultList, globalOnly)
 			}
 		}
 
@@ -327,18 +330,20 @@ class AssureConstructor implements IAssureConstructor {
 	def void generateSubsystemPlans(
 		Subcomponent subc,
 		AssurancePlan parentap,
-		EList<SubsystemResult> subsystemResultList,
-		EList<AssuranceCaseResult> subAssuranceCaseList, boolean globalOnly
+		EList<SubsystemResult> subsystemResultList,boolean globalOnly
 	) {
 		val cc = subc.allClassifier
 		if (cc === null) {
 			return
 		}
+		val prevIsRoot = isRoot
+		isRoot = false
 		if (globalOnly || subc.isAssumeSubsystem(parentap)) {
 			subc.generateSubsystemGlobalOnly(parentap, subsystemResultList)
-			return
-		}
+		} else {
 			subc.generateSubsystemVerificationPlansGlobals(parentap, subsystemResultList)
+		}
+		isRoot = prevIsRoot
 	}
 
 	/**
@@ -360,7 +365,7 @@ class AssureConstructor implements IAssureConstructor {
 		ssr.metrics = factory.createMetrics
 		ssr.metrics.tbdCount = 0
 
-		doAssurancePlanClaimResultsParts(mp, myplans, cc, ssr.claimResult, ssr.subsystemResult, null,false)
+		doAssurancePlanClaimResultsParts(mp, myplans, cc, ssr.claimResult, ssr.subsystemResult, false)
 		subsystemResultList.add(ssr)
 
 	}
@@ -377,7 +382,7 @@ class AssureConstructor implements IAssureConstructor {
 		ssr.metrics = factory.createMetrics
 		ssr.metrics.tbdCount = 0
 
-		doAssurancePlanClaimResultsParts(mp, myplans, sub.allClassifier, ssr.claimResult, ssr.subsystemResult, null,true)
+		doAssurancePlanClaimResultsParts(mp, myplans, sub.allClassifier, ssr.claimResult, ssr.subsystemResult, true)
 		subsystemResultList.add(ssr)
 	}
 
@@ -401,6 +406,10 @@ class AssureConstructor implements IAssureConstructor {
 	}
 
 	def void addVAR(VerificationActivity va, EList<VerificationActivityResult> vaList) {
+		val claim = va.containingClaim
+		if (va.method.targetType === TargetType.ROOT && !isRoot){
+			return
+		}
 		val vaResult = factory.createVerificationActivityResult
 
 		// QualifiedVAReference
@@ -408,7 +417,6 @@ class AssureConstructor implements IAssureConstructor {
 		qvr.verificationPlan = va.containingVerificationPlan
 
 		val NestedClaimReference ncr = factory.createNestedClaimReference
-		val claim = va.containingClaim
 		ncr.requirement = claim.requirement
 
 		qvr.requirement = constructClaimReferencePath(claim, ncr)
@@ -442,7 +450,9 @@ class AssureConstructor implements IAssureConstructor {
 		return ncr
 	}
 
-	@Inject extension IVerifyGlobalReferenceFinder referenceFinder
+	@Inject extension IReqspecGlobalReferenceFinder rRreferenceFinder
+
+	@Inject extension IVerifyGlobalReferenceFinder vReferenceFinder
 
 	def void construct(List<VerificationExpr> arl, ArgumentExpr expr) {
 		switch expr {
