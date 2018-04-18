@@ -411,19 +411,22 @@ public class LatencyReportEntry {
 		return res;
 	}
 
-	public void doSampledProtocol(LatencyContributor lc, boolean doMaximum, LatencyContributor last) {
+	public void doSampledProtocol(LatencyContributor lc, boolean doMaximum, LatencyContributor enclosing) {
 		double sp = lc.getSamplingPeriod();
 		if (lc.getWorstcaseLatencyContributorMethod().equals(LatencyContributorMethod.SAMPLED_PROTOCOL) && sp > 0.0) {
-			double lastsp = last == null ? 0.0 : last.getSamplingPeriod();
-			if (last != null && sp > lastsp) {
-				last.setActualValue(0.0, doMaximum);
-				last.reportInfoOnce(doMaximum,
-						"Sampling period of " + lastsp + "ms accounted for in suceeding protocol");
+			double enclosingsp = enclosing == null ? 0.0 : enclosing.getSamplingPeriod();
+			if (enclosing == null || sp > enclosingsp) {
+				if (enclosing != null) {
+					// reset sampling contribution by enclosing as the inner is higher
+					enclosing.setActualValue(0.0, doMaximum);
+					enclosing.reportInfoOnce(doMaximum,
+							"Sampling period of " + enclosingsp + "ms accounted for in suceeding protocol");
+				}
 				if (doSynchronous() && wasSampled()) {
 					// there was a previous sampling component. We can to the roundup game.
 					double diff = FlowLatencyUtil.roundUpDiff(getCumLatency(lc, doMaximum), sp);
 					lc.setActualValue(diff, doMaximum);
-					last = lc;
+					enclosing = lc;
 					lc.reportInfo(doMaximum, "Round up to sampling period " + lc.getSamplingPeriod() + "ms");
 					if (doSynchronous() && isPreviousConnectionSyncUnknown(lc)) {
 						lc.reportInfoOnce(doMaximum, "Assume synchronous communication");
@@ -435,9 +438,9 @@ public class LatencyReportEntry {
 				} else {
 					if (doMaximum) {
 						lc.setActualValue(sp, doMaximum);
-						last = lc;
+						enclosing = lc;
 						lc.reportInfo(
-								"Best case 0 ms worst case " + lc.getSamplingPeriod() + "ms (period) sampling delay");
+								"Best case 0 ms worst case " + sp + "ms (period) sampling delay");
 					} else {
 //				TODO: may want to enable				lc.reportInfo(doMaximum, "Best case: no sampling delay");
 					}
@@ -449,7 +452,7 @@ public class LatencyReportEntry {
 		}
 		List<LatencyContributor> sublc = lc.getSubContributors();
 		for (LatencyContributor latencyContributor : sublc) {
-			doSampledProtocol(latencyContributor, doMaximum, last);
+			doSampledProtocol(latencyContributor, doMaximum, enclosing);
 		}
 		return;
 	}
