@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.osate.aadl2.NamedElement;
+import org.osate.aadl2.instance.ConnectionInstance;
 import org.osate.aadl2.instance.InstanceObject;
 import org.osate.aadl2.modelsupport.errorreporting.AnalysisErrorReporterManager;
 import org.osate.analysis.flows.FlowLatencyUtil;
@@ -433,20 +434,48 @@ public abstract class LatencyContributor {
 	}
 
 	public double getTotalMinimumSpecified() {
-		double res = this.expectedMin;
+		double spec = this.expectedMin;
+		double res = 0;
 		for (LatencyContributor lc : subContributors) {
-			res = lc.getTotalMinimumSpecified();
+			res = res + lc.getTotalMinimumSpecified();
 		}
-
+		if (this.relatedElement instanceof ConnectionInstance) {
+			// we compare the subtotals against own
+			if (spec > 0 && res > spec) {
+				reportWarning("specified min protocol latency subtotal " + res + " exceeds connection latency " + spec);
+			} else {
+				if (spec > 0) {
+					reportInfo("Using specified min protocol latency subtotal " + res
+							+ " although specified connection latency " + spec + " is greater");
+				}
+			}
+		} else {
+			// we add own to subtotals
+			res = res + spec;
+		}
 		return res;
 	}
 
 	public double getTotalMaximumSpecified() {
-		double res = this.expectedMax;
+		double spec = this.expectedMax;
+		double res = 0;
 		for (LatencyContributor lc : subContributors) {
-			res = lc.getTotalMaximumSpecified();
+			res = res + lc.getTotalMaximumSpecified();
 		}
-
+		if (this.relatedElement instanceof ConnectionInstance) {
+			// we compare the subtotals against own
+			if (spec > 0 && res > spec) {
+				reportWarning("specified max protocol latency subtotal " + res + " exceeds connection latency " + spec);
+			} else {
+				if (spec > 0) {
+					reportInfo("Using max specified protocol latency subtotal " + res
+							+ " although specified connection latency " + spec + " is greater");
+				}
+			}
+		} else {
+			// we add own to subtotals
+			res = res + spec;
+		}
 		return res;
 	}
 
