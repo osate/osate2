@@ -3054,6 +3054,13 @@ rule__TargetType__Alternatives
 { after(grammarAccess.getTargetTypeAccess().getELEMENTEnumLiteralDeclaration_5()); }
 )
 
+    |(
+{ before(grammarAccess.getTargetTypeAccess().getROOTEnumLiteralDeclaration_6()); }
+(	'root' 
+)
+{ after(grammarAccess.getTargetTypeAccess().getROOTEnumLiteralDeclaration_6()); }
+)
+
 ;
 finally {
 	restoreStackSize(stackSize);

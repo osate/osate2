@@ -38,7 +38,7 @@ import java.util.HashMap;
 @SuppressWarnings("all")
 public class InternalVerifyParser extends AbstractInternalAntlrParser {
     public static final String[] tokenNames = new String[] {
-        "<invalid>", "<EOR>", "<DOWN>", "<UP>", "RULE_STRING", "RULE_INT", "RULE_ID", "RULE_REAL_LIT", "RULE_DIGIT", "RULE_EXPONENT", "RULE_INT_EXPONENT", "RULE_EXTENDED_DIGIT", "RULE_BASED_INTEGER", "RULE_ML_COMMENT", "RULE_SL_COMMENT", "RULE_WS", "RULE_ANY_OTHER", "'verification'", "'plan'", "':'", "'for'", "'['", "'issues'", "']'", "'claim'", "'activities'", "'assert'", "'weight'", "'then'", "'else'", "'fail'", "'timeout'", "'error'", "'all'", "','", "'('", "')'", "'='", "'property'", "'values'", "'category'", "'validation'", "'precondition'", "'methods'", "'typeof'", "'in'", "'method'", "'properties'", "'returns'", "'boolean'", "'report'", "'resolute'", "'java'", "'manual'", "'plugin'", "'agree'", "'single'", "'junit'", "'description'", "'this'", "'rationale'", "'integer'", "'units'", "'real'", "'string'", "'model'", "'element'", "'#'", "'.'", "'%'", "'img'", "'/'", "'or'", "'||'", "'and'", "'&&'", "'=='", "'!='", "'>='", "'<='", "'>'", "'<'", "'><'", "'+'", "'-'", "'*'", "'div'", "'mod'", "'not'", "'..'", "'delta'", "'if'", "'endif'", "'true'", "'false'", "'abstract'", "'bus'", "'data'", "'device'", "'memory'", "'process'", "'processor'", "'subprogram'", "'group'", "'system'", "'thread'", "'virtual'", "'::'", "'component'", "'feature'", "'connection'", "'flow'", "'mode'"
+        "<invalid>", "<EOR>", "<DOWN>", "<UP>", "RULE_STRING", "RULE_INT", "RULE_ID", "RULE_REAL_LIT", "RULE_DIGIT", "RULE_EXPONENT", "RULE_INT_EXPONENT", "RULE_EXTENDED_DIGIT", "RULE_BASED_INTEGER", "RULE_ML_COMMENT", "RULE_SL_COMMENT", "RULE_WS", "RULE_ANY_OTHER", "'verification'", "'plan'", "':'", "'for'", "'['", "'issues'", "']'", "'claim'", "'activities'", "'assert'", "'weight'", "'then'", "'else'", "'fail'", "'timeout'", "'error'", "'all'", "','", "'('", "')'", "'='", "'property'", "'values'", "'category'", "'validation'", "'precondition'", "'methods'", "'typeof'", "'in'", "'method'", "'properties'", "'returns'", "'boolean'", "'report'", "'resolute'", "'java'", "'manual'", "'plugin'", "'agree'", "'single'", "'junit'", "'description'", "'this'", "'rationale'", "'integer'", "'units'", "'real'", "'string'", "'model'", "'element'", "'#'", "'.'", "'%'", "'img'", "'/'", "'or'", "'||'", "'and'", "'&&'", "'=='", "'!='", "'>='", "'<='", "'>'", "'<'", "'><'", "'+'", "'-'", "'*'", "'div'", "'mod'", "'not'", "'..'", "'delta'", "'if'", "'endif'", "'true'", "'false'", "'abstract'", "'bus'", "'data'", "'device'", "'memory'", "'process'", "'processor'", "'subprogram'", "'group'", "'system'", "'thread'", "'virtual'", "'::'", "'component'", "'feature'", "'connection'", "'flow'", "'mode'", "'root'"
     };
     public static final int T__50=50;
     public static final int T__59=59;
@@ -133,6 +133,7 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
     public static final int T__81=81;
     public static final int T__110=110;
     public static final int T__82=82;
+    public static final int T__113=113;
     public static final int T__83=83;
     public static final int T__112=112;
     public static final int RULE_WS=15;
@@ -5714,7 +5715,7 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
                             int alt43=2;
                             int LA43_0 = input.LA(1);
 
-                            if ( (LA43_0==66||(LA43_0>=108 && LA43_0<=112)) ) {
+                            if ( (LA43_0==66||(LA43_0>=108 && LA43_0<=113)) ) {
                                 alt43=1;
                             }
                             switch (alt43) {
@@ -16456,7 +16457,7 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleTargetType"
-    // InternalVerify.g:5655:1: ruleTargetType returns [Enumerator current=null] : ( (enumLiteral_0= 'component' ) | (enumLiteral_1= 'feature' ) | (enumLiteral_2= 'connection' ) | (enumLiteral_3= 'flow' ) | (enumLiteral_4= 'mode' ) | (enumLiteral_5= 'element' ) ) ;
+    // InternalVerify.g:5655:1: ruleTargetType returns [Enumerator current=null] : ( (enumLiteral_0= 'component' ) | (enumLiteral_1= 'feature' ) | (enumLiteral_2= 'connection' ) | (enumLiteral_3= 'flow' ) | (enumLiteral_4= 'mode' ) | (enumLiteral_5= 'element' ) | (enumLiteral_6= 'root' ) ) ;
     public final Enumerator ruleTargetType() throws RecognitionException {
         Enumerator current = null;
 
@@ -16466,14 +16467,15 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
         Token enumLiteral_3=null;
         Token enumLiteral_4=null;
         Token enumLiteral_5=null;
+        Token enumLiteral_6=null;
 
          enterRule(); 
         try {
-            // InternalVerify.g:5657:28: ( ( (enumLiteral_0= 'component' ) | (enumLiteral_1= 'feature' ) | (enumLiteral_2= 'connection' ) | (enumLiteral_3= 'flow' ) | (enumLiteral_4= 'mode' ) | (enumLiteral_5= 'element' ) ) )
-            // InternalVerify.g:5658:1: ( (enumLiteral_0= 'component' ) | (enumLiteral_1= 'feature' ) | (enumLiteral_2= 'connection' ) | (enumLiteral_3= 'flow' ) | (enumLiteral_4= 'mode' ) | (enumLiteral_5= 'element' ) )
+            // InternalVerify.g:5657:28: ( ( (enumLiteral_0= 'component' ) | (enumLiteral_1= 'feature' ) | (enumLiteral_2= 'connection' ) | (enumLiteral_3= 'flow' ) | (enumLiteral_4= 'mode' ) | (enumLiteral_5= 'element' ) | (enumLiteral_6= 'root' ) ) )
+            // InternalVerify.g:5658:1: ( (enumLiteral_0= 'component' ) | (enumLiteral_1= 'feature' ) | (enumLiteral_2= 'connection' ) | (enumLiteral_3= 'flow' ) | (enumLiteral_4= 'mode' ) | (enumLiteral_5= 'element' ) | (enumLiteral_6= 'root' ) )
             {
-            // InternalVerify.g:5658:1: ( (enumLiteral_0= 'component' ) | (enumLiteral_1= 'feature' ) | (enumLiteral_2= 'connection' ) | (enumLiteral_3= 'flow' ) | (enumLiteral_4= 'mode' ) | (enumLiteral_5= 'element' ) )
-            int alt105=6;
+            // InternalVerify.g:5658:1: ( (enumLiteral_0= 'component' ) | (enumLiteral_1= 'feature' ) | (enumLiteral_2= 'connection' ) | (enumLiteral_3= 'flow' ) | (enumLiteral_4= 'mode' ) | (enumLiteral_5= 'element' ) | (enumLiteral_6= 'root' ) )
+            int alt105=7;
             switch ( input.LA(1) ) {
             case 108:
                 {
@@ -16503,6 +16505,11 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
             case 66:
                 {
                 alt105=6;
+                }
+                break;
+            case 113:
+                {
+                alt105=7;
                 }
                 break;
             default:
@@ -16620,6 +16627,25 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
 
                               current = grammarAccess.getTargetTypeAccess().getELEMENTEnumLiteralDeclaration_5().getEnumLiteral().getInstance();
                               newLeafNode(enumLiteral_5, grammarAccess.getTargetTypeAccess().getELEMENTEnumLiteralDeclaration_5()); 
+                          
+                    }
+
+                    }
+
+
+                    }
+                    break;
+                case 7 :
+                    // InternalVerify.g:5694:6: (enumLiteral_6= 'root' )
+                    {
+                    // InternalVerify.g:5694:6: (enumLiteral_6= 'root' )
+                    // InternalVerify.g:5694:8: enumLiteral_6= 'root'
+                    {
+                    enumLiteral_6=(Token)match(input,113,FOLLOW_2); if (state.failed) return current;
+                    if ( state.backtracking==0 ) {
+
+                              current = grammarAccess.getTargetTypeAccess().getROOTEnumLiteralDeclaration_6().getEnumLiteral().getInstance();
+                              newLeafNode(enumLiteral_6, grammarAccess.getTargetTypeAccess().getROOTEnumLiteralDeclaration_6()); 
                           
                     }
 
@@ -17202,19 +17228,20 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
 
     protected DFA46 dfa46 = new DFA46(this);
     protected DFA100 dfa100 = new DFA100(this);
-    static final String dfa_1s = "\12\uffff";
-    static final String dfa_2s = "\1\6\6\42\3\uffff";
-    static final String dfa_3s = "\1\160\6\44\3\uffff";
-    static final String dfa_4s = "\7\uffff\1\1\1\2\1\3";
-    static final String dfa_5s = "\12\uffff}>";
+    static final String dfa_1s = "\13\uffff";
+    static final String dfa_2s = "\1\6\7\42\3\uffff";
+    static final String dfa_3s = "\1\161\7\44\3\uffff";
+    static final String dfa_4s = "\10\uffff\1\1\1\2\1\3";
+    static final String dfa_5s = "\13\uffff}>";
     static final String[] dfa_6s = {
-            "\1\10\35\uffff\1\7\35\uffff\1\6\51\uffff\1\1\1\2\1\3\1\4\1\5",
-            "\1\11\1\uffff\1\7",
-            "\1\11\1\uffff\1\7",
-            "\1\11\1\uffff\1\7",
-            "\1\11\1\uffff\1\7",
-            "\1\11\1\uffff\1\7",
-            "\1\11\1\uffff\1\7",
+            "\1\11\35\uffff\1\10\35\uffff\1\6\51\uffff\1\1\1\2\1\3\1\4\1\5\1\7",
+            "\1\12\1\uffff\1\10",
+            "\1\12\1\uffff\1\10",
+            "\1\12\1\uffff\1\10",
+            "\1\12\1\uffff\1\10",
+            "\1\12\1\uffff\1\10",
+            "\1\12\1\uffff\1\10",
+            "\1\12\1\uffff\1\10",
             "",
             "",
             ""
@@ -17344,7 +17371,7 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
     public static final BitSet FOLLOW_44 = new BitSet(new long[]{0x0000200000000002L});
     public static final BitSet FOLLOW_45 = new BitSet(new long[]{0xA002000000000040L,0x0000000000000003L});
     public static final BitSet FOLLOW_46 = new BitSet(new long[]{0x0000000800380000L});
-    public static final BitSet FOLLOW_47 = new BitSet(new long[]{0x0000001000000040L,0x0001F00000000004L});
+    public static final BitSet FOLLOW_47 = new BitSet(new long[]{0x0000001000000040L,0x0003F00000000004L});
     public static final BitSet FOLLOW_48 = new BitSet(new long[]{0x0000000400000000L});
     public static final BitSet FOLLOW_49 = new BitSet(new long[]{0x0007800000380000L});
     public static final BitSet FOLLOW_50 = new BitSet(new long[]{0xA002001000000040L,0x0000000000000003L});

@@ -120,11 +120,8 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cMessageSTRINGTerminalRuleCall_6_1_0 = (RuleCall)cMessageAssignment_6_1.eContents().get(0);
 		private final Assignment cClaimResultAssignment_7 = (Assignment)cGroup.eContents().get(7);
 		private final RuleCall cClaimResultClaimResultParserRuleCall_7_0 = (RuleCall)cClaimResultAssignment_7.eContents().get(0);
-		private final Alternatives cAlternatives_8 = (Alternatives)cGroup.eContents().get(8);
-		private final Assignment cSubsystemResultAssignment_8_0 = (Assignment)cAlternatives_8.eContents().get(0);
-		private final RuleCall cSubsystemResultSubsystemResultParserRuleCall_8_0_0 = (RuleCall)cSubsystemResultAssignment_8_0.eContents().get(0);
-		private final Assignment cSubAssuranceCaseAssignment_8_1 = (Assignment)cAlternatives_8.eContents().get(1);
-		private final RuleCall cSubAssuranceCaseAssuranceCaseResultParserRuleCall_8_1_0 = (RuleCall)cSubAssuranceCaseAssignment_8_1.eContents().get(0);
+		private final Assignment cSubsystemResultAssignment_8 = (Assignment)cGroup.eContents().get(8);
+		private final RuleCall cSubsystemResultSubsystemResultParserRuleCall_8_0 = (RuleCall)cSubsystemResultAssignment_8.eContents().get(0);
 		private final Keyword cRightSquareBracketKeyword_9 = (Keyword)cGroup.eContents().get(9);
 		
 		//ModelResult:
@@ -132,13 +129,13 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 		//	'for' target=[aadl2::ComponentImplementation|AadlClassifierReference]
 		//	'['
 		//	metrics=Metrics ('message' message=STRING)?
-		//	claimResult+=ClaimResult* (subsystemResult+=SubsystemResult | subAssuranceCase+=AssuranceCaseResult)*
+		//	claimResult+=ClaimResult*
+		//	subsystemResult+=SubsystemResult*
 		//	']';
 		@Override public ParserRule getRule() { return rule; }
 
 		//'model' plan=[Alisa::AssurancePlan|QualifiedName] 'for' target=[aadl2::ComponentImplementation|AadlClassifierReference]
-		//'[' metrics=Metrics ('message' message=STRING)? claimResult+=ClaimResult* (subsystemResult+=SubsystemResult |
-		//subAssuranceCase+=AssuranceCaseResult)* ']'
+		//'[' metrics=Metrics ('message' message=STRING)? claimResult+=ClaimResult* subsystemResult+=SubsystemResult* ']'
 		public Group getGroup() { return cGroup; }
 
 		//'model'
@@ -192,20 +189,11 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 		//ClaimResult
 		public RuleCall getClaimResultClaimResultParserRuleCall_7_0() { return cClaimResultClaimResultParserRuleCall_7_0; }
 
-		//(subsystemResult+=SubsystemResult | subAssuranceCase+=AssuranceCaseResult)*
-		public Alternatives getAlternatives_8() { return cAlternatives_8; }
-
-		//subsystemResult+=SubsystemResult
-		public Assignment getSubsystemResultAssignment_8_0() { return cSubsystemResultAssignment_8_0; }
+		//subsystemResult+=SubsystemResult*
+		public Assignment getSubsystemResultAssignment_8() { return cSubsystemResultAssignment_8; }
 
 		//SubsystemResult
-		public RuleCall getSubsystemResultSubsystemResultParserRuleCall_8_0_0() { return cSubsystemResultSubsystemResultParserRuleCall_8_0_0; }
-
-		//subAssuranceCase+=AssuranceCaseResult
-		public Assignment getSubAssuranceCaseAssignment_8_1() { return cSubAssuranceCaseAssignment_8_1; }
-
-		//AssuranceCaseResult
-		public RuleCall getSubAssuranceCaseAssuranceCaseResultParserRuleCall_8_1_0() { return cSubAssuranceCaseAssuranceCaseResultParserRuleCall_8_1_0; }
+		public RuleCall getSubsystemResultSubsystemResultParserRuleCall_8_0() { return cSubsystemResultSubsystemResultParserRuleCall_8_0; }
 
 		//']'
 		public Keyword getRightSquareBracketKeyword_9() { return cRightSquareBracketKeyword_9; }
@@ -2167,7 +2155,8 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 	//	'for' target=[aadl2::ComponentImplementation|AadlClassifierReference]
 	//	'['
 	//	metrics=Metrics ('message' message=STRING)?
-	//	claimResult+=ClaimResult* (subsystemResult+=SubsystemResult | subAssuranceCase+=AssuranceCaseResult)*
+	//	claimResult+=ClaimResult*
+	//	subsystemResult+=SubsystemResult*
 	//	']';
 	public ModelResultElements getModelResultAccess() {
 		return pModelResult;

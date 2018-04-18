@@ -5690,6 +5690,12 @@ ruleTargetType returns [Enumerator current=null]
         $current = grammarAccess.getTargetTypeAccess().getELEMENTEnumLiteralDeclaration_5().getEnumLiteral().getInstance();
         newLeafNode(enumLiteral_5, grammarAccess.getTargetTypeAccess().getELEMENTEnumLiteralDeclaration_5()); 
     }
+)
+    |(	enumLiteral_6='root' 
+	{
+        $current = grammarAccess.getTargetTypeAccess().getROOTEnumLiteralDeclaration_6().getEnumLiteral().getInstance();
+        newLeafNode(enumLiteral_6, grammarAccess.getTargetTypeAccess().getROOTEnumLiteralDeclaration_6()); 
+    }
 ));
 
 

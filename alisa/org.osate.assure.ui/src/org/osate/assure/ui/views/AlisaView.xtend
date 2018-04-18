@@ -402,8 +402,10 @@ class AlisaView extends ViewPart {
 							AssuranceCaseResult:
 								"Case " + eObject.name
 							ModelResult: '''Plan «eObject.plan.name»(«eObject.target.name»)'''
-							SubsystemResult:
-								"Subsystem " + eObject.name
+							SubsystemResult: {
+								val label = eObject.targetSystem.category.getName 
+								label.substring(0, 1).toUpperCase() + label.substring(1) +" "+ eObject.name
+								}
 							ClaimResult:
 								"Claim " + eObject.name
 							VerificationActivityResult:

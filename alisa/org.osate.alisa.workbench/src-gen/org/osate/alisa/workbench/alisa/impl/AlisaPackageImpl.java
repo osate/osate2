@@ -15,8 +15,6 @@
  */
 package org.osate.alisa.workbench.alisa.impl;
 
-import com.rockwellcollins.atc.resolute.resolute.ResolutePackage;
-
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EPackage;
@@ -42,8 +40,6 @@ import org.osate.organization.organization.OrganizationPackage;
 import org.osate.reqspec.reqSpec.ReqSpecPackage;
 
 import org.osate.verify.verify.VerifyPackage;
-
-import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelPackage;
 
 /**
  * <!-- begin-user-doc -->
@@ -129,9 +125,7 @@ public class AlisaPackageImpl extends EPackageImpl implements AlisaPackage
     CategoriesPackage.eINSTANCE.eClass();
     VerifyPackage.eINSTANCE.eClass();
     ReqSpecPackage.eINSTANCE.eClass();
-    ResolutePackage.eINSTANCE.eClass();
     OrganizationPackage.eINSTANCE.eClass();
-    ErrorModelPackage.eINSTANCE.eClass();
 
     // Create package meta-data objects
     theAlisaPackage.createPackageContents();

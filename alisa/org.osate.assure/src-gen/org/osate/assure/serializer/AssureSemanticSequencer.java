@@ -379,7 +379,7 @@ public class AssureSemanticSequencer extends CommonSemanticSequencer {
 	 *         metrics=Metrics 
 	 *         message=STRING? 
 	 *         claimResult+=ClaimResult* 
-	 *         (subsystemResult+=SubsystemResult | subAssuranceCase+=AssuranceCaseResult)*
+	 *         subsystemResult+=SubsystemResult*
 	 *     )
 	 */
 	protected void sequence_ModelResult(ISerializationContext context, ModelResult semanticObject) {

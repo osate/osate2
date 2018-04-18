@@ -38,7 +38,6 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Assure.ecore#//ModelResult/message"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Assure.ecore#//ModelResult/claimResult"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Assure.ecore#//ModelResult/subsystemResult"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Assure.ecore#//ModelResult/subAssuranceCase"/>
     </genClasses>
     <genClasses ecoreClass="Assure.ecore#//SubsystemResult">
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Assure.ecore#//SubsystemResult/targetSystem"/>

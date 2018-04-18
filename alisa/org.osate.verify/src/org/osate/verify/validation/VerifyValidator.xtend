@@ -33,6 +33,9 @@ import org.osate.aadl2.AadlBoolean
 import org.osate.aadl2.AadlInteger
 import org.osate.aadl2.AadlReal
 import org.osate.aadl2.AadlString
+import org.osate.aadl2.Connection
+import org.osate.aadl2.EndToEndFlow
+import org.osate.aadl2.Feature
 import org.osate.aadl2.PropertyType
 import org.osate.alisa.common.common.PropertyRef
 import org.osate.alisa.common.util.ExecuteJavaUtil
@@ -45,6 +48,7 @@ import org.osate.verify.verify.JUnit4Method
 import org.osate.verify.verify.JavaMethod
 import org.osate.verify.verify.PluginMethod
 import org.osate.verify.verify.ResoluteMethod
+import org.osate.verify.verify.TargetType
 import org.osate.verify.verify.Verification
 import org.osate.verify.verify.VerificationActivity
 import org.osate.verify.verify.VerificationCondition
@@ -52,6 +56,8 @@ import org.osate.verify.verify.VerificationMethod
 import org.osate.verify.verify.VerificationMethodRegistry
 import org.osate.verify.verify.VerificationPlan
 import org.osate.verify.verify.VerifyPackage
+
+import static extension org.osate.verify.util.VerifyUtilExtension.*
 
 /**
  * Custom validation rules. 
@@ -74,6 +80,7 @@ class VerifyValidator extends VerifyTypeSystemValidator {
 	public static val MISSING_REQUIREMENTS_FOR_MULTIPLE_CLAIMS = "org.osate.verify.missingRequirementsForMultipleClaims"
 	public static val MULTIPLE_CLAIMS_WITH_DUPLICATE_REQUIREMENTS = "org.osate.verify.multipleClaimsWithDuplicateRequirements"
 	public static val METHOD_PARMS_DO_NOT_MATCH_RESOLUTE_DEFINITION = "org.osate.verify.METHOD_PARMS_DO_NOT_MATCH_RESOLUTE_DEFINITION"
+	public static val MISMATCHED_TARGET = "org.osate.verify.MISMATCHED_TARGET"
 
 	override protected List<EPackage> getEPackages() {
 		val List<EPackage> result = new ArrayList<EPackage>(super.getEPackages())
@@ -124,6 +131,35 @@ class VerifyValidator extends VerifyTypeSystemValidator {
 		if (va.method === null) {
 			warning('Verification activity should have a method reference',
 				VerifyPackage.Literals.VERIFICATION_ACTIVITY__METHOD, MISSING_METHOD_REFERENCE)
+		}
+	}
+	
+	@Check
+	def checkConsistentTarget(VerificationActivity va) {
+		val vm = va.method
+		if (vm !== null) {
+			val req = va.containingClaim?.requirement
+			val target = req?.targetElement
+			val cat = req?.componentCategory
+			if ((target === null || !cat.empty) && !req.connections){
+				if (!(vm.targetType === TargetType.COMPONENT|| vm.targetType === TargetType.ELEMENT|| vm.targetType === TargetType.ROOT)){
+				error(
+				"Requirement is for component while verification method is not for component, element, or root",
+				va, VerifyPackage.Literals.VERIFICATION_ACTIVITY__METHOD,MISMATCHED_TARGET)
+				}
+			} else if (target instanceof Feature && !(vm.targetType === TargetType.FEATURE|| vm.targetType !== TargetType.ELEMENT)){
+				error(
+				"Requirement is for Feature while verification method is not for Feature",
+				va, VerifyPackage.Literals.VERIFICATION_ACTIVITY__METHOD,MISMATCHED_TARGET)
+			} else if (target instanceof EndToEndFlow && (vm.targetType === TargetType.FLOW|| vm.targetType !== TargetType.ELEMENT)){
+				error(
+				"Requirement is for Flow while verification method is not for Flow",
+				va, VerifyPackage.Literals.VERIFICATION_ACTIVITY__METHOD,MISMATCHED_TARGET)
+			} else if ((req.connections || target instanceof Connection )&& !(vm.targetType === TargetType.CONNECTION|| vm.targetType !== TargetType.ELEMENT)){
+				error(
+				"Requirement is for Flow while verification method is not for Flow",
+				va, VerifyPackage.Literals.VERIFICATION_ACTIVITY__METHOD,MISMATCHED_TARGET)
+			}
 		}
 	}
 

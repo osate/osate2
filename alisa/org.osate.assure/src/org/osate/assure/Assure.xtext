@@ -27,8 +27,7 @@ ModelResult:
 	metrics=Metrics
 	('message' message= STRING)?
 	claimResult += ClaimResult*
-	(subsystemResult += SubsystemResult |
-	subAssuranceCase += AssuranceCaseResult)*
+	(subsystemResult += SubsystemResult )*
 	']'  
 ;
 

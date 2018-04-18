@@ -299,10 +299,10 @@ ruleModelResult returns [EObject current=null]
 	    }
 
 )
-)*((
+)*(
 (
 		{ 
-	        newCompositeNode(grammarAccess.getModelResultAccess().getSubsystemResultSubsystemResultParserRuleCall_8_0_0()); 
+	        newCompositeNode(grammarAccess.getModelResultAccess().getSubsystemResultSubsystemResultParserRuleCall_8_0()); 
 	    }
 		lv_subsystemResult_9_0=ruleSubsystemResult		{
 	        if ($current==null) {
@@ -317,28 +317,9 @@ ruleModelResult returns [EObject current=null]
 	    }
 
 )
-)
-    |(
-(
-		{ 
-	        newCompositeNode(grammarAccess.getModelResultAccess().getSubAssuranceCaseAssuranceCaseResultParserRuleCall_8_1_0()); 
-	    }
-		lv_subAssuranceCase_10_0=ruleAssuranceCaseResult		{
-	        if ($current==null) {
-	            $current = createModelElementForParent(grammarAccess.getModelResultRule());
-	        }
-       		add(
-       			$current, 
-       			"subAssuranceCase",
-        		lv_subAssuranceCase_10_0, 
-        		"org.osate.assure.Assure.AssuranceCaseResult");
-	        afterParserOrEnumRuleCall();
-	    }
-
-)
-))*	otherlv_11=']' 
+)*	otherlv_10=']' 
     {
-    	newLeafNode(otherlv_11, grammarAccess.getModelResultAccess().getRightSquareBracketKeyword_9());
+    	newLeafNode(otherlv_10, grammarAccess.getModelResultAccess().getRightSquareBracketKeyword_9());
     }
 )
 ;
