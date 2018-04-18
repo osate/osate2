@@ -506,9 +506,7 @@ public class FlowLatencyAnalysisSwitch extends AadlProcessingSwitchWithProgress 
 			double minBusLatency = GetProperties.getMinimumLatencyinMilliSec(targetMedium);
 			double maxBusTransferTime = GetProperties.getMaximumTimeToTransferData(targetMedium, datasizeinbyte);
 			double minBusTransferTime = GetProperties.getMinimumTimeToTransferData(targetMedium, datasizeinbyte);
-			if (maxBusLatency == 0 && maxBusTransferTime == 0 && targetMedium instanceof ConnectionInstance
-					|| (targetMedium instanceof ComponentInstance && ((ComponentInstance) targetMedium).getCategory()
-							.equals(ComponentCategory.VIRTUAL_BUS))) {
+			if (maxBusLatency == 0 && maxBusTransferTime == 0) {
 				// connection or protocol has nothing to contribute
 				return;
 			}
@@ -551,8 +549,6 @@ public class FlowLatencyAnalysisSwitch extends AadlProcessingSwitchWithProgress 
 		// look for actual binding if we have a connection instance or virtual bus instance
 		List<ComponentInstance> bindings = GetProperties.getActualConnectionBinding(connorvb);
 		if (bindings.isEmpty()) {
-			// add specified latency if present
-			processTransmissionTime(connorvb, 0, latencyContributor);
 			return;
 		}
 		for (ComponentInstance componentInstance : bindings) {
