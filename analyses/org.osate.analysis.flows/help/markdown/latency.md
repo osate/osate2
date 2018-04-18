@@ -338,9 +338,6 @@ time is used
   instead of the worst-case or best-case execution time to reflect the fact that 
   queue processing is paced at the rate specified by the period.
 
-> In the case of a periodic or sporadic task with a queue the queue size is 
-  reduced by one in calculating the queuing latency to reflect the fact that the 
-  sampling latency of the periodic recipient accounts for one element.
 
 ###Sampling Delay in Periodic Sampled Processing
 
