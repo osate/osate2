@@ -417,14 +417,20 @@ public class FlowLatencyAnalysisSwitch extends AadlProcessingSwitchWithProgress 
 		 */
 		// XXX we can add a check whether the latencies coming from the bindings exceeds the connection latency
 
+		if (expectedMax > 0) {
+			latencyContributor.setWorstCaseMethod(LatencyContributorMethod.SPECIFIED);
+			latencyContributor.setExpectedMaximum(expectedMax);
+		}
+		if (expectedMin > 0) {
+			latencyContributor.setBestCaseMethod(LatencyContributorMethod.SPECIFIED);
+			latencyContributor.setExpectedMinimum(expectedMin);
+		}
 		if (latencyContributor.getSubContributors().isEmpty()) {
 			if (expectedMax > 0) {
-				latencyContributor.setWorstCaseMethod(LatencyContributorMethod.SPECIFIED);
-				latencyContributor.setExpectedMaximum(expectedMax);
+				latencyContributor.setMaximum(expectedMax);
 			}
 			if (expectedMin > 0) {
-				latencyContributor.setBestCaseMethod(LatencyContributorMethod.SPECIFIED);
-				latencyContributor.setExpectedMinimum(expectedMin);
+				latencyContributor.setMinimum(expectedMin);
 			}
 		} else {
 			latencyContributor.reportInfo("Adding latency subtotal from protocols and bus - shown with ()");
