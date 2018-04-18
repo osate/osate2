@@ -34,9 +34,11 @@ import org.eclipse.emf.transaction.ResourceSetListener;
 import org.eclipse.emf.transaction.RollbackException;
 import org.eclipse.emf.transaction.TransactionalEditingDomain;
 import org.eclipse.gef.ContextMenuProvider;
+import org.eclipse.gef.DefaultEditDomain;
 import org.eclipse.gef.EditPart;
 import org.eclipse.gef.GraphicalEditPart;
 import org.eclipse.gef.GraphicalViewer;
+import org.eclipse.gef.Tool;
 import org.eclipse.gef.palette.PaletteDrawer;
 import org.eclipse.gef.palette.PaletteRoot;
 import org.eclipse.graphiti.dt.IDiagramTypeProvider;
@@ -516,6 +518,16 @@ public class AgeDiagramBehavior extends DiagramBehavior implements GraphitiAgeDi
 	private void doUpdate(final boolean requireVisible) {
 		if(Display.getDefault().getThread() != Thread.currentThread()) {
 			throw new RuntimeException("doUpdate() must be called from the UI thread");
+		}
+
+		// Reset active tool. Fixes exception if user was dragging.
+		final DefaultEditDomain editDomain = getEditDomain();
+		if (editDomain != null) {
+			final Tool activeTool = editDomain.getActiveTool();
+			if (activeTool != null) {
+				editDomain.setActiveTool(null);
+				editDomain.setActiveTool(activeTool);
+			}
 		}
 
 		// A mutex is not needed because this runnable and other code that access variables used by this runnable are ran in the display thread
