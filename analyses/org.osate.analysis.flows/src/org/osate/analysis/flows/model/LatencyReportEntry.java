@@ -62,8 +62,8 @@ public class LatencyReportEntry {
 		minValue = Math.round(getActualLatency(false) * 1000.0) / 1000.0;
 		maxValue = Math.round(getActualLatency(true) * 1000.0) / 1000.0;
 
-		minSpecifiedValue = getMinimumSpecifiedLatency();
-		maxSpecifiedValue = getMaximumSpecifiedLatency();
+		minSpecifiedValue = Math.round(getMinimumSpecifiedLatency() * 1000.0) / 1000.0;
+		maxSpecifiedValue = Math.round(getMaximumSpecifiedLatency() * 1000.0) / 1000.0;
 
 	}
 
