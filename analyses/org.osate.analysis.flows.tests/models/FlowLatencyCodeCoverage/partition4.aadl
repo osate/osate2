@@ -1,4 +1,4 @@
-package partition2
+package partition4
 public
 	with ARINC653;
 	
@@ -8,30 +8,21 @@ public
 	system implementation s1.i1
 		subcomponents
 			sub2: abstract a1;
-			sub4: system s2;
 			sub5: virtual processor {Period => 1 ms;};
 			sub6: processor;
+			sub8: abstract a2;
 		connections
-			conn2: feature sub4.f1 -> sub2.f2;
+			conn4: feature sub8.f3 -> sub2.f2;
 		flows
-			etef2: end to end flow sub4.fsource1 -> conn2 -> sub2.fsink1;
+			etef4: end to end flow sub8.fsource2 -> conn4 -> sub2.fsink1;
 		properties
-			Actual_Processor_Binding => (reference (sub5)) applies to sub4;
 			Actual_Processor_Binding => (reference (sub6)) applies to sub5;
 			ARINC653::Module_Schedule => ([
 				Partition => reference (sub5);
 				Duration => 1 ms;
 			]) applies to sub6;
+			Actual_Processor_Binding => (reference (sub5)) applies to sub8;
 	end s1.i1;
-	
-	system s2
-		features
-			f1: feature;
-		flows
-			fsource1: flow source f1;
-		properties
-			Period => 1 ms;
-	end s2;
 	
 	abstract a1
 		features
@@ -39,4 +30,11 @@ public
 		flows
 			fsink1: flow sink f2;
 	end a1;
-end partition2;
+	
+	abstract a2
+		features
+			f3: feature;
+		flows
+			fsource2: flow source f3;
+	end a2;
+end partition4;
