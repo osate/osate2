@@ -1,5 +1,5 @@
 --See https://github.com/osate/osate2-core/issues/1144
-package transmission_time
+package transmission_time1
 public
 	system s1
 	end s1;
@@ -41,7 +41,5 @@ public
 	end a2;
 	
 	data d
-		properties
-			Data_Size => 1 Bytes;
 	end d;
-end transmission_time;
+end transmission_time1;

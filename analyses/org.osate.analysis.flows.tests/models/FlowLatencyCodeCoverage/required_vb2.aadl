@@ -1,5 +1,5 @@
 --See https://github.com/osate/osate2-core/issues/1143
-package required_vb
+package required_vb2
 public
 	system s1
 	end s1;
@@ -49,4 +49,4 @@ public
 			Required_Virtual_Bus_Class => (classifier (vb1));
 			Latency => 5 ms .. 6 ms;
 	end vb2;
-end required_vb;
+end required_vb2;
