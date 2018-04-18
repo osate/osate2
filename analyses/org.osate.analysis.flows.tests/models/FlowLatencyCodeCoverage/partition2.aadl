@@ -21,9 +21,9 @@ public
 			
 			conn2: feature sub1.f1 -> sub6.f1;
 		flows
-			etef1: end to end flow sub1 -> conn1 -> sub2;
+			etef1: end to end flow sub1 -> conn1 -> sub2 {Latency => 2 ms .. 6 ms;};
 			
-			etef2: end to end flow sub1 -> conn2 -> sub6;
+			etef2: end to end flow sub1 -> conn2 -> sub6 {Latency => 2 ms .. 6 ms;};
 		properties
 			Actual_Processor_Binding => (reference (sub3)) applies to sub2;
 			Actual_Processor_Binding => (reference (sub4)) applies to sub3;
@@ -46,5 +46,7 @@ public
 	abstract a1
 		features
 			f1: feature;
+		properties
+			Latency => 1 ms .. 2 ms;
 	end a1;
 end partition2;

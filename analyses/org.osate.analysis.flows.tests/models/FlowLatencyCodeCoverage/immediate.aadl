@@ -14,15 +14,15 @@ public
 			conn2: port sub2.f3 -> sub3.f4 {Timing => immediate;};
 			conn3: port sub1.f1 -> sub4.f5 {Timing => immediate;};
 		flows
-			etef1: end to end flow sub1.fsource1 -> conn1 -> sub2.fpath1 -> conn2 -> sub3.fsink1;
-			etef2: end to end flow sub1.fsource1 -> conn3 -> sub4.fsink2;
+			etef1: end to end flow sub1.fsource1 -> conn1 -> sub2.fpath1 -> conn2 -> sub3.fsink1 {Latency => 3 ms .. 6 ms;};
+			etef2: end to end flow sub1.fsource1 -> conn3 -> sub4.fsink2 {Latency => 2 ms .. 4 ms;};
 	end s1.i1;
 	
 	abstract a1
 		features
 			f1: out data port;
 		flows
-			fsource1: flow source f1;
+			fsource1: flow source f1 {Latency => 1 ms .. 2 ms;};
 	end a1;
 	
 	system s2
@@ -30,7 +30,7 @@ public
 			f2: in data port;
 			f3: out data port;
 		flows
-			fpath1: flow path f2 -> f3;
+			fpath1: flow path f2 -> f3 {Latency => 1 ms .. 2 ms;};
 		properties
 			Period => 1 ms;
 	end s2;
@@ -39,14 +39,14 @@ public
 		features
 			f4: in data port;
 		flows
-			fsink1: flow sink f4;
+			fsink1: flow sink f4 {Latency => 1 ms .. 2 ms;};
 	end a2;
 	
 	system s3
 		features
 			f5: in data port;
 		flows
-			fsink2: flow sink f5;
+			fsink2: flow sink f5 {Latency => 1 ms .. 2 ms;};
 		properties
 			Period => 1 ms;
 			Deadline => 0 ms;

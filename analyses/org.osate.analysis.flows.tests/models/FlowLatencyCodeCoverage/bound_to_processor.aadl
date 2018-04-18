@@ -7,11 +7,11 @@ public
 		subcomponents
 			sub1: abstract a1;
 			sub2: abstract a2;
-			sub3: processor;
+			sub3: processor {Latency => 1 ms .. 2 ms;};
 		connections
 			conn1: feature sub1.f1 -> sub2.f2;
 		flows
-			etef1: end to end flow sub1.fsource1 -> conn1 -> sub2.fsink1;
+			etef1: end to end flow sub1.fsource1 -> conn1 -> sub2.fsink1 {Latency => 3 ms .. 6 ms;};
 		properties
 			Actual_Connection_Binding => (reference (sub3)) applies to conn1;
 	end s1.i1;
@@ -20,13 +20,13 @@ public
 		features
 			f1: feature;
 		flows
-			fsource1: flow source f1;
+			fsource1: flow source f1 {Latency => 1 ms .. 2 ms;};
 	end a1;
 	
 	abstract a2
 		features
 			f2: feature;
 		flows
-			fsink1: flow sink f2;
+			fsink1: flow sink f2 {Latency => 1 ms .. 2 ms;};
 	end a2;
 end bound_to_processor;
