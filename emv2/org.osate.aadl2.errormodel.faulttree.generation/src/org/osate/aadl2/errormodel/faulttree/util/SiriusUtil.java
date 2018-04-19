@@ -101,7 +101,6 @@ public class SiriusUtil {
 							protected void doExecute() {
 
 								// Check if already selected
-								Collection<Viewpoint> sel = session.getSelectedViewpoints(false);
 								if (!session.getSelectedViewpoints(false).contains(regViewpoint)) {
 									ViewpointSelectionCallback selection = new ViewpointSelectionCallback();
 									selection.selectViewpoint(regViewpoint, session, monitor);
@@ -211,38 +210,6 @@ public class SiriusUtil {
 	public Session getSessionForProjectAndResource(IProject project, URI semanticResourceURI,
 			IProgressMonitor monitor) {
 		Session existingSession = getSessionForSemanticURI(semanticResourceURI);
-//
-//		if (existingSession == null) {
-//			// Add "Modeling" nature to project
-////			if (!ModelingProject.hasModelingProjectNature(project)) {
-////				try {
-////					ModelingProjectManager.INSTANCE.convertToModelingProject(project, monitor);
-////				} catch (Exception e) {
-////					// Error while converting to modeling project
-////					// throws a class cast exception on a list.
-////					// XXX not returning null is ok.
-////					return null;
-////				}
-////			}
-//
-//			final Option<ModelingProject> prj = ModelingProject.asModelingProject(project);
-//			if (prj.some()) {
-//				ModelingProject modelingProject = prj.get();
-//				existingSession = modelingProject.getSession();
-//
-//				if (existingSession == null) {
-//					loadSession(modelingProject, monitor);
-//					waitWhileSessionLoads(monitor);
-//					existingSession = modelingProject.getSession();
-//				}
-//				if (existingSession != null) {
-//					addSemanticResource(existingSession, semanticResourceURI, monitor);
-//				}
-//
-//				return existingSession;
-//			}
-//		}
-//		return existingSession;
 		if (existingSession == null) {
 			for (Session session : SessionManager.INSTANCE.getSessions()) {
 				ResourceSet set = session.getTransactionalEditingDomain().getResourceSet();
@@ -406,35 +373,6 @@ public class SiriusUtil {
 		return null;
 	}
 
-	/**
-	 * Loads a Sirius session for a modeling project
-	 * @param project
-	 * @param monitor
-	 */
-	private void loadSession(ModelingProject project, IProgressMonitor monitor) {
-		Option<URI> optionalMainSessionFileURI = project.getMainRepresentationsFileURI(monitor, false, false);
-		if (optionalMainSessionFileURI.some()) {
-			// Load the main representations file of this modeling
-			// project if it's not already loaded or during loading.
-			ModelingProjectManager.INSTANCE.loadAndOpenRepresentationsFile(optionalMainSessionFileURI.get());
-		}
-	}
-
-	/**
-	 * Waits until all sessions are loaded
-	 * @param monitor
-	 */
-	private void waitWhileSessionLoads(IProgressMonitor monitor) {
-		if (OpenRepresentationsFileJob.shouldWaitOtherJobs()) {
-			// We are loading session(s), wait loading is finished
-			// before continuing.
-			try {
-				Job.getJobManager().join(AbstractRepresentationsFileJob.FAMILY, monitor);
-			} catch (InterruptedException e) {
-				// Do nothing
-			}
-		}
-	}
 
 	/**
 	 * Returns a session's semantic resource from its URI
