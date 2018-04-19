@@ -33,6 +33,7 @@ import org.eclipse.sirius.business.api.session.Session;
 import org.eclipse.sirius.business.api.session.SessionCreationOperation;
 import org.eclipse.sirius.business.api.session.SessionManager;
 import org.eclipse.sirius.business.api.session.SessionStatus;
+import org.eclipse.sirius.common.ui.SiriusTransPlugin;
 import org.eclipse.sirius.ext.base.Option;
 import org.eclipse.sirius.ui.business.api.dialect.DialectUIManager;
 import org.eclipse.sirius.ui.business.api.session.IEditingSession;
@@ -296,6 +297,9 @@ public class SiriusUtil {
 						ErrorDialog.openError(PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell(),
 								Messages.CreateSessionResourceWizard_resourceCreationError, null,
 								((CoreException) e.getTargetException()).getStatus());
+					} else {
+						SiriusTransPlugin.getPlugin().error(
+								Messages.CreateSessionResourceWizard_sessionDataCreationError, e.getTargetException());
 					}
 				}
 
