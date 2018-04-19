@@ -1,16 +1,17 @@
 package org.osate.ui.wizards
 
-import org.osate.ui.OsateUiPlugin
 import java.util.Map
 
-class NewPropertySetWizard extends AbstractNewFileWizard {
-	val PROPERTY_SET_LABEL = "Property set name"
+final class NewPropertySetWizard extends AbstractNewModelUnitWizard {
+	val static PROPERTY_SET_LABEL = "Property set name"
 	
 	new() {
-		super("AADL Property Set", "AADL property set", "aadl", 1, OsateUiPlugin.^default.log,
-			OsateUiPlugin.PLUGIN_ID
-		)
-		addField(PROPERTY_SET_LABEL, [fieldValue | isValidId(fieldValue)])
+		super("AADL Property Set", "AADL property set")
+		/* Property set names are required to be an identifier, which is ID in the parser.  But ID a 
+		 * terminal lexical item and not a parse rule.  So we use INAME which is a parse rule
+		 * defined by a simple ID.
+		 */
+		addField(PROPERTY_SET_LABEL, getFieldValidator(grammarAccess.INAMERule))
 	}
 	
 	override fileContents(Map<String, String> fieldValues) {
