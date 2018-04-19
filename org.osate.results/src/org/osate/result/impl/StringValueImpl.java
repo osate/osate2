@@ -33,7 +33,7 @@ public class StringValueImpl extends ValueImpl implements StringValue {
 	 * @generated
 	 * @ordered
 	 */
-	protected static final String VALUE_EDEFAULT = null;
+	protected static final String VALUE_EDEFAULT = "\"\"";
 
 	/**
 	 * The cached value of the '{@link #getValue() <em>Value</em>}' attribute.

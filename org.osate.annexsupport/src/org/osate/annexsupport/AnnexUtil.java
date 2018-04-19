@@ -221,7 +221,7 @@ public class AnnexUtil {
 			EList<AnnexLibrary> libs = packsec.getOwnedAnnexLibraries();
 			for (AnnexLibrary annexLibrary : libs) {
 				AnnexLibrary actAnnexLib = getActualAnnexLibrary(annexLibrary);
-				if (actAnnexLib.eClass().equals(eClass)) {
+				if (actAnnexLib != null && actAnnexLib.eClass().equals(eClass)) {
 					result.add(getActualAnnexLibrary(annexLibrary));
 				}
 			}
@@ -291,8 +291,9 @@ public class AnnexUtil {
 	 */
 	public static EList<AnnexSubclause> getAllAnnexSubclauses(Classifier cl, EClass eclass) {
 		final EList<AnnexSubclause> result = new BasicEList<AnnexSubclause>();
-		if (cl == null)
+		if (cl == null) {
 			return result;
+		}
 		final EList<Classifier> classifiers = cl.getSelfPlusAllExtended();
 		if (cl instanceof ComponentImplementation) {
 			ComponentType ct = ((ComponentImplementation) cl).getType();
@@ -303,7 +304,7 @@ public class AnnexUtil {
 			EList<AnnexSubclause> oas = classifier.getOwnedAnnexSubclauses();
 			for (AnnexSubclause annexSubclause : oas) {
 				AnnexSubclause actualAnnexSubclause = (AnnexSubclause) getParsedAnnex(annexSubclause);
-				if (actualAnnexSubclause.eClass().equals(eclass)) {
+				if (actualAnnexSubclause != null && actualAnnexSubclause.eClass().equals(eclass)) {
 					result.add(actualAnnexSubclause);
 				}
 			}
