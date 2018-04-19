@@ -36,6 +36,7 @@ import org.eclipse.emf.ecore.resource.Resource
 import org.eclipse.core.runtime.Path
 import org.eclipse.core.resources.IFolder
 import org.eclipse.xtext.naming.IQualifiedNameConverter
+import org.eclipse.xtext.resource.IEObjectDescription
 
 class NewAadlPackageWizard extends AbstractNewFileWizard {
 	val PACKAGE_LABEL = "AADL package name"
@@ -81,7 +82,7 @@ class NewAadlPackageWizard extends AbstractNewFileWizard {
 		]
 	}
 	
-	def private findPackageInScope(IContainer parent, String packageName) {
+	def private IEObjectDescription findPackageInScope(IContainer parent, String packageName) {
 		/* Parent might be a Project, which causes problems below, so let's append
 		 * a bogus folder to it.
 		 */
@@ -89,39 +90,71 @@ class NewAadlPackageWizard extends AbstractNewFileWizard {
 		val Resource rsrc = OsateResourceUtil.getResource(fakeFolder)
 		val scope = globalScopeProvider.getScope(rsrc, Aadl2Package.eINSTANCE.getPackageRename_RenamedPackage(), null)
 		val qualifiedName = qNameConverter.toQualifiedName(packageName);
-		return scope.getSingleElement(qualifiedName)
+		scope.getSingleElement(qualifiedName)
 	}
 		
-	// Not going to get here if no project is selected
+	/* Not going to get here if no project is selected, so parent will never be null */
 	override String validateFileName(IContainer parent, String packageName) {
-		val found1 = findPackageInScope(parent, packageName)
-		if (found1 !== null) {
-			val foundFile = OsateResourceUtil.getOsateIFile(found1.EObjectURI)
+		/*
+		 * This method checks for 4 different error conditions.  Consider three projects:
+		 * A, B, and C.  Assume project C depends on both A and B, and the neither A nor B 
+		 * depend on any other projects.
+		 * 
+		 * (1) We are trying to create package x::y::z in a project X (could be A, B, or C)
+		 * and X already directly contains package x::y::z.
+		 * 
+		 * (2) We are trying to create package x::y::z in project C and the package already 
+		 * exists in A or C.
+		 * 
+		 * These first two cases are true errors: We are trying to introduce a package into a namespace
+		 * where the package already exists.  The next two cases aren't really errors, but they create
+		 * errors elsewhere.
+		 * 
+		 * (3) We are trying to create package x::y::z in project A or B and the package already 
+		 * exists in project C.  This is not really an error because the fact that C already 
+		 * contains the package does not affect the namespace of A or B.  But adding the package to 
+		 * A or B will mess up C, so we disallow it.  Ideally we should use a WARNING here and 
+		 * not an ERROR, but the wizards don't really give us this option.
+		 * 
+		 * (4) We are trying to create package x::y::z in project A and the package already 
+		 * exists in project B.  Because C depends on both A and B, it will have two versions
+		 * of the package in its namespace.  Again, this does not break project A, but will mess up C,
+		 * so we disallow it.  Ideally we should use a WARNING here and  not an ERROR, but the
+		 * wizards don't really give us this option.
+		 */
+		var String errorMsg = null
+		val foundInScope = findPackageInScope(parent, packageName)
+		if (foundInScope !== null) {
+			val foundFile = OsateResourceUtil.getOsateIFile(foundInScope.EObjectURI)
 			val foundProject = foundFile.getProject()
 			if (foundProject === parent.getProject()) {
-				return "Package '" + packageName + "' already exists in the selected project: '" + foundFile.projectRelativePath + "'"
+				// Case (1)
+				errorMsg = "Package '" + packageName + "' already exists in the selected project: '" + foundFile.projectRelativePath + "'"
 			} else {
-				return "Package '" + packageName + "' already exists in project '" + foundProject.name + "' that the selected project depends on: '" + foundFile.projectRelativePath + "'"
+				// Case (2)
+				errorMsg = "Package '" + packageName + "' already exists in project '" + foundProject.name + "' that the selected project depends on: '" + foundFile.projectRelativePath + "'"
 			}
 		} else {
 			/* See if the package exists in scope in any project that depends on the current project.
 			 * This isn't an error for the current project, but it will mess up other projects.
 			 */
-			for (user : parent.getProject().referencingProjects) {
-				val found2 = findPackageInScope(user, packageName)
-				if (found2 !== null) {
-					val foundFile = OsateResourceUtil.getOsateIFile(found2.EObjectURI)
+			for (referencer : parent.getProject().referencingProjects) {
+				val foundInScopeOfReferencer = findPackageInScope(referencer, packageName)
+				if (foundInScopeOfReferencer !== null) {
+					val foundFile = OsateResourceUtil.getOsateIFile(foundInScopeOfReferencer.EObjectURI)
 					val foundProject = foundFile.getProject()
-					if (foundProject != user) {
-						return "Package '" + packageName + "' already exists in project '" + foundProject.name + "' that is depended on by project '" + user.name + "' that depends on the selected project: '" + foundFile.projectRelativePath + "'"
+					if (foundProject === referencer) {
+						// Case (3)
+						errorMsg = "Package '" + packageName + "' already exists in project '" + referencer.name + "' that depends on the selected project: '" + foundFile.projectRelativePath + "'"
 					} else {
-						return "Package '" + packageName + "' already exists in project '" + user.name + "' that depends on the selected project: '" + foundFile.projectRelativePath + "'"
+						// Case (4)
+						errorMsg = "Package '" + packageName + "' already exists in project '" + foundProject.name + "' that is depended on by project '" + referencer.name + "' that depends on the selected project: '" + foundFile.projectRelativePath + "'"
 					}
 				}
 			}
-			
-			return null // No error message
 		}
+		
+		errorMsg
 	}
 	
 	
