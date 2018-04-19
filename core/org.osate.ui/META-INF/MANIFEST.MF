@@ -9,6 +9,7 @@ Bundle-Vendor: %providerName
 Bundle-Localization: plugin
 Export-Package: org.osate.internal.ui.actions,
  org.osate.internal.ui.preferences,
+ org.osate.ui.preferences,
  org.osate.ui,
  org.osate.ui.actions,
  org.osate.ui.dialogs,

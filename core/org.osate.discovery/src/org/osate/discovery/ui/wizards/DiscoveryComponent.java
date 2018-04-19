@@ -36,7 +36,8 @@ public class DiscoveryComponent {
 	/**
 	 * URI of the model where all extra component features to be installed are referenced. Can be set via the system property 'osate.discovery.uri'.
 	 */
-	public static final String OSATE_DISCOVERY_URI = System.getProperty("osate.discovery.uri", "http://aadl.info/aadl/osate/discovery/osate-extra.xmi"); //$NON-NLS-1$ //$NON-NLS-2$
+	public static final String OSATE_DISCOVERY_URI = System.getProperty("osate.discovery.uri", //$NON-NLS-1$
+			"http://osate.org/discovery/osate-extra.xmi"); //$NON-NLS-1$
 
 	public static final Object execute() {
 		final IWorkbenchWindow window = PlatformUI.getWorkbench().getActiveWorkbenchWindow();
