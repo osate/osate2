@@ -85,7 +85,7 @@ abstract class AbstractNewFileWizard extends Wizard implements INewWizard {
 		}
 		project = initialSelection?.getProject()
 		
-		windowTitle = '''New «titleFileType» Fle'''
+		windowTitle = '''New «titleFileType» File'''
 		defaultPageImageDescriptor = OsateUiPlugin.getImageDescriptor("icons/NewAadl2.gif")
 	}
 	
