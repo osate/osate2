@@ -82,13 +82,13 @@ class NewAadlPackageWizard extends AbstractNewFileWizard {
 		]
 	}
 	
-	def private IEObjectDescription findPackageInScope(IContainer parent, String packageName) {
+	def private IEObjectDescription findPackageOrPropertySetInScope(IContainer parent, String packageName) {
 		/* Parent might be a Project, which causes problems below, so let's append
 		 * a bogus folder to it.
 		 */
 		val IFolder fakeFolder = parent.getFolder(Path.forPosix(".fake"))
 		val Resource rsrc = OsateResourceUtil.getResource(fakeFolder)
-		val scope = globalScopeProvider.getScope(rsrc, Aadl2Package.eINSTANCE.getPackageRename_RenamedPackage(), null)
+		val scope = globalScopeProvider.getScope(rsrc, Aadl2Package.eINSTANCE.packageSection_ImportedUnit, null)
 		val qualifiedName = qNameConverter.toQualifiedName(packageName);
 		scope.getSingleElement(qualifiedName)
 	}
@@ -123,32 +123,34 @@ class NewAadlPackageWizard extends AbstractNewFileWizard {
 		 * wizards don't really give us this option.
 		 */
 		var String errorMsg = null
-		val foundInScope = findPackageInScope(parent, packageName)
+		val foundInScope = findPackageOrPropertySetInScope(parent, packageName)
 		if (foundInScope !== null) {
 			val foundFile = OsateResourceUtil.getOsateIFile(foundInScope.EObjectURI)
 			val foundProject = foundFile.getProject()
+			val label = if (foundInScope.EClass.equals(Aadl2Package.eINSTANCE.getAadlPackage())) "Package '" else "Property set '"
 			if (foundProject === parent.getProject()) {
 				// Case (1)
-				errorMsg = "Package '" + packageName + "' already exists in the selected project: '" + foundFile.projectRelativePath + "'"
+				errorMsg = label + packageName + "' already exists in the selected project: '" + foundFile.projectRelativePath + "'"
 			} else {
 				// Case (2)
-				errorMsg = "Package '" + packageName + "' already exists in project '" + foundProject.name + "' that the selected project depends on: '" + foundFile.projectRelativePath + "'"
+				errorMsg = label + packageName + "' already exists in project '" + foundProject.name + "' that the selected project depends on: '" + foundFile.projectRelativePath + "'"
 			}
 		} else {
 			/* See if the package exists in scope in any project that depends on the current project.
 			 * This isn't an error for the current project, but it will mess up other projects.
 			 */
 			for (referencer : parent.getProject().referencingProjects) {
-				val foundInScopeOfReferencer = findPackageInScope(referencer, packageName)
+				val foundInScopeOfReferencer = findPackageOrPropertySetInScope(referencer, packageName)
 				if (foundInScopeOfReferencer !== null) {
+					val label = if (foundInScopeOfReferencer.EClass.equals(Aadl2Package.eINSTANCE.getAadlPackage())) "Package '" else "Property set '"
 					val foundFile = OsateResourceUtil.getOsateIFile(foundInScopeOfReferencer.EObjectURI)
 					val foundProject = foundFile.getProject()
 					if (foundProject === referencer) {
 						// Case (3)
-						errorMsg = "Package '" + packageName + "' already exists in project '" + referencer.name + "' that depends on the selected project: '" + foundFile.projectRelativePath + "'"
+						errorMsg = label + packageName + "' already exists in project '" + referencer.name + "' that depends on the selected project: '" + foundFile.projectRelativePath + "'"
 					} else {
 						// Case (4)
-						errorMsg = "Package '" + packageName + "' already exists in project '" + foundProject.name + "' that is depended on by project '" + referencer.name + "' that depends on the selected project: '" + foundFile.projectRelativePath + "'"
+						errorMsg = label + packageName + "' already exists in project '" + foundProject.name + "' that is depended on by project '" + referencer.name + "' that depends on the selected project: '" + foundFile.projectRelativePath + "'"
 					}
 				}
 			}
