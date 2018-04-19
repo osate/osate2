@@ -219,7 +219,7 @@ abstract class AbstractNewFileWizard extends Wizard implements INewWizard {
 							'''The «fieldLabel» '«field.text»' is not valid.'''
 						} else if (fieldLabel == fields.keySet.head) {
 							val parentContainer = folderViewer.structuredSelection.firstElement as IContainer
-							return validateFileName(parentContainer, fields.values.head.text)
+							validateFileName(parentContainer, fields.values.head.text)
 						}
 					].filterNull.head
 				}
@@ -233,9 +233,9 @@ abstract class AbstractNewFileWizard extends Wizard implements INewWizard {
 	
 	def protected String validateFileName(IContainer parent, String name) {
 		if (file.exists) {
-			return "'" + getFileName(name) + "' already exists.";
+			"'" + getFileName(name) + "' already exists."
 		} else {
-			return null; // No error message
+			null // No error message
 		}
 	}
 	
