@@ -28,7 +28,7 @@ import com.google.inject.Injector;
 import com.rockwellcollins.atc.resolute.analysis.execution.EvaluationContext;
 import com.rockwellcollins.atc.resolute.analysis.execution.FeatureToConnectionsMap;
 import com.rockwellcollins.atc.resolute.analysis.execution.NamedElementComparator;
-import com.rockwellcollins.atc.resolute.analysis.execution.ResoluteInterpreter;
+import com.rockwellcollins.atc.resolute.analysis.execution.ResoluteProver;
 import com.rockwellcollins.atc.resolute.analysis.results.ClaimResult;
 import com.rockwellcollins.atc.resolute.analysis.results.ResoluteResult;
 import com.rockwellcollins.atc.resolute.analysis.views.ResoluteResultContentProvider;
@@ -141,12 +141,12 @@ public class ExecuteResoluteUtil {
 		initializeResoluteContext(instanceroot);
 		EvaluationContext context = new EvaluationContext(instanceroot, sets, featToConnsMap);
 		// check for claim function
-		ResoluteInterpreter interpreter = new ResoluteInterpreter(context);
-		ProveStatement provecall = createWrapperProveCall(fd, targetComponent, parameterObjects);
-		if (provecall != null) {
+		FnCallExpr fcncall = createWrapperFunctionCall(fd, targetComponent, parameterObjects);
+		if (fcncall != null) {
 			// using com.rockwellcollins.atc.resolute.analysis.results.ClaimResult
-			ResoluteResult proof = interpreter.evaluateProveStatement(provecall);
-			return doResoluteResults(proof);
+			ResoluteProver prover = new ResoluteProver(context);
+			ResoluteResult res = prover.doSwitch(fcncall);
+			return doResoluteResults(res);
 		} else {
 			return ResultUtil.createError("Could not find Resolute Function " + fd.getName(), targetComponent);
 		}
@@ -155,15 +155,22 @@ public class ExecuteResoluteUtil {
 	private ProveStatement createWrapperProveCall(FunctionDefinition fd, ComponentInstance ci,
 		List<PropertyExpression> params) {
 		ResoluteFactory factory = ResoluteFactory.eINSTANCE;
+		FnCallExpr call = createWrapperFunctionCall(fd, ci, params);
+		ProveStatement prove = factory.createProveStatement();
+		prove.setExpr(call);
+		return prove;
+	}
+
+	private FnCallExpr createWrapperFunctionCall(FunctionDefinition fd, ComponentInstance ci,
+			List<PropertyExpression> params) {
+		ResoluteFactory factory = ResoluteFactory.eINSTANCE;
 		FnCallExpr call = factory.createFnCallExpr();
 		call.setFn(fd);
 		call.getArgs().add(createComponentinstanceReference(ci));
 		if (params != null) {
 			addParams(call, params);
 		}
-		ProveStatement prove = factory.createProveStatement();
-		prove.setExpr(call);
-		return prove;
+		return call;
 	}
 
 	private ThisExpr createComponentinstanceReference(ComponentInstance ci) {
