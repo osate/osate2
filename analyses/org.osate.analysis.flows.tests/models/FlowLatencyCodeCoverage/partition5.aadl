@@ -11,7 +11,7 @@ public
 		connections
 			conn5: feature sub1.f1 -> sub9.f4;
 		flows
-			etef5: end to end flow sub1.fsource1 -> conn5 -> sub9.fsink2;
+			etef5: end to end flow sub1.fsource1 -> conn5 -> sub9.fsink2 {Latency => 5 ms .. 6 ms;};
 		properties
 			Actual_Processor_Binding => (reference (sub3)) applies to sub1;
 			Actual_Processor_Binding => (reference (sub3)) applies to sub9;
@@ -21,7 +21,7 @@ public
 		features
 			f1: feature;
 		flows
-			fsource1: flow source f1;
+			fsource1: flow source f1 {Latency => 1 ms .. 2 ms;};
 		properties
 			Period => 1 ms;
 	end s2;
@@ -30,6 +30,6 @@ public
 		features
 			f4: feature;
 		flows
-			fsink2: flow sink f4;
+			fsink2: flow sink f4 {Latency => 3 ms .. 4 ms;};
 	end s3;
 end partition5;
