@@ -355,18 +355,15 @@ public class FlowLatencyUtil {
 	 */
 	public static double getPartitionDuration(ComponentInstance partition, List<ARINC653ScheduleWindow> schedule) {
 		if ((schedule == null) || (schedule.size() == 0)) {
-			double wcet = GetProperties.getScaledMaxComputeExecutionTimeinMilliSec(partition);
-			if (wcet > 0) {
-				return wcet;
-			}
-			return -1;
+			double wcet = GetProperties.getExecutionTimeInMS(partition);
+			return wcet;
 		}
 		for (ARINC653ScheduleWindow window : schedule) {
 			if (window.getPartition() == partition) {
 				return window.getTime();
 			}
 		}
-		return -1;
+		return 0;
 	}
 
 	public static List<ARINC653ScheduleWindow> getModuleSchedule(ComponentInstance partition) {

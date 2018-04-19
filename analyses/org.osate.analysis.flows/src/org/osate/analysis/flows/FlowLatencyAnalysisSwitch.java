@@ -210,7 +210,7 @@ public class FlowLatencyAnalysisSwitch extends AadlProcessingSwitchWithProgress 
 						double partitionLatency = FlowLatencyUtil.getPartitionPeriod(firstPartition);
 						List<ARINC653ScheduleWindow> schedule = FlowLatencyUtil.getModuleSchedule(firstPartition);
 						double partitionDuration = FlowLatencyUtil.getPartitionDuration(firstPartition, schedule);
-						if (partitionDuration != -1) {
+						if (partitionDuration > 0) {
 							LatencyContributorComponent partitionLatencyContributor = new LatencyContributorComponent(
 									firstPartition);
 							partitionLatencyContributor.setSamplingPeriod(partitionLatency);
@@ -243,7 +243,7 @@ public class FlowLatencyAnalysisSwitch extends AadlProcessingSwitchWithProgress 
 				double partitionLatency = FlowLatencyUtil.getPartitionPeriod(firstPartition);
 				List<ARINC653ScheduleWindow> schedule = FlowLatencyUtil.getModuleSchedule(firstPartition);
 				double partitionDuration = FlowLatencyUtil.getPartitionDuration(firstPartition, schedule);
-				if (partitionDuration != -1) {
+				if (partitionDuration > 0) {
 					LatencyContributorComponent platencyContributor = new LatencyContributorComponent(firstPartition);
 					platencyContributor.setSamplingPeriod(partitionLatency);
 					double frameOffset = FlowLatencyUtil.getPartitionFrameOffset(firstPartition, schedule);
@@ -396,7 +396,7 @@ public class FlowLatencyAnalysisSwitch extends AadlProcessingSwitchWithProgress 
 			double partitionLatency = FlowLatencyUtil.getPartitionPeriod(srcPartition);
 			List<ARINC653ScheduleWindow> schedule = FlowLatencyUtil.getModuleSchedule(srcPartition);
 			double partitionDuration = FlowLatencyUtil.getPartitionDuration(srcPartition, schedule);
-			if (partitionDuration != -1) {
+			if (partitionDuration > 0) {
 				LatencyContributor ioLatencyContributor = new LatencyContributorComponent(srcPartition);
 				ioLatencyContributor.setWorstCaseMethod(LatencyContributorMethod.PARTITION_OUTPUT);
 				ioLatencyContributor.setBestCaseMethod(LatencyContributorMethod.PARTITION_OUTPUT);
@@ -437,7 +437,7 @@ public class FlowLatencyAnalysisSwitch extends AadlProcessingSwitchWithProgress 
 				latencyContributor.setMinimum(expectedMin);
 			}
 		} else {
-			latencyContributor.reportInfo("Adding latency subtotal from protocols and bus - shown with ()");
+			latencyContributor.reportInfo("Adding latency subtotal from protocols and hardware - shown with ()");
 		}
 		// set synchronous if on same processor
 		if (srcHW != null && dstHW != null) {
@@ -477,7 +477,7 @@ public class FlowLatencyAnalysisSwitch extends AadlProcessingSwitchWithProgress 
 			double partitionLatency = FlowLatencyUtil.getPartitionPeriod(dstPartition);
 			List<ARINC653ScheduleWindow> schedule = FlowLatencyUtil.getModuleSchedule(srcPartition);
 			double partitionDuration = FlowLatencyUtil.getPartitionDuration(dstPartition, schedule);
-			if (partitionDuration != -1) {
+			if (partitionDuration > 0) {
 				LatencyContributorComponent platencyContributor = new LatencyContributorComponent(dstPartition);
 				platencyContributor.setSamplingPeriod(partitionLatency);
 				double frameOffset = FlowLatencyUtil.getPartitionFrameOffset(dstPartition, schedule);
