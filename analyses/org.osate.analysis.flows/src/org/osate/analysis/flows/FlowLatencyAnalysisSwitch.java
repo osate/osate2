@@ -201,6 +201,7 @@ public class FlowLatencyAnalysisSwitch extends AadlProcessingSwitchWithProgress 
 				}
 			} else {
 				if (entry.getContributors().isEmpty()) {
+					// first component. no incoming connection to handle partition latency
 					samplingLatencyContributor.reportInfo("Initial " + period + "ms sampling latency not added");
 					samplingLatencyContributor.setBestCaseMethod(LatencyContributorMethod.FIRST_SAMPLED);
 					samplingLatencyContributor.setWorstCaseMethod(LatencyContributorMethod.FIRST_SAMPLED);
@@ -236,7 +237,7 @@ public class FlowLatencyAnalysisSwitch extends AadlProcessingSwitchWithProgress 
 				}
 			}
 			entry.addContributor(samplingLatencyContributor);
-		} else {
+		} else if (entry.getContributors().isEmpty()) {
 			// insert first partition sampling for the aperiodic case. For other partitions it is inserted by connection processing
 			ComponentInstance firstPartition = FlowLatencyUtil.getPartition(componentInstance);
 			if (firstPartition != null) {
@@ -475,7 +476,7 @@ public class FlowLatencyAnalysisSwitch extends AadlProcessingSwitchWithProgress 
 		if (dstPartition != null && srcPartition != dstPartition) {
 			// add partition latency if the destination is a partition and it is different from the source partition (or null)
 			double partitionLatency = FlowLatencyUtil.getPartitionPeriod(dstPartition);
-			List<ARINC653ScheduleWindow> schedule = FlowLatencyUtil.getModuleSchedule(srcPartition);
+			List<ARINC653ScheduleWindow> schedule = FlowLatencyUtil.getModuleSchedule(dstPartition);
 			double partitionDuration = FlowLatencyUtil.getPartitionDuration(dstPartition, schedule);
 			if (partitionDuration > 0) {
 				LatencyContributorComponent platencyContributor = new LatencyContributorComponent(dstPartition);
