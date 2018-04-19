@@ -23,6 +23,7 @@ package org.osate.result;
 public interface IntegerValue extends Value {
 	/**
 	 * Returns the value of the '<em><b>Value</b></em>' attribute.
+	 * The default value is <code>"0"</code>.
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Value</em>' attribute isn't clear,
@@ -32,7 +33,7 @@ public interface IntegerValue extends Value {
 	 * @return the value of the '<em>Value</em>' attribute.
 	 * @see #setValue(long)
 	 * @see org.osate.result.ResultPackage#getIntegerValue_Value()
-	 * @model required="true"
+	 * @model default="0" required="true"
 	 * @generated
 	 */
 	long getValue();

@@ -500,7 +500,7 @@
     <repository
         url="http://download.eclipse.org/releases/oxygen"/>
     <repository
-        url="http://download.eclipse.org/sirius/updates/releases/5.0.2/oxygen"/>
+        url="http://download.eclipse.org/sirius/updates/releases/5.1.0/oxygen"/>
   </setupTask>
   <setupTask
       xsi:type="setup.p2:P2Task">
