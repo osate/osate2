@@ -49,6 +49,7 @@ import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.ConnectionInstance;
 import org.osate.aadl2.instance.EndToEndFlowInstance;
+import org.osate.aadl2.instance.FeatureCategory;
 import org.osate.aadl2.instance.FeatureInstance;
 import org.osate.aadl2.instance.FlowElementInstance;
 import org.osate.aadl2.instance.FlowSpecificationInstance;
@@ -159,6 +160,8 @@ public class FlowLatencyAnalysisSwitch extends AadlProcessingSwitchWithProgress 
 			componentInstance = (ComponentInstance) flowElementInstance;
 		}
 
+		FeatureInstance fi = FlowLatencyUtil.getIncomingFeatureInstance(etef, flowElementInstance);
+
 		/**
 		 * Get all the relevant properties.
 		 */
@@ -172,13 +175,15 @@ public class FlowLatencyAnalysisSwitch extends AadlProcessingSwitchWithProgress 
 		 * The component is periodic. Therefore it will sample its input unless we have an immediate connection or delayed connection
 		 */
 		boolean checkLastImmediate = false;
-		if (period > 0 && ((InstanceModelUtil.isThread(componentInstance)
+		if (period > 0 && fi != null && fi.getCategory() == FeatureCategory.DATA_PORT
+				&& ((InstanceModelUtil.isThread(componentInstance)
 				|| InstanceModelUtil.isDevice(componentInstance) || InstanceModelUtil.isAbstract(componentInstance))
 						? (!InstanceModelUtil.isSporadicComponent(componentInstance)
 								&& !InstanceModelUtil.isTimedComponent(componentInstance)
 								&& !InstanceModelUtil.isAperiodicComponent(componentInstance))
 						: true)) {
 			// period is set, and if thread, abstract, or device needs to be dispatched as periodic
+			// We sample only data ports. Event and event data ports have queuing latency
 			LatencyContributorComponent samplingLatencyContributor = new LatencyContributorComponent(componentInstance);
 			samplingLatencyContributor.setSamplingPeriod(period);
 			if ((InstanceModelUtil.isThread(componentInstance) || InstanceModelUtil.isDevice(componentInstance))
@@ -315,13 +320,20 @@ public class FlowLatencyAnalysisSwitch extends AadlProcessingSwitchWithProgress 
 
 		// deal with queuing latency
 		// take into account queuing delay
-		FeatureInstance fi = FlowLatencyUtil.getIncomingFeatureInstance(etef, flowElementInstance);
 		if (fi != null) {
-			double qs = GetProperties.getQueueSize(fi);
-			boolean hasAssignedQueueSize = GetProperties.hasAssignedPropertyValue(fi,
-					CommunicationProperties.QUEUE_SIZE);
-			if (hasAssignedQueueSize && qs != 0) {
-				LatencyContributorComponent ql = new LatencyContributorComponent(componentInstance);
+			double qs = 0;
+			LatencyContributorComponent ql = new LatencyContributorComponent(componentInstance);
+			if (GetProperties.hasAssignedPropertyValue(fi, CommunicationProperties.QUEUE_SIZE)) {
+				qs = GetProperties.getQueueSize(fi);
+			} else if (fi.getCategory() == FeatureCategory.DATA_PORT
+					&& (InstanceModelUtil.isSporadicComponent(componentInstance)
+							|| InstanceModelUtil.isTimedComponent(componentInstance)
+							|| InstanceModelUtil.isAperiodicComponent(componentInstance))) {
+				// treat data port as a port of queue size 1 when not a sampling thread
+				qs = 1;
+				ql.reportInfo("Data port as queue size 1 for sporadic, aperiodic, timed dispatch");
+			}
+			if (qs != 0) {
 				// take into account queuing delay on event and event data ports.
 				double dl = 0.0;
 				if (InstanceModelUtil.isSporadicComponent(componentInstance)
