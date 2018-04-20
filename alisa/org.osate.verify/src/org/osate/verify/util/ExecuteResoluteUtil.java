@@ -1,5 +1,6 @@
 package org.osate.verify.util;
 
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -7,12 +8,9 @@ import java.util.SortedSet;
 import java.util.TreeSet;
 
 import org.eclipse.emf.ecore.EObject;
-import org.eclipse.emf.ecore.util.EcoreUtil;
-import org.eclipse.xtext.resource.IEObjectDescription;
 import org.eclipse.xtext.scoping.IGlobalScopeProvider;
 import org.osate.aadl2.BooleanLiteral;
 import org.osate.aadl2.ComponentCategory;
-import org.osate.aadl2.Connection;
 import org.osate.aadl2.IntegerLiteral;
 import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.PropertyExpression;
@@ -20,10 +18,9 @@ import org.osate.aadl2.RealLiteral;
 import org.osate.aadl2.StringLiteral;
 import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.ConnectionInstance;
-import org.osate.aadl2.instance.FeatureInstance;
 import org.osate.aadl2.instance.InstanceObject;
 import org.osate.aadl2.instance.SystemInstance;
-import org.osate.aadl2.instance.util.InstanceUtil;
+import org.osate.alisa.common.util.CommonUtilExtension;
 import org.osate.result.Diagnostic;
 import org.osate.result.util.ResultUtil;
 
@@ -46,7 +43,6 @@ import com.rockwellcollins.atc.resolute.resolute.IntExpr;
 import com.rockwellcollins.atc.resolute.resolute.NestedDotID;
 import com.rockwellcollins.atc.resolute.resolute.RealExpr;
 import com.rockwellcollins.atc.resolute.resolute.ResoluteFactory;
-import com.rockwellcollins.atc.resolute.resolute.ResolutePackage;
 import com.rockwellcollins.atc.resolute.resolute.StringExpr;
 import com.rockwellcollins.atc.resolute.resolute.ThisExpr;
 import com.rockwellcollins.atc.resolute.ui.internal.ResoluteActivator;
@@ -119,20 +115,54 @@ public class ExecuteResoluteUtil {
 	@Inject
 	IGlobalScopeProvider gscope;
 
-	public Diagnostic executeResoluteFunction(String fundef, final SystemInstance instanceroot,
-			final ComponentInstance targetComponent, final InstanceObject target,
+//	public Diagnostic executeResoluteFunction(String fundef, final SystemInstance instanceroot,
+//			final ComponentInstance targetComponent, final InstanceObject target,
+//			List<PropertyExpression> parameterObjects) {
+//		Iterable<IEObjectDescription> allentries = gscope
+//				.getScope(instanceroot.eResource(), ResolutePackage.eINSTANCE.getFnCallExpr_Fn(), null)
+//				.getAllElements();
+//		String funname = fundef.replaceAll("\"", "");
+//		for (IEObjectDescription description : allentries) {
+//			if (!description.getName().isEmpty() && description.getName().getLastSegment().equalsIgnoreCase(funname)) {
+//				EObject obj = EcoreUtil.resolve(description.getEObjectOrProxy(), targetComponent);
+//				return executeResoluteFunctionOnce(obj, instanceroot, targetComponent, target, parameterObjects);
+//			}
+//		}
+//		return null;
+//	}
+
+	public Diagnostic executeResoluteFunction(EObject fundef, final SystemInstance instanceroot,
+			final ComponentInstance targetComponent, final NamedElement targetElement,
 			List<PropertyExpression> parameterObjects) {
-		Iterable<IEObjectDescription> allentries = gscope
-				.getScope(instanceroot.eResource(), ResolutePackage.eINSTANCE.getFnCallExpr_Fn(), null)
-				.getAllElements();
-		String funname = fundef.replaceAll("\"", "");
-		for (IEObjectDescription description : allentries) {
-			if (!description.getName().isEmpty() && description.getName().getLastSegment().equalsIgnoreCase(funname)) {
-				EObject obj = EcoreUtil.resolve(description.getEObjectOrProxy(), targetComponent);
-				return executeResoluteFunction(obj, instanceroot, targetComponent, target, parameterObjects);
+		InstanceObject target = targetComponent;
+		if (targetElement != null) {
+			if (targetElement.eIsProxy()) {
+				// setToError(verificationResult, "Unresolved target element for claim", targetComponent)
+				return null; // Diagnostic;
 			}
+			target = CommonUtilExtension.findElementInstance(targetComponent, targetElement);
 		}
-		return null;
+		if (target instanceof ConnectionInstance) {
+			Collection<ConnectionInstance> conns = CommonUtilExtension
+					.findConnectionInstances(targetComponent.getConnectionInstances(), targetElement.getName());
+			for (ConnectionInstance conni : conns) {
+				Diagnostic d = executeResoluteFunctionOnce(fundef, instanceroot, targetComponent, conni,
+						parameterObjects);
+			}
+			return null;
+			// fix verification activity result state
+//			if (verificationResult.issues.hasErrors){
+//				setToError(verificationResult)
+//			} else if (verificationResult.issues.hasFailures){
+//				setToFail(verificationResult)
+//			}
+		} else {
+//			if (!checkPropertyValues(verificationResult, target)) {
+//				return
+//			}
+			return executeResoluteFunctionOnce(fundef, instanceroot, targetComponent, target, parameterObjects);
+		}
+
 	}
 
 	/**
@@ -141,8 +171,8 @@ public class ExecuteResoluteUtil {
 	 * The return value is an Issue object with subissues for the list of issues returned in the Resolute ClaimResult.
 	 * If the proof fails then the top Issue is set to FAIL, if successful it is set to SUCCESS
 	 */
-	public Diagnostic executeResoluteFunction(EObject fundef, final SystemInstance instanceroot,
-			final ComponentInstance targetComponent, final NamedElement targetElement,
+	public Diagnostic executeResoluteFunctionOnce(EObject fundef, final SystemInstance instanceroot,
+			final ComponentInstance targetComponent, final InstanceObject targetElement,
 			List<PropertyExpression> parameterObjects) {
 		FunctionDefinition fd = (FunctionDefinition) fundef;
 		initializeResoluteContext(instanceroot);
@@ -158,9 +188,9 @@ public class ExecuteResoluteUtil {
 					return new ResoluteEvaluator(context, varStack.peek()) {
 						@Override
 						public ResoluteValue caseThisExpr(ThisExpr object) {
-							InstanceObject curr = context.getThisInstance();
-							for (NestedDotID id = object.getSub(); id != null; id = id.getSub()) {
-								curr = getInstanceElement(curr, id.getBase());
+							NamedElement curr = context.getThisInstance();
+							if (object.getSub() != null) {
+								curr = object.getSub().getBase();
 							}
 							return new NamedElementValue(curr);
 						}
@@ -168,39 +198,6 @@ public class ExecuteResoluteUtil {
 					};
 				}
 
-				private InstanceObject getInstanceElement(InstanceObject io, NamedElement ne) {
-					if (io instanceof ComponentInstance) {
-						ComponentInstance ci = (ComponentInstance) io;
-						for (ComponentInstance child : ci.getComponentInstances()) {
-							if (child.getSubcomponent().equals(ne)) {
-								return child;
-							}
-						}
-						for (FeatureInstance child : ci.getFeatureInstances()) {
-							if (child.getFeature().equals(ne)) {
-								return child;
-							}
-						}
-						for (ConnectionInstance child : ci.getConnectionInstances()) {
-							Connection xconn = InstanceUtil.getCrossConnection(child);
-							if (xconn.getName().equalsIgnoreCase(ne.getName())) {
-								return child;
-							}
-						}
-						throw new IllegalArgumentException("Unable to find element " + ne.getName() + " in instance of "
-								+ ci.getComponentClassifier().getName());
-					} else if (io instanceof FeatureInstance) {
-						FeatureInstance fi = (FeatureInstance) io;
-						for (FeatureInstance child : fi.getFeatureInstances()) {
-							if (child.getFeature().equals(ne)) {
-								return child;
-							}
-						}
-						throw new IllegalArgumentException(
-								"Unable to find element " + ne.getName() + " in instance of " + fi.getName());
-					}
-					return null;
-				}
 			};
 			ResoluteResult res = prover.doSwitch(fcncall);
 			return doResoluteResults(res);
@@ -209,43 +206,29 @@ public class ExecuteResoluteUtil {
 		}
 	}
 
-	private FnCallExpr createWrapperFunctionCall(FunctionDefinition fd, ComponentInstance evalContext, NamedElement ne,
+	private FnCallExpr createWrapperFunctionCall(FunctionDefinition fd, ComponentInstance evalContext,
+			InstanceObject io,
 			List<PropertyExpression> params) {
 		ResoluteFactory factory = ResoluteFactory.eINSTANCE;
 		FnCallExpr call = factory.createFnCallExpr();
 		call.setFn(fd);
-		call.getArgs().add(createInstanceObjectReference(evalContext, ne));
+		call.getArgs().add(createInstanceObjectReference(evalContext, io));
 		if (params != null) {
 			addParams(call, params);
 		}
 		return call;
 	}
 
-	private ThisExpr createInstanceObjectReference(ComponentInstance evalContext, NamedElement ne) {
+	private ThisExpr createInstanceObjectReference(ComponentInstance evalContext, InstanceObject io) {
 		ResoluteFactory factory = ResoluteFactory.eINSTANCE;
 		NestedDotID nid = null;
-		if (ne != null) {
+		if (io != null) {
 			nid = factory.createNestedDotID();
-			nid.setBase(ne);
+			nid.setBase(io);
 		}
 		ThisExpr te = factory.createThisExpr();
 		te.setSub(nid);
 		return te;
-	}
-
-	private NamedElement getModelElement(InstanceObject e) {
-		if (e instanceof ComponentInstance) {
-			ComponentInstance ci = (ComponentInstance) e;
-			return ci.getSubcomponent();
-		} else if (e instanceof ConnectionInstance) {
-			ConnectionInstance ci = (ConnectionInstance) e;
-			return ci.getConnectionReferences().get(0).getConnection();
-		} else if (e instanceof FeatureInstance) {
-			FeatureInstance feat = (FeatureInstance) e;
-			return feat.getFeature();
-		} else {
-			return null;
-		}
 	}
 
 	private void addParams(FnCallExpr call, List<PropertyExpression> params) {
