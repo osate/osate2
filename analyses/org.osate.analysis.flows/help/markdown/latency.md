@@ -111,7 +111,7 @@ Each contributor entry has a number of columns:
    associated with the contributor. (The latency property takes a range value and 
    the lower bound is used as minumum).
 3. The **minimum actual** latency value used by the analysis. This value is 
-   determined by properties in the architecture design, e.g., the period and 
+   determined by properties in the architecture design, e.g., the period and compute
    execution time of a thread, or the transmission time by a bus. If no actual 
    value can be determined the specified value is used.
 4. The **minimum method** used to determine the minimum actual value. The 
@@ -125,7 +125,7 @@ Each contributor entry has a number of columns:
       binding to a virtual bus or bus using latency property values of those components or 
       based transmission time computation based on data size property values of the 
       data being transmitted if Transmission_Time and Data_Size have been specified
-    - **queued**: Latency contribution due to queuing. Uses on queue size, 
+    - **queued**: Latency contribution due to queuing. Uses on queue size, compute
       execution time, and period property values.
     - **sampling**: Latency contribution due to a component sampling periodically. 
       Uses period property values. This value may differ in synchronous and 
@@ -243,8 +243,8 @@ The latency analysis supports the following settings:
       completion of all remaining partitions, regardless the execution
       order of partition A or partition B.
 - **For worst-case processing time use**: Users can choose between deadline
-  and worst-case execution time as worst case processing time. For best case 
-  we always use execution time.
+  and worst-case compute execution time as worst case processing time. For best case 
+  we always use compute execution time.
     - **Deadline (DL) \[default\]**: Deadline represents the worst-case 
       completion time assuming the tasks are schedulable.
     - **Maximum compute execution time (ET)**: Maximum compute execution time 
@@ -315,12 +315,12 @@ has explicitly assigned a queue size to the destination port of a connection.
 The worst-case queuing delay assumes a full queue, i.e., is the product of 
 queue size and worst-case processing time. For worst-case processing time the 
 deadline is used and if not present the latency value of the flow specification. 
-A preference setting allows the user to specify that worst-case execution time 
+A preference setting allows the user to specify that worst-case compute execution time 
 should be used instead of deadline. 
 
 The best-case queuing delay by default assumes an empty queue. However, in a 
 preference setting the user can specify a full queue is to be assumed. In this 
-case the queue size is multiplied by the best-case execution time.
+case the queue size is multiplied by the best-case compute execution time.
 
 Users may specify functional architectures with queuing ports, i.e., event 
 ports and event data ports may be associated with system or abstract components. 
@@ -335,7 +335,7 @@ threads with queuing ports. In this case the deadline or worst-case execution
 time is used 
 
 > In the case of a periodic or sporadic task with a queue the period is used 
-  instead of the worst-case or best-case execution time to reflect the fact that 
+  instead of the worst-case or best-case compute execution time to reflect the fact that 
   queue processing is paced at the rate specified by the period.
 
 
@@ -572,10 +572,14 @@ processor. The latency analysis tools handles both modeling styles.
 The user can specify **ARINC653::Module\_Major\_Frame** on a processor to which 
 partitions are bound to indicate the rate at which partitions are scheduled. 
 
+> If not specified, the **Period** property on the virtual processor indicates the rate of execution for the partition.
+
 The user can also specify a full partition schedule using the 
 **ARINC653::Module\_Schedule** property, whose value is a list of records with 
 the **Partition** field referring to the partition and the **Duration** field 
 indicating the window size.
+
+> If there is no ARICN653 schedule that identifies the partition duration, the **Execution_Time** property on the virtual processor indicates the duration of the partion execution.
 
 The latency analysis will use the ARINC653 partition schedule information, or 
 the ARINC653 major frame information if the schedule is absent.
