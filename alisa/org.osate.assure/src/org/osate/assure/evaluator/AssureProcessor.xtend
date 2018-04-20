@@ -65,7 +65,7 @@ import org.osate.result.RealValue
 import org.osate.result.Result
 import org.osate.result.ResultFactory
 import org.osate.result.StringValue
-import org.osate.verify.util.ExecuteResoluteUtil
+import org.osate.assure.util.ExecuteResoluteUtil
 import org.osate.verify.util.VerificationMethodDispatchers
 import org.osate.verify.verify.AgreeMethod
 import org.osate.verify.verify.FormalParameter

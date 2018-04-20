@@ -1,4 +1,4 @@
-package org.osate.verify.util;
+package org.osate.assure.util;
 
 import java.util.Collection;
 import java.util.HashMap;
