@@ -751,6 +751,8 @@
       <requirement
           name="org.eclipse.elk.sdk.feature.feature.group"
           versionRange="[0.3.0,0.4.0)"/>
+      <requirement
+          name="org.eclipse.swtbot.eclipse.gef.feature.group"/>
       <repository
           url="http://download.eclipse.org/releases/oxygen"/>
       <repository
@@ -912,6 +914,8 @@
           name="org.eclipse.gef.mvc.fx.ui.feature.group"/>
       <requirement
           name="org.eclipse.sirius.runtime.ide.ui.feature.group"/>
+      <requirement
+          name="org.eclipse.swtbot.eclipse.gef.feature.group"/>
       <requirement
           name="*"/>
       <sourceLocator
