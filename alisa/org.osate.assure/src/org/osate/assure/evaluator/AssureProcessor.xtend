@@ -392,13 +392,13 @@ class AssureProcessor implements IAssureProcessor {
 				ResoluteMethod: {
 					if (RESOLUTE_INSTALLED) {
 						val proveri = ExecuteResoluteUtil.eInstance.executeResoluteFunction(methodtype.methodReference,
-							instanceroot, targetComponent, parameterObjects)
+							instanceroot, targetComponent, targetElement,parameterObjects)
 						if (proveri.type == DiagnosticType.SUCCESS) {
 							setToSuccess(verificationResult)
-							verificationResult.issues += proveri.issues
+							verificationResult.issues += proveri//.issues
 						} else if (proveri.type == DiagnosticType.FAILURE) {
 							setToFail(verificationResult)
-							verificationResult.issues += proveri.issues
+							verificationResult.issues += proveri//.issues
 						} else if (proveri.type == DiagnosticType.ERROR) {
 							setToError(verificationResult)
 							verificationResult.issues += proveri
