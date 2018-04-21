@@ -1,6 +1,5 @@
 package org.osate.assure.util;
 
-import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -20,7 +19,6 @@ import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.ConnectionInstance;
 import org.osate.aadl2.instance.InstanceObject;
 import org.osate.aadl2.instance.SystemInstance;
-import org.osate.alisa.common.util.CommonUtilExtension;
 import org.osate.result.Diagnostic;
 import org.osate.result.util.ResultUtil;
 
@@ -115,55 +113,6 @@ public class ExecuteResoluteUtil {
 	@Inject
 	IGlobalScopeProvider gscope;
 
-//	public Diagnostic executeResoluteFunction(String fundef, final SystemInstance instanceroot,
-//			final ComponentInstance targetComponent, final InstanceObject target,
-//			List<PropertyExpression> parameterObjects) {
-//		Iterable<IEObjectDescription> allentries = gscope
-//				.getScope(instanceroot.eResource(), ResolutePackage.eINSTANCE.getFnCallExpr_Fn(), null)
-//				.getAllElements();
-//		String funname = fundef.replaceAll("\"", "");
-//		for (IEObjectDescription description : allentries) {
-//			if (!description.getName().isEmpty() && description.getName().getLastSegment().equalsIgnoreCase(funname)) {
-//				EObject obj = EcoreUtil.resolve(description.getEObjectOrProxy(), targetComponent);
-//				return executeResoluteFunctionOnce(obj, instanceroot, targetComponent, target, parameterObjects);
-//			}
-//		}
-//		return null;
-//	}
-
-	public Diagnostic executeResoluteFunction(EObject fundef, final SystemInstance instanceroot,
-			final ComponentInstance targetComponent, final NamedElement targetElement,
-			List<PropertyExpression> parameterObjects) {
-		InstanceObject target = targetComponent;
-		if (targetElement != null) {
-			if (targetElement.eIsProxy()) {
-				// setToError(verificationResult, "Unresolved target element for claim", targetComponent)
-				return null; // Diagnostic;
-			}
-			target = CommonUtilExtension.findElementInstance(targetComponent, targetElement);
-		}
-		if (target instanceof ConnectionInstance) {
-			Collection<ConnectionInstance> conns = CommonUtilExtension
-					.findConnectionInstances(targetComponent.getConnectionInstances(), targetElement.getName());
-			for (ConnectionInstance conni : conns) {
-				Diagnostic d = executeResoluteFunctionOnce(fundef, instanceroot, targetComponent, conni,
-						parameterObjects);
-			}
-			return null;
-			// fix verification activity result state
-//			if (verificationResult.issues.hasErrors){
-//				setToError(verificationResult)
-//			} else if (verificationResult.issues.hasFailures){
-//				setToFail(verificationResult)
-//			}
-		} else {
-//			if (!checkPropertyValues(verificationResult, target)) {
-//				return
-//			}
-			return executeResoluteFunctionOnce(fundef, instanceroot, targetComponent, target, parameterObjects);
-		}
-
-	}
 
 	/**
 	 * invokes Resolute claim function on target component instance. instanceroot is used to initialize the Resolute evaluation context.
