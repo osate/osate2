@@ -355,7 +355,7 @@ public class FlowLatencyUtil {
 	 */
 	public static double getPartitionDuration(ComponentInstance partition, List<ARINC653ScheduleWindow> schedule) {
 		if ((schedule == null) || (schedule.size() == 0)) {
-			double wcet = GetProperties.getScaledMaxComputeExecutionTimeinMilliSec(partition);
+			double wcet = GetProperties.getExecutionTimeInMS(partition);
 			return wcet;
 		}
 		for (ARINC653ScheduleWindow window : schedule) {
