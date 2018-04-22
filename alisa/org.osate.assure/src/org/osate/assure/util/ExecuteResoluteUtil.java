@@ -7,6 +7,8 @@ import java.util.SortedSet;
 import java.util.TreeSet;
 
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.util.EcoreUtil;
+import org.eclipse.xtext.resource.IEObjectDescription;
 import org.eclipse.xtext.scoping.IGlobalScopeProvider;
 import org.osate.aadl2.BooleanLiteral;
 import org.osate.aadl2.ComponentCategory;
@@ -41,6 +43,7 @@ import com.rockwellcollins.atc.resolute.resolute.IntExpr;
 import com.rockwellcollins.atc.resolute.resolute.NestedDotID;
 import com.rockwellcollins.atc.resolute.resolute.RealExpr;
 import com.rockwellcollins.atc.resolute.resolute.ResoluteFactory;
+import com.rockwellcollins.atc.resolute.resolute.ResolutePackage;
 import com.rockwellcollins.atc.resolute.resolute.StringExpr;
 import com.rockwellcollins.atc.resolute.resolute.ThisExpr;
 import com.rockwellcollins.atc.resolute.ui.internal.ResoluteActivator;
@@ -115,7 +118,37 @@ public class ExecuteResoluteUtil {
 
 
 	/**
-	 * invokes Resolute claim function on target component instance. instanceroot is used to initialize the Resolute evaluation context.
+	 * invokes Resolute claim function on targetComponent or targetElement if not null.
+	 * instanceroot is used to initialize the Resolute evaluation context.
+	 * targetComponent is the evaluation context
+	 * targetElement is the model element within the component instance or null.
+	 * parameterObjects is a list of additional parameters of types RealLiteral, IntegerLiteral, StringLiteral, BooleanLiteral
+	 * parameterObjects can be null or an empty list.
+	 * The return value is an Diagnostic object with subdiagnostics for the list of issues returned in the Resolute ClaimResult.
+	 * If the proof fails then the Diagnostic is set to FAIL, if successful it is set to SUCCESS
+	 */
+	public Diagnostic executeResoluteFunction(String fundef, SystemInstance instanceroot,
+			ComponentInstance targetComponent, final InstanceObject targetElement,
+			List<PropertyExpression> parameterObjects) {
+		Iterable<IEObjectDescription> allentries = gscope
+				.getScope(instanceroot.eResource(), ResolutePackage.eINSTANCE.getFnCallExpr_Fn(), null)
+				.getAllElements();
+		String funname = fundef.replaceAll("\"", "");
+		for (IEObjectDescription description : allentries) {
+			if (!description.getName().isEmpty() && description.getName().getLastSegment().equalsIgnoreCase(funname)) {
+				EObject obj = EcoreUtil.resolve(description.getEObjectOrProxy(), targetComponent);
+				return executeResoluteFunctionOnce(obj, instanceroot, targetComponent, targetElement, parameterObjects);
+			}
+		}
+		return null;
+	}
+
+	/**
+	 * invokes Resolute claim function on targetComponent or targetElement if not null.
+	 * instanceroot is used to initialize the Resolute evaluation context.
+	 * targetComponent is the evaluation context
+	 * targetElement is the model element within the component instance or null.
+	 * parameterObjects is a list of additional parameters of types RealLiteral, IntegerLiteral, StringLiteral, BooleanLiteral
 	 * parameterObjects can be null or an empty list.
 	 * The return value is an Issue object with subissues for the list of issues returned in the Resolute ClaimResult.
 	 * If the proof fails then the top Issue is set to FAIL, if successful it is set to SUCCESS
