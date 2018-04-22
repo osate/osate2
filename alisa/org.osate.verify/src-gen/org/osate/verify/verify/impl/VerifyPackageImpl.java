@@ -17,7 +17,6 @@ package org.osate.verify.verify.impl;
 
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EEnum;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.EcorePackage;
@@ -49,7 +48,6 @@ import org.osate.verify.verify.MethodKind;
 import org.osate.verify.verify.PluginMethod;
 import org.osate.verify.verify.RefExpr;
 import org.osate.verify.verify.ResoluteMethod;
-import org.osate.verify.verify.TargetType;
 import org.osate.verify.verify.ThenExpr;
 import org.osate.verify.verify.Verification;
 import org.osate.verify.verify.VerificationActivity;
@@ -237,13 +235,6 @@ public class VerifyPackageImpl extends EPackageImpl implements VerifyPackage
    * @generated
    */
   private EClass verificationPreconditionEClass = null;
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  private EEnum targetTypeEEnum = null;
 
   /**
    * Creates an instance of the model <b>Package</b>, registered with
@@ -1241,16 +1232,6 @@ public class VerifyPackageImpl extends EPackageImpl implements VerifyPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EEnum getTargetType()
-  {
-    return targetTypeEEnum;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
   public VerifyFactory getVerifyFactory()
   {
     return (VerifyFactory)getEFactoryInstance();
@@ -1391,9 +1372,6 @@ public class VerifyPackageImpl extends EPackageImpl implements VerifyPackage
     verificationValidationEClass = createEClass(VERIFICATION_VALIDATION);
 
     verificationPreconditionEClass = createEClass(VERIFICATION_PRECONDITION);
-
-    // Create enums
-    targetTypeEEnum = createEEnum(TARGET_TYPE);
   }
 
   /**
@@ -1501,7 +1479,7 @@ public class VerifyPackageImpl extends EPackageImpl implements VerifyPackage
 
     initEClass(verificationMethodEClass, VerificationMethod.class, "VerificationMethod", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEAttribute(getVerificationMethod_Name(), theEcorePackage.getEString(), "name", null, 0, 1, VerificationMethod.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEAttribute(getVerificationMethod_TargetType(), this.getTargetType(), "targetType", null, 0, 1, VerificationMethod.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getVerificationMethod_TargetType(), theCommonPackage.getTargetType(), "targetType", null, 0, 1, VerificationMethod.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getVerificationMethod_Formals(), this.getFormalParameter(), null, "formals", null, 0, -1, VerificationMethod.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getVerificationMethod_Properties(), theAadl2Package.getProperty(), null, "properties", null, 0, -1, VerificationMethod.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getVerificationMethod_Results(), this.getFormalParameter(), null, "results", null, 0, -1, VerificationMethod.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -1561,16 +1539,6 @@ public class VerifyPackageImpl extends EPackageImpl implements VerifyPackage
     initEClass(verificationValidationEClass, VerificationValidation.class, "VerificationValidation", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
     initEClass(verificationPreconditionEClass, VerificationPrecondition.class, "VerificationPrecondition", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-
-    // Initialize enums and add enum literals
-    initEEnum(targetTypeEEnum, TargetType.class, "TargetType");
-    addEEnumLiteral(targetTypeEEnum, TargetType.COMPONENT);
-    addEEnumLiteral(targetTypeEEnum, TargetType.FEATURE);
-    addEEnumLiteral(targetTypeEEnum, TargetType.CONNECTION);
-    addEEnumLiteral(targetTypeEEnum, TargetType.FLOW);
-    addEEnumLiteral(targetTypeEEnum, TargetType.MODE);
-    addEEnumLiteral(targetTypeEEnum, TargetType.ELEMENT);
-    addEEnumLiteral(targetTypeEEnum, TargetType.ROOT);
 
     // Create resource
     createResource(eNS_URI);

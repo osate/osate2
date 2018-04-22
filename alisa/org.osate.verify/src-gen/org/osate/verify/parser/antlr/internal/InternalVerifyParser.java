@@ -5744,7 +5744,7 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
                                              			current, 
                                              			"targetType",
                                               		lv_targetType_3_0, 
-                                              		"org.osate.verify.Verify.TargetType");
+                                              		"org.osate.alisa.common.Common.TargetType");
                                       	        afterParserOrEnumRuleCall();
                                       	    
                                     }
@@ -5903,7 +5903,7 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
                                      			current, 
                                      			"targetType",
                                       		lv_targetType_7_0, 
-                                      		"org.osate.verify.Verify.TargetType");
+                                      		"org.osate.alisa.common.Common.TargetType");
                               	        afterParserOrEnumRuleCall();
                               	    
                             }
@@ -16457,7 +16457,7 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleTargetType"
-    // InternalVerify.g:5655:1: ruleTargetType returns [Enumerator current=null] : ( (enumLiteral_0= 'component' ) | (enumLiteral_1= 'feature' ) | (enumLiteral_2= 'connection' ) | (enumLiteral_3= 'flow' ) | (enumLiteral_4= 'mode' ) | (enumLiteral_5= 'element' ) | (enumLiteral_6= 'root' ) ) ;
+    // InternalVerify.g:5657:1: ruleTargetType returns [Enumerator current=null] : ( (enumLiteral_0= 'component' ) | (enumLiteral_1= 'feature' ) | (enumLiteral_2= 'connection' ) | (enumLiteral_3= 'flow' ) | (enumLiteral_4= 'mode' ) | (enumLiteral_5= 'element' ) | (enumLiteral_6= 'root' ) ) ;
     public final Enumerator ruleTargetType() throws RecognitionException {
         Enumerator current = null;
 
@@ -16471,10 +16471,10 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
 
          enterRule(); 
         try {
-            // InternalVerify.g:5657:28: ( ( (enumLiteral_0= 'component' ) | (enumLiteral_1= 'feature' ) | (enumLiteral_2= 'connection' ) | (enumLiteral_3= 'flow' ) | (enumLiteral_4= 'mode' ) | (enumLiteral_5= 'element' ) | (enumLiteral_6= 'root' ) ) )
-            // InternalVerify.g:5658:1: ( (enumLiteral_0= 'component' ) | (enumLiteral_1= 'feature' ) | (enumLiteral_2= 'connection' ) | (enumLiteral_3= 'flow' ) | (enumLiteral_4= 'mode' ) | (enumLiteral_5= 'element' ) | (enumLiteral_6= 'root' ) )
+            // InternalVerify.g:5659:28: ( ( (enumLiteral_0= 'component' ) | (enumLiteral_1= 'feature' ) | (enumLiteral_2= 'connection' ) | (enumLiteral_3= 'flow' ) | (enumLiteral_4= 'mode' ) | (enumLiteral_5= 'element' ) | (enumLiteral_6= 'root' ) ) )
+            // InternalVerify.g:5660:1: ( (enumLiteral_0= 'component' ) | (enumLiteral_1= 'feature' ) | (enumLiteral_2= 'connection' ) | (enumLiteral_3= 'flow' ) | (enumLiteral_4= 'mode' ) | (enumLiteral_5= 'element' ) | (enumLiteral_6= 'root' ) )
             {
-            // InternalVerify.g:5658:1: ( (enumLiteral_0= 'component' ) | (enumLiteral_1= 'feature' ) | (enumLiteral_2= 'connection' ) | (enumLiteral_3= 'flow' ) | (enumLiteral_4= 'mode' ) | (enumLiteral_5= 'element' ) | (enumLiteral_6= 'root' ) )
+            // InternalVerify.g:5660:1: ( (enumLiteral_0= 'component' ) | (enumLiteral_1= 'feature' ) | (enumLiteral_2= 'connection' ) | (enumLiteral_3= 'flow' ) | (enumLiteral_4= 'mode' ) | (enumLiteral_5= 'element' ) | (enumLiteral_6= 'root' ) )
             int alt105=7;
             switch ( input.LA(1) ) {
             case 108:
@@ -16522,10 +16522,10 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
 
             switch (alt105) {
                 case 1 :
-                    // InternalVerify.g:5658:2: (enumLiteral_0= 'component' )
+                    // InternalVerify.g:5660:2: (enumLiteral_0= 'component' )
                     {
-                    // InternalVerify.g:5658:2: (enumLiteral_0= 'component' )
-                    // InternalVerify.g:5658:4: enumLiteral_0= 'component'
+                    // InternalVerify.g:5660:2: (enumLiteral_0= 'component' )
+                    // InternalVerify.g:5660:4: enumLiteral_0= 'component'
                     {
                     enumLiteral_0=(Token)match(input,108,FOLLOW_2); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
@@ -16541,10 +16541,10 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 2 :
-                    // InternalVerify.g:5664:6: (enumLiteral_1= 'feature' )
+                    // InternalVerify.g:5666:6: (enumLiteral_1= 'feature' )
                     {
-                    // InternalVerify.g:5664:6: (enumLiteral_1= 'feature' )
-                    // InternalVerify.g:5664:8: enumLiteral_1= 'feature'
+                    // InternalVerify.g:5666:6: (enumLiteral_1= 'feature' )
+                    // InternalVerify.g:5666:8: enumLiteral_1= 'feature'
                     {
                     enumLiteral_1=(Token)match(input,109,FOLLOW_2); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
@@ -16560,10 +16560,10 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 3 :
-                    // InternalVerify.g:5670:6: (enumLiteral_2= 'connection' )
+                    // InternalVerify.g:5672:6: (enumLiteral_2= 'connection' )
                     {
-                    // InternalVerify.g:5670:6: (enumLiteral_2= 'connection' )
-                    // InternalVerify.g:5670:8: enumLiteral_2= 'connection'
+                    // InternalVerify.g:5672:6: (enumLiteral_2= 'connection' )
+                    // InternalVerify.g:5672:8: enumLiteral_2= 'connection'
                     {
                     enumLiteral_2=(Token)match(input,110,FOLLOW_2); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
@@ -16579,10 +16579,10 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 4 :
-                    // InternalVerify.g:5676:6: (enumLiteral_3= 'flow' )
+                    // InternalVerify.g:5678:6: (enumLiteral_3= 'flow' )
                     {
-                    // InternalVerify.g:5676:6: (enumLiteral_3= 'flow' )
-                    // InternalVerify.g:5676:8: enumLiteral_3= 'flow'
+                    // InternalVerify.g:5678:6: (enumLiteral_3= 'flow' )
+                    // InternalVerify.g:5678:8: enumLiteral_3= 'flow'
                     {
                     enumLiteral_3=(Token)match(input,111,FOLLOW_2); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
@@ -16598,10 +16598,10 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 5 :
-                    // InternalVerify.g:5682:6: (enumLiteral_4= 'mode' )
+                    // InternalVerify.g:5684:6: (enumLiteral_4= 'mode' )
                     {
-                    // InternalVerify.g:5682:6: (enumLiteral_4= 'mode' )
-                    // InternalVerify.g:5682:8: enumLiteral_4= 'mode'
+                    // InternalVerify.g:5684:6: (enumLiteral_4= 'mode' )
+                    // InternalVerify.g:5684:8: enumLiteral_4= 'mode'
                     {
                     enumLiteral_4=(Token)match(input,112,FOLLOW_2); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
@@ -16617,10 +16617,10 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 6 :
-                    // InternalVerify.g:5688:6: (enumLiteral_5= 'element' )
+                    // InternalVerify.g:5690:6: (enumLiteral_5= 'element' )
                     {
-                    // InternalVerify.g:5688:6: (enumLiteral_5= 'element' )
-                    // InternalVerify.g:5688:8: enumLiteral_5= 'element'
+                    // InternalVerify.g:5690:6: (enumLiteral_5= 'element' )
+                    // InternalVerify.g:5690:8: enumLiteral_5= 'element'
                     {
                     enumLiteral_5=(Token)match(input,66,FOLLOW_2); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
@@ -16636,10 +16636,10 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 7 :
-                    // InternalVerify.g:5694:6: (enumLiteral_6= 'root' )
+                    // InternalVerify.g:5696:6: (enumLiteral_6= 'root' )
                     {
-                    // InternalVerify.g:5694:6: (enumLiteral_6= 'root' )
-                    // InternalVerify.g:5694:8: enumLiteral_6= 'root'
+                    // InternalVerify.g:5696:6: (enumLiteral_6= 'root' )
+                    // InternalVerify.g:5696:8: enumLiteral_6= 'root'
                     {
                     enumLiteral_6=(Token)match(input,113,FOLLOW_2); if (state.failed) return current;
                     if ( state.backtracking==0 ) {

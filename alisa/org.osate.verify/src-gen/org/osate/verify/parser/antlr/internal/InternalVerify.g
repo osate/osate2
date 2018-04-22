@@ -1981,7 +1981,7 @@ ruleVerificationMethod returns [EObject current=null]
        			$current, 
        			"targetType",
         		lv_targetType_3_0, 
-        		"org.osate.verify.Verify.TargetType");
+        		"org.osate.alisa.common.Common.TargetType");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -2041,7 +2041,7 @@ ruleVerificationMethod returns [EObject current=null]
        			$current, 
        			"targetType",
         		lv_targetType_7_0, 
-        		"org.osate.verify.Verify.TargetType");
+        		"org.osate.alisa.common.Common.TargetType");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -5651,6 +5651,8 @@ ruleThisKeyword returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleTok
 
 
 
+
+
 // Rule TargetType
 ruleTargetType returns [Enumerator current=null] 
     @init { enterRule(); }
@@ -5697,8 +5699,6 @@ ruleTargetType returns [Enumerator current=null]
         newLeafNode(enumLiteral_6, grammarAccess.getTargetTypeAccess().getROOTEnumLiteralDeclaration_6()); 
     }
 ));
-
-
 
 
 

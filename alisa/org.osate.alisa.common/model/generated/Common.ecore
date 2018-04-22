@@ -68,6 +68,15 @@
     <eLiterals name="MOD" value="16" literal="mod"/>
     <eLiterals name="NOT" value="17" literal="not"/>
   </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="TargetType">
+    <eLiterals name="COMPONENT" literal="component"/>
+    <eLiterals name="FEATURE" value="1" literal="feature"/>
+    <eLiterals name="CONNECTION" value="2" literal="connection"/>
+    <eLiterals name="FLOW" value="3" literal="flow"/>
+    <eLiterals name="MODE" value="4" literal="mode"/>
+    <eLiterals name="ELEMENT" value="5" literal="element"/>
+    <eLiterals name="ROOT" value="6" literal="root"/>
+  </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="ModelRef" eSuperTypes="platform:/resource/org.osate.aadl2/model/aadl2.ecore#//PropertyType"/>
   <eClassifiers xsi:type="ecore:EClass" name="TypeRef" eSuperTypes="platform:/resource/org.osate.aadl2/model/aadl2.ecore#//PropertyType">
     <eStructuralFeatures xsi:type="ecore:EReference" name="ref" eType="ecore:EClass platform:/resource/org.osate.aadl2/model/aadl2.ecore#//PropertyType"/>

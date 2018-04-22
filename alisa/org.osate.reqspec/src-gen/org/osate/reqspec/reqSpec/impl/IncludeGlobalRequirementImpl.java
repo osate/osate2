@@ -15,11 +15,7 @@
  */
 package org.osate.reqspec.reqSpec.impl;
 
-import java.util.Collection;
-
 import org.eclipse.emf.common.notify.Notification;
-
-import org.eclipse.emf.common.util.EList;
 
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
@@ -28,9 +24,6 @@ import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 
-import org.eclipse.emf.ecore.util.EDataTypeEList;
-
-import org.osate.aadl2.ComponentCategory;
 import org.osate.aadl2.NamedElement;
 
 import org.osate.reqspec.reqSpec.IncludeGlobalRequirement;
@@ -45,7 +38,6 @@ import org.osate.reqspec.reqSpec.ReqSpecPackage;
  * </p>
  * <ul>
  *   <li>{@link org.osate.reqspec.reqSpec.impl.IncludeGlobalRequirementImpl#getInclude <em>Include</em>}</li>
- *   <li>{@link org.osate.reqspec.reqSpec.impl.IncludeGlobalRequirementImpl#getComponentCategory <em>Component Category</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.impl.IncludeGlobalRequirementImpl#isSelf <em>Self</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.impl.IncludeGlobalRequirementImpl#getTargetElement <em>Target Element</em>}</li>
  * </ul>
@@ -63,16 +55,6 @@ public class IncludeGlobalRequirementImpl extends MinimalEObjectImpl.Container i
    * @ordered
    */
   protected EObject include;
-
-  /**
-   * The cached value of the '{@link #getComponentCategory() <em>Component Category</em>}' attribute list.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getComponentCategory()
-   * @generated
-   * @ordered
-   */
-  protected EList<ComponentCategory> componentCategory;
 
   /**
    * The default value of the '{@link #isSelf() <em>Self</em>}' attribute.
@@ -173,20 +155,6 @@ public class IncludeGlobalRequirementImpl extends MinimalEObjectImpl.Container i
    * <!-- end-user-doc -->
    * @generated
    */
-  public EList<ComponentCategory> getComponentCategory()
-  {
-    if (componentCategory == null)
-    {
-      componentCategory = new EDataTypeEList<ComponentCategory>(ComponentCategory.class, this, ReqSpecPackage.INCLUDE_GLOBAL_REQUIREMENT__COMPONENT_CATEGORY);
-    }
-    return componentCategory;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
   public boolean isSelf()
   {
     return self;
@@ -261,8 +229,6 @@ public class IncludeGlobalRequirementImpl extends MinimalEObjectImpl.Container i
       case ReqSpecPackage.INCLUDE_GLOBAL_REQUIREMENT__INCLUDE:
         if (resolve) return getInclude();
         return basicGetInclude();
-      case ReqSpecPackage.INCLUDE_GLOBAL_REQUIREMENT__COMPONENT_CATEGORY:
-        return getComponentCategory();
       case ReqSpecPackage.INCLUDE_GLOBAL_REQUIREMENT__SELF:
         return isSelf();
       case ReqSpecPackage.INCLUDE_GLOBAL_REQUIREMENT__TARGET_ELEMENT:
@@ -277,7 +243,6 @@ public class IncludeGlobalRequirementImpl extends MinimalEObjectImpl.Container i
    * <!-- end-user-doc -->
    * @generated
    */
-  @SuppressWarnings("unchecked")
   @Override
   public void eSet(int featureID, Object newValue)
   {
@@ -285,10 +250,6 @@ public class IncludeGlobalRequirementImpl extends MinimalEObjectImpl.Container i
     {
       case ReqSpecPackage.INCLUDE_GLOBAL_REQUIREMENT__INCLUDE:
         setInclude((EObject)newValue);
-        return;
-      case ReqSpecPackage.INCLUDE_GLOBAL_REQUIREMENT__COMPONENT_CATEGORY:
-        getComponentCategory().clear();
-        getComponentCategory().addAll((Collection<? extends ComponentCategory>)newValue);
         return;
       case ReqSpecPackage.INCLUDE_GLOBAL_REQUIREMENT__SELF:
         setSelf((Boolean)newValue);
@@ -313,9 +274,6 @@ public class IncludeGlobalRequirementImpl extends MinimalEObjectImpl.Container i
       case ReqSpecPackage.INCLUDE_GLOBAL_REQUIREMENT__INCLUDE:
         setInclude((EObject)null);
         return;
-      case ReqSpecPackage.INCLUDE_GLOBAL_REQUIREMENT__COMPONENT_CATEGORY:
-        getComponentCategory().clear();
-        return;
       case ReqSpecPackage.INCLUDE_GLOBAL_REQUIREMENT__SELF:
         setSelf(SELF_EDEFAULT);
         return;
@@ -338,8 +296,6 @@ public class IncludeGlobalRequirementImpl extends MinimalEObjectImpl.Container i
     {
       case ReqSpecPackage.INCLUDE_GLOBAL_REQUIREMENT__INCLUDE:
         return include != null;
-      case ReqSpecPackage.INCLUDE_GLOBAL_REQUIREMENT__COMPONENT_CATEGORY:
-        return componentCategory != null && !componentCategory.isEmpty();
       case ReqSpecPackage.INCLUDE_GLOBAL_REQUIREMENT__SELF:
         return self != SELF_EDEFAULT;
       case ReqSpecPackage.INCLUDE_GLOBAL_REQUIREMENT__TARGET_ELEMENT:
@@ -359,9 +315,7 @@ public class IncludeGlobalRequirementImpl extends MinimalEObjectImpl.Container i
     if (eIsProxy()) return super.toString();
 
     StringBuffer result = new StringBuffer(super.toString());
-    result.append(" (componentCategory: ");
-    result.append(componentCategory);
-    result.append(", self: ");
+    result.append(" (self: ");
     result.append(self);
     result.append(')');
     return result.toString();

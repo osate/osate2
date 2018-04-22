@@ -119,12 +119,10 @@
         upperBound="-1" eType="#//Requirement"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="componentCategory" unique="false"
         upperBound="-1" eType="ecore:EEnum platform:/resource/org.osate.aadl2/model/aadl2.ecore#//ComponentCategory"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="connections" eType="ecore:EDataType platform:/resource/org.eclipse.emf.ecore/model/Ecore.ecore#//EBoolean"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="targetType" eType="ecore:EEnum platform:/resource/org.osate.alisa.common/model/generated/Common.ecore#//TargetType"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="IncludeGlobalRequirement">
     <eStructuralFeatures xsi:type="ecore:EReference" name="include" eType="ecore:EClass platform:/resource/org.eclipse.emf.ecore/model/Ecore.ecore#//EObject"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="componentCategory" unique="false"
-        upperBound="-1" eType="ecore:EEnum platform:/resource/org.osate.aadl2/model/aadl2.ecore#//ComponentCategory"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="self" eType="ecore:EDataType platform:/resource/org.eclipse.emf.ecore/model/Ecore.ecore#//EBoolean"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="targetElement" eType="ecore:EClass platform:/resource/org.osate.aadl2/model/aadl2.ecore#//NamedElement"/>
   </eClassifiers>

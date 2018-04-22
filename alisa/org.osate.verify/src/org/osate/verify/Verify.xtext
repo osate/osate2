@@ -127,8 +127,6 @@ VerificationMethodRegistry returns VerificationMethodRegistry:
 FormalParameter returns FormalParameter:
 	name=ID ':' (type=TypeRef | 'typeof' type=PropertyRef) ('in' unit=[aadl2::UnitLiteral|ID])?;
 
-enum TargetType: COMPONENT='component'|FEATURE='feature'|CONNECTION='connection'|FLOW='flow'|MODE='mode'|ELEMENT='element'|ROOT='root';
-
 VerificationMethod:
 	'method' name=ID 
 	(
@@ -193,10 +191,3 @@ JavaParameter returns JavaParameter:
 	parameterType=ID name=ID ;
 
 
-//PropertyReference returns common::APropertyReference:
-//	property=[aadl2::AbstractNamedValue|AADLPROPERTYREFERENCE]
-//;
-	
-//enum SupportedScopes: SELF='self' | PARTS='parts' | ALL='all';
-
-//enum SupportedReporting: MARKER='marker' |ERRORMARKER='errormarker' | DIAGNOSTICS='diagnostics'| ASSERTEXCEPTION='assertexception'|RESULTREPORT='resultreport' ;

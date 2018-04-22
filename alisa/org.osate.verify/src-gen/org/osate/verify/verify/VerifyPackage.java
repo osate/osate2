@@ -17,7 +17,6 @@ package org.osate.verify.verify;
 
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EEnum;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
 
@@ -1174,16 +1173,6 @@ public interface VerifyPackage extends EPackage
    */
   int VERIFICATION_PRECONDITION_FEATURE_COUNT = VERIFICATION_CONDITION_FEATURE_COUNT + 0;
 
-  /**
-   * The meta object id for the '{@link org.osate.verify.verify.TargetType <em>Target Type</em>}' enum.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see org.osate.verify.verify.TargetType
-   * @see org.osate.verify.verify.impl.VerifyPackageImpl#getTargetType()
-   * @generated
-   */
-  int TARGET_TYPE = 24;
-
 
   /**
    * Returns the meta object for class '{@link org.osate.verify.verify.Verification <em>Verification</em>}'.
@@ -2174,16 +2163,6 @@ public interface VerifyPackage extends EPackage
   EClass getVerificationPrecondition();
 
   /**
-   * Returns the meta object for enum '{@link org.osate.verify.verify.TargetType <em>Target Type</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for enum '<em>Target Type</em>'.
-   * @see org.osate.verify.verify.TargetType
-   * @generated
-   */
-  EEnum getTargetType();
-
-  /**
    * Returns the factory that creates the instances of the model.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -2989,16 +2968,6 @@ public interface VerifyPackage extends EPackage
      * @generated
      */
     EClass VERIFICATION_PRECONDITION = eINSTANCE.getVerificationPrecondition();
-
-    /**
-     * The meta object literal for the '{@link org.osate.verify.verify.TargetType <em>Target Type</em>}' enum.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see org.osate.verify.verify.TargetType
-     * @see org.osate.verify.verify.impl.VerifyPackageImpl#getTargetType()
-     * @generated
-     */
-    EEnum TARGET_TYPE = eINSTANCE.getTargetType();
 
   }
 
