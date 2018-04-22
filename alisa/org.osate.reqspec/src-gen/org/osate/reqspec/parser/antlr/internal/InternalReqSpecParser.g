@@ -4962,6 +4962,20 @@ ruleIncludeGlobalRequirement returns [EObject current=null]
 	    }
 
 )
+)
+    |(
+(
+		{
+			if ($current==null) {
+	            $current = createModelElement(grammarAccess.getIncludeGlobalRequirementRule());
+	        }
+        }
+	otherlv_5=RULE_ID
+	{
+		newLeafNode(otherlv_5, grammarAccess.getIncludeGlobalRequirementAccess().getTargetElementNamedElementCrossReference_2_1_2_0()); 
+	}
+
+)
 )))?)
 ;
 

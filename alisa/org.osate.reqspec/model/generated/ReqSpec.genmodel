@@ -86,6 +86,7 @@
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ReqSpec.ecore#//IncludeGlobalRequirement/include"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ReqSpec.ecore#//IncludeGlobalRequirement/componentCategory"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ReqSpec.ecore#//IncludeGlobalRequirement/self"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ReqSpec.ecore#//IncludeGlobalRequirement/targetElement"/>
     </genClasses>
     <genClasses ecoreClass="ReqSpec.ecore#//WhenCondition">
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ReqSpec.ecore#//WhenCondition/inMode"/>

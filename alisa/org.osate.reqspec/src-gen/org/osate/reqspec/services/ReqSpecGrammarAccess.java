@@ -2908,12 +2908,17 @@ public class ReqSpecGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cComponentCategoryComponentCategoryParserRuleCall_2_1_0_0 = (RuleCall)cComponentCategoryAssignment_2_1_0.eContents().get(0);
 		private final Assignment cSelfAssignment_2_1_1 = (Assignment)cAlternatives_2_1.eContents().get(1);
 		private final Keyword cSelfSelfKeyword_2_1_1_0 = (Keyword)cSelfAssignment_2_1_1.eContents().get(0);
+		private final Assignment cTargetElementAssignment_2_1_2 = (Assignment)cAlternatives_2_1.eContents().get(2);
+		private final CrossReference cTargetElementNamedElementCrossReference_2_1_2_0 = (CrossReference)cTargetElementAssignment_2_1_2.eContents().get(0);
+		private final RuleCall cTargetElementNamedElementIDTerminalRuleCall_2_1_2_0_1 = (RuleCall)cTargetElementNamedElementCrossReference_2_1_2_0.eContents().get(1);
 		
 		//IncludeGlobalRequirement:
-		//	'include' include=[ecore::EObject|QualifiedName] ('for' (componentCategory+=ComponentCategory+ | self?='self'))?;
+		//	'include' include=[ecore::EObject|QualifiedName] ('for' (componentCategory+=ComponentCategory+ | self?='self' |
+		//	targetElement=[aadl2::NamedElement]))?;
 		@Override public ParserRule getRule() { return rule; }
 
-		//'include' include=[ecore::EObject|QualifiedName] ('for' (componentCategory+=ComponentCategory+ | self?='self'))?
+		//'include' include=[ecore::EObject|QualifiedName] ('for' (componentCategory+=ComponentCategory+ | self?='self' |
+		//targetElement=[aadl2::NamedElement]))?
 		public Group getGroup() { return cGroup; }
 
 		//'include'
@@ -2928,13 +2933,13 @@ public class ReqSpecGrammarAccess extends AbstractGrammarElementFinder {
 		//QualifiedName
 		public RuleCall getIncludeEObjectQualifiedNameParserRuleCall_1_0_1() { return cIncludeEObjectQualifiedNameParserRuleCall_1_0_1; }
 
-		//('for' (componentCategory+=ComponentCategory+ | self?='self'))?
+		//('for' (componentCategory+=ComponentCategory+ | self?='self' | targetElement=[aadl2::NamedElement]))?
 		public Group getGroup_2() { return cGroup_2; }
 
 		//'for'
 		public Keyword getForKeyword_2_0() { return cForKeyword_2_0; }
 
-		//componentCategory+=ComponentCategory+ | self?='self'
+		//componentCategory+=ComponentCategory+ | self?='self' | targetElement=[aadl2::NamedElement]
 		public Alternatives getAlternatives_2_1() { return cAlternatives_2_1; }
 
 		//componentCategory+=ComponentCategory+
@@ -2948,6 +2953,15 @@ public class ReqSpecGrammarAccess extends AbstractGrammarElementFinder {
 
 		//'self'
 		public Keyword getSelfSelfKeyword_2_1_1_0() { return cSelfSelfKeyword_2_1_1_0; }
+
+		//targetElement=[aadl2::NamedElement]
+		public Assignment getTargetElementAssignment_2_1_2() { return cTargetElementAssignment_2_1_2; }
+
+		//[aadl2::NamedElement]
+		public CrossReference getTargetElementNamedElementCrossReference_2_1_2_0() { return cTargetElementNamedElementCrossReference_2_1_2_0; }
+
+		//ID
+		public RuleCall getTargetElementNamedElementIDTerminalRuleCall_2_1_2_0_1() { return cTargetElementNamedElementIDTerminalRuleCall_2_1_2_0_1; }
 	}
 
 	public class WhenConditionElements extends AbstractParserRuleElementFinder {
@@ -3785,7 +3799,8 @@ public class ReqSpecGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//IncludeGlobalRequirement:
-	//	'include' include=[ecore::EObject|QualifiedName] ('for' (componentCategory+=ComponentCategory+ | self?='self'))?;
+	//	'include' include=[ecore::EObject|QualifiedName] ('for' (componentCategory+=ComponentCategory+ | self?='self' |
+	//	targetElement=[aadl2::NamedElement]))?;
 	public IncludeGlobalRequirementElements getIncludeGlobalRequirementAccess() {
 		return pIncludeGlobalRequirement;
 	}

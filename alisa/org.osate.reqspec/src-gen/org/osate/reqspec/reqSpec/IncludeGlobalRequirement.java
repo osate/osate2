@@ -20,6 +20,7 @@ import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
 
 import org.osate.aadl2.ComponentCategory;
+import org.osate.aadl2.NamedElement;
 
 /**
  * <!-- begin-user-doc -->
@@ -33,6 +34,7 @@ import org.osate.aadl2.ComponentCategory;
  *   <li>{@link org.osate.reqspec.reqSpec.IncludeGlobalRequirement#getInclude <em>Include</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.IncludeGlobalRequirement#getComponentCategory <em>Component Category</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.IncludeGlobalRequirement#isSelf <em>Self</em>}</li>
+ *   <li>{@link org.osate.reqspec.reqSpec.IncludeGlobalRequirement#getTargetElement <em>Target Element</em>}</li>
  * </ul>
  *
  * @see org.osate.reqspec.reqSpec.ReqSpecPackage#getIncludeGlobalRequirement()
@@ -110,5 +112,31 @@ public interface IncludeGlobalRequirement extends EObject
    * @generated
    */
   void setSelf(boolean value);
+
+  /**
+   * Returns the value of the '<em><b>Target Element</b></em>' reference.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Target Element</em>' reference isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Target Element</em>' reference.
+   * @see #setTargetElement(NamedElement)
+   * @see org.osate.reqspec.reqSpec.ReqSpecPackage#getIncludeGlobalRequirement_TargetElement()
+   * @model
+   * @generated
+   */
+  NamedElement getTargetElement();
+
+  /**
+   * Sets the value of the '{@link org.osate.reqspec.reqSpec.IncludeGlobalRequirement#getTargetElement <em>Target Element</em>}' reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>Target Element</em>' reference.
+   * @see #getTargetElement()
+   * @generated
+   */
+  void setTargetElement(NamedElement value);
 
 } // IncludeGlobalRequirement

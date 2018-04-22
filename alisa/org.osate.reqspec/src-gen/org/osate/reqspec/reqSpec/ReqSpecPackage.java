@@ -1226,13 +1226,22 @@ public interface ReqSpecPackage extends EPackage
   int INCLUDE_GLOBAL_REQUIREMENT__SELF = 2;
 
   /**
+   * The feature id for the '<em><b>Target Element</b></em>' reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int INCLUDE_GLOBAL_REQUIREMENT__TARGET_ELEMENT = 3;
+
+  /**
    * The number of structural features of the '<em>Include Global Requirement</em>' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int INCLUDE_GLOBAL_REQUIREMENT_FEATURE_COUNT = 3;
+  int INCLUDE_GLOBAL_REQUIREMENT_FEATURE_COUNT = 4;
 
   /**
    * The meta object id for the '{@link org.osate.reqspec.reqSpec.impl.WhenConditionImpl <em>When Condition</em>}' class.
@@ -2486,6 +2495,17 @@ public interface ReqSpecPackage extends EPackage
   EAttribute getIncludeGlobalRequirement_Self();
 
   /**
+   * Returns the meta object for the reference '{@link org.osate.reqspec.reqSpec.IncludeGlobalRequirement#getTargetElement <em>Target Element</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the reference '<em>Target Element</em>'.
+   * @see org.osate.reqspec.reqSpec.IncludeGlobalRequirement#getTargetElement()
+   * @see #getIncludeGlobalRequirement()
+   * @generated
+   */
+  EReference getIncludeGlobalRequirement_TargetElement();
+
+  /**
    * Returns the meta object for class '{@link org.osate.reqspec.reqSpec.WhenCondition <em>When Condition</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -3317,6 +3337,14 @@ public interface ReqSpecPackage extends EPackage
      * @generated
      */
     EAttribute INCLUDE_GLOBAL_REQUIREMENT__SELF = eINSTANCE.getIncludeGlobalRequirement_Self();
+
+    /**
+     * The meta object literal for the '<em><b>Target Element</b></em>' reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference INCLUDE_GLOBAL_REQUIREMENT__TARGET_ELEMENT = eINSTANCE.getIncludeGlobalRequirement_TargetElement();
 
     /**
      * The meta object literal for the '{@link org.osate.reqspec.reqSpec.impl.WhenConditionImpl <em>When Condition</em>}' class.

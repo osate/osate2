@@ -222,7 +222,7 @@ DocRequirement returns Requirement:
 
 IncludeGlobalRequirement returns IncludeGlobalRequirement:
 	'include' include=[ecore::EObject|QualifiedName]
-	( 'for'  (componentCategory+=ComponentCategory+	| self?='self'))?
+	( 'for'  (componentCategory+=ComponentCategory+	| self?='self' | targetElement=[aadl2::NamedElement|ID]))?
 	;
 	
 WhenCondition:

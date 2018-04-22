@@ -2685,6 +2685,12 @@ rule__IncludeGlobalRequirement__Alternatives_2_1
 { after(grammarAccess.getIncludeGlobalRequirementAccess().getSelfAssignment_2_1_1()); }
 )
 
+    |(
+{ before(grammarAccess.getIncludeGlobalRequirementAccess().getTargetElementAssignment_2_1_2()); }
+(rule__IncludeGlobalRequirement__TargetElementAssignment_2_1_2)
+{ after(grammarAccess.getIncludeGlobalRequirementAccess().getTargetElementAssignment_2_1_2()); }
+)
+
 ;
 finally {
 	restoreStackSize(stackSize);
@@ -25567,6 +25573,25 @@ rule__IncludeGlobalRequirement__SelfAssignment_2_1_1
 )
 
 { after(grammarAccess.getIncludeGlobalRequirementAccess().getSelfSelfKeyword_2_1_1_0()); }
+)
+
+;
+finally {
+	restoreStackSize(stackSize);
+}
+
+rule__IncludeGlobalRequirement__TargetElementAssignment_2_1_2
+    @init {
+		int stackSize = keepStackSize();
+    }
+:
+(
+{ before(grammarAccess.getIncludeGlobalRequirementAccess().getTargetElementNamedElementCrossReference_2_1_2_0()); }
+(
+{ before(grammarAccess.getIncludeGlobalRequirementAccess().getTargetElementNamedElementIDTerminalRuleCall_2_1_2_0_1()); }
+	RULE_ID{ after(grammarAccess.getIncludeGlobalRequirementAccess().getTargetElementNamedElementIDTerminalRuleCall_2_1_2_0_1()); }
+)
+{ after(grammarAccess.getIncludeGlobalRequirementAccess().getTargetElementNamedElementCrossReference_2_1_2_0()); }
 )
 
 ;

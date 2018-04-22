@@ -957,6 +957,16 @@ public class ReqSpecPackageImpl extends EPackageImpl implements ReqSpecPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  public EReference getIncludeGlobalRequirement_TargetElement()
+  {
+    return (EReference)includeGlobalRequirementEClass.getEStructuralFeatures().get(3);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public EClass getWhenCondition()
   {
     return whenConditionEClass;
@@ -1290,6 +1300,7 @@ public class ReqSpecPackageImpl extends EPackageImpl implements ReqSpecPackage
     createEReference(includeGlobalRequirementEClass, INCLUDE_GLOBAL_REQUIREMENT__INCLUDE);
     createEAttribute(includeGlobalRequirementEClass, INCLUDE_GLOBAL_REQUIREMENT__COMPONENT_CATEGORY);
     createEAttribute(includeGlobalRequirementEClass, INCLUDE_GLOBAL_REQUIREMENT__SELF);
+    createEReference(includeGlobalRequirementEClass, INCLUDE_GLOBAL_REQUIREMENT__TARGET_ELEMENT);
 
     whenConditionEClass = createEClass(WHEN_CONDITION);
     createEReference(whenConditionEClass, WHEN_CONDITION__IN_MODE);
@@ -1450,6 +1461,7 @@ public class ReqSpecPackageImpl extends EPackageImpl implements ReqSpecPackage
     initEReference(getIncludeGlobalRequirement_Include(), theEcorePackage.getEObject(), null, "include", null, 0, 1, IncludeGlobalRequirement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEAttribute(getIncludeGlobalRequirement_ComponentCategory(), theAadl2Package.getComponentCategory(), "componentCategory", null, 0, -1, IncludeGlobalRequirement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEAttribute(getIncludeGlobalRequirement_Self(), theEcorePackage.getEBoolean(), "self", null, 0, 1, IncludeGlobalRequirement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getIncludeGlobalRequirement_TargetElement(), theAadl2Package.getNamedElement(), null, "targetElement", null, 0, 1, IncludeGlobalRequirement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(whenConditionEClass, WhenCondition.class, "WhenCondition", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEReference(getWhenCondition_InMode(), theAadl2Package.getMode(), null, "inMode", null, 0, -1, WhenCondition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
