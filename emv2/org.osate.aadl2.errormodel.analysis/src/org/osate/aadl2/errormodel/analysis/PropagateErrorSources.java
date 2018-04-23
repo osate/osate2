@@ -267,7 +267,7 @@ public class PropagateErrorSources {
 		String componentText = ci.getComponentInstancePath();
 		HashMultimap<ErrorPropagation, String> handledPropagations = HashMultimap.create();
 		for (ErrorBehaviorEvent event : EMV2Util.getAllErrorBehaviorEvents(ci)) {
-			if (!(event instanceof ErrorEvent)) {
+			if (!(event instanceof ErrorEvent) || !PropagationPathsUtil.conditionHolds((ErrorEvent) event, ci)) {
 				continue;
 			}
 			TypeSet sourcetype = ((ErrorEvent) event).getTypeSet();
@@ -332,6 +332,9 @@ public class PropagateErrorSources {
 			}
 		}
 		for (ErrorSource errorSource : eslist) {
+			if (!PropagationPathsUtil.conditionHolds(errorSource, ci)) {
+				continue;
+			}
 			EMSUtil.unsetAll(ci.getSystemInstance());
 			Collection<ErrorPropagation> eplist = EMV2Util.getOutgoingPropagationOrAll(errorSource);
 			TypeSet ts = errorSource.getTypeTokenConstraint();
@@ -404,6 +407,9 @@ public class PropagateErrorSources {
 			return;
 		}
 		for (ErrorSource ces : ceslist) {
+			if (!PropagationPathsUtil.conditionHolds(ces, root)) {
+				continue;
+			}
 			EMSUtil.unsetAll(root.getSystemInstance());
 			// find connection instances that this connection is part of
 			String connName = ces.getSourceModelElement().getName();
@@ -737,11 +743,10 @@ public class PropagateErrorSources {
 		}
 
 		alreadyTreated.get(ci).add(entryText);
-		List<ErrorPropagation> treated = new ArrayList<ErrorPropagation>();
 		boolean handled = false;
 		Collection<ErrorFlow> outefs = EMV2Util.findErrorFlowFromComponentInstance(ci, ep);
 		for (ErrorFlow ef : outefs) {
-			if (ef instanceof ErrorSink) {
+			if (ef instanceof ErrorSink && PropagationPathsUtil.conditionHolds(ef, ci)) {
 				/**
 				 * We try to find additional error propagation for this error sink.
 				 * For example, if the error sink triggers to switch to
