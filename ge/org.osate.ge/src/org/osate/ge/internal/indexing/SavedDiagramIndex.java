@@ -223,10 +223,22 @@ public class SavedDiagramIndex {
 					contextBo = projectReferenceService.resolve(context);
 				}
 
-				// Contextless diagrams are not supported
-				if (contextBo != null && rootReferenceNode != null) {
-					indexChildElements(this, rootReferenceNode, new SimpleUnqueryableBusinessObjectContext(null, null),
-							Collections.singleton(contextBo), bopHelper, projectReferenceService);
+				if ((context == null || contextBo != null) && rootReferenceNode != null) {
+					final BusinessObjectContext rootBoc;
+					final Collection<Object> potentialChildBusinessObjects;
+					if (context == null) {
+						// Contextless diagrams can have multiple top level elements.
+						rootBoc = new SimpleUnqueryableBusinessObjectContext(null, projectDiagramIndex.project);
+						potentialChildBusinessObjects = bopHelper.getChildBusinessObjects(rootBoc);
+					} else if (contextBo != null) {
+						rootBoc = new SimpleUnqueryableBusinessObjectContext(null, null);
+						potentialChildBusinessObjects = Collections.singleton(contextBo);
+					} else {
+						throw new RuntimeException("Unexpected case");
+					}
+
+					indexChildElements(this, rootReferenceNode, rootBoc, potentialChildBusinessObjects, bopHelper,
+							projectReferenceService);
 				}
 			}
 		}

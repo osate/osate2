@@ -15,26 +15,32 @@ secPrefix:
 # Getting Started
 The OSATE Graphical Editor allows viewing and manipulating AADL declarative models in a graphical way.
 
-## Creating a new AADL Package
-A new AADL package and an associated diagram can be created by using a wizard.
+## Creating a New Diagram
+The OSATE Graphical Editor allow creating AADL Diagrams. Diagrams may be associated with an existing model element such as an AADL package or classifier. Diagrams which are not associated with a specific model element may also be created. Such diagrams are referred to as contextless diagrams and may contain multiple AADL packages. An AADL model element may have multiple diagrams associated it.
 
-1. Open the new file dialog by selecting *File->New->Other*...
+### Creating an AADL Diagram using the AADL Diagram Wizard
+The AADL Diagram wizard allows creating a new diagram. The created diagram may be associated with a new package or an existing package or classifier. It may also be a contextless diagram. Contextless diagrams are not associated with a specific model element and may be configured to display multiple existing AADL packages. 
 
-2. Select *Aadl Package(Graphical)* and select *Next*.
+1. Select *File->New->Other...*
+2. Select *AADL->AADL Diagram*.
+3. Select *Next*.
+4. Select the context type for the AADL diagram.
+5. Select *Next*.
+6. Select the project in which to create the diagram.
+7. Select *Next*.
+8. __*Existing Package* and *Existing Classifier* diagrams only:__ Select the package or classifier which will be the top level model element in the diagram.
+9. __*Existing Package* and *Existing Classifier* diagrams only:__ Select Next.
+10. Enter a name for the diagram.
+11. Select a diagram type.
+12. Select *Finish*. The diagram will be created and opened.
 
-![](../images/AadlPackage(Graphical).png)
+### Creating a AADL Diagram from the AADL Diagram Editor
+To create a new diagram from the diagram editor, right-click on an AADL package or classifier and select *Open->New Diagram...*.
 
-3. Enter a name for the new package.
+### Creating a AADL Diagram from the AADL Text Editor
+To create a new diagram from the AADL text editor, right-click on an AADL package or classifier and select *Create Diagram...*. 
 
-![](../images/AadlPackageName.png)
-
-4. Select the AADL Project to create the package inside.
-
-5. Select *Finish*.
-
-The new package will appear in the graphical editor.
-
-## Opening an Existing AADL Model
+## Opening a Diagram for an Existing AADL Model Element
 An existing AADL model can be opened in the graphical editor. Changes made to either the AADL source or the diagram will be reflected in the other.
 
 1. Open an existing AADL source file.
@@ -48,9 +54,6 @@ An existing AADL model can be opened in the graphical editor. Changes made to ei
 4. You can also use the keyboard shortcut *Ctrl+Shift+V* to switch between the selected element in the
    diagram and the selected element in the source file.
   
-## Creating a New Diagram
-AADL model elements may be represented by multiple diagrams. To create a new diagram from the AADL text editor, right-click on an AADL package or classifier and select *Create Diagram...*. To create a new diagram from the diagram editor, right-click on an AADL package or classifier and select *Open->New Diagram...*.
-
 # Navigating Between Diagrams
 The graphical editor supports several methods for navigating between diagrams.
 
@@ -67,7 +70,7 @@ By default, the *AADL Diagrams* view will group diagrams by the diagram type and
 Diagrams associated with a particular element can be opened by right-clicking on the element and selecting *Open->Associated Diagram* from the context menu. 
 
 ## Opening an Element's Package Diagram
-The package diagram associated with an element can be opened by right-clicking an element and selecting *Open->Package Diagram* from the context menu.
+The diagram associated with an element's package can be opened by right-clicking an element and selecting *Open->Package Diagram* from the context menu.
 
 ## Opening the Type Diagram for a Component Implementation or Subcomponent
 The diagram for a component implementation's or subcomponent's component type can be opened by right-clicking on an element and selecting *Open->Type Diagram* from the context menu.
@@ -91,22 +94,22 @@ Many of the operations in the graphical editor apply to multiple types of elemen
 ### Diagram Types
 When creating a diagram, a type must be specified. A diagram's type determines the default filters used by the contents of the diagram. It also determines which AADL properties are enabled by default. All diagram types are equally customizable. A diagram element's filters determines the child elements that are shown on the diagram.
 
-+-------------------+-----------------------------------------------+-------------------------------------------------------------------------+--------------------------------------------------+
-| Diagram Type      | Availability                                  | Filters                                                                 | Properties                                       |
-+===================+===============================================+=========================================================================+==================================================+
-| Custom            | Packages, Classifiers, and System Instances   | None                                                                    | None                                             |
-+-------------------+-----------------------------------------------+-------------------------------------------------------------------------+--------------------------------------------------+
-| Package           | Packages                                      | - Packages:  Classifiers                                                | None                                             |
-|                   |                                               | - Classifiers: Generalizations                                          |                                                  |
-+-------------------+-----------------------------------------------+-------------------------------------------------------------------------+--------------------------------------------------+
-| Structure         | Classifiers and System Instances              |- Classifiers: Features, Connections, Flow Specifications, Subcomponents | None                                             |
-|                   |                                               |- Subcomponents: Features, Connections, and Flow Specifications          |                                                  |
-+-------------------+-----------------------------------------------+-------------------------------------------------------------------------+--------------------------------------------------+
-| Mode              | Component Classifiers                         | - Classifiers: Modes and Mode Transitions                               | None                                             |
-+-------------------+-----------------------------------------------+-------------------------------------------------------------------------+--------------------------------------------------+
-| Processor Binding | Component Implementation and System Instances | - Classifiers: Systems, Processors, Virtual Processors,                 | Deployment_Properties::Actual_Processor_Binding  |
-|                   |                                               | - Devices, Threads, Thread Groups, and Processes                        |                                                  |
-+-------------------+-----------------------------------------------+-------------------------------------------------------------------------+--------------------------------------------------+
++-------------------+----------------------------------------------------------+-------------------------------------------------------------------------+--------------------------------------------------+
+| Diagram Type      | Availability                                             | Default Filters                                                         | Properties                                       |
++===================+==========================================================+=========================================================================+==================================================+
+| Custom            | Packages, Classifiers, System Instances, and Contextless | None                                                                    | None                                             |
++-------------------+----------------------------------------------------------+-------------------------------------------------------------------------+--------------------------------------------------+
+| Package           | Packages, Contextless                                    | - Packages:  Classifiers                                                | None                                             |
+|                   |                                                          | - Classifiers: Generalizations                                          |                                                  |
++-------------------+----------------------------------------------------------+-------------------------------------------------------------------------+--------------------------------------------------+
+| Structure         | Classifiers and System Instances                         |- Classifiers: Features, Connections, Flow Specifications, Subcomponents | None                                             |
+|                   |                                                          |- Subcomponents: Features, Connections, and Flow Specifications          |                                                  |
++-------------------+----------------------------------------------------------+-------------------------------------------------------------------------+--------------------------------------------------+
+| Mode              | Component Classifiers                                    | - Classifiers: Modes and Mode Transitions                               | None                                             |
++-------------------+----------------------------------------------------------+-------------------------------------------------------------------------+--------------------------------------------------+
+| Processor Binding | Component Implementation and System Instances            | - Classifiers: Systems, Processors, Virtual Processors,                 | Deployment_Properties::Actual_Processor_Binding  |
+|                   |                                                          | - Devices, Threads, Thread Groups, and Processes                        |                                                  |
++-------------------+----------------------------------------------------------+-------------------------------------------------------------------------+--------------------------------------------------+
 
 Table: Diagram Types {#tbl:diagram_types}
 

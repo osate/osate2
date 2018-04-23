@@ -121,11 +121,6 @@ public class DiagramSerialization {
 			m.setDiagramConfiguration(configBuilder.build());
 		});
 
-		// Require a context business object
-		if (ageDiagram.getConfiguration().getContextBoReference() == null) {
-			throw new RuntimeException("Contextless diagrams are not supported");
-		}
-
 		//  Read elements
 		ageDiagram.modify("Read from File", m -> readElements(project, m, extRegistry,
 				ageDiagram, mmDiagram, new HashSet<>(), false));

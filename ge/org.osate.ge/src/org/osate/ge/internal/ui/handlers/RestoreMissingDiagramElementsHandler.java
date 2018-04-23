@@ -26,11 +26,13 @@ import org.osate.ge.internal.diagram.runtime.updating.DiagramUpdater;
 import org.osate.ge.internal.graphiti.AgeFeatureProvider;
 import org.osate.ge.internal.query.Queryable;
 import org.osate.ge.internal.services.ExtensionService;
+import org.osate.ge.internal.services.ProjectProvider;
 import org.osate.ge.internal.services.ReferenceService;
 import org.osate.ge.internal.ui.dialogs.RestoreMissingDiagramElementsDialog;
 import org.osate.ge.internal.ui.editor.AgeDiagramEditor;
 import org.osate.ge.internal.ui.util.UiUtil;
 import org.osate.ge.internal.util.BusinessObjectContextHelper;
+import org.osate.ge.internal.util.BusinessObjectContextUtil;
 import org.osate.ge.internal.util.BusinessObjectProviderHelper;
 import org.osgi.framework.FrameworkUtil;
 
@@ -52,10 +54,12 @@ public class RestoreMissingDiagramElementsHandler extends AbstractHandler {
 		final AgeDiagramEditor diagramEditor = (AgeDiagramEditor) activeEditor;
 		final AgeFeatureProvider featureProvider = (AgeFeatureProvider) diagramEditor.getDiagramTypeProvider()
 				.getFeatureProvider();
+		final ProjectProvider projectProvider = (ProjectProvider) Objects
+				.requireNonNull(diagramEditor.getAdapter(ProjectProvider.class), "Unable to retrieve project provider");
 		final DiagramUpdater diagramUpdater = Objects.requireNonNull(featureProvider.getDiagramUpdater(),
 				"Unable to retrieve diagram updater");
 		final ExtensionService extService = (ExtensionService) Objects.requireNonNull(
-				diagramEditor.getAdapter(ExtensionService.class), "Unabele to retrieve extension service");
+				diagramEditor.getAdapter(ExtensionService.class), "Unable to retrieve extension service");
 
 		final AgeDiagram diagram = diagramEditor.getAgeDiagram();
 
@@ -79,9 +83,16 @@ public class RestoreMissingDiagramElementsHandler extends AbstractHandler {
 			diagram.getAllDiagramNodes().forEachOrdered(parent -> {
 				final Collection<DiagramUpdater.GhostedElement> ghosts = diagramUpdater.getGhosts(parent);
 				if (!ghosts.isEmpty()) {
+					final BusinessObjectContext parentToUse;
+					if (diagram.getConfiguration().getContextBoReference() == null && parent.getParent() == null) {
+						parentToUse = BusinessObjectContextUtil.getRootContextForProject(projectProvider);
+					} else {
+						parentToUse = parent;
+					}
+
 					// Create a mapping between relative reference and available child business objects
 					final Map<RelativeBusinessObjectReference, Object> relRefToBusinessObjectMap = bopHelper
-							.getChildBusinessObjects(parent).stream().collect(HashMap::new, (map, bo) -> {
+							.getChildBusinessObjects(parentToUse).stream().collect(HashMap::new, (map, bo) -> {
 								final RelativeBusinessObjectReference relRef = referenceService
 										.getRelativeReference(bo);
 								if (relRef != null) {
@@ -93,7 +104,7 @@ public class RestoreMissingDiagramElementsHandler extends AbstractHandler {
 					parent.getDiagramElements()
 					.forEach(de -> relRefToBusinessObjectMap.remove(de.getRelativeReference()));
 
-					// Don't show ghosts of there aren't any unused business objects
+					// Don't show ghosts if there aren't any unused business objects
 					if (!relRefToBusinessObjectMap.isEmpty()) {
 						// Store the ghosts and the available business objects
 						relRefToBusinessObjectMap.values().stream().map(bo -> new BusinessObjectContext() {
@@ -114,7 +125,8 @@ public class RestoreMissingDiagramElementsHandler extends AbstractHandler {
 						}).forEachOrdered(
 								// type cast is needed to compile using maven/tycho
 								// see https://github.com/osate/osate2-core/issues/976
-								boc -> diagramNodeToAvailableBusinessObjectContextsMap.put(parent, (BusinessObjectContext)boc));
+								boc -> diagramNodeToAvailableBusinessObjectContextsMap.put(parent,
+										(BusinessObjectContext) boc));
 						ghostsToModify.addAll(ghosts);
 					}
 				}

@@ -86,31 +86,32 @@ public class DiagramContextChecker {
 			final int buildKind) {
 		Objects.requireNonNull(diagram, "diagram must not be null");
 
-		Objects.requireNonNull(diagram.getConfiguration().getContextBoReference(),
-				"contextless diagram are not supported");
-
-		Object contextBo = refService.resolve(diagram.getConfiguration().getContextBoReference());
-
-		// If unable to resolve the context, rebuild the project
-		if (contextBo == null) {
-			try {
-				project.build(buildKind, new NullProgressMonitor());
-				contextBo = refService.resolve(diagram.getConfiguration().getContextBoReference());
-			} catch (CoreException e) {
-				throw new RuntimeException(e);
-			}
-		}
-
-		// If the context is still not valid and the prompt flag is set, prompt the user for a new context and relink the diagram.
 		boolean relinked = false;
-		if (contextBo == null && promptToRelinkIfMissing) {
-			relinked = promptToRelink(diagram);
-		}
 
-		// Check the context again
-		contextBo = refService.resolve(diagram.getConfiguration().getContextBoReference());
-		if (contextBo == null) {
-			return new Result(false, false);
+		// Contextless diagrams cannot have a broken context
+		if(diagram.getConfiguration().getContextBoReference() != null) {
+			Object contextBo = refService.resolve(diagram.getConfiguration().getContextBoReference());
+
+			// If unable to resolve the context, rebuild the project
+			if (contextBo == null) {
+				try {
+					project.build(buildKind, new NullProgressMonitor());
+					contextBo = refService.resolve(diagram.getConfiguration().getContextBoReference());
+				} catch (CoreException e) {
+					throw new RuntimeException(e);
+				}
+			}
+
+			// If the context is still not valid and the prompt flag is set, prompt the user for a new context and relink the diagram.
+			if (contextBo == null && promptToRelinkIfMissing) {
+				relinked = promptToRelink(diagram);
+			}
+
+			// Check the context again
+			contextBo = refService.resolve(diagram.getConfiguration().getContextBoReference());
+			if (contextBo == null) {
+				return new Result(false, false);
+			}
 		}
 
 		return new Result(true, relinked);
