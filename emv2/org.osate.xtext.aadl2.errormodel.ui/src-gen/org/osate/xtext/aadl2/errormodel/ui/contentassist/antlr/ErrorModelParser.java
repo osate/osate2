@@ -535,7 +535,7 @@ public class ErrorModelParser extends AbstractPartialContentAssistParser {
 					put(grammarAccess.getErrorBehaviorStateMachineAccess().getPropertiesAssignment_7_1(), "rule__ErrorBehaviorStateMachine__PropertiesAssignment_7_1");
 					put(grammarAccess.getErrorEventAccess().getNameAssignment_0(), "rule__ErrorEvent__NameAssignment_0");
 					put(grammarAccess.getErrorEventAccess().getTypeSetAssignment_3(), "rule__ErrorEvent__TypeSetAssignment_3");
-					put(grammarAccess.getErrorEventAccess().getFlowconditionAssignment_4_1(), "rule__ErrorEvent__FlowconditionAssignment_4_1");
+					put(grammarAccess.getErrorEventAccess().getEventconditionAssignment_4_1(), "rule__ErrorEvent__EventconditionAssignment_4_1");
 					put(grammarAccess.getRepairEventAccess().getNameAssignment_0(), "rule__RepairEvent__NameAssignment_0");
 					put(grammarAccess.getRepairEventAccess().getEventInitiatorAssignment_3_1(), "rule__RepairEvent__EventInitiatorAssignment_3_1");
 					put(grammarAccess.getRepairEventAccess().getEventInitiatorAssignment_3_2_1(), "rule__RepairEvent__EventInitiatorAssignment_3_2_1");

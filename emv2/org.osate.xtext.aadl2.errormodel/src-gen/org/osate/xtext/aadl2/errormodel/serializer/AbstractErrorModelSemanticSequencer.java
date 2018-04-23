@@ -865,7 +865,7 @@ public abstract class AbstractErrorModelSemanticSequencer extends PropertiesSema
 	 *     EventOrPropagation returns ErrorEvent
 	 *
 	 * Constraint:
-	 *     (name=ID typeSet=TypeSetReference? flowcondition=CONDITION?)
+	 *     (name=ID typeSet=TypeSetReference? eventcondition=CONDITION?)
 	 */
 	protected void sequence_ErrorEvent(ISerializationContext context, ErrorEvent semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);

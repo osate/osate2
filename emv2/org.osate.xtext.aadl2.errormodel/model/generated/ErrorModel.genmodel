@@ -157,6 +157,7 @@
     <genClasses ecoreClass="ErrorModel.ecore#//ErrorBehaviorEvent"/>
     <genClasses ecoreClass="ErrorModel.ecore#//ErrorEvent">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ErrorModel.ecore#//ErrorEvent/typeSet"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ErrorModel.ecore#//ErrorEvent/eventcondition"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ErrorModel.ecore#//ErrorEvent/flowcondition"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ErrorModel.ecore#//ErrorEvent/resoluteCondition"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ErrorModel.ecore#//ErrorEvent/condition"/>

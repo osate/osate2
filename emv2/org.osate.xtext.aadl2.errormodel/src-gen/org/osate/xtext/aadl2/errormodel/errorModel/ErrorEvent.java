@@ -13,7 +13,7 @@ package org.osate.xtext.aadl2.errormodel.errorModel;
  * </p>
  * <ul>
  *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.ErrorEvent#getTypeSet <em>Type Set</em>}</li>
- *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.ErrorEvent#getFlowcondition <em>Flowcondition</em>}</li>
+ *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.ErrorEvent#getEventcondition <em>Eventcondition</em>}</li>
  * </ul>
  *
  * @see org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelPackage#getErrorEvent()
@@ -49,29 +49,29 @@ public interface ErrorEvent extends ErrorBehaviorEvent
   void setTypeSet(TypeSet value);
 
   /**
-   * Returns the value of the '<em><b>Flowcondition</b></em>' attribute.
+   * Returns the value of the '<em><b>Eventcondition</b></em>' attribute.
    * <!-- begin-user-doc -->
    * <p>
-   * If the meaning of the '<em>Flowcondition</em>' attribute isn't clear,
+   * If the meaning of the '<em>Eventcondition</em>' attribute isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Flowcondition</em>' attribute.
-   * @see #setFlowcondition(String)
-   * @see org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelPackage#getErrorEvent_Flowcondition()
+   * @return the value of the '<em>Eventcondition</em>' attribute.
+   * @see #setEventcondition(String)
+   * @see org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelPackage#getErrorEvent_Eventcondition()
    * @model
    * @generated
    */
-  String getFlowcondition();
+  String getEventcondition();
 
   /**
-   * Sets the value of the '{@link org.osate.xtext.aadl2.errormodel.errorModel.ErrorEvent#getFlowcondition <em>Flowcondition</em>}' attribute.
+   * Sets the value of the '{@link org.osate.xtext.aadl2.errormodel.errorModel.ErrorEvent#getEventcondition <em>Eventcondition</em>}' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Flowcondition</em>' attribute.
-   * @see #getFlowcondition()
+   * @param value the new value of the '<em>Eventcondition</em>' attribute.
+   * @see #getEventcondition()
    * @generated
    */
-  void setFlowcondition(String value);
+  void setEventcondition(String value);
 
 } // ErrorEvent

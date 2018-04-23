@@ -2262,13 +2262,13 @@ public interface ErrorModelPackage extends EPackage
   int ERROR_EVENT__TYPE_SET = ERROR_BEHAVIOR_EVENT_FEATURE_COUNT + 0;
 
   /**
-   * The feature id for the '<em><b>Flowcondition</b></em>' attribute.
+   * The feature id for the '<em><b>Eventcondition</b></em>' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int ERROR_EVENT__FLOWCONDITION = ERROR_BEHAVIOR_EVENT_FEATURE_COUNT + 1;
+  int ERROR_EVENT__EVENTCONDITION = ERROR_BEHAVIOR_EVENT_FEATURE_COUNT + 1;
 
   /**
    * The number of structural features of the '<em>Error Event</em>' class.
@@ -5228,15 +5228,15 @@ public interface ErrorModelPackage extends EPackage
   EReference getErrorEvent_TypeSet();
 
   /**
-   * Returns the meta object for the attribute '{@link org.osate.xtext.aadl2.errormodel.errorModel.ErrorEvent#getFlowcondition <em>Flowcondition</em>}'.
+   * Returns the meta object for the attribute '{@link org.osate.xtext.aadl2.errormodel.errorModel.ErrorEvent#getEventcondition <em>Eventcondition</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for the attribute '<em>Flowcondition</em>'.
-   * @see org.osate.xtext.aadl2.errormodel.errorModel.ErrorEvent#getFlowcondition()
+   * @return the meta object for the attribute '<em>Eventcondition</em>'.
+   * @see org.osate.xtext.aadl2.errormodel.errorModel.ErrorEvent#getEventcondition()
    * @see #getErrorEvent()
    * @generated
    */
-  EAttribute getErrorEvent_Flowcondition();
+  EAttribute getErrorEvent_Eventcondition();
 
   /**
    * Returns the meta object for class '{@link org.osate.xtext.aadl2.errormodel.errorModel.RepairEvent <em>Repair Event</em>}'.
@@ -7102,12 +7102,12 @@ public interface ErrorModelPackage extends EPackage
     EReference ERROR_EVENT__TYPE_SET = eINSTANCE.getErrorEvent_TypeSet();
 
     /**
-     * The meta object literal for the '<em><b>Flowcondition</b></em>' attribute feature.
+     * The meta object literal for the '<em><b>Eventcondition</b></em>' attribute feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    EAttribute ERROR_EVENT__FLOWCONDITION = eINSTANCE.getErrorEvent_Flowcondition();
+    EAttribute ERROR_EVENT__EVENTCONDITION = eINSTANCE.getErrorEvent_Eventcondition();
 
     /**
      * The meta object literal for the '{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.RepairEventImpl <em>Repair Event</em>}' class.

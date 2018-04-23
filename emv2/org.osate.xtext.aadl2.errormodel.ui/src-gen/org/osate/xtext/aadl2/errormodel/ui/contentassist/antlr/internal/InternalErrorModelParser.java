@@ -56642,31 +56642,31 @@ public class InternalErrorModelParser extends AbstractInternalContentAssistParse
 
 
     // $ANTLR start "rule__ErrorEvent__Group_4__1__Impl"
-    // InternalErrorModelParser.g:20420:1: rule__ErrorEvent__Group_4__1__Impl : ( ( rule__ErrorEvent__FlowconditionAssignment_4_1 ) ) ;
+    // InternalErrorModelParser.g:20420:1: rule__ErrorEvent__Group_4__1__Impl : ( ( rule__ErrorEvent__EventconditionAssignment_4_1 ) ) ;
     public final void rule__ErrorEvent__Group_4__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalErrorModelParser.g:20424:1: ( ( ( rule__ErrorEvent__FlowconditionAssignment_4_1 ) ) )
-            // InternalErrorModelParser.g:20425:1: ( ( rule__ErrorEvent__FlowconditionAssignment_4_1 ) )
+            // InternalErrorModelParser.g:20424:1: ( ( ( rule__ErrorEvent__EventconditionAssignment_4_1 ) ) )
+            // InternalErrorModelParser.g:20425:1: ( ( rule__ErrorEvent__EventconditionAssignment_4_1 ) )
             {
-            // InternalErrorModelParser.g:20425:1: ( ( rule__ErrorEvent__FlowconditionAssignment_4_1 ) )
-            // InternalErrorModelParser.g:20426:1: ( rule__ErrorEvent__FlowconditionAssignment_4_1 )
+            // InternalErrorModelParser.g:20425:1: ( ( rule__ErrorEvent__EventconditionAssignment_4_1 ) )
+            // InternalErrorModelParser.g:20426:1: ( rule__ErrorEvent__EventconditionAssignment_4_1 )
             {
-             before(grammarAccess.getErrorEventAccess().getFlowconditionAssignment_4_1()); 
-            // InternalErrorModelParser.g:20427:1: ( rule__ErrorEvent__FlowconditionAssignment_4_1 )
-            // InternalErrorModelParser.g:20427:2: rule__ErrorEvent__FlowconditionAssignment_4_1
+             before(grammarAccess.getErrorEventAccess().getEventconditionAssignment_4_1()); 
+            // InternalErrorModelParser.g:20427:1: ( rule__ErrorEvent__EventconditionAssignment_4_1 )
+            // InternalErrorModelParser.g:20427:2: rule__ErrorEvent__EventconditionAssignment_4_1
             {
             pushFollow(FOLLOW_2);
-            rule__ErrorEvent__FlowconditionAssignment_4_1();
+            rule__ErrorEvent__EventconditionAssignment_4_1();
 
             state._fsp--;
 
 
             }
 
-             after(grammarAccess.getErrorEventAccess().getFlowconditionAssignment_4_1()); 
+             after(grammarAccess.getErrorEventAccess().getEventconditionAssignment_4_1()); 
 
             }
 
@@ -94474,9 +94474,9 @@ public class InternalErrorModelParser extends AbstractInternalContentAssistParse
     // $ANTLR end "rule__ErrorEvent__TypeSetAssignment_3"
 
 
-    // $ANTLR start "rule__ErrorEvent__FlowconditionAssignment_4_1"
-    // InternalErrorModelParser.g:35352:1: rule__ErrorEvent__FlowconditionAssignment_4_1 : ( ruleCONDITION ) ;
-    public final void rule__ErrorEvent__FlowconditionAssignment_4_1() throws RecognitionException {
+    // $ANTLR start "rule__ErrorEvent__EventconditionAssignment_4_1"
+    // InternalErrorModelParser.g:35352:1: rule__ErrorEvent__EventconditionAssignment_4_1 : ( ruleCONDITION ) ;
+    public final void rule__ErrorEvent__EventconditionAssignment_4_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
@@ -94487,13 +94487,13 @@ public class InternalErrorModelParser extends AbstractInternalContentAssistParse
             // InternalErrorModelParser.g:35357:1: ( ruleCONDITION )
             // InternalErrorModelParser.g:35358:1: ruleCONDITION
             {
-             before(grammarAccess.getErrorEventAccess().getFlowconditionCONDITIONParserRuleCall_4_1_0()); 
+             before(grammarAccess.getErrorEventAccess().getEventconditionCONDITIONParserRuleCall_4_1_0()); 
             pushFollow(FOLLOW_2);
             ruleCONDITION();
 
             state._fsp--;
 
-             after(grammarAccess.getErrorEventAccess().getFlowconditionCONDITIONParserRuleCall_4_1_0()); 
+             after(grammarAccess.getErrorEventAccess().getEventconditionCONDITIONParserRuleCall_4_1_0()); 
 
             }
 
@@ -94512,7 +94512,7 @@ public class InternalErrorModelParser extends AbstractInternalContentAssistParse
         }
         return ;
     }
-    // $ANTLR end "rule__ErrorEvent__FlowconditionAssignment_4_1"
+    // $ANTLR end "rule__ErrorEvent__EventconditionAssignment_4_1"
 
 
     // $ANTLR start "rule__RepairEvent__NameAssignment_0"

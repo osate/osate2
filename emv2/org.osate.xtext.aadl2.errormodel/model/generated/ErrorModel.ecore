@@ -189,7 +189,7 @@
   <eClassifiers xsi:type="ecore:EClass" name="ErrorEvent" eSuperTypes="#//ErrorBehaviorEvent">
     <eStructuralFeatures xsi:type="ecore:EReference" name="typeSet" eType="#//TypeSet"
         containment="true"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="flowcondition" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="eventcondition" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="RepairEvent" eSuperTypes="#//ErrorBehaviorEvent">
     <eStructuralFeatures xsi:type="ecore:EReference" name="eventInitiator" unique="false"

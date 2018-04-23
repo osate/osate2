@@ -13790,7 +13790,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleErrorEvent"
-    // InternalErrorModelParser.g:5288:1: ruleErrorEvent returns [EObject current=null] : ( ( (lv_name_0_0= RULE_ID ) ) otherlv_1= Colon ruleErrorEventKeywords ( (lv_typeSet_3_0= ruleTypeSetReference ) )? (otherlv_4= If ( (lv_flowcondition_5_0= ruleCONDITION ) ) )? otherlv_6= Semicolon ) ;
+    // InternalErrorModelParser.g:5288:1: ruleErrorEvent returns [EObject current=null] : ( ( (lv_name_0_0= RULE_ID ) ) otherlv_1= Colon ruleErrorEventKeywords ( (lv_typeSet_3_0= ruleTypeSetReference ) )? (otherlv_4= If ( (lv_eventcondition_5_0= ruleCONDITION ) ) )? otherlv_6= Semicolon ) ;
     public final EObject ruleErrorEvent() throws RecognitionException {
         EObject current = null;
 
@@ -13800,17 +13800,17 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
         Token otherlv_6=null;
         EObject lv_typeSet_3_0 = null;
 
-        AntlrDatatypeRuleToken lv_flowcondition_5_0 = null;
+        AntlrDatatypeRuleToken lv_eventcondition_5_0 = null;
 
 
          enterRule(); 
             
         try {
-            // InternalErrorModelParser.g:5291:28: ( ( ( (lv_name_0_0= RULE_ID ) ) otherlv_1= Colon ruleErrorEventKeywords ( (lv_typeSet_3_0= ruleTypeSetReference ) )? (otherlv_4= If ( (lv_flowcondition_5_0= ruleCONDITION ) ) )? otherlv_6= Semicolon ) )
-            // InternalErrorModelParser.g:5292:1: ( ( (lv_name_0_0= RULE_ID ) ) otherlv_1= Colon ruleErrorEventKeywords ( (lv_typeSet_3_0= ruleTypeSetReference ) )? (otherlv_4= If ( (lv_flowcondition_5_0= ruleCONDITION ) ) )? otherlv_6= Semicolon )
+            // InternalErrorModelParser.g:5291:28: ( ( ( (lv_name_0_0= RULE_ID ) ) otherlv_1= Colon ruleErrorEventKeywords ( (lv_typeSet_3_0= ruleTypeSetReference ) )? (otherlv_4= If ( (lv_eventcondition_5_0= ruleCONDITION ) ) )? otherlv_6= Semicolon ) )
+            // InternalErrorModelParser.g:5292:1: ( ( (lv_name_0_0= RULE_ID ) ) otherlv_1= Colon ruleErrorEventKeywords ( (lv_typeSet_3_0= ruleTypeSetReference ) )? (otherlv_4= If ( (lv_eventcondition_5_0= ruleCONDITION ) ) )? otherlv_6= Semicolon )
             {
-            // InternalErrorModelParser.g:5292:1: ( ( (lv_name_0_0= RULE_ID ) ) otherlv_1= Colon ruleErrorEventKeywords ( (lv_typeSet_3_0= ruleTypeSetReference ) )? (otherlv_4= If ( (lv_flowcondition_5_0= ruleCONDITION ) ) )? otherlv_6= Semicolon )
-            // InternalErrorModelParser.g:5292:2: ( (lv_name_0_0= RULE_ID ) ) otherlv_1= Colon ruleErrorEventKeywords ( (lv_typeSet_3_0= ruleTypeSetReference ) )? (otherlv_4= If ( (lv_flowcondition_5_0= ruleCONDITION ) ) )? otherlv_6= Semicolon
+            // InternalErrorModelParser.g:5292:1: ( ( (lv_name_0_0= RULE_ID ) ) otherlv_1= Colon ruleErrorEventKeywords ( (lv_typeSet_3_0= ruleTypeSetReference ) )? (otherlv_4= If ( (lv_eventcondition_5_0= ruleCONDITION ) ) )? otherlv_6= Semicolon )
+            // InternalErrorModelParser.g:5292:2: ( (lv_name_0_0= RULE_ID ) ) otherlv_1= Colon ruleErrorEventKeywords ( (lv_typeSet_3_0= ruleTypeSetReference ) )? (otherlv_4= If ( (lv_eventcondition_5_0= ruleCONDITION ) ) )? otherlv_6= Semicolon
             {
             // InternalErrorModelParser.g:5292:2: ( (lv_name_0_0= RULE_ID ) )
             // InternalErrorModelParser.g:5293:1: (lv_name_0_0= RULE_ID )
@@ -13895,7 +13895,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
             }
 
-            // InternalErrorModelParser.g:5341:3: (otherlv_4= If ( (lv_flowcondition_5_0= ruleCONDITION ) ) )?
+            // InternalErrorModelParser.g:5341:3: (otherlv_4= If ( (lv_eventcondition_5_0= ruleCONDITION ) ) )?
             int alt165=2;
             int LA165_0 = input.LA(1);
 
@@ -13904,23 +13904,23 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
             }
             switch (alt165) {
                 case 1 :
-                    // InternalErrorModelParser.g:5342:2: otherlv_4= If ( (lv_flowcondition_5_0= ruleCONDITION ) )
+                    // InternalErrorModelParser.g:5342:2: otherlv_4= If ( (lv_eventcondition_5_0= ruleCONDITION ) )
                     {
                     otherlv_4=(Token)match(input,If,FOLLOW_70); 
 
                         	newLeafNode(otherlv_4, grammarAccess.getErrorEventAccess().getIfKeyword_4_0());
                         
-                    // InternalErrorModelParser.g:5346:1: ( (lv_flowcondition_5_0= ruleCONDITION ) )
-                    // InternalErrorModelParser.g:5347:1: (lv_flowcondition_5_0= ruleCONDITION )
+                    // InternalErrorModelParser.g:5346:1: ( (lv_eventcondition_5_0= ruleCONDITION ) )
+                    // InternalErrorModelParser.g:5347:1: (lv_eventcondition_5_0= ruleCONDITION )
                     {
-                    // InternalErrorModelParser.g:5347:1: (lv_flowcondition_5_0= ruleCONDITION )
-                    // InternalErrorModelParser.g:5348:3: lv_flowcondition_5_0= ruleCONDITION
+                    // InternalErrorModelParser.g:5347:1: (lv_eventcondition_5_0= ruleCONDITION )
+                    // InternalErrorModelParser.g:5348:3: lv_eventcondition_5_0= ruleCONDITION
                     {
                      
-                    	        newCompositeNode(grammarAccess.getErrorEventAccess().getFlowconditionCONDITIONParserRuleCall_4_1_0()); 
+                    	        newCompositeNode(grammarAccess.getErrorEventAccess().getEventconditionCONDITIONParserRuleCall_4_1_0()); 
                     	    
                     pushFollow(FOLLOW_7);
-                    lv_flowcondition_5_0=ruleCONDITION();
+                    lv_eventcondition_5_0=ruleCONDITION();
 
                     state._fsp--;
 
@@ -13930,8 +13930,8 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
                     	        }
                            		set(
                            			current, 
-                           			"flowcondition",
-                            		lv_flowcondition_5_0, 
+                           			"eventcondition",
+                            		lv_eventcondition_5_0, 
                             		"org.osate.xtext.aadl2.errormodel.ErrorModel.CONDITION");
                     	        afterParserOrEnumRuleCall();
                     	    
