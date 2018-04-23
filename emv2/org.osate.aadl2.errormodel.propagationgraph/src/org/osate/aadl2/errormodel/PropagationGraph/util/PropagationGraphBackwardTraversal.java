@@ -117,80 +117,80 @@ public class PropagationGraphBackwardTraversal {
 			if (handledFlows.containsEntry(ef, EMV2Util.getPrintName(type))) {
 				continue;
 			}
-			if (!PropagationPathsUtil.conditionHolds(ef, component)) {
-				continue;
-			}
 			if (ef instanceof ErrorPath) {
 				ErrorPath ep = (ErrorPath) ef;
+				if (PropagationPathsUtil.conditionHolds(ef, component)) {
+					/**
+					 * Make sure that the error type we are looking for is contained
+					 * in the error types for the out propagation.
+					 * This is a fix for the JMR/SAVI WBS model.
+					 */
+					if (ep.isAllOutgoing() || EMV2Util.isSame(ep.getOutgoing(), errorPropagation)) {
+						if (ep.getTargetToken() != null) {
+							if (EM2TypeSetUtil.contains(ep.getTargetToken(), type)) {
+								// we have a type mapping
+								EList<TypeToken> result;
+								if (ep.getTypeTokenConstraint() != null) {
+									// get type from path constraint
+									result = EM2TypeSetUtil.flattenTypesetElements(ep.getTypeTokenConstraint(),
+											EMV2Util.getUseTypes(ep));
+								} else {
+									// get incoming type from propagation
+									result = EM2TypeSetUtil.flattenTypesetElements(ep.getIncoming().getTypeSet(),
+											EMV2Util.getUseTypes(ep));
+								}
+								for (TypeToken typeToken : result) {
+									EList<ErrorTypes> tl = typeToken.getType();
+									// TODO deal with type product
+									ErrorTypes newtype = tl.get(0);
+									if (ep.isAllIncoming()) {
+										Collection<ErrorPropagation> inprops = EMV2Util
+												.getAllIncomingErrorPropagations(component);
+										for (ErrorPropagation eprop : inprops) {
+											EObject newEvent = traverseIncomingErrorPropagation(component, eprop,
+													newtype);
+											if (newEvent != null) {
+												subResults.add(newEvent);
+											}
+										}
 
-				/**
-				 * Make sure that the error type we are looking for is contained
-				 * in the error types for the out propagation.
-				 * This is a fix for the JMR/SAVI WBS model.
-				 */
-				if (ep.isAllOutgoing() || EMV2Util.isSame(ep.getOutgoing(), errorPropagation)) {
-					if (ep.getTargetToken() != null) {
-						if (EM2TypeSetUtil.contains(ep.getTargetToken(), type)) {
-							// we have a type mapping
-							EList<TypeToken> result;
-							if (ep.getTypeTokenConstraint() != null) {
-								// get type from path constraint
-								result = EM2TypeSetUtil.flattenTypesetElements(ep.getTypeTokenConstraint(),
-										EMV2Util.getUseTypes(ep));
-							} else {
-								// get incoming type from propagation
-								result = EM2TypeSetUtil.flattenTypesetElements(ep.getIncoming().getTypeSet(),
-										EMV2Util.getUseTypes(ep));
-							}
-							for (TypeToken typeToken : result) {
-								EList<ErrorTypes> tl = typeToken.getType();
-								// TODO deal with type product
-								ErrorTypes newtype = tl.get(0);
-								if (ep.isAllIncoming()) {
-									Collection<ErrorPropagation> inprops = EMV2Util
-											.getAllIncomingErrorPropagations(component);
-									for (ErrorPropagation eprop : inprops) {
-										EObject newEvent = traverseIncomingErrorPropagation(component, eprop, newtype);
+									} else {
+										EObject newEvent = traverseIncomingErrorPropagation(component, ep.getIncoming(),
+												newtype);
 										if (newEvent != null) {
 											subResults.add(newEvent);
 										}
 									}
-
-								} else {
-									EObject newEvent = traverseIncomingErrorPropagation(component, ep.getIncoming(),
-											newtype);
-									if (newEvent != null) {
-										subResults.add(newEvent);
-									}
 								}
 							}
-						}
-					} else {
-						// no type mapping
-						if (ep.isAllIncoming()) {
-							Collection<ErrorPropagation> inprops = EMV2Util.getAllIncomingErrorPropagations(component);
-							for (ErrorPropagation eprop : inprops) {
+						} else {
+							// no type mapping
+							if (ep.isAllIncoming()) {
+								Collection<ErrorPropagation> inprops = EMV2Util
+										.getAllIncomingErrorPropagations(component);
+								for (ErrorPropagation eprop : inprops) {
+									TypeSet matchtype = ep.getTypeTokenConstraint();
+									if (matchtype == null) {
+										matchtype = eprop.getTypeSet();
+										if (EM2TypeSetUtil.contains(matchtype, type)) {
+											EObject newEvent = traverseIncomingErrorPropagation(component, eprop, type);
+											if (newEvent != null) {
+												subResults.add(newEvent);
+											}
+										}
+									}
+								}
+
+							} else {
+								ErrorPropagation inep = ep.getIncoming();
 								TypeSet matchtype = ep.getTypeTokenConstraint();
 								if (matchtype == null) {
-									matchtype = eprop.getTypeSet();
+									matchtype = inep.getTypeSet();
 									if (EM2TypeSetUtil.contains(matchtype, type)) {
-										EObject newEvent = traverseIncomingErrorPropagation(component, eprop, type);
+										EObject newEvent = traverseIncomingErrorPropagation(component, inep, type);
 										if (newEvent != null) {
 											subResults.add(newEvent);
 										}
-									}
-								}
-							}
-
-						} else {
-							ErrorPropagation inep = ep.getIncoming();
-							TypeSet matchtype = ep.getTypeTokenConstraint();
-							if (matchtype == null) {
-								matchtype = inep.getTypeSet();
-								if (EM2TypeSetUtil.contains(matchtype, type)) {
-									EObject newEvent = traverseIncomingErrorPropagation(component, inep, type);
-									if (newEvent != null) {
-										subResults.add(newEvent);
 									}
 								}
 							}
@@ -199,12 +199,13 @@ public class PropagationGraphBackwardTraversal {
 				}
 			} else if (ef instanceof ErrorSource) {
 				ErrorSource errorSource = (ErrorSource) ef;
-
-				if (errorSource.isAll() || EMV2Util.isSame(errorSource.getSourceModelElement(), errorPropagation)) {
-					if (EM2TypeSetUtil.contains(errorSource.getTypeTokenConstraint(), type)) {
-						EObject newEvent = processErrorSource(component, errorSource, type);
-						if (newEvent != null) {
-							subResults.add(newEvent);
+				if (PropagationPathsUtil.conditionHolds(ef, component)) {
+					if (errorSource.isAll() || EMV2Util.isSame(errorSource.getSourceModelElement(), errorPropagation)) {
+						if (EM2TypeSetUtil.contains(errorSource.getTypeTokenConstraint(), type)) {
+							EObject newEvent = processErrorSource(component, errorSource, type);
+							if (newEvent != null) {
+								subResults.add(newEvent);
+							}
 						}
 					}
 				}
@@ -894,50 +895,6 @@ public class PropagationGraphBackwardTraversal {
 		return traverseCompositeErrorState(component, state, type, true);
 	}
 
-//
-//	public boolean conditionHolds(ErrorFlow ef, ComponentInstance target) {
-//		if (ef.getFlowcondition() != null) {
-//			String conditionFcn = ef.getFlowcondition();
-//			return executeCondition(conditionFcn, target);
-//		}
-//		return true;
-//	}
-//
-//	public boolean conditionHolds(ErrorEvent ef, ComponentInstance target) {
-//		if (ef.getFlowcondition() != null) {
-//			String conditionFcn = ef.getFlowcondition();
-//			return executeCondition(conditionFcn, target);
-//		}
-//		return true;
-//	}
-//
-//	private static boolean RESOLUTE_INSTALLED;
-//	static {
-//		try {
-//			ExecuteResoluteUtil.eInstance.tryLoad();
-//			RESOLUTE_INSTALLED = true;
-//		} catch (NoClassDefFoundError e) {
-//			RESOLUTE_INSTALLED = false;
-//		}
-//	}
-//
-//	public boolean executeCondition(String conditionFcn, ComponentInstance target) {
-//		if (conditionFcn.contains(".")) {
-//			// Java class reference
-//			Object res = ExecuteJava.eInstance.workspaceInvoke(conditionFcn, target);
-//			if (res instanceof Boolean) {
-//				return (Boolean) res;
-//			} else {
-//				return true;
-//			}
-//		} else if (RESOLUTE_INSTALLED) {
-//			Issue res = ExecuteResoluteUtil.eInstance.executeResoluteFunction(conditionFcn, target.getSystemInstance(),
-//					target, null);
-//			return res != null && res.getIssueType() == IssueType.SUCCESS;
-//		} else {
-//			return true;
-//		}
-//	}
 
 
 //	methods to be overwritten by applications

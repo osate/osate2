@@ -661,8 +661,8 @@ public class PropagationPathsUtil {
 	}
 
 	public static boolean conditionHolds(ErrorEvent ef, ComponentInstance target) {
-		if (ef.getFlowcondition() != null) {
-			String conditionFcn = ef.getFlowcondition();
+		if (ef.getEventcondition() != null) {
+			String conditionFcn = ef.getEventcondition();
 			return executeCondition(conditionFcn, target);
 		}
 		return true;
