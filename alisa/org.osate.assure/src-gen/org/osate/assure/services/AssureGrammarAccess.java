@@ -120,8 +120,11 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cMessageSTRINGTerminalRuleCall_6_1_0 = (RuleCall)cMessageAssignment_6_1.eContents().get(0);
 		private final Assignment cClaimResultAssignment_7 = (Assignment)cGroup.eContents().get(7);
 		private final RuleCall cClaimResultClaimResultParserRuleCall_7_0 = (RuleCall)cClaimResultAssignment_7.eContents().get(0);
-		private final Assignment cSubsystemResultAssignment_8 = (Assignment)cGroup.eContents().get(8);
-		private final RuleCall cSubsystemResultSubsystemResultParserRuleCall_8_0 = (RuleCall)cSubsystemResultAssignment_8.eContents().get(0);
+		private final Alternatives cAlternatives_8 = (Alternatives)cGroup.eContents().get(8);
+		private final Assignment cSubsystemResultAssignment_8_0 = (Assignment)cAlternatives_8.eContents().get(0);
+		private final RuleCall cSubsystemResultSubsystemResultParserRuleCall_8_0_0 = (RuleCall)cSubsystemResultAssignment_8_0.eContents().get(0);
+		private final Assignment cSubAssuranceCaseAssignment_8_1 = (Assignment)cAlternatives_8.eContents().get(1);
+		private final RuleCall cSubAssuranceCaseAssuranceCaseResultParserRuleCall_8_1_0 = (RuleCall)cSubAssuranceCaseAssignment_8_1.eContents().get(0);
 		private final Keyword cRightSquareBracketKeyword_9 = (Keyword)cGroup.eContents().get(9);
 		
 		//ModelResult:
@@ -129,13 +132,13 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 		//	'for' target=[aadl2::ComponentImplementation|AadlClassifierReference]
 		//	'['
 		//	metrics=Metrics ('message' message=STRING)?
-		//	claimResult+=ClaimResult*
-		//	subsystemResult+=SubsystemResult*
+		//	claimResult+=ClaimResult* (subsystemResult+=SubsystemResult | subAssuranceCase+=AssuranceCaseResult)*
 		//	']';
 		@Override public ParserRule getRule() { return rule; }
 
 		//'model' plan=[Alisa::AssurancePlan|QualifiedName] 'for' target=[aadl2::ComponentImplementation|AadlClassifierReference]
-		//'[' metrics=Metrics ('message' message=STRING)? claimResult+=ClaimResult* subsystemResult+=SubsystemResult* ']'
+		//'[' metrics=Metrics ('message' message=STRING)? claimResult+=ClaimResult* (subsystemResult+=SubsystemResult |
+		//subAssuranceCase+=AssuranceCaseResult)* ']'
 		public Group getGroup() { return cGroup; }
 
 		//'model'
@@ -189,11 +192,20 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 		//ClaimResult
 		public RuleCall getClaimResultClaimResultParserRuleCall_7_0() { return cClaimResultClaimResultParserRuleCall_7_0; }
 
-		//subsystemResult+=SubsystemResult*
-		public Assignment getSubsystemResultAssignment_8() { return cSubsystemResultAssignment_8; }
+		//(subsystemResult+=SubsystemResult | subAssuranceCase+=AssuranceCaseResult)*
+		public Alternatives getAlternatives_8() { return cAlternatives_8; }
+
+		//subsystemResult+=SubsystemResult
+		public Assignment getSubsystemResultAssignment_8_0() { return cSubsystemResultAssignment_8_0; }
 
 		//SubsystemResult
-		public RuleCall getSubsystemResultSubsystemResultParserRuleCall_8_0() { return cSubsystemResultSubsystemResultParserRuleCall_8_0; }
+		public RuleCall getSubsystemResultSubsystemResultParserRuleCall_8_0_0() { return cSubsystemResultSubsystemResultParserRuleCall_8_0_0; }
+
+		//subAssuranceCase+=AssuranceCaseResult
+		public Assignment getSubAssuranceCaseAssignment_8_1() { return cSubAssuranceCaseAssignment_8_1; }
+
+		//AssuranceCaseResult
+		public RuleCall getSubAssuranceCaseAssuranceCaseResultParserRuleCall_8_1_0() { return cSubAssuranceCaseAssuranceCaseResultParserRuleCall_8_1_0; }
 
 		//']'
 		public Keyword getRightSquareBracketKeyword_9() { return cRightSquareBracketKeyword_9; }
@@ -1781,58 +1793,58 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 		//exceptionType=STRING)? ('[' issues+=ResultIssue* ']')?
 		public Group getGroup() { return cGroup; }
 
-		//type=ResultIssueType
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: org.eclipse.xtext.resource.FileNotFoundOnClasspathException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/assure/Assure.xtext#/0/@rules.20/@alternatives/@elements.0'
 		public Assignment getTypeAssignment_0() { return cTypeAssignment_0; }
 
-		//ResultIssueType
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: org.eclipse.xtext.resource.FileNotFoundOnClasspathException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/assure/Assure.xtext#/0/@rules.20/@alternatives/@elements.0/@terminal'
 		public RuleCall getTypeResultIssueTypeEnumRuleCall_0_0() { return cTypeResultIssueTypeEnumRuleCall_0_0; }
 
-		//message=STRING
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: org.eclipse.xtext.resource.FileNotFoundOnClasspathException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/assure/Assure.xtext#/0/@rules.20/@alternatives/@elements.1'
 		public Assignment getMessageAssignment_1() { return cMessageAssignment_1; }
 
-		//STRING
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: org.eclipse.xtext.resource.FileNotFoundOnClasspathException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/assure/Assure.xtext#/0/@rules.20/@alternatives/@elements.1/@terminal'
 		public RuleCall getMessageSTRINGTerminalRuleCall_1_0() { return cMessageSTRINGTerminalRuleCall_1_0; }
 
-		//('source' sourceReference=[ecore::EObject|NoQuoteString])?
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: org.eclipse.xtext.resource.FileNotFoundOnClasspathException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/assure/Assure.xtext#/0/@rules.20/@alternatives/@elements.2'
 		public Group getGroup_2() { return cGroup_2; }
 
-		//'source'
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: org.eclipse.xtext.resource.FileNotFoundOnClasspathException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/assure/Assure.xtext#/0/@rules.20/@alternatives/@elements.2/@elements.0'
 		public Keyword getSourceKeyword_2_0() { return cSourceKeyword_2_0; }
 
-		//sourceReference=[ecore::EObject|NoQuoteString]
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: org.eclipse.xtext.resource.FileNotFoundOnClasspathException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/assure/Assure.xtext#/0/@rules.20/@alternatives/@elements.2/@elements.1'
 		public Assignment getSourceReferenceAssignment_2_1() { return cSourceReferenceAssignment_2_1; }
 
-		//[ecore::EObject|NoQuoteString]
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: org.eclipse.xtext.resource.FileNotFoundOnClasspathException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/assure/Assure.xtext#/0/@rules.20/@alternatives/@elements.2/@elements.1/@terminal'
 		public CrossReference getSourceReferenceEObjectCrossReference_2_1_0() { return cSourceReferenceEObjectCrossReference_2_1_0; }
 
-		//NoQuoteString
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: org.eclipse.xtext.resource.FileNotFoundOnClasspathException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/assure/Assure.xtext#/0/@rules.20/@alternatives/@elements.2/@elements.1/@terminal/@terminal'
 		public RuleCall getSourceReferenceEObjectNoQuoteStringParserRuleCall_2_1_0_1() { return cSourceReferenceEObjectNoQuoteStringParserRuleCall_2_1_0_1; }
 
-		//('exception' exceptionType=STRING)?
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: org.eclipse.xtext.resource.FileNotFoundOnClasspathException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/assure/Assure.xtext#/0/@rules.20/@alternatives/@elements.3'
 		public Group getGroup_3() { return cGroup_3; }
 
-		//'exception'
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: org.eclipse.xtext.resource.FileNotFoundOnClasspathException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/assure/Assure.xtext#/0/@rules.20/@alternatives/@elements.3/@elements.0'
 		public Keyword getExceptionKeyword_3_0() { return cExceptionKeyword_3_0; }
 
-		//exceptionType=STRING
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: org.eclipse.xtext.resource.FileNotFoundOnClasspathException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/assure/Assure.xtext#/0/@rules.20/@alternatives/@elements.3/@elements.1'
 		public Assignment getExceptionTypeAssignment_3_1() { return cExceptionTypeAssignment_3_1; }
 
-		//STRING
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: org.eclipse.xtext.resource.FileNotFoundOnClasspathException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/assure/Assure.xtext#/0/@rules.20/@alternatives/@elements.3/@elements.1/@terminal'
 		public RuleCall getExceptionTypeSTRINGTerminalRuleCall_3_1_0() { return cExceptionTypeSTRINGTerminalRuleCall_3_1_0; }
 
-		//('[' issues+=ResultIssue* ']')?
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: org.eclipse.xtext.resource.FileNotFoundOnClasspathException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/assure/Assure.xtext#/0/@rules.20/@alternatives/@elements.4'
 		public Group getGroup_4() { return cGroup_4; }
 
-		//'['
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: org.eclipse.xtext.resource.FileNotFoundOnClasspathException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/assure/Assure.xtext#/0/@rules.20/@alternatives/@elements.4/@elements.0'
 		public Keyword getLeftSquareBracketKeyword_4_0() { return cLeftSquareBracketKeyword_4_0; }
 
-		//issues+=ResultIssue*
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: org.eclipse.xtext.resource.FileNotFoundOnClasspathException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/assure/Assure.xtext#/0/@rules.20/@alternatives/@elements.4/@elements.1'
 		public Assignment getIssuesAssignment_4_1() { return cIssuesAssignment_4_1; }
 
-		//ResultIssue
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: org.eclipse.xtext.resource.FileNotFoundOnClasspathException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/assure/Assure.xtext#/0/@rules.20/@alternatives/@elements.4/@elements.1/@terminal'
 		public RuleCall getIssuesResultIssueParserRuleCall_4_1_0() { return cIssuesResultIssueParserRuleCall_4_1_0; }
 
-		//']'
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: org.eclipse.xtext.resource.FileNotFoundOnClasspathException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/assure/Assure.xtext#/0/@rules.20/@alternatives/@elements.4/@elements.2'
 		public Keyword getRightSquareBracketKeyword_4_2() { return cRightSquareBracketKeyword_4_2; }
 	}
 	
@@ -2155,8 +2167,7 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 	//	'for' target=[aadl2::ComponentImplementation|AadlClassifierReference]
 	//	'['
 	//	metrics=Metrics ('message' message=STRING)?
-	//	claimResult+=ClaimResult*
-	//	subsystemResult+=SubsystemResult*
+	//	claimResult+=ClaimResult* (subsystemResult+=SubsystemResult | subAssuranceCase+=AssuranceCaseResult)*
 	//	']';
 	public ModelResultElements getModelResultAccess() {
 		return pModelResult;
@@ -2166,14 +2177,7 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 		return getModelResultAccess().getRule();
 	}
 
-	//SubsystemResult:
-	//	'subsystem' //name=QualifiedName 'for' 
-	//	targetSystem=[aadl2::Subcomponent]
-	//	'['
-	//	metrics=Metrics ('message' message=STRING)?
-	//	claimResult+=ClaimResult*
-	//	subsystemResult+=SubsystemResult*
-	//	']';
+	//org.eclipse.xtext.resource.ClasspathUriResolutionException: org.eclipse.xtext.resource.FileNotFoundOnClasspathException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/assure/Assure.xtext#/0/@metamodelDeclarations.1'
 	public SubsystemResultElements getSubsystemResultAccess() {
 		return pSubsystemResult;
 	}
@@ -2182,15 +2186,7 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 		return getSubsystemResultAccess().getRule();
 	}
 
-	//// Result of meeting a requirement
-	//ClaimResult:
-	//	'claim' targetReference=QualifiedClaimReference //target=[ReqSpec::Requirement|QualifiedName]
-	//	'['
-	//	metrics=Metrics ('for' modelElement=[aadl2::NamedElement])? ('message' message=STRING)?
-	//	subClaimResult+=ClaimResult*
-	//	verificationActivityResult+=VerificationExpr*
-	//	predicateResult=PredicateResult?
-	//	']';
+	//org.eclipse.xtext.resource.ClasspathUriResolutionException: org.eclipse.xtext.resource.FileNotFoundOnClasspathException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/assure/Assure.xtext#XtextFragmentProvider_org.osate.assure.Assure/ClaimResult'
 	public ClaimResultElements getClaimResultAccess() {
 		return pClaimResult;
 	}
@@ -2233,18 +2229,7 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 		return getValidationResultAccess().getRule();
 	}
 
-	//// result of executing a verification activity
-	//VerificationActivityResult VerificationResult:
-	//	'verification' {VerificationActivityResult} targetReference=QualifiedVAReference //target=[Verify::VerificationActivity|QualifiedName]
-	//	'['
-	//	'executionstate' executionState=VerificationExecutionState
-	//	'resultstate' resultState=VerificationResultState ('issues' '['
-	//	issues+=ResultIssue*
-	//	']')? ('results' results=[results::AnalysisResult|QualifiedName])?
-	//	metrics=Metrics ('message' message=STRING)?
-	//	preconditionResult=PreconditionResult?
-	//	validationResult=ValidationResult?
-	//	']';
+	//org.eclipse.xtext.resource.ClasspathUriResolutionException: org.eclipse.xtext.resource.FileNotFoundOnClasspathException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/assure/Assure.xtext#XtextFragmentProvider_org.osate.assure.Assure/VerificationActivityResult'
 	public VerificationActivityResultElements getVerificationActivityResultAccess() {
 		return pVerificationActivityResult;
 	}
@@ -2253,16 +2238,7 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 		return getVerificationActivityResultAccess().getRule();
 	}
 
-	//PredicateResult VerificationResult:
-	//	{PredicateResult}
-	//	'predicate' targetReference=QualifiedClaimReference
-	//	'['
-	//	'executionstate' executionState=VerificationExecutionState
-	//	'resultstate' resultState=VerificationResultState ('issues' '['
-	//	issues+=ResultIssue*
-	//	']')? ('results' results=[results::AnalysisResult|QualifiedName])?
-	//	metrics=Metrics ('message' message=STRING)?
-	//	']';
+	//org.eclipse.xtext.resource.ClasspathUriResolutionException: org.eclipse.xtext.resource.FileNotFoundOnClasspathException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/assure/Assure.xtext#XtextFragmentProvider_org.osate.assure.Assure/PredicateResult'
 	public PredicateResultElements getPredicateResultAccess() {
 		return pPredicateResult;
 	}

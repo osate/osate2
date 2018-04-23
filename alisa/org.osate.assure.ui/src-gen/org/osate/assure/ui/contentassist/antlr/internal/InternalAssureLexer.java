@@ -2163,8 +2163,8 @@ public class InternalAssureLexer extends Lexer {
     // $ANTLR start "RULE_EXPONENT"
     public final void mRULE_EXPONENT() throws RecognitionException {
         try {
-            // InternalAssure.g:17291:24: ( ( 'e' | 'E' ) ( '+' | '-' )? ( RULE_DIGIT )+ )
-            // InternalAssure.g:17291:26: ( 'e' | 'E' ) ( '+' | '-' )? ( RULE_DIGIT )+
+            // InternalAssure.g:17328:24: ( ( 'e' | 'E' ) ( '+' | '-' )? ( RULE_DIGIT )+ )
+            // InternalAssure.g:17328:26: ( 'e' | 'E' ) ( '+' | '-' )? ( RULE_DIGIT )+
             {
             if ( input.LA(1)=='E'||input.LA(1)=='e' ) {
                 input.consume();
@@ -2175,7 +2175,7 @@ public class InternalAssureLexer extends Lexer {
                 recover(mse);
                 throw mse;}
 
-            // InternalAssure.g:17291:36: ( '+' | '-' )?
+            // InternalAssure.g:17328:36: ( '+' | '-' )?
             int alt1=2;
             int LA1_0 = input.LA(1);
 
@@ -2201,7 +2201,7 @@ public class InternalAssureLexer extends Lexer {
 
             }
 
-            // InternalAssure.g:17291:47: ( RULE_DIGIT )+
+            // InternalAssure.g:17328:47: ( RULE_DIGIT )+
             int cnt2=0;
             loop2:
             do {
@@ -2215,7 +2215,7 @@ public class InternalAssureLexer extends Lexer {
 
                 switch (alt2) {
             	case 1 :
-            	    // InternalAssure.g:17291:47: RULE_DIGIT
+            	    // InternalAssure.g:17328:47: RULE_DIGIT
             	    {
             	    mRULE_DIGIT(); 
 
@@ -2243,8 +2243,8 @@ public class InternalAssureLexer extends Lexer {
     // $ANTLR start "RULE_INT_EXPONENT"
     public final void mRULE_INT_EXPONENT() throws RecognitionException {
         try {
-            // InternalAssure.g:17293:28: ( ( 'e' | 'E' ) ( '+' )? ( RULE_DIGIT )+ )
-            // InternalAssure.g:17293:30: ( 'e' | 'E' ) ( '+' )? ( RULE_DIGIT )+
+            // InternalAssure.g:17330:28: ( ( 'e' | 'E' ) ( '+' )? ( RULE_DIGIT )+ )
+            // InternalAssure.g:17330:30: ( 'e' | 'E' ) ( '+' )? ( RULE_DIGIT )+
             {
             if ( input.LA(1)=='E'||input.LA(1)=='e' ) {
                 input.consume();
@@ -2255,7 +2255,7 @@ public class InternalAssureLexer extends Lexer {
                 recover(mse);
                 throw mse;}
 
-            // InternalAssure.g:17293:40: ( '+' )?
+            // InternalAssure.g:17330:40: ( '+' )?
             int alt3=2;
             int LA3_0 = input.LA(1);
 
@@ -2264,7 +2264,7 @@ public class InternalAssureLexer extends Lexer {
             }
             switch (alt3) {
                 case 1 :
-                    // InternalAssure.g:17293:40: '+'
+                    // InternalAssure.g:17330:40: '+'
                     {
                     match('+'); 
 
@@ -2273,7 +2273,7 @@ public class InternalAssureLexer extends Lexer {
 
             }
 
-            // InternalAssure.g:17293:45: ( RULE_DIGIT )+
+            // InternalAssure.g:17330:45: ( RULE_DIGIT )+
             int cnt4=0;
             loop4:
             do {
@@ -2287,7 +2287,7 @@ public class InternalAssureLexer extends Lexer {
 
                 switch (alt4) {
             	case 1 :
-            	    // InternalAssure.g:17293:45: RULE_DIGIT
+            	    // InternalAssure.g:17330:45: RULE_DIGIT
             	    {
             	    mRULE_DIGIT(); 
 
@@ -2317,10 +2317,10 @@ public class InternalAssureLexer extends Lexer {
         try {
             int _type = RULE_REAL_LIT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // InternalAssure.g:17295:15: ( ( RULE_DIGIT )+ ( '_' ( RULE_DIGIT )+ )* '.' ( RULE_DIGIT )+ ( '_' ( RULE_DIGIT )+ )* ( RULE_EXPONENT )? )
-            // InternalAssure.g:17295:17: ( RULE_DIGIT )+ ( '_' ( RULE_DIGIT )+ )* '.' ( RULE_DIGIT )+ ( '_' ( RULE_DIGIT )+ )* ( RULE_EXPONENT )?
+            // InternalAssure.g:17332:15: ( ( RULE_DIGIT )+ ( '_' ( RULE_DIGIT )+ )* '.' ( RULE_DIGIT )+ ( '_' ( RULE_DIGIT )+ )* ( RULE_EXPONENT )? )
+            // InternalAssure.g:17332:17: ( RULE_DIGIT )+ ( '_' ( RULE_DIGIT )+ )* '.' ( RULE_DIGIT )+ ( '_' ( RULE_DIGIT )+ )* ( RULE_EXPONENT )?
             {
-            // InternalAssure.g:17295:17: ( RULE_DIGIT )+
+            // InternalAssure.g:17332:17: ( RULE_DIGIT )+
             int cnt5=0;
             loop5:
             do {
@@ -2334,7 +2334,7 @@ public class InternalAssureLexer extends Lexer {
 
                 switch (alt5) {
             	case 1 :
-            	    // InternalAssure.g:17295:17: RULE_DIGIT
+            	    // InternalAssure.g:17332:17: RULE_DIGIT
             	    {
             	    mRULE_DIGIT(); 
 
@@ -2350,7 +2350,7 @@ public class InternalAssureLexer extends Lexer {
                 cnt5++;
             } while (true);
 
-            // InternalAssure.g:17295:29: ( '_' ( RULE_DIGIT )+ )*
+            // InternalAssure.g:17332:29: ( '_' ( RULE_DIGIT )+ )*
             loop7:
             do {
                 int alt7=2;
@@ -2363,10 +2363,10 @@ public class InternalAssureLexer extends Lexer {
 
                 switch (alt7) {
             	case 1 :
-            	    // InternalAssure.g:17295:30: '_' ( RULE_DIGIT )+
+            	    // InternalAssure.g:17332:30: '_' ( RULE_DIGIT )+
             	    {
             	    match('_'); 
-            	    // InternalAssure.g:17295:34: ( RULE_DIGIT )+
+            	    // InternalAssure.g:17332:34: ( RULE_DIGIT )+
             	    int cnt6=0;
             	    loop6:
             	    do {
@@ -2380,7 +2380,7 @@ public class InternalAssureLexer extends Lexer {
 
             	        switch (alt6) {
             	    	case 1 :
-            	    	    // InternalAssure.g:17295:34: RULE_DIGIT
+            	    	    // InternalAssure.g:17332:34: RULE_DIGIT
             	    	    {
             	    	    mRULE_DIGIT(); 
 
@@ -2406,7 +2406,7 @@ public class InternalAssureLexer extends Lexer {
             } while (true);
 
             match('.'); 
-            // InternalAssure.g:17295:52: ( RULE_DIGIT )+
+            // InternalAssure.g:17332:52: ( RULE_DIGIT )+
             int cnt8=0;
             loop8:
             do {
@@ -2420,7 +2420,7 @@ public class InternalAssureLexer extends Lexer {
 
                 switch (alt8) {
             	case 1 :
-            	    // InternalAssure.g:17295:52: RULE_DIGIT
+            	    // InternalAssure.g:17332:52: RULE_DIGIT
             	    {
             	    mRULE_DIGIT(); 
 
@@ -2436,7 +2436,7 @@ public class InternalAssureLexer extends Lexer {
                 cnt8++;
             } while (true);
 
-            // InternalAssure.g:17295:64: ( '_' ( RULE_DIGIT )+ )*
+            // InternalAssure.g:17332:64: ( '_' ( RULE_DIGIT )+ )*
             loop10:
             do {
                 int alt10=2;
@@ -2449,10 +2449,10 @@ public class InternalAssureLexer extends Lexer {
 
                 switch (alt10) {
             	case 1 :
-            	    // InternalAssure.g:17295:65: '_' ( RULE_DIGIT )+
+            	    // InternalAssure.g:17332:65: '_' ( RULE_DIGIT )+
             	    {
             	    match('_'); 
-            	    // InternalAssure.g:17295:69: ( RULE_DIGIT )+
+            	    // InternalAssure.g:17332:69: ( RULE_DIGIT )+
             	    int cnt9=0;
             	    loop9:
             	    do {
@@ -2466,7 +2466,7 @@ public class InternalAssureLexer extends Lexer {
 
             	        switch (alt9) {
             	    	case 1 :
-            	    	    // InternalAssure.g:17295:69: RULE_DIGIT
+            	    	    // InternalAssure.g:17332:69: RULE_DIGIT
             	    	    {
             	    	    mRULE_DIGIT(); 
 
@@ -2491,7 +2491,7 @@ public class InternalAssureLexer extends Lexer {
                 }
             } while (true);
 
-            // InternalAssure.g:17295:83: ( RULE_EXPONENT )?
+            // InternalAssure.g:17332:83: ( RULE_EXPONENT )?
             int alt11=2;
             int LA11_0 = input.LA(1);
 
@@ -2500,7 +2500,7 @@ public class InternalAssureLexer extends Lexer {
             }
             switch (alt11) {
                 case 1 :
-                    // InternalAssure.g:17295:83: RULE_EXPONENT
+                    // InternalAssure.g:17332:83: RULE_EXPONENT
                     {
                     mRULE_EXPONENT(); 
 
@@ -2523,8 +2523,8 @@ public class InternalAssureLexer extends Lexer {
     // $ANTLR start "RULE_DIGIT"
     public final void mRULE_DIGIT() throws RecognitionException {
         try {
-            // InternalAssure.g:17297:21: ( '0' .. '9' )
-            // InternalAssure.g:17297:23: '0' .. '9'
+            // InternalAssure.g:17334:21: ( '0' .. '9' )
+            // InternalAssure.g:17334:23: '0' .. '9'
             {
             matchRange('0','9'); 
 
@@ -2539,8 +2539,8 @@ public class InternalAssureLexer extends Lexer {
     // $ANTLR start "RULE_EXTENDED_DIGIT"
     public final void mRULE_EXTENDED_DIGIT() throws RecognitionException {
         try {
-            // InternalAssure.g:17299:30: ( ( '0' .. '9' | 'a' .. 'f' | 'A' .. 'F' ) )
-            // InternalAssure.g:17299:32: ( '0' .. '9' | 'a' .. 'f' | 'A' .. 'F' )
+            // InternalAssure.g:17336:30: ( ( '0' .. '9' | 'a' .. 'f' | 'A' .. 'F' ) )
+            // InternalAssure.g:17336:32: ( '0' .. '9' | 'a' .. 'f' | 'A' .. 'F' )
             {
             if ( (input.LA(1)>='0' && input.LA(1)<='9')||(input.LA(1)>='A' && input.LA(1)<='F')||(input.LA(1)>='a' && input.LA(1)<='f') ) {
                 input.consume();
@@ -2563,11 +2563,11 @@ public class InternalAssureLexer extends Lexer {
     // $ANTLR start "RULE_BASED_INTEGER"
     public final void mRULE_BASED_INTEGER() throws RecognitionException {
         try {
-            // InternalAssure.g:17301:29: ( RULE_EXTENDED_DIGIT ( ( '_' )? RULE_EXTENDED_DIGIT )* )
-            // InternalAssure.g:17301:31: RULE_EXTENDED_DIGIT ( ( '_' )? RULE_EXTENDED_DIGIT )*
+            // InternalAssure.g:17338:29: ( RULE_EXTENDED_DIGIT ( ( '_' )? RULE_EXTENDED_DIGIT )* )
+            // InternalAssure.g:17338:31: RULE_EXTENDED_DIGIT ( ( '_' )? RULE_EXTENDED_DIGIT )*
             {
             mRULE_EXTENDED_DIGIT(); 
-            // InternalAssure.g:17301:51: ( ( '_' )? RULE_EXTENDED_DIGIT )*
+            // InternalAssure.g:17338:51: ( ( '_' )? RULE_EXTENDED_DIGIT )*
             loop13:
             do {
                 int alt13=2;
@@ -2580,9 +2580,9 @@ public class InternalAssureLexer extends Lexer {
 
                 switch (alt13) {
             	case 1 :
-            	    // InternalAssure.g:17301:52: ( '_' )? RULE_EXTENDED_DIGIT
+            	    // InternalAssure.g:17338:52: ( '_' )? RULE_EXTENDED_DIGIT
             	    {
-            	    // InternalAssure.g:17301:52: ( '_' )?
+            	    // InternalAssure.g:17338:52: ( '_' )?
             	    int alt12=2;
             	    int LA12_0 = input.LA(1);
 
@@ -2591,7 +2591,7 @@ public class InternalAssureLexer extends Lexer {
             	    }
             	    switch (alt12) {
             	        case 1 :
-            	            // InternalAssure.g:17301:52: '_'
+            	            // InternalAssure.g:17338:52: '_'
             	            {
             	            match('_'); 
 
@@ -2624,10 +2624,10 @@ public class InternalAssureLexer extends Lexer {
         try {
             int _type = RULE_ID;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // InternalAssure.g:17303:9: ( ( '^' )? ( 'a' .. 'z' | 'A' .. 'Z' | '_' ) ( 'a' .. 'z' | 'A' .. 'Z' | '_' | '0' .. '9' )* )
-            // InternalAssure.g:17303:11: ( '^' )? ( 'a' .. 'z' | 'A' .. 'Z' | '_' ) ( 'a' .. 'z' | 'A' .. 'Z' | '_' | '0' .. '9' )*
+            // InternalAssure.g:17340:9: ( ( '^' )? ( 'a' .. 'z' | 'A' .. 'Z' | '_' ) ( 'a' .. 'z' | 'A' .. 'Z' | '_' | '0' .. '9' )* )
+            // InternalAssure.g:17340:11: ( '^' )? ( 'a' .. 'z' | 'A' .. 'Z' | '_' ) ( 'a' .. 'z' | 'A' .. 'Z' | '_' | '0' .. '9' )*
             {
-            // InternalAssure.g:17303:11: ( '^' )?
+            // InternalAssure.g:17340:11: ( '^' )?
             int alt14=2;
             int LA14_0 = input.LA(1);
 
@@ -2636,7 +2636,7 @@ public class InternalAssureLexer extends Lexer {
             }
             switch (alt14) {
                 case 1 :
-                    // InternalAssure.g:17303:11: '^'
+                    // InternalAssure.g:17340:11: '^'
                     {
                     match('^'); 
 
@@ -2654,7 +2654,7 @@ public class InternalAssureLexer extends Lexer {
                 recover(mse);
                 throw mse;}
 
-            // InternalAssure.g:17303:40: ( 'a' .. 'z' | 'A' .. 'Z' | '_' | '0' .. '9' )*
+            // InternalAssure.g:17340:40: ( 'a' .. 'z' | 'A' .. 'Z' | '_' | '0' .. '9' )*
             loop15:
             do {
                 int alt15=2;
@@ -2703,10 +2703,10 @@ public class InternalAssureLexer extends Lexer {
         try {
             int _type = RULE_INT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // InternalAssure.g:17305:10: ( ( '0' .. '9' )+ )
-            // InternalAssure.g:17305:12: ( '0' .. '9' )+
+            // InternalAssure.g:17342:10: ( ( '0' .. '9' )+ )
+            // InternalAssure.g:17342:12: ( '0' .. '9' )+
             {
-            // InternalAssure.g:17305:12: ( '0' .. '9' )+
+            // InternalAssure.g:17342:12: ( '0' .. '9' )+
             int cnt16=0;
             loop16:
             do {
@@ -2720,7 +2720,7 @@ public class InternalAssureLexer extends Lexer {
 
                 switch (alt16) {
             	case 1 :
-            	    // InternalAssure.g:17305:13: '0' .. '9'
+            	    // InternalAssure.g:17342:13: '0' .. '9'
             	    {
             	    matchRange('0','9'); 
 
@@ -2752,10 +2752,10 @@ public class InternalAssureLexer extends Lexer {
         try {
             int _type = RULE_STRING;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // InternalAssure.g:17307:13: ( ( '\"' ( '\\\\' . | ~ ( ( '\\\\' | '\"' ) ) )* '\"' | '\\'' ( '\\\\' . | ~ ( ( '\\\\' | '\\'' ) ) )* '\\'' ) )
-            // InternalAssure.g:17307:15: ( '\"' ( '\\\\' . | ~ ( ( '\\\\' | '\"' ) ) )* '\"' | '\\'' ( '\\\\' . | ~ ( ( '\\\\' | '\\'' ) ) )* '\\'' )
+            // InternalAssure.g:17344:13: ( ( '\"' ( '\\\\' . | ~ ( ( '\\\\' | '\"' ) ) )* '\"' | '\\'' ( '\\\\' . | ~ ( ( '\\\\' | '\\'' ) ) )* '\\'' ) )
+            // InternalAssure.g:17344:15: ( '\"' ( '\\\\' . | ~ ( ( '\\\\' | '\"' ) ) )* '\"' | '\\'' ( '\\\\' . | ~ ( ( '\\\\' | '\\'' ) ) )* '\\'' )
             {
-            // InternalAssure.g:17307:15: ( '\"' ( '\\\\' . | ~ ( ( '\\\\' | '\"' ) ) )* '\"' | '\\'' ( '\\\\' . | ~ ( ( '\\\\' | '\\'' ) ) )* '\\'' )
+            // InternalAssure.g:17344:15: ( '\"' ( '\\\\' . | ~ ( ( '\\\\' | '\"' ) ) )* '\"' | '\\'' ( '\\\\' . | ~ ( ( '\\\\' | '\\'' ) ) )* '\\'' )
             int alt19=2;
             int LA19_0 = input.LA(1);
 
@@ -2773,10 +2773,10 @@ public class InternalAssureLexer extends Lexer {
             }
             switch (alt19) {
                 case 1 :
-                    // InternalAssure.g:17307:16: '\"' ( '\\\\' . | ~ ( ( '\\\\' | '\"' ) ) )* '\"'
+                    // InternalAssure.g:17344:16: '\"' ( '\\\\' . | ~ ( ( '\\\\' | '\"' ) ) )* '\"'
                     {
                     match('\"'); 
-                    // InternalAssure.g:17307:20: ( '\\\\' . | ~ ( ( '\\\\' | '\"' ) ) )*
+                    // InternalAssure.g:17344:20: ( '\\\\' . | ~ ( ( '\\\\' | '\"' ) ) )*
                     loop17:
                     do {
                         int alt17=3;
@@ -2792,7 +2792,7 @@ public class InternalAssureLexer extends Lexer {
 
                         switch (alt17) {
                     	case 1 :
-                    	    // InternalAssure.g:17307:21: '\\\\' .
+                    	    // InternalAssure.g:17344:21: '\\\\' .
                     	    {
                     	    match('\\'); 
                     	    matchAny(); 
@@ -2800,7 +2800,7 @@ public class InternalAssureLexer extends Lexer {
                     	    }
                     	    break;
                     	case 2 :
-                    	    // InternalAssure.g:17307:28: ~ ( ( '\\\\' | '\"' ) )
+                    	    // InternalAssure.g:17344:28: ~ ( ( '\\\\' | '\"' ) )
                     	    {
                     	    if ( (input.LA(1)>='\u0000' && input.LA(1)<='!')||(input.LA(1)>='#' && input.LA(1)<='[')||(input.LA(1)>=']' && input.LA(1)<='\uFFFF') ) {
                     	        input.consume();
@@ -2825,10 +2825,10 @@ public class InternalAssureLexer extends Lexer {
                     }
                     break;
                 case 2 :
-                    // InternalAssure.g:17307:48: '\\'' ( '\\\\' . | ~ ( ( '\\\\' | '\\'' ) ) )* '\\''
+                    // InternalAssure.g:17344:48: '\\'' ( '\\\\' . | ~ ( ( '\\\\' | '\\'' ) ) )* '\\''
                     {
                     match('\''); 
-                    // InternalAssure.g:17307:53: ( '\\\\' . | ~ ( ( '\\\\' | '\\'' ) ) )*
+                    // InternalAssure.g:17344:53: ( '\\\\' . | ~ ( ( '\\\\' | '\\'' ) ) )*
                     loop18:
                     do {
                         int alt18=3;
@@ -2844,7 +2844,7 @@ public class InternalAssureLexer extends Lexer {
 
                         switch (alt18) {
                     	case 1 :
-                    	    // InternalAssure.g:17307:54: '\\\\' .
+                    	    // InternalAssure.g:17344:54: '\\\\' .
                     	    {
                     	    match('\\'); 
                     	    matchAny(); 
@@ -2852,7 +2852,7 @@ public class InternalAssureLexer extends Lexer {
                     	    }
                     	    break;
                     	case 2 :
-                    	    // InternalAssure.g:17307:61: ~ ( ( '\\\\' | '\\'' ) )
+                    	    // InternalAssure.g:17344:61: ~ ( ( '\\\\' | '\\'' ) )
                     	    {
                     	    if ( (input.LA(1)>='\u0000' && input.LA(1)<='&')||(input.LA(1)>='(' && input.LA(1)<='[')||(input.LA(1)>=']' && input.LA(1)<='\uFFFF') ) {
                     	        input.consume();
@@ -2895,12 +2895,12 @@ public class InternalAssureLexer extends Lexer {
         try {
             int _type = RULE_ML_COMMENT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // InternalAssure.g:17309:17: ( '/*' ( options {greedy=false; } : . )* '*/' )
-            // InternalAssure.g:17309:19: '/*' ( options {greedy=false; } : . )* '*/'
+            // InternalAssure.g:17346:17: ( '/*' ( options {greedy=false; } : . )* '*/' )
+            // InternalAssure.g:17346:19: '/*' ( options {greedy=false; } : . )* '*/'
             {
             match("/*"); 
 
-            // InternalAssure.g:17309:24: ( options {greedy=false; } : . )*
+            // InternalAssure.g:17346:24: ( options {greedy=false; } : . )*
             loop20:
             do {
                 int alt20=2;
@@ -2925,7 +2925,7 @@ public class InternalAssureLexer extends Lexer {
 
                 switch (alt20) {
             	case 1 :
-            	    // InternalAssure.g:17309:52: .
+            	    // InternalAssure.g:17346:52: .
             	    {
             	    matchAny(); 
 
@@ -2955,12 +2955,12 @@ public class InternalAssureLexer extends Lexer {
         try {
             int _type = RULE_SL_COMMENT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // InternalAssure.g:17311:17: ( '//' (~ ( ( '\\n' | '\\r' ) ) )* ( ( '\\r' )? '\\n' )? )
-            // InternalAssure.g:17311:19: '//' (~ ( ( '\\n' | '\\r' ) ) )* ( ( '\\r' )? '\\n' )?
+            // InternalAssure.g:17348:17: ( '//' (~ ( ( '\\n' | '\\r' ) ) )* ( ( '\\r' )? '\\n' )? )
+            // InternalAssure.g:17348:19: '//' (~ ( ( '\\n' | '\\r' ) ) )* ( ( '\\r' )? '\\n' )?
             {
             match("//"); 
 
-            // InternalAssure.g:17311:24: (~ ( ( '\\n' | '\\r' ) ) )*
+            // InternalAssure.g:17348:24: (~ ( ( '\\n' | '\\r' ) ) )*
             loop21:
             do {
                 int alt21=2;
@@ -2973,7 +2973,7 @@ public class InternalAssureLexer extends Lexer {
 
                 switch (alt21) {
             	case 1 :
-            	    // InternalAssure.g:17311:24: ~ ( ( '\\n' | '\\r' ) )
+            	    // InternalAssure.g:17348:24: ~ ( ( '\\n' | '\\r' ) )
             	    {
             	    if ( (input.LA(1)>='\u0000' && input.LA(1)<='\t')||(input.LA(1)>='\u000B' && input.LA(1)<='\f')||(input.LA(1)>='\u000E' && input.LA(1)<='\uFFFF') ) {
             	        input.consume();
@@ -2993,7 +2993,7 @@ public class InternalAssureLexer extends Lexer {
                 }
             } while (true);
 
-            // InternalAssure.g:17311:40: ( ( '\\r' )? '\\n' )?
+            // InternalAssure.g:17348:40: ( ( '\\r' )? '\\n' )?
             int alt23=2;
             int LA23_0 = input.LA(1);
 
@@ -3002,9 +3002,9 @@ public class InternalAssureLexer extends Lexer {
             }
             switch (alt23) {
                 case 1 :
-                    // InternalAssure.g:17311:41: ( '\\r' )? '\\n'
+                    // InternalAssure.g:17348:41: ( '\\r' )? '\\n'
                     {
-                    // InternalAssure.g:17311:41: ( '\\r' )?
+                    // InternalAssure.g:17348:41: ( '\\r' )?
                     int alt22=2;
                     int LA22_0 = input.LA(1);
 
@@ -3013,7 +3013,7 @@ public class InternalAssureLexer extends Lexer {
                     }
                     switch (alt22) {
                         case 1 :
-                            // InternalAssure.g:17311:41: '\\r'
+                            // InternalAssure.g:17348:41: '\\r'
                             {
                             match('\r'); 
 
@@ -3045,10 +3045,10 @@ public class InternalAssureLexer extends Lexer {
         try {
             int _type = RULE_WS;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // InternalAssure.g:17313:9: ( ( ' ' | '\\t' | '\\r' | '\\n' )+ )
-            // InternalAssure.g:17313:11: ( ' ' | '\\t' | '\\r' | '\\n' )+
+            // InternalAssure.g:17350:9: ( ( ' ' | '\\t' | '\\r' | '\\n' )+ )
+            // InternalAssure.g:17350:11: ( ' ' | '\\t' | '\\r' | '\\n' )+
             {
-            // InternalAssure.g:17313:11: ( ' ' | '\\t' | '\\r' | '\\n' )+
+            // InternalAssure.g:17350:11: ( ' ' | '\\t' | '\\r' | '\\n' )+
             int cnt24=0;
             loop24:
             do {
@@ -3102,8 +3102,8 @@ public class InternalAssureLexer extends Lexer {
         try {
             int _type = RULE_ANY_OTHER;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // InternalAssure.g:17315:16: ( . )
-            // InternalAssure.g:17315:18: .
+            // InternalAssure.g:17352:16: ( . )
+            // InternalAssure.g:17352:18: .
             {
             matchAny(); 
 

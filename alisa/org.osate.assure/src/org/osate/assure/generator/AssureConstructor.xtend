@@ -71,6 +71,7 @@ import static extension org.osate.reqspec.util.ReqSpecUtilExtension.*
 import static extension org.osate.verify.util.VerifyUtilExtension.*
 import org.osate.reqspec.util.IReqspecGlobalReferenceFinder
 import org.osate.verify.verify.TargetType
+import org.osate.alisa.workbench.util.IAlisaGlobalReferenceFinder
 
 @ImplementedBy(AssureConstructor)
 interface IAssureConstructor {
@@ -142,7 +143,7 @@ class AssureConstructor implements IAssureConstructor {
 		mr.metrics = factory.createMetrics
 		mr.metrics.tbdCount = 0
 
-		doAssurancePlanClaimResultsParts(acp, myplans, cc, mr.claimResult, mr.subsystemResult,  false)
+		doAssurancePlanClaimResultsParts(acp, myplans, cc, mr.claimResult, mr.subsystemResult, mr.subAssuranceCase, false)
 
 		if (mr.claimResult.length == 0 && mr.subsystemResult.length == 0 ) return null
 
@@ -155,7 +156,7 @@ class AssureConstructor implements IAssureConstructor {
 		Iterable<VerificationPlan> vplans,
 		ComponentClassifier cc,
 		EList<ClaimResult> claimResultList,
-		EList<SubsystemResult> subsystemResultList, boolean globalOnly
+		EList<SubsystemResult> subsystemResultList, EList<AssuranceCaseResult> subAssuranceCaseList,boolean globalOnly
 	) {
 		// first collect any global and self includes
 		val selfPlans = new UniqueEList()
@@ -226,7 +227,7 @@ class AssureConstructor implements IAssureConstructor {
 
 		if (cc instanceof ComponentImplementation) {
 			for (subc : cc.allSubcomponents) {
-				subc.generateSubsystemPlans(assurancePlan, subsystemResultList, globalOnly)
+				subc.generateSubsystemPlans(assurancePlan, subsystemResultList,  subAssuranceCaseList,globalOnly)
 			}
 		}
 
@@ -325,12 +326,14 @@ class AssureConstructor implements IAssureConstructor {
 		predicate
 	}
 
+	@Inject IAlisaGlobalReferenceFinder arefFinder
+
 	// subAssuranceCaseList could be null because SubsystemResult doesn't have subAssuranceCase. 
 	// Let's see if it is used when null
 	def void generateSubsystemPlans(
 		Subcomponent subc,
 		AssurancePlan parentap,
-		EList<SubsystemResult> subsystemResultList,boolean globalOnly
+		EList<SubsystemResult> subsystemResultList,EList<AssuranceCaseResult> subAssuranceCaseList,boolean globalOnly
 	) {
 		val cc = subc.allClassifier
 		if (cc === null) {
@@ -341,7 +344,15 @@ class AssureConstructor implements IAssureConstructor {
 		if (globalOnly || subc.isAssumeSubsystem(parentap)) {
 			subc.generateSubsystemGlobalOnly(parentap, subsystemResultList)
 		} else {
+		val subacs = arefFinder.getAssuranceCases(cc)
+		if (subacs.empty) {
 			subc.generateSubsystemVerificationPlansGlobals(parentap, subsystemResultList)
+		} else {
+			for (subac : subacs) {
+
+				subAssuranceCaseList.add(subac.constructAssuranceCaseResult(cc))
+			}
+		}
 		}
 		isRoot = prevIsRoot
 	}
@@ -365,7 +376,7 @@ class AssureConstructor implements IAssureConstructor {
 		ssr.metrics = factory.createMetrics
 		ssr.metrics.tbdCount = 0
 
-		doAssurancePlanClaimResultsParts(mp, myplans, cc, ssr.claimResult, ssr.subsystemResult, false)
+		doAssurancePlanClaimResultsParts(mp, myplans, cc, ssr.claimResult, ssr.subsystemResult,null, false)
 		subsystemResultList.add(ssr)
 
 	}
@@ -382,7 +393,7 @@ class AssureConstructor implements IAssureConstructor {
 		ssr.metrics = factory.createMetrics
 		ssr.metrics.tbdCount = 0
 
-		doAssurancePlanClaimResultsParts(mp, myplans, sub.allClassifier, ssr.claimResult, ssr.subsystemResult, true)
+		doAssurancePlanClaimResultsParts(mp, myplans, sub.allClassifier, ssr.claimResult, ssr.subsystemResult, null,true)
 		subsystemResultList.add(ssr)
 	}
 
