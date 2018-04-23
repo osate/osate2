@@ -35,6 +35,7 @@ package org.osate.aadl2.errormodel.analysis.handlers;
 
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.osate.aadl2.Element;
+import org.osate.aadl2.errormodel.analysis.Activator;
 import org.osate.aadl2.errormodel.analysis.fha.FHAReport;
 import org.osate.aadl2.errormodel.analysis.fha.FHAReport.HazardFormat;
 import org.osate.aadl2.instance.InstanceObject;
@@ -54,7 +55,9 @@ public class FHAHandler extends AaxlReadOnlyHandlerAsJob {
 
 	@Override
 	public void doAaxlAction(IProgressMonitor monitor, Element obj) {
-		monitor.beginTask("FHA", IProgressMonitor.UNKNOWN);
+		final HazardFormat format = Activator.getDefault().getHazardFormatPreference();
+
+		monitor.beginTask("Functional Hazard Assessment: " + format.toString(), IProgressMonitor.UNKNOWN);
 
 		// Get the system instance (if any)
 		SystemInstance si;
@@ -63,7 +66,7 @@ public class FHAHandler extends AaxlReadOnlyHandlerAsJob {
 		} else {
 			return;
 		}
-		FHAReport report = new FHAReport(HazardFormat.EMV2);
+		FHAReport report = new FHAReport(format);
 		report.doFHAReport(si);
 		monitor.done();
 	}

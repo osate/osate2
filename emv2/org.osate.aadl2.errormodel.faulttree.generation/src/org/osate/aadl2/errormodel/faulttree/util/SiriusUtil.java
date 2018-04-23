@@ -1,12 +1,18 @@
 package org.osate.aadl2.errormodel.faulttree.util;
 
+import java.lang.reflect.InvocationTargetException;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
+import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.NullProgressMonitor;
+import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.core.runtime.jobs.Job;
 import org.eclipse.emf.common.util.URI;
@@ -16,14 +22,18 @@ import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.transaction.RecordingCommand;
 import org.eclipse.emf.transaction.TransactionalEditingDomain;
+import org.eclipse.jface.dialogs.ErrorDialog;
 import org.eclipse.sirius.business.api.componentization.ViewpointRegistry;
 import org.eclipse.sirius.business.api.modelingproject.AbstractRepresentationsFileJob;
 import org.eclipse.sirius.business.api.modelingproject.ModelingProject;
 import org.eclipse.sirius.business.api.query.DViewQuery;
 import org.eclipse.sirius.business.api.query.ViewpointQuery;
+import org.eclipse.sirius.business.api.session.DefaultLocalSessionCreationOperation;
 import org.eclipse.sirius.business.api.session.Session;
+import org.eclipse.sirius.business.api.session.SessionCreationOperation;
 import org.eclipse.sirius.business.api.session.SessionManager;
 import org.eclipse.sirius.business.api.session.SessionStatus;
+import org.eclipse.sirius.common.ui.SiriusTransPlugin;
 import org.eclipse.sirius.ext.base.Option;
 import org.eclipse.sirius.ui.business.api.dialect.DialectUIManager;
 import org.eclipse.sirius.ui.business.api.session.IEditingSession;
@@ -39,8 +49,10 @@ import org.eclipse.sirius.viewpoint.DRepresentation;
 import org.eclipse.sirius.viewpoint.DView;
 import org.eclipse.sirius.viewpoint.description.RepresentationDescription;
 import org.eclipse.sirius.viewpoint.description.Viewpoint;
+import org.eclipse.sirius.viewpoint.provider.Messages;
 import org.eclipse.swt.widgets.Display;
-import org.osate.aadl2.util.OsateDebug;
+import org.eclipse.ui.PlatformUI;
+import org.eclipse.ui.actions.WorkspaceModifyOperation;
 
 /**
  * Utilities around Sirius, sessions and representations
@@ -83,19 +95,18 @@ public class SiriusUtil {
 
 				// Ensure the viewpoint is selected for the session
 				session.getTransactionalEditingDomain().getCommandStack()
-				.execute(new RecordingCommand(session.getTransactionalEditingDomain()) {
+						.execute(new RecordingCommand(session.getTransactionalEditingDomain()) {
 
-					@Override
-					protected void doExecute() {
+							@Override
+							protected void doExecute() {
 
-						// Check if already selected
-						Collection<Viewpoint> sel = session.getSelectedViewpoints(false);
-						if (!session.getSelectedViewpoints(false).contains(regViewpoint)) {
-							ViewpointSelectionCallback selection = new ViewpointSelectionCallback();
-							selection.selectViewpoint(regViewpoint, session, monitor);
-						}
-					}
-				});
+								// Check if already selected
+								if (!session.getSelectedViewpoints(false).contains(regViewpoint)) {
+									ViewpointSelectionCallback selection = new ViewpointSelectionCallback();
+									selection.selectViewpoint(regViewpoint, session, monitor);
+								}
+							}
+						});
 			}
 		} catch (Exception e) {
 			// Unable to retrieve viewpoint
@@ -199,38 +210,122 @@ public class SiriusUtil {
 	public Session getSessionForProjectAndResource(IProject project, URI semanticResourceURI,
 			IProgressMonitor monitor) {
 		Session existingSession = getSessionForSemanticURI(semanticResourceURI);
-
 		if (existingSession == null) {
-			// Add "Modeling" nature to project
-			if (!ModelingProject.hasModelingProjectNature(project)) {
-				try {
-					ModelingProjectManager.INSTANCE.convertToModelingProject(project, monitor);
-				} catch (Exception e) {
-					// Error while converting to modeling project
-					// throws a class cast exception on a list.
-					// XXX not returning null is ok.
-					return null;
+			for (Session session : SessionManager.INSTANCE.getSessions()) {
+				ResourceSet set = session.getTransactionalEditingDomain().getResourceSet();
+				for (Resource res : set.getResources()) {
+					if (res.getURI() != null) {
+						if (set.getURIConverter().normalize(res.getURI())
+								.equals(set.getURIConverter().normalize(semanticResourceURI))) {
+							existingSession = session;
+						}
+					}
+				}
+			}
+			if (existingSession == null) {
+				/*
+				 * we could not find a session already having this file
+				 * in its resources. We will use the containing project
+				 * if it is a modeling project but we have to add the
+				 * resource as a semantic resource.
+				 */
+				final Option<ModelingProject> prj = ModelingProject.asModelingProject(project);
+				if (prj.some()) {
+					existingSession = prj.get().getSession();
+					if (existingSession == null) {
+						Option<URI> optionalMainSessionFileURI = prj.get()
+								.getMainRepresentationsFileURI(new NullProgressMonitor(), false, false);
+						if (optionalMainSessionFileURI.some()) {
+							/*
+							 * Load the main representations file of
+							 * this modeling project if it's not already
+							 * loaded or during loading.
+							 */
+							ModelingProjectManager.INSTANCE
+									.loadAndOpenRepresentationsFile(optionalMainSessionFileURI.get());
+						}
+					}
+					if (OpenRepresentationsFileJob.shouldWaitOtherJobs()) {
+						/*
+						 * We are loading session(s), wait loading is
+						 * finished before continuing.
+						 */
+						try {
+							Job.getJobManager().join(AbstractRepresentationsFileJob.FAMILY, new NullProgressMonitor());
+						} catch (InterruptedException e) {
+							// Do nothing
+						}
+					}
+					existingSession = prj.get().getSession();
+					if (existingSession != null) {
+						existingSession.getTransactionalEditingDomain().getCommandStack()
+								.execute(new RecordingCommand(existingSession.getTransactionalEditingDomain()) {
+
+									@Override
+									protected void doExecute() {
+											prj.get().getSession().addSemanticResource(semanticResourceURI, new NullProgressMonitor());
+
+									}
+								});
+
+					}
+
 				}
 			}
 
-			final Option<ModelingProject> prj = ModelingProject.asModelingProject(project);
-			if (prj.some()) {
-				ModelingProject modelingProject = prj.get();
-				existingSession = modelingProject.getSession();
+			final List<Session> res = new ArrayList<Session>();
 
-				if (existingSession == null) {
-					loadSession(modelingProject, monitor);
-					waitWhileSessionLoads(monitor);
-					existingSession = modelingProject.getSession();
-				}
-				if (existingSession != null) {
-					addSemanticResource(existingSession, semanticResourceURI, monitor);
+			if (existingSession == null ) {
+
+				WorkspaceModifyOperation op = new WorkspaceModifyOperation() {
+
+					@Override
+					protected void execute(IProgressMonitor monitor)
+							throws CoreException, InvocationTargetException, InterruptedException {
+						SessionCreationOperation sessionCreationOperation = new DefaultLocalSessionCreationOperation(
+								getURI(project), monitor);
+						sessionCreationOperation.execute();
+						res.add(sessionCreationOperation.getCreatedSession());
+					}
+				};
+				try {
+					op.run(null);
+					existingSession = res.get(0);
+				} catch (final InterruptedException e) {
+				} catch (final InvocationTargetException e) {
+					if (e.getTargetException() instanceof CoreException) {
+						ErrorDialog.openError(PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell(),
+								Messages.CreateSessionResourceWizard_resourceCreationError, null,
+								((CoreException) e.getTargetException()).getStatus());
+					} else {
+						SiriusTransPlugin.getPlugin().error(
+								Messages.CreateSessionResourceWizard_sessionDataCreationError, e.getTargetException());
+					}
 				}
 
-				return existingSession;
+			}
+			if (existingSession != null)
+			{
+				addSemanticResource(existingSession, semanticResourceURI, new NullProgressMonitor());
 			}
 		}
 		return existingSession;
+	}
+
+	public URI getURI(IProject project) {
+		return URI.createPlatformResourceURI(getFilePath(project).toString(), true);
+	}
+
+	protected IPath getFilePath(IProject project) {
+		IPath path = project.getFullPath();
+		if (path == null) {
+			path = new Path(""); //$NON-NLS-1$
+		}
+		final String fileName = "representations.aird";
+		if (fileName != null) {
+			path = path.append(fileName);
+		}
+		return path;
 	}
 
 	/**
@@ -278,35 +373,6 @@ public class SiriusUtil {
 		return null;
 	}
 
-	/**
-	 * Loads a Sirius session for a modeling project
-	 * @param project
-	 * @param monitor
-	 */
-	private void loadSession(ModelingProject project, IProgressMonitor monitor) {
-		Option<URI> optionalMainSessionFileURI = project.getMainRepresentationsFileURI(monitor, false, false);
-		if (optionalMainSessionFileURI.some()) {
-			// Load the main representations file of this modeling
-			// project if it's not already loaded or during loading.
-			ModelingProjectManager.INSTANCE.loadAndOpenRepresentationsFile(optionalMainSessionFileURI.get());
-		}
-	}
-
-	/**
-	 * Waits until all sessions are loaded
-	 * @param monitor
-	 */
-	private void waitWhileSessionLoads(IProgressMonitor monitor) {
-		if (OpenRepresentationsFileJob.shouldWaitOtherJobs()) {
-			// We are loading session(s), wait loading is finished
-			// before continuing.
-			try {
-				Job.getJobManager().join(AbstractRepresentationsFileJob.FAMILY, monitor);
-			} catch (InterruptedException e) {
-				// Do nothing
-			}
-		}
-	}
 
 	/**
 	 * Returns a session's semantic resource from its URI
@@ -341,8 +407,7 @@ public class SiriusUtil {
 	 * @param resourceUri
 	 * @param monitor
 	 */
-	public void createAndOpenSiruisView(final EObject ft, final IProject project,
-			String viewPoint,
+	public void createAndOpenSiruisView(final EObject ft, final IProject project, String viewPoint,
 			String representation, IProgressMonitor monitor) {
 		URI viewpointURI = URI.createURI(viewPoint);
 
@@ -359,26 +424,23 @@ public class SiriusUtil {
 			// XXX this next piece of code tries to compensate for a bug in Sirius where it cannot find the model
 			// It should be there since the getSessionForProjectandResource would have put it there.
 			if (model == null) {
-				OsateDebug.osateDebug(
-						"Could not find semantic resource in session for URI " + semanticResourceURI.path());
 				model = ft;
 			}
 			if (model == null) {
-				OsateDebug.osateDebug("Could not find model for URI " + semanticResourceURI.path());
 				return;
 			}
 			final Viewpoint faultTreeVP = getViewpoint(existingSession, viewpointURI, monitor);
 			final RepresentationDescription description = getRepresentationDescription(faultTreeVP, representation);
 			String modelRootName = getPrintName(model);
 			String representationName = modelRootName + " " + representation;
-			final DRepresentation rep = findRepresentation(existingSession, faultTreeVP, description, representationName);
+			final DRepresentation rep = findRepresentation(existingSession, faultTreeVP, description,
+					representationName);
 			if (rep != null) {
 				try {
 					DialectUIManager.INSTANCE.openEditor(existingSession, rep, monitor);
 					project.refreshLocal(IResource.DEPTH_INFINITE, monitor);
 					return;
 				} catch (Exception e) {
-					OsateDebug.osateDebug("Could not open editor on model " + modelRootName);
 				}
 			}
 			try {
@@ -386,14 +448,12 @@ public class SiriusUtil {
 						monitor);
 				project.refreshLocal(IResource.DEPTH_INFINITE, monitor);
 			} catch (Exception e) {
-				OsateDebug.osateDebug("Could not create and open model " + modelRootName);
 				return;
 			}
 		}
 	}
 
-	public void autoOpenModel(final EObject ft, final IProject activeProject,
-			final String viewPoint,
+	public void autoOpenModel(final EObject ft, final IProject activeProject, final String viewPoint,
 			final String representation, final String jobName) {
 
 		try {
