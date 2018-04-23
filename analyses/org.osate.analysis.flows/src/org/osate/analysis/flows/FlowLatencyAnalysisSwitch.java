@@ -201,6 +201,7 @@ public class FlowLatencyAnalysisSwitch extends AadlProcessingSwitchWithProgress 
 				}
 			} else {
 				if (entry.getContributors().isEmpty()) {
+					// first component. no incoming connection to handle partition latency
 					samplingLatencyContributor.reportInfo("Initial " + period + "ms sampling latency not added");
 					samplingLatencyContributor.setBestCaseMethod(LatencyContributorMethod.FIRST_SAMPLED);
 					samplingLatencyContributor.setWorstCaseMethod(LatencyContributorMethod.FIRST_SAMPLED);
@@ -210,7 +211,7 @@ public class FlowLatencyAnalysisSwitch extends AadlProcessingSwitchWithProgress 
 						double partitionLatency = FlowLatencyUtil.getPartitionPeriod(firstPartition);
 						List<ARINC653ScheduleWindow> schedule = FlowLatencyUtil.getModuleSchedule(firstPartition);
 						double partitionDuration = FlowLatencyUtil.getPartitionDuration(firstPartition, schedule);
-						if (partitionDuration != -1) {
+						if (partitionDuration > 0) {
 							LatencyContributorComponent partitionLatencyContributor = new LatencyContributorComponent(
 									firstPartition);
 							partitionLatencyContributor.setSamplingPeriod(partitionLatency);
@@ -236,14 +237,14 @@ public class FlowLatencyAnalysisSwitch extends AadlProcessingSwitchWithProgress 
 				}
 			}
 			entry.addContributor(samplingLatencyContributor);
-		} else {
+		} else if (entry.getContributors().isEmpty()) {
 			// insert first partition sampling for the aperiodic case. For other partitions it is inserted by connection processing
 			ComponentInstance firstPartition = FlowLatencyUtil.getPartition(componentInstance);
 			if (firstPartition != null) {
 				double partitionLatency = FlowLatencyUtil.getPartitionPeriod(firstPartition);
 				List<ARINC653ScheduleWindow> schedule = FlowLatencyUtil.getModuleSchedule(firstPartition);
 				double partitionDuration = FlowLatencyUtil.getPartitionDuration(firstPartition, schedule);
-				if (partitionDuration != -1) {
+				if (partitionDuration > 0) {
 					LatencyContributorComponent platencyContributor = new LatencyContributorComponent(firstPartition);
 					platencyContributor.setSamplingPeriod(partitionLatency);
 					double frameOffset = FlowLatencyUtil.getPartitionFrameOffset(firstPartition, schedule);
@@ -396,7 +397,7 @@ public class FlowLatencyAnalysisSwitch extends AadlProcessingSwitchWithProgress 
 			double partitionLatency = FlowLatencyUtil.getPartitionPeriod(srcPartition);
 			List<ARINC653ScheduleWindow> schedule = FlowLatencyUtil.getModuleSchedule(srcPartition);
 			double partitionDuration = FlowLatencyUtil.getPartitionDuration(srcPartition, schedule);
-			if (partitionDuration != -1) {
+			if (partitionDuration > 0) {
 				LatencyContributor ioLatencyContributor = new LatencyContributorComponent(srcPartition);
 				ioLatencyContributor.setWorstCaseMethod(LatencyContributorMethod.PARTITION_OUTPUT);
 				ioLatencyContributor.setBestCaseMethod(LatencyContributorMethod.PARTITION_OUTPUT);
@@ -437,7 +438,7 @@ public class FlowLatencyAnalysisSwitch extends AadlProcessingSwitchWithProgress 
 				latencyContributor.setMinimum(expectedMin);
 			}
 		} else {
-			latencyContributor.reportInfo("Adding latency subtotal from protocols and bus - shown with ()");
+			latencyContributor.reportInfo("Adding latency subtotal from protocols and hardware - shown with ()");
 		}
 		// set synchronous if on same processor
 		if (srcHW != null && dstHW != null) {
@@ -475,9 +476,9 @@ public class FlowLatencyAnalysisSwitch extends AadlProcessingSwitchWithProgress 
 		if (dstPartition != null && srcPartition != dstPartition) {
 			// add partition latency if the destination is a partition and it is different from the source partition (or null)
 			double partitionLatency = FlowLatencyUtil.getPartitionPeriod(dstPartition);
-			List<ARINC653ScheduleWindow> schedule = FlowLatencyUtil.getModuleSchedule(srcPartition);
+			List<ARINC653ScheduleWindow> schedule = FlowLatencyUtil.getModuleSchedule(dstPartition);
 			double partitionDuration = FlowLatencyUtil.getPartitionDuration(dstPartition, schedule);
-			if (partitionDuration != -1) {
+			if (partitionDuration > 0) {
 				LatencyContributorComponent platencyContributor = new LatencyContributorComponent(dstPartition);
 				platencyContributor.setSamplingPeriod(partitionLatency);
 				double frameOffset = FlowLatencyUtil.getPartitionFrameOffset(dstPartition, schedule);
