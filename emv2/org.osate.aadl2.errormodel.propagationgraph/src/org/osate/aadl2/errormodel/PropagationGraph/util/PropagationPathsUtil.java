@@ -26,8 +26,8 @@ import org.osate.aadl2.instance.SystemOperationMode;
 import org.osate.aadl2.modelsupport.resources.OsateResourceUtil;
 import org.osate.aadl2.modelsupport.util.AadlUtil;
 import org.osate.aadl2.util.Aadl2InstanceUtil;
-import org.osate.result.Issue;
-import org.osate.result.IssueType;
+import org.osate.result.Diagnostic;
+import org.osate.result.DiagnosticType;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorEvent;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorFlow;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorPropagation;
@@ -689,9 +689,9 @@ public class PropagationPathsUtil {
 			}
 		} else {
 			if (RESOLUTE_INSTALLED) {
-				Issue res = ExecuteResoluteUtil.eInstance.executeResoluteFunction(conditionFcn,
+				Diagnostic res = ExecuteResoluteUtil.eInstance.executeResoluteFunction(conditionFcn,
 						target.getSystemInstance(), target, null);
-				return res != null && res.getIssueType() == IssueType.SUCCESS;
+				return res != null && res.getType() == DiagnosticType.SUCCESS;
 			} else {
 				return true;
 			}
