@@ -3,7 +3,7 @@ package org.osate.ui.wizards
 import java.util.Map
 
 final class NewPropertySetWizard extends AbstractNewModelUnitWizard {
-	val static PROPERTY_SET_LABEL = "Property set name"
+	val static PROPERTY_SET_LABEL = "AADL property set name"
 	
 	new() {
 		super("AADL Property Set", "AADL property set")
