@@ -267,7 +267,7 @@ The preferences dialog contains preferences which affect the layout behavior of 
 
 1. Select *Window->Preferences*
 
-2. Select *OSATE Preferences->Diagrams*
+2. Select *OSATE->AADL Diagram Editor*
 
 3. Modify the preferences as desired.
 
