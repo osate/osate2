@@ -12,7 +12,10 @@
 		<topic href="html/start2/OSATEUserGuide.html#analysis" label="Analyzing Models" />
 		<topic href="html/start2/OSATEUserGuide.html#properties" label="Viewing AADL Property Values" />
 	</topic>
-	<topic href="html/plugins/index.html" label="Analyses">
+	<topic label="Analyses">
+    <anchor id="_latency"/>
+    <topic href="html/plugins/index.html" label="Other Analyses">
+    </topic>
 	</topic>
 
 	<topic href="html/std/section-1.html" label="Reference Manual">

@@ -7,6 +7,7 @@ import java.util.ResourceBundle;
 
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
+import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.osgi.framework.BundleContext;
 
@@ -77,7 +78,7 @@ public class WorkspacePlugin extends AbstractUIPlugin {
 	public static final String AADL_PROJECT_FILE = "aadlProjectFilePreference";
 
 	/**
-	 * Aadl pakcages directory.
+	 * Aadl packages directory.
 	 */
 	public static final String AADL_PACKAGES_DIR = "packages";
 
@@ -90,6 +91,12 @@ public class WorkspacePlugin extends AbstractUIPlugin {
 	 * Name of preference for standard AADL property set file
 	 */
 	public static final String EXPAND_DEFAULT_FLAG = "expandXMLDefaults";
+
+	/**
+	 * Name of preference for the maximum number of system operation modes to generate.
+	 */
+	public static final String MAX_SOM = "maxSOM";
+	public static final int MAX_SOM_DEFAULT = 1000;
 
 	public static final String AUTO_REINSTANTIATE = "autoReinstantiate";
 	public static final String AUTO_INDENT = "AUTO_INDENT";
@@ -185,5 +192,10 @@ public class WorkspacePlugin extends AbstractUIPlugin {
 			ensureDirectoryExistance(toCheck.getParentFile());
 			toCheck.mkdir();
 		}
+	}
+
+	public final int getSOMLimit() {
+		final IPreferenceStore store = getPreferenceStore();
+		return store.getInt(MAX_SOM);
 	}
 }
