@@ -211,6 +211,28 @@ public class SiriusUtil {
 			IProgressMonitor monitor) {
 		Session existingSession = getSessionForSemanticURI(semanticResourceURI);
 		if (existingSession == null) {
+			if (!ModelingProject.hasModelingProjectNature(project)) {
+				try {
+					ModelingProjectManager.INSTANCE.convertToModelingProject(project, monitor);
+				} catch (Exception e) {
+					return null;
+				}
+			}
+			final Option<ModelingProject> prj = ModelingProject.asModelingProject(project);
+			if (prj.some()) {
+				ModelingProject modelingProject = prj.get();
+				existingSession = modelingProject.getSession();
+
+				if (existingSession == null) {
+					loadSession(modelingProject, monitor);
+					waitWhileSessionLoads(monitor);
+					existingSession = modelingProject.getSession();
+				}
+				if (existingSession != null) {
+					addSemanticResource(existingSession, semanticResourceURI, monitor);
+					return existingSession;
+				}
+			}
 			for (Session session : SessionManager.INSTANCE.getSessions()) {
 				ResourceSet set = session.getTransactionalEditingDomain().getResourceSet();
 				for (Resource res : set.getResources()) {
@@ -222,60 +244,23 @@ public class SiriusUtil {
 					}
 				}
 			}
-			if (existingSession == null) {
-				/*
-				 * we could not find a session already having this file
-				 * in its resources. We will use the containing project
-				 * if it is a modeling project but we have to add the
-				 * resource as a semantic resource.
-				 */
-				final Option<ModelingProject> prj = ModelingProject.asModelingProject(project);
-				if (prj.some()) {
-					existingSession = prj.get().getSession();
-					if (existingSession == null) {
-						Option<URI> optionalMainSessionFileURI = prj.get()
-								.getMainRepresentationsFileURI(new NullProgressMonitor(), false, false);
-						if (optionalMainSessionFileURI.some()) {
-							/*
-							 * Load the main representations file of
-							 * this modeling project if it's not already
-							 * loaded or during loading.
-							 */
-							ModelingProjectManager.INSTANCE
-									.loadAndOpenRepresentationsFile(optionalMainSessionFileURI.get());
-						}
-					}
-					if (OpenRepresentationsFileJob.shouldWaitOtherJobs()) {
-						/*
-						 * We are loading session(s), wait loading is
-						 * finished before continuing.
-						 */
-						try {
-							Job.getJobManager().join(AbstractRepresentationsFileJob.FAMILY, new NullProgressMonitor());
-						} catch (InterruptedException e) {
-							// Do nothing
-						}
-					}
-					existingSession = prj.get().getSession();
-					if (existingSession != null) {
-						existingSession.getTransactionalEditingDomain().getCommandStack()
-								.execute(new RecordingCommand(existingSession.getTransactionalEditingDomain()) {
+			if (existingSession != null) {
+				existingSession.getTransactionalEditingDomain().getCommandStack()
+						.execute(new RecordingCommand(existingSession.getTransactionalEditingDomain()) {
 
-									@Override
-									protected void doExecute() {
-											prj.get().getSession().addSemanticResource(semanticResourceURI, new NullProgressMonitor());
+							@Override
+							protected void doExecute() {
+								prj.get().getSession().addSemanticResource(semanticResourceURI,
+										new NullProgressMonitor());
 
-									}
-								});
+							}
+						});
 
-					}
-
-				}
 			}
 
 			final List<Session> res = new ArrayList<Session>();
 
-			if (existingSession == null ) {
+			if (existingSession == null) {
 
 				WorkspaceModifyOperation op = new WorkspaceModifyOperation() {
 
@@ -283,7 +268,7 @@ public class SiriusUtil {
 					protected void execute(IProgressMonitor monitor)
 							throws CoreException, InvocationTargetException, InterruptedException {
 						SessionCreationOperation sessionCreationOperation = new DefaultLocalSessionCreationOperation(
-								getURI(project), monitor);
+								getAirdURI(project), monitor);
 						sessionCreationOperation.execute();
 						res.add(sessionCreationOperation.getCreatedSession());
 					}
@@ -304,15 +289,14 @@ public class SiriusUtil {
 				}
 
 			}
-			if (existingSession != null)
-			{
+			if (existingSession != null) {
 				addSemanticResource(existingSession, semanticResourceURI, new NullProgressMonitor());
 			}
 		}
 		return existingSession;
 	}
 
-	public URI getURI(IProject project) {
+	public URI getAirdURI(IProject project) {
 		return URI.createPlatformResourceURI(getFilePath(project).toString(), true);
 	}
 
@@ -373,6 +357,35 @@ public class SiriusUtil {
 		return null;
 	}
 
+	/**
+	 * Loads a Sirius session for a modeling project
+	 * @param project
+	 * @param monitor
+	 */
+	private void loadSession(ModelingProject project, IProgressMonitor monitor) {
+		Option<URI> optionalMainSessionFileURI = project.getMainRepresentationsFileURI(monitor, false, false);
+		if (optionalMainSessionFileURI.some()) {
+			// Load the main representations file of this modeling
+			// project if it's not already loaded or during loading.
+			ModelingProjectManager.INSTANCE.loadAndOpenRepresentationsFile(optionalMainSessionFileURI.get());
+		}
+	}
+
+	/**
+	 * Waits until all sessions are loaded
+	 * @param monitor
+	 */
+	private void waitWhileSessionLoads(IProgressMonitor monitor) {
+		if (OpenRepresentationsFileJob.shouldWaitOtherJobs()) {
+			// We are loading session(s), wait loading is finished
+			// before continuing.
+			try {
+				Job.getJobManager().join(AbstractRepresentationsFileJob.FAMILY, monitor);
+			} catch (InterruptedException e) {
+				// Do nothing
+			}
+		}
+	}
 
 	/**
 	 * Returns a session's semantic resource from its URI
