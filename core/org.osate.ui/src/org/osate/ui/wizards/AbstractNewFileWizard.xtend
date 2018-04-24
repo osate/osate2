@@ -216,7 +216,7 @@ abstract class AbstractNewFileWizard extends Wizard implements INewWizard {
 						if (field.text.empty) {
 							fieldLabel + " cannot be empty."
 						} else if (!fieldValidators.get(fieldLabel).apply(field.text)) {
-							'''The «fieldLabel.toFirstLower» '«field.text»' is not valid.'''
+							'''The «fieldLabel» '«field.text»' is not valid.'''
 						} else if (fieldLabel == fields.keySet.head) {
 							val parentContainer = folderViewer.structuredSelection.firstElement as IContainer
 							validateFileName(parentContainer, fields.values.head.text)
