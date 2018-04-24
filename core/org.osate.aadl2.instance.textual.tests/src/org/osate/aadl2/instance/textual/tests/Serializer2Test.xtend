@@ -202,10 +202,14 @@ class Serializer2Test extends AbstractSerializerTest {
 				}
 				initial mode m5 : pkg1::s3:m5
 				mode m6 : pkg1::s3:m6
-				som "som_0" m5 , s1_sub[0].m1
-				som "som_1" m5 , s1_sub[0].m2
-				som "som_2" m6 , s1_sub[0].m1
-				som "som_3" m6 , s1_sub[0].m2
+				som "som_0" m5 , s1_sub[0].m1 , s2_sub[0].m3
+				som "som_1" m5 , s1_sub[0].m1 , s2_sub[0].m4
+				som "som_2" m5 , s1_sub[0].m2 , s2_sub[0].m3
+				som "som_3" m5 , s1_sub[0].m2 , s2_sub[0].m4
+				som "som_4" m6 , s1_sub[0].m1 , s2_sub[0].m3
+				som "som_5" m6 , s1_sub[0].m1 , s2_sub[0].m4
+				som "som_6" m6 , s1_sub[0].m2 , s2_sub[0].m3
+				som "som_7" m6 , s1_sub[0].m2 , s2_sub[0].m4
 			}''')
 	}
 	
