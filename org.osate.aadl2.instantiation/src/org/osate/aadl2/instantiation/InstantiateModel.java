@@ -613,7 +613,6 @@ public class InstantiateModel {
 						if (mb.getDerivedMode() == m || mb.getDerivedMode() == null
 								&& mb.getParentMode().getName().equalsIgnoreCase(m.getName())) {
 							mi.getParents().add(parentci.findModeInstance(mb.getParentMode()));
-							break;
 						}
 					}
 				}
