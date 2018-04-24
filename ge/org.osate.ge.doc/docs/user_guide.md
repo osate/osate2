@@ -640,8 +640,8 @@ In most cases the graphical editor will automatically update diagrams to reflect
 ## Missing Diagram Elements After Modification of AADL Source
 See @sec:restore_missing_diagram_elements.
 
-## Reporting Bugs
-Bugs should be reported to the issue tracker on the graphical editor's [GitHub Site](https://github.com/osate/osate-ge).
+## Reporting Issues
+Issues should be reported using the [OSATE Issue Tracker](https://github.com/osate/osate2-core/issues){target="_blank"}.
 
 # Notices
 Development of portions of the OSATE Graphical Editor was sponsored by the Government of the United States under Contract Number FA8702-15-D-0002.
