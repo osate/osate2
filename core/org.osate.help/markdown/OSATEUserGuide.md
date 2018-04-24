@@ -154,7 +154,7 @@ OSATE creates the file `aadlmodel.aadl` in the project, populates it with a skel
 
 ![New Empty Package](images/OSATEUserGuide/EmptyPackage.png)
 
-Note that the wizard has radio buttons that allow you to specify whether the package should be opened in the text editor or the graphical editor.  By default the text editor is selected.
+Note that the wizard has radio buttons that allow you to specify whether the package should be opened in the text editor or the diagram editor.  By default the text editor is selected.
 
 Replace the contents of the editor with the simple model below:
 

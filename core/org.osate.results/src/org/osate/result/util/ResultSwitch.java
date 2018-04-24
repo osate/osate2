@@ -66,21 +66,21 @@ public class ResultSwitch<T> extends Switch<T> {
 	@Override
 	protected T doSwitch(int classifierID, EObject theEObject) {
 		switch (classifierID) {
+			case ResultPackage.ANALYSIS_RESULT: {
+				AnalysisResult analysisResult = (AnalysisResult)theEObject;
+				T result = caseAnalysisResult(analysisResult);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
 			case ResultPackage.RESULT: {
 				Result result = (Result)theEObject;
 				T theResult = caseResult(result);
 				if (theResult == null) theResult = defaultCase(theEObject);
 				return theResult;
 			}
-			case ResultPackage.CONTRIBUTOR: {
-				Contributor contributor = (Contributor)theEObject;
-				T result = caseContributor(contributor);
-				if (result == null) result = defaultCase(theEObject);
-				return result;
-			}
-			case ResultPackage.ISSUE: {
-				Issue issue = (Issue)theEObject;
-				T result = caseIssue(issue);
+			case ResultPackage.DIAGNOSTIC: {
+				Diagnostic diagnostic = (Diagnostic)theEObject;
+				T result = caseDiagnostic(diagnostic);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -123,6 +123,21 @@ public class ResultSwitch<T> extends Switch<T> {
 	}
 
 	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Analysis Result</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Analysis Result</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseAnalysisResult(AnalysisResult object) {
+		return null;
+	}
+
+	/**
 	 * Returns the result of interpreting the object as an instance of '<em>Result</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
@@ -138,32 +153,17 @@ public class ResultSwitch<T> extends Switch<T> {
 	}
 
 	/**
-	 * Returns the result of interpreting the object as an instance of '<em>Contributor</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>Diagnostic</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>Contributor</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>Diagnostic</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public T caseContributor(Contributor object) {
-		return null;
-	}
-
-	/**
-	 * Returns the result of interpreting the object as an instance of '<em>Issue</em>'.
-	 * <!-- begin-user-doc -->
-	 * This implementation returns null;
-	 * returning a non-null result will terminate the switch.
-	 * <!-- end-user-doc -->
-	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>Issue</em>'.
-	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-	 * @generated
-	 */
-	public T caseIssue(Issue object) {
+	public T caseDiagnostic(Diagnostic object) {
 		return null;
 	}
 
