@@ -63,6 +63,11 @@ public class HideAllContentsHandler extends AbstractHandler {
 		return null;
 	}
 
+	@Override
+	public void setEnabled(final Object evaluationContext) {
+		setBaseEnabled(AgeHandlerUtil.getSelectedDiagramElementsFromContext(evaluationContext).size() > 0);
+	}
+
 	private void setDescendantsAsAutomatic(final DiagramModification m, final DiagramElement e) {
 		// Set all descendants of the specified element as automatic/not manual
 		for (final DiagramElement child : e.getDiagramElements()) {

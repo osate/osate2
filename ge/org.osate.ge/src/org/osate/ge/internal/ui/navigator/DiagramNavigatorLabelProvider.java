@@ -128,8 +128,15 @@ ICommonLabelProvider {
 						// Context
 						List<String> annotations = new ArrayList<>();
 						if (!DiagramNavigatorProperties.getGroupByDiagramContext(stateModel)) {
-							final String contextLabel = referenceLabelService.getLabel(diagramRef.getContextReference(),
-									project);
+							final String contextLabel;
+
+							// Don't use the label from the label service if the reference is null.
+							if (diagramRef.getContextReference() == null) {
+								contextLabel = "<No Context>";
+							} else {
+								contextLabel = referenceLabelService.getLabel(diagramRef.getContextReference(),
+										project);
+							}
 							if (contextLabel != null) {
 								annotations.add(contextLabel);
 							}

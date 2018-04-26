@@ -14,6 +14,7 @@ import org.osate.ge.BusinessObjectContext;
 import org.osate.ge.internal.diagram.runtime.AgeDiagram;
 import org.osate.ge.internal.diagram.runtime.DiagramElement;
 import org.osate.ge.internal.diagram.runtime.DiagramNode;
+import org.osate.ge.internal.model.BusinessObjectProxy;
 import org.osate.ge.internal.model.Tag;
 import org.osate.ge.internal.services.ExtensionService;
 import org.osate.ge.internal.util.BusinessObjectContextHelper;
@@ -73,6 +74,8 @@ public class UiUtil {
 		final String prefix;
 		if (bo instanceof EObject) {
 			prefix = StringUtil.camelCaseToUser(((EObject) bo).eClass().getName()) + " ";
+		} else if (bo instanceof BusinessObjectProxy) {
+			prefix = StringUtil.camelCaseToUser(((BusinessObjectProxy) bo).getEClass().getName()) + " ";
 		} else if (bo instanceof Tag) {
 			prefix = "Misc ";
 		} else {
@@ -80,9 +83,14 @@ public class UiUtil {
 		}
 
 		// Call the business object handler's GetName method
-		final Object boh = extService.getApplicableBusinessObjectHandler(bo);
+		String baseName;
+		if(bo instanceof BusinessObjectProxy) {
+			baseName = ((BusinessObjectProxy) bo).getName();
+		} else {
+			final Object boh = extService.getApplicableBusinessObjectHandler(bo);
+			baseName = boh == null ? null : bocHelper.getName(boc, boh);
+		}
 
-		String baseName = boh == null ? null : bocHelper.getName(boc, boh);
 		if (baseName == null) {
 			if (bo instanceof NamedElement) {
 				baseName = ((NamedElement) bo).getName();

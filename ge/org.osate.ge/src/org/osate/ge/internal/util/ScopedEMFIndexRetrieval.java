@@ -8,14 +8,15 @@
  *******************************************************************************/
 package org.osate.ge.internal.util;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
+import java.util.stream.StreamSupport;
 
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.IPath;
@@ -50,6 +51,21 @@ public class ScopedEMFIndexRetrieval {
 	 * Gets a collection containing all EObjects of a specified type which may be directly referenced from the specified project
 	 */
 	public static Collection<IEObjectDescription> getAllEObjectsByType(final IProject project, final EClass type) {
+		return calculateVisibleResourceDescriptions(project)
+				.flatMap(rd -> Streams.stream(rd.getExportedObjectsByType(type)))
+				.collect(Collectors.toList());
+	}
+
+	private static boolean isInProject(final IResourceDescription rd, final IProject project) {
+		final IPath resPath = new Path(rd.getURI().toPlatformString(true));
+		if (project.getFullPath().isPrefixOf(resPath)) {
+			return true;
+		}
+
+		return false;
+	}
+
+	public static Stream<IResourceDescription> calculateVisibleResourceDescriptions(final IProject project) {
 		final Injector injector = Objects.requireNonNull(
 				Aadl2Activator.getInstance().getInjector(Aadl2Activator.ORG_OSATE_XTEXT_AADL2_AADL2),
 				"Unable to retrieve injector");
@@ -64,33 +80,16 @@ public class ScopedEMFIndexRetrieval {
 				"Unable to get resource descriptions provider");
 		final IResourceDescriptions resDescriptions = Objects.requireNonNull(
 				resourceDescProvider.getResourceDescriptions(liveResourceSet), "Unable to get resource descriptions");
-		final Optional<IResourceDescription> maybeResourceDescription = Streams.stream(resDescriptions.getAllResourceDescriptions())
-				.filter(rd -> isInProject(rd, project)).findAny();
+		final Optional<IResourceDescription> maybeResourceDescription = Streams
+				.stream(resDescriptions.getAllResourceDescriptions()).filter(rd -> isInProject(rd, project)).findAny();
 		if (!maybeResourceDescription.isPresent()) {
-			return Collections.emptyList();
+			return Stream.empty();
 		}
 
 		final IContainer.Manager containerManager = Objects
 				.requireNonNull(injector.getInstance(IContainer.Manager.class), "Unable to get container manager");
-		final List<IEObjectDescription> objectDescriptions = new ArrayList<IEObjectDescription>();
-		for (final IContainer container : containerManager.getVisibleContainers(maybeResourceDescription.get(), resDescriptions)) {
-			for (final IResourceDescription visibleDesc : container.getResourceDescriptions()) {
-				for (final IEObjectDescription od : visibleDesc.getExportedObjectsByType(type)) {
-					objectDescriptions.add(od);
-				}
-			}
-		}
-
-		return objectDescriptions;
-	}
-
-	private static boolean isInProject(final IResourceDescription rd, final IProject project) {
-		final IPath resPath = new Path(rd.getURI().toPlatformString(true));
-		if (project.getFullPath().isPrefixOf(resPath)) {
-			return true;
-		}
-
-		return false;
+		return containerManager.getVisibleContainers(maybeResourceDescription.get(), resDescriptions).stream()
+				.flatMap(container -> Streams.stream(container.getResourceDescriptions()));
 	}
 
 	public static Set<IResourceDescription> calculateResourceDescriptions(final Set<IProject> projects) {
@@ -114,4 +113,13 @@ public class ScopedEMFIndexRetrieval {
 		return resourceDescriptions;
 	}
 
+	/**
+	 * Returns the EObject of the specified type which are contained in the specified project
+	 */
+	public static Collection<IEObjectDescription> getContainedEObjectsByType(final IProject project,
+			final EClass type) {
+		return calculateResourceDescriptions(Collections.singleton(project)).stream()
+				.flatMap(rd -> StreamSupport.stream(rd.getExportedObjectsByType(type).spliterator(), false))
+				.collect(Collectors.toList());
+	}
 }

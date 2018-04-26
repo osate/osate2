@@ -23,6 +23,7 @@ import org.osate.aadl2.instance.InstanceObject;
 import org.osate.aadl2.instance.InstanceReferenceValue;
 import org.osate.aadl2.modelsupport.resources.OsateResourceUtil;
 import org.osate.aadl2.util.Aadl2Util;
+import org.osate.ge.BusinessObjectContext;
 import org.osate.ge.ContentFilter;
 import org.osate.ge.DiagramType;
 import org.osate.ge.internal.aadlproperties.AadlPropertyResolutionResults;
@@ -36,7 +37,9 @@ import org.osate.ge.internal.diagram.runtime.DiagramConfiguration;
 import org.osate.ge.internal.diagram.runtime.RelativeBusinessObjectReference;
 import org.osate.ge.internal.diagram.runtime.filtering.Filtering;
 import org.osate.ge.internal.model.AgePropertyValue;
+import org.osate.ge.internal.model.BusinessObjectProxy;
 import org.osate.ge.internal.model.PropertyValueGroup;
+import org.osate.ge.internal.query.Queryable;
 import org.osate.ge.internal.services.ExtensionService;
 import org.osate.ge.internal.services.ProjectProvider;
 import org.osate.ge.internal.services.ProjectReferenceService;
@@ -53,7 +56,8 @@ import com.google.common.collect.Multimap;
  * A TreeUpdater which create a tree which contains which contains contains nodes based all
  * provided by registered business object providers. Nodes are removed or created based on is manual fields and the content filters.
  *
- * Diagrams which have a context business object specified will only contain the specified business object as a root.
+ * Diagrams which have a context business object specified will only contain the specified business object as a root. Diagrams which do not have a context
+ * may include any business objects which are returned by the business object providers when using the current IProject as the root business object context.
  */
 public class DefaultTreeUpdater implements TreeUpdater {
 	private class IdGenerator {
@@ -67,25 +71,6 @@ public class DefaultTreeUpdater implements TreeUpdater {
 			return startId++;
 		}
 	}
-
-	// A simple business object context which is to designed to represent the project level. It has no parent and it has no business object.
-	// Disabled until contextless diagrams are implemented
-//	private final BusinessObjectContext projectBoc = new BusinessObjectContext() {
-//		@Override
-//		public Collection<? extends Queryable> getChildren() {
-//			return Collections.emptyList();
-//		}
-//
-//		@Override
-//		public BusinessObjectContext getParent() {
-//			return null;
-//		}
-//
-//		@Override
-//		public Object getBusinessObject() {
-//			return null;
-//		}
-//	};
 
 	private final ProjectProvider projectProvider;
 	private final ExtensionService extService;
@@ -114,17 +99,12 @@ public class DefaultTreeUpdater implements TreeUpdater {
 			final long nextNodeId) {
 		final IdGenerator idGenerator = new IdGenerator(nextNodeId);
 
-		if (configuration.getContextBoReference() == null) {
-			// Contextless diagrams are not currently supported. While this class may have appropriate support,
-			// Such diagrams have not been adequately tested and other parts of the editor do not support them.
-			throw new RuntimeException("Contextless diagrams are not supported");
-		}
-
 		// Refresh Child Nodes
 		try (final BusinessObjectProviderHelper bopHelper = new BusinessObjectProviderHelper(extService)) {
 			final BusinessObjectNode newRoot = nodeFactory.create(null, null, null, true, ImmutableSet.of(),
 					Completeness.UNKNOWN);
 
+			final ManualBranchCache manualBranchCache = new ManualBranchCache();
 			final Map<RelativeBusinessObjectReference, Object> boMap;
 
 			// If the context business object is non-null, then only one business object may exist at the root of the resulting tree and it must be the context
@@ -133,11 +113,43 @@ public class DefaultTreeUpdater implements TreeUpdater {
 			// Determine what business objects are required based on the diagram configuration
 			if (configuration.getContextBoReference() == null) {
 				// Get potential top level business objects from providers
-				// potentialBusinessObjects = bopHelper.getChildBusinessObjects(projectBoc);
-				// Only business objects that already exist in the business object tree should be used
-				throw new RuntimeException("Contextless diagrams are not supporetd");
+				// A simple business object context which is used as the root BOC for contextless diagrams. It has no parent and used the current
+				// project as the business object.
+				final BusinessObjectContext contextlessRootBoc = new BusinessObjectContext() {
+					@Override
+					public Collection<? extends Queryable> getChildren() {
+						return Collections.emptyList();
+					}
 
-				// Set completeness when implementing contextless diagrams.
+					@Override
+					public BusinessObjectContext getParent() {
+						return null;
+					}
+
+					@Override
+					public Object getBusinessObject() {
+						return projectProvider.getProject();
+					}
+				};
+				final Collection<Object> potentialRootBusinessObjects = bopHelper
+						.getChildBusinessObjects(contextlessRootBoc);
+
+				// Determine the root business objects
+				final Set<RelativeBusinessObjectReference> manualRootBranches = getRefsForManualBranches(
+						tree.getChildrenMap(), manualBranchCache);
+
+				// Content filters are not supported for the root of diagrams.
+				final ImmutableSet<ContentFilter> rootContentFilters = ImmutableSet.of();
+
+				boMap = getChildBusinessObjects(potentialRootBusinessObjects, manualRootBranches, rootContentFilters);
+
+				// Contextless diagrams are always considered complete
+				newRoot.setCompleteness(Completeness.COMPLETE);
+
+				// TODO: Is this the proper way to handle this? This is needed so the configure diagram dialog, etc will know which project should be used to
+				// retrieve root objects.
+				// Set the root of the BO tree to the project
+				newRoot.setBusinessObject(projectProvider.getProject());
 			} else {
 				// Get the context business object
 				Object contextBo = refService.resolve(configuration.getContextBoReference());
@@ -157,8 +169,6 @@ public class DefaultTreeUpdater implements TreeUpdater {
 				boMap = Collections.singletonMap(relativeReference, contextBo);
 				newRoot.setCompleteness(Completeness.COMPLETE);
 			}
-
-			final ManualBranchCache manualBranchCache = new ManualBranchCache();
 
 			// Populate the new tree
 			final Map<RelativeBusinessObjectReference, BusinessObjectNode> oldNodes = tree.getChildrenMap();
@@ -318,8 +328,8 @@ public class DefaultTreeUpdater implements TreeUpdater {
 			// Create node
 			final Object childBo = childEntry.getValue();
 			final RelativeBusinessObjectReference childRelReference = childEntry.getKey();
-			createNode(diagramType, bopHelper, oldNodeMap, parentNode, childBo, childRelReference,
-					idGenerator, manualBranchCache);
+			createNode(diagramType, bopHelper, oldNodeMap, parentNode, childBo, childRelReference, idGenerator,
+					manualBranchCache);
 		}
 	}
 
@@ -355,6 +365,7 @@ public class DefaultTreeUpdater implements TreeUpdater {
 	private ImmutableSet<ContentFilter> getDefaultContentFilters(final DiagramType diagramType, final Object bo) {
 		return diagramType.getApplicableDefaultContentFilters(bo, extService);
 	}
+
 	/**
 	 * Returns a set of relative references for all nodes in the specified nodes map which belong to a manual branch.
 	 * @param nodes
@@ -386,7 +397,14 @@ public class DefaultTreeUpdater implements TreeUpdater {
 			if (relativeReference != null) {
 				if (forcedRefs.contains(relativeReference) || Filtering.isFundamental(potentialBusinessObject)
 						|| passesAnyContentFilter(potentialBusinessObject, contentFilters)) {
-					results.put(relativeReference, potentialBusinessObject);
+					// Special handling of proxies. Only resolve them if they are needed
+					Object resolvedBo = potentialBusinessObject;
+					if(potentialBusinessObject instanceof BusinessObjectProxy) {
+						final BusinessObjectProxy proxy = (BusinessObjectProxy)potentialBusinessObject;
+						resolvedBo = proxy.resolve(refService);
+					}
+
+					results.put(relativeReference, resolvedBo);
 				}
 			}
 		}

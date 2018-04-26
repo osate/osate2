@@ -18,6 +18,7 @@ import org.osate.ge.DiagramType;
 import org.osate.ge.internal.diagram.runtime.CanonicalBusinessObjectReference;
 import org.osate.ge.internal.diagram.runtime.RelativeBusinessObjectReference;
 import org.osate.ge.internal.diagram.runtime.filtering.Filtering;
+import org.osate.ge.internal.model.BusinessObjectProxy;
 import org.osate.ge.internal.query.Queryable;
 import org.osate.ge.internal.services.ExtensionService;
 import org.osate.ge.internal.services.ProjectProvider;
@@ -65,6 +66,20 @@ public class DefaultDiagramConfigurationDialogModel implements DiagramConfigurat
 	public RelativeBusinessObjectReference getRelativeBusinessObjectReference(final Object bo) {
 		final RelativeBusinessObjectReference result = referenceService.getRelativeReference(bo);
 		return result;
+	}
+
+	@Override
+	public boolean isProxy(final Object bo) {
+		return bo instanceof BusinessObjectProxy;
+	}
+
+	@Override
+	public Object resolve(final Object bo) {
+		if (bo instanceof BusinessObjectProxy) {
+			return ((BusinessObjectProxy) bo).resolve(referenceService);
+		}
+
+		return bo;
 	}
 
 	@Override

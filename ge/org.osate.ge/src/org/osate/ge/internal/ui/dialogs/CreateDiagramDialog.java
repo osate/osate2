@@ -4,54 +4,36 @@ import java.util.Objects;
 
 import org.eclipse.core.internal.resources.Workspace;
 import org.eclipse.core.resources.IFile;
-import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.jface.dialogs.IDialogConstants;
 import org.eclipse.jface.dialogs.IMessageProvider;
 import org.eclipse.jface.dialogs.TitleAreaDialog;
-import org.eclipse.jface.layout.GridDataFactory;
-import org.eclipse.jface.layout.GridLayoutFactory;
-import org.eclipse.jface.viewers.ArrayContentProvider;
-import org.eclipse.jface.viewers.ComboViewer;
-import org.eclipse.jface.viewers.LabelProvider;
-import org.eclipse.jface.viewers.StructuredSelection;
-import org.eclipse.jface.viewers.ViewerComparator;
 import org.eclipse.jface.window.Window;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.events.SelectionAdapter;
+import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Display;
-import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Shell;
-import org.eclipse.swt.widgets.Text;
-import org.osate.ge.internal.ui.editor.AgeDiagramEditor;
 
 import com.google.common.collect.ImmutableCollection;
 import com.google.common.collect.ImmutableList;
 
 @SuppressWarnings("restriction")
 public class CreateDiagramDialog<DiagramType> {
-	public static interface Model<DiagramType> {
-		ImmutableCollection<DiagramType> getDiagramTypes();
-
-		String getDiagramTypeName(final DiagramType diagramType);
-
-		IProject getProject();
-
-		String getDefaultName();
-
-		DiagramType getDefaultDiagramType();
+	public static interface Model<DiagramType> extends CreateDiagramComposite.Model<DiagramType> {
 	}
 
 	public static class Result<DiagramType> {
 		private final IFile diagramFile;
 		private final DiagramType diagramType;
 
-		public Result(final IFile diagramFile, final DiagramType diagramType) {
-			this.diagramFile = Objects.requireNonNull(diagramFile, "diagramFile must not be null");
-			this.diagramType = Objects.requireNonNull(diagramType, "diagramType must not be null");
+		public Result(final CreateDiagramComposite.Value<DiagramType> value) {
+			this.diagramFile = Objects.requireNonNull(value.getFile(), "diagramFile must not be null");
+			this.diagramType = Objects.requireNonNull(value.getDiagramType(), "diagramType must not be null");
 		}
 
 		public final IFile getDiagramFile() {
@@ -64,9 +46,7 @@ public class CreateDiagramDialog<DiagramType> {
 	}
 
 	private class InnerDialog extends TitleAreaDialog {
-		private Text nameField;
-		private IFile file;
-		private DiagramType diagramType;
+		private CreateDiagramComposite<DiagramType> composite;
 
 		public InnerDialog(final Shell parentShell) {
 			super(parentShell);
@@ -94,101 +74,25 @@ public class CreateDiagramDialog<DiagramType> {
 			return super.getInitialLocation(initialSize);
 		}
 
-		@SuppressWarnings("unchecked")
 		@Override
 		protected Control createDialogArea(final Composite parent) {
 			final Composite area = (Composite) super.createDialogArea(parent);
+			composite = new CreateDiagramComposite<DiagramType>(area, model);
+			validate();
 
-			final Composite container = new Composite(area, SWT.NONE);
-			container.setLayoutData(GridDataFactory.fillDefaults().grab(true, true).create());
-			container.setLayout(GridLayoutFactory.swtDefaults().numColumns(2).create());
-
-			final Label nameLabel = new Label(container, SWT.NONE);
-			nameLabel.setText("Name");
-
-			nameField = new Text(container, SWT.SINGLE | SWT.BORDER);
-			nameField.setLayoutData(GridDataFactory.fillDefaults().grab(true, false).create());
-			nameField.addModifyListener(e -> {
-				updateFile();
-			});
-
-			// Determine the initial name. A suffix will be added to the default name if the file already exists
-			final IProject project = model.getProject();
-			final String baseName = model.getDefaultName();
-			if (baseName != null) {
-				IFile tmpFile;
-				int nameCount = 1;
-				String name;
-				do {
-					final String suffix = nameCount == 1 ? "" : "(" + nameCount + ")";
-					name = baseName + suffix;
-					tmpFile = createFile(project, name);
-					nameCount++;
-				} while (tmpFile.exists());
-
-
-				nameField.setText(name);
-			}
-
-			//
-			// Create type field
-			//
-			final Label typeLabel = new Label(container, SWT.NONE);
-			typeLabel.setText("Type:");
-
-			final ComboViewer typeField = new ComboViewer(container);
-			typeField.getCombo().setLayoutData(GridDataFactory.fillDefaults().grab(true, false).create());
-			typeField.setComparator(new ViewerComparator());
-			typeField.setContentProvider(new ArrayContentProvider());
-			typeField.setLabelProvider(new LabelProvider() {
+			// Validate when the selection of the underlying composite changes
+			composite.addSelectionListener(new SelectionAdapter() {
 				@Override
-				public String getText(Object element) {
-					return model.getDiagramTypeName((DiagramType) element);
+				public void widgetSelected(SelectionEvent e) {
+					validate();
 				}
 			});
-			typeField.setInput(model.getDiagramTypes());
-			typeField.addSelectionChangedListener(event -> {
-				diagramType = (DiagramType) ((StructuredSelection) typeField.getSelection()).getFirstElement();
-				validate();
-			});
-
-			diagramType = model.getDefaultDiagramType();
-			if (diagramType != null) {
-				typeField.setSelection(new StructuredSelection(diagramType));
-			}
-
-			// Update the initial value for the file and validate initial values
-			updateFile();
-			validate();
 
 			return area;
 		}
 
-		private void updateFile() {
-			file = createFile(model.getProject(), nameField.getText());
-			validate();
-		}
-
-		private IFile createFile(final IProject project, final String name) {
-			final IFolder diagramFolder = project.getFolder("diagrams/");
-			return diagramFolder.getFile(name + AgeDiagramEditor.EXTENSION);
-		}
-
 		private void validate() {
-			// Check values and set error message
-			if (file == null) {
-				setErrorMessage("Enter a name.");
-			} else if (file.exists()) {
-				setErrorMessage(
-						"File '" + file.getProjectRelativePath().makeAbsolute().toString() + "' already exists.");
-			} else if (!nameField.getText().matches("\\S[\\w\\d \\(\\)-]*")) {
-				setErrorMessage(
-						"Name is not valid.");
-			} else if (diagramType == null) {
-				setErrorMessage("Select a diagram type.");
-			} else {
-				setErrorMessage(null);
-			}
+			setErrorMessage(composite.getErrorMessage());
 
 			// Update the OK button state
 			final Button okButton = getButton(IDialogConstants.OK_ID);
@@ -197,12 +101,8 @@ public class CreateDiagramDialog<DiagramType> {
 			}
 		}
 
-		public DiagramType getSelectedDiagramType() {
-			return diagramType;
-		}
-
-		public IFile getFile() {
-			return file;
+		public CreateDiagramComposite.Value<DiagramType> getValue() {
+			return composite.getValue();
 		}
 	}
 
@@ -215,7 +115,7 @@ public class CreateDiagramDialog<DiagramType> {
 	}
 
 	private Result<DiagramType> open() {
-		return dlg.open() == Window.OK ? new Result<>(dlg.getFile(), dlg.getSelectedDiagramType()) : null;
+		return dlg.open() == Window.OK ? new Result<>(dlg.getValue()) : null;
 	}
 
 	/**

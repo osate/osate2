@@ -5,13 +5,12 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import javax.annotation.PreDestroy;
 import javax.inject.Inject;
 import javax.inject.Named;
 
-import org.eclipse.core.resources.IProject;
-import org.eclipse.core.runtime.CoreException;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.xtext.naming.QualifiedName;
 import org.eclipse.xtext.resource.IEObjectDescription;
@@ -82,15 +81,32 @@ public class DeclarativeReferenceResolver {
 		public AadlPackage getAadlPackage(final String packageName) {
 			final String lowerCasePackageName = packageName.toLowerCase();
 			AadlPackageReference pkgRef = packageNameToPackageMap.get(lowerCasePackageName);
+			final AadlPackage pkg;
 			if(pkgRef == null) {
 				pkgRef = findAadlPackage(lowerCasePackageName, getCachedResourceDescriptions(), aadlResourceService);
-				if (pkgRef != null) {
+				if (pkgRef == null) {
+					return null;
+				}
+
+				pkg = pkgRef.getAadlPackage();
+
+				// If the package is valid. Store the reference
+				if (pkg != null) {
 					// Store a reference to the package in the cache if the reference was valid
 					packageNameToPackageMap.put(lowerCasePackageName, pkgRef);
 				}
+
+			} else {
+				pkg = pkgRef.getAadlPackage();
+
+				// Remove the package reference if the package is not valid.
+				if (pkg == null) {
+					packageNameToPackageMap.remove(lowerCasePackageName);
+				}
 			}
 
-			return pkgRef == null ? null : pkgRef.getAadlPackage();
+			return pkg;
+
 		}
 
 		/**
@@ -116,40 +132,12 @@ public class DeclarativeReferenceResolver {
 		private Set<IResourceDescription> getCachedResourceDescriptions() {
 			if(resourceDescriptions == null) {
 				// Find resources that should be looked in
-				final Set<IProject> projects = getRelevantProjects();
-				resourceDescriptions = ScopedEMFIndexRetrieval.calculateResourceDescriptions(projects);
+				resourceDescriptions = ScopedEMFIndexRetrieval
+						.calculateVisibleResourceDescriptions(projectProvider.getProject())
+						.collect(Collectors.toSet());
 			}
 
 			return resourceDescriptions;
-		}
-
-		/**
-		 * Returns the set of projects that can be referenced from the project containing the diagram.
-		 * Recursive(Projects referenced by referenced projects are also included).
-		 * @return
-		 */
-		private Set<IProject> getRelevantProjects() {
-			try {
-				final Set<IProject> projects = new HashSet<IProject>();
-				final IProject diagramProject = projectProvider.getProject();
-				projects.add(diagramProject);
-				addReferencedProjects(diagramProject, projects);
-
-				return projects;
-			} catch(final CoreException ex) {
-				throw new RuntimeException(ex);
-			}
-		}
-
-		private void addReferencedProjects(final IProject project, final Set<IProject> results) throws CoreException {
-			for(final IProject rp : project.getReferencedProjects()) {
-				if(rp.isAccessible()) {
-					if(!results.contains(rp)) {
-						results.add(rp);
-						addReferencedProjects(rp, results);
-					}
-				}
-			}
 		}
 	}
 

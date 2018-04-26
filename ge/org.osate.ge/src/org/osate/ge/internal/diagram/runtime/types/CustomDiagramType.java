@@ -27,7 +27,7 @@ public class CustomDiagramType implements DiagramType {
 
 	@Override
 	public boolean isApplicableToContext(final Object contextBo) {
-		return contextBo instanceof AadlPackage || contextBo instanceof Classifier
+		return contextBo == null || contextBo instanceof AadlPackage || contextBo instanceof Classifier
 				|| contextBo instanceof SystemInstance;
 	}
 

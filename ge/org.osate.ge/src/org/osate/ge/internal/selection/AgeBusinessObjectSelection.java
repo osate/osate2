@@ -1,4 +1,4 @@
-package org.osate.ge.internal.ui.properties;
+package org.osate.ge.internal.selection;
 
 import java.util.Collection;
 import java.util.Objects;

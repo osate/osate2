@@ -12,22 +12,22 @@
 		<tycho.version>1.0.0</tycho.version>
 		<tycho-extras.version>1.0.0</tycho-extras.version>
 
-		<osate.stable.version>2.2.1</osate.stable.version>
-		<xtext.stable.version>2.8.4</xtext.stable.version>
-		<emft.stable.version>2.8.1</emft.stable.version>
-		<xsemantics.stable.version>1.8.1</xsemantics.stable.version>
+		<osate.stable.version>2.3.2</osate.stable.version>
+		<xtext.stable.version>2.12.0</xtext.stable.version>
+		<emft.stable.version>2.9.0</emft.stable.version>
+		<xsemantics.stable.version>1.12.1</xsemantics.stable.version>
 		<xtext.testing.version>2.12.0</xtext.testing.version>
 		<emft.testing.version>2.9.0</emft.testing.version>
 		<xsemantics.version>1.12.1</xsemantics.version>
 
-		<osate.stable.url>http://www.aadl.info/aadl/osate/stable/${osate.stable.version}/update-site/</osate.stable.url>
-		<eclipse.stable.url>http://download.eclipse.org/releases/oxygen/201706281000</eclipse.stable.url>
+		<osate.stable.url>http://osate-build.sei.cmu.edu/download/osate/stable/${osate.stable.version}/updates/</osate.stable.url>
+		<eclipse.stable.url>http://download.eclipse.org/releases/oxygen/201712201001/</eclipse.stable.url>
 		<xtext.stable.url>http://download.eclipse.org/modeling/tmf/xtext/updates/releases/${xtext.stable.version}/</xtext.stable.url>
 		<emft.stable.url>http://download.eclipse.org/modeling/emft/mwe/updates/releases/${emft.stable.version}/</emft.stable.url>
 		<elk.stable.url>http://download.eclipse.org/elk/updates/releases/0.3.0/</elk.stable.url>
 
-		<osate.testing.url>http://www.aadl.info/aadl/osate/testing/update-site/</osate.testing.url>
-		<eclipse.testing.url>http://download.eclipse.org/releases/oxygen/201706281000</eclipse.testing.url>
+		<osate.testing.url>http://osate-build.sei.cmu.edu/download/osate/testing/updates/</osate.testing.url>
+		<eclipse.testing.url>http://download.eclipse.org/releases/oxygen/201712201001/</eclipse.testing.url>
 		<xtext.testing.url>http://download.eclipse.org/modeling/tmf/xtext/updates/releases/${xtext.testing.version}/</xtext.testing.url>
 		<emft.testing.url>http://download.eclipse.org/modeling/emft/mwe/updates/releases/${emft.testing.version}/</emft.testing.url>
 		<elk.testing.url>http://download.eclipse.org/elk/updates/releases/0.3.0/</elk.testing.url>

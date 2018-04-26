@@ -35,6 +35,8 @@ public class DiagramToBusinessObjectTreeConverter {
 				Completeness.UNKNOWN);
 		createBusinessObjectNodesForElements(rootNode, diagram.getDiagramElements(), futureElementInfoMap,
 				containerToRelativeReferenceToGhostMap);
+		createBusinessObjectNodesForGhostedElements(rootNode, diagram, futureElementInfoMap,
+				containerToRelativeReferenceToGhostMap);
 		createBusinessObjectNodesForFutureElements(rootNode, diagram, futureElementInfoMap);
 
 		return rootNode;

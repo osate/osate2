@@ -14,6 +14,7 @@ import java.util.Set;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
+import org.osate.ge.DiagramType;
 import org.osate.ge.internal.diagram.runtime.CanonicalBusinessObjectReference;
 import org.osate.ge.internal.diagram.runtime.RelativeBusinessObjectReference;
 import org.osate.ge.internal.ui.editor.AgeDiagramEditor;
@@ -81,6 +82,8 @@ public interface DiagramService {
 	 * @return the file resource for the new diagram
 	 */
 	IFile createDiagram(final Object contextBo);
+
+	void createDiagram(final IFile diagramFile, final DiagramType diagramType, final Object contextBo);
 
 	/**
 	 * Returns the name of a specified diagram

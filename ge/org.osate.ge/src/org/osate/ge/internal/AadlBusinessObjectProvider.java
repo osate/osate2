@@ -7,9 +7,15 @@ import java.util.stream.Stream;
 
 import javax.inject.Named;
 
+import org.eclipse.core.resources.IProject;
+import org.eclipse.core.resources.IncrementalProjectBuilder;
+import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.emf.common.util.BasicEList;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.xtext.resource.IEObjectDescription;
+import org.osate.aadl2.Aadl2Factory;
 import org.osate.aadl2.AadlPackage;
 import org.osate.aadl2.AnnexLibrary;
 import org.osate.aadl2.AnnexSubclause;
@@ -49,36 +55,52 @@ import org.osate.ge.BusinessObjectContext;
 import org.osate.ge.di.Activate;
 import org.osate.ge.di.Names;
 import org.osate.ge.internal.businessObjectHandlers.ModeTransitionTriggerHandler;
+import org.osate.ge.internal.model.BusinessObjectProxy;
 import org.osate.ge.internal.model.SubprogramCallOrder;
 import org.osate.ge.internal.model.Tag;
 import org.osate.ge.internal.services.ExtensionRegistryService;
+import org.osate.ge.internal.services.ReferenceService;
+import org.osate.ge.internal.services.impl.DeclarativeReferenceBuilder;
 import org.osate.ge.internal.util.AadlFeatureUtil;
 import org.osate.ge.internal.util.AadlHelper;
 import org.osate.ge.internal.util.AadlSubcomponentUtil;
 import org.osate.ge.internal.util.AadlSubprogramCallUtil;
+import org.osate.ge.internal.util.ScopedEMFIndexRetrieval;
 
 public class AadlBusinessObjectProvider {
 	private final ModeTransitionTriggerHandler mttHandler = new ModeTransitionTriggerHandler();
 
 	@Activate
 	public Stream<?> getBusinessObjects(final @Named(Names.BUSINESS_OBJECT_CONTEXT) BusinessObjectContext boc,
-			final ExtensionRegistryService extRegistryService) {
+			final ExtensionRegistryService extRegistryService, final ReferenceService refService) {
+
 		final Object bo = boc.getBusinessObject();
-		// Disabled for now. A null business object is not supported. Retrieving packages will need to be reworked because Business Object Providers
-		// only have access to global services and not diagram specific services.
-		/*
-		if(bo == null) { // Special handling for project
-			Stream.Builder<Object> packages = Stream.builder();
-			for(final IEObjectDescription desc : ScopedEMFIndexRetrieval.getAllEObjectsByType(projectProvider.getProject(), Aadl2Factory.eINSTANCE.getAadl2Package().getAadlPackage())) {
-				final String pkgQualifiedName = desc.getQualifiedName().toString("::");
-				final Object resolvedPackage = refService.resolve(DeclarativeReferenceBuilder.buildPackageCanonicalReference(pkgQualifiedName));
-				if(resolvedPackage != null) {
-					packages.add(resolvedPackage);
-				}
+		// An IProject is specified as the business object for contextless diagrams.
+		if (bo instanceof IProject) { // Special handling for project
+			final IProject project = (IProject) bo;
+
+			// Perform an incremental project build to ensure new packages are included.
+			try {
+				project.build(IncrementalProjectBuilder.INCREMENTAL_BUILD, new NullProgressMonitor());
+			} catch (CoreException e) {
+				throw new RuntimeException(e);
 			}
 
-			return packages.build();
-		} else */if(bo instanceof AadlPackage) {
+			Stream<Object> packages = getPackages(project);
+
+			// If no packages were found, assume that the project needs to be built. This can happen if the Eclipse process is forcefully terminated.
+			if (packages == null) {
+				try {
+					project.build(IncrementalProjectBuilder.FULL_BUILD, new NullProgressMonitor());
+				} catch (CoreException e) {
+					throw new RuntimeException(e);
+				}
+
+				packages = getPackages(project);
+			}
+
+			return packages;
+		} else if (bo instanceof AadlPackage) {
 			return getChildren((AadlPackage)bo, extRegistryService);
 		} else if(bo instanceof Classifier) {
 			return getChildren((Classifier)bo, true, extRegistryService);
@@ -112,6 +134,28 @@ public class AadlBusinessObjectProvider {
 		}
 
 		return null;
+	}
+
+	/**
+	 * Returns null if no packages are found. This is needed so that it can be determined if the project needs to be rebuilt.
+	 * @param project
+	 */
+	private static Stream<Object> getPackages(final IProject project) {
+		Stream.Builder<Object> packages = null;
+
+		for (final IEObjectDescription desc : ScopedEMFIndexRetrieval.getAllEObjectsByType(project,
+				Aadl2Factory.eINSTANCE.getAadl2Package().getAadlPackage())) {
+			if (packages == null) {
+				packages = Stream.builder();
+			}
+
+			final String pkgQualifiedName = desc.getQualifiedName().toString("::");
+			packages.add(new BusinessObjectProxy(pkgQualifiedName, desc.getEClass(),
+					DeclarativeReferenceBuilder.buildPackageCanonicalReference(pkgQualifiedName),
+					DeclarativeReferenceBuilder.buildPackageRelativeReference(pkgQualifiedName)));
+		}
+
+		return packages == null ? null : packages.build();
 	}
 
 	// Declarative Model

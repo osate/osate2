@@ -132,18 +132,21 @@ public class DefaultModelChangeNotifier implements ModelChangeNotifier {
 				pendingChangedResourceUris.clear();
 				hasModelChanged = false;
 
-				// Send notifications
-				// Send resource change notifications
-				for (final URI resourceUri : changedResourceUrisBeingProcessed) {
-					for (final ChangeListener listener : changeListeners) {
-						listener.resourceChanged(resourceUri);
+				// Send notifications. Notifications are sent using the display thread so that all diagrams updates will take place in the main thread and avoid
+				// updating the diagram while change notifications are being handled.
+				Display.getDefault().asyncExec(() -> {
+					// Send resource change notifications
+					for (final URI resourceUri : changedResourceUrisBeingProcessed) {
+						for (final ChangeListener listener : changeListeners) {
+							listener.resourceChanged(resourceUri);
+						}
 					}
-				}
 
-				// Send a single notification that the model has changed regardless of the number of changes
-				if (hadModelChanged) {
-					onModelChanged();
-				}
+					// Send a single notification that the model has changed regardless of the number of changes
+					if (hadModelChanged) {
+						onModelChanged();
+					}
+				});
 			}
 		}
 	}

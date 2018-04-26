@@ -22,6 +22,7 @@ import org.eclipse.elk.core.options.NodeLabelPlacement;
 import org.eclipse.elk.core.options.PortConstraints;
 import org.eclipse.elk.core.options.PortSide;
 import org.eclipse.elk.core.options.SizeConstraint;
+import org.eclipse.elk.core.options.SizeOptions;
 import org.eclipse.elk.core.service.LayoutMapping;
 import org.eclipse.elk.graph.ElkConnectableShape;
 import org.eclipse.elk.graph.ElkEdge;
@@ -453,6 +454,9 @@ class ElkGraphBuilder {
 				SizeConstraint.MINIMUM_SIZE, SizeConstraint.NODE_LABELS);
 		newNode.setProperty(CoreOptions.NODE_SIZE_CONSTRAINTS, nodeSizeConstraints);
 		newNode.setProperty(CoreOptions.INSIDE_SELF_LOOPS_ACTIVATE, true);
+
+		newNode.setProperty(CoreOptions.NODE_SIZE_OPTIONS,
+				EnumSet.of(SizeOptions.DEFAULT_MINIMUM_SIZE, SizeOptions.ASYMMETRICAL));
 
 		// Create labels
 		createElkLabels(de, newNode, mapping);

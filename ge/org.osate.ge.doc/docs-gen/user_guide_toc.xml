@@ -1,11 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <toc label="OSATE Graphical Editor User Guide" topic="docs-gen/user_guide.html">
 	<topic label="Getting Started" href="docs-gen/user_guide.html#getting-started">
-		<topic label="Creating a new AADL Package" href="docs-gen/user_guide.html#creating-a-new-aadl-package">
-		</topic>
-		<topic label="Opening an Existing AADL Model" href="docs-gen/user_guide.html#opening-an-existing-aadl-model">
-		</topic>
 		<topic label="Creating a New Diagram" href="docs-gen/user_guide.html#creating-a-new-diagram">
+			<topic label="Creating an AADL Diagram using the AADL Diagram Wizard" href="docs-gen/user_guide.html#creating-an-aadl-diagram-using-the-aadl-diagram-wizard">
+			</topic>
+			<topic label="Creating a AADL Diagram from the AADL Diagram Editor" href="docs-gen/user_guide.html#creating-a-aadl-diagram-from-the-aadl-diagram-editor">
+			</topic>
+			<topic label="Creating a AADL Diagram from the AADL Text Editor" href="docs-gen/user_guide.html#creating-a-aadl-diagram-from-the-aadl-text-editor">
+			</topic>
+		</topic>
+		<topic label="Opening a Diagram for an Existing AADL Model Element" href="docs-gen/user_guide.html#opening-a-diagram-for-an-existing-aadl-model-element">
 		</topic>
 	</topic>
 	<topic label="Navigating Between Diagrams" href="docs-gen/user_guide.html#navigating-between-diagrams">
@@ -199,7 +203,7 @@
 		</topic>
 		<topic label="Missing Diagram Elements After Modification of AADL Source" href="docs-gen/user_guide.html#missing-diagram-elements-after-modification-of-aadl-source">
 		</topic>
-		<topic label="Reporting Bugs" href="docs-gen/user_guide.html#reporting-bugs">
+		<topic label="Reporting Issues" href="docs-gen/user_guide.html#reporting-issues">
 		</topic>
 	</topic>
 	<topic label="Notices" href="docs-gen/user_guide.html#notices">

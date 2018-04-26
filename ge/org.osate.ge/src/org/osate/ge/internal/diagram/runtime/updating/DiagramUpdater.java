@@ -229,7 +229,7 @@ public class DiagramUpdater {
 				final FutureElementInfo futureElementInfo = futureElementInfos == null ? null
 						: futureElementInfos.get(n.getRelativeReference());
 				final Point initialPosition = futureElementInfo != null ? futureElementInfo.position
-								: null;
+						: null;
 				if(initialPosition != null) {
 					m.setPosition(element, initialPosition);
 				}

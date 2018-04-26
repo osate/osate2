@@ -99,8 +99,7 @@ public class DiagramGroup {
 	public final Stream<DiagramReference> findMatchingDiagramReferences() {
 		return validProjectDiagrams.stream()
 				.filter(dr -> (diagramTypeId == null || diagramTypeId.equals(dr.getDiagramTypeId()))
-						&& (!contextRefValid || ((contextRef == null && dr.getContextReference() == null)
-								|| contextRef.equals(dr.getContextReference()))));
+						&& (!contextRefValid || Objects.equals(contextRef, dr.getContextReference())));
 	}
 
 	@Override
