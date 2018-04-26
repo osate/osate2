@@ -2156,7 +2156,7 @@
             category="org.osate.internal.ui.preferences.OsatePreferencePage"
             class="org.osate.ge.internal.ui.AgePreferencePage"
             id="org.osate.ge.ui.preferences"
-            name="Diagrams">
+            name="AADL Diagram Editor">
       </page>
    </extension>
    <extension
