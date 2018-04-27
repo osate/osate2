@@ -18,6 +18,7 @@
 package org.osate.xtext.aadl2.errormodel;
 
 import org.eclipse.xtext.conversion.IValueConverterService;
+import org.eclipse.xtext.formatting2.regionaccess.TextRegionAccessBuilder;
 import org.eclipse.xtext.naming.IQualifiedNameConverter;
 import org.eclipse.xtext.scoping.IScopeProvider;
 import org.eclipse.xtext.scoping.impl.AbstractDeclarativeScopeProvider;
@@ -28,6 +29,7 @@ import org.osate.xtext.aadl2.errormodel.scoping.ErrorModelImportedNamespaceAware
 import org.osate.xtext.aadl2.errormodel.serializer.ErrorModelCrossReferenceSerializer;
 import org.osate.xtext.aadl2.errormodel.serializer.ErrorModelSerializer;
 import org.osate.xtext.aadl2.errormodel.valueconversion.ErrorModelValueConverter;
+import org.osate.xtext.aadl2.formatting2.regionaccess.Aadl2TextRegionAccessBuilder;
 
 import com.google.inject.Binder;
 import com.google.inject.name.Names;
@@ -69,5 +71,9 @@ public class ErrorModelRuntimeModule extends org.osate.xtext.aadl2.errormodel.Ab
 	public void configureIScopeProviderDelegate(Binder binder) {
 		binder.bind(IScopeProvider.class).annotatedWith(Names.named(AbstractDeclarativeScopeProvider.NAMED_DELEGATE))
 				.to(ErrorModelImportedNamespaceAwareLocalScopeProvider.class);
+	}
+	
+	public Class<? extends TextRegionAccessBuilder> bindTextRegionAccessBuilder() {
+		return Aadl2TextRegionAccessBuilder.class;
 	}
 }
