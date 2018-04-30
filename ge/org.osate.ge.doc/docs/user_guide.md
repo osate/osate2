@@ -169,7 +169,7 @@ An element can be renamed using the graphical editor.
 
 2. Click the name label.  An editable field will appear.
 
-![](../images/renaming.png)
+![](../images/Renaming.png)
 
 3. Adjust the name as desired.
 
@@ -274,7 +274,7 @@ The preferences dialog contains preferences which affect the layout behavior of 
 
 3. Modify the preferences as desired.
 
-![](../images/preferences.png)
+![](../images/Preferences.png)
 
 #### Incremental Layout
 When an element has been added to the diagram and needs to be positioned or sized, an incremental layout is performed. The behavior of the incremental layout can be configured by selecting a mode from the preferences dialog. From the preferences dialog select the desired *Incremental Layout Mode*. The modes are described in @tbl:incremental_layout_modes.
