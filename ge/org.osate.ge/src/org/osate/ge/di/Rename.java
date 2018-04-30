@@ -21,7 +21,7 @@ import java.lang.annotation.Target;
  * <h1>Usages</h1>
  * <table summary="Annotation Usages">
  *   <tr><th>Usage</th><th>Description</th><th>Return Value</th></tr>
- *   <tr><td>Business Object Handler</td><td>Sets the name of a business object.</td><td>void/td></tr>
+ *   <tr><td>Business Object Handler</td><td>Sets the name of a business object. Only needed in cases when LTK based refactoring is not supported.</td><td>void/td></tr>
  * </table>
  * <h1>Named Parameters</h1>
  * <table summary="Named Parameters">

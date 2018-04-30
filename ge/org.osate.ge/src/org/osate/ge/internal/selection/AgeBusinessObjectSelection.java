@@ -1,4 +1,4 @@
-package org.osate.ge.internal.ui.properties;
+package org.osate.ge.internal.selection;
 
 import java.util.Collection;
 import java.util.Objects;
@@ -11,6 +11,7 @@ import org.eclipse.emf.ecore.EObject;
 import org.osate.ge.BusinessObjectContext;
 import org.osate.ge.BusinessObjectSelection;
 import org.osate.ge.internal.services.AadlModificationService;
+import org.osate.ge.internal.services.AadlModificationService.Modification;
 
 import com.google.common.collect.ImmutableList;
 
@@ -37,10 +38,11 @@ class AgeBusinessObjectSelection implements BusinessObjectSelection {
 	@Override
 	public <T extends EObject> void modify(final Function<BusinessObjectContext, T> bocToBoToModifyMapper,
 			final BiConsumer<T, BusinessObjectContext> modifier) {
-		modificationService.modify(bocs, bocToBoToModifyMapper, (resource, liveBoToModify, boc) -> {
-			modifier.accept(liveBoToModify, (BusinessObjectContext) boc);
-			return null;
-		});
+		final ImmutableList<Modification<BusinessObjectContext, T>> modifications = bocs.stream()
+				.map(boc -> Modification.create(boc, bocToBoToModifyMapper, (boc2, liveBoToModify) -> {
+					modifier.accept(liveBoToModify, boc2);
+				})).collect(ImmutableList.toImmutableList());
+		modificationService.modify(modifications);
 	}
 
 	@Override

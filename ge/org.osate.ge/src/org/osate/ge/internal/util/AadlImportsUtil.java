@@ -10,23 +10,23 @@ public class AadlImportsUtil {
 	 * @param section
 	 * @param pkg
 	 */
-	public static void addImportIfNeeded(final PackageSection section, final AadlPackage pkg) {		
+	public static void addImportIfNeeded(final PackageSection section, final AadlPackage pkg) {
 		final String pkgQualifiedName = pkg.getQualifiedName();
 		if(pkgQualifiedName == null) {
 			return;
 		}
-		
+
 		// Don't do anything if the package is the owner of the section
-		if(section.getOwner() instanceof AadlPackage && 
+		if(section.getOwner() instanceof AadlPackage &&
 				pkgQualifiedName.equalsIgnoreCase(((AadlPackage)section.getOwner()).getQualifiedName())) {
 			return;
 		}
-			
-		// 
+
+		//
 		boolean isImported = false;
 		for(final ModelUnit mu : section.getImportedUnits()) {
 			final String qn = mu.getQualifiedName();
-			if(qn.equalsIgnoreCase(pkgQualifiedName)) {
+			if (pkgQualifiedName.equalsIgnoreCase(qn)) {
 				isImported = true;
 				break;
 			}
@@ -34,7 +34,7 @@ public class AadlImportsUtil {
 
 		// Import the package if needed
 		if(!isImported) {
-			section.getImportedUnits().add(pkg);	
+			section.getImportedUnits().add(pkg);
 		}
 	}
 }

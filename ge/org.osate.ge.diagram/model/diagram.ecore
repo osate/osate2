@@ -42,6 +42,8 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="fontSize" eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//DoubleObject"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="lineWidth" eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//DoubleObject"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="primaryLabelVisible" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBooleanObject"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="image" eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//String"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="showAsImage" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBooleanObject"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="contentFilters" eType="#//ContentFilters"
         containment="true"/>
   </eClassifiers>

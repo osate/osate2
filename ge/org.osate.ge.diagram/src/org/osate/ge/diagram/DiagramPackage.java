@@ -7,7 +7,9 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EDataType;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
+
 import org.eclipse.emf.ecore.impl.EPackageImpl;
+
 import org.eclipse.emf.ecore.xml.type.XMLTypePackage;
 
 /**
@@ -70,16 +72,6 @@ public class DiagramPackage extends EPackageImpl {
 	public static final int DIAGRAM_NODE = 1;
 
 	/**
-	 * The meta object id for the '{@link org.osate.ge.diagram.Diagram <em>Diagram</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.osate.ge.diagram.Diagram
-	 * @see org.osate.ge.diagram.DiagramPackage#getDiagram()
-	 * @generated
-	 */
-	public static final int DIAGRAM = 0;
-
-	/**
 	 * The feature id for the '<em><b>Element</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -105,6 +97,16 @@ public class DiagramPackage extends EPackageImpl {
 	 * @ordered
 	 */
 	public static final int DIAGRAM_NODE_OPERATION_COUNT = 0;
+
+	/**
+	 * The meta object id for the '{@link org.osate.ge.diagram.Diagram <em>Diagram</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.osate.ge.diagram.Diagram
+	 * @see org.osate.ge.diagram.DiagramPackage#getDiagram()
+	 * @generated
+	 */
+	public static final int DIAGRAM = 0;
 
 	/**
 	 * The feature id for the '<em><b>Element</b></em>' containment reference list.
@@ -306,13 +308,31 @@ public class DiagramPackage extends EPackageImpl {
 	public static final int DIAGRAM_ELEMENT__PRIMARY_LABEL_VISIBLE = DIAGRAM_NODE_FEATURE_COUNT + 14;
 
 	/**
+	 * The feature id for the '<em><b>Image</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	public static final int DIAGRAM_ELEMENT__IMAGE = DIAGRAM_NODE_FEATURE_COUNT + 15;
+
+	/**
+	 * The feature id for the '<em><b>Show As Image</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	public static final int DIAGRAM_ELEMENT__SHOW_AS_IMAGE = DIAGRAM_NODE_FEATURE_COUNT + 16;
+
+	/**
 	 * The feature id for the '<em><b>Content Filters</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	public static final int DIAGRAM_ELEMENT__CONTENT_FILTERS = DIAGRAM_NODE_FEATURE_COUNT + 15;
+	public static final int DIAGRAM_ELEMENT__CONTENT_FILTERS = DIAGRAM_NODE_FEATURE_COUNT + 17;
 
 	/**
 	 * The number of structural features of the '<em>Element</em>' class.
@@ -321,7 +341,7 @@ public class DiagramPackage extends EPackageImpl {
 	 * @generated
 	 * @ordered
 	 */
-	public static final int DIAGRAM_ELEMENT_FEATURE_COUNT = DIAGRAM_NODE_FEATURE_COUNT + 16;
+	public static final int DIAGRAM_ELEMENT_FEATURE_COUNT = DIAGRAM_NODE_FEATURE_COUNT + 18;
 
 	/**
 	 * The number of operations of the '<em>Element</em>' class.
@@ -509,46 +529,6 @@ public class DiagramPackage extends EPackageImpl {
 	public static final int REFERENCE = 10;
 
 	/**
-	 * The meta object id for the '{@link org.osate.ge.diagram.CanonicalBusinessObjectReference <em>Canonical Business Object Reference</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.osate.ge.diagram.CanonicalBusinessObjectReference
-	 * @see org.osate.ge.diagram.DiagramPackage#getCanonicalBusinessObjectReference()
-	 * @generated
-	 */
-	public static final int CANONICAL_BUSINESS_OBJECT_REFERENCE = 7;
-
-	/**
-	 * The meta object id for the '{@link org.osate.ge.diagram.RelativeBusinessObjectReference <em>Relative Business Object Reference</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.osate.ge.diagram.RelativeBusinessObjectReference
-	 * @see org.osate.ge.diagram.DiagramPackage#getRelativeBusinessObjectReference()
-	 * @generated
-	 */
-	public static final int RELATIVE_BUSINESS_OBJECT_REFERENCE = 8;
-
-	/**
-	 * The meta object id for the '{@link org.osate.ge.diagram.DiagramConfiguration <em>Configuration</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.osate.ge.diagram.DiagramConfiguration
-	 * @see org.osate.ge.diagram.DiagramPackage#getDiagramConfiguration()
-	 * @generated
-	 */
-	public static final int DIAGRAM_CONFIGURATION = 9;
-
-	/**
-	 * The meta object id for the '<em>Color</em>' data type.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see java.lang.String
-	 * @see org.osate.ge.diagram.DiagramPackage#getColor()
-	 * @generated
-	 */
-	public static final int COLOR = 12;
-
-	/**
 	 * The feature id for the '<em><b>Seg</b></em>' attribute list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -574,6 +554,16 @@ public class DiagramPackage extends EPackageImpl {
 	 * @ordered
 	 */
 	public static final int REFERENCE_OPERATION_COUNT = 0;
+
+	/**
+	 * The meta object id for the '{@link org.osate.ge.diagram.CanonicalBusinessObjectReference <em>Canonical Business Object Reference</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.osate.ge.diagram.CanonicalBusinessObjectReference
+	 * @see org.osate.ge.diagram.DiagramPackage#getCanonicalBusinessObjectReference()
+	 * @generated
+	 */
+	public static final int CANONICAL_BUSINESS_OBJECT_REFERENCE = 7;
 
 	/**
 	 * The feature id for the '<em><b>Seg</b></em>' attribute list.
@@ -603,6 +593,16 @@ public class DiagramPackage extends EPackageImpl {
 	public static final int CANONICAL_BUSINESS_OBJECT_REFERENCE_OPERATION_COUNT = REFERENCE_OPERATION_COUNT + 0;
 
 	/**
+	 * The meta object id for the '{@link org.osate.ge.diagram.RelativeBusinessObjectReference <em>Relative Business Object Reference</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.osate.ge.diagram.RelativeBusinessObjectReference
+	 * @see org.osate.ge.diagram.DiagramPackage#getRelativeBusinessObjectReference()
+	 * @generated
+	 */
+	public static final int RELATIVE_BUSINESS_OBJECT_REFERENCE = 8;
+
+	/**
 	 * The feature id for the '<em><b>Seg</b></em>' attribute list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -628,6 +628,16 @@ public class DiagramPackage extends EPackageImpl {
 	 * @ordered
 	 */
 	public static final int RELATIVE_BUSINESS_OBJECT_REFERENCE_OPERATION_COUNT = REFERENCE_OPERATION_COUNT + 0;
+
+	/**
+	 * The meta object id for the '{@link org.osate.ge.diagram.DiagramConfiguration <em>Configuration</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.osate.ge.diagram.DiagramConfiguration
+	 * @see org.osate.ge.diagram.DiagramPackage#getDiagramConfiguration()
+	 * @generated
+	 */
+	public static final int DIAGRAM_CONFIGURATION = 9;
 
 	/**
 	 * The feature id for the '<em><b>Type</b></em>' attribute.
@@ -719,6 +729,16 @@ public class DiagramPackage extends EPackageImpl {
 	 * @ordered
 	 */
 	public static final int CONTENT_FILTERS_OPERATION_COUNT = 0;
+
+	/**
+	 * The meta object id for the '<em>Color</em>' data type.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see java.lang.String
+	 * @see org.osate.ge.diagram.DiagramPackage#getColor()
+	 * @generated
+	 */
+	public static final int COLOR = 12;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -914,7 +934,6 @@ public class DiagramPackage extends EPackageImpl {
 		return (EAttribute)diagramEClass.getEStructuralFeatures().get(1);
 	}
 
-
 	/**
 	 * Returns the meta object for class '{@link org.osate.ge.diagram.DiagramNode <em>Node</em>}'.
 	 * <!-- begin-user-doc -->
@@ -950,6 +969,19 @@ public class DiagramPackage extends EPackageImpl {
 	 */
 	public EClass getDiagramElement() {
 		return diagramElementEClass;
+	}
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.osate.ge.diagram.DiagramElement#getId <em>Id</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Id</em>'.
+	 * @see org.osate.ge.diagram.DiagramElement#getId()
+	 * @see #getDiagramElement()
+	 * @generated
+	 */
+	public EAttribute getDiagramElement_Id() {
+		return (EAttribute)diagramElementEClass.getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -1069,7 +1101,6 @@ public class DiagramPackage extends EPackageImpl {
 		return (EAttribute)diagramElementEClass.getEStructuralFeatures().get(9);
 	}
 
-
 	/**
 	 * Returns the meta object for the attribute '{@link org.osate.ge.diagram.DiagramElement#getOutline <em>Outline</em>}'.
 	 * <!-- begin-user-doc -->
@@ -1082,7 +1113,6 @@ public class DiagramPackage extends EPackageImpl {
 	public EAttribute getDiagramElement_Outline() {
 		return (EAttribute)diagramElementEClass.getEStructuralFeatures().get(10);
 	}
-
 
 	/**
 	 * Returns the meta object for the attribute '{@link org.osate.ge.diagram.DiagramElement#getFontColor <em>Font Color</em>}'.
@@ -1097,7 +1127,6 @@ public class DiagramPackage extends EPackageImpl {
 		return (EAttribute)diagramElementEClass.getEStructuralFeatures().get(11);
 	}
 
-
 	/**
 	 * Returns the meta object for the attribute '{@link org.osate.ge.diagram.DiagramElement#getFontSize <em>Font Size</em>}'.
 	 * <!-- begin-user-doc -->
@@ -1110,7 +1139,6 @@ public class DiagramPackage extends EPackageImpl {
 	public EAttribute getDiagramElement_FontSize() {
 		return (EAttribute)diagramElementEClass.getEStructuralFeatures().get(12);
 	}
-
 
 	/**
 	 * Returns the meta object for the attribute '{@link org.osate.ge.diagram.DiagramElement#getLineWidth <em>Line Width</em>}'.
@@ -1125,7 +1153,6 @@ public class DiagramPackage extends EPackageImpl {
 		return (EAttribute)diagramElementEClass.getEStructuralFeatures().get(13);
 	}
 
-
 	/**
 	 * Returns the meta object for the attribute '{@link org.osate.ge.diagram.DiagramElement#getPrimaryLabelVisible <em>Primary Label Visible</em>}'.
 	 * <!-- begin-user-doc -->
@@ -1139,6 +1166,33 @@ public class DiagramPackage extends EPackageImpl {
 		return (EAttribute)diagramElementEClass.getEStructuralFeatures().get(14);
 	}
 
+	/**
+	 * Returns the meta object for the attribute '{@link org.osate.ge.diagram.DiagramElement#getImage <em>Image</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Image</em>'.
+	 * @see org.osate.ge.diagram.DiagramElement#getImage()
+	 * @see #getDiagramElement()
+	 * @generated
+	 */
+	public EAttribute getDiagramElement_Image() {
+		return (EAttribute)diagramElementEClass.getEStructuralFeatures().get(15);
+	}
+
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.osate.ge.diagram.DiagramElement#getShowAsImage <em>Show As Image</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Show As Image</em>'.
+	 * @see org.osate.ge.diagram.DiagramElement#getShowAsImage()
+	 * @see #getDiagramElement()
+	 * @generated
+	 */
+	public EAttribute getDiagramElement_ShowAsImage() {
+		return (EAttribute)diagramElementEClass.getEStructuralFeatures().get(16);
+	}
+
 
 	/**
 	 * Returns the meta object for the containment reference '{@link org.osate.ge.diagram.DiagramElement#getContentFilters <em>Content Filters</em>}'.
@@ -1150,21 +1204,7 @@ public class DiagramPackage extends EPackageImpl {
 	 * @generated
 	 */
 	public EReference getDiagramElement_ContentFilters() {
-		return (EReference)diagramElementEClass.getEStructuralFeatures().get(15);
-	}
-
-
-	/**
-	 * Returns the meta object for the attribute '{@link org.osate.ge.diagram.DiagramElement#getId <em>Id</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Id</em>'.
-	 * @see org.osate.ge.diagram.DiagramElement#getId()
-	 * @see #getDiagramElement()
-	 * @generated
-	 */
-	public EAttribute getDiagramElement_Id() {
-		return (EAttribute)diagramElementEClass.getEStructuralFeatures().get(0);
+		return (EReference)diagramElementEClass.getEStructuralFeatures().get(17);
 	}
 
 
@@ -1331,6 +1371,20 @@ public class DiagramPackage extends EPackageImpl {
 	}
 
 	/**
+	 * Returns the meta object for the attribute '{@link org.osate.ge.diagram.DiagramConfiguration#getType <em>Type</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Type</em>'.
+	 * @see org.osate.ge.diagram.DiagramConfiguration#getType()
+	 * @see #getDiagramConfiguration()
+	 * @generated
+	 */
+	public EAttribute getDiagramConfiguration_Type() {
+		return (EAttribute)diagramConfigurationEClass.getEStructuralFeatures().get(0);
+	}
+
+
+	/**
 	 * Returns the meta object for the containment reference '{@link org.osate.ge.diagram.DiagramConfiguration#getEnabledAadlProperties <em>Enabled Aadl Properties</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1368,21 +1422,6 @@ public class DiagramPackage extends EPackageImpl {
 	public EAttribute getDiagramConfiguration_ConnectionPrimaryLabelsVisible() {
 		return (EAttribute)diagramConfigurationEClass.getEStructuralFeatures().get(3);
 	}
-
-
-	/**
-	 * Returns the meta object for the attribute '{@link org.osate.ge.diagram.DiagramConfiguration#getType <em>Type</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Type</em>'.
-	 * @see org.osate.ge.diagram.DiagramConfiguration#getType()
-	 * @see #getDiagramConfiguration()
-	 * @generated
-	 */
-	public EAttribute getDiagramConfiguration_Type() {
-		return (EAttribute)diagramConfigurationEClass.getEStructuralFeatures().get(0);
-	}
-
 
 	/**
 	 * Returns the meta object for class '{@link org.osate.ge.diagram.Reference <em>Reference</em>}'.
@@ -1449,7 +1488,6 @@ public class DiagramPackage extends EPackageImpl {
 		return colorEDataType;
 	}
 
-
 	/**
 	 * Returns the factory that creates the instances of the model.
 	 * <!-- begin-user-doc -->
@@ -1503,6 +1541,8 @@ public class DiagramPackage extends EPackageImpl {
 		createEAttribute(diagramElementEClass, DIAGRAM_ELEMENT__FONT_SIZE);
 		createEAttribute(diagramElementEClass, DIAGRAM_ELEMENT__LINE_WIDTH);
 		createEAttribute(diagramElementEClass, DIAGRAM_ELEMENT__PRIMARY_LABEL_VISIBLE);
+		createEAttribute(diagramElementEClass, DIAGRAM_ELEMENT__IMAGE);
+		createEAttribute(diagramElementEClass, DIAGRAM_ELEMENT__SHOW_AS_IMAGE);
 		createEReference(diagramElementEClass, DIAGRAM_ELEMENT__CONTENT_FILTERS);
 
 		pointEClass = createEClass(POINT);
@@ -1599,6 +1639,8 @@ public class DiagramPackage extends EPackageImpl {
 		initEAttribute(getDiagramElement_FontSize(), theXMLTypePackage.getDoubleObject(), "fontSize", null, 0, 1, DiagramElement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getDiagramElement_LineWidth(), theXMLTypePackage.getDoubleObject(), "lineWidth", null, 0, 1, DiagramElement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getDiagramElement_PrimaryLabelVisible(), ecorePackage.getEBooleanObject(), "primaryLabelVisible", null, 0, 1, DiagramElement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getDiagramElement_Image(), theXMLTypePackage.getString(), "image", null, 0, 1, DiagramElement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getDiagramElement_ShowAsImage(), ecorePackage.getEBooleanObject(), "showAsImage", null, 0, 1, DiagramElement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getDiagramElement_ContentFilters(), this.getContentFilters(), null, "contentFilters", null, 0, 1, DiagramElement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(pointEClass, Point.class, "Point", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -1705,6 +1747,14 @@ public class DiagramPackage extends EPackageImpl {
 		 * @generated
 		 */
 		public static final EClass DIAGRAM_ELEMENT = eINSTANCE.getDiagramElement();
+
+		/**
+		 * The meta object literal for the '<em><b>Id</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		public static final EAttribute DIAGRAM_ELEMENT__ID = eINSTANCE.getDiagramElement_Id();
 
 		/**
 		 * The meta object literal for the '<em><b>Bo</b></em>' containment reference feature.
@@ -1819,20 +1869,28 @@ public class DiagramPackage extends EPackageImpl {
 		public static final EAttribute DIAGRAM_ELEMENT__PRIMARY_LABEL_VISIBLE = eINSTANCE.getDiagramElement_PrimaryLabelVisible();
 
 		/**
+		 * The meta object literal for the '<em><b>Image</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		public static final EAttribute DIAGRAM_ELEMENT__IMAGE = eINSTANCE.getDiagramElement_Image();
+
+		/**
+		 * The meta object literal for the '<em><b>Show As Image</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		public static final EAttribute DIAGRAM_ELEMENT__SHOW_AS_IMAGE = eINSTANCE.getDiagramElement_ShowAsImage();
+
+		/**
 		 * The meta object literal for the '<em><b>Content Filters</b></em>' containment reference feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
 		public static final EReference DIAGRAM_ELEMENT__CONTENT_FILTERS = eINSTANCE.getDiagramElement_ContentFilters();
-
-		/**
-		 * The meta object literal for the '<em><b>Id</b></em>' attribute feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		public static final EAttribute DIAGRAM_ELEMENT__ID = eINSTANCE.getDiagramElement_Id();
 
 		/**
 		 * The meta object literal for the '{@link org.osate.ge.diagram.Point <em>Point</em>}' class.
@@ -1953,6 +2011,14 @@ public class DiagramPackage extends EPackageImpl {
 		public static final EClass DIAGRAM_CONFIGURATION = eINSTANCE.getDiagramConfiguration();
 
 		/**
+		 * The meta object literal for the '<em><b>Type</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		public static final EAttribute DIAGRAM_CONFIGURATION__TYPE = eINSTANCE.getDiagramConfiguration_Type();
+
+		/**
 		 * The meta object literal for the '<em><b>Enabled Aadl Properties</b></em>' containment reference feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -1975,14 +2041,6 @@ public class DiagramPackage extends EPackageImpl {
 		 * @generated
 		 */
 		public static final EAttribute DIAGRAM_CONFIGURATION__CONNECTION_PRIMARY_LABELS_VISIBLE = eINSTANCE.getDiagramConfiguration_ConnectionPrimaryLabelsVisible();
-
-		/**
-		 * The meta object literal for the '<em><b>Type</b></em>' attribute feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		public static final EAttribute DIAGRAM_CONFIGURATION__TYPE = eINSTANCE.getDiagramConfiguration_Type();
 
 		/**
 		 * The meta object literal for the '{@link org.osate.ge.diagram.Reference <em>Reference</em>}' class.

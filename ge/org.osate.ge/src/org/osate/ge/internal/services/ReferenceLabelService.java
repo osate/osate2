@@ -15,7 +15,7 @@ public interface ReferenceLabelService {
 
 	/**
 	 *
-	 * @param ref
+	 * @param ref must not be null.
 	 * @return may return null
 	 */
 	String getLabel(RelativeBusinessObjectReference ref);

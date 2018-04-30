@@ -1,4 +1,4 @@
-package org.osate.ge.internal.ui.properties;
+package org.osate.ge.internal.selection;
 
 import org.eclipse.core.runtime.IAdapterFactory;
 import org.eclipse.e4.core.contexts.EclipseContextFactory;
@@ -18,11 +18,9 @@ public class AgeBusinessObjectSelectionAdapterFactory implements IAdapterFactory
 
 		if (BusinessObjectSelection.class.equals(adapterType)) {
 			final Bundle bundle = FrameworkUtil.getBundle(getClass());
-			final IEclipseContext context = EclipseContextFactory.getServiceContext(bundle.getBundleContext())
-					.createChild();
-
+			final IEclipseContext context = EclipseContextFactory.getServiceContext(bundle.getBundleContext());
 			return adapterType
-					.cast(new AgeBusinessObjectSelection(SelectionUtil.getSelectedDiagramElements(selection),
+					.cast(new AgeBusinessObjectSelection(SelectionUtil.getSelectedBusinessObjectContexts(selection),
 							context.get(AadlModificationService.class)));
 		}
 

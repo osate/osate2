@@ -35,6 +35,8 @@ import org.osate.ge.internal.services.ReferenceService;
 import org.osgi.framework.Bundle;
 import org.osgi.framework.FrameworkUtil;
 
+import com.google.common.io.Files;
+
 public class DiagramNavigatorLabelProvider extends DecoratingLabelProvider
 implements org.eclipse.jface.viewers.DelegatingStyledCellLabelProvider.IStyledLabelProvider,
 ICommonLabelProvider {
@@ -53,8 +55,7 @@ ICommonLabelProvider {
 		super(new WorkbenchLabelProvider(), null);
 
 		final Bundle bundle = FrameworkUtil.getBundle(getClass());
-		final IEclipseContext context = EclipseContextFactory.getServiceContext(bundle.getBundleContext())
-				.createChild();
+		final IEclipseContext context = EclipseContextFactory.getServiceContext(bundle.getBundleContext());
 		diagramService = Objects.requireNonNull(context.get(DiagramService.class), "Unable to get diagram service");
 		dtProvider = Objects.requireNonNull(context.get(ExtensionRegistryService.class),
 				"Unable to get extension registry");
@@ -99,6 +100,8 @@ ICommonLabelProvider {
 			} else {
 				throw new RuntimeException("Unexpected case. Diagram type and context reference are both null");
 			}
+		} else if (element instanceof IFile) {
+			return Files.getNameWithoutExtension(diagramService.getName(((IFile) element)));
 		}
 
 		return super.getText(element);
@@ -118,15 +121,22 @@ ICommonLabelProvider {
 						.filter(dr -> dr.isValid() && file.equals(dr.getFile())).findAny();
 				if (optDiagramRef.isPresent()) {
 					final DiagramReference diagramRef = optDiagramRef.get();
-					final StyledString diagramLabel = new StyledString(diagramService.getName(diagramRef.getFile()));
+					final StyledString diagramLabel = new StyledString(getText(diagramRef.getFile()));
 
 					// Handle diagram type and context annotations
 					if (DiagramNavigatorProperties.getShowAnnotations(stateModel)) {
 						// Context
 						List<String> annotations = new ArrayList<>();
 						if (!DiagramNavigatorProperties.getGroupByDiagramContext(stateModel)) {
-							final String contextLabel = referenceLabelService.getLabel(diagramRef.getContextReference(),
-									project);
+							final String contextLabel;
+
+							// Don't use the label from the label service if the reference is null.
+							if (diagramRef.getContextReference() == null) {
+								contextLabel = "<No Context>";
+							} else {
+								contextLabel = referenceLabelService.getLabel(diagramRef.getContextReference(),
+										project);
+							}
 							if (contextLabel != null) {
 								annotations.add(contextLabel);
 							}

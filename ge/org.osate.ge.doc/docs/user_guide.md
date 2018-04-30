@@ -15,26 +15,32 @@ secPrefix:
 # Getting Started
 The OSATE Graphical Editor allows viewing and manipulating AADL declarative models in a graphical way.
 
-## Creating a new AADL Package
-A new AADL package and an associated diagram can be created by using a wizard.
+## Creating a New Diagram
+The OSATE Graphical Editor allow creating AADL Diagrams. Diagrams may be associated with an existing model element such as an AADL package or classifier. Diagrams which are not associated with a specific model element may also be created. Such diagrams are referred to as contextless diagrams and may contain multiple AADL packages. An AADL model element may have multiple diagrams associated it.
 
-1. Open the new file dialog by selecting *File->New->Other*...
+### Creating an AADL Diagram using the AADL Diagram Wizard
+The AADL Diagram wizard allows creating a new diagram. The created diagram may be associated with a new package or an existing package or classifier. It may also be a contextless diagram. Contextless diagrams are not associated with a specific model element and may be configured to display multiple existing AADL packages. 
 
-2. Select *Aadl Package(Graphical)* and select *Next*.
+1. Select *File->New->Other...*
+2. Select *AADL->AADL Diagram*.
+3. Select *Next*.
+4. Select the context type for the AADL diagram.
+5. Select *Next*.
+6. Select the project in which to create the diagram.
+7. Select *Next*.
+8. __*Existing Package* and *Existing Classifier* diagrams only:__ Select the package or classifier which will be the top level model element in the diagram.
+9. __*Existing Package* and *Existing Classifier* diagrams only:__ Select Next.
+10. Enter a name for the diagram.
+11. Select a diagram type.
+12. Select *Finish*. The diagram will be created and opened.
 
-![](../images/AadlPackage(Graphical).png)
+### Creating a AADL Diagram from the AADL Diagram Editor
+To create a new diagram from the diagram editor, right-click on an AADL package or classifier and select *Open->New Diagram...*.
 
-3. Enter a name for the new package.
+### Creating a AADL Diagram from the AADL Text Editor
+To create a new diagram from the AADL text editor, right-click on an AADL package or classifier and select *Create Diagram...*. 
 
-![](../images/AadlPackageName.png)
-
-4. Select the AADL Project to create the package inside.
-
-5. Select *Finish*.
-
-The new package will appear in the graphical editor.
-
-## Opening an Existing AADL Model
+## Opening a Diagram for an Existing AADL Model Element
 An existing AADL model can be opened in the graphical editor. Changes made to either the AADL source or the diagram will be reflected in the other.
 
 1. Open an existing AADL source file.
@@ -48,9 +54,6 @@ An existing AADL model can be opened in the graphical editor. Changes made to ei
 4. You can also use the keyboard shortcut *Ctrl+Shift+V* to switch between the selected element in the
    diagram and the selected element in the source file.
   
-## Creating a New Diagram
-AADL model elements may be represented by multiple diagrams. To create a new diagram from the AADL text editor, right-click on an AADL package or classifier and select *Create Diagram...*. To create a new diagram from the diagram editor, right-click on an AADL package or classifier and select *Open->New Diagram...*.
-
 # Navigating Between Diagrams
 The graphical editor supports several methods for navigating between diagrams.
 
@@ -67,7 +70,7 @@ By default, the *AADL Diagrams* view will group diagrams by the diagram type and
 Diagrams associated with a particular element can be opened by right-clicking on the element and selecting *Open->Associated Diagram* from the context menu. 
 
 ## Opening an Element's Package Diagram
-The package diagram associated with an element can be opened by right-clicking an element and selecting *Open->Package Diagram* from the context menu.
+The diagram associated with an element's package can be opened by right-clicking an element and selecting *Open->Package Diagram* from the context menu.
 
 ## Opening the Type Diagram for a Component Implementation or Subcomponent
 The diagram for a component implementation's or subcomponent's component type can be opened by right-clicking on an element and selecting *Open->Type Diagram* from the context menu.
@@ -91,22 +94,22 @@ Many of the operations in the graphical editor apply to multiple types of elemen
 ### Diagram Types
 When creating a diagram, a type must be specified. A diagram's type determines the default filters used by the contents of the diagram. It also determines which AADL properties are enabled by default. All diagram types are equally customizable. A diagram element's filters determines the child elements that are shown on the diagram.
 
-+-------------------+-----------------------------------------------+-------------------------------------------------------------------------+--------------------------------------------------+
-| Diagram Type      | Availability                                  | Filters                                                                 | Properties                                       |
-+===================+===============================================+=========================================================================+==================================================+
-| Custom            | Packages, Classifiers, and System Instances   | None                                                                    | None                                             |
-+-------------------+-----------------------------------------------+-------------------------------------------------------------------------+--------------------------------------------------+
-| Package           | Packages                                      | - Packages:  Classifiers                                                | None                                             |
-|                   |                                               | - Classifiers: Generalizations                                          |                                                  |
-+-------------------+-----------------------------------------------+-------------------------------------------------------------------------+--------------------------------------------------+
-| Structure         | Classifiers and System Instances              |- Classifiers: Features, Connections, Flow Specifications, Subcomponents | None                                             |
-|                   |                                               |- Subcomponents: Features, Connections, and Flow Specifications          |                                                  |
-+-------------------+-----------------------------------------------+-------------------------------------------------------------------------+--------------------------------------------------+
-| Mode              | Component Classifiers                         | - Classifiers: Modes and Mode Transitions                               | None                                             |
-+-------------------+-----------------------------------------------+-------------------------------------------------------------------------+--------------------------------------------------+
-| Processor Binding | Component Implementation and System Instances | - Classifiers: Systems, Processors, Virtual Processors,                 | Deployment_Properties::Actual_Processor_Binding  |
-|                   |                                               | - Devices, Threads, Thread Groups, and Processes                        |                                                  |
-+-------------------+-----------------------------------------------+-------------------------------------------------------------------------+--------------------------------------------------+
++-------------------+----------------------------------------------------------+-------------------------------------------------------------------------+--------------------------------------------------+
+| Diagram Type      | Availability                                             | Default Filters                                                         | Properties                                       |
++===================+==========================================================+=========================================================================+==================================================+
+| Custom            | Packages, Classifiers, System Instances, and Contextless | None                                                                    | None                                             |
++-------------------+----------------------------------------------------------+-------------------------------------------------------------------------+--------------------------------------------------+
+| Package           | Packages, Contextless                                    | - Packages:  Classifiers                                                | None                                             |
+|                   |                                                          | - Classifiers: Generalizations                                          |                                                  |
++-------------------+----------------------------------------------------------+-------------------------------------------------------------------------+--------------------------------------------------+
+| Structure         | Classifiers and System Instances                         |- Classifiers: Features, Connections, Flow Specifications, Subcomponents | None                                             |
+|                   |                                                          |- Subcomponents: Features, Connections, and Flow Specifications          |                                                  |
++-------------------+----------------------------------------------------------+-------------------------------------------------------------------------+--------------------------------------------------+
+| Mode              | Component Classifiers                                    | - Classifiers: Modes and Mode Transitions                               | None                                             |
++-------------------+----------------------------------------------------------+-------------------------------------------------------------------------+--------------------------------------------------+
+| Processor Binding | Component Implementation and System Instances            | - Classifiers: Systems, Processors, Virtual Processors,                 | Deployment_Properties::Actual_Processor_Binding  |
+|                   |                                                          | - Devices, Threads, Thread Groups, and Processes                        |                                                  |
++-------------------+----------------------------------------------------------+-------------------------------------------------------------------------+--------------------------------------------------+
 
 Table: Diagram Types {#tbl:diagram_types}
 
@@ -166,7 +169,7 @@ An element can be renamed using the graphical editor.
 
 2. Click the name label.  An editable field will appear.
 
-![](../images/renaming.png)
+![](../images/Renaming.png)
 
 3. Adjust the name as desired.
 
@@ -215,6 +218,7 @@ An element's appearance can be changed using the following steps.
 	- The *Label Visibility* option allows hiding or showing the diagram element's label.
 	- Font size can be edited by selecting the font size drop-down menu.
 	- Line width can be edited by selecting the line width drop-down menu.
+	- Elements can be displayed as an image by selecting the set image button, selecting *Select...*, and then selecting the desired image. Only images contained in referenced projects may be selected. To reference other projects, edit the project's properties. Whether an element is displayed as an image or using standard notation can be toggled by selecting the *Show as Image* check box.  The editor supports the following image file types: bmp, png, jpg, gif.
 	- Outline color can be edited by clicking the outline button and selecting the desired color.
 	- Font color can be edited by clicking the font color button and selecting the desired color.
 	- Background color can be edited by clicking the background color button and selecting the desired color.
@@ -261,16 +265,19 @@ Layout menu items are available from the *Edit->Layout* menu or by right clickin
 
 Table: Layout Menu Items {#tbl:layout_menu_items}
 
-### Incremental Layout
-When an element has been added to the diagram and needs to be positioned or sized, an incremental layout is performed. The behavior of the incremental layout can be configured by selecting a mode from the preferences dialog.
+### Layout Preferences
+The preferences dialog contains preferences which affect the layout behavior of the graphical editor. To edit layout preferences:
 
 1. Select *Window->Preferences*
 
-2. Select to *OSATE Preferences->Diagram*
+2. Select *OSATE->AADL Diagram Editor*
 
-![](../images/preferences.png)
+3. Modify the preferences as desired.
 
-3. Select the desired *Incremental Layout Mode*. The modes are described in @tbl:incremental_layout_modes.
+![](../images/Preferences.png)
+
+#### Incremental Layout
+When an element has been added to the diagram and needs to be positioned or sized, an incremental layout is performed. The behavior of the incremental layout can be configured by selecting a mode from the preferences dialog. From the preferences dialog select the desired *Incremental Layout Mode*. The modes are described in @tbl:incremental_layout_modes.
 
 |Mode| Description|
 |-------|--------------------------------------------------|
@@ -280,9 +287,11 @@ When an element has been added to the diagram and needs to be positioned or size
 
 Table: Incremental Layout Modes {#tbl:incremental_layout_modes}
 
-### Known Layout Issues and Limitations
+#### Layout Feature Based on Direction
+When the *Layout Features Based on Direction* preference is enabled, the graphical editor will position ports based on the feature's direction. Input features will be placed on the left side and output features will be placed on the right side. If the preference is disabled, the layout algorithm will decide the side on which to place the feature.
 
-* Connections between multiple levels of the diagram hierarchy are not routed out. Such connections usually represent property values such as bindings. Such connections must be routed manually.
+### Known Layout Issues and Limitations
+* Connections between multiple levels of the diagram hierarchy are not automatically routed and must be routed manually. Such connections usually represent property values such as bindings.
 * Mode transition triggers are not routed. The recommended workaround is to show the mode transition triggers as text labels.
 * Flow source and sinks are not consider when laying out the diagram.
 * The automatic layout for flow path may produce unexpected routing and label placement for the flow path. To workaround this issue, it is recommended to disable labels for flow paths.	
@@ -631,8 +640,8 @@ In most cases the graphical editor will automatically update diagrams to reflect
 ## Missing Diagram Elements After Modification of AADL Source
 See @sec:restore_missing_diagram_elements.
 
-## Reporting Bugs
-Bugs should be reported to the issue tracker on the graphical editor's [GitHub Site](https://github.com/osate/osate-ge).
+## Reporting Issues
+Issues should be reported using the [OSATE Issue Tracker](https://github.com/osate/osate2-core/issues){target="_blank"}.
 
 # Notices
 Development of portions of the OSATE Graphical Editor was sponsored by the Government of the United States under Contract Number FA8702-15-D-0002.

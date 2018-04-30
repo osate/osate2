@@ -33,6 +33,7 @@ import org.osate.aadl2.Element;
 import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.SystemInstance;
 import org.osate.aadl2.modelsupport.resources.OsateResourceUtil;
+import org.osate.ge.BusinessObjectContext;
 import org.osate.ge.internal.diagram.runtime.DiagramElement;
 import org.osate.ge.internal.services.ReferenceService;
 import org.osate.ge.internal.ui.navigator.DiagramGroup;
@@ -59,6 +60,25 @@ public class SelectionUtil {
 		}
 
 		return elements;
+	}
+
+	public static List<BusinessObjectContext> getSelectedBusinessObjectContexts(final ISelection selection) {
+		if (!(selection instanceof IStructuredSelection)) {
+			return Collections.emptyList();
+		}
+
+		final IStructuredSelection ss = (IStructuredSelection) selection;
+		final List<BusinessObjectContext> bocs = new ArrayList<>(ss.size());
+		for (final Object sel : ss.toList()) {
+			final BusinessObjectContext boc = Adapters.adapt(sel, BusinessObjectContext.class);
+			if (boc == null) {
+				return Collections.emptyList();
+			}
+
+			bocs.add(boc);
+		}
+
+		return bocs;
 	}
 
 	/**

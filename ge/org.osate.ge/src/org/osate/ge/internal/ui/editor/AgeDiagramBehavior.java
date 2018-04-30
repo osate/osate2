@@ -34,9 +34,11 @@ import org.eclipse.emf.transaction.ResourceSetListener;
 import org.eclipse.emf.transaction.RollbackException;
 import org.eclipse.emf.transaction.TransactionalEditingDomain;
 import org.eclipse.gef.ContextMenuProvider;
+import org.eclipse.gef.DefaultEditDomain;
 import org.eclipse.gef.EditPart;
 import org.eclipse.gef.GraphicalEditPart;
 import org.eclipse.gef.GraphicalViewer;
+import org.eclipse.gef.Tool;
 import org.eclipse.gef.palette.PaletteDrawer;
 import org.eclipse.gef.palette.PaletteRoot;
 import org.eclipse.graphiti.dt.IDiagramTypeProvider;
@@ -518,6 +520,16 @@ public class AgeDiagramBehavior extends DiagramBehavior implements GraphitiAgeDi
 			throw new RuntimeException("doUpdate() must be called from the UI thread");
 		}
 
+		// Reset active tool. Fixes exception if user was dragging.
+		final DefaultEditDomain editDomain = getEditDomain();
+		if (editDomain != null) {
+			final Tool activeTool = editDomain.getActiveTool();
+			if (activeTool != null) {
+				editDomain.setActiveTool(null);
+				editDomain.setActiveTool(activeTool);
+			}
+		}
+
 		// A mutex is not needed because this runnable and other code that access variables used by this runnable are ran in the display thread
 		// Don't update if update is already in progress
 		if(!updateInProgress) {
@@ -881,7 +893,7 @@ public class AgeDiagramBehavior extends DiagramBehavior implements GraphitiAgeDi
 						.getServiceContext(bundle.getBundleContext()).get(ExtensionRegistryService.class),
 						"Unable to retrieve extension registry");
 
-				ageDiagram = DiagramSerialization.createAgeDiagram(mmDiagram, extRegistry);
+				ageDiagram = DiagramSerialization.createAgeDiagram(getProject(), mmDiagram, extRegistry);
 				ageDiagram.addModificationListener(ageDiagramModificationListener);
 
 				// Display warning if the diagram is stored with a newer version of the diagram file format.
@@ -906,7 +918,7 @@ public class AgeDiagramBehavior extends DiagramBehavior implements GraphitiAgeDi
 					}
 
 					// Save the file
-					DiagramSerialization.write(ageDiagram, getInput().getUri());
+					DiagramSerialization.write(getProject(), ageDiagram, getInput().getUri());
 
 					// Clear legacy persistent properties
 					final DiagramService diagramService = Objects.requireNonNull((DiagramService)getAdapter(DiagramService.class), "unable to retrieve diagram service");

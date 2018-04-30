@@ -27,7 +27,7 @@ public class PackageDiagramType implements DiagramType {
 
 	@Override
 	public boolean isApplicableToContext(final Object contextBo) {
-		return contextBo instanceof AadlPackage;
+		return contextBo == null || contextBo instanceof AadlPackage;
 	}
 
 	@Override

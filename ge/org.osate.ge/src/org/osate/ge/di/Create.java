@@ -27,8 +27,8 @@ import java.lang.annotation.Target;
  * <table summary="Named Parameters">
  *   <tr><th>Parameter</th><th>Usage</th><th>Description</th></tr>
  *   <tr><td>{@link org.osate.ge.di.Names#PALETTE_ENTRY_CONTEXT}</td><td>Business Object handler</td><td>The context of a palette entry which was set via {@link org.osate.ge.PaletteEntryBuilder#context(Object)}.</td></tr>
-*    <tr><td>{@link org.osate.ge.di.Names#MODIFY_BO}</td><td>Business Object handler ({@link org.osate.ge.PaletteEntryBuilder#creation()} entries only)</td><td>The EMF object owner of the new business object. Determined using the method marked with {@link GetCreateOwner}.</td></tr>
-*    <tr><td>{@link org.osate.ge.di.Names#TARGET_BO}</td><td>Business Object handler ({@link org.osate.ge.PaletteEntryBuilder#creation()} entries only)</td><td>The business object of the target container. Must not be modified. Changes are not guaranteed to be persisted.</td></tr>
+ *    <tr><td>{@link org.osate.ge.di.Names#MODIFY_BO}</td><td>Business Object handler ({@link org.osate.ge.PaletteEntryBuilder#creation()} entries only)</td><td>The EMF object owner of the new business object. Determined using the method marked with {@link GetCreateOwner}.</td></tr>
+ *    <tr><td>{@link org.osate.ge.di.Names#TARGET_BO}</td><td>Business Object handler ({@link org.osate.ge.PaletteEntryBuilder#creation()} entries only)</td><td>The business object of the target container. Must not be modified. Changes are not guaranteed to be persisted.</td></tr>
  *   <tr><td>{@link org.osate.ge.di.Names#SOURCE_BO}</td><td>Business Object handler ({@link org.osate.ge.PaletteEntryBuilder#connectionCreation()} entries only)</td><td>The business object of the source of the connection.</td></tr>
  *   <tr><td>{@link org.osate.ge.di.Names#DESTINATION_BO}</td><td>Business Object handler ({@link org.osate.ge.PaletteEntryBuilder#connectionCreation()} entries only)</td><td>The business object of the destination of the connection.</td></tr>
  * </table>
@@ -39,5 +39,6 @@ import java.lang.annotation.Target;
 @Documented
 @Target({ElementType.METHOD})
 @Retention(RetentionPolicy.RUNTIME)
+@Deprecated
 public @interface Create {
 }

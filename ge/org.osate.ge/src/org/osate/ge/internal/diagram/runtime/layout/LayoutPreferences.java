@@ -9,4 +9,8 @@ public class LayoutPreferences {
 				.getById(Activator.getDefault().getPreferenceStore().getString(Preferences.INCREMENTAL_LAYOUT_MODE))
 				.orElse(IncrementalLayoutMode.LAYOUT_CONTENTS);
 	}
+
+	public static boolean getLayoutPortsOnDefaultSides() {
+		return Activator.getDefault().getPreferenceStore().getBoolean(Preferences.LAYOUT_PORTS_ON_DEFAULT_SIDES);
+	}
 }

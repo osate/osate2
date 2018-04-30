@@ -18,9 +18,12 @@
 <nav id="TOC">
 <ul>
 <li><a href="#getting-started"><span class="toc-section-number">1</span> Getting Started</a><ul>
-<li><a href="#creating-a-new-aadl-package"><span class="toc-section-number">1.1</span> Creating a new AADL Package</a></li>
-<li><a href="#opening-an-existing-aadl-model"><span class="toc-section-number">1.2</span> Opening an Existing AADL Model</a></li>
-<li><a href="#creating-a-new-diagram"><span class="toc-section-number">1.3</span> Creating a New Diagram</a></li>
+<li><a href="#creating-a-new-diagram"><span class="toc-section-number">1.1</span> Creating a New Diagram</a><ul>
+<li><a href="#creating-an-aadl-diagram-using-the-aadl-diagram-wizard"><span class="toc-section-number">1.1.1</span> Creating an AADL Diagram using the AADL Diagram Wizard</a></li>
+<li><a href="#creating-a-aadl-diagram-from-the-aadl-diagram-editor"><span class="toc-section-number">1.1.2</span> Creating a AADL Diagram from the AADL Diagram Editor</a></li>
+<li><a href="#creating-a-aadl-diagram-from-the-aadl-text-editor"><span class="toc-section-number">1.1.3</span> Creating a AADL Diagram from the AADL Text Editor</a></li>
+</ul></li>
+<li><a href="#opening-a-diagram-for-an-existing-aadl-model-element"><span class="toc-section-number">1.2</span> Opening a Diagram for an Existing AADL Model Element</a></li>
 </ul></li>
 <li><a href="#navigating-between-diagrams"><span class="toc-section-number">2</span> Navigating Between Diagrams</a><ul>
 <li><a href="#using-the-aadl-diagrams-view"><span class="toc-section-number">2.1</span> Using the AADL Diagrams View</a></li>
@@ -52,7 +55,7 @@
 </ul></li>
 <li><a href="#diagram-layout"><span class="toc-section-number">3.2</span> Diagram Layout</a><ul>
 <li><a href="#layout-commands"><span class="toc-section-number">3.2.1</span> Layout Commands</a></li>
-<li><a href="#incremental-layout"><span class="toc-section-number">3.2.2</span> Incremental Layout</a></li>
+<li><a href="#layout-preferences"><span class="toc-section-number">3.2.2</span> Layout Preferences</a></li>
 <li><a href="#known-layout-issues-and-limitations"><span class="toc-section-number">3.2.3</span> Known Layout Issues and Limitations</a></li>
 </ul></li>
 <li><a href="#connections"><span class="toc-section-number">3.3</span> Connections</a><ul>
@@ -114,34 +117,36 @@
 <li><a href="#unable-to-set-properties-unless-text-model-is-open"><span class="toc-section-number">4.3</span> Unable to Set Properties Unless Text Model is Open</a></li>
 <li><a href="#updating-the-diagram"><span class="toc-section-number">4.4</span> Updating the Diagram</a></li>
 <li><a href="#missing-diagram-elements-after-modification-of-aadl-source"><span class="toc-section-number">4.5</span> Missing Diagram Elements After Modification of AADL Source</a></li>
-<li><a href="#reporting-bugs"><span class="toc-section-number">4.6</span> Reporting Bugs</a></li>
+<li><a href="#reporting-issues"><span class="toc-section-number">4.6</span> Reporting Issues</a></li>
 </ul></li>
 <li><a href="#notices"><span class="toc-section-number">5</span> Notices</a></li>
 </ul>
 </nav>
 <h1 id="getting-started"><span class="header-section-number">1</span> Getting Started</h1>
 <p>The OSATE Graphical Editor allows viewing and manipulating AADL declarative models in a graphical way.</p>
-<h2 id="creating-a-new-aadl-package"><span class="header-section-number">1.1</span> Creating a new AADL Package</h2>
-<p>A new AADL package and an associated diagram can be created by using a wizard.</p>
+<h2 id="creating-a-new-diagram"><span class="header-section-number">1.1</span> Creating a New Diagram</h2>
+<p>The OSATE Graphical Editor allow creating AADL Diagrams. Diagrams may be associated with an existing model element such as an AADL package or classifier. Diagrams which are not associated with a specific model element may also be created. Such diagrams are referred to as contextless diagrams and may contain multiple AADL packages. An AADL model element may have multiple diagrams associated it.</p>
+<h3 id="creating-an-aadl-diagram-using-the-aadl-diagram-wizard"><span class="header-section-number">1.1.1</span> Creating an AADL Diagram using the AADL Diagram Wizard</h3>
+<p>The AADL Diagram wizard allows creating a new diagram. The created diagram may be associated with a new package or an existing package or classifier. It may also be a contextless diagram. Contextless diagrams are not associated with a specific model element and may be configured to display multiple existing AADL packages.</p>
 <ol type="1">
-<li><p>Open the new file dialog by selecting <em>File-&gt;New-&gt;Other</em>...</p></li>
-<li><p>Select <em>Aadl Package(Graphical)</em> and select <em>Next</em>.</p></li>
+<li>Select <em>File-&gt;New-&gt;Other...</em></li>
+<li>Select <em>AADL-&gt;AADL Diagram</em>.</li>
+<li>Select <em>Next</em>.</li>
+<li>Select the context type for the AADL diagram.</li>
+<li>Select <em>Next</em>.</li>
+<li>Select the project in which to create the diagram.</li>
+<li>Select <em>Next</em>.</li>
+<li><strong><em>Existing Package</em> and <em>Existing Classifier</em> diagrams only:</strong> Select the package or classifier which will be the top level model element in the diagram.</li>
+<li><strong><em>Existing Package</em> and <em>Existing Classifier</em> diagrams only:</strong> Select Next.</li>
+<li>Enter a name for the diagram.</li>
+<li>Select a diagram type.</li>
+<li>Select <em>Finish</em>. The diagram will be created and opened.</li>
 </ol>
-<figure>
-<img src="../images/AadlPackage(Graphical).png" />
-</figure>
-<ol start="3" type="1">
-<li>Enter a name for the new package.</li>
-</ol>
-<figure>
-<img src="../images/AadlPackageName.png" />
-</figure>
-<ol start="4" type="1">
-<li><p>Select the AADL Project to create the package inside.</p></li>
-<li><p>Select <em>Finish</em>.</p></li>
-</ol>
-<p>The new package will appear in the graphical editor.</p>
-<h2 id="opening-an-existing-aadl-model"><span class="header-section-number">1.2</span> Opening an Existing AADL Model</h2>
+<h3 id="creating-a-aadl-diagram-from-the-aadl-diagram-editor"><span class="header-section-number">1.1.2</span> Creating a AADL Diagram from the AADL Diagram Editor</h3>
+<p>To create a new diagram from the diagram editor, right-click on an AADL package or classifier and select <em>Open-&gt;New Diagram...</em>.</p>
+<h3 id="creating-a-aadl-diagram-from-the-aadl-text-editor"><span class="header-section-number">1.1.3</span> Creating a AADL Diagram from the AADL Text Editor</h3>
+<p>To create a new diagram from the AADL text editor, right-click on an AADL package or classifier and select <em>Create Diagram...</em>.</p>
+<h2 id="opening-a-diagram-for-an-existing-aadl-model-element"><span class="header-section-number">1.2</span> Opening a Diagram for an Existing AADL Model Element</h2>
 <p>An existing AADL model can be opened in the graphical editor. Changes made to either the AADL source or the diagram will be reflected in the other.</p>
 <ol type="1">
 <li><p>Open an existing AADL source file.</p></li>
@@ -149,8 +154,6 @@
 <li><p>Select <em>Open Diagram</em> to open the diagram for the selected classifier. If a classifier is not selected, <em>Open Diagram</em> opens the package diagram for the selected package. The diagram will be created if one does not already exist. The appropriate diagram will appear in the graphical editor.</p></li>
 <li><p>You can also use the keyboard shortcut <em>Ctrl+Shift+V</em> to switch between the selected element in the diagram and the selected element in the source file.</p></li>
 </ol>
-<h2 id="creating-a-new-diagram"><span class="header-section-number">1.3</span> Creating a New Diagram</h2>
-<p>AADL model elements may be represented by multiple diagrams. To create a new diagram from the AADL text editor, right-click on an AADL package or classifier and select <em>Create Diagram...</em>. To create a new diagram from the diagram editor, right-click on an AADL package or classifier and select <em>Open-&gt;New Diagram...</em>.</p>
 <h1 id="navigating-between-diagrams"><span class="header-section-number">2</span> Navigating Between Diagrams</h1>
 <p>The graphical editor supports several methods for navigating between diagrams.</p>
 <h2 id="using-the-aadl-diagrams-view"><span class="header-section-number">2.1</span> Using the AADL Diagrams View</h2>
@@ -164,7 +167,7 @@
 <h2 id="opening-an-associated-diagram"><span class="header-section-number">2.2</span> Opening an Associated Diagram</h2>
 <p>Diagrams associated with a particular element can be opened by right-clicking on the element and selecting <em>Open-&gt;Associated Diagram</em> from the context menu.</p>
 <h2 id="opening-an-elements-package-diagram"><span class="header-section-number">2.3</span> Opening an Element's Package Diagram</h2>
-<p>The package diagram associated with an element can be opened by right-clicking an element and selecting <em>Open-&gt;Package Diagram</em> from the context menu.</p>
+<p>The diagram associated with an element's package can be opened by right-clicking an element and selecting <em>Open-&gt;Package Diagram</em> from the context menu.</p>
 <h2 id="opening-the-type-diagram-for-a-component-implementation-or-subcomponent"><span class="header-section-number">2.4</span> Opening the Type Diagram for a Component Implementation or Subcomponent</h2>
 <p>The diagram for a component implementation's or subcomponent's component type can be opened by right-clicking on an element and selecting <em>Open-&gt;Type Diagram</em> from the context menu.</p>
 <h2 id="opening-the-implementation-diagram-for-a-component-implementation-or-subcomponent"><span class="header-section-number">2.5</span> Opening the Implementation Diagram for a Component Implementation or Subcomponent</h2>
@@ -185,29 +188,29 @@
 <table>
 <caption>Table 1: Diagram Types</caption>
 <colgroup>
-<col style="width: 10%" />
-<col style="width: 24%" />
-<col style="width: 38%" />
-<col style="width: 26%" />
+<col style="width: 9%" />
+<col style="width: 28%" />
+<col style="width: 36%" />
+<col style="width: 25%" />
 </colgroup>
 <thead>
 <tr class="header">
 <th>Diagram Type</th>
 <th>Availability</th>
-<th>Filters</th>
+<th>Default Filters</th>
 <th>Properties</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
 <td><p>Custom</p></td>
-<td><p>Packages, Classifiers, and System Instances</p></td>
+<td><p>Packages, Classifiers, System Instances, and Contextless</p></td>
 <td><p>None</p></td>
 <td><p>None</p></td>
 </tr>
 <tr class="even">
 <td><p>Package</p></td>
-<td><p>Packages</p></td>
+<td><p>Packages, Contextless</p></td>
 <td><ul>
 <li>Packages: Classifiers</li>
 <li>Classifiers: Generalizations</li>
@@ -312,7 +315,7 @@
 <li><p>Click the name label. An editable field will appear.</p></li>
 </ol>
 <figure>
-<img src="../images/renaming.png" />
+<img src="../images/Renaming.png" />
 </figure>
 <ol start="3" type="1">
 <li><p>Adjust the name as desired.</p></li>
@@ -352,6 +355,7 @@
 <li>The <em>Label Visibility</em> option allows hiding or showing the diagram element's label.</li>
 <li>Font size can be edited by selecting the font size drop-down menu.</li>
 <li>Line width can be edited by selecting the line width drop-down menu.</li>
+<li>Elements can be displayed as an image by selecting the set image button, selecting <em>Select...</em>, and then selecting the desired image. Only images contained in referenced projects may be selected. To reference other projects, edit the project's properties. Whether an element is displayed as an image or using standard notation can be toggled by selecting the <em>Show as Image</em> check box. The editor supports the following image file types: bmp, png, jpg, gif.</li>
 <li>Outline color can be edited by clicking the outline button and selecting the desired color.</li>
 <li>Font color can be edited by clicking the font color button and selecting the desired color.</li>
 <li>Background color can be edited by clicking the background color button and selecting the desired color.</li>
@@ -451,18 +455,18 @@
 </tbody>
 </table>
 </div>
-<h3 id="incremental-layout"><span class="header-section-number">3.2.2</span> Incremental Layout</h3>
-<p>When an element has been added to the diagram and needs to be positioned or sized, an incremental layout is performed. The behavior of the incremental layout can be configured by selecting a mode from the preferences dialog.</p>
+<h3 id="layout-preferences"><span class="header-section-number">3.2.2</span> Layout Preferences</h3>
+<p>The preferences dialog contains preferences which affect the layout behavior of the graphical editor. To edit layout preferences:</p>
 <ol type="1">
 <li><p>Select <em>Window-&gt;Preferences</em></p></li>
-<li><p>Select to <em>OSATE Preferences-&gt;Diagram</em></p></li>
+<li><p>Select <em>OSATE-&gt;AADL Diagram Editor</em></p></li>
+<li><p>Modify the preferences as desired.</p></li>
 </ol>
 <figure>
-<img src="../images/preferences.png" />
+<img src="../images/Preferences.png" />
 </figure>
-<ol start="3" type="1">
-<li>Select the desired <em>Incremental Layout Mode</em>. The modes are described in table <a href="#tbl:incremental_layout_modes">4</a>.</li>
-</ol>
+<h4 id="incremental-layout"><span class="header-section-number">3.2.2.1</span> Incremental Layout</h4>
+<p>When an element has been added to the diagram and needs to be positioned or sized, an incremental layout is performed. The behavior of the incremental layout can be configured by selecting a mode from the preferences dialog. From the preferences dialog select the desired <em>Incremental Layout Mode</em>. The modes are described in table <a href="#tbl:incremental_layout_modes">4</a>.</p>
 <div id="tbl:incremental_layout_modes">
 <table style="width:82%;">
 <caption>Table 4: Incremental Layout Modes</caption>
@@ -492,9 +496,11 @@
 </tbody>
 </table>
 </div>
+<h4 id="layout-feature-based-on-direction"><span class="header-section-number">3.2.2.2</span> Layout Feature Based on Direction</h4>
+<p>When the <em>Layout Features Based on Direction</em> preference is enabled, the graphical editor will position ports based on the feature's direction. Input features will be placed on the left side and output features will be placed on the right side. If the preference is disabled, the layout algorithm will decide the side on which to place the feature.</p>
 <h3 id="known-layout-issues-and-limitations"><span class="header-section-number">3.2.3</span> Known Layout Issues and Limitations</h3>
 <ul>
-<li>Connections between multiple levels of the diagram hierarchy are not routed out. Such connections usually represent property values such as bindings. Such connections must be routed manually.</li>
+<li>Connections between multiple levels of the diagram hierarchy are not automatically routed and must be routed manually. Such connections usually represent property values such as bindings.</li>
 <li>Mode transition triggers are not routed. The recommended workaround is to show the mode transition triggers as text labels.</li>
 <li>Flow source and sinks are not consider when laying out the diagram.</li>
 <li>The automatic layout for flow path may produce unexpected routing and label placement for the flow path. To workaround this issue, it is recommended to disable labels for flow paths.<br />
@@ -842,8 +848,8 @@
 <p>In most cases the graphical editor will automatically update diagrams to reflect changes to the AADL Model. If a diagram has not been updated for any reason, it can be updated manually by right-clicking inside the diagram and selecting <em>Update Diagram</em> from the context menu.</p>
 <h2 id="missing-diagram-elements-after-modification-of-aadl-source"><span class="header-section-number">4.5</span> Missing Diagram Elements After Modification of AADL Source</h2>
 <p>See section <a href="#sec:restore_missing_diagram_elements">3.1.17</a>.</p>
-<h2 id="reporting-bugs"><span class="header-section-number">4.6</span> Reporting Bugs</h2>
-<p>Bugs should be reported to the issue tracker on the graphical editor's <a href="https://github.com/osate/osate-ge">GitHub Site</a>.</p>
+<h2 id="reporting-issues"><span class="header-section-number">4.6</span> Reporting Issues</h2>
+<p>Issues should be reported using the <a href="https://github.com/osate/osate2-core/issues" target="_blank">OSATE Issue Tracker</a>.</p>
 <h1 id="notices"><span class="header-section-number">5</span> Notices</h1>
 <p>Development of portions of the OSATE Graphical Editor was sponsored by the Government of the United States under Contract Number FA8702-15-D-0002.</p>
 <p>The view, opinions, and/or filings contained in this material are those of the author(s) and should not be construed as an official position, policy, or decision of the Government of the United States or Carnegie Mellon University or the Software Engineering Institute, unless designated by other documentation.</p>

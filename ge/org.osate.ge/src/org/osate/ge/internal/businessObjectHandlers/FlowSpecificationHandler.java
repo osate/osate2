@@ -41,6 +41,7 @@ import org.osate.ge.di.Names;
 import org.osate.ge.di.ValidateName;
 import org.osate.ge.internal.services.NamingService;
 import org.osate.ge.internal.util.AadlFeatureUtil;
+import org.osate.ge.internal.util.EditingUtil;
 import org.osate.ge.query.StandaloneQuery;
 import org.osate.ge.services.QueryService;
 
@@ -107,7 +108,7 @@ class FlowSpecificationHandler {
 		}
 		final Element bo = (Element) containerBoc.getBusinessObject();
 
-		return ClassifierEditingUtil.getPotentialClassifierTypesForEditing(bo).stream()
+		return EditingUtil.getPotentialClassifierTypesForEditing(bo).stream()
 				.filter(tmpBo -> canOwnFlowSpecification(tmpBo)).map(ComponentType.class::cast)
 				.filter(ct -> hasFeatureWithName(ct, childName))
 				.collect(Collectors.toList());

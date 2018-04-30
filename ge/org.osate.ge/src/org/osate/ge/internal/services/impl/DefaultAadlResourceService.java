@@ -52,10 +52,19 @@ public class DefaultAadlResourceService implements AadlResourceService {
 		public AadlPackage getAadlPackage() {
 			if (pkg == null) {
 				final WeakPackageReference weakRef = getWeakReference();
-				final EObject eobj = resourceSet.getEObject(elementUri, true);
+				EObject eobj = null;
+				try {
+					eobj = resourceSet.getEObject(elementUri, true);
+				} catch (final RuntimeException ex) {
+					// Unable to load resource
+					// Ignore the exception. The null EObject will reset the resource.
+				}
+
 				if (eobj instanceof AadlPackage) {
 					pkg = (AadlPackage) eobj;
 					weakRef.resource = pkg.eResource();
+				} else {
+					weakRef.resource = null;
 				}
 			}
 
@@ -100,6 +109,7 @@ public class DefaultAadlResourceService implements AadlResourceService {
 	private ModelChangeNotifier.ChangeListener changeListener = new ModelChangeNotifier.ChangeListener() {
 		@Override
 		public void resourceChanged(final URI resourceUri) {
+			// Closing the resource immediate can cause problems if something is accessing the resource.
 			boolean resourceUnloaded = false;
 			for (final WeakPackageReference weakRef : elementUriToAadlPackageReference.values()) {
 				final SimpleAadlPackageReference pkgRef = weakRef.get();

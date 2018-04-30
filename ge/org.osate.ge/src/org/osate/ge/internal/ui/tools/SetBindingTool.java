@@ -10,7 +10,6 @@ import java.util.stream.Collectors;
 import javax.inject.Named;
 
 import org.eclipse.emf.ecore.EObject;
-import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.jface.dialogs.IDialogConstants;
 import org.eclipse.jface.dialogs.TitleAreaDialog;
@@ -57,7 +56,8 @@ import org.osate.ge.internal.diagram.runtime.AgeDiagram;
 import org.osate.ge.internal.diagram.runtime.DiagramConfigurationBuilder;
 import org.osate.ge.internal.diagram.runtime.DiagramElement;
 import org.osate.ge.internal.services.AadlModificationService;
-import org.osate.ge.internal.services.AadlModificationService.Modifier;
+import org.osate.ge.internal.services.AadlModificationService.Modification;
+import org.osate.ge.internal.services.AadlModificationService.SimpleModifier;
 import org.osate.ge.internal.services.UiService;
 import org.osate.xtext.aadl2.properties.util.DeploymentProperties;
 import org.osate.xtext.aadl2.properties.util.GetProperties;
@@ -331,9 +331,9 @@ public class SetBindingTool {
 	private void createPropertyAssociations(final AadlModificationService aadlModService) {
 		final BusinessObjectContext ciBoc = currentWindow.getComponentImplementationBoc();
 		final ComponentImplementation ci = (ComponentImplementation)ciBoc.getBusinessObject();
-		aadlModService.modify(ci, new Modifier<ComponentClassifier, Object>() {
+		aadlModService.modify(Modification.create(ci, new SimpleModifier<ComponentClassifier>() {
 			@Override
-			public Object modify(final Resource resource, final ComponentClassifier cc) {
+			public void modify(final ComponentClassifier cc) {
 				for (final BusinessObjectContext bocToBind : currentWindow.getBocsToBind()) {
 					final PropertyAssociation newPa = Aadl2Factory.eINSTANCE.createPropertyAssociation();
 
@@ -362,8 +362,6 @@ public class SetBindingTool {
 					cc.setNoProperties(false);
 					cc.getOwnedPropertyAssociations().add(newPa);
 				}
-
-				return null;
 			}
 
 			// Deletes any existing property associations/removes the bound element from any property associations that matches the property association
@@ -406,7 +404,7 @@ public class SetBindingTool {
 					EcoreUtil.delete(pa);
 				}
 			}
-		});
+		}));
 	}
 
 	private boolean containmentPathsMatch(ContainmentPathElement cp1, ContainmentPathElement cp2) {

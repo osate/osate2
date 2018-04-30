@@ -16,6 +16,7 @@ import org.osate.ge.GraphicalConfiguration;
 import org.osate.ge.GraphicalConfigurationBuilder;
 import org.osate.ge.PaletteEntry;
 import org.osate.ge.PaletteEntryBuilder;
+import org.osate.ge.di.BuildCreateOperation;
 import org.osate.ge.di.CanCreate;
 import org.osate.ge.di.CanStartConnection;
 import org.osate.ge.di.GetGraphicalConfiguration;
@@ -28,13 +29,12 @@ import org.osate.ge.graphics.ConnectionBuilder;
 import org.osate.ge.graphics.Graphic;
 import org.osate.ge.graphics.Style;
 import org.osate.ge.graphics.StyleBuilder;
-import org.osate.ge.internal.CreateOperation;
-import org.osate.ge.internal.CreateOperation.CreateStepResult;
-import org.osate.ge.internal.di.BuildCreateOperation;
-import org.osate.ge.internal.di.InternalNames;
 import org.osate.ge.internal.services.NamingService;
 import org.osate.ge.internal.util.AadlInheritanceUtil;
+import org.osate.ge.internal.util.EditingUtil;
 import org.osate.ge.internal.util.ImageHelper;
+import org.osate.ge.operations.Operation;
+import org.osate.ge.operations.StepResultBuilder;
 import org.osate.ge.query.StandaloneQuery;
 import org.osate.ge.services.QueryService;
 
@@ -133,44 +133,37 @@ public class FlowPathSpecificationHandler extends FlowSpecificationHandler {
 	}
 
 	@BuildCreateOperation
-	public void buildCreateOperation(@Named(InternalNames.OPERATION) final CreateOperation createOp,
-			final @Named(Names.SOURCE_BO) Feature srcFeature,
+	public Operation buildCreateOperation(final @Named(Names.SOURCE_BO) Feature srcFeature,
 			final @Named(Names.SOURCE_BUSINESS_OBJECT_CONTEXT) BusinessObjectContext srcBoc,
 			final @Named(Names.DESTINATION_BO) Feature dstFeature,
 			final @Named(Names.DESTINATION_BUSINESS_OBJECT_CONTEXT) BusinessObjectContext dstBoc,
 			final QueryService queryService,
 			final NamingService namingService) {
-
 		final BusinessObjectContext container = getFlowSpecificationOwnerBoc(srcBoc, queryService);
 		if (container == null) {
-			return;
+			return null;
 		}
 
-		// Determine which classifier should own the new element
-		final ComponentType selectedClassifier = (ComponentType) ClassifierEditingUtil
-				.getClassifierToModify(getPotentialOwners(srcBoc, dstBoc, queryService));
-		if (selectedClassifier == null) {
-			return;
-		}
+		return Operation.create(createOp -> {
+			EditingUtil.selectClassifier(createOp, getPotentialOwners(srcBoc, dstBoc, queryService))
+			.modifyPreviousResult(ct -> {
+				final FlowSpecification fs = ct.createOwnedFlowSpecification();
+				fs.setKind(FlowKind.PATH);
+				fs.setName(getNewFlowSpecificationName(ct, namingService));
 
-		createOp.addStep(selectedClassifier, (resource, ct) -> {
-			final FlowSpecification fs = ct.createOwnedFlowSpecification();
-			fs.setKind(FlowKind.PATH);
-			fs.setName(getNewFlowSpecificationName(ct, namingService));
+				// Create the flow ends
+				final FlowEnd inFlowEnd = fs.createInEnd();
+				inFlowEnd.setFeature(srcFeature);
+				inFlowEnd.setContext(getContext(srcBoc, queryService));
 
-			// Create the flow ends
-			final FlowEnd inFlowEnd = fs.createInEnd();
-			inFlowEnd.setFeature(srcFeature);
-			inFlowEnd.setContext(getContext(srcBoc, queryService));
+				final FlowEnd outFlowEnd = fs.createOutEnd();
+				outFlowEnd.setFeature(dstFeature);
+				outFlowEnd.setContext(getContext(dstBoc, queryService));
 
-			final FlowEnd outFlowEnd = fs.createOutEnd();
-			outFlowEnd.setFeature(dstFeature);
-			outFlowEnd.setContext(getContext(dstBoc, queryService));
+				ct.setNoFlows(false);
 
-			ct.setNoFlows(false);
-
-			return new CreateStepResult(container, fs);
+				return StepResultBuilder.create().showNewBusinessObject(container, fs).build();
+			});
 		});
-
 	}
 }

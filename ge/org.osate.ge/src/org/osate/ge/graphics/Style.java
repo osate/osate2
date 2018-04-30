@@ -1,5 +1,6 @@
 package org.osate.ge.graphics;
 
+import org.eclipse.core.runtime.IPath;
 import org.osate.ge.graphics.internal.LineStyle;
 
 public class Style {
@@ -15,27 +16,44 @@ public class Style {
 	private final Color fontColor;
 	private final Double fontSize;
 	private final Double lineWidth;
+	private final IPath image;
+	private final Boolean showAsImage; // If this is true, then image must not be null.
 	private final LineStyle lineStyle;
 	private final LabelPosition horizontalLabelPosition;
 	private final LabelPosition verticalLabelPosition;
 	private final Boolean primaryLabelVisible;
 
 	Style(final Color background, final Color fontColor, final Color outline, final Double fontSize,
+			final Boolean showAsImage, final IPath image,
 			final Double lineWidth, final LineStyle lineStyle, final LabelPosition horizontalLabelPosition,
 			final LabelPosition verticalLabelPosition, final Boolean primaryLabelVisible) {
 		this.background = background;
 		this.fontColor = fontColor;
 		this.outline = outline;
 		this.fontSize = fontSize;
+		this.showAsImage = showAsImage;
+		this.image = image;
 		this.lineWidth = lineWidth;
 		this.lineStyle = lineStyle;
 		this.horizontalLabelPosition = horizontalLabelPosition;
 		this.verticalLabelPosition = verticalLabelPosition;
 		this.primaryLabelVisible = primaryLabelVisible;
+
+		if (showAsImage == Boolean.TRUE && image == null) {
+			throw new RuntimeException("showAsImage must be false if image is not set.");
+		}
 	}
 
 	public final Color getBackgroundColor() {
 		return background;
+	}
+
+	public final IPath getImagePath() {
+		return image;
+	}
+
+	public final Boolean getShowAsImage() {
+		return showAsImage;
 	}
 
 	public final Color getOutlineColor() {
@@ -78,6 +96,8 @@ public class Style {
 		result = prime * result + ((fontColor == null) ? 0 : fontColor.hashCode());
 		result = prime * result + ((fontSize == null) ? 0 : fontSize.hashCode());
 		result = prime * result + ((horizontalLabelPosition == null) ? 0 : horizontalLabelPosition.hashCode());
+		result = prime * result + ((image == null) ? 0 : image.hashCode());
+		result = prime * result + ((showAsImage == null) ? 0 : showAsImage.hashCode());
 		result = prime * result + ((lineStyle == null) ? 0 : lineStyle.hashCode());
 		result = prime * result + ((lineWidth == null) ? 0 : lineWidth.hashCode());
 		result = prime * result + ((outline == null) ? 0 : outline.hashCode());
@@ -120,6 +140,20 @@ public class Style {
 			return false;
 		}
 		if (horizontalLabelPosition != other.horizontalLabelPosition) {
+			return false;
+		}
+		if (image == null) {
+			if (other.image != null) {
+				return false;
+			}
+		} else if (!image.equals(other.image)) {
+			return false;
+		}
+		if (showAsImage == null) {
+			if (other.showAsImage != null) {
+				return false;
+			}
+		} else if (!showAsImage.equals(other.showAsImage)) {
 			return false;
 		}
 		if (lineStyle != other.lineStyle) {

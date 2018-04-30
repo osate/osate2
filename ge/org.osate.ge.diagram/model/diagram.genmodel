@@ -34,6 +34,8 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute diagram.ecore#//DiagramElement/fontSize"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute diagram.ecore#//DiagramElement/lineWidth"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute diagram.ecore#//DiagramElement/primaryLabelVisible"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute diagram.ecore#//DiagramElement/image"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute diagram.ecore#//DiagramElement/showAsImage"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference diagram.ecore#//DiagramElement/contentFilters"/>
     </genClasses>
     <genClasses ecoreClass="diagram.ecore#//Point">

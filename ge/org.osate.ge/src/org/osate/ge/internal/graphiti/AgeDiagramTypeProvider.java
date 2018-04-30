@@ -15,7 +15,10 @@ import org.eclipse.e4.core.contexts.EclipseContextFactory;
 import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.graphiti.dt.AbstractDiagramTypeProvider;
 import org.eclipse.graphiti.features.IFeatureProvider;
+import org.eclipse.graphiti.platform.ga.IGraphicsAlgorithmRendererFactory;
 import org.eclipse.graphiti.tb.IToolBehaviorProvider;
+import org.eclipse.jface.resource.JFaceResources;
+import org.eclipse.jface.resource.ResourceManager;
 import org.osate.ge.internal.AgeDiagramProvider;
 import org.osate.ge.internal.diagram.runtime.layout.LayoutInfoProvider;
 import org.osate.ge.internal.graphiti.services.GraphitiService;
@@ -43,6 +46,7 @@ import org.osgi.framework.FrameworkUtil;
 public class AgeDiagramTypeProvider extends AbstractDiagramTypeProvider {
 	public static final String id = "org.osate.ge.aadlDiagramTypeProvider";
 	private final IEclipseContext context;
+	private final AgeGraphicsAlgorithmRendererFactory graphicsAlgorithmRendererFactory = new AgeGraphicsAlgorithmRendererFactory();
 	private ProjectReferenceServiceProxy projectReferenceService;
 	private IToolBehaviorProvider[] toolBehaviorProviders;
 
@@ -124,5 +128,14 @@ public class AgeDiagramTypeProvider extends AbstractDiagramTypeProvider {
 			toolBehaviorProviders = new IToolBehaviorProvider[] { ContextInjectionFactory.make(AgeToolBehaviorProvider.class, context) };
 		}
 		return toolBehaviorProviders;
+	}
+
+	@Override
+	public IGraphicsAlgorithmRendererFactory getGraphicsAlgorithmRendererFactory() {
+		return graphicsAlgorithmRendererFactory;
+	}
+
+	public static ResourceManager getResources() {
+		return JFaceResources.getResources();
 	}
 }
