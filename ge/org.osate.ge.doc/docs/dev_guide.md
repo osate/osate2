@@ -55,7 +55,8 @@ References are used to associate a diagram element with a business object. Refer
 * org.osate.ge.errormodel.ErrorModelReferenceHandler
 
 ##### Required Annotations:
-* [BuildReference](../api/org/osate/ge/di/BuildReference.html)
+* [BuildCanonicalReference](../api/org/osate/ge/di/BuildCanonicalReference.html)
+* [BuildRelativeReference](../api/org/osate/ge/di/BuildRelativeReference.html)
 
 #### Reference Resolvers
 ##### Examples
@@ -68,7 +69,7 @@ Reference resolvers differ from reference builders and other extensions in a cou
 * Constructors may accept arguments. As with method invocations, arguments are injected using dependency injection.
 
 ##### Required Annotations:
-* [ResolveReference](../api/org/osate/ge/di/ResolveReference.html)
+* [ResolveCanonicalReference](../api/org/osate/ge/di/ResolveCanonicalReference.html)
 
 ##### Optional Annotations:
 * javax.annotation.PreDestroy
@@ -86,8 +87,7 @@ If a business object handler exists for a parsed annex library or subclause, nei
 * [IsApplicable](../api/org/osate/ge/di/IsApplicable.html)
 
 ##### General
-* [GetGraphicalConfiguration](../api/org/osate/ge/GetGraphicalConfiguration.html)
-* [GetChildren](../api/org/osate/ge/di/GetChildren.html)
+* [GetGraphicalConfiguration](../api/org/osate/ge/di/GetGraphicalConfiguration.html)
 
 ##### Business Object Creation
 * [GetPaletteEntries](../api/org/osate/ge/di/GetPaletteEntries.html)
@@ -103,7 +103,7 @@ If a business object handler exists for a parsed annex library or subclause, nei
 ##### Naming
 * [GetName](../api/org/osate/ge/di/GetName.html)
 * [ValidateName](../api/org/osate/ge/di/ValidateName.html)
-* [SetName](../api/org/osate/ge/di/SetName.html)
+* [Rename](../api/org/osate/ge/di/Rename.html)
 
 ## Tooltip Contributors
 Tooltip contributors are objects which contribute tooltip contents for a model element. When the user's cursor hovers over a pictogram element, tooltip contributors are activated to populate the tooltip.  If no content is provided, the tooltip is not shown.
