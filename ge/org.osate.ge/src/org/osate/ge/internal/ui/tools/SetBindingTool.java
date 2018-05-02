@@ -59,6 +59,7 @@ import org.osate.ge.internal.services.AadlModificationService;
 import org.osate.ge.internal.services.AadlModificationService.Modification;
 import org.osate.ge.internal.services.AadlModificationService.SimpleModifier;
 import org.osate.ge.internal.services.UiService;
+import org.osate.ge.internal.ui.util.UiUtil;
 import org.osate.xtext.aadl2.properties.util.DeploymentProperties;
 import org.osate.xtext.aadl2.properties.util.GetProperties;
 
@@ -67,6 +68,7 @@ import org.osate.xtext.aadl2.properties.util.GetProperties;
  * Assumes that all selected elements are descendants of the same component implementation
  */
 public class SetBindingTool {
+	public static final String setBindingIdentifier = "org.osate.ge.SetBinding";
 	private SetBindingWindow currentWindow = null;
 
 	@Activate
@@ -193,6 +195,7 @@ public class SetBindingTool {
 			// Create combo box for selection type
 			bindingPropertyCombo = new ComboViewer(container, SWT.DROP_DOWN | SWT.READ_ONLY);
 			bindingPropertyCombo.getControl().setLayoutData(new GridData(SWT.FILL, SWT.TOP, true, false));
+			bindingPropertyCombo.getControl().setData(UiUtil.AUTOMATED_SWTBOT_TESTING_KEY, setBindingIdentifier);
 			bindingPropertyCombo.setContentProvider(new ArrayContentProvider());
 			bindingPropertyCombo.setLabelProvider(propertyLabelProvider);
 			bindingPropertyCombo.setInput(bindingProperties);
