@@ -35,6 +35,8 @@ import org.osate.ge.internal.util.classifiers.ClassifierOperationPartType;
  *
  */
 public class ClassifierOperationDialog {
+	public static final String primaryPartIdentifier = "org.osate.ge.PrimaryPartIdentifier";
+	public static final String baseValueIdentifier = "org.osate.ge.BaseValueIdentifier";
 	static String NOT_SELECTED_LABEL = "<Not Selected>";
 
 	public static interface Model {
@@ -198,6 +200,7 @@ public class ClassifierOperationDialog {
 					return args.model.getUnfilteredPrimarySelectOptions();
 				}
 			});
+			primaryPartEditor.setData(primaryPartIdentifier);
 			primaryPartEditor.setSelectedElement(args.defaultSelection);
 			primaryPartEditor.setSelectedPackage(args.defaultPackage);
 			primaryPartEditor.setLayoutData(GridDataFactory.fillDefaults().span(2, 1).grab(true, false).create());
@@ -237,6 +240,7 @@ public class ClassifierOperationDialog {
 							primaryPartEditor.getConfiguredOperation().getType());
 				}
 			});
+			baseValueWidget.setData(baseValueIdentifier);
 			baseValueWidget.setSelectedElement(args.defaultSelection);
 			baseValueWidget.setSelectedPackage(args.defaultPackage);
 			baseValueWidget.setLayoutData(GridDataFactory.fillDefaults().grab(true, false).create());

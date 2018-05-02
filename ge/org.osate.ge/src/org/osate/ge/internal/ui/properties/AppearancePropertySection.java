@@ -116,6 +116,8 @@ public class AppearancePropertySection extends AbstractPropertySection {
 		fd.top = new FormAttachment(primaryLabelVisibleLabel, 0, SWT.TOP);
 		fd.left = new FormAttachment(primaryLabelVisibleLabel, 10);
 		primaryLabelVisibleViewer.getCombo().setLayoutData(fd);
+		primaryLabelVisibleViewer.getControl().setData(UiUtil.AUTOMATED_SWTBOT_TESTING_KEY,
+				primaryLabelVisibilityCombo);
 
 		fontSizeLabel = createLabel(parent, "Font Size:");
 		fd = new FormData();
@@ -128,6 +130,7 @@ public class AppearancePropertySection extends AbstractPropertySection {
 		fd.top = new FormAttachment(fontSizeLabel, 0, SWT.TOP);
 		fd.left = new FormAttachment(primaryLabelVisibleViewer.getControl(), 0, SWT.LEFT);
 		fontSizeComboViewer.getCombo().setLayoutData(fd);
+		fontSizeComboViewer.getControl().setData(UiUtil.AUTOMATED_SWTBOT_TESTING_KEY, fontSizeCombo);
 
 		lineWidthLabel = createLabel(parent, "Line Width:");
 		fd = new FormData();
@@ -140,10 +143,11 @@ public class AppearancePropertySection extends AbstractPropertySection {
 		fd.top = new FormAttachment(lineWidthLabel, 0, SWT.TOP);
 		fd.left = new FormAttachment(primaryLabelVisibleViewer.getControl(), 0, SWT.LEFT);
 		lineWidthComboViewer.getCombo().setLayoutData(fd);
+		lineWidthComboViewer.getControl().setData(UiUtil.AUTOMATED_SWTBOT_TESTING_KEY, lineWidthCombo);
 	}
 
 	private void createButtonSection(final Composite parent) {
-		final Button outlineButton = createButton(parent, outlineIcon, "Outline Color");
+		final Button outlineButton = createButton(parent, outlineIcon, "Outline Color", outlineColorId);
 		FormData fd = new FormData();
 		fd.top = new FormAttachment(imageLabel, 10);
 		fd.left = new FormAttachment(0, 30);
@@ -156,7 +160,7 @@ public class AppearancePropertySection extends AbstractPropertySection {
 					}
 				}));
 
-		final Button fontColorButton = createButton(parent, fontColorIcon, "Font Color");
+		final Button fontColorButton = createButton(parent, fontColorIcon, "Font Color", fontColorId);
 		fd = new FormData();
 		fd.top = new FormAttachment(outlineButton, 0, SWT.TOP);
 		fd.left = new FormAttachment(outlineButton, 0);
@@ -169,7 +173,7 @@ public class AppearancePropertySection extends AbstractPropertySection {
 					}
 				}));
 
-		final Button backgroundButton = createButton(parent, backgroundIcon, "Background Color");
+		final Button backgroundButton = createButton(parent, backgroundIcon, "Background Color", backgroundColorId);
 		fd = new FormData();
 		fd.top = new FormAttachment(fontColorButton, 0, SWT.TOP);
 		fd.left = new FormAttachment(fontColorButton, 0);
@@ -188,7 +192,7 @@ public class AppearancePropertySection extends AbstractPropertySection {
 		imageLabel = createLabel(parent, "Show as Image:");
 		toggleShowImage = new Button(parent, SWT.CHECK);
 		toggleShowImage.setToolTipText("Show Image");
-		setImageButton = createButton(parent, imageIcon, "Set Image");
+		setImageButton = createButton(parent, imageIcon, "Set Image", setImageId);
 
 		// Set layout
 		FormData fd = new FormData();
@@ -388,10 +392,12 @@ public class AppearancePropertySection extends AbstractPropertySection {
 	}
 
 	private static Button createButton(final Composite parent, final ImageDescriptor imageDescriptor,
-			final String toolTipText) {
+			final String toolTipText, final String id) {
 		final Button button = new Button(parent, SWT.PUSH);
 		button.setImage(imageDescriptor.createImage());
 		button.setToolTipText(toolTipText);
+		button.setData(UiUtil.AUTOMATED_SWTBOT_TESTING_KEY, id);
+
 		return button;
 	}
 
@@ -438,6 +444,7 @@ public class AppearancePropertySection extends AbstractPropertySection {
 		private Button createColorButton(final Composite parent, final ImageDescriptor imgDescriptor) {
 			final Button btn = new Button(parent, SWT.PUSH);
 			btn.setImage(imgDescriptor.createImage());
+			btn.setData(UiUtil.AUTOMATED_SWTBOT_TESTING_KEY, presetColorId);
 			btn.addDisposeListener(e -> {
 				btn.getImage().dispose();
 			});
@@ -458,7 +465,8 @@ public class AppearancePropertySection extends AbstractPropertySection {
 			// Create custom color button
 			final boolean hasCustomColor = customPC != null;
 			final PresetColor customPresetColor = hasCustomColor ? customPC : white;
-			final Button customColorBtn = createButton(shell, customPresetColor.imageDescriptor, "Custom...");
+			final Button customColorBtn = createButton(shell, customPresetColor.imageDescriptor, "Custom...",
+					customColorId);
 			customColorBtn.setEnabled(hasCustomColor);
 			customColorBtn.addSelectionListener(
 					new ColorSelectionAdapter(shell, paintListener, customPresetColor.rgb, styleCmd));
@@ -856,6 +864,15 @@ public class AppearancePropertySection extends AbstractPropertySection {
 		}
 	}
 
+	public final static String primaryLabelVisibilityCombo = "org.osate.ge.properties.PrimaryLabelVisibility";
+	public final static String fontSizeCombo = "org.osate.ge.properties.FontSize";
+	public final static String lineWidthCombo = "org.osate.ge.properties.LineWidth";
+	public final static String backgroundColorId = "org.osate.ge.properties.BackgroundColor";
+	public final static String fontColorId = "org.osate.ge.properties.FontColor";
+	public final static String outlineColorId = "org.osate.ge.properties.OutlineColor";
+	public final static String customColorId = "org.osate.ge.properties.CustomColor";
+	public final static String presetColorId = "org.osate.ge.properties.PresetColorButton";
+	public final static String setImageId = "org.osate.ge.properties.SetImage";
 	private final static ImageDescriptor outlineIcon = Activator.getImageDescriptor("icons/Outline.gif");
 	private final static ImageDescriptor backgroundIcon = Activator.getImageDescriptor("icons/Background.gif");
 	private final static ImageDescriptor fontColorIcon = Activator.getImageDescriptor("icons/FontColor.gif");

@@ -22,6 +22,8 @@ import org.osate.ge.internal.util.DiagamElementUtil;
 import org.osate.ge.internal.util.StringUtil;
 
 public class UiUtil {
+	public static String AUTOMATED_SWTBOT_TESTING_KEY = "org.eclipse.swtbot.widget.key";
+
 	public static void openPropertiesView() {
 		final IWorkbench wb = PlatformUI.getWorkbench();
 		if (wb == null) {
