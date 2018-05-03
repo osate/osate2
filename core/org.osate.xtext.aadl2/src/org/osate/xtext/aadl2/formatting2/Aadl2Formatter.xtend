@@ -4,11 +4,22 @@
 package org.osate.xtext.aadl2.formatting2;
 
 import com.google.inject.Inject
+import org.eclipse.emf.common.util.URI
 import org.eclipse.emf.ecore.EObject
+import org.eclipse.xtend2.lib.StringConcatenation
+import org.eclipse.xtext.Grammar
 import org.eclipse.xtext.formatting2.AbstractFormatter2
+import org.eclipse.xtext.formatting2.FormatterRequest
 import org.eclipse.xtext.formatting2.IFormattableDocument
+import org.eclipse.xtext.formatting2.IFormatter2
 import org.eclipse.xtext.formatting2.IHiddenRegionFormatter
+import org.eclipse.xtext.formatting2.ITextReplacerContext
+import org.eclipse.xtext.formatting2.internal.AbstractTextReplacer
 import org.eclipse.xtext.formatting2.regionaccess.ISemanticRegion
+import org.eclipse.xtext.formatting2.regionaccess.TextRegionAccessBuilder
+import org.eclipse.xtext.resource.FileExtensionProvider
+import org.eclipse.xtext.resource.IResourceFactory
+import org.eclipse.xtext.resource.XtextResource
 import org.osate.aadl2.AadlBoolean
 import org.osate.aadl2.AadlInteger
 import org.osate.aadl2.AadlPackage
@@ -164,7 +175,15 @@ import org.osate.aadl2.VirtualProcessorImplementation
 import org.osate.aadl2.VirtualProcessorPrototype
 import org.osate.aadl2.VirtualProcessorSubcomponent
 import org.osate.aadl2.VirtualProcessorType
+import org.osate.aadl2.modelsupport.errorreporting.NullParseErrorReporter
+import org.osate.annexsupport.AnnexParseUtil
+import org.osate.annexsupport.AnnexParser
+import org.osate.annexsupport.AnnexParserRegistry
+import org.osate.annexsupport.AnnexRegistry
+import org.osate.core.OsateCorePlugin
 import org.osate.xtext.aadl2.services.Aadl2GrammarAccess
+
+import static extension org.eclipse.xtext.EcoreUtil2.getContainerOfType
 
 @SuppressWarnings("all")
 class Aadl2Formatter extends AbstractFormatter2 {
@@ -809,6 +828,13 @@ class Aadl2Formatter extends AbstractFormatter2 {
 		}
 		defaultAnnexLibrary.surround[indent].conditionalAppend(document, [newLines = newLineCount])
 		defaultAnnexLibrary.regionFor.assignment(defaultAnnexLibraryAccess.nameAssignment_1).surround[oneSpace]
+		
+		val annexName = defaultAnnexLibrary.name
+		val sourceTextRegion = defaultAnnexLibrary.regionFor.assignment(defaultAnnexLibraryAccess.sourceTextAssignment_2)
+		formatAnnexText(annexName, sourceTextRegion, 1, document, [annexParser, source |
+			annexParser.parseAnnexLibrary(annexName, source, "", 0, 0, NullParseErrorReporter.prototype)
+		])
+		
 		defaultAnnexLibrary.regionFor.keyword(defaultAnnexLibraryAccess.semicolonKeyword_3).prepend[noSpace]
 	}
 	
@@ -1550,6 +1576,12 @@ class Aadl2Formatter extends AbstractFormatter2 {
 		defaultAnnexSubclause.surround[indent].conditionalAppend(document, [newLines = 1])
 		defaultAnnexSubclause.regionFor.assignment(defaultAnnexSubclauseAccess.nameAssignment_1).surround[oneSpace]
 		
+		val annexName = defaultAnnexSubclause.name
+		val sourceTextRegion = defaultAnnexSubclause.regionFor.assignment(defaultAnnexSubclauseAccess.sourceTextAssignment_2)
+		formatAnnexText(annexName, sourceTextRegion, 2, document, [annexParser, source |
+			annexParser.parseAnnexSubclause(annexName, source, "", 0, 0, NullParseErrorReporter.prototype)
+		])
+		
 		//In modes
 		val leftParenthesis = defaultAnnexSubclause.regionFor.keyword(defaultAnnexSubclauseAccess.leftParenthesisKeyword_3_1)
 		val rightParenthesis = defaultAnnexSubclause.regionFor.keyword(defaultAnnexSubclauseAccess.rightParenthesisKeyword_3_3)
@@ -2270,5 +2302,92 @@ class Aadl2Formatter extends AbstractFormatter2 {
 			appendAfter.append(initializer)
 		}
 		appendAfter
+	}
+	
+	/**
+	 * The process for formatting an annex is as follows:
+	 * 1. Parse the annex text and place it into its own resource. This causes the annex text to effectively
+	 *    exist isolated and independent of the surrounding core text.
+	 * 2. Inject the annex formatter and format the annex text.
+	 * 3. Replace the annex text in the aadl file with the formatted annex text.
+	 * 
+	 * We take the effort to parse the annex text so that we can get an XtextResource with the AnnexLibrary
+	 * or AnnexSubclause as the root object. The XtextResource also needs the IParseResult attached as well.
+	 * This is necessary because the annex formatter takes a resource as a parameter and then it formats
+	 * the AnnexLibrary or AnnexSubclause contained as a top level element of the resource.
+	 * 
+	 * For figuring out how to invoke the formatter such that a String is returned, I looked at
+	 * FormatterTestHelper to learn how to do that. The method of most interest is
+	 * assertFormatted(FormatterTestRequest).
+	 * 
+	 * It was not obvious how to replace an ISemanticRegion with a given String. It is not enough to simply
+	 * call ISemanticRegion.replaceWith(String). This must be wrapped in an ITextReplacer which is then
+	 * added to the document. See https://www.eclipse.org/forums/index.php/t/1093069/
+	 * 
+	 * @param annexName The name field of the DefaultAnnexLibrary or DefaultAnnexSubclause.
+	 * @param sourceTextRegion The ISemanticRegion for the sourceText assignment of the DefaultAnnexLibrary
+	 *        or DefaultAnnexSubclause.
+	 * @param indentationLevel Indentation level of the DefaultAnnexLibrary or DefaultAnnexSubclause. The
+	 *        closing "**}" is placed at indentationLevel. All lines of the formatted annex text are placed
+	 *        at indentationLevel + 1.
+	 * @param document The document passed to the format method.
+	 * @param parseAnnexObject Lambda for calling the appropriate parse method on AnnexParser. The first
+	 *        parameter is the AnnexParser retrieved from the AnnexRegistry and the second parameter is the
+	 *        trimmed annex text.
+	 */
+	def private void formatAnnexText(String annexName, ISemanticRegion sourceTextRegion, int indentationLevel,
+		IFormattableDocument document, (AnnexParser, String)=>NamedElement parseAnnexObject
+	) {
+		if (annexName !== null && sourceTextRegion !== null) {
+			//Parse the annex text.
+			val annexRegistry = AnnexRegistry.getRegistry(AnnexRegistry.ANNEX_PARSER_EXT_ID) as AnnexParserRegistry
+			val annexParser = annexRegistry.getAnnexParser(annexName)
+			val trimmedText = sourceTextRegion.text.substring(3, sourceTextRegion.length - 3)
+			val annexObject = parseAnnexObject.apply(annexParser, trimmedText)
+			val annexParseResult = AnnexParseUtil.getParseResult(annexObject)
+			if (annexParseResult !== null) {
+				//Get the injector for the annex.
+				val grammarName = annexParseResult.rootNode.grammarElement.getContainerOfType(Grammar).name
+				val annexInjector = OsateCorePlugin.^default.getInjector(grammarName)
+				if (annexInjector !== null) {
+					//Create resource and populate it with the library or subclause and the parse result.
+					val resourceFactory = annexInjector.getInstance(IResourceFactory)
+					val annexExtension = annexInjector.getInstance(FileExtensionProvider).primaryFileExtension
+					val fakeURI = URI.createURI("__synthetic." + annexExtension)
+					val fakeResource = resourceFactory.createResource(fakeURI) as XtextResource
+					fakeResource.contents += annexObject
+					fakeResource.parseResult = annexParseResult
+					
+					//Setup the formatting request.
+					val request = annexInjector.getInstance(FormatterRequest)
+					val accessBuilder = annexInjector.getProvider(TextRegionAccessBuilder).get
+					request.textRegionAccess = accessBuilder.forNodeModel(fakeResource).create
+					
+					//Format the annex text.
+					val replacements = annexInjector.getInstance(IFormatter2).format(request)
+					val formatted = request.textRegionAccess.rewriter.renderToString(replacements)
+					
+					/*
+					 * Insert the formatted text into the core document
+					 * See https://www.eclipse.org/forums/index.php/t/1093069/
+					 */
+					document.addReplacer(new AbstractTextReplacer(document, sourceTextRegion) {
+						override createReplacements(ITextReplacerContext context) {
+							val annexIndentation = context.getIndentationString(indentationLevel + 1)
+							
+							val newText = new StringConcatenation
+							newText.append(formatted, annexIndentation)
+							
+							context.addReplacement(region.replaceWith('''
+								{**
+								«annexIndentation»«newText»
+								«context.getIndentationString(indentationLevel)»**}'''))
+							
+							context
+						}
+					})
+				}
+			}
+		}
 	}
 }
