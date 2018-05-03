@@ -22,6 +22,7 @@ import org.eclipse.core.runtime.Status
 import org.eclipse.core.runtime.NullProgressMonitor
 import org.osate.aadl2.NamedElement
 import org.eclipse.xtext.resource.XtextResourceSet
+import org.osate.xtext.aadl2.ui.util.Aadl2NameValidators
 
 final class NewAadlPackageWizard extends AbstractNewModelUnitWizard {
 	val static PACKAGE_LABEL = "AADL package name"
@@ -31,7 +32,7 @@ final class NewAadlPackageWizard extends AbstractNewModelUnitWizard {
 	
 	new() {
 		super("AADL Package", "AADL package")
-		addField(PACKAGE_LABEL, getFieldValidator(grammarAccess.PNAMERule))
+		addField(PACKAGE_LABEL, Aadl2NameValidators.PACKAGE_NAME_VALIDATOR)
 	}
 	
 	override addLocalControls(Composite parent) {
