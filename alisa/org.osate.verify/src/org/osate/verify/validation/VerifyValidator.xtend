@@ -48,7 +48,6 @@ import org.osate.verify.verify.JUnit4Method
 import org.osate.verify.verify.JavaMethod
 import org.osate.verify.verify.PluginMethod
 import org.osate.verify.verify.ResoluteMethod
-import org.osate.verify.verify.TargetType
 import org.osate.verify.verify.Verification
 import org.osate.verify.verify.VerificationActivity
 import org.osate.verify.verify.VerificationCondition
@@ -58,6 +57,7 @@ import org.osate.verify.verify.VerificationPlan
 import org.osate.verify.verify.VerifyPackage
 
 import static extension org.osate.verify.util.VerifyUtilExtension.*
+import org.osate.alisa.common.common.TargetType
 
 /**
  * Custom validation rules. 
@@ -141,21 +141,21 @@ class VerifyValidator extends VerifyTypeSystemValidator {
 			val req = va.containingClaim?.requirement
 			val target = req?.targetElement
 			val cat = req?.componentCategory
-			if ((target === null || !cat.empty) && !req.connections){
+			if (target === null || !cat.empty||req.targetType == TargetType.COMPONENT||req.targetType == TargetType.ROOT){
 				if (!(vm.targetType === TargetType.COMPONENT|| vm.targetType === TargetType.ELEMENT|| vm.targetType === TargetType.ROOT)){
 				error(
 				"Requirement is for component while verification method is not for component, element, or root",
 				va, VerifyPackage.Literals.VERIFICATION_ACTIVITY__METHOD,MISMATCHED_TARGET)
 				}
-			} else if (target instanceof Feature && !(vm.targetType === TargetType.FEATURE|| vm.targetType !== TargetType.ELEMENT)){
+			} else if ((req.targetType == TargetType.FEATURE ||target instanceof Feature) && !(vm.targetType === TargetType.FEATURE|| vm.targetType === TargetType.ELEMENT)){
 				error(
 				"Requirement is for Feature while verification method is not for Feature",
 				va, VerifyPackage.Literals.VERIFICATION_ACTIVITY__METHOD,MISMATCHED_TARGET)
-			} else if (target instanceof EndToEndFlow && (vm.targetType === TargetType.FLOW|| vm.targetType !== TargetType.ELEMENT)){
+			} else if ((req.targetType == TargetType.FLOW ||target instanceof EndToEndFlow) && (vm.targetType === TargetType.FLOW|| vm.targetType === TargetType.ELEMENT)){
 				error(
 				"Requirement is for Flow while verification method is not for Flow",
 				va, VerifyPackage.Literals.VERIFICATION_ACTIVITY__METHOD,MISMATCHED_TARGET)
-			} else if ((req.connections || target instanceof Connection )&& !(vm.targetType === TargetType.CONNECTION|| vm.targetType !== TargetType.ELEMENT)){
+			} else if ((req.targetType == TargetType.CONNECTION || target instanceof Connection )&& !(vm.targetType === TargetType.CONNECTION|| vm.targetType === TargetType.ELEMENT)){
 				error(
 				"Requirement is for Flow while verification method is not for Flow",
 				va, VerifyPackage.Literals.VERIFICATION_ACTIVITY__METHOD,MISMATCHED_TARGET)

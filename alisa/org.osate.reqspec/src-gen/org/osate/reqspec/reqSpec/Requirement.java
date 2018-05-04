@@ -22,6 +22,7 @@ import org.eclipse.emf.ecore.EObject;
 import org.osate.aadl2.ComponentCategory;
 
 import org.osate.alisa.common.common.AVariableDeclaration;
+import org.osate.alisa.common.common.TargetType;
 
 import org.osate.organization.organization.Stakeholder;
 
@@ -44,7 +45,7 @@ import org.osate.organization.organization.Stakeholder;
  *   <li>{@link org.osate.reqspec.reqSpec.Requirement#getDevelopmentStakeholder <em>Development Stakeholder</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.Requirement#getRequirementReference <em>Requirement Reference</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.Requirement#getComponentCategory <em>Component Category</em>}</li>
- *   <li>{@link org.osate.reqspec.reqSpec.Requirement#isConnections <em>Connections</em>}</li>
+ *   <li>{@link org.osate.reqspec.reqSpec.Requirement#getTargetType <em>Target Type</em>}</li>
  * </ul>
  *
  * @see org.osate.reqspec.reqSpec.ReqSpecPackage#getRequirement()
@@ -256,29 +257,32 @@ public interface Requirement extends ContractualElement
   EList<ComponentCategory> getComponentCategory();
 
   /**
-   * Returns the value of the '<em><b>Connections</b></em>' attribute.
+   * Returns the value of the '<em><b>Target Type</b></em>' attribute.
+   * The literals are from the enumeration {@link org.osate.alisa.common.common.TargetType}.
    * <!-- begin-user-doc -->
    * <p>
-   * If the meaning of the '<em>Connections</em>' attribute isn't clear,
+   * If the meaning of the '<em>Target Type</em>' attribute isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Connections</em>' attribute.
-   * @see #setConnections(boolean)
-   * @see org.osate.reqspec.reqSpec.ReqSpecPackage#getRequirement_Connections()
+   * @return the value of the '<em>Target Type</em>' attribute.
+   * @see org.osate.alisa.common.common.TargetType
+   * @see #setTargetType(TargetType)
+   * @see org.osate.reqspec.reqSpec.ReqSpecPackage#getRequirement_TargetType()
    * @model
    * @generated
    */
-  boolean isConnections();
+  TargetType getTargetType();
 
   /**
-   * Sets the value of the '{@link org.osate.reqspec.reqSpec.Requirement#isConnections <em>Connections</em>}' attribute.
+   * Sets the value of the '{@link org.osate.reqspec.reqSpec.Requirement#getTargetType <em>Target Type</em>}' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Connections</em>' attribute.
-   * @see #isConnections()
+   * @param value the new value of the '<em>Target Type</em>' attribute.
+   * @see org.osate.alisa.common.common.TargetType
+   * @see #getTargetType()
    * @generated
    */
-  void setConnections(boolean value);
+  void setTargetType(TargetType value);
 
 } // Requirement

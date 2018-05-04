@@ -6305,23 +6305,23 @@ public class InternalVerifyParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "ruleTargetType"
-    // InternalVerify.g:2107:1: ruleTargetType : ( ( rule__TargetType__Alternatives ) ) ;
+    // InternalVerify.g:2109:1: ruleTargetType : ( ( rule__TargetType__Alternatives ) ) ;
     public final void ruleTargetType() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalVerify.g:2111:1: ( ( ( rule__TargetType__Alternatives ) ) )
-            // InternalVerify.g:2112:1: ( ( rule__TargetType__Alternatives ) )
+            // InternalVerify.g:2113:1: ( ( ( rule__TargetType__Alternatives ) ) )
+            // InternalVerify.g:2114:1: ( ( rule__TargetType__Alternatives ) )
             {
-            // InternalVerify.g:2112:1: ( ( rule__TargetType__Alternatives ) )
-            // InternalVerify.g:2113:1: ( rule__TargetType__Alternatives )
+            // InternalVerify.g:2114:1: ( ( rule__TargetType__Alternatives ) )
+            // InternalVerify.g:2115:1: ( rule__TargetType__Alternatives )
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getTargetTypeAccess().getAlternatives()); 
             }
-            // InternalVerify.g:2114:1: ( rule__TargetType__Alternatives )
-            // InternalVerify.g:2114:2: rule__TargetType__Alternatives
+            // InternalVerify.g:2116:1: ( rule__TargetType__Alternatives )
+            // InternalVerify.g:2116:2: rule__TargetType__Alternatives
             {
             pushFollow(FOLLOW_2);
             rule__TargetType__Alternatives();
@@ -9849,13 +9849,13 @@ public class InternalVerifyParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__TargetType__Alternatives"
-    // InternalVerify.g:3010:1: rule__TargetType__Alternatives : ( ( ( 'component' ) ) | ( ( 'feature' ) ) | ( ( 'connection' ) ) | ( ( 'flow' ) ) | ( ( 'mode' ) ) | ( ( 'element' ) ) | ( ( 'root' ) ) );
+    // InternalVerify.g:3011:1: rule__TargetType__Alternatives : ( ( ( 'component' ) ) | ( ( 'feature' ) ) | ( ( 'connection' ) ) | ( ( 'flow' ) ) | ( ( 'mode' ) ) | ( ( 'element' ) ) | ( ( 'root' ) ) );
     public final void rule__TargetType__Alternatives() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalVerify.g:3014:1: ( ( ( 'component' ) ) | ( ( 'feature' ) ) | ( ( 'connection' ) ) | ( ( 'flow' ) ) | ( ( 'mode' ) ) | ( ( 'element' ) ) | ( ( 'root' ) ) )
+            // InternalVerify.g:3015:1: ( ( ( 'component' ) ) | ( ( 'feature' ) ) | ( ( 'connection' ) ) | ( ( 'flow' ) ) | ( ( 'mode' ) ) | ( ( 'element' ) ) | ( ( 'root' ) ) )
             int alt31=7;
             switch ( input.LA(1) ) {
             case 47:
@@ -9903,16 +9903,16 @@ public class InternalVerifyParser extends AbstractInternalContentAssistParser {
 
             switch (alt31) {
                 case 1 :
-                    // InternalVerify.g:3015:1: ( ( 'component' ) )
+                    // InternalVerify.g:3016:1: ( ( 'component' ) )
                     {
-                    // InternalVerify.g:3015:1: ( ( 'component' ) )
-                    // InternalVerify.g:3016:1: ( 'component' )
+                    // InternalVerify.g:3016:1: ( ( 'component' ) )
+                    // InternalVerify.g:3017:1: ( 'component' )
                     {
                     if ( state.backtracking==0 ) {
                        before(grammarAccess.getTargetTypeAccess().getCOMPONENTEnumLiteralDeclaration_0()); 
                     }
-                    // InternalVerify.g:3017:1: ( 'component' )
-                    // InternalVerify.g:3017:3: 'component'
+                    // InternalVerify.g:3018:1: ( 'component' )
+                    // InternalVerify.g:3018:3: 'component'
                     {
                     match(input,47,FOLLOW_2); if (state.failed) return ;
 
@@ -9928,16 +9928,16 @@ public class InternalVerifyParser extends AbstractInternalContentAssistParser {
                     }
                     break;
                 case 2 :
-                    // InternalVerify.g:3022:6: ( ( 'feature' ) )
+                    // InternalVerify.g:3023:6: ( ( 'feature' ) )
                     {
-                    // InternalVerify.g:3022:6: ( ( 'feature' ) )
-                    // InternalVerify.g:3023:1: ( 'feature' )
+                    // InternalVerify.g:3023:6: ( ( 'feature' ) )
+                    // InternalVerify.g:3024:1: ( 'feature' )
                     {
                     if ( state.backtracking==0 ) {
                        before(grammarAccess.getTargetTypeAccess().getFEATUREEnumLiteralDeclaration_1()); 
                     }
-                    // InternalVerify.g:3024:1: ( 'feature' )
-                    // InternalVerify.g:3024:3: 'feature'
+                    // InternalVerify.g:3025:1: ( 'feature' )
+                    // InternalVerify.g:3025:3: 'feature'
                     {
                     match(input,48,FOLLOW_2); if (state.failed) return ;
 
@@ -9953,16 +9953,16 @@ public class InternalVerifyParser extends AbstractInternalContentAssistParser {
                     }
                     break;
                 case 3 :
-                    // InternalVerify.g:3029:6: ( ( 'connection' ) )
+                    // InternalVerify.g:3030:6: ( ( 'connection' ) )
                     {
-                    // InternalVerify.g:3029:6: ( ( 'connection' ) )
-                    // InternalVerify.g:3030:1: ( 'connection' )
+                    // InternalVerify.g:3030:6: ( ( 'connection' ) )
+                    // InternalVerify.g:3031:1: ( 'connection' )
                     {
                     if ( state.backtracking==0 ) {
                        before(grammarAccess.getTargetTypeAccess().getCONNECTIONEnumLiteralDeclaration_2()); 
                     }
-                    // InternalVerify.g:3031:1: ( 'connection' )
-                    // InternalVerify.g:3031:3: 'connection'
+                    // InternalVerify.g:3032:1: ( 'connection' )
+                    // InternalVerify.g:3032:3: 'connection'
                     {
                     match(input,49,FOLLOW_2); if (state.failed) return ;
 
@@ -9978,16 +9978,16 @@ public class InternalVerifyParser extends AbstractInternalContentAssistParser {
                     }
                     break;
                 case 4 :
-                    // InternalVerify.g:3036:6: ( ( 'flow' ) )
+                    // InternalVerify.g:3037:6: ( ( 'flow' ) )
                     {
-                    // InternalVerify.g:3036:6: ( ( 'flow' ) )
-                    // InternalVerify.g:3037:1: ( 'flow' )
+                    // InternalVerify.g:3037:6: ( ( 'flow' ) )
+                    // InternalVerify.g:3038:1: ( 'flow' )
                     {
                     if ( state.backtracking==0 ) {
                        before(grammarAccess.getTargetTypeAccess().getFLOWEnumLiteralDeclaration_3()); 
                     }
-                    // InternalVerify.g:3038:1: ( 'flow' )
-                    // InternalVerify.g:3038:3: 'flow'
+                    // InternalVerify.g:3039:1: ( 'flow' )
+                    // InternalVerify.g:3039:3: 'flow'
                     {
                     match(input,50,FOLLOW_2); if (state.failed) return ;
 
@@ -10003,16 +10003,16 @@ public class InternalVerifyParser extends AbstractInternalContentAssistParser {
                     }
                     break;
                 case 5 :
-                    // InternalVerify.g:3043:6: ( ( 'mode' ) )
+                    // InternalVerify.g:3044:6: ( ( 'mode' ) )
                     {
-                    // InternalVerify.g:3043:6: ( ( 'mode' ) )
-                    // InternalVerify.g:3044:1: ( 'mode' )
+                    // InternalVerify.g:3044:6: ( ( 'mode' ) )
+                    // InternalVerify.g:3045:1: ( 'mode' )
                     {
                     if ( state.backtracking==0 ) {
                        before(grammarAccess.getTargetTypeAccess().getMODEEnumLiteralDeclaration_4()); 
                     }
-                    // InternalVerify.g:3045:1: ( 'mode' )
-                    // InternalVerify.g:3045:3: 'mode'
+                    // InternalVerify.g:3046:1: ( 'mode' )
+                    // InternalVerify.g:3046:3: 'mode'
                     {
                     match(input,51,FOLLOW_2); if (state.failed) return ;
 
@@ -10028,16 +10028,16 @@ public class InternalVerifyParser extends AbstractInternalContentAssistParser {
                     }
                     break;
                 case 6 :
-                    // InternalVerify.g:3050:6: ( ( 'element' ) )
+                    // InternalVerify.g:3051:6: ( ( 'element' ) )
                     {
-                    // InternalVerify.g:3050:6: ( ( 'element' ) )
-                    // InternalVerify.g:3051:1: ( 'element' )
+                    // InternalVerify.g:3051:6: ( ( 'element' ) )
+                    // InternalVerify.g:3052:1: ( 'element' )
                     {
                     if ( state.backtracking==0 ) {
                        before(grammarAccess.getTargetTypeAccess().getELEMENTEnumLiteralDeclaration_5()); 
                     }
-                    // InternalVerify.g:3052:1: ( 'element' )
-                    // InternalVerify.g:3052:3: 'element'
+                    // InternalVerify.g:3053:1: ( 'element' )
+                    // InternalVerify.g:3053:3: 'element'
                     {
                     match(input,52,FOLLOW_2); if (state.failed) return ;
 
@@ -10053,16 +10053,16 @@ public class InternalVerifyParser extends AbstractInternalContentAssistParser {
                     }
                     break;
                 case 7 :
-                    // InternalVerify.g:3057:6: ( ( 'root' ) )
+                    // InternalVerify.g:3058:6: ( ( 'root' ) )
                     {
-                    // InternalVerify.g:3057:6: ( ( 'root' ) )
-                    // InternalVerify.g:3058:1: ( 'root' )
+                    // InternalVerify.g:3058:6: ( ( 'root' ) )
+                    // InternalVerify.g:3059:1: ( 'root' )
                     {
                     if ( state.backtracking==0 ) {
                        before(grammarAccess.getTargetTypeAccess().getROOTEnumLiteralDeclaration_6()); 
                     }
-                    // InternalVerify.g:3059:1: ( 'root' )
-                    // InternalVerify.g:3059:3: 'root'
+                    // InternalVerify.g:3060:1: ( 'root' )
+                    // InternalVerify.g:3060:3: 'root'
                     {
                     match(input,53,FOLLOW_2); if (state.failed) return ;
 

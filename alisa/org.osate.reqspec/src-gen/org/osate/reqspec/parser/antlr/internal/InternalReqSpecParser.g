@@ -3428,17 +3428,19 @@ ruleGlobalRequirement returns [EObject current=null]
 )+
     |(
 (
-		lv_connections_6_0=
-	Connections
-    {
-        newLeafNode(lv_connections_6_0, grammarAccess.getGlobalRequirementAccess().getConnectionsConnectionsKeyword_3_1_1_0());
-    }
-
-	    {
+		{ 
+	        newCompositeNode(grammarAccess.getGlobalRequirementAccess().getTargetTypeTargetTypeEnumRuleCall_3_1_1_0()); 
+	    }
+		lv_targetType_6_0=ruleTargetType		{
 	        if ($current==null) {
-	            $current = createModelElement(grammarAccess.getGlobalRequirementRule());
+	            $current = createModelElementForParent(grammarAccess.getGlobalRequirementRule());
 	        }
-       		setWithLastConsumed($current, "connections", true, "connections");
+       		set(
+       			$current, 
+       			"targetType",
+        		lv_targetType_6_0, 
+        		"org.osate.alisa.common.Common.TargetType");
+	        afterParserOrEnumRuleCall();
 	    }
 
 )
@@ -4929,29 +4931,10 @@ ruleIncludeGlobalRequirement returns [EObject current=null]
     }
 ((
 (
-		{ 
-	        newCompositeNode(grammarAccess.getIncludeGlobalRequirementAccess().getComponentCategoryComponentCategoryParserRuleCall_2_1_0_0()); 
-	    }
-		lv_componentCategory_3_0=ruleComponentCategory		{
-	        if ($current==null) {
-	            $current = createModelElementForParent(grammarAccess.getIncludeGlobalRequirementRule());
-	        }
-       		add(
-       			$current, 
-       			"componentCategory",
-        		lv_componentCategory_3_0, 
-        		"org.osate.alisa.common.Common.ComponentCategory");
-	        afterParserOrEnumRuleCall();
-	    }
-
-)
-)+
-    |(
-(
-		lv_self_4_0=
+		lv_self_3_0=
 	Self
     {
-        newLeafNode(lv_self_4_0, grammarAccess.getIncludeGlobalRequirementAccess().getSelfSelfKeyword_2_1_1_0());
+        newLeafNode(lv_self_3_0, grammarAccess.getIncludeGlobalRequirementAccess().getSelfSelfKeyword_2_1_0_0());
     }
 
 	    {
@@ -4960,6 +4943,20 @@ ruleIncludeGlobalRequirement returns [EObject current=null]
 	        }
        		setWithLastConsumed($current, "self", true, "self");
 	    }
+
+)
+)
+    |(
+(
+		{
+			if ($current==null) {
+	            $current = createModelElement(grammarAccess.getIncludeGlobalRequirementRule());
+	        }
+        }
+	otherlv_4=RULE_ID
+	{
+		newLeafNode(otherlv_4, grammarAccess.getIncludeGlobalRequirementAccess().getTargetElementNamedElementCrossReference_2_1_1_0()); 
+	}
 
 )
 )))?)
@@ -5878,40 +5875,46 @@ ruleUncertainty returns [EObject current=null]
     @init { enterRule(); 
     }
     @after { leaveRule(); }:
-(
-	otherlv_0=Uncertainty
+((
     {
-    	newLeafNode(otherlv_0, grammarAccess.getUncertaintyAccess().getUncertaintyKeyword_0());
+        $current = forceCreateModelElement(
+            grammarAccess.getUncertaintyAccess().getUncertaintyAction_0(),
+            $current);
+    }
+)
+	otherlv_1=Uncertainty
+    {
+    	newLeafNode(otherlv_1, grammarAccess.getUncertaintyAccess().getUncertaintyKeyword_1());
     }
 
-	otherlv_1=LeftSquareBracket
+	otherlv_2=LeftSquareBracket
     {
-    	newLeafNode(otherlv_1, grammarAccess.getUncertaintyAccess().getLeftSquareBracketKeyword_1());
+    	newLeafNode(otherlv_2, grammarAccess.getUncertaintyAccess().getLeftSquareBracketKeyword_2());
     }
 (
 
 (
 	{ 
-	  getUnorderedGroupHelper().enter(grammarAccess.getUncertaintyAccess().getUnorderedGroup_2());
+	  getUnorderedGroupHelper().enter(grammarAccess.getUncertaintyAccess().getUnorderedGroup_3());
 	}
 	(
 		(
 
 			( 
-				{getUnorderedGroupHelper().canSelect(grammarAccess.getUncertaintyAccess().getUnorderedGroup_2(), 0)}?=>(
+				{getUnorderedGroupHelper().canSelect(grammarAccess.getUncertaintyAccess().getUnorderedGroup_3(), 0)}?=>(
 					{ 
-	 				  getUnorderedGroupHelper().select(grammarAccess.getUncertaintyAccess().getUnorderedGroup_2(), 0);
+	 				  getUnorderedGroupHelper().select(grammarAccess.getUncertaintyAccess().getUnorderedGroup_3(), 0);
 	 				}
 					({true}?=>(
-	otherlv_3=Volatility
+	otherlv_4=Volatility
     {
-    	newLeafNode(otherlv_3, grammarAccess.getUncertaintyAccess().getVolatilityKeyword_2_0_0());
+    	newLeafNode(otherlv_4, grammarAccess.getUncertaintyAccess().getVolatilityKeyword_3_0_0());
     }
 (
 (
-		lv_volatility_4_0=RULE_INT
+		lv_volatility_5_0=RULE_INT
 		{
-			newLeafNode(lv_volatility_4_0, grammarAccess.getUncertaintyAccess().getVolatilityINTTerminalRuleCall_2_0_1_0()); 
+			newLeafNode(lv_volatility_5_0, grammarAccess.getUncertaintyAccess().getVolatilityINTTerminalRuleCall_3_0_1_0()); 
 		}
 		{
 	        if ($current==null) {
@@ -5920,33 +5923,33 @@ ruleUncertainty returns [EObject current=null]
        		setWithLastConsumed(
        			$current, 
        			"volatility",
-        		lv_volatility_4_0, 
+        		lv_volatility_5_0, 
         		"org.eclipse.xtext.common.Terminals.INT");
 	    }
 
 )
 )))
 					{ 
-	 				  getUnorderedGroupHelper().returnFromSelection(grammarAccess.getUncertaintyAccess().getUnorderedGroup_2());
+	 				  getUnorderedGroupHelper().returnFromSelection(grammarAccess.getUncertaintyAccess().getUnorderedGroup_3());
 	 				}
  				)
 			)  |
 
 			( 
-				{getUnorderedGroupHelper().canSelect(grammarAccess.getUncertaintyAccess().getUnorderedGroup_2(), 1)}?=>(
+				{getUnorderedGroupHelper().canSelect(grammarAccess.getUncertaintyAccess().getUnorderedGroup_3(), 1)}?=>(
 					{ 
-	 				  getUnorderedGroupHelper().select(grammarAccess.getUncertaintyAccess().getUnorderedGroup_2(), 1);
+	 				  getUnorderedGroupHelper().select(grammarAccess.getUncertaintyAccess().getUnorderedGroup_3(), 1);
 	 				}
 					({true}?=>(
-	otherlv_5=Precedence
+	otherlv_6=Precedence
     {
-    	newLeafNode(otherlv_5, grammarAccess.getUncertaintyAccess().getPrecedenceKeyword_2_1_0());
+    	newLeafNode(otherlv_6, grammarAccess.getUncertaintyAccess().getPrecedenceKeyword_3_1_0());
     }
 (
 (
-		lv_precedence_6_0=RULE_INT
+		lv_precedence_7_0=RULE_INT
 		{
-			newLeafNode(lv_precedence_6_0, grammarAccess.getUncertaintyAccess().getPrecedenceINTTerminalRuleCall_2_1_1_0()); 
+			newLeafNode(lv_precedence_7_0, grammarAccess.getUncertaintyAccess().getPrecedenceINTTerminalRuleCall_3_1_1_0()); 
 		}
 		{
 	        if ($current==null) {
@@ -5955,33 +5958,33 @@ ruleUncertainty returns [EObject current=null]
        		setWithLastConsumed(
        			$current, 
        			"precedence",
-        		lv_precedence_6_0, 
+        		lv_precedence_7_0, 
         		"org.eclipse.xtext.common.Terminals.INT");
 	    }
 
 )
 )))
 					{ 
-	 				  getUnorderedGroupHelper().returnFromSelection(grammarAccess.getUncertaintyAccess().getUnorderedGroup_2());
+	 				  getUnorderedGroupHelper().returnFromSelection(grammarAccess.getUncertaintyAccess().getUnorderedGroup_3());
 	 				}
  				)
 			)  |
 
 			( 
-				{getUnorderedGroupHelper().canSelect(grammarAccess.getUncertaintyAccess().getUnorderedGroup_2(), 2)}?=>(
+				{getUnorderedGroupHelper().canSelect(grammarAccess.getUncertaintyAccess().getUnorderedGroup_3(), 2)}?=>(
 					{ 
-	 				  getUnorderedGroupHelper().select(grammarAccess.getUncertaintyAccess().getUnorderedGroup_2(), 2);
+	 				  getUnorderedGroupHelper().select(grammarAccess.getUncertaintyAccess().getUnorderedGroup_3(), 2);
 	 				}
 					({true}?=>(
-	otherlv_7=Impact
+	otherlv_8=Impact
     {
-    	newLeafNode(otherlv_7, grammarAccess.getUncertaintyAccess().getImpactKeyword_2_2_0());
+    	newLeafNode(otherlv_8, grammarAccess.getUncertaintyAccess().getImpactKeyword_3_2_0());
     }
 (
 (
-		lv_impact_8_0=RULE_INT
+		lv_impact_9_0=RULE_INT
 		{
-			newLeafNode(lv_impact_8_0, grammarAccess.getUncertaintyAccess().getImpactINTTerminalRuleCall_2_2_1_0()); 
+			newLeafNode(lv_impact_9_0, grammarAccess.getUncertaintyAccess().getImpactINTTerminalRuleCall_3_2_1_0()); 
 		}
 		{
 	        if ($current==null) {
@@ -5990,14 +5993,14 @@ ruleUncertainty returns [EObject current=null]
        		setWithLastConsumed(
        			$current, 
        			"impact",
-        		lv_impact_8_0, 
+        		lv_impact_9_0, 
         		"org.eclipse.xtext.common.Terminals.INT");
 	    }
 
 )
 )))
 					{ 
-	 				  getUnorderedGroupHelper().returnFromSelection(grammarAccess.getUncertaintyAccess().getUnorderedGroup_2());
+	 				  getUnorderedGroupHelper().returnFromSelection(grammarAccess.getUncertaintyAccess().getUnorderedGroup_3());
 	 				}
  				)
 			)  
@@ -6006,13 +6009,13 @@ ruleUncertainty returns [EObject current=null]
 	)
 )
 	{ 
-	  getUnorderedGroupHelper().leave(grammarAccess.getUncertaintyAccess().getUnorderedGroup_2());
+	  getUnorderedGroupHelper().leave(grammarAccess.getUncertaintyAccess().getUnorderedGroup_3());
 	}
 
 )
-	otherlv_9=RightSquareBracket
+	otherlv_10=RightSquareBracket
     {
-    	newLeafNode(otherlv_9, grammarAccess.getUncertaintyAccess().getRightSquareBracketKeyword_3());
+    	newLeafNode(otherlv_10, grammarAccess.getUncertaintyAccess().getRightSquareBracketKeyword_4());
     }
 )
 ;
@@ -8770,6 +8773,55 @@ ruleThisKeyword returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleTok
 
 
 
+
+
+
+// Rule TargetType
+ruleTargetType returns [Enumerator current=null] 
+    @init { enterRule(); }
+    @after { leaveRule(); }:
+((    enumLiteral_0=Component
+    {
+        $current = grammarAccess.getTargetTypeAccess().getCOMPONENTEnumLiteralDeclaration_0().getEnumLiteral().getInstance();
+        newLeafNode(enumLiteral_0, grammarAccess.getTargetTypeAccess().getCOMPONENTEnumLiteralDeclaration_0()); 
+    }
+)
+    |(    enumLiteral_1=Feature
+    {
+        $current = grammarAccess.getTargetTypeAccess().getFEATUREEnumLiteralDeclaration_1().getEnumLiteral().getInstance();
+        newLeafNode(enumLiteral_1, grammarAccess.getTargetTypeAccess().getFEATUREEnumLiteralDeclaration_1()); 
+    }
+)
+    |(    enumLiteral_2=Connection
+    {
+        $current = grammarAccess.getTargetTypeAccess().getCONNECTIONEnumLiteralDeclaration_2().getEnumLiteral().getInstance();
+        newLeafNode(enumLiteral_2, grammarAccess.getTargetTypeAccess().getCONNECTIONEnumLiteralDeclaration_2()); 
+    }
+)
+    |(    enumLiteral_3=Flow
+    {
+        $current = grammarAccess.getTargetTypeAccess().getFLOWEnumLiteralDeclaration_3().getEnumLiteral().getInstance();
+        newLeafNode(enumLiteral_3, grammarAccess.getTargetTypeAccess().getFLOWEnumLiteralDeclaration_3()); 
+    }
+)
+    |(    enumLiteral_4=Mode
+    {
+        $current = grammarAccess.getTargetTypeAccess().getMODEEnumLiteralDeclaration_4().getEnumLiteral().getInstance();
+        newLeafNode(enumLiteral_4, grammarAccess.getTargetTypeAccess().getMODEEnumLiteralDeclaration_4()); 
+    }
+)
+    |(    enumLiteral_5=Element
+    {
+        $current = grammarAccess.getTargetTypeAccess().getELEMENTEnumLiteralDeclaration_5().getEnumLiteral().getInstance();
+        newLeafNode(enumLiteral_5, grammarAccess.getTargetTypeAccess().getELEMENTEnumLiteralDeclaration_5()); 
+    }
+)
+    |(    enumLiteral_6=Root
+    {
+        $current = grammarAccess.getTargetTypeAccess().getROOTEnumLiteralDeclaration_6().getEnumLiteral().getInstance();
+        newLeafNode(enumLiteral_6, grammarAccess.getTargetTypeAccess().getROOTEnumLiteralDeclaration_6()); 
+    }
+));
 
 
 

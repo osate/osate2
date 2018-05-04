@@ -1902,76 +1902,6 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 	}
 	
 	
-	public class TargetTypeElements extends AbstractEnumRuleElementFinder {
-		private final EnumRule rule = (EnumRule) GrammarUtil.findRuleForName(getGrammar(), "org.osate.verify.Verify.TargetType");
-		private final Alternatives cAlternatives = (Alternatives)rule.eContents().get(1);
-		private final EnumLiteralDeclaration cCOMPONENTEnumLiteralDeclaration_0 = (EnumLiteralDeclaration)cAlternatives.eContents().get(0);
-		private final Keyword cCOMPONENTComponentKeyword_0_0 = (Keyword)cCOMPONENTEnumLiteralDeclaration_0.eContents().get(0);
-		private final EnumLiteralDeclaration cFEATUREEnumLiteralDeclaration_1 = (EnumLiteralDeclaration)cAlternatives.eContents().get(1);
-		private final Keyword cFEATUREFeatureKeyword_1_0 = (Keyword)cFEATUREEnumLiteralDeclaration_1.eContents().get(0);
-		private final EnumLiteralDeclaration cCONNECTIONEnumLiteralDeclaration_2 = (EnumLiteralDeclaration)cAlternatives.eContents().get(2);
-		private final Keyword cCONNECTIONConnectionKeyword_2_0 = (Keyword)cCONNECTIONEnumLiteralDeclaration_2.eContents().get(0);
-		private final EnumLiteralDeclaration cFLOWEnumLiteralDeclaration_3 = (EnumLiteralDeclaration)cAlternatives.eContents().get(3);
-		private final Keyword cFLOWFlowKeyword_3_0 = (Keyword)cFLOWEnumLiteralDeclaration_3.eContents().get(0);
-		private final EnumLiteralDeclaration cMODEEnumLiteralDeclaration_4 = (EnumLiteralDeclaration)cAlternatives.eContents().get(4);
-		private final Keyword cMODEModeKeyword_4_0 = (Keyword)cMODEEnumLiteralDeclaration_4.eContents().get(0);
-		private final EnumLiteralDeclaration cELEMENTEnumLiteralDeclaration_5 = (EnumLiteralDeclaration)cAlternatives.eContents().get(5);
-		private final Keyword cELEMENTElementKeyword_5_0 = (Keyword)cELEMENTEnumLiteralDeclaration_5.eContents().get(0);
-		private final EnumLiteralDeclaration cROOTEnumLiteralDeclaration_6 = (EnumLiteralDeclaration)cAlternatives.eContents().get(6);
-		private final Keyword cROOTRootKeyword_6_0 = (Keyword)cROOTEnumLiteralDeclaration_6.eContents().get(0);
-		
-		//enum TargetType:
-		//	COMPONENT='component' | FEATURE='feature' | CONNECTION='connection' | FLOW='flow' | MODE='mode' | ELEMENT='element' |
-		//	ROOT='root';
-		public EnumRule getRule() { return rule; }
-
-		//COMPONENT='component' | FEATURE='feature' | CONNECTION='connection' | FLOW='flow' | MODE='mode' | ELEMENT='element' |
-		//ROOT='root'
-		public Alternatives getAlternatives() { return cAlternatives; }
-
-		//COMPONENT='component'
-		public EnumLiteralDeclaration getCOMPONENTEnumLiteralDeclaration_0() { return cCOMPONENTEnumLiteralDeclaration_0; }
-
-		//'component'
-		public Keyword getCOMPONENTComponentKeyword_0_0() { return cCOMPONENTComponentKeyword_0_0; }
-
-		//FEATURE='feature'
-		public EnumLiteralDeclaration getFEATUREEnumLiteralDeclaration_1() { return cFEATUREEnumLiteralDeclaration_1; }
-
-		//'feature'
-		public Keyword getFEATUREFeatureKeyword_1_0() { return cFEATUREFeatureKeyword_1_0; }
-
-		//CONNECTION='connection'
-		public EnumLiteralDeclaration getCONNECTIONEnumLiteralDeclaration_2() { return cCONNECTIONEnumLiteralDeclaration_2; }
-
-		//'connection'
-		public Keyword getCONNECTIONConnectionKeyword_2_0() { return cCONNECTIONConnectionKeyword_2_0; }
-
-		//FLOW='flow'
-		public EnumLiteralDeclaration getFLOWEnumLiteralDeclaration_3() { return cFLOWEnumLiteralDeclaration_3; }
-
-		//'flow'
-		public Keyword getFLOWFlowKeyword_3_0() { return cFLOWFlowKeyword_3_0; }
-
-		//MODE='mode'
-		public EnumLiteralDeclaration getMODEEnumLiteralDeclaration_4() { return cMODEEnumLiteralDeclaration_4; }
-
-		//'mode'
-		public Keyword getMODEModeKeyword_4_0() { return cMODEModeKeyword_4_0; }
-
-		//ELEMENT='element'
-		public EnumLiteralDeclaration getELEMENTEnumLiteralDeclaration_5() { return cELEMENTEnumLiteralDeclaration_5; }
-
-		//'element'
-		public Keyword getELEMENTElementKeyword_5_0() { return cELEMENTElementKeyword_5_0; }
-
-		//ROOT='root'
-		public EnumLiteralDeclaration getROOTEnumLiteralDeclaration_6() { return cROOTEnumLiteralDeclaration_6; }
-
-		//'root'
-		public Keyword getROOTRootKeyword_6_0() { return cROOTRootKeyword_6_0; }
-	}
-	
 	private final VerificationElements pVerification;
 	private final VerificationPlanElements pVerificationPlan;
 	private final ClaimElements pClaim;
@@ -1989,7 +1919,6 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 	private final VerificationPreconditionElements pVerificationPrecondition;
 	private final VerificationMethodRegistryElements pVerificationMethodRegistry;
 	private final FormalParameterElements pFormalParameter;
-	private final TargetTypeElements eTargetType;
 	private final VerificationMethodElements pVerificationMethod;
 	private final MethodKindElements pMethodKind;
 	private final ResoluteMethodElements pResoluteMethod;
@@ -2030,7 +1959,6 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 		this.pVerificationPrecondition = new VerificationPreconditionElements();
 		this.pVerificationMethodRegistry = new VerificationMethodRegistryElements();
 		this.pFormalParameter = new FormalParameterElements();
-		this.eTargetType = new TargetTypeElements();
 		this.pVerificationMethod = new VerificationMethodElements();
 		this.pMethodKind = new MethodKindElements();
 		this.pResoluteMethod = new ResoluteMethodElements();
@@ -2275,17 +2203,6 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 		return getFormalParameterAccess().getRule();
 	}
 
-	//enum TargetType:
-	//	COMPONENT='component' | FEATURE='feature' | CONNECTION='connection' | FLOW='flow' | MODE='mode' | ELEMENT='element' |
-	//	ROOT='root';
-	public TargetTypeElements getTargetTypeAccess() {
-		return eTargetType;
-	}
-	
-	public EnumRule getTargetTypeRule() {
-		return getTargetTypeAccess().getRule();
-	}
-
 	//VerificationMethod:
 	//	'method' name=ID ('(' (targetType=TargetType? | formals+=FormalParameter (',' formals+=FormalParameter)* |
 	//	targetType=TargetType ',' formals+=FormalParameter (',' formals+=FormalParameter)*)
@@ -2419,7 +2336,7 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//Uncertainty:
-	//	'uncertainty'
+	//	{Uncertainty} 'uncertainty'
 	//	'[' (('volatility' volatility=INT)?
 	//	& ('precedence' precedence=INT)?
 	//	& ('impact' impact=INT)?)
@@ -2893,6 +2810,17 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 	
 	public ParserRule getComponentCategoryRule() {
 		return getComponentCategoryAccess().getRule();
+	}
+
+	//enum TargetType:
+	//	COMPONENT='component' | FEATURE='feature' | CONNECTION='connection' | FLOW='flow' | MODE='mode' | ELEMENT='element' |
+	//	ROOT='root';
+	public CommonGrammarAccess.TargetTypeElements getTargetTypeAccess() {
+		return gaCommon.getTargetTypeAccess();
+	}
+	
+	public EnumRule getTargetTypeRule() {
+		return getTargetTypeAccess().getRule();
 	}
 
 	//terminal fragment EXPONENT:

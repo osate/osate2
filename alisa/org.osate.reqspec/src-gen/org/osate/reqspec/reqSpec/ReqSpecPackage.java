@@ -1171,13 +1171,13 @@ public interface ReqSpecPackage extends EPackage
   int REQUIREMENT__COMPONENT_CATEGORY = CONTRACTUAL_ELEMENT_FEATURE_COUNT + 9;
 
   /**
-   * The feature id for the '<em><b>Connections</b></em>' attribute.
+   * The feature id for the '<em><b>Target Type</b></em>' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int REQUIREMENT__CONNECTIONS = CONTRACTUAL_ELEMENT_FEATURE_COUNT + 10;
+  int REQUIREMENT__TARGET_TYPE = CONTRACTUAL_ELEMENT_FEATURE_COUNT + 10;
 
   /**
    * The number of structural features of the '<em>Requirement</em>' class.
@@ -1208,22 +1208,22 @@ public interface ReqSpecPackage extends EPackage
   int INCLUDE_GLOBAL_REQUIREMENT__INCLUDE = 0;
 
   /**
-   * The feature id for the '<em><b>Component Category</b></em>' attribute list.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int INCLUDE_GLOBAL_REQUIREMENT__COMPONENT_CATEGORY = 1;
-
-  /**
    * The feature id for the '<em><b>Self</b></em>' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int INCLUDE_GLOBAL_REQUIREMENT__SELF = 2;
+  int INCLUDE_GLOBAL_REQUIREMENT__SELF = 1;
+
+  /**
+   * The feature id for the '<em><b>Target Element</b></em>' reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int INCLUDE_GLOBAL_REQUIREMENT__TARGET_ELEMENT = 2;
 
   /**
    * The number of structural features of the '<em>Include Global Requirement</em>' class.
@@ -2432,15 +2432,15 @@ public interface ReqSpecPackage extends EPackage
   EAttribute getRequirement_ComponentCategory();
 
   /**
-   * Returns the meta object for the attribute '{@link org.osate.reqspec.reqSpec.Requirement#isConnections <em>Connections</em>}'.
+   * Returns the meta object for the attribute '{@link org.osate.reqspec.reqSpec.Requirement#getTargetType <em>Target Type</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for the attribute '<em>Connections</em>'.
-   * @see org.osate.reqspec.reqSpec.Requirement#isConnections()
+   * @return the meta object for the attribute '<em>Target Type</em>'.
+   * @see org.osate.reqspec.reqSpec.Requirement#getTargetType()
    * @see #getRequirement()
    * @generated
    */
-  EAttribute getRequirement_Connections();
+  EAttribute getRequirement_TargetType();
 
   /**
    * Returns the meta object for class '{@link org.osate.reqspec.reqSpec.IncludeGlobalRequirement <em>Include Global Requirement</em>}'.
@@ -2464,17 +2464,6 @@ public interface ReqSpecPackage extends EPackage
   EReference getIncludeGlobalRequirement_Include();
 
   /**
-   * Returns the meta object for the attribute list '{@link org.osate.reqspec.reqSpec.IncludeGlobalRequirement#getComponentCategory <em>Component Category</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the attribute list '<em>Component Category</em>'.
-   * @see org.osate.reqspec.reqSpec.IncludeGlobalRequirement#getComponentCategory()
-   * @see #getIncludeGlobalRequirement()
-   * @generated
-   */
-  EAttribute getIncludeGlobalRequirement_ComponentCategory();
-
-  /**
    * Returns the meta object for the attribute '{@link org.osate.reqspec.reqSpec.IncludeGlobalRequirement#isSelf <em>Self</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -2484,6 +2473,17 @@ public interface ReqSpecPackage extends EPackage
    * @generated
    */
   EAttribute getIncludeGlobalRequirement_Self();
+
+  /**
+   * Returns the meta object for the reference '{@link org.osate.reqspec.reqSpec.IncludeGlobalRequirement#getTargetElement <em>Target Element</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the reference '<em>Target Element</em>'.
+   * @see org.osate.reqspec.reqSpec.IncludeGlobalRequirement#getTargetElement()
+   * @see #getIncludeGlobalRequirement()
+   * @generated
+   */
+  EReference getIncludeGlobalRequirement_TargetElement();
 
   /**
    * Returns the meta object for class '{@link org.osate.reqspec.reqSpec.WhenCondition <em>When Condition</em>}'.
@@ -3277,12 +3277,12 @@ public interface ReqSpecPackage extends EPackage
     EAttribute REQUIREMENT__COMPONENT_CATEGORY = eINSTANCE.getRequirement_ComponentCategory();
 
     /**
-     * The meta object literal for the '<em><b>Connections</b></em>' attribute feature.
+     * The meta object literal for the '<em><b>Target Type</b></em>' attribute feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    EAttribute REQUIREMENT__CONNECTIONS = eINSTANCE.getRequirement_Connections();
+    EAttribute REQUIREMENT__TARGET_TYPE = eINSTANCE.getRequirement_TargetType();
 
     /**
      * The meta object literal for the '{@link org.osate.reqspec.reqSpec.impl.IncludeGlobalRequirementImpl <em>Include Global Requirement</em>}' class.
@@ -3303,20 +3303,20 @@ public interface ReqSpecPackage extends EPackage
     EReference INCLUDE_GLOBAL_REQUIREMENT__INCLUDE = eINSTANCE.getIncludeGlobalRequirement_Include();
 
     /**
-     * The meta object literal for the '<em><b>Component Category</b></em>' attribute list feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EAttribute INCLUDE_GLOBAL_REQUIREMENT__COMPONENT_CATEGORY = eINSTANCE.getIncludeGlobalRequirement_ComponentCategory();
-
-    /**
      * The meta object literal for the '<em><b>Self</b></em>' attribute feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
     EAttribute INCLUDE_GLOBAL_REQUIREMENT__SELF = eINSTANCE.getIncludeGlobalRequirement_Self();
+
+    /**
+     * The meta object literal for the '<em><b>Target Element</b></em>' reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference INCLUDE_GLOBAL_REQUIREMENT__TARGET_ELEMENT = eINSTANCE.getIncludeGlobalRequirement_TargetElement();
 
     /**
      * The meta object literal for the '{@link org.osate.reqspec.reqSpec.impl.WhenConditionImpl <em>When Condition</em>}' class.

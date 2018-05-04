@@ -849,7 +849,7 @@ public class CommonSemanticSequencer extends AbstractDelegatingSemanticSequencer
 	 *     Uncertainty returns Uncertainty
 	 *
 	 * Constraint:
-	 *     (volatility=INT | precedence=INT | impact=INT)+
+	 *     (volatility=INT | precedence=INT | impact=INT)*
 	 */
 	protected void sequence_Uncertainty(ISerializationContext context, Uncertainty semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);

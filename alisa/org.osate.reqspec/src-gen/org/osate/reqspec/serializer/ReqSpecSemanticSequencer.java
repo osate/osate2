@@ -451,7 +451,7 @@ public class ReqSpecSemanticSequencer extends CommonSemanticSequencer {
 	 *     (
 	 *         name=ID 
 	 *         title=STRING? 
-	 *         (componentCategory+=ComponentCategory+ | connections?='connections')? 
+	 *         (componentCategory+=ComponentCategory+ | targetType=TargetType)? 
 	 *         (
 	 *             (
 	 *                 category+=[Category|QualifiedName] | 
@@ -522,7 +522,7 @@ public class ReqSpecSemanticSequencer extends CommonSemanticSequencer {
 	 *     IncludeGlobalRequirement returns IncludeGlobalRequirement
 	 *
 	 * Constraint:
-	 *     (include=[EObject|QualifiedName] (componentCategory+=ComponentCategory+ | self?='self')?)
+	 *     (include=[EObject|QualifiedName] (self?='self' | targetElement=[NamedElement|ID])?)
 	 */
 	protected void sequence_IncludeGlobalRequirement(ISerializationContext context, IncludeGlobalRequirement semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
