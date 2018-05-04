@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.0"?>
+
+<plugin>
+    <extension
+            point="org.eclipse.ui.editors">
+        <editor
+            class="org.osate.xtext.aadl2.properties.ui.PropertiesExecutableExtensionFactory:org.eclipse.xtext.ui.editor.XtextEditor"
+            contributorClass="org.eclipse.ui.editors.text.TextEditorActionContributor"
+            default="true"
+            extensions="aapl2"
+            id="org.osate.xtext.aadl2.properties.Properties"
+            name="Properties Editor">
+        </editor>
+    </extension>
+    <extension
+        point="org.eclipse.ui.handlers">
+        <handler
+            class="org.osate.xtext.aadl2.properties.ui.PropertiesExecutableExtensionFactory:org.eclipse.xtext.ui.editor.hyperlinking.OpenDeclarationHandler"
+            commandId="org.eclipse.xtext.ui.editor.hyperlinking.OpenDeclaration">
+            <activeWhen>
+                <reference
+                    definitionId="org.osate.xtext.aadl2.properties.Properties.Editor.opened">
+                </reference>
+            </activeWhen>
+        </handler>
+        <handler
+            class="org.osate.xtext.aadl2.properties.ui.PropertiesExecutableExtensionFactory:org.eclipse.xtext.ui.editor.handler.ValidateActionHandler"
+            commandId="org.osate.xtext.aadl2.properties.Properties.validate">
+         <activeWhen>
+            <reference
+                    definitionId="org.osate.xtext.aadl2.properties.Properties.Editor.opened">
+            </reference>
+         </activeWhen>
+      </handler>
+    </extension>
+    <extension point="org.eclipse.core.expressions.definitions">
+        <definition id="org.osate.xtext.aadl2.properties.Properties.Editor.opened">
+            <and>
+                <reference definitionId="isActiveEditorAnInstanceOfXtextEditor"/>
+                <with variable="activeEditor">
+                    <test property="org.eclipse.xtext.ui.editor.XtextEditor.languageName" 
+                        value="org.osate.xtext.aadl2.properties.Properties" 
+                        forcePluginActivation="true"/>
+                </with>        
+            </and>
+        </definition>
+    </extension>
+    <!--extension
+            point="org.eclipse.ui.preferencePages">
+        <page
+            class="org.osate.xtext.aadl2.properties.ui.PropertiesExecutableExtensionFactory:org.eclipse.xtext.ui.editor.preferences.LanguageRootPreferencePage"
+            id="org.osate.xtext.aadl2.properties.Properties"
+            name="Properties">
+            <keywordReference id="org.osate.xtext.aadl2.properties.ui.keyword_Properties"/>
+        </page>
+        <page
+            category="org.osate.xtext.aadl2.properties.Properties"
+            class="org.osate.xtext.aadl2.properties.ui.PropertiesExecutableExtensionFactory:org.eclipse.xtext.ui.editor.syntaxcoloring.SyntaxColoringPreferencePage"
+            id="org.osate.xtext.aadl2.properties.Properties.coloring"
+            name="Syntax Coloring">
+            <keywordReference id="org.osate.xtext.aadl2.properties.ui.keyword_Properties"/>
+        </page>
+        <page
+            category="org.osate.xtext.aadl2.properties.Properties"
+            class="org.osate.xtext.aadl2.properties.ui.PropertiesExecutableExtensionFactory:org.eclipse.xtext.ui.editor.templates.XtextTemplatePreferencePage"
+            id="org.osate.xtext.aadl2.properties.Properties.templates"
+            name="Templates">
+            <keywordReference id="org.osate.xtext.aadl2.properties.ui.keyword_Properties"/>
+        </page>
+    </extension-->
+    <extension
+        point="org.eclipse.ui.keywords">
+        <keyword
+            id="org.osate.xtext.aadl2.properties.ui.keyword_Properties"
+            label="Properties"/>
+    </extension>
+    <extension
+         point="org.eclipse.ui.commands">
+      <command
+            description="Trigger expensive validation"
+            id="org.osate.xtext.aadl2.properties.Properties.validate"
+            name="Validate">
+      </command>
+    </extension>
+    <extension point="org.eclipse.ui.menus">
+        <menuContribution
+            locationURI="popup:#TextEditorContext?after=group.edit">
+             <command
+                 commandId="org.osate.xtext.aadl2.properties.Properties.validate"
+                 style="push"
+                 tooltip="Trigger expensive validation">
+            <visibleWhen checkEnabled="false">
+                <reference
+                    definitionId="org.osate.xtext.aadl2.properties.Properties.Editor.opened">
+                </reference>
+            </visibleWhen>
+         </command>  
+         </menuContribution>
+    </extension>
+    <extension point="org.eclipse.ui.menus">
+		<menuContribution locationURI="popup:#TextEditorContext?endof=group.find">
+			<command commandId="org.eclipse.xtext.ui.editor.FindReferences">
+				<visibleWhen checkEnabled="false">
+                	<reference definitionId="org.osate.xtext.aadl2.properties.Properties.Editor.opened">
+                	</reference>
+            	</visibleWhen>
+			</command>
+		</menuContribution>
+	</extension>
+	<extension point="org.eclipse.ui.handlers">
+	    <handler
+            class="org.osate.xtext.aadl2.properties.ui.PropertiesExecutableExtensionFactory:org.eclipse.xtext.ui.editor.findrefs.FindReferencesHandler"
+            commandId="org.eclipse.xtext.ui.editor.FindReferences">
+            <activeWhen>
+                <reference
+                    definitionId="org.osate.xtext.aadl2.properties.Properties.Editor.opened">
+                </reference>
+            </activeWhen>
+        </handler>
+    </extension>   
+
+<!-- adding resource factories -->
+
+	<extension
+		point="org.eclipse.emf.ecore.extension_parser">
+		<parser
+			class="org.osate.xtext.aadl2.properties.ui.PropertiesExecutableExtensionFactory:org.eclipse.xtext.resource.IResourceFactory"
+			type="aapl2">
+		</parser>
+	</extension>
+	<extension point="org.eclipse.xtext.extension_resourceServiceProvider">
+        <resourceServiceProvider
+            class="org.osate.xtext.aadl2.properties.ui.PropertiesExecutableExtensionFactory:org.eclipse.xtext.ui.resource.IResourceUIServiceProvider"
+            uriExtension="aapl2">
+        </resourceServiceProvider>
+    </extension>
+
+
+	<!-- Quick Outline -->
+	<extension
+		point="org.eclipse.ui.handlers">
+		<handler 
+			class="org.osate.xtext.aadl2.properties.ui.PropertiesExecutableExtensionFactory:org.eclipse.xtext.ui.editor.outline.quickoutline.ShowQuickOutlineActionHandler"
+			commandId="org.eclipse.xtext.ui.editor.outline.QuickOutline">
+			<activeWhen>
+				<reference
+					definitionId="org.osate.xtext.aadl2.properties.Properties.Editor.opened">
+				</reference>
+			</activeWhen>
+		</handler>
+	</extension>
+	<extension
+		point="org.eclipse.ui.commands">
+		<command
+			description="Open the quick outline."
+			id="org.eclipse.xtext.ui.editor.outline.QuickOutline"
+			name="Quick Outline">
+		</command>
+	</extension>
+	<extension point="org.eclipse.ui.menus">
+		<menuContribution
+			locationURI="popup:#TextEditorContext?after=group.open">
+			<command commandId="org.eclipse.xtext.ui.editor.outline.QuickOutline"
+				style="push"
+				tooltip="Open Quick Outline">
+				<visibleWhen checkEnabled="false">
+					<reference definitionId="org.osate.xtext.aadl2.properties.Properties.Editor.opened"/>
+				</visibleWhen>
+			</command>
+		</menuContribution>
+	</extension>
+   <!-- quickfix marker resolution generator -->
+   <extension
+         point="org.eclipse.ui.ide.markerResolution">
+      <markerResolutionGenerator
+            class="org.osate.xtext.aadl2.properties.ui.PropertiesExecutableExtensionFactory:org.eclipse.xtext.ui.editor.quickfix.MarkerResolutionGenerator">
+      </markerResolutionGenerator>
+   </extension>
+   	<!-- Rename Refactoring -->
+	<extension point="org.eclipse.ui.handlers">
+		<handler 
+			class="org.osate.xtext.aadl2.properties.ui.PropertiesExecutableExtensionFactory:org.eclipse.xtext.ui.refactoring.ui.IRenameElementHandler"
+			commandId="org.eclipse.xtext.ui.refactoring.RenameElement">
+			<activeWhen>
+				<reference
+					definitionId="org.osate.xtext.aadl2.properties.Properties.Editor.opened">
+				</reference>
+			</activeWhen>
+		</handler>
+	</extension>
+    <extension point="org.eclipse.ui.menus">
+         <menuContribution
+            locationURI="popup:#TextEditorContext?after=group.edit">
+         <command commandId="org.eclipse.xtext.ui.refactoring.RenameElement"
+               style="push">
+            <visibleWhen checkEnabled="false">
+               <reference
+                     definitionId="org.osate.xtext.aadl2.properties.Properties.Editor.opened">
+               </reference>
+            </visibleWhen>
+         </command>
+      </menuContribution>
+   </extension>
+    <extension
+          point="org.eclipse.xtext.ui.shared.sharedStateContributingModule">
+       <module
+             class="org.osate.xtext.aadl2.properties.ui.PropertiesSharedStateContributingModule">
+       </module>
+    </extension>
+    <extension
+          point="org.eclipse.ui.startup">
+       <startup
+             class="org.osate.xtext.aadl2.properties.ui.PropertiesUiStartup">
+       </startup>
+    </extension>
+</plugin>

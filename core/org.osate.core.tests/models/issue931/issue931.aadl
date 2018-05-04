@@ -1,0 +1,33 @@
+package issue931
+public
+	system s
+		features
+			inp: in data port;
+		flows
+			insink: flow sink inp;
+	end s;
+	
+	system se extends s
+		features
+			inp: refined to in data port d;
+	end se;
+	
+	system implementation se.i
+		subcomponents
+			sub1: system sub;
+		connections
+			c1: port inp -> sub1.inport;
+		flows
+			insink: flow sink inp -> c1 -> sub1.fsink;
+	end se.i;
+	
+	system sub
+		features
+			inport: in data port d;
+		flows
+			fsink: flow sink inport;
+	end sub;
+	data d
+		
+	end d;
+end issue931;
