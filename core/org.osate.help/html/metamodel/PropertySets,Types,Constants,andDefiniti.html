@@ -1,0 +1,207 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+	"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+   <title>Property Sets, Types, Constants, and Definitions</title>
+   <link href="Res/styles/shared.css" rel="stylesheet" type="text/css">
+   <link href="Res/styles/DynamicOutline.css" rel="stylesheet" type="text/css">
+</head>
+<body id="page" >
+
+<!-- BEGIN PAGE BODY-->
+
+
+<table id="pageBody">
+ <col class="main">
+ <col class="right">
+
+<!-- BEGIN BREADCRUMBS-->
+<tr id="breadcrumbsAndPageNavigation">
+  <td class="breadcrumbs" valign="top">
+<!-- BEGIN NAVIGATION BREADCRUMBS ITEM-->
+<span class="breadcrumb">
+   <a href="index.html">Home</a> 
+   <span class="separator">&gt;</span>
+</span>
+<!-- END NAVIGATION BREADCRUMBS ITEM-->
+<!-- BEGIN NAVIGATION BREADCRUMBS ITEM-->
+<span class="breadcrumb">
+   <a href="DeclarativeAADLModel.html">4. Declarative AADL Model</a> 
+   <span class="separator">&gt;</span>
+</span>
+<!-- END NAVIGATION BREADCRUMBS ITEM-->
+<!-- BEGIN NAVIGATION BREADCRUMBS HERE-->
+<span class="breadcrumb">
+   4.16 Property Sets, Types, Constants, and Definitions
+</span>
+<!-- END NAVIGATION BREADCRUMBS HERE-->
+
+  </td>
+  <td class="pageNavigation" valign="top">
+<!-- START PAGE NAVIGATION NEXT IN SEQUENCE IMAGES -->
+<span class="commands">
+    <span class="command">
+        <img src="Res/images/previous_button.gif" alt=""> <a href="AADLPackages.html">
+        <span class="label">Previous</span></a>
+    </span>
+&nbsp;&nbsp;
+    <span class="command">
+        <a href="AnnexLibrariesandAnnexSubclauses.html">
+        <span class="label">Next</span></a> <img src="Res/images/next_button.gif" alt="">
+    </span>
+</span>
+<!-- END PAGE NAVIGATION NEXT IN SEQUENCE IMAGES  -->
+
+  </td>
+  <td class="right" valign="top">
+  </td>
+</tr>
+<!-- END BREADCRUMBS-->
+
+<tr class="topic">
+  <td class="main" valign="top" colspan="2">
+    <div class="body">
+      <div class="topicDivider">
+      </div>
+    </div>
+  </td>
+  <td class="right" valign="top">
+<!--right body column empty-->
+  </td>
+</tr>
+
+<!--BEGIN PAGE BODY ITEM-->
+<tr class="topic">
+  <td class="main" valign="top" colspan="2">
+    <table>
+      <tr class="topicHeader">
+        <td class="topicImageColumn">
+
+        </td>
+        <td class="topicLineColumn">
+          <a name="Topic24"></a>
+          <span class=outlineNumberFirst>4.16 </span><span class=topicLineFirst>Property Sets, Types, Constants, and Definitions</span>
+          <span class="topicIcons">
+
+          </span>
+        </td>
+      </tr>
+    </table>
+
+<!-- phf:Comand: Expand("BoxPartMap.mmbas") -->
+     <div class="topicTextNotes"><div align="left"><font face="Helvetica"><span>The AADL supports introduction of user-defined properties, 
+property constants, and property types 
+through property sets.&#160; </span></font><span></span></div>
+<div align="left"><font face="Helvetica"><span>The <i>PropertySet</i> class has multiplicity containment 
+associations to the <i>PropertyType</i>, 
+<i>PropertyConstant</i>, and <i>PropertyDefinition</i> classes.&#160; The abstract <i>PropertyType</i> 
+class represents 
+property type declarations.&#160; Instances of the concrete <i>PropertyType</i> subclasses, i.e., <i>UnitsType</i>, 
+<i>Aadlreal</i> and <i>Aadlinteger</i> and their common super class <i>NumberType</i>, <i>RangeType</i>, <i>Aadlstring</i>, 
+<i>Aadlboolean</i>, <i>EnumType</i>, <i>ReferenceType</i>, and <i>ClassifierType,</i> represent property 
+type declarations. 
+&#160;Their name attribute records the name of the newly declared property type.&#160; The abstract 
+<i>PropertyValueHolder</i> class represents all classes that can contain property values, i.e., property 
+definitions, property constants, and property associations.</span></font><span></span></div>
+<div align="center"><img src="NotesImages/Topic24NotesImage3.jpg" align="bottom" width="356" height="825" border="0" alt="graphic" /></div>
+<div align="center"><font face="Helvetica"><span><b>Figure 33 Property Sets, Types, Constants, and Definitions</b></span></font><span></span></div>
+<div align="left"><font face="Helvetica"><span>The <i>UnitsType</i> class contains instances of the <i>UnitLiteral</i> 
+class.&#160; Unit literals can be defined with 
+conversion factors relative to other unit literals.&#160; This is reflected in the <i>baseunit</i> reference 
+association and the containment association <i>factor</i> to a <i>NumberValue</i>.</span></font><span></span></div>
+<div align="left"><font face="Helvetica"><span>The <i>NumberType</i> class has containment associations 
+called <i>lower</i> and <i>upper</i> to the 
+<i>NumberOrPropertyReference</i> class to represent the lower and upper bound on values of this 
+property type.&#160; The NumberType class has a <i>propertyTypeReference</i> reference association and 
+and 
+a <i>propertyType</i> containment association to <i>UnitsType</i> to represent a reference to a declared 
+units 
+type or to represent an unnamed units type declared as part of the <i>Aadlinteger</i> or <i>Aadlreal</i> 
+declaration.&#160; Either the <i>propertyTypeReference</i> association or the <i>propertyType</i> association 
+is set.</span></font><span></span></div>
+<div align="center"><img src="NotesImages/Topic24NotesImage5.jpg" align="bottom" width="432" height="302" border="0" alt="graphic" /></div>
+<div align="center"><font face="Helvetica"><span><b>Figure 34 Enumerations in the Property Meta Model</b></span></font><span></span></div>
+<div align="left"><font face="Helvetica"><span>Property constants can be declared for a subset of the 
+property types. This subset is defined by 
+the abstract class <i>PropertyConstantType</i>.&#160; The <i>PropertyConstant</i> class refers to a 
+previously 
+declared property type or contains an unnamed property type declaration, using the 
+<i>propertyTypeReference</i> or <i>propertyType</i> association.&#160; A property constant also contains 
+zero or 
+more <i>PropertyValue</i> objects to represent a single property value or a list of values including 
+an 
+empty list.</span></font><span></span></div>
+<div align="left"><font face="Helvetica"><span>Property name declarations are represented by the <i>PropertyDefinition</i> 
+class.&#160; As mentioned in 
+Annex C.4.13, this class has a reference association to a named property type, whose 
+PropertyType object is contained in a PropertySet object, or it has a containment association to a 
+PropertyType object that represents an unnamed property type declared as part of the property 
+definition.&#160; An example of an unnamed property type in a property name declaration is 
+</span></font><font face="Courier New"><span>Acceleration: <b>aadlreal</b> <b>units</b> ( mps2 );</span></font><font 
+face="Helvetica"><span>&#160; A PropertyDefinition class also has a 
+multiplicity containment association to the <i>PropertyValue</i> class to represent the default value, 
+and 
+a containment association to the <i>ClassifierValue</i> class to represent the optional set of classifiers 
+within a specified component category that the property can use &#150; as specified in the <b>applies 
+to</b> 
+portion of the property name declaration.</span></font><span></span></div>
+<div align="left"><font face="Helvetica"><span>The PropertyDefinition class has several attributes to 
+record whether certain reserved words are 
+part of the property name declaration. They are <i>access</i>, <i>inherit</i>, and <i>list</i>.&#160; 
+In addition there is the 
+attribute called <i>appliesto</i> that records the categories of AADL model objects for which the property 
+is applicable.&#160; This attribute has a multiplicity of up to the size of the <i>PropertyOwnerCategory 
+</i>enumeration.&#160; This enumeration and others used in the property meta model package are shown 
+in 
+Figure 34.&#160; The <i>hasEmptyList</i> attribute is used to record the difference between no default 
+value 
+and a default value of an empty list for property name declarations that can hold lists of values.</span></font><span></span></div></div>
+
+
+
+
+  </td>
+  <td class="right" valign="top">
+<!--right body column empty-->
+  </td>
+</tr>
+<!--END PAGE BODY ITEM-->
+
+
+<!-- BEGIN TOP BUTTON -->
+<tr class="topic">
+  <td class="main" valign="top" colspan="2">
+    <div class="body">
+      <div class="topCommand">
+        <span class="commands">
+      <span class="command">
+            <img src="Res/images/top_button.gif" alt="">
+          <a href="javascript:scroll(0,0)">
+             <span class="label">Top</span>
+              </a>
+    </span>
+       </span>
+      </div>
+    </div>
+  </td>
+  <td class="right" valign="top">
+<!--right body column empty-->
+  </td>
+</tr>
+<!-- END TOP BUTTON -->
+
+</table>
+
+<!-- BEGIN SIDE NAVIGATION WRAPPER-->
+    </td>
+  </tr>
+</table>
+<!-- END SIDE NAVIGATION WRAPPER-->
+
+<!-- END PAGE BODY-->
+
+
+</body>
+</html>
+

@@ -1,0 +1,196 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+	"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+   <title>Connections</title>
+   <link href="Res/styles/shared.css" rel="stylesheet" type="text/css">
+   <link href="Res/styles/DynamicOutline.css" rel="stylesheet" type="text/css">
+</head>
+<body id="page" >
+
+<!-- BEGIN PAGE BODY-->
+
+
+<table id="pageBody">
+ <col class="main">
+ <col class="right">
+
+<!-- BEGIN BREADCRUMBS-->
+<tr id="breadcrumbsAndPageNavigation">
+  <td class="breadcrumbs" valign="top">
+<!-- BEGIN NAVIGATION BREADCRUMBS ITEM-->
+<span class="breadcrumb">
+   <a href="index.html">Home</a> 
+   <span class="separator">&gt;</span>
+</span>
+<!-- END NAVIGATION BREADCRUMBS ITEM-->
+<!-- BEGIN NAVIGATION BREADCRUMBS ITEM-->
+<span class="breadcrumb">
+   <a href="DeclarativeAADLModel.html">4. Declarative AADL Model</a> 
+   <span class="separator">&gt;</span>
+</span>
+<!-- END NAVIGATION BREADCRUMBS ITEM-->
+<!-- BEGIN NAVIGATION BREADCRUMBS HERE-->
+<span class="breadcrumb">
+   4.9 Connections
+</span>
+<!-- END NAVIGATION BREADCRUMBS HERE-->
+
+  </td>
+  <td class="pageNavigation" valign="top">
+<!-- START PAGE NAVIGATION NEXT IN SEQUENCE IMAGES -->
+<span class="commands">
+    <span class="command">
+        <img src="Res/images/previous_button.gif" alt=""> <a href="PortGroupTypes.html">
+        <span class="label">Previous</span></a>
+    </span>
+&nbsp;&nbsp;
+    <span class="command">
+        <a href="Flows.html">
+        <span class="label">Next</span></a> <img src="Res/images/next_button.gif" alt="">
+    </span>
+</span>
+<!-- END PAGE NAVIGATION NEXT IN SEQUENCE IMAGES  -->
+
+  </td>
+  <td class="right" valign="top">
+  </td>
+</tr>
+<!-- END BREADCRUMBS-->
+
+<tr class="topic">
+  <td class="main" valign="top" colspan="2">
+    <div class="body">
+      <div class="topicDivider">
+      </div>
+    </div>
+  </td>
+  <td class="right" valign="top">
+<!--right body column empty-->
+  </td>
+</tr>
+
+<!--BEGIN PAGE BODY ITEM-->
+<tr class="topic">
+  <td class="main" valign="top" colspan="2">
+    <table>
+      <tr class="topicHeader">
+        <td class="topicImageColumn">
+
+        </td>
+        <td class="topicLineColumn">
+          <a name="Topic17"></a>
+          <span class=outlineNumberFirst>4.9 </span><span class=topicLineFirst>Connections</span>
+          <span class="topicIcons">
+
+          </span>
+        </td>
+      </tr>
+    </table>
+
+<!-- phf:Comand: Expand("BoxPartMap.mmbas") -->
+     <div class="topicTextNotes"><div align="left"><font face="Helvetica"><span>The abstract <i>Connection </i>class represents a connection 
+declaration of a connection between 
+features of subcomponents, and between features of subcomponents and features of the enclosing 
+component implementation.&#160; In the latter case, the connection may refer to a feature in the port 
+group type of a port group in the enclosing component implementation.&#160; These classes are shown 
+in Figure 23.</span></font><span></span></div>
+<div align="left"><font face="Helvetica"><span>A connection has a source and a destination reference 
+to features.&#160; These references must 
+accommodate for the fact that the features of subcomponents, component implementations, and of 
+port groups are inherited.&#160; This is achieved by a reference association to the feature as it is 
+contained in the component type or port group type, and a reference association to the context in 
+which the feature is referenced.&#160; This context is represented by the <i>FeatureContext </i>class 
+- a super 
+class that has <i>ComponentImpl</i>, <i>Subcomponent</i>, and <i>PortGroup</i> as subclasses.</span></font><span></span></div>
+<div align="left"><font face="Helvetica"><span>The concrete classes that are subclasses of the <i>Connection</i> 
+class represent the connection 
+declaration for each of the different feature types. The source and destination reference 
+associations are declared for each concrete class to reflect the fact that a connection of a certain 
+type can only connect features of the same type.&#160; For example, a data port connection can only 
+connect data ports.&#160; The concrete connection classes are <i>DataAccessConnection</i>, 
+<i>BusAccessConnection</i>, <i>ParameterConnection</i>, <i>DataConnection</i>, <i>EventConnection</i>, 
+<i>EventDataConnection</i>, and <i>PortGroupConnection</i>.</span></font><span></span></div>
+<div align="left"><font face="Helvetica"><span>All connection classes are subclasses of <i>ModeMember</i>, 
+thus, have an <i>inModes</i> reference 
+association to <i>Mode</i> objects. The <i>Connection</i> class also has an <i>inModeTransitions</i> 
+reference 
+association to <i>ModeTransition</i> objects (see Figure 28) to reflect the fact that connections can 
+be 
+specified to be active during mode transitions.</span></font><span></span></div>
+<div align="left"><font face="Helvetica"><span>The source and destination reference associations are 
+uni-directional, i.e., a connection refers to a 
+port, but a port does not persistently maintain a reference to its connections. &#160;Methods simply 
+determine the connections from and to subcomponent ports, i.e., connections to other 
+subcomponents or the enclosing component implementation, from the set of connections of the 
+enclosing component implementation. Similarly, the connections going from and to a port of a 
+component implementation to one of its subcomponents, is the subset of connections of the 
+component implementation that has the port as a source or destination reference. </span></font><span></span></div>
+<div align="left"><font face="Helvetica"><span>A parameter connection cannot only refer to parameters, 
+but also to data and event data ports. 
+This is represented in the meta model by the <i>ParameterEnd</i> class with the <i>Parameter</i> class, 
+<i>DataPort</i> and <i>EventDataPort</i> class as subclasses.</span></font><span></span></div>
+<div align="center"><br/>
+</div>
+<div align="center"><font face="Helvetica"><span><b>Figure 25 Access Connections</b></span></font><span></span></div>
+<div align="left"><font face="Helvetica"><span>Figure 25 shows the classes and associations for access 
+connections.</span></font><span></span></div>
+<div align="left"><font face="Helvetica"><span>Bus and data access connections cannot only refer to 
+access features as well as to data or bus 
+subcomponent declarations. This is represented in the AADL meta model by the <i>DataAccessEnd</i> 
+and <i>BusAccessEnd</i> classes with the appropriate access feature and category-specific 
+subcomponent as subclasses.</span></font><span></span></div>
+<div align="left"><font face="Helvetica"><span>The context of a connection source and destination reference 
+is represented the same way as for 
+port connections.&#160; Since at this time AADL does not support access features inside port groups, 
+only subcomponents and component implementations are referenced as context in the case of 
+parameter and access connections.</span></font><span></span></div></div>
+
+
+
+
+  </td>
+  <td class="right" valign="top">
+<!--right body column empty-->
+  </td>
+</tr>
+<!--END PAGE BODY ITEM-->
+
+
+<!-- BEGIN TOP BUTTON -->
+<tr class="topic">
+  <td class="main" valign="top" colspan="2">
+    <div class="body">
+      <div class="topCommand">
+        <span class="commands">
+      <span class="command">
+            <img src="Res/images/top_button.gif" alt="">
+          <a href="javascript:scroll(0,0)">
+             <span class="label">Top</span>
+              </a>
+    </span>
+       </span>
+      </div>
+    </div>
+  </td>
+  <td class="right" valign="top">
+<!--right body column empty-->
+  </td>
+</tr>
+<!-- END TOP BUTTON -->
+
+</table>
+
+<!-- BEGIN SIDE NAVIGATION WRAPPER-->
+    </td>
+  </tr>
+</table>
+<!-- END SIDE NAVIGATION WRAPPER-->
+
+<!-- END PAGE BODY-->
+
+
+</body>
+</html>
+
