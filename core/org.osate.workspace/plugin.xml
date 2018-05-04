@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.0"?>
+<plugin>
+
+   <extension
+         point="org.eclipse.core.runtime.preferences">
+      <initializer
+            class="org.osate.internal.workspace.PreferenceInitializer">
+      </initializer>
+   </extension>
+   <extension
+         point="org.osate.pluginsupport.aadlcontribution">
+      <aadlcontribution
+            file="resources/properties/Predeclared_Property_Sets/AADL_Project.aadl"
+            id="org.osate.workspace.aadlcontribution1"
+            name="Predeclared_Property_Sets/AADL_Project">
+      </aadlcontribution>
+      <aadlcontribution
+            file="resources/properties/Predeclared_Property_Sets/Communication_Properties.aadl"
+            id="org.osate.workspace.aadlcontribution2"
+            name="Predeclared_Property_Sets/Communication_Properties.aadl">
+      </aadlcontribution>
+      <aadlcontribution
+            file="resources/properties/Predeclared_Property_Sets/Deployment_Properties.aadl"
+            id="org.osate.workspace.aadlcontribution2"
+            name="Predeclared_Property_Sets/Deployment_Properties.aadl">
+      </aadlcontribution>
+      <aadlcontribution
+            file="resources/properties/Predeclared_Property_Sets/Memory_Properties.aadl"
+            id="org.osate.workspace.aadlcontribution3"
+            name="Predeclared_Property_Sets/Memory_Properties.aadl">
+      </aadlcontribution>
+      <aadlcontribution
+            file="resources/properties/Predeclared_Property_Sets/Modeling_Properties.aadl"
+            id="org.osate.workspace.aadlcontribution4"
+            name="Predeclared_Property_Sets/Modeling_Properties.aadl">
+      </aadlcontribution>
+      <aadlcontribution
+            file="resources/properties/Predeclared_Property_Sets/Programming_Properties.aadl"
+            id="org.osate.workspace.aadlcontribution5"
+            name="Predeclared_Property_Sets/Programming_Properties.aadl">
+      </aadlcontribution>
+      <aadlcontribution
+            file="resources/properties/Predeclared_Property_Sets/Thread_Properties.aadl"
+            id="org.osate.workspace.aadlcontribution6"
+            name="Predeclared_Property_Sets/Thread_Properties.aadl">
+      </aadlcontribution>
+      <aadlcontribution
+            file="resources/properties/Predeclared_Property_Sets/Timing_Properties.aadl"
+            id="org.osate.workspace.aadlcontribution7"
+            name="Predeclared_Property_Sets/Timing_Properties.aadl">
+      </aadlcontribution>
+   </extension>
+</plugin>
