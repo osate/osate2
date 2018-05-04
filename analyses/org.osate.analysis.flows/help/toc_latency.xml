@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<toc link_to="../org.osate.help/aadlhelp.xml#_latency" label="Flow Latency Analysis">
+   <topic href="help/html/latency.html" label="Flow Latency Analysis">
+      <topic href="help/html/latency.html#usage-result-reports-and-examples" label="Usage, Result Reports, and Examples">
+         <topic href="help/html/latency.html#invoking-the-latency-analysis" label="Invoking the Latency Analysis"></topic>
+         <topic href="help/html/latency.html#latency-analysis-result-reports" label="Latency Analysis Result Reports"></topic>
+         <topic href="help/html/latency.html#latency-analysis-report-content" label="Latency Analysis Report Content"></topic>
+         <topic href="help/html/latency.html#examples" label="Examples"></topic>
+      </topic>
+      <topic href="help/html/latency.html#preference-settings-for-latency-analysis" label="Preference Settings for Latency Analysis">
+      </topic>
+      <topic href="help/html/latency.html#latency-contributors-and-relevant-properties" label="Latency Contributors and Relevant Properties">
+         <topic href="help/html/latency.html#latency-budgets-specified-via-latency-property" label="Latency Budgets Specified via Latency Property"></topic>
+         <topic href="help/html/latency.html#queuing-delay-in-message-based-processing" label="Queuing Delay in Message-based Processing"></topic>
+         <topic href="help/html/latency.html#sampling-delay-in-periodic-sampled-processing" label="Sampling Delay in Periodic Sampled Processing"></topic>
+         <topic href="help/html/latency.html#processing-times-as-latency-contributors" label="Processing Times as Latency Contributors"></topic>
+         <topic href="help/html/latency.html#sampled-processing-in-synchronous-system-scenarios" label="Sampled Processing in Synchronous System Scenarios"></topic>
+         <topic href="help/html/latency.html#mid-frame-and-frame-delayed-communication" label="Mid-frame and Frame-delayed Communication"></topic>
+         <topic href="help/html/latency.html#communication-latency-contribution-by-networksbuses-and-protocols" label="Communication Latency Contribution by Networks/Buses and Protocols"></topic>
+         <topic href="help/html/latency.html#partitioned-systems" label="Partitioned Systems"></topic>
+         <topic href="help/html/latency.html#latency-analysis-and-modes" label="Latency Analysis and Modes"></topic>
+      </topic>
+   </topic>
+</toc>
