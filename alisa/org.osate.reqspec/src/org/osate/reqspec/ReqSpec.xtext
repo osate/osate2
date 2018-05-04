@@ -1,0 +1,261 @@
+grammar org.osate.reqspec.ReqSpec with org.osate.alisa.common.Common
+
+generate reqSpec "http://www.osate.org/reqspec/ReqSpec"
+
+import "http://aadl.info/AADL/2.0" as aadl2
+//import "http://www.aadl.info/EMV2" as emv2
+import "http://www.osate.org/categories/Categories" as categories
+import "http://www.osate.org/organization/Organization" as org
+import "http://www.osate.org/alisa/common/Common" as common
+import "http://www.eclipse.org/emf/2002/Ecore" as ecore
+
+ReqSpec: parts +=(SystemRequirementSet|GlobalRequirementSet|StakeholderGoals|ReqDocument|GlobalConstants)+  ;
+
+//ReqSpecContainer: SystemRequirements | GlobalRequirements |  StakeholderGoals | ReqDocument | DocumentSection ;
+
+GlobalConstants: 
+	'constants' name=QualifiedName '['
+	constants+=ValDeclaration* ']'
+;
+
+ContractualElement: Goal | SystemRequirement  ;
+
+ReqRoot:  StakeholderGoals | ReqDocument | SystemRequirementSet | GlobalRequirementSet;
+
+
+StakeholderGoals: 'stakeholder' 'goals' name=QualifiedName (':' title=STRING)?
+	( 'for' (target=[aadl2::ComponentClassifier|AadlClassifierReference] | componentCategory+=ComponentCategory+ ))
+	('use' 'constants' importConstants+=[GlobalConstants|QualifiedName]+)?
+	'[' 
+	(	description=Description? 
+		& constants+=ValDeclaration*
+		&goals+=Goal* 
+	    &('see''document'  docReference+=ExternalDocument+)? 
+		&('issues' issues+=STRING+ )?
+				)
+	']'
+;
+
+ReqDocument: 'document' name=QualifiedName (':' title=STRING)?
+	'[' 
+	( (  description=Description)? 
+	&(content+= (DocGoal | DocRequirement |  DocumentSection))*
+	 &('see''document'  docReference+=ExternalDocument+)? 
+	&('issues' issues+=STRING+ )?
+	)
+	 ']'
+;
+DocumentSection returns DocumentSection:
+	'section' ((label =ID (':' title=STRING)?)| title=STRING)
+	'[' (
+	 (  description=Description)? 
+	
+	&(content+= (DocGoal | DocRequirement |  DocumentSection))*
+	)
+	']' 
+	;
+
+SystemRequirementSet returns RequirementSet:
+	{SystemRequirementSet} 'system''requirements'  name =QualifiedName (':' title=STRING)? 
+	'for' target=[aadl2::ComponentClassifier|AadlClassifierReference] 
+	('use' 'constants' importConstants+=[GlobalConstants|QualifiedName]+)?
+	'[' 
+	(
+	 description=Description 
+	|	constants+=ValDeclaration
+	| computes+=ComputeDeclaration 
+	| requirements+= SystemRequirement
+	| include+= IncludeGlobalRequirement
+	 |('see''document'  docReference+=ExternalDocument+) 
+	 |('see' 'goals'  stakeholderGoals+=[ReqRoot|QualifiedName]+) 
+	|('issues' issues+=STRING+ )
+	)*
+	']'
+	;
+
+GlobalRequirementSet returns RequirementSet:
+	{GlobalRequirementSet}'global''requirements'  name =QualifiedName (':' title=STRING)? 
+	('use' 'constants' importConstants+=[GlobalConstants|QualifiedName]+)?
+	'[' 
+	(description=Description
+	|constants+=ValDeclaration
+	| computes+=ComputeDeclaration 
+	| requirements+= GlobalRequirement
+	 |('see''document'  docReference+=ExternalDocument+) 
+	 |('see' 'goals'  stakeholderGoals+=[ReqRoot|QualifiedName]+) 
+	|('issues' issues+=STRING+ )
+	)*
+	']'
+	;
+
+
+DocGoal returns Goal:
+	'goal' name=ID (':'  title=STRING )? // short string for title
+	( 'for' ( targetDescription=STRING | (target=[aadl2::ComponentClassifier|AadlClassifierReference] ( targetElement=[aadl2::NamedElement|ID])?  )
+		)
+	)?
+'['  (
+ 	('category' category+=[categories::Category|QualifiedName]+ )?
+	 & description=Description? 
+	&constants+=ValDeclaration* 
+	&(  whencondition=WhenCondition)?  // condition under which requirement applies 
+	 &rationale=Rationale? 
+	 &changeUncertainty=Uncertainty? 
+	 &('refines' refinesReference+=[Goal|QualifiedName]+)? 
+	 &('conflicts' 'with' conflictsReference+=[Goal|QualifiedName]+)? 
+	&('evolves' evolvesReference+=[Requirement|QualifiedName]+)? 
+	&(dropped?='dropped' ( dropRationale=STRING )? )? 
+	 &('stakeholder'  stakeholderReference+=[org::Stakeholder|QualifiedName]+)?
+	 &( 'see''document'  docReference+=ExternalDocument+)? 
+		&('issues' issues+=STRING+ )?
+	)
+	 ']';
+
+
+Goal returns Goal:
+	'goal' name=ID (':'  title=STRING )? // short string for title
+	( 'for'  targetElement=[aadl2::NamedElement|ID]
+	)?
+'['  (
+ 	('category' category+=[categories::Category|QualifiedName]+ )?
+	 &(  description=Description)? 
+	& (  constants+=ValDeclaration* )
+	&(  whencondition=WhenCondition)?  // condition under which requirement applies 
+	 &(rationale=Rationale)? 
+	 &(changeUncertainty=Uncertainty)? 
+	 &('refines' refinesReference+=[Goal|QualifiedName]+)? 
+	 &('conflicts' 'with' conflictsReference+=[Goal|QualifiedName]+)? 
+	&('evolves' evolvesReference+=[Requirement|QualifiedName]+)? 
+	&(dropped?='dropped' ( dropRationale=STRING )? )? 
+	 &('stakeholder'  stakeholderReference+=[org::Stakeholder|QualifiedName]+)?
+	&('see''goal'  goalReference+=[Goal|QualifiedName]+)?
+	 &('see''document'  docReference+=ExternalDocument+)? 
+		&('issues' issues+=STRING+ )?
+	)
+	 ']';
+
+
+
+SystemRequirement returns Requirement:
+	'requirement'  name=ID   
+	(':'  title=STRING)? 
+	( 'for'  (
+		targetElement=[aadl2::NamedElement|ID] )
+	)?
+'['	(
+ 	('category' category+=[categories::Category|QualifiedName]+ )
+	|(  description=Description) 
+	|(  whencondition=WhenCondition)  // condition under which requirement applies 
+	|(  predicate=ReqPredicate)  // predicate expression 
+	|(rationale=Rationale) 
+	 |(changeUncertainty=Uncertainty) 
+	|('mitigates'  (exception=[ecore::EObject|ID]|exceptionText=STRING)) 
+	|('inherits' inheritsReference=[Requirement|QualifiedName]) 
+	|(dropped?='dropped' ( dropRationale=STRING )? ) 
+	|(  constants+=ValDeclaration )
+	| (  computes+=ComputeDeclaration )
+	|('refines' refinesReference+=[Requirement|QualifiedName]+) 
+	|('decomposes' decomposesReference+=[Requirement|QualifiedName]+) 
+	|('evolves' evolvesReference+=[Requirement|QualifiedName]+) 
+	 |('development' 'stakeholder'  developmentStakeholder+=[org::Stakeholder|QualifiedName]+)
+	|('see''goal'  goalReference+=[Goal|QualifiedName]+)
+	|('see''requirement'  requirementReference+=[Requirement|QualifiedName]+)
+	 |('see''document'  docReference+=ExternalDocument+) 
+		|('issues' issues+=STRING+ )
+	)*
+	']';
+	
+GlobalRequirement returns Requirement:
+	'requirement'  name=ID   
+	(':'  title=STRING)? 
+	( 'for'  (componentCategory+=ComponentCategory+ | connections?='connections')	)?
+'['	(
+ 	('category' category+=[categories::Category|QualifiedName]+ )?
+	&(  description=Description)? 
+	& (  constants+=ValDeclaration* )
+	& (  computes+=ComputeDeclaration* )
+	&(  whencondition=WhenCondition)?  // condition under which requirement applies 
+	&(  predicate=ReqPredicate)?  // predicate expression 
+	&(rationale=Rationale)? 
+	 &(changeUncertainty=Uncertainty)? 
+	&('mitigates'  (exception=[ecore::EObject|ID]|exceptionText=STRING))? 
+	&('refines' refinesReference+=[Requirement|QualifiedName]+)? 
+	&('decomposes' decomposesReference+=[Requirement|QualifiedName]+)? 
+	&('evolves' evolvesReference+=[Requirement|QualifiedName]+)? 
+	&(dropped?='dropped' ( dropRationale=STRING )? )? 
+	 &('development' 'stakeholder'  developmentStakeholder+=[org::Stakeholder|QualifiedName]+)?
+	&('see''goal'  goalReference+=[Goal|QualifiedName]+)?
+	&('see''requirement'  requirementReference+=[Requirement|QualifiedName]+)?
+	 &('see''document'  docReference+=ExternalDocument+)? 
+		&('issues' issues+=STRING+ )?
+	)
+	']';
+	
+DocRequirement returns Requirement:
+	'requirement'  name=ID   
+	(':'  title=STRING)? 
+	( 'for'  ( targetDescription=STRING |
+		(target=[aadl2::ComponentClassifier|AadlClassifierReference] ( targetElement=[aadl2::NamedElement|ID])?  ) |
+		componentCategory+=ComponentCategory+)
+	)?
+'['	(
+ 	('category'  category+=[categories::Category|QualifiedName]+ )?
+	&(  description=Description)? 
+	& (  constants+=ValDeclaration* )
+	& (  computes+=ComputeDeclaration* )
+	&(  whencondition=WhenCondition)?  // condition under which requirement applies 
+	&(  predicate=ReqPredicate)?  // predicate expression 
+	&(rationale=Rationale)? 
+	 &(changeUncertainty=Uncertainty)? 
+	&('mitigates'  (exception=[ecore::EObject|ID]|exceptionText=STRING))? 
+	&('refines' refinesReference+=[Requirement|QualifiedName]+)? 
+	&('decomposes' decomposesReference+=[Requirement|QualifiedName]+)? 
+	&('inherits' inheritsReference=[Requirement|QualifiedName])? 
+	&('evolves' evolvesReference+=[Requirement|QualifiedName]+)? 
+	&(dropped?='dropped' ( dropRationale=STRING )? )? 
+	 &('development' 'stakeholder'  developmentStakeholder+=[org::Stakeholder|QualifiedName]+)?
+	&('see''goal'  goalReference+=[Goal|QualifiedName]+)?
+	 &('see''document'  docReference+=ExternalDocument+)? 
+		&('issues' issues+=STRING+ )?
+	)
+	']';
+
+IncludeGlobalRequirement returns IncludeGlobalRequirement:
+	'include' include=[ecore::EObject|QualifiedName]
+	( 'for'  (componentCategory+=ComponentCategory+	| self?='self'))?
+	;
+	
+WhenCondition:
+	'when' 
+	(( 'in' 'mode' inMode+=[aadl2::Mode|ID](',' inMode+=[aadl2::Mode|ID])* )
+	| ( 'in' 'error' 'state' inErrorState+=[ecore::EObject|ID](',' inErrorState+=[ecore::EObject|ID])* )
+	| (condition=QualifiedName'('')')
+	)
+;
+
+ReqPredicate: InformalPredicate | ValuePredicate;// | InputAssumption | OutputGuarantee| BehaviorEquation;
+
+InformalPredicate: 'informal' 'predicate'  description=STRING ;
+
+ValuePredicate: 'value' 'predicate' xpression=AAndExpression
+	('with' desiredValue+=DesiredValue+)?
+;	// intended to be restricted to deal with value limits
+
+DesiredValue: desired=[common::AVariableReference|ID] (upto?='upto' | 'downto') value=AExpression ;
+
+ExternalDocument : 
+	docReference=DOCPATH ( '#' docFragment=QualifiedName)?
+;
+
+
+ValDeclaration returns common::ValDeclaration:
+	 {ReqValDeclaration} 'val' name=ID (':' (type=TypeRef | 'typeof' type=PropertyRef | range?='[' (type=TypeRef | 'typeof' type=PropertyRef) ']') )? '=' value=AExpression
+	 ('as' property=PropertyRef)?  
+;
+
+
+// path to external document and its fragment
+DOCPATH: ( ID '/')* ID '.' ID;
+
+
+	
