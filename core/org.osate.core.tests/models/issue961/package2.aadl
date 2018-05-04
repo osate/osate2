@@ -1,0 +1,33 @@
+package package2
+public
+	system SS
+		prototypes
+			X: abstract;
+	end SS;
+
+	system implementation SS.i
+		subcomponents
+			s1: abstract X;
+	end SS.i;
+	
+	bus B1
+	end B1;
+	
+	bus implementation B1.i
+	end B1.i;
+	
+	process P1
+	end P1;
+	
+	process implementation P1.i
+	end P1.i;
+	
+	system SSS
+	end SSS;
+	
+	system implementation SSS.i
+		subcomponents
+			sub1: system SS.i (X => bus B1.i); -- subcomponent sub1.s1 is a bus
+			sub2: system SS.i (X => process P1.i); -- subcomponent sub2.s1 is a process
+	end SSS.i;
+end package2;
