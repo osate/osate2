@@ -1,0 +1,13 @@
+package RAM_Budget
+public
+	with SEI;
+	
+	system s1
+	end s1;
+	
+	system implementation s1.i1
+		subcomponents
+			sub1: memory {SEI::RAMCapacity => 1.0 KByte;};
+			sub2: process {SEI::RAMBudget => 1.0 KByte;};
+	end s1.i1;
+end RAM_Budget;

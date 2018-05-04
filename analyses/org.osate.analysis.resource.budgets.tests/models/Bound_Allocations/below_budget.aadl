@@ -1,0 +1,25 @@
+package below_budget
+public
+	with SEI;
+	
+	system s1
+	end s1;
+	
+	system implementation s1.i1
+		subcomponents
+			sub1: process ps1.i1;
+			sub2: processor;
+		properties
+			Actual_Processor_Binding => (reference (sub2)) applies to sub1;
+	end s1.i1;
+	
+	process ps1
+	end ps1;
+	
+	process implementation ps1.i1
+		subcomponents
+			sub3: thread {SEI::MIPSBudget => 1.0 MIPS;};
+		properties
+			SEI::MIPSBudget => 2.0 MIPS;
+	end ps1.i1;
+end below_budget;

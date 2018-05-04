@@ -1,0 +1,21 @@
+package source_not_feature
+public
+	with SEI;
+	
+	system s1
+	end s1;
+	
+	system implementation s1.i1
+		subcomponents
+			sub1: bus {SEI::BandWidthCapacity => 1.0 bitsps;};
+			sub2: process ps1;
+			sub3: data;
+		connections
+			conn1: data access sub3 -> sub2.f1 {Actual_Connection_Binding => (reference (sub1));};
+	end s1.i1;
+	
+	process ps1
+		features
+			f1: requires data access;
+	end ps1;
+end source_not_feature;

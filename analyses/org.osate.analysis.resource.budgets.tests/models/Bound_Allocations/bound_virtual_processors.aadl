@@ -1,0 +1,13 @@
+package bound_virtual_processors
+public
+	system s1
+	end s1;
+	
+	system implementation s1.i1
+		subcomponents
+			sub1: process;
+			sub2: virtual processor {Processor_Capacity => 1.0 MIPS;};
+		properties
+			Actual_Processor_Binding => (reference (sub2)) applies to sub1;
+	end s1.i1;
+end bound_virtual_processors;

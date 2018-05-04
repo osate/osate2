@@ -1,0 +1,31 @@
+package access_connection
+public
+	with SEI;
+	
+	system s1
+	end s1;
+	
+	system implementation s1.i1
+		subcomponents
+			sub1: bus {SEI::PowerCapacity => 1.0 mW;};
+			sub2: bus {SEI::PowerCapacity => 1.0 mW;};
+			sub3: abstract a1;
+		connections
+			conn1: bus access sub1 -> sub3.f1;
+			conn2: bus access sub1 -> sub3.f2;
+			conn3: bus access sub1 -> sub3.f3;
+			conn4: bus access sub1 -> sub3.f4;
+			conn5: bus access sub3.f1 -> sub2;
+			conn6: bus access sub3.f2 -> sub2;
+			conn7: bus access sub3.f3 -> sub2;
+			conn8: bus access sub3.f4 -> sub2;
+	end s1.i1;
+	
+	abstract a1
+		features
+			f1: requires bus access {SEI::PowerBudget => 1.0 mW;};
+			f2: requires bus access {SEI::PowerBudget => 1.0 mW;};
+			f3: requires bus access {SEI::PowerSupply => 1.0 mW;};
+			f4: requires bus access {SEI::PowerSupply => 1.0 mW;};
+	end a1;
+end access_connection;

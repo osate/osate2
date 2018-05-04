@@ -1,0 +1,24 @@
+package broadcast_with_connection
+public
+	with SEI;
+	
+	system s1
+	end s1;
+	
+	system implementation s1.i1
+		subcomponents
+			sub1: bus {SEI::Broadcast_Protocol => true;};
+			sub2: process ps1;
+			sub3: process ps1;
+			sub4: process ps1;
+		connections
+			conn1: port sub2.f1 -> sub3.f1 {Actual_Connection_Binding => (reference (sub1));};
+			conn2: port sub2.f1 -> sub4.f1 {Actual_Connection_Binding => (reference (sub1));};
+			conn3: port sub3.f1 -> sub4.f1 {Actual_Connection_Binding => (reference (sub1));};
+	end s1.i1;
+	
+	process ps1
+		features
+			f1: in out data port;
+	end ps1;
+end broadcast_with_connection;

@@ -1,0 +1,12 @@
+package capacity
+public
+	with SEI;
+	
+	system s1
+	end s1;
+	
+	system implementation s1.i1
+		subcomponents
+			sub1: bus {SEI::BandWidthCapacity => 1.0 bitsps;};
+	end s1.i1;
+end capacity;

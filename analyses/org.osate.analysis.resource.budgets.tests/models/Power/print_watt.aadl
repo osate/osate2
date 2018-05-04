@@ -1,0 +1,12 @@
+package print_watt
+public
+	with SEI;
+	
+	system s1
+	end s1;
+	
+	system implementation s1.i1
+		properties
+			SEI::PowerCapacity => 3.0 W;
+	end s1.i1;
+end print_watt;

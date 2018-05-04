@@ -1,0 +1,12 @@
+package MIPS_Budget
+public
+	with SEI;
+	
+	system s1
+	end s1;
+	
+	system implementation s1.i1
+		subcomponents
+			sub1: process {SEI::MIPSBudget => 1.0 MIPS;};
+	end s1.i1;
+end MIPS_Budget;

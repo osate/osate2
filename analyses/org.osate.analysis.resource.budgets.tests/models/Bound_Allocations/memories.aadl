@@ -1,0 +1,15 @@
+package memories
+public
+	with SEI;
+	
+	system s1
+	end s1;
+	
+	system implementation s1.i1
+		subcomponents
+			sub1: memory;
+			sub2: memory {SEI::ROMCapacity => 1.0 KByte;};
+			sub3: memory {SEI::RAMCapacity => 1.0 KByte;};
+			sub4: memory {Memory_Size => 1 KByte;};
+	end s1.i1;
+end memories;

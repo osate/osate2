@@ -1,0 +1,11 @@
+package memory_budget
+public
+	system s1
+	end s1;
+	
+	system implementation s1.i1
+		subcomponents
+			sub1: memory {Memory_Size => 1 KByte;};
+			sub2: data {Data_Size => 1 KByte;};
+	end s1.i1;
+end memory_budget;

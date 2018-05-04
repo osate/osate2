@@ -1,0 +1,60 @@
+package rom_budget
+public
+	with SEI;
+	
+	system s1
+	end s1;
+	
+	system implementation s1.i1
+		subcomponents
+			sub1: process {
+				SEI::ROMBudget => 1.0 KByte;
+				Code_Size => 1 KByte;
+			};
+			sub2: memory {SEI::ROMCapacity => 1.0 KByte;};
+			sub3: process {
+				SEI::ROMBudget => 1.0 KByte;
+				Code_Size => 2 KByte;
+			};
+			sub4: memory {SEI::ROMCapacity => 1.0 KByte;};
+			sub5: process {
+				SEI::ROMBudget => 2.0 KByte;
+				Code_Size => 1 KByte;
+			};
+			sub6: memory {SEI::ROMCapacity => 1.0 KByte;};
+			sub7: process {
+				SEI::ROMActual => 1.0 KByte;
+				Code_Size => 1 KByte;
+			};
+			sub8: memory {SEI::ROMCapacity => 1.0 KByte;};
+			sub9: process {
+				SEI::ROMActual => 1.0 KByte;
+				Code_Size => 2 KByte;
+			};
+			sub10: memory {SEI::ROMCapacity => 1.0 KByte;};
+			sub11: process {
+				SEI::ROMActual => 2.0 KByte;
+				SEI::ROMBudget => 1.0 KByte;
+			};
+			sub12: memory {SEI::ROMCapacity => 1.0 KByte;};
+			sub13: process {
+				SEI::ROMActual => 1.0 KByte;
+				SEI::ROMBudget => 2.0 KByte;
+			};
+			sub14: memory {SEI::ROMCapacity => 1.0 KByte;};
+			sub15: process {SEI::ROMBudget => 1.0 KByte;};
+			sub16: memory {SEI::ROMCapacity => 1.0 KByte;};
+			sub17: process {SEI::RAMActual => 1.0 KByte;};
+			sub18: memory {SEI::RAMCapacity => 1.0 KByte;};
+		properties
+			Actual_Memory_Binding => (reference (sub2)) applies to sub1;
+			Actual_Memory_Binding => (reference (sub4)) applies to sub3;
+			Actual_Memory_Binding => (reference (sub6)) applies to sub5;
+			Actual_Memory_Binding => (reference (sub8)) applies to sub7;
+			Actual_Memory_Binding => (reference (sub10)) applies to sub9;
+			Actual_Memory_Binding => (reference (sub12)) applies to sub11;
+			Actual_Memory_Binding => (reference (sub14)) applies to sub13;
+			Actual_Memory_Binding => (reference (sub16)) applies to sub15;
+			Actual_Memory_Binding => (reference (sub18)) applies to sub17;
+	end s1.i1;
+end rom_budget;
