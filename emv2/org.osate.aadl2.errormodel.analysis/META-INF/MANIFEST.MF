@@ -1,0 +1,23 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: %pluginName
+Bundle-SymbolicName: org.osate.aadl2.errormodel.analysis;singleton:=true
+Bundle-Version: 1.0.0.qualifier
+Bundle-ClassPath: .
+Bundle-Activator: org.osate.aadl2.errormodel.analysis.Activator
+Bundle-Vendor: Software Engineering Institute
+Bundle-Localization: plugin
+Require-Bundle: org.eclipse.ui,
+ org.eclipse.core.runtime,
+ org.osate.aadl2.modelsupport;bundle-version="1.0.0",
+ org.osate.aadl2;bundle-version="1.0.0",
+ org.osate.ui;bundle-version="1.0.0",
+ org.osate.xtext.aadl2.errormodel;bundle-version="1.0.0",
+ org.osate.xtext.aadl2.properties;bundle-version="1.0.0",
+ org.osate.aadl2.errormodel.propagationgraph
+Bundle-ActivationPolicy: lazy
+Import-Package: org.osate.xtext.aadl2.properties
+Export-Package: org.osate.aadl2.errormodel.analysis,
+ org.osate.aadl2.errormodel.analysis.fha,
+ org.osate.aadl2.errormodel.analysis.handlers
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8
