@@ -1,0 +1,202 @@
+grammar org.osate.verify.Verify with org.osate.alisa.common.Common
+
+generate verify "http://www.osate.org/verify/Verify"
+import "http://aadl.info/AADL/2.0" as aadl2
+import "http://www.osate.org/reqspec/ReqSpec" as ReqSpec
+import "http://www.osate.org/categories/Categories" as categories
+import "http://www.osate.org/alisa/common/Common" as common
+import "http://www.eclipse.org/emf/2002/Ecore" as ecore
+
+Verification:
+	contents+=	( VerificationPlan  | VerificationMethodRegistry)+;
+
+VerificationPlan returns VerificationPlan:
+	'verification' 'plan' name=QualifiedName (':' title=STRING)? 
+	'for' requirementSet=[ReqSpec::RequirementSet|QualifiedName]  
+	'['
+	(
+		( description=Description)?
+	& claim+=Claim*
+	& rationale=Rationale?
+	& ('issues' issues+=STRING+ )?
+	)
+	']';
+
+
+Claim:
+	{Claim}'claim' requirement=[ReqSpec::Requirement|QualifiedName]?  (':' title=STRING)?
+	'['
+	(
+		  ('activities' activities += VerificationActivity*)?
+		& ('assert' assert=ArgumentExpr)?
+		& rationale=Rationale?
+		&('weight' weight=INT )?
+		& subclaim+=Claim*
+		& ('issues' issues+=STRING+ )?
+	)  
+	']'
+;
+
+
+ArgumentExpr:
+	ThenEvidenceExpr;
+
+ThenEvidenceExpr returns ArgumentExpr:
+	ElseEvidenceExpr (=> ({ThenExpr.left=current} 'then') successor=ThenEvidenceExpr)*;
+
+	// Execute as alternative if the first one fails.
+// The results of both are reported
+ElseEvidenceExpr returns ArgumentExpr:
+	SingleElseEvidenceExpr | CompositeElseEvidenceExpr
+;
+	
+SingleElseEvidenceExpr returns ArgumentExpr:	
+	VAReference (=> ({ElseExpr.left=current} 'else') 
+		(error=ElseEvidenceExpr | 
+				'[' ('fail' ':' fail=ThenEvidenceExpr)? ('timeout' ':' timeout=ThenEvidenceExpr)? 
+				('error' ':' error=ThenEvidenceExpr)? 
+				 ']'
+		)
+	)*
+	;
+
+CompositeElseEvidenceExpr returns ArgumentExpr:	
+	CompositeEvidenceExpr (=> ({ElseExpr.left=current} 'else') 
+		error=ElseEvidenceExpr 
+	)*
+	;
+
+
+QuantifiedEvidenceExpr returns ArgumentExpr:
+	 'all' {AllExpr} '[' elements+=ThenEvidenceExpr (',' elements+=ThenEvidenceExpr)* ']' ;
+
+
+CompositeEvidenceExpr returns ArgumentExpr:
+	 '(' ThenEvidenceExpr ')' | QuantifiedEvidenceExpr;
+
+VAReference returns ArgumentExpr:
+	{RefExpr} verification=[VerificationActivity|ID]
+;
+
+ComputeRef:
+	compute=[common::ComputeDeclaration|ID]
+;
+
+VerificationActivity:
+	name=ID (':' title=STRING)? 
+	':'
+	(computes+=ComputeRef (',' computes+=ComputeRef)* '=')?
+	method=[VerificationMethod|QualifiedName] 
+//	'(' (parameters+=[common::ValDeclaration|ID] (',' parameters+=[common::ValDeclaration|ID])*)? ')' 
+	'(' (actuals+=AExpression (',' actuals+=AExpression)*)? ')' 
+	(
+		'property' 'values' '(' 
+		(propertyValues+=AExpression (',' propertyValues+=AExpression)*)? 
+		')'
+	)?
+	('['(
+ 	('category'  category+=[categories::Category|QualifiedName]+ )?
+	&('timeout' timeout=AIntegerTerm)?
+	&('weight' weight=INT)?
+	)']')?
+;
+
+
+VerificationValidation returns VerificationCondition:
+	'validation' {VerificationValidation}  
+			method=[VerificationMethod|QualifiedName] 
+			'(' (parameters+=[FormalParameter|ID] (',' parameters+=[FormalParameter| ID])*)? ')'
+	;
+
+VerificationPrecondition returns VerificationCondition:
+	'precondition' {VerificationPrecondition} 
+			method=[VerificationMethod|QualifiedName] 
+			'(' (parameters+=[FormalParameter|ID] (',' parameters+=[FormalParameter| ID])*)? ')'
+	;
+
+VerificationMethodRegistry returns VerificationMethodRegistry:
+	'verification' 'methods' name=QualifiedName
+	(':' title=STRING)?
+//	( 'for' (target=[aadl2::ComponentClassifier|AadlClassifierReference] | componentCategory+=ComponentCategory+ ))?
+	'[' (
+	( description=Description)?
+	methods+=VerificationMethod*)
+	']';
+
+	
+FormalParameter returns FormalParameter:
+	name=ID ':' (type=TypeRef | 'typeof' type=PropertyRef) ('in' unit=[aadl2::UnitLiteral|ID])?;
+
+enum TargetType: COMPONENT='component'|FEATURE='feature'|CONNECTION='connection'|FLOW='flow'|MODE='mode'|ELEMENT='element'|ROOT='root';
+
+VerificationMethod:
+	'method' name=ID 
+	(
+		'(' ((targetType=TargetType)? | (formals+=FormalParameter (',' formals+=FormalParameter)*)
+			| (targetType=TargetType ','formals+=FormalParameter (',' formals+=FormalParameter)*))
+		')'
+		(
+			'properties' '('
+			(properties+=[aadl2::Property|AADLPROPERTYREFERENCE] (',' properties+=[aadl2::Property|AADLPROPERTYREFERENCE])*)? 
+			')'
+		)?
+		(
+			'returns' '('
+			(results+=FormalParameter (',' results+=FormalParameter)*)? 
+			')'
+		)?
+		(isPredicate?='boolean'|isResultReport?='report')?
+	)? 
+	(':' title=STRING)?
+	( 'for' (target=[aadl2::ComponentClassifier|AadlClassifierReference] | componentCategory+=ComponentCategory+ ))?
+	'['
+	(
+		  methodKind=MethodKind 
+		& description=Description?
+		& precondition=VerificationPrecondition?
+		& validation=VerificationValidation?
+ 	&('category'  category+=[categories::Category|QualifiedName]+ )?
+	)
+	']'
+	;
+
+MethodKind:
+	ResoluteMethod | JavaMethod | ManualMethod | PluginMethod | AgreeMethod|JUnit4Method
+;
+	
+	ResoluteMethod:
+		'resolute' methodReference=[ecore::EObject|ID]
+	;
+	
+	JavaMethod:
+		'java' methodPath=QualifiedName ('(' (params+=JavaParameter (',' params+=JavaParameter)*)?')')?
+	;
+	
+	ManualMethod:
+		'manual' {ManualMethod} dialogID=QualifiedName
+	;
+	
+	PluginMethod:
+		'plugin' methodID=ID
+	;
+
+	AgreeMethod:
+		'agree' (singleLayer?='single' | all?='all')
+	;
+
+	JUnit4Method:
+		'junit' classPath=QualifiedName
+	;
+
+	
+JavaParameter returns JavaParameter:
+	parameterType=ID name=ID ;
+
+
+//PropertyReference returns common::APropertyReference:
+//	property=[aadl2::AbstractNamedValue|AADLPROPERTYREFERENCE]
+//;
+	
+//enum SupportedScopes: SELF='self' | PARTS='parts' | ALL='all';
+
+//enum SupportedReporting: MARKER='marker' |ERRORMARKER='errormarker' | DIAGNOSTICS='diagnostics'| ASSERTEXCEPTION='assertexception'|RESULTREPORT='resultreport' ;

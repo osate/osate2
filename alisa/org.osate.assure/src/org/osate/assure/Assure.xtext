@@ -1,0 +1,219 @@
+grammar org.osate.assure.Assure with org.osate.alisa.common.Common//org.eclipse.xtext.common.Terminals
+
+generate assure "http://www.osate.org/assure/Assure"
+import "http://aadl.info/AADL/2.0" as aadl2
+import "http://www.osate.org/reqspec/ReqSpec" as ReqSpec
+import "http://www.osate.org/alisa/common/Common" as Common
+import "http://www.osate.org/alisa/workbench/Alisa" as Alisa
+import "http://www.osate.org/verify/Verify" as Verify 
+import  "http://www.osate.org/result/Result" as results
+import "http://www.eclipse.org/emf/2002/Ecore" as ecore
+
+ 
+// result for a system in the architecture hierarchy
+AssuranceCaseResult:
+	'case' name=QualifiedName 
+	'['
+	metrics=Metrics
+	('message' message= STRING)?
+	modelResult += ModelResult*
+	']'  
+;
+
+ModelResult:
+	'model' plan=[Alisa::AssurancePlan|QualifiedName]
+	'for' target=[aadl2::ComponentImplementation|AadlClassifierReference]
+	'['
+	metrics=Metrics
+	('message' message= STRING)?
+	claimResult += ClaimResult*
+	(subsystemResult += SubsystemResult )*
+	']'  
+;
+
+SubsystemResult:
+	'subsystem' //name=QualifiedName 'for' 
+	targetSystem=[aadl2::Subcomponent|ID]
+	'['
+	metrics=Metrics
+	('message' message= STRING)?
+	(claimResult += ClaimResult)*
+	(subsystemResult += SubsystemResult)*
+	']'  
+;
+
+
+// Result of meeting a requirement
+ClaimResult:
+	'claim' targetReference=QualifiedClaimReference//target=[ReqSpec::Requirement|QualifiedName]
+	'['
+	metrics=Metrics
+	('for' modelElement=[aadl2::NamedElement|ID])?
+	('message' message= STRING)?
+	(subClaimResult += ClaimResult)*
+	(verificationActivityResult+= VerificationExpr)*
+	predicateResult=PredicateResult?
+	']'  
+;
+
+
+PreconditionResult returns VerificationResult:
+	'precondition' {PreconditionResult}	
+	target=[Verify::VerificationMethod|QualifiedName]
+	'['
+	'executionstate'  executionState=VerificationExecutionState
+	'resultstate' resultState=VerificationResultState
+	('issues' '['
+		issues+=ResultIssue*
+		']'
+	)?
+	('results' results=[results::AnalysisResult|QualifiedName])? // pointer to separate report
+	metrics=Metrics
+	('message' message= STRING)?
+	']'  
+;
+
+ValidationResult returns VerificationResult:
+	'validation' {ValidationResult}	
+	target=[Verify::VerificationMethod|QualifiedName]
+	'['
+	'executionstate'  executionState=VerificationExecutionState
+	'resultstate' resultState=VerificationResultState
+	('issues' '['
+		issues+=ResultIssue*
+		']'
+	)?
+	('results' results=[results::AnalysisResult|QualifiedName])? // pointer to separate report
+	metrics=Metrics
+	('message' message= STRING)?
+	']'  
+;
+
+
+// result of executing a verification activity
+VerificationActivityResult returns VerificationResult:
+	'verification' {VerificationActivityResult}	targetReference=QualifiedVAReference//target=[Verify::VerificationActivity|QualifiedName]
+	'['
+	'executionstate'  executionState=VerificationExecutionState
+	'resultstate' resultState=VerificationResultState
+	('issues' '['
+		issues+=ResultIssue*
+		']'
+	)?
+	('results' results=[results::AnalysisResult|QualifiedName])? 
+	metrics=Metrics
+	('message' message= STRING)?
+	preconditionResult= PreconditionResult?
+	validationResult= ValidationResult?
+	']'  
+;
+
+PredicateResult returns VerificationResult:
+	{PredicateResult}
+	'predicate' targetReference=QualifiedClaimReference
+	'['
+	'executionstate'  executionState=VerificationExecutionState
+	'resultstate' resultState=VerificationResultState
+	('issues' '['
+		issues+=ResultIssue*
+		']'
+	)?
+	('results' results=[results::AnalysisResult|QualifiedName])? 
+	metrics=Metrics
+	('message' message= STRING)?
+	']'  
+;
+
+AssureResult:
+	VerificationExpr | ModelResult | SubsystemResult |
+		AssuranceCaseResult | ClaimResult  | PreconditionResult | ValidationResult | PredicateResult
+	;
+
+enum ElseType: 
+	OK='ok' | FAIL='fail' | TIMEOUT='timeout' | ERROR='error'
+;
+	
+VerificationExpr : VerificationActivityResult | ElseResult | ThenResult;
+
+ElseResult returns ElseResult:
+	'else'  first+=VerificationExpr+ ('error' error+=VerificationExpr+)?
+	('fail' fail+=VerificationExpr+)? ('timeout' timeout+=VerificationExpr+)?
+	'['
+	didFail=ElseType?
+	metrics=Metrics
+	']'
+;
+
+ThenResult returns ThenResult:
+	'then' first+=VerificationExpr+ 'do' second+=VerificationExpr+
+	'['
+	( didThenFail?='thenfailed')?
+	metrics=Metrics
+	']'
+;
+
+Metrics returns Metrics:
+	{Metrics}('tbdcount' tbdCount=INT)?
+	('successcount'  successCount=INT)?
+	('failcount'  failCount=INT)?
+	('timeoutcount'  timeoutCount=INT)?
+	('errorcount' errorCount=INT)? 
+	('didelsecount' didelseCount=INT)?  // else branch executed
+	('thenskipcount' thenskipCount=INT)?
+	('prefailcount'  preconditionfailCount=INT)?
+	('validfailcount'  validationfailCount=INT)?
+	('featurescount'  featuresCount=INT)?
+	('featuresrequirementscount'  featuresRequirementsCount=INT)?
+	('qualitycategoryrequirementscount'  qualityCategoryRequirementsCount=INT)?
+	('totalqualitycategorycount'  totalQualityCategoryCount=INT)?
+	('requirementswithoutplanclaimcount'  requirementsWithoutPlanClaimCount=INT)?
+	('noverificationplanscount'  noVerificationPlansCount=INT)?
+	('requirementscount'  requirementsCount=INT)?
+	('exceptionscount' exceptionsCount=INT)?
+	('reqtargethasemv2subclausecount' reqTargetHasEMV2SubclauseCount=INT)?
+	('featuresrequiringclassifiercount' featuresRequiringClassifierCount=INT)?
+	('featureswithrequiredclassifiercount' featuresWithRequiredClassifierCount=INT)?
+	('weight' weight = INT)?
+	('time' executionTime = AInt)?
+;
+
+
+enum VerificationResultState :
+	TBD='tbd'| SUCCESS='success' | FAIL='fail' | ERROR='error' | TIMEOUT='timeout' ;
+
+
+
+enum  VerificationExecutionState:
+	TODO='todo'  // verification to be performed
+	| RUNNING='running' // verification in progress (background processing)
+	| REDO='redo' // invalidated while in progress. redo verification.
+	| COMPLETED='completed' // completed. verification result is valid
+;
+
+QualifiedVerificationPlanElementReference: QualifiedClaimReference | QualifiedVAReference;
+
+QualifiedClaimReference:
+	verificationPlan=[Verify::VerificationPlan | QualifiedName] '#' requirement=NestedClaimReference
+	;
+
+QualifiedVAReference:
+	verificationPlan=[Verify::VerificationPlan | QualifiedName] '#' requirement=NestedClaimReference
+	"#" verificationActivity=[Verify::VerificationActivity|ID]
+;
+NestedClaimReference:
+	requirement=[ReqSpec::Requirement|ID] ('.' sub=NestedClaimReference)?
+;
+
+ResultIssue returns results::Diagnostic:
+	type=ResultIssueType
+	message=STRING
+	('source' sourceReference=[ecore::EObject|NoQuoteString])?
+	('exception' exceptionType = STRING)?
+	('[' issues+=ResultIssue*']')?
+;
+
+
+enum ResultIssueType returns results::DiagnosticType:
+	NONE = 'none'| ERROR='error' |  WARNING='warning' | INFO='info' | SUCCESS='success' | FAILURE='fail' 
+;
+
