@@ -1,0 +1,327 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+	"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+   <title>Getting Simple Property Values</title>
+   <link href="Res/styles/shared.css" rel="stylesheet" type="text/css">
+   <link href="Res/styles/DynamicOutline.css" rel="stylesheet" type="text/css">
+</head>
+<body id="page" >
+
+<!-- BEGIN PAGE BODY-->
+
+
+<table id="pageBody">
+ <col class="main">
+ <col class="right">
+
+<!-- BEGIN BREADCRUMBS-->
+<tr id="breadcrumbsAndPageNavigation">
+  <td class="breadcrumbs" valign="top">
+<!-- BEGIN NAVIGATION BREADCRUMBS ITEM-->
+<span class="breadcrumb">
+   <a href="index.html">Home</a>
+   <span class="separator">&gt;</span>
+</span>
+<!-- END NAVIGATION BREADCRUMBS ITEM-->
+<!-- BEGIN NAVIGATION BREADCRUMBS ITEM-->
+<span class="breadcrumb">
+   <a href="ProcessingAADLProperties.html">5. Processing AADL Properties</a>
+   <span class="separator">&gt;</span>
+</span>
+<!-- END NAVIGATION BREADCRUMBS ITEM-->
+<!-- BEGIN NAVIGATION BREADCRUMBS HERE-->
+<span class="breadcrumb">
+   5.5 Getting Simple Property Values
+</span>
+<!-- END NAVIGATION BREADCRUMBS HERE-->
+
+  </td>
+  <td class="pageNavigation" valign="top">
+<!-- START PAGE NAVIGATION NEXT IN SEQUENCE IMAGES -->
+<span class="commands">
+    <span class="command">
+        <img src="Res/images/previous_button.gif" alt=""> <a href="ImplementingtheSecurityLevelPlug-in.html">
+        <span class="label">Previous</span></a>
+    </span>
+&nbsp;&nbsp;
+    <span class="command">
+        <a href="ManipulatingPropertyValues.html">
+        <span class="label">Next</span></a> <img src="Res/images/next_button.gif" alt="">
+    </span>
+</span>
+<!-- END PAGE NAVIGATION NEXT IN SEQUENCE IMAGES  -->
+
+  </td>
+  <td class="right" valign="top">
+  </td>
+</tr>
+<!-- END BREADCRUMBS-->
+
+<tr class="topic">
+  <td class="main" valign="top" colspan="2">
+    <div class="body">
+      <div class="topicDivider">
+      </div>
+    </div>
+  </td>
+  <td class="right" valign="top">
+<!--right body column empty-->
+  </td>
+</tr>
+
+<!--BEGIN PAGE BODY ITEM-->
+<tr class="topic">
+  <td class="main" valign="top" colspan="2">
+    <table>
+      <tr class="topicHeader">
+        <td class="topicImageColumn">
+
+        </td>
+        <td class="topicLineColumn">
+          <a name="Topic79"></a>
+          <span class=outlineNumberFirst>5.5 </span><span class=topicLineFirst>Getting Simple Property Values</span>
+          <span class="topicIcons">
+
+          </span>
+        </td>
+      </tr>
+    </table>
+
+<!-- phf:Comand: Expand("BoxPartMap.mmbas") -->
+     <div class="topicTextNotes"><div align="left" style="margin-left=2mm; margin-right=0mm; text-indent=0mm"><font face="Times New Roman" color="#010101" size="3"><span
+style="font-size:12pt">A plug-in typically needs to get the values from specific properties, and thus
+the author of the
+plug-in knows ahead of time the property type of the property, whether the property&#146;s values
+should be lists, and whether the value should depend on the mode. Section 5.8.4  Getting
+Property Values describes the general property retrieval methods, but OSATE provides
+many other, easier-to-use methods that take advantage of this prior knowledge. Section
+5.4.1  Getting the Property Declaration and Driving the Analysis introduces the method
+<b>PropertyHolder.getSimplePropertyValue</b> which gets a non-list property value whose
+value does not depend upon modes. There are three versions of this method:</span></font><span></span></div>
+<ul style="margin-top: 0pt; margin-bottom: 0pt">
+<ul style="margin-top: 0pt; margin-bottom: 0pt">
+<li style="margin-left=-1mm; margin-right=0mm; padding-left=0mm; font-family= Times New Roman;  font-size= 12pt;  font-weight= bold;  color= #010101;  "><font
+face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt"><b>getSimplePropertyValue(PropertyDefinition
+pd)</b> returns a <b>PropertyValue</b>
+object, or <b>null</b> if the property value is not present, is a list, or depends on modes.</span></font><span></span></li>
+<li style="margin-left=-1mm; margin-right=0mm; padding-left=0mm; font-family= Times New Roman;  font-size= 12pt;  font-weight= bold;  color= #010101;  "><font
+face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt"><b>getSimplePropertyValue(String
+name)</b> looks up the property value of the named
+predeclared property. That is, the property definition of the given name is searched
+for in the </span></font><font face="Times New Roman" color="#0000ff" size="3"><span style="font-size:12pt"><b>Aadl_Properties</b></span></font><font
+face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt"> and </span></font><font
+face="Times New Roman" color="#0000ff" size="3"><span style="font-size:12pt"><b>Aadl_Project</b></span></font><font
+face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt"> property sets. An
+<b>IllegalArgumentException</b> is thrown if the named property cannot be found.
+Otherwise, returns a <b>PropertyValue</b> object, or <b>null</b> if the property value is not
+present, is a list, or depends on modes.</span></font><span></span></li>
+<li style="margin-left=-1mm; margin-right=0mm; padding-left=0mm; font-family= Times New Roman;  font-size= 12pt;  font-weight= bold;  color= #010101;  "><font
+face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt"><b>getSimplePropertyValue(String
+propertySet, String name)</b> looks up the
+property value of the named property. The named property is searched for in the
+named property set. An <b>IllegalArgumentException</b> is thrown if the named
+property cannot be found. Otherwise, returns a <b>PropertyValue</b> object, or <b>null</b> if
+the
+property value is not present, is a list, or depends on modes.</span></font><span></span></li>
+</ul>
+</ul>
+<div align="left" style="margin-left=2mm; margin-right=0mm; text-indent=0mm"><font face="Times New Roman" color="#010101" size="3"><span
+style="font-size:12pt">A non-modal list-valued property value can be retrieved using the method
+<b>PropertyHolder.getPropertyValueList(PropertyDefinition)</b> which returns a
+<b>java.util.List</b> of <b>PropertyValue</b> objects, or <b>null</b> if the property value is not present
+or
+depends on modes. </span></font><span></span></div>
+<div align="left" style="margin-left=2mm; margin-right=0mm; text-indent=0mm"><font face="Times New Roman" color="#010101" size="3"><span
+style="font-size:12pt">Method <b>PropertyHolder.isModalPropertyValue(PropertyDefinition pd)</b> can
+be used to
+see if a particular property value depends on modes. </span></font><span></span></div>
+<div align="left" style="margin-left=2mm; margin-right=0mm; text-indent=0mm"><font face="Times New Roman" color="#010101" size="3"><span
+style="font-size:12pt">While these methods make it easy to get a property value without worrying about
+modes, they
+still require the programmer to cast the returned <b>PropertyValue</b> back to expected property
+type. The class <b>PropertyUtils</b> in package <b>edu.cmu.sei.aadl.model.properties</b> addresses
+this problem with a suite <b>static</b> helper methods that return a particular type of property value,
+and perform common manipulations to the returned value. As above, all the methods assume
+the property value is non-list and non-modal. Those that can, return <b>null</b> in these cases;
+those
+that cannot return <b>null</b> because they do not return an object type return a caller-provided
+default value. If the retrieved property value is not of the expect type, the methods throw a
+<b>ClassCastException</b>. Those that take <b>UnitLiterals</b> throw an <b>IllegalArgumentException</b>
+if the literal is not from the type of the given property. The methods in <b>PropertyUtils</b>
+are
+shown in the following table.</span></font><span></span></div>
+<table border="1" width="590" cellpadding="7" style="border-collapse: collapse; border: none">
+    <tr>
+    <td align="center" valign="top" width="34%" style="border: solid 0.50pt;">
+    <div align="center" class="lastTableNotesDiv"><font face="Arial Narrow" color="#010101" size="3"><span
+    style="font-size:12pt"><b>Operation</b></span></font><span></span></div>
+    </td>
+    <td align="center" valign="top" width="66%" style="border: solid 0.50pt;">
+    <div align="center" class="lastTableNotesDiv"><font face="Arial Narrow" color="#010101" size="3"><span
+    style="font-size:12pt"><b>Method</b></span></font><span></span></div>
+    </td></tr>
+    <tr>
+    <td align="right" valign="top" width="34%" style="border: solid 0.50pt;">
+    <div align="right" class="lastTableNotesDiv"><font face="Times New Roman" color="#010101" size="3"><span
+    style="font-size:12pt">Get a Boolean property value</span></font><span></span></div>
+    </td>
+    <td valign="top" width="66%" style="border: solid 0.50pt;">
+    <div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt"><b>boolean
+    getBooleanValue(PropertyHolder ph,
+    PropertyDefinition pd, boolean defaultVal)</b></span></font><span></span></div>
+    </td></tr>
+    <tr>
+    <td align="right" valign="top" width="34%" style="border: solid 0.50pt;">
+    <div align="right"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">Get
+    an enumeration property
+    value</span></font><span></span></div>
+    </td>
+    <td valign="top" width="66%" style="border: solid 0.50pt;">
+    <div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt"><b>EnumLiteral
+    getEnumLiteral(PropertyHolder ph,
+    PropertyDefinition pd)</b></span></font><span></span></div>
+    </td></tr>
+    <tr>
+    <td align="right" valign="top" width="34%" style="border: solid 0.50pt;">
+    <div align="right" class="lastTableNotesDiv"><font face="Times New Roman" color="#010101" size="3"><span
+    style="font-size:12pt">Get a string property value</span></font><span></span></div>
+    </td>
+    <td valign="top" width="66%" style="border: solid 0.50pt;">
+    <div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt"><b>String
+    getStringValue(PropertyHolder ph,
+    PropertyDefinition pd)</b></span></font><span></span></div>
+    </td></tr>
+    <tr>
+    <td align="right" valign="top" width="34%" style="border: solid 0.50pt;">
+    <div align="right" class="lastTableNotesDiv"><font face="Times New Roman" color="#010101" size="3"><span
+    style="font-size:12pt">Get an unscaled integer value</span></font><span></span></div>
+    </td>
+    <td valign="top" width="66%" style="border: solid 0.50pt;">
+    <div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt"><b>long
+    getIntegerValue(PropertyHolder ph,
+    PropertyHolder pd, long defaultVal)</b></span></font><span></span></div>
+    </td></tr>
+    <tr>
+    <td align="right" valign="top" width="34%" style="border: solid 0.50pt;">
+    <div align="right" class="lastTableNotesDiv"><font face="Times New Roman" color="#010101" size="3"><span
+    style="font-size:12pt">Get an unscaled real value<sup>4</sup></span></font><span></span></div>
+    </td>
+    <td valign="top" width="66%" style="border: solid 0.50pt;">
+    <div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt"><b>double
+    getRealValue(PropertyHolder ph,
+    PropertyHolder pd, double defaultVal)</b></span></font><span></span></div>
+    </td></tr>
+    <tr>
+    <td align="right" valign="top" width="34%" style="border: solid 0.50pt;">
+    <div align="right"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">Get
+    a number value scaled to
+    given unit.</span></font><span></span></div>
+    </td>
+    <td valign="top" width="66%" style="border: solid 0.50pt;">
+    <div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt"><b>double
+    getScaledNumberValue(PropertyHolder ph,
+    PropertyDefinition pd, UnitLiteral unit, <br/>
+    double defaultVal)</b></span></font><span></span></div>
+    </td></tr>
+    <tr>
+    <td align="right" valign="top" width="34%" style="border: solid 0.50pt;">
+    <div align="right"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">Get
+    the lower bound of a
+    range value scaled to a given
+    unit</span></font><span></span></div>
+    </td>
+    <td valign="top" width="66%" style="border: solid 0.50pt;">
+    <div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt"><b>double
+    getScaledRangeMinimum(PropertyHolder ph,
+    PropertyDefinition pd, UnitLiteral unit, <br/>
+    double defaultVal)</b></span></font><span></span></div>
+    </td></tr>
+    <tr>
+    <td align="right" valign="top" width="34%" style="border: solid 0.50pt;">
+    <div align="right"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">Get
+    the upper bound of a
+    range value scaled to a given
+    unit</span></font><span></span></div>
+    </td>
+    <td valign="top" width="66%" style="border: solid 0.50pt;">
+    <div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt"><b>double
+    getScaledRangeMaximum(PropertyHolder ph,
+    PropertyDefinition pd, UnitLiteral unit, <br/>
+    double defaultVal)</b></span></font><span></span></div>
+    </td></tr>
+    <tr>
+    <td align="right" valign="top" width="34%" style="border: solid 0.50pt;">
+    <div align="right"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">Get
+    the delta of a range value
+    scaled to a given unit</span></font><span></span></div>
+    </td>
+    <td valign="top" width="66%" style="border: solid 0.50pt;">
+    <div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt"><b>double
+    getScaledRangeDelta(PropertyHolder ph,
+    PropertyDefinition pd, UnitLiteral unit, <br/>
+    double defaultVal)</b></span></font><span></span></div>
+    </td></tr>
+    <tr>
+    <td align="right" valign="top" width="34%" style="border: solid 0.50pt;">
+    <div align="right"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">Get
+    the instantiated
+    component referenced by a
+    reference value</span></font><span></span></div>
+    </td>
+    <td valign="top" width="66%" style="border: solid 0.50pt;">
+    <div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt"><b>ComponentInstance
+    getComponentInstanceReference(InstanceObject io,
+    PropertyDefinition pd)</b></span></font><span></span></div>
+    </td></tr>
+</table>
+<div align="left"></div></div>
+
+
+
+
+  </td>
+  <td class="right" valign="top">
+<!--right body column empty-->
+  </td>
+</tr>
+<!--END PAGE BODY ITEM-->
+
+
+<!-- BEGIN TOP BUTTON -->
+<tr class="topic">
+  <td class="main" valign="top" colspan="2">
+    <div class="body">
+      <div class="topCommand">
+        <span class="commands">
+      <span class="command">
+            <img src="Res/images/top_button.gif" alt="">
+          <a href="javascript:scroll(0,0)">
+             <span class="label">Top</span>
+              </a>
+    </span>
+       </span>
+      </div>
+    </div>
+  </td>
+  <td class="right" valign="top">
+<!--right body column empty-->
+  </td>
+</tr>
+<!-- END TOP BUTTON -->
+
+</table>
+
+<!-- BEGIN SIDE NAVIGATION WRAPPER-->
+    </td>
+  </tr>
+</table>
+<!-- END SIDE NAVIGATION WRAPPER-->
+
+<!-- END PAGE BODY-->
+
+
+</body>
+</html>
+

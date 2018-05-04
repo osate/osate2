@@ -1,0 +1,299 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+	"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+   <title>Flows in the AADL Meta Model</title>
+   <link href="Res/styles/shared.css" rel="stylesheet" type="text/css">
+   <link href="Res/styles/DynamicOutline.css" rel="stylesheet" type="text/css">
+</head>
+<body id="page" >
+
+<!-- BEGIN PAGE BODY-->
+
+
+<table id="pageBody">
+ <col class="main">
+ <col class="right">
+
+<!-- BEGIN BREADCRUMBS-->
+<tr id="breadcrumbsAndPageNavigation">
+  <td class="breadcrumbs" valign="top">
+<!-- BEGIN NAVIGATION BREADCRUMBS ITEM-->
+<span class="breadcrumb">
+   <a href="index.html">Home</a>
+   <span class="separator">&gt;</span>
+</span>
+<!-- END NAVIGATION BREADCRUMBS ITEM-->
+<!-- BEGIN NAVIGATION BREADCRUMBS ITEM-->
+<span class="breadcrumb">
+   <a href="WorkingwithFlows.html">6. Working with Flows</a>
+   <span class="separator">&gt;</span>
+</span>
+<!-- END NAVIGATION BREADCRUMBS ITEM-->
+<!-- BEGIN NAVIGATION BREADCRUMBS HERE-->
+<span class="breadcrumb">
+   6.2 Flows in the AADL Meta Model
+</span>
+<!-- END NAVIGATION BREADCRUMBS HERE-->
+
+  </td>
+  <td class="pageNavigation" valign="top">
+<!-- START PAGE NAVIGATION NEXT IN SEQUENCE IMAGES -->
+<span class="commands">
+    <span class="command">
+        <img src="Res/images/previous_button.gif" alt=""> <a href="FlowSpecificationsandFlowInstances.html">
+        <span class="label">Previous</span></a>
+    </span>
+&nbsp;&nbsp;
+    <span class="command">
+        <a href="TheFlowAnalysisPlug-in.html">
+        <span class="label">Next</span></a> <img src="Res/images/next_button.gif" alt="">
+    </span>
+</span>
+<!-- END PAGE NAVIGATION NEXT IN SEQUENCE IMAGES  -->
+
+  </td>
+  <td class="right" valign="top">
+  </td>
+</tr>
+<!-- END BREADCRUMBS-->
+
+<tr class="topic">
+  <td class="main" valign="top" colspan="2">
+    <div class="body">
+      <div class="topicDivider">
+      </div>
+    </div>
+  </td>
+  <td class="right" valign="top">
+<!--right body column empty-->
+  </td>
+</tr>
+
+<!--BEGIN PAGE BODY ITEM-->
+<tr class="topic">
+  <td class="main" valign="top" colspan="2">
+    <table>
+      <tr class="topicHeader">
+        <td class="topicImageColumn">
+
+        </td>
+        <td class="topicLineColumn">
+          <a name="Topic107"></a>
+          <span class=outlineNumberFirst>6.2 </span><span class=topicLineFirst>Flows in the AADL Meta Model</span>
+          <span class="topicIcons">
+
+          </span>
+        </td>
+      </tr>
+    </table>
+
+<!-- phf:Comand: Expand("BoxPartMap.mmbas") -->
+     <div class="topicTextNotes"><div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">This
+section describes the representation of flow in the AADL Meta model. This provides an
+indication of how flows can be processed. In addition the Meta model defines how this part of
+an AADL model is stored as part of an XML document. The representation of flow
+declarations is defined in the <b>Flow</b> meta model package of the AADL Meta model. Flow
+instance related information is defined in the <b>Instance</b> meta model package.</span></font><span></span></div></div>
+
+
+
+
+  </td>
+  <td class="right" valign="top">
+<!--right body column empty-->
+  </td>
+</tr>
+<!--END PAGE BODY ITEM-->
+<!--BEGIN PAGE BODY ITEM-->
+<tr class="topic">
+  <td class="main" valign="top" colspan="2">
+    <table>
+      <tr class="topicHeader">
+        <td class="topicImageColumn">
+
+        </td>
+        <td class="topicLineColumn">
+          <a name="Topic108"></a>
+          <span class=outlineNumber>6.2.1 </span><span class=topicLine>Flow Specification Declarations</span>
+          <span class="topicIcons">
+
+          </span>
+        </td>
+      </tr>
+    </table>
+
+<!-- phf:Comand: Expand("BoxPartMap.mmbas") -->
+     <div class="topicTextNotes"><div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">Flow
+specifications are represented by an abstract <b>FlowSpec</b><i> </i>class, which itself is a subclass
+of
+the <b>PropertyHolder</b> class, and a concrete class for flow source (<b>FlowSourceSpec</b>), flow
+sink
+(<b>FlowSinkSpec</b><i>)</i>, and flow path (<b>FlowPathSpec</b><i>)</i>. These classes have references
+to members
+of the <b>AbstractPort</b> class in the same component type, represented by a source and
+destination reference association - as appropriate. A flow specification can also refer to an
+element of a port group. In that case, the port group is referenced as the context (<b>srcContext</b>
+or <b>dstContext</b>) of the source ( src) or destination ( dst) reference.</span></font><span></span></div>
+<div align="center"><font face="Arial Narrow" color="#010101"><span>Figure 34: Flow Specification Declaration
+in the AADL Meta Model.</span></font><span></span></div></div>
+
+
+
+
+  </td>
+  <td class="right" valign="top">
+<!--right body column empty-->
+  </td>
+</tr>
+<!--END PAGE BODY ITEM-->
+<!--BEGIN PAGE BODY ITEM-->
+<tr class="topic">
+  <td class="main" valign="top" colspan="2">
+    <table>
+      <tr class="topicHeader">
+        <td class="topicImageColumn">
+
+        </td>
+        <td class="topicLineColumn">
+          <a name="Topic109"></a>
+          <span class=outlineNumber>6.2.2 </span><span class=topicLine>Flow Implementations and End-To-End-Flows</span>
+          <span class="topicIcons">
+
+          </span>
+        </td>
+      </tr>
+    </table>
+
+<!-- phf:Comand: Expand("BoxPartMap.mmbas") -->
+     <div class="topicTextNotes"><div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">Figure
+35 illustrates the representation of flow implementation declarations and end-to-end flow
+declarations in declarative AADL models. The abstract <b>FlowSequence</b><i> </i>class represents both
+flow implementations and end-to-end flows. It is a subclass of the <b>ModeMember</b> class.
+A
+<b>FlowSequence</b> class contains a sequence of <b>FlowElement</b><i> </i>objects that alternately
+represent a
+reference to a connection or reference pair to a subcomponent and its flow specification.</span></font><span></span></div>
+<div align="left"><br/></div>
+<div align="center"><font face="Arial Narrow" color="#010101"><span>Figure 35: Flow Implementation &amp;
+End-To-End Flow in the AADL Meta Model.</span></font><span></span></div>
+<div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">Flow
+implementations are represented by the abstract <b>FlowImpl</b><i> </i>subclass and the concrete
+subclasses <b>FlowSourceImpl</b>, <b>FlowSinkImpl</b>, and <b>FlowPathImpl</b>. Each of these
+concrete
+subclasses has a reference association to its respective flow specification class it implements. </span></font><span></span></div>
+<div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">Flow
+implementations contain a sequence of <b>FlowElement</b> objects that alternately reference a
+<b>Connection</b> object or a <b>FlowSpec</b> object and the subcomponent it is contained in as the
+ flowContext. The originating source and the final destination port of a flow implementation
+are identified by the flow specification being implemented, thus, are not explicitly recorded as a
+<b>FlowElement</b> object. Note that these ports are referenced by the first and last connection
+of
+the <b>FlowElement</b> sequence. </span></font><span></span></div>
+<div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">A <b>FlowSinkImpl</b>
+specifies a path from the flow sink spec portthrough zero or more
+connection and subcomponent flow specification pairs (<b>FlowElement</b>) with the last
+subcomponent flow specification referring to a flow sink. A <b>FlowSourceImpl</b> specifies a path
+from a subcomponent flow source specification represented by one <b>FlowElement</b> through zero
+or more connection and subcomponent flow specification pairs (<b>FlowElement</b>) followed by a
+<b>FlowElement</b> containing the connection to the destination port of the flow source
+implementation. A <b>FlowPathImpl</b> specifies a path from the (incoming) source port to the
+(outgoing) destination port of the flow path spec through zero or more connection and
+subcomponent flow specification pairs (<b>FlowElement</b>) ending with a <b>FlowElement</b> that
+contains the connection to the destination port of the flow path implementation.</span></font><span></span></div>
+<div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">End-to-end
+flows are represented by the concrete <b>EndToEndFlow</b><i> </i>class through a sequence
+of <b>FlowElement</b> objects with the first referring to the originating subcomponent and flow
+specification pair and the remainder representing connection and subcomponent flow
+specification pairs (<b>FlowElement</b>).</span></font><span></span></div></div>
+
+
+
+
+  </td>
+  <td class="right" valign="top">
+<!--right body column empty-->
+  </td>
+</tr>
+<!--END PAGE BODY ITEM-->
+<!--BEGIN PAGE BODY ITEM-->
+<tr class="topic">
+  <td class="main" valign="top" colspan="2">
+    <table>
+      <tr class="topicHeader">
+        <td class="topicImageColumn">
+
+        </td>
+        <td class="topicLineColumn">
+          <a name="Topic110"></a>
+          <span class=outlineNumber>6.2.3 </span><span class=topicLine>End-To-End Instance Flows</span>
+          <span class="topicIcons">
+
+          </span>
+        </td>
+      </tr>
+    </table>
+
+<!-- phf:Comand: Expand("BoxPartMap.mmbas") -->
+     <div class="topicTextNotes"><div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">End-to-end
+instance flows are represented by the <b>EndToEndFlowInstance</b> class (shown in
+Figure 36). Objects of this class are contained in the component instance that corresponds to
+the component implementation with the end-to-end flow declaration. Each end-to-end instance
+flow object contains a sequence of alternating references to <b>ConnectionInstance</b> objects and
+<b>FlowSpecInstance</b> objects.</span></font><span></span></div>
+<div align="center"><font face="Arial Narrow" color="#010101"><span>Figure 36: Flow Instance Representation</span></font><span></span></div>
+<div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">Note
+that the flow instance representation has been added to the AADL Meta model as result
+of the AADL Meta model &amp; XML/XMI Interchange Format Annex review in Jan 2005. An
+implementation of end-to-end flow instantiation will become available with the next release of
+OSATE. This capability has not been made use of in the OSATE plug-in development
+presentation series.</span></font><span></span></div></div>
+
+
+
+
+  </td>
+  <td class="right" valign="top">
+<!--right body column empty-->
+  </td>
+</tr>
+<!--END PAGE BODY ITEM-->
+
+
+<!-- BEGIN TOP BUTTON -->
+<tr class="topic">
+  <td class="main" valign="top" colspan="2">
+    <div class="body">
+      <div class="topCommand">
+        <span class="commands">
+      <span class="command">
+            <img src="Res/images/top_button.gif" alt="">
+          <a href="javascript:scroll(0,0)">
+             <span class="label">Top</span>
+              </a>
+    </span>
+       </span>
+      </div>
+    </div>
+  </td>
+  <td class="right" valign="top">
+<!--right body column empty-->
+  </td>
+</tr>
+<!-- END TOP BUTTON -->
+
+</table>
+
+<!-- BEGIN SIDE NAVIGATION WRAPPER-->
+    </td>
+  </tr>
+</table>
+<!-- END SIDE NAVIGATION WRAPPER-->
+
+<!-- END PAGE BODY-->
+
+
+</body>
+</html>
+
