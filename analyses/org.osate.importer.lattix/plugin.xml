@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.0"?>
+<plugin>
+<!--
+
+Disable importer preferences for now
+
+   <extension
+         point="org.eclipse.ui.actionSets">
+      <actionSet
+            label="Sample Action Set"
+            visible="false"
+            id="org.osate.importer.lattix.actionSet">
+         <menu
+               id="menu.osate"
+               label="%menu.osate.label"
+               path="project">
+            <groupMarker name="file.grp"/>
+            <separator name="instance.grp"/>
+            <separator name="general.grp"/>
+         </menu>
+
+         <menu
+               id="menu.analyses"
+               label="%menu.analyses.label"
+               path="menu.osate">
+            <groupMarker name="top.grp"/>
+            <groupMarker name="bottom.grp"/>
+         </menu>
+
+         <menu
+               id="menu.importer"
+               label="Import/Export Models"
+               path="menu.analyses/top.grp">
+            <groupMarker name="stuff.grp"/>
+                         <visibleWhen checkEnabled="false">
+            <with variable="activeWorkbenchWindow.activePerspective">
+                <equals value="AADL"/>
+            </with>
+         </visibleWhen>
+         </menu>
+         <action
+               label="Export AADL into LDM"
+               class="org.osate.importer.lattix.actions.DoExportLdm"
+               tooltip="Export AADL into LDM file"
+               menubarPath="menu.analyses/menu.importer/stuff.grp"
+               icon="icons/lattix_export.gif"
+               toolbarPath="rsrc.toolbar"
+               id="edu.cmu.sei.vdid.dsm.actions.DoExportLdmx">
+         </action>
+         <action
+               label="Generate DSM Matrix"
+               class="org.osate.importer.lattix.actions.DoGenerateDsmMatrix"
+               tooltip="Generate DSM Matrix from AADL instance"
+               menubarPath="menu.analyses/menu.importer/stuff.grp"
+               icon="icons/lattix_export.gif"
+               toolbarPath="rsrc.toolbar"
+               id="edu.cmu.sei.vdid.dsm.actions.DoGenerateDsmMatrix">
+         </action>
+         <action
+               label="Import Lattix file"
+               class="org.osate.importer.lattix.actions.DoImportLdm"
+               tooltip="Import an Lattix file into an AADL project"
+               menubarPath="menu.analyses/menu.importer/stuff.grp"
+               icon="icons/lattix_import.gif"
+               toolbarPath="rsrc.toolbar"
+               id="edu.cmu.sei.vdid.dsm.actions.DoImportLdm">
+         </action>
+         <action
+               label="Generate Excel Report"
+               class="org.osate.importer.lattix.actions.DoGenerateExcelReport"
+               tooltip="Generate Excel Report from AADL instance"
+               menubarPath="menu.analyses/menu.importer/stuff.grp"
+               toolbarPath="rsrc.toolbar"
+               icon="icons/excel.gif"
+               id="edu.cmu.sei.vdid.dsm.actions.DoGenerateExcelReport">
+         </action>
+      </actionSet>
+   </extension>
+
+   <extension
+   	   point="org.eclipse.ui.perspectiveExtensions">
+   	   <perspectiveExtension
+   		   targetID="org.osate.ui.perspective.AadlPerspective">
+   		   <actionSet
+   		 	   id="org.osate.importer.lattix.actionSet"/>
+   	   </perspectiveExtension>
+   </extension>
+
+
+   <extension
+         point="org.eclipse.ui.popupMenus">
+      <objectContribution
+            id="edu.cmu.sei.vdid.dsm.oc1"
+            objectClass="java.lang.Object">
+         <visibility>
+            <or>
+               <and>
+                  <objectClass name="org.eclipse.core.resources.IFile"/>
+                  <objectState name="extension" value="aaxl2"/>
+               </and>
+               <objectClass name="org.osate.aadl2.instance.SystemInstance"/>
+            </or>
+         </visibility> 
+
+         <menu
+               id="org.osate.ui.popupMenu.Analyses"
+               label="%popupMenu.analyses.label"
+               path="additions">
+            <groupMarker name="anal.grp"/>
+            <groupMarker name="subMenus.grp"/>
+         </menu>
+
+         <menu
+               id="org.osate.analysis.resource.management.popupmenu.importer"
+               label="Import/Export Models"
+               path="org.osate.ui.popupMenu.Analyses/subMenus.grp">
+            <groupMarker name="anal.grp"/>
+         </menu>
+         <action
+               id="edu.cmu.sei.vdid.dsm.actions.DoImportLdm"
+               label="LDM Matrix import"
+               tooltip="Import LDM mattrix into AADL project"
+               class="org.osate.importer.lattix.actions.DoImportLdm"
+               menubarPath="org.osate.ui.popupMenu.Analyses/org.osate.analysis.resource.management.popupmenu.importer/anal.grp"
+               enablesFor="1"/>
+         <action
+               id="edu.cmu.sei.vdid.dsm.actions.DoGenerateDsmMatrix"
+               label="DSM Matrix Generator"
+               tooltip="Generate DSM Matrix"
+               class="org.osate.importer.lattix.actions.DoGenerateDsmMatrix"
+               menubarPath="org.osate.ui.popupMenu.Analyses/org.osate.analysis.resource.management.popupmenu.importer/anal.grp"
+               enablesFor="1"/>
+         <action
+               id="edu.cmu.sei.vdid.dsm.actions.DoExportLdm"
+               label="LDM Generator"
+               tooltip="Export AADL into LDM file"
+               class="org.osate.importer.lattix.actions.DoExportLdm"
+               menubarPath="org.osate.ui.popupMenu.Analyses/org.osate.analysis.resource.management.popupmenu.importer/anal.grp"
+               enablesFor="1"/>
+         <action
+               id="edu.cmu.sei.vdid.dsm.actions.DoGenerateExcelReport"
+               label="Excel Report Generator"
+               tooltip="Generate Excel Report"
+               class="org.osate.importer.lattix.actions.DoGenerateExcelReport"
+               menubarPath="org.osate.ui.popupMenu.Analyses/org.osate.analysis.resource.management.popupmenu.importer/anal.grp"
+               enablesFor="1"/>
+      </objectContribution>
+
+   </extension>
+
+   <extension
+         id="DSMGeneratorMatrixObjectMarker"
+         name="DSM Matrix Generator Marker"
+         point="org.eclipse.core.resources.markers">
+      <super type="org.osate.aadl2.modelsupport.AadlObjectMarker"/>
+      <persistent value="true"/>
+   </extension>
+
+   <extension
+         id="ExcelReportGeneratorObjectMarker"
+         name="Excel Report Generator Marker"
+         point="org.eclipse.core.resources.markers">
+      <super type="org.osate.aadl2.modelsupport.AadlObjectMarker"/>
+      <persistent value="true"/>
+   </extension>
+-->   
+</plugin>
