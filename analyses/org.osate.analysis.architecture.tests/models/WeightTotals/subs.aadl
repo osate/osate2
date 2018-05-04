@@ -1,0 +1,32 @@
+package subs
+public
+	with SEI;
+	
+	system s1
+	end s1;
+	
+	system implementation s1.i1
+		subcomponents
+			sub1: process;
+			sub2: virtual bus;
+			sub3: virtual processor;
+			sub4: system;
+			sub5: system s1.i2 {SEI::GrossWeight => 1.0 kg;};
+			sub6: system s1.i2 {
+				SEI::GrossWeight => 1.0 kg;
+				SEI::NetWeight => 1.0 kg;
+			};
+			sub7: system {SEI::NetWeight => 1.0 kg;};
+			sub8: system {SEI::GrossWeight => 1.0 kg;};
+	end s1.i1;
+	
+	system implementation s1.i2
+		subcomponents
+			sub9: system s1.i3;
+	end s1.i2;
+	
+	system implementation s1.i3
+		subcomponents
+			sub10: system;
+	end s1.i3;
+end subs;

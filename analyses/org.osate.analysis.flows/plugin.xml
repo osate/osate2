@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.0"?>
+<plugin>
+   <extension
+         id="FlowLatencyObjectMarker"
+         name="Flow Latency Analysis Marker"
+         point="org.eclipse.core.resources.markers">
+      <super type="org.osate.aadl2.modelsupport.AadlObjectMarker"/>
+      <persistent value="true"/>
+   </extension>
+   
+ 	<extension
+         id="org.osate.analysis.flows.partitioning_policy"
+         name="Partioning Policy"
+         point="org.eclipse.core.runtime.preferences">
+      <initializer
+            class="org.osate.analysis.flows.preferences.Initializer">
+      </initializer>
+   </extension>
+      <extension
+         point="org.eclipse.ui.preferencePages">
+      <page
+            category="org.osate.internal.ui.preferences.OsatePreferencePage"
+            class="org.osate.analysis.flows.preferences.Page"
+            id="org.osate.analysis.flows.PreferencePage"
+            name="Flow Analysis">
+      </page>
+   </extension>
+   <extension
+         point="org.eclipse.ui.commands">
+      <category
+            id="org.osate.analysis.flows.category"
+            name="%actionSet.label">
+      </category>
+      <command
+            categoryId="org.osate.analysis.flows.category"
+            id="org.osate.analysis.flows.checkFlowLatency"
+            name="%CheckFlowLatency.label">
+      </command>
+   </extension>
+   <extension
+         point="org.eclipse.ui.handlers">
+      <handler
+            class="org.osate.analysis.flows.handlers.CheckFlowLatency"
+            commandId="org.osate.analysis.flows.checkFlowLatency">
+         <enabledWhen>
+            <or>
+               <reference
+                     definitionId="org.osate.core.isInstanceFileSelected">
+               </reference>
+               <with
+                     variable="selection">
+                  <and>
+                     <count
+                           value="1">
+                     </count>
+                     <iterate>
+                        <instanceof
+                              value="org.osate.aadl2.instance.SystemInstance">
+                        </instanceof>
+                     </iterate>
+                  </and>
+               </with>
+            </or>
+         </enabledWhen>
+      </handler>
+   </extension>
+   <extension
+         point="org.eclipse.ui.commandImages">
+      <image
+            commandId="org.osate.analysis.flows.checkFlowLatency"
+            icon="icons/checkFlowLatency.gif">
+      </image>
+   </extension>
+   <extension
+         point="org.eclipse.ui.menus">
+      <menuContribution
+            locationURI="menu:org.osate.ui.timingMenu?after=core">
+         <command
+               commandId="org.osate.analysis.flows.checkFlowLatency">
+         </command>
+      </menuContribution>
+      <menuContribution
+            locationURI="toolbar:org.osate.ui.timingToolbar?after=core">
+         <command
+               commandId="org.osate.analysis.flows.checkFlowLatency"
+               tooltip="%CheckFlowLatency.toolTip">
+            <!--
+               Remove visibleWhen on the command when this bug is fixed:
+               https://bugs.eclipse.org/bugs/show_bug.cgi?id=201589
+            -->
+            <visibleWhen
+                  checkEnabled="false">
+               <with
+                     variable="activeWorkbenchWindow.activePerspective">
+                  <equals
+                        value="org.osate.ui.perspective.AadlPerspective">
+                  </equals>
+               </with>
+            </visibleWhen>
+         </command>
+      </menuContribution>
+      <menuContribution
+            locationURI="popup:org.osate.ui.timingNavigatorPopup?after=core">
+         <command
+               commandId="org.osate.analysis.flows.checkFlowLatency">
+            <visibleWhen
+                  checkEnabled="true">
+            </visibleWhen>
+         </command>
+      </menuContribution>
+   </extension>
+</plugin>
