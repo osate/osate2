@@ -43,10 +43,10 @@ import org.osate.verify.verify.FormalParameter
 import org.osate.verify.verify.JavaMethod
 import org.osate.verify.verify.JavaParameter
 import org.osate.verify.verify.PluginMethod
-import org.osate.verify.verify.TargetType
 import org.osate.verify.verify.VerificationMethod
 
 import static extension org.osate.verify.analysisplugins.AnalysisPluginInterface.*
+import org.osate.alisa.common.common.TargetType
 
 class VerificationMethodDispatchers {
 

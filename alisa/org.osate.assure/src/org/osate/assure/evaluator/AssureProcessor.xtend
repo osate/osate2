@@ -65,7 +65,7 @@ import org.osate.result.RealValue
 import org.osate.result.Result
 import org.osate.result.ResultFactory
 import org.osate.result.StringValue
-import org.osate.verify.util.ExecuteResoluteUtil
+import org.osate.assure.util.ExecuteResoluteUtil
 import org.osate.verify.util.VerificationMethodDispatchers
 import org.osate.verify.verify.AgreeMethod
 import org.osate.verify.verify.FormalParameter
@@ -82,6 +82,9 @@ import static extension org.osate.alisa.common.util.CommonUtilExtension.*
 import static extension org.osate.alisa.common.util.ResultsHelperUtilExtension.*
 import static extension org.osate.assure.util.AssureUtilExtension.*
 import static extension org.osate.verify.util.VerifyUtilExtension.*
+import org.osate.aadl2.instance.SystemInstance
+import org.osate.alisa.common.util.CommonUtilExtension
+import java.util.Collection
 
 @ImplementedBy(AssureProcessor)
 interface IAssureProcessor {
@@ -362,7 +365,6 @@ class AssureProcessor implements IAssureProcessor {
 			}
 		}
 
-
 		try {
 			val methodtype = method.methodKind
 			switch (methodtype) {
@@ -376,33 +378,31 @@ class AssureProcessor implements IAssureProcessor {
 					// The parameters are objects from the Properties Meta model. It is up to the plugin interface method to convert to Java base types
 					val res = VerificationMethodDispatchers.eInstance.
 						dispatchVerificationMethod(methodtype, instanceroot, parameterObjects) // returning the marker or diagnostic id as string
-					val InstanceObject target = if (targetElement !== null && !targetElement.eIsProxy) {
-							targetComponent.findElementInstance(targetElement) ?: targetComponent
-						} else {
-							targetComponent
-						}
-					if (res instanceof String) {
-						addMarkersAsResult(verificationResult, target, res, method)
+					if (!(res instanceof String)) {
+						setToError(verificationResult, "Analysis return type is not a string of MarkerType", targetComponent);
 					} else {
-						setToError(verificationResult, "Analysis return type is not a string of MarkerType", target);
+						val result = res as String
+						val InstanceObject target = if (targetElement !== null && !targetElement.eIsProxy) {
+								targetComponent.findElementInstance(targetElement) ?: targetComponent
+							} else {
+								targetComponent
+							}
+						if (target instanceof ConnectionInstance) {
+							val conns = findConnectionInstances(targetComponent.connectionInstances, targetElement.name)
+							for (conni: conns){
+								addMarkersAsResult(verificationResult, conni, result, method)
+							}
+						} else {
+							addMarkersAsResult(verificationResult, target, result, method)
+						}
 					}
 					verificationResult.eResource.save(null)
 					updateProgress(verificationResult)
 				}
 				ResoluteMethod: {
 					if (RESOLUTE_INSTALLED) {
-						val proveri = ExecuteResoluteUtil.eInstance.executeResoluteFunction(methodtype.methodReference,
-							instanceroot, targetComponent, parameterObjects)
-						if (proveri.type == DiagnosticType.SUCCESS) {
-							setToSuccess(verificationResult)
-							verificationResult.issues += proveri.issues
-						} else if (proveri.type == DiagnosticType.FAILURE) {
-							setToFail(verificationResult)
-							verificationResult.issues += proveri.issues
-						} else if (proveri.type == DiagnosticType.ERROR) {
-							setToError(verificationResult)
-							verificationResult.issues += proveri
-						}
+						executeResoluteFunction(verificationResult, method, instanceroot, targetComponent,
+							targetElement, parameterObjects)
 						verificationResult.eResource.save(null)
 						updateProgress(verificationResult)
 					} else {
@@ -569,7 +569,7 @@ class AssureProcessor implements IAssureProcessor {
 					setToError(verificationResult, "Unresolved target element for claim", targetComponent)
 					return
 				}
-				targetComponent.findElementInstance(targetElement) 
+				targetComponent.findElementInstance(targetElement)
 			} else {
 				targetComponent
 			}
@@ -582,148 +582,206 @@ class AssureProcessor implements IAssureProcessor {
 				}
 			}
 			// fix verification activity result state
-			if (verificationResult.issues.hasErrors){
+			if (verificationResult.issues.hasErrors) {
 				setToError(verificationResult)
-			} else if (verificationResult.issues.hasFailures){
+			} else if (verificationResult.issues.hasFailures) {
 				setToFail(verificationResult)
 			}
-		} else if (target !== null){
+		} else if (target !== null) {
 			if (!checkPropertyValues(verificationResult, target)) {
 				return
 			}
 			executeJavaMethodOnce(verificationResult, method, target, parameters)
 		} else {
-			setToError(verificationResult, "Could not find target element instance "+targetElement.name, targetComponent)
+			setToError(verificationResult, "Could not find target element instance " + targetElement.name,
+				targetComponent)
 		}
 	}
 
-	def boolean checkPropertyValues(VerificationResult verificationResult, InstanceObject target) {
-		if (verificationResult instanceof VerificationActivityResult) {
-			val success = checkProperties(target, verificationResult)
-			if (!success) {
-				verificationResult.eResource.save(null)
-				updateProgress(verificationResult)
-			}
-			return success
-		}
-		true
-	}
+	def void executeResoluteFunction(VerificationResult verificationResult, VerificationMethod method,
+		SystemInstance root, ComponentInstance targetComponent, NamedElement targetElement,
+		List<PropertyExpression> parameters) {
+			val InstanceObject target = if (targetElement !== null) {
+					if (targetElement.eIsProxy) {
+						setToError(verificationResult, "Unresolved target element for claim", targetComponent)
+						return
+					}
+					targetComponent.findElementInstance(targetElement)
+				} else {
+					targetComponent
+				}
 
-	def void executeJavaMethodOnce(VerificationResult verificationResult, VerificationMethod method,
-		InstanceObject target, List<PropertyExpression> parameters) {
-		val methodtype = method.methodKind as JavaMethod
-		val returned = VerificationMethodDispatchers.eInstance.invokeJavaMethod(methodtype, target, parameters)
-		if (returned !== null) {
-			if (returned instanceof Boolean && (method.isPredicate || method.results.empty)) {
-				if (returned != true) {
-					setToFail(verificationResult, "", target);
-				} else {
-					setToSuccess(verificationResult)
-				}
-			} else if (returned instanceof Diagnostic) {
-				if (returned.type == DiagnosticType.SUCCESS) {
-					setToSuccess(verificationResult)
-				} else if (returned.type == DiagnosticType.FAILURE) {
-					setToFail(verificationResult)
-				} else if (returned.type == DiagnosticType.ERROR) {
-					setToError(verificationResult)
-				} else {
-					setToSuccess(verificationResult)
-				}
-				verificationResult.issues.add(returned)
-			} else if (returned instanceof Result) {
-				val issues = returned.diagnostics
-				if (!hasFailures(returned)) {
-					setToSuccess(verificationResult, "", target)
-				} else {
-					setToFail(verificationResult, "", target)
-				}
-				verificationResult.issues.addAll(issues)
-				if (verificationResult instanceof VerificationActivityResult) {
-					val computeIter = verificationResult.targetReference.verificationActivity.computes.iterator
-					val vals = returned.values
-					if (computeIter.size == vals.size) {
-						vals.forEach [ data |
-							val computeRef = computeIter.next
-							computes.put(computeRef.compute.name, toLiteral(data))
-						]
-						if (verificationResult.success) {
-							// execute value predicate
+			if (target instanceof ConnectionInstance) {
+				val conns = findConnectionInstances(targetComponent.connectionInstances, targetElement.name)
+				for (conni : conns) {
+					if (checkPropertyValues(verificationResult, conni)) {
+						val d = ExecuteResoluteUtil.eInstance.executeResoluteFunctionOnce(method, root,
+							targetComponent, conni, parameters)
+						verificationResult.issues += d
+						if (d.type == DiagnosticType.SUCCESS) {
+							setToSuccess(verificationResult)
+						} else if (d.type == DiagnosticType.FAILURE) {
+							setToFail(verificationResult)
+						} else if (d.type == DiagnosticType.ERROR) {
+							setToError(verificationResult)
 						}
-					} else {
-						setToError(verificationResult, 'Fewer values returned than expected as compute variables')
 					}
 				}
-			} else if (method.results.size == 1) {
-				setToSuccess(verificationResult)
+				// fix verification activity result state
+				if (verificationResult.issues.hasErrors) {
+					setToError(verificationResult)
+				} else if (verificationResult.issues.hasFailures) {
+					setToFail(verificationResult)
+				}
+			} else if (target !== null) {
+				if (!checkPropertyValues(verificationResult, target)) {
+					return
+				}
+				val d = ExecuteResoluteUtil.eInstance.executeResoluteFunctionOnce(method, root, targetComponent, target,
+					parameters)
+				verificationResult.issues += d
+				if (d.type == DiagnosticType.SUCCESS) {
+					setToSuccess(verificationResult)
+				} else if (d.type == DiagnosticType.FAILURE) {
+					setToFail(verificationResult)
+				} else if (d.type == DiagnosticType.ERROR) {
+					setToError(verificationResult)
+				}
 			} else {
-				setToError(verificationResult, "Expected more than one result value as ResultReport or HashMap",
-					target);
+				setToError(verificationResult, "Could not find target element instance " + targetElement.name,
+					targetComponent)
 			}
 		}
-	}
 
-	def boolean checkProperties(InstanceObject io, VerificationActivityResult vaResult) {
-		val method = vaResult.method
-		val properties = method.properties
-		val exps = vaResult.target.propertyValues
+		def boolean checkPropertyValues(VerificationResult verificationResult, InstanceObject target) {
+			if (verificationResult instanceof VerificationActivityResult) {
+				val success = checkProperties(target, verificationResult)
+				if (!success) {
+					verificationResult.eResource.save(null)
+					updateProgress(verificationResult)
+				}
+				return success
+			}
+			true
+		}
 
-		val propIter = properties.iterator
-		val expIter = exps.iterator
-		var success = true;
-
-		while (propIter.hasNext && expIter.hasNext) {
-			val property = propIter.next
-			val exp = expIter.next
-
-			try {
-				val expResult = interpreter.interpretExpression(env, exp)
-				if (expResult.failed) {
-					setToError(vaResult, "Could not evaluate expression for " + property.name + ": " +
-						expResult.ruleFailedException, null)
-					success = false
-				} else {
-					var PropertyValue modelPropValue = null
-					val propertyIsSet = try {
-							val modelExp = io.getSimplePropertyValue(property)
-							modelPropValue = if(modelExp instanceof PropertyValue) modelExp else null
-							true
-						} catch (PropertyNotPresentException e) {
-							false
-						}
-					val value = expResult.value
-					if (propertyIsSet) {
-						if (value instanceof NumberValue) {
-							val unit = value.unit
-							val reqValue = value.getScaledValue(unit)
-							val modelValue = PropertyUtils.getScaledNumberValue(io, property, unit)
-
-							if (reqValue != modelValue) {
-								vaResult.addFailIssue(io,
-									"Property " + property.getQualifiedName() + ": Value in model (" + modelValue +
-										unit.name + ") does not match required value (" + reqValue + unit.name + ")")
-								vaResult.setToFail
+		def void executeJavaMethodOnce(VerificationResult verificationResult, VerificationMethod method,
+			InstanceObject target, List<PropertyExpression> parameters) {
+			val methodtype = method.methodKind as JavaMethod
+			val returned = VerificationMethodDispatchers.eInstance.invokeJavaMethod(methodtype, target, parameters)
+			if (returned !== null) {
+				if (returned instanceof Boolean && (method.isPredicate || method.results.empty)) {
+					if (returned != true) {
+						setToFail(verificationResult, "", target);
+					} else {
+						setToSuccess(verificationResult)
+					}
+				} else if (returned instanceof Diagnostic) {
+					if (returned.type == DiagnosticType.SUCCESS) {
+						setToSuccess(verificationResult)
+					} else if (returned.type == DiagnosticType.FAILURE) {
+						setToFail(verificationResult)
+					} else if (returned.type == DiagnosticType.ERROR) {
+						setToError(verificationResult)
+					} else {
+						setToSuccess(verificationResult)
+					}
+					verificationResult.issues.add(returned)
+				} else if (returned instanceof Result) {
+					val issues = returned.diagnostics
+					if (!hasFailures(returned)) {
+						setToSuccess(verificationResult, "", target)
+					} else {
+						setToFail(verificationResult, "", target)
+					}
+					verificationResult.issues.addAll(issues)
+					if (verificationResult instanceof VerificationActivityResult) {
+						val computeIter = verificationResult.targetReference.verificationActivity.computes.iterator
+						val vals = returned.values
+						if (computeIter.size == vals.size) {
+							vals.forEach [ data |
+								val computeRef = computeIter.next
+								computes.put(computeRef.compute.name, toLiteral(data))
+							]
+							if (verificationResult.success) {
+								// execute value predicate
 							}
 						} else {
-							if (value != modelPropValue) {
-								vaResult.addFailIssue(io,
-									"Property " + property.getQualifiedName() + ": Value in model (" + modelPropValue +
-										") does not match required value (" + value + ")")
-								vaResult.setToFail
-							}
+							setToError(verificationResult, 'Fewer values returned than expected as compute variables')
 						}
-					} else {
-						// set property
-						val pa = io.createOwnedPropertyAssociation
-						pa.property = property
-						val mpv = pa.createOwnedValue
-						mpv.setOwnedValue(EcoreUtil.copy(value))
 					}
+				} else if (method.results.size == 1) {
+					setToSuccess(verificationResult)
+				} else {
+					setToError(verificationResult, "Expected more than one result value as ResultReport or HashMap",
+						target);
 				}
-			} catch (Exception e) {
-				vaResult.setToError("Could not process property " + property.name)
 			}
 		}
-		success
-	}
-}
+
+		def boolean checkProperties(InstanceObject io, VerificationActivityResult vaResult) {
+			val method = vaResult.method
+			val properties = method.properties
+			val exps = vaResult.target.propertyValues
+
+			val propIter = properties.iterator
+			val expIter = exps.iterator
+			var success = true;
+
+			while (propIter.hasNext && expIter.hasNext) {
+				val property = propIter.next
+				val exp = expIter.next
+
+				try {
+					val expResult = interpreter.interpretExpression(env, exp)
+					if (expResult.failed) {
+						setToError(vaResult, "Could not evaluate expression for " + property.name + ": " +
+							expResult.ruleFailedException, null)
+						success = false
+					} else {
+						var PropertyValue modelPropValue = null
+						val propertyIsSet = try {
+								val modelExp = io.getSimplePropertyValue(property)
+								modelPropValue = if(modelExp instanceof PropertyValue) modelExp else null
+								true
+							} catch (PropertyNotPresentException e) {
+								false
+							}
+						val value = expResult.value
+						if (propertyIsSet) {
+							if (value instanceof NumberValue) {
+								val unit = value.unit
+								val reqValue = value.getScaledValue(unit)
+								val modelValue = PropertyUtils.getScaledNumberValue(io, property, unit)
+
+								if (reqValue != modelValue) {
+									vaResult.addFailIssue(io,
+										"Property " + property.getQualifiedName() + ": Value in model (" + modelValue +
+											unit.name + ") does not match required value (" + reqValue + unit.name +
+											")")
+											vaResult.setToFail
+										}
+									} else {
+										if (value != modelPropValue) {
+											vaResult.addFailIssue(io,
+												"Property " + property.getQualifiedName() + ": Value in model (" +
+													modelPropValue + ") does not match required value (" + value + ")")
+											vaResult.setToFail
+										}
+									}
+								} else {
+									// set property
+									val pa = io.createOwnedPropertyAssociation
+									pa.property = property
+									val mpv = pa.createOwnedValue
+									mpv.setOwnedValue(EcoreUtil.copy(value))
+								}
+							}
+						} catch (Exception e) {
+							vaResult.setToError("Could not process property " + property.name)
+						}
+					}
+					success
+				}
+			}
+			

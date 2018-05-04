@@ -2468,7 +2468,7 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//Uncertainty:
-	//	'uncertainty'
+	//	{Uncertainty} 'uncertainty'
 	//	'[' (('volatility' volatility=INT)?
 	//	& ('precedence' precedence=INT)?
 	//	& ('impact' impact=INT)?)
@@ -2942,6 +2942,17 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 	
 	public ParserRule getComponentCategoryRule() {
 		return getComponentCategoryAccess().getRule();
+	}
+
+	//enum TargetType:
+	//	COMPONENT='component' | FEATURE='feature' | CONNECTION='connection' | FLOW='flow' | MODE='mode' | ELEMENT='element' |
+	//	ROOT='root';
+	public CommonGrammarAccess.TargetTypeElements getTargetTypeAccess() {
+		return gaCommon.getTargetTypeAccess();
+	}
+	
+	public EnumRule getTargetTypeRule() {
+		return getTargetTypeAccess().getRule();
 	}
 
 	//terminal fragment EXPONENT:
