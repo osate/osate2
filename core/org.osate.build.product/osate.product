@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?pde version="3.5"?>
+
+<product name="OSATE2" uid="osate2" id="org.osate.branding.osate2" application="org.eclipse.ui.ide.workbench" version="2.3.3.qualifier" useFeatures="true" includeLaunchers="true">
+
+   <aboutInfo>
+      <image path="icons/osateAbout_hc90.jpg"/>
+      <text>
+         %aboutText
+      </text>
+   </aboutInfo>
+
+   <configIni use="default">
+   </configIni>
+
+   <launcherArgs>
+      <vmArgs>-Dosgi.requiredJavaVersion=1.8 -Xms40m -Xmx768m
+      </vmArgs>
+   </launcherArgs>
+
+   <windowImages i16="icons/16aadl.jpg" i32="icons/32aadl.jpg"/>
+
+   <splash
+      location="org.osate.branding"
+      startupProgressRect="5,275,445,15"
+      startupMessageRect="7,252,445,20"
+      startupForegroundColor="000000" />
+   <launcher name="osate">
+      <solaris/>
+      <win useIco="false">
+         <bmp/>
+      </win>
+   </launcher>
+
+   <vm>
+   </vm>
+
+
+   <plugins>
+   </plugins>
+
+   <features>
+      <feature id="org.osate.core.feature"/>
+      <feature id="org.osate.plugins.feature"/>
+      <feature id="org.osate.xtext.aadl2.errormodel.feature" installMode="root"/>
+      <feature id="org.osate.ge.feature" installMode="root"/>
+      <feature id="org.osate.ba.feature" installMode="root"/>
+      <feature id="org.osate.utils.feature" installMode="root"/>
+      <feature id="com.rockwellcollins.atc.agree.feature" installMode="root"/>
+      <feature id="com.rockwellcollins.atc.resolute.feature" installMode="root"/>
+      <feature id="org.osate.ocarina.feature" installMode="root"/>
+      <feature id="org.osate.alisa.workbench.sdk" installMode="root"/>
+      <feature id="it.xsemantics.runtime.feature"/>
+      <feature id="org.eclipse.birt"/>
+      <feature id="org.eclipse.egit"/>
+      <feature id="org.eclipse.equinox.executable"/>
+      <feature id="org.eclipse.platform"/>
+      <feature id="org.eclipse.rcp"/>
+      <feature id="org.eclipse.graphiti.export.feature"/>
+      <feature id="org.eclipse.sirius.runtime.ide.ui"/>
+   </features>
+
+   <configurations>
+      <plugin id="org.eclipse.core.runtime" autoStart="true" startLevel="4" />
+      <plugin id="org.eclipse.equinox.common" autoStart="true" startLevel="2" />
+      <plugin id="org.eclipse.equinox.ds" autoStart="true" startLevel="2" />
+      <plugin id="org.eclipse.equinox.event" autoStart="true" startLevel="2" />
+      <plugin id="org.eclipse.equinox.p2.reconciler.dropins" autoStart="true" startLevel="4" />
+      <plugin id="org.eclipse.equinox.simpleconfigurator" autoStart="true" startLevel="1" />
+      <plugin id="org.eclipse.update.configurator" autoStart="true" startLevel="4" />
+      <property name="org.eclipse.update.reconcile" value="false" />
+      <property name="preferenceCustomization" value="plugin_customization.ini" />
+   </configurations>
+
+   <repositories>
+      <repository location="http://osate-build.sei.cmu.edu/download/osate/testing/updates/" enabled="true" />
+      <repository location="http://download.eclipse.org/eclipse/updates/4.7" enabled="true" />
+      <repository location="http://download.eclipse.org/releases/oxygen" enabled="true" />
+   </repositories>
+
+</product>

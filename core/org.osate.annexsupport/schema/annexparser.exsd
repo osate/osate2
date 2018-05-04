@@ -1,0 +1,143 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!-- Schema file written by PDE -->
+<schema targetNamespace="org.osate.annexsupport">
+<annotation>
+      <appInfo>
+         <meta.schema plugin="org.osate.annexsupport" id="parser" name="Annex Parser"/>
+      </appInfo>
+      <documentation>
+         The AADL Parser plugin parses standard AADL source text. This parser extension point allows third-party plug-ins to define sublanguages for AADL annexes. 
+         The AADL Parser will use annex parser plug-ins to parse the annex source text by calling the annex parser each time an annex 
+         library or subclause occurs in the source text.
+      </documentation>
+   </annotation>
+
+   <element name="extension">
+      <complexType>
+         <sequence>
+            <element ref="parser" minOccurs="1" maxOccurs="unbounded"/>
+         </sequence>
+         <attribute name="point" type="string" use="required">
+            <annotation>
+               <documentation>
+                  
+               </documentation>
+            </annotation>
+         </attribute>
+         <attribute name="id" type="string">
+            <annotation>
+               <documentation>
+                  
+               </documentation>
+            </annotation>
+         </attribute>
+         <attribute name="name" type="string">
+            <annotation>
+               <documentation>
+                  
+               </documentation>
+            </annotation>
+         </attribute>
+      </complexType>
+   </element>
+
+   <element name="parser">
+      <complexType>
+         <attribute name="id" type="string" use="required">
+            <annotation>
+               <documentation>
+                  A unique identifier for this annex parser.
+               </documentation>
+            </annotation>
+         </attribute>
+         <attribute name="name" type="string">
+            <annotation>
+               <documentation>
+                  A human-readable name for this annex parser.
+               </documentation>
+            </annotation>
+         </attribute>
+         <attribute name="annexName" type="string" use="required">
+            <annotation>
+               <documentation>
+                  The name of the annex this parser can process.
+               </documentation>
+            </annotation>
+         </attribute>
+         <attribute name="annexNSURI" type="string" use="optional">
+            <annotation>
+               <documentation>
+                  The NSURI of the annex this parser can process.
+               </documentation>
+            </annotation>
+         </attribute>
+         <attribute name="class" type="string" use="required">
+            <annotation>
+               <documentation>
+                  The fully qualified name of the class that implements &lt;code&gt;org.osate.annexsupport.AnnexParser&lt;/code&gt;.
+               </documentation>
+               <appInfo>
+                  <meta.attribute kind="java" basedOn="org.osate.annexsupport.AnnexParser"/>
+               </appInfo>
+            </annotation>
+         </attribute>
+      </complexType>
+   </element>
+
+   <annotation>
+      <appInfo>
+         <meta.section type="since"/>
+      </appInfo>
+      <documentation>
+         [Enter the first release in which this extension point appears.]
+      </documentation>
+   </annotation>
+
+   <annotation>
+      <appInfo>
+         <meta.section type="examples"/>
+      </appInfo>
+      <documentation>
+         The following is an example of the Annex Parser extension point usage:
+&lt;p&gt;
+&lt;pre&gt;
+&lt;extension point=&quot;org.osate.annexsupport.parser&quot;&gt;
+ &lt;parser
+  id=&quot;com.example.errorannex&quot;
+  name=&quot;Error Annex Parser&quot;
+  annexName=&quot;errorannex&quot;
+  class=&quot;com.example.ErrorAnnexParser&quot;/&gt;
+&lt;/extension&gt;
+&lt;/pre&gt;
+&lt;/p&gt;
+      </documentation>
+   </annotation>
+
+   <annotation>
+      <appInfo>
+         <meta.section type="apiInfo"/>
+      </appInfo>
+      <documentation>
+         Plug-ins that want to extend this extension point must implement &lt;code&gt;org.osate.annexsupport.AnnexParser&lt;/code&gt;. To do this they may subclass the abstract class &lt;code&gt;org.osate.annexsupport.AbstractAnnexParser&lt;/code&gt;.
+      </documentation>
+   </annotation>
+
+   <annotation>
+      <appInfo>
+         <meta.section type="implementation"/>
+      </appInfo>
+      <documentation>
+         [Enter information about supplied implementation of this extension point.]
+      </documentation>
+   </annotation>
+
+   <annotation>
+      <appInfo>
+         <meta.section type="copyright"/>
+      </appInfo>
+      <documentation>
+         Copyright  2005 by Carnegie Mellon University, all rights reserved.
+      </documentation>
+   </annotation>
+
+</schema>

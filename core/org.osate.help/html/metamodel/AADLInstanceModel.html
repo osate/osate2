@@ -1,0 +1,309 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+	"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+   <title>AADL Instance Model</title>
+   <link href="Res/styles/shared.css" rel="stylesheet" type="text/css">
+   <link href="Res/styles/DynamicOutline.css" rel="stylesheet" type="text/css">
+</head>
+<body id="page" >
+
+<!-- BEGIN PAGE BODY-->
+
+
+<table id="pageBody">
+ <col class="main">
+ <col class="right">
+
+<!-- BEGIN BREADCRUMBS-->
+<tr id="breadcrumbsAndPageNavigation">
+  <td class="breadcrumbs" valign="top">
+<!-- BEGIN NAVIGATION BREADCRUMBS ITEM-->
+<span class="breadcrumb">
+   <a href="index.html">Home</a> 
+   <span class="separator">&gt;</span>
+</span>
+<!-- END NAVIGATION BREADCRUMBS ITEM-->
+<!-- BEGIN NAVIGATION BREADCRUMBS HERE-->
+<span class="breadcrumb">
+   5. AADL Instance Model
+</span>
+<!-- END NAVIGATION BREADCRUMBS HERE-->
+
+  </td>
+  <td class="pageNavigation" valign="top">
+<!-- START PAGE NAVIGATION NEXT IN SEQUENCE IMAGES -->
+<span class="commands">
+    <span class="command">
+        <img src="Res/images/previous_button.gif" alt=""> <a href="AnnexLibrariesandAnnexSubclauses.html">
+        <span class="label">Previous</span></a>
+    </span>
+&nbsp;&nbsp;
+    <span class="command">
+        <a href="GraphicalLayoutModel.html">
+        <span class="label">Next</span></a> <img src="Res/images/next_button.gif" alt="">
+    </span>
+</span>
+<!-- END PAGE NAVIGATION NEXT IN SEQUENCE IMAGES  -->
+
+  </td>
+  <td class="right" valign="top">
+  </td>
+</tr>
+<!-- END BREADCRUMBS-->
+
+<tr class="topic">
+  <td class="main" valign="top" colspan="2">
+    <div class="body">
+      <div class="topicDivider">
+      </div>
+    </div>
+  </td>
+  <td class="right" valign="top">
+<!--right body column empty-->
+  </td>
+</tr>
+
+<!--BEGIN PAGE BODY ITEM-->
+<tr class="topic">
+  <td class="main" valign="top" colspan="2">
+    <table>
+      <tr class="topicHeader">
+        <td class="topicImageColumn">
+
+        </td>
+        <td class="topicLineColumn">
+          <a name="Topic26"></a>
+          <span class=outlineNumberFirst>5. </span><span class=topicLineFirst>AADL Instance Model</span>
+          <span class="topicIcons">
+
+          </span>
+        </td>
+      </tr>
+    </table>
+
+<!-- phf:Comand: Expand("BoxPartMap.mmbas") -->
+     <div class="topicTextNotes"><div align="left"><font face="Helvetica"><span>The <i>Instance</i> meta model package defines the representation 
+of an AADL instance model.&#160; The 
+instance representation has been designed with several objectives:</span></font><span></span></div>
+<ul style="margin-top: 0pt; margin-bottom: 0pt">
+<li style="margin-left=-4mm; margin-right=0mm; padding-left=0mm; font-family= Helvetica;  "><font face="Helvetica"><span>The 
+ability to generate instance models from the declarative AADL model with a system 
+implementation as the instance root.</span></font><span></span></li>
+<li style="margin-left=-4mm; margin-right=0mm; padding-left=0mm; font-family= Helvetica;  "><font face="Helvetica"><span>The 
+ability to process an instance model without necessarily loading the complete declarative 
+model. In other words, caching of property values that are relevant to a particular analysis or 
+generation process in the instance model.</span></font><span></span></li>
+<li style="margin-left=-4mm; margin-right=0mm; padding-left=0mm; font-family= Helvetica;  "><font face="Helvetica"><span>The 
+ability to represent a modal AADL instance model without necessarily creating a separate 
+instance model for each mode combination, i.e., for each system operation mode as defined in 
+section 11.</span></font><span></span></li>
+<li style="margin-left=-4mm; margin-right=0mm; padding-left=0mm; font-family= Helvetica;  "><font face="Helvetica"><span>The 
+ability for tools that operate on the instance model to attach their results as properties of 
+the instance model and have the property values be specific to each system operation mode.</span></font><span></span></li>
+</ul>
+<div align="left"><font face="Helvetica"><span>The meta model for the AADL instance model is shown in 
+the next three figures.&#160; Figure 35 shows 
+the class hierarchy of instance model object classes.&#160; Figure 36 illustrates the relationships 
+between AADL instance model objects.&#160; Figure 37&#160; specifies classes that permit AADL instance 
+model configuration information to be separately maintained.</span></font><span></span></div>
+<div align="left"><font face="Helvetica"><span>The <i>InstanceObject</i> class is the common super class.&#160; 
+It is defined as a subclass of 
+PropertyHolder, i.e., all instance objects can contain property associations.</span></font><span></span></div>
+<div align="left"><font face="Helvetica"><span>Different subclasses of <i>InstanceObject</i> have references 
+to their respective classes in the 
+declarative model (see Figure 35).&#160; For example, a <i>ComponentInstance</i> object refers to the 
+subcomponent it is instantiated from.&#160; Instance objects other than <i>ConnectionInstance</i> objects 
+refer to a single counterpart in the declarative model.&#160; A <i>ConnectionInstance</i> object refers 
+to the 
+collection of connection declarations that make up the connection instance.&#160; In addition, the 
+<i>ConnectionInstance</i> object refers to the collection of <i>ComponentInstance</i> objects that provide 
+the 
+context of each of the connection declaration.&#160; The context of a connection declaration is the 
+<i>ComponentInstance</i> object whose component implementation contains the connection declaration. 
+&#160;This context is useful for modal processing of instance models.</span></font><span></span></div>
+<div align="left"><font face="Helvetica"><span>The <i>ComponentInstance</i> class represents instances 
+of subcomponents from the declarative AADL 
+model.&#160; The subcomponent name is stored in the name attribute of the <i>ComponentInstance</i> and 
+the category is recorded in the <i>category</i> attribute.&#160; The category attribute permits the 
+component 
+category to be determined without accessing the subcomponent in the declarative AADL model. 
+The reference association to the subcomponent is a cross XML document reference, given that 
+instance models and packages of AADL specifications are stored persistently in separate XML 
+documents.&#160; Lazy loading of XML documents permits analysis and generation tools to operate on 
+instance models without causing the declarative model to be loaded.</span></font><span></span></div>
+<div align="left"><font face="Helvetica"><span><i>ComponentInstance</i> objects are used to represent 
+the full component instance hierarchy of a 
+system.&#160; For example, a system instance model may consist of a <i>SystemInstance</i> object that 
+contains a <i>ComponentInstance</i> for an application system and a <i>ComponentInstance</i> for a 
+execution platform system.&#160; The application component instance contains <i>ComponentInstance</i> 
+objects representing processes, which in turn contain <i>ComponentInstance</i> objects representing 
+threads in those processes.&#160; Similarly, the execution platform component instance contains 
+<i>ComponentInstance</i> objects representing processors, buses, memory, and devices.&#160; </span></font><span></span></div>
+<div align="center"><img src="NotesImages/Topic26NotesImage3.jpg" align="bottom" width="353" height="825" border="0" alt="graphic" /></div>
+<div align="center"><font face="Helvetica"><span><b>Figure 35 The AADL Instance Model Class Hierarchy</b></span></font><span></span></div>
+<div align="left"><font face="Helvetica"><span>The definition of the <i>ComponentInstance</i> class 
+in the AADL meta model permits a flattened 
+instance model to be represented that is populated with only the leaf nodes of the instance 
+hierarchy.&#160; This may be desirable if the intermediate components are not relevant for processing 
+the instance model.&#160; In the example above, the instance model would consist of a <i>SystemInstance</i> 
+object that contains <i>ComponentInstance</i> objects for all the threads, processors, buses, memory, 
+and devices, but no intermediate components.</span></font><span></span></div>
+<div align="left"><font face="Helvetica"><span>The <i>SystemInstance</i> class represents the instance 
+root object that is the result of instantiating a 
+system implementation.&#160; The <i>SystemInstance</i> has the constraint that it does not have a reference 
+association to <i>Subcomponent</i> although it is a subclass of <i>ComponentInstance</i>.&#160; This 
+reflects the 
+fact that a <i>SystemInstance</i> is instantiated from a system implementation instead of a 
+subcomponent.</span></font><span></span></div>
+<div align="left"><font face="Helvetica"><span>Modal component instances, i.e., component instances 
+whose subcomponent classifiers have 
+mode declarations, contain objects of the <i>ModeInstance</i> class.&#160; Component instances also 
+contain 
+objects of the <i>FeatureInstance</i> class.&#160; The <i>FeatureInstance</i> class has a containment 
+association 
+to itself to support the representation of nested features in port groups. The feature name is stored 
+in the name attribute of the <i>FeatureInstance</i> and the feature category is recorded in the <i>category</i> 
+attribute.</span></font><span></span></div>
+<div align="left"><font face="Helvetica"><span>The abstract <i>ConnectionInstance</i> class and its 
+subclasses represent semantic connections. 
+<i>PortConnectionInstance</i> objects represent semantic connections between ports and port groups.&#160; 
+If 
+the ultimate source or ultimate desintation of the semantic connection is a port group, then the 
+semantic connection is unfolded into separate semantic connections for each of the event, data, 
+and event data ports contained in the port group.&#160; <i>ModeTransitionConnectionInstance</i> objects 
+represent semantic connections from event ports as ultimate sources to mode transitions. 
+<i>AccessConnectionInstance</i> objects represent a semantic connection from the data or bus 
+component to being accessed to a thread, device, memory, or processor requiring access to data 
+or a bus.</span></font><span></span></div>
+<div align="left"><font face="Helvetica"><span>It may be desirable to instantiate incomplete system 
+models, i.e., system models where the 
+application is not yet elaborated down to the thread level.&#160; For example, it may be desirable to 
+perform flow related latency analysis on partitioned systems without the details of partition 
+implementations. In this case, the component hierarchy is instantiated for subcomponents with 
+classifiers and <i>ConnectionInstance</i> objects may be created between the leaf nodes of this 
+incomplete system hierarchy. In this case, a <i>ConnectionInstance</i> object may not have a thread, 
+processor, or device as its ultimate source or destination, thus, does not represent a semantic 
+connection as defined in Section 9 of the AADL standard. </span></font><span></span></div>
+<div align="left"><font face="Helvetica"><span>Flows are represented in AADL instance models as follows.&#160; 
+The <i>FlowSpecInstance</i> class 
+represents flow specifications associated with a component instance.&#160; The <i>EndToEndFlowInstance</i> 
+class represents an end-to-end flow specification in the AADL instance model.&#160; They consist of 
+a 
+sequence of <i>FlowElementInstance</i> objects that alternate between a reference to a 
+<i>FlowSpecInstance</i> object and a <i>PortConnectionInstance</i> object.&#160; <i>EndToEndFlowInstance</i> 
+objects 
+are contained in the component instance, whose component implementation contains the end-to- 
+end flow declaration.</span></font><span></span></div>
+<div align="center"><img src="NotesImages/Topic26NotesImage5.jpg" align="bottom" width="488" height="812" border="0" alt="graphic" /></div>
+<div align="center"><font face="Helvetica"><span><b>Figure 36 The AADL Instance Model Relationships</b></span></font><span></span></div>
+<div align="left"><font face="Helvetica"><span>The paths declared by reference values of properties 
+are expressed relative to the component for 
+which the property association is declared.&#160; However, through the contained property association 
+declaration the property value is actually associated with a component within the hierarchy below 
+the component with the declaration.&#160; When property values are cached in the instance model they 
+are attached to the instance object for which they are declared.&#160; Since all <i>InstanceObject</i> 
+objects 
+are property holders, the property association representation from the declarative AADL model can 
+be used, except that the reference values have to be translated into references within the instance 
+model.&#160; This is done through the <i>InstanceReferenceValue</i> class.</span></font><span></span></div>
+<div align="left"><font face="Helvetica"><span>When property values are cached from the declarative 
+model in the instance model, the property 
+association has its <i>derived</i> attribute set to true.&#160; The property value of the property association 
+is 
+the value retrieved from the declarative model.&#160; A copy of the cached property value is attached 
+to 
+each instance object for which the property value holds.&#160; In other words, in the instance model 
+the 
+property value is found with the instance object and does not have to be searched for according to 
+the rules for determining a property value as defined for property associations in the SAE AADL 
+standard.</span></font><span></span></div>
+<div align="left"><font face="Helvetica"><span>The <i>SystemOperationMode</i> class represents a system 
+operation mode, i.e., a set of current modes 
+of all active modal component instances.&#160; It is expressed as a multiplicity reference association 
+to 
+the relevant <i>ModeInstance</i> objects of modal component instances. </span></font><span></span></div>
+<div align="left"><font face="Helvetica"><span>All valid system operation modes can be generated and 
+attached to the system instance through a 
+containment association.&#160; This allows analysis tools to iterate over the system operation modes 
+to 
+analyze the modal instance model.</span></font><span></span></div>
+<div align="left"><font face="Helvetica"><span>Several <i>InstanceObject </i>classes represent model 
+objects that are active in certain modes as 
+expressed by the <i>in modes</i> clause.&#160; <i>ComponentInstance</i> objects are active in modes 
+defined by 
+the containing component instance.&#160; This is represented by the reference association <i>inModes</i> 
+between <i>ComponentInstance</i> and <i>ModeInstance</i>.&#160; <i>ConnectionInstance</i> objects are 
+active in 
+combinations of modes of components whose connection declarations make up the connection 
+instance.&#160; This mode combination is represented by <i>SystemOperationMode</i> objects.&#160; A 
+reference 
+association <i>inSystemOperationModes </i>between the <i>ConnectionInstance</i> and <i>SystemOperationMode 
+</i>records this reference.&#160; <i>EndToEndFlowInstance</i> objects are active in modes defined by 
+the 
+containing component instance, which is recorded by an <i>inModes</i> reference association between 
+<i>EndToEndFlowInstance</i> and <i>ModeInstance</i>.&#160; The system operation modes an end-to-end 
+flow 
+instance applies to is determined by these modes and the system operation modes that apply to 
+each of its flow element instances.&#160; That set can be pre-calculated and recorded through the 
+<i>inSystemOperationModes</i> reference association between <i>EndToEndFlowInstance</i> and 
+<i>SystemOperationMode</i>.</span></font><span></span></div>
+<div align="center"><img src="NotesImages/Topic26NotesImage6.jpg" align="bottom" width="575" height="204" border="0" alt="graphic" /></div>
+<div align="center"><font face="Helvetica"><span><b>Figure 37 System Instance Configurations</b></span></font><span></span></div>
+<div align="left"><font face="Helvetica"><span>A <i>SystemInstanceConfiguration</i> class has been defined 
+to compactly represent different modal 
+system configurations as a combination of a <i>SystemOperationMode</i> objects and property 
+associations specific to those system operation modes.&#160; The property associations are contained 
+property associations that apply to specific objects in the AADL instance model.&#160; This allows 
+analysis tools to record their results in a more compact persistent form and can then be mapped 
+onto the instance model.&#160; Multiple sets of of property values can be mapped to the same instance 
+model. </span></font><span></span></div></div>
+
+
+
+
+  </td>
+  <td class="right" valign="top">
+<!--right body column empty-->
+  </td>
+</tr>
+<!--END PAGE BODY ITEM-->
+
+
+<!-- BEGIN TOP BUTTON -->
+<tr class="topic">
+  <td class="main" valign="top" colspan="2">
+    <div class="body">
+      <div class="topCommand">
+        <span class="commands">
+      <span class="command">
+            <img src="Res/images/top_button.gif" alt="">
+          <a href="javascript:scroll(0,0)">
+             <span class="label">Top</span>
+              </a>
+    </span>
+       </span>
+      </div>
+    </div>
+  </td>
+  <td class="right" valign="top">
+<!--right body column empty-->
+  </td>
+</tr>
+<!-- END TOP BUTTON -->
+
+</table>
+
+<!-- BEGIN SIDE NAVIGATION WRAPPER-->
+    </td>
+  </tr>
+</table>
+<!-- END SIDE NAVIGATION WRAPPER-->
+
+<!-- END PAGE BODY-->
+
+
+</body>
+</html>
+

@@ -1,0 +1,138 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+	<LINK REL="STYLESHEET" HREF="../book.css" CHARSET="ISO-8859-1" TYPE="text/css">
+	<title>Open Source AADL Tool Environment (OSATE) Online Help</title>
+</head>
+
+<body>
+<H2>Simulink importer</H2>
+<p>
+The functional importers create AADL models skeletons using
+a functional model such as Simulink. Simulink
+provides a language to describe a functional description
+using a graphical notation. However, these models do not show
+many deployment information, which may result in limited
+analysis. 
+</p>
+<p>
+Such models are often used to simulate and prototype the
+system before architecture design efforts. For that purpose,
+import these functional models can help to make the initial
+models by automatically generating a model skeleton
+from existing prototyping efforts. The model skeleton
+can then be refine according to the design specification.
+</p>
+
+<h2>Using the plug-in</h2>
+<p>
+In both case, before selecting the menu, you have
+to select an <strong>empty directory</strong> in 
+your OSATE installation (see picture below).
+ This directory will then contain
+the generated AADL model. Then, the tool
+will ask to select the Simulink model to import.
+</p>
+
+<img src="osate-directory-selected.png"/>
+
+
+
+<h3>Importing Simulink Models</h3>
+<p>
+To import a Simulink model, make sure you
+have selected an empty directory in your workspace
+and then, select the menu entry
+<strong>Import Simulink model</strong>
+under the <strong>Analyses</strong> menu.
+This is shown in the figure below in the 
+purple box. Please note that the importer
+support only Simulink models saved
+under the <strong>slx format</strong>.
+</p>
+
+
+<h2>Mapping Rules</h2>
+<p>
+The following sections provide an overview
+of the mapping rules to transform a Simulink
+ model into an AADL model
+</p>
+<p>
+For both importers, the tool will create
+the following files: 
+</p>
+<ol>
+	<li><em>functional/<package-name>-functional.aadl</em> contains a functional view using abstract components.
+	</li>
+	<li><em>functional/<package-name>-runtime.aadl</em> contains the system structure (with subcomponents)
+	using system components.
+	</li>
+	<li><em>functional/runtime_generic.aadl</em> contains generic components used by all mapped components.
+	</li>
+</ol>
+
+<h3>Simulink Mapping Rules</h3>
+<ul>
+	<li>Each component in the diagram is mapped into an AADL system component</li>
+	<li>Simulink component connections is mapped using AADL event data port connections</li>
+	<li>
+		AADL event data port connections are using a generic type.
+		The plugin also tries to see if the data is a boolean type. Otherwise,
+		it is mapped into a generic type.
+	</li>
+	<li>
+		In the <em>runtime.aadl</em> model, all systems are bound to
+		the same processor.
+	</li>
+	<li>State flow diagrams are translated into AADL behavior state machine
+		<ul>
+			<li>
+				Inner state machines are embedded
+			</li>
+			<li>
+				Data shared across state machines are mapped using an
+				AADL shared data component.
+			</li>
+			<li>
+				The type of shared data is inferred from the Simulink model.
+				When possible, it tries to detect the use of boolean types.
+				Otherwise, it is mapped to a generic type.
+			</li>	
+		</ul>
+	</li>
+	<li>
+		When a Simulink model references a components from another file, it
+		does not resolve the reference. Instead, the user then needs to import
+		the referenced Simulink library as well.
+	</li>
+</ul>
+
+
+<h2>Common Problems</h2>
+<ul>
+	<li><strong>I cannot select the importer function</strong>:
+		make sure you selected an empty directory in the file hierarchy.
+	</li>
+	<li><strong>Nothing happens after selecting my Simulink model:</strong>
+		make sure you selected a slx file format (not the older mdl format).
+	</li>
+	<li><strong>Only three files are generated, nothing is created</strong>:
+		make sure you left the root system name empty.
+	</li>
+</ul>
+
+<h2>Bug report</h2>
+<p>
+If you have any question or would like to report a bug,
+please do it on the 
+<a target="_blank"  href="https://github.com/osate/osate2-plugins/issues?state=open">OSATE plug-in issue tracker on github</a>.
+You can also ask questions 
+<a target="_blank" href="https://wiki.sei.cmu.edu/aadl/index.php/Mailing_List"> on the AADL mailing-lists</a>.
+</p>
+
+</body>
+</html>
