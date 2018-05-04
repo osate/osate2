@@ -1,0 +1,14 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: %pluginName
+Bundle-SymbolicName: org.osate.pluginsupport;singleton:=true
+Bundle-Version: 1.0.0.qualifier
+Bundle-ClassPath: .
+Bundle-Activator: org.osate.pluginsupport.PluginSupportPlugin
+Bundle-Localization: plugin
+Require-Bundle: org.eclipse.core.runtime,
+ org.eclipse.emf.common
+Bundle-ActivationPolicy: lazy
+Export-Package: org.osate.pluginsupport
+Bundle-Vendor: CMU-SEI
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8
