@@ -500,7 +500,7 @@
     <repository
         url="http://download.eclipse.org/releases/oxygen"/>
     <repository
-        url="http://download.eclipse.org/sirius/updates/releases/5.1.0/oxygen"/>
+        url="http://download.eclipse.org/sirius/updates/releases/5.1.1/oxygen"/>
   </setupTask>
   <setupTask
       xsi:type="setup.p2:P2Task">
@@ -571,6 +571,8 @@
           name="org.eclipse.m2e.logback.feature.feature.group"/>
       <requirement
           name="org.eclipse.swtbot.eclipse.feature.group"/>
+      <requirement
+          name="org.eclipse.swtbot.eclipse.gef.feature.group"/>
       <requirement
           name="org.eclipse.wst.xml_ui.feature.feature.group"/>
       <requirement
@@ -745,6 +747,10 @@
           name="org.eclipse.gef.mvc.fx.ui.feature.group"/>
       <requirement
           name="org.eclipse.sirius.runtime.ide.ui.feature.group"/>
+      <requirement
+          name="org.eclipse.swtbot.eclipse.feature.group"/>
+      <requirement
+          name="org.eclipse.swtbot.gef.eclipse.feature.group"/>
       <requirement
           name="it.xsemantics.sdk.feature.group"/>
       <requirement
