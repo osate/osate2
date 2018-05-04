@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<genmodel:GenModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore"
+    xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" copyrightText="Copyright 2015 Carnegie Mellon University. All Rights Reserved.&#xA;&#xA;NO WARRANTY. THIS CARNEGIE MELLON UNIVERSITY AND SOFTWARE ENGINEERING INSTITUTE&#xA;MATERIAL IS FURNISHED ON AN &quot;AS-IS&quot; BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO&#xA;WARRANTIES OF ANY KIND, EITHER EXPRESSED OR IMPLIED, AS TO ANY MATTER INCLUDING,&#xA;BUT NOT LIMITED TO, WARRANTY OF FITNESS FOR PURPOSE OR MERCHANTABILITY,&#xA;EXCLUSIVITY, OR RESULTS OBTAINED FROM USE OF THE MATERIAL. CARNEGIE MELLON&#xA;UNIVERSITY DOES NOT MAKE ANY WARRANTY OF ANY KIND WITH RESPECT TO FREEDOM FROM&#xA;PATENT, TRADEMARK, OR COPYRIGHT INFRINGEMENT.&#xA;&#xA;Released under the Eclipse Public License (http://www.eclipse.org/org/documents/epl-v10.php)&#xA;&#xA;See COPYRIGHT file for full details."
+    modelDirectory="/org.osate.alisa.common/src-gen" editDirectory="/org.osate.alisa.common.edit/src"
+    editorDirectory="/org.osate.alisa.common.editor/src" modelPluginID="org.osate.alisa.common"
+    forceOverwrite="true" modelName="Common" updateClasspath="false" rootExtendsClass="org.eclipse.emf.ecore.impl.MinimalEObjectImpl$Container"
+    complianceLevel="6.0" copyrightFields="false" editPluginID="org.osate.alisa.common.edit"
+    editorPluginID="org.osate.alisa.common.editor" runtimeVersion="2.13" usedGenPackages="platform:/plugin/org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore platform:/resource/org.osate.aadl2/model/aadl2.genmodel#//aadl2">
+  <genPackages prefix="Common" basePackage="org.osate.alisa.common" disposableProviderFactory="true"
+      fileExtensions="___common___" ecorePackage="Common.ecore#/">
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="Common.ecore#//Operation">
+      <genEnumLiterals ecoreEnumLiteral="Common.ecore#//Operation/OR"/>
+      <genEnumLiterals ecoreEnumLiteral="Common.ecore#//Operation/ALT_OR"/>
+      <genEnumLiterals ecoreEnumLiteral="Common.ecore#//Operation/AND"/>
+      <genEnumLiterals ecoreEnumLiteral="Common.ecore#//Operation/ALT_AND"/>
+      <genEnumLiterals ecoreEnumLiteral="Common.ecore#//Operation/EQ"/>
+      <genEnumLiterals ecoreEnumLiteral="Common.ecore#//Operation/NEQ"/>
+      <genEnumLiterals ecoreEnumLiteral="Common.ecore#//Operation/GEQ"/>
+      <genEnumLiterals ecoreEnumLiteral="Common.ecore#//Operation/LEQ"/>
+      <genEnumLiterals ecoreEnumLiteral="Common.ecore#//Operation/GT"/>
+      <genEnumLiterals ecoreEnumLiteral="Common.ecore#//Operation/LT"/>
+      <genEnumLiterals ecoreEnumLiteral="Common.ecore#//Operation/IN"/>
+      <genEnumLiterals ecoreEnumLiteral="Common.ecore#//Operation/PLUS"/>
+      <genEnumLiterals ecoreEnumLiteral="Common.ecore#//Operation/MINUS"/>
+      <genEnumLiterals ecoreEnumLiteral="Common.ecore#//Operation/MULT"/>
+      <genEnumLiterals ecoreEnumLiteral="Common.ecore#//Operation/DIV"/>
+      <genEnumLiterals ecoreEnumLiteral="Common.ecore#//Operation/INTDIV"/>
+      <genEnumLiterals ecoreEnumLiteral="Common.ecore#//Operation/MOD"/>
+      <genEnumLiterals ecoreEnumLiteral="Common.ecore#//Operation/NOT"/>
+    </genEnums>
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="Common.ecore#//TargetType">
+      <genEnumLiterals ecoreEnumLiteral="Common.ecore#//TargetType/COMPONENT"/>
+      <genEnumLiterals ecoreEnumLiteral="Common.ecore#//TargetType/FEATURE"/>
+      <genEnumLiterals ecoreEnumLiteral="Common.ecore#//TargetType/CONNECTION"/>
+      <genEnumLiterals ecoreEnumLiteral="Common.ecore#//TargetType/FLOW"/>
+      <genEnumLiterals ecoreEnumLiteral="Common.ecore#//TargetType/MODE"/>
+      <genEnumLiterals ecoreEnumLiteral="Common.ecore#//TargetType/ELEMENT"/>
+      <genEnumLiterals ecoreEnumLiteral="Common.ecore#//TargetType/ROOT"/>
+    </genEnums>
+    <genClasses ecoreClass="Common.ecore#//Description">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Common.ecore#//Description/description"/>
+    </genClasses>
+    <genClasses ecoreClass="Common.ecore#//DescriptionElement">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Common.ecore#//DescriptionElement/text"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Common.ecore#//DescriptionElement/thisTarget"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Common.ecore#//DescriptionElement/image"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Common.ecore#//DescriptionElement/showValue"/>
+    </genClasses>
+    <genClasses ecoreClass="Common.ecore#//Rationale">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Common.ecore#//Rationale/text"/>
+    </genClasses>
+    <genClasses ecoreClass="Common.ecore#//Uncertainty">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Common.ecore#//Uncertainty/volatility"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Common.ecore#//Uncertainty/precedence"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Common.ecore#//Uncertainty/impact"/>
+    </genClasses>
+    <genClasses ecoreClass="Common.ecore#//AVariableDeclaration">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Common.ecore#//AVariableDeclaration/name"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Common.ecore#//AVariableDeclaration/type"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Common.ecore#//AVariableDeclaration/range"/>
+    </genClasses>
+    <genClasses ecoreClass="Common.ecore#//AExpression"/>
+    <genClasses ecoreClass="Common.ecore#//AModelReference">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Common.ecore#//AModelReference/modelElement"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Common.ecore#//AModelReference/prev"/>
+    </genClasses>
+    <genClasses ecoreClass="Common.ecore#//APropertyReference">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Common.ecore#//APropertyReference/modelElementReference"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Common.ecore#//APropertyReference/property"/>
+    </genClasses>
+    <genClasses ecoreClass="Common.ecore#//AUnitExpression">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Common.ecore#//AUnitExpression/expression"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Common.ecore#//AUnitExpression/convert"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Common.ecore#//AUnitExpression/drop"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Common.ecore#//AUnitExpression/unit"/>
+    </genClasses>
+    <genClasses ecoreClass="Common.ecore#//ImageReference">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Common.ecore#//ImageReference/imgfile"/>
+    </genClasses>
+    <genClasses ecoreClass="Common.ecore#//ModelRef"/>
+    <genClasses ecoreClass="Common.ecore#//TypeRef">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Common.ecore#//TypeRef/ref"/>
+    </genClasses>
+    <genClasses ecoreClass="Common.ecore#//PropertyRef">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Common.ecore#//PropertyRef/ref"/>
+    </genClasses>
+    <genClasses ecoreClass="Common.ecore#//ValDeclaration">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Common.ecore#//ValDeclaration/value"/>
+    </genClasses>
+    <genClasses ecoreClass="Common.ecore#//ComputeDeclaration"/>
+    <genClasses ecoreClass="Common.ecore#//AVariableReference">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Common.ecore#//AVariableReference/variable"/>
+    </genClasses>
+    <genClasses ecoreClass="Common.ecore#//ABinaryOperation">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Common.ecore#//ABinaryOperation/left"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Common.ecore#//ABinaryOperation/operator"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Common.ecore#//ABinaryOperation/right"/>
+    </genClasses>
+    <genClasses ecoreClass="Common.ecore#//AUnaryOperation">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Common.ecore#//AUnaryOperation/operator"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Common.ecore#//AUnaryOperation/operand"/>
+    </genClasses>
+    <genClasses ecoreClass="Common.ecore#//AFunctionCall">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Common.ecore#//AFunctionCall/function"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Common.ecore#//AFunctionCall/arguments"/>
+    </genClasses>
+    <genClasses ecoreClass="Common.ecore#//ARange">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Common.ecore#//ARange/minimum"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Common.ecore#//ARange/maximum"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Common.ecore#//ARange/delta"/>
+    </genClasses>
+    <genClasses ecoreClass="Common.ecore#//AConditional">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Common.ecore#//AConditional/if"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Common.ecore#//AConditional/then"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Common.ecore#//AConditional/else"/>
+    </genClasses>
+  </genPackages>
+</genmodel:GenModel>

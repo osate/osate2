@@ -1,0 +1,45 @@
+grammar org.osate.categories.Categories with org.eclipse.xtext.common.Terminals
+
+generate categories "http://www.osate.org/categories/Categories"
+
+CategoriesDefinitions :  categories+=Categories* categoryFilters+=CategoryFilter*
+;
+
+
+Categories returns Categories:
+	name=ID  
+	'[' category += Category+
+	']'
+;
+
+
+
+
+
+/**
+ * user selection  indicates a user defined selection categories  
+ */
+Category returns Category:
+	name = ID  
+;
+
+
+//
+//CategoryFilters returns CategoryFilters:
+//	'filters' 
+//	filters+=NamedCategoryFilter+ 
+//;
+//
+CategoryFilter returns CategoryFilter:
+	'filter' name=ID '['
+	category+=[Category|CatRef]* anyCategory?='any'?
+	']'
+;
+
+
+
+// Category reference. 
+CatRef:
+	ID '.' ID
+	;	
+
