@@ -1,0 +1,66 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="generator" content="pandoc" />
+  <title></title>
+  <style type="text/css">code{white-space: pre;}</style>
+</head>
+<body>
+<h1 id="code-generation-checker">Code Generation Checker</h1>
+<p>The objective of this plug-in is to check the model semantics to generate code using the following platforms:</p>
+<ul>
+<li>POK</li>
+<li>DeOS</li>
+<li>VxWorks</li>
+</ul>
+<h1 id="invoking-the-checker">Invoking the Checker</h1>
+<ul>
+<li>Right-click on a System Implementation in the Outline view</li>
+<li>Select <strong>Code Generation</strong> in the context menu</li>
+<li>Select the appropriate checker for your system: POK, DeOS, or VxWorks</li>
+</ul>
+<div class="figure">
+<img src="images/OutlineActions.png" alt="Context Menu Actions" />
+<p class="caption">Context Menu Actions</p>
+</div>
+<h1 id="results">Results</h1>
+<p>Any problems that the checker finds are reported in the Problems view:</p>
+<div class="figure">
+<img src="images/CheckerResults.png" alt="Results" />
+<p class="caption">Results</p>
+</div>
+<h1 id="list-of-rules">List of Rules</h1>
+<h2 id="common-rules">Common Rules</h2>
+<ul>
+<li><strong>Data</strong>: All data components must define the property <em>Memory_Properties::Data_Size</em></li>
+<li><strong>Process</strong>: All process components must contain at least one thread subcomponent</li>
+<li><strong>Process</strong>: All process components must be bound to a virtual processor through the property <em>Deployment_Properties::Actual_Processor_Binding</em></li>
+<li><strong>Process</strong>: All process components must define the property <em>Deployment_Properties::Actual_Memory_Binding</em></li>
+<li><strong>Thread</strong>: All thread components must have a <em>Thread_Properties::Dispatch_Protocol</em> of <em>Periodic</em> or <em>Sporadic</em></li>
+<li><strong>Thread</strong>: All thread components must define the property <em>Timing_Properties::Period</em></li>
+<li><strong>Thread</strong>: All thread components must define the property <em>Timing_Properties::Deadline</em></li>
+<li><strong>Thread</strong>: All of each thread's called subprograms must define the property <em>Programming_Properties::Source_Name</em></li>
+<li><strong>Thread</strong>: All of each thread's called subprograms must define the property <em>Programming_Properties::Source_Text</em></li>
+<li><strong>Thread</strong>: All of each thread's called subprograms must define the property <em>Programming_Properties::Source_Language</em></li>
+</ul>
+<h2 id="pok-specific-rules">POK Specific Rules</h2>
+<ul>
+<li><strong>Memory</strong>: All memory subcomponents contained within a memory component must define the property <em>Memory_Properties::Byte_Count</em></li>
+<li><strong>Processor</strong>: All processor components must list all virtual processor subcomponents in the property <em>POK::Slots_Allocation</em></li>
+<li><strong>Processor</strong>: For all processor components, the size of the property <em>POK::Slots_Allocation</em> must equal the size of the property <em>POK::Slots</em></li>
+</ul>
+<h2 id="deos-specific-rules">DeOS Specific Rules</h2>
+<ul>
+<li><strong>Processor</strong>: All processor components must define the property <em>ARINC653::Module_Schedule</em></li>
+<li><strong>Virtual Processor</strong>: All virtual processor components must define the property <em>Timing_Properties::Execution_Time</em></li>
+<li><strong>Virtual Processor</strong>: All virtual processor components must define the property <em>Timing_Properties::Period</em></li>
+</ul>
+<h2 id="vxworks-specific-rules">VxWorks Specific Rules</h2>
+<ul>
+<li><strong>Processor</strong>: All processor components must define the property <em>ARINC653::Module_Schedule</em></li>
+<li><strong>Virtual Processor</strong>: All virtual processor components must define the property <em>Programming_Properties::Source_Name</em></li>
+</ul>
+</body>
+</html>
