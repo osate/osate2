@@ -1,0 +1,74 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+	<LINK REL="STYLESHEET" HREF="../book.css" CHARSET="ISO-8859-1" TYPE="text/css">
+	<title>Open Source AADL Tool Environment (OSATE) Online Help</title>
+</head>
+
+<body>
+<H2>Getting started: Eclipse Basics</H2>
+
+<h2>OSATE2 Help</h2>
+<p>OSATE2 Help is available in the <em>Help</em> menu under <em>Help Content</em>. 
+It includes Getting started information, descriptions of Analysis and other Plug-ins, 
+the AADL core language Reference Manual (Standard document), and a Frequently Asked Questions (FAQ) section.
+</p>
+
+
+
+<h2>OSATE2 Commands</h2>
+<p>Common practice in Eclipse is to offer commands in the menu bar at the top, offer them also in the tool bar as icons, and finally offer them in a context specific way within a view, such as the AADL Navigator or an editor, in a context menu. 
+The context menu is invoked by selecting an item or placing the cursor and right-clicking the mouse. 
+ OSATE2 follows this user interface principle.
+</p>
+
+<h2>Show all markers in Problem view</h2>
+<p>The Markers are typed and can be grouped by type. Each OSATE analysis uses its own type. 
+You can change the default setting of group by Severity to group by Type. 
+This will present the entries grouped by analysis.
+</p>
+<img src="markersort.png"/>
+<p>By default Eclipse only shows errors. You want to change that setting to show warnings and information as well. You can indicate that you want to see those of the selected and contained resources rather than all in the workspace. 
+Select <em>Configure Contents…</em></p>
+<img src="showall.png"/>
+<p>
+In the dialog box add a new Configuration (which I call All in context) and make sure Error, Warning, Info are checked. 
+For Scope you select <em>On selected element and its children</em>. Note that you can define additional filter configurations, e.g., only certain Marker types.
+</p>
+<img src="showalldialog.png"/>
+<p>
+<b>Marker Report Generator</b>: We have added a report generator for the content of the <em>Problem</em> view, i.e., the collection of markers. 
+With the <em>AADL Navigator</em> as active window, select <em>Report Generator Settings</em> in the OSATE menu to set up the report content. 
+Then select <em>Generate Marker Report</em> to produce an HTML based report.
+</p>
+<img src="markerreport.png"/>
+
+
+<h2>Full Screen View</bh2>
+<p>You can double click on the tab of a view, e.g., the <em>Problems</em> view, and it will be shown full screen. Double clicking the tab again will go back to the previous multi-window layout.  
+This will work for any view (window) in Eclipse.
+</p>
+
+<h2>Missing Views</h2>
+<p>If you accidentally closed a view, e.g., by clicking on the x in the top right corner, you can get the view back. You can also open additional views. 
+You do so under <em>Window/Show View/</em> and then select one of the shown views or click on <em>Other…</em>
+</p>
+
+<p>
+<b>AADL Property Values view</b>: if you do not see <em>AADL Property Values</em> as a view in the bottom right, add it in. It lets you see the property values assigned to the selected model element in the editor. 
+This view has editing capability.
+</p>
+<img src="PropertyValueView.png"/>
+
+<h2>OSATE2 Preferences</h2>
+<p>OSATE2/Eclipse has <em>Preference</em> settings that can be changed by the user. A setting the user may want to change is
+in <em>General/Startup</em>. <em>Enable Refresh workspace at Startup</em> will ensure that OSATE updates its records to reflect any changes to the files in the workspace that may have occurred outside OSATE. 
+<b>NOTE</b>: you can manually initiate a Refresh by selecting projects, folders, and files in the AADL Navigator and invoking the Refresh command in the File menu or in the context menu.
+</p>
+
+
+</body>
+</html>

@@ -1,0 +1,23 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Model Support Plug-in
+Bundle-SymbolicName: org.osate.aadl2.modelsupport;singleton:=true
+Bundle-Version: 1.0.0.qualifier
+Bundle-Activator: org.osate.aadl2.modelsupport.Activator
+Require-Bundle: org.osate.aadl2,
+ org.osate.workspace;visibility:=reexport,
+ org.osate.pluginsupport,
+ org.eclipse.ui.ide,
+ org.apache.log4j,
+ org.osate.core;visibility:=reexport,
+ org.eclipse.xtext;bundle-version="2.0.1",
+ org.eclipse.xtext.ui;bundle-version="2.0.1"
+Bundle-ActivationPolicy: lazy
+Export-Package: org.osate.aadl2.modelsupport,
+ org.osate.aadl2.modelsupport.errorreporting,
+ org.osate.aadl2.modelsupport.modeltraversal,
+ org.osate.aadl2.modelsupport.resources,
+ org.osate.aadl2.modelsupport.util
+Bundle-Vendor: CMU-SEI
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Import-Package: org.eclipse.emf.transaction
