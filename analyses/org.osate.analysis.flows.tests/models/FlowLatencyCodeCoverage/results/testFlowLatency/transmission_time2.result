@@ -1,0 +1,265 @@
+<?xml version="1.0" encoding="ASCII"?>
+<result:AnalysisResult xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:result="http://www.osate.org/result/Result" analysis="Latency analysis" info="with preference settings: asynchronous system/major partition frame/worst case as deadline/best case as empty queue">
+  <sourceReference href="platform:/resource/FlowLatencyCodeCoverageTest/instances/transmission_time2_s1_i1_Instance.aaxl2#/"/>
+  <results>
+    <sourceReference href="platform:/resource/FlowLatencyCodeCoverageTest/instances/transmission_time2_s1_i1_Instance.aaxl2#//@endToEndFlow.0"/>
+    <values xsi:type="result:StringValue" value="Latency analysis for end-to-end flow 'etef1' of system 's1.i1'"/>
+    <values xsi:type="result:RealValue" value="3.0"/>
+    <values xsi:type="result:RealValue" value="6.0"/>
+    <values xsi:type="result:RealValue" value="3.0"/>
+    <values xsi:type="result:RealValue" value="6.0"/>
+    <values xsi:type="result:RealValue" value="3.0"/>
+    <values xsi:type="result:RealValue" value="4.0"/>
+    <diagnostics type="SUCCESS" message="Minimum actual latency total 3.00ms is greater or equal to expected minimum end to end latency 3.00ms">
+      <sourceReference href="platform:/resource/FlowLatencyCodeCoverageTest/instances/transmission_time2_s1_i1_Instance.aaxl2#//@endToEndFlow.0"/>
+    </diagnostics>
+    <diagnostics type="ERROR" message="Maximum specified flow latency total 6.00ms exceeds expected maximum end to end latency 4.00ms">
+      <sourceReference href="platform:/resource/FlowLatencyCodeCoverageTest/instances/transmission_time2_s1_i1_Instance.aaxl2#//@endToEndFlow.0"/>
+    </diagnostics>
+    <diagnostics type="ERROR" message="Maximum actual latency total 6.00ms exceeds expected maximum end to end latency 4.00ms">
+      <sourceReference href="platform:/resource/FlowLatencyCodeCoverageTest/instances/transmission_time2_s1_i1_Instance.aaxl2#//@endToEndFlow.0"/>
+    </diagnostics>
+    <diagnostics type="WARNING" message="Jitter of specified latency total 3.00..6.00ms exceeds expected end to end latency jitter 3.00..4.00ms">
+      <sourceReference href="platform:/resource/FlowLatencyCodeCoverageTest/instances/transmission_time2_s1_i1_Instance.aaxl2#//@endToEndFlow.0"/>
+    </diagnostics>
+    <diagnostics type="WARNING" message="Jitter of actual latency total 3.00..6.00ms exceeds expected end to end latency jitter 3.00..4.00ms">
+      <sourceReference href="platform:/resource/FlowLatencyCodeCoverageTest/instances/transmission_time2_s1_i1_Instance.aaxl2#//@endToEndFlow.0"/>
+    </diagnostics>
+    <subResults>
+      <sourceReference href="platform:/resource/FlowLatencyCodeCoverageTest/instances/transmission_time2_s1_i1_Instance.aaxl2#//@componentInstance.0"/>
+      <values xsi:type="result:RealValue" value="1.0"/>
+      <values xsi:type="result:RealValue" value="2.0"/>
+      <values xsi:type="result:RealValue" value="1.0"/>
+      <values xsi:type="result:RealValue" value="2.0"/>
+      <values xsi:type="result:RealValue"/>
+      <values xsi:type="result:RealValue"/>
+      <values xsi:type="result:RealValue"/>
+      <values xsi:type="result:RealValue"/>
+      <values xsi:type="result:StringValue" value="SPECIFIED"/>
+      <values xsi:type="result:StringValue" value="SPECIFIED"/>
+      <values xsi:type="result:StringValue" value="SYNCUNKNOWN"/>
+    </subResults>
+    <subResults>
+      <sourceReference href="platform:/resource/FlowLatencyCodeCoverageTest/instances/transmission_time2_s1_i1_Instance.aaxl2#//@connectionInstance.0"/>
+      <values xsi:type="result:RealValue"/>
+      <values xsi:type="result:RealValue"/>
+      <values xsi:type="result:RealValue"/>
+      <values xsi:type="result:RealValue"/>
+      <values xsi:type="result:RealValue"/>
+      <values xsi:type="result:RealValue"/>
+      <values xsi:type="result:RealValue"/>
+      <values xsi:type="result:RealValue"/>
+      <values xsi:type="result:StringValue" value="UNKNOWN"/>
+      <values xsi:type="result:StringValue" value="UNKNOWN"/>
+      <values xsi:type="result:StringValue" value="SYNCUNKNOWN"/>
+      <diagnostics type="INFO" message="Adding latency subtotal from protocols and bus - shown with ()">
+        <sourceReference href="platform:/resource/FlowLatencyCodeCoverageTest/instances/transmission_time2_s1_i1_Instance.aaxl2#//@connectionInstance.0"/>
+      </diagnostics>
+      <subResults>
+        <sourceReference href="platform:/resource/FlowLatencyCodeCoverageTest/instances/transmission_time2_s1_i1_Instance.aaxl2#//@connectionInstance.0"/>
+        <values xsi:type="result:RealValue" value="1.0"/>
+        <values xsi:type="result:RealValue" value="2.0"/>
+        <values xsi:type="result:RealValue" value="1.0"/>
+        <values xsi:type="result:RealValue" value="2.0"/>
+        <values xsi:type="result:RealValue"/>
+        <values xsi:type="result:RealValue"/>
+        <values xsi:type="result:RealValue"/>
+        <values xsi:type="result:RealValue"/>
+        <values xsi:type="result:StringValue" value="SPECIFIED"/>
+        <values xsi:type="result:StringValue" value="SPECIFIED"/>
+        <values xsi:type="result:StringValue" value="SYNCUNKNOWN"/>
+        <diagnostics type="INFO" message="Using specified bus latency">
+          <sourceReference href="platform:/resource/FlowLatencyCodeCoverageTest/instances/transmission_time2_s1_i1_Instance.aaxl2#//@connectionInstance.0"/>
+        </diagnostics>
+      </subResults>
+    </subResults>
+    <subResults>
+      <sourceReference href="platform:/resource/FlowLatencyCodeCoverageTest/instances/transmission_time2_s1_i1_Instance.aaxl2#//@componentInstance.1"/>
+      <values xsi:type="result:RealValue" value="1.0"/>
+      <values xsi:type="result:RealValue" value="2.0"/>
+      <values xsi:type="result:RealValue" value="1.0"/>
+      <values xsi:type="result:RealValue" value="2.0"/>
+      <values xsi:type="result:RealValue"/>
+      <values xsi:type="result:RealValue"/>
+      <values xsi:type="result:RealValue"/>
+      <values xsi:type="result:RealValue"/>
+      <values xsi:type="result:StringValue" value="SPECIFIED"/>
+      <values xsi:type="result:StringValue" value="SPECIFIED"/>
+      <values xsi:type="result:StringValue" value="SYNCUNKNOWN"/>
+    </subResults>
+  </results>
+  <results>
+    <sourceReference href="platform:/resource/FlowLatencyCodeCoverageTest/instances/transmission_time2_s1_i1_Instance.aaxl2#//@endToEndFlow.1"/>
+    <values xsi:type="result:StringValue" value="Latency analysis for end-to-end flow 'etef2' of system 's1.i1'"/>
+    <values xsi:type="result:RealValue" value="3.0"/>
+    <values xsi:type="result:RealValue" value="6.0"/>
+    <values xsi:type="result:RealValue" value="2.0"/>
+    <values xsi:type="result:RealValue" value="4.0"/>
+    <values xsi:type="result:RealValue" value="3.0"/>
+    <values xsi:type="result:RealValue" value="4.0"/>
+    <diagnostics type="WARNING" message="Minimum specified flow latency total 2.00ms less than expected minimum end to end latency 3.00ms (better response time)">
+      <sourceReference href="platform:/resource/FlowLatencyCodeCoverageTest/instances/transmission_time2_s1_i1_Instance.aaxl2#//@endToEndFlow.1"/>
+    </diagnostics>
+    <diagnostics type="SUCCESS" message="Minimum actual latency total 3.00ms is greater or equal to expected minimum end to end latency 3.00ms">
+      <sourceReference href="platform:/resource/FlowLatencyCodeCoverageTest/instances/transmission_time2_s1_i1_Instance.aaxl2#//@endToEndFlow.1"/>
+    </diagnostics>
+    <diagnostics type="ERROR" message="Maximum actual latency total 6.00ms exceeds expected maximum end to end latency 4.00ms">
+      <sourceReference href="platform:/resource/FlowLatencyCodeCoverageTest/instances/transmission_time2_s1_i1_Instance.aaxl2#//@endToEndFlow.1"/>
+    </diagnostics>
+    <diagnostics type="WARNING" message="Jitter of specified latency total 2.00..4.00ms exceeds expected end to end latency jitter 3.00..4.00ms">
+      <sourceReference href="platform:/resource/FlowLatencyCodeCoverageTest/instances/transmission_time2_s1_i1_Instance.aaxl2#//@endToEndFlow.1"/>
+    </diagnostics>
+    <diagnostics type="WARNING" message="Jitter of actual latency total 3.00..6.00ms exceeds expected end to end latency jitter 3.00..4.00ms">
+      <sourceReference href="platform:/resource/FlowLatencyCodeCoverageTest/instances/transmission_time2_s1_i1_Instance.aaxl2#//@endToEndFlow.1"/>
+    </diagnostics>
+    <subResults>
+      <sourceReference href="platform:/resource/FlowLatencyCodeCoverageTest/instances/transmission_time2_s1_i1_Instance.aaxl2#//@componentInstance.0"/>
+      <values xsi:type="result:RealValue" value="1.0"/>
+      <values xsi:type="result:RealValue" value="2.0"/>
+      <values xsi:type="result:RealValue" value="1.0"/>
+      <values xsi:type="result:RealValue" value="2.0"/>
+      <values xsi:type="result:RealValue"/>
+      <values xsi:type="result:RealValue"/>
+      <values xsi:type="result:RealValue"/>
+      <values xsi:type="result:RealValue"/>
+      <values xsi:type="result:StringValue" value="SPECIFIED"/>
+      <values xsi:type="result:StringValue" value="SPECIFIED"/>
+      <values xsi:type="result:StringValue" value="SYNCUNKNOWN"/>
+    </subResults>
+    <subResults>
+      <sourceReference href="platform:/resource/FlowLatencyCodeCoverageTest/instances/transmission_time2_s1_i1_Instance.aaxl2#//@connectionInstance.1"/>
+      <values xsi:type="result:RealValue"/>
+      <values xsi:type="result:RealValue"/>
+      <values xsi:type="result:RealValue"/>
+      <values xsi:type="result:RealValue"/>
+      <values xsi:type="result:RealValue"/>
+      <values xsi:type="result:RealValue"/>
+      <values xsi:type="result:RealValue"/>
+      <values xsi:type="result:RealValue"/>
+      <values xsi:type="result:StringValue" value="UNKNOWN"/>
+      <values xsi:type="result:StringValue" value="UNKNOWN"/>
+      <values xsi:type="result:StringValue" value="SYNCUNKNOWN"/>
+      <diagnostics type="INFO" message="Adding latency subtotal from protocols and bus - shown with ()">
+        <sourceReference href="platform:/resource/FlowLatencyCodeCoverageTest/instances/transmission_time2_s1_i1_Instance.aaxl2#//@connectionInstance.1"/>
+      </diagnostics>
+      <subResults>
+        <sourceReference href="platform:/resource/FlowLatencyCodeCoverageTest/instances/transmission_time2_s1_i1_Instance.aaxl2#//@componentInstance.2"/>
+        <values xsi:type="result:RealValue" value="1.0"/>
+        <values xsi:type="result:RealValue" value="2.0"/>
+        <values xsi:type="result:RealValue"/>
+        <values xsi:type="result:RealValue"/>
+        <values xsi:type="result:RealValue"/>
+        <values xsi:type="result:RealValue"/>
+        <values xsi:type="result:RealValue"/>
+        <values xsi:type="result:RealValue"/>
+        <values xsi:type="result:StringValue" value="TRANSMISSION_TIME"/>
+        <values xsi:type="result:StringValue" value="TRANSMISSION_TIME"/>
+        <values xsi:type="result:StringValue" value="SYNCUNKNOWN"/>
+        <diagnostics type="INFO" message="Using data transfer time">
+          <sourceReference href="platform:/resource/FlowLatencyCodeCoverageTest/instances/transmission_time2_s1_i1_Instance.aaxl2#//@componentInstance.2"/>
+        </diagnostics>
+      </subResults>
+    </subResults>
+    <subResults>
+      <sourceReference href="platform:/resource/FlowLatencyCodeCoverageTest/instances/transmission_time2_s1_i1_Instance.aaxl2#//@componentInstance.1"/>
+      <values xsi:type="result:RealValue" value="1.0"/>
+      <values xsi:type="result:RealValue" value="2.0"/>
+      <values xsi:type="result:RealValue" value="1.0"/>
+      <values xsi:type="result:RealValue" value="2.0"/>
+      <values xsi:type="result:RealValue"/>
+      <values xsi:type="result:RealValue"/>
+      <values xsi:type="result:RealValue"/>
+      <values xsi:type="result:RealValue"/>
+      <values xsi:type="result:StringValue" value="SPECIFIED"/>
+      <values xsi:type="result:StringValue" value="SPECIFIED"/>
+      <values xsi:type="result:StringValue" value="SYNCUNKNOWN"/>
+    </subResults>
+  </results>
+  <results>
+    <sourceReference href="platform:/resource/FlowLatencyCodeCoverageTest/instances/transmission_time2_s1_i1_Instance.aaxl2#//@endToEndFlow.2"/>
+    <values xsi:type="result:StringValue" value="Latency analysis for end-to-end flow 'etef3' of system 's1.i1'"/>
+    <values xsi:type="result:RealValue" value="13.0"/>
+    <values xsi:type="result:RealValue" value="18.0"/>
+    <values xsi:type="result:RealValue" value="2.0"/>
+    <values xsi:type="result:RealValue" value="4.0"/>
+    <values xsi:type="result:RealValue" value="3.0"/>
+    <values xsi:type="result:RealValue" value="4.0"/>
+    <diagnostics type="WARNING" message="Minimum specified flow latency total 2.00ms less than expected minimum end to end latency 3.00ms (better response time)">
+      <sourceReference href="platform:/resource/FlowLatencyCodeCoverageTest/instances/transmission_time2_s1_i1_Instance.aaxl2#//@endToEndFlow.2"/>
+    </diagnostics>
+    <diagnostics type="ERROR" message="Minimum actual latency total 13.0ms exceeds expected maximum end to end latency 4.00ms">
+      <sourceReference href="platform:/resource/FlowLatencyCodeCoverageTest/instances/transmission_time2_s1_i1_Instance.aaxl2#//@endToEndFlow.2"/>
+    </diagnostics>
+    <diagnostics type="ERROR" message="Maximum actual latency total 18.0ms exceeds expected maximum end to end latency 4.00ms">
+      <sourceReference href="platform:/resource/FlowLatencyCodeCoverageTest/instances/transmission_time2_s1_i1_Instance.aaxl2#//@endToEndFlow.2"/>
+    </diagnostics>
+    <diagnostics type="WARNING" message="Jitter of specified latency total 2.00..4.00ms exceeds expected end to end latency jitter 3.00..4.00ms">
+      <sourceReference href="platform:/resource/FlowLatencyCodeCoverageTest/instances/transmission_time2_s1_i1_Instance.aaxl2#//@endToEndFlow.2"/>
+    </diagnostics>
+    <diagnostics type="WARNING" message="Jitter of actual latency total 13.0..18.0ms exceeds expected end to end latency jitter 3.00..4.00ms">
+      <sourceReference href="platform:/resource/FlowLatencyCodeCoverageTest/instances/transmission_time2_s1_i1_Instance.aaxl2#//@endToEndFlow.2"/>
+    </diagnostics>
+    <subResults>
+      <sourceReference href="platform:/resource/FlowLatencyCodeCoverageTest/instances/transmission_time2_s1_i1_Instance.aaxl2#//@componentInstance.0"/>
+      <values xsi:type="result:RealValue" value="1.0"/>
+      <values xsi:type="result:RealValue" value="2.0"/>
+      <values xsi:type="result:RealValue" value="1.0"/>
+      <values xsi:type="result:RealValue" value="2.0"/>
+      <values xsi:type="result:RealValue"/>
+      <values xsi:type="result:RealValue"/>
+      <values xsi:type="result:RealValue"/>
+      <values xsi:type="result:RealValue"/>
+      <values xsi:type="result:StringValue" value="SPECIFIED"/>
+      <values xsi:type="result:StringValue" value="SPECIFIED"/>
+      <values xsi:type="result:StringValue" value="SYNCUNKNOWN"/>
+    </subResults>
+    <subResults>
+      <sourceReference href="platform:/resource/FlowLatencyCodeCoverageTest/instances/transmission_time2_s1_i1_Instance.aaxl2#//@connectionInstance.2"/>
+      <values xsi:type="result:RealValue"/>
+      <values xsi:type="result:RealValue"/>
+      <values xsi:type="result:RealValue"/>
+      <values xsi:type="result:RealValue"/>
+      <values xsi:type="result:RealValue"/>
+      <values xsi:type="result:RealValue"/>
+      <values xsi:type="result:RealValue"/>
+      <values xsi:type="result:RealValue"/>
+      <values xsi:type="result:StringValue" value="UNKNOWN"/>
+      <values xsi:type="result:StringValue" value="UNKNOWN"/>
+      <values xsi:type="result:StringValue" value="SYNCUNKNOWN"/>
+      <diagnostics type="INFO" message="Adding latency subtotal from protocols and bus - shown with ()">
+        <sourceReference href="platform:/resource/FlowLatencyCodeCoverageTest/instances/transmission_time2_s1_i1_Instance.aaxl2#//@connectionInstance.2"/>
+      </diagnostics>
+      <subResults>
+        <sourceReference href="platform:/resource/FlowLatencyCodeCoverageTest/instances/transmission_time2_s1_i1_Instance.aaxl2#//@componentInstance.3"/>
+        <values xsi:type="result:RealValue" value="11.0"/>
+        <values xsi:type="result:RealValue" value="14.0"/>
+        <values xsi:type="result:RealValue"/>
+        <values xsi:type="result:RealValue"/>
+        <values xsi:type="result:RealValue"/>
+        <values xsi:type="result:RealValue"/>
+        <values xsi:type="result:RealValue"/>
+        <values xsi:type="result:RealValue"/>
+        <values xsi:type="result:StringValue" value="TRANSMISSION_TIME"/>
+        <values xsi:type="result:StringValue" value="TRANSMISSION_TIME"/>
+        <values xsi:type="result:StringValue" value="SYNCUNKNOWN"/>
+        <diagnostics type="INFO" message="Using data transfer time">
+          <sourceReference href="platform:/resource/FlowLatencyCodeCoverageTest/instances/transmission_time2_s1_i1_Instance.aaxl2#//@componentInstance.3"/>
+        </diagnostics>
+      </subResults>
+    </subResults>
+    <subResults>
+      <sourceReference href="platform:/resource/FlowLatencyCodeCoverageTest/instances/transmission_time2_s1_i1_Instance.aaxl2#//@componentInstance.1"/>
+      <values xsi:type="result:RealValue" value="1.0"/>
+      <values xsi:type="result:RealValue" value="2.0"/>
+      <values xsi:type="result:RealValue" value="1.0"/>
+      <values xsi:type="result:RealValue" value="2.0"/>
+      <values xsi:type="result:RealValue"/>
+      <values xsi:type="result:RealValue"/>
+      <values xsi:type="result:RealValue"/>
+      <values xsi:type="result:RealValue"/>
+      <values xsi:type="result:StringValue" value="SPECIFIED"/>
+      <values xsi:type="result:StringValue" value="SPECIFIED"/>
+      <values xsi:type="result:StringValue" value="SYNCUNKNOWN"/>
+    </subResults>
+  </results>
+</result:AnalysisResult>

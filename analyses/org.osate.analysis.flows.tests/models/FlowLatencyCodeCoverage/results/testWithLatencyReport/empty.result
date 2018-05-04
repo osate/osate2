@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="ASCII"?>
+<result:AnalysisResult xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:result="http://www.osate.org/result/Result" analysis="Latency analysis" info="with preference settings: asynchronous system/major partition frame/worst case as deadline/best case as empty queue">
+  <sourceReference href="platform:/resource/FlowLatencyCodeCoverageTest/instances/empty_s1_i1_Instance.aaxl2#/"/>
+</result:AnalysisResult>
