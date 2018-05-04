@@ -73,7 +73,7 @@
    </configurations>
 
    <repositories>
-      <repository location="http://osate-build.sei.cmu.edu/download/osate/stable/2.3.3/updates/" enabled="true" />
+      <repository location="http://osate-build.sei.cmu.edu/download/osate/testing/updates/" enabled="true" />
       <repository location="http://download.eclipse.org/eclipse/updates/4.7" enabled="true" />
       <repository location="http://download.eclipse.org/releases/oxygen" enabled="true" />
    </repositories>
