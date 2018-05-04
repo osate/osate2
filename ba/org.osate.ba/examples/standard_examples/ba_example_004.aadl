@@ -1,0 +1,29 @@
+-- Copyright © 2008 SAE International
+
+-- This example shows the use of non deterministic transitions that enumerate 
+-- all the possible behaviors of a subprogram, without specifying precisely 
+-- when each case occurs.
+
+package BA_example4 public
+with Base_Types;
+
+subprogram addition
+features
+  x: in parameter Base_Types::Integer;
+  y: in parameter Base_Types::Integer;
+  r: out parameter Base_Types::Integer;
+  ovf: out parameter Base_Types::Boolean;
+end addition;
+
+subprogram implementation addition.default
+annex behavior_specification {**
+  states
+    s0 : initial state;
+    s1 : final state;
+  transitions
+    regular: s0 -[ ]-> s1 { r := x + y ; ovf := false };
+    overflow: s0 -[ ]-> s1 { r := 0; ovf := true };
+**};
+end addition.default;
+
+end BA_example4;
