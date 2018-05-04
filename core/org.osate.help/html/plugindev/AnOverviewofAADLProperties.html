@@ -1,0 +1,1104 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+	"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+   <title>An Overview of AADL Properties</title>
+   <link href="Res/styles/shared.css" rel="stylesheet" type="text/css">
+   <link href="Res/styles/DynamicOutline.css" rel="stylesheet" type="text/css">
+</head>
+<body id="page" >
+
+<!-- BEGIN PAGE BODY-->
+
+
+<table id="pageBody">
+ <col class="main">
+ <col class="right">
+
+<!-- BEGIN BREADCRUMBS-->
+<tr id="breadcrumbsAndPageNavigation">
+  <td class="breadcrumbs" valign="top">
+<!-- BEGIN NAVIGATION BREADCRUMBS ITEM-->
+<span class="breadcrumb">
+   <a href="index.html">Home</a>
+   <span class="separator">&gt;</span>
+</span>
+<!-- END NAVIGATION BREADCRUMBS ITEM-->
+<!-- BEGIN NAVIGATION BREADCRUMBS ITEM-->
+<span class="breadcrumb">
+   <a href="ProcessingAADLProperties.html">5. Processing AADL Properties</a>
+   <span class="separator">&gt;</span>
+</span>
+<!-- END NAVIGATION BREADCRUMBS ITEM-->
+<!-- BEGIN NAVIGATION BREADCRUMBS HERE-->
+<span class="breadcrumb">
+   5.2 An Overview of AADL Properties
+</span>
+<!-- END NAVIGATION BREADCRUMBS HERE-->
+
+  </td>
+  <td class="pageNavigation" valign="top">
+<!-- START PAGE NAVIGATION NEXT IN SEQUENCE IMAGES -->
+<span class="commands">
+    <span class="command">
+        <img src="Res/images/previous_button.gif" alt=""> <a href="TheSecurityLevelPlug-in.html">
+        <span class="label">Previous</span></a>
+    </span>
+&nbsp;&nbsp;
+    <span class="command">
+        <a href="AADLPropertiesintheMetaModel.html">
+        <span class="label">Next</span></a> <img src="Res/images/next_button.gif" alt="">
+    </span>
+</span>
+<!-- END PAGE NAVIGATION NEXT IN SEQUENCE IMAGES  -->
+
+  </td>
+  <td class="right" valign="top">
+  </td>
+</tr>
+<!-- END BREADCRUMBS-->
+
+<tr class="topic">
+  <td class="main" valign="top" colspan="2">
+    <div class="body">
+      <div class="topicDivider">
+      </div>
+    </div>
+  </td>
+  <td class="right" valign="top">
+<!--right body column empty-->
+  </td>
+</tr>
+
+<!--BEGIN PAGE BODY ITEM-->
+<tr class="topic">
+  <td class="main" valign="top" colspan="2">
+    <table>
+      <tr class="topicHeader">
+        <td class="topicImageColumn">
+
+        </td>
+        <td class="topicLineColumn">
+          <a name="Topic67"></a>
+          <span class=outlineNumberFirst>5.2 </span><span class=topicLineFirst>An Overview of AADL Properties</span>
+          <span class="topicIcons">
+
+          </span>
+        </td>
+      </tr>
+    </table>
+
+<!-- phf:Comand: Expand("BoxPartMap.mmbas") -->
+     <div class="topicTextNotes"><div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">An
+AADL property provides information about an element of an AADL specification. For
+example, properties are used to provide the period of a thread, the latency of a connection, or
+the size of data. A property has a name and a type; only values of the appropriate type can be
+associated with a property. Properties are declared in named property sets. Property
+associations in component declarations assign a particular property value to a particular
+property for a particular component.</span></font><span></span></div>
+<div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">A
+property set contains three kinds of declarations: </span></font><span></span></div>
+<ul style="margin-top: 0pt; margin-bottom: 0pt">
+<ul style="margin-top: 0pt; margin-bottom: 0pt">
+<li style="margin-left=-3mm; margin-right=0mm; padding-left=0mm; font-family= Times New Roman;  font-size= 12pt;  color= #010101;  "><font
+face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">Property type declarations</span></font><span></span></li>
+<li style="margin-left=-3mm; margin-right=0mm; padding-left=0mm; font-family= Times New Roman;  font-size= 12pt;  color= #010101;  "><font
+face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">Property constant declarations</span></font><span></span></li>
+<li style="margin-left=-3mm; margin-right=0mm; padding-left=0mm; font-family= Times New Roman;  font-size= 12pt;  color= #010101;  "><font
+face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">Property name&#151;or simply  property&#151;declarations</span></font><span></span></li>
+</ul>
+</ul>
+<div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">For
+example, the following AADL specification</span></font><span></span></div>
+<div align="left"><font face="Courier" color="#0000ff"><span>property set Example is</span></font><span></span></div>
+<div align="left"><font face="Courier" color="#0000ff"><span> -- Unit Type declaration</span></font><span></span></div>
+<div align="left"><font face="Courier" color="#0000ff"><span> English_Units: type units</span></font><span></span></div>
+<div align="left"><font face="Courier" color="#0000ff"><span> (inch, foot =&gt; inch
+* 12, yard =&gt; foot * 3);</span></font><span></span></div>
+<div align="left"><font face="Courier" color="#0000ff"><span> </span></font><span></span></div>
+<div align="left"><font face="Courier" color="#0000ff"><span> -- Integer type declaration</span></font><span></span></div>
+<div align="left"><font face="Courier" color="#0000ff"><span> Length: type aadlinteger units Example::English_Units;</span></font><span></span></div>
+<div align="left"><font face="Courier" color="#0000ff"><span> </span></font><span></span></div>
+<div align="left"><font face="Courier" color="#0000ff"><span> -- Constant declaration</span></font><span></span></div>
+<div align="left"><font face="Courier" color="#0000ff"><span> One_Foot: constant Example::Length
+=&gt; 1 foot;</span></font><span></span></div>
+<div align="left"><br/></div>
+<div align="left"><font face="Courier" color="#0000ff"><span> -- Property declaration</span></font><span></span></div>
+<div align="left"><font face="Courier" color="#0000ff"><span> Documentation_Thickness: </span></font><span></span></div>
+<div align="left"><font face="Courier" color="#0000ff"><span> Example::Length =&gt;
+value(Example::One_Foot)</span></font><span></span></div>
+<div align="left"><font face="Courier" color="#0000ff"><span> applies to (processor,
+bus, system);</span></font><span></span></div>
+<div align="left"><font face="Courier" color="#0000ff"><span>end Example;</span></font><span></span></div>
+<div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">declares
+a property set named </span></font><font face="Times New Roman" color="#0000ff" size="3"><span style="font-size:12pt"><b>Example</b></span></font><font
+face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt"> that contains two property
+type declarations, one
+property constant declaration, and a property declaration. Specifically, the property set first
+declares the unit type </span></font><font face="Times New Roman" color="#0000ff" size="3"><span style="font-size:12pt"><b>English_Units</b></span></font><font
+face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">, which contains three
+elements </span></font><font face="Times New Roman" color="#0000ff" size="3"><span style="font-size:12pt"><b>inch</b></span></font><font
+face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">, </span></font><font face="Times New Roman" color="#0000ff" size="3"><span
+style="font-size:12pt"><b>foot</b></span></font><font face="Times New Roman" color="#010101" size="3"><span
+style="font-size:12pt">, and </span></font><font face="Times New Roman" color="#0000ff" size="3"><span
+style="font-size:12pt"><b>yard</b></span></font><font face="Times New Roman" color="#010101" size="3"><span
+style="font-size:12pt">. The
+second type, </span></font><font face="Times New Roman" color="#0000ff" size="3"><span style="font-size:12pt"><b>Length</b></span></font><font
+face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">, is declared to be integers
+labeled by units from </span></font><font face="Times New Roman" color="#0000ff" size="3"><span style="font-size:12pt"><b>English_Units</b></span></font><font
+face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">. The
+property constant </span></font><font face="Times New Roman" color="#0000ff" size="3"><span style="font-size:12pt"><b>One_Foot</b></span></font><font
+face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt"> is of type </span></font><font
+face="Times New Roman" color="#0000ff" size="3"><span style="font-size:12pt"><b>Length</b></span></font><font
+face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">, and has the value </span></font><font
+face="Times New Roman" color="#0000ff" size="3"><span style="font-size:12pt"><b>1 foot</b></span></font><font
+face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">. Finally, the property
+</span></font><font face="Times New Roman" color="#0000ff" size="3"><span style="font-size:12pt"><b>Documentation_Thickness</b></span></font><font
+face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt"> is declared. It
+has values of type </span></font><font face="Times New Roman" color="#0000ff" size="3"><span style="font-size:12pt"><b>Length</b></span></font><font
+face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">, and a default value of
+</span></font><font face="Times New Roman" color="#0000ff" size="3"><span style="font-size:12pt"><b>One_Foot</b></span></font><font
+face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">. Furthermore, only
+processor, bus, and system components can associate values
+with this property.</span></font><span></span></div>
+<div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">Here
+we give an overview of AADL property types and property declarations intended to
+assist the producers of analyses in understanding what kind of properties can be expressed for
+use by analyses. We do not consider property constants any further except for how they
+impact the meta model. The reader is referred to </span></font><font face="Arial Narrow" color="#ff0000" size="3"><span
+style="font-size:12pt">Chapter 10 of the AADL Specification</span></font><font face="Times New Roman" color="#010101" size="3"><span
+style="font-size:12pt"> for
+more information.</span></font><span></span></div></div>
+
+
+
+
+  </td>
+  <td class="right" valign="top">
+<!--right body column empty-->
+  </td>
+</tr>
+<!--END PAGE BODY ITEM-->
+<!--BEGIN PAGE BODY ITEM-->
+<tr class="topic">
+  <td class="main" valign="top" colspan="2">
+    <table>
+      <tr class="topicHeader">
+        <td class="topicImageColumn">
+
+        </td>
+        <td class="topicLineColumn">
+          <a name="Topic68"></a>
+          <span class=outlineNumber>5.2.1 </span><span class=topicLine>AADL Property Types</span>
+          <span class="topicIcons">
+
+          </span>
+        </td>
+      </tr>
+    </table>
+
+<!-- phf:Comand: Expand("BoxPartMap.mmbas") -->
+     <div class="topicTextNotes"><div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">Property
+types constrain the values that can be associated with a property. There are nine
+kinds of property types:</span></font><span></span></div>
+<ul style="margin-top: 0pt; margin-bottom: 0pt">
+<li style="margin-left=5mm; margin-right=0mm; padding-left=0mm; font-family= Times New Roman;  font-size= 12pt;  color= #010101;  "><font
+face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">The</span></font><span> </span><font
+face="Times New Roman" color="#0000ff" size="3"><span style="font-size:12pt"><b>aadlboolean</b></span></font><font
+face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">property type represents
+Boolean values and has two values:</span></font><span>
+</span><font face="Times New Roman" color="#0000ff" size="3"><span style="font-size:12pt"><b>true</b></span></font><font
+face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">and</span></font><span> </span><font
+face="Times New Roman" color="#0000ff" size="3"><span style="font-size:12pt"><b>false</b></span></font><font
+face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">. AADL supports Boolean
+arithmetic with</span></font><span> </span><font face="Times New Roman" color="#0000ff" size="3"><span
+style="font-size:12pt"><b>aadlboolean</b></span></font><font face="Times New Roman" color="#010101" size="3"><span
+style="font-size:12pt">values.</span></font><span></span></li>
+<li style="margin-left=5mm; margin-right=0mm; padding-left=0mm; font-family= Times New Roman;  font-size= 12pt;  color= #010101;  "><font
+face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">The</span></font><span> </span><font
+face="Times New Roman" color="#0000ff" size="3"><span style="font-size:12pt"><b>aadlstring</b></span></font><font
+face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">property type represents
+string values such as</span></font><span> </span><font face="Times New Roman" color="#0000ff" size="3"><span
+style="font-size:12pt"><b>&quot;A String Value&quot;</b></span></font><font face="Times New Roman" color="#010101" size="3"><span
+style="font-size:12pt">.</span></font><span></span></li>
+<li style="margin-left=5mm; margin-right=0mm; padding-left=0mm; font-family= Times New Roman;  font-size= 12pt;  color= #010101;  "><font
+face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">The enumeration property
+type represents an explicitly listed set of identifiers as its
+set of legal values. For example, the type</span></font><span> </span><font face="Times New Roman" color="#0000ff" size="3"><span
+style="font-size:12pt"><b>enumeration (red, green, blue)</b></span></font><font face="Times New Roman" color="#010101" size="3"><span
+style="font-size:12pt">has the
+values</span></font><font face="Times New Roman" color="#0000ff" size="3"><span style="font-size:12pt"><b>red</b></span></font><font
+face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">,</span></font><span> </span><font
+face="Times New Roman" color="#0000ff" size="3"><span style="font-size:12pt"><b>green</b></span></font><font
+face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">, and</span></font><span> </span><font
+face="Times New Roman" color="#0000ff" size="3"><span style="font-size:12pt"><b>blue</b></span></font><font
+face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">.</span></font><span></span></li>
+<li style="margin-left=5mm; margin-right=0mm; padding-left=0mm; font-family= Times New Roman;  font-size= 12pt;  color= #010101;  "><font
+face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">The</span></font><span> </span><font
+face="Times New Roman" color="#0000ff" size="3"><span style="font-size:12pt"><b>units</b></span></font><font
+face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">property type represents
+an explicitly listed set of measurement unit
+identifiers, and declares their relationships. For example, the type</span></font><font face="Times New Roman" color="#0000ff" size="3"><span
+style="font-size:12pt"><b>units (inch, foot
+=&gt; inch * 12, yard =&gt; foot * 3)</b></span></font><font face="Times New Roman" color="#010101" size="3"><span
+style="font-size:12pt">declares three measurement unit identifiers, and
+declares that a</span></font><font face="Times New Roman" color="#0000ff" size="3"><span style="font-size:12pt"><b>foot</b></span></font><font
+face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">is equivalent to 12</span></font><span> </span><font
+face="Times New Roman" color="#0000ff" size="3"><span style="font-size:12pt"><b>inch</b></span></font><font
+face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">units, and that a</span></font><span> </span><font
+face="Times New Roman" color="#0000ff" size="3"><span style="font-size:12pt"><b>yard</b></span></font><font
+face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">is equivalent to 3</span></font><span>
+</span><font face="Times New Roman" color="#0000ff" size="3"><span style="font-size:12pt"><b>foot</b></span></font><font
+face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">units, or equivalently,
+36</span></font><font face="Times New Roman" color="#0000ff" size="3"><span style="font-size:12pt"><b>inch</b></span></font><font
+face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">units. Below we discuss
+how the meta model and
+OSATE handle unit conversions. A</span></font><font face="Times New Roman" color="#0000ff" size="3"><span
+style="font-size:12pt"><b>units</b></span></font><font face="Times New Roman" color="#010101" size="3"><span
+style="font-size:12pt">property type does not have values: it can
+only be used in the specification of</span></font><span> </span><font face="Times New Roman" color="#0000ff" size="3"><span
+style="font-size:12pt"><b>aadlinteger</b></span></font><font face="Times New Roman" color="#010101" size="3"><span
+style="font-size:12pt">and</span></font><span> </span><font face="Times New Roman" color="#0000ff" size="3"><span
+style="font-size:12pt"><b>aadlreal</b></span></font><font face="Times New Roman" color="#010101" size="3"><span
+style="font-size:12pt">types.</span></font><span></span></li>
+<li style="margin-left=5mm; margin-right=0mm; padding-left=0mm; font-family= Times New Roman;  font-size= 12pt;  color= #010101;  "><font
+face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">The</span></font><span> </span><font
+face="Times New Roman" color="#0000ff" size="3"><span style="font-size:12pt"><b>aadlinteger</b></span></font><font
+face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">property type represents
+an integer value or an integer value with a
+measurement unit. If the type specifies a unit type, then the value must be labled with
+a measurement unit from the specified unit type. An optional range may also be
+specified that further constrains the legal property values; if the type specifies a unit
+type, then the bounds of range must be labeled with units. The following are
+examples of legal</span></font><span> </span><font face="Times New Roman" color="#0000ff" size="3"><span
+style="font-size:12pt"><b>aadlinteger</b></span></font><font face="Times New Roman" color="#010101" size="3"><span
+style="font-size:12pt">property types:</span></font><span>
+<ul style="margin-top: 0pt; margin-bottom: 0pt">
+</span>
+<li style="margin-left=13mm; margin-right=0mm; padding-left=0mm; font-family= Times New Roman;  font-size= 12pt;  color= #010101;  "><font
+face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">The type</span></font><font
+face="Times New Roman" color="#0000ff" size="3"><span style="font-size:12pt"><b>aadlinteger</b></span></font><font
+face="Times New Roman" size="3"><span style="font-size:12pt"> </span></font><font face="Times New Roman" color="#010101" size="3"><span
+style="font-size:12pt">includes the values</span></font><font face="Times New Roman" color="#0000ff" size="3"><span
+style="font-size:12pt"><b>-100</b></span></font><font face="Times New Roman" color="#010101" size="3"><span
+style="font-size:12pt">,</span></font><font face="Times New Roman" size="3"><span style="font-size:12pt"> </span></font><font
+face="Times New Roman" color="#0000ff" size="3"><span style="font-size:12pt"><b>0</b></span></font><font
+face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">,</span></font><font face="Times New Roman" size="3"><span
+style="font-size:12pt"> </span></font><font face="Times New Roman" color="#0000ff" size="3"><span style="font-size:12pt"><b>45</b></span></font><font
+face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">,</span></font><font face="Times New Roman" size="3"><span
+style="font-size:12pt"> </span></font><font face="Times New Roman" color="#0000ff" size="3"><span style="font-size:12pt"><b>10000</b></span></font><font
+face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">, etc.</span></font><span></span></li>
+<li style="margin-left=13mm; margin-right=0mm; padding-left=0mm; font-family= Times New Roman;  font-size= 12pt;  color= #010101;  "><font
+face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">The type</span></font><font
+face="Times New Roman" color="#0000ff" size="3"><span style="font-size:12pt"><b>aadlinteger 0 .. 10</b></span></font><font
+face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">has the values</span></font><font
+face="Times New Roman" color="#0000ff" size="3"><span style="font-size:12pt"><b>0</b></span></font><font
+face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">,</span></font><font face="Times New Roman" size="3"><span
+style="font-size:12pt"> </span></font><font face="Times New Roman" color="#0000ff" size="3"><span style="font-size:12pt"><b>1</b></span></font><font
+face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">,</span></font><font face="Times New Roman" size="3"><span
+style="font-size:12pt"> </span></font><font face="Times New Roman" color="#0000ff" size="3"><span style="font-size:12pt"><b>2</b></span></font><font
+face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">,</span></font><font face="Times New Roman" size="3"><span
+style="font-size:12pt"> </span></font><font face="Times New Roman" color="#0000ff" size="3"><span style="font-size:12pt"><b>3</b></span></font><font
+face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">,</span></font><font face="Times New Roman" size="3"><span
+style="font-size:12pt"> </span></font><font face="Times New Roman" color="#0000ff" size="3"><span style="font-size:12pt"><b>4</b></span></font><font
+face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">,</span></font><font face="Times New Roman" size="3"><span
+style="font-size:12pt"> </span></font><font face="Times New Roman" color="#0000ff" size="3"><span style="font-size:12pt"><b>5</b></span></font><font
+face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">,</span></font><font face="Times New Roman" size="3"><span
+style="font-size:12pt"> </span></font><font face="Times New Roman" color="#0000ff" size="3"><span style="font-size:12pt"><b>6</b></span></font><font
+face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">,</span></font><font face="Times New Roman" size="3"><span
+style="font-size:12pt"> </span></font><font face="Times New Roman" color="#0000ff" size="3"><span style="font-size:12pt"><b>7</b></span></font><font
+face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">,</span></font><font face="Times New Roman" size="3"><span
+style="font-size:12pt"> </span></font><font face="Times New Roman" color="#0000ff" size="3"><span style="font-size:12pt"><b>8</b></span></font><font
+face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">,</span></font><font face="Times New Roman" size="3"><span
+style="font-size:12pt"> </span></font><font face="Times New Roman" color="#0000ff" size="3"><span style="font-size:12pt"><b>9</b></span></font><font
+face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">, and</span></font><font
+face="Times New Roman" size="3"><span style="font-size:12pt"> </span></font><font face="Times New Roman" color="#0000ff" size="3"><span
+style="font-size:12pt"><b>10</b></span></font><font face="Times New Roman" color="#010101" size="3"><span
+style="font-size:12pt">.</span></font><span></span></li>
+<li style="margin-left=13mm; margin-right=0mm; padding-left=0mm; font-family= Times New Roman;  font-size= 12pt;  color= #010101;  "><font
+face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">The type</span></font><font
+face="Times New Roman" color="#0000ff" size="3"><span style="font-size:12pt"><b>aadlinteger units (cm,
+m =&gt; cm * 100)</b></span></font><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">includes
+the values</span></font><font face="Times New Roman" size="3"><span style="font-size:12pt"> </span></font><font
+face="Times New Roman" color="#0000ff" size="3"><span style="font-size:12pt"><b>-5 cm</b></span></font><font
+face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">,</span></font><font face="Times New Roman" size="3"><span
+style="font-size:12pt"> </span></font><font face="Times New Roman" color="#0000ff" size="3"><span style="font-size:12pt"><b>-
+3 m</b></span></font><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">,</span></font><font
+face="Times New Roman" size="3"><span style="font-size:12pt"> </span></font><font face="Times New Roman" color="#0000ff" size="3"><span
+style="font-size:12pt"><b>0 m</b></span></font><font face="Times New Roman" color="#010101" size="3"><span
+style="font-size:12pt">,</span></font><font face="Times New Roman" size="3"><span style="font-size:12pt"> </span></font><font
+face="Times New Roman" color="#0000ff" size="3"><span style="font-size:12pt"><b>200 cm</b></span></font><font
+face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">, etc.</span></font><span></span></li>
+<li style="margin-left=13mm; margin-right=0mm; padding-left=0mm; font-family= Times New Roman;  font-size= 12pt;  color= #010101;  "><font
+face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">The type</span></font><font
+face="Times New Roman" color="#0000ff" size="3"><span style="font-size:12pt"><b>aadlinteger 5 foot ..
+10 yard units
+Example::English_Units</b></span></font><font face="Times New Roman" color="#010101" size="3"><span
+style="font-size:12pt">includes the values</span></font><font face="Times New Roman" size="3"><span
+style="font-size:12pt"> </span></font><font face="Times New Roman" color="#0000ff" size="3"><span style="font-size:12pt"><b>5
+foot</b></span></font><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">,</span></font><font
+face="Times New Roman" size="3"><span style="font-size:12pt"> </span></font><font face="Times New Roman" color="#0000ff" size="3"><span
+style="font-size:12pt"><b>61 inch</b></span></font><font face="Times New Roman" color="#010101" size="3"><span
+style="font-size:12pt">,</span></font><font face="Times New Roman" size="3"><span style="font-size:12pt"> </span></font><font
+face="Times New Roman" color="#0000ff" size="3"><span style="font-size:12pt"><b>2 yard</b></span></font><font
+face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">,</span></font><font face="Times New Roman" size="3"><span
+style="font-size:12pt"> </span></font><font face="Times New Roman" color="#0000ff" size="3"><span style="font-size:12pt"><b>30
+foot</b></span></font><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">,
+and</span></font><font face="Times New Roman" color="#0000ff" size="3"><span style="font-size:12pt"><b>360
+inch</b></span></font><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">.
+The values</span></font><font face="Times New Roman" size="3"><span style="font-size:12pt"> </span></font><font
+face="Times New Roman" color="#0000ff" size="3"><span style="font-size:12pt"><b>59 inch</b></span></font><font
+face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">and</span></font><font
+face="Times New Roman" size="3"><span style="font-size:12pt"> </span></font><font face="Times New Roman" color="#0000ff" size="3"><span
+style="font-size:12pt"><b>31 foot</b></span></font><font face="Times New Roman" color="#010101" size="3"><span
+style="font-size:12pt">, however, are not
+assignable to properties of this type because they are outside the allowable
+range of values.</span></font><span></span></li>
+</ul>
+</li>
+</ul>
+<div align="left" style="margin-left=8mm; margin-right=0mm; text-indent=0mm"><br/></div>
+<blockquote>
+<div align="left" style="margin-left=13mm; margin-right=0mm; text-indent=0mm"><font face="Times New Roman" color="#010101" size="3"><span
+style="font-size:12pt">The type</span></font><span> </span><font face="Times New Roman" color="#0000ff" size="3"><span
+style="font-size:12pt"><b>aadlinteger 0 .. 100 units (cm, m =&gt; cm * 100)</b></span></font><font face="Times New Roman" color="#010101" size="3"><span
+style="font-size:12pt">is illegal because the range
+bounds</span></font><span> </span><font face="Times New Roman" color="#0000ff" size="3"><span style="font-size:12pt"><b>0
+.. 100</b></span></font><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">do
+not have measurement units specified, and thus the true range of
+values is ambiguous.</span></font><span></span></div>
+</blockquote>
+<blockquote>
+<div align="left" style="margin-left=13mm; margin-right=0mm; text-indent=0mm"><font face="Times New Roman" color="#010101" size="3"><span
+style="font-size:12pt">The maximum integer value expressible as a property value is bounded by the property
+constant</span></font><font face="Times New Roman" color="#0000ff" size="3"><span style="font-size:12pt"><b>AADL_Project::Max_Aadlinteger</b></span></font><font
+face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">. In OSATE, integer values
+are
+represented by Java <b>long</b> values, and thus</span></font><span> </span><font face="Times New Roman" color="#0000ff" size="3"><span
+style="font-size:12pt"><b>aadlinteger</b></span></font><font face="Times New Roman" color="#010101" size="3"><span
+style="font-size:12pt">values are limited to twos-
+complement 64-bit integers. <i>This is not to be confused with the largest integer
+value supported by the application system</i>.</span></font><span></span></div>
+</blockquote>
+<ul style="margin-top: 0pt; margin-bottom: 0pt">
+<li style="margin-left=5mm; margin-right=0mm; padding-left=0mm; font-family= Times New Roman;  font-size= 12pt;  color= #010101;  "><font
+face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">The</span></font><span> </span><font
+face="Times New Roman" color="#0000ff" size="3"><span style="font-size:12pt"><b>aadreal</b></span></font><font
+face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">property type represents
+a real value or a real value with a measurement
+unit. Otherwise it is similar to the</span></font><span> </span><font face="Times New Roman" color="#0000ff" size="3"><span
+style="font-size:12pt"><b>aadlinteger</b></span></font><font face="Times New Roman" color="#010101" size="3"><span
+style="font-size:12pt">property type. In OSATE, real values
+are represented by Java <b>double</b> values, which are double-precision 64-bit format
+IEEE 754 values. <i>Again, this representation has nothing to do with the floating
+point values that may or may not be supported in the system being modeled.</i></span></font><span></span></li>
+<li style="margin-left=5mm; margin-right=0mm; padding-left=0mm; font-family= Times New Roman;  font-size= 12pt;  color= #010101;  "><font
+face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">The</span></font><span> </span><font
+face="Times New Roman" color="#0000ff" size="3"><span style="font-size:12pt"><b>range</b></span></font><font
+face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">type represents closed
+intervals of numbers. It specifies that a property of
+this type has a value that is a range term. The bounds on the specifiable ranges are
+given by an</span></font><span> </span><font face="Times New Roman" color="#0000ff" size="3"><span style="font-size:12pt"><b>aadlreal</b></span></font><font
+face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">or</span></font><span> </span><font
+face="Times New Roman" color="#0000ff" size="3"><span style="font-size:12pt"><b>aadlinteger</b></span></font><font
+face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">type. A range term
+consists of a lower bound,
+an upper bound, and an optional delta that gives the distance between adjacent
+values in the range. The following are examples of legal range types:</span></font><span>
+<ul style="margin-top: 0pt; margin-bottom: 0pt">
+</span>
+<li style="margin-left=13mm; margin-right=0mm; padding-left=0mm; font-family= Times New Roman;  font-size= 12pt;  color= #010101;  "><font
+face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">The type</span></font><font
+face="Times New Roman" size="3"><span style="font-size:12pt"> </span></font><font face="Times New Roman" color="#0000ff" size="3"><span
+style="font-size:12pt"><b>range of aadlinteger</b></span></font><font face="Times New Roman" color="#010101" size="3"><span
+style="font-size:12pt">includes the values</span></font><font face="Times New Roman" size="3"><span
+style="font-size:12pt"> </span></font><font face="Times New Roman" color="#0000ff" size="3"><span style="font-size:12pt"><b>-10
+.. 10</b></span></font><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">,</span></font><font
+face="Times New Roman" size="3"><span style="font-size:12pt"> </span></font><font face="Times New Roman" color="#0000ff" size="3"><span
+style="font-size:12pt"><b>-10 .. 10 delta
+2</b></span></font><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">,</span></font><font
+face="Times New Roman" size="3"><span style="font-size:12pt"> </span></font><font face="Times New Roman" color="#0000ff" size="3"><span
+style="font-size:12pt"><b>5 .. 7</b></span></font><font face="Times New Roman" color="#010101" size="3"><span
+style="font-size:12pt">, etc.</span></font><span></span></li>
+<li style="margin-left=13mm; margin-right=0mm; padding-left=0mm; font-family= Times New Roman;  font-size= 12pt;  color= #010101;  "><font
+face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">The type</span></font><font
+face="Times New Roman" size="3"><span style="font-size:12pt"> </span></font><font face="Times New Roman" color="#0000ff" size="3"><span
+style="font-size:12pt"><b>range of aadlreal 0.0 .. 10.0</b></span></font><font face="Times New Roman" color="#010101" size="3"><span
+style="font-size:12pt">includes the values</span></font><font face="Times New Roman" size="3"><span
+style="font-size:12pt"> </span></font><font face="Times New Roman" color="#0000ff" size="3"><span style="font-size:12pt"><b>0.5
+.. 9.0 delta
+0.1</b></span></font><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">,</span></font><font
+face="Times New Roman" size="3"><span style="font-size:12pt"> </span></font><font face="Times New Roman" color="#0000ff" size="3"><span
+style="font-size:12pt"><b>9.0 .. 10.0</b></span></font><font face="Times New Roman" color="#010101" size="3"><span
+style="font-size:12pt">, and</span></font><font face="Times New Roman" size="3"><span style="font-size:12pt"> </span></font><font
+face="Times New Roman" color="#0000ff" size="3"><span style="font-size:12pt"><b>0.0 .. 10.0</b></span></font><font
+face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">. The value</span></font><font
+face="Times New Roman" color="#0000ff" size="3"><span style="font-size:12pt"><b>5.0 .. 11.0</b></span></font><font
+face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">is not assignable to
+properties of this type because it bounds are not contained within</span></font><font face="Times New Roman" size="3"><span
+style="font-size:12pt"> </span></font><font face="Times New Roman" color="#0000ff" size="3"><span style="font-size:12pt"><b>0.0
+.. 10.0</b></span></font><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">.</span></font><span></span></li>
+<li style="margin-left=13mm; margin-right=0mm; padding-left=0mm; font-family= Times New Roman;  font-size= 12pt;  color= #010101;  "><font
+face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">The type</span></font><font
+face="Times New Roman" size="3"><span style="font-size:12pt"> </span></font><font face="Times New Roman" color="#0000ff" size="3"><span
+style="font-size:12pt"><b>range of aadlinteger 5 foot .. 10 yard units
+Example::English_Units</b></span></font><font face="Times New Roman" color="#010101" size="3"><span
+style="font-size:12pt">includes the values</span></font><font face="Times New Roman" size="3"><span
+style="font-size:12pt"> </span></font><font face="Times New Roman" color="#0000ff" size="3"><span style="font-size:12pt"><b>5
+foot .. 7 foot delta 6 inch</b></span></font><font face="Times New Roman" color="#010101" size="3"><span
+style="font-size:12pt">,</span></font><font face="Times New Roman" size="3"><span style="font-size:12pt"> </span></font><font
+face="Times New Roman" color="#0000ff" size="3"><span style="font-size:12pt"><b>5
+yard .. 10 yard delta 1 foot</b></span></font><font face="Times New Roman" color="#010101" size="3"><span
+style="font-size:12pt">, and</span></font><font face="Times New Roman" color="#0000ff" size="3"><span
+style="font-size:12pt"><b>60 inch .. 360 inch</b></span></font><font face="Times New Roman" color="#010101" size="3"><span
+style="font-size:12pt">. The value</span></font><font face="Times New Roman" size="3"><span style="font-size:12pt"> </span></font><font
+face="Times New Roman" color="#0000ff" size="3"><span style="font-size:12pt"><b>9 yard ..
+31 foot</b></span></font><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">is
+not assignable to properties of this type because its upper bound is
+out of range.</span></font><span></span></li>
+<li style="margin-left=13mm; margin-right=0mm; padding-left=0mm; font-family= Times New Roman;  font-size= 12pt;  color= #010101;  "><font
+face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">The type</span></font><font
+face="Times New Roman" size="3"><span style="font-size:12pt"> </span></font><font face="Times New Roman" color="#0000ff" size="3"><span
+style="font-size:12pt"><b>range of Example::Length</b></span></font><font face="Times New Roman" color="#010101" size="3"><span
+style="font-size:12pt">does include</span></font><font face="Times New Roman" size="3"><span style="font-size:12pt"> </span></font><font
+face="Times New Roman" color="#0000ff" size="3"><span style="font-size:12pt"><b>9 yard .. 31 foot</b></span></font><font
+face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">because
+the type does not have any bounds on the range bounds.</span></font><span>
+</span></li>
+</ul>
+</li>
+<li style="margin-left=5mm; margin-right=0mm; padding-left=0mm; font-family= Times New Roman;  font-size= 12pt;  color= #010101;  "><font
+face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">The</span></font><span> </span><font
+face="Times New Roman" color="#0000ff" size="3"><span style="font-size:12pt"><b>classifier</b></span></font><font
+face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">property type represents
+the subset of syntactically legal component
+classifier references whose category matches one of the component categories in the
+specified list. If the category list is absent, all component classifier references are
+acceptable. The following are examples of classifier types and their values:</span></font><span>
+<ul style="margin-top: 0pt; margin-bottom: 0pt">
+</span>
+<li style="margin-left=13mm; margin-right=0mm; padding-left=0mm; font-family= Times New Roman;  font-size= 12pt;  color= #010101;  "><font
+face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">The type</span></font><font
+face="Times New Roman" size="3"><span style="font-size:12pt"> </span></font><font face="Times New Roman" color="#0000ff" size="3"><span
+style="font-size:12pt"><b>classifier (processor)</b></span></font><font face="Times New Roman" color="#010101" size="3"><span
+style="font-size:12pt">includes all processor type and processor
+implementation classifiers.</span></font><span></span></li>
+<li style="margin-left=13mm; margin-right=0mm; padding-left=0mm; font-family= Times New Roman;  font-size= 12pt;  color= #010101;  "><font
+face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">The type</span></font><font
+face="Times New Roman" size="3"><span style="font-size:12pt"> </span></font><font face="Times New Roman" color="#0000ff" size="3"><span
+style="font-size:12pt"><b>classifier (thread, process)</b></span></font><font face="Times New Roman" color="#010101" size="3"><span
+style="font-size:12pt">includes all thread type, process type,
+thread implementation, and process implementation classifiers.</span></font><span></span></li>
+<li style="margin-left=13mm; margin-right=0mm; padding-left=0mm; font-family= Times New Roman;  font-size= 12pt;  color= #010101;  "><font
+face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">The type</span></font><font
+face="Times New Roman" size="3"><span style="font-size:12pt"> </span></font><font face="Times New Roman" color="#0000ff" size="3"><span
+style="font-size:12pt"><b>classifier</b></span></font><font face="Times New Roman" color="#010101" size="3"><span
+style="font-size:12pt">includes all component classifiers.</span></font><span>
+</span></li>
+</ul>
+</li>
+<li style="margin-left=5mm; margin-right=0mm; padding-left=0mm; font-family= Times New Roman;  font-size= 12pt;  color= #010101;  "><font
+face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">The</span></font><span> </span><font
+face="Times New Roman" color="#0000ff" size="3"><span style="font-size:12pt"><b>reference</b></span></font><font
+face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">property type represents
+the subset of syntactically legal references to
+those components whose category matches one of the component categories,
+connections, or server subprogram features in the specified list. If the category list is
+absent, all components, connections, and server subprograms are acceptable.</span></font><span></span></li>
+</ul>
+<div align="left" style="margin-left=8mm; margin-right=0mm; text-indent=0mm"><br/></div>
+<div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">It
+is easy to confuse</span></font><span> </span><font face="Times New Roman" color="#0000ff" size="3"><span
+style="font-size:12pt"><b>classifier</b></span></font><font face="Times New Roman" color="#010101" size="3"><span
+style="font-size:12pt">and</span></font><span> </span><font face="Times New Roman" color="#0000ff" size="3"><span
+style="font-size:12pt"><b>reference</b></span></font><font face="Times New Roman" color="#010101" size="3"><span
+style="font-size:12pt">types. The distinction is that the values of</span></font><span>
+</span><font face="Times New Roman" color="#0000ff" size="3"><span style="font-size:12pt"><b>classifier</b></span></font><font
+face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">types are the names of
+component types or implementations whereas the values of</span></font><span>
+</span><font face="Times New Roman" color="#0000ff" size="3"><span style="font-size:12pt"><b>references</b></span></font><font
+face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">types are specific subcomponents,
+connections, or features in a system
+specification. The difference is highlighted in the following example:</span></font><span></span></div>
+<div align="left"><font face="Courier" color="#0000ff"><span>property set ps is</span></font><span></span></div>
+<div align="left"><font face="Courier" color="#0000ff"><span>classifierType: type classifier (system);</span></font><span></span></div>
+<div align="left"><font face="Courier" color="#0000ff"><span> referenceType: type reference (system);</span></font><span></span></div>
+<div align="left"><font face="Courier" color="#0000ff"><span></span></font><span></span></div>
+<div align="left"><font face="Courier" color="#0000ff"><span>classifierProp: ps::classifierType
+applies to (all);</span></font><span></span></div>
+<div align="left"><font face="Courier" color="#0000ff"><span> referenceProp: ps::referenceType
+applies to (all);</span></font><span></span></div>
+<div align="left"><font face="Courier" color="#0000ff"><span>end ps;</span></font><span></span></div>
+<div align="left"><font face="Courier" color="#0000ff"><span>system Inner</span></font><span></span></div>
+<div align="left"><font face="Courier" color="#0000ff"><span>end Inner;</span></font><span></span></div>
+<div align="left"><font face="Courier" color="#0000ff"><span>system Outer</span></font><span></span></div>
+<div align="left"><font face="Courier" color="#0000ff"><span>end Outer;</span></font><span></span></div>
+<div align="left"><font face="Courier" color="#0000ff"><span>system implementation Outer.Impl</span></font><span></span></div>
+<div align="left"><font face="Courier" color="#0000ff"><span>subcomponents</span></font><span></span></div>
+<div align="left"><font face="Courier" color="#0000ff"><span>innerSubComponent: system
+Inner;</span></font><span></span></div>
+<div align="left"><font face="Courier" color="#0000ff"><span>properties</span></font><span></span></div>
+<div align="left"><font face="Courier" color="#0000ff"><span>ps::classifierProp =&gt;
+system Inner;</span></font><span></span></div>
+<div align="left"><font face="Courier" color="#0000ff"><span>ps::referenceProp =&gt;
+reference innerSubComponent;</span></font><span></span></div>
+<div align="left"><font face="Courier" color="#0000ff"><span>end Outer.Impl;</span></font><span></span></div>
+<div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">Property
+values can also be lists whose members are restricted to be values of a particular
+property type. The AADL Specification considers &#8220;listness&#8221;to be an attribute of the
+property
+declaration, not of the property type.</span></font><span></span></div></div>
+
+
+
+
+  </td>
+  <td class="right" valign="top">
+<!--right body column empty-->
+  </td>
+</tr>
+<!--END PAGE BODY ITEM-->
+<!--BEGIN PAGE BODY ITEM-->
+<tr class="topic">
+  <td class="main" valign="top" colspan="2">
+    <table>
+      <tr class="topicHeader">
+        <td class="topicImageColumn">
+
+        </td>
+        <td class="topicLineColumn">
+          <a name="Topic69"></a>
+          <span class=outlineNumber>5.2.2 </span><span class=topicLine>AADL Property Declarations</span>
+          <span class="topicIcons">
+
+          </span>
+        </td>
+      </tr>
+    </table>
+
+<!-- phf:Comand: Expand("BoxPartMap.mmbas") -->
+     <div class="topicTextNotes"><div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">AADL
+property declarations are introduced above, although they deserve a more thorough
+description. The following property set contains two property declarations that demonstrate
+the major features of property declarations:</span></font><span></span></div>
+<div align="left"><font face="Courier" color="#0000ff"><span>property set Example2 is</span></font><span></span></div>
+<div align="left"><font face="Courier" color="#0000ff"><span> -- A single-valued property</span></font><span></span></div>
+<div align="left"><font face="Courier" color="#0000ff"><span> Stack_Size: </span></font><span></span></div>
+<div align="left"><font face="Courier" color="#0000ff"><span> inherit Size</span></font><span></span></div>
+<div align="left"><font face="Courier" color="#0000ff"><span> applies to (system,
+process, thread)</span></font><span></span></div>
+<div align="left"><font face="Courier" color="#0000ff"><span> =&gt; 1 KB;</span></font><span></span></div>
+<div align="left"><br/></div>
+<div align="left"><font face="Courier" color="#0000ff"><span> -- A multi-valued property</span></font><span></span></div>
+<div align="left"><font face="Courier" color="#0000ff"><span> Source_Files:</span></font><span></span></div>
+<div align="left"><font face="Courier" color="#0000ff"><span> list of aadlstring</span></font><span></span></div>
+<div align="left"><font face="Courier" color="#0000ff"><span> applies to (all);</span></font><span></span></div>
+<div align="left"><font face="Courier" color="#0000ff"><span>end Example2;</span></font><span></span></div>
+<div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">A
+property declaration gives a type for the property: the type may be given by referencing a
+named type, or by giving the type specification in-line. The property declaration for
+</span></font><font face="Times New Roman" color="#0000ff" size="3"><span style="font-size:12pt"><b>Stack_Size</b></span></font><font
+face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt"> references the type </span></font><font
+face="Times New Roman" color="#0000ff" size="3"><span style="font-size:12pt"><b>AADL_Properties::Size</b></span></font><font
+face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt"> while the property declaration
+for
+</span></font><font face="Times New Roman" color="#0000ff" size="3"><span style="font-size:12pt"><b>Source_Files</b></span></font><font
+face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt"> uses the type </span></font><font
+face="Times New Roman" color="#0000ff" size="3"><span style="font-size:12pt"><b>aadlstring</b></span></font><font
+face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt"> directly. The </span></font><font
+face="Times New Roman" color="#0000ff" size="3"><span style="font-size:12pt"><b>Source_Files</b></span></font><font
+face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt"> property is a multi-valued
+property, one whose values are a list of strings. For example the value </span></font><font face="Times New Roman" color="#0000ff" size="3"><span
+style="font-size:12pt"><b>(&quot;file1.c&quot;, &quot;file2.c&quot;)</b></span></font><font face="Times New Roman" color="#010101" size="3"><span
+style="font-size:12pt">
+can be assigned to the property </span></font><font face="Times New Roman" color="#0000ff" size="3"><span
+style="font-size:12pt"><b>Source_Files</b></span></font><font face="Times New Roman" color="#010101" size="3"><span
+style="font-size:12pt">. In general, a property is made multi-valued by
+writing  </span></font><font face="Times New Roman" color="#0000ff" size="3"><span style="font-size:12pt"><b>list
+of</b></span></font><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">
+before its type, and lists are denoted by comma-separated property value
+expressions enclosed in parentheses.</span></font><span></span></div>
+<div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">The
+property declaration for </span></font><font face="Times New Roman" color="#0000ff" size="3"><span style="font-size:12pt"><b>Stack_Size</b></span></font><font
+face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt"> uses the optional  </span></font><font
+face="Times New Roman" color="#0000ff" size="3"><span style="font-size:12pt"><b>inherit</b></span></font><font
+face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt"> modifier, which
+affects
+how the property lookup algorithm looks for the values of this property. If a property is
+ </span></font><font face="Times New Roman" color="#0000ff" size="3"><span style="font-size:12pt"><b>inherit</b></span></font><font
+face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">, and no property
+association for that property is found in the current component, then
+the containing component is searched for a property association. This is useful, for example,
+to
+allow all threads in a thread group to defer to the thread group if they are all supposed to have
+the same property value.</span></font><span></span></div>
+<div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">All
+property declarations in addition to giving a type, must also have an  </span></font><font face="Times New Roman" color="#0000ff" size="3"><span
+style="font-size:12pt"><b>applies to</b></span></font><font face="Times New Roman" color="#010101" size="3"><span
+style="font-size:12pt"> clause.
+This clause specifies those categories of components in the specification for which this property
+may be associated with a value. In addition to the standard component categories, this list may
+specify that the property applies to </span></font><font face="Times New Roman" color="#0000ff" size="3"><span
+style="font-size:12pt"><b>mode</b></span></font><font face="Times New Roman" color="#010101" size="3"><span
+style="font-size:12pt">, </span></font><font face="Times New Roman" color="#0000ff" size="3"><span style="font-size:12pt"><b>port
+group</b></span></font><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">, </span></font><font
+face="Times New Roman" color="#0000ff" size="3"><span style="font-size:12pt"><b>flow</b></span></font><font
+face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">, [</span></font><font
+face="Times New Roman" color="#0000ff" size="3"><span style="font-size:12pt"><b>event</b></span></font><font
+face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">] [</span></font><font
+face="Times New Roman" color="#0000ff" size="3"><span style="font-size:12pt"><b>data</b></span></font><font
+face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">] </span></font><font face="Times New Roman" color="#0000ff" size="3"><span
+style="font-size:12pt"><b>port</b></span></font><font face="Times New Roman" color="#010101" size="3"><span
+style="font-size:12pt">, </span></font><font face="Times New Roman" color="#0000ff" size="3"><span style="font-size:12pt"><b>server
+subprogram</b></span></font><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">, </span></font><font
+face="Times New Roman" color="#0000ff" size="3"><span style="font-size:12pt"><b>parameter</b></span></font><font
+face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">, and </span></font><font
+face="Times New Roman" color="#0000ff" size="3"><span style="font-size:12pt"><b>connections</b></span></font><font
+face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt"> of various kinds.
+The component categories may
+also be qualified by classifier references. For example, a property that </span></font><font face="Times New Roman" color="#0000ff" size="3"><span
+style="font-size:12pt"><b>applies to (processor
+Intel_x86)</b></span></font><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">
+may only be associated with processor components whose component classifier
+the processor type </span></font><font face="Times New Roman" color="#0000ff" size="3"><span style="font-size:12pt"><b>Intel_x86</b></span></font><font
+face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt"> or one of its descendents.
+The keyword  </span></font><font face="Times New Roman" color="#0000ff" size="3"><span style="font-size:12pt"><b>all</b></span></font><font
+face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt"> is used to indicate
+that the property applies to all components.</span></font><span></span></div>
+<div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">Finally,
+a property declaration may optionally associate a default value with the property. If the
+property lookup algorithm is unable to find a value associated with the property for a particular
+component then the default value is used.</span></font><span></span></div></div>
+
+
+
+
+  </td>
+  <td class="right" valign="top">
+<!--right body column empty-->
+  </td>
+</tr>
+<!--END PAGE BODY ITEM-->
+<!--BEGIN PAGE BODY ITEM-->
+<tr class="topic">
+  <td class="main" valign="top" colspan="2">
+    <table>
+      <tr class="topicHeader">
+        <td class="topicImageColumn">
+
+        </td>
+        <td class="topicLineColumn">
+          <a name="Topic70"></a>
+          <span class=outlineNumber>5.2.3 </span><span class=topicLine>Basic AADL Property Associations</span>
+          <span class="topicIcons">
+
+          </span>
+        </td>
+      </tr>
+    </table>
+
+<!-- phf:Comand: Expand("BoxPartMap.mmbas") -->
+     <div class="topicTextNotes"><div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">A
+particular element of an AADL specification is given a particular value for a particular
+property via a property association. Property associations are made with the </span></font><font
+face="Times New Roman" color="#0000ff" size="3"><span style="font-size:12pt"><b>properties</b></span></font><font
+face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">
+clause of component declarations, and within subcomponent declarations. In general, property
+associations apply to the declarative AADL specification, and thus all instances of a component
+implementation will have the same property values. The declarative model can embody
+property associations for specific subcomponent instances via contained property associations,
+which provide a path to the particular subcomponent or feature to which the property applies.
+The specification below exemplifies the use of property associations.</span></font><span></span></div>
+<div align="left"><font face="Courier" color="#0000ff"><span>thread implementation MyThread.Impl</span></font><span></span></div>
+<div align="left"><font face="Courier" color="#0000ff"><span> properties</span></font><span></span></div>
+<div align="left"><font face="Courier" color="#0000ff"><span> Example2::Source_Files
+=&gt; (&quot;MyThread.c&quot;, &quot;Helper.c&quot;);</span></font><span></span></div>
+<div align="left"><font face="Courier" color="#0000ff"><span>end MyThread.Impl;</span></font><span></span></div>
+<div align="left"><br/></div>
+<div align="left"><font face="Courier" color="#0000ff"><span>process implementation MyProcess.Impl</span></font><span></span></div>
+<div align="left"><font face="Courier" color="#0000ff"><span> subcomponents</span></font><span></span></div>
+<div align="left"><font face="Courier" color="#0000ff"><span> t1: thread MyThread.Impl;</span></font><span></span></div>
+<div align="left"><font face="Courier" color="#0000ff"><span> t2: thread MyThread.Impl;</span></font><span></span></div>
+<div align="left"><font face="Courier" color="#0000ff"><span> properties</span></font><span></span></div>
+<div align="left"><font face="Courier" color="#0000ff"><span> Example2::Stack_Size
+=&gt; 2 KB;</span></font><span></span></div>
+<div align="left"><font face="Courier" color="#0000ff"><span>end MyProcess.Impl;</span></font><span></span></div>
+<div align="left"><br/></div>
+<div align="left"><font face="Courier" color="#0000ff"><span>system implementation Main.Impl</span></font><span></span></div>
+<div align="left"><font face="Courier" color="#0000ff"><span> subcomponents</span></font><span></span></div>
+<div align="left"><font face="Courier" color="#0000ff"><span> p: process MyProcess.Impl</span></font><span></span></div>
+<div align="left"><font face="Courier" color="#0000ff"><span> {
+Example2::Stack_Size =&gt; 4 KB applies to t1; };</span></font><span></span></div>
+<div align="left"><font face="Courier" color="#0000ff"><span> properties</span></font><span></span></div>
+<div align="left"><font face="Courier" color="#0000ff"><span> Example2::Source_files
++=&gt; (&quot;Main.c&quot;);</span></font><span></span></div>
+<div align="left"><font face="Courier" color="#0000ff"><span>end Main.Impl;</span></font><span></span></div>
+<div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">We
+have three component implementation declarations. The properties clause of
+</span></font><font face="Times New Roman" color="#0000ff" size="3"><span style="font-size:12pt"><b>MyThread.Impl</b></span></font><font
+face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt"> associates via the </span></font><font
+face="Times New Roman" color="#0000ff" size="3"><span style="font-size:12pt"><b>=&gt;</b></span></font><font
+face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt"> operator the value </span></font><font
+face="Times New Roman" color="#0000ff" size="3"><span style="font-size:12pt"><b>(&quot;MyThread.c&quot;,
+&quot;Helper.c&quot;)</b></span></font><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">
+with the </span></font><font face="Times New Roman" color="#0000ff" size="3"><span style="font-size:12pt"><b>Source_Files</b></span></font><font
+face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt"> property. The properties
+clause of </span></font><font face="Times New Roman" color="#0000ff" size="3"><span style="font-size:12pt"><b>Main.Impl</b></span></font><font
+face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">, however, appends via
+the </span></font><font face="Times New Roman" color="#0000ff" size="3"><span style="font-size:12pt"><b>+=&gt;</b></span></font><font
+face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt"> operator the value </span></font><font
+face="Times New Roman" color="#0000ff" size="3"><span style="font-size:12pt"><b>(&quot;Main.c&quot;)</b></span></font><font
+face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt"> to the </span></font><font
+face="Times New Roman" color="#0000ff" size="3"><span style="font-size:12pt"><b>Source_Files</b></span></font><font
+face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt"> property. The full
+value of the
+</span></font><font face="Times New Roman" color="#0000ff" size="3"><span style="font-size:12pt"><b>Source_Files</b></span></font><font
+face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt"> property for </span></font><font
+face="Times New Roman" color="#0000ff" size="3"><span style="font-size:12pt"><b>Main.Impl</b></span></font><font
+face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt"> is the value of </span></font><font
+face="Times New Roman" color="#0000ff" size="3"><span style="font-size:12pt"><b>Source_Files</b></span></font><font
+face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt"> in the component type
+</span></font><font face="Times New Roman" color="#0000ff" size="3"><span style="font-size:12pt"><b>Main</b></span></font><font
+face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt"> (not shown) with the value </span></font><font
+face="Times New Roman" color="#0000ff" size="3"><span style="font-size:12pt"><b>(&quot;Main.c&quot;)</b></span></font><font
+face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt"> appended to it. </span></font><span></span></div>
+<div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">The
+properties clause of </span></font><font face="Times New Roman" color="#0000ff" size="3"><span style="font-size:12pt"><b>MyProcess.Impl</b></span></font><font
+face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt"> associates the value </span></font><font
+face="Times New Roman" color="#0000ff" size="3"><span style="font-size:12pt"><b>2 KB</b></span></font><font
+face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt"> with the </span></font><font
+face="Times New Roman" color="#0000ff" size="3"><span style="font-size:12pt"><b>Stack_Size</b></span></font><font
+face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">
+property. Because this property is declared with the </span></font><font face="Times New Roman" color="#0000ff" size="3"><span
+style="font-size:12pt"><b>inherit</b></span></font><font face="Times New Roman" color="#010101" size="3"><span
+style="font-size:12pt"> modifier, the two thread
+subcomponents will also have this property value for </span></font><font face="Times New Roman" color="#0000ff" size="3"><span
+style="font-size:12pt"><b>Stack_Size</b></span></font><font face="Times New Roman" color="#010101" size="3"><span
+style="font-size:12pt">. </span></font><span></span></div>
+<div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">The
+contained property association on subcomponent </span></font><font face="Times New Roman" color="#0000ff" size="3"><span
+style="font-size:12pt"><b>p</b></span></font><font face="Times New Roman" color="#010101" size="3"><span
+style="font-size:12pt"> in </span></font><font face="Times New Roman" color="#0000ff" size="3"><span
+style="font-size:12pt"><b>Main.impl</b></span></font><font face="Times New Roman" color="#010101" size="3"><span
+style="font-size:12pt">, however, changes the
+value of the </span></font><font face="Times New Roman" color="#0000ff" size="3"><span style="font-size:12pt"><b>Stack_Size</b></span></font><font
+face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt"> property for the specific
+thread instance</span></font><font face="Times New Roman" color="#0000ff" size="3"><span style="font-size:12pt"><b>
+t1</b></span></font><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">
+of the process instance </span></font><font face="Times New Roman" color="#0000ff" size="3"><span style="font-size:12pt"><b>p</b></span></font><font
+face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">
+when </span></font><font face="Times New Roman" color="#0000ff" size="3"><span style="font-size:12pt"><b>Main.Impl</b></span></font><font
+face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt"> is instantiated.
+If instead the property association on </span></font><font face="Times New Roman" color="#0000ff" size="3"><span
+style="font-size:12pt"><b>p</b></span></font><font face="Times New Roman" color="#010101" size="3"><span
+style="font-size:12pt"> were </span></font><font face="Times New Roman" color="#0000ff" size="3"><span
+style="font-size:12pt"><b>{
+Example2::Stack_Size =&gt; 4 KB; }</b></span></font><font face="Times New Roman" color="#010101" size="3"><span
+style="font-size:12pt">, then the property association would refer to the
+declarative model instead, changing the value of </span></font><font face="Times New Roman" color="#0000ff" size="3"><span
+style="font-size:12pt"><b>Stack_Size</b></span></font><font face="Times New Roman" color="#010101" size="3"><span
+style="font-size:12pt"> for the process subcomponent
+itself.</span></font><span></span></div>
+<div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">Property
+associations can be more complicated when modes are used. Modal property
+associations and other complicating issues are discussed in Section 5.7  Advanced Property
+Associations.</span></font><span></span></div></div>
+
+
+
+
+  </td>
+  <td class="right" valign="top">
+<!--right body column empty-->
+  </td>
+</tr>
+<!--END PAGE BODY ITEM-->
+<!--BEGIN PAGE BODY ITEM-->
+<tr class="topic">
+  <td class="main" valign="top" colspan="2">
+    <table>
+      <tr class="topicHeader">
+        <td class="topicImageColumn">
+
+        </td>
+        <td class="topicLineColumn">
+          <a name="Topic71"></a>
+          <span class=outlineNumber>5.2.4 </span><span class=topicLine>The “SecurityLevel” Property</span>
+          <span class="topicIcons">
+
+          </span>
+        </td>
+      </tr>
+    </table>
+
+<!-- phf:Comand: Expand("BoxPartMap.mmbas") -->
+     <div class="topicTextNotes"><div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">Our
+analysis relies on the assignment of security levels to components. There is no standard
+property for specifying this, so we declare a new </span></font><font face="Times New Roman" color="#0000ff" size="3"><span
+style="font-size:12pt"><b>SecurityLevel</b></span></font><font face="Times New Roman" color="#010101" size="3"><span
+style="font-size:12pt"> property in a new </span></font><font face="Times New Roman" color="#0000ff" size="3"><span
+style="font-size:12pt"><b>SEI</b></span></font><font face="Times New Roman" color="#010101" size="3"><span
+style="font-size:12pt">
+property set:</span></font><span></span></div>
+<div align="left"><font face="Courier" color="#0000ff"><span>property set SEI is</span></font><span></span></div>
+<div align="left"><font face="Courier" color="#0000ff"><span> SecurityLevel:</span></font><span></span></div>
+<div align="left"><font face="Courier" color="#0000ff"><span> aadlinteger </span></font><span></span></div>
+<div align="left"><font face="Courier" color="#0000ff"><span> applies to (data, subprogram,
+thread, thread group,</span></font><span></span></div>
+<div align="left"><font face="Courier" color="#0000ff"><span>
+process, memory, processor, bus, device,</span></font><span></span></div>
+<div align="left"><font face="Courier" color="#0000ff"><span>
+system);</span></font><span></span></div>
+<div align="left"><font face="Courier" color="#0000ff"><span>end SEI;</span></font><span></span></div>
+<div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">For
+our analysis, the security level of a component is an integer value. The property applies to
+all categories of components that can make up a system, but not to connections or to other
+model elements such as ports or modes.</span></font><span></span></div>
+<div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">Here
+is an example AADL specification that makes use of the new property:</span></font><span></span></div>
+<div align="left"><font face="Courier" color="#0000ff"><span>thread Peter</span></font><span></span></div>
+<div align="left"><font face="Courier" color="#0000ff"><span> features</span></font><span></span></div>
+<div align="left"><font face="Courier" color="#0000ff"><span> pe: in event port;</span></font><span></span></div>
+<div align="left"><font face="Courier" color="#0000ff"><span> pd: out data port signal;</span></font><span></span></div>
+<div align="left"><font face="Courier" color="#0000ff"><span> properties</span></font><span></span></div>
+<div align="left"><font face="Courier" color="#0000ff"><span> SEI::SecurityLevel =&gt;
+4;</span></font><span></span></div>
+<div align="left"><font face="Courier" color="#0000ff"><span>end Peter;</span></font><span></span></div>
+<div align="left"><br/></div>
+<div align="left"><font face="Courier" color="#0000ff"><span>thread implementation Peter.Default</span></font><span></span></div>
+<div align="left"><font face="Courier" color="#0000ff"><span>end Peter.Default;</span></font><span></span></div>
+<div align="left"><br/></div>
+<div align="left"><font face="Courier" color="#0000ff"><span>thread Pierre</span></font><span></span></div>
+<div align="left"><font face="Courier" color="#0000ff"><span> features</span></font><span></span></div>
+<div align="left"><font face="Courier" color="#0000ff"><span> pd: in data port signal;</span></font><span></span></div>
+<div align="left"><font face="Courier" color="#0000ff"><span> pe: out event port;</span></font><span></span></div>
+<div align="left"><font face="Courier" color="#0000ff"><span> properties</span></font><span></span></div>
+<div align="left"><font face="Courier" color="#0000ff"><span> SEI::SecurityLevel =&gt;
+7;</span></font><span></span></div>
+<div align="left"><font face="Courier" color="#0000ff"><span>end Pierre;</span></font><span></span></div>
+<div align="left"><br/></div>
+<div align="left"><font face="Courier" color="#0000ff"><span>thread implementation Pierre.Default</span></font><span></span></div>
+<div align="left"><font face="Courier" color="#0000ff"><span> properties</span></font><span></span></div>
+<div align="left"><font face="Courier" color="#0000ff"><span> <b>-- implementation
+overwrites the property value of the type</b></span></font><span></span></div>
+<div align="left"><font face="Courier" color="#0000ff"><span> SEI::SecurityLevel =&gt;
+8;</span></font><span></span></div>
+<div align="left"><font face="Courier" color="#0000ff"><span>end Pierre.Default;</span></font><span></span></div>
+<div align="left"><br/></div>
+<div align="left"><font face="Courier" color="#0000ff"><span>process Proc</span></font><span></span></div>
+<div align="left"><font face="Courier" color="#0000ff"><span>end Proc;</span></font><span></span></div>
+<div align="left"><br/></div>
+<div align="left"><font face="Courier" color="#0000ff"><span><b>-- This component will have its SecurityLevel
+property value</b></span></font><span></span></div>
+<div align="left"><font face="Courier" color="#0000ff"><span><b>-- updated to be maximum of the subcomponent
+T1 and T2 values: 8</b></span></font><span></span></div>
+<div align="left"><font face="Courier" color="#0000ff"><span>process implementation Proc.Impl</span></font><span></span></div>
+<div align="left"><font face="Courier" color="#0000ff"><span> subcomponents</span></font><span></span></div>
+<div align="left"><font face="Courier" color="#0000ff"><span> T1: thread Peter.Default;</span></font><span></span></div>
+<div align="left"><font face="Courier" color="#0000ff"><span> T2: thread Pierre.Default;</span></font><span></span></div>
+<div align="left"><font face="Courier" color="#0000ff"><span> connections</span></font><span></span></div>
+<div align="left"><font face="Courier" color="#0000ff"><span><b> -- Good connection:
+flow from level 4 to level 8</b></span></font><span></span></div>
+<div align="left"><font face="Courier" color="#0000ff"><span> good: data port T1.pd
+-&gt; T2.pd;</span></font><span></span></div>
+<div align="left"><font face="Courier" color="#0000ff"><span><b> -- Bad connection:
+flow from level 8 to level 4</b></span></font><span></span></div>
+<div align="left"><font face="Courier" color="#0000ff"><span> bad: event port T2.pe
+-&gt; T1.pe;</span></font><span></span></div>
+<div align="left"><font face="Courier" color="#0000ff"><span> properties</span></font><span></span></div>
+<div align="left"><font face="Courier" color="#0000ff"><span><b> -- Bad: Security
+Level isn't high enough</b></span></font><span></span></div>
+<div align="left"><font face="Courier" color="#0000ff"><span> SEI::SecurityLevel =&gt;
+6;</span></font><span></span></div>
+<div align="left"><font face="Courier" color="#0000ff"><span>end Proc.Impl;</span></font><span></span></div>
+<div align="left"><br/></div>
+<div align="left"><font face="Courier" color="#0000ff"><span>system Main</span></font><span></span></div>
+<div align="left"><font face="Courier" color="#0000ff"><span>end Main;</span></font><span></span></div>
+<div align="left"><br/></div>
+<div align="left"><font face="Courier" color="#0000ff"><span><b>-- This component will receive a SecurityLevel
+property value</b></span></font><span></span></div>
+<div align="left"><font face="Courier" color="#0000ff"><span><b>-- to be the subcomponent value: 8</b></span></font><span></span></div>
+<div align="left"><font face="Courier" color="#0000ff"><span>system implementation Main.Impl</span></font><span></span></div>
+<div align="left"><font face="Courier" color="#0000ff"><span> subcomponents</span></font><span></span></div>
+<div align="left"><font face="Courier" color="#0000ff"><span> p1: process Proc.Impl;</span></font><span></span></div>
+<div align="left"><font face="Courier" color="#0000ff"><span>end Main.Impl;</span></font><span></span></div>
+<div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">Thread
+types </span></font><font face="Times New Roman" color="#0000ff" size="3"><span style="font-size:12pt"><b>Peter</b></span></font><font
+face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt"> and </span></font><font
+face="Times New Roman" color="#0000ff" size="3"><span style="font-size:12pt"><b>Pierre</b></span></font><font
+face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt"> have </span></font><font
+face="Times New Roman" color="#0000ff" size="3"><span style="font-size:12pt"><b>SecurityLevel</b></span></font><font
+face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt"> values of 4 and 7, respectively.
+The
+Thread implementations </span></font><font face="Times New Roman" color="#0000ff" size="3"><span style="font-size:12pt"><b>Peter.Default</b></span></font><font
+face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt"> and </span></font><font
+face="Times New Roman" color="#0000ff" size="3"><span style="font-size:12pt"><b>Pierre.Default</b></span></font><font
+face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt"> have </span></font><font
+face="Times New Roman" color="#0000ff" size="3"><span style="font-size:12pt"><b>SecurityLevel</b></span></font><font
+face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt"> values of 4
+and 8 respectively. The analysis will issue a warning that the security level of </span></font><font
+face="Times New Roman" color="#0000ff" size="3"><span style="font-size:12pt"><b>Proc.Impl</b></span></font><font
+face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt"> is not
+high enough and that it has been upgraded, in this case from 6 to 8. Analysis will also issue
+a
+warning that the security level of </span></font><font face="Times New Roman" color="#0000ff" size="3"><span
+style="font-size:12pt"><b>Main.Impl</b></span></font><font face="Times New Roman" color="#010101" size="3"><span
+style="font-size:12pt"> has been set to 8. Process </span></font><font face="Times New Roman" color="#0000ff" size="3"><span
+style="font-size:12pt"><b>Proc.Impl</b></span></font><font face="Times New Roman" color="#010101" size="3"><span
+style="font-size:12pt"> has two
+connections between the two threads, one in each direction. The connection from </span></font><font
+face="Times New Roman" color="#0000ff" size="3"><span style="font-size:12pt"><b>T1</b></span></font><font
+face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt"> to </span></font><font
+face="Times New Roman" color="#0000ff" size="3"><span style="font-size:12pt"><b>T2</b></span></font><font
+face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt"> is
+okay because subcomponent </span></font><font face="Times New Roman" color="#0000ff" size="3"><span
+style="font-size:12pt"><b>T1</b></span></font><font face="Times New Roman" color="#010101" size="3"><span
+style="font-size:12pt"> has a security level of 4 which is less than </span></font><font face="Times New Roman" color="#0000ff" size="3"><span
+style="font-size:12pt"><b>T2</b></span></font><font face="Times New Roman" color="#010101" size="3"><span
+style="font-size:12pt">&#146;s security level
+of 8: data is traveling from a less secure to a more secure component. But the connection from
+</span></font><font face="Times New Roman" color="#0000ff" size="3"><span style="font-size:12pt"><b>T2</b></span></font><font
+face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt"> to </span></font><font
+face="Times New Roman" color="#0000ff" size="3"><span style="font-size:12pt"><b>T1</b></span></font><font
+face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt"> will be flagged by the
+analysis as allowing data to travel from a more secure to a less
+secure component. Figure 21 shows the errors and warnings generated by the analysis plug-in
+for this example.</span></font><span></span></div>
+<div align="center"><img src="NotesImages/Topic71NotesImage5.jpg" align="bottom" width="570" height="96" border="0" alt="graphic" /></div>
+<div align="center"><font face="Arial Narrow" color="#010101"><span>Figure 21: Results of applying security
+level analysis to the sample specification.</span></font><span></span></div></div>
+
+
+
+
+  </td>
+  <td class="right" valign="top">
+<!--right body column empty-->
+  </td>
+</tr>
+<!--END PAGE BODY ITEM-->
+<!--BEGIN PAGE BODY ITEM-->
+<tr class="topic">
+  <td class="main" valign="top" colspan="2">
+    <table>
+      <tr class="topicHeader">
+        <td class="topicImageColumn">
+
+        </td>
+        <td class="topicLineColumn">
+          <a name="Topic72"></a>
+          <span class=outlineNumber>5.2.5 </span><span class=topicLine>Property Lookup</span>
+          <span class="topicIcons">
+
+          </span>
+        </td>
+      </tr>
+    </table>
+
+<!-- phf:Comand: Expand("BoxPartMap.mmbas") -->
+     <div class="topicTextNotes"><div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">Because
+property values can be inherited from ancestor types and as well as along the
+component containment hierarchy, the property values associated with a particular component
+may not all be declared in the component itself. In fact, because of the append operator </span></font><font
+face="Times New Roman" color="#0000ff" size="3"><span style="font-size:12pt"><b>+=&gt;</b></span></font><font
+face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">
+for list values, the value itself may be constructed from property associations declared in
+multiple components. The AADL Specification specifies the algorithm used to determine the
+property value associated with a particular property for a particular component. The gist of the
+algorithm is as follows:</span></font><span></span></div>
+<ul style="margin-top: 0pt; margin-bottom: 0pt">
+<ul style="margin-top: 0pt; margin-bottom: 0pt">
+<li style="margin-left=-3mm; margin-right=0mm; padding-left=0mm; font-family= Times New Roman;  font-size= 12pt;  color= #010101;  "><font
+face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">Search the component itself
+for an appropriate property association</span></font><span></span></li>
+<li style="margin-left=-3mm; margin-right=0mm; padding-left=0mm; font-family= Times New Roman;  font-size= 12pt;  color= #010101;  "><font
+face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">Apply the lookup algorithm
+to the category of the component.</span></font><span></span></li>
+<li style="margin-left=-3mm; margin-right=0mm; padding-left=0mm; font-family= Times New Roman;  font-size= 12pt;  color= #010101;  "><font
+face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">If the property is declared
+with the </span></font><font face="Times New Roman" color="#0000ff" size="3"><span style="font-size:12pt"><b>inherit</b></span></font><font
+face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt"> modifier, apply the lookup
+algorithm to the
+container of the component. </span></font><span></span></li>
+<li style="margin-left=-3mm; margin-right=0mm; padding-left=0mm; font-family= Times New Roman;  font-size= 12pt;  color= #010101;  "><font
+face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">Use the default property
+value, if one exists.</span></font><span></span></li>
+<li style="margin-left=-3mm; margin-right=0mm; padding-left=0mm; font-family= Times New Roman;  font-size= 12pt;  color= #010101;  "><font
+face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">Otherwise the property
+value is considered to be undefined.</span></font><span></span></li>
+</ul>
+</ul>
+<div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">An
+example lookup is illustrated in Figure 22. Instance4 is an element in the system instance
+hierarchy. The value of one of its properties is determined by first looking for a property
+associated with the instance itself&#151;shown as step 1. This would be specified by a contained
+property association. The contained property association for this instance declared in a
+component implementation highest in the instance hierarchy determines that value. If no
+instance value exists, the implementation (</span></font><font face="Times New Roman" color="#0000ff" size="3"><span
+style="font-size:12pt"><b>ImplA</b></span></font><font face="Times New Roman" color="#010101" size="3"><span
+style="font-size:12pt">) of the instance is examined (step 2). If it
+does not exist, ancestor implementations are examined (step 3). If the property value still has
+not been determined, the component type is examined (step 4). If not found there, its ancestor
+component types are examined (step 5). If not found and the property is inherited, for
+subcomponents and features, the enclosing implementation is examined. Otherwise, the
+containing component in the component instance hierarchy is examined (step 6). Finally, the
+default value is considered.</span></font><span></span></div>
+<div align="center"><img src="NotesImages/Topic72NotesImage3.jpg" align="bottom" width="465" height="149" border="0" alt="graphic" /></div>
+<div align="center"><font face="Arial Narrow" color="#010101"><span>Figure 22: Example of the order
+in which model components are search for property associations. The model on the left is
+an AADL instance model; the model on the right is an AADL declarative model.</span></font><span></span></div>
+<div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">The
+lookup process must also take into account modal properties, modal subcomponents,
+property references, and the append operator. The interaction of modes with the property
+lookup process together with the complexities of modal properties described above necessitate
+the introduction of an additional level of abstraction in the property lookup API provided by
+OSATE; see Section 5.8.4  Getting Property Values.</span></font><span></span></div></div>
+
+
+
+
+  </td>
+  <td class="right" valign="top">
+<!--right body column empty-->
+  </td>
+</tr>
+<!--END PAGE BODY ITEM-->
+
+
+<!-- BEGIN TOP BUTTON -->
+<tr class="topic">
+  <td class="main" valign="top" colspan="2">
+    <div class="body">
+      <div class="topCommand">
+        <span class="commands">
+      <span class="command">
+            <img src="Res/images/top_button.gif" alt="">
+          <a href="javascript:scroll(0,0)">
+             <span class="label">Top</span>
+              </a>
+    </span>
+       </span>
+      </div>
+    </div>
+  </td>
+  <td class="right" valign="top">
+<!--right body column empty-->
+  </td>
+</tr>
+<!-- END TOP BUTTON -->
+
+</table>
+
+<!-- BEGIN SIDE NAVIGATION WRAPPER-->
+    </td>
+  </tr>
+</table>
+<!-- END SIDE NAVIGATION WRAPPER-->
+
+<!-- END PAGE BODY-->
+
+
+</body>
+</html>
+
