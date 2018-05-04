@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<genmodel:GenModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore"
+    xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" modelDirectory="/org.osate.ge.diagram/src" modelPluginID="org.osate.ge.diagram"
+    modelName="Diagram" modelPluginClass="" rootExtendsClass="org.eclipse.emf.ecore.impl.MinimalEObjectImpl$Container"
+    rootImplementsInterface="" suppressInterfaces="true" importerID="org.eclipse.emf.importer.ecore"
+    complianceLevel="8.0" copyrightFields="false" publicConstructors="true" language=""
+    interfaceNamePattern="" operationReflection="true" importOrganizing="true">
+  <foreignModel>diagram.ecore</foreignModel>
+  <genPackages prefix="Diagram" basePackage="org.osate.ge" disposableProviderFactory="true"
+      adapterFactory="false" contentTypeIdentifier="" fileExtensions="aadl_diagram"
+      ecorePackage="diagram.ecore#/" publicationLocation="">
+    <genDataTypes ecoreDataType="diagram.ecore#//Color"/>
+    <genClasses ecoreClass="diagram.ecore#//Diagram">
+      <genFeatures property="None" children="true" createChild="true" propertyCategory=""
+          propertyDescription="" ecoreFeature="ecore:EReference diagram.ecore#//Diagram/config"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute diagram.ecore#//Diagram/formatVersion"/>
+    </genClasses>
+    <genClasses ecoreClass="diagram.ecore#//DiagramNode">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference diagram.ecore#//DiagramNode/element"/>
+    </genClasses>
+    <genClasses ecoreClass="diagram.ecore#//DiagramElement">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute diagram.ecore#//DiagramElement/id"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference diagram.ecore#//DiagramElement/bo"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute diagram.ecore#//DiagramElement/manual"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute diagram.ecore#//DiagramElement/autoContentsFilter"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference diagram.ecore#//DiagramElement/position"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference diagram.ecore#//DiagramElement/size"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute diagram.ecore#//DiagramElement/dockArea"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference diagram.ecore#//DiagramElement/bendpoints"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference diagram.ecore#//DiagramElement/primaryLabelPosition"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute diagram.ecore#//DiagramElement/background"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute diagram.ecore#//DiagramElement/outline"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute diagram.ecore#//DiagramElement/fontColor"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute diagram.ecore#//DiagramElement/fontSize"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute diagram.ecore#//DiagramElement/lineWidth"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute diagram.ecore#//DiagramElement/primaryLabelVisible"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute diagram.ecore#//DiagramElement/image"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute diagram.ecore#//DiagramElement/showAsImage"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference diagram.ecore#//DiagramElement/contentFilters"/>
+    </genClasses>
+    <genClasses ecoreClass="diagram.ecore#//Point">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute diagram.ecore#//Point/x"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute diagram.ecore#//Point/y"/>
+    </genClasses>
+    <genClasses ecoreClass="diagram.ecore#//Dimension">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute diagram.ecore#//Dimension/width"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute diagram.ecore#//Dimension/height"/>
+    </genClasses>
+    <genClasses ecoreClass="diagram.ecore#//BendpointList">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference diagram.ecore#//BendpointList/point"/>
+    </genClasses>
+    <genClasses ecoreClass="diagram.ecore#//AadlPropertiesSet">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute diagram.ecore#//AadlPropertiesSet/property"/>
+    </genClasses>
+    <genClasses ecoreClass="diagram.ecore#//CanonicalBusinessObjectReference"/>
+    <genClasses ecoreClass="diagram.ecore#//RelativeBusinessObjectReference"/>
+    <genClasses ecoreClass="diagram.ecore#//DiagramConfiguration">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute diagram.ecore#//DiagramConfiguration/type"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference diagram.ecore#//DiagramConfiguration/enabledAadlProperties"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference diagram.ecore#//DiagramConfiguration/context"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute diagram.ecore#//DiagramConfiguration/connectionPrimaryLabelsVisible"/>
+    </genClasses>
+    <genClasses ecoreClass="diagram.ecore#//Reference">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute diagram.ecore#//Reference/seg"/>
+    </genClasses>
+    <genClasses ecoreClass="diagram.ecore#//ContentFilters">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute diagram.ecore#//ContentFilters/filter"/>
+    </genClasses>
+  </genPackages>
+</genmodel:GenModel>
