@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<genmodel:GenModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore"
+    xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" copyrightText="Copyright 2015 Carnegie Mellon University. All Rights Reserved.&#xA;&#xA;NO WARRANTY. THIS CARNEGIE MELLON UNIVERSITY AND SOFTWARE ENGINEERING INSTITUTE&#xA;MATERIAL IS FURNISHED ON AN &quot;AS-IS&quot; BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO&#xA;WARRANTIES OF ANY KIND, EITHER EXPRESSED OR IMPLIED, AS TO ANY MATTER INCLUDING,&#xA;BUT NOT LIMITED TO, WARRANTY OF FITNESS FOR PURPOSE OR MERCHANTABILITY,&#xA;EXCLUSIVITY, OR RESULTS OBTAINED FROM USE OF THE MATERIAL. CARNEGIE MELLON&#xA;UNIVERSITY DOES NOT MAKE ANY WARRANTY OF ANY KIND WITH RESPECT TO FREEDOM FROM&#xA;PATENT, TRADEMARK, OR COPYRIGHT INFRINGEMENT.&#xA;&#xA;Released under the Eclipse Public License (http://www.eclipse.org/org/documents/epl-v10.php)&#xA;&#xA;See COPYRIGHT file for full details."
+    modelDirectory="/org.osate.assure/src-gen" editDirectory="/org.osate.assure.edit/src"
+    editorDirectory="/org.osate.assure.editor/src" modelPluginID="org.osate.assure"
+    forceOverwrite="true" modelName="Assure" updateClasspath="false" rootExtendsClass="org.eclipse.emf.ecore.impl.MinimalEObjectImpl$Container"
+    complianceLevel="6.0" copyrightFields="false" editPluginID="org.osate.assure.edit"
+    editorPluginID="org.osate.assure.editor" runtimeVersion="2.13" usedGenPackages="platform:/resource/org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore platform:/resource/org.osate.aadl2/model/aadl2.genmodel#//aadl2 platform:/resource/org.osate.alisa.workbench/model/generated/Alisa.genmodel#//alisa platform:/resource/org.osate.reqspec/model/generated/ReqSpec.genmodel#//reqSpec platform:/resource/org.osate.results/model/Result.genmodel#//result platform:/resource/org.osate.verify/model/generated/Verify.genmodel#//verify">
+  <genPackages prefix="Assure" basePackage="org.osate.assure" disposableProviderFactory="true"
+      fileExtensions="assure" ecorePackage="Assure.ecore#/">
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="Assure.ecore#//ElseType">
+      <genEnumLiterals ecoreEnumLiteral="Assure.ecore#//ElseType/OK"/>
+      <genEnumLiterals ecoreEnumLiteral="Assure.ecore#//ElseType/FAIL"/>
+      <genEnumLiterals ecoreEnumLiteral="Assure.ecore#//ElseType/TIMEOUT"/>
+      <genEnumLiterals ecoreEnumLiteral="Assure.ecore#//ElseType/ERROR"/>
+    </genEnums>
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="Assure.ecore#//VerificationResultState">
+      <genEnumLiterals ecoreEnumLiteral="Assure.ecore#//VerificationResultState/TBD"/>
+      <genEnumLiterals ecoreEnumLiteral="Assure.ecore#//VerificationResultState/SUCCESS"/>
+      <genEnumLiterals ecoreEnumLiteral="Assure.ecore#//VerificationResultState/FAIL"/>
+      <genEnumLiterals ecoreEnumLiteral="Assure.ecore#//VerificationResultState/ERROR"/>
+      <genEnumLiterals ecoreEnumLiteral="Assure.ecore#//VerificationResultState/TIMEOUT"/>
+    </genEnums>
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="Assure.ecore#//VerificationExecutionState">
+      <genEnumLiterals ecoreEnumLiteral="Assure.ecore#//VerificationExecutionState/TODO"/>
+      <genEnumLiterals ecoreEnumLiteral="Assure.ecore#//VerificationExecutionState/RUNNING"/>
+      <genEnumLiterals ecoreEnumLiteral="Assure.ecore#//VerificationExecutionState/REDO"/>
+      <genEnumLiterals ecoreEnumLiteral="Assure.ecore#//VerificationExecutionState/COMPLETED"/>
+    </genEnums>
+    <genClasses ecoreClass="Assure.ecore#//AssuranceCaseResult">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Assure.ecore#//AssuranceCaseResult/name"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Assure.ecore#//AssuranceCaseResult/message"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Assure.ecore#//AssuranceCaseResult/modelResult"/>
+    </genClasses>
+    <genClasses ecoreClass="Assure.ecore#//ModelResult">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Assure.ecore#//ModelResult/plan"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Assure.ecore#//ModelResult/target"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Assure.ecore#//ModelResult/message"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Assure.ecore#//ModelResult/claimResult"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Assure.ecore#//ModelResult/subsystemResult"/>
+    </genClasses>
+    <genClasses ecoreClass="Assure.ecore#//SubsystemResult">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Assure.ecore#//SubsystemResult/targetSystem"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Assure.ecore#//SubsystemResult/message"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Assure.ecore#//SubsystemResult/claimResult"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Assure.ecore#//SubsystemResult/subsystemResult"/>
+    </genClasses>
+    <genClasses ecoreClass="Assure.ecore#//ClaimResult">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Assure.ecore#//ClaimResult/targetReference"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Assure.ecore#//ClaimResult/modelElement"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Assure.ecore#//ClaimResult/message"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Assure.ecore#//ClaimResult/subClaimResult"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Assure.ecore#//ClaimResult/verificationActivityResult"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Assure.ecore#//ClaimResult/predicateResult"/>
+    </genClasses>
+    <genClasses ecoreClass="Assure.ecore#//VerificationResult">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Assure.ecore#//VerificationResult/executionState"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Assure.ecore#//VerificationResult/resultState"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Assure.ecore#//VerificationResult/issues"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Assure.ecore#//VerificationResult/results"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Assure.ecore#//VerificationResult/message"/>
+    </genClasses>
+    <genClasses ecoreClass="Assure.ecore#//AssureResult">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Assure.ecore#//AssureResult/metrics"/>
+    </genClasses>
+    <genClasses ecoreClass="Assure.ecore#//VerificationExpr"/>
+    <genClasses ecoreClass="Assure.ecore#//ElseResult">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Assure.ecore#//ElseResult/first"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Assure.ecore#//ElseResult/error"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Assure.ecore#//ElseResult/fail"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Assure.ecore#//ElseResult/timeout"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Assure.ecore#//ElseResult/didFail"/>
+    </genClasses>
+    <genClasses ecoreClass="Assure.ecore#//ThenResult">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Assure.ecore#//ThenResult/first"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Assure.ecore#//ThenResult/second"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Assure.ecore#//ThenResult/didThenFail"/>
+    </genClasses>
+    <genClasses ecoreClass="Assure.ecore#//Metrics">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Assure.ecore#//Metrics/tbdCount"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Assure.ecore#//Metrics/successCount"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Assure.ecore#//Metrics/failCount"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Assure.ecore#//Metrics/timeoutCount"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Assure.ecore#//Metrics/errorCount"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Assure.ecore#//Metrics/didelseCount"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Assure.ecore#//Metrics/thenskipCount"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Assure.ecore#//Metrics/preconditionfailCount"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Assure.ecore#//Metrics/validationfailCount"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Assure.ecore#//Metrics/featuresCount"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Assure.ecore#//Metrics/featuresRequirementsCount"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Assure.ecore#//Metrics/qualityCategoryRequirementsCount"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Assure.ecore#//Metrics/totalQualityCategoryCount"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Assure.ecore#//Metrics/requirementsWithoutPlanClaimCount"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Assure.ecore#//Metrics/noVerificationPlansCount"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Assure.ecore#//Metrics/requirementsCount"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Assure.ecore#//Metrics/exceptionsCount"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Assure.ecore#//Metrics/reqTargetHasEMV2SubclauseCount"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Assure.ecore#//Metrics/featuresRequiringClassifierCount"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Assure.ecore#//Metrics/featuresWithRequiredClassifierCount"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Assure.ecore#//Metrics/weight"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Assure.ecore#//Metrics/executionTime"/>
+    </genClasses>
+    <genClasses ecoreClass="Assure.ecore#//QualifiedVerificationPlanElementReference">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Assure.ecore#//QualifiedVerificationPlanElementReference/verificationPlan"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Assure.ecore#//QualifiedVerificationPlanElementReference/requirement"/>
+    </genClasses>
+    <genClasses ecoreClass="Assure.ecore#//QualifiedClaimReference"/>
+    <genClasses ecoreClass="Assure.ecore#//QualifiedVAReference">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Assure.ecore#//QualifiedVAReference/verificationActivity"/>
+    </genClasses>
+    <genClasses ecoreClass="Assure.ecore#//NestedClaimReference">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Assure.ecore#//NestedClaimReference/requirement"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Assure.ecore#//NestedClaimReference/sub"/>
+    </genClasses>
+    <genClasses ecoreClass="Assure.ecore#//PreconditionResult">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Assure.ecore#//PreconditionResult/target"/>
+    </genClasses>
+    <genClasses ecoreClass="Assure.ecore#//ValidationResult">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Assure.ecore#//ValidationResult/target"/>
+    </genClasses>
+    <genClasses ecoreClass="Assure.ecore#//VerificationActivityResult">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Assure.ecore#//VerificationActivityResult/targetReference"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Assure.ecore#//VerificationActivityResult/preconditionResult"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Assure.ecore#//VerificationActivityResult/validationResult"/>
+    </genClasses>
+    <genClasses ecoreClass="Assure.ecore#//PredicateResult">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Assure.ecore#//PredicateResult/targetReference"/>
+    </genClasses>
+  </genPackages>
+</genmodel:GenModel>
