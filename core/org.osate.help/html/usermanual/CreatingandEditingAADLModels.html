@@ -1,0 +1,186 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+	"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+   <title>Creating and Editing AADL Models</title>
+   <link href="Res/styles/shared.css" rel="stylesheet" type="text/css">
+   <link href="Res/styles/DynamicOutline.css" rel="stylesheet" type="text/css">
+</head>
+<body id="page" >
+
+<!-- BEGIN PAGE BODY-->
+
+
+<table id="pageBody">
+ <col class="main">
+ <col class="right">
+
+<!-- BEGIN BREADCRUMBS-->
+<tr id="breadcrumbsAndPageNavigation">
+  <td class="breadcrumbs" valign="top">
+<!-- BEGIN NAVIGATION BREADCRUMBS ITEM-->
+<span class="breadcrumb">
+   <a href="index.html">Home</a> 
+   <span class="separator">&gt;</span>
+</span>
+<!-- END NAVIGATION BREADCRUMBS ITEM-->
+<!-- BEGIN NAVIGATION BREADCRUMBS ITEM-->
+<span class="breadcrumb">
+   <a href="UseoftheAADLToolEnvironment(OSATE).html">4. Use of the AADL Tool Environment (OSATE)</a> 
+   <span class="separator">&gt;</span>
+</span>
+<!-- END NAVIGATION BREADCRUMBS ITEM-->
+<!-- BEGIN NAVIGATION BREADCRUMBS HERE-->
+<span class="breadcrumb">
+   4.4 Creating and Editing AADL Models
+</span>
+<!-- END NAVIGATION BREADCRUMBS HERE-->
+
+  </td>
+  <td class="pageNavigation" valign="top">
+<!-- START PAGE NAVIGATION NEXT IN SEQUENCE IMAGES -->
+<span class="commands">
+    <span class="command">
+        <img src="Res/images/previous_button.gif" alt=""> <a href="EclipseProjectsandTeamSupport.html">
+        <span class="label">Previous</span></a>
+    </span>
+&nbsp;&nbsp;
+    <span class="command">
+        <a href="PredeclaredAADLProperties.html">
+        <span class="label">Next</span></a> <img src="Res/images/next_button.gif" alt="">
+    </span>
+</span>
+<!-- END PAGE NAVIGATION NEXT IN SEQUENCE IMAGES  -->
+
+  </td>
+  <td class="right" valign="top">
+  </td>
+</tr>
+<!-- END BREADCRUMBS-->
+
+<tr class="topic">
+  <td class="main" valign="top" colspan="2">
+    <div class="body">
+      <div class="topicDivider">
+      </div>
+    </div>
+  </td>
+  <td class="right" valign="top">
+<!--right body column empty-->
+  </td>
+</tr>
+
+<!--BEGIN PAGE BODY ITEM-->
+<tr class="topic">
+  <td class="main" valign="top" colspan="2">
+    <table>
+      <tr class="topicHeader">
+        <td class="topicImageColumn">
+
+        </td>
+        <td class="topicLineColumn">
+          <a name="Topic29"></a>
+          <span class=outlineNumberFirst>4.4 </span><span class=topicLineFirst>Creating and Editing AADL Models</span>
+          <span class="topicIcons">
+
+          </span>
+        </td>
+      </tr>
+    </table>
+
+<!-- phf:Comand: Expand("BoxPartMap.mmbas") -->
+     <div class="topicTextNotes"><div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">AADL models can be maintained as AADL text files or as AADL XML files. These AADL 
+files can be created within OSATE projects in the AADL text file folder or AADL XML file 
+folder, respectively. You need to have created a project in the workspace, see Section 4.2.1, 
+before creating files.  In addition, users can create diagram files (extension .aaxldi) for AADL 
+object models in .aaxl files (see section 8).</span></font><span></span></div>
+<div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">AADL models are created using the “Aadl Model” wizard, which can be selected from the 
+“New Wizard” dialog box, as shown in Figure 9, while AADL diagram files are created 
+through the Topcased “AADL Diagram” wizard.  Th wizards are invoked through the “File”- 
+&gt;”New”-&gt;”Other” command.  The Aadl Model wizard, whose dialog box is shown in Figure 
+10, is used to create new property sets, packages, and specifications, as either AADL text files 
+or XML model files.  Use the radio buttons to select the type of AADL object to create, and 
+whether to create an AADL text file or AADL XML object file.  Enter the name of the file to 
+create without the “.aadl” or “.aaxl” extension, and select the project in which the file should be 
+created.  If a project is selected when the wizard is launched, then the wizard automatically 
+selects that project as the target.  When “Finish” is selected, the wizard creates the new file in 
+the appropriate directory based on whether it is text or object file, and whether it is a property 
+set, package, or specification.  The new file is also opened in an appropriate editor. </span></font><span></span></div>
+<div align="center"><img src="NotesImages/Topic29NotesImage2.jpg" align="bottom" width="304" height="350" border="0" alt="graphic" /></div>
+<div align="center"><font face="Times New Roman" color="#010101"><span><b>Figure 9: Selecting the &quot;Aadl Model&quot; wizard.</b></span></font><span></span></div>
+<div align="center"><img src="NotesImages/Topic29NotesImage4.jpg" align="bottom" width="381" height="378" border="0" alt="graphic" /></div>
+<div align="center"><font face="Times New Roman" color="#010101"><span><b>Figure 10: The &quot;Aadl Model&quot; wizard dialog box.</b></span></font><span></span></div>
+<div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">The AADL Wizards toolbar offers convenient shortcuts for the AADL Wizard: it contains three 
+buttons for creating a new property set (</span></font><span><img src="NotesImages/Topic29NotesImage5.gif" align="bottom" width="16" height="16" border="0" alt="graphic" /></span><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">), package (</span></font><span><img src="NotesImages/Topic29NotesImage6.gif" align="bottom" width="16" height="16" border="0" alt="graphic" /></span><font 
+face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">), or specification (</span></font><span><img src="NotesImages/Topic29NotesImage7.gif" align="bottom" width="16" height="16" border="0" alt="graphic" /></span><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">).  These 
+actions open the AADL Model wizard with the appropriate model type pre-selected.</span></font><span></span></div>
+<div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">Existing AADL text files or AADL XML files can be opened in the respective editor by double 
+clicking on the file in the Navigator.  This is the editor the file was opened in last.  By default 
+AADL text files are opened in the AADL Text Editor, and ADL XML file in the AADL 
+Object Editor.  The files can also be opened with a specific editor through the context menu on 
+the file by selecting “Open with &gt; ” and the select the desired editor.  For example, this allows 
+AADL XML files to be opened as text files, if you want to examine the XML representation. 
+Note that Eclipse allows you to open a file on only one editor at a time.  This means, you have 
+to close the AADL Object Editor in an AADL XML file before you can open that file in a text 
+editor to examine the XML as text.</span></font><span></span></div>
+<div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">AADL XML files can also be created by converting an AADL text file.  This is done by 
+invoking “OSATE &gt; Generate Aaxl file” on a selected file in the main menu bar, by clicking on 
+the toolbar button labeled “Generate Aaxl file”, or by selecting “AADL &gt; Generate Aaxl file” in 
+the context menu.</span></font><span></span></div>
+<div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">AADL text files can also be created by converting an AADL XML file into textual AADL. This 
+is done by invoking “OSATE &gt; Generate Aadl file” on a selected file in the main menu bar, by 
+clicking on the toolbar button labeled “Generate Aadl file”.  AADL text files can also be 
+created under a different name through the “Save As AADL Text” command.</span></font><span></span></div>
+<div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">When an AADL text file is saved and the automatic builder is enabled, the file is automatically 
+checked for syntax and semantics and converted into XML. Additional analyses can be 
+invoked explicitly on AADL XML files (see section 8).  Be sure to have the “Problems” view 
+open in order to see any messages from the editors and analysis/generation plug-ins.</span></font><span></span></div></div>
+
+
+
+
+  </td>
+  <td class="right" valign="top">
+<!--right body column empty-->
+  </td>
+</tr>
+<!--END PAGE BODY ITEM-->
+
+
+<!-- BEGIN TOP BUTTON -->
+<tr class="topic">
+  <td class="main" valign="top" colspan="2">
+    <div class="body">
+      <div class="topCommand">
+        <span class="commands">
+      <span class="command">
+            <img src="Res/images/top_button.gif" alt="">
+          <a href="javascript:scroll(0,0)">
+             <span class="label">Top</span>
+              </a>
+    </span>
+       </span>
+      </div>
+    </div>
+  </td>
+  <td class="right" valign="top">
+<!--right body column empty-->
+  </td>
+</tr>
+<!-- END TOP BUTTON -->
+
+</table>
+
+<!-- BEGIN SIDE NAVIGATION WRAPPER-->
+    </td>
+  </tr>
+</table>
+<!-- END SIDE NAVIGATION WRAPPER-->
+
+<!-- END PAGE BODY-->
+
+
+</body>
+</html>
+

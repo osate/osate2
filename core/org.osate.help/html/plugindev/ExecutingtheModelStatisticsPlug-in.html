@@ -1,0 +1,370 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+	"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+   <title>Executing the Model Statistics Plug-in</title>
+   <link href="Res/styles/shared.css" rel="stylesheet" type="text/css">
+   <link href="Res/styles/DynamicOutline.css" rel="stylesheet" type="text/css">
+</head>
+<body id="page" >
+
+<!-- BEGIN PAGE BODY-->
+
+
+<table id="pageBody">
+ <col class="main">
+ <col class="right">
+
+<!-- BEGIN BREADCRUMBS-->
+<tr id="breadcrumbsAndPageNavigation">
+  <td class="breadcrumbs" valign="top">
+<!-- BEGIN NAVIGATION BREADCRUMBS ITEM-->
+<span class="breadcrumb">
+   <a href="index.html">Home</a>
+   <span class="separator">&gt;</span>
+</span>
+<!-- END NAVIGATION BREADCRUMBS ITEM-->
+<!-- BEGIN NAVIGATION BREADCRUMBS ITEM-->
+<span class="breadcrumb">
+   <a href="AFirstPlug-in.ModelStatistics.html">3. A First Plug-in: Model Statistics</a>
+   <span class="separator">&gt;</span>
+</span>
+<!-- END NAVIGATION BREADCRUMBS ITEM-->
+<!-- BEGIN NAVIGATION BREADCRUMBS HERE-->
+<span class="breadcrumb">
+   3.6 Executing the Model Statistics Plug-in
+</span>
+<!-- END NAVIGATION BREADCRUMBS HERE-->
+
+  </td>
+  <td class="pageNavigation" valign="top">
+<!-- START PAGE NAVIGATION NEXT IN SEQUENCE IMAGES -->
+<span class="commands">
+    <span class="command">
+        <img src="Res/images/previous_button.gif" alt=""> <a href="DescribingtheActionintheplugin.xmlFile.html">
+        <span class="label">Previous</span></a>
+    </span>
+&nbsp;&nbsp;
+    <span class="command">
+        <a href="SummaryofConcepts.html">
+        <span class="label">Next</span></a> <img src="Res/images/next_button.gif" alt="">
+    </span>
+</span>
+<!-- END PAGE NAVIGATION NEXT IN SEQUENCE IMAGES  -->
+
+  </td>
+  <td class="right" valign="top">
+  </td>
+</tr>
+<!-- END BREADCRUMBS-->
+
+<tr class="topic">
+  <td class="main" valign="top" colspan="2">
+    <div class="body">
+      <div class="topicDivider">
+      </div>
+    </div>
+  </td>
+  <td class="right" valign="top">
+<!--right body column empty-->
+  </td>
+</tr>
+
+<!--BEGIN PAGE BODY ITEM-->
+<tr class="topic">
+  <td class="main" valign="top" colspan="2">
+    <table>
+      <tr class="topicHeader">
+        <td class="topicImageColumn">
+
+        </td>
+        <td class="topicLineColumn">
+          <a name="Topic21"></a>
+          <span class=outlineNumberFirst>3.6 </span><span class=topicLineFirst>Executing the Model Statistics Plug-in</span>
+          <span class="topicIcons">
+
+          </span>
+        </td>
+      </tr>
+    </table>
+
+<!-- phf:Comand: Expand("BoxPartMap.mmbas") -->
+     <div class="topicTextNotes"><div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">The
+simplest way to try out our plug-in is by executing a new Eclipse environment that loads
+our new plug-in. Eclipse calls this executing a  Run-time Workbench. To execute
+a run-time
+workbench</span></font><span></span></div>
+<ul style="margin-top: 0pt; margin-bottom: 0pt">
+<ul style="margin-top: 0pt; margin-bottom: 0pt">
+<li style="margin-left=-3mm; margin-right=0mm; padding-left=0mm; font-family= Times New Roman;  font-size= 12pt;  color= #010101;  "><font
+face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">Select  </span></font><font
+face="Courier New" color="#010101"><span>Run | Run&#133;</span></font><font face="Times New Roman" color="#010101" size="3"><span
+style="font-size:12pt"> to open the  Run dialog box.</span></font><span></span></li>
+<li style="margin-left=-3mm; margin-right=0mm; padding-left=0mm; font-family= Times New Roman;  font-size= 12pt;  color= #010101;  "><font
+face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">Select  Run-time Workbench
+in the  Configurations list.</span></font><span></span></li>
+<li style="margin-left=-3mm; margin-right=0mm; padding-left=0mm; font-family= Times New Roman;  font-size= 12pt;  color= #010101;  "><font
+face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">Click on  New
+to create a new run-time workbench configuration. A set of tabbed
+panes appears to the right of the list of configurations enabled enabling the configuration
+to be customized. See Figure 7: Creating a run-time workbench configuration..</span></font><span></span></li>
+<li style="margin-left=-3mm; margin-right=0mm; padding-left=0mm; font-family= Times New Roman;  font-size= 12pt;  color= #010101;  "><font
+face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">Enter a name for the configuration.
+Here we have used  Run OSATE Plug-ins.</span></font><span></span></li>
+<li style="margin-left=-3mm; margin-right=0mm; padding-left=0mm; font-family= Times New Roman;  font-size= 12pt;  color= #010101;  "><font
+face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">Choose a directory to use
+as the workspace for the workbench. Run-time
+workspaces have their own independent workspaces. The default workspace is a
+sibling of the current workspace: it is named  runtime-workspace and is in the same
+directory as the current workspace.</span></font><span></span></li>
+<li style="margin-left=-3mm; margin-right=0mm; padding-left=0mm; font-family= Times New Roman;  font-size= 12pt;  color= #010101;  "><font
+face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">Click on  Run
+to execute the newly defined run-time workbench. To save the
+changes without running the configuration, click on  Apply and then  Close.</span></font><span></span></li>
+</ul>
+</ul>
+<div align="center"><img src="NotesImages/Topic21NotesImage3.jpg" align="bottom" width="574" height="529" border="0" alt="graphic" /></div>
+<div align="center"><font face="Arial Narrow" color="#010101"><span>Figure 7: Creating a run-time workbench
+configuration.</span></font><span></span></div>
+<div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">To
+run the configuration select it from the list of configurations and click on  Run.
+Once the
+configuration has been executed it can be run again by choosing it from the  Run toolbar
+menu, which keeps track of the recently executing configurations; see Figure 8. Simply clicking
+on the  Run toolbar icon will reexecute the most recently executed configuration.</span></font><span></span></div>
+<div align="center"><img src="NotesImages/Topic21NotesImage5.jpg" align="bottom" width="233" height="137" border="0" alt="graphic" /></div>
+<div align="center"><font face="Arial Narrow" color="#010101"><span>Figure 8: The  Run toolbar
+menu.</span></font><span></span></div>
+<div align="center"><img src="NotesImages/Topic21NotesImage6.jpg" align="bottom" width="574" height="529" border="0" alt="graphic" /></div>
+<div align="center"><font face="Arial Narrow" color="#010101"><span>Figure 9: Choosing which plug-ins
+to include in the run-time workbench.</span></font><span></span></div>
+<div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">By
+default, the run-time workbench includes all the plug-ins that the host Eclipse includes, plus
+those defined by projects in the workspace. You can pick exactly which plug-ins are included
+by the run-time workbench using the  Plug-ins pane; see Figure 9. Other useful settings
+when
+configuring the run-time workbench are  JRE and  VM Arguments. The first
+lets you specify
+which Java Runtime Environment (JRE) executes the run-time workbench, which is useful if you
+need to make sure your plug-in works correctly under specific JREs. The menu lets you
+choose among the JREs that are currently installed on your system.</span></font><span></span></div>
+<div align="center"><img src="NotesImages/Topic21NotesImage7.jpg" align="bottom" width="452" height="25" border="0" alt="graphic" /></div>
+<div align="center"><font face="Arial Narrow" color="#010101"><span>Figure 10: Setting the initial and
+maximum heap sizes of the JVM.</span></font><span></span></div>
+<div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">The  VM Arguments setting allows you to pass arguments to the JVM that executes the run-
+time workbench, and is useful for increasing the initial and maximum heap sizes; see Figure 10.
+Increasing the maximum heap size is useful when analyzing large models. The command line
+options relevant to the heap size and their descriptions (taken from Sun&#146;s documentation for the
+</span></font><font face="Courier New" color="#010101"><span>java</span></font><font face="Times New Roman" color="#010101" size="3"><span
+style="font-size:12pt"> application) are shown below. A complete description of all the JVM arguments
+is a
+beyond the scope of this document.</span></font><span></span></div>
+<blockquote>
+<div align="left" style="margin-left=13mm; margin-right=0mm; text-indent=0mm"><font face="Times New Roman" color="#010101" size="3"><span
+style="font-size:12pt"><b>-Xms</b><i>n</i> </span></font><span></span></div>
+</blockquote>
+<blockquote><blockquote>
+<div align="left" style="margin-left=25mm; margin-right=0mm; text-indent=0mm"><font face="Times New Roman" color="#010101" size="3"><span
+style="font-size:12pt">Specify the initial size, in bytes, of the memory allocation pool. This value
+must
+be a multiple of 1024 greater than 1MB. Append the letter </span></font><font face="Courier New" color="#010101"><span>k</span></font><font
+face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt"> or </span></font><font
+face="Courier New" color="#010101"><span>K</span></font><font face="Times New Roman" color="#010101" size="3"><span
+style="font-size:12pt"> to indicate
+kilobytes, or </span></font><font face="Courier New" color="#010101"><span>m</span></font><font face="Times New Roman" color="#010101" size="3"><span
+style="font-size:12pt"> or </span></font><font face="Courier New" color="#010101"><span>M</span></font><font
+face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt"> to indicate megabytes.
+The default value is 2MB.
+Examples: </span></font><span></span></div>
+</blockquote>
+</blockquote>
+<blockquote><blockquote>
+<div align="left" style="margin-left=25mm; margin-right=0mm; text-indent=0mm"><font face="Courier New" color="#010101"><span>
+-Xms6291456</span></font><span></span></div>
+</blockquote>
+</blockquote>
+<blockquote><blockquote>
+<div align="left" style="margin-left=25mm; margin-right=0mm; text-indent=0mm"><font face="Courier New" color="#010101"><span>
+-Xms6144k</span></font><span></span></div>
+</blockquote>
+</blockquote>
+<blockquote><blockquote>
+<div align="left" style="margin-left=25mm; margin-right=0mm; text-indent=0mm"><font face="Courier New" color="#010101"><span>
+-Xms6m</span></font><span></span></div>
+</blockquote>
+</blockquote>
+<blockquote><blockquote>
+<div align="left" style="margin-left=25mm; margin-right=0mm; text-indent=0mm"><font face="Courier New" color="#010101"><span> </span></font><span></span></div>
+</blockquote>
+</blockquote>
+<blockquote>
+<div align="left" style="margin-left=13mm; margin-right=0mm; text-indent=0mm"><font face="Times New Roman" color="#010101" size="3"><span
+style="font-size:12pt"><b>-Xmx</b><i>n</i> </span></font><span></span></div>
+</blockquote>
+<blockquote><blockquote>
+<div align="left" style="margin-left=25mm; margin-right=0mm; text-indent=0mm"><font face="Times New Roman" color="#010101" size="3"><span
+style="font-size:12pt">Specify the maximum size, in bytes, of the memory allocation pool. This value
+must a multiple of 1024 greater than 2MB. Append the letter </span></font><font face="Courier New" color="#010101"><span>k</span></font><font
+face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt"> or </span></font><font
+face="Courier New" color="#010101"><span>K</span></font><font face="Times New Roman" color="#010101" size="3"><span
+style="font-size:12pt"> to indicate
+kilobytes, or </span></font><font face="Courier New" color="#010101"><span>m</span></font><font face="Times New Roman" color="#010101" size="3"><span
+style="font-size:12pt"> or </span></font><font face="Courier New" color="#010101"><span>M</span></font><font
+face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt"> to indicate megabytes.
+The default value is 64MB.
+Examples: </span></font><span></span></div>
+</blockquote>
+</blockquote>
+<blockquote><blockquote>
+<div align="left" style="margin-left=25mm; margin-right=0mm; text-indent=0mm"><font face="Courier New" color="#010101"><span>
+-Xmx83886080</span></font><span></span></div>
+</blockquote>
+</blockquote>
+<blockquote><blockquote>
+<div align="left" style="margin-left=25mm; margin-right=0mm; text-indent=0mm"><font face="Courier New" color="#010101"><span>
+-Xmx81920k</span></font><span></span></div>
+</blockquote>
+</blockquote>
+<blockquote><blockquote>
+<div align="left" style="margin-left=25mm; margin-right=0mm; text-indent=0mm"><font face="Courier New" color="#010101"><span>
+-Xmx80m </span></font><span></span></div>
+</blockquote>
+</blockquote></div>
+
+
+
+
+  </td>
+  <td class="right" valign="top">
+<!--right body column empty-->
+  </td>
+</tr>
+<!--END PAGE BODY ITEM-->
+<!--BEGIN PAGE BODY ITEM-->
+<tr class="topic">
+  <td class="main" valign="top" colspan="2">
+    <table>
+      <tr class="topicHeader">
+        <td class="topicImageColumn">
+
+        </td>
+        <td class="topicLineColumn">
+          <a name="Topic22"></a>
+          <span class=outlineNumber>3.6.1 </span><span class=topicLine>Model Statistics in Action</span>
+          <span class="topicIcons">
+
+          </span>
+        </td>
+      </tr>
+    </table>
+
+<!-- phf:Comand: Expand("BoxPartMap.mmbas") -->
+     <div class="topicTextNotes"><div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">As
+specified in the plug-in manifest file, our model statistics plug-in presents an icon in the
+toolbar as well as a menu item in a new  Analysis Menu menu. Figure 11 and Figure 12
+show
+examples of the toolbar icon and menu item, respectively. Here we are running the model
+statistics plug-in along with other OSATE plug-ins. Observe that all the plug-in actions appear
+in the same  Analysis Menu menu item even though they all independently declare the menu
+and their location within it in their respective plug-in manifest files.</span></font><span></span></div>
+<div align="center"><img src="NotesImages/Topic22NotesImage2.jpg" align="bottom" width="538" height="81" border="0" alt="graphic" /></div>
+<div align="center"><font face="Arial Narrow" color="#010101"><span>Figure 11: The toolbar icon for
+our model statistics plug-in. Icon is on the far-right, highlighted in red for clarity.</span></font><span></span></div>
+<div align="center"><img src="NotesImages/Topic22NotesImage4.jpg" align="bottom" width="456" height="223" border="0" alt="graphic" /></div>
+<div align="center"><font face="Arial Narrow" color="#010101"><span>Figure 12: The menu item for our
+model statistics plug-in.</span></font><span></span></div>
+<div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">As
+mentioned previously, the model statistics plug-in is executed by first selecting an AADL
+model or model element. Until a model or model element is selected, our action remains
+disabled in the toolbar and pull-down menu. A model is selected by selecting an </span></font><font
+face="Courier New" color="#010101"><span>.aaxl</span></font><font face="Times New Roman" color="#010101" size="3"><span
+style="font-size:12pt"> file in
+the  Navigator view. A model element is selected by selecting it in an open editor.
+Then the
+model statistics action can be executed by clicking on the toolbar icon or choosing  Model
+statistics from the  Analysis Menu.</span></font><span></span></div>
+<div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">Figure
+13 shows the results of running the model statistics plug-in over the all the declarative
+models in the workspace. In this case, we have selected the AADL specification
+</span></font><font face="Courier New" color="#010101"><span>NotCollocated.aaxl</span></font><font face="Times New Roman" color="#010101" size="3"><span
+style="font-size:12pt"> and run the model statistics action. It is a declarative model, so the
+declarative contents of the workspace, i.e., the property set </span></font><font face="Courier New" color="#010101"><span>SEI.aaxl</span></font><font
+face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">, and the AADL
+specifications </span></font><font face="Courier New" color="#010101"><span>NotCollocated.aaxl</span></font><font
+face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">, </span></font><font face="Courier New" color="#010101"><span>Simple.aaxl</span></font><font
+face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">, and </span></font><font
+face="Courier New" color="#010101"><span>TestAllowed.aaxl</span></font><font face="Times New Roman" color="#010101" size="3"><span
+style="font-size:12pt"> are analyzed;
+the instance model </span></font><font face="Courier New" color="#010101"><span>Simple_S_Instance.aaxl</span></font><font
+face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt"> is not analyzed.
+The results are shown as
+markers in the  Problems view. The dialog box reporting the same results is shown in
+Figure
+14.</span></font><span></span></div>
+<div align="center"><img src="NotesImages/Topic22NotesImage6.jpg" align="bottom" width="576" height="406" border="0" alt="graphic" /></div>
+<div align="center"><font face="Arial Narrow" color="#010101"><span>Figure 13: Markers (in the  Problems
+view) recording the model statistics for the declarative models in the workspace, i.e.,
+the models in project  TestBinPackerMultiFile.</span></font><span></span></div>
+<div align="center"><img src="NotesImages/Topic22NotesImage7.jpg" align="bottom" width="441" height="153" border="0" alt="graphic" /></div>
+<div align="center"><font face="Arial Narrow" color="#010101"><span>Figure 14: Dialog box reporting
+the model statistics for the AADL workspace shown in Figure 13.</span></font><span></span></div>
+<div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">Figure
+15 shows the results of running the model statistics plug-in over the instance model in
+Simple_S_Instance.aaxl. In this case, we opened the model in an editor, selected the root
+node of the model and then executed the model statistics action. The dialog box reporting the
+same results is shown in Figure 16.</span></font><span></span></div>
+<div align="left"><img src="NotesImages/Topic22NotesImage8.jpg" align="bottom" width="576" height="406" border="0" alt="graphic" /></div>
+<div align="center"><font face="Arial Narrow" color="#010101"><span>Figure 15: Markers (in the  Problems
+view) recording the model statistics for the instance model  Simple_S_Instance.</span></font><span></span></div>
+<div align="center"><img src="NotesImages/Topic22NotesImage9.jpg" align="bottom" width="441" height="153" border="0" alt="graphic" /></div>
+<div align="center"><font face="Arial Narrow" color="#010101"><span>Figure 16: Dialog box reporting
+the model statistics for the AADL instance model shown in Figure 15.</span></font><span></span></div></div>
+
+
+
+
+  </td>
+  <td class="right" valign="top">
+<!--right body column empty-->
+  </td>
+</tr>
+<!--END PAGE BODY ITEM-->
+
+
+<!-- BEGIN TOP BUTTON -->
+<tr class="topic">
+  <td class="main" valign="top" colspan="2">
+    <div class="body">
+      <div class="topCommand">
+        <span class="commands">
+      <span class="command">
+            <img src="Res/images/top_button.gif" alt="">
+          <a href="javascript:scroll(0,0)">
+             <span class="label">Top</span>
+              </a>
+    </span>
+       </span>
+      </div>
+    </div>
+  </td>
+  <td class="right" valign="top">
+<!--right body column empty-->
+  </td>
+</tr>
+<!-- END TOP BUTTON -->
+
+</table>
+
+<!-- BEGIN SIDE NAVIGATION WRAPPER-->
+    </td>
+  </tr>
+</table>
+<!-- END SIDE NAVIGATION WRAPPER-->
+
+<!-- END PAGE BODY-->
+
+
+</body>
+</html>
+
