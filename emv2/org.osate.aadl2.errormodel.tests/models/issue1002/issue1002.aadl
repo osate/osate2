@@ -1,0 +1,16 @@
+package issue1002
+public
+
+  abstract A
+		features
+			f: feature;
+  	annex emv2 {**                                                                                                                                                                                                                     
+  		use types ErrorLibrary;
+  	  error propagations
+  	    f: in propagation {ValueError};
+  	  end propagations;
+  	  properties
+  	  	EMV2::OccurrenceDistribution => [probability => 0.5;] applies to f.ValueError;**};
+	end A;
+
+end issue1002;
