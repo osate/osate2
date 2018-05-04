@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feature
+      id="org.osate.xtext.aadl2.errormodel.feature"
+      label="Error Model Annex V2 for OSATE2"
+      version="2.3.3.qualifier"
+      provider-name="CMU-SEI"
+      plugin="org.osate.branding">
+
+   <description url="http://www.aadl.info">
+      Provide support for Error-Model Annex version 2
+   </description>
+
+   <copyright url="http://www.aadl.info">
+      See aadl.info website.
+   </copyright>
+
+   <license url="OSATELicense.html">
+      OSATE License
+
+Use of the Open Source AADL Tool Environment (OSATE) is subject
+to the terms of the license set forth at http://www.aadl.info/OSATELicense.html.
+   </license>
+
+   <url>
+      <update label="OSATE2" url="http://www.aadl.info/osate2/updates"/>
+   </url>
+
+   <requires>
+      <import plugin="org.eclipse.ui"/>
+      <import plugin="org.eclipse.core.runtime"/>
+      <import plugin="org.osate.aadl2.modelsupport" version="1.0.0" match="greaterOrEqual"/>
+      <import plugin="org.osate.aadl2" version="1.0.0" match="greaterOrEqual"/>
+      <import plugin="org.osate.ui" version="1.0.0" match="greaterOrEqual"/>
+      <import plugin="org.osate.xtext.aadl2.errormodel" version="1.0.0" match="greaterOrEqual"/>
+      <import plugin="org.osate.xtext.aadl2.properties" version="1.0.0" match="greaterOrEqual"/>
+      <import plugin="org.apache.log4j" version="1.2.15" match="greaterOrEqual"/>
+      <import plugin="org.eclipse.emf.ecore" version="2.7.0" match="greaterOrEqual"/>
+      <import plugin="org.eclipse.emf.common" version="2.7.0" match="greaterOrEqual"/>
+      <import plugin="org.antlr.runtime"/>
+      <import plugin="org.eclipse.core.runtime" version="3.7.0" match="greaterOrEqual"/>
+      <import plugin="org.osate.core" version="1.0.0" match="greaterOrEqual"/>
+      <import plugin="org.eclipse.ui" version="3.7.0" match="greaterOrEqual"/>
+      <import plugin="org.osate.annexsupport" version="1.0.0" match="greaterOrEqual"/>
+      <import plugin="org.eclipse.uml2.codegen.ecore" version="1.9.100" match="greaterOrEqual"/>
+      <import plugin="org.eclipse.xtext.xbase.lib"/>
+      <import plugin="org.eclipse.xtext.ui"/>
+      <import plugin="org.eclipse.ui.editors" version="3.7.0" match="greaterOrEqual"/>
+      <import plugin="org.eclipse.ui.ide" version="3.7.0" match="greaterOrEqual"/>
+      <import plugin="org.eclipse.xtext.ui.shared"/>
+      <import plugin="org.eclipse.xtext.builder"/>
+      <import plugin="org.eclipse.xtext.common.types.ui"/>
+      <import plugin="org.osate.xtext.aadl2.properties.ui"/>
+      <import plugin="org.eclipse.emf.transaction"/>
+      <import plugin="org.apache.commons.logging"/>
+      <import plugin="org.eclipse.xtext" version="2.12.0" match="equivalent"/>
+      <import plugin="org.eclipse.xtext.util" version="2.12.0" match="equivalent"/>
+      <import plugin="org.eclipse.xtext.common.types" version="2.12.0" match="equivalent"/>
+   </requires>
+
+   <plugin
+         id="org.osate.aadl2.errormodel.analysis"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="org.osate.xtext.aadl2.errormodel"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="org.osate.xtext.aadl2.errormodel.ui"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="org.osate.aadl2.errormodel.contrib"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"/>
+
+   <plugin
+         id="org.osate.aadl2.errormodel.faulttree"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="org.osate.aadl2.errormodel.faulttree.design"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="org.osate.aadl2.errormodel.faulttree.edit"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="org.osate.aadl2.errormodel.faulttree.generation"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="org.osate.aadl2.errormodel.propagationgraph"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="org.osate.aadl2.errormodel.help"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"/>
+
+</feature>
