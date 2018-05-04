@@ -1,0 +1,246 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+	<LINK REL="STYLESHEET" HREF="../book.css" CHARSET="ISO-8859-1" TYPE="text/css">
+	<title>Open Source AADL Tool Environment (OSATE) Online Help</title>
+</head>
+
+<body>
+<h2>Error-Model Annex v2 -Functional Hazard Assessment Analysis - FHA</h2>
+<p>
+A technique known as Functional Hazard Assessment (FHA) - not to be 
+confused with Fault Hazard Analysis (see FAA System Safety Handbook) - 
+is defined as part of SAE ARP4761. It is a systematic examination of 
+systems and subsystem functions to identify and classify failure 
+conditions of those functions according to their severity.
+</p>
+
+<p>
+We support this process by working with specifications of the system 
+or subsystems of interest expressed as component type descriptions 
+for all component categories in AADL ranging from system and process 
+to processor and device. We will than attach information relevant 
+to an FHA through EMV2 subclauses and property associations.
+</p>
+
+<p>
+We use the EMV2 subclause to declare for each component the relevant 
+outgoing error propagations and identify those outgoing error 
+propagations that are error sources. In the error source declaration 
+we may identify the error source as an error state or as an error 
+type set (set of type tokens). Those are the entities that represent 
+potential hazards to other components or the environment.
+</p>
+
+EMV2 includes a set of properties that are defined in the property set EMV2. 
+Three such properties are :
+</p>
+<ol>
+<li><strong>Severity</strong></li>
+<li><strong>Likelihood</strong></li>
+<li><strong>Hazard</strong></li>
+</ol>
+<p>They allow modelers to provide descriptive hazard in-formation to the model. 
+The property values are associated with error sources or outgoing error 
+propagations of components. They are declared in the properties section of EMV2 
+subclauses. They can be declared for component types or implementations; in 
+this case they apply to all in-stances of components of this type. 
+Or they can be declared for specific subcomponents; in this case the hazard
+ description can be specific to the context of the subcomponent (component instance).
+</p>
+<p>
+The path in the applies to clause of the property association is used to 
+identify the specific target of the hazard description. 
+The path is a <dot> (.) separated list of identifiers. 
+The path may start with zero or more subcomponent identifiers 
+starting with a subcomponent in the component whose error annex 
+subclause contains the property association. 
+The path is followed by a error propagation identifier or error source identifier and 
+optionally an error type identifier. The error propagation or error source must 
+be of the last subcomponent in the path or the component classifier 
+(type or implementation) that contains the error annex subclause.
+</p>
+
+<p>
+The Error Model V2 Annex standard defines severity and Likelihood as follows:
+</p>
+<ul>
+<li>
+<strong>Severity</strong>: integer value to indicate the severity level 
+of the hazard ranging from 1 (high) to 5 (low). MIL-STD 882D suggests 
+descriptive labels (Catastrophic, Critical, Marginal, Negligible). 
+ARP 4761 defines descriptive labels (Catastrophic, Hazardous, Major, Minor, NoEffect). 
+</li>
+<li>
+<strong>Likelihood</strong>: enumeration value that indicates the likelihood 
+with which the hazard occurs. Likelihood is expressed in terms of levels 
+ranging from A (high) to E (low). Each level typically has an associated 
+probability of occurrence (p) threshold. MIL-STD 882D suggests likelihood 
+levels (Frequent: p>10e-1, Probable: 10e-1>p>10e-2, 
+Occasional: 10e-2>p>10e-3, Remote: 10e-3>p>10e-6, Improbable: p<10e-6) 
+for probability of occurrence over the life of an item. 
+In the context of ARP 4761 or DO178 defines descriptive labels 
+(Probable: p>10e-5, Remote: 10e-5>p>10e-7, ExtremelyRemote: 
+10e-7<p>10e-9, ExtremelyImprobable: p<10e-9) for probability of 
+occurrence per operational hour.
+</li>
+</ul>
+<p>
+The Severity and Likelihood from the standard EMV2 are the following:
+</p>
+<pre>
+
+Severity : inherit aadlinteger applies to (all);
+
+Likelihood : inherit enumeration (A, B, C, D, E) applies to (all);
+
+</pre>
+
+<p>
+MIL-STD-882 and ARP 4761 define separate sets of labels for 
+different severity and criticality levels. 
+We make those available through two separate property, as shown below.
+</p>
+<p>
+The Severity and Likelihood for MIL-STD-882 are the following:
+</p>
+<pre>
+property set MILSTD882
+  is
+
+Severity : inherit enumeration (Catastrophic, Critical, Marginal, Negligible) applies to (all);
+Likelihood : inherit enumeration (Frequent, Probable, Occasional, Remote, Improbable) applies to (all);
+
+end MILSTD882;
+</pre>
+
+<p>
+The Severity and Likelihood for ARP 4761 are the following:
+</p>
+<pre>
+property set ARP4761
+  is
+  
+Severity : inherit enumeration (Catastrophic, Hazardous, Major, Minor, NoEffect) applies to (all);
+Likelihood : inherit enumeration (Probable, Remote, ExtremelyRemote, ExtremelyImprobable) applies to (all);
+
+end ARP4761;
+</pre>
+
+<p>
+The Hazard property is defined in the property set 
+EMV2 and consists of the following record fields:
+</p>
+<ul>
+<li><strong>Crossreference</strong>: string value for a cross reference into an external document. </li>
+<li><strong>Phase</strong>: string value to identify the operational phase (mode) in which the hazard is relevant.</li>
+<li><strong>Environment</strong>: string value to describe the operational environment in which the hazard is relevant.</li>
+<li><strong>Description</strong>: string value providing a textual description of the hazard.</li>
+<li><strong>Verificationmethod</strong>: string value to textually describe the verification method used to address the hazard.</li>
+<li><strong>Risk</strong>: string value to textually describe the potential risk of the hazard.</li>
+<li><strong>Comment</strong>: string value to textually describe additional comments about the hazard.</li>
+</ul>
+
+
+<h3>Processed modeling patterns</h3>
+<p>
+The following modeling patterns are considered when
+generating the FHA:
+</p>
+<ul>
+<li>ErrorEvent referenced/used in an Error State Machine</li>
+<li>ErrorSource specified in the error propagations sections</li>
+</ul>
+
+<p>
+Each processed artifact must have the following properties attached:
+</p>
+<ul>
+<li>EMV2::Severity or ARP4761::Severity or MILSTD882::Severity</li>
+<li>EMV2::Likelihood or ARP4761::Likelihood or MILSTD882::Likelihood</li>
+<li>EMV2::Hazard</li>
+</ul>
+
+
+<h3>Example model</h3>
+<p>
+The following model illustrates an example hazard specification. 
+The Hazard property is associated with the error behavior state 
+that is the error source. Such hazard specifications are characterized 
+with severity and criticality. Other models can be found
+on our github public example repository:
+<a href="https://github.com/osate/examples">https://github.com/osate/examples</a>.
+</p>
+<pre>
+  device PositionSensor
+    features
+      PositionReading: out data port ;
+    flows
+      f1: flow source PositionReading {
+        Latency => 2 ms .. 3 ms;
+        };
+    annex EMV2 {**
+        use types ErrorLibrary;
+    	use behavior ErrorModelLibrary::Simple;
+    	error propagations 
+    		PositionReading: out propagation  {ServiceOmission};
+    	flows
+    	
+		 ef1:error source PositionReading {ServiceOmission} when Failed;
+	end propagations;
+	properties
+	-- property is associated with the error behavior state as the source of an error source.
+	-- it uses the generic version of the Hazard property
+		EMV2::severity => 1 applies to ef1.Failed;
+		EMV2::likelihood => C applies to ef1.Failed;
+	EMV2::hazard => 
+	[	crossreference => "1.1.1";
+		failure => "Loss of sensor readings";
+		phase => "all";
+		description => "No position readings due to sensor failure";
+		comment => "Becomes major hazard, if no rdeundant sensor";
+			]
+			applies to ef1.Failed;
+    **};
+  end PositionSensor;
+</pre>
+
+
+
+<h3>Functional Hazard Assessment report example</h3>
+<p>
+From the previous model, we can automatically generated the report, as shown below.
+Catastrophic and critical hazards are shown as included in a 
+Functional Hazard Assessment (FHA) report. 
+The remaining hazards remain in the model for safety analysis 
+activities in later phases.
+</p>
+<p>
+The set of hazards to be reported is determined as follows:
+</p>
+<ul>
+<li>Each component instance in a system instance model that 
+has an EMV2 subclause with an error propagations section is 
+a candidate. If the section contains error flow specifications, 
+then every error source is a candidate. Otherwise, every 
+outgoing error propagation is a candidate, 
+if the hazard property identifies it as hazard.
+</li>
+<li>The error source or outgoing error propagation as a 
+whole can be identified as hazard. Alternatively, each 
+original error source defined for an error propagation 
+through the error source declaration can be treated as
+ a separate hazard. In this case, the hazard is identified 
+ by the error source identifier, the error state identifier 
+ and optionally followed by an error type associated with the 
+ error state, or by the error source identifier and the error type. 
+ In both cases the identified error types must be an error type in the specified type set.
+</li>
+</ul>
+<img src="fha-report.png"/>
+
+</body>
+</html>

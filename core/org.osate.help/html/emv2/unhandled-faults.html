@@ -1,0 +1,48 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+	<LINK REL="STYLESHEET" HREF="../book.css" CHARSET="ISO-8859-1" TYPE="text/css">
+	<title>Open Source AADL Tool Environment (OSATE) Online Help</title>
+</head>
+
+<body>
+<h2>Error-Model Annex v2 - Unhandled Faults</h2>
+
+<h3>Rationale</h3>
+<p>
+When reusing components in an architecture, we may reuse their related
+error description. However, when reusing the component, some faults
+propagated may not be handled by the components connected to it. Also,
+components that are connected may expect to receive fault types
+that are not propagated.
+</p>
+
+<h3>Using the Unhandled Fault function</h3>
+<p>
+To use the function, select your instance model and select the
+<em>UnhandledFaults</em> function in the <em>Fault Analysis menu</em>, as shown
+below.
+</p>
+
+<img src="unhandled-menu.png"/>
+
+<p>
+Once the function is invoked, it generates errors in the Eclipse error
+view, as shown below.
+</p>
+
+<img src="unhandled-errors.png"/>
+
+
+<p>
+Also, all errors are finally written in a <em>csv</em> file
+generated under the <em>reports/UnhandledFaults</em> subdirectory, as shown below.
+</p>
+
+<img src="unhandled-files.png"/>
+
+</body>
+</html>

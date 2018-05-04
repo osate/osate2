@@ -1,0 +1,77 @@
+package issue
+public
+	system TestSys
+		features
+			-- Plain vanilla feature group
+		    featureGroup: feature group FeatureGroup;
+		    -- Inverse feature group, members inferred
+		    inverseInferred: feature group InverseInferred;
+		    -- Inverse feature group, explicit members
+	  		inverseExplicit: feature group InverseExplicit;
+	    
+	    	-- Extended feature group
+	    	extendedFeatureGroup: feature group ExtendedFeatureGroup;
+	    	-- Inverse of the extended feature group, members inferred
+	    	inverseExtendedInferred: feature group inverseExtendedInferred;
+	    	-- Inverse of the extended feature group, explicit members
+	  		inverseExtendedExplicit: feature group InverseExtendedExplicit;
+			    
+			-- Extended feature group, but doesn't add any new members
+	    	emptyExtendedFeatureGroup: feature group EmptyExtendedFeatureGroup;
+	    	-- this was the problem case: instantiation was inferring features of the feature group instead of using the declared ones
+	    	inverseEmptyExtendedExplicit: feature group InverseEmptyExtendedExplicit;
+	end TestSys;
+
+	system implementation TestSys.Impl
+	end TestSys.Impl;
+
+
+
+	feature group FeatureGroup
+		features
+    		in1: in feature;
+    		x: in feature;
+    		y: out feature;
+	end FeatureGroup;
+
+	feature group InverseInferred
+		inverse of FeatureGroup
+	end InverseInferred;
+
+	feature group InverseExplicit
+		features
+    		out1: out feature;
+    		xx: out feature;
+ 		   	yy: in feature;
+		inverse  of FeatureGroup
+	end InverseExplicit;
+
+
+
+	feature group ExtendedFeatureGroup extends FeatureGroup
+		features
+			in2: in feature;
+	end ExtendedFeatureGroup;
+
+	feature group InverseExtendedInferred
+		inverse of ExtendedFeatureGroup
+	end InverseExtendedInferred;
+
+	feature group InverseExtendedExplicit extends InverseExplicit
+		features
+			out2: out feature;
+		inverse of ExtendedFeatureGroup
+	end InverseExtendedExplicit;
+
+
+
+	-- The problem case: an inverse feature group that extends another feature group
+	-- and has no explicit members 
+
+	feature group EmptyExtendedFeatureGroup extends FeatureGroup
+	end EmptyExtendedFeatureGroup;
+
+	feature group InverseEmptyExtendedExplicit extends InverseExplicit
+		inverse of EmptyExtendedFeatureGroup
+	end InverseEmptyExtendedExplicit;
+end issue;
