@@ -6,7 +6,7 @@
     <artifactId>osate2</artifactId>
     <groupId>org.osate</groupId>
     <version>2.3.4-SNAPSHOT</version>
-    <relativePath>../../osate2-core/org.osate.build.main/pom.xml</relativePath>
+    <relativePath>../../core/org.osate.build.main/pom.xml</relativePath>
   </parent>
   <groupId>org.osate</groupId>
   <artifactId>org.osate.utils.feature</artifactId>
