@@ -2375,13 +2375,17 @@ class Aadl2Formatter extends AbstractFormatter2 {
 						override createReplacements(ITextReplacerContext context) {
 							val annexIndentation = context.getIndentationString(indentationLevel + 1)
 							
-							val newText = new StringConcatenation
-							newText.append(formatted, annexIndentation)
+							val indented = new StringConcatenation
+							indented.append(formatted, annexIndentation)
 							
-							context.addReplacement(region.replaceWith('''
+							val newText = '''
 								{**
-								«annexIndentation»«newText»
-								«context.getIndentationString(indentationLevel)»**}'''))
+								«annexIndentation»«indented»
+								«context.getIndentationString(indentationLevel)»**}'''
+							
+							if (newText != sourceTextRegion.text) {
+								context.addReplacement(region.replaceWith(newText))
+							}
 							
 							context
 						}
