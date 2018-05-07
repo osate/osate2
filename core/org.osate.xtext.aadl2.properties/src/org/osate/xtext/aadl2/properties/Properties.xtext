@@ -1,0 +1,297 @@
+grammar org.osate.xtext.aadl2.properties.Properties hidden(WS, SL_COMMENT)
+
+//generate properties "http://www.osate.org/aadl2/properties/Properties"
+
+
+import "http://aadl.info/AADL/2.0" as aadl2
+
+import "http://www.eclipse.org/emf/2002/Ecore" as ecore
+
+PModel returns aadl2::Element:
+	ContainedPropertyAssociation //| BasicPropertyAssociation | PropertyAssociation
+	;
+
+
+// Properties
+
+ContainedPropertyAssociation returns aadl2::PropertyAssociation:
+	property=[aadl2::Property|QPREF] 
+	('=>' | append?='+=>') (constant?='constant')?
+	( 
+	 ownedValue+=OptionalModalPropertyValue
+	( ',' ownedValue+=OptionalModalPropertyValue )*
+	)
+	(AppliesToKeywords appliesTo+=ContainmentPath 
+		(',' appliesTo+=ContainmentPath)*
+	)?
+	(InBindingKeywords '(' inBinding+=[aadl2::Classifier|QCREF]')')?
+	';';
+
+
+PropertyAssociation returns aadl2::PropertyAssociation:
+	property=[aadl2::Property|QPREF] 
+	('=>' | append?='+=>') (constant?='constant')?
+	( 
+	 ownedValue+=OptionalModalPropertyValue
+	( ',' ownedValue+=OptionalModalPropertyValue )*
+	)
+	(InBindingKeywords '(' inBinding+=[aadl2::Classifier|QCREF]')')?
+	';'
+	;
+
+
+BasicPropertyAssociation returns aadl2::PropertyAssociation:
+	property=[aadl2::Property|QPREF] 
+	'=>' ownedValue+=PropertyValue ';'
+	;
+
+ContainmentPath returns aadl2::ContainedNamedElement:
+	path=ContainmentPathElement
+//	( 'annex' containmentPathElement+=AnnexPath )?
+;
+
+//AnnexPath returns aadl2::ContainmentPathElement:
+//	 namedElement=[aadl2::NamedElement|IDANNEXTEXT];
+
+ModalPropertyValue returns aadl2::ModalPropertyValue:
+	ownedValue=PropertyExpression 
+	InModesKeywords '(' 
+	inMode+=[aadl2::Mode|ID] (',' inMode+=[aadl2::Mode|ID])*
+	')'
+	;
+
+OptionalModalPropertyValue returns aadl2::ModalPropertyValue:
+	ownedValue=PropertyExpression 
+	// phf made this optional: need to check separately that only the last one is optional
+	( InModesKeywords '(' 
+	inMode+=[aadl2::Mode|ID] (',' inMode+=[aadl2::Mode|ID])*
+	')')?
+	;
+	// &&&&&&&&&& handling of in binding
+
+PropertyValue returns aadl2::ModalPropertyValue:
+	ownedValue=PropertyExpression 
+	;
+
+PropertyExpression returns aadl2::PropertyExpression:
+//	OldRecordTerm |
+	  RecordTerm | ReferenceTerm | ComponentClassifierTerm
+	 | ComputedTerm | StringTerm |  NumericRangeTerm
+	| RealTerm | IntegerTerm 
+	  	| ListTerm 
+	  	| BooleanLiteral | LiteralorReferenceTerm
+	;
+
+LiteralorReferenceTerm returns aadl2::NamedValue:
+  namedValue=[aadl2::AbstractNamedValue|QPREF]
+;
+
+
+BooleanLiteral returns aadl2::BooleanLiteral:
+  {aadl2::BooleanLiteral}(value?='true'|'false')
+  ;
+
+ConstantValue returns aadl2::NamedValue:
+  namedValue=[aadl2::PropertyConstant|QPREF]
+  ;
+
+ReferenceTerm returns aadl2::ReferenceValue:
+  'reference' '(' 	
+  path=ContainmentPathElement
+//	( 'annex' ID '{**' 
+//	containmentPathElement+=ContainmentPathElement
+//	( '.' containmentPathElement+=ContainmentPathElement)*
+//	'**}')?
+  ')'
+  ;
+
+RecordTerm returns aadl2::RecordValue:
+   '['
+   (ownedFieldValue+=FieldPropertyAssociation)+
+  ']'
+  ;
+
+OldRecordTerm returns aadl2::RecordValue:
+   '('
+   (ownedFieldValue+=FieldPropertyAssociation)+
+  ')'
+  ;
+
+ComputedTerm returns aadl2::ComputedValue:
+   'compute' '(' 	
+   function=ID
+  ')'
+  ;
+
+ComponentClassifierTerm returns aadl2::ClassifierValue:
+   'classifier' '(' 	
+   classifier=[aadl2::ComponentClassifier|QCREF]
+  ')'
+  ;
+
+
+ListTerm returns aadl2::ListValue:
+	{aadl2::ListValue}
+   '(' 	
+   (ownedListElement+=(PropertyExpression)
+   (',' ownedListElement+=(PropertyExpression))*)?
+  ')'
+  ;
+
+FieldPropertyAssociation returns aadl2::BasicPropertyAssociation:
+	property=[aadl2::BasicProperty|ID] 
+	'=>' 
+	ownedValue=PropertyExpression 
+	';';
+
+// from AADL2
+// need to add annex path element
+ContainmentPathElement returns aadl2::ContainmentPathElement:
+	(
+		(
+			namedElement=[aadl2::NamedElement|ID]
+	 		(arrayRange+=ArrayRange)*
+		) 
+		('.' path=ContainmentPathElement)?
+//	 | 	 'annex' namedElement=[aadl2::NamedElement|ID]
+	)
+;
+
+ANNEXREF :
+	// check what values are ok inside ** **
+	'{' STAR STAR ID STAR STAR '}';
+
+  
+
+PlusMinus returns aadl2::OperationKind: '+' | '-';
+
+
+StringTerm returns aadl2::StringLiteral:
+	value=NoQuoteString ;
+
+
+NoQuoteString :
+	// remove quotes from string in ValueConverter
+	STRING
+;
+
+
+ArrayRange returns aadl2::ArrayRange: {aadl2::ArrayRange}
+	'[' lowerBound=INTVALUE ('..' upperBound=INTVALUE)? 
+	']'
+;
+
+SignedConstant returns aadl2::Operation:
+	op=PlusMinus ownedPropertyExpression+=ConstantValue
+	;
+
+IntegerTerm returns aadl2::IntegerLiteral:
+	value=SignedInt (unit=[aadl2::UnitLiteral|ID])?
+	;
+
+SignedInt returns aadl2::Integer:
+	('+'|'-')?INTEGER_LIT ;
+	
+
+RealTerm returns aadl2::RealLiteral:
+	value=SignedReal (unit=[aadl2::UnitLiteral|ID])?
+	;
+
+SignedReal returns aadl2::Real:
+	('+'|'-')?REAL_LIT ;
+
+
+NumericRangeTerm returns aadl2::RangeValue:
+	minimum=NumAlt //(RealTerm|IntegerTerm| SignedConstant | ConstantValue)  
+		'..' maximum=NumAlt//(RealTerm|IntegerTerm| SignedConstant | ConstantValue)
+	( 'delta' delta=NumAlt//(RealTerm|IntegerTerm| SignedConstant | ConstantValue)
+		
+	)?
+	;
+
+NumAlt  returns aadl2::PropertyExpression: 
+	RealTerm|IntegerTerm| SignedConstant | ConstantValue
+;
+
+AppliesToKeywords:
+	'applies' 'to'
+;
+
+InBindingKeywords:
+	'in' 'binding'
+;
+
+InModesKeywords:
+	'in' 'modes'
+;
+
+terminal SL_COMMENT:
+	'--' !('\n' | '\r')* ('\r'? '\n')?;
+
+
+
+INTVALUE returns aadl2::Integer:
+	INTEGER_LIT //NUMERAL 	
+;
+
+
+//terminal NUMERAL:
+//	(DIGIT)+('_' (DIGIT)+)*
+//;
+//terminal INT returns ecore::EInt: (DIGIT)+('_' (DIGIT)+)*;
+
+terminal fragment
+EXPONENT  :  ('e'|'E') ('+'|'-')? ( DIGIT )+  ;
+
+terminal fragment
+INT_EXPONENT :  ('e'|'E') ('+')? ( DIGIT )+ ;
+
+
+terminal REAL_LIT : 	
+	(DIGIT)+('_' (DIGIT)+)* ( '.' (DIGIT)+('_' (DIGIT)+)* ( EXPONENT )?)
+  ;
+
+terminal INTEGER_LIT : 
+		(DIGIT)+('_' (DIGIT)+)*
+		(( '#' BASED_INTEGER  '#' ( INT_EXPONENT )? )
+			| (INT_EXPONENT)?
+		)
+  ;
+
+terminal fragment
+DIGIT     :  ( '0'..'9' ) ;
+
+terminal fragment
+EXTENDED_DIGIT     :  ( '0'..'9' | 'a'..'f' | 'A'..'F') ;
+
+terminal fragment
+BASED_INTEGER      :  ( EXTENDED_DIGIT ) ( ('_')? EXTENDED_DIGIT )* ;
+
+
+QCLREF:
+	ID '::' ID;
+
+
+QPREF:
+	ID ('::' ID)?;
+
+QCREF:
+	(ID '::')* ID ('.' ID)?;
+	
+STAR : '*';
+
+terminal STRING	: 
+			'"' ( '\\' ('b'|'t'|'n'|'f'|'r'|'u'|'"'|"'"|'\\') | !('\\'|'"') )* '"' |
+			"'" ( '\\' ('b'|'t'|'n'|'f'|'r'|'u'|'"'|"'"|'\\') | !('\\'|"'") )* "'"
+		; 
+
+//terminal ID  		: '^'?('a'..'z'|'A'..'Z'|'_') ('a'..'z'|'A'..'Z'|'_'|'0'..'9')*;
+terminal ID:	('a'..'z'
+        |'A'..'Z'
+        ) ( ('_')? ('a'..'z'
+        |'A'..'Z'
+        |'0'..'9'))*;
+	
+
+terminal WS			: (' '|'\t'|'\r'|'\n')+;
+

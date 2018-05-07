@@ -1,0 +1,13 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: SEI Plug-in
+Bundle-SymbolicName: org.osate.contribution.sei;singleton:=true
+Bundle-Version: 1.0.0.qualifier
+Bundle-Activator: org.osate.contribution.sei.Activator
+Bundle-Vendor: CMU-SEI
+Require-Bundle: org.eclipse.core.runtime,
+ org.osate.pluginsupport;bundle-version="1.0.0"
+Bundle-ActivationPolicy: lazy
+Export-Package: org.osate.contribution.sei.names
+Bundle-ClassPath: .
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6

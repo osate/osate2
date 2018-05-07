@@ -1,0 +1,281 @@
+package codegen_demo::platform
+public
+
+with arinc653;
+with pok;
+
+memory segment
+end segment;
+
+memory ram
+end ram;
+
+memory implementation ram.four_parts
+subcomponents
+	s0 : memory segment;
+	s1 : memory segment;
+	s2 : memory segment;
+	s3 : memory segment;
+end ram.four_parts;
+
+memory implementation ram.one_part
+subcomponents
+	s1 : memory segment;
+end ram.one_part;
+
+
+--
+--  Now, we define virtual partition, which is the runtime in the
+--  partition. We define a first implementation (generic) that
+--  includes all the os-independent stuff. Then, there is 
+--  an OS-implementation specific component
+--
+virtual processor partition
+end partition;
+
+virtual processor implementation partition.generic
+end partition.generic;
+
+virtual processor implementation partition.pok extends partition.generic
+properties
+	POK::Scheduler => RR;
+	POK::Additional_Features => (console, libc_stdio);
+end partition.pok;
+
+virtual processor implementation partition.vxworks extends partition.generic
+end partition.vxworks;
+
+virtual processor implementation partition.deos extends partition.generic
+end partition.deos;
+
+processor cpu
+end cpu;
+
+--
+--  Platform with one single partition. We define a platform for our three OS: POK, DeOS and VxWorks
+--
+
+processor cpu_1part extends cpu
+end cpu_1part;
+
+processor implementation cpu_1part.generic
+subcomponents
+	partition1 : virtual processor partition.generic;
+end cpu_1part.generic;
+
+
+processor implementation cpu_1part.vxworks extends cpu_1part.generic
+subcomponents
+	partition1 : refined to virtual processor partition.vxworks;
+properties
+	ARINC653::Module_Major_Frame => 1500 ms;
+	ARINC653::Module_Schedule => 
+	    ( [Partition => reference (partition1);
+	      Duration  => 1500 ms;
+	      Periodic_Processing_Start => false;]
+	    );
+	ARINC653::HM_Error_ID_Levels => 
+		([ErrorIdentifier => 1;
+		  Description => "Deadline Missed";
+		  ErrorLevel => Process_Level ; ErrorCode => Deadline_Miss;
+		],
+ 		 [ErrorIdentifier => 2; Description => "Application Error"           ; ErrorLevel => Process_Level ; ErrorCode => Application_Error;],
+		 [ErrorIdentifier => 3; Description => "Numeric Error"               ; ErrorLevel => Process_Level ; ErrorCode => Numeric_Error;],
+		 [ErrorIdentifier => 4; Description => "Illegal Request"             ; ErrorLevel => Process_Level ; ErrorCode => Illegal_Request;],
+		 [ErrorIdentifier => 5; Description => "Stack Overflow"              ; ErrorLevel => Process_Level ; ErrorCode => Stack_Overflow;],
+		 [ErrorIdentifier => 6; Description => "Memory Violation"            ; ErrorLevel => Process_Level ; ErrorCode => Memory_Violation;],
+		 [ErrorIdentifier => 7; Description => "Hardware Fault"              ; ErrorLevel => Process_Level ; ErrorCode => Hardware_Fault;],
+		 [ErrorIdentifier => 8; Description => "Power Failure"               ; ErrorLevel => Process_Level ; ErrorCode => Power_Fail;]);
+	ARINC653::HM_Error_ID_Actions =>
+	(
+		[ErrorIdentifier => 1 ; Description => "Ignore the error"; Action => "ignore";],
+		[ErrorIdentifier => 2 ; Description => "Ignore the error"; Action => "ignore";],
+		[ErrorIdentifier => 3 ; Description => "Ignore the error"; Action => "ignore";],
+		[ErrorIdentifier => 4 ; Description => "Ignore the error"; Action => "ignore";],
+		[ErrorIdentifier => 5 ; Description => "Ignore the error"; Action => "ignore";],
+		[ErrorIdentifier => 6 ; Description => "Ignore the error"; Action => "ignore";],
+		[ErrorIdentifier => 7 ; Description => "Ignore the error"; Action => "ignore";],
+		[ErrorIdentifier => 8 ; Description => "Ignore the error"; Action => "ignore";]
+	);
+end cpu_1part.vxworks;
+
+
+processor implementation cpu_1part.deos extends cpu_1part.generic
+subcomponents
+	partition1 : refined to virtual processor partition.deos;
+properties
+    period => 1250 ms applies to partition1;
+    execution_time => 1000 ms applies to partition1;
+	ARINC653::Module_Major_Frame => 1250 ms;
+	ARINC653::Module_Schedule => 
+	    ( [Partition => reference (partition1);
+	      Duration  => 1250 ms;
+	      Periodic_Processing_Start => false;]
+	    );
+	ARINC653::HM_Error_ID_Levels => 
+		([ErrorIdentifier => 1;
+		  Description => "Deadline Missed";
+		  ErrorLevel => Process_Level ; ErrorCode => Deadline_Miss;
+		],
+ 		 [ErrorIdentifier => 2; Description => "Application Error"           ; ErrorLevel => Process_Level ; ErrorCode => Application_Error;],
+		 [ErrorIdentifier => 3; Description => "Numeric Error"               ; ErrorLevel => Process_Level ; ErrorCode => Numeric_Error;],
+		 [ErrorIdentifier => 4; Description => "Illegal Request"             ; ErrorLevel => Process_Level ; ErrorCode => Illegal_Request;],
+		 [ErrorIdentifier => 5; Description => "Stack Overflow"              ; ErrorLevel => Process_Level ; ErrorCode => Stack_Overflow;],
+		 [ErrorIdentifier => 6; Description => "Memory Violation"            ; ErrorLevel => Process_Level ; ErrorCode => Memory_Violation;],
+		 [ErrorIdentifier => 7; Description => "Hardware Fault"              ; ErrorLevel => Process_Level ; ErrorCode => Hardware_Fault;],
+		 [ErrorIdentifier => 8; Description => "Power Failure"               ; ErrorLevel => Process_Level ; ErrorCode => Power_Fail;]);
+	ARINC653::HM_Error_ID_Actions =>
+	(
+		[ErrorIdentifier => 1 ; Description => "Ignore the error"; Action => "ignore";],
+		[ErrorIdentifier => 2 ; Description => "Ignore the error"; Action => "ignore";],
+		[ErrorIdentifier => 3 ; Description => "Ignore the error"; Action => "ignore";],
+		[ErrorIdentifier => 4 ; Description => "Ignore the error"; Action => "ignore";],
+		[ErrorIdentifier => 5 ; Description => "Ignore the error"; Action => "ignore";],
+		[ErrorIdentifier => 6 ; Description => "Ignore the error"; Action => "ignore";],
+		[ErrorIdentifier => 7 ; Description => "Ignore the error"; Action => "ignore";],
+		[ErrorIdentifier => 8 ; Description => "Ignore the error"; Action => "ignore";]
+	);
+end cpu_1part.deos;
+
+
+processor implementation cpu_1part.pok
+subcomponents
+	partition1 : virtual processor partition.pok;
+properties
+	pok::major_frame => 1500 ms;
+	pok::slots => (1500 ms);
+	pok::slots_allocation => (reference (partition1));
+	pok::bsp => x86_qemu;
+	pok::architecture => x86;
+	POK::Scheduler => static;
+end cpu_1part.pok;
+
+
+--
+--  Platform with 3 partitions. We define a platform for our three OS: POK, DeOS and VxWorks
+--
+
+processor cpu_4parts extends cpu
+end cpu_4parts;
+
+processor implementation cpu_4parts.generic
+subcomponents
+	partition1 : virtual processor partition.generic;
+	partition2 : virtual processor partition.generic;
+	partition3 : virtual processor partition.generic;
+	partition4 : virtual processor partition.generic;
+end cpu_4parts.generic;
+
+
+processor implementation cpu_4parts.vxworks extends cpu_4parts.generic
+subcomponents
+	partition1 : refined to virtual processor partition.vxworks;
+	partition2 : refined to virtual processor partition.vxworks;
+	partition3 : refined to virtual processor partition.vxworks;
+	partition4 : refined to virtual processor partition.vxworks;
+properties
+	ARINC653::Module_Major_Frame => 2000 ms;
+	ARINC653::Module_Schedule => 
+	    ( [Partition => reference (partition1);
+	      Duration  => 500 ms;
+	      Periodic_Processing_Start => false;],
+	      [Partition => reference (partition2);
+	      Duration  => 500 ms;
+	      Periodic_Processing_Start => false;],
+	      [Partition => reference (partition3);
+	      Duration  => 500 ms;
+	      Periodic_Processing_Start => false;],
+	      [Partition => reference (partition4);
+	      Duration  => 500 ms;
+	      Periodic_Processing_Start => false;]
+	    );
+	ARINC653::HM_Error_ID_Levels => 
+		([ErrorIdentifier => 1;
+		  Description => "Deadline Missed";
+		  ErrorLevel => Process_Level ; ErrorCode => Deadline_Miss;
+		],
+ 		 [ErrorIdentifier => 2; Description => "Application Error"           ; ErrorLevel => Process_Level ; ErrorCode => Application_Error;],
+		 [ErrorIdentifier => 3; Description => "Numeric Error"               ; ErrorLevel => Process_Level ; ErrorCode => Numeric_Error;],
+		 [ErrorIdentifier => 4; Description => "Illegal Request"             ; ErrorLevel => Process_Level ; ErrorCode => Illegal_Request;],
+		 [ErrorIdentifier => 5; Description => "Stack Overflow"              ; ErrorLevel => Process_Level ; ErrorCode => Stack_Overflow;],
+		 [ErrorIdentifier => 6; Description => "Memory Violation"            ; ErrorLevel => Process_Level ; ErrorCode => Memory_Violation;],
+		 [ErrorIdentifier => 7; Description => "Hardware Fault"              ; ErrorLevel => Process_Level ; ErrorCode => Hardware_Fault;],
+		 [ErrorIdentifier => 8; Description => "Power Failure"               ; ErrorLevel => Process_Level ; ErrorCode => Power_Fail;]);
+	ARINC653::HM_Error_ID_Actions =>
+	(
+		[ErrorIdentifier => 1 ; Description => "Ignore the error"; Action => "ignore";],
+		[ErrorIdentifier => 2 ; Description => "Ignore the error"; Action => "ignore";],
+		[ErrorIdentifier => 3 ; Description => "Ignore the error"; Action => "ignore";],
+		[ErrorIdentifier => 4 ; Description => "Ignore the error"; Action => "ignore";],
+		[ErrorIdentifier => 5 ; Description => "Ignore the error"; Action => "ignore";],
+		[ErrorIdentifier => 6 ; Description => "Ignore the error"; Action => "ignore";],
+		[ErrorIdentifier => 7 ; Description => "Ignore the error"; Action => "ignore";],
+		[ErrorIdentifier => 8 ; Description => "Ignore the error"; Action => "ignore";]
+	);
+end cpu_4parts.vxworks;
+
+
+processor implementation cpu_4parts.deos extends cpu_4parts.generic
+subcomponents
+	partition1 : refined to virtual processor partition.deos;
+	partition2 : refined to virtual processor partition.deos;
+	partition3 : refined to virtual processor partition.deos;
+	partition4 : refined to virtual processor partition.deos;
+properties
+	ARINC653::Module_Major_Frame => 2000 ms;
+	ARINC653::Module_Schedule => 
+	    ( [Partition => reference (partition1);
+	      Duration  => 500 ms;
+	      Periodic_Processing_Start => false;],
+	      [Partition => reference (partition2);
+	      Duration  => 500 ms;
+	      Periodic_Processing_Start => false;],
+	      [Partition => reference (partition3);
+	      Duration  => 500 ms;
+	      Periodic_Processing_Start => false;],
+	      [Partition => reference (partition4);
+	      Duration  => 500 ms;
+	      Periodic_Processing_Start => false;]
+	    );
+	ARINC653::HM_Error_ID_Levels => 
+		([ErrorIdentifier => 1;
+		  Description => "Deadline Missed";
+		  ErrorLevel => Process_Level ; ErrorCode => Deadline_Miss;
+		],
+ 		 [ErrorIdentifier => 2; Description => "Application Error"           ; ErrorLevel => Process_Level ; ErrorCode => Application_Error;],
+		 [ErrorIdentifier => 3; Description => "Numeric Error"               ; ErrorLevel => Process_Level ; ErrorCode => Numeric_Error;],
+		 [ErrorIdentifier => 4; Description => "Illegal Request"             ; ErrorLevel => Process_Level ; ErrorCode => Illegal_Request;],
+		 [ErrorIdentifier => 5; Description => "Stack Overflow"              ; ErrorLevel => Process_Level ; ErrorCode => Stack_Overflow;],
+		 [ErrorIdentifier => 6; Description => "Memory Violation"            ; ErrorLevel => Process_Level ; ErrorCode => Memory_Violation;],
+		 [ErrorIdentifier => 7; Description => "Hardware Fault"              ; ErrorLevel => Process_Level ; ErrorCode => Hardware_Fault;],
+		 [ErrorIdentifier => 8; Description => "Power Failure"               ; ErrorLevel => Process_Level ; ErrorCode => Power_Fail;]);
+	ARINC653::HM_Error_ID_Actions =>
+	(
+		[ErrorIdentifier => 1 ; Description => "Ignore the error"; Action => "ignore";],
+		[ErrorIdentifier => 2 ; Description => "Ignore the error"; Action => "ignore";],
+		[ErrorIdentifier => 3 ; Description => "Ignore the error"; Action => "ignore";],
+		[ErrorIdentifier => 4 ; Description => "Ignore the error"; Action => "ignore";],
+		[ErrorIdentifier => 5 ; Description => "Ignore the error"; Action => "ignore";],
+		[ErrorIdentifier => 6 ; Description => "Ignore the error"; Action => "ignore";],
+		[ErrorIdentifier => 7 ; Description => "Ignore the error"; Action => "ignore";],
+		[ErrorIdentifier => 8 ; Description => "Ignore the error"; Action => "ignore";]
+	);
+end cpu_4parts.deos;
+
+
+processor implementation cpu_4parts.pok extends cpu_4parts.generic
+subcomponents
+	partition1 : refined to virtual processor partition.pok;
+	partition2 : refined to virtual processor partition.pok;
+	partition3 : refined to virtual processor partition.pok;
+	partition4 : refined to virtual processor partition.pok;
+properties
+	pok::major_frame => 2000 ms;
+	pok::slots => (500 ms, 500 ms, 500 ms, 500 ms);
+	pok::slots_allocation => (reference (partition1), reference (partition2), reference (partition3), reference (partition4));
+	pok::bsp => x86_qemu;
+	pok::architecture => x86;
+	POK::Scheduler => static;
+end cpu_4parts.pok;
+
+end codegen_demo::platform;
