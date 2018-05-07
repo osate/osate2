@@ -1,23 +1,17 @@
 package org.osate.core.tests.issues
 
+import com.itemis.xtext.testing.FluentIssueCollection
 import org.eclipse.xtext.testing.InjectWith
 import org.eclipse.xtext.testing.XtextRunner
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.osate.aadl2.AadlPackage
+import org.osate.aadl2.SystemImplementation
+import org.osate.aadl2.instantiation.InstantiateModel
 import org.osate.core.test.Aadl2UiInjectorProvider
 import org.osate.core.test.OsateTest
 
-import org.osate.aadl2.SystemImplementation
-import com.itemis.xtext.testing.FluentIssueCollection
-
-import static extension org.junit.Assert.*
-
-import org.osate.aadl2.instantiation.InstantiateModel
-import static extension org.osate.aadl2.modelsupport.resources.OsateResourceUtil.convertToIResource
-import org.eclipse.core.resources.IMarker
-import org.eclipse.core.resources.IResource
-import org.eclipse.emf.ecore.util.EcoreUtil
+import static org.junit.Assert.*
 
 @RunWith(XtextRunner)
 @InjectWith(Aadl2UiInjectorProvider)

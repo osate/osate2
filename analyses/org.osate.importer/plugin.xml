@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.0"?>
+
+
+<plugin>
+<!--
+
+Disable importer preferences for now
+
+   <extension
+         point="org.eclipse.ui.actionSets">
+      <actionSet
+            label="Sample Action Set"
+            visible="false"
+            id="org.osate.importer.actionSet">
+         <menu
+               id="menu.osate"
+               label="%menu.osate.label"
+               path="project">
+            <groupMarker name="file.grp"/>
+            <separator name="instance.grp"/>
+            <separator name="general.grp"/>
+         </menu>
+
+         <menu
+               id="menu.analyses"
+               label="%menu.analyses.label"
+               path="menu.osate">
+            <groupMarker name="top.grp"/>
+            <groupMarker name="bottom.grp"/>
+         </menu>
+
+         <menu
+               id="menu.importer"
+               label="Import/Export Models"
+               path="menu.analyses/top.grp">
+            <groupMarker name="stuff.grp"/>
+                         <visibleWhen checkEnabled="false">
+            <with variable="activeWorkbenchWindow.activePerspective">
+                <equals value="AADL"/>
+            </with>
+         </visibleWhen>
+         </menu>
+         <action
+               class="org.osate.importer.generic.actions.DoOpenPreferences"
+               icon="icons/prefs.gif"
+               id="org.osate.actions.DoOpenImporterPreferences"
+               label="Preferences"
+               menubarPath="menu.analyses/menu.importer/stuff.grp">
+         </action>
+      </actionSet>
+   </extension>
+
+   <extension
+   	   point="org.eclipse.ui.perspectiveExtensions">
+   	   <perspectiveExtension
+   		   targetID="org.osate.ui.perspective.AadlPerspective">
+   		   <actionSet
+   		 	   id="org.osate.importer.actionSet"/>
+   	   </perspectiveExtension>
+   </extension>
+
+
+-->   
+</plugin>
+
+

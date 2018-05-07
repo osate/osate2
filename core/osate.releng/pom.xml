@@ -6,30 +6,30 @@
 	<parent>
 		<groupId>org.osate</groupId>
 		<artifactId>osate2</artifactId>
-		<version>2.3.3-SNAPSHOT</version>
+		<version>2.3.4-SNAPSHOT</version>
 		<relativePath>../org.osate.build.main/pom.xml</relativePath>
 	</parent>
 	<groupId>org.osate</groupId>
 	<artifactId>osate2-modules</artifactId>
-	<version>2.3.3-SNAPSHOT</version>
+	<version>2.3.4-SNAPSHOT</version>
 	<packaging>pom</packaging>
 
 	<modules>
-		<module>../../osate2-core/osate2-core.releng/modules</module>		
-		<module>../../osate2-plugins/osate2-plugins.releng/modules</module>
-		<module>../../ErrorModelV2/emv2.releng/modules</module>
+		<module>../../core/osate2-core.releng/modules</module>		
+		<module>../../analyses/osate2-plugins.releng/modules</module>
+		<module>../../emv2/emv2.releng/modules</module>
 		<module>../../alisa/alisa.releng/modules</module>
-		<module>../../osate-ge/osate-ge.releng/modules</module>
+		<module>../../ge/osate-ge.releng/modules</module>
 
-		<module>../../osate2-ba/org.osate.ba</module>
-		<module>../../osate2-ba/org.osate.ba.contrib</module>
-		<module>../../osate2-ba/org.osate.ba.feature</module>
-		<module>../../osate2-ba/org.osate.ba.edit</module>
-		<module>../../osate2-ba/org.osate.utils</module>
-		<module>../../osate2-ba/org.osate.utils.feature</module>
+		<module>../../ba/org.osate.ba</module>
+		<module>../../ba/org.osate.ba.contrib</module>
+		<module>../../ba/org.osate.ba.feature</module>
+		<module>../../ba/org.osate.ba.edit</module>
+		<module>../../ba/org.osate.utils</module>
+		<module>../../ba/org.osate.utils.feature</module>
 
-		<module>../../osate2-ocarina/osate2-ocarina.releng/modules</module>
-		<module>../../smaccm/fm-workbench/releng/fm-workbench.build/modules</module>
+		<module>../../../osate2-ocarina/osate2-ocarina.releng/modules</module>
+		<module>../../../smaccm/fm-workbench/releng/fm-workbench.build/modules</module>
 
 		<module>../org.osate.build.product</module>
 	</modules>
