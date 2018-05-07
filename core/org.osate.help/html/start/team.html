@@ -1,0 +1,54 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+	<LINK REL="STYLESHEET" HREF="../book.css" CHARSET="ISO-8859-1" TYPE="text/css">
+	<title>Open Source AADL Tool Environment (OSATE) Online Help - Working with Team</title>
+</head>
+
+<body>
+<h2>Working with Collections of Projects and Versioning Repositories</h2>
+<h3>Working with SVN</h3>
+<p>
+Eclipse does not support nested projects. 
+You cannot even put a project into a folder, 
+but you can put a folder in a project. 
+That’s what makes the use of SVN a little tricky.
+</p>
+<p>
+You may have organized your projects in your SVN repository by 
+creating a folder on the repository and by putting the projects 
+that belong together into that folder. When you navigate the SVN 
+repository in the SVN Repository Exploring perspective, you see the 
+folders and projects with the same icon. 
+</p>
+<p>
+If you select the enclosing folder with the intent to check out all
+ projects of that folder, it will create a project with the folder 
+ name and then put the actual projects into that “project” as
+folders – since Eclipse does not allow projects in projects. You 
+will have to open the folders (projects) in the SVN Repositories navigator 
+to see which ones contain a .project file (clue that you have an AADL project). 
+Those are the entities to be checked out.
+</p>
+
+
+<h3>Using Team Project Sets</h3>
+
+<p>
+Eclipse has the concept of Team Project Sets.  
+It allows you to define sets of projects and then operate on them together. 
+In the AADL Navigator, you select a collection of projects and invoke 
+“Export” from the “File” menu. This will generate a project set file, 
+which you can store in a special project in your workspace. You can even
+ put that project under version control.
+</p> 
+ <p>
+When you want to check out one of the team project sets, you select the 
+file and perform an import. This will check out all projects from this set.
+</p>
+
+</body>
+</html>

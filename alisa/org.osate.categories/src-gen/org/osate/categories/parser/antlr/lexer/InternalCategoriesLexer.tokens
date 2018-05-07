@@ -1,0 +1,12 @@
+Any=5
+Filter=4
+FullStop=6
+LeftSquareBracket=7
+RULE_ANY_OTHER=15
+RULE_ID=9
+RULE_INT=10
+RULE_ML_COMMENT=12
+RULE_SL_COMMENT=13
+RULE_STRING=11
+RULE_WS=14
+RightSquareBracket=8

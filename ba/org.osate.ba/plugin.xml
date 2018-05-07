@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+AADL-BA-FrontEnd
+ 
+Copyright © 2011 TELECOM ParisTech and CNRS
+ 
+TELECOM ParisTech/LTCI
+
+Authors: see AUTHORS
+ 
+This program is free software: you can redistribute it and/or modify 
+it under the terms of the Eclipse Public License as published by Eclipse,
+either version 1.0 of the License, or (at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+Eclipse Public License for more details.
+You should have received a copy of the Eclipse Public License
+along with this program.  If not, see 
+http://www.eclipse.org/org/documents/epl-v10.php
+-->
+<?eclipse version="3.4"?>
+<plugin>
+
+   <extension
+         point="org.osate.annexsupport.parser">
+      <parser
+            annexName="behavior_specification"
+            class="org.osate.ba.AadlBaParserAction"
+            id="org.osate.ba.parser"
+            name="AADL-BA-FrontEnd">
+      </parser>
+   </extension>
+   
+   <extension
+         point="org.osate.annexsupport.resolver">
+      <resolver
+            annexName="behavior_specification"
+            class="org.osate.ba.AadlBaResolver"
+            id="org.osate.ba.analyzers.resolver"
+            name="AADL-BA-FrontEnd">
+      </resolver>
+   </extension>
+
+   <extension
+         point="org.osate.annexsupport.unparser">
+      <unparser
+            annexName="behavior_specification"
+            class="org.osate.ba.AadlBaUnParserAction"
+            id="org.osate.ba.unparser"
+            name="AADL-BA-FrontEnd">
+      </unparser>
+   </extension>
+
+  <extension point="org.eclipse.emf.ecore.generated_package">
+    <package 
+       uri = "https://github.com/osate/osate2-ba.git" 
+       class = "org.osate.ba.aadlba.AadlBaPackage"
+       genModel = "model/aadlba.genmodel" /> 
+  </extension> 
+
+
+  <extension
+        point="org.osate.annexsupport.highlighter">
+     <highlighter
+           annexName="behavior_specification"
+           class="org.osate.ba.texteditor.AadlBaSemanticHighlighter"
+           id="org.osate.ba.highlighter">
+     </highlighter>
+  </extension>
+  <extension
+        point="org.osate.annexsupport.textpositionresolver">
+     <textpositionresolver
+           annexName="behavior_specification"
+           class="org.osate.ba.texteditor.AadlBaTextPositionResolver"
+           id="org.osate.ba.textpositionresolver">
+     </textpositionresolver>
+  </extension>
+  <extension
+        point="org.eclipse.ui.newWizards">
+     <wizard
+           category="org.eclipse.ui.Examples/org.osate.Wizard.category.examples"
+           class="org.osate.ba.wizards.AadlBaExamplesWizard"
+           icon="resources/img/ba_logo_16.png"
+           id="org.osate.ba.wizard.examples"
+           name="Behavior Annex"
+           project="true">
+     </wizard>
+  </extension>
+   
+   <extension point="org.eclipse.emf.ecore.generated_package">
+      <!-- @generated declarative -->
+      <package
+            uri="https://github.com/osate/osate2-ba.git/declarative"
+            class="org.osate.ba.declarative.DeclarativePackage"
+            genModel="model/declarative.genmodel"/>
+   </extension>
+
+   <extension point="org.eclipse.emf.ecore.extension_parser">
+      <!-- @generated declarative -->
+      <parser
+            type="declarative"
+            class="org.osate.ba.declarative.util.DeclarativeResourceFactoryImpl"/>
+   </extension>
+</plugin>

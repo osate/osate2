@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+   <extension
+         point="org.osate.ge.businessObjectProviders">
+      <provider
+            class="org.osate.ge.ba.BaBusinessObjectProvider">
+      </provider>
+   </extension>
+   <extension
+         point="org.osate.ge.businessObjectHandlers">
+      <handler
+            class="org.osate.ge.ba.businessObjectHandlers.BehaviorAnnexHandler">
+      </handler>
+      <handler
+            class="org.osate.ge.ba.businessObjectHandlers.BaStateHandler">
+      </handler>
+   </extension>
+   <extension
+         point="org.osate.ge.categories">
+      <category
+            id="org.osate.ge.errormodel.categories.ba"
+            name="Behavior Annex"
+            order="300">
+      </category>
+   </extension>
+   <extension
+         point="org.osate.ge.references">
+      <referenceBuilder
+            class="org.osate.ge.ba.BaReferenceHandler">
+      </referenceBuilder>
+      <referenceResolver
+            class="org.osate.ge.ba.BaReferenceHandler">
+      </referenceResolver>
+   </extension>
+
+</plugin>
