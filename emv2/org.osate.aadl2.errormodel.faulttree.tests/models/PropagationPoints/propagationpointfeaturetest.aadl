@@ -1,0 +1,113 @@
+package propagationpointfeaturetest
+public
+-- this test a user defined connection between a user defined propagation point and a subcomponent feature
+
+data mydata
+end mydata;
+
+device sensor
+features
+	valueout : out data port mydata;
+annex EMV2{**
+ 	use types ErrorLibrary;
+ 	use behavior ErrorLibrary::FailStop;
+ 	error propagations
+ 		valueout : out propagation {ServiceOmission};
+ 	flows
+ 		ef0 : error source valueout{ServiceOmission};
+ 	end propagations;
+properties
+	emv2::OccurrenceDistribution => [ ProbabilityValue => 0.7e-7 ; Distribution => Poisson;] applies to ef0, Failure;
+ 		
+ **};
+end sensor;
+
+
+system computing
+features
+	valuein1 : in data port mydata;
+	valuein2 : in data port mydata;
+	valueout : out data port mydata;
+annex EMV2{**
+ 	use types ErrorLibrary;
+ 	use behavior ErrorLibrary::FailStop;
+	error propagations
+ 		valuein1 : in propagation {ServiceOmission};
+		valuein2 : in propagation {ServiceOmission};
+ 		valueout : out propagation {ServiceOmission};
+ 	flows
+ 		ef0 : error path valuein1{ServiceOmission} -> valueout{ServiceOmission};
+ 		ef1 : error path valuein2{ServiceOmission} -> valueout{ServiceOmission};
+ 	end propagations;
+ 	component error behavior
+ 	propagations
+ 		t0 : operational -[valuein1{ServiceOmission} and valuein2{ServiceOmission}]-> valueout{ServiceOmission};
+ 		p0: failstop -[]-> valueout{ServiceOmission};
+ 	end component;
+ properties
+	emv2::OccurrenceDistribution => [ ProbabilityValue => 0.7e-7 ; Distribution => Poisson;] applies to Failure;
+ **};
+end computing;
+
+
+device actuator
+features
+	valuein : in data port mydata;
+ 	observation: out feature;
+	
+annex EMV2{**
+ 	use types ErrorLibrary;
+ 	use behavior ErrorLibrary::FailStop;
+ 	error propagations
+ 		valuein : in propagation {ServiceOmission};
+ 		observation: out propagation {ServiceOmission};
+ 	flows
+ 		ef0 : error path valuein{ServiceOmission}-> observation{ServiceOmission};
+ 	end propagations;
+ 	
+ 	component error behavior
+ 	propagations
+ 		p0: failstop -[]-> observation{ServiceOmission};
+ 		p1: operational -[valuein{ServiceOmission}]-> observation{ServiceOmission};
+ 	end component;
+properties
+	emv2::OccurrenceDistribution => [ ProbabilityValue => 0.65e-9 ; Distribution => Poisson;] applies to Failure;
+ **};
+end actuator;
+
+system main
+end main;
+
+-- example with composite error state to the last subcomponents that affect the system error state
+-- other components are included based on backward flow. 
+-- The sensor contribution is based on an error source declaration.
+system implementation main.commonsource
+subcomponents
+	s0 : device sensor;
+	s1 : device sensor;
+	c0 : system computing;
+	a0 : device actuator;
+connections
+	conn0 : port s0.valueout -> c0.valuein1;
+	conn1 : port s1.valueout -> c0.valuein2;
+	conn2 : port c0.valueout -> a0.valuein;
+annex EMV2{**
+ 	use types ErrorLibrary;
+ 	use behavior ErrorLibrary::FailStop;
+ 	error propagations
+ 	observation: out propagation {ServiceOmission};
+ 	end propagations;
+ 	
+ 	composite error behavior
+ 	states
+ 		[1 ormore(s0.failstop and s1.failstop,c0.failstop,a0.failstop )]-> failstop;
+ 	end composite;
+ 	propagation paths
+ 	observation: propagation point;
+ 	path1: a0.observation -> observation;
+ 	end paths;
+ **};
+end main.commonsource;
+
+
+end propagationpointfeaturetest;

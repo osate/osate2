@@ -571,6 +571,11 @@ public class InstantiateModel {
 				throw new InterruptedException();
 			}
 			ModeInstance mi = InstanceFactory.eINSTANCE.createModeInstance();
+			/*
+			 * Used to add the mode instance to the component instance at the end of the loop,
+			 * but moved it here so that we can report errors on it.
+			 */
+			ci.getModeInstances().add(mi);
 
 			mi.setMode(m);
 			mi.setName(m.getName());
@@ -585,17 +590,33 @@ public class InstantiateModel {
 				Subcomponent sub = ci.getSubcomponent();
 				ComponentInstance parentci = ci.getContainingComponentInstance();
 
-				for (ModeBinding mb : sub.getOwnedModeBindings()) {
-					if (monitor.isCanceled()) {
-						throw new InterruptedException();
+				final EList<ModeBinding> ownedModeBindings = sub.getOwnedModeBindings();
+				if (ownedModeBindings == null || ownedModeBindings.isEmpty()) {
+					// Implicit mode map, must find modes of the same name in the containing component
+					ModeInstance foundParentMode = null;
+					for (ModeInstance pmi : parentci.getModeInstances()) {
+						if (pmi.getName().equalsIgnoreCase(m.getName())) {
+							foundParentMode = pmi;
+							break;
+						}
 					}
-					if (mb.getDerivedMode() == m || mb.getDerivedMode() == null
-							&& mb.getParentMode().getName().equalsIgnoreCase(m.getName())) {
-						mi.getParents().add(parentci.findModeInstance(mb.getParentMode()));
+					if (foundParentMode == null) {
+						errManager.error(mi, "Required mode '" + m.getName() + "' not found in containing component");
+					} else {
+						mi.getParents().add(foundParentMode);
+					}
+				} else {
+					for (ModeBinding mb : ownedModeBindings) {
+						if (monitor.isCanceled()) {
+							throw new InterruptedException();
+						}
+						if (mb.getDerivedMode() == m || mb.getDerivedMode() == null
+								&& mb.getParentMode().getName().equalsIgnoreCase(m.getName())) {
+							mi.getParents().add(parentci.findModeInstance(mb.getParentMode()));
+						}
 					}
 				}
 			}
-			ci.getModeInstances().add(mi);
 		}
 		for (ModeTransition m : modetrans) {
 			if (monitor.isCanceled()) {
@@ -1012,7 +1033,8 @@ public class InstantiateModel {
 			FeatureGroupType parentFgt;
 			List<Feature> fgFeatures;
 
-			if (localFeatures.isEmpty() && inverseFgt != null) {
+			// Issue #818: Don't infer the features if the inverse feature group extends another feature group
+			if (localFeatures.isEmpty() && inverseFgt != null && fgt.getExtended() == null) {
 				baseFgt = inverseFgt;
 				localFeatures = inverseFgt.getOwnedFeatures();
 				inverse = !inverse;
@@ -2073,7 +2095,12 @@ public class InstantiateModel {
 		@Override
 		protected void action(final Element o) {
 			final List<ModeInstance> modes = ((ComponentInstance) o).getModeInstances();
-			if (!modes.isEmpty() && !modes.get(0).isDerived()) {
+			/*
+			 * Derived/required modes that are missing a mapping should be treated like
+			 * normal modes. If hte mode isDerived, but has no parent, we need to treat
+			 * it like a norma mode.
+			 */
+			if (!modes.isEmpty() && (!modes.get(0).isDerived() || modes.get(0).getParents().isEmpty())) {
 				hasModalComponents = true;
 				resultList.add(o);
 			}
@@ -2139,7 +2166,11 @@ public class InstantiateModel {
 				if (somIndex == -1) {
 					break;
 				}
-				if (!mi.isDerived()) {
+				/*
+				 * Derived/required modes that are missing a mapping should be treated like
+				 * normal modes. So we check if the derived node has no parent mode.
+				 */
+				if (!mi.isDerived() || mi.getParents().isEmpty()) {
 					List<ModeInstance> nextModes = new ArrayList<ModeInstance>(currentModes);
 
 					nextModes.add(mi);
@@ -2148,6 +2179,11 @@ public class InstantiateModel {
 							if (monitor.isCanceled()) {
 								throw new InterruptedException();
 							}
+							/*
+							 * Derived/required modes that are missing a mapping should be treated like
+							 * normal modes. In this case they have a missing parent, so this conditional
+							 * will always be false for them, which is what we want.
+							 */
 							if (childMode.isDerived() && childMode.getParents().contains(mi)) {
 								nextModes.add(childMode);
 							}
@@ -2225,6 +2261,11 @@ public class InstantiateModel {
 								if (monitor.isCanceled()) {
 									throw new InterruptedException();
 								}
+								/*
+								 * Derived/required modes that are missing a mapping should be treated like
+								 * normal modes. In this case they have a missing parent, so this conditional
+								 * will always be false for them, which is what we want.
+								 */
 								if (childMode.isDerived() && childMode.getParents().contains(mi)) {
 									nextModes.add(childMode);
 								}
