@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?NLS TYPE="org.eclipse.help.toc"?>
+
+<toc label="Concepts">
+    <topic label="Concept1" href="html/concepts/concept1.html">
+        <topic label="Concept1_1" href="html/concepts/concept1_1.html"/>
+        <topic label="Concept1_2" href="html/concepts/concept1_2.html"/>
+    </topic>
+</toc>

@@ -1,0 +1,66 @@
+package codegen_demo::sensor
+public
+
+with codegen_demo::datatypes;
+with arinc653;
+
+process sensor
+features
+	altitude_value : out data port codegen_demo::datatypes::altitude {arinc653::sampling_refresh_period => 10 ms;};
+end sensor;
+
+process implementation sensor.i
+subcomponents
+	thr : thread sensor_thr.i;
+connections
+	c0 : port thr.altitude_value -> altitude_value;
+end sensor.i;
+
+process sensors
+features
+	altitude_value0 : out data port codegen_demo::datatypes::altitude {arinc653::sampling_refresh_period => 10 ms;};
+	altitude_value1 : out data port codegen_demo::datatypes::altitude {arinc653::sampling_refresh_period => 10 ms;};
+end sensors;
+
+process implementation sensors.i
+subcomponents
+	thr0 : thread sensor_thr.i;
+	thr1 : thread sensor_thr.i;
+connections
+	c0 : port thr0.altitude_value -> altitude_value0;
+	c1 : port thr1.altitude_value -> altitude_value1;
+end sensors.i;
+
+thread sensor_thr
+features
+	altitude_value : out data port codegen_demo::datatypes::altitude;
+end sensor_thr;
+
+thread implementation sensor_thr.i
+calls 
+   call1 : { pspg : subprogram sensor_simulator;};
+connections
+	c0 : parameter pspg.altitude_value -> altitude_value;
+properties
+   Priority => 1;
+   dispatch_protocol 		=> periodic;
+   period            		=> 1000ms; 
+   deadline          		=> 500ms;
+   compute_execution_time 	=> 0ms .. 1ms;
+   Code_Size  => 4 Kbyte;
+   Stack_Size => 30 Kbyte; 
+   Data_Size  => 4 Kbyte;	
+end sensor_thr.i;
+
+subprogram sensor_simulator
+features
+	altitude_value : out parameter codegen_demo::datatypes::altitude;
+properties
+   source_name => "sensor_simulation";
+   source_language => (C);
+   Source_Text => ("sensor.c");
+   Code_Size  => 2 Kbyte;
+   Data_Size  => 2 Kbyte;	
+end sensor_simulator;
+
+end codegen_demo::sensor;

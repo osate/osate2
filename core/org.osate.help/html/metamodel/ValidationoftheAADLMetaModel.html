@@ -1,0 +1,177 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+	"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+   <title>Validation of the AADL Meta Model</title>
+   <link href="Res/styles/shared.css" rel="stylesheet" type="text/css">
+   <link href="Res/styles/DynamicOutline.css" rel="stylesheet" type="text/css">
+</head>
+<body id="page" >
+
+<!-- BEGIN PAGE BODY-->
+
+
+<table id="pageBody">
+ <col class="main">
+ <col class="right">
+
+<!-- BEGIN BREADCRUMBS-->
+<tr id="breadcrumbsAndPageNavigation">
+  <td class="breadcrumbs" valign="top">
+<!-- BEGIN NAVIGATION BREADCRUMBS ITEM-->
+<span class="breadcrumb">
+   <a href="index.html">Home</a> 
+   <span class="separator">&gt;</span>
+</span>
+<!-- END NAVIGATION BREADCRUMBS ITEM-->
+<!-- BEGIN NAVIGATION BREADCRUMBS ITEM-->
+<span class="breadcrumb">
+   <a href="MetaModelNotation.html">2. Meta Model Notation</a> 
+   <span class="separator">&gt;</span>
+</span>
+<!-- END NAVIGATION BREADCRUMBS ITEM-->
+<!-- BEGIN NAVIGATION BREADCRUMBS HERE-->
+<span class="breadcrumb">
+   2.3 Validation of the AADL Meta Model
+</span>
+<!-- END NAVIGATION BREADCRUMBS HERE-->
+
+  </td>
+  <td class="pageNavigation" valign="top">
+<!-- START PAGE NAVIGATION NEXT IN SEQUENCE IMAGES -->
+<span class="commands">
+    <span class="command">
+        <img src="Res/images/previous_button.gif" alt=""> <a href="MappingtoXMLDocuments.html">
+        <span class="label">Previous</span></a>
+    </span>
+&nbsp;&nbsp;
+    <span class="command">
+        <a href="References.html">
+        <span class="label">Next</span></a> <img src="Res/images/next_button.gif" alt="">
+    </span>
+</span>
+<!-- END PAGE NAVIGATION NEXT IN SEQUENCE IMAGES  -->
+
+  </td>
+  <td class="right" valign="top">
+  </td>
+</tr>
+<!-- END BREADCRUMBS-->
+
+<tr class="topic">
+  <td class="main" valign="top" colspan="2">
+    <div class="body">
+      <div class="topicDivider">
+      </div>
+    </div>
+  </td>
+  <td class="right" valign="top">
+<!--right body column empty-->
+  </td>
+</tr>
+
+<!--BEGIN PAGE BODY ITEM-->
+<tr class="topic">
+  <td class="main" valign="top" colspan="2">
+    <table>
+      <tr class="topicHeader">
+        <td class="topicImageColumn">
+
+        </td>
+        <td class="topicLineColumn">
+          <a name="Topic6"></a>
+          <span class=outlineNumberFirst>2.3 </span><span class=topicLineFirst>Validation of the AADL Meta Model</span>
+          <span class="topicIcons">
+
+          </span>
+        </td>
+      </tr>
+    </table>
+
+<!-- phf:Comand: Expand("BoxPartMap.mmbas") -->
+     <div class="topicTextNotes"><div align="left"><font face="Helvetica"><span>The AADL meta model has been validated through the construction 
+of an Open Source AADL Tool 
+Environment (OSATE).&#160; This environment has been built as a set of plug-ins to the Eclipse 
+environment and is itself extensible.&#160; OSATE includes an AADL parser that translates textual 
+AADL specifications into in-core declarative AADL models.&#160; Those declarative AADL models are 
+persistently stored in XML according to the AADL meta model specification.&#160; OSATE also includes 
+a semantic checker, various architecture analysis plug-ins, an XML to AADL text translator, an 
+AADL object model editor, and an AADL graphical editing front-end. </span></font><span></span></div>
+<div align="left"><font face="Helvetica"><span>Other specifications of the AADL meta model are possible.&#160; 
+For example, the UML profile of the 
+AADL includes a conceptual model of the AADL.&#160; In the case of the UML profile, these concept 
+specifications are being kept consistent with the AADL meta model specification in this annex.&#160; </span></font><span></span></div>
+<div align="left"><font face="Helvetica"><span>The conceptual model of AADL expressed by a collection 
+of UML stereotypes and the Ecore meta 
+model of the AADL differ primarily in how they represent the different forms of inheritance present 
+in 
+AADL.&#160; In AADL, component implementations inherit features from component types.&#160; Component 
+types can inherit features from component types they extend.&#160; Similarly, component 
+implementations that extend other component implementations inherit subcomponents, 
+connections, and other elements.&#160; Finally, AADL has a rich set of inheritance rules for property 
+values.&#160; The Ecore AADL meta model takes advantage of these different forms of inheritance by not 
+replicating inherited objects of an AADL model.&#160; Instead, the AADL inheritance is part of the 
+interpretation semantics of the AADL meta model.&#160; This has the benefit of compact models and 
+XML documents.&#160; The interpretation of the different forms of AADL inheritance is realized through 
+a 
+library of AADL object model methods.&#160; In other words, tools that operate on AADL models can 
+utilize these methods to access component type features from a component implementation or to 
+retrieve a property for a component instance whose value has been declared for the component 
+type of the instance.</span></font><span></span></div>
+<div align="left"><font face="Helvetica"><span>The UML profile of the AADL offers the possibility of 
+a UML-based XML interchange representation 
+for AADL models.&#160; The XML schema and the XMI meta model specification for the AADL have been 
+defined independent of such a UML-based XML interchange representation such that tool 
+developers are not required to embrace UML and its interchange specification in order to support 
+AADL-based architecture analysis and generation capabilities.&#160; The alignment of the conceptual 
+model in the UML profile with the AADL meta model allows for a simple translation between the 
+AADL XML documents and UML-based XML documents of AADL models.</span></font><span></span></div></div>
+
+
+
+
+  </td>
+  <td class="right" valign="top">
+<!--right body column empty-->
+  </td>
+</tr>
+<!--END PAGE BODY ITEM-->
+
+
+<!-- BEGIN TOP BUTTON -->
+<tr class="topic">
+  <td class="main" valign="top" colspan="2">
+    <div class="body">
+      <div class="topCommand">
+        <span class="commands">
+      <span class="command">
+            <img src="Res/images/top_button.gif" alt="">
+          <a href="javascript:scroll(0,0)">
+             <span class="label">Top</span>
+              </a>
+    </span>
+       </span>
+      </div>
+    </div>
+  </td>
+  <td class="right" valign="top">
+<!--right body column empty-->
+  </td>
+</tr>
+<!-- END TOP BUTTON -->
+
+</table>
+
+<!-- BEGIN SIDE NAVIGATION WRAPPER-->
+    </td>
+  </tr>
+</table>
+<!-- END SIDE NAVIGATION WRAPPER-->
+
+<!-- END PAGE BODY-->
+
+
+</body>
+</html>
+

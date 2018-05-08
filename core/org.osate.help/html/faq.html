@@ -1,0 +1,177 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+	<LINK REL="STYLESHEET" HREF="book.css" CHARSET="ISO-8859-1" TYPE="text/css">
+	<title>Open Source AADL Tool Environment (OSATE) Online Help - FAQ</title>
+</head>
+
+<body>
+<h2>Frequently Asked Questions</h2>
+<h3>Standard properties are not found</h3>
+<p>
+To fix that, you have to add the standard properties again. Right click
+on your project or model and select <em>Create/update Predeclared and
+Annex Properties</em>, as shown below.
+</p>
+
+<img src="update-properties.png"/>
+
+<h3>Having the hint replace</h3>
+<p>
+To get the <em>hint template</em>: type the first letter 
+of the keywords, e.g. s, then ctrl-space to bring up menue
+then select the proper template.  Make sure cursor is immediately after the letter.
+(this works for all the keywords but a variation with feature groups or 
+ connections is not in the drop down...I cant recall exactly what it is at this point...)
+</p>
+
+<h3>Reasons for errors when instantiating models</h3>
+<p>
+There are the main reasons for having a model that does not instantiate:
+</p>
+<ul>
+<li>
+	<strong>Connection between two components that inherit features</strong>: not supported for now. This error
+	is triggered when you try to connect two components that inherits the same component (and such, share the
+	same inherited features).
+</li>
+</ul>
+
+
+<h3>What is the most effective way to fix errors ?</h3>
+<p>
+In general, start with the most specific error and try to correct it.
+</p>
+
+<p> 
+Use the outline view to quickly navigate to the component classifier/features/properties by double-clicking
+on the component/feature/properties in the outline view.
+</p>
+
+<h3>Resetting the AADL perspective</h3>
+<p>
+Resetting the AADL perspective (e.g. getting all the window panes back to their default position)
+ Click on the 'AADL' button in the upper RH corner.
+ or
+ MenuBar: Window-> Reset Perspective -> Reset the perspective to AADL defaults?-Y
+ </p>
+ 
+ 
+<h3>Correct way to clear Problem markers</h3>
+<ul>
+	<li>
+		Reinstantiate will get rid of instantiation markers - note, use Instantiate and not reinstantiate Icon
+	</li> 
+	<li>
+		Highlight the marker group, right click, Delete - Yes
+	</li>
+</ul>
+
+<h3>Why cannot we use our own AADL_Project file ?</h3>
+<p>
+Using your own <em>AADL_Project</em> file would conflict with the
+files provided by the plug-in. There are possibilities for supporting
+that but it would rather impact user experience. On the other hand,
+it could be done by following this process:
+</p>
+<ol>
+   <li>Delete the <em>AADL_Project</em> file from the plug-in resources</li>
+   <li>Create a new project with your own <em>AADL_Project</em> file (let's call it <em>myproperties</em></li>
+   <li>Introduce a dependency between <em>Plugin_Resources</em> and <em>myproperties</em>. 
+   To do so, select <em>Plugin_Resources</em>, click on the <em>Project</em> menu and then <em>Properties</em>.
+   Finally, in the project references, select <em>myproperties</em>. </li>
+</ol>
+
+
+<h3>Analysis plug-ins does not report anything</h3>
+<p>
+Make sure you activate the problem view and check that it reports all
+information, as described in <a href="plugins/sei.html">this page</a>.
+</p>
+
+<h3>Working with the AADL perspective</h3>
+<p>
+You want to work in the AADL perspective.
+You can set it through <em>Open Perspective</em> in the <em>Window</em>
+ menu (or in the Perspective toolbar found on the right in the tool bar section).
+</em>
+
+<h3>Adding the Xtext Nature</h3>
+<p>
+You want to make sure your projects have the AADL and Xtext nature enabled.
+This should be done automatically when creating an AADL project but you may
+need to do that manually.
+This is typically indicated by a decorator on the project. You can enable the 
+natures in the AADL Navigator by selecting the project and invoking 
+<em>Configure</em> in the context menu. 
+The Xtext nature drives the auto-build (compilation) process.
+</p>
+
+<h3>Viewing and Filtering the Content of the Problems View</h3>
+<p>
+The Problems view in Eclipse presents markers attached to resources in the workspace. 
+(If you do not have the view, you can open it through the menu Window/Show View). 
+These markers are tagged as Error, Warning, or Information. 
+They carry a message and are associated with location information (to lines or model elements). 
+The Markers are also typed and can be sorted and filtered by type.
+</p>
+
+
+<p>
+You can specify what the content of the Problems view is by configuring it through 
+commands available through a menu (triangle) in the top right of the Problems view.
+</p>
+
+<p>
+It is useful to select Group by/Type as this will group markers from a particular 
+analysis together rather than grouping them by error, warning, info. 
+</p>
+
+<p>
+It is also useful to Configure content… Users like to set the Scope to 
+be On selected element and its children. 
+This will cause only the markers of a selected file, folder, or project 
+to be shown. You can also define new configurations, where you limit the
+type of marker that you want to have included, e.g., only markers of certain 
+analyses.
+</p>
+
+<h3>Error when installing OpenFTA</h3>
+<p>
+When installing OpenFTA, you may have an error related to Java. On Windows 7, you have
+to right-click on the installer and change the compatibility options and check,
+make sure to execute the software under the Windows 2000 compatibility mode.
+The picture below shows the dialog box used to set this property.
+</p>	 
+
+<img src="openfta-compat.png"/>
+
+<h3>Tips and trick for editing models</h3>
+<ul>
+	<li>The AADL text editor does hyperlinking of references. 
+	    When you hold down the <Ctrl> key, the test holding 
+	    a reference turns into a hyperlink to the reference 
+	    model element.
+	</li>
+	<li>The AADL text editor supports a short-cut for 
+	    commenting out multiple lines of AADL text. 
+	    Select the lines and type ctrl-/ to comment or 
+	    uncomment the selected lines.
+	</li>
+	<li>The AADL text editor supports context sensitive help.
+	    When you pause (hover) over a model element a callout 
+	    pops up. When you type <Ctrl><space> a list of suggestions 
+	    pops up. For example, in an empty file you can type p and 
+	    then <Ctrl><space>. The popup will offer templates for 
+	    “package” and “property set”.
+	</li>
+</ul>
+
+
+
+
+</body>
+</html>
