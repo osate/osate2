@@ -1,0 +1,194 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+	"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+   <title>Flows</title>
+   <link href="Res/styles/shared.css" rel="stylesheet" type="text/css">
+   <link href="Res/styles/DynamicOutline.css" rel="stylesheet" type="text/css">
+</head>
+<body id="page" >
+
+<!-- BEGIN PAGE BODY-->
+
+
+<table id="pageBody">
+ <col class="main">
+ <col class="right">
+
+<!-- BEGIN BREADCRUMBS-->
+<tr id="breadcrumbsAndPageNavigation">
+  <td class="breadcrumbs" valign="top">
+<!-- BEGIN NAVIGATION BREADCRUMBS ITEM-->
+<span class="breadcrumb">
+   <a href="index.html">Home</a> 
+   <span class="separator">&gt;</span>
+</span>
+<!-- END NAVIGATION BREADCRUMBS ITEM-->
+<!-- BEGIN NAVIGATION BREADCRUMBS ITEM-->
+<span class="breadcrumb">
+   <a href="DeclarativeAADLModel.html">4. Declarative AADL Model</a> 
+   <span class="separator">&gt;</span>
+</span>
+<!-- END NAVIGATION BREADCRUMBS ITEM-->
+<!-- BEGIN NAVIGATION BREADCRUMBS HERE-->
+<span class="breadcrumb">
+   4.10 Flows
+</span>
+<!-- END NAVIGATION BREADCRUMBS HERE-->
+
+  </td>
+  <td class="pageNavigation" valign="top">
+<!-- START PAGE NAVIGATION NEXT IN SEQUENCE IMAGES -->
+<span class="commands">
+    <span class="command">
+        <img src="Res/images/previous_button.gif" alt=""> <a href="Connections.html">
+        <span class="label">Previous</span></a>
+    </span>
+&nbsp;&nbsp;
+    <span class="command">
+        <a href="CallSequences.html">
+        <span class="label">Next</span></a> <img src="Res/images/next_button.gif" alt="">
+    </span>
+</span>
+<!-- END PAGE NAVIGATION NEXT IN SEQUENCE IMAGES  -->
+
+  </td>
+  <td class="right" valign="top">
+  </td>
+</tr>
+<!-- END BREADCRUMBS-->
+
+<tr class="topic">
+  <td class="main" valign="top" colspan="2">
+    <div class="body">
+      <div class="topicDivider">
+      </div>
+    </div>
+  </td>
+  <td class="right" valign="top">
+<!--right body column empty-->
+  </td>
+</tr>
+
+<!--BEGIN PAGE BODY ITEM-->
+<tr class="topic">
+  <td class="main" valign="top" colspan="2">
+    <table>
+      <tr class="topicHeader">
+        <td class="topicImageColumn">
+
+        </td>
+        <td class="topicLineColumn">
+          <a name="Topic18"></a>
+          <span class=outlineNumberFirst>4.10 </span><span class=topicLineFirst>Flows</span>
+          <span class="topicIcons">
+
+          </span>
+        </td>
+      </tr>
+    </table>
+
+<!-- phf:Comand: Expand("BoxPartMap.mmbas") -->
+     <div class="topicTextNotes"><div align="left"><font face="Helvetica"><span>Flow specification declarations are represented by an 
+abstract <i>FlowSpec </i>class, which itself is a 
+subclass of the PropertyHolder class, and concrete classes for flow source (<i>FlowSourceSpec</i>), 
+flow 
+sink (<i>FlowSinkSpec)</i>, and flow path (<i>FlowPathSpec)</i>. These classes have references to members 
+of 
+the <i>AbstractPort</i> class in the same component type, represented by a source and destination 
+reference association - as appropriate.&#160; A flow specification can also refer to an element of a 
+port 
+group.&#160; In that case, the port group is referenced as the context (<i>srcContext</i> or <i>dstContext</i>) 
+of the 
+source (<i>src</i>) or destination (<i>dst</i>) reference.</span></font><span></span></div>
+<div align="left"><font face="Helvetica"><span>The abstract <i>FlowSequence </i>class represents both 
+flow implementations and end-to-end flows.&#160; It is 
+a subclass of the <i>ModeMember</i> class.&#160; A <i>FlowSequence</i> class contains a sequence of 
+<i>FlowElement </i>objects that alternately represent a reference to a connection or a pair of references 
+to a subcomponent and its flow specification.</span></font><span></span></div>
+<div align="left"><font face="Helvetica"><span>Flow implementations are represented by the abstract <i>FlowImpl </i>subclass 
+and the concrete 
+subclasses <i>FlowSourceImpl</i>, <i>FlowSinkImpl</i>, and <i>FlowPathImpl</i>.&#160; Each of these 
+concrete 
+subclasses has a reference association to the respective flow specification class it implements. 
+Flow implementations contain a sequence of <i>FlowElement</i> objects that alternately reference a 
+<i>Connection</i> object or a <i>FlowSpec</i> object in a subcomponent.&#160; In other words, a <i>FlowElement</i> 
+object 
+either has a <i>connection</i> reference, or it has a <i>flowSpec</i> reference and a <i>flowContext</i>&#160; 
+reference to a 
+subcomponent.&#160; The <i>connection</i> reference must be to a port connection, i.e., to one of the 
+concrete 
+classes <i>DataConnection</i>, <i>EventConnection</i>, <i>EventDataConnection</i>, <i>PortGroupConnection</i>, 
+or 
+<i>ParameterConnection</i>.&#160; The originating source port and the final destination port of a flow 
+implementation are identified by the flow specification being implemented, thus, are not explicitly 
+recorded as a FlowElement object.&#160; Note that these ports are referenced by the first and last 
+connection of the <i>FlowElement</i> sequence.&#160; </span></font><span></span></div>
+<div align="left"><font face="Helvetica"><span>A <i>FlowSinkImpl</i> specifies a path from the flow 
+sink spec port&#160;through zero or more connection and 
+subcomponent flow specification pairs (<i>FlowElement</i>) with the last subcomponent flow specification 
+referring to a flow sink. A <i>FlowSourceImpl</i> specifies a path from a subcomponent flow source 
+specification represented by one <i>FlowElement</i> through zero or more connection and 
+subcomponent/flow specification pairs (<i>FlowElement</i>) followed by a <i>FlowElement</i> containing 
+the 
+connection to the destination port of the flow source implementation.&#160; A <i>FlowPathImpl</i> specifies 
+a 
+path from the (incoming) source port to the (outgoing) destination port of the flow path spec through 
+zero or more connection and subcomponent/flow specification pairs (<i>FlowElement</i>) ending with a 
+<i>FlowElement</i> that contains the connection to the destination port of the flow path implementation.&#160;</span></font><span></span></div>
+<div align="left"><font face="Helvetica"><span>End-to-end flows are represented by the concrete <i>EndToEndFlow </i>class 
+through a sequence of 
+<i>FlowElement</i> objects with the first referring to the originating subcomponent and flow specification 
+pair and the remainder representing connection and subcomponent/flow specification pairs 
+(<i>FlowElement</i>).</span></font><span></span></div>
+<div align="center"><img src="NotesImages/Topic18NotesImage3.jpg" align="bottom" width="439" height="782" border="0" alt="graphic" /></div>
+<div align="center"><font face="Helvetica"><span><b>Figure 26 Flows</b></span></font><span></span></div></div>
+
+
+
+
+  </td>
+  <td class="right" valign="top">
+<!--right body column empty-->
+  </td>
+</tr>
+<!--END PAGE BODY ITEM-->
+
+
+<!-- BEGIN TOP BUTTON -->
+<tr class="topic">
+  <td class="main" valign="top" colspan="2">
+    <div class="body">
+      <div class="topCommand">
+        <span class="commands">
+      <span class="command">
+            <img src="Res/images/top_button.gif" alt="">
+          <a href="javascript:scroll(0,0)">
+             <span class="label">Top</span>
+              </a>
+    </span>
+       </span>
+      </div>
+    </div>
+  </td>
+  <td class="right" valign="top">
+<!--right body column empty-->
+  </td>
+</tr>
+<!-- END TOP BUTTON -->
+
+</table>
+
+<!-- BEGIN SIDE NAVIGATION WRAPPER-->
+    </td>
+  </tr>
+</table>
+<!-- END SIDE NAVIGATION WRAPPER-->
+
+<!-- END PAGE BODY-->
+
+
+</body>
+</html>
+

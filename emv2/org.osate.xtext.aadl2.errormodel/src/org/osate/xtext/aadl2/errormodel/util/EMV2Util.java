@@ -1718,17 +1718,17 @@ public class EMV2Util {
 				getAllConditionElementsFromConditionExpression(propagations, foobar);
 			}
 		} else if (ce instanceof OrmoreExpression) {
-			OrExpression or = (OrExpression) ce;
+			OrmoreExpression or = (OrmoreExpression) ce;
 			for (ConditionExpression foobar : or.getOperands()) {
 				getAllConditionElementsFromConditionExpression(propagations, foobar);
 			}
 		} else if (ce instanceof OrlessExpression) {
-			OrExpression or = (OrExpression) ce;
+			OrlessExpression or = (OrlessExpression) ce;
 			for (ConditionExpression foobar : or.getOperands()) {
 				getAllConditionElementsFromConditionExpression(propagations, foobar);
 			}
 		} else if (ce instanceof AllExpression) {
-			OrExpression or = (OrExpression) ce;
+			AllExpression or = (AllExpression) ce;
 			for (ConditionExpression foobar : or.getOperands()) {
 				getAllConditionElementsFromConditionExpression(propagations, foobar);
 			}
