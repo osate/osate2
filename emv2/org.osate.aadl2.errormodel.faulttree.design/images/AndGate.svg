@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 20001102//EN"
+ "http://www.w3.org/TR/2000/CR-SVG-20001102/DTD/svg-20001102.dtd">
+
+<svg width="68" height="68">
+  <polygon fill="#ffcccc" points="0 67, 67 67, 67 33, 0 33"/>
+  <polyline stroke="#646464" stroke-width="2" fill="none" points="1,32 1,66 66,66 66,32"/>
+  <path fill="#ffcccc" stroke="#646464" stroke-width="2" d="M1,33 C5,-9 62,-9 66,33"/>
+</svg>
+

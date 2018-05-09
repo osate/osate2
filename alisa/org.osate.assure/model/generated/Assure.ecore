@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ecore:EPackage xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="assure" nsURI="http://www.osate.org/assure/Assure" nsPrefix="assure">
+  <eClassifiers xsi:type="ecore:EClass" name="AssuranceCaseResult" eSuperTypes="#//AssureResult">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType platform:/resource/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="message" eType="ecore:EDataType platform:/resource/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="modelResult" upperBound="-1"
+        eType="#//ModelResult" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ModelResult" eSuperTypes="#//AssureResult">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="plan" eType="ecore:EClass platform:/resource/org.osate.alisa.workbench/model/generated/Alisa.ecore#//AssurancePlan"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="target" eType="ecore:EClass platform:/resource/org.osate.aadl2/model/aadl2.ecore#//ComponentImplementation"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="message" eType="ecore:EDataType platform:/resource/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="claimResult" upperBound="-1"
+        eType="#//ClaimResult" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="subsystemResult" upperBound="-1"
+        eType="#//SubsystemResult" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="SubsystemResult" eSuperTypes="#//AssureResult">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="targetSystem" eType="ecore:EClass platform:/resource/org.osate.aadl2/model/aadl2.ecore#//Subcomponent"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="message" eType="ecore:EDataType platform:/resource/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="claimResult" upperBound="-1"
+        eType="#//ClaimResult" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="subsystemResult" upperBound="-1"
+        eType="#//SubsystemResult" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ClaimResult" eSuperTypes="#//AssureResult">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="targetReference" eType="#//QualifiedClaimReference"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="modelElement" eType="ecore:EClass platform:/resource/org.osate.aadl2/model/aadl2.ecore#//NamedElement"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="message" eType="ecore:EDataType platform:/resource/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="subClaimResult" upperBound="-1"
+        eType="#//ClaimResult" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="verificationActivityResult"
+        upperBound="-1" eType="#//VerificationExpr" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="predicateResult" eType="#//VerificationResult"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="VerificationResult" eSuperTypes="#//AssureResult #//VerificationExpr">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="executionState" eType="#//VerificationExecutionState"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="resultState" eType="#//VerificationResultState"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="issues" upperBound="-1"
+        eType="ecore:EClass platform:/resource/org.osate.results/model/Result.ecore#//Diagnostic"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="results" eType="ecore:EClass platform:/resource/org.osate.results/model/Result.ecore#//AnalysisResult"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="message" eType="ecore:EDataType platform:/resource/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="AssureResult">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="metrics" eType="#//Metrics"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="ElseType">
+    <eLiterals name="OK" literal="ok"/>
+    <eLiterals name="FAIL" value="1" literal="fail"/>
+    <eLiterals name="TIMEOUT" value="2" literal="timeout"/>
+    <eLiterals name="ERROR" value="3" literal="error"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="VerificationExpr" eSuperTypes="#//AssureResult"/>
+  <eClassifiers xsi:type="ecore:EClass" name="ElseResult" eSuperTypes="#//VerificationExpr">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="first" upperBound="-1"
+        eType="#//VerificationExpr" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="error" upperBound="-1"
+        eType="#//VerificationExpr" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="fail" upperBound="-1" eType="#//VerificationExpr"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="timeout" upperBound="-1"
+        eType="#//VerificationExpr" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="didFail" eType="#//ElseType"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ThenResult" eSuperTypes="#//VerificationExpr">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="first" upperBound="-1"
+        eType="#//VerificationExpr" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="second" upperBound="-1"
+        eType="#//VerificationExpr" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="didThenFail" eType="ecore:EDataType platform:/resource/org.eclipse.emf.ecore/model/Ecore.ecore#//EBoolean"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Metrics">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="tbdCount" eType="ecore:EDataType platform:/resource/org.eclipse.emf.ecore/model/Ecore.ecore#//EInt"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="successCount" eType="ecore:EDataType platform:/resource/org.eclipse.emf.ecore/model/Ecore.ecore#//EInt"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="failCount" eType="ecore:EDataType platform:/resource/org.eclipse.emf.ecore/model/Ecore.ecore#//EInt"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="timeoutCount" eType="ecore:EDataType platform:/resource/org.eclipse.emf.ecore/model/Ecore.ecore#//EInt"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="errorCount" eType="ecore:EDataType platform:/resource/org.eclipse.emf.ecore/model/Ecore.ecore#//EInt"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="didelseCount" eType="ecore:EDataType platform:/resource/org.eclipse.emf.ecore/model/Ecore.ecore#//EInt"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="thenskipCount" eType="ecore:EDataType platform:/resource/org.eclipse.emf.ecore/model/Ecore.ecore#//EInt"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="preconditionfailCount"
+        eType="ecore:EDataType platform:/resource/org.eclipse.emf.ecore/model/Ecore.ecore#//EInt"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="validationfailCount" eType="ecore:EDataType platform:/resource/org.eclipse.emf.ecore/model/Ecore.ecore#//EInt"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="featuresCount" eType="ecore:EDataType platform:/resource/org.eclipse.emf.ecore/model/Ecore.ecore#//EInt"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="featuresRequirementsCount"
+        eType="ecore:EDataType platform:/resource/org.eclipse.emf.ecore/model/Ecore.ecore#//EInt"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="qualityCategoryRequirementsCount"
+        eType="ecore:EDataType platform:/resource/org.eclipse.emf.ecore/model/Ecore.ecore#//EInt"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="totalQualityCategoryCount"
+        eType="ecore:EDataType platform:/resource/org.eclipse.emf.ecore/model/Ecore.ecore#//EInt"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="requirementsWithoutPlanClaimCount"
+        eType="ecore:EDataType platform:/resource/org.eclipse.emf.ecore/model/Ecore.ecore#//EInt"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="noVerificationPlansCount"
+        eType="ecore:EDataType platform:/resource/org.eclipse.emf.ecore/model/Ecore.ecore#//EInt"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="requirementsCount" eType="ecore:EDataType platform:/resource/org.eclipse.emf.ecore/model/Ecore.ecore#//EInt"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="exceptionsCount" eType="ecore:EDataType platform:/resource/org.eclipse.emf.ecore/model/Ecore.ecore#//EInt"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="reqTargetHasEMV2SubclauseCount"
+        eType="ecore:EDataType platform:/resource/org.eclipse.emf.ecore/model/Ecore.ecore#//EInt"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="featuresRequiringClassifierCount"
+        eType="ecore:EDataType platform:/resource/org.eclipse.emf.ecore/model/Ecore.ecore#//EInt"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="featuresWithRequiredClassifierCount"
+        eType="ecore:EDataType platform:/resource/org.eclipse.emf.ecore/model/Ecore.ecore#//EInt"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="weight" eType="ecore:EDataType platform:/resource/org.eclipse.emf.ecore/model/Ecore.ecore#//EInt"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="executionTime" eType="ecore:EDataType platform:/resource/org.osate.aadl2/model/aadl2.ecore#//Integer"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="VerificationResultState">
+    <eLiterals name="TBD" literal="tbd"/>
+    <eLiterals name="SUCCESS" value="1" literal="success"/>
+    <eLiterals name="FAIL" value="2" literal="fail"/>
+    <eLiterals name="ERROR" value="3" literal="error"/>
+    <eLiterals name="TIMEOUT" value="4" literal="timeout"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="VerificationExecutionState">
+    <eLiterals name="TODO" literal="todo"/>
+    <eLiterals name="RUNNING" value="1" literal="running"/>
+    <eLiterals name="REDO" value="2" literal="redo"/>
+    <eLiterals name="COMPLETED" value="3" literal="completed"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="QualifiedVerificationPlanElementReference">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="verificationPlan" eType="ecore:EClass platform:/resource/org.osate.verify/model/generated/Verify.ecore#//VerificationPlan"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="requirement" eType="#//NestedClaimReference"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="QualifiedClaimReference" eSuperTypes="#//QualifiedVerificationPlanElementReference"/>
+  <eClassifiers xsi:type="ecore:EClass" name="QualifiedVAReference" eSuperTypes="#//QualifiedVerificationPlanElementReference">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="verificationActivity" eType="ecore:EClass platform:/resource/org.osate.verify/model/generated/Verify.ecore#//VerificationActivity"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="NestedClaimReference">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="requirement" eType="ecore:EClass platform:/resource/org.osate.reqspec/model/generated/ReqSpec.ecore#//Requirement"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="sub" eType="#//NestedClaimReference"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="PreconditionResult" eSuperTypes="#//VerificationResult">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="target" eType="ecore:EClass platform:/resource/org.osate.verify/model/generated/Verify.ecore#//VerificationMethod"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ValidationResult" eSuperTypes="#//VerificationResult">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="target" eType="ecore:EClass platform:/resource/org.osate.verify/model/generated/Verify.ecore#//VerificationMethod"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="VerificationActivityResult" eSuperTypes="#//VerificationResult">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="targetReference" eType="#//QualifiedVAReference"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="preconditionResult" eType="#//VerificationResult"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="validationResult" eType="#//VerificationResult"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="PredicateResult" eSuperTypes="#//VerificationResult">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="targetReference" eType="#//QualifiedClaimReference"
+        containment="true"/>
+  </eClassifiers>
+</ecore:EPackage>
