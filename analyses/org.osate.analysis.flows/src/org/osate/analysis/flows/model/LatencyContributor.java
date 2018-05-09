@@ -122,9 +122,6 @@ public abstract class LatencyContributor {
 	 */
 	private List<LatencyContributor> subContributors;
 
-	private double maxSubtotal;
-	private double minSubtotal;
-
 	public LatencyContributor() {
 		this.worstCaseMethod = LatencyContributorMethod.UNKNOWN;
 		this.bestCaseMethod = LatencyContributorMethod.UNKNOWN;
@@ -139,8 +136,6 @@ public abstract class LatencyContributor {
 		this.partitionDuration = 0.0;
 		this.subContributors = new ArrayList<LatencyContributor>();
 		this.issues = new ArrayList<Diagnostic>();
-		this.maxSubtotal = 0.0;
-		this.minSubtotal = 0.0;
 	}
 
 	protected List<Diagnostic> getReportedIssues() {
@@ -279,30 +274,6 @@ public abstract class LatencyContributor {
 
 	public void setPartitionDuration(double val) {
 		this.partitionDuration = val;
-	}
-
-	public double getMaxSubtotal() {
-		return this.maxSubtotal;
-	}
-
-	public void setMaxSubtotal(double val) {
-		this.maxSubtotal = val;
-	}
-
-	public double getMinSubtotal() {
-		return this.minSubtotal;
-	}
-
-	public void setMinSubtotal(double val) {
-		this.minSubtotal = val;
-	}
-
-	public void reportSubtotal(double val, boolean doMax) {
-		if (doMax) {
-			this.setMaxSubtotal(val);
-		} else {
-			this.setMinSubtotal(val);
-		}
 	}
 
 	public double getImmediateDeadline() {
