@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feature
+      id="org.osate.utils.feature"
+      label="AADL-Utils"
+      version="1.0.0.qualifier"
+      provider-name="TELECOM ParisTech"
+      plugin="org.osate.utils">
+
+   <description url="http://aadl.telecom-paristech.fr/">
+      TELECOM Paristech AADL V2 plugin utils for OSATE2.
+   </description>
+
+   <copyright url="http://aadl.telecom-paristech.fr/">
+      AADL-Utils
+Copyright © 2012 TELECOM ParisTech and CNRS
+TELECOM ParisTech/LTCI
+   </copyright>
+
+   <license url="http://www.eclipse.org/org/documents/epl-v10.ph">
+      This program is free software: you can redistribute it and/or modify  it under the terms of the Eclipse Public License as published by Eclipse, either version 1.0 of the License, or (at your option) any later version.
+This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the Eclipse Public License for more details.
+You should have received a copy of the Eclipse Public License along with this program. If not, see http://www.eclipse.org/org/documents/epl-v10.ph
+   </license>
+
+   <url>
+      <discovery label="TELECOM ParisTech AADL corner" url="http://aadl.telecom-paristech.fr/"/>
+   </url>
+
+   <requires>
+      <import plugin="org.eclipse.core.runtime" version="3.7.0" match="greaterOrEqual"/>
+      <import plugin="org.eclipse.xtext" version="2.2.1" match="greaterOrEqual"/>
+      <import plugin="org.osate.aadl2" version="1.0.0" match="greaterOrEqual"/>
+      <import plugin="org.osate.xtext.aadl2.properties" version="1.0.0" match="greaterOrEqual"/>
+   </requires>
+
+   <plugin
+         id="org.osate.utils"
+         download-size="0"
+         install-size="0"
+         version="1.0.0.qualifier"
+         unpack="false"/>
+
+</feature>
