@@ -40,22 +40,15 @@
 package org.osate.analysis.flows.handlers;
 
 import org.eclipse.core.runtime.IProgressMonitor;
-import org.eclipse.core.runtime.Path;
-import org.eclipse.emf.common.util.URI;
-import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.osate.aadl2.Element;
 import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.instance.SystemInstance;
 import org.osate.aadl2.instance.SystemOperationMode;
 import org.osate.aadl2.modelsupport.errorreporting.AnalysisErrorReporterManager;
-import org.osate.aadl2.modelsupport.resources.OsateResourceUtil;
-import org.osate.aadl2.modelsupport.util.AadlUtil;
 import org.osate.analysis.flows.FlowLatencyAnalysisSwitch;
+import org.osate.analysis.flows.FlowLatencyUtil;
 import org.osate.analysis.flows.model.LatencyReport;
 import org.osate.analysis.flows.model.LatencyReportEntry;
-import org.osate.analysis.flows.reporting.exporters.CsvExport;
-import org.osate.analysis.flows.reporting.exporters.ExcelExport;
-import org.osate.analysis.flows.reporting.model.Report;
 import org.osate.result.AnalysisResult;
 import org.osate.ui.dialogs.Dialog;
 import org.osate.ui.handlers.AbstractInstanceOrDeclarativeModelReadOnlyHandler;
@@ -92,24 +85,10 @@ public final class CheckFlowLatency extends AbstractInstanceOrDeclarativeModelRe
 	protected boolean finalizeAnalysis() {
 		if (latreport != null && !latreport.getEntries().isEmpty()) {
 			// do cvs and xsl reports
-			Report report = latreport.export();
-			CsvExport csvExport = new CsvExport(report);
-			csvExport.save();
-			ExcelExport excelExport = new ExcelExport(report);
-			excelExport.save();
-
-			generateMarkers(latreport, errManager);
-
-
+			FlowLatencyUtil.saveAsSpreadSheets(latreport);
 			AnalysisResult results = latreport.genResult();
-			SystemInstance root = latreport.getRootinstance();
-			URI rootURI = EcoreUtil.getURI(root).trimFragment().trimFileExtension();
-			String rootname = rootURI.lastSegment();
-			URI latencyURI = rootURI.trimFragment().trimSegments(1).appendSegment("reports")
-					.appendSegment("latency")
-					.appendSegment(rootname + "__latency_" + latreport.getPreferencesSuffix() + ".result");
-			AadlUtil.makeSureFoldersExist(new Path(latencyURI.toPlatformString(true)));
-			OsateResourceUtil.saveEMFModel(results, latencyURI, root);
+			FlowLatencyUtil.saveAnalysisResult(results);
+			generateMarkers(latreport, errManager);
 		}
 		return true;
 	};
@@ -124,6 +103,7 @@ public final class CheckFlowLatency extends AbstractInstanceOrDeclarativeModelRe
 	protected void analyzeInstanceModel(IProgressMonitor monitor, AnalysisErrorReporterManager errManager,
 			SystemInstance root, SystemOperationMode som) {
 		monitor.beginTask(getActionName(), 1);
+		// Note: analyzeInstanceModel is called for each mode. We add the results to the same 'latreport'
 		FlowLatencyAnalysisSwitch flas = new FlowLatencyAnalysisSwitch(monitor, root, latreport);
 		flas.processPreOrderAll(root);
 		monitor.done();
@@ -131,8 +111,11 @@ public final class CheckFlowLatency extends AbstractInstanceOrDeclarativeModelRe
 
 	public void invoke(IProgressMonitor monitor, SystemInstance root, SystemOperationMode som) {
 		initializeAnalysis(root);
+		if (this.errManager == null) {
+			this.errManager = new AnalysisErrorReporterManager(getAnalysisErrorReporterFactory());
+		}
 		analyzeInstanceModel(monitor, null, root, som);
-		finalizeAnalysis();
+		finalizeAnalysis(); // uses error report manager to generate markers
 	}
 
 

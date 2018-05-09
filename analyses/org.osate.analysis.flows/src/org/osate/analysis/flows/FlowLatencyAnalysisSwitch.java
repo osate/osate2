@@ -66,6 +66,7 @@ import org.osate.analysis.flows.model.LatencyReport;
 import org.osate.analysis.flows.model.LatencyReportEntry;
 import org.osate.analysis.flows.preferences.Values;
 import org.osate.result.AnalysisResult;
+import org.osate.result.Result;
 import org.osate.xtext.aadl2.properties.util.ARINC653ScheduleWindow;
 import org.osate.xtext.aadl2.properties.util.CommunicationProperties;
 import org.osate.xtext.aadl2.properties.util.GetProperties;
@@ -115,16 +116,20 @@ public class FlowLatencyAnalysisSwitch extends AadlProcessingSwitchWithProgress 
 				if (etef.getFlowElements().isEmpty()) {
 					return DONE;
 				}
-				entry = new LatencyReportEntry(etef, etef.getSystemInstance().getCurrentSystemOperationMode());
-
-				for (FlowElementInstance fei : etef.getFlowElements()) {
-					mapFlowElementInstance(etef, fei, entry);
-				}
-				entry.finalizeReportEntry();
+				entry = analyzeLatency(etef, etef.getSystemInstance().getCurrentSystemOperationMode());
 				report.addEntry(entry);
 				return DONE;
 			}
 		};
+	}
+
+	public LatencyReportEntry analyzeLatency(EndToEndFlowInstance etef, SystemOperationMode som) {
+		LatencyReportEntry entry = new LatencyReportEntry(etef, som);
+		for (FlowElementInstance fei : etef.getFlowElements()) {
+			mapFlowElementInstance(etef, fei, entry);
+		}
+		entry.finalizeReportEntry();
+		return entry;
 	}
 
 	public void mapFlowElementInstance(final EndToEndFlowInstance etef, final FlowElementInstance flowElementInstance,
@@ -693,5 +698,23 @@ public class FlowLatencyAnalysisSwitch extends AadlProcessingSwitchWithProgress 
 		return results;
 	}
 
+	public Result invokeAndGetResult(EndToEndFlowInstance etef, SystemOperationMode som) {
+		Result results = null;
+		SystemInstance root = etef.getSystemInstance();
+		root.setCurrentSystemOperationMode(som);
+		if (etef.isActive(som)) {
+			LatencyReportEntry latres = analyzeLatency(etef, som);
+			results = latres.genResult();
+		}
+		root.clearCurrentSystemOperationMode();
+		return results;
+	}
+
+	public AnalysisResult invokeAndSaveResult(SystemInstance root, SystemOperationMode som) {
+		AnalysisResult results = invokeAndGetResult(root, som);
+		FlowLatencyUtil.saveAnalysisResult(results);
+		FlowLatencyUtil.saveAsSpreadSheets(report);
+		return results;
+	}
 
 }
