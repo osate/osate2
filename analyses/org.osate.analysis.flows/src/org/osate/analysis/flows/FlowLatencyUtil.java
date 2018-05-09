@@ -3,6 +3,10 @@ package org.osate.analysis.flows;
 import java.util.Collection;
 import java.util.List;
 
+import org.eclipse.core.runtime.Path;
+import org.eclipse.emf.common.util.URI;
+import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.osate.aadl2.Classifier;
 import org.osate.aadl2.ComponentCategory;
 import org.osate.aadl2.EnumerationLiteral;
@@ -16,8 +20,16 @@ import org.osate.aadl2.instance.ConnectionInstanceEnd;
 import org.osate.aadl2.instance.EndToEndFlowInstance;
 import org.osate.aadl2.instance.FeatureInstance;
 import org.osate.aadl2.instance.FlowElementInstance;
+import org.osate.aadl2.modelsupport.resources.OsateResourceUtil;
+import org.osate.aadl2.modelsupport.util.AadlUtil;
 import org.osate.analysis.flows.model.ConnectionType;
+import org.osate.analysis.flows.model.LatencyReport;
+import org.osate.analysis.flows.preferences.Values;
+import org.osate.analysis.flows.reporting.exporters.CsvExport;
+import org.osate.analysis.flows.reporting.exporters.ExcelExport;
+import org.osate.analysis.flows.reporting.model.Report;
 import org.osate.contribution.sei.names.DataModel;
+import org.osate.result.AnalysisResult;
 import org.osate.xtext.aadl2.properties.util.ARINC653ScheduleWindow;
 import org.osate.xtext.aadl2.properties.util.GetProperties;
 import org.osate.xtext.aadl2.properties.util.InstanceModelUtil;
@@ -459,6 +471,30 @@ public class FlowLatencyUtil {
 			res = res * ((NumberValue) propertyExpression).getScaledValue();
 		}
 		return res;
+	}
+
+	public static void saveAsSpreadSheets(LatencyReport latreport) {
+		Report report = latreport.export();
+		CsvExport csvExport = new CsvExport(report);
+		csvExport.save();
+		ExcelExport excelExport = new ExcelExport(report);
+		excelExport.save();
+	}
+
+	public static void saveAnalysisResult(AnalysisResult results) {
+		EObject root = results.getSourceReference();
+		URI rootURI = EcoreUtil.getURI(root).trimFragment().trimFileExtension();
+		String rootname = rootURI.lastSegment();
+		URI latencyURI = rootURI.trimFragment().trimSegments(1).appendSegment("reports").appendSegment("latency")
+				.appendSegment(rootname + "__latency_" + getPreferencesSuffix() + ".result");
+		AadlUtil.makeSureFoldersExist(new Path(latencyURI.toPlatformString(true)));
+		OsateResourceUtil.saveEMFModel(results, latencyURI, root);
+
+	}
+
+	public static String getPreferencesSuffix() {
+		return Values.getSynchronousSystemLabel() + "-" + Values.getMajorFrameDelayLabel() + "-"
+				+ Values.getWorstCaseDeadlineLabel() + "-" + Values.getBestcaseEmptyQueueLabel();
 	}
 
 }
