@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<site>
+   <feature id="org.osate.ge.errormodel.feature">
+      <category name="emv2"/>
+   </feature>
+   <category-def name="emv2" label="Graphical Editor for the Error Model Annex V2"/>
+</site>
