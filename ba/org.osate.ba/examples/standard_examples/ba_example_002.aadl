@@ -1,0 +1,35 @@
+-- Copyright © 2008 SAE International
+
+-- Next example exploits the AADL execution model to compute a speed by 
+-- counting the number of ticks received each second by the measuring thread. 
+-- The event port queue acts as a persistent count. At each periodic 
+-- dispatch, all events received during the previous period are transferred 
+-- to a thread local queue (implemented as counter) and become available to 
+-- the user. At that time the event port queue is reset to empty (count 
+-- zero). The Dequeue_Protocol of AllItems specifies that all events are to 
+-- be removed from the event port queue.
+package BA_example2 public
+with Base_Types;
+
+thread speed
+  features
+    tick: in event port { Dequeue_Protocol => AllItems; };
+    sp: out data port Base_Types::Integer;
+  properties
+    Dispatch_Protocol => periodic;
+    Period => 1 sec;
+end speed;
+
+thread implementation speed.i
+  annex behavior_specification {**
+    states
+      s0: initial complete final state;
+    transitions
+      s0 -[ on dispatch ]-> s0 { sp := tick'count };
+  **};
+end speed.i;
+
+-- Note that in the preceding code, tick�count provides the number of events 
+-- that are available in the tick port queue.
+
+end BA_example2;
