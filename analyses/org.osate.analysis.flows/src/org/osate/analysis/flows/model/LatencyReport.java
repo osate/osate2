@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.osate.aadl2.instance.SystemInstance;
+import org.osate.analysis.flows.FlowLatencyUtil;
 import org.osate.analysis.flows.preferences.Values;
 import org.osate.analysis.flows.reporting.model.Report;
 import org.osate.analysis.flows.reporting.model.Report.ReportType;
@@ -47,11 +48,6 @@ public class LatencyReport {
 		this.entries.add(entry);
 	}
 
-	public String getPreferencesSuffix() {
-		return Values.getSynchronousSystemLabel() + "-" + Values.getMajorFrameDelayLabel() + "-"
-				+ Values.getWorstCaseDeadlineLabel() + "-" + Values.getBestcaseEmptyQueueLabel();
-	}
-
 	public String getPreferencesDescription() {
 		return "with preference settings: " + Values.getSynchronousSystemDescription() + "/"
 				+ Values.getMajorFrameDelayDescription() + "/" + Values.getWorstCaseDeadlineDescription() + "/"
@@ -61,7 +57,7 @@ public class LatencyReport {
 	public Report export() {
 		Report genericReport;
 
-		genericReport = new Report(this.relatedInstance, "latency", "latency_" + getPreferencesSuffix(),
+		genericReport = new Report(this.relatedInstance, "latency", "latency_" + FlowLatencyUtil.getPreferencesSuffix(),
 				ReportType.TABLE);
 		genericReport.setTextContent("Latency analysis " + getPreferencesDescription());
 		for (LatencyReportEntry re : entries) {
@@ -76,7 +72,8 @@ public class LatencyReport {
 		AnalysisResult latencyReports = ResultUtil.createAnalysisResult(this.name,
 				this.relatedInstance);
 		latencyReports.setAnalysis("Latency analysis");
-		latencyReports.setInfo(getPreferencesDescription());
+		latencyReports.setInfo(FlowLatencyUtil.getPreferencesSuffix());
+		latencyReports.setSourceReference(getRootinstance());
 		for (LatencyReportEntry re : entries) {
 			latencyReports.getResults().add(re.genResult());
 		}

@@ -209,7 +209,6 @@ public class LatencyReportEntry {
 						double diff = lc.getSamplingPeriod() - last.getSamplingPeriod();
 						res = res + diff;
 						lc.setActualValue(diff, doMaximum);
-						lc.reportSubtotal(res, doMaximum);
 						lc.reportInfoOnce(doMaximum, "Sampling period " + lc.getSamplingPeriod() + "ms");
 					} else if ( // XXX added check for > 0
 							lc.getSamplingPeriod() > 0 && lc.getSamplingPeriod() < last.getSamplingPeriod()) {
@@ -227,7 +226,6 @@ public class LatencyReportEntry {
 					}
 					res = res + diff;
 					lc.setActualValue(diff, doMaximum);
-					lc.reportSubtotal(res, doMaximum);
 					if (doMaximum) {
 						lc.reportInfo(doMaximum,
 								"Worst case: Round up sampling delay to period " + lc.getSamplingPeriod() + "ms");
@@ -246,7 +244,6 @@ public class LatencyReportEntry {
 					if (doMaximum) {
 						res = res + lc.getSamplingPeriod();
 						lc.setActualValue(lc.getSamplingPeriod(), doMaximum);
-						lc.reportSubtotal(res, doMaximum);
 						lc.reportInfo(
 								"Best case 0 ms worst case " + lc.getSamplingPeriod() + "ms (period) sampling delay");
 					} else {
@@ -254,7 +251,6 @@ public class LatencyReportEntry {
 					}
 				}
 
-				lc.reportSubtotal(res, doMaximum);
 				lastSampled = lc;
 			} else if (lc.getLatencyContributorMethod(doMaximum).equals(LatencyContributorMethod.DELAYED)) {
 				// if it is a task and is preceded by a partition then accommodate for additional sampling latency
@@ -264,7 +260,6 @@ public class LatencyReportEntry {
 						double diff = lc.getSamplingPeriod() - last.getSamplingPeriod();
 						res = res + diff;
 						lc.setActualValue(diff, doMaximum);
-						lc.reportSubtotal(res, doMaximum);
 						lc.reportInfo(doMaximum, "Delay to next sampling period " + lc.getSamplingPeriod() + "ms");
 					} else if (lc.getSamplingPeriod() < last.getSamplingPeriod()) {
 						lc.reportWarning(doMaximum, "Task period smaller than partition period");
@@ -287,7 +282,6 @@ public class LatencyReportEntry {
 					double diff = FlowLatencyUtil.roundUpDiff(getCumLatency(lc, doMaximum), lc.getSamplingPeriod());
 					res = res + diff;
 					lc.setActualValue(diff, doMaximum);
-					lc.reportSubtotal(res, doMaximum);
 					lc.reportInfo(doMaximum, "Sampling period " + lc.getSamplingPeriod() + "ms");
 					if (doSynchronous() && isPreviousConnectionSyncUnknown(lc)) {
 						lc.reportInfoOnce(doMaximum, "Assume synchronous communication");
@@ -299,7 +293,6 @@ public class LatencyReportEntry {
 				} else {
 					res = res + lc.getSamplingPeriod();
 					lc.setActualValue(lc.getSamplingPeriod(), doMaximum);
-					lc.reportSubtotal(res, doMaximum);
 					lc.reportInfo(doMaximum, "Sampling period " + lc.getSamplingPeriod() + "ms");
 				}
 				lastSampled = lc;
@@ -316,7 +309,6 @@ public class LatencyReportEntry {
 									lc.getSamplingPeriod());
 							res = res + diff;
 							lc.setActualValue(diff, doMaximum);
-							lc.reportSubtotal(res, doMaximum);
 							lc.reportInfo(doMaximum, "(S) major frame " + lc.getSamplingPeriod() + "ms");
 						} else {
 							// we have a partition offset.
@@ -335,7 +327,6 @@ public class LatencyReportEntry {
 									double diff = myOffset - prevPlus;
 									res = res + diff;
 									lc.setActualValue(diff, doMaximum);
-									lc.reportSubtotal(res, doMaximum);
 								} else {
 									// the previous one is not based on a schedule
 									// this branch should not be reached since both partitions are on same processor
@@ -343,7 +334,6 @@ public class LatencyReportEntry {
 									double diff = FlowLatencyUtil.roundUpDiff(cum, lc.getSamplingPeriod());
 									res = res + diff;
 									lc.setActualValue(diff, doMaximum);
-									lc.reportSubtotal(res, doMaximum);
 									lc.reportInfo(doMaximum, "(S) major frame " + lc.getSamplingPeriod() + "ms");
 								}
 							} else {
@@ -352,7 +342,6 @@ public class LatencyReportEntry {
 								double diff = FlowLatencyUtil.roundUpDiff(cum, lc.getSamplingPeriod());
 								res = res + diff;
 								lc.setActualValue(diff, doMaximum);
-								lc.reportSubtotal(res, doMaximum);
 								lc.reportWarning(doMaximum, "Partition schedule without partition offset");
 							}
 						}
@@ -369,7 +358,6 @@ public class LatencyReportEntry {
 							res = res + lc.getSamplingPeriod();
 							lc.setActualValue(lc.getSamplingPeriod(), doMaximum);
 						}
-						lc.reportSubtotal(res, doMaximum);
 					}
 				} else {
 					lc.reportInfoOnce(doMaximum,
@@ -396,15 +384,12 @@ public class LatencyReportEntry {
 					lc.setActualValue(diff, doMaximum);
 					lc.reportInfoOnce(doMaximum, "Output at " + lc.getPartitionDuration() + "ms partition end");
 				}
-				lc.reportSubtotal(res, doMaximum);
 			} else if (lc instanceof LatencyContributorConnection) {
 				// check recursively for sampling protocol
 				doSampledProtocol(lc, doMaximum, null);
 				res = res + lc.getTotal(doMaximum);
-				lc.reportSubtotal(res, doMaximum);
 			} else {
 				res = res + lc.getTotal(doMaximum);
-				lc.reportSubtotal(res, doMaximum);
 			}
 		}
 
@@ -516,15 +501,9 @@ public class LatencyReportEntry {
 		line.addHeaderContent("Result");
 		line.addHeaderContent("Min Specified");
 		line.addHeaderContent("Min Actual");
-//		if (Values.doReportSubtotals()) {
-//			line.addHeaderContent("Min Subtotals");
-//		}
 		line.addHeaderContent("Min Method");
 		line.addHeaderContent("Max Specified");
 		line.addHeaderContent("Max Actual");
-//		if (Values.doReportSubtotals()) {
-//			line.addHeaderContent("Max Subtotals");
-//		}
 		line.addHeaderContent("Max Method");
 		line.addHeaderContent("Comments");
 		section.addLine(line);
@@ -541,15 +520,9 @@ public class LatencyReportEntry {
 		line.addContent("Latency Total");
 		line.addContent(minSpecifiedValue + "ms");
 		line.addContent(minValue + "ms");
-//		if (Values.doReportSubtotals()) {
-//			line.addHeaderContent("");
-//		}
 		line.addContent("");
 		line.addContent(maxSpecifiedValue + "ms");
 		line.addContent(maxValue + "ms");
-//		if (Values.doReportSubtotals()) {
-//			line.addHeaderContent("");
-//		}
 		line.addContent("");
 		section.addLine(line);
 
@@ -570,41 +543,41 @@ public class LatencyReportEntry {
 		if (expectedMaxLatency > 0) {
 			if (minSpecifiedValue > expectedMaxLatency) {
 				reportSummaryError("Minimum specified flow latency total " + BestDecPoint(minSpecifiedValue)
-				+ "ms exceeds expected maximum latency " + BestDecPoint(expectedMaxLatency) + "ms");
+						+ "ms exceeds expected maximum latency " + BestDecPoint(expectedMaxLatency) + "ms");
 			} else if (minSpecifiedValue < expectedMinLatency) {
 				reportSummaryWarning("Minimum specified flow latency total " + BestDecPoint(minSpecifiedValue)
 				+ "ms less than expected minimum end to end latency " + BestDecPoint(expectedMinLatency)
-				+ "ms (better response time)");
+						+ "ms (better response time)");
 			}
 
 			if (minValue > expectedMaxLatency) {
 				reportSummaryError("Minimum actual latency total " + BestDecPoint(minValue)
-				+ "ms exceeds expected maximum end to end latency " + BestDecPoint(expectedMaxLatency) + "ms");
+						+ "ms exceeds expected maximum end to end latency " + BestDecPoint(expectedMaxLatency) + "ms");
 			} else if (minValue < expectedMinLatency) {
 				reportSummaryWarning("Minimum actual latency total " + BestDecPoint(minValue)
 				+ "ms less than expected minimum end to end latency " + BestDecPoint(expectedMinLatency)
-				+ "ms (faster actual minimum response time)");
+						+ "ms (faster actual minimum response time)");
 			} else {
 				reportSummarySuccess("Minimum actual latency total " + BestDecPoint(minValue)
 				+ "ms is greater or equal to expected minimum end to end latency "
-				+ BestDecPoint(expectedMinLatency) + "ms");
+						+ BestDecPoint(expectedMinLatency) + "ms");
 			}
 
 			if (maxValue > 0) {
 				if (expectedMaxLatency < maxSpecifiedValue) {
 					reportSummaryError("Maximum specified flow latency total " + BestDecPoint(maxSpecifiedValue)
 					+ "ms exceeds expected maximum end to end latency " + BestDecPoint(expectedMaxLatency)
-					+ "ms");
+							+ "ms");
 				}
 
 				if (expectedMaxLatency < maxValue) {
 					reportSummaryError("Maximum actual latency total " + BestDecPoint(maxValue)
 					+ "ms exceeds expected maximum end to end latency " + BestDecPoint(expectedMaxLatency)
-					+ "ms");
+							+ "ms");
 				} else {
 					reportSummarySuccess("Maximum actual latency total " + BestDecPoint(maxValue)
 					+ "ms is less or equal to expected maximum end to end latency "
-					+ BestDecPoint(expectedMaxLatency) + "ms");
+							+ BestDecPoint(expectedMaxLatency) + "ms");
 				}
 				// do jitter analysis
 				if (maxSpecifiedValue - minSpecifiedValue > expectedMaxLatency - expectedMinLatency) {
@@ -660,15 +633,18 @@ public class LatencyReportEntry {
 
 	public void generateMarkers(AnalysisErrorReporterManager errManager) {
 		List<Diagnostic> doIssues = this.issues;
+		String inMode = Aadl2Util.isPrintableSOMName(som) ? " in mode " + som.getName() : "";
 		for (Diagnostic reportedCell : doIssues) {
 			if (reportedCell.getType() == DiagnosticType.INFO) {
-				errManager.info(this.relatedEndToEndFlow, reportedCell.getMessage());
+				errManager.info(this.relatedEndToEndFlow, reportedCell.getMessage() + inMode);
 			} else if (reportedCell.getType() == DiagnosticType.SUCCESS) {
-				errManager.info(this.relatedEndToEndFlow, getRelatedObjectLabel() + reportedCell.getMessage());
+				errManager.info(this.relatedEndToEndFlow, getRelatedObjectLabel() + reportedCell.getMessage() + inMode);
 			} else if (reportedCell.getType() == DiagnosticType.WARNING) {
-				errManager.warning(this.relatedEndToEndFlow, getRelatedObjectLabel() + reportedCell.getMessage());
+				errManager.warning(this.relatedEndToEndFlow,
+						getRelatedObjectLabel() + reportedCell.getMessage() + inMode);
 			} else if (reportedCell.getType() == DiagnosticType.ERROR) {
-				errManager.error(this.relatedEndToEndFlow, getRelatedObjectLabel() + reportedCell.getMessage());
+				errManager.error(this.relatedEndToEndFlow,
+						getRelatedObjectLabel() + reportedCell.getMessage() + inMode);
 			}
 		}
 	}
