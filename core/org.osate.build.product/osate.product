@@ -14,7 +14,7 @@
    </configIni>
 
    <launcherArgs>
-      <vmArgs>-Dosgi.requiredJavaVersion=1.8 -Xms40m -Xmx768m
+      <vmArgs>-Dosgi.requiredJavaVersion=1.8 -Xms40m -Xmx768m --add-modules=ALL-SYSTEM
       </vmArgs>
    </launcherArgs>
 
@@ -26,7 +26,6 @@
       startupMessageRect="7,252,445,20"
       startupForegroundColor="000000" />
    <launcher name="osate">
-      <solaris/>
       <win useIco="false">
          <bmp/>
       </win>
@@ -34,7 +33,6 @@
 
    <vm>
    </vm>
-
 
    <plugins>
    </plugins>
