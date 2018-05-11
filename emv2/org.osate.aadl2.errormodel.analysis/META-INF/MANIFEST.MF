@@ -21,3 +21,4 @@ Export-Package: org.osate.aadl2.errormodel.analysis,
  org.osate.aadl2.errormodel.analysis.fha,
  org.osate.aadl2.errormodel.analysis.handlers
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Automatic-Module-Name: org.osate.aadl2.errormodel.analysis

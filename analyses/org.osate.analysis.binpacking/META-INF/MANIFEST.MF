@@ -13,3 +13,4 @@ Export-Package: EAnalysis.BinPacking,
 Require-Bundle: org.eclipse.ui,
  org.eclipse.core.runtime
 Eclipse-LazyStart: true
+Automatic-Module-Name: org.osate.analysis.binpacking

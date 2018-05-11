@@ -42,3 +42,4 @@ Export-Package: org.osate.reqspec,
  org.osate.reqspec.util,
  org.osate.reqspec.validation
 Import-Package: org.apache.log4j
+Automatic-Module-Name: org.osate.reqspec
