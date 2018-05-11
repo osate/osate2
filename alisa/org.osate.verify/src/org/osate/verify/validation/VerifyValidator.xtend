@@ -141,8 +141,8 @@ class VerifyValidator extends VerifyTypeSystemValidator {
 			val req = va.containingClaim?.requirement
 			val target = req?.targetElement
 			val cat = req?.componentCategory
-			if (target === null || !cat.empty || req.targetType == TargetType.COMPONENT || req.targetType ==
-				TargetType.ROOT) {
+			if (target === null && (!cat.empty || req.targetType == TargetType.COMPONENT || req.targetType ==
+				TargetType.ROOT)) {
 				if (!(vm.targetType === TargetType.COMPONENT || vm.targetType === TargetType.ELEMENT ||
 					vm.targetType === TargetType.ROOT)) {
 					error(
