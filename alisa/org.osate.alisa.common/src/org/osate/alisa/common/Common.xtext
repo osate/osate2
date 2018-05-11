@@ -17,7 +17,7 @@ Rationale: 'rationale' text=STRING ;
 
 
 Uncertainty:
-	'uncertainty' 
+	{Uncertainty}'uncertainty' 
 	'['
 	(
 		('volatility' volatility=INT)?
@@ -241,6 +241,8 @@ ComponentCategory returns aadl2::ComponentCategory: 'abstract' | 'bus'|'data'
 	| 'thread' | 'virtual' 'bus' | 'virtual' 'processor'
 ;
 
+
+enum TargetType: COMPONENT='component'|FEATURE='feature'|CONNECTION='connection'|FLOW='flow'|MODE='mode'|ELEMENT='element'|ROOT='root';
 
 terminal fragment
 EXPONENT  :  ('e'|'E') ('+'|'-')? ( DIGIT )+  ;

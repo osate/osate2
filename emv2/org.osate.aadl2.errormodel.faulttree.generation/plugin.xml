@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.0"?>
+
+<!--
+
+-->
+
+<plugin>
+   
+     <extension
+         point="org.eclipse.ui.commands">
+      <category
+            id="org.osate.aadl2.errormodel.analysis.category"
+            name="OSATE Fault Analyses">
+      </category>
+
+     <command 
+            categoryId="org.osate.aadl2.errormodel.analysis.category"
+            id="org.osate.aadl2.errormodel.analysis.fta"
+            description="View FTA graphically or as minimal cutset table"
+            name="Run Fault Tree Analysis">
+     </command>     
+    </extension>
+    
+    
+   	<extension point="org.eclipse.ui.handlers">
+        <handler
+            class="org.osate.aadl2.errormodel.faulttree.handler.FTAHandler" 
+            commandId="org.osate.aadl2.errormodel.analysis.fta">
+         <enabledWhen>
+            <or>
+               <reference
+                     definitionId="org.osate.core.isInstanceFileSelected">
+               </reference>
+               <with
+                     variable="selection">
+                  <and>
+                     <count
+                           value="1">
+                     </count>
+                     <iterate>
+                        <instanceof
+                              value="org.osate.aadl2.instance.ComponentInstance">
+                        </instanceof>
+                     </iterate>
+                  </and>
+               </with>
+            </or>
+         </enabledWhen>
+      </handler>
+     </extension>  
+ 
+    <extension
+         point="org.eclipse.ui.commandImages">
+      <image
+            commandId="org.osate.aadl2.errormodel.analysis.fta"
+            icon="icons/fta.png">
+      </image>
+    </extension>  
+     
+         
+    <extension point="org.eclipse.ui.menus">
+       <menuContribution
+             locationURI="menu:org.osate.ui.safetyMenu?after=core">
+          <command
+                commandId="org.osate.aadl2.errormodel.analysis.fta">
+          </command>
+       </menuContribution>
+       <menuContribution
+             locationURI="toolbar:org.osate.ui.safetyToolbar?after=core">
+          <command
+                commandId="org.osate.aadl2.errormodel.analysis.fta"
+                tooltip="Run fault tree analysis">
+             <!--
+               Remove visibleWhen on the command when this bug is fixed:
+               https://bugs.eclipse.org/bugs/show_bug.cgi?id=201589
+            -->
+            <visibleWhen
+                  checkEnabled="false">
+               <with
+                     variable="activeWorkbenchWindow.activePerspective">
+                  <equals
+                        value="org.osate.ui.perspective.AadlPerspective">
+                  </equals>
+               </with>
+            </visibleWhen>
+          </command>
+       </menuContribution>
+       <menuContribution
+             locationURI="popup:org.osate.ui.safetyNavigatorPopup?after=core">
+          <command
+                commandId="org.osate.aadl2.errormodel.analysis.fta">
+             <visibleWhen
+                   checkEnabled="true">
+             </visibleWhen>
+          </command>
+        </menuContribution>
+ 	</extension>
+
+</plugin>

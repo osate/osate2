@@ -48,7 +48,6 @@ import org.osate.verify.verify.JUnit4Method
 import org.osate.verify.verify.JavaMethod
 import org.osate.verify.verify.PluginMethod
 import org.osate.verify.verify.ResoluteMethod
-import org.osate.verify.verify.TargetType
 import org.osate.verify.verify.Verification
 import org.osate.verify.verify.VerificationActivity
 import org.osate.verify.verify.VerificationCondition
@@ -58,6 +57,7 @@ import org.osate.verify.verify.VerificationPlan
 import org.osate.verify.verify.VerifyPackage
 
 import static extension org.osate.verify.util.VerifyUtilExtension.*
+import org.osate.alisa.common.common.TargetType
 
 /**
  * Custom validation rules. 
@@ -104,8 +104,8 @@ class VerifyValidator extends VerifyTypeSystemValidator {
 	def checkClassPath(JUnit4Method method) {
 		val result = ExecuteJavaUtil.eInstance.findClass(method.classPath)
 		if (result === null) {
-			warning("Could not find JUnit4 test class: " + method.classPath, VerifyPackage.Literals.JUNIT4_METHOD__CLASS_PATH,
-				INCORRECT_CLASS_PATH)
+			warning("Could not find JUnit4 test class: " + method.classPath,
+				VerifyPackage.Literals.JUNIT4_METHOD__CLASS_PATH, INCORRECT_CLASS_PATH)
 		}
 	}
 
@@ -133,7 +133,7 @@ class VerifyValidator extends VerifyTypeSystemValidator {
 				VerifyPackage.Literals.VERIFICATION_ACTIVITY__METHOD, MISSING_METHOD_REFERENCE)
 		}
 	}
-	
+
 	@Check
 	def checkConsistentTarget(VerificationActivity va) {
 		val vm = va.method
@@ -141,248 +141,262 @@ class VerifyValidator extends VerifyTypeSystemValidator {
 			val req = va.containingClaim?.requirement
 			val target = req?.targetElement
 			val cat = req?.componentCategory
-			if ((target === null || !cat.empty) && !req.connections){
-				if (!(vm.targetType === TargetType.COMPONENT|| vm.targetType === TargetType.ELEMENT|| vm.targetType === TargetType.ROOT)){
-				error(
-				"Requirement is for component while verification method is not for component, element, or root",
-				va, VerifyPackage.Literals.VERIFICATION_ACTIVITY__METHOD,MISMATCHED_TARGET)
+			if (target === null || !cat.empty || req.targetType == TargetType.COMPONENT || req.targetType ==
+				TargetType.ROOT) {
+				if (!(vm.targetType === TargetType.COMPONENT || vm.targetType === TargetType.ELEMENT ||
+					vm.targetType === TargetType.ROOT)) {
+					error(
+						"Requirement is for component while verification method is not for component, element, or root",
+						va, VerifyPackage.Literals.VERIFICATION_ACTIVITY__METHOD, MISMATCHED_TARGET)
 				}
-			} else if (target instanceof Feature && !(vm.targetType === TargetType.FEATURE|| vm.targetType !== TargetType.ELEMENT)){
-				error(
-				"Requirement is for Feature while verification method is not for Feature",
-				va, VerifyPackage.Literals.VERIFICATION_ACTIVITY__METHOD,MISMATCHED_TARGET)
-			} else if (target instanceof EndToEndFlow && (vm.targetType === TargetType.FLOW|| vm.targetType !== TargetType.ELEMENT)){
-				error(
-				"Requirement is for Flow while verification method is not for Flow",
-				va, VerifyPackage.Literals.VERIFICATION_ACTIVITY__METHOD,MISMATCHED_TARGET)
-			} else if ((req.connections || target instanceof Connection )&& !(vm.targetType === TargetType.CONNECTION|| vm.targetType !== TargetType.ELEMENT)){
-				error(
-				"Requirement is for Flow while verification method is not for Flow",
-				va, VerifyPackage.Literals.VERIFICATION_ACTIVITY__METHOD,MISMATCHED_TARGET)
-			}
-		}
-	}
-
-	@Check(CheckType.NORMAL)
-	def checkVerificationActivityParams(VerificationActivity va) {
-		val actualParameters = va.actuals
-		val method = va.method
-		val expectedParms = method.formals
-		if ((expectedParms?.size != actualParameters?.size)) {
-			warning(
-				"The number of actual parameters differs from the number of formal parameters for verification activity",
-				va, VerifyPackage.Literals.VERIFICATION_ACTIVITY__METHOD)
-		}
-	}
-
-	@Check(CheckType.FAST)
-	def checkForDuplicateClaims(VerificationPlan vp) {
-		val claims = vp.claim
-		claims.forEach[EcoreUtil.resolveAll(it)]
-		val vpUri = EcoreUtil.getURI(vp).toString()
-		claims.forEach [ claim |
-			val possibleDuplicates = claims.filter[it != claim && it.requirement == claim.requirement]
-			if (possibleDuplicates.size > 0) {
-				val duplicateUris = new ArrayList<String>()
-				duplicateUris.add(vpUri)
-				duplicateUris.add(claim.requirement.name)
-				possibleDuplicates.forEach[duplicateUris.add(EcoreUtil.getURI(it).toString())]
-				warning('Multiple Claims with duplicate Requirements', claim, VerifyPackage.Literals.CLAIM__REQUIREMENT,
-					MULTIPLE_CLAIMS_WITH_DUPLICATE_REQUIREMENTS, duplicateUris)
-			}
-		]
-	}
-
-	@Check(CheckType.FAST)
-	def checkMultipleInvalidRequirementsForClaims(VerificationPlan vp) {
-
-		val claims = vp.claim
-		claims.forEach[EcoreUtil.resolveAll(it)]
-		val sysreqs = vp.requirementSet
-		val sysreqsContent = sysreqs.requirements
-		val vpURI = EcoreUtil.getURI(vp).toString()
-		val claimsRequirements = claims.map[requirement].toSet
-		val requirementsWithoutClaims = sysreqsContent.filter[!claimsRequirements.contains(it)]
-		val organizeClaims = requirementsWithoutClaims.size > 0
-
-		val claimsMissingRequirements = claims.filter[it.requirement === null]
-		val missingReqURIs = new ArrayList<String>()
-		requirementsWithoutClaims.forEach [ req |
-			missingReqURIs.add(EcoreUtil.getURI(req).toString())
-		]
-
-		val claimsRequirementsUnresolved = claims.filter[claim|claim?.requirement !== null && claim.requirement.eIsProxy]
-		val claimsWithMissingReqs = new ArrayList<Claim>()
-
-		claimsMissingRequirements.forEach [ cl |
-			if (!organizeClaims) {
-				error('Claim is missing requirement', cl, null, CLAIM_MISSING_REQUIREMENT, vpURI)
-			} else {
-				claimsWithMissingReqs.add(cl)
-			}
-		]
-		claimsRequirementsUnresolved.forEach [ cl |
-			if (!organizeClaims) {
-				var reqName = cl.requirement.name ?: ""
-				if (reqName.length > 0) reqName = reqName + " "
-				error('Requirement ' + reqName + 'does not exist in ' + sysreqs.name + '.', cl,
-					VerifyPackage.Literals.CLAIM__REQUIREMENT, CLAIM_INVALID_REQUIREMENT, vpURI)
-			} else {
-				claimsWithMissingReqs.add(cl)
-			}
-		]
-
-		if (claimsWithMissingReqs.size > 0) {
-			val String[] uris = missingReqURIs
-
-			error('Claims with missing or unresolved Requirements', vp, VerifyPackage.Literals.VERIFICATION_PLAN__NAME,
-				MISSING_REQUIREMENTS_FOR_MULTIPLE_CLAIMS, uris)
-		}
-	}
-
-	@Check(CheckType.NORMAL)
-	def checkClaimsForRequirement(VerificationPlan vp) {
-		val systemRequirements = vp.requirementSet
-		val requirements = systemRequirements.requirements
-		requirements.forEach [ req |
-			if (req.refinesReference.empty) {
-				if (!vp.claim.exists[claim|claim.requirement === req]) {
-					warning('No claim for requirement ' + req.name, vp, VerifyPackage.Literals.VERIFICATION_PLAN__NAME,
-						MISSING_CLAIM_FOR_REQ, req.name, EcoreUtil.getURI(req).toString())
-				}
-			}
-		]
-	}
-
-	@Check(CheckType.NORMAL)
-	def checkClaimsForMultipleRequirement(VerificationPlan vp) {
-		val systemRequirements = vp.requirementSet
-		val requirements = systemRequirements.requirements
-		val List<String> missingRequirements = new ArrayList<String>
-		requirements.forEach [ req |
-			if (req.refinesReference.empty && !vp.claim.exists[claim|claim.requirement === req]) {
-				missingRequirements.add(EcoreUtil.getURI(req).toString())
-			}
-		]
-		if (missingRequirements.size > 1) {
-			warning('Missing claims for multiple requirements', vp, VerifyPackage.Literals.VERIFICATION_PLAN__NAME,
-				MISSING_CLAIM_FOR_MULTIPLE_REQ, missingRequirements)
-
-		}
-	}
-
-	@Check(CheckType.FAST)
-	def void checkVerificationMethodSignature(VerificationMethod vm) {
-		switch methodKind : vm.methodKind {
-			ResoluteMethod: {
-				val fparams = vm.formals
-				val mreforproxy = methodKind.methodReference 
-				if (mreforproxy === null || !(mreforproxy instanceof FunctionDefinition)){
-					return
-				}
-				val mref = mreforproxy as FunctionDefinition
-				val aparams = mref.args
-				val methodRefName = mref.name
-				val hasComponentType = vm.targetType !== null
-				val fcount = if (hasComponentType) {
-						fparams.size + 1
-					} else {
-						fparams.size
+			} else if ((req.targetType === TargetType.FEATURE || target instanceof Feature) &&
+				!(vm.targetType === TargetType.FEATURE || vm.targetType === TargetType.ELEMENT ||
+					vm.methodKind instanceof PluginMethod)) {
+				error("Requirement is for Feature while verification method is not for Feature", va,
+					VerifyPackage.Literals.VERIFICATION_ACTIVITY__METHOD, MISMATCHED_TARGET)
+			} else if ((req.targetType === TargetType.FLOW || target instanceof EndToEndFlow) &&
+				!(vm.targetType === TargetType.FLOW || vm.targetType === TargetType.ELEMENT ||
+					vm.methodKind instanceof PluginMethod)) {
+						error("Requirement is for Flow while verification method is not for Flow", va,
+							VerifyPackage.Literals.VERIFICATION_ACTIVITY__METHOD, MISMATCHED_TARGET)
+					} else if ((req.targetType === TargetType.CONNECTION || target instanceof Connection ) &&
+						!(vm.targetType === TargetType.CONNECTION || vm.targetType === TargetType.ELEMENT ||
+							vm.methodKind instanceof PluginMethod)) {
+						error("Requirement is for Flow while verification method is not for Flow", va,
+							VerifyPackage.Literals.VERIFICATION_ACTIVITY__METHOD, MISMATCHED_TARGET)
 					}
-				if (fcount != aparams.size) {
+				}
+			}
+
+			@Check(CheckType.NORMAL)
+			def checkVerificationActivityParams(VerificationActivity va) {
+				val actualParameters = va.actuals
+				val method = va.method
+				val expectedParms = method.formals
+				if ((expectedParms?.size != actualParameters?.size)) {
 					warning(
-						"method " + vm.name +
-							"'s number of parameters does not match the number of arguments for the Resolute method " +
-							methodRefName, vm, VerifyPackage.Literals.VERIFICATION_METHOD__NAME,
-							METHOD_PARMS_DO_NOT_MATCH_RESOLUTE_DEFINITION)
-							return
-						}
-						val i = if (hasComponentType) {
-								1
-							} else {
-								0
-							}
-						fparams.forEach [ vmParm, j |
-							val aparam = aparams.get(j + i)
-							val baseType = aparam.type as BaseType
-							if (!matchResoluteType(vmParm.type, baseType)) {
-								warning(
-									"method " + vm.name + "'s parameter " + vmParm.name +
-										" does not match the type of " + aparam.name + " in the Resolute method " +
-										methodRefName, vm, VerifyPackage.Literals.VERIFICATION_METHOD__NAME,
-										METHOD_PARMS_DO_NOT_MATCH_RESOLUTE_DEFINITION)
-										return
-									}
-								]
-							}
-						}
-					}
+						"The number of actual parameters differs from the number of formal parameters for verification activity",
+						va, VerifyPackage.Literals.VERIFICATION_ACTIVITY__METHOD)
+				}
+			}
 
-					def boolean matchResoluteType(PropertyType formalType, BaseType resoluteType) {
-						switch (formalType) {
-							AadlBoolean: return resoluteType.type.equalsIgnoreCase("bool")
-							AadlReal: return resoluteType.type.equalsIgnoreCase("real")
-							AadlInteger: return resoluteType.type.equalsIgnoreCase("int")
-							AadlString: return resoluteType.type.equalsIgnoreCase("string")
-							PropertyRef: return resoluteType.type.equalsIgnoreCase("property")
+			@Check(CheckType.FAST)
+			def checkForDuplicateClaims(VerificationPlan vp) {
+				val claims = vp.claim
+				claims.forEach[EcoreUtil.resolveAll(it)]
+				val vpUri = EcoreUtil.getURI(vp).toString()
+				claims.forEach [ claim |
+					val possibleDuplicates = claims.filter[it != claim && it.requirement == claim.requirement]
+					if (possibleDuplicates.size > 0) {
+						val duplicateUris = new ArrayList<String>()
+						duplicateUris.add(vpUri)
+						duplicateUris.add(claim.requirement.name)
+						possibleDuplicates.forEach[duplicateUris.add(EcoreUtil.getURI(it).toString())]
+						warning('Multiple Claims with duplicate Requirements', claim,
+							VerifyPackage.Literals.CLAIM__REQUIREMENT, MULTIPLE_CLAIMS_WITH_DUPLICATE_REQUIREMENTS,
+							duplicateUris)
 						}
-						false
-					}
+					]
+				}
 
-					@Check(CheckType.FAST)
-					def void checkFileTypeContents(Verification verification) {
-						val verificationURI = EcoreUtil.getURI(verification)
-						val fileExt = verificationURI.fileExtension.toLowerCase
-						val contents = verification.contents
-						switch fileExt {
-							case "verify": {
-								contents.forEach [ content |
-									switch content {
-										VerificationPlan: {
-										}
-										VerificationMethodRegistry:
-											fileTypeError(fileExt, "verification methods", content)
-										default:
-											fileTypeError(fileExt, content.class.name, content)
-									}
-								]
-							}
-							case "methodregistry": {
-								contents.forEach [ content |
-									switch content {
-										VerificationMethodRegistry: {
-										}
-										VerificationPlan:
-											fileTypeError(fileExt, "verification plan", content)
-										default:
-											fileTypeError(fileExt, content.class.name, content)
-									}
-								]
-							}
-							default: {
-							}
+				@Check(CheckType.FAST)
+				def checkMultipleInvalidRequirementsForClaims(VerificationPlan vp) {
+
+					val claims = vp.claim
+					claims.forEach[EcoreUtil.resolveAll(it)]
+					val sysreqs = vp.requirementSet
+					val sysreqsContent = sysreqs.requirements
+					val vpURI = EcoreUtil.getURI(vp).toString()
+					val claimsRequirements = claims.map[requirement].toSet
+					val requirementsWithoutClaims = sysreqsContent.filter[!claimsRequirements.contains(it)]
+					val organizeClaims = requirementsWithoutClaims.size > 0
+
+					val claimsMissingRequirements = claims.filter[it.requirement === null]
+					val missingReqURIs = new ArrayList<String>()
+					requirementsWithoutClaims.forEach [ req |
+						missingReqURIs.add(EcoreUtil.getURI(req).toString())
+					]
+
+					val claimsRequirementsUnresolved = claims.filter [ claim |
+						claim?.requirement !== null && claim.requirement.eIsProxy
+					]
+					val claimsWithMissingReqs = new ArrayList<Claim>()
+
+					claimsMissingRequirements.forEach [ cl |
+						if (!organizeClaims) {
+							error('Claim is missing requirement', cl, null, CLAIM_MISSING_REQUIREMENT, vpURI)
+						} else {
+							claimsWithMissingReqs.add(cl)
 						}
-					}
+					]
+					claimsRequirementsUnresolved.forEach [ cl |
+						if (!organizeClaims) {
+							var reqName = cl.requirement.name ?: ""
+							if(reqName.length > 0) reqName = reqName + " "
+							error('Requirement ' + reqName + 'does not exist in ' + sysreqs.name + '.', cl,
+								VerifyPackage.Literals.CLAIM__REQUIREMENT, CLAIM_INVALID_REQUIREMENT, vpURI)
+						} else {
+							claimsWithMissingReqs.add(cl)
+						}
+					]
 
-					// TODO: This method overload calls the quickfix which does not work as expected, commenting out for the immediate future
-//	def void fileTypeError(String fileType, String partName, EObject part, URI verificationURI){
-//		error( partName +" not allowed in '"+ fileType + "' file.", part, null, ILLEGAL_OBJECT_FOR_FILETYPE, partName, verificationURI.toString())
-//	}
-					def void fileTypeError(String fileType, String partName, EObject part) {
-						warning(partName + " not allowed in '" + fileType + "' file.", part, null)
+					if (claimsWithMissingReqs.size > 0) {
+						val String[] uris = missingReqURIs
+
+						error('Claims with missing or unresolved Requirements', vp,
+							VerifyPackage.Literals.VERIFICATION_PLAN__NAME, MISSING_REQUIREMENTS_FOR_MULTIPLE_CLAIMS,
+							uris)
+						}
 					}
 
 					@Check(CheckType.NORMAL)
-					def void checkVerificationPlanUniqueToComponentClassifier(VerificationPlan vp) {
-						val sysReq = vp.requirementSet
-						if (sysReq instanceof SystemRequirementSet) {
-							val vps = verifyGlobalRefFinder.getAllVerificationPlansForRequirements(sysReq, vp)
-							if (vps.size > 1) {
-								error("Other Verification Plans exist for '" + sysReq.name +
-									"'. Only one Verification Plans is allowed for a specific System Requirements.", vp,
-									VerifyPackage.Literals.VERIFICATION_PLAN__REQUIREMENT_SET)
+					def checkClaimsForRequirement(VerificationPlan vp) {
+						val systemRequirements = vp.requirementSet
+						val requirements = systemRequirements.requirements
+						requirements.forEach [ req |
+							if (req.refinesReference.empty) {
+								if (!vp.claim.exists[claim|claim.requirement === req]) {
+									warning('No claim for requirement ' + req.name, vp,
+										VerifyPackage.Literals.VERIFICATION_PLAN__NAME, MISSING_CLAIM_FOR_REQ, req.name,
+										EcoreUtil.getURI(req).toString())
+								}
 							}
-						}
+						]
 					}
 
-				}
+					@Check(CheckType.NORMAL)
+					def checkClaimsForMultipleRequirement(VerificationPlan vp) {
+						val systemRequirements = vp.requirementSet
+						val requirements = systemRequirements.requirements
+						val List<String> missingRequirements = new ArrayList<String>
+						requirements.forEach [ req |
+							if (req.refinesReference.empty && !vp.claim.exists[claim|claim.requirement === req]) {
+								missingRequirements.add(EcoreUtil.getURI(req).toString())
+							}
+						]
+						if (missingRequirements.size > 1) {
+							warning('Missing claims for multiple requirements', vp,
+								VerifyPackage.Literals.VERIFICATION_PLAN__NAME, MISSING_CLAIM_FOR_MULTIPLE_REQ,
+								missingRequirements)
+
+							}
+						}
+
+						@Check(CheckType.FAST)
+						def void checkVerificationMethodSignature(VerificationMethod vm) {
+							switch methodKind : vm.methodKind {
+								ResoluteMethod: {
+									val fparams = vm.formals
+									val mreforproxy = methodKind.methodReference
+									if (mreforproxy === null || !(mreforproxy instanceof FunctionDefinition)) {
+										return
+									}
+									val mref = mreforproxy as FunctionDefinition
+									val aparams = mref.args
+									val methodRefName = mref.name
+									val hasComponentType = vm.targetType !== null
+									val fcount = if (hasComponentType) {
+											fparams.size + 1
+										} else {
+											fparams.size
+										}
+									if (fcount != aparams.size) {
+										warning(
+											"method " + vm.name +
+												"'s number of parameters does not match the number of arguments for the Resolute method " +
+												methodRefName, vm, VerifyPackage.Literals.VERIFICATION_METHOD__NAME,
+												METHOD_PARMS_DO_NOT_MATCH_RESOLUTE_DEFINITION)
+												return
+											}
+											val i = if (hasComponentType) {
+													1
+												} else {
+													0
+												}
+											fparams.forEach [ vmParm, j |
+												val aparam = aparams.get(j + i)
+												val baseType = aparam.type as BaseType
+												if (!matchResoluteType(vmParm.type, baseType)) {
+													warning(
+														"method " + vm.name + "'s parameter " + vmParm.name +
+															" does not match the type of " + aparam.name +
+															" in the Resolute method " + methodRefName, vm,
+														VerifyPackage.Literals.VERIFICATION_METHOD__NAME,
+														METHOD_PARMS_DO_NOT_MATCH_RESOLUTE_DEFINITION)
+														return
+													}
+												]
+											}
+										}
+									}
+
+									def boolean matchResoluteType(PropertyType formalType, BaseType resoluteType) {
+										switch (formalType) {
+											AadlBoolean: return resoluteType.type.equalsIgnoreCase("bool")
+											AadlReal: return resoluteType.type.equalsIgnoreCase("real")
+											AadlInteger: return resoluteType.type.equalsIgnoreCase("int")
+											AadlString: return resoluteType.type.equalsIgnoreCase("string")
+											PropertyRef: return resoluteType.type.equalsIgnoreCase("property")
+										}
+										false
+									}
+
+									@Check(CheckType.FAST)
+									def void checkFileTypeContents(Verification verification) {
+										val verificationURI = EcoreUtil.getURI(verification)
+										val fileExt = verificationURI.fileExtension.toLowerCase
+										val contents = verification.contents
+										switch fileExt {
+											case "verify": {
+												contents.forEach [ content |
+													switch content {
+														VerificationPlan: {
+														}
+														VerificationMethodRegistry:
+															fileTypeError(fileExt, "verification methods", content)
+														default:
+															fileTypeError(fileExt, content.class.name, content)
+													}
+												]
+											}
+											case "methodregistry": {
+												contents.forEach [ content |
+													switch content {
+														VerificationMethodRegistry: {
+														}
+														VerificationPlan:
+															fileTypeError(fileExt, "verification plan", content)
+														default:
+															fileTypeError(fileExt, content.class.name, content)
+													}
+												]
+											}
+											default: {
+											}
+										}
+									}
+
+									// TODO: This method overload calls the quickfix which does not work as expected, commenting out for the immediate future
+//	def void fileTypeError(String fileType, String partName, EObject part, URI verificationURI){
+//		error( partName +" not allowed in '"+ fileType + "' file.", part, null, ILLEGAL_OBJECT_FOR_FILETYPE, partName, verificationURI.toString())
+//	}
+									def void fileTypeError(String fileType, String partName, EObject part) {
+										warning(partName + " not allowed in '" + fileType + "' file.", part, null)
+									}
+
+									@Check(CheckType.NORMAL)
+									def void checkVerificationPlanUniqueToComponentClassifier(VerificationPlan vp) {
+										val sysReq = vp.requirementSet
+										if (sysReq instanceof SystemRequirementSet) {
+											val vps = verifyGlobalRefFinder.
+												getAllVerificationPlansForRequirements(sysReq, vp)
+											if (vps.size > 1) {
+												error("Other Verification Plans exist for '" + sysReq.name +
+													"'. Only one Verification Plans is allowed for a specific System Requirements.",
+													vp, VerifyPackage.Literals.VERIFICATION_PLAN__REQUIREMENT_SET)
+											}
+										}
+									}
+
+								}
+								

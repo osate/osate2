@@ -116,6 +116,8 @@ public class CommonFactoryImpl extends EFactoryImpl implements CommonFactory
     {
       case CommonPackage.OPERATION:
         return createOperationFromString(eDataType, initialValue);
+      case CommonPackage.TARGET_TYPE:
+        return createTargetTypeFromString(eDataType, initialValue);
       default:
         throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier");
     }
@@ -133,6 +135,8 @@ public class CommonFactoryImpl extends EFactoryImpl implements CommonFactory
     {
       case CommonPackage.OPERATION:
         return convertOperationToString(eDataType, instanceValue);
+      case CommonPackage.TARGET_TYPE:
+        return convertTargetTypeToString(eDataType, instanceValue);
       default:
         throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier");
     }
@@ -387,6 +391,28 @@ public class CommonFactoryImpl extends EFactoryImpl implements CommonFactory
    * @generated
    */
   public String convertOperationToString(EDataType eDataType, Object instanceValue)
+  {
+    return instanceValue == null ? null : instanceValue.toString();
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public TargetType createTargetTypeFromString(EDataType eDataType, String initialValue)
+  {
+    TargetType result = TargetType.get(initialValue);
+    if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
+    return result;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public String convertTargetTypeToString(EDataType eDataType, Object instanceValue)
   {
     return instanceValue == null ? null : instanceValue.toString();
   }

@@ -1144,6 +1144,7 @@ class AssureUtilExtension {
 
 	def static String constructDescription(VerificationActivityResult vr) {
 		val va = vr.target
+		if (va === null) return ""
 		if(va.title !== null) return va.title
 		val vm = va.method
 		if (vm == null) return ""
@@ -1169,9 +1170,11 @@ class AssureUtilExtension {
 
 	def static String constructDescription(ModelResult ar) {
 		val plan = ar.plan
+		if (plan === null) return ""
 		if(plan?.description !== null) return plan.description.toText(plan.target)
 		if(plan.title !== null) return plan.title
-		"Verified system implementation " + plan.target.getQualifiedName()
+		if (plan.target === null) return ""
+		"Verified component implementation " + plan.target.getQualifiedName()
 	}
 
 	def static String successToString(AssureResult ar) {
@@ -1242,6 +1245,7 @@ class AssureUtilExtension {
 
 	def static String constructDescription(ClaimResult cr) {
 		val r = cr.target
+		if (r === null) return ""
 		if(r.description !== null) return r.description.toText(cr.caseTargetModelElement)
 		if(r.title !== null) return r.title
 		""

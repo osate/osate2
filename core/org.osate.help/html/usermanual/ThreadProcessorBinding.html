@@ -1,0 +1,219 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+	"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+   <title>Thread–Processor Binding</title>
+   <link href="Res/styles/shared.css" rel="stylesheet" type="text/css">
+   <link href="Res/styles/DynamicOutline.css" rel="stylesheet" type="text/css">
+</head>
+<body id="page" >
+
+<!-- BEGIN PAGE BODY-->
+
+
+<table id="pageBody">
+ <col class="main">
+ <col class="right">
+
+<!-- BEGIN BREADCRUMBS-->
+<tr id="breadcrumbsAndPageNavigation">
+  <td class="breadcrumbs" valign="top">
+<!-- BEGIN NAVIGATION BREADCRUMBS ITEM-->
+<span class="breadcrumb">
+   <a href="index.html">Home</a> 
+   <span class="separator">&gt;</span>
+</span>
+<!-- END NAVIGATION BREADCRUMBS ITEM-->
+<!-- BEGIN NAVIGATION BREADCRUMBS ITEM-->
+<span class="breadcrumb">
+   <a href="AnalysisofDeclarativeAADLModelsandAADLIn.html">9. Analysis of Declarative AADL Models and AADL Instance Models</a> 
+   <span class="separator">&gt;</span>
+</span>
+<!-- END NAVIGATION BREADCRUMBS ITEM-->
+<!-- BEGIN NAVIGATION BREADCRUMBS HERE-->
+<span class="breadcrumb">
+   9.6 Thread–Processor Binding
+</span>
+<!-- END NAVIGATION BREADCRUMBS HERE-->
+
+  </td>
+  <td class="pageNavigation" valign="top">
+<!-- START PAGE NAVIGATION NEXT IN SEQUENCE IMAGES -->
+<span class="commands">
+    <span class="command">
+        <img src="Res/images/previous_button.gif" alt=""> <a href="MetaHGeneration.html">
+        <span class="label">Previous</span></a>
+    </span>
+&nbsp;&nbsp;
+    <span class="command">
+        <a href="DoItYourself.html">
+        <span class="label">Next</span></a> <img src="Res/images/next_button.gif" alt="">
+    </span>
+</span>
+<!-- END PAGE NAVIGATION NEXT IN SEQUENCE IMAGES  -->
+
+  </td>
+  <td class="right" valign="top">
+  </td>
+</tr>
+<!-- END BREADCRUMBS-->
+
+<tr class="topic">
+  <td class="main" valign="top" colspan="2">
+    <div class="body">
+      <div class="topicDivider">
+      </div>
+    </div>
+  </td>
+  <td class="right" valign="top">
+<!--right body column empty-->
+  </td>
+</tr>
+
+<!--BEGIN PAGE BODY ITEM-->
+<tr class="topic">
+  <td class="main" valign="top" colspan="2">
+    <table>
+      <tr class="topicHeader">
+        <td class="topicImageColumn">
+
+        </td>
+        <td class="topicLineColumn">
+          <a name="Topic73"></a>
+          <span class=outlineNumberFirst>9.6 </span><span class=topicLineFirst>Thread–Processor Binding</span>
+          <span class="topicIcons">
+
+          </span>
+        </td>
+      </tr>
+    </table>
+
+<!-- phf:Comand: Expand("BoxPartMap.mmbas") -->
+     <div class="topicTextNotes"><div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">This plug-in is invoked by selecting an instance model and running “Analyses &gt; Scheduling &gt; 
+Bind and schedule threads.”  This plug-in attempts to bind thread instances to processor 
+instances in the system instance, taking into account such factors as the threads’ period and 
+deadline, the processor’s speed and scheduling policy, and constraints imposed by the 
+</span></font><font face="Courier New" color="#010101"><span>allowed_processor_binding</span></font><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt"> and </span></font><font face="Courier New" color="#010101"><span>not_collocated</span></font><font face="Times New Roman" color="#010101" size="3"><span 
+style="font-size:12pt"> properties.  If the threads can be 
+scheduled onto existing processors, then the plug-in reports back the thread–processor 
+bindings and the resulting processor utilizations.  The user can then have the plug-in introduce 
+the appropriate </span></font><font face="Courier New" color="#010101"><span>actual_processor_binding</span></font><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt"> properties definitions into the instance model 
+or declarative model (as contained property definitions).  The plug-in ignores the value of any 
+existing </span></font><font face="Courier New" color="#010101"><span>actual_processor_binding</span></font><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt"> property associations; to force a thread to run on a 
+specific processor use the </span></font><font face="Courier New" color="#010101"><span>allowed_processor_binding</span></font><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt"> property.</span></font><span></span></div>
+<div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">The plug-in uses several property definitions from the </span></font><font face="Courier New" color="#010101"><span>SEI</span></font><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt"> property set:</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span>property set SEI is</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span>  ...</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span>  -- A thread references the processor that was used to determine </span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span>  -- the thread's compute time.  Dividing the compute time by this</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span>  -- processor's cycle time gives the number of compute cycles the </span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span>  --thread needs.  A Thread can inherit the value from its enclosing</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span>  -- thread group, process, or system.</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span>  reference_processor: inherit classifier (processor) </span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span>      applies to (thread, thread group, process, system, device);</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span>                  </span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span>  -- Alternatively, a thread can rely on a default global reference </span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span>  -- cycle time, in which case we interpret its timing results with </span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span>  -- respect to that global reference.  The global reference is a</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span>  -- 200MHz processor.</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span>  reference_cycle_time: constant Time =&gt; 5000 ps;</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span>    </span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span>  -- Time per clock-cycle.  Default is 200MHz processor.</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span>  cycle_time: time =&gt; 5000 ps applies to (processor);</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span>  ...</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span>end SEI;</span></font><span></span></div>
+<div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">The plug-in uses the standard </span></font><font face="Courier New" color="#010101"><span>Period</span></font><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">, </span></font><font face="Courier New" color="#010101"><span>Deadline</span></font><font 
+face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">, and </span></font><font face="Courier New" color="#010101"><span>Compute_Execution_Time</span></font><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt"> 
+properties for each thread.  Because it needs a processor-independent notion of computation 
+time, it converts each thread’s execution time into a count of clock cycles.  To do this, it first 
+tried to find a </span></font><font face="Courier New" color="#010101"><span>SEI::reference_processor</span></font><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt"> property value for the thread.  If found, the plug- 
+in looks up the </span></font><font face="Courier New" color="#010101"><span>SEI::cycle_time</span></font><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt"> property of the referenced processor classifier.  If the 
+thread does not have a reference processor specified, the plug-in tries to use a global reference 
+value specified by the constant </span></font><font face="Courier New" color="#010101"><span>SEI::reference_cycle_time</span></font><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">.  </span></font><span></span></div>
+<div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">For each thread in the system, the plug-in uses the standard </span></font><font face="Courier New" color="#010101"><span>Scheduling_Protocol</span></font><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt"> 
+property 
+as well as the </span></font><font face="Courier New" color="#010101"><span>SEI::cycle_time</span></font><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt"> property.  The plug-in understands the EDF and RMS 
+scheduling protocols; if no protocol is specified the plug-in assumes EDF.  You may have to 
+update your </span></font><font face="Courier New" color="#010101"><span>Aadl_Project</span></font><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt"> property set so that the </span></font><font face="Courier New" color="#010101"><span>Supported_Scheduling_Protocols</span></font><font face="Times New Roman" color="#010101" size="3"><span 
+style="font-size:12pt"> 
+enumeration type includes the literals </span></font><font face="Courier New" color="#010101" size="3"><span style="font-size:12pt">EDF</span></font><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt"> and </span></font><font face="Courier New" color="#010101" size="3"><span style="font-size:12pt">RMS</span></font><font 
+face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">.</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span>The binding behavior can be constrained by using the 
+Allowed_Processor_Binding, Allowed_Processor_Binding_Class, and 
+Not_Collocated  property values on threads.  The first allows a thread 
+to declare the specific processor instances to which it may be bound, 
+as well as specific system instances that contain processors to which 
+it may be bound.  The second allows a thread to more generally declare 
+threads to be acceptable based on their classifier, or based on the 
+classifier of the system that contains them.  The values of the 
+properties Allowed_Processor_Binding and 
+Allowed_Processor_Binding_Class interact: for example a thread can 
+declare that it can only be bound to processor of a certain classifier 
+type that is contained within a specific system by using 
+Allowed_Processor_Binding_Class to name the processor classifier, and 
+Allowed_Processor_Binding</span></font><font face="Courier New" color="#010101" size="3"><span style="font-size:12pt"> </span></font><font face="Courier New" color="#010101"><span>to reference the specific system instance. 
+Finally, the Not_Collocated property allows a thread to declare those 
+threads which should not be bound to the same processor as it is.</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span>When all the threads of a system cannot be bound to processors, the 
+plug-in puts up a simple dialog box announcing this fact (unfortunately 
+we are unable to provide feedback about why system cannot be bound). 
+When the threads can be bound, the plug-in displays a dialog box 
+showing the binding results and the remaining availability of each 
+processor; see </span></font><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">Figure 28</span></font><font face="Courier New" color="#010101"><span>.  The bottom portion of the dialog box contains 
+the textual AADL properties clause that could be copied into the 
+textual declaration of the system to bind the threads.  The clause uses 
+contained property associations to define the Actual_Processor_Binding 
+property for the bound threads.  The user can have the plug-in insert 
+these property values into the instance model by clicking the “Set 
+Instance Properties” button. </span></font><span></span></div>
+<div align="center"><img src="NotesImages/Topic73NotesImage4.jpg" align="bottom" width="576" height="432" border="0" alt="graphic" /></div>
+<div align="center"><font face="Times New Roman" color="#010101"><span><b>Figure 28: Dialog box showing example successful thread binding results.</b></span></font><span></span></div></div>
+
+
+
+
+  </td>
+  <td class="right" valign="top">
+<!--right body column empty-->
+  </td>
+</tr>
+<!--END PAGE BODY ITEM-->
+
+
+<!-- BEGIN TOP BUTTON -->
+<tr class="topic">
+  <td class="main" valign="top" colspan="2">
+    <div class="body">
+      <div class="topCommand">
+        <span class="commands">
+      <span class="command">
+            <img src="Res/images/top_button.gif" alt="">
+          <a href="javascript:scroll(0,0)">
+             <span class="label">Top</span>
+              </a>
+    </span>
+       </span>
+      </div>
+    </div>
+  </td>
+  <td class="right" valign="top">
+<!--right body column empty-->
+  </td>
+</tr>
+<!-- END TOP BUTTON -->
+
+</table>
+
+<!-- BEGIN SIDE NAVIGATION WRAPPER-->
+    </td>
+  </tr>
+</table>
+<!-- END SIDE NAVIGATION WRAPPER-->
+
+<!-- END PAGE BODY-->
+
+
+</body>
+</html>
+

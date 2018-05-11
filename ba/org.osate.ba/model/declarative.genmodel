@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<genmodel:GenModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore"
+    xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" copyrightText="AADL-BA-FrontEnd&#xA;&#xA;Copyright © 2011 TELECOM ParisTech and CNRS&#xA;&#xA;TELECOM ParisTech/LTCI&#xA;&#xA;Authors: see AUTHORS&#xA;&#xA;This program is free software: you can redistribute it and/or modify it under&#xA;the terms of the Eclipse Public License as published by Eclipse, either&#xA;version 1.0 of the License, or (at your option) any later version. This&#xA;program is distributed in the hope that it will be useful, but WITHOUT ANY&#xA;WARRANTY; without even the implied warranty of MERCHANTABILITY or&#xA;FITNESS FOR A PARTICULAR PURPOSE. See the Eclipse Public License for&#xA;more details. You should have received a copy of the Eclipse Public License&#xA;along with this program. If not, see&#xA;http://www.eclipse.org/org/documents/epl-v10.php"
+    modelDirectory="/org.osate.ba/src" editDirectory="/org.osate.ba.edit/src" editorDirectory="/org.osate.ba.editor/src"
+    modelPluginID="org.osate.ba" modelName="Declarative" codeFormatting="true" importerID="org.eclipse.emf.importer.ecore"
+    complianceLevel="6.0" copyrightFields="false" editPluginID="org.osate.ba.edit"
+    editorPluginID="org.osate.ba.editor" usedGenPackages="../../org.osate.aadl2/model/aadl2.genmodel#//aadl2 aadlba.genmodel#//aadlba">
+  <foreignModel>declarative.ecore</foreignModel>
+  <genPackages prefix="Declarative" basePackage="org.osate.ba" resource="XML" disposableProviderFactory="true"
+      ecorePackage="declarative.ecore#/">
+    <genClasses ecoreClass="declarative.ecore#//ArrayableIdentifier">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference declarative.ecore#//ArrayableIdentifier/arrayIndexes"/>
+    </genClasses>
+    <genClasses ecoreClass="declarative.ecore#//CommAction">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference declarative.ecore#//CommAction/parameters"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute declarative.ecore#//CommAction/portFreeze"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute declarative.ecore#//CommAction/portDequeue"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute declarative.ecore#//CommAction/lock"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute declarative.ecore#//CommAction/unlock"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference declarative.ecore#//CommAction/target"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference declarative.ecore#//CommAction/qualifiedName"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference declarative.ecore#//CommAction/reference"/>
+    </genClasses>
+    <genClasses ecoreClass="declarative.ecore#//DeclarativeArrayDimension">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference declarative.ecore#//DeclarativeArrayDimension/dimension"/>
+    </genClasses>
+    <genClasses image="false" ecoreClass="declarative.ecore#//DeclarativeBehaviorElement">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference declarative.ecore#//DeclarativeBehaviorElement/osateRef"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference declarative.ecore#//DeclarativeBehaviorElement/baRef"/>
+    </genClasses>
+    <genClasses ecoreClass="declarative.ecore#//DeclarativeBehaviorTransition">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference declarative.ecore#//DeclarativeBehaviorTransition/srcStates"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference declarative.ecore#//DeclarativeBehaviorTransition/destState"/>
+    </genClasses>
+    <genClasses ecoreClass="declarative.ecore#//DeclarativeTime">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference declarative.ecore#//DeclarativeTime/unitId"/>
+    </genClasses>
+    <genClasses ecoreClass="declarative.ecore#//Enumeration">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference declarative.ecore#//Enumeration/literal"/>
+    </genClasses>
+    <genClasses ecoreClass="declarative.ecore#//Identifier">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute declarative.ecore#//Identifier/id"/>
+    </genClasses>
+    <genClasses ecoreClass="declarative.ecore#//NamedValue">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference declarative.ecore#//NamedValue/reference"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute declarative.ecore#//NamedValue/dequeue"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute declarative.ecore#//NamedValue/fresh"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute declarative.ecore#//NamedValue/count"/>
+    </genClasses>
+    <genClasses ecoreClass="declarative.ecore#//QualifiedNamedElement">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference declarative.ecore#//QualifiedNamedElement/baNamespace"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference declarative.ecore#//QualifiedNamedElement/baName"/>
+    </genClasses>
+    <genClasses ecoreClass="declarative.ecore#//Reference">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference declarative.ecore#//Reference/ids"/>
+    </genClasses>
+  </genPackages>
+</genmodel:GenModel>
