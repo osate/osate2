@@ -65,12 +65,12 @@ import org.osate.verify.verify.VerificationCondition
 import org.osate.verify.verify.VerificationPlan
 import org.osate.verify.verify.VerificationPrecondition
 import org.osate.verify.verify.VerificationValidation
+import org.osate.alisa.common.common.TargetType
 
 import static extension org.osate.alisa.common.util.CommonUtilExtension.*
 import static extension org.osate.reqspec.util.ReqSpecUtilExtension.*
 import static extension org.osate.verify.util.VerifyUtilExtension.*
 import org.osate.reqspec.util.IReqspecGlobalReferenceFinder
-import org.osate.verify.verify.TargetType
 import org.osate.alisa.workbench.util.IAlisaGlobalReferenceFinder
 
 @ImplementedBy(AssureConstructor)
@@ -170,7 +170,7 @@ class AssureConstructor implements IAssureConstructor {
 				val includes = reqs.include
 				for (incl : includes) {
 					if (incl.include instanceof RequirementSet) {
-						if (incl.componentCategory.matchingCategory(cc.category)) {
+//						if (incl.componentCategory.matchingCategory(cc.category)) {
 							val plans = vReferenceFinder.
 								getAllVerificationPlansForRequirements(incl.include as RequirementSet, reqs)
 							if (incl.self) {
@@ -178,7 +178,7 @@ class AssureConstructor implements IAssureConstructor {
 							} else {
 								globalPlans.addAll(plans)
 							}
-						}
+//						}
 					} else if (incl.include instanceof Requirement){
 						val greq = incl.include as Requirement
 						val greqs = greq.containingRequirementSet
@@ -256,7 +256,7 @@ class AssureConstructor implements IAssureConstructor {
 				}
 			}
 		}
-		if (cc instanceof ComponentImplementation && claim.requirement.connections) {
+		if (cc instanceof ComponentImplementation && claim.requirement.targetType === TargetType.CONNECTION) {
 			for (conn : (cc as ComponentImplementation).crossConnections) {
 				claim.generateClaimResult(claimResultlist, conn)
 			}

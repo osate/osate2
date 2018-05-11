@@ -1,0 +1,15 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: %pluginName
+Bundle-SymbolicName: org.osate.analysis.binpacking;singleton:=true
+Bundle-Version: 1.0.0.qualifier
+Bundle-ClassPath: .
+Bundle-Activator: org.osate.analysis.binpacking.BinpackingPlugin
+Bundle-Vendor: CMU-SEI
+Bundle-Localization: plugin
+Export-Package: EAnalysis.BinPacking,
+ org.osate.analysis.binpacking,
+ org.osate.analysis.binpacking.rma
+Require-Bundle: org.eclipse.ui,
+ org.eclipse.core.runtime
+Eclipse-LazyStart: true

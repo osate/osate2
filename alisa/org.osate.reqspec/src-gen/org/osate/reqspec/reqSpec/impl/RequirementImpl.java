@@ -36,6 +36,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
 import org.osate.aadl2.ComponentCategory;
 
 import org.osate.alisa.common.common.AVariableDeclaration;
+import org.osate.alisa.common.common.TargetType;
 
 import org.osate.organization.organization.Stakeholder;
 
@@ -61,7 +62,7 @@ import org.osate.reqspec.reqSpec.Requirement;
  *   <li>{@link org.osate.reqspec.reqSpec.impl.RequirementImpl#getDevelopmentStakeholder <em>Development Stakeholder</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.impl.RequirementImpl#getRequirementReference <em>Requirement Reference</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.impl.RequirementImpl#getComponentCategory <em>Component Category</em>}</li>
- *   <li>{@link org.osate.reqspec.reqSpec.impl.RequirementImpl#isConnections <em>Connections</em>}</li>
+ *   <li>{@link org.osate.reqspec.reqSpec.impl.RequirementImpl#getTargetType <em>Target Type</em>}</li>
  * </ul>
  *
  * @generated
@@ -179,24 +180,24 @@ public class RequirementImpl extends ContractualElementImpl implements Requireme
   protected EList<ComponentCategory> componentCategory;
 
   /**
-   * The default value of the '{@link #isConnections() <em>Connections</em>}' attribute.
+   * The default value of the '{@link #getTargetType() <em>Target Type</em>}' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #isConnections()
+   * @see #getTargetType()
    * @generated
    * @ordered
    */
-  protected static final boolean CONNECTIONS_EDEFAULT = false;
+  protected static final TargetType TARGET_TYPE_EDEFAULT = TargetType.COMPONENT;
 
   /**
-   * The cached value of the '{@link #isConnections() <em>Connections</em>}' attribute.
+   * The cached value of the '{@link #getTargetType() <em>Target Type</em>}' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #isConnections()
+   * @see #getTargetType()
    * @generated
    * @ordered
    */
-  protected boolean connections = CONNECTIONS_EDEFAULT;
+  protected TargetType targetType = TARGET_TYPE_EDEFAULT;
 
   /**
    * <!-- begin-user-doc -->
@@ -465,9 +466,9 @@ public class RequirementImpl extends ContractualElementImpl implements Requireme
    * <!-- end-user-doc -->
    * @generated
    */
-  public boolean isConnections()
+  public TargetType getTargetType()
   {
-    return connections;
+    return targetType;
   }
 
   /**
@@ -475,12 +476,12 @@ public class RequirementImpl extends ContractualElementImpl implements Requireme
    * <!-- end-user-doc -->
    * @generated
    */
-  public void setConnections(boolean newConnections)
+  public void setTargetType(TargetType newTargetType)
   {
-    boolean oldConnections = connections;
-    connections = newConnections;
+    TargetType oldTargetType = targetType;
+    targetType = newTargetType == null ? TARGET_TYPE_EDEFAULT : newTargetType;
     if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, ReqSpecPackage.REQUIREMENT__CONNECTIONS, oldConnections, connections));
+      eNotify(new ENotificationImpl(this, Notification.SET, ReqSpecPackage.REQUIREMENT__TARGET_TYPE, oldTargetType, targetType));
   }
 
   /**
@@ -533,8 +534,8 @@ public class RequirementImpl extends ContractualElementImpl implements Requireme
         return getRequirementReference();
       case ReqSpecPackage.REQUIREMENT__COMPONENT_CATEGORY:
         return getComponentCategory();
-      case ReqSpecPackage.REQUIREMENT__CONNECTIONS:
-        return isConnections();
+      case ReqSpecPackage.REQUIREMENT__TARGET_TYPE:
+        return getTargetType();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -586,8 +587,8 @@ public class RequirementImpl extends ContractualElementImpl implements Requireme
         getComponentCategory().clear();
         getComponentCategory().addAll((Collection<? extends ComponentCategory>)newValue);
         return;
-      case ReqSpecPackage.REQUIREMENT__CONNECTIONS:
-        setConnections((Boolean)newValue);
+      case ReqSpecPackage.REQUIREMENT__TARGET_TYPE:
+        setTargetType((TargetType)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -633,8 +634,8 @@ public class RequirementImpl extends ContractualElementImpl implements Requireme
       case ReqSpecPackage.REQUIREMENT__COMPONENT_CATEGORY:
         getComponentCategory().clear();
         return;
-      case ReqSpecPackage.REQUIREMENT__CONNECTIONS:
-        setConnections(CONNECTIONS_EDEFAULT);
+      case ReqSpecPackage.REQUIREMENT__TARGET_TYPE:
+        setTargetType(TARGET_TYPE_EDEFAULT);
         return;
     }
     super.eUnset(featureID);
@@ -670,8 +671,8 @@ public class RequirementImpl extends ContractualElementImpl implements Requireme
         return requirementReference != null && !requirementReference.isEmpty();
       case ReqSpecPackage.REQUIREMENT__COMPONENT_CATEGORY:
         return componentCategory != null && !componentCategory.isEmpty();
-      case ReqSpecPackage.REQUIREMENT__CONNECTIONS:
-        return connections != CONNECTIONS_EDEFAULT;
+      case ReqSpecPackage.REQUIREMENT__TARGET_TYPE:
+        return targetType != TARGET_TYPE_EDEFAULT;
     }
     return super.eIsSet(featureID);
   }
@@ -691,8 +692,8 @@ public class RequirementImpl extends ContractualElementImpl implements Requireme
     result.append(exceptionText);
     result.append(", componentCategory: ");
     result.append(componentCategory);
-    result.append(", connections: ");
-    result.append(connections);
+    result.append(", targetType: ");
+    result.append(targetType);
     result.append(')');
     return result.toString();
   }

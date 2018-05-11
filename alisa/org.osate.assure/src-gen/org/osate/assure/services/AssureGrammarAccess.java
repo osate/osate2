@@ -1793,58 +1793,58 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 		//exceptionType=STRING)? ('[' issues+=ResultIssue* ']')?
 		public Group getGroup() { return cGroup; }
 
-		//org.eclipse.xtext.resource.ClasspathUriResolutionException: org.eclipse.xtext.resource.FileNotFoundOnClasspathException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/assure/Assure.xtext#/0/@rules.20/@alternatives/@elements.0'
+		//type=ResultIssueType
 		public Assignment getTypeAssignment_0() { return cTypeAssignment_0; }
 
-		//org.eclipse.xtext.resource.ClasspathUriResolutionException: org.eclipse.xtext.resource.FileNotFoundOnClasspathException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/assure/Assure.xtext#/0/@rules.20/@alternatives/@elements.0/@terminal'
+		//ResultIssueType
 		public RuleCall getTypeResultIssueTypeEnumRuleCall_0_0() { return cTypeResultIssueTypeEnumRuleCall_0_0; }
 
-		//org.eclipse.xtext.resource.ClasspathUriResolutionException: org.eclipse.xtext.resource.FileNotFoundOnClasspathException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/assure/Assure.xtext#/0/@rules.20/@alternatives/@elements.1'
+		//message=STRING
 		public Assignment getMessageAssignment_1() { return cMessageAssignment_1; }
 
-		//org.eclipse.xtext.resource.ClasspathUriResolutionException: org.eclipse.xtext.resource.FileNotFoundOnClasspathException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/assure/Assure.xtext#/0/@rules.20/@alternatives/@elements.1/@terminal'
+		//STRING
 		public RuleCall getMessageSTRINGTerminalRuleCall_1_0() { return cMessageSTRINGTerminalRuleCall_1_0; }
 
-		//org.eclipse.xtext.resource.ClasspathUriResolutionException: org.eclipse.xtext.resource.FileNotFoundOnClasspathException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/assure/Assure.xtext#/0/@rules.20/@alternatives/@elements.2'
+		//('source' sourceReference=[ecore::EObject|NoQuoteString])?
 		public Group getGroup_2() { return cGroup_2; }
 
-		//org.eclipse.xtext.resource.ClasspathUriResolutionException: org.eclipse.xtext.resource.FileNotFoundOnClasspathException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/assure/Assure.xtext#/0/@rules.20/@alternatives/@elements.2/@elements.0'
+		//'source'
 		public Keyword getSourceKeyword_2_0() { return cSourceKeyword_2_0; }
 
-		//org.eclipse.xtext.resource.ClasspathUriResolutionException: org.eclipse.xtext.resource.FileNotFoundOnClasspathException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/assure/Assure.xtext#/0/@rules.20/@alternatives/@elements.2/@elements.1'
+		//sourceReference=[ecore::EObject|NoQuoteString]
 		public Assignment getSourceReferenceAssignment_2_1() { return cSourceReferenceAssignment_2_1; }
 
-		//org.eclipse.xtext.resource.ClasspathUriResolutionException: org.eclipse.xtext.resource.FileNotFoundOnClasspathException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/assure/Assure.xtext#/0/@rules.20/@alternatives/@elements.2/@elements.1/@terminal'
+		//[ecore::EObject|NoQuoteString]
 		public CrossReference getSourceReferenceEObjectCrossReference_2_1_0() { return cSourceReferenceEObjectCrossReference_2_1_0; }
 
-		//org.eclipse.xtext.resource.ClasspathUriResolutionException: org.eclipse.xtext.resource.FileNotFoundOnClasspathException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/assure/Assure.xtext#/0/@rules.20/@alternatives/@elements.2/@elements.1/@terminal/@terminal'
+		//NoQuoteString
 		public RuleCall getSourceReferenceEObjectNoQuoteStringParserRuleCall_2_1_0_1() { return cSourceReferenceEObjectNoQuoteStringParserRuleCall_2_1_0_1; }
 
-		//org.eclipse.xtext.resource.ClasspathUriResolutionException: org.eclipse.xtext.resource.FileNotFoundOnClasspathException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/assure/Assure.xtext#/0/@rules.20/@alternatives/@elements.3'
+		//('exception' exceptionType=STRING)?
 		public Group getGroup_3() { return cGroup_3; }
 
-		//org.eclipse.xtext.resource.ClasspathUriResolutionException: org.eclipse.xtext.resource.FileNotFoundOnClasspathException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/assure/Assure.xtext#/0/@rules.20/@alternatives/@elements.3/@elements.0'
+		//'exception'
 		public Keyword getExceptionKeyword_3_0() { return cExceptionKeyword_3_0; }
 
-		//org.eclipse.xtext.resource.ClasspathUriResolutionException: org.eclipse.xtext.resource.FileNotFoundOnClasspathException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/assure/Assure.xtext#/0/@rules.20/@alternatives/@elements.3/@elements.1'
+		//exceptionType=STRING
 		public Assignment getExceptionTypeAssignment_3_1() { return cExceptionTypeAssignment_3_1; }
 
-		//org.eclipse.xtext.resource.ClasspathUriResolutionException: org.eclipse.xtext.resource.FileNotFoundOnClasspathException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/assure/Assure.xtext#/0/@rules.20/@alternatives/@elements.3/@elements.1/@terminal'
+		//STRING
 		public RuleCall getExceptionTypeSTRINGTerminalRuleCall_3_1_0() { return cExceptionTypeSTRINGTerminalRuleCall_3_1_0; }
 
-		//org.eclipse.xtext.resource.ClasspathUriResolutionException: org.eclipse.xtext.resource.FileNotFoundOnClasspathException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/assure/Assure.xtext#/0/@rules.20/@alternatives/@elements.4'
+		//('[' issues+=ResultIssue* ']')?
 		public Group getGroup_4() { return cGroup_4; }
 
-		//org.eclipse.xtext.resource.ClasspathUriResolutionException: org.eclipse.xtext.resource.FileNotFoundOnClasspathException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/assure/Assure.xtext#/0/@rules.20/@alternatives/@elements.4/@elements.0'
+		//'['
 		public Keyword getLeftSquareBracketKeyword_4_0() { return cLeftSquareBracketKeyword_4_0; }
 
-		//org.eclipse.xtext.resource.ClasspathUriResolutionException: org.eclipse.xtext.resource.FileNotFoundOnClasspathException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/assure/Assure.xtext#/0/@rules.20/@alternatives/@elements.4/@elements.1'
+		//issues+=ResultIssue*
 		public Assignment getIssuesAssignment_4_1() { return cIssuesAssignment_4_1; }
 
-		//org.eclipse.xtext.resource.ClasspathUriResolutionException: org.eclipse.xtext.resource.FileNotFoundOnClasspathException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/assure/Assure.xtext#/0/@rules.20/@alternatives/@elements.4/@elements.1/@terminal'
+		//ResultIssue
 		public RuleCall getIssuesResultIssueParserRuleCall_4_1_0() { return cIssuesResultIssueParserRuleCall_4_1_0; }
 
-		//org.eclipse.xtext.resource.ClasspathUriResolutionException: org.eclipse.xtext.resource.FileNotFoundOnClasspathException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/assure/Assure.xtext#/0/@rules.20/@alternatives/@elements.4/@elements.2'
+		//']'
 		public Keyword getRightSquareBracketKeyword_4_2() { return cRightSquareBracketKeyword_4_2; }
 	}
 	
@@ -2177,7 +2177,14 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 		return getModelResultAccess().getRule();
 	}
 
-	//org.eclipse.xtext.resource.ClasspathUriResolutionException: org.eclipse.xtext.resource.FileNotFoundOnClasspathException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/assure/Assure.xtext#/0/@metamodelDeclarations.1'
+	//SubsystemResult:
+	//	'subsystem' //name=QualifiedName 'for' 
+	//	targetSystem=[aadl2::Subcomponent]
+	//	'['
+	//	metrics=Metrics ('message' message=STRING)?
+	//	claimResult+=ClaimResult*
+	//	subsystemResult+=SubsystemResult*
+	//	']';
 	public SubsystemResultElements getSubsystemResultAccess() {
 		return pSubsystemResult;
 	}
@@ -2186,7 +2193,15 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 		return getSubsystemResultAccess().getRule();
 	}
 
-	//org.eclipse.xtext.resource.ClasspathUriResolutionException: org.eclipse.xtext.resource.FileNotFoundOnClasspathException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/assure/Assure.xtext#XtextFragmentProvider_org.osate.assure.Assure/ClaimResult'
+	//// Result of meeting a requirement
+	//ClaimResult:
+	//	'claim' targetReference=QualifiedClaimReference //target=[ReqSpec::Requirement|QualifiedName]
+	//	'['
+	//	metrics=Metrics ('for' modelElement=[aadl2::NamedElement])? ('message' message=STRING)?
+	//	subClaimResult+=ClaimResult*
+	//	verificationActivityResult+=VerificationExpr*
+	//	predicateResult=PredicateResult?
+	//	']';
 	public ClaimResultElements getClaimResultAccess() {
 		return pClaimResult;
 	}
@@ -2229,7 +2244,18 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 		return getValidationResultAccess().getRule();
 	}
 
-	//org.eclipse.xtext.resource.ClasspathUriResolutionException: org.eclipse.xtext.resource.FileNotFoundOnClasspathException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/assure/Assure.xtext#XtextFragmentProvider_org.osate.assure.Assure/VerificationActivityResult'
+	//// result of executing a verification activity
+	//VerificationActivityResult VerificationResult:
+	//	'verification' {VerificationActivityResult} targetReference=QualifiedVAReference //target=[Verify::VerificationActivity|QualifiedName]
+	//	'['
+	//	'executionstate' executionState=VerificationExecutionState
+	//	'resultstate' resultState=VerificationResultState ('issues' '['
+	//	issues+=ResultIssue*
+	//	']')? ('results' results=[results::AnalysisResult|QualifiedName])?
+	//	metrics=Metrics ('message' message=STRING)?
+	//	preconditionResult=PreconditionResult?
+	//	validationResult=ValidationResult?
+	//	']';
 	public VerificationActivityResultElements getVerificationActivityResultAccess() {
 		return pVerificationActivityResult;
 	}
@@ -2238,7 +2264,16 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 		return getVerificationActivityResultAccess().getRule();
 	}
 
-	//org.eclipse.xtext.resource.ClasspathUriResolutionException: org.eclipse.xtext.resource.FileNotFoundOnClasspathException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/assure/Assure.xtext#XtextFragmentProvider_org.osate.assure.Assure/PredicateResult'
+	//PredicateResult VerificationResult:
+	//	{PredicateResult}
+	//	'predicate' targetReference=QualifiedClaimReference
+	//	'['
+	//	'executionstate' executionState=VerificationExecutionState
+	//	'resultstate' resultState=VerificationResultState ('issues' '['
+	//	issues+=ResultIssue*
+	//	']')? ('results' results=[results::AnalysisResult|QualifiedName])?
+	//	metrics=Metrics ('message' message=STRING)?
+	//	']';
 	public PredicateResultElements getPredicateResultAccess() {
 		return pPredicateResult;
 	}
@@ -2444,11 +2479,8 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//Uncertainty:
-	//	'uncertainty'
-	//	'[' (('volatility' volatility=INT)?
-	//	& ('precedence' precedence=INT)?
-	//	& ('impact' impact=INT)?)
-	//	']';
+	//	{Uncertainty} 'uncertainty' '[' (('volatility' volatility=INT)? & ('precedence' precedence=INT)? & ('impact'
+	//	impact=INT)?) ']';
 	public CommonGrammarAccess.UncertaintyElements getUncertaintyAccess() {
 		return gaCommon.getUncertaintyAccess();
 	}
@@ -2458,12 +2490,10 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//TypeRef aadl2::PropertyType:
-	//	{aadl2::AadlBoolean} 'boolean'
-	//	| {aadl2::AadlInteger} 'integer' ('units' referencedUnitsType=[aadl2::UnitsType|AADLPROPERTYREFERENCE])?
-	//	| {aadl2::AadlReal} 'real' ('units' referencedUnitsType=[aadl2::UnitsType|AADLPROPERTYREFERENCE])?
-	//	| {aadl2::AadlString} 'string'
-	//	| {ModelRef} 'model' 'element'
-	//	| {TypeRef} ref=[aadl2::PropertyType|AADLPROPERTYREFERENCE];
+	//	{aadl2::AadlBoolean} 'boolean' | {aadl2::AadlInteger} 'integer' ('units'
+	//	referencedUnitsType=[aadl2::UnitsType|AADLPROPERTYREFERENCE])? | {aadl2::AadlReal} 'real' ('units'
+	//	referencedUnitsType=[aadl2::UnitsType|AADLPROPERTYREFERENCE])? | {aadl2::AadlString} 'string' | {ModelRef} 'model'
+	//	'element' | {TypeRef} ref=[aadl2::PropertyType|AADLPROPERTYREFERENCE];
 	public CommonGrammarAccess.TypeRefElements getTypeRefAccess() {
 		return gaCommon.getTypeRefAccess();
 	}
@@ -2494,9 +2524,8 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//ComputeDeclaration AVariableDeclaration:
-	//	{ComputeDeclaration}
-	//	'compute' name=ID ':' (type=TypeRef | 'typeof' type=PropertyRef | range?='[' (type=TypeRef | 'typeof'
-	//	type=PropertyRef) ']');
+	//	{ComputeDeclaration} 'compute' name=ID ':' (type=TypeRef | 'typeof' type=PropertyRef | range?='[' (type=TypeRef |
+	//	'typeof' type=PropertyRef) ']');
 	public CommonGrammarAccess.ComputeDeclarationElements getComputeDeclarationAccess() {
 		return gaCommon.getComputeDeclarationAccess();
 	}
@@ -2506,10 +2535,9 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//// Reference to property, property constant, or model element.
-	//AModelOrPropertyReference AExpression:
+	// AModelOrPropertyReference AExpression:
 	//	AModelReference (=> ({APropertyReference.modelElementReference=current} '#')
-	//	property=[aadl2::AbstractNamedValue|AADLPROPERTYREFERENCE])?
-	//	| APropertyReference;
+	//	property=[aadl2::AbstractNamedValue|AADLPROPERTYREFERENCE])? | APropertyReference;
 	public CommonGrammarAccess.AModelOrPropertyReferenceElements getAModelOrPropertyReferenceAccess() {
 		return gaCommon.getAModelOrPropertyReferenceAccess();
 	}
@@ -2580,13 +2608,8 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//enum Operation:
-	//	OR='or' | ALT_OR='||'
-	//	| AND='and' | ALT_AND='&&'
-	//	| EQ='==' | NEQ='!='
-	//	| GEQ='>=' | LEQ='<=' | GT='>' | LT='<' | IN='><'
-	//	| PLUS='+' | MINUS='-'
-	//	| MULT='*' | DIV='/' | INTDIV='div' | MOD='mod'
-	//	| NOT='not';
+	//	OR='or' | ALT_OR='||' | AND='and' | ALT_AND='&&' | EQ='==' | NEQ='!=' | GEQ='>=' | LEQ='<=' | GT='>' | LT='<' |
+	//	IN='><' | PLUS='+' | MINUS='-' | MULT='*' | DIV='/' | INTDIV='div' | MOD='mod' | NOT='not';
 	public CommonGrammarAccess.OperationElements getOperationAccess() {
 		return gaCommon.getOperationAccess();
 	}
@@ -2686,20 +2709,24 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	////AOtherOperatorExpression returns aadl2::PropertyExpression:
+	//
 	////	AAdditiveExpression (=>({ABinaryOperation.leftOperand=current} feature=OpOther)
+	//
 	////	rightOperand=AAdditiveExpression)*;
-	////
-	////OpOther:
-	////	  '->' 
-	////	| '..<'
-	////	| '>' '..'
-	////	| '..'
-	////	| '=>' 
+	// //
+	// //OpOther:
+	// //	  '->' 
+	// //	| '..<'
+	// //	| '>' '..'
+	// //	| '..'
+	// //	| '=>' 
+	//
 	////	| '>' (=>('>' '>') | '>') 
-	////	| '<' (=>('<' '<') | '<' | '=>')
-	////	| '<>'
-	////	| '?:';
-	//AAdditiveExpression aadl2::PropertyExpression:
+	// //	| '<' (=>('<' '<') | '<' | '=>')
+	// //	| '<>'
+	// //	| '?:';
+	// AAdditiveExpression
+	//aadl2::PropertyExpression:
 	//	AMultiplicativeExpression (=> ({ABinaryOperation.left=current} operator=OpAdd) right=AMultiplicativeExpression)*;
 	public CommonGrammarAccess.AAdditiveExpressionElements getAAdditiveExpressionAccess() {
 		return gaCommon.getAAdditiveExpressionAccess();
@@ -2770,8 +2797,8 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//APrimaryExpression aadl2::PropertyExpression:
-	//	ALiteral | AVariableReference | AModelOrPropertyReference | AFunctionCall | ARangeExpression | AIfExpression
-	//	| AParenthesizedExpression;
+	//	ALiteral | AVariableReference | AModelOrPropertyReference | AFunctionCall | ARangeExpression | AIfExpression |
+	//	AParenthesizedExpression;
 	public CommonGrammarAccess.APrimaryExpressionElements getAPrimaryExpressionAccess() {
 		return gaCommon.getAPrimaryExpressionAccess();
 	}
@@ -2861,13 +2888,17 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	////ASetTerm returns aadl2::PropertyExpression:
+	//
 	////	{ASetLiteral}  '{' (elements+=AExpression (',' elements+=AExpression )*)? '}'
-	////;
-	////
+	// //;
+	// //
+	//
 	////AListTerm returns aadl2::PropertyExpression:
+	//
 	////	{AListTerm} '[' (elements+=AExpression (',' elements+=AExpression )*)? ']'
-	////;
-	//ABooleanLiteral aadl2::PropertyExpression:
+	// //;
+	// ABooleanLiteral
+	//aadl2::PropertyExpression:
 	//	{aadl2::BooleanLiteral} (value?='true' | 'false');
 	public CommonGrammarAccess.ABooleanLiteralElements getABooleanLiteralAccess() {
 		return gaCommon.getABooleanLiteralAccess();
@@ -2908,16 +2939,25 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//ComponentCategory aadl2::ComponentCategory:
-	//	'abstract' | 'bus' | 'data'
-	//	| 'device' | 'memory' | 'process' | 'processor' | 'subprogram'
-	//	| 'subprogram' 'group' | 'system' | 'thread' 'group'
-	//	| 'thread' | 'virtual' 'bus' | 'virtual' 'processor';
+	//	'abstract' | 'bus' | 'data' | 'device' | 'memory' | 'process' | 'processor' | 'subprogram' | 'subprogram' 'group' |
+	//	'system' | 'thread' 'group' | 'thread' | 'virtual' 'bus' | 'virtual' 'processor';
 	public CommonGrammarAccess.ComponentCategoryElements getComponentCategoryAccess() {
 		return gaCommon.getComponentCategoryAccess();
 	}
 	
 	public ParserRule getComponentCategoryRule() {
 		return getComponentCategoryAccess().getRule();
+	}
+
+	//enum TargetType:
+	//	COMPONENT='component' | FEATURE='feature' | CONNECTION='connection' | FLOW='flow' | MODE='mode' | ELEMENT='element' |
+	//	ROOT='root';
+	public CommonGrammarAccess.TargetTypeElements getTargetTypeAccess() {
+		return gaCommon.getTargetTypeAccess();
+	}
+	
+	public EnumRule getTargetTypeRule() {
+		return getTargetTypeAccess().getRule();
 	}
 
 	//terminal fragment EXPONENT:
@@ -2957,7 +2997,7 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 	} 
 
 	//// Qualified classifier reference
-	//AadlClassifierReference:
+	// AadlClassifierReference:
 	//	ID ('::' ID)+ ('.' ID)?;
 	public CommonGrammarAccess.AadlClassifierReferenceElements getAadlClassifierReferenceAccess() {
 		return gaCommon.getAadlClassifierReferenceAccess();
@@ -2988,7 +3028,7 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	////terminal URIID : ('a'..'z'|'A'..'Z') ('a'..'z'|'A'..'Z'|'_'|'0'..'9'|'#'|'@'|'/'|':')*;
-	//QualifiedName:
+	// QualifiedName:
 	//	ID ('.' ID)*;
 	public CommonGrammarAccess.QualifiedNameElements getQualifiedNameAccess() {
 		return gaCommon.getQualifiedNameAccess();

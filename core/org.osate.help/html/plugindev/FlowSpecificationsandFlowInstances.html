@@ -1,0 +1,582 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+	"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+   <title>Flow Specifications and Flow Instances</title>
+   <link href="Res/styles/shared.css" rel="stylesheet" type="text/css">
+   <link href="Res/styles/DynamicOutline.css" rel="stylesheet" type="text/css">
+</head>
+<body id="page" >
+
+<!-- BEGIN PAGE BODY-->
+
+
+<table id="pageBody">
+ <col class="main">
+ <col class="right">
+
+<!-- BEGIN BREADCRUMBS-->
+<tr id="breadcrumbsAndPageNavigation">
+  <td class="breadcrumbs" valign="top">
+<!-- BEGIN NAVIGATION BREADCRUMBS ITEM-->
+<span class="breadcrumb">
+   <a href="index.html">Home</a>
+   <span class="separator">&gt;</span>
+</span>
+<!-- END NAVIGATION BREADCRUMBS ITEM-->
+<!-- BEGIN NAVIGATION BREADCRUMBS ITEM-->
+<span class="breadcrumb">
+   <a href="WorkingwithFlows.html">6. Working with Flows</a>
+   <span class="separator">&gt;</span>
+</span>
+<!-- END NAVIGATION BREADCRUMBS ITEM-->
+<!-- BEGIN NAVIGATION BREADCRUMBS HERE-->
+<span class="breadcrumb">
+   6.1 Flow Specifications and Flow Instances
+</span>
+<!-- END NAVIGATION BREADCRUMBS HERE-->
+
+  </td>
+  <td class="pageNavigation" valign="top">
+<!-- START PAGE NAVIGATION NEXT IN SEQUENCE IMAGES -->
+<span class="commands">
+    <span class="command">
+        <img src="Res/images/previous_button.gif" alt=""> <a href="WorkingwithFlows.html">
+        <span class="label">Previous</span></a>
+    </span>
+&nbsp;&nbsp;
+    <span class="command">
+        <a href="FlowsintheAADLMetaModel.html">
+        <span class="label">Next</span></a> <img src="Res/images/next_button.gif" alt="">
+    </span>
+</span>
+<!-- END PAGE NAVIGATION NEXT IN SEQUENCE IMAGES  -->
+
+  </td>
+  <td class="right" valign="top">
+  </td>
+</tr>
+<!-- END BREADCRUMBS-->
+
+<tr class="topic">
+  <td class="main" valign="top" colspan="2">
+    <div class="body">
+      <div class="topicDivider">
+      </div>
+    </div>
+  </td>
+  <td class="right" valign="top">
+<!--right body column empty-->
+  </td>
+</tr>
+
+<!--BEGIN PAGE BODY ITEM-->
+<tr class="topic">
+  <td class="main" valign="top" colspan="2">
+    <table>
+      <tr class="topicHeader">
+        <td class="topicImageColumn">
+
+        </td>
+        <td class="topicLineColumn">
+          <a name="Topic101"></a>
+          <span class=outlineNumberFirst>6.1 </span><span class=topicLineFirst>Flow Specifications and Flow Instances</span>
+          <span class="topicIcons">
+
+          </span>
+        </td>
+      </tr>
+    </table>
+
+<!-- phf:Comand: Expand("BoxPartMap.mmbas") -->
+     <div class="topicTextNotes"><div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">A
+flow specification describes an externally observable flow of information in terms of
+application logic through a component. Such logical flows may be realized through ports and
+connections of different data types and a combination of data, event, and event data ports.
+Flow specifications represent <i>flow sources</i>, i.e., flows originating from within a component,
+<i>flow sinks</i>, i.e., flows ending within a component, and <i>flow paths</i>, i.e., flows through
+a
+component from its incoming ports to its outgoing ports. </span></font><span></span></div>
+<div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">Flows
+describe actual flow sequences through components and sets of components across one
+or more connections. They are declared in component implementations. Flow sequences take
+two forms: <i>flow implementation</i> and <i>end-to-end flow</i>. A flow implementation describes
+how
+a flow specification of a component is realized in its component implementation. An end-to-
+end flow specifies a flow that starts within one subcomponent and ends within another
+subcomponent. Flow specifications, flow implementations, and end-to-end flows can have
+expected and actual values for flow related properties, e.g., latency or rounding error
+accumulation.</span></font><span></span></div>
+<div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">The
+purpose of providing the capability of specifying end-to-end flows is to support various
+forms of flow analysis, such as end-to-end timing and latency, reliability, numerical error
+propagation, Quality of Service (QoS) and resource management based on operational flows.
+To support such analyses, relevant properties are provided for the end-to-end flow, the flow
+specifications of components, and the ports involved in the flow to be analyzed. For example,
+to deal with end-to-end latency the end-to-end flow may have properties specifying its
+expected maximum latency and actual latency. In addition, ports on individual components may
+have flow specific properties, e.g., an </span></font><font face="Times New Roman" color="#0000ff" size="3"><span
+style="font-size:12pt"><b>in</b></span></font><font face="Times New Roman" color="#010101" size="3"><span
+style="font-size:12pt"> port property specifies the expected latency of data
+relative to its sensor sampling time or in terms of end-to-end latency from sensor to actuator to
+reflect the latency assumption embedded in its extrapolation algorithm.</span></font><span></span></div></div>
+
+
+
+
+  </td>
+  <td class="right" valign="top">
+<!--right body column empty-->
+  </td>
+</tr>
+<!--END PAGE BODY ITEM-->
+<!--BEGIN PAGE BODY ITEM-->
+<tr class="topic">
+  <td class="main" valign="top" colspan="2">
+    <table>
+      <tr class="topicHeader">
+        <td class="topicImageColumn">
+
+        </td>
+        <td class="topicLineColumn">
+          <a name="Topic102"></a>
+          <span class=outlineNumber>6.1.1 </span><span class=topicLine>Flow Specification Declarations</span>
+          <span class="topicIcons">
+
+          </span>
+        </td>
+      </tr>
+    </table>
+
+<!-- phf:Comand: Expand("BoxPartMap.mmbas") -->
+     <div class="topicTextNotes"><div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">A
+flow specification declaration in a component type specifies an externally visible flow through
+a component&#146;s ports, port groups, or parameters. The flow through a component is called a
+<i>flow path</i>. A flow originating in a component is called a <i>flow source</i>. A flow ending
+in a
+component is called a <i>flow sink</i>. <b>Error! Reference source not found.</b> illustrates
+a system
+type </span></font><font face="Times New Roman" color="#0000ff" size="3"><span style="font-size:12pt"><b>GPSSystem</b></span></font><font
+face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt"> with three ports and two
+flow specifications. These are the flows through
+</span></font><font face="Times New Roman" color="#0000ff" size="3"><span style="font-size:12pt"><b>GPSSystem</b></span></font><font
+face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt"> and out of </span></font><font
+face="Times New Roman" color="#0000ff" size="3"><span style="font-size:12pt"><b>GPSSystem</b></span></font><font
+face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt"> that are externally visible.
+The flow path symbol is
+connected to two ports, while flow source symbol connected to one port.</span></font><span></span></div>
+<div align="center"><br/>
+</div>
+<div align="center"><font face="Arial Narrow" color="#010101"><span>Figure 28: Flow specifications.</span></font><span></span></div>
+<div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">The
+ports identified by the flow specification do not have to have the same data type, nor do
+they have to be the same port type, i.e., one can be an </span></font><font face="Times New Roman" color="#0000ff" size="3"><span
+style="font-size:12pt"><b>event</b></span></font><font face="Times New Roman" color="#010101" size="3"><span
+style="font-size:12pt"> port and the other an </span></font><font face="Times New Roman" color="#0000ff" size="3"><span
+style="font-size:12pt"><b>event data</b></span></font><font face="Times New Roman" color="#010101" size="3"><span
+style="font-size:12pt">
+port. Multiple flow specifications can be defined involving the same ports. For example, data
+coming in through an </span></font><font face="Times New Roman" color="#0000ff" size="3"><span style="font-size:12pt"><b>in</b></span></font><font
+face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt"> port group is processed
+and data derived from one of the port group&#146;s
+contained ports is sent out through different </span></font><font face="Times New Roman" color="#0000ff" size="3"><span
+style="font-size:12pt"><b>out</b></span></font><font face="Times New Roman" color="#010101" size="3"><span
+style="font-size:12pt"> ports. This allows logical flows of information
+through components to be characterized by attributing flow specifications and the ports
+involved in flow specifications with relevant AADL property values. Properties other than the
+set of predeclared properties can be introduced through the AADL Property Set concept.</span></font><span></span></div></div>
+
+
+
+
+  </td>
+  <td class="right" valign="top">
+<!--right body column empty-->
+  </td>
+</tr>
+<!--END PAGE BODY ITEM-->
+<!--BEGIN PAGE BODY ITEM-->
+<tr class="topic">
+  <td class="main" valign="top" colspan="2">
+    <table>
+      <tr class="topicHeader">
+        <td class="topicImageColumn">
+
+        </td>
+        <td class="topicLineColumn">
+          <a name="Topic103"></a>
+          <span class=outlineNumber>6.1.2 </span><span class=topicLine>Flow Implementation Declarations</span>
+          <span class="topicIcons">
+
+          </span>
+        </td>
+      </tr>
+    </table>
+
+<!-- phf:Comand: Expand("BoxPartMap.mmbas") -->
+     <div class="topicTextNotes"><div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">A
+flow implementation declaration in a component implementation specifies how a flow
+specification is realized in the implementation as a sequence of flows through subcomponents
+along connections from the flow specification in port to the flow specification out port. The
+system implementation for system </span></font><font face="Times New Roman" color="#0000ff" size="3"><span
+style="font-size:12pt"><b>S1</b></span></font><font face="Times New Roman" color="#010101" size="3"><span
+style="font-size:12pt"> is shown on the right of <b>Error! Reference source not
+found.</b>. It contains two process subcomponents </span></font><font face="Times New Roman" color="#0000ff" size="3"><span
+style="font-size:12pt"><b>P1</b></span></font><font face="Times New Roman" color="#010101" size="3"><span
+style="font-size:12pt"> and </span></font><font face="Times New Roman" color="#0000ff" size="3"><span
+style="font-size:12pt"><b>P2</b></span></font><font face="Times New Roman" color="#010101" size="3"><span
+style="font-size:12pt">. Each has two ports and a flow
+path specification as part of its process type declaration. The flow implementation of flow path
+</span></font><font face="Times New Roman" color="#0000ff" size="3"><span style="font-size:12pt"><b>F1 </b></span></font><font
+face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">is shown in both graphical
+and textual form. It starts with port </span></font><font face="Times New Roman" color="#0000ff" size="3"><span
+style="font-size:12pt"><b>pt1</b></span></font><font face="Times New Roman" color="#010101" size="3"><span
+style="font-size:12pt">, as specified in the flow
+specification. It then follows a sequence of connections and subcomponent flow specifications,
+in our example as the sequence of connection </span></font><font face="Times New Roman" color="#0000ff" size="3"><span
+style="font-size:12pt"><b>C1</b></span></font><font face="Times New Roman" color="#010101" size="3"><span
+style="font-size:12pt">, subcomponent flow specification </span></font><font face="Times New Roman" color="#0000ff" size="3"><span
+style="font-size:12pt"><b>P2.F5</b></span></font><font face="Times New Roman" color="#010101" size="3"><span
+style="font-size:12pt">,
+connection </span></font><font face="Times New Roman" color="#0000ff" size="3"><span style="font-size:12pt"><b>C3</b></span></font><font
+face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">, subcomponent flow specification </span></font><font
+face="Times New Roman" color="#0000ff" size="3"><span style="font-size:12pt"><b>P1.F7</b></span></font><font
+face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">, connection </span></font><font
+face="Times New Roman" color="#0000ff" size="3"><span style="font-size:12pt"><b>C5</b></span></font><font
+face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">. The flow
+implementation ends with port</span></font><font face="Times New Roman" color="#0000ff" size="3"><span
+style="font-size:12pt"><b> pt2</b></span></font><font face="Times New Roman" color="#010101" size="3"><span
+style="font-size:12pt">, as specified in the flow specification for </span></font><font face="Times New Roman" color="#0000ff" size="3"><span
+style="font-size:12pt"><b>F1</b></span></font><font face="Times New Roman" color="#010101" size="3"><span
+style="font-size:12pt">.</span></font><span></span></div>
+<div align="center"><img src="NotesImages/Topic103NotesImage4.jpg" align="bottom" width="613" height="227" border="0" alt="graphic" /></div>
+<div align="center"><font face="Arial Narrow" color="#010101"><span>Figure 29: Flow Specification &amp;
+Flow Implementation</span></font><span></span></div>
+<div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">Flow
+implementations can be declared for specific modes and for specific mode transitions.
+Furthermore, flow implementations can have mode-specific property values. This
+accommodates modeling of flows in modal systems. Figure 30 illustrates how a flow
+implementation can be graphically visualized using the selection technique for mode modeling. A
+flow implementation can be shown in black by selecting the flow of interest as a flow
+specification in the text box. Subcomponent flows and connections that are not part of the flow
+are shown in gray. An editor can use this visualization both for displaying flows and for defining
+flows. End-to-end flows can be visualized in a similar manner. The text box has a
+compartment showing end-to-end flow names. Selection of one results in showing the flow in
+black while graying out the rest.</span></font><span></span></div>
+<div align="center"><br/>
+</div>
+<div align="center"><font face="Arial Narrow" color="#010101"><span>Figure 30: Flow Implementation Selection.</span></font><span></span></div>
+<div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">Note
+that the flow implementation is expressed in terms of flow specifications of its
+subcomponents. This allows us to analyze flows in the declarative AADL model one
+component at a time. The property values of a flow specification can be validated by the
+property values derived from the flow implementation based on flow specification property
+values of its subcomponents. In this case, detailed information about the implementation of
+these subcomponents is not necessary. This supports a specification-based low-fidelity
+analysis of architecture models early in the life cycle before system details are available.</span></font><span></span></div>
+<div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">Once
+component implementations are known at multiple levels, actual flow properties such as
+latency can be propagated up the architecture hierarchy. As we will see later in this section,
+such propagation up the architecture hierarchy can even be performed on the declarative model.</span></font><span></span></div></div>
+
+
+
+
+  </td>
+  <td class="right" valign="top">
+<!--right body column empty-->
+  </td>
+</tr>
+<!--END PAGE BODY ITEM-->
+<!--BEGIN PAGE BODY ITEM-->
+<tr class="topic">
+  <td class="main" valign="top" colspan="2">
+    <table>
+      <tr class="topicHeader">
+        <td class="topicImageColumn">
+
+        </td>
+        <td class="topicLineColumn">
+          <a name="Topic104"></a>
+          <span class=outlineNumber>6.1.3 </span><span class=topicLine>End-To-End Flow Declarations</span>
+          <span class="topicIcons">
+
+          </span>
+        </td>
+      </tr>
+    </table>
+
+<!-- phf:Comand: Expand("BoxPartMap.mmbas") -->
+     <div class="topicTextNotes"><div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">An
+end-to-end flow is a logical flow through a sequence of system components, i.e., threads,
+devices and processors. An end-to-end flow is specified by an end-to-end flow declaration.
+End-to-end flow declarations are declared in component implementations, typically the flow
+implementation in the system hierarchy that is the root of all threads, processors, and devices
+involved in an end-to-end flow. The subcomponent identified by the first subcomponent flow
+specification referenced in the end-to-end flow declaration contains the system component that
+is the starting point of the end-to-end flow. Succeeding named subcomponent flow
+specifications contain additional system components. </span></font><span></span></div>
+<div align="center"><br/>
+</div>
+<div align="center"><font face="Arial Narrow" color="#010101"><span>Figure 31: An End-To-End Flow Declaration</span></font><span></span></div>
+<div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">In
+the example shown in Figure 29, the flow specification </span></font><font face="Times New Roman" color="#0000ff" size="3"><span
+style="font-size:12pt"><b>F7</b></span></font><font face="Times New Roman" color="#010101" size="3"><span
+style="font-size:12pt"> of process </span></font><font face="Times New Roman" color="#0000ff" size="3"><span
+style="font-size:12pt"><b>P1</b></span></font><font face="Times New Roman" color="#010101" size="3"><span
+style="font-size:12pt"> may have a flow
+implementation that includes flows through two threads which is not included in this view of the
+model. The identified subcomponent of the final referenced subcomponent flow specification
+contains the last system component of the end-to-end flow. </span></font><span></span></div></div>
+
+
+
+
+  </td>
+  <td class="right" valign="top">
+<!--right body column empty-->
+  </td>
+</tr>
+<!--END PAGE BODY ITEM-->
+<!--BEGIN PAGE BODY ITEM-->
+<tr class="topic">
+  <td class="main" valign="top" colspan="2">
+    <table>
+      <tr class="topicHeader">
+        <td class="topicImageColumn">
+
+        </td>
+        <td class="topicLineColumn">
+          <a name="Topic105"></a>
+          <span class=outlineNumber>6.1.4 </span><span class=topicLine>End-To-End Flow Instances</span>
+          <span class="topicIcons">
+
+          </span>
+        </td>
+      </tr>
+    </table>
+
+<!-- phf:Comand: Expand("BoxPartMap.mmbas") -->
+     <div class="topicTextNotes"><div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">Flow
+declarations are associated with individual components. Flow implementations End-to-
+end flow declarations are specified in terms of the immediate subcomponents. For a system
+instance these flow declarations get recursively expanded the same way subcomponent
+declarations results in a hierarchy of component instances in an AADL instance model or a
+collection of connection declarations results in a semantic connection.</span></font><span></span></div>
+<div align="center"><br/>
+</div>
+<div align="center"><font face="Arial Narrow" color="#010101"><span>Figure 32: Flow Declarations and
+the System Hierarchy</span></font><span></span></div>
+<div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">Figure
+32 shows how a flow sink specification gets expanded in a three level system hierarchy.
+The flow sink specification </span></font><font face="Times New Roman" color="#0000ff" size="3"><span
+style="font-size:12pt"><b>FS1</b></span></font><font face="Times New Roman" color="#010101" size="3"><span
+style="font-size:12pt"> for system </span></font><font face="Times New Roman" color="#0000ff" size="3"><span
+style="font-size:12pt"><b>S1</b></span></font><font face="Times New Roman" color="#010101" size="3"><span
+style="font-size:12pt"> is expanded into the connection </span></font><font face="Times New Roman" color="#0000ff" size="3"><span
+style="font-size:12pt"><b>C1</b></span></font><font face="Times New Roman" color="#010101" size="3"><span
+style="font-size:12pt"> and flow
+sink specification </span></font><font face="Times New Roman" color="#0000ff" size="3"><span style="font-size:12pt"><b>FS2</b></span></font><font
+face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt"> of process </span></font><font
+face="Times New Roman" color="#0000ff" size="3"><span style="font-size:12pt"><b>P2</b></span></font><font
+face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">, which in turn is expanded
+into the connection </span></font><font face="Times New Roman" color="#0000ff" size="3"><span style="font-size:12pt"><b>CC1</b></span></font><font
+face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt"> and
+the flow sink specification </span></font><font face="Times New Roman" color="#0000ff" size="3"><span
+style="font-size:12pt"><b>FS1</b></span></font><font face="Times New Roman" color="#010101" size="3"><span
+style="font-size:12pt"> of thread </span></font><font face="Times New Roman" color="#0000ff" size="3"><span
+style="font-size:12pt"><b>T5</b></span></font><font face="Times New Roman" color="#010101" size="3"><span
+style="font-size:12pt">. In short, the ultimate flow sink of the flow sink
+specification of system </span></font><font face="Times New Roman" color="#0000ff" size="3"><span style="font-size:12pt"><b>S2</b></span></font><font
+face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt"> is the flow sink of thread </span></font><font
+face="Times New Roman" color="#0000ff" size="3"><span style="font-size:12pt"><b>T5</b></span></font><font
+face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">.</span></font><span></span></div>
+<div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">Figure
+33 illustrates the expansion of an end-to-end flow declaration into the end-to-end
+instance flow in a system instance model. Note that the end-to-end flow declaration is
+declared with the component implementation that is the common root of all system components
+involved with the end-to-end flow. In our example it is the component implementation that
+contains systems </span></font><font face="Times New Roman" color="#0000ff" size="3"><span style="font-size:12pt"><b>S0</b></span></font><font
+face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">, </span></font><font face="Times New Roman" color="#0000ff" size="3"><span
+style="font-size:12pt"><b>S1</b></span></font><font face="Times New Roman" color="#010101" size="3"><span
+style="font-size:12pt">, and S2 as subcomponents. The ultimate flow source of the example
+end-to-end flow is the flow source in thread </span></font><font face="Times New Roman" color="#0000ff" size="3"><span
+style="font-size:12pt"><b>T0</b></span></font><font face="Times New Roman" color="#010101" size="3"><span
+style="font-size:12pt">. The ultimate flow sink is the flow sink in
+thread </span></font><font face="Times New Roman" color="#0000ff" size="3"><span style="font-size:12pt"><b>T5</b></span></font><font
+face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">. The end-to-end
+instance flow follows the semantic connection from thread </span></font><font face="Times New Roman" color="#0000ff" size="3"><span
+style="font-size:12pt"><b>T0</b></span></font><font face="Times New Roman" color="#010101" size="3"><span
+style="font-size:12pt"> to
+thread </span></font><font face="Times New Roman" color="#0000ff" size="3"><span style="font-size:12pt"><b>T1</b></span></font><font
+face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">, the semantic connection
+from </span></font><font face="Times New Roman" color="#0000ff" size="3"><span style="font-size:12pt"><b>T1</b></span></font><font
+face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt"> to </span></font><font
+face="Times New Roman" color="#0000ff" size="3"><span style="font-size:12pt"><b>T2</b></span></font><font
+face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">, and the semantic connection
+from </span></font><font face="Times New Roman" color="#0000ff" size="3"><span style="font-size:12pt"><b>T2</b></span></font><font
+face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt"> to
+</span></font><font face="Times New Roman" color="#0000ff" size="3"><span style="font-size:12pt"><b>T3</b></span></font><font
+face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">. Note that the flow path </span></font><font
+face="Times New Roman" color="#0000ff" size="3"><span style="font-size:12pt"><b>F1</b></span></font><font
+face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt"> of system </span></font><font
+face="Times New Roman" color="#0000ff" size="3"><span style="font-size:12pt"><b>S1</b></span></font><font
+face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt"> represents the flow through
+both threads </span></font><font face="Times New Roman" color="#0000ff" size="3"><span style="font-size:12pt"><b>T1</b></span></font><font
+face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt"> and
+</span></font><font face="Times New Roman" color="#0000ff" size="3"><span style="font-size:12pt"><b>T2</b></span></font><font
+face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">. We have used dashed lines
+to mark the end-to-end instance flow in Figure 33.</span></font><span></span></div>
+<div align="center"><br/>
+</div>
+<div align="center"><font face="Arial Narrow" color="#010101"><span>Figure 33 End-To-End Flow in a System
+Instance</span></font><span></span></div></div>
+
+
+
+
+  </td>
+  <td class="right" valign="top">
+<!--right body column empty-->
+  </td>
+</tr>
+<!--END PAGE BODY ITEM-->
+<!--BEGIN PAGE BODY ITEM-->
+<tr class="topic">
+  <td class="main" valign="top" colspan="2">
+    <table>
+      <tr class="topicHeader">
+        <td class="topicImageColumn">
+
+        </td>
+        <td class="topicLineColumn">
+          <a name="Topic106"></a>
+          <span class=outlineNumber>6.1.5 </span><span class=topicLine>Textual Flow Declaration Examples</span>
+          <span class="topicIcons">
+
+          </span>
+        </td>
+      </tr>
+    </table>
+
+<!-- phf:Comand: Expand("BoxPartMap.mmbas") -->
+     <div class="topicTextNotes"><div align="left"><font face="Courier" color="#0000ff"><span>process foo </span></font><span></span></div>
+<div align="left"><font face="Courier" color="#0000ff"><span>features</span></font><span></span></div>
+<div align="left"><font face="Courier" color="#0000ff"><span> Initcmd: in event port;</span></font><span></span></div>
+<div align="left"><font face="Courier" color="#0000ff"><span> Signal: in data port gps::signal_data;</span></font><span></span></div>
+<div align="left"><font face="Courier" color="#0000ff"><span> Result1: out data port gps::position.radial;</span></font><span></span></div>
+<div align="left"><font face="Courier" color="#0000ff"><span> Result2: out data port gps::position.cartesian;</span></font><span></span></div>
+<div align="left"><font face="Courier" color="#0000ff"><span> Status: out event port;</span></font><span></span></div>
+<div align="left"><font face="Courier" color="#0000ff"><span>flows</span></font><span></span></div>
+<div align="left"><font face="Courier" color="#0000ff"><span> -- two flows split from the
+same input</span></font><span></span></div>
+<div align="left"><font face="Courier" color="#0000ff"><span> Flow1: flow path signal -&gt;
+result1;</span></font><span></span></div>
+<div align="left"><font face="Courier" color="#0000ff"><span> Flow2: flow path signal -&gt;
+result2;</span></font><span></span></div>
+<div align="left"><font face="Courier" color="#0000ff"><span> -- An input is consumed by
+process foo through its initcmd port</span></font><span></span></div>
+<div align="left"><font face="Courier" color="#0000ff"><span> Flow3: flow sink initcmd;</span></font><span></span></div>
+<div align="left"><font face="Courier" color="#0000ff"><span> -- An output is generated
+(produced) by process foo and made
+available</span></font><span></span></div>
+<div align="left"><font face="Courier" color="#0000ff"><span> -- through its port Status; </span></font><span></span></div>
+<div align="left"><font face="Courier" color="#0000ff"><span> Flow4: flow source Status;</span></font><span></span></div>
+<div align="left"><font face="Courier" color="#0000ff"><span>end foo;</span></font><span></span></div>
+<div align="left"><br/></div>
+<div align="left"><font face="Courier" color="#0000ff"><span>process implementation foo.basic </span></font><span></span></div>
+<div align="left"><font face="Courier" color="#0000ff"><span>subcomponents</span></font><span></span></div>
+<div align="left"><font face="Courier" color="#0000ff"><span> A: thread bar.basic;</span></font><span></span></div>
+<div align="left"><font face="Courier" color="#0000ff"><span> -- bar has a flow path fs1
+from p1 to p2</span></font><span></span></div>
+<div align="left"><font face="Courier" color="#0000ff"><span> -- bar has a flow source fs2
+to p3</span></font><span></span></div>
+<div align="left"><font face="Courier" color="#0000ff"><span> C: thread baz.basic;</span></font><span></span></div>
+<div align="left"><font face="Courier" color="#0000ff"><span> B: thread baz.basic;</span></font><span></span></div>
+<div align="left"><font face="Courier" color="#0000ff"><span> -- baz has a flow path fs1 </span></font><span></span></div>
+<div align="left"><font face="Courier" color="#0000ff"><span> -- baz has a flow sink fsink </span></font><span></span></div>
+<div align="left"><font face="Courier" color="#0000ff"><span>connections</span></font><span></span></div>
+<div align="left"><font face="Courier" color="#0000ff"><span> conn1: data port signal -&gt;
+A.p1;</span></font><span></span></div>
+<div align="left"><font face="Courier" color="#0000ff"><span> conn3: data port C.p2 -&gt;
+result1;</span></font><span></span></div>
+<div align="left"><font face="Courier" color="#0000ff"><span> conn4: data port A.p2 -&gt;
+C.p1;</span></font><span></span></div>
+<div align="left"><font face="Courier" color="#0000ff"><span> conn5: event port A.p3 -&gt;
+Status;</span></font><span></span></div>
+<div align="left"><font face="Courier" color="#0000ff"><span> connToThread: event port initcmd
+-&gt; C.reset;</span></font><span></span></div>
+<div align="left"><font face="Courier" color="#0000ff"><span>flows</span></font><span></span></div>
+<div align="left"><font face="Courier" color="#0000ff"><span> Flow1: flow path </span></font><span></span></div>
+<div align="left"><font face="Courier" color="#0000ff"><span>
+signal -&gt; conn1 -&gt; A.fs1 -&gt; conn4 -&gt; </span></font><span></span></div>
+<div align="left"><font face="Courier" color="#0000ff"><span>
+C.fs1 -&gt; conn3 -&gt; result2;</span></font><span></span></div>
+<div align="left"><font face="Courier" color="#0000ff"><span> Flow3: flow sink initcmd -&gt;
+connToThread -&gt; C.fsink;</span></font><span></span></div>
+<div align="left"><font face="Courier" color="#0000ff"><span> -- a flow source may start
+in a subcomponent, </span></font><span></span></div>
+<div align="left"><font face="Courier" color="#0000ff"><span> -- i.e., the first named element
+is a flow source</span></font><span></span></div>
+<div align="left"><font face="Courier" color="#0000ff"><span> Flow4: flow source A.fs2 -&gt;
+connect5 -&gt; status;</span></font><span></span></div>
+<div align="left"><font face="Courier" color="#0000ff"><span> -- an end-to-end flow from
+a source to a sink</span></font><span></span></div>
+<div align="left"><font face="Courier" color="#0000ff"><span> ETE1: end to end flow</span></font><span></span></div>
+<div align="left"><font face="Courier" color="#0000ff"><span>
+A.fs2 -&gt; conn4 -&gt; C.fsink;</span></font><span></span></div>
+<div align="left"><font face="Courier" color="#0000ff"><span> -- an end-to-end flow where
+the end points are not sources or sinks</span></font><span></span></div>
+<div align="left"><font face="Courier" color="#0000ff"><span> ETE2: end to end flow </span></font><span></span></div>
+<div align="left"><font face="Courier" color="#0000ff"><span>
+A.fs1 -&gt; conn4 -&gt; C.fs1;</span></font><span></span></div>
+<div align="left"><font face="Courier" color="#0000ff"><span>end foo.basic;</span></font><span></span></div></div>
+
+
+
+
+  </td>
+  <td class="right" valign="top">
+<!--right body column empty-->
+  </td>
+</tr>
+<!--END PAGE BODY ITEM-->
+
+
+<!-- BEGIN TOP BUTTON -->
+<tr class="topic">
+  <td class="main" valign="top" colspan="2">
+    <div class="body">
+      <div class="topCommand">
+        <span class="commands">
+      <span class="command">
+            <img src="Res/images/top_button.gif" alt="">
+          <a href="javascript:scroll(0,0)">
+             <span class="label">Top</span>
+              </a>
+    </span>
+       </span>
+      </div>
+    </div>
+  </td>
+  <td class="right" valign="top">
+<!--right body column empty-->
+  </td>
+</tr>
+<!-- END TOP BUTTON -->
+
+</table>
+
+<!-- BEGIN SIDE NAVIGATION WRAPPER-->
+    </td>
+  </tr>
+</table>
+<!-- END SIDE NAVIGATION WRAPPER-->
+
+<!-- END PAGE BODY-->
+
+
+</body>
+</html>
+

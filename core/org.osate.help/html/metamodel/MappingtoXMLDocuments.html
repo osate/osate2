@@ -1,0 +1,343 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+	"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+   <title>Mapping to XML Documents</title>
+   <link href="Res/styles/shared.css" rel="stylesheet" type="text/css">
+   <link href="Res/styles/DynamicOutline.css" rel="stylesheet" type="text/css">
+</head>
+<body id="page" >
+
+<!-- BEGIN PAGE BODY-->
+
+
+<table id="pageBody">
+ <col class="main">
+ <col class="right">
+
+<!-- BEGIN BREADCRUMBS-->
+<tr id="breadcrumbsAndPageNavigation">
+  <td class="breadcrumbs" valign="top">
+<!-- BEGIN NAVIGATION BREADCRUMBS ITEM-->
+<span class="breadcrumb">
+   <a href="index.html">Home</a> 
+   <span class="separator">&gt;</span>
+</span>
+<!-- END NAVIGATION BREADCRUMBS ITEM-->
+<!-- BEGIN NAVIGATION BREADCRUMBS ITEM-->
+<span class="breadcrumb">
+   <a href="MetaModelNotation.html">2. Meta Model Notation</a> 
+   <span class="separator">&gt;</span>
+</span>
+<!-- END NAVIGATION BREADCRUMBS ITEM-->
+<!-- BEGIN NAVIGATION BREADCRUMBS HERE-->
+<span class="breadcrumb">
+   2.2 Mapping to XML Documents
+</span>
+<!-- END NAVIGATION BREADCRUMBS HERE-->
+
+  </td>
+  <td class="pageNavigation" valign="top">
+<!-- START PAGE NAVIGATION NEXT IN SEQUENCE IMAGES -->
+<span class="commands">
+    <span class="command">
+        <img src="Res/images/previous_button.gif" alt=""> <a href="TheGraphicalMetaModelNotation.html">
+        <span class="label">Previous</span></a>
+    </span>
+&nbsp;&nbsp;
+    <span class="command">
+        <a href="ValidationoftheAADLMetaModel.html">
+        <span class="label">Next</span></a> <img src="Res/images/next_button.gif" alt="">
+    </span>
+</span>
+<!-- END PAGE NAVIGATION NEXT IN SEQUENCE IMAGES  -->
+
+  </td>
+  <td class="right" valign="top">
+  </td>
+</tr>
+<!-- END BREADCRUMBS-->
+
+<tr class="topic">
+  <td class="main" valign="top" colspan="2">
+    <div class="body">
+      <div class="topicDivider">
+      </div>
+    </div>
+  </td>
+  <td class="right" valign="top">
+<!--right body column empty-->
+  </td>
+</tr>
+
+<!--BEGIN PAGE BODY ITEM-->
+<tr class="topic">
+  <td class="main" valign="top" colspan="2">
+    <table>
+      <tr class="topicHeader">
+        <td class="topicImageColumn">
+
+        </td>
+        <td class="topicLineColumn">
+          <a name="Topic5"></a>
+          <span class=outlineNumberFirst>2.2 </span><span class=topicLineFirst>Mapping to XML Documents</span>
+          <span class="topicIcons">
+
+          </span>
+        </td>
+      </tr>
+    </table>
+
+<!-- phf:Comand: Expand("BoxPartMap.mmbas") -->
+     <div class="topicTextNotes"><div align="left"><font face="Helvetica"><span>The focus of the AADL meta model is to represent the 
+declarative structure of AADL models as an 
+object model, with relevant cross-references directly expressed in the object model, and to map 
+this object model into an XML document.</span></font><span></span></div>
+<div align="left"><font face="Helvetica"><span>An AADL model described by such a class diagram of the 
+AADL meta model maps into an XML 
+document as follows:</span></font><span></span></div>
+<ul style="margin-top: 0pt; margin-bottom: 0pt">
+<li style="margin-left=-4mm; margin-right=0mm; padding-left=0mm; font-family= Helvetica;  "><font face="Helvetica"><span>Concrete 
+classes result in object instances in the AADL model. </span></font><span></span></li>
+<li style="margin-left=-4mm; margin-right=0mm; padding-left=0mm; font-family= Helvetica;  "><font face="Helvetica"><span>Labels 
+of containment associations result in element tags.&#160; </span></font><span></span></li>
+<li style="margin-left=-4mm; margin-right=0mm; padding-left=0mm; font-family= Helvetica;  "><font face="Helvetica"><span>Class 
+attributes result in XML attributes. Multi-valued attributes result in collections of XML 
+elements.</span></font><span></span></li>
+<li style="margin-left=-4mm; margin-right=0mm; padding-left=0mm; font-family= Helvetica;  "><font face="Helvetica"><span>Reference 
+associations within and across XML documents are represented by using the XML 
+XPath construct as the reference notation [XPath 1999].&#160; </span></font><span></span></li>
+</ul>
+<div align="left"><font face="Helvetica"><span>The XPath reference notation results in unnamed model 
+objects in the reference path being 
+recorded by their containment label, while named model objects are recorded by their containment 
+label followed by the name as attribute, e.g., threadType[@name=GPS].&#160; In case of a containment 
+multiplicity of unnamed model objects the object is identified by the containment label and the 
+index starting with zero as attribute, e.g., modeTransition[@index=0].&#160; We always record these 
+references as absolute references, i.e., references relative to the XML document root.&#160; For 
+example, the following XPath references a thread type named </span></font><font face="Courier New"><span><i>GPS</i></span></font><font 
+face="Helvetica"><span> within the public section of a 
+package specification named </span></font><font face="Courier New" color="#010101"><span><i>edu::cmu::sei::XMIExample</i>.</span></font><font 
+face="Helvetica"><span> </span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span>compType=&quot;//aadlPackage[@name=edu::cmu::sei::XMIExample]/aadlPublic/threadType[@name=GPS]&quot;.</span></font><font 
+face="Helvetica"><span> </span></font><span></span></div>
+<div align="left"><font face="Helvetica"><span>References to model objects in the same XML document 
+use the current AadlSpec object as root, 
+as indicated by &#147;//&#148;.&#160; References to model objects in other XML documents explicitly 
+name the 
+AadlSpec object.&#160; Its name is used to identify the name of the XML document that contains the 
+referenced model.&#160; For example, the following XPath references the property definition 
+</span></font><font face="Courier New"><span><i>SafetyCriticality</i></span></font><font face="Helvetica"><span> 
+that is declared in the property set </span></font><font face="Courier New"><span><i>SEI</i></span></font><font 
+face="Helvetica"><span> in the XML document </span></font><font face="Courier New"><span><i>SEI</i></span></font><font 
+face="Helvetica"><span>.</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span>propertyDefinition=&quot;/aadlSpec[@name=SEI]/propertySet[@name=SEI]/propertyDefinition[@name=SafetyCriticality]&quot;.</span></font><font 
+face="Helvetica"><span> </span></font><span></span></div>
+<div align="left"><font face="Helvetica" color="#010101"><span>References encoded in the XPath reference 
+notation are interpreted as URIs.&#160; The first element of 
+the Xpath, if present, is interpreted like the URL portion of a URI, i.e., the AadlSpec name is 
+mapped to a name in the file system to identify the file containing the XML document of the 
+package. This allows the XML documents to be independent of the particular location of the file that 
+contains the XML document.</span></font><span></span></div>
+<div align="left"><font face="Helvetica"><span>Figure 5 shows an example AADL model that consists of 
+a system type and a system 
+implementation.&#160; </span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span><b>package</b> edu::cmu::sei::XMIExample</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span><b>public</b></span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span>&#160;&#160;&#160; <b>system</b> GPS</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span>&#160;&#160;&#160; <b>features</b></span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span>&#160;&#160;&#160;&#160;init: <b>in</b> <b>event</b> <b>port</b>;</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span>&#160;&#160;&#160;&#160;signal: <b>out</b> <b>data</b> <b>port</b> 
+GPS_Signal;</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span>&#160;&#160;<b>end</b> GPS;</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span>&#160;&#160;</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span>&#160;&#160;<b>system</b> <b>implementation</b> 
+GPS.basic</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span>&#160;&#160;<b>end</b> GPS.Basic;</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span>&#160;&#160;</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span>&#160;&#160;<b>data</b> GPS_Signal</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span>&#160;&#160;<b>end</b> GPS_Signal;</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span><b>end</b> edu::cmu::sei::XMIExample;</span></font><span></span></div>
+<div align="center"><font face="Helvetica"><span><b>Figure 5 An Example AADL Model</b></span></font><span></span></div>
+<div align="left"><font face="Helvetica"><span>Figure 6 shows the XML document based for that AADL model.&#160; 
+The highlighted attribute of a 
+system implementation XML element shows the reference of the system implementation to its 
+system type.</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span>&lt;?xml version=&quot;1.0&quot; encoding=&quot;ASCII&quot;?&gt;</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span>&lt;core:AadlSpec xmi:version=&quot;2.0&quot; 
+xmlns:xmi=&quot;http://www.omg.org/XMI&quot; 
+xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot; 
+xmlns:core=&quot;http://core&quot; xmlns:property=&quot;http://property&quot;&gt;</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span>&#160; &lt;aadlPackage name=&quot;edu::cmu::sei::XMIExample&quot;&gt;</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span>&#160;&#160;&#160; &lt;aadlPublic&gt;</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span>&#160;&#160;&#160;&#160;&#160; &lt;systemType 
+name=&quot;GPS&quot;&gt;</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span>&#160;&#160;&#160;&#160;&#160;&#160;&#160; 
+&lt;features&gt;</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160; 
+&lt;eventPort name=&quot;init&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160; 
+&lt;dataPort name=&quot;signal&quot; direction=&quot;out&quot; 
+dataClassifier=&quot;//aadlPackage[@name=edu::cmu::sei::XMIExample]/aadlPublic/dataType[@name=GPS_Signal]&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span>&#160;&#160;&#160;&#160;&#160;&#160;&#160; 
+&lt;/features&gt;</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span>&#160;&#160;&#160;&#160;&#160; &lt;/systemType&gt;</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span>&#160;&#160;&#160;&#160;&#160; &lt;systemImpl 
+name=&quot;GPS.basic&quot; 
+<b>compType=&quot;//aadlPackage[@name=edu::cmu::sei::XMIExample]/aadlPublic/systemType[@name=GPS]&quot;</b>/&gt;</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span>&#160;&#160;&#160;&#160;&#160; &lt;dataType 
+name=&quot;GPS_Signal&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span>&#160;&#160;&#160; &lt;/aadlPublic&gt;</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span>&#160; &lt;/aadlPackage&gt;</span></font><span></span></div>
+<div align="left"><font face="Courier New"><span>&lt;/core:AadlSpec&gt;</span></font><span></span></div>
+<div align="center"><font face="Helvetica"><span><b>Figure 6 XML Document of AADL Model</b></span></font><span></span></div>
+<div align="left"><font face="Helvetica"><span>Figure 7 shows the class description for system types 
+and system implementations in the AADL 
+meta model.&#160; The association between the system type and system implementation is shown as bi-
+&#160;directional; the reference from the system type to the system implementation is defined as 
+transient, i.e., it is not stored in the XML document.&#160; This reduces the size of XML documents, 
+while at the same time provides for efficient access to objects in the AADL model when operated 
+on by tools.</span></font><span></span></div>
+<div align="center"><img src="NotesImages/Topic5NotesImage9.jpg" align="bottom" width="567" height="245" border="0" alt="graphic" /></div>
+<div align="left"><br/></div>
+<div align="center"><font face="Helvetica"><span><b>Figure 7 System Component Meta Model</b></span></font><span></span></div>
+<div align="left"><font face="Helvetica"><span>Figure 8 shows the XMI specification of the system type 
+and system implementation as it is 
+generated by EMF from the Ecore meta model.&#160; Only the <i>compType</i> portion of the bi-directional 
+reference association between the system type and the system implementation is specified for 
+persistent storage.&#160; The <i>compType</i> reference association (shown as <i>xsd:element 
+name=&#148;compType&#148;</i>) is shown as being restricted to <i>SystemType</i> (shown as 
+<i>type=&#148;component:SystemType&#148;</i>).&#160; In other words, system implementations can only 
+refer to system 
+types.&#160; The reference value is recorded as string valued attribute &#150; in the example of Figure 
+6 
+shown in XPath format.</span></font><span></span></div>
+<div align="left"><font face="Courier New"><span>&lt;xsd:complexType name=&quot;SystemType&quot;&gt;</span></font><span></span></div>
+<div align="left"><font face="Courier New"><span>&#160; &lt;xsd:complexContent&gt;</span></font><span></span></div>
+<div align="left"><font face="Courier New"><span>&#160;&#160;&#160; &lt;xsd:extension base=&quot;core:ComponentType&quot;&gt;</span></font><span></span></div>
+<div align="left"><font face="Courier New"><span>&#160;&#160;&#160;&#160;&#160; &lt;xsd:choice minOccurs=&quot;0&quot; 
+maxOccurs=&quot;unbounded&quot;&gt;</span></font><span></span></div>
+<div align="left"><font face="Courier New"><span>&#160;&#160;&#160;&#160;&#160;&#160;&#160; &lt;xsd:element 
+name=&quot;extend&quot; nillable=&quot;true&quot; 
+type=&quot;component:SystemType&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font face="Courier New"><span>&#160;&#160;&#160;&#160;&#160;&#160;&#160; &lt;xsd:element 
+name=&quot;features&quot; type=&quot;feature:SystemFeatures&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font face="Courier New"><span>&#160;&#160;&#160;&#160;&#160; &lt;/xsd:choice&gt;</span></font><span></span></div>
+<div align="left"><font face="Courier New"><span>&#160;&#160;&#160;&#160;&#160; &lt;xsd:attribute name=&quot;extend&quot; 
+type=&quot;xsd:string&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font face="Courier New"><span>&#160;&#160;&#160; &lt;/xsd:extension&gt;</span></font><span></span></div>
+<div align="left"><font face="Courier New"><span>&#160; &lt;/xsd:complexContent&gt;</span></font><span></span></div>
+<div align="left"><font face="Courier New"><span>&lt;/xsd:complexType&gt;</span></font><span></span></div>
+<div align="left"><font face="Courier New"><span>&lt;xsd:element name=&quot;SystemType&quot; type=&quot;component:SystemType&quot;/&gt;</span></font><span></span></div>
+<div align="left"><br/></div>
+<div align="left"><font face="Courier New"><span><b>&lt;xsd:complexType name=&quot;SystemImpl&quot;&gt;</b></span></font><span></span></div>
+<div align="left"><font face="Courier New"><span>&#160; &lt;xsd:complexContent&gt;</span></font><span></span></div>
+<div align="left"><font face="Courier New"><span>&#160;&#160;&#160; &lt;xsd:extension base=&quot;core:ComponentImpl&quot;&gt;</span></font><span></span></div>
+<div align="left"><font face="Courier New"><span>&#160;&#160;&#160;&#160;&#160; &lt;xsd:choice minOccurs=&quot;0&quot; 
+maxOccurs=&quot;unbounded&quot;&gt;</span></font><span></span></div>
+<div align="left"><font face="Courier New"><span>&#160;&#160;&#160;&#160;&#160;&#160;&#160; &lt;xsd:element 
+name=&quot;subcomponents&quot; 
+type=&quot;component:SystemSubcomponents&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font face="Courier New"><span>&#160;&#160;&#160;&#160;&#160;&#160;&#160; <b>&lt;xsd:element 
+name=&quot;compType&quot; type=&quot;component:SystemType&quot;/&gt;</b></span></font><span></span></div>
+<div align="left"><font face="Courier New"><span>&#160;&#160;&#160;&#160;&#160;&#160;&#160; &lt;xsd:element 
+name=&quot;extend&quot; nillable=&quot;true&quot; 
+type=&quot;component:SystemImpl&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font face="Courier New"><span>&#160;&#160;&#160;&#160;&#160; &lt;/xsd:choice&gt;</span></font><span></span></div>
+<div align="left"><font face="Courier New"><span>&#160;&#160;&#160;&#160;&#160; <b>&lt;xsd:attribute 
+name=&quot;compType&quot; type=&quot;xsd:string&quot;/&gt;</b></span></font><span></span></div>
+<div align="left"><font face="Courier New"><span>&#160;&#160;&#160;&#160;&#160; &lt;xsd:attribute name=&quot;extend&quot; 
+type=&quot;xsd:string&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font face="Courier New"><span>&#160;&#160;&#160; &lt;/xsd:extension&gt;</span></font><span></span></div>
+<div align="left"><font face="Courier New"><span>&#160; &lt;/xsd:complexContent&gt;</span></font><span></span></div>
+<div align="left"><font face="Courier New"><span>&lt;/xsd:complexType&gt;</span></font><span></span></div>
+<div align="left"><font face="Courier New"><span>&lt;xsd:element name=&quot;SystemImpl&quot; type=&quot;component:SystemImpl&quot;/&gt;</span></font><span></span></div>
+<div align="center"><font face="Helvetica"><span><b>Figure 8 XMI Meta Model of System Type &amp; Implementation</b></span></font><span></span></div>
+<div align="left"><font face="Helvetica"><span>Figure 9</span></font><span> shows the generated XML 
+schema for the system implementation as it is generated by 
+EMF from the Ecore meta model. The highlighted section shows that the reference association 
+<i>compType</i> is recorded as a string.&#160; The restriction of the reference to system types is not 
+explicitly 
+recorded in the XML schema.&#160; This illustrates the richer expressive power of the XMI meta model 
+specification over the XML schema specification.</span><span></span></div>
+<div align="left"><font face="Courier New"><span>&lt;xsd:complexType name=&quot;SystemType&quot;&gt;</span></font><span></span></div>
+<div align="left"><font face="Courier New"><span>&#160; &lt;xsd:complexContent&gt;</span></font><span></span></div>
+<div align="left"><font face="Courier New"><span>&#160;&#160;&#160; &lt;xsd:extension base=&quot;core:ComponentType&quot;&gt;</span></font><span></span></div>
+<div align="left"><font face="Courier New"><span>&#160;&#160;&#160;&#160;&#160; &lt;xsd:sequence&gt;</span></font><span></span></div>
+<div align="left"><font face="Courier New"><span>&#160;&#160;&#160;&#160;&#160;&#160;&#160; &lt;xsd:element 
+minOccurs=&quot;0&quot; maxOccurs=&quot;1&quot; name=&quot;features&quot; 
+type=&quot;feature:SystemFeatures&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font face="Courier New"><span>&#160;&#160;&#160;&#160;&#160; &lt;/xsd:sequence&gt;</span></font><span></span></div>
+<div align="left"><font face="Courier New"><span>&#160;&#160;&#160;&#160;&#160; &lt;xsd:attribute name=&quot;extend&quot; 
+type=&quot;xsd:string&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font face="Courier New"><span>&#160;&#160;&#160; &lt;/xsd:extension&gt;</span></font><span></span></div>
+<div align="left"><font face="Courier New"><span>&#160; &lt;/xsd:complexContent&gt;</span></font><span></span></div>
+<div align="left"><font face="Courier New"><span>&lt;/xsd:complexType&gt;</span></font><span></span></div>
+<div align="left"><font face="Courier New"><span>&lt;xsd:element name=&quot;SystemType&quot; type=&quot;component:SystemType&quot;/&gt;</span></font><span></span></div>
+<div align="left"><br/></div>
+<div align="left"><font face="Courier New"><span>&lt;xsd:complexType name=&quot;SystemImpl&quot;&gt;</span></font><span></span></div>
+<div align="left"><font face="Courier New"><span>&#160; &lt;xsd:complexContent&gt;</span></font><span></span></div>
+<div align="left"><font face="Courier New"><span>&#160;&#160;&#160; &lt;xsd:extension base=&quot;core:ComponentImpl&quot;&gt;</span></font><span></span></div>
+<div align="left"><font face="Courier New"><span>&#160;&#160;&#160;&#160;&#160; &lt;xsd:sequence&gt;</span></font><span></span></div>
+<div align="left"><font face="Courier New"><span>&#160;&#160;&#160;&#160;&#160;&#160;&#160; &lt;xsd:element 
+minOccurs=&quot;0&quot; maxOccurs=&quot;1&quot; name=&quot;subcomponents&quot; 
+type=&quot;component:SystemSubcomponents&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font face="Courier New"><span>&#160;&#160;&#160;&#160;&#160; &lt;/xsd:sequence&gt;</span></font><span></span></div>
+<div align="left"><font face="Courier New"><span><b>&#160;&#160;&#160;&#160;&#160; &lt;xsd:attribute 
+name=&quot;compType&quot; type=&quot;xsd:string&quot;/&gt;</b></span></font><span></span></div>
+<div align="left"><font face="Courier New"><span>&#160;&#160;&#160;&#160;&#160; &lt;xsd:attribute name=&quot;extend&quot; 
+type=&quot;xsd:string&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font face="Courier New"><span>&#160;&#160;&#160; &lt;/xsd:extension&gt;</span></font><span></span></div>
+<div align="left"><font face="Courier New"><span>&#160; &lt;/xsd:complexContent&gt;</span></font><span></span></div>
+<div align="left"><font face="Courier New"><span>&lt;/xsd:complexType&gt;</span></font><span></span></div>
+<div align="left"><font face="Courier New"><span>&lt;xsd:element name=&quot;SystemImpl&quot; type=&quot;component:SystemImpl&quot;/&gt;</span></font><span></span></div>
+<div align="center"><font face="Helvetica"><span><b>Figure 9 XML Schema for System Type &amp; Implementation</b></span></font><span></span></div></div>
+
+
+
+
+  </td>
+  <td class="right" valign="top">
+<!--right body column empty-->
+  </td>
+</tr>
+<!--END PAGE BODY ITEM-->
+
+
+<!-- BEGIN TOP BUTTON -->
+<tr class="topic">
+  <td class="main" valign="top" colspan="2">
+    <div class="body">
+      <div class="topCommand">
+        <span class="commands">
+      <span class="command">
+            <img src="Res/images/top_button.gif" alt="">
+          <a href="javascript:scroll(0,0)">
+             <span class="label">Top</span>
+              </a>
+    </span>
+       </span>
+      </div>
+    </div>
+  </td>
+  <td class="right" valign="top">
+<!--right body column empty-->
+  </td>
+</tr>
+<!-- END TOP BUTTON -->
+
+</table>
+
+<!-- BEGIN SIDE NAVIGATION WRAPPER-->
+    </td>
+  </tr>
+</table>
+<!-- END SIDE NAVIGATION WRAPPER-->
+
+<!-- END PAGE BODY-->
+
+
+</body>
+</html>
+
