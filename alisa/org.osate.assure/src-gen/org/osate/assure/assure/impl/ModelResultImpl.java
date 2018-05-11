@@ -35,6 +35,7 @@ import org.osate.aadl2.ComponentImplementation;
 
 import org.osate.alisa.workbench.alisa.AssurancePlan;
 
+import org.osate.assure.assure.AssuranceCaseResult;
 import org.osate.assure.assure.AssurePackage;
 import org.osate.assure.assure.ClaimResult;
 import org.osate.assure.assure.ModelResult;
@@ -53,6 +54,7 @@ import org.osate.assure.assure.SubsystemResult;
  *   <li>{@link org.osate.assure.assure.impl.ModelResultImpl#getMessage <em>Message</em>}</li>
  *   <li>{@link org.osate.assure.assure.impl.ModelResultImpl#getClaimResult <em>Claim Result</em>}</li>
  *   <li>{@link org.osate.assure.assure.impl.ModelResultImpl#getSubsystemResult <em>Subsystem Result</em>}</li>
+ *   <li>{@link org.osate.assure.assure.impl.ModelResultImpl#getSubAssuranceCase <em>Sub Assurance Case</em>}</li>
  * </ul>
  *
  * @generated
@@ -118,6 +120,16 @@ public class ModelResultImpl extends AssureResultImpl implements ModelResult
    * @ordered
    */
   protected EList<SubsystemResult> subsystemResult;
+
+  /**
+   * The cached value of the '{@link #getSubAssuranceCase() <em>Sub Assurance Case</em>}' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getSubAssuranceCase()
+   * @generated
+   * @ordered
+   */
+  protected EList<AssuranceCaseResult> subAssuranceCase;
 
   /**
    * <!-- begin-user-doc -->
@@ -282,6 +294,20 @@ public class ModelResultImpl extends AssureResultImpl implements ModelResult
    * <!-- end-user-doc -->
    * @generated
    */
+  public EList<AssuranceCaseResult> getSubAssuranceCase()
+  {
+    if (subAssuranceCase == null)
+    {
+      subAssuranceCase = new EObjectContainmentEList<AssuranceCaseResult>(AssuranceCaseResult.class, this, AssurePackage.MODEL_RESULT__SUB_ASSURANCE_CASE);
+    }
+    return subAssuranceCase;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   @Override
   public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs)
   {
@@ -291,6 +317,8 @@ public class ModelResultImpl extends AssureResultImpl implements ModelResult
         return ((InternalEList<?>)getClaimResult()).basicRemove(otherEnd, msgs);
       case AssurePackage.MODEL_RESULT__SUBSYSTEM_RESULT:
         return ((InternalEList<?>)getSubsystemResult()).basicRemove(otherEnd, msgs);
+      case AssurePackage.MODEL_RESULT__SUB_ASSURANCE_CASE:
+        return ((InternalEList<?>)getSubAssuranceCase()).basicRemove(otherEnd, msgs);
     }
     return super.eInverseRemove(otherEnd, featureID, msgs);
   }
@@ -317,6 +345,8 @@ public class ModelResultImpl extends AssureResultImpl implements ModelResult
         return getClaimResult();
       case AssurePackage.MODEL_RESULT__SUBSYSTEM_RESULT:
         return getSubsystemResult();
+      case AssurePackage.MODEL_RESULT__SUB_ASSURANCE_CASE:
+        return getSubAssuranceCase();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -349,6 +379,10 @@ public class ModelResultImpl extends AssureResultImpl implements ModelResult
         getSubsystemResult().clear();
         getSubsystemResult().addAll((Collection<? extends SubsystemResult>)newValue);
         return;
+      case AssurePackage.MODEL_RESULT__SUB_ASSURANCE_CASE:
+        getSubAssuranceCase().clear();
+        getSubAssuranceCase().addAll((Collection<? extends AssuranceCaseResult>)newValue);
+        return;
     }
     super.eSet(featureID, newValue);
   }
@@ -378,6 +412,9 @@ public class ModelResultImpl extends AssureResultImpl implements ModelResult
       case AssurePackage.MODEL_RESULT__SUBSYSTEM_RESULT:
         getSubsystemResult().clear();
         return;
+      case AssurePackage.MODEL_RESULT__SUB_ASSURANCE_CASE:
+        getSubAssuranceCase().clear();
+        return;
     }
     super.eUnset(featureID);
   }
@@ -402,6 +439,8 @@ public class ModelResultImpl extends AssureResultImpl implements ModelResult
         return claimResult != null && !claimResult.isEmpty();
       case AssurePackage.MODEL_RESULT__SUBSYSTEM_RESULT:
         return subsystemResult != null && !subsystemResult.isEmpty();
+      case AssurePackage.MODEL_RESULT__SUB_ASSURANCE_CASE:
+        return subAssuranceCase != null && !subAssuranceCase.isEmpty();
     }
     return super.eIsSet(featureID);
   }

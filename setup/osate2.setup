@@ -761,6 +761,8 @@
       <requirement
           name="org.eclipse.swtbot.eclipse.gef.feature.group"/>
       <requirement
+          name="org.eclipse.swtbot.ide.feature.group"/>
+      <requirement
           name="it.xsemantics.sdk.feature.group"/>
       <requirement
           name="*"/>

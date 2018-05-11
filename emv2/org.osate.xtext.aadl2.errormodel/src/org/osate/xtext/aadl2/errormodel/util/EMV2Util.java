@@ -43,7 +43,6 @@ import org.osate.aadl2.modelsupport.modeltraversal.ForAllElement;
 import org.osate.aadl2.modelsupport.util.AadlUtil;
 import org.osate.aadl2.util.Aadl2InstanceUtil;
 import org.osate.aadl2.util.Aadl2Util;
-import org.osate.aadl2.util.OsateDebug;
 import org.osate.xtext.aadl2.errormodel.errorModel.AllExpression;
 import org.osate.xtext.aadl2.errormodel.errorModel.AndExpression;
 import org.osate.xtext.aadl2.errormodel.errorModel.CompositeState;
@@ -1396,7 +1395,6 @@ public class EMV2Util {
 			}
 			return true;
 		}
-		OsateDebug.osateDebug("[EMV2Util] isEqual does not handled this class type " + ce1 + "|" + ce2);
 		return false;
 	}
 
@@ -3062,13 +3060,6 @@ public class EMV2Util {
 		return (ep != null) && (ep.getKind() != null) && (ep.getKind().equalsIgnoreCase("processor"));
 	}
 
-	// XXX moved to EM2TypeSetUtil
-//	public static boolean isNoError(ErrorTypes type) {
-//		return type instanceof TypeSet ? isNoError((TypeSet) type) : false;
-//	}
-//
-//	public static boolean isNoError(TypeSet type) {
-//		return type.getTypeTokens().size() == 1 && type.getTypeTokens().get(0).isNoError();
-//	}
+
 
 }
