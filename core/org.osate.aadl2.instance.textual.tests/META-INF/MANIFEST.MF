@@ -25,3 +25,4 @@ Import-Package: org.apache.log4j,
  org.hamcrest.core
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Export-Package: org.osate.aadl2.instance.textual
+Automatic-Module-Name: org.osate.aadl2.instance.textual.tests

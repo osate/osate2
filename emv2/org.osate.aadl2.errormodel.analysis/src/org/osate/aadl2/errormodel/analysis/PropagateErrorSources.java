@@ -49,7 +49,7 @@ import org.osate.aadl2.Feature;
 import org.osate.aadl2.errormodel.PropagationGraph.PropagationGraph;
 import org.osate.aadl2.errormodel.PropagationGraph.PropagationGraphPath;
 import org.osate.aadl2.errormodel.PropagationGraph.PropagationPathEnd;
-import org.osate.aadl2.errormodel.PropagationGraph.util.Util;
+import org.osate.aadl2.errormodel.PropagationGraph.util.PropagationPathsUtil;
 import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.ConnectionInstance;
 import org.osate.aadl2.instance.ConnectionInstanceEnd;
@@ -101,7 +101,7 @@ public class PropagateErrorSources {
 
 	public PropagateErrorSources(String reportType, ComponentInstance root) {
 		report = new WriteToFile(reportType, root);
-		faultModel = Util.generatePropagationGraph(root, false);
+		faultModel = PropagationPathsUtil.generatePropagationGraph(root, false);
 		visited = new HashSet<EObject>();
 		alreadyTreated = new HashMap<ComponentInstance, List<String>>();
 
@@ -267,7 +267,7 @@ public class PropagateErrorSources {
 		String componentText = ci.getComponentInstancePath();
 		HashMultimap<ErrorPropagation, String> handledPropagations = HashMultimap.create();
 		for (ErrorBehaviorEvent event : EMV2Util.getAllErrorBehaviorEvents(ci)) {
-			if (!(event instanceof ErrorEvent)) {
+			if (!(event instanceof ErrorEvent) || !PropagationPathsUtil.conditionHolds((ErrorEvent) event, ci)) {
 				continue;
 			}
 			TypeSet sourcetype = ((ErrorEvent) event).getTypeSet();
@@ -332,6 +332,9 @@ public class PropagateErrorSources {
 			}
 		}
 		for (ErrorSource errorSource : eslist) {
+			if (!PropagationPathsUtil.conditionHolds(errorSource, ci)) {
+				continue;
+			}
 			EMSUtil.unsetAll(ci.getSystemInstance());
 			Collection<ErrorPropagation> eplist = EMV2Util.getOutgoingPropagationOrAll(errorSource);
 			TypeSet ts = errorSource.getTypeTokenConstraint();
@@ -404,12 +407,15 @@ public class PropagateErrorSources {
 			return;
 		}
 		for (ErrorSource ces : ceslist) {
+			if (!PropagationPathsUtil.conditionHolds(ces, root)) {
+				continue;
+			}
 			EMSUtil.unsetAll(root.getSystemInstance());
 			// find connection instances that this connection is part of
 			String connName = ces.getSourceModelElement().getName();
 			ConnectionInstance conni = InstanceUtil.findConnectionInstance(root,
 					(Connection) ces.getSourceModelElement());
-			EList<PropagationPathEnd> ends = Util.getAllPropagationDestinationEnds(faultModel, conni);
+			EList<PropagationPathEnd> ends = PropagationPathsUtil.getAllPropagationDestinationEnds(faultModel, conni);
 			if (ends.size() == 0) {
 				return;
 			}
@@ -602,7 +608,7 @@ public class PropagateErrorSources {
 		} else {
 			st.setVisitToken(tt);
 		}
-		EList<PropagationGraphPath> paths = Util.getAllPropagationPaths(faultModel, ci, ep);
+		EList<PropagationGraphPath> paths = PropagationPathsUtil.getAllPropagationPaths(faultModel, ci, ep);
 		String effectText = "," + generateTypeTokenErrorPropText(ep, tt);
 		if (paths.isEmpty()) {
 			if (fi != null) {
@@ -656,7 +662,7 @@ public class PropagateErrorSources {
 				String connSymbol = " -> ";
 				if (dstConni != null) {
 					// we have a connection binding path with a connection instance as target
-					dstEnds = Util.getAllPropagationDestinationEnds(faultModel, dstConni);
+					dstEnds = PropagationPathsUtil.getAllPropagationDestinationEnds(faultModel, dstConni);
 					connSymbol = " -Conn-> ";
 					// find the connection transformation rules
 					ComponentInstance contextCI = dstConni.getComponentInstance();
@@ -737,11 +743,10 @@ public class PropagateErrorSources {
 		}
 
 		alreadyTreated.get(ci).add(entryText);
-		List<ErrorPropagation> treated = new ArrayList<ErrorPropagation>();
 		boolean handled = false;
 		Collection<ErrorFlow> outefs = EMV2Util.findErrorFlowFromComponentInstance(ci, ep);
 		for (ErrorFlow ef : outefs) {
-			if (ef instanceof ErrorSink) {
+			if (ef instanceof ErrorSink && PropagationPathsUtil.conditionHolds(ef, ci)) {
 				/**
 				 * We try to find additional error propagation for this error sink.
 				 * For example, if the error sink triggers to switch to

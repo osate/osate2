@@ -26,3 +26,4 @@ Bundle-Vendor: CMU-SEI
 Eclipse-BundleShape: dir
 Export-Package: org.osate.reqtrace
 Bundle-ClassPath: reqtrace.jar
+Automatic-Module-Name: org.osate.reqtrace

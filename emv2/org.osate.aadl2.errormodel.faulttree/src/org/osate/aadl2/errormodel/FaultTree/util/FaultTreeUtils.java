@@ -565,7 +565,6 @@ public class FaultTreeUtils {
 				break;
 			}
 			default: {
-				System.out.println("[Utils] Unsupported operator for now: " + event.getSubEventLogic());
 				result = 1;
 				break;
 			}

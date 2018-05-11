@@ -45,4 +45,5 @@ Export-Package: org.osate.alisa.common,
  org.osate.alisa.common.util,
  org.osate.alisa.common.validation,
  org.osate.alisa.common.valueconversion
+Automatic-Module-Name: org.osate.alisa.common
  
