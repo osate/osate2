@@ -1,0 +1,316 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+	"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+   <title>Summary of Concepts</title>
+   <link href="Res/styles/shared.css" rel="stylesheet" type="text/css">
+   <link href="Res/styles/DynamicOutline.css" rel="stylesheet" type="text/css">
+</head>
+<body id="page" >
+
+<!-- BEGIN PAGE BODY-->
+
+
+<table id="pageBody">
+ <col class="main">
+ <col class="right">
+
+<!-- BEGIN BREADCRUMBS-->
+<tr id="breadcrumbsAndPageNavigation">
+  <td class="breadcrumbs" valign="top">
+<!-- BEGIN NAVIGATION BREADCRUMBS ITEM-->
+<span class="breadcrumb">
+   <a href="index.html">Home</a>
+   <span class="separator">&gt;</span>
+</span>
+<!-- END NAVIGATION BREADCRUMBS ITEM-->
+<!-- BEGIN NAVIGATION BREADCRUMBS ITEM-->
+<span class="breadcrumb">
+   <a href="AFirstPlug-in.ModelStatistics.html">3. A First Plug-in: Model Statistics</a>
+   <span class="separator">&gt;</span>
+</span>
+<!-- END NAVIGATION BREADCRUMBS ITEM-->
+<!-- BEGIN NAVIGATION BREADCRUMBS HERE-->
+<span class="breadcrumb">
+   3.7 Summary of Concepts
+</span>
+<!-- END NAVIGATION BREADCRUMBS HERE-->
+
+  </td>
+  <td class="pageNavigation" valign="top">
+<!-- START PAGE NAVIGATION NEXT IN SEQUENCE IMAGES -->
+<span class="commands">
+    <span class="command">
+        <img src="Res/images/previous_button.gif" alt=""> <a href="ExecutingtheModelStatisticsPlug-in.html">
+        <span class="label">Previous</span></a>
+    </span>
+&nbsp;&nbsp;
+    <span class="command">
+        <a href="ProcessingofAADLModels.html">
+        <span class="label">Next</span></a> <img src="Res/images/next_button.gif" alt="">
+    </span>
+</span>
+<!-- END PAGE NAVIGATION NEXT IN SEQUENCE IMAGES  -->
+
+  </td>
+  <td class="right" valign="top">
+  </td>
+</tr>
+<!-- END BREADCRUMBS-->
+
+<tr class="topic">
+  <td class="main" valign="top" colspan="2">
+    <div class="body">
+      <div class="topicDivider">
+      </div>
+    </div>
+  </td>
+  <td class="right" valign="top">
+<!--right body column empty-->
+  </td>
+</tr>
+
+<!--BEGIN PAGE BODY ITEM-->
+<tr class="topic">
+  <td class="main" valign="top" colspan="2">
+    <table>
+      <tr class="topicHeader">
+        <td class="topicImageColumn">
+
+        </td>
+        <td class="topicLineColumn">
+          <a name="Topic23"></a>
+          <span class=outlineNumberFirst>3.7 </span><span class=topicLineFirst>Summary of Concepts</span>
+          <span class="topicIcons">
+
+          </span>
+        </td>
+      </tr>
+    </table>
+
+<!-- phf:Comand: Expand("BoxPartMap.mmbas") -->
+     <div class="topicTextNotes"><div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">This
+section describes how to create a simple plug-in for OSATE that counts the number of
+components in an AADL model. Creating a plug-in requires knowledge about Eclipse, the
+AADL meta model, and the OSATE APIs. Here we close the section with a brief summary of
+the major topics. </span></font><span></span></div></div>
+
+
+
+
+  </td>
+  <td class="right" valign="top">
+<!--right body column empty-->
+  </td>
+</tr>
+<!--END PAGE BODY ITEM-->
+<!--BEGIN PAGE BODY ITEM-->
+<tr class="topic">
+  <td class="main" valign="top" colspan="2">
+    <table>
+      <tr class="topicHeader">
+        <td class="topicImageColumn">
+
+        </td>
+        <td class="topicLineColumn">
+          <a name="Topic24"></a>
+          <span class=outlineNumber>3.7.1 </span><span class=topicLine>Eclipse</span>
+          <span class="topicIcons">
+
+          </span>
+        </td>
+      </tr>
+    </table>
+
+<!-- phf:Comand: Expand("BoxPartMap.mmbas") -->
+     <div class="topicTextNotes"><div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">An
+OSATE plug-in is written as an Eclipse plug-in project. Plug-in projects have a
+</span></font><font face="Courier New" color="#010101"><span>plugin.xml</span></font><font face="Times New Roman" color="#010101" size="3"><span
+style="font-size:12pt"> file that describes the appearance and structure of the plug-in. We use
+it to
+declare our plug-in&#146;s dependencies on other plug-ins, to declare an Eclipse action, and to
+declare and Eclipse action set to contain our action in the eclipse user interface.</span></font><span></span></div>
+<div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">By
+default, a plug-in depends on the plug-ins <b>org.eclipse.ui</b> and <b>org.eclipse.core.runtime</b>.
+An OSATE plug-in should also declare that it depends on <b>edu.cmu.sei.aadl.model</b> and
+<b>org.eclipse.emf.ecore</b> so that it can use the AADL meta model, and <b>edu.cmu.sei.osate.ui</b>
+so that it can access the abstract action implementations..</span></font><span></span></div>
+<div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">Our
+plug-in uses Eclipse&#146;s SWT framework to open a simple dialog box to display results. The
+static method <b>MessageDialog.openInformation()</b> display a simple dialog box displaying
+information results. Class <b>MessageDialog</b> also has the methods <b>openError</b> and
+<b>openWarning</b>, among others, that are useful for interacting with users of a plug-in.</span></font><span></span></div></div>
+
+
+
+
+  </td>
+  <td class="right" valign="top">
+<!--right body column empty-->
+  </td>
+</tr>
+<!--END PAGE BODY ITEM-->
+<!--BEGIN PAGE BODY ITEM-->
+<tr class="topic">
+  <td class="main" valign="top" colspan="2">
+    <table>
+      <tr class="topicHeader">
+        <td class="topicImageColumn">
+
+        </td>
+        <td class="topicLineColumn">
+          <a name="Topic25"></a>
+          <span class=outlineNumber>3.7.2 </span><span class=topicLine>Meta Model</span>
+          <span class="topicIcons">
+
+          </span>
+        </td>
+      </tr>
+    </table>
+
+<!-- phf:Comand: Expand("BoxPartMap.mmbas") -->
+     <div class="topicTextNotes"><div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">The
+AADL meta model is modeled using the Eclipse Modeling Framework (EMF). The
+model is split across seven EMF Ecore packages: core, component, connection, feature, flow,
+instance, and property. These package correspond to a suite of Java packages
+<b>edu.cmu.sei.aadl.model.core</b>, <b>edu.cmu.sei.aadl.model.core.impl</b>,
+<b>edu.cmu.sei.aadl.model.core.util</b>, <b>edu.cmu.sei.aadl.model.component</b>,
+<b>edu.cmu.sei.aadl.model.component.impl</b>, <b>edu.cmu.sei.aadl.model.component.util</b>,
+<b>edu.cmu.sei.aadl.model.connection</b>, <b>edu.cmu.sei.aadl.model.connection.impl</b>,
+<b>edu.cmu.sei.aadl.model.connection.util</b>, etc. that are in the Eclipse plug-in
+<b>edu.cmu.sei.aadl.model</b>. </span></font><span></span></div>
+<div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">EMF
+generates a  switch class for each Ecore package. This class is in the corresponding
+Java <b>util</b> package, and contains a  case method for each class declared in the package.
+The
+case methods understand the class hierarchy, and  fall through to super classes if the case
+method returns <b>null</b>. OSATE provides a compound switch class
+<b>edu.cmu.sei.aadl.model.util.AadlProcessingSwitch</b> that coordinates the use of switches
+across all the Ecore packages as well as including model traversal functionality (see below).</span></font><span></span></div>
+<div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">This
+section does not cover the meta model in any depth, but the model statistics plug-in tests
+against the <b>ComponentType</b> and <b>ComponentImpl</b> classes, which are the super types of the
+more specific component type and component implementation classes, respectively. The
+model statistics plug-in counts the different categories of instantiated components in the instance
+model. Unlike the declarative model, which has a different class for each component category,
+the instance model has only one class for representing an instantiated component:
+<b>ComponentInstance</b>. To determine the category of the component, the  category
+attribute
+must be consulted using <b>ComponentInstance.getCategory()</b>. This method returns an
+instance of <b>ComponentyCategory</b>, a class that implements the EMF enumeration pattern. In
+actuality, we test against the integer values of the enumeration elements using a normal Java
+<b>switch</b> statement: </span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span> switch (obj.getCategery().getValue()
+{</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span> case ComponentCategory.THREAD:</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span> &#133;</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span> break;</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span> case ComponentCategory.PROCESS:</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span> &#133;</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span> break;</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span> <b>// etc.</b></span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span> }</span></font><span></span></div></div>
+
+
+
+
+  </td>
+  <td class="right" valign="top">
+<!--right body column empty-->
+  </td>
+</tr>
+<!--END PAGE BODY ITEM-->
+<!--BEGIN PAGE BODY ITEM-->
+<tr class="topic">
+  <td class="main" valign="top" colspan="2">
+    <table>
+      <tr class="topicHeader">
+        <td class="topicImageColumn">
+
+        </td>
+        <td class="topicLineColumn">
+          <a name="Topic26"></a>
+          <span class=outlineNumber>3.7.3 </span><span class=topicLine>OSATE API</span>
+          <span class="topicIcons">
+
+          </span>
+        </td>
+      </tr>
+    </table>
+
+<!-- phf:Comand: Expand("BoxPartMap.mmbas") -->
+     <div class="topicTextNotes"><div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">The
+OSATE API provides many classes that customize the functionality of Eclipse and EMF
+APIs to better support AADL models. The class
+<b>edu.cmu.sei.aadl.model.util.ForAllAObject</b> encapsulates model traversal functionality. The
+model statistics plug-in uses the traversal method <b>processPreOrderAll</b> to perform pre-order
+traversals starting at a specific root object and the traversal method
+<b>processPreOrderAllDeclarativeModels </b>to perform a pre-order traversal of all the
+declarative model structures in the Eclipse workspace. This class is described in more detail
+in
+Section 4.3  AADL Model Traversal Support. The model statistics analysis is implemented
+as an extension of the class <b>AadlProcessingSupport</b>, a subclass of <b>ForAllAObject</b>, that
+delegates to EMF switch classes as the models are traversed. The method <b>initSwitches</b> is
+overridden to create to appropriate switch class implementations for the analysis.</span></font><span></span></div>
+<div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">OSATE
+provides implementations of <b>IWorkbenchWindowActionDelegate </b>that make it
+easier to create an OSATE-specific action. The class
+<b>edu.cmu.sei.aadl.model.pluginsupport.AaxlReadOnlyAction</b> may be extended to define
+an action that does not persist any changes made to models as a side-effect of the action. The
+class <b>AaxlModifyAction</b>, a subclass of <b>AaxlReadOnlyAction</b>, does persist any changes
+made as a side-effect. The body of the action is defined by implementing the method
+<b>doAaxlAction(AObject o)</b> which is passed the currently selected model object.
+<b>AaxlReadOnlyAction</b> also defines methods that make it simple to deposit markers on model
+objects for result reporting: <b>reportInfo</b>, <b>reportWarning</b>, and <b>reportError</b>.
+These methods
+take as parameters the model object on which to place the marker and the string message to
+associate with the marker.</span></font><span></span></div></div>
+
+
+
+
+  </td>
+  <td class="right" valign="top">
+<!--right body column empty-->
+  </td>
+</tr>
+<!--END PAGE BODY ITEM-->
+
+
+<!-- BEGIN TOP BUTTON -->
+<tr class="topic">
+  <td class="main" valign="top" colspan="2">
+    <div class="body">
+      <div class="topCommand">
+        <span class="commands">
+      <span class="command">
+            <img src="Res/images/top_button.gif" alt="">
+          <a href="javascript:scroll(0,0)">
+             <span class="label">Top</span>
+              </a>
+    </span>
+       </span>
+      </div>
+    </div>
+  </td>
+  <td class="right" valign="top">
+<!--right body column empty-->
+  </td>
+</tr>
+<!-- END TOP BUTTON -->
+
+</table>
+
+<!-- BEGIN SIDE NAVIGATION WRAPPER-->
+    </td>
+  </tr>
+</table>
+<!-- END SIDE NAVIGATION WRAPPER-->
+
+<!-- END PAGE BODY-->
+
+
+</body>
+</html>
+

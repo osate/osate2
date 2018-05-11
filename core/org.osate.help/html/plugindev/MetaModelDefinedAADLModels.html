@@ -1,0 +1,209 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+	"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+   <title>Meta Model Defined AADL Models</title>
+   <link href="Res/styles/shared.css" rel="stylesheet" type="text/css">
+   <link href="Res/styles/DynamicOutline.css" rel="stylesheet" type="text/css">
+</head>
+<body id="page" >
+
+<!-- BEGIN PAGE BODY-->
+
+
+<table id="pageBody">
+ <col class="main">
+ <col class="right">
+
+<!-- BEGIN BREADCRUMBS-->
+<tr id="breadcrumbsAndPageNavigation">
+  <td class="breadcrumbs" valign="top">
+<!-- BEGIN NAVIGATION BREADCRUMBS ITEM-->
+<span class="breadcrumb">
+   <a href="index.html">Home</a>
+   <span class="separator">&gt;</span>
+</span>
+<!-- END NAVIGATION BREADCRUMBS ITEM-->
+<!-- BEGIN NAVIGATION BREADCRUMBS ITEM-->
+<span class="breadcrumb">
+   <a href="ProcessingofAADLModels.html">4. Processing of AADL Models</a>
+   <span class="separator">&gt;</span>
+</span>
+<!-- END NAVIGATION BREADCRUMBS ITEM-->
+<!-- BEGIN NAVIGATION BREADCRUMBS HERE-->
+<span class="breadcrumb">
+   4.1 Meta Model Defined AADL Models
+</span>
+<!-- END NAVIGATION BREADCRUMBS HERE-->
+
+  </td>
+  <td class="pageNavigation" valign="top">
+<!-- START PAGE NAVIGATION NEXT IN SEQUENCE IMAGES -->
+<span class="commands">
+    <span class="command">
+        <img src="Res/images/previous_button.gif" alt=""> <a href="ProcessingofAADLModels.html">
+        <span class="label">Previous</span></a>
+    </span>
+&nbsp;&nbsp;
+    <span class="command">
+        <a href="NotesonAccessingModels.html">
+        <span class="label">Next</span></a> <img src="Res/images/next_button.gif" alt="">
+    </span>
+</span>
+<!-- END PAGE NAVIGATION NEXT IN SEQUENCE IMAGES  -->
+
+  </td>
+  <td class="right" valign="top">
+  </td>
+</tr>
+<!-- END BREADCRUMBS-->
+
+<tr class="topic">
+  <td class="main" valign="top" colspan="2">
+    <div class="body">
+      <div class="topicDivider">
+      </div>
+    </div>
+  </td>
+  <td class="right" valign="top">
+<!--right body column empty-->
+  </td>
+</tr>
+
+<!--BEGIN PAGE BODY ITEM-->
+<tr class="topic">
+  <td class="main" valign="top" colspan="2">
+    <table>
+      <tr class="topicHeader">
+        <td class="topicImageColumn">
+
+        </td>
+        <td class="topicLineColumn">
+          <a name="Topic28"></a>
+          <span class=outlineNumberFirst>4.1 </span><span class=topicLineFirst>Meta Model Defined AADL Models</span>
+          <span class="topicIcons">
+
+          </span>
+        </td>
+      </tr>
+    </table>
+
+<!-- phf:Comand: Expand("BoxPartMap.mmbas") -->
+     <div class="topicTextNotes"><div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">The
+AADL meta model defines the structure of AADL models, i.e., an object representation of
+AADL specifications that corresponds to a semantically decorated abstract syntax tree. The
+object representation of AADL models can be manipulated programmatically through an API.
+The object representation of AADL models can also be persistently stored as XML documents
+in an interchangeable manner by different tools that support AADL by adhering to an XML
+schema or XMI meta model specification. Both of these are derived from the AADL meta
+model. </span></font><span></span></div>
+<div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">Three
+model representations and persistent XML formats of AADL models have been
+identified:</span></font><span></span></div>
+<ul style="margin-top: 0pt; margin-bottom: 0pt">
+<ul style="margin-top: 0pt; margin-bottom: 0pt">
+<li style="margin-left=-3mm; margin-right=0mm; padding-left=0mm; font-family= Times New Roman;  font-size= 12pt;  color= #010101;  "><font
+face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">A <i>declarative AADL model</i>:
+AADL specifications in form of component types,
+component implementations, port group types, annex libraries, packages organizing
+these declarations, and property sets introducing additional property types, property
+constants, and property names.</span></font><span></span></li>
+<li style="margin-left=-3mm; margin-right=0mm; padding-left=0mm; font-family= Times New Roman;  font-size= 12pt;  color= #010101;  "><font
+face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">A <i>graphical layout model</i>:
+Layout information for the graphical display of AADL
+models. The graphical layout representation is associated with AADL models in their
+declarative representation and instance model.</span></font><span></span></li>
+<li style="margin-left=-3mm; margin-right=0mm; padding-left=0mm; font-family= Times New Roman;  font-size= 12pt;  color= #010101;  "><font
+face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">An <i>AADL instance model</i>:
+A compact representation of a system instance whose root
+is a system implementation in an AADL specification. This model contains AADL
+properties relevant for backend processing. Declarative information is accessible, if
+needed, through cross-document references to the declarative model.</span></font><span></span></li>
+</ul>
+</ul>
+<div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">Figure
+17 shows the three model representations and their relationship to the textual and
+graphical AADL representation as well as to tools that process and analyze AADL models. </span></font><span></span></div>
+<div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">The
+declarative AADL model reflects AADL specifications and supports translation from and
+to the textual AADL representation. A parser translates text into a declarative AADL model.
+Name resolution, semantic checking and other static analysis can be performed on this in-core
+object model of the declarative AADL model. Results of such analysis can be recorded in the
+declarative AADL model as property values. This makes analysis results available in a standard
+format for other analysis and for generation tools as illustrated in Figure 17. An XML-to-Text
+converter can reproduce textual AADL from the declarative AADL model.</span></font><span></span></div>
+<div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">The
+graphical AADL model is supported by graphical editing tools operating on the declarative
+AADL model and using the graphical layout model to maintain relevant layout information
+about the AADL model. Graphical presentation of AADL instances is supported in a similar
+manner.</span></font><span></span></div>
+<div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">The
+declarative AADL model contains information that is relevant to assure the semantic
+consistency of AADL models. However, this information is often not relevant to backend
+analyses and runtime system generation. Therefore, a more compact AADL instance model is
+desirable that is tailored to such processing. This AADL instance model is derived from the
+declarative AADL model. It is used by analyses of system instances, in many cases analyses
+that require a system model in which application components are bound to execution platform
+components. Such analysis tools may operate on an in-core object representation of the
+AADL instance model directly, or filters convert this representation into an analysis tool specific
+representation. Results from such analysis can be recorded as properties in the AADL instance
+model and mapped back into the declarative AADL model as necessary.</span></font><span></span></div>
+<div align="center"><br/>
+</div>
+<div align="center"><font face="Arial Narrow" color="#010101"><span>Figure 17 AADL Models and Tools</span></font><span></span></div>
+<div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">A
+full discussion of the AADL Meta Model and the interchange format can be found in Annex
+D of the <i>SAE AADL Standard</i> </span></font><font face="Arial Narrow" color="#ff0000" size="3"><span
+style="font-size:12pt">[SAE AADL 2005]</span></font><font face="Times New Roman" color="#010101" size="3"><span
+style="font-size:12pt">. In the context of this note we will refer to
+the meta model class <b>AObject</b> that is the common super class of all AADL model objects and
+to <b>InstanceObject</b> as the common super class of all instance model objects.</span></font><span></span></div></div>
+
+
+
+
+  </td>
+  <td class="right" valign="top">
+<!--right body column empty-->
+  </td>
+</tr>
+<!--END PAGE BODY ITEM-->
+
+
+<!-- BEGIN TOP BUTTON -->
+<tr class="topic">
+  <td class="main" valign="top" colspan="2">
+    <div class="body">
+      <div class="topCommand">
+        <span class="commands">
+      <span class="command">
+            <img src="Res/images/top_button.gif" alt="">
+          <a href="javascript:scroll(0,0)">
+             <span class="label">Top</span>
+              </a>
+    </span>
+       </span>
+      </div>
+    </div>
+  </td>
+  <td class="right" valign="top">
+<!--right body column empty-->
+  </td>
+</tr>
+<!-- END TOP BUTTON -->
+
+</table>
+
+<!-- BEGIN SIDE NAVIGATION WRAPPER-->
+    </td>
+  </tr>
+</table>
+<!-- END SIDE NAVIGATION WRAPPER-->
+
+<!-- END PAGE BODY-->
+
+
+</body>
+</html>
+

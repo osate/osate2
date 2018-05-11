@@ -1,0 +1,12 @@
+package BaseTypes
+public
+  data uint16
+    properties
+      Data_Size => 16 Bits;
+  end uint16;
+  
+  data uint8
+    properties
+      Data_Size => 8 bytes; 
+  end uint8;
+end BaseTypes;

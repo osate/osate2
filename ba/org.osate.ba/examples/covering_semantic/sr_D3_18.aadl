@@ -1,0 +1,71 @@
+-- AADL-BA-FrontEnd
+ 
+-- Copyright © 2011 TELECOM ParisTech and CNRS
+ 
+-- TELECOM ParisTech/LTCI
+
+-- Authors: see AUTHORS
+ 
+-- This program is free software: you can redistribute it and/or modify 
+-- it under the terms of the Eclipse Public License as published by Eclipse,
+-- either version 1.0 of the License, or (at your option) any later version.
+-- This program is distributed in the hope that it will be useful,
+-- but WITHOUT ANY WARRANTY; without even the implied warranty of
+-- MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+-- Eclipse Public License for more details.
+-- You should have received a copy of the Eclipse Public License
+-- along with this program.  If not, see 
+-- http://www.eclipse.org/org/documents/epl-v10.php
+
+-- Behavior Annex semantic rule D.3.(18) tests.
+
+package example_sr_D3_18
+public
+
+   with Base_Types ;
+
+thread th
+  features
+    p1 : in event data port Base_Types::Integer ;
+    p2 : in event data port Base_Types::Integer ;
+    m : out event data port Base_Types::Integer ;
+end th;
+
+thread implementation th.good 
+subcomponents
+  x1 : data Base_Types::Integer ;
+  x2 : data Base_Types::Integer ;
+annex behavior_specification {**
+  states
+    s0 : initial state;
+    comp : final state;
+    next1 : complete state;
+    
+  transitions
+    s0 -[ ]-> next1 { x1 := p1 };
+    next1 -[ on dispatch p2 ]-> comp { x2 := p2 };
+**};
+end th.good;
+
+thread implementation th.error 
+subcomponents
+  x1 : data Base_Types::Integer ;
+  x2 : data Base_Types::Integer ;
+annex behavior_specification {**
+  states
+    s0 : initial state;
+    comp : final state;
+    next1 : complete state;
+    
+    -- Error : next2 must be an execution state
+    next2 : complete state;
+    
+  transitions
+    -- If s0 is only an initial state so we can have an execute condition
+    s0 -[ x1 = 0 ]-> next1 { x1 := p1 };
+    next1 -[ on dispatch p1 ]-> next2 { x2 := p2 };  
+    next2 -[ x1 = 2 ]-> comp { x2 := p2 };
+**};
+end th.error;
+
+end example_sr_D3_18 ;

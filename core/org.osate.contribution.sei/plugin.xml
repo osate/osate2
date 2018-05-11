@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.0"?>
+<plugin>
+   <extension
+         point="org.osate.pluginsupport.aadlcontribution">
+      <aadlcontribution
+            file="resources/properties/SEI.aadl"
+            id="org.osate.contributes.SEI.aadlcontribution1">
+      </aadlcontribution>
+      <aadlcontribution
+            file="resources/properties/ARINC653.aadl"
+            id="org.osate.contributes.SAE.aadlcontribution4">
+      </aadlcontribution>
+      <aadlcontribution
+            file="resources/properties/ARINC429.aadl"
+            id="org.osate.contributes.SAE.aadlcontribution5">
+      </aadlcontribution>
+      <aadlcontribution
+            file="resources/properties/Data_Model.aadl"
+            id="org.osate.contributes.SAE.aadlcontribution2">
+      </aadlcontribution>
+      <aadlcontribution
+            file="resources/packages/Base_Types.aadl"
+            id="org.osate.contributes.SAE.aadlcontribution3">
+      </aadlcontribution>
+   </extension>
+</plugin>
