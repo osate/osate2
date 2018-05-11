@@ -8,7 +8,7 @@ import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.errormodel.FaultTree.FaultTree;
 import org.osate.aadl2.errormodel.FaultTree.FaultTreeType;
 import org.osate.aadl2.errormodel.PropagationGraph.PropagationGraph;
-import org.osate.aadl2.errormodel.PropagationGraph.util.Util;
+import org.osate.aadl2.errormodel.PropagationGraph.util.PropagationPathsUtil;
 import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.modelsupport.resources.OsateResourceUtil;
 import org.osate.aadl2.modelsupport.util.AadlUtil;
@@ -72,7 +72,7 @@ public class CreateFTAModel {
 		if (errorStateOrPropagation == null) {
 			return null;
 		}
-		PropagationGraph currentPropagationGraph = Util.generatePropagationGraph(selection.getSystemInstance(), false);
+		PropagationGraph currentPropagationGraph = PropagationPathsUtil.generatePropagationGraph(selection.getSystemInstance(), false);
 		FTAGenerator generator = new FTAGenerator(currentPropagationGraph);
 		FaultTree ftamodel = generator.getftaModel(selection, errorStateOrPropagation, errorType, faultTreeType);
 		String rootname = ftamodel.getName() + (faultTreeType.equals(FaultTreeType.MINIMAL_CUT_SET) ? "_cutset"

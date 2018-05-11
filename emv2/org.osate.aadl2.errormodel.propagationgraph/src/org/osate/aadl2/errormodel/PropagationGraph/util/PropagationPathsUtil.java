@@ -7,6 +7,7 @@ import org.eclipse.core.runtime.Path;
 import org.eclipse.emf.common.util.BasicEList;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.URI;
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.xtext.EcoreUtil2;
 import org.osate.aadl2.DirectionType;
@@ -26,6 +27,10 @@ import org.osate.aadl2.instance.SystemOperationMode;
 import org.osate.aadl2.modelsupport.resources.OsateResourceUtil;
 import org.osate.aadl2.modelsupport.util.AadlUtil;
 import org.osate.aadl2.util.Aadl2InstanceUtil;
+import org.osate.result.Diagnostic;
+import org.osate.result.DiagnosticType;
+import org.osate.xtext.aadl2.errormodel.errorModel.ErrorEvent;
+import org.osate.xtext.aadl2.errormodel.errorModel.ErrorFlow;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorPropagation;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorTypes;
 import org.osate.xtext.aadl2.errormodel.errorModel.PropagationPath;
@@ -34,7 +39,7 @@ import org.osate.xtext.aadl2.errormodel.util.EM2TypeSetUtil;
 import org.osate.xtext.aadl2.errormodel.util.EMV2Util;
 import org.osate.xtext.aadl2.properties.util.InstanceModelUtil;
 
-public class Util {
+public class PropagationPathsUtil {
 
 	public static PropagationGraph generatePropagationGraph(ComponentInstance root, boolean completeConnectionsOnly) {
 		PropagationGraph pg = PropagationGraphFactory.eINSTANCE.createPropagationGraph();
@@ -648,4 +653,57 @@ public class Util {
 		return result;
 	}
 
+	public static boolean conditionHolds(ErrorFlow ef, InstanceObject target) {
+		if (ef.getFlowcondition() != null) {
+			String conditionFcn = ef.getFlowcondition();
+			return executeCondition(conditionFcn, target, ef);
+		}
+		return true;
+	}
+
+	public static boolean conditionHolds(ErrorEvent ev, InstanceObject target) {
+		if (ev.getEventcondition() != null) {
+			String conditionFcn = ev.getEventcondition();
+			return executeCondition(conditionFcn, target, ev);
+		}
+		return true;
+	}
+
+	private static boolean RESOLUTE_INSTALLED;
+	static {
+		try {
+			ExecuteResoluteUtil.eInstance.tryLoad();
+			RESOLUTE_INSTALLED = true;
+		} catch (NoClassDefFoundError e) {
+			RESOLUTE_INSTALLED = false;
+		}
+	}
+
+	public static boolean executeCondition(String conditionFcn, InstanceObject target, EObject emv2target) {
+		ComponentInstance targetComponent = null;
+		InstanceObject targetElement = null;
+		if (target instanceof ComponentInstance) {
+			targetComponent = (ComponentInstance) target;
+		} else {
+			targetComponent = target.getContainingComponentInstance();
+			targetElement = target;
+		}
+		if (conditionFcn.contains(".")) {
+			// Java class reference
+			Object res = ExecuteJavaUtil.eInstance.invokeJavaMethod(conditionFcn, targetElement);
+			if (res instanceof Boolean) {
+				return (Boolean) res;
+			} else {
+				return true;
+			}
+		} else {
+			if (RESOLUTE_INSTALLED) {
+				Diagnostic res = ExecuteResoluteUtil.eInstance.executeResoluteFunction(conditionFcn,
+						target.getSystemInstance(), targetComponent, targetElement, null);
+				return res != null && res.getType() == DiagnosticType.SUCCESS;
+			} else {
+				return true;
+			}
+		}
+	}
 }

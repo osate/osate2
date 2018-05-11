@@ -43,7 +43,7 @@ import org.osate.aadl2.errormodel.FaultTree.FaultTree;
 import org.osate.aadl2.errormodel.FaultTree.FaultTreeType;
 import org.osate.aadl2.errormodel.PropagationGraph.PropagationGraph;
 import org.osate.aadl2.errormodel.PropagationGraph.PropagationGraphPath;
-import org.osate.aadl2.errormodel.PropagationGraph.util.Util;
+import org.osate.aadl2.errormodel.PropagationGraph.util.PropagationPathsUtil;
 import org.osate.aadl2.errormodel.faulttree.generation.CreateFTAModel;
 import org.osate.aadl2.errormodel.faulttree.util.SiriusUtil;
 import org.osate.aadl2.instance.ComponentInstance;
@@ -87,12 +87,12 @@ public final class FTAHandler extends AbstractHandler {
 			return IStatus.ERROR;
 		}
 		stateNames = new ArrayList<String>();
-		PropagationGraph currentPropagationGraph = Util.generatePropagationGraph(target.getSystemInstance(), false);
+		PropagationGraph currentPropagationGraph = PropagationPathsUtil.generatePropagationGraph(target.getSystemInstance(), false);
 		for (ErrorPropagation outprop : EMV2Util.getAllOutgoingErrorPropagations(target.getComponentClassifier())) {
 			EList<TypeToken> result = EM2TypeSetUtil.flattenTypesetElements(outprop.getTypeSet(),
 					EMV2Util.getUseTypes(outprop));
 			for (TypeToken tt : result) {
-				EList<PropagationGraphPath> paths = Util.getAllReversePropagationPaths(currentPropagationGraph, target,
+				EList<PropagationGraphPath> paths = PropagationPathsUtil.getAllReversePropagationPaths(currentPropagationGraph, target,
 						outprop, tt.getType().get(0));
 				if (paths.isEmpty()) {
 					if (!EMV2Util.existsOutgoingPropagationCondition(outprop, outprop, tt.getType().get(0))) {
