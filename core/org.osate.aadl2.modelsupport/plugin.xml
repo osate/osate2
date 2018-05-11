@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.2"?>
+<plugin>
+   <extension
+         id="AadlObjectMarker"
+         name="Aadl Model Object Marker"
+         point="org.eclipse.core.resources.markers">
+      <super
+            type="org.eclipse.core.resources.problemmarker">
+      </super>
+      <super
+            type="org.eclipse.emf.ecore.diagnostic">
+      </super>
+      <persistent
+            value="true">
+      </persistent>
+   </extension>
+   <extension
+         id="AadlGotoMarker"
+         name="Goto Model Element Marker"
+         point="org.eclipse.core.resources.markers">
+      <super
+            type="org.osate.aadl2.modelsupport.AadlObjectMarker">
+      </super>
+      <super
+            type="org.eclipse.emf.ecore.diagnostic">
+      </super>
+      <persistent
+            value="true">
+      </persistent>
+   </extension>
+   <extension
+         id="AadlTextMarker"
+         name="Aadl Text Marker"
+         point="org.eclipse.core.resources.markers">
+      <super
+            type="org.eclipse.core.resources.problemmarker">
+      </super>
+      <persistent
+            value="true">
+      </persistent>
+   </extension>
+   <extension
+         id="AadlTextGotoMarker"
+         name="Goto AADL Source Text Marker"
+         point="org.eclipse.core.resources.markers">
+      <super
+            type="org.osate.aadl2.modelsupport.AadlTextMarker">
+      </super>
+      <persistent
+            value="false">
+      </persistent>
+   </extension>
+
+     <extension
+         id="ParseErrorMarker"
+         name="AADL Parse Error Marker"
+         point="org.eclipse.core.resources.markers">
+      <super type="org.osate.aadl2.modelsupport.AadlTextMarker"/>
+      <persistent value="true"/>
+   </extension>
+
+   <extension
+         id="InstantiationObjectMarker"
+         name="Instantiation Marker"
+         point="org.eclipse.core.resources.markers">
+      <super type="org.osate.aadl2.modelsupport.AadlObjectMarker"/>
+      <persistent value="true"/>
+   </extension>
+   
+
+     <extension
+         id="NameResolutionErrorMarker"
+         name="AADL Name Resolution Error Marker"
+         point="org.eclipse.core.resources.markers">
+      <super type="org.osate.aadl2.modelsupport.AadlTextMarker"/>
+      <persistent value="true"/>
+   </extension>
+
+	<!-- adapter for loading aadl2 files -->
+<extension point="org.eclipse.core.runtime.adapters">
+      <factory adaptableType="org.eclipse.core.resources.IFile" class="org.osate.aadl2.modelsupport.resources.ModelLoadingAdapter">
+         <adapter type="org.osate.aadl2.Element" />
+      </factory>
+      <factory adaptableType="org.eclipse.jface.viewers.ISelection" class="org.osate.aadl2.modelsupport.resources.ModelLoadingAdapter">
+         <adapter type="org.osate.aadl2.Element" />
+      </factory>
+      <factory adaptableType="org.eclipse.core.resources.IFile" class="org.osate.aadl2.modelsupport.resources.ModelLoadingAdapter">
+         <adapter type="org.osate.aadl2.ModelUnit" />
+      </factory>
+      <factory adaptableType="org.eclipse.jface.viewers.ISelection" class="org.osate.aadl2.modelsupport.resources.ModelLoadingAdapter">
+         <adapter type="org.osate.aadl2.ModelUnit" />
+      </factory>
+</extension>
+
+</plugin>

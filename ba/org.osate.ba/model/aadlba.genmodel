@@ -1,0 +1,424 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<genmodel:GenModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore"
+    xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" copyrightText="AADL-BA-FrontEnd&#xA;&#xA;Copyright © 2011 TELECOM ParisTech and CNRS&#xA;&#xA;TELECOM ParisTech/LTCI&#xA;&#xA;Authors: see AUTHORS&#xA;&#xA;This program is free software: you can redistribute it and/or modify it under&#xA;the terms of the Eclipse Public License as published by Eclipse, either&#xA;version 1.0 of the License, or (at your option) any later version. This&#xA;program is distributed in the hope that it will be useful, but WITHOUT ANY&#xA;WARRANTY; without even the implied warranty of MERCHANTABILITY or&#xA;FITNESS FOR A PARTICULAR PURPOSE. See the Eclipse Public License for&#xA;more details. You should have received a copy of the Eclipse Public License&#xA;along with this program. If not, see&#xA;http://www.eclipse.org/org/documents/epl-v10.php"
+    modelDirectory="/org.osate.ba/src/" editDirectory="/org.osate.ba.edit/src" editorDirectory="/org.osate.ba.editor/src"
+    modelPluginID="org.osate.ba" redirection="" modelName="Aadlba" editPluginClass="org.osate.ba.aadlba.provider.AadlbaEditPlugin"
+    editorPluginClass="org.osate.ba.aadlba.presentation.AadlbaEditorPlugin" rootExtendsInterface="org.osate.aadl2.parsesupport.AObject"
+    rootExtendsClass="org.osate.aadl2.parsesupport.AObjectImpl" testSuiteClass="org.osate.ba.aadlba.tests.AadlbaAllTests"
+    importerID="org.eclipse.emf.importer.ecore" complianceLevel="6.0" copyrightFields="false"
+    editPluginID="org.osate.ba.edit" editorPluginID="org.osate.ba.editor" usedGenPackages="../../org.osate.aadl2/model/aadl2.genmodel#//aadl2"
+    interfaceNamePattern="">
+  <foreignModel>aadlba.ecore</foreignModel>
+  <genPackages prefix="AadlBa" basePackage="org.osate.ba" disposableProviderFactory="true"
+      ecorePackage="aadlba.ecore#/">
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="aadlba.ecore#//BehaviorFeatureType">
+      <genEnumLiterals ecoreEnumLiteral="aadlba.ecore#//BehaviorFeatureType/NONE"/>
+      <genEnumLiterals ecoreEnumLiteral="aadlba.ecore#//BehaviorFeatureType/BEHAVIOR_VARIABLE"/>
+      <genEnumLiterals ecoreEnumLiteral="aadlba.ecore#//BehaviorFeatureType/ITERATIVE_VARIABLE"/>
+    </genEnums>
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="aadlba.ecore#//BinaryAddingOperator">
+      <genEnumLiterals ecoreEnumLiteral="aadlba.ecore#//BinaryAddingOperator/None"/>
+      <genEnumLiterals ecoreEnumLiteral="aadlba.ecore#//BinaryAddingOperator/Plus"/>
+      <genEnumLiterals ecoreEnumLiteral="aadlba.ecore#//BinaryAddingOperator/Minus"/>
+    </genEnums>
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="aadlba.ecore#//BinaryNumericOperator">
+      <genEnumLiterals ecoreEnumLiteral="aadlba.ecore#//BinaryNumericOperator/None"/>
+      <genEnumLiterals ecoreEnumLiteral="aadlba.ecore#//BinaryNumericOperator/MultiplyMultiply"/>
+    </genEnums>
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="aadlba.ecore#//DataRepresentation">
+      <genEnumLiterals ecoreEnumLiteral="aadlba.ecore#//DataRepresentation/Unknown"/>
+      <genEnumLiterals ecoreEnumLiteral="aadlba.ecore#//DataRepresentation/Array"/>
+      <genEnumLiterals ecoreEnumLiteral="aadlba.ecore#//DataRepresentation/Boolean"/>
+      <genEnumLiterals ecoreEnumLiteral="aadlba.ecore#//DataRepresentation/Character"/>
+      <genEnumLiterals ecoreEnumLiteral="aadlba.ecore#//DataRepresentation/Enum"/>
+      <genEnumLiterals ecoreEnumLiteral="aadlba.ecore#//DataRepresentation/Fixed"/>
+      <genEnumLiterals ecoreEnumLiteral="aadlba.ecore#//DataRepresentation/Float"/>
+      <genEnumLiterals ecoreEnumLiteral="aadlba.ecore#//DataRepresentation/Integer"/>
+      <genEnumLiterals ecoreEnumLiteral="aadlba.ecore#//DataRepresentation/String"/>
+      <genEnumLiterals ecoreEnumLiteral="aadlba.ecore#//DataRepresentation/Struct"/>
+      <genEnumLiterals ecoreEnumLiteral="aadlba.ecore#//DataRepresentation/Union"/>
+    </genEnums>
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="aadlba.ecore#//FeatureType">
+      <genEnumLiterals ecoreEnumLiteral="aadlba.ecore#//FeatureType/NONE"/>
+      <genEnumLiterals ecoreEnumLiteral="aadlba.ecore#//FeatureType/IN_DATA_PORT"/>
+      <genEnumLiterals ecoreEnumLiteral="aadlba.ecore#//FeatureType/OUT_DATA_PORT"/>
+      <genEnumLiterals ecoreEnumLiteral="aadlba.ecore#//FeatureType/IN_OUT_DATA_PORT"/>
+      <genEnumLiterals ecoreEnumLiteral="aadlba.ecore#//FeatureType/IN_EVENT_PORT"/>
+      <genEnumLiterals ecoreEnumLiteral="aadlba.ecore#//FeatureType/OUT_EVENT_PORT"/>
+      <genEnumLiterals ecoreEnumLiteral="aadlba.ecore#//FeatureType/IN_OUT_EVENT_PORT"/>
+      <genEnumLiterals ecoreEnumLiteral="aadlba.ecore#//FeatureType/IN_EVENT_DATA_PORT"/>
+      <genEnumLiterals ecoreEnumLiteral="aadlba.ecore#//FeatureType/OUT_EVENT_DATA_PORT"/>
+      <genEnumLiterals ecoreEnumLiteral="aadlba.ecore#//FeatureType/IN_OUT_EVENT_DATA_PORT"/>
+      <genEnumLiterals ecoreEnumLiteral="aadlba.ecore#//FeatureType/PROVIDES_SUBPROGRAM_ACCESS"/>
+      <genEnumLiterals ecoreEnumLiteral="aadlba.ecore#//FeatureType/REQUIRES_SUBPROGRAM_ACCESS"/>
+      <genEnumLiterals ecoreEnumLiteral="aadlba.ecore#//FeatureType/PROVIDES_SUBPROGRAM_GROUP_ACCESS"/>
+      <genEnumLiterals ecoreEnumLiteral="aadlba.ecore#//FeatureType/REQUIRES_SUBPROGRAM_GROUP_ACCESS"/>
+      <genEnumLiterals ecoreEnumLiteral="aadlba.ecore#//FeatureType/SUBPROGRAM_SUBCOMPONENT"/>
+      <genEnumLiterals ecoreEnumLiteral="aadlba.ecore#//FeatureType/SUBPROGRAM_CLASSIFIER"/>
+      <genEnumLiterals ecoreEnumLiteral="aadlba.ecore#//FeatureType/SUBPROGRAM_PROTOTYPE"/>
+      <genEnumLiterals ecoreEnumLiteral="aadlba.ecore#//FeatureType/COMPONENT_PROTOTYPE"/>
+      <genEnumLiterals ecoreEnumLiteral="aadlba.ecore#//FeatureType/COMPONENT_PROTOTYPE_BINDING"/>
+      <genEnumLiterals ecoreEnumLiteral="aadlba.ecore#//FeatureType/FEATURE_PROTOTYPE"/>
+      <genEnumLiterals ecoreEnumLiteral="aadlba.ecore#//FeatureType/FEATURE_PROTOTYPE_BINDING"/>
+      <genEnumLiterals ecoreEnumLiteral="aadlba.ecore#//FeatureType/FEATURE_GROUP_PROTOTYPE"/>
+      <genEnumLiterals ecoreEnumLiteral="aadlba.ecore#//FeatureType/FEATURE_GROUP_PROTOTYPE_BINDING"/>
+      <genEnumLiterals ecoreEnumLiteral="aadlba.ecore#//FeatureType/PROVIDES_DATA_ACCESS"/>
+      <genEnumLiterals ecoreEnumLiteral="aadlba.ecore#//FeatureType/REQUIRES_DATA_ACCESS"/>
+      <genEnumLiterals ecoreEnumLiteral="aadlba.ecore#//FeatureType/DATA_SUBCOMPONENT"/>
+      <genEnumLiterals ecoreEnumLiteral="aadlba.ecore#//FeatureType/DATA_CLASSIFIER"/>
+      <genEnumLiterals ecoreEnumLiteral="aadlba.ecore#//FeatureType/IN_PARAMETER"/>
+      <genEnumLiterals ecoreEnumLiteral="aadlba.ecore#//FeatureType/OUT_PARAMETER"/>
+      <genEnumLiterals ecoreEnumLiteral="aadlba.ecore#//FeatureType/IN_OUT_PARAMETER"/>
+      <genEnumLiterals ecoreEnumLiteral="aadlba.ecore#//FeatureType/PROPERTY_CONSTANT"/>
+      <genEnumLiterals ecoreEnumLiteral="aadlba.ecore#//FeatureType/PROPERTY_VALUE"/>
+      <genEnumLiterals ecoreEnumLiteral="aadlba.ecore#//FeatureType/PROVIDES_BUS_ACCESS"/>
+      <genEnumLiterals ecoreEnumLiteral="aadlba.ecore#//FeatureType/REQUIRES_BUS_ACCESS"/>
+      <genEnumLiterals ecoreEnumLiteral="aadlba.ecore#//FeatureType/FEATURE_GROUP"/>
+      <genEnumLiterals ecoreEnumLiteral="aadlba.ecore#//FeatureType/CLASSIFIER_VALUE"/>
+      <genEnumLiterals ecoreEnumLiteral="aadlba.ecore#//FeatureType/ABSTRACT_FEATURE"/>
+      <genEnumLiterals ecoreEnumLiteral="aadlba.ecore#//FeatureType/IN_FEATURE_PROTOTYPE"/>
+      <genEnumLiterals ecoreEnumLiteral="aadlba.ecore#//FeatureType/OUT_FEATURE_PROTOTYPE"/>
+      <genEnumLiterals ecoreEnumLiteral="aadlba.ecore#//FeatureType/IN_OUT_FEATURE_PROTOTYPE"/>
+      <genEnumLiterals ecoreEnumLiteral="aadlba.ecore#//FeatureType/THREAD_GROUP"/>
+      <genEnumLiterals ecoreEnumLiteral="aadlba.ecore#//FeatureType/SUBPROGRAM_GROUP"/>
+      <genEnumLiterals ecoreEnumLiteral="aadlba.ecore#//FeatureType/SUBPROGRAM_GROUP_PROTOTYPE"/>
+      <genEnumLiterals ecoreEnumLiteral="aadlba.ecore#//FeatureType/THREAD_PROTOTYPE"/>
+      <genEnumLiterals ecoreEnumLiteral="aadlba.ecore#//FeatureType/THREAD_GROUP_PROTOTYPE"/>
+      <genEnumLiterals ecoreEnumLiteral="aadlba.ecore#//FeatureType/IN_DATA_PORT_PROTOTYPE"/>
+      <genEnumLiterals ecoreEnumLiteral="aadlba.ecore#//FeatureType/OUT_DATA_PORT_PROTOTYPE"/>
+      <genEnumLiterals ecoreEnumLiteral="aadlba.ecore#//FeatureType/IN_OUT_DATA_PORT_PROTOTYPE"/>
+      <genEnumLiterals ecoreEnumLiteral="aadlba.ecore#//FeatureType/IN_EVENT_PORT_PROTOTYPE"/>
+      <genEnumLiterals ecoreEnumLiteral="aadlba.ecore#//FeatureType/OUT_EVENT_PORT_PROTOTYPE"/>
+      <genEnumLiterals ecoreEnumLiteral="aadlba.ecore#//FeatureType/IN_OUT_EVENT_PORT_PROTOTYPE"/>
+      <genEnumLiterals ecoreEnumLiteral="aadlba.ecore#//FeatureType/IN_EVENT_DATA_PORT_PROTOTYPE"/>
+      <genEnumLiterals ecoreEnumLiteral="aadlba.ecore#//FeatureType/OUT_EVENT_DATA_PORT_PROTOTYPE"/>
+      <genEnumLiterals ecoreEnumLiteral="aadlba.ecore#//FeatureType/IN_OUT_EVENT_DATA_PORT_PROTOTYPE"/>
+      <genEnumLiterals ecoreEnumLiteral="aadlba.ecore#//FeatureType/PROVIDES_SUBPROGRAM_ACCESS_PROTOTYPE"/>
+      <genEnumLiterals ecoreEnumLiteral="aadlba.ecore#//FeatureType/REQUIRES_SUBPROGRAM_ACCESS_PROTOTYPE"/>
+      <genEnumLiterals ecoreEnumLiteral="aadlba.ecore#//FeatureType/PROVIDES_SUBPROGRAM_GROUP_ACCESS_PROTOTYPE"/>
+      <genEnumLiterals ecoreEnumLiteral="aadlba.ecore#//FeatureType/REQUIRES_SUBPROGRAM_GROUP_ACCESS_PROTOTYPE"/>
+      <genEnumLiterals ecoreEnumLiteral="aadlba.ecore#//FeatureType/PROVIDES_DATA_ACCESS_PROTOTYPE"/>
+      <genEnumLiterals ecoreEnumLiteral="aadlba.ecore#//FeatureType/REQUIRES_DATA_ACCESS_PROTOTYPE"/>
+      <genEnumLiterals ecoreEnumLiteral="aadlba.ecore#//FeatureType/PROVIDES_BUS_ACCESS_PROTOTYPE"/>
+      <genEnumLiterals ecoreEnumLiteral="aadlba.ecore#//FeatureType/REQUIRES_BUS_ACCESS_PROTOTYPE"/>
+    </genEnums>
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="aadlba.ecore#//LogicalOperator">
+      <genEnumLiterals ecoreEnumLiteral="aadlba.ecore#//LogicalOperator/None"/>
+      <genEnumLiterals ecoreEnumLiteral="aadlba.ecore#//LogicalOperator/And"/>
+      <genEnumLiterals ecoreEnumLiteral="aadlba.ecore#//LogicalOperator/Or"/>
+      <genEnumLiterals ecoreEnumLiteral="aadlba.ecore#//LogicalOperator/Xor"/>
+    </genEnums>
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="aadlba.ecore#//MultiplyingOperator">
+      <genEnumLiterals ecoreEnumLiteral="aadlba.ecore#//MultiplyingOperator/None"/>
+      <genEnumLiterals ecoreEnumLiteral="aadlba.ecore#//MultiplyingOperator/Multiply"/>
+      <genEnumLiterals ecoreEnumLiteral="aadlba.ecore#//MultiplyingOperator/Divide"/>
+      <genEnumLiterals ecoreEnumLiteral="aadlba.ecore#//MultiplyingOperator/Mod"/>
+      <genEnumLiterals ecoreEnumLiteral="aadlba.ecore#//MultiplyingOperator/Rem"/>
+    </genEnums>
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="aadlba.ecore#//RelationalOperator">
+      <genEnumLiterals ecoreEnumLiteral="aadlba.ecore#//RelationalOperator/None"/>
+      <genEnumLiterals ecoreEnumLiteral="aadlba.ecore#//RelationalOperator/Equal"/>
+      <genEnumLiterals ecoreEnumLiteral="aadlba.ecore#//RelationalOperator/NotEqual"/>
+      <genEnumLiterals ecoreEnumLiteral="aadlba.ecore#//RelationalOperator/LessThan"/>
+      <genEnumLiterals ecoreEnumLiteral="aadlba.ecore#//RelationalOperator/LessOrEqualThan"/>
+      <genEnumLiterals ecoreEnumLiteral="aadlba.ecore#//RelationalOperator/GreaterThan"/>
+      <genEnumLiterals ecoreEnumLiteral="aadlba.ecore#//RelationalOperator/GreaterOrEqualThan"/>
+    </genEnums>
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="aadlba.ecore#//UnaryAddingOperator">
+      <genEnumLiterals ecoreEnumLiteral="aadlba.ecore#//UnaryAddingOperator/None"/>
+      <genEnumLiterals ecoreEnumLiteral="aadlba.ecore#//UnaryAddingOperator/Plus"/>
+      <genEnumLiterals ecoreEnumLiteral="aadlba.ecore#//UnaryAddingOperator/Minus"/>
+    </genEnums>
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="aadlba.ecore#//UnaryBooleanOperator">
+      <genEnumLiterals ecoreEnumLiteral="aadlba.ecore#//UnaryBooleanOperator/None"/>
+      <genEnumLiterals ecoreEnumLiteral="aadlba.ecore#//UnaryBooleanOperator/Not"/>
+    </genEnums>
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="aadlba.ecore#//UnaryNumericOperator">
+      <genEnumLiterals ecoreEnumLiteral="aadlba.ecore#//UnaryNumericOperator/None"/>
+      <genEnumLiterals ecoreEnumLiteral="aadlba.ecore#//UnaryNumericOperator/Abs"/>
+    </genEnums>
+    <genDataTypes ecoreDataType="aadlba.ecore#//Boolean"/>
+    <genDataTypes ecoreDataType="aadlba.ecore#//Integer"/>
+    <genDataTypes ecoreDataType="aadlba.ecore#//Real"/>
+    <genDataTypes ecoreDataType="aadlba.ecore#//String"/>
+    <genClasses image="false" ecoreClass="aadlba.ecore#//ActualPortHolder">
+      <genOperations ecoreOperation="aadlba.ecore#//ActualPortHolder/setPort">
+        <genParameters ecoreParameter="aadlba.ecore#//ActualPortHolder/setPort/port"/>
+      </genOperations>
+      <genOperations ecoreOperation="aadlba.ecore#//ActualPortHolder/getPort"/>
+    </genClasses>
+    <genClasses ecoreClass="aadlba.ecore#//AssignmentAction">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference aadlba.ecore#//AssignmentAction/target"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference aadlba.ecore#//AssignmentAction/valueExpression"/>
+    </genClasses>
+    <genClasses ecoreClass="aadlba.ecore#//Any"/>
+    <genClasses image="false" ecoreClass="aadlba.ecore#//BasicAction"/>
+    <genClasses image="false" ecoreClass="aadlba.ecore#//BehaviorAction"/>
+    <genClasses ecoreClass="aadlba.ecore#//BehaviorActionBlock">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference aadlba.ecore#//BehaviorActionBlock/content"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference aadlba.ecore#//BehaviorActionBlock/timeout"/>
+    </genClasses>
+    <genClasses image="false" ecoreClass="aadlba.ecore#//BehaviorActionCollection">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference aadlba.ecore#//BehaviorActionCollection/actions"/>
+    </genClasses>
+    <genClasses image="false" ecoreClass="aadlba.ecore#//BehaviorActions"/>
+    <genClasses ecoreClass="aadlba.ecore#//BehaviorActionSequence"/>
+    <genClasses ecoreClass="aadlba.ecore#//BehaviorActionSet"/>
+    <genClasses ecoreClass="aadlba.ecore#//BehaviorAnnex">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference aadlba.ecore#//BehaviorAnnex/variables"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference aadlba.ecore#//BehaviorAnnex/states"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference aadlba.ecore#//BehaviorAnnex/transitions"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference aadlba.ecore#//BehaviorAnnex/actions"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference aadlba.ecore#//BehaviorAnnex/conditions"/>
+    </genClasses>
+    <genClasses ecoreClass="aadlba.ecore#//BehaviorBooleanLiteral"/>
+    <genClasses image="false" ecoreClass="aadlba.ecore#//BehaviorCondition"/>
+    <genClasses image="false" ecoreClass="aadlba.ecore#//BehaviorElement"/>
+    <genClasses ecoreClass="aadlba.ecore#//BehaviorEnumerationLiteral">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference aadlba.ecore#//BehaviorEnumerationLiteral/enumLiteral"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference aadlba.ecore#//BehaviorEnumerationLiteral/component"/>
+    </genClasses>
+    <genClasses ecoreClass="aadlba.ecore#//BehaviorIntegerLiteral"/>
+    <genClasses image="false" ecoreClass="aadlba.ecore#//BehaviorNamedElement"/>
+    <genClasses image="false" ecoreClass="aadlba.ecore#//BehaviorProperty">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference aadlba.ecore#//BehaviorProperty/propertySet"/>
+    </genClasses>
+    <genClasses ecoreClass="aadlba.ecore#//BehaviorPropertyConstant">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference aadlba.ecore#//BehaviorPropertyConstant/property"/>
+    </genClasses>
+    <genClasses ecoreClass="aadlba.ecore#//BehaviorPropertyValue">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference aadlba.ecore#//BehaviorPropertyValue/property"/>
+    </genClasses>
+    <genClasses ecoreClass="aadlba.ecore#//BehaviorRealLiteral"/>
+    <genClasses ecoreClass="aadlba.ecore#//BehaviorState">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute aadlba.ecore#//BehaviorState/initial"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute aadlba.ecore#//BehaviorState/complete"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute aadlba.ecore#//BehaviorState/final"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference aadlba.ecore#//BehaviorState/bindedMode"/>
+    </genClasses>
+    <genClasses ecoreClass="aadlba.ecore#//BehaviorStringLiteral"/>
+    <genClasses ecoreClass="aadlba.ecore#//BehaviorTime">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference aadlba.ecore#//BehaviorTime/integerValue"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference aadlba.ecore#//BehaviorTime/unit"/>
+    </genClasses>
+    <genClasses ecoreClass="aadlba.ecore#//BehaviorTransition">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference aadlba.ecore#//BehaviorTransition/sourceState"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference aadlba.ecore#//BehaviorTransition/condition"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference aadlba.ecore#//BehaviorTransition/destinationState"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference aadlba.ecore#//BehaviorTransition/actionBlock"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute aadlba.ecore#//BehaviorTransition/priority"/>
+    </genClasses>
+    <genClasses ecoreClass="aadlba.ecore#//BehaviorVariable">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference aadlba.ecore#//BehaviorVariable/dataClassifier"/>
+    </genClasses>
+    <genClasses ecoreClass="aadlba.ecore#//BehaviorVariableHolder">
+      <genOperations ecoreOperation="aadlba.ecore#//BehaviorVariableHolder/setVariable">
+        <genParameters ecoreParameter="aadlba.ecore#//BehaviorVariableHolder/setVariable/variable"/>
+      </genOperations>
+      <genOperations ecoreOperation="aadlba.ecore#//BehaviorVariableHolder/getBehaviorVariable"/>
+    </genClasses>
+    <genClasses ecoreClass="aadlba.ecore#//CalledSubprogramHolder"/>
+    <genClasses image="false" ecoreClass="aadlba.ecore#//CommunicationAction"/>
+    <genClasses ecoreClass="aadlba.ecore#//CompletionRelativeTimeout"/>
+    <genClasses image="false" ecoreClass="aadlba.ecore#//CondStatement">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference aadlba.ecore#//CondStatement/behaviorActions"/>
+    </genClasses>
+    <genClasses ecoreClass="aadlba.ecore#//DataAccessHolder">
+      <genOperations ecoreOperation="aadlba.ecore#//DataAccessHolder/setDataAccess">
+        <genParameters ecoreParameter="aadlba.ecore#//DataAccessHolder/setDataAccess/dataAccess"/>
+      </genOperations>
+      <genOperations ecoreOperation="aadlba.ecore#//DataAccessHolder/getDataAccess"/>
+    </genClasses>
+    <genClasses ecoreClass="aadlba.ecore#//DataAccessPrototypeHolder"/>
+    <genClasses ecoreClass="aadlba.ecore#//DataComponentReference">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference aadlba.ecore#//DataComponentReference/data"/>
+    </genClasses>
+    <genClasses image="false" ecoreClass="aadlba.ecore#//DataHolder"/>
+    <genClasses ecoreClass="aadlba.ecore#//DataPortHolder">
+      <genOperations ecoreOperation="aadlba.ecore#//DataPortHolder/setDataPort">
+        <genParameters ecoreParameter="aadlba.ecore#//DataPortHolder/setDataPort/dataPort"/>
+      </genOperations>
+      <genOperations ecoreOperation="aadlba.ecore#//DataPortHolder/getDataPort"/>
+    </genClasses>
+    <genClasses ecoreClass="aadlba.ecore#//DataSubcomponentHolder">
+      <genOperations ecoreOperation="aadlba.ecore#//DataSubcomponentHolder/setDataSubcomponent">
+        <genParameters ecoreParameter="aadlba.ecore#//DataSubcomponentHolder/setDataSubcomponent/dataSubcomponent"/>
+      </genOperations>
+      <genOperations ecoreOperation="aadlba.ecore#//DataSubcomponentHolder/getDataSubcomponent"/>
+    </genClasses>
+    <genClasses ecoreClass="aadlba.ecore#//DispatchCondition">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference aadlba.ecore#//DispatchCondition/dispatchTriggerCondition"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference aadlba.ecore#//DispatchCondition/frozenPorts"/>
+    </genClasses>
+    <genClasses ecoreClass="aadlba.ecore#//DispatchConjunction">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference aadlba.ecore#//DispatchConjunction/dispatchTriggers"/>
+    </genClasses>
+    <genClasses ecoreClass="aadlba.ecore#//DispatchRelativeTimeout"/>
+    <genClasses image="false" ecoreClass="aadlba.ecore#//DispatchTrigger"/>
+    <genClasses image="false" ecoreClass="aadlba.ecore#//DispatchTriggerCondition"/>
+    <genClasses ecoreClass="aadlba.ecore#//DispatchTriggerConditionStop"/>
+    <genClasses ecoreClass="aadlba.ecore#//DispatchTriggerLogicalExpression">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference aadlba.ecore#//DispatchTriggerLogicalExpression/dispatchConjunctions"/>
+    </genClasses>
+    <genClasses image="false" ecoreClass="aadlba.ecore#//ElementHolder">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference aadlba.ecore#//ElementHolder/element"/>
+    </genClasses>
+    <genClasses image="false" ecoreClass="aadlba.ecore#//ElementValues"/>
+    <genClasses ecoreClass="aadlba.ecore#//ElseStatement"/>
+    <genClasses ecoreClass="aadlba.ecore#//EventDataPortHolder">
+      <genOperations ecoreOperation="aadlba.ecore#//EventDataPortHolder/setEventDataPort">
+        <genParameters ecoreParameter="aadlba.ecore#//EventDataPortHolder/setEventDataPort/eventDataPort"/>
+      </genOperations>
+      <genOperations ecoreOperation="aadlba.ecore#//EventDataPortHolder/geteventDataPort"/>
+    </genClasses>
+    <genClasses ecoreClass="aadlba.ecore#//EventPortHolder">
+      <genOperations ecoreOperation="aadlba.ecore#//EventPortHolder/setEventPort">
+        <genParameters ecoreParameter="aadlba.ecore#//EventPortHolder/setEventPort/eventPort"/>
+      </genOperations>
+      <genOperations ecoreOperation="aadlba.ecore#//EventPortHolder/getEventPort"/>
+    </genClasses>
+    <genClasses image="false" ecoreClass="aadlba.ecore#//ExecuteCondition"/>
+    <genClasses ecoreClass="aadlba.ecore#//ExecutionTimeoutCatch"/>
+    <genClasses ecoreClass="aadlba.ecore#//Factor">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference aadlba.ecore#//Factor/firstValue"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference aadlba.ecore#//Factor/secondValue"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute aadlba.ecore#//Factor/binaryNumericOperator"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute aadlba.ecore#//Factor/unaryNumericOperator"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute aadlba.ecore#//Factor/unaryBooleanOperator"/>
+    </genClasses>
+    <genClasses ecoreClass="aadlba.ecore#//FeaturePrototypeHolder"/>
+    <genClasses ecoreClass="aadlba.ecore#//ForOrForAllStatement">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference aadlba.ecore#//ForOrForAllStatement/iteratedValues"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute aadlba.ecore#//ForOrForAllStatement/forAll"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference aadlba.ecore#//ForOrForAllStatement/iterativeVariable"/>
+    </genClasses>
+    <genClasses image="false" ecoreClass="aadlba.ecore#//GroupableElement">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference aadlba.ecore#//GroupableElement/groupHolders"/>
+    </genClasses>
+    <genClasses ecoreClass="aadlba.ecore#//GroupHolder">
+      <genOperations ecoreOperation="aadlba.ecore#//GroupHolder/setGroup">
+        <genParameters ecoreParameter="aadlba.ecore#//GroupHolder/setGroup/group"/>
+      </genOperations>
+      <genOperations ecoreOperation="aadlba.ecore#//GroupHolder/getGroup"/>
+    </genClasses>
+    <genClasses ecoreClass="aadlba.ecore#//GroupPrototypeHolder"/>
+    <genClasses ecoreClass="aadlba.ecore#//IfStatement">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference aadlba.ecore#//IfStatement/logicalValueExpression"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute aadlba.ecore#//IfStatement/elif"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference aadlba.ecore#//IfStatement/elseStatement"/>
+    </genClasses>
+    <genClasses image="false" ecoreClass="aadlba.ecore#//IndexableElement">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference aadlba.ecore#//IndexableElement/arrayIndexes"/>
+    </genClasses>
+    <genClasses ecoreClass="aadlba.ecore#//IntegerRange">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference aadlba.ecore#//IntegerRange/lowerIntegerValue"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference aadlba.ecore#//IntegerRange/upperIntegerValue"/>
+    </genClasses>
+    <genClasses image="false" ecoreClass="aadlba.ecore#//IntegerValue"/>
+    <genClasses image="false" ecoreClass="aadlba.ecore#//IntegerValueConstant"/>
+    <genClasses image="false" ecoreClass="aadlba.ecore#//IntegerValueVariable"/>
+    <genClasses ecoreClass="aadlba.ecore#//IterativeVariable">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference aadlba.ecore#//IterativeVariable/dataClassifier"/>
+    </genClasses>
+    <genClasses ecoreClass="aadlba.ecore#//IterativeVariableHolder">
+      <genOperations ecoreOperation="aadlba.ecore#//IterativeVariableHolder/setIterativeVariable">
+        <genParameters ecoreParameter="aadlba.ecore#//IterativeVariableHolder/setIterativeVariable/itV"/>
+      </genOperations>
+      <genOperations ecoreOperation="aadlba.ecore#//IterativeVariableHolder/getIterativeVariable"/>
+    </genClasses>
+    <genClasses image="false" ecoreClass="aadlba.ecore#//Literal"/>
+    <genClasses ecoreClass="aadlba.ecore#//LockAction"/>
+    <genClasses image="false" ecoreClass="aadlba.ecore#//LoopStatement"/>
+    <genClasses image="false" ecoreClass="aadlba.ecore#//NumericLiteral"/>
+    <genClasses ecoreClass="aadlba.ecore#//Otherwise"/>
+    <genClasses ecoreClass="aadlba.ecore#//ParameterHolder">
+      <genOperations ecoreOperation="aadlba.ecore#//ParameterHolder/setParameter">
+        <genParameters ecoreParameter="aadlba.ecore#//ParameterHolder/setParameter/parameter"/>
+      </genOperations>
+      <genOperations ecoreOperation="aadlba.ecore#//ParameterHolder/getParameter"/>
+    </genClasses>
+    <genClasses image="false" ecoreClass="aadlba.ecore#//ParameterLabel"/>
+    <genClasses ecoreClass="aadlba.ecore#//PortCountValue"/>
+    <genClasses ecoreClass="aadlba.ecore#//PortDequeueAction">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference aadlba.ecore#//PortDequeueAction/port"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference aadlba.ecore#//PortDequeueAction/target"/>
+    </genClasses>
+    <genClasses ecoreClass="aadlba.ecore#//PortDequeueValue"/>
+    <genClasses ecoreClass="aadlba.ecore#//PortFreezeAction"/>
+    <genClasses ecoreClass="aadlba.ecore#//PortFreshValue"/>
+    <genClasses image="false" ecoreClass="aadlba.ecore#//PortHolder"/>
+    <genClasses ecoreClass="aadlba.ecore#//PortPrototypeHolder"/>
+    <genClasses ecoreClass="aadlba.ecore#//PortSendAction">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference aadlba.ecore#//PortSendAction/port"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference aadlba.ecore#//PortSendAction/valueExpression"/>
+    </genClasses>
+    <genClasses image="false" ecoreClass="aadlba.ecore#//PrototypeHolder">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference aadlba.ecore#//PrototypeHolder/prototypeBinding"/>
+      <genOperations ecoreOperation="aadlba.ecore#//PrototypeHolder/setPrototype">
+        <genParameters ecoreParameter="aadlba.ecore#//PrototypeHolder/setPrototype/prototype"/>
+      </genOperations>
+      <genOperations ecoreOperation="aadlba.ecore#//PrototypeHolder/getPrototype"/>
+    </genClasses>
+    <genClasses ecoreClass="aadlba.ecore#//Relation">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference aadlba.ecore#//Relation/firstExpression"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference aadlba.ecore#//Relation/secondExpression"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute aadlba.ecore#//Relation/relationalOperator"/>
+    </genClasses>
+    <genClasses image="false" ecoreClass="aadlba.ecore#//SharedDataAction">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference aadlba.ecore#//SharedDataAction/dataAccess"/>
+    </genClasses>
+    <genClasses ecoreClass="aadlba.ecore#//SimpleExpression">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute aadlba.ecore#//SimpleExpression/unaryAddingOperator"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference aadlba.ecore#//SimpleExpression/terms"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute aadlba.ecore#//SimpleExpression/binaryAddingOperators"/>
+    </genClasses>
+    <genClasses ecoreClass="aadlba.ecore#//StructUnionElement">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference aadlba.ecore#//StructUnionElement/dataClassifier"/>
+    </genClasses>
+    <genClasses ecoreClass="aadlba.ecore#//StructUnionElementHolder">
+      <genOperations ecoreOperation="aadlba.ecore#//StructUnionElementHolder/setStructUnionElement">
+        <genParameters ecoreParameter="aadlba.ecore#//StructUnionElementHolder/setStructUnionElement/structUnionElement"/>
+      </genOperations>
+      <genOperations ecoreOperation="aadlba.ecore#//StructUnionElementHolder/getStructUnionElement"/>
+    </genClasses>
+    <genClasses ecoreClass="aadlba.ecore#//SubprogramAccessHolder">
+      <genOperations ecoreOperation="aadlba.ecore#//SubprogramAccessHolder/setSubprogramAccess">
+        <genParameters ecoreParameter="aadlba.ecore#//SubprogramAccessHolder/setSubprogramAccess/subprogramAccess"/>
+      </genOperations>
+      <genOperations ecoreOperation="aadlba.ecore#//SubprogramAccessHolder/getSubprogramAccess"/>
+    </genClasses>
+    <genClasses ecoreClass="aadlba.ecore#//SubprogramCallAction">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference aadlba.ecore#//SubprogramCallAction/subprogram"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference aadlba.ecore#//SubprogramCallAction/parameterLabels"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference aadlba.ecore#//SubprogramCallAction/dataAccess"/>
+    </genClasses>
+    <genClasses ecoreClass="aadlba.ecore#//SubprogramHolder">
+      <genOperations ecoreOperation="aadlba.ecore#//SubprogramHolder/setSubprogram">
+        <genParameters ecoreParameter="aadlba.ecore#//SubprogramHolder/setSubprogram/subprogram"/>
+      </genOperations>
+      <genOperations ecoreOperation="aadlba.ecore#//SubprogramHolder/getSubprogram"/>
+    </genClasses>
+    <genClasses ecoreClass="aadlba.ecore#//SubprogramPrototypeHolder"/>
+    <genClasses ecoreClass="aadlba.ecore#//Target"/>
+    <genClasses ecoreClass="aadlba.ecore#//Term">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference aadlba.ecore#//Term/factors"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute aadlba.ecore#//Term/multiplyingOperators"/>
+    </genClasses>
+    <genClasses ecoreClass="aadlba.ecore#//TimedAction">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference aadlba.ecore#//TimedAction/lowerTime"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference aadlba.ecore#//TimedAction/upperTime"/>
+    </genClasses>
+    <genClasses ecoreClass="aadlba.ecore#//UnlockAction"/>
+    <genClasses image="false" ecoreClass="aadlba.ecore#//Value"/>
+    <genClasses image="false" ecoreClass="aadlba.ecore#//ValueConstant"/>
+    <genClasses ecoreClass="aadlba.ecore#//ValueExpression">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference aadlba.ecore#//ValueExpression/relations"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute aadlba.ecore#//ValueExpression/logicalOperators"/>
+    </genClasses>
+    <genClasses image="false" ecoreClass="aadlba.ecore#//ValueVariable"/>
+    <genClasses ecoreClass="aadlba.ecore#//WhileOrDoUntilStatement">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference aadlba.ecore#//WhileOrDoUntilStatement/logicalValueExpression"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute aadlba.ecore#//WhileOrDoUntilStatement/doUntil"/>
+    </genClasses>
+  </genPackages>
+</genmodel:GenModel>

@@ -1,0 +1,35 @@
+package simple
+public
+	system S
+	features
+		inPort: in event port;
+		outPort: out event port;
+			
+		d1: in data port;
+		d2: out data port;
+	flows
+		mySink: flow sink inPort;
+		mySrc: flow source outPort;
+		myPath: flow path d1 -> d2;
+	end S;
+
+	system implementation S.i
+		-- bad: no flow implementations!
+	end S.i;
+	
+	system implementation S.j
+	flows
+		-- These get warnings about adding no value
+		mySink: flow sink inPort;
+		mySrc: flow source outPort;
+		myPath: flow path d1 -> d2;
+	end S.j;
+	
+	system implementation S.k
+	flows
+		-- missing mySink and mySrc
+		
+		-- This gets a warning about adding no value
+		myPath: flow path d1 -> d2;
+	end S.k;
+end simple;
