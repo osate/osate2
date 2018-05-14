@@ -14,7 +14,7 @@
    </configIni>
 
    <launcherArgs>
-      <vmArgs>-Dosgi.requiredJavaVersion=1.8 -Xms40m -Xmx768m --add-modules=ALL-SYSTEM
+      <vmArgs>-Dosgi.requiredJavaVersion=1.8 -Xms40m -Xmx768m  --add-modules=ALL-SYSTEM
       </vmArgs>
    </launcherArgs>
 
