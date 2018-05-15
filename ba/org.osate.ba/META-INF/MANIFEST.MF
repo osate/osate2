@@ -39,3 +39,4 @@ Require-Bundle: org.eclipse.ui.ide,
  org.osate.ui;bundle-version="1.0.0",
  org.osate.utils;bundle-version="1.0.0";visibility:=reexport
 Bundle-ActivationPolicy: lazy
+Automatic-Module-Name: org.osate.ba

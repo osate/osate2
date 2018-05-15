@@ -43,4 +43,5 @@ Export-Package: org.osate.alisa.workbench,
  org.osate.alisa.workbench.services,
  org.osate.alisa.workbench.util,
  org.osate.alisa.workbench.validation
+Automatic-Module-Name: org.osate.alisa.workbench
 

@@ -29,4 +29,5 @@ Import-Package: org.apache.commons.logging,
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Bundle-ActivationPolicy: lazy
 Export-Package: org.osate.aadl2.errormodel.tests
+Automatic-Module-Name: org.osate.aadl2.errormodel.tests
 

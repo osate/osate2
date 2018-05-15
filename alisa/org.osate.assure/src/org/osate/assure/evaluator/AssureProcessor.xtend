@@ -177,6 +177,7 @@ class AssureProcessor implements IAssureProcessor {
 	def dispatch void process(ModelResult modelResult) {
 		modelResult.claimResult.forEach[claimResult|claimResult.process]
 		modelResult.subsystemResult.forEach[claimResult|claimResult.process]
+		modelResult.subAssuranceCase.forEach[subcaseResult|subcaseResult.process]
 	}
 
 	def dispatch void process(SubsystemResult caseResult) {

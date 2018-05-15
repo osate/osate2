@@ -34,3 +34,4 @@ Export-Package: org.osate.verify.ui.quickfix,
  org.osate.verify.ui.internal,
  org.osate.verify.ui.contentassist.antlr.internal
 Bundle-Activator: org.osate.verify.ui.internal.VerifyActivator
+Automatic-Module-Name: org.osate.verify.ui
