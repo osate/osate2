@@ -865,7 +865,7 @@ public abstract class AbstractErrorModelSemanticSequencer extends PropertiesSema
 	 *     EventOrPropagation returns ErrorEvent
 	 *
 	 * Constraint:
-	 *     (name=ID typeSet=TypeSetReference? eventcondition=CONDITION?)
+	 *     (name=ID typeSet=TypeSetReference? condition=CONDITION?)
 	 */
 	protected void sequence_ErrorEvent(ISerializationContext context, ErrorEvent semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -939,8 +939,7 @@ public abstract class AbstractErrorModelSemanticSequencer extends PropertiesSema
 	 *         (incoming=[ErrorPropagation|ErrorPropagationPoint] | allIncoming?='all') 
 	 *         typeTokenConstraint=TypeTokenConstraint? 
 	 *         (outgoing=[ErrorPropagation|ErrorPropagationPoint] | allOutgoing?='all') 
-	 *         (targetToken=TypeToken | typeMappingSet=[TypeMappingSet|QEMREF])? 
-	 *         flowcondition=CONDITION?
+	 *         (targetToken=TypeToken | typeMappingSet=[TypeMappingSet|QEMREF])?
 	 *     )
 	 */
 	protected void sequence_ErrorPath(ISerializationContext context, ErrorPath semanticObject) {
@@ -969,12 +968,7 @@ public abstract class AbstractErrorModelSemanticSequencer extends PropertiesSema
 	 *     ErrorSink returns ErrorSink
 	 *
 	 * Constraint:
-	 *     (
-	 *         name=ID 
-	 *         (incoming=[ErrorPropagation|ErrorPropagationPoint] | allIncoming?='all') 
-	 *         typeTokenConstraint=TypeTokenConstraint? 
-	 *         flowcondition=CONDITION?
-	 *     )
+	 *     (name=ID (incoming=[ErrorPropagation|ErrorPropagationPoint] | allIncoming?='all') typeTokenConstraint=TypeTokenConstraint?)
 	 */
 	protected void sequence_ErrorSink(ISerializationContext context, ErrorSink semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -997,7 +991,7 @@ public abstract class AbstractErrorModelSemanticSequencer extends PropertiesSema
 	 *             failureModeType=TypeSetConstructor | 
 	 *             failureModeDescription=STRING
 	 *         )? 
-	 *         flowcondition=CONDITION?
+	 *         condition=CONDITION?
 	 *     )
 	 */
 	protected void sequence_ErrorSource(ISerializationContext context, ErrorSource semanticObject) {
