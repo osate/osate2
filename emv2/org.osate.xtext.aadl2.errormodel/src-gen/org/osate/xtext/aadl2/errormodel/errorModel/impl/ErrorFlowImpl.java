@@ -25,7 +25,6 @@ import org.osate.xtext.aadl2.errormodel.errorModel.TypeSet;
  * </p>
  * <ul>
  *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorFlowImpl#getTypeTokenConstraint <em>Type Token Constraint</em>}</li>
- *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorFlowImpl#getFlowcondition <em>Flowcondition</em>}</li>
  * </ul>
  *
  * @generated
@@ -41,26 +40,6 @@ public class ErrorFlowImpl extends NamedElementImpl implements ErrorFlow
    * @ordered
    */
   protected TypeSet typeTokenConstraint;
-
-  /**
-   * The default value of the '{@link #getFlowcondition() <em>Flowcondition</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getFlowcondition()
-   * @generated
-   * @ordered
-   */
-  protected static final String FLOWCONDITION_EDEFAULT = null;
-
-  /**
-   * The cached value of the '{@link #getFlowcondition() <em>Flowcondition</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getFlowcondition()
-   * @generated
-   * @ordered
-   */
-  protected String flowcondition = FLOWCONDITION_EDEFAULT;
 
   /**
    * <!-- begin-user-doc -->
@@ -136,29 +115,6 @@ public class ErrorFlowImpl extends NamedElementImpl implements ErrorFlow
    * <!-- end-user-doc -->
    * @generated
    */
-  public String getFlowcondition()
-  {
-    return flowcondition;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public void setFlowcondition(String newFlowcondition)
-  {
-    String oldFlowcondition = flowcondition;
-    flowcondition = newFlowcondition;
-    if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, ErrorModelPackage.ERROR_FLOW__FLOWCONDITION, oldFlowcondition, flowcondition));
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
   @Override
   public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs)
   {
@@ -182,8 +138,6 @@ public class ErrorFlowImpl extends NamedElementImpl implements ErrorFlow
     {
       case ErrorModelPackage.ERROR_FLOW__TYPE_TOKEN_CONSTRAINT:
         return getTypeTokenConstraint();
-      case ErrorModelPackage.ERROR_FLOW__FLOWCONDITION:
-        return getFlowcondition();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -200,9 +154,6 @@ public class ErrorFlowImpl extends NamedElementImpl implements ErrorFlow
     {
       case ErrorModelPackage.ERROR_FLOW__TYPE_TOKEN_CONSTRAINT:
         setTypeTokenConstraint((TypeSet)newValue);
-        return;
-      case ErrorModelPackage.ERROR_FLOW__FLOWCONDITION:
-        setFlowcondition((String)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -221,9 +172,6 @@ public class ErrorFlowImpl extends NamedElementImpl implements ErrorFlow
       case ErrorModelPackage.ERROR_FLOW__TYPE_TOKEN_CONSTRAINT:
         setTypeTokenConstraint((TypeSet)null);
         return;
-      case ErrorModelPackage.ERROR_FLOW__FLOWCONDITION:
-        setFlowcondition(FLOWCONDITION_EDEFAULT);
-        return;
     }
     super.eUnset(featureID);
   }
@@ -240,27 +188,8 @@ public class ErrorFlowImpl extends NamedElementImpl implements ErrorFlow
     {
       case ErrorModelPackage.ERROR_FLOW__TYPE_TOKEN_CONSTRAINT:
         return typeTokenConstraint != null;
-      case ErrorModelPackage.ERROR_FLOW__FLOWCONDITION:
-        return FLOWCONDITION_EDEFAULT == null ? flowcondition != null : !FLOWCONDITION_EDEFAULT.equals(flowcondition);
     }
     return super.eIsSet(featureID);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  @Override
-  public String toString()
-  {
-    if (eIsProxy()) return super.toString();
-
-    StringBuffer result = new StringBuffer(super.toString());
-    result.append(" (flowcondition: ");
-    result.append(flowcondition);
-    result.append(')');
-    return result.toString();
   }
 
 } //ErrorFlowImpl

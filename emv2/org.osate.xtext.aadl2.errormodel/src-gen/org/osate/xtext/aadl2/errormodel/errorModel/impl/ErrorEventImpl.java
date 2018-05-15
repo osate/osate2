@@ -23,7 +23,7 @@ import org.osate.xtext.aadl2.errormodel.errorModel.TypeSet;
  * </p>
  * <ul>
  *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorEventImpl#getTypeSet <em>Type Set</em>}</li>
- *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorEventImpl#getEventcondition <em>Eventcondition</em>}</li>
+ *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorEventImpl#getCondition <em>Condition</em>}</li>
  * </ul>
  *
  * @generated
@@ -41,24 +41,24 @@ public class ErrorEventImpl extends ErrorBehaviorEventImpl implements ErrorEvent
   protected TypeSet typeSet;
 
   /**
-   * The default value of the '{@link #getEventcondition() <em>Eventcondition</em>}' attribute.
+   * The default value of the '{@link #getCondition() <em>Condition</em>}' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getEventcondition()
+   * @see #getCondition()
    * @generated
    * @ordered
    */
-  protected static final String EVENTCONDITION_EDEFAULT = null;
+  protected static final String CONDITION_EDEFAULT = null;
 
   /**
-   * The cached value of the '{@link #getEventcondition() <em>Eventcondition</em>}' attribute.
+   * The cached value of the '{@link #getCondition() <em>Condition</em>}' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getEventcondition()
+   * @see #getCondition()
    * @generated
    * @ordered
    */
-  protected String eventcondition = EVENTCONDITION_EDEFAULT;
+  protected String condition = CONDITION_EDEFAULT;
 
   /**
    * <!-- begin-user-doc -->
@@ -134,9 +134,9 @@ public class ErrorEventImpl extends ErrorBehaviorEventImpl implements ErrorEvent
    * <!-- end-user-doc -->
    * @generated
    */
-  public String getEventcondition()
+  public String getCondition()
   {
-    return eventcondition;
+    return condition;
   }
 
   /**
@@ -144,12 +144,12 @@ public class ErrorEventImpl extends ErrorBehaviorEventImpl implements ErrorEvent
    * <!-- end-user-doc -->
    * @generated
    */
-  public void setEventcondition(String newEventcondition)
+  public void setCondition(String newCondition)
   {
-    String oldEventcondition = eventcondition;
-    eventcondition = newEventcondition;
+    String oldCondition = condition;
+    condition = newCondition;
     if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, ErrorModelPackage.ERROR_EVENT__EVENTCONDITION, oldEventcondition, eventcondition));
+      eNotify(new ENotificationImpl(this, Notification.SET, ErrorModelPackage.ERROR_EVENT__CONDITION, oldCondition, condition));
   }
 
   /**
@@ -180,8 +180,8 @@ public class ErrorEventImpl extends ErrorBehaviorEventImpl implements ErrorEvent
     {
       case ErrorModelPackage.ERROR_EVENT__TYPE_SET:
         return getTypeSet();
-      case ErrorModelPackage.ERROR_EVENT__EVENTCONDITION:
-        return getEventcondition();
+      case ErrorModelPackage.ERROR_EVENT__CONDITION:
+        return getCondition();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -199,8 +199,8 @@ public class ErrorEventImpl extends ErrorBehaviorEventImpl implements ErrorEvent
       case ErrorModelPackage.ERROR_EVENT__TYPE_SET:
         setTypeSet((TypeSet)newValue);
         return;
-      case ErrorModelPackage.ERROR_EVENT__EVENTCONDITION:
-        setEventcondition((String)newValue);
+      case ErrorModelPackage.ERROR_EVENT__CONDITION:
+        setCondition((String)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -219,8 +219,8 @@ public class ErrorEventImpl extends ErrorBehaviorEventImpl implements ErrorEvent
       case ErrorModelPackage.ERROR_EVENT__TYPE_SET:
         setTypeSet((TypeSet)null);
         return;
-      case ErrorModelPackage.ERROR_EVENT__EVENTCONDITION:
-        setEventcondition(EVENTCONDITION_EDEFAULT);
+      case ErrorModelPackage.ERROR_EVENT__CONDITION:
+        setCondition(CONDITION_EDEFAULT);
         return;
     }
     super.eUnset(featureID);
@@ -238,8 +238,8 @@ public class ErrorEventImpl extends ErrorBehaviorEventImpl implements ErrorEvent
     {
       case ErrorModelPackage.ERROR_EVENT__TYPE_SET:
         return typeSet != null;
-      case ErrorModelPackage.ERROR_EVENT__EVENTCONDITION:
-        return EVENTCONDITION_EDEFAULT == null ? eventcondition != null : !EVENTCONDITION_EDEFAULT.equals(eventcondition);
+      case ErrorModelPackage.ERROR_EVENT__CONDITION:
+        return CONDITION_EDEFAULT == null ? condition != null : !CONDITION_EDEFAULT.equals(condition);
     }
     return super.eIsSet(featureID);
   }
@@ -255,8 +255,8 @@ public class ErrorEventImpl extends ErrorBehaviorEventImpl implements ErrorEvent
     if (eIsProxy()) return super.toString();
 
     StringBuffer result = new StringBuffer(super.toString());
-    result.append(" (eventcondition: ");
-    result.append(eventcondition);
+    result.append(" (condition: ");
+    result.append(condition);
     result.append(')');
     return result.toString();
   }
