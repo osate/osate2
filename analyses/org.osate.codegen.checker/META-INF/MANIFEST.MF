@@ -22,3 +22,4 @@ Import-Package: org.eclipse.core.internal.resources,
  org.osate.aadl2.util,
  org.osate.ui.utils,
  org.osate.xtext.aadl2.properties.util
+Automatic-Module-Name: org.osate.codegen.checker

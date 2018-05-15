@@ -47,3 +47,4 @@ Export-Package: org.osate.xtext.aadl2,
 Import-Package: org.apache.log4j,
  org.eclipse.xtext.xbase.lib
 Bundle-Activator: org.osate.xtext.aadl2.Activator
+Automatic-Module-Name: org.osate.xtext.aadl2

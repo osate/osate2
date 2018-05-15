@@ -24,3 +24,4 @@ Bundle-Vendor: %providerName
 Export-Package: org.osate.aadl2.errormodel.faulttree.generation,
  org.osate.aadl2.errormodel.faulttree.handler,
  org.osate.aadl2.errormodel.faulttree.util
+Automatic-Module-Name: org.osate.aadl2.errormodel.faulttree.generation
