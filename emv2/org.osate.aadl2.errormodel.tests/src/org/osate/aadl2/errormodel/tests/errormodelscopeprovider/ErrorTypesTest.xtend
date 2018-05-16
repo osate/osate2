@@ -8,7 +8,7 @@ import org.osate.aadl2.AadlPackage
 import org.osate.aadl2.DefaultAnnexLibrary
 import org.osate.aadl2.DefaultAnnexSubclause
 import org.osate.aadl2.errormodel.tests.ErrorModelUiInjectorProvider
-import org.osate.core.test.OsateTest
+import org.osate.testsupport.OsateTest
 import org.osate.xtext.aadl2.errormodel.errorModel.ConditionElement
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorEvent
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelLibrary

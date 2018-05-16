@@ -1,7 +1,7 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Testsupport
-Bundle-SymbolicName: org.osate.core.testsupport
+Bundle-SymbolicName: org.osate.testsupport
 Bundle-Version: 1.0.0.qualifier
 Bundle-Vendor: CMU/SEI
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
@@ -22,4 +22,5 @@ Import-Package: org.apache.commons.logging,
  org.junit.runner.notification;version="4.5.0",
  org.junit.runners;version="4.5.0",
  org.junit.runners.model;version="4.5.0"
-Export-Package: org.osate.core.test
+Export-Package: org.osate.testsupport
+Automatic-Module-Name: org.osate.testsupport
