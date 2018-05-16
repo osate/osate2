@@ -98,7 +98,8 @@ public class PropagationGraphBackwardTraversal {
 			}
 		}
 		// try to find a path from an outer to an inner out error propagation
-		EList<PropagationPathEnd> propagationSources = Util.getAllPropagationSourceEnds(currentAnalysisModel, component,
+		EList<PropagationPathEnd> propagationSources = Util.getAllPropagationSourceEnds(
+				currentAnalysisModel, component,
 				errorPropagation);
 		for (PropagationPathEnd ppe : propagationSources) {
 			ComponentInstance componentSource = ppe.getComponentInstance();
@@ -759,7 +760,8 @@ public class PropagationGraphBackwardTraversal {
 		if (preResult != null) {
 			return preResult;
 		}
-		for (PropagationGraphPath ppr : Util.getAllReversePropagationPaths(currentAnalysisModel, component,
+		for (PropagationGraphPath ppr : Util.getAllReversePropagationPaths(currentAnalysisModel,
+				component,
 				errorPropagation)) {
 			// traverse incoming
 			ErrorTypes srctype = type;
