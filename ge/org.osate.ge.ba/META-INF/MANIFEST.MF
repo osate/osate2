@@ -1,0 +1,10 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: OSATE Graphical Editor Behavior Annex
+Bundle-SymbolicName: org.osate.ge.ba;singleton:=true
+Bundle-Version: 1.0.0.qualifier
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Require-Bundle: org.osate.ge,
+ org.eclipse.core.runtime;bundle-version="3.11.1",
+ org.osate.ba
+Automatic-Module-Name: org.osate.ge.ba

@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="pandoc">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <title>OSATE Graphical Editor Developer Guide</title>
+  <style type="text/css">code{white-space: pre;}</style>
+  <link rel="stylesheet" href="../css/pandoc.css">
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<header>
+<h1 class="title">OSATE Graphical Editor Developer Guide</h1>
+</header>
+<nav id="TOC">
+<ul>
+<li><a href="#introduction"><span class="toc-section-number">1</span> Introduction</a></li>
+<li><a href="#general-information"><span class="toc-section-number">2</span> General Information</a><ul>
+<li><a href="#services"><span class="toc-section-number">2.1</span> Services</a></li>
+<li><a href="#annotations"><span class="toc-section-number">2.2</span> Annotations</a></li>
+</ul></li>
+<li><a href="#extension-points"><span class="toc-section-number">3</span> Extension Points</a><ul>
+<li><a href="#categories"><span class="toc-section-number">3.1</span> Categories</a></li>
+<li><a href="#images"><span class="toc-section-number">3.2</span> Images</a></li>
+<li><a href="#adding-support-for-a-new-business-object"><span class="toc-section-number">3.3</span> Adding Support for a new Business Object</a><ul>
+<li><a href="#non-emf-objects"><span class="toc-section-number">3.3.1</span> Non-EMF Objects</a></li>
+<li><a href="#reference-builders-and-reference-resolvers"><span class="toc-section-number">3.3.2</span> Reference Builders and Reference Resolvers</a></li>
+<li><a href="#business-object-handlers"><span class="toc-section-number">3.3.3</span> Business Object Handlers</a></li>
+</ul></li>
+<li><a href="#tooltip-contributors"><span class="toc-section-number">3.4</span> Tooltip Contributors</a><ul>
+<li><a href="#examples-3"><span class="toc-section-number">3.4.1</span> Examples</a></li>
+<li><a href="#required-annotations-2"><span class="toc-section-number">3.4.2</span> Required Annotations:</a></li>
+</ul></li>
+</ul></li>
+</ul>
+</nav>
+<h1 id="introduction"><span class="header-section-number">1</span> Introduction</h1>
+<p>The OSATE Graphical Editor provides extension points to allow Eclipse plugins to expand the capabilities of the graphical editor.</p>
+<h1 id="general-information"><span class="header-section-number">2</span> General Information</h1>
+<p>Extensions to the graphical editor are registered as Eclipse extensions. Each extension is implemented by a Java class which have a no-argument constructor and which contains annotations to mark methods which should be called by the graphical editor. Required services and other arguments are passed into annotated methods via dependency injection.</p>
+<h2 id="services"><span class="header-section-number">2.1</span> Services</h2>
+<p>The graphical editor provides a limited set of services to extensions via dependency injection. The services are designed to provide a stable interface to capabilities which are needed when implementing extensions. Services provided for use by extensions are defined in the <a href="../api/org/osate/ge/services/package-summary.html">org.osate.ge.services</a> package.</p>
+<p><strong>Unless otherwise noted, extensions may be reused between diagrams. Extensions should not retain references to services.</strong></p>
+<h2 id="annotations"><span class="header-section-number">2.2</span> Annotations</h2>
+<p>Extensions are found in the <a href="../api/org/osate/ge/di/package-summary.html">org.osate.ge.di</a> package. The applicable annotations depend on the type of extension being implemented. For details regarding each annotation, consult the API reference for the annotation.</p>
+<h1 id="extension-points"><span class="header-section-number">3</span> Extension Points</h1>
+<p>The graphical editor includes several extension points.</p>
+<h2 id="categories"><span class="header-section-number">3.1</span> Categories</h2>
+<p>The graphical editor manages a list of categories. These categories are used to group items in the palette. Categories are registered using the <strong>org.osate.ge.categories</strong> extension point.</p>
+<h2 id="images"><span class="header-section-number">3.2</span> Images</h2>
+<p>The graphical editor references images using unique identifiers. Images are registered using the <strong>org.osate.go.images</strong> extension point.</p>
+<h2 id="adding-support-for-a-new-business-object"><span class="header-section-number">3.3</span> Adding Support for a new Business Object</h2>
+<p><strong>The extension points used for adding support for new business objects are experimental. The following documentation is out of date. These APIs will be changed after the extension points have been refined.</strong></p>
+<p>Extending the graphical editor with support for a new type of business object requires multiple extensions. A business object is a generic term used to refer to any object which is represented by a diagram element inside of a diagram. For example, a business object may be an element in the AADL declarative model or an element in an annex library.</p>
+<h3 id="non-emf-objects"><span class="header-section-number">3.3.1</span> Non-EMF Objects</h3>
+<p>The graphical editor depends on capabilities provided by EMF objects. The <a href="../api/org/osate/ge/EmfContainerProvider.html">EmfContainerProvider</a> interface must be implemented by all business objects which are not EMF objects.</p>
+<h3 id="reference-builders-and-reference-resolvers"><span class="header-section-number">3.3.2</span> Reference Builders and Reference Resolvers</h3>
+<p>Referenced builders and reference resolvers are both registered using the org.osate.ge.references extension point. The graphical editor uses reference builders to generate a serializable reference to a business object. Reference resolvers are used to retrieve a business object using the previously generated reference. A single reference builder/resolver pair may handle multiple types of business objects.</p>
+<p>References are used to associate a diagram element with a business object. References are stored in the diagram and must be unique to the business object.</p>
+<p><strong>All business objects for which a diagram element is associated must be handled by a reference builder and resolver.</strong></p>
+<h4 id="reference-builders"><span class="header-section-number">3.3.2.1</span> Reference Builders</h4>
+<h5 id="examples"><span class="header-section-number">3.3.2.1.1</span> Examples</h5>
+<ul>
+<li>org.osate.ge.internal.services.impl.DeclarativeReferenceBuilder</li>
+<li>org.osate.ge.errormodel.ErrorModelReferenceHandler</li>
+</ul>
+<h5 id="required-annotations"><span class="header-section-number">3.3.2.1.2</span> Required Annotations:</h5>
+<ul>
+<li><a href="../api/org/osate/ge/di/BuildCanonicalReference.html">BuildCanonicalReference</a></li>
+<li><a href="../api/org/osate/ge/di/BuildRelativeReference.html">BuildRelativeReference</a></li>
+</ul>
+<h4 id="reference-resolvers"><span class="header-section-number">3.3.2.2</span> Reference Resolvers</h4>
+<h5 id="examples-1"><span class="header-section-number">3.3.2.2.1</span> Examples</h5>
+<ul>
+<li>org.osate.ge.internal.services.impl.DeclarativeReferenceResolver</li>
+<li>org.osate.ge.errormodel.ErrorModelReferenceHandler</li>
+</ul>
+<p>Reference resolvers differ from reference builders and other extensions in a couple ways.</p>
+<ul>
+<li>Instances are not shared between diagrams.</li>
+<li>Constructors may accept arguments. As with method invocations, arguments are injected using dependency injection.</li>
+</ul>
+<h5 id="required-annotations-1"><span class="header-section-number">3.3.2.2.2</span> Required Annotations:</h5>
+<ul>
+<li><a href="../api/org/osate/ge/di/ResolveCanonicalReference.html">ResolveCanonicalReference</a></li>
+</ul>
+<h5 id="optional-annotations"><span class="header-section-number">3.3.2.2.3</span> Optional Annotations:</h5>
+<ul>
+<li>javax.annotation.PreDestroy</li>
+</ul>
+<h3 id="business-object-handlers"><span class="header-section-number">3.3.3</span> Business Object Handlers</h3>
+<p>Business object handlers are classes which provide business object specific functionality to the graphical editor. They are registered using the org.osate.ge.businessObjectHandlers extension point. Business object handlers may provide partial functionality by only including a subset of the supported annotations.</p>
+<p>If a business object handler exists for a parsed annex library or subclause, neither the default or the parsed annex library or subclause will be contributed automatically. This provides an extension that provides support for an annex additional flexibility in determining how the annex is represented graphically.</p>
+<h4 id="examples-2"><span class="header-section-number">3.3.3.1</span> Examples</h4>
+<ul>
+<li>org.osate.ge.errormodel.businessObjectHandlers package</li>
+</ul>
+<h4 id="annotations-1"><span class="header-section-number">3.3.3.2</span> Annotations</h4>
+<h5 id="required"><span class="header-section-number">3.3.3.2.1</span> Required</h5>
+<ul>
+<li><a href="../api/org/osate/ge/di/IsApplicable.html">IsApplicable</a></li>
+</ul>
+<h5 id="general"><span class="header-section-number">3.3.3.2.2</span> General</h5>
+<ul>
+<li><a href="../api/org/osate/ge/di/GetGraphicalConfiguration.html">GetGraphicalConfiguration</a></li>
+</ul>
+<h5 id="business-object-creation"><span class="header-section-number">3.3.3.2.3</span> Business Object Creation</h5>
+<ul>
+<li><a href="../api/org/osate/ge/di/GetPaletteEntries.html">GetPaletteEntries</a></li>
+<li><a href="../api/org/osate/ge/di/CanCreate.html">CanCreate</a></li>
+<li><a href="../api/org/osate/ge/di/GetCreateOwner.html">GetCreateOwner</a></li>
+<li><a href="../api/org/osate/ge/di/CanStartConnection.html">CanStartConnection</a></li>
+<li><a href="../api/org/osate/ge/di/Create.html">Create</a></li>
+</ul>
+<h5 id="business-object-deletion"><span class="header-section-number">3.3.3.2.4</span> Business Object Deletion</h5>
+<ul>
+<li><a href="../api/org/osate/ge/di/CanDelete.html">CanDelete</a></li>
+<li><a href="../api/org/osate/ge/di/Delete.html">Delete</a></li>
+</ul>
+<h5 id="naming"><span class="header-section-number">3.3.3.2.5</span> Naming</h5>
+<ul>
+<li><a href="../api/org/osate/ge/di/GetName.html">GetName</a></li>
+<li><a href="../api/org/osate/ge/di/ValidateName.html">ValidateName</a></li>
+<li><a href="../api/org/osate/ge/di/Rename.html">Rename</a></li>
+</ul>
+<h2 id="tooltip-contributors"><span class="header-section-number">3.4</span> Tooltip Contributors</h2>
+<p>Tooltip contributors are objects which contribute tooltip contents for a model element. When the user's cursor hovers over a pictogram element, tooltip contributors are activated to populate the tooltip. If no content is provided, the tooltip is not shown.</p>
+<p>Tooltip contributors are registered using the <strong>org.osate.ge.tooltips</strong> extension point.</p>
+<h3 id="examples-3"><span class="header-section-number">3.4.1</span> Examples</h3>
+<ul>
+<li>org.osate.ge.internal.tooltips.FeatureTooltipContributor</li>
+</ul>
+<h3 id="required-annotations-2"><span class="header-section-number">3.4.2</span> Required Annotations:</h3>
+<ul>
+<li><a href="../api/org/osate/ge/di/Activate.html">Activate</a></li>
+</ul>
+</body>
+</html>

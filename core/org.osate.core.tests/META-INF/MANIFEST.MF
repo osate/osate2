@@ -34,3 +34,4 @@ Import-Package: org.apache.commons.logging,
  org.junit.runners.model;version="4.5.0"
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Bundle-Activator: org.osate.xtext.aadl2.ui.internal.Aadl2Activator
+Automatic-Module-Name: org.osate.core.tests
