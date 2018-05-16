@@ -1,0 +1,39 @@
+grammar org.osate.alisa.workbench.Alisa with org.osate.alisa.common.Common
+
+generate alisa "http://www.osate.org/alisa/workbench/Alisa"
+import "http://aadl.info/AADL/2.0" as aadl2
+import "http://www.osate.org/verify/Verify" as Verify 
+import "http://www.osate.org/categories/Categories" as categories
+
+ 
+AssuranceCase:
+	'assurance' 'case' name=QualifiedName (':' title=STRING)?
+	'for' system=[aadl2::ComponentType|AadlClassifierReference]
+	'['
+	description=Description?
+	assurancePlans+=AssurancePlan+
+	tasks+=AssuranceTask*
+	']'
+	;
+
+AssurancePlan:
+	'assurance' 'plan' name=ID (':' title=STRING)?
+	'for' target=[aadl2::ComponentImplementation|AadlClassifierReference]
+	'['(
+	(description=Description)?
+	& ('assure' assure+=[Verify::VerificationPlan|QualifiedName]+)?
+	& ('assure''global' assureGlobal+=[Verify::VerificationPlan|QualifiedName]+)?
+	& ('assure' 'subsystem' (assureSubsystems+=[aadl2::Subcomponent|ID]+|assureAll?='all'))?
+	& ('assume' 'subsystem' (assumeSubsystems+=[aadl2::Subcomponent|ID]+|assumeAll?='all'))?
+		& ('issues' issues+=STRING+ )?
+	)']';
+	
+	AssuranceTask returns categories::CategoryFilter :
+		{AssuranceTask} 'assurance''task' name=ID (':' title=STRING)? 
+		'['	(
+	(description=Description)?
+	&('category' category+=[categories::Category|QualifiedName]+ anyCategory?='any'? )?
+	&('issues' issues+=STRING+ )?
+	)']'
+	;
+	

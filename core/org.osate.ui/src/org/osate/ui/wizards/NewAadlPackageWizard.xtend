@@ -1,13 +1,7 @@
 package org.osate.ui.wizards
 
-import com.google.inject.Inject
-import java.io.StringReader
 import java.util.Map
-import org.eclipse.xtext.parser.IParser
-import org.osate.ui.OsateUiPlugin
 import org.osate.workspace.WorkspacePlugin
-import org.osate.xtext.aadl2.services.Aadl2GrammarAccess
-import org.osate.xtext.aadl2.ui.MyAadl2Activator
 import org.eclipse.swt.widgets.Composite
 import org.eclipse.swt.widgets.Label
 import org.eclipse.swt.layout.GridData
@@ -29,21 +23,15 @@ import org.eclipse.core.runtime.NullProgressMonitor
 import org.osate.aadl2.NamedElement
 import org.eclipse.xtext.resource.XtextResourceSet
 
-class NewAadlPackageWizard extends AbstractNewFileWizard {
-	val PACKAGE_LABEL = "AADL package name"
-	
-	@Inject IParser parser
-	@Inject Aadl2GrammarAccess grammarAccess
+final class NewAadlPackageWizard extends AbstractNewModelUnitWizard {
+	val static PACKAGE_LABEL = "AADL package name"
 	
 	private Button textButton;
 	private Button graphicalButton;
 	
 	new() {
-		super("AADL Package", "AADL package", "aadl", 1, OsateUiPlugin.^default.log, OsateUiPlugin.PLUGIN_ID)
-		MyAadl2Activator.instance.getInjector(MyAadl2Activator.ORG_OSATE_XTEXT_AADL2_AADL2).injectMembers(this)
-		addField(PACKAGE_LABEL, [fieldValue | fieldValue.matches("\\S+") &&
-			!parser.parse(grammarAccess.PNAMERule, new StringReader(fieldValue)).hasSyntaxErrors
-		])
+		super("AADL Package", "AADL package")
+		addField(PACKAGE_LABEL, getFieldValidator(grammarAccess.PNAMERule))
 	}
 	
 	override addLocalControls(Composite parent) {

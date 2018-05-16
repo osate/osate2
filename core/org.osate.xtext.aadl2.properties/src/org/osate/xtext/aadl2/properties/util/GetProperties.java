@@ -87,10 +87,8 @@ public class GetProperties {
 	/**
 	 * returns true if property is explicitly assigned
 	 *
-	 * @param element
-	 *            NamedELement
-	 * @param pn
-	 *            Property definition
+	 * @param element  NamedELement
+	 * @param pn Property definition
 	 * @return
 	 */
 	public static boolean isAssignedPropertyValue(NamedElement element, Property pn) {
@@ -1407,8 +1405,9 @@ public class GetProperties {
 	}
 
 	public static double getDataSizeInBytes(final NamedElement ne) {
-		if (ne == null)
+		if (ne == null) {
 			return 0.0;
+		}
 		Property SourceDataSize = lookupPropertyDefinition(ne, MemoryProperties._NAME, MemoryProperties.DATA_SIZE);
 		UnitLiteral Bytes = findUnitLiteral(SourceDataSize, AadlProject.B_LITERAL);
 		return getDataSize(ne, Bytes);
@@ -1890,11 +1889,18 @@ public class GetProperties {
 					windowStartProcessing = (BooleanLiteralImpl) PropertyUtils.getRecordFieldValue(window,
 							"periodic_processing_start");
 					windowPartition = (InstanceReferenceValue) PropertyUtils.getRecordFieldValue(window, "partition");
-
-					part = (ComponentInstance) windowPartition.getReferencedInstanceObject();
-					time = ((NumberValue) windowTime).getScaledValue(milliseconds);
-					scheduleWindow = new ARINC653ScheduleWindow(part, time, startProcessing);
-					windows.add(scheduleWindow);
+					if (windowPartition != null) {
+						part = (ComponentInstance) windowPartition.getReferencedInstanceObject();
+					}
+					if (windowTime == null) {
+						time = 0;
+					} else {
+						time = ((NumberValue) windowTime).getScaledValue(milliseconds);
+					}
+					if (part != null) {
+						scheduleWindow = new ARINC653ScheduleWindow(part, time, startProcessing);
+						windows.add(scheduleWindow);
+					}
 				}
 			}
 		} catch (PropertyLookupException e) {

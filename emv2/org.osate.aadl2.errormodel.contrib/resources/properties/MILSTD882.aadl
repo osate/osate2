@@ -1,0 +1,53 @@
+--MILSTD882.aadl
+-- define MILSTD882 Hazard specifications
+
+property set MILSTD882 is
+  with EMV2;
+-- Severity labels: Can be used with EMV2::Hazards and Severity
+Catastrophic   : constant EMV2::SeverityRange => 1;
+Critical   : constant EMV2::SeverityRange => 2;
+Marginal   : constant EMV2::SeverityRange => 3;
+Negligible : constant EMV2::SeverityRange => 4;
+
+-- Likelihood labels: Can be used with EMV2::Hazards and Likelihood
+Frequent    : constant EMV2::LikelihoodLabels => A;
+Probable    : constant EMV2::LikelihoodLabels => B;
+Occasional  : constant EMV2::LikelihoodLabels => C;
+Remote      : constant EMV2::LikelihoodLabels => D;
+Improbable  : constant EMV2::LikelihoodLabels => E;
+Eliminated  : constant EMV2::LikelihoodLabels => F;
+
+SeverityLabels: type enumeration (Catastrophic, Critical, Marginal, Negligible);
+SeverityRange: type aadlinteger 1 .. 4;
+
+ProbabilityLabels: type enumeration (Frequent, Probable, Occasional, Remote, Improbable, Eliminated);
+ProbabilityLevelLabels: type enumeration (A, B, C, D, E, F);
+
+Hazards: list of record
+  (
+   CrossReference : aadlstring;   -- cross reference to an external document 
+   HazardTitle : aadlstring;      -- short descriptive phrase for hazard
+   Description : aadlstring;      -- description of the hazard (same as hazardtitle)
+   Failure : aadlstring;          -- system deviation resulting in failure effect
+   FailureEffect : aadlstring;    -- description of the effect of a failure (mode)
+   Phases : list of aadlstring;   -- operational phases in which the hazard is relevant
+   Environment : aadlstring;      -- description of operational environment
+   Mishap : aadlstring;           -- description of event (series) resulting in 
+                                  -- unintentional death, etc.(MILSTD882)
+   Risk : aadlstring;             -- description of risk. Risk is characterized by 
+                                  -- severity, likelihood, and occurrence probability
+   SeverityLevel : MILSTD882::SeverityLabels;         -- actual risk as severity level
+   SeverityCategory : MILSTD882::SeverityRange;       -- equivalent severity category
+   QualitativeProbability : MILSTD882::ProbabilityLabels; -- actual risk as probability
+   ProbabilityLevel : MILSTD882::ProbabilityLevelLabels;         -- equivalent probability level A-E
+   QuantitativeProbability: EMV2::ProbabilityRange;   -- probability of a hazard   
+   TargetSeverityLevel: MILSTD882::SeverityLabels;    -- acceptable risk as severity
+   TargetProbabilityLevel : MILSTD882::ProbabilityLevelLabels;   -- acceptable probability risk 
+   VerificationMethod : aadlstring; -- verification method to address the hazard
+   SafetyReport : aadlstring;       -- analysis/assessment of hazard
+   Comment : aadlstring;            -- additional information about the hazard
+   )
+     applies to ({emv2}**error type, {emv2}**type set, {emv2}**error behavior state,
+                 {emv2}**error source, {emv2}**error propagation, {emv2}**error event, {emv2}**error flow);
+
+end MILSTD882;

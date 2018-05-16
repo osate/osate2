@@ -1,0 +1,150 @@
+/*
+ * Copyright 2015 Carnegie Mellon University. All Rights Reserved.
+ *
+ * NO WARRANTY. THIS CARNEGIE MELLON UNIVERSITY AND SOFTWARE ENGINEERING INSTITUTE
+ * MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO
+ * WARRANTIES OF ANY KIND, EITHER EXPRESSED OR IMPLIED, AS TO ANY MATTER INCLUDING,
+ * BUT NOT LIMITED TO, WARRANTY OF FITNESS FOR PURPOSE OR MERCHANTABILITY,
+ * EXCLUSIVITY, OR RESULTS OBTAINED FROM USE OF THE MATERIAL. CARNEGIE MELLON
+ * UNIVERSITY DOES NOT MAKE ANY WARRANTY OF ANY KIND WITH RESPECT TO FREEDOM FROM
+ * PATENT, TRADEMARK, OR COPYRIGHT INFRINGEMENT.
+ *
+ * Released under the Eclipse Public License (http://www.eclipse.org/org/documents/epl-v10.php)
+ *
+ * See COPYRIGHT file for full details.
+ */
+module org.osate.categories.GenerateCategories2
+
+import org.eclipse.emf.mwe.utils.*
+import org.eclipse.xtext.generator.*
+import org.eclipse.xtext.ui.generator.*
+
+import org.osate.alisa.common.*
+
+var grammarURI = "classpath:/org/osate/categories/Categories.xtext"
+var fileExtensions = "cat,filter"
+var projectName = "org.osate.categories"
+var runtimeProject = "../${projectName}"
+var generateXtendStub = true
+var encoding = "UTF-8"
+var fileHeader =
+"/**\n * Copyright 2015 Carnegie Mellon University. All Rights Reserved.\n *\n * NO WARRANTY. THIS CARNEGIE MELLON UNIVERSITY AND SOFTWARE ENGINEERING INSTITUTE\n * MATERIAL IS FURNISHED ON AN \"AS-IS\" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO\n * WARRANTIES OF ANY KIND, EITHER EXPRESSED OR IMPLIED, AS TO ANY MATTER INCLUDING,\n * BUT NOT LIMITED TO, WARRANTY OF FITNESS FOR PURPOSE OR MERCHANTABILITY,\n * EXCLUSIVITY, OR RESULTS OBTAINED FROM USE OF THE MATERIAL. CARNEGIE MELLON\n * UNIVERSITY DOES NOT MAKE ANY WARRANTY OF ANY KIND WITH RESPECT TO FREEDOM FROM\n * PATENT, TRADEMARK, OR COPYRIGHT INFRINGEMENT.\n *\n * Released under the Eclipse Public License (http://www.eclipse.org/org/documents/epl-v10.php)\n *\n * See COPYRIGHT file for full details.\n */"
+
+Workflow {
+	component = DirectoryCleaner {
+		directory = "${runtimeProject}/src-gen"
+	}
+
+	component = DirectoryCleaner {
+		directory = "${runtimeProject}/model/generated"
+	}
+
+	component = DirectoryCleaner {
+		directory = "${runtimeProject}.ui/src-gen"
+	}
+
+	component = DirectoryCleaner {
+		directory = "${runtimeProject}.tests/src-gen"
+	}
+
+	component = Generator auto-inject {
+		pathRtProject = runtimeProject
+		pathUiProject = "${runtimeProject}.ui"
+		pathTestProject = "${runtimeProject}.tests"
+		projectNameRt = projectName
+		projectNameUi = "${projectName}.ui"
+		encoding = encoding
+		language = auto-inject {
+			uri = grammarURI
+
+			// Java API to access grammar elements (required by several other fragments)
+			fragment = grammarAccess.GrammarAccessFragment auto-inject {}
+
+			// generates Java API for the generated EPackages
+			//fragment = EMFGeneratorFragment auto-inject {}
+			fragment = EMFGeneratorFragmentCustom auto-inject {}
+
+			// the old serialization component
+			// fragment = parseTreeConstructor.ParseTreeConstructorFragment auto-inject {}    
+
+			// serializer 2.0
+			fragment = serializer.SerializerFragment auto-inject {
+				generateStub = false
+			}
+
+			// a custom ResourceFactory for use with EMF
+			fragment = resourceFactory.ResourceFactoryFragment auto-inject {}
+
+			// The antlr parser generator fragment.
+			//    		fragment = parser.antlr.XtextAntlrGeneratorFragment auto-inject {
+			//    		//  options = {
+			//    		//      backtrack = true
+			//    		//  }
+			//    		}
+			fragment = parser.antlr.ex.rt.AntlrGeneratorFragment auto-inject {
+
+			//    		  options = {
+			//    		//      backtrack = true
+			//        		ignoreCase = true
+			//     		  }
+			}
+
+			// Xtend-based API for validation
+			fragment = validation.ValidatorFragment auto-inject {
+			//    composedCheck = "org.eclipse.xtext.validation.ImportUriValidator"
+//				composedCheck = "org.eclipse.xtext.validation.NamesAreUniqueValidator"
+			}
+
+			// old scoping and exporting API
+			// fragment = scoping.ImportURIScopingFragment auto-inject {}
+			// fragment = exporting.SimpleNamesFragment auto-inject {}
+
+			// scoping and exporting API
+			fragment = scoping.ImportNamespacesScopingFragment auto-inject {}
+			fragment = exporting.QualifiedNamesFragment auto-inject {}
+			fragment = builder.BuilderIntegrationFragment auto-inject {}
+
+			// generator API
+			fragment = generator.GeneratorFragment auto-inject {}
+
+			// formatter API
+			fragment = formatting.FormatterFragment auto-inject {}
+
+			// labeling API
+			fragment = labeling.LabelProviderFragment auto-inject {}
+
+			// outline API
+			fragment = outline.OutlineTreeProviderFragment auto-inject {}
+			fragment = outline.QuickOutlineFragment auto-inject {}
+
+			// quickfix API
+			fragment = quickfix.QuickfixProviderFragment auto-inject {}
+
+			// content assist API
+			fragment = contentAssist.ContentAssistFragment auto-inject {}
+
+			// generates a more lightweight Antlr parser and lexer tailored for content assist
+			//    		fragment = parser.antlr.XtextAntlrUiGeneratorFragment auto-inject {}
+			fragment = parser.antlr.ex.ca.ContentAssistParserGeneratorFragment {
+			//				    options = {
+			//        		ignoreCase = true
+			//  		  }
+			}
+
+			// generates junit test support classes into Generator#pathTestProject
+			fragment = junit.Junit4Fragment auto-inject {
+				useDeprecatedClasses = false
+			}
+
+			// rename refactoring
+			fragment = refactoring.RefactorElementNameFragment auto-inject {}
+
+			// provides a preference page for template proposals
+			fragment = templates.CodetemplatesGeneratorFragment auto-inject {}
+
+			// provides a compare view
+			fragment = compare.CompareFragment auto-inject {}
+		}
+	}
+}
+

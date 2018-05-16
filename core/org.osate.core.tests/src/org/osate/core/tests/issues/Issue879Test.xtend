@@ -1,24 +1,21 @@
 package org.osate.core.tests.issues
 
+import com.itemis.xtext.testing.FluentIssueCollection
+import org.eclipse.core.resources.IMarker
+import org.eclipse.core.resources.IResource
 import org.eclipse.xtext.testing.InjectWith
 import org.eclipse.xtext.testing.XtextRunner
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.osate.aadl2.AadlPackage
+import org.osate.aadl2.AbstractImplementation
+import org.osate.aadl2.SystemImplementation
+import org.osate.aadl2.instantiation.InstantiateModel
 import org.osate.core.test.Aadl2UiInjectorProvider
 import org.osate.core.test.OsateTest
 
-import org.osate.aadl2.SystemImplementation
-import com.itemis.xtext.testing.FluentIssueCollection
-
 import static extension org.junit.Assert.*
-
-import org.osate.aadl2.FlowImplementation
-import org.osate.aadl2.AbstractImplementation
-import org.osate.aadl2.instantiation.InstantiateModel
 import static extension org.osate.aadl2.modelsupport.resources.OsateResourceUtil.convertToIResource
-import org.eclipse.core.resources.IMarker
-import org.eclipse.core.resources.IResource
 
 @RunWith(XtextRunner)
 @InjectWith(Aadl2UiInjectorProvider)
@@ -28,16 +25,8 @@ class Issue879Test extends OsateTest {
 	val static FILE2 = "pkg1.aadl"
 	val static FILE3 = "pkg2.aadl"
 	
-	val static ERROR_NO_SINK1 = "Component implementation 'S.i' does not implement the flow specification 'mySink' from component type 'S'"
-	val static ERROR_NO_SRC1 = "Component implementation 'S.i' does not implement the flow specification 'mySrc' from component type 'S'"
-	val static ERROR_NO_PATH1 = "Component implementation 'S.i' does not implement the flow specification 'myPath' from component type 'S'"
-
-	val static ERROR_NO_SINK2 = "Component implementation 'S.k' does not implement the flow specification 'mySink' from component type 'S'"
-	val static ERROR_NO_SRC2 = "Component implementation 'S.k' does not implement the flow specification 'mySrc' from component type 'S'"
-
 	val static WARNING_FLOW_EMPTY = "Flow implementation is empty and does not add value to the model"
 	
-	val static S_I = "S.i"
 	val static S_J = "S.j"
 	val static S_K = "S.k"
 	
