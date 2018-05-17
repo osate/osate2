@@ -27,8 +27,11 @@ import org.osate.aadl2.instance.SystemOperationMode;
 import org.osate.aadl2.modelsupport.resources.OsateResourceUtil;
 import org.osate.aadl2.modelsupport.util.AadlUtil;
 import org.osate.aadl2.util.Aadl2InstanceUtil;
+import org.osate.result.Diagnostic;
+import org.osate.result.DiagnosticType;
+import org.osate.xtext.aadl2.errormodel.errorModel.ErrorEvent;
+import org.osate.xtext.aadl2.errormodel.errorModel.ErrorFlow;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorPropagation;
-import org.osate.xtext.aadl2.errormodel.errorModel.ErrorSource;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorTypes;
 import org.osate.xtext.aadl2.errormodel.errorModel.PropagationPath;
 import org.osate.xtext.aadl2.errormodel.errorModel.SubcomponentElement;
@@ -650,31 +653,31 @@ public class Util {
 		return result;
 	}
 
-	public static boolean conditionHolds(ErrorSource ef, InstanceObject target) {
-		if (ef.getCondition() != null) {
-			String conditionFcn = ef.getCondition();
+	public static boolean conditionHolds(ErrorFlow ef, InstanceObject target) {
+		if (ef.getFlowcondition() != null) {
+			String conditionFcn = ef.getFlowcondition();
 			return executeCondition(conditionFcn, target, ef);
 		}
 		return true;
 	}
 
-//	public static boolean conditionHolds(ErrorEvent ev, InstanceObject target) {
-//		if (ev.getEventcondition() != null) {
-//			String conditionFcn = ev.getEventcondition();
-//			return executeCondition(conditionFcn, target, ev);
-//		}
-//		return true;
-//	}
+	public static boolean conditionHolds(ErrorEvent ev, InstanceObject target) {
+		if (ev.getEventcondition() != null) {
+			String conditionFcn = ev.getEventcondition();
+			return executeCondition(conditionFcn, target, ev);
+		}
+		return true;
+	}
 
-//	private static boolean RESOLUTE_INSTALLED;
-//	static {
-//		try {
-//			ExecuteResoluteUtil.eInstance.tryLoad();
-//			RESOLUTE_INSTALLED = true;
-//		} catch (NoClassDefFoundError e) {
-//			RESOLUTE_INSTALLED = false;
-//		}
-//	}
+	private static boolean RESOLUTE_INSTALLED;
+	static {
+		try {
+			ExecuteResoluteUtil.eInstance.tryLoad();
+			RESOLUTE_INSTALLED = true;
+		} catch (NoClassDefFoundError e) {
+			RESOLUTE_INSTALLED = false;
+		}
+	}
 
 	public static boolean executeCondition(String conditionFcn, InstanceObject target, EObject emv2target) {
 		ComponentInstance targetComponent = null;
@@ -694,13 +697,13 @@ public class Util {
 			return true;
 			}
 		} else {
-//			if (RESOLUTE_INSTALLED) {
-//				Diagnostic res = ExecuteResoluteUtil.eInstance.executeResoluteFunction(conditionFcn,
-//						target.getSystemInstance(), targetComponent, targetElement, null);
-//				return res != null && res.getType() == DiagnosticType.SUCCESS;
-//			} else {
+			if (RESOLUTE_INSTALLED) {
+				Diagnostic res = ExecuteResoluteUtil.eInstance.executeResoluteFunction(conditionFcn,
+						target.getSystemInstance(), targetComponent, targetElement, null);
+				return res != null && res.getType() == DiagnosticType.SUCCESS;
+			} else {
 			return true;
-//			}
+			}
 		}
 	}
 }
