@@ -70,3 +70,4 @@ Export-Package: org.osate.assure,
  org.osate.assure.services,
  org.osate.assure.util,
  org.osate.assure.validation
+Automatic-Module-Name: org.osate.assure

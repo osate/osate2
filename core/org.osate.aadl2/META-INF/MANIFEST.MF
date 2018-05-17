@@ -25,3 +25,4 @@ Require-Bundle: org.eclipse.core.runtime,
 Eclipse-LazyStart: true
 Bundle-ActivationPolicy: lazy
 Bundle-Activator: org.osate.aadl2.util.Activator
+Automatic-Module-Name: org.osate.aadl2

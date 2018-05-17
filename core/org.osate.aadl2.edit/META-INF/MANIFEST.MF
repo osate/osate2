@@ -21,3 +21,4 @@ Require-Bundle: org.osate.aadl2;visibility:=reexport,
  org.eclipse.core.runtime;bundle-version="3.7.0",
  org.eclipse.xtext.xbase.lib
 Bundle-ActivationPolicy: lazy
+Automatic-Module-Name: org.osate.aadl2.edit

@@ -18,7 +18,6 @@ import org.osate.aadl2.NamedElement;
  *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.ErrorSource#getFailureModeReference <em>Failure Mode Reference</em>}</li>
  *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.ErrorSource#getFailureModeType <em>Failure Mode Type</em>}</li>
  *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.ErrorSource#getFailureModeDescription <em>Failure Mode Description</em>}</li>
- *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.ErrorSource#getCondition <em>Condition</em>}</li>
  * </ul>
  *
  * @see org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelPackage#getErrorSource()
@@ -156,31 +155,5 @@ public interface ErrorSource extends ErrorFlow
    * @generated
    */
   void setFailureModeDescription(String value);
-
-  /**
-   * Returns the value of the '<em><b>Condition</b></em>' attribute.
-   * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Condition</em>' attribute isn't clear,
-   * there really should be more of a description here...
-   * </p>
-   * <!-- end-user-doc -->
-   * @return the value of the '<em>Condition</em>' attribute.
-   * @see #setCondition(String)
-   * @see org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelPackage#getErrorSource_Condition()
-   * @model
-   * @generated
-   */
-  String getCondition();
-
-  /**
-   * Sets the value of the '{@link org.osate.xtext.aadl2.errormodel.errorModel.ErrorSource#getCondition <em>Condition</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Condition</em>' attribute.
-   * @see #getCondition()
-   * @generated
-   */
-  void setCondition(String value);
 
 } // ErrorSource

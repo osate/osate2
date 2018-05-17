@@ -393,12 +393,13 @@ ErrorSource returns ErrorSource:
   	('when' (( failureModeReference = [ErrorBehaviorState|ID] ( failureModeType = TypeSetReference )?) 
   	| ( failureModeType = TypeSetConstructor )	 | failureModeDescription = STRING
   	) )?
-     ( 'if' condition=CONDITION)?
+     ( 'if' flowcondition=CONDITION)?
      ';'
   ;
 
 ErrorSink returns ErrorSink:
   name=ID ':' ErrorSinkKeywords (incoming=[ErrorPropagation|ErrorPropagationPoint]|allIncoming?='all') (typeTokenConstraint=TypeTokenConstraint)?
+     ( 'if' flowcondition=CONDITION)?
   ';';
 
 ErrorPath returns ErrorPath:
@@ -406,6 +407,7 @@ ErrorPath returns ErrorPath:
   ( targetToken=TypeToken | UseMappingsKeywords typeMappingSet=[TypeMappingSet|QEMREF]
   	
   )?
+     ( 'if' flowcondition=CONDITION)?
   ';';
 
 // reference to error propagation  
@@ -447,7 +449,7 @@ ErrorBehaviorEvent returns ErrorBehaviorEvent:
 ErrorEvent returns ErrorEvent:
     name=ID ':' ErrorEventKeywords
     (typeSet=TypeSetReference)?
-     ( 'if' condition=CONDITION)?
+     ( 'if' eventcondition=CONDITION )?
   	';'
 ; // add event condition 
     
@@ -493,15 +495,6 @@ BranchValue returns BranchValue:
    ((realvalue = REAL_LIT) | (symboliclabel = [aadl2::Property|QEMREF]) | (others?='others'));
 
 
-//ConnectionErrorSource returns ConnectionErrorSource:
-//	name=ID ':' ErrorSourceKeywords
-//	(connection=[aadl2::Connection|ID]|all?='all')
-//	(typeTokenConstraint=TypeTokenConstraint)?
-//  	('when'  (  failureModeType = TypeSetConstructor | failureModeDescription = STRING)
-//  	)?
-//     ( 'if' condition=CONDITION)?
-//     ';'
-//;
 
  
  

@@ -33,3 +33,4 @@ Export-Package: org.osate.xtext.aadl2.properties,
 Import-Package: org.apache.log4j,
  org.eclipse.xtext.xbase.lib
 Bundle-ActivationPolicy: lazy
+Automatic-Module-Name: org.osate.xtext.aadl2.properties
