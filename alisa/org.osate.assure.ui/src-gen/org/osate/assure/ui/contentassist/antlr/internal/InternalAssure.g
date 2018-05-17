@@ -1822,6 +1822,28 @@ finally {
 
 
 
+rule__ModelResult__Alternatives_8
+    @init {
+		int stackSize = keepStackSize();
+    }
+:
+(
+{ before(grammarAccess.getModelResultAccess().getSubsystemResultAssignment_8_0()); }
+(rule__ModelResult__SubsystemResultAssignment_8_0)
+{ after(grammarAccess.getModelResultAccess().getSubsystemResultAssignment_8_0()); }
+)
+
+    |(
+{ before(grammarAccess.getModelResultAccess().getSubAssuranceCaseAssignment_8_1()); }
+(rule__ModelResult__SubAssuranceCaseAssignment_8_1)
+{ after(grammarAccess.getModelResultAccess().getSubAssuranceCaseAssignment_8_1()); }
+)
+
+;
+finally {
+	restoreStackSize(stackSize);
+}
+
 
 rule__VerificationExpr__Alternatives
     @init {
@@ -3083,9 +3105,9 @@ rule__ModelResult__Group__8__Impl
     }
 :
 (
-{ before(grammarAccess.getModelResultAccess().getSubsystemResultAssignment_8()); }
-(rule__ModelResult__SubsystemResultAssignment_8)*
-{ after(grammarAccess.getModelResultAccess().getSubsystemResultAssignment_8()); }
+{ before(grammarAccess.getModelResultAccess().getAlternatives_8()); }
+(rule__ModelResult__Alternatives_8)*
+{ after(grammarAccess.getModelResultAccess().getAlternatives_8()); }
 )
 
 ;
@@ -15095,14 +15117,29 @@ finally {
 	restoreStackSize(stackSize);
 }
 
-rule__ModelResult__SubsystemResultAssignment_8
+rule__ModelResult__SubsystemResultAssignment_8_0
     @init {
 		int stackSize = keepStackSize();
     }
 :
 (
-{ before(grammarAccess.getModelResultAccess().getSubsystemResultSubsystemResultParserRuleCall_8_0()); }
-	ruleSubsystemResult{ after(grammarAccess.getModelResultAccess().getSubsystemResultSubsystemResultParserRuleCall_8_0()); }
+{ before(grammarAccess.getModelResultAccess().getSubsystemResultSubsystemResultParserRuleCall_8_0_0()); }
+	ruleSubsystemResult{ after(grammarAccess.getModelResultAccess().getSubsystemResultSubsystemResultParserRuleCall_8_0_0()); }
+)
+
+;
+finally {
+	restoreStackSize(stackSize);
+}
+
+rule__ModelResult__SubAssuranceCaseAssignment_8_1
+    @init {
+		int stackSize = keepStackSize();
+    }
+:
+(
+{ before(grammarAccess.getModelResultAccess().getSubAssuranceCaseAssuranceCaseResultParserRuleCall_8_1_0()); }
+	ruleAssuranceCaseResult{ after(grammarAccess.getModelResultAccess().getSubAssuranceCaseAssuranceCaseResultParserRuleCall_8_1_0()); }
 )
 
 ;

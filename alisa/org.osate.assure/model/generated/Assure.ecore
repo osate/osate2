@@ -15,6 +15,8 @@
         eType="#//ClaimResult" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="subsystemResult" upperBound="-1"
         eType="#//SubsystemResult" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="subAssuranceCase" upperBound="-1"
+        eType="#//AssuranceCaseResult" containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="SubsystemResult" eSuperTypes="#//AssureResult">
     <eStructuralFeatures xsi:type="ecore:EReference" name="targetSystem" eType="ecore:EClass platform:/resource/org.osate.aadl2/model/aadl2.ecore#//Subcomponent"/>

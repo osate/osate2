@@ -18,3 +18,4 @@ Import-Package: org.osate.aadl2,
  org.osate.aadl2.instance,
  org.osate.aadl2.instance.util,
  org.osate.aadl2.parsesupport
+Automatic-Module-Name: org.osate.annexsupport
