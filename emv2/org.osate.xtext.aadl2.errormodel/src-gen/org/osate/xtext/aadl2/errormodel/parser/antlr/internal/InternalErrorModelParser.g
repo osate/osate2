@@ -4347,16 +4347,16 @@ ruleErrorSourceKeywords
 (
 (
 		{ 
-	        newCompositeNode(grammarAccess.getErrorSourceAccess().getConditionCONDITIONParserRuleCall_6_1_0()); 
+	        newCompositeNode(grammarAccess.getErrorSourceAccess().getFlowconditionCONDITIONParserRuleCall_6_1_0()); 
 	    }
-		lv_condition_12_0=ruleCONDITION		{
+		lv_flowcondition_12_0=ruleCONDITION		{
 	        if ($current==null) {
 	            $current = createModelElementForParent(grammarAccess.getErrorSourceRule());
 	        }
        		set(
        			$current, 
-       			"condition",
-        		lv_condition_12_0, 
+       			"flowcondition",
+        		lv_flowcondition_12_0, 
         		"org.osate.xtext.aadl2.errormodel.ErrorModel.CONDITION");
 	        afterParserOrEnumRuleCall();
 	    }
@@ -4470,10 +4470,33 @@ ruleErrorSinkKeywords
 	    }
 
 )
-)?
-	otherlv_6=Semicolon
+)?(
+	otherlv_6=If
     {
-    	newLeafNode(otherlv_6, grammarAccess.getErrorSinkAccess().getSemicolonKeyword_5());
+    	newLeafNode(otherlv_6, grammarAccess.getErrorSinkAccess().getIfKeyword_5_0());
+    }
+(
+(
+		{ 
+	        newCompositeNode(grammarAccess.getErrorSinkAccess().getFlowconditionCONDITIONParserRuleCall_5_1_0()); 
+	    }
+		lv_flowcondition_7_0=ruleCONDITION		{
+	        if ($current==null) {
+	            $current = createModelElementForParent(grammarAccess.getErrorSinkRule());
+	        }
+       		set(
+       			$current, 
+       			"flowcondition",
+        		lv_flowcondition_7_0, 
+        		"org.osate.xtext.aadl2.errormodel.ErrorModel.CONDITION");
+	        afterParserOrEnumRuleCall();
+	    }
+
+)
+))?
+	otherlv_8=Semicolon
+    {
+    	newLeafNode(otherlv_8, grammarAccess.getErrorSinkAccess().getSemicolonKeyword_6());
     }
 )
 ;
@@ -4659,10 +4682,33 @@ ruleUseMappingsKeywords
 	    }
 
 )
-)))?
-	otherlv_12=Semicolon
+)))?(
+	otherlv_12=If
     {
-    	newLeafNode(otherlv_12, grammarAccess.getErrorPathAccess().getSemicolonKeyword_8());
+    	newLeafNode(otherlv_12, grammarAccess.getErrorPathAccess().getIfKeyword_8_0());
+    }
+(
+(
+		{ 
+	        newCompositeNode(grammarAccess.getErrorPathAccess().getFlowconditionCONDITIONParserRuleCall_8_1_0()); 
+	    }
+		lv_flowcondition_13_0=ruleCONDITION		{
+	        if ($current==null) {
+	            $current = createModelElementForParent(grammarAccess.getErrorPathRule());
+	        }
+       		set(
+       			$current, 
+       			"flowcondition",
+        		lv_flowcondition_13_0, 
+        		"org.osate.xtext.aadl2.errormodel.ErrorModel.CONDITION");
+	        afterParserOrEnumRuleCall();
+	    }
+
+)
+))?
+	otherlv_14=Semicolon
+    {
+    	newLeafNode(otherlv_14, grammarAccess.getErrorPathAccess().getSemicolonKeyword_9());
     }
 )
 ;
@@ -5300,16 +5346,16 @@ ruleErrorEventKeywords
 (
 (
 		{ 
-	        newCompositeNode(grammarAccess.getErrorEventAccess().getConditionCONDITIONParserRuleCall_4_1_0()); 
+	        newCompositeNode(grammarAccess.getErrorEventAccess().getEventconditionCONDITIONParserRuleCall_4_1_0()); 
 	    }
-		lv_condition_5_0=ruleCONDITION		{
+		lv_eventcondition_5_0=ruleCONDITION		{
 	        if ($current==null) {
 	            $current = createModelElementForParent(grammarAccess.getErrorEventRule());
 	        }
        		set(
        			$current, 
-       			"condition",
-        		lv_condition_5_0, 
+       			"eventcondition",
+        		lv_eventcondition_5_0, 
         		"org.osate.xtext.aadl2.errormodel.ErrorModel.CONDITION");
 	        afterParserOrEnumRuleCall();
 	    }

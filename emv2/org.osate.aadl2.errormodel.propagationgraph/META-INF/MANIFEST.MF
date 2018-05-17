@@ -14,6 +14,11 @@ Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.emf.ecore;visibility:=reexport,
  org.osate.aadl2;visibility:=reexport,
  org.osate.xtext.aadl2.errormodel;visibility:=reexport,
- org.osate.aadl2.modelsupport
+ org.osate.aadl2.modelsupport,
+ org.eclipse.jdt.core;bundle-version="3.13.102",
+ org.osate.results;bundle-version="1.0.0",
+ com.rockwellcollins.atc.resolute;bundle-version="1.0.0",
+ com.rockwellcollins.atc.resolute.analysis;bundle-version="1.0.0",
+ com.rockwellcollins.atc.resolute.ui;bundle-version="1.0.0"
 Bundle-ActivationPolicy: lazy
 Automatic-Module-Name: org.osate.aadl2.errormodel.propagationgraph

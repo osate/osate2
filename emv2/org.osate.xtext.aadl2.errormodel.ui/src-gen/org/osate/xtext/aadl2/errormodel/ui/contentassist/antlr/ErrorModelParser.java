@@ -202,8 +202,10 @@ public class ErrorModelParser extends AbstractPartialContentAssistParser {
 					put(grammarAccess.getErrorSourceAccess().getGroup_5_1_0(), "rule__ErrorSource__Group_5_1_0__0");
 					put(grammarAccess.getErrorSourceAccess().getGroup_6(), "rule__ErrorSource__Group_6__0");
 					put(grammarAccess.getErrorSinkAccess().getGroup(), "rule__ErrorSink__Group__0");
+					put(grammarAccess.getErrorSinkAccess().getGroup_5(), "rule__ErrorSink__Group_5__0");
 					put(grammarAccess.getErrorPathAccess().getGroup(), "rule__ErrorPath__Group__0");
 					put(grammarAccess.getErrorPathAccess().getGroup_7_1(), "rule__ErrorPath__Group_7_1__0");
+					put(grammarAccess.getErrorPathAccess().getGroup_8(), "rule__ErrorPath__Group_8__0");
 					put(grammarAccess.getErrorPropagationPointAccess().getGroup(), "rule__ErrorPropagationPoint__Group__0");
 					put(grammarAccess.getErrorPropagationPointAccess().getGroup_0(), "rule__ErrorPropagationPoint__Group_0__0");
 					put(grammarAccess.getPropagationPointAccess().getGroup(), "rule__PropagationPoint__Group__0");
@@ -501,11 +503,12 @@ public class ErrorModelParser extends AbstractPartialContentAssistParser {
 					put(grammarAccess.getErrorSourceAccess().getFailureModeTypeAssignment_5_1_0_1(), "rule__ErrorSource__FailureModeTypeAssignment_5_1_0_1");
 					put(grammarAccess.getErrorSourceAccess().getFailureModeTypeAssignment_5_1_1(), "rule__ErrorSource__FailureModeTypeAssignment_5_1_1");
 					put(grammarAccess.getErrorSourceAccess().getFailureModeDescriptionAssignment_5_1_2(), "rule__ErrorSource__FailureModeDescriptionAssignment_5_1_2");
-					put(grammarAccess.getErrorSourceAccess().getConditionAssignment_6_1(), "rule__ErrorSource__ConditionAssignment_6_1");
+					put(grammarAccess.getErrorSourceAccess().getFlowconditionAssignment_6_1(), "rule__ErrorSource__FlowconditionAssignment_6_1");
 					put(grammarAccess.getErrorSinkAccess().getNameAssignment_0(), "rule__ErrorSink__NameAssignment_0");
 					put(grammarAccess.getErrorSinkAccess().getIncomingAssignment_3_0(), "rule__ErrorSink__IncomingAssignment_3_0");
 					put(grammarAccess.getErrorSinkAccess().getAllIncomingAssignment_3_1(), "rule__ErrorSink__AllIncomingAssignment_3_1");
 					put(grammarAccess.getErrorSinkAccess().getTypeTokenConstraintAssignment_4(), "rule__ErrorSink__TypeTokenConstraintAssignment_4");
+					put(grammarAccess.getErrorSinkAccess().getFlowconditionAssignment_5_1(), "rule__ErrorSink__FlowconditionAssignment_5_1");
 					put(grammarAccess.getErrorPathAccess().getNameAssignment_0(), "rule__ErrorPath__NameAssignment_0");
 					put(grammarAccess.getErrorPathAccess().getIncomingAssignment_3_0(), "rule__ErrorPath__IncomingAssignment_3_0");
 					put(grammarAccess.getErrorPathAccess().getAllIncomingAssignment_3_1(), "rule__ErrorPath__AllIncomingAssignment_3_1");
@@ -514,6 +517,7 @@ public class ErrorModelParser extends AbstractPartialContentAssistParser {
 					put(grammarAccess.getErrorPathAccess().getAllOutgoingAssignment_6_1(), "rule__ErrorPath__AllOutgoingAssignment_6_1");
 					put(grammarAccess.getErrorPathAccess().getTargetTokenAssignment_7_0(), "rule__ErrorPath__TargetTokenAssignment_7_0");
 					put(grammarAccess.getErrorPathAccess().getTypeMappingSetAssignment_7_1_1(), "rule__ErrorPath__TypeMappingSetAssignment_7_1_1");
+					put(grammarAccess.getErrorPathAccess().getFlowconditionAssignment_8_1(), "rule__ErrorPath__FlowconditionAssignment_8_1");
 					put(grammarAccess.getPropagationPointAccess().getNameAssignment_0(), "rule__PropagationPoint__NameAssignment_0");
 					put(grammarAccess.getPropagationPathAccess().getNameAssignment_0_0(), "rule__PropagationPath__NameAssignment_0_0");
 					put(grammarAccess.getPropagationPathAccess().getSourceAssignment_1(), "rule__PropagationPath__SourceAssignment_1");
@@ -531,7 +535,7 @@ public class ErrorModelParser extends AbstractPartialContentAssistParser {
 					put(grammarAccess.getErrorBehaviorStateMachineAccess().getPropertiesAssignment_7_1(), "rule__ErrorBehaviorStateMachine__PropertiesAssignment_7_1");
 					put(grammarAccess.getErrorEventAccess().getNameAssignment_0(), "rule__ErrorEvent__NameAssignment_0");
 					put(grammarAccess.getErrorEventAccess().getTypeSetAssignment_3(), "rule__ErrorEvent__TypeSetAssignment_3");
-					put(grammarAccess.getErrorEventAccess().getConditionAssignment_4_1(), "rule__ErrorEvent__ConditionAssignment_4_1");
+					put(grammarAccess.getErrorEventAccess().getEventconditionAssignment_4_1(), "rule__ErrorEvent__EventconditionAssignment_4_1");
 					put(grammarAccess.getRepairEventAccess().getNameAssignment_0(), "rule__RepairEvent__NameAssignment_0");
 					put(grammarAccess.getRepairEventAccess().getEventInitiatorAssignment_3_1(), "rule__RepairEvent__EventInitiatorAssignment_3_1");
 					put(grammarAccess.getRepairEventAccess().getEventInitiatorAssignment_3_2_1(), "rule__RepairEvent__EventInitiatorAssignment_3_2_1");
