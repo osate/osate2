@@ -49,6 +49,7 @@ import org.osate.analysis.flows.FlowLatencyAnalysisSwitch;
 import org.osate.analysis.flows.FlowLatencyUtil;
 import org.osate.analysis.flows.model.LatencyReport;
 import org.osate.analysis.flows.model.LatencyReportEntry;
+import org.osate.analysis.flows.preferences.Values;
 import org.osate.result.AnalysisResult;
 import org.osate.ui.dialogs.Dialog;
 import org.osate.ui.handlers.AbstractInstanceOrDeclarativeModelReadOnlyHandler;
@@ -76,6 +77,8 @@ public final class CheckFlowLatency extends AbstractInstanceOrDeclarativeModelRe
 	protected boolean initializeAnalysis(NamedElement object) {
 		if (object instanceof SystemInstance) {
 			latreport = new LatencyReport((SystemInstance) object);
+			latreport.setLatencyAnalysisParameters(Values.doSynchronousSystem(), Values.doMajorFrameDelay(),
+					Values.doWorstCaseDeadline(), Values.doMajorFrameDelay());
 			return true;
 		}
 		return false;

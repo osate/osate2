@@ -39,7 +39,7 @@ class FlowLatencyTest extends OsateTest {
 		// check flow latency
 		val checker = new FlowLatencyAnalysisSwitch(new NullProgressMonitor,  instance)
 		val som = instance.systemOperationModes.head
-		val latencyresult = checker.invokeAndGetResult( instance, som)
+		val latencyresult = checker.invokeAndGetResult( instance, som, true, true, true, true)
 		val res = latencyresult.results.get(0)
 		assertTrue((res.values.get(1) as RealValue).value == (304.0))
 		assertTrue((res.values.get(2) as RealValue).value == (504.0))
