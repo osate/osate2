@@ -498,37 +498,37 @@ public class FlowLatencyUtil {
 	}
 
 	public static String getSynchronousSystemLabel(LatencyReport latrep) {
-		return latrep.doSynchronousSystem() ? "SS" : "AS";
+		return latrep.isSynchronousSystem() ? "SS" : "AS";
 	}
 
 	public static String getMajorFrameDelayLabel(LatencyReport latrep) {
-		return latrep.doMajorFrameDelay() ? "MF" : "PE";
+		return latrep.isMajorFrameDelay() ? "MF" : "PE";
 	}
 
 	public static String getWorstCaseDeadlineLabel(LatencyReport latrep) {
-		return latrep.doWorstCaseDeadline() ? "DL" : "ET";
+		return latrep.isWorstCaseDeadline() ? "DL" : "ET";
 	}
 
 	public static String getBestcaseEmptyQueueLabel(LatencyReport latrep) {
-		return latrep.doBestcaseEmptyQueue() ? "EQ" : "FQ";
+		return latrep.isBestcaseEmptyQueue() ? "EQ" : "FQ";
 	}
 
 
 	public static String getSynchronousSystemDescription(LatencyReport latrep) {
-		return latrep.doSynchronousSystem() ? Constants.SYNCHRONOUS_SYSTEM_YES : Constants.SYNCHRONOUS_SYSTEM_NO;
+		return latrep.isSynchronousSystem() ? Constants.SYNCHRONOUS_SYSTEM_YES : Constants.SYNCHRONOUS_SYSTEM_NO;
 	}
 
 	public static String getMajorFrameDelayDescription(LatencyReport latrep) {
-		return latrep.doMajorFrameDelay() ? Constants.PARTITIONING_POLICY_MAJOR_FRAME_DELAYED_STR
+		return latrep.isMajorFrameDelay() ? Constants.PARTITIONING_POLICY_MAJOR_FRAME_DELAYED_STR
 				: Constants.PARTITIONING_POLICY_PARTITION_END_STR;
 	}
 
 	public static String getWorstCaseDeadlineDescription(LatencyReport latrep) {
-		return latrep.doWorstCaseDeadline() ? Constants.WORST_CASE_DEADLINE_YES : Constants.WORST_CASE_DEADLINE_NO;
+		return latrep.isWorstCaseDeadline() ? Constants.WORST_CASE_DEADLINE_YES : Constants.WORST_CASE_DEADLINE_NO;
 	}
 
 	public static String getBestcaseEmptyQueueDescription(LatencyReport latrep) {
-		return latrep.doBestcaseEmptyQueue() ? Constants.BESTCASE_EMPTY_QUEUE_YES : Constants.BESTCASE_EMPTY_QUEUE_NO;
+		return latrep.isBestcaseEmptyQueue() ? Constants.BESTCASE_EMPTY_QUEUE_YES : Constants.BESTCASE_EMPTY_QUEUE_NO;
 	}
 
 

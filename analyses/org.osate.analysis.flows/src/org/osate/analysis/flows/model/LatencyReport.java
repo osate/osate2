@@ -21,10 +21,10 @@ public class LatencyReport {
 	private String name;
 	private SystemInstance relatedInstance;
 
-	private boolean isSynchronousSystem = true;
-	private boolean isMajorFrameDelay = true;
-	private boolean isWorstCaseDeadline = true;
-	private boolean isBestCaseEmptyQueue = true;
+	private boolean isSynchronousSystem = false; // AS default
+	private boolean isMajorFrameDelay = true; // MF default
+	private boolean isWorstCaseDeadline = true; // DL default
+	private boolean isBestCaseEmptyQueue = true; // EQ default
 
 	public LatencyReport(SystemInstance si) {
 		this.relatedInstance = si;
@@ -60,19 +60,19 @@ public class LatencyReport {
 		this.isBestCaseEmptyQueue = isBestCaseEmptyQueue;
 	}
 
-	public boolean doSynchronousSystem() {
+	public boolean isSynchronousSystem() {
 		return this.isSynchronousSystem;
 	}
 
-	public boolean doMajorFrameDelay() {
+	public boolean isMajorFrameDelay() {
 		return this.isMajorFrameDelay;
 	}
 
-	public boolean doWorstCaseDeadline() {
+	public boolean isWorstCaseDeadline() {
 		return this.isWorstCaseDeadline;
 	}
 
-	public boolean doBestcaseEmptyQueue() {
+	public boolean isBestcaseEmptyQueue() {
 		return this.isBestCaseEmptyQueue;
 	}
 
