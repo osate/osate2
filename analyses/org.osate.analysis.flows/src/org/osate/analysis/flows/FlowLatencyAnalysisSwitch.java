@@ -712,7 +712,7 @@ public class FlowLatencyAnalysisSwitch extends AadlProcessingSwitchWithProgress 
 
 	public AnalysisResult invokeAndSaveResult(SystemInstance root, SystemOperationMode som) {
 		AnalysisResult results = invokeAndGetResult(root, som);
-		FlowLatencyUtil.saveAnalysisResult(results);
+		FlowLatencyUtil.saveAnalysisResult(results, FlowLatencyUtil.getPreferencesSuffix(report));
 		FlowLatencyUtil.saveAsSpreadSheets(report);
 		return results;
 	}
