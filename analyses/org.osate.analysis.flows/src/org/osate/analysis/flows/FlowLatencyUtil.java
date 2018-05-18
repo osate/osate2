@@ -24,7 +24,6 @@ import org.osate.aadl2.modelsupport.resources.OsateResourceUtil;
 import org.osate.aadl2.modelsupport.util.AadlUtil;
 import org.osate.analysis.flows.model.ConnectionType;
 import org.osate.analysis.flows.model.LatencyReport;
-import org.osate.analysis.flows.preferences.Constants;
 import org.osate.analysis.flows.reporting.exporters.CsvExport;
 import org.osate.analysis.flows.reporting.exporters.ExcelExport;
 import org.osate.analysis.flows.reporting.model.Report;
@@ -515,20 +514,20 @@ public class FlowLatencyUtil {
 
 
 	public static String getSynchronousSystemDescription(LatencyReport latrep) {
-		return latrep.isSynchronousSystem() ? Constants.SYNCHRONOUS_SYSTEM_YES : Constants.SYNCHRONOUS_SYSTEM_NO;
+		return latrep.isSynchronousSystem() ? "synchronous system" : "asynchronous system";
 	}
 
 	public static String getMajorFrameDelayDescription(LatencyReport latrep) {
-		return latrep.isMajorFrameDelay() ? Constants.PARTITIONING_POLICY_MAJOR_FRAME_DELAYED_STR
-				: Constants.PARTITIONING_POLICY_PARTITION_END_STR;
+		return latrep.isMajorFrameDelay() ? "major partition frame" : "partition end";
 	}
 
 	public static String getWorstCaseDeadlineDescription(LatencyReport latrep) {
-		return latrep.isWorstCaseDeadline() ? Constants.WORST_CASE_DEADLINE_YES : Constants.WORST_CASE_DEADLINE_NO;
+		return latrep.isWorstCaseDeadline() ? "worst case as deadline" : "worst case as max compute execution time";
 	}
 
 	public static String getBestcaseEmptyQueueDescription(LatencyReport latrep) {
-		return latrep.isBestcaseEmptyQueue() ? Constants.BESTCASE_EMPTY_QUEUE_YES : Constants.BESTCASE_EMPTY_QUEUE_NO;
+		return latrep.isBestcaseEmptyQueue() ? "best case as empty queue"
+				: "best case as full queue min compute execution time";
 	}
 
 
