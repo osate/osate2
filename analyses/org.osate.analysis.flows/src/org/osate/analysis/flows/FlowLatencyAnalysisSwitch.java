@@ -116,15 +116,17 @@ public class FlowLatencyAnalysisSwitch extends AadlProcessingSwitchWithProgress 
 				if (etef.getFlowElements().isEmpty()) {
 					return DONE;
 				}
-				entry = analyzeLatency(etef, etef.getSystemInstance().getCurrentSystemOperationMode());
+				entry = analyzeLatency(etef, etef.getSystemInstance().getCurrentSystemOperationMode(),
+						report.isSynchronousSystem());
 				report.addEntry(entry);
 				return DONE;
 			}
 		};
 	}
 
-	public LatencyReportEntry analyzeLatency(EndToEndFlowInstance etef, SystemOperationMode som) {
-		LatencyReportEntry entry = new LatencyReportEntry(etef, som);
+	public LatencyReportEntry analyzeLatency(EndToEndFlowInstance etef, SystemOperationMode som,
+			boolean synchronousSystem) {
+		LatencyReportEntry entry = new LatencyReportEntry(etef, som, synchronousSystem);
 		for (FlowElementInstance fei : etef.getFlowElements()) {
 			mapFlowElementInstance(etef, fei, entry);
 		}
@@ -709,7 +711,7 @@ public class FlowLatencyAnalysisSwitch extends AadlProcessingSwitchWithProgress 
 		SystemInstance root = etef.getSystemInstance();
 		root.setCurrentSystemOperationMode(som);
 		if (etef.isActive(som)) {
-			LatencyReportEntry latres = analyzeLatency(etef, som);
+			LatencyReportEntry latres = analyzeLatency(etef, som, isSynchronousSystem);
 			results = latres.genResult();
 		}
 		root.clearCurrentSystemOperationMode();

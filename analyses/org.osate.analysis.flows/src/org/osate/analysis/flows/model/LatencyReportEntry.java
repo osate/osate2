@@ -11,7 +11,6 @@ import org.osate.aadl2.instance.ConnectionInstance;
 import org.osate.aadl2.instance.EndToEndFlowInstance;
 import org.osate.aadl2.instance.SystemInstance;
 import org.osate.aadl2.instance.SystemOperationMode;
-import org.osate.aadl2.modelsupport.errorreporting.AnalysisErrorReporterManager;
 import org.osate.aadl2.util.Aadl2Util;
 import org.osate.analysis.flows.FlowLatencyUtil;
 import org.osate.analysis.flows.model.LatencyContributor.LatencyContributorMethod;
@@ -21,7 +20,6 @@ import org.osate.analysis.flows.reporting.model.ReportSeverity;
 import org.osate.analysis.flows.reporting.model.ReportedCell;
 import org.osate.analysis.flows.reporting.model.Section;
 import org.osate.result.Diagnostic;
-import org.osate.result.DiagnosticType;
 import org.osate.result.Result;
 import org.osate.result.ResultFactory;
 import org.osate.result.util.ResultUtil;
@@ -41,6 +39,7 @@ public class LatencyReportEntry {
 	// lastSampled may be a task, partition if no tasks inside the partition, sampling bus, or a sampling device/system
 	LatencyContributor lastSampled = null;
 	SystemOperationMode som = null;
+	boolean synchronpousSystem = false;
 	double expectedMaxLatency = 0;
 	double expectedMinLatency = 0;
 	double minValue = 0;
@@ -48,10 +47,11 @@ public class LatencyReportEntry {
 	double minSpecifiedValue = 0;
 	double maxSpecifiedValue = 0;
 
-	public LatencyReportEntry(EndToEndFlowInstance etef, SystemOperationMode som) {
+	public LatencyReportEntry(EndToEndFlowInstance etef, SystemOperationMode som, boolean synchronousSystem) {
 		this.contributors = new ArrayList<LatencyContributor>();
 		this.relatedEndToEndFlow = etef;
 		this.som = som;
+		this.synchronpousSystem = synchronousSystem;
 
 		expectedMaxLatency = GetProperties.getMaximumLatencyinMilliSec(this.relatedEndToEndFlow);
 		expectedMinLatency = GetProperties.getMinimumLatencyinMilliSec(this.relatedEndToEndFlow);
@@ -68,11 +68,19 @@ public class LatencyReportEntry {
 	}
 
 	public boolean doSynchronous() {
-		return Values.doSynchronousSystem();
+		return synchronpousSystem;
 	}
 
 	public SystemOperationMode getSOM() {
 		return this.som;
+	}
+
+	public EndToEndFlowInstance getETEF() {
+		return this.relatedEndToEndFlow;
+	}
+
+	public List<Diagnostic> getIssues() {
+		return this.issues;
 	}
 
 	public void addContributor(LatencyContributor lc) {
@@ -627,48 +635,21 @@ public class LatencyReportEntry {
 		return this.relatedEndToEndFlow.getName();
 	}
 
-	private String getRelatedObjectLabel() {
-		return this.relatedEndToEndFlow.getComponentInstancePath() + ": ";
-	}
-
-	public void generateMarkers(AnalysisErrorReporterManager errManager) {
-		List<Diagnostic> doIssues = this.issues;
-		String inMode = Aadl2Util.isPrintableSOMName(som) ? " in mode " + som.getName() : "";
-		for (Diagnostic reportedCell : doIssues) {
-			if (reportedCell.getType() == DiagnosticType.INFO) {
-				errManager.info(this.relatedEndToEndFlow, reportedCell.getMessage() + inMode);
-			} else if (reportedCell.getType() == DiagnosticType.SUCCESS) {
-				errManager.info(this.relatedEndToEndFlow, getRelatedObjectLabel() + reportedCell.getMessage() + inMode);
-			} else if (reportedCell.getType() == DiagnosticType.WARNING) {
-				errManager.warning(this.relatedEndToEndFlow,
-						getRelatedObjectLabel() + reportedCell.getMessage() + inMode);
-			} else if (reportedCell.getType() == DiagnosticType.ERROR) {
-				errManager.error(this.relatedEndToEndFlow,
-						getRelatedObjectLabel() + reportedCell.getMessage() + inMode);
-			}
-		}
-	}
-
 	public Result genResult() {
-		String reportName;
 
 		issues = new ArrayList<Diagnostic>();
 
-		if (relatedEndToEndFlow != null) {
-			reportName = relatedEndToEndFlow.getComponentInstancePath();
-		} else {
-			reportName = "Unnamed flow";
-		}
 		SystemInstance si = (SystemInstance) relatedEndToEndFlow.getElementRoot();
-		String systemName = si.getComponentClassifier().getName();
-		String inMode = Aadl2Util.isPrintableSOMName(som) ? " in mode " + som.getName() : "";
+		String inMode = Aadl2Util.isPrintableSOMName(som) ? som.getName() : "";
 
 		Result result = ResultFactory.eINSTANCE.createResult();
 		result.setSourceReference(relatedEndToEndFlow);
 
-		String description = "Latency analysis for end-to-end flow '" + reportName + "' of system '" + systemName + "'"
-				+ inMode;
-		addStringValue(result,description);
+//		String targetName = relatedEndToEndFlow.getComponentInstancePath();
+//		String systemName = si.getComponentClassifier().getName();
+//		String description = "Latency analysis for end-to-end flow '" + targetName + "' of system '" + systemName + "'"
+//				+ inMode;
+		addStringValue(result, inMode);
 
 		addRealValue(result, minValue);
 		addRealValue(result,maxValue);
