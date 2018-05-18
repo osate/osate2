@@ -22,22 +22,15 @@
 	</proxies>
 	<mirrors>
 		<mirror>
-			<id>eclipse-mirror</id>
+			<id>eclipse-osuosl</id>
 			<mirrorOf>http://download.eclipse.org/</mirrorOf>
 			<url>http://ftp.osuosl.org/pub/eclipse/</url>
 			<layout>p2</layout>
 			<mirrorOfLayouts>p2</mirrorOfLayouts>
 		</mirror>
-		<mirror>
-			<id>m1</id>
+  		<mirror>
+			<id>osate-build-jericho</id>
 			<mirrorOf>http://osate-build.sei.cmu.edu/</mirrorOf>
-			<url>http://jericho.sei.cmu.edu/</url>
-			<layout>p2</layout>
-			<mirrorOfLayouts>p2</mirrorOfLayouts>
-		</mirror>
-		<mirror>
-			<id>m2</id>
-			<mirrorOf>https://osate-build.sei.cmu.edu/</mirrorOf>
 			<url>http://jericho.sei.cmu.edu/</url>
 			<layout>p2</layout>
 			<mirrorOfLayouts>p2</mirrorOfLayouts>
