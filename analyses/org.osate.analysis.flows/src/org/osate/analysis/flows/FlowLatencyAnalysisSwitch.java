@@ -690,7 +690,10 @@ public class FlowLatencyAnalysisSwitch extends AadlProcessingSwitchWithProgress 
 	 * @param som The mode to run the analysis in
 	 * @return A populated report in AnalysisResult format.
 	 */
-	public AnalysisResult invokeAndGetResult(SystemInstance root, SystemOperationMode som) {
+	public AnalysisResult invokeAndGetResult(SystemInstance root, SystemOperationMode som, boolean isSynchronousSystem,
+			boolean isMajorFrameDelay, boolean isWorstCaseDeadline, boolean isBestCaseEmptyQueue) {
+		report.setLatencyAnalysisParameters(isSynchronousSystem, isMajorFrameDelay, isWorstCaseDeadline,
+				isBestCaseEmptyQueue);
 		root.setCurrentSystemOperationMode(som);
 		this.processPreOrderAll(root);
 		AnalysisResult results = report.genResult();
@@ -698,7 +701,10 @@ public class FlowLatencyAnalysisSwitch extends AadlProcessingSwitchWithProgress 
 		return results;
 	}
 
-	public Result invokeAndGetResult(EndToEndFlowInstance etef, SystemOperationMode som) {
+	public Result invokeAndGetResult(EndToEndFlowInstance etef, SystemOperationMode som, boolean isSynchronousSystem,
+			boolean isMajorFrameDelay, boolean isWorstCaseDeadline, boolean isBestCaseEmptyQueue) {
+		report.setLatencyAnalysisParameters(isSynchronousSystem, isMajorFrameDelay, isWorstCaseDeadline,
+				isBestCaseEmptyQueue);
 		Result results = null;
 		SystemInstance root = etef.getSystemInstance();
 		root.setCurrentSystemOperationMode(som);
@@ -710,8 +716,10 @@ public class FlowLatencyAnalysisSwitch extends AadlProcessingSwitchWithProgress 
 		return results;
 	}
 
-	public AnalysisResult invokeAndSaveResult(SystemInstance root, SystemOperationMode som) {
-		AnalysisResult results = invokeAndGetResult(root, som);
+	public AnalysisResult invokeAndSaveResult(SystemInstance root, SystemOperationMode som, boolean isSynchronousSystem,
+			boolean isMajorFrameDelay, boolean isWorstCaseDeadline, boolean isBestCaseEmptyQueue) {
+		AnalysisResult results = invokeAndGetResult(root, som, isSynchronousSystem, isMajorFrameDelay,
+				isWorstCaseDeadline, isBestCaseEmptyQueue);
 		FlowLatencyUtil.saveAnalysisResult(results, FlowLatencyUtil.getPreferencesSuffix(report));
 		FlowLatencyUtil.saveAsSpreadSheets(report);
 		return results;

@@ -52,7 +52,7 @@ public class LatencyReport {
 		this.entries.add(entry);
 	}
 
-	public void setLatencyAnalysisParamters(boolean isSynchronousSystem, boolean isMajorFrameDelay,
+	public void setLatencyAnalysisParameters(boolean isSynchronousSystem, boolean isMajorFrameDelay,
 			boolean isWorstCaseDeadline, boolean isBestCaseEmptyQueue) {
 		this.isSynchronousSystem = isSynchronousSystem;
 		this.isMajorFrameDelay = isMajorFrameDelay;
