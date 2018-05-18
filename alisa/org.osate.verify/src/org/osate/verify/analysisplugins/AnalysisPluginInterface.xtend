@@ -24,7 +24,6 @@ import org.osate.analysis.architecture.handlers.CheckConnectionBindingConsistenc
 import org.osate.analysis.architecture.handlers.DoPortConnectionConsistency
 import org.osate.analysis.architecture.handlers.DoPropertyTotals
 import org.osate.analysis.flows.handlers.CheckFlowLatency
-import org.osate.analysis.flows.preferences.Values
 import org.osate.analysis.resource.budgets.handlers.DoBoundResourceAnalysis
 import org.osate.analysis.resource.budgets.handlers.DoBoundSwitchBandWidthAnalysis
 import org.osate.analysis.resource.budgets.handlers.DoPowerAnalysis
@@ -37,19 +36,15 @@ import static org.osate.verify.util.VerifyUtilExtension.*
 
 class AnalysisPluginInterface {
 	
-	def static String flowLatencyAnalysis(InstanceObject etefi, String[] prefs) {
+	def static String flowLatencyAnalysis(InstanceObject etefi, boolean[] prefs) {
 			val checker = new CheckFlowLatency()
 		val markerType = checker.getMarkerType
 		val instance = etefi.elementRoot as SystemInstance
 		if (!getHasRun(markerType, instance)) {
 			val som = instance.systemOperationModes.head
-			if (!prefs.nullOrEmpty){
-				Values.prefs = prefs
-			}
 			try{
 			checker.invoke(new NullProgressMonitor,  instance, som)
 				setHasRun(markerType, instance)
-				Values.prefs = null
 			} catch (Throwable e) {
 				unsetHasRun(markerType, instance)
 			} 
