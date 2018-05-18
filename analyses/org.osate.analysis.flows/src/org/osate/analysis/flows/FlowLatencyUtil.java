@@ -24,7 +24,7 @@ import org.osate.aadl2.modelsupport.resources.OsateResourceUtil;
 import org.osate.aadl2.modelsupport.util.AadlUtil;
 import org.osate.analysis.flows.model.ConnectionType;
 import org.osate.analysis.flows.model.LatencyReport;
-import org.osate.analysis.flows.preferences.Values;
+import org.osate.analysis.flows.preferences.Constants;
 import org.osate.analysis.flows.reporting.exporters.CsvExport;
 import org.osate.analysis.flows.reporting.exporters.ExcelExport;
 import org.osate.analysis.flows.reporting.model.Report;
@@ -481,20 +481,60 @@ public class FlowLatencyUtil {
 		excelExport.save();
 	}
 
-	public static void saveAnalysisResult(AnalysisResult results) {
+	public static void saveAnalysisResult(AnalysisResult results, String postfix) {
 		EObject root = results.getSourceReference();
 		URI rootURI = EcoreUtil.getURI(root).trimFragment().trimFileExtension();
 		String rootname = rootURI.lastSegment();
 		URI latencyURI = rootURI.trimFragment().trimSegments(1).appendSegment("reports").appendSegment("latency")
-				.appendSegment(rootname + "__latency_" + getPreferencesSuffix() + ".result");
+				.appendSegment(rootname + "__latency_" + postfix + ".result");
 		AadlUtil.makeSureFoldersExist(new Path(latencyURI.toPlatformString(true)));
 		OsateResourceUtil.saveEMFModel(results, latencyURI, root);
 
 	}
 
-	public static String getPreferencesSuffix() {
-		return Values.getSynchronousSystemLabel() + "-" + Values.getMajorFrameDelayLabel() + "-"
-				+ Values.getWorstCaseDeadlineLabel() + "-" + Values.getBestcaseEmptyQueueLabel();
+	public static String getPreferencesSuffix(LatencyReport latrep) {
+		return getSynchronousSystemLabel(latrep) + "-" + getMajorFrameDelayLabel(latrep) + "-"
+				+ getWorstCaseDeadlineLabel(latrep) + "-" + getBestcaseEmptyQueueLabel(latrep);
+	}
+
+	public static String getSynchronousSystemLabel(LatencyReport latrep) {
+		return latrep.doSynchronousSystem() ? "SS" : "AS";
+	}
+
+	public static String getMajorFrameDelayLabel(LatencyReport latrep) {
+		return latrep.doMajorFrameDelay() ? "MF" : "PE";
+	}
+
+	public static String getWorstCaseDeadlineLabel(LatencyReport latrep) {
+		return latrep.doWorstCaseDeadline() ? "DL" : "ET";
+	}
+
+	public static String getBestcaseEmptyQueueLabel(LatencyReport latrep) {
+		return latrep.doBestcaseEmptyQueue() ? "EQ" : "FQ";
+	}
+
+
+	public static String getSynchronousSystemDescription(LatencyReport latrep) {
+		return latrep.doSynchronousSystem() ? Constants.SYNCHRONOUS_SYSTEM_YES : Constants.SYNCHRONOUS_SYSTEM_NO;
+	}
+
+	public static String getMajorFrameDelayDescription(LatencyReport latrep) {
+		return latrep.doMajorFrameDelay() ? Constants.PARTITIONING_POLICY_MAJOR_FRAME_DELAYED_STR
+				: Constants.PARTITIONING_POLICY_PARTITION_END_STR;
+	}
+
+	public static String getWorstCaseDeadlineDescription(LatencyReport latrep) {
+		return latrep.doWorstCaseDeadline() ? Constants.WORST_CASE_DEADLINE_YES : Constants.WORST_CASE_DEADLINE_NO;
+	}
+
+	public static String getBestcaseEmptyQueueDescription(LatencyReport latrep) {
+		return latrep.doBestcaseEmptyQueue() ? Constants.BESTCASE_EMPTY_QUEUE_YES : Constants.BESTCASE_EMPTY_QUEUE_NO;
+	}
+
+
+	public static String getPreferencesDescription(LatencyReport latrep) {
+		return getSynchronousSystemDescription(latrep) + "/" + getMajorFrameDelayDescription(latrep) + "/"
+				+ getWorstCaseDeadlineDescription(latrep) + "/" + getBestcaseEmptyQueueDescription(latrep);
 	}
 
 }

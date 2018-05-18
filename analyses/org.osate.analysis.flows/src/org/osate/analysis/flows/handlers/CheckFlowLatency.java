@@ -87,8 +87,8 @@ public final class CheckFlowLatency extends AbstractInstanceOrDeclarativeModelRe
 			// do cvs and xsl reports
 			FlowLatencyUtil.saveAsSpreadSheets(latreport);
 			AnalysisResult results = latreport.genResult();
-			FlowLatencyUtil.saveAnalysisResult(results);
-			generateMarkers(latreport, errManager);
+			FlowLatencyUtil.saveAnalysisResult(results, FlowLatencyUtil.getPreferencesSuffix(latreport));
+			generateMarkers(latreport, new AnalysisErrorReporterManager(getAnalysisErrorReporterFactory()));
 		}
 		return true;
 	};
@@ -111,9 +111,6 @@ public final class CheckFlowLatency extends AbstractInstanceOrDeclarativeModelRe
 
 	public void invoke(IProgressMonitor monitor, SystemInstance root, SystemOperationMode som) {
 		initializeAnalysis(root);
-		if (this.errManager == null) {
-			this.errManager = new AnalysisErrorReporterManager(getAnalysisErrorReporterFactory());
-		}
 		analyzeInstanceModel(monitor, null, root, som);
 		finalizeAnalysis(); // uses error report manager to generate markers
 	}
