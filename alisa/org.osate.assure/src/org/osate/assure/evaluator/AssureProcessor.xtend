@@ -85,6 +85,7 @@ import static extension org.osate.verify.util.VerifyUtilExtension.*
 import org.osate.aadl2.instance.SystemInstance
 import org.osate.alisa.common.util.CommonUtilExtension
 import java.util.Collection
+import org.osate.result.AnalysisResult
 
 @ImplementedBy(AssureProcessor)
 interface IAssureProcessor {
@@ -379,30 +380,65 @@ class AssureProcessor implements IAssureProcessor {
 					// The parameters are objects from the Properties Meta model. It is up to the plugin interface method to convert to Java base types
 					val res = VerificationMethodDispatchers.eInstance.
 						dispatchVerificationMethod(methodtype, instanceroot, parameterObjects) // returning the marker or diagnostic id as string
-					if (!(res instanceof String)) {
-						setToError(verificationResult, "Analysis return type is not a string of MarkerType", targetComponent);
-					} else {
+					val InstanceObject target = if (targetElement !== null && !targetElement.eIsProxy) {
+						targetComponent.findElementInstance(targetElement) ?: targetComponent
+						} else {
+							targetComponent
+						}
+					if (res instanceof String) {
 						val result = res as String
-						val InstanceObject target = if (targetElement !== null && !targetElement.eIsProxy) {
-								targetComponent.findElementInstance(targetElement) ?: targetComponent
-							} else {
-								targetComponent
-							}
 						if (target instanceof ConnectionInstance) {
 							val conns = findConnectionInstances(targetComponent.connectionInstances, targetElement.name)
-							for (conni: conns){
+							for (conni : conns) {
 								addMarkersAsResult(verificationResult, conni, result, method)
 							}
 						} else {
 							addMarkersAsResult(verificationResult, target, result, method)
 						}
+					} else if (res instanceof AnalysisResult) {
+						for (Result r : res.results){
+							if (r.sourceReference === target){
+								val issues = r.diagnostics
+								if (hasErrors(res)||hasFailures(r)) {
+									setToFail(verificationResult, "", target)
+								} else {
+									setToSuccess(verificationResult, "", target)
+								}
+								for (issue: issues){
+									val c = EcoreUtil.copy(issue)
+									if (c.type === DiagnosticType.ERROR){
+										c.type = DiagnosticType.FAILURE
+									}
+									verificationResult.issues.add(c)
+								}
+							}
+						}
+					} else if (res instanceof Result) {
+							if (res.sourceReference === target){
+								val issues = res.diagnostics
+								if (hasErrors(res)||hasFailures(res)) {
+									setToFail(verificationResult, "", target)
+								} else {
+									setToSuccess(verificationResult, "", target)
+								}
+								for (issue: issues){
+									val c = EcoreUtil.copy(issue)
+									if (c.type === DiagnosticType.ERROR){
+										c.type = DiagnosticType.FAILURE
+									}
+									verificationResult.issues.add(c)
+								}
+						}
+					} else {
+						setToError(verificationResult, "Analysis return type is not a string or AnalysisResult",
+							targetComponent);
 					}
 					verificationResult.eResource.save(null)
 					updateProgress(verificationResult)
 				}
 				ResoluteMethod: {
 					if (RESOLUTE_INSTALLED) {
-						executeResoluteFunction(verificationResult, method, instanceroot, targetComponent,
+						executeResoluteFunction(verificationResult, methodtype, instanceroot, targetComponent,
 							targetElement, parameterObjects)
 						verificationResult.eResource.save(null)
 						updateProgress(verificationResult)
@@ -599,9 +635,10 @@ class AssureProcessor implements IAssureProcessor {
 		}
 	}
 
-	def void executeResoluteFunction(VerificationResult verificationResult, VerificationMethod method,
+	def void executeResoluteFunction(VerificationResult verificationResult, ResoluteMethod resmethod,
 		SystemInstance root, ComponentInstance targetComponent, NamedElement targetElement,
 		List<PropertyExpression> parameters) {
+			val fundef = resmethod.methodReference
 			val InstanceObject target = if (targetElement !== null) {
 					if (targetElement.eIsProxy) {
 						setToError(verificationResult, "Unresolved target element for claim", targetComponent)
@@ -616,7 +653,7 @@ class AssureProcessor implements IAssureProcessor {
 				val conns = findConnectionInstances(targetComponent.connectionInstances, targetElement.name)
 				for (conni : conns) {
 					if (checkPropertyValues(verificationResult, conni)) {
-						val d = ExecuteResoluteUtil.eInstance.executeResoluteFunctionOnce(method, root,
+						val d = ExecuteResoluteUtil.eInstance.executeResoluteFunctionOnce(fundef, root,
 							targetComponent, conni, parameters)
 						verificationResult.issues += d
 						if (d.type == DiagnosticType.SUCCESS) {
@@ -638,7 +675,7 @@ class AssureProcessor implements IAssureProcessor {
 				if (!checkPropertyValues(verificationResult, target)) {
 					return
 				}
-				val d = ExecuteResoluteUtil.eInstance.executeResoluteFunctionOnce(method, root, targetComponent, target,
+				val d = ExecuteResoluteUtil.eInstance.executeResoluteFunctionOnce(fundef, root, targetComponent, target,
 					parameters)
 				verificationResult.issues += d
 				if (d.type == DiagnosticType.SUCCESS) {
