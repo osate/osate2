@@ -42,6 +42,7 @@ package org.osate.analysis.flows;
 import java.util.List;
 
 import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.core.runtime.NullProgressMonitor;
 import org.osate.aadl2.Classifier;
 import org.osate.aadl2.ComponentCategory;
 import org.osate.aadl2.ComponentClassifier;
@@ -82,6 +83,9 @@ public class FlowLatencyAnalysisSwitch extends AadlProcessingSwitchWithProgress 
 	LatencyReport report;
 //	SystemOperationMode som;
 
+	public FlowLatencyAnalysisSwitch(SystemInstance si) {
+		this(new NullProgressMonitor(), si, null);
+	}
 	public FlowLatencyAnalysisSwitch(final IProgressMonitor monitor, SystemInstance si) {
 		this(monitor, si, null);
 	}

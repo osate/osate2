@@ -61,6 +61,7 @@ class VerificationMethodDispatchers {
 	def Object dispatchVerificationMethod(PluginMethod vm, InstanceObject target, List<PropertyExpression> parameters) {
 		switch (vm.methodID) {
 			case "FlowLatencyAnalysis",
+			case "FlowLatencyAnalysisParameterized",
 			case "MaxFlowLatencyAnalysis",
 			case "MinFlowLatencyAnalysis",
 			case "FlowLatencyJitterAnalysis":
