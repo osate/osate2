@@ -46,9 +46,9 @@ class AnalysisPluginInterface {
 			val som = root.systemOperationModes.head
 			try{
 				if (prefs !== null && prefs.size === 4 ){
-					res = checker.invokeAndGetResult( root, som, prefs.get(0), prefs.get(1), prefs.get(2), prefs.get(3))
+					res = checker.invokeAndSaveResult( root, som, prefs.get(0), prefs.get(1), prefs.get(2), prefs.get(3))
 				} else {
-					res = checker.invokeAndGetResult( root, som, false, true, true, true)
+					res = checker.invokeAndSaveResult( root, som, false, true, true, true)
 				}
 				setHasRun(markerType, root)
 			} catch (Throwable e) {
