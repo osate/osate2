@@ -11,11 +11,8 @@ import java.util.List;
 import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.instance.ConnectionInstance;
 import org.osate.aadl2.instance.InstanceObject;
-import org.osate.aadl2.modelsupport.errorreporting.AnalysisErrorReporterManager;
 import org.osate.analysis.flows.FlowLatencyUtil;
 import org.osate.analysis.flows.preferences.Values;
-import org.osate.analysis.flows.reporting.model.Line;
-import org.osate.analysis.flows.reporting.model.ReportSeverity;
 import org.osate.result.Diagnostic;
 import org.osate.result.DiagnosticType;
 import org.osate.result.Result;
@@ -335,8 +332,11 @@ public abstract class LatencyContributor {
 			return "partition output" + (Values.doMajorFrameDelay() ? " (MF)" : " (PE)");
 		case SAMPLED_PROTOCOL:
 			return "sampling protocol/bus";
+		case UNKNOWN:
+			return "no latency";
+		default:
+			return "no latency";
 		}
-		return "no latency";
 	}
 
 	public void setWorstCaseMethod(LatencyContributorMethod m) {
@@ -490,111 +490,8 @@ public abstract class LatencyContributor {
 
 	}
 
-	/**
-	 * If the sender is on a partitioned architecture, then, we might need to add
-	 * We do that only if the preferences selected an major frame delayed flush policy.
-	 */
-
-	public List<Line> export() {
-		return export(0);
-	}
-
-	private String levelOpenLabel(int level) {
-		if (level > 0) {
-			return "(";
-		}
-		return "";
-	}
-
-	private String levelCloseLabel(int level) {
-		if (level > 0) {
-			return ")";
-		}
-		return "";
-	}
-
-	public List<Line> export(int level) {
-		List<Line> lines;
-		Line myLine;
-
-		lines = new ArrayList<Line>();
-
-		/**
-		 * We also add the lines of all the sub-contributors.
-		 */
-		for (LatencyContributor lc : this.subContributors) {
-			lines.addAll(lc.export(level + 1));
-		}
-
-		myLine = new Line();
-		myLine.setSeverity(ReportSeverity.INFO);
-
-		myLine.addContent(levelOpenLabel(level) + this.getContributorType() + " "
-				+ this.getFullComponentContributorName() + levelCloseLabel(level));
-		if (this.expectedMin != 0.0) {
-			myLine.addContent(this.expectedMin + "ms");
-		} else {
-			myLine.addContent(""); // the min expected value
-		}
-		myLine.addContent(this.getTotalMinimum() + "ms");
-//		if (Values.doReportSubtotals()) {
-//			// don't report subtotals for subcontributors
-//			if (level > 0) {
-//				myLine.addContent("");
-//			} else {
-//				myLine.addContent(levelOpenLabel(level) + this.minSubtotal + "ms" + levelCloseLabel(level));
-//			}
-//		}
-		myLine.addContent(mapMethodToString(bestCaseMethod));
-		if (this.expectedMax != 0.0) {
-			myLine.addContent(this.expectedMax + "ms");
-		} else {
-			myLine.addContent(""); // the min expected value
-		}
-		myLine.addContent(this.getTotalMaximum() + "ms");
-//		if (Values.doReportSubtotals()) {
-//			// don't report subtotals for subcontributors
-//			if (level > 0) {
-//				myLine.addContent("");
-//			} else {
-//				myLine.addContent(levelOpenLabel(level) + this.maxSubtotal + "ms" + levelCloseLabel(level));
-//			}
-//		}
-		myLine.addContent(mapMethodToString(worstCaseMethod));
-		myLine.addCells(this.getReportedIssues());
-		lines.add(myLine);
-		return lines;
-	}
-
-	private String getRelatedObjectLabel() {
-		if (this.relatedElement instanceof InstanceObject) {
-			return ((InstanceObject) this.relatedElement).getComponentInstancePath() + ": ";
-		} else {
-			return this.relatedElement.getQualifiedName();
-		}
-	}
-
-	public void generateMarkers(AnalysisErrorReporterManager errManager) {
-		List<Diagnostic> doIssues = this.getReportedIssues();
-		for (Diagnostic reportedCell : doIssues) {
-			if (reportedCell.getType() == DiagnosticType.INFO) {
-				errManager.info(this.relatedElement, reportedCell.getMessage());
-			} else if (reportedCell.getType() == DiagnosticType.SUCCESS) {
-				errManager.info(this.relatedElement, getRelatedObjectLabel() + reportedCell.getMessage());
-			} else if (reportedCell.getType() == DiagnosticType.WARNING) {
-				errManager.warning(this.relatedElement, getRelatedObjectLabel() + reportedCell.getMessage());
-			} else if (reportedCell.getType() == DiagnosticType.ERROR) {
-				errManager.error(this.relatedElement, getRelatedObjectLabel() + reportedCell.getMessage());
-			}
-		}
-	}
 
 	public Result genResult() {
-		return genResult(0);
-	}
-
-	public Result genResult(int level) {
-
 		Result result = ResultFactory.eINSTANCE.createResult();
 		result.setSourceReference(relatedElement);
 		result.getDiagnostics().addAll(issues);
@@ -606,16 +503,14 @@ public abstract class LatencyContributor {
 		addRealValue(result, partitionOffset);
 		addRealValue(result, partitionDuration);
 		addRealValue(result, samplingPeriod);
-//		addRealValue(result, minSubtotal);
-//		addRealValue(result, maxSubtotal);
-		addStringValue(result,worstCaseMethod.name());
-		addStringValue(result, bestCaseMethod.name());
+		addStringValue(result, mapMethodToString(worstCaseMethod));
+		addStringValue(result, mapMethodToString(bestCaseMethod));
 		addStringValue(result,isSynchronized.name());
 		/**
 		 * We also add the lines of all the sub-contributors.
 		 */
 		for (LatencyContributor lc : this.subContributors) {
-			result.getSubResults().add(lc.genResult(level + 1));
+			result.getSubResults().add(lc.genResult());
 		}
 		return result;
 	}

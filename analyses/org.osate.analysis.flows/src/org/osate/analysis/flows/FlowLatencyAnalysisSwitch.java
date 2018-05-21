@@ -59,6 +59,7 @@ import org.osate.aadl2.instance.SystemInstance;
 import org.osate.aadl2.instance.SystemOperationMode;
 import org.osate.aadl2.instance.util.InstanceSwitch;
 import org.osate.aadl2.modelsupport.modeltraversal.AadlProcessingSwitchWithProgress;
+import org.osate.analysis.flows.model.LatencyCSVReport;
 import org.osate.analysis.flows.model.LatencyContributor;
 import org.osate.analysis.flows.model.LatencyContributor.LatencyContributorMethod;
 import org.osate.analysis.flows.model.LatencyContributorComponent;
@@ -726,8 +727,8 @@ public class FlowLatencyAnalysisSwitch extends AadlProcessingSwitchWithProgress 
 			boolean isMajorFrameDelay, boolean isWorstCaseDeadline, boolean isBestCaseEmptyQueue) {
 		AnalysisResult results = invokeAndGetResult(root, som, isSynchronousSystem, isMajorFrameDelay,
 				isWorstCaseDeadline, isBestCaseEmptyQueue);
-		FlowLatencyUtil.saveAnalysisResult(results, FlowLatencyUtil.getPreferencesSuffix(report));
-		FlowLatencyUtil.saveAsSpreadSheets(report);
+		FlowLatencyUtil.saveAnalysisResult(results, FlowLatencyUtil.getParametersAsLabels(report));
+		LatencyCSVReport.generateCSVReport(results);
 		return results;
 	}
 

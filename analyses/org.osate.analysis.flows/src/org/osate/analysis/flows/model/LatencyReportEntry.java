@@ -9,16 +9,11 @@ import java.util.List;
 
 import org.osate.aadl2.instance.ConnectionInstance;
 import org.osate.aadl2.instance.EndToEndFlowInstance;
-import org.osate.aadl2.instance.SystemInstance;
 import org.osate.aadl2.instance.SystemOperationMode;
 import org.osate.aadl2.util.Aadl2Util;
 import org.osate.analysis.flows.FlowLatencyUtil;
 import org.osate.analysis.flows.model.LatencyContributor.LatencyContributorMethod;
 import org.osate.analysis.flows.preferences.Values;
-import org.osate.analysis.flows.reporting.model.Line;
-import org.osate.analysis.flows.reporting.model.ReportSeverity;
-import org.osate.analysis.flows.reporting.model.ReportedCell;
-import org.osate.analysis.flows.reporting.model.Section;
 import org.osate.result.Diagnostic;
 import org.osate.result.Result;
 import org.osate.result.ResultFactory;
@@ -480,153 +475,6 @@ public class LatencyReportEntry {
 		issues.add(ResultUtil.createWarning(str, relatedEndToEndFlow));
 	}
 
-	public Section export() {
-
-		Section section;
-		Line line;
-		String sectionName;
-
-		issues = new ArrayList<Diagnostic>();
-
-		if (relatedEndToEndFlow != null) {
-			sectionName = relatedEndToEndFlow.getComponentInstancePath();
-		} else {
-			sectionName = "Unnamed flow";
-		}
-		SystemInstance si = (SystemInstance) relatedEndToEndFlow.getElementRoot();
-		String systemName = si.getComponentClassifier().getName();
-		String inMode = Aadl2Util.isPrintableSOMName(som) ? " in mode " + som.getName() : "";
-
-		section = new Section(sectionName + inMode);
-		line = new Line();
-		line.addHeaderContent(
-				"Latency results for end-to-end flow '" + sectionName + "' of system '" + systemName
-				+ "'" + inMode);
-		section.addLine(line);
-		line = new Line();
-		section.addLine(line);
-		line = new Line();
-		line.addHeaderContent("Result");
-		line.addHeaderContent("Min Specified");
-		line.addHeaderContent("Min Actual");
-		line.addHeaderContent("Min Method");
-		line.addHeaderContent("Max Specified");
-		line.addHeaderContent("Max Actual");
-		line.addHeaderContent("Max Method");
-		line.addHeaderContent("Comments");
-		section.addLine(line);
-		// will populate the comments section
-
-		// reporting each entry
-		for (LatencyContributor lc : this.contributors) {
-			for (Line l : lc.export()) {
-				section.addLine(l);
-			}
-		}
-
-		line = new Line();
-		line.addContent("Latency Total");
-		line.addContent(minSpecifiedValue + "ms");
-		line.addContent(minValue + "ms");
-		line.addContent("");
-		line.addContent(maxSpecifiedValue + "ms");
-		line.addContent(maxValue + "ms");
-		line.addContent("");
-		section.addLine(line);
-
-		line = new Line();
-		line.setSeverity(ReportSeverity.SUCCESS);
-
-		line.addContent("Specified End To End Latency");
-		line.addContent("");
-		line.addContent(expectedMinLatency + "ms");
-		line.addContent("");
-		line.addContent("");
-		line.addContent(expectedMaxLatency + "ms");
-		line.addContent("");
-
-		/*
-		 * In that case, the end to end flow has a minimum latency
-		 */
-		if (expectedMaxLatency > 0) {
-			if (minSpecifiedValue > expectedMaxLatency) {
-				reportSummaryError("Minimum specified flow latency total " + BestDecPoint(minSpecifiedValue)
-						+ "ms exceeds expected maximum latency " + BestDecPoint(expectedMaxLatency) + "ms");
-			} else if (minSpecifiedValue < expectedMinLatency) {
-				reportSummaryWarning("Minimum specified flow latency total " + BestDecPoint(minSpecifiedValue)
-				+ "ms less than expected minimum end to end latency " + BestDecPoint(expectedMinLatency)
-						+ "ms (better response time)");
-			}
-
-			if (minValue > expectedMaxLatency) {
-				reportSummaryError("Minimum actual latency total " + BestDecPoint(minValue)
-						+ "ms exceeds expected maximum end to end latency " + BestDecPoint(expectedMaxLatency) + "ms");
-			} else if (minValue < expectedMinLatency) {
-				reportSummaryWarning("Minimum actual latency total " + BestDecPoint(minValue)
-				+ "ms less than expected minimum end to end latency " + BestDecPoint(expectedMinLatency)
-						+ "ms (faster actual minimum response time)");
-			} else {
-				reportSummarySuccess("Minimum actual latency total " + BestDecPoint(minValue)
-				+ "ms is greater or equal to expected minimum end to end latency "
-						+ BestDecPoint(expectedMinLatency) + "ms");
-			}
-
-			if (maxValue > 0) {
-				if (expectedMaxLatency < maxSpecifiedValue) {
-					reportSummaryError("Maximum specified flow latency total " + BestDecPoint(maxSpecifiedValue)
-					+ "ms exceeds expected maximum end to end latency " + BestDecPoint(expectedMaxLatency)
-							+ "ms");
-				}
-
-				if (expectedMaxLatency < maxValue) {
-					reportSummaryError("Maximum actual latency total " + BestDecPoint(maxValue)
-					+ "ms exceeds expected maximum end to end latency " + BestDecPoint(expectedMaxLatency)
-							+ "ms");
-				} else {
-					reportSummarySuccess("Maximum actual latency total " + BestDecPoint(maxValue)
-					+ "ms is less or equal to expected maximum end to end latency "
-							+ BestDecPoint(expectedMaxLatency) + "ms");
-				}
-				// do jitter analysis
-				if (maxSpecifiedValue - minSpecifiedValue > expectedMaxLatency - expectedMinLatency) {
-					reportSummaryWarning("Jitter of specified latency total " + BestDecPoint(minSpecifiedValue) + ".."
-							+ BestDecPoint(maxSpecifiedValue) + "ms exceeds expected end to end latency jitter "
-							+ BestDecPoint(expectedMinLatency) + ".." + BestDecPoint(expectedMaxLatency) + "ms");
-				}
-				if (maxValue - minValue > expectedMaxLatency - expectedMinLatency) {
-					reportSummaryWarning("Jitter of actual latency total " + BestDecPoint(minValue) + ".."
-							+ BestDecPoint(maxValue) + "ms exceeds expected end to end latency jitter "
-							+ BestDecPoint(expectedMinLatency) + ".." + BestDecPoint(expectedMaxLatency) + "ms");
-				}
-				if ((minValue > expectedMinLatency) && (expectedMaxLatency > maxValue)) {
-					reportSummarySuccess("Jitter of actual flow latency " + BestDecPoint(minValue) + ".."
-							+ BestDecPoint(maxValue) + "ms is within expected end to end latency jitter "
-							+ BestDecPoint(expectedMinLatency) + ".." + BestDecPoint(expectedMaxLatency) + "ms");
-				}
-			}
-		} else {
-			reportSummaryWarning("Expected end to end latency is not specified");
-		}
-
-		section.addLine(line);
-
-		if (issues.size() > 0) {
-			line = new Line();
-			line.addHeaderContent("End to end Latency Summary");
-			section.addLine(line);
-			for (Diagnostic issue : issues) {
-				line = new Line();
-				String msg = issue.getMessage();
-				ReportedCell issueLabel = new ReportedCell(issue.getType(), issue.getType().toString());
-				line.addCell(issueLabel);
-				line.addContent(msg);
-				section.addLine(line);
-			}
-		}
-
-		return section;
-	}
-
 	/**
 	 * Get the name associated with the related end-to-end flow
 	 * @return The related end-to-end flow's name
@@ -639,16 +487,11 @@ public class LatencyReportEntry {
 
 		issues = new ArrayList<Diagnostic>();
 
-		SystemInstance si = (SystemInstance) relatedEndToEndFlow.getElementRoot();
 		String inMode = Aadl2Util.isPrintableSOMName(som) ? som.getName() : "";
 
 		Result result = ResultFactory.eINSTANCE.createResult();
 		result.setSourceReference(relatedEndToEndFlow);
 
-//		String targetName = relatedEndToEndFlow.getComponentInstancePath();
-//		String systemName = si.getComponentClassifier().getName();
-//		String description = "Latency analysis for end-to-end flow '" + targetName + "' of system '" + systemName + "'"
-//				+ inMode;
 		addStringValue(result, inMode);
 
 		addRealValue(result, minValue);
