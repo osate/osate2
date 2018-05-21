@@ -7,10 +7,10 @@ import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
-import org.eclipse.core.runtime.Path;
 import org.eclipse.emf.common.util.URI;
 import org.osate.aadl2.instance.InstanceObject;
 import org.osate.aadl2.instance.SystemInstance;
+import org.osate.aadl2.modelsupport.resources.OsateResourceUtil;
 import org.osate.aadl2.modelsupport.util.AadlUtil;
 import org.osate.analysis.flows.FlowLatencyUtil;
 import org.osate.result.AnalysisResult;
@@ -20,7 +20,7 @@ import org.osate.result.util.ResultUtil;
 
 public class LatencyCSVReport {
 
-	public StringBuffer getReportContent(AnalysisResult ar) {
+	private static StringBuffer getReportContent(AnalysisResult ar) {
 		StringBuffer report = new StringBuffer();
 
 		String reportheader = "Latency analysis with preference settings: "
@@ -44,11 +44,11 @@ public class LatencyCSVReport {
 				}
 				addContributor(report, contributor, false);
 			}
-			report.append("Latency Total'" + ResultUtil.getReal(result, 3) + "ms," + ResultUtil.getReal(result, 1)
+			report.append("Latency Total," + ResultUtil.getReal(result, 3) + "ms," + ResultUtil.getReal(result, 1)
 					+ "ms,," + ResultUtil.getReal(result, 4) + "ms," + ResultUtil.getReal(result, 2) + "ms"
 					+ System.lineSeparator());
-			report.append("Specified End To End Latency,," + ResultUtil.getReal(result, 5) + ",,,"
-					+ ResultUtil.getReal(result, 6) + System.lineSeparator());
+			report.append("Specified End To End Latency,," + ResultUtil.getReal(result, 5) + "ms,,,"
+					+ ResultUtil.getReal(result, 6) + "ms" + System.lineSeparator());
 			report.append("End to end Latency Summary" + System.lineSeparator());
 			for (Diagnostic dia : result.getDiagnostics()) {
 				report.append(dia.getType() + "," + dia.getMessage() + System.lineSeparator());
@@ -58,14 +58,14 @@ public class LatencyCSVReport {
 		return report;
 	}
 
-	private void addContributor(StringBuffer report, Result contributor, boolean subcontributor) {
+	private static void addContributor(StringBuffer report, Result contributor, boolean subcontributor) {
 		String comp = FlowLatencyUtil.getContributorType(contributor.getSourceReference()) + " "
 				+ FlowLatencyUtil.getFullComponentContributorName((contributor.getSourceReference()));
 		if (subcontributor) {
 			comp = "(" + comp + ")";
 		}
 		report.append(comp + "," + ResultUtil.getReal(contributor, 2) + "ms," + ResultUtil.getReal(contributor, 0)
-				+ "ms," + ResultUtil.getString(contributor, 9) + ResultUtil.getReal(contributor, 3) + "ms,"
+				+ "ms," + ResultUtil.getString(contributor, 9) + "," + ResultUtil.getReal(contributor, 3) + "ms,"
 				+ ResultUtil.getReal(contributor, 1) + "ms," + ResultUtil.getString(contributor, 8));
 		for (Diagnostic dia : contributor.getDiagnostics()) {
 			report.append("," + dia.getMessage());
@@ -73,7 +73,7 @@ public class LatencyCSVReport {
 		report.append(System.lineSeparator());
 	}
 
-	public void generateCSVReport(AnalysisResult latres) {
+	public static void generateCSVReport(AnalysisResult latres) {
 		IFile file;
 		InputStream input;
 		StringBuffer reportContent;
@@ -81,7 +81,7 @@ public class LatencyCSVReport {
 		reportContent = getReportContent(latres);
 		IPath csvPath = getCSVPath(latres);
 		if (csvPath != null) {
-			file = ResourcesPlugin.getWorkspace().getRoot().getFile(csvPath); // getFileForLocation
+			file = ResourcesPlugin.getWorkspace().getRoot().getFile(csvPath);
 			if (file != null) {
 				input = new ByteArrayInputStream(reportContent.toString().getBytes());
 				try {
@@ -97,10 +97,11 @@ public class LatencyCSVReport {
 		}
 	}
 
-	public IPath getCSVPath(AnalysisResult ar) {
+	public static IPath getCSVPath(AnalysisResult ar) {
 		URI arURI = ar.eResource().getURI();
 		URI csvURI = arURI.trimFileExtension().appendFileExtension("csv");
-		return new Path(csvURI.toString());
+		IPath path = OsateResourceUtil.getOsatePath(csvURI);
+		return path;
 	}
 
 }
