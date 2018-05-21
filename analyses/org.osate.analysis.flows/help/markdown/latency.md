@@ -109,7 +109,7 @@ Each contributor entry has a number of columns:
 1. The type and name of the **contributor**.
 2. The **minimum specified** latency as indicated by the latency property value 
    associated with the contributor. (The latency property takes a range value and 
-   the lower bound is used as minumum).
+   the lower bound is used as minimum).
 3. The **minimum actual** latency value used by the analysis. This value is 
    determined by properties in the architecture design, e.g., the period and compute
    execution time of a thread, or the transmission time by a bus. If no actual 
@@ -145,8 +145,7 @@ Each contributor entry has a number of columns:
     - **partition offset**: Latency contribution due to partition offset in the 
       partition schedule, either from beginning of major frame or earlier partition 
       in the same schedule. Uses property values from ARINC653 partition schedule.
-5. the **maximum specified**, **maximum actual**, **maximum subtotals**, and 
-   **maximum method** columns describe the maximum latency contribution
+5. the **maximum specified**, **maximum actual**, and **maximum method** columns describe the maximum latency contribution
 6. the **comments** column provides additional details on the calculations and 
    may give warnings or error messages to report inconsistencies.
 
