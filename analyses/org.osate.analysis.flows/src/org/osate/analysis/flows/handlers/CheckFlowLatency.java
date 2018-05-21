@@ -51,7 +51,6 @@ import org.osate.aadl2.instance.SystemOperationMode;
 import org.osate.aadl2.modelsupport.errorreporting.AnalysisErrorReporterManager;
 import org.osate.analysis.flows.FlowLatencyAnalysisSwitch;
 import org.osate.analysis.flows.FlowLatencyUtil;
-import org.osate.analysis.flows.model.LatencyCSVReport;
 import org.osate.analysis.flows.model.LatencyReport;
 import org.osate.analysis.flows.preferences.Values;
 import org.osate.result.AnalysisResult;
@@ -95,9 +94,11 @@ public final class CheckFlowLatency extends AbstractInstanceOrDeclarativeModelRe
 	@Override
 	protected boolean finalizeAnalysis() {
 		if (latreport != null && !latreport.getEntries().isEmpty()) {
+			// do cvs and xsl reports
+			FlowLatencyUtil.saveAsSpreadSheets(latreport);
 			AnalysisResult results = latreport.genResult();
 			FlowLatencyUtil.saveAnalysisResult(results, FlowLatencyUtil.getParametersAsLabels(latreport));
-			LatencyCSVReport.generateCSVReport(results);
+//			LatencyCSVReport.generateCSVReport(results); Generate CSV file from AnalysisResult
 			generateMarkers(results, new AnalysisErrorReporterManager(getAnalysisErrorReporterFactory()));
 		}
 		return true;
@@ -138,12 +139,6 @@ public final class CheckFlowLatency extends AbstractInstanceOrDeclarativeModelRe
 		FlowLatencyAnalysisSwitch flas = new FlowLatencyAnalysisSwitch(monitor, root, latreport);
 		flas.processPreOrderAll(root);
 		monitor.done();
-	}
-
-	public void invoke(IProgressMonitor monitor, SystemInstance root, SystemOperationMode som) {
-		initializeAnalysis(root);
-		analyzeInstanceModel(monitor, null, root, som);
-		finalizeAnalysis(); // uses error report manager to generate markers
 	}
 
 
