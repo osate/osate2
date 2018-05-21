@@ -95,8 +95,6 @@ public final class CheckFlowLatency extends AbstractInstanceOrDeclarativeModelRe
 	@Override
 	protected boolean finalizeAnalysis() {
 		if (latreport != null && !latreport.getEntries().isEmpty()) {
-			// do cvs and xsl reports
-			FlowLatencyUtil.saveAsSpreadSheets(latreport);
 			AnalysisResult results = latreport.genResult();
 			FlowLatencyUtil.saveAnalysisResult(results, FlowLatencyUtil.getParametersAsLabels(latreport));
 			LatencyCSVReport.generateCSVReport(results);

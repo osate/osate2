@@ -28,9 +28,6 @@ import org.osate.aadl2.modelsupport.resources.OsateResourceUtil;
 import org.osate.aadl2.modelsupport.util.AadlUtil;
 import org.osate.analysis.flows.model.ConnectionType;
 import org.osate.analysis.flows.model.LatencyReport;
-import org.osate.analysis.flows.reporting.exporters.CsvExport;
-import org.osate.analysis.flows.reporting.exporters.ExcelExport;
-import org.osate.analysis.flows.reporting.model.Report;
 import org.osate.contribution.sei.names.DataModel;
 import org.osate.result.AnalysisResult;
 import org.osate.xtext.aadl2.properties.util.ARINC653ScheduleWindow;
@@ -474,14 +471,6 @@ public class FlowLatencyUtil {
 			res = res * ((NumberValue) propertyExpression).getScaledValue();
 		}
 		return res;
-	}
-
-	public static void saveAsSpreadSheets(LatencyReport latreport) {
-		Report report = latreport.export();
-		CsvExport csvExport = new CsvExport(report);
-		csvExport.save();
-		ExcelExport excelExport = new ExcelExport(report);
-		excelExport.save();
 	}
 
 	public static void saveAnalysisResult(AnalysisResult results, String postfix) {

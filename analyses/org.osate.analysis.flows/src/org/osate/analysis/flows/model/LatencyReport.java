@@ -5,8 +5,6 @@ import java.util.List;
 
 import org.osate.aadl2.instance.SystemInstance;
 import org.osate.analysis.flows.FlowLatencyUtil;
-import org.osate.analysis.flows.reporting.model.Report;
-import org.osate.analysis.flows.reporting.model.Report.ReportType;
 import org.osate.result.AnalysisResult;
 import org.osate.result.util.ResultUtil;
 
@@ -79,20 +77,6 @@ public class LatencyReport {
 	public String getParametersAsDescriptions() {
 		return "with preference settings: "
 				+ FlowLatencyUtil.getParametersAsDescriptions(FlowLatencyUtil.getParametersAsLabels(this));
-	}
-
-	public Report export() {
-		Report genericReport;
-
-		genericReport = new Report(this.relatedInstance, "latency",
-				"latency_" + FlowLatencyUtil.getParametersAsLabels(this),
-				ReportType.TABLE);
-		genericReport.setTextContent("Latency analysis " + getParametersAsDescriptions());
-		for (LatencyReportEntry re : entries) {
-			genericReport.addSection(re.export());
-		}
-
-		return genericReport;
 	}
 
 	public AnalysisResult genResult() {

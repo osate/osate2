@@ -40,7 +40,7 @@ public class LatencyCSVReport {
 					+ System.lineSeparator());
 			for (Result contributor : result.getSubResults()) {
 				for (Result subc : contributor.getSubResults()) {
-					addContributor(report, contributor, true);
+					addContributor(report, subc, true);
 				}
 				addContributor(report, contributor, false);
 			}
