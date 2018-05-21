@@ -645,10 +645,6 @@ public class LatencyReportEntry {
 		Result result = ResultFactory.eINSTANCE.createResult();
 		result.setSourceReference(relatedEndToEndFlow);
 
-//		String targetName = relatedEndToEndFlow.getComponentInstancePath();
-//		String systemName = si.getComponentClassifier().getName();
-//		String description = "Latency analysis for end-to-end flow '" + targetName + "' of system '" + systemName + "'"
-//				+ inMode;
 		addStringValue(result, inMode);
 
 		addRealValue(result, minValue);

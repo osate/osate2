@@ -97,7 +97,7 @@ public final class CheckFlowLatency extends AbstractInstanceOrDeclarativeModelRe
 			// do cvs and xsl reports
 			FlowLatencyUtil.saveAsSpreadSheets(latreport);
 			AnalysisResult results = latreport.genResult();
-			FlowLatencyUtil.saveAnalysisResult(results, FlowLatencyUtil.getPreferencesSuffix(latreport));
+			FlowLatencyUtil.saveAnalysisResult(results, FlowLatencyUtil.getParametersAsLabels(latreport));
 			generateMarkers(results, new AnalysisErrorReporterManager(getAnalysisErrorReporterFactory()));
 		}
 		return true;
