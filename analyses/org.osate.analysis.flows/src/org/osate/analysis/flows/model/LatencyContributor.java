@@ -335,7 +335,7 @@ public abstract class LatencyContributor {
 		case SAMPLED_PROTOCOL:
 			return "sampling protocol/bus";
 		case UNKNOWN:
-			return "unknown";
+			return "no latency";
 		default:
 			return "no latency";
 		}
