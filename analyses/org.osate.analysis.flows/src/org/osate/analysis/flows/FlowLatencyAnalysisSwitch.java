@@ -42,6 +42,7 @@ package org.osate.analysis.flows;
 import java.util.List;
 
 import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.core.runtime.NullProgressMonitor;
 import org.osate.aadl2.Classifier;
 import org.osate.aadl2.ComponentCategory;
 import org.osate.aadl2.ComponentClassifier;
@@ -58,6 +59,7 @@ import org.osate.aadl2.instance.SystemInstance;
 import org.osate.aadl2.instance.SystemOperationMode;
 import org.osate.aadl2.instance.util.InstanceSwitch;
 import org.osate.aadl2.modelsupport.modeltraversal.AadlProcessingSwitchWithProgress;
+import org.osate.analysis.flows.model.LatencyCSVReport;
 import org.osate.analysis.flows.model.LatencyContributor;
 import org.osate.analysis.flows.model.LatencyContributor.LatencyContributorMethod;
 import org.osate.analysis.flows.model.LatencyContributorComponent;
@@ -66,6 +68,7 @@ import org.osate.analysis.flows.model.LatencyReport;
 import org.osate.analysis.flows.model.LatencyReportEntry;
 import org.osate.analysis.flows.preferences.Values;
 import org.osate.result.AnalysisResult;
+import org.osate.result.Result;
 import org.osate.xtext.aadl2.properties.util.ARINC653ScheduleWindow;
 import org.osate.xtext.aadl2.properties.util.CommunicationProperties;
 import org.osate.xtext.aadl2.properties.util.GetProperties;
@@ -81,6 +84,9 @@ public class FlowLatencyAnalysisSwitch extends AadlProcessingSwitchWithProgress 
 	LatencyReport report;
 //	SystemOperationMode som;
 
+	public FlowLatencyAnalysisSwitch(SystemInstance si) {
+		this(new NullProgressMonitor(), si, null);
+	}
 	public FlowLatencyAnalysisSwitch(final IProgressMonitor monitor, SystemInstance si) {
 		this(monitor, si, null);
 	}
@@ -115,16 +121,22 @@ public class FlowLatencyAnalysisSwitch extends AadlProcessingSwitchWithProgress 
 				if (etef.getFlowElements().isEmpty()) {
 					return DONE;
 				}
-				entry = new LatencyReportEntry(etef, etef.getSystemInstance().getCurrentSystemOperationMode());
-
-				for (FlowElementInstance fei : etef.getFlowElements()) {
-					mapFlowElementInstance(etef, fei, entry);
-				}
-				entry.finalizeReportEntry();
+				entry = analyzeLatency(etef, etef.getSystemInstance().getCurrentSystemOperationMode(),
+						report.isSynchronousSystem());
 				report.addEntry(entry);
 				return DONE;
 			}
 		};
+	}
+
+	public LatencyReportEntry analyzeLatency(EndToEndFlowInstance etef, SystemOperationMode som,
+			boolean synchronousSystem) {
+		LatencyReportEntry entry = new LatencyReportEntry(etef, som, synchronousSystem);
+		for (FlowElementInstance fei : etef.getFlowElements()) {
+			mapFlowElementInstance(etef, fei, entry);
+		}
+		entry.finalizeReportEntry();
+		return entry;
 	}
 
 	public void mapFlowElementInstance(final EndToEndFlowInstance etef, final FlowElementInstance flowElementInstance,
@@ -685,7 +697,10 @@ public class FlowLatencyAnalysisSwitch extends AadlProcessingSwitchWithProgress 
 	 * @param som The mode to run the analysis in
 	 * @return A populated report in AnalysisResult format.
 	 */
-	public AnalysisResult invokeAndGetResult(SystemInstance root, SystemOperationMode som) {
+	public AnalysisResult invokeAndGetResult(SystemInstance root, SystemOperationMode som, boolean isSynchronousSystem,
+			boolean isMajorFrameDelay, boolean isWorstCaseDeadline, boolean isBestCaseEmptyQueue) {
+		report.setLatencyAnalysisParameters(isSynchronousSystem, isMajorFrameDelay, isWorstCaseDeadline,
+				isBestCaseEmptyQueue);
 		root.setCurrentSystemOperationMode(som);
 		this.processPreOrderAll(root);
 		AnalysisResult results = report.genResult();
@@ -693,5 +708,28 @@ public class FlowLatencyAnalysisSwitch extends AadlProcessingSwitchWithProgress 
 		return results;
 	}
 
+	public Result invokeAndGetResult(EndToEndFlowInstance etef, SystemOperationMode som, boolean isSynchronousSystem,
+			boolean isMajorFrameDelay, boolean isWorstCaseDeadline, boolean isBestCaseEmptyQueue) {
+		report.setLatencyAnalysisParameters(isSynchronousSystem, isMajorFrameDelay, isWorstCaseDeadline,
+				isBestCaseEmptyQueue);
+		Result results = null;
+		SystemInstance root = etef.getSystemInstance();
+		root.setCurrentSystemOperationMode(som);
+		if (etef.isActive(som)) {
+			LatencyReportEntry latres = analyzeLatency(etef, som, isSynchronousSystem);
+			results = latres.genResult();
+		}
+		root.clearCurrentSystemOperationMode();
+		return results;
+	}
+
+	public AnalysisResult invokeAndSaveResult(SystemInstance root, SystemOperationMode som, boolean isSynchronousSystem,
+			boolean isMajorFrameDelay, boolean isWorstCaseDeadline, boolean isBestCaseEmptyQueue) {
+		AnalysisResult results = invokeAndGetResult(root, som, isSynchronousSystem, isMajorFrameDelay,
+				isWorstCaseDeadline, isBestCaseEmptyQueue);
+		FlowLatencyUtil.saveAnalysisResult(results, FlowLatencyUtil.getParametersAsLabels(report));
+		LatencyCSVReport.generateCSVReport(results);
+		return results;
+	}
 
 }
