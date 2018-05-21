@@ -726,7 +726,7 @@ public class FlowLatencyAnalysisSwitch extends AadlProcessingSwitchWithProgress 
 			boolean isMajorFrameDelay, boolean isWorstCaseDeadline, boolean isBestCaseEmptyQueue) {
 		AnalysisResult results = invokeAndGetResult(root, som, isSynchronousSystem, isMajorFrameDelay,
 				isWorstCaseDeadline, isBestCaseEmptyQueue);
-		FlowLatencyUtil.saveAnalysisResult(results, FlowLatencyUtil.getPreferencesSuffix(report));
+		FlowLatencyUtil.saveAnalysisResult(results, FlowLatencyUtil.getParametersAsLabels(report));
 		FlowLatencyUtil.saveAsSpreadSheets(report);
 		return results;
 	}
