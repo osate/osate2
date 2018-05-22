@@ -5,7 +5,6 @@ package org.osate.xtext.aadl2.errormodel.formatting2;
 
 import com.google.inject.Inject
 import org.eclipse.emf.ecore.EObject
-import org.eclipse.xtext.formatting2.AbstractFormatter2
 import org.eclipse.xtext.formatting2.IFormattableDocument
 import org.eclipse.xtext.formatting2.IHiddenRegionFormatter
 import org.eclipse.xtext.formatting2.regionaccess.ISemanticRegion
@@ -50,8 +49,9 @@ import org.osate.xtext.aadl2.errormodel.errorModel.TypeToken
 import org.osate.xtext.aadl2.errormodel.errorModel.TypeTransformation
 import org.osate.xtext.aadl2.errormodel.errorModel.TypeTransformationSet
 import org.osate.xtext.aadl2.errormodel.services.ErrorModelGrammarAccess
+import org.osate.xtext.aadl2.properties.formatting2.PropertiesFormatter
 
-class ErrorModelFormatter extends AbstractFormatter2 {
+class ErrorModelFormatter extends PropertiesFormatter {
 	@Inject extension ErrorModelGrammarAccess
 	
 	def dispatch void format(EMV2Root emv2Root, extension IFormattableDocument document) {

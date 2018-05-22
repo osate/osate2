@@ -8,7 +8,6 @@ import org.eclipse.emf.common.util.URI
 import org.eclipse.emf.ecore.EObject
 import org.eclipse.xtend2.lib.StringConcatenation
 import org.eclipse.xtext.Grammar
-import org.eclipse.xtext.formatting2.AbstractFormatter2
 import org.eclipse.xtext.formatting2.FormatterRequest
 import org.eclipse.xtext.formatting2.IFormattableDocument
 import org.eclipse.xtext.formatting2.IFormatter2
@@ -34,9 +33,7 @@ import org.osate.aadl2.AccessConnection
 import org.osate.aadl2.AccessSpecification
 import org.osate.aadl2.AnnexLibrary
 import org.osate.aadl2.ArrayDimension
-import org.osate.aadl2.ArrayRange
 import org.osate.aadl2.BasicProperty
-import org.osate.aadl2.BasicPropertyAssociation
 import org.osate.aadl2.BehavioredImplementation
 import org.osate.aadl2.BusAccess
 import org.osate.aadl2.BusImplementation
@@ -45,7 +42,6 @@ import org.osate.aadl2.BusSubcomponent
 import org.osate.aadl2.BusType
 import org.osate.aadl2.Classifier
 import org.osate.aadl2.ClassifierType
-import org.osate.aadl2.ClassifierValue
 import org.osate.aadl2.ComponentImplementation
 import org.osate.aadl2.ComponentImplementationReference
 import org.osate.aadl2.ComponentPrototype
@@ -53,11 +49,9 @@ import org.osate.aadl2.ComponentPrototypeActual
 import org.osate.aadl2.ComponentPrototypeBinding
 import org.osate.aadl2.ComponentType
 import org.osate.aadl2.ComponentTypeRename
-import org.osate.aadl2.ComputedValue
 import org.osate.aadl2.ConnectedElement
 import org.osate.aadl2.Connection
 import org.osate.aadl2.ContainedNamedElement
-import org.osate.aadl2.ContainmentPathElement
 import org.osate.aadl2.DataAccess
 import org.osate.aadl2.DataImplementation
 import org.osate.aadl2.DataPort
@@ -94,22 +88,18 @@ import org.osate.aadl2.FlowSegment
 import org.osate.aadl2.FlowSpecification
 import org.osate.aadl2.GroupExtension
 import org.osate.aadl2.ImplementationExtension
-import org.osate.aadl2.IntegerLiteral
 import org.osate.aadl2.ListType
-import org.osate.aadl2.ListValue
 import org.osate.aadl2.MemoryImplementation
 import org.osate.aadl2.MemoryPrototype
 import org.osate.aadl2.MemorySubcomponent
 import org.osate.aadl2.MemoryType
 import org.osate.aadl2.MetaclassReference
-import org.osate.aadl2.ModalPropertyValue
 import org.osate.aadl2.Mode
 import org.osate.aadl2.ModeBinding
 import org.osate.aadl2.ModeTransition
 import org.osate.aadl2.ModeTransitionTrigger
 import org.osate.aadl2.NamedElement
 import org.osate.aadl2.NumericRange
-import org.osate.aadl2.Operation
 import org.osate.aadl2.PackageRename
 import org.osate.aadl2.PackageSection
 import org.osate.aadl2.Parameter
@@ -132,12 +122,8 @@ import org.osate.aadl2.PropertyConstant
 import org.osate.aadl2.PropertySet
 import org.osate.aadl2.PublicPackageSection
 import org.osate.aadl2.RangeType
-import org.osate.aadl2.RangeValue
-import org.osate.aadl2.RealLiteral
 import org.osate.aadl2.RecordType
-import org.osate.aadl2.RecordValue
 import org.osate.aadl2.ReferenceType
-import org.osate.aadl2.ReferenceValue
 import org.osate.aadl2.Subcomponent
 import org.osate.aadl2.SubprogramAccess
 import org.osate.aadl2.SubprogramCall
@@ -181,12 +167,13 @@ import org.osate.annexsupport.AnnexParser
 import org.osate.annexsupport.AnnexParserRegistry
 import org.osate.annexsupport.AnnexRegistry
 import org.osate.core.OsateCorePlugin
+import org.osate.xtext.aadl2.properties.formatting2.PropertiesFormatter
 import org.osate.xtext.aadl2.services.Aadl2GrammarAccess
 
 import static extension org.eclipse.xtext.EcoreUtil2.getContainerOfType
 
 @SuppressWarnings("all")
-class Aadl2Formatter extends AbstractFormatter2 {
+class Aadl2Formatter extends PropertiesFormatter {
 	@Inject extension Aadl2GrammarAccess
 	
 	def dispatch void format(PropertySet propertySet, extension IFormattableDocument document) {
@@ -339,19 +326,6 @@ class Aadl2Formatter extends AbstractFormatter2 {
 		numericRange.upperBound.format(document)
 	}
 	
-	def dispatch void format(RealLiteral realLiteral, extension IFormattableDocument document) {
-		val unitAssignment = realLiteral.regionFor.assignment(realTermAccess.unitAssignment_1)
-		if (unitAssignment !== null && unitAssignment.text.length <= 2) {
-			unitAssignment.prepend[noSpace]
-		} else {
-			unitAssignment.prepend[oneSpace]
-		}
-	}
-	
-	def dispatch void format(Operation operation, extension IFormattableDocument document) {
-		operation.regionFor.assignment(signedConstantAccess.opAssignment_0).append[noSpace]
-	}
-	
 	def dispatch void format(AadlInteger aadlInteger, extension IFormattableDocument document) {
 		if (aadlInteger.name === null) {
 			formatAadlIntegerCommon(aadlInteger, document, aadlInteger.regionFor.keyword(unnamedIntegerTypeAccess.unitsKeyword_3_1_0))
@@ -377,15 +351,6 @@ class Aadl2Formatter extends AbstractFormatter2 {
 		
 		//Referenced units
 		unitsKeyword.surround[oneSpace]
-	}
-	
-	def dispatch void format(IntegerLiteral integerLiteral, extension IFormattableDocument document) {
-		val unitAssignment = integerLiteral.regionFor.assignment(integerTermAccess.unitAssignment_1)
-		if (unitAssignment !== null && unitAssignment.text.length <= 2) {
-			unitAssignment.prepend[noSpace]
-		} else {
-			unitAssignment.prepend[oneSpace]
-		}
 	}
 	
 	def dispatch void format(RangeType rangeType, extension IFormattableDocument document) {
@@ -549,84 +514,6 @@ class Aadl2Formatter extends AbstractFormatter2 {
 		propertyConstant.regionFor.keyword(propertyConstantAccess.semicolonKeyword_6).prepend[noSpace]
 	}
 	
-	def dispatch void format(ClassifierValue classifierValue, extension IFormattableDocument document) {
-		classifierValue.regionFor.keyword(componentClassifierTermAccess.leftParenthesisKeyword_1).prepend[oneSpace].append[noSpace]
-		classifierValue.regionFor.keyword(componentClassifierTermAccess.rightParenthesisKeyword_3).prepend[noSpace]
-	}
-	
-	def dispatch void format(ComputedValue computedValue, extension IFormattableDocument document) {
-		computedValue.regionFor.keyword(computedTermAccess.leftParenthesisKeyword_1).prepend[oneSpace].append[noSpace]
-		computedValue.regionFor.keyword(computedTermAccess.rightParenthesisKeyword_3).prepend[noSpace]
-	}
-	
-	def dispatch void format(RecordValue recordValue, extension IFormattableDocument document) {
-		val leftBracket = recordValue.regionFor.keyword(recordTermAccess.leftSquareBracketKeyword_0)
-		val rightBracket = recordValue.regionFor.keyword(recordTermAccess.rightSquareBracketKeyword_2)
-		interior(leftBracket, rightBracket, [indent; indent; indent])
-		leftBracket.append[noSpace; setNewLines(0, 0, 1); autowrap]
-		recordValue.ownedFieldValues.tail.forEach[prepend[oneSpace; setNewLines(0, 0, 1); autowrap]]
-		recordValue.ownedFieldValues.forEach[it.format(document)]
-		if (rightBracket.previousHiddenRegion.multiline) {
-			rightBracket.prepend[newLines = 1].surround[indent; indent]
-		} else {
-			rightBracket.prepend[noSpace]
-		}
-	}
-	
-	def dispatch void format(BasicPropertyAssociation basicPropertyAssociation, extension IFormattableDocument document) {
-		basicPropertyAssociation.regionFor.keyword(fieldPropertyAssociationAccess.equalsSignGreaterThanSignKeyword_1).surround[oneSpace]
-		basicPropertyAssociation.ownedValue.format(document)
-		basicPropertyAssociation.regionFor.keyword(fieldPropertyAssociationAccess.semicolonKeyword_3).prepend[noSpace]
-	}
-	
-	def dispatch void format(ReferenceValue referenceValue, extension IFormattableDocument document) {
-		referenceValue.regionFor.keyword(referenceTermAccess.leftParenthesisKeyword_1).prepend[oneSpace].append[noSpace]
-		referenceValue.path.format(document)
-		referenceValue.regionFor.keyword(referenceTermAccess.rightParenthesisKeyword_3).prepend[noSpace]
-	}
-	
-	def dispatch void format(ContainmentPathElement containmentPathElement, extension IFormattableDocument document) {
-		//Array range
-		containmentPathElement.arrayRanges.forEach[
-			prepend[noSpace]
-			it.format(document)
-		]
-		
-		//Next element in path
-		containmentPathElement.regionFor.keyword(containmentPathElementAccess.fullStopKeyword_1_0).surround[noSpace]
-		containmentPathElement.path.format(document)
-	}
-	
-	def dispatch void format(ArrayRange arrayRange, extension IFormattableDocument document) {
-		arrayRange.regionFor.keyword(arrayRangeAccess.leftSquareBracketKeyword_1).append[noSpace]
-		arrayRange.regionFor.keyword(arrayRangeAccess.fullStopFullStopKeyword_3_0).surround[oneSpace]
-		arrayRange.regionFor.keyword(arrayRangeAccess.rightSquareBracketKeyword_4).prepend[noSpace]
-	}
-	
-	def dispatch void format(ListValue listValue, extension IFormattableDocument document) {
-		val leftParenthesis = listValue.regionFor.keyword(listTermAccess.leftParenthesisKeyword_1)
-		val rightParenthesis = listValue.regionFor.keyword(listTermAccess.rightParenthesisKeyword_3)
-		interior(leftParenthesis, rightParenthesis, [indent; indent; indent])
-		leftParenthesis.append[noSpace; setNewLines(0, 0, 1); autowrap]
-		listValue.regionFor.keywords(listTermAccess.commaKeyword_2_1_0).forEach[
-			prepend[noSpace].append[oneSpace; setNewLines(0, 0, 1); autowrap]
-		]
-		listValue.ownedListElements.forEach[it.format(document)]
-		if (rightParenthesis.previousHiddenRegion.multiline) {
-			rightParenthesis.prepend[newLines = 1].surround[indent; indent]
-		} else {
-			rightParenthesis.prepend[noSpace]
-		}
-	}
-	
-	def dispatch void format(RangeValue rangeValue, extension IFormattableDocument document) {
-		rangeValue.minimum.format(document)
-		rangeValue.regionFor.keyword(numericRangeTermAccess.fullStopFullStopKeyword_1).surround[oneSpace]
-		rangeValue.maximum.format(document)
-		rangeValue.regionFor.keyword(numericRangeTermAccess.deltaKeyword_3_0).surround[oneSpace]
-		rangeValue.delta.format(document)
-	}
-	
 	def dispatch void format(Property property, extension IFormattableDocument document) {
 		property.surround[indent].conditionalAppend(document, [newLines = 1])
 		property.regionFor.keyword(propertyDefinitionAccess.colonKeyword_1).prepend[noSpace].append[oneSpace]
@@ -701,27 +588,6 @@ class Aadl2Formatter extends AbstractFormatter2 {
 		propertyAssociation.regionFor.keyword(")").prepend[noSpace]
 		
 		propertyAssociation.regionFor.keyword(";").prepend[noSpace]
-	}
-	
-	def dispatch void format(ModalPropertyValue modalPropertyValue, extension IFormattableDocument document) {
-		modalPropertyValue.ownedValue.format(document)
-		
-		//OptionalModalPropertyValue
-		val leftParenthesis = modalPropertyValue.regionFor.keyword(optionalModalPropertyValueAccess.leftParenthesisKeyword_1_1)
-		val rightParenthesis = modalPropertyValue.regionFor.keyword(optionalModalPropertyValueAccess.rightParenthesisKeyword_1_4)
-		if (leftParenthesis !== null && rightParenthesis !== null) {
-			modalPropertyValue.regionFor.keyword(inModesKeywordsAccess.inKeyword_0).surround[oneSpace]
-			interior(leftParenthesis, rightParenthesis, [indent; indent; indent])
-			leftParenthesis.prepend[oneSpace].append[noSpace; setNewLines(0, 0, 1); autowrap]
-			modalPropertyValue.regionFor.keywords(optionalModalPropertyValueAccess.commaKeyword_1_3_0).forEach[
-				prepend[noSpace].append[oneSpace; setNewLines(0, 0, 1); autowrap]
-			]
-			if (rightParenthesis.previousHiddenRegion.multiline) {
-				rightParenthesis.prepend[newLines = 1].surround[indent; indent]
-			} else {
-				rightParenthesis.prepend[noSpace]
-			}
-		}
 	}
 	
 	def dispatch void format(PublicPackageSection publicPackageSection, extension IFormattableDocument document) {
