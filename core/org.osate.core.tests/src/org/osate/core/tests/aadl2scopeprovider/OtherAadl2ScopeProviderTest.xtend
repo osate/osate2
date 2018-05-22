@@ -52,8 +52,8 @@ import org.osate.aadl2.FeatureGroupPrototypeBinding
 import org.osate.aadl2.FeaturePrototypeBinding
 import org.osate.aadl2.ModelUnit
 import org.osate.aadl2.NamedElement
-import org.osate.core.test.Aadl2UiInjectorProvider
-import org.osate.core.test.OsateTest
+import org.osate.testsupport.Aadl2UiInjectorProvider
+import org.osate.testsupport.OsateTest
 
 import static extension org.junit.Assert.assertEquals
 import static extension org.junit.Assert.assertNull

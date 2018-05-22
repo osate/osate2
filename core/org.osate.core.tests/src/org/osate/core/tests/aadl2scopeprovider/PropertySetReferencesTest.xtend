@@ -47,8 +47,8 @@ import org.osate.aadl2.NamedElement
 import org.osate.aadl2.PropertySet
 import org.osate.aadl2.RecordType
 import org.osate.aadl2.UnitsType
-import org.osate.core.test.Aadl2UiInjectorProvider
-import org.osate.core.test.OsateTest
+import org.osate.testsupport.Aadl2UiInjectorProvider
+import org.osate.testsupport.OsateTest
 
 import static extension org.junit.Assert.assertEquals
 
