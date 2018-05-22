@@ -34,6 +34,7 @@
 		<module>../../org.osate.help</module>
 		<module>../../org.osate.pluginsupport</module>
 		<module>../../org.osate.results</module>
+		<module>../../org.osate.testsupport</module>
 		<module>../../org.osate.ui</module>
 		<module>../../org.osate.workspace</module>
 		<module>../../org.osate.xtext.aadl2</module>

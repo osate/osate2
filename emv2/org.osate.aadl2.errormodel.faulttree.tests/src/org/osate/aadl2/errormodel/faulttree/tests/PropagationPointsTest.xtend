@@ -14,7 +14,7 @@ import org.osate.aadl2.errormodel.faulttree.generation.CreateFTAModel
 import org.osate.aadl2.errormodel.tests.ErrorModelUiInjectorProvider
 import org.osate.aadl2.instance.SystemInstance
 import org.osate.aadl2.instantiation.InstantiateModel
-import org.osate.core.test.OsateTest
+import org.osate.testsupport.OsateTest
 
 import static org.junit.Assert.*
 
