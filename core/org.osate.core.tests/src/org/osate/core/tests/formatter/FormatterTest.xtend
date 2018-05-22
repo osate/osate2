@@ -6,8 +6,8 @@ import org.eclipse.xtext.testing.XtextRunner
 import org.eclipse.xtext.testing.formatter.FormatterTestHelper
 import org.junit.Test
 import org.junit.runner.RunWith
-import org.osate.core.test.Aadl2UiInjectorProvider
-import org.osate.core.test.OsateTest
+import org.osate.testsupport.Aadl2UiInjectorProvider
+import org.osate.testsupport.OsateTest
 
 /*
  * Some of the tests have useSerializer set to false. This has to do with the customizations done in

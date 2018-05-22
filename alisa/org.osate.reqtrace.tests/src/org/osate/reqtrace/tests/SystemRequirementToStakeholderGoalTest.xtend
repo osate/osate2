@@ -8,7 +8,7 @@ import org.junit.runner.RunWith
 import org.osate.aadl2.AadlPackage
 import org.osate.aadl2.ComponentImplementation
 import org.osate.alisa.workbench.AlisaUiInjectorProvider
-import org.osate.core.test.BIRTTest
+import org.osate.testsupport.BIRTTest
 import org.osate.reqtrace.ReqTraceConfigDialog
 
 import static extension org.osate.aadl2.instantiation.InstantiateModel.buildInstanceModelFile

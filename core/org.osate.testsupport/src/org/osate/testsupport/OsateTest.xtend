@@ -1,4 +1,4 @@
-package org.osate.core.test
+package org.osate.testsupport
 
 import com.google.inject.Inject
 import com.itemis.xtext.testing.FluentIssueCollection
