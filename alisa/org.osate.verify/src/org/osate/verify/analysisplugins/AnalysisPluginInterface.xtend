@@ -23,8 +23,6 @@ import org.osate.analysis.architecture.handlers.CheckA429PortConnectionConsisten
 import org.osate.analysis.architecture.handlers.CheckConnectionBindingConsistency
 import org.osate.analysis.architecture.handlers.DoPortConnectionConsistency
 import org.osate.analysis.architecture.handlers.DoPropertyTotals
-import org.osate.analysis.flows.handlers.CheckFlowLatency
-import org.osate.analysis.flows.preferences.Values
 import org.osate.analysis.resource.budgets.handlers.DoBoundResourceAnalysis
 import org.osate.analysis.resource.budgets.handlers.DoBoundSwitchBandWidthAnalysis
 import org.osate.analysis.resource.budgets.handlers.DoPowerAnalysis
@@ -34,27 +32,30 @@ import org.osate.analysis.security.handlers.CheckSafety
 import org.osate.analysis.security.handlers.CheckSecurity
 
 import static org.osate.verify.util.VerifyUtilExtension.*
+import org.osate.analysis.flows.FlowLatencyAnalysisSwitch
+import org.osate.result.AnalysisResult
 
 class AnalysisPluginInterface {
 	
-	def static String flowLatencyAnalysis(InstanceObject etefi, String[] prefs) {
-			val checker = new CheckFlowLatency()
-		val markerType = checker.getMarkerType
-		val instance = etefi.elementRoot as SystemInstance
-		if (!getHasRun(markerType, instance)) {
-			val som = instance.systemOperationModes.head
-			if (!prefs.nullOrEmpty){
-				Values.prefs = prefs
-			}
+	def static AnalysisResult flowLatencyAnalysis(InstanceObject etefi, boolean[] prefs) {
+		var AnalysisResult res = null;
+		val root = etefi.systemInstance
+			val checker = new FlowLatencyAnalysisSwitch(root)
+		val markerType = "LatencyAnalysis"
+		if (!getHasRun(markerType, root)) {
+			val som = root.systemOperationModes.head
 			try{
-			checker.invoke(new NullProgressMonitor,  instance, som)
-				setHasRun(markerType, instance)
-				Values.prefs = null
+				if (prefs !== null && prefs.size === 4 ){
+					res = checker.invokeAndSaveResult( root, som, prefs.get(0), prefs.get(1), prefs.get(2), prefs.get(3))
+				} else {
+					res = checker.invokeAndSaveResult( root, som, false, true, true, true)
+				}
+				setHasRun(markerType, root)
 			} catch (Throwable e) {
-				unsetHasRun(markerType, instance)
+				unsetHasRun(markerType, root)
 			} 
 		}
-		markerType
+		res
 	}
 
 	

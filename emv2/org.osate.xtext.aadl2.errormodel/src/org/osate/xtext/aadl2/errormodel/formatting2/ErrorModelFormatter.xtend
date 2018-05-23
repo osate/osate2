@@ -595,7 +595,8 @@ class ErrorModelFormatter extends PropertiesFormatter {
 		errorSink.regionFor.keyword(errorSinkKeywordsAccess.sinkKeyword_1).surround[oneSpace]
 		errorSink.typeTokenConstraint.prepend[oneSpace]
 		errorSink.typeTokenConstraint.format(document)
-		errorSink.regionFor.keyword(errorSinkAccess.semicolonKeyword_5).prepend[noSpace]
+		errorSink.regionFor.keyword(errorSinkAccess.ifKeyword_5_0).surround[oneSpace]
+		errorSink.regionFor.keyword(errorSinkAccess.semicolonKeyword_6).prepend[noSpace]
 	}
 	
 	def dispatch void format(ErrorPath errorPath, extension IFormattableDocument document) {
@@ -608,7 +609,8 @@ class ErrorModelFormatter extends PropertiesFormatter {
 		errorPath.targetToken.format(document)
 		errorPath.regionFor.keyword(useMappingsKeywordsAccess.useKeyword_0).surround[oneSpace]
 		errorPath.regionFor.keyword(useMappingsKeywordsAccess.mappingsKeyword_1).append[oneSpace]
-		errorPath.regionFor.keyword(errorPathAccess.semicolonKeyword_8).prepend[noSpace]
+		errorPath.regionFor.keyword(errorPathAccess.ifKeyword_8_0).surround[oneSpace]
+		errorPath.regionFor.keyword(errorPathAccess.semicolonKeyword_9).prepend[noSpace]
 	}
 	
 	def dispatch void format(PropagationPoint propagationPoint, extension IFormattableDocument document) {

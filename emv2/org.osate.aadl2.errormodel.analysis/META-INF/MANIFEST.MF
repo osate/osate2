@@ -19,6 +19,6 @@ Require-Bundle: org.eclipse.ui,
 Bundle-ActivationPolicy: lazy
 Import-Package: org.osate.xtext.aadl2.properties
 Export-Package: org.osate.aadl2.errormodel.analysis,
- org.osate.aadl2.errormodel.analysis.fta,
  org.osate.aadl2.errormodel.analysis.handlers
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Automatic-Module-Name: org.osate.aadl2.errormodel.analysis

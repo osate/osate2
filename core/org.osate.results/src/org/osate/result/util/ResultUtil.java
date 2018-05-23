@@ -1,15 +1,17 @@
 package org.osate.result.util;
 
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
 import org.osate.result.AnalysisResult;
 import org.osate.result.BooleanValue;
-import org.osate.result.Result;
 import org.osate.result.Diagnostic;
 import org.osate.result.DiagnosticType;
 import org.osate.result.IntegerValue;
 import org.osate.result.RealValue;
+import org.osate.result.Result;
 import org.osate.result.ResultFactory;
 import org.osate.result.StringValue;
+import org.osate.result.Value;
 
 public class ResultUtil {
 
@@ -90,4 +92,55 @@ public class ResultUtil {
 		contributor.getValues().add(res);
 	}
 
+	public static String getString(Result result, int idx) {
+		EList<Value> vals = result.getValues();
+		if (idx < vals.size()) {
+			Value val = vals.get(idx);
+			if (val instanceof StringValue) {
+				return ((StringValue) val).getValue();
+			}
+		}
+		return "";
+	}
+
+	public static boolean getBoolean(Result result, int idx) {
+		EList<Value> vals = result.getValues();
+		if (idx < vals.size()) {
+			Value val = vals.get(idx);
+			if (val instanceof BooleanValue) {
+				return ((BooleanValue) val).isValue();
+			}
+		}
+		return true;
+	}
+
+	public static long getInteger(Result result, int idx) {
+		EList<Value> vals = result.getValues();
+		if (idx < vals.size()) {
+			Value val = vals.get(idx);
+			if (val instanceof IntegerValue) {
+				return ((IntegerValue) val).getValue();
+			}
+		}
+		return 0;
+	}
+
+	public static double getReal(Result result, int idx) {
+		EList<Value> vals = result.getValues();
+		if (idx < vals.size()) {
+			Value val = vals.get(idx);
+			if (val instanceof RealValue) {
+				return ((RealValue) val).getValue();
+			}
+		}
+		return 0;
+	}
+
+	public static Value getValue(Result result, int idx) {
+		EList<Value> vals = result.getValues();
+		if (idx < vals.size()) {
+			return vals.get(idx);
+		}
+		return null;
+	}
 }

@@ -46,8 +46,8 @@ import org.osate.aadl2.RangeValue
 import org.osate.aadl2.RecordValue
 import org.osate.aadl2.SystemImplementation
 import org.osate.aadl2.ThreadType
-import org.osate.core.test.Aadl2UiInjectorProvider
-import org.osate.core.test.OsateTest
+import org.osate.testsupport.Aadl2UiInjectorProvider
+import org.osate.testsupport.OsateTest
 
 import static extension org.junit.Assert.assertEquals
 

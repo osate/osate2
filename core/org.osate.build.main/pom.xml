@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
-	xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.osate</groupId>
 	<artifactId>osate2</artifactId>
@@ -24,9 +25,34 @@
 		<!-- The following are for use in poms for test plugins -->
 		<eclipse.repo.url>http://download.eclipse.org/releases/oxygen/201804111000/</eclipse.repo.url>
 		<xtext-testing.repo.url>https://dl.bintray.com/itemis/generic/xtext-testing/updates/0.2/</xtext-testing.repo.url>
+
+		<!-- Used in pull request build -->
+		<fm-workbench.repo.url>http://osate-build.sei.cmu.edu/p2/fm-workbench/</fm-workbench.repo.url>
+		<ocarina.repo.url>http://osate-build.sei.cmu.edu/p2/ocarina/</ocarina.repo.url>
 	</properties>
 
 	<profiles>
+		<profile>
+			<id>pr-build</id>
+			<activation>
+				<property>
+					<name>pr.build</name>
+					<value>true</value>
+				</property>
+			</activation>
+			<repositories>
+				<repository>
+					<id>fm-workbench.repo</id>
+					<url>${fm-workbench.repo.url}</url>
+					<layout>p2</layout>
+				</repository>
+				<repository>
+					<id>ocarina.repo</id>
+					<url>${ocarina.repo.url}</url>
+					<layout>p2</layout>
+				</repository>
+			</repositories>
+		</profile>
 		<profile>
 			<id>full</id>
 			<properties>
@@ -186,7 +212,8 @@
 				</property>
 			</activation>
 			<properties>
-				<tycho.testArgLine> </tycho.testArgLine>
+				<tycho.testArgLine>
+				</tycho.testArgLine>
 			</properties>
 		</profile>
 		<profile>

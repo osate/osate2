@@ -12,3 +12,4 @@ Bundle-ActivationPolicy: lazy
 Export-Package: org.osate.pluginsupport
 Bundle-Vendor: CMU-SEI
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Automatic-Module-Name: org.osate.pluginsupport

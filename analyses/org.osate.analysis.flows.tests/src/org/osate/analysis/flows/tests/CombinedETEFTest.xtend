@@ -9,8 +9,8 @@ import org.osate.aadl2.AadlPackage
 import org.osate.aadl2.SystemImplementation
 import org.osate.aadl2.instantiation.InstantiateModel
 import org.osate.analysis.flows.FlowLatencyAnalysisSwitch
-import org.osate.core.test.Aadl2UiInjectorProvider
-import org.osate.core.test.OsateTest
+import org.osate.testsupport.Aadl2UiInjectorProvider
+import org.osate.testsupport.OsateTest
 import org.osate.result.RealValue
 
 import static org.junit.Assert.*
@@ -39,7 +39,7 @@ class CombinedETEFTest extends OsateTest {
 		// check flow latency
 		val som = instance.systemOperationModes.head
 		val checker = new FlowLatencyAnalysisSwitch(new NullProgressMonitor,  instance)
-		val latencyresult = checker.invokeAndGetResult(instance, som)
+		val latencyresult = checker.invokeAndGetResult(instance, som, true, true, true, true)
 		val resab = latencyresult.results.get(0)
 		assertTrue((resab.values.get(1) as RealValue).value == (20.0))
 		assertTrue((resab.values.get(2) as RealValue).value == (20.0))
