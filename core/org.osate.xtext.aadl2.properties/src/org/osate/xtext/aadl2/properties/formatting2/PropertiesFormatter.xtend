@@ -58,10 +58,12 @@ class PropertiesFormatter extends AbstractFormatter2 {
 		leftBracket.append[noSpace; setNewLines(0, 0, 1); autowrap]
 		recordValue.ownedFieldValues.tail.forEach[prepend[oneSpace; setNewLines(0, 0, 1); autowrap]]
 		recordValue.ownedFieldValues.forEach[it.format(document)]
-		if (rightBracket.previousHiddenRegion.multiline) {
-			rightBracket.prepend[newLines = 1].surround[indent; indent]
-		} else {
-			rightBracket.prepend[noSpace]
+		if (rightBracket !== null) {
+			if (rightBracket.previousHiddenRegion.multiline) {
+				rightBracket.prepend[newLines = 1].surround[indent; indent]
+			} else {
+				rightBracket.prepend[noSpace]
+			}
 		}
 	}
 	
@@ -84,10 +86,12 @@ class PropertiesFormatter extends AbstractFormatter2 {
 			prepend[noSpace].append[oneSpace; setNewLines(0, 0, 1); autowrap]
 		]
 		listValue.ownedListElements.forEach[it.format(document)]
-		if (rightParenthesis.previousHiddenRegion.multiline) {
-			rightParenthesis.prepend[newLines = 1].surround[indent; indent]
-		} else {
-			rightParenthesis.prepend[noSpace]
+		if (rightParenthesis !== null) {
+			if (rightParenthesis.previousHiddenRegion.multiline) {
+				rightParenthesis.prepend[newLines = 1].surround[indent; indent]
+			} else {
+				rightParenthesis.prepend[noSpace]
+			}
 		}
 	}
 	

@@ -54,3 +54,4 @@ Export-Package: org.osate.verify,
  org.osate.verify.verify,
  org.osate.verify.verify.impl,
  org.osate.verify.verify.util
+Automatic-Module-Name: org.osate.verify

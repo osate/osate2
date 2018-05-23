@@ -16,4 +16,5 @@ Require-Bundle: org.osate.aadl2,
  org.osate.xtext.aadl2.properties;bundle-version="1.0.0"
 Bundle-ActivationPolicy: lazy
 Import-Package: org.osate.contribution.sei.names
+Automatic-Module-Name: org.osate.analysis.security
 

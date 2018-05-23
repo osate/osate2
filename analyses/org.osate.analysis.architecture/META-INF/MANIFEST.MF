@@ -18,3 +18,4 @@ Require-Bundle: org.osate.aadl2,
 Bundle-ActivationPolicy: lazy
 Import-Package: org.osate.contribution.sei.names
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Automatic-Module-Name: org.osate.analysis.architecture

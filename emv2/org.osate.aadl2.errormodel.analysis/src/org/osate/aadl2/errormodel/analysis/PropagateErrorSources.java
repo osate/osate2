@@ -11,7 +11,7 @@
  * CARNEGIE MELLON UNIVERSITY PURSUANT TO THIS LICENSE (HEREINAFTER THE "DELIVERABLES") ARE ON AN "AS-IS" BASIS.
  * CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY KIND, EITHER EXPRESS OR IMPLIED AS TO ANY MATTER INCLUDING,
  * BUT NOT LIMITED TO, WARRANTY OF FITNESS FOR A PARTICULAR PURPOSE, MERCHANTABILITY, INFORMATIONAL CONTENT,
- * NONINFRINGEMENT, OR ERROR-FREE OPERATION. CARNEGIE MELLON UNIVERSITY SHALL NOT BE LIABLE FOR INDIRECT, SPECIAL OR
+ * NONINFRINGEMENT, OR conditi-FREE OPERATION. CARNEGIE MELLON UNIVERSITY SHALL NOT BE LIABLE FOR INDIRECT, SPECIAL OR
  * CONSEQUENTIAL DAMAGES, SUCH AS LOSS OF PROFITS OR INABILITY TO USE SAID INTELLECTUAL PROPERTY, UNDER THIS LICENSE,
  * REGARDLESS OF WHETHER SUCH PARTY WAS AWARE OF THE POSSIBILITY OF SUCH DAMAGES. LICENSEE AGREES THAT IT WILL NOT
  * MAKE ANY WARRANTY ON BEHALF OF CARNEGIE MELLON UNIVERSITY, EXPRESS OR IMPLIED, TO ANY PERSON CONCERNING THE
@@ -267,7 +267,7 @@ public class PropagateErrorSources {
 		String componentText = ci.getComponentInstancePath();
 		HashMultimap<ErrorPropagation, String> handledPropagations = HashMultimap.create();
 		for (ErrorBehaviorEvent event : EMV2Util.getAllErrorBehaviorEvents(ci)) {
-			if (!(event instanceof ErrorEvent)) {
+			if (!(event instanceof ErrorEvent) || !Util.conditionHolds((ErrorEvent) event, ci)) {
 				continue;
 			}
 			TypeSet sourcetype = ((ErrorEvent) event).getTypeSet();
@@ -332,6 +332,9 @@ public class PropagateErrorSources {
 			}
 		}
 		for (ErrorSource errorSource : eslist) {
+			if (!Util.conditionHolds(errorSource, ci)) {
+				continue;
+			}
 			EMSUtil.unsetAll(ci.getSystemInstance());
 			Collection<ErrorPropagation> eplist = EMV2Util.getOutgoingPropagationOrAll(errorSource);
 			TypeSet ts = errorSource.getTypeTokenConstraint();
@@ -404,6 +407,9 @@ public class PropagateErrorSources {
 			return;
 		}
 		for (ErrorSource ces : ceslist) {
+			if (!Util.conditionHolds(ces, root)) {
+				continue;
+			}
 			EMSUtil.unsetAll(root.getSystemInstance());
 			// find connection instances that this connection is part of
 			String connName = ces.getSourceModelElement().getName();
@@ -737,11 +743,10 @@ public class PropagateErrorSources {
 		}
 
 		alreadyTreated.get(ci).add(entryText);
-		List<ErrorPropagation> treated = new ArrayList<ErrorPropagation>();
 		boolean handled = false;
 		Collection<ErrorFlow> outefs = EMV2Util.findErrorFlowFromComponentInstance(ci, ep);
 		for (ErrorFlow ef : outefs) {
-			if (ef instanceof ErrorSink) {
+			if (ef instanceof ErrorSink && Util.conditionHolds(ef, ci)) {
 				/**
 				 * We try to find additional error propagation for this error sink.
 				 * For example, if the error sink triggers to switch to

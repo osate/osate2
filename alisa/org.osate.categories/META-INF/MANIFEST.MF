@@ -35,3 +35,4 @@ Export-Package: org.osate.categories,
  org.osate.categories.util,
  org.osate.categories.validation,
  org.osate.categories.parser.antlr.lexer
+Automatic-Module-Name: org.osate.categories

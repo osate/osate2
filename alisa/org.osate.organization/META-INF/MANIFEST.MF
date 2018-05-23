@@ -35,4 +35,5 @@ Export-Package: org.osate.organization,
  org.osate.organization.util,
  org.osate.organization.validation,
  org.osate.organization.parser.antlr.lexer
+Automatic-Module-Name: org.osate.organization
 

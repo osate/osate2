@@ -39,24 +39,25 @@
  */
 package org.osate.analysis.flows.handlers;
 
+import java.util.List;
+
 import org.eclipse.core.runtime.IProgressMonitor;
-import org.eclipse.core.runtime.Path;
-import org.eclipse.emf.common.util.URI;
-import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.osate.aadl2.Element;
 import org.osate.aadl2.NamedElement;
+import org.osate.aadl2.instance.EndToEndFlowInstance;
+import org.osate.aadl2.instance.InstanceObject;
 import org.osate.aadl2.instance.SystemInstance;
 import org.osate.aadl2.instance.SystemOperationMode;
 import org.osate.aadl2.modelsupport.errorreporting.AnalysisErrorReporterManager;
-import org.osate.aadl2.modelsupport.resources.OsateResourceUtil;
-import org.osate.aadl2.modelsupport.util.AadlUtil;
 import org.osate.analysis.flows.FlowLatencyAnalysisSwitch;
+import org.osate.analysis.flows.FlowLatencyUtil;
 import org.osate.analysis.flows.model.LatencyReport;
-import org.osate.analysis.flows.model.LatencyReportEntry;
-import org.osate.analysis.flows.reporting.exporters.CsvExport;
-import org.osate.analysis.flows.reporting.exporters.ExcelExport;
-import org.osate.analysis.flows.reporting.model.Report;
+import org.osate.analysis.flows.preferences.Values;
 import org.osate.result.AnalysisResult;
+import org.osate.result.Diagnostic;
+import org.osate.result.DiagnosticType;
+import org.osate.result.Result;
+import org.osate.result.util.ResultUtil;
 import org.osate.ui.dialogs.Dialog;
 import org.osate.ui.handlers.AbstractInstanceOrDeclarativeModelReadOnlyHandler;
 
@@ -83,6 +84,8 @@ public final class CheckFlowLatency extends AbstractInstanceOrDeclarativeModelRe
 	protected boolean initializeAnalysis(NamedElement object) {
 		if (object instanceof SystemInstance) {
 			latreport = new LatencyReport((SystemInstance) object);
+			latreport.setLatencyAnalysisParameters(Values.doSynchronousSystem(), Values.doMajorFrameDelay(),
+					Values.doWorstCaseDeadline(), Values.doMajorFrameDelay());
 			return true;
 		}
 		return false;
@@ -92,47 +95,50 @@ public final class CheckFlowLatency extends AbstractInstanceOrDeclarativeModelRe
 	protected boolean finalizeAnalysis() {
 		if (latreport != null && !latreport.getEntries().isEmpty()) {
 			// do cvs and xsl reports
-			Report report = latreport.export();
-			CsvExport csvExport = new CsvExport(report);
-			csvExport.save();
-			ExcelExport excelExport = new ExcelExport(report);
-			excelExport.save();
-
-			generateMarkers(latreport, errManager);
-
-
+			FlowLatencyUtil.saveAsSpreadSheets(latreport);
 			AnalysisResult results = latreport.genResult();
-			SystemInstance root = latreport.getRootinstance();
-			URI rootURI = EcoreUtil.getURI(root).trimFragment().trimFileExtension();
-			String rootname = rootURI.lastSegment();
-			URI latencyURI = rootURI.trimFragment().trimSegments(1).appendSegment("reports")
-					.appendSegment("latency")
-					.appendSegment(rootname + "__latency_" + latreport.getPreferencesSuffix() + ".result");
-			AadlUtil.makeSureFoldersExist(new Path(latencyURI.toPlatformString(true)));
-			OsateResourceUtil.saveEMFModel(results, latencyURI, root);
+			FlowLatencyUtil.saveAnalysisResult(results, FlowLatencyUtil.getParametersAsLabels(latreport));
+//			LatencyCSVReport.generateCSVReport(results); Generate CSV file from AnalysisResult
+			generateMarkers(results, new AnalysisErrorReporterManager(getAnalysisErrorReporterFactory()));
 		}
 		return true;
 	};
 
-	private void generateMarkers(LatencyReport report, AnalysisErrorReporterManager errMgr) {
-		for (LatencyReportEntry re : report.getEntries()) {
-			re.generateMarkers(errMgr);
+	private void generateMarkers(AnalysisResult results, AnalysisErrorReporterManager errMgr) {
+		for (Result res : results.getResults()) {
+			generateMarkers(errMgr, res.getDiagnostics(), ResultUtil.getString(res, 0),
+					(EndToEndFlowInstance) res.getSourceReference());
 		}
+	}
+
+	private void generateMarkers(AnalysisErrorReporterManager errManager, List<Diagnostic> issues,
+			String som, EndToEndFlowInstance target) {
+		String inMode = som.isEmpty() ? "" : " in mode " + som;
+		for (Diagnostic issue : issues) {
+			if (issue.getType() == DiagnosticType.INFO) {
+				errManager.info(target, issue.getMessage() + inMode);
+			} else if (issue.getType() == DiagnosticType.SUCCESS) {
+				errManager.info(target, getRelatedObjectLabel(target) + issue.getMessage() + inMode);
+			} else if (issue.getType() == DiagnosticType.WARNING) {
+				errManager.warning(target, getRelatedObjectLabel(target) + issue.getMessage() + inMode);
+			} else if (issue.getType() == DiagnosticType.ERROR) {
+				errManager.error(target, getRelatedObjectLabel(target) + issue.getMessage() + inMode);
+			}
+		}
+	}
+
+	private String getRelatedObjectLabel(InstanceObject obj) {
+		return obj.getComponentInstancePath() + ": ";
 	}
 
 	@Override
 	protected void analyzeInstanceModel(IProgressMonitor monitor, AnalysisErrorReporterManager errManager,
 			SystemInstance root, SystemOperationMode som) {
 		monitor.beginTask(getActionName(), 1);
+		// Note: analyzeInstanceModel is called for each mode. We add the results to the same 'latreport'
 		FlowLatencyAnalysisSwitch flas = new FlowLatencyAnalysisSwitch(monitor, root, latreport);
 		flas.processPreOrderAll(root);
 		monitor.done();
-	}
-
-	public void invoke(IProgressMonitor monitor, SystemInstance root, SystemOperationMode som) {
-		initializeAnalysis(root);
-		analyzeInstanceModel(monitor, null, root, som);
-		finalizeAnalysis();
 	}
 
 

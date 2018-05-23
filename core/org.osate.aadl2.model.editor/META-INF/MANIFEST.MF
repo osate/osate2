@@ -20,3 +20,4 @@ Require-Bundle: org.osate.aadl2.edit;visibility:=reexport,
  org.eclipse.core.filesystem
 Bundle-ActivationPolicy: lazy
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Automatic-Module-Name: org.osate.aadl2.model.editor
