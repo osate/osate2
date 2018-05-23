@@ -130,6 +130,7 @@ import org.osate.aadl2.instance.util.InstanceUtil.InstantiatedClassifier;
 import org.osate.aadl2.modelsupport.AadlConstants;
 import org.osate.aadl2.modelsupport.errorreporting.AnalysisErrorReporterManager;
 import org.osate.aadl2.modelsupport.errorreporting.MarkerAnalysisErrorReporter;
+import org.osate.aadl2.modelsupport.errorreporting.QueuingAnalysisErrorReporter;
 import org.osate.aadl2.modelsupport.modeltraversal.ForAllElement;
 import org.osate.aadl2.modelsupport.modeltraversal.TraverseWorkspace;
 import org.osate.aadl2.modelsupport.resources.OsateResourceUtil;
@@ -254,6 +255,34 @@ public class InstantiateModel {
 
 	public static SystemInstance buildInstanceModelFile(ComponentImplementation ci) throws Exception {
 		return buildInstanceModelFile(ci, new NullProgressMonitor());
+	}
+
+	public static SystemInstance instantiate(ComponentImplementation ci, ResourceSet resourceSet,
+			IProgressMonitor monitor) throws Exception {
+		URI instanceURI = OsateResourceUtil.getInstanceModelURI(ci);
+		Resource aadlResource = resourceSet.createResource(instanceURI);
+
+		// now instantiate the rest of the model
+		final InstantiateModel instantiateModel = new InstantiateModel(monitor,
+				new AnalysisErrorReporterManager(QueuingAnalysisErrorReporter.factory));
+		SystemInstance root = instantiateModel.createSystemInstanceInt(ci, aadlResource);
+		if (root == null) {
+			errorMessage = InstantiateModel.getErrorMessage();
+		}
+		return root;
+	}
+
+	/**
+	 * Instantiate a component implementation. The instance model is created in the given resource set
+	 * and not saved as a file.
+	 *
+	 * @param ci The component implementation to instantiate.
+	 * @param resourceSet The instance model is created as a resource in this resource set.
+	 * @return The root of the instance model.
+	 * @throws Exception if something goes wrong.
+	 */
+	public static SystemInstance instantiate(ComponentImplementation ci, ResourceSet resourceSet) throws Exception {
+		return instantiate(ci, resourceSet, new NullProgressMonitor());
 	}
 
 	/*
@@ -2151,8 +2180,7 @@ public class InstantiateModel {
 	 * should be turned into a System Operation Mode object.
 	 */
 	protected void enumerateSystemOperationModes(final SystemInstance root, final ComponentInstance[] instances,
-			final int limit)
-			throws InterruptedException {
+			final int limit) throws InterruptedException {
 		final LinkedList<ComponentInstance> skipped = new LinkedList<ComponentInstance>();
 		final List<ModeInstance> currentModes = new ArrayList<ModeInstance>();
 		final EList<ModeInstance> modes = instances[0].getModeInstances();
