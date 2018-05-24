@@ -34,11 +34,9 @@
  */
 package org.osate.xtext.aadl2;
 
-import org.eclipse.xtext.builder.EclipseResourceFileSystemAccess2;
 import org.eclipse.xtext.conversion.IValueConverterService;
 import org.eclipse.xtext.documentation.IEObjectDocumentationProvider;
 import org.eclipse.xtext.formatting2.regionaccess.TextRegionAccessBuilder;
-import org.eclipse.xtext.generator.AbstractFileSystemAccess2;
 import org.eclipse.xtext.generator.IOutputConfigurationProvider;
 import org.eclipse.xtext.linking.lazy.LazyURIEncoder;
 import org.eclipse.xtext.resource.IDerivedStateComputer;
@@ -53,10 +51,8 @@ import org.osate.xtext.aadl2.documentation.Aadl2DocumentationProvider;
 import org.osate.xtext.aadl2.findReferences.Aadl2ReferenceFinder;
 import org.osate.xtext.aadl2.formatting2.regionaccess.Aadl2TextRegionAccessBuilder;
 import org.osate.xtext.aadl2.generator.Aadl2OutputConfigurationProvider;
-import org.osate.xtext.aadl2.parsing.AnnexParserAgent;
 import org.osate.xtext.aadl2.resource.Aadl2DerivedStateComputer;
 import org.osate.xtext.aadl2.resource.NoCacheDerivedStateAwareResource;
-import org.osate.xtext.aadl2.resource.persistence.Aadl2ResourceStorageFacade;
 import org.osate.xtext.aadl2.scoping.Aadl2ImportedNamespaceAwareLocalScopeProvider;
 import org.osate.xtext.aadl2.scoping.Aadl2ScopeProvider;
 import org.osate.xtext.aadl2.serializer.InstanceEnabledSerializer;
@@ -107,10 +103,10 @@ public class Aadl2RuntimeModule extends org.osate.xtext.aadl2.AbstractAadl2Runti
 		return Aadl2QualifiedNameFragmentProvider.class;
 	}
 
-	@Override
-	public Class<? extends org.eclipse.xtext.linking.ILinker> bindILinker() {
-		return AnnexParserAgent.class;
-	}
+//	@Override
+//	public Class<? extends org.eclipse.xtext.linking.ILinker> bindILinker() {
+//		return AnnexParserAgent.class;
+//	}
 
 	public Class<? extends org.eclipse.xtext.validation.INamesAreUniqueValidationHelper> bindINamesAreUniqueValidationHelper() {
 		return Aadl2NamesAreUniqueValidationHelper.class;
@@ -183,13 +179,13 @@ public class Aadl2RuntimeModule extends org.osate.xtext.aadl2.AbstractAadl2Runti
 		return org.eclipse.xtext.resource.DerivedStateAwareResourceDescriptionManager.class;
 	}
 
-	public Class<? extends org.eclipse.xtext.resource.persistence.IResourceStorageFacade> bindIResourceStorageFacade() {
-		return Aadl2ResourceStorageFacade.class;
-	}
+//	public Class<? extends org.eclipse.xtext.resource.persistence.IResourceStorageFacade> bindIResourceStorageFacade() {
+//		return Aadl2ResourceStorageFacade.class;
+//	}
 
-	public Class<? extends AbstractFileSystemAccess2> bindAbstractFileSystemAccess2() {
-		return EclipseResourceFileSystemAccess2.class;
-	}
+//	public Class<? extends AbstractFileSystemAccess2> bindAbstractFileSystemAccess2() {
+//		return EclipseResourceFileSystemAccess2.class;
+//	}
 
 	// needed for builder participant even though we don't generate anything
 	// builder participant is needed to write bin files
