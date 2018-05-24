@@ -26,7 +26,7 @@ Require-Bundle: org.eclipse.xtext;visibility:=reexport,
  org.osate.annexsupport,
  org.eclipse.uml2.codegen.ecore;bundle-version="1.9.100",
  org.eclipse.xtext.xbase.lib,
- org.eclipse.jdt.core;bundle-version="3.13.100"
+ org.osate.aadl2.errormodel.contrib;bundle-version="1.0.0";visibility:=reexport
 Export-Package: org.osate.xtext.aadl2.errormodel,
  org.osate.xtext.aadl2.errormodel.errorModel,
  org.osate.xtext.aadl2.errormodel.errorModel.impl,

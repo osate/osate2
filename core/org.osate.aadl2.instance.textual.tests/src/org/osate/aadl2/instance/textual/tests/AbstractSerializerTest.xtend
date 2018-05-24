@@ -38,7 +38,7 @@ import org.eclipse.xtext.resource.FileExtensionProvider
 import org.eclipse.xtext.serializer.ISerializer
 import org.osate.aadl2.AadlPackage
 import org.osate.aadl2.ComponentImplementation
-import org.osate.core.test.OsateTest
+import org.osate.testsupport.OsateTest
 
 import static extension org.junit.Assert.assertEquals
 import static extension org.junit.Assert.assertNotNull

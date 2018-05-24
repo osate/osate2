@@ -11,7 +11,7 @@
  * CARNEGIE MELLON UNIVERSITY PURSUANT TO THIS LICENSE (HEREINAFTER THE "DELIVERABLES") ARE ON AN "AS-IS" BASIS.
  * CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY KIND, EITHER EXPRESS OR IMPLIED AS TO ANY MATTER INCLUDING,
  * BUT NOT LIMITED TO, WARRANTY OF FITNESS FOR A PARTICULAR PURPOSE, MERCHANTABILITY, INFORMATIONAL CONTENT,
- * NONINFRINGEMENT, OR ERROR-FREE OPERATION. CARNEGIE MELLON UNIVERSITY SHALL NOT BE LIABLE FOR INDIRECT, SPECIAL OR
+ * NONINFRINGEMENT, OR conditi-FREE OPERATION. CARNEGIE MELLON UNIVERSITY SHALL NOT BE LIABLE FOR INDIRECT, SPECIAL OR
  * CONSEQUENTIAL DAMAGES, SUCH AS LOSS OF PROFITS OR INABILITY TO USE SAID INTELLECTUAL PROPERTY, UNDER THIS LICENSE,
  * REGARDLESS OF WHETHER SUCH PARTY WAS AWARE OF THE POSSIBILITY OF SUCH DAMAGES. LICENSEE AGREES THAT IT WILL NOT
  * MAKE ANY WARRANTY ON BEHALF OF CARNEGIE MELLON UNIVERSITY, EXPRESS OR IMPLIED, TO ANY PERSON CONCERNING THE
@@ -49,7 +49,7 @@ import org.osate.aadl2.Feature;
 import org.osate.aadl2.errormodel.PropagationGraph.PropagationGraph;
 import org.osate.aadl2.errormodel.PropagationGraph.PropagationGraphPath;
 import org.osate.aadl2.errormodel.PropagationGraph.PropagationPathEnd;
-import org.osate.aadl2.errormodel.PropagationGraph.util.PropagationPathsUtil;
+import org.osate.aadl2.errormodel.PropagationGraph.util.Util;
 import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.ConnectionInstance;
 import org.osate.aadl2.instance.ConnectionInstanceEnd;
@@ -101,7 +101,7 @@ public class PropagateErrorSources {
 
 	public PropagateErrorSources(String reportType, ComponentInstance root) {
 		report = new WriteToFile(reportType, root);
-		faultModel = PropagationPathsUtil.generatePropagationGraph(root, false);
+		faultModel = Util.generatePropagationGraph(root, false);
 		visited = new HashSet<EObject>();
 		alreadyTreated = new HashMap<ComponentInstance, List<String>>();
 
@@ -267,7 +267,7 @@ public class PropagateErrorSources {
 		String componentText = ci.getComponentInstancePath();
 		HashMultimap<ErrorPropagation, String> handledPropagations = HashMultimap.create();
 		for (ErrorBehaviorEvent event : EMV2Util.getAllErrorBehaviorEvents(ci)) {
-			if (!(event instanceof ErrorEvent) || !PropagationPathsUtil.conditionHolds((ErrorEvent) event, ci)) {
+			if (!(event instanceof ErrorEvent) || !Util.conditionHolds((ErrorEvent) event, ci)) {
 				continue;
 			}
 			TypeSet sourcetype = ((ErrorEvent) event).getTypeSet();
@@ -332,7 +332,7 @@ public class PropagateErrorSources {
 			}
 		}
 		for (ErrorSource errorSource : eslist) {
-			if (!PropagationPathsUtil.conditionHolds(errorSource, ci)) {
+			if (!Util.conditionHolds(errorSource, ci)) {
 				continue;
 			}
 			EMSUtil.unsetAll(ci.getSystemInstance());
@@ -407,7 +407,7 @@ public class PropagateErrorSources {
 			return;
 		}
 		for (ErrorSource ces : ceslist) {
-			if (!PropagationPathsUtil.conditionHolds(ces, root)) {
+			if (!Util.conditionHolds(ces, root)) {
 				continue;
 			}
 			EMSUtil.unsetAll(root.getSystemInstance());
@@ -415,7 +415,7 @@ public class PropagateErrorSources {
 			String connName = ces.getSourceModelElement().getName();
 			ConnectionInstance conni = InstanceUtil.findConnectionInstance(root,
 					(Connection) ces.getSourceModelElement());
-			EList<PropagationPathEnd> ends = PropagationPathsUtil.getAllPropagationDestinationEnds(faultModel, conni);
+			EList<PropagationPathEnd> ends = Util.getAllPropagationDestinationEnds(faultModel, conni);
 			if (ends.size() == 0) {
 				return;
 			}
@@ -608,7 +608,7 @@ public class PropagateErrorSources {
 		} else {
 			st.setVisitToken(tt);
 		}
-		EList<PropagationGraphPath> paths = PropagationPathsUtil.getAllPropagationPaths(faultModel, ci, ep);
+		EList<PropagationGraphPath> paths = Util.getAllPropagationPaths(faultModel, ci, ep);
 		String effectText = "," + generateTypeTokenErrorPropText(ep, tt);
 		if (paths.isEmpty()) {
 			if (fi != null) {
@@ -662,7 +662,7 @@ public class PropagateErrorSources {
 				String connSymbol = " -> ";
 				if (dstConni != null) {
 					// we have a connection binding path with a connection instance as target
-					dstEnds = PropagationPathsUtil.getAllPropagationDestinationEnds(faultModel, dstConni);
+					dstEnds = Util.getAllPropagationDestinationEnds(faultModel, dstConni);
 					connSymbol = " -Conn-> ";
 					// find the connection transformation rules
 					ComponentInstance contextCI = dstConni.getComponentInstance();
@@ -746,7 +746,7 @@ public class PropagateErrorSources {
 		boolean handled = false;
 		Collection<ErrorFlow> outefs = EMV2Util.findErrorFlowFromComponentInstance(ci, ep);
 		for (ErrorFlow ef : outefs) {
-			if (ef instanceof ErrorSink && PropagationPathsUtil.conditionHolds(ef, ci)) {
+			if (ef instanceof ErrorSink && Util.conditionHolds(ef, ci)) {
 				/**
 				 * We try to find additional error propagation for this error sink.
 				 * For example, if the error sink triggers to switch to

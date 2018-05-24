@@ -39,7 +39,7 @@ import org.osate.xtext.aadl2.errormodel.util.EM2TypeSetUtil;
 import org.osate.xtext.aadl2.errormodel.util.EMV2Util;
 import org.osate.xtext.aadl2.properties.util.InstanceModelUtil;
 
-public class PropagationPathsUtil {
+public class Util {
 
 	public static PropagationGraph generatePropagationGraph(ComponentInstance root, boolean completeConnectionsOnly) {
 		PropagationGraph pg = PropagationGraphFactory.eINSTANCE.createPropagationGraph();
@@ -694,7 +694,7 @@ public class PropagationPathsUtil {
 			if (res instanceof Boolean) {
 				return (Boolean) res;
 			} else {
-				return true;
+			return true;
 			}
 		} else {
 			if (RESOLUTE_INSTALLED) {
@@ -702,7 +702,7 @@ public class PropagationPathsUtil {
 						target.getSystemInstance(), targetComponent, targetElement, null);
 				return res != null && res.getType() == DiagnosticType.SUCCESS;
 			} else {
-				return true;
+			return true;
 			}
 		}
 	}
