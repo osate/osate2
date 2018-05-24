@@ -98,8 +98,8 @@ public class PropagationGraphBackwardTraversal {
 			}
 		}
 		// try to find a path from an outer to an inner out error propagation
-		EList<PropagationPathEnd> propagationSources = PropagationPathsUtil
-				.getAllPropagationSourceEnds(currentAnalysisModel, component, errorPropagation);
+		EList<PropagationPathEnd> propagationSources = Util.getAllPropagationSourceEnds(currentAnalysisModel, component,
+				errorPropagation);
 		for (PropagationPathEnd ppe : propagationSources) {
 			ComponentInstance componentSource = ppe.getComponentInstance();
 			ErrorPropagation propagationSource = ppe.getErrorPropagation();
@@ -119,7 +119,7 @@ public class PropagationGraphBackwardTraversal {
 			}
 			if (ef instanceof ErrorPath) {
 				ErrorPath ep = (ErrorPath) ef;
-				if (PropagationPathsUtil.conditionHolds(ef, component)) {
+				if (Util.conditionHolds(ef, component)) {
 					/**
 					 * Make sure that the error type we are looking for is contained
 					 * in the error types for the out propagation.
@@ -199,7 +199,7 @@ public class PropagationGraphBackwardTraversal {
 				}
 			} else if (ef instanceof ErrorSource) {
 				ErrorSource errorSource = (ErrorSource) ef;
-				if (PropagationPathsUtil.conditionHolds(ef, component)) {
+				if (Util.conditionHolds(ef, component)) {
 					if (errorSource.isAll() || EMV2Util.isSame(errorSource.getSourceModelElement(), errorPropagation)) {
 						if (EM2TypeSetUtil.contains(errorSource.getTypeTokenConstraint(), type)) {
 							EObject newEvent = processErrorSource(component, errorSource, type);
@@ -690,7 +690,7 @@ public class PropagationGraphBackwardTraversal {
 					ErrorTypes referencedErrorType = conditionElement.getConstraint() != null
 							? mapTargetType(conditionElement.getConstraint(), type)
 							: mapTargetType(((ErrorEvent) errorModelElement).getTypeSet(), type);
-					if (PropagationPathsUtil.conditionHolds((ErrorEvent) errorModelElement, component)) {
+					if (Util.conditionHolds((ErrorEvent) errorModelElement, component)) {
 						return processErrorEvent(component, (ErrorEvent) errorModelElement, referencedErrorType, scale);
 					}
 				}
@@ -765,7 +765,7 @@ public class PropagationGraphBackwardTraversal {
 		if (preResult != null) {
 			return preResult;
 		}
-		for (PropagationGraphPath ppr : PropagationPathsUtil.getAllReversePropagationPaths(currentAnalysisModel,
+		for (PropagationGraphPath ppr : Util.getAllReversePropagationPaths(currentAnalysisModel,
 				component, errorPropagation)) {
 			// traverse incoming
 			ErrorTypes srctype = type;
@@ -781,7 +781,7 @@ public class PropagationGraphBackwardTraversal {
 				ComponentInstance contextCI = ppr.getConnection().getComponentInstance();
 				TypeTransformationSet tts = EMV2Util.getAllTypeTransformationSet(contextCI);
 
-				for (PropagationPathEnd ppe : PropagationPathsUtil.getAllPropagationSourceEnds(currentAnalysisModel,
+				for (PropagationPathEnd ppe : Util.getAllPropagationSourceEnds(currentAnalysisModel,
 						ppr.getConnection())) {
 					ComponentInstance componentSource = ppe.getComponentInstance();
 					ErrorPropagation propagationSource = ppe.getErrorPropagation();
@@ -894,7 +894,6 @@ public class PropagationGraphBackwardTraversal {
 			ErrorTypes type) {
 		return traverseCompositeErrorState(component, state, type, true);
 	}
-
 
 
 //	methods to be overwritten by applications

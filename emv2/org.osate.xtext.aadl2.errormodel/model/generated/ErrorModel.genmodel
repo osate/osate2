@@ -109,8 +109,6 @@
     <genClasses ecoreClass="ErrorModel.ecore#//ErrorFlow">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ErrorModel.ecore#//ErrorFlow/typeTokenConstraint"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ErrorModel.ecore#//ErrorFlow/flowcondition"/>
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ErrorModel.ecore#//ErrorFlow/resoluteCondition"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ErrorModel.ecore#//ErrorFlow/condition"/>
     </genClasses>
     <genClasses ecoreClass="ErrorModel.ecore#//ErrorSource">
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ErrorModel.ecore#//ErrorSource/sourceModelElement"/>
@@ -158,8 +156,6 @@
     <genClasses ecoreClass="ErrorModel.ecore#//ErrorEvent">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ErrorModel.ecore#//ErrorEvent/typeSet"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ErrorModel.ecore#//ErrorEvent/eventcondition"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ErrorModel.ecore#//ErrorEvent/flowcondition"/>
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ErrorModel.ecore#//ErrorEvent/resoluteCondition"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ErrorModel.ecore#//ErrorEvent/condition"/>
     </genClasses>
     <genClasses ecoreClass="ErrorModel.ecore#//RepairEvent">

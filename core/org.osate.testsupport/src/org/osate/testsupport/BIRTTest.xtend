@@ -1,4 +1,4 @@
-package org.osate.core.test
+package org.osate.testsupport
 
 import java.net.URL
 import java.util.Map

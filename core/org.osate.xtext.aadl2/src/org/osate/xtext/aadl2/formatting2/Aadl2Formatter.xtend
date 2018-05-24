@@ -245,10 +245,12 @@ class Aadl2Formatter extends AbstractFormatter2 {
 		interior(leftParenthesis, rightParenthesis, [indent; indent; indent])
 		leftParenthesis.append[noSpace; setNewLines(0, 0, 1); autowrap]
 		commas.forEach[prepend[noSpace].append[oneSpace; setNewLines(0, 0, 1); autowrap]]
-		if (rightParenthesis.previousHiddenRegion.multiline) {
-			rightParenthesis.prepend[newLines = 1].surround[indent; indent]
-		} else {
-			rightParenthesis.prepend[noSpace]
+		if (rightParenthesis !== null) {
+			if (rightParenthesis.previousHiddenRegion.multiline) {
+				rightParenthesis.prepend[newLines = 1].surround[indent; indent]
+			} else {
+				rightParenthesis.prepend[noSpace]
+			}
 		}
 	}
 	
@@ -274,10 +276,12 @@ class Aadl2Formatter extends AbstractFormatter2 {
 		leftParenthesis.append[noSpace; setNewLines(0, 0, 1); autowrap]
 		unitsType.ownedLiterals.forEach[it.format(document)]
 		commas.forEach[prepend[noSpace].append[oneSpace; setNewLines(0, 0, 1); autowrap]]
-		if (rightParenthesis.previousHiddenRegion.multiline) {
-			rightParenthesis.prepend[newLines = 1].surround[indent; indent]
-		} else {
-			rightParenthesis.prepend[noSpace]
+		if (rightParenthesis !== null) {
+			if (rightParenthesis.previousHiddenRegion.multiline) {
+				rightParenthesis.prepend[newLines = 1].surround[indent; indent]
+			} else {
+				rightParenthesis.prepend[noSpace]
+			}
 		}
 	}
 	
@@ -497,10 +501,12 @@ class Aadl2Formatter extends AbstractFormatter2 {
 		leftParenthesis.prepend[oneSpace].append[noSpace; setNewLines(0, 0, 1); autowrap]
 		recordType.ownedFields.tail.forEach[prepend[oneSpace; setNewLines(0, 0, 1); autowrap]]
 		recordType.ownedFields.forEach[it.format(document)]
-		if (rightParenthesis.previousHiddenRegion.multiline) {
-			rightParenthesis.prepend[newLines = 1].surround[indent; indent]
-		} else {
-			rightParenthesis.prepend[noSpace]
+		if (rightParenthesis !== null) {
+			if (rightParenthesis.previousHiddenRegion.multiline) {
+				rightParenthesis.prepend[newLines = 1].surround[indent; indent]
+			} else {
+				rightParenthesis.prepend[noSpace]
+			}
 		}
 	}
 	
@@ -547,10 +553,12 @@ class Aadl2Formatter extends AbstractFormatter2 {
 		leftBracket.append[noSpace; setNewLines(0, 0, 1); autowrap]
 		recordValue.ownedFieldValues.tail.forEach[prepend[oneSpace; setNewLines(0, 0, 1); autowrap]]
 		recordValue.ownedFieldValues.forEach[it.format(document)]
-		if (rightBracket.previousHiddenRegion.multiline) {
-			rightBracket.prepend[newLines = 1].surround[indent; indent]
-		} else {
-			rightBracket.prepend[noSpace]
+		if (rightBracket !== null) {
+			if (rightBracket.previousHiddenRegion.multiline) {
+				rightBracket.prepend[newLines = 1].surround[indent; indent]
+			} else {
+				rightBracket.prepend[noSpace]
+			}
 		}
 	}
 	
@@ -593,10 +601,12 @@ class Aadl2Formatter extends AbstractFormatter2 {
 			prepend[noSpace].append[oneSpace; setNewLines(0, 0, 1); autowrap]
 		]
 		listValue.ownedListElements.forEach[it.format(document)]
-		if (rightParenthesis.previousHiddenRegion.multiline) {
-			rightParenthesis.prepend[newLines = 1].surround[indent; indent]
-		} else {
-			rightParenthesis.prepend[noSpace]
+		if (rightParenthesis !== null) {
+			if (rightParenthesis.previousHiddenRegion.multiline) {
+				rightParenthesis.prepend[newLines = 1].surround[indent; indent]
+			} else {
+				rightParenthesis.prepend[noSpace]
+			}
 		}
 	}
 	
@@ -630,10 +640,12 @@ class Aadl2Formatter extends AbstractFormatter2 {
 			prepend[noSpace].append[oneSpace; setNewLines(0, 0, 1); autowrap]
 		]
 		property.appliesTos.forEach[it.format(document)]
-		if (rightParenthesis.previousHiddenRegion.multiline) {
-			rightParenthesis.prepend[newLines = 1].append[noSpace].surround[indent; indent]
-		} else {
-			rightParenthesis.surround[noSpace]
+		if (rightParenthesis !== null) {
+			if (rightParenthesis.previousHiddenRegion.multiline) {
+				rightParenthesis.prepend[newLines = 1].append[noSpace].surround[indent; indent]
+			} else {
+				rightParenthesis.surround[noSpace]
+			}
 		}
 	}
 	
@@ -937,10 +949,12 @@ class Aadl2Formatter extends AbstractFormatter2 {
 				leftParenthesis.prepend[oneSpace].append[noSpace; setNewLines(0, 0, 1); autowrap]
 				componentType.regionFor.keywords(",").forEach[prepend[noSpace].append[oneSpace; setNewLines(0, 0, 1); autowrap]]
 				componentType.ownedPrototypeBindings.forEach[it.format(document)]
-				if (rightParenthesis.previousHiddenRegion.multiline) {
-					rightParenthesis.prepend[newLines = 1].append[newLines = 1].surround[indent; indent]
-				} else {
-					rightParenthesis.prepend[noSpace].append[newLines = 1]
+				if (rightParenthesis !== null) {
+					if (rightParenthesis.previousHiddenRegion.multiline) {
+						rightParenthesis.prepend[newLines = 1].append[newLines = 1].surround[indent; indent]
+					} else {
+						rightParenthesis.prepend[noSpace].append[newLines = 1]
+					}
 				}
 			}
 		}
@@ -1599,10 +1613,12 @@ class Aadl2Formatter extends AbstractFormatter2 {
 					prepend[noSpace].append[oneSpace; setNewLines(0, 0, 1); autowrap]
 				]
 				featureGroupType.ownedPrototypeBindings.forEach[it.format(document)]
-				if (rightParenthesis.previousHiddenRegion.multiline) {
-					rightParenthesis.prepend[newLines = 1].append[newLines = 1].surround[indent; indent]
-				} else {
-					rightParenthesis.prepend[noSpace].append[newLines = 1]
+				if (rightParenthesis !== null) {
+					if (rightParenthesis.previousHiddenRegion.multiline) {
+						rightParenthesis.prepend[newLines = 1].append[newLines = 1].surround[indent; indent]
+					} else {
+						rightParenthesis.prepend[noSpace].append[newLines = 1]
+					}
 				}
 			}
 		}
@@ -1678,10 +1694,12 @@ class Aadl2Formatter extends AbstractFormatter2 {
 				leftParenthesis.append[noSpace; setNewLines(0, 0, 1); autowrap]
 				componentImplementation.regionFor.keywords(",").forEach[prepend[noSpace].append[oneSpace; setNewLines(0, 0, 1); autowrap]]
 				componentImplementation.ownedPrototypeBindings.forEach[it.format(document)]
-				if (rightParenthesis.previousHiddenRegion.multiline) {
-					rightParenthesis.prepend[newLines = 1].append[newLines = 1].surround[indent; indent]
-				} else {
-					rightParenthesis.prepend[noSpace].append[newLines = 1]
+				if (rightParenthesis !== null) {
+					if (rightParenthesis.previousHiddenRegion.multiline) {
+						rightParenthesis.prepend[newLines = 1].append[newLines = 1].surround[indent; indent]
+					} else {
+						rightParenthesis.prepend[noSpace].append[newLines = 1]
+					}
 				}
 			}
 		}
