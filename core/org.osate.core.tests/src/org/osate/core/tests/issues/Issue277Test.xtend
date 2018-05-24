@@ -1,26 +1,31 @@
 package org.osate.core.tests.issues
 
+import com.google.inject.Inject
+import com.itemis.xtext.testing.XtextTest
 import org.eclipse.xtext.testing.InjectWith
 import org.eclipse.xtext.testing.XtextRunner
+import org.eclipse.xtext.testing.util.ParseHelper
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.osate.aadl2.AadlPackage
-import org.osate.testsupport.Aadl2UiInjectorProvider
-import org.osate.testsupport.OsateTest
+import org.osate.testsupport.Aadl2InjectorProvider
+import org.osate.testsupport.TestResourceSet
 
 import static org.junit.Assert.*
 
 @RunWith(typeof(XtextRunner))
-@InjectWith(typeof(Aadl2UiInjectorProvider))
-class Issue277Test extends OsateTest {
+@InjectWith(typeof(Aadl2InjectorProvider))
+class Issue277Test extends XtextTest {
+	
+	@Inject 
+	ParseHelper<AadlPackage> parseHelper;
+	
+	@Inject
+	TestResourceSet resourceSet;
+	
 	@Test
 	def void issue277() {
-		val aadlFile = "issue277.aadl"
-		createFiles(aadlFile -> aadlText)
-		suppressSerialization
-		val result = testFile(aadlFile)
-
-		val pkg = result.resource.contents.head as AadlPackage
+		val pkg = parseHelper.parse(aadlText, resourceSet.get())
 		val cls = pkg.ownedPublicSection.ownedClassifiers
 		assertTrue('Feature group type "TestInvExtendedFeatureGroup" not found', cls.exists[name == 'TestInvExtendedFeatureGroup'])
 
