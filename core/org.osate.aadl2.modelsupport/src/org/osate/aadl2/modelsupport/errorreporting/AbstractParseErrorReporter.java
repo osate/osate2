@@ -33,6 +33,7 @@
  */
 package org.osate.aadl2.modelsupport.errorreporting;
 
+import org.eclipse.emf.ecore.resource.Resource;
 import org.osate.aadl2.parsesupport.LocationReference;
 
 /**
@@ -48,6 +49,16 @@ public abstract class AbstractParseErrorReporter extends AbstractErrorReporter i
 
 	protected AbstractParseErrorReporter() {
 		super();
+	}
+
+	private Resource contextResource;
+
+	public void setContextResource(Resource res) {
+		contextResource = res;
+	}
+
+	public Resource getContextResource() {
+		return contextResource;
 	}
 
 	@Override
