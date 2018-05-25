@@ -20,27 +20,28 @@ class Issue53Test extends OsateTest {
 	def void issue53() {
 		val fileName = "issue53.aadl"
 		createFiles(fileName -> '''
-package issue53
-public
-	with EMV2;
-system pedals
-features
-pedal_position : out data port ;
-annex EMV2 {**                                                                                                   
-use types errorlibrary;
-use behavior ErrorLibrary::FailStop;
+			package issue53
+			public
+				with EMV2;
+				
+				system pedals
+					features
+						pedal_position : out data port ;
+					annex EMV2 {**
+						use types errorlibrary;
+						use behavior ErrorLibrary::FailStop;
+			
+						error propagations
+							pedal_position : out propagation {badvalue};
+						end propagations;
+			
+						properties
+							EMV2::Likelihood    => ARP4761::Probable applies to pedal_position.serviceomission;
+							EMV2::Severity     => ARP4761::Major applies to pedal_position.badvalue;
+					**};
+				end pedals;
 
-error propagations
-    pedal_position : out propagation {badvalue};
-end propagations;
-
-properties
-    EMV2::Likelihood    => ARP4761::Probable applies to pedal_position.serviceomission;
-    EMV2::Severity     => ARP4761::Major applies to pedal_position.badvalue;
-    **};
-end pedals;
-
-end issue53;
+			end issue53;
 		''')
 		suppressSerialization
 		val testFileResult = testFile(fileName)
