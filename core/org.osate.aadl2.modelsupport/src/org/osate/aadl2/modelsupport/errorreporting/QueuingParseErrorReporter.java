@@ -45,11 +45,11 @@ import org.eclipse.core.resources.IResource;
  * errors by storing them in a queue that can be retreived by calling
  * {@link #getErrors}.
  *
- * <p>Messages are stored as {@link QueuingParserErrorReporter.Message} objects.
+ * <p>Messages are stored as {@link QueuingParseErrorReporter.Message} objects.
  *
  * @author aarong
  */
-public final class QueuingParserErrorReporter extends AbstractParseErrorReporter {
+public final class QueuingParseErrorReporter extends AbstractParseErrorReporter {
 	public static final String ERROR = "Error";
 	public static final String WARNING = "Warning";
 	public static final String INFO = "INFO";
@@ -60,7 +60,7 @@ public final class QueuingParserErrorReporter extends AbstractParseErrorReporter
 	/** The list of messages */
 	private final List<Message> queue;
 
-	public QueuingParserErrorReporter() {
+	public QueuingParseErrorReporter() {
 		super();
 		queue = new LinkedList<Message>();
 	}
@@ -91,7 +91,7 @@ public final class QueuingParserErrorReporter extends AbstractParseErrorReporter
 
 	/**
 	 * Get the errors.
-	 * @return A List of {@link QueuingParserErrorReporter.Message} objects.
+	 * @return A List of {@link QueuingParseErrorReporter.Message} objects.
 	 */
 	public List<Message> getErrors() {
 		return new ArrayList<Message>(queue);
@@ -103,7 +103,7 @@ public final class QueuingParserErrorReporter extends AbstractParseErrorReporter
 		 */
 		@Override
 		public ParseErrorReporter getReporterFor(final IResource aadlRsrc) {
-			return new QueuingParserErrorReporter();
+			return new QueuingParseErrorReporter();
 		}
 
 	}
@@ -115,9 +115,9 @@ public final class QueuingParserErrorReporter extends AbstractParseErrorReporter
 	 * {@link #kind category} of the message, and the
 	 * {@link #message message itself}. The category is a string, and the set
 	 * of current values is given by
-	 * {@link QueuingParserErrorReporter#ERROR},
-	 * {@link QueuingParserErrorReporter#WARNING}, and
-	 * {@link QueuingParserErrorReporter#INFO}.
+	 * {@link QueuingParseErrorReporter#ERROR},
+	 * {@link QueuingParseErrorReporter#WARNING}, and
+	 * {@link QueuingParseErrorReporter#INFO}.
 	 *
 	 * @author aarong
 	 */
