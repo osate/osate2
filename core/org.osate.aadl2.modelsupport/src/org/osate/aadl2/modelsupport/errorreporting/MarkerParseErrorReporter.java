@@ -36,7 +36,6 @@ package org.osate.aadl2.modelsupport.errorreporting;
 import org.eclipse.core.resources.IMarker;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.CoreException;
-import org.eclipse.emf.ecore.resource.Resource;
 import org.osate.aadl2.modelsupport.Activator;
 
 /**
@@ -57,16 +56,6 @@ public final class MarkerParseErrorReporter extends AbstractParseErrorReporter {
 
 	/** The resource to attach the markers to. */
 	private final IResource resource;
-
-	private Resource contextResource;
-
-	public void setContextResource(Resource res) {
-		contextResource = res;
-	}
-
-	public Resource getContextResource() {
-		return contextResource;
-	}
 
 	/**
 	 * Create a new error reporter that uses the given marker types.
