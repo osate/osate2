@@ -162,7 +162,7 @@ WhenCondition ::=
   |
   when in error state <ErrorState> ( , <ErrorState> )*
   |
-  when expression
+  when <qualified name> ()    // Java or Resolute method call
 ```
 
 A goal declaration has the following elements:
