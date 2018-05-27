@@ -185,7 +185,7 @@ A goal declaration has the following elements:
 * *Set of Constant*: Constants are used to parameterize goal and requirement specifications (see Section Constants and Computed Variables). Many of the changes to a goal or requirement are in a value used in the goal or requirement specification. Constants allow users to define a requirement value once and reference it in the description, predicates, and in verification activities of verification plans expressed in the Verify notation (documented in a separate report).
 
 
-* *WhenCondition*: the condition under which the requirement applies. The condition is a set of AADL2 modes (operational modes), EMV2 error behavior states (failure modes), or a general expression on model elements and properties using the syntax of value predicate expressions (see Expression Notation).
+* *WhenCondition*: the condition under which the requirement applies. The condition is a set of AADL2 modes (operational modes), EMV2 error behavior states (failure modes), or a Java method that takes an EObject as parameter and returns a boolean.
 
 
 * *Rationale*: the rationale for a stakeholder goal as string.
@@ -360,7 +360,7 @@ A SystemRequirement declaration has the following elements:
 * *Set of Variable*: Constants and compute variables are used to parameterize requirement specifications (see Section Constants and Computed Variables). Many of the changes to a goal or requirement are in a value used in the requirement specification. Constants and compute variables allow users to define a requirement value once and reference it in the description, predicates, and in verification activities of verification plans expressed in the Verify notation (documented in a separate report).
 
 
-* *WhenCondition*: the condition under which the requirement applies. The condition is a set of AADL2 modes (operational modes), EMV2 error behavior states (failure modes), or a general expression on model elements and properties.
+* *WhenCondition*: the condition under which the requirement applies. The condition is a set of AADL2 modes (operational modes), EMV2 error behavior states (failure modes), or a Java method that takes an EObject as parameter and returns a boolean.
 
 
 * *Predicate*: a formalized specification of the condition that must be met to indicate that the requirement is satisfied. The predicate may refer to variables defined as part of this requirement or the enclosing requirement specification container. See Section Requirement Predicates for details.
@@ -506,13 +506,14 @@ GlobalRequirementSet ::=
 **\]**
 ```
 
-The *GlobalRequirement* construct represents a global requirement. It
-application may be restricted to certain component categories through
-the *for* statement. The only difference to a *SystemRequirement*
+The *GlobalRequirement* construct represents a global requirement. 
+The only difference to a *SystemRequirement*
 construct is the *for* statement. The for statement indicates that the
 requirement is to be applied to all instances of a given component
 category, or to any component, feature, connection, flow, mode, any
-model element, or the instance root. When configured as assure global
+model element, or the instance root. 
+
+When configured as assure global
 the requirement gets associated with all instance model elements
 indicated by the for. When configured by *include* in a system requirement the user can
 identify a specific model element by name for the given target
@@ -842,159 +843,10 @@ adding the following to value predicates:
 with ( <constant> upto | downto <value> )+
 ```
 
-## Guidelines for Use of ReqSpec
-
-This section provides some general guidelines on using ReqSpec with AADL
-models. ReqSpec is supported in OSATE by the workbench extension ALISA
-that supports architecture-led incremental system assurance throughout
-the life cycle \[Delange 2016\]. Section "Installing ReqSpec and ALISA
-in OSATE" in the ReqSpec Usage document provides detail on installing
-ReqSpec and ALISA in OSATE.
-
-### Organizing ReqSpec Files
-
-Users create files that contain stakeholder goal sets,
-system requirement sets, global requirement sets, goals and requirements
-in document structured format, global constants, stakeholders in
-organizations, and category types by creating files with the appropriate
-extension. Users can place these files in folders within a project that
-contains the AADL model; for instance, you can create a folder named
-*requirements*
-at the same level within a project as a folder
-called *packages* that
-contains AADL packages. Users can also place these files in a project
-separate from the AADL model of a system. In this case, you must set the
-project references for the projects within OSATE/Eclipse. Set the project references using the pull-down menu Project → Properties → Project References, as shown in Figure 3.
-
-### Defining System Requirement and Stakeholder Goal Sets
-
-When users define stakeholder goals and system requirements in an
-architecture-led fashion they define stakeholder goal sets and system
-requirement sets for an AADL component type or implementation. It is
-recommended, but not required, that you name these goal set or
-requirement set with the same name as the qualified name of the
-component classifier using “.” instead of “::” as identifier separator.
-
-When users define stakeholder goals and system requirements in a
-document format, goals and requirements can be organized into document
-sections. There is no restriction as whether two goals or requirements
-in one section are associated with the same or different system
-components.
-
-In the following sections we describe usage in terms of requirements.
-The same principals apply to goals.
-
-
-### Requirement Sets and Component Extension Hierarchy
-
-AADL allows users to define a component type and define extensions that
-add or refine features and other type elements. Similarly, users can
-associate one or more implementations with a component type, and
-component implementations can be extensions of other component
-implementations.
-
-Users define a separate requirement set for the original component type
-and a separate requirement set for the component type extension. The
-requirements in a system requirement set are associated with the
-component classifier identified in the *for* reference of the system
-requirement set. Users can target a requirement to a specific element in
-a component type or implementation by a *for* reference in the
-requirement declaration.
-
-Requirements defined for the original component type are inherited by
-the extension. This means that a requirement set of the extension can
-focus on requirement declaration for additions or refinements of the
-component type. In the case of refinement, a requirement declaration
-associated with the original component type may need to be rephrased. In
-this case, the rephrased requirement can be linked to the original
-requirement with an *evolves* reference.
-
-Similarly users may define requirements on component implementations.
-These represent requirements for the particular component variant and
-requirements that represent implementation constraints. Note that
-requirements associated with a component type apply to implementations
-of that type, i.e., the implementation are expected to satisfy these
-requirements.
-
-### Requirement Refinement
-
-A requirement may be refined into subrequirements in order to make it
-verifiable. This is done by placing the refined requirement in the same
-system requirements set as the original, and by identifying the original
-in a *refines* reference.
-
-In the ALISA workbench users indicate that requirements are verifiable
-by associating verification plans with requirement sets. For each
-requirement the verification plan contains a claim that specifies a set
-of verification activities to demonstrate that the requirement is met.
-The result of performing or executing a verification activity represents
-evidence that the requirement is met or not met. If all refined
-requirements are met, then the requirement being refined is considered
-verified as well.
-
-### Requirement Decomposition
-
-When a system architecture is elaborated by defining a component
-implementation—that is, a blueprint—requirements for a system may be
-decomposed into requirements for its subsystems. Users might want to
-provide traceability of this decomposed requirement to the original by
-adding *decomposes* references to the original requirement.
-
-Users can record a decomposed requirement in two ways: as a requirement
-associated with the subcomponent – identified as *for* target element;
-or as requirement declared for the component classifier referenced by
-the subcomponent.
-
-In the first case, the decomposed requirement represents an
-implementation constraint from a particular use context, which is
-declared in a requirement set associated with a component
-implementation, which allows the *for* reference the subcomponent as
-target element. When a component is provided by a supplier as
-subcomponent, this use context requirement must be verified on the
-provided component implementation.
-
-In the second case, the user accumulates requirements from different use
-contexts within their design in a single location, namely the component
-type referenced by all subcomponent declarations.
-
-### Requirement References
-
-Users can reference requirements (and goals) by just their name if the
-context uniquely identifies them. This is true when the referenced
-requirement appears in the same system requirements set or when the
-requirement is contained in a system requirements set that is associated
-with a classifier in the *extends* hierarchy of the target classifier.
-
-In some cases, requirements must be qualified with the name of the
-enclosing system requirements set. This is the case for references from
-system requirements of a subsystem to requirements of a system
-(decomposed requirements) or from system requirements to stakeholder
-goals. For qualified references, the system requirement set that
-contains the requirement must be identified.
-
-### Categorizing Goals and Requirements
-
-Users can associate category labels of different category types with
-requirements and goals. This allows users to create filtered views of
-requirements and verification plans, e.g., focus on safety and
-performance requirements. Predefined category types and labels have been
-introduced in Section Category Types and Labels.
-
-The categorization also allows us to assess requirements coverage and
-verification early and throughout the development life cycle. For
-example, the ALISA workbench can assess whether every feature of a
-component type has a requirement, whether requirements regarding the
-state, e.g., in the form of AADL modes, and behavior has been specified,
-whether quality attributes of interest and exceptional conditions
-leading to safety hazards or security risks have been covered.
-Similarly, categorization of verification activities according to phase
-allows the ALISA workbench to ensure that potential issues in a system
-design are discovered as early as possible through appropriate
-verification activities.
-
 ## Types and Predicate Expressions
 
 For details on expressing types and predicates see [Types and Expressions in ALISA](TypeExpressions.html).
+
 
 ## References
 

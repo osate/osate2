@@ -11,7 +11,7 @@ plugins. You may also define Java projects that include
 JUnit4 tests or Plug-in projects to Java based verification methods on
 AADL models. Figure 1 shows a workspace with the imported
 *AlisaPredefined* project, a project with JUnit tests, and the
- *SimpleAlisa* project with a folder for the AADL model and
+ *SimpleControlSystem* project with a folder for the AADL model and
 a separate folder for the requirements and verification plans.
 
 If you have multiple projects, make sure you specify *Project
