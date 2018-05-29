@@ -697,7 +697,7 @@ Expressions compare actual values against expected values. This is done by compa
 * *Behavioral assertion*: Behavioral predicate syntax will be supported in a future version of ReqSpec. Meanwhile users can specify behavioral assertions through the informal predicate construct.
 
 
-## User-definable and Predefined Category Types and Labels
+## User-definable and Predefined Categories
 
 ReqSpec allows users to associate category labels with goals and
 requirements. These category labels can also be associated with

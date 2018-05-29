@@ -103,16 +103,16 @@ The assurance plan consists of:
 * *Description*: a description of the verification method. 
 
 
-* * Assure*: optional list of references to verification plans for the system. This list can be derived by the workbench or explicitly specified.
+* *Assure*: optional list of references to verification plans for the system. This list can be derived by the workbench or explicitly specified.
 
 
-* * Assure global*: optional list of references to global verification plans that are not included as part of the system.  
+* *Assure global*: optional list of references to global verification plans that are not included as part of the system.  
 
 
-* * Assure subsystem*: names of subsystems in the component implementation whose assurance and verification plans should be included. All indicates all subsystems. The list of names is without commas.
+* *Assure subsystem*: names of subsystems in the component implementation whose assurance and verification plans should be included. All indicates all subsystems. The list of names is without commas.
 
 
-* * Assume subsystem*: names of subsystems in the component implementation whose assurance and verification plans should be excluded. All indicates all subsystems. The list of names is without commas.
+* *Assume subsystem*: names of subsystems in the component implementation whose assurance and verification plans should be excluded. All indicates all subsystems. The list of names is without commas.
 
 
 * *Issues*: allows users to record issues that may be encountered as a set of textual notes (Strings).
@@ -143,16 +143,16 @@ The assurance task consists of:
 •Name: identifier of the task. Assurance task references are qualified with the enclosing assurance case name.  
 
 
-* *Title**: a short descriptor of the verification method registry. This optional element may be used as more descriptive label than the name.
+* *Title*: a short descriptor of the verification method registry. This optional element may be used as more descriptive label than the name.
 
 
-* *Description**: a description of the verification method. 
+* *Description*: a description of the verification method. 
 
 
-* * Category**: list of selection category labels (without comma separation) , one of which must match the quality labels of requirement or verificaiton method. Any indicates that a requirement, verification method, or verification activity without category labels is considered a match.
+* * Category*: list of selection category labels (without comma separation) , one of which must match the quality labels of requirement or verificaiton method. Any indicates that a requirement, verification method, or verification activity without category labels is considered a match.
 
 
-* *Issues**: allows users to record issues that may be encountered as a set of textual notes (Strings).
+* *Issues*: allows users to record issues that may be encountered as a set of textual notes (Strings).
 
 
 ## Assurance Case Results
