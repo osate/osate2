@@ -18,7 +18,7 @@ import org.osate.xtext.aadl2.errormodel.errorModel.TypeToken;
 import org.osate.xtext.aadl2.errormodel.errorModel.TypeTransformation;
 import org.osate.xtext.aadl2.errormodel.errorModel.TypeTransformationSet;
 
-public class EM2TypeSetUtil {
+public class EMV2TypeSetUtil {
 
 	/**
 	 * return the root ErrorType of ErrorType et
@@ -53,7 +53,7 @@ public class EM2TypeSetUtil {
 	}
 
 	public static boolean isSame(ErrorTypes t1, ErrorTypes t2) {
-		return EM2TypeSetUtil.contains(t1, t2) && EM2TypeSetUtil.contains(t2, t1);
+		return EMV2TypeSetUtil.contains(t1, t2) && EMV2TypeSetUtil.contains(t2, t1);
 	}
 
 	/**
@@ -598,13 +598,13 @@ public class EM2TypeSetUtil {
 				ErrorTypes first = elementtypes.get(0);
 				if (first instanceof ErrorType) {
 					// error type or type product
-					if (!EM2TypeSetUtil.contains(result, typeSetElement)) {
+					if (!EMV2TypeSetUtil.contains(result, typeSetElement)) {
 						result.add(typeSetElement);
 					}
 				} else { // we have a type set that needs to be flattened
 					EList<TypeToken> etlist = flattenTypesetElements((TypeSet) first, usetypes);
 					for (TypeToken typeToken : etlist) {
-						if (!EM2TypeSetUtil.contains(result, typeToken)) {
+						if (!EMV2TypeSetUtil.contains(result, typeToken)) {
 							result.add(typeToken);
 						}
 					}
