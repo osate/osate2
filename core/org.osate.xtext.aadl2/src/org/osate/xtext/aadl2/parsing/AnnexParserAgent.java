@@ -1,5 +1,4 @@
 /*
- *
  * <copyright>
  * Copyright  2012 by Carnegie Mellon University, all rights reserved.
  *
@@ -37,7 +36,6 @@ package org.osate.xtext.aadl2.parsing;
 import java.util.Collections;
 import java.util.List;
 
-import org.eclipse.core.resources.IResource;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
@@ -62,7 +60,6 @@ import org.osate.aadl2.modelsupport.errorreporting.ParseErrorReporter;
 import org.osate.aadl2.modelsupport.errorreporting.ParseErrorReporterFactory;
 import org.osate.aadl2.modelsupport.errorreporting.ParseErrorReporterManager;
 import org.osate.aadl2.modelsupport.errorreporting.QueuingParseErrorReporter;
-import org.osate.aadl2.modelsupport.resources.OsateResourceUtil;
 import org.osate.aadl2.util.OsateDebug;
 import org.osate.annexsupport.AnnexLinkingService;
 import org.osate.annexsupport.AnnexLinkingServiceRegistry;
@@ -89,7 +86,15 @@ public class AnnexParserAgent extends LazyLinker {
 	// calls of afterModelLinked.
 	private boolean hasToClean = true;
 
+	private boolean standalone = false;
+
 	AnnexParserAgent() {
+		try {
+			AnnexRegistry.getRegistry(AnnexRegistry.ANNEX_PARSER_EXT_ID);
+		} catch (NoClassDefFoundError e) {
+			// we're running standalone and standalone
+			standalone = true;
+		}
 		factory = QueuingParseErrorReporter.factory;
 		parseErrManager = new ParseErrorReporterManager(factory);
 	}
@@ -102,9 +107,13 @@ public class AnnexParserAgent extends LazyLinker {
 	 */
 	@Override
 	protected void afterModelLinked(EObject model, IDiagnosticConsumer diagnosticsConsumer) {
+		// we can't process annexes in standalone mode yet
+		if (standalone) {
+			return;
+		}
+
 		String filename = model.eResource().getURI().lastSegment();
 		// set up reporter for ParseErrors
-		IResource file = OsateResourceUtil.convertToIResource(model.eResource());
 
 		boolean hasToRestoreCleanFlag = false;
 
