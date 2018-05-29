@@ -2,7 +2,7 @@
  */
 package org.osate.aadl2.modelsupport.errorreporting;
 
-import org.eclipse.core.resources.IResource;
+import org.eclipse.emf.ecore.resource.Resource;
 
 public final class ChainedParseErrorReporter extends AbstractParseErrorReporter {
 	/** The error reporters to delegate to */
@@ -58,7 +58,7 @@ public final class ChainedParseErrorReporter extends AbstractParseErrorReporter 
 		}
 
 		@Override
-		public ParseErrorReporter getReporterFor(IResource aadlRsrc) {
+		public ParseErrorReporter getReporterFor(Resource aadlRsrc) {
 			final ParseErrorReporter[] reporters = new ParseErrorReporter[factories.length];
 			for (int i = 0; i < factories.length; i++) {
 				reporters[i] = factories[i].getReporterFor(aadlRsrc);
