@@ -152,10 +152,15 @@ Goal ::=
   ]
   
 Title ::= String
+
 TargetClassifier ::= &lt;AADL Component Classifier&gt;
+
 TargetElement ::= &lt;ModelElement&gt;
+
 CategoryReference ::= &lt;CategoryType&gt;.&lt;CategoryLabel&gt;
+
 DocReference ::= URI to an element in an external document
+
 Description ::= String ( &lt;Constant or Variable&gt; | this | String )*
 
 WhenCondition ::= 
