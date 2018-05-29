@@ -16,20 +16,20 @@
 	</topic>
 	<topic href="help/html/ReqSpecDoc.html#the-system-requirements-construct" label="The System Requirements Construct">
 	</topic>
-	<topic href="help/html/ReqSpecDoc.html#the-global-requirements-and-requirement-construct" label="The Global Requirements and Requirement Construct">
+	<topic href="help/html/ReqSpecDoc.html#the-global-requirement-set-and-requirement-construct" label="The Global Requirement Set and Requirement Construct">
 	</topic>
        </topic>
 	<topic href="help/html/ReqSpecDoc.html#documents-and-document-sections" label="Documents and Document Sections">
 	</topic>
 	<topic href="help/html/ReqSpecDoc.html#variables-and-predicates" label="Variables and Predicates">
-	<topic href="help/html/ReqSpecDoc.html#constant-andcompute-variables" label="Constant and Compute Variables">
+	<topic href="help/html/ReqSpecDoc.html#constants-and-computed-variables" label="Constants and Computed Variables">
 	</topic>
-	<topic href="help/html/ReqSpecDoc.html#global-constant-variables" label="Global Constant Variables">
+	<topic href="help/html/ReqSpecDoc.html#reusable-global-constants" label="Reusable Global Constants">
 	</topic>
 	<topic href="help/html/ReqSpecDoc.html#requirement-pedicates" label="Requirement Predicates">
 	</topic>
     </topic>
-	<topic href="help/html/ReqSpecDoc.html#user-definable-categories" label="User-definable Categories">
+	<topic href="help/html/ReqSpecDoc.html#user-definable-and-predefined-categories" label="User-definable and Predefined Categories">
 	</topic>
 	<topic href="help/html/ReqSpecDoc.html#stakeholders-and-their-organization" label="Stakeholders and Their Organizations">
 	</topic>
