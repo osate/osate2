@@ -132,29 +132,33 @@ particular system.
 
 <pre>
 Goal ::=
-goal Name ( : Title )?
-( for TargetElement )? 
-[
-( category ( CategoryReference )+ )?
-( description Description )? 
-( Constant )*
-( WhenCondition )?
-( rationale String )?
-( refines ( <Goal> )+ )? 
-( conflicts with ( <Goal> )+)? 
-( evolves ( <Goal> )+)? 
-( dropped )? 
-( stakeholder ( <Stakeholder> )+ )?
-( see goal ( <Goal> )+)?
-( see document ( DocReference )+ )? 
-( issues (String)+ )?
-( ChangeUncertainty )?
-]
+  goal Name ( : Title )?
+  ( for TargetElement )? 
+  [
+    ( category ( CategoryReference )+ )?
+    ( description Description )? 
+    ( Constant )*
+    ( WhenCondition )?
+    ( rationale String )?
+    ( refines ( <Goal> )+ )? 
+    ( conflicts with ( <Goal> )+)? 
+    ( evolves ( <Goal> )+)? 
+    ( dropped )? 
+    ( stakeholder ( <Stakeholder> )+ )?
+    ( see goal ( <Goal> )+)?
+    ( see document ( DocReference )+ )? 
+    ( issues (String)+ )?
+    ( ChangeUncertainty )?
+  ]
 
 Title ::= String
+
 TargetClassifier ::= <AADL Component Classifier>
+
 TargetElement ::= <ModelElement>
+
 CategoryReference ::= <CategoryType>.<CategoryLabel>
+
 DocReference ::= URI to an element in an external document
 
 Description ::= String ( <Constant or Variable> | this | String )*
@@ -165,7 +169,7 @@ WhenCondition ::=
   when in error state <ErrorState> ( , <ErrorState> )*
   |
   when <qualified name> ()    // Java or Resolute method call
-</pre>`
+</pre>
 
 A goal declaration has the following elements:
 
@@ -236,16 +240,17 @@ declarations contained in it, i.e., a goal is referenced by the
 
 <pre>
 StakeholderGoalSet ::= 
-stakeholder goals QualifiedName ( : Title )?
-for ( TargetClassifier | all )
-( use constants <GlobalConstants>* )? 
-[
-(description Description )? 
-(see document ( DocReference )+ )? 
-( Constant )*
-( Goal )+
-( issues (String)+ )?
-]
+  stakeholder goals QualifiedName ( : Title )?
+  for ( TargetClassifier | all )
+  ( use constants <GlobalConstants>* )? 
+  [
+    (description Description )? 
+    (see document ( DocReference )+ )? 
+    ( Constant )*
+    ( Goal )+
+    ( issues (String)+ )?
+  ]
+
 QualifiedName ::= Identifier ( . Identifier )*
 </pre>
 
@@ -314,32 +319,32 @@ categories as well, e.g., by *abstract* or *device*.
 
 The *SystemRequirement* construct represents a system requirement.
 
-``` 
+<pre> 
 SystemRequirement ::=
-requirement Name ( : Title )?
-( for TargetElement )? 
-[
-( quality ( <Qualitylabel> )+ )?
-( category ( CategoryReference )+ )?
-( description Description )? 
-( Variable )*
-( WhenCondition )?
-( Predicate )?
-( rationale String )?
-( mitigates ( <Hazard> )+ )? 
-( refines ( <Requirement> )+)?
-( decomposes ( <Requirement> )+)?
-( inherits ( <Requirement> )+)?
-( evolves ( <Requirement> )+)? 
-( dropped )? 
-(development stakeholder ( <Stakeholder> )+ )?
-( see goal ( <Goal> )+)?
-( see requirement ( <Requirement> )+)?
-( see document ( DocReference )+ )? 
-( issues (String)+ )?
-( ChangeUncertainty )?
-]
-```
+  requirement Name ( : Title )?
+  ( for TargetElement )? 
+  [
+    ( quality ( <Qualitylabel> )+ )?
+    ( category ( CategoryReference )+ )?
+    ( description Description )? 
+    ( Variable )*
+    ( WhenCondition )?
+    ( Predicate )?
+    ( rationale String )?
+    ( mitigates ( <Hazard> )+ )? 
+    ( refines ( <Requirement> )+)?
+    ( decomposes ( <Requirement> )+)?
+    ( inherits ( <Requirement> )+)?
+    ( evolves ( <Requirement> )+)? 
+    ( dropped )? 
+    (development stakeholder ( <Stakeholder> )+ )?
+    ( see goal ( <Goal> )+)?
+    ( see requirement ( <Requirement> )+)?
+    ( see document ( DocReference )+ )? 
+    ( issues (String)+ )?
+    ( ChangeUncertainty )?
+  ]
+</pre>
 
 A SystemRequirement declaration has the following elements:
 
@@ -422,21 +427,21 @@ The *SystemRequirementSet* construct is a container for a set of
 requirements for a particular system, namely all requirements that are
 associated with an AADL component type or implementation.
 
-``` 
+<pre> 
 SystemRequirementSet ::=
-System requirements QualifiedName ( : Title )?
-for TargetClassifier 
-( use constants <GlobalConstants>* )? 
-[
-( description String )? 
-(see document ( DocReference )+ )? 
-(see goals ( <StakeholderGoals or GoalDocument> )+ )? 
-( Variable )*
-( SystemRequirement )*
-( include <GlobalRequirements or global requirement> ( for <named element> | self )*
-( issues (String)+ )?
-]
-```
+  System requirements QualifiedName ( : Title )?
+  for TargetClassifier 
+  ( use constants <GlobalConstants>* )? 
+  [
+    ( description String )? 
+    (see document ( DocReference )+ )? 
+    (see goals ( <StakeholderGoals or GoalDocument> )+ )? 
+    ( Variable )*
+    ( SystemRequirement )*
+    ( include <GlobalRequirements or global requirement> ( for <named element> | self )*
+    ( issues (String)+ )?
+  ]
+</pre>
 
 A *SystemRequirementSet* declaration has the following elements:
 
@@ -484,29 +489,19 @@ declarations. A *GlobalRequirementSet* declaration differs from
 declarations instead of *SystemRequirement* declarations, and it does
 not have a *for* statement, not an *include* statement.
 
-```
+<pre>
 GlobalRequirementSet ::=
-
-**global requirements** QualifiedName ( **:** Title )?
-
-( **use constants** &lt;GlobalConstants&gt;\* )? 
-
-**\[**
-
-( **description** String
-)? 
-
-(**see** **document** ( DocReference )+ )? 
-
-**see** **goals** ( &lt;StakeholderGoals or GoalDocument&gt; )+ )? 
-
-( Variable )\*
-
-( GlobalRequirement )\*
-
-( **issues** (String)+ )?
-**\]**
-```
+  **global requirements** QualifiedName ( **:** Title )?
+  ( **use constants** &lt;GlobalConstants&gt;\* )? 
+  **\[**
+    ( **description** String )? 
+    (**see** **document** ( DocReference )+ )? 
+    **see** **goals** ( &lt;StakeholderGoals or GoalDocument&gt; )+ )? 
+    ( Variable )\*
+    ( GlobalRequirement )\*
+    ( **issues** (String)+ )?
+  **\]**
+</pre>
 
 The *GlobalRequirement* construct represents a global requirement. 
 The only difference to a *SystemRequirement*
@@ -521,17 +516,18 @@ indicated by the for. When configured by *include* in a system requirement the u
 identify a specific model element by name for the given target
 type.
 
-``` 
+<pre> 
 GlobalRequirement ::=
-requirement Name ( : Title )?
-( for ComponentCategory+ | TargetType )? 
-[
-// Same as for SystemRequirement
-]
+  requirement Name ( : Title )?
+  ( for ComponentCategory+ | TargetType )? 
+  [
+  // Same as for SystemRequirement
+  ]
 
 ComponentCategory ::= abstract | system | <other AADL component categories>
+
 TargetType ::= component | feature | connection | flow | mode | element | root
-```
+</pre>
 
 ## Documents and Document Sections
 
@@ -547,38 +543,39 @@ document sections, and stakeholder goals or system requirements.
 A *GoalsDocument* only contains stakeholder goals, while a
 *RequirementsDocument* only contains system requirements.
 
-``` 
+<pre> 
 GoalsDocument ::=
-document Name ( : Title )?
-[
-(description String )? 
-( Goal  | DocumentSection )+ 
-(issues (String)+ )?
-]
+  document Name ( : Title )?
+  [
+    (description String )? 
+    ( Goal  | DocumentSection )+ 
+    (issues (String)+ )?
+  ]
 
 GoalsDocumentSection ::=
-section Title | ( Name ( : Title )?)
-[
-(description String )? 
-( Goal  | DocumentSection )+ 
-(issues (String)+ )?
-]
+  section Title | ( Name ( : Title )?)
+  [
+    (description String )? 
+    ( Goal  | DocumentSection )+ 
+    (issues (String)+ )?
+  ]
+  
 RequirementsDocument ::=
-document Name ( : Title )?
-[
-(description String )? 
-( Requirement  | DocumentSection )+ 
-(issues (String)+ )?
-]
+  document Name ( : Title )?
+  [
+    (description String )? 
+    ( Requirement  | DocumentSection )+ 
+    (issues (String)+ )?
+  ]
 
 RequirementsDocumentSection ::=
-section Name ( : Title )?
-[
-(description String )? 
-( Requirement  | DocumentSection )+ 
-(issues (String)+ )?
-**\]**
-```
+  section Name ( : Title )?
+  [
+    (description String )? 
+    ( Requirement  | DocumentSection )+ 
+    (issues (String)+ )?
+  **\]**
+</pre>
 
 
 A *RequirementsDocument* declaration has the following elements:
@@ -643,23 +640,25 @@ verification plans that complement requirement specifications in the
 architecture-led incremental system assurance (ALISA) workbench
 \[Delange 2016\].
 
-``` 
+<pre> 
 Variable ::=
-Constant | ComputedVariable
+  Constant | ComputedVariable
 
 Constant ::=
-val Name (: TypeSpec )? = Expression 
+  val Name (: TypeSpec )? = Expression 
+
 ComputedVariable ::=
-compute Name : TypeSpec
+  compute Name : TypeSpec
+
 TypeSpec ::= BaseType | typeof <PropertyName>
+
 BaseType ::= boolean 
   | string 
   | integer (units <UnitsTypeName> )?
   | real (units &lt;UnitsTypeName&gt; )? 
   | model element 
   | &lt;PropertyTypeName&gt;
-
-```
+</pre>
 
 ### Reusable Global Constants
 
@@ -668,11 +667,11 @@ referenced within the *ReqSpec* model of any system. Global constants
 are defined in files with the extension *constants*. The following
 syntax is used in those files:
 
-``` 
+<pre> 
 GlobalConstants ::=
-constants QualifiedName 
-[ ConstantVariable+ ]
-```
+  constants QualifiedName 
+  [ ConstantVariable+ ]
+</pre>
 
 ### Requirement Predicates
 
@@ -713,11 +712,12 @@ to certain development phases.
 Categories are declared in a separate file with the extension *cat*
 using the following syntax:
 
-```
+<pre>
 Categories ::= ( CategoryType )+
+
 CategoryType ::=
-Name \[ (CategoryLabel )+ \]
-```
+  Name \[ (CategoryLabel )+ \]
+</pre>
 
 The name of each category type must unique among category types. Labels
 must be unique within a category type.  A category is referenced by its
@@ -775,23 +775,23 @@ them with the organization name.
 Each organization is declared in a separate file with the extension
 *org*.
 
-``` 
+<pre> 
 Organization::=
-organization Name
-( Stakeholder )+
+  organization Name
+  ( Stakeholder )+
 
 Stakeholder ::=
-stakeholder Name 
-[
-( full name String )?
-( title String )?
-( description String )?
-( role String )?
-( email String )?
-( phone String )?
-( supervisor <Stakeholder> )?
-]
-```
+  stakeholder Name 
+  [
+    ( full name String )?
+    ( title String )?
+    ( description String )?
+    ( role String )?
+    ( email String )?
+    ( phone String )?
+    ( supervisor <Stakeholder> )?
+  ]
+</pre>
 
 ## Change Uncertainty
 
@@ -837,9 +837,7 @@ desirable target value that is above or below the required value or
 value range (a satisfiable requirement). It is specified by optionally
 adding the following to value predicates:
 
-```
-with ( <constant> upto | downto <value> )+
-```
+`with ( <constant> upto | downto <value> )+`
 
 ## Types and Predicate Expressions
 

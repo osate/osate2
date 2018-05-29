@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="ISO-8859-1" ?>
 <toc topic="help/html/01-Introduction.html" label="ALISA User Guide" >
-	<topic href="help/html/01-Introduction.html" label="ALISA User Guide" >
+	<topic href="help/html/01-Introduction.html" label="Introduction" >
 	<topic href="help/html/01-Introduction.html#alisa-concepts-and-notations" label="ALISA Concepts and Notations" >
 	</topic>
-	<topic href="help/html/01-Introduction.html#grammars- and-notational-conventions" label="Grammars and Notational Conventions" >
+	<topic href="help/html/01-Introduction.html#grammars-and-notational-conventions" label="Grammars and Notational Conventions" >
 	</topic>
 	</topic>
 	<topic href="help/html/02-GettingStarted.html" label="Getting Started" >
