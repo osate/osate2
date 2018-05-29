@@ -137,6 +137,7 @@ The helper method getVoltage is defined as follows.
 
 > Note that for predefined properties utility methods for retrieving property values exist in the class *GetProperties*. A second class *PropertyUtils* provides additional support methods.
 
+
 <pre>
 public static double getVoltage(final FeatureInstance fi) {
 	Property voltage = GetProperties.lookupPropertyDefinition(fi, "Physical", "Voltage");
@@ -197,7 +198,6 @@ ALISA supports running of JUnit tests as verification activities. This is accomp
 verification methods mymethods [
 	method testJunit : "Run JUnit4" [
 		junit junittest.testme 
-		
 	]
 ] 
 </pre>
