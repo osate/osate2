@@ -196,9 +196,9 @@ activity activityname ( : "descriptive title" )?
       ( timeout Integer &lt;time unit&gt; )?
       ( weight Integer )?
     ]
-
-CategoryLabel ::=  CategoryTypeID . CategoryLabelID
 </pre>
+
+`CategoryLabel ::=  CategoryTypeID . CategoryLabelID`
 
 A verification activity declaration consists of the following:
 
@@ -259,12 +259,11 @@ completing because of a *Timeout*, or
 because the execution failed to complete for other reasons, e.g., the
 result of an uncaught exception (*Error*).
 
+`ArgumentExpr ::=  ElseExpr | ElseExpr then ArgumentExpr`
+
+`ElseExpr ::= SingleElseExpr | CompositeElseExpr`
+
 <pre>
-ArgumentExpr ::=  ElseExpr |
-  ElseExpr then ArgumentExpr  
-
-ElseExpr ::= SingleElseExpr | CompositeElseExpr
-
 SingleElseExpr ::=   &lt;VerificationActivity&gt; |
   &lt;VerificationActivity&gt; else  ( ElseExpr |
   [ 
@@ -272,13 +271,11 @@ SingleElseExpr ::=   &lt;VerificationActivity&gt; |
     ( error: ArgumentExpr )?
     ( timeout: ArgumentExpr )?
   ] )
-
-CompositeElseExpr ::=  CompositeExpr |
-  CompositeExpr else ElseExpr
-
-CompositeExpr ::=  ( ArgumentExpr )
-  all [ ArgumentExpr ( , ArgumentExpr)* ] | 
 </pre>
+
+`CompositeElseExpr ::=  CompositeExpr |  CompositeExpr else ElseExpr`
+
+`CompositeExpr ::=  ( ArgumentExpr ) | all [ ArgumentExpr ( , ArgumentExpr)* ]`
 
 The expression takes the following
 form:
@@ -380,11 +377,12 @@ method methodname
     VerificationValidation?
     ( category categorylabel* )?
   ] 
-
-
+</pre>
+<pre>
 ModelElementType ::=
   component | feature | connection | flow | mode | element
-
+</pre>
+<pre>
 MethodKind ::=
   java MethodPath ( (  JavaParameter ( ,  JavaParameter )* ) )? |
   plugin MethodID |
@@ -392,13 +390,16 @@ MethodKind ::=
   agree ( single | all ) |
   junit ClassPath |
   manual DialogIdentifier
- 
+</pre>
+<pre>
 FormalParameter ::=
   ID : TypeSpec ( in Unit )?
-
+</pre>
+<pre>
 VerificationPrecondition ::= 
 precondition &lt;method reference&gt; ( &lt;formal parameter reference list&gt; )
-
+</pre>
+<pre>
 VerificationValidation ::= 
 validation &lt;method reference&gt; ( &lt;formal parameter reference list&gt; ) 
 </pre>
