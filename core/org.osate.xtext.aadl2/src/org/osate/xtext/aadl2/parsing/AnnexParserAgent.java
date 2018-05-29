@@ -55,13 +55,13 @@ import org.osate.aadl2.AnnexSubclause;
 import org.osate.aadl2.DefaultAnnexLibrary;
 import org.osate.aadl2.DefaultAnnexSubclause;
 import org.osate.aadl2.Mode;
+import org.osate.aadl2.modelsupport.errorreporting.AbstractParseErrorReporter;
 import org.osate.aadl2.modelsupport.errorreporting.AnalysisErrorReporterManager;
 import org.osate.aadl2.modelsupport.errorreporting.AnalysisToParseErrorReporterAdapter;
-import org.osate.aadl2.modelsupport.errorreporting.LogParseErrorReporter;
-import org.osate.aadl2.modelsupport.errorreporting.MarkerParseErrorReporter;
 import org.osate.aadl2.modelsupport.errorreporting.ParseErrorReporter;
 import org.osate.aadl2.modelsupport.errorreporting.ParseErrorReporterFactory;
 import org.osate.aadl2.modelsupport.errorreporting.ParseErrorReporterManager;
+import org.osate.aadl2.modelsupport.errorreporting.QueuingParseErrorReporter;
 import org.osate.aadl2.modelsupport.resources.OsateResourceUtil;
 import org.osate.aadl2.util.OsateDebug;
 import org.osate.annexsupport.AnnexLinkingService;
@@ -72,28 +72,27 @@ import org.osate.annexsupport.AnnexRegistry;
 import org.osate.annexsupport.AnnexResolver;
 import org.osate.annexsupport.AnnexResolverRegistry;
 import org.osate.annexsupport.AnnexUtil;
-import org.osate.core.OsateCorePlugin;
-
-import org.osate.aadl2.modelsupport.errorreporting.MarkerParseErrorReporter.Factory;
 
 import antlr.RecognitionException;
 
 public class AnnexParserAgent extends LazyLinker {
 
-	private final ParseErrorReporterFactory parseErrorLoggerFactory = new LogParseErrorReporter.Factory(
-			OsateCorePlugin.getDefault().getBundle());
-	private Factory factory = new MarkerParseErrorReporter.Factory("org.osate.aadl2.modelsupport.ParseErrorMarker",
-			parseErrorLoggerFactory);
+	private ParseErrorReporterFactory factory;
 
 	// Instantiating parseErrManager when afterModelLinked is recursively called
 	// (see l244) deletes the error markers (see ParseErrorReporterManager at l120)
 	// of the annexes not built with xtext(for example BA).
-	// That why parseErrManager is an class attribut.
-	private final ParseErrorReporterManager parseErrManager = new ParseErrorReporterManager(factory);
+	// That why parseErrManager is an class attribute.
+	private final ParseErrorReporterManager parseErrManager;
 
 	// Control flag for cleaning the error markers from the previous stack of recursive
 	// calls of afterModelLinked.
 	private boolean hasToClean = true;
+
+	AnnexParserAgent() {
+		factory = QueuingParseErrorReporter.factory;
+		parseErrManager = new ParseErrorReporterManager(factory);
+	}
 
 	/*
 	 * (non-Javadoc)
@@ -116,13 +115,12 @@ public class AnnexParserAgent extends LazyLinker {
 			hasToClean = false;
 		}
 
-		final ParseErrorReporter errReporter = parseErrManager.getReporter(file);
-		if (errReporter instanceof MarkerParseErrorReporter) {
-			((MarkerParseErrorReporter) errReporter).setContextResource(model.eResource());
+		final ParseErrorReporter errReporter = parseErrManager.getReporter(model.eResource());
+		if (errReporter instanceof AbstractParseErrorReporter) {
+			((AbstractParseErrorReporter) errReporter).setContextResource(model.eResource());
 		}
 		final AnalysisErrorReporterManager resolveErrManager = new AnalysisErrorReporterManager(
-				new AnalysisToParseErrorReporterAdapter.Factory(new MarkerParseErrorReporter.Factory(
-						"org.osate.aadl2.modelsupport.ParseErrorMarker", parseErrorLoggerFactory)));
+				new AnalysisToParseErrorReporterAdapter.Factory(factory));
 
 		AnnexParserRegistry registry = (AnnexParserRegistry) AnnexRegistry
 				.getRegistry(AnnexRegistry.ANNEX_PARSER_EXT_ID);
