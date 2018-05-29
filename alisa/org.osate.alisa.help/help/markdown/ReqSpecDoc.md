@@ -151,19 +151,19 @@ Goal ::=
     ( ChangeUncertainty )?
   ]
   
-Title ::= String
+ Title ::= String
 
-TargetClassifier ::= &lt;AADL Component Classifier&gt;
+ TargetClassifier ::= &lt;AADL Component Classifier&gt;
 
-TargetElement ::= &lt;ModelElement&gt;
+ TargetElement ::= &lt;ModelElement&gt;
 
-CategoryReference ::= &lt;CategoryType&gt;.&lt;CategoryLabel&gt;
+ CategoryReference ::= &lt;CategoryType&gt;.&lt;CategoryLabel&gt;
 
-DocReference ::= URI to an element in an external document
+ DocReference ::= URI to an element in an external document
 
-Description ::= String ( &lt;Constant or Variable&gt; | this | String )*
+ Description ::= String ( &lt;Constant or Variable&gt; | this | String )*
 
-WhenCondition ::= 
+ WhenCondition ::= 
   when in modes &lt;Mode&gt; ( , &lt;Mode&gt; )*
   |
   when in error state &lt;ErrorState&gt; ( , &lt;ErrorState&gt; )*
