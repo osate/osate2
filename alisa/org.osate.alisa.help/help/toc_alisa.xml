@@ -1,5 +1,11 @@
 <?xml version="1.0" encoding="ISO-8859-1" ?>
-<toc topic="help/html/01-Introduction.html" label="Alisa User Guide" >
+<toc topic="help/html/01-Introduction.html" label="ALISA User Guide" >
+	<topic href="help/html/01-Introduction.html" label="ALISA User Guide" >
+	<topic href="help/html/01-Introduction.html#alisa-concepts-and-notations" label="ALISA Concepts and Notations" >
+	</topic>
+	<topic href="help/html/01-Introduction.html#grammars- and-notational-conventions" label="Grammars and Notational Conventions" >
+	</topic>
+	</topic>
 	<topic href="help/html/02-GettingStarted.html" label="Getting Started" >
 	</topic>
 	<topic href="help/html/ReqSpecDoc.html" label="Requirement Specification for a System" >
@@ -8,7 +14,7 @@
 	<topic href="help/html/ReqSpecDoc.html#stakeholder-goals" label="Stakeholder Goals">
 	  <topic href="help/html/ReqSpecDoc.html#the-goal-construct" label="The Goal Construct">
 	  </topic>
-	  <topic href="help/html/ReqSpecDoc.html#the-stakeholder-goals-construct" label="The Stakeholder Goals Construct">
+	  <topic href="help/html/ReqSpecDoc.html#the-stakeholder-goal-set-construct" label="The Stakeholder Goal Set Construct">
 	  </topic>
    </topic>
 	<topic href="help/html/ReqSpecDoc.html#system-requirements" label="System Requirements">
@@ -16,7 +22,7 @@
 	</topic>
 	<topic href="help/html/ReqSpecDoc.html#the-system-requirements-construct" label="The System Requirements Construct">
 	</topic>
-	<topic href="help/html/ReqSpecDoc.html#the-global-requirement-set-and-requirement-construct" label="The Global Requirement Set and Requirement Construct">
+	<topic href="help/html/ReqSpecDoc.html#the-global-requirement-set-and-requirement-constructs" label="The Global Requirement Set and Requirement Constructs">
 	</topic>
        </topic>
 	<topic href="help/html/ReqSpecDoc.html#documents-and-document-sections" label="Documents and Document Sections">
@@ -26,12 +32,12 @@
 	</topic>
 	<topic href="help/html/ReqSpecDoc.html#reusable-global-constants" label="Reusable Global Constants">
 	</topic>
-	<topic href="help/html/ReqSpecDoc.html#requirement-pedicates" label="Requirement Predicates">
+	<topic href="help/html/ReqSpecDoc.html#requirement-predicates" label="Requirement Predicates">
 	</topic>
     </topic>
 	<topic href="help/html/ReqSpecDoc.html#user-definable-and-predefined-categories" label="User-definable and Predefined Categories">
 	</topic>
-	<topic href="help/html/ReqSpecDoc.html#stakeholders-and-their-organization" label="Stakeholders and Their Organizations">
+	<topic href="help/html/ReqSpecDoc.html#stakeholders-and-their-organizations" label="Stakeholders and Their Organizations">
 	</topic>
 	<topic href="help/html/ReqSpecDoc.html#change-uncertainty" label="Change Uncertainty">
 	</topic>
@@ -58,8 +64,6 @@
 		</topic>
 		</topic>
 		<topic href="help/html/ReqSpecUsage.html#verifiable-system-requirements" label="Verifiable System Requirements" >
-		<topic href="help/html/ReqSpecUsage.html#dealing-with-multiple-terms" label="Dealing with Multiple Terms" >
-		</topic>
 		<topic href="help/html/ReqSpecUsage.html#requirements-on-system-input-and-output" label="Requirements on System Input and Output" >
 		</topic>
 		<topic href="help/html/ReqSpecUsage.html#requirements-on-other-system-elements" label="Requirements on other System Elements" >

@@ -1,5 +1,7 @@
 # Guidance for System Verification
 
+[TOC levels=2-4 bullet hierarchy]
+
 * Copyright 2016 Carnegie Mellon University. See Notice.txt
 * Distribution Statement A: Approved for Public Release; Distribution is Unlimited.
 

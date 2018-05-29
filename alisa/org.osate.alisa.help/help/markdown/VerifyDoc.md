@@ -1,5 +1,7 @@
 # Verification Plans for a System
 
+[TOC levels=2-4 bullet hierarchy]
+
 The *Verify* notation lets users specify *verification plans* for each *system requirement set* of system components as well as for *global requirment sets*. Verify also lets users specify a *method registry* that identfies verification methods implemented in different languages and apply to AADL models, detailed design models, and source code. 
 
 A verification plan specifies how every requirement of a system or

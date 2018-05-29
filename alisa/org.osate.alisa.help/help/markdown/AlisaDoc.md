@@ -1,5 +1,7 @@
 # Configuration of Assurance Plans and Assurance Case Results
 
+[TOC levels=2-4 bullet hierarchy]
+
 The *Alisa* notation lets users specify *assurance cases* that consist of one or more *assurance plans*. Each assurance case is kept in a separate file with the extension *alisa*.
 
 An *assurance plan* configures how a system is to be assured. It identifies the AADL model that represents an implementation to be verified against the requirements. It also indicates whether subsystems can be assumed to have been verified separately or whether their verification is part of this plan.
