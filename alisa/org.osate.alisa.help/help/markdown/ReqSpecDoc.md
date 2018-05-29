@@ -659,10 +659,6 @@ BaseType ::= boolean
 
 ```
 
-
-\
-\
-
 ### Reusable Global Constants
 
 In some cases it is desirable to define a set of constants that can be

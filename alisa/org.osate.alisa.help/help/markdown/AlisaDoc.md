@@ -1,4 +1,4 @@
-# Configuration of Assurance Plans and Assurance Case Instances
+# Configuration of Assurance Plans and Assurance Case Results
 
 The *Alisa* notation lets users specify *assurance cases* that consist of one or more *assurance plans*. Each assurance case is kept in a separate file with the extension *alisa*.
 
@@ -8,7 +8,7 @@ An *assurance task* allows users to focus on a subset of the requirements and ve
 
 Assurance cases get automatically instantiated as *assurance case result instances*. Assurance case result instances are then executed to verify AADL instance models for the root system implementation specified in each assurance plan and the results are recorded. Assurance case result instances are represented by the Assure notation in files with the extension assure. 
 
-## Assurance Case and Assurance Plan
+## Assurance Case and Assurance Plans
 
 Users will define at least one assurance case for a system. It specifies
 the complete set of verification activities to be performed for the
@@ -155,7 +155,7 @@ The assurance task consists of:
 * *Issues**: allows users to record issues that may be encountered as a set of textual notes (Strings).
 
 
-## Assurance Case Result
+## Assurance Case Results
 
 The *Assure* notation is used to represent assurance case results for an instance of an assurance case associated with a set of AADL model instances. 
 

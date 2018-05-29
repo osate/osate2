@@ -420,7 +420,7 @@ The verification method declaration consists of:
 
 * *boolean*: indication that the method returns a boolean value to indicate success or fail.  
 
-* * report*: indication that the method returns a result report in an ALISA specified format. This report can contain a collection of result indicators and result data (see [Analysis Result](ResultReport.html)).
+* * report*: indication that the method returns a result report in an ALISA specified format. This report can contain a collection of result indicators and result data (see [Analysis Result](AnalysisResultFormat.html)).
 
 
 * *Title*: a short descriptor of the verification method registry. This optional element may be used as more descriptive label than the name.
@@ -452,21 +452,21 @@ The following method types are supported:
  Java methods can report violation of assertions (predicates) by throwing AssertionException. They are mapped into Fail results. This is how JUnit and Java8 support assertions (see below for registering Junit4 test classes). 
  Uncaught runtime exceptions within a Java method are also caught by the Assure execution harness and mapped into Error results. 
  Java methods can return a Boolean result, which gets mapped into Success and Fail if specified to do so by the boolean keyword. 
- Java methods can return result reports in an ALISA defined format (see [Analysis Result](ResultReport.html)) if the method is registered accordingly (report).
+ Java methods can return result reports in an ALISA defined format (see [Analysis Result](AnalysisResultFormat.html)) if the method is registered accordingly (report).
  Java methods can return a single value as object or a hasmap of multiple values. These values will be assigned to the specified computed variables.
  The actual Java method may expect Java types that are not part of the ALISA Types. For example, the Java method may expect a long numeric. An optional parameter list allows users to specify the expected Java type followed by the name of the formal parameter. Currently we map Stringliteral -> String, BooleanLiteral -> Boolean, RealLiteral -> double or real, IntegerLiteral -> long or int.
 
 
-* *Plugin*: an OSATE analysis plugin method identified by an identifier. Plugin methods are defined in a predeclared method registry (see [Predefined Method Registry]([VerifyDoc.html#predefined-method-registry])). OSATE analysis plugins report their results via the Eclipse Marker mechanism. These results are mapped into the Diagnostic format (see [Analysis Result](ResultReport.html)) for inclusion in the assurance case result instance.
+* *Plugin*: an OSATE analysis plugin method identified by an identifier. Plugin methods are defined in a predeclared method registry (see [Predefined Method Registry]([VerifyDoc.html#predefined-method-registry])). OSATE analysis plugins report their results via the Eclipse Marker mechanism. These results are mapped into the Diagnostic format (see [Analysis Result](AnalysisResultFormat.html)) for inclusion in the assurance case result instance.
 
 
-* *Resolute*: a Resolute claim function or computational functions identified by the method name. Results in the Resolute result format are mapped into the Diagnostic format (see [Analysis Result](ResultReport.html)). In the case of computational functions the returned value is assigned to the specified Computed Variable.
+* *Resolute*: a Resolute claim function or computational functions identified by the method name. Results in the Resolute result format are mapped into the Diagnostic format (see [Analysis Result](AnalysisResultFormat.html)). In the case of computational functions the returned value is assigned to the specified Computed Variable.
 
 
 * *Agree*: Agree verification is invoked on the target component for a single layer verification or for verifying all layers. This is equivalent to invoking Agree on a component through the user interface. Note that for execution of Agree the Jkind verifier must be installed (see Agree documentation).
 
 
-* *JUnit*: The specified JUnit test class is invoked. Results of a JUnit run are mapped back into the Diagnostic format (see [Analysis Result](ResultReport.html)).
+* *JUnit*: The specified JUnit test class is invoked. Results of a JUnit run are mapped back into the Diagnostic format (see [Analysis Result](AnalysisResultFormat.html)).
 
 
 * *Manual*: the method represents a manual method, i.e., a method that is performed by a human. The person will interactively report the result of the verification, e.g., the result of performing a review. 

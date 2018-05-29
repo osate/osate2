@@ -54,7 +54,7 @@ Operators in increasing precedence order in ReqSpec expressions
 * *Unary*: **+** **-** for &lt;numeric&gt;\  **not** for &lt;Boolean&gt; 
 
  
-### Primary expressions:
+## Primary Expressions
 
 Unit operations for numeric
 expressions
