@@ -349,7 +349,7 @@ system requirements SCSImplementationreqs for SimpleControlSystem::SCS.tier0 [
 Third, a requirement may evolve - expressed by an **evolves** reference to the requirement it evolved from. One example is when the requirement evolves over time with a change in text or in its constant value. In this case the original requirement may be tagged as **dropped**. Another example is when a component type that extends another component type changes a requirement of the original component type, e.g., the constant value. In this case, the requirement associated with the extension sets a new **val** value. 
 
 
-## Reusable Global Requirements
+## Reusable and Global Requirements
 
 Some requirements are not for a specific system, but should be applied to a system and all its components, or to different systems. An example are consistency requirements on the AADL model such as the one mentioned earlier about all ports being connected. Other examples are various types of security requirements that we want to define once and then apply them to specific system components, or across the whole system. 
 
@@ -395,7 +395,7 @@ global requirements globalReq
 ```
 > Note: The Java method referenced by the **when** statement is assumed to take a single parameter of type EObject and returns a boolean.
 
-### Specification of Root Requirements
+### Specification of Global Requirements
 
 Users can define global requirements that apply to the whole system. In this case they are associated with the root of the system instance and it is the responsibility of the verification method to traverse the instance model and verify a verification condition on each applicable model element. All results are expected to be returned in a Result report that represents the evidence for the claim that the requirement is satisfied.
 
@@ -415,7 +415,7 @@ The example requirement is specified for the system as a whole. In this case it 
 The difference between a root requirement and a reusable requirement is that in the former case the assurance case instance has a single claim associated with the system instance and the evidence results reflect all checked model elements, while in the latter case a separate claim is included for each instance model element that the requirement is to be verified for.
 
 
-### Use of Reusable and Root Requirements
+### Use of Reusable and Global Requirements
 
 Reusable and root requirements can be associated with specific components by the user adding an **include** statement in the system requirement set for the component. A whole global requirement set can be included or specific requirements from a global requirement set.
 
