@@ -142,7 +142,7 @@ The assurance task consists of:
 
 
 
-•Name: identifier of the task. Assurance task references are qualified with the enclosing assurance case name.  
+* *Name*: identifier of the task. Assurance task references are qualified with the enclosing assurance case name.  
 
 
 * *Title*: a short descriptor of the verification method registry. This optional element may be used as more descriptive label than the name.

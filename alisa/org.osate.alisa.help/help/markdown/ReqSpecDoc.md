@@ -152,15 +152,10 @@ Goal ::=
   ]
   
 Title ::= String
-  
 TargetClassifier ::= &lt;AADL Component Classifier&gt;
-
 TargetElement ::= &lt;ModelElement&gt;
-
 CategoryReference ::= &lt;CategoryType&gt;.&lt;CategoryLabel&gt;
-
 DocReference ::= URI to an element in an external document
-
 Description ::= String ( &lt;Constant or Variable&gt; | this | String )*
 
 WhenCondition ::= 
@@ -291,8 +286,7 @@ represent an individual requirement for a specific system. A system
 requirement is intended to be verifiable and not in conflict with other
 requirements. System requirement documents are modeled by the
 *Document* construct
-(see Section [Documents and Document
-Sections](#Documents%20and%20Document%20Sections%7Coutline)). When
+(see Section [Documents and Document Sections](ReqSpecDoc.html#documents-and-document-sections)). When
 representing system requirements in the context of an AADL model of the
 system and its operational context the *SystemRequirements* construct is
 used to represent a collection of requirements for a particular system.
@@ -438,7 +432,9 @@ SystemRequirementSet ::=
     (see goals ( &lt;StakeholderGoals or GoalDocument&gt; )+ )? 
     ( Variable )*
     ( SystemRequirement )*
-    ( include &lt;GlobalRequirements or global requirement&gt; ( for &lt;named element&gt; | self )*
+    ( include &lt;GlobalRequirements or global requirement&gt; 
+      ( for &lt;named element&gt; | self)?
+    )*
     ( issues (String)+ )?
   ]
 </pre>
@@ -491,16 +487,16 @@ not have a *for* statement, not an *include* statement.
 
 <pre>
 GlobalRequirementSet ::=
-  **global requirements** QualifiedName ( **:** Title )?
-  ( **use constants** &lt;GlobalConstants&gt;\* )? 
-  **\[**
-    ( **description** String )? 
-    (**see** **document** ( DocReference )+ )? 
-    **see** **goals** ( &lt;StakeholderGoals or GoalDocument&gt; )+ )? 
-    ( Variable )\*
-    ( GlobalRequirement )\*
-    ( **issues** (String)+ )?
-  **\]**
+  global requirements QualifiedName ( : Title )?
+  ( use constants &lt;GlobalConstants&gt;* )? 
+  [
+    ( description String )? 
+    (see document ( DocReference )+ )? 
+    see goals ( &lt;StakeholderGoals or GoalDocument&gt; )+ )? 
+    ( Variable )*
+    ( GlobalRequirement )*
+    ( issues (String)+ )?
+  ]
 </pre>
 
 The *GlobalRequirement* construct represents a global requirement. 
@@ -574,7 +570,7 @@ RequirementsDocumentSection ::=
     (description String )? 
     ( Requirement  | DocumentSection )+ 
     (issues (String)+ )?
-  **\]**
+  ]
 </pre>
 
 
@@ -716,7 +712,7 @@ using the following syntax:
 Categories ::= ( CategoryType )+
 
 CategoryType ::=
-  Name \[ (CategoryLabel )+ \]
+  Name [ (CategoryLabel )+ ]
 </pre>
 
 The name of each category type must unique among category types. Labels
