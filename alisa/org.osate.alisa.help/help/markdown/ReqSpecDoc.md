@@ -140,12 +140,12 @@ Goal ::=
     ( Constant )*
     ( WhenCondition )?
     ( rationale String )?
-    ( refines ( <Goal> )+ )? 
-    ( conflicts with ( <Goal> )+)? 
-    ( evolves ( <Goal> )+)? 
+    ( refines ( \<Goal\> )+ )? 
+    ( conflicts with ( \<Goal\> )+)? 
+    ( evolves ( \<Goal\> )+)? 
     ( dropped )? 
-    ( stakeholder ( <Stakeholder> )+ )?
-    ( see goal ( <Goal> )+)?
+    ( stakeholder ( \<Stakeholder\> )+ )?
+    ( see goal ( \<Goal\> )+)?
     ( see document ( DocReference )+ )? 
     ( issues (String)+ )?
     ( ChangeUncertainty )?
@@ -153,22 +153,22 @@ Goal ::=
 
 Title ::= String
 
-TargetClassifier ::= <AADL Component Classifier>
+TargetClassifier ::= \<AADL Component Classifier\>
 
-TargetElement ::= <ModelElement>
+TargetElement ::= \<ModelElement\>
 
-CategoryReference ::= <CategoryType>.<CategoryLabel>
+CategoryReference ::= \<CategoryType\>.\<CategoryLabel\>
 
 DocReference ::= URI to an element in an external document
 
-Description ::= String ( <Constant or Variable> | this | String )*
+Description ::= String ( \<Constant or Variable\> | this | String )*
 
 WhenCondition ::= 
-  when in modes <Mode> ( , <Mode> )*
+  when in modes \<Mode\> ( , \<Mode\> )*
   |
-  when in error state <ErrorState> ( , <ErrorState> )*
+  when in error state <ErrorState> ( , \<ErrorState\> )*
   |
-  when <qualified name> ()    // Java or Resolute method call
+  when \<qualified name\> ()    // Java method call
 </pre>
 
 A goal declaration has the following elements:
