@@ -82,7 +82,7 @@ A verification plan consists of the following:
 
 
 
-* *Qualifiedname*: a name that consists of one or more <dot> separated identifiers. This name is globally known and must be unique with respect to other verification plan names. A verification plan is referenced by its name. 
+* *Qualifiedname*: a name that consists of one or more &lt;dot&gt; separated identifiers. This name is globally known and must be unique with respect to other verification plan names. A verification plan is referenced by its name. 
 
 
 * *Title*: a short descriptor of the verification plan. This optional element may be used as more descriptive label than the name.
@@ -319,7 +319,7 @@ The verification method registry consists of:
 
 
 
-* *Qualifiedname*: a <dot> separated sequence of identifiers. The registry name acts as qualifier for verification methods.
+* *Qualifiedname*: a &lt;dot&gt; separated sequence of identifiers. The registry name acts as qualifier for verification methods.
 
 
 * *Title*: a short descriptor of the verification method registry. This optional element may be used as more descriptive label than the name.
@@ -327,7 +327,7 @@ The verification method registry consists of:
 
 * *Description*: a description of the verification method.
 
-* a collection of verificaiton method specifications
+* a collection of verification method specifications
 
 
 ## Verification Method Specification
@@ -425,7 +425,7 @@ The verification method declaration consists of:
 
 * *boolean*: indication that the method returns a boolean value to indicate success or fail.  
 
-* * report*: indication that the method returns a result report in an ALISA specified format. This report can contain a collection of result indicators and result data (see [Analysis Result](AnalysisResultFormat.html)).
+* *report*: indication that the method returns a result report in an ALISA specified format. This report can contain a collection of result indicators and result data (see [Analysis Result](AnalysisResultFormat.html)).
 
 
 * *Title*: a short descriptor of the verification method registry. This optional element may be used as more descriptive label than the name.

@@ -494,7 +494,7 @@ http://www.omgsysml.org
 **\[OSATE 2016\]**
 
 Open Source AADL Tool Environment (OSATE). 
-https://wiki.sei.cmu.edu/aadl\#OSATE.
+https://osate.org.
 
 **\[SAE 1996\]**
 

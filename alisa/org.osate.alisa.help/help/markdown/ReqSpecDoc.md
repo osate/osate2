@@ -215,7 +215,7 @@ A goal declaration has the following elements:
 * *See goal*: reference to a stakeholder goal in an imported stakeholder requirement document.  
 
 
-* *See document*: reference to an external document and element within expressed as URI. This is used to record the fact that a stakeholder requirement is found in a document other than an imported requirement document.
+* *See document*: reference to an external document and element within expressed as URI. This is used to record the fact that a stakeholder requirement is found in an external document, e.g., Word or DOORS.
 
 
 * *Issues*: allows users to record issues that may be encountered as a set of textual notes (Strings).
@@ -257,7 +257,7 @@ QualifiedName ::= Identifier ( . Identifier )*
 A *StakeholderGoalSet* declaration has the following elements:
 
 
-* *QualifiedName*: name as a <dot> separated sequence of identifiers.
+* *QualifiedName*: name as a &lt;dot&gt; separated sequence of identifiers.
 
 
 * *Title*: a short descriptor of the stakeholder goal container. This optional element may be used as more descriptive label than the name.
@@ -399,10 +399,10 @@ A SystemRequirement declaration has the following elements:
 * *See goal*: reference to one or more stakeholder goals that the requirement represents. The goals are assumed to be declared in a StakeholderGoals container or a Document.  
 
 
-* *See requirement*: reference to a system requirement in an imported system requirement document (Document)..  
+* *See requirement*: reference to a system requirement, e.g., in an imported requirement document in [ReqSpec document format](ReqSpecDoc.html#documents-and-document-sections).  
 
 
-* *See document*: reference to an external document and optional element within expressed as URI. This is used to record the fact that a system requirement is found in a document other than an imported requirement document.
+* *See document*: reference to an external document and optional element within expressed as URI. This is used to record the fact that a system requirement is found in an external document.
 
 
 * *Issues*: allows users to record issues that may be encountered as a set of textual notes (Strings).
@@ -447,7 +447,7 @@ SystemRequirementSet ::=
 A *SystemRequirementSet* declaration has the following elements:
 
 
-* *QualifiedName*: name as a <dot> separated sequence of identifiers.
+* *QualifiedName*: name as a &lt;dot&gt; separated sequence of identifiers.
 
 
 * *Title*: a short descriptor of the system requirement set. This optional element may be used as a more descriptive label than the name.
@@ -468,7 +468,7 @@ A *SystemRequirementSet* declaration has the following elements:
 * *See goals*: reference to StakeholderGoalSet or GoalsDocument.
 
 
-* *Set of Variable*: Constant and compute variables are used to parameterize requirement specifications (see Section Constants and Computed Variables). Many of the changes to a goal or requirement are in a value used in the requirement specification. Variables allow users to define a requirement value once and reference it in the description, predicates, and in verification activities of verification plans expressed in the Verify notation (documented in a separate report).
+* *Set of Variable*: Constant and compute variables are used to parameterize requirement specifications (see Section Constants and Computed Variables). Many of the changes to a goal or requirement are in a value used in the requirement specification. Variables allow users to define a requirement value once and reference it in the description, predicates, and in verification activities of verification plans expressed in the Verify notation.
 
 
 * *Set of Requirement*: a set of requirement declarations. By default all requirements are associated with the entity represented by the classifier. A requirement declaration may specify a model element within the classifier as its target in for.
@@ -907,7 +907,7 @@ http://www.omgsysml.org
 **\[OSATE 2016\]**
 
 Open Source AADL Tool Environment (OSATE). 
-https://wiki.sei.cmu.edu/aadl\#OSATE.
+https://osate.org.
 
 **\[SAE 1996\]**
 

@@ -71,7 +71,7 @@ The assurance case consists of:
 
 
 
-* *Qualifiedname*: a <dot> separated sequence of identifiers. The assurance case name acts as qualifier for assurance plans and tasks.
+* *Qualifiedname*: a &lt;dot&gt; separated sequence of identifiers. The assurance case name acts as qualifier for assurance plans and tasks.
 
 
 * *Title*: a short descriptor of the verification method registry. This optional element may be used as more descriptive label than the name.
