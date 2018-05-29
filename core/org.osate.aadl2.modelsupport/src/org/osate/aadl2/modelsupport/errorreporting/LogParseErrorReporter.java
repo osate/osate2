@@ -33,11 +33,11 @@
  */
 package org.osate.aadl2.modelsupport.errorreporting;
 
-import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.ILog;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.core.runtime.Status;
+import org.eclipse.emf.ecore.resource.Resource;
 import org.osgi.framework.Bundle;
 
 /**
@@ -95,10 +95,10 @@ public final class LogParseErrorReporter extends AbstractParseErrorReporter {
 		}
 
 		/**
-		 * The given AADL IResource is allowed to be <code>null</code>.
+		 * The given AADL Resource is allowed to be <code>null</code>.
 		 */
 		@Override
-		public ParseErrorReporter getReporterFor(final IResource aadlRsrc) {
+		public ParseErrorReporter getReporterFor(final Resource aadlRsrc) {
 			return reporterPrototype;
 		}
 	}
