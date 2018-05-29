@@ -3,6 +3,8 @@
 * Copyright 2016 Carnegie Mellon University. See Notice.txt
 * Distribution Statement A: Approved for Public Release; Distribution is Unlimited.
 
+[TOC levels=2-4 bullet hierarchy]
+
 This note provides some guidance on how to capture requirements using the ReqSpec notation and AADL, and to make requirements verifiable in Architecture-Led Incremental System Assurance (ALISA) capability of OSATE. ALISA is now part of OSATE. For more detailed documentation of ReqSpec we refer to the [ReqSpec Technical Report](https://resources.sei.cmu.edu/asset_files/TechnicalReport/2016_005_001_464378.pdf).
 
 Several example models are available at [Github.com/osate/alisa-examples](https://github.com/osate/alisa-examples). The example model *Simple Control System* is used in this guidance.

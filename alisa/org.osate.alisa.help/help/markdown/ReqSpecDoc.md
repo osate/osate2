@@ -1,5 +1,7 @@
 # Requirement Specification for a System 
 
+[TOC levels=2-4 bullet hierarchy]
+
 This document describes a textual requirement specification notation, called
 *ReqSpec.*  It draws
 on the draft Requirements Definition and Analysis Language (RDAL) Annex,
@@ -99,11 +101,11 @@ Optional elements are shown as ( )?. Elements repeated one or more times
 are shown as ( )+, and elements repeated zero or more times as ( )\*.
 For example:
 
-( **dropped** )?
+`( **dropped** )?`
 
-( DocReference )+
+`( DocReference )+`
 
-( ConstantVariable )\*
+`( ConstantVariable )\*`
 
 The set of elements between square brackets, \[ \], can appear in any
 order.
@@ -128,7 +130,7 @@ Sections".
 The *Goal* construct represents a stakeholder goal with respect to a
 particular system.
 
-``` 
+<pre>
 Goal ::=
 goal Name ( : Title )?
 ( for TargetElement )? 
@@ -163,7 +165,7 @@ WhenCondition ::=
   when in error state <ErrorState> ( , <ErrorState> )*
   |
   when <qualified name> ()    // Java or Resolute method call
-```
+</pre>`
 
 A goal declaration has the following elements:
 
@@ -232,7 +234,7 @@ for a particular system. It represents a name scope for the goal
 declarations contained in it, i.e., a goal is referenced by the
 *StakeholderGoals* name and the *Goal* name – separated by a dot.
 
-```
+<pre>
 StakeholderGoalSet ::= 
 stakeholder goals QualifiedName ( : Title )?
 for ( TargetClassifier | all )
@@ -245,7 +247,7 @@ for ( TargetClassifier | all )
 ( issues (String)+ )?
 ]
 QualifiedName ::= Identifier ( . Identifier )*
-```
+</pre>
 
 A *StakeholderGoalSet* declaration has the following elements:
 

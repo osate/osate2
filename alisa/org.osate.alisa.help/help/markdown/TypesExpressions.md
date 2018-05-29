@@ -1,5 +1,7 @@
 # Types and Expressions in ALISA
 
+[TOC levels=2-4 bullet hierarchy]
+
 *ReqSpec* allows the user to introduce typed variables and specify
 predicates using an expression notation. Similarly, *Verify* allows users to specify formal parameters
 for verification methods and actual parameter values to be used when

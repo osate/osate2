@@ -1,5 +1,4 @@
-Introduction
-============
+# Introduction
 
 Architecture-led Incremental System Assurance (ALISA) is an incremental
 life-cycle assurance workbench for high-assurance software-reliant
@@ -26,7 +25,7 @@ and
 
 Incrementally Evolving and Maintaining the Assurance Evidence
 
-## Incremental Lifecycle Assurance Concepts and Notations
+## ALISA Concepts and Notations
 
 We have introduced several notations in support of incremental lifecycle
 assurance.
