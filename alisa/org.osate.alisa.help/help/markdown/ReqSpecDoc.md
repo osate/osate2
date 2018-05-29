@@ -160,11 +160,10 @@ Goal ::=
 
 `CategoryReference ::= &lt;CategoryType&gt;.&lt;CategoryLabel&gt;`
 
+`DocReference ::= URI to an element in an external document`
+
+`Description ::= String ( &lt;Constant or Variable&gt; | this | String )*`
 <pre>
-DocReference ::= URI to an element in an external document
-
-Description ::= String ( &lt;Constant or Variable&gt; | this | String )*
-
 WhenCondition ::= 
   when in modes &lt;Mode&gt; ( , &lt;Mode&gt; )*
   |
@@ -252,9 +251,9 @@ StakeholderGoalSet ::=
     ( Goal )+
     ( issues (String)+ )?
   ]
-
-QualifiedName ::= Identifier ( . Identifier )*
 </pre>
+
+`QualifiedName ::= Identifier ( . Identifier )*`
 
 A *StakeholderGoalSet* declaration has the following elements:
 
@@ -526,11 +525,11 @@ GlobalRequirement ::=
   [
   // Same as for SystemRequirement
   ]
-
-ComponentCategory ::= abstract | system | &lt;other AADL component categories&gt;
-
-TargetType ::= component | feature | connection | flow | mode | element | root
 </pre>
+
+`ComponentCategory ::= abstract | system | &lt;other AADL component categories&gt;`
+
+`TargetType ::= component | feature | connection | flow | mode | element | root`
 
 ## Documents and Document Sections
 
@@ -554,7 +553,8 @@ GoalsDocument ::=
     ( Goal  | DocumentSection )+ 
     (issues (String)+ )?
   ]
-
+</pre> 
+<pre> 
 GoalsDocumentSection ::=
   section Title | ( Name ( : Title )?)
   [
@@ -562,7 +562,8 @@ GoalsDocumentSection ::=
     ( Goal  | DocumentSection )+ 
     (issues (String)+ )?
   ]
-  
+</pre> 
+<pre> 
 RequirementsDocument ::=
   document Name ( : Title )?
   [
@@ -570,7 +571,8 @@ RequirementsDocument ::=
     ( Requirement  | DocumentSection )+ 
     (issues (String)+ )?
   ]
-
+</pre> 
+<pre> 
 RequirementsDocumentSection ::=
   section Name ( : Title )?
   [
@@ -643,18 +645,15 @@ verification plans that complement requirement specifications in the
 architecture-led incremental system assurance (ALISA) workbench
 \[Delange 2016\].
 
+`Variable ::= Constant | ComputedVariable`
+
+`Constant ::= val Name (: TypeSpec )? = Expression `
+
+`ComputedVariable ::=  compute Name : TypeSpec`
+
+`TypeSpec ::= BaseType | typeof &lt;PropertyName&gt;`
+
 <pre> 
-Variable ::=
-  Constant | ComputedVariable
-
-Constant ::=
-  val Name (: TypeSpec )? = Expression 
-
-ComputedVariable ::=
-  compute Name : TypeSpec
-
-TypeSpec ::= BaseType | typeof &lt;PropertyName&gt;
-
 BaseType ::= boolean 
   | string 
   | integer (units &lt;UnitsTypeName&gt; )?
@@ -715,12 +714,9 @@ to certain development phases.
 Categories are declared in a separate file with the extension *cat*
 using the following syntax:
 
-<pre>
-Categories ::= ( CategoryType )+
+`Categories ::= ( CategoryType )+`
 
-CategoryType ::=
-  Name [ (CategoryLabel )+ ]
-</pre>
+`CategoryType ::= Name [ (CategoryLabel )+ ]`
 
 The name of each category type must unique among category types. Labels
 must be unique within a category type.  A category is referenced by its
