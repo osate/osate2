@@ -62,7 +62,7 @@ A component type that is an extension of another component type may have a separ
 
 Verification plans are defined in files with the extension verify. Multiple verification plans can be placed in a single file.  
 
-```
+<pre>
 VerificationPlan ::= 
 verification plan qualifiedname ( : "descriptive title" )? 
 for <system or global requirement set reference> 
@@ -72,7 +72,7 @@ for <system or global requirement set reference>
  ( rationale String )? 
  ( issues ("explanation")+ )? 
 ] 
-```
+</pre>
 
 The verification plan specifies a claim for each of the requirements in the requirement set identified by the for reference. 
 
@@ -115,7 +115,7 @@ successful.
 A claim declaration specifies a set of verification activities for a
 requirement.
 
-```
+<pre>
 Claim ::= 
 claim <requirement reference> ( : "descriptive title" )? 
 [
@@ -126,7 +126,7 @@ claim <requirement reference> ( : "descriptive title" )?
 ( Claim )*      // subclaims
 ( issues ("explanation")+ )?
 ] 
-```
+</pre>
 
 A claim declaration consists of the following:
 
@@ -183,7 +183,7 @@ complete indicated by *error*. This state is maintained in an instance
 representation of the assurance case (see [Assurance Case
 Result](AlisaDoc.html#assurance-case-result)).
 
-```
+<pre>
 VerificationActivity ::= 
 activity activityname ( : "descriptive title" )? 
   : ( <result parameter list> = )? 
@@ -196,7 +196,7 @@ activity activityname ( : "descriptive title" )?
     ]
 
 CategoryLabel ::=  CategoryTypeID . CategoryLabelID
-```
+</pre>
 
 A verification activity declaration consists of the following:
 
@@ -257,7 +257,7 @@ completing because of a *Timeout*, or
 because the execution failed to complete for other reasons, e.g., the
 result of an uncaught exception (*Error*).
 
-```
+<pre>
 ArgumentExpr ::=  ElseExpr |
   ElseExpr then ArgumentExpr  
 
@@ -275,7 +275,7 @@ CompositeElseExpr ::=  CompositeExpr |
 
 CompositeExpr ::=  ( ArgumentExpr )
   all [ ArgumentExpr ( , ArgumentExpr)* ] | 
-```
+</pre>
 
 The expression takes the following
 form:
@@ -303,14 +303,14 @@ and manual methods are supported.
 A verification method registry is defined in a separate
 file with the extension *methodregistry*.
 
-```
+<pre>
 VerificationMethodRegistry ::= 
 verification methods qualifiedname ( : "descriptive title" )? 
 [ 
   ( description Description )? 
   VerificationMethod+ 
 ] 
-```
+</pre>
 
 The verification method registry consists of:
 
@@ -359,7 +359,7 @@ the formal parameter specification of the **returns** clause.
 
 For further details see the description below.
 
-```
+<pre>
 VerificationMethod ::= 
 method methodname 
   ( ( ( ModelElementType , )?
@@ -398,7 +398,7 @@ precondition <method reference> ( <formal parameter reference list> )
 
 VerificationValidation ::= 
 validation <method reference> ( <formal parameter reference list> ) 
-```
+</pre>
 
 The verification method declaration consists of:
 

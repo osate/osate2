@@ -44,7 +44,7 @@ included to generate the assurance case result instance:
 Assurance case and assurance plan declarations have the following
 syntax:
 
-```
+<pre>
 AssuranceCase ::=
 assurance case qualifiedname ( : "descriptive title" )? 
 for <component type reference>
@@ -65,7 +65,7 @@ for <component implementation reference>
  ( assume subsystem <assumed subsystem reference>+ | all )?
  ( issues "issue text"+ )?      
 ]
-```
+</pre>
 
 The assurance case consists of:
 
@@ -127,7 +127,7 @@ The assurance plan consists of:
 Assurance task declarations have the following syntax:
 
 
-```
+<pre>
 AssuranceTask ::=
 assurance task name ( : "descriptive title" )?
 [
@@ -136,7 +136,7 @@ assurance task name ( : "descriptive title" )?
  ( category categorylabels | any )?
  ( issues "issue text"+ )?      
 ]
-```
+</pre>
 
 The assurance task consists of:
 
