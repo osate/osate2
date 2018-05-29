@@ -33,7 +33,9 @@ the relevant information to be available as a property on the AADL
 model.
 
 We support two types of methods: 
+
 * a predicate method that evaluates the artifact to determine if it meets the requirement (success, fail); 
+
 * a compute method that computes values (referenced by computed variables) that can be used to evaluate the predicate specified as part of the requirement or used as input parameter for a succeeding verification activity.
 
 
@@ -65,7 +67,7 @@ Verification plans are defined in files with the extension verify. Multiple veri
 <pre>
 VerificationPlan ::= 
 verification plan qualifiedname ( : "descriptive title" )? 
-for <system or global requirement set reference> 
+for &lt;system or global requirement set reference&gt; 
 [
  ( description Description )? 
  Claim* 
@@ -117,7 +119,7 @@ requirement.
 
 <pre>
 Claim ::= 
-claim <requirement reference> ( : "descriptive title" )? 
+claim &lt;requirement reference&gt; ( : "descriptive title" )? 
 [
 ( activities VerificationActivity+ )?
 ( assert ArgumentExpression }?
@@ -186,12 +188,12 @@ Result](AlisaDoc.html#assurance-case-result)).
 <pre>
 VerificationActivity ::= 
 activity activityname ( : "descriptive title" )? 
-  : ( <result parameter list> = )? 
-    <verification method reference> ( <actual parameter list> )
-    ( property values ( <property value list> ) )?
+  : ( &lt;result parameter list&gt; = )? 
+    &lt;verification method reference&gt; ( &lt;actual parameter list&gt; )
+    ( property values ( &lt;property value list&gt; ) )?
     [
       ( category categorylabel* )?
-      ( timeout Integer <time unit> )?
+      ( timeout Integer &lt;time unit&gt; )?
       ( weight Integer )?
     ]
 
@@ -263,12 +265,13 @@ ArgumentExpr ::=  ElseExpr |
 
 ElseExpr ::= SingleElseExpr | CompositeElseExpr
 
-SingleElseExpr ::=   <VerificationActivity>< |
-  VerificationActivity> else  ( ElseExpr |
-                            [ ( fail:  ArgumentExpr )?
-                                ( error: ArgumentExpr )?
-                        ( timeout: ArgumentExpr )?
-                            ] )
+SingleElseExpr ::=   &lt;VerificationActivity&gt; |
+  &lt;VerificationActivity&gt; else  ( ElseExpr |
+  [ 
+    ( fail:  ArgumentExpr )?
+    ( error: ArgumentExpr )?
+    ( timeout: ArgumentExpr )?
+  ] )
 
 CompositeElseExpr ::=  CompositeExpr |
   CompositeExpr else ElseExpr
@@ -369,7 +372,7 @@ method methodname
     ( boolean | report )?
   )?
   ( : "descriptive title" )? 
-  ( for <ComponentClassifier>  | ComponentCategory* )? 
+  ( for &lt;ComponentClassifier&gt;  | ComponentCategory* )? 
   [ 
     MethodKind 
     ( description Description )? 
@@ -394,10 +397,10 @@ FormalParameter ::=
   ID : TypeSpec ( in Unit )?
 
 VerificationPrecondition ::= 
-precondition <method reference> ( <formal parameter reference list> )
+precondition &lt;method reference&gt; ( &lt;formal parameter reference list&gt; )
 
 VerificationValidation ::= 
-validation <method reference> ( <formal parameter reference list> ) 
+validation &lt;method reference&gt; ( &lt;formal parameter reference list&gt; ) 
 </pre>
 
 The verification method declaration consists of:
