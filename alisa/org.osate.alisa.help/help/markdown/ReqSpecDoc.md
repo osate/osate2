@@ -140,35 +140,35 @@ Goal ::=
     ( Constant )*
     ( WhenCondition )?
     ( rationale String )?
-    ( refines ( \<Goal\> )+ )? 
-    ( conflicts with ( \<Goal\> )+)? 
-    ( evolves ( \<Goal\> )+)? 
+    ( refines ( &lt;Goal&gt; )+ )? 
+    ( conflicts with ( &lt;Goal&gt; )+)? 
+    ( evolves ( &lt;Goal&gt; )+)? 
     ( dropped )? 
-    ( stakeholder ( \<Stakeholder\> )+ )?
-    ( see goal ( \<Goal\> )+)?
+    ( stakeholder ( &lt;Stakeholder&gt; )+ )?
+    ( see goal ( &lt;Goal&gt; )+)?
     ( see document ( DocReference )+ )? 
     ( issues (String)+ )?
     ( ChangeUncertainty )?
   ]
-
+  
 Title ::= String
+  
+TargetClassifier ::= &lt;AADL Component Classifier&gt;
 
-TargetClassifier ::= \<AADL Component Classifier\>
+TargetElement ::= &lt;ModelElement&gt;
 
-TargetElement ::= \<ModelElement\>
-
-CategoryReference ::= \<CategoryType\>.\<CategoryLabel\>
+CategoryReference ::= &lt;CategoryType&gt;.&lt;CategoryLabel&gt;
 
 DocReference ::= URI to an element in an external document
 
-Description ::= String ( \<Constant or Variable\> | this | String )*
+Description ::= String ( &lt;Constant or Variable&gt; | this | String )*
 
 WhenCondition ::= 
-  when in modes \<Mode\> ( , \<Mode\> )*
+  when in modes &lt;Mode&gt; ( , &lt;Mode&gt; )*
   |
-  when in error state <ErrorState> ( , \<ErrorState\> )*
+  when in error state &lt;ErrorState&gt; ( , &lt;ErrorState&gt; )*
   |
-  when \<qualified name\> ()    // Java method call
+  when &lt;qualified name&gt; ()    // Java method call
 </pre>
 
 A goal declaration has the following elements:
@@ -242,7 +242,7 @@ declarations contained in it, i.e., a goal is referenced by the
 StakeholderGoalSet ::= 
   stakeholder goals QualifiedName ( : Title )?
   for ( TargetClassifier | all )
-  ( use constants <GlobalConstants>* )? 
+  ( use constants &lt;GlobalConstants&gt;* )? 
   [
     (description Description )? 
     (see document ( DocReference )+ )? 
@@ -324,22 +324,22 @@ SystemRequirement ::=
   requirement Name ( : Title )?
   ( for TargetElement )? 
   [
-    ( quality ( <Qualitylabel> )+ )?
+    ( quality ( &lt;Qualitylabel&gt; )+ )?
     ( category ( CategoryReference )+ )?
     ( description Description )? 
     ( Variable )*
     ( WhenCondition )?
     ( Predicate )?
     ( rationale String )?
-    ( mitigates ( <Hazard> )+ )? 
-    ( refines ( <Requirement> )+)?
-    ( decomposes ( <Requirement> )+)?
-    ( inherits ( <Requirement> )+)?
-    ( evolves ( <Requirement> )+)? 
+    ( mitigates ( &lt;Hazard&gt; )+ )? 
+    ( refines ( &lt;Requirement&gt; )+)?
+    ( decomposes ( &lt;Requirement&gt; )+)?
+    ( inherits ( &lt;Requirement&gt; )+)?
+    ( evolves ( &lt;Requirement&gt; )+)? 
     ( dropped )? 
-    (development stakeholder ( <Stakeholder> )+ )?
-    ( see goal ( <Goal> )+)?
-    ( see requirement ( <Requirement> )+)?
+    (development stakeholder ( &lt;Stakeholder&gt; )+ )?
+    ( see goal ( &lt;Goal&gt; )+)?
+    ( see requirement ( &lt;Requirement&gt; )+)?
     ( see document ( DocReference )+ )? 
     ( issues (String)+ )?
     ( ChangeUncertainty )?
@@ -431,14 +431,14 @@ associated with an AADL component type or implementation.
 SystemRequirementSet ::=
   System requirements QualifiedName ( : Title )?
   for TargetClassifier 
-  ( use constants <GlobalConstants>* )? 
+  ( use constants &lt;GlobalConstants&gt;* )? 
   [
     ( description String )? 
     (see document ( DocReference )+ )? 
-    (see goals ( <StakeholderGoals or GoalDocument> )+ )? 
+    (see goals ( &lt;StakeholderGoals or GoalDocument&gt; )+ )? 
     ( Variable )*
     ( SystemRequirement )*
-    ( include <GlobalRequirements or global requirement> ( for <named element> | self )*
+    ( include &lt;GlobalRequirements or global requirement&gt; ( for &lt;named element&gt; | self )*
     ( issues (String)+ )?
   ]
 </pre>
@@ -524,7 +524,7 @@ GlobalRequirement ::=
   // Same as for SystemRequirement
   ]
 
-ComponentCategory ::= abstract | system | <other AADL component categories>
+ComponentCategory ::= abstract | system | &lt;other AADL component categories&gt;
 
 TargetType ::= component | feature | connection | flow | mode | element | root
 </pre>
@@ -650,11 +650,11 @@ Constant ::=
 ComputedVariable ::=
   compute Name : TypeSpec
 
-TypeSpec ::= BaseType | typeof <PropertyName>
+TypeSpec ::= BaseType | typeof &lt;PropertyName&gt;
 
 BaseType ::= boolean 
   | string 
-  | integer (units <UnitsTypeName> )?
+  | integer (units &lt;UnitsTypeName&gt; )?
   | real (units &lt;UnitsTypeName&gt; )? 
   | model element 
   | &lt;PropertyTypeName&gt;
@@ -789,7 +789,7 @@ Stakeholder ::=
     ( role String )?
     ( email String )?
     ( phone String )?
-    ( supervisor <Stakeholder> )?
+    ( supervisor &lt;Stakeholder&gt; )?
   ]
 </pre>
 

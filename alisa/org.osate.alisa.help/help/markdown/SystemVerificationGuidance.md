@@ -20,7 +20,7 @@ The second claim also consists of two verification activities. In this case, the
 
 > Note: The call to the verification method does not explicitly specify the instance model element (Component Instance, Feature Instance, Connection Instance, etc) on which the verification is performed. It is automatically supplied to the Plugin, Java, or Resolute method as first parameter.
 
-```
+<pre>
 verification plan scsvplan for scsreqs 
 [
 	claim R1 [
@@ -37,7 +37,7 @@ verification plan scsvplan for scsreqs
 		assert timing then responsetime
 
 	]
-```
+</pre>
 
 ## Verification Activities and Methods
 
@@ -60,32 +60,31 @@ The analysis plugin is called with the system instance (instance model root) as 
 
 Resolute verification methods are written as *claim functions*. These claim functions are automatically invoked on the component instance for which the requirement being verified applies. In other words, users do not have to include Resolute annex subclauses with *prove* statements into the AADL model. Instead the Resolute claim function (registered as verification method) is called on every component instance that has a requirement with a verification activity that calls the registered verification method. An example verification activity calling a registered Resolute verification method.
 
-```
-MaxWeight : Resolute.verifySCSReq1(MaximumWeight in kg) 
-```
+`MaxWeight : Resolute.verifySCSReq1(MaximumWeight in kg)`
+
 The claim function is assumed to have at least one parameter, the target instance model element (component instance, feature instance, etc.) that is automatically passed as first parameter. The Resolute claim function may take additional parameters. 
 
 The Resolute claim function is defined in a Resolute annex library. Our example function is defined as follows:
 
-```
+<pre>
 SCSReq1(self : component, max :real) <=
 **  "R1: SCS shall be no heavier than " max%kg **
  AssureSubcomponentTotals(self, max) and
  AssureRecursivetotals(self, max) 
-```
+</pre>
 
 > In the above example we have specified that the value is to be converted into *kg* before being passed in the call. The parameter value is a reference to a constant value defined as part of the requirement being verified (see requirement R1 of SCS earlier).
 
 The verification method registry entry - declared in a file with the extension *methodregistry* is as follows:
 
-```
+<pre>
 verification methods Resolute [
   	method verifySCSReq1 (max: real ): "Verify SCS weight is within specified maximum (Req1)" [
 		resolute SCSReq1 
 		description "SCS has a requirement not to exceed a specified weight of 'max' kg. This is verified by summing gross weights of direct subcomponents and by adding up gross weights all parts."
 	validation validateWeightBudgetCoveragePercent()
    ]
-```
+</pre>
 
 The method defines the formal parameters (other than the default first parameter) to be used in the call by a verification activity (in our example a real value). It then identifies the Resolute claim function by name.
 
@@ -127,58 +126,58 @@ Java verification methods are expected to return true if the requirement is met 
 
 The following example method operates on a Feature Instance, retrieves the property value for voltage and compares it against the value supplied as second parameter.
 
-```	
+<pre>	
 public static boolean hasVoltage(FeatureInstance fi, double v) {
 	double volt = getVoltage(fi);
 	return volt == v;
 }
-```
+</pre>
 
 The helper method getVoltage is defined as follows.
 
 > Note that for predefined properties utility methods for retrieving property values exist in the class *GetProperties*. A second class *PropertyUtils* provides additional support methods.
 
-```
+<pre>
 public static double getVoltage(final FeatureInstance fi) {
 	Property voltage = GetProperties.lookupPropertyDefinition(fi, "Physical", "Voltage");
 	UnitLiteral volts = GetProperties.findUnitLiteral(voltage, "V");
 	return PropertyUtils.getScaledNumberValue(fi, voltage, volts, 0.0);
 }
-```
+</pre>
 
 The registry entry for this method takes on the following form
 
 * the first parameter is expected to be a feature instance
 * the method will return a **boolean** to report *Pass* or *Fail*.
 
-```
+<pre>
 method ConsistentVoltage (feature, voltage: real ) boolean 
 	:"Ensure Voltage property value is consistent with required voltage value" [
 	java alisa_consistency.ModelVerifications.hasVoltage(String name, double voltage)
 	description "Verify that the Voltage property has the same value as specified in the requirement"
 ]
-```
+</pre>
 
 This method is then called in a verification activity as follows specifying only the second Java method parameter.
 
-```
+<pre>
 hasvoltage: Alisa_Consistency.ConsistentVoltage(volts) 
-```
+</pre>
 The requirement identifies the model element *power*.
 
-```
+<pre>
 requirement R3 : "SCS inlet voltage" for power [
 	val volts = 12.0 V
 	compute actualvolt: real Physical::Voltage_Type
 	value predicate volts == actualvolt
 	see goal SCSgoals.g3
 ]
-```
+</pre>
 The next example illustrates how such a verification can be performed when the target element is the component instance. In this case the feature name is passed in as additional parameter. In the method we search for the feature instance that matches the name and then retrieve the property value and compare it.
 
 > Such a method is useful if the requirement was written without identifying the feature with a **for** statement. Such a method is most useful to write in Resolute as Resolute claim functions can only be called on component instances.
 
-```
+<pre>
 public static boolean hasWattage(ComponentInstance ci, String featurename, double w) {
 	for (FeatureInstance fi : ci.getAllFeatureInstances(FeatureCategory.ABSTRACT_FEATURE)) {
 		if (fi.getName().equalsIgnoreCase(featurename)) {
@@ -188,29 +187,29 @@ public static boolean hasWattage(ComponentInstance ci, String featurename, doubl
 	}
 	return false;
 }
-```
+</pre>
 
 ### JUnit Verification Methods
 
 ALISA supports running of JUnit tests as verification activities. This is accomplished by registering a JUnit test class. In our example we have a JUnit test class called *testme*.
 
-```
+<pre>
 verification methods mymethods [
 	method testJunit : "Run JUnit4" [
 		junit junittest.testme 
 		
 	]
 ] 
-```
+</pre>
 
 The primary purpose is to support execution of Java based tests of source code related to the system. JUnit test results are mapped into the ALISA assurance case instance representation. An exmple JUnitb test is shown here.
 
-```
+<pre>
 @Test
 public void testingCrunchifyAddition() {
 	assertEquals("Here is test for Addition Result: ", 30, addition(27, 3));
 }
-```
+</pre>
 
 > JUnit tests are currently called without parameters. In other words, the test method is not passed a component instance to be verified.
 
@@ -229,12 +228,12 @@ We first create a Diagnostic object, which reflect the overall result and collec
 
 This Java method is registered as follows - indicating the return value is a **report**.
 
-```
+<pre>
 method AllComponentsConnected()report: "Check that all features of all leaf components are connected" for root [
 	java alisa_consistency.ModelVerifications.allComponentFeaturesConnected
 	description "Check that all features of all leaf components are connected."
 ]
-```
+</pre>
 
 ## Value Predicates
 
@@ -244,7 +243,7 @@ This predicate can specify a condition involving ReqSpec constants and property 
 
 > This allows us to specify a condition that the requirement constant **val** value is the same as the value of a property. Here is an example:
 
-```
+<pre>
 requirement R1 : "SCS weight limit" [
 	val  MaximumWeight = 1.2 kg
 	compute actualweight: real units SEI::WeightUnits
@@ -254,7 +253,7 @@ requirement R1 : "SCS weight limit" [
 	value predicate MaximumWeight == #SEI::WeightLimit
 	see goal SCSgoals.ng2
 ]
-```
+</pre>
 
 This predicate can also include **compute** variables. Compute variables are unbound variables, whose values are bound as result of executing a *compute function* that is called in a verification activity. 
 
@@ -262,44 +261,44 @@ This predicate can also include **compute** variables. Compute variables are unb
 
 The following is a requirement that specifies an unbound **compute** variable called *actualvolt*. It is compared in the **value predicate** against the specified *volts*.
 
-```
+<pre>
 	requirement R3 : "SCS inlet voltage" for power [
 		val volts = 12.0 V
 		compute actualvolt: Physical::Voltage_Type
 		value predicate volts == actualvolt
 		see goal SCSgoals.g3
 	]
-```
+</pre>
 
 In the claim for this requirement (below) the second verification activity calls a *compute function* that returns a real value that gets bound to *actualvolt*. During the execution of the verification activity, the compute function is called and then the predicate is evaluated to determine the *Pass*/*Fail* result.
 
-```
+<pre>
 claim R3  [
 	activities
 		hasvoltage: Alisa_Consistency.ConsistentVoltage(volts) 
 		consistentvoltage: actualvolt = Alisa_Consistency.GetVoltage()
 	]
-```
+</pre>
 The compute function *GetVoltage* is registered by indicating that a *real* value is returned. 
 >The method can return more than one value and each value will be bound to a separate **compute** variable specified in the call.
 
-```
+<pre>
 method GetVoltage (feature) returns (volts: Physical::Voltage_Type in V )
 	:"Return the Voltage property value" [
 	java alisa_consistency.ModelVerifications.getVoltage
 	description "Retrieve the Voltage property from the feature instance"
 ]
-```
+</pre>
 
 The Java method implementation looks like this.
 
-```
+<pre>
 public static double getVoltage(final FeatureInstance fi) {
 	Property voltage = GetProperties.lookupPropertyDefinition(fi, "Physical", "Voltage");
 	UnitLiteral volts = GetProperties.findUnitLiteral(voltage, "V");
 	return PropertyUtils.getScaledNumberValue(fi, voltage, volts, 0.0);
 }
-```
+</pre>
 
 ## Verification Parameters Passed via Properties
 
@@ -307,21 +306,21 @@ In some cases the verification method expects the values it operates on to be av
 
 We use the *GetVoltage* Java method to illustrate this capability. We register a new method *SetGetVoltage* that will set the property value that is specified as part of a call and then call the GetVoltage Java method to retrieve it.  The registration is as follows.
 
-```
+<pre>
 method SetGetVoltage (feature) properties(Physical::Voltage)returns (volts: Physical::Voltage_Type in V )
 	:"Ensure Voltage property value is consistent with required voltage value" [
 	java alisa_consistency.ModelVerifications.getVoltage
 	description "Verify that the Voltage property has the same value as specified in the requirement, and set the property value if not present."
 ]
-```
+</pre>
 
 > Note: We register the getVoltage method from above. The property will be set automatically as part of the verification activity execution. Then the *getVoltage* method is called and the predicate evaluated.
 
 The call in the verification activity is specified as follows.
 
-```
+<pre>
 matchvoltage: actualvolt = Alisa_Consistency.SetGetVoltage() property values (volts)
-```
+</pre>
 
 > Note: The model element must not have a property value for the specified property or the value must be the same as the one specified in the call. If a property value already exists and it differs an *Error* issue will be reported.
 

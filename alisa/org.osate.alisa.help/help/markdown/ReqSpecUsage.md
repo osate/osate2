@@ -157,15 +157,15 @@ of the ASSA system.
 
 If we want to keep track of different terms that refer to the same entity, we can make use of a user defined property that lets us associate multiple names with an AADL model element. An example definition is shown here.
 
-```
+<pre>
 property set ACVIP is
-Aliases: list of aadlstring applies to (all); 
+  Aliases: list of aadlstring applies to (all); 
 end ACVIP;
-```
+</pre>
 
 The property is then used in the specification of the system type for SCS.
 
-```
+<pre>
 system SCS
 	features
 		power: in feature PhysicalResources::Power;
@@ -173,7 +173,7 @@ system SCS
 	properties
 		ACVIP::Aliases => ("SCS", "Simple Controller");
 end SCS;
-```
+</pre>
 
 ### Requirement References
 
@@ -201,11 +201,11 @@ We want to ensure that all aspects of a system are reflected in requirements to 
 
 Some requirements may be for a specific feature of a system, e.g., regarding its input or output. In this case we identify the feature through a **for** statement in the requirement.
 
-```
+<pre>
 requirement R3 : "SCS inlet voltage" for power [
 	description "The supplied electrical power shall be 12 volt"
 ]
-```
+</pre>
 
 We also add the feature as an AADL abstract feature to the component type representing the system (see above). In the end we will have captured all the external interaction points of the system. 
 
@@ -258,13 +258,13 @@ verification activities.
 
 Users can indicate whether a requirement is actually a requirement on the consistency between the requirement specification and the AADL model or within the AADL model (**Kind.Consistency**). In our example, we have a consistency requirement that all ports of leaf components in an AADL model must be connected.
 
-```
+<pre>
 requirement Allconnected : "All features of all components are connected"[
 	description "All features of leaf components are connected."
 	category Kind.Consistency
 	development stakeholder sei.phf
 ]
-```
+</pre>
 
 > Note that in this example, we have specified a *development stakeholder* for the requirement. This requirement did not come from a stakeholder of the system as product, but from the development team and we want to track that as well.
 
@@ -272,14 +272,14 @@ Other requirement kinds are constraints on the implementation (**Kind.Constraint
 
 We can also categorize requirements according to quality attributes they represent. The example below represents a latency requirement. 
 
-```
+<pre>
 requirement R2 : "SCS sensor to actuator response time limit" [
 	val MaximumLatency = 20 ms
 	description this " shall have a sensor to actuator response time within " MaximumLatency
 	category Quality.Latency
 	see goal SCSgoals.g1
 ] 
-```
+</pre>
 
 > Users can introduce their own categories or extend existing categories with additional labels. They are defined in files with the extension *cat*. See [ReqSpec Technical Report](https://resources.sei.cmu.edu/asset_files/TechnicalReport/2016_005_001_464378.pdf) for details. 
 
@@ -292,16 +292,16 @@ In AADL a component type can be an extension of another component type. In this 
 
 In our example, we have an extension of the SCS that operates with two redundant external power supplies. 
 
-```
+<pre>
 system SCSDualPower extends SCS
 	features
 		backuppower: in feature PhysicalResources::Power;
 end SCSDualPower;
-```
+</pre>
 
 This extension has additional requirements to indicate that we expect two external power supplies that are redundant. They are constraints on the specification of SCS, i.e., on the component type of the dual redundant SCS (see *DualSCS.reqspe*).
 
-```
+<pre>
 system requirements DualSCSreqs for SimpleControlSystem::SCSDualPower [
 	requirement SR1: "dual power operation" [
 		description this " shall operate with two external power supplies"
@@ -326,7 +326,7 @@ system requirements DualSCSreqs for SimpleControlSystem::SCSDualPower [
 		category Kind.Constraint
 	]
 ]
-```
+</pre>
 
 ### Derived Requirements: Refinement, Decomposition
 We distinguish between different types of derivation relationships between requirements.
@@ -338,7 +338,7 @@ Second, we recognize requirement decomposition. In this case a requirement for a
 2.  We want to accumulate requirements imposed by different use contexts for the same component in one place. In this case all subcomponents reference the same component type, which we may have to create for the first use context. As we identify those derived requirements we associate them with the component type as properties or as ReqSpec declarations associated with the component type. This helps us recognize when different use contexts place competing or conflicting requirements on the same component, and help us decide whether to resort to more than one variant of the component.
 In the example below (see *SCSImplementationReqs.reqspec*), we show how we define decomposition requirements on subcomponents.
 
-```
+<pre>
 system requirements SCSImplementationreqs for SimpleControlSystem::SCS.tier0 [
 	requirement DCS_R1 : "DCS weight limit" for dcs [
 		val  MaximumWeight = 0.6 kg
@@ -346,7 +346,7 @@ system requirements SCSImplementationreqs for SimpleControlSystem::SCS.tier0 [
 		description this " shall be within weight of " MaximumWeight
 		decomposes scsreqs.R1
 	]
-```
+</pre>
 
 Third, a requirement may evolve - expressed by an **evolves** reference to the requirement it evolved from. One example is when the requirement evolves over time with a change in text or in its constant value. In this case the original requirement may be tagged as **dropped**. Another example is when a component type that extends another component type changes a requirement of the original component type, e.g., the constant value. In this case, the requirement associated with the extension sets a new **val** value. 
 
@@ -366,7 +366,7 @@ User can also specify requirements that are specific to connection, feature, mod
 
 Users can associate these requirements with specific system components or across the whole system. An instance of the requirement and its verification plan will be included in the assurance case instance for each component it is associated with.   
 
-```
+<pre>
 global requirements globalReq
 [
 	requirement connected : "All features of a component are connected" for component [
@@ -375,7 +375,7 @@ global requirements globalReq
 		development stakeholder sei.phf
 	]
 ]
-```
+</pre>
 
 ### Conditional Requirements
 
@@ -385,7 +385,7 @@ Users can also specify that the requirement should only be included when a parti
 
 In our example above we want to make sure that the requirement is only applied to leaf components in the system.
 
-```
+<pre>
 global requirements globalReq
 [
 	requirement connected : "All features of a component are connected"[
@@ -394,14 +394,14 @@ global requirements globalReq
 		category Kind.Consistency
 		development stakeholder sei.phf
 	]
-```
+</pre>
 > Note: The Java method referenced by the **when** statement is assumed to take a single parameter of type EObject and returns a boolean.
 
 ### Specification of Global Requirements
 
 Users can define global requirements that apply to the whole system. In this case they are associated with the root of the system instance and it is the responsibility of the verification method to traverse the instance model and verify a verification condition on each applicable model element. All results are expected to be returned in a Result report that represents the evidence for the claim that the requirement is satisfied.
 
-```
+<pre>
 global requirements globalReq
 [
 	requirement Allconnected : "All features of all components are connected" for root [
@@ -410,7 +410,7 @@ global requirements globalReq
 		development stakeholder sei.phf
 	]
 ]
-```
+</pre>
 
 The example requirement is specified for the system as a whole. In this case it is associated with the top level system and the verification activity will traverse the model and verify each leaf component. 
 
@@ -423,11 +423,11 @@ Reusable and root requirements can be associated with specific components by the
 
 The include statement can indicate that the requirement applies to all components or other target model elements as specified by the **for** in the requirement (first declaration), only applies to the given component (second declaration), or to a specific model element within the component that matches the target type of the **for** in the requirement (third declaration).
 
-```
+<pre>
 	include globalReq.connected  
 	include globalReq.Allconnected for self
 	include globalReq.securePort for inport1
-```
+</pre>
 
 User can also configure the application of reusable and root requirement as part of an assuranc eplan declaration. 
 In this case the user adds an **assure global** declaration identifying the global requiremetn set or a specific requirement in such a set. 
