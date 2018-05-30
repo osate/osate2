@@ -37,7 +37,7 @@ import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.io.Writer;
 
-import org.eclipse.core.resources.IResource;
+import org.eclipse.emf.ecore.resource.Resource;
 
 /**
  * An implementation of
@@ -137,10 +137,10 @@ public final class WriterParseErrorReporter extends AbstractParseErrorReporter {
 		}
 
 		/**
-		 * The given AADL IResource is allowed to be <code>null</code>.
+		 * The given AADL Resource is allowed to be <code>null</code>.
 		 */
 		@Override
-		public ParseErrorReporter getReporterFor(final IResource aadlRsrc) {
+		public ParseErrorReporter getReporterFor(final Resource aadlRsrc) {
 			return reporter;
 		}
 	}
