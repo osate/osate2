@@ -5,7 +5,8 @@ import org.junit.runners.Suite;
 
 @RunWith(Suite.class)
 @Suite.SuiteClasses({
-		Issue277Test.class, Issue361Test.class, Issue448Test.class, Issue464Test.class, Issue480Test.class })
+		Issue277Test.class, Issue361Test.class, Issue448Test.class, Issue464Test.class, Issue480Test.class,
+		Issue500Test.class, Issue508Test.class })
 
 public class IssueSuite {
 	// the class remains empty,
