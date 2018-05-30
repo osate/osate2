@@ -58,7 +58,10 @@ The analysis plugin is called with the system instance (instance model root) as 
 
 ### Writing Verification Methods in Resolute
 
-Resolute verification methods are written as *claim functions*. These claim functions are automatically invoked on the component instance for which the requirement being verified applies. In other words, users do not have to include Resolute annex subclauses with *prove* statements into the AADL model. Instead the Resolute claim function (registered as verification method) is called on every component instance that has a requirement with a verification activity that calls the registered verification method. An example verification activity calling a registered Resolute verification method.
+Resolute verification methods are written as *claim functions*. These claim functions are automatically invoked on the component instance for which the requirement being verified applies. 
+Users do not have to include Resolute annex subclauses with *prove* statements into the AADL model. Instead the Resolute claim function (registered as verification method) is called on every component instance that has a requirement with a verification activity that calls the registered verification method. An example verification activity calling a registered Resolute verification method.
+
+> Users can also write Resolute verification methods as *compute functions* that return a boolean value. They are registered the same way as claim functions.
 
 `MaxWeight : Resolute.verifySCSReq1(MaximumWeight in kg)`
 
