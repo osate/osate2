@@ -25,18 +25,18 @@ import static extension org.osate.testsupport.AssertHelper.assertError
 class Issue53Test extends XtextTest {
 
 	@Inject
-	ParseHelper<AadlPackage> parseHelper;
+	ParseHelper<AadlPackage> parseHelper
 
 	@Inject
-	TestResourceSet resourceSet;
+	TestResourceSet resourceSet
 
 	@Inject
-	private IResourceServiceProvider.Registry serviceProviderRegistry;
+	private IResourceServiceProvider.Registry serviceProviderRegistry
 
 	@Test
 	def void issue53() {
 		// Can't use loadModel() because we have a string...
-		val pkg = parseHelper.parse(aadlText, URI.createFileURI('Issue53Test.aadl'), resourceSet.get())
+		val pkg = parseHelper.parse(aadlText, URI.createFileURI('issue53.aadl'), resourceSet.get())
 
 		// Get the list of syntax, name resolution, and validation issues from the resource.
 		// If we read files instead of processing a string, this would be part of loadModel().
@@ -79,8 +79,8 @@ class Issue53Test extends XtextTest {
 					end propagations;
 		
 					properties
-						EMV2::Likelihood    => ARP4761::Probable applies to pedal_position.serviceomission;
-						EMV2::Severity     => ARP4761::Major applies to pedal_position.badvalue;
+						EMV2::Likelihood => ARP4761::Probable applies to pedal_position.serviceomission;
+						EMV2::Severity => ARP4761::Major applies to pedal_position.badvalue;
 				**};
 			end pedals;
 		
