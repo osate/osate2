@@ -51,6 +51,7 @@ import org.osate.xtext.aadl2.documentation.Aadl2DocumentationProvider;
 import org.osate.xtext.aadl2.findReferences.Aadl2ReferenceFinder;
 import org.osate.xtext.aadl2.formatting2.regionaccess.Aadl2TextRegionAccessBuilder;
 import org.osate.xtext.aadl2.generator.Aadl2OutputConfigurationProvider;
+import org.osate.xtext.aadl2.parsing.AnnexParserAgent;
 import org.osate.xtext.aadl2.resource.Aadl2DerivedStateComputer;
 import org.osate.xtext.aadl2.resource.NoCacheDerivedStateAwareResource;
 import org.osate.xtext.aadl2.scoping.Aadl2ImportedNamespaceAwareLocalScopeProvider;
@@ -103,10 +104,10 @@ public class Aadl2RuntimeModule extends org.osate.xtext.aadl2.AbstractAadl2Runti
 		return Aadl2QualifiedNameFragmentProvider.class;
 	}
 
-//	@Override
-//	public Class<? extends org.eclipse.xtext.linking.ILinker> bindILinker() {
-//		return AnnexParserAgent.class;
-//	}
+	@Override
+	public Class<? extends org.eclipse.xtext.linking.ILinker> bindILinker() {
+		return AnnexParserAgent.class;
+	}
 
 	public Class<? extends org.eclipse.xtext.validation.INamesAreUniqueValidationHelper> bindINamesAreUniqueValidationHelper() {
 		return Aadl2NamesAreUniqueValidationHelper.class;
