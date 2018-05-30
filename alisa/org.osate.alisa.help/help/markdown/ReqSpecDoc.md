@@ -192,7 +192,7 @@ A goal declaration has the following elements:
 * *Set of Constant*: Constants are used to parameterize goal and requirement specifications (see Section Constants and Computed Variables). Many of the changes to a goal or requirement are in a value used in the goal or requirement specification. Constants allow users to define a requirement value once and reference it in the description, predicates, and in verification activities of verification plans expressed in the Verify notation (documented in a separate report).
 
 
-* *WhenCondition*: the condition under which the requirement applies. The condition is a set of AADL2 modes (operational modes), EMV2 error behavior states (failure modes), or a Java method that takes an EObject as parameter and returns a boolean.
+* *WhenCondition*: the condition under which the requirement applies. The condition is a set of AADL2 modes (operational modes), EMV2 error behavior states (failure modes), or a Java or Resolute method that takes an EObject as parameter and returns a boolean.
 
 
 * *Rationale*: the rationale for a stakeholder goal as string.
