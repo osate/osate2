@@ -33,14 +33,9 @@
  */
 package org.osate.aadl2.modelsupport.errorreporting;
 
-import org.eclipse.core.resources.IFile;
-import org.eclipse.core.resources.IResource;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.osate.aadl2.Element;
-import org.osate.aadl2.modelsupport.resources.OsateResourceUtil;
 import org.osate.aadl2.parsesupport.LocationReference;
-import org.osate.internal.workspace.AadlWorkspace;
-import org.osate.workspace.IAadlProject;
 
 /**
  * @author aarong
@@ -102,16 +97,7 @@ public final class AnalysisToParseErrorReporterAdapter extends AbstractAnalysisE
 				throw new IllegalArgumentException(
 						"Cannot create a MarkerAnalysisErrorReporter when the Resource is null");
 			} else {
-				final IResource aaxlFile = OsateResourceUtil.convertToIResource(rsrc);
-				IResource aadlFile = null;
-				if (aaxlFile != null) {
-					final IAadlProject proj = AadlWorkspace.getAadlWorkspace().getAadlProject(aaxlFile);
-					if (proj != null) {
-						aadlFile = proj.getAadlFile((IFile) aaxlFile);
-					}
-				}
-
-				return new AnalysisToParseErrorReporterAdapter(rsrc, perFactory.getReporterFor(aadlFile));
+				return new AnalysisToParseErrorReporterAdapter(rsrc, perFactory.getReporterFor(rsrc));
 			}
 		}
 	}

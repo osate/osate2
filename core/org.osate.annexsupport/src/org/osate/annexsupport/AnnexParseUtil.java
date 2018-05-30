@@ -17,7 +17,7 @@ import org.eclipse.xtext.parser.IParseResult;
 import org.eclipse.xtext.parser.ParseResult;
 import org.eclipse.xtext.parser.antlr.AbstractAntlrParser;
 import org.eclipse.xtext.resource.XtextSyntaxDiagnostic;
-import org.osate.aadl2.modelsupport.errorreporting.MarkerParseErrorReporter;
+import org.osate.aadl2.modelsupport.errorreporting.AbstractParseErrorReporter;
 import org.osate.aadl2.modelsupport.errorreporting.ParseErrorReporter;
 
 public class AnnexParseUtil {
@@ -79,9 +79,12 @@ public class AnnexParseUtil {
 	 * @return list of {@link Diagnostic}. Never <code>null</code>.
 	 */
 	public static void createDiagnostics(IParseResult parseResult, String filename, ParseErrorReporter err) {
-		if (err instanceof MarkerParseErrorReporter) {
+		Resource res = null;
+		if (err instanceof AbstractParseErrorReporter) {
+			res = ((AbstractParseErrorReporter) err).getContextResource();
+		}
+		if (res != null) {
 			List<Diagnostic> diagnostics = new ArrayList<Diagnostic>();
-			Resource res = ((MarkerParseErrorReporter) err).getContextResource();
 			for (INode error : parseResult.getSyntaxErrors()) {
 				if (res == null) {
 					SyntaxErrorMessage errormsg = error.getSyntaxErrorMessage();
