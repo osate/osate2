@@ -1,29 +1,42 @@
 package org.osate.core.tests.issues
 
+import com.google.inject.Inject
 import com.itemis.xtext.testing.FluentIssueCollection
+import com.itemis.xtext.testing.XtextTest
+import org.eclipse.emf.common.util.URI
+import org.eclipse.xtext.resource.IResourceServiceProvider
 import org.eclipse.xtext.testing.InjectWith
 import org.eclipse.xtext.testing.XtextRunner
+import org.eclipse.xtext.testing.util.ParseHelper
+import org.eclipse.xtext.validation.CheckMode
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.osate.aadl2.AadlPackage
 import org.osate.aadl2.SystemImplementation
 import org.osate.aadl2.instantiation.InstantiateModel
-import org.osate.testsupport.Aadl2UiInjectorProvider
-import org.osate.testsupport.OsateTest
+import org.osate.testsupport.Aadl2InjectorProvider
+import org.osate.testsupport.TestResourceSet
 
 import static org.junit.Assert.*
 
+import static extension org.osate.testsupport.AssertHelper.assertError
+
 @RunWith(typeof(XtextRunner))
-@InjectWith(typeof(Aadl2UiInjectorProvider))
-class Issue500Test extends OsateTest {
+@InjectWith(typeof(Aadl2InjectorProvider))
+class Issue500Test extends XtextTest {
+	
+	@Inject 
+	ParseHelper<AadlPackage> parseHelper
+	
+	@Inject
+	TestResourceSet resourceSet
+	
+	@Inject
+	private IResourceServiceProvider.Registry serviceProviderRegistry
+
 	@Test
 	def void issue500() {
-		val aadlFile = "issue500.aadl"
-		createFiles(aadlFile -> aadlText)
-		suppressSerialization
-		val result = testFile(aadlFile)
-
-		val pkg = result.resource.contents.head as AadlPackage
+		val pkg = parseHelper.parse(aadlText, URI.createFileURI('issue500.aadl'), resourceSet.get())
 		val cls = pkg.ownedPublicSection.ownedClassifiers;
 		(0..5).forEach[k |
 			val name = '''S.i«k»'''
@@ -31,7 +44,7 @@ class Issue500Test extends OsateTest {
 
 			// instantiate
 			val sysImpl = cls.findFirst[it.name == name] as SystemImplementation
-			val instance = InstantiateModel::buildInstanceModelFile(sysImpl)
+			val instance = InstantiateModel.instantiate(sysImpl, pkg.eResource.resourceSet)
 			val connections = instance.connectionInstances
 			
 			switch k {
@@ -173,8 +186,55 @@ class Issue500Test extends OsateTest {
 	//Tests the method Aadl2JavaValidator.isMatchingConnectionPoint(Feature, Context, ConnectedElement)
 	@Test
 	def void testFlowValidation() {
-		val pkg1FileName = "pkg1.aadl"
-		createFiles(pkg1FileName -> '''
+		// Can't use loadModel() because we have a string...
+		val pkg = parseHelper.parse(aadlText, URI.createFileURI('pkg1.aadl'), resourceSet.get())
+
+		// Get the list of syntax, name resolution, and validation issues from the resource.
+		// If we read files instead of processing a string, this would be part of loadModel().
+		val r = pkg.eResource()
+		val provider = serviceProviderRegistry.getResourceServiceProvider(r.URI)
+		val issueList = provider.resourceValidator.validate(r, CheckMode.ALL, null)
+		// Variable issues must be initialized for call to assertConstraints()
+		issues = new FluentIssueCollection(pkg.eResource(), issueList, newArrayList)
+		val testFileResult = issues
+		val issueCollection = new FluentIssueCollection(testFileResult.resource, newArrayList, newArrayList)
+		pkg => [
+			assertEquals("pkg1", name)
+			publicSection.ownedClassifiers.get(1) as SystemImplementation => [
+				assertEquals("top.i", name)
+				ownedEndToEndFlows.get(5) => [
+					assertEquals("etef6", name)
+					ownedEndToEndFlowSegments.get(1) => [
+						assertEquals("conn2", flowElement.name)
+						assertError(testFileResult.issues, issueCollection, "The destination of connection 'conn2' does not match the succeeding subcomponent or in flow spec feature 'sub2.p3'")
+					]
+				]
+				ownedEndToEndFlows.get(6) => [
+					assertEquals("etef7", name)
+					ownedEndToEndFlowSegments.get(1) => [
+						assertEquals("conn3", flowElement.name)
+						assertError(testFileResult.issues, issueCollection, "The destination of connection 'conn3' does not match the succeeding subcomponent or in flow spec feature 'sub2.p3'")
+					]
+				]
+				ownedEndToEndFlows.get(7) => [
+					assertEquals("etef8", name)
+					ownedEndToEndFlowSegments.get(1) => [
+						assertEquals("conn4", flowElement.name)
+						assertError(testFileResult.issues, issueCollection, "The destination of connection 'conn4' does not match the succeeding subcomponent or in flow spec feature 'sub2.p3'")
+					]
+				]
+				ownedEndToEndFlows.get(8) => [
+					assertEquals("etef9", name)
+					ownedEndToEndFlowSegments.get(1) => [
+						assertEquals("conn5", flowElement.name)
+						assertError(testFileResult.issues, issueCollection, "The destination of connection 'conn5' does not match the succeeding subcomponent or in flow spec feature 'sub2.p2'")
+					]
+				]
+			]
+		]
+		issueCollection.sizeIs(issueCollection.issues.size)
+		assertConstraints(issueCollection)
+		val aadlText = '''
 			package pkg1
 			public
 				system top
@@ -231,45 +291,6 @@ class Issue500Test extends OsateTest {
 						fg5: feature group fgt1;
 				end fgt2;
 			end pkg1;
-		''')
-		suppressSerialization
-		val testFileResult = testFile(pkg1FileName)
-		val issueCollection = new FluentIssueCollection(testFileResult.resource, newArrayList, newArrayList)
-		testFileResult.resource.contents.head as AadlPackage => [
-			assertEquals("pkg1", name)
-			publicSection.ownedClassifiers.get(1) as SystemImplementation => [
-				assertEquals("top.i", name)
-				ownedEndToEndFlows.get(5) => [
-					assertEquals("etef6", name)
-					ownedEndToEndFlowSegments.get(1) => [
-						assertEquals("conn2", flowElement.name)
-						assertError(testFileResult.issues, issueCollection, "The destination of connection 'conn2' does not match the succeeding subcomponent or in flow spec feature 'sub2.p3'")
-					]
-				]
-				ownedEndToEndFlows.get(6) => [
-					assertEquals("etef7", name)
-					ownedEndToEndFlowSegments.get(1) => [
-						assertEquals("conn3", flowElement.name)
-						assertError(testFileResult.issues, issueCollection, "The destination of connection 'conn3' does not match the succeeding subcomponent or in flow spec feature 'sub2.p3'")
-					]
-				]
-				ownedEndToEndFlows.get(7) => [
-					assertEquals("etef8", name)
-					ownedEndToEndFlowSegments.get(1) => [
-						assertEquals("conn4", flowElement.name)
-						assertError(testFileResult.issues, issueCollection, "The destination of connection 'conn4' does not match the succeeding subcomponent or in flow spec feature 'sub2.p3'")
-					]
-				]
-				ownedEndToEndFlows.get(8) => [
-					assertEquals("etef9", name)
-					ownedEndToEndFlowSegments.get(1) => [
-						assertEquals("conn5", flowElement.name)
-						assertError(testFileResult.issues, issueCollection, "The destination of connection 'conn5' does not match the succeeding subcomponent or in flow spec feature 'sub2.p2'")
-					]
-				]
-			]
-		]
-		issueCollection.sizeIs(issueCollection.issues.size)
-		assertConstraints(issueCollection)
+		'''
 	}
 }
