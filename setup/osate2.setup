@@ -365,7 +365,8 @@
       defaultValue="Oxygen"
       storageURI="scope://Workspace"/>
   <setupTask
-      xsi:type="setup.p2:P2Task">
+      xsi:type="setup.p2:P2Task"
+      label="Oomph">
     <requirement
         name="org.eclipse.oomph.setup.feature.group"/>
     <repository
@@ -385,7 +386,8 @@
       name="osate.target.location"
       value="${git.clone.osate2.location/core/org.osate.build.target/osate2-development.target}"/>
   <setupTask
-      xsi:type="setup.p2:P2Task">
+      xsi:type="setup.p2:P2Task"
+      label="EASE">
     <requirement
         name="org.eclipse.ease.feature.feature.group"/>
     <requirement
@@ -404,7 +406,8 @@
         url="http://download.eclipse.org/gendoc/updates/releases/0.6.0"/>
   </setupTask>
   <setupTask
-      xsi:type="setup.p2:P2Task">
+      xsi:type="setup.p2:P2Task"
+      label="Sirius">
     <requirement
         name="org.eclipse.sirius.runtime.feature.group"/>
     <requirement
@@ -503,15 +506,16 @@
         url="http://download.eclipse.org/sirius/updates/releases/5.1.1/oxygen"/>
   </setupTask>
   <setupTask
-      xsi:type="setup.p2:P2Task">
+      xsi:type="setup.p2:P2Task"
+      label="EclEmma">
     <requirement
-        name="org.eclipse.eclemma.feature.feature.group"
-        versionRange="[3.0.0,3.1.0)"/>
+        name="org.eclipse.eclemma.feature.feature.group"/>
     <repository
         url="http://update.eclemma.org/"/>
   </setupTask>
   <setupTask
-      xsi:type="setup.p2:P2Task">
+      xsi:type="setup.p2:P2Task"
+      label="SWTBot">
     <requirement
         name="org.eclipse.swtbot.eclipse.feature.group"/>
     <requirement
@@ -552,7 +556,8 @@
       <description>Clone OSATE2 all repository</description>
     </setupTask>
     <setupTask
-        xsi:type="setup.p2:P2Task">
+        xsi:type="setup.p2:P2Task"
+        label="Core Dependencies">
       <requirement
           name="org.eclipse.papyrus.sdk.feature.feature.group"/>
       <requirement
@@ -603,7 +608,8 @@
       <description>Additional features for core OSATE</description>
     </setupTask>
     <setupTask
-        xsi:type="setup.p2:P2Task">
+        xsi:type="setup.p2:P2Task"
+        label="Xsemantics">
       <requirement
           name="it.xsemantics.sdk.feature.group"/>
       <repository
@@ -611,7 +617,8 @@
       <description>Additional features for ALISA</description>
     </setupTask>
     <setupTask
-        xsi:type="setup.p2:P2Task">
+        xsi:type="setup.p2:P2Task"
+        label="GE Dependencies">
       <requirement
           name="org.eclipse.graphiti.sdk.plus.feature.feature.group"/>
       <requirement
