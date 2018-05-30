@@ -681,5 +681,7 @@ The values of the contribution are stored in the following order:
 5. Method to determine best-case actual latency (String)
 6. Method to determine worst-case actual latency (String)
 
+For details on methods to determine actual latency see section [Latency Analysis Report Content](latency.html#latency-analysis-report-content).
+
 In the case of connections a contributor can have sub-contributors (protocols, buses that the connection is bound to). They are represented by subResult objects for each contributor Result object.
  
