@@ -20,13 +20,13 @@
          <topic href="help/html/latency.html#partitioned-systems" label="Partitioned Systems"></topic>
          <topic href="help/html/latency.html#latency-analysis-and-modes" label="Latency Analysis and Modes"></topic>
       </topic>
-   </topic>
-   <topic href="help/html/latencyresult.html" label="Flow Latency Analysis Result Format">
-      <topic href="help/html/latency.html#analysisresult" label="AnalysisResult">
-      </topic>
-      <topic href="help/html/latency.html#end-to-end-flow-result" label="End To End Flow Result">
-      </topic>
-      <topic href="help/html/latency.html#latency-contribution-result" label="Latency Contribution Result">
-      </topic>
+	  <topic href="help/html/latency.html#latency-analysis-result-format" label="Latency Analysis Result Format">
+ 	     <topic href="help/html/latency.html#analysisresult" label="AnalysisResult">
+ 	     </topic>
+ 	     <topic href="help/html/latency.html#end-to-end-flow-result" label="End To End Flow Result">
+  	    </topic>
+  	    <topic href="help/html/latency.html#latency-contribution-result" label="Latency Contribution Result">
+      	</topic>
+   	 </topic>
    </topic>
 </toc>
