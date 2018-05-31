@@ -50,6 +50,7 @@ import java.util.SortedMap;
 import java.util.TreeMap;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
+import java.util.stream.StreamSupport;
 
 import org.eclipse.emf.common.util.BasicEList;
 import org.eclipse.emf.common.util.EList;
@@ -63,6 +64,7 @@ import org.eclipse.emf.ecore.util.BasicInternalEList;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.xtext.EcoreUtil2;
 import org.eclipse.xtext.Keyword;
+import org.eclipse.xtext.naming.IQualifiedNameConverter;
 import org.eclipse.xtext.nodemodel.BidiIterable;
 import org.eclipse.xtext.nodemodel.ICompositeNode;
 import org.eclipse.xtext.nodemodel.INode;
@@ -73,6 +75,7 @@ import org.eclipse.xtext.nodemodel.impl.LeafNode;
 import org.eclipse.xtext.nodemodel.util.NodeModelUtils;
 import org.eclipse.xtext.resource.IEObjectDescription;
 import org.eclipse.xtext.scoping.IGlobalScopeProvider;
+import org.eclipse.xtext.scoping.IScope;
 import org.eclipse.xtext.validation.Check;
 import org.eclipse.xtext.validation.CheckType;
 import org.eclipse.xtext.xbase.lib.StringExtensions;
@@ -571,18 +574,13 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 
 	@Check(CheckType.NORMAL)
 	public void caseAadlPackage(AadlPackage pack) {
-		String findings;
-
-		findings = hasDuplicatesAadlPackage(pack);
-		if (findings != null) {
-			error(pack, "Package " + pack.getName() + " has duplicates " + findings);
-		}
+		checkForDuplicateModelUnits(pack);
 	}
 
 	@Check(CheckType.FAST)
 	public void casePropertySet(PropertySet propSet) {
 		checkWithsAreUsed(propSet);
-		checkForDuplicatesPropertySet(propSet);
+		checkForDuplicateModelUnits(propSet);
 	}
 
 	@Check(CheckType.NORMAL)
@@ -7367,10 +7365,15 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 
 	@Inject
 	private IGlobalScopeProvider scopeProvider;
+	
+	@Inject
+	private IQualifiedNameConverter qualifiedNameConverter;
 
 	/**
 	 * check whether there are duplicate names
+	 * @deprecated Will be removed in 2.3.5
 	 */
+	@Deprecated
 	public String hasDuplicatesAadlPackage(AadlPackage context) {
 		// project dependency based global scope
 		List<IEObjectDescription> findings = ((Aadl2GlobalScopeProvider) scopeProvider).getDuplicates(context);
@@ -7382,7 +7385,10 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 
 	/**
 	 * check whether there are duplicate names
+	 * 
+	 * @deprecated Will be removed in 2.3.5
 	 */
+	@Deprecated
 	public void checkForDuplicatesPropertySet(PropertySet propSet) {
 		// project dependency based global scope
 		if (!propSet.getName().equals("AADL_Project")) {
@@ -7392,7 +7398,36 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 			}
 		}
 	}
+	
+	/**
+	 * check whether there are duplicate names
+	 */
+	private void checkForDuplicateModelUnits(ModelUnit modelUnit) {
+		IScope scope = scopeProvider.getScope(modelUnit.eResource(),
+				Aadl2Package.eINSTANCE.getPackageSection_ImportedUnit(), null);
+		Iterable<IEObjectDescription> elements = scope
+				.getElements(qualifiedNameConverter.toQualifiedName(modelUnit.getName()));
+		if (elements.iterator().hasNext()) {
+			StringBuilder message = new StringBuilder();
+			if (modelUnit instanceof AadlPackage) {
+				message.append("Packge");
+			} else if (modelUnit instanceof PropertySet) {
+				message.append("Property set");
+			}
+			message.append(" ");
+			message.append(modelUnit.getName());
+			message.append(" has duplicates ");
+			message.append(StreamSupport.stream(elements.spliterator(), false)
+					.map(description -> description.getEObjectURI().path().replace("/resource/", "")).sorted()
+					.collect(Collectors.joining(", ")));
+			error(message.toString(), Aadl2Package.eINSTANCE.getNamedElement_Name());
+		}
+	}
 
+	/**
+	 * @deprecated Will be removed in 2.3.5
+	 */
+	@Deprecated
 	protected String getNames(List<IEObjectDescription> findings) {
 		String res = "";
 		boolean doComma = false;

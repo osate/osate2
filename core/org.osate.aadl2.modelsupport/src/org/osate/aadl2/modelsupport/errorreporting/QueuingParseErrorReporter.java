@@ -33,72 +33,105 @@
  */
 package org.osate.aadl2.modelsupport.errorreporting;
 
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
+
 import org.eclipse.emf.ecore.resource.Resource;
-import org.osate.aadl2.Element;
-import org.osate.aadl2.parsesupport.LocationReference;
 
 /**
+ * An implementation of
+ * {@link edu.cmu.sei.aadl.model.pluginsupport.ParseErrorReporter} that reports
+ * errors by storing them in a queue that can be retreived by calling
+ * {@link #getErrors}.
+ *
+ * <p>Messages are stored as {@link QueuingParseErrorReporter.Message} objects.
+ *
  * @author aarong
  */
-public final class AnalysisToParseErrorReporterAdapter extends AbstractAnalysisErrorReporter {
-	private static final LocationReference MISSING_LOCATION = new LocationReference("Missing location reference!", 0);
+public final class QueuingParseErrorReporter extends AbstractParseErrorReporter {
+	public static final String ERROR = "Error";
+	public static final String WARNING = "Warning";
+	public static final String INFO = "INFO";
 
-	/** The parse error reporter to delegate to. */
-	private final ParseErrorReporter parseErrReporter;
+	/** Singleton factory reference. */
+	public static final Factory factory = new Factory();
 
-	private AnalysisToParseErrorReporterAdapter(final Resource rsrc, final ParseErrorReporter delegate) {
-		super(rsrc);
-		parseErrReporter = delegate;
+	/** The list of messages */
+	private final List<Message> queue;
+
+	public QueuingParseErrorReporter() {
+		super();
+		queue = new LinkedList<Message>();
 	}
 
-	private LocationReference getLocationReference(final Element obj) {
-		final LocationReference lr = obj.getLocationReference();
-		return (lr == null) ? MISSING_LOCATION : lr;
-	}
-
-	@Override
-	protected void errorImpl(Element where, String message, final String[] attrs, final Object[] values) {
-		parseErrReporter.error(getLocationReference(where), message);
-	}
-
-	@Override
-	protected void warningImpl(Element where, String message, final String[] attrs, final Object[] values) {
-		parseErrReporter.warning(getLocationReference(where), message);
+	private void queueMessage(final String fname, final int line, final String kind, final String message) {
+		queue.add(new Message(fname, line, kind, message));
 	}
 
 	@Override
-	protected void infoImpl(Element where, String message, final String[] attrs, final Object[] values) {
-		parseErrReporter.info(getLocationReference(where), message);
+	protected void errorImpl(final String filename, final int line, final String message) {
+		queueMessage(filename, line, ERROR, message);
+	}
+
+	@Override
+	protected void warningImpl(final String filename, final int line, final String message) {
+		queueMessage(filename, line, WARNING, message);
+	}
+
+	@Override
+	protected void infoImpl(final String filename, final int line, final String message) {
+		queueMessage(filename, line, INFO, message);
 	}
 
 	@Override
 	protected void deleteMessagesImpl() {
-		parseErrReporter.deleteMessages();
+		queue.clear();
 	}
 
 	/**
-	 * It is required the provided {@link ParseErrorReporterFactory} be able
-	 * to handle <code>null</code> IResources.  This is so that
-	 * Resources associated with standard property sets may be handled.  These
-	 * files do not exist in the Eclipse workspace, and thus it is impossible
-	 * to get IResources for them.
+	 * Get the errors.
+	 * @return A List of {@link QueuingParseErrorReporter.Message} objects.
 	 */
-	public static final class Factory implements AnalysisErrorReporterFactory {
-		/** Factory for creating parse error reporter delegate objects. */
-		private final ParseErrorReporterFactory perFactory;
+	public List<Message> getErrors() {
+		return new ArrayList<Message>(queue);
+	}
 
-		public Factory(final ParseErrorReporterFactory fact) {
-			perFactory = fact;
+	private static final class Factory implements ParseErrorReporterFactory {
+		/**
+		 * The given AADL IResource is allowed to be <code>null</code>.
+		 */
+		@Override
+		public ParseErrorReporter getReporterFor(final Resource aadlRsrc) {
+			return new QueuingParseErrorReporter();
 		}
 
-		@Override
-		public AnalysisErrorReporter getReporterFor(final Resource rsrc) {
-			if (rsrc == null) {
-				throw new IllegalArgumentException(
-						"Cannot create a MarkerAnalysisErrorReporter when the Resource is null");
-			} else {
-				return new AnalysisToParseErrorReporterAdapter(rsrc, perFactory.getReporterFor(rsrc));
-			}
+	}
+
+	/**
+	 * Record of a reported error message/warning. Contains the
+	 * {@link #filename name of the file} in which the message is located, the
+	 * {@link #line line number} where the message is located, the
+	 * {@link #kind category} of the message, and the
+	 * {@link #message message itself}. The category is a string, and the set
+	 * of current values is given by
+	 * {@link QueuingParseErrorReporter#ERROR},
+	 * {@link QueuingParseErrorReporter#WARNING}, and
+	 * {@link QueuingParseErrorReporter#INFO}.
+	 *
+	 * @author aarong
+	 */
+	public static final class Message {
+		public final String filename;
+		public final int line;
+		public final String kind;
+		public final String message;
+
+		public Message(final String fn, final int ln, final String k, final String msg) {
+			filename = fn;
+			line = ln;
+			kind = k;
+			message = msg;
 		}
 	}
 }
