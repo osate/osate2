@@ -395,7 +395,8 @@ global requirements globalReq
 		development stakeholder sei.phf
 	]
 </pre>
-> Note: The Java method referenced by the **when** statement is assumed to take a single parameter of type EObject and returns a boolean.
+
+> Note: The Java method referenced by the **when** statement is assumed to take a single parameter of type EObject and returns a boolean. The EObject parameter refers to the target element of the requirement. This is an element in the declarative AADL model, i.e., a component classifier, feature, etc.
 
 ### Specification of Global Requirements
 
