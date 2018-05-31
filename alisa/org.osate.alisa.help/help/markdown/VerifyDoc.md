@@ -421,12 +421,12 @@ The verification method declaration consists of:
 * *Property list*: optional comma separated list of AADL property definition references. The references use the core AADL syntax for property references. The properties will be assigned the value specified as part of the method call in a verification activity if no property value is present for the model element. If a property value is present the value must be the same as the value specified in the call.
 
 
-* *Result list*: optional comma separated list of formal parameter specifications to indicate result values. The result values will be assigned in order to Computed Variables specified as part of the method call in a verification activity.
+* *Result list*: optional comma separated list of formal parameter specifications to indicate result values. The Result object values will be assigned in order to Computed Variables specified as part of the method call in a verification activity. If the method returns a single value it is assigned to the compute variable.
 
 
-* *boolean*: indication that the method returns a boolean value to indicate success or fail.  
+* *boolean*: indication that the method returns a boolean value to indicate success or failure. The indicator is not required to be set. When the method returns a boolean and it is not assigned to a compute variable it is interpreted as success/failure. 
 
-* *report*: indication that the method returns a result report in an ALISA specified format. This report can contain a collection of result indicators and result data (see [Analysis Result](AnalysisResultFormat.html)).
+* *report*: indication that the method returns a result report in an ALISA specified format. This report can contain a collection of result indicators and result data (see [Analysis Result](AnalysisResultFormat.html)). The indicator is not required to be set. When the method returns a Diagnostic, or Result its content is assigned to compute variables and the diagnostics are interpreted to determine success (no failures or errors), or failure/error. 
 
 
 * *Title*: a short descriptor of the verification method registry. This optional element may be used as more descriptive label than the name.

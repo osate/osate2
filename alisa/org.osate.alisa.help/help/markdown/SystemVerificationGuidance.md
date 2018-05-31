@@ -229,7 +229,7 @@ We first create a Diagnostic object, which reflect the overall result and collec
 ![Java Method With Result](images/JavaMethodWithResult.png "Java Method With Result")
 
 
-This Java method is registered as follows - indicating the return value is a **report**.
+This Java method is registered as follows - indicating the return value is a **report**. Note that the **report** indicator is optional as the return value of a Diagnostic or Result object is always interpreted as such.
 
 <pre>
 method AllComponentsConnected()report: "Check that all features of all leaf components are connected" for root [
