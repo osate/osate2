@@ -74,7 +74,6 @@ import org.eclipse.xtext.nodemodel.impl.HiddenLeafNode;
 import org.eclipse.xtext.nodemodel.impl.LeafNode;
 import org.eclipse.xtext.nodemodel.util.NodeModelUtils;
 import org.eclipse.xtext.resource.IEObjectDescription;
-import org.eclipse.xtext.scoping.IGlobalScopeProvider;
 import org.eclipse.xtext.scoping.IScope;
 import org.eclipse.xtext.validation.Check;
 import org.eclipse.xtext.validation.CheckType;
@@ -7364,7 +7363,7 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 	}
 
 	@Inject
-	private IGlobalScopeProvider scopeProvider;
+	private Aadl2GlobalScopeProvider scopeProvider;
 	
 	@Inject
 	private IQualifiedNameConverter qualifiedNameConverter;
@@ -7376,7 +7375,7 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 	@Deprecated
 	public String hasDuplicatesAadlPackage(AadlPackage context) {
 		// project dependency based global scope
-		List<IEObjectDescription> findings = ((Aadl2GlobalScopeProvider) scopeProvider).getDuplicates(context);
+		List<IEObjectDescription> findings = scopeProvider.getDuplicates(context);
 		if (!findings.isEmpty()) {
 			return getNames(findings);
 		}
@@ -7392,7 +7391,7 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 	public void checkForDuplicatesPropertySet(PropertySet propSet) {
 		// project dependency based global scope
 		if (!propSet.getName().equals("AADL_Project")) {
-			List<IEObjectDescription> findings = ((Aadl2GlobalScopeProvider) scopeProvider).getDuplicates(propSet);
+			List<IEObjectDescription> findings = scopeProvider.getDuplicates(propSet);
 			if (!findings.isEmpty()) {
 				error(propSet, "Property set " + propSet.getName() + " has duplicates " + findings);
 			}
@@ -7403,8 +7402,7 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 	 * check whether there are duplicate names
 	 */
 	private void checkForDuplicateModelUnits(ModelUnit modelUnit) {
-		IScope scope = scopeProvider.getScope(modelUnit.eResource(),
-				Aadl2Package.eINSTANCE.getPackageSection_ImportedUnit(), null);
+		IScope scope = scopeProvider.getScope(modelUnit.eResource(), Aadl2Package.eINSTANCE.getModelUnit());
 		Iterable<IEObjectDescription> elements = scope
 				.getElements(qualifiedNameConverter.toQualifiedName(modelUnit.getName()));
 		if (elements.iterator().hasNext()) {
