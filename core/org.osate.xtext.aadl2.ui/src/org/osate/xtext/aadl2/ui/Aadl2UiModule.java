@@ -38,6 +38,8 @@ import org.eclipse.jface.text.contentassist.IContentAssistProcessor;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.eclipse.ui.views.contentoutline.IContentOutlinePage;
+import org.eclipse.xtext.builder.EclipseResourceFileSystemAccess2;
+import org.eclipse.xtext.generator.AbstractFileSystemAccess2;
 import org.eclipse.xtext.parser.IEncodingProvider;
 import org.eclipse.xtext.resource.containers.IAllContainersState;
 import org.eclipse.xtext.ui.LanguageSpecific;
@@ -156,6 +158,10 @@ public class Aadl2UiModule extends org.osate.xtext.aadl2.ui.AbstractAadl2UiModul
 
 	public Class<? extends IEncodingProvider> bindIEncodingProvider() {
 		return Aadl2WorkspaceEncodingProvider.class;
+	}
+
+	public Class<? extends AbstractFileSystemAccess2> bindAbstractFileSystemAccess2() {
+		return EclipseResourceFileSystemAccess2.class;
 	}
 
 }
