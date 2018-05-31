@@ -38,7 +38,7 @@ import org.osate.reqspec.reqSpec.ReqSpecPackage;
  * </p>
  * <ul>
  *   <li>{@link org.osate.reqspec.reqSpec.impl.IncludeGlobalRequirementImpl#getInclude <em>Include</em>}</li>
- *   <li>{@link org.osate.reqspec.reqSpec.impl.IncludeGlobalRequirementImpl#isSelf <em>Self</em>}</li>
+ *   <li>{@link org.osate.reqspec.reqSpec.impl.IncludeGlobalRequirementImpl#isLocal <em>Local</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.impl.IncludeGlobalRequirementImpl#getTargetElement <em>Target Element</em>}</li>
  * </ul>
  *
@@ -57,24 +57,24 @@ public class IncludeGlobalRequirementImpl extends MinimalEObjectImpl.Container i
   protected EObject include;
 
   /**
-   * The default value of the '{@link #isSelf() <em>Self</em>}' attribute.
+   * The default value of the '{@link #isLocal() <em>Local</em>}' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #isSelf()
+   * @see #isLocal()
    * @generated
    * @ordered
    */
-  protected static final boolean SELF_EDEFAULT = false;
+  protected static final boolean LOCAL_EDEFAULT = false;
 
   /**
-   * The cached value of the '{@link #isSelf() <em>Self</em>}' attribute.
+   * The cached value of the '{@link #isLocal() <em>Local</em>}' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #isSelf()
+   * @see #isLocal()
    * @generated
    * @ordered
    */
-  protected boolean self = SELF_EDEFAULT;
+  protected boolean local = LOCAL_EDEFAULT;
 
   /**
    * The cached value of the '{@link #getTargetElement() <em>Target Element</em>}' reference.
@@ -155,9 +155,9 @@ public class IncludeGlobalRequirementImpl extends MinimalEObjectImpl.Container i
    * <!-- end-user-doc -->
    * @generated
    */
-  public boolean isSelf()
+  public boolean isLocal()
   {
-    return self;
+    return local;
   }
 
   /**
@@ -165,12 +165,12 @@ public class IncludeGlobalRequirementImpl extends MinimalEObjectImpl.Container i
    * <!-- end-user-doc -->
    * @generated
    */
-  public void setSelf(boolean newSelf)
+  public void setLocal(boolean newLocal)
   {
-    boolean oldSelf = self;
-    self = newSelf;
+    boolean oldLocal = local;
+    local = newLocal;
     if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, ReqSpecPackage.INCLUDE_GLOBAL_REQUIREMENT__SELF, oldSelf, self));
+      eNotify(new ENotificationImpl(this, Notification.SET, ReqSpecPackage.INCLUDE_GLOBAL_REQUIREMENT__LOCAL, oldLocal, local));
   }
 
   /**
@@ -229,8 +229,8 @@ public class IncludeGlobalRequirementImpl extends MinimalEObjectImpl.Container i
       case ReqSpecPackage.INCLUDE_GLOBAL_REQUIREMENT__INCLUDE:
         if (resolve) return getInclude();
         return basicGetInclude();
-      case ReqSpecPackage.INCLUDE_GLOBAL_REQUIREMENT__SELF:
-        return isSelf();
+      case ReqSpecPackage.INCLUDE_GLOBAL_REQUIREMENT__LOCAL:
+        return isLocal();
       case ReqSpecPackage.INCLUDE_GLOBAL_REQUIREMENT__TARGET_ELEMENT:
         if (resolve) return getTargetElement();
         return basicGetTargetElement();
@@ -251,8 +251,8 @@ public class IncludeGlobalRequirementImpl extends MinimalEObjectImpl.Container i
       case ReqSpecPackage.INCLUDE_GLOBAL_REQUIREMENT__INCLUDE:
         setInclude((EObject)newValue);
         return;
-      case ReqSpecPackage.INCLUDE_GLOBAL_REQUIREMENT__SELF:
-        setSelf((Boolean)newValue);
+      case ReqSpecPackage.INCLUDE_GLOBAL_REQUIREMENT__LOCAL:
+        setLocal((Boolean)newValue);
         return;
       case ReqSpecPackage.INCLUDE_GLOBAL_REQUIREMENT__TARGET_ELEMENT:
         setTargetElement((NamedElement)newValue);
@@ -274,8 +274,8 @@ public class IncludeGlobalRequirementImpl extends MinimalEObjectImpl.Container i
       case ReqSpecPackage.INCLUDE_GLOBAL_REQUIREMENT__INCLUDE:
         setInclude((EObject)null);
         return;
-      case ReqSpecPackage.INCLUDE_GLOBAL_REQUIREMENT__SELF:
-        setSelf(SELF_EDEFAULT);
+      case ReqSpecPackage.INCLUDE_GLOBAL_REQUIREMENT__LOCAL:
+        setLocal(LOCAL_EDEFAULT);
         return;
       case ReqSpecPackage.INCLUDE_GLOBAL_REQUIREMENT__TARGET_ELEMENT:
         setTargetElement((NamedElement)null);
@@ -296,8 +296,8 @@ public class IncludeGlobalRequirementImpl extends MinimalEObjectImpl.Container i
     {
       case ReqSpecPackage.INCLUDE_GLOBAL_REQUIREMENT__INCLUDE:
         return include != null;
-      case ReqSpecPackage.INCLUDE_GLOBAL_REQUIREMENT__SELF:
-        return self != SELF_EDEFAULT;
+      case ReqSpecPackage.INCLUDE_GLOBAL_REQUIREMENT__LOCAL:
+        return local != LOCAL_EDEFAULT;
       case ReqSpecPackage.INCLUDE_GLOBAL_REQUIREMENT__TARGET_ELEMENT:
         return targetElement != null;
     }
@@ -315,8 +315,8 @@ public class IncludeGlobalRequirementImpl extends MinimalEObjectImpl.Container i
     if (eIsProxy()) return super.toString();
 
     StringBuffer result = new StringBuffer(super.toString());
-    result.append(" (self: ");
-    result.append(self);
+    result.append(" (local: ");
+    result.append(local);
     result.append(')');
     return result.toString();
   }
