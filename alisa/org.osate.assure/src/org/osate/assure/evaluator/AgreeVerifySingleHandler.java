@@ -44,12 +44,13 @@ import org.osate.aadl2.Element;
 import org.osate.aadl2.EventDataPort;
 import org.osate.aadl2.FeatureGroup;
 import org.osate.aadl2.instance.ComponentInstance;
-import org.osate.alisa.common.util.ResultsHelperUtilExtension;
 import org.osate.annexsupport.AnnexUtil;
 import org.osate.assure.assure.VerificationResult;
 import org.osate.assure.util.AssureUtilExtension;
+import org.osate.result.Diagnostic;
 import org.osate.result.Result;
 import org.osate.result.ResultFactory;
+import org.osate.result.util.ResultUtil;
 
 import com.rockwellcollins.atc.agree.agree.AgreeContractSubclause;
 import com.rockwellcollins.atc.agree.agree.AgreePackage;
@@ -307,10 +308,11 @@ public class AgreeVerifySingleHandler extends VerifySingleHandler {
 						EObject target = refMap.get(propertyResult.getName());
 
 						switch (propertyResult.getStatus()) {
-						case VALID:
-							ResultsHelperUtilExtension.addSuccessIssue(topResultIssue, target,
-									propertyResult.getName());
+						case VALID: {
+							Diagnostic issue = ResultUtil.createSuccess(propertyResult.getName(), target);
+							topResultIssue.getDiagnostics().add(issue);
 							break;
+						}
 
 						case WORKING:
 						case INVALID:
@@ -319,8 +321,8 @@ public class AgreeVerifySingleHandler extends VerifySingleHandler {
 						case ERROR:
 						case WAITING:
 							// case VALID_REFINED:
-							ResultsHelperUtilExtension.addFailureIssue(topResultIssue, target,
-									propertyResult.getStatus().toString() + "-" + propertyResult.getName());
+							Diagnostic issue = ResultUtil.createFailure(propertyResult.getName(), target);
+							topResultIssue.getDiagnostics().add(issue);
 							break;
 
 						default:
