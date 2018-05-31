@@ -37,10 +37,14 @@ import org.osate.verify.verify.VerificationPlan
 import static org.osate.categories.util.CategoriesUtil.*
 
 import static extension org.eclipse.xtext.EcoreUtil2.*
+import org.eclipse.emf.common.util.URI
+import org.osate.result.AnalysisResult
+import java.util.HashMap
 
 class VerifyUtilExtension {
 
 	static val HashMultimap <String,String> hasRunRecord = HashMultimap.create//Collections.synchronizedMap(newHashMap)
+	static val HashMap <String,URI> analysisResultRecord = new HashMap//Collections.synchronizedMap(newHashMap)
 
 	def static boolean getHasRun(String analysisID, EObject target) {
 		val value = hasRunRecord.get(analysisID)
@@ -55,8 +59,18 @@ class VerifyUtilExtension {
 		hasRunRecord.remove(analysisID,EcoreUtil.getURI(target).toString)
 	}
 
+	def static void setAnalysisResult(EObject target, AnalysisResult analysisResult) {
+		analysisResultRecord.put(EcoreUtil.getURI(target).toString, EcoreUtil.getURI(analysisResult))
+	}
+
+	def static AnalysisResult getAnalysisResult(EObject target) {
+		val result = analysisResultRecord.get(EcoreUtil.getURI(target).toString)
+		target.resourceSet.getEObject(result,true) as AnalysisResult
+	}
+
 	def static void clearAllHasRunRecords() {
 		hasRunRecord.clear
+		analysisResultRecord.clear
 	}
 	
 	def static boolean hasFail(ElseExpr cee){
