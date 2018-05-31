@@ -5,17 +5,23 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Stack;
 
+import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.xtext.naming.IQualifiedNameConverter;
 import org.eclipse.xtext.naming.QualifiedName;
 import org.eclipse.xtext.resource.IContainer;
 import org.eclipse.xtext.resource.IEObjectDescription;
+import org.eclipse.xtext.scoping.IScope;
 import org.eclipse.xtext.scoping.impl.DefaultGlobalScopeProvider;
 import org.osate.aadl2.NamedElement;
 
+import com.google.common.base.Predicate;
 import com.google.common.collect.Lists;
 import com.google.inject.Inject;
 
+/**
+ * This class is simply here for convenience. It exposes methods that take an EClass and always ignore case.
+ */
 public class Aadl2GlobalScopeProvider extends DefaultGlobalScopeProvider {
 	@Inject
 	private IQualifiedNameConverter qualifiedNameConverter;
@@ -78,5 +84,13 @@ public class Aadl2GlobalScopeProvider extends DefaultGlobalScopeProvider {
 			}
 		}
 		return ielist;
+	}
+	
+	public IScope getScope(Resource resource, EClass type, Predicate<IEObjectDescription> filter) {
+		return getScope(resource, true, type, filter);
+	}
+	
+	public IScope getScope(Resource resource, EClass type) {
+		return getScope(resource, type, null);
 	}
 }
