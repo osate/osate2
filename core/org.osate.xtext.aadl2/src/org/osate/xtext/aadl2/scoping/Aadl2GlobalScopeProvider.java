@@ -17,10 +17,13 @@ import com.google.common.collect.Lists;
 import com.google.inject.Inject;
 
 public class Aadl2GlobalScopeProvider extends DefaultGlobalScopeProvider {
-
 	@Inject
 	private IQualifiedNameConverter qualifiedNameConverter;
 
+	/**
+	 * @deprecated Will be removed in 2.3.5
+	 */
+	@Deprecated
 	public boolean hasDuplicates(final NamedElement target) {
 		Resource context = target.eResource();
 		if (context == null || context.getResourceSet() == null) {
@@ -49,6 +52,10 @@ public class Aadl2GlobalScopeProvider extends DefaultGlobalScopeProvider {
 		return false;
 	}
 
+	/**
+	 * @deprecated Will be removed in 2.3.5
+	 */
+	@Deprecated
 	public List<IEObjectDescription> getDuplicates(final NamedElement target) {
 		if (target.getName() == null || target.getName().isEmpty()) {
 			return Collections.emptyList();
@@ -72,5 +79,4 @@ public class Aadl2GlobalScopeProvider extends DefaultGlobalScopeProvider {
 		}
 		return ielist;
 	}
-
 }
