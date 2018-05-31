@@ -79,12 +79,10 @@ import org.osate.xtext.aadl2.properties.util.PropertyUtils
 
 import static extension org.eclipse.emf.ecore.util.EcoreUtil.getURI
 import static extension org.osate.alisa.common.util.CommonUtilExtension.*
-import static extension org.osate.alisa.common.util.ResultsHelperUtilExtension.*
+import static extension org.osate.result.util.ResultUtil.*
 import static extension org.osate.assure.util.AssureUtilExtension.*
 import static extension org.osate.verify.util.VerifyUtilExtension.*
 import org.osate.aadl2.instance.SystemInstance
-import org.osate.alisa.common.util.CommonUtilExtension
-import java.util.Collection
 import org.osate.result.AnalysisResult
 
 @ImplementedBy(AssureProcessor)

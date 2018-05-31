@@ -71,10 +71,9 @@ import org.osate.verify.verify.VerificationPlan
 
 import static extension org.osate.aadl2.instantiation.InstantiateModel.buildInstanceModelFile
 import static extension org.osate.alisa.common.util.CommonUtilExtension.*
-import static extension org.osate.reqspec.util.ReqSpecUtilExtension.*
 import static extension org.osate.verify.util.VerifyUtilExtension.*
-import static extension org.osate.alisa.common.util.ResultsHelperUtilExtension.*
 import org.osate.result.Result
+import org.osate.result.util.ResultUtil
 
 class AssureUtilExtension {
 
@@ -302,8 +301,8 @@ class AssureUtilExtension {
 
 	def static void doJUnitResults(org.junit.runner.Result rr, Result ri) {
 		val failist = rr.failures
-		failist.forEach [ failed |
-			ri.addFailureIssue(null, failed.message)
+		failist.forEach [ failed | val issue = ResultUtil.createFailure(failed.message, null);
+			ri.diagnostics.add(issue)
 		]
 	}
 
