@@ -33,7 +33,7 @@
  */
 package org.osate.aadl2.modelsupport.errorreporting;
 
-import org.eclipse.core.resources.IResource;
+import org.eclipse.emf.ecore.resource.Resource;
 
 /**
  * An implementation of
@@ -94,7 +94,7 @@ public final class NullParseErrorReporter extends AbstractParseErrorReporter {
 		 * The given AADL IResource is allowed to be <code>null</code>.
 		 */
 		@Override
-		public ParseErrorReporter getReporterFor(final IResource aadlRsrc) {
+		public ParseErrorReporter getReporterFor(final Resource aadlRsrc) {
 			return NullParseErrorReporter.prototype;
 		}
 	}
