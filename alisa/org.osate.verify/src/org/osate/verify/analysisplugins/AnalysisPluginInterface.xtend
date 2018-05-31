@@ -51,9 +51,12 @@ class AnalysisPluginInterface {
 					res = checker.invokeAndSaveResult( root, som, false, true, true, true)
 				}
 				setHasRun(markerType, root)
+				setAnalysisResult(root,res)
 			} catch (Throwable e) {
 				unsetHasRun(markerType, root)
 			} 
+		} else {
+			res = getAnalysisResult(root)
 		}
 		res
 	}
