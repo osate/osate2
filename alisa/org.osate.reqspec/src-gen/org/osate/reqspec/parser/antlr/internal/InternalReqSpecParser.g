@@ -4931,17 +4931,17 @@ ruleIncludeGlobalRequirement returns [EObject current=null]
     }
 ((
 (
-		lv_self_3_0=
+		lv_local_3_0=
 	Self
     {
-        newLeafNode(lv_self_3_0, grammarAccess.getIncludeGlobalRequirementAccess().getSelfSelfKeyword_2_1_0_0());
+        newLeafNode(lv_local_3_0, grammarAccess.getIncludeGlobalRequirementAccess().getLocalSelfKeyword_2_1_0_0());
     }
 
 	    {
 	        if ($current==null) {
 	            $current = createModelElement(grammarAccess.getIncludeGlobalRequirementRule());
 	        }
-       		setWithLastConsumed($current, "self", true, "self");
+       		setWithLastConsumed($current, "local", true, "self");
 	    }
 
 )
