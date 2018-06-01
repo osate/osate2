@@ -85,6 +85,7 @@ import static extension org.osate.verify.util.VerifyUtilExtension.*
 import org.osate.aadl2.instance.SystemInstance
 import org.osate.result.AnalysisResult
 import org.osate.reqspec.reqSpec.ValuePredicate
+import org.osate.aadl2.UnitLiteral
 
 @ImplementedBy(AssureProcessor)
 interface IAssureProcessor {
@@ -505,7 +506,7 @@ class AssureProcessor implements IAssureProcessor {
 		}
 	}
 
-	def PropertyExpression toLiteral(Object data) {
+	def PropertyExpression toLiteral(Object data, UnitLiteral unit) {
 		switch data {
 			Boolean: {
 				val b = Aadl2Factory.eINSTANCE.createBooleanLiteral
@@ -515,11 +516,13 @@ class AssureProcessor implements IAssureProcessor {
 			Integer: {
 				val i = Aadl2Factory.eINSTANCE.createIntegerLiteral
 				i.value = data
+				if (unit !== null) i.unit = unit
 				i
 			}
 			Double: {
 				val r = Aadl2Factory.eINSTANCE.createRealLiteral
 				r.value = data
+				if (unit !== null) r.unit = unit
 				r
 			}
 			String: {
@@ -536,12 +539,14 @@ class AssureProcessor implements IAssureProcessor {
 				val i = Aadl2Factory.eINSTANCE.createIntegerLiteral
 				i.value = data.value
 //				i.unit = data.unit
+				if (unit !== null) i.unit = unit
 				i
 			}
 			RealValue: {
 				val r = Aadl2Factory.eINSTANCE.createRealLiteral
 				r.value = data.value
 //				i.unit = data.unit
+				if (unit !== null) r.unit = unit
 				r
 			}
 			StringValue: {
@@ -746,11 +751,14 @@ class AssureProcessor implements IAssureProcessor {
 					verificationResult.issues.addAll(issues)
 					if (verificationResult instanceof VerificationActivityResult) {
 						val computeIter = verificationResult.targetReference.verificationActivity.computes.iterator
+						val formalIter = method.results.iterator
 						val vals = returned.values
 						if (computeIter.size == vals.size) {
 							vals.forEach [ data |
 								val computeRef = computeIter.next
-								computes.put(computeRef.compute.name, toLiteral(data))
+								val formalReturn = formalIter.next
+								val tunit = formalReturn.unit
+								computes.put(computeRef.compute.name, toLiteral(data,tunit))
 							]
 							if (verificationResult.success) {
 								evaluatePredicate(verificationResult)
@@ -765,7 +773,9 @@ class AssureProcessor implements IAssureProcessor {
 						val computevars = verificationResult.targetReference.verificationActivity.computes
 						if (computevars.size == 1) {
 							val computeRef = computevars.head
-							computes.put(computeRef.compute.name, toLiteral(returned))
+							val tunit = method.results.head?.unit
+							val rval = toLiteral(returned,tunit)
+							computes.put(computeRef.compute.name, rval)
 							evaluatePredicate(verificationResult)
 						} else {
 							setToError(verificationResult,
