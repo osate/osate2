@@ -20,6 +20,7 @@ package org.osate.xtext.aadl2.errormodel;
 import org.eclipse.xtext.conversion.IValueConverterService;
 import org.eclipse.xtext.formatting2.regionaccess.TextRegionAccessBuilder;
 import org.eclipse.xtext.naming.IQualifiedNameConverter;
+import org.eclipse.xtext.scoping.IGlobalScopeProvider;
 import org.eclipse.xtext.scoping.IScopeProvider;
 import org.eclipse.xtext.scoping.impl.AbstractDeclarativeScopeProvider;
 import org.eclipse.xtext.serializer.ISerializer;
@@ -30,6 +31,7 @@ import org.osate.xtext.aadl2.errormodel.serializer.ErrorModelCrossReferenceSeria
 import org.osate.xtext.aadl2.errormodel.serializer.ErrorModelSerializer;
 import org.osate.xtext.aadl2.errormodel.valueconversion.ErrorModelValueConverter;
 import org.osate.xtext.aadl2.formatting2.regionaccess.Aadl2TextRegionAccessBuilder;
+import org.osate.xtext.aadl2.scoping.Aadl2GlobalScopeProvider;
 
 import com.google.inject.Binder;
 import com.google.inject.name.Names;
@@ -75,5 +77,10 @@ public class ErrorModelRuntimeModule extends org.osate.xtext.aadl2.errormodel.Ab
 	
 	public Class<? extends TextRegionAccessBuilder> bindTextRegionAccessBuilder() {
 		return Aadl2TextRegionAccessBuilder.class;
+	}
+	
+	@Override
+	public Class<? extends IGlobalScopeProvider> bindIGlobalScopeProvider() {
+		return Aadl2GlobalScopeProvider.class;
 	}
 }
