@@ -725,10 +725,10 @@ class AssureProcessor implements IAssureProcessor {
 					verificationResult.issues.add(returned)
 				} else if (returned instanceof Result) {
 					val issues = returned.diagnostics
-					if (!hasFailures(returned)) {
-						setToSuccess(verificationResult, "", target)
-					} else {
+					if (hasErrors(returned)|| hasFailures(returned)) {
 						setToFail(verificationResult, "", target)
+					} else {
+						setToSuccess(verificationResult, "", target)
 					}
 					verificationResult.issues.addAll(issues)
 					if (verificationResult instanceof VerificationActivityResult) {
