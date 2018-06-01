@@ -7,20 +7,15 @@ import org.osate.annexsupport.AnnexParseUtil;
 import org.osate.annexsupport.AnnexParser;
 import org.osate.xtext.aadl2.errormodel.parser.antlr.ErrorModelParser;
 import org.osate.xtext.aadl2.errormodel.services.ErrorModelGrammarAccess;
-import org.osate.xtext.aadl2.errormodel.ui.internal.ErrorModelActivator;
-
-import com.google.inject.Inject;
-import com.google.inject.Injector;
 
 public class EMV2AnnexParser implements AnnexParser {
 
-	@Inject
-	private ErrorModelParser emv2Parser;
+	private ErrorModelParser emv2Parser = new ErrorModelParser();
 
 	public EMV2AnnexParser() {
-		Injector injector = ErrorModelActivator.getInstance()
-				.getInjector(ErrorModelActivator.ORG_OSATE_XTEXT_AADL2_ERRORMODEL_ERRORMODEL);
-		injector.injectMembers(this);
+//		Injector injector = ErrorModelActivator.getInstance()
+//				.getInjector(ErrorModelActivator.ORG_OSATE_XTEXT_AADL2_ERRORMODEL_ERRORMODEL);
+//		injector.injectMembers(this);
 	}
 
 	protected ErrorModelGrammarAccess getGrammarAccess() {
