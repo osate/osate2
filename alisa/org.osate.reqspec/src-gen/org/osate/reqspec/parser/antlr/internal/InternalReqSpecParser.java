@@ -13694,23 +13694,23 @@ public class InternalReqSpecParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleIncludeGlobalRequirement"
-    // InternalReqSpecParser.g:4902:1: ruleIncludeGlobalRequirement returns [EObject current=null] : (otherlv_0= Include ( ( ruleQualifiedName ) ) (otherlv_2= For ( ( (lv_self_3_0= Self ) ) | ( (otherlv_4= RULE_ID ) ) ) )? ) ;
+    // InternalReqSpecParser.g:4902:1: ruleIncludeGlobalRequirement returns [EObject current=null] : (otherlv_0= Include ( ( ruleQualifiedName ) ) (otherlv_2= For ( ( (lv_local_3_0= Self ) ) | ( (otherlv_4= RULE_ID ) ) ) )? ) ;
     public final EObject ruleIncludeGlobalRequirement() throws RecognitionException {
         EObject current = null;
 
         Token otherlv_0=null;
         Token otherlv_2=null;
-        Token lv_self_3_0=null;
+        Token lv_local_3_0=null;
         Token otherlv_4=null;
 
          enterRule(); 
             
         try {
-            // InternalReqSpecParser.g:4905:28: ( (otherlv_0= Include ( ( ruleQualifiedName ) ) (otherlv_2= For ( ( (lv_self_3_0= Self ) ) | ( (otherlv_4= RULE_ID ) ) ) )? ) )
-            // InternalReqSpecParser.g:4906:1: (otherlv_0= Include ( ( ruleQualifiedName ) ) (otherlv_2= For ( ( (lv_self_3_0= Self ) ) | ( (otherlv_4= RULE_ID ) ) ) )? )
+            // InternalReqSpecParser.g:4905:28: ( (otherlv_0= Include ( ( ruleQualifiedName ) ) (otherlv_2= For ( ( (lv_local_3_0= Self ) ) | ( (otherlv_4= RULE_ID ) ) ) )? ) )
+            // InternalReqSpecParser.g:4906:1: (otherlv_0= Include ( ( ruleQualifiedName ) ) (otherlv_2= For ( ( (lv_local_3_0= Self ) ) | ( (otherlv_4= RULE_ID ) ) ) )? )
             {
-            // InternalReqSpecParser.g:4906:1: (otherlv_0= Include ( ( ruleQualifiedName ) ) (otherlv_2= For ( ( (lv_self_3_0= Self ) ) | ( (otherlv_4= RULE_ID ) ) ) )? )
-            // InternalReqSpecParser.g:4907:2: otherlv_0= Include ( ( ruleQualifiedName ) ) (otherlv_2= For ( ( (lv_self_3_0= Self ) ) | ( (otherlv_4= RULE_ID ) ) ) )?
+            // InternalReqSpecParser.g:4906:1: (otherlv_0= Include ( ( ruleQualifiedName ) ) (otherlv_2= For ( ( (lv_local_3_0= Self ) ) | ( (otherlv_4= RULE_ID ) ) ) )? )
+            // InternalReqSpecParser.g:4907:2: otherlv_0= Include ( ( ruleQualifiedName ) ) (otherlv_2= For ( ( (lv_local_3_0= Self ) ) | ( (otherlv_4= RULE_ID ) ) ) )?
             {
             otherlv_0=(Token)match(input,Include,FollowSets000.FOLLOW_4); if (state.failed) return current;
             if ( state.backtracking==0 ) {
@@ -13752,7 +13752,7 @@ public class InternalReqSpecParser extends AbstractInternalAntlrParser {
 
             }
 
-            // InternalReqSpecParser.g:4927:2: (otherlv_2= For ( ( (lv_self_3_0= Self ) ) | ( (otherlv_4= RULE_ID ) ) ) )?
+            // InternalReqSpecParser.g:4927:2: (otherlv_2= For ( ( (lv_local_3_0= Self ) ) | ( (otherlv_4= RULE_ID ) ) ) )?
             int alt117=2;
             int LA117_0 = input.LA(1);
 
@@ -13761,7 +13761,7 @@ public class InternalReqSpecParser extends AbstractInternalAntlrParser {
             }
             switch (alt117) {
                 case 1 :
-                    // InternalReqSpecParser.g:4928:2: otherlv_2= For ( ( (lv_self_3_0= Self ) ) | ( (otherlv_4= RULE_ID ) ) )
+                    // InternalReqSpecParser.g:4928:2: otherlv_2= For ( ( (lv_local_3_0= Self ) ) | ( (otherlv_4= RULE_ID ) ) )
                     {
                     otherlv_2=(Token)match(input,For,FollowSets000.FOLLOW_53); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
@@ -13769,7 +13769,7 @@ public class InternalReqSpecParser extends AbstractInternalAntlrParser {
                           	newLeafNode(otherlv_2, grammarAccess.getIncludeGlobalRequirementAccess().getForKeyword_2_0());
                           
                     }
-                    // InternalReqSpecParser.g:4932:1: ( ( (lv_self_3_0= Self ) ) | ( (otherlv_4= RULE_ID ) ) )
+                    // InternalReqSpecParser.g:4932:1: ( ( (lv_local_3_0= Self ) ) | ( (otherlv_4= RULE_ID ) ) )
                     int alt116=2;
                     int LA116_0 = input.LA(1);
 
@@ -13788,18 +13788,18 @@ public class InternalReqSpecParser extends AbstractInternalAntlrParser {
                     }
                     switch (alt116) {
                         case 1 :
-                            // InternalReqSpecParser.g:4932:2: ( (lv_self_3_0= Self ) )
+                            // InternalReqSpecParser.g:4932:2: ( (lv_local_3_0= Self ) )
                             {
-                            // InternalReqSpecParser.g:4932:2: ( (lv_self_3_0= Self ) )
-                            // InternalReqSpecParser.g:4933:1: (lv_self_3_0= Self )
+                            // InternalReqSpecParser.g:4932:2: ( (lv_local_3_0= Self ) )
+                            // InternalReqSpecParser.g:4933:1: (lv_local_3_0= Self )
                             {
-                            // InternalReqSpecParser.g:4933:1: (lv_self_3_0= Self )
-                            // InternalReqSpecParser.g:4934:3: lv_self_3_0= Self
+                            // InternalReqSpecParser.g:4933:1: (lv_local_3_0= Self )
+                            // InternalReqSpecParser.g:4934:3: lv_local_3_0= Self
                             {
-                            lv_self_3_0=(Token)match(input,Self,FollowSets000.FOLLOW_2); if (state.failed) return current;
+                            lv_local_3_0=(Token)match(input,Self,FollowSets000.FOLLOW_2); if (state.failed) return current;
                             if ( state.backtracking==0 ) {
 
-                                      newLeafNode(lv_self_3_0, grammarAccess.getIncludeGlobalRequirementAccess().getSelfSelfKeyword_2_1_0_0());
+                                      newLeafNode(lv_local_3_0, grammarAccess.getIncludeGlobalRequirementAccess().getLocalSelfKeyword_2_1_0_0());
                                   
                             }
                             if ( state.backtracking==0 ) {
@@ -13807,7 +13807,7 @@ public class InternalReqSpecParser extends AbstractInternalAntlrParser {
                               	        if (current==null) {
                               	            current = createModelElement(grammarAccess.getIncludeGlobalRequirementRule());
                               	        }
-                                     		setWithLastConsumed(current, "self", true, "self");
+                                     		setWithLastConsumed(current, "local", true, "self");
                               	    
                             }
 
