@@ -10,7 +10,6 @@ import org.eclipse.xtext.naming.QualifiedName;
 import org.eclipse.xtext.nodemodel.INode;
 import org.osate.annexsupport.AnnexLinkingService;
 import org.osate.xtext.aadl2.errormodel.naming.ErrorModelQualifiedNameProvider;
-import org.osate.xtext.aadl2.errormodel.ui.internal.ErrorModelActivator;
 import org.osate.xtext.aadl2.errormodel.util.EMV2Util;
 
 import com.google.inject.Inject;
