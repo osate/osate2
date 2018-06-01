@@ -5,39 +5,32 @@ import org.osate.aadl2.AnnexSubclause;
 import org.osate.aadl2.modelsupport.errorreporting.ParseErrorReporter;
 import org.osate.annexsupport.AnnexParseUtil;
 import org.osate.annexsupport.AnnexParser;
-import org.osate.core.OsateCorePlugin;
 import org.osate.xtext.aadl2.errormodel.parser.antlr.ErrorModelParser;
 import org.osate.xtext.aadl2.errormodel.services.ErrorModelGrammarAccess;
+import org.osate.xtext.aadl2.errormodel.ui.internal.ErrorModelActivator;
 
+import com.google.inject.Inject;
 import com.google.inject.Injector;
 
 public class EMV2AnnexParser implements AnnexParser {
-	// Need to get aadl resources for resolving components
-	// For resolving package names etc
 
-	private Injector injector = OsateCorePlugin.getDefault().getInjector("org.osate.xtext.aadl2.errormodel.ErrorModel");
-
+	@Inject
 	private ErrorModelParser emv2Parser;
 
-	protected ErrorModelParser getParser() {
-		if (emv2Parser == null) {
-			if (injector == null) {
-
-				injector = OsateCorePlugin.getDefault().getInjector("org.osate.xtext.aadl2.errormodel.ErrorModel");
-			}
-			emv2Parser = injector.getInstance(ErrorModelParser.class);
-		}
-		return emv2Parser;
+	public EMV2AnnexParser() {
+		Injector injector = ErrorModelActivator.getInstance()
+				.getInjector(ErrorModelActivator.ORG_OSATE_XTEXT_AADL2_ERRORMODEL_ERRORMODEL);
+		injector.injectMembers(this);
 	}
 
 	protected ErrorModelGrammarAccess getGrammarAccess() {
-		return getParser().getGrammarAccess();
+		return emv2Parser.getGrammarAccess();
 	}
 
 	@Override
 	public AnnexLibrary parseAnnexLibrary(String annexName, String source, String filename, int line, int column,
 			ParseErrorReporter errReporter) {
-		AnnexLibrary eal = (AnnexLibrary) AnnexParseUtil.parse(getParser(), source,
+		AnnexLibrary eal = (AnnexLibrary) AnnexParseUtil.parse(emv2Parser, source,
 				getGrammarAccess().getErrorModelLibraryRule(), filename, line, column, errReporter);
 		return eal;
 
@@ -46,7 +39,7 @@ public class EMV2AnnexParser implements AnnexParser {
 	@Override
 	public AnnexSubclause parseAnnexSubclause(String annexName, String source, String filename, int line, int column,
 			ParseErrorReporter errReporter) {
-		AnnexSubclause eas = (AnnexSubclause) AnnexParseUtil.parse(getParser(), source,
+		AnnexSubclause eas = (AnnexSubclause) AnnexParseUtil.parse(emv2Parser, source,
 				getGrammarAccess().getErrorModelSubclauseRule(), filename, line, column, errReporter);
 		return eas;
 	}
