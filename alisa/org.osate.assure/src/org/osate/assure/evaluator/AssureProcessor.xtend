@@ -86,9 +86,7 @@ import org.osate.aadl2.instance.SystemInstance
 import org.osate.result.AnalysisResult
 import org.osate.reqspec.reqSpec.ValuePredicate
 import org.osate.aadl2.UnitLiteral
-import java.util.Collection
 import org.eclipse.xtext.resource.IEObjectDescription
-import org.osate.xtext.aadl2.properties.util.EMFIndexRetrieval
 import org.osate.aadl2.UnitsType
 import org.osate.aadl2.Aadl2Package
 
@@ -511,18 +509,6 @@ class AssureProcessor implements IAssureProcessor {
 		}
 	}
 
-	def getUnitLiteral(EObject context, String literalname) {
-		if (literalname === null || literalname.empty) return null
-		for (IEObjectDescription desc : EMFIndexRetrieval.getAllEObjectsOfTypeInWorkspace(context,
-			Aadl2Package.eINSTANCE.getUnitsType())) {
-			val unitsType = EcoreUtil.resolve(desc.getEObjectOrProxy(), context) as UnitsType;
-			for (lit : unitsType.ownedLiterals) {
-				if(lit.name == literalname) return lit as UnitLiteral;
-			}
-		}
-		return null;
-	}
-
 	def PropertyExpression toLiteral(EObject context,Object data, UnitLiteral unit) {
 		switch data {
 			Boolean: {
@@ -555,33 +541,13 @@ class AssureProcessor implements IAssureProcessor {
 			IntegerValue: {
 				val i = Aadl2Factory.eINSTANCE.createIntegerLiteral
 				i.value = data.value
-				val dataUnit = getUnitLiteral(context, data.unit)
-				if (dataUnit !== null){
-					i.unit = dataUnit
-					if (unit !== null && unit !== dataUnit){
-						// scale to unit
-						i.value = i.getScaledValue(unit)
-						i.unit = unit
-					}
-				} else if(unit !== null) {
-					i.unit = unit
-				}
+				if(unit !== null) i.unit = unit
 				i
 			}
 			RealValue: {
 				val r = Aadl2Factory.eINSTANCE.createRealLiteral
 				r.value = data.value
-				val dataUnit = getUnitLiteral(context, data.unit)
-				if (dataUnit !== null){
-					r.unit = dataUnit
-					if (unit !== null && unit !== dataUnit){
-						// scale to unit
-						r.value = r.getScaledValue(unit)
-						r.unit = unit
-					}
-				} else if(unit !== null) {
-					r.unit = unit
-				}
+				if(unit !== null) r.unit = unit
 				r
 			}
 			StringValue: {
