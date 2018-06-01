@@ -1,5 +1,7 @@
 package org.osate.xtext.aadl2.errormodel.parsing;
 
+import org.eclipse.emf.common.util.URI;
+import org.eclipse.xtext.resource.IResourceServiceProvider;
 import org.osate.aadl2.AnnexLibrary;
 import org.osate.aadl2.AnnexSubclause;
 import org.osate.aadl2.modelsupport.errorreporting.ParseErrorReporter;
@@ -7,7 +9,6 @@ import org.osate.annexsupport.AnnexParseUtil;
 import org.osate.annexsupport.AnnexParser;
 import org.osate.xtext.aadl2.errormodel.parser.antlr.ErrorModelParser;
 import org.osate.xtext.aadl2.errormodel.services.ErrorModelGrammarAccess;
-import org.osate.xtext.aadl2.errormodel.ui.internal.ErrorModelActivator;
 
 import com.google.inject.Inject;
 import com.google.inject.Injector;
@@ -18,8 +19,8 @@ public class EMV2AnnexParser implements AnnexParser {
 	private ErrorModelParser emv2Parser;
 
 	public EMV2AnnexParser() {
-		Injector injector = ErrorModelActivator.getInstance()
-				.getInjector(ErrorModelActivator.ORG_OSATE_XTEXT_AADL2_ERRORMODEL_ERRORMODEL);
+		Injector injector = IResourceServiceProvider.Registry.INSTANCE
+				.getResourceServiceProvider(URI.createFileURI("dummy.emv2")).get(Injector.class);
 		injector.injectMembers(this);
 	}
 
