@@ -2,26 +2,26 @@ package org.osate.ui.wizards
 
 import com.google.inject.Inject
 import java.io.StringReader
+import org.eclipse.core.resources.IContainer
+import org.eclipse.core.resources.IFolder
+import org.eclipse.core.runtime.Path
+import org.eclipse.emf.ecore.resource.Resource
+import org.eclipse.xtext.ParserRule
+import org.eclipse.xtext.naming.IQualifiedNameConverter
 import org.eclipse.xtext.parser.IParser
+import org.eclipse.xtext.resource.IEObjectDescription
+import org.osate.aadl2.Aadl2Package
+import org.osate.aadl2.modelsupport.resources.OsateResourceUtil
 import org.osate.ui.OsateUiPlugin
+import org.osate.xtext.aadl2.scoping.Aadl2GlobalScopeProvider
 import org.osate.xtext.aadl2.services.Aadl2GrammarAccess
 import org.osate.xtext.aadl2.ui.MyAadl2Activator
-import org.eclipse.xtext.scoping.IGlobalScopeProvider
-import org.osate.aadl2.Aadl2Package
-import org.eclipse.core.resources.IContainer
-import org.osate.aadl2.modelsupport.resources.OsateResourceUtil
-import org.eclipse.emf.ecore.resource.Resource
-import org.eclipse.core.runtime.Path
-import org.eclipse.core.resources.IFolder
-import org.eclipse.xtext.naming.IQualifiedNameConverter
-import org.eclipse.xtext.resource.IEObjectDescription
-import org.eclipse.xtext.ParserRule
 
 abstract class AbstractNewModelUnitWizard extends AbstractNewFileWizard {
 	@Inject private IParser parser
 	// Not used locally, but subclasses need it to select parser rules
 	@Inject protected Aadl2GrammarAccess grammarAccess
-	@Inject private IGlobalScopeProvider globalScopeProvider
+	@Inject private Aadl2GlobalScopeProvider globalScopeProvider
 	@Inject private IQualifiedNameConverter qNameConverter;
 	
 	new(String titleFileType, String descriptionFileType) {
@@ -41,7 +41,7 @@ abstract class AbstractNewModelUnitWizard extends AbstractNewFileWizard {
 		 */
 		val IFolder fakeFolder = parent.getFolder(Path.forPosix(".fake"))
 		val Resource rsrc = OsateResourceUtil.getResource(fakeFolder)
-		val scope = globalScopeProvider.getScope(rsrc, Aadl2Package.eINSTANCE.packageSection_ImportedUnit, null)
+		val scope = globalScopeProvider.getScope(rsrc, Aadl2Package.eINSTANCE.modelUnit)
 		val qualifiedName = qNameConverter.toQualifiedName(modelUnitName);
 		scope.getSingleElement(qualifiedName)
 	}
