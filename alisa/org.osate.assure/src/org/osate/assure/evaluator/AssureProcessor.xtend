@@ -86,6 +86,11 @@ import org.osate.aadl2.instance.SystemInstance
 import org.osate.result.AnalysisResult
 import org.osate.reqspec.reqSpec.ValuePredicate
 import org.osate.aadl2.UnitLiteral
+import java.util.Collection
+import org.eclipse.xtext.resource.IEObjectDescription
+import org.osate.xtext.aadl2.properties.util.EMFIndexRetrieval
+import org.osate.aadl2.UnitsType
+import org.osate.aadl2.Aadl2Package
 
 @ImplementedBy(AssureProcessor)
 interface IAssureProcessor {
@@ -506,7 +511,19 @@ class AssureProcessor implements IAssureProcessor {
 		}
 	}
 
-	def PropertyExpression toLiteral(Object data, UnitLiteral unit) {
+	def getUnitLiteral(EObject context, String literalname) {
+		if (literalname === null || literalname.empty) return null
+		for (IEObjectDescription desc : EMFIndexRetrieval.getAllEObjectsOfTypeInWorkspace(context,
+			Aadl2Package.eINSTANCE.getUnitsType())) {
+			val unitsType = EcoreUtil.resolve(desc.getEObjectOrProxy(), context) as UnitsType;
+			for (lit : unitsType.ownedLiterals) {
+				if(lit.name == literalname) return lit as UnitLiteral;
+			}
+		}
+		return null;
+	}
+
+	def PropertyExpression toLiteral(EObject context,Object data, UnitLiteral unit) {
 		switch data {
 			Boolean: {
 				val b = Aadl2Factory.eINSTANCE.createBooleanLiteral
@@ -516,13 +533,13 @@ class AssureProcessor implements IAssureProcessor {
 			Integer: {
 				val i = Aadl2Factory.eINSTANCE.createIntegerLiteral
 				i.value = data
-				if (unit !== null) i.unit = unit
+				if(unit !== null) i.unit = unit
 				i
 			}
 			Double: {
 				val r = Aadl2Factory.eINSTANCE.createRealLiteral
 				r.value = data
-				if (unit !== null) r.unit = unit
+				if(unit !== null) r.unit = unit
 				r
 			}
 			String: {
@@ -538,15 +555,33 @@ class AssureProcessor implements IAssureProcessor {
 			IntegerValue: {
 				val i = Aadl2Factory.eINSTANCE.createIntegerLiteral
 				i.value = data.value
-//				i.unit = data.unit
-				if (unit !== null) i.unit = unit
+				val dataUnit = getUnitLiteral(context, data.unit)
+				if (dataUnit !== null){
+					i.unit = dataUnit
+					if (unit !== null && unit !== dataUnit){
+						// scale to unit
+						i.value = i.getScaledValue(unit)
+						i.unit = unit
+					}
+				} else if(unit !== null) {
+					i.unit = unit
+				}
 				i
 			}
 			RealValue: {
 				val r = Aadl2Factory.eINSTANCE.createRealLiteral
 				r.value = data.value
-//				i.unit = data.unit
-				if (unit !== null) r.unit = unit
+				val dataUnit = getUnitLiteral(context, data.unit)
+				if (dataUnit !== null){
+					r.unit = dataUnit
+					if (unit !== null && unit !== dataUnit){
+						// scale to unit
+						r.value = r.getScaledValue(unit)
+						r.unit = unit
+					}
+				} else if(unit !== null) {
+					r.unit = unit
+				}
 				r
 			}
 			StringValue: {
@@ -758,7 +793,7 @@ class AssureProcessor implements IAssureProcessor {
 								val computeRef = computeIter.next
 								val formalReturn = formalIter.next
 								val tunit = formalReturn.unit
-								computes.put(computeRef.compute.name, toLiteral(data,tunit))
+								computes.put(computeRef.compute.name, toLiteral(verificationResult,data, tunit))
 							]
 							if (verificationResult.success) {
 								evaluatePredicate(verificationResult)
@@ -774,7 +809,7 @@ class AssureProcessor implements IAssureProcessor {
 						if (computevars.size == 1) {
 							val computeRef = computevars.head
 							val tunit = method.results.head?.unit
-							val rval = toLiteral(returned,tunit)
+							val rval = toLiteral(verificationResult,returned, tunit)
 							computes.put(computeRef.compute.name, rval)
 							evaluatePredicate(verificationResult)
 						} else {
