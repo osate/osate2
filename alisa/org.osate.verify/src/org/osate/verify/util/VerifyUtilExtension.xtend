@@ -168,25 +168,6 @@ class VerifyUtilExtension {
 		}
 		return claim.requirement.name
 	}
-
-	def static NumberValue convertValueToUnit(NumberValue numberValue, UnitLiteral target) {
-		val value = numberValue.scaledValue;
-		val unit = numberValue.getUnit();
-		var factor = 1.0
-		if (unit !== null) factor = unit.getAbsoluteFactor(target);
-		val result = value * factor;
-		val resultValue = numberValue.cloneNumber();
-		resultValue.setUnit(target);
-		setValue(resultValue, result);
-		return resultValue;
-	}
-	
-	def static void setValue(NumberValue numberValue, double value) {
-		switch (numberValue) {
-			RealLiteral: numberValue.setValue(value)
-			IntegerLiteral: numberValue.setValue((value as long))
-		}
-	}
 	
 	def static ComponentClassifier getTargetClassifier(VerificationPlan vp){
 		val rs = vp.requirementSet
