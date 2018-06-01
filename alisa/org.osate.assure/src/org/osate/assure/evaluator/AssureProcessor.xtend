@@ -394,8 +394,12 @@ class AssureProcessor implements IAssureProcessor {
 							addMarkersAsResult(verificationResult, target, result, method)
 						}
 					} else if (res instanceof AnalysisResult) {
+						var foundResult = false
 						for (Result r : res.results){
+							// we may encounter more than one Result
+							// TODO address this when we are able to use Result objects in Assure.
 							if (r.sourceReference === target){
+								foundResult = true
 								val issues = r.diagnostics
 								if (hasErrors(res)||hasFailures(r)) {
 									setToFail(verificationResult, "", target)
@@ -410,6 +414,12 @@ class AssureProcessor implements IAssureProcessor {
 									verificationResult.issues.add(c)
 								}
 							}
+						}
+						if ( ! foundResult){
+							// requirement target does not match Result source reference
+							// Typically occurs when the analysis is performed on an element, e.g., ETEF, while the requirement 
+							// does not include a 'for' <target model element>
+							setToError(verificationResult, "No Result found for requirement verification target "+target.name, target)
 						}
 					} else if (res instanceof Result) {
 							if (res.sourceReference === target){
@@ -426,9 +436,14 @@ class AssureProcessor implements IAssureProcessor {
 									}
 									verificationResult.issues.add(c)
 								}
+						} else {
+							// requirement target does not match Result source reference
+							// Typically occurs when the analysis is performed on an element, e.g., ETEF, while the requirement 
+							// does not include a 'for' <target model element>
+							setToError(verificationResult, "Result is not for requirement verification target "+target.name, target)
 						}
 					} else {
-						setToError(verificationResult, "Analysis return type is not a string or AnalysisResult",
+						setToError(verificationResult, "Analysis return type is not a string, Result, or AnalysisResult",
 							targetComponent);
 					}
 					verificationResult.eResource.save(null)
