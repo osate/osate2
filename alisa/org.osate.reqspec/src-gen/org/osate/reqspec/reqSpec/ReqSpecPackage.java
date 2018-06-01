@@ -1208,13 +1208,13 @@ public interface ReqSpecPackage extends EPackage
   int INCLUDE_GLOBAL_REQUIREMENT__INCLUDE = 0;
 
   /**
-   * The feature id for the '<em><b>Self</b></em>' attribute.
+   * The feature id for the '<em><b>Local</b></em>' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int INCLUDE_GLOBAL_REQUIREMENT__SELF = 1;
+  int INCLUDE_GLOBAL_REQUIREMENT__LOCAL = 1;
 
   /**
    * The feature id for the '<em><b>Target Element</b></em>' reference.
@@ -2464,15 +2464,15 @@ public interface ReqSpecPackage extends EPackage
   EReference getIncludeGlobalRequirement_Include();
 
   /**
-   * Returns the meta object for the attribute '{@link org.osate.reqspec.reqSpec.IncludeGlobalRequirement#isSelf <em>Self</em>}'.
+   * Returns the meta object for the attribute '{@link org.osate.reqspec.reqSpec.IncludeGlobalRequirement#isLocal <em>Local</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for the attribute '<em>Self</em>'.
-   * @see org.osate.reqspec.reqSpec.IncludeGlobalRequirement#isSelf()
+   * @return the meta object for the attribute '<em>Local</em>'.
+   * @see org.osate.reqspec.reqSpec.IncludeGlobalRequirement#isLocal()
    * @see #getIncludeGlobalRequirement()
    * @generated
    */
-  EAttribute getIncludeGlobalRequirement_Self();
+  EAttribute getIncludeGlobalRequirement_Local();
 
   /**
    * Returns the meta object for the reference '{@link org.osate.reqspec.reqSpec.IncludeGlobalRequirement#getTargetElement <em>Target Element</em>}'.
@@ -3303,12 +3303,12 @@ public interface ReqSpecPackage extends EPackage
     EReference INCLUDE_GLOBAL_REQUIREMENT__INCLUDE = eINSTANCE.getIncludeGlobalRequirement_Include();
 
     /**
-     * The meta object literal for the '<em><b>Self</b></em>' attribute feature.
+     * The meta object literal for the '<em><b>Local</b></em>' attribute feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    EAttribute INCLUDE_GLOBAL_REQUIREMENT__SELF = eINSTANCE.getIncludeGlobalRequirement_Self();
+    EAttribute INCLUDE_GLOBAL_REQUIREMENT__LOCAL = eINSTANCE.getIncludeGlobalRequirement_Local();
 
     /**
      * The meta object literal for the '<em><b>Target Element</b></em>' reference feature.
