@@ -84,6 +84,7 @@ import static extension org.osate.assure.util.AssureUtilExtension.*
 import static extension org.osate.verify.util.VerifyUtilExtension.*
 import org.osate.aadl2.instance.SystemInstance
 import org.osate.result.AnalysisResult
+import org.osate.reqspec.reqSpec.ValuePredicate
 
 @ImplementedBy(AssureProcessor)
 interface IAssureProcessor {
@@ -379,7 +380,7 @@ class AssureProcessor implements IAssureProcessor {
 					val res = VerificationMethodDispatchers.eInstance.
 						dispatchVerificationMethod(methodtype, instanceroot, parameterObjects) // returning the marker or diagnostic id as string
 					val InstanceObject target = if (targetElement !== null && !targetElement.eIsProxy) {
-						targetComponent.findElementInstance(targetElement) ?: targetComponent
+							targetComponent.findElementInstance(targetElement) ?: targetComponent
 						} else {
 							targetComponent
 						}
@@ -394,17 +395,17 @@ class AssureProcessor implements IAssureProcessor {
 							addMarkersAsResult(verificationResult, target, result, method)
 						}
 					} else if (res instanceof AnalysisResult) {
-						for (Result r : res.results){
-							if (r.sourceReference === target){
+						for (Result r : res.results) {
+							if (r.sourceReference === target) {
 								val issues = r.diagnostics
-								if (hasErrors(res)||hasFailures(r)) {
+								if (hasErrors(res) || hasFailures(r)) {
 									setToFail(verificationResult, "", target)
 								} else {
 									setToSuccess(verificationResult, "", target)
 								}
-								for (issue: issues){
+								for (issue : issues) {
 									val c = EcoreUtil.copy(issue)
-									if (c.type === DiagnosticType.ERROR){
+									if (c.type === DiagnosticType.ERROR) {
 										c.type = DiagnosticType.FAILURE
 									}
 									verificationResult.issues.add(c)
@@ -412,20 +413,20 @@ class AssureProcessor implements IAssureProcessor {
 							}
 						}
 					} else if (res instanceof Result) {
-							if (res.sourceReference === target){
-								val issues = res.diagnostics
-								if (hasErrors(res)||hasFailures(res)) {
-									setToFail(verificationResult, "", target)
-								} else {
-									setToSuccess(verificationResult, "", target)
+						if (res.sourceReference === target) {
+							val issues = res.diagnostics
+							if (hasErrors(res) || hasFailures(res)) {
+								setToFail(verificationResult, "", target)
+							} else {
+								setToSuccess(verificationResult, "", target)
+							}
+							for (issue : issues) {
+								val c = EcoreUtil.copy(issue)
+								if (c.type === DiagnosticType.ERROR) {
+									c.type = DiagnosticType.FAILURE
 								}
-								for (issue: issues){
-									val c = EcoreUtil.copy(issue)
-									if (c.type === DiagnosticType.ERROR){
-										c.type = DiagnosticType.FAILURE
-									}
-									verificationResult.issues.add(c)
-								}
+								verificationResult.issues.add(c)
+							}
 						}
 					} else {
 						setToError(verificationResult, "Analysis return type is not a string or AnalysisResult",
@@ -560,32 +561,44 @@ class AssureProcessor implements IAssureProcessor {
 	}
 
 	def void evaluatePredicate(PredicateResult predicateResult) {
+		val predicate = predicateResult.predicate
+		evaluatePredicate(predicateResult, predicate)
+	}
+
+	def void evaluatePredicate(VerificationActivityResult vaResult) {
+		val claim = vaResult.claimResult
+		val predicate = claim.target.predicate
+		if (predicate instanceof ValuePredicate) {
+			evaluatePredicate(vaResult, predicate)
+		}
+	}
+
+	def void evaluatePredicate(VerificationResult vResult, ValuePredicate predicate) {
 		try {
-			val predicate = predicateResult.predicate
 			val result = interpreter.interpretExpression(env, predicate.xpression)
 			if (result.failed) {
-				setToError(predicateResult,
+				setToError(vResult,
 					"Could not evaluate value predicate: " + getFailedMsg(result.ruleFailedException), null)
 			} else {
 				val success = (result.value as BooleanLiteral).getValue
 				if (success) {
-					setToSuccess(predicateResult)
+					setToSuccess(vResult)
 				} else {
-					setToFail(predicateResult)
+					setToFail(vResult)
 				}
 			}
-			predicateResult.eResource.save(null)
-			updateProgress(predicateResult)
+			vResult.eResource.save(null)
+			updateProgress(vResult)
 		} catch (AssertionError e) {
-			setToFail(predicateResult, e);
-			predicateResult.eResource.save(null)
-			updateProgress(predicateResult)
+			setToFail(vResult, e);
+			vResult.eResource.save(null)
+			updateProgress(vResult)
 		} catch (ThreadDeath e) { // don't catch ThreadDeath by accident
 			throw e;
 		} catch (Throwable e) {
-			setToError(predicateResult, e);
-			predicateResult.eResource.save(null)
-			updateProgress(predicateResult)
+			setToError(vResult, e);
+			vResult.eResource.save(null)
+			updateProgress(vResult)
 		}
 	}
 
@@ -740,13 +753,25 @@ class AssureProcessor implements IAssureProcessor {
 								computes.put(computeRef.compute.name, toLiteral(data))
 							]
 							if (verificationResult.success) {
-								// execute value predicate
+								evaluatePredicate(verificationResult)
 							}
 						} else {
 							setToError(verificationResult, 'Fewer values returned than expected as compute variables')
 						}
 					}
 				} else if (method.results.size == 1) {
+					// set compute variable value
+					if (verificationResult instanceof VerificationActivityResult) {
+						val computevars = verificationResult.targetReference.verificationActivity.computes
+						if (computevars.size == 1) {
+							val computeRef = computevars.head
+							computes.put(computeRef.compute.name, toLiteral(returned))
+							evaluatePredicate(verificationResult)
+						} else {
+							setToError(verificationResult,
+								"One value returned but " + computevars.size + " compute variable assignments")
+						}
+					}
 					setToSuccess(verificationResult)
 				} else {
 					setToError(verificationResult, "Expected more than one result value as ResultReport or HashMap",
