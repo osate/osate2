@@ -144,7 +144,7 @@ Workflow {
 //			}
 			
 			// formatter API 
-			fragment = formatting.FormatterFragment {}
+			fragment = formatting2.Formatter2Fragment {}
 
 			// labeling API 
 			fragment = labeling.LabelProviderFragment {}
