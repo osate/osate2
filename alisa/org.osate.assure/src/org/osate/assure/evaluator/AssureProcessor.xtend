@@ -284,7 +284,7 @@ class AssureProcessor implements IAssureProcessor {
 		// target element is the element referred to by the requirement. This may be empty
 		val targetElement = verificationResult.caseTargetModelElement
 		env.add("component", targetComponent)
-		env.add("element", targetElement)
+		env.add("element", targetElement?:targetComponent)
 
 		if (verificationResult instanceof PredicateResult) {
 			evaluatePredicate(verificationResult)
