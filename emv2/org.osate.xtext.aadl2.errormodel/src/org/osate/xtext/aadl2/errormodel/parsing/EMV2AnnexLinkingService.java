@@ -3,14 +3,15 @@ package org.osate.xtext.aadl2.errormodel.parsing;
 import java.util.Collections;
 import java.util.List;
 
+import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.xtext.linking.impl.DefaultLinkingService;
 import org.eclipse.xtext.naming.QualifiedName;
 import org.eclipse.xtext.nodemodel.INode;
+import org.eclipse.xtext.resource.IResourceServiceProvider;
 import org.osate.annexsupport.AnnexLinkingService;
 import org.osate.xtext.aadl2.errormodel.naming.ErrorModelQualifiedNameProvider;
-import org.osate.xtext.aadl2.errormodel.ui.internal.ErrorModelActivator;
 import org.osate.xtext.aadl2.errormodel.util.EMV2Util;
 
 import com.google.inject.Inject;
@@ -24,9 +25,9 @@ public class EMV2AnnexLinkingService implements AnnexLinkingService {
 	@Inject
 	private ErrorModelQualifiedNameProvider nameProvider;
 
+
 	public EMV2AnnexLinkingService() {
-		Injector injector = ErrorModelActivator.getInstance()
-				.getInjector(ErrorModelActivator.ORG_OSATE_XTEXT_AADL2_ERRORMODEL_ERRORMODEL);
+		Injector injector = IResourceServiceProvider.Registry.INSTANCE.getResourceServiceProvider(URI.createFileURI("dummy.emv2")).get(Injector.class);
 		injector.injectMembers(this);
 	}
 
