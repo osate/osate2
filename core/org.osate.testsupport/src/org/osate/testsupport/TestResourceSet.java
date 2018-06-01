@@ -11,7 +11,9 @@ import org.osate.pluginsupport.PluginSupportUtil;
 
 import com.google.inject.Inject;
 import com.google.inject.Provider;
+import com.google.inject.Singleton;
 
+@Singleton
 public class TestResourceSet {
 
 	@Inject
@@ -43,8 +45,8 @@ public class TestResourceSet {
 	protected void clean() {
 		EList<Resource> resources = set.getResources();
 		set.getResources().stream().skip(contributed.size()).forEach(Resource::unload);
-		for (int i = resources.size(); i < contributed.size(); i--) {
-			resources.remove(i);
+		for (int i = resources.size(); i > contributed.size(); i--) {
+			resources.remove(i - 1);
 		}
 	}
 }
