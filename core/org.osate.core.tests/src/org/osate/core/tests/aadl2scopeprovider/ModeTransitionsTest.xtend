@@ -34,27 +34,48 @@
  */
 package org.osate.core.tests.aadl2scopeprovider
 
+import com.google.inject.Inject
 import com.itemis.xtext.testing.FluentIssueCollection
+import com.itemis.xtext.testing.XtextTest
+import org.eclipse.emf.common.util.URI
+import org.eclipse.xtext.resource.IResourceServiceProvider
 import org.eclipse.xtext.testing.InjectWith
 import org.eclipse.xtext.testing.XtextRunner
+import org.eclipse.xtext.testing.util.ParseHelper
+import org.eclipse.xtext.validation.CheckMode
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.osate.aadl2.Aadl2Package
 import org.osate.aadl2.AadlPackage
 import org.osate.aadl2.AbstractImplementation
-import org.osate.testsupport.Aadl2UiInjectorProvider
-import org.osate.testsupport.OsateTest
+import org.osate.testsupport.Aadl2InjectorProvider
+import org.osate.testsupport.AssertHelper
+import org.osate.testsupport.TestResourceSet
 
 import static extension org.junit.Assert.assertEquals
 import static extension org.junit.Assert.assertNull
+import static extension org.osate.testsupport.AssertHelper.assertError
 
 @RunWith(XtextRunner)
-@InjectWith(Aadl2UiInjectorProvider)
-class ModeTransitionsTest extends OsateTest {
+@InjectWith(Aadl2InjectorProvider)
+class ModeTransitionsTest extends XtextTest {
+
+	@Inject
+	ParseHelper<AadlPackage> parseHelper
+
+	@Inject
+	TestResourceSet resourceSet
+
+	@Inject
+	private IResourceServiceProvider.Registry serviceProviderRegistry
+	
+	@Inject
+	extension AssertHelper helper
+
 	//Tests scope_ModeTransition_source, scope_ModeTransition_destination, scope_ModeTransitionTrigger_context, and scope_ModeTransitionTrigger_triggerPort
 	@Test
 	def void testModeTransitions() {
-		createFiles("ModeTransitionScopeTest.aadl" -> '''
+		val aadlText = '''
 			package ModeTransitionScopeTest
 			public
 				abstract a1
@@ -215,11 +236,15 @@ class ModeTransitionsTest extends OsateTest {
 					subpa6: provides subprogram access subpproto5;
 				end subpg1;
 			end ModeTransitionScopeTest;
-		''')
-		suppressSerialization
-		val testFileResult = testFile("ModeTransitionScopeTest.aadl")
+		'''
+		val pkg = parseHelper.parse(aadlText, URI.createFileURI('ModeTransitionScopeTest.aadl'), resourceSet.get())
+		val r = pkg.eResource()
+		val provider = serviceProviderRegistry.getResourceServiceProvider(r.URI)
+		val issueList = provider.resourceValidator.validate(r, CheckMode.ALL, null)
+		// Variable issues must be initialized for call to assertConstraints()
+		val testFileResult = issues = new FluentIssueCollection(pkg.eResource(), issueList, newArrayList)
 		val issueCollection = new FluentIssueCollection(testFileResult.resource, newArrayList, newArrayList)
-		testFileResult.resource.contents.head as AadlPackage => [
+		pkg => [
 			"ModeTransitionScopeTest".assertEquals(name)
 			publicSection.ownedClassifiers.get(1) as AbstractImplementation => [
 				ownedModeTransitions.head => [
