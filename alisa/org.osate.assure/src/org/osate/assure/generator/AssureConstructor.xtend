@@ -72,6 +72,10 @@ import static extension org.osate.reqspec.util.ReqSpecUtilExtension.*
 import static extension org.osate.verify.util.VerifyUtilExtension.*
 import org.osate.reqspec.util.IReqspecGlobalReferenceFinder
 import org.osate.alisa.workbench.util.IAlisaGlobalReferenceFinder
+import org.eclipse.xtext.EcoreUtil2
+import org.osate.alisa.common.common.CommonPackage
+import org.osate.alisa.common.common.AVariableReference
+import org.osate.alisa.common.common.ComputeDeclaration
 
 @ImplementedBy(AssureConstructor)
 interface IAssureConstructor {
@@ -322,10 +326,23 @@ class AssureConstructor implements IAssureConstructor {
 		}
 		val predicate = claim.requirement.predicate
 		if (predicate instanceof ValuePredicate) {
-			claimResult.predicateResult = generatePredicateResult(claim)
+			if (!containsComputeVariables(predicate)){
+				claimResult.predicateResult = generatePredicateResult(claim)
+			}
 		}
 
 		claimResultlist.add(claimResult)
+	}
+	
+	def boolean containsComputeVariables(ValuePredicate predicate){
+		val varrefs = EcoreUtil2.getAllContentsOfType(predicate, AVariableReference)
+		for (varref: varrefs){
+			val vname = varref.variable?.name
+			if (varref.variable instanceof ComputeDeclaration){
+				return true
+			}
+		}
+		false
 	}
 
 	def generatePredicateResult(Claim claim) {
