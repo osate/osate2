@@ -84,6 +84,11 @@ import static extension org.osate.assure.util.AssureUtilExtension.*
 import static extension org.osate.verify.util.VerifyUtilExtension.*
 import org.osate.aadl2.instance.SystemInstance
 import org.osate.result.AnalysisResult
+import org.osate.reqspec.reqSpec.ValuePredicate
+import org.osate.aadl2.UnitLiteral
+import org.eclipse.xtext.resource.IEObjectDescription
+import org.osate.aadl2.UnitsType
+import org.osate.aadl2.Aadl2Package
 
 @ImplementedBy(AssureProcessor)
 interface IAssureProcessor {
@@ -284,7 +289,7 @@ class AssureProcessor implements IAssureProcessor {
 		// target element is the element referred to by the requirement. This may be empty
 		val targetElement = verificationResult.caseTargetModelElement
 		env.add("component", targetComponent)
-		env.add("element", targetElement)
+		env.add("element", targetElement?:targetComponent)
 
 		if (verificationResult instanceof PredicateResult) {
 			evaluatePredicate(verificationResult)
@@ -422,20 +427,20 @@ class AssureProcessor implements IAssureProcessor {
 							setToError(verificationResult, "No Result found for requirement verification target "+target.name, target)
 						}
 					} else if (res instanceof Result) {
-							if (res.sourceReference === target){
-								val issues = res.diagnostics
-								if (hasErrors(res)||hasFailures(res)) {
-									setToFail(verificationResult, "", target)
-								} else {
-									setToSuccess(verificationResult, "", target)
+						if (res.sourceReference === target) {
+							val issues = res.diagnostics
+							if (hasErrors(res) || hasFailures(res)) {
+								setToFail(verificationResult, "", target)
+							} else {
+								setToSuccess(verificationResult, "", target)
+							}
+							for (issue : issues) {
+								val c = EcoreUtil.copy(issue)
+								if (c.type === DiagnosticType.ERROR) {
+									c.type = DiagnosticType.FAILURE
 								}
-								for (issue: issues){
-									val c = EcoreUtil.copy(issue)
-									if (c.type === DiagnosticType.ERROR){
-										c.type = DiagnosticType.FAILURE
-									}
-									verificationResult.issues.add(c)
-								}
+								verificationResult.issues.add(c)
+							}
 						} else {
 							// requirement target does not match Result source reference
 							// Typically occurs when the analysis is performed on an element, e.g., ETEF, while the requirement 
@@ -519,7 +524,7 @@ class AssureProcessor implements IAssureProcessor {
 		}
 	}
 
-	def PropertyExpression toLiteral(Object data) {
+	def PropertyExpression toLiteral(EObject context,Object data, UnitLiteral unit) {
 		switch data {
 			Boolean: {
 				val b = Aadl2Factory.eINSTANCE.createBooleanLiteral
@@ -529,11 +534,13 @@ class AssureProcessor implements IAssureProcessor {
 			Integer: {
 				val i = Aadl2Factory.eINSTANCE.createIntegerLiteral
 				i.value = data
+				if(unit !== null) i.unit = unit
 				i
 			}
 			Double: {
 				val r = Aadl2Factory.eINSTANCE.createRealLiteral
 				r.value = data
+				if(unit !== null) r.unit = unit
 				r
 			}
 			String: {
@@ -549,13 +556,13 @@ class AssureProcessor implements IAssureProcessor {
 			IntegerValue: {
 				val i = Aadl2Factory.eINSTANCE.createIntegerLiteral
 				i.value = data.value
-//				i.unit = data.unit
+				if(unit !== null) i.unit = unit
 				i
 			}
 			RealValue: {
 				val r = Aadl2Factory.eINSTANCE.createRealLiteral
 				r.value = data.value
-//				i.unit = data.unit
+				if(unit !== null) r.unit = unit
 				r
 			}
 			StringValue: {
@@ -575,32 +582,44 @@ class AssureProcessor implements IAssureProcessor {
 	}
 
 	def void evaluatePredicate(PredicateResult predicateResult) {
+		val predicate = predicateResult.predicate
+		evaluatePredicate(predicateResult, predicate)
+	}
+
+	def void evaluatePredicate(VerificationActivityResult vaResult) {
+		val claim = vaResult.claimResult
+		val predicate = claim.target.predicate
+		if (predicate instanceof ValuePredicate) {
+			evaluatePredicate(vaResult, predicate)
+		}
+	}
+
+	def void evaluatePredicate(VerificationResult vResult, ValuePredicate predicate) {
 		try {
-			val predicate = predicateResult.predicate
 			val result = interpreter.interpretExpression(env, predicate.xpression)
 			if (result.failed) {
-				setToError(predicateResult,
+				setToError(vResult,
 					"Could not evaluate value predicate: " + getFailedMsg(result.ruleFailedException), null)
 			} else {
 				val success = (result.value as BooleanLiteral).getValue
 				if (success) {
-					setToSuccess(predicateResult)
+					setToSuccess(vResult)
 				} else {
-					setToFail(predicateResult)
+					setToFail(vResult)
 				}
 			}
-			predicateResult.eResource.save(null)
-			updateProgress(predicateResult)
+			vResult.eResource.save(null)
+			updateProgress(vResult)
 		} catch (AssertionError e) {
-			setToFail(predicateResult, e);
-			predicateResult.eResource.save(null)
-			updateProgress(predicateResult)
+			setToFail(vResult, e);
+			vResult.eResource.save(null)
+			updateProgress(vResult)
 		} catch (ThreadDeath e) { // don't catch ThreadDeath by accident
 			throw e;
 		} catch (Throwable e) {
-			setToError(predicateResult, e);
-			predicateResult.eResource.save(null)
-			updateProgress(predicateResult)
+			setToError(vResult, e);
+			vResult.eResource.save(null)
+			updateProgress(vResult)
 		}
 	}
 
@@ -740,28 +759,45 @@ class AssureProcessor implements IAssureProcessor {
 					verificationResult.issues.add(returned)
 				} else if (returned instanceof Result) {
 					val issues = returned.diagnostics
-					if (!hasFailures(returned)) {
-						setToSuccess(verificationResult, "", target)
-					} else {
+					if (hasErrors(returned)|| hasFailures(returned)) {
 						setToFail(verificationResult, "", target)
+					} else {
+						setToSuccess(verificationResult, "", target)
 					}
 					verificationResult.issues.addAll(issues)
 					if (verificationResult instanceof VerificationActivityResult) {
 						val computeIter = verificationResult.targetReference.verificationActivity.computes.iterator
+						val formalIter = method.results.iterator
 						val vals = returned.values
 						if (computeIter.size == vals.size) {
 							vals.forEach [ data |
 								val computeRef = computeIter.next
-								computes.put(computeRef.compute.name, toLiteral(data))
+								val formalReturn = formalIter.next
+								val tunit = formalReturn.unit
+								computes.put(computeRef.compute.name, toLiteral(verificationResult,data, tunit))
 							]
 							if (verificationResult.success) {
-								// execute value predicate
+								evaluatePredicate(verificationResult)
 							}
 						} else {
 							setToError(verificationResult, 'Fewer values returned than expected as compute variables')
 						}
 					}
 				} else if (method.results.size == 1) {
+					// set compute variable value
+					if (verificationResult instanceof VerificationActivityResult) {
+						val computevars = verificationResult.targetReference.verificationActivity.computes
+						if (computevars.size == 1) {
+							val computeRef = computevars.head
+							val tunit = method.results.head?.unit
+							val rval = toLiteral(verificationResult,returned, tunit)
+							computes.put(computeRef.compute.name, rval)
+							evaluatePredicate(verificationResult)
+						} else {
+							setToError(verificationResult,
+								"One value returned but " + computevars.size + " compute variable assignments")
+						}
+					}
 					setToSuccess(verificationResult)
 				} else {
 					setToError(verificationResult, "Expected more than one result value as ResultReport or HashMap",

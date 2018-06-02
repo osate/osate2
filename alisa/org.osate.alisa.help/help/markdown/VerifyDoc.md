@@ -415,13 +415,13 @@ The verification method declaration consists of:
 * *TargetType*: The type of the first parameter passed to the method when invoked. By default the component instance, whose requirement is verified, is passed. Some requirements apply to an element within a component instance, e.g., to a feature. In this case, users must specify the fact that the methods express a feature instance instead of a component instance. Other targets are connection instances, mode instances, and (end to end) flow instances. Element is used to indicate that a InstanceObject is expected. In the case of Java methods, the specified target type must match the class of the first parameter.  
 
 
-* *FormalParameter list*: optional comma separated list of formal parameter specifications. The formal parameter specification consists of an identifier as name, a type, and an optional specification of expected measurement unit for the value if the expected type is numeric without measurement unit. The actual value will be converted into the expected unit. This feature is useful when the method expectes a value without a measurement unit.  
+* *FormalParameter list*: optional comma separated list of formal parameter specifications. The formal parameter specification consists of an identifier as name, a type, and an optional specification of expected measurement unit for the value if the expected type is numeric without measurement unit. The actual value will be converted into the expected unit. This feature is useful when the method expects a value without a measurement unit.  
 
 
 * *Property list*: optional comma separated list of AADL property definition references. The references use the core AADL syntax for property references. The properties will be assigned the value specified as part of the method call in a verification activity if no property value is present for the model element. If a property value is present the value must be the same as the value specified in the call.
 
 
-* *Result list*: optional comma separated list of formal parameter specifications to indicate result values. The Result object values will be assigned in order to Computed Variables specified as part of the method call in a verification activity. If the method returns a single value it is assigned to the compute variable.
+* *Result list*: optional comma separated list of formal parameter specifications to indicate result values. The Result object values will be assigned in order to Computed Variables specified as part of the method call in a verification activity. If the method returns a single value it is assigned to the compute variable. If the returned numeric value has no unit and **in** &lt;unitliteral&gt; is specified the unit literal is attached to the numeric value.
 
 
 * *boolean*: indication that the method returns a boolean value to indicate success or failure. The indicator is not required to be set. When the method returns a boolean and it is not assigned to a compute variable it is interpreted as success/failure. 
