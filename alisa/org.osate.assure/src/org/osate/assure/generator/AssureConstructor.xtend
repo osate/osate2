@@ -72,6 +72,10 @@ import static extension org.osate.reqspec.util.ReqSpecUtilExtension.*
 import static extension org.osate.verify.util.VerifyUtilExtension.*
 import org.osate.reqspec.util.IReqspecGlobalReferenceFinder
 import org.osate.alisa.workbench.util.IAlisaGlobalReferenceFinder
+import org.eclipse.xtext.EcoreUtil2
+import org.osate.alisa.common.common.CommonPackage
+import org.osate.alisa.common.common.AVariableReference
+import org.osate.alisa.common.common.ComputeDeclaration
 
 @ImplementedBy(AssureConstructor)
 interface IAssureConstructor {
@@ -90,9 +94,8 @@ class AssureConstructor implements IAssureConstructor {
 	var EList<VerificationPlan> globalPlans
 
 	var EList<Claim> globalClaims
-	
+
 	var isRoot = true;
-	
 
 	override generateFullAssuranceCase(AssuranceCase acs) {
 		globalPlans = new UniqueEList()
@@ -100,7 +103,6 @@ class AssureConstructor implements IAssureConstructor {
 		isRoot = true
 		acs.constructAssuranceCaseResult(null)
 	}
-	
 
 	def constructAssuranceCaseResult(AssuranceCase acs, ComponentClassifier cl) {
 		var AssuranceCaseResult acr = factory.createAssuranceCaseResult
@@ -111,9 +113,7 @@ class AssureConstructor implements IAssureConstructor {
 		val mrs = acr.modelResult
 
 		for (acp : acs.assurancePlans) {
-			if (acp.target.isSameorExtends(acs.system) &&
-				(cl === null || cl.isSameorExtends(acp.target))
-			){
+			if (acp.target.isSameorExtends(acs.system) && (cl === null || cl.isSameorExtends(acp.target))) {
 				// only plans that relate to the assurance case directly
 				val modelResultInstance = acp.constructModelResult
 				if (modelResultInstance !== null) {
@@ -143,9 +143,10 @@ class AssureConstructor implements IAssureConstructor {
 		mr.metrics = factory.createMetrics
 		mr.metrics.tbdCount = 0
 
-		doAssurancePlanClaimResultsParts(acp, myplans, cc, mr.claimResult, mr.subsystemResult, mr.subAssuranceCase, false)
+		doAssurancePlanClaimResultsParts(acp, myplans, cc, mr.claimResult, mr.subsystemResult, mr.subAssuranceCase,
+			false)
 
-		if (mr.claimResult.length == 0 && mr.subsystemResult.length == 0 ) return null
+		if(mr.claimResult.length == 0 && mr.subsystemResult.length == 0) return null
 
 		mr
 	}
@@ -156,40 +157,59 @@ class AssureConstructor implements IAssureConstructor {
 		Iterable<VerificationPlan> vplans,
 		ComponentClassifier cc,
 		EList<ClaimResult> claimResultList,
-		EList<SubsystemResult> subsystemResultList, EList<AssuranceCaseResult> subAssuranceCaseList,boolean globalOnly
+		EList<SubsystemResult> subsystemResultList,
+		EList<AssuranceCaseResult> subAssuranceCaseList,
+		boolean globalOnly
 	) {
-		// first collect any global and self includes
-		val selfPlans = new UniqueEList()
-		val selfClaims = new UniqueEList()
 		// remember top so we can remove any added items at the end
 		val globalPlansTop = globalPlans.size
 		val globalClaimsTop = globalClaims.size
 		val sysreqs = rRreferenceFinder.getSystemRequirementSets(cc)
+		// first add claims from vplans
+		for (vplan : vplans) {
+			for (claim : vplan.claim) {
+				claim.generateClaimResult(claimResultList)
+			}
+		}
+		// next handle included requirements
+		// handle 'self' or target specific ones and add global ones to globalPlans and globalClaims
 		for (reqs : sysreqs) {
 			if (reqs instanceof SystemRequirementSet) {
 				val includes = reqs.include
 				for (incl : includes) {
 					if (incl.include instanceof RequirementSet) {
 //						if (incl.componentCategory.matchingCategory(cc.category)) {
-							val plans = vReferenceFinder.
-								getAllVerificationPlansForRequirements(incl.include as RequirementSet, reqs)
-							if (incl.self) {
-								selfPlans.addAll(plans)
-							} else {
-								globalPlans.addAll(plans)
+						val plans = vReferenceFinder.
+							getAllVerificationPlansForRequirements(incl.include as RequirementSet, reqs)
+						if (incl.local) {
+							for (vplan : plans) {
+								for (claim : vplan.claim.filter [cl|
+									cl.requirement?.componentCategory.matchingCategory(cc.category)]) {
+									claim.generateAllClaimResult(cc, claimResultList)
+								}
 							}
+						} else {
+							globalPlans.addAll(plans)
+						}
 //						}
-					} else if (incl.include instanceof Requirement){
+					} else if (incl.include instanceof Requirement) {
 						val greq = incl.include as Requirement
 						val greqs = greq.containingRequirementSet
 						val plans = vReferenceFinder.getAllVerificationPlansForRequirements(greqs, reqs)
+						// find claim for requirement and handle it
 						for (vp : plans) {
 							for (claim : vp.claim) {
 								if (claim.requirement.name.equals(greq.name)) {
-									if (incl.self) {
-										selfClaims.add(claim)
-									} else {
-										globalClaims.add(claim)
+									if (claim.requirement?.componentCategory.matchingCategory(cc.category)) {
+										if (incl.local) {
+											claim.generateAllClaimResult(cc, claimResultList)
+										} else if (incl.targetElement !== null) {
+											if (whenHolds(claim, cc)) {
+												claim.generateClaimResult(claimResultList, incl.targetElement)
+											}
+										} else {
+											globalClaims.add(claim)
+										}
 									}
 								}
 							}
@@ -198,23 +218,7 @@ class AssureConstructor implements IAssureConstructor {
 				}
 			}
 		}
-
-		for (vplan : vplans) {
-			for (claim : vplan.claim) {
-				claim.generateClaimResult(claimResultList)
-			}
-		}
-
-		for (vplan : selfPlans) {
-			for (claim : vplan.claim.filter[cl|cl.requirement?.componentCategory.matchingCategory(cc.category)]) {
-				claim.generateAllClaimResult(cc, claimResultList)
-			}
-		}
-
-		for (claim : selfClaims.filter[cl|cl.requirement?.componentCategory.matchingCategory(cc.category)]) {
-			claim.generateAllClaimResult(cc, claimResultList)
-		}
-
+	// now process global plans and claims
 		for (vplan : globalPlans) {
 			for (claim : vplan.claim.filter[cl|cl.requirement?.componentCategory.matchingCategory(cc.category)]) {
 				claim.generateAllClaimResult(cc, claimResultList)
@@ -227,7 +231,7 @@ class AssureConstructor implements IAssureConstructor {
 
 		if (cc instanceof ComponentImplementation) {
 			for (subc : cc.allSubcomponents) {
-				subc.generateSubsystemPlans(assurancePlan, subsystemResultList,  subAssuranceCaseList,globalOnly)
+				subc.generateSubsystemPlans(assurancePlan, subsystemResultList, subAssuranceCaseList, globalOnly)
 			}
 		}
 
@@ -243,22 +247,37 @@ class AssureConstructor implements IAssureConstructor {
 		}
 	}
 
-	def void generateAllClaimResult(Claim claim, ComponentClassifier cc, EList<ClaimResult> claimResultlist) {
+	def boolean whenHolds(Claim claim, ComponentClassifier cc) {
 		val req = claim.requirement
 		val when = req.whencondition
 		if (when !== null) {
 			val function = when.condition
 			if (function !== null) {
-				val ne = req.targetElement?:cc
+				val ne = req.targetElement ?: cc
 				val res = ExecuteJavaUtil.eInstance.invokeJavaMethod(function, ne)
 				if (res instanceof Boolean) {
-					if (!res) return
+					return true
 				}
 			}
+		}
+		true
+	}
+
+	def void generateAllClaimResult(Claim claim, ComponentClassifier cc, EList<ClaimResult> claimResultlist) {
+		if (!whenHolds(claim, cc)) {
+			return
 		}
 		if (cc instanceof ComponentImplementation && claim.requirement.targetType === TargetType.CONNECTION) {
 			for (conn : (cc as ComponentImplementation).crossConnections) {
 				claim.generateClaimResult(claimResultlist, conn)
+			}
+		} else if (cc instanceof ComponentImplementation && claim.requirement.targetType === TargetType.FLOW) {
+			for (etef : (cc as ComponentImplementation).allEndToEndFlows) {
+				claim.generateClaimResult(claimResultlist, etef)
+			}
+		} else if (claim.requirement.targetType === TargetType.FEATURE) {
+			for (feature : cc.allFeatures) {
+				claim.generateClaimResult(claimResultlist, feature)
 			}
 		} else {
 			claim.generateClaimResult(claimResultlist)
@@ -274,7 +293,7 @@ class AssureConstructor implements IAssureConstructor {
 	def void generateClaimResult(Claim claim, EList<ClaimResult> claimResultlist, NamedElement forTargetElement) {
 
 		val claimvas = doGenerateVA(claim)
-		if (claimvas.length == 0 && claim.subclaim === null && claim.assert === null) return
+		if(claimvas.length == 0 && claim.subclaim === null && claim.assert === null) return
 		val ClaimResult claimResult = factory.createClaimResult
 
 		// QualifiedClaimReference
@@ -288,7 +307,7 @@ class AssureConstructor implements IAssureConstructor {
 		claimResult.metrics = factory.createMetrics
 		claimResult.metrics.tbdCount = 0
 
-		if (!Aadl2Util.isNull(forTargetElement) ) {
+		if (!Aadl2Util.isNull(forTargetElement)) {
 			claimResult.modelElement = forTargetElement
 		}
 
@@ -307,10 +326,23 @@ class AssureConstructor implements IAssureConstructor {
 		}
 		val predicate = claim.requirement.predicate
 		if (predicate instanceof ValuePredicate) {
-			claimResult.predicateResult = generatePredicateResult(claim)
+			if (!containsComputeVariables(predicate)){
+				claimResult.predicateResult = generatePredicateResult(claim)
+			}
 		}
 
 		claimResultlist.add(claimResult)
+	}
+	
+	def boolean containsComputeVariables(ValuePredicate predicate){
+		val varrefs = EcoreUtil2.getAllContentsOfType(predicate, AVariableReference)
+		for (varref: varrefs){
+			val vname = varref.variable?.name
+			if (varref.variable instanceof ComputeDeclaration){
+				return true
+			}
+		}
+		false
 	}
 
 	def generatePredicateResult(Claim claim) {
@@ -333,7 +365,9 @@ class AssureConstructor implements IAssureConstructor {
 	def void generateSubsystemPlans(
 		Subcomponent subc,
 		AssurancePlan parentap,
-		EList<SubsystemResult> subsystemResultList,EList<AssuranceCaseResult> subAssuranceCaseList,boolean globalOnly
+		EList<SubsystemResult> subsystemResultList,
+		EList<AssuranceCaseResult> subAssuranceCaseList,
+		boolean globalOnly
 	) {
 		val cc = subc.allClassifier
 		if (cc === null) {
@@ -344,15 +378,15 @@ class AssureConstructor implements IAssureConstructor {
 		if (globalOnly || subc.isAssumeSubsystem(parentap)) {
 			subc.generateSubsystemGlobalOnly(parentap, subsystemResultList)
 		} else {
-		val subacs = arefFinder.getAssuranceCases(cc)
-		if (subacs.empty) {
-			subc.generateSubsystemVerificationPlansGlobals(parentap, subsystemResultList)
-		} else {
-			for (subac : subacs) {
+			val subacs = arefFinder.getAssuranceCases(cc)
+			if (subacs.empty) {
+				subc.generateSubsystemVerificationPlansGlobals(parentap, subsystemResultList)
+			} else {
+				for (subac : subacs) {
 
-				subAssuranceCaseList.add(subac.constructAssuranceCaseResult(cc))
+					subAssuranceCaseList.add(subac.constructAssuranceCaseResult(cc))
+				}
 			}
-		}
 		}
 		isRoot = prevIsRoot
 	}
@@ -376,7 +410,7 @@ class AssureConstructor implements IAssureConstructor {
 		ssr.metrics = factory.createMetrics
 		ssr.metrics.tbdCount = 0
 
-		doAssurancePlanClaimResultsParts(mp, myplans, cc, ssr.claimResult, ssr.subsystemResult,null, false)
+		doAssurancePlanClaimResultsParts(mp, myplans, cc, ssr.claimResult, ssr.subsystemResult, null, false)
 		subsystemResultList.add(ssr)
 
 	}
@@ -393,16 +427,17 @@ class AssureConstructor implements IAssureConstructor {
 		ssr.metrics = factory.createMetrics
 		ssr.metrics.tbdCount = 0
 
-		doAssurancePlanClaimResultsParts(mp, myplans, sub.allClassifier, ssr.claimResult, ssr.subsystemResult, null,true)
+		doAssurancePlanClaimResultsParts(mp, myplans, sub.allClassifier, ssr.claimResult, ssr.subsystemResult, null,
+			true)
 		subsystemResultList.add(ssr)
 	}
 
 	def boolean isAssumeSubsystem(Subcomponent subc, AssurancePlan parentacp) {
-		if (parentacp === null) return false
-		if (parentacp.assumeAll) return true
+		if(parentacp === null) return false
+		if(parentacp.assumeAll) return true
 		val assumes = parentacp.assumeSubsystems
 		for (sub : assumes) {
-			if (sub.name.equalsIgnoreCase(subc.name)) return true;
+			if(sub.name.equalsIgnoreCase(subc.name)) return true;
 		}
 		return false
 	}
@@ -418,7 +453,7 @@ class AssureConstructor implements IAssureConstructor {
 
 	def void addVAR(VerificationActivity va, EList<VerificationActivityResult> vaList) {
 		val claim = va.containingClaim
-		if (va.method.targetType === TargetType.ROOT && !isRoot){
+		if (va.method.targetType === TargetType.ROOT && !isRoot) {
 			return
 		}
 		val vaResult = factory.createVerificationActivityResult
@@ -486,7 +521,7 @@ class AssureConstructor implements IAssureConstructor {
 		thenres.metrics.tbdCount = 0
 		thenres.first.construct(expr.left)
 		thenres.second.construct(expr.successor)
-		if (thenres.first.empty) return;
+		if(thenres.first.empty) return;
 		if (thenres.second.empty) {
 			arl += thenres.first
 		} else {
@@ -500,10 +535,10 @@ class AssureConstructor implements IAssureConstructor {
 		elseres.metrics.tbdCount = 0
 		elseres.first.construct(expr.left)
 		elseres.error.construct(expr.error)
-		if (expr.fail !== null) elseres.fail.construct(expr.fail)
-		if (expr.timeout !== null) elseres.timeout.construct(expr.timeout)
+		if(expr.fail !== null) elseres.fail.construct(expr.fail)
+		if(expr.timeout !== null) elseres.timeout.construct(expr.timeout)
 
-		if (elseres.first.empty) return;
+		if(elseres.first.empty) return;
 		if (elseres.error.empty && elseres.fail.empty && elseres.timeout.empty) {
 			arl += elseres.first
 		} else {
@@ -515,7 +550,7 @@ class AssureConstructor implements IAssureConstructor {
 	def void doConstruct(List<VerificationExpr> arl, RefExpr expr) {
 		val va = expr.verification
 
-		if (va === null) return;
+		if(va === null) return;
 
 		// if (va.evaluateSelectionFilter(selectionFilter) && va.evaluateVerificationFilter(verificationFilter)) {
 		val vr = factory.createVerificationActivityResult
