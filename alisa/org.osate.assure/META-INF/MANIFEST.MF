@@ -51,9 +51,7 @@ Require-Bundle: org.eclipse.xtext;visibility:=reexport,
  com.rockwellcollins.atc.resolute;resolution:=optional,
  com.rockwellcollins.atc.resolute.analysis;bundle-version="1.0.0";resolution:=optional,
  com.rockwellcollins.atc.agree;bundle-version="2.0.0";resolution:=optional,
- com.rockwellcollins.atc.agree.analysis;bundle-version="2.0.0";resolution:=optional,
- com.rockwellcollins.atc.resolute.ui;bundle-version="1.0.0";resolution:=optional,
- com.google.inject
+ com.rockwellcollins.atc.agree.analysis;bundle-version="2.0.0";resolution:=optional
 Import-Package: org.apache.log4j
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Export-Package: org.osate.assure,

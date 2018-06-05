@@ -28,7 +28,6 @@ import org.osate.result.Diagnostic;
 import org.osate.result.util.ResultUtil;
 
 import com.google.inject.Inject;
-import com.google.inject.Injector;
 import com.rockwellcollins.atc.resolute.analysis.execution.EvaluationContext;
 import com.rockwellcollins.atc.resolute.analysis.execution.FeatureToConnectionsMap;
 import com.rockwellcollins.atc.resolute.analysis.execution.NamedElementComparator;
@@ -61,7 +60,6 @@ import com.rockwellcollins.atc.resolute.resolute.ResoluteFactory;
 import com.rockwellcollins.atc.resolute.resolute.ResolutePackage;
 import com.rockwellcollins.atc.resolute.resolute.StringExpr;
 import com.rockwellcollins.atc.resolute.resolute.ThisExpr;
-import com.rockwellcollins.atc.resolute.ui.internal.ResoluteActivator;
 import com.rockwellcollins.atc.resolute.validation.BaseType;
 
 public class ExecuteResoluteUtil {
@@ -123,9 +121,6 @@ public class ExecuteResoluteUtil {
 	}
 
 	public ExecuteResoluteUtil() {
-		Injector injector = ResoluteActivator.getInstance()
-				.getInjector(ResoluteActivator.COM_ROCKWELLCOLLINS_ATC_RESOLUTE_RESOLUTE);
-		injector.injectMembers(this);
 	}
 
 	@Inject
