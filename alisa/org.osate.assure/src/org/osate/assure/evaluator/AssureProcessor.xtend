@@ -384,7 +384,7 @@ class AssureProcessor implements IAssureProcessor {
 					val res = VerificationMethodDispatchers.eInstance.
 						dispatchVerificationMethod(methodtype, instanceroot, parameterObjects) // returning the marker or diagnostic id as string
 					val InstanceObject target = if (targetElement !== null && !targetElement.eIsProxy) {
-							targetComponent.findElementInstance(targetElement) ?: targetComponent
+						targetComponent.findElementInstance(targetElement) ?: targetComponent
 						} else {
 							targetComponent
 						}
@@ -399,22 +399,32 @@ class AssureProcessor implements IAssureProcessor {
 							addMarkersAsResult(verificationResult, target, result, method)
 						}
 					} else if (res instanceof AnalysisResult) {
-						for (Result r : res.results) {
-							if (r.sourceReference === target) {
+						var foundResult = false
+						for (Result r : res.results){
+							// we may encounter more than one Result
+							// TODO address this when we are able to use Result objects in Assure.
+							if (r.sourceReference === target){
+								foundResult = true
 								val issues = r.diagnostics
-								if (hasErrors(res) || hasFailures(r)) {
+								if (hasErrors(res)||hasFailures(r)) {
 									setToFail(verificationResult, "", target)
 								} else {
 									setToSuccess(verificationResult, "", target)
 								}
-								for (issue : issues) {
+								for (issue: issues){
 									val c = EcoreUtil.copy(issue)
-									if (c.type === DiagnosticType.ERROR) {
+									if (c.type === DiagnosticType.ERROR){
 										c.type = DiagnosticType.FAILURE
 									}
 									verificationResult.issues.add(c)
 								}
 							}
+						}
+						if ( ! foundResult){
+							// requirement target does not match Result source reference
+							// Typically occurs when the analysis is performed on an element, e.g., ETEF, while the requirement 
+							// does not include a 'for' <target model element>
+							setToError(verificationResult, "No Result found for requirement verification target "+target.name, target)
 						}
 					} else if (res instanceof Result) {
 						if (res.sourceReference === target) {
@@ -431,9 +441,14 @@ class AssureProcessor implements IAssureProcessor {
 								}
 								verificationResult.issues.add(c)
 							}
+						} else {
+							// requirement target does not match Result source reference
+							// Typically occurs when the analysis is performed on an element, e.g., ETEF, while the requirement 
+							// does not include a 'for' <target model element>
+							setToError(verificationResult, "Result is not for requirement verification target "+target.name, target)
 						}
 					} else {
-						setToError(verificationResult, "Analysis return type is not a string or AnalysisResult",
+						setToError(verificationResult, "Analysis return type is not a string, Result, or AnalysisResult",
 							targetComponent);
 					}
 					verificationResult.eResource.save(null)
