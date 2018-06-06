@@ -1,0 +1,112 @@
+-- Copyright © 2017 SAE International
+
+-- Following example shows the use of a LSER call between a client thread
+-- and a server thread. The client thread does not need to wait for the
+-- completion of the call to a long remote calculation. Result value is later 
+-- returned thanks to a HSER subprogram call to the server.
+
+package BA_example7 public	
+
+with Base_Types;
+with Behavior_Properties;
+
+data data_type
+end data_type;
+
+data implementation data_type.i
+subcomponents
+  contents : data Base_Types::Integer;
+  status : data Base_Types::Boolean;
+end data_type.i;
+
+-- LSER subprograms cannot have out parameters
+-- do some long calculation and update result locally
+subprogram long_computation
+features
+  input: in parameter data_type.i;
+  result : requires data access data_type.i;
+end long_computation;
+
+-- HSER subprograms can have out parameters
+-- return result to client
+subprogram send_result
+features
+  result : requires data access data_type.i;
+  output : out parameter data_type;
+end send_result;
+
+thread a_client
+features
+  pre : requires subprogram access long_computation;
+  post : requires subprogram access send_result;
+properties
+  Dispatch_Protocol => Periodic;
+  Period => 200ms;
+annex behavior_specification {**
+  variables
+    x, y : data_type;
+  states
+    s : initial complete final state;
+  transitions
+    s -[ on dispatch ]-> s {
+      -- x should have been initialized somewhere before being sent
+      -- y is a dummy parameter to match subprogram signature
+      pre!(x,y);
+      computation(60ms);
+      -- y is a dummy parameter to match subprogram signature
+      -- x is updated
+      post!(y,x) };
+**};
+end a_client;
+
+thread a_server
+features
+  long : provides subprogram access long_computation 
+    { Behavior_Properties::Subprogram_Call_Protocol => LSER; };
+  short : provides subprogram access send_result
+    { Behavior_Properties::Subprogram_Call_Protocol => HSER; };
+properties
+  Dispatch_Protocol => Sporadic;
+end a_server;
+
+thread implementation a_server.i
+subcomponents
+  local_result : data data_type.i;
+  long_spg : subprogram long_computation;
+  short_spg : subprogram send_result;
+connections
+  cnx1: subprogram access long_spg -> long;
+  cnx2: subprogram access short_spg -> short;
+  cnx3: data access local_result -> long_spg.result;
+  cnx4: data access local_result -> short_spg.result;
+  annex behavior_specification {**
+  variables
+    v : data_type.i;
+  states
+    s0 : initial complete final state;
+    s1 : state;
+    s2 : complete state;
+  transitions
+    s0 -[ on dispatch long ]-> s1;
+    s1 -[ ]-> s2 { 
+        long_computation!(v, local_result); local_result.status := 1 } timeout 60ms;
+    s1 -[ timeout ]-> s2 { local_result.status := 0 };
+    s2 -[ on dispatch short ]-> s0 { send_result!(local_result, v) };
+**};
+end a_server.i;
+
+
+process client_server
+end client_server;
+
+process implementation client_server.i
+subcomponents
+  c : thread a_client;
+  s : thread a_server.i;
+connections
+  cnx1: subprogram access s.long -> c.pre;
+  cnx2: subprogram access s.short -> c.post;
+end client_server.i;
+
+
+end BA_example7;

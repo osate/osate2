@@ -1,0 +1,32 @@
+package RegularModes
+public
+	system main
+	end main;
+	
+	system implementation main.impl
+		subcomponents
+			proc: process proc.impl;
+		properties
+			Period => 1000 ms in modes (m1), 200 ms in modes (m2) applies to proc.t1;	
+	end main.impl;
+	
+	process proc
+		modes
+			m1: initial mode;
+			m2: mode;
+	end proc;
+	
+	process implementation proc.impl
+		subcomponents
+			t1: thread t;
+			t2: thread t;
+	end proc.impl;
+	
+	thread t
+		modes
+			m1: initial mode;
+			m2: mode;
+		properties
+			Period => 10000 ms in modes (m1), 2000 ms in modes (m2);
+	end t;
+end RegularModes;

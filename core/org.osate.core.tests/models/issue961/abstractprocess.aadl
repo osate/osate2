@@ -1,0 +1,24 @@
+package abstractprocess
+public
+	system s
+	end s;
+	
+	system implementation s.i
+	subcomponents
+		p: process a; -- subcomponent is a process; error was that this showed up as abstract
+		b: bus a; -- subcomponent is a bus; error was that this showed up as abstract
+	end s.i;
+	
+	system implementation s.j
+	subcomponents
+		x: abstract a; -- subcomponent is still abstract
+	end s.j;
+	
+	system implementation s.k extends s.j
+	subcomponents
+		x: refined to process a; -- subcomponent is now a process
+	end s.k;
+	
+	abstract a
+	end a;
+end abstractprocess;

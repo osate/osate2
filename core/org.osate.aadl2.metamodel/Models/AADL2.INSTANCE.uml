@@ -1,0 +1,738 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xmi:XMI xmi:version="20131001" xmlns:xmi="http://www.omg.org/spec/XMI/20131001" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:Ecore="http://www.eclipse.org/uml2/schemas/Ecore/5" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:standard="http://www.eclipse.org/uml2/5.0.0/UML/Profile/Standard" xmlns:uml="http://www.eclipse.org/uml2/5.0.0/UML" xsi:schemaLocation="http://www.eclipse.org/uml2/schemas/Ecore/5 pathmap://UML_PROFILES/Ecore.profile.uml#_z1OFcHjqEdy8S4Cr8Rc_NA">
+  <uml:Model xmi:id="_0" name="AADL2Instance" URI="http://aadl.info/AADL/2.0/instance">
+    <ownedComment xmi:id="_UinXMFhhEd-rYOZ3UaShDA">
+      <body>The instance package contains all classes needed to represent AADL instance models.</body>
+    </ownedComment>
+    <packagedElement xmi:type="uml:Class" xmi:id="FeatureInstance" name="FeatureInstance">
+      <ownedComment xmi:id="_nN2QsFn1Ed-39ebAzHAVCA">
+        <body>An instance of an AADL feature, e.g., a port. The meta model for declarative AADL defines various feature subclasses for the different feature categories. All of these are instantiated as feature instances, and the category is recorded in the category attribute.</body>
+      </ownedComment>
+      <generalization xmi:id="FeatureInstance-_generalization.0" general="InstanceObject"/>
+      <generalization xmi:id="FeatureInstance-_generalization.1" general="ConnectionInstanceEnd"/>
+      <ownedAttribute xmi:id="FeatureInstance-srcFlowSpec" name="srcFlowSpec" visibility="public" type="FlowSpecInstance" association="_packagedElement.25">
+        <ownedComment xmi:id="_mbVOoFn1Ed-39ebAzHAVCA">
+          <body>The flow specification instances that have this feature instance as their source.</body>
+        </ownedComment>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="FeatureInstance-srcFlowSpec-_lowerValue"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="FeatureInstance-srcFlowSpec-_upperValue" value="*"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="FeatureInstance-dstFlowSpec" name="dstFlowSpec" visibility="public" type="FlowSpecInstance" association="_packagedElement.26">
+        <ownedComment xmi:id="_lf3r8Fn1Ed-39ebAzHAVCA">
+          <body>The flow specification instances that have this feature instance as their destination.</body>
+        </ownedComment>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="FeatureInstance-dstFlowSpec-_lowerValue"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="FeatureInstance-dstFlowSpec-_upperValue" value="*"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="FeatureInstance-featureInstance" name="featureInstance" visibility="public" type="FeatureInstance" aggregation="composite" association="_packagedElement.36">
+        <ownedComment xmi:id="_lxUBQFn1Ed-39ebAzHAVCA">
+          <body>Sub-feature instances of this feature. An instance of a feature group contains its owned features as sub feature instances.</body>
+        </ownedComment>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="FeatureInstance-featureInstance-_lowerValue"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="FeatureInstance-featureInstance-_upperValue" value="*"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="FeatureInstance-category" name="category" visibility="public" type="FeatureCategory">
+        <ownedComment xmi:id="_kb67oFn1Ed-39ebAzHAVCA">
+          <body>The category of the instantiated feature, e.g., port.</body>
+        </ownedComment>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="FeatureInstance-category-_lowerValue" value="1"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_uc7PIKItEd6vdIMK9b-mlQ" name="direction" visibility="public">
+        <ownedComment xmi:id="__JqnMFhhEd-rYOZ3UaShDA">
+          <body>The direction of the feature, in or out (or both) of the component owning the feature.</body>
+        </ownedComment>
+        <type xmi:type="uml:Enumeration" href="AADL2.EMF.merged.uml#DirectionType"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_F2JJgFhmEd-rYOZ3UaShDA" name="feature" visibility="public" association="_F2JJfFhmEd-rYOZ3UaShDA">
+        <ownedComment xmi:id="_jnU18Fn1Ed-39ebAzHAVCA">
+          <body>References the declarative feature that is instantiated.</body>
+        </ownedComment>
+        <type xmi:type="uml:Class" href="AADL2.EMF.merged.uml#Feature"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_F2JJglhmEd-rYOZ3UaShDA" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_F2JJgVhmEd-rYOZ3UaShDA" value="1"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_I3lK8ln3Ed-39ebAzHAVCA" name="index" visibility="public" isUnique="false">
+        <ownedComment xmi:id="_ZdAFEFn3Ed-39ebAzHAVCA">
+          <body>The index of this feature instance in a feature array. An array of N features is instantiated as N feature instance objects with index ranging from 1 to N.</body>
+        </ownedComment>
+        <type xmi:type="uml:PrimitiveType" href="AADL2.EMF.merged.uml#Integer"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_LTJ1gFn3Ed-39ebAzHAVCA"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_MGtZYFn3Ed-39ebAzHAVCA" value="1"/>
+      </ownedAttribute>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="InstanceObject" name="InstanceObject" isAbstract="true">
+      <ownedComment xmi:id="_wqzocFn3Ed-39ebAzHAVCA">
+        <body>The base class of all instance model meta classes.</body>
+      </ownedComment>
+      <generalization xmi:id="InstanceObject-_generalization.0">
+        <general xmi:type="uml:Class" href="AADL2.EMF.merged.uml#NamedElement"/>
+      </generalization>
+      <ownedAttribute xmi:id="_V_V_tECyEeOINe2VopeOiA" name="annexInstance" visibility="public" type="_PySnkECyEeOINe2VopeOiA" aggregation="composite" association="_V_V_sECyEeOINe2VopeOiA">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_V_V_tkCyEeOINe2VopeOiA"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_V_V_tUCyEeOINe2VopeOiA" value="*"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_wwbWIMX2EeWEo5A5aBge8A" name="ownedPropertyAssociation" visibility="public" type="_dpVJcMX2EeWEo5A5aBge8A" aggregation="composite" association="_w7yRkMX2EeWEo5A5aBge8A">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_wwbWIsX2EeWEo5A5aBge8A"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_wwbWIcX2EeWEo5A5aBge8A" value="*"/>
+        <redefinedProperty href="AADL2.EMF.merged.uml#NamedElement-ownedPropertyAssociation"/>
+      </ownedAttribute>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="ConnectionInstance" name="ConnectionInstance">
+      <ownedComment xmi:id="_G-6rEFn1Ed-39ebAzHAVCA">
+        <body>A connection between a source and a destination. A connection instance is constructed from a sequence of connection declarations, e.g., a semantic connection. A connection instance does not have to be a complete semantic connection.&#xD;
+Connection instances are unidirectional. A sequence of bidirectional declarative connections results in two connection instances.</body>
+      </ownedComment>
+      <generalization xmi:id="ConnectionInstance-_generalization.0" general="FlowElementInstance"/>
+      <ownedAttribute xmi:id="ConnectionInstance-inSystemOperationMode" name="inSystemOperationMode" visibility="public" type="SystemOperationMode" association="_packagedElement.14">
+        <ownedComment xmi:id="_YyhLYFn8Ed-39ebAzHAVCA">
+          <body>The system operation modes in which this connection instance is active. These are the SOMs in which all declarative connections are active that participate in the connection instance.&#xD;
+A connecton instance is unidirectional. A sequence of bidirectional declarative connections results in two connection instances.</body>
+        </ownedComment>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="ConnectionInstance-inSystemOperationMode-_lowerValue"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="ConnectionInstance-inSystemOperationMode-_upperValue" value="*"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="ConnectionInstance-inModeTransitions" name="inModeTransition" visibility="public" type="ModeTransitionInstance" association="_packagedElement.35">
+        <ownedComment xmi:id="_MACbkFn1Ed-39ebAzHAVCA">
+          <body>The mode transitions in which this connection instance is active. These are the transitions in which all declarative connections are active that participate in the connection instance.</body>
+        </ownedComment>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="ConnectionInstance-inModeTransitions-_lowerValue"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="ConnectionInstance-inModeTransitions-_upperValue" value="*"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="ConnectionInstance-src" name="source" visibility="public" type="ConnectionInstanceEnd" association="_packagedElement.19">
+        <ownedComment xmi:id="_XbpfEFn8Ed-39ebAzHAVCA">
+          <body>The source instance object of this connection.</body>
+        </ownedComment>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="ConnectionInstance-complete" name="complete" visibility="public">
+        <ownedComment xmi:id="_XNfHQFn8Ed-39ebAzHAVCA">
+          <body>Indicates if this connection instance is a complete semantic connection.</body>
+        </ownedComment>
+        <type xmi:type="uml:PrimitiveType" href="AADL2.EMF.merged.uml#Boolean"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="ConnectionInstance-kind" name="kind" visibility="public" type="ConnectionKind">
+        <ownedComment xmi:id="_WxK-sFn8Ed-39ebAzHAVCA">
+          <body>The kind of connection, e.g., port connection.</body>
+        </ownedComment>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="ConnectionInstance-dst" name="destination" visibility="public" type="ConnectionInstanceEnd" association="_packagedElement.50">
+        <ownedComment xmi:id="_WaOeUFn8Ed-39ebAzHAVCA">
+          <body>The destination instance object of this connection.</body>
+        </ownedComment>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="ConnectionInstance-dst-_lowerValue" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="ConnectionInstance-dst-_upperValue" value="1"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_mRVLkHV0Ed-5Z-hOGUPk8w" name="connectionReference" visibility="public" type="_iPP2OHV0Ed-5Z-hOGUPk8w" isOrdered="true" aggregation="composite" association="_mRe8kHV0Ed-5Z-hOGUPk8w">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_mRVLknV0Ed-5Z-hOGUPk8w" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_mRVLkXV0Ed-5Z-hOGUPk8w" value="*"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_TJtKoHw2EeKNv_e5kQsGcQ" name="bidirectional" visibility="public">
+        <ownedComment xmi:id="_TJtKoXw2EeKNv_e5kQsGcQ">
+          <body>Indicates if this connection is bidirectional or not</body>
+        </ownedComment>
+        <type xmi:type="uml:PrimitiveType" href="AADL2.EMF.merged.uml#Boolean"/>
+      </ownedAttribute>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="FlowElementInstance" name="FlowElementInstance" isAbstract="true">
+      <ownedComment xmi:id="_79zmsFn3Ed-39ebAzHAVCA">
+        <body>The base class of all metaclasses that can occus in an end to end flow instance.</body>
+      </ownedComment>
+      <generalization xmi:id="FlowElementInstance-_generalization.0" general="InstanceObject"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="SystemOperationMode" name="SystemOperationMode">
+      <ownedComment xmi:id="_U75fIFn8Ed-39ebAzHAVCA">
+        <body>A system operation mode representing the collection of all modes of all active modal components in the instance model.</body>
+      </ownedComment>
+      <generalization xmi:id="SystemOperationMode-_generalization.0">
+        <general xmi:type="uml:Class" href="AADL2.EMF.merged.uml#Mode"/>
+      </generalization>
+      <ownedAttribute xmi:id="SystemOperationMode-currentMode" name="currentMode" visibility="public" type="ModeInstance" isOrdered="true" association="_packagedElement.13">
+        <ownedComment xmi:id="_UsZqkFn8Ed-39ebAzHAVCA">
+          <body>The list of all mode instance participating in this system operation mode. These are the current modes of all active components.&#xD;
+For efficiency reasons, this list may be ordered, e.g., by obtaining the modes via pre-order traversal of the containment hierarchy, starting with the system instance.</body>
+        </ownedComment>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="SystemOperationMode-currentMode-_lowerValue"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="SystemOperationMode-currentMode-_upperValue" value="*"/>
+      </ownedAttribute>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="ModeInstance" name="ModeInstance">
+      <ownedComment xmi:id="_T9nR8Fn8Ed-39ebAzHAVCA">
+        <body>A mode of a component instance.</body>
+      </ownedComment>
+      <generalization xmi:id="ModeInstance-_generalization.0" general="InstanceObject"/>
+      <ownedAttribute xmi:id="ModeInstance-srcModeTransition" name="srcModeTransition" visibility="public" type="ModeTransitionInstance" association="_packagedElement.9">
+        <ownedComment xmi:id="_Tq_Q4Fn8Ed-39ebAzHAVCA">
+          <body>The collection of all mode transitions that start at this mode instance.</body>
+        </ownedComment>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="ModeInstance-srcModeTransition-_lowerValue"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="ModeInstance-srcModeTransition-_upperValue" value="*"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="ModeInstance-dstModeTransition" name="dstModeTransition" visibility="public" type="ModeTransitionInstance" association="_packagedElement.10">
+        <ownedComment xmi:id="_TdbWAFn8Ed-39ebAzHAVCA">
+          <body>The collection of all mode transitions that end at this mode instance.</body>
+        </ownedComment>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="ModeInstance-dstModeTransition-_lowerValue"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="ModeInstance-dstModeTransition-_upperValue" value="*"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="ModeInstance-initial" name="initial" visibility="public">
+        <ownedComment xmi:id="_TP3bIFn8Ed-39ebAzHAVCA">
+          <body>Indicates if this is is the initial mode of the owning component instance.</body>
+        </ownedComment>
+        <type xmi:type="uml:PrimitiveType" href="AADL2.EMF.merged.uml#Boolean"/>
+        <defaultValue xmi:type="uml:LiteralString" xmi:id="_7y_MMOvEEeGRG-ZDxoY3dg" value="false"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_Yy9Y0FhmEd-rYOZ3UaShDA" name="mode" visibility="public" association="_Yy9YzFhmEd-rYOZ3UaShDA">
+        <ownedComment xmi:id="_TBQ-cFn8Ed-39ebAzHAVCA">
+          <body>Reference to the declarative mode that is instantiated.</body>
+        </ownedComment>
+        <type xmi:type="uml:Class" href="AADL2.EMF.merged.uml#Mode"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_Yy9Y0lhmEd-rYOZ3UaShDA" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_Yy9Y0VhmEd-rYOZ3UaShDA" value="1"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_1WjeoOugEeGFpMJjDNLhvw" name="derived" visibility="public">
+        <type xmi:type="uml:PrimitiveType" href="AADL2.EMF.merged.uml#Boolean"/>
+        <defaultValue xmi:type="uml:LiteralString" xmi:id="_6VzcgOvEEeGRG-ZDxoY3dg" value="false"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_qEyPdOugEeGFpMJjDNLhvw" name="parent" visibility="public" type="ModeInstance" association="_qEyPcOugEeGFpMJjDNLhvw">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_qEyPduugEeGFpMJjDNLhvw"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_qEyPdeugEeGFpMJjDNLhvw" value="*"/>
+      </ownedAttribute>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="ModeTransitionInstance" name="ModeTransitionInstance">
+      <ownedComment xmi:id="_SQ-xAFn8Ed-39ebAzHAVCA">
+        <body>A mode transition of a component instance.</body>
+      </ownedComment>
+      <generalization xmi:id="ModeTransitionInstance-_generalization.0" general="InstanceObject"/>
+      <generalization xmi:id="ModeTransitionInstance-_generalization.1" general="ConnectionInstanceEnd"/>
+      <ownedAttribute xmi:id="ModeTransitionInstance-src" name="source" visibility="public" type="ModeInstance" association="_packagedElement.9">
+        <ownedComment xmi:id="_RrSC8Fn8Ed-39ebAzHAVCA">
+          <body>The source mode instance of this transition.</body>
+        </ownedComment>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="ModeTransitionInstance-dst" name="destination" visibility="public" type="ModeInstance" association="_packagedElement.10">
+        <ownedComment xmi:id="_PRDcMFn8Ed-39ebAzHAVCA">
+          <body>The destination mode instance of this transition.</body>
+        </ownedComment>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_s1KmEFhqEd-rYOZ3UaShDA" name="modeTransition" visibility="public" association="_s1KmDFhqEd-rYOZ3UaShDA">
+        <ownedComment xmi:id="_PRDcMVn8Ed-39ebAzHAVCA">
+          <body>Reference to the declarative mode transition that is instantiated.</body>
+        </ownedComment>
+        <type xmi:type="uml:Class" href="AADL2.EMF.merged.uml#ModeTransition"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_s1KmElhqEd-rYOZ3UaShDA" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_s1KmEVhqEd-rYOZ3UaShDA" value="1"/>
+      </ownedAttribute>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="_packagedElement.9" visibility="private" memberEnd="ModeTransitionInstance-src ModeInstance-srcModeTransition"/>
+    <packagedElement xmi:type="uml:Association" xmi:id="_packagedElement.10" visibility="private" memberEnd="ModeInstance-dstModeTransition ModeTransitionInstance-dst"/>
+    <packagedElement xmi:type="uml:Association" xmi:id="_packagedElement.13" name="A_systemOperationMode_currentMode" visibility="private" memberEnd="_packagedElement.13-_ownedEnd.0 SystemOperationMode-currentMode">
+      <ownedEnd xmi:id="_packagedElement.13-_ownedEnd.0" name="som" visibility="public" type="SystemOperationMode" association="_packagedElement.13"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="_packagedElement.14" visibility="private" memberEnd="_packagedElement.14-_ownedEnd.0 ConnectionInstance-inSystemOperationMode">
+      <ownedEnd xmi:id="_packagedElement.14-_ownedEnd.0" name="connection" visibility="public" type="ConnectionInstance" association="_packagedElement.14"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="ComponentInstance" name="ComponentInstance">
+      <ownedComment xmi:id="_KWvtEFn2Ed-39ebAzHAVCA">
+        <body>An instance of an AADL component, e.g., a thread. The meta model for declarative AADL defines various component subclasses for the different component categories. All of these are instantiated as component instances, and the category is recorded in the category attribute.</body>
+      </ownedComment>
+      <generalization xmi:id="ComponentInstance-_generalization.0" general="FlowElementInstance"/>
+      <generalization xmi:id="ComponentInstance-_generalization.1" general="ConnectionInstanceEnd"/>
+      <generalization xmi:id="_Q6uK01heEd-rYOZ3UaShDA" general="InstanceObject"/>
+      <ownedAttribute xmi:id="ComponentInstance-featureInstance" name="featureInstance" visibility="public" type="FeatureInstance" aggregation="composite" association="_packagedElement.16">
+        <ownedComment xmi:id="_Ew2z4Fn8Ed-39ebAzHAVCA">
+          <body>The instantiated features of this component. These are features owned or inherited by the instantiated subcomponent's classifier.</body>
+        </ownedComment>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="ComponentInstance-featureInstance-_lowerValue"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="ComponentInstance-featureInstance-_upperValue" value="*"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="ComponentInstance-componentInstance" name="componentInstance" visibility="public" type="ComponentInstance" isOrdered="true" aggregation="composite" association="_packagedElement.17">
+        <ownedComment xmi:id="_EhW_UFn8Ed-39ebAzHAVCA">
+          <body>The instantiated subcomponents of thsi component.</body>
+        </ownedComment>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="ComponentInstance-componentInstance-_lowerValue"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="ComponentInstance-componentInstance-_upperValue" value="*"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="ComponentInstance-modeInstance" name="modeInstance" visibility="public" type="ModeInstance" aggregation="composite" association="_packagedElement.20">
+        <ownedComment xmi:id="_ERbF4Fn8Ed-39ebAzHAVCA">
+          <body>The instantiated modes of this component.</body>
+        </ownedComment>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="ComponentInstance-modeInstance-_lowerValue"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="ComponentInstance-modeInstance-_upperValue" value="*"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="ComponentInstance-modeTransitionInstance" name="modeTransitionInstance" visibility="public" type="ModeTransitionInstance" aggregation="composite" association="_packagedElement.21">
+        <ownedComment xmi:id="_D2AVMFn8Ed-39ebAzHAVCA">
+          <body>The instantiated mode transitions of this component.</body>
+        </ownedComment>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="ComponentInstance-modeTransitionInstance-_lowerValue"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="ComponentInstance-modeTransitionInstance-_upperValue" value="*"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="ComponentInstance-category" name="category" visibility="public">
+        <ownedComment xmi:id="_Dj0ZAFn8Ed-39ebAzHAVCA">
+          <body>The category of this component, e.g., thread.</body>
+        </ownedComment>
+        <type xmi:type="uml:Enumeration" href="AADL2.EMF.merged.uml#ComponentCategory"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="ComponentInstance-category-_lowerValue" value="1"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="ComponentInstance-inModes" name="inMode" visibility="public" type="ModeInstance" association="_packagedElement.22">
+        <ownedComment xmi:id="_DOXGYFn8Ed-39ebAzHAVCA">
+          <body>The mode instances (of the parent component) in which this component is active.</body>
+        </ownedComment>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="ComponentInstance-inModes-_lowerValue"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="ComponentInstance-inModes-_upperValue" value="*"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="ComponentInstance-flowSpecInstance" name="flowSpecification" visibility="public" type="FlowSpecInstance" aggregation="composite" association="_packagedElement.27">
+        <ownedComment xmi:id="__k3QIFn7Ed-39ebAzHAVCA">
+          <body>The instantiated flow specifications of this component.</body>
+        </ownedComment>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="ComponentInstance-flowSpecInstance-_lowerValue"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="ComponentInstance-flowSpecInstance-_upperValue" value="*"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="ComponentInstance-endToEndFlowInstance" name="endToEndFlow" visibility="public" type="EndToEndFlowInstance" aggregation="composite" association="_packagedElement.33">
+        <ownedComment xmi:id="_B1P-YFn8Ed-39ebAzHAVCA">
+          <body>The instantiated end to end flows of this component.</body>
+        </ownedComment>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="ComponentInstance-endToEndFlowInstance-_lowerValue"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="ComponentInstance-endToEndFlowInstance-_upperValue" value="*"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="ComponentInstance-connectionInstance" name="connectionInstance" visibility="public" type="ConnectionInstance" aggregation="composite" association="A_componentInstance_connectionInstance">
+        <ownedComment xmi:id="_A-3I8Fn8Ed-39ebAzHAVCA">
+          <body>The connection instances contained in this component.</body>
+        </ownedComment>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="ComponentInstance-connectionInstance-_lowerValue"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="ComponentInstance-connectionInstance-_upperValue" value="*"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_Wr9QEFhmEd-rYOZ3UaShDA" name="subcomponent" visibility="public" association="_Wr9QDFhmEd-rYOZ3UaShDA">
+        <ownedComment xmi:id="_AU_skFn8Ed-39ebAzHAVCA">
+          <body>The declarative subcomponent that is instantiated.</body>
+        </ownedComment>
+        <type xmi:type="uml:Class" href="AADL2.EMF.merged.uml#Subcomponent"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_Wr9QElhmEd-rYOZ3UaShDA"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_Wr9QEVhmEd-rYOZ3UaShDA" value="1"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_GXi3Iln3Ed-39ebAzHAVCA" name="index" visibility="public" isUnique="false">
+        <ownedComment xmi:id="_ysOJwFn7Ed-39ebAzHAVCA">
+          <body>The index of this component instance in a component array. An array of N components is instantiated as N component instance objects with index ranging from 1 to N.</body>
+        </ownedComment>
+        <type xmi:type="uml:PrimitiveType" href="AADL2.EMF.merged.uml#Integer"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_TYhaIFn3Ed-39ebAzHAVCA"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_TxZ0MFn3Ed-39ebAzHAVCA" value="*"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_frNpIObyEeahuYwEa-avYQ" name="classifier" association="_frFGQObyEeahuYwEa-avYQ">
+        <type xmi:type="uml:Class" href="AADL2.EMF.merged.uml#ComponentClassifier"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_-9MeUObyEeahuYwEa-avYQ"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_-9NscObyEeahuYwEa-avYQ" value="1"/>
+      </ownedAttribute>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="_packagedElement.16" visibility="private" memberEnd="_packagedElement.16-_ownedEnd.0 ComponentInstance-featureInstance">
+      <ownedEnd xmi:id="_packagedElement.16-_ownedEnd.0" name="owner" visibility="public" type="ComponentInstance" association="_packagedElement.16"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="_packagedElement.17" name="A_componentInstance_componentInstance" visibility="private" memberEnd="_packagedElement.17-_ownedEnd.0 ComponentInstance-componentInstance">
+      <ownedEnd xmi:id="_packagedElement.17-_ownedEnd.0" name="owner" visibility="public" type="ComponentInstance" association="_packagedElement.17"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="_packagedElement.19" name="A_connectionInstance_source" visibility="private" memberEnd="ConnectionInstance-src ConnectionInstanceEnd-srcConnectionInstace"/>
+    <packagedElement xmi:type="uml:Association" xmi:id="_packagedElement.20" visibility="private" memberEnd="_packagedElement.20-_ownedEnd.0 ComponentInstance-modeInstance">
+      <ownedEnd xmi:id="_packagedElement.20-_ownedEnd.0" name="owner" visibility="public" type="ComponentInstance" association="_packagedElement.20"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="_packagedElement.21" visibility="private" memberEnd="_packagedElement.21-_ownedEnd.0 ComponentInstance-modeTransitionInstance">
+      <ownedEnd xmi:id="_packagedElement.21-_ownedEnd.0" name="owner" visibility="public" type="ComponentInstance" association="_packagedElement.21"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="_packagedElement.22" name="A_component_inMode" visibility="private" memberEnd="_packagedElement.22-_ownedEnd.0 ComponentInstance-inModes">
+      <ownedEnd xmi:id="_packagedElement.22-_ownedEnd.0" name="component" visibility="public" type="ComponentInstance" association="_packagedElement.22"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="FlowSpecInstance" name="FlowSpecificationInstance">
+      <ownedComment xmi:id="_Hi7S4Fn8Ed-39ebAzHAVCA">
+        <body>An instantiated flow specification.</body>
+      </ownedComment>
+      <generalization xmi:id="FlowSpecInstance-_generalization.0" general="FlowElementInstance"/>
+      <ownedAttribute xmi:id="FlowSpecInstance-src" name="source" visibility="public" type="FeatureInstance" association="_packagedElement.25">
+        <ownedComment xmi:id="_I4KngFn8Ed-39ebAzHAVCA">
+          <body>The source feature instance of this flow specification instance.</body>
+        </ownedComment>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="FlowSpecInstance-src-_lowerValue"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="FlowSpecInstance-dst" name="destination" visibility="public" type="FeatureInstance" association="_packagedElement.26">
+        <ownedComment xmi:id="_Ip3FwFn8Ed-39ebAzHAVCA">
+          <body>The destination feature of this flow specification instance.</body>
+        </ownedComment>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="FlowSpecInstance-dst-_lowerValue"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_Xx16EFhmEd-rYOZ3UaShDA" name="flowSpecification" visibility="public" association="_Xx16DFhmEd-rYOZ3UaShDA">
+        <ownedComment xmi:id="_ISBNgFn8Ed-39ebAzHAVCA">
+          <body>The instantiated declarative flow specification.</body>
+        </ownedComment>
+        <type xmi:type="uml:Class" href="AADL2.EMF.merged.uml#FlowSpecification"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_Xx16ElhmEd-rYOZ3UaShDA" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_Xx16EVhmEd-rYOZ3UaShDA" value="1"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_i-cYBPt8EeG_drLDhPLMOA" name="inMode" visibility="public" type="ModeInstance" association="_i-cYAPt8EeG_drLDhPLMOA">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_i-cYBvt8EeG_drLDhPLMOA"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_i-cYBft8EeG_drLDhPLMOA" value="*"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_nwnNrvwYEeG0W_V5cpDKXA" name="inModeTransition" visibility="public" type="ModeTransitionInstance" association="_nwnNqvwYEeG0W_V5cpDKXA">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_nwnNsPwYEeG0W_V5cpDKXA"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_nwnNr_wYEeG0W_V5cpDKXA" value="*"/>
+      </ownedAttribute>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="_packagedElement.25" name="A_flowSpecificationInstance_source" visibility="private" memberEnd="FeatureInstance-srcFlowSpec FlowSpecInstance-src"/>
+    <packagedElement xmi:type="uml:Association" xmi:id="_packagedElement.26" name="A_flowSpecificationInstance_destination" visibility="private" memberEnd="FeatureInstance-dstFlowSpec FlowSpecInstance-dst"/>
+    <packagedElement xmi:type="uml:Association" xmi:id="_packagedElement.27" visibility="private" memberEnd="_packagedElement.27-_ownedEnd.0 ComponentInstance-flowSpecInstance">
+      <ownedEnd xmi:id="_packagedElement.27-_ownedEnd.0" name="owner" visibility="public" type="ComponentInstance" association="_packagedElement.27"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="EndToEndFlowInstance" name="EndToEndFlowInstance">
+      <ownedComment xmi:id="_K9iYkFn8Ed-39ebAzHAVCA">
+        <body>An instantiated end to end flow.</body>
+      </ownedComment>
+      <generalization xmi:id="_UEWgMO03EeGntauB9Bwgiw" general="FlowElementInstance"/>
+      <ownedAttribute xmi:id="EndToEndFlowInstance-flowElementInstance" name="flowElement" visibility="public" type="FlowElementInstance" isOrdered="true" association="_packagedElement.30">
+        <ownedComment xmi:id="_ME6QUFn8Ed-39ebAzHAVCA">
+          <body>The ordered sequence flow elements in this end to end flow instance.</body>
+        </ownedComment>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="EndToEndFlowInstance-flowElementInstance-_lowerValue"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="EndToEndFlowInstance-flowElementInstance-_upperValue" value="*"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="EndToEndFlowInstance-inModes" name="inMode" visibility="public" type="ModeInstance" association="_packagedElement.31">
+        <ownedComment xmi:id="_LzeiEFn8Ed-39ebAzHAVCA">
+          <body>The mode instances (of the owning component instance) in which this flow instance is active.</body>
+        </ownedComment>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="EndToEndFlowInstance-inModes-_lowerValue"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="EndToEndFlowInstance-inModes-_upperValue" value="*"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="EndToEndFlowInstance-inSystemOperationMode" name="inSystemOperationMode" visibility="public" type="SystemOperationMode" association="_packagedElement.32">
+        <ownedComment xmi:id="_Ll6nMFn8Ed-39ebAzHAVCA">
+          <body>The collection of system operation modes in which this flow instance is active.&#xD;
+These are those SOMs in which all of this flow's elements  are active.</body>
+        </ownedComment>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="EndToEndFlowInstance-inSystemOperationMode-_lowerValue"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="EndToEndFlowInstance-inSystemOperationMode-_upperValue" value="*"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_YWzBPlhmEd-rYOZ3UaShDA" name="endToEndFlow" visibility="public" association="_YWzBOlhmEd-rYOZ3UaShDA">
+        <ownedComment xmi:id="_LV0VsFn8Ed-39ebAzHAVCA">
+          <body>The declarative end to end flow that is instantiated.</body>
+        </ownedComment>
+        <type xmi:type="uml:Class" href="AADL2.EMF.merged.uml#EndToEndFlow"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_YWzBQFhmEd-rYOZ3UaShDA" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_YWzBP1hmEd-rYOZ3UaShDA" value="1"/>
+      </ownedAttribute>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="_packagedElement.30" name="A_endToEndFlowInstance_flowElement" visibility="private" memberEnd="_packagedElement.30-_ownedEnd.0 EndToEndFlowInstance-flowElementInstance">
+      <ownedEnd xmi:id="_packagedElement.30-_ownedEnd.0" name="flow" visibility="public" type="EndToEndFlowInstance" association="_packagedElement.30">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_hmcbwFnTEd-NdemEyhSnJg"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_h7AWgFnTEd-NdemEyhSnJg" value="*"/>
+      </ownedEnd>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="_packagedElement.31" name="A_flow_inMode" visibility="private" memberEnd="_packagedElement.31-_ownedEnd.0 EndToEndFlowInstance-inModes">
+      <ownedEnd xmi:id="_packagedElement.31-_ownedEnd.0" name="flow" visibility="public" type="EndToEndFlowInstance" association="_packagedElement.31"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="_packagedElement.32" visibility="private" memberEnd="_packagedElement.32-_ownedEnd.0 EndToEndFlowInstance-inSystemOperationMode">
+      <ownedEnd xmi:id="_packagedElement.32-_ownedEnd.0" name="flow" visibility="public" type="EndToEndFlowInstance" association="_packagedElement.32"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="_packagedElement.33" name="A_componentInstance_endToEndFlowInstance" visibility="private" memberEnd="_packagedElement.33-_ownedEnd.0 ComponentInstance-endToEndFlowInstance">
+      <ownedEnd xmi:id="_packagedElement.33-_ownedEnd.0" name="owner" visibility="public" type="ComponentInstance" association="_packagedElement.33"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="_packagedElement.34" name="A_connectionReference_connectionContext" visibility="private" memberEnd="_packagedElement.34-connectionInstance ConnectionInstance-connectionContext">
+      <ownedEnd xmi:id="_packagedElement.34-connectionInstance" name="reference" visibility="public" type="_iPP2OHV0Ed-5Z-hOGUPk8w" isUnique="false" association="_packagedElement.34">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_4TmowHV1Ed-5Z-hOGUPk8w"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_4-0wAHV1Ed-5Z-hOGUPk8w" value="*"/>
+      </ownedEnd>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="_packagedElement.35" name="A_connection_inModeTransition" visibility="private" memberEnd="_packagedElement.35-_ownedEnd.0 ConnectionInstance-inModeTransitions">
+      <ownedEnd xmi:id="_packagedElement.35-_ownedEnd.0" name="connection" visibility="public" type="ConnectionInstance" association="_packagedElement.35"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="_packagedElement.36" name="A_featureInstance_featureInstance" visibility="private" memberEnd="_packagedElement.36-_ownedEnd.0 FeatureInstance-featureInstance">
+      <ownedEnd xmi:id="_packagedElement.36-_ownedEnd.0" name="owner" visibility="public" type="FeatureInstance" association="_packagedElement.36"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Enumeration" xmi:id="FeatureCategory" name="FeatureCategory">
+      <ownedComment xmi:id="_vZJ70FhhEd-rYOZ3UaShDA">
+        <body>The category of a feature instance.</body>
+      </ownedComment>
+      <ownedLiteral xmi:id="FeatureCategory-dataPort" name="dataPort"/>
+      <ownedLiteral xmi:id="FeatureCategory-eventPort" name="eventPort"/>
+      <ownedLiteral xmi:id="FeatureCategory-eventDataPort" name="eventDataPort"/>
+      <ownedLiteral xmi:id="FeatureCategory-parameter" name="parameter"/>
+      <ownedLiteral xmi:id="FeatureCategory-busAccess" name="busAccess"/>
+      <ownedLiteral xmi:id="FeatureCategory-dataAccess" name="dataAccess"/>
+      <ownedLiteral xmi:id="FeatureCategory-subprogramAccess" name="subprogramAccess"/>
+      <ownedLiteral xmi:id="FeatureCategory-subprogramGroupAccess" name="subprogramGroupAccess"/>
+      <ownedLiteral xmi:id="FeatureCategory-featureGroup" name="featureGroup"/>
+      <ownedLiteral xmi:id="FeatureCategory-abstractFeature" name="abstractFeature"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="SystemInstance" name="SystemInstance">
+      <ownedComment xmi:id="_ZSd8EFhiEd-rYOZ3UaShDA">
+        <body>A system instance is the unique top level object of an instance model.</body>
+      </ownedComment>
+      <generalization xmi:id="SystemInstance-_generalization.0" general="ComponentInstance"/>
+      <ownedAttribute xmi:id="SystemInstance-systemOperationMode" name="systemOperationMode" visibility="public" type="SystemOperationMode" isOrdered="true" aggregation="composite" association="_packagedElement.41">
+        <ownedComment xmi:id="_i9tNAFn8Ed-39ebAzHAVCA">
+          <body>All system operational models of this system instance.</body>
+        </ownedComment>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="SystemInstance-systemOperationMode-_lowerValue"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="SystemInstance-systemOperationMode-_upperValue" value="*"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_WJ-kYFhmEd-rYOZ3UaShDA" name="componentImplementation" visibility="public" association="_WJ-kXFhmEd-rYOZ3UaShDA">
+        <ownedComment xmi:id="_ioi1UFn8Ed-39ebAzHAVCA">
+          <body>Reference to the system implementation that is instantiated.</body>
+        </ownedComment>
+        <type xmi:type="uml:Class" href="AADL2.EMF.merged.uml#ComponentImplementation"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_WJ-kYlhmEd-rYOZ3UaShDA" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_WJ-kYVhmEd-rYOZ3UaShDA" value="1"/>
+      </ownedAttribute>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="A_componentInstance_connectionInstance" name="A_componentInstance_connectionInstance" visibility="private" memberEnd="A_componentInstance_connectionInstance-owner ComponentInstance-connectionInstance">
+      <ownedEnd xmi:id="A_componentInstance_connectionInstance-owner" name="owner" visibility="public" type="ComponentInstance" association="A_componentInstance_connectionInstance"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="_packagedElement.41" visibility="private" memberEnd="_packagedElement.41-_ownedEnd.0 SystemInstance-systemOperationMode">
+      <ownedEnd xmi:id="_packagedElement.41-_ownedEnd.0" name="owner" visibility="public" type="SystemInstance" association="_packagedElement.41"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="InstanceReferenceValue" name="InstanceReferenceValue">
+      <ownedComment xmi:id="_hTwMoFn8Ed-39ebAzHAVCA">
+        <body>Deprecated</body>
+      </ownedComment>
+      <generalization xmi:id="InstanceReferenceValue-_generalization.0">
+        <general xmi:type="uml:Class" href="AADL2.EMF.merged.uml#PropertyValue"/>
+      </generalization>
+      <ownedAttribute xmi:id="InstanceReferenceValue-referencedInstanceObject" name="referencedInstanceObject" visibility="public" type="InstanceObject" association="_packagedElement.43"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="_packagedElement.43" visibility="private" memberEnd="_packagedElement.43-_ownedEnd.0 InstanceReferenceValue-referencedInstanceObject">
+      <ownedEnd xmi:id="_packagedElement.43-_ownedEnd.0" name="referenceValue" visibility="public" type="InstanceReferenceValue" association="_packagedElement.43">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_Tx5t0FnTEd-NdemEyhSnJg"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_Ue59wFnTEd-NdemEyhSnJg" value="*"/>
+      </ownedEnd>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="ConnectionInstanceEnd" name="ConnectionInstanceEnd" isAbstract="true">
+      <ownedComment xmi:id="_eHKU0Fn8Ed-39ebAzHAVCA">
+        <body>A base class for ends of connection instances.</body>
+      </ownedComment>
+      <generalization xmi:id="_ra0KVJb7Ed6qz8WeBBf9gQ" general="InstanceObject"/>
+      <ownedAttribute xmi:id="ConnectionInstanceEnd-srcConnectionInstace" name="srcConnectionInstance" visibility="public" type="ConnectionInstance" association="_packagedElement.19">
+        <ownedComment xmi:id="_d5TfAFn8Ed-39ebAzHAVCA">
+          <body>The collection of connection instances that start at this connection end.</body>
+        </ownedComment>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="ConnectionInstanceEnd-srcConnectionInstace-_lowerValue"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="ConnectionInstanceEnd-srcConnectionInstace-_upperValue" value="*"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="ConnectionInstanceEnd-dstConnectionInstance" name="dstConnectionInstance" visibility="public" type="ConnectionInstance" association="_packagedElement.50">
+        <ownedComment xmi:id="_dXekUFn8Ed-39ebAzHAVCA">
+          <body>The collection of connection instances that end at this connection end.</body>
+        </ownedComment>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="ConnectionInstanceEnd-dstConnectionInstance-_lowerValue"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="ConnectionInstanceEnd-dstConnectionInstance-_upperValue" value="*"/>
+      </ownedAttribute>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Enumeration" xmi:id="ConnectionKind" name="ConnectionKind">
+      <ownedComment xmi:id="_qmCyIFhhEd-rYOZ3UaShDA">
+        <body>The kind of connection instance.</body>
+      </ownedComment>
+      <ownedLiteral xmi:id="ConnectionKind-featureConnection" name="featureConnection"/>
+      <ownedLiteral xmi:id="ConnectionKind-accessConnection" name="accessConnection"/>
+      <ownedLiteral xmi:id="ConnectionKind-parameterConnection" name="parameterConnection"/>
+      <ownedLiteral xmi:id="ConnectionKind-portConnection" name="portConnection"/>
+      <ownedLiteral xmi:id="ConnectionKind-modeTransitionConnection" name="modeTransitionConnection"/>
+      <ownedLiteral xmi:id="_l572kpi6Ed6Cfch2e-jYsQ" name="featureGroupConnection"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="_packagedElement.50" name="A_connectionInstance_destination" visibility="private" memberEnd="ConnectionInstance-dst ConnectionInstanceEnd-dstConnectionInstance"/>
+    <packagedElement xmi:type="uml:Association" xmi:id="_F2JJfFhmEd-rYOZ3UaShDA" name="A_featureInstance_feature" memberEnd="_F2JJfVhmEd-rYOZ3UaShDA _F2JJgFhmEd-rYOZ3UaShDA">
+      <ownedEnd xmi:id="_F2JJfVhmEd-rYOZ3UaShDA" name="instance" visibility="public" type="FeatureInstance" association="_F2JJfFhmEd-rYOZ3UaShDA">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_F2JJf1hmEd-rYOZ3UaShDA"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_F2JJflhmEd-rYOZ3UaShDA" value="*"/>
+      </ownedEnd>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="_WJ-kXFhmEd-rYOZ3UaShDA" name="A_systemInstance_componentImplementation" memberEnd="_WJ-kXVhmEd-rYOZ3UaShDA _WJ-kYFhmEd-rYOZ3UaShDA">
+      <ownedEnd xmi:id="_WJ-kXVhmEd-rYOZ3UaShDA" name="instance" visibility="public" type="SystemInstance" association="_WJ-kXFhmEd-rYOZ3UaShDA">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_WJ-kX1hmEd-rYOZ3UaShDA" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_WJ-kXlhmEd-rYOZ3UaShDA" value="1"/>
+      </ownedEnd>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="_Wr9QDFhmEd-rYOZ3UaShDA" name="A_componentInstance_subcomponent" memberEnd="_Wr9QDVhmEd-rYOZ3UaShDA _Wr9QEFhmEd-rYOZ3UaShDA">
+      <ownedEnd xmi:id="_Wr9QDVhmEd-rYOZ3UaShDA" name="instance" visibility="public" type="ComponentInstance" association="_Wr9QDFhmEd-rYOZ3UaShDA">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_Wr9QD1hmEd-rYOZ3UaShDA"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_Wr9QDlhmEd-rYOZ3UaShDA" value="*"/>
+      </ownedEnd>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="_XQA_XFhmEd-rYOZ3UaShDA" name="A_connectionReference_connection" memberEnd="_XQA_XVhmEd-rYOZ3UaShDA _XQA_YFhmEd-rYOZ3UaShDA">
+      <ownedEnd xmi:id="_XQA_XVhmEd-rYOZ3UaShDA" name="reference" visibility="public" type="_iPP2OHV0Ed-5Z-hOGUPk8w" association="_XQA_XFhmEd-rYOZ3UaShDA">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_XQA_X1hmEd-rYOZ3UaShDA"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_XQA_XlhmEd-rYOZ3UaShDA" value="*"/>
+      </ownedEnd>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="_Xx16DFhmEd-rYOZ3UaShDA" name="A_flowSpecInstance_flowSpecification" memberEnd="_Xx16DVhmEd-rYOZ3UaShDA _Xx16EFhmEd-rYOZ3UaShDA">
+      <ownedEnd xmi:id="_Xx16DVhmEd-rYOZ3UaShDA" name="instance" visibility="public" type="FlowSpecInstance" association="_Xx16DFhmEd-rYOZ3UaShDA">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_Xx16D1hmEd-rYOZ3UaShDA"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_Xx16DlhmEd-rYOZ3UaShDA" value="*"/>
+      </ownedEnd>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="_YWzBOlhmEd-rYOZ3UaShDA" name="A_endToEndFlowInstance_endToEndFlow" memberEnd="_YWzBO1hmEd-rYOZ3UaShDA _YWzBPlhmEd-rYOZ3UaShDA">
+      <ownedEnd xmi:id="_YWzBO1hmEd-rYOZ3UaShDA" name="instance" visibility="public" type="EndToEndFlowInstance" association="_YWzBOlhmEd-rYOZ3UaShDA">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_YWzBPVhmEd-rYOZ3UaShDA"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_YWzBPFhmEd-rYOZ3UaShDA" value="*"/>
+      </ownedEnd>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="_Yy9YzFhmEd-rYOZ3UaShDA" name="A_modeInstance_mode" memberEnd="_Yy9YzVhmEd-rYOZ3UaShDA _Yy9Y0FhmEd-rYOZ3UaShDA">
+      <ownedEnd xmi:id="_Yy9YzVhmEd-rYOZ3UaShDA" name="instance" visibility="public" type="ModeInstance" association="_Yy9YzFhmEd-rYOZ3UaShDA">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_Yy9Yz1hmEd-rYOZ3UaShDA"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_Yy9YzlhmEd-rYOZ3UaShDA" value="*"/>
+      </ownedEnd>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="_s1KmDFhqEd-rYOZ3UaShDA" name="A_modeTransitionInstance_modeTransition" memberEnd="_s1KmDVhqEd-rYOZ3UaShDA _s1KmEFhqEd-rYOZ3UaShDA">
+      <ownedEnd xmi:id="_s1KmDVhqEd-rYOZ3UaShDA" name="instance" visibility="public" type="ModeTransitionInstance" association="_s1KmDFhqEd-rYOZ3UaShDA">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_s1KmD1hqEd-rYOZ3UaShDA"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_s1KmDlhqEd-rYOZ3UaShDA" value="*"/>
+      </ownedEnd>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_iPP2OHV0Ed-5Z-hOGUPk8w" name="ConnectionReference">
+      <generalization xmi:id="_4BHS83fYEd-l3pCTmiIjIg" general="InstanceObject"/>
+      <ownedAttribute xmi:id="ConnectionInstance-connectionContext" name="context" visibility="public" type="ComponentInstance" isUnique="false" association="_packagedElement.34">
+        <ownedComment xmi:id="_YfJjcFn8Ed-39ebAzHAVCA">
+          <body>The ordered sequence of instantiated subcomponents, where the k-th subcomponent owns the k-th declarative connection referenced in attribute 'connection.'</body>
+        </ownedComment>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_UyVZYA8mEee2ZpSQV5RAWw" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="ConnectionInstance-connectionContext-_upperValue" value="1"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_XQA_YFhmEd-rYOZ3UaShDA" name="connection" visibility="public" isUnique="false" association="_XQA_XFhmEd-rYOZ3UaShDA">
+        <ownedComment xmi:id="_WLVGsFn8Ed-39ebAzHAVCA">
+          <body>The ordered sequence of declarative connections that participate in this connection instance.</body>
+        </ownedComment>
+        <type xmi:type="uml:Class" href="AADL2.EMF.merged.uml#Connection"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_XQA_YlhmEd-rYOZ3UaShDA" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_XQA_YVhmEd-rYOZ3UaShDA" value="1"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_9tcLtAZoEeKg0o0PHpVqpA" name="source" visibility="public" type="ConnectionInstanceEnd" association="_9tcLsAZoEeKg0o0PHpVqpA">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_9tcLtgZoEeKg0o0PHpVqpA" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_9tcLtQZoEeKg0o0PHpVqpA" value="1"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_lbgcZAZpEeKg0o0PHpVqpA" name="destination" visibility="public" type="ConnectionInstanceEnd" association="_lbgcYAZpEeKg0o0PHpVqpA">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_lbgcZgZpEeKg0o0PHpVqpA" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_lbgcZQZpEeKg0o0PHpVqpA" value="1"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_zB_rYA8lEee2ZpSQV5RAWw" name="reverse">
+        <type xmi:type="uml:PrimitiveType" href="AADL2.EMF.merged.uml#Boolean"/>
+      </ownedAttribute>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="_mRe8kHV0Ed-5Z-hOGUPk8w" name="A_connectionInstance_connectionReference" memberEnd="_mRe8kXV0Ed-5Z-hOGUPk8w _mRVLkHV0Ed-5Z-hOGUPk8w">
+      <ownedEnd xmi:id="_mRe8kXV0Ed-5Z-hOGUPk8w" name="owner" visibility="public" type="ConnectionInstance" association="_mRe8kHV0Ed-5Z-hOGUPk8w">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_mRe8k3V0Ed-5Z-hOGUPk8w" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_mRe8knV0Ed-5Z-hOGUPk8w" value="1"/>
+      </ownedEnd>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="_qEyPcOugEeGFpMJjDNLhvw" name="A_modeInstance_parent" memberEnd="_qEyPceugEeGFpMJjDNLhvw _qEyPdOugEeGFpMJjDNLhvw">
+      <ownedEnd xmi:id="_qEyPceugEeGFpMJjDNLhvw" name="modeInstance" visibility="public" type="ModeInstance" association="_qEyPcOugEeGFpMJjDNLhvw">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_qEyPc-ugEeGFpMJjDNLhvw"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_qEyPcuugEeGFpMJjDNLhvw" value="*"/>
+      </ownedEnd>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="_i-cYAPt8EeG_drLDhPLMOA" name="A_flowSpecification_inMode" memberEnd="_i-cYAft8EeG_drLDhPLMOA _i-cYBPt8EeG_drLDhPLMOA">
+      <ownedEnd xmi:id="_i-cYAft8EeG_drLDhPLMOA" name="flowSpecification" visibility="public" type="FlowSpecInstance" association="_i-cYAPt8EeG_drLDhPLMOA">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_i-cYA_t8EeG_drLDhPLMOA" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_i-cYAvt8EeG_drLDhPLMOA" value="1"/>
+      </ownedEnd>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="_nwnNqvwYEeG0W_V5cpDKXA" name="A_flowSpecification_inModeTransition" memberEnd="_nwnNq_wYEeG0W_V5cpDKXA _nwnNrvwYEeG0W_V5cpDKXA">
+      <ownedEnd xmi:id="_nwnNq_wYEeG0W_V5cpDKXA" name="flowSpecification" visibility="public" type="FlowSpecInstance" association="_nwnNqvwYEeG0W_V5cpDKXA">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_nwnNrfwYEeG0W_V5cpDKXA" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_nwnNrPwYEeG0W_V5cpDKXA" value="1"/>
+      </ownedEnd>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="_9tcLsAZoEeKg0o0PHpVqpA" name="A_connectionReference_source" memberEnd="_9tcLsQZoEeKg0o0PHpVqpA _9tcLtAZoEeKg0o0PHpVqpA">
+      <ownedEnd xmi:id="_9tcLsQZoEeKg0o0PHpVqpA" name="connectionReference" visibility="public" type="_iPP2OHV0Ed-5Z-hOGUPk8w" association="_9tcLsAZoEeKg0o0PHpVqpA">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_9tcLswZoEeKg0o0PHpVqpA"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_9tcLsgZoEeKg0o0PHpVqpA" value="*"/>
+      </ownedEnd>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="_lbgcYAZpEeKg0o0PHpVqpA" name="A_connectionReference_destination" memberEnd="_lbgcYQZpEeKg0o0PHpVqpA _lbgcZAZpEeKg0o0PHpVqpA">
+      <ownedEnd xmi:id="_lbgcYQZpEeKg0o0PHpVqpA" name="connectionReference" visibility="public" type="_iPP2OHV0Ed-5Z-hOGUPk8w" association="_lbgcYAZpEeKg0o0PHpVqpA">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_lbgcYwZpEeKg0o0PHpVqpA"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_lbgcYgZpEeKg0o0PHpVqpA" value="*"/>
+      </ownedEnd>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_PySnkECyEeOINe2VopeOiA" name="AnnexInstance" isAbstract="true">
+      <generalization xmi:id="__ZpSQEC-EeOVZK0SKrK62w">
+        <general xmi:type="uml:Class" href="AADL2.EMF.merged.uml#NamedElement"/>
+      </generalization>
+      <ownedAttribute xmi:id="_JfQRxVFREeOvC4rwpuKd8g" name="annexSubclause" visibility="public" association="_JfQRwVFREeOvC4rwpuKd8g">
+        <type xmi:type="uml:Class" href="AADL2.EMF.merged.uml#AnnexSubclause"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_JfQRx1FREeOvC4rwpuKd8g" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_JfQRxlFREeOvC4rwpuKd8g" value="1"/>
+      </ownedAttribute>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="_V_V_sECyEeOINe2VopeOiA" name="A_instanceObject_annexInstance" memberEnd="_V_V_sUCyEeOINe2VopeOiA _V_V_tECyEeOINe2VopeOiA">
+      <ownedEnd xmi:id="_V_V_sUCyEeOINe2VopeOiA" name="owner" visibility="public" type="InstanceObject" association="_V_V_sECyEeOINe2VopeOiA">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_V_V_s0CyEeOINe2VopeOiA" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_V_V_skCyEeOINe2VopeOiA" value="1"/>
+      </ownedEnd>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="_JfQRwVFREeOvC4rwpuKd8g" name="A_annexInstance_annexSubclause" memberEnd="_JfQRwlFREeOvC4rwpuKd8g _JfQRxVFREeOvC4rwpuKd8g">
+      <ownedEnd xmi:id="_JfQRwlFREeOvC4rwpuKd8g" name="annexInstance" visibility="public" type="_PySnkECyEeOINe2VopeOiA" association="_JfQRwVFREeOvC4rwpuKd8g">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_JfQRxFFREeOvC4rwpuKd8g"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_JfQRw1FREeOvC4rwpuKd8g" value="*"/>
+      </ownedEnd>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_dpVJcMX2EeWEo5A5aBge8A" name="PropertyAssociationInstance">
+      <generalization xmi:id="_Inc1oMX3EeWEo5A5aBge8A">
+        <general xmi:type="uml:Class" href="AADL2.EMF.merged.uml#PropertyAssociation"/>
+      </generalization>
+      <ownedAttribute xmi:id="_K0et5MX3EeWEo5A5aBge8A" name="propertyAssociation" visibility="public" association="_K0et4MX3EeWEo5A5aBge8A">
+        <type xmi:type="uml:Class" href="AADL2.EMF.merged.uml#PropertyAssociation"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_K0et5sX3EeWEo5A5aBge8A"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_K0et5cX3EeWEo5A5aBge8A" value="1"/>
+      </ownedAttribute>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="_w7yRkMX2EeWEo5A5aBge8A" name="A_instanceObject_ownedPropertyAssociation" memberEnd="_w7y4oMX2EeWEo5A5aBge8A _wwbWIMX2EeWEo5A5aBge8A">
+      <ownedEnd xmi:id="_w7y4oMX2EeWEo5A5aBge8A" name="owner" visibility="public" type="InstanceObject" association="_w7yRkMX2EeWEo5A5aBge8A">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_w7y4osX2EeWEo5A5aBge8A" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_w7y4ocX2EeWEo5A5aBge8A" value="1"/>
+      </ownedEnd>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="_K0et4MX3EeWEo5A5aBge8A" name="A_propertyAssociationInstance_propertyAssociation" memberEnd="_K0et4cX3EeWEo5A5aBge8A _K0et5MX3EeWEo5A5aBge8A">
+      <ownedEnd xmi:id="_K0et4cX3EeWEo5A5aBge8A" name="propertyAssociationInstance" visibility="public" type="_dpVJcMX2EeWEo5A5aBge8A" association="_K0et4MX3EeWEo5A5aBge8A">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_K0et48X3EeWEo5A5aBge8A"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_K0et4sX3EeWEo5A5aBge8A" value="*"/>
+      </ownedEnd>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="_frFGQObyEeahuYwEa-avYQ" name="A_componentInstance_classifier" visibility="public" memberEnd="_frNpIObyEeahuYwEa-avYQ _frOQMObyEeahuYwEa-avYQ">
+      <eAnnotations xmi:id="_frNCEObyEeahuYwEa-avYQ" source="org.eclipse.papyrus">
+        <details xmi:id="_frNCEebyEeahuYwEa-avYQ" key="nature" value="UML_Nature"/>
+      </eAnnotations>
+      <ownedEnd xmi:id="_frOQMObyEeahuYwEa-avYQ" name="instance" type="ComponentInstance" association="_frFGQObyEeahuYwEa-avYQ"/>
+    </packagedElement>
+    <profileApplication xmi:id="_profileApplication.0">
+      <eAnnotations xmi:id="_profileApplication.0-_http2F2Fwww.eclipse.org2Fuml22F2.0.02FUML" source="http://www.eclipse.org/uml2/2.0.0/UML">
+        <references xmi:type="ecore:EPackage" href="http://www.eclipse.org/uml2/5.0.0/UML/Profile/Standard#/"/>
+      </eAnnotations>
+      <appliedProfile href="pathmap://UML_PROFILES/Standard.profile.uml#_0"/>
+    </profileApplication>
+    <profileApplication xmi:id="_profileApplication.1">
+      <eAnnotations xmi:id="_profileApplication.1-_http2F2Fwww.eclipse.org2Fuml22F2.0.02FUML" source="http://www.eclipse.org/uml2/2.0.0/UML">
+        <references xmi:type="ecore:EPackage" href="pathmap://UML_PROFILES/Ecore.profile.uml#_z1OFcHjqEdy8S4Cr8Rc_NA"/>
+      </eAnnotations>
+      <appliedProfile href="pathmap://UML_PROFILES/Ecore.profile.uml#_0"/>
+    </profileApplication>
+  </uml:Model>
+  <standard:Metaclass xmi:id="_fQMMEJbxEd6qz8WeBBf9gQ" base_Class="ConnectionInstanceEnd"/>
+  <standard:Metaclass xmi:id="_q3paBWfKEd2ly6zXqnHGuA" base_Class="SystemOperationMode"/>
+  <standard:Metaclass xmi:id="_XwTgMHV2Ed-5Z-hOGUPk8w" base_Class="_iPP2OHV0Ed-5Z-hOGUPk8w"/>
+  <standard:Metaclass xmi:id="_q3paCWfKEd2ly6zXqnHGuA" base_Class="ComponentInstance"/>
+  <standard:Metaclass xmi:id="_q3paAWfKEd2ly6zXqnHGuA" base_Class="InstanceObject"/>
+  <standard:Metaclass xmi:id="_SORekMX6EeWSFMBKxP-msw" base_Class="_dpVJcMX2EeWEo5A5aBge8A"/>
+  <standard:Metaclass xmi:id="_q3yj8mfKEd2ly6zXqnHGuA" base_Class="EndToEndFlowInstance"/>
+  <standard:Metaclass xmi:id="_q3paAGfKEd2ly6zXqnHGuA" base_Class="FeatureInstance"/>
+  <standard:Metaclass xmi:id="_q3yj8WfKEd2ly6zXqnHGuA" base_Class="FlowSpecInstance"/>
+  <standard:Metaclass xmi:id="_q3yj82fKEd2ly6zXqnHGuA" base_Class="SystemInstance"/>
+  <standard:Metaclass xmi:id="_q3yj9GfKEd2ly6zXqnHGuA" base_Class="InstanceReferenceValue"/>
+  <standard:Metaclass xmi:id="_q3paB2fKEd2ly6zXqnHGuA" base_Class="ModeTransitionInstance"/>
+  <standard:Metaclass xmi:id="_q3paBGfKEd2ly6zXqnHGuA" base_Class="FlowElementInstance"/>
+  <standard:Metaclass xmi:id="_q3paBmfKEd2ly6zXqnHGuA" base_Class="ModeInstance"/>
+  <standard:Metaclass xmi:id="_Tvom4ECyEeOINe2VopeOiA" base_Class="_PySnkECyEeOINe2VopeOiA"/>
+  <Ecore:EPackage xmi:id="_lL5UoFqDEd2uI6imbPQYOQ" base_Package="_0" packageName="instance" nsPrefix="instance" nsURI="http://aadl.info/AADL/2.0/instance" basePackage="org.osate.aadl2" prefix="Instance"/>
+  <standard:Metamodel xmi:id="_lMMPkFqDEd2uI6imbPQYOQ" base_Model="_0"/>
+  <standard:Metaclass xmi:id="_q3paA2fKEd2ly6zXqnHGuA" base_Class="ConnectionInstance"/>
+  <Ecore:EReference xmi:id="_U3KUAOxoEeWhPuR9X355ew" base_Property="ConnectionInstance-src" isResolveProxies="false"/>
+  <Ecore:EReference xmi:id="_Z87T8OxoEeWhPuR9X355ew" base_Property="ConnectionInstance-dst" isResolveProxies="false"/>
+  <Ecore:EReference xmi:id="_nX98wOxoEeWhPuR9X355ew" isTransient="true" base_Property="ConnectionInstanceEnd-srcConnectionInstace" isResolveProxies="false"/>
+  <Ecore:EReference xmi:id="_pDUEQOxoEeWhPuR9X355ew" isTransient="true" base_Property="ConnectionInstanceEnd-dstConnectionInstance" isResolveProxies="false"/>
+  <Ecore:EReference xmi:id="_znnJcOxoEeWhPuR9X355ew" isTransient="true" base_Property="ModeInstance-srcModeTransition" isResolveProxies="false"/>
+  <Ecore:EReference xmi:id="_02k28OxoEeWhPuR9X355ew" isTransient="true" base_Property="ModeInstance-dstModeTransition" isResolveProxies="false"/>
+  <Ecore:EReference xmi:id="_4dsHkOxoEeWhPuR9X355ew" base_Property="ModeTransitionInstance-src" isResolveProxies="false"/>
+  <Ecore:EReference xmi:id="_6F-7EOxoEeWhPuR9X355ew" base_Property="ModeTransitionInstance-dst" isResolveProxies="false"/>
+  <Ecore:EReference xmi:id="_He3nwOxpEeWhPuR9X355ew" base_Property="FlowSpecInstance-src" isResolveProxies="false"/>
+  <Ecore:EReference xmi:id="_IdJN4OxpEeWhPuR9X355ew" base_Property="FlowSpecInstance-dst" isResolveProxies="false"/>
+  <Ecore:EReference xmi:id="_RC6J0OxpEeWhPuR9X355ew" isTransient="true" base_Property="FeatureInstance-srcFlowSpec" isResolveProxies="false"/>
+  <Ecore:EReference xmi:id="_SF3boOxpEeWhPuR9X355ew" isTransient="true" base_Property="FeatureInstance-dstFlowSpec" isResolveProxies="false"/>
+</xmi:XMI>

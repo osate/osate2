@@ -1,0 +1,194 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+	"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+   <title>Features</title>
+   <link href="Res/styles/shared.css" rel="stylesheet" type="text/css">
+   <link href="Res/styles/DynamicOutline.css" rel="stylesheet" type="text/css">
+</head>
+<body id="page" >
+
+<!-- BEGIN PAGE BODY-->
+
+
+<table id="pageBody">
+ <col class="main">
+ <col class="right">
+
+<!-- BEGIN BREADCRUMBS-->
+<tr id="breadcrumbsAndPageNavigation">
+  <td class="breadcrumbs" valign="top">
+<!-- BEGIN NAVIGATION BREADCRUMBS ITEM-->
+<span class="breadcrumb">
+   <a href="index.html">Home</a> 
+   <span class="separator">&gt;</span>
+</span>
+<!-- END NAVIGATION BREADCRUMBS ITEM-->
+<!-- BEGIN NAVIGATION BREADCRUMBS ITEM-->
+<span class="breadcrumb">
+   <a href="DeclarativeAADLModel.html">4. Declarative AADL Model</a> 
+   <span class="separator">&gt;</span>
+</span>
+<!-- END NAVIGATION BREADCRUMBS ITEM-->
+<!-- BEGIN NAVIGATION BREADCRUMBS HERE-->
+<span class="breadcrumb">
+   4.7 Features
+</span>
+<!-- END NAVIGATION BREADCRUMBS HERE-->
+
+  </td>
+  <td class="pageNavigation" valign="top">
+<!-- START PAGE NAVIGATION NEXT IN SEQUENCE IMAGES -->
+<span class="commands">
+    <span class="command">
+        <img src="Res/images/previous_button.gif" alt=""> <a href="Category-SpecificContainmentandOrdering.html">
+        <span class="label">Previous</span></a>
+    </span>
+&nbsp;&nbsp;
+    <span class="command">
+        <a href="PortGroupTypes.html">
+        <span class="label">Next</span></a> <img src="Res/images/next_button.gif" alt="">
+    </span>
+</span>
+<!-- END PAGE NAVIGATION NEXT IN SEQUENCE IMAGES  -->
+
+  </td>
+  <td class="right" valign="top">
+  </td>
+</tr>
+<!-- END BREADCRUMBS-->
+
+<tr class="topic">
+  <td class="main" valign="top" colspan="2">
+    <div class="body">
+      <div class="topicDivider">
+      </div>
+    </div>
+  </td>
+  <td class="right" valign="top">
+<!--right body column empty-->
+  </td>
+</tr>
+
+<!--BEGIN PAGE BODY ITEM-->
+<tr class="topic">
+  <td class="main" valign="top" colspan="2">
+    <table>
+      <tr class="topicHeader">
+        <td class="topicImageColumn">
+
+        </td>
+        <td class="topicLineColumn">
+          <a name="Topic15"></a>
+          <span class=outlineNumberFirst>4.7 </span><span class=topicLineFirst>Features</span>
+          <span class="topicIcons">
+
+          </span>
+        </td>
+      </tr>
+    </table>
+
+<!-- phf:Comand: Expand("BoxPartMap.mmbas") -->
+     <div class="topicTextNotes"><div align="left"><font face="Helvetica"><span>The abstract <i>Feature </i>class represents AADL features.&#160; 
+This class is a subclass of <i>PropertyHolder</i> 
+as well as <i>NamedElement</i>.&#160; An abstract subclass <i>AbstractPort</i> represents ports, port 
+groups, and 
+parameters, i.e., all features that represent connection points for flow of data or events.&#160; <i>Port</i> 
+itself 
+is an abstract class representing data ports, event ports, and event data ports. </span></font><span></span></div>
+<div align="left"><font face="Helvetica"><span>Concrete subclasses of the Feature class represent each 
+of the different feature types in AADL. 
+These classes are <i>DataPort, EventPort, EventDataPort, Parameter, Port Group, BusAccess</i>, and 
+<i>DataAccess</i>. The class hierarchy of features is shown in Figure 20.&#160; The concept of an aggregate 
+data port is not represented as a separate class, but through the </span></font><font face="Courier New"><span>Aggregate_Data_Port</span></font><font 
+face="Helvetica"><span> 
+property on the port group. The figure also shows port group types, which will be elaborated in 
+Annex C.4.8.</span></font><span></span></div>
+<div align="left"><font face="Helvetica"><span>Port, parameter, and access features have a <i>direction </i>attribute.&#160; 
+In the case of ports and 
+parameters it is an enumeration value of type <i>PortDirection. </i>In the case of data or bus access 
+it is 
+an enumeration value of type <i>AccessDirection</i>. </span></font><span></span></div>
+<div align="left"><font face="Helvetica"><span>All features except event ports have classifier references.&#160; 
+These are represented by a single-valued 
+reference association to the appropriate category-specific component classifier, or in the case of a 
+port group to a port group type.&#160; This reference is optional and can refer to either a component 
+type 
+or component implementation to accommodate incomplete declarations in AADL.</span></font><span></span></div>
+<div align="left"><font face="Helvetica"><span>Feature refinement is represented by an association of 
+a feature class to itself to represent the fact 
+that a feature refinement can only refine a feature of the same concrete class.</span></font><span></span></div>
+<div align="left"><font face="Helvetica"><span>Component category specific feature classes have containment 
+associations to each concrete 
+feature class that is acceptable content for the component category according to the AADL legality 
+rules.&#160; For application software components these are shown in Figure 21.&#160; For example, a 
+data 
+component type can only contain those features that are specified as by containment association 
+for the <i>DataFeatures</i> class, i.e., <i>Subprogram</i> and <i>DataAccess</i>.&#160; <i>SoftwareFeatures</i> 
+is an abstract 
+class that defines the allowable features for its concrete subclasses for threads, thread groups, 
+process, and system.</span></font><span></span></div>
+<div align="left"><font face="Helvetica"><span>Figure 22 shows the containment constraints of features 
+for the execution platform component 
+categories.&#160; </span></font><span></span></div>
+<div align="left"><font face="Helvetica"><span>The containment association name reflects the concrete 
+feature class resulting in its use as an 
+XML element tag for the feature.&#160; An ordering relationship is maintained across the concrete feature 
+subclasses to record the declaration ordering (see Section Annex C.4.6). </span></font><span></span></div>
+<div align="center"><img src="NotesImages/Topic15NotesImage4.jpg" align="bottom" width="318" height="827" border="0" alt="graphic" /></div>
+<div align="center"><font face="Helvetica"><span><b>Figure 20 Features</b></span></font><span></span></div>
+<div align="center"><img src="NotesImages/Topic15NotesImage6.jpg" align="bottom" width="513" height="802" border="0" alt="graphic" /></div>
+<div align="center"><font face="Helvetica"><span><b>Figure 21 Software Category-Specific Feature Containment</b></span></font><span></span></div>
+<div align="center"><img src="NotesImages/Topic15NotesImage7.jpg" align="bottom" width="212" height="812" border="0" alt="graphic" /></div>
+<div align="center"><font face="Helvetica"><span><b>Figure 22 Execution Platform-Specific Feature Containment</b></span></font><span></span></div>
+<div align="center"><img src="NotesImages/Topic15NotesImage8.jpg" align="bottom" width="407" height="826" border="0" alt="graphic" /></div>
+<div align="center"><font face="Helvetica"><span><b>Figure 23 Port Connections</b></span></font><span></span></div></div>
+
+
+
+
+  </td>
+  <td class="right" valign="top">
+<!--right body column empty-->
+  </td>
+</tr>
+<!--END PAGE BODY ITEM-->
+
+
+<!-- BEGIN TOP BUTTON -->
+<tr class="topic">
+  <td class="main" valign="top" colspan="2">
+    <div class="body">
+      <div class="topCommand">
+        <span class="commands">
+      <span class="command">
+            <img src="Res/images/top_button.gif" alt="">
+          <a href="javascript:scroll(0,0)">
+             <span class="label">Top</span>
+              </a>
+    </span>
+       </span>
+      </div>
+    </div>
+  </td>
+  <td class="right" valign="top">
+<!--right body column empty-->
+  </td>
+</tr>
+<!-- END TOP BUTTON -->
+
+</table>
+
+<!-- BEGIN SIDE NAVIGATION WRAPPER-->
+    </td>
+  </tr>
+</table>
+<!-- END SIDE NAVIGATION WRAPPER-->
+
+<!-- END PAGE BODY-->
+
+
+</body>
+</html>
+

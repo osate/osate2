@@ -1,0 +1,311 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+	"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+   <title>Semantic Checking and Translation to XML</title>
+   <link href="Res/styles/shared.css" rel="stylesheet" type="text/css">
+   <link href="Res/styles/DynamicOutline.css" rel="stylesheet" type="text/css">
+</head>
+<body id="page" >
+
+<!-- BEGIN PAGE BODY-->
+
+
+<table id="pageBody">
+ <col class="main">
+ <col class="right">
+
+<!-- BEGIN BREADCRUMBS-->
+<tr id="breadcrumbsAndPageNavigation">
+  <td class="breadcrumbs" valign="top">
+<!-- BEGIN NAVIGATION BREADCRUMBS ITEM-->
+<span class="breadcrumb">
+   <a href="index.html">Home</a> 
+   <span class="separator">&gt;</span>
+</span>
+<!-- END NAVIGATION BREADCRUMBS ITEM-->
+<!-- BEGIN NAVIGATION BREADCRUMBS ITEM-->
+<span class="breadcrumb">
+   <a href="TheAADLTextEditor.html">5. The AADL Text Editor</a> 
+   <span class="separator">&gt;</span>
+</span>
+<!-- END NAVIGATION BREADCRUMBS ITEM-->
+<!-- BEGIN NAVIGATION BREADCRUMBS HERE-->
+<span class="breadcrumb">
+   5.5 Semantic Checking and Translation to XML
+</span>
+<!-- END NAVIGATION BREADCRUMBS HERE-->
+
+  </td>
+  <td class="pageNavigation" valign="top">
+<!-- START PAGE NAVIGATION NEXT IN SEQUENCE IMAGES -->
+<span class="commands">
+    <span class="command">
+        <img src="Res/images/previous_button.gif" alt=""> <a href="WorkingWithTextualAADLModels.html">
+        <span class="label">Previous</span></a>
+    </span>
+&nbsp;&nbsp;
+    <span class="command">
+        <a href="GeneratingReportsfromtheProblemsView.html">
+        <span class="label">Next</span></a> <img src="Res/images/next_button.gif" alt="">
+    </span>
+</span>
+<!-- END PAGE NAVIGATION NEXT IN SEQUENCE IMAGES  -->
+
+  </td>
+  <td class="right" valign="top">
+  </td>
+</tr>
+<!-- END BREADCRUMBS-->
+
+<tr class="topic">
+  <td class="main" valign="top" colspan="2">
+    <div class="body">
+      <div class="topicDivider">
+      </div>
+    </div>
+  </td>
+  <td class="right" valign="top">
+<!--right body column empty-->
+  </td>
+</tr>
+
+<!--BEGIN PAGE BODY ITEM-->
+<tr class="topic">
+  <td class="main" valign="top" colspan="2">
+    <table>
+      <tr class="topicHeader">
+        <td class="topicImageColumn">
+
+        </td>
+        <td class="topicLineColumn">
+          <a name="Topic39"></a>
+          <span class=outlineNumberFirst>5.5 </span><span class=topicLineFirst>Semantic Checking and Translation to XML</span>
+          <span class="topicIcons">
+
+          </span>
+        </td>
+      </tr>
+    </table>
+
+<!-- phf:Comand: Expand("BoxPartMap.mmbas") -->
+     <div class="topicTextNotes"><div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">Parsing and semantic checking of textual AADL files and generation of an AADL MXL file can 
+be done in two ways:</span></font><span></span></div>
+<ul style="margin-top: 0pt; margin-bottom: 0pt">
+<ul style="margin-top: 0pt; margin-bottom: 0pt">
+<li style="margin-left=-3mm; margin-right=0mm; padding-left=0mm; font-family= Times New Roman;  font-size= 12pt;  color= #010101;  "><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">The parser and semantic checker are invoked automatically every time a save is 
+performed in the AADL Text Editor.</span></font><span></span></li>
+<li style="margin-left=-3mm; margin-right=0mm; padding-left=0mm; font-family= Times New Roman;  font-size= 12pt;  color= #010101;  "><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">The parser and semantic checker are invoked when the user selects the AADL text file 
+in the Eclipse Navigator and invokes the “Generate Aaxl file” command from the 
+“OSATE” menu or via tool bar button (</span></font><span><img src="NotesImages/Topic39NotesImage3.gif" align="bottom" width="16" height="16" border="0" alt="graphic" /></span><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">).  </span></font><span></span></li>
+</ul>
+</ul></div>
+
+
+
+
+  </td>
+  <td class="right" valign="top">
+<!--right body column empty-->
+  </td>
+</tr>
+<!--END PAGE BODY ITEM-->
+<!--BEGIN PAGE BODY ITEM-->
+<tr class="topic">
+  <td class="main" valign="top" colspan="2">
+    <table>
+      <tr class="topicHeader">
+        <td class="topicImageColumn">
+
+        </td>
+        <td class="topicLineColumn">
+          <a name="Topic40"></a>
+          <span class=outlineNumber>5.5.1 </span><span class=topicLine>Reporting of Errors and Warnings</span>
+          <span class="topicIcons">
+
+          </span>
+        </td>
+      </tr>
+    </table>
+
+<!-- phf:Comand: Expand("BoxPartMap.mmbas") -->
+     <div class="topicTextNotes"><div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">Errors, warnings, and information from semantic checking or from analyses are reported in the 
+“Problems” view.  This view is opened by going to “Window &gt; Show View &gt; Problems.”  Or 
+it can be found under the “Basic” views in the “Show View” dialog box.</span></font><span></span></div>
+<div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">Double clicking on one of the items in the “Problem” view will result in the AADL text editor or 
+the regular text editor to place its cursor at the appropriate location in the text file.</span></font><span></span></div>
+<div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">As described in Section 4.1, the contents of the view can be filtered based on severity and 
+marker type.  In particular, make sure that the OSATE markers (subclasses of “Aadl Model 
+Object Marker” and “Aadl Text Marker”) are active for the view.</span></font><span></span></div>
+<div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">Eclipse does not provide the ability to export the contents of this view so OSATE contains a 
+“Generate Marker Report” command in the “OSATE” menu.  This command is described in 
+Section 6.</span></font><span></span></div></div>
+
+
+
+
+  </td>
+  <td class="right" valign="top">
+<!--right body column empty-->
+  </td>
+</tr>
+<!--END PAGE BODY ITEM-->
+<!--BEGIN PAGE BODY ITEM-->
+<tr class="topic">
+  <td class="main" valign="top" colspan="2">
+    <table>
+      <tr class="topicHeader">
+        <td class="topicImageColumn">
+
+        </td>
+        <td class="topicLineColumn">
+          <a name="Topic41"></a>
+          <span class=outlineNumber>5.5.2 </span><span class=topicLine>What do the Parser and Semantic Checker Check?</span>
+          <span class="topicIcons">
+
+          </span>
+        </td>
+      </tr>
+    </table>
+
+<!-- phf:Comand: Expand("BoxPartMap.mmbas") -->
+     <div class="topicTextNotes"><div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">The parser checks the syntax of AADL models including the syntactic constraints for the 
+different component categories shown in the SAE AADL standard document in tabular form. 
+In addition, name resolution is performed in that all references by name in the AADL text are 
+resolved to object references in the AADL object model.  This includes classifier references in 
+component implementation and subcomponent, port, parameter, access, and port group 
+declarations, use of predeclared properties or properties defined in property sets in property 
+associations, use of defined property types, consistent references to connections and 
+subcomponent flow specifications in flow implementations and end-to-end flows, visibility of 
+declarations in public and private parts of packages. Other checking includes consistent use of 
+port direction in connections, consistent use of properties in property associations.  Semantic 
+checking also includes type checking of property expressions and range checking of property 
+values. Finally, semantic constraints specified in the AADL standard document, such as that 
+data ports can only have one incoming connection and that constraint must be checked for each 
+mode in a modal system, are being checked.  </span></font><span></span></div>
+<div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">In summary, all semantic checks specified in the AADL standard document with the following 
+exceptions are checked:</span></font><span></span></div>
+<ul style="margin-top: 0pt; margin-bottom: 0pt">
+<ul style="margin-top: 0pt; margin-bottom: 0pt">
+<li style="margin-left=-3mm; margin-right=0mm; padding-left=0mm; font-family= Times New Roman;  font-size= 12pt;  color= #010101;  "><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">Checking that </span></font><font face="Courier New" color="#010101"><span><b>constant</b></span></font><font face="Times New Roman" color="#010101" size="3"><span 
+style="font-size:12pt"> property associations really are constant.  </span></font><span></span></li>
+<li style="margin-left=-3mm; margin-right=0mm; padding-left=0mm; font-family= Times New Roman;  font-size= 12pt;  color= #010101;  "><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">The “</span></font><font face="Courier New" color="#010101"><span><b>in binding</b></span></font><font face="Times New Roman" color="#010101" size="3"><span 
+style="font-size:12pt">” semantics of property associations are not yet implemented.</span></font><span></span></li>
+<li style="margin-left=-3mm; margin-right=0mm; padding-left=0mm; font-family= Times New Roman;  font-size= 12pt;  color= #010101;  "><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">Checking compatibility of </span></font><font face="Courier New" color="#010101"><span><b>Required_Access</b></span></font><font 
+face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt"> and </span></font><font face="Courier New" color="#010101"><span><b>Provided_Access</b></span></font><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt"> property 
+values on provided/required features</span></font><span></span></li>
+<li style="margin-left=-3mm; margin-right=0mm; padding-left=0mm; font-family= Times New Roman;  font-size= 12pt;  color= #010101;  "><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">Checking that port groups whose </span></font><font face="Courier New" color="#010101"><span><b>Aggregate_Data_Port</b></span></font><font 
+face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt"> property value is true 
+contain ports that all have the same direction.  </span></font><span></span></li>
+</ul>
+</ul>
+<div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">Two checks, required connections and checking for circular references among property values 
+are provided as stand-alone analyses that can be separately invoked.  They are described in 
+Section 9.1.</span></font><span></span></div></div>
+
+
+
+
+  </td>
+  <td class="right" valign="top">
+<!--right body column empty-->
+  </td>
+</tr>
+<!--END PAGE BODY ITEM-->
+<!--BEGIN PAGE BODY ITEM-->
+<tr class="topic">
+  <td class="main" valign="top" colspan="2">
+    <table>
+      <tr class="topicHeader">
+        <td class="topicImageColumn">
+
+        </td>
+        <td class="topicLineColumn">
+          <a name="Topic42"></a>
+          <span class=outlineNumber>5.5.3 </span><span class=topicLine>The AADL Model as XML File</span>
+          <span class="topicIcons">
+
+          </span>
+        </td>
+      </tr>
+    </table>
+
+<!-- phf:Comand: Expand("BoxPartMap.mmbas") -->
+     <div class="topicTextNotes"><div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">The parser generates an AADL object model, which is persistently saved as an AADL XML 
+file.  This file conforms to the XML schema for AADL and to the XMI meta model for AADL. 
+ These two definitions of the content of an AADL XML file are being standardized as an 
+Annex of the SAE AADL standard.  They have been developed using the Eclipse EMF meta 
+modeling capability.  For more information about the AADL meta model see the draft 
+XML/XMI specification of the AADL.</span></font><span></span></div>
+<div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">The XML file representation of AADL models has been designed to reflect the language 
+closely and to be quite readable.  It also has been designed such that textual AADL can be 
+reproduced—including comments.  As a result this AADL object model and XML 
+representation reflects the declarative nature of AADL as a collection of packages and 
+property sets that contain component classifier and port group type declarations, as well as 
+property type and property name declarations.</span></font><span></span></div>
+<div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">The XML-based AADL object model can be examined and edited structurally with the AADL 
+Object Model Editor. The XML representation can also be examined textually by opening the 
+file with the “aaxl” extension in a text editor using the “Open with” command. Be sure to close 
+the AADL Object Editor window on the XML file before attempting to open it in a text editor, 
+otherwise Eclipse will not open the file a second time.</span></font><span></span></div>
+<div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">The example in Figure 14 shows a processor type declaration and a process type declaration 
+with comments and property associations.  The XML XPath notation is used to represent 
+references within and across XML files.</span></font><span></span></div>
+<div align="center"><img src="NotesImages/Topic42NotesImage2.jpg" align="bottom" width="569" height="364" border="0" alt="graphic" /></div>
+<div align="center"><font face="Times New Roman" color="#010101"><span><b>Figure 14: XML of an AADL specification.</b></span></font><span></span></div>
+<div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">Each AADL text file is translated into an equivalent AADL XML file. If an AADL text file is an 
+AADL specification, with multiple component classifiers, packages, or property sets, the whole 
+collection is stored as an AADL object model with an AadlSpec root object.  If an AADL text 
+file is an AADL package, it is stored as an AADL object model with an AadlSpec root object 
+with a single AadlPackage child. If an AADL text file is an AADL property set single property 
+set, it is stored as an AADL object model with an AadlSpec root object with a single 
+PropertySet child.</span></font><span></span></div></div>
+
+
+
+
+  </td>
+  <td class="right" valign="top">
+<!--right body column empty-->
+  </td>
+</tr>
+<!--END PAGE BODY ITEM-->
+
+
+<!-- BEGIN TOP BUTTON -->
+<tr class="topic">
+  <td class="main" valign="top" colspan="2">
+    <div class="body">
+      <div class="topCommand">
+        <span class="commands">
+      <span class="command">
+            <img src="Res/images/top_button.gif" alt="">
+          <a href="javascript:scroll(0,0)">
+             <span class="label">Top</span>
+              </a>
+    </span>
+       </span>
+      </div>
+    </div>
+  </td>
+  <td class="right" valign="top">
+<!--right body column empty-->
+  </td>
+</tr>
+<!-- END TOP BUTTON -->
+
+</table>
+
+<!-- BEGIN SIDE NAVIGATION WRAPPER-->
+    </td>
+  </tr>
+</table>
+<!-- END SIDE NAVIGATION WRAPPER-->
+
+<!-- END PAGE BODY-->
+
+
+</body>
+</html>
+

@@ -1,0 +1,62 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+	<LINK REL="STYLESHEET" HREF="../book.css" CHARSET="ISO-8859-1" TYPE="text/css">
+	<title>Open Source AADL Tool Environment (OSATE) Online Help</title>
+</head>
+
+<body>
+<h2>Error-Model Annex v2</h2>
+<p>
+Introduction
+</p>
+<p>
+The support of the Error-Model Annex is done by several means:index.html
+</p>
+<ul>
+   <li>
+   		<strong><a href="fha.html">Functional Hazard Assessment</a></strong> support
+   		for producing reliability report of your architecture.
+   </li>
+   <li>
+   		<strong><a href="fault-impact.html">Fault Impact</a></strong> traces
+   		the error path from error sources to the final component impact by the fault.
+   </li>
+   <li>
+   		<strong><a href="unhandled-faults.html">Unhandled faults</a></strong> report
+   		traces and logs potential modeling problems related to the error description 
+   		of the system architecture.
+   </li>
+   <li>
+   		<strong><a href="consistency.html">Consistency Checks</a></strong> reports
+   		any discrepancy and inconsistency between the different error notations
+   		(component error model, composite error model, etc.).
+   </li>        
+   <li>
+   		<strong><a href="https://github.com/cmu-sei/emfta/blob/develop/doc/white-paper.md">Fault-Tree Analysis</a></strong> support
+   		for fault tree analysis from the AADL model. This is a tutorial illustrating its use through multiple steps in the development process.
+   		See also an <a href="https://insights.sei.cmu.edu/sei_blog/2016/07/emfta-an-open-source-tool-for-fault-tree-analysis.html">SEI Blog post</a> on the graphical EMFTA editor.
+   </li>
+   <li>
+   		<strong><a href="imv.html">Instance Model Viewer</a></strong> support
+   		for viewing error and their propagations in the underlying architecture.
+   </li>
+   <li>
+   		<strong><a href="rbd.html">Reliability Block Diagram</a></strong>: provides
+   		metrics about the overall reliability of the system, based on a gross
+   		estimation.
+   	</li>
+</ul>
+<p>
+These functionalities are available in the Fault Analysis menu from OSATE, as shown in the
+following picture. Note that most of functions apply to the instance model. To use
+them, you will need to select the system instance and run the expected analysis.
+</p>
+<img src="error-menu.png"/>
+
+
+</body>
+</html>

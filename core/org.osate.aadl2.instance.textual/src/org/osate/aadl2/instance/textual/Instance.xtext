@@ -1,0 +1,196 @@
+/*
+<copyright>
+Copyright  2016 by Carnegie Mellon University, all rights reserved.
+
+Use of the Open Source AADL Tool Environment (OSATE) is subject to the terms of the license set forth
+at http://www.eclipse.org/org/documents/epl-v10.html.
+
+NO WARRANTY
+
+ANY INFORMATION, MATERIALS, SERVICES, INTELLECTUAL PROPERTY OR OTHER PROPERTY OR RIGHTS GRANTED OR PROVIDED BY
+CARNEGIE MELLON UNIVERSITY PURSUANT TO THIS LICENSE (HEREINAFTER THE ''DELIVERABLES'') ARE ON AN ''AS-IS'' BASIS.
+CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY KIND, EITHER EXPRESS OR IMPLIED AS TO ANY MATTER INCLUDING,
+BUT NOT LIMITED TO, WARRANTY OF FITNESS FOR A PARTICULAR PURPOSE, MERCHANTABILITY, INFORMATIONAL CONTENT,
+NONINFRINGEMENT, OR ERROR-FREE OPERATION. CARNEGIE MELLON UNIVERSITY SHALL NOT BE LIABLE FOR INDIRECT, SPECIAL OR
+CONSEQUENTIAL DAMAGES, SUCH AS LOSS OF PROFITS OR INABILITY TO USE SAID INTELLECTUAL PROPERTY, UNDER THIS LICENSE,
+REGARDLESS OF WHETHER SUCH PARTY WAS AWARE OF THE POSSIBILITY OF SUCH DAMAGES. LICENSEE AGREES THAT IT WILL NOT
+MAKE ANY WARRANTY ON BEHALF OF CARNEGIE MELLON UNIVERSITY, EXPRESS OR IMPLIED, TO ANY PERSON CONCERNING THE
+APPLICATION OF OR THE RESULTS TO BE OBTAINED WITH THE DELIVERABLES UNDER THIS LICENSE.
+
+Licensee hereby agrees to defend, indemnify, and hold harmless Carnegie Mellon University, its trustees, officers,
+employees, and agents from all claims or demands made against them (and any related losses, expenses, or
+attorney's fees) arising out of, or relating to Licensee's and/or its sub licensees' negligent use or willful
+misuse of or negligent conduct or willful misconduct regarding the Software, facilities, or other rights or
+assistance granted by Carnegie Mellon University under this License, including, but not limited to, any claims of
+product liability, personal injury, death, damage to property, or violation of any laws or regulations.
+
+Carnegie Mellon University Software Engineering Institute authored documents are sponsored by the U.S. Department
+of Defense under Contract F19628-00-C-0003. Carnegie Mellon University retains copyrights in all material produced
+under this contract. The U.S. Government retains a non-exclusive, royalty-free license to publish or reproduce these
+documents, or allow others to do so, for U.S. Government purposes only pursuant to the copyright license
+under the contract clause at 252.227.7013.
+</copyright>
+ */
+grammar org.osate.aadl2.instance.textual.Instance with org.osate.xtext.aadl2.properties.Properties
+
+import "http://aadl.info/AADL/2.0/instance" as instance
+import "http://aadl.info/AADL/2.0" as aadl2
+
+import "http://www.eclipse.org/emf/2002/Ecore" as ecore
+
+SystemInstance returns instance::SystemInstance:
+	category=ComponentCategory name=ID ':' componentImplementation=[aadl2::ComponentImplementation|ImplRef] '{' (
+		featureInstance+=FeatureInstance |
+		componentInstance+=ComponentInstance |
+		connectionInstance+=ConnectionInstance |
+		flowSpecification+=FlowSpecificationInstance |
+		endToEndFlow+=EndToEndFlowInstance |
+		modeInstance+=ModeInstance |
+		modeTransitionInstance+=ModeTransitionInstance |
+		systemOperationMode+=SystemOperationMode |
+		ownedPropertyAssociation+=PropertyAssociationInstance
+	)* '}'
+;
+
+FeatureInstance returns instance::FeatureInstance:
+	direction=DirectionType category=FeatureCategory name=ID ('[' index=Long ']')? ':' feature=[aadl2::Feature|DeclarativeRef] ('{' (
+		featureInstance+=FeatureInstance |
+		ownedPropertyAssociation+=PropertyAssociationInstance
+	)* '}')?
+;
+	
+ComponentInstance returns instance::ComponentInstance:
+	category=ComponentCategory classifier=[aadl2::ComponentClassifier|ClassifierRef]? name=ID ('[' index+=Long ']')*
+	('in' 'modes' '(' inMode+=[instance::ModeInstance] (',' inMode+=[instance::ModeInstance])*')')?
+	':' subcomponent=[aadl2::Subcomponent|DeclarativeRef] ('{' (
+		featureInstance+=FeatureInstance |
+		componentInstance+=ComponentInstance |
+		connectionInstance+=ConnectionInstance |
+		flowSpecification+=FlowSpecificationInstance |
+		endToEndFlow+=EndToEndFlowInstance |
+		modeInstance+=ModeInstance |
+		modeTransitionInstance+=ModeTransitionInstance |
+		ownedPropertyAssociation+=PropertyAssociationInstance
+	)* '}')?
+;
+
+ConnectionInstance returns instance::ConnectionInstance:
+	complete?='complete'? kind=ConnectionKind name=STRING ':'
+	source=[instance::ConnectionInstanceEnd|InstanceRef] (bidirectional?='<->' | '->') destination=[instance::ConnectionInstanceEnd|InstanceRef]
+	('in' 'modes' '(' inSystemOperationMode+=[instance::SystemOperationMode] (',' inSystemOperationMode+=[instance::SystemOperationMode])* ')')?
+	('in' 'transitions' '(' inModeTransition+=[instance::ModeTransitionInstance|TransitionRef] (',' inModeTransition+=[instance::ModeTransitionInstance|TransitionRef])* ')')? '{' (
+		connectionReference+=ConnectionReference |
+		ownedPropertyAssociation+=PropertyAssociationInstance
+	)+ '}'
+;
+
+ConnectionReference returns instance::ConnectionReference:
+	source=[instance::ConnectionInstanceEnd|InstanceRef] '->' destination=[instance::ConnectionInstanceEnd|InstanceRef] ':'
+	(reverse?='reverse')? connection=[aadl2::Connection|DeclarativeRef] 'in' context=[instance::ComponentInstance|InstanceRef]
+;
+
+FlowSpecificationInstance returns instance::FlowSpecificationInstance:
+	'flow' name=ID '(' source=[instance::FeatureInstance|InstanceRef]? '->' destination=[instance::FeatureInstance|InstanceRef]? ')'
+	('in' 'modes' '(' inMode+=[instance::ModeInstance] (',' inMode+=[instance::ModeInstance])*')')?
+	('in' 'transitions' '(' inModeTransition+=[instance::ModeTransitionInstance|TransitionRef] (',' inModeTransition+=[instance::ModeTransitionInstance|TransitionRef])* ')')?
+	':' flowSpecification=[aadl2::FlowSpecification|DeclarativeRef] ('{' ownedPropertyAssociation+=PropertyAssociationInstance+ '}')?
+;
+
+EndToEndFlowInstance returns instance::EndToEndFlowInstance:
+	'end' 'to' 'end' 'flow' name=ID (flowElement+=[instance::FlowElementInstance|InstanceRef] ('->' flowElement+=[instance::FlowElementInstance|InstanceRef])*)?
+	('in' 'modes' '(' inSystemOperationMode+=[instance::SystemOperationMode] (',' inSystemOperationMode+=[instance::SystemOperationMode])* ')')?
+	':' endToEndFlow=[aadl2::EndToEndFlow|DeclarativeRef] ('{' ownedPropertyAssociation+=PropertyAssociationInstance '}')?
+;
+
+ModeInstance returns instance::ModeInstance:
+	initial?='initial'? derived?='derived'? 'mode' name=ID
+	('=' (parent+=[instance::ModeInstance] | ('(' parent+=[instance::ModeInstance] (',' parent+=[instance::ModeInstance])+ ')')))?
+	':' mode=[aadl2::Mode|DeclarativeRef] ('{' ownedPropertyAssociation+=PropertyAssociationInstance '}')?
+;
+
+ModeTransitionInstance returns instance::ModeTransitionInstance:
+	'mode' 'transition' name=ModeTransitionName source=[instance::ModeInstance] '->' destination=[instance::ModeInstance]
+	':' modeTransition=[aadl2::ModeTransition|DeclarativeRef] ('{' ownedPropertyAssociation+=PropertyAssociationInstance '}')?
+;
+	
+SystemOperationMode returns instance::SystemOperationMode:
+	'som' name=STRING (currentMode+=[instance::ModeInstance|InstanceRef] (',' currentMode+=[instance::ModeInstance|InstanceRef])*)?
+;
+
+PropertyAssociationInstance returns instance::PropertyAssociationInstance:
+	property=[aadl2::Property|QPREF] '=>' ownedValue+=OptionalModalPropertyValue (',' ownedValue+=OptionalModalPropertyValue)*
+	':' propertyAssociation=[aadl2::PropertyAssociation|PropertyAssociationRef]
+;
+
+@Override 
+OptionalModalPropertyValue returns aadl2::ModalPropertyValue:
+	ownedValue=PropertyExpression ('in' 'modes' '(' inMode+=[aadl2::Mode] (',' inMode+=[aadl2::Mode])* ')')?
+;
+
+@Override 
+PropertyExpression returns aadl2::PropertyExpression:
+	RecordTerm | ReferenceTerm | InstanceReferenceValue | ComponentClassifierTerm | ComputedTerm | StringTerm |
+	NumericRangeTerm | RealTerm | IntegerTerm | ListTerm | BooleanLiteral | LiteralorReferenceTerm
+;
+
+@Override 
+ContainmentPathElement returns aadl2::ContainmentPathElement:
+	namedElement=[aadl2::NamedElement|DeclarativeRef] (arrayRange+=ArrayRange)? ('/' path=ContainmentPathElement)?
+;
+
+InstanceReferenceValue returns instance::InstanceReferenceValue:
+	'reference' '(' referencedInstanceObject=[instance::InstanceObject|InstanceRef] ')'
+;
+
+
+DirectionType returns aadl2::DirectionType:
+	'in' | 'out' | 'in' 'out'
+;
+
+FeatureCategory returns instance::FeatureCategory:
+	'dataPort' | 'eventPort' | 'eventDataPort' | 'parameter' |
+	'busAccess' | 'dataAccess'| 'subprogramAccess' | 'subprogramGroupAccess' |
+	'featureGroup' | 'abstractFeature'
+;
+
+ComponentCategory returns aadl2::ComponentCategory: 'abstract' | 'bus'|'data'
+	| 'device' | 'memory' | 'process' | 'processor' | 'subprogram'
+	| 'subprogram' 'group' | 'system' | 'thread' 'group'
+	| 'thread' | 'virtual' 'bus' | 'virtual' 'processor';
+
+ConnectionKind returns instance::ConnectionKind:
+	'featureConnection' | 'accessConnection' | 'parameterConnection' |
+	'portConnection' | 'featureGroupConnection'
+;
+
+ClassifierRef:
+	(ID '::')+ ID ('.' ID)?
+;
+
+ImplRef:
+	(ID '::')+ ID '.' ID
+;
+
+DeclarativeRef:
+	(ID '::')+ ID ('.' ID)? ':' ('transition' '#' INTEGER_LIT | ID)
+;
+
+InstanceRef:
+	'parent' | (ID ('[' INTEGER_LIT ']')* '.')* ('connection' '#' INTEGER_LIT | ID ('[' INTEGER_LIT ']')*)
+;
+
+TransitionRef:
+	'transition' '#' INTEGER_LIT
+;
+
+ModeTransitionName:
+	ID '.' ID '.' ID
+;
+
+PropertyAssociationRef:
+	(ID '::')+ ID ('.' ID)? ':' ((ID | 'transition' '#' INTEGER_LIT)':')? 'property' '#' INTEGER_LIT
+;
+
+Long returns ecore::ELong:
+	INTEGER_LIT
+;

@@ -1,0 +1,169 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+	"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+   <title>Editing in the AADL Object Editor</title>
+   <link href="Res/styles/shared.css" rel="stylesheet" type="text/css">
+   <link href="Res/styles/DynamicOutline.css" rel="stylesheet" type="text/css">
+</head>
+<body id="page" >
+
+<!-- BEGIN PAGE BODY-->
+
+
+<table id="pageBody">
+ <col class="main">
+ <col class="right">
+
+<!-- BEGIN BREADCRUMBS-->
+<tr id="breadcrumbsAndPageNavigation">
+  <td class="breadcrumbs" valign="top">
+<!-- BEGIN NAVIGATION BREADCRUMBS ITEM-->
+<span class="breadcrumb">
+   <a href="index.html">Home</a> 
+   <span class="separator">&gt;</span>
+</span>
+<!-- END NAVIGATION BREADCRUMBS ITEM-->
+<!-- BEGIN NAVIGATION BREADCRUMBS ITEM-->
+<span class="breadcrumb">
+   <a href="TheAADLObjectEditor.html">7. The AADL Object Editor</a> 
+   <span class="separator">&gt;</span>
+</span>
+<!-- END NAVIGATION BREADCRUMBS ITEM-->
+<!-- BEGIN NAVIGATION BREADCRUMBS HERE-->
+<span class="breadcrumb">
+   7.3 Editing in the AADL Object Editor
+</span>
+<!-- END NAVIGATION BREADCRUMBS HERE-->
+
+  </td>
+  <td class="pageNavigation" valign="top">
+<!-- START PAGE NAVIGATION NEXT IN SEQUENCE IMAGES -->
+<span class="commands">
+    <span class="command">
+        <img src="Res/images/previous_button.gif" alt=""> <a href="NavigatingAADLObjectModels.html">
+        <span class="label">Previous</span></a>
+    </span>
+&nbsp;&nbsp;
+    <span class="command">
+        <a href="ViewingtheSystemInstanceHierarchyintheDe.html">
+        <span class="label">Next</span></a> <img src="Res/images/next_button.gif" alt="">
+    </span>
+</span>
+<!-- END PAGE NAVIGATION NEXT IN SEQUENCE IMAGES  -->
+
+  </td>
+  <td class="right" valign="top">
+  </td>
+</tr>
+<!-- END BREADCRUMBS-->
+
+<tr class="topic">
+  <td class="main" valign="top" colspan="2">
+    <div class="body">
+      <div class="topicDivider">
+      </div>
+    </div>
+  </td>
+  <td class="right" valign="top">
+<!--right body column empty-->
+  </td>
+</tr>
+
+<!--BEGIN PAGE BODY ITEM-->
+<tr class="topic">
+  <td class="main" valign="top" colspan="2">
+    <table>
+      <tr class="topicHeader">
+        <td class="topicImageColumn">
+
+        </td>
+        <td class="topicLineColumn">
+          <a name="Topic47"></a>
+          <span class=outlineNumberFirst>7.3 </span><span class=topicLineFirst>Editing in the AADL Object Editor</span>
+          <span class="topicIcons">
+
+          </span>
+        </td>
+      </tr>
+    </table>
+
+<!-- phf:Comand: Expand("BoxPartMap.mmbas") -->
+     <div class="topicTextNotes"><div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">The AADL Object Editor supports syntax-sensitive editing of the AADL object model. You 
+can create new AADL model objects by selecting an element in the “Outline” view or in the 
+edit pane and right-clicking for a context menu.  This menu will contain submenus for “New 
+child” and “New sibling”. The same menu entries are available in the menu bar under “Aadl 
+Editor”.  These submenus are syntax-sensitive in that only syntactically legal objects can be 
+added to the AADL model. An example context menu is shown in Figure 18.</span></font><span></span></div>
+<div align="center"><img src="NotesImages/Topic47NotesImage2.jpg" align="bottom" width="357" height="162" border="0" alt="graphic" /></div>
+<div align="center"><font face="Times New Roman" color="#010101"><span><b>Figure 18: Example context menu in the AADL Object Editor.</b></span></font><span></span></div>
+<div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">The AADL Object Editor supports cut/copy and paste, drag and drop, as well as an edit 
+history with undo capability.  Drag and drop can be used when organizing component classifier 
+declarations into packages.  You create the package with appropriate public and private 
+sections.  You then select one or more component types and component implementations and 
+drag then onto the public or private section of the package, i.e., a place for which these AADL 
+model objects are syntactically legal.  Figure 19 shows three selected features before, on the 
+left, and after, on the right, a drag-and-drop operations is used to move them from system type 
+“Replicated_Software” to system type “Critical_Software.”</span></font><span></span></div>
+<div align="center"><img src="NotesImages/Topic47NotesImage4.gif" align="bottom" width="546" height="219" border="0" alt="graphic" /></div>
+<div align="center"><font face="Times New Roman" color="#010101"><span><b>Figure 19: Before (left) and after (right) performing a drag-and-drop operation on the selected items in 
+the AADL Object Model editor.</b></span></font><span></span></div>
+<div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">AADL models can be further edited through the “Properties” view.  This view provides access 
+to attributes and relations (reference associations) of AADL model objects.  Attributes include 
+the “name” of the model object and the direction of the port of port features. Relations include 
+references to component classifiers for subcomponents and ports, references to ports in 
+connections, etc.  Those references can be filled using a popup menu that limits the choices 
+based on the syntax and name scoping rules of AADL.  In Figure 20 the “Dst Context” relation 
+of a data connection is being edited, and the editor only allows subcomponents of the 
+containing component to be used.</span></font><span></span></div>
+<div align="center"><img src="NotesImages/Topic47NotesImage5.jpg" align="bottom" width="573" height="329" border="0" alt="graphic" /></div>
+<div align="center"><font face="Times New Roman" color="#010101"><span><b>Figure 20: Editing a relation reference of a data connection using the &quot;Properties&quot; view.</b></span></font><span></span></div></div>
+
+
+
+
+  </td>
+  <td class="right" valign="top">
+<!--right body column empty-->
+  </td>
+</tr>
+<!--END PAGE BODY ITEM-->
+
+
+<!-- BEGIN TOP BUTTON -->
+<tr class="topic">
+  <td class="main" valign="top" colspan="2">
+    <div class="body">
+      <div class="topCommand">
+        <span class="commands">
+      <span class="command">
+            <img src="Res/images/top_button.gif" alt="">
+          <a href="javascript:scroll(0,0)">
+             <span class="label">Top</span>
+              </a>
+    </span>
+       </span>
+      </div>
+    </div>
+  </td>
+  <td class="right" valign="top">
+<!--right body column empty-->
+  </td>
+</tr>
+<!-- END TOP BUTTON -->
+
+</table>
+
+<!-- BEGIN SIDE NAVIGATION WRAPPER-->
+    </td>
+  </tr>
+</table>
+<!-- END SIDE NAVIGATION WRAPPER-->
+
+<!-- END PAGE BODY-->
+
+
+</body>
+</html>
+

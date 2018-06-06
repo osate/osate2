@@ -42,6 +42,7 @@ package org.osate.analysis.flows;
 import java.util.List;
 
 import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.core.runtime.NullProgressMonitor;
 import org.osate.aadl2.Classifier;
 import org.osate.aadl2.ComponentCategory;
 import org.osate.aadl2.ComponentClassifier;
@@ -49,6 +50,7 @@ import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.ConnectionInstance;
 import org.osate.aadl2.instance.EndToEndFlowInstance;
+import org.osate.aadl2.instance.FeatureCategory;
 import org.osate.aadl2.instance.FeatureInstance;
 import org.osate.aadl2.instance.FlowElementInstance;
 import org.osate.aadl2.instance.FlowSpecificationInstance;
@@ -57,6 +59,7 @@ import org.osate.aadl2.instance.SystemInstance;
 import org.osate.aadl2.instance.SystemOperationMode;
 import org.osate.aadl2.instance.util.InstanceSwitch;
 import org.osate.aadl2.modelsupport.modeltraversal.AadlProcessingSwitchWithProgress;
+import org.osate.analysis.flows.model.LatencyCSVReport;
 import org.osate.analysis.flows.model.LatencyContributor;
 import org.osate.analysis.flows.model.LatencyContributor.LatencyContributorMethod;
 import org.osate.analysis.flows.model.LatencyContributorComponent;
@@ -65,6 +68,7 @@ import org.osate.analysis.flows.model.LatencyReport;
 import org.osate.analysis.flows.model.LatencyReportEntry;
 import org.osate.analysis.flows.preferences.Values;
 import org.osate.result.AnalysisResult;
+import org.osate.result.Result;
 import org.osate.xtext.aadl2.properties.util.ARINC653ScheduleWindow;
 import org.osate.xtext.aadl2.properties.util.CommunicationProperties;
 import org.osate.xtext.aadl2.properties.util.GetProperties;
@@ -80,6 +84,9 @@ public class FlowLatencyAnalysisSwitch extends AadlProcessingSwitchWithProgress 
 	LatencyReport report;
 //	SystemOperationMode som;
 
+	public FlowLatencyAnalysisSwitch(SystemInstance si) {
+		this(new NullProgressMonitor(), si, null);
+	}
 	public FlowLatencyAnalysisSwitch(final IProgressMonitor monitor, SystemInstance si) {
 		this(monitor, si, null);
 	}
@@ -115,16 +122,22 @@ public class FlowLatencyAnalysisSwitch extends AadlProcessingSwitchWithProgress 
 				if (etef.getFlowElements().isEmpty()) {
 					return DONE;
 				}
-				entry = new LatencyReportEntry(etef, etef.getSystemInstance().getCurrentSystemOperationMode());
-
-				for (FlowElementInstance fei : etef.getFlowElements()) {
-					mapFlowElementInstance(etef, fei, entry);
-				}
-				entry.finalizeReportEntry();
+				entry = analyzeLatency(etef, etef.getSystemInstance().getCurrentSystemOperationMode(),
+						report.isSynchronousSystem());
 				report.addEntry(entry);
 				return DONE;
 			}
 		};
+	}
+
+	public LatencyReportEntry analyzeLatency(EndToEndFlowInstance etef, SystemOperationMode som,
+			boolean synchronousSystem) {
+		LatencyReportEntry entry = new LatencyReportEntry(etef, som, synchronousSystem);
+		for (FlowElementInstance fei : etef.getFlowElements()) {
+			mapFlowElementInstance(etef, fei, entry);
+		}
+		entry.finalizeReportEntry();
+		return entry;
 	}
 
 	public void mapFlowElementInstance(final EndToEndFlowInstance etef, final FlowElementInstance flowElementInstance,
@@ -160,6 +173,8 @@ public class FlowLatencyAnalysisSwitch extends AadlProcessingSwitchWithProgress 
 			componentInstance = (ComponentInstance) flowElementInstance;
 		}
 
+		FeatureInstance fi = FlowLatencyUtil.getIncomingFeatureInstance(etef, flowElementInstance);
+
 		/**
 		 * Get all the relevant properties.
 		 */
@@ -173,13 +188,15 @@ public class FlowLatencyAnalysisSwitch extends AadlProcessingSwitchWithProgress 
 		 * The component is periodic. Therefore it will sample its input unless we have an immediate connection or delayed connection
 		 */
 		boolean checkLastImmediate = false;
-		if (period > 0 && ((InstanceModelUtil.isThread(componentInstance)
+		if (period > 0 && fi != null && fi.getCategory() == FeatureCategory.DATA_PORT
+				&& ((InstanceModelUtil.isThread(componentInstance)
 				|| InstanceModelUtil.isDevice(componentInstance) || InstanceModelUtil.isAbstract(componentInstance))
 						? (!InstanceModelUtil.isSporadicComponent(componentInstance)
 								&& !InstanceModelUtil.isTimedComponent(componentInstance)
 								&& !InstanceModelUtil.isAperiodicComponent(componentInstance))
 						: true)) {
 			// period is set, and if thread, abstract, or device needs to be dispatched as periodic
+			// We sample only data ports. Event and event data ports have queuing latency
 			LatencyContributorComponent samplingLatencyContributor = new LatencyContributorComponent(componentInstance);
 			samplingLatencyContributor.setSamplingPeriod(period);
 			if ((InstanceModelUtil.isThread(componentInstance) || InstanceModelUtil.isDevice(componentInstance))
@@ -197,6 +214,7 @@ public class FlowLatencyAnalysisSwitch extends AadlProcessingSwitchWithProgress 
 				}
 			} else {
 				if (entry.getContributors().isEmpty()) {
+					// first component. no incoming connection to handle partition latency
 					samplingLatencyContributor.reportInfo("Initial " + period + "ms sampling latency not added");
 					samplingLatencyContributor.setBestCaseMethod(LatencyContributorMethod.FIRST_SAMPLED);
 					samplingLatencyContributor.setWorstCaseMethod(LatencyContributorMethod.FIRST_SAMPLED);
@@ -206,7 +224,7 @@ public class FlowLatencyAnalysisSwitch extends AadlProcessingSwitchWithProgress 
 						double partitionLatency = FlowLatencyUtil.getPartitionPeriod(firstPartition);
 						List<ARINC653ScheduleWindow> schedule = FlowLatencyUtil.getModuleSchedule(firstPartition);
 						double partitionDuration = FlowLatencyUtil.getPartitionDuration(firstPartition, schedule);
-						if (partitionDuration != -1) {
+						if (partitionDuration > 0) {
 							LatencyContributorComponent partitionLatencyContributor = new LatencyContributorComponent(
 									firstPartition);
 							partitionLatencyContributor.setSamplingPeriod(partitionLatency);
@@ -232,14 +250,14 @@ public class FlowLatencyAnalysisSwitch extends AadlProcessingSwitchWithProgress 
 				}
 			}
 			entry.addContributor(samplingLatencyContributor);
-		} else {
+		} else if (entry.getContributors().isEmpty()) {
 			// insert first partition sampling for the aperiodic case. For other partitions it is inserted by connection processing
 			ComponentInstance firstPartition = FlowLatencyUtil.getPartition(componentInstance);
 			if (firstPartition != null) {
 				double partitionLatency = FlowLatencyUtil.getPartitionPeriod(firstPartition);
 				List<ARINC653ScheduleWindow> schedule = FlowLatencyUtil.getModuleSchedule(firstPartition);
 				double partitionDuration = FlowLatencyUtil.getPartitionDuration(firstPartition, schedule);
-				if (partitionDuration != -1) {
+				if (partitionDuration > 0) {
 					LatencyContributorComponent platencyContributor = new LatencyContributorComponent(firstPartition);
 					platencyContributor.setSamplingPeriod(partitionLatency);
 					double frameOffset = FlowLatencyUtil.getPartitionFrameOffset(firstPartition, schedule);
@@ -316,31 +334,26 @@ public class FlowLatencyAnalysisSwitch extends AadlProcessingSwitchWithProgress 
 
 		// deal with queuing latency
 		// take into account queuing delay
-		FeatureInstance fi = FlowLatencyUtil.getIncomingFeatureInstance(etef, flowElementInstance);
 		if (fi != null) {
-			double qs = GetProperties.getQueueSize(fi);
-			boolean hasAssignedQueueSize = GetProperties.hasAssignedPropertyValue(fi,
-					CommunicationProperties.QUEUE_SIZE);
-			if (hasAssignedQueueSize && qs != 0) {
-				LatencyContributorComponent ql = new LatencyContributorComponent(componentInstance);
+			double qs = 0;
+			LatencyContributorComponent ql = new LatencyContributorComponent(componentInstance);
+			if (GetProperties.hasAssignedPropertyValue(fi, CommunicationProperties.QUEUE_SIZE)) {
+				qs = GetProperties.getQueueSize(fi);
+			} else if (fi.getCategory() == FeatureCategory.DATA_PORT
+					&& (InstanceModelUtil.isSporadicComponent(componentInstance)
+							|| InstanceModelUtil.isTimedComponent(componentInstance)
+							|| InstanceModelUtil.isAperiodicComponent(componentInstance))) {
+				// treat data port as a port of queue size 1 when not a sampling thread
+				qs = 1;
+				ql.reportInfo("Data port as queue size 1 for sporadic, aperiodic, timed dispatch");
+			}
+			if (qs != 0) {
 				// take into account queuing delay on event and event data ports.
 				double dl = 0.0;
 				if (InstanceModelUtil.isSporadicComponent(componentInstance)
 						|| InstanceModelUtil.isPeriodicComponent(componentInstance)) {
 					dl = period;
 					ql.reportInfo("Sporadic or periodic has period delay per queue element");
-//					in some circumstances we may want to subtract one element
-					// Example: Periodic or Sporadic thread samples, thus its sampling latency reflects the first element waiting
-					/*
-					 * XXX: [Code Coverage] qs has already been checked that it is not zero. Queue_Size
-					 * cannot be negative.
-					 */
-					if (qs > 0) {
-						// subtract one since the arriving element becomes the last element
-						qs = qs - 1;
-						ql.reportInfo(
-								"Sporadic or periodic has queue delay reduced by one. It is accounted for in the sampling delay");
-					}
 				} else {
 					dl = worstCaseValue;
 				}
@@ -397,7 +410,7 @@ public class FlowLatencyAnalysisSwitch extends AadlProcessingSwitchWithProgress 
 			double partitionLatency = FlowLatencyUtil.getPartitionPeriod(srcPartition);
 			List<ARINC653ScheduleWindow> schedule = FlowLatencyUtil.getModuleSchedule(srcPartition);
 			double partitionDuration = FlowLatencyUtil.getPartitionDuration(srcPartition, schedule);
-			if (partitionDuration != -1) {
+			if (partitionDuration > 0) {
 				LatencyContributor ioLatencyContributor = new LatencyContributorComponent(srcPartition);
 				ioLatencyContributor.setWorstCaseMethod(LatencyContributorMethod.PARTITION_OUTPUT);
 				ioLatencyContributor.setBestCaseMethod(LatencyContributorMethod.PARTITION_OUTPUT);
@@ -422,17 +435,23 @@ public class FlowLatencyAnalysisSwitch extends AadlProcessingSwitchWithProgress 
 		 */
 		// XXX we can add a check whether the latencies coming from the bindings exceeds the connection latency
 
+		if (expectedMax > 0) {
+			latencyContributor.setWorstCaseMethod(LatencyContributorMethod.SPECIFIED);
+			latencyContributor.setExpectedMaximum(expectedMax);
+		}
+		if (expectedMin > 0) {
+			latencyContributor.setBestCaseMethod(LatencyContributorMethod.SPECIFIED);
+			latencyContributor.setExpectedMinimum(expectedMin);
+		}
 		if (latencyContributor.getSubContributors().isEmpty()) {
 			if (expectedMax > 0) {
-				latencyContributor.setWorstCaseMethod(LatencyContributorMethod.SPECIFIED);
-				latencyContributor.setExpectedMaximum(expectedMax);
+				latencyContributor.setMaximum(expectedMax);
 			}
 			if (expectedMin > 0) {
-				latencyContributor.setBestCaseMethod(LatencyContributorMethod.SPECIFIED);
-				latencyContributor.setExpectedMinimum(expectedMin);
+				latencyContributor.setMinimum(expectedMin);
 			}
 		} else {
-			latencyContributor.reportInfo("Adding latency subtotal from protocols and bus - shown with ()");
+			latencyContributor.reportInfo("Adding latency subtotal from protocols and hardware - shown with ()");
 		}
 		// set synchronous if on same processor
 		if (srcHW != null && dstHW != null) {
@@ -472,7 +491,7 @@ public class FlowLatencyAnalysisSwitch extends AadlProcessingSwitchWithProgress 
 			double partitionLatency = FlowLatencyUtil.getPartitionPeriod(dstPartition);
 			List<ARINC653ScheduleWindow> schedule = FlowLatencyUtil.getModuleSchedule(dstPartition);
 			double partitionDuration = FlowLatencyUtil.getPartitionDuration(dstPartition, schedule);
-			if (partitionDuration != -1) {
+			if (partitionDuration > 0) {
 				LatencyContributorComponent platencyContributor = new LatencyContributorComponent(dstPartition);
 				platencyContributor.setSamplingPeriod(partitionLatency);
 				double frameOffset = FlowLatencyUtil.getPartitionFrameOffset(dstPartition, schedule);
@@ -511,9 +530,7 @@ public class FlowLatencyAnalysisSwitch extends AadlProcessingSwitchWithProgress 
 			double minBusLatency = GetProperties.getMinimumLatencyinMilliSec(targetMedium);
 			double maxBusTransferTime = GetProperties.getMaximumTimeToTransferData(targetMedium, datasizeinbyte);
 			double minBusTransferTime = GetProperties.getMinimumTimeToTransferData(targetMedium, datasizeinbyte);
-			if (maxBusLatency == 0 && maxBusTransferTime == 0 && targetMedium instanceof ConnectionInstance
-					|| (targetMedium instanceof ComponentInstance && ((ComponentInstance) targetMedium).getCategory()
-							.equals(ComponentCategory.VIRTUAL_BUS))) {
+			if (maxBusLatency == 0 && maxBusTransferTime == 0) {
 				// connection or protocol has nothing to contribute
 				return;
 			}
@@ -556,8 +573,6 @@ public class FlowLatencyAnalysisSwitch extends AadlProcessingSwitchWithProgress 
 		// look for actual binding if we have a connection instance or virtual bus instance
 		List<ComponentInstance> bindings = GetProperties.getActualConnectionBinding(connorvb);
 		if (bindings.isEmpty()) {
-			// add specified latency if present
-			processTransmissionTime(connorvb, 0, latencyContributor);
 			return;
 		}
 		for (ComponentInstance componentInstance : bindings) {
@@ -688,7 +703,10 @@ public class FlowLatencyAnalysisSwitch extends AadlProcessingSwitchWithProgress 
 	 * @param som The mode to run the analysis in
 	 * @return A populated report in AnalysisResult format.
 	 */
-	public AnalysisResult invokeAndGetResult(SystemInstance root, SystemOperationMode som) {
+	public AnalysisResult invokeAndGetResult(SystemInstance root, SystemOperationMode som, boolean isSynchronousSystem,
+			boolean isMajorFrameDelay, boolean isWorstCaseDeadline, boolean isBestCaseEmptyQueue) {
+		report.setLatencyAnalysisParameters(isSynchronousSystem, isMajorFrameDelay, isWorstCaseDeadline,
+				isBestCaseEmptyQueue);
 		root.setCurrentSystemOperationMode(som);
 		this.processPreOrderAll(root);
 		AnalysisResult results = report.genResult();
@@ -696,5 +714,28 @@ public class FlowLatencyAnalysisSwitch extends AadlProcessingSwitchWithProgress 
 		return results;
 	}
 
+	public Result invokeAndGetResult(EndToEndFlowInstance etef, SystemOperationMode som, boolean isSynchronousSystem,
+			boolean isMajorFrameDelay, boolean isWorstCaseDeadline, boolean isBestCaseEmptyQueue) {
+		report.setLatencyAnalysisParameters(isSynchronousSystem, isMajorFrameDelay, isWorstCaseDeadline,
+				isBestCaseEmptyQueue);
+		Result results = null;
+		SystemInstance root = etef.getSystemInstance();
+		root.setCurrentSystemOperationMode(som);
+		if (etef.isActive(som)) {
+			LatencyReportEntry latres = analyzeLatency(etef, som, isSynchronousSystem);
+			results = latres.genResult();
+		}
+		root.clearCurrentSystemOperationMode();
+		return results;
+	}
+
+	public AnalysisResult invokeAndSaveResult(SystemInstance root, SystemOperationMode som, boolean isSynchronousSystem,
+			boolean isMajorFrameDelay, boolean isWorstCaseDeadline, boolean isBestCaseEmptyQueue) {
+		AnalysisResult results = invokeAndGetResult(root, som, isSynchronousSystem, isMajorFrameDelay,
+				isWorstCaseDeadline, isBestCaseEmptyQueue);
+		FlowLatencyUtil.saveAnalysisResult(results, FlowLatencyUtil.getParametersAsLabels(report));
+		LatencyCSVReport.generateCSVReport(results);
+		return results;
+	}
 
 }

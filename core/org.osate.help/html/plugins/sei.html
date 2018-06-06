@@ -1,0 +1,191 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+	<LINK REL="STYLESHEET" HREF="../book.css" CHARSET="ISO-8859-1" TYPE="text/css">
+	<title>OSATE plug-in: SEI validation plug-ins</title>
+</head>
+
+<body>
+<H2>OSATE plug-in: SEI validation plug-ins</H2>
+
+
+<h3>Introduction</h3>
+<p>
+The analysis plugins designed by the SEI are available in the <em>Analyses</em>, as
+shown in the picture below. These plugins mostly act on the instance model and thus
+you need to select the instance model and the root system instance when invoking these
+plugins.
+</p>
+
+<img src="analysis-menu.png"/>
+
+
+<p>
+Most of the plugins report errors and information as reports in a reports folder in your workspace as well as Eclipse Markers shown in the Eclipse <em>Problems</em>
+view. You can activate the <em>Problems</em> view by selecting
+the following menus: <em>Window</em>, <em>Show View</em> and then <em>Problems</em>, as
+shown in the following picture.
+</p>
+<img src="activate-problem-view.png"/>
+
+<p>
+Eclipse classifies Marker information into different categories: errors, warning and
+information. By default the Eclipse problem view only shows errors, so you may not see the results of an analysis if no errors are involved.
+</p>
+<p>
+You can change the default setting by following the instructions at
+<strong><a href="../start/eclipse-basics.html">Eclipse Basics</a></strong>.
+</p>
+
+
+<h3>Statistics plug-in</h3>
+<p>
+This analysis is applicable to AADL specifications and system instances.  It is invoked using ?Analyses > Architecture > Model statistics? in the menu bar or the button in the toolbar.
+</p>
+<p>
+This analysis collects model statistics of two kinds and can be invoked on both declarative AADL models and AADL instance models.  In both cases it keeps track of the number of declarations of different kinds in all declarative model files in the workspace.  When invoked on an AADL instance model it also keeps track of components of different categories, connections, flows, etc. of the instance model. Figure 27 illustrates how the model statistics plug-in reports its results both through a dialog box and as information markers in the ?Problems? view.
+</p>
+<p>
+This plug-in aims at making statistics on your model: number of components,
+categories of components, etc. This plug-in is more a support
+for new plug-in developer and start with an established code base
+they can re-use.
+</p>
+
+
+<h3>ARINC429 Consistency Checking</h3>
+<p>
+One development scenario is that subcontractors develop their subsystems independently and each subcontractor documents how the data it communicates via an ARINC429 protocol is packaged into ARINC429 words. As a result there can be inconsistencies in terms of which package ID and which bit locations data is transferred in. It is then the responsibility of the integrator to detect any inconsistencies.
+</p>
+<p>
+We can support such consistency checking of ARINC429 protocol usage by making use of properties on ports or on features of port group types. The data communicated through ports are mapped into ARINC429 words using the following properties:
+</p>
+
+<ul>
+<li>ARINC429::WordID: This integer valued property records the unique ID of the ARINC429 word in which the data is to be transferred.
+</li>
+<li>
+ARINC429::firstbit: The location of the first bit within the ARINC429 word.
+</li>
+<li>
+ARINC429::numberbits: The number of bits making up the data element.
+</li>
+</ul>
+<p>
+The ARINC429 consistency checker is invoked on an instance model using the toolbar button or via the Analyses menu. It works with all port connection instances and compares the three ARINC429 property values, if both the source and destination ports have them. The checker also records all port connection instances and their ARINC429 properties in a CSV file for processing by MS Excel or other tools.
+</p>
+<p>
+Note that the numberbits property is redundant with the Source_Data_Size property. We chose to provide the numberbits property as separate property in order to support a development process where a team member, who is responsible for the mapping to the ARINC429 protocol, can work independently. We can extend the consistency checker to ensure that the numberbits property and the Source_Data_Size property have consistent values, or the Source_Data_Size property is used when the numberbits property value is not present.
+</p>
+
+<h3>Port Connection Consistency Checking</h3>
+<p>
+For every port connection instance the checker retrieves properties from the source port and the destination port and compares them. Port connection instances are always created between port instances of the lowest level component instances in the instance model. This means that for a model with processes or systems as the lowest components the connection instances start with and end with process or system ports. When the model is refined to the thread level the port connection instances are created between thread instance ports.
+</p>
+<p>
+When feature groups are defined and they contain ports, then the instance contains a separate port connection instance for each port.  In other words, the port connection checker validates the consistency for each port in the feature group.
+</p>
+<p>
+The following properties are currently compared:</p>
+
+<ul>
+<li>Source_Data_Size: this property indicates the size of the data communicated through the port.  The property may be associated 1) with the data type (data component classifier) referenced by the port, or 2) with the port itself.  The size is expected to be equal. This check is performed if both ports have a property value specified.
+</li>
+<li>
+Input_Rate and Output_Rate: this property indicates the expected input/output rate. It is a record value specifying a Value_range of real values and a Rate_Unit (PerDispatch or PerSecond). The Rate_Unit is expected to be equal and the source value range is expected to be contained in the destination value range. This check is performed if the source port has an output rate and the destination port has an input rate specified.
+</li>
+<li>
+SEI::Data_Rate: real value representing the rate without unit (assumed to be transfers per second); must be same value. Note: this property is provided as an alternative to using Input_Rate and OutPut_Rate. This check is performed if both ports have a property value specified.
+</li>
+<li>
+Data_Model::Base_Type: (reference to data classifier); must refer to same classifier. This check is performed if both ports have a property value specified.
+</li>
+</ul>
+<li>
+Data_Model::Measurement_Unit: (string); must be equal. This check is performed if both ports have a property value specified.
+</li>
+</ul>
+<p>
+These properties are associated with the ports, with data component types that are the port classifiers, or with the port features of feature group types.
+</p>
+<p>
+If a property value is missing for one or both ports no comparison is made and a message is reported.
+</p>
+<p>
+For all port connection instances the source and destination port property values are recorded in a CSV file for processing by MS Excel. The resulting file can be found in the reports folder.
+</p>
+
+
+<h3>Security and safety Plug-In</h3>
+
+<h4>Security</h4>
+<p>
+This analysis checks whether the security level of a component with an outgoing connection does not exceed the security level of the component this connection leads to. This analysis can be performed on declarative AADL models and on AADL instance models.  The analysis is invoked on a declarative model or on an instance model using ?Analyses > Security > Check Security Levels? or the button.  When invoked on an AADL specification, all declarative model files in the workspace are analyzed.  When invoked on a component implementation, all component declarations that are part of its system hierarchy are analyzed.  When invoked on an instance model, only the instance model is checked.  This analyses is more complete when analyzing system instances; when analyzing declarative models it does not understand modes.
+
+The security level is specified on components, i.e., on component type, component implementation, or subcomponent declarations. The check can be invoked on an AADL XML file, or on any of the AADL model objects in the AADL Object Editor. The analysis plug-in performs this check for all connections if either or both ports have a value for this property. The analysis plug-in expects the property SEI::SecurityLevel, an aadlinteger-valued property to be defined in the SEI property set, i.e.,
+</p>
+<pre>
+Property set SEI is
+  SecurityLevel:
+    aadlinteger applies to (system, process, thread group, thread);
+End SEI;
+</pre>
+<p>
+For declarative AADL models this analysis performs two functions.  First, it ensures that a component has a security level that is the maximum of the security levels of its subcomponents. Second, it checks all connections to determine whether the source component of a connection declaration has a security level that is the same or lower than that of the destination component.  If a component does not have a SecurityLevel property declared its value is assumed to be zero, i.e., the lowest security level.
+
+The first check is performed for every component implementation that is part of the system hierarchy of the root component implementation.  If the component implementation does not have this property, but at least one of its subcomponents does, then the property value will be set to the maximum value for the component implementation.  If the enclosing component implementation already has a SecurityLevel value and it is less than the maximum of the subcomponent security levels, its value will be updated to the maximum.
+
+The analysis propagates the security level value up the system hierarchy in one of two ways.  If the analysis is invoked on an Aadl model instance (either the corresponding aaxl resource or any model object of the model instance), then the component hierarchy of the system instance is traversed in postfix order (bottom up) to evaluate each component implementation that is a classifier for the subcomponent that is represented by a component instance object in the instance model.  If the analysis is invoked on an AadlSpec (either the corresponding aaxl resource or any model object of an AadlSpec), then the analysis works bottom up through the component classifier library.  This means it starts with component implementations with out subcomponents, and then recursively processes component implementations, whose subcomponents have the already processed component implementations as classifiers.
+
+The second check is performed after the security level values have been propagated up the system hierarchy.  This check compares the security levels of the source and destination components in connection declarations.
+</p>
+<p>
+For instance models the analysis examines each semantic connection for ports and compares the security level of the source and destination.
+</p>
+
+<h4>Check Safety Levels</h4>
+<p>
+This analysis checks whether the safety criticality level of a component with an outgoing connection is higher or equal to the safety criticality level of the component at the destination end of the connection. The idea is that a component with lower safety criticality should not drive the operation of a component with a higher safety criticality.
+
+The analysis is invoked on a declarative model or on an instance model using ?Analyses > Security > Check Safety Levels? or the button.  When invoked on an AADL specification, all declarative model files in the workspace are analyzed.  When invoked on a component implementation, all component declarations that are part of its system hierarchy are analyzed. When invoked on an instance model, only the instance model is checked.  This analyses is more complete when analyzing system instances; when analyzing declarative models it does not understand modes.
+
+The safety criticality level is specified on components, i.e., on component type, component implementation, or subcomponent declarations using the property SEI::SafetyCriticality, an aadlinteger valued property defined in the SEI property set, i.e.,
+</p>
+<pre>
+Property set SEI is
+
+  SafetyCriticality:
+
+    aadlinteger applies to (system, process, thread group, thread);
+
+End SEI;
+</pre>
+<p>
+For declarative AADL models this analysis checks all connections to determine whether the source component of a connection declaration has a safety criticality level that is the same or higher than that of the destination component.  If a component does not have a SafetyCriticality property declared its value is assumed to be zero, i.e., the lowest safety level.
+ </p>
+ <p>
+For instance models the analysis examines each semantic connection for ports and compares the security level of the source and destination.
+</p>
+
+<h3>Weight Analysis Plug-In</h3>
+<p>
+The Weight Analysis sums up the weight of different components in terms of net and gross weight and compares the results against
+specified weight limits. For details see <strong><a href="MassAnalysis.html">here.</a></strong>
+</p>
+
+<h3>Analyze Electrical Power Consumption</h3>
+<p>
+The Weight Analysis sums up the weight of different components in terms of net and gross weight and compares the results against
+specified weight limits. For details see <strong><a href="ElectricalPower.html">here.</a></strong>
+</p>
+
+<h3>MIPS, RAM, ROM, and Network Bandwidth Budget Analysis</h3>
+<p>
+The Budget Analysis sums up the budgets of components with resource demand and compares the total against the resource capacity - in case of bindings the budgets of those components bound to the resource. For details see <strong><a href="ResourceBudgets.html">here.</a></strong>
+</p>
+
+
+</body>
+</html>

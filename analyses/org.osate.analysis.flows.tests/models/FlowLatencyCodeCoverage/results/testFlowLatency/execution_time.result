@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="ASCII"?>
-<result:AnalysisResult xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:result="http://www.osate.org/result/Result" analysis="Latency analysis" info="with preference settings: asynchronous system/major partition frame/worst case as deadline/best case as empty queue">
+<result:AnalysisResult xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:result="http://www.osate.org/result/Result" analysis="Latency analysis" info="AS-MF-DL-EQ">
   <sourceReference href="platform:/resource/FlowLatencyCodeCoverageTest/instances/execution_time_s1_i1_Instance.aaxl2#/"/>
   <results>
     <sourceReference href="platform:/resource/FlowLatencyCodeCoverageTest/instances/execution_time_s1_i1_Instance.aaxl2#//@endToEndFlow.0"/>
-    <values xsi:type="result:StringValue" value="Latency analysis for end-to-end flow 'etef1' of system 's1.i1'"/>
+    <values xsi:type="result:StringValue" value=""/>
     <values xsi:type="result:RealValue" value="2.0"/>
     <values xsi:type="result:RealValue" value="3.0"/>
     <values xsi:type="result:RealValue" value="2.0"/>
@@ -22,13 +22,8 @@
       <values xsi:type="result:RealValue" value="2.0"/>
       <values xsi:type="result:RealValue" value="1.0"/>
       <values xsi:type="result:RealValue" value="2.0"/>
-      <values xsi:type="result:RealValue"/>
-      <values xsi:type="result:RealValue"/>
-      <values xsi:type="result:RealValue"/>
-      <values xsi:type="result:RealValue"/>
-      <values xsi:type="result:StringValue" value="SPECIFIED"/>
-      <values xsi:type="result:StringValue" value="SPECIFIED"/>
-      <values xsi:type="result:StringValue" value="SYNCUNKNOWN"/>
+      <values xsi:type="result:StringValue" value="specified"/>
+      <values xsi:type="result:StringValue" value="specified"/>
     </subResults>
     <subResults>
       <sourceReference href="platform:/resource/FlowLatencyCodeCoverageTest/instances/execution_time_s1_i1_Instance.aaxl2#//@connectionInstance.0"/>
@@ -36,13 +31,8 @@
       <values xsi:type="result:RealValue"/>
       <values xsi:type="result:RealValue"/>
       <values xsi:type="result:RealValue"/>
-      <values xsi:type="result:RealValue"/>
-      <values xsi:type="result:RealValue"/>
-      <values xsi:type="result:RealValue"/>
-      <values xsi:type="result:RealValue"/>
-      <values xsi:type="result:StringValue" value="UNKNOWN"/>
-      <values xsi:type="result:StringValue" value="UNKNOWN"/>
-      <values xsi:type="result:StringValue" value="SYNCUNKNOWN"/>
+      <values xsi:type="result:StringValue" value="no latency"/>
+      <values xsi:type="result:StringValue" value="no latency"/>
     </subResults>
     <subResults>
       <sourceReference href="platform:/resource/FlowLatencyCodeCoverageTest/instances/execution_time_s1_i1_Instance.aaxl2#//@componentInstance.1"/>
@@ -50,13 +40,8 @@
       <values xsi:type="result:RealValue" value="1.0"/>
       <values xsi:type="result:RealValue" value="1.0"/>
       <values xsi:type="result:RealValue" value="2.0"/>
-      <values xsi:type="result:RealValue"/>
-      <values xsi:type="result:RealValue"/>
-      <values xsi:type="result:RealValue"/>
-      <values xsi:type="result:RealValue"/>
-      <values xsi:type="result:StringValue" value="PROCESSING_TIME"/>
-      <values xsi:type="result:StringValue" value="PROCESSING_TIME"/>
-      <values xsi:type="result:StringValue" value="SYNCUNKNOWN"/>
+      <values xsi:type="result:StringValue" value="processing time"/>
+      <values xsi:type="result:StringValue" value="processing time"/>
       <diagnostics type="INFO" message="Using execution time as deadline was not set">
         <sourceReference href="platform:/resource/FlowLatencyCodeCoverageTest/instances/execution_time_s1_i1_Instance.aaxl2#//@componentInstance.1"/>
       </diagnostics>
@@ -64,7 +49,7 @@
   </results>
   <results>
     <sourceReference href="platform:/resource/FlowLatencyCodeCoverageTest/instances/execution_time_s1_i1_Instance.aaxl2#//@endToEndFlow.1"/>
-    <values xsi:type="result:StringValue" value="Latency analysis for end-to-end flow 'etef2' of system 's1.i1'"/>
+    <values xsi:type="result:StringValue" value=""/>
     <values xsi:type="result:RealValue" value="2.0"/>
     <values xsi:type="result:RealValue" value="3.0"/>
     <values xsi:type="result:RealValue" value="2.0"/>
@@ -83,13 +68,8 @@
       <values xsi:type="result:RealValue" value="2.0"/>
       <values xsi:type="result:RealValue" value="1.0"/>
       <values xsi:type="result:RealValue" value="2.0"/>
-      <values xsi:type="result:RealValue"/>
-      <values xsi:type="result:RealValue"/>
-      <values xsi:type="result:RealValue"/>
-      <values xsi:type="result:RealValue"/>
-      <values xsi:type="result:StringValue" value="SPECIFIED"/>
-      <values xsi:type="result:StringValue" value="SPECIFIED"/>
-      <values xsi:type="result:StringValue" value="SYNCUNKNOWN"/>
+      <values xsi:type="result:StringValue" value="specified"/>
+      <values xsi:type="result:StringValue" value="specified"/>
     </subResults>
     <subResults>
       <sourceReference href="platform:/resource/FlowLatencyCodeCoverageTest/instances/execution_time_s1_i1_Instance.aaxl2#//@connectionInstance.1"/>
@@ -97,13 +77,8 @@
       <values xsi:type="result:RealValue"/>
       <values xsi:type="result:RealValue"/>
       <values xsi:type="result:RealValue"/>
-      <values xsi:type="result:RealValue"/>
-      <values xsi:type="result:RealValue"/>
-      <values xsi:type="result:RealValue"/>
-      <values xsi:type="result:RealValue"/>
-      <values xsi:type="result:StringValue" value="UNKNOWN"/>
-      <values xsi:type="result:StringValue" value="UNKNOWN"/>
-      <values xsi:type="result:StringValue" value="SYNCUNKNOWN"/>
+      <values xsi:type="result:StringValue" value="no latency"/>
+      <values xsi:type="result:StringValue" value="no latency"/>
     </subResults>
     <subResults>
       <sourceReference href="platform:/resource/FlowLatencyCodeCoverageTest/instances/execution_time_s1_i1_Instance.aaxl2#//@componentInstance.2"/>
@@ -111,18 +86,13 @@
       <values xsi:type="result:RealValue" value="1.0"/>
       <values xsi:type="result:RealValue" value="1.0"/>
       <values xsi:type="result:RealValue" value="2.0"/>
-      <values xsi:type="result:RealValue"/>
-      <values xsi:type="result:RealValue"/>
-      <values xsi:type="result:RealValue"/>
-      <values xsi:type="result:RealValue"/>
-      <values xsi:type="result:StringValue" value="DEADLINE"/>
-      <values xsi:type="result:StringValue" value="PROCESSING_TIME"/>
-      <values xsi:type="result:StringValue" value="SYNCUNKNOWN"/>
+      <values xsi:type="result:StringValue" value="processing time"/>
+      <values xsi:type="result:StringValue" value="deadline"/>
     </subResults>
   </results>
   <results>
     <sourceReference href="platform:/resource/FlowLatencyCodeCoverageTest/instances/execution_time_s1_i1_Instance.aaxl2#//@endToEndFlow.2"/>
-    <values xsi:type="result:StringValue" value="Latency analysis for end-to-end flow 'etef3' of system 's1.i1'"/>
+    <values xsi:type="result:StringValue" value=""/>
     <values xsi:type="result:RealValue" value="2.0"/>
     <values xsi:type="result:RealValue" value="3.0"/>
     <values xsi:type="result:RealValue" value="2.0"/>
@@ -141,13 +111,8 @@
       <values xsi:type="result:RealValue" value="2.0"/>
       <values xsi:type="result:RealValue" value="1.0"/>
       <values xsi:type="result:RealValue" value="2.0"/>
-      <values xsi:type="result:RealValue"/>
-      <values xsi:type="result:RealValue"/>
-      <values xsi:type="result:RealValue"/>
-      <values xsi:type="result:RealValue"/>
-      <values xsi:type="result:StringValue" value="SPECIFIED"/>
-      <values xsi:type="result:StringValue" value="SPECIFIED"/>
-      <values xsi:type="result:StringValue" value="SYNCUNKNOWN"/>
+      <values xsi:type="result:StringValue" value="specified"/>
+      <values xsi:type="result:StringValue" value="specified"/>
     </subResults>
     <subResults>
       <sourceReference href="platform:/resource/FlowLatencyCodeCoverageTest/instances/execution_time_s1_i1_Instance.aaxl2#//@connectionInstance.2"/>
@@ -155,13 +120,8 @@
       <values xsi:type="result:RealValue"/>
       <values xsi:type="result:RealValue"/>
       <values xsi:type="result:RealValue"/>
-      <values xsi:type="result:RealValue"/>
-      <values xsi:type="result:RealValue"/>
-      <values xsi:type="result:RealValue"/>
-      <values xsi:type="result:RealValue"/>
-      <values xsi:type="result:StringValue" value="UNKNOWN"/>
-      <values xsi:type="result:StringValue" value="UNKNOWN"/>
-      <values xsi:type="result:StringValue" value="SYNCUNKNOWN"/>
+      <values xsi:type="result:StringValue" value="no latency"/>
+      <values xsi:type="result:StringValue" value="no latency"/>
     </subResults>
     <subResults>
       <sourceReference href="platform:/resource/FlowLatencyCodeCoverageTest/instances/execution_time_s1_i1_Instance.aaxl2#//@componentInstance.3"/>
@@ -169,13 +129,8 @@
       <values xsi:type="result:RealValue" value="1.0"/>
       <values xsi:type="result:RealValue" value="1.0"/>
       <values xsi:type="result:RealValue" value="2.0"/>
-      <values xsi:type="result:RealValue"/>
-      <values xsi:type="result:RealValue"/>
-      <values xsi:type="result:RealValue"/>
-      <values xsi:type="result:RealValue"/>
-      <values xsi:type="result:StringValue" value="DEADLINE"/>
-      <values xsi:type="result:StringValue" value="SPECIFIED"/>
-      <values xsi:type="result:StringValue" value="SYNCUNKNOWN"/>
+      <values xsi:type="result:StringValue" value="specified"/>
+      <values xsi:type="result:StringValue" value="deadline"/>
     </subResults>
   </results>
 </result:AnalysisResult>

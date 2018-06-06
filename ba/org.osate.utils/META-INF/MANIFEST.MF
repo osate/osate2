@@ -1,0 +1,17 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: AADL-Utils
+Bundle-SymbolicName: org.osate.utils;singleton:=true
+Bundle-Version: 1.0.0.qualifier
+Require-Bundle: org.eclipse.core.runtime;bundle-version="3.7.0",
+ org.eclipse.xtext;bundle-version="2.2.1",
+ org.osate.aadl2;bundle-version="1.0.0",
+ org.osate.xtext.aadl2.properties;bundle-version="1.0.0",
+ org.osate.workspace;bundle-version="1.0.0",
+ org.eclipse.core.resources
+Bundle-ActivationPolicy: lazy
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Export-Package: org.osate.utils,
+ org.osate.utils.names
+Bundle-Vendor: TELECOM ParisTech
+Automatic-Module-Name: org.osate.utils

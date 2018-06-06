@@ -1,0 +1,103 @@
+package pkg2
+public
+	with EMV2;
+	
+	abstract a1
+		features
+			fg1: feature group;
+			fg2: feature group;
+			fg3: feature group fgt1;
+			fg4: feature group fgt1;
+	end a1;
+	
+	abstract implementation a1.i
+		subcomponents
+			sub1: abstract a2;
+		annex EMV2 {**
+			use types pkg2;
+			
+			error propagations
+				fg1: out propagation {type1};
+				fg3: out propagation {type1};
+				fg4.fg9: out propagation {type1};
+				fg4.fg11: out propagation {type1};
+			end propagations;
+			
+			properties
+				--Empty & Propagation -> Propagation
+				EMV2::Hazards => ([CrossReference => "N/A";]) applies to fg1.type1;
+				--Empty & Not Propagation -> Feature Group
+				EMV2::Hazards => ([CrossReference => "N/A";]) applies to fg2.type1;
+				--Not Empty & Propagation -> Feature Group
+				EMV2::Hazards => ([CrossReference => "N/A";]) applies to fg3.type1;
+				--Not Empty & Not Propagation -> Feature Group
+				EMV2::Hazards => ([CrossReference => "N/A";]) applies to fg4.type1;
+				
+				--Empty & Propagation -> Propagation
+				EMV2::Hazards => ([CrossReference => "N/A";]) applies to fg4.fg9.type1;
+				--Empty & Not Propagation -> Feature Group
+				EMV2::Hazards => ([CrossReference => "N/A";]) applies to fg4.fg10.type1;
+				--Not Empty & Propagation -> Feature Group
+				EMV2::Hazards => ([CrossReference => "N/A";]) applies to fg4.fg11.type1;
+				--Not Empty & Not Propagation -> Feature Group
+				EMV2::Hazards => ([CrossReference => "N/A";]) applies to fg4.fg12.type1;
+				
+				--Empty & Propagation -> Propagation
+				EMV2::Hazards => ([CrossReference => "N/A";]) applies to ^sub1@fg5.type1;
+				--Empty & Not Propagation -> Feature Group
+				EMV2::Hazards => ([CrossReference => "N/A";]) applies to ^sub1@fg6.type1;
+				--Not Empty & Propagation -> Feature Group
+				EMV2::Hazards => ([CrossReference => "N/A";]) applies to ^sub1@fg7.type1;
+				--Not Empty & Not Propagation -> Feature Group
+				EMV2::Hazards => ([CrossReference => "N/A";]) applies to ^sub1@fg8.type1;
+				
+				--Empty & Propagation -> Propagation
+				EMV2::Hazards => ([CrossReference => "N/A";]) applies to ^sub1@fg8.fg9.type1;
+				--Empty & Not Propagation -> Feature Group
+				EMV2::Hazards => ([CrossReference => "N/A";]) applies to ^sub1@fg8.fg10.type1;
+				--Not Empty & Propagation -> Feature Group
+				EMV2::Hazards => ([CrossReference => "N/A";]) applies to ^sub1@fg8.fg11.type1;
+				--Not Empty & Not Propagation -> Feature Group
+				EMV2::Hazards => ([CrossReference => "N/A";]) applies to ^sub1@fg8.fg12.type1;
+		**};
+	end a1.i;
+	
+	abstract a2
+		features
+			fg5: feature group;
+			fg6: feature group;
+			fg7: feature group fgt1;
+			fg8: feature group fgt1;
+		annex EMV2 {**
+			use types pkg2;
+			
+			error propagations
+				fg5: out propagation {type1};
+				fg7: out propagation {type1};
+				fg8.fg9: out propagation {type1};
+				fg8.fg11: out propagation {type1};
+			end propagations;
+		**};
+	end a2;
+	
+	feature group fgt1
+		features
+			f1: out feature;
+			fg9: feature group;
+			fg10: feature group;
+			fg11: feature group fgt2;
+			fg12: feature group fgt2;
+	end fgt1;
+	
+	feature group fgt2
+		features
+			f2: out feature;
+	end fgt2;
+	
+	annex EMV2 {**
+		error types
+			type1: type;
+			type2: type;
+		end types;
+	**};
+end pkg2;

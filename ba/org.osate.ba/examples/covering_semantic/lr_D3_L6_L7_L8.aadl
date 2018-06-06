@@ -1,0 +1,67 @@
+-- AADL-BA-FrontEnd
+ 
+-- Copyright © 2011 TELECOM ParisTech and CNRS
+ 
+-- TELECOM ParisTech/LTCI
+
+-- Authors: see AUTHORS
+ 
+-- This program is free software: you can redistribute it and/or modify 
+-- it under the terms of the Eclipse Public License as published by Eclipse,
+-- either version 1.0 of the License, or (at your option) any later version.
+-- This program is distributed in the hope that it will be useful,
+-- but WITHOUT ANY WARRANTY; without even the implied warranty of
+-- MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+-- Eclipse Public License for more details.
+-- You should have received a copy of the Eclipse Public License
+-- along with this program.  If not, see 
+-- http://www.eclipse.org/org/documents/epl-v10.php
+
+-- Behavior Annex legality rules D.3.(L6) and D.3.(L7) and D.3.(L8) tests.
+
+package exemple_lr_D3_L6_L7_L8
+public
+   with Base_Types ;
+
+thread th
+end th;
+
+
+thread implementation th.good
+
+annex behavior_specification {**
+
+states
+ uniqueState : initial complete final state ;
+
+transitions
+ uniqueState -[on dispatch]-> uniqueState ;  
+  
+**};
+
+end th.good;
+
+thread implementation th.error
+annex behavior_specification {**
+
+states
+ compState : initial complete state ;
+ exeState : state ;
+ finalState : final state ; 
+
+transitions
+ 
+-- Errors: 
+--          _ transitions out of complete states must have dispatch conditions.
+--          _ only transition out of execution states or states that are initial
+--            only may have execution condition.
+  compState -[]-> finalState ;
+
+-- Errors : 
+--          _ transitions states that are final only are not allowed.
+--          _ only transitions out of complete states may have dispatch conditions. 
+  finalState -[on dispatch]-> finalState ; 
+**};
+end th.error;
+
+end exemple_lr_D3_L6_L7_L8 ;

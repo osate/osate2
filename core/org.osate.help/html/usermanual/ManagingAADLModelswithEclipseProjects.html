@@ -1,0 +1,349 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+	"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+   <title>Managing AADL Models with Eclipse Projects</title>
+   <link href="Res/styles/shared.css" rel="stylesheet" type="text/css">
+   <link href="Res/styles/DynamicOutline.css" rel="stylesheet" type="text/css">
+</head>
+<body id="page" >
+
+<!-- BEGIN PAGE BODY-->
+
+
+<table id="pageBody">
+ <col class="main">
+ <col class="right">
+
+<!-- BEGIN BREADCRUMBS-->
+<tr id="breadcrumbsAndPageNavigation">
+  <td class="breadcrumbs" valign="top">
+<!-- BEGIN NAVIGATION BREADCRUMBS ITEM-->
+<span class="breadcrumb">
+   <a href="index.html">Home</a> 
+   <span class="separator">&gt;</span>
+</span>
+<!-- END NAVIGATION BREADCRUMBS ITEM-->
+<!-- BEGIN NAVIGATION BREADCRUMBS ITEM-->
+<span class="breadcrumb">
+   <a href="UseoftheAADLToolEnvironment(OSATE).html">4. Use of the AADL Tool Environment (OSATE)</a> 
+   <span class="separator">&gt;</span>
+</span>
+<!-- END NAVIGATION BREADCRUMBS ITEM-->
+<!-- BEGIN NAVIGATION BREADCRUMBS HERE-->
+<span class="breadcrumb">
+   4.2 Managing AADL Models with Eclipse Projects
+</span>
+<!-- END NAVIGATION BREADCRUMBS HERE-->
+
+  </td>
+  <td class="pageNavigation" valign="top">
+<!-- START PAGE NAVIGATION NEXT IN SEQUENCE IMAGES -->
+<span class="commands">
+    <span class="command">
+        <img src="Res/images/previous_button.gif" alt=""> <a href="StartingUpOSATEfortheFirstTime.html">
+        <span class="label">Previous</span></a>
+    </span>
+&nbsp;&nbsp;
+    <span class="command">
+        <a href="EclipseProjectsandTeamSupport.html">
+        <span class="label">Next</span></a> <img src="Res/images/next_button.gif" alt="">
+    </span>
+</span>
+<!-- END PAGE NAVIGATION NEXT IN SEQUENCE IMAGES  -->
+
+  </td>
+  <td class="right" valign="top">
+  </td>
+</tr>
+<!-- END BREADCRUMBS-->
+
+<tr class="topic">
+  <td class="main" valign="top" colspan="2">
+    <div class="body">
+      <div class="topicDivider">
+      </div>
+    </div>
+  </td>
+  <td class="right" valign="top">
+<!--right body column empty-->
+  </td>
+</tr>
+
+<!--BEGIN PAGE BODY ITEM-->
+<tr class="topic">
+  <td class="main" valign="top" colspan="2">
+    <table>
+      <tr class="topicHeader">
+        <td class="topicImageColumn">
+
+        </td>
+        <td class="topicLineColumn">
+          <a name="Topic24"></a>
+          <span class=outlineNumberFirst>4.2 </span><span class=topicLineFirst>Managing AADL Models with Eclipse Projects</span>
+          <span class="topicIcons">
+
+          </span>
+        </td>
+      </tr>
+    </table>
+
+<!-- phf:Comand: Expand("BoxPartMap.mmbas") -->
+     <div class="topicTextNotes"><div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">When you work in Eclipse/OSATE you access files in your file system through workspaces. 
+You can set up multiple workspaces, but you can only work in one workspace at a time.  You 
+can use “File &gt; Switch Workspaces…” to switch between workspaces.</span></font><span></span></div>
+<div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">A workspace can be any folder in your file system.  The workspace is organized into projects. 
+Each project can be version controlled separately.  Projects can be sub-structured through 
+folders. </span></font><span></span></div>
+<div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">OSATE also provides support for large-system modeling through separately developed AADL 
+models and for teams of people developing such models. OSATE makes use of the Eclipse 
+workspace and projects to allow large AADL models to be split into multiple files and to 
+support the team support services of Eclipse that interface with version control systems.  </span></font><span></span></div>
+<div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">OSATE provides an automatic build capability that maintains consistency between AADL text 
+files and AADL XML files by regenerating one when the other is changed by the modeler.  It 
+does so by propagating changes to AADL packages and property sets to other AADL files 
+that potentially are affected.  Furthermore, it automatically regenerates any AADL instance 
+model that is potentially affected by changes to AADL models.</span></font><span></span></div></div>
+
+
+
+
+  </td>
+  <td class="right" valign="top">
+<!--right body column empty-->
+  </td>
+</tr>
+<!--END PAGE BODY ITEM-->
+<!--BEGIN PAGE BODY ITEM-->
+<tr class="topic">
+  <td class="main" valign="top" colspan="2">
+    <table>
+      <tr class="topicHeader">
+        <td class="topicImageColumn">
+
+        </td>
+        <td class="topicLineColumn">
+          <a name="Topic25"></a>
+          <span class=outlineNumber>4.2.1 </span><span class=topicLine>AADL Projects</span>
+          <span class="topicIcons">
+
+          </span>
+        </td>
+      </tr>
+    </table>
+
+<!-- phf:Comand: Expand("BoxPartMap.mmbas") -->
+     <div class="topicTextNotes"><div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">An AADL project can be created through the AADL Project wizard by invoking “New &gt; 
+Project…” in the “File” menu or the context menu of the Navigator, and then selecting “Aadl 
+Wizards &gt; Aadl Project”.  The wizard is also available as a button (</span></font><span><img src="NotesImages/Topic25NotesImage2.gif" align="bottom" width="16" height="16" border="0" alt="graphic" /></span><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">) in the toolbar; see 
+Figure 6.</span></font><span></span></div>
+<div align="center"><img src="NotesImages/Topic25NotesImage3.jpg" align="bottom" width="424" height="108" border="0" alt="graphic" /></div>
+<div align="center"><font face="Times New Roman" color="#010101"><span><b>Figure 6: The &quot;New Aadl Project&quot; wizard button in the OSATE toolbar.</b></span></font><span></span></div>
+<div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">AADL text files are kept in an “AADL text” folder and AADL XML files are kept in a “model 
+folder.”  (This is similar to the Eclipse Java IDE keeping Java text files in a folder called “src” 
+and the class files in a folder called “bin”.)  By default these folders are called “aadl” and 
+“aaxl”. You can change these directories using the “AADL Build Path” panel in the project’s 
+“Properties” dialog as shown in Figure 7.  In this document we assume the directories have the 
+default names “aadl” and “aaxl”.  In general, there is a one-to-one correspondence between the 
+contents of the two directories, and they have a parallel structure.  AADL instance models, 
+however, are stored as object models only in the “aaxl” directory.</span></font><span></span></div>
+<div align="center"><img src="NotesImages/Topic25NotesImage5.jpg" align="bottom" width="572" height="214" border="0" alt="graphic" /></div>
+<div align="center"><font face="Times New Roman" color="#010101"><span><b>Figure 7: Changing the aadl text and xml model folders in the project &quot;Properties&quot; dialog box.</b></span></font><span></span></div>
+<div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">There are two special directories, exemplified in Figure 8, named “packages” and 
+“propertysets” in the “aadl” and “aaxl” directories.  It is expected that files containing package 
+declarations be kept in the “packages” folder, and that files containing property set declarations 
+be kept in the “propertysets” folder.  The names of these folders must not be changed.</span></font><span></span></div>
+<div align="center"><img src="NotesImages/Topic25NotesImage6.jpg" align="bottom" width="209" height="336" border="0" alt="graphic" /></div>
+<div align="center"><font face="Times New Roman" color="#010101"><span><b>Figure 8: AADL projects have special &quot;packages&quot; and &quot;propertysets&quot; directories in both the text and 
+model folders.</b></span></font><span></span></div></div>
+
+
+
+
+  </td>
+  <td class="right" valign="top">
+<!--right body column empty-->
+  </td>
+</tr>
+<!--END PAGE BODY ITEM-->
+<!--BEGIN PAGE BODY ITEM-->
+<tr class="topic">
+  <td class="main" valign="top" colspan="2">
+    <table>
+      <tr class="topicHeader">
+        <td class="topicImageColumn">
+
+        </td>
+        <td class="topicLineColumn">
+          <a name="Topic26"></a>
+          <span class=outlineNumber>4.2.2 </span><span class=topicLine>AADL Models as Files</span>
+          <span class="topicIcons">
+
+          </span>
+        </td>
+      </tr>
+    </table>
+
+<!-- phf:Comand: Expand("BoxPartMap.mmbas") -->
+     <div class="topicTextNotes"><div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt"><i>Note: In Eclipse, files are referred to as “resources”.</i></span></font><span></span></div>
+<div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">OSATE understands three file extensions as AADL file types:</span></font><span></span></div>
+<ul style="margin-top: 0pt; margin-bottom: 0pt">
+<li style="margin-left=-4mm; margin-right=0mm; padding-left=0mm; font-family= Times New Roman;  font-size= 12pt;  font-style= italic;  color= #010101;  "><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt"><i>aadl</i>: textual AADL models. Files with this extension can be edited by a generic text editor 
+or by the AADL text editor</span></font><span></span></li>
+<li style="margin-left=-4mm; margin-right=0mm; padding-left=0mm; font-family= Times New Roman;  font-size= 12pt;  font-style= italic;  color= #010101;  "><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt"><i>aaxl</i>: AADL object models in XML.  These AADL object models represent the AADL 
+models corresponding to the textual AADL model (declarative AADL models) or AADL 
+instance models (instantiations of  systems—see section 7.2).  Files with this extension can 
+be edited as XML files by a generic text editor, or as an AADL object model by the 
+AADL Object Editor.</span></font><span></span></li>
+<li style="margin-left=-4mm; margin-right=0mm; padding-left=0mm; font-family= Times New Roman;  font-size= 12pt;  font-style= italic;  color= #010101;  "><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt"><i>aaxldi</i>: diagram files for AADL object models.  They contain the layout information of the 
+graphical view.  The graphical AADL editor is opened on diagram files.  </span></font><span></span></li>
+</ul>
+<div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">The following conventions are expected by OSATE:</span></font><span></span></div>
+<ul style="margin-top: 0pt; margin-bottom: 0pt">
+<ul style="margin-top: 0pt; margin-bottom: 0pt">
+<li style="margin-left=-3mm; margin-right=0mm; padding-left=0mm; font-family= Times New Roman;  font-size= 12pt;  color= #010101;  "><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">An <b>AADL specification</b> file can contain component declarations as well as property 
+sets and AADL packages.  In OSATE AADL packages and property sets that are 
+contained in an AADL Spec file are only visible within that AADL specification.  A file 
+that contains an AADL specification can be given any legal AADL name with the aadl 
+file extension for AADL text files or the aaxl file extension for AADL object models. 
+Aadl specification files are expected to be placed in the aadl folder, and aaxl files are 
+placed into the aaxl folder. </span></font><span></span></li>
+<li style="margin-left=-3mm; margin-right=0mm; padding-left=0mm; font-family= Times New Roman;  font-size= 12pt;  color= #010101;  "><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">An <b>AADL PropertySet</b> file contains a single property set. The text form of this file has 
+the aadl extension, while the object model has the aaxl extension.  A property set file 
+can be kept in the aadl or aaxl folder respectively or in the corresponding <i>propertysets</i> 
+subfolder.  A property set in an AADL Propertyset file is globally visible in the Eclipse 
+workspace.  In other words, different projects in the same workspace cannot contain 
+separate copies of a property set.  AADL PropertySet files can be given any name that 
+is unique within the Eclipse workspace.  We recommend that the file name correspond 
+to the property set name.</span></font><span></span></li>
+<li style="margin-left=-3mm; margin-right=0mm; padding-left=0mm; font-family= Times New Roman;  font-size= 12pt;  color= #010101;  "><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">An <b>AADL Package</b> file contains a single AADL Package. The text form of this file 
+has the aadl extension, while the object model has the aaxl extension.  A package file 
+can be kept in the aadl or aaxl folder respectively or in the corresponding <i>packages</i> 
+subfolder.  An AADL package in an AADL Package file is globally visible in the 
+Eclipse workspace.  In other words, different projects in the same workspace cannot 
+contain AADL Package files with the same package name.  The exception to this rule 
+is that the user can have two AADL Package files for the same package if one contains 
+the public section and the other the private section only.</span></font><span></span></li>
+</ul>
+</ul>
+<blockquote>
+<div align="left" style="margin-left=11mm; margin-right=0mm; text-indent=0mm"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">AADL Package files can be given any name that is unique within the Eclipse 
+workspace.  We recommend that if the file name is to correspond to the package name, 
+the “::” in the AADL package name replaced by “-” or by “.”.  For any particular 
+package file, the same replacement character must be used for all “::” in the package 
+name, but different package files can use different replacements.  For example, 
+“MyExamples.aadl”, “edu_cmu_sei_Examples.aadl” and “edu-cmu-sei- 
+MoreExamples.aadl” are acceptable names for an AADL package named Examples. If 
+the public section and private section of an AADL package are stored in separate files, 
+their file names must differ, e.g., “MyExamples” and “MyExamplesPrivate”.  </span></font><span></span></div>
+</blockquote>
+<blockquote>
+<div align="left" style="margin-left=11mm; margin-right=0mm; text-indent=0mm"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt"><i>Note: We plan to reflect the package name hierarchy as a folder hierarchy in the 
+next release of OSATE..</i></span></font><span></span></div>
+</blockquote>
+<ul style="margin-top: 0pt; margin-bottom: 0pt">
+<ul style="margin-top: 0pt; margin-bottom: 0pt">
+<li style="margin-left=-3mm; margin-right=0mm; padding-left=0mm; font-family= Times New Roman;  font-size= 12pt;  color= #010101;  "><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">A file that contains an <b>AADL instance model</b> will only be stored as an AADL XML 
+file.  Its name is automatically generated by OSATE when an AADL model is 
+instantiated (see section 7.4).  The file name consists of the AADL specification name 
+or package name containing the system implementation being instantiated, the system 
+type name and the word “Instance”, separated by the character “_”.</span></font><span></span></li>
+</ul>
+</ul>
+<div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">There is a one-to-one correspondence between AADL text files and AADL declarative model 
+XML files.  In other words, each AADL text file is converted into a single AADL XML file 
+and vice versa.  </span></font><span></span></div></div>
+
+
+
+
+  </td>
+  <td class="right" valign="top">
+<!--right body column empty-->
+  </td>
+</tr>
+<!--END PAGE BODY ITEM-->
+<!--BEGIN PAGE BODY ITEM-->
+<tr class="topic">
+  <td class="main" valign="top" colspan="2">
+    <table>
+      <tr class="topicHeader">
+        <td class="topicImageColumn">
+
+        </td>
+        <td class="topicLineColumn">
+          <a name="Topic27"></a>
+          <span class=outlineNumber>4.2.3 </span><span class=topicLine>AADL Namespaces</span>
+          <span class="topicIcons">
+
+          </span>
+        </td>
+      </tr>
+    </table>
+
+<!-- phf:Comand: Expand("BoxPartMap.mmbas") -->
+     <div class="topicTextNotes"><div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">In AADL, packages and property sets reside in a global namespace.  This means that 
+components and properties declared in them can be referenced by other packages and 
+property sets.  In addition, each AADL specification has an anonymous namespace.  Items 
+declared in an AADL specification are accessible within that AADL specification only.</span></font><span></span></div>
+<div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">In OSATE an Eclipse workspace represents a global namespace.  An AADL PropertySet file 
+or an AADL Package file, i.e., a file with a single property set or package, is considered to 
+reside in the global name space.  Each Eclipse workspace can only contain one globally visible 
+property set or AADL package with the same name and file name.</span></font><span></span></div>
+<div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">Aadl packages or property sets contained in an AADL Specification file are “locally” declared, 
+i.e., only visible within that AADL Specification file.  Members of a globally declared package 
+or property set may be referenced by any AADL specification/property set/package in the 
+workspace.  Members of a locally declared package or property set may only be referenced 
+from within the same file, thus the “local” appellation.  A locally declared package or property 
+set in an AADL Specification file takes precedence over any global package or property set 
+with the same name.  In other words, a user can place multiple AADL Specification files into 
+the same workspace or even the same project without causing name conflicts.  </span></font><span></span></div></div>
+
+
+
+
+  </td>
+  <td class="right" valign="top">
+<!--right body column empty-->
+  </td>
+</tr>
+<!--END PAGE BODY ITEM-->
+
+
+<!-- BEGIN TOP BUTTON -->
+<tr class="topic">
+  <td class="main" valign="top" colspan="2">
+    <div class="body">
+      <div class="topCommand">
+        <span class="commands">
+      <span class="command">
+            <img src="Res/images/top_button.gif" alt="">
+          <a href="javascript:scroll(0,0)">
+             <span class="label">Top</span>
+              </a>
+    </span>
+       </span>
+      </div>
+    </div>
+  </td>
+  <td class="right" valign="top">
+<!--right body column empty-->
+  </td>
+</tr>
+<!-- END TOP BUTTON -->
+
+</table>
+
+<!-- BEGIN SIDE NAVIGATION WRAPPER-->
+    </td>
+  </tr>
+</table>
+<!-- END SIDE NAVIGATION WRAPPER-->
+
+<!-- END PAGE BODY-->
+
+
+</body>
+</html>
+

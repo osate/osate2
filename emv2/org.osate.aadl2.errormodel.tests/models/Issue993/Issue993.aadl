@@ -1,0 +1,30 @@
+package issue993
+public
+
+system s
+features
+	datain : in data port ; 
+annex EMV2 {**
+	propagation paths 
+	externalEffect: propagation point;
+	end paths;
+**};
+end s;
+
+system main
+end main;
+
+system implementation main.i
+subcomponents
+	s1 : system s;
+	s2 : system s;
+annex EMV2 {**
+	propagation paths 
+	externalEffect: propagation point;
+	path1: s1.externalEffect -> externalEffect;
+	path2: s1.externalEffect -> s2.externalEffect;
+	end paths;
+**};
+end main.i;
+
+end issue993;

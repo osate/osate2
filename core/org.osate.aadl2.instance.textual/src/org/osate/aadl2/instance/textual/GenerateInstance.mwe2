@@ -1,0 +1,209 @@
+/*
+<copyright>
+Copyright  2016 by Carnegie Mellon University, all rights reserved.
+
+Use of the Open Source AADL Tool Environment (OSATE) is subject to the terms of the license set forth
+at http://www.eclipse.org/org/documents/epl-v10.html.
+
+NO WARRANTY
+
+ANY INFORMATION, MATERIALS, SERVICES, INTELLECTUAL PROPERTY OR OTHER PROPERTY OR RIGHTS GRANTED OR PROVIDED BY
+CARNEGIE MELLON UNIVERSITY PURSUANT TO THIS LICENSE (HEREINAFTER THE ''DELIVERABLES'') ARE ON AN ''AS-IS'' BASIS.
+CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY KIND, EITHER EXPRESS OR IMPLIED AS TO ANY MATTER INCLUDING,
+BUT NOT LIMITED TO, WARRANTY OF FITNESS FOR A PARTICULAR PURPOSE, MERCHANTABILITY, INFORMATIONAL CONTENT,
+NONINFRINGEMENT, OR ERROR-FREE OPERATION. CARNEGIE MELLON UNIVERSITY SHALL NOT BE LIABLE FOR INDIRECT, SPECIAL OR
+CONSEQUENTIAL DAMAGES, SUCH AS LOSS OF PROFITS OR INABILITY TO USE SAID INTELLECTUAL PROPERTY, UNDER THIS LICENSE,
+REGARDLESS OF WHETHER SUCH PARTY WAS AWARE OF THE POSSIBILITY OF SUCH DAMAGES. LICENSEE AGREES THAT IT WILL NOT
+MAKE ANY WARRANTY ON BEHALF OF CARNEGIE MELLON UNIVERSITY, EXPRESS OR IMPLIED, TO ANY PERSON CONCERNING THE
+APPLICATION OF OR THE RESULTS TO BE OBTAINED WITH THE DELIVERABLES UNDER THIS LICENSE.
+
+Licensee hereby agrees to defend, indemnify, and hold harmless Carnegie Mellon University, its trustees, officers,
+employees, and agents from all claims or demands made against them (and any related losses, expenses, or
+attorney's fees) arising out of, or relating to Licensee's and/or its sub licensees' negligent use or willful
+misuse of or negligent conduct or willful misconduct regarding the Software, facilities, or other rights or
+assistance granted by Carnegie Mellon University under this License, including, but not limited to, any claims of
+product liability, personal injury, death, damage to property, or violation of any laws or regulations.
+
+Carnegie Mellon University Software Engineering Institute authored documents are sponsored by the U.S. Department
+of Defense under Contract F19628-00-C-0003. Carnegie Mellon University retains copyrights in all material produced
+under this contract. The U.S. Government retains a non-exclusive, royalty-free license to publish or reproduce these
+documents, or allow others to do so, for U.S. Government purposes only pursuant to the copyright license
+under the contract clause at 252.227.7013.
+</copyright>
+ */
+module org.osate.aadl2.instance.textual.GenerateInstance
+
+import org.eclipse.emf.mwe.utils.*
+import org.eclipse.xtext.generator.*
+import org.eclipse.xtext.ui.generator.*
+
+var grammarURI = "classpath:/org/osate/aadl2/instance/textual/Instance.xtext"
+var fileExtensions = "instance"
+var projectName = "org.osate.aadl2.instance.textual"
+var runtimeProject = "../${projectName}"
+var generateXtendStub = true
+var encoding = "UTF-8"
+var fileHeader = "/*\n<copyright>\nCopyright  2016 by Carnegie Mellon University, all rights reserved.\n\nUse of the Open Source AADL Tool Environment (OSATE) is subject to the terms of the license set forth\nat http://www.eclipse.org/org/documents/epl-v10.html.\n\nNO WARRANTY\n\nANY INFORMATION, MATERIALS, SERVICES, INTELLECTUAL PROPERTY OR OTHER PROPERTY OR RIGHTS GRANTED OR PROVIDED BY\nCARNEGIE MELLON UNIVERSITY PURSUANT TO THIS LICENSE (HEREINAFTER THE ''DELIVERABLES'') ARE ON AN ''AS-IS'' BASIS.\nCARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY KIND, EITHER EXPRESS OR IMPLIED AS TO ANY MATTER INCLUDING,\nBUT NOT LIMITED TO, WARRANTY OF FITNESS FOR A PARTICULAR PURPOSE, MERCHANTABILITY, INFORMATIONAL CONTENT,\nNONINFRINGEMENT, OR ERROR-FREE OPERATION. CARNEGIE MELLON UNIVERSITY SHALL NOT BE LIABLE FOR INDIRECT, SPECIAL OR\nCONSEQUENTIAL DAMAGES, SUCH AS LOSS OF PROFITS OR INABILITY TO USE SAID INTELLECTUAL PROPERTY, UNDER THIS LICENSE,\nREGARDLESS OF WHETHER SUCH PARTY WAS AWARE OF THE POSSIBILITY OF SUCH DAMAGES. LICENSEE AGREES THAT IT WILL NOT\nMAKE ANY WARRANTY ON BEHALF OF CARNEGIE MELLON UNIVERSITY, EXPRESS OR IMPLIED, TO ANY PERSON CONCERNING THE\nAPPLICATION OF OR THE RESULTS TO BE OBTAINED WITH THE DELIVERABLES UNDER THIS LICENSE.\n\nLicensee hereby agrees to defend, indemnify, and hold harmless Carnegie Mellon University, its trustees, officers,\nemployees, and agents from all claims or demands made against them (and any related losses, expenses, or\nattorney's fees) arising out of, or relating to Licensee's and/or its sub licensees' negligent use or willful\nmisuse of or negligent conduct or willful misconduct regarding the Software, facilities, or other rights or\nassistance granted by Carnegie Mellon University under this License, including, but not limited to, any claims of\nproduct liability, personal injury, death, damage to property, or violation of any laws or regulations.\n\nCarnegie Mellon University Software Engineering Institute authored documents are sponsored by the U.S. Department\nof Defense under Contract F19628-00-C-0003. Carnegie Mellon University retains copyrights in all material produced\nunder this contract. The U.S. Government retains a non-exclusive, royalty-free license to publish or reproduce these\ndocuments, or allow others to do so, for U.S. Government purposes only pursuant to the copyright license\nunder the contract clause at 252.227.7013.\n</copyright>\n */"
+
+Workflow {
+    bean = StandaloneSetup {
+    	scanClassPath = true
+    	platformUri = "${runtimeProject}/.."
+		uriMap = {
+			from = "platform:/plugin/org.eclipse.emf.codegen.ecore/model/GenModel.genmodel"
+			to = "platform:/resource/org.eclipse.emf.codegen.ecore/model/GenModel.genmodel"
+		}
+		uriMap = {
+			from = "platform:/plugin/org.eclipse.emf.ecore/model/Ecore.genmodel"
+			to = "platform:/resource/org.eclipse.emf.ecore/model/Ecore.genmodel"
+		}
+		uriMap = {
+			from = "platform:/plugin/org.eclipse.uml2.codegen.ecore/model/GenModel.genmodel"
+			to = "platform:/resource/org.eclipse.uml2.codegen.ecore/model/GenModel.genmodel"
+		}
+		uriMap = {
+			from = "platform:/plugin/org.eclipse.uml2.types/model/Types.genmodel"
+			to = "platform:/resource/org.eclipse.uml2.types/model/Types.genmodel"
+		}
+		uriMap = {
+			from = "platform:/plugin/org.eclipse.uml2.uml/model/UML.genmodel"
+			to = "platform:/resource/org.eclipse.uml2.uml/model/UML.genmodel"
+		}
+		uriMap = {
+			from = "platform:/plugin/org.eclipse.emf.codegen.ecore/model/GenModel.ecore"
+			to = "platform:/resource/org.eclipse.emf.codegen.ecore/model/GenModel.ecore"
+		}
+		uriMap = {
+			from = "platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore"
+			to = "platform:/resource/org.eclipse.emf.ecore/model/Ecore.ecore"
+		}
+		uriMap = {
+			from = "platform:/plugin/org.eclipse.uml2.codegen.ecore/model/GenModel.ecore"
+			to = "platform:/resource/org.eclipse.uml2.codegen.ecore/model/GenModel.ecore"
+		}
+		uriMap = {
+			from = "platform:/plugin/org.eclipse.uml2.types/model/Types.ecore"
+			to = "platform:/resource/org.eclipse.uml2.types/model/Types.ecore"
+		}
+		uriMap = {
+			from = "platform:/plugin/org.eclipse.uml2.uml/model/UML.ecore"
+			to = "platform:/resource/org.eclipse.uml2.uml/model/UML.ecore"
+		}
+		//
+		registerGeneratedEPackage = "org.eclipse.emf.ecore.EcorePackage"
+		registerGeneratedEPackage = "org.eclipse.uml2.types.TypesPackage"
+		registerGeneratedEPackage = "org.eclipse.uml2.uml.UMLPackage"
+		registerGeneratedEPackage = "org.eclipse.emf.codegen.ecore.genmodel.GenModelPackage"
+		registerGeneratedEPackage = "org.eclipse.uml2.codegen.ecore.genmodel.GenModelPackage"
+		registerGenModelFile = "platform:/resource/org.eclipse.emf.ecore/model/Ecore.genmodel"
+		registerGenModelFile = "platform:/resource/org.eclipse.emf.codegen.ecore/model/GenModel.genmodel"
+		registerGenModelFile = "platform:/resource/org.eclipse.uml2.types/model/Types.genmodel"
+		registerGenModelFile = "platform:/resource/org.eclipse.uml2.uml/model/UML.genmodel"
+		registerGenModelFile = "platform:/resource/org.eclipse.uml2.codegen.ecore/model/GenModel.genmodel"
+		registerGeneratedEPackage = "org.osate.aadl2.Aadl2Package"
+		registerGenModelFile = "platform:/resource/org.osate.aadl2/model/aadl2.genmodel"
+
+		registerGeneratedEPackage = "org.osate.aadl2.instance.InstancePackage"
+		registerGenModelFile = "platform:/resource/org.osate.aadl2/model/instance.genmodel"
+    }
+    
+    component = DirectoryCleaner {
+    	directory = "${runtimeProject}/src-gen"
+    }
+    
+    component = DirectoryCleaner {
+    	directory = "${runtimeProject}/model/generated"
+    }
+    
+    component = DirectoryCleaner {
+    	directory = "${runtimeProject}.ui/src-gen"
+    }
+    
+    component = DirectoryCleaner {
+    	directory = "${runtimeProject}.tests/src-gen"
+    }
+    
+    component = Generator auto-inject {
+    	pathRtProject = runtimeProject
+    	pathUiProject = "${runtimeProject}.ui"
+    	pathTestProject = "${runtimeProject}.tests"
+    	projectNameRt = projectName
+    	projectNameUi = "${projectName}.ui"
+    	encoding = encoding
+    	language = auto-inject {
+    		uri = grammarURI
+    
+    		// Java API to access grammar elements (required by several other fragments)
+    		fragment = grammarAccess.GrammarAccessFragment auto-inject {}
+    
+    		// generates Java API for the generated EPackages
+    		fragment = ecore.EMFGeneratorFragment auto-inject {}
+    
+    		// the old serialization component
+    		// fragment = parseTreeConstructor.ParseTreeConstructorFragment auto-inject {}    
+    
+    		// serializer 2.0
+    		fragment = serializer.SerializerFragment auto-inject {}
+    
+    		// a custom ResourceFactory for use with EMF
+    		fragment = resourceFactory.ResourceFactoryFragment auto-inject {}
+    
+    		// The antlr parser generator fragment.
+    		fragment = parser.antlr.XtextAntlrGeneratorFragment auto-inject {
+    		//  options = {
+    		//      backtrack = true
+    		//  }
+    		}
+    		
+    		fragment = validation.ValidatorFragment auto-inject {
+    			inheritImplementation = false
+    		}
+    		
+    		// old scoping and exporting API
+    		// fragment = scoping.ImportURIScopingFragment auto-inject {}
+    		// fragment = exporting.SimpleNamesFragment auto-inject {}
+    
+    		// scoping and exporting API
+    		fragment = exporting.QualifiedNamesFragment auto-inject {}
+    		fragment = builder.BuilderIntegrationFragment auto-inject {}
+    
+//    		// generator API
+//    		fragment = generator.GeneratorFragment auto-inject {}
+    
+    		// formatter API
+    		fragment = formatting.FormatterFragment auto-inject {}
+    
+    		// labeling API
+    		fragment = labeling.LabelProviderFragment auto-inject {}
+    
+    		// outline API
+    		fragment = outline.OutlineTreeProviderFragment auto-inject {}
+    		fragment = outline.QuickOutlineFragment auto-inject {}
+    
+    		// quickfix API
+    		fragment = quickfix.QuickfixProviderFragment auto-inject {}
+    
+    		// content assist API
+    		fragment = contentAssist.ContentAssistFragment auto-inject {}
+    
+    		// generates a more lightweight Antlr parser and lexer tailored for content assist
+    		fragment = parser.antlr.XtextAntlrUiGeneratorFragment auto-inject {}
+    
+    		// generates junit test support classes into Generator#pathTestProject
+    		fragment = junit.Junit4Fragment auto-inject {
+    			useDeprecatedClasses = false
+    		}
+    
+    		// rename refactoring
+    		fragment = refactoring.RefactorElementNameFragment auto-inject {}
+    
+     
+    		// provides a preference page for template proposals
+    		fragment = templates.CodetemplatesGeneratorFragment auto-inject {}
+    
+    		// provides a compare view
+    		fragment = compare.CompareFragment auto-inject {}
+    	}
+    }
+}
+

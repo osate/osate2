@@ -1,0 +1,24 @@
+package BadParameterConnection
+public
+	process P1
+	end P1;
+	
+	process implementation P1.impl
+	subcomponents
+		Thread1: thread T1.impl;
+	end P1.impl;
+	
+	thread T1
+		
+	end T1;
+	
+	thread implementation T1.impl
+	subcomponents
+		Data1: data;
+		Data2: data;
+	connections
+		-- this should be bad: subcomponent to subcomponent
+		-- Disallowed by ASS5506B, page 178 (L2)
+		bad1: parameter Data2 -> Data1;
+	end T1.impl;
+end BadParameterConnection;

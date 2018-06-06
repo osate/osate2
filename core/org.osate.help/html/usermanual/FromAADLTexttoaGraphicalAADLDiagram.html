@@ -1,0 +1,169 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+	"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+   <title>From AADL Text to a Graphical AADL Diagram</title>
+   <link href="Res/styles/shared.css" rel="stylesheet" type="text/css">
+   <link href="Res/styles/DynamicOutline.css" rel="stylesheet" type="text/css">
+</head>
+<body id="page" >
+
+<!-- BEGIN PAGE BODY-->
+
+
+<table id="pageBody">
+ <col class="main">
+ <col class="right">
+
+<!-- BEGIN BREADCRUMBS-->
+<tr id="breadcrumbsAndPageNavigation">
+  <td class="breadcrumbs" valign="top">
+<!-- BEGIN NAVIGATION BREADCRUMBS ITEM-->
+<span class="breadcrumb">
+   <a href="index.html">Home</a> 
+   <span class="separator">&gt;</span>
+</span>
+<!-- END NAVIGATION BREADCRUMBS ITEM-->
+<!-- BEGIN NAVIGATION BREADCRUMBS ITEM-->
+<span class="breadcrumb">
+   <a href="TheAADLGraphicalEditor.html">8. The AADL Graphical Editor</a> 
+   <span class="separator">&gt;</span>
+</span>
+<!-- END NAVIGATION BREADCRUMBS ITEM-->
+<!-- BEGIN NAVIGATION BREADCRUMBS HERE-->
+<span class="breadcrumb">
+   8.1 From AADL Text to a Graphical AADL Diagram
+</span>
+<!-- END NAVIGATION BREADCRUMBS HERE-->
+
+  </td>
+  <td class="pageNavigation" valign="top">
+<!-- START PAGE NAVIGATION NEXT IN SEQUENCE IMAGES -->
+<span class="commands">
+    <span class="command">
+        <img src="Res/images/previous_button.gif" alt=""> <a href="TheAADLGraphicalEditor.html">
+        <span class="label">Previous</span></a>
+    </span>
+&nbsp;&nbsp;
+    <span class="command">
+        <a href="GraphicalEditing.html">
+        <span class="label">Next</span></a> <img src="Res/images/next_button.gif" alt="">
+    </span>
+</span>
+<!-- END PAGE NAVIGATION NEXT IN SEQUENCE IMAGES  -->
+
+  </td>
+  <td class="right" valign="top">
+  </td>
+</tr>
+<!-- END BREADCRUMBS-->
+
+<tr class="topic">
+  <td class="main" valign="top" colspan="2">
+    <div class="body">
+      <div class="topicDivider">
+      </div>
+    </div>
+  </td>
+  <td class="right" valign="top">
+<!--right body column empty-->
+  </td>
+</tr>
+
+<!--BEGIN PAGE BODY ITEM-->
+<tr class="topic">
+  <td class="main" valign="top" colspan="2">
+    <table>
+      <tr class="topicHeader">
+        <td class="topicImageColumn">
+
+        </td>
+        <td class="topicLineColumn">
+          <a name="Topic58"></a>
+          <span class=outlineNumberFirst>8.1 </span><span class=topicLineFirst>From AADL Text to a Graphical AADL Diagram</span>
+          <span class="topicIcons">
+
+          </span>
+        </td>
+      </tr>
+    </table>
+
+<!-- phf:Comand: Expand("BoxPartMap.mmbas") -->
+     <div class="topicTextNotes"><div align="left"><font face="Times New Roman" size="3"><span style="font-size:12pt">A textual AADL model can be created with the AADL Text editor or imported into the 
+OSATE workspace by importing a text file through the File/Import command or by dragging 
+the text file into the OSATE workspace.  Once a textual AADL file is in the workspace, an 
+AADL object model is compiled from it.  </span></font><span></span></div>
+<div align="left"><font face="Times New Roman" size="3"><span style="font-size:12pt">An AADL diagram can be created from an existing AADL object model by selecting the 
+model in the navigator, and choosing new “New &gt; AADL Diagram” from the context menu.  
+This invokes the AADL Diagram wizard and populates it with values derived from the selected 
+model.  A new AADL specification diagram is created when you click on “Finish”.  The 
+diagram is initially empty, although the diagram’s outline view lists the existing model 
+components that can be placed in the diagram.  The image below shows a new (empty) 
+diagram after it has been created from the existing model “Main.aaxl”.  The outline at the 
+bottom right shows that the system implementation s.i and the system type s from the model are 
+available for use in the diagram.</span></font><span></span></div>
+<div align="left"><img src="NotesImages/Topic58NotesImage2.jpg" align="bottom" width="575" height="359" border="0" alt="graphic" /></div>
+<div align="left"><font face="Times New Roman" size="3"><span style="font-size:12pt">Existing components are placed in the diagram by dragging them from the outline to the 
+diagram.  You can drag multiple model objects from the outline view at the same time.  If the 
+number is large, the current placement algorithm of Topcased may not be able to fit them.  
+Therefore, before populating a diagram you may want to change the size and orientation of the 
+diagram.  You do so by right clicking and selecting Graphical Properties/Change Diagram 
+Properties.  Landscape and A3 is a reasonable setting.  </span></font><span></span></div>
+<div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">The top-level diagram (AadlSpec diagram) represents a library of component declarations. 
+Each component implementation has its own <i>instance diagram</i>.  You create/open the instance 
+diagram by double clicking on the component implementation.  Connections are automatically 
+filled in when subcomponents are placed in the instance diagram of an implementation.</span></font><span></span></div>
+<div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">Users can navigate between diagrams of the AADL model (aaxl file) through navigation 
+toolbox buttons </span></font><span></span></div>
+<div align="left"><img src="NotesImages/Topic58NotesImage5.jpg" align="bottom" width="209" height="37" border="0" alt="graphic" /></div>
+<div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">or by selecting and double clicking on the appropriate diagram in the outline view.</span></font><span></span></div>
+<div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">All diagrams belonging to an object model file (aaxl) are kept in a single diagrams file (aaxldi).</span></font><span></span></div></div>
+
+
+
+
+  </td>
+  <td class="right" valign="top">
+<!--right body column empty-->
+  </td>
+</tr>
+<!--END PAGE BODY ITEM-->
+
+
+<!-- BEGIN TOP BUTTON -->
+<tr class="topic">
+  <td class="main" valign="top" colspan="2">
+    <div class="body">
+      <div class="topCommand">
+        <span class="commands">
+      <span class="command">
+            <img src="Res/images/top_button.gif" alt="">
+          <a href="javascript:scroll(0,0)">
+             <span class="label">Top</span>
+              </a>
+    </span>
+       </span>
+      </div>
+    </div>
+  </td>
+  <td class="right" valign="top">
+<!--right body column empty-->
+  </td>
+</tr>
+<!-- END TOP BUTTON -->
+
+</table>
+
+<!-- BEGIN SIDE NAVIGATION WRAPPER-->
+    </td>
+  </tr>
+</table>
+<!-- END SIDE NAVIGATION WRAPPER-->
+
+<!-- END PAGE BODY-->
+
+
+</body>
+</html>
+

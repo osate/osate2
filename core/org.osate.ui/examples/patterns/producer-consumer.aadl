@@ -1,0 +1,196 @@
+--
+--  The producer consumer example consists in two processes
+--  running on separate processors that exchange data through
+--  a shared buses.
+--
+--  The following example can be used with the following
+--  plugins:
+--           * Flow Latency
+--           * Functional Hazard Assessment
+--           * Resources Budgets
+--           * Resources Allocations
+--           * Bus Load
+--
+--  For more information about our examples, please visit
+--  our wiki: https://wiki.sei.cmu.edu/aadl/index.php/Models_examples
+--
+--  Copyright Carnegie Mellon Software Engineering Institute, 2014
+--
+
+package consumer_producer
+
+public
+
+with errorlibrary;
+with base_types;
+with sei;
+with emv2;
+
+data mydata extends base_types::Integer_16
+end mydata;
+
+data implementation mydata.i
+end mydata.i;
+
+
+--
+--  Hardware Part
+--
+
+processor mycpu
+features
+	eth : requires bus access ethernet;
+properties
+	sei::mipscapacity => 1000.0 mips;
+end mycpu;
+
+memory ram
+properties
+	sei::ramcapacity => 1000.0 mbyte;
+end ram;
+
+bus ethernet
+properties
+	latency => 1 Ms .. 1 Ms;
+	sei::bandwidthcapacity => 100.0 mbytesps; 
+	transmission_time => [ fixed => 10 ms .. 30ms;
+                           perbyte => 1 us .. 10 us; ];
+end ethernet;
+
+
+--
+--  Producer software part
+--
+
+process producer
+features
+	dataout : out data port mydata.i;
+flows
+	f0 : flow source dataout;
+
+end producer;
+
+process implementation producer.i
+subcomponents
+	thr : thread producer_thr.i;
+connections
+	c0 : port thr.dataout -> dataout;
+flows
+	f0 : flow source thr.f0 -> c0 -> dataout;
+properties
+	sei::rambudget => 100.0 mbyte;
+end producer.i;
+
+thread producer_thr
+features
+	dataout : out data port mydata.i;
+flows
+	f0 : flow source dataout;
+properties
+	Period 			  => 20ms;
+	sei::mipsbudget   => 30.0 mips;
+	Dispatch_Protocol => periodic;
+annex EMV2 {**
+	use types ErrorLibrary;
+    
+    error propagations 
+    	dataout: out propagation  {valueerror};
+    flows  	
+		ef0 : error source dataout {valueerror};
+	end propagations;
+	
+	properties
+		emv2::hazards => 
+			([	crossreference => "N/A";
+				failure => "Bad Values";
+				phases => ("all");
+				severity => ARP4761::Hazardous;
+				likelihood => ARP4761::Remote;
+				description => "Bad Value sent by the producer";
+				comment => "Not so important if the next data is correct";
+					])
+			applies to dataout.valueerror;
+**};
+end producer_thr;
+
+thread implementation producer_thr.i
+end producer_thr.i;
+
+
+--
+--  Consumer Software Part
+--
+
+process consumer
+features
+	datain : in data port mydata.i;
+flows
+	f0 : flow sink datain;
+
+end consumer;
+
+process implementation consumer.i
+subcomponents
+	thr : thread consumer_thr.i;
+connections
+	c0 : port datain -> thr.datain;
+flows
+	f0 : flow sink datain -> c0 -> thr.f0;
+properties
+	sei::rambudget => 80.0 mbyte;
+end consumer.i;
+
+thread consumer_thr
+features
+	datain : in data port mydata.i;
+flows
+	f0 : flow sink datain; 
+properties
+	Period 			  => 20ms;
+	sei::mipsbudget   => 30.0 mips;
+	Dispatch_Protocol => periodic;
+annex EMV2 {**
+	use types ErrorLibrary;
+    
+    error propagations 
+    	datain: in propagation  {valueerror};
+    flows  	
+		ef0 : error sink datain {valueerror};
+	end propagations;
+**};
+end consumer_thr;
+
+thread implementation consumer_thr.i
+end consumer_thr.i;
+
+
+--
+--  main assembly
+--
+
+system producer_consumer_example
+end producer_consumer_example;
+
+system implementation producer_consumer_example.i
+subcomponents
+	producer_cpu : processor mycpu;
+	consumer_cpu : processor mycpu;
+	producer_ram : memory ram;
+	consumer_ram : memory ram;
+	producer_prs : process producer.i;
+	consumer_prs : process consumer.i;
+	eth       	 : bus ethernet;
+connections
+	producer_to_consumer : port producer_prs.dataout -> consumer_prs.datain
+		{Actual_Connection_Binding => (reference (eth));};
+flows
+	f0 : end to end flow producer_prs.f0 -> producer_to_consumer -> consumer_prs.f0
+	 	{Latency => 20ms .. 50 ms;};
+properties
+	actual_processor_binding => (reference (producer_cpu)) applies to producer_prs;
+	actual_processor_binding => (reference (consumer_cpu)) applies to consumer_prs;
+	actual_memory_binding    => (reference (consumer_ram)) applies to consumer_prs;
+	actual_memory_binding    => (reference (producer_ram)) applies to producer_prs;
+end producer_consumer_example.i;
+
+end producer_consumer;
