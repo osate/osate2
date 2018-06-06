@@ -3,40 +3,30 @@ package org.osate.core.tests.issues
 import com.google.inject.Inject
 import com.itemis.xtext.testing.FluentIssueCollection
 import com.itemis.xtext.testing.XtextTest
-import org.eclipse.emf.common.util.URI
-import org.eclipse.xtext.resource.IResourceServiceProvider
 import org.eclipse.xtext.testing.InjectWith
 import org.eclipse.xtext.testing.XtextRunner
-import org.eclipse.xtext.testing.util.ParseHelper
-import org.eclipse.xtext.validation.CheckMode
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.osate.aadl2.AadlPackage
 import org.osate.aadl2.SystemImplementation
 import org.osate.aadl2.instantiation.InstantiateModel
 import org.osate.testsupport.Aadl2InjectorProvider
-import org.osate.testsupport.TestResourceSet
+import org.osate.testsupport.TestHelper
 
 import static org.junit.Assert.*
 
 import static extension org.osate.testsupport.AssertHelper.assertError
 
-@RunWith(typeof(XtextRunner))
-@InjectWith(typeof(Aadl2InjectorProvider))
+@RunWith(XtextRunner)
+@InjectWith(Aadl2InjectorProvider)
 class Issue500Test extends XtextTest {
 
 	@Inject
-	ParseHelper<AadlPackage> parseHelper
-
-	@Inject
-	TestResourceSet resourceSet
-
-	@Inject
-	private IResourceServiceProvider.Registry serviceProviderRegistry
+	TestHelper testHelper
 
 	@Test
 	def void issue500() {
-		val pkg = parseHelper.parse(aadlText1, URI.createFileURI('issue500.aadl'), resourceSet.get())
+		val pkg = testHelper.parseString(aadlText1) as AadlPackage
 		val cls = pkg.ownedPublicSection.ownedClassifiers;
 		(0 .. 5).forEach [ k |
 			val name = '''S.i«k»'''
@@ -87,19 +77,9 @@ class Issue500Test extends XtextTest {
 	// Tests the method Aadl2JavaValidator.isMatchingConnectionPoint(Feature, Context, ConnectedElement)
 	@Test
 	def void testFlowValidation() {
-		// Can't use loadModel() because we have a string...
-		val pkg = parseHelper.parse(aadlText2, URI.createFileURI('pkg1.aadl'), resourceSet.get())
-
-		// Get the list of syntax, name resolution, and validation issues from the resource.
-		// If we read files instead of processing a string, this would be part of loadModel().
-		val r = pkg.eResource()
-		val provider = serviceProviderRegistry.getResourceServiceProvider(r.URI)
-		val issueList = provider.resourceValidator.validate(r, CheckMode.ALL, null)
-		// Variable issues must be initialized for call to assertConstraints()
-		issues = new FluentIssueCollection(pkg.eResource(), issueList, newArrayList)
-		val testFileResult = issues
+		val testFileResult = issues = testHelper.testString(aadlText2)
 		val issueCollection = new FluentIssueCollection(testFileResult.resource, newArrayList, newArrayList)
-		pkg => [
+		testFileResult.resource.contents.head as AadlPackage => [
 			assertEquals("pkg1", name)
 			publicSection.ownedClassifiers.get(1) as SystemImplementation => [
 				assertEquals("top.i", name)
