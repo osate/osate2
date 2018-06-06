@@ -1,0 +1,60 @@
+-- Copyright © 2008 SAE International
+
+-- Next example shows various dispatch conditions and transition actions. The 
+-- timeout value is given by the Period property of the thread. States st and 
+-- sf are complete states and thus outgoing transitions are triggered by 
+-- dispatch conditions, whereas s1 and s2 are execute states and outgoing 
+-- transitions are guarded by logical expressions.
+package BA_example3 public
+with Base_Types;
+
+thread sender
+features
+  d: out event data port Base_Types::Integer;
+  a: in event data port Base_Types::Integer;
+properties
+  Dispatch_Protocol => Timed;
+  Period => 10 ms;
+end sender;
+
+thread implementation sender.v1
+subcomponents
+  v: data Base_Types::Integer;
+annex behavior_specification {**
+  states
+    st: initial complete state;
+    sf: complete final state;
+    s1, s2: state;
+  transitions
+    st -[on dispatch timeout]-> st { v := 1; d!(v) };
+    st -[on dispatch a ]-> s1;
+    s1 -[a=1]-> sf;
+    s1 -[a=0]-> st;
+    sf -[on dispatch timeout]-> sf { v := 0; d!(v) };
+    sf -[on dispatch a ]-> s2;
+    s2 -[a=0]-> st;
+    s2 -[a=1]-> sf;
+**};
+end sender.v1;
+
+-- In a second version, it is possible to eliminate the need to maintain 
+-- state in the data component v. The state information is already reflected 
+-- in the state automaton.
+thread implementation sender.v2
+annex behavior_specification {**
+  states
+    st: initial complete state;
+    sf: complete final state;
+    s1, s2: state;
+  transitions
+    st -[on dispatch timeout]-> st { d!(1) };
+    st -[on dispatch a ]-> s1;
+    s1 -[a=1]-> sf;
+    s1 -[a=0]-> st;
+    sf -[on dispatch timeout]-> sf { d!(0) };
+    sf -[on dispatch a ]-> s2;
+    s2 -[a=0]-> st;
+    s2 -[a=1]-> sf;
+**};
+end sender.v2;
+end BA_example3;

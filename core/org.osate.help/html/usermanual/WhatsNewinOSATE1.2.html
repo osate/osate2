@@ -1,0 +1,195 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+	"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+   <title>What’s New in OSATE 1.2</title>
+   <link href="Res/styles/shared.css" rel="stylesheet" type="text/css">
+   <link href="Res/styles/DynamicOutline.css" rel="stylesheet" type="text/css">
+</head>
+<body id="page" >
+
+<!-- BEGIN PAGE BODY-->
+
+
+<table id="pageBody">
+ <col class="main">
+ <col class="right">
+
+<!-- BEGIN BREADCRUMBS-->
+<tr id="breadcrumbsAndPageNavigation">
+  <td class="breadcrumbs" valign="top">
+<!-- BEGIN NAVIGATION BREADCRUMBS ITEM-->
+<span class="breadcrumb">
+   <a href="index.html">Home</a> 
+   <span class="separator">&gt;</span>
+</span>
+<!-- END NAVIGATION BREADCRUMBS ITEM-->
+<!-- BEGIN NAVIGATION BREADCRUMBS ITEM-->
+<span class="breadcrumb">
+   <a href="WhatsNew.html">2. What’s New</a> 
+   <span class="separator">&gt;</span>
+</span>
+<!-- END NAVIGATION BREADCRUMBS ITEM-->
+<!-- BEGIN NAVIGATION BREADCRUMBS HERE-->
+<span class="breadcrumb">
+   2.1 What’s New in OSATE 1.2
+</span>
+<!-- END NAVIGATION BREADCRUMBS HERE-->
+
+  </td>
+  <td class="pageNavigation" valign="top">
+<!-- START PAGE NAVIGATION NEXT IN SEQUENCE IMAGES -->
+<span class="commands">
+    <span class="command">
+        <img src="Res/images/previous_button.gif" alt=""> <a href="WhatsNew.html">
+        <span class="label">Previous</span></a>
+    </span>
+&nbsp;&nbsp;
+    <span class="command">
+        <a href="WhatsNewinOSATE1.1.html">
+        <span class="label">Next</span></a> <img src="Res/images/next_button.gif" alt="">
+    </span>
+</span>
+<!-- END PAGE NAVIGATION NEXT IN SEQUENCE IMAGES  -->
+
+  </td>
+  <td class="right" valign="top">
+  </td>
+</tr>
+<!-- END BREADCRUMBS-->
+
+<tr class="topic">
+  <td class="main" valign="top" colspan="2">
+    <div class="body">
+      <div class="topicDivider">
+      </div>
+    </div>
+  </td>
+  <td class="right" valign="top">
+<!--right body column empty-->
+  </td>
+</tr>
+
+<!--BEGIN PAGE BODY ITEM-->
+<tr class="topic">
+  <td class="main" valign="top" colspan="2">
+    <table>
+      <tr class="topicHeader">
+        <td class="topicImageColumn">
+
+        </td>
+        <td class="topicLineColumn">
+          <a name="Topic4"></a>
+          <span class=outlineNumberFirst>2.1 </span><span class=topicLineFirst>What’s New in OSATE 1.2</span>
+          <span class="topicIcons">
+
+          </span>
+        </td>
+      </tr>
+    </table>
+
+<!-- phf:Comand: Expand("BoxPartMap.mmbas") -->
+     <div class="topicTextNotes"><div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">OSATE 1.2 runs under Eclipse 3.1.2 and EMF 2.1.2.</span></font><span></span></div>
+<div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">OSATE 1.2 has been integrated with the graphical editor TOPCASED 0.8 using GEF 3.1.1.</span></font><span></span></div>
+<div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">The AADL Builder updates the aadl file when the aaxl file is changed and vice versa.  In other 
+words, changes made in the text editor become visible in the object editor and the graphical 
+editor, and changes in the object editor or graphical editor become visible in the text editor.</span></font><span></span></div>
+<div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">OSATE now only generates .aaxl files for those .aadl files that do not have name/numeric 
+resolution errors.  This ensures that all .aaxl files have legal references to other objects. If there 
+are syntax errors and the aaxl file exists it is tagged as its source having syntax errors.  The 
+AADL Navigator then hides such aaxl files.</span></font><span></span></div>
+<div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">Replaced the &quot;Clean up instances&quot; action with the &quot;Reinstantiate All Models&quot; action.  This 
+action rebuilds all the instance models in the workspace, removing any whose system 
+implementation no longer exists.</span></font><span></span></div>
+<div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">Added action “Check Model Semantics” under the “Analyses/Semantic Checks”menu to 
+allows the user to invoke semantic checking manually on aaxl files.  The semantic checker is 
+also automatically invoked by the builder when an .aadl file has been written and parsed, or 
+when an .aaxl file has been written by the graphical or object editor. </span></font><span></span></div>
+<div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">Added debugging actions: &quot;Reload Resource Set&quot; which forces all the XML models to be 
+reloaded, and &quot;Check For Unresolved Proxies&quot; which looks for unresolved proxies (i.e., Xpath 
+reference errors) in XML models.  “Check Model Sanity” checks aaxl files for consistent use 
+of references.  These actions are useful when importing aaxl files from external sources, e.g., 
+AADL XML files that have been generated by another tool.</span></font><span></span></div>
+<div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">The object editor includes navigation actions in its context menu to go to the source or 
+destination of connections, to the classifier of subcomponents &amp; ports, and to the declaration 
+corresponding to an object in the instance model.</span></font><span></span></div>
+<div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">Added ability to move between the three editors by going to the current selection in each 
+(“Goto AADL diagram”, “Goto AADL Text”, and “Goto AADL Diagram”).</span></font><span></span></div>
+<div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">Added an &quot;AADL&quot; perspective.</span></font><span></span></div>
+<div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">Added an &quot;AADL Navigator&quot; view that hides &quot;.&quot; files, that hides aaxl files if the corresponding 
+aadl file has syntax errors, and that decorates icons to indicate whether the resource has 
+warnings or errors.</span></font><span></span></div>
+<div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">Added &quot;convert to AADL text file&quot; as export wizard.</span></font><span></span></div>
+<div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">Added &quot;convert to MetaH&quot; as export wizard.</span></font><span></span></div>
+<div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">Bug Fixes: </span></font><span></span></div>
+<div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">Fixed a bugs in the parser (incomplete XML structures in case of unresolvable names, 
+recognize changes to the standard property sets or change in their location), unparser (handling 
+of refined connection declarations), instance model generator (generation of data/bus access 
+connections, generation of connections involving port groups).  For a full list of bug  fixes see 
+Bugzilla.</span></font><span></span></div>
+<div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">Changes to the OSATE API:</span></font><span></span></div>
+<div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">Renamed AadlEditor to AadlTextEditor to avoid confusion with AADLEditor as the graphical 
+editor.</span></font><span></span></div>
+<div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">Changed ParseErrorReporter to only have LocationReference-based reporting methods.  This 
+means the parseError() method has been renamed to error() and the semanticError() method 
+has been removed.  Instead, there is a new AnalysisToParseErrorReporterAdapter class that is 
+used with AnalysisErrorReporterManagers. This class allows errors to be reported relative to 
+AObjects, but actually reports relative to the text position in the source text file by using a 
+ParseErrorReporter under the hood.  Additional changes to ParseErrorReporter and 
+ParseErrorReporterManager were also made to make them more similar in structure to 
+AnalysisErrorReporter and AnalysisErrorReporterManager.  A side-effect of these changes is 
+that resolveAnnex() method in AnnexResolver now takes an AnalysisErrorReporterManager 
+instead of a ParseErrorReporterManager.</span></font><span></span></div>
+<div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">The above changes also mean that the resolveAnnex() method in AnnexResolver now takes an 
+AnalysisErrorReporterManager instead of a ParseErrorReporterManager.</span></font><span></span></div>
+<div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">Semantic checker has been separated from name resolver to allow its use on object models 
+created by the graphical editor or AADL object editor.</span></font><span></span></div></div>
+
+
+
+
+  </td>
+  <td class="right" valign="top">
+<!--right body column empty-->
+  </td>
+</tr>
+<!--END PAGE BODY ITEM-->
+
+
+<!-- BEGIN TOP BUTTON -->
+<tr class="topic">
+  <td class="main" valign="top" colspan="2">
+    <div class="body">
+      <div class="topCommand">
+        <span class="commands">
+      <span class="command">
+            <img src="Res/images/top_button.gif" alt="">
+          <a href="javascript:scroll(0,0)">
+             <span class="label">Top</span>
+              </a>
+    </span>
+       </span>
+      </div>
+    </div>
+  </td>
+  <td class="right" valign="top">
+<!--right body column empty-->
+  </td>
+</tr>
+<!-- END TOP BUTTON -->
+
+</table>
+
+<!-- BEGIN SIDE NAVIGATION WRAPPER-->
+    </td>
+  </tr>
+</table>
+<!-- END SIDE NAVIGATION WRAPPER-->
+
+<!-- END PAGE BODY-->
+
+
+</body>
+</html>
+

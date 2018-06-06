@@ -1,0 +1,202 @@
+-- AADL-BA-FrontEnd
+ 
+-- Copyright © 2011 TELECOM ParisTech and CNRS
+ 
+-- TELECOM ParisTech/LTCI
+
+-- Authors: see AUTHORS
+ 
+-- This program is free software: you can redistribute it and/or modify 
+-- it under the terms of the Eclipse Public License as published by Eclipse,
+-- either version 1.0 of the License, or (at your option) any later version.
+-- This program is distributed in the hope that it will be useful,
+-- but WITHOUT ANY WARRANTY; without even the implied warranty of
+-- MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+-- Eclipse Public License for more details.
+-- You should have received a copy of the Eclipse Public License
+-- along with this program.  If not, see 
+-- http://www.eclipse.org/org/documents/epl-v10.php
+
+-- Behavior Annex legality rules D.6.(L3) and D.6.(L4) tests.
+
+package exemple_lr_D6_L3_D6_L4
+public
+   with Base_Types ;
+
+data dummyData1
+end dummyData1;
+
+data implementation dummyData1.impl
+  subcomponents
+    a : data Base_Types::Integer [100];
+    b : data Base_Types::Integer;
+end dummyData1.impl;
+
+thread th
+ features
+   outportA : out event data port Base_Types::Integer ;
+   outportB : out event data port Base_Types::Integer ;
+   outportC : out data port Base_Types::Integer ;
+   inportD : in event data port Base_Types::Integer ;
+   fakeData : requires data access dummyData1.impl;
+end th;
+
+
+thread implementation th.good
+    subcomponents
+    x : data Base_Types::Integer [100];
+    y : data Base_Types::Integer;
+    
+annex behavior_specification {**
+
+variables
+ a : Base_Types::Integer ;
+ b : Base_Types::Integer ;
+ c : Base_Types::Integer ;
+ d : Base_Types::Integer ;
+ e : Base_Types::Integer ;
+ f : Base_Types::Integer ;
+  
+states
+ s1 : initial state ;
+ s2 : complete state ;
+ s3 : final state ;
+
+transitions
+ s1 -[]-> s2 ;
+ s1 -[]-> s2 {a := 1};
+ s1 -[]-> s2 {{a := 1}};
+ s1 -[]-> s2 { a := 1 & b := 2 } ;
+ s1 -[]-> s2 { outPortA := 1 & outPortB := 2 };
+ s1 -[]-> s2 { x[a] := 1 & y := 2 };
+ s1 -[]-> s2 { fakeData.a[a] := 1 & fakeData.b := 2 };
+ s1 -[]-> s2 {
+                while(true)
+                {
+                   for (i : Base_Types::Integer in 0 .. 9)
+                   {
+                      if (true)
+                      {
+                         a := 1 & b := 1
+                      }
+                      elsif (true) { 
+                                     a:= 1 & 
+                                     {
+                                        if (true)
+                                        {
+                                           b := 1
+                                        }
+                                        else
+                                        {
+                                           fakeData.a[a] := 2
+                                        }
+                                        end if
+                                     }
+                                   }
+                      else
+                      {
+                        for (j : Base_Types::Integer in 0 .. 9)
+                        {
+                           do { c := i + j } until (true) 
+                        }
+                      }
+                      end if
+                   } -- End of first for.
+                 } -- End of while.
+                 &
+                 do
+                 {
+                   if (true)
+                   {
+                      d := 1
+                   }
+                   else
+                   {
+                      d := 0
+                   }
+                   end if
+                 } until (true)
+                 &
+                 fakeData.b := 1
+             } ;
+**};
+
+end th.good ;
+
+thread implementation th.error
+    subcomponents
+    x : data Base_Types::Integer [100];
+    y : data Base_Types::Integer;
+    
+annex behavior_specification {**
+
+variables
+ a : Base_Types::Integer ;
+ b : Base_Types::Integer ;
+ c : Base_Types::Integer ;
+ d : Base_Types::Integer ;
+ e : Base_Types::Integer ;
+ f : Base_Types::Integer ;
+  
+states
+ s1 : initial state ;
+ s2 : complete state ;
+ s3 : final state ;
+
+transitions
+ s1 -[]-> s2 {
+                while(true)
+                {
+                   for (i : Base_Types::Integer in 0 .. 9)
+                   {
+                      if (true)
+                      {
+                         a := 1 & b := 1
+                      }
+                      elsif (true) { 
+                                     a:= 1 & 
+                                     {
+                                        if (true)
+                                        {
+                                           b := 1
+                                        }
+                                        else
+                                        {
+-- Error fakeData.b can not assigned to in different actions of an action set.                                        
+                                           fakeData.b := 2
+                                        }
+                                        end if
+                                     }
+                                   }
+                      else
+                      {
+                        for (j : Base_Types::Integer in 0 .. 9)
+                        {
+                           do { c := i + j } until (true) 
+                        }
+                      }
+                      end if
+                   } -- End of first for.
+                 } -- End of while.
+                 &
+                 do
+                 {
+                   if (true)
+                   {
+                      d := 1
+                   }
+                   else
+                   {
+                      d := 0
+                   }
+                   end if
+                 } until (true)
+                 &
+-- Error fakeData.b can not assigned to in different actions of an action set.
+                 fakeData.b := 1
+             } ;
+**};
+
+end th.error ;
+
+end exemple_lr_D6_L3_D6_L4 ;

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.1.0" name="org.osate.ge.services.DefaultGraphicalEditorService">
+	<implementation class="org.osate.ge.services.impl.DefaultGraphicalEditorService$ContextFunction"/>
+	<property 
+		name="service.context.key" 
+		type="String" 
+		value="org.osate.ge.services.GraphicalEditorService"/>
+	<service>
+		<provide interface="org.eclipse.e4.core.contexts.IContextFunction"/>
+	</service>
+</scr:component>

@@ -1,0 +1,336 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.0"?>
+
+<plugin>
+    <extension
+            point="org.eclipse.ui.editors">
+        <editor
+            class="org.osate.xtext.aadl2.ui.Aadl2ExecutableExtensionFactory:org.eclipse.xtext.ui.editor.XtextEditor"
+            contributorClass="org.eclipse.ui.editors.text.TextEditorActionContributor"
+            default="true"
+            extensions="aadl"
+            id="org.osate.xtext.aadl2.Aadl2"
+            name="Aadl2 Editor">
+        </editor>
+        <editor
+            class="org.osate.xtext.aadl2.ui.Aadl2ExecutableExtensionFactory:org.eclipse.xtext.ui.editor.XtextEditor"
+            contributorClass="org.eclipse.ui.editors.text.TextEditorActionContributor"
+            default="true"
+            extensions="aadl2"
+            id="org.osate.xtext.aadl2.Aadl2"
+            name="Aadl2 Editor">
+        </editor>
+    </extension>
+    <extension
+        point="org.eclipse.ui.handlers">
+        <handler
+            class="org.osate.xtext.aadl2.ui.Aadl2ExecutableExtensionFactory:org.eclipse.xtext.ui.editor.hyperlinking.OpenDeclarationHandler"
+            commandId="org.eclipse.xtext.ui.editor.hyperlinking.OpenDeclaration">
+            <activeWhen>
+                <reference
+                    definitionId="org.osate.xtext.aadl2.Aadl2.Editor.opened">
+                </reference>
+            </activeWhen>
+        </handler>
+        <handler
+            class="org.osate.xtext.aadl2.ui.Aadl2ExecutableExtensionFactory:org.eclipse.xtext.ui.editor.handler.ValidateActionHandler"
+            commandId="org.osate.xtext.aadl2.Aadl2.validate">
+         <activeWhen>
+            <reference
+                    definitionId="org.osate.xtext.aadl2.Aadl2.Editor.opened">
+            </reference>
+         </activeWhen>
+      </handler>
+    </extension>
+    <extension point="org.eclipse.core.expressions.definitions">
+        <definition id="org.osate.xtext.aadl2.Aadl2.Editor.opened">
+            <and>
+                <reference definitionId="isActiveEditorAnInstanceOfXtextEditor"/>
+                <with variable="activeEditor">
+                    <test property="org.eclipse.xtext.ui.editor.XtextEditor.languageName" 
+                        value="org.osate.xtext.aadl2.Aadl2" 
+                        forcePluginActivation="true"/>
+                </with>        
+            </and>
+        </definition>
+    </extension>
+    <extension
+            point="org.eclipse.ui.preferencePages">
+        <page
+        	category="org.osate.internal.ui.preferences.OsatePreferencePage"
+            class="org.osate.xtext.aadl2.ui.Aadl2ExecutableExtensionFactory:org.osate.xtext.aadl2.ui.editor.preferences.Aadl2TextEditorPage"
+            id="org.osate.xtext.aadl2.Aadl2"
+            name="AADL Text Editor">
+            <keywordReference id="org.osate.xtext.aadl2.ui.keyword_Aadl2"/>
+        </page>
+        <page
+            category="org.osate.xtext.aadl2.Aadl2"
+            class="org.osate.xtext.aadl2.ui.Aadl2ExecutableExtensionFactory:org.eclipse.xtext.ui.editor.syntaxcoloring.SyntaxColoringPreferencePage"
+            id="org.osate.xtext.aadl2.Aadl2.coloring"
+            name="Syntax Coloring">
+            <keywordReference id="org.osate.xtext.aadl2.ui.keyword_Aadl2"/>
+        </page>
+        <page
+            category="org.osate.xtext.aadl2.Aadl2"
+            class="org.osate.xtext.aadl2.ui.Aadl2ExecutableExtensionFactory:org.eclipse.xtext.ui.editor.templates.XtextTemplatePreferencePage"
+            id="org.osate.xtext.aadl2.Aadl2.templates"
+            name="Templates">
+            <keywordReference id="org.osate.xtext.aadl2.ui.keyword_Aadl2"/>
+        </page>
+    </extension>
+    <extension
+        point="org.eclipse.ui.keywords">
+        <keyword
+            id="org.osate.xtext.aadl2.ui.keyword_Aadl2"
+            label="Aadl2"/>
+    </extension>
+    <extension
+         point="org.eclipse.ui.commands">
+      <command
+            description="Trigger expensive validation"
+            id="org.osate.xtext.aadl2.Aadl2.validate"
+            name="Validate">
+      </command>
+    </extension>
+    <extension point="org.eclipse.ui.menus">
+        <menuContribution
+            locationURI="popup:#TextEditorContext?after=group.edit">
+             <command
+                 commandId="org.osate.xtext.aadl2.Aadl2.validate"
+                 style="push"
+                 tooltip="Trigger expensive validation">
+            <visibleWhen checkEnabled="false">
+                <reference
+                    definitionId="org.osate.xtext.aadl2.Aadl2.Editor.opened">
+                </reference>
+            </visibleWhen>
+         </command>  
+         </menuContribution>
+    </extension>
+    <extension point="org.eclipse.ui.menus">
+		<menuContribution locationURI="popup:#TextEditorContext?endof=group.find">
+			<command commandId="org.eclipse.xtext.ui.editor.FindReferences">
+				<visibleWhen checkEnabled="false">
+                	<reference definitionId="org.osate.xtext.aadl2.Aadl2.Editor.opened">
+                	</reference>
+            	</visibleWhen>
+			</command>
+		</menuContribution>
+	</extension>
+
+	<extension point="org.eclipse.ui.handlers">
+	    <handler
+            class="org.osate.xtext.aadl2.ui.Aadl2ExecutableExtensionFactory:org.eclipse.xtext.ui.editor.findrefs.FindReferencesHandler"
+            commandId="org.eclipse.xtext.ui.editor.FindReferences">
+            <activeWhen>
+                <reference
+                    definitionId="org.osate.xtext.aadl2.Aadl2.Editor.opened">
+                </reference>
+            </activeWhen>
+        </handler>
+    </extension>   
+
+<!-- adding resource factories -->
+
+	<extension
+		point="org.eclipse.emf.ecore.extension_parser">
+		<parser
+			class="org.osate.xtext.aadl2.ui.Aadl2ExecutableExtensionFactory:org.eclipse.xtext.resource.IResourceFactory"
+			type="aadl2">
+		</parser>
+	</extension>
+	<extension point="org.eclipse.xtext.extension_resourceServiceProvider">
+        <resourceServiceProvider
+            class="org.osate.xtext.aadl2.ui.Aadl2ExecutableExtensionFactory:org.eclipse.xtext.ui.resource.IResourceUIServiceProvider"
+            uriExtension="aadl2">
+        </resourceServiceProvider>
+    </extension>
+
+	<extension
+		point="org.eclipse.emf.ecore.extension_parser">
+		<parser
+			class="org.osate.xtext.aadl2.ui.Aadl2ExecutableExtensionFactory:org.eclipse.xtext.resource.IResourceFactory"
+			type="aadl">
+		</parser>
+	</extension>
+	<extension point="org.eclipse.xtext.extension_resourceServiceProvider">
+        <resourceServiceProvider
+            class="org.osate.xtext.aadl2.ui.Aadl2ExecutableExtensionFactory:org.eclipse.xtext.ui.resource.IResourceUIServiceProvider"
+            uriExtension="aadl">
+        </resourceServiceProvider>
+    </extension>
+
+
+
+
+	<!-- Quick Outline -->
+	<extension
+		point="org.eclipse.ui.handlers">
+		<handler 
+			class="org.osate.xtext.aadl2.ui.Aadl2ExecutableExtensionFactory:org.eclipse.xtext.ui.editor.outline.quickoutline.ShowQuickOutlineActionHandler"
+			commandId="org.eclipse.xtext.ui.editor.outline.QuickOutline">
+			<activeWhen>
+				<reference
+					definitionId="org.osate.xtext.aadl2.Aadl2.Editor.opened">
+				</reference>
+			</activeWhen>
+		</handler>
+	</extension>
+	<extension
+		point="org.eclipse.ui.commands">
+		<command
+			description="Open the quick outline."
+			id="org.eclipse.xtext.ui.editor.outline.QuickOutline"
+			name="Quick Outline">
+		</command>
+	</extension>
+	<extension point="org.eclipse.ui.menus">
+		<menuContribution
+			locationURI="popup:#TextEditorContext?after=group.open">
+			<command commandId="org.eclipse.xtext.ui.editor.outline.QuickOutline"
+				style="push"
+				tooltip="Open Quick Outline">
+				<visibleWhen checkEnabled="false">
+					<reference definitionId="org.osate.xtext.aadl2.Aadl2.Editor.opened"/>
+				</visibleWhen>
+			</command>
+		</menuContribution>
+	</extension>
+
+   <!-- quickfix marker resolution generator -->
+   <extension
+         point="org.eclipse.ui.ide.markerResolution">
+      <markerResolutionGenerator
+            class="org.osate.xtext.aadl2.ui.Aadl2ExecutableExtensionFactory:org.eclipse.xtext.ui.editor.quickfix.MarkerResolutionGenerator">
+      </markerResolutionGenerator>
+   </extension>
+<!-- task preference page for org.osate.xtext.aadl2.Aadl2 -->
+<!--extension
+	point="org.eclipse.ui.preferencePages">
+	<page
+		category="org.osate.xtext.aadl2.Aadl2"
+		class="org.osate.xtext.aadl2.ui.Aadl2ExecutableExtensionFactory:org.eclipse.xtext.ui.tasks.preferences.TaskTagPreferencePage"
+		id="org.osate.xtext.aadl2.Aadl2.task.preferencePage"
+		name="Task Tags">
+		<keywordReference id="org.osate.xtext.aadl2.ui.keyword_Aadl2"/>
+	</page>
+</extension-->
+<!--extension
+	point="org.eclipse.ui.propertyPages">
+	<page
+		class="org.osate.xtext.aadl2.ui.Aadl2ExecutableExtensionFactory:org.eclipse.xtext.ui.tasks.preferences.TaskTagPreferencePage"
+		id="org.osate.xtext.aadl2.Aadl2.task.propertyPage"
+		name="Task Tags">
+		<keywordReference id="org.osate.xtext.aadl2.ui.keyword_Aadl2"/>
+		<enabledWhen>
+			<adapt type="org.eclipse.core.resources.IProject"/>
+		</enabledWhen>
+		<filter name="projectNature" value="org.eclipse.xtext.ui.shared.xtextNature"/>
+	</page>
+</extension-->
+   	<!-- Rename Refactoring -->
+	<extension point="org.eclipse.ui.handlers">
+		<handler 
+			class="org.osate.xtext.aadl2.ui.Aadl2ExecutableExtensionFactory:org.eclipse.xtext.ui.refactoring.ui.IRenameElementHandler"
+			commandId="org.eclipse.xtext.ui.refactoring.RenameElement">
+			<activeWhen>
+				<reference
+					definitionId="org.osate.xtext.aadl2.Aadl2.Editor.opened">
+				</reference>
+			</activeWhen>
+		</handler>
+	</extension>
+    <extension point="org.eclipse.ui.menus">
+         <menuContribution
+            locationURI="popup:#TextEditorContext?after=group.edit">
+         <command commandId="org.eclipse.xtext.ui.refactoring.RenameElement"
+               style="push">
+            <visibleWhen checkEnabled="false">
+               <reference
+                     definitionId="org.osate.xtext.aadl2.Aadl2.Editor.opened">
+               </reference>
+            </visibleWhen>
+         </command>
+      </menuContribution>
+   </extension>
+
+   	<!-- Save aaxl2 file to text -->
+	<extension
+		point="org.eclipse.ui.commands">
+		<command
+			description="Organize With Clauses"
+			id="org.osate.xtext.aadl2.ui.organize.with"
+			name="Organize With Clauses">
+		</command>
+	</extension>
+    <extension point="org.eclipse.ui.menus">
+         <menuContribution
+		 allPopups="false"
+         locationURI="popup:#TextEditorContext">
+        <command commandId="org.osate.xtext.aadl2.ui.organize.with"
+		 style="push">
+         <visibleWhen checkEnabled="false">
+               <reference
+                     definitionId="org.osate.xtext.aadl2.Aadl2.Editor.opened">
+               </reference>
+         </visibleWhen>
+        </command>
+      </menuContribution> 
+   </extension>
+   	<extension
+		point="org.eclipse.ui.handlers">
+		<handler 
+			class="org.osate.xtext.aadl2.ui.handlers.OrganizeWithHandler"
+			commandId="org.osate.xtext.aadl2.ui.organize.with">
+		</handler>
+	</extension>
+   <extension point="org.eclipse.ui.bindings">
+	  <key
+          commandId="org.osate.xtext.aadl2.ui.organize.with"
+          contextId="org.eclipse.ui.textEditorScope"
+          schemeId="org.osate.ge.key.bindings"
+          sequence="CTRL+SHIFT+O">
+    </key>
+	</extension>
+
+    <extension
+          point="org.eclipse.ui.views">
+       <category
+             id="aadl.view_category"
+             name="AADL">
+       </category>
+       <view
+             category="aadl.view_category"
+             class="org.osate.xtext.aadl2.ui.Aadl2ExecutableExtensionFactory:org.osate.xtext.aadl2.ui.propertyview.AadlPropertyView"
+             icon="icons/propertyview/pview.gif"
+             id="org.osate.xtext.aadl2.ui.propertyview.AadlPropertyView"
+             name="AADL Property Values"
+             restorable="true">
+          <description>
+             Shows all the AADL property associations for the selected AADL element.
+          </description>
+       </view>
+    </extension>
+    <extension 
+         point="org.eclipse.core.runtime.preferences">
+       <scope name="Aadl2TextEditorPage" class="org.osate.xtext.aadl2.ui.editor.preferences.Aadl2TextEditorPage"/>
+      <initializer
+            class="org.osate.xtext.aadl2.ui.editor.preferences.Aadl2TextEditorPreferenceInitializer">
+      </initializer>
+    </extension>
+    
+   <extension
+         point="org.eclipse.xtext.builder.participant">
+      <participant
+            class="org.osate.xtext.aadl2.ui.Aadl2ExecutableExtensionFactory:org.eclipse.xtext.builder.IXtextBuilderParticipant"
+            fileExtensions="aadl,aadl2">
+      </participant>
+   </extension>
+   <extension
+         point="org.eclipse.ui.elementFactories">
+      <factory
+            class="org.osate.xtext.aadl2.ui.editor.ContributedAadlEditorInputFactory"
+            id="org.osate.xtext.aadl2.ui.editor.ContributedAadlEditorInputFactory">
+      </factory>
+   </extension>
+</plugin>

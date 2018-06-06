@@ -1,0 +1,632 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+	"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+   <title>The Property Package of the AADL Meta Model</title>
+   <link href="Res/styles/shared.css" rel="stylesheet" type="text/css">
+   <link href="Res/styles/DynamicOutline.css" rel="stylesheet" type="text/css">
+</head>
+<body id="page" >
+
+<!-- BEGIN PAGE BODY-->
+
+
+<table id="pageBody">
+ <col class="main">
+ <col class="right">
+
+<!-- BEGIN BREADCRUMBS-->
+<tr id="breadcrumbsAndPageNavigation">
+  <td class="breadcrumbs" valign="top">
+<!-- BEGIN NAVIGATION BREADCRUMBS ITEM-->
+<span class="breadcrumb">
+   <a href="index.html">Home</a> 
+   <span class="separator">&gt;</span>
+</span>
+<!-- END NAVIGATION BREADCRUMBS ITEM-->
+<!-- BEGIN NAVIGATION BREADCRUMBS ITEM-->
+<span class="breadcrumb">
+   <a href="TheAADLMetaModelinEcore.html">7. The AADL Meta Model in Ecore</a> 
+   <span class="separator">&gt;</span>
+</span>
+<!-- END NAVIGATION BREADCRUMBS ITEM-->
+<!-- BEGIN NAVIGATION BREADCRUMBS HERE-->
+<span class="breadcrumb">
+   7.6 The Property Package of the AADL Meta Model
+</span>
+<!-- END NAVIGATION BREADCRUMBS HERE-->
+
+  </td>
+  <td class="pageNavigation" valign="top">
+<!-- START PAGE NAVIGATION NEXT IN SEQUENCE IMAGES -->
+<span class="commands">
+    <span class="command">
+        <img src="Res/images/previous_button.gif" alt=""> <a href="TheFlowPackageoftheAADLMetaModel.html">
+        <span class="label">Previous</span></a>
+    </span>
+&nbsp;&nbsp;
+    <span class="command">
+        <a href="TheInstancePackageoftheAADLMetaModel.html">
+        <span class="label">Next</span></a> <img src="Res/images/next_button.gif" alt="">
+    </span>
+</span>
+<!-- END PAGE NAVIGATION NEXT IN SEQUENCE IMAGES  -->
+
+  </td>
+  <td class="right" valign="top">
+  </td>
+</tr>
+<!-- END BREADCRUMBS-->
+
+<tr class="topic">
+  <td class="main" valign="top" colspan="2">
+    <div class="body">
+      <div class="topicDivider">
+      </div>
+    </div>
+  </td>
+  <td class="right" valign="top">
+<!--right body column empty-->
+  </td>
+</tr>
+
+<!--BEGIN PAGE BODY ITEM-->
+<tr class="topic">
+  <td class="main" valign="top" colspan="2">
+    <table>
+      <tr class="topicHeader">
+        <td class="topicImageColumn">
+
+        </td>
+        <td class="topicLineColumn">
+          <a name="Topic34"></a>
+          <span class=outlineNumberFirst>7.6 </span><span class=topicLineFirst>The Property Package of the AADL Meta Model</span>
+          <span class="topicIcons">
+
+          </span>
+        </td>
+      </tr>
+    </table>
+
+<!-- phf:Comand: Expand("BoxPartMap.mmbas") -->
+     <div class="topicTextNotes"><div align="left"><font size="1"><span style="font-size:9pt">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&lt;ecore:EPackage xmi:version=&quot;2.0&quot;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160; xmlns:xmi=&quot;http://www.omg.org/XMI&quot; 
+xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160; xmlns:ecore=&quot;http://www.eclipse.org/emf/2002/Ecore&quot; 
+name=&quot;property&quot;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160; nsURI=&quot;http:///AADL/property&quot; 
+nsPrefix=&quot;property&quot;&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160; &lt;eClassifiers xsi:type=&quot;ecore:EClass&quot; 
+name=&quot;Properties&quot; eSuperTypes=&quot;core.ecore#//AObject&quot;&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160; &lt;eStructuralFeatures 
+xsi:type=&quot;ecore:EReference&quot; name=&quot;propertyAssociation&quot; upperBound=&quot;-1&quot;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160; 
+eType=&quot;#//PropertyAssociation&quot; containment=&quot;true&quot; resolveProxies=&quot;false&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160; &lt;/eClassifiers&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160; &lt;eClassifiers xsi:type=&quot;ecore:EClass&quot; 
+name=&quot;PropertyAssociation&quot; 
+eSuperTypes=&quot;core.ecore#//ModeMember #//PropertyValueHolder&quot;&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160; &lt;eStructuralFeatures 
+xsi:type=&quot;ecore:EReference&quot; name=&quot;propertyDefinition&quot; lowerBound=&quot;1&quot;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160; 
+eType=&quot;#//PropertyDefinition&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160; &lt;eStructuralFeatures 
+xsi:type=&quot;ecore:EReference&quot; name=&quot;propertyValue&quot; upperBound=&quot;-1&quot;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160; 
+eType=&quot;#//PropertyValue&quot; containment=&quot;true&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160; &lt;eStructuralFeatures 
+xsi:type=&quot;ecore:EReference&quot; name=&quot;inBinding&quot; upperBound=&quot;-1&quot;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160; 
+eType=&quot;ecore:EClass core.ecore#//ComponentClassifier&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160; &lt;eStructuralFeatures 
+xsi:type=&quot;ecore:EAttribute&quot; name=&quot;constant&quot; lowerBound=&quot;1&quot;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160; 
+eType=&quot;ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160; &lt;eStructuralFeatures 
+xsi:type=&quot;ecore:EAttribute&quot; name=&quot;access&quot; lowerBound=&quot;1&quot;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160; 
+eType=&quot;ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160; &lt;eStructuralFeatures 
+xsi:type=&quot;ecore:EAttribute&quot; name=&quot;append&quot; lowerBound=&quot;1&quot;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160; 
+eType=&quot;ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160; &lt;eStructuralFeatures 
+xsi:type=&quot;ecore:EReference&quot; name=&quot;appliesTo&quot; upperBound=&quot;-1&quot;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160; 
+eType=&quot;ecore:EClass core.ecore#//PropertyHolder&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160; &lt;eStructuralFeatures 
+xsi:type=&quot;ecore:EAttribute&quot; name=&quot;derived&quot; unique=&quot;false&quot;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160; 
+lowerBound=&quot;1&quot; eType=&quot;ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160; &lt;/eClassifiers&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160; &lt;eClassifiers xsi:type=&quot;ecore:EClass&quot; 
+name=&quot;PropertyDefinition&quot; 
+eSuperTypes=&quot;core.ecore#//NamedElement #//ReferencedProperty #//PropertyValueHolder&quot;&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160; &lt;eStructuralFeatures 
+xsi:type=&quot;ecore:EReference&quot; name=&quot;propertyTypeReference&quot;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160; 
+eType=&quot;#//PropertyType&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160; &lt;eStructuralFeatures 
+xsi:type=&quot;ecore:EReference&quot; name=&quot;propertyType&quot; eType=&quot;#//PropertyType&quot;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160; 
+containment=&quot;true&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160; &lt;eStructuralFeatures 
+xsi:type=&quot;ecore:EReference&quot; name=&quot;defaultpropertyValue&quot; upperBound=&quot;-1&quot;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160; 
+eType=&quot;#//PropertyValue&quot; containment=&quot;true&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160; &lt;eStructuralFeatures 
+xsi:type=&quot;ecore:EReference&quot; name=&quot;appliesToClassifier&quot; upperBound=&quot;-1&quot;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160; 
+eType=&quot;#//ClassifierValue&quot; containment=&quot;true&quot; resolveProxies=&quot;false&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160; &lt;eStructuralFeatures 
+xsi:type=&quot;ecore:EAttribute&quot; name=&quot;access&quot; lowerBound=&quot;1&quot;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160; 
+eType=&quot;ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160; &lt;eStructuralFeatures 
+xsi:type=&quot;ecore:EAttribute&quot; name=&quot;inherit&quot; lowerBound=&quot;1&quot;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160; 
+eType=&quot;ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160; &lt;eStructuralFeatures 
+xsi:type=&quot;ecore:EAttribute&quot; name=&quot;list&quot; lowerBound=&quot;1&quot; eType=&quot;ecore:EDataType 
+http://www.eclipse.org/emf/2002/Ecore#//EBoolean&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160; &lt;eStructuralFeatures 
+xsi:type=&quot;ecore:EAttribute&quot; name=&quot;appliesto&quot; lowerBound=&quot;1&quot;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160; 
+upperBound=&quot;27&quot; eType=&quot;#//PropertyOwnerCategory&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160; &lt;eStructuralFeatures 
+xsi:type=&quot;ecore:EAttribute&quot; name=&quot;hasEmptyList&quot; lowerBound=&quot;1&quot;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160; 
+eType=&quot;ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160; &lt;/eClassifiers&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160; &lt;eClassifiers xsi:type=&quot;ecore:EClass&quot; 
+name=&quot;PropertySet&quot; 
+eSuperTypes=&quot;core.ecore#//NamedElement&quot;&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160; &lt;eStructuralFeatures 
+xsi:type=&quot;ecore:EAttribute&quot; name=&quot;contents&quot; unique=&quot;false&quot;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160; 
+upperBound=&quot;-1&quot; eType=&quot;ecore:EDataType 
+http://www.eclipse.org/emf/2002/Ecore#//EFeatureMapEntry&quot;&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160; &lt;eAnnotations 
+source=&quot;http:///org/eclipse/emf/ecore/util/ExtendedMetaData&quot;&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160; 
+&lt;details key=&quot;kind&quot; value=&quot;group&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160; 
+&lt;details key=&quot;namespace&quot; value=&quot;propertySet&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160; &lt;/eAnnotations&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160; &lt;/eStructuralFeatures&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160; &lt;eStructuralFeatures 
+xsi:type=&quot;ecore:EReference&quot; name=&quot;propertyDefinition&quot; upperBound=&quot;-1&quot;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160; 
+eType=&quot;#//PropertyDefinition&quot; volatile=&quot;true&quot; transient=&quot;true&quot; derived=&quot;true&quot;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160; 
+containment=&quot;true&quot;&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160; &lt;eAnnotations 
+source=&quot;http:///org/eclipse/emf/ecore/util/ExtendedMetaData&quot;&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160; 
+&lt;details key=&quot;group&quot; value=&quot;propertySet#contents&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160; &lt;/eAnnotations&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160; &lt;/eStructuralFeatures&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160; &lt;eStructuralFeatures 
+xsi:type=&quot;ecore:EReference&quot; name=&quot;propertyConstant&quot; upperBound=&quot;-1&quot;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160; 
+eType=&quot;#//PropertyConstant&quot; volatile=&quot;true&quot; transient=&quot;true&quot; derived=&quot;true&quot;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160; 
+containment=&quot;true&quot; resolveProxies=&quot;false&quot;&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160; &lt;eAnnotations 
+source=&quot;http:///org/eclipse/emf/ecore/util/ExtendedMetaData&quot;&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160; 
+&lt;details key=&quot;group&quot; value=&quot;propertySet#contents&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160; &lt;/eAnnotations&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160; &lt;/eStructuralFeatures&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160; &lt;eStructuralFeatures 
+xsi:type=&quot;ecore:EReference&quot; name=&quot;propertyType&quot; upperBound=&quot;-1&quot;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160; 
+eType=&quot;#//PropertyType&quot; containment=&quot;true&quot;&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160; &lt;eAnnotations 
+source=&quot;http:///org/eclipse/emf/ecore/util/ExtendedMetaData&quot;&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160; 
+&lt;details key=&quot;group&quot; value=&quot;propertySet#contents&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160; &lt;/eAnnotations&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160; &lt;/eStructuralFeatures&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160; &lt;/eClassifiers&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160; &lt;eClassifiers xsi:type=&quot;ecore:EClass&quot; 
+name=&quot;Aadlboolean&quot; eSuperTypes=&quot;#//PropertyConstantType&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160; &lt;eClassifiers xsi:type=&quot;ecore:EClass&quot; 
+name=&quot;Aadlstring&quot; eSuperTypes=&quot;#//PropertyConstantType&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160; &lt;eClassifiers xsi:type=&quot;ecore:EClass&quot; 
+name=&quot;Aadlinteger&quot; eSuperTypes=&quot;#//NumberType&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160; &lt;eClassifiers xsi:type=&quot;ecore:EClass&quot; 
+name=&quot;NumberType&quot; abstract=&quot;true&quot; 
+eSuperTypes=&quot;#//PropertyConstantType&quot;&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160; &lt;eStructuralFeatures 
+xsi:type=&quot;ecore:EReference&quot; name=&quot;propertyTypeReference&quot;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160; 
+eType=&quot;#//UnitsType&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160; &lt;eStructuralFeatures 
+xsi:type=&quot;ecore:EReference&quot; name=&quot;propertyType&quot; eType=&quot;#//UnitsType&quot;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160; 
+containment=&quot;true&quot; resolveProxies=&quot;false&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160; &lt;eStructuralFeatures 
+xsi:type=&quot;ecore:EReference&quot; name=&quot;lower&quot; 
+eType=&quot;#//NumberOrPropertyReference&quot;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160; 
+containment=&quot;true&quot; resolveProxies=&quot;false&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160; &lt;eStructuralFeatures 
+xsi:type=&quot;ecore:EReference&quot; name=&quot;upper&quot; 
+eType=&quot;#//NumberOrPropertyReference&quot;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160; 
+containment=&quot;true&quot; resolveProxies=&quot;false&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160; &lt;/eClassifiers&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160; &lt;eClassifiers xsi:type=&quot;ecore:EClass&quot; 
+name=&quot;PropertyType&quot; abstract=&quot;true&quot; 
+eSuperTypes=&quot;core.ecore#//NamedElement&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160; &lt;eClassifiers xsi:type=&quot;ecore:EClass&quot; 
+name=&quot;RangeType&quot; eSuperTypes=&quot;#//PropertyConstantType&quot;&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160; &lt;eStructuralFeatures 
+xsi:type=&quot;ecore:EReference&quot; name=&quot;propertyType&quot; eType=&quot;#//NumberType&quot;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160; 
+containment=&quot;true&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160; &lt;eStructuralFeatures 
+xsi:type=&quot;ecore:EReference&quot; name=&quot;propertyTypeReference&quot;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160; 
+eType=&quot;#//NumberType&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160; &lt;/eClassifiers&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160; &lt;eClassifiers xsi:type=&quot;ecore:EClass&quot; 
+name=&quot;ClassifierType&quot; eSuperTypes=&quot;#//PropertyType&quot;&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160; &lt;eStructuralFeatures 
+xsi:type=&quot;ecore:EAttribute&quot; name=&quot;category&quot; lowerBound=&quot;1&quot;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160; 
+upperBound=&quot;10&quot; eType=&quot;#//ComponentCategory&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160; &lt;/eClassifiers&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160; &lt;eClassifiers xsi:type=&quot;ecore:EClass&quot; 
+name=&quot;ReferenceType&quot; eSuperTypes=&quot;#//PropertyType&quot;&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160; &lt;eStructuralFeatures 
+xsi:type=&quot;ecore:EAttribute&quot; name=&quot;category&quot; lowerBound=&quot;1&quot;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160; 
+upperBound=&quot;11&quot; eType=&quot;#//ReferableElementCategory&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160; &lt;/eClassifiers&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160; &lt;eClassifiers xsi:type=&quot;ecore:EClass&quot; 
+name=&quot;EnumType&quot; eSuperTypes=&quot;#//PropertyConstantType&quot;&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160; &lt;eStructuralFeatures 
+xsi:type=&quot;ecore:EReference&quot; name=&quot;enumLiteral&quot; lowerBound=&quot;1&quot;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160; 
+upperBound=&quot;-1&quot; eType=&quot;#//EnumLiteral&quot; containment=&quot;true&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160; &lt;/eClassifiers&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160; &lt;eClassifiers xsi:type=&quot;ecore:EClass&quot; 
+name=&quot;UnitsType&quot; eSuperTypes=&quot;#//PropertyType&quot;&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160; &lt;eStructuralFeatures 
+xsi:type=&quot;ecore:EReference&quot; name=&quot;unitLiteral&quot; lowerBound=&quot;1&quot;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160; 
+upperBound=&quot;-1&quot; eType=&quot;#//UnitLiteral&quot; containment=&quot;true&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160; &lt;/eClassifiers&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160; &lt;eClassifiers xsi:type=&quot;ecore:EEnum&quot; 
+name=&quot;PropertyOwnerCategory&quot;&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160; &lt;eLiterals name=&quot;DATA&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160; &lt;eLiterals name=&quot;SUBPROGRAM&quot; 
+value=&quot;1&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160; &lt;eLiterals name=&quot;THREAD&quot; 
+value=&quot;2&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160; &lt;eLiterals name=&quot;THREAD_GROUP&quot; 
+value=&quot;3&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160; &lt;eLiterals name=&quot;PROCESS&quot; 
+value=&quot;4&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160; &lt;eLiterals name=&quot;MEMORY&quot; 
+value=&quot;5&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160; &lt;eLiterals name=&quot;PROCESSOR&quot; 
+value=&quot;6&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160; &lt;eLiterals name=&quot;BUS&quot; 
+value=&quot;7&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160; &lt;eLiterals name=&quot;DEVICE&quot; 
+value=&quot;8&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160; &lt;eLiterals name=&quot;SYSTEM&quot; 
+value=&quot;9&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160; &lt;eLiterals name=&quot;MODE&quot; 
+value=&quot;10&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160; &lt;eLiterals name=&quot;PORT_GROUP&quot; 
+value=&quot;11&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160; &lt;eLiterals name=&quot;PORT&quot; 
+value=&quot;12&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160; &lt;eLiterals name=&quot;EVENT_PORT&quot; 
+value=&quot;13&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160; &lt;eLiterals name=&quot;DATA_PORT&quot; 
+value=&quot;14&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160; &lt;eLiterals name=&quot;EVENT_DATA_PORT&quot; 
+value=&quot;15&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160; &lt;eLiterals name=&quot;SERVER_SUBPROGRAM&quot; 
+value=&quot;16&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160; &lt;eLiterals name=&quot;CONNECTIONS&quot; 
+value=&quot;17&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160; &lt;eLiterals name=&quot;PORT_GROUP_CONNECTIONS&quot; 
+value=&quot;18&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160; &lt;eLiterals name=&quot;PORT_CONNECTIONS&quot; 
+value=&quot;19&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160; &lt;eLiterals name=&quot;EVENT_PORT_CONNECTIONS&quot; 
+value=&quot;20&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160; &lt;eLiterals name=&quot;DATA_PORT_CONNECTIONS&quot; 
+value=&quot;21&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160; &lt;eLiterals name=&quot;EVENT_DATA_PORT_CONNECTIONS&quot; 
+value=&quot;22&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160; &lt;eLiterals name=&quot;ACCESS_CONNECTIONS&quot; 
+value=&quot;23&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160; &lt;eLiterals name=&quot;FLOW&quot; 
+value=&quot;24&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160; &lt;eLiterals name=&quot;PARAMETER&quot; 
+value=&quot;25&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160; &lt;eLiterals name=&quot;PARAMETER_CONNECTIONS&quot; 
+value=&quot;26&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160; &lt;/eClassifiers&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160; &lt;eClassifiers xsi:type=&quot;ecore:EClass&quot; 
+name=&quot;EnumLiteral&quot; 
+eSuperTypes=&quot;core.ecore#//NamedElement&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160; &lt;eClassifiers xsi:type=&quot;ecore:EClass&quot; 
+name=&quot;UnitLiteral&quot; eSuperTypes=&quot;core.ecore#//NamedElement&quot;&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160; &lt;eStructuralFeatures 
+xsi:type=&quot;ecore:EReference&quot; name=&quot;baseunit&quot; eType=&quot;#//UnitLiteral&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160; &lt;eStructuralFeatures 
+xsi:type=&quot;ecore:EReference&quot; name=&quot;factor&quot; eType=&quot;#//NumberValue&quot;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160; 
+containment=&quot;true&quot; resolveProxies=&quot;false&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160; &lt;/eClassifiers&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160; &lt;eClassifiers xsi:type=&quot;ecore:EClass&quot; 
+name=&quot;PropertyValue&quot; abstract=&quot;true&quot; 
+eSuperTypes=&quot;core.ecore#//AObject&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160; &lt;eClassifiers xsi:type=&quot;ecore:EClass&quot; 
+name=&quot;BooleanValue&quot; abstract=&quot;true&quot; 
+eSuperTypes=&quot;#//BooleanOrPropertyReference&quot;&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160; &lt;eStructuralFeatures 
+xsi:type=&quot;ecore:EAttribute&quot; name=&quot;value&quot; lowerBound=&quot;1&quot; 
+eType=&quot;ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160; &lt;/eClassifiers&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160; &lt;eClassifiers xsi:type=&quot;ecore:EClass&quot; 
+name=&quot;RangeValue&quot; eSuperTypes=&quot;#//PropertyValue&quot;&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160; &lt;eStructuralFeatures 
+xsi:type=&quot;ecore:EReference&quot; name=&quot;minimum&quot; lowerBound=&quot;1&quot;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160; 
+eType=&quot;#//NumberOrPropertyReference&quot; containment=&quot;true&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160; &lt;eStructuralFeatures 
+xsi:type=&quot;ecore:EReference&quot; name=&quot;maximum&quot; lowerBound=&quot;1&quot;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160; 
+eType=&quot;#//NumberOrPropertyReference&quot; containment=&quot;true&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160; &lt;eStructuralFeatures 
+xsi:type=&quot;ecore:EReference&quot; name=&quot;delta&quot; 
+eType=&quot;#//NumberOrPropertyReference&quot;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160; 
+containment=&quot;true&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160; &lt;/eClassifiers&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160; &lt;eClassifiers xsi:type=&quot;ecore:EEnum&quot; 
+name=&quot;ComponentCategory&quot;&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160; &lt;eLiterals name=&quot;DATA&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160; &lt;eLiterals name=&quot;SUBPROGRAM&quot; 
+value=&quot;1&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160; &lt;eLiterals name=&quot;THREAD&quot; 
+value=&quot;2&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160; &lt;eLiterals name=&quot;THREAD_GROUP&quot; 
+value=&quot;3&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160; &lt;eLiterals name=&quot;PROCESS&quot; 
+value=&quot;4&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160; &lt;eLiterals name=&quot;MEMORY&quot; 
+value=&quot;5&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160; &lt;eLiterals name=&quot;PROCESSOR&quot; 
+value=&quot;6&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160; &lt;eLiterals name=&quot;BUS&quot; 
+value=&quot;7&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160; &lt;eLiterals name=&quot;DEVICE&quot; 
+value=&quot;8&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160; &lt;eLiterals name=&quot;SYSTEM&quot; 
+value=&quot;9&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160; &lt;/eClassifiers&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160; &lt;eClassifiers xsi:type=&quot;ecore:EEnum&quot; 
+name=&quot;ReferableElementCategory&quot;&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160; &lt;eLiterals name=&quot;DATA&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160; &lt;eLiterals name=&quot;SUBPROGRAM&quot; 
+value=&quot;1&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160; &lt;eLiterals name=&quot;THREAD&quot; 
+value=&quot;2&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160; &lt;eLiterals name=&quot;THREAD_GROUP&quot; 
+value=&quot;3&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160; &lt;eLiterals name=&quot;PROCESS&quot; 
+value=&quot;4&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160; &lt;eLiterals name=&quot;MEMORY&quot; 
+value=&quot;5&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160; &lt;eLiterals name=&quot;PROCESSOR&quot; 
+value=&quot;6&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160; &lt;eLiterals name=&quot;BUS&quot; 
+value=&quot;7&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160; &lt;eLiterals name=&quot;DEVICE&quot; 
+value=&quot;8&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160; &lt;eLiterals name=&quot;SYSTEM&quot; 
+value=&quot;9&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160; &lt;eLiterals name=&quot;CONNECTIONS&quot; 
+value=&quot;10&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160; &lt;eLiterals name=&quot;SERVER_SUBPROGRAM&quot; 
+value=&quot;11&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160; &lt;/eClassifiers&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160; &lt;eClassifiers xsi:type=&quot;ecore:EClass&quot; 
+name=&quot;BooleanAND&quot; eSuperTypes=&quot;#//BooleanValue&quot;&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160; &lt;eStructuralFeatures 
+xsi:type=&quot;ecore:EReference&quot; name=&quot;booleanValue&quot; lowerBound=&quot;2&quot;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160; 
+upperBound=&quot;2&quot; eType=&quot;#//BooleanOrPropertyReference&quot; containment=&quot;true&quot; 
+resolveProxies=&quot;false&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160; &lt;/eClassifiers&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160; &lt;eClassifiers xsi:type=&quot;ecore:EClass&quot; 
+name=&quot;BooleanOR&quot; eSuperTypes=&quot;#//BooleanValue&quot;&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160; &lt;eStructuralFeatures 
+xsi:type=&quot;ecore:EReference&quot; name=&quot;booleanValue&quot; lowerBound=&quot;2&quot;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160; 
+upperBound=&quot;2&quot; eType=&quot;#//BooleanOrPropertyReference&quot; containment=&quot;true&quot; 
+resolveProxies=&quot;false&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160; &lt;/eClassifiers&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160; &lt;eClassifiers xsi:type=&quot;ecore:EClass&quot; 
+name=&quot;BooleanNOT&quot; eSuperTypes=&quot;#//BooleanValue&quot;&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160; &lt;eStructuralFeatures 
+xsi:type=&quot;ecore:EReference&quot; name=&quot;booleanValue&quot; lowerBound=&quot;1&quot;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160; 
+eType=&quot;#//BooleanOrPropertyReference&quot; containment=&quot;true&quot; resolveProxies=&quot;false&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160; &lt;/eClassifiers&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160; &lt;eClassifiers xsi:type=&quot;ecore:EClass&quot; 
+name=&quot;TRUE&quot; eSuperTypes=&quot;#//TrueFalseValue&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160; &lt;eClassifiers xsi:type=&quot;ecore:EClass&quot; 
+name=&quot;FALSE&quot; eSuperTypes=&quot;#//TrueFalseValue&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160; &lt;eClassifiers xsi:type=&quot;ecore:EClass&quot; 
+name=&quot;StringValue&quot; eSuperTypes=&quot;#//PropertyValue&quot;&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160; &lt;eStructuralFeatures 
+xsi:type=&quot;ecore:EAttribute&quot; name=&quot;value&quot; eType=&quot;ecore:EDataType 
+http://www.eclipse.org/emf/2002/Ecore#//EString&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160; &lt;/eClassifiers&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160; &lt;eClassifiers xsi:type=&quot;ecore:EClass&quot; 
+name=&quot;NumberValue&quot; eSuperTypes=&quot;#//PropertyValue 
+#//NumberOrPropertyReference&quot;&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160; &lt;eStructuralFeatures 
+xsi:type=&quot;ecore:EReference&quot; name=&quot;unitLiteral&quot; eType=&quot;#//UnitLiteral&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160; &lt;eStructuralFeatures 
+xsi:type=&quot;ecore:EAttribute&quot; name=&quot;valueString&quot; lowerBound=&quot;1&quot;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160; 
+eType=&quot;ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160; &lt;/eClassifiers&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160; &lt;eClassifiers xsi:type=&quot;ecore:EClass&quot; 
+name=&quot;IntegerValue&quot; eSuperTypes=&quot;#//NumberValue&quot;&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160; &lt;eStructuralFeatures 
+xsi:type=&quot;ecore:EAttribute&quot; name=&quot;value&quot; eType=&quot;ecore:EDataType 
+http://www.eclipse.org/emf/2002/Ecore#//ELong&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160; &lt;eStructuralFeatures 
+xsi:type=&quot;ecore:EAttribute&quot; name=&quot;base&quot; eType=&quot;ecore:EDataType 
+http://www.eclipse.org/emf/2002/Ecore#//EInt&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160; &lt;/eClassifiers&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160; &lt;eClassifiers xsi:type=&quot;ecore:EClass&quot; 
+name=&quot;RealValue&quot; eSuperTypes=&quot;#//NumberValue&quot;&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160; &lt;eStructuralFeatures 
+xsi:type=&quot;ecore:EAttribute&quot; name=&quot;value&quot; eType=&quot;ecore:EDataType 
+http://www.eclipse.org/emf/2002/Ecore#//EDouble&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160; &lt;/eClassifiers&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160; &lt;eClassifiers xsi:type=&quot;ecore:EClass&quot; 
+name=&quot;IntegerRangeValue&quot; eSuperTypes=&quot;#//RangeValue&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160; &lt;eClassifiers xsi:type=&quot;ecore:EClass&quot; 
+name=&quot;RealRangeValue&quot; eSuperTypes=&quot;#//RangeValue&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160; &lt;eClassifiers xsi:type=&quot;ecore:EClass&quot; 
+name=&quot;EnumValue&quot; eSuperTypes=&quot;#//PropertyValue&quot;&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160; &lt;eStructuralFeatures 
+xsi:type=&quot;ecore:EReference&quot; name=&quot;enumLiteral&quot; lowerBound=&quot;1&quot;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160; 
+eType=&quot;#//EnumLiteral&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160; &lt;/eClassifiers&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160; &lt;eClassifiers xsi:type=&quot;ecore:EClass&quot; 
+name=&quot;ClassifierValue&quot; eSuperTypes=&quot;#//PropertyValue&quot;&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160; &lt;eStructuralFeatures 
+xsi:type=&quot;ecore:EReference&quot; name=&quot;componentClassifier&quot; eType=&quot;ecore:EClass 
+core.ecore#//ComponentClassifier&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160; &lt;eStructuralFeatures 
+xsi:type=&quot;ecore:EAttribute&quot; name=&quot;value&quot; lowerBound=&quot;1&quot; 
+eType=&quot;#//ComponentCategory&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160; &lt;/eClassifiers&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160; &lt;eClassifiers xsi:type=&quot;ecore:EClass&quot; 
+name=&quot;PropertyReference&quot; 
+eSuperTypes=&quot;#//BooleanOrPropertyReference #//NumberOrPropertyReference&quot;&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160; &lt;eStructuralFeatures 
+xsi:type=&quot;ecore:EReference&quot; name=&quot;referencedProperty&quot; lowerBound=&quot;1&quot;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160; 
+eType=&quot;#//ReferencedProperty&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160; &lt;eStructuralFeatures 
+xsi:type=&quot;ecore:EAttribute&quot; name=&quot;referenceSign&quot; eType=&quot;ecore:EDataType 
+http://www.eclipse.org/emf/2002/Ecore#//EString&quot;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160; 
+unsettable=&quot;true&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160; &lt;/eClassifiers&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160; &lt;eClassifiers xsi:type=&quot;ecore:EClass&quot; 
+name=&quot;Aadlreal&quot; eSuperTypes=&quot;#//NumberType&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160; &lt;eClassifiers xsi:type=&quot;ecore:EClass&quot; 
+name=&quot;PropertyConstant&quot; 
+eSuperTypes=&quot;core.ecore#//NamedElement #//ReferencedProperty #//PropertyValueHolder&quot;&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160; &lt;eStructuralFeatures 
+xsi:type=&quot;ecore:EAttribute&quot; name=&quot;list&quot; lowerBound=&quot;1&quot; eType=&quot;ecore:EDataType 
+http://www.eclipse.org/emf/2002/Ecore#//EBoolean&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160; &lt;eStructuralFeatures 
+xsi:type=&quot;ecore:EReference&quot; name=&quot;propertyTypeReference&quot;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160; 
+eType=&quot;#//PropertyConstantType&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160; &lt;eStructuralFeatures 
+xsi:type=&quot;ecore:EReference&quot; name=&quot;propertyType&quot; 
+eType=&quot;#//PropertyConstantType&quot;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160; 
+containment=&quot;true&quot; resolveProxies=&quot;false&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160; &lt;eStructuralFeatures 
+xsi:type=&quot;ecore:EReference&quot; name=&quot;constantValue&quot; upperBound=&quot;-1&quot;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160; 
+eType=&quot;#//PropertyValue&quot; containment=&quot;true&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160; &lt;/eClassifiers&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160; &lt;eClassifiers xsi:type=&quot;ecore:EClass&quot; 
+name=&quot;ReferencedProperty&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160; &lt;eClassifiers xsi:type=&quot;ecore:EClass&quot; 
+name=&quot;ReferenceValue&quot; eSuperTypes=&quot;#//PropertyValue&quot;&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160; &lt;eStructuralFeatures 
+xsi:type=&quot;ecore:EReference&quot; name=&quot;referenceElement&quot; lowerBound=&quot;1&quot;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160; 
+upperBound=&quot;-1&quot; eType=&quot;#//ReferenceElement&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160; &lt;/eClassifiers&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160; &lt;eClassifiers xsi:type=&quot;ecore:EClass&quot; 
+name=&quot;ReferenceElement&quot; abstract=&quot;true&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160; &lt;eClassifiers xsi:type=&quot;ecore:EClass&quot; 
+name=&quot;TrueFalseValue&quot; abstract=&quot;true&quot; 
+eSuperTypes=&quot;#//BooleanValue&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160; &lt;eClassifiers xsi:type=&quot;ecore:EClass&quot; 
+name=&quot;PropertyConstantType&quot; abstract=&quot;true&quot;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160; eSuperTypes=&quot;#//PropertyType&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160; &lt;eClassifiers xsi:type=&quot;ecore:EClass&quot; 
+name=&quot;BooleanOrPropertyReference&quot; abstract=&quot;true&quot;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160; eSuperTypes=&quot;#//PropertyValue&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160; &lt;eClassifiers xsi:type=&quot;ecore:EClass&quot; 
+name=&quot;PropertyValueHolder&quot; abstract=&quot;true&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160; &lt;eClassifiers xsi:type=&quot;ecore:EClass&quot; 
+name=&quot;NumberOrPropertyReference&quot; abstract=&quot;true&quot;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160; eSuperTypes=&quot;#//PropertyValue&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&lt;/ecore:EPackage&gt;</span></font><span></span></div></div>
+
+
+
+
+  </td>
+  <td class="right" valign="top">
+<!--right body column empty-->
+  </td>
+</tr>
+<!--END PAGE BODY ITEM-->
+
+
+<!-- BEGIN TOP BUTTON -->
+<tr class="topic">
+  <td class="main" valign="top" colspan="2">
+    <div class="body">
+      <div class="topCommand">
+        <span class="commands">
+      <span class="command">
+            <img src="Res/images/top_button.gif" alt="">
+          <a href="javascript:scroll(0,0)">
+             <span class="label">Top</span>
+              </a>
+    </span>
+       </span>
+      </div>
+    </div>
+  </td>
+  <td class="right" valign="top">
+<!--right body column empty-->
+  </td>
+</tr>
+<!-- END TOP BUTTON -->
+
+</table>
+
+<!-- BEGIN SIDE NAVIGATION WRAPPER-->
+    </td>
+  </tr>
+</table>
+<!-- END SIDE NAVIGATION WRAPPER-->
+
+<!-- END PAGE BODY-->
+
+
+</body>
+</html>
+

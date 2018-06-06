@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<description:Group xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:description="http://www.eclipse.org/sirius/description/1.1.0" xmlns:description_1="http://www.eclipse.org/sirius/table/description/1.1.0" xmlns:description_2="http://www.eclipse.org/sirius/diagram/description/1.1.0" xmlns:style="http://www.eclipse.org/sirius/diagram/description/style/1.1.0" xmlns:tool="http://www.eclipse.org/sirius/description/tool/1.1.0" name="faulttree" version="12.0.0.2017041100">
+  <ownedViewpoints name="FaultTree" modelFileExtension="faulttree">
+    <ownedRepresentations xsi:type="description_1:EditionTableDescription" name="MinimalCutSetTable" domainClass="FaultTree.FaultTree">
+      <metamodel href="../../org.osate.aadl2.errormodel.faulttree/model/FaultTree.ecore#/"/>
+      <ownedLineMappings name="MinimalCutSetsLine" label="Minimal Cutsets" reusedSubLines="//@ownedViewpoints[name='FaultTree']/@ownedRepresentations[name='MinimalCutSetTable']/@ownedLineMappings[name='MinimalCutSetsLine']" reusedInMappings="//@ownedViewpoints[name='FaultTree']/@ownedRepresentations[name='MinimalCutSetTable']/@ownedLineMappings[name='MinimalCutSetsLine']" domainClass="FaultTree.Event" semanticCandidatesExpression="service:getCutsets()" headerLabelExpression="service:getCutsetLabel()"/>
+      <ownedColumnMappings name="ProbabilityColumn" label="Computed Probability" headerLabelExpression="Computed Probability" canEdit="false" featureName="*" labelExpression="service:getComputedProbability()"/>
+      <ownedColumnMappings name="ProbabilityColumn" label="Specified Probability" headerLabelExpression="Specified Probability" canEdit="false" featureName="*" labelExpression="service:getAssignedProbability()"/>
+    </ownedRepresentations>
+    <ownedRepresentations xsi:type="description_1:EditionTableDescription" name="FaultTreeTable" domainClass="FaultTree.FaultTree">
+      <metamodel href="../../org.osate.aadl2.errormodel.faulttree/model/FaultTree.ecore#/"/>
+      <ownedLineMappings name="EventLine" label="System Component" reusedSubLines="//@ownedViewpoints[name='FaultTree']/@ownedRepresentations[name='FaultTreeTable']/@ownedLineMappings[name='EventLine']" reusedInMappings="//@ownedViewpoints[name='FaultTree']/@ownedRepresentations[name='FaultTreeTable']/@ownedLineMappings[name='EventLine']" domainClass="FaultTree.Event" semanticCandidatesExpression="service:getEvents()" headerLabelExpression="service:getEventDescription()"/>
+      <ownedColumnMappings name="ErrorColumn" label="Propagated Error" headerLabelExpression="Error Model Element/Type" canEdit="false" featureName="*" labelExpression="service:getErrorDescription()"/>
+      <ownedColumnMappings name="ProbabilityColumn" label="Computed Probability" headerLabelExpression="Computed Probability" canEdit="false" featureName="*" labelExpression="service:getComputedProbability()"/>
+      <ownedColumnMappings name="ProbabilityColumn" label="Specified Probability" headerLabelExpression="Specified Probability" canEdit="false" featureName="*" labelExpression="service:getAssignedProbability()"/>
+      <ownedColumnMappings name="EventTypeColumn" label="Event/Gate Type" headerLabelExpression="Event/Gate Type" canEdit="false" featureName="*" labelExpression="service:getEventTypeLogic()"/>
+      <ownedColumnMappings name="DependentEventColumn" label="Dependent Event" headerLabelExpression="Dependent Event" canEdit="false" featureName="*" labelExpression="service:getDependentEventLabel()"/>
+    </ownedRepresentations>
+    <ownedRepresentations xsi:type="description_2:DiagramDescription" name="IconicFaultTree" domainClass="FaultTree.FaultTree" enablePopupBars="true">
+      <metamodel href="../../org.osate.aadl2.errormodel.faulttree/model/FaultTree.ecore#/"/>
+      <layout xsi:type="description_2:OrderedTreeLayout" childrenExpression="service:getEvents()" nodeMapping="//@ownedViewpoints[name='FaultTree']/@ownedRepresentations[name='IconicFaultTree']/@defaultLayer/@containerMappings[name='EventContainer']"/>
+      <diagramInitialisation>
+        <firstModelOperations xsi:type="tool:ChangeContext"/>
+      </diagramInitialisation>
+      <defaultLayer name="Default">
+        <edgeMappings name="SubBoxtLink" sourceMapping="//@ownedViewpoints[name='FaultTree']/@ownedRepresentations[name='IconicFaultTree']/@defaultLayer/@containerMappings[name='EventContainer']" targetMapping="//@ownedViewpoints[name='FaultTree']/@ownedRepresentations[name='IconicFaultTree']/@defaultLayer/@containerMappings[name='EventContainer']" targetFinderExpression="feature:subEvents">
+          <style sizeComputationExpression="2">
+            <strokeColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+            <centerLabelStyleDescription>
+              <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+            </centerLabelStyleDescription>
+          </style>
+        </edgeMappings>
+        <containerMappings name="EventContainer" semanticCandidatesExpression="feature:events" domainClass="FaultTree::Event">
+          <style xsi:type="style:FlatContainerStyleDescription" borderSizeComputationExpression="1" labelExpression="service:getDescriptionAndProbability()" tooltipExpression="service:getHazardDescriptionAndProbability()" heightComputationExpression="6" backgroundColor="//@userColorsPalettes[name='FaultTreeColors']/@entries[name='VeryLightGrey']" foregroundColor="//@userColorsPalettes[name='FaultTreeColors']/@entries[name='VeryLightGrey']">
+            <borderColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+            <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+          </style>
+        </containerMappings>
+      </defaultLayer>
+    </ownedRepresentations>
+    <ownedJavaExtensions qualifiedClassName="org.osate.aadl2.errormodel.faulttree.design.Services"/>
+  </ownedViewpoints>
+  <userColorsPalettes name="FaultTreeColors">
+    <entries xsi:type="description:UserFixedColor" red="231" green="231" blue="231" name="VeryLightGrey"/>
+    <entries xsi:type="description:UserFixedColor" red="225" green="245" blue="255" name="VeryLightBlue"/>
+  </userColorsPalettes>
+</description:Group>

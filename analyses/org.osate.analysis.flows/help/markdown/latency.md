@@ -109,9 +109,9 @@ Each contributor entry has a number of columns:
 1. The type and name of the **contributor**.
 2. The **minimum specified** latency as indicated by the latency property value 
    associated with the contributor. (The latency property takes a range value and 
-   the lower bound is used as minumum).
+   the lower bound is used as minimum).
 3. The **minimum actual** latency value used by the analysis. This value is 
-   determined by properties in the architecture design, e.g., the period and 
+   determined by properties in the architecture design, e.g., the period and compute
    execution time of a thread, or the transmission time by a bus. If no actual 
    value can be determined the specified value is used.
 4. The **minimum method** used to determine the minimum actual value. The 
@@ -125,7 +125,7 @@ Each contributor entry has a number of columns:
       binding to a virtual bus or bus using latency property values of those components or 
       based transmission time computation based on data size property values of the 
       data being transmitted if Transmission_Time and Data_Size have been specified
-    - **queued**: Latency contribution due to queuing. Uses on queue size, 
+    - **queued**: Latency contribution due to queuing. Uses on queue size, compute
       execution time, and period property values.
     - **sampling**: Latency contribution due to a component sampling periodically. 
       Uses period property values. This value may differ in synchronous and 
@@ -145,8 +145,7 @@ Each contributor entry has a number of columns:
     - **partition offset**: Latency contribution due to partition offset in the 
       partition schedule, either from beginning of major frame or earlier partition 
       in the same schedule. Uses property values from ARINC653 partition schedule.
-5. the **maximum specified**, **maximum actual**, **maximum subtotals**, and 
-   **maximum method** columns describe the maximum latency contribution
+5. the **maximum specified**, **maximum actual**, and **maximum method** columns describe the maximum latency contribution
 6. the **comments** column provides additional details on the calculations and 
    may give warnings or error messages to report inconsistencies.
 
@@ -243,8 +242,8 @@ The latency analysis supports the following settings:
       completion of all remaining partitions, regardless the execution
       order of partition A or partition B.
 - **For worst-case processing time use**: Users can choose between deadline
-  and worst-case execution time as worst case processing time. For best case 
-  we always use execution time.
+  and worst-case compute execution time as worst case processing time. For best case 
+  we always use compute execution time.
     - **Deadline (DL) \[default\]**: Deadline represents the worst-case 
       completion time assuming the tasks are schedulable.
     - **Maximum compute execution time (ET)**: Maximum compute execution time 
@@ -315,12 +314,12 @@ has explicitly assigned a queue size to the destination port of a connection.
 The worst-case queuing delay assumes a full queue, i.e., is the product of 
 queue size and worst-case processing time. For worst-case processing time the 
 deadline is used and if not present the latency value of the flow specification. 
-A preference setting allows the user to specify that worst-case execution time 
+A preference setting allows the user to specify that worst-case compute execution time 
 should be used instead of deadline. 
 
 The best-case queuing delay by default assumes an empty queue. However, in a 
 preference setting the user can specify a full queue is to be assumed. In this 
-case the queue size is multiplied by the best-case execution time.
+case the queue size is multiplied by the best-case compute execution time.
 
 Users may specify functional architectures with queuing ports, i.e., event 
 ports and event data ports may be associated with system or abstract components. 
@@ -335,12 +334,9 @@ threads with queuing ports. In this case the deadline or worst-case execution
 time is used 
 
 > In the case of a periodic or sporadic task with a queue the period is used 
-  instead of the worst-case or best-case execution time to reflect the fact that 
+  instead of the worst-case or best-case compute execution time to reflect the fact that 
   queue processing is paced at the rate specified by the period.
 
-> In the case of a periodic or sporadic task with a queue the queue size is 
-  reduced by one in calculating the queuing latency to reflect the fact that the 
-  sampling latency of the periodic recipient accounts for one element.
 
 ###Sampling Delay in Periodic Sampled Processing
 
@@ -575,10 +571,14 @@ processor. The latency analysis tools handles both modeling styles.
 The user can specify **ARINC653::Module\_Major\_Frame** on a processor to which 
 partitions are bound to indicate the rate at which partitions are scheduled. 
 
+> If not specified, the **Period** property on the virtual processor indicates the rate of execution for the partition.
+
 The user can also specify a full partition schedule using the 
 **ARINC653::Module\_Schedule** property, whose value is a list of records with 
 the **Partition** field referring to the partition and the **Duration** field 
 indicating the window size.
+
+> If there is no ARICN653 schedule that identifies the partition duration, the **Execution_Time** property on the virtual processor indicates the duration of the partion execution.
 
 The latency analysis will use the ARINC653 partition schedule information, or 
 the ARINC653 major frame information if the schedule is absent.
@@ -619,3 +619,69 @@ values you will get mode-specific results.
 
 > The analysis is currently not smart enough to avoid executing for all possible 
   modes if and end-to-end flow is not affected by modes.
+  
+## Latency Analysis Result Format
+
+Latency analysis records its results in the AnalysisResult format as provided by the org.osate.results plug-in.
+A run of the plug-in produces one instance of AnalysisResult stored as a file with the extension result in the reports/latency folder.
+
+### AnalysisResult
+
+The AnalysisResult object contains the following information:
+
+ - **name**: "latencyreport"
+ - **sourceReference**: reference to the root of the instance model (SystemInstance) 
+ - **analysis**: "org.osate.analysis.flows"
+ - **info**: 4 parameters to latency analysis as single string. Each parameter is a 2 character label separated by "-", e.g., "SS-DL-WC-EQ". The labels are explained in the preference documentation (SS/AS, DL)
+
+The AnalysisResult object contains a collection of Result objects, one for each end to end flow and system operation mode combination.
+
+Each end-to-end flow latency Result object contains a collection of subResults that represent latency contributions. 
+
+### End To End Flow Result
+
+The Result object representing the latency results for one end to end flow contains the following information:
+
+- **SourceReference**: reference to the end to end flow instance object in the instance model 
+- **Values**: list of values representing the results
+- **Diagnostics**: list of observations about the values represented as Diagnostic 
+
+The values of the result are stored in the following order:
+
+1. System operation mode name as String
+2. Minimum actual latency total as real/double in milliseconds (ms)
+3. Maximum actual latency total as real/double in milliseconds (ms)
+4. Minimum latency spec total as real/double in milliseconds (ms)
+5. Maximum latency spec total as real/double in milliseconds (ms)
+6. Minimum expected end-to-end flow latency as real/double in milliseconds (ms)
+7. Maximum expected end-to-end flow latency as real/double in milliseconds (ms)
+
+Actual latency total is the sum of latency contributions by the actual design.
+
+Latency spec total is the sum of latency values associated with flow specifications.
+
+Expected end-to-end flow latency is the latency value specified by the Latency property associated with the end to end flow being analyzed.
+
+ResultUtil provides methods to retrieve the values by index starting with index zero.
+
+### Latency Contribution Result
+
+The Result object representing a latency contribution contains the following information:
+
+- **SourceReference**: reference to the instance model that contributes to the latency. This may be a component or a connection instance.
+- **Values**: list of values representing details of the contribution
+- **Diagnostics**: list of observations about the contribution 
+
+The values of the contribution are stored in the following order:
+
+1. Minimum actual latency value as real/double in milliseconds (ms)
+2. Maximum actual latency value as real/double in milliseconds (ms)
+3. Minimum latency spec value as real/double in milliseconds (ms)
+4. Maximum latency spec value as real/double in milliseconds (ms)
+5. Method to determine best-case actual latency (String)
+6. Method to determine worst-case actual latency (String)
+
+For details on methods to determine actual latency see section [Latency Analysis Report Content](latency.html#latency-analysis-report-content).
+
+In the case of connections a contributor can have sub-contributors (protocols, buses that the connection is bound to). They are represented by subResult objects for each contributor Result object.
+ 

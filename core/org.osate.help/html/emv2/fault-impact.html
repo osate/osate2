@@ -1,0 +1,42 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+	<LINK REL="STYLESHEET" HREF="../book.css" CHARSET="ISO-8859-1" TYPE="text/css">
+	<title>Open Source AADL Tool Environment (OSATE) Online Help</title>
+</head>
+
+<body>
+<h2>Error-Model Annex v2 - Fault Impact Analysis</h2>
+<p>
+The goal of the Fault Impact Analysis is to trace the error
+paths between the error source and the impacted component.
+Used with the <a href="fha.html">Functional Hazard Assessment</a>,
+it is a valuable information for evaluating
+the system safety.
+</p>
+
+<p>
+To use the function, select the system instance file and click
+on the <em>FaultImpact</em> menu item in the Safety Analysis menu, as shown below.
+</p>
+<img src="choose-fta.png"/>
+
+<p>
+It then produce a CSV file that can be imported within Excel and contains
+all the error path within the architecture.
+</p>
+<img src="fault-impact.png"/>
+
+<p>
+The Fault Impact Analysis then retrieves all components that have 
+outgoing error propagations and get all error paths starting
+from each of them. Then, it logs all the components
+across the error path so that users can check the potential
+impacts from a fault occurring in that component.
+</p> 
+
+</body>
+</html>
