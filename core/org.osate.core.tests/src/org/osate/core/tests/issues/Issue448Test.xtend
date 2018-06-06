@@ -4,30 +4,26 @@ import com.google.inject.Inject
 import com.itemis.xtext.testing.XtextTest
 import org.eclipse.xtext.testing.InjectWith
 import org.eclipse.xtext.testing.XtextRunner
-import org.eclipse.xtext.testing.util.ParseHelper
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.osate.aadl2.AadlPackage
 import org.osate.aadl2.SystemImplementation
 import org.osate.aadl2.instantiation.InstantiateModel
 import org.osate.testsupport.Aadl2InjectorProvider
-import org.osate.testsupport.TestResourceSet
+import org.osate.testsupport.TestHelper
 
 import static org.junit.Assert.*
 
-@RunWith(typeof(XtextRunner))
-@InjectWith(typeof(Aadl2InjectorProvider))
+@RunWith(XtextRunner)
+@InjectWith(Aadl2InjectorProvider)
 class Issue448Test extends XtextTest {
 	
-	@Inject 
-	ParseHelper<AadlPackage> parseHelper;
-	
 	@Inject
-	TestResourceSet resourceSet;
+	TestHelper testHelper;
 	
 	@Test
 	def void issue448() {
-		val pkg = parseHelper.parse(aadlText, resourceSet.get())
+		val pkg = testHelper.parseString(aadlText) as AadlPackage
 		val cls = pkg.ownedPublicSection.ownedClassifiers
 		assertTrue('System implementation "test_sys.impl2" not found', cls.exists[name == 'test_sys.impl2'])
 
