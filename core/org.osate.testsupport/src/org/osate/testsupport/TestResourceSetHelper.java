@@ -14,7 +14,7 @@ import com.google.inject.Provider;
 import com.google.inject.Singleton;
 
 @Singleton
-public class TestResourceSet {
+public class TestResourceSetHelper {
 
 	@Inject
 	protected Provider<XtextResourceSet> rsp;
@@ -23,7 +23,7 @@ public class TestResourceSet {
 
 	private static List<URI> contributed = PluginSupportUtil.getContributedAadl();
 
-	public XtextResourceSet get() {
+	public XtextResourceSet getResourceSet() {
 		if (set == null) {
 			set = rsp.get();
 			initialize();
