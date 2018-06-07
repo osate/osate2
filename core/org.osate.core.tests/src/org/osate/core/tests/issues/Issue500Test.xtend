@@ -22,7 +22,7 @@ import static extension org.osate.testsupport.AssertHelper.assertError
 class Issue500Test extends XtextTest {
 
 	@Inject
-	TestHelper testHelper
+	TestHelper<AadlPackage> testHelper
 
 	@Test
 	def void issue500() {
@@ -34,7 +34,7 @@ class Issue500Test extends XtextTest {
 
 			// instantiate
 			val sysImpl = cls.findFirst[it.name == name] as SystemImplementation
-			val instance = InstantiateModel.instantiate(sysImpl, pkg.eResource.resourceSet)
+			val instance = InstantiateModel.instantiate(sysImpl)
 			val connections = instance.connectionInstances
 
 			switch k {
