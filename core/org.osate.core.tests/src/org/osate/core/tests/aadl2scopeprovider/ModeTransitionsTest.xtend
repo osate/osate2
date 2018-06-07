@@ -56,7 +56,7 @@ import static extension org.osate.testsupport.AssertHelper.assertError
 class ModeTransitionsTest extends XtextTest {
 
 	@Inject
-	TestHelper testHelper
+	TestHelper<AadlPackage> testHelper
 
 	@Inject
 	extension AssertHelper assertHelper
