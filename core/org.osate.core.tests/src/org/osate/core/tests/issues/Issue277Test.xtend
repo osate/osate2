@@ -21,7 +21,7 @@ class Issue277Test extends XtextTest {
 	
 	@Test
 	def void issue277() {
-		val pkg = testHelper.parseString(aadlText) as AadlPackage
+		val pkg = testHelper.parseString(aadlText)
 		val cls = pkg.ownedPublicSection.ownedClassifiers
 		assertTrue('Feature group type "TestInvExtendedFeatureGroup" not found', cls.exists[name == 'TestInvExtendedFeatureGroup'])
 

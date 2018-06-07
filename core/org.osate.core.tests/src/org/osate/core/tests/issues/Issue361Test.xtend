@@ -23,7 +23,7 @@ class Issue361Test extends XtextTest {
 	
 	@Test
 	def void issue361() {
-		val pkg = testHelper.parseString(aadlText) as AadlPackage
+		val pkg = testHelper.parseString(aadlText)
 		val cls = pkg.ownedPublicSection.ownedClassifiers
 		assertTrue('System implementation "Block.impl" not found', cls.exists[name == 'Block.impl'])
 

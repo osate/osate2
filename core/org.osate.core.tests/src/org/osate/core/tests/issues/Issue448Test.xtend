@@ -23,7 +23,7 @@ class Issue448Test extends XtextTest {
 	
 	@Test
 	def void issue448() {
-		val pkg = testHelper.parseString(aadlText) as AadlPackage
+		val pkg = testHelper.parseString(aadlText)
 		val cls = pkg.ownedPublicSection.ownedClassifiers
 		assertTrue('System implementation "test_sys.impl2" not found', cls.exists[name == 'test_sys.impl2'])
 
