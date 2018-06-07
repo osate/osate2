@@ -38,12 +38,12 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
-import org.eclipse.core.resources.IResource;
+import org.eclipse.emf.ecore.resource.Resource;
 
 /**
  * This class manages the creation and use of
  * {@link edu.cmu.sei.aadl.model.pluginsupport.ParseErrorReporter} instances
- * across a set of AADL text file resources. The manager indexes error reportrs
+ * across a set of AADL text file resources. The manager indexes error reporters
  * using the OS specific path name of the file.
  *
  * <P>
@@ -53,7 +53,7 @@ import org.eclipse.core.resources.IResource;
  *
  * <p>
  * Primary purpose of this class is to serve as a cache of parse error reporters
- * that ensures each reporter is "cleared" only the first time it is retreived.
+ * that ensures each reporter is "cleared" only the first time it is retrieved.
  * Also coordinates errors counts across a set of parsed files. This class used
  * to have more functionality that is now rolled into
  * {@link edu.cmu.sei.aadl.model.pluginsupport.AnalysisToParseErrorReporterAdapter}.
@@ -68,7 +68,7 @@ public final class ParseErrorReporterManager extends AbstractErrorReporterManage
 	private final ParseErrorReporterFactory factory;
 
 	/** The mapping from Resources to error reporters. */
-	private final Map<IResource, ParseErrorReporter> reportersMap;
+	private final Map<Resource, ParseErrorReporter> reportersMap;
 
 	/**
 	 * A list of all the reporters. Replicates {@link #reportersMap}, but it's
@@ -79,7 +79,7 @@ public final class ParseErrorReporterManager extends AbstractErrorReporterManage
 	public ParseErrorReporterManager(final ParseErrorReporterFactory fact) {
 		super();
 		factory = fact;
-		reportersMap = new HashMap<IResource, ParseErrorReporter>();
+		reportersMap = new HashMap<Resource, ParseErrorReporter>();
 		reportersList = new LinkedList<ParseErrorReporter>();
 	}
 
@@ -87,7 +87,7 @@ public final class ParseErrorReporterManager extends AbstractErrorReporterManage
 	public ParseErrorReporterManager(final InternalErrorReporter ier, final ParseErrorReporterFactory fact) {
 		super(ier);
 		factory = fact;
-		reportersMap = new HashMap<IResource, ParseErrorReporter>();
+		reportersMap = new HashMap<Resource, ParseErrorReporter>();
 		reportersList = new LinkedList<ParseErrorReporter>();
 	}
 
@@ -96,14 +96,14 @@ public final class ParseErrorReporterManager extends AbstractErrorReporterManage
 	 * the given filename.
 	 *
 	 * @param aadlRsrc
-	 *            The IResource associated with the AADL text file to get an
+	 *            The EMF Resource associated with the AADL text file to get an
 	 *            error reporter for. This may be <code>null</code> if the
-	 *            IResource doesn't exist. This is the case when dealing with
+	 *            Resource doesn't exist. This is the case when dealing with
 	 *            standard property sets because they do not exist in the
 	 *            Eclipse workspace and thus do not have IResources. But see
 	 *            {@link ParseErrorReporterFactory} regarding <code>null</code>.
 	 */
-	public final ParseErrorReporter getReporter(final IResource aadlRsrc) {
+	public final ParseErrorReporter getReporter(final Resource aadlRsrc) {
 		ParseErrorReporter errReporter = reportersMap.get(aadlRsrc);
 		if (errReporter == null) {
 			// don't have it, make a new one and clear it
@@ -169,7 +169,7 @@ public final class ParseErrorReporterManager extends AbstractErrorReporterManage
 
 	/**
 	* Remove all the stored reporters (list and map).
-	* 
+	*
 	*/
 	public void clean() {
 		reportersList.clear();
