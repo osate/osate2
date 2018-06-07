@@ -19,7 +19,7 @@ import static org.junit.Assert.*
 class Issue480Test extends XtextTest {
 	
 	@Inject
-	TestHelper testHelper;
+	TestHelper<AadlPackage> testHelper;
 	
 	@Test
 	def void issue480() {
@@ -29,7 +29,7 @@ class Issue480Test extends XtextTest {
 
 		// instantiate
 		val sysImpl = cls.findFirst[name == 'top.i'] as SystemImplementation
-		val instance = InstantiateModel.instantiate(sysImpl, pkg.eResource.resourceSet)
+		val instance = InstantiateModel.instantiate(sysImpl)
 		assertEquals('top_i_Instance', instance.name)
 
 		// check if there are 21 connections

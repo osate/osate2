@@ -19,7 +19,7 @@ import static org.junit.Assert.*
 class Issue464Test extends XtextTest {
 	
 	@Inject
-	TestHelper testHelper;
+	TestHelper<AadlPackage> testHelper;
 	
 	@Test
 	def void issue464() {
@@ -29,7 +29,7 @@ class Issue464Test extends XtextTest {
 
 		// instantiate
 		val sysImpl = cls.findFirst[name == 'SensorProcessing.impl2'] as SystemImplementation
-		val instance = InstantiateModel.instantiate(sysImpl, pkg.eResource.resourceSet)
+		val instance = InstantiateModel.instantiate(sysImpl)
 		assertEquals('SensorProcessing_impl2_Instance', instance.name)
 
 		// check if e2e flows are instantiated exactly once

@@ -17,7 +17,7 @@ import static org.junit.Assert.*
 class Issue277Test extends XtextTest {
 	
 	@Inject
-	TestHelper testHelper;
+	TestHelper<AadlPackage> testHelper;
 	
 	@Test
 	def void issue277() {
