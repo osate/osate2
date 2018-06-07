@@ -130,6 +130,8 @@ import org.osate.aadl2.instance.util.InstanceUtil.InstantiatedClassifier;
 import org.osate.aadl2.modelsupport.AadlConstants;
 import org.osate.aadl2.modelsupport.errorreporting.AnalysisErrorReporterManager;
 import org.osate.aadl2.modelsupport.errorreporting.MarkerAnalysisErrorReporter;
+import org.osate.aadl2.modelsupport.errorreporting.NullAnalysisErrorReporter;
+import org.osate.aadl2.modelsupport.errorreporting.QueuingAnalysisErrorReporter;
 import org.osate.aadl2.modelsupport.modeltraversal.ForAllElement;
 import org.osate.aadl2.modelsupport.modeltraversal.TraverseWorkspace;
 import org.osate.aadl2.modelsupport.resources.OsateResourceUtil;
@@ -256,6 +258,49 @@ public class InstantiateModel {
 		return buildInstanceModelFile(ci, new NullProgressMonitor());
 	}
 
+	public static SystemInstance instantiate(ComponentImplementation ci, AnalysisErrorReporterManager errorManager,
+			IProgressMonitor monitor) throws Exception {
+		URI instanceURI = OsateResourceUtil.getInstanceModelURI(ci);
+		ResourceSet resourceSet = ci.eResource().getResourceSet();
+		Resource aadlResource = resourceSet.createResource(instanceURI);
+
+		// now instantiate the rest of the model
+		final InstantiateModel instantiateModel = new InstantiateModel(monitor,
+				new AnalysisErrorReporterManager(QueuingAnalysisErrorReporter.factory));
+		SystemInstance root = instantiateModel.createSystemInstanceInt(ci, aadlResource, false);
+		if (root == null) {
+			errorMessage = InstantiateModel.getErrorMessage();
+		}
+		return root;
+	}
+
+	/**
+	 * Instantiate a component implementation. The instance model is created in the resource set
+	 * containing the component implementation.
+	 *
+	 * @param ci The component implementation to instantiate.
+	 * @param errorManager The instance model is created as a resource in this resource set.
+	 * @return The root of the instance model.
+	 * @throws Exception if something goes wrong.
+	 */
+	public static SystemInstance instantiate(ComponentImplementation ci, AnalysisErrorReporterManager errorManager)
+			throws Exception {
+		return instantiate(ci, errorManager, new NullProgressMonitor());
+	}
+
+	/**
+	 * Instantiate a component implementation without reporting errors.
+	 * The instance model is created in the resource set
+	 * containing the component implementation.
+	 *
+	 * @param ci The component implementation to instantiate.
+	 * @return The root of the instance model.
+	 * @throws Exception if something goes wrong.
+	 */
+	public static SystemInstance instantiate(ComponentImplementation ci) throws Exception {
+		return instantiate(ci, new AnalysisErrorReporterManager(NullAnalysisErrorReporter.factory));
+	}
+
 	/*
 	 * This method will construct an instance model, save it on disk and return
 	 * its root object The method will make sure the declarative models are up
@@ -345,7 +390,7 @@ public class InstantiateModel {
 			@Override
 			protected void doExecute() {
 				try {
-					instance = createSystemInstanceInt(ci, aadlResource);
+					instance = createSystemInstanceInt(ci, aadlResource, true);
 				} catch (InterruptedException e) {
 					// Do nothing. Will be thrown after execute.
 				}
@@ -387,7 +432,7 @@ public class InstantiateModel {
 	 *
 	 * @return SystemInstance or <code>null</code> if canceled.
 	 */
-	public SystemInstance createSystemInstanceInt(ComponentImplementation ci, Resource aadlResource)
+	public SystemInstance createSystemInstanceInt(ComponentImplementation ci, Resource aadlResource, boolean save)
 			throws InterruptedException {
 		SystemInstance root = InstanceFactory.eINSTANCE.createSystemInstance();
 		final String instanceName = ci.getTypeName() + "_" + ci.getImplementationName()
@@ -400,7 +445,9 @@ public class InstantiateModel {
 		// Needed to save the root object because we may attach warnings to the
 		// IResource as we build it.
 		try {
-			aadlResource.save(null);
+			if (save) {
+				aadlResource.save(null);
+			}
 
 			try {
 				fillSystemInstance(root);
@@ -2151,8 +2198,7 @@ public class InstantiateModel {
 	 * should be turned into a System Operation Mode object.
 	 */
 	protected void enumerateSystemOperationModes(final SystemInstance root, final ComponentInstance[] instances,
-			final int limit)
-			throws InterruptedException {
+			final int limit) throws InterruptedException {
 		final LinkedList<ComponentInstance> skipped = new LinkedList<ComponentInstance>();
 		final List<ModeInstance> currentModes = new ArrayList<ModeInstance>();
 		final EList<ModeInstance> modes = instances[0].getModeInstances();

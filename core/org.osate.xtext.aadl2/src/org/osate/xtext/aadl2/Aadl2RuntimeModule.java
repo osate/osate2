@@ -34,12 +34,12 @@
  */
 package org.osate.xtext.aadl2;
 
-import org.eclipse.xtext.builder.EclipseResourceFileSystemAccess2;
 import org.eclipse.xtext.conversion.IValueConverterService;
 import org.eclipse.xtext.documentation.IEObjectDocumentationProvider;
 import org.eclipse.xtext.formatting2.regionaccess.TextRegionAccessBuilder;
 import org.eclipse.xtext.generator.AbstractFileSystemAccess2;
 import org.eclipse.xtext.generator.IOutputConfigurationProvider;
+import org.eclipse.xtext.generator.InMemoryFileSystemAccess;
 import org.eclipse.xtext.linking.lazy.LazyURIEncoder;
 import org.eclipse.xtext.resource.IDerivedStateComputer;
 import org.eclipse.xtext.resource.IFragmentProvider;
@@ -188,7 +188,7 @@ public class Aadl2RuntimeModule extends org.osate.xtext.aadl2.AbstractAadl2Runti
 	}
 
 	public Class<? extends AbstractFileSystemAccess2> bindAbstractFileSystemAccess2() {
-		return EclipseResourceFileSystemAccess2.class;
+		return InMemoryFileSystemAccess.class;
 	}
 
 	// needed for builder participant even though we don't generate anything

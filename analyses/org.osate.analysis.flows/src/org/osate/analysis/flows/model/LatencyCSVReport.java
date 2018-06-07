@@ -65,8 +65,8 @@ public class LatencyCSVReport {
 			comp = "(" + comp + ")";
 		}
 		report.append(comp + "," + ResultUtil.getReal(contributor, 2) + "ms," + ResultUtil.getReal(contributor, 0)
-				+ "ms," + ResultUtil.getString(contributor, 9) + "," + ResultUtil.getReal(contributor, 3) + "ms,"
-				+ ResultUtil.getReal(contributor, 1) + "ms," + ResultUtil.getString(contributor, 8));
+				+ "ms," + ResultUtil.getString(contributor, 4) + "," + ResultUtil.getReal(contributor, 3) + "ms,"
+				+ ResultUtil.getReal(contributor, 1) + "ms," + ResultUtil.getString(contributor, 5));
 		for (Diagnostic dia : contributor.getDiagnostics()) {
 			report.append("," + dia.getMessage());
 		}

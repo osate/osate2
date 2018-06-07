@@ -8763,13 +8763,13 @@ public class InternalReqSpecParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__IncludeGlobalRequirement__Alternatives_2_1"
-    // InternalReqSpecParser.g:2687:1: rule__IncludeGlobalRequirement__Alternatives_2_1 : ( ( ( rule__IncludeGlobalRequirement__SelfAssignment_2_1_0 ) ) | ( ( rule__IncludeGlobalRequirement__TargetElementAssignment_2_1_1 ) ) );
+    // InternalReqSpecParser.g:2687:1: rule__IncludeGlobalRequirement__Alternatives_2_1 : ( ( ( rule__IncludeGlobalRequirement__LocalAssignment_2_1_0 ) ) | ( ( rule__IncludeGlobalRequirement__TargetElementAssignment_2_1_1 ) ) );
     public final void rule__IncludeGlobalRequirement__Alternatives_2_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalReqSpecParser.g:2691:1: ( ( ( rule__IncludeGlobalRequirement__SelfAssignment_2_1_0 ) ) | ( ( rule__IncludeGlobalRequirement__TargetElementAssignment_2_1_1 ) ) )
+            // InternalReqSpecParser.g:2691:1: ( ( ( rule__IncludeGlobalRequirement__LocalAssignment_2_1_0 ) ) | ( ( rule__IncludeGlobalRequirement__TargetElementAssignment_2_1_1 ) ) )
             int alt19=2;
             int LA19_0 = input.LA(1);
 
@@ -8788,19 +8788,19 @@ public class InternalReqSpecParser extends AbstractInternalContentAssistParser {
             }
             switch (alt19) {
                 case 1 :
-                    // InternalReqSpecParser.g:2692:1: ( ( rule__IncludeGlobalRequirement__SelfAssignment_2_1_0 ) )
+                    // InternalReqSpecParser.g:2692:1: ( ( rule__IncludeGlobalRequirement__LocalAssignment_2_1_0 ) )
                     {
-                    // InternalReqSpecParser.g:2692:1: ( ( rule__IncludeGlobalRequirement__SelfAssignment_2_1_0 ) )
-                    // InternalReqSpecParser.g:2693:1: ( rule__IncludeGlobalRequirement__SelfAssignment_2_1_0 )
+                    // InternalReqSpecParser.g:2692:1: ( ( rule__IncludeGlobalRequirement__LocalAssignment_2_1_0 ) )
+                    // InternalReqSpecParser.g:2693:1: ( rule__IncludeGlobalRequirement__LocalAssignment_2_1_0 )
                     {
                     if ( state.backtracking==0 ) {
-                       before(grammarAccess.getIncludeGlobalRequirementAccess().getSelfAssignment_2_1_0()); 
+                       before(grammarAccess.getIncludeGlobalRequirementAccess().getLocalAssignment_2_1_0()); 
                     }
-                    // InternalReqSpecParser.g:2694:1: ( rule__IncludeGlobalRequirement__SelfAssignment_2_1_0 )
-                    // InternalReqSpecParser.g:2694:2: rule__IncludeGlobalRequirement__SelfAssignment_2_1_0
+                    // InternalReqSpecParser.g:2694:1: ( rule__IncludeGlobalRequirement__LocalAssignment_2_1_0 )
+                    // InternalReqSpecParser.g:2694:2: rule__IncludeGlobalRequirement__LocalAssignment_2_1_0
                     {
                     pushFollow(FollowSets000.FOLLOW_2);
-                    rule__IncludeGlobalRequirement__SelfAssignment_2_1_0();
+                    rule__IncludeGlobalRequirement__LocalAssignment_2_1_0();
 
                     state._fsp--;
                     if (state.failed) return ;
@@ -8808,7 +8808,7 @@ public class InternalReqSpecParser extends AbstractInternalContentAssistParser {
                     }
 
                     if ( state.backtracking==0 ) {
-                       after(grammarAccess.getIncludeGlobalRequirementAccess().getSelfAssignment_2_1_0()); 
+                       after(grammarAccess.getIncludeGlobalRequirementAccess().getLocalAssignment_2_1_0()); 
                     }
 
                     }
@@ -74484,9 +74484,9 @@ public class InternalReqSpecParser extends AbstractInternalContentAssistParser {
     // $ANTLR end "rule__IncludeGlobalRequirement__IncludeAssignment_1"
 
 
-    // $ANTLR start "rule__IncludeGlobalRequirement__SelfAssignment_2_1_0"
-    // InternalReqSpecParser.g:25639:1: rule__IncludeGlobalRequirement__SelfAssignment_2_1_0 : ( ( Self ) ) ;
-    public final void rule__IncludeGlobalRequirement__SelfAssignment_2_1_0() throws RecognitionException {
+    // $ANTLR start "rule__IncludeGlobalRequirement__LocalAssignment_2_1_0"
+    // InternalReqSpecParser.g:25639:1: rule__IncludeGlobalRequirement__LocalAssignment_2_1_0 : ( ( Self ) ) ;
+    public final void rule__IncludeGlobalRequirement__LocalAssignment_2_1_0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
@@ -74498,23 +74498,23 @@ public class InternalReqSpecParser extends AbstractInternalContentAssistParser {
             // InternalReqSpecParser.g:25645:1: ( Self )
             {
             if ( state.backtracking==0 ) {
-               before(grammarAccess.getIncludeGlobalRequirementAccess().getSelfSelfKeyword_2_1_0_0()); 
+               before(grammarAccess.getIncludeGlobalRequirementAccess().getLocalSelfKeyword_2_1_0_0()); 
             }
             // InternalReqSpecParser.g:25646:1: ( Self )
             // InternalReqSpecParser.g:25647:1: Self
             {
             if ( state.backtracking==0 ) {
-               before(grammarAccess.getIncludeGlobalRequirementAccess().getSelfSelfKeyword_2_1_0_0()); 
+               before(grammarAccess.getIncludeGlobalRequirementAccess().getLocalSelfKeyword_2_1_0_0()); 
             }
             match(input,Self,FollowSets000.FOLLOW_2); if (state.failed) return ;
             if ( state.backtracking==0 ) {
-               after(grammarAccess.getIncludeGlobalRequirementAccess().getSelfSelfKeyword_2_1_0_0()); 
+               after(grammarAccess.getIncludeGlobalRequirementAccess().getLocalSelfKeyword_2_1_0_0()); 
             }
 
             }
 
             if ( state.backtracking==0 ) {
-               after(grammarAccess.getIncludeGlobalRequirementAccess().getSelfSelfKeyword_2_1_0_0()); 
+               after(grammarAccess.getIncludeGlobalRequirementAccess().getLocalSelfKeyword_2_1_0_0()); 
             }
 
             }
@@ -74534,7 +74534,7 @@ public class InternalReqSpecParser extends AbstractInternalContentAssistParser {
         }
         return ;
     }
-    // $ANTLR end "rule__IncludeGlobalRequirement__SelfAssignment_2_1_0"
+    // $ANTLR end "rule__IncludeGlobalRequirement__LocalAssignment_2_1_0"
 
 
     // $ANTLR start "rule__IncludeGlobalRequirement__TargetElementAssignment_2_1_1"
