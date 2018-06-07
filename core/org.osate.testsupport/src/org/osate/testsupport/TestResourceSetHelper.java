@@ -23,6 +23,14 @@ public class TestResourceSetHelper {
 
 	private static List<URI> contributed = PluginSupportUtil.getContributedAadl();
 
+	/**
+	 * Provide resource set initialized with all plugin-contributed AADL packages
+	 * and property sets for use in junit tests. This method returns the same resource set
+	 * with the same content each time it is called. All resources loaded since
+	 * the previous call are removed.
+	 *
+	 * @return the initialized resource set
+	 */
 	public XtextResourceSet getResourceSet() {
 		if (set == null) {
 			set = rsp.get();
