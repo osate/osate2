@@ -26,7 +26,7 @@ class Issue500Test extends XtextTest {
 
 	@Test
 	def void issue500() {
-		val pkg = testHelper.parseString(aadlText1) as AadlPackage
+		val pkg = testHelper.parseString(aadlText1)
 		val cls = pkg.ownedPublicSection.ownedClassifiers;
 		(0 .. 5).forEach [ k |
 			val name = '''S.i«k»'''

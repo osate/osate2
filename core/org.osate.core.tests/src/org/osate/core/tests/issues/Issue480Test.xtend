@@ -23,7 +23,7 @@ class Issue480Test extends XtextTest {
 	
 	@Test
 	def void issue480() {
-		val pkg = testHelper.parseString(aadlText) as AadlPackage
+		val pkg = testHelper.parseString(aadlText)
 		val cls = pkg.ownedPublicSection.ownedClassifiers
 		assertTrue('System implementation "top.i" not found', cls.exists[name == 'top.i'])
 
