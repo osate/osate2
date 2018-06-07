@@ -22,10 +22,10 @@ import com.google.inject.Singleton;
 import com.itemis.xtext.testing.FluentIssueCollection;
 
 @Singleton
-public class TestHelper {
+public class TestHelper<T extends EObject> {
 
 	@Inject
-	ParseHelper<EObject> parseHelper;
+	ParseHelper<T> parseHelper;
 
 	@Inject
 	TestResourceSetHelper rsHelper;
@@ -49,7 +49,7 @@ public class TestHelper {
 		return new FluentIssueCollection(r, issueList, new ArrayList<String>());
 	}
 
-	public EObject parseString(String aadlText, String... referenced) throws Exception {
+	public T parseString(String aadlText, String... referenced) throws Exception {
 		ResourceSet rs = rsHelper.getResourceSet();
 		for (String s : referenced) {
 			parseHelper.parse(s, rs);
@@ -57,7 +57,7 @@ public class TestHelper {
 		return parseHelper.parse(aadlText, rs);
 	}
 
-	public EObject parseFile(String filePath, String... referencedPaths) throws Exception {
+	public T parseFile(String filePath, String... referencedPaths) throws Exception {
 		ResourceSet rs = rsHelper.getResourceSet();
 		for (String name : referencedPaths) {
 			parseHelper.parse(readFile(name), rs);
