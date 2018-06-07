@@ -21,6 +21,12 @@ import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import com.itemis.xtext.testing.FluentIssueCollection;
 
+/**
+ * This class provides a couple of helper methods for writing junit tests.
+ * It must be injected via guice.
+ *
+ * @param <T> The class of the objects returned by the (first) parsed file, usually AadlPackage.
+ */
 @Singleton
 public class TestHelper<T extends EObject> {
 
@@ -33,11 +39,27 @@ public class TestHelper<T extends EObject> {
 	@Inject
 	private IResourceServiceProvider.Registry serviceProviderRegistry;
 
+	/**
+	 * Parse a set of strings containing AADL source text and return the FluentIssueCollection for the first string.
+	 *
+	 * @param aadlText the main AADL source to test
+	 * @param referenced other AADL packages and property sets that may be referenced by the main AADL source
+	 * @return the issue collection for the main AADL source
+	 * @throws Exception if a resource for an AADL string cannot be created
+	 */
 	public FluentIssueCollection testString(String aadlText, String... referenced) throws Exception {
 		EObject o = parseString(aadlText, referenced);
 		return testResource(o.eResource());
 	}
 
+	/**
+	 * Parse a set of AADL files and return the FluentIssueCollection for the first file.
+	 *
+	 * @param aadlText the main AADL file to test
+	 * @param referenced other AADL package and property set files that may be referenced by the main AADL file
+	 * @return the issue collection for the main AADL file
+	 * @throws Exception if a resource for an AADL file cannot be created
+	 */
 	public FluentIssueCollection testFile(String filePath, String... referencedPaths) throws Exception {
 		EObject o = parseFile(filePath, referencedPaths);
 		return testResource(o.eResource());
@@ -49,6 +71,14 @@ public class TestHelper<T extends EObject> {
 		return new FluentIssueCollection(r, issueList, new ArrayList<String>());
 	}
 
+	/**
+	 * Parse a set of AADL source strings into the test resource set.
+	 *
+	 * @param aadlText the main AADL source to parse
+	 * @param referenced other AADL packages and property sets that may be referenced by the main AADL source
+	 * @return the root object (AadlPackage or AadlPropertyset) of the main AADL source string
+	 * @throws Exception if a resource for an AADL string cannot be created
+	 */
 	public T parseString(String aadlText, String... referenced) throws Exception {
 		ResourceSet rs = rsHelper.getResourceSet();
 		for (String s : referenced) {
@@ -57,6 +87,14 @@ public class TestHelper<T extends EObject> {
 		return parseHelper.parse(aadlText, rs);
 	}
 
+	/**
+	 * Parse a set of AADL files into the test resource set.
+	 *
+	 * @param aadlText the main AADL file to parse
+	 * @param referenced other AADL package and property set files that may be referenced by the main AADL file
+	 * @return the root object (AadlPackage or AadlPropertyset) of the main AADL file
+	 * @throws Exception if a resource for an AADL file cannot be created
+	 */
 	public T parseFile(String filePath, String... referencedPaths) throws Exception {
 		ResourceSet rs = rsHelper.getResourceSet();
 		for (String name : referencedPaths) {
@@ -65,6 +103,12 @@ public class TestHelper<T extends EObject> {
 		return parseHelper.parse(readFile(filePath), rs);
 	}
 
+	/**
+	 * Read a file into a string.
+	 *
+	 * @param path the file path starting with the test plugin name
+	 * @return the file content with unix line endings
+	 */
 	public static String readFile(String path) {
 		String result = "";
 		try {
