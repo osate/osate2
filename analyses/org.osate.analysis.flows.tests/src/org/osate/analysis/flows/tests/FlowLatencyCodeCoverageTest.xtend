@@ -7,15 +7,12 @@ import org.eclipse.emf.ecore.EObject
 import org.eclipse.emf.ecore.util.EcoreUtil
 import org.eclipse.xtext.testing.InjectWith
 import org.eclipse.xtext.testing.XtextRunner
-import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.osate.aadl2.AadlPackage
 import org.osate.aadl2.SystemImplementation
 import org.osate.analysis.flows.FlowLatencyAnalysisSwitch
-import org.osate.analysis.flows.FlowanalysisPlugin
 import org.osate.analysis.flows.model.LatencyReport
-import org.osate.analysis.flows.preferences.Constants
 import org.osate.result.AnalysisResult
 import org.osate.result.BooleanValue
 import org.osate.result.Diagnostic
@@ -34,12 +31,6 @@ import static extension org.osate.aadl2.instantiation.InstantiateModel.buildInst
 @InjectWith(Aadl2UiInjectorProvider)
 class FlowLatencyCodeCoverageTest extends OsateTest {
 	val static DIR_NAME = "org.osate.analysis.flows.tests/models/FlowLatencyCodeCoverage/"
-	
-	@Before
-	def void resetPreferences() {
-		FlowanalysisPlugin.^default.preferenceStore.toDefault = Constants.WORST_CASE_DEADLINE
-		FlowanalysisPlugin.^default.preferenceStore.toDefault = Constants.BESTCASE_EMPTY_QUEUE
-	}
 	
 	@Test
 	def void testFlowLatency() {
@@ -88,7 +79,7 @@ class FlowLatencyCodeCoverageTest extends OsateTest {
 					val expected = it.eResource.resourceSet.getResource(resultURI, true).contents.head as AnalysisResult
 					
 					val analysis = new FlowLatencyAnalysisSwitch(new NullProgressMonitor, it)
-					val actual = analysis.invokeAndGetResult(it, it.systemOperationModes.head, false, true, true, true)
+					val actual = analysis.invoke(it, it.systemOperationModes.head, false, true, true, true)
 					
 					expected.assertAnalysisResult(actual)
 				]
@@ -112,7 +103,7 @@ class FlowLatencyCodeCoverageTest extends OsateTest {
 					val expected = it.eResource.resourceSet.getResource(resultURI, true).contents.head as AnalysisResult
 					
 					val analysis = new FlowLatencyAnalysisSwitch(new NullProgressMonitor, it, new LatencyReport(it))
-					val actual = analysis.invokeAndGetResult(it, it.systemOperationModes.head, false, true, true, true)
+					val actual = analysis.invoke(it, it.systemOperationModes.head, false, true, true, true)
 					
 					expected.assertAnalysisResult(actual)
 				]
@@ -122,7 +113,6 @@ class FlowLatencyCodeCoverageTest extends OsateTest {
 	
 	@Test
 	def void testWorstCaseExecutionTime() {
-		FlowanalysisPlugin.^default.preferenceStore.setValue(Constants.WORST_CASE_DEADLINE, Constants.WORST_CASE_DEADLINE_NO)
 		val executionTimePkgName = "execution_time"
 		val executionTimeFileName = executionTimePkgName + ".aadl"
 		createFiles(executionTimeFileName -> readFile(DIR_NAME + executionTimeFileName))
@@ -137,7 +127,7 @@ class FlowLatencyCodeCoverageTest extends OsateTest {
 					val expected = it.eResource.resourceSet.getResource(resultURI, true).contents.head as AnalysisResult
 					
 					val analysis = new FlowLatencyAnalysisSwitch(new NullProgressMonitor, it)
-					val actual = analysis.invokeAndGetResult(it, it.systemOperationModes.head, false, true, false, true)
+					val actual = analysis.invoke(it, it.systemOperationModes.head, false, true, false, true)
 					
 					expected.assertAnalysisResult(actual)
 				]
@@ -147,7 +137,6 @@ class FlowLatencyCodeCoverageTest extends OsateTest {
 	
 	@Test
 	def void testBestCaseFullQueue() {
-		FlowanalysisPlugin.^default.preferenceStore.setValue(Constants.BESTCASE_EMPTY_QUEUE, Constants.BESTCASE_EMPTY_QUEUE_NO)
 		val queuingPkgName = "queuing"
 		val queuingFileName = queuingPkgName + ".aadl"
 		createFiles(queuingFileName -> readFile(DIR_NAME + queuingFileName))
@@ -162,7 +151,7 @@ class FlowLatencyCodeCoverageTest extends OsateTest {
 					val expected = it.eResource.resourceSet.getResource(resultURI, true).contents.head as AnalysisResult
 					
 					val analysis = new FlowLatencyAnalysisSwitch(new NullProgressMonitor, it)
-					val actual = analysis.invokeAndGetResult(it, it.systemOperationModes.head, false, true, true, false)
+					val actual = analysis.invoke(it, it.systemOperationModes.head, false, true, true, false)
 					
 					expected.assertAnalysisResult(actual)
 				]
@@ -193,7 +182,7 @@ class FlowLatencyCodeCoverageTest extends OsateTest {
 					val expected = it.eResource.resourceSet.getResource(resultURI, true).contents.head as AnalysisResult
 					
 					val analysis = new FlowLatencyAnalysisSwitch(new NullProgressMonitor, it)
-					val actual = analysis.invokeAndGetResult(it, it.systemOperationModes.head, false, true, true, true)
+					val actual = analysis.invoke(it, it.systemOperationModes.head, false, true, true, true)
 					
 					expected.assertAnalysisResult(actual)
 				]
