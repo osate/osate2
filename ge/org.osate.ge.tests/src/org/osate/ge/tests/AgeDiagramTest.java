@@ -14,7 +14,7 @@ import org.osate.ge.internal.diagram.runtime.BeforeModificationsCompletedEvent;
 import org.osate.ge.internal.diagram.runtime.DiagramConfigurationBuilder;
 import org.osate.ge.internal.diagram.runtime.DiagramConfigurationChangedEvent;
 import org.osate.ge.internal.diagram.runtime.DiagramElement;
-import org.osate.ge.internal.diagram.runtime.DiagramElementField;
+import org.osate.ge.internal.diagram.runtime.ModifiableField;
 import org.osate.ge.internal.diagram.runtime.DiagramModificationListener;
 import org.osate.ge.internal.diagram.runtime.DockArea;
 import org.osate.ge.internal.diagram.runtime.ElementAddedEvent;
@@ -146,7 +146,7 @@ public class AgeDiagramTest {
 		assertThat(ml.elementUpdatedEventsReceived, is(equalTo(1)));
 		assertThat(ml.modificationsCompletedEventsReceived, is(equalTo(1)));
 		assertThat(ml.getTotalEventsReceived(), is(equalTo(2)));
-		assertThat(ml.lastUpdateEvent.updatedFields, is(equalTo(EnumSet.of(DiagramElementField.POSITION))));
+		assertThat(ml.lastUpdateEvent.updatedFields, is(equalTo(EnumSet.of(ModifiableField.POSITION))));
 	}
 
 	// Ensure that a single event is received when the same element is updated multiple times.
@@ -163,7 +163,7 @@ public class AgeDiagramTest {
 		assertThat(ml.elementUpdatedEventsReceived, is(equalTo(1)));
 		assertThat(ml.modificationsCompletedEventsReceived, is(equalTo(1)));
 		assertThat(ml.getTotalEventsReceived(), is(equalTo(2)));
-		assertThat(ml.lastUpdateEvent.updatedFields, is(equalTo(EnumSet.of(DiagramElementField.DOCK_AREA, DiagramElementField.POSITION))));
+		assertThat(ml.lastUpdateEvent.updatedFields, is(equalTo(EnumSet.of(ModifiableField.DOCK_AREA, ModifiableField.POSITION))));
 	}
 
 	private DiagramElement addRootElementAndResetCounter(final int id) {

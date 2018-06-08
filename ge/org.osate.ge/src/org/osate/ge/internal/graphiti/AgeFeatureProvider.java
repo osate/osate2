@@ -96,6 +96,7 @@ import org.osate.ge.internal.graphiti.features.BoHandlerDirectEditFeature;
 import org.osate.ge.internal.graphiti.features.UpdateDiagramFeature;
 import org.osate.ge.internal.graphiti.services.GraphitiService;
 import org.osate.ge.internal.services.AadlModificationService;
+import org.osate.ge.internal.services.ActionService;
 import org.osate.ge.internal.services.ExtensionService;
 import org.osate.ge.internal.services.ProjectReferenceService;
 import org.osate.ge.internal.services.ReferenceService;
@@ -149,10 +150,12 @@ public class AgeFeatureProvider extends DefaultFeatureProvider {
 		// Create the refresh diagram feature
 		final DefaultBusinessObjectNodeFactory nodeFactory = new DefaultBusinessObjectNodeFactory(referenceResolver);
 		final QueryService queryService = Objects.requireNonNull(eclipseContext.get(QueryService.class), "unable to retrieve query service");
+		final ActionService actionService = Objects.requireNonNull(eclipseContext.get(ActionService.class),
+				"unable to retrieve action service");
 		boTreeExpander = new DefaultTreeUpdater(graphitiService, extService, referenceResolver,
 				queryService, nodeFactory);
 		deInfoProvider = new DefaultDiagramElementGraphicalConfigurationProvider(referenceResolver, extService);
-		diagramUpdater = new DiagramUpdater(boTreeExpander, deInfoProvider);
+		diagramUpdater = new DiagramUpdater(boTreeExpander, deInfoProvider, actionService);
 		final SystemInstanceLoadingService systemInstanceLoader = Objects.requireNonNull(
 				eclipseContext.get(SystemInstanceLoadingService.class),
 				"unable to retrieve system instance loading service");

@@ -25,6 +25,7 @@ import org.eclipse.core.runtime.Status;
 import org.eclipse.e4.core.contexts.ContextInjectionFactory;
 import org.eclipse.e4.core.contexts.EclipseContextFactory;
 import org.eclipse.e4.core.contexts.IEclipseContext;
+import org.eclipse.emf.common.command.AbstractCommand;
 import org.eclipse.emf.common.command.Command;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.Resource;
@@ -33,12 +34,14 @@ import org.eclipse.emf.transaction.ResourceSetChangeEvent;
 import org.eclipse.emf.transaction.ResourceSetListener;
 import org.eclipse.emf.transaction.RollbackException;
 import org.eclipse.emf.transaction.TransactionalEditingDomain;
+import org.eclipse.emf.transaction.impl.InternalTransactionalEditingDomain;
 import org.eclipse.gef.ContextMenuProvider;
 import org.eclipse.gef.DefaultEditDomain;
 import org.eclipse.gef.EditPart;
 import org.eclipse.gef.GraphicalEditPart;
 import org.eclipse.gef.GraphicalViewer;
 import org.eclipse.gef.Tool;
+import org.eclipse.gef.editparts.ZoomManager;
 import org.eclipse.gef.palette.PaletteDrawer;
 import org.eclipse.gef.palette.PaletteRoot;
 import org.eclipse.graphiti.dt.IDiagramTypeProvider;
@@ -86,7 +89,6 @@ import org.osate.ge.internal.diagram.runtime.AgeDiagram;
 import org.osate.ge.internal.diagram.runtime.BeforeModificationsCompletedEvent;
 import org.osate.ge.internal.diagram.runtime.DiagramConfigurationChangedEvent;
 import org.osate.ge.internal.diagram.runtime.DiagramElement;
-import org.osate.ge.internal.diagram.runtime.DiagramElementField;
 import org.osate.ge.internal.diagram.runtime.DiagramElementPredicates;
 import org.osate.ge.internal.diagram.runtime.DiagramModificationListener;
 import org.osate.ge.internal.diagram.runtime.DiagramSerialization;
@@ -94,6 +96,7 @@ import org.osate.ge.internal.diagram.runtime.DockArea;
 import org.osate.ge.internal.diagram.runtime.ElementAddedEvent;
 import org.osate.ge.internal.diagram.runtime.ElementRemovedEvent;
 import org.osate.ge.internal.diagram.runtime.ElementUpdatedEvent;
+import org.osate.ge.internal.diagram.runtime.ModifiableField;
 import org.osate.ge.internal.diagram.runtime.ModificationsCompletedEvent;
 import org.osate.ge.internal.diagram.runtime.layout.DiagramElementLayoutUtil;
 import org.osate.ge.internal.diagram.runtime.layout.LayoutInfoProvider;
@@ -104,13 +107,18 @@ import org.osate.ge.internal.graphiti.LegacyDiagramUtil;
 import org.osate.ge.internal.graphiti.LegacyGraphitiDiagramConverter;
 import org.osate.ge.internal.graphiti.diagram.ColoringProvider;
 import org.osate.ge.internal.graphiti.diagram.GraphitiAgeDiagram;
-import org.osate.ge.internal.graphiti.features.EmfCommandCustomFeature;
+import org.osate.ge.internal.graphiti.features.AgeActionCustomFeature;
+import org.osate.ge.internal.services.ActionExecutor;
+import org.osate.ge.internal.services.ActionService;
+import org.osate.ge.internal.services.AgeAction;
 import org.osate.ge.internal.services.ColoringService;
 import org.osate.ge.internal.services.DiagramService;
 import org.osate.ge.internal.services.ExtensionRegistryService;
 import org.osate.ge.internal.services.ExtensionService;
 import org.osate.ge.internal.services.ModelChangeNotifier;
 import org.osate.ge.internal.services.ModelChangeNotifier.ChangeListener;
+import org.osate.ge.internal.ui.editor.actions.RedoAction;
+import org.osate.ge.internal.ui.editor.actions.UndoAction;
 import org.osate.ge.internal.ui.util.SelectionUtil;
 import org.osgi.framework.Bundle;
 import org.osgi.framework.FrameworkUtil;
@@ -152,22 +160,22 @@ public class AgeDiagramBehavior extends DiagramBehavior implements GraphitiAgeDi
 		@Override
 		public void elementUpdated(final ElementUpdatedEvent e) {
 			// Ignore fields which are not serialized.
-			final HashSet<DiagramElementField> updatedFields = new HashSet<>(e.updatedFields);
-			updatedFields.remove(DiagramElementField.COMPLETENESS);
-			updatedFields.remove(DiagramElementField.NAME);
-			updatedFields.remove(DiagramElementField.GRAPHICAL_CONFIGURATION);
+			final HashSet<ModifiableField> updatedFields = new HashSet<>(e.updatedFields);
+			updatedFields.remove(ModifiableField.COMPLETENESS);
+			updatedFields.remove(ModifiableField.NAME);
+			updatedFields.remove(ModifiableField.GRAPHICAL_CONFIGURATION);
 
 			if (!DiagramElementPredicates.isResizeable(e.element)) {
-				updatedFields.remove(DiagramElementField.SIZE);
+				updatedFields.remove(ModifiableField.SIZE);
 			}
 
 			if (!DiagramElementPredicates.isMoveable(e.element)) {
-				updatedFields.remove(DiagramElementField.POSITION);
+				updatedFields.remove(ModifiableField.POSITION);
 			}
 
 			// Ignore dock area if element is a child of a dock are. DockArea = GROUP is not serialized.
 			if (e.element.getDockArea() == DockArea.GROUP) {
-				updatedFields.remove(DiagramElementField.DOCK_AREA);
+				updatedFields.remove(ModifiableField.DOCK_AREA);
 			}
 
 			if (updatedFields.size() > 0) {
@@ -238,6 +246,14 @@ public class AgeDiagramBehavior extends DiagramBehavior implements GraphitiAgeDi
 
 	public AgeDiagramBehavior(final IDiagramContainerUI diagramContainer) {
 		super(diagramContainer);
+	}
+
+	@Override
+	protected void initActionRegistry(final ZoomManager zoomManager) {
+		super.initActionRegistry(zoomManager);
+
+		registerAction(new UndoAction(getParentPart()));
+		registerAction(new RedoAction(getParentPart()));
 	}
 
 	@Override
@@ -1003,9 +1019,70 @@ public class AgeDiagramBehavior extends DiagramBehavior implements GraphitiAgeDi
 			}
 		};
 
+		final ActionService actionService = Objects.requireNonNull(
+				PlatformUI.getWorkbench().getService(ActionService.class),
+				"Unable to retrieve action service");
+		final ActionExecutor actionExecutor = new ActionExecutor() {
+
+			@Override
+			public void execute(AgeAction action) {
+				final boolean inTransaction = ((InternalTransactionalEditingDomain) getEditingDomain())
+						.getActiveTransaction() != null;
+
+				// Create a wrapper that associates this editor with the action.
+				if (!(action instanceof AgeEditorActionWrapper) && getDiagramEditor() != null) {
+					action = new AgeEditorActionWrapper(action, getDiagramEditor());
+				}
+
+				// Don't create a transaction if already in one or if the modification listener is disabled. In the latter case, the graphiti diagram will
+				// not be updated.
+				if (inTransaction) {
+					actionService.execute(action);
+				} else {
+					executeFeature(new AgeActionCustomFeature(actionService, action, fp), new CustomContext());
+				}
+
+				// Flush the command stack to avoid keeping references to commands. The graphical editor's ActionService keeps its own command stack.
+				getEditingDomain().getCommandStack().flush();
+			}
+
+			@Override
+			public void executeGroup(final String label, final Runnable runnable) {
+				actionService.executeGroup(label, runnable);
+			}
+		};
+
+		// Create a URI to use for the resource. This resource uses a scheme which does not have a registered handler.
+		// A handler is not needed the resource's save() should not be called. The URI just serves as a unique identifier in the resource set.
+		final URI ignoredUri = URI.createHierarchicalURI("osate_ge_ignore", null, null,
+				new String[] { "internal.aadl_diagram" }, null, null);
+
+		// Create the diagram resource and add the diagram to it.
+		final TransactionalEditingDomain editingDomain = getEditingDomain();
+		final Resource diagramResource = editingDomain.getResourceSet().createResource(ignoredUri);
+		editingDomain.getCommandStack().execute(new AbstractCommand() {
+			@Override
+			protected boolean prepare() {
+				return true;
+			}
+
+			@Override
+			public void execute() {
+				diagramResource.getContents().add(diagram);
+			}
+
+			@Override
+			public boolean canUndo() {
+				return false;
+			}
+
+			@Override
+			public void redo() {
+			}
+		});
+
 		// Create the Graphiti AGE diagram which will own a Graphiti diagram and keep it updated with any changes to the AGE diagram
-		graphitiAgeDiagram = new GraphitiAgeDiagram(ageDiagram, dtp.getDiagram(), getEditingDomain(),
-				c -> executeFeature(new EmfCommandCustomFeature(c, fp), new CustomContext()), coloringProvider,
+		graphitiAgeDiagram = new GraphitiAgeDiagram(ageDiagram, dtp.getDiagram(), actionExecutor, coloringProvider,
 				() -> {
 					// Refresh the selection. This prevents the editor from losing the selection in some cases such as aligning shapes.
 					final PictogramElement[] pes = getSelectedPictogramElements();

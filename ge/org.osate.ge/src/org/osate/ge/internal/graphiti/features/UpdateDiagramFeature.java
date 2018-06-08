@@ -4,10 +4,8 @@ import java.util.Objects;
 
 import javax.inject.Inject;
 
-import org.eclipse.graphiti.features.ICustomUndoRedoFeature;
 import org.eclipse.graphiti.features.IFeatureProvider;
 import org.eclipse.graphiti.features.IReason;
-import org.eclipse.graphiti.features.context.IContext;
 import org.eclipse.graphiti.features.context.IUpdateContext;
 import org.eclipse.graphiti.features.context.impl.UpdateContext;
 import org.eclipse.graphiti.features.impl.AbstractUpdateFeature;
@@ -25,7 +23,7 @@ import org.osate.ge.internal.services.SystemInstanceLoadingService;
 import org.osate.ge.internal.ui.editor.AgeDiagramEditor;
 import org.osate.ge.internal.ui.editor.DiagramContextChecker;
 
-public class UpdateDiagramFeature extends AbstractUpdateFeature implements ICustomUndoRedoFeature {
+public class UpdateDiagramFeature extends AbstractUpdateFeature {
 	private static final String promptToRelinkMissingContextProperty = "promptToRelinkMissingContext";
 
 	private final GraphitiService graphitiService;
@@ -95,33 +93,6 @@ public class UpdateDiagramFeature extends AbstractUpdateFeature implements ICust
 				m -> DiagramElementLayoutUtil.layoutIncrementally(ageDiagram, m, layoutInfoProvider));
 
 		return true;
-	}
-
-	// ICustomUndoRedoFeature
-	@Override
-	public boolean canUndo(final IContext context) {
-		return false;
-	}
-
-	@Override
-	public void preUndo(final IContext context) {
-	}
-
-	@Override
-	public void postUndo(final IContext context) {
-	}
-
-	@Override
-	public boolean canRedo(final IContext context) {
-		return false;
-	}
-
-	@Override
-	public void preRedo(final IContext context) {
-	}
-
-	@Override
-	public void postRedo(final IContext context) {
 	}
 
 	/**

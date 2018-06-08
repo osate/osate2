@@ -21,9 +21,7 @@ import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.util.EcoreUtil;
-import org.eclipse.graphiti.features.ICustomUndoRedoFeature;
 import org.eclipse.graphiti.features.IFeatureProvider;
-import org.eclipse.graphiti.features.context.IContext;
 import org.eclipse.graphiti.features.context.IDirectEditingContext;
 import org.eclipse.graphiti.features.impl.AbstractDirectEditingFeature;
 import org.eclipse.jface.dialogs.Dialog;
@@ -75,7 +73,7 @@ import org.osate.ge.services.ReferenceBuilderService;
 // Uses businesss Object Handlers to determine if an element can be renamed.
 // Only supports NamedElement objects.
 @SuppressWarnings("restriction")
-public class BoHandlerDirectEditFeature extends AbstractDirectEditingFeature implements ICustomUndoRedoFeature {
+public class BoHandlerDirectEditFeature extends AbstractDirectEditingFeature {
 	// Property for the context to specify whether the feature should require the specified pictogram element to be the primary label. Defaults to true.
 	public static final String PROPERTY_REQUIRE_PRIMARY_LABEL = "org.osate.ge.require_primary_label";
 
@@ -398,32 +396,5 @@ public class BoHandlerDirectEditFeature extends AbstractDirectEditingFeature imp
 		}
 
 		return new RefactoringStatus();
-	}
-
-	// ICustomUndoRedoFeature
-	@Override
-	public boolean canUndo(final IContext context) {
-		return false;
-	}
-
-	@Override
-	public void preUndo(IContext context) {
-	}
-
-	@Override
-	public void postUndo(IContext context) {
-	}
-
-	@Override
-	public boolean canRedo(IContext context) {
-		return false;
-	}
-
-	@Override
-	public void preRedo(IContext context) {
-	}
-
-	@Override
-	public void postRedo(IContext context) {
 	}
 }
