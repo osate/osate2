@@ -85,7 +85,7 @@ public final class CheckFlowLatency extends AbstractInstanceOrDeclarativeModelRe
 		if (object instanceof SystemInstance) {
 			latreport = new LatencyReport((SystemInstance) object);
 			latreport.setLatencyAnalysisParameters(Values.doSynchronousSystem(), Values.doMajorFrameDelay(),
-					Values.doWorstCaseDeadline(), Values.doMajorFrameDelay());
+					Values.doWorstCaseDeadline(), Values.doBestcaseEmptyQueue());
 			return true;
 		}
 		return false;
