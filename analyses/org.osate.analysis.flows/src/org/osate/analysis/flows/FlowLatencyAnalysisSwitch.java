@@ -707,10 +707,10 @@ public class FlowLatencyAnalysisSwitch extends AadlProcessingSwitchWithProgress 
 	 * @param som The mode to run the analysis in
 	 * @return A populated report in AnalysisResult format.
 	 */
-	public AnalysisResult invokeAndGetResult(SystemInstance root, SystemOperationMode som, boolean isSynchronousSystem,
-			boolean isMajorFrameDelay, boolean isWorstCaseDeadline, boolean isBestCaseEmptyQueue) {
-		report.setLatencyAnalysisParameters(isSynchronousSystem, isMajorFrameDelay, isWorstCaseDeadline,
-				isBestCaseEmptyQueue);
+	public AnalysisResult invoke(SystemInstance root, SystemOperationMode som, boolean synchronousSystem,
+			boolean majorFrameDelay, boolean worstCaseDeadline, boolean bestCaseEmptyQueue) {
+		report.setLatencyAnalysisParameters(synchronousSystem, majorFrameDelay, worstCaseDeadline,
+				bestCaseEmptyQueue);
 		root.setCurrentSystemOperationMode(som);
 		this.processPreOrderAll(root);
 		AnalysisResult results = report.genResult();
@@ -718,25 +718,25 @@ public class FlowLatencyAnalysisSwitch extends AadlProcessingSwitchWithProgress 
 		return results;
 	}
 
-	public Result invokeAndGetResult(EndToEndFlowInstance etef, SystemOperationMode som, boolean isSynchronousSystem,
-			boolean isMajorFrameDelay, boolean isWorstCaseDeadline, boolean isBestCaseEmptyQueue) {
-		report.setLatencyAnalysisParameters(isSynchronousSystem, isMajorFrameDelay, isWorstCaseDeadline,
-				isBestCaseEmptyQueue);
+	public Result invoke(EndToEndFlowInstance etef, SystemOperationMode som, boolean synchronousSystem,
+			boolean majorFrameDelay, boolean worstCaseDeadline, boolean bestCaseEmptyQueue) {
+		report.setLatencyAnalysisParameters(synchronousSystem, majorFrameDelay, worstCaseDeadline,
+				bestCaseEmptyQueue);
 		Result results = null;
 		SystemInstance root = etef.getSystemInstance();
 		root.setCurrentSystemOperationMode(som);
 		if (etef.isActive(som)) {
-			LatencyReportEntry latres = analyzeLatency(etef, som, isSynchronousSystem);
+			LatencyReportEntry latres = analyzeLatency(etef, som, synchronousSystem);
 			results = latres.genResult();
 		}
 		root.clearCurrentSystemOperationMode();
 		return results;
 	}
 
-	public AnalysisResult invokeAndSaveResult(SystemInstance root, SystemOperationMode som, boolean isSynchronousSystem,
-			boolean isMajorFrameDelay, boolean isWorstCaseDeadline, boolean isBestCaseEmptyQueue) {
-		AnalysisResult results = invokeAndGetResult(root, som, isSynchronousSystem, isMajorFrameDelay,
-				isWorstCaseDeadline, isBestCaseEmptyQueue);
+	public AnalysisResult invokeAndSaveResult(SystemInstance root, SystemOperationMode som, boolean synchronousSystem,
+			boolean majorFrameDelay, boolean worstCaseDeadline, boolean bestCaseEmptyQueue) {
+		AnalysisResult results = invoke(root, som, synchronousSystem, majorFrameDelay, worstCaseDeadline,
+				bestCaseEmptyQueue);
 		FlowLatencyUtil.saveAnalysisResult(results, FlowLatencyUtil.getParametersAsLabels(report));
 		LatencyCSVReport.generateCSVReport(results);
 		return results;
