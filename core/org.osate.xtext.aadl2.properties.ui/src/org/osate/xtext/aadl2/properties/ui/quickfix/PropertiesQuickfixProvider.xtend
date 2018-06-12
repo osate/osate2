@@ -45,6 +45,7 @@ import org.eclipse.xtext.ui.editor.quickfix.DefaultQuickfixProvider
 import org.eclipse.xtext.ui.editor.quickfix.Fix
 import org.eclipse.xtext.ui.editor.quickfix.IssueResolutionAcceptor
 import org.eclipse.xtext.validation.Issue
+import org.osate.aadl2.Aadl2Package
 import org.osate.aadl2.ArrayRange
 import org.osate.aadl2.IntegerLiteral
 import org.osate.aadl2.ModalPropertyValue
@@ -227,7 +228,7 @@ public class PropertiesQuickfixProvider extends DefaultQuickfixProvider {
 				override public void apply(EObject element, IModificationContext context) throws Exception {
 					val pa = (element as PropertyAssociation)
 					val ownedValues = pa.ownedValues
-					pa.property = Aadl2GlobalScopeUtil.get(pa, MemoryProperties.MEMORY_SIZE)
+					pa.property = Aadl2GlobalScopeUtil.get(pa, Aadl2Package.eINSTANCE.getProperty(), MemoryProperties.MEMORY_SIZE)
 					for (ModalPropertyValue mpv : ownedValues) {
 						val ownedVal = mpv.ownedValue
 						switch ownedVal {
@@ -255,7 +256,7 @@ public class PropertiesQuickfixProvider extends DefaultQuickfixProvider {
 				override public void apply(EObject element, IModificationContext context) throws Exception {
 					val pa = (element as PropertyAssociation)
 					val ownedValues = pa.ownedValues
-					pa.property = Aadl2GlobalScopeUtil.get(pa, CommunicationProperties.DATA_RATE)
+					pa.property = Aadl2GlobalScopeUtil.get(pa, Aadl2Package.eINSTANCE.getProperty(), CommunicationProperties.DATA_RATE)
 					for (ModalPropertyValue mpv : ownedValues) {
 						val ownedVal = mpv.ownedValue
 						switch ownedVal {
@@ -283,7 +284,7 @@ public class PropertiesQuickfixProvider extends DefaultQuickfixProvider {
 				override public void apply(EObject element, IModificationContext context) throws Exception {
 					val pa = (element as PropertyAssociation)
 					val ownedValues = pa.ownedValues
-					pa.property = Aadl2GlobalScopeUtil.get(pa, "SEI::Message_Rate")
+					pa.property = Aadl2GlobalScopeUtil.get(pa, Aadl2Package.eINSTANCE.getProperty(), "SEI::Message_Rate")
 					for (ModalPropertyValue mpv : ownedValues) {
 						val ownedVal = mpv.ownedValue
 						switch ownedVal {
@@ -308,7 +309,7 @@ public class PropertiesQuickfixProvider extends DefaultQuickfixProvider {
 			new ISemanticModification() {
 				override public void apply(EObject element, IModificationContext context) throws Exception {
 					val pa = (element as PropertyAssociation)
-					pa.property = Aadl2GlobalScopeUtil.get(pa, MemoryProperties.CODE_SIZE)
+					pa.property = Aadl2GlobalScopeUtil.get(pa, Aadl2Package.eINSTANCE.getProperty(), MemoryProperties.CODE_SIZE)
 				}
 			}
 		)
@@ -327,7 +328,7 @@ public class PropertiesQuickfixProvider extends DefaultQuickfixProvider {
 			new ISemanticModification() {
 				override public void apply(EObject element, IModificationContext context) throws Exception {
 					val pa = (element as PropertyAssociation)
-					pa.property = Aadl2GlobalScopeUtil.get(pa, MemoryProperties.DATA_SIZE)
+					pa.property = Aadl2GlobalScopeUtil.get(pa, Aadl2Package.eINSTANCE.getProperty(), MemoryProperties.DATA_SIZE)
 				}
 			}
 		)
@@ -346,7 +347,7 @@ public class PropertiesQuickfixProvider extends DefaultQuickfixProvider {
 			new ISemanticModification() {
 				override public void apply(EObject element, IModificationContext context) throws Exception {
 					val pa = (element as PropertyAssociation)
-					pa.property = Aadl2GlobalScopeUtil.get(pa, MemoryProperties.HEAP_SIZE)
+					pa.property = Aadl2GlobalScopeUtil.get(pa, Aadl2Package.eINSTANCE.getProperty(), MemoryProperties.HEAP_SIZE)
 				}
 			}
 		)
@@ -365,7 +366,7 @@ public class PropertiesQuickfixProvider extends DefaultQuickfixProvider {
 			new ISemanticModification() {
 				override public void apply(EObject element, IModificationContext context) throws Exception {
 					val pa = (element as PropertyAssociation)
-					pa.property = Aadl2GlobalScopeUtil.get(pa, MemoryProperties.STACK_SIZE)
+					pa.property = Aadl2GlobalScopeUtil.get(pa, Aadl2Package.eINSTANCE.getProperty(), MemoryProperties.STACK_SIZE)
 				}
 			}
 		)
