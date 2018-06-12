@@ -18,8 +18,8 @@ import org.osate.aadl2.instance.ComponentInstance;
  *
  */
 public class LatencyContributorComponent extends LatencyContributor {
-	public LatencyContributorComponent(NamedElement ci) {
-		super();
+	public LatencyContributorComponent(NamedElement ci, boolean majorFrameDelay) {
+		super(majorFrameDelay);
 		this.relatedElement = ci;
 	}
 
