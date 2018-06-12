@@ -163,7 +163,7 @@ MethodKind:
 ;
 	
 	ResoluteMethod:
-		'resolute' methodReference=[ecore::EObject|ID]
+		'resolute' methodReference=[ecore::EObject|QualifiedName]
 	;
 	
 	JavaMethod:
