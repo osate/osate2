@@ -13,6 +13,7 @@ import org.osate.aadl2.NamedElement;
 import org.osate.ge.BusinessObjectContext;
 import org.osate.ge.internal.diagram.runtime.AgeDiagram;
 import org.osate.ge.internal.diagram.runtime.DiagramElement;
+import org.osate.ge.internal.graphiti.diagram.GraphitiAgeDiagram;
 import org.osate.ge.internal.ui.xtext.AgeXtextUtil;
 import org.osate.xtext.aadl2.ui.propertyview.IAadlPropertySource;
 
@@ -53,13 +54,17 @@ public class GraphitiEditPartAdapterFactory implements IAdapterFactory {
 			return null;
 		}
 
-		final AgeDiagramEditor diagramEditor = (AgeDiagramEditor)editorPart;
-		final AgeDiagram ageDiagram = diagramEditor.getGraphitiAgeDiagram().getAgeDiagram();
+		final GraphitiAgeDiagram graphitiAgeDiagram = ((AgeDiagramEditor) editorPart).getGraphitiAgeDiagram();
+		if (graphitiAgeDiagram == null) {
+			return null;
+		}
+
+		final AgeDiagram ageDiagram = graphitiAgeDiagram.getAgeDiagram();
 		if(ageDiagram == null) {
 			return null;
 		}
 
-		final DiagramElement de = diagramEditor.getGraphitiAgeDiagram().getClosestDiagramElement(pe);
+		final DiagramElement de = graphitiAgeDiagram.getClosestDiagramElement(pe);
 		if(de == null) {
 			return null;
 		}
