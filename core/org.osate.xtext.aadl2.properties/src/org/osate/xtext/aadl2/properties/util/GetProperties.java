@@ -40,6 +40,7 @@ import java.util.List;
 import org.eclipse.emf.common.util.BasicEList;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
+import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.BasicProperty;
 import org.osate.aadl2.BasicPropertyAssociation;
 import org.osate.aadl2.Classifier;
@@ -209,7 +210,7 @@ public class GetProperties {
 	 * @return Property or null
 	 */
 	public static Property lookupPropertyDefinition(EObject context, String ps, String name) {
-		return Aadl2GlobalScopeUtil.get(context,
+		return Aadl2GlobalScopeUtil.get(context, Aadl2Package.eINSTANCE.getProperty(),
 				((ps != null && !ps.isEmpty()) ? (ps + "::" + name) : name));
 	}
 
@@ -226,7 +227,7 @@ public class GetProperties {
 	 * @return Property or null
 	 */
 	public static Property lookupPropertyDefinition(EObject context, String qpname) {
-		return Aadl2GlobalScopeUtil.get(context, qpname);
+		return Aadl2GlobalScopeUtil.get(context, Aadl2Package.eINSTANCE.getProperty(), qpname);
 	}
 
 	/**
@@ -244,7 +245,7 @@ public class GetProperties {
 	 * @return PropertyType or null
 	 */
 	public static PropertyType lookupPropertyType(EObject context, String ps, String name) {
-		return Aadl2GlobalScopeUtil.get(context,
+		return Aadl2GlobalScopeUtil.get(context, Aadl2Package.eINSTANCE.getPropertyType(),
 				((ps != null && !ps.isEmpty()) ? (ps + "::" + name) : name));
 	}
 
@@ -261,7 +262,7 @@ public class GetProperties {
 	 * @return PropertyType or null
 	 */
 	public static PropertyType lookupPropertyType(EObject context, String qname) {
-		return Aadl2GlobalScopeUtil.get(context, qname);
+		return Aadl2GlobalScopeUtil.get(context, Aadl2Package.eINSTANCE.getPropertyType(), qname);
 	}
 
 	/**
@@ -279,7 +280,7 @@ public class GetProperties {
 	 * @return PropertyConstant or null
 	 */
 	public static PropertyConstant lookupPropertyConstant(EObject context, String ps, String name) {
-		return Aadl2GlobalScopeUtil.get(context,
+		return Aadl2GlobalScopeUtil.get(context, Aadl2Package.eINSTANCE.getPropertyConstant(),
 				((ps != null && !ps.isEmpty()) ? (ps + "::" + name) : name));
 	}
 
@@ -298,7 +299,7 @@ public class GetProperties {
 	 * @return PropertyConstant or null
 	 */
 	public static PropertyConstant lookupPropertyConstant(EObject context, String qname) {
-		return Aadl2GlobalScopeUtil.get(context, qname);
+		return Aadl2GlobalScopeUtil.get(context, Aadl2Package.eINSTANCE.getPropertyConstant(), qname);
 	}
 
 	/**
