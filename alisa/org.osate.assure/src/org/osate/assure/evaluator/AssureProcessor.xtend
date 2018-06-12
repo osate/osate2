@@ -407,9 +407,9 @@ class AssureProcessor implements IAssureProcessor {
 								foundResult = true
 								val issues = r.diagnostics
 								if (hasErrors(res)||hasFailures(r)) {
-									setToFail(verificationResult, "", target)
+									setToFail(verificationResult)
 								} else {
-									setToSuccess(verificationResult, "", target)
+									setToSuccess(verificationResult)
 								}
 								for (issue: issues){
 									val c = EcoreUtil.copy(issue)
@@ -430,9 +430,9 @@ class AssureProcessor implements IAssureProcessor {
 						if (res.sourceReference === target) {
 							val issues = res.diagnostics
 							if (hasErrors(res) || hasFailures(res)) {
-								setToFail(verificationResult, "", target)
+								setToFail(verificationResult)
 							} else {
-								setToSuccess(verificationResult, "", target)
+								setToSuccess(verificationResult)
 							}
 							for (issue : issues) {
 								val c = EcoreUtil.copy(issue)
@@ -742,7 +742,7 @@ class AssureProcessor implements IAssureProcessor {
 			if (returned !== null) {
 				if (returned instanceof Boolean && (method.isPredicate || method.results.empty)) {
 					if (returned != true) {
-						setToFail(verificationResult, "", target);
+						setToFail(verificationResult);
 					} else {
 						setToSuccess(verificationResult)
 					}
@@ -760,9 +760,9 @@ class AssureProcessor implements IAssureProcessor {
 				} else if (returned instanceof Result) {
 					val issues = returned.diagnostics
 					if (hasErrors(returned)|| hasFailures(returned)) {
-						setToFail(verificationResult, "", target)
+						setToFail(verificationResult)
 					} else {
-						setToSuccess(verificationResult, "", target)
+						setToSuccess(verificationResult)
 					}
 					verificationResult.issues.addAll(issues)
 					if (verificationResult instanceof VerificationActivityResult) {

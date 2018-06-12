@@ -2571,10 +2571,12 @@ ruleResoluteMethod returns [EObject current=null]
 	            $current = createModelElement(grammarAccess.getResoluteMethodRule());
 	        }
         }
-	otherlv_1=RULE_ID
-	{
-		newLeafNode(otherlv_1, grammarAccess.getResoluteMethodAccess().getMethodReferenceEObjectCrossReference_1_0()); 
-	}
+		{ 
+	        newCompositeNode(grammarAccess.getResoluteMethodAccess().getMethodReferenceEObjectCrossReference_1_0()); 
+	    }
+		ruleQualifiedName		{ 
+	        afterParserOrEnumRuleCall();
+	    }
 
 )
 ))

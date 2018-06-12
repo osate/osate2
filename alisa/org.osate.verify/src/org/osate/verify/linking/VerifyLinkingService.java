@@ -14,6 +14,9 @@ import org.osate.verify.verify.ResoluteMethod;
 
 import com.rockwellcollins.atc.resolute.resolute.ResolutePackage;
 
+// @deprecated will be removed in OSATE version 2.3.5
+// This removes the ability to refer to Resolute functions without qualification from within the Verify method registry
+@Deprecated
 public class VerifyLinkingService extends DefaultLinkingService {// PropertiesLinkingService {
 	@Override
 	public List<EObject> getLinkedObjects(EObject context, EReference reference, INode node)

@@ -386,7 +386,7 @@ ModelElementType ::=
 MethodKind ::=
   java MethodPath ( (  JavaParameter ( ,  JavaParameter )* ) )? |
   plugin MethodID |
-  resolute MethodID |
+  resolute QualifiedMethodName |
   agree ( single | all ) |
   junit ClassPath |
   manual DialogIdentifier
@@ -466,7 +466,11 @@ The following method types are supported:
 * *Plugin*: an OSATE analysis plugin method identified by an identifier. Plugin methods are defined in a predeclared method registry (see [Predefined Method Registry]([VerifyDoc.html#predefined-method-registry])). OSATE analysis plugins report their results via the Eclipse Marker mechanism. These results are mapped into the Diagnostic format (see [Analysis Result](AnalysisResultFormat.html)) for inclusion in the assurance case result instance.
 
 
-* *Resolute*: a Resolute claim function or computational functions identified by the method name. Results in the Resolute result format are mapped into the Diagnostic format (see [Analysis Result](AnalysisResultFormat.html)). In the case of computational functions the returned value is assigned to the specified Computed Variable.
+* *Resolute*: a Resolute claim function or computational functions identified by the qualified name of the claim or compute function in the Resolute library. It consists of the *&lt;package name&gt;.&lt;package name&gt;_public.Resolute.Resolute.&lt;function name&gt;*. Results in the Resolute result format are mapped into the Diagnostic format (see [Analysis Result](AnalysisResultFormat.html)). In the case of computational functions the returned value is assigned to the specified Computed Variable.
+
+> Note: by using 'control' 'shift' 'F3' you get the global scope browser to see which entities are known globally.
+
+> Note that the use the function name by itself is considered deprecated and will not be supported in the near future.
 
 
 * *Agree*: Agree verification is invoked on the target component for a single layer verification or for verifying all layers. This is equivalent to invoking Agree on a component through the user interface. Note that for execution of Agree the Jkind verifier must be installed (see Agree documentation).
