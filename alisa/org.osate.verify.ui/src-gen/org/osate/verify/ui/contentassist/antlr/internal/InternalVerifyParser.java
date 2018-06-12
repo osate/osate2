@@ -48704,30 +48704,34 @@ public class InternalVerifyParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__ResoluteMethod__MethodReferenceAssignment_1"
-    // InternalVerify.g:17110:1: rule__ResoluteMethod__MethodReferenceAssignment_1 : ( ( RULE_ID ) ) ;
+    // InternalVerify.g:17110:1: rule__ResoluteMethod__MethodReferenceAssignment_1 : ( ( ruleQualifiedName ) ) ;
     public final void rule__ResoluteMethod__MethodReferenceAssignment_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalVerify.g:17114:1: ( ( ( RULE_ID ) ) )
-            // InternalVerify.g:17115:1: ( ( RULE_ID ) )
+            // InternalVerify.g:17114:1: ( ( ( ruleQualifiedName ) ) )
+            // InternalVerify.g:17115:1: ( ( ruleQualifiedName ) )
             {
-            // InternalVerify.g:17115:1: ( ( RULE_ID ) )
-            // InternalVerify.g:17116:1: ( RULE_ID )
+            // InternalVerify.g:17115:1: ( ( ruleQualifiedName ) )
+            // InternalVerify.g:17116:1: ( ruleQualifiedName )
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getResoluteMethodAccess().getMethodReferenceEObjectCrossReference_1_0()); 
             }
-            // InternalVerify.g:17117:1: ( RULE_ID )
-            // InternalVerify.g:17118:1: RULE_ID
+            // InternalVerify.g:17117:1: ( ruleQualifiedName )
+            // InternalVerify.g:17118:1: ruleQualifiedName
             {
             if ( state.backtracking==0 ) {
-               before(grammarAccess.getResoluteMethodAccess().getMethodReferenceEObjectIDTerminalRuleCall_1_0_1()); 
+               before(grammarAccess.getResoluteMethodAccess().getMethodReferenceEObjectQualifiedNameParserRuleCall_1_0_1()); 
             }
-            match(input,RULE_ID,FOLLOW_2); if (state.failed) return ;
+            pushFollow(FOLLOW_2);
+            ruleQualifiedName();
+
+            state._fsp--;
+            if (state.failed) return ;
             if ( state.backtracking==0 ) {
-               after(grammarAccess.getResoluteMethodAccess().getMethodReferenceEObjectIDTerminalRuleCall_1_0_1()); 
+               after(grammarAccess.getResoluteMethodAccess().getMethodReferenceEObjectQualifiedNameParserRuleCall_1_0_1()); 
             }
 
             }
