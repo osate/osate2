@@ -156,7 +156,7 @@ public class ExecuteResoluteUtil {
 
 						@Override
 						public ResoluteValue caseFailExpr(FailExpr object) {
-							throw new ResoluteFailException(createFailMsg(object), object);
+							throw new ResoluteFailException(createFailMsg(object), null);
 						}
 
 						private String createFailMsg(FailExpr object) {
@@ -178,7 +178,7 @@ public class ExecuteResoluteUtil {
 								str = createClaimText(object.getFailmsg());
 							}
 
-							return str;
+							return str.replaceAll("\"", "");
 						}
 
 						private String createClaimText(EList<ClaimText> claimBody) {
@@ -193,9 +193,9 @@ public class ExecuteResoluteUtil {
 									ResoluteValue val = varStack.peek().get(claimArg);
 									if (val == null) {
 										if (claimArg instanceof ConstantDefinition) {
-											val = eval(((ConstantDefinition) claimArg).getExpr());
+											val = doSwitch(((ConstantDefinition) claimArg).getExpr());
 										} else if (claimArg instanceof LetBinding) {
-											val = eval(((LetBinding) claimArg).getExpr());
+											val = doSwitch(((LetBinding) claimArg).getExpr());
 										}
 									}
 									if (claimArgUnit != null) {

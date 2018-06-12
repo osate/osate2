@@ -71,6 +71,7 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.IPartListener;
+import org.eclipse.ui.ISelectionListener;
 import org.eclipse.ui.IWorkbenchPart;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.internal.EditorSite;
@@ -137,6 +138,39 @@ public class AgeDiagramBehavior extends DiagramBehavior implements GraphitiAgeDi
 			updateDiagram(true);
 			updateWhenVisible = false;
 		}
+	};
+
+	private final ISelectionListener toolPostSelectionListener = (part, selection) -> {
+		toolHandler.setSelectedDiagramElements(SelectionUtil.getSelectedDiagramElements(selection));
+	};
+
+	private final IPartListener toolPartListener = new IPartListener() {
+		@Override
+		public void partClosed(final IWorkbenchPart part) {
+			if (getDiagramEditor() == part) {
+				toolHandler.deactivateActiveTool();
+
+				// Stop listening for part events
+				getDiagramEditor().getSite().getWorkbenchWindow().getPartService().removePartListener(this);
+			}
+		}
+
+		@Override
+		public void partDeactivated(final IWorkbenchPart part) {
+		}
+
+		@Override
+		public void partActivated(final IWorkbenchPart part) {
+			if (getDiagramEditor() != part && !(part instanceof ContentOutline)) {
+				toolHandler.deactivateActiveTool();
+			}
+		}
+
+		@Override
+		public void partBroughtToTop(final IWorkbenchPart part) {}
+
+		@Override
+		public void partOpened(final IWorkbenchPart part) {}
 	};
 
 	// Listener that will set the diagram dirty flag when the diagram is modified.
@@ -389,41 +423,13 @@ public class AgeDiagramBehavior extends DiagramBehavior implements GraphitiAgeDi
 			// Register an action for each tool
 			toolHandler = new ToolHandler(extService, getPaletteBehavior());
 
-			editor.getSite().getWorkbenchWindow().getSelectionService().addPostSelectionListener((part, selection) -> {
-				toolHandler.setSelectedDiagramElements(SelectionUtil.getSelectedDiagramElements(selection));
-			});
+			editor.getSite().getWorkbenchWindow().getSelectionService()
+			.addPostSelectionListener(toolPostSelectionListener);
 			toolHandler.setSelectedDiagramElements(SelectionUtil.getSelectedDiagramElements(
 					editor.getSite().getWorkbenchWindow().getSelectionService().getSelection()));
 
 			// Deactivate the tool when the part is deactivated or closed
-			editor.getSite().getWorkbenchWindow().getPartService().addPartListener(new IPartListener() {
-				@Override
-				public void partClosed(final IWorkbenchPart part) {
-					if (editor == part) {
-						toolHandler.deactivateActiveTool();
-
-						// Stop listening for part events
-						editor.getSite().getWorkbenchWindow().getPartService().removePartListener(this);
-					}
-				}
-
-				@Override
-				public void partDeactivated(final IWorkbenchPart part) {
-				}
-
-				@Override
-				public void partActivated(final IWorkbenchPart part) {
-					if (editor != part && !(part instanceof ContentOutline)) {
-						toolHandler.deactivateActiveTool();
-					}
-				}
-
-				@Override
-				public void partBroughtToTop(final IWorkbenchPart part) {}
-
-				@Override
-				public void partOpened(final IWorkbenchPart part) {}
-			});
+			editor.getSite().getWorkbenchWindow().getPartService().addPartListener(toolPartListener);
 		}
 	}
 
@@ -475,7 +481,10 @@ public class AgeDiagramBehavior extends DiagramBehavior implements GraphitiAgeDi
 		} finally {
 			if (graphitiAgeDiagram != null) {
 				graphitiAgeDiagram.close();
+				graphitiAgeDiagram = null;
 			}
+
+			ageDiagram = null;
 		}
 	}
 
@@ -866,6 +875,14 @@ public class AgeDiagramBehavior extends DiagramBehavior implements GraphitiAgeDi
 
 	@Override
 	protected void disposeBeforeGefDispose() {
+		final AgeDiagramEditor editor = getDiagramEditor();
+		if (editor != null) {
+			// Remove listeners used for implementing tools
+			editor.getSite().getWorkbenchWindow().getPartService().removePartListener(toolPartListener);
+			editor.getSite().getWorkbenchWindow().getSelectionService()
+			.removePostSelectionListener(toolPostSelectionListener);
+		}
+
 		// Unregister our resource change listener
 		if(resourceChangeListener != null) {
 			final IWorkspace workspace = ResourcesPlugin.getWorkspace();
