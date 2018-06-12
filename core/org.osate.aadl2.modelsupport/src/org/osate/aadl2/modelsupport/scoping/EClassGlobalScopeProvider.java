@@ -11,7 +11,6 @@ import com.google.common.base.Predicate;
 /**
  * Global scope provider that can build scopes for EClasses.
  * It just exposes methods that are not public in DefaultGlobalScopeProvider.
- *
  */
 public class EClassGlobalScopeProvider extends DefaultGlobalScopeProvider implements IEClassGlobalScopeProvider {
 
