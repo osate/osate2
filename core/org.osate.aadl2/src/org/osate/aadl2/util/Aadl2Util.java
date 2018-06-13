@@ -128,9 +128,9 @@ public class Aadl2Util {
 	 */
 	public static Property lookupPropertyDefinition(final EObject context, final String propSetName,
 			final String propName) {
-//		if (propertyService != null) {
-//			return propertyService.lookupPropertyDefinition(context, propSetName, propName);
-//		}
+		if (propertyService != null) {
+			return propertyService.lookupPropertyDefinition(context, propSetName, propName);
+		}
 
 		// When no property service is provided, search through the resources of the resource set.
 		for (final Resource res : context.eResource().getResourceSet().getResources()) {
