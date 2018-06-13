@@ -40,7 +40,6 @@ Code style rules for the OSATE Dev Environment
     <module name="NeedBraces"/>
     <module name="OneStatementPerLine"/>
     <module name="MultipleVariableDeclarations"/>
-    <module name="ArrayTypeStyle"/>
     <module name="MissingSwitchDefault"/>
     <module name="FallThrough"/>
     <module name="UpperEll"/>
@@ -81,11 +80,6 @@ Code style rules for the OSATE Dev Environment
       <message key="name.invalidPattern" value="Interface type name ''{0}'' must match pattern ''{1}''."/>
     </module>
     <module name="NoFinalizer"/>
-    <module name="Indentation">
-      <property name="basicOffset" value="2"/>
-      <property name="caseIndent" value="2"/>
-      <property name="arrayInitIndent" value="2"/>
-    </module>
     <module name="AbbreviationAsWordInName">
       <property name="allowedAbbreviations" value="AADL,EMV2"/>
       <property name="ignoreFinal" value="false"/>
@@ -129,7 +123,6 @@ Code style rules for the OSATE Dev Environment
     <module name="EmptyCatchBlock">
       <property name="exceptionVariableName" value="expected"/>
     </module>
-    <module name="CommentsIndentation"/>
     <module name="MissingDeprecated"/>
     <module name="MissingOverride"/>
     <module name="JavadocParagraph"/>
@@ -173,7 +166,9 @@ Code style rules for the OSATE Dev Environment
       <property name="constantWaiverParentToken" value="TYPECAST,METHOD_CALL,EXPR,ARRAY_INIT,UNARY_MINUS,UNARY_PLUS,ELIST,STAR,ASSIGN,PLUS,MINUS,DIV,LITERAL_NEW"/>
     </module>
     <module name="ModifiedControlVariable"/>
-    <module name="MultipleStringLiterals"/>
+    <module name="MultipleStringLiterals">
+      <property name="allowedDuplicates" value="3"/>
+    </module>
     <module name="NoClone"/>
     <module name="PackageDeclaration"/>
     <module name="ParameterAssignment"/>
@@ -188,6 +183,20 @@ Code style rules for the OSATE Dev Environment
     <module name="SuperFinalize"/>
     <module name="ArrayTrailingComma"/>
     <module name="UnnecessaryParentheses"/>
+    <module name="FinalClass"/>
+    <module name="InnerTypeLast"/>
+    <module name="HideUtilityClassConstructor"/>
+    <module name="MutableException"/>
+    <module name="VisibilityModifier"/>
+    <module name="CyclomaticComplexity"/>
+    <module name="JavaNCSS"/>
+    <module name="NPathComplexity"/>
+    <module name="TrailingComment"/>
+    <module name="UncommentedMain"/>
   </module>
   <module name="JavadocPackage"/>
+  <module name="NewlineAtEndOfFile">
+    <property name="fileExtensions" value="java,xtend,xml"/>
+  </module>
+  <module name="UniqueProperties"/>
 </module>
