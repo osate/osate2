@@ -43,8 +43,4 @@ public class PropertiesUiModule extends org.osate.xtext.aadl2.properties.ui.Abst
 	public PropertiesUiModule(AbstractUIPlugin plugin) {
 		super(plugin);
 	}
-
-	public Class<? extends org.eclipse.xtext.linking.ILinkingDiagnosticMessageProvider> bindILinkingDiagnosticMessageProvider() {
-		return org.osate.xtext.aadl2.properties.ui.linking.PropertiesLinkingDiagnosticMessageProvider.class;
-	}
 }
