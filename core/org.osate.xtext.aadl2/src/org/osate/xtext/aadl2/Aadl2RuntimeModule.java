@@ -219,4 +219,8 @@ public class Aadl2RuntimeModule extends org.osate.xtext.aadl2.AbstractAadl2Runti
 	public Class<? extends TextRegionAccessBuilder> bindTextRegionAccessBuilder() {
 		return Aadl2TextRegionAccessBuilder.class;
 	}
+	
+	public Class<? extends org.eclipse.xtext.linking.ILinkingDiagnosticMessageProvider> bindILinkingDiagnosticMessageProvider() {
+		return org.osate.xtext.aadl2.properties.linking.PropertiesLinkingDiagnosticMessageProvider.class;
+	}
 }
