@@ -148,7 +148,7 @@ public class AgeGefBot {
 		}
 
 		@Override
-		public AgeSWTBotGefEditor gefEditor(String fileName) throws WidgetNotFoundException {
+		public AgeSWTBotGefEditor gefEditor(final String fileName) throws WidgetNotFoundException {
 			return (AgeSWTBotGefEditor) super.gefEditor(fileName);
 		}
 
@@ -198,6 +198,7 @@ public class AgeGefBot {
 		bot.text().setText(projectName);
 		bot.button("Finish").click();
 
+
 		if (!bot.activePerspective().getLabel().equals("AADL")) {
 			// Open AADL Perspective Dialog
 			bot.button("Open Perspective").click();
@@ -220,6 +221,10 @@ public class AgeGefBot {
 				view.close();
 			}
 		}
+	}
+
+	public void testing() {
+		bot.activeEditor().setFocus();
 	}
 
 	public void createAADLPackage(final String projectName, final String packageName) {

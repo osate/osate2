@@ -112,6 +112,7 @@ import org.osate.ge.internal.services.ExtensionService;
 import org.osate.ge.internal.services.ModelChangeNotifier;
 import org.osate.ge.internal.services.ModelChangeNotifier.ChangeListener;
 import org.osate.ge.internal.ui.util.SelectionUtil;
+import org.osate.ge.internal.util.ProjectUtil;
 import org.osgi.framework.Bundle;
 import org.osgi.framework.FrameworkUtil;
 
@@ -755,13 +756,7 @@ public class AgeDiagramBehavior extends DiagramBehavior implements GraphitiAgeDi
 	}
 
 	private void updateProjectByUri(final URI uri) {
-		final IPath projectPath = new Path(uri.toPlatformString(true)).uptoSegment(1);
-		final IResource projectResource = ResourcesPlugin.getWorkspace().getRoot().findMember(projectPath);
-		if(!(projectResource instanceof IProject)) {
-			throw new RuntimeException("Unable to determine project");
-		}
-
-		project = (IProject)projectResource;
+		project = ProjectUtil.getProject(uri);
 	}
 
 // Prompts the user to convert the file if the input is a legacy(Graphiti) file.
