@@ -12,7 +12,6 @@ import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.instance.ConnectionInstance;
 import org.osate.aadl2.instance.InstanceObject;
 import org.osate.analysis.flows.FlowLatencyUtil;
-import org.osate.analysis.flows.preferences.Values;
 import org.osate.analysis.flows.reporting.model.Line;
 import org.osate.analysis.flows.reporting.model.ReportSeverity;
 import org.osate.result.Diagnostic;
@@ -120,8 +119,10 @@ public abstract class LatencyContributor {
 	 * some latency).
 	 */
 	private List<LatencyContributor> subContributors;
+	
+	private final boolean majorFrameDelay;
 
-	public LatencyContributor() {
+	public LatencyContributor(boolean majorFrameDelay) {
 		this.worstCaseMethod = LatencyContributorMethod.UNKNOWN;
 		this.bestCaseMethod = LatencyContributorMethod.UNKNOWN;
 		this.isSynchronized = SynchronizeType.SYNCUNKNOWN;
@@ -135,6 +136,7 @@ public abstract class LatencyContributor {
 		this.partitionDuration = 0.0;
 		this.subContributors = new ArrayList<LatencyContributor>();
 		this.issues = new ArrayList<Diagnostic>();
+		this.majorFrameDelay = majorFrameDelay;
 	}
 
 	protected List<Diagnostic> getReportedIssues() {
@@ -308,7 +310,7 @@ public abstract class LatencyContributor {
 	}
 
 //	UNKNOWN, DEADLINE, PROCESSING_TIME, DELAYED, SAMPLED, FIRST_SAMPLED, SPECIFIED, QUEUED, TRANSMISSION_TIME, PARTITION_FRAME, PARTITION_SCHEDULE, PARTITION_IO
-	public static String mapMethodToString(LatencyContributorMethod method) {
+	public String mapMethodToString(LatencyContributorMethod method) {
 		switch (method) {
 		case DEADLINE:
 			return "deadline";
@@ -331,7 +333,7 @@ public abstract class LatencyContributor {
 		case TRANSMISSION_TIME:
 			return "transmission time";
 		case PARTITION_OUTPUT:
-			return "partition output" + (Values.doMajorFrameDelay() ? " (MF)" : " (PE)");
+			return "partition output" + (majorFrameDelay ? " (MF)" : " (PE)");
 		case SAMPLED_PROTOCOL:
 			return "sampling protocol/bus";
 		case UNKNOWN:
@@ -501,13 +503,8 @@ public abstract class LatencyContributor {
 		addRealValue(result, maxValue);
 		addRealValue(result, expectedMin);
 		addRealValue(result, expectedMax);
-		addRealValue(result, immediateDeadline);
-		addRealValue(result, partitionOffset);
-		addRealValue(result, partitionDuration);
-		addRealValue(result, samplingPeriod);
-		addStringValue(result, mapMethodToString(worstCaseMethod));
 		addStringValue(result, mapMethodToString(bestCaseMethod));
-		addStringValue(result,isSynchronized.name());
+		addStringValue(result, mapMethodToString(worstCaseMethod));
 		/**
 		 * We also add the lines of all the sub-contributors.
 		 */

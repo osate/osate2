@@ -29,7 +29,7 @@ import org.osate.aadl2.NamedElement;
  * </p>
  * <ul>
  *   <li>{@link org.osate.reqspec.reqSpec.IncludeGlobalRequirement#getInclude <em>Include</em>}</li>
- *   <li>{@link org.osate.reqspec.reqSpec.IncludeGlobalRequirement#isSelf <em>Self</em>}</li>
+ *   <li>{@link org.osate.reqspec.reqSpec.IncludeGlobalRequirement#isLocal <em>Local</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.IncludeGlobalRequirement#getTargetElement <em>Target Element</em>}</li>
  * </ul>
  *
@@ -66,30 +66,30 @@ public interface IncludeGlobalRequirement extends EObject
   void setInclude(EObject value);
 
   /**
-   * Returns the value of the '<em><b>Self</b></em>' attribute.
+   * Returns the value of the '<em><b>Local</b></em>' attribute.
    * <!-- begin-user-doc -->
    * <p>
-   * If the meaning of the '<em>Self</em>' attribute isn't clear,
+   * If the meaning of the '<em>Local</em>' attribute isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Self</em>' attribute.
-   * @see #setSelf(boolean)
-   * @see org.osate.reqspec.reqSpec.ReqSpecPackage#getIncludeGlobalRequirement_Self()
+   * @return the value of the '<em>Local</em>' attribute.
+   * @see #setLocal(boolean)
+   * @see org.osate.reqspec.reqSpec.ReqSpecPackage#getIncludeGlobalRequirement_Local()
    * @model
    * @generated
    */
-  boolean isSelf();
+  boolean isLocal();
 
   /**
-   * Sets the value of the '{@link org.osate.reqspec.reqSpec.IncludeGlobalRequirement#isSelf <em>Self</em>}' attribute.
+   * Sets the value of the '{@link org.osate.reqspec.reqSpec.IncludeGlobalRequirement#isLocal <em>Local</em>}' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Self</em>' attribute.
-   * @see #isSelf()
+   * @param value the new value of the '<em>Local</em>' attribute.
+   * @see #isLocal()
    * @generated
    */
-  void setSelf(boolean value);
+  void setLocal(boolean value);
 
   /**
    * Returns the value of the '<em><b>Target Element</b></em>' reference.

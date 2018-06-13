@@ -17,6 +17,7 @@ Export-Package: org.osate.aadl2.modelsupport,
  org.osate.aadl2.modelsupport.errorreporting,
  org.osate.aadl2.modelsupport.modeltraversal,
  org.osate.aadl2.modelsupport.resources,
+ org.osate.aadl2.modelsupport.scoping,
  org.osate.aadl2.modelsupport.util
 Bundle-Vendor: CMU-SEI
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
