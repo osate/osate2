@@ -7,8 +7,10 @@ import org.eclipse.xtext.testing.GlobalRegistries;
 import org.eclipse.xtext.testing.GlobalRegistries.GlobalStateMemento;
 import org.eclipse.xtext.testing.IInjectorProvider;
 import org.eclipse.xtext.testing.IRegistryConfigurator;
+import org.osate.xtext.aadl2.Aadl2RuntimeModule;
 import org.osate.xtext.aadl2.Aadl2StandaloneSetup;
 
+import com.google.inject.Guice;
 import com.google.inject.Injector;
 
 public class Aadl2InjectorProvider implements IInjectorProvider, IRegistryConfigurator {
@@ -32,7 +34,23 @@ public class Aadl2InjectorProvider implements IInjectorProvider, IRegistryConfig
 	}
 
 	protected Injector internalCreateInjector() {
-		return new Aadl2StandaloneSetup().createInjectorAndDoEMFRegistration();
+		return new Aadl2StandaloneSetup() {
+			@Override
+			public Injector createInjector() {
+				return Guice.createInjector(createRuntimeModule());
+			}
+		}.createInjectorAndDoEMFRegistration();
+	}
+
+	protected Aadl2RuntimeModule createRuntimeModule() {
+		// make it work also with Maven/Tycho and OSGI
+		// see https://bugs.eclipse.org/bugs/show_bug.cgi?id=493672
+		return new Aadl2RuntimeModule() {
+			@Override
+			public ClassLoader bindClassLoaderToInstance() {
+				return Aadl2InjectorProvider.class.getClassLoader();
+			}
+		};
 	}
 
 	@Override

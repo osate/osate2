@@ -92,7 +92,7 @@ public class AnnexParserAgent extends LazyLinker {
 		try {
 			AnnexRegistry.getRegistry(AnnexRegistry.ANNEX_PARSER_EXT_ID);
 		} catch (NoClassDefFoundError e) {
-			// we're running standalone and standalone
+			// we're running without osgi
 			standalone = true;
 		}
 		factory = QueuingParseErrorReporter.factory;
