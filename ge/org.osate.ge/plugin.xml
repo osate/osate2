@@ -2122,9 +2122,9 @@
                <count
                      value="(2-">
                </count>
-               <test
+               <!--<test
                      property="org.osate.ge.allAreDiagramElementsWithSameParent">
-               </test>
+               </test>-->
                <iterate
                      operator="and">
                   <adapt
@@ -2132,9 +2132,9 @@
                      <test
                            property="org.osate.ge.isMoveable">
                      </test>
-                     <test
+                     <!--<test
                            property="org.osate.ge.isUndocked">
-                     </test>
+                     </test>-->
                   </adapt>
                </iterate>
             </and>

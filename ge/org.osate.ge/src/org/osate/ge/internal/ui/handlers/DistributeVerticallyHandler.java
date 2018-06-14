@@ -6,10 +6,7 @@ import java.util.List;
 import org.eclipse.core.commands.AbstractHandler;
 import org.eclipse.core.commands.ExecutionEvent;
 import org.eclipse.core.commands.ExecutionException;
-import org.osate.ge.graphics.Point;
-import org.osate.ge.internal.diagram.runtime.AgeDiagram;
 import org.osate.ge.internal.diagram.runtime.DiagramElement;
-import org.osate.ge.internal.ui.util.UiUtil;
 
 public class DistributeVerticallyHandler extends AbstractHandler {
 
@@ -18,25 +15,27 @@ public class DistributeVerticallyHandler extends AbstractHandler {
 	 */
 	@Override
 	public Object execute(final ExecutionEvent event) throws ExecutionException {
-		final List<DiagramElement> selectedDiagramElements = AgeHandlerUtil.getSelectedDiagramElements(event);
-		final AgeDiagram diagram = UiUtil.getDiagram(selectedDiagramElements);
-		if (diagram == null) {
-			throw new RuntimeException("Unable to get diagram");
-		}
-
-		diagram.modify("Distribute Horizontally", m -> {
-			selectedDiagramElements.sort(YValueComparator);
-
-			// Distribute the shapes horizontally
-			final double yDistribution = getYDistribution(selectedDiagramElements);
-			for (int i = 1; i < selectedDiagramElements.size() - 1; i++) {
-				final DiagramElement de = selectedDiagramElements.get(i);
-				final double x = de.getX();
-				final double y = getYValue(selectedDiagramElements.get(i - 1), yDistribution);
-
-				m.setPosition(de, new Point(x, y));
-			}
-		});
+		DistributeHorizontallyHandler d = new DistributeHorizontallyHandler();
+		d.executeO(event);
+//		final List<DiagramElement> selectedDiagramElements = AgeHandlerUtil.getSelectedDiagramElements(event);
+//		final AgeDiagram diagram = UiUtil.getDiagram(selectedDiagramElements);
+//		if (diagram == null) {
+//			throw new RuntimeException("Unable to get diagram");
+//		}
+//
+//		diagram.modify("Distribute Horizontally", m -> {
+//			selectedDiagramElements.sort(YValueComparator);
+//
+//			// Distribute the shapes horizontally
+//			final double yDistribution = getYDistribution(selectedDiagramElements);
+//			for (int i = 1; i < selectedDiagramElements.size() - 1; i++) {
+//				final DiagramElement de = selectedDiagramElements.get(i);
+//				final double x = de.getX();
+//				final double y = getYValue(selectedDiagramElements.get(i - 1), yDistribution);
+//
+//				m.setPosition(de, new Point(x, y));
+//			}
+//		});
 
 		return null;
 	}
