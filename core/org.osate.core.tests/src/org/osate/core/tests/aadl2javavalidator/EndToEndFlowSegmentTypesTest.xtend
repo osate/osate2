@@ -222,7 +222,7 @@ class EndToEndFlowSegmentTypesTest extends XtextTest {
 				end subp1.i;
 			end legalETEFlowSegmentsTypeTest;
 		'''
-		val testFileResult = testHelper.testString(aadlText)
+		val testFileResult = issues = testHelper.testString(aadlText)
 		val issueCollection = new FluentIssueCollection(testFileResult.resource, newArrayList, newArrayList)
 		testFileResult.resource.contents.head as AadlPackage => [
 			"legalETEFlowSegmentsTypeTest".assertEquals(name)

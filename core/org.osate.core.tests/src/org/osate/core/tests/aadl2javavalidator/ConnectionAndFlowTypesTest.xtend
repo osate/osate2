@@ -3338,7 +3338,7 @@ class ConnectionAndFlowTypesTest extends XtextTest {
 				]
 			]
 		]
-		testFileResult.sizeIs(issueCollection.issues.size)
+		issueCollection.sizeIs(testFileResult.issues.size)
 		assertConstraints(issueCollection)
 	}
 }
