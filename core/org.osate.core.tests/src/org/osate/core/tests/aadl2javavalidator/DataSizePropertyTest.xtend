@@ -1,24 +1,30 @@
 package org.osate.core.tests.aadl2javavalidator
 
+import com.google.inject.Inject
 import com.itemis.xtext.testing.FluentIssueCollection
+import com.itemis.xtext.testing.XtextTest
 import org.eclipse.xtext.testing.InjectWith
 import org.eclipse.xtext.testing.XtextRunner
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.osate.aadl2.AadlPackage
-import org.osate.testsupport.Aadl2UiInjectorProvider
-import org.osate.testsupport.OsateTest
+import org.osate.testsupport.Aadl2InjectorProvider
+import org.osate.testsupport.TestHelper
 
 import static extension org.junit.Assert.assertEquals
+import static extension org.osate.testsupport.AssertHelper.assertError
 
 @RunWith(XtextRunner)
-@InjectWith(Aadl2UiInjectorProvider)
-class DataSizePropertyTest extends OsateTest {
+@InjectWith(Aadl2InjectorProvider)
+class DataSizePropertyTest extends XtextTest {
+	
+	@Inject
+	TestHelper<AadlPackage> testHelper
+
 	//Tests checkDataSizeProperty
 	@Test
 	def void testDataSizeProperty() {
-		val dataTestFileName = "dataTest.aadl"
-		createFiles(dataTestFileName -> '''
+		val dataTest ='''
 			package dataTest
 			public
 				data d1
@@ -121,9 +127,8 @@ class DataSizePropertyTest extends OsateTest {
 						Data_Size => 1 Bytes;
 				end d1.i13;
 			end dataTest;
-		''')
-		suppressSerialization
-		val testFileResult = testFile(dataTestFileName)
+		'''
+		val testFileResult = issues = testHelper.testString(dataTest)
 		val issueCollection = new FluentIssueCollection(testFileResult.resource, newArrayList, newArrayList)
 		testFileResult.resource.contents.head as AadlPackage => [
 			"dataTest".assertEquals(name)
@@ -158,7 +163,7 @@ class DataSizePropertyTest extends OsateTest {
 				assertError(testFileResult.issues, issueCollection, 'Data size of "d1.i13" (1 Bytes) is smaller than the sum of its subcomponents (2 Bytes).')
 			]
 		]
-		issueCollection.sizeIs(issueCollection.issues.size)
+		issueCollection.sizeIs(testFileResult.issues.size)
 		assertConstraints(issueCollection)
 	}
 }
