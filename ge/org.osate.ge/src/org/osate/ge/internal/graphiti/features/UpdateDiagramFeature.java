@@ -18,6 +18,8 @@ import org.osate.ge.internal.diagram.runtime.layout.DiagramElementLayoutUtil;
 import org.osate.ge.internal.diagram.runtime.layout.LayoutInfoProvider;
 import org.osate.ge.internal.diagram.runtime.updating.DiagramUpdater;
 import org.osate.ge.internal.graphiti.services.GraphitiService;
+import org.osate.ge.internal.services.ActionExecutor.ExecutionMode;
+import org.osate.ge.internal.services.ActionService;
 import org.osate.ge.internal.services.ProjectReferenceService;
 import org.osate.ge.internal.services.SystemInstanceLoadingService;
 import org.osate.ge.internal.ui.editor.AgeDiagramEditor;
@@ -26,6 +28,7 @@ import org.osate.ge.internal.ui.editor.DiagramContextChecker;
 public class UpdateDiagramFeature extends AbstractUpdateFeature {
 	private static final String promptToRelinkMissingContextProperty = "promptToRelinkMissingContext";
 
+	private final ActionService actionService;
 	private final GraphitiService graphitiService;
 	private final DiagramUpdater diagramUpdater;
 	private final LayoutInfoProvider layoutInfoProvider;
@@ -36,11 +39,13 @@ public class UpdateDiagramFeature extends AbstractUpdateFeature {
 
 	@Inject
 	public UpdateDiagramFeature(final IFeatureProvider fp,
+			final ActionService actionService,
 			final GraphitiService graphitiService,
 			final DiagramUpdater diagramUpdater, final LayoutInfoProvider layoutInfoProvider,
 			final ProjectReferenceService projectReferenceService,
 			final SystemInstanceLoadingService systemInstanceLoader) {
 		super(fp);
+		this.actionService = Objects.requireNonNull(actionService, "actionService must not be null");
 		this.graphitiService = Objects.requireNonNull(graphitiService, "graphitiService must not be null");
 		this.diagramUpdater = Objects.requireNonNull(diagramUpdater, "diagramUpdater must not be null");
 		this.layoutInfoProvider = Objects.requireNonNull(layoutInfoProvider, "layoutInfoProvider must not be null");
@@ -85,12 +90,18 @@ public class UpdateDiagramFeature extends AbstractUpdateFeature {
 			}
 		}
 
-		// Update the diagram
-		diagramUpdater.updateDiagram(ageDiagram);
+		// Updating the diagram should not be part of the undo stack. The layout portion is not included in the action because
+		// layout needs to be undoable.
+		actionService.execute("Update Diagram", ExecutionMode.APPEND_ELSE_HIDE, () -> {
+			// Update the diagram
+			diagramUpdater.updateDiagram(ageDiagram);
 
-		// Perform the layout as a separate operation because the sizes for the shapes are assigned by the Graphiti modification listener.
-		ageDiagram.modify("Update Diagram",
-				m -> DiagramElementLayoutUtil.layoutIncrementally(ageDiagram, m, layoutInfoProvider));
+			// Perform the layout as a separate operation because the sizes for the shapes are assigned by the Graphiti modification listener.
+			ageDiagram.modify("Layout Incrementally",
+					m -> DiagramElementLayoutUtil.layoutIncrementally(ageDiagram, m, layoutInfoProvider));
+
+			return null;
+		});
 
 		return true;
 	}

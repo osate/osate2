@@ -300,12 +300,12 @@ public class DiagramUpdater {
 	}
 
 	private void addGhost(final DiagramElement ghost) {
-		actionExecutor.execute(new AddGhostAction(ghost));
+		actionExecutor.execute("Add Ghost", ActionExecutor.ExecutionMode.NORMAL, new AddGhostAction(ghost));
 	}
 
 	private DiagramElement removeGhost(final DiagramNode container, final RelativeBusinessObjectReference relativeReference) {
 		final RemoveGhostAction action = new RemoveGhostAction(container, relativeReference);
-		actionExecutor.execute(action);
+		actionExecutor.execute("Remove Ghost", ActionExecutor.ExecutionMode.NORMAL, action);
 		return action.removedGhost;
 	}
 
@@ -354,11 +354,6 @@ public class DiagramUpdater {
 		}
 
 		@Override
-		public String getLabel() {
-			return "Add Ghost";
-		}
-
-		@Override
 		public boolean canExecute() {
 			return true;
 		}
@@ -391,11 +386,6 @@ public class DiagramUpdater {
 		public RemoveGhostAction(final DiagramNode container, final RelativeBusinessObjectReference relativeReference) {
 			this.container = container;
 			this.relativeReference = relativeReference;
-		}
-
-		@Override
-		public String getLabel() {
-			return "Remove Ghost";
 		}
 
 		@Override

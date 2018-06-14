@@ -8,14 +8,8 @@ import org.osate.ge.internal.services.AgeAction;
  *
  */
 public class SimpleActionExecutor implements ActionExecutor {
-
 	@Override
-	public void execute(final AgeAction action) {
-		action.execute();
-	}
-
-	@Override
-	public void executeGroup(final String label, final Runnable runnable) {
-		runnable.run();
+	public boolean execute(final String label, final ExecutionMode mode, final AgeAction action) {
+		return action.execute() != null;
 	}
 }

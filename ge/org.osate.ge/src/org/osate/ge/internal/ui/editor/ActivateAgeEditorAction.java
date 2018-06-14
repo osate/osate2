@@ -8,26 +8,14 @@ import org.eclipse.ui.IWorkbenchSite;
 import org.osate.ge.internal.services.AgeAction;
 
 /**
- * Wrapper action that activates the referenced editor before executing the underlying action.
+ * Action which activates the referenced editor. Returns itself as the undo action.
  *
  */
-class AgeEditorActionWrapper implements AgeAction {
-	private AgeAction action;
+class ActivateAgeEditorAction implements AgeAction {
 	private WeakReference<AgeDiagramEditor> weakEditor;
 
-	public AgeEditorActionWrapper(final AgeAction action, final AgeDiagramEditor editor) {
-		this.action = Objects.requireNonNull(action, "action must not be null");
+	public ActivateAgeEditorAction(final AgeDiagramEditor editor) {
 		this.weakEditor = new WeakReference<>(Objects.requireNonNull(editor, "editor must not be null"));
-	}
-
-	@Override
-	public String getLabel() {
-		return action.getLabel();
-	}
-
-	@Override
-	public boolean canExecute() {
-		return action.canExecute();
 	}
 
 	@Override
@@ -44,9 +32,7 @@ class AgeEditorActionWrapper implements AgeAction {
 			}
 		}
 
-		// Create a wrapper for the reverse action
-		final AgeAction reverseAction = action.execute();
-		return reverseAction == null ? null : new AgeEditorActionWrapper(reverseAction, editor);
+		return this;
 	}
 
 	@Override

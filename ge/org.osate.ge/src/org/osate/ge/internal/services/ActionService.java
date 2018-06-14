@@ -1,5 +1,12 @@
 package org.osate.ge.internal.services;
 
+/**
+ * ActionExecutor that manages an action stack. The action stack allows undoing and redoing actions.
+ * It also provides notifications of changes to the action stack.
+ *
+ * ActionService implementations must handle the execution of actions while another action is running.
+ *
+ */
 public interface ActionService extends ActionExecutor {
 	public interface ActionStackChangeListener {
 		void actionStackChanged();
@@ -7,6 +14,12 @@ public interface ActionService extends ActionExecutor {
 
 	void addChangeListener(ActionStackChangeListener listener);
 	void removeChangeListener(ActionStackChangeListener listener);
+
+	/**
+	 *
+	 * @return true if an action is currently being executed.
+	 */
+	boolean isActionExecuting();
 
 	String getUndoLabel();
 	boolean canUndo();
@@ -16,5 +29,9 @@ public interface ActionService extends ActionExecutor {
 	boolean canRedo();
 	void redo();
 
+	/**
+	 * Clears the action stack
+	 */
+	void clearActionStack();
 	void removeInvalidActions();
 }

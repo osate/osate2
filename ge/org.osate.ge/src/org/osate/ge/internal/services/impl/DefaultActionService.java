@@ -11,18 +11,64 @@ import java.util.stream.Collectors;
 import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.osate.ge.internal.services.ActionService;
 import org.osate.ge.internal.services.AgeAction;
+import org.osate.ge.internal.services.ModelChangeNotifier;
+import org.osate.ge.internal.services.ModelChangeNotifier.ChangeListener;
 
 import com.google.common.collect.Lists;
 
+/**
+ * Implementation of the ActionService.
+ *
+ * If an action is executed while another action is running, then the action is grouped with the current action. When actions are
+ * undone or redone, the behavior of the actions will not be interleaved. For this reason, it is recommended to not perform multiple actions
+ * which provide a reverse action at the same time.
+ *
+ */
 public class DefaultActionService implements ActionService {
 	// Maximum number of top level action groups in each stack
 	private final static int maxActionGroupsPerStack = 50;
 
 	public static class ContextFunction extends SimpleServiceContextFunction<ActionService> {
+		// Listener that will clear the action stack whenever the model is changed when the model is unlocked.
+		private final ChangeListener modelChangeListener = new ChangeListener() {
+			@Override
+			public void modelChanged(boolean modelWasLocked) {
+				final ActionService actionService = getService();
+				if (actionService != null) {
+					if (!modelWasLocked) {
+						// Clear the action stack if the model was changed while it was not locked. This indicates that the graphical editor
+						// did not perform the change and undo/redo actions could be invalid or unintentionally revert model changes.
+						getService().clearActionStack();
+					}
+				}
+			}
+		};
+
+		private ModelChangeNotifier modelChangeNotifier = null;
+
 		@Override
 		public ActionService createService(final IEclipseContext context) {
-			return new DefaultActionService();
+			final ActionService actionService = new DefaultActionService();
+
+			// Register a change listener with the model change notifier. Ideally, the two would be completely decoupled but by making this part of the
+			// context function, both are not explicitly coupled to one another.
+			modelChangeNotifier = context.get(ModelChangeNotifier.class);
+			if (modelChangeListener != null) {
+				modelChangeNotifier.addChangeListener(modelChangeListener);
+			}
+
+			return actionService;
 		}
+
+		@Override
+		protected void deactivate() {
+			if (modelChangeNotifier != null) {
+				modelChangeNotifier.removeChangeListener(modelChangeListener);
+			}
+
+			super.deactivate();
+		}
+
 	}
 
 	private class ActionGroup implements AgeAction {
@@ -41,7 +87,6 @@ public class DefaultActionService implements ActionService {
 			this.undoActions = Objects.requireNonNull(actions, "actions must not be null");
 		}
 
-		@Override
 		public String getLabel() {
 			return label;
 		}
@@ -57,6 +102,7 @@ public class DefaultActionService implements ActionService {
 			final List<AgeAction> newUndoActions = Lists.reverse(undoActions).stream().sequential().map(AgeAction::execute)
 					.filter(Objects::nonNull)
 					.collect(Collectors.toCollection(ArrayList::new));
+
 			return newUndoActions.size() == 0 ? null : new ActionGroup(label, newUndoActions);
 		}
 
@@ -82,6 +128,11 @@ public class DefaultActionService implements ActionService {
 	@Override
 	public synchronized void removeChangeListener(ActionStackChangeListener listener) {
 		changeListeners.remove(listener);
+	}
+
+	@Override
+	public boolean isActionExecuting() {
+		return currentActionGroup != null || inUndoOrRedo;
 	}
 
 	//
@@ -183,17 +234,25 @@ public class DefaultActionService implements ActionService {
 			it.remove();
 		}
 	}
+
+	@Override
+	public synchronized void clearActionStack() {
+		undoStack.clear();
+		redoStack.clear();
+		notifyChangeListeners();
+	}
+
 	//
 	// ActionExecutor
 	//
 
 	@Override
-	public synchronized void execute(final AgeAction action) {
+	public synchronized boolean execute(final String label, final ExecutionMode mode, final AgeAction action) {
 		if (inUndoOrRedo) {
-			action.execute();
+			return action.execute() != null;
 		} else {
 			if (currentActionGroup == null) {
-				executeGroup(action.getLabel(), () -> execute(action));
+				return executeGroup(label, mode, () -> execute(label, mode, action));
 			} else {
 				final AgeAction reverseAction = action.execute();
 
@@ -201,46 +260,58 @@ public class DefaultActionService implements ActionService {
 				if (reverseAction != null) {
 					currentActionGroup.undoActions.add(reverseAction);
 				}
+
+				return reverseAction != null;
 			}
 		}
 	}
 
-	@Override
-	public synchronized void executeGroup(final String label, final Runnable runnable) {
+	/**
+	 * Executes a group of actions.
+	 * @param label
+	 * @param mode
+	 * @param runnable
+	 * @return
+	 */
+	private boolean executeGroup(final String label, ExecutionMode mode, final Runnable runnable) {
 		if (inUndoOrRedo) {
 			runnable.run();
+			return false;
 		} else {
-			ActionGroup newActionGroup = new ActionGroup(label);
-			ActionGroup parentActionGroup = currentActionGroup;
+			currentActionGroup = new ActionGroup(label);
 			try {
-				if (parentActionGroup == null) {
-					currentActionGroup = newActionGroup;
-				}
-
 				// Run the runnable that is expected to call the executor to perform additional actions.
 				runnable.run();
 
+				return currentActionGroup.undoActions.size() > 0;
 			} finally {
-				if (currentActionGroup == newActionGroup) {
-					if (newActionGroup.undoActions.size() > 0) {
-						// Remove all actions that could be redone
-						redoStack.clear();
+				// If the action group has reversible actions, add it to the action stack even if other actions threw an exception.
+				if (currentActionGroup.undoActions.size() > 0) {
+					// Hide append actions if there isn't an action to which to append.
+					boolean hide = mode == ExecutionMode.APPEND_ELSE_HIDE && undoStack.size() == 0;
+					if (!hide) {
+						switch (mode) {
+						case NORMAL:
+							// Remove all actions that could be redone
+							redoStack.clear();
 
-						// Add to undo stack
-						pushToStack(undoStack, newActionGroup);
+							// Add to undo stack
+							pushToStack(undoStack, currentActionGroup);
+							break;
+
+						case APPEND_ELSE_HIDE:
+							undoStack.peekFirst().undoActions.add(currentActionGroup);
+							break;
+
+						default:
+							throw new RuntimeException("Unexpected case: " + mode);
+						}
 
 						notifyChangeListeners();
 					}
-
-					currentActionGroup = null;
-				} else if (parentActionGroup != null) {
-					// Not top level
-					if (newActionGroup.undoActions.size() > 0) {
-						parentActionGroup.undoActions.add(newActionGroup);
-					}
-				} else {
-					throw new RuntimeException("Unexpected case");
 				}
+
+				currentActionGroup = null;
 			}
 		}
 	}

@@ -35,7 +35,12 @@ public class AgeDiagram implements DiagramNode, ModifiableDiagramElementContaine
 	private DiagramConfiguration diagramConfiguration;
 	private final DiagramElementCollection elements = new DiagramElementCollection();
 	private ActionExecutor actionExecutor = new SimpleActionExecutor();
+	private boolean actionExecutorSet = false;
 	private DiagramModification currentModification;
+
+	// Incrementing number that is not persisted which indicates a change that would affect the persisted version of the diagram.
+	// Used to determine whether a diagram is "dirty"
+	private int changeNumber = 0;
 
 	/**
 	 *
@@ -44,7 +49,8 @@ public class AgeDiagram implements DiagramNode, ModifiableDiagramElementContaine
 	public AgeDiagram(final long startingElementId) {
 		this.diagramConfiguration = new DiagramConfiguration(new CustomDiagramType(), null, Collections.emptySet(),
 				true);
-		this.maxElementId = startingElementId-1; // The max element id is set to the specified value - 1 because the value is incremented before it is assigned as an id.
+		this.maxElementId = startingElementId - 1; // The max element id is set to the specified value - 1 because the value is incremented before it is
+		// assigned as an id.
 	}
 
 	/**
@@ -87,19 +93,36 @@ public class AgeDiagram implements DiagramNode, ModifiableDiagramElementContaine
 		this.modificationListeners.remove(Objects.requireNonNull(listener, "listener must not be null"));
 	}
 
+	/**
+	 * Sets the action executor to be used when performing modifications.
+	 * Must be set at most once. An exception will be thrown if this method is called more than once.
+	 * If the action executor is not set, a default action executor which simply executes the action will be used.
+	 * @param actionExecutor
+	 */
 	public void setActionExecutor(final ActionExecutor actionExecutor) {
+		if (actionExecutorSet) {
+			throw new RuntimeException("The action executor for the diagram must not be set multiple times");
+		}
+
 		this.actionExecutor = Objects.requireNonNull(actionExecutor, "actionExecutor must not be null");
+		actionExecutorSet = true;
 	}
 
+	/**
+	 * Calls a modifier to modify the diagram. The current action executor will be used to execute the modification.
+	 * @param label
+	 * @param modifier
+	 */
 	public synchronized void modify(final String label, final DiagramModifier modifier) {
 		final boolean modificationInProgress = currentModification != null;
-		if(modificationInProgress) {
+		if (modificationInProgress) {
 			modifier.modify(currentModification);
 		} else {
 			try {
 				final AgeDiagramModification m = new AgeDiagramModification();
 				currentModification = m;
-				actionExecutor.execute(new AgeDiagramModificationAction(this, m, label, modifier));
+				actionExecutor.execute(label, ActionExecutor.ExecutionMode.NORMAL,
+						new AgeDiagramModificationAction(this, m, modifier));
 			} finally {
 				currentModification = null;
 			}
@@ -123,7 +146,7 @@ public class AgeDiagram implements DiagramNode, ModifiableDiagramElementContaine
 		sb.append(diagramConfiguration);
 		sb.append(System.lineSeparator());
 
-		if(elements.size() > 0) {
+		if (elements.size() > 0) {
 			elements.toString(sb, indention);
 		}
 
@@ -153,6 +176,10 @@ public class AgeDiagram implements DiagramNode, ModifiableDiagramElementContaine
 		return findDescendantById(this, id);
 	}
 
+	public int getCurrentChangeNumber() {
+		return changeNumber;
+	}
+
 	private static DiagramElement findDescendantById(final DiagramNode container, final long id) {
 		for (final DiagramElement child : container.getDiagramElements()) {
 			if (child.hasId() && id == child.getId()) {
@@ -173,7 +200,6 @@ public class AgeDiagram implements DiagramNode, ModifiableDiagramElementContaine
 		private DiagramElement updatedElement;
 		private EnumSet<ModifiableField> updates = EnumSet.noneOf(ModifiableField.class);
 		private DiagramElement removedElement;
-		private boolean undoable = true;
 		private ArrayList<DiagramChange> changes = new ArrayList<>(); // Used for undoing the modification
 		private boolean inUndoOrRedo = false;
 
@@ -181,7 +207,7 @@ public class AgeDiagram implements DiagramNode, ModifiableDiagramElementContaine
 		public void setDiagramConfiguration(final DiagramConfiguration config) {
 			Objects.requireNonNull(config, "config must not be null");
 
-			if(!getConfiguration().equals(config)) {
+			if (!getConfiguration().equals(config)) {
 				storeFieldChange(null, ModifiableField.DIAGRAM_CONFIGURATION, AgeDiagram.this.diagramConfiguration,
 						config);
 				AgeDiagram.this.diagramConfiguration = config;
@@ -195,24 +221,33 @@ public class AgeDiagram implements DiagramNode, ModifiableDiagramElementContaine
 		}
 
 		@Override
-		public void updateBusinessObject(final DiagramElement e, final Object bo, final RelativeBusinessObjectReference relativeReference) {
-			storeFieldChange(e, ModifiableField.RELATIVE_REFERENCE, e.getRelativeReference(), relativeReference);
-
+		public void updateBusinessObject(final DiagramElement e, final Object bo,
+				final RelativeBusinessObjectReference relativeReference) {
 			Objects.requireNonNull(e, "e must not be null");
 			Objects.requireNonNull(bo, "bo must not be null");
 			Objects.requireNonNull(relativeReference, "relativeReference must not be null");
 
-			final boolean wasRemoved = e.getModifiableContainer().getModifiableDiagramElements().remove(e);
 			e.setBusinessObject(bo);
-			e.setRelativeReference(relativeReference);
+			setRelativeReference(e, relativeReference);
+		}
 
-			if (wasRemoved) {
-				e.getModifiableContainer().getModifiableDiagramElements().add(e);
+		private void setRelativeReference(final DiagramElement e,
+				final RelativeBusinessObjectReference relativeReference) {
+			Objects.requireNonNull(e, "e must not be null");
+			Objects.requireNonNull(relativeReference, "relativeReference must not be null");
+
+			if (!Objects.equals(relativeReference, e.getRelativeReference())) {
+				final boolean wasRemoved = e.getModifiableContainer().getModifiableDiagramElements().remove(e);
+
+				storeFieldChange(e, ModifiableField.RELATIVE_REFERENCE, e.getRelativeReference(), relativeReference);
+				e.setRelativeReference(relativeReference);
+
+				if (wasRemoved) {
+					e.getModifiableContainer().getModifiableDiagramElements().add(e);
+				}
+
+				afterUpdate(e, ModifiableField.RELATIVE_REFERENCE);
 			}
-
-			updatedElement = e;
-			undoable = false;
-			afterUpdate(e, ModifiableField.RELATIVE_REFERENCE);
 		}
 
 		@Override
@@ -229,11 +264,11 @@ public class AgeDiagram implements DiagramNode, ModifiableDiagramElementContaine
 
 		@Override
 		public void setId(final DiagramElement e, final Long value) {
-			if(value == null && !e.hasId()) {
+			if (value == null && !e.hasId()) {
 				return;
 			}
 
-			if(value == null || !value.equals(e.getId())) {
+			if (value == null || !value.equals(e.getId())) {
 				storeFieldChange(e, ModifiableField.ID, e.getId(), value);
 				e.setId(value);
 				afterUpdate(e, ModifiableField.ID);
@@ -242,7 +277,7 @@ public class AgeDiagram implements DiagramNode, ModifiableDiagramElementContaine
 
 		@Override
 		public void setManual(final DiagramElement e, final boolean value) {
-			if(value != e.isManual()) {
+			if (value != e.isManual()) {
 				storeFieldChange(e, ModifiableField.MANUAL, e.isManual(), value);
 				e.setManual(value);
 				afterUpdate(e, ModifiableField.MANUAL);
@@ -260,7 +295,7 @@ public class AgeDiagram implements DiagramNode, ModifiableDiagramElementContaine
 
 		@Override
 		public void setCompleteness(final DiagramElement e, final Completeness value) {
-			if(!value.equals(e.getCompleteness())) {
+			if (!value.equals(e.getCompleteness())) {
 				storeFieldChange(e, ModifiableField.COMPLETENESS, e.getCompleteness(), value);
 				e.setCompleteness(value);
 				afterUpdate(e, ModifiableField.COMPLETENESS);
@@ -269,11 +304,11 @@ public class AgeDiagram implements DiagramNode, ModifiableDiagramElementContaine
 
 		@Override
 		public void setName(final DiagramElement e, final String value) {
-			if(value == null && e.getName() == null) {
+			if (value == null && e.getName() == null) {
 				return;
 			}
 
-			if(value == null || !value.equals(e.getName())) {
+			if (value == null || !value.equals(e.getName())) {
 				storeFieldChange(e, ModifiableField.NAME, e.getName(), value);
 				e.setName(value);
 				afterUpdate(e, ModifiableField.NAME);
@@ -282,11 +317,11 @@ public class AgeDiagram implements DiagramNode, ModifiableDiagramElementContaine
 
 		@Override
 		public void setSize(final DiagramElement e, final Dimension value) {
-			if(value == null && e.getSize() == null) {
+			if (value == null && e.getSize() == null) {
 				return;
 			}
 
-			if(value == null || !value.equals(e.getSize())) {
+			if (value == null || !value.equals(e.getSize())) {
 				storeFieldChange(e, ModifiableField.SIZE, e.getSize(), value);
 				e.setSize(value);
 				afterUpdate(e, ModifiableField.SIZE);
@@ -350,7 +385,7 @@ public class AgeDiagram implements DiagramNode, ModifiableDiagramElementContaine
 
 		@Override
 		public void setDockArea(final DiagramElement e, final DockArea value) {
-			if(value != e.getDockArea()) {
+			if (value != e.getDockArea()) {
 				storeFieldChange(e, ModifiableField.DOCK_AREA, e.getDockArea(), value);
 				e.setDockArea(value);
 				afterUpdate(e, ModifiableField.DOCK_AREA);
@@ -375,12 +410,13 @@ public class AgeDiagram implements DiagramNode, ModifiableDiagramElementContaine
 
 		@Override
 		public void setConnectionPrimaryLabelPosition(final DiagramElement e, final Point value) {
-			if(value == null && e.getConnectionPrimaryLabelPosition() == null) {
+			if (value == null && e.getConnectionPrimaryLabelPosition() == null) {
 				return;
 			}
 
-			if(value == null || !value.equals(e.getConnectionPrimaryLabelPosition())) {
-				storeFieldChange(e, ModifiableField.CONNECTION_PRIMARY_LABEL_POSITION, e.getConnectionPrimaryLabelPosition(), value);
+			if (value == null || !value.equals(e.getConnectionPrimaryLabelPosition())) {
+				storeFieldChange(e, ModifiableField.CONNECTION_PRIMARY_LABEL_POSITION,
+						e.getConnectionPrimaryLabelPosition(), value);
 				e.setConnectionPrimaryLabelPosition(value);
 				afterUpdate(e, ModifiableField.CONNECTION_PRIMARY_LABEL_POSITION);
 			}
@@ -398,14 +434,13 @@ public class AgeDiagram implements DiagramNode, ModifiableDiagramElementContaine
 		// Notifies listeners and manages change tracking state after a field has been updated.
 		private void afterUpdate(final DiagramElement e, final ModifiableField c) {
 			// Notify listeners of the previous modification
-			if((addedElement != null && addedElement != e) ||
-					(updatedElement != null && updatedElement != e) ||
-					removedElement != null) {
+			if ((addedElement != null && addedElement != e) || (updatedElement != null && updatedElement != e)
+					|| removedElement != null) {
 				notifyListeners();
 			}
 
 			// Don't track updates on an element that has a pending add event
-			if(addedElement != e) {
+			if (addedElement != e) {
 				updatedElement = e;
 				updates.add(c);
 			}
@@ -416,7 +451,7 @@ public class AgeDiagram implements DiagramNode, ModifiableDiagramElementContaine
 			Objects.requireNonNull(e, "e must not be null");
 
 			// Notify listeners of the previous modification
-			if(addedElement != null || updatedElement != null || removedElement != null) {
+			if (addedElement != null || updatedElement != null || removedElement != null) {
 				notifyListeners();
 			}
 
@@ -428,12 +463,12 @@ public class AgeDiagram implements DiagramNode, ModifiableDiagramElementContaine
 		@Override
 		public void addElement(final DiagramElement e) {
 			// Notify listeners of the previous modification
-			if(addedElement != null || updatedElement != null || removedElement != null) {
+			if (addedElement != null || updatedElement != null || removedElement != null) {
 				notifyListeners();
 			}
 
 			// Assign the id
-			if(e.hasId()) {
+			if (e.hasId()) {
 				maxElementId = Math.max(e.getId(), maxElementId);
 			} else {
 				maxElementId++;
@@ -450,7 +485,7 @@ public class AgeDiagram implements DiagramNode, ModifiableDiagramElementContaine
 			notifyListeners();
 
 			// Send the modifications complete event
-			if(modificationListeners.size() > 0) {
+			if (modificationListeners.size() > 0) {
 				final BeforeModificationsCompletedEvent beforeCompletedEvent = new BeforeModificationsCompletedEvent(
 						AgeDiagram.this, this);
 				for (final DiagramModificationListener ml : modificationListeners) {
@@ -458,7 +493,7 @@ public class AgeDiagram implements DiagramNode, ModifiableDiagramElementContaine
 				}
 
 				final ModificationsCompletedEvent completedEvent = new ModificationsCompletedEvent(AgeDiagram.this);
-				for(final DiagramModificationListener ml : modificationListeners) {
+				for (final DiagramModificationListener ml : modificationListeners) {
 					ml.modificationsCompleted(completedEvent);
 				}
 			}
@@ -466,19 +501,19 @@ public class AgeDiagram implements DiagramNode, ModifiableDiagramElementContaine
 
 		private void notifyListeners() {
 			// Notify Listeners
-			if(modificationListeners.size() > 0) {
-				if(addedElement != null) {
+			if (modificationListeners.size() > 0) {
+				if (addedElement != null) {
 					final ElementAddedEvent event = new ElementAddedEvent(addedElement);
-					for(final DiagramModificationListener ml : modificationListeners) {
+					for (final DiagramModificationListener ml : modificationListeners) {
 						ml.elementAdded(event);
 					}
 
 					addedElement = null;
 				}
 
-				if(updatedElement != null) {
+				if (updatedElement != null) {
 					final ElementUpdatedEvent event = new ElementUpdatedEvent(updatedElement, updates);
-					for(final DiagramModificationListener ml : modificationListeners) {
+					for (final DiagramModificationListener ml : modificationListeners) {
 						ml.elementUpdated(event);
 					}
 
@@ -486,9 +521,9 @@ public class AgeDiagram implements DiagramNode, ModifiableDiagramElementContaine
 					updates.clear();
 				}
 
-				if(removedElement != null) {
+				if (removedElement != null) {
 					final ElementRemovedEvent event = new ElementRemovedEvent(removedElement);
-					for(final DiagramModificationListener ml : modificationListeners) {
+					for (final DiagramModificationListener ml : modificationListeners) {
 						ml.elementRemoved(event);
 					}
 
@@ -499,11 +534,7 @@ public class AgeDiagram implements DiagramNode, ModifiableDiagramElementContaine
 
 		@Override
 		public void undoModification(final DiagramModification modification) {
-			if(!modification.isUndoable()) {
-				throw new RuntimeException("The modification cannot be undone.");
-			}
-
-			if(modification instanceof AgeDiagramModification) {
+			if (modification instanceof AgeDiagramModification) {
 				try {
 					inUndoOrRedo = true;
 					final AgeDiagramModification modificationToUndo = ((AgeDiagramModification) modification);
@@ -518,11 +549,7 @@ public class AgeDiagram implements DiagramNode, ModifiableDiagramElementContaine
 
 		@Override
 		public void redoModification(final DiagramModification modification) {
-			if(!modification.isRedoable()) {
-				throw new RuntimeException("The modification cannot be redone.");
-			}
-
-			if(modification instanceof AgeDiagramModification) {
+			if (modification instanceof AgeDiagramModification) {
 				try {
 					inUndoOrRedo = true;
 					final AgeDiagramModification modificationToRedo = ((AgeDiagramModification) modification);
@@ -535,21 +562,11 @@ public class AgeDiagram implements DiagramNode, ModifiableDiagramElementContaine
 			}
 		}
 
-		@Override
-		public boolean isUndoable() {
-			return undoable;
-		}
-
-		@Override
-		public boolean isRedoable() {
-			return undoable; // Only commands that can be undone can be redone.
-		}
-
 		/**
 		 * Stores the current value so that changes can be undone/redone
 		 */
-		private void storeFieldChange(final DiagramElement element, final ModifiableField field, final Object currentValue,
-				final Object newValue) {
+		private void storeFieldChange(final DiagramElement element, final ModifiableField field,
+				final Object currentValue, final Object newValue) {
 			changes.add(new FieldChange(element, field, currentValue, newValue));
 		}
 	}
@@ -558,6 +575,10 @@ public class AgeDiagram implements DiagramNode, ModifiableDiagramElementContaine
 		void undo(final DiagramModification m);
 
 		void redo(final DiagramModification m);
+
+		default boolean affectsChangeNumber() {
+			return true;
+		}
 	}
 
 	private static class AddElementChange implements DiagramChange {
@@ -680,86 +701,91 @@ public class AgeDiagram implements DiagramNode, ModifiableDiagramElementContaine
 				break;
 
 			case RELATIVE_REFERENCE:
-				throw new RuntimeException("Setting the relative reference is not undoable");
+				((AgeDiagramModification) m).setRelativeReference(element, (RelativeBusinessObjectReference) value);
 
 			default:
 				break;
 			}
+		}
+
+		@Override
+		public boolean affectsChangeNumber() {
+			if (field == ModifiableField.COMPLETENESS || field == ModifiableField.NAME
+					|| field == ModifiableField.GRAPHICAL_CONFIGURATION) {
+				return false;
+			}
+
+			if (field == ModifiableField.SIZE && !DiagramElementPredicates.isResizeable(element)) {
+				return false;
+			}
+
+			if (field == ModifiableField.POSITION && !DiagramElementPredicates.isMoveable(element)) {
+				return false;
+			}
+
+			if (field == ModifiableField.DOCK_AREA && element.getDockArea() == DockArea.GROUP) {
+				return false;
+			}
+
+			return true;
 		}
 	}
 
 	private static class AgeDiagramModificationAction implements AgeAction {
 		private final AgeDiagram ageDiagram;
 		private final AgeDiagramModification mod;
-		private final String label;
 		private final DiagramModifier modifier;
+		private final AgeAction undoAction;
+		private final AgeAction redoAction;
+
+		private int originalVersionNumber;
+		private int newVersionNumber;
 
 		public AgeDiagramModificationAction(final AgeDiagram ageDiagram, final AgeDiagramModification mod,
-				final String label, final DiagramModifier modifier) {
+				final DiagramModifier modifier) {
 			this.ageDiagram = Objects.requireNonNull(ageDiagram, "ageDiagram must not be null");
 			this.mod = Objects.requireNonNull(mod, "mod must not be null");
-			this.label = Objects.requireNonNull(label, "label must not be null");
 			this.modifier = Objects.requireNonNull(modifier, "modifier must not be null");
+
+			this.undoAction = () -> {
+				ageDiagram.modify("Undo Diagram Modification", newMod -> {
+					newMod.undoModification(mod);
+				});
+				ageDiagram.changeNumber = originalVersionNumber;
+
+				return getRedoAction();
+			};
+
+			this.redoAction = () -> {
+				ageDiagram.modify("Redo Diagram Modification", newMod -> newMod.redoModification(mod));
+				ageDiagram.changeNumber = newVersionNumber;
+				return undoAction;
+			};
 		}
 
-		@Override
-		public String getLabel() {
-			return label;
+		// Needed to allow implementation of undo action since the formatter convers the undo action into a lambda.
+		private AgeAction getRedoAction() {
+			return redoAction;
 		}
 
-		@Override
-		public boolean canExecute() {
-			return true;
+		private static boolean affectsChangeNumber(Collection<DiagramChange> changes) {
+			return changes.stream().anyMatch(DiagramChange::affectsChangeNumber);
 		}
 
 		@Override
 		public AgeAction execute() {
 			AgeDiagram.runModification(modifier, mod);
 			if (mod.changes.size() > 0) {
+				if (affectsChangeNumber(mod.changes)) {
+					originalVersionNumber = ageDiagram.changeNumber;
+					ageDiagram.changeNumber++;
+					newVersionNumber = ageDiagram.changeNumber;
+				}
+
 				return undoAction;
 			} else {
 				return null;
 			}
 		}
-
-		private final AgeAction undoAction = new AgeAction() {
-			@Override
-			public String getLabel() {
-				return label;
-			}
-
-			@Override
-			public boolean canExecute() {
-				return mod.isUndoable();
-			}
-
-			@Override
-			public AgeAction execute() {
-				ageDiagram.modify("Undo " + label, newMod -> {
-					newMod.undoModification(mod);
-				});
-
-				return redoAction;
-			}
-
-		};
-
-		private final AgeAction redoAction = new AgeAction() {
-			@Override
-			public String getLabel() {
-				return label;
-			}
-
-			@Override
-			public boolean canExecute() {
-				return true;
-			}
-
-			@Override
-			public AgeAction execute() {
-				ageDiagram.modify("Redo " + label, newMod -> newMod.redoModification(mod));
-				return undoAction;
-			}
-		};
 	}
 }

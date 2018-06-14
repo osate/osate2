@@ -6,7 +6,7 @@ import org.eclipse.graphiti.features.IFeatureProvider;
 import org.eclipse.graphiti.features.context.IContext;
 import org.eclipse.graphiti.features.context.ICustomContext;
 import org.eclipse.graphiti.features.custom.AbstractCustomFeature;
-import org.osate.ge.internal.services.ActionService;
+import org.osate.ge.internal.services.ActionExecutor;
 import org.osate.ge.internal.services.AgeAction;
 
 /**
@@ -15,20 +15,23 @@ import org.osate.ge.internal.services.AgeAction;
  */
 public class AgeActionCustomFeature extends AbstractCustomFeature
 {
-	private final ActionService actionService;
+	private final ActionExecutor actionExecutor;
+	private final String label;
 	private final AgeAction action;
+	private boolean executeResult;
 
-	public AgeActionCustomFeature(final ActionService actionService, final AgeAction action,
+	public AgeActionCustomFeature(final ActionExecutor actionExecutor, final String label, final AgeAction action,
 			final IFeatureProvider fp) {
 		super(fp);
-		this.actionService = Objects.requireNonNull(actionService, "actionService must not be null");
+		this.actionExecutor = Objects.requireNonNull(actionExecutor, "actionExecutor must not be null");
+		this.label = Objects.requireNonNull(label, "label must not be null");
 		this.action = Objects.requireNonNull(action, "action must not be null");
 	}
 
 
 	@Override
 	public String getName() {
-		return action.getLabel();
+		return label;
 	}
 
 	@Override
@@ -43,7 +46,15 @@ public class AgeActionCustomFeature extends AbstractCustomFeature
 
 	@Override
 	public void execute(final ICustomContext context) {
-		actionService.execute(action);
+		executeResult = actionExecutor.execute(label, ActionExecutor.ExecutionMode.NORMAL, action);
+	}
+
+	/**
+	 *
+	 * @return the return value of the ActionExecutor.execute() call.
+	 */
+	public boolean getExecuteResult() {
+		return executeResult;
 	}
 
 	@Override

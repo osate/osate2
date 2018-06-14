@@ -41,6 +41,7 @@ import org.eclipse.ui.views.contentoutline.IContentOutlinePage;
 import org.osate.ge.GraphicalEditor;
 import org.osate.ge.internal.diagram.runtime.AgeDiagram;
 import org.osate.ge.internal.graphiti.diagram.GraphitiAgeDiagram;
+import org.osate.ge.internal.services.ActionExecutor;
 import org.osate.ge.internal.services.ActionService;
 
 public class AgeDiagramEditor extends DiagramEditor implements GraphicalEditor {
@@ -93,6 +94,15 @@ public class AgeDiagramEditor extends DiagramEditor implements GraphicalEditor {
 	public void selectDiagramElementsForBusinessObject(final Object bo) {
 		// Select all pictogram elements associated with the business object
 		selectPictogramElements(getDiagramTypeProvider().getFeatureProvider().getAllPictogramElementsForBusinessObject(bo));
+	}
+
+	public ActionExecutor getActionExecutor() {
+		return getDiagramBehavior().getActionExecutor();
+	}
+
+	@Override
+	public AgeDiagramBehavior getDiagramBehavior() {
+		return (AgeDiagramBehavior) super.getDiagramBehavior();
 	}
 
 	@Override
