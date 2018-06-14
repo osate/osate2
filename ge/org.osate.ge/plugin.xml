@@ -18,15 +18,6 @@
           id="org.osate.ge.commands.categories.layout"
           name="Layout">
     </category>
-    <category
-    	  id="org.osate.ge.commands.categories.export"
-    	name="Export">
-    </category>
-    <command
-    	categoryId="org.osate.ge.commands.categories.export"
-    	id="org.osate.ge.commands.exportDiagram"
-    	name="Export Diagram">
-    </command>
 	   <command id="org.osate.ge.commands.opendiagram" name="Open Diagram" defaultHandler="org.osate.ge.internal.ui.handlers.OpenDiagramHandler"></command>
 	   <command id="org.osate.ge.commands.creatediagram" name="Create Diagram..." defaultHandler="org.osate.ge.internal.ui.handlers.CreateDiagramHandler"></command>
       <command
@@ -530,12 +521,6 @@
             <reference definitionId="org.osate.ge.compatibleElementSelected">
             </reference>
          </visibleWhen>
-         </command>
-         <command
-         	commandId="org.osate.ge.commands.exportDiagram"
-                   label="Export Diagram"
-                   tooltip="Export Diagram"
-                   style="push">
          </command>
       </menuContribution>
 	<menuContribution
@@ -1143,6 +1128,7 @@
              style="push">
        </command>
     </menu>
+>>>>>>> refs/remotes/origin/develop
  </menuContribution>
    </extension>
 	   

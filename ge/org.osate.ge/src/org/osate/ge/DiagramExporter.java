@@ -29,9 +29,7 @@ import org.eclipse.graphiti.mm.pictograms.Shape;
 import org.eclipse.graphiti.platform.IDiagramBehavior;
 import org.eclipse.graphiti.services.Graphiti;
 import org.eclipse.graphiti.ui.services.GraphitiUi;
-import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.widgets.Display;
 import org.osate.ge.internal.diagram.runtime.AgeDiagram;
 import org.osate.ge.internal.diagram.runtime.DiagramSerialization;
 import org.osate.ge.internal.diagram.runtime.layout.DiagramElementLayoutUtil;
@@ -47,9 +45,7 @@ import org.osgi.framework.FrameworkUtil;
 
 public class DiagramExporter {
 	/**
-	 * This method receives an aadl diagram file and an output file.
-	 * The diagram contained in the aadl diagram file is written to
-	 * the output file as a png.
+	 * Converts an AADL diagram file to a PNG image.
 	 *
 	 * @param  diagramFile the diagram file to be exported
 	 * @param  outputFile  the file the image will be written to
@@ -71,56 +67,45 @@ public class DiagramExporter {
 		final AgeDiagram ageDiagram = DiagramSerialization.createAgeDiagram(project, mmDiagram,
 				getExtensionRegistryService(dummyDiagramTypeProvider.getClass()));
 
-		// Display warning if the diagram is stored with a newer version of the diagram file format.
-		if (mmDiagram.getFormatVersion() > DiagramSerialization.FORMAT_VERSION) {
-			MessageDialog.openWarning(Display.getCurrent().getActiveShell(),
-					"Diagram Created with Newer Version of OSATE", "The diagram '" + uri.lastSegment()
-					+ "' was created with a newer version of the OSATE. The diagram may not be correctly displayed. Saving the diagram with the running version of OSATE may result in the loss of diagram information.");
-		}
-
 		// Create an empty Graphiti diagram
 		final org.eclipse.graphiti.mm.pictograms.Diagram diagram = Graphiti.getPeService()
 				.createDiagram(GraphitiAgeDiagram.AADL_DIAGRAM_TYPE_ID, "", true);
 
-		final GraphitiAgeDiagram graphitiAgeDiagram = layoutAndCreateGraphitiAgeDiagram(dummyDiagramTypeProvider, ageDiagram,
-				diagram, editingDomain);
+		try (final GraphitiAgeDiagram graphitiAgeDiagram = layoutAndCreateGraphitiAgeDiagram(dummyDiagramTypeProvider,
+				ageDiagram, diagram, editingDomain)) {
+			editingDomain.getCommandStack().execute(new AbstractCommand() {
+				@Override
+				protected boolean prepare() {
+					return true;
+				}
 
-		editingDomain.getCommandStack().execute(new AbstractCommand() {
-			@Override
-			protected boolean prepare() {
-				return true;
-			}
+				@Override
+				public void execute() {
+					// Set container bounds for image
+					setDiagramContainerBounds(containerBounds, diagram);
 
-			@Override
-			public void execute() {
-				// Set container bounds for image
-				setDiagramContainerBounds(containerBounds, diagram);
+					// Set elements relative to (0,0)
+					moveDiagramElements(containerBounds, diagram);
 
-				// Set elements relative to (0,0)
-				moveDiagramElements(containerBounds, diagram);
+					// Create a invisible rectangle around diagram elements for image
+					final ContainerShape boundsShape = Graphiti.getPeCreateService().createContainerShape(diagram, true);
+					final Rectangle r = Graphiti.getGaService().createInvisibleRectangle(boundsShape);
+					r.setWidth(-containerBounds.minX + containerBounds.maxX + containerBounds.padding * 2);
+					r.setHeight(-containerBounds.minY + containerBounds.maxY + containerBounds.padding * 2);
+				}
 
-				// Create a invisible rectangle around diagram elements for image
-				final ContainerShape boundsShape = Graphiti.getPeCreateService().createContainerShape(diagram, true);
-				final Rectangle r = Graphiti.getGaService().createInvisibleRectangle(boundsShape);
-				r.setWidth(-containerBounds.minX + containerBounds.maxX + containerBounds.padding * 2);
-				r.setHeight(-containerBounds.minY + containerBounds.maxY + containerBounds.padding * 2);
-			}
+				@Override
+				public boolean canUndo() {
+					return false;
+				}
 
-			@Override
-			public boolean canUndo() {
-				return false;
-			}
+				@Override
+				public void redo() {
+				}
+			});
 
-			@Override
-			public void redo() {
-			}
-		});
-
-		// Export to image
-		try {
+			// Export to image
 			exportDiagramToImage(diagram, outputFile);
-		} finally {
-			graphitiAgeDiagram.close();
 		}
 	}
 
@@ -201,48 +186,47 @@ public class DiagramExporter {
 	private static void setDiagramContainerBounds(final ContainerBounds containerBounds, final Diagram diagram) {
 		for (final Shape shape : diagram.getChildren()) {
 			final GraphicsAlgorithm ga = shape.getGraphicsAlgorithm();
-			compareBounds(containerBounds, ga.getX(), ga.getX() + ga.getWidth(), ga.getY(), ga.getY() + ga.getHeight());
+			updateBounds(containerBounds, ga.getX(), ga.getX() + ga.getWidth(), ga.getY(), ga.getY() + ga.getHeight());
 		}
 
-		compareConnectionBounds(containerBounds, diagram.getConnections());
+		updateBounds(containerBounds, diagram.getConnections());
 	}
 
-	// Compare points of connections to ensure that connections are inside image bounds
-	private static void compareConnectionBounds(final ContainerBounds containerBounds,
+	// Ensure that connections are inside image bounds
+	private static void updateBounds(final ContainerBounds containerBounds,
 			final EList<Connection> connections) {
 		for (final Connection c : connections) {
 			if (c instanceof FreeFormConnection) {
 				final FreeFormConnection fc = (FreeFormConnection) c;
 				for (final Point p : fc.getBendpoints()) {
-					compareBounds(containerBounds, p.getX(), p.getY());
+					updateBounds(containerBounds, p.getX(), p.getY());
 				}
 			}
 
-			compareConnectionDecoratorBounds(containerBounds, c);
+			updateBounds(containerBounds, c);
 		}
 	}
 
 	// Make sure connection decorators are contained within the image
-	private static void compareConnectionDecoratorBounds(final ContainerBounds containerBounds, final Connection c) {
+	private static void updateBounds(final ContainerBounds containerBounds, final Connection c) {
 		for (final ConnectionDecorator cd : c.getConnectionDecorators()) {
 			if (cd.isLocationRelative()) {
 				final GraphicsAlgorithm labelGA = cd.getGraphicsAlgorithm();
 				final ILocation loc = GraphitiUi.getPeService().getConnectionMidpoint(c, cd.getLocation());
 				final int labelX = loc.getX() + labelGA.getX();
 				final int labelY = loc.getY() + labelGA.getY();
-				compareBounds(containerBounds, labelX, labelX + labelGA.getWidth(), labelY, labelY + labelGA.getY());
+				updateBounds(containerBounds, labelX, labelX + labelGA.getWidth(), labelY, labelY + labelGA.getY());
 			}
 		}
 	}
 
-	private static void compareBounds(final ContainerBounds containerBounds, final int x, final int y) {
-		compareBounds(containerBounds, x, x, y, y);
+	private static void updateBounds(final ContainerBounds containerBounds, final int x, final int y) {
+		updateBounds(containerBounds, x, x, y, y);
 	}
 
-	// Compare and set bounds
-	private static void compareBounds(final ContainerBounds containerBounds, final int minX, final int maxX,
-			final int minY,
-			final int maxY) {
+	// Update image bounds
+	private static void updateBounds(final ContainerBounds containerBounds, final int minX, final int maxX,
+			final int minY, final int maxY) {
 		containerBounds.minX = Math.min(containerBounds.minX, minX);
 		containerBounds.maxX = Math.max(containerBounds.maxX, maxX);
 		containerBounds.minY = Math.min(containerBounds.minY, minY);
