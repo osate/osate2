@@ -32,7 +32,7 @@
  * under the contract clause at 252.227.7013.
  * </copyright>
  */
-package org.osate.xtext.aadl2.properties.ui.linking;
+package org.osate.xtext.aadl2.properties.linking;
 
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
@@ -51,11 +51,6 @@ import org.osate.aadl2.Subcomponent;
 import org.osate.aadl2.modelsupport.util.AadlUtil;
 import org.osate.aadl2.util.Aadl2Util;
 
-/**
- * @deprecated Replaced by org.osate.xtext.aadl2.properties.linking.PropertiesLinkingDiagnosticMessageProvider.
- * 		Will be removed in 2.3.5.
- */
-@Deprecated
 public class PropertiesLinkingDiagnosticMessageProvider extends LinkingDiagnosticMessageProvider {
 
 	@Override
