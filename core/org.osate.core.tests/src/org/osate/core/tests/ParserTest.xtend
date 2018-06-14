@@ -1,23 +1,24 @@
 package org.osate.core.tests
 
 import com.google.inject.Inject
+import com.itemis.xtext.testing.XtextTest
 import org.eclipse.xtext.testing.InjectWith
 import org.eclipse.xtext.testing.XtextRunner
-import org.eclipse.xtext.testing.util.ParseHelper
 import org.junit.Assert
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.osate.aadl2.AadlPackage
 import org.osate.aadl2.ModelUnit
 import org.osate.aadl2.SystemType
-import org.osate.testsupport.Aadl2UiInjectorProvider
-import org.osate.testsupport.OsateTest
+import org.osate.testsupport.Aadl2InjectorProvider
+import org.osate.testsupport.TestHelper
 
-@RunWith(typeof(XtextRunner))
-@InjectWith(typeof(Aadl2UiInjectorProvider))
-class ParserTest extends OsateTest {
+@RunWith(XtextRunner)
+@InjectWith(Aadl2InjectorProvider)
+class ParserTest extends XtextTest {
 
-	@Inject extension ParseHelper<ModelUnit>
+	@Inject 
+	TestHelper<AadlPackage> testHelper
 
 	@Test
 	def void testParsing() {
@@ -30,9 +31,9 @@ class ParserTest extends OsateTest {
 			    properties
 			      none;
 			end example;
-		'''.parse
+		'''
 
-		val pack = model as AadlPackage
+		val pack = testHelper.parseString(model)
 		Assert::assertEquals("example", pack.name)
 
 		val sys = pack.publicSection.ownedClassifiers.get(0) as SystemType
