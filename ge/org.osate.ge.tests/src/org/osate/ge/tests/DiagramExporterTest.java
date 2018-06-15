@@ -1,5 +1,7 @@
 package org.osate.ge.tests;
 
+import static org.junit.Assert.assertTrue;
+
 import java.io.File;
 import java.io.IOException;
 
@@ -40,18 +42,15 @@ public class DiagramExporterTest {
 
 		// Must run in an UI thread
 		Display.getDefault().syncExec(() -> {
-			File tmpFile = null;
 			try {
 				final IFile diagramFile = (IFile) ResourcesPlugin.getWorkspace().getRoot()
 						.findMember(ElementNames.projectName + "/diagrams/" + editor.getReference().getPartName());
-				tmpFile = File.createTempFile("org.osate.ge.tests.diagram_export", ".tmp");
+				final File tmpFile = File.createTempFile("org.osate.ge.tests.diagram_export", ".png");
+				tmpFile.deleteOnExit();
 				DiagramExporter.exportDiagramAsPng(diagramFile, tmpFile);
+				assertTrue(tmpFile.exists());
 			} catch (final IOException e) {
 				Assert.fail("Export diagram test IOException: " + e.getMessage());
-			} finally {
-				if (tmpFile != null) {
-					tmpFile.deleteOnExit();
-				}
 			}
 		});
 	}
