@@ -213,39 +213,4 @@
       </menuContribution>
    </extension>
 
-   <extension 
-   		id="EMV2Parser"
-   		name="EMV2P"
-   		point="org.osate.annexsupport.parser">
-         <parser 	
-         	annexName="EMV2"
-         	annexNSURI="http://www.aadl.info/EMV2"
-         	class="org.osate.xtext.aadl2.errormodel.parsing.EMV2AnnexParser"
-         	name="EMV2 Annex Parser"
-         	id="org.osate.aadl2.emv2.parser"/>
-   </extension>
-   <extension
-         id="EMV2LinkingService"
-         name="EMV2L"
-         point="org.osate.annexsupport.linkingservice">
-      <linkingservice
-            annexName="EMV2"
-            class="org.osate.xtext.aadl2.errormodel.parsing.EMV2AnnexLinkingService"
-            name="EMV2 Annex Linking Service"
-            id="org.osate.aadl2.emv2.linkingservice"/>
-   </extension>
-   <extension
-         id="EMV2Unparser"
-         name="EMV2U"
-         point="org.osate.annexsupport.unparser">
-      <unparser
-            annexName="EMV2"
-            class="org.osate.xtext.aadl2.errormodel.ui.ErrorModelExecutableExtensionFactory:org.osate.xtext.aadl2.errormodel.parsing.EMV2AnnexUnparser"
-            name="EMV2 Annex Unparser"
-            id="org.osate.aadl2.emv2.unparser"/>
-   </extension>
-
-
-
-
 </plugin>

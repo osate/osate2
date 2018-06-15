@@ -75,6 +75,7 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.IPartListener;
+import org.eclipse.ui.ISelectionListener;
 import org.eclipse.ui.IWorkbenchPart;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.internal.EditorSite;
@@ -138,6 +139,39 @@ public class AgeDiagramBehavior extends DiagramBehavior implements GraphitiAgeDi
 			updateDiagram(true);
 			updateWhenVisible = false;
 		}
+	};
+
+	private final ISelectionListener toolPostSelectionListener = (part, selection) -> {
+		toolHandler.setSelectedDiagramElements(SelectionUtil.getSelectedDiagramElements(selection));
+	};
+
+	private final IPartListener toolPartListener = new IPartListener() {
+		@Override
+		public void partClosed(final IWorkbenchPart part) {
+			if (getDiagramEditor() == part) {
+				toolHandler.deactivateActiveTool();
+
+				// Stop listening for part events
+				getDiagramEditor().getSite().getWorkbenchWindow().getPartService().removePartListener(this);
+			}
+		}
+
+		@Override
+		public void partDeactivated(final IWorkbenchPart part) {
+		}
+
+		@Override
+		public void partActivated(final IWorkbenchPart part) {
+			if (getDiagramEditor() != part && !(part instanceof ContentOutline)) {
+				toolHandler.deactivateActiveTool();
+			}
+		}
+
+		@Override
+		public void partBroughtToTop(final IWorkbenchPart part) {}
+
+		@Override
+		public void partOpened(final IWorkbenchPart part) {}
 	};
 
 	private ChangeListener modelChangeListener = new ChangeListener() {
@@ -362,41 +396,13 @@ public class AgeDiagramBehavior extends DiagramBehavior implements GraphitiAgeDi
 			// Register an action for each tool
 			toolHandler = new ToolHandler(extService, getPaletteBehavior());
 
-			editor.getSite().getWorkbenchWindow().getSelectionService().addPostSelectionListener((part, selection) -> {
-				toolHandler.setSelectedDiagramElements(SelectionUtil.getSelectedDiagramElements(selection));
-			});
+			editor.getSite().getWorkbenchWindow().getSelectionService()
+			.addPostSelectionListener(toolPostSelectionListener);
 			toolHandler.setSelectedDiagramElements(SelectionUtil.getSelectedDiagramElements(
 					editor.getSite().getWorkbenchWindow().getSelectionService().getSelection()));
 
 			// Deactivate the tool when the part is deactivated or closed
-			editor.getSite().getWorkbenchWindow().getPartService().addPartListener(new IPartListener() {
-				@Override
-				public void partClosed(final IWorkbenchPart part) {
-					if (editor == part) {
-						toolHandler.deactivateActiveTool();
-
-						// Stop listening for part events
-						editor.getSite().getWorkbenchWindow().getPartService().removePartListener(this);
-					}
-				}
-
-				@Override
-				public void partDeactivated(final IWorkbenchPart part) {
-				}
-
-				@Override
-				public void partActivated(final IWorkbenchPart part) {
-					if (editor != part && !(part instanceof ContentOutline)) {
-						toolHandler.deactivateActiveTool();
-					}
-				}
-
-				@Override
-				public void partBroughtToTop(final IWorkbenchPart part) {}
-
-				@Override
-				public void partOpened(final IWorkbenchPart part) {}
-			});
+			editor.getSite().getWorkbenchWindow().getPartService().addPartListener(toolPartListener);
 		}
 	}
 
@@ -454,7 +460,10 @@ public class AgeDiagramBehavior extends DiagramBehavior implements GraphitiAgeDi
 		} finally {
 			if (graphitiAgeDiagram != null) {
 				graphitiAgeDiagram.close();
+				graphitiAgeDiagram = null;
 			}
+
+			ageDiagram = null;
 		}
 	}
 
@@ -850,6 +859,14 @@ public class AgeDiagramBehavior extends DiagramBehavior implements GraphitiAgeDi
 
 	@Override
 	protected void disposeBeforeGefDispose() {
+		final AgeDiagramEditor editor = getDiagramEditor();
+		if (editor != null) {
+			// Remove listeners used for implementing tools
+			editor.getSite().getWorkbenchWindow().getPartService().removePartListener(toolPartListener);
+			editor.getSite().getWorkbenchWindow().getSelectionService()
+			.removePostSelectionListener(toolPostSelectionListener);
+		}
+
 		// Unregister our resource change listener
 		if(resourceChangeListener != null) {
 			final IWorkspace workspace = ResourcesPlugin.getWorkspace();
@@ -930,7 +947,7 @@ public class AgeDiagramBehavior extends DiagramBehavior implements GraphitiAgeDi
 
 			@Override
 			public boolean isDirty() {
-				return cleanDiagramChangeNumber != ageDiagram.getCurrentChangeNumber();
+				return ageDiagram == null || cleanDiagramChangeNumber != ageDiagram.getCurrentChangeNumber();
 			}
 		};
 	}
@@ -1007,7 +1024,7 @@ public class AgeDiagramBehavior extends DiagramBehavior implements GraphitiAgeDi
 
 			// If an action isn't running and the action is executing as normal, then activate the editor if the action is undoable.
 			// This will ensure that when the action is undone, the editor will be switched to the one in which the action was performed.
-			if (reverseActionWasSpecified && actionService.isActionExecuting() && mode == ExecutionMode.NORMAL) {
+			if (reverseActionWasSpecified && !actionService.isActionExecuting() && mode == ExecutionMode.NORMAL) {
 				actionService.execute("Activate Editor", ExecutionMode.APPEND_ELSE_HIDE,
 						new ActivateAgeEditorAction(getDiagramEditor()));
 			}

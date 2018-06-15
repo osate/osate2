@@ -83,7 +83,7 @@ The verification method registry entry - declared in a file with the extension *
 <pre>
 verification methods Resolute [
   	method verifySCSReq1 (max: real ): "Verify SCS weight is within specified maximum (Req1)" [
-		resolute SCSReq1 
+		resolute BudgetResolute.BudgetResolute_public.Resolute.Resolute.SCSReq1 
 		description "SCS has a requirement not to exceed a specified weight of 'max' kg. This is verified by summing gross weights of direct subcomponents and by adding up gross weights all parts."
 	validation validateWeightBudgetCoveragePercent()
    ]
@@ -91,7 +91,9 @@ verification methods Resolute [
 
 The method defines the formal parameters (other than the default first parameter) to be used in the call by a verification activity (in our example a real value). It then identifies the Resolute claim function by name.
 
-> Following Resolute conventions for Resolute prove statements claim functions do not have to be qualified by a Resolute library name. This means that all Resolute claim function definitions must be globally unique.
+> A Resolute claim or compute function is known by the following qualified name: &lt;package name&gt;.&lt;package name&gt;_public.Resolute.Resolute.&lt;function name&gt;. However, within Resolute users refer to a claim or compute function by just the name.
+
+>  By using 'control' 'shift' 'F3' you get the global scope browser to see all globally defined entities.
 
 The method specification in our example includes a **validation** call. The specified method is called to determine the validity of the verification result. Here we assess whether all components with a weight actually had a weight related property. 
 
