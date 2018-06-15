@@ -34,6 +34,7 @@ import org.osate.assure.assure.VerificationActivityResult
 import org.osate.result.Diagnostic
 
 import static extension org.osate.assure.util.AssureUtilExtension.*
+import org.osate.result.DiagnosticType
 
 /**
  * Provides labels for a EObjects.
@@ -84,7 +85,7 @@ class AssureLabelProvider extends DefaultEObjectLabelProvider {
 	}
 	
 	def text(Diagnostic ele) {
-		return "Issue "+(ele.sourceReference?.constructLabel?:"")+ ele.constructMessage
+		return ele.type.getName().toLowerCase.toFirstUpper+": "+(ele.sourceReference?.constructLabel?:"")+ ele.constructMessage
 	}
 	
 	def text(ElseResult ele) {
