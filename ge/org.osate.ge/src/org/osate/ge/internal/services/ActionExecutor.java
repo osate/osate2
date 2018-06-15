@@ -9,6 +9,7 @@ public interface ActionExecutor {
 		NORMAL,
 		// The execution of the event should be treated as part of the previous action. Append to previous. If there isn't a previous. Hide.
 		APPEND_ELSE_HIDE,
+		HIDE,
 	}
 
 	/**
@@ -16,7 +17,7 @@ public interface ActionExecutor {
 	 * @param label
 	 * @param mode
 	 * @param action
-	 * @return true if the executed actions specified a reverse action.
+	 * @return true if a reversable modification was performed.
 	 */
 	boolean execute(String label, ExecutionMode mode, AgeAction action);
 }

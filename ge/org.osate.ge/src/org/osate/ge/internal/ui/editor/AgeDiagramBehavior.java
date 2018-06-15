@@ -969,29 +969,33 @@ public class AgeDiagramBehavior extends DiagramBehavior implements GraphitiAgeDi
 		final AgeFeatureProvider fp = (AgeFeatureProvider) dtp.getFeatureProvider();
 
 		// Update the diagram to finish initializing the diagram's fields before creating the GraphitiAgeDiagram object
-		ageDiagram.modify("Update Diagram", m -> {
-			// Check the diagram's context
-			final DiagramContextChecker contextChecker = new DiagramContextChecker(project,
-					dtp.getProjectReferenceService(), dtp.getSystemInstanceLoader());
-			final boolean workbenchIsVisible = isWorkbenchVisible();
-			final DiagramContextChecker.Result result = contextChecker.checkContextFullBuild(ageDiagram, workbenchIsVisible);
+		final ActionService actionService = getActionService();
+		actionService.execute("Update on Load", ExecutionMode.HIDE, () -> {
+			ageDiagram.modify("Update Diagram", m -> {
+				// Check the diagram's context
+				final DiagramContextChecker contextChecker = new DiagramContextChecker(project,
+						dtp.getProjectReferenceService(), dtp.getSystemInstanceLoader());
+				final boolean workbenchIsVisible = isWorkbenchVisible();
+				final DiagramContextChecker.Result result = contextChecker.checkContextFullBuild(ageDiagram, workbenchIsVisible);
 
-			if (!result.isContextValid()) {
-				// If the workbench is not visible, then close the diagram to avoid an error which could have been avoided by relinking since
-				// we only prompts to relink if the workbench is visible.
-				if (!workbenchIsVisible) {
-					closeDiagramContainer();
+				if (!result.isContextValid()) {
+					// If the workbench is not visible, then close the diagram to avoid an error which could have been avoided by relinking since
+					// we only prompts to relink if the workbench is visible.
+					if (!workbenchIsVisible) {
+						closeDiagramContainer();
+					}
+
+					final String refContextLabel = dtp.getProjectReferenceService()
+							.getLabel(ageDiagram.getConfiguration().getContextBoReference(), project);
+
+					throw new InitializationException("Unable to resolve context: "
+							+ (refContextLabel == null ? ageDiagram.getConfiguration().getContextBoReference().toString()
+									: refContextLabel));
 				}
 
-				final String refContextLabel = dtp.getProjectReferenceService()
-						.getLabel(ageDiagram.getConfiguration().getContextBoReference(), project);
-
-				throw new InitializationException("Unable to resolve context: "
-						+ (refContextLabel == null ? ageDiagram.getConfiguration().getContextBoReference().toString()
-								: refContextLabel));
-			}
-
-			fp.getDiagramUpdater().updateDiagram(ageDiagram);
+				fp.getDiagramUpdater().updateDiagram(ageDiagram);
+			});
+			return null;
 		});
 
 		// Set the coloring service field. It is needed
@@ -1003,7 +1007,6 @@ public class AgeDiagramBehavior extends DiagramBehavior implements GraphitiAgeDi
 			}
 		};
 
-		final ActionService actionService = getActionService();
 		actionService.addChangeListener(actionStackChangeListener);
 
 		actionExecutor = (label, mode, action) -> {

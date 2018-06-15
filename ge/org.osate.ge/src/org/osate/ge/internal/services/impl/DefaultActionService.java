@@ -287,28 +287,32 @@ public class DefaultActionService implements ActionService {
 			} finally {
 				// If the action group has reversible actions, add it to the action stack even if other actions threw an exception.
 				if (currentActionGroup.undoActions.size() > 0) {
-					// Hide append actions if there isn't an action to which to append.
-					boolean hide = mode == ExecutionMode.APPEND_ELSE_HIDE && undoStack.size() == 0;
-					if (!hide) {
-						switch (mode) {
-						case NORMAL:
-							// Remove all actions that could be redone
-							redoStack.clear();
-
-							// Add to undo stack
-							pushToStack(undoStack, currentActionGroup);
-							break;
-
-						case APPEND_ELSE_HIDE:
-							undoStack.peekFirst().undoActions.add(currentActionGroup);
-							break;
-
-						default:
-							throw new RuntimeException("Unexpected case: " + mode);
-						}
-
-						notifyChangeListeners();
+					// Switch to hide mode if appropriate.
+					if (mode == ExecutionMode.APPEND_ELSE_HIDE && undoStack.size() == 0) {
+						mode = ExecutionMode.HIDE;
 					}
+
+					switch (mode) {
+					case NORMAL:
+						// Remove all actions that could be redone
+						redoStack.clear();
+
+						// Add to undo stack
+						pushToStack(undoStack, currentActionGroup);
+						break;
+
+					case APPEND_ELSE_HIDE:
+						undoStack.peekFirst().undoActions.add(currentActionGroup);
+						break;
+
+					case HIDE:
+						break;
+
+					default:
+						throw new RuntimeException("Unexpected case: " + mode);
+					}
+
+					notifyChangeListeners();
 				}
 
 				currentActionGroup = null;
