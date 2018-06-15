@@ -76,7 +76,9 @@ import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.IPartListener;
 import org.eclipse.ui.ISelectionListener;
+import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.IWorkbenchPart;
+import org.eclipse.ui.IWorkbenchSite;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.internal.EditorSite;
 import org.eclipse.ui.part.EditorPart;
@@ -1027,7 +1029,8 @@ public class AgeDiagramBehavior extends DiagramBehavior implements GraphitiAgeDi
 
 			// If an action isn't running and the action is executing as normal, then activate the editor if the action is undoable.
 			// This will ensure that when the action is undone, the editor will be switched to the one in which the action was performed.
-			if (reverseActionWasSpecified && !actionService.isActionExecuting() && mode == ExecutionMode.NORMAL) {
+			if (isEditorActive() && reverseActionWasSpecified && !actionService.isActionExecuting()
+					&& mode == ExecutionMode.NORMAL) {
 				actionService.execute("Activate Editor", ExecutionMode.APPEND_ELSE_HIDE,
 						new ActivateAgeEditorAction(getDiagramEditor()));
 			}
@@ -1076,6 +1079,25 @@ public class AgeDiagramBehavior extends DiagramBehavior implements GraphitiAgeDi
 				});
 
 		return dtp;
+	}
+
+	private boolean isEditorActive() {
+		final AgeDiagramEditor editor = getDiagramEditor();
+		if(editor == null) {
+			return false;
+		}
+
+		final IWorkbenchSite site = editor.getSite();
+		if(site == null) {
+			return false;
+		}
+
+		final IWorkbenchPage page = site.getPage();
+		if(page == null) {
+			return false;
+		}
+
+		return page.getActiveEditor() == getDiagramEditor();
 	}
 
 	private void closeDiagramContainer() {
