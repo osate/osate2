@@ -183,8 +183,9 @@ class AssureConstructor implements IAssureConstructor {
 							getAllVerificationPlansForRequirements(incl.include as RequirementSet, reqs)
 						if (incl.local) {
 							for (vplan : plans) {
-								for (claim : vplan.claim.filter [cl|
-									cl.requirement?.componentCategory.matchingCategory(cc.category)]) {
+								for (claim : vplan.claim.filter [ cl |
+									cl.requirement?.componentCategory.matchingCategory(cc.category)
+								]) {
 									claim.generateAllClaimResult(cc, claimResultList)
 								}
 							}
@@ -218,7 +219,7 @@ class AssureConstructor implements IAssureConstructor {
 				}
 			}
 		}
-	// now process global plans and claims
+		// now process global plans and claims
 		for (vplan : globalPlans) {
 			for (claim : vplan.claim.filter[cl|cl.requirement?.componentCategory.matchingCategory(cc.category)]) {
 				claim.generateAllClaimResult(cc, claimResultList)
@@ -267,18 +268,25 @@ class AssureConstructor implements IAssureConstructor {
 		if (!whenHolds(claim, cc)) {
 			return
 		}
-		if (cc instanceof ComponentImplementation && claim.requirement.targetType === TargetType.CONNECTION) {
-			for (conn : (cc as ComponentImplementation).crossConnections) {
-				claim.generateClaimResult(claimResultlist, conn)
+		if (claim.requirement.targetType === TargetType.CONNECTION) {
+			if (cc instanceof ComponentImplementation) {
+				for (conn : (cc as ComponentImplementation).crossConnections) {
+					claim.generateClaimResult(claimResultlist, conn)
+				}
 			}
-		} else if (cc instanceof ComponentImplementation && claim.requirement.targetType === TargetType.FLOW) {
-			for (etef : (cc as ComponentImplementation).allEndToEndFlows) {
-				claim.generateClaimResult(claimResultlist, etef)
+			return
+		} else if (claim.requirement.targetType === TargetType.FLOW) {
+			if (cc instanceof ComponentImplementation) {
+				for (etef : (cc as ComponentImplementation).allEndToEndFlows) {
+					claim.generateClaimResult(claimResultlist, etef)
+				}
 			}
+			return
 		} else if (claim.requirement.targetType === TargetType.FEATURE) {
 			for (feature : cc.allFeatures) {
 				claim.generateClaimResult(claimResultlist, feature)
 			}
+			return
 		} else {
 			claim.generateClaimResult(claimResultlist)
 		}
@@ -306,10 +314,7 @@ class AssureConstructor implements IAssureConstructor {
 		// ------------//QualifiedClaimReference
 		claimResult.metrics = factory.createMetrics
 		claimResult.metrics.tbdCount = 0
-
-		if (!Aadl2Util.isNull(forTargetElement)) {
-			claimResult.modelElement = forTargetElement
-		}
+		claimResult.modelElement = forTargetElement
 
 		if (claim.subclaim !== null) {
 			for (subclaim : claim?.subclaim) {
@@ -326,19 +331,19 @@ class AssureConstructor implements IAssureConstructor {
 		}
 		val predicate = claim.requirement.predicate
 		if (predicate instanceof ValuePredicate) {
-			if (!containsComputeVariables(predicate)){
+			if (!containsComputeVariables(predicate)) {
 				claimResult.predicateResult = generatePredicateResult(claim)
 			}
 		}
 
 		claimResultlist.add(claimResult)
 	}
-	
-	def boolean containsComputeVariables(ValuePredicate predicate){
+
+	def boolean containsComputeVariables(ValuePredicate predicate) {
 		val varrefs = EcoreUtil2.getAllContentsOfType(predicate, AVariableReference)
-		for (varref: varrefs){
+		for (varref : varrefs) {
 			val vname = varref.variable?.name
-			if (varref.variable instanceof ComputeDeclaration){
+			if (varref.variable instanceof ComputeDeclaration) {
 				return true
 			}
 		}
