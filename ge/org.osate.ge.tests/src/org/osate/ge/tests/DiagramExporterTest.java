@@ -4,13 +4,13 @@ import static org.junit.Assert.assertTrue;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.concurrent.atomic.AtomicReference;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.widgets.Display;
 import org.junit.After;
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.osate.aadl2.AbstractType;
@@ -41,6 +41,7 @@ public class DiagramExporterTest {
 		editor.saveAndClose();
 
 		// Must run in an UI thread
+		final AtomicReference<RuntimeException> exception = new AtomicReference<>();
 		Display.getDefault().syncExec(() -> {
 			try {
 				final IFile diagramFile = (IFile) ResourcesPlugin.getWorkspace().getRoot()
@@ -50,8 +51,14 @@ public class DiagramExporterTest {
 				DiagramExporter.exportDiagramAsPng(diagramFile, tmpFile);
 				assertTrue(tmpFile.exists());
 			} catch (final IOException e) {
-				Assert.fail("Export diagram test IOException: " + e.getMessage());
+				exception.set(new RuntimeException(e));
+			} catch (final RuntimeException e) {
+				exception.set(e);
 			}
 		});
+
+		if (exception.get() != null) {
+			throw exception.get();
+		}
 	}
 }

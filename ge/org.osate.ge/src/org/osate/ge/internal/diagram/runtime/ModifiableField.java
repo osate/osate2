@@ -1,6 +1,6 @@
 package org.osate.ge.internal.diagram.runtime;
 
-public enum DiagramElementField {
+public enum ModifiableField {
 	ID,
 	MANUAL,
 	CONTENT_FILTERS,
@@ -13,5 +13,6 @@ public enum DiagramElementField {
 	STYLE,
 	BENDPOINTS,
 	CONNECTION_PRIMARY_LABEL_POSITION,
-	RELATIVE_REFERENCE
+	RELATIVE_REFERENCE, 
+	DIAGRAM_CONFIGURATION
 }
