@@ -1275,7 +1275,10 @@ class AssureUtilExtension {
 	def static String constructMessage(PredicateResult pr) {
 		val pred = AssureUtilExtension.getPredicate(pr)
 		if (pred instanceof ValuePredicate) {
-			return (pred.eResource as XtextResource).getSerializer().serialize(pred.xpression)
+			val predstring = try {(pred.eResource as XtextResource).getSerializer().serialize(pred.xpression)} catch (NullPointerException e){
+				"<none>"
+			}
+			return predstring
 		} else if (pred instanceof InformalPredicate) {
 			return pred.description
 		}
