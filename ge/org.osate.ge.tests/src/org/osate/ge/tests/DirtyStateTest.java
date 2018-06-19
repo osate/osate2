@@ -53,7 +53,6 @@ public class DirtyStateTest {
 			@Override
 			public boolean matches(final Object item) {
 				final MenuItem menuItem = (MenuItem) item;
-				System.err.println(menuItem.getText());
 				return menuItem.getText().startsWith("Undo");
 			}
 		}, false, 0).click();
@@ -64,7 +63,6 @@ public class DirtyStateTest {
 			@Override
 			public boolean matches(final Object item) {
 				final MenuItem menuItem = (MenuItem) item;
-				System.err.println(menuItem.getText());
 				return menuItem.getText().startsWith("Redo");
 			}
 		}, false, 0).click();
