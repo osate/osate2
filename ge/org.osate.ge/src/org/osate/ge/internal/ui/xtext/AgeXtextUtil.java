@@ -1,7 +1,10 @@
 package org.osate.ge.internal.ui.xtext;
 
+import java.util.Set;
 import java.util.concurrent.atomic.AtomicBoolean;
 
+import org.eclipse.emf.common.util.URI;
+import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.IPageListener;
 import org.eclipse.ui.IWindowListener;
@@ -89,7 +92,18 @@ public class AgeXtextUtil {
 	 */
 	public static IXtextDocument getDocumentByRootElement(final NamedElement element) {
 		ensureInitialized();
-		return openAadlResources.getDocument(element.getQualifiedName(), element.eResource());
+
+		final Resource elementResource = element.eResource();
+		if (elementResource == null) {
+			return null;
+		}
+
+		return getDocumentByRootElement(element.getQualifiedName(), elementResource.getURI());
+	}
+
+	public static IXtextDocument getDocumentByRootElement(final String elementQualifiedName, final URI resourceUri) {
+		ensureInitialized();
+		return openAadlResources.getDocument(elementQualifiedName, resourceUri);
 	}
 
 	public static void addModelListener(final XtextDocumentChangeListener listener) {
@@ -100,5 +114,9 @@ public class AgeXtextUtil {
 	public static void removeModelListener(final XtextDocumentChangeListener listener) {
 		ensureInitialized();
 		openAadlResources.removeModelListener(listener);
+	}
+
+	public static Set<IXtextDocument> getOpenXtextDocuments() {
+		return openAadlResources.getOpenXtextDocuments();
 	}
 }

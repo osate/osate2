@@ -1321,6 +1321,12 @@
           schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"
           sequence="M1+M2+V">
     </key>
+        <key
+          commandId="org.osate.ge.delete"
+          contextId="org.eclipse.ui.contexts.window"
+          schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"
+          sequence="DEL">
+    </key>
      <scheme
            id="org.osate.ge.key.bindings"
            parentId="org.eclipse.ui.defaultAcceleratorConfiguration"
