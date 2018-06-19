@@ -17,6 +17,7 @@ import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.handlers.HandlerUtil;
 import org.osate.ge.internal.diagram.runtime.DiagramElement;
 import org.osate.ge.internal.graphiti.diagram.GraphitiAgeDiagram;
+import org.osate.ge.internal.services.ActionExecutor.ExecutionMode;
 import org.osate.ge.internal.ui.editor.AgeDiagramEditor;
 
 public class DeleteHandler extends AbstractHandler {
@@ -83,6 +84,7 @@ public class DeleteHandler extends AbstractHandler {
 		}
 
 		final AgeDiagramEditor ageEditor = (AgeDiagramEditor) activeEditor;
+
 		final GraphitiAgeDiagram graphitiAgeDiagram = Objects.requireNonNull(ageEditor.getGraphitiAgeDiagram(),
 				"Unable to retrieve graphiti diagram");
 
@@ -114,13 +116,17 @@ public class DeleteHandler extends AbstractHandler {
 			firstEntry.getKey().getMultiDeleteInfo().setShowDialog(true);
 		}
 
-		for (final DeleteContext deleteContext : deleteContextToFeatureMap.keySet()) {
-			final IDeleteFeature deleteFeature = deleteContextToFeatureMap.get(deleteContext);
-			ageEditor.getDiagramBehavior().executeFeature(deleteFeature, deleteContext);
-			if (deleteContext.getMultiDeleteInfo() != null && deleteContext.getMultiDeleteInfo().isDeleteCanceled()) {
-				break;
+		ageEditor.getActionExecutor().execute("Delete", ExecutionMode.NORMAL, () -> {
+			for (final DeleteContext deleteContext : deleteContextToFeatureMap.keySet()) {
+				final IDeleteFeature deleteFeature = deleteContextToFeatureMap.get(deleteContext);
+				ageEditor.getDiagramBehavior().executeFeature(deleteFeature, deleteContext);
+				if (deleteContext.getMultiDeleteInfo() != null && deleteContext.getMultiDeleteInfo().isDeleteCanceled()) {
+					break;
+				}
 			}
-		}
+
+			return null;
+		});
 
 		return null;
 	}

@@ -10,7 +10,6 @@ import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.util.EcoreUtil;
-import org.eclipse.graphiti.features.ICustomUndoRedoFeature;
 import org.eclipse.graphiti.features.IDeleteFeature;
 import org.eclipse.graphiti.features.IFeatureProvider;
 import org.eclipse.graphiti.features.context.IContext;
@@ -36,7 +35,7 @@ import org.osate.ge.internal.util.AnnotationUtil;
 import org.osate.ge.services.ReferenceBuilderService;
 
 // IDeleteFeature implementation that delegates behavior to a business object handler
-public class BoHandlerDeleteFeature extends AbstractFeature implements IDeleteFeature, ICustomUndoRedoFeature {
+public class BoHandlerDeleteFeature extends AbstractFeature implements IDeleteFeature {
 	private final GraphitiService graphitiService;
 	private final ExtensionService extService;
 	private final AadlModificationService aadlModService;
@@ -216,32 +215,5 @@ public class BoHandlerDeleteFeature extends AbstractFeature implements IDeleteFe
 		}
 
 		return true;
-	}
-
-	// ICustomUndoRedoFeature
-	@Override
-	public boolean canUndo(final IContext context) {
-		return false;
-	}
-
-	@Override
-	public void preUndo(IContext context) {
-	}
-
-	@Override
-	public void postUndo(IContext context) {
-	}
-
-	@Override
-	public boolean canRedo(IContext context) {
-		return false;
-	}
-
-	@Override
-	public void preRedo(IContext context) {
-	}
-
-	@Override
-	public void postRedo(IContext context) {
 	}
 }
