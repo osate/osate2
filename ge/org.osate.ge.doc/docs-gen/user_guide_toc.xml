@@ -193,6 +193,8 @@
 		</topic>
 	</topic>
 	<topic label="Troubleshooting" href="docs-gen/user_guide.html#troubleshooting">
+		<topic label="Undo/Redo is Unavailable After Opening or Closing AADL Source Files" href="docs-gen/user_guide.html#undoredo-is-unavailable-after-opening-or-closing-aadl-source-files">
+		</topic>
 		<topic label="Build Automatically" href="docs-gen/user_guide.html#build-automatically">
 		</topic>
 		<topic label="Inconsistent Font Sizes Across Machines" href="docs-gen/user_guide.html#inconsistent-font-sizes-across-machines">

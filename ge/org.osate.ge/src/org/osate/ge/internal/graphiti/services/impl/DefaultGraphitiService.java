@@ -33,6 +33,7 @@ import org.osate.ge.internal.graphiti.diagram.LayoutUtil;
 import org.osate.ge.internal.graphiti.diagram.ShapeUtil;
 import org.osate.ge.internal.graphiti.graphics.AgeGraphitiGraphicsUtil;
 import org.osate.ge.internal.graphiti.services.GraphitiService;
+import org.osate.ge.internal.services.AgeAction;
 import org.osate.ge.internal.ui.editor.AgeDiagramBehavior;
 import org.osate.ge.internal.ui.editor.AgeDiagramEditor;
 
@@ -176,5 +177,10 @@ public class DefaultGraphitiService implements GraphitiService {
 		} else {
 			throw new RuntimeException("Unexpected pictogram element: " + pe);
 		}
+	}
+
+	@Override
+	public boolean execute(final String label, final ExecutionMode mode, final AgeAction action) {
+		return ((AgeDiagramBehavior) dtp.getDiagramBehavior()).getActionExecutor().execute(label, mode, action);
 	}
 }
