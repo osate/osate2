@@ -4,9 +4,7 @@ import java.util.Objects;
 
 import javax.inject.Inject;
 
-import org.eclipse.graphiti.features.ICustomUndoRedoFeature;
 import org.eclipse.graphiti.features.IFeatureProvider;
-import org.eclipse.graphiti.features.context.IContext;
 import org.eclipse.graphiti.features.context.IResizeShapeContext;
 import org.eclipse.graphiti.features.impl.DefaultResizeShapeFeature;
 import org.eclipse.graphiti.mm.algorithms.GraphicsAlgorithm;
@@ -23,7 +21,7 @@ import org.osate.ge.internal.graphiti.diagram.GraphitiAgeDiagram;
  * A resize shape feature that is used by default for the AADL Graphical Editor
  *
  */
-public class AgeResizeShapeFeature extends DefaultResizeShapeFeature implements ICustomUndoRedoFeature {
+public class AgeResizeShapeFeature extends DefaultResizeShapeFeature {
 	private final GraphitiAgeDiagramProvider graphitiAgeDiagramProvider;
 
 	@Inject
@@ -74,35 +72,6 @@ public class AgeResizeShapeFeature extends DefaultResizeShapeFeature implements 
 		graphitiAgeDiagram.modify("Resize Shape", m -> {
 			m.setPosition(diagramElement, new Point(context.getX(), context.getY()));
 			m.setSize(diagramElement, new Dimension(context.getWidth(), context.getHeight()));
-			AgeFeatureUtil.storeModificationInContext(context, m);
 		});
-	}
-
-	@Override
-	public boolean canUndo(final IContext context) {
-		return AgeFeatureUtil.canUndo(context);
-	}
-
-	@Override
-	public void preUndo(final IContext context) {
-	}
-
-	@Override
-	public void postUndo(final IContext context) {
-		AgeFeatureUtil.undoModification(graphitiAgeDiagramProvider.getGraphitiAgeDiagram(), context);
-	}
-
-	@Override
-	public boolean canRedo(final IContext context) {
-		return AgeFeatureUtil.canRedo(context);
-	}
-
-	@Override
-	public void preRedo(final IContext context) {
-	}
-
-	@Override
-	public void postRedo(final IContext context) {
-		AgeFeatureUtil.redoModification(graphitiAgeDiagramProvider.getGraphitiAgeDiagram(), context);
 	}
 }

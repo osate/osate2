@@ -623,6 +623,9 @@ Annex Libraries and Annex Libraries can be created by using the palette.
 # Troubleshooting
 The following section contains solutions to known issues as well as instructions for reporting problems with the graphical editor.
 
+## Undo/Redo is Unavailable After Opening or Closing AADL Source Files
+After opening or closing AADL source files, the undo and redo commands in the graphical editor are disabled. To workaround, either open the AADL source files before making changes or undo or redo operations as necessary before opening AADL source files.
+
 ## Build Automatically
 *Project->Build Automattically* must be enabled.  If it is not enabled, the graphical editor will not function properly.
 
