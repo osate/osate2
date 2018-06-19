@@ -96,6 +96,7 @@ import org.osate.ge.internal.graphiti.features.BoHandlerDirectEditFeature;
 import org.osate.ge.internal.graphiti.features.UpdateDiagramFeature;
 import org.osate.ge.internal.graphiti.services.GraphitiService;
 import org.osate.ge.internal.services.AadlModificationService;
+import org.osate.ge.internal.services.ActionService;
 import org.osate.ge.internal.services.ExtensionService;
 import org.osate.ge.internal.services.ProjectReferenceService;
 import org.osate.ge.internal.services.ReferenceService;
@@ -107,6 +108,7 @@ public class AgeFeatureProvider extends DefaultFeatureProvider {
 	private ReferenceService referenceService;
 	private ExtensionService extService;
 	private AadlModificationService aadlModService;
+	private ActionService actionService;
 	private GraphitiService graphitiService;
 	private ProjectReferenceService referenceResolver;
 	private BoHandlerDeleteFeature defaultDeleteFeature;
@@ -133,6 +135,8 @@ public class AgeFeatureProvider extends DefaultFeatureProvider {
 				"unable to retrieve reference service service");
 		this.extService = Objects.requireNonNull(eclipseContext.get(ExtensionService.class), "unable to retrieve extension service");
 		this.aadlModService = Objects.requireNonNull(eclipseContext.get(AadlModificationService.class), "unable to retrieve AADL modification service");
+		this.actionService = Objects.requireNonNull(eclipseContext.get(ActionService.class),
+				"unable to retrieve action service");
 		this.graphitiService = Objects.requireNonNull(eclipseContext.get(GraphitiService.class), "unablet to retrieve Graphiti service");
 		this.referenceResolver = Objects.requireNonNull(eclipseContext.get(ProjectReferenceService.class), "unable to retrieve internal reference resolution service");
 
@@ -149,14 +153,17 @@ public class AgeFeatureProvider extends DefaultFeatureProvider {
 		// Create the refresh diagram feature
 		final DefaultBusinessObjectNodeFactory nodeFactory = new DefaultBusinessObjectNodeFactory(referenceResolver);
 		final QueryService queryService = Objects.requireNonNull(eclipseContext.get(QueryService.class), "unable to retrieve query service");
+		final ActionService actionService = Objects.requireNonNull(eclipseContext.get(ActionService.class),
+				"unable to retrieve action service");
 		boTreeExpander = new DefaultTreeUpdater(graphitiService, extService, referenceResolver,
 				queryService, nodeFactory);
 		deInfoProvider = new DefaultDiagramElementGraphicalConfigurationProvider(referenceResolver, extService);
-		diagramUpdater = new DiagramUpdater(boTreeExpander, deInfoProvider);
+		diagramUpdater = new DiagramUpdater(boTreeExpander, deInfoProvider, actionService);
 		final SystemInstanceLoadingService systemInstanceLoader = Objects.requireNonNull(
 				eclipseContext.get(SystemInstanceLoadingService.class),
 				"unable to retrieve system instance loading service");
-		this.updateDiagramFeature = new UpdateDiagramFeature(this, graphitiService, diagramUpdater, graphitiService,
+		this.updateDiagramFeature = new UpdateDiagramFeature(this, actionService, graphitiService, diagramUpdater,
+				graphitiService,
 				referenceResolver, systemInstanceLoader);
 	}
 
@@ -299,7 +306,8 @@ public class AgeFeatureProvider extends DefaultFeatureProvider {
 					for(final PaletteEntry entry : extPaletteEntries) {
 						final SimplePaletteEntry simpleEntry = (SimplePaletteEntry)entry;
 						if(simpleEntry .getType() == SimplePaletteEntry.Type.CREATE) {
-							features.add(new BoHandlerCreateFeature(graphitiService, extService, aadlModService, diagramUpdater, referenceResolver, this, simpleEntry, boHandler));
+							features.add(new BoHandlerCreateFeature(graphitiService, extService,
+									aadlModService, diagramUpdater, referenceResolver, this, simpleEntry, boHandler));
 						}
 					}
 				}

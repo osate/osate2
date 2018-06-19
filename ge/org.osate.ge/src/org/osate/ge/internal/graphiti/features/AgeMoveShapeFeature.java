@@ -4,9 +4,7 @@ import java.util.Objects;
 
 import javax.inject.Inject;
 
-import org.eclipse.graphiti.features.ICustomUndoRedoFeature;
 import org.eclipse.graphiti.features.IFeatureProvider;
-import org.eclipse.graphiti.features.context.IContext;
 import org.eclipse.graphiti.features.context.IMoveShapeContext;
 import org.eclipse.graphiti.features.impl.AbstractMoveShapeFeature;
 import org.eclipse.graphiti.mm.algorithms.GraphicsAlgorithm;
@@ -20,9 +18,9 @@ import org.osate.ge.internal.graphiti.GraphitiAgeDiagramProvider;
 import org.osate.ge.internal.graphiti.diagram.GraphitiAgeDiagram;
 import org.osate.ge.internal.graphiti.graphics.AgeGraphitiGraphicsUtil;
 
-public class AgeMoveShapeFeature extends AbstractMoveShapeFeature implements ICustomUndoRedoFeature {
+public class AgeMoveShapeFeature extends AbstractMoveShapeFeature {
 	private final GraphitiAgeDiagramProvider graphitiAgeDiagramProvider;
-	
+
 	@Inject
 	public AgeMoveShapeFeature(
 			final GraphitiAgeDiagramProvider graphitiAgeDiagramProvider,
@@ -30,14 +28,14 @@ public class AgeMoveShapeFeature extends AbstractMoveShapeFeature implements ICu
 		super(fp);
 		this.graphitiAgeDiagramProvider = Objects.requireNonNull(graphitiAgeDiagramProvider, "graphitiAgeDiagramProvider must not be null");
 	}
-	
+
 	@Override
 	public boolean canMoveShape(final IMoveShapeContext ctx) {
 		// Don't allow changing the container
 		if(ctx.getSourceContainer() == null || ctx.getSourceContainer() != ctx.getTargetContainer()) {
 			return false;
 		}
-		
+
 		final DiagramElement element = graphitiAgeDiagramProvider.getGraphitiAgeDiagram().getDiagramElement(ctx.getShape());
 		if(element == null) {
 			return false;
@@ -46,17 +44,17 @@ public class AgeMoveShapeFeature extends AbstractMoveShapeFeature implements ICu
 		if(!(element.getGraphic() instanceof AgeShape)) {
 			return false;
 		}
-		
+
 		if(!DiagramElementPredicates.isMoveable(element)) {
 			return false;
 		}
-		
+
 		final Shape container = ctx.getShape().getContainer();
 		if(!(container instanceof Diagram)) {
 			if(container != null) {
 				if(element.getDockArea() == null) {
 					final GraphicsAlgorithm containerInnerGa = AgeGraphitiGraphicsUtil.getInnerGraphicsAlgorithm(container.getGraphicsAlgorithm());
-					if(ctx.getX() < containerInnerGa.getX() || 
+					if(ctx.getX() < containerInnerGa.getX() ||
 							ctx.getY() < containerInnerGa.getY() ||
 							ctx.getX() >= containerInnerGa.getX() + containerInnerGa.getWidth() ||
 							ctx.getY() >= containerInnerGa.getY() + containerInnerGa.getHeight()) {
@@ -65,10 +63,10 @@ public class AgeMoveShapeFeature extends AbstractMoveShapeFeature implements ICu
 				}
 			}
 		}
-		
+
 		return true;
 	}
-	
+
 	@Override
 	public void moveShape(final IMoveShapeContext context) {
 		final GraphitiAgeDiagram graphitiAgeDiagram = graphitiAgeDiagramProvider.getGraphitiAgeDiagram();
@@ -76,35 +74,6 @@ public class AgeMoveShapeFeature extends AbstractMoveShapeFeature implements ICu
 		final DiagramElement diagramElement = graphitiAgeDiagram.getDiagramElement(context.getShape());
 		graphitiAgeDiagram.modify("Move Shape", m -> {
 			m.setPosition(diagramElement, new Point(context.getX(), context.getY()));
-			AgeFeatureUtil.storeModificationInContext(context, m);
-		});	
-	}
-	
-	@Override
-	public boolean canUndo(final IContext context) {
-		return AgeFeatureUtil.canUndo(context);
-	}
-	
-	@Override
-	public void preUndo(final IContext context) {
-	}
-
-	@Override
-	public void postUndo(final IContext context) {
-		AgeFeatureUtil.undoModification(graphitiAgeDiagramProvider.getGraphitiAgeDiagram(), context);
-	}
-
-	@Override
-	public boolean canRedo(final IContext context) {
-		return AgeFeatureUtil.canRedo(context);
-	}
-
-	@Override
-	public void preRedo(final IContext context) {
-	}
-
-	@Override
-	public void postRedo(final IContext context) {
-		AgeFeatureUtil.redoModification(graphitiAgeDiagramProvider.getGraphitiAgeDiagram(), context);
+		});
 	}
 }

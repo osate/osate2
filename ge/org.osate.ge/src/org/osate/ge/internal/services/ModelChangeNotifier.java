@@ -12,7 +12,11 @@ public interface ModelChangeNotifier {
 		// The change may represent a change in the "live" version of the resource and not the saved version of the resource.
 		default void resourceChanged(URI resourceUri) {
 		}
-		default void modelChanged() {} // Called to notify listeners that change has occurred.
+
+		// Called to notify listeners that change has occurred.
+		default void modelChanged(boolean modelWasLocked) {
+		}
+
 		default void afterModelChangeNotification() {} // A notification that occurs after model change notifications. Used by editor to refresh after other listeners have handled things accordingly.
 	}
 
