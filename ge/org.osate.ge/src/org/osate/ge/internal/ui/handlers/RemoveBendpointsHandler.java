@@ -25,7 +25,7 @@ public class RemoveBendpointsHandler extends AbstractHandler {
 
 		diagram.modify("Remove Bendpoints", m -> {
 			for (final DiagramElement de : selectedDiagramElements) {
-				if (DiagramElementPredicates.isConnection(de) && de.isBendpointsSet()) {
+				if (DiagramElementPredicates.isConnection(de)) {
 					m.setBendpoints(de, Collections.emptyList());
 				}
 			}
@@ -42,7 +42,7 @@ public class RemoveBendpointsHandler extends AbstractHandler {
 			enabled = false;
 		} else {
 			enabled = SelectionUtil.getSelectedDiagramElements(window.getActivePage().getSelection()).stream()
-					.anyMatch(de -> DiagramElementPredicates.isConnection(de) && de.isBendpointsSet());
+					.anyMatch(DiagramElementPredicates::isConnection);
 		}
 
 		setBaseEnabled(enabled);

@@ -192,6 +192,10 @@
             id="org.osate.ge.goToImplementationDiagram"
             name="Go to Implementation Diagram">
       </command>
+      <command
+            id="org.osate.ge.selectAllConnections"
+            name="Select All Connections">
+      </command>
    </extension>
  <extension
        point="org.eclipse.ui.handlers">
@@ -481,6 +485,10 @@
     <handler
           class="org.osate.ge.internal.ui.handlers.GoToImplementationDiagramHandler"
           commandId="org.osate.ge.goToImplementationDiagram">
+    </handler>
+    <handler
+          class="org.osate.ge.internal.ui.handlers.SelectAllConnectionsHandler"
+          commandId="org.osate.ge.selectAllConnections">
     </handler>
  </extension>
        
@@ -1034,6 +1042,16 @@
  <menuContribution
        allPopups="false"
        locationURI="menu:edit?after=selectAll">
+    <command
+         commandId="org.osate.ge.selectAllConnections"
+         style="push">
+        <visibleWhen
+             checkEnabled="false">
+          <reference
+                definitionId="org.osate.ge.expressions.editorIsActive">
+          </reference>
+       </visibleWhen>
+    </command>
     <menu
           label="Layout">
        <command
@@ -1152,6 +1170,12 @@
              commandId="org.osate.ge.removeBendpoints"
              style="push">
        </command>
+       <visibleWhen
+             checkEnabled="false">
+          <reference
+                definitionId="org.osate.ge.expressions.editorIsActive">
+          </reference>
+       </visibleWhen>
     </menu>
  </menuContribution>
    </extension>
