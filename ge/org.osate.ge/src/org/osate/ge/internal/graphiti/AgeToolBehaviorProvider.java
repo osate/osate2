@@ -29,16 +29,25 @@ ARISING FROM, OUT OF OR IN CONNECTION WITH THE DATA OR THE USE OR OTHER DEALINGS
  *******************************************************************************/
 package org.osate.ge.internal.graphiti;
 
+import java.lang.ref.WeakReference;
 import java.util.ArrayList;
+import java.util.Deque;
 import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Objects;
+import java.util.function.Consumer;
 
 import javax.inject.Inject;
 
 import org.eclipse.e4.core.contexts.IEclipseContext;
+import org.eclipse.emf.common.command.AbstractCommand;
+import org.eclipse.emf.transaction.TransactionalEditingDomain;
+import org.eclipse.graphiti.IExecutionInfo;
 import org.eclipse.graphiti.features.ICreateConnectionFeature;
 import org.eclipse.graphiti.features.ICreateFeature;
 import org.eclipse.graphiti.features.IFeature;
+import org.eclipse.graphiti.features.IFeatureAndContext;
 import org.eclipse.graphiti.features.IFeatureProvider;
 import org.eclipse.graphiti.features.context.IDoubleClickContext;
 import org.eclipse.graphiti.features.context.IPictogramElementContext;
@@ -52,24 +61,33 @@ import org.eclipse.graphiti.palette.IToolEntry;
 import org.eclipse.graphiti.palette.impl.ConnectionCreationToolEntry;
 import org.eclipse.graphiti.palette.impl.ObjectCreationToolEntry;
 import org.eclipse.graphiti.palette.impl.PaletteCompartmentEntry;
+import org.eclipse.graphiti.platform.IDiagramBehavior;
 import org.eclipse.graphiti.tb.DefaultToolBehaviorProvider;
 import org.eclipse.graphiti.tb.IContextButtonPadData;
 import org.osate.aadl2.Generalization;
 import org.osate.ge.internal.Categorized;
 import org.osate.ge.internal.graphiti.features.AgeDoubleClickFeature;
 import org.osate.ge.internal.graphiti.services.GraphitiService;
+import org.osate.ge.internal.services.ActionExecutor.ExecutionMode;
+import org.osate.ge.internal.services.ActionService;
+import org.osate.ge.internal.services.ActionService.ActionGroup;
 import org.osate.ge.internal.services.ExtensionRegistryService.Category;
 import org.osate.ge.internal.services.ExtensionService;
+import org.osate.ge.internal.ui.editor.AgeDiagramBehavior;
 
 public class AgeToolBehaviorProvider extends DefaultToolBehaviorProvider {
 	private final IEclipseContext context;
 	private final ExtensionService extensionService;
+	private final ActionService actionService;
 	private final AgeDoubleClickFeature defaultDoubleClickFeature;
+	private final Deque<ActionGroup> actionGroupStack = new LinkedList<>();
 
 	@Inject
-	public AgeToolBehaviorProvider(final GraphitiService graphiti, final ExtensionService extensionService, final IEclipseContext context) {
+	public AgeToolBehaviorProvider(final GraphitiService graphiti, final ExtensionService extensionService,
+			final ActionService actionService, final IEclipseContext context) {
 		super(graphiti.getDiagramTypeProvider());
 		this.extensionService = extensionService;
+		this.actionService = Objects.requireNonNull(actionService, "actionService must not be null");
 		this.context = context;
 		this.defaultDoubleClickFeature = new AgeDoubleClickFeature(getFeatureProvider());
 	}
@@ -262,4 +280,102 @@ public class AgeToolBehaviorProvider extends DefaultToolBehaviorProvider {
 
 		return ga;
 	}
+
+	private static class Wrapper implements Consumer<Runnable> {
+		private final WeakReference<TransactionalEditingDomain> weakEditingDomain;
+
+		public Wrapper(final TransactionalEditingDomain editingDomain) {
+			weakEditingDomain = new WeakReference<>(editingDomain);
+		}
+
+		@Override
+		public void accept(final Runnable runnable) {
+			final TransactionalEditingDomain editingDomain = weakEditingDomain.get();
+			if (editingDomain == null) {
+				runnable.run();
+			} else {
+				editingDomain.getCommandStack().execute(new AbstractCommand() {
+					@Override
+					protected boolean prepare() {
+						return true;
+					}
+
+					@Override
+					public void execute() {
+						runnable.run();
+					}
+
+					@Override
+					public boolean canUndo() {
+						return false;
+					}
+
+					@Override
+					public void redo() {
+					}
+				});
+				editingDomain.getCommandStack().flush();
+			}
+		}
+
+	};
+
+	@Override
+	public void preExecute(final IExecutionInfo executionInfo) {
+		// Determine label for group of actions
+		// Only use the wrapper if there is more than one feature executing. If there is only one feature then the wrapper isn't needed.
+		// This is a workaround for an issue which causes the update feature to appear in the action stack. The wrapper
+		// group created below always executes as using the NORMAL operation mode.
+		if (executionInfo.getExecutionList().length > 1) {
+			String label = null;
+			for (final IFeatureAndContext o : executionInfo.getExecutionList()) {
+				final String newLabel = o.getFeature().getName();
+				if (label == null) {
+					label = newLabel;
+				} else if (!Objects.equals(label, newLabel)) {
+					label = null;
+					break;
+				}
+			}
+
+			if (label == null) {
+				label = "Diagram Modification";
+			}
+
+			// Start executing the group
+			final ActionGroup group = actionService.beginExecuteGroup(label, ExecutionMode.NORMAL);
+			actionGroupStack.push(group);
+
+			if (actionGroupStack.size() == 1) {
+				// TODO: Type/null checks
+				final IDiagramBehavior behavior = getDiagramTypeProvider()
+						.getDiagramBehavior();
+				if (behavior instanceof AgeDiagramBehavior) {
+					final AgeDiagramBehavior ageDiagramBehavior = (AgeDiagramBehavior) behavior;
+					final TransactionalEditingDomain editingDomain = ageDiagramBehavior.getEditingDomain();
+					if (editingDomain != null) {
+						final Wrapper wrapper = new Wrapper(editingDomain);
+						actionService.addUndoWrapper(wrapper);
+					}
+				}
+			}
+		} else {
+			actionGroupStack.push(null);
+		}
+
+
+		super.preExecute(executionInfo);
+	}
+
+	@Override
+	public void postExecute(final IExecutionInfo executionInfo) {
+		// Stop executing the group
+		final ActionGroup group = actionGroupStack.pop();
+		if (group != null) {
+			actionService.endExecuteGroup(group);
+		}
+
+		super.postExecute(executionInfo);
+	}
+
 }

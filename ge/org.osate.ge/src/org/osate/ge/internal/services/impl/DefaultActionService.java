@@ -1,11 +1,15 @@
 package org.osate.ge.internal.services.impl;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.Set;
+import java.util.concurrent.atomic.AtomicReference;
+import java.util.function.Consumer;
 import java.util.stream.Collectors;
 
 import org.eclipse.e4.core.contexts.IEclipseContext;
@@ -71,19 +75,23 @@ public class DefaultActionService implements ActionService {
 
 	}
 
-	private class ActionGroup implements AgeAction {
+	private class DefaultActionGroup implements AgeAction, ActionGroup {
 		private final String label;
-
+		private final ExecutionMode mode;
+		private final Set<Consumer<Runnable>> undoWrappers; // Consumers which will wrap the execution of the undo actions
 		// Undo actions are the actions needed to undo the original action. Must be in the order
 		// they were originally performed. An action group can be used for redoing as well. In that case, redo is treated as undoing the undo.
 		private final List<AgeAction> undoActions;
 
-		public ActionGroup(final String label) {
-			this(label, new ArrayList<>());
+		public DefaultActionGroup(final String label, final ExecutionMode mode) {
+			this(label, mode, new HashSet<>(), new ArrayList<>());
 		}
 
-		public ActionGroup(final String label, List<AgeAction> actions) {
+		public DefaultActionGroup(final String label, final ExecutionMode mode, final Set<Consumer<Runnable>> wrappers,
+				List<AgeAction> actions) {
 			this.label = Objects.requireNonNull(label, "label must not be null");
+			this.mode = Objects.requireNonNull(mode, "must not be null null");
+			this.undoWrappers = Objects.requireNonNull(wrappers, "wrappers must not be null");
 			this.undoActions = Objects.requireNonNull(actions, "actions must not be null");
 		}
 
@@ -97,13 +105,24 @@ public class DefaultActionService implements ActionService {
 		}
 
 		@Override
-		public ActionGroup execute() {
-			// Perform the actions in opposite order to undo
-			final List<AgeAction> newUndoActions = Lists.reverse(undoActions).stream().sequential().map(AgeAction::execute)
-					.filter(Objects::nonNull)
-					.collect(Collectors.toCollection(ArrayList::new));
+		public DefaultActionGroup execute() {
+			return execute(undoWrappers.iterator());
+		}
 
-			return newUndoActions.size() == 0 ? null : new ActionGroup(label, newUndoActions);
+		private DefaultActionGroup execute(final Iterator<Consumer<Runnable>> it) {
+			if(it.hasNext()) {
+				final AtomicReference<DefaultActionGroup> result = new AtomicReference<>();
+				final Consumer<Runnable> wrapper = it.next();
+				wrapper.accept(() -> result.set(execute(it)));
+				return result.get();
+			} else {
+				// Perform the actions in opposite order to undo
+				final List<AgeAction> newUndoActions = Lists.reverse(undoActions).stream().sequential()
+						.map(AgeAction::execute).filter(Objects::nonNull)
+						.collect(Collectors.toCollection(ArrayList::new));
+
+				return newUndoActions.size() == 0 ? null : new DefaultActionGroup(label, mode, undoWrappers, newUndoActions);
+			}
 		}
 
 		@Override
@@ -113,9 +132,9 @@ public class DefaultActionService implements ActionService {
 	}
 
 	private List<ActionStackChangeListener> changeListeners = new ArrayList<>();
-	private ActionGroup currentActionGroup; // Action group that is currently being built.
-	private LinkedList<ActionGroup> undoStack = new LinkedList<>();
-	private LinkedList<ActionGroup> redoStack = new LinkedList<>();
+	private DefaultActionGroup currentActionGroup; // Action group that is currently being built.
+	private LinkedList<DefaultActionGroup> undoStack = new LinkedList<>();
+	private LinkedList<DefaultActionGroup> redoStack = new LinkedList<>();
 
 	// Flag which indicates that an undo or redo is currently being performed.
 	private boolean inUndoOrRedo = false;
@@ -141,13 +160,12 @@ public class DefaultActionService implements ActionService {
 
 	@Override
 	public synchronized String getUndoLabel() {
-		return getUndoActionGroup().map(ActionGroup::getLabel).orElse("");
+		return getUndoActionGroup().map(DefaultActionGroup::getLabel).orElse("");
 	}
-
 
 	@Override
 	public synchronized boolean canUndo() {
-		return getUndoActionGroup().map(ActionGroup::canExecute).orElse(false);
+		return getUndoActionGroup().map(DefaultActionGroup::canExecute).orElse(false);
 	}
 
 	@Override
@@ -158,8 +176,8 @@ public class DefaultActionService implements ActionService {
 
 		try {
 			inUndoOrRedo = true;
-			final ActionGroup undoAction = undoStack.pop();
-			final ActionGroup redoAction = undoAction.execute();
+			final DefaultActionGroup undoAction = undoStack.pop();
+			final DefaultActionGroup redoAction = undoAction.execute();
 
 			if (redoAction != null) {
 				pushToStack(redoStack, redoAction);
@@ -171,7 +189,7 @@ public class DefaultActionService implements ActionService {
 		}
 	}
 
-	private Optional<ActionGroup> getUndoActionGroup() {
+	private Optional<DefaultActionGroup> getUndoActionGroup() {
 		return undoStack.isEmpty() ? Optional.empty() : Optional.of(undoStack.peekFirst());
 	}
 
@@ -180,12 +198,12 @@ public class DefaultActionService implements ActionService {
 	//
 	@Override
 	public synchronized String getRedoLabel() {
-		return getRedoActionGroup().map(ActionGroup::getLabel).orElse("");
+		return getRedoActionGroup().map(DefaultActionGroup::getLabel).orElse("");
 	}
 
 	@Override
 	public synchronized boolean canRedo() {
-		return getRedoActionGroup().map(ActionGroup::canExecute).orElse(false);
+		return getRedoActionGroup().map(DefaultActionGroup::canExecute).orElse(false);
 	}
 
 	@Override
@@ -196,8 +214,8 @@ public class DefaultActionService implements ActionService {
 
 		try {
 			inUndoOrRedo = true;
-			final ActionGroup redoAction = redoStack.pop();
-			final ActionGroup undoAction = redoAction.execute();
+			final DefaultActionGroup redoAction = redoStack.pop();
+			final DefaultActionGroup undoAction = redoAction.execute();
 
 			if (undoAction != null) {
 				pushToStack(undoStack, undoAction);
@@ -209,7 +227,7 @@ public class DefaultActionService implements ActionService {
 		}
 	}
 
-	private Optional<ActionGroup> getRedoActionGroup() {
+	private Optional<DefaultActionGroup> getRedoActionGroup() {
 		return redoStack.isEmpty() ? Optional.empty() : Optional.of(redoStack.peekFirst());
 	}
 
@@ -220,8 +238,8 @@ public class DefaultActionService implements ActionService {
 		notifyChangeListeners();
 	}
 
-	private static void removeInvalidActions(final LinkedList<ActionGroup> stack) {
-		final Iterator<ActionGroup> it = stack.iterator();
+	private static void removeInvalidActions(final LinkedList<DefaultActionGroup> stack) {
+		final Iterator<DefaultActionGroup> it = stack.iterator();
 		while (it.hasNext()) {
 			if (!it.next().isValid()) {
 				it.remove();
@@ -245,14 +263,21 @@ public class DefaultActionService implements ActionService {
 	//
 	// ActionExecutor
 	//
-
 	@Override
 	public synchronized boolean execute(final String label, final ExecutionMode mode, final AgeAction action) {
 		if (inUndoOrRedo) {
 			return action.execute() != null;
 		} else {
 			if (currentActionGroup == null) {
-				return executeGroup(label, mode, () -> execute(label, mode, action));
+				final ActionGroup actionGroup = beginExecuteGroup(label, mode);
+
+				try {
+					// Run the runnable that is expected to call the executor to perform additional actions.
+					execute(label, mode, action);
+					return currentActionGroup.undoActions.size() > 0;
+				} finally {
+					endExecuteGroup(actionGroup);
+				}
 			} else {
 				final AgeAction reverseAction = action.execute();
 
@@ -266,58 +291,66 @@ public class DefaultActionService implements ActionService {
 		}
 	}
 
-	/**
-	 * Executes a group of actions.
-	 * @param label
-	 * @param mode
-	 * @param runnable
-	 * @return
-	 */
-	private boolean executeGroup(final String label, ExecutionMode mode, final Runnable runnable) {
-		if (inUndoOrRedo) {
-			runnable.run();
-			return false;
+	@Override
+	public synchronized ActionGroup beginExecuteGroup(final String label, ExecutionMode mode) {
+		if (currentActionGroup == null) {
+			currentActionGroup = new DefaultActionGroup(label, mode);
+			return currentActionGroup;
 		} else {
-			currentActionGroup = new ActionGroup(label);
-			try {
-				// Run the runnable that is expected to call the executor to perform additional actions.
-				runnable.run();
+			return null;
+		}
+	}
 
-				return currentActionGroup.undoActions.size() > 0;
-			} finally {
-				// If the action group has reversible actions, add it to the action stack even if other actions threw an exception.
-				if (currentActionGroup.undoActions.size() > 0) {
-					// Switch to hide mode if appropriate.
-					if (mode == ExecutionMode.APPEND_ELSE_HIDE && undoStack.size() == 0) {
-						mode = ExecutionMode.HIDE;
-					}
+	@Override
+	public synchronized boolean endExecuteGroup(final ActionGroup actionGroup) {
+		if (actionGroup != currentActionGroup) {
+			return false;
+		}
 
-					switch (mode) {
-					case NORMAL:
-						// Remove all actions that could be redone
-						redoStack.clear();
+		try {
+			return currentActionGroup.undoActions.size() > 0;
+		} finally {
+			// If the action group has reversible actions, add it to the action stack even if other actions threw an exception.
+			if (currentActionGroup.undoActions.size() > 0) {
+				ExecutionMode mode = currentActionGroup.mode;
 
-						// Add to undo stack
-						pushToStack(undoStack, currentActionGroup);
-						break;
-
-					case APPEND_ELSE_HIDE:
-						undoStack.peekFirst().undoActions.add(currentActionGroup);
-						break;
-
-					case HIDE:
-						break;
-
-					default:
-						throw new RuntimeException("Unexpected case: " + mode);
-					}
-
-					notifyChangeListeners();
+				// Switch to hide mode if appropriate.
+				if (mode == ExecutionMode.APPEND_ELSE_HIDE && undoStack.size() == 0) {
+					mode = ExecutionMode.HIDE;
 				}
 
-				currentActionGroup = null;
+				switch (mode) {
+				case NORMAL:
+					// Remove all actions that could be redone
+					redoStack.clear();
+
+					// Add to undo stack
+					pushToStack(undoStack, currentActionGroup);
+					break;
+
+				case APPEND_ELSE_HIDE:
+					undoStack.peekFirst().undoActions.add(currentActionGroup);
+					break;
+
+				case HIDE:
+					break;
+
+				default:
+					throw new RuntimeException("Unexpected case: " + mode);
+				}
+
+				notifyChangeListeners();
 			}
+
+			currentActionGroup = null;
 		}
+
+	}
+
+	@Override
+	public void addUndoWrapper(final Consumer<Runnable> wrapper) {
+		Objects.requireNonNull(currentActionGroup, "not execution an action group");
+		currentActionGroup.undoWrappers.add(wrapper);
 	}
 
 	private void notifyChangeListeners() {
@@ -326,7 +359,7 @@ public class DefaultActionService implements ActionService {
 		}
 	}
 
-	private static void pushToStack(final LinkedList<ActionGroup> stack, final ActionGroup actionGroup) {
+	private static void pushToStack(final LinkedList<DefaultActionGroup> stack, final DefaultActionGroup actionGroup) {
 		if (stack.size() == maxActionGroupsPerStack) {
 			stack.removeLast();
 		}
