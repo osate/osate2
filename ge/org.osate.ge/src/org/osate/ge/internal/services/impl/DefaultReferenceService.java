@@ -109,7 +109,7 @@ public class DefaultReferenceService implements ReferenceService {
 
 	private ModelChangeNotifier.ChangeListener modelChangeListener = new ModelChangeNotifier.ChangeListener() {
 		@Override
-		public void modelChanged() {
+		public void modelChanged(final boolean modelWasLocked) {
 			// Notify project reference services of the model change
 			for(final ProjectReferenceServiceReference ref : projectToProjectReferenceService.values()) {
 				final DefaultProjectReferenceService projectReferenceService = ref.get();
