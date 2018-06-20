@@ -115,6 +115,11 @@
             name="Layout Contents">
       </command>
       <command
+            categoryId="org.osate.ge.commands.categories.layout"
+            id="org.osate.ge.removeBendpoints"
+            name="Remove Bendpoints">
+      </command>
+      <command
             id="org.osate.ge.restoreMissingDiagramElements"
             name="Restore Missing Diagram Elements...">
       </command>
@@ -404,6 +409,10 @@
                 definitionId="org.osate.ge.expressions.editorIsActive">
           </reference>
        </enabledWhen>
+    </handler>
+    <handler
+          class="org.osate.ge.internal.ui.handlers.RemoveBendpointsHandler"
+          commandId="org.osate.ge.removeBendpoints">
     </handler>
     <handler
           class="org.osate.ge.internal.ui.handlers.RestoreMissingDiagramElementsHandler"
@@ -890,6 +899,14 @@
              icon="./icons/gef/matchsize.gif"
              style="push">
        </command>
+       <separator
+             name="org.osate.ge.separator20"
+             visible="true">
+       </separator>
+       <command
+             commandId="org.osate.ge.removeBendpoints"
+             style="push">
+       </command>
     </menu>
     <separator
           name="org.osate.ge.separator13"
@@ -1125,6 +1142,14 @@
              commandId="org.osate.ge.commands.matchSize"
              disabledIcon="./icons/gef/matchsize_d.gif"
              icon="./icons/gef/matchsize.gif"
+             style="push">
+       </command>
+       <separator
+             name="org.osate.ge.separator21"
+             visible="true">
+       </separator>
+       <command
+             commandId="org.osate.ge.removeBendpoints"
              style="push">
        </command>
     </menu>
