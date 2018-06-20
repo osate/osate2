@@ -349,7 +349,7 @@ public class DefaultActionService implements ActionService {
 
 	@Override
 	public void addUndoWrapper(final Consumer<Runnable> wrapper) {
-		Objects.requireNonNull(currentActionGroup, "not execution an action group");
+		Objects.requireNonNull(currentActionGroup, "An active action group is required");
 		currentActionGroup.undoWrappers.add(wrapper);
 	}
 
