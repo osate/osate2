@@ -359,11 +359,6 @@
     <handler
           class="org.osate.ge.internal.ui.handlers.AlignTopHandler"
           commandId="org.osate.ge.commands.alignTop">
-       <enabledWhen>
-          <reference
-                definitionId="org.osate.ge.expressions.undockedMoveableShapesWithSameParent">
-          </reference>
-       </enabledWhen>
     </handler>
     <handler
           class="org.osate.ge.internal.ui.handlers.AlignMiddleHandler"
@@ -2128,9 +2123,9 @@
                <count
                      value="(2-">
                </count>
-               <!--<test
+               <test
                      property="org.osate.ge.allAreDiagramElementsWithSameParent">
-               </test>-->
+               </test>
                <iterate
                      operator="and">
                   <adapt
@@ -2138,9 +2133,9 @@
                      <test
                            property="org.osate.ge.isMoveable">
                      </test>
-                     <!--<test
+                     <test
                            property="org.osate.ge.isUndocked">
-                     </test>-->
+                     </test>
                   </adapt>
                </iterate>
             </and>
