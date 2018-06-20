@@ -116,9 +116,8 @@
 <li><a href="#build-automatically"><span class="toc-section-number">4.2</span> Build Automatically</a></li>
 <li><a href="#inconsistent-font-sizes-across-machines"><span class="toc-section-number">4.3</span> Inconsistent Font Sizes Across Machines</a></li>
 <li><a href="#unable-to-set-properties-unless-text-model-is-open"><span class="toc-section-number">4.4</span> Unable to Set Properties Unless Text Model is Open</a></li>
-<li><a href="#updating-the-diagram"><span class="toc-section-number">4.5</span> Updating the Diagram</a></li>
-<li><a href="#missing-diagram-elements-after-modification-of-aadl-source"><span class="toc-section-number">4.6</span> Missing Diagram Elements After Modification of AADL Source</a></li>
-<li><a href="#reporting-issues"><span class="toc-section-number">4.7</span> Reporting Issues</a></li>
+<li><a href="#missing-diagram-elements-after-modification-of-aadl-source"><span class="toc-section-number">4.5</span> Missing Diagram Elements After Modification of AADL Source</a></li>
+<li><a href="#reporting-issues"><span class="toc-section-number">4.6</span> Reporting Issues</a></li>
 </ul></li>
 <li><a href="#notices"><span class="toc-section-number">5</span> Notices</a></li>
 </ul>
@@ -839,7 +838,7 @@
 <h2 id="undoredo-is-unavailable-after-opening-or-closing-aadl-source-files"><span class="header-section-number">4.1</span> Undo/Redo is Unavailable After Opening or Closing AADL Source Files</h2>
 <p>After opening or closing AADL source files, the undo and redo commands in the graphical editor are disabled. To workaround, either open the AADL source files before making changes or undo or redo operations as necessary before opening AADL source files.</p>
 <h2 id="build-automatically"><span class="header-section-number">4.2</span> Build Automatically</h2>
-<p><em>Project-&gt;Build Automattically</em> must be enabled. If it is not enabled, the graphical editor will not function properly.</p>
+<p><em>Project-&gt;Build Automatically</em> must be enabled. If it is not enabled, the graphical editor will not function properly.</p>
 <figure>
 <img src="../images/BuildAutomatically.png" />
 </figure>
@@ -847,12 +846,10 @@
 <p>To ensure diagrams have a consistent appearance across machines, the graphical editor attempts to produce consistent text sizes regardless of system settings. However, due to limitations in the underlying libraries on which the graphical editor relies, this is not always possible. On windows systems, the graphical editor produces consistent font sizes at 100%, 125%, and 200% system text scaling levels.</p>
 <h2 id="unable-to-set-properties-unless-text-model-is-open"><span class="header-section-number">4.4</span> Unable to Set Properties Unless Text Model is Open</h2>
 <p>The AADL Property Values view does not support editing property associations unless the textual AADL model is open. To work around this issue, open the textual AADL file before attempting to create property assignments with the AADL Properties Values view.</p>
-<h2 id="updating-the-diagram"><span class="header-section-number">4.5</span> Updating the Diagram</h2>
-<p>In most cases the graphical editor will automatically update diagrams to reflect changes to the AADL Model. If a diagram has not been updated for any reason, it can be updated manually by right-clicking inside the diagram and selecting <em>Update Diagram</em> from the context menu.</p>
-<h2 id="missing-diagram-elements-after-modification-of-aadl-source"><span class="header-section-number">4.6</span> Missing Diagram Elements After Modification of AADL Source</h2>
+<h2 id="missing-diagram-elements-after-modification-of-aadl-source"><span class="header-section-number">4.5</span> Missing Diagram Elements After Modification of AADL Source</h2>
 <p>See section <a href="#sec:restore_missing_diagram_elements">3.1.17</a>.</p>
-<h2 id="reporting-issues"><span class="header-section-number">4.7</span> Reporting Issues</h2>
-<p>Issues should be reported using the <a href="https://github.com/osate/osate2-core/issues" target="_blank">OSATE Issue Tracker</a>.</p>
+<h2 id="reporting-issues"><span class="header-section-number">4.6</span> Reporting Issues</h2>
+<p>Issues should be reported using the <a href="https://github.com/osate/osate2/issues" target="_blank">OSATE Issue Tracker</a>.</p>
 <h1 id="notices"><span class="header-section-number">5</span> Notices</h1>
 <p>Development of portions of the OSATE Graphical Editor was sponsored by the Government of the United States under Contract Number FA8702-15-D-0002.</p>
 <p>The view, opinions, and/or filings contained in this material are those of the author(s) and should not be construed as an official position, policy, or decision of the Government of the United States or Carnegie Mellon University or the Software Engineering Institute, unless designated by other documentation.</p>
