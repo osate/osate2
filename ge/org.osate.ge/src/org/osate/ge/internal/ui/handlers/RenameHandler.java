@@ -42,7 +42,7 @@ public class RenameHandler extends AbstractHandler {
 		}
 
 		final List<DiagramElement> selectedDiagramElements = AgeHandlerUtil
-				.getSelectedDiagramElementsFromContext(evaluationContext);
+				.getDiagramElementsFromCurrentSelection();
 		if (selectedDiagramElements.size() != 1) {
 			return false;
 		}

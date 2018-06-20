@@ -21,7 +21,7 @@ public class GoToImplementationDiagramHandler extends AbstractHandler {
 	public void setEnabled(final Object evaluationContext) {
 		boolean enabled = false;
 		final List<DiagramElement> selectedDiagramElements = AgeHandlerUtil
-				.getSelectedDiagramElementsFromContext(evaluationContext);
+				.getDiagramElementsFromCurrentSelection();
 		if (selectedDiagramElements.size() == 1) {
 			enabled = getComponentImplementation(selectedDiagramElements.get(0).getBusinessObject()) != null;
 		}

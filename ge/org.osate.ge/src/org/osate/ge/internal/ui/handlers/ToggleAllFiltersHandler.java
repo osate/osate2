@@ -84,7 +84,7 @@ public class ToggleAllFiltersHandler extends AbstractHandler implements IElement
 
 	@Override
 	public void setEnabled(final Object evaluationContext) {
-		setBaseEnabled(AgeHandlerUtil.getSelectedDiagramElementsFromContext(evaluationContext).size() > 0);
+		setBaseEnabled(AgeHandlerUtil.getDiagramElementsFromCurrentSelection().size() > 0);
 	}
 
 	@Override

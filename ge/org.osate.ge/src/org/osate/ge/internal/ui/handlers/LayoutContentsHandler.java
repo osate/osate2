@@ -30,7 +30,7 @@ public class LayoutContentsHandler extends AbstractHandler {
 
 	@Override
 	public void setEnabled(final Object evaluationContext) {
-		setBaseEnabled(AgeHandlerUtil.getSelectedDiagramElementsFromContext(evaluationContext).stream()
+		setBaseEnabled(AgeHandlerUtil.getDiagramElementsFromCurrentSelection().stream()
 				.filter(DiagramElementPredicates::isShape).count() > 0);
 	}
 }

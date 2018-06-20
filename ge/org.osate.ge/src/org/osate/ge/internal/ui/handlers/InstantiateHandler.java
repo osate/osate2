@@ -17,7 +17,7 @@ public class InstantiateHandler extends AbstractHandler {
 	public void setEnabled(final Object evaluationContext) {
 		boolean enabled = false;
 		final List<DiagramElement> selectedDiagramElements = AgeHandlerUtil
-				.getSelectedDiagramElementsFromContext(evaluationContext);
+				.getDiagramElementsFromCurrentSelection();
 		if (selectedDiagramElements.size() == 1) {
 			final Object selectedBo = selectedDiagramElements.get(0).getBusinessObject();
 			enabled = selectedBo instanceof ComponentImplementation;

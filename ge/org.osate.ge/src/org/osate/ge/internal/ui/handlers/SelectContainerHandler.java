@@ -18,7 +18,7 @@ public class SelectContainerHandler extends AbstractHandler {
 	@Override
 	public void setEnabled(final Object evaluationContext) {
 		final List<DiagramElement> selectedDiagramElements = AgeHandlerUtil
-				.getSelectedDiagramElementsFromContext(evaluationContext);
+				.getDiagramElementsFromCurrentSelection();
 		final boolean enabled = selectedDiagramElements.size() == 1
 				&& selectedDiagramElements.get(0).getParent() != null;
 		setBaseEnabled(enabled);

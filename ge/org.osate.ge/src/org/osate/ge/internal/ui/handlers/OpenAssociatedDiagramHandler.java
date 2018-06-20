@@ -23,7 +23,7 @@ public class OpenAssociatedDiagramHandler extends AbstractHandler {
 	public void setEnabled(final Object evaluationContext) {
 		boolean enabled = false;
 		final List<DiagramElement> selectedDiagramElements = AgeHandlerUtil
-				.getSelectedDiagramElementsFromContext(evaluationContext);
+				.getDiagramElementsFromCurrentSelection();
 		if (selectedDiagramElements.size() == 1) {
 			final DiagramElement selectedElement = selectedDiagramElements.get(0);
 			final Object bo = selectedElement.getBusinessObject();

@@ -40,7 +40,7 @@ public class DeleteHandler extends AbstractHandler {
 		}
 
 		final List<DiagramElement> selectedDiagramElements = AgeHandlerUtil
-				.getSelectedDiagramElementsFromContext(evaluationContext);
+				.getDiagramElementsFromCurrentSelection();
 		if (selectedDiagramElements.size() == 0) {
 			return false;
 		}

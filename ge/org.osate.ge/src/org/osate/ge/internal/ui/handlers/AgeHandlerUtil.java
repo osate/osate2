@@ -9,16 +9,18 @@ import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.ISources;
+import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.handlers.HandlerUtil;
 import org.osate.ge.internal.diagram.runtime.DiagramElement;
 import org.osate.ge.internal.services.UiService;
 import org.osate.ge.internal.ui.util.SelectionUtil;
+import org.osate.ge.internal.ui.util.UiUtil;
 
 class AgeHandlerUtil {
 	// Returns the current selection as diagram elements.
 	// If one or more of the selected objects cannot be adapted to DiagramElement then an empty list is returned.
 	public static List<DiagramElement> getSelectedDiagramElements(final ExecutionEvent event) {
-		final ISelection selection = HandlerUtil.getCurrentSelection(event);
+		final ISelection selection = getCurrentSelection();
 		return SelectionUtil.getSelectedDiagramElements(selection);
 	}
 
@@ -40,23 +42,18 @@ class AgeHandlerUtil {
 		uiService.activateTool(tool);
 	}
 
-	public static List<DiagramElement> getSelectedDiagramElementsFromContext(final Object evaluationContext) {
-		final ISelection selection = getSelectionFromContext(evaluationContext);
+	public static List<DiagramElement> getDiagramElementsFromCurrentSelection() {
+		final ISelection selection = getCurrentSelection();
 		return SelectionUtil.getSelectedDiagramElements(selection);
 	}
 
-	public static ISelection getSelectionFromContext(final Object evaluationContext) {
-		if (!(evaluationContext instanceof IEvaluationContext)) {
+	public static ISelection getCurrentSelection() {
+		final IWorkbenchWindow win = UiUtil.getActiveWorkbenchWindow();
+		if (win == null) {
 			return StructuredSelection.EMPTY;
 		}
 
-		final IEvaluationContext context = (IEvaluationContext) evaluationContext;
-		final Object selectionObj = context.getVariable(ISources.ACTIVE_CURRENT_SELECTION_NAME);
-		if (!(selectionObj instanceof ISelection)) {
-			return StructuredSelection.EMPTY;
-		}
-
-		return (ISelection) selectionObj;
+		return win.getSelectionService().getSelection();
 	}
 
 	public static IEditorPart getActiveEditorFromContext(final Object evaluationContext) {
