@@ -346,8 +346,8 @@ public class AgeToolBehaviorProvider extends DefaultToolBehaviorProvider {
 			final ActionGroup group = actionService.beginExecuteGroup(label, ExecutionMode.NORMAL);
 			actionGroupStack.push(group);
 
+			// Add wrapper if this is a stop level action group.
 			if (actionGroupStack.size() == 1) {
-				// TODO: Type/null checks
 				final IDiagramBehavior behavior = getDiagramTypeProvider()
 						.getDiagramBehavior();
 				if (behavior instanceof AgeDiagramBehavior) {
