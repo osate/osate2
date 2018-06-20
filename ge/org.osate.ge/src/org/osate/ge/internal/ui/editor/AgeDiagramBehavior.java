@@ -80,6 +80,7 @@ import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.IWorkbenchPart;
 import org.eclipse.ui.IWorkbenchSite;
 import org.eclipse.ui.PlatformUI;
+import org.eclipse.ui.contexts.IContextService;
 import org.eclipse.ui.internal.EditorSite;
 import org.eclipse.ui.part.EditorPart;
 import org.eclipse.ui.views.contentoutline.ContentOutline;
@@ -405,6 +406,12 @@ public class AgeDiagramBehavior extends DiagramBehavior implements GraphitiAgeDi
 
 			// Deactivate the tool when the part is deactivated or closed
 			editor.getSite().getWorkbenchWindow().getPartService().addPartListener(toolPartListener);
+
+			// Activate Context
+			final IContextService contextService = editor.getSite().getService(IContextService.class);
+			if (contextService != null) {
+				contextService.activateContext("org.osate.ge.context");
+			}
 		}
 	}
 
