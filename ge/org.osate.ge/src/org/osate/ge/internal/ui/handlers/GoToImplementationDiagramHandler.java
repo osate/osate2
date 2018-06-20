@@ -21,7 +21,7 @@ public class GoToImplementationDiagramHandler extends AbstractHandler {
 	public void setEnabled(final Object evaluationContext) {
 		boolean enabled = false;
 		final List<DiagramElement> selectedDiagramElements = AgeHandlerUtil
-				.getDiagramElementsFromCurrentSelection();
+				.getSelectedDiagramElements();
 		if (selectedDiagramElements.size() == 1) {
 			enabled = getComponentImplementation(selectedDiagramElements.get(0).getBusinessObject()) != null;
 		}
@@ -37,7 +37,7 @@ public class GoToImplementationDiagramHandler extends AbstractHandler {
 		}
 
 		// Get diagram and selected elements
-		final List<DiagramElement> selectedDiagramElements = AgeHandlerUtil.getSelectedDiagramElements(event);
+		final List<DiagramElement> selectedDiagramElements = AgeHandlerUtil.getSelectedDiagramElements();
 		if (selectedDiagramElements.size() == 0) {
 			throw new RuntimeException("No element selected");
 		}

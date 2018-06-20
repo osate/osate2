@@ -19,7 +19,7 @@ import org.osate.ge.internal.ui.util.UiUtil;
 class AgeHandlerUtil {
 	// Returns the current selection as diagram elements.
 	// If one or more of the selected objects cannot be adapted to DiagramElement then an empty list is returned.
-	public static List<DiagramElement> getSelectedDiagramElements(final ExecutionEvent event) {
+	public static List<DiagramElement> getSelectedDiagramElements() {
 		final ISelection selection = getCurrentSelection();
 		return SelectionUtil.getSelectedDiagramElements(selection);
 	}
@@ -40,11 +40,6 @@ class AgeHandlerUtil {
 		}
 
 		uiService.activateTool(tool);
-	}
-
-	public static List<DiagramElement> getDiagramElementsFromCurrentSelection() {
-		final ISelection selection = getCurrentSelection();
-		return SelectionUtil.getSelectedDiagramElements(selection);
 	}
 
 	public static ISelection getCurrentSelection() {

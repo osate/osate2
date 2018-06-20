@@ -18,7 +18,7 @@ public class SelectContainerHandler extends AbstractHandler {
 	@Override
 	public void setEnabled(final Object evaluationContext) {
 		final List<DiagramElement> selectedDiagramElements = AgeHandlerUtil
-				.getDiagramElementsFromCurrentSelection();
+				.getSelectedDiagramElements();
 		final boolean enabled = selectedDiagramElements.size() == 1
 				&& selectedDiagramElements.get(0).getParent() != null;
 		setBaseEnabled(enabled);
@@ -34,7 +34,7 @@ public class SelectContainerHandler extends AbstractHandler {
 		final AgeDiagramEditor ageEditor = (AgeDiagramEditor) activeEditor;
 
 		// Get diagram and selected elements
-		final List<DiagramElement> selectedDiagramElements = AgeHandlerUtil.getSelectedDiagramElements(event);
+		final List<DiagramElement> selectedDiagramElements = AgeHandlerUtil.getSelectedDiagramElements();
 		if (selectedDiagramElements.size() == 0) {
 			throw new RuntimeException("No element selected");
 		}

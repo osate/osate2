@@ -42,7 +42,7 @@ public class HideAllContentsHandler extends AbstractHandler {
 		final AgeDiagramEditor diagramEditor = (AgeDiagramEditor) activeEditor;
 		final AgeFeatureProvider featureProvider = (AgeFeatureProvider) diagramEditor.getDiagramTypeProvider()
 				.getFeatureProvider();
-		final List<DiagramElement> selectedDiagramElements = AgeHandlerUtil.getSelectedDiagramElements(event);
+		final List<DiagramElement> selectedDiagramElements = AgeHandlerUtil.getSelectedDiagramElements();
 		final AgeDiagram diagram = UiUtil.getDiagram(selectedDiagramElements);
 		if (diagram == null) {
 			throw new RuntimeException("Unable to get diagram");
@@ -65,7 +65,7 @@ public class HideAllContentsHandler extends AbstractHandler {
 
 	@Override
 	public void setEnabled(final Object evaluationContext) {
-		setBaseEnabled(AgeHandlerUtil.getDiagramElementsFromCurrentSelection().size() > 0);
+		setBaseEnabled(AgeHandlerUtil.getSelectedDiagramElements().size() > 0);
 	}
 
 	private void setDescendantsAsAutomatic(final DiagramModification m, final DiagramElement e) {

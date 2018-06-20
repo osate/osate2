@@ -22,7 +22,7 @@ public class GoToAadlSourceHandler extends AbstractHandler {
 	public void setEnabled(final Object evaluationContext) {
 		boolean enabled = false;
 		final List<DiagramElement> selectedDiagramElements = AgeHandlerUtil
-				.getDiagramElementsFromCurrentSelection();
+				.getSelectedDiagramElements();
 		if (selectedDiagramElements.size() == 1) {
 			final Object selectedBo = selectedDiagramElements.get(0).getBusinessObject();
 			final EObject boEObj = getEObject(selectedBo);
@@ -48,7 +48,7 @@ public class GoToAadlSourceHandler extends AbstractHandler {
 		}
 
 		// Get diagram and selected elements
-		final List<DiagramElement> selectedDiagramElements = AgeHandlerUtil.getSelectedDiagramElements(event);
+		final List<DiagramElement> selectedDiagramElements = AgeHandlerUtil.getSelectedDiagramElements();
 		if(selectedDiagramElements.size() == 0) {
 			throw new RuntimeException("No element selected");
 		}

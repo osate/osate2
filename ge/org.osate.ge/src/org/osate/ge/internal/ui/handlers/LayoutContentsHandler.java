@@ -22,7 +22,7 @@ public class LayoutContentsHandler extends AbstractHandler {
 	public Object execute(final ExecutionEvent event) throws ExecutionException {
 		final IEditorPart editorPart = Objects.requireNonNull(HandlerUtil.getActiveEditor(event),
 				"unable to retrieve active editor");
-		final List<DiagramElement> selectedDiagramElements = AgeHandlerUtil.getSelectedDiagramElements(event);
+		final List<DiagramElement> selectedDiagramElements = AgeHandlerUtil.getSelectedDiagramElements();
 		DiagramElementLayoutUtil.layout("Layout Contents", editorPart, selectedDiagramElements,
 				LayoutOptions.createFromPreferences());
 		return null;
@@ -30,7 +30,7 @@ public class LayoutContentsHandler extends AbstractHandler {
 
 	@Override
 	public void setEnabled(final Object evaluationContext) {
-		setBaseEnabled(AgeHandlerUtil.getDiagramElementsFromCurrentSelection().stream()
+		setBaseEnabled(AgeHandlerUtil.getSelectedDiagramElements().stream()
 				.filter(DiagramElementPredicates::isShape).count() > 0);
 	}
 }
