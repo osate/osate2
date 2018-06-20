@@ -43,6 +43,7 @@ import static extension org.osate.aadl2.modelsupport.util.AadlUtil.isPredeclared
 /**
  * Add a couple of utility methods for managing files in the test workspace
  */
+ @Deprecated
 abstract class OsateTest extends XtextTest {
 	@Inject
 	IScopeProvider scopeProvider
@@ -198,16 +199,28 @@ abstract class OsateTest extends XtextTest {
 		}
 	}
 
+	/**
+	 * @deprecated Use {@link AssertHelper#assertError()}
+	 */
+	@Deprecated
 	def protected static assertError(EObject eObject, List<Issue> allIssues, FluentIssueCollection issueCollection,
 		String... expectedMessages) {
 		assertIssue(eObject, allIssues, issueCollection, Severity.ERROR, expectedMessages)
 	}
 
+	/**
+	 * @deprecated Use {@link AssertHelper#assertWarning()}
+	 */
+	@Deprecated
 	def protected static assertWarning(EObject eObject, List<Issue> allIssues, FluentIssueCollection issueCollection,
 		String... expectedMessages) {
 		assertIssue(eObject, allIssues, issueCollection, Severity.WARNING, expectedMessages)
 	}
 
+	/**
+	 * @deprecated Use {@link AssertHelper#assertIssue()}
+	 */
+	@Deprecated
 	def protected static assertIssue(EObject eObject, List<Issue> allIssues, FluentIssueCollection issueCollection,
 		Severity severity, String... expectedMessages) {
 		val issuesForEObject = allIssues.filter[it.severity == severity && uriToProblem == eObject.URI]
@@ -218,14 +231,23 @@ abstract class OsateTest extends XtextTest {
 		issuesForEObject.forEach[issueCollection.addIssue(it)]
 	}
 
+	/**
+	 * @deprecated Use {@link AssertHelper#assertScope()}
+	 */
+	@Deprecated
 	def protected assertScope(EObject context, EReference reference, Iterable<String> expected) {
 		assertScope(scopeProvider, context, reference, expected)
 	}
 
+	/**
+	 * @deprecated Use {@link AssertHelper#assertSerializerScope()}
+	 */
+	@Deprecated
 	def protected assertSerializerScope(EObject context, EReference reference, Iterable<String> expected) {
 		assertScope(serializerScopeProvider, context, reference, expected)
 	}
 
+	@Deprecated
 	def private assertScope(
 		IScopeProvider scopeProvider,
 		EObject context,
@@ -248,6 +270,10 @@ abstract class OsateTest extends XtextTest {
 	 * 
 	 * Example: "id" < "ps::id" < "Memory_Properties::Heap_Size"
 	 */
+	/**
+	 * @deprecated Use {@link AssertHelper#CUSTOM_NAME_COMPARATOR}
+	 */
+	@Deprecated
 	val static CUSTOM_NAME_COMPARATOR = new Comparator<String>() {
 		override compare(String o1, String o2) {
 			val o1SeparatorIndex = o1.indexOf("::")
