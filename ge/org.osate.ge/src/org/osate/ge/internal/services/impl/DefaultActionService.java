@@ -90,7 +90,7 @@ public class DefaultActionService implements ActionService {
 		public DefaultActionGroup(final String label, final ExecutionMode mode, final Set<Consumer<Runnable>> wrappers,
 				List<AgeAction> actions) {
 			this.label = Objects.requireNonNull(label, "label must not be null");
-			this.mode = Objects.requireNonNull(mode, "must not be null null");
+			this.mode = Objects.requireNonNull(mode, "mode must not be null");
 			this.undoWrappers = Objects.requireNonNull(wrappers, "wrappers must not be null");
 			this.undoActions = Objects.requireNonNull(actions, "actions must not be null");
 		}
