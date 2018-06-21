@@ -1307,10 +1307,18 @@
 </extension>
 
  <extension
+	point="org.eclipse.ui.contexts">
+	<context
+		name="OSATE Graphical Editor"
+		id="org.osate.ge.context"
+		parentId="org.eclipse.ui.contexts.window">
+	</context>
+ </extension>
+ <extension
        point="org.eclipse.ui.bindings">
     <key
           commandId="org.osate.ge.goToAadlSource"
-          contextId="org.eclipse.ui.contexts.window"
+          contextId="org.osate.ge.context"
           schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"
           sequence="M1+M2+V">
     </key>
@@ -1322,16 +1330,10 @@
     </key>
         <key
           commandId="org.osate.ge.delete"
-          contextId="org.eclipse.ui.contexts.window"
+          contextId="org.osate.ge.context"
           schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"
           sequence="DEL">
     </key>
-     <scheme
-           id="org.osate.ge.key.bindings"
-           parentId="org.eclipse.ui.defaultAcceleratorConfiguration"
-           description="Osate Key Bindings"
-           name="OsateKeyBindings">
-     </scheme>
   </extension>
   
 <extension point="org.eclipse.ui.views.properties.tabbed.propertyContributor">
