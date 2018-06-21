@@ -91,7 +91,6 @@ import org.osate.ge.internal.graphiti.features.AgeRemoveBendpointFeature;
 import org.osate.ge.internal.graphiti.features.AgeResizeShapeFeature;
 import org.osate.ge.internal.graphiti.features.BoHandlerCreateConnectionFeature;
 import org.osate.ge.internal.graphiti.features.BoHandlerCreateFeature;
-import org.osate.ge.internal.graphiti.features.BoHandlerDeleteFeature;
 import org.osate.ge.internal.graphiti.features.BoHandlerDirectEditFeature;
 import org.osate.ge.internal.graphiti.features.UpdateDiagramFeature;
 import org.osate.ge.internal.graphiti.services.GraphitiService;
@@ -110,7 +109,6 @@ public class AgeFeatureProvider extends DefaultFeatureProvider {
 	private AadlModificationService aadlModService;
 	private GraphitiService graphitiService;
 	private ProjectReferenceService referenceResolver;
-	private BoHandlerDeleteFeature defaultDeleteFeature;
 	private BoHandlerDirectEditFeature defaultDirectEditFeature;
 	private AgeMoveShapeFeature defaultMoveShapeFeature;
 	private AgeResizeShapeFeature defaultResizeShapeFeature;
@@ -138,7 +136,6 @@ public class AgeFeatureProvider extends DefaultFeatureProvider {
 		this.referenceResolver = Objects.requireNonNull(eclipseContext.get(ProjectReferenceService.class), "unable to retrieve internal reference resolution service");
 
 		// Create the feature to use for pictograms which do not have a specialized feature. Delegates to business object handlers.
-		defaultDeleteFeature = make(BoHandlerDeleteFeature.class);
 		defaultDirectEditFeature = make(BoHandlerDirectEditFeature.class);
 		defaultMoveShapeFeature = make(AgeMoveShapeFeature.class);
 		defaultResizeShapeFeature = make(AgeResizeShapeFeature.class);
@@ -278,7 +275,7 @@ public class AgeFeatureProvider extends DefaultFeatureProvider {
 
 	@Override
 	public IDeleteFeature getDeleteFeature(final IDeleteContext context) {
-		return defaultDeleteFeature;
+		return null;
 	}
 
 	// Don't allow reconnection
