@@ -70,8 +70,7 @@ public class DeleteHandler extends AbstractHandler {
 				(ExtensionService) ageEditor.getAdapter(ExtensionService.class),
 				"Unable to retrieve extension service");
 
-		final List<DiagramElement> selectedDiagramElements = AgeHandlerUtil
-				.getSelectedDiagramElements();
+		final List<DiagramElement> selectedDiagramElements = AgeHandlerUtil.getSelectedDiagramElements();
 
 		return canExecute(selectedDiagramElements, extensionService);
 	}
@@ -176,8 +175,7 @@ public class DeleteHandler extends AbstractHandler {
 				}
 
 				deleteRaw(selectedDiagramElements.get(0), extensionService);
-			}
-			else if (anyIsInAnnex(selectedDiagramElements)) {
+			} else if (anyIsInAnnex(selectedDiagramElements)) {
 				if (selectedDiagramElements.size() != 1) {
 					throw new RuntimeException(
 							"Deleting multiple elements when deleting an element inside of an annex is not supported");
@@ -197,8 +195,7 @@ public class DeleteHandler extends AbstractHandler {
 				// This ensures that the appropriate element is retrieved regardless of the order in the model or the URI scheme.
 				final ListMultimap<Resource, BusinessObjectRemoval> removals = ArrayListMultimap.create();
 				for (final DiagramElement de : selectedDiagramElements) {
-					final BusinessObjectRemoval removal = createBusinessObjectRemoval(de,
-							extensionService);
+					final BusinessObjectRemoval removal = createBusinessObjectRemoval(de, extensionService);
 					removals.put(removal.staleBoToModify.eResource(), removal);
 				}
 
@@ -215,9 +212,10 @@ public class DeleteHandler extends AbstractHandler {
 								// could change in between removals and an incorrect element will be removed.
 								for (final BusinessObjectRemoval removal : entry.getValue()) {
 									final URI uri = EcoreUtil.getURI(removal.staleBoToModify);
-									Objects.requireNonNull(uri, "unable to retrieve uri for " + removal.staleBoToModify);
-									removal.boToModify = rootToModify.eResource().getResourceSet()
-											.getEObject(uri, true);
+									Objects.requireNonNull(uri,
+											"unable to retrieve uri for " + removal.staleBoToModify);
+									removal.boToModify = rootToModify.eResource().getResourceSet().getEObject(uri,
+											true);
 								}
 
 								// Remove the business object using the stored business object to modify
