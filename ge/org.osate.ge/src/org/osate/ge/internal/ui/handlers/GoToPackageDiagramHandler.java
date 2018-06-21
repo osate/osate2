@@ -21,7 +21,7 @@ public class GoToPackageDiagramHandler extends AbstractHandler {
 	public void setEnabled(final Object evaluationContext) {
 		boolean enabled = false;
 		final List<DiagramElement> selectedDiagramElements = AgeHandlerUtil
-				.getSelectedDiagramElementsFromContext(evaluationContext);
+				.getSelectedDiagramElements();
 		if (selectedDiagramElements.size() == 1) {
 			final Object selectedBo = selectedDiagramElements.get(0).getBusinessObject();
 			enabled = !(selectedBo instanceof AadlPackage) && getPackage(selectedBo) != null;
@@ -38,7 +38,7 @@ public class GoToPackageDiagramHandler extends AbstractHandler {
 		}
 
 		// Get diagram and selected elements
-		final List<DiagramElement> selectedDiagramElements = AgeHandlerUtil.getSelectedDiagramElements(event);
+		final List<DiagramElement> selectedDiagramElements = AgeHandlerUtil.getSelectedDiagramElements();
 		if (selectedDiagramElements.size() == 0) {
 			throw new RuntimeException("No element selected");
 		}
