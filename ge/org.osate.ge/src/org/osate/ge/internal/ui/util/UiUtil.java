@@ -24,13 +24,17 @@ import org.osate.ge.internal.util.StringUtil;
 public class UiUtil {
 	public static String AUTOMATED_SWTBOT_TESTING_KEY = "org.eclipse.swtbot.widget.key";
 
-	public static void openPropertiesView() {
+	public static IWorkbenchWindow getActiveWorkbenchWindow() {
 		final IWorkbench wb = PlatformUI.getWorkbench();
 		if (wb == null) {
-			return;
+			return null;
 		}
 
-		final IWorkbenchWindow win = wb.getActiveWorkbenchWindow();
+		return wb.getActiveWorkbenchWindow();
+	}
+
+	public static void openPropertiesView() {
+		final IWorkbenchWindow win = getActiveWorkbenchWindow();
 		if (win == null) {
 			return;
 		}

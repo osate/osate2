@@ -36,7 +36,7 @@ import org.osate.aadl2.NamedElement;
 import org.osate.ge.BusinessObjectSelection;
 import org.osate.ge.internal.ui.dialogs.ElementSelectionDialog;
 import org.osate.ge.internal.ui.util.InternalPropertySectionUtil;
-import org.osate.ge.internal.util.AadlHelper;
+import org.osate.ge.internal.util.AadlImportsUtil;
 import org.osate.ge.internal.util.ScopedEMFIndexRetrieval;
 import org.osate.ge.ui.properties.PropertySectionUtil;
 
@@ -99,9 +99,10 @@ public class SetExtendedClassifierPropertySection extends AbstractPropertySectio
 						? (Classifier) EcoreUtil.resolve(((EObject) dlg.getFirstSelectedElement()),
 								classifier.eResource())
 								: (Classifier) dlg.getFirstSelectedElement();
+
 						selectedBos.modify(Classifier.class, classifierToModify -> {
 							if (classifierToExtend != null) {
-								AadlHelper.ensurePackageIsImported(classifierToModify, classifierToExtend);
+								AadlImportsUtil.ensurePackageIsImportedForClassifier(classifierToModify, classifierToExtend);
 
 								// Extend the classifier
 								if (classifierToModify instanceof ComponentType) {

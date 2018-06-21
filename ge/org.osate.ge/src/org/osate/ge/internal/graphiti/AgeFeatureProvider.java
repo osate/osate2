@@ -108,7 +108,6 @@ public class AgeFeatureProvider extends DefaultFeatureProvider {
 	private ReferenceService referenceService;
 	private ExtensionService extService;
 	private AadlModificationService aadlModService;
-	private ActionService actionService;
 	private GraphitiService graphitiService;
 	private ProjectReferenceService referenceResolver;
 	private BoHandlerDeleteFeature defaultDeleteFeature;
@@ -135,8 +134,6 @@ public class AgeFeatureProvider extends DefaultFeatureProvider {
 				"unable to retrieve reference service service");
 		this.extService = Objects.requireNonNull(eclipseContext.get(ExtensionService.class), "unable to retrieve extension service");
 		this.aadlModService = Objects.requireNonNull(eclipseContext.get(AadlModificationService.class), "unable to retrieve AADL modification service");
-		this.actionService = Objects.requireNonNull(eclipseContext.get(ActionService.class),
-				"unable to retrieve action service");
 		this.graphitiService = Objects.requireNonNull(eclipseContext.get(GraphitiService.class), "unablet to retrieve Graphiti service");
 		this.referenceResolver = Objects.requireNonNull(eclipseContext.get(ProjectReferenceService.class), "unable to retrieve internal reference resolution service");
 

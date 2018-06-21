@@ -40,7 +40,7 @@ public class DeleteHandler extends AbstractHandler {
 		}
 
 		final List<DiagramElement> selectedDiagramElements = AgeHandlerUtil
-				.getSelectedDiagramElementsFromContext(evaluationContext);
+				.getSelectedDiagramElements();
 		if (selectedDiagramElements.size() == 0) {
 			return false;
 		}
@@ -57,6 +57,10 @@ public class DeleteHandler extends AbstractHandler {
 			}
 
 			final DeleteContext deleteContext = new DeleteContext(pe);
+			if (selectedDiagramElements.size() > 1) {
+				deleteContext.setMultiDeleteInfo(new MultiDeleteInfo(false, false, selectedDiagramElements.size()));
+			}
+
 			final IDeleteFeature feature = fp.getDeleteFeature(deleteContext);
 			if (feature == null) {
 				return false;
@@ -78,7 +82,7 @@ public class DeleteHandler extends AbstractHandler {
 		}
 
 		// Get diagram and selected elements
-		final List<DiagramElement> selectedDiagramElements = AgeHandlerUtil.getSelectedDiagramElements(event);
+		final List<DiagramElement> selectedDiagramElements = AgeHandlerUtil.getSelectedDiagramElements();
 		if (selectedDiagramElements.size() == 0) {
 			throw new RuntimeException("No element selected");
 		}

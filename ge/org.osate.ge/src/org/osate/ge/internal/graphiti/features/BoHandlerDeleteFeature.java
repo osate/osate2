@@ -20,6 +20,8 @@ import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.PlatformUI;
+import org.osate.aadl2.AnnexLibrary;
+import org.osate.aadl2.AnnexSubclause;
 import org.osate.aadl2.NamedElement;
 import org.osate.ge.EmfContainerProvider;
 import org.osate.ge.di.CanDelete;
@@ -93,6 +95,11 @@ public class BoHandlerDeleteFeature extends AbstractFeature implements IDeleteFe
 
 		final Object bo = de.getBusinessObject();
 
+		// Don't allow deleting multiple objects if one of the objects is inside an annex
+		if (context.getMultiDeleteInfo() != null && isInAnnex(bo)) {
+			return false;
+		}
+
 		final Object boHandler = de.getBusinessObjectHandler();
 		if (boHandler == null) {
 			return false;
@@ -123,6 +130,26 @@ public class BoHandlerDeleteFeature extends AbstractFeature implements IDeleteFe
 			return (boolean) ContextInjectionFactory.invoke(boHandler, CanDelete.class, childCtx, false);
 		} finally {
 			childCtx.dispose();
+		}
+	}
+
+	private static boolean isInAnnex(final Object bo) {
+		for (Object tmp = getContainer(bo); tmp != null; tmp = getContainer(tmp)) {
+			if (tmp instanceof AnnexLibrary || tmp instanceof AnnexSubclause) {
+				return true;
+			}
+		}
+
+		return false;
+	}
+
+	private static Object getContainer(Object bo) {
+		if (bo instanceof EmfContainerProvider) {
+			return ((EmfContainerProvider) bo).getEmfContainer();
+		} else if (bo instanceof EObject) {
+			return ((EObject) bo).eContainer();
+		} else {
+			return null;
 		}
 	}
 
