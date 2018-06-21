@@ -84,8 +84,7 @@ public class SetExtendedClassifierPropertySection extends AbstractPropertySectio
 			final List<Classifier> classifiers = selectedBos.boStream(Classifier.class).collect(Collectors.toList());
 			final Iterator<Classifier> it = classifiers.iterator();
 			final Classifier classifier = it.next();
-			final List<IEObjectDescription> extensibleClassifierDescs = new ArrayList<>(
-					getExtensibleClassifierDescriptions(classifier));
+			final List<IEObjectDescription> extensibleClassifierDescs = getExtensibleClassifierDescriptions(classifier);
 			while (it.hasNext()) {
 				extensibleClassifierDescs.retainAll(getExtensibleClassifierDescriptions(it.next()));
 			}
@@ -100,9 +99,10 @@ public class SetExtendedClassifierPropertySection extends AbstractPropertySectio
 						? (Classifier) EcoreUtil.resolve(((EObject) dlg.getFirstSelectedElement()),
 								classifier.eResource())
 								: (Classifier) dlg.getFirstSelectedElement();
-						if (classifierToExtend != null) {
-							selectedBos.modify(Classifier.class, classifierToModify -> {
-						AadlImportsUtil.ensurePackageIsImportedForClassifier(classifierToModify, classifierToExtend);
+
+						selectedBos.modify(Classifier.class, classifierToModify -> {
+							if (classifierToExtend != null) {
+								AadlImportsUtil.ensurePackageIsImportedForClassifier(classifierToModify, classifierToExtend);
 
 								// Extend the classifier
 								if (classifierToModify instanceof ComponentType) {
@@ -115,11 +115,26 @@ public class SetExtendedClassifierPropertySection extends AbstractPropertySectio
 									((FeatureGroupType) classifierToModify).createOwnedExtension()
 									.setExtended((FeatureGroupType) classifierToExtend);
 								}
-							});
-						}
+							} else {
+								// Extend the classifier
+								if (classifierToModify instanceof ComponentType) {
+									removeIfNotNull(((ComponentType) classifierToModify).getOwnedExtension());
+								} else if (classifierToModify instanceof ComponentImplementation) {
+									removeIfNotNull(((ComponentImplementation) classifierToModify).getOwnedExtension());
+								} else if (classifierToModify instanceof FeatureGroupType) {
+									removeIfNotNull(((FeatureGroupType) classifierToModify).getOwnedExtension());
+								}
+							}
+						});
 			}
 		}
 	};
+
+	private static void removeIfNotNull(final EObject obj) {
+		if (obj != null) {
+			EcoreUtil.remove(obj);
+		}
+	}
 
 	@Override
 	public void setInput(final IWorkbenchPart part, final ISelection selection) {
@@ -172,10 +187,13 @@ public class SetExtendedClassifierPropertySection extends AbstractPropertySectio
 
 	/**
 	 * Return a list of EObjectDescriptions for classifiers that could be extended.
+	 * The result will includes null since extending no classifier is a valid option.
 	 * @return
 	 */
 	private List<IEObjectDescription> getExtensibleClassifierDescriptions(final Classifier classifier) {
 		final List<IEObjectDescription> objectDescriptions = new ArrayList<IEObjectDescription>();
+		objectDescriptions.add(null);
+
 		final String name = classifier.getQualifiedName();
 
 		// Populate the list with valid classifier descriptions
@@ -187,7 +205,7 @@ public class SetExtendedClassifierPropertySection extends AbstractPropertySectio
 				}
 			}
 
-// Ensure that abstract classifiers are in the list
+			// Ensure that abstract classifiers are in the list
 			if (classifier instanceof ComponentType) {
 				if (classifier.eClass() != Aadl2Factory.eINSTANCE.getAadl2Package().getAbstractType()) {
 					for (final IEObjectDescription desc : ScopedEMFIndexRetrieval.getAllEObjectsByType(
