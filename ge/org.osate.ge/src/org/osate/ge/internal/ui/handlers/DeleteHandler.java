@@ -354,7 +354,7 @@ public class DeleteHandler extends AbstractHandler {
 		return false;
 	}
 
-	private static Object getContainer(Object bo) {
+	private static Object getContainer(final Object bo) {
 		if (bo instanceof EmfContainerProvider) {
 			return ((EmfContainerProvider) bo).getEmfContainer();
 		} else if (bo instanceof EObject) {
