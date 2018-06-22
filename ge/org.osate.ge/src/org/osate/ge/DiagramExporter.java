@@ -15,6 +15,7 @@ import org.eclipse.e4.core.contexts.EclipseContextFactory;
 import org.eclipse.emf.common.command.AbstractCommand;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.URI;
+import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.transaction.TransactionalEditingDomain;
 import org.eclipse.graphiti.datatypes.ILocation;
 import org.eclipse.graphiti.mm.algorithms.GraphicsAlgorithm;
@@ -39,6 +40,7 @@ import org.osate.ge.internal.graphiti.AgeFeatureProvider;
 import org.osate.ge.internal.graphiti.diagram.ColoringProvider;
 import org.osate.ge.internal.graphiti.diagram.GraphitiAgeDiagram;
 import org.osate.ge.internal.services.ExtensionRegistryService;
+import org.osate.ge.internal.services.impl.SimpleActionExecutor;
 import org.osate.ge.internal.ui.editor.AgeDiagramBehavior;
 import org.osate.ge.internal.util.ProjectUtil;
 import org.osgi.framework.FrameworkUtil;
@@ -71,6 +73,31 @@ public class DiagramExporter {
 		final org.eclipse.graphiti.mm.pictograms.Diagram diagram = Graphiti.getPeService()
 				.createDiagram(GraphitiAgeDiagram.AADL_DIAGRAM_TYPE_ID, "", true);
 
+		// The resource needs to be added to an editing domain for use with the editor. Otherwise, the figures will not be updated.
+		final URI ignoredUri = URI.createHierarchicalURI("osate_ge_ignore", null, null,
+				new String[] { "internal.aadl_diagram" }, null, null);
+		final Resource diagramResource = editingDomain.getResourceSet().createResource(ignoredUri);
+		editingDomain.getCommandStack().execute(new AbstractCommand() {
+			@Override
+			protected boolean prepare() {
+				return true;
+			}
+
+			@Override
+			public void execute() {
+				diagramResource.getContents().add(diagram);
+			}
+
+			@Override
+			public boolean canUndo() {
+				return false;
+			}
+
+			@Override
+			public void redo() {
+			}
+		});
+
 		try (final GraphitiAgeDiagram graphitiAgeDiagram = layoutAndCreateGraphitiAgeDiagram(dummyDiagramTypeProvider,
 				ageDiagram, diagram, editingDomain)) {
 			editingDomain.getCommandStack().execute(new AbstractCommand() {
@@ -88,7 +115,8 @@ public class DiagramExporter {
 					moveDiagramElements(containerBounds, diagram);
 
 					// Create a invisible rectangle around diagram elements for image
-					final ContainerShape boundsShape = Graphiti.getPeCreateService().createContainerShape(diagram, true);
+					final ContainerShape boundsShape = Graphiti.getPeCreateService().createContainerShape(diagram,
+							true);
 					final Rectangle r = Graphiti.getGaService().createInvisibleRectangle(boundsShape);
 					r.setWidth(-containerBounds.minX + containerBounds.maxX + containerBounds.padding * 2);
 					r.setHeight(-containerBounds.minY + containerBounds.maxY + containerBounds.padding * 2);
@@ -122,8 +150,9 @@ public class DiagramExporter {
 		ImageIO.write(img, "png", outputFile);
 	}
 
-	private static GraphitiAgeDiagram layoutAndCreateGraphitiAgeDiagram(final DummyDiagramTypeProvider dummyDiagramTypeProvider,
-			final AgeDiagram ageDiagram, final Diagram diagram, final TransactionalEditingDomain editingDomain) {
+	private static GraphitiAgeDiagram layoutAndCreateGraphitiAgeDiagram(
+			final DummyDiagramTypeProvider dummyDiagramTypeProvider, final AgeDiagram ageDiagram, final Diagram diagram,
+			final TransactionalEditingDomain editingDomain) {
 		// Update diagram
 		((AgeFeatureProvider) dummyDiagramTypeProvider.getFeatureProvider()).getDiagramUpdater()
 		.updateDiagram(ageDiagram);
@@ -136,29 +165,7 @@ public class DiagramExporter {
 
 		// Set the coloring service field. It is needed
 		final ColoringProvider coloringProvider = () -> Collections.emptyMap();
-		return new GraphitiAgeDiagram(ageDiagram, diagram, editingDomain, c -> {
-			editingDomain.getCommandStack().execute(new AbstractCommand() {
-				@Override
-				protected boolean prepare() {
-					return true;
-				}
-
-				@Override
-				public void execute() {
-					c.execute();
-				}
-
-				@Override
-				public boolean canUndo() {
-					return false;
-				}
-
-				@Override
-				public void redo() {
-				}
-			});
-
-		}, coloringProvider, () -> {
+		return new GraphitiAgeDiagram(ageDiagram, diagram, new SimpleActionExecutor(), coloringProvider, () -> {
 		});
 	}
 
@@ -193,8 +200,7 @@ public class DiagramExporter {
 	}
 
 	// Ensure that connections are inside image bounds
-	private static void updateBounds(final ContainerBounds containerBounds,
-			final EList<Connection> connections) {
+	private static void updateBounds(final ContainerBounds containerBounds, final EList<Connection> connections) {
 		for (final Connection c : connections) {
 			if (c instanceof FreeFormConnection) {
 				final FreeFormConnection fc = (FreeFormConnection) c;

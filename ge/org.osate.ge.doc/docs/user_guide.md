@@ -261,7 +261,8 @@ Layout menu items are available from the *Edit->Layout* menu or by right clickin
 | *Arrange in Circle* | Arranges the selected elements into a circle. |
 | *Match Width* | Adjusts the width of all selected elements to match that of the primary selection. |
 | *Match Height* | Adjusts the height of all selected elements to match that of the primary selection. |
-| *Match Size* | Adjusts the width and height of all selected elements to match that of the primary selection. | 
+| *Match Size* | Adjusts the width and height of all selected elements to match that of the primary selection. |
+| *Remove Bendpoints* | Removes all bendpoints from the selected connections. | 
 
 Table: Layout Menu Items {#tbl:layout_menu_items}
 
@@ -319,6 +320,9 @@ Double-click on a connection and select the *AADL* tab from the *Properties* vie
 When working with arrays, the graphical editor supports visualization of the connection_pattern property. See @sec:arrays.
 
 ![](../images/ConnectionPattern.png)
+
+### Selecting All Connections
+All connections can be selected by selecting *Edit->Select All Connections*.
 
 ## Classifiers
 The graphical editor allows editing AADL classifiers such as component types, component implementations, and feature groups.
@@ -623,8 +627,11 @@ Annex Libraries and Annex Libraries can be created by using the palette.
 # Troubleshooting
 The following section contains solutions to known issues as well as instructions for reporting problems with the graphical editor.
 
+## Undo/Redo is Unavailable After Opening or Closing AADL Source Files
+After opening or closing AADL source files, the undo and redo commands in the graphical editor are disabled. To workaround, either open the AADL source files before making changes or undo or redo operations as necessary before opening AADL source files.
+
 ## Build Automatically
-*Project->Build Automattically* must be enabled.  If it is not enabled, the graphical editor will not function properly.
+*Project->Build Automatically* must be enabled.  If it is not enabled, the graphical editor will not function properly.
 
 ![](../images/BuildAutomatically.png)
 
@@ -634,14 +641,11 @@ To ensure diagrams have a consistent appearance across machines, the graphical e
 ## Unable to Set Properties Unless Text Model is Open
 The AADL Property Values view does not support editing property associations unless the textual AADL model is open. To work around this issue, open the textual AADL file before attempting to create property assignments with the AADL Properties Values view.
 
-## Updating the Diagram
-In most cases the graphical editor will automatically update diagrams to reflect changes to the AADL Model. If a diagram has not been updated for any reason, it can be updated manually by right-clicking inside the diagram and selecting *Update Diagram* from the context menu.
-
 ## Missing Diagram Elements After Modification of AADL Source
 See @sec:restore_missing_diagram_elements.
 
 ## Reporting Issues
-Issues should be reported using the [OSATE Issue Tracker](https://github.com/osate/osate2-core/issues){target="_blank"}.
+Issues should be reported using the [OSATE Issue Tracker](https://github.com/osate/osate2/issues){target="_blank"}.
 
 # Notices
 Development of portions of the OSATE Graphical Editor was sponsored by the Government of the United States under Contract Number FA8702-15-D-0002.

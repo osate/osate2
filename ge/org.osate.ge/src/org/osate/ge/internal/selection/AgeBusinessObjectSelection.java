@@ -8,10 +8,18 @@ import java.util.function.Function;
 import java.util.stream.Stream;
 
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.ui.IEditorPart;
+import org.eclipse.ui.IWorkbenchPage;
+import org.eclipse.ui.IWorkbenchWindow;
+import org.eclipse.ui.PlatformUI;
 import org.osate.ge.BusinessObjectContext;
 import org.osate.ge.BusinessObjectSelection;
 import org.osate.ge.internal.services.AadlModificationService;
 import org.osate.ge.internal.services.AadlModificationService.Modification;
+import org.osate.ge.internal.services.ActionExecutor;
+import org.osate.ge.internal.services.ActionExecutor.ExecutionMode;
+import org.osate.ge.internal.services.ActionService;
+import org.osate.ge.internal.ui.editor.AgeDiagramEditor;
 
 import com.google.common.collect.ImmutableList;
 
@@ -42,11 +50,47 @@ class AgeBusinessObjectSelection implements BusinessObjectSelection {
 				.map(boc -> Modification.create(boc, bocToBoToModifyMapper, (boc2, liveBoToModify) -> {
 					modifier.accept(liveBoToModify, boc2);
 				})).collect(ImmutableList.toImmutableList());
-		modificationService.modify(modifications);
+
+		// Wrap the modifications in an another action so that the undo will take the user to the currently active graphical editor(if any).
+		getActionExecutor().execute("Modify Model", ExecutionMode.NORMAL, () -> {
+			modificationService.modify(modifications);
+			return null;
+		});
 	}
 
 	@Override
 	public <T extends EObject> void modify(final Class<T> c, final Consumer<T> modifier) {
 		modify(boc -> c.cast(boc.getBusinessObject()), (bo, boc) -> modifier.accept(bo));
+	}
+
+	/**
+	 * Gets the action executor that should be used to modify the model. May return null;
+	 * @return
+	 */
+	private static ActionExecutor getActionExecutor() {
+		final IEditorPart editor = getActiveEditor();
+		ActionExecutor executor = null;
+		if (editor instanceof AgeDiagramEditor) {
+			final AgeDiagramEditor ageEditor = (AgeDiagramEditor) editor;
+			executor = ageEditor.getActionExecutor();
+		}
+
+		if (executor == null) {
+			executor = Objects.requireNonNull(PlatformUI.getWorkbench().getService(ActionService.class),
+					"Unable to retrieve action service");
+		}
+
+		return executor;
+	}
+
+	private static IEditorPart getActiveEditor() {
+		final IWorkbenchWindow activeWindow = PlatformUI.getWorkbench().getActiveWorkbenchWindow();
+		if (activeWindow != null) {
+			final IWorkbenchPage activePage = activeWindow.getActivePage();
+			if (activePage != null) {
+				return activePage.getActiveEditor();
+			}
+		}
+		return null;
 	}
 }
