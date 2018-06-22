@@ -99,7 +99,9 @@ public class AppearancePropertySection extends AbstractPropertySection {
 
 	@Override
 	public void dispose() {
-		resourceMgr.dispose();
+		if (resourceMgr != null) {
+			resourceMgr.dispose();
+		}
 	}
 
 	private void createComboViewerSection(final Composite parent) {
