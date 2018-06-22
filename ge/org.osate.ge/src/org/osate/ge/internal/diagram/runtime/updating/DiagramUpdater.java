@@ -27,6 +27,8 @@ import org.osate.ge.internal.diagram.runtime.boTree.Completeness;
 import org.osate.ge.internal.diagram.runtime.boTree.DiagramToBusinessObjectTreeConverter;
 import org.osate.ge.internal.diagram.runtime.boTree.TreeUpdater;
 import org.osate.ge.internal.model.PropertyValueGroup;
+import org.osate.ge.internal.services.ActionExecutor;
+import org.osate.ge.internal.services.AgeAction;
 
 /**
  * Updates the diagram's elements based on the diagram configuration.
@@ -35,6 +37,7 @@ import org.osate.ge.internal.model.PropertyValueGroup;
 public class DiagramUpdater {
 	private final TreeUpdater boTreeExpander;
 	private final DiagramElementInformationProvider infoProvider;
+	private final ActionExecutor actionExecutor;
 
 	private final Map<DiagramNode, Map<RelativeBusinessObjectReference, DiagramElement>> containerToRelativeReferenceToGhostMap = new HashMap<>();
 
@@ -42,9 +45,10 @@ public class DiagramUpdater {
 	private final Map<DiagramNode, Map<RelativeBusinessObjectReference, FutureElementInfo>> futureElementInfoMap = new HashMap<>();
 
 	public DiagramUpdater(final TreeUpdater boTreeExpander,
-			final DiagramElementInformationProvider infoProvider) {
+			final DiagramElementInformationProvider infoProvider, final ActionExecutor actionExecutor) {
 		this.boTreeExpander = Objects.requireNonNull(boTreeExpander, "boTreeExpander must not be null");
 		this.infoProvider = Objects.requireNonNull(infoProvider, "infoProvider must not be null"); // Adjust message after rename
+		this.actionExecutor = Objects.requireNonNull(actionExecutor, "actionExecutor must not be null");
 	}
 
 	/**
@@ -296,26 +300,13 @@ public class DiagramUpdater {
 	}
 
 	private void addGhost(final DiagramElement ghost) {
-		final DiagramNode container = ghost.getContainer();
-
-		// Get the mapping from relative reference to the ghost for the container
-		Map<RelativeBusinessObjectReference, DiagramElement> relativeReferenceToGhostMap = containerToRelativeReferenceToGhostMap.get(container);
-		if(relativeReferenceToGhostMap == null) {
-			relativeReferenceToGhostMap = new HashMap<>();
-			containerToRelativeReferenceToGhostMap.put(container, relativeReferenceToGhostMap);
-		}
-
-		// Add the ghost to the map
-		relativeReferenceToGhostMap.put(ghost.getRelativeReference(), ghost);
+		actionExecutor.execute("Add Ghost", ActionExecutor.ExecutionMode.NORMAL, new AddGhostAction(ghost));
 	}
 
 	private DiagramElement removeGhost(final DiagramNode container, final RelativeBusinessObjectReference relativeReference) {
-		final Map<RelativeBusinessObjectReference, DiagramElement> relativeReferenceToGhostMap = containerToRelativeReferenceToGhostMap.get(container);
-		if(relativeReferenceToGhostMap == null) {
-			return null;
-		}
-
-		return relativeReferenceToGhostMap.remove(relativeReference);
+		final RemoveGhostAction action = new RemoveGhostAction(container, relativeReference);
+		actionExecutor.execute("Remove Ghost", ActionExecutor.ExecutionMode.NORMAL, action);
+		return action.removedGhost;
 	}
 
 	/**
@@ -355,4 +346,64 @@ public class DiagramUpdater {
 				.map(e -> new GhostedElement(e)).collect(Collectors.toList());
 	}
 
+	class AddGhostAction implements AgeAction {
+		private final DiagramElement ghost;
+
+		public AddGhostAction(final DiagramElement ghost) {
+			this.ghost = Objects.requireNonNull(ghost, "ghost must not be null");
+		}
+
+		@Override
+		public boolean canExecute() {
+			return true;
+		}
+
+		@Override
+		public AgeAction execute() {
+			final DiagramNode container = ghost.getContainer();
+
+			// Get the mapping from relative reference to the ghost for the container
+			Map<RelativeBusinessObjectReference, DiagramElement> relativeReferenceToGhostMap = containerToRelativeReferenceToGhostMap
+					.get(container);
+			if (relativeReferenceToGhostMap == null) {
+				relativeReferenceToGhostMap = new HashMap<>();
+				containerToRelativeReferenceToGhostMap.put(container, relativeReferenceToGhostMap);
+			}
+
+			// Add the ghost to the map
+			relativeReferenceToGhostMap.put(ghost.getRelativeReference(), ghost);
+
+			return new RemoveGhostAction(container, ghost.getRelativeReference());
+		}
+	}
+
+	class RemoveGhostAction implements AgeAction {
+		private final DiagramNode container;
+		private final RelativeBusinessObjectReference relativeReference;
+
+		private DiagramElement removedGhost;
+
+		public RemoveGhostAction(final DiagramNode container, final RelativeBusinessObjectReference relativeReference) {
+			this.container = container;
+			this.relativeReference = relativeReference;
+		}
+
+		@Override
+		public boolean canExecute() {
+			return true;
+		}
+
+		@Override
+		public AgeAction execute() {
+			final Map<RelativeBusinessObjectReference, DiagramElement> relativeReferenceToGhostMap = containerToRelativeReferenceToGhostMap
+					.get(container);
+			if (relativeReferenceToGhostMap == null) {
+				return null;
+			}
+
+			removedGhost = relativeReferenceToGhostMap.remove(relativeReference);
+
+			return removedGhost == null ? null : new AddGhostAction(removedGhost);
+		}
+	}
 }
