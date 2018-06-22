@@ -192,7 +192,7 @@ public class DiagramSerialization {
 		if (mmChild.getId() != null) {
 			// OSATE 2.2.3 contained an issue that resulted in duplicate IDs. This checks for and removed duplicate ID's
 			if(!usedIdSet.contains(mmChild.getId())) {
-				newElement.setId(mmChild.getId().intValue());
+				newElement.setId((long) mmChild.getId().intValue());
 			}
 		}
 

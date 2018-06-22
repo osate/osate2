@@ -30,6 +30,7 @@ import org.eclipse.xtext.ui.editor.outline.impl.EObjectNode;
 import org.osate.aadl2.AadlPackage;
 import org.osate.aadl2.Classifier;
 import org.osate.aadl2.Element;
+import org.osate.aadl2.Generalization;
 import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.SystemInstance;
 import org.osate.aadl2.modelsupport.resources.OsateResourceUtil;
@@ -157,6 +158,11 @@ public class SelectionUtil {
 		while (obj instanceof Element) {
 			if (obj instanceof Classifier) {
 				return (Classifier) obj;
+			} else if (obj instanceof Generalization) {
+				final Classifier classifier = ((Generalization) obj).getGeneral();
+				if (classifier != null) {
+					return classifier;
+				}
 			}
 
 			obj = obj.eContainer();
