@@ -261,7 +261,8 @@ Layout menu items are available from the *Edit->Layout* menu or by right clickin
 | *Arrange in Circle* | Arranges the selected elements into a circle. |
 | *Match Width* | Adjusts the width of all selected elements to match that of the primary selection. |
 | *Match Height* | Adjusts the height of all selected elements to match that of the primary selection. |
-| *Match Size* | Adjusts the width and height of all selected elements to match that of the primary selection. | 
+| *Match Size* | Adjusts the width and height of all selected elements to match that of the primary selection. |
+| *Remove Bendpoints* | Removes all bendpoints from the selected connections. | 
 
 Table: Layout Menu Items {#tbl:layout_menu_items}
 
@@ -319,6 +320,9 @@ Double-click on a connection and select the *AADL* tab from the *Properties* vie
 When working with arrays, the graphical editor supports visualization of the connection_pattern property. See @sec:arrays.
 
 ![](../images/ConnectionPattern.png)
+
+### Selecting All Connections
+All connections can be selected by selecting *Edit->Select All Connections*.
 
 ## Classifiers
 The graphical editor allows editing AADL classifiers such as component types, component implementations, and feature groups.
