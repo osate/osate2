@@ -29,6 +29,7 @@ public class DefaultModelChangeNotifier implements ModelChangeNotifier {
 	private Lock currentLock;
 	private final Set<URI> pendingChangedResourceUris = new HashSet<>();
 	private boolean hasModelChanged = false;
+	private boolean hasChangesWhileUnlocked = false;
 
 	public static class ContextFunction extends SimpleServiceContextFunction<ModelChangeNotifier> {
 		@Override
@@ -58,6 +59,10 @@ public class DefaultModelChangeNotifier implements ModelChangeNotifier {
 			if (resource.getType() == IResource.PROJECT && (delta.getKind() != IResourceDelta.CHANGED
 					|| (delta.getKind() == IResourceDelta.CHANGED && delta.getFlags() != 0))) {
 				hasModelChanged = true;
+
+				if (currentLock == null) {
+					hasChangesWhileUnlocked = true;
+				}
 			}
 
 			return resource.getType() == IResource.ROOT && !hasModelChanged;
@@ -87,7 +92,11 @@ public class DefaultModelChangeNotifier implements ModelChangeNotifier {
 				delta.accept(resourceUriCollectorVisitor);
 
 				hasModelChanged = hasModelChanged || pendingChangedResourceUris.size() > 0;
-				if (!hasModelChanged) {
+				if (hasModelChanged) {
+					if (currentLock == null) {
+						hasChangesWhileUnlocked = true;
+					}
+				} else {
 					delta.accept(projectVisitor);
 				}
 			} catch (final CoreException e) {
@@ -114,6 +123,9 @@ public class DefaultModelChangeNotifier implements ModelChangeNotifier {
 		if (platformString.toLowerCase().endsWith(".aadl")) {
 			pendingChangedResourceUris.add(resourceUri);
 			hasModelChanged = true;
+			if (currentLock == null) {
+				hasChangesWhileUnlocked = true;
+			}
 
 			handleNotifications();
 		}
@@ -127,10 +139,12 @@ public class DefaultModelChangeNotifier implements ModelChangeNotifier {
 				// Make copy of the flags so that recursive calls to handle notifications will not trigger an update for the same resources
 				final List<URI> changedResourceUrisBeingProcessed = new ArrayList<>(pendingChangedResourceUris);
 				final boolean hadModelChanged = hasModelChanged;
+				final boolean wasModelLocked = !hasChangesWhileUnlocked;
 
 				// Reset flags
 				pendingChangedResourceUris.clear();
 				hasModelChanged = false;
+				hasChangesWhileUnlocked = false;
 
 				// Send notifications. Notifications are sent using the display thread so that all diagrams updates will take place in the main thread and avoid
 				// updating the diagram while change notifications are being handled.
@@ -144,7 +158,7 @@ public class DefaultModelChangeNotifier implements ModelChangeNotifier {
 
 					// Send a single notification that the model has changed regardless of the number of changes
 					if (hadModelChanged) {
-						onModelChanged();
+						onModelChanged(wasModelLocked);
 					}
 				});
 			}
@@ -169,10 +183,10 @@ public class DefaultModelChangeNotifier implements ModelChangeNotifier {
 		workspace.removeResourceChangeListener(resourceChangeListener);
 	}
 
-	private void onModelChanged() {
+	private void onModelChanged(final boolean modelWasLocked) {
 		// Send a model changed notification
 		for(final ChangeListener listener : changeListeners) {
-			listener.modelChanged();
+			listener.modelChanged(modelWasLocked);
 		}
 
 		// Send an after model changed notification

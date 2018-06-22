@@ -19,9 +19,14 @@ public class AgeBusinessObjectSelectionAdapterFactory implements IAdapterFactory
 		if (BusinessObjectSelection.class.equals(adapterType)) {
 			final Bundle bundle = FrameworkUtil.getBundle(getClass());
 			final IEclipseContext context = EclipseContextFactory.getServiceContext(bundle.getBundleContext());
+			final AadlModificationService modificationService = context.get(AadlModificationService.class);
+			if (modificationService == null) {
+				return null;
+			}
+
 			return adapterType
 					.cast(new AgeBusinessObjectSelection(SelectionUtil.getSelectedBusinessObjectContexts(selection),
-							context.get(AadlModificationService.class)));
+							modificationService));
 		}
 
 		return null;

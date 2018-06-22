@@ -91,11 +91,11 @@ import org.osate.ge.internal.graphiti.features.AgeRemoveBendpointFeature;
 import org.osate.ge.internal.graphiti.features.AgeResizeShapeFeature;
 import org.osate.ge.internal.graphiti.features.BoHandlerCreateConnectionFeature;
 import org.osate.ge.internal.graphiti.features.BoHandlerCreateFeature;
-import org.osate.ge.internal.graphiti.features.BoHandlerDeleteFeature;
 import org.osate.ge.internal.graphiti.features.BoHandlerDirectEditFeature;
 import org.osate.ge.internal.graphiti.features.UpdateDiagramFeature;
 import org.osate.ge.internal.graphiti.services.GraphitiService;
 import org.osate.ge.internal.services.AadlModificationService;
+import org.osate.ge.internal.services.ActionService;
 import org.osate.ge.internal.services.ExtensionService;
 import org.osate.ge.internal.services.ProjectReferenceService;
 import org.osate.ge.internal.services.ReferenceService;
@@ -109,7 +109,6 @@ public class AgeFeatureProvider extends DefaultFeatureProvider {
 	private AadlModificationService aadlModService;
 	private GraphitiService graphitiService;
 	private ProjectReferenceService referenceResolver;
-	private BoHandlerDeleteFeature defaultDeleteFeature;
 	private BoHandlerDirectEditFeature defaultDirectEditFeature;
 	private AgeMoveShapeFeature defaultMoveShapeFeature;
 	private AgeResizeShapeFeature defaultResizeShapeFeature;
@@ -137,7 +136,6 @@ public class AgeFeatureProvider extends DefaultFeatureProvider {
 		this.referenceResolver = Objects.requireNonNull(eclipseContext.get(ProjectReferenceService.class), "unable to retrieve internal reference resolution service");
 
 		// Create the feature to use for pictograms which do not have a specialized feature. Delegates to business object handlers.
-		defaultDeleteFeature = make(BoHandlerDeleteFeature.class);
 		defaultDirectEditFeature = make(BoHandlerDirectEditFeature.class);
 		defaultMoveShapeFeature = make(AgeMoveShapeFeature.class);
 		defaultResizeShapeFeature = make(AgeResizeShapeFeature.class);
@@ -149,14 +147,17 @@ public class AgeFeatureProvider extends DefaultFeatureProvider {
 		// Create the refresh diagram feature
 		final DefaultBusinessObjectNodeFactory nodeFactory = new DefaultBusinessObjectNodeFactory(referenceResolver);
 		final QueryService queryService = Objects.requireNonNull(eclipseContext.get(QueryService.class), "unable to retrieve query service");
+		final ActionService actionService = Objects.requireNonNull(eclipseContext.get(ActionService.class),
+				"unable to retrieve action service");
 		boTreeExpander = new DefaultTreeUpdater(graphitiService, extService, referenceResolver,
 				queryService, nodeFactory);
 		deInfoProvider = new DefaultDiagramElementGraphicalConfigurationProvider(referenceResolver, extService);
-		diagramUpdater = new DiagramUpdater(boTreeExpander, deInfoProvider);
+		diagramUpdater = new DiagramUpdater(boTreeExpander, deInfoProvider, actionService);
 		final SystemInstanceLoadingService systemInstanceLoader = Objects.requireNonNull(
 				eclipseContext.get(SystemInstanceLoadingService.class),
 				"unable to retrieve system instance loading service");
-		this.updateDiagramFeature = new UpdateDiagramFeature(this, graphitiService, diagramUpdater, graphitiService,
+		this.updateDiagramFeature = new UpdateDiagramFeature(this, actionService, graphitiService, diagramUpdater,
+				graphitiService,
 				referenceResolver, systemInstanceLoader);
 	}
 
@@ -274,7 +275,7 @@ public class AgeFeatureProvider extends DefaultFeatureProvider {
 
 	@Override
 	public IDeleteFeature getDeleteFeature(final IDeleteContext context) {
-		return defaultDeleteFeature;
+		return null;
 	}
 
 	// Don't allow reconnection
@@ -299,7 +300,8 @@ public class AgeFeatureProvider extends DefaultFeatureProvider {
 					for(final PaletteEntry entry : extPaletteEntries) {
 						final SimplePaletteEntry simpleEntry = (SimplePaletteEntry)entry;
 						if(simpleEntry .getType() == SimplePaletteEntry.Type.CREATE) {
-							features.add(new BoHandlerCreateFeature(graphitiService, extService, aadlModService, diagramUpdater, referenceResolver, this, simpleEntry, boHandler));
+							features.add(new BoHandlerCreateFeature(graphitiService, extService,
+									aadlModService, diagramUpdater, referenceResolver, this, simpleEntry, boHandler));
 						}
 					}
 				}
