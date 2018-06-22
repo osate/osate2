@@ -284,15 +284,6 @@
 			commandId="org.osate.xtext.aadl2.ui.organize.with">
 		</handler>
 	</extension>
-   <extension point="org.eclipse.ui.bindings">
-	  <key
-          commandId="org.osate.xtext.aadl2.ui.organize.with"
-          contextId="org.eclipse.ui.textEditorScope"
-          schemeId="org.osate.ge.key.bindings"
-          sequence="CTRL+SHIFT+O">
-    </key>
-	</extension>
-
     <extension
           point="org.eclipse.ui.views">
        <category

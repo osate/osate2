@@ -46,7 +46,7 @@ public class ToggleContentFilterHandler extends AbstractHandler implements IElem
 		final AgeDiagramEditor diagramEditor = (AgeDiagramEditor) activeEditor;
 		final AgeFeatureProvider featureProvider = (AgeFeatureProvider) diagramEditor.getDiagramTypeProvider()
 				.getFeatureProvider();
-		final List<DiagramElement> selectedDiagramElements = AgeHandlerUtil.getSelectedDiagramElements(event);
+		final List<DiagramElement> selectedDiagramElements = AgeHandlerUtil.getSelectedDiagramElements();
 		final AgeDiagram diagram = UiUtil.getDiagram(selectedDiagramElements);
 		if (diagram == null) {
 			throw new RuntimeException("Unable to get diagram");
