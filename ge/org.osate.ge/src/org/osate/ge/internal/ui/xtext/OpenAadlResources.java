@@ -4,11 +4,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.Set;
 import java.util.concurrent.CopyOnWriteArrayList;
+import java.util.stream.Collectors;
 
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
-import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.xtext.ui.editor.model.IXtextDocument;
 import org.eclipse.xtext.ui.editor.model.IXtextModelListener;
 import org.osate.aadl2.NamedElement;
@@ -43,13 +44,12 @@ class OpenAadlResources {
 		}
 	}
 
-	public IXtextDocument getDocument(String qualifiedName, final Resource resource) {
-		if(qualifiedName == null || resource == null) {
-			return null;
-		}
+	public Set<IXtextDocument> getOpenXtextDocuments() {
+		return documentToOpenResourceMap.keySet().stream().collect(Collectors.toSet());
+	}
 
-		final URI resourceUri = resource.getURI();
-		if(resourceUri == null) {
+	public IXtextDocument getDocument(String qualifiedName, final URI resourceUri) {
+		if (qualifiedName == null || resourceUri == null) {
 			return null;
 		}
 

@@ -1,13 +1,20 @@
 package org.osate.ge.internal.services.impl;
 
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.UnsupportedEncodingException;
+import java.nio.charset.Charset;
 import java.util.ArrayDeque;
+import java.util.ArrayList;
 import java.util.Deque;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 
+import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.IncrementalProjectBuilder;
@@ -48,77 +55,106 @@ import org.osate.aadl2.modelsupport.Activator;
 import org.osate.annexsupport.AnnexRegistry;
 import org.osate.annexsupport.AnnexUnparserRegistry;
 import org.osate.ge.internal.services.AadlModificationService;
+import org.osate.ge.internal.services.ActionExecutor;
+import org.osate.ge.internal.services.ActionService;
+import org.osate.ge.internal.services.AgeAction;
 import org.osate.ge.internal.services.ModelChangeNotifier;
 import org.osate.ge.internal.services.ModelChangeNotifier.Lock;
 import org.osate.ge.internal.ui.xtext.AgeXtextUtil;
-import org.osate.ge.internal.util.Log;
+import org.osate.ge.internal.util.ProjectUtil;
+
+import com.google.common.collect.Lists;
+import com.google.common.io.CharStreams;
 
 public class DefaultAadlModificationService implements AadlModificationService {
 	public static class ContextFunction extends SimpleServiceContextFunction<AadlModificationService> {
 		@Override
 		public AadlModificationService createService(final IEclipseContext context) {
-			return new DefaultAadlModificationService(context.get(ModelChangeNotifier.class));
+			return new DefaultAadlModificationService(context.get(ModelChangeNotifier.class),
+					context.get(ActionService.class));
 		}
 	}
 
-	final ModelChangeNotifier modelChangeNotifier;
+	private final ModelChangeNotifier modelChangeNotifier;
+	private final ActionService actionService;
 
-	public DefaultAadlModificationService(final ModelChangeNotifier modelChangeNotifier) {
+	public DefaultAadlModificationService(final ModelChangeNotifier modelChangeNotifier,
+			final ActionService actionService) {
 		this.modelChangeNotifier = Objects.requireNonNull(modelChangeNotifier,
 				"modelChangeNotifier must not be null");
+		this.actionService = Objects.requireNonNull(actionService, "activeService must not be null");
 	}
 
 	@Override
 	public void modify(final List<? extends Modification<?, ?>> modifications,
 			final ModificationPostprocessor postProcessor) {
-		class ModifyRunnable implements Runnable {
-			@Override
-			public void run() {
-				try (Lock lock = modelChangeNotifier.lock()) {
-					boolean allSuccessful = performModifications(modifications);
+		runInDisplayThread(() -> performModifications(modifications, postProcessor));
+	}
 
-					if (postProcessor != null) {
-						postProcessor.modificationCompleted(allSuccessful);
-					}
-				}
-			}
-		}
-
-		// We want to run the modification in the display thread. Executing in the display thread will allow the diagram editor updates to be ran synchronously
-		final ModifyRunnable modifyRunnable = new ModifyRunnable();
+	private static void runInDisplayThread(final Runnable runnable) {
 		if (Display.getDefault().getThread() == Thread.currentThread()) {
 			try {
-				modifyRunnable.run();
+				runnable.run();
 			} catch (RuntimeException ex) {
 				final Status status = new Status(IStatus.ERROR, Activator.getPluginId(),
-						"An error occured modifying the AADL model.", ex);
+						"An error occured.", ex);
 				StatusManager.getManager().handle(status, StatusManager.SHOW | StatusManager.LOG);
 				throw ex; // Rethrow exception to let caller know that there was a problem.
 			}
 		} else {
-			Log.info("Executing modification after switching to display thread");
-			Display.getDefault().syncExec(modifyRunnable);
+			Display.getDefault().syncExec(runnable);
 		}
 	}
 
 	// Assumes that the modification notifier is already locked
-	private boolean performModifications(final List<? extends Modification<?, ?>> modifiers) {
-		final Set<IProject> projectsToBuild = new HashSet<>();
-
-		boolean allSuccessful = true;
-
-		// Iterate over the input objects
-		for (final Modification<?, ?> modification : modifiers) {
-			final ModifySafelyResults modifySafelyResult = performModification(modification, projectsToBuild);
-			allSuccessful = modifySafelyResult.modificationSuccessful;
-
-			if (!allSuccessful) {
-				break;
+	private void performModifications(final List<? extends Modification<?, ?>> modifications,
+			final ModificationPostprocessor postProcessor) {
+		class ModificationAction implements AgeAction {
+			@Override
+			public boolean canExecute() {
+				return true;
 			}
+
+			@Override
+			public AgeAction execute() {
+				try (Lock lock = modelChangeNotifier.lock()) {
+					final Set<IProject> projectsToBuild = new HashSet<>();
+
+					boolean allSuccessful = true;
+
+					final List<ModificationResult> modificationResults = new ArrayList<>();
+
+					// Iterate over the input objects
+					for (final Modification<?, ?> modification : modifications) {
+						final ModificationResult modificationResult = performModification(modification,
+								projectsToBuild);
+						allSuccessful = modificationResult.modificationSuccessful;
+
+						if (!allSuccessful) {
+							break;
+						}
+
+						modificationResults.add(modificationResult);
+					}
+
+					// Build projects before unlocking. This will cause the post build notifications to be sent out before the lock is released.
+					// This is desired to avoid multiple diagram updates for the same change.
+					buildProjects(projectsToBuild);
+
+					if (postProcessor != null) {
+						postProcessor.modificationCompleted(allSuccessful);
+					}
+
+					return modificationResults.size() > 0 ? new UndoAction(modificationResults) : null;
+				}
+			}
+
 		}
 
-		// Build projects before unlocking. This will cause the post build notifications to be sent out before the lock is released.
-		// This is desired to avoid multiple diagram updates for the same change.
+		actionService.execute("Modify Model", ActionExecutor.ExecutionMode.NORMAL, new ModificationAction());
+	}
+
+	private void buildProjects(final Set<IProject> projectsToBuild) {
 		for (final IProject project : projectsToBuild) {
 			try {
 				project.build(IncrementalProjectBuilder.INCREMENTAL_BUILD, new NullProgressMonitor());
@@ -127,18 +163,99 @@ public class DefaultAadlModificationService implements AadlModificationService {
 				e.printStackTrace();
 			}
 		}
-
-		return allSuccessful;
 	}
 
-	private <TagType, BusinessObjectType extends EObject> ModifySafelyResults performModification(
+	private class UndoAction implements AgeAction {
+		private final List<ModificationResult> modResults;
+
+		public UndoAction(final List<ModificationResult> modResults) {
+			this.modResults = modResults;
+		}
+
+		private final IXtextDocument getXtextDocument(final ModificationResult modResult) {
+			return AgeXtextUtil.getDocumentByRootElement(modResult.rootQualifiedName, modResult.resourceUri);
+		}
+
+		@Override
+		public AgeAction execute() {
+			// Results of the undo action. Used to redo the operation.
+			final List<ModificationResult> undoResults = new ArrayList<>();
+
+			runInDisplayThread(() -> {
+				try (Lock lock = modelChangeNotifier.lock()) {
+					final Set<IProject> projectsToBuild = new HashSet<>();
+
+					// Undo the operations in the opposite order from which they were originally performed.
+					for (final ModificationResult modResult : Lists.reverse(modResults)) {
+						final IXtextDocument doc = getXtextDocument(modResult);
+						final String newOriginalTextContents;
+						if (doc == null) {
+							final IProject projectResource = ProjectUtil.getProject(modResult.resourceUri);
+							if (projectResource instanceof IProject) {
+								projectsToBuild.add((IProject) projectResource);
+							}
+
+							// Get the model file
+							String platformString = modResult.resourceUri.toPlatformString(true);
+							final IResource modelResource = ResourcesPlugin.getWorkspace().getRoot().findMember(platformString);
+							if (!(modelResource instanceof IFile)) {
+								throw new RuntimeException("Unable to get file: " + platformString);
+							}
+
+							final IFile modelFile = (IFile) modelResource;
+
+							// Store the current contents of the model file and update the model file with the original contents
+							try {
+								final String charsetName = modelFile.getCharset(true);
+								final Charset charset = Charset.forName(charsetName);
+
+								// Get original contents
+								newOriginalTextContents = CharStreams
+										.toString(new InputStreamReader(modelFile.getContents(), charset));
+
+								modelFile.setContents(
+										new ByteArrayInputStream(
+												modResult.originalTextContents.getBytes(charset)),
+										true, true, new NullProgressMonitor());
+							} catch (IOException | CoreException e) {
+								throw new RuntimeException(e);
+							}
+
+						} else {
+							fixXtextDocumentDirtyState(doc);
+							newOriginalTextContents = doc.get();
+							doc.set(modResult.originalTextContents);
+
+							// Call readonly on the document. This will should cause Xtext's reconciler to be called to ensure the document matches the
+							// model and trigger model change events.
+							doc.readOnly(res -> null);
+						}
+
+						undoResults.add(
+								ModificationResult.createSuccess(modResult.rootQualifiedName, modResult.resourceUri,
+										newOriginalTextContents));
+
+					}
+
+					// Build projects before unlocking. This will cause the post build notifications to be sent out before the lock is released.
+					// This is desired to avoid multiple diagram updates for the same change.
+					buildProjects(projectsToBuild);
+				}
+			});
+
+			// Return action to redo the operation.
+			return new UndoAction(undoResults);
+		}
+	}
+
+	private <TagType, BusinessObjectType extends EObject> ModificationResult performModification(
 			final Modification<TagType, BusinessObjectType> modification, final Set<IProject> projectsToBuild) {
 		final TagType tag = modification.getTag();
 
 		// Determine the object to modify
 		final BusinessObjectType bo = modification.getTagToBusinessObjectMapper().apply(tag);
 		if (bo == null) {
-			return new ModifySafelyResults(false);
+			return ModificationResult.createFailure();
 		}
 
 		if (!(bo.eResource() instanceof XtextResource)) {
@@ -146,15 +263,26 @@ public class DefaultAadlModificationService implements AadlModificationService {
 		}
 
 		// Try to get the Xtext document
-		final Object root = bo.eResource() == null ? null : bo.eResource().getContents().get(0);
-		final IXtextDocument doc = AgeXtextUtil
-				.getDocumentByRootElement(root instanceof NamedElement ? (NamedElement) root : null);
+		String rootQualifiedName = null;
+		URI rootResourceUri = null;
+		if(bo.eResource() != null) {
+			final Object root = bo.eResource() == null ? null : bo.eResource().getContents().get(0);
+			if(root instanceof NamedElement) {
+				final NamedElement rootNamedElement = (NamedElement)root;
+				rootQualifiedName = rootNamedElement.getQualifiedName();
+				rootResourceUri = rootNamedElement.eResource().getURI();
+			}
+		}
+
+		final IXtextDocument doc = AgeXtextUtil.getDocumentByRootElement(rootQualifiedName, rootResourceUri);
+		final String originalTextContents;
 		final ModifySafelyResults modifySafelyResult;
 		if (doc == null) {
 			// Modify the EMF resource directly
 			final XtextResource res = (XtextResource) bo.eResource();
-			modifySafelyResult = modifySafely(res, tag, bo, modification.getModifier(),
-					true);
+			originalTextContents = getText(res);
+
+			modifySafelyResult = modifySafely(res, tag, bo, modification.getModifier(), true);
 
 			if (modifySafelyResult.modificationSuccessful) {
 				// Save the model
@@ -175,25 +303,13 @@ public class DefaultAadlModificationService implements AadlModificationService {
 				}
 			}
 		} else {
-			// TODO: Remove when issue regarding Xtext Dirty State has been resolved.
-			// https://github.com/osate/osate-ge/issues/210
-			// This works around the issue by getting the xtext editor and calling doVerify() on it's dirty state editor support which starts
-			// managing
-			// the dirty state.
-			for (final IEditorReference editorRef : PlatformUI.getWorkbench().getActiveWorkbenchWindow()
-					.getActivePage().getEditorReferences()) {
-				final IEditorPart editor = editorRef.getEditor(false);
-				if (editor instanceof XtextEditor) {
-					final XtextEditor xtextEditor = (XtextEditor) editor;
-					if (xtextEditor.getDocument() == doc) {
-						xtextEditor.getDirtyStateEditorSupport().doVerify();
-						break;
-					}
-				}
-			}
+			fixXtextDocumentDirtyState(doc);
 
 			// If the element is in an annex, determine the root actual/parsed annex element
 			final EObject parsedAnnexRoot = getParsedAnnexRoot(bo);
+
+			// Store original contents
+			originalTextContents = doc.get();
 
 			// If the element which needs to be edited is in an annex, modify the default annex element. This is needed because objects inside
 			// of annexes may not have unique URI's
@@ -224,13 +340,56 @@ public class DefaultAadlModificationService implements AadlModificationService {
 			// Call the after modification callback
 			if (modifySafelyResult.modificationSuccessful) {
 				// Call readonly on the document. This will should cause Xtext's reconciler to be called to ensure the document matches the
-				// model.
-				// If modify() has been called in the display thread, then the diagram should be updated by the diagram editor as well
+				// model and trigger model change events.
 				doc.readOnly(res -> null);
 			}
 		}
 
-		return modifySafelyResult;
+		if(modifySafelyResult.modificationSuccessful) {
+			return ModificationResult.createSuccess(rootQualifiedName, rootResourceUri, originalTextContents);
+		} else {
+			return ModificationResult.createFailure();
+		}
+	}
+
+	private static void fixXtextDocumentDirtyState(final IXtextDocument doc) {
+		// TODO: Remove when issue regarding Xtext Dirty State has been resolved.
+		// https://github.com/osate/osate-ge/issues/210
+		// This works around the issue by getting the xtext editor and calling doVerify() on it's dirty state editor support which starts
+		// managing
+		// the dirty state.
+		for (final IEditorReference editorRef : PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage()
+				.getEditorReferences()) {
+			final IEditorPart editor = editorRef.getEditor(false);
+			if (editor instanceof XtextEditor) {
+				final XtextEditor xtextEditor = (XtextEditor) editor;
+				if (xtextEditor.getDocument() == doc) {
+					xtextEditor.getDirtyStateEditorSupport().doVerify();
+					break;
+				}
+			}
+		}
+	}
+
+	private static String getText(final XtextResource res) {
+		// Serialize the current resource to a string.
+		final ByteArrayOutputStream stream = new ByteArrayOutputStream();
+		try {
+			res.save(stream, SaveOptions.newBuilder().format().getOptions().toOptionsMap());
+		} catch (final IOException e) {
+			throw new RuntimeException(e);
+		}
+
+		try {
+			final String txt = stream.toString(res.getEncoding());
+			if (txt == null || txt.length() == 0) {
+				throw new RuntimeException("Unable to get source text for resource: " + res.getURI());
+			}
+
+			return txt;
+		} catch (final UnsupportedEncodingException e) {
+			throw new RuntimeException(e);
+		}
 	}
 
 	private <TagType, BusinessObjectType extends EObject> ModifySafelyResults modifyAnnexInXtextDocument(final XtextResource resource,
@@ -333,6 +492,32 @@ public class DefaultAadlModificationService implements AadlModificationService {
 		return indices;
 	}
 
+	private static class ModificationResult {
+		private ModificationResult(final boolean modificationSuccessful, final String rootQualifiedName,
+				final URI resourceUri, final String originalTextContents) {
+			this.modificationSuccessful = modificationSuccessful;
+			this.rootQualifiedName = rootQualifiedName;
+			this.resourceUri = resourceUri;
+			this.originalTextContents = originalTextContents;
+		}
+
+		public static ModificationResult createSuccess(final String rootQualifiedName, final URI resourceUri,
+				final String originalTextContents) {
+			return new ModificationResult(true,
+					Objects.requireNonNull(rootQualifiedName, "rootQualifiedName must not be null"),
+					Objects.requireNonNull(resourceUri, "resourceUri must not be null"),
+					Objects.requireNonNull(originalTextContents, "originalTextContents must not be null"));
+		}
+
+		public static ModificationResult createFailure() {
+			return new ModificationResult(false, null, null, null);
+		}
+
+		public final boolean modificationSuccessful;
+		public final String rootQualifiedName;
+		public final URI resourceUri;
+		public final String originalTextContents;
+	}
 
 	/**
 	 * Class used to return the results of the modifySafely method
@@ -340,9 +525,10 @@ public class DefaultAadlModificationService implements AadlModificationService {
 	 * @param <R>
 	 */
 	private static class ModifySafelyResults {
-		public ModifySafelyResults(final boolean modificationSuccessful) {
+		private ModifySafelyResults(final boolean modificationSuccessful) {
 			this.modificationSuccessful = modificationSuccessful;
 		}
+
 
 		public final boolean modificationSuccessful;
 	}
@@ -363,18 +549,23 @@ public class DefaultAadlModificationService implements AadlModificationService {
 
 		final ResourceSet resourceSet = Objects.requireNonNull(resource.getResourceSet(),
 				"Unable to retrieve resource set");
-		TransactionalEditingDomain domain = null;
+		final TransactionalEditingDomain domain = TransactionalEditingDomain.Factory.INSTANCE
+				.getEditingDomain(resourceSet);
 
 		boolean modificationSuccessful = false;
-		domain = TransactionalEditingDomain.Factory.INSTANCE.getEditingDomain(resourceSet);
 
-		final Command undoCommand = domain == null ? null : domain.getCommandStack().getUndoCommand();
+		final Command undoCommand;
+		final RecordingCommand cmd;
 		if (domain == null) {
+			undoCommand = null;
+			cmd = null;
+
 			// Perform the modification without a transaction
 			modifier.modify(tag, element);
 		} else {
 			// Make modification in a transaction
-			final RecordingCommand cmd = new RecordingCommand(domain) {
+			undoCommand = domain.getCommandStack().getUndoCommand();
+			cmd = new RecordingCommand(domain) {
 				@Override
 				protected void doExecute() {
 					modifier.modify(tag, element);

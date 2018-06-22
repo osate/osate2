@@ -64,6 +64,4 @@ public interface DiagramModification {
 	 * @param modification
 	 */
 	public void redoModification(final DiagramModification modification);
-	public boolean isUndoable();
-	public boolean isRedoable();
 }
