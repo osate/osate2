@@ -24,6 +24,7 @@ import org.osate.ge.internal.diagram.runtime.DiagramModification;
 import org.osate.ge.internal.diagram.runtime.DockArea;
 import org.osate.ge.internal.diagram.runtime.RelativeBusinessObjectReference;
 import org.osate.ge.internal.diagram.runtime.updating.DiagramUpdater;
+import org.osate.ge.internal.services.impl.SimpleActionExecutor;
 
 public class DiagramUpdaterTest {
 	private AgeDiagram diagram;
@@ -48,7 +49,7 @@ public class DiagramUpdaterTest {
 				);
 
 		diagram = new AgeDiagram(0);
-		diagramUpdater = new DiagramUpdater(testModel, testModel);
+		diagramUpdater = new DiagramUpdater(testModel, testModel, new SimpleActionExecutor());
 	}
 
 	// Test that the diagram elements are created as expected

@@ -29,23 +29,44 @@ ARISING FROM, OUT OF OR IN CONNECTION WITH THE DATA OR THE USE OR OTHER DEALINGS
  *******************************************************************************/
 package org.osate.ge.internal.ui.editor;
 
+import java.util.Objects;
+
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.ui.editor.DiagramBehavior;
 import org.eclipse.graphiti.ui.editor.DiagramEditor;
 import org.eclipse.graphiti.ui.editor.IDiagramEditorInput;
+import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.views.contentoutline.IContentOutlinePage;
 import org.osate.ge.GraphicalEditor;
 import org.osate.ge.internal.diagram.runtime.AgeDiagram;
 import org.osate.ge.internal.graphiti.diagram.GraphitiAgeDiagram;
+import org.osate.ge.internal.services.ActionExecutor;
+import org.osate.ge.internal.services.ActionService;
 
 public class AgeDiagramEditor extends DiagramEditor implements GraphicalEditor {
 	public static final String DIAGRAM_EDITOR_ID = "org.osate.ge.editor.AgeDiagramEditor";
 	public static final String EXTENSION_NO_DOT = "aadl_diagram";
 	public static final String EXTENSION = "." + EXTENSION_NO_DOT;
 	private AgeContentOutlinePage outlinePage = null;
+	private boolean disposed = false;
 
-	public AgeDiagramEditor() {
+	@Override
+	public void dispose() {
+		try {
+			super.dispose();
+		} finally {
+			disposed = true;
+
+			// Remove invalidated actions from the action service.
+			final ActionService actionService = Objects.requireNonNull(
+					PlatformUI.getWorkbench().getService(ActionService.class), "Unable to retrieve action service");
+			actionService.removeInvalidActions();
+		}
+	}
+
+	public boolean isDisposed() {
+		return disposed;
 	}
 
 	@Override
@@ -73,6 +94,15 @@ public class AgeDiagramEditor extends DiagramEditor implements GraphicalEditor {
 	public void selectDiagramElementsForBusinessObject(final Object bo) {
 		// Select all pictogram elements associated with the business object
 		selectPictogramElements(getDiagramTypeProvider().getFeatureProvider().getAllPictogramElementsForBusinessObject(bo));
+	}
+
+	public ActionExecutor getActionExecutor() {
+		return getDiagramBehavior().getActionExecutor();
+	}
+
+	@Override
+	public AgeDiagramBehavior getDiagramBehavior() {
+		return (AgeDiagramBehavior) super.getDiagramBehavior();
 	}
 
 	@Override
