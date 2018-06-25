@@ -14,7 +14,6 @@ import org.osate.aadl2.instance.SystemOperationMode;
 import org.osate.aadl2.util.Aadl2Util;
 import org.osate.analysis.flows.FlowLatencyUtil;
 import org.osate.analysis.flows.model.LatencyContributor.LatencyContributorMethod;
-import org.osate.analysis.flows.preferences.Values;
 import org.osate.analysis.flows.reporting.model.Line;
 import org.osate.analysis.flows.reporting.model.ReportSeverity;
 import org.osate.analysis.flows.reporting.model.ReportedCell;
@@ -39,7 +38,8 @@ public class LatencyReportEntry {
 	// lastSampled may be a task, partition if no tasks inside the partition, sampling bus, or a sampling device/system
 	LatencyContributor lastSampled = null;
 	SystemOperationMode som = null;
-	boolean synchronpousSystem = false;
+	boolean synchronousSystem = false;
+	private final boolean majorFrameDelay;
 	double expectedMaxLatency = 0;
 	double expectedMinLatency = 0;
 	double minValue = 0;
@@ -47,11 +47,13 @@ public class LatencyReportEntry {
 	double minSpecifiedValue = 0;
 	double maxSpecifiedValue = 0;
 
-	public LatencyReportEntry(EndToEndFlowInstance etef, SystemOperationMode som, boolean synchronousSystem) {
+	public LatencyReportEntry(EndToEndFlowInstance etef, SystemOperationMode som, boolean synchronousSystem,
+			boolean majorFrameDelay) {
 		this.contributors = new ArrayList<LatencyContributor>();
 		this.relatedEndToEndFlow = etef;
 		this.som = som;
-		this.synchronpousSystem = synchronousSystem;
+		this.synchronousSystem = synchronousSystem;
+		this.majorFrameDelay = majorFrameDelay;
 
 		expectedMaxLatency = GetProperties.getMaximumLatencyinMilliSec(this.relatedEndToEndFlow);
 		expectedMinLatency = GetProperties.getMinimumLatencyinMilliSec(this.relatedEndToEndFlow);
@@ -68,7 +70,7 @@ public class LatencyReportEntry {
 	}
 
 	public boolean doSynchronous() {
-		return synchronpousSystem;
+		return synchronousSystem;
 	}
 
 	public SystemOperationMode getSOM() {
@@ -377,7 +379,7 @@ public class LatencyReportEntry {
 			} else if (lc.isPartitionOutputDelay()) {
 				// deal with partition I/O delay, then add communication latency
 				// do it as major frame delay or as partition end delay depending on preference setting
-				if (Values.doMajorFrameDelay()) {
+				if (majorFrameDelay) {
 					// round up to next major frame
 					double diff = FlowLatencyUtil.roundUpDiff(getCumLatency(lc, doMaximum) + lc.getPartitionOffset(),
 							lc.getSamplingPeriod());

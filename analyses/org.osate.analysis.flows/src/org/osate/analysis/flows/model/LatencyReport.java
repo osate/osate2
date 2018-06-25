@@ -21,10 +21,10 @@ public class LatencyReport {
 	private String name;
 	private SystemInstance relatedInstance;
 
-	private boolean isSynchronousSystem = false; // AS default
-	private boolean isMajorFrameDelay = true; // MF default
-	private boolean isWorstCaseDeadline = true; // DL default
-	private boolean isBestCaseEmptyQueue = true; // EQ default
+	private boolean synchronousSystem = false; // AS default
+	private boolean majorFrameDelay = true; // MF default
+	private boolean worstCaseDeadline = true; // DL default
+	private boolean bestCaseEmptyQueue = true; // EQ default
 
 	public LatencyReport(SystemInstance si) {
 		this.relatedInstance = si;
@@ -52,28 +52,28 @@ public class LatencyReport {
 		this.entries.add(entry);
 	}
 
-	public void setLatencyAnalysisParameters(boolean isSynchronousSystem, boolean isMajorFrameDelay,
-			boolean isWorstCaseDeadline, boolean isBestCaseEmptyQueue) {
-		this.isSynchronousSystem = isSynchronousSystem;
-		this.isMajorFrameDelay = isMajorFrameDelay;
-		this.isWorstCaseDeadline = isWorstCaseDeadline;
-		this.isBestCaseEmptyQueue = isBestCaseEmptyQueue;
+	public void setLatencyAnalysisParameters(boolean asynchronousSystem, boolean majorFrameDelay,
+			boolean worstCaseDeadline, boolean bestCaseEmptyQueue) {
+		this.synchronousSystem = !asynchronousSystem; // note switch from async to sync
+		this.majorFrameDelay = majorFrameDelay;
+		this.worstCaseDeadline = worstCaseDeadline;
+		this.bestCaseEmptyQueue = bestCaseEmptyQueue;
 	}
 
 	public boolean isSynchronousSystem() {
-		return this.isSynchronousSystem;
+		return this.synchronousSystem;
 	}
 
 	public boolean isMajorFrameDelay() {
-		return this.isMajorFrameDelay;
+		return this.majorFrameDelay;
 	}
 
 	public boolean isWorstCaseDeadline() {
-		return this.isWorstCaseDeadline;
+		return this.worstCaseDeadline;
 	}
 
 	public boolean isBestcaseEmptyQueue() {
-		return this.isBestCaseEmptyQueue;
+		return this.bestCaseEmptyQueue;
 	}
 
 	public String getParametersAsDescriptions() {

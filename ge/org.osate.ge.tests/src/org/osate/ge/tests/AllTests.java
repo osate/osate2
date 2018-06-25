@@ -11,7 +11,7 @@ import org.junit.runners.Suite.SuiteClasses;
 		OpenAssociatedDiagramTest.class, GoToTypeDiagramTest.class, DeletingClassifierTest.class,
 		SelectingDiagramElementContainerTest.class, PerformDiagramLayoutTest.class, CreateConnectionTest.class,
 		SetExtendedClassifierTest.class, FeatureGroupTest.class, ModesTransitionTest.class,
-		MoveShapeUsingKeysTest.class, ElementAppearanceTest.class,
+		MoveShapeUsingKeysTest.class, ElementAppearanceTest.class, DiagramExporterTest.class, DirtyStateTest.class
 })
 public class AllTests {
 }

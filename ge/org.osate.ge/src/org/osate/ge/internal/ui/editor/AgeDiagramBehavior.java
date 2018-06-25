@@ -1,7 +1,6 @@
 package org.osate.ge.internal.ui.editor;
 
 import java.util.Collections;
-import java.util.HashSet;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
@@ -25,6 +24,7 @@ import org.eclipse.core.runtime.Status;
 import org.eclipse.e4.core.contexts.ContextInjectionFactory;
 import org.eclipse.e4.core.contexts.EclipseContextFactory;
 import org.eclipse.e4.core.contexts.IEclipseContext;
+import org.eclipse.emf.common.command.AbstractCommand;
 import org.eclipse.emf.common.command.Command;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.Resource;
@@ -33,12 +33,14 @@ import org.eclipse.emf.transaction.ResourceSetChangeEvent;
 import org.eclipse.emf.transaction.ResourceSetListener;
 import org.eclipse.emf.transaction.RollbackException;
 import org.eclipse.emf.transaction.TransactionalEditingDomain;
+import org.eclipse.emf.transaction.impl.InternalTransactionalEditingDomain;
 import org.eclipse.gef.ContextMenuProvider;
 import org.eclipse.gef.DefaultEditDomain;
 import org.eclipse.gef.EditPart;
 import org.eclipse.gef.GraphicalEditPart;
 import org.eclipse.gef.GraphicalViewer;
 import org.eclipse.gef.Tool;
+import org.eclipse.gef.editparts.ZoomManager;
 import org.eclipse.gef.palette.PaletteDrawer;
 import org.eclipse.gef.palette.PaletteRoot;
 import org.eclipse.graphiti.dt.IDiagramTypeProvider;
@@ -55,7 +57,9 @@ import org.eclipse.graphiti.ui.editor.DefaultRefreshBehavior;
 import org.eclipse.graphiti.ui.editor.DiagramBehavior;
 import org.eclipse.graphiti.ui.editor.IDiagramContainerUI;
 import org.eclipse.graphiti.ui.editor.IDiagramEditorInput;
+import org.eclipse.graphiti.ui.internal.action.DeleteAction;
 import org.eclipse.graphiti.ui.platform.IConfigurationProvider;
+import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.jface.dialogs.ErrorDialog;
 import org.eclipse.jface.dialogs.MessageDialog;
@@ -71,8 +75,12 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.IPartListener;
+import org.eclipse.ui.ISelectionListener;
+import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.IWorkbenchPart;
+import org.eclipse.ui.IWorkbenchSite;
 import org.eclipse.ui.PlatformUI;
+import org.eclipse.ui.contexts.IContextService;
 import org.eclipse.ui.internal.EditorSite;
 import org.eclipse.ui.part.EditorPart;
 import org.eclipse.ui.views.contentoutline.ContentOutline;
@@ -83,18 +91,8 @@ import org.osate.ge.di.Names;
 import org.osate.ge.graphics.Color;
 import org.osate.ge.internal.Activator;
 import org.osate.ge.internal.diagram.runtime.AgeDiagram;
-import org.osate.ge.internal.diagram.runtime.BeforeModificationsCompletedEvent;
-import org.osate.ge.internal.diagram.runtime.DiagramConfigurationChangedEvent;
 import org.osate.ge.internal.diagram.runtime.DiagramElement;
-import org.osate.ge.internal.diagram.runtime.DiagramElementField;
-import org.osate.ge.internal.diagram.runtime.DiagramElementPredicates;
-import org.osate.ge.internal.diagram.runtime.DiagramModificationListener;
 import org.osate.ge.internal.diagram.runtime.DiagramSerialization;
-import org.osate.ge.internal.diagram.runtime.DockArea;
-import org.osate.ge.internal.diagram.runtime.ElementAddedEvent;
-import org.osate.ge.internal.diagram.runtime.ElementRemovedEvent;
-import org.osate.ge.internal.diagram.runtime.ElementUpdatedEvent;
-import org.osate.ge.internal.diagram.runtime.ModificationsCompletedEvent;
 import org.osate.ge.internal.diagram.runtime.layout.DiagramElementLayoutUtil;
 import org.osate.ge.internal.diagram.runtime.layout.LayoutInfoProvider;
 import org.osate.ge.internal.graphiti.AgeDiagramTypeProvider;
@@ -104,13 +102,19 @@ import org.osate.ge.internal.graphiti.LegacyDiagramUtil;
 import org.osate.ge.internal.graphiti.LegacyGraphitiDiagramConverter;
 import org.osate.ge.internal.graphiti.diagram.ColoringProvider;
 import org.osate.ge.internal.graphiti.diagram.GraphitiAgeDiagram;
-import org.osate.ge.internal.graphiti.features.EmfCommandCustomFeature;
+import org.osate.ge.internal.graphiti.features.AgeActionCustomFeature;
+import org.osate.ge.internal.services.ActionExecutor;
+import org.osate.ge.internal.services.ActionExecutor.ExecutionMode;
+import org.osate.ge.internal.services.ActionService;
+import org.osate.ge.internal.services.ActionService.ActionStackChangeListener;
 import org.osate.ge.internal.services.ColoringService;
 import org.osate.ge.internal.services.DiagramService;
 import org.osate.ge.internal.services.ExtensionRegistryService;
 import org.osate.ge.internal.services.ExtensionService;
 import org.osate.ge.internal.services.ModelChangeNotifier;
 import org.osate.ge.internal.services.ModelChangeNotifier.ChangeListener;
+import org.osate.ge.internal.ui.editor.actions.RedoAction;
+import org.osate.ge.internal.ui.editor.actions.UndoAction;
 import org.osate.ge.internal.ui.util.SelectionUtil;
 import org.osgi.framework.Bundle;
 import org.osgi.framework.FrameworkUtil;
@@ -123,7 +127,6 @@ public class AgeDiagramBehavior extends DiagramBehavior implements GraphitiAgeDi
 	private boolean updateWhenVisible = false;
 	private boolean updateQueued = false; // Only access by ui thread
 	private boolean updateQueuedRequireVisible = false;
-	private boolean isDiagramDirty = false;
 	private volatile boolean dirtyModel = false;
 	private volatile boolean forceUpdateOnNextModelChange = false;
 	private ToolHandler toolHandler;
@@ -132,6 +135,8 @@ public class AgeDiagramBehavior extends DiagramBehavior implements GraphitiAgeDi
 	private AgeDiagram ageDiagram;
 	private AgeTabbedPropertySheetPage propertySheetPage;
 	private boolean diagramContextIsValid = true;
+	private int cleanDiagramChangeNumber = -1; // The diagram change number of the "clean" diagram.
+	private ActionExecutor actionExecutor;
 	private PaintListener paintListener = e -> {
 		if(updateWhenVisible) {
 			updateDiagram(true);
@@ -139,56 +144,37 @@ public class AgeDiagramBehavior extends DiagramBehavior implements GraphitiAgeDi
 		}
 	};
 
-	// Listener that will set the diagram dirty flag when the diagram is modified.
-	private DiagramModificationListener ageDiagramModificationListener = new DiagramModificationListener() {
+	private final ISelectionListener toolPostSelectionListener = (part, selection) -> {
+		toolHandler.setSelectedDiagramElements(SelectionUtil.getSelectedDiagramElements(selection));
+	};
+
+	private final IPartListener toolPartListener = new IPartListener() {
 		@Override
-		public void beforeModificationsCompleted(BeforeModificationsCompletedEvent e) {
-		}
+		public void partClosed(final IWorkbenchPart part) {
+			if (getDiagramEditor() == part) {
+				toolHandler.deactivateActiveTool();
 
-		@Override
-		public void modificationsCompleted(ModificationsCompletedEvent e) {
-		}
-
-		@Override
-		public void elementUpdated(final ElementUpdatedEvent e) {
-			// Ignore fields which are not serialized.
-			final HashSet<DiagramElementField> updatedFields = new HashSet<>(e.updatedFields);
-			updatedFields.remove(DiagramElementField.COMPLETENESS);
-			updatedFields.remove(DiagramElementField.NAME);
-			updatedFields.remove(DiagramElementField.GRAPHICAL_CONFIGURATION);
-
-			if (!DiagramElementPredicates.isResizeable(e.element)) {
-				updatedFields.remove(DiagramElementField.SIZE);
-			}
-
-			if (!DiagramElementPredicates.isMoveable(e.element)) {
-				updatedFields.remove(DiagramElementField.POSITION);
-			}
-
-			// Ignore dock area if element is a child of a dock are. DockArea = GROUP is not serialized.
-			if (e.element.getDockArea() == DockArea.GROUP) {
-				updatedFields.remove(DiagramElementField.DOCK_AREA);
-			}
-
-			if (updatedFields.size() > 0) {
-				isDiagramDirty = true;
+				// Stop listening for part events
+				getDiagramEditor().getSite().getWorkbenchWindow().getPartService().removePartListener(this);
 			}
 		}
 
 		@Override
-		public void elementRemoved(final ElementRemovedEvent e) {
-			isDiagramDirty = true;
+		public void partDeactivated(final IWorkbenchPart part) {
 		}
 
 		@Override
-		public void elementAdded(final ElementAddedEvent e) {
-			isDiagramDirty = true;
+		public void partActivated(final IWorkbenchPart part) {
+			if (getDiagramEditor() != part && !(part instanceof ContentOutline)) {
+				toolHandler.deactivateActiveTool();
+			}
 		}
 
 		@Override
-		public void diagramConfigurationChanged(final DiagramConfigurationChangedEvent e) {
-			isDiagramDirty = true;
-		}
+		public void partBroughtToTop(final IWorkbenchPart part) {}
+
+		@Override
+		public void partOpened(final IWorkbenchPart part) {}
 	};
 
 	private ChangeListener modelChangeListener = new ChangeListener() {
@@ -198,6 +184,13 @@ public class AgeDiagramBehavior extends DiagramBehavior implements GraphitiAgeDi
 			forceUpdateOnNextModelChange = false; // Reset flag
 			dirtyModel = true;
 			updateDiagram(requireVisible);
+		}
+	};
+
+	private final ActionStackChangeListener actionStackChangeListener = () -> {
+		final IDiagramContainerUI diagramContainer = getDiagramContainer();
+		if (diagramContainer != null) {
+			diagramContainer.updateDirtyState();
 		}
 	};
 
@@ -238,6 +231,23 @@ public class AgeDiagramBehavior extends DiagramBehavior implements GraphitiAgeDi
 
 	public AgeDiagramBehavior(final IDiagramContainerUI diagramContainer) {
 		super(diagramContainer);
+	}
+
+	@Override
+	protected void initActionRegistry(final ZoomManager zoomManager) {
+		super.initActionRegistry(zoomManager);
+
+		registerAction(new UndoAction(getParentPart()));
+		registerAction(new RedoAction(getParentPart()));
+
+		// Disable Graphiti's default delete action.
+		final IDiagramContainerUI diagramContainer = getDiagramContainer();
+		if (diagramContainer != null) {
+			final IAction deleteAction = diagramContainer.getActionRegistry().getAction(DeleteAction.ACTION_ID);
+			if (deleteAction != null) {
+				diagramContainer.getActionRegistry().removeAction(deleteAction);
+			}
+		}
 	}
 
 	@Override
@@ -389,42 +399,24 @@ public class AgeDiagramBehavior extends DiagramBehavior implements GraphitiAgeDi
 			// Register an action for each tool
 			toolHandler = new ToolHandler(extService, getPaletteBehavior());
 
-			editor.getSite().getWorkbenchWindow().getSelectionService().addPostSelectionListener((part, selection) -> {
-				toolHandler.setSelectedDiagramElements(SelectionUtil.getSelectedDiagramElements(selection));
-			});
+			editor.getSite().getWorkbenchWindow().getSelectionService()
+			.addPostSelectionListener(toolPostSelectionListener);
 			toolHandler.setSelectedDiagramElements(SelectionUtil.getSelectedDiagramElements(
 					editor.getSite().getWorkbenchWindow().getSelectionService().getSelection()));
 
 			// Deactivate the tool when the part is deactivated or closed
-			editor.getSite().getWorkbenchWindow().getPartService().addPartListener(new IPartListener() {
-				@Override
-				public void partClosed(final IWorkbenchPart part) {
-					if (editor == part) {
-						toolHandler.deactivateActiveTool();
+			editor.getSite().getWorkbenchWindow().getPartService().addPartListener(toolPartListener);
 
-						// Stop listening for part events
-						editor.getSite().getWorkbenchWindow().getPartService().removePartListener(this);
-					}
-				}
-
-				@Override
-				public void partDeactivated(final IWorkbenchPart part) {
-				}
-
-				@Override
-				public void partActivated(final IWorkbenchPart part) {
-					if (editor != part && !(part instanceof ContentOutline)) {
-						toolHandler.deactivateActiveTool();
-					}
-				}
-
-				@Override
-				public void partBroughtToTop(final IWorkbenchPart part) {}
-
-				@Override
-				public void partOpened(final IWorkbenchPart part) {}
-			});
+			// Activate Context
+			final IContextService contextService = editor.getSite().getService(IContextService.class);
+			if (contextService != null) {
+				contextService.activateContext("org.osate.ge.context");
+			}
 		}
+	}
+
+	public ActionExecutor getActionExecutor() {
+		return actionExecutor;
 	}
 
 	public void activateTool(final Object tool) {
@@ -469,14 +461,24 @@ public class AgeDiagramBehavior extends DiagramBehavior implements GraphitiAgeDi
 		try {
 			super.disposeAfterGefDispose();
 
+			getActionService().removeChangeListener(actionStackChangeListener);
+
 			if (toolHandler != null) {
 				toolHandler.dispose();
 			}
 		} finally {
 			if (graphitiAgeDiagram != null) {
 				graphitiAgeDiagram.close();
+				graphitiAgeDiagram = null;
 			}
+
+			ageDiagram = null;
 		}
+	}
+
+	private ActionService getActionService() {
+		return Objects.requireNonNull(PlatformUI.getWorkbench().getService(ActionService.class),
+				"Unable to retrieve action service");
 	}
 
 	private final Runnable updateNowIfModelHasChangedRunnable = () -> updateDiagram(false);
@@ -715,9 +717,12 @@ public class AgeDiagramBehavior extends DiagramBehavior implements GraphitiAgeDi
 			Display.getDefault().asyncExec(() -> {
 				getPaletteBehavior().refreshPalette();
 
-				// Reset the selection if the diagram context isn't valid.
+				// Close the editor if the context isn't valid.
 				if (!diagramContextIsValid) {
-					selectPictogramElements(new PictogramElement[0]);
+					final IDiagramContainerUI container = getDiagramContainer();
+					if (container != null) {
+						container.close();
+					}
 				}
 			});
 		}
@@ -866,6 +871,14 @@ public class AgeDiagramBehavior extends DiagramBehavior implements GraphitiAgeDi
 
 	@Override
 	protected void disposeBeforeGefDispose() {
+		final AgeDiagramEditor editor = getDiagramEditor();
+		if (editor != null) {
+			// Remove listeners used for implementing tools
+			editor.getSite().getWorkbenchWindow().getPartService().removePartListener(toolPartListener);
+			editor.getSite().getWorkbenchWindow().getSelectionService()
+			.removePostSelectionListener(toolPostSelectionListener);
+		}
+
 		// Unregister our resource change listener
 		if(resourceChangeListener != null) {
 			final IWorkspace workspace = ResourcesPlugin.getWorkspace();
@@ -894,7 +907,6 @@ public class AgeDiagramBehavior extends DiagramBehavior implements GraphitiAgeDi
 						"Unable to retrieve extension registry");
 
 				ageDiagram = DiagramSerialization.createAgeDiagram(getProject(), mmDiagram, extRegistry);
-				ageDiagram.addModificationListener(ageDiagramModificationListener);
 
 				// Display warning if the diagram is stored with a newer version of the diagram file format.
 				if(mmDiagram.getFormatVersion() > DiagramSerialization.FORMAT_VERSION) {
@@ -928,8 +940,8 @@ public class AgeDiagramBehavior extends DiagramBehavior implements GraphitiAgeDi
 					final AgeFeatureProvider fp = (AgeFeatureProvider)getDiagramTypeProvider().getFeatureProvider();
 					fp.getDiagramUpdater().clearGhosts();
 
-					// Reset the dirty flag
-					isDiagramDirty = false;
+					// Store current change number
+					cleanDiagramChangeNumber = ageDiagram.getCurrentChangeNumber();
 
 					// Return a set containing the diagram resource
 					if(editingDomain.getResourceSet().getResources().size() == 1) {
@@ -947,7 +959,7 @@ public class AgeDiagramBehavior extends DiagramBehavior implements GraphitiAgeDi
 
 			@Override
 			public boolean isDirty() {
-				return isDiagramDirty;
+				return ageDiagram == null || cleanDiagramChangeNumber != ageDiagram.getCurrentChangeNumber();
 			}
 		};
 	}
@@ -963,35 +975,39 @@ public class AgeDiagramBehavior extends DiagramBehavior implements GraphitiAgeDi
 			throw new RuntimeException(e);
 		}
 
-		// Prevent the diagram from being marked as dirty. This may be overridden if the context is relinked
-		isDiagramDirty = false;
+		// Treat the current state of the diagram as clean.
+		cleanDiagramChangeNumber = ageDiagram.getCurrentChangeNumber();
 
 		final AgeFeatureProvider fp = (AgeFeatureProvider) dtp.getFeatureProvider();
 
 		// Update the diagram to finish initializing the diagram's fields before creating the GraphitiAgeDiagram object
-		ageDiagram.modify("Update Diagram", m -> {
-			// Check the diagram's context
-			final DiagramContextChecker contextChecker = new DiagramContextChecker(project,
-					dtp.getProjectReferenceService(), dtp.getSystemInstanceLoader());
-			final boolean workbenchIsVisible = isWorkbenchVisible();
-			final DiagramContextChecker.Result result = contextChecker.checkContextFullBuild(ageDiagram, workbenchIsVisible);
+		final ActionService actionService = getActionService();
+		actionService.execute("Update on Load", ExecutionMode.HIDE, () -> {
+			ageDiagram.modify("Update Diagram", m -> {
+				// Check the diagram's context
+				final DiagramContextChecker contextChecker = new DiagramContextChecker(project,
+						dtp.getProjectReferenceService(), dtp.getSystemInstanceLoader());
+				final boolean workbenchIsVisible = isWorkbenchVisible();
+				final DiagramContextChecker.Result result = contextChecker.checkContextFullBuild(ageDiagram, workbenchIsVisible);
 
-			if (!result.isContextValid()) {
-				// If the workbench is not visible, then close the diagram to avoid an error which could have been avoided by relinking since
-				// we only prompts to relink if the workbench is visible.
-				if (!workbenchIsVisible) {
-					closeDiagramContainer();
+				if (!result.isContextValid()) {
+					// If the workbench is not visible, then close the diagram to avoid an error which could have been avoided by relinking since
+					// we only prompts to relink if the workbench is visible.
+					if (!workbenchIsVisible) {
+						closeDiagramContainer();
+					}
+
+					final String refContextLabel = dtp.getProjectReferenceService()
+							.getLabel(ageDiagram.getConfiguration().getContextBoReference(), project);
+
+					throw new InitializationException("Unable to resolve context: "
+							+ (refContextLabel == null ? ageDiagram.getConfiguration().getContextBoReference().toString()
+									: refContextLabel));
 				}
 
-				final String refContextLabel = dtp.getProjectReferenceService()
-						.getLabel(ageDiagram.getConfiguration().getContextBoReference(), project);
-
-				throw new InitializationException("Unable to resolve context: "
-						+ (refContextLabel == null ? ageDiagram.getConfiguration().getContextBoReference().toString()
-								: refContextLabel));
-			}
-
-			fp.getDiagramUpdater().updateDiagram(ageDiagram);
+				fp.getDiagramUpdater().updateDiagram(ageDiagram);
+			});
+			return null;
 		});
 
 		// Set the coloring service field. It is needed
@@ -1003,9 +1019,69 @@ public class AgeDiagramBehavior extends DiagramBehavior implements GraphitiAgeDi
 			}
 		};
 
+		actionService.addChangeListener(actionStackChangeListener);
+
+		actionExecutor = (label, mode, action) -> {
+			final boolean inTransaction = ((InternalTransactionalEditingDomain) getEditingDomain())
+					.getActiveTransaction() != null;
+
+			// Don't create a transaction if already in one or if the modification listener is disabled. In the latter case, the graphiti diagram will
+			// not be updated.
+			final boolean reverseActionWasSpecified;
+			if (inTransaction) {
+				reverseActionWasSpecified = actionService.execute(label, mode, action);
+			} else {
+				final AgeActionCustomFeature actionFeature = new AgeActionCustomFeature(actionService, label, action,
+						fp);
+				executeFeature(actionFeature, new CustomContext());
+				reverseActionWasSpecified = actionFeature.getExecuteResult();
+			}
+
+			// If an action isn't running and the action is executing as normal, then activate the editor if the action is undoable.
+			// This will ensure that when the action is undone, the editor will be switched to the one in which the action was performed.
+			if (isEditorActive() && reverseActionWasSpecified && !actionService.isActionExecuting()
+					&& mode == ExecutionMode.NORMAL) {
+				actionService.execute("Activate Editor", ExecutionMode.APPEND_ELSE_HIDE,
+						new ActivateAgeEditorAction(getDiagramEditor()));
+			}
+
+			// Flush the command stack to avoid keeping references to commands. The graphical editor's ActionService keeps its own command stack.
+			getEditingDomain().getCommandStack().flush();
+
+			return reverseActionWasSpecified;
+		};
+
+		// Create a URI to use for the resource. This resource uses a scheme which does not have a registered handler.
+		// A handler is not needed the resource's save() should not be called. The URI just serves as a unique identifier in the resource set.
+		final URI ignoredUri = URI.createHierarchicalURI("osate_ge_ignore", null, null,
+				new String[] { "internal.aadl_diagram" }, null, null);
+
+		// Create the diagram resource and add the diagram to it.
+		final TransactionalEditingDomain editingDomain = getEditingDomain();
+		final Resource diagramResource = editingDomain.getResourceSet().createResource(ignoredUri);
+		editingDomain.getCommandStack().execute(new AbstractCommand() {
+			@Override
+			protected boolean prepare() {
+				return true;
+			}
+
+			@Override
+			public void execute() {
+				diagramResource.getContents().add(diagram);
+			}
+
+			@Override
+			public boolean canUndo() {
+				return false;
+			}
+
+			@Override
+			public void redo() {
+			}
+		});
+
 		// Create the Graphiti AGE diagram which will own a Graphiti diagram and keep it updated with any changes to the AGE diagram
-		graphitiAgeDiagram = new GraphitiAgeDiagram(ageDiagram, dtp.getDiagram(), getEditingDomain(),
-				c -> executeFeature(new EmfCommandCustomFeature(c, fp), new CustomContext()), coloringProvider,
+		graphitiAgeDiagram = new GraphitiAgeDiagram(ageDiagram, dtp.getDiagram(), actionExecutor, coloringProvider,
 				() -> {
 					// Refresh the selection. This prevents the editor from losing the selection in some cases such as aligning shapes.
 					final PictogramElement[] pes = getSelectedPictogramElements();
@@ -1013,6 +1089,25 @@ public class AgeDiagramBehavior extends DiagramBehavior implements GraphitiAgeDi
 				});
 
 		return dtp;
+	}
+
+	private boolean isEditorActive() {
+		final AgeDiagramEditor editor = getDiagramEditor();
+		if(editor == null) {
+			return false;
+		}
+
+		final IWorkbenchSite site = editor.getSite();
+		if(site == null) {
+			return false;
+		}
+
+		final IWorkbenchPage page = site.getPage();
+		if(page == null) {
+			return false;
+		}
+
+		return page.getActiveEditor() == getDiagramEditor();
 	}
 
 	private void closeDiagramContainer() {

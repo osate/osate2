@@ -42,6 +42,7 @@ package org.osate.analysis.flows.handlers;
 import java.util.List;
 
 import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.jface.preference.IPreferenceStore;
 import org.osate.aadl2.Element;
 import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.instance.EndToEndFlowInstance;
@@ -51,8 +52,9 @@ import org.osate.aadl2.instance.SystemOperationMode;
 import org.osate.aadl2.modelsupport.errorreporting.AnalysisErrorReporterManager;
 import org.osate.analysis.flows.FlowLatencyAnalysisSwitch;
 import org.osate.analysis.flows.FlowLatencyUtil;
+import org.osate.analysis.flows.FlowanalysisPlugin;
 import org.osate.analysis.flows.model.LatencyReport;
-import org.osate.analysis.flows.preferences.Values;
+import org.osate.analysis.flows.preferences.Constants;
 import org.osate.result.AnalysisResult;
 import org.osate.result.Diagnostic;
 import org.osate.result.DiagnosticType;
@@ -83,9 +85,19 @@ public final class CheckFlowLatency extends AbstractInstanceOrDeclarativeModelRe
 	@Override
 	protected boolean initializeAnalysis(NamedElement object) {
 		if (object instanceof SystemInstance) {
+			IPreferenceStore store = FlowanalysisPlugin.getDefault().getPreferenceStore();
+			boolean synchronousSystem = store.getString(Constants.SYNCHRONOUS_SYSTEM)
+					.equalsIgnoreCase(Constants.SYNCHRONOUS_SYSTEM_YES);
+			boolean majorFrameDelay = store.getString(Constants.PARTITONING_POLICY)
+					.equalsIgnoreCase(Constants.PARTITIONING_POLICY_MAJOR_FRAME_DELAYED_STR);
+			boolean worstCaseDeadline = store.getString(Constants.WORST_CASE_DEADLINE)
+					.equalsIgnoreCase(Constants.WORST_CASE_DEADLINE_YES);
+			boolean bestCaseEmptyQueue = store.getString(Constants.BESTCASE_EMPTY_QUEUE)
+					.equalsIgnoreCase(Constants.BESTCASE_EMPTY_QUEUE_YES);
+			
 			latreport = new LatencyReport((SystemInstance) object);
-			latreport.setLatencyAnalysisParameters(Values.doSynchronousSystem(), Values.doMajorFrameDelay(),
-					Values.doWorstCaseDeadline(), Values.doMajorFrameDelay());
+			latreport.setLatencyAnalysisParameters(synchronousSystem, majorFrameDelay, worstCaseDeadline,
+					bestCaseEmptyQueue);
 			return true;
 		}
 		return false;

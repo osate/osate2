@@ -103,7 +103,7 @@ implements DiagramNode, ModifiableDiagramElementContainer, BusinessObjectContext
 	 * Intended for use by diagram class and during diagram deserialization.
 	 * @param value
 	 */
-	final void setId(final long value) {
+	final void setId(final Long value) {
 		this.id = value;
 	}
 
@@ -245,7 +245,7 @@ implements DiagramNode, ModifiableDiagramElementContainer, BusinessObjectContext
 	}
 
 	final void setGraphicalConfiguration(final AgeGraphicalConfiguration value) {
-		this.graphicalConfig = Objects.requireNonNull(value, "value must not be null");
+		this.graphicalConfig = value;
 	}
 
 	public final Graphic getGraphic() {
