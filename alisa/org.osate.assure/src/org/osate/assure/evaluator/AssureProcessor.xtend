@@ -289,7 +289,7 @@ class AssureProcessor implements IAssureProcessor {
 		// target element is the element referred to by the requirement. This may be empty
 		val targetElement = verificationResult.caseTargetModelElement
 		env.add("component", targetComponent)
-		env.add("element", targetElement?:targetComponent)
+		env.add("element", targetElement ?: targetComponent)
 
 		if (verificationResult instanceof PredicateResult) {
 			evaluatePredicate(verificationResult)
@@ -384,7 +384,7 @@ class AssureProcessor implements IAssureProcessor {
 					val res = VerificationMethodDispatchers.eInstance.
 						dispatchVerificationMethod(methodtype, instanceroot, parameterObjects) // returning the marker or diagnostic id as string
 					val InstanceObject target = if (targetElement !== null && !targetElement.eIsProxy) {
-						targetComponent.findElementInstance(targetElement) ?: targetComponent
+							targetComponent.findElementInstance(targetElement) ?: targetComponent
 						} else {
 							targetComponent
 						}
@@ -400,39 +400,40 @@ class AssureProcessor implements IAssureProcessor {
 						}
 					} else if (res instanceof AnalysisResult) {
 						var foundResult = false
-						for (Result r : res.results){
+						for (Result r : res.results) {
 							// we may encounter more than one Result
 							// TODO address this when we are able to use Result objects in Assure.
-							if (r.sourceReference === target){
+							if (r.sourceReference === target) {
 								foundResult = true
 								val issues = r.diagnostics
-								if (hasErrors(res)||hasFailures(r)) {
-									setToFail(verificationResult, "", target)
+								if (hasErrors(res) || hasFailures(r)) {
+									setToFail(verificationResult)
 								} else {
-									setToSuccess(verificationResult, "", target)
+									setToSuccess(verificationResult)
 								}
-								for (issue: issues){
+								for (issue : issues) {
 									val c = EcoreUtil.copy(issue)
-									if (c.type === DiagnosticType.ERROR){
+									if (c.type === DiagnosticType.ERROR) {
 										c.type = DiagnosticType.FAILURE
 									}
 									verificationResult.issues.add(c)
 								}
 							}
 						}
-						if ( ! foundResult){
+						if (! foundResult) {
 							// requirement target does not match Result source reference
 							// Typically occurs when the analysis is performed on an element, e.g., ETEF, while the requirement 
 							// does not include a 'for' <target model element>
-							setToError(verificationResult, "No Result found for requirement verification target "+target.name, target)
+							setToError(verificationResult,
+								"No Result found for requirement verification target " + target.name, target)
 						}
 					} else if (res instanceof Result) {
 						if (res.sourceReference === target) {
 							val issues = res.diagnostics
 							if (hasErrors(res) || hasFailures(res)) {
-								setToFail(verificationResult, "", target)
+								setToFail(verificationResult)
 							} else {
-								setToSuccess(verificationResult, "", target)
+								setToSuccess(verificationResult)
 							}
 							for (issue : issues) {
 								val c = EcoreUtil.copy(issue)
@@ -445,11 +446,12 @@ class AssureProcessor implements IAssureProcessor {
 							// requirement target does not match Result source reference
 							// Typically occurs when the analysis is performed on an element, e.g., ETEF, while the requirement 
 							// does not include a 'for' <target model element>
-							setToError(verificationResult, "Result is not for requirement verification target "+target.name, target)
+							setToError(verificationResult,
+								"Result is not for requirement verification target " + target.name, target)
 						}
 					} else {
-						setToError(verificationResult, "Analysis return type is not a string, Result, or AnalysisResult",
-							targetComponent);
+						setToError(verificationResult,
+							"Analysis return type is not a string, Result, or AnalysisResult", targetComponent);
 					}
 					verificationResult.eResource.save(null)
 					updateProgress(verificationResult)
@@ -524,7 +526,7 @@ class AssureProcessor implements IAssureProcessor {
 		}
 	}
 
-	def PropertyExpression toLiteral(EObject context,Object data, UnitLiteral unit) {
+	def PropertyExpression toLiteral(EObject context, Object data, UnitLiteral unit) {
 		switch data {
 			Boolean: {
 				val b = Aadl2Factory.eINSTANCE.createBooleanLiteral
@@ -687,7 +689,12 @@ class AssureProcessor implements IAssureProcessor {
 					if (checkPropertyValues(verificationResult, conni)) {
 						val d = ExecuteResoluteUtil.eInstance.executeResoluteFunctionOnce(fundef, root,
 							targetComponent, conni, parameters)
-						verificationResult.issues += d
+						if (!d.issues.empty) {
+							verificationResult.issues += d.issues
+						}
+						if (d.message !== null) {
+							verificationResult.message = d.message
+						}
 						if (d.type == DiagnosticType.SUCCESS) {
 							setToSuccess(verificationResult)
 						} else if (d.type == DiagnosticType.FAILURE) {
@@ -709,7 +716,12 @@ class AssureProcessor implements IAssureProcessor {
 				}
 				val d = ExecuteResoluteUtil.eInstance.executeResoluteFunctionOnce(fundef, root, targetComponent, target,
 					parameters)
-				verificationResult.issues += d
+				if (!d.issues.empty) {
+					verificationResult.issues += d.issues
+				}
+				if (d.message !== null) {
+					verificationResult.message = d.message
+				}
 				if (d.type == DiagnosticType.SUCCESS) {
 					setToSuccess(verificationResult)
 				} else if (d.type == DiagnosticType.FAILURE) {
@@ -742,7 +754,7 @@ class AssureProcessor implements IAssureProcessor {
 			if (returned !== null) {
 				if (returned instanceof Boolean && (method.isPredicate || method.results.empty)) {
 					if (returned != true) {
-						setToFail(verificationResult, "", target);
+						setToFail(verificationResult);
 					} else {
 						setToSuccess(verificationResult)
 					}
@@ -759,10 +771,10 @@ class AssureProcessor implements IAssureProcessor {
 					verificationResult.issues.add(returned)
 				} else if (returned instanceof Result) {
 					val issues = returned.diagnostics
-					if (hasErrors(returned)|| hasFailures(returned)) {
-						setToFail(verificationResult, "", target)
+					if (hasErrors(returned) || hasFailures(returned)) {
+						setToFail(verificationResult)
 					} else {
-						setToSuccess(verificationResult, "", target)
+						setToSuccess(verificationResult)
 					}
 					verificationResult.issues.addAll(issues)
 					if (verificationResult instanceof VerificationActivityResult) {
@@ -774,7 +786,7 @@ class AssureProcessor implements IAssureProcessor {
 								val computeRef = computeIter.next
 								val formalReturn = formalIter.next
 								val tunit = formalReturn.unit
-								computes.put(computeRef.compute.name, toLiteral(verificationResult,data, tunit))
+								computes.put(computeRef.compute.name, toLiteral(verificationResult, data, tunit))
 							]
 							if (verificationResult.success) {
 								evaluatePredicate(verificationResult)
@@ -790,7 +802,7 @@ class AssureProcessor implements IAssureProcessor {
 						if (computevars.size == 1) {
 							val computeRef = computevars.head
 							val tunit = method.results.head?.unit
-							val rval = toLiteral(verificationResult,returned, tunit)
+							val rval = toLiteral(verificationResult, returned, tunit)
 							computes.put(computeRef.compute.name, rval)
 							evaluatePredicate(verificationResult)
 						} else {

@@ -12,15 +12,10 @@ import java.util.List;
 
 import org.eclipse.emf.common.util.BasicEList;
 import org.eclipse.emf.common.util.EList;
-import org.eclipse.emf.ecore.util.EcoreUtil;
-import org.osate.aadl2.AadlPackage;
 import org.osate.aadl2.BehavioredImplementation;
-import org.osate.aadl2.Classifier;
 import org.osate.aadl2.ComponentImplementation;
-import org.osate.aadl2.Element;
 import org.osate.aadl2.InternalFeature;
 import org.osate.aadl2.NamedElement;
-import org.osate.aadl2.PackageSection;
 import org.osate.aadl2.ProcessorFeature;
 import org.osate.aadl2.RefinableElement;
 import org.osate.aadl2.SubprogramCallSequence;
@@ -30,32 +25,6 @@ import org.osate.aadl2.SubprogramCallSequence;
  *
  */
 public class AadlHelper {
-	/**
-	 * Ensure that an element's package has the necessary imports to reference a specified object.
-	 * @param pkgContext is the object that needs to reference the containing object
-	 * @param referencedObject is the object which needs to be referenced
-	 */
-	public static void ensurePackageIsImported(final Element pkgContext, final Object referencedObject) {
-		if(referencedObject instanceof Classifier) {
-			Classifier referencedClassifier = (Classifier)referencedObject;
-
-			final AadlPackage pkg = (AadlPackage)pkgContext.getElementRoot();
-			if(pkg != null) {
-				final PackageSection section = pkg.getPublicSection();
-				if(referencedClassifier.eIsProxy()) {
-					referencedClassifier = (Classifier)EcoreUtil.resolve(referencedClassifier, pkgContext.eResource());
-				}
-
-				if(referencedClassifier.getNamespace() != null) {
-					final AadlPackage classifierPkg = (AadlPackage)referencedClassifier.getNamespace().getOwner();
-					if(pkg != classifierPkg && !section.getImportedUnits().contains(classifierPkg)) {
-						section.getImportedUnits().add(classifierPkg);
-					}
-				}
-			}
-		}
-	}
-
 	/**
 	 * Checks whether the named elements have the same name. Ignores case.
 	 * @param ne1

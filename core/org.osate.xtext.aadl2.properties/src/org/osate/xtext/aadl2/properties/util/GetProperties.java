@@ -40,6 +40,7 @@ import java.util.List;
 import org.eclipse.emf.common.util.BasicEList;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
+import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.BasicProperty;
 import org.osate.aadl2.BasicPropertyAssociation;
 import org.osate.aadl2.Classifier;
@@ -75,6 +76,7 @@ import org.osate.aadl2.instance.ConnectionInstance;
 import org.osate.aadl2.instance.FeatureInstance;
 import org.osate.aadl2.instance.InstanceObject;
 import org.osate.aadl2.instance.InstanceReferenceValue;
+import org.osate.aadl2.modelsupport.scoping.Aadl2GlobalScopeUtil;
 import org.osate.aadl2.modelsupport.util.AadlUtil;
 import org.osate.aadl2.properties.PropertyAcc;
 import org.osate.aadl2.properties.PropertyLookupException;
@@ -84,6 +86,7 @@ import org.osate.contribution.sei.names.SEI;
 import org.osate.xtext.aadl2.properties.linking.PropertiesLinkingService;
 
 public class GetProperties {
+
 	/**
 	 * returns true if property is explicitly assigned
 	 *
@@ -207,7 +210,7 @@ public class GetProperties {
 	 * @return Property or null
 	 */
 	public static Property lookupPropertyDefinition(EObject context, String ps, String name) {
-		return EMFIndexRetrieval.getPropertyDefinitionInWorkspace(context,
+		return Aadl2GlobalScopeUtil.get(context, Aadl2Package.eINSTANCE.getProperty(),
 				((ps != null && !ps.isEmpty()) ? (ps + "::" + name) : name));
 	}
 
@@ -224,7 +227,7 @@ public class GetProperties {
 	 * @return Property or null
 	 */
 	public static Property lookupPropertyDefinition(EObject context, String qpname) {
-		return EMFIndexRetrieval.getPropertyDefinitionInWorkspace(context, qpname);
+		return Aadl2GlobalScopeUtil.get(context, Aadl2Package.eINSTANCE.getProperty(), qpname);
 	}
 
 	/**
@@ -242,7 +245,7 @@ public class GetProperties {
 	 * @return PropertyType or null
 	 */
 	public static PropertyType lookupPropertyType(EObject context, String ps, String name) {
-		return EMFIndexRetrieval.getPropertyTypeInWorkspace(context,
+		return Aadl2GlobalScopeUtil.get(context, Aadl2Package.eINSTANCE.getPropertyType(),
 				((ps != null && !ps.isEmpty()) ? (ps + "::" + name) : name));
 	}
 
@@ -259,7 +262,7 @@ public class GetProperties {
 	 * @return PropertyType or null
 	 */
 	public static PropertyType lookupPropertyType(EObject context, String qname) {
-		return EMFIndexRetrieval.getPropertyTypeInWorkspace(context, qname);
+		return Aadl2GlobalScopeUtil.get(context, Aadl2Package.eINSTANCE.getPropertyType(), qname);
 	}
 
 	/**
@@ -277,7 +280,7 @@ public class GetProperties {
 	 * @return PropertyConstant or null
 	 */
 	public static PropertyConstant lookupPropertyConstant(EObject context, String ps, String name) {
-		return EMFIndexRetrieval.getPropertyConstantInWorkspace(context,
+		return Aadl2GlobalScopeUtil.get(context, Aadl2Package.eINSTANCE.getPropertyConstant(),
 				((ps != null && !ps.isEmpty()) ? (ps + "::" + name) : name));
 	}
 
@@ -296,7 +299,7 @@ public class GetProperties {
 	 * @return PropertyConstant or null
 	 */
 	public static PropertyConstant lookupPropertyConstant(EObject context, String qname) {
-		return EMFIndexRetrieval.getPropertyConstantInWorkspace(context, qname);
+		return Aadl2GlobalScopeUtil.get(context, Aadl2Package.eINSTANCE.getPropertyConstant(), qname);
 	}
 
 	/**

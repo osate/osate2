@@ -34,7 +34,7 @@ import org.osate.ge.graphics.StyleBuilder;
 import org.osate.ge.internal.services.NamingService;
 import org.osate.ge.internal.ui.dialogs.DefaultSelectSubprogramDialogModel;
 import org.osate.ge.internal.ui.dialogs.SelectSubprogramDialog;
-import org.osate.ge.internal.util.AadlHelper;
+import org.osate.ge.internal.util.AadlImportsUtil;
 import org.osate.ge.internal.util.ImageHelper;
 import org.osate.ge.query.StandaloneQuery;
 import org.osate.ge.services.QueryService;
@@ -117,8 +117,8 @@ public class SubprogramCallHandler {
 		newSubprogramCall.setContext(callContext);
 		newSubprogramCall.setCalledSubprogram(calledSubprogram);
 
-		AadlHelper.ensurePackageIsImported(bi, callContext);
-		AadlHelper.ensurePackageIsImported(bi, calledSubprogram);
+		AadlImportsUtil.ensurePackageIsImportedForClassifier(bi, callContext);
+		AadlImportsUtil.ensurePackageIsImportedForClassifier(bi, calledSubprogram);
 
 		return newSubprogramCall;
 	}

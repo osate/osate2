@@ -15,8 +15,8 @@ import org.osate.analysis.flows.FlowLatencyUtil;
  */
 public class LatencyContributorConnection extends LatencyContributor {
 
-	public LatencyContributorConnection(ConnectionInstance ci) {
-		super();
+	public LatencyContributorConnection(ConnectionInstance ci, boolean majorFrameDelay) {
+		super(majorFrameDelay);
 		this.relatedElement = ci;
 	}
 
