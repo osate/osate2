@@ -108,6 +108,8 @@ class AlisaView extends ViewPart {
 	Color redColor
 
 	val IResourceChangeListener resourceChangeListener
+	
+	var didGenerateAssure = false
 
 	@Inject
 	new(IResourceSetProvider resourceSetProvider, IResourceDescriptions rds, GlobalURIEditorOpener editorOpener,
@@ -578,7 +580,7 @@ class AlisaView extends ViewPart {
 		rds.getExportedObjectsByType(AlisaPackage.Literals.ASSURANCE_CASE).map[EObjectURI].toList
 	}
 
-	def private updateAssureViewer(URI assuranceCaseURI, boolean updateRequirementsCoverageView) {
+	def private updateAssureViewer(URI assuranceCaseURI, boolean updateAssuranceView) {
 		val newURIs = assuranceCaseURI -> selectedFilters.get(assuranceCaseURI)
 		if (displayedCaseAndFilter != newURIs) {
 			displayedCaseAndFilter = newURIs
@@ -596,8 +598,9 @@ class AlisaView extends ViewPart {
 				}
 
 			val expandedElements = assureViewer.expandedElements
-			if (updateRequirementsCoverageView) {
+			if (updateAssuranceView || didGenerateAssure) {
 				assureViewer.input = if (result !== null) {
+					didGenerateAssure = false
 					#[result.URI]
 				}
 			} else {
@@ -677,6 +680,7 @@ class AlisaView extends ViewPart {
 		domain.commandStack.execute(new RecordingCommand(domain) {
 			override protected doExecute() {
 				val assuranceCaseResult = assureConstructor.generateFullAssuranceCase(assuranceCase)
+				didGenerateAssure = true
 				assuranceCaseResult.resetToTBD(null)
 				assuranceCaseResult.recomputeAllCounts(null)
 				val resource = resourceSetForProcessing.getResource(assureURI, false) ?:

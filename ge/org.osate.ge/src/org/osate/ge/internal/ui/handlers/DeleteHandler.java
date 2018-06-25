@@ -234,7 +234,7 @@ public class DeleteHandler extends AbstractHandler {
 
 		if (boIsContext) {
 			// Close the editor if the context was deleted
-			Display.getDefault().asyncExec(() -> ageEditor.close());
+			Display.getDefault().syncExec(() -> ageEditor.close());
 		} else {
 			// Clear selection
 			ageEditor.selectPictogramElements(new PictogramElement[0]);
