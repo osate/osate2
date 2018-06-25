@@ -717,9 +717,12 @@ public class AgeDiagramBehavior extends DiagramBehavior implements GraphitiAgeDi
 			Display.getDefault().asyncExec(() -> {
 				getPaletteBehavior().refreshPalette();
 
-				// Reset the selection if the diagram context isn't valid.
+				// Close the editor if the context isn't valid.
 				if (!diagramContextIsValid) {
-					selectPictogramElements(new PictogramElement[0]);
+					final IDiagramContainerUI container = getDiagramContainer();
+					if (container != null) {
+						container.close();
+					}
 				}
 			});
 		}
