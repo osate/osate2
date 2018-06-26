@@ -6,18 +6,21 @@ import org.eclipse.xtext.testing.XtextRunner
 import org.eclipse.xtext.testing.validation.ValidationTestHelper
 import org.junit.Test
 import org.junit.runner.RunWith
-import org.osate.testsupport.Aadl2UiInjectorProvider
-import org.osate.testsupport.OsateTest
+import org.osate.aadl2.AadlPackage
+import org.osate.testsupport.Aadl2InjectorProvider
+import org.osate.testsupport.TestHelper
 
 @RunWith(XtextRunner)
-@InjectWith(Aadl2UiInjectorProvider)
-class Issue810Test extends OsateTest {
+@InjectWith(Aadl2InjectorProvider)
+class Issue810Test {
 	@Inject extension ValidationTestHelper
+	
+	@Inject
+	TestHelper<AadlPackage> testHelper
 	
 	@Test
 	def void issue810() {
-		val pkg1FileName = "pkg1.aadl"
-		createFiles(pkg1FileName -> '''
+		val pkg1 = '''
 			package pkg1
 			public
 				abstract a1
@@ -50,8 +53,7 @@ class Issue810Test extends OsateTest {
 						fg5: out feature group fgt1;
 				end fgt2;
 			end pkg1;
-		''')
-		suppressSerialization
-		testFile(pkg1FileName).resource.contents.head.assertNoIssues
+		'''
+		testHelper.parseString(pkg1).assertNoIssues
 	}
 }
