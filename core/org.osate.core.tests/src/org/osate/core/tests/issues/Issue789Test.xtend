@@ -1,5 +1,6 @@
 package org.osate.core.tests.issues
 
+import com.google.inject.Inject
 import org.eclipse.xtext.testing.InjectWith
 import org.eclipse.xtext.testing.XtextRunner
 import org.junit.Test
@@ -7,28 +8,26 @@ import org.junit.runner.RunWith
 import org.osate.aadl2.AadlPackage
 import org.osate.aadl2.SystemImplementation
 import org.osate.aadl2.instantiation.InstantiateModel
-import org.osate.testsupport.Aadl2UiInjectorProvider
-import org.osate.testsupport.OsateTest
+import org.osate.testsupport.Aadl2InjectorProvider
+import org.osate.testsupport.TestHelper
 
 import static org.junit.Assert.*
 
-@RunWith(typeof(XtextRunner))
-@InjectWith(typeof(Aadl2UiInjectorProvider))
-class Issue789Test extends OsateTest {
+@RunWith(XtextRunner)
+@InjectWith(Aadl2InjectorProvider)
+class Issue789Test {
+	@Inject
+	TestHelper<AadlPackage> testHelper
+	
 	@Test
 	def void issue789() {
-		val aadlFile = "myflows.aadl"
-		createFiles(aadlFile -> aadlText)
-		suppressSerialization
-		val result = testFile(aadlFile)
-
-		val pkg = result.resource.contents.head as AadlPackage
+		val pkg = testHelper.parseString(aadlText)
 		val cls = pkg.ownedPublicSection.ownedClassifiers
 		assertTrue('System implementation "topsystem.tier2" not found', cls.exists[name == 'topsystem.tier2'])
 
 		// instantiate
 		val sysImpl = cls.findFirst[name == 'topsystem.tier2'] as SystemImplementation
-		val instance = InstantiateModel::buildInstanceModelFile(sysImpl)
+		val instance = InstantiateModel.instantiate(sysImpl)
 		assertEquals('topsystem_tier2_Instance', instance.name)
 
 		// check that there are two ETEI
@@ -40,7 +39,7 @@ class Issue789Test extends OsateTest {
 		// instantiate
 		
 		val sysImpl1 = cls.findFirst[name == 'topsystem.tier1'] as SystemImplementation
-		val instance1 = InstantiateModel::buildInstanceModelFile(sysImpl1)
+		val instance1 = InstantiateModel.instantiate(sysImpl1)
 		assertEquals('topsystem_tier1_Instance', instance1.name)
 
 		// check that there are two ETEI
