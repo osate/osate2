@@ -194,6 +194,15 @@ public interface ErrorModelFactory extends EFactory
   ErrorPath createErrorPath();
 
   /**
+   * Returns a new object of class '<em>If Condition</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>If Condition</em>'.
+   * @generated
+   */
+  IfCondition createIfCondition();
+
+  /**
    * Returns a new object of class '<em>Propagation Point</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->

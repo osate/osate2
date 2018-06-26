@@ -49,29 +49,29 @@ public interface ErrorEvent extends ErrorBehaviorEvent
   void setTypeSet(TypeSet value);
 
   /**
-   * Returns the value of the '<em><b>Eventcondition</b></em>' attribute.
+   * Returns the value of the '<em><b>Eventcondition</b></em>' containment reference.
    * <!-- begin-user-doc -->
    * <p>
-   * If the meaning of the '<em>Eventcondition</em>' attribute isn't clear,
+   * If the meaning of the '<em>Eventcondition</em>' containment reference isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Eventcondition</em>' attribute.
-   * @see #setEventcondition(String)
+   * @return the value of the '<em>Eventcondition</em>' containment reference.
+   * @see #setEventcondition(IfCondition)
    * @see org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelPackage#getErrorEvent_Eventcondition()
-   * @model
+   * @model containment="true"
    * @generated
    */
-  String getEventcondition();
+  IfCondition getEventcondition();
 
   /**
-   * Sets the value of the '{@link org.osate.xtext.aadl2.errormodel.errorModel.ErrorEvent#getEventcondition <em>Eventcondition</em>}' attribute.
+   * Sets the value of the '{@link org.osate.xtext.aadl2.errormodel.errorModel.ErrorEvent#getEventcondition <em>Eventcondition</em>}' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Eventcondition</em>' attribute.
+   * @param value the new value of the '<em>Eventcondition</em>' containment reference.
    * @see #getEventcondition()
    * @generated
    */
-  void setEventcondition(String value);
+  void setEventcondition(IfCondition value);
 
 } // ErrorEvent
