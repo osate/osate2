@@ -7,9 +7,6 @@ import java.util.SortedSet;
 import java.util.TreeSet;
 
 import org.eclipse.emf.ecore.EObject;
-import org.eclipse.emf.ecore.util.EcoreUtil;
-import org.eclipse.xtext.resource.IEObjectDescription;
-import org.eclipse.xtext.scoping.IGlobalScopeProvider;
 import org.osate.aadl2.BooleanLiteral;
 import org.osate.aadl2.ComponentCategory;
 import org.osate.aadl2.IntegerLiteral;
@@ -24,8 +21,6 @@ import org.osate.aadl2.instance.SystemInstance;
 import org.osate.result.Diagnostic;
 import org.osate.result.util.ResultUtil;
 
-import com.google.inject.Inject;
-import com.google.inject.Injector;
 import com.rockwellcollins.atc.resolute.analysis.execution.EvaluationContext;
 import com.rockwellcollins.atc.resolute.analysis.execution.FeatureToConnectionsMap;
 import com.rockwellcollins.atc.resolute.analysis.execution.NamedElementComparator;
@@ -43,10 +38,8 @@ import com.rockwellcollins.atc.resolute.resolute.IntExpr;
 import com.rockwellcollins.atc.resolute.resolute.NestedDotID;
 import com.rockwellcollins.atc.resolute.resolute.RealExpr;
 import com.rockwellcollins.atc.resolute.resolute.ResoluteFactory;
-import com.rockwellcollins.atc.resolute.resolute.ResolutePackage;
 import com.rockwellcollins.atc.resolute.resolute.StringExpr;
 import com.rockwellcollins.atc.resolute.resolute.ThisExpr;
-import com.rockwellcollins.atc.resolute.ui.internal.ResoluteActivator;
 import com.rockwellcollins.atc.resolute.validation.BaseType;
 
 public class ExecuteResoluteUtil {
@@ -105,42 +98,6 @@ public class ExecuteResoluteUtil {
 			sets.put(name, set);
 		}
 		set.add(ne);
-	}
-
-	public ExecuteResoluteUtil() {
-		Injector injector = ResoluteActivator.getInstance()
-				.getInjector(ResoluteActivator.COM_ROCKWELLCOLLINS_ATC_RESOLUTE_RESOLUTE);
-		injector.injectMembers(this);
-	}
-
-	@Inject
-	IGlobalScopeProvider gscope;
-
-
-	/**
-	 * invokes Resolute claim function on targetComponent or targetElement if not null.
-	 * instanceroot is used to initialize the Resolute evaluation context.
-	 * targetComponent is the evaluation context
-	 * targetElement is the model element within the component instance or null.
-	 * parameterObjects is a list of additional parameters of types RealLiteral, IntegerLiteral, StringLiteral, BooleanLiteral
-	 * parameterObjects can be null or an empty list.
-	 * The return value is an Diagnostic object with subdiagnostics for the list of issues returned in the Resolute ClaimResult.
-	 * If the proof fails then the Diagnostic is set to FAIL, if successful it is set to SUCCESS
-	 */
-	public Diagnostic executeResoluteFunction(String fundef, SystemInstance instanceroot,
-			ComponentInstance targetComponent, final InstanceObject targetElement,
-			List<PropertyExpression> parameterObjects) {
-		Iterable<IEObjectDescription> allentries = gscope
-				.getScope(instanceroot.eResource(), ResolutePackage.eINSTANCE.getFnCallExpr_Fn(), null)
-				.getAllElements();
-		String funname = fundef.replaceAll("\"", "");
-		for (IEObjectDescription description : allentries) {
-			if (!description.getName().isEmpty() && description.getName().getLastSegment().equalsIgnoreCase(funname)) {
-				EObject obj = EcoreUtil.resolve(description.getEObjectOrProxy(), targetComponent);
-				return executeResoluteFunctionOnce(obj, instanceroot, targetComponent, targetElement, parameterObjects);
-			}
-		}
-		return null;
 	}
 
 	/**
