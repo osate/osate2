@@ -1,6 +1,8 @@
 package org.osate.core.tests.issues
 
+import com.google.inject.Inject
 import com.itemis.xtext.testing.FluentIssueCollection
+import com.itemis.xtext.testing.XtextTest
 import org.eclipse.xtext.testing.InjectWith
 import org.eclipse.xtext.testing.XtextRunner
 import org.junit.Test
@@ -9,20 +11,23 @@ import org.osate.aadl2.AadlPackage
 import org.osate.aadl2.ProcessImplementation
 import org.osate.aadl2.SystemImplementation
 import org.osate.aadl2.instantiation.InstantiateModel
-import org.osate.testsupport.Aadl2UiInjectorProvider
-import org.osate.testsupport.OsateTest
+import org.osate.testsupport.Aadl2InjectorProvider
+import org.osate.testsupport.TestHelper
 
 import static org.junit.Assert.*
 
 import static extension org.junit.Assert.assertEquals
+import static extension org.osate.testsupport.AssertHelper.assertError
 
 @RunWith(XtextRunner)
-@InjectWith(Aadl2UiInjectorProvider)
-class Issue794Test extends OsateTest {
+@InjectWith(Aadl2InjectorProvider)
+class Issue794Test extends XtextTest {
+	@Inject
+	TestHelper<AadlPackage> testHelper
+	
 	@Test
 	def void issue794_1() {
-		val pkg1FileName = "pkg1.aadl"
-		createFiles(pkg1FileName -> '''
+		val pkg1 = '''
 			package pkg1
 			public
 				process ps1
@@ -85,9 +90,8 @@ class Issue794Test extends OsateTest {
 						fg_out2: out data port;
 				end fgt1;
 			end pkg1;
-		''')
-		suppressSerialization
-		val testFileResult = testFile(pkg1FileName)
+		'''
+		val testFileResult = issues = testHelper.testString(pkg1)
 		val issueCollection = new FluentIssueCollection(testFileResult.resource, newArrayList, newArrayList)
 		testFileResult.resource.contents.head as AadlPackage => [
 			"pkg1".assertEquals(name)
@@ -123,24 +127,19 @@ class Issue794Test extends OsateTest {
 				]
 			]
 		]
-		issueCollection.sizeIs(issueCollection.issues.size)
+		issueCollection.sizeIs(testFileResult.issues.size)
 		assertConstraints(issueCollection)
 	}
 	
 		@Test
 	def void issue794_2() {
-		val aadlFile = "myflows.aadl"
-		createFiles(aadlFile -> aadlText)
-		suppressSerialization
-		val result = testFile(aadlFile)
-
-		val pkg = result.resource.contents.head as AadlPackage
+		val pkg = testHelper.parseString(aadlText)
 		val cls = pkg.ownedPublicSection.ownedClassifiers
 		assertTrue('System implementation "topsystem.tier2" not found', cls.exists[name == 'topsystem.tier2'])
 
 		// instantiate
 		val sysImpl = cls.findFirst[name == 'topsystem.tier2'] as SystemImplementation
-		val instance = InstantiateModel::buildInstanceModelFile(sysImpl)
+		val instance = InstantiateModel.instantiate(sysImpl)
 		assertEquals('topsystem_tier2_Instance', instance.name)
 
 		// check that there are two ETEI
@@ -149,7 +148,7 @@ class Issue794Test extends OsateTest {
 
 		// instantiate		
 		val sysImpl1 = cls.findFirst[name == 'topsystem.tier1'] as SystemImplementation
-		val instance1 = InstantiateModel::buildInstanceModelFile(sysImpl1)
+		val instance1 = InstantiateModel.instantiate(sysImpl1)
 		assertEquals('topsystem_tier1_Instance', instance1.name)
 
 		// check that there are two ETEI
