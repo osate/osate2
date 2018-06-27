@@ -18,7 +18,6 @@ Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.jdt.core;bundle-version="3.13.102",
  org.osate.results;bundle-version="1.0.0",
  com.rockwellcollins.atc.resolute;bundle-version="1.0.0";resolution:=optional,
- com.rockwellcollins.atc.resolute.analysis;bundle-version="1.0.0";resolution:=optional,
- com.rockwellcollins.atc.resolute.ui;bundle-version="1.0.0"
+ com.rockwellcollins.atc.resolute.analysis;bundle-version="1.0.0";resolution:=optional
 Bundle-ActivationPolicy: lazy
 Automatic-Module-Name: org.osate.aadl2.errormodel.propagationgraph

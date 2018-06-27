@@ -5,10 +5,12 @@ package org.osate.xtext.aadl2.errormodel.errorModel.impl;
 import java.util.Collection;
 
 import org.eclipse.emf.common.notify.Notification;
+import org.eclipse.emf.common.notify.NotificationChain;
 
 import org.eclipse.emf.common.util.EList;
 
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 
@@ -17,6 +19,7 @@ import org.eclipse.emf.ecore.util.EObjectResolvingEList;
 import org.osate.aadl2.NamedElement;
 
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelPackage;
+import org.osate.xtext.aadl2.errormodel.errorModel.IfCondition;
 import org.osate.xtext.aadl2.errormodel.errorModel.RecoverEvent;
 
 /**
@@ -46,24 +49,14 @@ public class RecoverEventImpl extends ErrorBehaviorEventImpl implements RecoverE
   protected EList<NamedElement> eventInitiator;
 
   /**
-   * The default value of the '{@link #getCondition() <em>Condition</em>}' attribute.
+   * The cached value of the '{@link #getCondition() <em>Condition</em>}' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @see #getCondition()
    * @generated
    * @ordered
    */
-  protected static final String CONDITION_EDEFAULT = null;
-
-  /**
-   * The cached value of the '{@link #getCondition() <em>Condition</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getCondition()
-   * @generated
-   * @ordered
-   */
-  protected String condition = CONDITION_EDEFAULT;
+  protected IfCondition condition;
 
   /**
    * <!-- begin-user-doc -->
@@ -105,7 +98,7 @@ public class RecoverEventImpl extends ErrorBehaviorEventImpl implements RecoverE
    * <!-- end-user-doc -->
    * @generated
    */
-  public String getCondition()
+  public IfCondition getCondition()
   {
     return condition;
   }
@@ -115,12 +108,53 @@ public class RecoverEventImpl extends ErrorBehaviorEventImpl implements RecoverE
    * <!-- end-user-doc -->
    * @generated
    */
-  public void setCondition(String newCondition)
+  public NotificationChain basicSetCondition(IfCondition newCondition, NotificationChain msgs)
   {
-    String oldCondition = condition;
+    IfCondition oldCondition = condition;
     condition = newCondition;
     if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, ErrorModelPackage.RECOVER_EVENT__CONDITION, oldCondition, condition));
+    {
+      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, ErrorModelPackage.RECOVER_EVENT__CONDITION, oldCondition, newCondition);
+      if (msgs == null) msgs = notification; else msgs.add(notification);
+    }
+    return msgs;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setCondition(IfCondition newCondition)
+  {
+    if (newCondition != condition)
+    {
+      NotificationChain msgs = null;
+      if (condition != null)
+        msgs = ((InternalEObject)condition).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - ErrorModelPackage.RECOVER_EVENT__CONDITION, null, msgs);
+      if (newCondition != null)
+        msgs = ((InternalEObject)newCondition).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - ErrorModelPackage.RECOVER_EVENT__CONDITION, null, msgs);
+      msgs = basicSetCondition(newCondition, msgs);
+      if (msgs != null) msgs.dispatch();
+    }
+    else if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, ErrorModelPackage.RECOVER_EVENT__CONDITION, newCondition, newCondition));
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs)
+  {
+    switch (featureID)
+    {
+      case ErrorModelPackage.RECOVER_EVENT__CONDITION:
+        return basicSetCondition(null, msgs);
+    }
+    return super.eInverseRemove(otherEnd, featureID, msgs);
   }
 
   /**
@@ -157,7 +191,7 @@ public class RecoverEventImpl extends ErrorBehaviorEventImpl implements RecoverE
         getEventInitiator().addAll((Collection<? extends NamedElement>)newValue);
         return;
       case ErrorModelPackage.RECOVER_EVENT__CONDITION:
-        setCondition((String)newValue);
+        setCondition((IfCondition)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -177,7 +211,7 @@ public class RecoverEventImpl extends ErrorBehaviorEventImpl implements RecoverE
         getEventInitiator().clear();
         return;
       case ErrorModelPackage.RECOVER_EVENT__CONDITION:
-        setCondition(CONDITION_EDEFAULT);
+        setCondition((IfCondition)null);
         return;
     }
     super.eUnset(featureID);
@@ -196,26 +230,9 @@ public class RecoverEventImpl extends ErrorBehaviorEventImpl implements RecoverE
       case ErrorModelPackage.RECOVER_EVENT__EVENT_INITIATOR:
         return eventInitiator != null && !eventInitiator.isEmpty();
       case ErrorModelPackage.RECOVER_EVENT__CONDITION:
-        return CONDITION_EDEFAULT == null ? condition != null : !CONDITION_EDEFAULT.equals(condition);
+        return condition != null;
     }
     return super.eIsSet(featureID);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  @Override
-  public String toString()
-  {
-    if (eIsProxy()) return super.toString();
-
-    StringBuffer result = new StringBuffer(super.toString());
-    result.append(" (condition: ");
-    result.append(condition);
-    result.append(')');
-    return result.toString();
   }
 
 } //RecoverEventImpl

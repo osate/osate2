@@ -1,29 +1,33 @@
 package org.osate.core.tests.issues
 
+import com.google.inject.Inject
 import org.eclipse.xtext.testing.InjectWith
 import org.eclipse.xtext.testing.XtextRunner
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.osate.aadl2.AadlPackage
-import org.osate.testsupport.Aadl2UiInjectorProvider
-import org.osate.testsupport.OsateTest
+import org.osate.aadl2.ComponentCategory
+import org.osate.aadl2.SystemImplementation
+import org.osate.aadl2.instance.SystemInstance
+import org.osate.aadl2.instantiation.InstantiateModel
+import org.osate.testsupport.Aadl2InjectorProvider
+import org.osate.testsupport.TestHelper
 
 import static org.junit.Assert.*
-import org.osate.aadl2.SystemImplementation
-import org.osate.aadl2.instantiation.InstantiateModel
-import org.osate.aadl2.ComponentCategory
-import org.osate.aadl2.instance.SystemInstance
 
 @RunWith(XtextRunner)
-@InjectWith(Aadl2UiInjectorProvider)
-class Issue961Test extends OsateTest {
+@InjectWith(Aadl2InjectorProvider)
+class Issue961Test {
 	val static PROJECT_LOCATION = "org.osate.core.tests/models/issue961/"
 	val static FILE1 = "abstractprocess.aadl"
 	val static FILE2 = "package2.aadl"
+	
+	@Inject
+	TestHelper<AadlPackage> testHelper
 
 	@Test
 	def void test1() {
-		val pkg = getPackage(FILE1, PROJECT_LOCATION + FILE1)
+		val pkg = testHelper.parseFile(PROJECT_LOCATION + FILE1)
 		
 		val instance1 = getSystemInstance(pkg, "s.i", "s_i_Instance")
 		testSubComponentCategory(instance1, "p", ComponentCategory.PROCESS)
@@ -38,17 +42,11 @@ class Issue961Test extends OsateTest {
 
 	@Test
 	def void test2() {
-		val pkg = getPackage(FILE2, PROJECT_LOCATION + FILE2)
+		val pkg = testHelper.parseFile(PROJECT_LOCATION + FILE2)
 
 		val instance = getSystemInstance(pkg, "SSS.i", "SSS_i_Instance")		
 		testSubSubComponentCategory(instance, "sub1", "s1", ComponentCategory.BUS)
 		testSubSubComponentCategory(instance, "sub2", "s1", ComponentCategory.PROCESS)
-	}
-	
-	private def AadlPackage getPackage(String fname, String path) {
-		createFiles(fname -> readFile(path))
-		ignoreSerializationDifferences
-		testFile(fname).resource.contents.head as AadlPackage
 	}
 	
 	private def static SystemInstance getSystemInstance(
@@ -59,7 +57,7 @@ class Issue961Test extends OsateTest {
 		
 		// Instantiate system
 		val sysImpl = cls.findFirst[name == systemImplName] as SystemImplementation
-		val instance = InstantiateModel::buildInstanceModelFile(sysImpl)
+		val instance = InstantiateModel.instantiate(sysImpl)
 		assertEquals(expectedInstanceName, instance.name)
 		return instance
 		
