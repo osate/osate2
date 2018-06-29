@@ -1,7 +1,6 @@
 package org.osate.core.tests.issues
 
 import com.google.inject.Inject
-import com.itemis.xtext.testing.FluentIssueCollection
 import com.itemis.xtext.testing.XtextTest
 import org.eclipse.xtext.testing.InjectWith
 import org.eclipse.xtext.testing.XtextRunner
@@ -27,8 +26,6 @@ class Issue761Test extends XtextTest {
 	@Test
 	def void issue761() {
 		
-		val testFileResult = issues = testHelper.testString(aadlText)
-		val issueCollection = new FluentIssueCollection(testFileResult.resource, newArrayList, newArrayList)
 		val pkg = testHelper.parseString(aadlText)
 		val cls = pkg.ownedPublicSection.ownedClassifiers
 		assertTrue('System implementation S.i not found', cls.exists[name == 'S.i'])
@@ -36,14 +33,14 @@ class Issue761Test extends XtextTest {
 		// instantiate
 		val sysImpl = cls.findFirst[name == 'S.i'] as SystemImplementation
 		val errorManager = new AnalysisErrorReporterManager(QueuingAnalysisErrorReporter.factory)
-		val instance = InstantiateModel.instantiate(sysImpl)
+		val instance = InstantiateModel.instantiate(sysImpl, errorManager)
 		val reporter = errorManager.getReporter(instance.eResource) as QueuingAnalysisErrorReporter
 		val messages = reporter.errors
 		assertEquals('S_i_Instance', instance.name)
 
 		// check for cyclicity error
-		assertEquals(1, issueCollection.size)
-		assertEquals("Cyclic containment dependency: Feature 'f' has already been instantiated as enclosing feature group.", messages.head)
+		assertEquals(1, messages.size)
+		assertEquals("Cyclic containment dependency: Feature 'f' has already been instantiated as enclosing feature group.", messages.head.message)
 	}
 
 	val aadlText = '''

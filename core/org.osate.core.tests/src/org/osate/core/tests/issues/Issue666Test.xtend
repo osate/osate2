@@ -1,7 +1,6 @@
 package org.osate.core.tests.issues
 
 import com.google.inject.Inject
-import com.itemis.xtext.testing.FluentIssueCollection
 import com.itemis.xtext.testing.XtextTest
 import org.eclipse.xtext.testing.InjectWith
 import org.eclipse.xtext.testing.XtextRunner
@@ -29,29 +28,26 @@ class Issue666Test extends XtextTest {
 	@Test
 	def void issue666() {
 		
-		
 		val testFileResult = issues = testHelper.testString(aadlText)
-		val issueCollection = new FluentIssueCollection(testFileResult.resource, newArrayList, newArrayList)
-		val pkg = testHelper.parseString(aadlText)
-		val cls = pkg.ownedPublicSection.ownedClassifiers
+		val pkg = testFileResult.resource.contents.head as AadlPackage
 		pkg => [
 			"pkg1".assertEquals(name)
 			publicSection.ownedClassifiers.get(2) as ComponentImplementation => [
 				"outer.ok".assertEquals(name)
-				val sysImpl = cls.findFirst[name == 'outer.ok'] as ComponentImplementation
-				val instance = InstantiateModel.instantiate(sysImpl)
+				val errorManager = new AnalysisErrorReporterManager(QueuingAnalysisErrorReporter.factory)
+				val instance = InstantiateModel.instantiate(it, errorManager)
+				val reporter = errorManager.getReporter(instance.eResource) as QueuingAnalysisErrorReporter
+				val messages = reporter.errors
 				instance => [
 					"outer_ok_Instance".assertEquals(name)
 					assertEquals(512, systemOperationModes.size)
-					issueCollection.sizeIs(0)
-					assertConstraints(issueCollection)
+					assertTrue(messages.empty)
 				]
 			]
 			publicSection.ownedClassifiers.get(3) as ComponentImplementation => [
 				"outer.tooManySOMs".assertEquals(name)
-				val sysImpl = cls.findFirst[name == 'outer.tooManySOMs'] as ComponentImplementation
 				val errorManager = new AnalysisErrorReporterManager(QueuingAnalysisErrorReporter.factory)
-				val instance = InstantiateModel.instantiate(sysImpl)
+				val instance = InstantiateModel.instantiate(it, errorManager)
 				val reporter = errorManager.getReporter(instance.eResource) as QueuingAnalysisErrorReporter
 				val messages = reporter.errors				
 				instance => [
