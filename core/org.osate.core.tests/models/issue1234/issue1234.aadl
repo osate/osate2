@@ -1,0 +1,14 @@
+package Issue1234
+public
+	feature group FG
+	end FG;
+
+	feature group IFG
+		inverse of FG
+	end IFG;
+
+	system Sys
+		features
+			fg: feature group inverse of IFG;
+	end Sys;
+end Issue1234;
