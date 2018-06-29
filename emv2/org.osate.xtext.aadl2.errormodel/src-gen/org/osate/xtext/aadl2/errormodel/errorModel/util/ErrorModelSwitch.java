@@ -251,6 +251,13 @@ public class ErrorModelSwitch<T> extends Switch<T>
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
+      case ErrorModelPackage.IF_CONDITION:
+      {
+        IfCondition ifCondition = (IfCondition)theEObject;
+        T result = caseIfCondition(ifCondition);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
       case ErrorModelPackage.PROPAGATION_POINT:
       {
         PropagationPoint propagationPoint = (PropagationPoint)theEObject;
@@ -834,6 +841,22 @@ public class ErrorModelSwitch<T> extends Switch<T>
    * @generated
    */
   public T caseErrorPath(ErrorPath object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>If Condition</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>If Condition</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseIfCondition(IfCondition object)
   {
     return null;
   }
