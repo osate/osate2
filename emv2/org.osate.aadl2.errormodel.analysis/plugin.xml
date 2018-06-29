@@ -156,12 +156,6 @@
    <extension
          point="org.eclipse.ui.menus">
       <menuContribution
-            locationURI="menu:org.osate.ui.semanticChecksMenu?after=emv2">
-         <command
-               commandId="org.osate.aadl2.errormodel.analysis.unhandledFaults">
-         </command>
-      </menuContribution>
-      <menuContribution
             locationURI="menu:org.osate.ui.safetyMenu?after=core">
          <command
                commandId="org.osate.aadl2.errormodel.analysis.fha">
@@ -169,25 +163,8 @@
          <command
                commandId="org.osate.aadl2.errormodel.analysis.faultImpact">
          </command>
-      </menuContribution>
-      <menuContribution
-            locationURI="toolbar:org.osate.ui.semanticChecksToolbar?after=emv2">
          <command
-               commandId="org.osate.aadl2.errormodel.analysis.unhandledFaults"
-               tooltip="Check unhandled faults">
-            <!--
-               Remove visibleWhen on the command when this bug is fixed:
-               https://bugs.eclipse.org/bugs/show_bug.cgi?id=201589
-            -->
-            <visibleWhen
-                  checkEnabled="false">
-               <with
-                     variable="activeWorkbenchWindow.activePerspective">
-                  <equals
-                        value="org.osate.ui.perspective.AadlPerspective">
-                  </equals>
-               </with>
-            </visibleWhen>
+               commandId="org.osate.aadl2.errormodel.analysis.unhandledFaults">
          </command>
       </menuContribution>
       <menuContribution
@@ -226,20 +203,28 @@
                </with>
             </visibleWhen>
          </command>
+         <command
+               commandId="org.osate.aadl2.errormodel.analysis.unhandledFaults"
+               tooltip="Check unhandled faults">
+            <!--
+               Remove visibleWhen on the command when this bug is fixed:
+               https://bugs.eclipse.org/bugs/show_bug.cgi?id=201589
+            -->
+            <visibleWhen
+                  checkEnabled="false">
+               <with
+                     variable="activeWorkbenchWindow.activePerspective">
+                  <equals
+                        value="org.osate.ui.perspective.AadlPerspective">
+                  </equals>
+               </with>
+            </visibleWhen>
+         </command>
       </menuContribution>
       <menuContribution
             locationURI="menu:org.osate.aadl2.errormodel.analysis.fha">
          <command
                commandId="org.osate.aadl2.errormodel.analysis.fha">
-         </command>
-      </menuContribution>
-      <menuContribution
-            locationURI="popup:org.osate.ui.semanticChecksNavigatorPopup?after=emv2">
-         <command
-               commandId="org.osate.aadl2.errormodel.analysis.unhandledFaults">
-            <visibleWhen
-                  checkEnabled="true">
-            </visibleWhen>
          </command>
       </menuContribution>
       <menuContribution
@@ -252,6 +237,12 @@
          </command>
          <command
                commandId="org.osate.aadl2.errormodel.analysis.faultImpact">
+            <visibleWhen
+                  checkEnabled="true">
+            </visibleWhen>
+         </command>
+         <command
+               commandId="org.osate.aadl2.errormodel.analysis.unhandledFaults">
             <visibleWhen
                   checkEnabled="true">
             </visibleWhen>
