@@ -5,9 +5,7 @@ import java.util.Objects;
 import org.eclipse.e4.core.contexts.ContextInjectionFactory;
 import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.emf.ecore.EObject;
-import org.eclipse.graphiti.features.ICustomUndoRedoFeature;
 import org.eclipse.graphiti.features.IFeatureProvider;
-import org.eclipse.graphiti.features.context.IContext;
 import org.eclipse.graphiti.features.context.ICreateContext;
 import org.eclipse.graphiti.features.impl.AbstractCreateFeature;
 import org.osate.ge.BusinessObjectContext;
@@ -29,6 +27,8 @@ import org.osate.ge.internal.graphiti.services.GraphitiService;
 import org.osate.ge.internal.operations.DefaultOperationResultsProcessor;
 import org.osate.ge.internal.operations.OperationExecutor;
 import org.osate.ge.internal.services.AadlModificationService;
+import org.osate.ge.internal.services.ActionExecutor.ExecutionMode;
+import org.osate.ge.internal.services.AgeAction;
 import org.osate.ge.internal.services.ExtensionService;
 import org.osate.ge.internal.util.AnnotationUtil;
 import org.osate.ge.operations.Operation;
@@ -36,7 +36,7 @@ import org.osate.ge.operations.StepResultBuilder;
 import org.osate.ge.services.ReferenceBuilderService;
 
 // ICreateFeature implementation that delegates behavior to a business object handler
-public class BoHandlerCreateFeature extends AbstractCreateFeature implements Categorized, ICustomUndoRedoFeature {
+public class BoHandlerCreateFeature extends AbstractCreateFeature implements Categorized {
 	private final GraphitiService graphitiService;
 	private final ExtensionService extService;
 	private final AadlModificationService aadlModService;
@@ -103,50 +103,66 @@ public class BoHandlerCreateFeature extends AbstractCreateFeature implements Cat
 			return EMPTY;
 		}
 
-		final DockingPosition targetDockingPosition = AgeDiagramUtil.determineDockingPosition(targetNode,
-				context.getX(), context.getY(), 0, 0);
+		class CreateAction implements AgeAction {
+			private Object[] result = null;
 
-		final IEclipseContext eclipseCtx = extService.createChildContext();
-		try {
-			eclipseCtx.set(Names.PALETTE_ENTRY_CONTEXT, paletteEntry.getContext());
-			eclipseCtx.set(Names.TARGET_BO, targetNode.getBusinessObject());
-			eclipseCtx.set(InternalNames.PROJECT, graphitiService.getProject());
-			eclipseCtx.set(Names.DOCKING_POSITION, targetDockingPosition); // Specify even if the shape will not be docked.
-			eclipseCtx.set(Names.TARGET_BUSINESS_OBJECT_CONTEXT, targetNode);
+			@Override
+			public AgeAction execute() {
+				final DockingPosition targetDockingPosition = AgeDiagramUtil.determineDockingPosition(targetNode,
+						context.getX(), context.getY(), 0, 0);
 
-			final Operation operation;
+				final IEclipseContext eclipseCtx = extService.createChildContext();
+				try {
+					eclipseCtx.set(Names.PALETTE_ENTRY_CONTEXT, paletteEntry.getContext());
+					eclipseCtx.set(Names.TARGET_BO, targetNode.getBusinessObject());
+					eclipseCtx.set(InternalNames.PROJECT, graphitiService.getProject());
+					eclipseCtx.set(Names.DOCKING_POSITION, targetDockingPosition); // Specify even if the shape will not be docked.
+					eclipseCtx.set(Names.TARGET_BUSINESS_OBJECT_CONTEXT, targetNode);
 
-			// Check if the handler will modify the create operation directly
-			if (AnnotationUtil.hasMethodWithAnnotation(BuildCreateOperation.class, handler)) {
-				operation = (Operation)ContextInjectionFactory.invoke(handler,
-						BuildCreateOperation.class,
-						eclipseCtx);
-			} else {
-				operation = Operation.create(opBuilder -> {
-					// Otherwise, create a single step based on other annotated methods
-					final DiagramNode ownerNode = getOwnerDiagramNode(targetNode);
-					final EObject boToModify = getBusinessObjectToModify(targetNode, ownerNode.getBusinessObject());
+					final Operation operation;
 
-					opBuilder.modifyModel(boToModify, (tag, prevResult) -> tag, (tag, boToModify1, prevResult) -> {
-						eclipseCtx.set(Names.MODIFY_BO, boToModify1);
-						final Object newBo1 = ContextInjectionFactory.invoke(handler, Create.class, eclipseCtx);
-						return StepResultBuilder.create().showNewBusinessObject(ownerNode, newBo1).build();
-					});
-				});
-			}
+					// Check if the handler will modify the create operation directly
+					if (AnnotationUtil.hasMethodWithAnnotation(BuildCreateOperation.class, handler)) {
+						operation = (Operation) ContextInjectionFactory.invoke(handler, BuildCreateOperation.class,
+								eclipseCtx);
+					} else {
+						operation = Operation.create(opBuilder -> {
+							// Otherwise, create a single step based on other annotated methods
+							final DiagramNode ownerNode = getOwnerDiagramNode(targetNode);
+							final EObject boToModify = getBusinessObjectToModify(targetNode,
+									ownerNode.getBusinessObject());
 
-			if (operation == null) {
+							opBuilder.modifyModel(boToModify, (tag, prevResult) -> tag,
+									(tag, boToModify1, prevResult) -> {
+										eclipseCtx.set(Names.MODIFY_BO, boToModify1);
+										final Object newBo1 = ContextInjectionFactory.invoke(handler, Create.class,
+												eclipseCtx);
+										return StepResultBuilder.create().showNewBusinessObject(ownerNode, newBo1)
+												.build();
+									});
+						});
+					}
+
+					if (operation == null) {
+						return null;
+					}
+
+					// Perform modification
+					final OperationExecutor opExecutor = new OperationExecutor(aadlModService);
+					opExecutor.execute(operation, new DefaultOperationResultsProcessor(diagramUpdater, refBuilder,
+							targetNode, new Point(context.getX(), context.getY())));
+					result = EMPTY;
+				} finally {
+					eclipseCtx.dispose();
+				}
+
 				return null;
 			}
-
-			// Perform modification
-			final OperationExecutor opExecutor = new OperationExecutor(aadlModService);
-			opExecutor.execute(operation, new DefaultOperationResultsProcessor(diagramUpdater, refBuilder, targetNode,
-					new Point(context.getX(), context.getY())));
-			return EMPTY;
-		} finally {
-			eclipseCtx.dispose();
 		}
+
+		final CreateAction createAction = new CreateAction();
+		graphitiService.execute("Create " + paletteEntry.getLabel(), ExecutionMode.NORMAL, createAction);
+		return createAction.result;
 	}
 
 	private DiagramNode getOwnerDiagramNode(final DiagramNode targetNode) {
@@ -184,32 +200,5 @@ public class BoHandlerCreateFeature extends AbstractCreateFeature implements Cat
 		} finally {
 			eclipseCtx.dispose();
 		}
-	}
-
-// ICustomUndoRedoFeature
-	@Override
-	public boolean canUndo(final IContext context) {
-		return false;
-	}
-
-	@Override
-	public void preUndo(IContext context) {
-	}
-
-	@Override
-	public void postUndo(IContext context) {
-	}
-
-	@Override
-	public boolean canRedo(IContext context) {
-		return false;
-	}
-
-	@Override
-	public void preRedo(IContext context) {
-	}
-
-	@Override
-	public void postRedo(IContext context) {
 	}
 }

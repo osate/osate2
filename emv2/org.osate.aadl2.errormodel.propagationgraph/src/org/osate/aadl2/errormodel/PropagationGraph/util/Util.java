@@ -27,12 +27,14 @@ import org.osate.aadl2.instance.SystemOperationMode;
 import org.osate.aadl2.modelsupport.resources.OsateResourceUtil;
 import org.osate.aadl2.modelsupport.util.AadlUtil;
 import org.osate.aadl2.util.Aadl2InstanceUtil;
+import org.osate.aadl2.util.Aadl2Util;
 import org.osate.result.Diagnostic;
 import org.osate.result.DiagnosticType;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorEvent;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorFlow;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorPropagation;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorTypes;
+import org.osate.xtext.aadl2.errormodel.errorModel.IfCondition;
 import org.osate.xtext.aadl2.errormodel.errorModel.PropagationPath;
 import org.osate.xtext.aadl2.errormodel.errorModel.SubcomponentElement;
 import org.osate.xtext.aadl2.errormodel.util.EM2TypeSetUtil;
@@ -655,7 +657,7 @@ public class Util {
 
 	public static boolean conditionHolds(ErrorFlow ef, InstanceObject target) {
 		if (ef.getFlowcondition() != null) {
-			String conditionFcn = ef.getFlowcondition();
+			IfCondition conditionFcn = ef.getFlowcondition();
 			return executeCondition(conditionFcn, target, ef);
 		}
 		return true;
@@ -663,7 +665,7 @@ public class Util {
 
 	public static boolean conditionHolds(ErrorEvent ev, InstanceObject target) {
 		if (ev.getEventcondition() != null) {
-			String conditionFcn = ev.getEventcondition();
+			IfCondition conditionFcn = ev.getEventcondition();
 			return executeCondition(conditionFcn, target, ev);
 		}
 		return true;
@@ -679,7 +681,7 @@ public class Util {
 		}
 	}
 
-	public static boolean executeCondition(String conditionFcn, InstanceObject target, EObject emv2target) {
+	public static boolean executeCondition(IfCondition ifCondition, InstanceObject target, EObject emv2target) {
 		ComponentInstance targetComponent = null;
 		InstanceObject targetElement = null;
 		if (target instanceof ComponentInstance) {
@@ -688,22 +690,25 @@ public class Util {
 			targetComponent = target.getContainingComponentInstance();
 			targetElement = target;
 		}
-		if (conditionFcn.contains(".")) {
+		if (ifCondition.getJavaMethod() != null) {
 			// Java class reference
-			Object res = ExecuteJavaUtil.eInstance.invokeJavaMethod(conditionFcn, targetElement);
+			Object res = ExecuteJavaUtil.eInstance.invokeJavaMethod(ifCondition.getJavaMethod(), targetElement);
 			if (res instanceof Boolean) {
 				return (Boolean) res;
 			} else {
 			return true;
 			}
-		} else {
+		} else if (!Aadl2Util.isNull(ifCondition.getResoluteFunction())) {
 			if (RESOLUTE_INSTALLED) {
-				Diagnostic res = ExecuteResoluteUtil.eInstance.executeResoluteFunction(conditionFcn,
+				Diagnostic res = ExecuteResoluteUtil.eInstance.executeResoluteFunctionOnce(
+						ifCondition.getResoluteFunction(),
 						target.getSystemInstance(), targetComponent, targetElement, null);
 				return res != null && res.getType() == DiagnosticType.SUCCESS;
 			} else {
 			return true;
 			}
+		} else {
+			return true;
 		}
 	}
 }

@@ -34,7 +34,9 @@
  */
 package org.osate.core.tests.aadl2javavalidator
 
+import com.google.inject.Inject
 import com.itemis.xtext.testing.FluentIssueCollection
+import com.itemis.xtext.testing.XtextTest
 import org.eclipse.xtext.testing.InjectWith
 import org.eclipse.xtext.testing.XtextRunner
 import org.junit.Test
@@ -44,22 +46,25 @@ import org.osate.aadl2.AbstractImplementation
 import org.osate.aadl2.AbstractType
 import org.osate.aadl2.SubprogramImplementation
 import org.osate.aadl2.SubprogramType
-import org.osate.testsupport.Aadl2UiInjectorProvider
-import org.osate.testsupport.OsateTest
+import org.osate.testsupport.Aadl2InjectorProvider
+import org.osate.testsupport.TestHelper
 
 import static extension org.junit.Assert.assertEquals
+import static extension org.osate.testsupport.AssertHelper.*
 
 @RunWith(XtextRunner)
-@InjectWith(Aadl2UiInjectorProvider)
-class ConnectionAndFlowTypesTest extends OsateTest {
+@InjectWith(Aadl2InjectorProvider)
+class ConnectionAndFlowTypesTest extends XtextTest {
+	
+	@Inject
+	TestHelper<AadlPackage> testHelper
 	/*
 	 * Tests typeCheckAccessConnectionEnd, typeCheckFeatureConnectionEnd, typeCheckFeatureGroupConnectionEnd, typeCheckParameterConnectionEnd,
 	 * typeCheckPortConnectionEnd, and checkFlowFeatureType
 	 */
 	@Test
 	def void testConnectionAndFlowTypes() {
-		createFiles(
-			"legalTypeTest.aadl" -> '''
+		val legalTypeTest = '''
 				package legalTypeTest
 				public
 					abstract container
@@ -1300,9 +1305,9 @@ class ConnectionAndFlowTypesTest extends OsateTest {
 					end d1;
 				end legalTypeTest;
 			'''
-		)
+
 		suppressSerialization
-		val testFileResult = testFile("legalTypeTest.aadl")
+		val testFileResult = issues = testHelper.testString(legalTypeTest)
 		val issueCollection = new FluentIssueCollection(testFileResult.resource, newArrayList, newArrayList)
 		testFileResult.resource.contents.head as AadlPackage => [
 			"legalTypeTest".assertEquals(name)
@@ -3333,7 +3338,7 @@ class ConnectionAndFlowTypesTest extends OsateTest {
 				]
 			]
 		]
-		issueCollection.sizeIs(issueCollection.issues.size)
+		issueCollection.sizeIs(testFileResult.issues.size)
 		assertConstraints(issueCollection)
 	}
 }
