@@ -4805,8 +4805,8 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 	private void checkForInverseInFeatureGroup(FeatureGroup featureGroup) {
 		if (featureGroup.isInverse() && featureGroup.getFeatureGroupType() != null
 				&& featureGroup.getFeatureGroupType().getInverse() != null) {
-			error("A feature group type with an 'inverse of' declaration cannot extend a feature group type "
-					+ "without an 'inverse of' declaration.", featureGroup, null, INVERSE_IN_FEATURE_GROUP);
+			error("A feature group cannot be the inverse of a feature group type "
+					+ "with an 'inverse of' declaration.", featureGroup, null, INVERSE_IN_FEATURE_GROUP);
 		}
 	}
 
