@@ -1,28 +1,35 @@
 package org.osate.core.tests.issues
 
+import com.google.inject.Inject
+import com.itemis.xtext.testing.FluentIssueCollection
+import com.itemis.xtext.testing.XtextTest
 import org.eclipse.xtext.testing.InjectWith
 import org.eclipse.xtext.testing.XtextRunner
 import org.junit.Test
 import org.junit.runner.RunWith
-import org.osate.testsupport.Aadl2UiInjectorProvider
-import org.osate.testsupport.OsateTest
+import org.osate.aadl2.AadlPackage
+import org.osate.testsupport.Aadl2InjectorProvider
+import org.osate.testsupport.TestHelper
 
 import static org.junit.Assert.*
 
 @RunWith(typeof(XtextRunner))
-@InjectWith(typeof(Aadl2UiInjectorProvider))
-class Issue718Test extends OsateTest {
+@InjectWith(typeof(Aadl2InjectorProvider))
+class Issue718Test extends XtextTest {
+	
+	@Inject
+	TestHelper<AadlPackage> testHelper
+		
 	@Test
 	def void issue718() {
-		val psFile = "ps718.aadl"
-		val aadlFile = "issue718.aadl"
-		createFiles(psFile -> ps718Text, aadlFile -> aadlText)
-		suppressSerialization
-		val result = testFile(aadlFile, psFile)
-		assertTrue('Unexpected error', result.empty)
+		
+		val testFileResult = issues = testHelper.testString(aadlText, psText)
+		val issueCollection = new FluentIssueCollection(testFileResult.resource, newArrayList, newArrayList)
+					
+		assertTrue('Unexpected error', issueCollection.empty)
 	}
 
-	val ps718Text = '''
+	val psText = '''
 		property set ps718 is
 			cltype: type classifier;
 			reftype: type reference;
