@@ -1,37 +1,42 @@
 package org.osate.core.tests.issues
 
+import com.google.inject.Inject
+import com.itemis.xtext.testing.FluentIssueCollection
+import com.itemis.xtext.testing.XtextTest
+import java.util.List
+import org.eclipse.emf.ecore.EObject
 import org.eclipse.xtext.testing.InjectWith
 import org.eclipse.xtext.testing.XtextRunner
+import org.eclipse.xtext.validation.Issue
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.osate.aadl2.AadlPackage
-import org.osate.testsupport.Aadl2UiInjectorProvider
-import org.osate.testsupport.OsateTest
+import org.osate.aadl2.SystemImplementation
+import org.osate.aadl2.ThreadImplementation
+import org.osate.testsupport.Aadl2InjectorProvider
+import org.osate.testsupport.TestHelper
 
 import static org.junit.Assert.*
-import org.osate.aadl2.SystemImplementation
-import com.itemis.xtext.testing.FluentIssueCollection
 
-import static extension org.junit.Assert.assertEquals
 import static extension org.eclipse.emf.ecore.util.EcoreUtil.getURI
-
-import org.osate.aadl2.ThreadImplementation
-import org.eclipse.emf.ecore.EObject
-import java.util.List
-import org.eclipse.xtext.validation.Issue
+import static extension org.junit.Assert.assertEquals
+import static extension org.osate.testsupport.AssertHelper.assertError
 
 @RunWith(XtextRunner)
-@InjectWith(Aadl2UiInjectorProvider)
-class Issue911Test extends OsateTest {
+@InjectWith(Aadl2InjectorProvider)
+class Issue911Test extends XtextTest {
 	val static PROJECT_LOCATION = "org.osate.core.tests/models/issue911/"
 	val static FILE1 = "BadParameterConnection.aadl"
 	val static FILE2 = "BadAccessConnections.aadl"
 	
 	val static ERROR_MESSAGE = "Connection must not be between two subcomponents; use provides/requires access features"
+	
+	@Inject
+	TestHelper<AadlPackage> testHelper
 
 	@Test
 	def void test1() {
-		val testFileResult = loadFile(FILE1, PROJECT_LOCATION + FILE1)
+		val testFileResult = issues = testHelper.testFile(PROJECT_LOCATION + FILE1)
 		val issueCollection = new FluentIssueCollection(testFileResult.resource, newArrayList, newArrayList)
 		
 		testFileResult.resource.contents.head as AadlPackage => [
@@ -42,13 +47,13 @@ class Issue911Test extends OsateTest {
 				]
 			]			
 		]
-		issueCollection.sizeIs(issueCollection.issues.size)
+		issueCollection.sizeIs(testFileResult.issues.size)
 		assertConstraints(issueCollection)
 	}
 
 	@Test
 	def void test2() {
-		val testFileResult = loadFile(FILE1, PROJECT_LOCATION + FILE2)
+		val testFileResult = issues = testHelper.testFile(PROJECT_LOCATION + FILE2)
 		val issueCollection = new FluentIssueCollection(testFileResult.resource, newArrayList, newArrayList)
 		
 		testFileResult.resource.contents.head as AadlPackage => [
@@ -122,14 +127,8 @@ class Issue911Test extends OsateTest {
 			]
 		]
 		
-		issueCollection.sizeIs(issueCollection.issues.size)
+		issueCollection.sizeIs(testFileResult.issues.size)
 		assertConstraints(issueCollection)
-	}
-
-	private def FluentIssueCollection loadFile(String fname, String path) {
-		createFiles(fname -> readFile(path))
-		ignoreSerializationDifferences
-		testFile(fname)
 	}
 
 	def protected static assertNoIssues(EObject eObject, List<Issue> allIssues, FluentIssueCollection issueCollection) {
