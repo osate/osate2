@@ -1,5 +1,7 @@
 package org.osate.analysis.flows.tests
 
+import com.google.inject.Inject
+import com.itemis.xtext.testing.XtextTest
 import org.eclipse.core.runtime.NullProgressMonitor
 import org.eclipse.xtext.testing.InjectWith
 import org.eclipse.xtext.testing.XtextRunner
@@ -9,31 +11,31 @@ import org.osate.aadl2.AadlPackage
 import org.osate.aadl2.SystemImplementation
 import org.osate.aadl2.instantiation.InstantiateModel
 import org.osate.analysis.flows.FlowLatencyAnalysisSwitch
-import org.osate.testsupport.Aadl2UiInjectorProvider
-import org.osate.testsupport.OsateTest
 import org.osate.result.RealValue
+import org.osate.testsupport.Aadl2InjectorProvider
+import org.osate.testsupport.TestHelper
 
 import static org.junit.Assert.*
 
 import static extension org.junit.Assert.assertEquals
 
 @RunWith(typeof(XtextRunner))
-@InjectWith(typeof(Aadl2UiInjectorProvider))
-class FlowLatencyTest extends OsateTest {
+@InjectWith(typeof(Aadl2InjectorProvider))
+class FlowLatencyTest extends XtextTest {
+	
+	@Inject
+	TestHelper<AadlPackage> testHelper
+	
+	
 	@Test
 	def void flows_pullprotocols() {
-		val pullprotocolsFile = "pullprotocols.aadl"
-		createFiles(pullprotocolsFile -> pullprotocolsText)
-		suppressSerialization
-		val result = testFile(pullprotocolsFile)
-
-		val pkg = result.resource.contents.head as AadlPackage
+		val pkg = testHelper.parseString(pullprotocolsText)
 		val cls = pkg.ownedPublicSection.ownedClassifiers
 		assertTrue('', cls.exists[name == 'stub.i'])
 
 		// instantiate
 		val sysImpl = cls.findFirst[name == 'stub.i'] as SystemImplementation
-		val instance = InstantiateModel::buildInstanceModelFile(sysImpl)
+		val instance = InstantiateModel.instantiate(sysImpl)
 		assertEquals("stub_i_Instance", instance.name)
 
 		// check flow latency
