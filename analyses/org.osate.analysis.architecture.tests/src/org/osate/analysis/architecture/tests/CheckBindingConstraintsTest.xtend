@@ -33,6 +33,8 @@
  */
 package org.osate.analysis.architecture.tests
 
+import com.google.inject.Inject
+import com.itemis.xtext.testing.XtextTest
 import org.eclipse.core.runtime.NullProgressMonitor
 import org.eclipse.xtext.testing.InjectWith
 import org.eclipse.xtext.testing.XtextRunner
@@ -41,19 +43,22 @@ import org.junit.runner.RunWith
 import org.osate.aadl2.AadlPackage
 import org.osate.aadl2.SystemImplementation
 import org.osate.analysis.architecture.handlers.CheckBindingConstraints
-import org.osate.testsupport.Aadl2UiInjectorProvider
-import org.osate.testsupport.OsateTest
+import org.osate.testsupport.Aadl2InjectorProvider
+import org.osate.testsupport.TestHelper
 
 import static extension org.junit.Assert.assertEquals
-import static extension org.osate.aadl2.instantiation.InstantiateModel.buildInstanceModelFile
+import static extension org.osate.aadl2.instantiation.InstantiateModel.instantiate
 
 @RunWith(XtextRunner)
-@InjectWith(Aadl2UiInjectorProvider)
-class CheckBindingConstraintsTest extends OsateTest {
+@InjectWith(Aadl2InjectorProvider)
+class CheckBindingConstraintsTest extends XtextTest {
+	
+	@Inject
+	TestHelper<AadlPackage> testHelper
+	
 	@Test
 	def void testCheckBindingConstraints() {
-		val pkg1FileName = "pkg1.aadl"
-		createFiles(pkg1FileName -> '''
+		val pkg1 = '''
 			package pkg1
 			public
 				system s1
@@ -251,13 +256,13 @@ class CheckBindingConstraintsTest extends OsateTest {
 				virtual bus vb3
 				end vb3;
 			end pkg1;
-		''')
-		suppressSerialization
-		testFile(pkg1FileName).resource.contents.head as AadlPackage => [
+		'''
+		val pkg = testHelper.parseString(pkg1)
+		pkg => [
 			"pkg1".assertEquals(name)
 			publicSection.ownedClassifiers.get(1) as SystemImplementation => [
 				"s1.i".assertEquals(name)
-				buildInstanceModelFile => [
+				instantiate => [
 					"s1_i_Instance".assertEquals(name)
 					val issues = CheckBindingConstraints.runAnalysis(new NullProgressMonitor, it).sortBy[message]
 					31.assertEquals(issues.size)
@@ -392,8 +397,7 @@ class CheckBindingConstraintsTest extends OsateTest {
 	
 	@Test
 	def void testWithModes() {
-		val pkg2FileName = "pkg2.aadl"
-		createFiles(pkg2FileName -> '''
+		val pkg2 = '''
 			package pkg2
 			public
 				system s1
@@ -432,13 +436,13 @@ class CheckBindingConstraintsTest extends OsateTest {
 				virtual bus vb1
 				end vb1;
 			end pkg2;
-		''')
-		suppressSerialization
-		testFile(pkg2FileName).resource.contents.head as AadlPackage => [
+		'''
+		val pkg = testHelper.parseString(pkg2)
+		pkg => [
 			"pkg2".assertEquals(name)
 			publicSection.ownedClassifiers.get(1) as SystemImplementation => [
 				"s1.i".assertEquals(name)
-				buildInstanceModelFile => [
+				instantiate => [
 					"s1_i_Instance".assertEquals(name)
 					val issues = CheckBindingConstraints.runAnalysis(new NullProgressMonitor, it).sortBy[message]
 					2.assertEquals(issues.size)
