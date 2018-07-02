@@ -13,14 +13,13 @@ import org.junit.runner.RunWith
 import org.osate.aadl2.Aadl2Factory
 import org.osate.aadl2.Aadl2Package
 import org.osate.aadl2.ComponentType
-import org.osate.testsupport.Aadl2UiInjectorProvider
-import org.osate.testsupport.OsateTest
+import org.osate.testsupport.Aadl2InjectorProvider
 
 import static extension org.junit.Assert.assertEquals
 
 @RunWith(XtextRunner)
-@InjectWith(Aadl2UiInjectorProvider)
-class Issue883Test extends OsateTest {
+@InjectWith(Aadl2InjectorProvider)
+class Issue883Test {
 	@Inject
 	extension ISerializer
 	@Inject

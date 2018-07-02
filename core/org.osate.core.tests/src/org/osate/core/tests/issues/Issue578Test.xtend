@@ -1,8 +1,8 @@
 package org.osate.core.tests.issues
 
+import com.google.inject.Inject
 import com.itemis.xtext.testing.FluentIssueCollection
-import org.eclipse.core.resources.IMarker
-import org.eclipse.core.resources.IResource
+import com.itemis.xtext.testing.XtextTest
 import org.eclipse.xtext.testing.InjectWith
 import org.eclipse.xtext.testing.XtextRunner
 import org.junit.Test
@@ -11,18 +11,23 @@ import org.osate.aadl2.AadlPackage
 import org.osate.aadl2.SystemImplementation
 import org.osate.aadl2.SystemType
 import org.osate.aadl2.instantiation.InstantiateModel
-import org.osate.aadl2.modelsupport.resources.OsateResourceUtil
-import org.osate.testsupport.Aadl2UiInjectorProvider
-import org.osate.testsupport.OsateTest
+import org.osate.aadl2.modelsupport.errorreporting.AnalysisErrorReporterManager
+import org.osate.aadl2.modelsupport.errorreporting.QueuingAnalysisErrorReporter
+import org.osate.testsupport.Aadl2InjectorProvider
+import org.osate.testsupport.TestHelper
 
 import static extension org.junit.Assert.assertEquals
+import static extension org.osate.testsupport.AssertHelper.assertError
 
 @RunWith(typeof(XtextRunner))
-@InjectWith(typeof(Aadl2UiInjectorProvider))
-class Issue578Test extends OsateTest {
+@InjectWith(typeof(Aadl2InjectorProvider))
+class Issue578Test extends XtextTest {
+
+	@Inject
+	TestHelper<AadlPackage> testHelper
+
 	@Test
 	def void issue578TestA() {
-		val aadlFile = "issue578A.aadl"
 		val aadlText = '''
 			package issue578A
 			public
@@ -33,15 +38,12 @@ class Issue578Test extends OsateTest {
 				end a.impl;
 			end issue578A;
 		'''
-		createFiles(aadlFile -> aadlText)
-		
-		suppressSerialization
-		val testFileResult = testFile(aadlFile)
+		val testFileResult = issues = testHelper.testString(aadlText)
 		val issueCollection = new FluentIssueCollection(testFileResult.resource, newArrayList, newArrayList)
 		val pkg = testFileResult.resource.contents.head as AadlPackage
 		val cls = pkg.ownedPublicSection.ownedClassifiers
-		
-		testFileResult.resource.contents.head as AadlPackage => [
+
+		pkg => [
 			"issue578A".assertEquals(name)
 			publicSection.ownedClassifiers.get(1) as SystemImplementation => [
 				"a.impl".assertEquals(name)
@@ -50,52 +52,49 @@ class Issue578Test extends OsateTest {
 				]
 			]
 		]
-		issueCollection.sizeIs(issueCollection.issues.size)
+		issueCollection.sizeIs(testFileResult.issues.size)
 		assertConstraints(issueCollection)
 
 		// instantiate
 		val sysImpl = cls.findFirst[name == 'a.impl'] as SystemImplementation
-		val instance = InstantiateModel::buildInstanceModelFile(sysImpl)
-		val markers = OsateResourceUtil.convertToIResource(instance.eResource).findMarkers(IMarker.PROBLEM, true, IResource.DEPTH_ONE);
-		markers =>[
+		val errorManager = new AnalysisErrorReporterManager(QueuingAnalysisErrorReporter.factory)
+		val instance = InstantiateModel.instantiate(sysImpl, errorManager)
+		val reporter = errorManager.getReporter(instance.eResource) as QueuingAnalysisErrorReporter
+		val messages = reporter.errors
+
+		messages => [
 			size.assertEquals(1)
-			head =>[
-				attributes.get(IMarker.SEVERITY) => [
-					assertEquals(IMarker.SEVERITY_ERROR)
-				]
-				attributes.get(IMarker.MESSAGE) => [
-					assertEquals("Circular extension: Component 'a.impl' directly or indirectly extends itself.")
-				]
+			head => [
+				assertEquals(QueuingAnalysisErrorReporter.ERROR, kind)
+				assertEquals("Circular extension: Component 'a.impl' directly or indirectly extends itself.", message)
 			]
 		]
 	}
 
 	@Test
 	def void issue578TestB() {
-		val aadlFile = "issue578B.aadl"
 		val aadlText = '''
-				package issue578B
-				public
-					system b extends c
-					end b;
-					system implementation b.impl extends c.impl
-					end b.impl;
-				
-					system c extends b
-					end c;
-					system implementation c.impl extends b.impl
-					end c.impl;
-				
-				end issue578B;		'''
-		createFiles(aadlFile -> aadlText)
-		
-		suppressSerialization
-		val testFileResult = testFile(aadlFile)
+			package issue578B
+			public
+				system b extends c
+				end b;
+				system implementation b.impl extends c.impl
+				end b.impl;
+			
+				system c extends b
+				end c;
+				system implementation c.impl extends b.impl
+				end c.impl;
+			
+			end issue578B;
+		'''
+
+		val testFileResult = issues = testHelper.testString(aadlText)
 		val issueCollection = new FluentIssueCollection(testFileResult.resource, newArrayList, newArrayList)
 		val pkg = testFileResult.resource.contents.head as AadlPackage
 		val cls = pkg.ownedPublicSection.ownedClassifiers
-		
-		testFileResult.resource.contents.head as AadlPackage => [
+
+		pkg => [
 			"issue578B".assertEquals(name)
 			publicSection.ownedClassifiers.head as SystemType => [
 				"b".assertEquals(name)
@@ -122,33 +121,33 @@ class Issue578Test extends OsateTest {
 				]
 			]
 		]
-		issueCollection.sizeIs(issueCollection.issues.size)
+		issueCollection.sizeIs(testFileResult.issues.size)
 		assertConstraints(issueCollection)
 
 		// instantiate b.impl
-		var sysImpl = cls.findFirst[name == 'b.impl'] as SystemImplementation
-		var instance = InstantiateModel::buildInstanceModelFile(sysImpl)
-		var markers = OsateResourceUtil.convertToIResource(instance.eResource).findMarkers(IMarker.PROBLEM, true, IResource.DEPTH_ONE);
-		markers =>[
+		val sysImpl = cls.findFirst[name == 'b.impl'] as SystemImplementation
+		val errorManager = new AnalysisErrorReporterManager(QueuingAnalysisErrorReporter.factory)
+		val instance = InstantiateModel.instantiate(sysImpl, errorManager)
+		val reporter = errorManager.getReporter(instance.eResource) as QueuingAnalysisErrorReporter
+		val messages = reporter.errors
+
+		messages => [
 			size.assertEquals(2)
-			head =>[
-				attributes.get(IMarker.SEVERITY) => [
-					assertEquals(IMarker.SEVERITY_ERROR)
-				]
-				attributes.get(IMarker.MESSAGE) as String => [
-					if (indexOf("Classifier") < 0){
+			head => [
+				assertEquals(QueuingAnalysisErrorReporter.ERROR, kind)
+				message => [
+					if (indexOf("Classifier") < 0) {
 						assertEquals("Circular extension: Component 'b.impl' directly or indirectly extends itself.")
 					} else {
 						assertEquals("Circular extension: Classifier 'b' directly or indirectly extends itself.")
 					}
+					
 				]
 			]
-			get(1) => [
-				attributes.get(IMarker.SEVERITY) => [
-					assertEquals(IMarker.SEVERITY_ERROR)
-				]
-				attributes.get(IMarker.MESSAGE) as String => [
-					if (indexOf("Classifier") < 0){
+			tail.head => [
+				assertEquals(QueuingAnalysisErrorReporter.ERROR, kind)
+				message => [
+					if (indexOf("Classifier") < 0) {
 						assertEquals("Circular extension: Component 'b.impl' directly or indirectly extends itself.")
 					} else {
 						assertEquals("Circular extension: Classifier 'b' directly or indirectly extends itself.")
@@ -157,29 +156,27 @@ class Issue578Test extends OsateTest {
 			]
 		]
 		// instantiate c.impl
-		sysImpl = cls.findFirst[name == 'c.impl'] as SystemImplementation
-		instance = InstantiateModel::buildInstanceModelFile(sysImpl)
-		markers = OsateResourceUtil.convertToIResource(instance.eResource).findMarkers(IMarker.PROBLEM, true, IResource.DEPTH_ONE);
-		markers =>[
+		val sysImplC = cls.findFirst[name == 'c.impl'] as SystemImplementation
+		val errorManagerC = new AnalysisErrorReporterManager(QueuingAnalysisErrorReporter.factory)
+		val instanceC = InstantiateModel.instantiate(sysImplC, errorManagerC)
+		val reporterC = errorManagerC.getReporter(instanceC.eResource) as QueuingAnalysisErrorReporter
+		val messagesC = reporterC.errors
+		messagesC => [
 			size.assertEquals(2)
-			head =>[
-				attributes.get(IMarker.SEVERITY) => [
-					assertEquals(IMarker.SEVERITY_ERROR)
-				]
-				attributes.get(IMarker.MESSAGE) as String => [
-					if (indexOf("Classifier") < 0){
+			head => [
+				assertEquals(QueuingAnalysisErrorReporter.ERROR, kind)
+				message => [
+					if (indexOf("Classifier") < 0) {
 						assertEquals("Circular extension: Component 'c.impl' directly or indirectly extends itself.")
 					} else {
 						assertEquals("Circular extension: Classifier 'c' directly or indirectly extends itself.")
 					}
 				]
 			]
-			get(1) => [
-				attributes.get(IMarker.SEVERITY) => [
-					assertEquals(IMarker.SEVERITY_ERROR)
-				]
-				attributes.get(IMarker.MESSAGE) as String => [
-					if (indexOf("Classifier") < 0){
+			tail.head => [
+				assertEquals(QueuingAnalysisErrorReporter.ERROR, kind)
+				message => [
+					if (indexOf("Classifier") < 0) {
 						assertEquals("Circular extension: Component 'c.impl' directly or indirectly extends itself.")
 					} else {
 						assertEquals("Circular extension: Classifier 'c' directly or indirectly extends itself.")
@@ -188,9 +185,9 @@ class Issue578Test extends OsateTest {
 			]
 		]
 	}
+
 	@Test
 	def void issue578TestC() {
-		val aadlFile = "issue578c.aadl"
 		val aadlText = '''
 			package issue578c
 			public
@@ -205,14 +202,13 @@ class Issue578Test extends OsateTest {
 			
 			end issue578c;
 		'''
-		createFiles(aadlFile -> aadlText)
-		suppressSerialization
-		val testFileResult = testFile(aadlFile)
+
+		val testFileResult = issues = testHelper.testString(aadlText)
 		val issueCollection = new FluentIssueCollection(testFileResult.resource, newArrayList, newArrayList)
 		val pkg = testFileResult.resource.contents.head as AadlPackage
 		val cls = pkg.ownedPublicSection.ownedClassifiers
-		
-		testFileResult.resource.contents.head as AadlPackage => [
+
+		pkg => [
 			"issue578c".assertEquals(name)
 			publicSection.ownedClassifiers.head as SystemType => [
 				"d".assertEquals(name)
@@ -227,21 +223,21 @@ class Issue578Test extends OsateTest {
 				]
 			]
 		]
-		issueCollection.sizeIs(issueCollection.issues.size)
+		issueCollection.sizeIs(testFileResult.issues.size)
 		assertConstraints(issueCollection)
 
 		// instantiate d.impl
-		var sysImpl = cls.findFirst[name == 'd.impl'] as SystemImplementation
-		var instance = InstantiateModel::buildInstanceModelFile(sysImpl)
-		var markers = OsateResourceUtil.convertToIResource(instance.eResource).findMarkers(IMarker.PROBLEM, true, IResource.DEPTH_ONE);
-		markers =>[
+		val sysImpl = cls.findFirst[name == 'd.impl'] as SystemImplementation
+		val errorManager = new AnalysisErrorReporterManager(QueuingAnalysisErrorReporter.factory)
+		val instance = InstantiateModel.instantiate(sysImpl, errorManager)
+		val reporter = errorManager.getReporter(instance.eResource) as QueuingAnalysisErrorReporter
+		val messages = reporter.errors
+		messages => [
 			size.assertEquals(1)
-			head =>[
-				attributes.get(IMarker.SEVERITY) => [
-					assertEquals(IMarker.SEVERITY_ERROR)
-				]
-				attributes.get(IMarker.MESSAGE) as String => [
-					if (indexOf("Classifier 'd'") < 0){
+			head => [
+				assertEquals(QueuingAnalysisErrorReporter.ERROR, kind)
+				message => [
+					if (indexOf("Classifier 'd'") < 0) {
 						assertEquals("Circular extension: Classifier 'e' directly or indirectly extends itself.")
 					} else {
 						assertEquals("Circular extension: Classifier 'd' directly or indirectly extends itself.")

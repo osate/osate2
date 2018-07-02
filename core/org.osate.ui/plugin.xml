@@ -433,10 +433,6 @@
                       name="core">
                 </separator>
                 <separator
-                      name="emv2"
-                      visible="true">
-                </separator>
-                <separator
                       name="third_party">
                 </separator>
              </menu>
@@ -636,10 +632,6 @@
                       name="core">
                 </separator>
                 <separator
-                      name="emv2"
-                      visible="true">
-                </separator>
-                <separator
                       name="code_generation"
                       visible="true">
                 </separator>
@@ -788,10 +780,6 @@
             </visibleWhen>
             <separator
                   name="core">
-            </separator>
-            <separator
-                  name="emv2"
-                  visible="true">
             </separator>
             <separator
                   name="code_generation"
