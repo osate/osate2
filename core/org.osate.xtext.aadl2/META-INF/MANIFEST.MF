@@ -18,7 +18,6 @@ Require-Bundle: org.eclipse.xtext.generator;bundle-version="2.1.0";resolution:=o
  org.antlr.runtime;bundle-version="3.2.0",
  org.osate.aadl2.modelsupport;visibility:=reexport,
  org.eclipse.emf.mwe2.launch;bundle-version="2.1.0";resolution:=optional,
- org.osate.xtext.aadl2.properties.ui,
  org.osate.annexsupport;bundle-version="1.0.0",
  org.osate.workspace;bundle-version="1.0.0",
  org.osate.core;bundle-version="1.0.0",
