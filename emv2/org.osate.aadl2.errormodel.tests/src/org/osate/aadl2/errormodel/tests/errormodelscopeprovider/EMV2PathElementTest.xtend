@@ -1,5 +1,10 @@
 package org.osate.aadl2.errormodel.tests.errormodelscopeprovider
 
+import com.google.inject.Inject
+import com.itemis.xtext.testing.FluentIssueCollection
+import com.itemis.xtext.testing.XtextTest
+import org.eclipse.emf.common.util.URI
+import org.eclipse.xtext.resource.IResourceServiceProvider
 import org.eclipse.xtext.testing.InjectWith
 import org.eclipse.xtext.testing.XtextRunner
 import org.junit.Test
@@ -9,8 +14,9 @@ import org.osate.aadl2.DefaultAnnexLibrary
 import org.osate.aadl2.DefaultAnnexSubclause
 import org.osate.aadl2.RealLiteral
 import org.osate.aadl2.StringLiteral
-import org.osate.aadl2.errormodel.tests.ErrorModelUiInjectorProvider
-import org.osate.testsupport.OsateTest
+import org.osate.aadl2.errormodel.tests.ErrorModelInjectorProvider
+import org.osate.testsupport.AssertHelper
+import org.osate.testsupport.TestHelper
 import org.osate.xtext.aadl2.errormodel.errorModel.ConditionElement
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelLibrary
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelPackage
@@ -20,12 +26,19 @@ import org.osate.xtext.aadl2.errormodel.errorModel.SConditionElement
 
 import static extension org.junit.Assert.assertEquals
 import static extension org.junit.Assert.assertNull
+import static extension org.osate.testsupport.AssertHelper.assertError
 import static extension org.osate.xtext.aadl2.errormodel.util.EMV2Util.getPropagationName
-import com.itemis.xtext.testing.FluentIssueCollection
 
 @RunWith(XtextRunner)
-@InjectWith(ErrorModelUiInjectorProvider)
-class EMV2PathElementTest extends OsateTest {
+@InjectWith(ErrorModelInjectorProvider)
+class EMV2PathElementTest extends XtextTest {
+
+	@Inject
+	TestHelper<AadlPackage> testHelper
+
+	extension AssertHelper assertHelper = IResourceServiceProvider.Registry.INSTANCE.getResourceServiceProvider(
+		URI.createFileURI("dummy.emv2")).get(AssertHelper)
+
 	/*
 	 * Tests scope_EMV2PathElement_namedElement for grammar path: ErrorModelLibrary -> ErrorBehaviorStateMachine ->
 	 * 		ErrorBehaviorTransition -> ConditionExpression -> ... -> QualifiedErrorEventOrPropagation ->
@@ -33,8 +46,7 @@ class EMV2PathElementTest extends OsateTest {
 	 */
 	@Test
 	def void testErrorBehaviorTransitionInErrorBehaviorStateMachine() {
-		val errorBehaviorTransitionInErrorBehaviorStateMachineFileName = "ErrorBehaviorTransition_in_ErrorBehaviorStateMachine.aadl"
-		createFiles(errorBehaviorTransitionInErrorBehaviorStateMachineFileName -> '''
+		val aadlText = '''
 			package ErrorBehaviorTransition_in_ErrorBehaviorStateMachine
 			public
 				annex EMV2 {**
@@ -46,17 +58,18 @@ class EMV2PathElementTest extends OsateTest {
 					end behavior;
 				**};
 			end ErrorBehaviorTransition_in_ErrorBehaviorStateMachine;
-		''')
-		ignoreSerializationDifferences
-		testFile(errorBehaviorTransitionInErrorBehaviorStateMachineFileName).resource.contents.head as AadlPackage => [
+		'''
+		val pkg = testHelper.parseString(aadlText)
+		pkg => [
 			"ErrorBehaviorTransition_in_ErrorBehaviorStateMachine".assertEquals(name)
-			((publicSection.ownedAnnexLibraries.head as DefaultAnnexLibrary).parsedAnnexLibrary as ErrorModelLibrary).behaviors.head => [
+			((publicSection.ownedAnnexLibraries.head as DefaultAnnexLibrary).parsedAnnexLibrary as ErrorModelLibrary).
+				behaviors.head => [
 				"bvr1".assertEquals(name)
 				transitions.head => [
 					"trans1".assertEquals(name)
 					(condition as ConditionElement).qualifiedErrorPropagationReference.emv2Target => [
 						"evt1".assertEquals(namedElement.name)
-						//Tests scope_EMV2PathElement_namedElement
+						// Tests scope_EMV2PathElement_namedElement
 						assertScope(ErrorModelPackage.eINSTANCE.EMV2PathElement_NamedElement, #["evt1"])
 						path.assertNull
 					]
@@ -64,15 +77,14 @@ class EMV2PathElementTest extends OsateTest {
 			]
 		]
 	}
-	
+
 	/*
 	 * Tests scope_EMV2PathElement_namedElement for grammar path: ErrorModelSubclause -> ErrorBehaviorTransition ->
 	 * 		ConditionExpression -> ... -> QualifiedErrorEventOrPropagation -> EMV2ErrorPropagationPath
 	 */
 	@Test
 	def void testErrorBehaviorTransitionInErrorModelSubclause() {
-		val errorBehaviorTransitionInErrorModelSubclauseFileName = "ErrorBehaviorTransition_in_ErrorModelSubclause.aadl"
-		createFiles(errorBehaviorTransitionInErrorModelSubclauseFileName -> '''
+		val aadlText = '''
 			package ErrorBehaviorTransition_in_ErrorModelSubclause
 			public
 				abstract a1
@@ -192,9 +204,9 @@ class EMV2PathElementTest extends OsateTest {
 					end behavior;
 				**};
 			end ErrorBehaviorTransition_in_ErrorModelSubclause;
-		''')
-		ignoreSerializationDifferences
-		testFile(errorBehaviorTransitionInErrorModelSubclauseFileName).resource.contents.head as AadlPackage => [
+		'''
+		val pkg = testHelper.parseString(aadlText)
+		pkg => [
 			"ErrorBehaviorTransition_in_ErrorModelSubclause".assertEquals(name)
 			publicSection.ownedClassifiers.get(1) => [
 				"a1.i".assertEquals(name)
@@ -204,7 +216,7 @@ class EMV2PathElementTest extends OsateTest {
 						"trans1".assertEquals(name)
 						(condition as ConditionElement).qualifiedErrorPropagationReference.emv2Target => [
 							"evt1".assertEquals(namedElement.name)
-							//Tests scope_EMV2PathElement_namedElement
+							// Tests scope_EMV2PathElement_namedElement
 							assertScope(ErrorModelPackage.eINSTANCE.EMV2PathElement_NamedElement, firstElementScope)
 							path.assertNull
 						]
@@ -213,7 +225,7 @@ class EMV2PathElementTest extends OsateTest {
 						"trans2".assertEquals(name)
 						(condition as ConditionElement).qualifiedErrorPropagationReference.emv2Target => [
 							"evt2".assertEquals(namedElement.name)
-							//Tests scope_EMV2PathElement_namedElement
+							// Tests scope_EMV2PathElement_namedElement
 							assertScope(ErrorModelPackage.eINSTANCE.EMV2PathElement_NamedElement, firstElementScope)
 							path.assertNull
 						]
@@ -222,7 +234,7 @@ class EMV2PathElementTest extends OsateTest {
 						"trans3".assertEquals(name)
 						(condition as ConditionElement).qualifiedErrorPropagationReference.emv2Target => [
 							"evt3".assertEquals(namedElement.name)
-							//Tests scope_EMV2PathElement_namedElement
+							// Tests scope_EMV2PathElement_namedElement
 							assertScope(ErrorModelPackage.eINSTANCE.EMV2PathElement_NamedElement, firstElementScope)
 							path.assertNull
 						]
@@ -231,7 +243,7 @@ class EMV2PathElementTest extends OsateTest {
 						"trans4".assertEquals(name)
 						(condition as ConditionElement).qualifiedErrorPropagationReference.emv2Target => [
 							"port1".assertEquals((namedElement as ErrorPropagation).propagationName)
-							//Tests scope_EMV2PathElement_namedElement
+							// Tests scope_EMV2PathElement_namedElement
 							assertScope(ErrorModelPackage.eINSTANCE.EMV2PathElement_NamedElement, firstElementScope)
 							path.assertNull
 						]
@@ -240,7 +252,7 @@ class EMV2PathElementTest extends OsateTest {
 						"trans5".assertEquals(name)
 						(condition as ConditionElement).qualifiedErrorPropagationReference.emv2Target => [
 							"port2".assertEquals((namedElement as ErrorPropagation).propagationName)
-							//Tests scope_EMV2PathElement_namedElement
+							// Tests scope_EMV2PathElement_namedElement
 							assertScope(ErrorModelPackage.eINSTANCE.EMV2PathElement_NamedElement, firstElementScope)
 							path.assertNull
 						]
@@ -249,20 +261,22 @@ class EMV2PathElementTest extends OsateTest {
 						"trans6".assertEquals(name)
 						(condition as ConditionElement).qualifiedErrorPropagationReference.emv2Target => [
 							"fg1".assertEquals(namedElement.name)
-							//Tests scope_EMV2PathElement_namedElement
+							// Tests scope_EMV2PathElement_namedElement
 							assertScope(ErrorModelPackage.eINSTANCE.EMV2PathElement_NamedElement, firstElementScope)
 							path => [
 								"fg2".assertEquals(namedElement.name)
-								//Tests scope_EMV2PathElement_namedElement
+								// Tests scope_EMV2PathElement_namedElement
 								assertScope(ErrorModelPackage.eINSTANCE.EMV2PathElement_NamedElement, #["fg2"])
 								path => [
 									"fg3".assertEquals(namedElement.name)
-									//Tests scope_EMV2PathElement_namedElement
+									// Tests scope_EMV2PathElement_namedElement
 									assertScope(ErrorModelPackage.eINSTANCE.EMV2PathElement_NamedElement, #["fg3"])
 									path => [
-										"fg1.fg2.fg3.port3".assertEquals((namedElement as ErrorPropagation).propagationName)
-										//Tests scope_EMV2PathElement_namedElement
-										assertScope(ErrorModelPackage.eINSTANCE.EMV2PathElement_NamedElement, #["port3", "port4"])
+										"fg1.fg2.fg3.port3".assertEquals(
+											(namedElement as ErrorPropagation).propagationName)
+										// Tests scope_EMV2PathElement_namedElement
+										assertScope(ErrorModelPackage.eINSTANCE.EMV2PathElement_NamedElement,
+											#["port3", "port4"])
 										path.assertNull
 									]
 								]
@@ -273,20 +287,22 @@ class EMV2PathElementTest extends OsateTest {
 						"trans7".assertEquals(name)
 						(condition as ConditionElement).qualifiedErrorPropagationReference.emv2Target => [
 							"fg1".assertEquals(namedElement.name)
-							//Tests scope_EMV2PathElement_namedElement
+							// Tests scope_EMV2PathElement_namedElement
 							assertScope(ErrorModelPackage.eINSTANCE.EMV2PathElement_NamedElement, firstElementScope)
 							path => [
 								"fg2".assertEquals(namedElement.name)
-								//Tests scope_EMV2PathElement_namedElement
+								// Tests scope_EMV2PathElement_namedElement
 								assertScope(ErrorModelPackage.eINSTANCE.EMV2PathElement_NamedElement, #["fg2"])
 								path => [
 									"fg3".assertEquals(namedElement.name)
-									//Tests scope_EMV2PathElement_namedElement
+									// Tests scope_EMV2PathElement_namedElement
 									assertScope(ErrorModelPackage.eINSTANCE.EMV2PathElement_NamedElement, #["fg3"])
 									path => [
-										"fg1.fg2.fg3.port4".assertEquals((namedElement as ErrorPropagation).propagationName)
-										//Tests scope_EMV2PathElement_namedElement
-										assertScope(ErrorModelPackage.eINSTANCE.EMV2PathElement_NamedElement, #["port3", "port4"])
+										"fg1.fg2.fg3.port4".assertEquals(
+											(namedElement as ErrorPropagation).propagationName)
+										// Tests scope_EMV2PathElement_namedElement
+										assertScope(ErrorModelPackage.eINSTANCE.EMV2PathElement_NamedElement,
+											#["port3", "port4"])
 										path.assertNull
 									]
 								]
@@ -297,12 +313,13 @@ class EMV2PathElementTest extends OsateTest {
 						"trans8".assertEquals(name)
 						(condition as ConditionElement).qualifiedErrorPropagationReference.emv2Target => [
 							"asub1".assertEquals(namedElement.name)
-							//Tests scope_EMV2PathElement_namedElement
+							// Tests scope_EMV2PathElement_namedElement
 							assertScope(ErrorModelPackage.eINSTANCE.EMV2PathElement_NamedElement, firstElementScope)
 							path => [
 								"port5".assertEquals((namedElement as ErrorPropagation).propagationName)
-								//Tests scope_EMV2PathElement_namedElement
-								assertScope(ErrorModelPackage.eINSTANCE.EMV2PathElement_NamedElement, #["asub2", "fg4", "port5"])
+								// Tests scope_EMV2PathElement_namedElement
+								assertScope(ErrorModelPackage.eINSTANCE.EMV2PathElement_NamedElement,
+									#["asub2", "fg4", "port5"])
 								path.assertNull
 							]
 						]
@@ -311,15 +328,16 @@ class EMV2PathElementTest extends OsateTest {
 						"trans9".assertEquals(name)
 						(condition as ConditionElement).qualifiedErrorPropagationReference.emv2Target => [
 							"asub1".assertEquals(namedElement.name)
-							//Tests scope_EMV2PathElement_namedElement
+							// Tests scope_EMV2PathElement_namedElement
 							assertScope(ErrorModelPackage.eINSTANCE.EMV2PathElement_NamedElement, firstElementScope)
 							path => [
 								"fg4".assertEquals(namedElement.name)
-								//Tests scope_EMV2PathElement_namedElement
-								assertScope(ErrorModelPackage.eINSTANCE.EMV2PathElement_NamedElement, #["asub2", "fg4", "port5"])
+								// Tests scope_EMV2PathElement_namedElement
+								assertScope(ErrorModelPackage.eINSTANCE.EMV2PathElement_NamedElement,
+									#["asub2", "fg4", "port5"])
 								path => [
 									"fg4.port3".assertEquals((namedElement as ErrorPropagation).propagationName)
-									//Tests scope_EMV2PathElement_namedElement
+									// Tests scope_EMV2PathElement_namedElement
 									assertScope(ErrorModelPackage.eINSTANCE.EMV2PathElement_NamedElement, #["port3"])
 									path.assertNull
 								]
@@ -330,32 +348,38 @@ class EMV2PathElementTest extends OsateTest {
 						"trans10".assertEquals(name)
 						(condition as ConditionElement).qualifiedErrorPropagationReference.emv2Target => [
 							"asub1".assertEquals(namedElement.name)
-							//Tests scope_EMV2PathElement_namedElement
+							// Tests scope_EMV2PathElement_namedElement
 							assertScope(ErrorModelPackage.eINSTANCE.EMV2PathElement_NamedElement, firstElementScope)
 							path => [
 								"asub2".assertEquals(namedElement.name)
-								//Tests scope_EMV2PathElement_namedElement
-								assertScope(ErrorModelPackage.eINSTANCE.EMV2PathElement_NamedElement, #["asub2", "fg4", "port5"])
+								// Tests scope_EMV2PathElement_namedElement
+								assertScope(ErrorModelPackage.eINSTANCE.EMV2PathElement_NamedElement,
+									#["asub2", "fg4", "port5"])
 								path => [
 									"asub3".assertEquals(namedElement.name)
-									//Tests scope_EMV2PathElement_namedElement
+									// Tests scope_EMV2PathElement_namedElement
 									assertScope(ErrorModelPackage.eINSTANCE.EMV2PathElement_NamedElement, #["asub3"])
 									path => [
 										"fg5".assertEquals(namedElement.name)
-										//Tests scope_EMV2PathElement_namedElement
+										// Tests scope_EMV2PathElement_namedElement
 										assertScope(ErrorModelPackage.eINSTANCE.EMV2PathElement_NamedElement, #["fg5"])
 										path => [
 											"fg2".assertEquals(namedElement.name)
-											//Tests scope_EMV2PathElement_namedElement
-											assertScope(ErrorModelPackage.eINSTANCE.EMV2PathElement_NamedElement, #["fg2"])
+											// Tests scope_EMV2PathElement_namedElement
+											assertScope(ErrorModelPackage.eINSTANCE.EMV2PathElement_NamedElement,
+												#["fg2"])
 											path => [
 												"fg3".assertEquals(namedElement.name)
-												//Tests scope_EMV2PathElement_namedElement
-												assertScope(ErrorModelPackage.eINSTANCE.EMV2PathElement_NamedElement, #["fg3"])
+												// Tests scope_EMV2PathElement_namedElement
+												assertScope(ErrorModelPackage.eINSTANCE.EMV2PathElement_NamedElement,
+													#["fg3"])
 												path => [
-													"fg5.fg2.fg3.port3".assertEquals((namedElement as ErrorPropagation).propagationName)
-													//Tests scope_EMV2PathElement_namedElement
-													assertScope(ErrorModelPackage.eINSTANCE.EMV2PathElement_NamedElement, #["port3"])
+													"fg5.fg2.fg3.port3".assertEquals(
+														(namedElement as ErrorPropagation).propagationName)
+													// Tests scope_EMV2PathElement_namedElement
+													assertScope(
+														ErrorModelPackage.eINSTANCE.EMV2PathElement_NamedElement,
+														#["port3"])
 													path.assertNull
 												]
 											]
@@ -369,15 +393,14 @@ class EMV2PathElementTest extends OsateTest {
 			]
 		]
 	}
-	
+
 	/*
 	 * Tests scope_EMV2PathElement_namedElement for grammar path: ErrorModelSubclause -> OutgoingPropagationCondition ->
 	 * 		ConditionExpression -> ... -> QualifiedErrorEventOrPropagation -> EMV2ErrorPropagationPath
 	 */
 	@Test
 	def void testOutgoingPropagationCondition() {
-		val outgoingPropagationConditionFileName = "OutgoingPropagationCondition.aadl"
-		createFiles(outgoingPropagationConditionFileName -> '''
+		val aadlText = '''
 			package OutgoingPropagationCondition
 			public
 				abstract a1
@@ -497,9 +520,9 @@ class EMV2PathElementTest extends OsateTest {
 					end behavior;
 				**};
 			end OutgoingPropagationCondition;
-		''')
-		ignoreSerializationDifferences
-		testFile(outgoingPropagationConditionFileName).resource.contents.head as AadlPackage => [
+		'''
+		val pkg = testHelper.parseString(aadlText)
+		pkg => [
 			"OutgoingPropagationCondition".assertEquals(name)
 			publicSection.ownedClassifiers.get(1) => [
 				"a1.i".assertEquals(name)
@@ -509,7 +532,7 @@ class EMV2PathElementTest extends OsateTest {
 						"condition1".assertEquals(name)
 						(condition as ConditionElement).qualifiedErrorPropagationReference.emv2Target => [
 							"evt1".assertEquals(namedElement.name)
-							//Tests scope_EMV2PathElement_namedElement
+							// Tests scope_EMV2PathElement_namedElement
 							assertScope(ErrorModelPackage.eINSTANCE.EMV2PathElement_NamedElement, firstElementScope)
 							path.assertNull
 						]
@@ -518,7 +541,7 @@ class EMV2PathElementTest extends OsateTest {
 						"condition2".assertEquals(name)
 						(condition as ConditionElement).qualifiedErrorPropagationReference.emv2Target => [
 							"evt2".assertEquals(namedElement.name)
-							//Tests scope_EMV2PathElement_namedElement
+							// Tests scope_EMV2PathElement_namedElement
 							assertScope(ErrorModelPackage.eINSTANCE.EMV2PathElement_NamedElement, firstElementScope)
 							path.assertNull
 						]
@@ -527,7 +550,7 @@ class EMV2PathElementTest extends OsateTest {
 						"condition3".assertEquals(name)
 						(condition as ConditionElement).qualifiedErrorPropagationReference.emv2Target => [
 							"evt3".assertEquals(namedElement.name)
-							//Tests scope_EMV2PathElement_namedElement
+							// Tests scope_EMV2PathElement_namedElement
 							assertScope(ErrorModelPackage.eINSTANCE.EMV2PathElement_NamedElement, firstElementScope)
 							path.assertNull
 						]
@@ -536,7 +559,7 @@ class EMV2PathElementTest extends OsateTest {
 						"condition4".assertEquals(name)
 						(condition as ConditionElement).qualifiedErrorPropagationReference.emv2Target => [
 							"port1".assertEquals((namedElement as ErrorPropagation).propagationName)
-							//Tests scope_EMV2PathElement_namedElement
+							// Tests scope_EMV2PathElement_namedElement
 							assertScope(ErrorModelPackage.eINSTANCE.EMV2PathElement_NamedElement, firstElementScope)
 							path.assertNull
 						]
@@ -545,7 +568,7 @@ class EMV2PathElementTest extends OsateTest {
 						"condition5".assertEquals(name)
 						(condition as ConditionElement).qualifiedErrorPropagationReference.emv2Target => [
 							"port2".assertEquals((namedElement as ErrorPropagation).propagationName)
-							//Tests scope_EMV2PathElement_namedElement
+							// Tests scope_EMV2PathElement_namedElement
 							assertScope(ErrorModelPackage.eINSTANCE.EMV2PathElement_NamedElement, firstElementScope)
 							path.assertNull
 						]
@@ -554,20 +577,22 @@ class EMV2PathElementTest extends OsateTest {
 						"condition6".assertEquals(name)
 						(condition as ConditionElement).qualifiedErrorPropagationReference.emv2Target => [
 							"fg1".assertEquals(namedElement.name)
-							//Test scope_EMV2PathElement_namedElement
+							// Test scope_EMV2PathElement_namedElement
 							assertScope(ErrorModelPackage.eINSTANCE.EMV2PathElement_NamedElement, firstElementScope)
 							path => [
 								"fg2".assertEquals(namedElement.name)
-								//Tests scope_EMV2PathElement_namedElement
+								// Tests scope_EMV2PathElement_namedElement
 								assertScope(ErrorModelPackage.eINSTANCE.EMV2PathElement_NamedElement, #["fg2"])
 								path => [
 									"fg3".assertEquals(namedElement.name)
-									//Tests scope_EMV2PathElement_namedElement
+									// Tests scope_EMV2PathElement_namedElement
 									assertScope(ErrorModelPackage.eINSTANCE.EMV2PathElement_NamedElement, #["fg3"])
 									path => [
-										"fg1.fg2.fg3.port3".assertEquals((namedElement as ErrorPropagation).propagationName)
-										//Tests scope_EMV2PathElement_namedElement
-										assertScope(ErrorModelPackage.eINSTANCE.EMV2PathElement_NamedElement, #["port3", "port4"])
+										"fg1.fg2.fg3.port3".assertEquals(
+											(namedElement as ErrorPropagation).propagationName)
+										// Tests scope_EMV2PathElement_namedElement
+										assertScope(ErrorModelPackage.eINSTANCE.EMV2PathElement_NamedElement,
+											#["port3", "port4"])
 										path.assertNull
 									]
 								]
@@ -578,20 +603,22 @@ class EMV2PathElementTest extends OsateTest {
 						"condition7".assertEquals(name)
 						(condition as ConditionElement).qualifiedErrorPropagationReference.emv2Target => [
 							"fg1".assertEquals(namedElement.name)
-							//Tests scope_EMV2PathElement_namedElement
+							// Tests scope_EMV2PathElement_namedElement
 							assertScope(ErrorModelPackage.eINSTANCE.EMV2PathElement_NamedElement, firstElementScope)
 							path => [
 								"fg2".assertEquals(namedElement.name)
-								//Tests scope_EMV2PathElement_namedElement
+								// Tests scope_EMV2PathElement_namedElement
 								assertScope(ErrorModelPackage.eINSTANCE.EMV2PathElement_NamedElement, #["fg2"])
 								path => [
 									"fg3".assertEquals(namedElement.name)
-									//Tests scope_EMV2PathElement_namedElement
+									// Tests scope_EMV2PathElement_namedElement
 									assertScope(ErrorModelPackage.eINSTANCE.EMV2PathElement_NamedElement, #["fg3"])
 									path => [
-										"fg1.fg2.fg3.port4".assertEquals((namedElement as ErrorPropagation).propagationName)
-										//Tests scope_EMV2PathElement_namedElement
-										assertScope(ErrorModelPackage.eINSTANCE.EMV2PathElement_NamedElement, #["port3", "port4"])
+										"fg1.fg2.fg3.port4".assertEquals(
+											(namedElement as ErrorPropagation).propagationName)
+										// Tests scope_EMV2PathElement_namedElement
+										assertScope(ErrorModelPackage.eINSTANCE.EMV2PathElement_NamedElement,
+											#["port3", "port4"])
 										path.assertNull
 									]
 								]
@@ -602,12 +629,13 @@ class EMV2PathElementTest extends OsateTest {
 						"condition8".assertEquals(name)
 						(condition as ConditionElement).qualifiedErrorPropagationReference.emv2Target => [
 							"asub1".assertEquals(namedElement.name)
-							//Tests scope_EMV2PathElement_namedElement
+							// Tests scope_EMV2PathElement_namedElement
 							assertScope(ErrorModelPackage.eINSTANCE.EMV2PathElement_NamedElement, firstElementScope)
 							path => [
 								"port5".assertEquals((namedElement as ErrorPropagation).propagationName)
-								//Tests scope_EMV2PathElement_namedElement
-								assertScope(ErrorModelPackage.eINSTANCE.EMV2PathElement_NamedElement, #["asub2", "fg4", "port5"])
+								// Tests scope_EMV2PathElement_namedElement
+								assertScope(ErrorModelPackage.eINSTANCE.EMV2PathElement_NamedElement,
+									#["asub2", "fg4", "port5"])
 								path.assertNull
 							]
 						]
@@ -616,15 +644,16 @@ class EMV2PathElementTest extends OsateTest {
 						"condition9".assertEquals(name)
 						(condition as ConditionElement).qualifiedErrorPropagationReference.emv2Target => [
 							"asub1".assertEquals(namedElement.name)
-							//Tests scope_EMV2PathElement_namedElement
+							// Tests scope_EMV2PathElement_namedElement
 							assertScope(ErrorModelPackage.eINSTANCE.EMV2PathElement_NamedElement, firstElementScope)
 							path => [
 								"fg4".assertEquals(namedElement.name)
-								//Tests scope_EMV2PathElement_namedElement
-								assertScope(ErrorModelPackage.eINSTANCE.EMV2PathElement_NamedElement, #["asub2", "fg4", "port5"])
+								// Tests scope_EMV2PathElement_namedElement
+								assertScope(ErrorModelPackage.eINSTANCE.EMV2PathElement_NamedElement,
+									#["asub2", "fg4", "port5"])
 								path => [
 									"fg4.port3".assertEquals((namedElement as ErrorPropagation).propagationName)
-									//Tests scope_EMV2PathElement_namedElement
+									// Tests scope_EMV2PathElement_namedElement
 									assertScope(ErrorModelPackage.eINSTANCE.EMV2PathElement_NamedElement, #["port3"])
 									path.assertNull
 								]
@@ -635,32 +664,38 @@ class EMV2PathElementTest extends OsateTest {
 						"condition10".assertEquals(name)
 						(condition as ConditionElement).qualifiedErrorPropagationReference.emv2Target => [
 							"asub1".assertEquals(namedElement.name)
-							//Tests scope_EMV2PathElement_namedElement
+							// Tests scope_EMV2PathElement_namedElement
 							assertScope(ErrorModelPackage.eINSTANCE.EMV2PathElement_NamedElement, firstElementScope)
 							path => [
 								"asub2".assertEquals(namedElement.name)
-								//Tests scope_EMV2PathElement_namedElement
-								assertScope(ErrorModelPackage.eINSTANCE.EMV2PathElement_NamedElement, #["asub2", "fg4", "port5"])
+								// Tests scope_EMV2PathElement_namedElement
+								assertScope(ErrorModelPackage.eINSTANCE.EMV2PathElement_NamedElement,
+									#["asub2", "fg4", "port5"])
 								path => [
 									"asub3".assertEquals(namedElement.name)
-									//Tests scope_EMV2PathElement_namedElement
+									// Tests scope_EMV2PathElement_namedElement
 									assertScope(ErrorModelPackage.eINSTANCE.EMV2PathElement_NamedElement, #["asub3"])
 									path => [
 										"fg5".assertEquals(namedElement.name)
-										//Tests scope_EMV2PathElement_namedElement
+										// Tests scope_EMV2PathElement_namedElement
 										assertScope(ErrorModelPackage.eINSTANCE.EMV2PathElement_NamedElement, #["fg5"])
 										path => [
 											"fg2".assertEquals(namedElement.name)
-											//Tests scope_EMV2PathElement_namedElement
-											assertScope(ErrorModelPackage.eINSTANCE.EMV2PathElement_NamedElement, #["fg2"])
+											// Tests scope_EMV2PathElement_namedElement
+											assertScope(ErrorModelPackage.eINSTANCE.EMV2PathElement_NamedElement,
+												#["fg2"])
 											path => [
 												"fg3".assertEquals(namedElement.name)
-												//Tests scope_EMV2PathElement_namedElement
-												assertScope(ErrorModelPackage.eINSTANCE.EMV2PathElement_NamedElement, #["fg3"])
+												// Tests scope_EMV2PathElement_namedElement
+												assertScope(ErrorModelPackage.eINSTANCE.EMV2PathElement_NamedElement,
+													#["fg3"])
 												path => [
-													"fg5.fg2.fg3.port3".assertEquals((namedElement as ErrorPropagation).propagationName)
-													//Tests scope_EMV2PathElement_namedElement
-													assertScope(ErrorModelPackage.eINSTANCE.EMV2PathElement_NamedElement, #["port3"])
+													"fg5.fg2.fg3.port3".assertEquals(
+														(namedElement as ErrorPropagation).propagationName)
+													// Tests scope_EMV2PathElement_namedElement
+													assertScope(
+														ErrorModelPackage.eINSTANCE.EMV2PathElement_NamedElement,
+														#["port3"])
 													path.assertNull
 												]
 											]
@@ -674,15 +709,14 @@ class EMV2PathElementTest extends OsateTest {
 			]
 		]
 	}
-	
+
 	/*
 	 * Tests scope_EMV2PathElement_namedElement for grammar path: ErrorModelSubclause -> ErrorDetection ->
 	 * 		ConditionExpression -> ... -> QualifiedErrorEventOrPropagation -> EMV2ErrorPropagationPath
 	 */
 	@Test
 	def void testErrorDetection() {
-		val errorDetectionFileName = "ErrorDetection.aadl"
-		createFiles(errorDetectionFileName -> '''
+		val aadlText = '''
 			package ErrorDetection
 			public
 				abstract a1
@@ -802,9 +836,9 @@ class EMV2PathElementTest extends OsateTest {
 					end behavior;
 				**};
 			end ErrorDetection;
-		''')
-		ignoreSerializationDifferences
-		testFile(errorDetectionFileName).resource.contents.head as AadlPackage => [
+		'''
+		val pkg = testHelper.parseString(aadlText)
+		pkg => [
 			"ErrorDetection".assertEquals(name)
 			publicSection.ownedClassifiers.get(1) => [
 				"a1.i".assertEquals(name)
@@ -814,7 +848,7 @@ class EMV2PathElementTest extends OsateTest {
 						"detection1".assertEquals(name)
 						(condition as ConditionElement).qualifiedErrorPropagationReference.emv2Target => [
 							"evt1".assertEquals(namedElement.name)
-							//Tests scope_EMV2PathElement_namedElement
+							// Tests scope_EMV2PathElement_namedElement
 							assertScope(ErrorModelPackage.eINSTANCE.EMV2PathElement_NamedElement, firstElementScope)
 							path.assertNull
 						]
@@ -823,7 +857,7 @@ class EMV2PathElementTest extends OsateTest {
 						"detection2".assertEquals(name)
 						(condition as ConditionElement).qualifiedErrorPropagationReference.emv2Target => [
 							"evt2".assertEquals(namedElement.name)
-							//Tests scope_EMV2PathElement_namedElement
+							// Tests scope_EMV2PathElement_namedElement
 							assertScope(ErrorModelPackage.eINSTANCE.EMV2PathElement_NamedElement, firstElementScope)
 							path.assertNull
 						]
@@ -832,7 +866,7 @@ class EMV2PathElementTest extends OsateTest {
 						"detection3".assertEquals(name)
 						(condition as ConditionElement).qualifiedErrorPropagationReference.emv2Target => [
 							"evt3".assertEquals(namedElement.name)
-							//Tests scope_EMV2PathElement_namedElement
+							// Tests scope_EMV2PathElement_namedElement
 							assertScope(ErrorModelPackage.eINSTANCE.EMV2PathElement_NamedElement, firstElementScope)
 							path.assertNull
 						]
@@ -841,7 +875,7 @@ class EMV2PathElementTest extends OsateTest {
 						"detection4".assertEquals(name)
 						(condition as ConditionElement).qualifiedErrorPropagationReference.emv2Target => [
 							"port1".assertEquals((namedElement as ErrorPropagation).propagationName)
-							//Tests scope_EMV2PathElement_namedElement
+							// Tests scope_EMV2PathElement_namedElement
 							assertScope(ErrorModelPackage.eINSTANCE.EMV2PathElement_NamedElement, firstElementScope)
 							path.assertNull
 						]
@@ -850,7 +884,7 @@ class EMV2PathElementTest extends OsateTest {
 						"detection5".assertEquals(name)
 						(condition as ConditionElement).qualifiedErrorPropagationReference.emv2Target => [
 							"port2".assertEquals((namedElement as ErrorPropagation).propagationName)
-							//Tests scope_EMV2PathElement_namedElement
+							// Tests scope_EMV2PathElement_namedElement
 							assertScope(ErrorModelPackage.eINSTANCE.EMV2PathElement_NamedElement, firstElementScope)
 							path.assertNull
 						]
@@ -859,20 +893,22 @@ class EMV2PathElementTest extends OsateTest {
 						"detection6".assertEquals(name)
 						(condition as ConditionElement).qualifiedErrorPropagationReference.emv2Target => [
 							"fg1".assertEquals(namedElement.name)
-							//Tests scope_EMV2PathElement_namedElement
+							// Tests scope_EMV2PathElement_namedElement
 							assertScope(ErrorModelPackage.eINSTANCE.EMV2PathElement_NamedElement, firstElementScope)
 							path => [
 								"fg2".assertEquals(namedElement.name)
-								//Tests scope_EMV2PathElement_namedElement
+								// Tests scope_EMV2PathElement_namedElement
 								assertScope(ErrorModelPackage.eINSTANCE.EMV2PathElement_NamedElement, #["fg2"])
 								path => [
 									"fg3".assertEquals(namedElement.name)
-									//Tests scope_EMV2PathElement_namedElement
+									// Tests scope_EMV2PathElement_namedElement
 									assertScope(ErrorModelPackage.eINSTANCE.EMV2PathElement_NamedElement, #["fg3"])
 									path => [
-										"fg1.fg2.fg3.port3".assertEquals((namedElement as ErrorPropagation).propagationName)
-										//Tests scope_EMV2PathElement_namedElement
-										assertScope(ErrorModelPackage.eINSTANCE.EMV2PathElement_NamedElement, #["port3", "port4"])
+										"fg1.fg2.fg3.port3".assertEquals(
+											(namedElement as ErrorPropagation).propagationName)
+										// Tests scope_EMV2PathElement_namedElement
+										assertScope(ErrorModelPackage.eINSTANCE.EMV2PathElement_NamedElement,
+											#["port3", "port4"])
 										path.assertNull
 									]
 								]
@@ -883,20 +919,22 @@ class EMV2PathElementTest extends OsateTest {
 						"detection7".assertEquals(name)
 						(condition as ConditionElement).qualifiedErrorPropagationReference.emv2Target => [
 							"fg1".assertEquals(namedElement.name)
-							//Tests scope_EMV2PathElement_namedElement
+							// Tests scope_EMV2PathElement_namedElement
 							assertScope(ErrorModelPackage.eINSTANCE.EMV2PathElement_NamedElement, firstElementScope)
 							path => [
 								"fg2".assertEquals(namedElement.name)
-								//Tests scope_EMV2PathElement_namedElement
+								// Tests scope_EMV2PathElement_namedElement
 								assertScope(ErrorModelPackage.eINSTANCE.EMV2PathElement_NamedElement, #["fg2"])
 								path => [
 									"fg3".assertEquals(namedElement.name)
-									//Tests scope_EMV2PathElement_namedElement
+									// Tests scope_EMV2PathElement_namedElement
 									assertScope(ErrorModelPackage.eINSTANCE.EMV2PathElement_NamedElement, #["fg3"])
 									path => [
-										"fg1.fg2.fg3.port4".assertEquals((namedElement as ErrorPropagation).propagationName)
-										//Tests scope_EMV2PathElement_namedElement
-										assertScope(ErrorModelPackage.eINSTANCE.EMV2PathElement_NamedElement, #["port3", "port4"])
+										"fg1.fg2.fg3.port4".assertEquals(
+											(namedElement as ErrorPropagation).propagationName)
+										// Tests scope_EMV2PathElement_namedElement
+										assertScope(ErrorModelPackage.eINSTANCE.EMV2PathElement_NamedElement,
+											#["port3", "port4"])
 									]
 								]
 							]
@@ -906,12 +944,13 @@ class EMV2PathElementTest extends OsateTest {
 						"detection8".assertEquals(name)
 						(condition as ConditionElement).qualifiedErrorPropagationReference.emv2Target => [
 							"asub1".assertEquals(namedElement.name)
-							//Tests scope_EMV2PathElement_namedElement
+							// Tests scope_EMV2PathElement_namedElement
 							assertScope(ErrorModelPackage.eINSTANCE.EMV2PathElement_NamedElement, firstElementScope)
 							path => [
 								"port5".assertEquals((namedElement as ErrorPropagation).propagationName)
-								//Tests scope_EMV2PathElement_namedElement
-								assertScope(ErrorModelPackage.eINSTANCE.EMV2PathElement_NamedElement, #["asub2", "fg4", "port5"])
+								// Tests scope_EMV2PathElement_namedElement
+								assertScope(ErrorModelPackage.eINSTANCE.EMV2PathElement_NamedElement,
+									#["asub2", "fg4", "port5"])
 								path.assertNull
 							]
 						]
@@ -920,15 +959,16 @@ class EMV2PathElementTest extends OsateTest {
 						"detection9".assertEquals(name)
 						(condition as ConditionElement).qualifiedErrorPropagationReference.emv2Target => [
 							"asub1".assertEquals(namedElement.name)
-							//Tests scope_EMV2PathElement_namedElement
+							// Tests scope_EMV2PathElement_namedElement
 							assertScope(ErrorModelPackage.eINSTANCE.EMV2PathElement_NamedElement, firstElementScope)
 							path => [
 								"fg4".assertEquals(namedElement.name)
-								//Tests scope_EMV2PathElement_namedElement
-								assertScope(ErrorModelPackage.eINSTANCE.EMV2PathElement_NamedElement, #["asub2", "fg4", "port5"])
+								// Tests scope_EMV2PathElement_namedElement
+								assertScope(ErrorModelPackage.eINSTANCE.EMV2PathElement_NamedElement,
+									#["asub2", "fg4", "port5"])
 								path => [
 									"fg4.port3".assertEquals((namedElement as ErrorPropagation).propagationName)
-									//Tests scope_EMV2PathElement_namedElement
+									// Tests scope_EMV2PathElement_namedElement
 									assertScope(ErrorModelPackage.eINSTANCE.EMV2PathElement_NamedElement, #["port3"])
 									path.assertNull
 								]
@@ -939,32 +979,38 @@ class EMV2PathElementTest extends OsateTest {
 						"detection10".assertEquals(name)
 						(condition as ConditionElement).qualifiedErrorPropagationReference.emv2Target => [
 							"asub1".assertEquals(namedElement.name)
-							//Tests scope_EMV2PathElement_namedElement
+							// Tests scope_EMV2PathElement_namedElement
 							assertScope(ErrorModelPackage.eINSTANCE.EMV2PathElement_NamedElement, firstElementScope)
 							path => [
 								"asub2".assertEquals(namedElement.name)
-								//Tests scope_EMV2PathElement_namedElement
-								assertScope(ErrorModelPackage.eINSTANCE.EMV2PathElement_NamedElement, #["asub2", "fg4", "port5"])
+								// Tests scope_EMV2PathElement_namedElement
+								assertScope(ErrorModelPackage.eINSTANCE.EMV2PathElement_NamedElement,
+									#["asub2", "fg4", "port5"])
 								path => [
 									"asub3".assertEquals(namedElement.name)
-									//Tests scope_EMV2PathElement_namedElement
+									// Tests scope_EMV2PathElement_namedElement
 									assertScope(ErrorModelPackage.eINSTANCE.EMV2PathElement_NamedElement, #["asub3"])
 									path => [
 										"fg5".assertEquals(namedElement.name)
-										//Tests scope_EMV2PathElement_namedElement
+										// Tests scope_EMV2PathElement_namedElement
 										assertScope(ErrorModelPackage.eINSTANCE.EMV2PathElement_NamedElement, #["fg5"])
 										path => [
 											"fg2".assertEquals(namedElement.name)
-											//Tests scope_EMV2PathElement_namedElement
-											assertScope(ErrorModelPackage.eINSTANCE.EMV2PathElement_NamedElement, #["fg2"])
+											// Tests scope_EMV2PathElement_namedElement
+											assertScope(ErrorModelPackage.eINSTANCE.EMV2PathElement_NamedElement,
+												#["fg2"])
 											path => [
 												"fg3".assertEquals(namedElement.name)
-												//Tests scope_EMV2PathElement_namedElement
-												assertScope(ErrorModelPackage.eINSTANCE.EMV2PathElement_NamedElement, #["fg3"])
+												// Tests scope_EMV2PathElement_namedElement
+												assertScope(ErrorModelPackage.eINSTANCE.EMV2PathElement_NamedElement,
+													#["fg3"])
 												path => [
-													"fg5.fg2.fg3.port3".assertEquals((namedElement as ErrorPropagation).propagationName)
-													//Tests scope_EMV2PathElement_namedElement
-													assertScope(ErrorModelPackage.eINSTANCE.EMV2PathElement_NamedElement, #["port3"])
+													"fg5.fg2.fg3.port3".assertEquals(
+														(namedElement as ErrorPropagation).propagationName)
+													// Tests scope_EMV2PathElement_namedElement
+													assertScope(
+														ErrorModelPackage.eINSTANCE.EMV2PathElement_NamedElement,
+														#["port3"])
 													path.assertNull
 												]
 											]
@@ -978,15 +1024,14 @@ class EMV2PathElementTest extends OsateTest {
 			]
 		]
 	}
-	
+
 	/*
 	 * Tests scope_EMV2PathElement_namedElement for grammar path: ErrorModelSubclause -> CompositeState ->
 	 * 		SConditionExpression -> ... -> QualifiedErrorPropagation -> EMV2ErrorPropagationPath
 	 */
 	@Test
 	def void testCompositeState() {
-		val compositeStateFileName = "CompositeState.aadl"
-		createFiles(compositeStateFileName -> '''
+		val aadlText = '''
 			package CompositeState
 			public
 				abstract a1
@@ -1050,9 +1095,9 @@ class EMV2PathElementTest extends OsateTest {
 					end behavior;
 				**};
 			end CompositeState;
-		''')
-		ignoreSerializationDifferences
-		testFile(compositeStateFileName).resource.contents.head as AadlPackage => [
+		'''
+		val pkg = testHelper.parseString(aadlText)
+		pkg => [
 			"CompositeState".assertEquals(name)
 			publicSection.ownedClassifiers.get(1) => [
 				"a1.i".assertEquals(name)
@@ -1062,7 +1107,7 @@ class EMV2PathElementTest extends OsateTest {
 						"state1".assertEquals(name)
 						(condition as SConditionElement).qualifiedErrorPropagationReference.emv2Target => [
 							"port1".assertEquals((namedElement as ErrorPropagation).propagationName)
-							//Tests scope_EMV2PathElement_namedElement
+							// Tests scope_EMV2PathElement_namedElement
 							assertScope(ErrorModelPackage.eINSTANCE.EMV2PathElement_NamedElement, firstElementScope)
 							path.assertNull
 						]
@@ -1071,7 +1116,7 @@ class EMV2PathElementTest extends OsateTest {
 						"state2".assertEquals(name)
 						(condition as SConditionElement).qualifiedErrorPropagationReference.emv2Target => [
 							"port2".assertEquals((namedElement as ErrorPropagation).propagationName)
-							//Tests scope_EMV2PathElement_namedElement
+							// Tests scope_EMV2PathElement_namedElement
 							assertScope(ErrorModelPackage.eINSTANCE.EMV2PathElement_NamedElement, firstElementScope)
 							path.assertNull
 						]
@@ -1080,20 +1125,22 @@ class EMV2PathElementTest extends OsateTest {
 						"state3".assertEquals(name)
 						(condition as SConditionElement).qualifiedErrorPropagationReference.emv2Target => [
 							"fg1".assertEquals(namedElement.name)
-							//Tests scope_EMV2PathElement_namedElement
+							// Tests scope_EMV2PathElement_namedElement
 							assertScope(ErrorModelPackage.eINSTANCE.EMV2PathElement_NamedElement, firstElementScope)
 							path => [
 								"fg2".assertEquals(namedElement.name)
-								//Tests scope_EMV2PathElement_namedElement
+								// Tests scope_EMV2PathElement_namedElement
 								assertScope(ErrorModelPackage.eINSTANCE.EMV2PathElement_NamedElement, #["fg2"])
 								path => [
 									"fg3".assertEquals(namedElement.name)
-									//Tests scope_EMV2PathElement_namedElement
+									// Tests scope_EMV2PathElement_namedElement
 									assertScope(ErrorModelPackage.eINSTANCE.EMV2PathElement_NamedElement, #["fg3"])
 									path => [
-										"fg1.fg2.fg3.port3".assertEquals((namedElement as ErrorPropagation).propagationName)
-										//Tests scope_EMV2PathElement_namedElement
-										assertScope(ErrorModelPackage.eINSTANCE.EMV2PathElement_NamedElement, #["port3", "port4"])
+										"fg1.fg2.fg3.port3".assertEquals(
+											(namedElement as ErrorPropagation).propagationName)
+										// Tests scope_EMV2PathElement_namedElement
+										assertScope(ErrorModelPackage.eINSTANCE.EMV2PathElement_NamedElement,
+											#["port3", "port4"])
 										path.assertNull
 									]
 								]
@@ -1104,20 +1151,22 @@ class EMV2PathElementTest extends OsateTest {
 						"state4".assertEquals(name)
 						(condition as SConditionElement).qualifiedErrorPropagationReference.emv2Target => [
 							"fg1".assertEquals(namedElement.name)
-							//Tests scope_EMV2PathElement_namedElement
+							// Tests scope_EMV2PathElement_namedElement
 							assertScope(ErrorModelPackage.eINSTANCE.EMV2PathElement_NamedElement, firstElementScope)
 							path => [
 								"fg2".assertEquals(namedElement.name)
-								//Tests scope_EMV2PathElement_namedElement
+								// Tests scope_EMV2PathElement_namedElement
 								assertScope(ErrorModelPackage.eINSTANCE.EMV2PathElement_NamedElement, #["fg2"])
 								path => [
 									"fg3".assertEquals(namedElement.name)
-									//Tests scope_EMV2PathElement_namedElement
+									// Tests scope_EMV2PathElement_namedElement
 									assertScope(ErrorModelPackage.eINSTANCE.EMV2PathElement_NamedElement, #["fg3"])
 									path => [
-										"fg1.fg2.fg3.port4".assertEquals((namedElement as ErrorPropagation).propagationName)
-										//Tests scope_EMV2PathElement_namedElement
-										assertScope(ErrorModelPackage.eINSTANCE.EMV2PathElement_NamedElement, #["port3", "port4"])
+										"fg1.fg2.fg3.port4".assertEquals(
+											(namedElement as ErrorPropagation).propagationName)
+										// Tests scope_EMV2PathElement_namedElement
+										assertScope(ErrorModelPackage.eINSTANCE.EMV2PathElement_NamedElement,
+											#["port3", "port4"])
 										path.assertNull
 									]
 								]
@@ -1128,16 +1177,14 @@ class EMV2PathElementTest extends OsateTest {
 			]
 		]
 	}
-	
+
 	/*
 	 * Tests scope_EMV2PathElement_namedElement for grammar path: ErrorModelLibrary -> BasicEMV2PropertyAssociation ->
 	 * 		BasicEMV2Path -> EMV2PathElementOrKind
 	 */
 	@Test
 	def void testBasicEMV2PropertyAssociationInErrorModelLibrary() {
-		val lib1FileName = "lib1.aadl"
-		val basicEMV2PropertyAssociationInErrorModelLibraryFileName = "BasicEMV2PropertyAssociation_in_ErrorModelLibrary.aadl"
-		createFiles(lib1FileName -> '''
+		val aadlText = '''
 			package lib1
 			public
 				annex EMV2 {**
@@ -1147,11 +1194,10 @@ class EMV2PathElementTest extends OsateTest {
 					end types;
 				**};
 			end lib1;
-		''', basicEMV2PropertyAssociationInErrorModelLibraryFileName -> '''
+		'''
+		val aadlText1 = '''
 			package BasicEMV2PropertyAssociation_in_ErrorModelLibrary
 			public
-				with EMV2;
-				
 				annex EMV2 {**
 					error types extends lib1 with
 						t1: type;
@@ -1164,9 +1210,9 @@ class EMV2PathElementTest extends OsateTest {
 					end types;
 				**};
 			end BasicEMV2PropertyAssociation_in_ErrorModelLibrary;
-		''')
-		ignoreSerializationDifferences
-		testFile(basicEMV2PropertyAssociationInErrorModelLibraryFileName).resource.contents.head as AadlPackage => [
+		'''
+		val pkg = testHelper.parseString(aadlText1, aadlText)
+		pkg => [
 			"BasicEMV2PropertyAssociation_in_ErrorModelLibrary".assertEquals(name)
 			(publicSection.ownedAnnexLibraries.head as DefaultAnnexLibrary).parsedAnnexLibrary as ErrorModelLibrary => [
 				val scope = #["t1", "ts1", "t2", "ts2"]
@@ -1174,7 +1220,7 @@ class EMV2PathElementTest extends OsateTest {
 					1.1.assertEquals((ownedValues.head.ownedValue as RealLiteral).value, 0)
 					emv2Path.head.emv2Target => [
 						"t1".assertEquals(namedElement.name)
-						//Tests scope_EMV2PathElement_namedElement
+						// Tests scope_EMV2PathElement_namedElement
 						assertScope(ErrorModelPackage.eINSTANCE.EMV2PathElement_NamedElement, scope)
 						path.assertNull
 					]
@@ -1183,7 +1229,7 @@ class EMV2PathElementTest extends OsateTest {
 					2.2.assertEquals((ownedValues.head.ownedValue as RealLiteral).value, 0)
 					emv2Path.head.emv2Target => [
 						"ts1".assertEquals(namedElement.name)
-						//Tests scope_EMV2PathElement_namedElement
+						// Tests scope_EMV2PathElement_namedElement
 						assertScope(ErrorModelPackage.eINSTANCE.EMV2PathElement_NamedElement, scope)
 						path.assertNull
 					]
@@ -1192,7 +1238,7 @@ class EMV2PathElementTest extends OsateTest {
 					3.3.assertEquals((ownedValues.head.ownedValue as RealLiteral).value, 0)
 					emv2Path.head.emv2Target => [
 						"t2".assertEquals(namedElement.name)
-						//Tests scope_EMV2PathElement_namedElement
+						// Tests scope_EMV2PathElement_namedElement
 						assertScope(ErrorModelPackage.eINSTANCE.EMV2PathElement_NamedElement, scope)
 						path.assertNull
 					]
@@ -1201,7 +1247,7 @@ class EMV2PathElementTest extends OsateTest {
 					4.4.assertEquals((ownedValues.head.ownedValue as RealLiteral).value, 0)
 					emv2Path.head.emv2Target => [
 						"ts2".assertEquals(namedElement.name)
-						//Tests scope_EMV2PathElement_namedElement
+						// Tests scope_EMV2PathElement_namedElement
 						assertScope(ErrorModelPackage.eINSTANCE.EMV2PathElement_NamedElement, scope)
 						path.assertNull
 					]
@@ -1209,15 +1255,14 @@ class EMV2PathElementTest extends OsateTest {
 			]
 		]
 	}
-	
+
 	/*
 	 * Tests scope_EMV2PathElement_namedElement for grammar path: ErrorModelLibrary -> ErrorBehaviorStateMachine ->
 	 * 		BasicEMV2PropertyAssociation -> BasicEMV2Path -> EMV2PathElementOrKind
 	 */
 	@Test
 	def void testBasicEMV2PropertyAssociationInErrorBehaviorStateMachine() {
-		val basicEMV2PropertyAssociationInErrorBehaviorStateMachineFileName = "BasicEMV2PropertyAssociation_in_ErrorBehaviorStateMachine.aadl"
-		createFiles(basicEMV2PropertyAssociationInErrorBehaviorStateMachineFileName -> '''
+		val aadlText = '''
 			package BasicEMV2PropertyAssociation_in_ErrorBehaviorStateMachine
 			public
 				with EMV2;
@@ -1237,20 +1282,20 @@ class EMV2PathElementTest extends OsateTest {
 					end behavior;
 				**};
 			end BasicEMV2PropertyAssociation_in_ErrorBehaviorStateMachine;
-		''')
-		ignoreSerializationDifferences
-		val testResult = testFile(basicEMV2PropertyAssociationInErrorBehaviorStateMachineFileName)
+		'''
+		val testResult = issues = testHelper.testString(aadlText)
 		val issueCollection = new FluentIssueCollection(testResult.resource, newArrayList, newArrayList)
 		testResult.resource.contents.head as AadlPackage => [
 			"BasicEMV2PropertyAssociation_in_ErrorBehaviorStateMachine".assertEquals(name)
-			((publicSection.ownedAnnexLibraries.head as DefaultAnnexLibrary).parsedAnnexLibrary as ErrorModelLibrary).behaviors.head => [
+			((publicSection.ownedAnnexLibraries.head as DefaultAnnexLibrary).parsedAnnexLibrary as ErrorModelLibrary).
+				behaviors.head => [
 				"bvr1".assertEquals(name)
 				val scope = #["evt1", "state1", "trans1"]
 				properties.get(0) => [
 					1.1.assertEquals((ownedValues.head.ownedValue as RealLiteral).value, 0)
 					emv2Path.head.emv2Target => [
 						"evt1".assertEquals(namedElement.name)
-						//Tests scope_EMV2PathElement_namedElement
+						// Tests scope_EMV2PathElement_namedElement
 						assertScope(ErrorModelPackage.eINSTANCE.EMV2PathElement_NamedElement, scope)
 						path.assertNull
 					]
@@ -1259,40 +1304,41 @@ class EMV2PathElementTest extends OsateTest {
 					2.2.assertEquals((ownedValues.head.ownedValue as RealLiteral).value, 0)
 					emv2Path.head.emv2Target => [
 						"state1".assertEquals(namedElement.name)
-						//Tests scope_EMV2PathElement_namedElement
+						// Tests scope_EMV2PathElement_namedElement
 						assertScope(ErrorModelPackage.eINSTANCE.EMV2PathElement_NamedElement, scope)
 						path.assertNull
 					]
 				]
 				properties.get(2) => [
-					assertError(testResult.issues, issueCollection, "Property EMV2::ExposurePeriod does not apply to trans1")
+					assertError(testResult.issues, issueCollection,
+						"Property EMV2::ExposurePeriod does not apply to trans1")
 					3.3.assertEquals((ownedValues.head.ownedValue as RealLiteral).value, 0)
 					emv2Path.head.emv2Target => [
 						"trans1".assertEquals(namedElement.name)
-						//Tests scope_EMV2PathElement_namedElement
+						// Tests scope_EMV2PathElement_namedElement
 						assertScope(ErrorModelPackage.eINSTANCE.EMV2PathElement_NamedElement, scope)
 						path.assertNull
 					]
 				]
 			]
 		]
-		issueCollection.sizeIs(issueCollection.issues.size)
+		issueCollection.sizeIs(testResult.issues.size)
 		assertConstraints(issueCollection)
 	}
-	
+
 	/*
 	 * Tests scope_EMV2PathElement_namedElement for grammar path: ErrorModelSubclause -> EMV2PropertyAssociation ->
 	 * 		EMV2Path -> EMV2PathElementOrKind
 	 */
 	@Test
 	def void testEMV2PropertyAssociation() {
-		val emv2PropertyAssociationFileName = "EMV2PropertyAssociation.aadl"
-		createFiles("ps1.aadl" -> '''
+		val aadlText = '''
 			property set ps1 is
 				real1: aadlreal applies to (all);
 				ref1: reference (element) applies to (all);
 			end ps1;
-		''', emv2PropertyAssociationFileName -> '''
+		'''
+		val aadlText1 = '''
 			package EMV2PropertyAssociation
 			public
 				with ps1;
@@ -1544,32 +1590,67 @@ class EMV2PathElementTest extends OsateTest {
 					end behavior;
 				**};
 			end EMV2PropertyAssociation;
-		''')
-		ignoreSerializationDifferences
-		val lib1TestResult = testFile(emv2PropertyAssociationFileName)
+		'''
+		val lib1TestResult = issues = testHelper.testString(aadlText1, aadlText)
 		val lib1IssueCollection = new FluentIssueCollection(lib1TestResult.resource, newArrayList, newArrayList)
 		lib1TestResult.resource.contents.head as AadlPackage => [
 			"EMV2PropertyAssociation".assertEquals(name)
 			publicSection.ownedClassifiers.get(1) => [
 				"a1.i".assertEquals(name)
 				(ownedAnnexSubclauses.head as DefaultAnnexSubclause).parsedAnnexSubclause as ErrorModelSubclause => [
-					val firstElementScope = #["compositeState1", "connectionErrorSource1", "detection1", "errorEvent1",
-						"errorEvent3", "errorPath1", "errorSink1", "errorSource1", "fg1",
-						"outgoingPropagationCondition1", "port1", "port1", "port1", "port1", "propagationPath1",
-						"recoverEvent1", "recoverEvent3", "repairEvent1", "repairEvent3", "state1", "transition1",
+					val firstElementScope = #[
+						"compositeState1",
+						"connectionErrorSource1",
+						"detection1",
+						"errorEvent1",
+						"errorEvent3",
+						"errorPath1",
+						"errorSink1",
+						"errorSource1",
+						"fg1",
+						"outgoingPropagationCondition1",
+						"port1",
+						"port1",
+						"port1",
+						"port1",
+						"propagationPath1",
+						"recoverEvent1",
+						"recoverEvent3",
+						"repairEvent1",
+						"repairEvent3",
+						"state1",
+						"transition1",
 						"transition3"
 					]
-					val postSubcomponentScope = #["compositeState2", "connectionErrorSource2", "detection2", 
-						"errorEvent2", "errorEvent3", "errorPath2", "errorSink2", "errorSource2", "fg4",
-						"outgoingPropagationCondition2", "port3", "port3", "port3", "port3", "propagationPath2",
-						"recoverEvent2", "recoverEvent3", "repairEvent2", "repairEvent3", "state1", "transition2",
+					val postSubcomponentScope = #[
+						"compositeState2",
+						"connectionErrorSource2",
+						"detection2",
+						"errorEvent2",
+						"errorEvent3",
+						"errorPath2",
+						"errorSink2",
+						"errorSource2",
+						"fg4",
+						"outgoingPropagationCondition2",
+						"port3",
+						"port3",
+						"port3",
+						"port3",
+						"propagationPath2",
+						"recoverEvent2",
+						"recoverEvent3",
+						"repairEvent2",
+						"repairEvent3",
+						"state1",
+						"transition2",
 						"transition3"
 					]
 					properties.get(0) => [
 						1.1.assertEquals((ownedValues.head.ownedValue as RealLiteral).value, 0)
 						emv2Path.head.emv2Target => [
 							"port1".assertEquals((namedElement as ErrorPropagation).propagationName)
-							//Tests scope_EMV2PathElement_namedElement
+							// Tests scope_EMV2PathElement_namedElement
 							assertScope(ErrorModelPackage.eINSTANCE.EMV2PathElement_NamedElement, firstElementScope)
 							path.assertNull
 						]
@@ -1578,14 +1659,20 @@ class EMV2PathElementTest extends OsateTest {
 						2.2.assertEquals((ownedValues.head.ownedValue as RealLiteral).value, 0)
 						emv2Path.head.emv2Target => [
 							"port1".assertEquals((namedElement as ErrorPropagation).propagationName)
-							//Tests scope_EMV2PathElement_namedElement
+							// Tests scope_EMV2PathElement_namedElement
 							assertScope(ErrorModelPackage.eINSTANCE.EMV2PathElement_NamedElement, firstElementScope)
 							path => [
 								"t1".assertEquals(namedElement.name)
-								//Tests scope_EMV2PathElement_namedElement
-								assertScope(ErrorModelPackage.eINSTANCE.EMV2PathElement_NamedElement, #["t1", "t2",
-									"t3", "t4", "EMV2PropertyAssociation::t1", "EMV2PropertyAssociation::t2",
-									"EMV2PropertyAssociation::t3", "EMV2PropertyAssociation::t4"
+								// Tests scope_EMV2PathElement_namedElement
+								assertScope(ErrorModelPackage.eINSTANCE.EMV2PathElement_NamedElement, #[
+									"t1",
+									"t2",
+									"t3",
+									"t4",
+									"EMV2PropertyAssociation::t1",
+									"EMV2PropertyAssociation::t2",
+									"EMV2PropertyAssociation::t3",
+									"EMV2PropertyAssociation::t4"
 								])
 								path.assertNull
 							]
@@ -1595,14 +1682,20 @@ class EMV2PathElementTest extends OsateTest {
 						3.3.assertEquals((ownedValues.head.ownedValue as RealLiteral).value, 0)
 						emv2Path.head.emv2Target => [
 							"port1".assertEquals((namedElement as ErrorPropagation).propagationName)
-							//Tests scope_EMV2PathElement_namedElement
+							// Tests scope_EMV2PathElement_namedElement
 							assertScope(ErrorModelPackage.eINSTANCE.EMV2PathElement_NamedElement, firstElementScope)
 							path => [
 								"t2".assertEquals(namedElement.name)
-								//Tests scope_EMV2PathElement_namedElement
-								assertScope(ErrorModelPackage.eINSTANCE.EMV2PathElement_NamedElement, #["t1", "t2",
-									"t3", "t4", "EMV2PropertyAssociation::t1", "EMV2PropertyAssociation::t2",
-									"EMV2PropertyAssociation::t3", "EMV2PropertyAssociation::t4"
+								// Tests scope_EMV2PathElement_namedElement
+								assertScope(ErrorModelPackage.eINSTANCE.EMV2PathElement_NamedElement, #[
+									"t1",
+									"t2",
+									"t3",
+									"t4",
+									"EMV2PropertyAssociation::t1",
+									"EMV2PropertyAssociation::t2",
+									"EMV2PropertyAssociation::t3",
+									"EMV2PropertyAssociation::t4"
 								])
 								path.assertNull
 							]
@@ -1612,14 +1705,20 @@ class EMV2PathElementTest extends OsateTest {
 						4.4.assertEquals((ownedValues.head.ownedValue as RealLiteral).value, 0)
 						emv2Path.head.emv2Target => [
 							"port1".assertEquals((namedElement as ErrorPropagation).propagationName)
-							//Tests scope_EMV2PathElement_namedElement
+							// Tests scope_EMV2PathElement_namedElement
 							assertScope(ErrorModelPackage.eINSTANCE.EMV2PathElement_NamedElement, firstElementScope)
 							path => [
 								"t3".assertEquals(namedElement.name)
-								//Tests scope_EMV2PathElement_namedElement
-								assertScope(ErrorModelPackage.eINSTANCE.EMV2PathElement_NamedElement, #["t1", "t2",
-									"t3", "t4", "EMV2PropertyAssociation::t1", "EMV2PropertyAssociation::t2",
-									"EMV2PropertyAssociation::t3", "EMV2PropertyAssociation::t4"
+								// Tests scope_EMV2PathElement_namedElement
+								assertScope(ErrorModelPackage.eINSTANCE.EMV2PathElement_NamedElement, #[
+									"t1",
+									"t2",
+									"t3",
+									"t4",
+									"EMV2PropertyAssociation::t1",
+									"EMV2PropertyAssociation::t2",
+									"EMV2PropertyAssociation::t3",
+									"EMV2PropertyAssociation::t4"
 								])
 								path.assertNull
 							]
@@ -1629,14 +1728,20 @@ class EMV2PathElementTest extends OsateTest {
 						5.5.assertEquals((ownedValues.head.ownedValue as RealLiteral).value, 0)
 						emv2Path.head.emv2Target => [
 							"port1".assertEquals((namedElement as ErrorPropagation).propagationName)
-							//Tests scope_EMV2PathElement_namedElement
+							// Tests scope_EMV2PathElement_namedElement
 							assertScope(ErrorModelPackage.eINSTANCE.EMV2PathElement_NamedElement, firstElementScope)
 							path => [
 								"t4".assertEquals(namedElement.name)
-								//Tests scope_EMV2PathElement_namedElement
-								assertScope(ErrorModelPackage.eINSTANCE.EMV2PathElement_NamedElement, #["t1", "t2",
-									"t3", "t4", "EMV2PropertyAssociation::t1", "EMV2PropertyAssociation::t2",
-									"EMV2PropertyAssociation::t3", "EMV2PropertyAssociation::t4"
+								// Tests scope_EMV2PathElement_namedElement
+								assertScope(ErrorModelPackage.eINSTANCE.EMV2PathElement_NamedElement, #[
+									"t1",
+									"t2",
+									"t3",
+									"t4",
+									"EMV2PropertyAssociation::t1",
+									"EMV2PropertyAssociation::t2",
+									"EMV2PropertyAssociation::t3",
+									"EMV2PropertyAssociation::t4"
 								])
 								path.assertNull
 							]
@@ -1646,20 +1751,22 @@ class EMV2PathElementTest extends OsateTest {
 						6.6.assertEquals((ownedValues.head.ownedValue as RealLiteral).value, 0)
 						emv2Path.head.emv2Target => [
 							"fg1".assertEquals(namedElement.name)
-							//Tests scope_EMV2PathElement_namedElement
+							// Tests scope_EMV2PathElement_namedElement
 							assertScope(ErrorModelPackage.eINSTANCE.EMV2PathElement_NamedElement, firstElementScope)
 							path => [
 								"fg2".assertEquals(namedElement.name)
-								//Tests scope_EMV2PathElement_namedElement
+								// Tests scope_EMV2PathElement_namedElement
 								assertScope(ErrorModelPackage.eINSTANCE.EMV2PathElement_NamedElement, #["fg2"])
 								path => [
 									"fg3".assertEquals(namedElement.name)
-									//Tests scope_EMV2PathElement_namedElement
+									// Tests scope_EMV2PathElement_namedElement
 									assertScope(ErrorModelPackage.eINSTANCE.EMV2PathElement_NamedElement, #["fg3"])
 									path => [
-										"fg1.fg2.fg3.port2".assertEquals((namedElement as ErrorPropagation).propagationName)
-										//Tests scope_EMV2PathElement_namedElement
-										assertScope(ErrorModelPackage.eINSTANCE.EMV2PathElement_NamedElement, #["port2", "port2", "port2", "port2"])
+										"fg1.fg2.fg3.port2".assertEquals(
+											(namedElement as ErrorPropagation).propagationName)
+										// Tests scope_EMV2PathElement_namedElement
+										assertScope(ErrorModelPackage.eINSTANCE.EMV2PathElement_NamedElement,
+											#["port2", "port2", "port2", "port2"])
 										path.assertNull
 									]
 								]
@@ -1670,26 +1777,33 @@ class EMV2PathElementTest extends OsateTest {
 						7.7.assertEquals((ownedValues.head.ownedValue as RealLiteral).value, 0)
 						emv2Path.head.emv2Target => [
 							"fg1".assertEquals(namedElement.name)
-							//Tests scope_EMV2PathElement_namedElement
+							// Tests scope_EMV2PathElement_namedElement
 							assertScope(ErrorModelPackage.eINSTANCE.EMV2PathElement_NamedElement, firstElementScope)
 							path => [
 								"fg2".assertEquals(namedElement.name)
-								//Tests scope_EMV2PathElement_namedElement
+								// Tests scope_EMV2PathElement_namedElement
 								assertScope(ErrorModelPackage.eINSTANCE.EMV2PathElement_NamedElement, #["fg2"])
 								path => [
 									"fg3".assertEquals(namedElement.name)
-									//Tests scope_EMV2PathElement_namedElement
+									// Tests scope_EMV2PathElement_namedElement
 									assertScope(ErrorModelPackage.eINSTANCE.EMV2PathElement_NamedElement, #["fg3"])
 									path => [
-										"fg1.fg2.fg3.port2".assertEquals((namedElement as ErrorPropagation).propagationName)
-										//Tests scope_EMV2PathElement_namedElement
-										assertScope(ErrorModelPackage.eINSTANCE.EMV2PathElement_NamedElement, #["port2", "port2", "port2", "port2"])
+										"fg1.fg2.fg3.port2".assertEquals(
+											(namedElement as ErrorPropagation).propagationName)
+										// Tests scope_EMV2PathElement_namedElement
+										assertScope(ErrorModelPackage.eINSTANCE.EMV2PathElement_NamedElement,
+											#["port2", "port2", "port2", "port2"])
 										path => [
 											"t1".assertEquals(namedElement.name)
-											//Tests scope_EMV2PathElement_namedElement
+											// Tests scope_EMV2PathElement_namedElement
 											assertScope(ErrorModelPackage.eINSTANCE.EMV2PathElement_NamedElement, #[
-												"t1", "t2", "t3", "t4", "EMV2PropertyAssociation::t1",
-												"EMV2PropertyAssociation::t2", "EMV2PropertyAssociation::t3",
+												"t1",
+												"t2",
+												"t3",
+												"t4",
+												"EMV2PropertyAssociation::t1",
+												"EMV2PropertyAssociation::t2",
+												"EMV2PropertyAssociation::t3",
 												"EMV2PropertyAssociation::t4"
 											])
 											path.assertNull
@@ -1703,26 +1817,33 @@ class EMV2PathElementTest extends OsateTest {
 						8.8.assertEquals((ownedValues.head.ownedValue as RealLiteral).value, 0)
 						emv2Path.head.emv2Target => [
 							"fg1".assertEquals(namedElement.name)
-							//Tests scope_EMV2PathElement_namedElement
+							// Tests scope_EMV2PathElement_namedElement
 							assertScope(ErrorModelPackage.eINSTANCE.EMV2PathElement_NamedElement, firstElementScope)
 							path => [
 								"fg2".assertEquals(namedElement.name)
-								//Tests scope_EMV2PathElement_namedElement
+								// Tests scope_EMV2PathElement_namedElement
 								assertScope(ErrorModelPackage.eINSTANCE.EMV2PathElement_NamedElement, #["fg2"])
 								path => [
 									"fg3".assertEquals(namedElement.name)
-									//Tests scope_EMV2PathElement_namedElement
+									// Tests scope_EMV2PathElement_namedElement
 									assertScope(ErrorModelPackage.eINSTANCE.EMV2PathElement_NamedElement, #["fg3"])
 									path => [
-										"fg1.fg2.fg3.port2".assertEquals((namedElement as ErrorPropagation).propagationName)
-										//Tests scope_EMV2PathElement_namedElement
-										assertScope(ErrorModelPackage.eINSTANCE.EMV2PathElement_NamedElement, #["port2", "port2", "port2", "port2"])
+										"fg1.fg2.fg3.port2".assertEquals(
+											(namedElement as ErrorPropagation).propagationName)
+										// Tests scope_EMV2PathElement_namedElement
+										assertScope(ErrorModelPackage.eINSTANCE.EMV2PathElement_NamedElement,
+											#["port2", "port2", "port2", "port2"])
 										path => [
 											"t2".assertEquals(namedElement.name)
-											//Tests scope_EMV2PathElement_namedElement
+											// Tests scope_EMV2PathElement_namedElement
 											assertScope(ErrorModelPackage.eINSTANCE.EMV2PathElement_NamedElement, #[
-												"t1", "t2", "t3", "t4", "EMV2PropertyAssociation::t1",
-												"EMV2PropertyAssociation::t2", "EMV2PropertyAssociation::t3",
+												"t1",
+												"t2",
+												"t3",
+												"t4",
+												"EMV2PropertyAssociation::t1",
+												"EMV2PropertyAssociation::t2",
+												"EMV2PropertyAssociation::t3",
 												"EMV2PropertyAssociation::t4"
 											])
 											path.assertNull
@@ -1736,26 +1857,33 @@ class EMV2PathElementTest extends OsateTest {
 						9.9.assertEquals((ownedValues.head.ownedValue as RealLiteral).value, 0)
 						emv2Path.head.emv2Target => [
 							"fg1".assertEquals(namedElement.name)
-							//Tests scope_EMV2PathElement_namedElement
+							// Tests scope_EMV2PathElement_namedElement
 							assertScope(ErrorModelPackage.eINSTANCE.EMV2PathElement_NamedElement, firstElementScope)
 							path => [
 								"fg2".assertEquals(namedElement.name)
-								//Tests scope_EMV2PathElement_namedElement
+								// Tests scope_EMV2PathElement_namedElement
 								assertScope(ErrorModelPackage.eINSTANCE.EMV2PathElement_NamedElement, #["fg2"])
 								path => [
 									"fg3".assertEquals(namedElement.name)
-									//Tests scope_EMV2PathElement_namedElement
+									// Tests scope_EMV2PathElement_namedElement
 									assertScope(ErrorModelPackage.eINSTANCE.EMV2PathElement_NamedElement, #["fg3"])
 									path => [
-										"fg1.fg2.fg3.port2".assertEquals((namedElement as ErrorPropagation).propagationName)
-										//Tests scope_EMV2PathElement_namedElement
-										assertScope(ErrorModelPackage.eINSTANCE.EMV2PathElement_NamedElement, #["port2", "port2", "port2", "port2"])
+										"fg1.fg2.fg3.port2".assertEquals(
+											(namedElement as ErrorPropagation).propagationName)
+										// Tests scope_EMV2PathElement_namedElement
+										assertScope(ErrorModelPackage.eINSTANCE.EMV2PathElement_NamedElement,
+											#["port2", "port2", "port2", "port2"])
 										path => [
 											"t3".assertEquals(namedElement.name)
-											//Tests scope_EMV2PathElement_namedElement
+											// Tests scope_EMV2PathElement_namedElement
 											assertScope(ErrorModelPackage.eINSTANCE.EMV2PathElement_NamedElement, #[
-												"t1", "t2", "t3", "t4", "EMV2PropertyAssociation::t1",
-												"EMV2PropertyAssociation::t2", "EMV2PropertyAssociation::t3",
+												"t1",
+												"t2",
+												"t3",
+												"t4",
+												"EMV2PropertyAssociation::t1",
+												"EMV2PropertyAssociation::t2",
+												"EMV2PropertyAssociation::t3",
 												"EMV2PropertyAssociation::t4"
 											])
 											path.assertNull
@@ -1769,26 +1897,33 @@ class EMV2PathElementTest extends OsateTest {
 						10.10.assertEquals((ownedValues.head.ownedValue as RealLiteral).value, 0)
 						emv2Path.head.emv2Target => [
 							"fg1".assertEquals(namedElement.name)
-							//Tests scope_EMV2PathElement_namedElement
+							// Tests scope_EMV2PathElement_namedElement
 							assertScope(ErrorModelPackage.eINSTANCE.EMV2PathElement_NamedElement, firstElementScope)
 							path => [
 								"fg2".assertEquals(namedElement.name)
-								//Tests scope_EMV2PathElement_namedElement
+								// Tests scope_EMV2PathElement_namedElement
 								assertScope(ErrorModelPackage.eINSTANCE.EMV2PathElement_NamedElement, #["fg2"])
 								path => [
 									"fg3".assertEquals(namedElement.name)
-									//Tests scope_EMV2PathElement_namedElement
+									// Tests scope_EMV2PathElement_namedElement
 									assertScope(ErrorModelPackage.eINSTANCE.EMV2PathElement_NamedElement, #["fg3"])
 									path => [
-										"fg1.fg2.fg3.port2".assertEquals((namedElement as ErrorPropagation).propagationName)
-										//Tests scope_EMV2PathElement_namedElement
-										assertScope(ErrorModelPackage.eINSTANCE.EMV2PathElement_NamedElement, #["port2", "port2", "port2", "port2"])
+										"fg1.fg2.fg3.port2".assertEquals(
+											(namedElement as ErrorPropagation).propagationName)
+										// Tests scope_EMV2PathElement_namedElement
+										assertScope(ErrorModelPackage.eINSTANCE.EMV2PathElement_NamedElement,
+											#["port2", "port2", "port2", "port2"])
 										path => [
 											"t4".assertEquals(namedElement.name)
-											//Tests scope_EMV2PathElement_namedElement
+											// Tests scope_EMV2PathElement_namedElement
 											assertScope(ErrorModelPackage.eINSTANCE.EMV2PathElement_NamedElement, #[
-												"t1", "t2", "t3", "t4", "EMV2PropertyAssociation::t1",
-												"EMV2PropertyAssociation::t2", "EMV2PropertyAssociation::t3",
+												"t1",
+												"t2",
+												"t3",
+												"t4",
+												"EMV2PropertyAssociation::t1",
+												"EMV2PropertyAssociation::t2",
+												"EMV2PropertyAssociation::t3",
 												"EMV2PropertyAssociation::t4"
 											])
 											path.assertNull
@@ -1802,7 +1937,7 @@ class EMV2PathElementTest extends OsateTest {
 						11.11.assertEquals((ownedValues.head.ownedValue as RealLiteral).value, 0)
 						emv2Path.head.emv2Target => [
 							"port3".assertEquals((namedElement as ErrorPropagation).propagationName)
-							//Tests scope_EMV2PathElement_namedElement
+							// Tests scope_EMV2PathElement_namedElement
 							assertScope(ErrorModelPackage.eINSTANCE.EMV2PathElement_NamedElement, postSubcomponentScope)
 							path.assertNull
 						]
@@ -1811,14 +1946,20 @@ class EMV2PathElementTest extends OsateTest {
 						12.12.assertEquals((ownedValues.head.ownedValue as RealLiteral).value, 0)
 						emv2Path.head.emv2Target => [
 							"port3".assertEquals((namedElement as ErrorPropagation).propagationName)
-							//Tests scope_EMV2PathElement_namedElement
+							// Tests scope_EMV2PathElement_namedElement
 							assertScope(ErrorModelPackage.eINSTANCE.EMV2PathElement_NamedElement, postSubcomponentScope)
 							path => [
 								"t1".assertEquals(namedElement.name)
-								//Tests scope_EMV2PathElement_namedElement
-								assertScope(ErrorModelPackage.eINSTANCE.EMV2PathElement_NamedElement, #["t1", "t2",
-									"t3", "t4", "EMV2PropertyAssociation::t1", "EMV2PropertyAssociation::t2",
-									"EMV2PropertyAssociation::t3", "EMV2PropertyAssociation::t4"
+								// Tests scope_EMV2PathElement_namedElement
+								assertScope(ErrorModelPackage.eINSTANCE.EMV2PathElement_NamedElement, #[
+									"t1",
+									"t2",
+									"t3",
+									"t4",
+									"EMV2PropertyAssociation::t1",
+									"EMV2PropertyAssociation::t2",
+									"EMV2PropertyAssociation::t3",
+									"EMV2PropertyAssociation::t4"
 								])
 								path.assertNull
 							]
@@ -1828,14 +1969,20 @@ class EMV2PathElementTest extends OsateTest {
 						13.13.assertEquals((ownedValues.head.ownedValue as RealLiteral).value, 0)
 						emv2Path.head.emv2Target => [
 							"port3".assertEquals((namedElement as ErrorPropagation).propagationName)
-							//Tests scope_EMV2PathElement_namedElement
+							// Tests scope_EMV2PathElement_namedElement
 							assertScope(ErrorModelPackage.eINSTANCE.EMV2PathElement_NamedElement, postSubcomponentScope)
 							path => [
 								"t2".assertEquals(namedElement.name)
-								//Tests scope_EMV2PathElement_namedElement
-								assertScope(ErrorModelPackage.eINSTANCE.EMV2PathElement_NamedElement, #["t1", "t2",
-									"t3", "t4", "EMV2PropertyAssociation::t1", "EMV2PropertyAssociation::t2",
-									"EMV2PropertyAssociation::t3", "EMV2PropertyAssociation::t4"
+								// Tests scope_EMV2PathElement_namedElement
+								assertScope(ErrorModelPackage.eINSTANCE.EMV2PathElement_NamedElement, #[
+									"t1",
+									"t2",
+									"t3",
+									"t4",
+									"EMV2PropertyAssociation::t1",
+									"EMV2PropertyAssociation::t2",
+									"EMV2PropertyAssociation::t3",
+									"EMV2PropertyAssociation::t4"
 								])
 								path.assertNull
 							]
@@ -1845,14 +1992,20 @@ class EMV2PathElementTest extends OsateTest {
 						14.14.assertEquals((ownedValues.head.ownedValue as RealLiteral).value, 0)
 						emv2Path.head.emv2Target => [
 							"port3".assertEquals((namedElement as ErrorPropagation).propagationName)
-							//Tests scope_EMV2PathElement_namedElement
+							// Tests scope_EMV2PathElement_namedElement
 							assertScope(ErrorModelPackage.eINSTANCE.EMV2PathElement_NamedElement, postSubcomponentScope)
 							path => [
 								"t3".assertEquals(namedElement.name)
-								//Tests scope_EMV2PathElement_namedElement
-								assertScope(ErrorModelPackage.eINSTANCE.EMV2PathElement_NamedElement, #["t1", "t2",
-									"t3", "t4", "EMV2PropertyAssociation::t1", "EMV2PropertyAssociation::t2",
-									"EMV2PropertyAssociation::t3", "EMV2PropertyAssociation::t4"
+								// Tests scope_EMV2PathElement_namedElement
+								assertScope(ErrorModelPackage.eINSTANCE.EMV2PathElement_NamedElement, #[
+									"t1",
+									"t2",
+									"t3",
+									"t4",
+									"EMV2PropertyAssociation::t1",
+									"EMV2PropertyAssociation::t2",
+									"EMV2PropertyAssociation::t3",
+									"EMV2PropertyAssociation::t4"
 								])
 								path.assertNull
 							]
@@ -1862,14 +2015,20 @@ class EMV2PathElementTest extends OsateTest {
 						15.15.assertEquals((ownedValues.head.ownedValue as RealLiteral).value, 0)
 						emv2Path.head.emv2Target => [
 							"port3".assertEquals((namedElement as ErrorPropagation).propagationName)
-							//Tests scope_EMV2PathElement_namedElement
+							// Tests scope_EMV2PathElement_namedElement
 							assertScope(ErrorModelPackage.eINSTANCE.EMV2PathElement_NamedElement, postSubcomponentScope)
 							path => [
 								"t4".assertEquals(namedElement.name)
-								//Tests scope_EMV2PathElement_namedElement
-								assertScope(ErrorModelPackage.eINSTANCE.EMV2PathElement_NamedElement, #["t1", "t2",
-									"t3", "t4", "EMV2PropertyAssociation::t1", "EMV2PropertyAssociation::t2",
-									"EMV2PropertyAssociation::t3", "EMV2PropertyAssociation::t4"
+								// Tests scope_EMV2PathElement_namedElement
+								assertScope(ErrorModelPackage.eINSTANCE.EMV2PathElement_NamedElement, #[
+									"t1",
+									"t2",
+									"t3",
+									"t4",
+									"EMV2PropertyAssociation::t1",
+									"EMV2PropertyAssociation::t2",
+									"EMV2PropertyAssociation::t3",
+									"EMV2PropertyAssociation::t4"
 								])
 								path.assertNull
 							]
@@ -1879,20 +2038,22 @@ class EMV2PathElementTest extends OsateTest {
 						16.16.assertEquals((ownedValues.head.ownedValue as RealLiteral).value, 0)
 						emv2Path.head.emv2Target => [
 							"fg4".assertEquals(namedElement.name)
-							//Tests scope_EMV2PathElement_namedElement
+							// Tests scope_EMV2PathElement_namedElement
 							assertScope(ErrorModelPackage.eINSTANCE.EMV2PathElement_NamedElement, postSubcomponentScope)
 							path => [
 								"fg2".assertEquals(namedElement.name)
-								//Tests scope_EMV2PathElement_namedElement
+								// Tests scope_EMV2PathElement_namedElement
 								assertScope(ErrorModelPackage.eINSTANCE.EMV2PathElement_NamedElement, #["fg2"])
 								path => [
 									"fg3".assertEquals(namedElement.name)
-									//Tests scope_EMV2PathElement_namedElement
+									// Tests scope_EMV2PathElement_namedElement
 									assertScope(ErrorModelPackage.eINSTANCE.EMV2PathElement_NamedElement, #["fg3"])
 									path => [
-										"fg4.fg2.fg3.port2".assertEquals((namedElement as ErrorPropagation).propagationName)
-										//Tests scope_EMV2PathElement_namedElement
-										assertScope(ErrorModelPackage.eINSTANCE.EMV2PathElement_NamedElement, #["port2", "port2", "port2", "port2"])
+										"fg4.fg2.fg3.port2".assertEquals(
+											(namedElement as ErrorPropagation).propagationName)
+										// Tests scope_EMV2PathElement_namedElement
+										assertScope(ErrorModelPackage.eINSTANCE.EMV2PathElement_NamedElement,
+											#["port2", "port2", "port2", "port2"])
 										path.assertNull
 									]
 								]
@@ -1903,26 +2064,33 @@ class EMV2PathElementTest extends OsateTest {
 						17.17.assertEquals((ownedValues.head.ownedValue as RealLiteral).value, 0)
 						emv2Path.head.emv2Target => [
 							"fg4".assertEquals(namedElement.name)
-							//Tests scope_EMV2PathElement_namedElement
+							// Tests scope_EMV2PathElement_namedElement
 							assertScope(ErrorModelPackage.eINSTANCE.EMV2PathElement_NamedElement, postSubcomponentScope)
 							path => [
 								"fg2".assertEquals(namedElement.name)
-								//Tests scope_EMV2PathElement_namedElement
+								// Tests scope_EMV2PathElement_namedElement
 								assertScope(ErrorModelPackage.eINSTANCE.EMV2PathElement_NamedElement, #["fg2"])
 								path => [
 									"fg3".assertEquals(namedElement.name)
-									//Tests scope_EMV2PathElement_namedElement
+									// Tests scope_EMV2PathElement_namedElement
 									assertScope(ErrorModelPackage.eINSTANCE.EMV2PathElement_NamedElement, #["fg3"])
 									path => [
-										"fg4.fg2.fg3.port2".assertEquals((namedElement as ErrorPropagation).propagationName)
-										//Tests scope_EMV2PathElement_namedElement
-										assertScope(ErrorModelPackage.eINSTANCE.EMV2PathElement_NamedElement, #["port2", "port2", "port2", "port2"])
+										"fg4.fg2.fg3.port2".assertEquals(
+											(namedElement as ErrorPropagation).propagationName)
+										// Tests scope_EMV2PathElement_namedElement
+										assertScope(ErrorModelPackage.eINSTANCE.EMV2PathElement_NamedElement,
+											#["port2", "port2", "port2", "port2"])
 										path => [
 											"t1".assertEquals(namedElement.name)
-											//Tests scope_EMV2PathElement_namedElement
+											// Tests scope_EMV2PathElement_namedElement
 											assertScope(ErrorModelPackage.eINSTANCE.EMV2PathElement_NamedElement, #[
-												"t1", "t2", "t3", "t4", "EMV2PropertyAssociation::t1",
-												"EMV2PropertyAssociation::t2", "EMV2PropertyAssociation::t3",
+												"t1",
+												"t2",
+												"t3",
+												"t4",
+												"EMV2PropertyAssociation::t1",
+												"EMV2PropertyAssociation::t2",
+												"EMV2PropertyAssociation::t3",
 												"EMV2PropertyAssociation::t4"
 											])
 											path.assertNull
@@ -1936,26 +2104,33 @@ class EMV2PathElementTest extends OsateTest {
 						18.18.assertEquals((ownedValues.head.ownedValue as RealLiteral).value, 0)
 						emv2Path.head.emv2Target => [
 							"fg4".assertEquals(namedElement.name)
-							//Tests scope_EMV2PathElement_namedElement
+							// Tests scope_EMV2PathElement_namedElement
 							assertScope(ErrorModelPackage.eINSTANCE.EMV2PathElement_NamedElement, postSubcomponentScope)
 							path => [
 								"fg2".assertEquals(namedElement.name)
-								//Tests scope_EMV2PathElement_namedElement
+								// Tests scope_EMV2PathElement_namedElement
 								assertScope(ErrorModelPackage.eINSTANCE.EMV2PathElement_NamedElement, #["fg2"])
 								path => [
 									"fg3".assertEquals(namedElement.name)
-									//Tests scope_EMV2PathElement_namedElement
+									// Tests scope_EMV2PathElement_namedElement
 									assertScope(ErrorModelPackage.eINSTANCE.EMV2PathElement_NamedElement, #["fg3"])
 									path => [
-										"fg4.fg2.fg3.port2".assertEquals((namedElement as ErrorPropagation).propagationName)
-										//Tests scope_EMV2PathElement_namedElement
-										assertScope(ErrorModelPackage.eINSTANCE.EMV2PathElement_NamedElement, #["port2", "port2", "port2", "port2"])
+										"fg4.fg2.fg3.port2".assertEquals(
+											(namedElement as ErrorPropagation).propagationName)
+										// Tests scope_EMV2PathElement_namedElement
+										assertScope(ErrorModelPackage.eINSTANCE.EMV2PathElement_NamedElement,
+											#["port2", "port2", "port2", "port2"])
 										path => [
 											"t2".assertEquals(namedElement.name)
-											//Tests scope_EMV2PathElement_namedElement
+											// Tests scope_EMV2PathElement_namedElement
 											assertScope(ErrorModelPackage.eINSTANCE.EMV2PathElement_NamedElement, #[
-												"t1", "t2", "t3", "t4", "EMV2PropertyAssociation::t1",
-												"EMV2PropertyAssociation::t2", "EMV2PropertyAssociation::t3",
+												"t1",
+												"t2",
+												"t3",
+												"t4",
+												"EMV2PropertyAssociation::t1",
+												"EMV2PropertyAssociation::t2",
+												"EMV2PropertyAssociation::t3",
 												"EMV2PropertyAssociation::t4"
 											])
 											path.assertNull
@@ -1969,26 +2144,33 @@ class EMV2PathElementTest extends OsateTest {
 						19.19.assertEquals((ownedValues.head.ownedValue as RealLiteral).value, 0)
 						emv2Path.head.emv2Target => [
 							"fg4".assertEquals(namedElement.name)
-							//Tests scope_EMV2PathElement_namedElement
+							// Tests scope_EMV2PathElement_namedElement
 							assertScope(ErrorModelPackage.eINSTANCE.EMV2PathElement_NamedElement, postSubcomponentScope)
 							path => [
 								"fg2".assertEquals(namedElement.name)
-								//Tests scope_EMV2PathElement_namedElement
+								// Tests scope_EMV2PathElement_namedElement
 								assertScope(ErrorModelPackage.eINSTANCE.EMV2PathElement_NamedElement, #["fg2"])
 								path => [
 									"fg3".assertEquals(namedElement.name)
-									//Tests scope_EMV2PathElement_namedElement
+									// Tests scope_EMV2PathElement_namedElement
 									assertScope(ErrorModelPackage.eINSTANCE.EMV2PathElement_NamedElement, #["fg3"])
 									path => [
-										"fg4.fg2.fg3.port2".assertEquals((namedElement as ErrorPropagation).propagationName)
-										//Tests scope_EMV2PathElement_namedElement
-										assertScope(ErrorModelPackage.eINSTANCE.EMV2PathElement_NamedElement, #["port2", "port2", "port2", "port2"])
+										"fg4.fg2.fg3.port2".assertEquals(
+											(namedElement as ErrorPropagation).propagationName)
+										// Tests scope_EMV2PathElement_namedElement
+										assertScope(ErrorModelPackage.eINSTANCE.EMV2PathElement_NamedElement,
+											#["port2", "port2", "port2", "port2"])
 										path => [
 											"t3".assertEquals(namedElement.name)
-											//Tests scope_EMV2PathElement_namedElement
+											// Tests scope_EMV2PathElement_namedElement
 											assertScope(ErrorModelPackage.eINSTANCE.EMV2PathElement_NamedElement, #[
-												"t1", "t2", "t3", "t4", "EMV2PropertyAssociation::t1",
-												"EMV2PropertyAssociation::t2", "EMV2PropertyAssociation::t3",
+												"t1",
+												"t2",
+												"t3",
+												"t4",
+												"EMV2PropertyAssociation::t1",
+												"EMV2PropertyAssociation::t2",
+												"EMV2PropertyAssociation::t3",
 												"EMV2PropertyAssociation::t4"
 											])
 											path.assertNull
@@ -2002,26 +2184,33 @@ class EMV2PathElementTest extends OsateTest {
 						20.20.assertEquals((ownedValues.head.ownedValue as RealLiteral).value, 0)
 						emv2Path.head.emv2Target => [
 							"fg4".assertEquals(namedElement.name)
-							//Tests scope_EMV2PathElement_namedElement
+							// Tests scope_EMV2PathElement_namedElement
 							assertScope(ErrorModelPackage.eINSTANCE.EMV2PathElement_NamedElement, postSubcomponentScope)
 							path => [
 								"fg2".assertEquals(namedElement.name)
-								//Tests scope_EMV2PathElement_namedElement
+								// Tests scope_EMV2PathElement_namedElement
 								assertScope(ErrorModelPackage.eINSTANCE.EMV2PathElement_NamedElement, #["fg2"])
 								path => [
 									"fg3".assertEquals(namedElement.name)
-									//Tests scope_EMV2PathElement_namedElement
+									// Tests scope_EMV2PathElement_namedElement
 									assertScope(ErrorModelPackage.eINSTANCE.EMV2PathElement_NamedElement, #["fg3"])
 									path => [
-										"fg4.fg2.fg3.port2".assertEquals((namedElement as ErrorPropagation).propagationName)
-										//Tests scope_EMV2PathElement_namedElement
-										assertScope(ErrorModelPackage.eINSTANCE.EMV2PathElement_NamedElement, #["port2", "port2", "port2", "port2"])
+										"fg4.fg2.fg3.port2".assertEquals(
+											(namedElement as ErrorPropagation).propagationName)
+										// Tests scope_EMV2PathElement_namedElement
+										assertScope(ErrorModelPackage.eINSTANCE.EMV2PathElement_NamedElement,
+											#["port2", "port2", "port2", "port2"])
 										path => [
 											"t4".assertEquals(namedElement.name)
-											//Tests scope_EMV2PathElement_namedElement
+											// Tests scope_EMV2PathElement_namedElement
 											assertScope(ErrorModelPackage.eINSTANCE.EMV2PathElement_NamedElement, #[
-												"t1", "t2", "t3", "t4", "EMV2PropertyAssociation::t1",
-												"EMV2PropertyAssociation::t2", "EMV2PropertyAssociation::t3",
+												"t1",
+												"t2",
+												"t3",
+												"t4",
+												"EMV2PropertyAssociation::t1",
+												"EMV2PropertyAssociation::t2",
+												"EMV2PropertyAssociation::t3",
 												"EMV2PropertyAssociation::t4"
 											])
 											path.assertNull
@@ -2035,7 +2224,7 @@ class EMV2PathElementTest extends OsateTest {
 						21.21.assertEquals((ownedValues.head.ownedValue as RealLiteral).value, 0)
 						emv2Path.head.emv2Target => [
 							"errorSource1".assertEquals(namedElement.name)
-							//Tests scope_EMV2PathElement_namedElement
+							// Tests scope_EMV2PathElement_namedElement
 							assertScope(ErrorModelPackage.eINSTANCE.EMV2PathElement_NamedElement, firstElementScope)
 							path.assertNull
 						]
@@ -2044,14 +2233,20 @@ class EMV2PathElementTest extends OsateTest {
 						22.22.assertEquals((ownedValues.head.ownedValue as RealLiteral).value, 0)
 						emv2Path.head.emv2Target => [
 							"errorSource1".assertEquals(namedElement.name)
-							//Tests scope_EMV2PathElement_namedElement
+							// Tests scope_EMV2PathElement_namedElement
 							assertScope(ErrorModelPackage.eINSTANCE.EMV2PathElement_NamedElement, firstElementScope)
 							path => [
 								"t3".assertEquals(namedElement.name)
-								//Tests scope_EMV2PathElement_namedElement
-								assertScope(ErrorModelPackage.eINSTANCE.EMV2PathElement_NamedElement, #["t1", "t2",
-									"t3", "t4", "EMV2PropertyAssociation::t1", "EMV2PropertyAssociation::t2",
-									"EMV2PropertyAssociation::t3", "EMV2PropertyAssociation::t4"
+								// Tests scope_EMV2PathElement_namedElement
+								assertScope(ErrorModelPackage.eINSTANCE.EMV2PathElement_NamedElement, #[
+									"t1",
+									"t2",
+									"t3",
+									"t4",
+									"EMV2PropertyAssociation::t1",
+									"EMV2PropertyAssociation::t2",
+									"EMV2PropertyAssociation::t3",
+									"EMV2PropertyAssociation::t4"
 								])
 								path.assertNull
 							]
@@ -2061,7 +2256,7 @@ class EMV2PathElementTest extends OsateTest {
 						23.23.assertEquals((ownedValues.head.ownedValue as RealLiteral).value, 0)
 						emv2Path.head.emv2Target => [
 							"errorSource2".assertEquals(namedElement.name)
-							//Tests scope_EMV2PathElement_namedElement
+							// Tests scope_EMV2PathElement_namedElement
 							assertScope(ErrorModelPackage.eINSTANCE.EMV2PathElement_NamedElement, postSubcomponentScope)
 							path.assertNull
 						]
@@ -2070,14 +2265,20 @@ class EMV2PathElementTest extends OsateTest {
 						24.24.assertEquals((ownedValues.head.ownedValue as RealLiteral).value, 0)
 						emv2Path.head.emv2Target => [
 							"errorSource2".assertEquals(namedElement.name)
-							//Tests scope_EMV2PathElement_namedElement
+							// Tests scope_EMV2PathElement_namedElement
 							assertScope(ErrorModelPackage.eINSTANCE.EMV2PathElement_NamedElement, postSubcomponentScope)
 							path => [
 								"t3".assertEquals(namedElement.name)
-								//Tests scope_EMV2PathElement_namedElement
-								assertScope(ErrorModelPackage.eINSTANCE.EMV2PathElement_NamedElement, #["t1", "t2",
-									"t3", "t4", "EMV2PropertyAssociation::t1", "EMV2PropertyAssociation::t2",
-									"EMV2PropertyAssociation::t3", "EMV2PropertyAssociation::t4"
+								// Tests scope_EMV2PathElement_namedElement
+								assertScope(ErrorModelPackage.eINSTANCE.EMV2PathElement_NamedElement, #[
+									"t1",
+									"t2",
+									"t3",
+									"t4",
+									"EMV2PropertyAssociation::t1",
+									"EMV2PropertyAssociation::t2",
+									"EMV2PropertyAssociation::t3",
+									"EMV2PropertyAssociation::t4"
 								])
 								path.assertNull
 							]
@@ -2087,7 +2288,7 @@ class EMV2PathElementTest extends OsateTest {
 						25.25.assertEquals((ownedValues.head.ownedValue as RealLiteral).value, 0)
 						emv2Path.head.emv2Target => [
 							"errorSink1".assertEquals(namedElement.name)
-							//Tests scope_EMV2PathElement_namedElement
+							// Tests scope_EMV2PathElement_namedElement
 							assertScope(ErrorModelPackage.eINSTANCE.EMV2PathElement_NamedElement, firstElementScope)
 							path.assertNull
 						]
@@ -2096,14 +2297,20 @@ class EMV2PathElementTest extends OsateTest {
 						26.26.assertEquals((ownedValues.head.ownedValue as RealLiteral).value, 0)
 						emv2Path.head.emv2Target => [
 							"errorSink1".assertEquals(namedElement.name)
-							//Tests scope_EMV2PathElement_namedElement
+							// Tests scope_EMV2PathElement_namedElement
 							assertScope(ErrorModelPackage.eINSTANCE.EMV2PathElement_NamedElement, firstElementScope)
 							path => [
 								"t1".assertEquals(namedElement.name)
-								//Tests scope_EMV2PathElement_namedElement
-								assertScope(ErrorModelPackage.eINSTANCE.EMV2PathElement_NamedElement, #["t1", "t2",
-									"t3", "t4", "EMV2PropertyAssociation::t1", "EMV2PropertyAssociation::t2",
-									"EMV2PropertyAssociation::t3", "EMV2PropertyAssociation::t4"
+								// Tests scope_EMV2PathElement_namedElement
+								assertScope(ErrorModelPackage.eINSTANCE.EMV2PathElement_NamedElement, #[
+									"t1",
+									"t2",
+									"t3",
+									"t4",
+									"EMV2PropertyAssociation::t1",
+									"EMV2PropertyAssociation::t2",
+									"EMV2PropertyAssociation::t3",
+									"EMV2PropertyAssociation::t4"
 								])
 								path.assertNull
 							]
@@ -2113,7 +2320,7 @@ class EMV2PathElementTest extends OsateTest {
 						27.27.assertEquals((ownedValues.head.ownedValue as RealLiteral).value, 0)
 						emv2Path.head.emv2Target => [
 							"errorSink2".assertEquals(namedElement.name)
-							//Tests scope_EMV2PathElement_namedElement
+							// Tests scope_EMV2PathElement_namedElement
 							assertScope(ErrorModelPackage.eINSTANCE.EMV2PathElement_NamedElement, postSubcomponentScope)
 							path.assertNull
 						]
@@ -2122,14 +2329,20 @@ class EMV2PathElementTest extends OsateTest {
 						28.28.assertEquals((ownedValues.head.ownedValue as RealLiteral).value, 0)
 						emv2Path.head.emv2Target => [
 							"errorSink2".assertEquals(namedElement.name)
-							//Tests scope_EMV2PathElement_namedElement
+							// Tests scope_EMV2PathElement_namedElement
 							assertScope(ErrorModelPackage.eINSTANCE.EMV2PathElement_NamedElement, postSubcomponentScope)
 							path => [
 								"t1".assertEquals(namedElement.name)
-								//Tests scope_EMV2PathElement_namedElement
-								assertScope(ErrorModelPackage.eINSTANCE.EMV2PathElement_NamedElement, #["t1", "t2",
-									"t3", "t4", "EMV2PropertyAssociation::t1", "EMV2PropertyAssociation::t2",
-									"EMV2PropertyAssociation::t3", "EMV2PropertyAssociation::t4"
+								// Tests scope_EMV2PathElement_namedElement
+								assertScope(ErrorModelPackage.eINSTANCE.EMV2PathElement_NamedElement, #[
+									"t1",
+									"t2",
+									"t3",
+									"t4",
+									"EMV2PropertyAssociation::t1",
+									"EMV2PropertyAssociation::t2",
+									"EMV2PropertyAssociation::t3",
+									"EMV2PropertyAssociation::t4"
 								])
 								path.assertNull
 							]
@@ -2139,7 +2352,7 @@ class EMV2PathElementTest extends OsateTest {
 						29.29.assertEquals((ownedValues.head.ownedValue as RealLiteral).value, 0)
 						emv2Path.head.emv2Target => [
 							"errorPath1".assertEquals(namedElement.name)
-							//Tests scope_EMV2PathElement_namedElement
+							// Tests scope_EMV2PathElement_namedElement
 							assertScope(ErrorModelPackage.eINSTANCE.EMV2PathElement_NamedElement, firstElementScope)
 							path.assertNull
 						]
@@ -2148,7 +2361,7 @@ class EMV2PathElementTest extends OsateTest {
 						30.30.assertEquals((ownedValues.head.ownedValue as RealLiteral).value, 0)
 						emv2Path.head.emv2Target => [
 							"errorPath2".assertEquals(namedElement.name)
-							//Tests scope_EMV2PathElement_namedElement
+							// Tests scope_EMV2PathElement_namedElement
 							assertScope(ErrorModelPackage.eINSTANCE.EMV2PathElement_NamedElement, postSubcomponentScope)
 							path.assertNull
 						]
@@ -2157,7 +2370,7 @@ class EMV2PathElementTest extends OsateTest {
 						31.31.assertEquals((ownedValues.head.ownedValue as RealLiteral).value, 0)
 						emv2Path.head.emv2Target => [
 							"errorEvent1".assertEquals(namedElement.name)
-							//Tests scope_EMV2PathElement_namedElement
+							// Tests scope_EMV2PathElement_namedElement
 							assertScope(ErrorModelPackage.eINSTANCE.EMV2PathElement_NamedElement, firstElementScope)
 							path.assertNull
 						]
@@ -2166,14 +2379,20 @@ class EMV2PathElementTest extends OsateTest {
 						32.32.assertEquals((ownedValues.head.ownedValue as RealLiteral).value, 0)
 						emv2Path.head.emv2Target => [
 							"errorEvent1".assertEquals(namedElement.name)
-							//Tests scope_EMV2PathElement_namedElement
+							// Tests scope_EMV2PathElement_namedElement
 							assertScope(ErrorModelPackage.eINSTANCE.EMV2PathElement_NamedElement, firstElementScope)
 							path => [
 								"t1".assertEquals(namedElement.name)
-								//Tests scope_EMV2PathElement_namedElement
-								assertScope(ErrorModelPackage.eINSTANCE.EMV2PathElement_NamedElement, #["t1", "t2",
-									"t3", "t4", "EMV2PropertyAssociation::t1", "EMV2PropertyAssociation::t2",
-									"EMV2PropertyAssociation::t3", "EMV2PropertyAssociation::t4"
+								// Tests scope_EMV2PathElement_namedElement
+								assertScope(ErrorModelPackage.eINSTANCE.EMV2PathElement_NamedElement, #[
+									"t1",
+									"t2",
+									"t3",
+									"t4",
+									"EMV2PropertyAssociation::t1",
+									"EMV2PropertyAssociation::t2",
+									"EMV2PropertyAssociation::t3",
+									"EMV2PropertyAssociation::t4"
 								])
 								path.assertNull
 							]
@@ -2183,7 +2402,7 @@ class EMV2PathElementTest extends OsateTest {
 						33.33.assertEquals((ownedValues.head.ownedValue as RealLiteral).value, 0)
 						emv2Path.head.emv2Target => [
 							"errorEvent2".assertEquals(namedElement.name)
-							//Tests scope_EMV2PathElement_namedElement
+							// Tests scope_EMV2PathElement_namedElement
 							assertScope(ErrorModelPackage.eINSTANCE.EMV2PathElement_NamedElement, postSubcomponentScope)
 							path.assertNull
 						]
@@ -2192,14 +2411,20 @@ class EMV2PathElementTest extends OsateTest {
 						34.34.assertEquals((ownedValues.head.ownedValue as RealLiteral).value, 0)
 						emv2Path.head.emv2Target => [
 							"errorEvent2".assertEquals(namedElement.name)
-							//Tests scope_EMV2PathElement_namedElement
+							// Tests scope_EMV2PathElement_namedElement
 							assertScope(ErrorModelPackage.eINSTANCE.EMV2PathElement_NamedElement, postSubcomponentScope)
 							path => [
 								"t1".assertEquals(namedElement.name)
-								//Tests scope_EMV2PathElement_namedElement
-								assertScope(ErrorModelPackage.eINSTANCE.EMV2PathElement_NamedElement, #["t1", "t2",
-									"t3", "t4", "EMV2PropertyAssociation::t1", "EMV2PropertyAssociation::t2",
-									"EMV2PropertyAssociation::t3", "EMV2PropertyAssociation::t4"
+								// Tests scope_EMV2PathElement_namedElement
+								assertScope(ErrorModelPackage.eINSTANCE.EMV2PathElement_NamedElement, #[
+									"t1",
+									"t2",
+									"t3",
+									"t4",
+									"EMV2PropertyAssociation::t1",
+									"EMV2PropertyAssociation::t2",
+									"EMV2PropertyAssociation::t3",
+									"EMV2PropertyAssociation::t4"
 								])
 								path.assertNull
 							]
@@ -2209,7 +2434,7 @@ class EMV2PathElementTest extends OsateTest {
 						35.35.assertEquals((ownedValues.head.ownedValue as RealLiteral).value, 0)
 						emv2Path.head.emv2Target => [
 							"errorEvent3".assertEquals(namedElement.name)
-							//Tests scope_EMV2PathElement_namedElement
+							// Tests scope_EMV2PathElement_namedElement
 							assertScope(ErrorModelPackage.eINSTANCE.EMV2PathElement_NamedElement, firstElementScope)
 							path.assertNull
 						]
@@ -2218,14 +2443,20 @@ class EMV2PathElementTest extends OsateTest {
 						36.36.assertEquals((ownedValues.head.ownedValue as RealLiteral).value, 0)
 						emv2Path.head.emv2Target => [
 							"errorEvent3".assertEquals(namedElement.name)
-							//Tests scope_EMV2PathElement_namedElement
+							// Tests scope_EMV2PathElement_namedElement
 							assertScope(ErrorModelPackage.eINSTANCE.EMV2PathElement_NamedElement, firstElementScope)
 							path => [
 								"t1".assertEquals(namedElement.name)
-								//Tests scope_EMV2PathElement_namedElement
-								assertScope(ErrorModelPackage.eINSTANCE.EMV2PathElement_NamedElement, #["t1", "t2",
-									"t3", "t4", "EMV2PropertyAssociation::t1", "EMV2PropertyAssociation::t2",
-									"EMV2PropertyAssociation::t3", "EMV2PropertyAssociation::t4"
+								// Tests scope_EMV2PathElement_namedElement
+								assertScope(ErrorModelPackage.eINSTANCE.EMV2PathElement_NamedElement, #[
+									"t1",
+									"t2",
+									"t3",
+									"t4",
+									"EMV2PropertyAssociation::t1",
+									"EMV2PropertyAssociation::t2",
+									"EMV2PropertyAssociation::t3",
+									"EMV2PropertyAssociation::t4"
 								])
 								path.assertNull
 							]
@@ -2235,7 +2466,7 @@ class EMV2PathElementTest extends OsateTest {
 						37.37.assertEquals((ownedValues.head.ownedValue as RealLiteral).value, 0)
 						emv2Path.head.emv2Target => [
 							"errorEvent3".assertEquals(namedElement.name)
-							//Tests scope_EMV2PathElement_namedElement
+							// Tests scope_EMV2PathElement_namedElement
 							assertScope(ErrorModelPackage.eINSTANCE.EMV2PathElement_NamedElement, postSubcomponentScope)
 							path.assertNull
 						]
@@ -2244,14 +2475,20 @@ class EMV2PathElementTest extends OsateTest {
 						38.38.assertEquals((ownedValues.head.ownedValue as RealLiteral).value, 0)
 						emv2Path.head.emv2Target => [
 							"errorEvent3".assertEquals(namedElement.name)
-							//Tests scope_EMV2PathElement_namedElement
+							// Tests scope_EMV2PathElement_namedElement
 							assertScope(ErrorModelPackage.eINSTANCE.EMV2PathElement_NamedElement, postSubcomponentScope)
 							path => [
 								"t1".assertEquals(namedElement.name)
-								//Tests scope_EMV2PathElement_namedElement
-								assertScope(ErrorModelPackage.eINSTANCE.EMV2PathElement_NamedElement, #["t1", "t2",
-									"t3", "t4", "EMV2PropertyAssociation::t1", "EMV2PropertyAssociation::t2",
-									"EMV2PropertyAssociation::t3", "EMV2PropertyAssociation::t4"
+								// Tests scope_EMV2PathElement_namedElement
+								assertScope(ErrorModelPackage.eINSTANCE.EMV2PathElement_NamedElement, #[
+									"t1",
+									"t2",
+									"t3",
+									"t4",
+									"EMV2PropertyAssociation::t1",
+									"EMV2PropertyAssociation::t2",
+									"EMV2PropertyAssociation::t3",
+									"EMV2PropertyAssociation::t4"
 								])
 								path.assertNull
 							]
@@ -2261,7 +2498,7 @@ class EMV2PathElementTest extends OsateTest {
 						39.39.assertEquals((ownedValues.head.ownedValue as RealLiteral).value, 0)
 						emv2Path.head.emv2Target => [
 							"repairEvent1".assertEquals(namedElement.name)
-							//Tests scope_EMV2PathElement_namedElement
+							// Tests scope_EMV2PathElement_namedElement
 							assertScope(ErrorModelPackage.eINSTANCE.EMV2PathElement_NamedElement, firstElementScope)
 							path.assertNull
 						]
@@ -2270,7 +2507,7 @@ class EMV2PathElementTest extends OsateTest {
 						40.40.assertEquals((ownedValues.head.ownedValue as RealLiteral).value, 0)
 						emv2Path.head.emv2Target => [
 							"repairEvent2".assertEquals(namedElement.name)
-							//Tests scope_EMV2PathElement_namedElement
+							// Tests scope_EMV2PathElement_namedElement
 							assertScope(ErrorModelPackage.eINSTANCE.EMV2PathElement_NamedElement, postSubcomponentScope)
 							path.assertNull
 						]
@@ -2279,7 +2516,7 @@ class EMV2PathElementTest extends OsateTest {
 						41.41.assertEquals((ownedValues.head.ownedValue as RealLiteral).value, 0)
 						emv2Path.head.emv2Target => [
 							"repairEvent3".assertEquals(namedElement.name)
-							//Tests scope_EMV2PathElement_namedElement
+							// Tests scope_EMV2PathElement_namedElement
 							assertScope(ErrorModelPackage.eINSTANCE.EMV2PathElement_NamedElement, firstElementScope)
 							path.assertNull
 						]
@@ -2288,7 +2525,7 @@ class EMV2PathElementTest extends OsateTest {
 						42.42.assertEquals((ownedValues.head.ownedValue as RealLiteral).value, 0)
 						emv2Path.head.emv2Target => [
 							"repairEvent3".assertEquals(namedElement.name)
-							//Tests scope_EMV2PathElement_namedElement
+							// Tests scope_EMV2PathElement_namedElement
 							assertScope(ErrorModelPackage.eINSTANCE.EMV2PathElement_NamedElement, postSubcomponentScope)
 							path.assertNull
 						]
@@ -2297,7 +2534,7 @@ class EMV2PathElementTest extends OsateTest {
 						43.43.assertEquals((ownedValues.head.ownedValue as RealLiteral).value, 0)
 						emv2Path.head.emv2Target => [
 							"recoverEvent1".assertEquals(namedElement.name)
-							//Tests scope_EMV2PathElement_namedElement
+							// Tests scope_EMV2PathElement_namedElement
 							assertScope(ErrorModelPackage.eINSTANCE.EMV2PathElement_NamedElement, firstElementScope)
 							path.assertNull
 						]
@@ -2306,7 +2543,7 @@ class EMV2PathElementTest extends OsateTest {
 						44.44.assertEquals((ownedValues.head.ownedValue as RealLiteral).value, 0)
 						emv2Path.head.emv2Target => [
 							"recoverEvent2".assertEquals(namedElement.name)
-							//Tests scope_EMV2PathElement_namedElement
+							// Tests scope_EMV2PathElement_namedElement
 							assertScope(ErrorModelPackage.eINSTANCE.EMV2PathElement_NamedElement, postSubcomponentScope)
 							path.assertNull
 						]
@@ -2315,7 +2552,7 @@ class EMV2PathElementTest extends OsateTest {
 						45.45.assertEquals((ownedValues.head.ownedValue as RealLiteral).value, 0)
 						emv2Path.head.emv2Target => [
 							"recoverEvent3".assertEquals(namedElement.name)
-							//Tests scope_EMV2PathElement_namedElement
+							// Tests scope_EMV2PathElement_namedElement
 							assertScope(ErrorModelPackage.eINSTANCE.EMV2PathElement_NamedElement, firstElementScope)
 							path.assertNull
 						]
@@ -2324,7 +2561,7 @@ class EMV2PathElementTest extends OsateTest {
 						46.46.assertEquals((ownedValues.head.ownedValue as RealLiteral).value, 0)
 						emv2Path.head.emv2Target => [
 							"recoverEvent3".assertEquals(namedElement.name)
-							//Tests scope_EMV2PathElement_namedElement
+							// Tests scope_EMV2PathElement_namedElement
 							assertScope(ErrorModelPackage.eINSTANCE.EMV2PathElement_NamedElement, postSubcomponentScope)
 							path.assertNull
 						]
@@ -2333,7 +2570,7 @@ class EMV2PathElementTest extends OsateTest {
 						47.47.assertEquals((ownedValues.head.ownedValue as RealLiteral).value, 0)
 						emv2Path.head.emv2Target => [
 							"transition1".assertEquals(namedElement.name)
-							//Tests scope_EMV2PathElement_namedElement
+							// Tests scope_EMV2PathElement_namedElement
 							assertScope(ErrorModelPackage.eINSTANCE.EMV2PathElement_NamedElement, firstElementScope)
 							path.assertNull
 						]
@@ -2342,7 +2579,7 @@ class EMV2PathElementTest extends OsateTest {
 						48.48.assertEquals((ownedValues.head.ownedValue as RealLiteral).value, 0)
 						emv2Path.head.emv2Target => [
 							"transition3".assertEquals(namedElement.name)
-							//Tests scope_EMV2PathElement_namedElement
+							// Tests scope_EMV2PathElement_namedElement
 							assertScope(ErrorModelPackage.eINSTANCE.EMV2PathElement_NamedElement, firstElementScope)
 							path.assertNull
 						]
@@ -2351,7 +2588,7 @@ class EMV2PathElementTest extends OsateTest {
 						49.49.assertEquals((ownedValues.head.ownedValue as RealLiteral).value, 0)
 						emv2Path.head.emv2Target => [
 							"transition2".assertEquals(namedElement.name)
-							//Tests scope_EMV2PathElement_namedElement
+							// Tests scope_EMV2PathElement_namedElement
 							assertScope(ErrorModelPackage.eINSTANCE.EMV2PathElement_NamedElement, postSubcomponentScope)
 							path.assertNull
 						]
@@ -2360,17 +2597,18 @@ class EMV2PathElementTest extends OsateTest {
 						50.50.assertEquals((ownedValues.head.ownedValue as RealLiteral).value, 0)
 						emv2Path.head.emv2Target => [
 							"transition3".assertEquals(namedElement.name)
-							//Tests scope_EMV2PathElement_namedElement
+							// Tests scope_EMV2PathElement_namedElement
 							assertScope(ErrorModelPackage.eINSTANCE.EMV2PathElement_NamedElement, postSubcomponentScope)
 							path.assertNull
 						]
 					]
 					properties.get(50) => [
-					assertError(lib1TestResult.issues, lib1IssueCollection, "Property EMV2::ExposurePeriod does not apply to outgoingPropagationCondition1")
+						assertError(lib1TestResult.issues, lib1IssueCollection,
+							"Property EMV2::ExposurePeriod does not apply to outgoingPropagationCondition1")
 						51.51.assertEquals((ownedValues.head.ownedValue as RealLiteral).value, 0)
 						emv2Path.head.emv2Target => [
 							"outgoingPropagationCondition1".assertEquals(namedElement.name)
-							//Tests scope_EMV2PathElement_namedElement
+							// Tests scope_EMV2PathElement_namedElement
 							assertScope(ErrorModelPackage.eINSTANCE.EMV2PathElement_NamedElement, firstElementScope)
 							path.assertNull
 						]
@@ -2379,17 +2617,18 @@ class EMV2PathElementTest extends OsateTest {
 						52.52.assertEquals((ownedValues.head.ownedValue as RealLiteral).value, 0)
 						emv2Path.head.emv2Target => [
 							"outgoingPropagationCondition2".assertEquals(namedElement.name)
-							//Tests scope_EMV2PathElement_namedElement
+							// Tests scope_EMV2PathElement_namedElement
 							assertScope(ErrorModelPackage.eINSTANCE.EMV2PathElement_NamedElement, postSubcomponentScope)
 							path.assertNull
 						]
 					]
 					properties.get(52) => [
-					assertError(lib1TestResult.issues, lib1IssueCollection, "Property EMV2::ExposurePeriod does not apply to detection1")
+						assertError(lib1TestResult.issues, lib1IssueCollection,
+							"Property EMV2::ExposurePeriod does not apply to detection1")
 						53.53.assertEquals((ownedValues.head.ownedValue as RealLiteral).value, 0)
 						emv2Path.head.emv2Target => [
 							"detection1".assertEquals(namedElement.name)
-							//Tests scope_EMV2PathElement_namedElement
+							// Tests scope_EMV2PathElement_namedElement
 							assertScope(ErrorModelPackage.eINSTANCE.EMV2PathElement_NamedElement, firstElementScope)
 							path.assertNull
 						]
@@ -2398,17 +2637,18 @@ class EMV2PathElementTest extends OsateTest {
 						"54".assertEquals((ownedValues.head.ownedValue as StringLiteral).value)
 						emv2Path.head.emv2Target => [
 							"detection2".assertEquals(namedElement.name)
-							//Tests scope_EMV2PathElement_namedElement
+							// Tests scope_EMV2PathElement_namedElement
 							assertScope(ErrorModelPackage.eINSTANCE.EMV2PathElement_NamedElement, postSubcomponentScope)
 							path.assertNull
 						]
 					]
 					properties.get(54) => [
-					assertError(lib1TestResult.issues, lib1IssueCollection, "Property EMV2::ExposurePeriod does not apply to compositeState1")
+						assertError(lib1TestResult.issues, lib1IssueCollection,
+							"Property EMV2::ExposurePeriod does not apply to compositeState1")
 						55.55.assertEquals((ownedValues.head.ownedValue as RealLiteral).value, 0)
 						emv2Path.head.emv2Target => [
 							"compositeState1".assertEquals(namedElement.name)
-							//Tests scope_EMV2PathElement_namedElement
+							// Tests scope_EMV2PathElement_namedElement
 							assertScope(ErrorModelPackage.eINSTANCE.EMV2PathElement_NamedElement, firstElementScope)
 							path.assertNull
 						]
@@ -2417,7 +2657,7 @@ class EMV2PathElementTest extends OsateTest {
 						56.56.assertEquals((ownedValues.head.ownedValue as RealLiteral).value, 0)
 						emv2Path.head.emv2Target => [
 							"compositeState2".assertEquals(namedElement.name)
-							//Tests scope_EMV2PathElement_namedElement
+							// Tests scope_EMV2PathElement_namedElement
 							assertScope(ErrorModelPackage.eINSTANCE.EMV2PathElement_NamedElement, postSubcomponentScope)
 							path.assertNull
 						]
@@ -2426,7 +2666,7 @@ class EMV2PathElementTest extends OsateTest {
 						57.57.assertEquals((ownedValues.head.ownedValue as RealLiteral).value, 0)
 						emv2Path.head.emv2Target => [
 							"connectionErrorSource1".assertEquals(namedElement.name)
-							//Tests scope_EMV2PathElement_namedElement
+							// Tests scope_EMV2PathElement_namedElement
 							assertScope(ErrorModelPackage.eINSTANCE.EMV2PathElement_NamedElement, firstElementScope)
 							path.assertNull
 						]
@@ -2435,14 +2675,20 @@ class EMV2PathElementTest extends OsateTest {
 						58.58.assertEquals((ownedValues.head.ownedValue as RealLiteral).value, 0)
 						emv2Path.head.emv2Target => [
 							"connectionErrorSource1".assertEquals(namedElement.name)
-							//Tests scope_EMV2PathElement_namedElement
+							// Tests scope_EMV2PathElement_namedElement
 							assertScope(ErrorModelPackage.eINSTANCE.EMV2PathElement_NamedElement, firstElementScope)
 							path => [
 								"t1".assertEquals(namedElement.name)
-								//Tests scope_EMV2PathElement_namedElement
-								assertScope(ErrorModelPackage.eINSTANCE.EMV2PathElement_NamedElement, #["t1", "t2",
-									"t3", "t4", "EMV2PropertyAssociation::t1", "EMV2PropertyAssociation::t2",
-									"EMV2PropertyAssociation::t3", "EMV2PropertyAssociation::t4"
+								// Tests scope_EMV2PathElement_namedElement
+								assertScope(ErrorModelPackage.eINSTANCE.EMV2PathElement_NamedElement, #[
+									"t1",
+									"t2",
+									"t3",
+									"t4",
+									"EMV2PropertyAssociation::t1",
+									"EMV2PropertyAssociation::t2",
+									"EMV2PropertyAssociation::t3",
+									"EMV2PropertyAssociation::t4"
 								])
 								path.assertNull
 							]
@@ -2452,7 +2698,7 @@ class EMV2PathElementTest extends OsateTest {
 						59.59.assertEquals((ownedValues.head.ownedValue as RealLiteral).value, 0)
 						emv2Path.head.emv2Target => [
 							"connectionErrorSource2".assertEquals(namedElement.name)
-							//Tests scope_EMV2PathElement_namedElement
+							// Tests scope_EMV2PathElement_namedElement
 							assertScope(ErrorModelPackage.eINSTANCE.EMV2PathElement_NamedElement, postSubcomponentScope)
 							path.assertNull
 						]
@@ -2461,25 +2707,32 @@ class EMV2PathElementTest extends OsateTest {
 						60.60.assertEquals((ownedValues.head.ownedValue as RealLiteral).value, 0)
 						emv2Path.head.emv2Target => [
 							"connectionErrorSource2".assertEquals(namedElement.name)
-							//Tests scope_EMV2PathElement_namedElement
+							// Tests scope_EMV2PathElement_namedElement
 							assertScope(ErrorModelPackage.eINSTANCE.EMV2PathElement_NamedElement, postSubcomponentScope)
 							path => [
 								"t1".assertEquals(namedElement.name)
-								//Tests scope_EMV2PathElement_namedElement
-								assertScope(ErrorModelPackage.eINSTANCE.EMV2PathElement_NamedElement, #["t1", "t2",
-									"t3", "t4", "EMV2PropertyAssociation::t1", "EMV2PropertyAssociation::t2",
-									"EMV2PropertyAssociation::t3", "EMV2PropertyAssociation::t4"
+								// Tests scope_EMV2PathElement_namedElement
+								assertScope(ErrorModelPackage.eINSTANCE.EMV2PathElement_NamedElement, #[
+									"t1",
+									"t2",
+									"t3",
+									"t4",
+									"EMV2PropertyAssociation::t1",
+									"EMV2PropertyAssociation::t2",
+									"EMV2PropertyAssociation::t3",
+									"EMV2PropertyAssociation::t4"
 								])
 								path.assertNull
 							]
 						]
 					]
 					properties.get(60) => [
-					assertError(lib1TestResult.issues, lib1IssueCollection, "Property EMV2::ExposurePeriod does not apply to propagationPath1")
+						assertError(lib1TestResult.issues, lib1IssueCollection,
+							"Property EMV2::ExposurePeriod does not apply to propagationPath1")
 						61.61.assertEquals((ownedValues.head.ownedValue as RealLiteral).value, 0)
 						emv2Path.head.emv2Target => [
 							"propagationPath1".assertEquals(namedElement.name)
-							//Tests scope_EMV2PathElement_namedElement
+							// Tests scope_EMV2PathElement_namedElement
 							assertScope(ErrorModelPackage.eINSTANCE.EMV2PathElement_NamedElement, firstElementScope)
 							path.assertNull
 						]
@@ -2488,7 +2741,7 @@ class EMV2PathElementTest extends OsateTest {
 						62.62.assertEquals((ownedValues.head.ownedValue as RealLiteral).value, 0)
 						emv2Path.head.emv2Target => [
 							"propagationPath2".assertEquals(namedElement.name)
-							//Tests scope_EMV2PathElement_namedElement
+							// Tests scope_EMV2PathElement_namedElement
 							assertScope(ErrorModelPackage.eINSTANCE.EMV2PathElement_NamedElement, postSubcomponentScope)
 							path.assertNull
 						]
@@ -2497,7 +2750,7 @@ class EMV2PathElementTest extends OsateTest {
 						63.63.assertEquals((ownedValues.head.ownedValue as RealLiteral).value, 0)
 						emv2Path.head.emv2Target => [
 							"state1".assertEquals(namedElement.name)
-							//Tests scope_EMV2PathElement_namedElement
+							// Tests scope_EMV2PathElement_namedElement
 							assertScope(ErrorModelPackage.eINSTANCE.EMV2PathElement_NamedElement, firstElementScope)
 							path.assertNull
 						]
@@ -2506,14 +2759,20 @@ class EMV2PathElementTest extends OsateTest {
 						64.64.assertEquals((ownedValues.head.ownedValue as RealLiteral).value, 0)
 						emv2Path.head.emv2Target => [
 							"state1".assertEquals(namedElement.name)
-							//Tests scope_EMV2PathElement_namedElement
+							// Tests scope_EMV2PathElement_namedElement
 							assertScope(ErrorModelPackage.eINSTANCE.EMV2PathElement_NamedElement, firstElementScope)
 							path => [
 								"t1".assertEquals(namedElement.name)
-								//Tests scope_EMV2PathElement_namedElement
-								assertScope(ErrorModelPackage.eINSTANCE.EMV2PathElement_NamedElement, #["t1", "t2",
-									"t3", "t4", "EMV2PropertyAssociation::t1", "EMV2PropertyAssociation::t2",
-									"EMV2PropertyAssociation::t3", "EMV2PropertyAssociation::t4"
+								// Tests scope_EMV2PathElement_namedElement
+								assertScope(ErrorModelPackage.eINSTANCE.EMV2PathElement_NamedElement, #[
+									"t1",
+									"t2",
+									"t3",
+									"t4",
+									"EMV2PropertyAssociation::t1",
+									"EMV2PropertyAssociation::t2",
+									"EMV2PropertyAssociation::t3",
+									"EMV2PropertyAssociation::t4"
 								])
 								path.assertNull
 							]
@@ -2523,7 +2782,7 @@ class EMV2PathElementTest extends OsateTest {
 						65.65.assertEquals((ownedValues.head.ownedValue as RealLiteral).value, 0)
 						emv2Path.head.emv2Target => [
 							"state1".assertEquals(namedElement.name)
-							//Tests scope_EMV2PathElement_namedElement
+							// Tests scope_EMV2PathElement_namedElement
 							assertScope(ErrorModelPackage.eINSTANCE.EMV2PathElement_NamedElement, postSubcomponentScope)
 							path.assertNull
 						]
@@ -2532,14 +2791,20 @@ class EMV2PathElementTest extends OsateTest {
 						66.66.assertEquals((ownedValues.head.ownedValue as RealLiteral).value, 0)
 						emv2Path.head.emv2Target => [
 							"state1".assertEquals(namedElement.name)
-							//Tests scope_EMV2PathElement_namedElement
+							// Tests scope_EMV2PathElement_namedElement
 							assertScope(ErrorModelPackage.eINSTANCE.EMV2PathElement_NamedElement, postSubcomponentScope)
 							path => [
 								"t1".assertEquals(namedElement.name)
-								//Tests scope_EMV2PathElement_namedElement
-								assertScope(ErrorModelPackage.eINSTANCE.EMV2PathElement_NamedElement, #["t1", "t2",
-									"t3", "t4", "EMV2PropertyAssociation::t1", "EMV2PropertyAssociation::t2",
-									"EMV2PropertyAssociation::t3", "EMV2PropertyAssociation::t4"
+								// Tests scope_EMV2PathElement_namedElement
+								assertScope(ErrorModelPackage.eINSTANCE.EMV2PathElement_NamedElement, #[
+									"t1",
+									"t2",
+									"t3",
+									"t4",
+									"EMV2PropertyAssociation::t1",
+									"EMV2PropertyAssociation::t2",
+									"EMV2PropertyAssociation::t3",
+									"EMV2PropertyAssociation::t4"
 								])
 								path.assertNull
 							]
