@@ -26,7 +26,6 @@
 
 		<module>../../org.osate.importer</module>
 		<module>../../org.osate.importer.simulink</module>
-		<module>../../org.osate.importer.lattix</module>
 
 		<module>../../org.osate.analysis.binpacking</module>
 		<module>../../org.osate.plugins.feature</module>
