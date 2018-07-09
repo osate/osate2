@@ -204,15 +204,9 @@
               </instanceof>
            </enablement>
         </actionProvider>
-         <commonWizard
-               type="new"
-               wizardId="org.osate.ui.wizards.AadlProjectWizardID">
-            <enablement>
-               <adapt
-                     type="org.eclipse.core.resources.IResource">
-               </adapt>
-            </enablement>
-         </commonWizard>
+        <actionProvider
+              class="org.osate.ui.navigator.NewAadlProjectActionProvider">
+        </actionProvider>
          <commonWizard
                type="new"
                wizardId="org.osate.ui.NewAadlPackageWizard">
