@@ -33,22 +33,26 @@ under the contract clause at 252.227.7013.
  */
 package org.osate.aadl2.instance.textual.tests
 
+import com.google.inject.Inject
 import org.eclipse.xtext.testing.InjectWith
 import org.eclipse.xtext.testing.XtextRunner
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.osate.aadl2.AadlPackage
-import org.osate.aadl2.instance.textual.InstanceUiInjectorProvider
+import org.osate.aadl2.instance.textual.InstanceInjectorProvider
+import org.osate.testsupport.TestHelper
 
 import static extension org.junit.Assert.assertEquals
 
 @RunWith(XtextRunner)
-@InjectWith(InstanceUiInjectorProvider)
+@InjectWith(InstanceInjectorProvider)
 class Serializer1Test extends AbstractSerializerTest {
+	@Inject
+	TestHelper<AadlPackage> testHelper
+	
 	@Test
 	def void testEmptyInstance() {
-		val pkg1FileName = "pkg1.aadl"
-		createFiles(pkg1FileName -> '''
+		val pkg1 = testHelper.parseString('''
 			package pkg1
 			public
 				system s
@@ -58,8 +62,7 @@ class Serializer1Test extends AbstractSerializerTest {
 				end s.i;
 			end pkg1;
 		''')
-		suppressSerialization
-		assertSerialize(testFile(pkg1FileName).resource.contents.head as AadlPackage, "s.i", '''
+		assertSerialize(pkg1, "s.i", '''
 			system s_i_Instance : pkg1::s.i {
 				som "No Modes"
 			}''')
@@ -67,8 +70,7 @@ class Serializer1Test extends AbstractSerializerTest {
 	
 	@Test
 	def void testSubcomponents() {
-		val pkg1FileName = "pkg1.aadl"
-		createFiles(pkg1FileName -> '''
+		val pkg1 = testHelper.parseString('''
 			package pkg1
 			public
 				system s
@@ -105,8 +107,7 @@ class Serializer1Test extends AbstractSerializerTest {
 				end s.i4;
 			end pkg1;
 		''')
-		suppressSerialization
-		testFile(pkg1FileName).resource.contents.head as AadlPackage => [
+		pkg1 => [
 			"pkg1".assertEquals(name)
 			assertSerialize("s.i1", '''
 				system s_i1_Instance : pkg1::s.i1 {
@@ -137,8 +138,7 @@ class Serializer1Test extends AbstractSerializerTest {
 	
 	@Test
 	def void testNestedPackage() {
-		val pkg1FileName = "a-b-c-d.aadl"
-		createFiles(pkg1FileName -> '''
+		val abcd = testHelper.parseString('''
 			package a::b::c::d
 			public
 				system s
@@ -150,8 +150,7 @@ class Serializer1Test extends AbstractSerializerTest {
 				end s.i;
 			end a::b::c::d;
 		''')
-		suppressSerialization
-		assertSerialize(testFile(pkg1FileName).resource.contents.head as AadlPackage, "s.i", '''
+		assertSerialize(abcd, "s.i", '''
 			system s_i_Instance : a::b::c::d::s.i {
 				abstract aSub [ 0 ] : a::b::c::d::s.i:aSub
 				som "No Modes"
@@ -160,8 +159,7 @@ class Serializer1Test extends AbstractSerializerTest {
 	
 	@Test
 	def void testFeatures() {
-		val pkg1FileName = "pkg1.aadl"
-		createFiles(pkg1FileName -> '''
+		val pkg1 = testHelper.parseString('''
 			package pkg1
 			public
 				feature group fgt1
@@ -226,8 +224,7 @@ class Serializer1Test extends AbstractSerializerTest {
 				end s2.i;
 			end pkg1;
 		''')
-		suppressSerialization
-		testFile(pkg1FileName).resource.contents.head as AadlPackage => [
+		pkg1 => [
 			"pkg1".assertEquals(name)
 			assertSerialize("s1.i", '''
 				system s1_i_Instance : pkg1::s1.i {
@@ -281,8 +278,7 @@ class Serializer1Test extends AbstractSerializerTest {
 	
 	@Test
 	def void testSimpleAcrossConnection() {
-		val pkg1FileName = "pkg1.aadl"
-		createFiles(pkg1FileName -> '''
+		val pkg1 = testHelper.parseString('''
 			package pkg1
 			public
 				system s
@@ -308,8 +304,7 @@ class Serializer1Test extends AbstractSerializerTest {
 				end dev2;
 			end pkg1;
 		''')
-		suppressSerialization
-		assertSerialize(testFile(pkg1FileName).resource.contents.head as AadlPackage, "s.i", '''
+		assertSerialize(pkg1, "s.i", '''
 			system s_i_Instance : pkg1::s.i {
 				device pkg1::dev1 sub1 [ 0 ] : pkg1::s.i:sub1 {
 					out dataPort op : pkg1::dev1:op
@@ -329,8 +324,7 @@ class Serializer1Test extends AbstractSerializerTest {
 	
 	@Test
 	def void testAcrossToComponentConnection() {
-		val pkg1FileName = "pkg1.aadl"
-		createFiles(pkg1FileName -> '''
+		val pkg1 = testHelper.parseString('''
 			package pkg1
 			public
 				processor p
@@ -350,8 +344,7 @@ class Serializer1Test extends AbstractSerializerTest {
 				end s.i;
 			end pkg1;
 		''')
-		suppressSerialization
-		assertSerialize(testFile(pkg1FileName).resource.contents.head as AadlPackage, "s.i", '''
+		assertSerialize(pkg1, "s.i", '''
 			system s_i_Instance : pkg1::s.i {
 				bus b [ 0 ] : pkg1::s.i:b
 				processor pkg1::p psub [ 0 ] : pkg1::s.i:psub {
@@ -366,8 +359,7 @@ class Serializer1Test extends AbstractSerializerTest {
 	
 	@Test
 	def void testUpAndDownAndAcrossConnection() {
-		val pkg1FileName = "pkg1.aadl"
-		createFiles(pkg1FileName -> '''
+		val pkg1 = testHelper.parseString('''
 			package pkg1
 			public
 				thread t1
@@ -416,8 +408,7 @@ class Serializer1Test extends AbstractSerializerTest {
 				end s.i;
 			end pkg1;
 		''')
-		suppressSerialization
-		assertSerialize(testFile(pkg1FileName).resource.contents.head as AadlPackage, "s.i", '''
+		assertSerialize(pkg1, "s.i", '''
 			system s_i_Instance : pkg1::s.i {
 				process pkg1::p1.i p1sub [ 0 ] : pkg1::s.i:p1sub {
 					out dataPort op : pkg1::p1:op
@@ -442,8 +433,7 @@ class Serializer1Test extends AbstractSerializerTest {
 	
 	@Test
 	def void testUpAndDownConnections() {
-		val pkg1FileName = "pkg1.aadl"
-		createFiles(pkg1FileName -> '''
+		val pkg1 = testHelper.parseString('''
 			package pkg1
 			public
 				process p
@@ -467,8 +457,7 @@ class Serializer1Test extends AbstractSerializerTest {
 				end s.i;
 			end pkg1;
 		''')
-		suppressSerialization
-		assertSerialize(testFile(pkg1FileName).resource.contents.head as AadlPackage, "s.i", '''
+		assertSerialize(pkg1, "s.i", '''
 			system s_i_Instance : pkg1::s.i {
 				in dataPort ip : pkg1::s:ip
 				out dataPort op : pkg1::s:op
@@ -488,8 +477,7 @@ class Serializer1Test extends AbstractSerializerTest {
 	
 	@Test
 	def void testConnectionInSubcomponent() {
-		val pkg1FileName = "pkg1.aadl"
-		createFiles(pkg1FileName -> '''
+		val pkg1 = testHelper.parseString('''
 			package pkg1
 			public
 				thread t1
@@ -522,8 +510,7 @@ class Serializer1Test extends AbstractSerializerTest {
 				end s.i;
 			end pkg1;
 		''')
-		suppressSerialization
-		assertSerialize(testFile(pkg1FileName).resource.contents.head as AadlPackage, "s.i", '''
+		assertSerialize(pkg1, "s.i", '''
 			system s_i_Instance : pkg1::s.i {
 				process pkg1::p.i psub [ 0 ] : pkg1::s.i:psub {
 					thread pkg1::t1 t1sub [ 0 ] : pkg1::p.i:t1sub {
@@ -542,8 +529,7 @@ class Serializer1Test extends AbstractSerializerTest {
 	
 	@Test
 	def void testConnectionKinds() {
-		val pkg1FileName = "pkg1.aadl"
-		createFiles(pkg1FileName -> '''
+		val pkg1 = testHelper.parseString('''
 			package pkg1
 			public
 				abstract a1
@@ -577,8 +563,7 @@ class Serializer1Test extends AbstractSerializerTest {
 				end top.i;
 			end pkg1;
 		''')
-		suppressSerialization
-		assertSerialize(testFile(pkg1FileName).resource.contents.head as AadlPackage, "top.i", '''
+		assertSerialize(pkg1, "top.i", '''
 			abstract top_i_Instance : pkg1::top.i {
 				abstract pkg1::a1 a1sub [ 0 ] : pkg1::top.i:a1sub {
 					in out featureGroup fg1 : pkg1::a1:fg1
@@ -610,8 +595,7 @@ class Serializer1Test extends AbstractSerializerTest {
 	
 	@Test
 	def void testFeatureGroupConnections() {
-		val pkg1FileName = "pkg1.aadl"
-		createFiles(pkg1FileName -> '''
+		val pkg1 = testHelper.parseString('''
 			package pkg1
 			public
 				feature group fgt1
@@ -683,8 +667,7 @@ class Serializer1Test extends AbstractSerializerTest {
 				end s.i;
 			end pkg1;
 		''')
-		suppressSerialization
-		assertSerialize(testFile(pkg1FileName).resource.contents.head as AadlPackage, "s.i", '''
+		assertSerialize(pkg1, "s.i", '''
 			system s_i_Instance : pkg1::s.i {
 				process pkg1::p1.i p1sub [ 0 ] : pkg1::s.i:p1sub {
 					in out featureGroup fg4 : pkg1::p1:fg4 {
@@ -744,8 +727,7 @@ class Serializer1Test extends AbstractSerializerTest {
 	
 	@Test
 	def void testFlowSpecification() {
-		val pkg1FileName = "pkg1.aadl"
-		createFiles(pkg1FileName -> '''
+		val pkg1 = testHelper.parseString('''
 			package pkg1
 			public
 				system s
@@ -791,8 +773,7 @@ class Serializer1Test extends AbstractSerializerTest {
 				end s2;
 			end pkg1;
 		''')
-		suppressSerialization
-		assertSerialize(testFile(pkg1FileName).resource.contents.head as AadlPackage, "s.i", '''
+		assertSerialize(pkg1, "s.i", '''
 			system s_i_Instance : pkg1::s.i {
 				in out featureGroup fg1 : pkg1::s:fg1 {
 					in dataPort p4 : pkg1::fgt1:p4
