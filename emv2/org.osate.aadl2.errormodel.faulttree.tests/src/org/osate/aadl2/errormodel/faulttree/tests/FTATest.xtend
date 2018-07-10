@@ -809,6 +809,18 @@ class FTATest extends OsateTest {
 		assertEquals(ft.events.size, 5)
 		assertEquals(ft.root.subEvents.size, 2)
 		val sube1 = ft.root.subEvents.get(0)
+		assertEquals(ft.root.computedProbability, 5.0e-8, 1.0e-12)
+		assertEquals(sube1.computedProbability, 2.5e-15, 1.0e-17)
+		assertEquals(sube1.scale, 0.6, 0.001)
+	}
+		@Test
+	def void allTransitionBranchCutSetTest() {
+	val stateFailStop = "state FailStop"
+		val ft = CreateFTAModel.createMinimalCutSet(instanceTransitionBranch, stateFailStop)
+		assertEquals(ft.events.size, 6)
+		assertEquals(ft.root.subEvents.size, 2)
+		val sube1 = ft.root.subEvents.get(0)
+		assertEquals(ft.root.computedProbability, 5.0e-8, 1.0e-12)
 		assertEquals(sube1.computedProbability, 2.5e-15, 1.0e-17)
 		assertEquals(sube1.scale, 0.6, 0.001)
 	}
