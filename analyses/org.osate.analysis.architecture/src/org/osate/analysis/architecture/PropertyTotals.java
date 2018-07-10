@@ -88,10 +88,10 @@ public/* final */class PropertyTotals extends AadlProcessingSwitchWithProgress {
 	}
 
 	public final double getWeight(ComponentInstance ci) {
-		return calcWeight(ci, true, "");
+		return calcWeight(ci, true);
 	}
 
-	private double calcWeight(ComponentInstance ci, boolean needWeight, String indent) {
+	private double calcWeight(ComponentInstance ci, boolean needWeight) {
 
 		double net = GetProperties.getNetWeight(ci, 0.0);
 		double weight = 0.0;
@@ -102,7 +102,7 @@ public/* final */class PropertyTotals extends AadlProcessingSwitchWithProgress {
 			ComponentCategory subcat = subi.getCategory();
 			if (!(subcat.equals(ComponentCategory.PROCESS) || subcat.equals(ComponentCategory.VIRTUAL_BUS)
 					|| subcat.equals(ComponentCategory.VIRTUAL_PROCESSOR))) {
-				double subweight = calcWeight(subi, (needWeight && (gross == 0.0 || net > 0.0)), indent + " ");
+				double subweight = calcWeight(subi, (needWeight && (gross == 0.0 || net > 0.0)));
 				weight += subweight;
 				sublimit += GetProperties.getWeightLimit(subi, 0.0);
 			}
