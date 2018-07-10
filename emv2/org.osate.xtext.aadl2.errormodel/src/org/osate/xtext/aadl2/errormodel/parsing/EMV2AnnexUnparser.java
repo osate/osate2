@@ -10,7 +10,7 @@ import org.osate.annexsupport.AnnexUnparser;
 import com.google.inject.Inject;
 import com.google.inject.Injector;
 
-class EMV2AnnexUnparser implements AnnexUnparser {
+public class EMV2AnnexUnparser implements AnnexUnparser {
 	@Inject
 	ISerializer serializer;
 
