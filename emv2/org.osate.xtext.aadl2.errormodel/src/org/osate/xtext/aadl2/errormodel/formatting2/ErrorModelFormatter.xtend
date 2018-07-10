@@ -326,6 +326,10 @@ class ErrorModelFormatter extends PropertiesFormatter {
 
 	// Grammar rules: ErrorModelLibrary and EMV2Library
 	def dispatch void format(ErrorModelLibrary errorModelLibrary, extension IFormattableDocument document) {
+		if (errorModelLibrary.regionForEObject === null) {
+			return
+		}
+
 		errorModelLibrary.surround[noSpace]
 
 		// Library line
