@@ -378,7 +378,9 @@ public class FaultTreeUtils {
 				opcontext = " on type set " + EMV2Util.getPrintName((TypeSet) type);
 			} else
 			if (errorModelArtifact instanceof ErrorBehaviorTransition) {
-				opcontext = " in transition " + EMV2Util.getName(errorModelArtifact);
+				String branch = ((ErrorBehaviorTransition) errorModelArtifact).getDestinationBranches().isEmpty() ? ""
+						: "branch ";
+				opcontext = " in transition " + branch + EMV2Util.getName(errorModelArtifact);
 			} else if (errorModelArtifact instanceof OutgoingPropagationCondition) {
 				opcontext = " in outgoing propagation condition " + EMV2Util.getName(errorModelArtifact);
 			} else if (errorModelArtifact instanceof ErrorDetection) {
