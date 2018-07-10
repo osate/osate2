@@ -302,6 +302,7 @@ public class FTAGenerator extends PropagationGraphBackwardTraversal {
 			return rootevent;
 		}
 		List<Event> toAdd = new LinkedList<Event>();
+		// alternatives : collection of minimal cutsets
 		Event alternatives = FaultTreeUtils.createUniqueIntermediateEvent(ftaModel,
 				(ComponentInstance) rootevent.getRelatedInstanceObject(),
 				rootevent.getRelatedEMV2Object(), (ErrorTypes) rootevent.getRelatedErrorType());
@@ -315,11 +316,13 @@ public class FTAGenerator extends PropagationGraphBackwardTraversal {
 				|| rootevent.getSubEventLogic() == LogicOperation.KORMORE
 				|| rootevent.getType() == EventType.INTERMEDIATE) {
 			for (Event alt : rootevent.getSubEvents()) {
+				// if top-level is OR, XOR, KORMORE each of the sub-events become the starting point of a cutset
 				Event alternative = FaultTreeUtils.createUniqueIntermediateEvent(ftaModel,
 						(ComponentInstance) rootevent.getRelatedInstanceObject(),
 						rootevent.getRelatedEMV2Object(), (ErrorTypes) rootevent.getRelatedErrorType());
 				alternative.setSubEventLogic(LogicOperation.AND);
 				toAdd.add(alternative);
+				// normalize each of the subevents
 				normalizeEvent(alt, toAdd);
 				for (Event addMe : toAdd) {
 					addAsMinimalAndSet(alternatives, addMe);
@@ -328,6 +331,7 @@ public class FTAGenerator extends PropagationGraphBackwardTraversal {
 			}
 		} else if (rootevent.getSubEventLogic() == LogicOperation.AND
 				|| rootevent.getSubEventLogic() == LogicOperation.PRIORITY_AND) {
+			// in case of AND or P-AND we take the root as starting point
 			Event alternative = FaultTreeUtils.createUniqueIntermediateEvent(ftaModel,
 					(ComponentInstance) rootevent.getRelatedInstanceObject(),
 					rootevent.getRelatedEMV2Object(), (ErrorTypes) rootevent.getRelatedErrorType());
@@ -345,19 +349,33 @@ public class FTAGenerator extends PropagationGraphBackwardTraversal {
 		return alternatives;
 	}
 
+	/**
+	 * event as starting point turn everything into alternatives of ANDed events
+	 * the resulting alternatives are added to the list of alternatives
+	 * @param event
+	 * @param alternatives
+	 */
 	private void normalizeEvent(Event event, List<Event> alternatives) {
+		for (Event alternative : alternatives) {
+			if (event.getScale() < 1.0) {
+				alternative.setScale(alternative.getScale() * event.getScale());
+			}
+		}
 		if (event.getSubEvents().isEmpty()) {
+			// add the leaf event to all alternatives
 			for (Event alternative : alternatives) {
 				alternative.getSubEvents().add(event);
 			}
 			return;
 		}
 		if (event.getSubEventLogic() == LogicOperation.AND || event.getSubEventLogic() == LogicOperation.PRIORITY_AND) {
+			// in case of AND normalize each sub-event (adding it or its normalized collection)
 			for (Event subevent : event.getSubEvents()) {
 				normalizeEvent(subevent, alternatives);
 			}
 		} else if (event.getSubEventLogic() == LogicOperation.OR || event.getSubEventLogic() == LogicOperation.XOR
 				|| event.getSubEventLogic() == LogicOperation.KORMORE) {
+			// for each sub-event of OR etc create a separate alternative
 			List<Event> origalts = FaultTreeUtils.copy(ftaModel, alternatives);
 			boolean first = true;
 			for (Event subevent : event.getSubEvents()) {
