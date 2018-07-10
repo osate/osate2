@@ -277,18 +277,14 @@ public class FaultTreeUtils {
 		return e1.getName().equalsIgnoreCase(e2.getName());
 	}
 
-	public static void fillProbability(Event event, double scale) {
+	public static void fillProbability(Event event) {
 		if (!(event.getRelatedEMV2Object() instanceof NamedElement)) {
 			return;
 		}
 		InstanceObject io = (InstanceObject) event.getRelatedInstanceObject();
 		NamedElement ne = (NamedElement) event.getRelatedEMV2Object();
 		ErrorTypes type = (ErrorTypes) event.getRelatedErrorType();
-		event.setAssignedProbability(EMV2Properties.getProbability(io, ne, type) * scale);
-	}
-
-	public static void fillProbability(Event event) {
-		fillProbability(event, 1);
+		event.setAssignedProbability(EMV2Properties.getProbability(io, ne, type));
 	}
 
 	public static String getName(ComponentInstance component) {
@@ -537,7 +533,7 @@ public class FaultTreeUtils {
 			case AND: {
 				result = 1;
 				for (Event subEvent : event.getSubEvents()) {
-					result = result * subEvent.getProbability();
+					result = result * getScaledProbability(subEvent);
 				}
 				break;
 			}
@@ -545,14 +541,14 @@ public class FaultTreeUtils {
 				// TODO need to adjust for ordered events
 				result = 1;
 				for (Event subEvent : event.getSubEvents()) {
-					result = result * subEvent.getProbability();
+					result = result * getScaledProbability(subEvent);
 				}
 				break;
 			}
 			case XOR: {
 				double inverseProb = 1;
 				for (Event subEvent : event.getSubEvents()) {
-					inverseProb *= (1 - subEvent.getProbability());
+					inverseProb *= (1 - getScaledProbability(subEvent));
 				}
 				result = 1 - inverseProb;
 				break;
@@ -560,7 +556,7 @@ public class FaultTreeUtils {
 			case OR: {
 				result = 0;
 				for (Event subEvent : event.getSubEvents()) {
-					result = result + subEvent.getProbability();
+					result = result + getScaledProbability(subEvent);
 				}
 				break;
 			}
@@ -571,9 +567,13 @@ public class FaultTreeUtils {
 			}
 			}
 		} else {
-			result = event.getProbability();
+			result = getScaledProbability(event);
 		}
 		return result;
+	}
+
+	public static double getScaledProbability(Event event) {
+		return event.getProbability() * event.getScale();
 	}
 
 	public static void fillProbabilities(FaultTree ftaModel) {
