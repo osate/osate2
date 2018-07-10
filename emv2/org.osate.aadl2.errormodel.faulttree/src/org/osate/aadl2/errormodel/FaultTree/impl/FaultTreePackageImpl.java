@@ -305,6 +305,15 @@ public class FaultTreePackageImpl extends EPackageImpl implements FaultTreePacka
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EAttribute getEvent_Scale() {
+		return (EAttribute)eventEClass.getEStructuralFeatures().get(13);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EOperation getEvent__GetProbability() {
 		return eventEClass.getEOperations().get(0);
 	}
@@ -395,6 +404,7 @@ public class FaultTreePackageImpl extends EPackageImpl implements FaultTreePacka
 		createEAttribute(eventEClass, EVENT__SUB_EVENT_LOGIC);
 		createEReference(eventEClass, EVENT__RELATED_EMV2_OBJECT);
 		createEAttribute(eventEClass, EVENT__SHARED_EVENT);
+		createEAttribute(eventEClass, EVENT__SCALE);
 		createEOperation(eventEClass, EVENT___GET_PROBABILITY);
 
 		// Create enums
@@ -455,6 +465,7 @@ public class FaultTreePackageImpl extends EPackageImpl implements FaultTreePacka
 		initEAttribute(getEvent_SubEventLogic(), this.getLogicOperation(), "subEventLogic", null, 0, 1, Event.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getEvent_RelatedEMV2Object(), ecorePackage.getEObject(), null, "relatedEMV2Object", null, 0, 1, Event.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getEvent_SharedEvent(), ecorePackage.getEBoolean(), "sharedEvent", "false", 0, 1, Event.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getEvent_Scale(), ecorePackage.getEDouble(), "scale", "1.0", 0, 1, Event.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEOperation(getEvent__GetProbability(), ecorePackage.getEDouble(), "getProbability", 0, 1, IS_UNIQUE, IS_ORDERED);
 

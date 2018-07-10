@@ -962,26 +962,33 @@ public class FTAGenerator extends PropagationGraphBackwardTraversal {
 	@Override
 	protected EObject processErrorEvent(ComponentInstance component, ErrorEvent errorEvent, ErrorTypes type,
 			double scale) {
-		Event emftaEvent = FaultTreeUtils.createBasicEvent(ftaModel, component, errorEvent, type);
-		return emftaEvent;
+		Event ftaEvent = FaultTreeUtils.createBasicEvent(ftaModel, component, errorEvent, type);
+		ftaEvent.setScale(scale);
+		return ftaEvent;
 	}
 
 	@Override
 	protected EObject postProcessAnd(ComponentInstance component, Element condition, ErrorTypes type,
 			double scale, List<EObject> subResults) {
-		return finalizeAsAndEvents(component, condition, type, subResults);
+		Event ftaEvent = finalizeAsAndEvents(component, condition, type, subResults);
+		ftaEvent.setScale(scale);
+		return ftaEvent;
 	}
 
 	@Override
 	protected EObject postProcessXor(ComponentInstance component, Element condition, ErrorTypes type,
 			double scale, List<EObject> subResults) {
-		return finalizeAsXOrEvents(component, condition, type, subResults);
+		Event ftaEvent = finalizeAsXOrEvents(component, condition, type, subResults);
+		ftaEvent.setScale(scale);
+		return ftaEvent;
 	}
 
 	@Override
 	protected EObject postProcessOr(ComponentInstance component, Element condition, ErrorTypes type,
 			double scale, List<EObject> subResults) {
-		return finalizeAsOrEvents(component, condition, type, subResults);
+		Event ftaEvent = finalizeAsOrEvents(component, condition, type, subResults);
+		ftaEvent.setScale(scale);
+		return ftaEvent;
 	}
 
 	@Override
