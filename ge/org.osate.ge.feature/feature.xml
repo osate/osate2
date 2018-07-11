@@ -2,7 +2,7 @@
 <feature
       id="org.osate.ge.feature"
       label="Open Source AADL Tool Environment Graphical Editor"
-      version="2.3.4.qualifier"
+      version="2.3.4.vfinal"
       plugin="org.osate.ge">
 
    <description>
