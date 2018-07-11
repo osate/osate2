@@ -2573,6 +2573,8 @@ ruleThisKeyword returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleTok
 
 
 
+
+
 fragment RULE_EXPONENT : ('e'|'E') ('+'|'-')? RULE_DIGIT+;
 
 fragment RULE_INT_EXPONENT : ('e'|'E') '+'? RULE_DIGIT+;

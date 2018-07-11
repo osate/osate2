@@ -43,10 +43,10 @@ import org.osate.verify.verify.FormalParameter
 import org.osate.verify.verify.JavaMethod
 import org.osate.verify.verify.JavaParameter
 import org.osate.verify.verify.PluginMethod
-import org.osate.verify.verify.TargetType
 import org.osate.verify.verify.VerificationMethod
 
 import static extension org.osate.verify.analysisplugins.AnalysisPluginInterface.*
+import org.osate.alisa.common.common.TargetType
 
 class VerificationMethodDispatchers {
 
@@ -61,10 +61,11 @@ class VerificationMethodDispatchers {
 	def Object dispatchVerificationMethod(PluginMethod vm, InstanceObject target, List<PropertyExpression> parameters) {
 		switch (vm.methodID) {
 			case "FlowLatencyAnalysis",
+			case "FlowLatencyAnalysisParameterized",
 			case "MaxFlowLatencyAnalysis",
 			case "MinFlowLatencyAnalysis",
 			case "FlowLatencyJitterAnalysis":
-				if(target === null) true else target.flowLatencyAnalysis(parameters.map[p|(p as StringLiteral).value])
+				if(target === null) true else target.flowLatencyAnalysis(parameters.map[p|(p as BooleanLiteral).isValue])
 			case "A429Consistency":
 				if(target === null) true else target.A429Consistency
 			case "ConnectionBindingConsistency":

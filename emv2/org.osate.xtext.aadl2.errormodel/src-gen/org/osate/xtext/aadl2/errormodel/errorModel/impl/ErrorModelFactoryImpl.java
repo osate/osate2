@@ -83,6 +83,7 @@ public class ErrorModelFactoryImpl extends EFactoryImpl implements ErrorModelFac
       case ErrorModelPackage.ERROR_SOURCE: return createErrorSource();
       case ErrorModelPackage.ERROR_SINK: return createErrorSink();
       case ErrorModelPackage.ERROR_PATH: return createErrorPath();
+      case ErrorModelPackage.IF_CONDITION: return createIfCondition();
       case ErrorModelPackage.PROPAGATION_POINT: return createPropagationPoint();
       case ErrorModelPackage.PROPAGATION_PATH: return createPropagationPath();
       case ErrorModelPackage.QUALIFIED_PROPAGATION_POINT: return createQualifiedPropagationPoint();
@@ -326,6 +327,17 @@ public class ErrorModelFactoryImpl extends EFactoryImpl implements ErrorModelFac
   {
     ErrorPathImpl errorPath = new ErrorPathImpl();
     return errorPath;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public IfCondition createIfCondition()
+  {
+    IfConditionImpl ifCondition = new IfConditionImpl();
+    return ifCondition;
   }
 
   /**

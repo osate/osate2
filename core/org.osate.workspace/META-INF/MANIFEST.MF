@@ -33,3 +33,4 @@ Export-Package: antlr,
    org.osgi.framework"
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Import-Package: org.eclipse.xtext.ui.containers
+Automatic-Module-Name: org.osate.workspace

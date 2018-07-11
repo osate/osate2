@@ -31,3 +31,4 @@ Export-Package: org.osate.reqspec.ui.quickfix,
  org.osate.reqspec.ui.contentassist.antlr,
  org.osate.reqspec.ui.internal
 Bundle-Activator: org.osate.reqspec.ui.internal.ReqSpecActivator
+Automatic-Module-Name: org.osate.reqspec.ui

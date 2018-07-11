@@ -30,8 +30,6 @@ import org.eclipse.xtext.parser.antlr.Lexer;
 
 Requirements : 'requirements';
 
-Connections : 'connections';
-
 Description : 'description';
 
 Development : 'development';
@@ -42,6 +40,8 @@ Stakeholder : 'stakeholder';
 
 Uncertainty : 'uncertainty';
 
+Connection : 'connection';
+
 Decomposes : 'decomposes';
 
 Precedence : 'precedence';
@@ -49,6 +49,8 @@ Precedence : 'precedence';
 Subprogram : 'subprogram';
 
 Volatility : 'volatility';
+
+Component : 'component';
 
 Conflicts : 'conflicts';
 
@@ -81,6 +83,8 @@ Dropped : 'dropped';
 Element : 'element';
 
 Evolves : 'evolves';
+
+Feature : 'feature';
 
 Include : 'include';
 
@@ -138,11 +142,15 @@ Data : 'data';
 
 Else : 'else';
 
+Flow : 'flow';
+
 Goal : 'goal';
 
 Mode : 'mode';
 
 Real : 'real';
+
+Root : 'root';
 
 Self : 'self';
 

@@ -11,3 +11,4 @@ Export-Package: org.osate.branding
 Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.ui
 Bundle-ActivationPolicy: lazy
+Automatic-Module-Name: org.osate.branding

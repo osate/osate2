@@ -15,3 +15,4 @@ Require-Bundle: org.eclipse.core.runtime,
  org.osate.aadl2.edit;visibility:=reexport,
  org.osate.ba;bundle-version="1.0.0";visibility:=reexport
 Bundle-ActivationPolicy: lazy
+Automatic-Module-Name: org.osate.ba.edit

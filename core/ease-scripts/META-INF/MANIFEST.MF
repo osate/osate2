@@ -6,3 +6,4 @@ Bundle-Version: 1.0.0.qualifier
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Require-Bundle: org.eclipse.swtbot.eclipse.finder;bundle-version="2.3.0"
 Bundle-Vendor: CMU/SEI
+Automatic-Module-Name: ease-scripts

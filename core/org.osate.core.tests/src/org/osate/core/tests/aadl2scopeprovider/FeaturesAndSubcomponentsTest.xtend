@@ -34,6 +34,8 @@
  */
 package org.osate.core.tests.aadl2scopeprovider
 
+import com.google.inject.Inject
+import com.itemis.xtext.testing.XtextTest
 import org.eclipse.xtext.testing.InjectWith
 import org.eclipse.xtext.testing.XtextRunner
 import org.junit.Test
@@ -44,14 +46,22 @@ import org.osate.aadl2.AbstractImplementation
 import org.osate.aadl2.AbstractType
 import org.osate.aadl2.FeatureGroupType
 import org.osate.aadl2.SubprogramType
-import org.osate.core.test.Aadl2UiInjectorProvider
-import org.osate.core.test.OsateTest
+import org.osate.testsupport.Aadl2InjectorProvider
+import org.osate.testsupport.AssertHelper
+import org.osate.testsupport.TestHelper
 
 import static extension org.junit.Assert.assertEquals
 
 @RunWith(XtextRunner)
-@InjectWith(Aadl2UiInjectorProvider)
-class FeaturesAndSubcomponentsTest extends OsateTest {
+@InjectWith(Aadl2InjectorProvider)
+class FeaturesAndSubcomponentsTest extends XtextTest {
+	
+	@Inject
+	TestHelper<AadlPackage> testHelper
+	
+	@Inject
+	extension AssertHelper
+	
 	/*
 	 * Tests scope_AbstractSubcomponent_abstractSubcomponentType, scope_SystemSubcomponent_systemSubcomponentType,
 	 * scope_ProcessSubcomponent_processSubcomponentType, scope_ThreadGroupSubcomponent_threadGroupSubcomponentType,
@@ -66,8 +76,7 @@ class FeaturesAndSubcomponentsTest extends OsateTest {
 	 */
 	 @Test
 	def void testFeaturesAndSubcomponents() {
-		createFiles(
-			"pack1.aadl" -> '''
+		val pack1 = '''
 				package pack1
 				public
 				  with pack5;
@@ -293,8 +302,8 @@ class FeaturesAndSubcomponentsTest extends OsateTest {
 				  feature group fgt1
 				  end fgt1;
 				end pack1;
-			''',
-			"pack2.aadl" -> '''
+			'''
+		val pack2 = '''
 				package pack2
 				public
 				  abstract a2
@@ -384,8 +393,8 @@ class FeaturesAndSubcomponentsTest extends OsateTest {
 				  feature group fgt2
 				  end fgt2;
 				end pack2;
-			''',
-			"pack3.aadl" -> '''
+			'''
+		val pack3 = '''
 				package pack3
 				public
 				  abstract a3
@@ -475,8 +484,8 @@ class FeaturesAndSubcomponentsTest extends OsateTest {
 				  feature group fgt3
 				  end fgt3;
 				end pack3;
-			''',
-			"pack4.aadl" -> '''
+			'''
+		val pack4 = '''
 				package pack4
 				public
 				  abstract a4
@@ -566,8 +575,8 @@ class FeaturesAndSubcomponentsTest extends OsateTest {
 				  feature group fgt4
 				  end fgt4;
 				end pack4;
-			''',
-			"pack5.aadl" -> '''
+			'''
+		val pack5 = '''
 				package pack5
 				public
 				  abstract a5
@@ -703,13 +712,8 @@ class FeaturesAndSubcomponentsTest extends OsateTest {
 				  end fgt6;
 				end pack5;
 			'''
-		)
-		suppressSerialization
-		testFile("pack2.aadl")
-		testFile("pack3.aadl")
-		testFile("pack4.aadl")
-		testFile("pack5.aadl")
-		testFile("pack1.aadl").resource.contents.head as AadlPackage => [
+		val pkg = testHelper.parseString(pack1, pack2, pack3, pack4, pack5)
+		pkg => [
 			"pack1".assertEquals(name)
 			publicSection.ownedClassifiers.get(0) as AbstractType => [
 				"container".assertEquals(name)

@@ -6,18 +6,21 @@ import org.eclipse.xtext.testing.XtextRunner
 import org.eclipse.xtext.testing.validation.ValidationTestHelper
 import org.junit.Test
 import org.junit.runner.RunWith
-import org.osate.core.test.Aadl2UiInjectorProvider
-import org.osate.core.test.OsateTest
+import org.osate.aadl2.AadlPackage
+import org.osate.testsupport.Aadl2InjectorProvider
+import org.osate.testsupport.TestHelper
 
 @RunWith(XtextRunner)
-@InjectWith(Aadl2UiInjectorProvider)
-class Issue833Test extends OsateTest {
+@InjectWith(Aadl2InjectorProvider)
+class Issue833Test {
 	@Inject extension ValidationTestHelper
+	
+	@Inject
+	TestHelper<AadlPackage> testHelper
 	
 	@Test
 	def void issue833() {
-		val bindingPropertiesFileName = "binding_properties.aadl"
-		createFiles(bindingPropertiesFileName -> '''
+		val bindingProperties = '''
 			package binding_properties
 			public
 				processor cpu1
@@ -32,8 +35,7 @@ class Issue833Test extends OsateTest {
 						Period => 20ms in binding(cpu2);
 				end a;
 			end binding_properties;
-		''')
-		suppressSerialization
-		testFile(bindingPropertiesFileName).resource.contents.head.assertNoIssues
+		'''
+		testHelper.parseString(bindingProperties).assertNoIssues
 	}
 }

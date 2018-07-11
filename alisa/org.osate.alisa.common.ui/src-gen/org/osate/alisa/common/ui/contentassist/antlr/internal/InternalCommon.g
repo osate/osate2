@@ -1292,6 +1292,8 @@ finally {
 
 
 
+
+
 rule__DescriptionElement__Alternatives
     @init {
 		int stackSize = keepStackSize();
@@ -1803,6 +1805,7 @@ rule__ABooleanLiteral__Alternatives_1
 finally {
 	restoreStackSize(stackSize);
 }
+
 
 
 

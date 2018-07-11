@@ -33,29 +33,38 @@ under the contract clause at 252.227.7013.
  */
 package org.osate.aadl2.instance.textual.tests
 
-import com.google.inject.Inject
-import org.eclipse.xtext.resource.FileExtensionProvider
+import com.google.inject.Injector
+import org.eclipse.emf.common.util.URI
+import org.eclipse.xtext.resource.IResourceServiceProvider
 import org.eclipse.xtext.serializer.ISerializer
+import org.eclipse.xtext.testing.util.ParseHelper
+import org.eclipse.xtext.testing.validation.ValidationTestHelper
 import org.osate.aadl2.AadlPackage
 import org.osate.aadl2.ComponentImplementation
-import org.osate.core.test.OsateTest
+import org.osate.aadl2.instance.SystemInstance
 
 import static extension org.junit.Assert.assertEquals
 import static extension org.junit.Assert.assertNotNull
-import static extension org.osate.aadl2.instantiation.InstantiateModel.buildInstanceModelFile
+import static extension org.osate.aadl2.instantiation.InstantiateModel.instantiate
 
-abstract class AbstractSerializerTest extends OsateTest {
-	@Inject
-	extension ISerializer
-	@Inject
-	FileExtensionProvider extensionProvider
+abstract class AbstractSerializerTest {
+	val extension ISerializer serializer
+	val ParseHelper<SystemInstance> instanceParseHelper
+	val extension ValidationTestHelper validationTestHelper
+	
+	new() {
+		val uri = URI.createFileURI("fake.instance")
+		val instanceProvider = IResourceServiceProvider.Registry.INSTANCE.getResourceServiceProvider(uri)
+		serializer = instanceProvider.get(ISerializer)
+		instanceParseHelper = instanceProvider.get(Injector).getInstance(ParseHelper)
+		validationTestHelper = instanceProvider.get(ValidationTestHelper)
+	}
 	
 	def protected void assertSerialize(AadlPackage aadlPackage, String implName, String expected) {
-		val impl = aadlPackage.publicSection.ownedClassifiers.filter(ComponentImplementation).findFirst[implName == name]
+		val classifiers = aadlPackage.publicSection.ownedClassifiers
+		val impl = classifiers.filter(ComponentImplementation).findFirst[implName == name]
 		impl.assertNotNull
-		expected.assertEquals(impl.buildInstanceModelFile.serialize)
-		val instanceFileName = implName.replace(".", "_") + "." + extensionProvider.primaryFileExtension
-		createFiles(instanceFileName -> expected)
-		testFile(instanceFileName)
+		expected.assertEquals(impl.instantiate.serialize)
+		instanceParseHelper.parse(expected, aadlPackage.eResource.resourceSet).assertNoIssues
 	}
 }

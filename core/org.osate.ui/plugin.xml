@@ -204,15 +204,9 @@
               </instanceof>
            </enablement>
         </actionProvider>
-         <commonWizard
-               type="new"
-               wizardId="org.osate.ui.wizards.AadlProjectWizardID">
-            <enablement>
-               <adapt
-                     type="org.eclipse.core.resources.IResource">
-               </adapt>
-            </enablement>
-         </commonWizard>
+        <actionProvider
+              class="org.osate.ui.navigator.NewAadlProjectActionProvider">
+        </actionProvider>
          <commonWizard
                type="new"
                wizardId="org.osate.ui.NewAadlPackageWizard">
@@ -433,10 +427,6 @@
                       name="core">
                 </separator>
                 <separator
-                      name="emv2"
-                      visible="true">
-                </separator>
-                <separator
                       name="third_party">
                 </separator>
              </menu>
@@ -636,10 +626,6 @@
                       name="core">
                 </separator>
                 <separator
-                      name="emv2"
-                      visible="true">
-                </separator>
-                <separator
                       name="code_generation"
                       visible="true">
                 </separator>
@@ -788,10 +774,6 @@
             </visibleWhen>
             <separator
                   name="core">
-            </separator>
-            <separator
-                  name="emv2"
-                  visible="true">
             </separator>
             <separator
                   name="code_generation"

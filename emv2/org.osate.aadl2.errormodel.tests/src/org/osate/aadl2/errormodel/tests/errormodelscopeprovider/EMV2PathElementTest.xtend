@@ -10,7 +10,7 @@ import org.osate.aadl2.DefaultAnnexSubclause
 import org.osate.aadl2.RealLiteral
 import org.osate.aadl2.StringLiteral
 import org.osate.aadl2.errormodel.tests.ErrorModelUiInjectorProvider
-import org.osate.core.test.OsateTest
+import org.osate.testsupport.OsateTest
 import org.osate.xtext.aadl2.errormodel.errorModel.ConditionElement
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelLibrary
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelPackage

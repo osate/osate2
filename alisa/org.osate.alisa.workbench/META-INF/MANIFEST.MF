@@ -26,7 +26,6 @@ Require-Bundle: org.eclipse.xtext;visibility:=reexport,
  org.osate.organization;bundle-version="1.0.0",
  org.osate.xtext.aadl2.properties;bundle-version="1.0.0",
  org.eclipse.xtext.xbase.lib,
- com.rockwellcollins.atc.resolute;bundle-version="1.0.0",
  org.osate.xtext.aadl2.errormodel;bundle-version="1.0.0"
 Import-Package: org.apache.log4j
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
@@ -43,4 +42,5 @@ Export-Package: org.osate.alisa.workbench,
  org.osate.alisa.workbench.services,
  org.osate.alisa.workbench.util,
  org.osate.alisa.workbench.validation
+Automatic-Module-Name: org.osate.alisa.workbench
 

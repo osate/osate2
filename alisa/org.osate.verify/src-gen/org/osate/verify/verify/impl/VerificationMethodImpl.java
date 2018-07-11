@@ -39,12 +39,12 @@ import org.osate.aadl2.ComponentClassifier;
 import org.osate.aadl2.Property;
 
 import org.osate.alisa.common.common.Description;
+import org.osate.alisa.common.common.TargetType;
 
 import org.osate.categories.categories.Category;
 
 import org.osate.verify.verify.FormalParameter;
 import org.osate.verify.verify.MethodKind;
-import org.osate.verify.verify.TargetType;
 import org.osate.verify.verify.VerificationCondition;
 import org.osate.verify.verify.VerificationMethod;
 import org.osate.verify.verify.VerifyPackage;

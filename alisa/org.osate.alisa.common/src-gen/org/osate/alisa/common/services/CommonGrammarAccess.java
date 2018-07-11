@@ -125,81 +125,86 @@ public class CommonGrammarAccess extends AbstractGrammarElementFinder {
 	public class UncertaintyElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "org.osate.alisa.common.Common.Uncertainty");
 		private final Group cGroup = (Group)rule.eContents().get(1);
-		private final Keyword cUncertaintyKeyword_0 = (Keyword)cGroup.eContents().get(0);
-		private final Keyword cLeftSquareBracketKeyword_1 = (Keyword)cGroup.eContents().get(1);
-		private final UnorderedGroup cUnorderedGroup_2 = (UnorderedGroup)cGroup.eContents().get(2);
-		private final Group cGroup_2_0 = (Group)cUnorderedGroup_2.eContents().get(0);
-		private final Keyword cVolatilityKeyword_2_0_0 = (Keyword)cGroup_2_0.eContents().get(0);
-		private final Assignment cVolatilityAssignment_2_0_1 = (Assignment)cGroup_2_0.eContents().get(1);
-		private final RuleCall cVolatilityINTTerminalRuleCall_2_0_1_0 = (RuleCall)cVolatilityAssignment_2_0_1.eContents().get(0);
-		private final Group cGroup_2_1 = (Group)cUnorderedGroup_2.eContents().get(1);
-		private final Keyword cPrecedenceKeyword_2_1_0 = (Keyword)cGroup_2_1.eContents().get(0);
-		private final Assignment cPrecedenceAssignment_2_1_1 = (Assignment)cGroup_2_1.eContents().get(1);
-		private final RuleCall cPrecedenceINTTerminalRuleCall_2_1_1_0 = (RuleCall)cPrecedenceAssignment_2_1_1.eContents().get(0);
-		private final Group cGroup_2_2 = (Group)cUnorderedGroup_2.eContents().get(2);
-		private final Keyword cImpactKeyword_2_2_0 = (Keyword)cGroup_2_2.eContents().get(0);
-		private final Assignment cImpactAssignment_2_2_1 = (Assignment)cGroup_2_2.eContents().get(1);
-		private final RuleCall cImpactINTTerminalRuleCall_2_2_1_0 = (RuleCall)cImpactAssignment_2_2_1.eContents().get(0);
-		private final Keyword cRightSquareBracketKeyword_3 = (Keyword)cGroup.eContents().get(3);
+		private final Action cUncertaintyAction_0 = (Action)cGroup.eContents().get(0);
+		private final Keyword cUncertaintyKeyword_1 = (Keyword)cGroup.eContents().get(1);
+		private final Keyword cLeftSquareBracketKeyword_2 = (Keyword)cGroup.eContents().get(2);
+		private final UnorderedGroup cUnorderedGroup_3 = (UnorderedGroup)cGroup.eContents().get(3);
+		private final Group cGroup_3_0 = (Group)cUnorderedGroup_3.eContents().get(0);
+		private final Keyword cVolatilityKeyword_3_0_0 = (Keyword)cGroup_3_0.eContents().get(0);
+		private final Assignment cVolatilityAssignment_3_0_1 = (Assignment)cGroup_3_0.eContents().get(1);
+		private final RuleCall cVolatilityINTTerminalRuleCall_3_0_1_0 = (RuleCall)cVolatilityAssignment_3_0_1.eContents().get(0);
+		private final Group cGroup_3_1 = (Group)cUnorderedGroup_3.eContents().get(1);
+		private final Keyword cPrecedenceKeyword_3_1_0 = (Keyword)cGroup_3_1.eContents().get(0);
+		private final Assignment cPrecedenceAssignment_3_1_1 = (Assignment)cGroup_3_1.eContents().get(1);
+		private final RuleCall cPrecedenceINTTerminalRuleCall_3_1_1_0 = (RuleCall)cPrecedenceAssignment_3_1_1.eContents().get(0);
+		private final Group cGroup_3_2 = (Group)cUnorderedGroup_3.eContents().get(2);
+		private final Keyword cImpactKeyword_3_2_0 = (Keyword)cGroup_3_2.eContents().get(0);
+		private final Assignment cImpactAssignment_3_2_1 = (Assignment)cGroup_3_2.eContents().get(1);
+		private final RuleCall cImpactINTTerminalRuleCall_3_2_1_0 = (RuleCall)cImpactAssignment_3_2_1.eContents().get(0);
+		private final Keyword cRightSquareBracketKeyword_4 = (Keyword)cGroup.eContents().get(4);
 		
 		//Uncertainty:
-		//	'uncertainty'
+		//	{Uncertainty} 'uncertainty'
 		//	'[' (('volatility' volatility=INT)?
 		//	& ('precedence' precedence=INT)?
 		//	& ('impact' impact=INT)?)
 		//	']';
 		@Override public ParserRule getRule() { return rule; }
 
-		//'uncertainty' '[' (('volatility' volatility=INT)? & ('precedence' precedence=INT)? & ('impact' impact=INT)?) ']'
+		//{Uncertainty} 'uncertainty' '[' (('volatility' volatility=INT)? & ('precedence' precedence=INT)? & ('impact'
+		//impact=INT)?) ']'
 		public Group getGroup() { return cGroup; }
 
+		//{Uncertainty}
+		public Action getUncertaintyAction_0() { return cUncertaintyAction_0; }
+
 		//'uncertainty'
-		public Keyword getUncertaintyKeyword_0() { return cUncertaintyKeyword_0; }
+		public Keyword getUncertaintyKeyword_1() { return cUncertaintyKeyword_1; }
 
 		//'['
-		public Keyword getLeftSquareBracketKeyword_1() { return cLeftSquareBracketKeyword_1; }
+		public Keyword getLeftSquareBracketKeyword_2() { return cLeftSquareBracketKeyword_2; }
 
 		//('volatility' volatility=INT)? & ('precedence' precedence=INT)? & ('impact' impact=INT)?
-		public UnorderedGroup getUnorderedGroup_2() { return cUnorderedGroup_2; }
+		public UnorderedGroup getUnorderedGroup_3() { return cUnorderedGroup_3; }
 
 		//('volatility' volatility=INT)?
-		public Group getGroup_2_0() { return cGroup_2_0; }
+		public Group getGroup_3_0() { return cGroup_3_0; }
 
 		//'volatility'
-		public Keyword getVolatilityKeyword_2_0_0() { return cVolatilityKeyword_2_0_0; }
+		public Keyword getVolatilityKeyword_3_0_0() { return cVolatilityKeyword_3_0_0; }
 
 		//volatility=INT
-		public Assignment getVolatilityAssignment_2_0_1() { return cVolatilityAssignment_2_0_1; }
+		public Assignment getVolatilityAssignment_3_0_1() { return cVolatilityAssignment_3_0_1; }
 
 		//INT
-		public RuleCall getVolatilityINTTerminalRuleCall_2_0_1_0() { return cVolatilityINTTerminalRuleCall_2_0_1_0; }
+		public RuleCall getVolatilityINTTerminalRuleCall_3_0_1_0() { return cVolatilityINTTerminalRuleCall_3_0_1_0; }
 
 		//('precedence' precedence=INT)?
-		public Group getGroup_2_1() { return cGroup_2_1; }
+		public Group getGroup_3_1() { return cGroup_3_1; }
 
 		//'precedence'
-		public Keyword getPrecedenceKeyword_2_1_0() { return cPrecedenceKeyword_2_1_0; }
+		public Keyword getPrecedenceKeyword_3_1_0() { return cPrecedenceKeyword_3_1_0; }
 
 		//precedence=INT
-		public Assignment getPrecedenceAssignment_2_1_1() { return cPrecedenceAssignment_2_1_1; }
+		public Assignment getPrecedenceAssignment_3_1_1() { return cPrecedenceAssignment_3_1_1; }
 
 		//INT
-		public RuleCall getPrecedenceINTTerminalRuleCall_2_1_1_0() { return cPrecedenceINTTerminalRuleCall_2_1_1_0; }
+		public RuleCall getPrecedenceINTTerminalRuleCall_3_1_1_0() { return cPrecedenceINTTerminalRuleCall_3_1_1_0; }
 
 		//('impact' impact=INT)?
-		public Group getGroup_2_2() { return cGroup_2_2; }
+		public Group getGroup_3_2() { return cGroup_3_2; }
 
 		//'impact'
-		public Keyword getImpactKeyword_2_2_0() { return cImpactKeyword_2_2_0; }
+		public Keyword getImpactKeyword_3_2_0() { return cImpactKeyword_3_2_0; }
 
 		//impact=INT
-		public Assignment getImpactAssignment_2_2_1() { return cImpactAssignment_2_2_1; }
+		public Assignment getImpactAssignment_3_2_1() { return cImpactAssignment_3_2_1; }
 
 		//INT
-		public RuleCall getImpactINTTerminalRuleCall_2_2_1_0() { return cImpactINTTerminalRuleCall_2_2_1_0; }
+		public RuleCall getImpactINTTerminalRuleCall_3_2_1_0() { return cImpactINTTerminalRuleCall_3_2_1_0; }
 
 		//']'
-		public Keyword getRightSquareBracketKeyword_3() { return cRightSquareBracketKeyword_3; }
+		public Keyword getRightSquareBracketKeyword_4() { return cRightSquareBracketKeyword_4; }
 	}
 
 	public class TypeRefElements extends AbstractParserRuleElementFinder {
@@ -2259,6 +2264,76 @@ public class CommonGrammarAccess extends AbstractGrammarElementFinder {
 		//'not'
 		public Keyword getNOTNotKeyword_17_0() { return cNOTNotKeyword_17_0; }
 	}
+
+	public class TargetTypeElements extends AbstractEnumRuleElementFinder {
+		private final EnumRule rule = (EnumRule) GrammarUtil.findRuleForName(getGrammar(), "org.osate.alisa.common.Common.TargetType");
+		private final Alternatives cAlternatives = (Alternatives)rule.eContents().get(1);
+		private final EnumLiteralDeclaration cCOMPONENTEnumLiteralDeclaration_0 = (EnumLiteralDeclaration)cAlternatives.eContents().get(0);
+		private final Keyword cCOMPONENTComponentKeyword_0_0 = (Keyword)cCOMPONENTEnumLiteralDeclaration_0.eContents().get(0);
+		private final EnumLiteralDeclaration cFEATUREEnumLiteralDeclaration_1 = (EnumLiteralDeclaration)cAlternatives.eContents().get(1);
+		private final Keyword cFEATUREFeatureKeyword_1_0 = (Keyword)cFEATUREEnumLiteralDeclaration_1.eContents().get(0);
+		private final EnumLiteralDeclaration cCONNECTIONEnumLiteralDeclaration_2 = (EnumLiteralDeclaration)cAlternatives.eContents().get(2);
+		private final Keyword cCONNECTIONConnectionKeyword_2_0 = (Keyword)cCONNECTIONEnumLiteralDeclaration_2.eContents().get(0);
+		private final EnumLiteralDeclaration cFLOWEnumLiteralDeclaration_3 = (EnumLiteralDeclaration)cAlternatives.eContents().get(3);
+		private final Keyword cFLOWFlowKeyword_3_0 = (Keyword)cFLOWEnumLiteralDeclaration_3.eContents().get(0);
+		private final EnumLiteralDeclaration cMODEEnumLiteralDeclaration_4 = (EnumLiteralDeclaration)cAlternatives.eContents().get(4);
+		private final Keyword cMODEModeKeyword_4_0 = (Keyword)cMODEEnumLiteralDeclaration_4.eContents().get(0);
+		private final EnumLiteralDeclaration cELEMENTEnumLiteralDeclaration_5 = (EnumLiteralDeclaration)cAlternatives.eContents().get(5);
+		private final Keyword cELEMENTElementKeyword_5_0 = (Keyword)cELEMENTEnumLiteralDeclaration_5.eContents().get(0);
+		private final EnumLiteralDeclaration cROOTEnumLiteralDeclaration_6 = (EnumLiteralDeclaration)cAlternatives.eContents().get(6);
+		private final Keyword cROOTRootKeyword_6_0 = (Keyword)cROOTEnumLiteralDeclaration_6.eContents().get(0);
+		
+		//enum TargetType:
+		//	COMPONENT='component' | FEATURE='feature' | CONNECTION='connection' | FLOW='flow' | MODE='mode' | ELEMENT='element' |
+		//	ROOT='root';
+		public EnumRule getRule() { return rule; }
+
+		//COMPONENT='component' | FEATURE='feature' | CONNECTION='connection' | FLOW='flow' | MODE='mode' | ELEMENT='element' |
+		//ROOT='root'
+		public Alternatives getAlternatives() { return cAlternatives; }
+
+		//COMPONENT='component'
+		public EnumLiteralDeclaration getCOMPONENTEnumLiteralDeclaration_0() { return cCOMPONENTEnumLiteralDeclaration_0; }
+
+		//'component'
+		public Keyword getCOMPONENTComponentKeyword_0_0() { return cCOMPONENTComponentKeyword_0_0; }
+
+		//FEATURE='feature'
+		public EnumLiteralDeclaration getFEATUREEnumLiteralDeclaration_1() { return cFEATUREEnumLiteralDeclaration_1; }
+
+		//'feature'
+		public Keyword getFEATUREFeatureKeyword_1_0() { return cFEATUREFeatureKeyword_1_0; }
+
+		//CONNECTION='connection'
+		public EnumLiteralDeclaration getCONNECTIONEnumLiteralDeclaration_2() { return cCONNECTIONEnumLiteralDeclaration_2; }
+
+		//'connection'
+		public Keyword getCONNECTIONConnectionKeyword_2_0() { return cCONNECTIONConnectionKeyword_2_0; }
+
+		//FLOW='flow'
+		public EnumLiteralDeclaration getFLOWEnumLiteralDeclaration_3() { return cFLOWEnumLiteralDeclaration_3; }
+
+		//'flow'
+		public Keyword getFLOWFlowKeyword_3_0() { return cFLOWFlowKeyword_3_0; }
+
+		//MODE='mode'
+		public EnumLiteralDeclaration getMODEEnumLiteralDeclaration_4() { return cMODEEnumLiteralDeclaration_4; }
+
+		//'mode'
+		public Keyword getMODEModeKeyword_4_0() { return cMODEModeKeyword_4_0; }
+
+		//ELEMENT='element'
+		public EnumLiteralDeclaration getELEMENTEnumLiteralDeclaration_5() { return cELEMENTEnumLiteralDeclaration_5; }
+
+		//'element'
+		public Keyword getELEMENTElementKeyword_5_0() { return cELEMENTElementKeyword_5_0; }
+
+		//ROOT='root'
+		public EnumLiteralDeclaration getROOTEnumLiteralDeclaration_6() { return cROOTEnumLiteralDeclaration_6; }
+
+		//'root'
+		public Keyword getROOTRootKeyword_6_0() { return cROOTRootKeyword_6_0; }
+	}
 	
 	private final DescriptionElements pDescription;
 	private final DescriptionElementElements pDescriptionElement;
@@ -2306,6 +2381,7 @@ public class CommonGrammarAccess extends AbstractGrammarElementFinder {
 	private final NoQuoteStringElements pNoQuoteString;
 	private final AParenthesizedExpressionElements pAParenthesizedExpression;
 	private final ComponentCategoryElements pComponentCategory;
+	private final TargetTypeElements eTargetType;
 	private final TerminalRule tEXPONENT;
 	private final TerminalRule tINT_EXPONENT;
 	private final TerminalRule tREAL_LIT;
@@ -2373,6 +2449,7 @@ public class CommonGrammarAccess extends AbstractGrammarElementFinder {
 		this.pNoQuoteString = new NoQuoteStringElements();
 		this.pAParenthesizedExpression = new AParenthesizedExpressionElements();
 		this.pComponentCategory = new ComponentCategoryElements();
+		this.eTargetType = new TargetTypeElements();
 		this.tEXPONENT = (TerminalRule) GrammarUtil.findRuleForName(getGrammar(), "org.osate.alisa.common.Common.EXPONENT");
 		this.tINT_EXPONENT = (TerminalRule) GrammarUtil.findRuleForName(getGrammar(), "org.osate.alisa.common.Common.INT_EXPONENT");
 		this.tREAL_LIT = (TerminalRule) GrammarUtil.findRuleForName(getGrammar(), "org.osate.alisa.common.Common.REAL_LIT");
@@ -2444,7 +2521,7 @@ public class CommonGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//Uncertainty:
-	//	'uncertainty'
+	//	{Uncertainty} 'uncertainty'
 	//	'[' (('volatility' volatility=INT)?
 	//	& ('precedence' precedence=INT)?
 	//	& ('impact' impact=INT)?)
@@ -2918,6 +2995,17 @@ public class CommonGrammarAccess extends AbstractGrammarElementFinder {
 	
 	public ParserRule getComponentCategoryRule() {
 		return getComponentCategoryAccess().getRule();
+	}
+
+	//enum TargetType:
+	//	COMPONENT='component' | FEATURE='feature' | CONNECTION='connection' | FLOW='flow' | MODE='mode' | ELEMENT='element' |
+	//	ROOT='root';
+	public TargetTypeElements getTargetTypeAccess() {
+		return eTargetType;
+	}
+	
+	public EnumRule getTargetTypeRule() {
+		return getTargetTypeAccess().getRule();
 	}
 
 	//terminal fragment EXPONENT:

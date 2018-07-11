@@ -17,3 +17,4 @@ Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Export-Package: org.osate.result,
  org.osate.result.impl,
  org.osate.result.util
+Automatic-Module-Name: org.osate.results

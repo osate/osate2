@@ -93,6 +93,15 @@ class ValueColumnLabelProvider extends ColumnLabelProvider {
 			unformatted.replace("( ", "(").replace(" )", ")").replace("[ ", "[").replace(" ]", "]").replace(" ,", ",").replace(" ;", ";")
 		} catch (IConcreteSyntaxValidator.InvalidConcreteSyntaxException e) {
 			//Simply return null.  Expression could not be serialized because the model is invalid.
+		} catch (RuntimeException e) {
+			/*
+			 * See https://github.com/osate/osate2/issues/1243
+			 * 
+			 * I don't know why the serializer throws a RuntimeException instead of an InvalidConcreteSyntaxException in
+			 * this case. Does the serializer throw RuntimeException in some cases and InvalidConcreteSyntaxException in
+			 * others? Could it be that the serializer used to throw InvalidConcreteSyntaxException, but now it throws
+			 * RuntimeException?
+			 */
 		}
 	}
 	

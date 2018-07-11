@@ -71,10 +71,9 @@ import org.osate.verify.verify.VerificationPlan
 
 import static extension org.osate.aadl2.instantiation.InstantiateModel.buildInstanceModelFile
 import static extension org.osate.alisa.common.util.CommonUtilExtension.*
-import static extension org.osate.reqspec.util.ReqSpecUtilExtension.*
 import static extension org.osate.verify.util.VerifyUtilExtension.*
-import static extension org.osate.alisa.common.util.ResultsHelperUtilExtension.*
 import org.osate.result.Result
+import org.osate.result.util.ResultUtil
 
 class AssureUtilExtension {
 
@@ -302,8 +301,8 @@ class AssureUtilExtension {
 
 	def static void doJUnitResults(org.junit.runner.Result rr, Result ri) {
 		val failist = rr.failures
-		failist.forEach [ failed |
-			ri.addFailureIssue(null, failed.message)
+		failist.forEach [ failed | val issue = ResultUtil.createFailure(failed.message, null);
+			ri.diagnostics.add(issue)
 		]
 	}
 
@@ -1276,7 +1275,10 @@ class AssureUtilExtension {
 	def static String constructMessage(PredicateResult pr) {
 		val pred = AssureUtilExtension.getPredicate(pr)
 		if (pred instanceof ValuePredicate) {
-			return (pred.eResource as XtextResource).getSerializer().serialize(pred.xpression)
+			val predstring = try {(pred.eResource as XtextResource).getSerializer().serialize(pred.xpression)} catch (NullPointerException e){
+				"<none>"
+			}
+			return predstring
 		} else if (pred instanceof InformalPredicate) {
 			return pred.description
 		}

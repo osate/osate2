@@ -38,6 +38,8 @@ import org.eclipse.jface.text.contentassist.IContentAssistProcessor;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.eclipse.ui.views.contentoutline.IContentOutlinePage;
+import org.eclipse.xtext.builder.EclipseResourceFileSystemAccess2;
+import org.eclipse.xtext.generator.AbstractFileSystemAccess2;
 import org.eclipse.xtext.parser.IEncodingProvider;
 import org.eclipse.xtext.resource.containers.IAllContainersState;
 import org.eclipse.xtext.ui.LanguageSpecific;
@@ -74,11 +76,6 @@ public class Aadl2UiModule extends org.osate.xtext.aadl2.ui.AbstractAadl2UiModul
 	@Override
 	public Class<? extends IContentOutlinePage> bindIContentOutlinePage() {
 		return Aadl2OutlinePage.class;
-	}
-
-	// will need to add the same class to aadl2 and have it be an extension of the properties one.
-	public Class<? extends org.eclipse.xtext.linking.ILinkingDiagnosticMessageProvider> bindILinkingDiagnosticMessageProvider() {
-		return org.osate.xtext.aadl2.properties.ui.linking.PropertiesLinkingDiagnosticMessageProvider.class;
 	}
 
 	public Class<? extends org.eclipse.xtext.parser.antlr.ISyntaxErrorMessageProvider> bindISyntaxErrorMessageProvider() {
@@ -156,6 +153,10 @@ public class Aadl2UiModule extends org.osate.xtext.aadl2.ui.AbstractAadl2UiModul
 
 	public Class<? extends IEncodingProvider> bindIEncodingProvider() {
 		return Aadl2WorkspaceEncodingProvider.class;
+	}
+
+	public Class<? extends AbstractFileSystemAccess2> bindAbstractFileSystemAccess2() {
+		return EclipseResourceFileSystemAccess2.class;
 	}
 
 }

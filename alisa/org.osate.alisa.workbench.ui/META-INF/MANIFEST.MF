@@ -37,3 +37,4 @@ Export-Package: org.osate.alisa.workbench.ui,
  org.osate.alisa.workbench.ui.outline,
  org.osate.alisa.workbench.ui.quickfix
 Bundle-Activator: org.osate.alisa.workbench.ui.internal.AlisaActivator
+Automatic-Module-Name: org.osate.alisa.workbench.ui

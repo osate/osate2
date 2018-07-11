@@ -57,6 +57,7 @@ import org.osate.xtext.aadl2.errormodel.errorModel.ErrorSource;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorStateToModeMapping;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorType;
 import org.osate.xtext.aadl2.errormodel.errorModel.FeatureorPPReference;
+import org.osate.xtext.aadl2.errormodel.errorModel.IfCondition;
 import org.osate.xtext.aadl2.errormodel.errorModel.OrExpression;
 import org.osate.xtext.aadl2.errormodel.errorModel.OrlessExpression;
 import org.osate.xtext.aadl2.errormodel.errorModel.OrmoreExpression;
@@ -343,6 +344,9 @@ public abstract class AbstractErrorModelSemanticSequencer extends PropertiesSema
 				return; 
 			case ErrorModelPackage.FEATUREOR_PP_REFERENCE:
 				sequence_FeatureorPPReference(context, (FeatureorPPReference) semanticObject); 
+				return; 
+			case ErrorModelPackage.IF_CONDITION:
+				sequence_IfCondition(context, (IfCondition) semanticObject); 
 				return; 
 			case ErrorModelPackage.OR_EXPRESSION:
 				if (rule == grammarAccess.getElementRule()
@@ -865,7 +869,7 @@ public abstract class AbstractErrorModelSemanticSequencer extends PropertiesSema
 	 *     EventOrPropagation returns ErrorEvent
 	 *
 	 * Constraint:
-	 *     (name=ID typeSet=TypeSetReference? condition=CONDITION?)
+	 *     (name=ID typeSet=TypeSetReference? eventcondition=IfCondition?)
 	 */
 	protected void sequence_ErrorEvent(ISerializationContext context, ErrorEvent semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -939,7 +943,8 @@ public abstract class AbstractErrorModelSemanticSequencer extends PropertiesSema
 	 *         (incoming=[ErrorPropagation|ErrorPropagationPoint] | allIncoming?='all') 
 	 *         typeTokenConstraint=TypeTokenConstraint? 
 	 *         (outgoing=[ErrorPropagation|ErrorPropagationPoint] | allOutgoing?='all') 
-	 *         (targetToken=TypeToken | typeMappingSet=[TypeMappingSet|QEMREF])?
+	 *         (targetToken=TypeToken | typeMappingSet=[TypeMappingSet|QEMREF])? 
+	 *         flowcondition=IfCondition?
 	 *     )
 	 */
 	protected void sequence_ErrorPath(ISerializationContext context, ErrorPath semanticObject) {
@@ -968,7 +973,12 @@ public abstract class AbstractErrorModelSemanticSequencer extends PropertiesSema
 	 *     ErrorSink returns ErrorSink
 	 *
 	 * Constraint:
-	 *     (name=ID (incoming=[ErrorPropagation|ErrorPropagationPoint] | allIncoming?='all') typeTokenConstraint=TypeTokenConstraint?)
+	 *     (
+	 *         name=ID 
+	 *         (incoming=[ErrorPropagation|ErrorPropagationPoint] | allIncoming?='all') 
+	 *         typeTokenConstraint=TypeTokenConstraint? 
+	 *         flowcondition=IfCondition?
+	 *     )
 	 */
 	protected void sequence_ErrorSink(ISerializationContext context, ErrorSink semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -991,7 +1001,7 @@ public abstract class AbstractErrorModelSemanticSequencer extends PropertiesSema
 	 *             failureModeType=TypeSetConstructor | 
 	 *             failureModeDescription=STRING
 	 *         )? 
-	 *         condition=CONDITION?
+	 *         flowcondition=IfCondition?
 	 *     )
 	 */
 	protected void sequence_ErrorSource(ISerializationContext context, ErrorSource semanticObject) {
@@ -1021,6 +1031,18 @@ public abstract class AbstractErrorModelSemanticSequencer extends PropertiesSema
 	 *     (featureorPP=[NamedElement|ID] next=FeatureorPPReference?)
 	 */
 	protected void sequence_FeatureorPPReference(ISerializationContext context, FeatureorPPReference semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Contexts:
+	 *     IfCondition returns IfCondition
+	 *
+	 * Constraint:
+	 *     (description=STRING | resoluteFunction=[EObject|QEMREF] | javaMethod=QUALIFIEDNAME)
+	 */
+	protected void sequence_IfCondition(ISerializationContext context, IfCondition semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	
@@ -1225,7 +1247,7 @@ public abstract class AbstractErrorModelSemanticSequencer extends PropertiesSema
 	 *     EventOrPropagation returns RecoverEvent
 	 *
 	 * Constraint:
-	 *     (name=ID (eventInitiator+=[NamedElement|ID] eventInitiator+=[NamedElement|ID]*)? condition=CONDITION?)
+	 *     (name=ID (eventInitiator+=[NamedElement|ID] eventInitiator+=[NamedElement|ID]*)? condition=IfCondition?)
 	 */
 	protected void sequence_RecoverEvent(ISerializationContext context, RecoverEvent semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);

@@ -1,6 +1,6 @@
 package org.osate.core.tests.issues
 
-import com.itemis.xtext.testing.FluentIssueCollection
+import com.google.inject.Inject
 import java.util.List
 import org.eclipse.xtext.testing.InjectWith
 import org.eclipse.xtext.testing.XtextRunner
@@ -8,17 +8,19 @@ import org.junit.Test
 import org.junit.runner.RunWith
 import org.osate.aadl2.AadlPackage
 import org.osate.aadl2.SystemImplementation
-import org.osate.aadl2.instance.FeatureInstance
 import org.osate.aadl2.instance.SystemInstance
 import org.osate.aadl2.instantiation.InstantiateModel
-import org.osate.core.test.Aadl2UiInjectorProvider
-import org.osate.core.test.OsateTest
+import org.osate.testsupport.Aadl2InjectorProvider
+import org.osate.testsupport.TestHelper
 
-import static extension org.junit.Assert.*
+import static org.junit.Assert.*
 
 @RunWith(XtextRunner)
-@InjectWith(Aadl2UiInjectorProvider)
-class Issue818Test extends OsateTest {
+@InjectWith(Aadl2InjectorProvider)
+class Issue818Test {
+	@Inject
+	TestHelper<AadlPackage> testHelper
+	
 	val private static PROJECT_LOCATION = "org.osate.core.tests/models/Issue818/"
 	val private static TEST_FILE = "issue.aadl"
 	
@@ -29,7 +31,7 @@ class Issue818Test extends OsateTest {
 
 	@Test
 	def void testFeatureGroups() {
-		val pkg = getPackage(TEST_FILE, PROJECT_LOCATION + TEST_FILE)
+		val pkg = testHelper.parseFile(PROJECT_LOCATION + TEST_FILE)
 		
 		val instance = getSystemInstance(pkg, "TestSys.Impl", "TestSys_Impl_Instance")
 
@@ -49,7 +51,7 @@ class Issue818Test extends OsateTest {
 	}
 
 	private def static void testFeatureGroupFeature(SystemInstance system, String featureName, List<String> fgFeatureNames) {
-		val featureInstance = system.featureInstances.findFirst[name == featureName] as FeatureInstance
+		val featureInstance = system.featureInstances.findFirst[name == featureName]
 		assertNotNull("Expected to find a feature named '" + featureName + "'", featureInstance)
 		featureInstance => [
 			assertTrue("Feature group instance '" + featureName + "' is expected to have exactly " + fgFeatureNames.size() + " features", featureInstances.size() == fgFeatureNames.size())
@@ -59,16 +61,6 @@ class Issue818Test extends OsateTest {
 		]
 	} 
 
-	private def FluentIssueCollection getFluentIssueCollection(String fname, String path) {
-		createFiles(fname -> readFile(path))
-		ignoreSerializationDifferences
-		testFile(fname)
-	}
-	
-	private def AadlPackage getPackage(String fname, String path) {
-		getFluentIssueCollection(fname, path).resource.contents.head as AadlPackage
-	}
-	
 	private def static SystemInstance getSystemInstance(
 		AadlPackage pkg, String systemImplName, String expectedInstanceName
 	) {
@@ -77,7 +69,7 @@ class Issue818Test extends OsateTest {
 		
 		// Instantiate system
 		val sysImpl = cls.findFirst[name == systemImplName] as SystemImplementation
-		val instance = InstantiateModel::buildInstanceModelFile(sysImpl)
+		val instance = InstantiateModel.instantiate(sysImpl)
 		assertEquals(expectedInstanceName, instance.name)
 		return instance
 		

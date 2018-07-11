@@ -10,17 +10,26 @@ import org.eclipse.xtext.naming.IQualifiedNameConverter;
 import org.eclipse.xtext.naming.QualifiedName;
 import org.eclipse.xtext.resource.IContainer;
 import org.eclipse.xtext.resource.IEObjectDescription;
-import org.eclipse.xtext.scoping.impl.DefaultGlobalScopeProvider;
 import org.osate.aadl2.NamedElement;
+import org.osate.aadl2.modelsupport.scoping.EClassGlobalScopeProvider;
 
 import com.google.common.collect.Lists;
 import com.google.inject.Inject;
 
-public class Aadl2GlobalScopeProvider extends DefaultGlobalScopeProvider {
-
+/**
+ * This class is simply here for convenience.
+ *
+ * @deprecated Will be removed in 2.3.5
+ */
+@Deprecated
+public class Aadl2GlobalScopeProvider extends EClassGlobalScopeProvider {
 	@Inject
 	private IQualifiedNameConverter qualifiedNameConverter;
 
+	/**
+	 * @deprecated Will be removed in 2.3.5
+	 */
+	@Deprecated
 	public boolean hasDuplicates(final NamedElement target) {
 		Resource context = target.eResource();
 		if (context == null || context.getResourceSet() == null) {
@@ -49,6 +58,10 @@ public class Aadl2GlobalScopeProvider extends DefaultGlobalScopeProvider {
 		return false;
 	}
 
+	/**
+	 * @deprecated Will be removed in 2.3.5
+	 */
+	@Deprecated
 	public List<IEObjectDescription> getDuplicates(final NamedElement target) {
 		if (target.getName() == null || target.getName().isEmpty()) {
 			return Collections.emptyList();

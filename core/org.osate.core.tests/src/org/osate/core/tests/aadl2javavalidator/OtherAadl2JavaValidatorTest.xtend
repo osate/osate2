@@ -34,7 +34,9 @@
  */
 package org.osate.core.tests.aadl2javavalidator
 
+import com.google.inject.Inject
 import com.itemis.xtext.testing.FluentIssueCollection
+import com.itemis.xtext.testing.XtextTest
 import org.eclipse.xtext.testing.InjectWith
 import org.eclipse.xtext.testing.XtextRunner
 import org.junit.Test
@@ -49,18 +51,23 @@ import org.osate.aadl2.PropertySet
 import org.osate.aadl2.SubprogramImplementation
 import org.osate.aadl2.SystemImplementation
 import org.osate.aadl2.UnitsType
-import org.osate.core.test.Aadl2UiInjectorProvider
-import org.osate.core.test.OsateTest
+import org.osate.testsupport.Aadl2InjectorProvider
+import org.osate.testsupport.TestHelper
 
 import static extension org.junit.Assert.assertEquals
+import static extension org.osate.testsupport.AssertHelper.*
 
 @RunWith(XtextRunner)
-@InjectWith(Aadl2UiInjectorProvider)
-class OtherAadl2JavaValidatorTest extends OsateTest {
+@InjectWith(Aadl2InjectorProvider)
+class OtherAadl2JavaValidatorTest extends XtextTest {
+
+	@Inject
+	TestHelper<AadlPackage> testHelper
+
 	//Tests checkFlowConnectionOrder
 	@Test
 	def void testFlowSegmentTypes() {
-		createFiles("legalFlowSegmentsTypeTest.aadl" -> '''
+		val aadlText = '''
 			package legalFlowSegmentsTypeTest
 			public
 				abstract a1
@@ -217,9 +224,8 @@ class OtherAadl2JavaValidatorTest extends OsateTest {
 					da4: provides data access;
 				end fgt1;
 			end legalFlowSegmentsTypeTest;
-		''')
-		suppressSerialization
-		val testFileResult = testFile("legalFlowSegmentsTypeTest.aadl")
+		'''
+		val testFileResult = issues = testHelper.testString(aadlText)
 		val issueCollection = new FluentIssueCollection(testFileResult.resource, newArrayList, newArrayList)
 		testFileResult.resource.contents.head as AadlPackage => [
 			"legalFlowSegmentsTypeTest".assertEquals(name)
@@ -501,14 +507,14 @@ class OtherAadl2JavaValidatorTest extends OsateTest {
 				]
 			]
 		]
-		issueCollection.sizeIs(issueCollection.issues.size)
+		issueCollection.sizeIs(testFileResult.issues.size)
 		assertConstraints(issueCollection)
 	}
 	
 	//Tests typeCheckModeTransitionTrigger
 	@Test
 	def void testModeTransitionTriggerTypes() {
-		createFiles("legalTypeTest.aadl" -> '''
+		val aadlText = '''
 			package legalTypeTest
 			public
 				abstract a1
@@ -631,9 +637,8 @@ class OtherAadl2JavaValidatorTest extends OsateTest {
 					]-> m4;
 				end subp1.i;
 			end legalTypeTest;
-		''')
-		suppressSerialization
-		val testFileResult = testFile("legalTypeTest.aadl")
+		'''
+		val testFileResult = issues = testHelper.testString(aadlText)
 		val issueCollection = new FluentIssueCollection(testFileResult.resource, newArrayList, newArrayList)
 		testFileResult.resource.contents.head as AadlPackage => [
 			"legalTypeTest".assertEquals(name)
@@ -746,20 +751,19 @@ class OtherAadl2JavaValidatorTest extends OsateTest {
 				]
 			]
 		]
-		issueCollection.sizeIs(issueCollection.issues.size)
+		issueCollection.sizeIs(testFileResult.issues.size)
 		assertConstraints(issueCollection)
 	}
 	
 	//Tests caseUnitLiteral
 	@Test
 	def void testUnitLiterals() {
-		createFiles("ps.aadl" -> '''
+		val aadlText = '''
 			property set ps is
 				ut1: type units (ul1, ul2 => ul1 * 10, ul3 => ul4 * 10, ul4 => ul4 * 10);
 			end ps;
-		''')
-		suppressSerialization
-		val testFileResult = testFile("ps.aadl")
+		'''
+		val testFileResult = issues = testHelper.testString(aadlText)
 		val issueCollection = new FluentIssueCollection(testFileResult.resource, newArrayList, newArrayList)
 		testFileResult.resource.contents.head as PropertySet => [
 			"ps".assertEquals(name)
@@ -777,14 +781,14 @@ class OtherAadl2JavaValidatorTest extends OsateTest {
 				]
 			]
 		]
-		issueCollection.sizeIs(issueCollection.issues.size)
+		issueCollection.sizeIs(testFileResult.issues.size)
 		assertConstraints(issueCollection)
 	}
 	
 	//Tests checkArraySizeIsAadlintegerNoUnits
 	@Test
 	def void testArraySizeIsAadlintegerNoUnits() {
-		createFiles("testArraySize.aadl" -> '''
+		val aadlText = '''
 			package testArraySize
 			public
 			  abstract a
@@ -792,9 +796,8 @@ class OtherAadl2JavaValidatorTest extends OsateTest {
 			    p: in data port [Max_Time];
 			  end a;
 			end testArraySize;
-		''')
-		suppressSerialization
-		val testFileResult = testFile("testArraySize.aadl")
+		'''
+		val testFileResult = issues = testHelper.testString(aadlText)
 		val issueCollection = new FluentIssueCollection(testFileResult.resource, newArrayList, newArrayList)
 		testFileResult.resource.contents.head as AadlPackage => [
 			"testArraySize".assertEquals(name)
@@ -806,24 +809,23 @@ class OtherAadl2JavaValidatorTest extends OsateTest {
 				]
 			]
 		]
-		issueCollection.sizeIs(issueCollection.issues.size)
+		issueCollection.sizeIs(testFileResult.issues.size)
 		assertConstraints(issueCollection)
 	}
 	
 	//Tests for duplicate elements ignoring case
 	@Test
 	def void testDuplicateElementIgnoreCase() {
-		createFiles("testDuplicateIgnoreCase.aadl" -> '''
-		package duplicateTest
-		public
-			bus b
-			end b;
-			bus B
-			end B;
-		end duplicateTest;
-		''')
-		suppressSerialization
-		val testFileResult = testFile("testDuplicateIgnoreCase.aadl")
+		val aadlText = '''
+			package duplicateTest
+			public
+				bus b
+				end b;
+				bus B
+				end B;
+			end duplicateTest;
+		'''
+		val testFileResult = issues = testHelper.testString(aadlText)
 		val issueCollection = new FluentIssueCollection(testFileResult.resource, newArrayList, newArrayList)
 		testFileResult.resource.contents.head as AadlPackage => [
 			"duplicateTest".assertEquals(name)
@@ -836,43 +838,42 @@ class OtherAadl2JavaValidatorTest extends OsateTest {
 				assertError(testFileResult.issues, issueCollection, "Duplicate Element 'B' in PublicPackageSection 'duplicateTest_public'")
 			]
 		]
-		issueCollection.sizeIs(issueCollection.issues.size)
+		issueCollection.sizeIs(testFileResult.issues.size)
 		assertConstraints(issueCollection)
 	}
 
 	//Tests for validating references to internal features and processor features 
 	@Test
 	def void testCheckReferencesToInternalFeatures() {
-		createFiles("testInternalProcessorFeatures.aadl" -> '''
-		package pkgTestInternalProcessorFeatures
-		public
-			abstract a
-			end a;
-			abstract a2
-				features
-					dp2: in data port;
-			end a2;
-			abstract implementation a.i
-				subcomponents
-					asub1: abstract a2;
-				internal features
-					eds1: event data;
-				processor features
-					pp1: port;
-				connections
-				--Correct
-					conn1: port self.eds1 -> asub1.dp2;
-				--Should be marked with an error
-					conn2: port processor.eds1 -> asub1.dp2;
-				--Correct
-					conn3: port processor.pp1 -> asub1.dp2;
-				--Should be marked with an error
-					conn4: port self.pp1 -> asub1.dp2;
-			end a.i;
-		end pkgTestInternalProcessorFeatures;
-		''')
-		suppressSerialization
-		val testFileResult = testFile("testInternalProcessorFeatures.aadl")
+		val aadlText = '''
+			package pkgTestInternalProcessorFeatures
+			public
+				abstract a
+				end a;
+				abstract a2
+					features
+						dp2: in data port;
+				end a2;
+				abstract implementation a.i
+					subcomponents
+						asub1: abstract a2;
+					internal features
+						eds1: event data;
+					processor features
+						pp1: port;
+					connections
+					--Correct
+						conn1: port self.eds1 -> asub1.dp2;
+					--Should be marked with an error
+						conn2: port processor.eds1 -> asub1.dp2;
+					--Correct
+						conn3: port processor.pp1 -> asub1.dp2;
+					--Should be marked with an error
+						conn4: port self.pp1 -> asub1.dp2;
+				end a.i;
+			end pkgTestInternalProcessorFeatures;
+		'''
+		val testFileResult = issues = testHelper.testString(aadlText)
 		val issueCollection = new FluentIssueCollection(testFileResult.resource, newArrayList, newArrayList)
 		testFileResult.resource.contents.head as AadlPackage => [
 			"pkgTestInternalProcessorFeatures".assertEquals(name)
@@ -890,18 +891,19 @@ class OtherAadl2JavaValidatorTest extends OsateTest {
 				]
 			]
 		]
-		issueCollection.sizeIs(issueCollection.issues.size)
+		issueCollection.sizeIs(testFileResult.issues.size)
 		assertConstraints(issueCollection)
 	}
 
 	//Tests for validation for ComponentImplementationReference list 
 	@Test
 	def void testCheckSubcomponentImplementationReferenceList() {
-		createFiles("ps2.aadl" -> '''
+		val aadlText1 = '''
 		property set ps2 is
 			const1: constant aadlinteger => 2 ; 
 		end ps2;
-		''', "testcompimplreflist.aadl" -> '''
+		'''
+		val aadlText = '''
 		package testcompimplreflist
 		public
 			with ps2;
@@ -924,10 +926,8 @@ class OtherAadl2JavaValidatorTest extends OsateTest {
 			bus implementation b2.i
 			end b2.i;
 		end TestCompImplRefList;
-		''')
-		suppressSerialization
-		testFile("ps2.aadl")
-		val testFileResult = testFile("testcompimplreflist.aadl")
+		'''
+		val testFileResult = issues = testHelper.testString(aadlText, aadlText1)
 		val issueCollection = new FluentIssueCollection(testFileResult.resource, newArrayList, newArrayList)
 		// checkSubcomponentImplementationReferenceList
 		testFileResult.resource.contents.head as AadlPackage => [
@@ -960,14 +960,14 @@ class OtherAadl2JavaValidatorTest extends OsateTest {
 				]
 			]
 		]
-		issueCollection.sizeIs(issueCollection.issues.size)
+		issueCollection.sizeIs(testFileResult.issues.size)
 		assertConstraints(issueCollection)
 	}
 
 	//Tests validation of feature group type declared as inverse
 	@Test
 	def void testCheckFeaturesInInverseFeatureGroupType() {
-		createFiles("testfeaturegroupinverse.aadl" -> '''
+		val aadlText = '''
 			package testfeaturegroupinverse
 			public
 				feature group fg1
@@ -994,9 +994,8 @@ class OtherAadl2JavaValidatorTest extends OsateTest {
 				bus mybus
 				end mybus;
 			end testfeaturegroupinverse;
-		''')
-		suppressSerialization
-		val testFileResult = testFile("testfeaturegroupinverse.aadl")
+		'''
+		val testFileResult = issues = testHelper.testString(aadlText)
 		val issueCollection = new FluentIssueCollection(testFileResult.resource, newArrayList, newArrayList)
 		// checkSubcomponentImplementationReferenceList
 		testFileResult.resource.contents.head as AadlPackage => [
@@ -1017,51 +1016,49 @@ class OtherAadl2JavaValidatorTest extends OsateTest {
 				assertError(testFileResult.issues, issueCollection, "Feature Group features list count differs from that of its inverse")
 			]
 		]
-		issueCollection.sizeIs(issueCollection.issues.size)
+		issueCollection.sizeIs(testFileResult.issues.size)
 		assertConstraints(issueCollection)
 	}
 
-	//Tests validation of ModaleElement missing mode values
+	//Tests validation of ModalElement missing mode values
 	@Test
 	def void testCheckModalElementMissingModeValues() {
-		createFiles("psmemmv.aadl" ->'''
-						property set psmemmv is
-							def1: aadlstring => 'z' applies to (all);
-						end psmemmv;	
-					''',
-					"testmemissingmodevalues.aadl" -> '''
-						package testmemissingmodevalues
-						public
-							with psmemmv;
-							system s1
-								features
-									af1 : feature;
-									af2 : feature;
-								modes
-									m1: initial mode;
-									m2: mode;
-									m3: mode;
-							end s1;
-							system implementation s1.i
-								subcomponents
-									asub1: abstract a1;
-								connections
-«««									conn1: feature af1->af2 {psmemmv::def1 => "g" in modes(m3);} in modes(m1, m2);
-									conn1: feature asub1.af3->af2 {psmemmv::def1 => "g" in modes(m3);} in modes(m1, m2);
-«««									conn2: feature af1->af2 {psmemmv::def1 => "g" in modes(m1);} in modes(m1, m2);
-									conn2: feature asub1.af3->af2 {psmemmv::def1 => "g" in modes(m1);} in modes(m1, m2);
-«««									conn3: feature af1->af2 {psmemmv::def1 => "g" in modes(m1); };
-									conn3: feature asub1.af3->af2 {psmemmv::def1 => "g" in modes(m1); };
-								end s1.i;
-							abstract a1
-								features
-									af3: feature;
-							end a1;
-						end testmemissingmodevalues;
-					''')
-		suppressSerialization
-		testFile("psmemmv.aadl")
-		val testFileResult = testFile("testmemissingmodevalues.aadl")
+		val aadlText1 = '''
+			property set psmemmv is
+				def1: aadlstring => 'z' applies to (all);
+			end psmemmv;	
+		'''
+		val aadlText = '''
+			package testmemissingmodevalues
+			public
+				with psmemmv;
+				system s1
+					features
+						af1 : feature;
+						af2 : feature;
+					modes
+						m1: initial mode;
+						m2: mode;
+						m3: mode;
+				end s1;
+				system implementation s1.i
+					subcomponents
+						asub1: abstract a1;
+					connections
+«««						conn1: feature af1->af2 {psmemmv::def1 => "g" in modes(m3);} in modes(m1, m2);
+						conn1: feature asub1.af3->af2 {psmemmv::def1 => "g" in modes(m3);} in modes(m1, m2);
+«««						conn2: feature af1->af2 {psmemmv::def1 => "g" in modes(m1);} in modes(m1, m2);
+						conn2: feature asub1.af3->af2 {psmemmv::def1 => "g" in modes(m1);} in modes(m1, m2);
+«««						conn3: feature af1->af2 {psmemmv::def1 => "g" in modes(m1); };
+						conn3: feature asub1.af3->af2 {psmemmv::def1 => "g" in modes(m1); };
+				end s1.i;
+				abstract a1
+					features
+						af3: feature;
+				end a1;
+			end testmemissingmodevalues;
+		'''
+		val testFileResult = issues = testHelper.testString(aadlText, aadlText1)
 		val issueCollection = new FluentIssueCollection(testFileResult.resource, newArrayList, newArrayList)
 		testFileResult.resource.contents.head as AadlPackage => [
 			"testmemissingmodevalues".assertEquals(name)
@@ -1093,44 +1090,43 @@ class OtherAadl2JavaValidatorTest extends OsateTest {
 				]
 			]
 		]			
-		issueCollection.sizeIs(issueCollection.issues.size)
+		issueCollection.sizeIs(testFileResult.issues.size)
 		assertConstraints(issueCollection)
 	}
 
 	//Tests validation of flow implementation in and out complies with specification 
 	@Test
 	def void testCheckFlowPathElements() {
-		createFiles("testCheckFlowPathElements.aadl" -> '''
-						package testCheckFlowPathElements
-						public
-							system implementation S.i
-							  subcomponents
-							    s1: system s;
-							    s2: system s;
-							  connections
-							    c1: feature group s1.fg_out -> s2.fg_in;
-								flows
-									fl1: flow path fg_in.p -> fg_out.p;
-									fl2: flow path fg_in -> fg_out;
-									fl3: flow path fg_in.p -> fg_out.p;
-							end S.i;
-							feature group fg
-								features
-									p: in data port;
-							end fg;
-							system s
-								features
-									fg_in: feature group fg;
-									fg_out: feature group inverse of fg;
-								flows
-									fl1: flow path fg_in -> fg_out;
-									fl2: flow path fg_in -> fg_out;
-									fl3: flow path fg_in.p -> fg_out.p ;
-								end s;
-						end testCheckFlowPathElements;
-					''')
-		suppressSerialization
-		val testFileResult = testFile("testCheckFlowPathElements.aadl")
+		val aadlText = '''
+			package testCheckFlowPathElements
+			public
+				system implementation S.i
+				  subcomponents
+				    s1: system s;
+				    s2: system s;
+				  connections
+				    c1: feature group s1.fg_out -> s2.fg_in;
+					flows
+						fl1: flow path fg_in.p -> fg_out.p;
+						fl2: flow path fg_in -> fg_out;
+						fl3: flow path fg_in.p -> fg_out.p;
+				end S.i;
+				feature group fg
+					features
+						p: in data port;
+				end fg;
+				system s
+					features
+						fg_in: feature group fg;
+						fg_out: feature group inverse of fg;
+					flows
+						fl1: flow path fg_in -> fg_out;
+						fl2: flow path fg_in -> fg_out;
+						fl3: flow path fg_in.p -> fg_out.p ;
+					end s;
+			end testCheckFlowPathElements;
+		'''
+		val testFileResult = issues = testHelper.testString(aadlText)
 		val issueCollection = new FluentIssueCollection(testFileResult.resource, newArrayList, newArrayList)
 		// checkFlowPathElements
 		testFileResult.resource.contents.head as AadlPackage => [
@@ -1147,7 +1143,7 @@ class OtherAadl2JavaValidatorTest extends OsateTest {
 				]
 			]
 		]
-		issueCollection.sizeIs(issueCollection.issues.size)
+		issueCollection.sizeIs(testFileResult.issues.size)
 		assertConstraints(issueCollection)
 	}
 
@@ -1155,7 +1151,7 @@ class OtherAadl2JavaValidatorTest extends OsateTest {
 	//particularly when feature groups are inverted features  
 	@Test
 	def void testCheckFeatureGroupConnectionDirection() {
-		createFiles("testfgconndirection.aadl" -> '''
+		val aadlText = '''
 						package testfgconndirection
 						public
 							-- Feature group with the data port.
@@ -1203,9 +1199,8 @@ class OtherAadl2JavaValidatorTest extends OsateTest {
 									tt: feature group s1.o -> s2.i;
 							end top.i;
 						end testfgconndirection;
-						''')
-		suppressSerialization
-		val testFileResult = testFile("testfgconndirection.aadl")
+						'''
+		val testFileResult = issues = testHelper.testString(aadlText)
 		val issueCollection = new FluentIssueCollection(testFileResult.resource, newArrayList, newArrayList)
 		// checkFeatureGroupConnectionDirection
 		testFileResult.resource.contents.head as AadlPackage => [
@@ -1220,14 +1215,14 @@ class OtherAadl2JavaValidatorTest extends OsateTest {
 				]
 			]
 		]
-		issueCollection.sizeIs(issueCollection.issues.size)
+		issueCollection.sizeIs(testFileResult.issues.size)
 		assertConstraints(issueCollection)
 	}
 	
 	//Tests validation of ComponentType Features and Prototypes including where refinement is used 
 	@Test
 	def void testCheckComponentTypeUniqueNames() {
-		createFiles("testtypeuniquenames.aadl" -> '''
+		val aadlText = '''
 					package testtypeuniquenames
 					public
 						system s1
@@ -1277,9 +1272,8 @@ class OtherAadl2JavaValidatorTest extends OsateTest {
 								dp10: in data port;
 						end s4;
 					end testtypeuniquenames;
-					''')
-		suppressSerialization
-		val testFileResult = testFile("testtypeuniquenames.aadl")
+					'''
+		val testFileResult = issues = testHelper.testString(aadlText)
 		val issueCollection = new FluentIssueCollection(testFileResult.resource, newArrayList, newArrayList)
 		
 		testFileResult.resource.contents.head as AadlPackage => [
@@ -1340,14 +1334,14 @@ class OtherAadl2JavaValidatorTest extends OsateTest {
 				]
 			]
 		]
-		issueCollection.sizeIs(issueCollection.issues.size)
+		issueCollection.sizeIs(testFileResult.issues.size)
 		assertConstraints(issueCollection)
 	}
 
 	//Tests validation of ComponentType Features and Prototypes including where refinement is used 
 	@Test
 	def void testCheckFeatureGroupTypeUniqueNames() {
-		createFiles("testfguniquenames.aadl" -> '''
+		val aadlText = '''
 						package testfguniquenames
 						public
 							feature group fg1
@@ -1387,9 +1381,8 @@ class OtherAadl2JavaValidatorTest extends OsateTest {
 						 			dp10: in data port;
 							end fg4;
 						end testfguniquenames;
-					''')
-		suppressSerialization
-		val testFileResult = testFile("testfguniquenames.aadl")
+					'''
+		val testFileResult = issues = testHelper.testString(aadlText)
 		val issueCollection = new FluentIssueCollection(testFileResult.resource, newArrayList, newArrayList)
 		
 		testFileResult.resource.contents.head as AadlPackage => [
@@ -1442,14 +1435,14 @@ class OtherAadl2JavaValidatorTest extends OsateTest {
 				]
 			]
 		]
-		issueCollection.sizeIs(issueCollection.issues.size)
+		issueCollection.sizeIs(testFileResult.issues.size)
 		assertConstraints(issueCollection)
 	}
 
 	//Tests validation of ComponentImplementation elements for unique names
 	@Test
 	def void testCheckComponentImplementationUniqueNames() {
-		createFiles("componentimpluniquenames.aadl" -> '''
+		val aadlText = '''
 						package componentimpluniquenames
 							public
 								abstract ab1 extends ab0
@@ -1620,9 +1613,8 @@ class OtherAadl2JavaValidatorTest extends OsateTest {
 									dp102: out data port;
 							end ab99;
 						end componentimpluniquenames;
-						''')
-		suppressSerialization
-		val testFileResult = testFile("componentimpluniquenames.aadl")
+						'''
+		val testFileResult = issues = testHelper.testString(aadlText)
 		val issueCollection = new FluentIssueCollection(testFileResult.resource, newArrayList, newArrayList)
 		
 		testFileResult.resource.contents.head as AadlPackage => [
@@ -1786,7 +1778,7 @@ class OtherAadl2JavaValidatorTest extends OsateTest {
 			]
 		]
 
-		issueCollection.sizeIs(issueCollection.issues.size)
+		issueCollection.sizeIs(testFileResult.issues.size)
 		assertConstraints(issueCollection)
 	}
 	

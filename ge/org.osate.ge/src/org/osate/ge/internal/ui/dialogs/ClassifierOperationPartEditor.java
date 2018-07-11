@@ -26,6 +26,7 @@ import org.eclipse.swt.widgets.Group;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
 import org.osate.aadl2.ComponentCategory;
+import org.osate.ge.internal.ui.util.UiUtil;
 import org.osate.ge.internal.util.StringUtil;
 import org.osate.ge.internal.util.classifiers.ClassifierOperationPart;
 import org.osate.ge.internal.util.classifiers.ClassifierOperationPartType;
@@ -314,5 +315,9 @@ class ClassifierOperationPartEditor extends Composite {
 
 	public ClassifierOperationPart getConfiguredOperation() {
 		return currentValue.toConfiguredOperation();
+	}
+
+	public void setData(final String id) {
+		identifierField.setData(UiUtil.AUTOMATED_SWTBOT_TESTING_KEY, id);
 	}
 }

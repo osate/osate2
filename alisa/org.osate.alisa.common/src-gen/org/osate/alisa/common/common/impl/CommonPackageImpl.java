@@ -47,6 +47,7 @@ import org.osate.alisa.common.common.ModelRef;
 import org.osate.alisa.common.common.Operation;
 import org.osate.alisa.common.common.PropertyRef;
 import org.osate.alisa.common.common.Rationale;
+import org.osate.alisa.common.common.TargetType;
 import org.osate.alisa.common.common.TypeRef;
 import org.osate.alisa.common.common.Uncertainty;
 import org.osate.alisa.common.common.ValDeclaration;
@@ -212,6 +213,13 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage
    * @generated
    */
   private EEnum operationEEnum = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EEnum targetTypeEEnum = null;
 
   /**
    * Creates an instance of the model <b>Package</b>, registered with
@@ -885,6 +893,16 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  public EEnum getTargetType()
+  {
+    return targetTypeEEnum;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public CommonFactory getCommonFactory()
   {
     return (CommonFactory)getEFactoryInstance();
@@ -992,6 +1010,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage
 
     // Create enums
     operationEEnum = createEEnum(OPERATION);
+    targetTypeEEnum = createEEnum(TARGET_TYPE);
   }
 
   /**
@@ -1144,6 +1163,15 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage
     addEEnumLiteral(operationEEnum, Operation.INTDIV);
     addEEnumLiteral(operationEEnum, Operation.MOD);
     addEEnumLiteral(operationEEnum, Operation.NOT);
+
+    initEEnum(targetTypeEEnum, TargetType.class, "TargetType");
+    addEEnumLiteral(targetTypeEEnum, TargetType.COMPONENT);
+    addEEnumLiteral(targetTypeEEnum, TargetType.FEATURE);
+    addEEnumLiteral(targetTypeEEnum, TargetType.CONNECTION);
+    addEEnumLiteral(targetTypeEEnum, TargetType.FLOW);
+    addEEnumLiteral(targetTypeEEnum, TargetType.MODE);
+    addEEnumLiteral(targetTypeEEnum, TargetType.ELEMENT);
+    addEEnumLiteral(targetTypeEEnum, TargetType.ROOT);
 
     // Create resource
     createResource(eNS_URI);

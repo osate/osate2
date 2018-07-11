@@ -1,8 +1,8 @@
 package org.osate.core.tests.issues
 
+import com.google.inject.Inject
 import com.itemis.xtext.testing.FluentIssueCollection
-import org.eclipse.core.resources.IMarker
-import org.eclipse.core.resources.IResource
+import com.itemis.xtext.testing.XtextTest
 import org.eclipse.xtext.testing.InjectWith
 import org.eclipse.xtext.testing.XtextRunner
 import org.junit.Test
@@ -11,15 +11,20 @@ import org.osate.aadl2.AadlPackage
 import org.osate.aadl2.AbstractImplementation
 import org.osate.aadl2.SystemImplementation
 import org.osate.aadl2.instantiation.InstantiateModel
-import org.osate.core.test.Aadl2UiInjectorProvider
-import org.osate.core.test.OsateTest
+import org.osate.aadl2.modelsupport.errorreporting.AnalysisErrorReporterManager
+import org.osate.aadl2.modelsupport.errorreporting.QueuingAnalysisErrorReporter
+import org.osate.testsupport.Aadl2InjectorProvider
+import org.osate.testsupport.TestHelper
 
 import static extension org.junit.Assert.*
-import static extension org.osate.aadl2.modelsupport.resources.OsateResourceUtil.convertToIResource
+import static extension org.osate.testsupport.AssertHelper.assertWarning
 
 @RunWith(XtextRunner)
-@InjectWith(Aadl2UiInjectorProvider)
-class Issue879Test extends OsateTest {
+@InjectWith(Aadl2InjectorProvider)
+class Issue879Test extends XtextTest {
+	@Inject
+	TestHelper<AadlPackage> testHelper
+	
 	val static PROJECT_LOCATION = "org.osate.core.tests/models/issue879/"
 	val static FILE1 = "simple.aadl"
 	val static FILE2 = "pkg1.aadl"
@@ -46,16 +51,12 @@ class Issue879Test extends OsateTest {
 	val static ERROR_NO_END_TO_END_FLOW2 = "Cannot create end to end flow 'etef1' because there are no semantic connections that continue the flow 'fsrc1' from feature 'af2'"
 	@Test
 	def void test1() {
-		val testFileResult = loadFile(FILE1, PROJECT_LOCATION + FILE1)
+		val testFileResult = issues = testHelper.testFile(PROJECT_LOCATION + FILE1)
 		val issueCollection = new FluentIssueCollection(testFileResult.resource, newArrayList, newArrayList)
 		
 		testFileResult.resource.contents.head as AadlPackage => [
 			"simple".assertEquals(name)
 			
-//			publicSection.ownedClassifiers.findFirst[name == S_I] as SystemImplementation => [
-//				assertError(testFileResult.issues, issueCollection, ERROR_NO_SINK1, ERROR_NO_SRC1, ERROR_NO_PATH1)
-//			]			
-
 			publicSection.ownedClassifiers.findFirst[name == S_J] as SystemImplementation => [
 				ownedFlowImplementations.findFirst[specification.name == MY_SOURCE] => [
 					assertWarning(testFileResult.issues, issueCollection, WARNING_FLOW_EMPTY)
@@ -69,20 +70,18 @@ class Issue879Test extends OsateTest {
 			]			
 			
 			publicSection.ownedClassifiers.findFirst[name == S_K] as SystemImplementation => [
-//				assertError(testFileResult.issues, issueCollection, ERROR_NO_SINK2, ERROR_NO_SRC2)
-				
 				ownedFlowImplementations.findFirst[specification.name == MY_PATH] => [
 					assertWarning(testFileResult.issues, issueCollection, WARNING_FLOW_EMPTY)
 				]
 			]			
 		]
-		issueCollection.sizeIs(issueCollection.issues.size)
+		issueCollection.sizeIs(testFileResult.issues.size)
 		assertConstraints(issueCollection)
 	}
 	
 	@Test
 	def void test2() {
-		val testFileResult = loadFile(FILE2, PROJECT_LOCATION + FILE2)
+		val testFileResult = issues = testHelper.testFile(PROJECT_LOCATION + FILE2)
 		val issueCollection = new FluentIssueCollection(testFileResult.resource, newArrayList, newArrayList)
 		
 		val pkg = testFileResult.resource.contents.head as AadlPackage;
@@ -95,26 +94,27 @@ class Issue879Test extends OsateTest {
 				]
 			]			
 		]
-		issueCollection.sizeIs(issueCollection.issues.size)
+		issueCollection.sizeIs(testFileResult.issues.size)
 		assertConstraints(issueCollection)
 		
 		// instantiate and test
 		
 		val sysImpl = pkg.ownedPublicSection.ownedClassifiers.findFirst[name == A1_I] as AbstractImplementation
-		val instance = InstantiateModel::buildInstanceModelFile(sysImpl)
+		val errorManager = new AnalysisErrorReporterManager(QueuingAnalysisErrorReporter.factory)
+		val instance = InstantiateModel.instantiate(sysImpl, errorManager)
 		assertEquals(INSTANCE_NAME, instance.name)
 
-		val markers = instance.eResource.convertToIResource.findMarkers(IMarker.PROBLEM, true, IResource.DEPTH_ONE)
-		assertTrue(markers.length == 1)
-		markers.get(0) => [
-			IMarker.SEVERITY_ERROR.assertEquals(attributes.get(IMarker.SEVERITY))
-			ERROR_NO_END_TO_END_FLOW1.assertEquals(attributes.get(IMarker.MESSAGE))			
+		val messages = (errorManager.getReporter(instance.eResource) as QueuingAnalysisErrorReporter).errors
+		assertTrue(messages.length == 1)
+		messages.get(0) => [
+			QueuingAnalysisErrorReporter.ERROR.assertEquals(kind)
+			ERROR_NO_END_TO_END_FLOW1.assertEquals(message)			
 		]
 	}
 	
 	@Test
 	def void test3() {
-		val testFileResult = loadFile(FILE3, PROJECT_LOCATION + FILE3)
+		val testFileResult = issues = testHelper.testFile(PROJECT_LOCATION + FILE3)
 		val issueCollection = new FluentIssueCollection(testFileResult.resource, newArrayList, newArrayList)
 		
 		val pkg = testFileResult.resource.contents.head as AadlPackage;
@@ -127,26 +127,21 @@ class Issue879Test extends OsateTest {
 				]
 			]			
 		]
-		issueCollection.sizeIs(issueCollection.issues.size)
+		issueCollection.sizeIs(testFileResult.issues.size)
 		assertConstraints(issueCollection)
 		
 		// instantiate and test
 		
 		val sysImpl = pkg.ownedPublicSection.ownedClassifiers.findFirst[name == A1_I] as AbstractImplementation
-		val instance = InstantiateModel::buildInstanceModelFile(sysImpl)
+		val errorManager = new AnalysisErrorReporterManager(QueuingAnalysisErrorReporter.factory)
+		val instance = InstantiateModel.instantiate(sysImpl, errorManager)
 		assertEquals(INSTANCE_NAME, instance.name)
 
-		val markers = instance.eResource.convertToIResource.findMarkers(IMarker.PROBLEM, true, IResource.DEPTH_ONE)
-		assertTrue(markers.length == 1)
-		markers.get(0) => [
-			IMarker.SEVERITY_ERROR.assertEquals(attributes.get(IMarker.SEVERITY))
-			ERROR_NO_END_TO_END_FLOW2.assertEquals(attributes.get(IMarker.MESSAGE))			
+		val messages = (errorManager.getReporter(instance.eResource) as QueuingAnalysisErrorReporter).errors
+		assertTrue(messages.length == 1)
+		messages.get(0) => [
+			QueuingAnalysisErrorReporter.ERROR.assertEquals(kind)
+			ERROR_NO_END_TO_END_FLOW2.assertEquals(message)			
 		]
-	}
-
-	private def FluentIssueCollection loadFile(String fname, String path) {
-		createFiles(fname -> readFile(path))
-		ignoreSerializationDifferences
-		testFile(fname)
 	}
 }

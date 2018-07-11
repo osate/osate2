@@ -1,15 +1,19 @@
 package org.osate.result.util;
 
+import java.util.Collection;
+
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
 import org.osate.result.AnalysisResult;
 import org.osate.result.BooleanValue;
-import org.osate.result.Result;
 import org.osate.result.Diagnostic;
 import org.osate.result.DiagnosticType;
 import org.osate.result.IntegerValue;
 import org.osate.result.RealValue;
+import org.osate.result.Result;
 import org.osate.result.ResultFactory;
 import org.osate.result.StringValue;
+import org.osate.result.Value;
 
 public class ResultUtil {
 
@@ -43,6 +47,13 @@ public class ResultUtil {
 		issue.setMessage(msg);
 		issue.setType(rit);
 		return issue;
+	}
+
+	public static Result createResult(String name, EObject target) {
+		Result result = ResultFactory.eINSTANCE.createResult();
+		result.setSourceReference(target);
+		result.setInfo(name);
+		return result;
 	}
 
 	public static AnalysisResult createAnalysisResult(String name, EObject target) {
@@ -88,6 +99,150 @@ public class ResultUtil {
 		BooleanValue res = ResultFactory.eINSTANCE.createBooleanValue();
 		res.setValue(value);
 		contributor.getValues().add(res);
+	}
+
+	// get values from the Result object
+
+	public static String getString(Result result, int idx) {
+		EList<Value> vals = result.getValues();
+		if (idx < vals.size()) {
+			Value val = vals.get(idx);
+			if (val instanceof StringValue) {
+				return ((StringValue) val).getValue();
+			}
+		}
+		return "";
+	}
+
+	public static boolean getBoolean(Result result, int idx) {
+		EList<Value> vals = result.getValues();
+		if (idx < vals.size()) {
+			Value val = vals.get(idx);
+			if (val instanceof BooleanValue) {
+				return ((BooleanValue) val).isValue();
+			}
+		}
+		return true;
+	}
+
+	public static long getInteger(Result result, int idx) {
+		EList<Value> vals = result.getValues();
+		if (idx < vals.size()) {
+			Value val = vals.get(idx);
+			if (val instanceof IntegerValue) {
+				return ((IntegerValue) val).getValue();
+			}
+		}
+		return 0;
+	}
+
+	public static double getReal(Result result, int idx) {
+		EList<Value> vals = result.getValues();
+		if (idx < vals.size()) {
+			Value val = vals.get(idx);
+			if (val instanceof RealValue) {
+				return ((RealValue) val).getValue();
+			}
+		}
+		return 0;
+	}
+
+	public static Value getValue(Result result, int idx) {
+		EList<Value> vals = result.getValues();
+		if (idx < vals.size()) {
+			return vals.get(idx);
+		}
+		return null;
+	}
+
+	/**
+	 * true if there are any diagnostics with FAILURE type or with ERROR type
+	 * @param res
+	 * @return
+	 */
+	public static boolean hasFailures(Result res) {
+		if (hasFailures(res.getDiagnostics())) {
+			return true;
+		}
+		for (Result subres : res.getSubResults()) {
+			if (hasFailures(subres)) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	public static boolean hasFailures(AnalysisResult res) {
+		for (Result r : res.getResults()) {
+			if (hasFailures(r)) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	public static boolean hasFailures(Diagnostic res) {
+		if (res.getType() == DiagnosticType.FAILURE) {
+			return true;
+		}
+		// this code supports nested Diagnostic objects
+		for (Diagnostic r : res.getIssues()) {
+			if (hasFailures(r)) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	public static boolean hasFailures(Collection<Diagnostic> res) {
+		for (Diagnostic r : res) {
+			if (hasFailures(r)) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	public static boolean hasErrors(Collection<Diagnostic> res) {
+		for (Diagnostic r : res) {
+			if (hasErrors(r)) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	public static boolean hasErrors(Diagnostic res) {
+		if (res.getType() == DiagnosticType.ERROR) {
+			return true;
+		}
+		for (Diagnostic r : res.getIssues()) {
+			if (hasFailures(r)) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	public static boolean hasErrors(Result res) {
+		if (hasErrors(res.getDiagnostics())) {
+			return true;
+		}
+		for (Result subres : res.getSubResults()) {
+			if (hasErrors(subres)) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	public static boolean hasErrors(AnalysisResult res) {
+		for (Result r : res.getResults()) {
+			if (hasErrors(r)) {
+				return true;
+			}
+		}
+		return false;
 	}
 
 }

@@ -2055,8 +2055,8 @@ public class ReqSpecGrammarAccess extends AbstractGrammarElementFinder {
 		private final Alternatives cAlternatives_3_1 = (Alternatives)cGroup_3.eContents().get(1);
 		private final Assignment cComponentCategoryAssignment_3_1_0 = (Assignment)cAlternatives_3_1.eContents().get(0);
 		private final RuleCall cComponentCategoryComponentCategoryParserRuleCall_3_1_0_0 = (RuleCall)cComponentCategoryAssignment_3_1_0.eContents().get(0);
-		private final Assignment cConnectionsAssignment_3_1_1 = (Assignment)cAlternatives_3_1.eContents().get(1);
-		private final Keyword cConnectionsConnectionsKeyword_3_1_1_0 = (Keyword)cConnectionsAssignment_3_1_1.eContents().get(0);
+		private final Assignment cTargetTypeAssignment_3_1_1 = (Assignment)cAlternatives_3_1.eContents().get(1);
+		private final RuleCall cTargetTypeTargetTypeEnumRuleCall_3_1_1_0 = (RuleCall)cTargetTypeAssignment_3_1_1.eContents().get(0);
 		private final Keyword cLeftSquareBracketKeyword_4 = (Keyword)cGroup.eContents().get(4);
 		private final UnorderedGroup cUnorderedGroup_5 = (UnorderedGroup)cGroup.eContents().get(5);
 		private final Group cGroup_5_0 = (Group)cUnorderedGroup_5.eContents().get(0);
@@ -2136,8 +2136,7 @@ public class ReqSpecGrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cRightSquareBracketKeyword_6 = (Keyword)cGroup.eContents().get(6);
 		
 		//GlobalRequirement Requirement:
-		//	'requirement' name=ID (':' title=STRING)? ('for' (componentCategory+=ComponentCategory+ |
-		//	connections?='connections'))?
+		//	'requirement' name=ID (':' title=STRING)? ('for' (componentCategory+=ComponentCategory+ | targetType=TargetType))?
 		//	'[' (('category' category+=[categories::Category|QualifiedName]+)?
 		//	& description=Description?
 		//	& constants+=ValDeclaration* & computes+=ComputeDeclaration* & whencondition=WhenCondition? // condition under which requirement applies 
@@ -2157,9 +2156,9 @@ public class ReqSpecGrammarAccess extends AbstractGrammarElementFinder {
 		//	']';
 		@Override public ParserRule getRule() { return rule; }
 
-		//'requirement' name=ID (':' title=STRING)? ('for' (componentCategory+=ComponentCategory+ | connections?='connections'))?
-		//'[' (('category' category+=[categories::Category|QualifiedName]+)? & description=Description? &
-		//constants+=ValDeclaration* & computes+=ComputeDeclaration* & whencondition=WhenCondition? // condition under which requirement applies 
+		//'requirement' name=ID (':' title=STRING)? ('for' (componentCategory+=ComponentCategory+ | targetType=TargetType))? '['
+		//(('category' category+=[categories::Category|QualifiedName]+)? & description=Description? & constants+=ValDeclaration*
+		//& computes+=ComputeDeclaration* & whencondition=WhenCondition? // condition under which requirement applies 
 		//& predicate=ReqPredicate? // predicate expression 
 		//& rationale=Rationale? & changeUncertainty=Uncertainty? & ('mitigates' (exception=[ecore::EObject] |
 		//exceptionText=STRING))? & ('refines' refinesReference+=[Requirement|QualifiedName]+)? & ('decomposes'
@@ -2191,13 +2190,13 @@ public class ReqSpecGrammarAccess extends AbstractGrammarElementFinder {
 		//STRING
 		public RuleCall getTitleSTRINGTerminalRuleCall_2_1_0() { return cTitleSTRINGTerminalRuleCall_2_1_0; }
 
-		//('for' (componentCategory+=ComponentCategory+ | connections?='connections'))?
+		//('for' (componentCategory+=ComponentCategory+ | targetType=TargetType))?
 		public Group getGroup_3() { return cGroup_3; }
 
 		//'for'
 		public Keyword getForKeyword_3_0() { return cForKeyword_3_0; }
 
-		//componentCategory+=ComponentCategory+ | connections?='connections'
+		//componentCategory+=ComponentCategory+ | targetType=TargetType
 		public Alternatives getAlternatives_3_1() { return cAlternatives_3_1; }
 
 		//componentCategory+=ComponentCategory+
@@ -2206,11 +2205,11 @@ public class ReqSpecGrammarAccess extends AbstractGrammarElementFinder {
 		//ComponentCategory
 		public RuleCall getComponentCategoryComponentCategoryParserRuleCall_3_1_0_0() { return cComponentCategoryComponentCategoryParserRuleCall_3_1_0_0; }
 
-		//connections?='connections'
-		public Assignment getConnectionsAssignment_3_1_1() { return cConnectionsAssignment_3_1_1; }
+		//targetType=TargetType
+		public Assignment getTargetTypeAssignment_3_1_1() { return cTargetTypeAssignment_3_1_1; }
 
-		//'connections'
-		public Keyword getConnectionsConnectionsKeyword_3_1_1_0() { return cConnectionsConnectionsKeyword_3_1_1_0; }
+		//TargetType
+		public RuleCall getTargetTypeTargetTypeEnumRuleCall_3_1_1_0() { return cTargetTypeTargetTypeEnumRuleCall_3_1_1_0; }
 
 		//'['
 		public Keyword getLeftSquareBracketKeyword_4() { return cLeftSquareBracketKeyword_4; }
@@ -2904,16 +2903,17 @@ public class ReqSpecGrammarAccess extends AbstractGrammarElementFinder {
 		private final Group cGroup_2 = (Group)cGroup.eContents().get(2);
 		private final Keyword cForKeyword_2_0 = (Keyword)cGroup_2.eContents().get(0);
 		private final Alternatives cAlternatives_2_1 = (Alternatives)cGroup_2.eContents().get(1);
-		private final Assignment cComponentCategoryAssignment_2_1_0 = (Assignment)cAlternatives_2_1.eContents().get(0);
-		private final RuleCall cComponentCategoryComponentCategoryParserRuleCall_2_1_0_0 = (RuleCall)cComponentCategoryAssignment_2_1_0.eContents().get(0);
-		private final Assignment cSelfAssignment_2_1_1 = (Assignment)cAlternatives_2_1.eContents().get(1);
-		private final Keyword cSelfSelfKeyword_2_1_1_0 = (Keyword)cSelfAssignment_2_1_1.eContents().get(0);
+		private final Assignment cLocalAssignment_2_1_0 = (Assignment)cAlternatives_2_1.eContents().get(0);
+		private final Keyword cLocalSelfKeyword_2_1_0_0 = (Keyword)cLocalAssignment_2_1_0.eContents().get(0);
+		private final Assignment cTargetElementAssignment_2_1_1 = (Assignment)cAlternatives_2_1.eContents().get(1);
+		private final CrossReference cTargetElementNamedElementCrossReference_2_1_1_0 = (CrossReference)cTargetElementAssignment_2_1_1.eContents().get(0);
+		private final RuleCall cTargetElementNamedElementIDTerminalRuleCall_2_1_1_0_1 = (RuleCall)cTargetElementNamedElementCrossReference_2_1_1_0.eContents().get(1);
 		
 		//IncludeGlobalRequirement:
-		//	'include' include=[ecore::EObject|QualifiedName] ('for' (componentCategory+=ComponentCategory+ | self?='self'))?;
+		//	'include' include=[ecore::EObject|QualifiedName] ('for' (local?='self' | targetElement=[aadl2::NamedElement]))?;
 		@Override public ParserRule getRule() { return rule; }
 
-		//'include' include=[ecore::EObject|QualifiedName] ('for' (componentCategory+=ComponentCategory+ | self?='self'))?
+		//'include' include=[ecore::EObject|QualifiedName] ('for' (local?='self' | targetElement=[aadl2::NamedElement]))?
 		public Group getGroup() { return cGroup; }
 
 		//'include'
@@ -2928,26 +2928,29 @@ public class ReqSpecGrammarAccess extends AbstractGrammarElementFinder {
 		//QualifiedName
 		public RuleCall getIncludeEObjectQualifiedNameParserRuleCall_1_0_1() { return cIncludeEObjectQualifiedNameParserRuleCall_1_0_1; }
 
-		//('for' (componentCategory+=ComponentCategory+ | self?='self'))?
+		//('for' (local?='self' | targetElement=[aadl2::NamedElement]))?
 		public Group getGroup_2() { return cGroup_2; }
 
 		//'for'
 		public Keyword getForKeyword_2_0() { return cForKeyword_2_0; }
 
-		//componentCategory+=ComponentCategory+ | self?='self'
+		//local?='self' | targetElement=[aadl2::NamedElement]
 		public Alternatives getAlternatives_2_1() { return cAlternatives_2_1; }
 
-		//componentCategory+=ComponentCategory+
-		public Assignment getComponentCategoryAssignment_2_1_0() { return cComponentCategoryAssignment_2_1_0; }
-
-		//ComponentCategory
-		public RuleCall getComponentCategoryComponentCategoryParserRuleCall_2_1_0_0() { return cComponentCategoryComponentCategoryParserRuleCall_2_1_0_0; }
-
-		//self?='self'
-		public Assignment getSelfAssignment_2_1_1() { return cSelfAssignment_2_1_1; }
+		//local?='self'
+		public Assignment getLocalAssignment_2_1_0() { return cLocalAssignment_2_1_0; }
 
 		//'self'
-		public Keyword getSelfSelfKeyword_2_1_1_0() { return cSelfSelfKeyword_2_1_1_0; }
+		public Keyword getLocalSelfKeyword_2_1_0_0() { return cLocalSelfKeyword_2_1_0_0; }
+
+		//targetElement=[aadl2::NamedElement]
+		public Assignment getTargetElementAssignment_2_1_1() { return cTargetElementAssignment_2_1_1; }
+
+		//[aadl2::NamedElement]
+		public CrossReference getTargetElementNamedElementCrossReference_2_1_1_0() { return cTargetElementNamedElementCrossReference_2_1_1_0; }
+
+		//ID
+		public RuleCall getTargetElementNamedElementIDTerminalRuleCall_2_1_1_0_1() { return cTargetElementNamedElementIDTerminalRuleCall_2_1_1_0_1; }
 	}
 
 	public class WhenConditionElements extends AbstractParserRuleElementFinder {
@@ -3728,8 +3731,7 @@ public class ReqSpecGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//GlobalRequirement Requirement:
-	//	'requirement' name=ID (':' title=STRING)? ('for' (componentCategory+=ComponentCategory+ |
-	//	connections?='connections'))?
+	//	'requirement' name=ID (':' title=STRING)? ('for' (componentCategory+=ComponentCategory+ | targetType=TargetType))?
 	//	'[' (('category' category+=[categories::Category|QualifiedName]+)?
 	//	& description=Description?
 	//	& constants+=ValDeclaration* & computes+=ComputeDeclaration* & whencondition=WhenCondition? // condition under which requirement applies 
@@ -3785,7 +3787,7 @@ public class ReqSpecGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//IncludeGlobalRequirement:
-	//	'include' include=[ecore::EObject|QualifiedName] ('for' (componentCategory+=ComponentCategory+ | self?='self'))?;
+	//	'include' include=[ecore::EObject|QualifiedName] ('for' (local?='self' | targetElement=[aadl2::NamedElement]))?;
 	public IncludeGlobalRequirementElements getIncludeGlobalRequirementAccess() {
 		return pIncludeGlobalRequirement;
 	}
@@ -3910,11 +3912,8 @@ public class ReqSpecGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//Uncertainty:
-	//	'uncertainty'
-	//	'[' (('volatility' volatility=INT)?
-	//	& ('precedence' precedence=INT)?
-	//	& ('impact' impact=INT)?)
-	//	']';
+	//	{Uncertainty} 'uncertainty' '[' (('volatility' volatility=INT)? & ('precedence' precedence=INT)? & ('impact'
+	//	impact=INT)?) ']';
 	public CommonGrammarAccess.UncertaintyElements getUncertaintyAccess() {
 		return gaCommon.getUncertaintyAccess();
 	}
@@ -3924,12 +3923,10 @@ public class ReqSpecGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//TypeRef aadl2::PropertyType:
-	//	{aadl2::AadlBoolean} 'boolean'
-	//	| {aadl2::AadlInteger} 'integer' ('units' referencedUnitsType=[aadl2::UnitsType|AADLPROPERTYREFERENCE])?
-	//	| {aadl2::AadlReal} 'real' ('units' referencedUnitsType=[aadl2::UnitsType|AADLPROPERTYREFERENCE])?
-	//	| {aadl2::AadlString} 'string'
-	//	| {ModelRef} 'model' 'element'
-	//	| {TypeRef} ref=[aadl2::PropertyType|AADLPROPERTYREFERENCE];
+	//	{aadl2::AadlBoolean} 'boolean' | {aadl2::AadlInteger} 'integer' ('units'
+	//	referencedUnitsType=[aadl2::UnitsType|AADLPROPERTYREFERENCE])? | {aadl2::AadlReal} 'real' ('units'
+	//	referencedUnitsType=[aadl2::UnitsType|AADLPROPERTYREFERENCE])? | {aadl2::AadlString} 'string' | {ModelRef} 'model'
+	//	'element' | {TypeRef} ref=[aadl2::PropertyType|AADLPROPERTYREFERENCE];
 	public CommonGrammarAccess.TypeRefElements getTypeRefAccess() {
 		return gaCommon.getTypeRefAccess();
 	}
@@ -3949,9 +3946,8 @@ public class ReqSpecGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//ComputeDeclaration AVariableDeclaration:
-	//	{ComputeDeclaration}
-	//	'compute' name=ID ':' (type=TypeRef | 'typeof' type=PropertyRef | range?='[' (type=TypeRef | 'typeof'
-	//	type=PropertyRef) ']');
+	//	{ComputeDeclaration} 'compute' name=ID ':' (type=TypeRef | 'typeof' type=PropertyRef | range?='[' (type=TypeRef |
+	//	'typeof' type=PropertyRef) ']');
 	public CommonGrammarAccess.ComputeDeclarationElements getComputeDeclarationAccess() {
 		return gaCommon.getComputeDeclarationAccess();
 	}
@@ -3961,10 +3957,9 @@ public class ReqSpecGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//// Reference to property, property constant, or model element.
-	//AModelOrPropertyReference AExpression:
+	// AModelOrPropertyReference AExpression:
 	//	AModelReference (=> ({APropertyReference.modelElementReference=current} '#')
-	//	property=[aadl2::AbstractNamedValue|AADLPROPERTYREFERENCE])?
-	//	| APropertyReference;
+	//	property=[aadl2::AbstractNamedValue|AADLPROPERTYREFERENCE])? | APropertyReference;
 	public CommonGrammarAccess.AModelOrPropertyReferenceElements getAModelOrPropertyReferenceAccess() {
 		return gaCommon.getAModelOrPropertyReferenceAccess();
 	}
@@ -4035,13 +4030,8 @@ public class ReqSpecGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//enum Operation:
-	//	OR='or' | ALT_OR='||'
-	//	| AND='and' | ALT_AND='&&'
-	//	| EQ='==' | NEQ='!='
-	//	| GEQ='>=' | LEQ='<=' | GT='>' | LT='<' | IN='><'
-	//	| PLUS='+' | MINUS='-'
-	//	| MULT='*' | DIV='/' | INTDIV='div' | MOD='mod'
-	//	| NOT='not';
+	//	OR='or' | ALT_OR='||' | AND='and' | ALT_AND='&&' | EQ='==' | NEQ='!=' | GEQ='>=' | LEQ='<=' | GT='>' | LT='<' |
+	//	IN='><' | PLUS='+' | MINUS='-' | MULT='*' | DIV='/' | INTDIV='div' | MOD='mod' | NOT='not';
 	public CommonGrammarAccess.OperationElements getOperationAccess() {
 		return gaCommon.getOperationAccess();
 	}
@@ -4141,20 +4131,24 @@ public class ReqSpecGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	////AOtherOperatorExpression returns aadl2::PropertyExpression:
+	//
 	////	AAdditiveExpression (=>({ABinaryOperation.leftOperand=current} feature=OpOther)
+	//
 	////	rightOperand=AAdditiveExpression)*;
-	////
-	////OpOther:
-	////	  '->' 
-	////	| '..<'
-	////	| '>' '..'
-	////	| '..'
-	////	| '=>' 
+	// //
+	// //OpOther:
+	// //	  '->' 
+	// //	| '..<'
+	// //	| '>' '..'
+	// //	| '..'
+	// //	| '=>' 
+	//
 	////	| '>' (=>('>' '>') | '>') 
-	////	| '<' (=>('<' '<') | '<' | '=>')
-	////	| '<>'
-	////	| '?:';
-	//AAdditiveExpression aadl2::PropertyExpression:
+	// //	| '<' (=>('<' '<') | '<' | '=>')
+	// //	| '<>'
+	// //	| '?:';
+	// AAdditiveExpression
+	//aadl2::PropertyExpression:
 	//	AMultiplicativeExpression (=> ({ABinaryOperation.left=current} operator=OpAdd) right=AMultiplicativeExpression)*;
 	public CommonGrammarAccess.AAdditiveExpressionElements getAAdditiveExpressionAccess() {
 		return gaCommon.getAAdditiveExpressionAccess();
@@ -4225,8 +4219,8 @@ public class ReqSpecGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//APrimaryExpression aadl2::PropertyExpression:
-	//	ALiteral | AVariableReference | AModelOrPropertyReference | AFunctionCall | ARangeExpression | AIfExpression
-	//	| AParenthesizedExpression;
+	//	ALiteral | AVariableReference | AModelOrPropertyReference | AFunctionCall | ARangeExpression | AIfExpression |
+	//	AParenthesizedExpression;
 	public CommonGrammarAccess.APrimaryExpressionElements getAPrimaryExpressionAccess() {
 		return gaCommon.getAPrimaryExpressionAccess();
 	}
@@ -4316,13 +4310,17 @@ public class ReqSpecGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	////ASetTerm returns aadl2::PropertyExpression:
+	//
 	////	{ASetLiteral}  '{' (elements+=AExpression (',' elements+=AExpression )*)? '}'
-	////;
-	////
+	// //;
+	// //
+	//
 	////AListTerm returns aadl2::PropertyExpression:
+	//
 	////	{AListTerm} '[' (elements+=AExpression (',' elements+=AExpression )*)? ']'
-	////;
-	//ABooleanLiteral aadl2::PropertyExpression:
+	// //;
+	// ABooleanLiteral
+	//aadl2::PropertyExpression:
 	//	{aadl2::BooleanLiteral} (value?='true' | 'false');
 	public CommonGrammarAccess.ABooleanLiteralElements getABooleanLiteralAccess() {
 		return gaCommon.getABooleanLiteralAccess();
@@ -4363,16 +4361,25 @@ public class ReqSpecGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//ComponentCategory aadl2::ComponentCategory:
-	//	'abstract' | 'bus' | 'data'
-	//	| 'device' | 'memory' | 'process' | 'processor' | 'subprogram'
-	//	| 'subprogram' 'group' | 'system' | 'thread' 'group'
-	//	| 'thread' | 'virtual' 'bus' | 'virtual' 'processor';
+	//	'abstract' | 'bus' | 'data' | 'device' | 'memory' | 'process' | 'processor' | 'subprogram' | 'subprogram' 'group' |
+	//	'system' | 'thread' 'group' | 'thread' | 'virtual' 'bus' | 'virtual' 'processor';
 	public CommonGrammarAccess.ComponentCategoryElements getComponentCategoryAccess() {
 		return gaCommon.getComponentCategoryAccess();
 	}
 	
 	public ParserRule getComponentCategoryRule() {
 		return getComponentCategoryAccess().getRule();
+	}
+
+	//enum TargetType:
+	//	COMPONENT='component' | FEATURE='feature' | CONNECTION='connection' | FLOW='flow' | MODE='mode' | ELEMENT='element' |
+	//	ROOT='root';
+	public CommonGrammarAccess.TargetTypeElements getTargetTypeAccess() {
+		return gaCommon.getTargetTypeAccess();
+	}
+	
+	public EnumRule getTargetTypeRule() {
+		return getTargetTypeAccess().getRule();
 	}
 
 	//terminal fragment EXPONENT:
@@ -4412,7 +4419,7 @@ public class ReqSpecGrammarAccess extends AbstractGrammarElementFinder {
 	} 
 
 	//// Qualified classifier reference
-	//AadlClassifierReference:
+	// AadlClassifierReference:
 	//	ID ('::' ID)+ ('.' ID)?;
 	public CommonGrammarAccess.AadlClassifierReferenceElements getAadlClassifierReferenceAccess() {
 		return gaCommon.getAadlClassifierReferenceAccess();
@@ -4443,7 +4450,7 @@ public class ReqSpecGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	////terminal URIID : ('a'..'z'|'A'..'Z') ('a'..'z'|'A'..'Z'|'_'|'0'..'9'|'#'|'@'|'/'|':')*;
-	//QualifiedName:
+	// QualifiedName:
 	//	ID ('.' ID)*;
 	public CommonGrammarAccess.QualifiedNameElements getQualifiedNameAccess() {
 		return gaCommon.getQualifiedNameAccess();

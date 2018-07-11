@@ -4347,17 +4347,17 @@ ruleErrorSourceKeywords
 (
 (
 		{ 
-	        newCompositeNode(grammarAccess.getErrorSourceAccess().getConditionCONDITIONParserRuleCall_6_1_0()); 
+	        newCompositeNode(grammarAccess.getErrorSourceAccess().getFlowconditionIfConditionParserRuleCall_6_1_0()); 
 	    }
-		lv_condition_12_0=ruleCONDITION		{
+		lv_flowcondition_12_0=ruleIfCondition		{
 	        if ($current==null) {
 	            $current = createModelElementForParent(grammarAccess.getErrorSourceRule());
 	        }
        		set(
        			$current, 
-       			"condition",
-        		lv_condition_12_0, 
-        		"org.osate.xtext.aadl2.errormodel.ErrorModel.CONDITION");
+       			"flowcondition",
+        		lv_flowcondition_12_0, 
+        		"org.osate.xtext.aadl2.errormodel.ErrorModel.IfCondition");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -4470,10 +4470,33 @@ ruleErrorSinkKeywords
 	    }
 
 )
-)?
-	otherlv_6=Semicolon
+)?(
+	otherlv_6=If
     {
-    	newLeafNode(otherlv_6, grammarAccess.getErrorSinkAccess().getSemicolonKeyword_5());
+    	newLeafNode(otherlv_6, grammarAccess.getErrorSinkAccess().getIfKeyword_5_0());
+    }
+(
+(
+		{ 
+	        newCompositeNode(grammarAccess.getErrorSinkAccess().getFlowconditionIfConditionParserRuleCall_5_1_0()); 
+	    }
+		lv_flowcondition_7_0=ruleIfCondition		{
+	        if ($current==null) {
+	            $current = createModelElementForParent(grammarAccess.getErrorSinkRule());
+	        }
+       		set(
+       			$current, 
+       			"flowcondition",
+        		lv_flowcondition_7_0, 
+        		"org.osate.xtext.aadl2.errormodel.ErrorModel.IfCondition");
+	        afterParserOrEnumRuleCall();
+	    }
+
+)
+))?
+	otherlv_8=Semicolon
+    {
+    	newLeafNode(otherlv_8, grammarAccess.getErrorSinkAccess().getSemicolonKeyword_6());
     }
 )
 ;
@@ -4659,12 +4682,110 @@ ruleUseMappingsKeywords
 	    }
 
 )
-)))?
-	otherlv_12=Semicolon
+)))?(
+	otherlv_12=If
     {
-    	newLeafNode(otherlv_12, grammarAccess.getErrorPathAccess().getSemicolonKeyword_8());
+    	newLeafNode(otherlv_12, grammarAccess.getErrorPathAccess().getIfKeyword_8_0());
+    }
+(
+(
+		{ 
+	        newCompositeNode(grammarAccess.getErrorPathAccess().getFlowconditionIfConditionParserRuleCall_8_1_0()); 
+	    }
+		lv_flowcondition_13_0=ruleIfCondition		{
+	        if ($current==null) {
+	            $current = createModelElementForParent(grammarAccess.getErrorPathRule());
+	        }
+       		set(
+       			$current, 
+       			"flowcondition",
+        		lv_flowcondition_13_0, 
+        		"org.osate.xtext.aadl2.errormodel.ErrorModel.IfCondition");
+	        afterParserOrEnumRuleCall();
+	    }
+
+)
+))?
+	otherlv_14=Semicolon
+    {
+    	newLeafNode(otherlv_14, grammarAccess.getErrorPathAccess().getSemicolonKeyword_9());
     }
 )
+;
+
+
+
+
+
+// Entry rule entryRuleIfCondition
+entryRuleIfCondition returns [EObject current=null]
+	:
+	{ newCompositeNode(grammarAccess.getIfConditionRule()); }
+	 iv_ruleIfCondition=ruleIfCondition 
+	 { $current=$iv_ruleIfCondition.current; } 
+	 EOF 
+;
+
+// Rule IfCondition
+ruleIfCondition returns [EObject current=null] 
+    @init { enterRule(); 
+    }
+    @after { leaveRule(); }:
+((
+(
+		lv_description_0_0=RULE_STRING
+		{
+			newLeafNode(lv_description_0_0, grammarAccess.getIfConditionAccess().getDescriptionSTRINGTerminalRuleCall_0_0()); 
+		}
+		{
+	        if ($current==null) {
+	            $current = createModelElement(grammarAccess.getIfConditionRule());
+	        }
+       		setWithLastConsumed(
+       			$current, 
+       			"description",
+        		lv_description_0_0, 
+        		"org.osate.xtext.aadl2.properties.Properties.STRING");
+	    }
+
+)
+)
+    |(
+(
+		{
+			if ($current==null) {
+	            $current = createModelElement(grammarAccess.getIfConditionRule());
+	        }
+        }
+		{ 
+	        newCompositeNode(grammarAccess.getIfConditionAccess().getResoluteFunctionEObjectCrossReference_1_0()); 
+	    }
+		ruleQEMREF
+		{ 
+	        afterParserOrEnumRuleCall();
+	    }
+
+)
+)
+    |(
+(
+		{ 
+	        newCompositeNode(grammarAccess.getIfConditionAccess().getJavaMethodQUALIFIEDNAMEParserRuleCall_2_0()); 
+	    }
+		lv_javaMethod_2_0=ruleQUALIFIEDNAME		{
+	        if ($current==null) {
+	            $current = createModelElementForParent(grammarAccess.getIfConditionRule());
+	        }
+       		set(
+       			$current, 
+       			"javaMethod",
+        		lv_javaMethod_2_0, 
+        		"org.osate.xtext.aadl2.errormodel.ErrorModel.QUALIFIEDNAME");
+	        afterParserOrEnumRuleCall();
+	    }
+
+)
+))
 ;
 
 
@@ -5300,17 +5421,17 @@ ruleErrorEventKeywords
 (
 (
 		{ 
-	        newCompositeNode(grammarAccess.getErrorEventAccess().getConditionCONDITIONParserRuleCall_4_1_0()); 
+	        newCompositeNode(grammarAccess.getErrorEventAccess().getEventconditionIfConditionParserRuleCall_4_1_0()); 
 	    }
-		lv_condition_5_0=ruleCONDITION		{
+		lv_eventcondition_5_0=ruleIfCondition		{
 	        if ($current==null) {
 	            $current = createModelElementForParent(grammarAccess.getErrorEventRule());
 	        }
        		set(
        			$current, 
-       			"condition",
-        		lv_condition_5_0, 
-        		"org.osate.xtext.aadl2.errormodel.ErrorModel.CONDITION");
+       			"eventcondition",
+        		lv_eventcondition_5_0, 
+        		"org.osate.xtext.aadl2.errormodel.ErrorModel.IfCondition");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -5509,9 +5630,9 @@ ruleRecoverEventKeywords
 (
 (
 		{ 
-	        newCompositeNode(grammarAccess.getRecoverEventAccess().getConditionCONDITIONParserRuleCall_4_1_0()); 
+	        newCompositeNode(grammarAccess.getRecoverEventAccess().getConditionIfConditionParserRuleCall_4_1_0()); 
 	    }
-		lv_condition_8_0=ruleCONDITION		{
+		lv_condition_8_0=ruleIfCondition		{
 	        if ($current==null) {
 	            $current = createModelElementForParent(grammarAccess.getRecoverEventRule());
 	        }
@@ -5519,7 +5640,7 @@ ruleRecoverEventKeywords
        			$current, 
        			"condition",
         		lv_condition_8_0, 
-        		"org.osate.xtext.aadl2.errormodel.ErrorModel.CONDITION");
+        		"org.osate.xtext.aadl2.errormodel.ErrorModel.IfCondition");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -8143,35 +8264,6 @@ ruleSubcomponentElement returns [EObject current=null]
 
 
 
-// Entry rule entryRuleCONDITION
-entryRuleCONDITION returns [String current=null] 
-:
-	{ newCompositeNode(grammarAccess.getCONDITIONRule()); } 
-	 iv_ruleCONDITION=ruleCONDITION 
-	 { $current=$iv_ruleCONDITION.current.getText(); }  
-	 EOF 
-;
-
-// Rule CONDITION
-ruleCONDITION returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()] 
-    @init { enterRule(); 
-    }
-    @after { leaveRule();
-    }:
-    this_STRING_0=RULE_STRING    {
-		$current.merge(this_STRING_0);
-    }
-
-    { 
-    newLeafNode(this_STRING_0, grammarAccess.getCONDITIONAccess().getSTRINGTerminalRuleCall()); 
-    }
-
-    ;
-
-
-
-
-
 // Entry rule entryRuleComponentErrorBehaviorKeywords
 entryRuleComponentErrorBehaviorKeywords returns [String current=null] 
 :
@@ -9340,6 +9432,48 @@ ruleUseTypesKeywords returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRu
         newLeafNode(kw, grammarAccess.getUseTypesKeywordsAccess().getTypesKeyword_1()); 
     }
 )
+    ;
+
+
+
+
+
+// Entry rule entryRuleQUALIFIEDNAME
+entryRuleQUALIFIEDNAME returns [String current=null] 
+:
+	{ newCompositeNode(grammarAccess.getQUALIFIEDNAMERule()); } 
+	 iv_ruleQUALIFIEDNAME=ruleQUALIFIEDNAME 
+	 { $current=$iv_ruleQUALIFIEDNAME.current.getText(); }  
+	 EOF 
+;
+
+// Rule QUALIFIEDNAME
+ruleQUALIFIEDNAME returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()] 
+    @init { enterRule(); 
+    }
+    @after { leaveRule();
+    }:
+(    this_ID_0=RULE_ID    {
+		$current.merge(this_ID_0);
+    }
+
+    { 
+    newLeafNode(this_ID_0, grammarAccess.getQUALIFIEDNAMEAccess().getIDTerminalRuleCall_0()); 
+    }
+(
+	kw=FullStop 
+    {
+        $current.merge(kw);
+        newLeafNode(kw, grammarAccess.getQUALIFIEDNAMEAccess().getFullStopKeyword_1_0()); 
+    }
+    this_ID_2=RULE_ID    {
+		$current.merge(this_ID_2);
+    }
+
+    { 
+    newLeafNode(this_ID_2, grammarAccess.getQUALIFIEDNAMEAccess().getIDTerminalRuleCall_1_1()); 
+    }
+)+)
     ;
 
 
