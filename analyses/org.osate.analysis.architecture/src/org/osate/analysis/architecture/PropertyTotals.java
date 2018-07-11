@@ -50,6 +50,9 @@ import org.osate.aadl2.instance.FeatureInstance;
 import org.osate.aadl2.instance.SystemInstance;
 import org.osate.aadl2.modelsupport.modeltraversal.AadlProcessingSwitchWithProgress;
 import org.osate.result.AnalysisResult;
+import org.osate.result.Diagnostic;
+import org.osate.result.DiagnosticType;
+import org.osate.result.RealValue;
 import org.osate.result.Result;
 import org.osate.result.ResultFactory;
 import org.osate.result.util.ResultUtil;
@@ -87,6 +90,42 @@ public/* final */class PropertyTotals extends AadlProcessingSwitchWithProgress {
 		return price;
 	}
 
+	/**
+	 * Performs the weight analysis on a {@code ComponentInstance}.
+	 * <p>
+	 * The calculated weight and any issues encountered are returned in the {@code AnalysisResult}. The following
+	 * describes how the returned {@code AnalysisResult} is filled.
+	 * <p>
+	 * {@link AnalysisResult}:
+	 * <ul>
+	 *   <li>{@link AnalysisResult#getAnalysis()}: Set to the value {@code "Weight totals"}.
+	 *   <li>{@link AnalysisResult#getSourceReference()}: Set to the {@link ComponentInstance} passed to this method.
+	 *   <li>{@link AnalysisResult#getResults()}: One {@code Result} is created for the {@code ComponentInstance ci}.
+	 * </ul>
+	 * {@link Result}:
+	 * <ul>
+	 *   <li>{@link Result#getSourceReference()}: Set to the {@code ComponentInstance} for this {@code Result}.
+	 *   <li>{@link Result#getValues()}: One {@code RealValue} is created.
+	 *   <ul>
+	 *     <li>{@link RealValue#getValue()}: The calculated weight of the component.
+	 *     <li>{@link RealValue#getUnit()}: Weight units are in {@code kg}.
+	 *   </ul>
+	 *   <li>{@link Result#getDiagnostics()}: Zero or more {@code Diagnostic}s are created. Each one is a single issue
+	 *       discovered by the analysis to be reported to the user.
+	 *   <ul>
+	 *     <li>{@link Diagnostic#getType()}: {@link DiagnosticType#ERROR}, {@link DiagnosticType#WARNING}, or
+	 *         {@link DiagnosticType#INFO}.
+	 *     <li>{@link Diagnostic#getSourceReference()}: The location of the issue. Either the {@code ComponentInstance}
+	 *         of the {@code Result} or one of the component's {@link ConnectionInstance}s.
+	 *     <li>{@link Diagnostic#getMessage()}: The text of the issue.
+	 *   </ul>
+	 *   <li>{@link Result#getSubResults()}: Zero or more {@code Result}s are created: one for each subcomponent.
+	 * </ul>
+	 * 
+	 * @param ci The component to run the weight analysis on.
+	 * @return An {@code AnalysisResult} containing the weight of the component and all subcomponents as well as any
+	 *         issues encountered during the analysis.
+	 */
 	public static AnalysisResult invoke(ComponentInstance ci) {
 		AnalysisResult result = ResultUtil.createAnalysisResult("Weight totals", ci);
 		result.getResults().add(calcWeight(ci, true));
