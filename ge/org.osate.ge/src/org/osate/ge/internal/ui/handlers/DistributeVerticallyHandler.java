@@ -47,7 +47,7 @@ public class DistributeVerticallyHandler extends AbstractHandler {
 		// TODO de.hasposition?
 		final List<RelativeDiagramElement> sortedDiagramElements = selectedDiagramElements.stream()
 				.map(de -> new RelativeDiagramElement(de, getRelativeY(de)))
-				.sorted((r1, r2) -> Double.compare(r1.x, r2.x))
+				.sorted((r1, r2) -> Double.compare(r1.getRelativeCoordinate(), r2.getRelativeCoordinate()))
 				.collect(Collectors.toList());
 
 		diagram.modify("Distribute Horizontally", m -> {
@@ -67,15 +67,15 @@ public class DistributeVerticallyHandler extends AbstractHandler {
 		// Check if new shape location fits within parent(s)
 		rde = getDiagramElementToMove(rde, newY, m);
 
-		if (rde.de.getParent() instanceof DiagramElement) {
-			newY = rde.de.getY() - (rde.x - newY);
+		if (rde.getDiagramElement().getParent() instanceof DiagramElement) {
+			newY = rde.getDiagramElement().getY() - (rde.getRelativeCoordinate() - newY);
 		}
 		rde.setRelative(newY);
-		m.setPosition(rde.de, new Point(rde.de.getX(), newY));
+		m.setPosition(rde.getDiagramElement(), new Point(rde.getDiagramElement().getX(), newY));
 	}
 
 	public Object executeO(final ExecutionEvent event) throws ExecutionException {
-		final List<DiagramElement> selectedDiagramElements = AgeHandlerUtil.getSelectedDiagramElements(event);
+		final List<DiagramElement> selectedDiagramElements = AgeHandlerUtil.getSelectedDiagramElements();
 		final AgeDiagram diagram = UiUtil.getDiagram(selectedDiagramElements);
 		if (diagram == null) {
 			throw new RuntimeException("Unable to get diagram");
@@ -129,11 +129,11 @@ public class DistributeVerticallyHandler extends AbstractHandler {
 	// Check if new location can fit within the parent shape. Set child(s) to zero, and expand parent(s)
 	private RelativeDiagramElement getDiagramElementToMove(RelativeDiagramElement rde, double newX,
 			final DiagramModification m) {
-		while (rde.de.getParent() instanceof DiagramElement) {
-			final DiagramElement parentElement = (DiagramElement) rde.de.getParent();
-			System.err.println(rde.x + " y");
-			System.err.println(rde.de.getY() + " y");
-			final double pRel = rde.x - rde.de.getY();
+		while (rde.getDiagramElement().getParent() instanceof DiagramElement) {
+			final DiagramElement parentElement = (DiagramElement) rde.getDiagramElement().getParent();
+			System.err.println(rde.getRelativeCoordinate() + " y");
+			System.err.println(rde.getDiagramElement().getY() + " y");
+			final double pRel = rde.getRelativeCoordinate() - rde.getDiagramElement().getY();
 			// Check if new location will fit within container
 			if (pRel > newX) {
 				rde = moveChild(rde, pRel, parentElement, m);
@@ -148,8 +148,8 @@ public class DistributeVerticallyHandler extends AbstractHandler {
 	private RelativeDiagramElement moveChild(final RelativeDiagramElement rde, final double pRel,
 			final DiagramElement parentElement, final DiagramModification m) {
 		rde.setNewX(pRel);
-		System.err.println(rde.de.getBusinessObject() + " de set to zero");
-		m.setPosition(rde.de, new Point(rde.de.getX(), 0));
+		System.err.println(rde.getDiagramElement().getBusinessObject() + " de set to zero");
+		m.setPosition(rde.getDiagramElement(), new Point(rde.getDiagramElement().getX(), 0));
 		return new RelativeDiagramElement(parentElement, pRel);
 	}
 
@@ -167,7 +167,7 @@ public class DistributeVerticallyHandler extends AbstractHandler {
 
 	@Override
 	public void setEnabled(final Object evaluationContext) {
-		setBaseEnabled(AgeHandlerUtil.getSelectedDiagramElementsFromContext(evaluationContext).stream().filter(de -> {
+		setBaseEnabled(AgeHandlerUtil.getSelectedDiagramElements().stream().filter(de -> {
 			final DockArea dockArea = de.getDockArea();
 			return dockArea == DockArea.TOP || dockArea == DockArea.BOTTOM;
 		}).count() == 0);
@@ -179,7 +179,7 @@ public class DistributeVerticallyHandler extends AbstractHandler {
 	 * @return the height of the middle shapes
 	 */
 	private static double getHeightOfShapes(final List<RelativeDiagramElement> diagramElements) {
-		return diagramElements.stream().mapToDouble(rde -> rde.de.getHeight()).sum();
+		return diagramElements.stream().mapToDouble(rde -> rde.getDiagramElement().getHeight()).sum();
 	}
 
 	/**
@@ -189,7 +189,7 @@ public class DistributeVerticallyHandler extends AbstractHandler {
 	 * @return the Y-coordinate value for the shape being evaluated
 	 */
 	private static double getYValue(final RelativeDiagramElement prevElement, final double yDistribution) {
-		return prevElement.x + prevElement.de.getHeight() + yDistribution;
+		return prevElement.getRelativeCoordinate() + prevElement.getDiagramElement().getHeight() + yDistribution;
 	}
 
 	/**
@@ -202,7 +202,8 @@ public class DistributeVerticallyHandler extends AbstractHandler {
 		final double heightOfShapes = getHeightOfShapes(diagramElements);
 		final RelativeDiagramElement firstElement = diagramElements.get(0);
 		final RelativeDiagramElement lastElement = diagramElements.get(lastIndex);
-		return (lastElement.x + lastElement.de.getHeight() - firstElement.x - heightOfShapes) / lastIndex;
+		return (lastElement.getRelativeCoordinate() + lastElement.getDiagramElement().getHeight()
+				- firstElement.getRelativeCoordinate() - heightOfShapes) / lastIndex;
 	}
 
 	/**

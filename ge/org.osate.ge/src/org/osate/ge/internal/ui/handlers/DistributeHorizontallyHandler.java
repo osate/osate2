@@ -30,7 +30,7 @@ public class DistributeHorizontallyHandler extends AbstractHandler {
 		// TODO de.hasposition?
 		final List<RelativeDiagramElement> sortedDiagramElements = selectedDiagramElements.stream()
 				.map(de -> new RelativeDiagramElement(de, getRelativeX(de)))
-				.sorted((r1, r2) -> Double.compare(r1.x, r2.x))
+				.sorted((r1, r2) -> Double.compare(r1.getRelativeCoordinate(), r2.getRelativeCoordinate()))
 				.collect(Collectors.toList());
 
 		diagram.modify("Distribute Horizontally", m -> {
@@ -59,7 +59,7 @@ public class DistributeHorizontallyHandler extends AbstractHandler {
 
 	@Override
 	public void setEnabled(final Object evaluationContext) {
-		setBaseEnabled(AgeHandlerUtil.getSelectedDiagramElementsFromContext(evaluationContext).stream().filter(de -> {
+		setBaseEnabled(AgeHandlerUtil.getSelectedDiagramElements().stream().filter(de -> {
 			final DockArea dockArea = de.getDockArea();
 			return (dockArea == DockArea.LEFT || dockArea == DockArea.RIGHT);
 		}).count() == 0);
@@ -69,20 +69,20 @@ public class DistributeHorizontallyHandler extends AbstractHandler {
 		// Check if new shape location fits within parent(s)
 		rde = getDiagramElementToMove(rde, newX, m);
 
-		if (rde.de.getParent() instanceof DiagramElement) {
-			newX = rde.de.getX() - (rde.x - newX);
+		if (rde.getDiagramElement().getParent() instanceof DiagramElement) {
+			newX = rde.getDiagramElement().getX() - (rde.getRelativeCoordinate() - newX);
 		}
 		rde.setRelative(newX);
-		m.setPosition(rde.de, new Point(newX, rde.de.getY()));
+		m.setPosition(rde.getDiagramElement(), new Point(newX, rde.getDiagramElement().getY()));
 	}
 
 	// TODO: fix name and comment
 	// Check if new location can fit within the parent shape. Set child(s) to zero, and expand parent(s)
 	private RelativeDiagramElement getDiagramElementToMove(RelativeDiagramElement rde, double newX,
 			final DiagramModification m) {
-		while (rde.de.getParent() instanceof DiagramElement) {
-			final DiagramElement parentElement = (DiagramElement) rde.de.getParent();
-			final double pRel = rde.x - rde.de.getX();
+		while (rde.getDiagramElement().getParent() instanceof DiagramElement) {
+			final DiagramElement parentElement = (DiagramElement) rde.getDiagramElement().getParent();
+			final double pRel = rde.getRelativeCoordinate() - rde.getDiagramElement().getX();
 			// Check if new location will fit within container
 			if (pRel > newX) {
 				rde = moveChild(rde, pRel, parentElement, m);
@@ -97,7 +97,7 @@ public class DistributeHorizontallyHandler extends AbstractHandler {
 	private RelativeDiagramElement moveChild(final RelativeDiagramElement rde, final double pRel,
 			final DiagramElement parentElement, final DiagramModification m) {
 		rde.setNewX(pRel);
-		m.setPosition(rde.de, new Point(0, rde.de.getY()));
+		m.setPosition(rde.getDiagramElement(), new Point(0, rde.getDiagramElement().getY()));
 		return new RelativeDiagramElement(parentElement, pRel);
 	}
 
@@ -107,7 +107,7 @@ public class DistributeHorizontallyHandler extends AbstractHandler {
 	 * @return the width of the middle shapes
 	 */
 	private static double getWidthOfShapes(final List<RelativeDiagramElement> diagramElements) {
-		return diagramElements.stream().mapToDouble(de -> de.de.getWidth()).sum();
+		return diagramElements.stream().mapToDouble(de -> de.getDiagramElement().getWidth()).sum();
 	}
 
 	/**
@@ -120,7 +120,8 @@ public class DistributeHorizontallyHandler extends AbstractHandler {
 		final double widthOfShapes = getWidthOfShapes(diagramElements);
 		final RelativeDiagramElement firstElement = diagramElements.get(0);
 		final RelativeDiagramElement lastElement = diagramElements.get(lastIndex);
-		return (lastElement.x + lastElement.de.getWidth() - firstElement.x - widthOfShapes) / lastIndex;
+		return (lastElement.getRelativeCoordinate() + lastElement.getDiagramElement().getWidth()
+				- firstElement.getRelativeCoordinate() - widthOfShapes) / lastIndex;
 	}
 
 	/**
@@ -152,7 +153,7 @@ public class DistributeHorizontallyHandler extends AbstractHandler {
 	 * @return the X-coordinate value for the shape being evaluated
 	 */
 	private static double getXValue(final RelativeDiagramElement prevElement, final double xDistribution) {
-		return prevElement.x + prevElement.de.getWidth() + xDistribution;
+		return prevElement.getRelativeCoordinate() + prevElement.getDiagramElement().getWidth() + xDistribution;
 	}
 
 

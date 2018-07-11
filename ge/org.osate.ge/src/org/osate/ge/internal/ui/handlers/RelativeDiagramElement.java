@@ -4,17 +4,16 @@ import org.osate.ge.internal.diagram.runtime.DiagramElement;
 
 public class RelativeDiagramElement {
 	// TODO store xSum to top? would remove need for bubbling up twice
-	final DiagramElement de;
-	double x;
+	private final DiagramElement de;
+	private double relativeCoordinate;
 
 	RelativeDiagramElement(final DiagramElement de, final double relativeValue) {
 		this.de = de;
-		this.x = relativeValue;
-		// this.x = getRelativeValue.apply(de);
+		this.relativeCoordinate = relativeValue;
 	}
 
 	void setNewX(final double x) {
-		this.x = x;
+		this.relativeCoordinate = x;
 	}
 
 	void setRelative(final double newX) {
@@ -25,6 +24,14 @@ public class RelativeDiagramElement {
 			x += de.getX();
 		}
 
-		this.x = newX + x;
+		this.relativeCoordinate = newX + x;
+	}
+
+	double getRelativeCoordinate() {
+		return relativeCoordinate;
+	}
+
+	DiagramElement getDiagramElement() {
+		return de;
 	}
 }

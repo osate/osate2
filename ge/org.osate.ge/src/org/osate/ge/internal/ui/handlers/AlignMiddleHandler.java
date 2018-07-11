@@ -10,6 +10,7 @@ import org.osate.ge.graphics.Point;
 import org.osate.ge.internal.diagram.runtime.AgeDiagram;
 import org.osate.ge.internal.diagram.runtime.DiagramElement;
 import org.osate.ge.internal.diagram.runtime.DiagramModification;
+import org.osate.ge.internal.query.Queryable;
 import org.osate.ge.internal.ui.util.UiUtil;
 
 public class AlignMiddleHandler extends AbstractHandler {
@@ -25,41 +26,53 @@ public class AlignMiddleHandler extends AbstractHandler {
 		}
 
 		final List<RelativeDiagramElement> relativeDiagramElements = selectedDiagramElements.stream()
-				.map(de -> new RelativeDiagramElement(de, getRelativeY(de))).collect(Collectors.toList());
+				.map(de -> new RelativeDiagramElement(de, AlignmentHandlerHelper.getRelativeY(de)))
+				.collect(Collectors.toList());
+
 
 		diagram.modify("Align Middle", m -> {
-			final RelativeDiagramElement primaryElement = getPrimaryDiagramElement(relativeDiagramElements);
-			final double middle = primaryElement.de.getY() + primaryElement.de.getHeight() / 2;
-
+			final RelativeDiagramElement primaryDiagramElement = getPrimaryDiagramElement(relativeDiagramElements);
+			final double alignLocation = primaryDiagramElement.getRelativeCoordinate()
+					+ primaryDiagramElement.getDiagramElement().getHeight() / 2;
 			for (final RelativeDiagramElement rde : relativeDiagramElements) {
-				driveUp(rde, middle, m);
+				AlignmentHandlerHelper.driveUp(rde, alignLocation, m, (alignmentLocation, middleOffset) -> {
+					return alignmentLocation - middleOffset;
+				}, (de) -> de.getHeight() / 2);
 			}
 		});
 
 		return null;
 	}
 
-	private void driveUp(RelativeDiagramElement rde, double top, final DiagramModification m) {
-		final double middleOffset = rde.de.getHeight() / 2;
-		// Check if new shape location fits within parent(s)
-		rde = getDiagramElementToMove(rde, top, m);
+	@Override
+	public void setEnabled(final Object evaluationContext) {
+		setBaseEnabled(AlignmentHandlerHelper.getEnabled());
+	}
 
-		if (rde.de.getParent() instanceof DiagramElement) {
-			top = rde.de.getY() - (rde.x - top);
+	private void driveUp(RelativeDiagramElement rde, double alignLocation, final DiagramModification m) {
+		final double middleOffset = rde.getDiagramElement().getHeight() / 2;
+		// Check if new shape location fits within parent(s)
+		rde = getDiagramElementToMove(rde, alignLocation - middleOffset, m);
+		if (rde.getDiagramElement().getParent() instanceof DiagramElement) {
+			alignLocation = rde.getDiagramElement().getY() - (rde.getRelativeCoordinate() - alignLocation);
 		}
 
-		rde.setRelative(top - middleOffset);
-		m.setPosition(rde.de, new Point(rde.de.getX(), top - middleOffset));
+		// rde.setRelative(alignLocation - middleOffset);
+		m.setPosition(rde.getDiagramElement(), new Point(rde.getDiagramElement().getX(), alignLocation - middleOffset));
 	}
 
 	private RelativeDiagramElement getDiagramElementToMove(RelativeDiagramElement rde, double relativeLocation,
 			final DiagramModification m) {
-		while (rde.de.getParent() instanceof DiagramElement) {
-			final DiagramElement parentElement = (DiagramElement) rde.de.getParent();
-			final double pRel = rde.x - rde.de.getY();
+		while (rde.getDiagramElement().getParent() instanceof DiagramElement) {
+			final DiagramElement parentElement = (DiagramElement) rde.getDiagramElement().getParent();
+			final double pRel = rde.getRelativeCoordinate() - rde.getDiagramElement().getY();
+
 			// Check if new location will fit within container
 			if (pRel > relativeLocation) {
-				rde = moveChild(rde, pRel, parentElement, m);
+				rde = moveChild(rde, pRel, relativeLocation, parentElement, m);
+			} else if ((pRel + parentElement.getHeight()) < relativeLocation) {
+				moveChildren(rde, pRel, relativeLocation, parentElement, m);
+				break;
 			} else {
 				break;
 			}
@@ -69,20 +82,38 @@ public class AlignMiddleHandler extends AbstractHandler {
 	}
 
 	private RelativeDiagramElement moveChild(final RelativeDiagramElement rde, final double pRel,
-			final DiagramElement parentElement, final DiagramModification m) {
-		rde.setNewX(pRel);
-		m.setPosition(rde.de, new Point(rde.de.getX(), 0));
-		return new RelativeDiagramElement(parentElement, pRel);
-	}
-
-	private double getRelativeY(DiagramElement de) {
-		double y = de.getY();
-		while (de.getParent() instanceof DiagramElement) {
-			de = (DiagramElement) de.getParent();
-			y += de.getY();
+			final double relativeLocation, final DiagramElement parentDe, final DiagramModification m) {
+		// shift all children
+		final double childOffset = pRel - relativeLocation;
+		for (final Queryable q : parentDe.getChildren()) {
+			if (q instanceof DiagramElement) {
+				final DiagramElement childDe = (DiagramElement) q;
+				m.setPosition(childDe, new Point(childDe.getX(),
+						childDe.getY() + childOffset));
+			}
 		}
 
-		return y;
+		rde.setNewX(pRel);
+		m.setPosition(rde.getDiagramElement(), new Point(rde.getDiagramElement().getX(), 0));
+
+		AlignmentHandlerHelper.setParentSize(m, parentDe, childOffset);
+		return new RelativeDiagramElement(parentDe, pRel);
+	}
+
+	private void moveChildren(final RelativeDiagramElement rde, final double pRel, final double relativeLocation,
+			final DiagramElement parentDe, final DiagramModification m) {
+		// shift all children
+		final double childOffset = relativeLocation - rde.getRelativeCoordinate();
+		for (final Queryable q : parentDe.getChildren()) {
+			if (q instanceof DiagramElement) {
+				final DiagramElement childDe = (DiagramElement) q;
+				if (childDe != rde.getDiagramElement()) {
+					m.setPosition(childDe, new Point(childDe.getX(), childDe.getY() + childOffset));
+				}
+			}
+		}
+
+		AlignmentHandlerHelper.setParentSize(m, parentDe, childOffset);
 	}
 
 	public static RelativeDiagramElement getPrimaryDiagramElement(final List<RelativeDiagramElement> elements) {

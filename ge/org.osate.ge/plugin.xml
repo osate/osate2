@@ -372,20 +372,10 @@
     <handler
           class="org.osate.ge.internal.ui.handlers.AlignMiddleHandler"
           commandId="org.osate.ge.commands.alignMiddle">
-       <enabledWhen>
-          <reference
-                definitionId="org.osate.ge.expressions.undockedMoveableShapesWithSameParent">
-          </reference>
-       </enabledWhen>
     </handler>
     <handler
           class="org.osate.ge.internal.ui.handlers.AlignBottomHandler"
           commandId="org.osate.ge.commands.alignBottom">
-       <enabledWhen>
-          <reference
-                definitionId="org.osate.ge.expressions.undockedMoveableShapesWithSameParent">
-          </reference>
-       </enabledWhen>
     </handler>
     <handler
           class="org.osate.ge.internal.ui.handlers.OpenPropertiesHandler"
