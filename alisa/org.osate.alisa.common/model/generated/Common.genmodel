@@ -28,6 +28,15 @@
       <genEnumLiterals ecoreEnumLiteral="Common.ecore#//Operation/MOD"/>
       <genEnumLiterals ecoreEnumLiteral="Common.ecore#//Operation/NOT"/>
     </genEnums>
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="Common.ecore#//TargetType">
+      <genEnumLiterals ecoreEnumLiteral="Common.ecore#//TargetType/COMPONENT"/>
+      <genEnumLiterals ecoreEnumLiteral="Common.ecore#//TargetType/FEATURE"/>
+      <genEnumLiterals ecoreEnumLiteral="Common.ecore#//TargetType/CONNECTION"/>
+      <genEnumLiterals ecoreEnumLiteral="Common.ecore#//TargetType/FLOW"/>
+      <genEnumLiterals ecoreEnumLiteral="Common.ecore#//TargetType/MODE"/>
+      <genEnumLiterals ecoreEnumLiteral="Common.ecore#//TargetType/ELEMENT"/>
+      <genEnumLiterals ecoreEnumLiteral="Common.ecore#//TargetType/ROOT"/>
+    </genEnums>
     <genClasses ecoreClass="Common.ecore#//Description">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Common.ecore#//Description/description"/>
     </genClasses>

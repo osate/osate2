@@ -18,3 +18,4 @@ Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.emf.ecore.edit;visibility:=reexport,
  org.osate.xtext.aadl2.errormodel;visibility:=reexport
 Bundle-ActivationPolicy: lazy
+Automatic-Module-Name: org.osate.aadl2.errormodel.faulttree.edit

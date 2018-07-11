@@ -35,3 +35,4 @@ Export-Package: org.osate.alisa.common.ui.contentassist,
  org.osate.alisa.common.ui.quickfix,
  org.osate.alisa.common.ui.util
 Bundle-Activator: org.osate.alisa.common.ui.internal.CommonActivator
+Automatic-Module-Name: org.osate.alisa.common.ui

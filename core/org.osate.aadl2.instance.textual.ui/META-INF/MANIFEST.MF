@@ -27,3 +27,4 @@ Export-Package: org.osate.aadl2.instance.textual.ui.quickfix,
  org.osate.aadl2.instance.textual.ui.internal,
  org.osate.aadl2.instance.textual.ui.contentassist.antlr,
  org.osate.aadl2.instance.textual.ui.contentassist.antlr.internal
+Automatic-Module-Name: org.osate.aadl2.instance.textual.ui

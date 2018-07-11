@@ -15,6 +15,7 @@ import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.osate.ge.internal.AgeDiagramProvider;
 import org.osate.ge.internal.diagram.runtime.layout.LayoutInfoProvider;
 import org.osate.ge.internal.graphiti.GraphitiAgeDiagramProvider;
+import org.osate.ge.internal.services.ActionExecutor;
 import org.osate.ge.internal.services.EditorProvider;
 import org.osate.ge.internal.services.ProjectProvider;
 
@@ -24,7 +25,8 @@ import org.osate.ge.internal.services.ProjectProvider;
  * to extensions.
  */
 public interface GraphitiService
-		extends GraphitiAgeDiagramProvider, AgeDiagramProvider, ProjectProvider, EditorProvider, LayoutInfoProvider {
+extends GraphitiAgeDiagramProvider, AgeDiagramProvider, ProjectProvider, EditorProvider, LayoutInfoProvider,
+		ActionExecutor {
 	Diagram getDiagram();
 	IDiagramTypeProvider getDiagramTypeProvider();
 	IFeatureProvider getFeatureProvider();

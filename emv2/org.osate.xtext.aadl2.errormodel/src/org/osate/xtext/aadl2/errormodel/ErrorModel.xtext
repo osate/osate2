@@ -393,12 +393,13 @@ ErrorSource returns ErrorSource:
   	('when' (( failureModeReference = [ErrorBehaviorState|ID] ( failureModeType = TypeSetReference )?) 
   	| ( failureModeType = TypeSetConstructor )	 | failureModeDescription = STRING
   	) )?
-     ( 'if' condition=CONDITION)?
+     ( 'if' flowcondition=IfCondition)?
      ';'
   ;
 
 ErrorSink returns ErrorSink:
   name=ID ':' ErrorSinkKeywords (incoming=[ErrorPropagation|ErrorPropagationPoint]|allIncoming?='all') (typeTokenConstraint=TypeTokenConstraint)?
+     ( 'if' flowcondition=IfCondition)?
   ';';
 
 ErrorPath returns ErrorPath:
@@ -406,7 +407,10 @@ ErrorPath returns ErrorPath:
   ( targetToken=TypeToken | UseMappingsKeywords typeMappingSet=[TypeMappingSet|QEMREF]
   	
   )?
+     ( 'if' flowcondition=IfCondition)?
   ';';
+
+IfCondition : description=STRING | resoluteFunction=[ecore::EObject|QEMREF] | javaMethod=QUALIFIEDNAME;
 
 // reference to error propagation  
 ErrorPropagationPoint :
@@ -447,7 +451,7 @@ ErrorBehaviorEvent returns ErrorBehaviorEvent:
 ErrorEvent returns ErrorEvent:
     name=ID ':' ErrorEventKeywords
     (typeSet=TypeSetReference)?
-     ( 'if' condition=CONDITION)?
+     ( 'if' eventcondition=IfCondition )?
   	';'
 ; // add event condition 
     
@@ -463,7 +467,7 @@ RecoverEvent returns RecoverEvent:
     ('when' eventInitiator+=[aadl2::NamedElement|ID]
     	( "," eventInitiator+=[aadl2::NamedElement|ID])*
     )?
-      ( 'if' condition=CONDITION)?
+      ( 'if' condition=IfCondition)?
          ';'
 ; //add recover initiator 
 
@@ -493,15 +497,6 @@ BranchValue returns BranchValue:
    ((realvalue = REAL_LIT) | (symboliclabel = [aadl2::Property|QEMREF]) | (others?='others'));
 
 
-//ConnectionErrorSource returns ConnectionErrorSource:
-//	name=ID ':' ErrorSourceKeywords
-//	(connection=[aadl2::Connection|ID]|all?='all')
-//	(typeTokenConstraint=TypeTokenConstraint)?
-//  	('when'  (  failureModeType = TypeSetConstructor | failureModeDescription = STRING)
-//  	)?
-//     ( 'if' condition=CONDITION)?
-//     ';'
-//;
 
  
  
@@ -658,20 +653,6 @@ SubcomponentElement returns SubcomponentElement:
 	subcomponent = [aadl2::Subcomponent|ID]
 ;
 
-// XXX new grammar rules for aligning state path with EMV2Path
-//NewQualifiedErrorBehaviorState returns EMV2Path:
-// 	{QualifiedErrorBehaviorState} emv2Target=EMV2ErrorStatePath
-//;
-//
-//EMV2ErrorStatePath returns EMV2PathElement:
-//	namedElement=[aadl2::NamedElement|ID]
-//		('.' path=EMV2ErrorStatePath)?
-//;
-
-
- CONDITION:
-	STRING;
-
 ComponentErrorBehaviorKeywords:
 	'component' 'error' 'behavior'
 ;
@@ -817,6 +798,8 @@ terminal SL_COMMENT:
 @Override 
 terminal INTEGER_LIT : ('0'..'9')+;
 
+
+QUALIFIEDNAME: ID ('.' ID)+;
 
 QEMREF:
 	 ID ('::' ID)* ;//('.' ID )?;

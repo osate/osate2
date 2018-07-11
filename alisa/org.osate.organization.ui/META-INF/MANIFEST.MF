@@ -24,3 +24,4 @@ Export-Package: org.osate.organization.ui.contentassist,
  org.osate.organization.ui.internal,
  org.osate.organization.ui.quickfix
 Bundle-Activator: org.osate.organization.ui.internal.OrganizationActivator
+Automatic-Module-Name: org.osate.organization.ui

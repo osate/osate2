@@ -1,33 +1,37 @@
 package org.osate.core.tests.issues
 
+import com.google.inject.Inject
+import com.itemis.xtext.testing.FluentIssueCollection
+import com.itemis.xtext.testing.XtextTest
+import java.util.List
+import org.eclipse.emf.common.util.EList
+import org.eclipse.emf.ecore.EObject
 import org.eclipse.xtext.testing.InjectWith
 import org.eclipse.xtext.testing.XtextRunner
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.osate.aadl2.AadlPackage
-import org.osate.core.test.Aadl2UiInjectorProvider
-import org.osate.core.test.OsateTest
-
-import static extension org.junit.Assert.*
+import org.osate.aadl2.Mode
 import org.osate.aadl2.SystemImplementation
-import org.osate.aadl2.instantiation.InstantiateModel
-import org.osate.aadl2.instance.SystemInstance
-import org.eclipse.emf.common.util.EList
 import org.osate.aadl2.instance.ComponentInstance
 import org.osate.aadl2.instance.ModeInstance
-import java.util.List
+import org.osate.aadl2.instance.SystemInstance
 import org.osate.aadl2.instance.SystemOperationMode
-import org.osate.aadl2.Mode
-import com.itemis.xtext.testing.FluentIssueCollection
-import org.eclipse.core.resources.IResource
-import org.eclipse.core.resources.IMarker
-import static extension org.osate.aadl2.modelsupport.resources.OsateResourceUtil.convertToIResource
-import org.eclipse.emf.ecore.util.EcoreUtil
-import org.eclipse.emf.ecore.EObject
+import org.osate.aadl2.instantiation.InstantiateModel
+import org.osate.aadl2.modelsupport.errorreporting.AnalysisErrorReporterManager
+import org.osate.aadl2.modelsupport.errorreporting.QueuingAnalysisErrorReporter
+import org.osate.testsupport.Aadl2InjectorProvider
+import org.osate.testsupport.TestHelper
+
+import static org.junit.Assert.*
 
 @RunWith(XtextRunner)
-@InjectWith(Aadl2UiInjectorProvider)
-class Issue1092Test extends OsateTest {
+@InjectWith(Aadl2InjectorProvider)
+class Issue1092Test extends XtextTest {
+	
+	@Inject
+	TestHelper<AadlPackage> testHelper
+	
 	val static PROJECT_LOCATION = "org.osate.core.tests/models/Issue1092/"
 	val static IMPLICIT_MAPPING_TEST = "ImplicitMapping.aadl"
 	val static EXPLICIT_MAPPING_TEST = "ExplicitMapping.aadl"
@@ -38,7 +42,7 @@ class Issue1092Test extends OsateTest {
 	def void testImplicitMapping() {
 		val pkg = getPackage(IMPLICIT_MAPPING_TEST, PROJECT_LOCATION + IMPLICIT_MAPPING_TEST)
 		
-		val instance = getSystemInstance(pkg, "main.impl", "main_impl_Instance")
+		val instance = getSystemInstance(pkg, "main.impl", "main_impl_Instance", null)
 
 		val proc = instance.componentInstances.get(0)
 		assertTrue("System is expected to have exactly one subcomponent", instance.componentInstances.size() == 1)
@@ -89,7 +93,7 @@ class Issue1092Test extends OsateTest {
 	def void testExplicitMapping() {
 		val pkg = getPackage(EXPLICIT_MAPPING_TEST, PROJECT_LOCATION + EXPLICIT_MAPPING_TEST)
 		
-		val instance = getSystemInstance(pkg, "main.impl", "main_impl_Instance")
+		val instance = getSystemInstance(pkg, "main.impl", "main_impl_Instance", null)
 
 		val proc = instance.componentInstances.get(0)
 		assertTrue("System is expected to have exactly one subcomponent", instance.componentInstances.size() == 1)
@@ -140,7 +144,7 @@ class Issue1092Test extends OsateTest {
 	def void testRegularModes() {
 		val pkg = getPackage(REGULAR_MODES_TEST, PROJECT_LOCATION + REGULAR_MODES_TEST)
 		
-		val instance = getSystemInstance(pkg, "main.impl", "main_impl_Instance")
+		val instance = getSystemInstance(pkg, "main.impl", "main_impl_Instance", null)
 
 		val proc = instance.componentInstances.get(0)
 		assertTrue("System is expected to have exactly one subcomponent", instance.componentInstances.size() == 1)
@@ -189,9 +193,12 @@ class Issue1092Test extends OsateTest {
 	def void testUnmappedModes() {
 		val pkg = getPackage(UNMAPPED_MODES_TEST, PROJECT_LOCATION + UNMAPPED_MODES_TEST)
 		
-		val instance = getSystemInstance(pkg, "main.impl", "main_impl_Instance")
-		val markers = instance.eResource.convertToIResource.findMarkers(IMarker.PROBLEM, true, IResource.DEPTH_ONE)
-		assertTrue("Instance model should have exactly 4 errors", markers.length == 4)
+		val errorManager = new AnalysisErrorReporterManager(QueuingAnalysisErrorReporter.factory)
+		val instance = getSystemInstance(pkg, "main.impl", "main_impl_Instance", errorManager)
+		val reporter = errorManager.getReporter(instance.eResource) as QueuingAnalysisErrorReporter
+		val messages = reporter.errors
+
+		assertTrue("Instance model should have exactly 4 errors", messages.length == 4)
 
 		val proc = instance.componentInstances.get(0)
 		assertTrue("System is expected to have exactly one subcomponent", instance.componentInstances.size() == 1)
@@ -208,8 +215,8 @@ class Issue1092Test extends OsateTest {
 		val t2 = getAndTestElement(proc.componentInstances, 1,
 			"Thread 't2' is expected as the second subcomponent of 'proc'", [t | t.name.equals("t2")])
 		
-		val t1_modes = testThreadUnmappedModes(markers, t1, "x1", "x2")
-		val t2_modes = testThreadUnmappedModes(markers, t2, "x1", "x2")
+		val t1_modes = testThreadUnmappedModes(messages, t1, "x1", "x2")
+		val t2_modes = testThreadUnmappedModes(messages, t2, "x1", "x2")
 		
 		assertTrue("System is expected to have exactly 8 system operation modes", instance.systemOperationModes.size == 8)
 		val som0 = testSystemOperationMode(instance.systemOperationModes.get(0), proc_m1, t1_modes.get(0), t2_modes.get(0))
@@ -252,7 +259,7 @@ class Issue1092Test extends OsateTest {
 		return som
 	}
 	
-	private def static List<ModeInstance> testThreadUnmappedModes(IMarker[] markers, ComponentInstance t, String t_m1_name, String t_m2_name) {
+	private def static List<ModeInstance> testThreadUnmappedModes(List<QueuingAnalysisErrorReporter.Message> messages, ComponentInstance t, String t_m1_name, String t_m2_name) {
 		assertTrue("Thread '" + t.name + "' is expected to have exactly 2 modes", t.modeInstances.size == 2)
 		val t_m1 = getAndTestElement(t.modeInstances, 0,
 			"Mode '" + t_m1_name + "' is expected as the first mode of '" + t.name + "'", [m | m.name.equals(t_m1_name)])
@@ -262,20 +269,19 @@ class Issue1092Test extends OsateTest {
 		
 		assertTrue("Mode '" + t_m1.name + "' of '" + t.name + "' is expected to be derived", t_m1.isDerived)
 		assertTrue("Mode '" + t_m1.name + "' of '" + t.name + "' is expected to have no parents", t_m1.parents.isEmpty())
-		testForError(markers, t_m1, "Required mode '" + t_m1_name + "' not found in containing component")
+		testForError(messages, t_m1, "Required mode '" + t_m1_name + "' not found in containing component")
 		
 		assertTrue("Mode '" + t_m2.name + "' of '" + t.name + "' is expected to be derived", t_m2.isDerived)
 		assertTrue("Mode '" + t_m2.name + "' of '" + t.name + "' is expected to have no parents", t_m2.parents.isEmpty())
-		testForError(markers, t_m2, "Required mode '" + t_m2_name + "' not found in containing component")
+		testForError(messages, t_m2, "Required mode '" + t_m2_name + "' not found in containing component")
 		
 		return #[t_m1, t_m2]
 	}
 	
-	private def static void testForError(IMarker[] markers, EObject e, String errMessage) {
-		val uri = EcoreUtil.getURI(e).toString()
-		markers.findFirst[getAttribute("uri").equals(uri)] => [
-			IMarker.SEVERITY_ERROR.assertEquals(attributes.get(IMarker.SEVERITY))
-			assertEquals(attributes.get(IMarker.MESSAGE), errMessage)			
+	private def static void testForError(List<QueuingAnalysisErrorReporter.Message> messages, EObject e, String errMessage) {
+		messages.findFirst[where == e] => [
+			assertEquals(kind, QueuingAnalysisErrorReporter.ERROR)
+			assertEquals(message, errMessage)			
 		]
 	}
 	
@@ -317,9 +323,7 @@ class Issue1092Test extends OsateTest {
 	}
 	
 	private def FluentIssueCollection getFluentIssueCollection(String fname, String path) {
-		createFiles(fname -> readFile(path))
-		ignoreSerializationDifferences
-		testFile(fname)
+		testHelper.testFile(path)
 	}
 	
 	private def AadlPackage getPackage(String fname, String path) {
@@ -327,14 +331,14 @@ class Issue1092Test extends OsateTest {
 	}
 	
 	private def static SystemInstance getSystemInstance(
-		AadlPackage pkg, String systemImplName, String expectedInstanceName
+		AadlPackage pkg, String systemImplName, String expectedInstanceName, AnalysisErrorReporterManager errorManager
 	) {
 		val cls = pkg.ownedPublicSection.ownedClassifiers
 		assertTrue('System implementation "' + systemImplName + '" not found', cls.exists[name == systemImplName])
 		
 		// Instantiate system
 		val sysImpl = cls.findFirst[name == systemImplName] as SystemImplementation
-		val instance = InstantiateModel::buildInstanceModelFile(sysImpl)
+		val instance = InstantiateModel.instantiate(sysImpl, errorManager)
 		assertEquals(expectedInstanceName, instance.name)
 		return instance
 		

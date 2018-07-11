@@ -42,7 +42,7 @@ public class RenameHandler extends AbstractHandler {
 		}
 
 		final List<DiagramElement> selectedDiagramElements = AgeHandlerUtil
-				.getSelectedDiagramElementsFromContext(evaluationContext);
+				.getSelectedDiagramElements();
 		if (selectedDiagramElements.size() != 1) {
 			return false;
 		}
@@ -80,7 +80,7 @@ public class RenameHandler extends AbstractHandler {
 		}
 
 		// Get diagram and selected elements
-		final List<DiagramElement> selectedDiagramElements = AgeHandlerUtil.getSelectedDiagramElements(event);
+		final List<DiagramElement> selectedDiagramElements = AgeHandlerUtil.getSelectedDiagramElements();
 		if (selectedDiagramElements.size() == 0) {
 			throw new RuntimeException("No element selected");
 		}

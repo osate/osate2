@@ -1,19 +1,12 @@
 package org.osate.aadl2.errormodel.faulttree.util;
 
-import java.lang.reflect.InvocationTargetException;
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
-import org.eclipse.core.runtime.CoreException;
-import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
-import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.NullProgressMonitor;
-import org.eclipse.core.runtime.Path;
-import org.eclipse.core.runtime.Status;
 import org.eclipse.core.runtime.jobs.Job;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
@@ -22,18 +15,14 @@ import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.transaction.RecordingCommand;
 import org.eclipse.emf.transaction.TransactionalEditingDomain;
-import org.eclipse.jface.dialogs.ErrorDialog;
 import org.eclipse.sirius.business.api.componentization.ViewpointRegistry;
 import org.eclipse.sirius.business.api.modelingproject.AbstractRepresentationsFileJob;
 import org.eclipse.sirius.business.api.modelingproject.ModelingProject;
 import org.eclipse.sirius.business.api.query.DViewQuery;
 import org.eclipse.sirius.business.api.query.ViewpointQuery;
-import org.eclipse.sirius.business.api.session.DefaultLocalSessionCreationOperation;
 import org.eclipse.sirius.business.api.session.Session;
-import org.eclipse.sirius.business.api.session.SessionCreationOperation;
 import org.eclipse.sirius.business.api.session.SessionManager;
 import org.eclipse.sirius.business.api.session.SessionStatus;
-import org.eclipse.sirius.common.ui.SiriusTransPlugin;
 import org.eclipse.sirius.ext.base.Option;
 import org.eclipse.sirius.ui.business.api.dialect.DialectUIManager;
 import org.eclipse.sirius.ui.business.api.session.IEditingSession;
@@ -49,15 +38,12 @@ import org.eclipse.sirius.viewpoint.DRepresentation;
 import org.eclipse.sirius.viewpoint.DView;
 import org.eclipse.sirius.viewpoint.description.RepresentationDescription;
 import org.eclipse.sirius.viewpoint.description.Viewpoint;
-import org.eclipse.sirius.viewpoint.provider.Messages;
 import org.eclipse.swt.widgets.Display;
-import org.eclipse.ui.PlatformUI;
-import org.eclipse.ui.actions.WorkspaceModifyOperation;
 
 /**
  * Utilities around Sirius, sessions and representations
  *
- * @author St�phane Thibaudeau <stephane.thibaudeau@obeo.fr>
+ * @author St?phane Thibaudeau <stephane.thibaudeau@obeo.fr>
  *
  */
 @SuppressWarnings("restriction")
@@ -176,7 +162,7 @@ public class SiriusUtil {
 
 	/**
 	 * Creates and opens a representation on the specified object
-	 * @param existingSession Sirirus session
+	 * @param existingSession Sirius session
 	 * @param viewpoint Viewpoint containing the representation description
 	 * @param description Representation description used to indicate which kind of representation to create
 	 * @param representationName Name of the new representation
@@ -198,6 +184,7 @@ public class SiriusUtil {
 			};
 			action.run();
 		});
+
 	}
 
 	/**
@@ -209,107 +196,45 @@ public class SiriusUtil {
 	 */
 	public Session getSessionForProjectAndResource(IProject project, URI semanticResourceURI,
 			IProgressMonitor monitor) {
+		// find existing session for semantic resource URI
 		Session existingSession = getSessionForSemanticURI(semanticResourceURI);
-		if (existingSession == null) {
-			if (!ModelingProject.hasModelingProjectNature(project)) {
-				try {
-					ModelingProjectManager.INSTANCE.convertToModelingProject(project, monitor);
-				} catch (Exception e) {
-					return null;
-				}
-			}
-			final Option<ModelingProject> prj = ModelingProject.asModelingProject(project);
-			if (prj.some()) {
-				ModelingProject modelingProject = prj.get();
-				existingSession = modelingProject.getSession();
-
-				if (existingSession == null) {
-					loadSession(modelingProject, monitor);
-					waitWhileSessionLoads(monitor);
-					existingSession = modelingProject.getSession();
-				}
-				if (existingSession != null) {
-					addSemanticResource(existingSession, semanticResourceURI, monitor);
-					return existingSession;
-				}
-			}
-			for (Session session : SessionManager.INSTANCE.getSessions()) {
-				ResourceSet set = session.getTransactionalEditingDomain().getResourceSet();
-				for (Resource res : set.getResources()) {
-					if (res.getURI() != null) {
-						if (set.getURIConverter().normalize(res.getURI())
-								.equals(set.getURIConverter().normalize(semanticResourceURI))) {
-							existingSession = session;
-						}
-					}
-				}
-			}
-			if (existingSession != null) {
-				existingSession.getTransactionalEditingDomain().getCommandStack()
-						.execute(new RecordingCommand(existingSession.getTransactionalEditingDomain()) {
-
-							@Override
-							protected void doExecute() {
-								prj.get().getSession().addSemanticResource(semanticResourceURI,
-										new NullProgressMonitor());
-
-							}
-						});
-
-			}
-
-			final List<Session> res = new ArrayList<Session>();
-
+		if (existingSession != null) {
+			return existingSession;
+		}
+		final Option<ModelingProject> prj = ModelingProject.asModelingProject(project);
+		if (prj.some()) {
+			// get session from modeling project
+			ModelingProject modelingProject = prj.get();
+			existingSession = modelingProject.getSession();
+			// make sure it is loaded
 			if (existingSession == null) {
-
-				WorkspaceModifyOperation op = new WorkspaceModifyOperation() {
-
-					@Override
-					protected void execute(IProgressMonitor monitor)
-							throws CoreException, InvocationTargetException, InterruptedException {
-						SessionCreationOperation sessionCreationOperation = new DefaultLocalSessionCreationOperation(
-								getAirdURI(project), monitor);
-						sessionCreationOperation.execute();
-						res.add(sessionCreationOperation.getCreatedSession());
-					}
-				};
-				try {
-					op.run(null);
-					existingSession = res.get(0);
-				} catch (final InterruptedException e) {
-				} catch (final InvocationTargetException e) {
-					if (e.getTargetException() instanceof CoreException) {
-						ErrorDialog.openError(PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell(),
-								Messages.CreateSessionResourceWizard_resourceCreationError, null,
-								((CoreException) e.getTargetException()).getStatus());
-					} else {
-						SiriusTransPlugin.getPlugin().error(
-								Messages.CreateSessionResourceWizard_sessionDataCreationError, e.getTargetException());
-					}
-				}
-
+				loadSession(modelingProject, monitor);
+				waitWhileSessionLoads(monitor);
+				existingSession = modelingProject.getSession();
 			}
 			if (existingSession != null) {
-				addSemanticResource(existingSession, semanticResourceURI, new NullProgressMonitor());
+				// add semantic resource URI
+				addSemanticResource(existingSession, semanticResourceURI, monitor);
+				return existingSession;
 			}
+		}
+		// search through all sessions in the workspace
+		for (Session session : SessionManager.INSTANCE.getSessions()) {
+			ResourceSet set = session.getTransactionalEditingDomain().getResourceSet();
+			for (Resource res : set.getResources()) {
+				if (res.getURI() != null) {
+					if (set.getURIConverter().normalize(res.getURI())
+							.equals(set.getURIConverter().normalize(semanticResourceURI))) {
+						existingSession = session;
+					}
+				}
+			}
+		}
+		if (existingSession != null) {
+			addSemanticResource(existingSession, semanticResourceURI, monitor);
+			return existingSession;
 		}
 		return existingSession;
-	}
-
-	public URI getAirdURI(IProject project) {
-		return URI.createPlatformResourceURI(getFilePath(project).toString(), true);
-	}
-
-	protected IPath getFilePath(IProject project) {
-		IPath path = project.getFullPath();
-		if (path == null) {
-			path = new Path(""); //$NON-NLS-1$
-		}
-		final String fileName = "representations.aird";
-		if (fileName != null) {
-			path = path.append(fileName);
-		}
-		return path;
 	}
 
 	/**
@@ -320,10 +245,8 @@ public class SiriusUtil {
 	 */
 	private void addSemanticResource(final Session session, final URI semanticResourceURI,
 			final IProgressMonitor monitor) {
-		// Check whether we really have to add the resource
 		Resource resource = getResourceFromSession(session, semanticResourceURI);
 		if (resource == null) {
-			// We really have to add it
 			TransactionalEditingDomain ted = session.getTransactionalEditingDomain();
 			ted.getCommandStack().execute(new RecordingCommand(ted) {
 
@@ -415,81 +338,62 @@ public class SiriusUtil {
 	}
 
 	/**
-	 * Creates and opens a FTA Tree on the specified resource
+	 * Opens a model targetroot with the specified viewpoint and representation. Creates representation if necessary
+	 * 	 * @param targetroot root of EMF based model
 	 * @param project
-	 * @param resourceUri
+	 * @param viewpoint
+	 * @param representation
 	 * @param monitor
 	 */
-	public void createAndOpenSiruisView(final EObject ft, final IProject project, String viewPoint,
-			String representation, IProgressMonitor monitor) {
+	public void autoOpenModel(final EObject targetroot, final IProject project, final String viewPoint,
+			final String representation, final String jobName) {
+		IProgressMonitor monitor = new NullProgressMonitor();
 		URI viewpointURI = URI.createURI(viewPoint);
 
-		URI semanticResourceURI = EcoreUtil.getURI(ft); // URI.createPlatformResourceURI(ftamodelUri.toPlatformString(true), true);
-		Session existingSession = getSessionForProjectAndResource(project, semanticResourceURI, monitor);
-		if (existingSession == null) {
-			// give it a second try. null was returned the first time due to a class cast exception at the end of
-			// setting the Modeling perspective.
-			existingSession = getSessionForProjectAndResource(project, semanticResourceURI, monitor);
+		URI semanticResourceURI = EcoreUtil.getURI(targetroot);
+		// enable Modeling Nature
+		if (!ModelingProject.hasModelingProjectNature(project)) {
+			try {
+				ModelingProjectManager.INSTANCE.convertToModelingProject(project, monitor);
+			} catch (Exception e) {
+			}
 		}
+
+		Session existingSession = getSessionForProjectAndResource(project, semanticResourceURI, monitor);
 		if (existingSession != null) {
-			saveSession(existingSession, monitor);
 			EObject model = getModelFromSession(existingSession, semanticResourceURI);
 			// XXX this next piece of code tries to compensate for a bug in Sirius where it cannot find the model
 			// It should be there since the getSessionForProjectandResource would have put it there.
 			if (model == null) {
-				model = ft;
+				model = targetroot;
 			}
-			if (model == null) {
-				return;
-			}
-			final Viewpoint faultTreeVP = getViewpoint(existingSession, viewpointURI, monitor);
-			final RepresentationDescription description = getRepresentationDescription(faultTreeVP, representation);
+			final Viewpoint vPoint = getViewpoint(existingSession, viewpointURI, monitor);
+			final RepresentationDescription description = getRepresentationDescription(vPoint, representation);
 			String modelRootName = getPrintName(model);
 			String representationName = modelRootName + " " + representation;
-			final DRepresentation rep = findRepresentation(existingSession, faultTreeVP, description,
-					representationName);
-			if (rep != null) {
+			DRepresentation rep = findRepresentation(existingSession, vPoint, description, representationName);
+			if (rep == null) {
+				try {
+					createAndOpenRepresentation(existingSession, vPoint, description, representationName, model,
+							monitor);
+					saveSession(existingSession, monitor);
+					project.refreshLocal(IResource.DEPTH_INFINITE, monitor);
+				} catch (Exception e) {
+				}
+			} else {
 				try {
 					DialectUIManager.INSTANCE.openEditor(existingSession, rep, monitor);
+					saveSession(existingSession, monitor);
 					project.refreshLocal(IResource.DEPTH_INFINITE, monitor);
-					return;
 				} catch (Exception e) {
 				}
 			}
-			try {
-				createAndOpenRepresentation(existingSession, faultTreeVP, description, representationName, model,
-						monitor);
-				project.refreshLocal(IResource.DEPTH_INFINITE, monitor);
-			} catch (Exception e) {
-				return;
-			}
 		}
-	}
-
-	public void autoOpenModel(final EObject ft, final IProject activeProject, final String viewPoint,
-			final String representation, final String jobName) {
-
-		try {
-
-			Job ftaTreeCreationJob = new Job(jobName) {
-
-				@Override
-				protected IStatus run(IProgressMonitor monitor) {
-
-					monitor.beginTask(jobName, 100);
-
-					createAndOpenSiruisView(ft, activeProject, viewPoint, representation, monitor);
-//					}
-					monitor.done();
-
-					return Status.OK_STATUS;
-				}
-			};
-			ftaTreeCreationJob.setUser(true);
-			ftaTreeCreationJob.schedule();
-
-		} catch (Exception e) {
-			e.printStackTrace();
+		if (ModelingProject.hasModelingProjectNature(project)) {
+			try {
+				ModelingProjectManager.INSTANCE.removeModelingNature(project, monitor);
+			} catch (Exception e) {
+			}
 		}
 
 	}
@@ -510,5 +414,4 @@ public class SiriusUtil {
 		}
 		return null;
 	}
-
 }

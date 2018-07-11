@@ -6,7 +6,6 @@ import org.eclipse.emf.ecore.EReference
 import org.eclipse.xtext.scoping.IScopeProvider
 import org.eclipse.xtext.testing.InjectWith
 import org.eclipse.xtext.testing.XtextRunner
-import org.eclipse.xtext.testing.util.ParseHelper
 import org.eclipse.xtext.testing.validation.ValidationTestHelper
 import org.junit.Assert
 import org.junit.Test
@@ -14,12 +13,13 @@ import org.junit.runner.RunWith
 import org.osate.aadl2.Aadl2Package
 import org.osate.aadl2.AadlPackage
 import org.osate.aadl2.SubprogramImplementation
-import org.osate.core.test.Aadl2UiInjectorProvider
+import org.osate.testsupport.Aadl2InjectorProvider
+import org.osate.testsupport.TestHelper
 
-@RunWith(typeof(XtextRunner))
-@InjectWith(typeof(Aadl2UiInjectorProvider))
+@RunWith(XtextRunner)
+@InjectWith(Aadl2InjectorProvider)
 class ScopeTests {
-	@Inject extension ParseHelper<AadlPackage>
+	@Inject extension TestHelper<AadlPackage>
 	@Inject extension ValidationTestHelper
 	@Inject extension IScopeProvider
 
@@ -45,7 +45,7 @@ class ScopeTests {
 			  end sb2.i;
 
 			end scopeInModes;
-		'''.parse
+		'''.toString.parseString
 		
 		val subcomp = (pkg.ownedPublicSection.ownedClassifiers.last as SubprogramImplementation).ownedDataSubcomponents.head
 
@@ -79,7 +79,7 @@ class ScopeTests {
 			  end sb1.i2;
 
 			end scopeInModes;
-		'''.parse
+		'''.toString.parseString
 		
 		val callSeq = (pkg.ownedPublicSection.ownedClassifiers.last as SubprogramImplementation).ownedSubprogramCallSequences.head
 

@@ -1,5 +1,7 @@
 package org.osate.analysis.flows.tests
 
+import com.google.inject.Inject
+import com.itemis.xtext.testing.XtextTest
 import org.eclipse.core.runtime.NullProgressMonitor
 import org.eclipse.xtext.testing.InjectWith
 import org.eclipse.xtext.testing.XtextRunner
@@ -9,37 +11,37 @@ import org.osate.aadl2.AadlPackage
 import org.osate.aadl2.SystemImplementation
 import org.osate.aadl2.instantiation.InstantiateModel
 import org.osate.analysis.flows.FlowLatencyAnalysisSwitch
-import org.osate.core.test.Aadl2UiInjectorProvider
-import org.osate.core.test.OsateTest
 import org.osate.result.RealValue
+import org.osate.testsupport.Aadl2InjectorProvider
+import org.osate.testsupport.TestHelper
 
 import static org.junit.Assert.*
 
 import static extension org.junit.Assert.assertEquals
 
 @RunWith(typeof(XtextRunner))
-@InjectWith(typeof(Aadl2UiInjectorProvider))
-class FlowLatencyTest extends OsateTest {
+@InjectWith(typeof(Aadl2InjectorProvider))
+class FlowLatencyTest extends XtextTest {
+	
+	@Inject
+	TestHelper<AadlPackage> testHelper
+	
+	
 	@Test
 	def void flows_pullprotocols() {
-		val pullprotocolsFile = "pullprotocols.aadl"
-		createFiles(pullprotocolsFile -> pullprotocolsText)
-		suppressSerialization
-		val result = testFile(pullprotocolsFile)
-
-		val pkg = result.resource.contents.head as AadlPackage
+		val pkg = testHelper.parseString(pullprotocolsText)
 		val cls = pkg.ownedPublicSection.ownedClassifiers
 		assertTrue('', cls.exists[name == 'stub.i'])
 
 		// instantiate
 		val sysImpl = cls.findFirst[name == 'stub.i'] as SystemImplementation
-		val instance = InstantiateModel::buildInstanceModelFile(sysImpl)
+		val instance = InstantiateModel.instantiate(sysImpl)
 		assertEquals("stub_i_Instance", instance.name)
 
 		// check flow latency
 		val checker = new FlowLatencyAnalysisSwitch(new NullProgressMonitor,  instance)
 		val som = instance.systemOperationModes.head
-		val latencyresult = checker.invokeAndGetResult( instance, som)
+		val latencyresult = checker.invoke(instance, som, true, true, true, true)
 		val res = latencyresult.results.get(0)
 		assertTrue((res.values.get(1) as RealValue).value == (304.0))
 		assertTrue((res.values.get(2) as RealValue).value == (504.0))

@@ -2103,6 +2103,8 @@ finally {
 
 
 
+
+
 // Rule TargetType
 ruleTargetType
     @init {
@@ -2119,8 +2121,6 @@ ruleTargetType
 finally {
 	restoreStackSize(stackSize);
 }
-
-
 
 
 
@@ -3007,6 +3007,7 @@ finally {
 	restoreStackSize(stackSize);
 }
 
+
 rule__TargetType__Alternatives
     @init {
 		int stackSize = keepStackSize();
@@ -3065,7 +3066,6 @@ rule__TargetType__Alternatives
 finally {
 	restoreStackSize(stackSize);
 }
-
 
 
 
@@ -17115,8 +17115,8 @@ rule__ResoluteMethod__MethodReferenceAssignment_1
 (
 { before(grammarAccess.getResoluteMethodAccess().getMethodReferenceEObjectCrossReference_1_0()); }
 (
-{ before(grammarAccess.getResoluteMethodAccess().getMethodReferenceEObjectIDTerminalRuleCall_1_0_1()); }
-	RULE_ID{ after(grammarAccess.getResoluteMethodAccess().getMethodReferenceEObjectIDTerminalRuleCall_1_0_1()); }
+{ before(grammarAccess.getResoluteMethodAccess().getMethodReferenceEObjectQualifiedNameParserRuleCall_1_0_1()); }
+	ruleQualifiedName{ after(grammarAccess.getResoluteMethodAccess().getMethodReferenceEObjectQualifiedNameParserRuleCall_1_0_1()); }
 )
 { after(grammarAccess.getResoluteMethodAccess().getMethodReferenceEObjectCrossReference_1_0()); }
 )

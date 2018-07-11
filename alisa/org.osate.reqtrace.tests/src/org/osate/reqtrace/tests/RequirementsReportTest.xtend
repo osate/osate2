@@ -6,7 +6,7 @@ import org.junit.Test
 import org.junit.runner.RunWith
 import org.osate.aadl2.AadlPackage
 import org.osate.alisa.workbench.AlisaUiInjectorProvider
-import org.osate.core.test.BIRTTest
+import org.osate.testsupport.BIRTTest
 
 @RunWith(XtextRunner)
 @InjectWith(AlisaUiInjectorProvider)

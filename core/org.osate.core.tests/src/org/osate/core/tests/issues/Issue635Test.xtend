@@ -1,5 +1,7 @@
 package org.osate.core.tests.issues
 
+import com.google.inject.Inject
+import com.itemis.xtext.testing.XtextTest
 import org.eclipse.xtext.testing.InjectWith
 import org.eclipse.xtext.testing.XtextRunner
 import org.junit.Test
@@ -7,28 +9,29 @@ import org.junit.runner.RunWith
 import org.osate.aadl2.AadlPackage
 import org.osate.aadl2.SystemImplementation
 import org.osate.aadl2.instantiation.InstantiateModel
-import org.osate.core.test.Aadl2UiInjectorProvider
-import org.osate.core.test.OsateTest
+import org.osate.testsupport.Aadl2InjectorProvider
+import org.osate.testsupport.TestHelper
 
 import static org.junit.Assert.*
 
 @RunWith(typeof(XtextRunner))
-@InjectWith(typeof(Aadl2UiInjectorProvider))
-class Issue635Test extends OsateTest {
+@InjectWith(typeof(Aadl2InjectorProvider))
+class Issue635Test extends XtextTest {
+	
+	@Inject
+	TestHelper<AadlPackage> testHelper
+	
 	@Test
 	def void issue635() {
-		val psFile = "ps635.aadl"
-		val aadlFile = "issue635.aadl"
-		createFiles(psFile -> psText, aadlFile -> aadlText)
-		suppressSerialization
-		val result = testFile(aadlFile, psFile)
-		val pkg = result.resource.contents.head as AadlPackage
+		
+		val pkg = testHelper.parseString(aadlText, psText)
 		val cls = pkg.ownedPublicSection.ownedClassifiers
+
 		assertTrue('System implementation "top.i" not found', cls.exists[name == 'top.i'])
 
 		// instantiate
 		val sysImpl = cls.findFirst[name == 'top.i'] as SystemImplementation
-		val instance = InstantiateModel::buildInstanceModelFile(sysImpl)
+		val instance = InstantiateModel.instantiate(sysImpl)
 		assertEquals('top_i_Instance', instance.name)
 
 		// check if there are 21 connections

@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.osate.aadl2.instance.SystemInstance;
-import org.osate.analysis.flows.preferences.Values;
+import org.osate.analysis.flows.FlowLatencyUtil;
 import org.osate.analysis.flows.reporting.model.Report;
 import org.osate.analysis.flows.reporting.model.Report.ReportType;
 import org.osate.result.AnalysisResult;
@@ -20,6 +20,11 @@ public class LatencyReport {
 	private List<LatencyReportEntry> entries;
 	private String name;
 	private SystemInstance relatedInstance;
+
+	private boolean synchronousSystem = false; // AS default
+	private boolean majorFrameDelay = true; // MF default
+	private boolean worstCaseDeadline = true; // DL default
+	private boolean bestCaseEmptyQueue = true; // EQ default
 
 	public LatencyReport(SystemInstance si) {
 		this.relatedInstance = si;
@@ -47,28 +52,33 @@ public class LatencyReport {
 		this.entries.add(entry);
 	}
 
-	public String getPreferencesSuffix() {
-		return Values.getSynchronousSystemLabel() + "-" + Values.getMajorFrameDelayLabel() + "-"
-				+ Values.getWorstCaseDeadlineLabel() + "-" + Values.getBestcaseEmptyQueueLabel();
+	public void setLatencyAnalysisParameters(boolean asynchronousSystem, boolean majorFrameDelay,
+			boolean worstCaseDeadline, boolean bestCaseEmptyQueue) {
+		this.synchronousSystem = !asynchronousSystem; // note switch from async to sync
+		this.majorFrameDelay = majorFrameDelay;
+		this.worstCaseDeadline = worstCaseDeadline;
+		this.bestCaseEmptyQueue = bestCaseEmptyQueue;
 	}
 
-	public String getPreferencesDescription() {
-		return "with preference settings: " + Values.getSynchronousSystemDescription() + "/"
-				+ Values.getMajorFrameDelayDescription() + "/" + Values.getWorstCaseDeadlineDescription() + "/"
-				+ Values.getBestcaseEmptyQueueDescription();
+	public boolean isSynchronousSystem() {
+		return this.synchronousSystem;
 	}
 
-	public Report export() {
-		Report genericReport;
+	public boolean isMajorFrameDelay() {
+		return this.majorFrameDelay;
+	}
 
-		genericReport = new Report(this.relatedInstance, "latency", "latency_" + getPreferencesSuffix(),
-				ReportType.TABLE);
-		genericReport.setTextContent("Latency analysis " + getPreferencesDescription());
-		for (LatencyReportEntry re : entries) {
-			genericReport.addSection(re.export());
-		}
+	public boolean isWorstCaseDeadline() {
+		return this.worstCaseDeadline;
+	}
 
-		return genericReport;
+	public boolean isBestcaseEmptyQueue() {
+		return this.bestCaseEmptyQueue;
+	}
+
+	public String getParametersAsDescriptions() {
+		return "with preference settings: "
+				+ FlowLatencyUtil.getParametersAsDescriptions(FlowLatencyUtil.getParametersAsLabels(this));
 	}
 
 	public AnalysisResult genResult() {
@@ -76,10 +86,25 @@ public class LatencyReport {
 		AnalysisResult latencyReports = ResultUtil.createAnalysisResult(this.name,
 				this.relatedInstance);
 		latencyReports.setAnalysis("Latency analysis");
-		latencyReports.setInfo(getPreferencesDescription());
+		latencyReports.setInfo(FlowLatencyUtil.getParametersAsLabels(this));
+		latencyReports.setSourceReference(getRootinstance());
 		for (LatencyReportEntry re : entries) {
 			latencyReports.getResults().add(re.genResult());
 		}
 		return latencyReports;
 	}
+
+	public Report export() {
+		Report genericReport;
+
+		genericReport = new Report(this.relatedInstance, "latency",
+				"latency_" + FlowLatencyUtil.getParametersAsLabels(this), ReportType.TABLE);
+		genericReport.setTextContent("Latency analysis " + getParametersAsDescriptions());
+		for (LatencyReportEntry re : entries) {
+			genericReport.addSection(re.export());
+		}
+
+		return genericReport;
+	}
+
 }

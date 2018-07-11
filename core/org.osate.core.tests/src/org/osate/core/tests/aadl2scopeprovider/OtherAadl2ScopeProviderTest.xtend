@@ -36,9 +36,9 @@ package org.osate.core.tests.aadl2scopeprovider
 
 import com.google.inject.Inject
 import com.itemis.xtext.testing.FluentIssueCollection
+import com.itemis.xtext.testing.XtextTest
 import org.eclipse.xtext.testing.InjectWith
 import org.eclipse.xtext.testing.XtextRunner
-import org.eclipse.xtext.testing.util.ParseHelper
 import org.eclipse.xtext.testing.validation.ValidationTestHelper
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -50,20 +50,26 @@ import org.osate.aadl2.ComponentImplementation
 import org.osate.aadl2.ComponentPrototypeBinding
 import org.osate.aadl2.FeatureGroupPrototypeBinding
 import org.osate.aadl2.FeaturePrototypeBinding
-import org.osate.aadl2.ModelUnit
 import org.osate.aadl2.NamedElement
-import org.osate.core.test.Aadl2UiInjectorProvider
-import org.osate.core.test.OsateTest
+import org.osate.testsupport.Aadl2InjectorProvider
+import org.osate.testsupport.AssertHelper
+import org.osate.testsupport.TestHelper
 
 import static extension org.junit.Assert.assertEquals
 import static extension org.junit.Assert.assertNull
-
+import static extension org.osate.testsupport.AssertHelper.*
 @RunWith(XtextRunner)
-@InjectWith(Aadl2UiInjectorProvider)
-class OtherAadl2ScopeProviderTest extends OsateTest {
-	@Inject extension ParseHelper<ModelUnit>
-	@Inject extension ValidationTestHelper
+@InjectWith(Aadl2InjectorProvider)
+class OtherAadl2ScopeProviderTest extends XtextTest {
+	@Inject 
+	extension ValidationTestHelper
 
+	@Inject
+	TestHelper<AadlPackage> testHelper
+	
+	@Inject
+	extension AssertHelper
+	
 	/*
 	 * Tests scope_ComponentPrototype_constrainingClassifier, scope_FeaturePrototype_constrainingClassifier, scope_FeatureGroupPrototypeActual_featureType,
 	 * scope_PortSpecification_classifier, scope_AccessSpecification_classifier, scope_ComponentPrototypeActual_subcomponentType,
@@ -71,8 +77,7 @@ class OtherAadl2ScopeProviderTest extends OsateTest {
 	 */
 	@Test
 	def void testRenamesInClassifierReferenceScope() {
-		createFiles(
-			"pack1.aadl" -> '''
+		val pack1 = '''
 				package pack1
 				public
 				  with pack5;
@@ -131,8 +136,8 @@ class OtherAadl2ScopeProviderTest extends OsateTest {
 				  subprogram implementation subp1.i
 				  end subp1.i;
 				end pack1;
-			''',
-			"pack2.aadl" -> '''
+			'''
+		val pack2 = '''
 				package pack2
 				public
 				  abstract a3
@@ -156,8 +161,8 @@ class OtherAadl2ScopeProviderTest extends OsateTest {
 				  subprogram implementation subp2.i
 				  end subp2.i;
 				end pack2;
-			''',
-			"pack3.aadl" -> '''
+			'''
+		val pack3 = '''
 				package pack3
 				public
 				  abstract a4
@@ -181,8 +186,8 @@ class OtherAadl2ScopeProviderTest extends OsateTest {
 				  subprogram implementation subp3.i
 				  end subp3.i;
 				end pack3;
-			''',
-			"pack4.aadl" -> '''
+			'''
+		val pack4 = '''
 				package pack4
 				public
 				  abstract a5
@@ -206,8 +211,8 @@ class OtherAadl2ScopeProviderTest extends OsateTest {
 				  subprogram implementation subp4.i
 				  end subp4.i;
 				end pack4;
-			''',
-			"pack5.aadl" -> '''
+			'''
+		val pack5 = '''
 				package pack5
 				public
 				  abstract a6
@@ -244,13 +249,8 @@ class OtherAadl2ScopeProviderTest extends OsateTest {
 				  end subp6.i;
 				end pack5;
 			'''
-		)
-		suppressSerialization
-		testFile("pack2.aadl")
-		testFile("pack3.aadl")
-		testFile("pack4.aadl")
-		testFile("pack5.aadl")
-		testFile("pack1.aadl").resource.contents.head as AadlPackage => [
+		val pkg = testHelper.parseString(pack1, pack2, pack3, pack4, pack5)
+		pkg => [
 			"pack1".assertEquals(name)
 			val componentClassifierScopeForPack1 = #["a1", "a2", "a2.i", "a4", "a4.i", "a6", "d1", "d1.i", "d3", "d3.i", "d5", "renamed_abstract",
 				"renamed_data", "renamed_subprogram", "subp1", "subp1.i", "subp3", "subp3.i", "subp5", "pack1::a1", "pack1::a2", "pack1::a2.i", "pack1::d1",
@@ -335,7 +335,7 @@ class OtherAadl2ScopeProviderTest extends OsateTest {
 	 */
 	@Test
 	def void testPrototypeBindings() {
-		createFiles("pack.aadl" -> '''
+		val pack = '''
 			package pack
 			public
 			  abstract a1
@@ -409,9 +409,8 @@ class OtherAadl2ScopeProviderTest extends OsateTest {
 			    proto13: abstract;
 			  end fgt2;
 			end pack;
-		''')
-		suppressSerialization
-		val testFileResult = testFile("pack.aadl")
+		'''
+		val testFileResult = issues = testHelper.testString(pack)
 		val issueCollection = new FluentIssueCollection(testFileResult.resource, newArrayList, newArrayList)
 		testFileResult.resource.contents.head as AadlPackage => [
 			"pack".assertEquals(name)
@@ -567,14 +566,14 @@ class OtherAadl2ScopeProviderTest extends OsateTest {
 				]
 			]
 		]
-		issueCollection.sizeIs(issueCollection.issues.size)
+		issueCollection.sizeIs(testFileResult.issues.size)
 		assertConstraints(issueCollection)
 	}
 	
 	//Tests scope_ModalPath_inModeOrTransition and scope_FlowImplementation_specification
 	@Test
 	def void testInModesAndFlows() {
-		createFiles("pack.aadl" -> '''
+		val pack = '''
 			package pack
 			public
 			  abstract a1
@@ -652,9 +651,8 @@ class OtherAadl2ScopeProviderTest extends OsateTest {
 			    param2: in parameter;
 			  end subp2;
 			end pack;
-		''')
-		suppressSerialization
-		val testFileResult = testFile("pack.aadl")
+		'''
+		val testFileResult = issues = testHelper.testString(pack)
 		val issueCollection = new FluentIssueCollection(testFileResult.resource, newArrayList, newArrayList)
 		testFileResult.resource.contents.head as AadlPackage => [
 			"pack".assertEquals(name)
@@ -729,14 +727,14 @@ class OtherAadl2ScopeProviderTest extends OsateTest {
 				]
 			]
 		]
-		issueCollection.sizeIs(issueCollection.issues.size)
+		issueCollection.sizeIs(testFileResult.issues.size)
 		assertConstraints(issueCollection)
 	}
 	
 	//Tests scope_ModeBinding_parentMode and scope_ModeBinding_derivedMode
 	@Test
 	def void testModeBindings() {
-		('''
+		val pack = '''
 			package pack
 			public
 				abstract a1
@@ -762,7 +760,8 @@ class OtherAadl2ScopeProviderTest extends OsateTest {
 					m4: mode;
 				end a2;
 			end pack;
-		'''.parse as AadlPackage) => [
+		'''
+		testHelper.parseString(pack) => [
 			assertNoIssues
 			"pack".assertEquals(name)
 			publicSection.ownedClassifiers.get(1) as AbstractImplementation => [

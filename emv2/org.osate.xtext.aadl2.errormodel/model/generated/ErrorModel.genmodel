@@ -108,6 +108,7 @@
     </genClasses>
     <genClasses ecoreClass="ErrorModel.ecore#//ErrorFlow">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ErrorModel.ecore#//ErrorFlow/typeTokenConstraint"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EReference ErrorModel.ecore#//ErrorFlow/flowcondition"/>
     </genClasses>
     <genClasses ecoreClass="ErrorModel.ecore#//ErrorSource">
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ErrorModel.ecore#//ErrorSource/sourceModelElement"/>
@@ -130,6 +131,12 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ErrorModel.ecore#//ErrorPath/allOutgoing"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ErrorModel.ecore#//ErrorPath/targetToken"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ErrorModel.ecore#//ErrorPath/typeMappingSet"/>
+    </genClasses>
+    <genClasses ecoreClass="ErrorModel.ecore#//IfCondition">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ErrorModel.ecore#//IfCondition/description"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ErrorModel.ecore#//IfCondition/resoluteFunction"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ErrorModel.ecore#//IfCondition/javaMethod"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ErrorModel.ecore#//IfCondition/functionReference"/>
     </genClasses>
     <genClasses ecoreClass="ErrorModel.ecore#//PropagationPoint"/>
     <genClasses ecoreClass="ErrorModel.ecore#//PropagationPath">
@@ -154,6 +161,7 @@
     <genClasses ecoreClass="ErrorModel.ecore#//ErrorBehaviorEvent"/>
     <genClasses ecoreClass="ErrorModel.ecore#//ErrorEvent">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ErrorModel.ecore#//ErrorEvent/typeSet"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EReference ErrorModel.ecore#//ErrorEvent/eventcondition"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ErrorModel.ecore#//ErrorEvent/condition"/>
     </genClasses>
     <genClasses ecoreClass="ErrorModel.ecore#//RepairEvent">
@@ -162,7 +170,7 @@
     </genClasses>
     <genClasses ecoreClass="ErrorModel.ecore#//RecoverEvent">
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ErrorModel.ecore#//RecoverEvent/eventInitiator"/>
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EAttribute ErrorModel.ecore#//RecoverEvent/condition"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ErrorModel.ecore#//RecoverEvent/condition"/>
     </genClasses>
     <genClasses ecoreClass="ErrorModel.ecore#//ErrorBehaviorState">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ErrorModel.ecore#//ErrorBehaviorState/intial"/>
@@ -273,6 +281,10 @@
     </genClasses>
     <genClasses ecoreClass="ErrorModel.ecore#//SConditionElement">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ErrorModel.ecore#//SConditionElement/qualifiedState"/>
+    </genClasses>
+    <genClasses ecoreClass="ErrorModel.ecore#//FlowCondition">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ErrorModel.ecore#//FlowCondition/description"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ErrorModel.ecore#//FlowCondition/functionReference"/>
     </genClasses>
     <genClasses ecoreClass="ErrorModel.ecore#//ConnectionErrorSource">
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ErrorModel.ecore#//ConnectionErrorSource/connection"/>

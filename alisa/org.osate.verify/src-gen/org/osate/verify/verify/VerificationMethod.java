@@ -24,6 +24,7 @@ import org.osate.aadl2.ComponentClassifier;
 import org.osate.aadl2.Property;
 
 import org.osate.alisa.common.common.Description;
+import org.osate.alisa.common.common.TargetType;
 
 import org.osate.categories.categories.Category;
 
@@ -87,7 +88,7 @@ public interface VerificationMethod extends EObject
 
   /**
    * Returns the value of the '<em><b>Target Type</b></em>' attribute.
-   * The literals are from the enumeration {@link org.osate.verify.verify.TargetType}.
+   * The literals are from the enumeration {@link org.osate.alisa.common.common.TargetType}.
    * <!-- begin-user-doc -->
    * <p>
    * If the meaning of the '<em>Target Type</em>' attribute isn't clear,
@@ -95,7 +96,7 @@ public interface VerificationMethod extends EObject
    * </p>
    * <!-- end-user-doc -->
    * @return the value of the '<em>Target Type</em>' attribute.
-   * @see org.osate.verify.verify.TargetType
+   * @see org.osate.alisa.common.common.TargetType
    * @see #setTargetType(TargetType)
    * @see org.osate.verify.verify.VerifyPackage#getVerificationMethod_TargetType()
    * @model
@@ -108,7 +109,7 @@ public interface VerificationMethod extends EObject
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @param value the new value of the '<em>Target Type</em>' attribute.
-   * @see org.osate.verify.verify.TargetType
+   * @see org.osate.alisa.common.common.TargetType
    * @see #getTargetType()
    * @generated
    */

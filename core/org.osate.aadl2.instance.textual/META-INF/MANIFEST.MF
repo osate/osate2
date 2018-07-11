@@ -29,3 +29,4 @@ Export-Package: org.osate.aadl2.instance.textual,
  org.osate.aadl2.instance.textual.parser.antlr.internal,
  org.osate.aadl2.instance.textual.validation,
  org.osate.aadl2.instance.textual.formatting
+Automatic-Module-Name: org.osate.aadl2.instance.textual

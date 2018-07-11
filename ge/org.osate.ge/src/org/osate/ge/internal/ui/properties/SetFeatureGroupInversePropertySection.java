@@ -25,6 +25,7 @@ import org.osate.aadl2.FeatureGroup;
 import org.osate.aadl2.FeatureGroupType;
 import org.osate.ge.BusinessObjectSelection;
 import org.osate.ge.internal.ui.util.InternalPropertySectionUtil;
+import org.osate.ge.internal.ui.util.UiUtil;
 import org.osate.ge.internal.util.AadlFeatureUtil;
 import org.osate.ge.ui.properties.PropertySectionUtil;
 
@@ -46,6 +47,7 @@ public class SetFeatureGroupInversePropertySection extends AbstractPropertySecti
 		}
 	}
 
+	public static final String setFeatureGroupInverseUniqueId = "org.osate.ge.SetFeatureGroupInverseButton";
 	private BusinessObjectSelection selectedBos;
 	private Button inverseBtn;
 
@@ -68,6 +70,9 @@ public class SetFeatureGroupInversePropertySection extends AbstractPropertySecti
 		inverseBtn = InternalPropertySectionUtil.createButton(getWidgetFactory(), container, SWT.NONE,
 				inverseSelectionListener,
 				"", SWT.CHECK);
+
+		// Set data used for automated testing
+		inverseBtn.setData(UiUtil.AUTOMATED_SWTBOT_TESTING_KEY, setFeatureGroupInverseUniqueId);
 
 		final FormData fd = new FormData();
 		fd.left = new FormAttachment(0, STANDARD_LABEL_WIDTH);

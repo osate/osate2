@@ -14,3 +14,4 @@ Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Export-Package: org.osate.utils,
  org.osate.utils.names
 Bundle-Vendor: TELECOM ParisTech
+Automatic-Module-Name: org.osate.utils

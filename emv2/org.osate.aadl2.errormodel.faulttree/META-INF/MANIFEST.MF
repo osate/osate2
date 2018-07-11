@@ -16,3 +16,4 @@ Require-Bundle: org.eclipse.core.runtime,
  org.osate.xtext.aadl2.errormodel;bundle-version="1.0.0";visibility:=reexport,
  org.osate.aadl2.modelsupport
 Bundle-ActivationPolicy: lazy
+Automatic-Module-Name: org.osate.aadl2.errormodel.faulttree

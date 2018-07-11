@@ -1,24 +1,29 @@
 package org.osate.core.tests.issues
 
+import com.google.inject.Inject
 import com.itemis.xtext.testing.FluentIssueCollection
+import com.itemis.xtext.testing.XtextTest
 import org.eclipse.xtext.testing.InjectWith
 import org.eclipse.xtext.testing.XtextRunner
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.osate.aadl2.AadlPackage
 import org.osate.aadl2.AbstractImplementation
-import org.osate.core.test.Aadl2UiInjectorProvider
-import org.osate.core.test.OsateTest
+import org.osate.testsupport.Aadl2InjectorProvider
+import org.osate.testsupport.TestHelper
 
 import static extension org.junit.Assert.assertEquals
+import static extension org.osate.testsupport.AssertHelper.assertWarning
 
 @RunWith(XtextRunner)
-@InjectWith(Aadl2UiInjectorProvider)
-class Issue781Test extends OsateTest {
+@InjectWith(Aadl2InjectorProvider)
+class Issue781Test extends XtextTest {
+	@Inject
+	TestHelper<AadlPackage> testHelper
+	
 	@Test
 	def void testIssue781() {
-		val pkg1FileName = "pkg1.aadl"
-		createFiles(pkg1FileName -> '''
+		val pkg1 = '''
 			package pkg1
 			public
 				abstract a1
@@ -54,9 +59,8 @@ class Issue781Test extends OsateTest {
 						af2: feature;
 				end fgt1;
 			end pkg1;
-		''')
-		suppressSerialization
-		val testFileResult = testFile(pkg1FileName)
+		'''
+		val testFileResult = issues = testHelper.testString(pkg1)
 		val issueCollection = new FluentIssueCollection(testFileResult.resource, newArrayList, newArrayList)
 		testFileResult.resource.contents.head as AadlPackage => [
 			"pkg1".assertEquals(name)
@@ -76,7 +80,7 @@ class Issue781Test extends OsateTest {
 				]
 			]
 		]
-		issueCollection.sizeIs(issueCollection.issues.size)
+		issueCollection.sizeIs(testFileResult.issues.size)
 		assertConstraints(issueCollection)
 	}
 }

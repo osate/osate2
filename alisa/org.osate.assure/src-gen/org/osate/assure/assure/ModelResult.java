@@ -35,6 +35,7 @@ import org.osate.alisa.workbench.alisa.AssurancePlan;
  *   <li>{@link org.osate.assure.assure.ModelResult#getMessage <em>Message</em>}</li>
  *   <li>{@link org.osate.assure.assure.ModelResult#getClaimResult <em>Claim Result</em>}</li>
  *   <li>{@link org.osate.assure.assure.ModelResult#getSubsystemResult <em>Subsystem Result</em>}</li>
+ *   <li>{@link org.osate.assure.assure.ModelResult#getSubAssuranceCase <em>Sub Assurance Case</em>}</li>
  * </ul>
  *
  * @see org.osate.assure.assure.AssurePackage#getModelResult()
@@ -152,5 +153,21 @@ public interface ModelResult extends AssureResult
    * @generated
    */
   EList<SubsystemResult> getSubsystemResult();
+
+  /**
+   * Returns the value of the '<em><b>Sub Assurance Case</b></em>' containment reference list.
+   * The list contents are of type {@link org.osate.assure.assure.AssuranceCaseResult}.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Sub Assurance Case</em>' containment reference list isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Sub Assurance Case</em>' containment reference list.
+   * @see org.osate.assure.assure.AssurePackage#getModelResult_SubAssuranceCase()
+   * @model containment="true"
+   * @generated
+   */
+  EList<AssuranceCaseResult> getSubAssuranceCase();
 
 } // ModelResult

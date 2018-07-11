@@ -33,20 +33,24 @@ under the contract clause at 252.227.7013.
  */
 package org.osate.aadl2.instance.textual.tests
 
+import com.google.inject.Inject
 import org.eclipse.xtext.testing.InjectWith
 import org.eclipse.xtext.testing.XtextRunner
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.osate.aadl2.AadlPackage
-import org.osate.aadl2.instance.textual.InstanceUiInjectorProvider
+import org.osate.aadl2.instance.textual.InstanceInjectorProvider
+import org.osate.testsupport.TestHelper
 
 @RunWith(XtextRunner)
-@InjectWith(InstanceUiInjectorProvider)
+@InjectWith(InstanceInjectorProvider)
 class Serializer2Test extends AbstractSerializerTest {
+	@Inject
+	TestHelper<AadlPackage> testHelper
+	
 	@Test
 	def void testEndToEndFlows() {
-		val pkg1FileName = "pkg1.aadl"
-		createFiles(pkg1FileName -> '''
+		val pkg1 = testHelper.parseString('''
 			package pkg1
 			public
 				system s1
@@ -114,8 +118,7 @@ class Serializer2Test extends AbstractSerializerTest {
 				end s5.i;
 			end pkg1;
 		''')
-		suppressSerialization
-		assertSerialize(testFile(pkg1FileName).resource.contents.head as AadlPackage, "s5.i", '''
+		assertSerialize(pkg1, "s5.i", '''
 			system s5_i_Instance : pkg1::s5.i {
 				system pkg1::s4 s4_sub [ 0 ] : pkg1::s5.i:s4_sub {
 					out dataPort p6 : pkg1::s4:p6
@@ -160,8 +163,7 @@ class Serializer2Test extends AbstractSerializerTest {
 	
 	@Test
 	def void testModes() {
-		val pkg1FileName = "pkg1.aadl"
-		createFiles(pkg1FileName -> '''
+		val pkg1 = testHelper.parseString('''
 			package pkg1
 			public
 				system s1
@@ -189,8 +191,7 @@ class Serializer2Test extends AbstractSerializerTest {
 				end s3.i;
 			end pkg1;
 		''')
-		suppressSerialization
-		assertSerialize(testFile(pkg1FileName).resource.contents.head as AadlPackage, "s3.i", '''
+		assertSerialize(pkg1, "s3.i", '''
 			system s3_i_Instance : pkg1::s3.i {
 				system pkg1::s1 s1_sub [ 0 ] : pkg1::s3.i:s1_sub {
 					initial mode m1 : pkg1::s1:m1
@@ -215,8 +216,7 @@ class Serializer2Test extends AbstractSerializerTest {
 	
 	@Test
 	def void testInModes() {
-		val pkg1FileName = "pkg1.aadl"
-		createFiles(pkg1FileName -> '''
+		val pkg1 = testHelper.parseString('''
 			package pkg1
 			public
 				system s1
@@ -257,8 +257,7 @@ class Serializer2Test extends AbstractSerializerTest {
 				end s3;
 			end pkg1;
 		''')
-		suppressSerialization
-		assertSerialize(testFile(pkg1FileName).resource.contents.head as AadlPackage, "s1.i", '''
+		assertSerialize(pkg1, "s1.i", '''
 			system s1_i_Instance : pkg1::s1.i {
 				in dataPort p1 : pkg1::s1:p1
 				system pkg1::s2 sub1 [ 0 ] : pkg1::s1.i:sub1 {
@@ -287,8 +286,7 @@ class Serializer2Test extends AbstractSerializerTest {
 	
 	@Test
 	def void testParentMode() {
-		val pkg1FileName = "pkg1.aadl"
-		createFiles(pkg1FileName -> '''
+		val pkg1 = testHelper.parseString('''
 			package pkg1
 			public
 				system s1
@@ -322,8 +320,7 @@ class Serializer2Test extends AbstractSerializerTest {
 				end s3.i;
 			end pkg1;
 		''')
-		suppressSerialization
-		assertSerialize(testFile(pkg1FileName).resource.contents.head as AadlPackage, "s3.i", '''
+		assertSerialize(pkg1, "s3.i", '''
 			system s3_i_Instance : pkg1::s3.i {
 				system pkg1::s2.i sub2 [ 0 ] in modes ( m6 , m7 , m5 ) : pkg1::s3.i:sub2 {
 					system pkg1::s1 sub1 [ 0 ] in modes ( m3 , m4 ) : pkg1::s2.i:sub1 {
@@ -345,8 +342,7 @@ class Serializer2Test extends AbstractSerializerTest {
 	
 	@Test
 	def void testModeTransitionInstances() {
-		val pkg1FileName = "pkg1.aadl"
-		createFiles(pkg1FileName -> '''
+		val pkg1 = testHelper.parseString('''
 			package pkg1
 			public
 				system s
@@ -364,8 +360,7 @@ class Serializer2Test extends AbstractSerializerTest {
 				end s.i;
 			end pkg1;
 		''')
-		suppressSerialization
-		assertSerialize(testFile(pkg1FileName).resource.contents.head as AadlPackage, "s.i", '''
+		assertSerialize(pkg1, "s.i", '''
 			system s_i_Instance : pkg1::s.i {
 				in eventPort p1 : pkg1::s:p1
 				system pkg1::s sub1 [ 0 ] : pkg1::s.i:sub1 {
@@ -386,8 +381,7 @@ class Serializer2Test extends AbstractSerializerTest {
 	
 	@Test
 	def void testInModeTransitions() {
-		val pkg1FileName = "pkg1.aadl"
-		createFiles(pkg1FileName -> '''
+		val pkg1 = testHelper.parseString('''
 			package pkg1
 			public
 				system s1
@@ -420,8 +414,7 @@ class Serializer2Test extends AbstractSerializerTest {
 				end s3.i;
 			end pkg1;
 		''')
-		suppressSerialization
-		assertSerialize(testFile(pkg1FileName).resource.contents.head as AadlPackage, "s3.i", '''
+		assertSerialize(pkg1, "s3.i", '''
 			system s3_i_Instance : pkg1::s3.i {
 				in eventPort p3 : pkg1::s3:p3
 				system pkg1::s1 sub1 [ 0 ] : pkg1::s3.i:sub1 {
@@ -444,13 +437,7 @@ class Serializer2Test extends AbstractSerializerTest {
 	
 	@Test
 	def void testPropertyAssociations() {
-		val ps1FileName = "ps1.aadl"
-		val pkg1FileName = "pkg1.aadl"
-		createFiles(ps1FileName -> '''
-			property set ps1 is
-				bool1: aadlboolean applies to (all);
-			end ps1;
-		''', pkg1FileName -> '''
+		val pkg1 = testHelper.parseString('''
 			package pkg1
 			public
 				with ps1;
@@ -496,9 +483,12 @@ class Serializer2Test extends AbstractSerializerTest {
 						p4: in data port {ps1::bool1 => true;};
 				end fgt1;
 			end pkg1;
+		''', '''
+			property set ps1 is
+				bool1: aadlboolean applies to (all);
+			end ps1;
 		''')
-		suppressSerialization
-		assertSerialize(testFile(pkg1FileName).resource.contents.head as AadlPackage, "s3.i", '''
+		assertSerialize(pkg1, "s3.i", '''
 			system s3_i_Instance : pkg1::s3.i {
 				system pkg1::s1 sub1 [ 0 ] : pkg1::s3.i:sub1 {
 					in out featureGroup fg1 : pkg1::s1:fg1 {
@@ -542,13 +532,7 @@ class Serializer2Test extends AbstractSerializerTest {
 	
 	@Test
 	def void testModalProperties() {
-		val ps1FileName = "ps1.aadl"
-		val pkg1FileName = "pkg1.aadl"
-		createFiles(ps1FileName -> '''
-			property set ps1 is
-				bool1: aadlboolean applies to (all);
-			end ps1;
-		''', pkg1FileName -> '''
+		val pkg1 = testHelper.parseString('''
 			package pkg1
 			public
 				with ps1;
@@ -566,9 +550,12 @@ class Serializer2Test extends AbstractSerializerTest {
 						sub1: system s;
 				end s.i;
 			end pkg1;
+		''', '''
+			property set ps1 is
+				bool1: aadlboolean applies to (all);
+			end ps1;
 		''')
-		suppressSerialization
-		assertSerialize(testFile(pkg1FileName).resource.contents.head as AadlPackage, "s.i", '''
+		assertSerialize(pkg1, "s.i", '''
 			system s_i_Instance : pkg1::s.i {
 				system pkg1::s sub1 [ 0 ] : pkg1::s.i:sub1 {
 					initial mode m1 : pkg1::s:m1
@@ -587,41 +574,7 @@ class Serializer2Test extends AbstractSerializerTest {
 	
 	@Test
 	def void testPropertyTypes() {
-		val ps1FileName = "ps1.aadl"
-		val pkg1FileName = "pkg1.aadl"
-		createFiles(ps1FileName -> '''
-			property set ps1 is
-				enumType1: type enumeration (one, two, three);
-				units1: type units (mm, cm => mm * 10, m => cm * 100);
-				
-				const1: constant aadlinteger => 42;
-				
-				bool1: aadlboolean applies to (all);
-				string1: aadlstring applies to (all);
-				int1: aadlinteger applies to (all);
-				int2: aadlinteger applies to (all);
-				int3: aadlinteger units ps1::units1 applies to (all);
-				real1: aadlreal applies to (all);
-				real2: aadlreal applies to (all);
-				real3: aadlreal units ps1::units1 applies to (all);
-				range1: range of aadlinteger applies to (all);
-				range2: range of aadlinteger applies to (all);
-				range3: range of aadlinteger units ps1::units1 applies to (all);
-				int4: aadlinteger applies to (all);
-				int5: aadlinteger applies to (all);
-				enum1: ps1::enumType1 applies to (all);
-				classifier1: classifier (system) applies to (all);
-				int6: aadlinteger applies to (all);
-				record1: record (
-					field1: aadlinteger;
-					field2: record (field3: aadlinteger;);
-					field4: ps1::enumType1;
-					field5: aadlinteger units ps1::units1;
-					field6: range of aadlinteger units ps1::units1;
-				) applies to (all);
-				list1: list of aadlinteger applies to (all);
-			end ps1;
-		''', pkg1FileName -> '''
+		val pkg1 = testHelper.parseString('''
 			package pkg1
 			public
 				with ps1;
@@ -657,9 +610,40 @@ class Serializer2Test extends AbstractSerializerTest {
 				system implementation s.i
 				end s.i;
 			end pkg1;
+		''', '''
+			property set ps1 is
+				enumType1: type enumeration (one, two, three);
+				units1: type units (mm, cm => mm * 10, m => cm * 100);
+				
+				const1: constant aadlinteger => 42;
+				
+				bool1: aadlboolean applies to (all);
+				string1: aadlstring applies to (all);
+				int1: aadlinteger applies to (all);
+				int2: aadlinteger applies to (all);
+				int3: aadlinteger units ps1::units1 applies to (all);
+				real1: aadlreal applies to (all);
+				real2: aadlreal applies to (all);
+				real3: aadlreal units ps1::units1 applies to (all);
+				range1: range of aadlinteger applies to (all);
+				range2: range of aadlinteger applies to (all);
+				range3: range of aadlinteger units ps1::units1 applies to (all);
+				int4: aadlinteger applies to (all);
+				int5: aadlinteger applies to (all);
+				enum1: ps1::enumType1 applies to (all);
+				classifier1: classifier (system) applies to (all);
+				int6: aadlinteger applies to (all);
+				record1: record (
+					field1: aadlinteger;
+					field2: record (field3: aadlinteger;);
+					field4: ps1::enumType1;
+					field5: aadlinteger units ps1::units1;
+					field6: range of aadlinteger units ps1::units1;
+				) applies to (all);
+				list1: list of aadlinteger applies to (all);
+			end ps1;
 		''')
-		suppressSerialization
-		assertSerialize(testFile(pkg1FileName).resource.contents.head as AadlPackage, "s.i", '''
+		assertSerialize(pkg1, "s.i", '''
 			system s_i_Instance : pkg1::s.i {
 				som "No Modes"
 				ps1::bool1 => true : pkg1::s:property#0
@@ -685,22 +669,7 @@ class Serializer2Test extends AbstractSerializerTest {
 	
 	@Test
 	def void testDeclarativeReferenceValue() {
-		val ps1FileName = "ps1.aadl"
-		val pkg1FileName = "pkg1.aadl"
-		createFiles(ps1FileName -> '''
-			property set ps1 is
-				reference1: reference (named element) applies to (all);
-				reference2: reference (named element) applies to (all);
-				reference3: reference (named element) applies to (all);
-				reference4: reference (named element) applies to (all);
-				reference5: reference (named element) applies to (all);
-				reference6: reference (named element) applies to (all);
-				reference7: reference (named element) applies to (all);
-				reference8: reference (named element) applies to (all);
-				reference9: reference (named element) applies to (all);
-				reference10: reference (named element) applies to (all);
-			end ps1;
-		''', pkg1FileName -> '''
+		val pkg1 = testHelper.parseString('''
 			package pkg1
 			public
 				with ps1;
@@ -768,9 +737,21 @@ class Serializer2Test extends AbstractSerializerTest {
 						};
 				end a1.i;
 			end pkg1;
+		''', '''
+			property set ps1 is
+				reference1: reference (named element) applies to (all);
+				reference2: reference (named element) applies to (all);
+				reference3: reference (named element) applies to (all);
+				reference4: reference (named element) applies to (all);
+				reference5: reference (named element) applies to (all);
+				reference6: reference (named element) applies to (all);
+				reference7: reference (named element) applies to (all);
+				reference8: reference (named element) applies to (all);
+				reference9: reference (named element) applies to (all);
+				reference10: reference (named element) applies to (all);
+			end ps1;
 		''')
-		suppressSerialization
-		assertSerialize(testFile(pkg1FileName).resource.contents.head as AadlPackage, "s1.i", '''
+		assertSerialize(pkg1, "s1.i", '''
 			system s1_i_Instance : pkg1::s1.i {
 				in out featureGroup fg1 : pkg1::s1:fg1 {
 					in out featureGroup fg2 : pkg1::fgt1:fg2
@@ -802,18 +783,7 @@ class Serializer2Test extends AbstractSerializerTest {
 	
 	@Test
 	def void testInstanceReferenceValue() {
-		val ps1FileName = "ps1.aadl"
-		val pkg1FileName = "pkg1.aadl"
-		createFiles(ps1FileName -> '''
-			property set ps1 is
-				reference1: reference (named element) applies to (all);
-				reference2: reference (named element) applies to (all);
-				reference3: reference (named element) applies to (all);
-				reference4: reference (named element) applies to (all);
-				reference5: reference (named element) applies to (all);
-				reference6: reference (named element) applies to (all);
-			end ps1;
-		''', pkg1FileName -> '''
+		val pkg1 = testHelper.parseString('''
 			package pkg1
 			public
 				with ps1;
@@ -854,9 +824,17 @@ class Serializer2Test extends AbstractSerializerTest {
 						ps1::reference6 => reference (etef1);
 				end s3.i;
 			end pkg1;
+		''', '''
+			property set ps1 is
+				reference1: reference (named element) applies to (all);
+				reference2: reference (named element) applies to (all);
+				reference3: reference (named element) applies to (all);
+				reference4: reference (named element) applies to (all);
+				reference5: reference (named element) applies to (all);
+				reference6: reference (named element) applies to (all);
+			end ps1;
 		''')
-		suppressSerialization
-		assertSerialize(testFile(pkg1FileName).resource.contents.head as AadlPackage, "s3.i", '''
+		assertSerialize(pkg1, "s3.i", '''
 			system s3_i_Instance : pkg1::s3.i {
 				system pkg1::s1 sub1 [ 0 ] : pkg1::s3.i:sub1 {
 					out dataPort p1 : pkg1::s1:p1

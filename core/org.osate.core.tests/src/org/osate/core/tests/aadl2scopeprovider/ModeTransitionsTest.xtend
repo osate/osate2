@@ -34,7 +34,9 @@
  */
 package org.osate.core.tests.aadl2scopeprovider
 
+import com.google.inject.Inject
 import com.itemis.xtext.testing.FluentIssueCollection
+import com.itemis.xtext.testing.XtextTest
 import org.eclipse.xtext.testing.InjectWith
 import org.eclipse.xtext.testing.XtextRunner
 import org.junit.Test
@@ -42,19 +44,27 @@ import org.junit.runner.RunWith
 import org.osate.aadl2.Aadl2Package
 import org.osate.aadl2.AadlPackage
 import org.osate.aadl2.AbstractImplementation
-import org.osate.core.test.Aadl2UiInjectorProvider
-import org.osate.core.test.OsateTest
+import org.osate.testsupport.Aadl2InjectorProvider
+import org.osate.testsupport.AssertHelper
+import org.osate.testsupport.TestHelper
 
-import static extension org.junit.Assert.assertEquals
-import static extension org.junit.Assert.assertNull
+import static extension org.junit.Assert.*
+import static extension org.osate.testsupport.AssertHelper.assertError
 
 @RunWith(XtextRunner)
-@InjectWith(Aadl2UiInjectorProvider)
-class ModeTransitionsTest extends OsateTest {
+@InjectWith(Aadl2InjectorProvider)
+class ModeTransitionsTest extends XtextTest {
+
+	@Inject
+	TestHelper<AadlPackage> testHelper
+
+	@Inject
+	extension AssertHelper assertHelper
+
 	//Tests scope_ModeTransition_source, scope_ModeTransition_destination, scope_ModeTransitionTrigger_context, and scope_ModeTransitionTrigger_triggerPort
 	@Test
 	def void testModeTransitions() {
-		createFiles("ModeTransitionScopeTest.aadl" -> '''
+		val aadlText = '''
 			package ModeTransitionScopeTest
 			public
 				abstract a1
@@ -215,9 +225,9 @@ class ModeTransitionsTest extends OsateTest {
 					subpa6: provides subprogram access subpproto5;
 				end subpg1;
 			end ModeTransitionScopeTest;
-		''')
-		suppressSerialization
-		val testFileResult = testFile("ModeTransitionScopeTest.aadl")
+		'''
+		// Variable issues must be initialized for call to assertConstraints()
+		val testFileResult = issues = testHelper.testString(aadlText)
 		val issueCollection = new FluentIssueCollection(testFileResult.resource, newArrayList, newArrayList)
 		testFileResult.resource.contents.head as AadlPackage => [
 			"ModeTransitionScopeTest".assertEquals(name)
@@ -341,7 +351,7 @@ class ModeTransitionsTest extends OsateTest {
 				]
 			]
 		]
-		issueCollection.sizeIs(issueCollection.issues.size)
+		issueCollection.sizeIs(testFileResult.issues.size)
 		assertConstraints(issueCollection)
 	}
 }

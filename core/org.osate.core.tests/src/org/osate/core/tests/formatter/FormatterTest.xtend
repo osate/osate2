@@ -1,13 +1,13 @@
 package org.osate.core.tests.formatter
 
 import com.google.inject.Inject
+import com.itemis.xtext.testing.XtextTest
 import org.eclipse.xtext.testing.InjectWith
 import org.eclipse.xtext.testing.XtextRunner
 import org.eclipse.xtext.testing.formatter.FormatterTestHelper
 import org.junit.Test
 import org.junit.runner.RunWith
-import org.osate.core.test.Aadl2UiInjectorProvider
-import org.osate.core.test.OsateTest
+import org.osate.testsupport.Aadl2InjectorProvider
 
 /*
  * Some of the tests have useSerializer set to false. This has to do with the customizations done in
@@ -17,8 +17,8 @@ import org.osate.core.test.OsateTest
  * from the node model doesn't match the text region from the serializer.
  */
 @RunWith(XtextRunner)
-@InjectWith(Aadl2UiInjectorProvider)
-class FormatterTest extends OsateTest {
+@InjectWith(Aadl2InjectorProvider)
+class FormatterTest extends XtextTest {
 	@Inject
 	extension FormatterTestHelper
 	

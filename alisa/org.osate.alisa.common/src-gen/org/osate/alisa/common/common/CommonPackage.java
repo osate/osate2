@@ -1192,6 +1192,16 @@ public interface CommonPackage extends EPackage
    */
   int OPERATION = 21;
 
+  /**
+   * The meta object id for the '{@link org.osate.alisa.common.common.TargetType <em>Target Type</em>}' enum.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see org.osate.alisa.common.common.TargetType
+   * @see org.osate.alisa.common.common.impl.CommonPackageImpl#getTargetType()
+   * @generated
+   */
+  int TARGET_TYPE = 22;
+
 
   /**
    * Returns the meta object for class '{@link org.osate.alisa.common.common.Description <em>Description</em>}'.
@@ -1832,6 +1842,16 @@ public interface CommonPackage extends EPackage
   EEnum getOperation();
 
   /**
+   * Returns the meta object for enum '{@link org.osate.alisa.common.common.TargetType <em>Target Type</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for enum '<em>Target Type</em>'.
+   * @see org.osate.alisa.common.common.TargetType
+   * @generated
+   */
+  EEnum getTargetType();
+
+  /**
    * Returns the factory that creates the instances of the model.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -2377,6 +2397,16 @@ public interface CommonPackage extends EPackage
      * @generated
      */
     EEnum OPERATION = eINSTANCE.getOperation();
+
+    /**
+     * The meta object literal for the '{@link org.osate.alisa.common.common.TargetType <em>Target Type</em>}' enum.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.osate.alisa.common.common.TargetType
+     * @see org.osate.alisa.common.common.impl.CommonPackageImpl#getTargetType()
+     * @generated
+     */
+    EEnum TARGET_TYPE = eINSTANCE.getTargetType();
 
   }
 

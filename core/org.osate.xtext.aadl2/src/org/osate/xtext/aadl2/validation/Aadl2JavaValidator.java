@@ -42,6 +42,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
+import java.util.ListIterator;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Optional;
@@ -50,6 +51,7 @@ import java.util.SortedMap;
 import java.util.TreeMap;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
+import java.util.stream.StreamSupport;
 
 import org.eclipse.emf.common.util.BasicEList;
 import org.eclipse.emf.common.util.EList;
@@ -63,6 +65,7 @@ import org.eclipse.emf.ecore.util.BasicInternalEList;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.xtext.EcoreUtil2;
 import org.eclipse.xtext.Keyword;
+import org.eclipse.xtext.naming.IQualifiedNameConverter;
 import org.eclipse.xtext.nodemodel.BidiIterable;
 import org.eclipse.xtext.nodemodel.ICompositeNode;
 import org.eclipse.xtext.nodemodel.INode;
@@ -72,7 +75,7 @@ import org.eclipse.xtext.nodemodel.impl.HiddenLeafNode;
 import org.eclipse.xtext.nodemodel.impl.LeafNode;
 import org.eclipse.xtext.nodemodel.util.NodeModelUtils;
 import org.eclipse.xtext.resource.IEObjectDescription;
-import org.eclipse.xtext.scoping.IGlobalScopeProvider;
+import org.eclipse.xtext.scoping.IScope;
 import org.eclipse.xtext.validation.Check;
 import org.eclipse.xtext.validation.CheckType;
 import org.eclipse.xtext.xbase.lib.StringExtensions;
@@ -571,18 +574,13 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 
 	@Check(CheckType.NORMAL)
 	public void caseAadlPackage(AadlPackage pack) {
-		String findings;
-
-		findings = hasDuplicatesAadlPackage(pack);
-		if (findings != null) {
-			error(pack, "Package " + pack.getName() + " has duplicates " + findings);
-		}
+		checkForDuplicateModelUnits(pack);
 	}
 
 	@Check(CheckType.FAST)
 	public void casePropertySet(PropertySet propSet) {
 		checkWithsAreUsed(propSet);
-		checkForDuplicatesPropertySet(propSet);
+		checkForDuplicateModelUnits(propSet);
 	}
 
 	@Check(CheckType.NORMAL)
@@ -4807,8 +4805,8 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 	private void checkForInverseInFeatureGroup(FeatureGroup featureGroup) {
 		if (featureGroup.isInverse() && featureGroup.getFeatureGroupType() != null
 				&& featureGroup.getFeatureGroupType().getInverse() != null) {
-			error("A feature group type with an 'inverse of' declaration cannot extend a feature group type "
-					+ "without an 'inverse of' declaration.", featureGroup, null, INVERSE_IN_FEATURE_GROUP);
+			error("A feature group cannot be the inverse of a feature group type "
+					+ "with an 'inverse of' declaration.", featureGroup, null, INVERSE_IN_FEATURE_GROUP);
 		}
 	}
 
@@ -4820,41 +4818,83 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 	 */
 	private void checkDirectionOfFeatureGroupMembers(FeatureGroup featureGroup) {
 		DirectionType fgDirection = featureGroup.getDirection();
-		String currentDirection = fgDirection.getName();
 		if (!fgDirection.equals(DirectionType.IN_OUT) && featureGroup.getFeatureGroupType() != null) {
-			if (featureGroup.isInverse()) {
-				fgDirection = fgDirection.getInverseDirection();
-			}
-			int errorCount = 0;
-			List<String> directions = new ArrayList<String>();
-
-			for (Feature feature : featureGroup.getFeatureGroupType().getAllFeatures()) {
-				if (feature instanceof DirectedFeature) {
-					DirectionType direction = ((DirectedFeature) feature).getDirection();
-					if (!direction.equals(fgDirection)) {
-						errorCount++;
-					}
-					directions.add(direction.getName());
-				}
-			}
-			Set<String> uniqueDirectionSet = new HashSet<String>(directions);
-			String validDirection = "";
-			if (uniqueDirectionSet.size() == 1) {
-				List<String> uniqueDirections = new ArrayList<String>(uniqueDirectionSet);
-				validDirection = uniqueDirections.get(0);
-			}
-
-			if (featureGroup.isInverse() && validDirection.equals("in")) {
-				validDirection = "out";
-			} else if (featureGroup.isInverse() && validDirection.equals("out")) {
-				validDirection = "in";
-			}
-			if (errorCount > 0) {
+			List<String> violations = collectDirectionViolations(featureGroup, fgDirection.equals(DirectionType.IN),
+					"");
+			String validDirection = fgDirection.toString();
+			if (violations.size() > 0) {
 				error("All ports, parameters, feature groups, and abstract features in the referenced feature group"
 						+ " type must satisfy the direction specified in the feature group.", featureGroup, null,
-						DIRECTION_NOT_SAME_AS_FEATURE_GROUP_MEMBERS, validDirection, currentDirection);
+						DIRECTION_NOT_SAME_AS_FEATURE_GROUP_MEMBERS, validDirection.equals("in") ? "out" : "in",
+						validDirection);
 			}
 		}
+	}
+
+	/*
+	 * No violation for empty feature groups, empty feature group types, and non-directional features (access)
+	 */
+	private List<String> collectDirectionViolations(DirectedFeature df, boolean in, String prefix) {
+		List<String> result = new ArrayList<>();
+		DirectionType dir = df.getDirection();
+
+		if (df instanceof FeatureGroup) {
+			FeatureGroup fg = (FeatureGroup) df;
+
+			if (!prefix.isEmpty() && !dir.equals(DirectionType.IN_OUT)) {
+				if (in && !dir.equals(DirectionType.IN) || !in && !dir.equals(DirectionType.OUT)) {
+					result.add(prefix + df.getName());
+				}
+			} else {
+				FeatureGroupType fgt = fg.getAllFeatureGroupType();
+
+				if (fg.isInverse()) {
+					in = !in;
+				}
+				if (fgt != null) {
+					List<Feature> fs = getFeatures(fgt);
+					FeatureGroupType inv = fgt.getInverse();
+
+					if (fs.isEmpty() && inv != null) {
+						fs = getFeatures(inv);
+						in = !in;
+					}
+					// empty feature group type is OK
+					for (Feature f : fs) {
+						// skip access features
+						if (f instanceof DirectedFeature) {
+							result.addAll(
+									collectDirectionViolations((DirectedFeature) f, in, prefix + df.getName() + "."));
+						}
+					}
+				}
+			}
+
+		} else {
+			if (in && !dir.equals(DirectionType.IN) || !in && !dir.equals(DirectionType.OUT)) {
+				result.add(prefix + df.getName());
+			}
+		}
+		return result;
+	}
+
+	private List<Feature> getFeatures(FeatureGroupType fgt) {
+		List<Feature> result = new ArrayList<>();
+		final List<Classifier> ancestors = fgt.getSelfPlusAllExtended();
+		final BasicEList<Feature> returnlist = new BasicEList<Feature>();
+		// Process from farthest ancestor to self
+		for (ListIterator<Classifier> li = ancestors.listIterator(ancestors.size()); li.hasPrevious();) {
+			final FeatureGroupType current = (FeatureGroupType) li.previous();
+			for (Feature fe : current.getOwnedFeatures()) {
+				final Feature rfe = fe.getRefined();
+				if (rfe != null) {
+					returnlist.remove(rfe);
+				}
+				returnlist.add(fe);
+
+			}
+		}
+		return returnlist;
 	}
 
 	/**
@@ -7366,14 +7406,19 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 	}
 
 	@Inject
-	private IGlobalScopeProvider scopeProvider;
+	private Aadl2GlobalScopeProvider scopeProvider;
+
+	@Inject
+	private IQualifiedNameConverter qualifiedNameConverter;
 
 	/**
 	 * check whether there are duplicate names
+	 * @deprecated Will be removed in 2.3.5
 	 */
+	@Deprecated
 	public String hasDuplicatesAadlPackage(AadlPackage context) {
 		// project dependency based global scope
-		List<IEObjectDescription> findings = ((Aadl2GlobalScopeProvider) scopeProvider).getDuplicates(context);
+		List<IEObjectDescription> findings = scopeProvider.getDuplicates(context);
 		if (!findings.isEmpty()) {
 			return getNames(findings);
 		}
@@ -7382,17 +7427,48 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 
 	/**
 	 * check whether there are duplicate names
+	 *
+	 * @deprecated Will be removed in 2.3.5
 	 */
+	@Deprecated
 	public void checkForDuplicatesPropertySet(PropertySet propSet) {
 		// project dependency based global scope
 		if (!propSet.getName().equals("AADL_Project")) {
-			List<IEObjectDescription> findings = ((Aadl2GlobalScopeProvider) scopeProvider).getDuplicates(propSet);
+			List<IEObjectDescription> findings = scopeProvider.getDuplicates(propSet);
 			if (!findings.isEmpty()) {
 				error(propSet, "Property set " + propSet.getName() + " has duplicates " + findings);
 			}
 		}
 	}
 
+	/**
+	 * check whether there are duplicate names
+	 */
+	private void checkForDuplicateModelUnits(ModelUnit modelUnit) {
+		IScope scope = scopeProvider.getScope(modelUnit.eResource(), Aadl2Package.eINSTANCE.getModelUnit());
+		Iterable<IEObjectDescription> elements = scope
+				.getElements(qualifiedNameConverter.toQualifiedName(modelUnit.getName()));
+		if (elements.iterator().hasNext()) {
+			StringBuilder message = new StringBuilder();
+			if (modelUnit instanceof AadlPackage) {
+				message.append("Packge");
+			} else if (modelUnit instanceof PropertySet) {
+				message.append("Property set");
+			}
+			message.append(" ");
+			message.append(modelUnit.getName());
+			message.append(" has duplicates ");
+			message.append(StreamSupport.stream(elements.spliterator(), false)
+					.map(description -> description.getEObjectURI().path().replace("/resource/", "")).sorted()
+					.collect(Collectors.joining(", ")));
+			error(message.toString(), Aadl2Package.eINSTANCE.getNamedElement_Name());
+		}
+	}
+
+	/**
+	 * @deprecated Will be removed in 2.3.5
+	 */
+	@Deprecated
 	protected String getNames(List<IEObjectDescription> findings) {
 		String res = "";
 		boolean doComma = false;

@@ -22,7 +22,6 @@ Require-Bundle: org.osate.verify;visibility:=reexport,
  org.osate.reqspec;bundle-version="1.0.0",
  org.eclipse.xtext.xbase.lib,
  org.osate.categories;bundle-version="1.0.0",
- com.rockwellcollins.atc.resolute,
  org.osate.aadl2.modelsupport;bundle-version="1.0.0",
  org.osate.xtext.aadl2.ui,
  org.osate.ui;bundle-version="1.0.0"
@@ -34,3 +33,4 @@ Export-Package: org.osate.verify.ui.quickfix,
  org.osate.verify.ui.internal,
  org.osate.verify.ui.contentassist.antlr.internal
 Bundle-Activator: org.osate.verify.ui.internal.VerifyActivator
+Automatic-Module-Name: org.osate.verify.ui

@@ -42,3 +42,4 @@ Export-Package: org.osate.assure.ui,
  org.osate.assure.ui.quickfix
 Bundle-Activator: org.osate.assure.ui.internal.AssureActivator
 Import-Package: org.apache.log4j
+Automatic-Module-Name: org.osate.assure.ui

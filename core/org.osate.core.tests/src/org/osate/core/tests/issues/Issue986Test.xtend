@@ -1,27 +1,24 @@
 package org.osate.core.tests.issues
 
+import com.google.inject.Inject
 import org.eclipse.xtext.testing.InjectWith
 import org.eclipse.xtext.testing.XtextRunner
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.osate.aadl2.AadlPackage
-import org.osate.core.test.Aadl2UiInjectorProvider
-import org.osate.core.test.OsateTest
-
 import org.osate.aadl2.SystemImplementation
-import com.itemis.xtext.testing.FluentIssueCollection
+import org.osate.aadl2.instance.ComponentInstance
+import org.osate.aadl2.instantiation.InstantiateModel
+import org.osate.aadl2.modelsupport.errorreporting.AnalysisErrorReporterManager
+import org.osate.aadl2.modelsupport.errorreporting.QueuingAnalysisErrorReporter
+import org.osate.testsupport.Aadl2InjectorProvider
+import org.osate.testsupport.TestHelper
 
 import static extension org.junit.Assert.*
 
-import org.osate.aadl2.instantiation.InstantiateModel
-import static extension org.osate.aadl2.modelsupport.resources.OsateResourceUtil.convertToIResource
-import org.eclipse.core.resources.IMarker
-import org.eclipse.core.resources.IResource
-import org.eclipse.emf.ecore.util.EcoreUtil
-
 @RunWith(XtextRunner)
-@InjectWith(Aadl2UiInjectorProvider)
-class Issue986Test extends OsateTest {
+@InjectWith(Aadl2InjectorProvider)
+class Issue986Test {
 	val static PROJECT_LOCATION = "org.osate.core.tests/models/Issue986/"
 	val static FILE1 = "package1.aadl"
 
@@ -34,37 +31,35 @@ class Issue986Test extends OsateTest {
 	val static SUB_B = "b"
 	val static SUB_B1 = "b1"
 	
+	@Inject
+	TestHelper<AadlPackage> testHelper
+	
 	@Test
 	def void test1() {
-		val testFileResult = loadFile(FILE1, PROJECT_LOCATION + FILE1)	
-		val pkg = testFileResult.resource.contents.head as AadlPackage;
+		val pkg = testHelper.parseFile(PROJECT_LOCATION + FILE1)
 		val sysImpl = pkg.ownedPublicSection.ownedClassifiers.findFirst[name == S_I] as SystemImplementation
+		
+		val errorManager = new AnalysisErrorReporterManager(QueuingAnalysisErrorReporter.factory)
 		
 		/* Original problem was that instantiation would crash.  So simply completing this step 
 		 * indicates success.
 		 */
-		val instance = InstantiateModel::buildInstanceModelFile(sysImpl)
+		val instance = InstantiateModel.instantiate(sysImpl, errorManager)
 		assertEquals(INSTANCE_NAME, instance.name)
 
-		val markers = instance.eResource.convertToIResource.findMarkers(IMarker.PROBLEM, true, IResource.DEPTH_ONE)
-		assertTrue(markers.length == 2)
-
-		val sub_b = EcoreUtil.getURI(instance.componentInstances.findFirst[name == SUB_B]).toString()
-		markers.findFirst[getAttribute("uri").equals(sub_b)] => [
-			IMarker.SEVERITY_WARNING.assertEquals(attributes.get(IMarker.SEVERITY))
-			WARNING_NO_CLASSIFIER.assertEquals(attributes.get(IMarker.MESSAGE))			
+		val messages = (errorManager.getReporter(instance.eResource) as QueuingAnalysisErrorReporter).errors
+		assertTrue(messages.size == 2)
+		
+		messages.get(0) => [
+			SUB_B.assertEquals((where as ComponentInstance).name)
+			QueuingAnalysisErrorReporter.WARNING.assertEquals(kind)
+			WARNING_NO_CLASSIFIER.assertEquals(message)
 		]
-
-		val sub_b1 = EcoreUtil.getURI(instance.componentInstances.findFirst[name == SUB_B1]).toString()
-		markers.findFirst[getAttribute("uri").equals(sub_b1)] => [
-			IMarker.SEVERITY_WARNING.assertEquals(attributes.get(IMarker.SEVERITY))
-			WARNING_NO_CLASSIFIER.assertEquals(attributes.get(IMarker.MESSAGE))			
+		
+		messages.get(1) => [
+			SUB_B1.assertEquals((where as ComponentInstance).name)
+			QueuingAnalysisErrorReporter.WARNING.assertEquals(kind)
+			WARNING_NO_CLASSIFIER.assertEquals(message)
 		]
-	}
-
-	private def FluentIssueCollection loadFile(String fname, String path) {
-		createFiles(fname -> readFile(path))
-		ignoreSerializationDifferences
-		testFile(fname)
 	}
 }

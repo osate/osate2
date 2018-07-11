@@ -38,6 +38,7 @@ import org.osate.ge.services.QueryService;
 import com.google.common.base.Predicates;
 
 public class FlowContributionItem extends ComboContributionItem {
+	public final static String highlightFlow = "org.osate.ge.properties.HighlightFlow";
 	private static final String emptySelectionTxt = "<Flows>";
 	private static final String selectedFlowPropertyKey = "org.osate.ge.ui.editor.selectedFlow";
 	private static final StandaloneQuery flowContainerQuery = StandaloneQuery.create((rootQuery) -> rootQuery
@@ -90,8 +91,8 @@ public class FlowContributionItem extends ComboContributionItem {
 	@Override
 	protected Control createControl(final Composite parent) {
 		final Control control = super.createControl(parent);
-
-		getComboViewer().setLabelProvider(new LabelProvider() {
+		final ComboViewer comboViewer = getComboViewer();
+		comboViewer.setLabelProvider(new LabelProvider() {
 			@Override
 			public String getText(final Object element) {
 				@SuppressWarnings("unchecked")
@@ -106,6 +107,8 @@ public class FlowContributionItem extends ComboContributionItem {
 				return entry.getKey();
 			}
 		});
+
+		comboViewer.getCombo().setData(UiUtil.AUTOMATED_SWTBOT_TESTING_KEY, highlightFlow);
 
 		refresh(); // Populate the combo box
 		return control;

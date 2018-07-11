@@ -26,3 +26,4 @@ Export-Package: org.osate.categories.ui.quickfix,
  org.osate.categories.ui.internal,
  org.osate.categories.ui.contentassist.antlr.internal
 Bundle-Activator: org.osate.categories.ui.internal.CategoriesActivator
+Automatic-Module-Name: org.osate.categories.ui

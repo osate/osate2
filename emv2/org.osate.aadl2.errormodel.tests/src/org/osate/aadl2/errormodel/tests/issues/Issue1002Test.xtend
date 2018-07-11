@@ -6,7 +6,7 @@ import org.junit.Test
 import org.junit.runner.RunWith
 import org.osate.aadl2.AadlPackage
 import org.osate.aadl2.errormodel.tests.ErrorModelUiInjectorProvider
-import org.osate.core.test.OsateTest
+import org.osate.testsupport.OsateTest
 
 import static extension org.junit.Assert.assertEquals
 

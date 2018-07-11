@@ -218,13 +218,22 @@ public interface AssurePackage extends EPackage
   int MODEL_RESULT__SUBSYSTEM_RESULT = ASSURE_RESULT_FEATURE_COUNT + 4;
 
   /**
+   * The feature id for the '<em><b>Sub Assurance Case</b></em>' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int MODEL_RESULT__SUB_ASSURANCE_CASE = ASSURE_RESULT_FEATURE_COUNT + 5;
+
+  /**
    * The number of structural features of the '<em>Model Result</em>' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int MODEL_RESULT_FEATURE_COUNT = ASSURE_RESULT_FEATURE_COUNT + 5;
+  int MODEL_RESULT_FEATURE_COUNT = ASSURE_RESULT_FEATURE_COUNT + 6;
 
   /**
    * The meta object id for the '{@link org.osate.assure.assure.impl.SubsystemResultImpl <em>Subsystem Result</em>}' class.
@@ -1461,6 +1470,17 @@ public interface AssurePackage extends EPackage
   EReference getModelResult_SubsystemResult();
 
   /**
+   * Returns the meta object for the containment reference list '{@link org.osate.assure.assure.ModelResult#getSubAssuranceCase <em>Sub Assurance Case</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference list '<em>Sub Assurance Case</em>'.
+   * @see org.osate.assure.assure.ModelResult#getSubAssuranceCase()
+   * @see #getModelResult()
+   * @generated
+   */
+  EReference getModelResult_SubAssuranceCase();
+
+  /**
    * Returns the meta object for class '{@link org.osate.assure.assure.SubsystemResult <em>Subsystem Result</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -2383,6 +2403,14 @@ public interface AssurePackage extends EPackage
      * @generated
      */
     EReference MODEL_RESULT__SUBSYSTEM_RESULT = eINSTANCE.getModelResult_SubsystemResult();
+
+    /**
+     * The meta object literal for the '<em><b>Sub Assurance Case</b></em>' containment reference list feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference MODEL_RESULT__SUB_ASSURANCE_CASE = eINSTANCE.getModelResult_SubAssuranceCase();
 
     /**
      * The meta object literal for the '{@link org.osate.assure.assure.impl.SubsystemResultImpl <em>Subsystem Result</em>}' class.

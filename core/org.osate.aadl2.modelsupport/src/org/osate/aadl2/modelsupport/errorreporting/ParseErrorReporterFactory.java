@@ -33,7 +33,7 @@
  */
 package org.osate.aadl2.modelsupport.errorreporting;
 
-import org.eclipse.core.resources.IResource;
+import org.eclipse.emf.ecore.resource.Resource;
 
 /**
  * Defines the interface for factories that create instances of
@@ -52,21 +52,13 @@ public interface ParseErrorReporterFactory {
 	 * then it must throw a {@link IllegalArgumentException}.
 	 *
 	 * <p>
-	 * The given <code>IResource</code> may be <code>null</code>, but an
+	 * The given <code>Resource</code> may be <code>null</code>, but an
 	 * implementation may throw an IllegalArgumentException if it cannot produce
 	 * a sensible error reporter for <code>null</code>. An implementation
-	 * must document its behavoir for <code>null</code> inputs.
-	 *
-	 * <p>
-	 * (At one point a considerable effort was made to avoid having this
-	 * interface use {@link org.eclipse.core.resources.IResource}, on the
-	 * grounds that it would complicate using the EMF model stand alone, outside
-	 * of Eclipse. But there is now so much entanglement between the model and
-	 * Eclipse, that it doesn't seem worth the effort to attempt the separation
-	 * here.)
+	 * must document its behavior for <code>null</code> inputs.
 	 *
 	 * @param aadlRsrc
-	 *            The <code>IResource</code> of the aadl text file for which
+	 *            The <code>Resource</code> of the aadl text file for which
 	 *            an error reporter should be generated. May be
 	 *            <code>null</code>, but see above.
 	 * @return The error reporter to be used for the file. Must not be
@@ -75,5 +67,5 @@ public interface ParseErrorReporterFactory {
 	 *                Thrown if the factory is unable to create an error
 	 *                reporter for the given resource.
 	 */
-	public ParseErrorReporter getReporterFor(IResource aadlRsrc);
+	public ParseErrorReporter getReporterFor(Resource aadlRsrc);
 }

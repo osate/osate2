@@ -16,6 +16,7 @@ import org.osate.aadl2.NamedElement;
  * </p>
  * <ul>
  *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.ErrorFlow#getTypeTokenConstraint <em>Type Token Constraint</em>}</li>
+ *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.ErrorFlow#getFlowcondition <em>Flowcondition</em>}</li>
  * </ul>
  *
  * @see org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelPackage#getErrorFlow()
@@ -49,5 +50,31 @@ public interface ErrorFlow extends EObject, NamedElement
    * @generated
    */
   void setTypeTokenConstraint(TypeSet value);
+
+  /**
+   * Returns the value of the '<em><b>Flowcondition</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Flowcondition</em>' containment reference isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Flowcondition</em>' containment reference.
+   * @see #setFlowcondition(IfCondition)
+   * @see org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelPackage#getErrorFlow_Flowcondition()
+   * @model containment="true"
+   * @generated
+   */
+  IfCondition getFlowcondition();
+
+  /**
+   * Sets the value of the '{@link org.osate.xtext.aadl2.errormodel.errorModel.ErrorFlow#getFlowcondition <em>Flowcondition</em>}' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>Flowcondition</em>' containment reference.
+   * @see #getFlowcondition()
+   * @generated
+   */
+  void setFlowcondition(IfCondition value);
 
 } // ErrorFlow

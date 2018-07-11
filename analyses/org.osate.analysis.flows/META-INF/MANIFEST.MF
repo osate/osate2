@@ -20,3 +20,4 @@ Require-Bundle: org.osate.aadl2,
  org.osate.contribution.sei,
  org.osate.results;bundle-version="1.0.0"
 Eclipse-LazyStart: true
+Automatic-Module-Name: org.osate.analysis.flows
