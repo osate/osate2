@@ -1,19 +1,23 @@
 package org.osate.aadl2.instance.textual.tests
 
+import com.google.inject.Inject
 import org.eclipse.xtext.testing.InjectWith
 import org.eclipse.xtext.testing.XtextRunner
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.osate.aadl2.AadlPackage
-import org.osate.aadl2.instance.textual.InstanceUiInjectorProvider
+import org.osate.aadl2.instance.textual.InstanceInjectorProvider
+import org.osate.testsupport.TestHelper
 
 @RunWith(XtextRunner)
-@InjectWith(InstanceUiInjectorProvider)
+@InjectWith(InstanceInjectorProvider)
 class Issue667Test extends AbstractSerializerTest {
+	@Inject
+	TestHelper<AadlPackage> testHelper
+	
 	@Test
 	def void issue667() {
-		val pkg1FileName = "pkg1.aadl"
-		createFiles(pkg1FileName -> '''
+		val pkg1 = testHelper.parseString('''
 			package pkg1
 			public
 				system s1
@@ -61,8 +65,7 @@ class Issue667Test extends AbstractSerializerTest {
 				end s3.i;
 			end pkg1;
 		''')
-		suppressSerialization
-		assertSerialize(testFile(pkg1FileName).resource.contents.head as AadlPackage, "s1.i", '''
+		assertSerialize(pkg1, "s1.i", '''
 			system s1_i_Instance : pkg1::s1.i {
 				system pkg1::s2.i sub1 [ 0 ] in modes ( m1 , m2 ) : pkg1::s1.i:sub1 {
 					in out abstractFeature f1 : pkg1::s2:f1
