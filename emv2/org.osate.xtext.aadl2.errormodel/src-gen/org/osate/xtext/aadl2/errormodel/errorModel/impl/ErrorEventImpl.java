@@ -12,6 +12,7 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
 
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorEvent;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelPackage;
+import org.osate.xtext.aadl2.errormodel.errorModel.IfCondition;
 import org.osate.xtext.aadl2.errormodel.errorModel.TypeSet;
 
 /**
@@ -41,24 +42,14 @@ public class ErrorEventImpl extends ErrorBehaviorEventImpl implements ErrorEvent
   protected TypeSet typeSet;
 
   /**
-   * The default value of the '{@link #getEventcondition() <em>Eventcondition</em>}' attribute.
+   * The cached value of the '{@link #getEventcondition() <em>Eventcondition</em>}' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @see #getEventcondition()
    * @generated
    * @ordered
    */
-  protected static final String EVENTCONDITION_EDEFAULT = null;
-
-  /**
-   * The cached value of the '{@link #getEventcondition() <em>Eventcondition</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getEventcondition()
-   * @generated
-   * @ordered
-   */
-  protected String eventcondition = EVENTCONDITION_EDEFAULT;
+  protected IfCondition eventcondition;
 
   /**
    * <!-- begin-user-doc -->
@@ -134,7 +125,7 @@ public class ErrorEventImpl extends ErrorBehaviorEventImpl implements ErrorEvent
    * <!-- end-user-doc -->
    * @generated
    */
-  public String getEventcondition()
+  public IfCondition getEventcondition()
   {
     return eventcondition;
   }
@@ -144,12 +135,37 @@ public class ErrorEventImpl extends ErrorBehaviorEventImpl implements ErrorEvent
    * <!-- end-user-doc -->
    * @generated
    */
-  public void setEventcondition(String newEventcondition)
+  public NotificationChain basicSetEventcondition(IfCondition newEventcondition, NotificationChain msgs)
   {
-    String oldEventcondition = eventcondition;
+    IfCondition oldEventcondition = eventcondition;
     eventcondition = newEventcondition;
     if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, ErrorModelPackage.ERROR_EVENT__EVENTCONDITION, oldEventcondition, eventcondition));
+    {
+      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, ErrorModelPackage.ERROR_EVENT__EVENTCONDITION, oldEventcondition, newEventcondition);
+      if (msgs == null) msgs = notification; else msgs.add(notification);
+    }
+    return msgs;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setEventcondition(IfCondition newEventcondition)
+  {
+    if (newEventcondition != eventcondition)
+    {
+      NotificationChain msgs = null;
+      if (eventcondition != null)
+        msgs = ((InternalEObject)eventcondition).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - ErrorModelPackage.ERROR_EVENT__EVENTCONDITION, null, msgs);
+      if (newEventcondition != null)
+        msgs = ((InternalEObject)newEventcondition).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - ErrorModelPackage.ERROR_EVENT__EVENTCONDITION, null, msgs);
+      msgs = basicSetEventcondition(newEventcondition, msgs);
+      if (msgs != null) msgs.dispatch();
+    }
+    else if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, ErrorModelPackage.ERROR_EVENT__EVENTCONDITION, newEventcondition, newEventcondition));
   }
 
   /**
@@ -164,6 +180,8 @@ public class ErrorEventImpl extends ErrorBehaviorEventImpl implements ErrorEvent
     {
       case ErrorModelPackage.ERROR_EVENT__TYPE_SET:
         return basicSetTypeSet(null, msgs);
+      case ErrorModelPackage.ERROR_EVENT__EVENTCONDITION:
+        return basicSetEventcondition(null, msgs);
     }
     return super.eInverseRemove(otherEnd, featureID, msgs);
   }
@@ -200,7 +218,7 @@ public class ErrorEventImpl extends ErrorBehaviorEventImpl implements ErrorEvent
         setTypeSet((TypeSet)newValue);
         return;
       case ErrorModelPackage.ERROR_EVENT__EVENTCONDITION:
-        setEventcondition((String)newValue);
+        setEventcondition((IfCondition)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -220,7 +238,7 @@ public class ErrorEventImpl extends ErrorBehaviorEventImpl implements ErrorEvent
         setTypeSet((TypeSet)null);
         return;
       case ErrorModelPackage.ERROR_EVENT__EVENTCONDITION:
-        setEventcondition(EVENTCONDITION_EDEFAULT);
+        setEventcondition((IfCondition)null);
         return;
     }
     super.eUnset(featureID);
@@ -239,26 +257,9 @@ public class ErrorEventImpl extends ErrorBehaviorEventImpl implements ErrorEvent
       case ErrorModelPackage.ERROR_EVENT__TYPE_SET:
         return typeSet != null;
       case ErrorModelPackage.ERROR_EVENT__EVENTCONDITION:
-        return EVENTCONDITION_EDEFAULT == null ? eventcondition != null : !EVENTCONDITION_EDEFAULT.equals(eventcondition);
+        return eventcondition != null;
     }
     return super.eIsSet(featureID);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  @Override
-  public String toString()
-  {
-    if (eIsProxy()) return super.toString();
-
-    StringBuffer result = new StringBuffer(super.toString());
-    result.append(" (eventcondition: ");
-    result.append(eventcondition);
-    result.append(')');
-    return result.toString();
   }
 
 } //ErrorEventImpl

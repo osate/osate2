@@ -34,7 +34,9 @@
  */
 package org.osate.core.tests.aadl2scopeprovider
 
+import com.google.inject.Inject
 import com.itemis.xtext.testing.FluentIssueCollection
+import com.itemis.xtext.testing.XtextTest
 import org.eclipse.xtext.testing.InjectWith
 import org.eclipse.xtext.testing.XtextRunner
 import org.junit.Test
@@ -43,19 +45,28 @@ import org.osate.aadl2.Aadl2Package
 import org.osate.aadl2.AadlPackage
 import org.osate.aadl2.AbstractImplementation
 import org.osate.aadl2.SubprogramImplementation
-import org.osate.testsupport.Aadl2UiInjectorProvider
-import org.osate.testsupport.OsateTest
+import org.osate.testsupport.Aadl2InjectorProvider
+import org.osate.testsupport.AssertHelper
+import org.osate.testsupport.TestHelper
 
 import static extension org.junit.Assert.assertEquals
 import static extension org.junit.Assert.assertNull
+import static extension org.osate.testsupport.AssertHelper.*
 
 @RunWith(XtextRunner)
-@InjectWith(Aadl2UiInjectorProvider)
-class FlowSegmentsTest extends OsateTest {
+@InjectWith(Aadl2InjectorProvider)
+class FlowSegmentsTest extends XtextTest {
+		
+	@Inject
+	TestHelper<AadlPackage> testHelper
+	
+	@Inject
+	extension AssertHelper
+	
 	//Tests scope_FlowSegment_context, scope_FlowSegment_flowElement, scope_EndToEndFlowSegment_context, and scope_EndToEndFlowSegment_flowElement
 	@Test
 	def void testFlowSegments() {
-		createFiles("flowSegmentScopeTest.aadl" -> '''
+		val flowSegmentScopeTest = '''
 			package flowSegmentScopeTest
 			public
 				abstract a1
@@ -224,9 +235,8 @@ class FlowSegmentsTest extends OsateTest {
 					subpa6: provides subprogram access subpproto5;
 				end subpg1;
 			end flowSegmentScopeTest;
-		''')
-		suppressSerialization
-		val testFileResult = testFile("flowSegmentScopeTest.aadl")
+		'''
+		val testFileResult = issues = testHelper.testString(flowSegmentScopeTest)
 		val issueCollection = new FluentIssueCollection(testFileResult.resource, newArrayList, newArrayList)
 		testFileResult.resource.contents.head as AadlPackage => [
 			"flowSegmentScopeTest".assertEquals(name)
@@ -1589,7 +1599,7 @@ class FlowSegmentsTest extends OsateTest {
 				]
 			]
 		]
-		issueCollection.sizeIs(issueCollection.issues.size)
+		issueCollection.sizeIs(testFileResult.issues.size)
 		assertConstraints(issueCollection)
 	}
 }

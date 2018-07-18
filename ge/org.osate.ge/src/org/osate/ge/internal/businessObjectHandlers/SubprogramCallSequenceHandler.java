@@ -36,7 +36,7 @@ import org.osate.ge.graphics.StyleBuilder;
 import org.osate.ge.internal.services.NamingService;
 import org.osate.ge.internal.ui.dialogs.DefaultSelectSubprogramDialogModel;
 import org.osate.ge.internal.ui.dialogs.SelectSubprogramDialog;
-import org.osate.ge.internal.util.AadlHelper;
+import org.osate.ge.internal.util.AadlImportsUtil;
 import org.osate.ge.internal.util.AadlInheritanceUtil;
 import org.osate.ge.internal.util.ImageHelper;
 import org.osate.ge.operations.Operation;
@@ -147,8 +147,8 @@ public class SubprogramCallSequenceHandler {
 				initialSubprogramCall.setContext(createArgs.callContext);
 				initialSubprogramCall.setCalledSubprogram(createArgs.calledSubprogram);
 
-				AadlHelper.ensurePackageIsImported(bi, createArgs.callContext);
-				AadlHelper.ensurePackageIsImported(bi, createArgs.calledSubprogram);
+				AadlImportsUtil.ensurePackageIsImportedForClassifier(bi, createArgs.callContext);
+				AadlImportsUtil.ensurePackageIsImportedForClassifier(bi, createArgs.calledSubprogram);
 
 				return StepResultBuilder.create().showNewBusinessObject(targetBoc, newScs).build();
 			});

@@ -130,8 +130,6 @@ import org.osate.aadl2.instance.util.InstanceUtil.InstantiatedClassifier;
 import org.osate.aadl2.modelsupport.AadlConstants;
 import org.osate.aadl2.modelsupport.errorreporting.AnalysisErrorReporterManager;
 import org.osate.aadl2.modelsupport.errorreporting.MarkerAnalysisErrorReporter;
-import org.osate.aadl2.modelsupport.errorreporting.NullAnalysisErrorReporter;
-import org.osate.aadl2.modelsupport.errorreporting.QueuingAnalysisErrorReporter;
 import org.osate.aadl2.modelsupport.modeltraversal.ForAllElement;
 import org.osate.aadl2.modelsupport.modeltraversal.TraverseWorkspace;
 import org.osate.aadl2.modelsupport.resources.OsateResourceUtil;
@@ -265,8 +263,7 @@ public class InstantiateModel {
 		Resource aadlResource = resourceSet.createResource(instanceURI);
 
 		// now instantiate the rest of the model
-		final InstantiateModel instantiateModel = new InstantiateModel(monitor,
-				new AnalysisErrorReporterManager(QueuingAnalysisErrorReporter.factory));
+		final InstantiateModel instantiateModel = new InstantiateModel(monitor, errorManager);
 		SystemInstance root = instantiateModel.createSystemInstanceInt(ci, aadlResource, false);
 		if (root == null) {
 			errorMessage = InstantiateModel.getErrorMessage();
@@ -279,13 +276,16 @@ public class InstantiateModel {
 	 * containing the component implementation.
 	 *
 	 * @param ci The component implementation to instantiate.
-	 * @param errorManager The instance model is created as a resource in this resource set.
+	 * @param errorManager The error manager to use. Ignore errors if this is null.
 	 * @return The root of the instance model.
 	 * @throws Exception if something goes wrong.
 	 */
 	public static SystemInstance instantiate(ComponentImplementation ci, AnalysisErrorReporterManager errorManager)
 			throws Exception {
-		return instantiate(ci, errorManager, new NullProgressMonitor());
+		return instantiate(ci,
+				errorManager != null ? errorManager
+						: AnalysisErrorReporterManager.NULL_ERROR_MANANGER,
+				new NullProgressMonitor());
 	}
 
 	/**
@@ -298,7 +298,7 @@ public class InstantiateModel {
 	 * @throws Exception if something goes wrong.
 	 */
 	public static SystemInstance instantiate(ComponentImplementation ci) throws Exception {
-		return instantiate(ci, new AnalysisErrorReporterManager(NullAnalysisErrorReporter.factory));
+		return instantiate(ci, AnalysisErrorReporterManager.NULL_ERROR_MANANGER);
 	}
 
 	/*
