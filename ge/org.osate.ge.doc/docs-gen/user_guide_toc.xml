@@ -84,6 +84,8 @@
 			</topic>
 			<topic label="Connection_Pattern Property Visualization" href="docs-gen/user_guide.html#connection_pattern-property-visualization">
 			</topic>
+			<topic label="Selecting All Connections" href="docs-gen/user_guide.html#selecting-all-connections">
+			</topic>
 		</topic>
 		<topic label="Classifiers" href="docs-gen/user_guide.html#classifiers">
 			<topic label="Creating" href="docs-gen/user_guide.html#creating">
@@ -193,13 +195,13 @@
 		</topic>
 	</topic>
 	<topic label="Troubleshooting" href="docs-gen/user_guide.html#troubleshooting">
+		<topic label="Undo/Redo is Unavailable After Opening or Closing AADL Source Files" href="docs-gen/user_guide.html#undoredo-is-unavailable-after-opening-or-closing-aadl-source-files">
+		</topic>
 		<topic label="Build Automatically" href="docs-gen/user_guide.html#build-automatically">
 		</topic>
 		<topic label="Inconsistent Font Sizes Across Machines" href="docs-gen/user_guide.html#inconsistent-font-sizes-across-machines">
 		</topic>
 		<topic label="Unable to Set Properties Unless Text Model is Open" href="docs-gen/user_guide.html#unable-to-set-properties-unless-text-model-is-open">
-		</topic>
-		<topic label="Updating the Diagram" href="docs-gen/user_guide.html#updating-the-diagram">
 		</topic>
 		<topic label="Missing Diagram Elements After Modification of AADL Source" href="docs-gen/user_guide.html#missing-diagram-elements-after-modification-of-aadl-source">
 		</topic>

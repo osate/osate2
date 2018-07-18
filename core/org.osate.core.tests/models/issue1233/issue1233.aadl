@@ -1,0 +1,68 @@
+package Issue1233
+public
+	feature group EMPTY
+	end EMPTY;
+	
+	feature group FG1
+		features
+			f1: in feature;
+			a1: requires bus access;
+			a2: provides subprogram group access;
+			e1: feature group EMPTY;
+			e2: in feature group EMPTY;
+	end FG1;
+
+	feature group FG11
+		features
+			f1: in feature;
+			a1: requires bus access;
+			a2: provides subprogram group access;
+			e1: feature group EMPTY;
+			e2: in feature group EMPTY;
+			e3: out feature group EMPTY;
+	end FG11;
+
+	feature group FG2
+		features
+			fg1: out feature group;
+			fg2: out feature group inverse of FG1;
+			fg3: feature group inverse of FG1;
+			a1: requires bus access;
+	end FG2;
+
+	feature group FG21
+		features
+			fg1: out feature group;
+			fg2: out feature group FG1;
+			a1: requires bus access;
+	end FG21;
+
+	feature group FG3
+		features
+			fg1: in feature group FG1;
+			fg2: in feature group inverse of FG2;
+			a1: requires bus access;
+	end FG3;
+
+	feature group IFG1
+		inverse of FG1
+	end IFG1;
+
+	feature group IFG2
+		inverse of FG2
+	end IFG2;
+
+	feature group IFG3
+		inverse of FG3
+	end IFG3;
+
+	system Sys
+		features
+			fg1: out feature group IFG1;
+			fg2: out feature group inverse of FG1;
+			fg3: in feature group IFG2;
+			fg4: in feature group inverse of FG2;
+			fg5: out feature group IFG3;
+			fg6: out feature group inverse of FG3;
+	end Sys;
+end Issue1233;

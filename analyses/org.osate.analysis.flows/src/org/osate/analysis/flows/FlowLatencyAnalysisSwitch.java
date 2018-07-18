@@ -708,20 +708,41 @@ public class FlowLatencyAnalysisSwitch extends AadlProcessingSwitchWithProgress 
 	/**
 	 * Invoke the analysis but return the report object rather than writing it to disk.
 	 *
-	 * @param monitor The progress monitor to use
 	 * @param root The root system instance
 	 * @param som The mode to run the analysis in
+	 * @param asynchronousSystem Whether the system is treated as synchronous by default
+	 * @param majorFrameDelay Whether partition output is performed at a major frame (as opposed to the partition end)
+	 * @param worstCaseDeadline Use deadline based processing (as opposed to max compute execution time)
+	 * @param bestCaseEmptyQueue Assume empty queue (instead of full)
 	 * @return A populated report in AnalysisResult format.
 	 */
-	public AnalysisResult invoke(SystemInstance root, SystemOperationMode som, boolean synchronousSystem,
+	public AnalysisResult invoke(SystemInstance root, SystemOperationMode som, boolean asynchronousSystem,
 			boolean majorFrameDelay, boolean worstCaseDeadline, boolean bestCaseEmptyQueue) {
-		report.setLatencyAnalysisParameters(synchronousSystem, majorFrameDelay, worstCaseDeadline,
+		report.setLatencyAnalysisParameters(asynchronousSystem, majorFrameDelay, worstCaseDeadline,
 				bestCaseEmptyQueue);
 		root.setCurrentSystemOperationMode(som);
 		this.processPreOrderAll(root);
 		AnalysisResult results = report.genResult();
 		root.clearCurrentSystemOperationMode();
 		return results;
+	}
+
+	/**
+	 * Wraps {@link #invoke(EndToEndFlowInstance, SystemOperationMode, boolean, boolean, boolean, boolean)}
+	 * Use defaults, see {@link org.osate.analysis.flows.preferences.Initializer#Initializer()}}
+	 */
+	public AnalysisResult invoke(SystemInstance root, SystemOperationMode som) {
+		return invoke(root, som, true, true, true, true);
+	}
+
+	/**
+	 * @deprecated Use {@link #invoke(SystemInstance, SystemOperationMode, boolean, boolean, boolean, boolean)}
+	 * 		instead. Will be removed in 2.3.5.
+	 */
+	@Deprecated
+	public AnalysisResult invokeAndGetResult(SystemInstance root, SystemOperationMode som, boolean asynchronousSystem,
+			boolean majorFrameDelay, boolean worstCaseDeadline, boolean bestCaseEmptyQueue) {
+		return invoke(root, som, asynchronousSystem, majorFrameDelay, worstCaseDeadline, bestCaseEmptyQueue);
 	}
 
 	public Result invoke(EndToEndFlowInstance etef, SystemOperationMode som, boolean synchronousSystem,
@@ -739,9 +760,19 @@ public class FlowLatencyAnalysisSwitch extends AadlProcessingSwitchWithProgress 
 		return results;
 	}
 
-	public AnalysisResult invokeAndSaveResult(SystemInstance root, SystemOperationMode som, boolean synchronousSystem,
+	/**
+	 * @deprecated Use {@link #invoke(EndToEndFlowInstance, SystemOperationMode, boolean, boolean, boolean, boolean)}
+	 * 		instead. Will be removed in 2.3.5.
+	 */
+	@Deprecated
+	public Result invokeAndGetResult(EndToEndFlowInstance etef, SystemOperationMode som, boolean synchronousSystem,
 			boolean majorFrameDelay, boolean worstCaseDeadline, boolean bestCaseEmptyQueue) {
-		AnalysisResult results = invoke(root, som, synchronousSystem, majorFrameDelay, worstCaseDeadline,
+		return invoke(etef, som, synchronousSystem, majorFrameDelay, worstCaseDeadline, bestCaseEmptyQueue);
+	}
+
+	public AnalysisResult invokeAndSaveResult(SystemInstance root, SystemOperationMode som, boolean asynchronousSystem,
+			boolean majorFrameDelay, boolean worstCaseDeadline, boolean bestCaseEmptyQueue) {
+		AnalysisResult results = invoke(root, som, asynchronousSystem, majorFrameDelay, worstCaseDeadline,
 				bestCaseEmptyQueue);
 		FlowLatencyUtil.saveAnalysisResult(results, FlowLatencyUtil.getParametersAsLabels(report));
 		LatencyCSVReport.generateCSVReport(results);

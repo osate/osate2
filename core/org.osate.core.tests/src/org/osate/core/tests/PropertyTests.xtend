@@ -1,5 +1,7 @@
 package org.osate.core.tests
 
+import com.google.inject.Inject
+import com.itemis.xtext.testing.XtextTest
 import org.eclipse.xtext.testing.InjectWith
 import org.eclipse.xtext.testing.XtextRunner
 import org.junit.Assert
@@ -8,17 +10,20 @@ import org.junit.runner.RunWith
 import org.osate.aadl2.AadlPackage
 import org.osate.aadl2.SystemImplementation
 import org.osate.aadl2.instantiation.InstantiateModel
-import org.osate.testsupport.Aadl2UiInjectorProvider
-import org.osate.testsupport.OsateTest
+import org.osate.testsupport.Aadl2InjectorProvider
+import org.osate.testsupport.TestHelper
 
-@RunWith(typeof(XtextRunner))
-@InjectWith(typeof(Aadl2UiInjectorProvider))
-class PropertyTests extends OsateTest {
+@RunWith(XtextRunner)
+@InjectWith(Aadl2InjectorProvider)
+class PropertyTests extends XtextTest {
+	
+	@Inject
+	TestHelper<AadlPackage> testHelper
+	
 	@Test
 	def void scope_A() {
 
-		createFiles(
-			"p1.aadl" -> '''
+		val p1 = '''
 				package p1
 				public
 				  with p, ps1, ps;
@@ -36,20 +41,20 @@ class PropertyTests extends OsateTest {
 				  end s1.i;
 				  
 				end p1;
-			''',
-			"ps1.aadl" -> '''
+			'''
+		val ps1 = '''
 				property set ps1 is
 				  len_units1: type units (cm, m => cm * 100);
 				  prop1: aadlinteger units ps1::len_units1 applies to (system);
 				end ps;
-			''',
-			"ps.aadl" -> '''
+			'''
+		val ps = '''
 				property set ps is
 				  len_units: type units (cm, m => cm * 100);
 				  prop: aadlinteger units ps::len_units applies to (system);
 				end ps;
-			''',
-			"p.aadl" -> '''
+			'''
+		val p = '''
 				package p
 				public
 				  with ps;
@@ -60,12 +65,10 @@ class PropertyTests extends OsateTest {
 				  end s;
 				  
 				end p;
-			''')
+			'''
 
-		suppressSerialization
-		val result = testFile("p1.aadl")
+		val pkg = testHelper.parseString(p1, ps1, ps, p)
 
-		val pkg = result.resource.contents.head as AadlPackage
 		assertAllCrossReferencesResolvable(pkg)
 		
 		val pas = pkg.ownedPublicSection.ownedClassifiers.head.ownedPropertyAssociations
@@ -74,7 +77,7 @@ class PropertyTests extends OsateTest {
 		
 		// instantiate
 		val sysImpl = pkg.ownedPublicSection.ownedClassifiers.last as SystemImplementation
-		val instance = InstantiateModel::buildInstanceModelFile(sysImpl)
+		val instance = InstantiateModel.instantiate(sysImpl)
 		Assert.assertEquals("s1_i_Instance", instance.name)
 		Assert.assertEquals(1, instance.componentInstances.size)
 		Assert.assertEquals("d", instance.componentInstances.head.name)

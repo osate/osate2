@@ -51,6 +51,11 @@ import org.osate.aadl2.Subcomponent;
 import org.osate.aadl2.modelsupport.util.AadlUtil;
 import org.osate.aadl2.util.Aadl2Util;
 
+/**
+ * @deprecated Replaced by org.osate.xtext.aadl2.properties.linking.PropertiesLinkingDiagnosticMessageProvider.
+ * 		Will be removed in 2.3.5.
+ */
+@Deprecated
 public class PropertiesLinkingDiagnosticMessageProvider extends LinkingDiagnosticMessageProvider {
 
 	@Override
