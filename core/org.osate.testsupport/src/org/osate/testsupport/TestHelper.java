@@ -109,10 +109,11 @@ public class TestHelper<T extends EObject> {
 	 * @param path the file path starting with the test plugin name
 	 * @return the file content with unix line endings
 	 */
-	public static String readFile(String path) {
+	public String readFile(String path) {
 		String result = "";
 		try {
-			URL url = new URL("platform:/plugin/" + path);
+			// This way of constructing the URL works in JUnit plug-in and standalone tests
+			URL url = new URL("file:" + System.getProperty("user.dir") + "/../" + path);
 			InputStream inputStream = url.openConnection().getInputStream();
 			BufferedReader in = new BufferedReader(new InputStreamReader(inputStream));
 			String inputLine;
