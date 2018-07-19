@@ -268,13 +268,22 @@ public interface FaultTreePackage extends EPackage {
 	int EVENT__SHARED_EVENT = 12;
 
 	/**
+	 * The feature id for the '<em><b>Scale</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int EVENT__SCALE = 13;
+
+	/**
 	 * The number of structural features of the '<em>Event</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int EVENT_FEATURE_COUNT = 13;
+	int EVENT_FEATURE_COUNT = 14;
 
 	/**
 	 * The operation id for the '<em>Get Probability</em>' operation.
@@ -545,6 +554,17 @@ public interface FaultTreePackage extends EPackage {
 	EAttribute getEvent_SharedEvent();
 
 	/**
+	 * Returns the meta object for the attribute '{@link org.osate.aadl2.errormodel.FaultTree.Event#getScale <em>Scale</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Scale</em>'.
+	 * @see org.osate.aadl2.errormodel.FaultTree.Event#getScale()
+	 * @see #getEvent()
+	 * @generated
+	 */
+	EAttribute getEvent_Scale();
+
+	/**
 	 * Returns the meta object for the '{@link org.osate.aadl2.errormodel.FaultTree.Event#getProbability() <em>Get Probability</em>}' operation.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -781,6 +801,14 @@ public interface FaultTreePackage extends EPackage {
 		 * @generated
 		 */
 		EAttribute EVENT__SHARED_EVENT = eINSTANCE.getEvent_SharedEvent();
+
+		/**
+		 * The meta object literal for the '<em><b>Scale</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute EVENT__SCALE = eINSTANCE.getEvent_Scale();
 
 		/**
 		 * The meta object literal for the '<em><b>Get Probability</b></em>' operation.
