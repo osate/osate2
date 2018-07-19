@@ -1,12 +1,15 @@
 package org.osate.analysis.flows.tests
 
-import com.itemis.xtext.testing.FluentIssueCollection
+import com.google.inject.Inject
+import java.net.URL
 import org.eclipse.core.runtime.NullProgressMonitor
 import org.eclipse.emf.common.util.URI
 import org.eclipse.emf.ecore.EObject
+import org.eclipse.emf.ecore.resource.ResourceSet
 import org.eclipse.emf.ecore.util.EcoreUtil
 import org.eclipse.xtext.testing.InjectWith
 import org.eclipse.xtext.testing.XtextRunner
+import org.eclipse.xtext.testing.util.ParseHelper
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.osate.aadl2.AadlPackage
@@ -21,22 +24,31 @@ import org.osate.result.RealValue
 import org.osate.result.Result
 import org.osate.result.StringValue
 import org.osate.result.Value
-import org.osate.testsupport.Aadl2UiInjectorProvider
-import org.osate.testsupport.OsateTest
+import org.osate.testsupport.Aadl2InjectorProvider
+import org.osate.testsupport.TestHelper
+import org.osate.testsupport.TestResourceSetHelper
 
 import static extension org.junit.Assert.assertEquals
-import static extension org.osate.aadl2.instantiation.InstantiateModel.buildInstanceModelFile
+import static extension org.osate.aadl2.instantiation.InstantiateModel.instantiate
 
 @RunWith(XtextRunner)
-@InjectWith(Aadl2UiInjectorProvider)
-class FlowLatencyCodeCoverageTest extends OsateTest {
+@InjectWith(Aadl2InjectorProvider)
+class FlowLatencyCodeCoverageTest {
 	val static DIR_NAME = "org.osate.analysis.flows.tests/models/FlowLatencyCodeCoverage/"
+	
+	@Inject
+	TestHelper<AadlPackage> testHelper
+	@Inject
+	TestResourceSetHelper resourceSetHelper
+	@Inject
+	ParseHelper<AadlPackage> parseHelper
 	
 	@Test
 	def void testFlowLatency() {
 		val pkgNames = #[
 			"empty",
 			"component_instance_as_segment",
+			"connect_to_subcomponent",
 			"categories",
 			"dispatch",
 			"immediate",
@@ -66,41 +78,38 @@ class FlowLatencyCodeCoverageTest extends OsateTest {
 			"transmission_time1",
 			"transmission_time2"
 		]
-		createFiles(pkgNames.map[it + ".aadl"].map[it -> readFile(DIR_NAME + it)])
-		suppressSerialization
-		pkgNames.forEach[pkgName | testFile(pkgName + ".aadl").resource.contents.head as AadlPackage => [
-			pkgName.assertEquals(name)
-			publicSection.ownedClassifiers.get(1) as SystemImplementation => [
-				"s1.i1".assertEquals(name)
-				buildInstanceModelFile => [
-					"s1_i1_Instance".assertEquals(name)
-					
-					val resultURI = URI.createPlatformPluginURI('''«DIR_NAME»/results/testFlowLatency/«pkgName».result''', true)
-					val expected = it.eResource.resourceSet.getResource(resultURI, true).contents.head as AnalysisResult
-					
-					val analysis = new FlowLatencyAnalysisSwitch(new NullProgressMonitor, it)
-					val actual = analysis.invoke(it, it.systemOperationModes.head)
-					
-					expected.assertAnalysisResult(actual)
+		val resourceSet = resourceSetHelper.resourceSet
+		pkgNames.forEach[pkgName |
+			val fileName = pkgName + ".aadl"
+			parseHelper.parse(testHelper.readFile(DIR_NAME + fileName), URI.createURI(fileName), resourceSet) => [
+				pkgName.assertEquals(name)
+				publicSection.ownedClassifiers.get(1) as SystemImplementation => [
+					instantiate => [
+						"s1_i1_Instance".assertEquals(name)
+						val expected = loadResult(resourceSet, '''testFlowLatency/«pkgName».result''')
+						
+						val analysis = new FlowLatencyAnalysisSwitch(new NullProgressMonitor, it)
+						val actual = analysis.invoke(it, it.systemOperationModes.head)
+						
+						expected.assertAnalysisResult(actual)
+					]
 				]
 			]
-		]]
+		]
 	}
 	
 	@Test
 	def void testWithLatencyReport() {
 		val emptyPkgName = "empty"
 		val emptyFileName = emptyPkgName + ".aadl"
-		createFiles(emptyFileName -> readFile(DIR_NAME + emptyFileName))
-		suppressSerialization
-		testFile(emptyFileName).resource.contents.head as AadlPackage => [
+		val resourceSet = resourceSetHelper.resourceSet
+		parseHelper.parse(testHelper.readFile(DIR_NAME + emptyFileName), URI.createURI(emptyFileName), resourceSet) => [
 			emptyPkgName.assertEquals(name)
 			publicSection.ownedClassifiers.get(1) as SystemImplementation => [
 				"s1.i1".assertEquals(name)
-				buildInstanceModelFile => [
+				instantiate => [
 					"s1_i1_Instance".assertEquals(name)
-					val resultURI = URI.createPlatformPluginURI('''«DIR_NAME»/results/testWithLatencyReport/«emptyPkgName».result''', true)
-					val expected = it.eResource.resourceSet.getResource(resultURI, true).contents.head as AnalysisResult
+					val expected = loadResult(resourceSet, '''testWithLatencyReport/«emptyPkgName».result''')
 					
 					val analysis = new FlowLatencyAnalysisSwitch(new NullProgressMonitor, it, new LatencyReport(it))
 					val actual = analysis.invoke(it, it.systemOperationModes.head)
@@ -115,16 +124,14 @@ class FlowLatencyCodeCoverageTest extends OsateTest {
 	def void testWorstCaseExecutionTime() {
 		val executionTimePkgName = "execution_time"
 		val executionTimeFileName = executionTimePkgName + ".aadl"
-		createFiles(executionTimeFileName -> readFile(DIR_NAME + executionTimeFileName))
-		suppressSerialization
-		testFile(executionTimeFileName).resource.contents.head as AadlPackage => [
+		val resourceSet = resourceSetHelper.resourceSet
+		parseHelper.parse(testHelper.readFile(DIR_NAME + executionTimeFileName), URI.createURI(executionTimeFileName), resourceSet) => [
 			executionTimePkgName.assertEquals(name)
 			publicSection.ownedClassifiers.get(1) as SystemImplementation => [
 				"s1.i1".assertEquals(name)
-				buildInstanceModelFile => [
+				instantiate => [
 					"s1_i1_Instance".assertEquals(name)
-					val resultURI = URI.createPlatformPluginURI('''«DIR_NAME»/results/testWorstCaseExecutionTime/«executionTimePkgName».result''', true)
-					val expected = it.eResource.resourceSet.getResource(resultURI, true).contents.head as AnalysisResult
+					val expected = loadResult(resourceSet, '''testWorstCaseExecutionTime/«executionTimePkgName».result''')
 					
 					val analysis = new FlowLatencyAnalysisSwitch(new NullProgressMonitor, it)
 					val actual = analysis.invoke(it, it.systemOperationModes.head, true, true, false, true)
@@ -139,16 +146,14 @@ class FlowLatencyCodeCoverageTest extends OsateTest {
 	def void testBestCaseFullQueue() {
 		val queuingPkgName = "queuing"
 		val queuingFileName = queuingPkgName + ".aadl"
-		createFiles(queuingFileName -> readFile(DIR_NAME + queuingFileName))
-		suppressSerialization
-		testFile(queuingFileName).resource.contents.head as AadlPackage => [
+		val resourceSet = resourceSetHelper.resourceSet
+		parseHelper.parse(testHelper.readFile(DIR_NAME + queuingFileName), URI.createURI(queuingFileName), resourceSet) => [
 			queuingPkgName.assertEquals(name)
 			publicSection.ownedClassifiers.get(1) as SystemImplementation => [
 				"s1.i1".assertEquals(name)
-				buildInstanceModelFile => [
+				instantiate => [
 					"s1_i1_Instance".assertEquals(name)
-					val resultURI = URI.createPlatformPluginURI('''«DIR_NAME»/results/testBestCaseFullQueue/«queuingPkgName».result''', true)
-					val expected = it.eResource.resourceSet.getResource(resultURI, true).contents.head as AnalysisResult
+					val expected = loadResult(resourceSet, '''testBestCaseFullQueue/«queuingPkgName».result''')
 					
 					val analysis = new FlowLatencyAnalysisSwitch(new NullProgressMonitor, it)
 					val actual = analysis.invoke(it, it.systemOperationModes.head, true, true, true, false)
@@ -159,47 +164,13 @@ class FlowLatencyCodeCoverageTest extends OsateTest {
 		]
 	}
 	
-	/**
-	 * This method is only for testing a file which has a validation error. After issue #1124 is fixed,
-	 * connect_to_subcomponent should be moved into testFlowLatency().
-	 * See https://github.com/osate/osate2-core/issues/1124
-	 */
-	@Test
-	def void testConnectToSubcomponent() {
-		val connectToSubcomponentPkgName = "connect_to_subcomponent"
-		val connectToSubcomponentFileName = "connect_to_subcomponent.aadl"
-		createFiles(connectToSubcomponentFileName -> readFile(DIR_NAME + connectToSubcomponentFileName))
-		suppressSerialization
-		val testFileResult = testFile(connectToSubcomponentFileName)
-		val issueCollection = new FluentIssueCollection(testFileResult.resource, newArrayList, newArrayList)
-		testFileResult.resource.contents.head as AadlPackage => [
-			connectToSubcomponentPkgName.assertEquals(name)
-			publicSection.ownedClassifiers.get(1) as SystemImplementation => [
-				"s1.i1".assertEquals(name)
-				buildInstanceModelFile => [
-					"s1_i1_Instance".assertEquals(name)
-					val resultURI = URI.createPlatformPluginURI('''«DIR_NAME»/results/testConnectToSubcomponent/«connectToSubcomponentPkgName».result''', true)
-					val expected = it.eResource.resourceSet.getResource(resultURI, true).contents.head as AnalysisResult
-					
-					val analysis = new FlowLatencyAnalysisSwitch(new NullProgressMonitor, it)
-					val actual = analysis.invoke(it, it.systemOperationModes.head)
-					
-					expected.assertAnalysisResult(actual)
-				]
-			]
-			publicSection.ownedClassifiers.get(3) as SystemImplementation => [
-				"s2.i1".assertEquals(name)
-				ownedEndToEndFlows.head => [
-					"etef1".assertEquals(name)
-					ownedEndToEndFlowSegments.get(2) => [
-						"f1".assertEquals(flowElement.name)
-						assertError(testFileResult.issues, issueCollection, "Illegal reference to 'f1'.  Cannot refer to a data access except for the first and last segment of an end-to-end flow.")
-					]
-				]
-			]
-		]
-		issueCollection.sizeIs(issueCollection.issues.size)
-		assertConstraints(issueCollection)
+	def private static AnalysisResult loadResult(ResourceSet resourceSet, String path) {
+		val resource = resourceSet.createResource(URI.createURI(path))
+		val url = new URL('''file:«System.getProperty("user.dir")»/../«DIR_NAME»/results/«path»''')
+		val inputStream = url.openConnection.inputStream
+		resource.load(inputStream, null)
+		inputStream.close
+		resource.contents.head as AnalysisResult
 	}
 	
 	def private static assertAnalysisResult(AnalysisResult expected, AnalysisResult actual) {

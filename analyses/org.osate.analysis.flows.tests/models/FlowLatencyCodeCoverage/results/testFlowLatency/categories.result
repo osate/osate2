@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="ASCII"?>
 <result:AnalysisResult xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:result="http://www.osate.org/result/Result" analysis="Latency analysis" info="AS-MF-DL-EQ">
-  <sourceReference href="platform:/resource/FlowLatencyCodeCoverageTest/instances/categories_s1_i1_Instance.aaxl2#/"/>
+  <sourceReference href="instances/categories_s1_i1_Instance.aaxl2#/"/>
   <results>
-    <sourceReference href="platform:/resource/FlowLatencyCodeCoverageTest/instances/categories_s1_i1_Instance.aaxl2#//@endToEndFlow.0"/>
+    <sourceReference href="instances/categories_s1_i1_Instance.aaxl2#//@endToEndFlow.0"/>
     <values xsi:type="result:StringValue" value=""/>
     <values xsi:type="result:RealValue" value="2.0"/>
     <values xsi:type="result:RealValue" value="4.0"/>
@@ -11,13 +11,13 @@
     <values xsi:type="result:RealValue" value="2.0"/>
     <values xsi:type="result:RealValue" value="4.0"/>
     <diagnostics type="SUCCESS" message="Minimum actual latency total 2.00ms is greater or equal to expected minimum end to end latency 2.00ms">
-      <sourceReference href="platform:/resource/FlowLatencyCodeCoverageTest/instances/categories_s1_i1_Instance.aaxl2#//@endToEndFlow.0"/>
+      <sourceReference href="instances/categories_s1_i1_Instance.aaxl2#//@endToEndFlow.0"/>
     </diagnostics>
     <diagnostics type="SUCCESS" message="Maximum actual latency total 4.00ms is less or equal to expected maximum end to end latency 4.00ms">
-      <sourceReference href="platform:/resource/FlowLatencyCodeCoverageTest/instances/categories_s1_i1_Instance.aaxl2#//@endToEndFlow.0"/>
+      <sourceReference href="instances/categories_s1_i1_Instance.aaxl2#//@endToEndFlow.0"/>
     </diagnostics>
     <subResults>
-      <sourceReference href="platform:/resource/FlowLatencyCodeCoverageTest/instances/categories_s1_i1_Instance.aaxl2#//@componentInstance.0"/>
+      <sourceReference href="instances/categories_s1_i1_Instance.aaxl2#//@componentInstance.0"/>
       <values xsi:type="result:RealValue" value="1.0"/>
       <values xsi:type="result:RealValue" value="2.0"/>
       <values xsi:type="result:RealValue" value="1.0"/>
@@ -26,7 +26,7 @@
       <values xsi:type="result:StringValue" value="specified"/>
     </subResults>
     <subResults>
-      <sourceReference href="platform:/resource/FlowLatencyCodeCoverageTest/instances/categories_s1_i1_Instance.aaxl2#//@connectionInstance.0"/>
+      <sourceReference href="instances/categories_s1_i1_Instance.aaxl2#//@connectionInstance.0"/>
       <values xsi:type="result:RealValue"/>
       <values xsi:type="result:RealValue"/>
       <values xsi:type="result:RealValue"/>
@@ -35,7 +35,7 @@
       <values xsi:type="result:StringValue" value="no latency"/>
     </subResults>
     <subResults>
-      <sourceReference href="platform:/resource/FlowLatencyCodeCoverageTest/instances/categories_s1_i1_Instance.aaxl2#//@componentInstance.2"/>
+      <sourceReference href="instances/categories_s1_i1_Instance.aaxl2#//@componentInstance.2"/>
       <values xsi:type="result:RealValue" value="1.0"/>
       <values xsi:type="result:RealValue" value="2.0"/>
       <values xsi:type="result:RealValue" value="1.0"/>
@@ -45,7 +45,7 @@
     </subResults>
   </results>
   <results>
-    <sourceReference href="platform:/resource/FlowLatencyCodeCoverageTest/instances/categories_s1_i1_Instance.aaxl2#//@endToEndFlow.1"/>
+    <sourceReference href="instances/categories_s1_i1_Instance.aaxl2#//@endToEndFlow.1"/>
     <values xsi:type="result:StringValue" value=""/>
     <values xsi:type="result:RealValue" value="2.0"/>
     <values xsi:type="result:RealValue" value="4.0"/>
@@ -54,13 +54,13 @@
     <values xsi:type="result:RealValue" value="2.0"/>
     <values xsi:type="result:RealValue" value="4.0"/>
     <diagnostics type="SUCCESS" message="Minimum actual latency total 2.00ms is greater or equal to expected minimum end to end latency 2.00ms">
-      <sourceReference href="platform:/resource/FlowLatencyCodeCoverageTest/instances/categories_s1_i1_Instance.aaxl2#//@endToEndFlow.1"/>
+      <sourceReference href="instances/categories_s1_i1_Instance.aaxl2#//@endToEndFlow.1"/>
     </diagnostics>
     <diagnostics type="SUCCESS" message="Maximum actual latency total 4.00ms is less or equal to expected maximum end to end latency 4.00ms">
-      <sourceReference href="platform:/resource/FlowLatencyCodeCoverageTest/instances/categories_s1_i1_Instance.aaxl2#//@endToEndFlow.1"/>
+      <sourceReference href="instances/categories_s1_i1_Instance.aaxl2#//@endToEndFlow.1"/>
     </diagnostics>
     <subResults>
-      <sourceReference href="platform:/resource/FlowLatencyCodeCoverageTest/instances/categories_s1_i1_Instance.aaxl2#//@componentInstance.0"/>
+      <sourceReference href="instances/categories_s1_i1_Instance.aaxl2#//@componentInstance.0"/>
       <values xsi:type="result:RealValue" value="1.0"/>
       <values xsi:type="result:RealValue" value="2.0"/>
       <values xsi:type="result:RealValue" value="1.0"/>
@@ -69,7 +69,7 @@
       <values xsi:type="result:StringValue" value="specified"/>
     </subResults>
     <subResults>
-      <sourceReference href="platform:/resource/FlowLatencyCodeCoverageTest/instances/categories_s1_i1_Instance.aaxl2#//@connectionInstance.1"/>
+      <sourceReference href="instances/categories_s1_i1_Instance.aaxl2#//@connectionInstance.1"/>
       <values xsi:type="result:RealValue"/>
       <values xsi:type="result:RealValue"/>
       <values xsi:type="result:RealValue"/>
@@ -78,7 +78,7 @@
       <values xsi:type="result:StringValue" value="no latency"/>
     </subResults>
     <subResults>
-      <sourceReference href="platform:/resource/FlowLatencyCodeCoverageTest/instances/categories_s1_i1_Instance.aaxl2#//@componentInstance.1"/>
+      <sourceReference href="instances/categories_s1_i1_Instance.aaxl2#//@componentInstance.1"/>
       <values xsi:type="result:RealValue" value="1.0"/>
       <values xsi:type="result:RealValue" value="2.0"/>
       <values xsi:type="result:RealValue" value="1.0"/>
@@ -88,7 +88,7 @@
     </subResults>
   </results>
   <results>
-    <sourceReference href="platform:/resource/FlowLatencyCodeCoverageTest/instances/categories_s1_i1_Instance.aaxl2#//@endToEndFlow.2"/>
+    <sourceReference href="instances/categories_s1_i1_Instance.aaxl2#//@endToEndFlow.2"/>
     <values xsi:type="result:StringValue" value=""/>
     <values xsi:type="result:RealValue" value="2.0"/>
     <values xsi:type="result:RealValue" value="4.0"/>
@@ -97,13 +97,13 @@
     <values xsi:type="result:RealValue" value="2.0"/>
     <values xsi:type="result:RealValue" value="4.0"/>
     <diagnostics type="SUCCESS" message="Minimum actual latency total 2.00ms is greater or equal to expected minimum end to end latency 2.00ms">
-      <sourceReference href="platform:/resource/FlowLatencyCodeCoverageTest/instances/categories_s1_i1_Instance.aaxl2#//@endToEndFlow.2"/>
+      <sourceReference href="instances/categories_s1_i1_Instance.aaxl2#//@endToEndFlow.2"/>
     </diagnostics>
     <diagnostics type="SUCCESS" message="Maximum actual latency total 4.00ms is less or equal to expected maximum end to end latency 4.00ms">
-      <sourceReference href="platform:/resource/FlowLatencyCodeCoverageTest/instances/categories_s1_i1_Instance.aaxl2#//@endToEndFlow.2"/>
+      <sourceReference href="instances/categories_s1_i1_Instance.aaxl2#//@endToEndFlow.2"/>
     </diagnostics>
     <subResults>
-      <sourceReference href="platform:/resource/FlowLatencyCodeCoverageTest/instances/categories_s1_i1_Instance.aaxl2#//@componentInstance.0"/>
+      <sourceReference href="instances/categories_s1_i1_Instance.aaxl2#//@componentInstance.0"/>
       <values xsi:type="result:RealValue" value="1.0"/>
       <values xsi:type="result:RealValue" value="2.0"/>
       <values xsi:type="result:RealValue" value="1.0"/>
@@ -112,7 +112,7 @@
       <values xsi:type="result:StringValue" value="specified"/>
     </subResults>
     <subResults>
-      <sourceReference href="platform:/resource/FlowLatencyCodeCoverageTest/instances/categories_s1_i1_Instance.aaxl2#//@connectionInstance.2"/>
+      <sourceReference href="instances/categories_s1_i1_Instance.aaxl2#//@connectionInstance.2"/>
       <values xsi:type="result:RealValue"/>
       <values xsi:type="result:RealValue"/>
       <values xsi:type="result:RealValue"/>
@@ -121,7 +121,7 @@
       <values xsi:type="result:StringValue" value="no latency"/>
     </subResults>
     <subResults>
-      <sourceReference href="platform:/resource/FlowLatencyCodeCoverageTest/instances/categories_s1_i1_Instance.aaxl2#//@componentInstance.3"/>
+      <sourceReference href="instances/categories_s1_i1_Instance.aaxl2#//@componentInstance.3"/>
       <values xsi:type="result:RealValue" value="1.0"/>
       <values xsi:type="result:RealValue" value="2.0"/>
       <values xsi:type="result:RealValue" value="1.0"/>
