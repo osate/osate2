@@ -2230,7 +2230,7 @@ class Aadl2Formatter extends PropertiesFormatter {
 			if (annexParseResult !== null) {
 				// Get the injector for the annex.
 				val grammar = annexParseResult.rootNode.grammarElement.getContainerOfType(Grammar)
-				var annexInjector = getInjector(grammar)
+				val annexInjector = getInjector(grammar)
 				if (annexInjector !== null) {
 					//Create resource and populate it with the library or subclause and the parse result.
 					val resourceFactory = annexInjector.getInstance(IResourceFactory)
