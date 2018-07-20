@@ -1,24 +1,30 @@
 package org.osate.aadl2.errormodel.tests.issues
 
+import com.google.inject.Inject
 import com.itemis.xtext.testing.FluentIssueCollection
+import com.itemis.xtext.testing.XtextTest
 import org.eclipse.xtext.testing.InjectWith
 import org.eclipse.xtext.testing.XtextRunner
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.osate.aadl2.AadlPackage
 import org.osate.aadl2.ComponentImplementation
-import org.osate.aadl2.errormodel.tests.ErrorModelUiInjectorProvider
-import org.osate.testsupport.OsateTest
+import org.osate.aadl2.errormodel.tests.ErrorModelInjectorProvider
+import org.osate.testsupport.TestHelper
 
 import static extension org.junit.Assert.assertEquals
+import static extension org.osate.testsupport.AssertHelper.*
 
 @RunWith(XtextRunner)
-@InjectWith(ErrorModelUiInjectorProvider)
-class Issue14Test extends OsateTest {
+@InjectWith(ErrorModelInjectorProvider)
+class Issue14Test extends XtextTest {
+	
+	@Inject
+	TestHelper<AadlPackage> testHelper;
+	
 	@Test
 	def void issue14() {
-		val fileName = "issue14.aadl"
-		createFiles(fileName -> '''
+		val issue14 = '''
 package issue14
 public
 	device battery
@@ -57,9 +63,8 @@ public
 			pwr2: bus access  battery2.socket <-> line2;
 	end power.generic;
 end issue14;
-		''')
-		suppressSerialization
-		val testFileResult = testFile(fileName)
+		'''
+		val testFileResult = issues = testHelper.testString(issue14)
 		val issueCollection = new FluentIssueCollection(testFileResult.resource, newArrayList, newArrayList)
 		testFileResult.resource.contents.head as AadlPackage => [
 			"issue14".assertEquals(name)
@@ -75,13 +80,12 @@ end issue14;
 				]
 			]
 		]
-		issueCollection.sizeIs(issueCollection.issues.size)
+		issueCollection.sizeIs(testFileResult.issues.size)
 		assertConstraints(issueCollection)
 	}
 	@Test
 	def void issue14_1() {
-		val fileName = "issue14_1.aadl"
-		createFiles(fileName -> '''
+		val issue14 = '''
 package issue14_1
 public
 	abstract sender
@@ -115,9 +119,8 @@ public
 			conn1: port send.outp <-> receive.inp; 
 	end processing.generic;
 end issue14_1;
-		''')
-		suppressSerialization
-		val testFileResult = testFile(fileName)
+		'''
+		val testFileResult = issues = testHelper.testString(issue14)
 		val issueCollection = new FluentIssueCollection(testFileResult.resource, newArrayList, newArrayList)
 		testFileResult.resource.contents.head as AadlPackage => [
 			"issue14_1".assertEquals(name)
@@ -130,7 +133,7 @@ end issue14_1;
 				]
 			]
 		]
-		issueCollection.sizeIs(issueCollection.issues.size)
+		issueCollection.sizeIs(testFileResult.issues.size)
 		assertConstraints(issueCollection)
 	}
 }

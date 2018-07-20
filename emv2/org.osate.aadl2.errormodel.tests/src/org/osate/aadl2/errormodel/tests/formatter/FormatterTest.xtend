@@ -6,10 +6,10 @@ import org.eclipse.xtext.testing.XtextRunner
 import org.eclipse.xtext.testing.formatter.FormatterTestHelper
 import org.junit.Test
 import org.junit.runner.RunWith
-import org.osate.testsupport.Aadl2UiInjectorProvider
+import org.osate.aadl2.errormodel.tests.ErrorModelInjectorProvider
 
 @RunWith(XtextRunner)
-@InjectWith(Aadl2UiInjectorProvider)
+@InjectWith(ErrorModelInjectorProvider)
 class FormatterTest {
 	@Inject extension FormatterTestHelper
 	

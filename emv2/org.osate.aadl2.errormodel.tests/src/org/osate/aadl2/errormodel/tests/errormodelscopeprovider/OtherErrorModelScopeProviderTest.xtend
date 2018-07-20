@@ -1,6 +1,10 @@
 package org.osate.aadl2.errormodel.tests.errormodelscopeprovider
 
+import com.google.inject.Inject
 import com.itemis.xtext.testing.FluentIssueCollection
+import com.itemis.xtext.testing.XtextTest
+import org.eclipse.emf.common.util.URI
+import org.eclipse.xtext.resource.IResourceServiceProvider
 import org.eclipse.xtext.testing.InjectWith
 import org.eclipse.xtext.testing.XtextRunner
 import org.junit.Test
@@ -14,8 +18,9 @@ import org.osate.aadl2.DefaultAnnexSubclause
 import org.osate.aadl2.IntegerLiteral
 import org.osate.aadl2.RangeValue
 import org.osate.aadl2.RecordValue
-import org.osate.aadl2.errormodel.tests.ErrorModelUiInjectorProvider
-import org.osate.testsupport.OsateTest
+import org.osate.aadl2.errormodel.tests.ErrorModelInjectorProvider
+import org.osate.testsupport.AssertHelper
+import org.osate.testsupport.TestHelper
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelLibrary
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelPackage
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelSubclause
@@ -24,17 +29,25 @@ import org.osate.xtext.aadl2.errormodel.errorModel.SConditionElement
 
 import static extension org.junit.Assert.assertEquals
 import static extension org.junit.Assert.assertNull
+import static extension org.osate.testsupport.AssertHelper.*
 
 @RunWith(XtextRunner)
-@InjectWith(ErrorModelUiInjectorProvider)
-class OtherErrorModelScopeProviderTest extends OsateTest {
+@InjectWith(ErrorModelInjectorProvider)
+class OtherErrorModelScopeProviderTest extends XtextTest {
+
+	@Inject
+	TestHelper<AadlPackage> testHelper
+
+	extension AssertHelper assertHelper = IResourceServiceProvider.Registry.INSTANCE.getResourceServiceProvider(
+		URI.createFileURI("dummy.emv2")).get(AssertHelper)
+
 	/*
 	 * Tests scope_ErrorModelLibrary, scope_TypeMappingSet, scope_ErrorModelSubclause_useBehavior, and
 	 * scope_TypeTransformationSet
 	 */
 	@Test
 	def void testErrorModelLibraryReference() {
-		createFiles("pkg.aadl" -> '''
+		val pkg = '''
 			package pkg
 			public
 				annex EMV2 {**
@@ -81,9 +94,8 @@ class OtherErrorModelScopeProviderTest extends OsateTest {
 					**};
 				end a;
 			end pkg;
-		''')
-		ignoreSerializationDifferences
-		val testFileResult = testFile("pkg.aadl")
+		'''
+		val testFileResult = issues = testHelper.testString(pkg)
 		val issueCollection = new FluentIssueCollection(testFileResult.resource, newArrayList, newArrayList)
 		testFileResult.resource.contents.head as AadlPackage => [
 			"pkg".assertEquals(name)
@@ -140,7 +152,7 @@ class OtherErrorModelScopeProviderTest extends OsateTest {
 				]
 			]
 		]
-		issueCollection.sizeIs(issueCollection.issues.size)
+		issueCollection.sizeIs(testFileResult.issues.size)
 		assertConstraints(issueCollection)
 	}
 
@@ -151,7 +163,7 @@ class OtherErrorModelScopeProviderTest extends OsateTest {
 	 */
 	@Test
 	def void testFeatureorPPReference() {
-		createFiles("pkg.aadl" -> '''
+		val pkg = '''
 			package pkg
 			public
 				abstract a
@@ -189,9 +201,8 @@ class OtherErrorModelScopeProviderTest extends OsateTest {
 					op3: out data port;
 				end fgt2;
 			end pkg;
-		''')
-		ignoreSerializationDifferences
-		testFile("pkg.aadl").resource.contents.head as AadlPackage => [
+		'''
+		testHelper.parseString(pkg) => [
 			"pkg".assertEquals(name)
 			publicSection.ownedClassifiers.get(1) as AbstractImplementation => [
 				"a.i".assertEquals(name)
@@ -223,7 +234,7 @@ class OtherErrorModelScopeProviderTest extends OsateTest {
 	 */
 	@Test
 	def void testErrorPropagationReference() {
-		createFiles("pkg.aadl" -> '''
+		val pkg = '''
 			package pkg
 			public
 				abstract a
@@ -276,9 +287,8 @@ class OtherErrorModelScopeProviderTest extends OsateTest {
 					p5: in data port;
 				end fgt2;
 			end pkg;
-		''')
-		ignoreSerializationDifferences
-		testFile("pkg.aadl").resource.contents.head as AadlPackage => [
+		'''
+		testHelper.parseString(pkg) => [
 			"pkg".assertEquals(name)
 			publicSection.ownedClassifiers.head as AbstractType => [
 				"a".assertEquals(name)
@@ -315,9 +325,7 @@ class OtherErrorModelScopeProviderTest extends OsateTest {
 	// Tests scope_ErrorSource_failureModeReference
 	@Test
 	def void testErrorBehaviorStateOrTypeSetReference() {
-		val lib1FileName = "lib1.aadl"
-		val subclause1FileName = "subclause1.aadl"
-		createFiles(lib1FileName -> '''
+		val lib = '''
 			package lib1
 			public
 				annex EMV2 {**
@@ -333,7 +341,8 @@ class OtherErrorModelScopeProviderTest extends OsateTest {
 					end behavior;
 				**};
 			end lib1;
-		''', subclause1FileName -> '''
+		'''
+		val subclause = '''
 			package subclause1
 			public
 				abstract a1
@@ -348,9 +357,8 @@ class OtherErrorModelScopeProviderTest extends OsateTest {
 				**};
 				end a1;
 			end subclause1;
-		''')
-		ignoreSerializationDifferences
-		testFile(subclause1FileName).resource.contents.head as AadlPackage => [
+		'''
+		testHelper.parseString(subclause, lib) => [
 			"subclause1".assertEquals(name)
 			publicSection.ownedClassifiers.head => [
 				"a1".assertEquals(name)
@@ -368,8 +376,7 @@ class OtherErrorModelScopeProviderTest extends OsateTest {
 	// Tests scope_QualifiedPropagationPoint_propagationPoint
 	@Test
 	def void testPropagationPointReference() {
-		val subclause1FileName = "subclause1.aadl"
-		createFiles(subclause1FileName -> '''
+		val subclause = '''
 			package subclause1
 			public
 				abstract a1
@@ -436,9 +443,8 @@ class OtherErrorModelScopeProviderTest extends OsateTest {
 				**};
 				end a5.i;
 			end subclause1;
-		''')
-		ignoreSerializationDifferences
-		testFile(subclause1FileName).resource.contents.head as AadlPackage => [
+		'''
+		testHelper.parseString(subclause) => [
 			"subclause1".assertEquals(name)
 			publicSection.ownedClassifiers.get(9) => [
 				"a5.i".assertEquals(name)
@@ -517,9 +523,7 @@ class OtherErrorModelScopeProviderTest extends OsateTest {
 	// Tests scope_ErrorBehaviorState(ErrorBehaviorStateMachine, EReference) and scope_ErrorBehaviorState(Classifier, EReference)
 	@Test
 	def void testErrorBehaviorStateReference() {
-		val lib1FileName = "lib1.aadl"
-		val subclause1FileName = "subclause1.aadl"
-		createFiles(lib1FileName -> '''
+		val lib = '''
 			package lib1
 			public
 				annex EMV2 {**
@@ -539,7 +543,8 @@ class OtherErrorModelScopeProviderTest extends OsateTest {
 					end behavior;
 				**};
 			end lib1;
-		''', subclause1FileName -> '''
+		'''
+		val subclause = '''
 			package subclause1
 			public
 				abstract a
@@ -575,12 +580,9 @@ class OtherErrorModelScopeProviderTest extends OsateTest {
 				**};
 				end a;
 			end subclause1;
-		''')
-		ignoreSerializationDifferences
-		val lib1TestResult = testFile(lib1FileName)
-		val subclause1TestResult = testFile(subclause1FileName)
+		'''
 		val expectedScope = #["bvr_state1", "bvr_state2"]
-		lib1TestResult.resource.contents.head as AadlPackage => [
+		testHelper.parseString(lib) => [
 			"lib1".assertEquals(name)
 			((publicSection.ownedAnnexLibraries.head as DefaultAnnexLibrary).parsedAnnexLibrary as ErrorModelLibrary).
 				behaviors.head => [
@@ -605,7 +607,7 @@ class OtherErrorModelScopeProviderTest extends OsateTest {
 				]
 			]
 		]
-		subclause1TestResult.resource.contents.head as AadlPackage => [
+		testHelper.parseString(subclause, lib) => [
 			"subclause1".assertEquals(name)
 			publicSection.ownedClassifiers.head => [
 				"a".assertEquals(name)
@@ -656,8 +658,7 @@ class OtherErrorModelScopeProviderTest extends OsateTest {
 	// Tests scope_ConnectionErrorSource_connection
 	@Test
 	def void testConnectionReference() {
-		val subclause1FileName = "subclause1.aadl"
-		createFiles(subclause1FileName -> '''
+		val subclause = '''
 			package subclause1
 			public
 				abstract a1
@@ -685,9 +686,8 @@ class OtherErrorModelScopeProviderTest extends OsateTest {
 				**};
 				end a2.i;
 			end subclause1;
-		''')
-		ignoreSerializationDifferences
-		testFile(subclause1FileName).resource.contents.head as AadlPackage => [
+		'''
+		testHelper.parseString(subclause) => [
 			"subclause1".assertEquals(name)
 			publicSection.ownedClassifiers.get(3) => [
 				"a2.i".assertEquals(name)
@@ -704,13 +704,12 @@ class OtherErrorModelScopeProviderTest extends OsateTest {
 	// Tests scope_ErrorDetection_detectionReportingPort and ErrorCodeValue's constant reference
 	@Test
 	def void testErrorDetectionReferences() {
-		val ps1FileName = "ps1.aadl"
-		val subclause1FileName = "subclause1.aadl"
-		createFiles(ps1FileName -> '''
+		val ps = '''
 			property set ps1 is
 				const1: constant aadlinteger => 42;
 			end ps1;
-		''', subclause1FileName -> '''
+		'''
+		val subclause = '''
 			package subclause1
 			public
 				abstract a1
@@ -753,9 +752,8 @@ class OtherErrorModelScopeProviderTest extends OsateTest {
 				**};
 				end a2.i;
 			end subclause1;
-		''')
-		ignoreSerializationDifferences
-		testFile(subclause1FileName).resource.contents.head as AadlPackage => [
+		'''
+		testHelper.parseString(subclause, ps) => [
 			"subclause1".assertEquals(name)
 			publicSection.ownedClassifiers.get(3) => [
 				"a2.i".assertEquals(name)
@@ -819,9 +817,7 @@ class OtherErrorModelScopeProviderTest extends OsateTest {
 	// Tests scope_ErrorStateToModeMapping_mappedModes
 	@Test
 	def void testModeReference() {
-		val lib1FileName = "lib1.aadl"
-		val subclause1FileName = "subclause1.aadl"
-		createFiles(lib1FileName -> '''
+		val lib = '''
 			package lib1
 			public
 				annex EMV2 {**
@@ -831,7 +827,8 @@ class OtherErrorModelScopeProviderTest extends OsateTest {
 					end behavior;
 				**};
 			end lib1;
-		''', subclause1FileName -> '''
+		'''
+		val subclause =  '''
 			package subclause1
 			public
 				abstract a1
@@ -854,9 +851,8 @@ class OtherErrorModelScopeProviderTest extends OsateTest {
 				**};
 				end a2;
 			end subclause1;
-		''')
-		ignoreSerializationDifferences
-		testFile(subclause1FileName).resource.contents.head as AadlPackage => [
+		'''
+		testHelper.parseString(subclause,lib) => [
 			"subclause1".assertEquals(name)
 			publicSection.ownedClassifiers.get(1) => [
 				"a2".assertEquals(name)
@@ -874,9 +870,7 @@ class OtherErrorModelScopeProviderTest extends OsateTest {
 	// Tests scope_QualifiedErrorBehaviorState_state
 	@Test
 	def void testQualifiedErrorBehaviorState() {
-		val lib1FileName = "lib1.aadl"
-		val subclause1FileName = "subclause1.aadl"
-		createFiles(lib1FileName -> '''
+		val lib = '''
 			package lib1
 			public
 				annex EMV2 {**
@@ -901,7 +895,8 @@ class OtherErrorModelScopeProviderTest extends OsateTest {
 					end behavior;
 				**};
 			end lib1;
-		''', subclause1FileName -> '''
+		'''
+		val subclause = '''
 			package subclause1
 			public
 				abstract a1
@@ -949,9 +944,8 @@ class OtherErrorModelScopeProviderTest extends OsateTest {
 				**};
 				end a4;
 			end subclause1;
-		''')
-		ignoreSerializationDifferences
-		testFile(subclause1FileName).resource.contents.head as AadlPackage => [
+		'''
+		testHelper.parseString(subclause, lib) => [
 			"subclause1".assertEquals(name)
 			publicSection.ownedClassifiers.get(1) => [
 				"a1.i".assertEquals(name)
@@ -1002,13 +996,12 @@ class OtherErrorModelScopeProviderTest extends OsateTest {
 	// Tests scope_EMV2PathElement_errorType
 	@Test
 	def void testEMV2PathElement_errorType() {
-		val ps1FileName = "ps1.aadl"
-		val pkg1FileName = "pkg1.aadl"
-		createFiles(ps1FileName -> '''
+		val ps = '''
 			property set ps1 is
 				def1: aadlinteger applies to (all);
 			end ps1;
-		''', pkg1FileName -> '''
+		'''
+		val pkg = '''
 			package pkg1
 			public
 				with ps1;
@@ -1038,9 +1031,8 @@ class OtherErrorModelScopeProviderTest extends OsateTest {
 					end types;
 				**};
 			end pkg1;
-		''')
-		ignoreSerializationDifferences
-		testFile(pkg1FileName).resource.contents.head as AadlPackage => [
+		'''
+		testHelper.parseString(pkg, ps) => [
 			"pkg1".assertEquals(name)
 			publicSection.ownedClassifiers.head => [
 				"a1".assertEquals(name)
@@ -1058,8 +1050,7 @@ class OtherErrorModelScopeProviderTest extends OsateTest {
 	// Tests scope_BasicPropertyAssociation_property
 	@Test
 	def void testRecordFieldNameReference() {
-		val pkg1FileName = "pkg1.aadl"
-		createFiles("ps1.aadl" -> '''
+		 val ps = '''
 			property set ps1 is
 				def1: record (
 					field1: aadlinteger;
@@ -1075,7 +1066,8 @@ class OtherErrorModelScopeProviderTest extends OsateTest {
 					);
 				) applies to (all);
 			end ps1;
-		''', pkg1FileName -> '''
+		'''
+		val pkg = '''
 			package pkg1
 			public
 				with ps1;
@@ -1100,9 +1092,8 @@ class OtherErrorModelScopeProviderTest extends OsateTest {
 					end types;
 				**};
 			end pkg1;
-		''')
-		ignoreSerializationDifferences
-		testFile(pkg1FileName).resource.contents.head as AadlPackage => [
+		'''
+		testHelper.parseString(pkg, ps) => [
 			"pkg1".assertEquals(name)
 			((publicSection.ownedAnnexLibraries.head as DefaultAnnexLibrary).parsedAnnexLibrary as ErrorModelLibrary).
 				properties.head.ownedValues.head.ownedValue as RecordValue => [
@@ -1168,8 +1159,7 @@ class OtherErrorModelScopeProviderTest extends OsateTest {
 	// Tests scope_ContainmentPathElement_namedElement
 	@Test
 	def void testUnitLiteralReference() {
-		val pkg1FileName = "pkg1.aadl"
-		createFiles("ps1.aadl" -> '''
+		val ps = '''
 			property set ps1 is
 				def1: aadlinteger units Time_Units applies to (all);
 				def2: record (
@@ -1182,7 +1172,8 @@ class OtherErrorModelScopeProviderTest extends OsateTest {
 					);
 				) applies to (all);
 			end ps1;
-		''', pkg1FileName -> '''
+		'''
+		val pkg = '''
 			package pkg1
 			public
 				with ps1;
@@ -1207,9 +1198,8 @@ class OtherErrorModelScopeProviderTest extends OsateTest {
 					end types;
 				**};
 			end pkg1;
-		''')
-		ignoreSerializationDifferences
-		testFile(pkg1FileName).resource.contents.head as AadlPackage => [
+		'''
+		testHelper.parseString(pkg, ps) => [
 			"pkg1".assertEquals(name)
 			(publicSection.ownedAnnexLibraries.head as DefaultAnnexLibrary).parsedAnnexLibrary as ErrorModelLibrary => [
 				properties.get(0) => [
