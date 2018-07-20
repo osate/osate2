@@ -1,28 +1,33 @@
 package org.osate.aadl2.errormodel.tests.issues
 
+import com.google.inject.Inject
 import com.itemis.xtext.testing.FluentIssueCollection
+import com.itemis.xtext.testing.XtextTest
 import org.eclipse.xtext.testing.InjectWith
 import org.eclipse.xtext.testing.XtextRunner
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.osate.aadl2.AadlPackage
 import org.osate.aadl2.DefaultAnnexSubclause
-import org.osate.aadl2.errormodel.tests.ErrorModelUiInjectorProvider
-import org.osate.testsupport.OsateTest
+import org.osate.aadl2.errormodel.tests.ErrorModelInjectorProvider
+import org.osate.testsupport.TestHelper
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelSubclause
 
 import static extension org.junit.Assert.assertEquals
+import static extension org.osate.testsupport.AssertHelper.assertError
 
 @RunWith(XtextRunner)
-@InjectWith(ErrorModelUiInjectorProvider)
-class Issue53Test extends OsateTest {
+@InjectWith(ErrorModelInjectorProvider)
+class Issue53Test extends XtextTest {
+	
+	@Inject
+	TestHelper<AadlPackage> testHelper;
+	
 	@Test
 	def void issue53() {
-		val fileName = "issue53.aadl"
-		createFiles(fileName -> '''
+		val issue53 = '''
 package issue53
 public
-	with EMV2;
 system pedals
 features
 pedal_position : out data port ;
@@ -41,9 +46,8 @@ properties
 end pedals;
 
 end issue53;
-		''')
-		suppressSerialization
-		val testFileResult = testFile(fileName)
+		'''
+		val testFileResult = issues = testHelper.testString(issue53)
 		val issueCollection = new FluentIssueCollection(testFileResult.resource, newArrayList, newArrayList)
 		testFileResult.resource.contents.head as AadlPackage => [
 			"issue53".assertEquals(name)
