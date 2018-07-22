@@ -41,7 +41,7 @@ class FlowLatencyTest extends XtextTest {
 		// check flow latency
 		val checker = new FlowLatencyAnalysisSwitch(new NullProgressMonitor,  instance)
 		val som = instance.systemOperationModes.head
-		val latencyresult = checker.invoke(instance, som, true, true, true, true)
+		val latencyresult = checker.invoke(instance, som, false, true, true, true)
 		val res = latencyresult.results.get(0)
 		assertTrue((res.values.get(1) as RealValue).value == (304.0))
 		assertTrue((res.values.get(2) as RealValue).value == (504.0))
@@ -49,6 +49,7 @@ class FlowLatencyTest extends XtextTest {
 		assertTrue((res.values.get(4) as RealValue).value == (4.0))
 		assertTrue((res.values.get(5) as RealValue).value == (300.0))
 		assertTrue((res.values.get(6) as RealValue).value == (300.0))
+		assertTrue(latencyresult.info == "AS-MF-DL-EQ")
 		res.subResults.size.assertEquals(16)
 	}
 
