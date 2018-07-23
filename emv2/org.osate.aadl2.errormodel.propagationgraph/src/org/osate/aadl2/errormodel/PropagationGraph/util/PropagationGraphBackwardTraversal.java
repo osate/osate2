@@ -410,7 +410,22 @@ public class PropagationGraphBackwardTraversal {
 							List<EMV2PropertyAssociation> pa = EMV2Properties
 									.getProperty(val.getSymboliclabel().getQualifiedName(), cl, ebt, null);
 							for (EMV2PropertyAssociation emv2PropertyAssociation : pa) {
-								scale = scale + EMV2Properties.getRealValue(emv2PropertyAssociation);
+								scale = EMV2Properties.getRealValue(emv2PropertyAssociation);
+							}
+						} else if (val.isOthers()) {
+							scale = 1.0;
+							for (TransitionBranch tb : tbs) {
+								BranchValue valcount = tb.getValue();
+								if (valcount.getRealvalue() != null) {
+									scale = scale - Double.valueOf(valcount.getRealvalue());
+								} else if (valcount.getSymboliclabel() != null) {
+									ComponentClassifier cl = EMV2Util.getAssociatedClassifier(ebt);
+									List<EMV2PropertyAssociation> pa = EMV2Properties
+											.getProperty(valcount.getSymboliclabel().getQualifiedName(), cl, ebt, null);
+									for (EMV2PropertyAssociation emv2PropertyAssociation : pa) {
+										scale = scale - EMV2Properties.getRealValue(emv2PropertyAssociation);
+									}
+								}
 							}
 						}
 						break;
@@ -508,7 +523,7 @@ public class PropagationGraphBackwardTraversal {
 			List<EObject> subResults = new LinkedList<EObject>();
 
 			for (ConditionExpression ce : expression.getOperands()) {
-				EObject res = processCondition(component, ce, type, scale, stateOnly);
+				EObject res = processCondition(component, ce, type, 1.0, stateOnly);
 				if (res != null) {
 					subResults.add(res);
 				}
@@ -523,7 +538,7 @@ public class PropagationGraphBackwardTraversal {
 			if (allCondition.getCount() == 0) {
 				preProcessAnd(component, condition, type, scale);
 				for (ConditionExpression ce : allCondition.getOperands()) {
-					EObject res = processCondition(component, ce, type, scale, stateOnly);
+					EObject res = processCondition(component, ce, type, 1.0, stateOnly);
 					if (res != null) {
 						subResults.add(res);
 					}
@@ -538,7 +553,7 @@ public class PropagationGraphBackwardTraversal {
 			List<EObject> subResults = new LinkedList<EObject>();
 
 			for (ConditionExpression ce : expression.getOperands()) {
-				EObject res = processCondition(component, ce, type, scale, stateOnly);
+				EObject res = processCondition(component, ce, type, 1.0, stateOnly);
 				if (res != null) {
 					subResults.add(res);
 				}
@@ -553,7 +568,7 @@ public class PropagationGraphBackwardTraversal {
 			if (omCondition.getCount() == 1) {
 				preProcessOr(component, condition, type, scale);
 				for (ConditionExpression ce : omCondition.getOperands()) {
-					EObject res = processCondition(component, ce, type, scale, stateOnly);
+					EObject res = processCondition(component, ce, type, 1.0, stateOnly);
 					if (res != null) {
 						subResults.add(res);
 					}
