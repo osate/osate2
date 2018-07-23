@@ -4,10 +4,12 @@
 package org.osate.xtext.aadl2.formatting2;
 
 import com.google.inject.Inject
+import com.google.inject.Injector
 import org.eclipse.emf.common.util.URI
 import org.eclipse.emf.ecore.EObject
 import org.eclipse.xtend2.lib.StringConcatenation
 import org.eclipse.xtext.Grammar
+import org.eclipse.xtext.IGrammarAccess
 import org.eclipse.xtext.formatting2.FormatterRequest
 import org.eclipse.xtext.formatting2.IFormattableDocument
 import org.eclipse.xtext.formatting2.IFormatter2
@@ -18,6 +20,7 @@ import org.eclipse.xtext.formatting2.regionaccess.ISemanticRegion
 import org.eclipse.xtext.formatting2.regionaccess.TextRegionAccessBuilder
 import org.eclipse.xtext.resource.FileExtensionProvider
 import org.eclipse.xtext.resource.IResourceFactory
+import org.eclipse.xtext.resource.IResourceServiceProvider
 import org.eclipse.xtext.resource.XtextResource
 import org.osate.aadl2.AadlBoolean
 import org.osate.aadl2.AadlInteger
@@ -166,7 +169,6 @@ import org.osate.annexsupport.AnnexParseUtil
 import org.osate.annexsupport.AnnexParser
 import org.osate.annexsupport.AnnexParserRegistry
 import org.osate.annexsupport.AnnexRegistry
-import org.osate.core.OsateCorePlugin
 import org.osate.xtext.aadl2.properties.formatting2.PropertiesFormatter
 import org.osate.xtext.aadl2.services.Aadl2GrammarAccess
 
@@ -2226,9 +2228,9 @@ class Aadl2Formatter extends PropertiesFormatter {
 			val annexObject = parseAnnexObject.apply(annexParser, trimmedText)
 			val annexParseResult = AnnexParseUtil.getParseResult(annexObject)
 			if (annexParseResult !== null) {
-				//Get the injector for the annex.
-				val grammarName = annexParseResult.rootNode.grammarElement.getContainerOfType(Grammar).name
-				val annexInjector = OsateCorePlugin.^default.getInjector(grammarName)
+				// Get the injector for the annex.
+				val grammar = annexParseResult.rootNode.grammarElement.getContainerOfType(Grammar)
+				val annexInjector = getInjector(grammar)
 				if (annexInjector !== null) {
 					//Create resource and populate it with the library or subclause and the parse result.
 					val resourceFactory = annexInjector.getInstance(IResourceFactory)
@@ -2273,5 +2275,18 @@ class Aadl2Formatter extends PropertiesFormatter {
 				}
 			}
 		}
+	}
+
+	private def getInjector(Grammar grammar) {
+		val reg = IResourceServiceProvider.Registry.INSTANCE
+		val e2f = reg.extensionToFactoryMap
+		for (String ext : e2f.keySet) {
+			val rsp = reg.getResourceServiceProvider(URI.createFileURI("dummy." + ext))
+			val ga = rsp.get(IGrammarAccess)
+			if (ga !== null && ga.grammar == grammar) {
+				return rsp.get(Injector)
+			}
+		}
+		return null
 	}
 }

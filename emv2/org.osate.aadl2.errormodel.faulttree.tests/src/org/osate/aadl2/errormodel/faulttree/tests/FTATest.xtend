@@ -13,18 +13,17 @@ import org.osate.aadl2.errormodel.FaultTree.EventType
 import org.osate.aadl2.errormodel.FaultTree.FaultTreeType
 import org.osate.aadl2.errormodel.FaultTree.LogicOperation
 import org.osate.aadl2.errormodel.faulttree.generation.CreateFTAModel
-import org.osate.aadl2.errormodel.tests.ErrorModelUiInjectorProvider
+import org.osate.aadl2.instance.ConnectionInstance
 import org.osate.aadl2.instance.SystemInstance
 import org.osate.aadl2.instantiation.InstantiateModel
 import org.osate.testsupport.OsateTest
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorState
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorEvent
+import org.osate.xtext.aadl2.errormodel.errorModel.ErrorPropagation
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorSource
+import org.osate.xtext.aadl2.errormodel.util.EMV2Util
 
 import static org.junit.Assert.*
-import org.osate.xtext.aadl2.errormodel.errorModel.ErrorPropagation
-import org.osate.xtext.aadl2.errormodel.util.EMV2Util
-import org.osate.aadl2.instance.ConnectionInstance
 
 @RunWith(typeof(XtextRunner))
 @InjectWith(typeof(ErrorModelUiInjectorProvider))
@@ -51,6 +50,7 @@ class FTATest extends OsateTest {
 	var static SystemInstance instanceFilteredFlow
 	var static SystemInstance instanceAllFlows
 	var static SystemInstance instanceOptimize
+	var static SystemInstance instanceTransitionBranch
 
 	val static stateFail = "state Failed"
 	val static stateFailStop = "state FailStop"
@@ -91,6 +91,7 @@ class FTATest extends OsateTest {
 			val filteredflowsFile = "FilteredFlows.aadl"
 			val allflowsFile = "AllFlows.aadl"
 			val optimizeFile = "OptimizeTree.aadl"
+			val transitionbranchFile = "branchtransitions.aadl"
 			
 			createFiles(
 				fta1File -> readFile(modelroot + fta1File),
@@ -107,6 +108,7 @@ class FTATest extends OsateTest {
 				filteredflowsFile -> readFile(modelroot + filteredflowsFile),
 				allflowsFile -> readFile(modelroot + allflowsFile),
 				optimizeFile -> readFile(modelroot + optimizeFile),
+				transitionbranchFile -> readFile(modelroot + transitionbranchFile),
 				fgselibFile -> readFile(modelroot + fgselibFile),
 				errorlibFile -> readFile(modelroot + errorlibFile),
 				FTerrorlibFile -> readFile(modelroot + FTerrorlibFile)
@@ -132,6 +134,7 @@ class FTATest extends OsateTest {
 			instanceFilteredFlow = instanceGenerator(filteredflowsFile, "FGS.impl")
 			instanceAllFlows = instanceGenerator(allflowsFile, "FGS.impl")
 			instanceOptimize = instanceGenerator(optimizeFile, "Top.impl")
+			instanceTransitionBranch = instanceGenerator(transitionbranchFile, "BTCU.i")
 		}
 	}
 
@@ -796,6 +799,29 @@ class FTATest extends OsateTest {
 		assertTrue(sube2.relatedEMV2Object instanceof ErrorBehaviorState)
 		assertEquals((sube2.relatedEMV2Object as NamedElement).name, "FailStop")
 		assertEquals((sube2.relatedInstanceObject as NamedElement).name, "Sub1")
+	}
+
+		@Test
+	def void allTransitionBranchFaultTreeTest() {
+	val stateFailStop = "state FailStop"
+		val ft = CreateFTAModel.createFaultTree(instanceTransitionBranch, stateFailStop)
+		assertEquals(ft.events.size, 5)
+		assertEquals(ft.root.subEvents.size, 2)
+		val sube1 = ft.root.subEvents.get(0)
+		assertEquals(ft.root.computedProbability, 5.0e-8, 1.0e-12)
+		assertEquals(sube1.computedProbability, 2.5e-15, 1.0e-17)
+		assertEquals(sube1.scale, 0.6, 0.001)
+	}
+		@Test
+	def void allTransitionBranchCutSetTest() {
+	val stateFailStop = "state FailStop"
+		val ft = CreateFTAModel.createMinimalCutSet(instanceTransitionBranch, stateFailStop)
+		assertEquals(ft.events.size, 6)
+		assertEquals(ft.root.subEvents.size, 2)
+		val sube1 = ft.root.subEvents.get(0)
+		assertEquals(ft.root.computedProbability, 5.0e-8, 1.0e-12)
+		assertEquals(sube1.computedProbability, 2.5e-15, 1.0e-17)
+		assertEquals(sube1.scale, 0.6, 0.001)
 	}
 	
 }
