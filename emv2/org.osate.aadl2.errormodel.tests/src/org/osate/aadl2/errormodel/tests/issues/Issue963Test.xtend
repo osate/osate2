@@ -1,6 +1,10 @@
 package org.osate.aadl2.errormodel.tests.issues
 
+import com.google.inject.Inject
 import com.itemis.xtext.testing.FluentIssueCollection
+import com.itemis.xtext.testing.XtextTest
+import org.eclipse.emf.common.util.URI
+import org.eclipse.xtext.resource.IResourceServiceProvider
 import org.eclipse.xtext.testing.InjectWith
 import org.eclipse.xtext.testing.XtextRunner
 import org.junit.Assert
@@ -11,27 +15,35 @@ import org.osate.aadl2.AbstractImplementation
 import org.osate.aadl2.AbstractType
 import org.osate.aadl2.DefaultAnnexSubclause
 import org.osate.aadl2.FeatureGroup
-import org.osate.aadl2.errormodel.tests.ErrorModelUiInjectorProvider
-import org.osate.testsupport.OsateTest
+import org.osate.aadl2.errormodel.tests.ErrorModelInjectorProvider
+import org.osate.testsupport.AssertHelper
+import org.osate.testsupport.TestHelper
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelPackage
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelSubclause
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorPropagation
 
 import static extension org.junit.Assert.assertEquals
 import static extension org.junit.Assert.assertNull
+import static extension org.osate.testsupport.AssertHelper.*
 import static extension org.osate.xtext.aadl2.errormodel.util.EMV2Util.getPropagationName
 
+
 @RunWith(XtextRunner)
-@InjectWith(ErrorModelUiInjectorProvider)
-class Issue963Test extends OsateTest {
+@InjectWith(ErrorModelInjectorProvider)
+class Issue963Test extends XtextTest {
 	val static PROJECT_LOCATION = "org.osate.aadl2.errormodel.tests/models/Issue963/"
 	
+	@Inject
+	TestHelper<AadlPackage> testHelper
+	
+	extension AssertHelper assertHelper = IResourceServiceProvider.Registry.INSTANCE.getResourceServiceProvider(
+		URI.createFileURI("dummy.emv2")).get(AssertHelper)
+
 	@Test
 	def void testPkg1() {
 		val pkg1FileName = "pkg1.aadl"
-		createFiles(pkg1FileName -> readFile(PROJECT_LOCATION + pkg1FileName))
-		ignoreSerializationDifferences
-		testFile(pkg1FileName).resource.contents.head as AadlPackage => [
+		val pkg = testHelper.parseFile(PROJECT_LOCATION + pkg1FileName)
+		pkg => [
 			"pkg1".assertEquals(name)
 			publicSection.ownedClassifiers.head as AbstractType => [
 				"a1".assertEquals(name)
@@ -62,9 +74,7 @@ class Issue963Test extends OsateTest {
 	@Test
 	def void testPkg2() {
 		val pkg2FileName = "pkg2.aadl"
-		createFiles(pkg2FileName -> readFile(PROJECT_LOCATION + pkg2FileName))
-		ignoreSerializationDifferences
-		val testFileResult = testFile(pkg2FileName)
+		val testFileResult = issues = testHelper.testFile(PROJECT_LOCATION + pkg2FileName)
 		val issueCollection = new FluentIssueCollection(testFileResult.resource, newArrayList, newArrayList)
 		testFileResult.resource.contents.head as AadlPackage => [
 			"pkg2".assertEquals(name)
@@ -226,7 +236,7 @@ class Issue963Test extends OsateTest {
 				]
 			]
 		]
-		issueCollection.sizeIs(issueCollection.issues.size)
+		issueCollection.sizeIs(testFileResult.issues.size)
 		assertConstraints(issueCollection)
 	}
 }
