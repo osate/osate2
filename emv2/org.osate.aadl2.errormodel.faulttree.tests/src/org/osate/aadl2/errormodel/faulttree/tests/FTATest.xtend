@@ -13,18 +13,17 @@ import org.osate.aadl2.errormodel.FaultTree.EventType
 import org.osate.aadl2.errormodel.FaultTree.FaultTreeType
 import org.osate.aadl2.errormodel.FaultTree.LogicOperation
 import org.osate.aadl2.errormodel.faulttree.generation.CreateFTAModel
-import org.osate.aadl2.errormodel.tests.ErrorModelUiInjectorProvider
+import org.osate.aadl2.instance.ConnectionInstance
 import org.osate.aadl2.instance.SystemInstance
 import org.osate.aadl2.instantiation.InstantiateModel
 import org.osate.testsupport.OsateTest
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorState
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorEvent
+import org.osate.xtext.aadl2.errormodel.errorModel.ErrorPropagation
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorSource
+import org.osate.xtext.aadl2.errormodel.util.EMV2Util
 
 import static org.junit.Assert.*
-import org.osate.xtext.aadl2.errormodel.errorModel.ErrorPropagation
-import org.osate.xtext.aadl2.errormodel.util.EMV2Util
-import org.osate.aadl2.instance.ConnectionInstance
 
 @RunWith(typeof(XtextRunner))
 @InjectWith(typeof(ErrorModelUiInjectorProvider))
