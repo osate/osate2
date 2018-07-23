@@ -420,6 +420,8 @@ gate with two sub-events representing the redundant sensors.
 * The sixth column indicates whether the fault tree event is a dependent event, i.e., common 
 (shared) sub-event to multiple events. 
 
+> If the event represents a transition branch, then the computed or assigned probability is shown together with the branch probability, e.g., 2.3e-5 * 0.6.
+
 ![GPS2SensorTable](images/fta-gps2sensorstatetable.png "GPS2SensorTable")
 
 ### Composite Error State-based Parts Fault Tree Generation
