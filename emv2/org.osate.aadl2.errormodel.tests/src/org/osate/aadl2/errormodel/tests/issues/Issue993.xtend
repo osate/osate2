@@ -1,48 +1,47 @@
 package org.osate.aadl2.errormodel.tests.issues
 
+import com.google.inject.Inject
 import com.itemis.xtext.testing.FluentIssueCollection
+import com.itemis.xtext.testing.XtextTest
+import org.eclipse.emf.common.util.URI
+import org.eclipse.xtext.resource.IResourceServiceProvider
 import org.eclipse.xtext.testing.InjectWith
 import org.eclipse.xtext.testing.XtextRunner
-import org.junit.Assert
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.osate.aadl2.AadlPackage
-import org.osate.aadl2.AbstractImplementation
-import org.osate.aadl2.AbstractType
 import org.osate.aadl2.DefaultAnnexSubclause
-import org.osate.aadl2.FeatureGroup
-import org.osate.aadl2.errormodel.tests.ErrorModelUiInjectorProvider
-import org.osate.testsupport.OsateTest
-import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelPackage
+import org.osate.aadl2.SystemImplementation
+import org.osate.aadl2.SystemType
+import org.osate.aadl2.errormodel.tests.ErrorModelInjectorProvider
+import org.osate.testsupport.AssertHelper
+import org.osate.testsupport.TestHelper
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelSubclause
-import org.osate.xtext.aadl2.errormodel.errorModel.ErrorPropagation
 
 import static extension org.junit.Assert.assertEquals
-import static extension org.junit.Assert.assertNull
-import static extension org.osate.xtext.aadl2.errormodel.util.EMV2Util.getPropagationName
-import org.osate.aadl2.SystemType
-import org.osate.xtext.aadl2.errormodel.errorModel.PropagationPoint
-import org.osate.aadl2.SystemImplementation
-import org.osate.xtext.aadl2.errormodel.errorModel.PropagationPath
 
 @RunWith(XtextRunner)
-@InjectWith(ErrorModelUiInjectorProvider)
-class Issue993 extends OsateTest {
+@InjectWith(ErrorModelInjectorProvider)
+class Issue993 extends XtextTest {
 	val static PROJECT_LOCATION = "org.osate.aadl2.errormodel.tests/models/Issue993/"
 	
+	@Inject
+	TestHelper<AadlPackage> testHelper
+	
+	extension AssertHelper assertHelper = IResourceServiceProvider.Registry.INSTANCE.getResourceServiceProvider(
+		URI.createFileURI("dummy.emv2")).get(AssertHelper)
+
 	@Test
 	def void testPkg1() {
 		val pkg1FileName = "Issue993.aadl"
-		createFiles(pkg1FileName -> readFile(PROJECT_LOCATION + pkg1FileName))
-		ignoreSerializationDifferences
-		val testFileResult = testFile(pkg1FileName)
+		val testFileResult = issues = testHelper.testFile(PROJECT_LOCATION + pkg1FileName)
 		val issueCollection = new FluentIssueCollection(testFileResult.resource, newArrayList, newArrayList)
 		testFileResult.resource.contents.head as AadlPackage => [
 			"issue993".assertEquals(name)
 			publicSection.ownedClassifiers.head as SystemType => [
 				"s".assertEquals(name)
 				(ownedAnnexSubclauses.head as DefaultAnnexSubclause).parsedAnnexSubclause as ErrorModelSubclause => [
-					points.get(0) as PropagationPoint => [
+					points.get(0) => [
 						"externalEffect".assertEquals(name)
 					]
 				]
@@ -50,14 +49,14 @@ class Issue993 extends OsateTest {
 			publicSection.ownedClassifiers.get(2) as SystemImplementation => [
 				"main.i".assertEquals(name)
 				(ownedAnnexSubclauses.head as DefaultAnnexSubclause).parsedAnnexSubclause as ErrorModelSubclause => [
-					points.get(0) as PropagationPoint => [
+					points.get(0) => [
 						"externalEffect".assertEquals(name)
 					]
 					paths.size.assertEquals(2) 
 				]
 			]
 		]
-		issueCollection.sizeIs(issueCollection.issues.size)
+		issueCollection.sizeIs(testFileResult.issues.size)
 		assertConstraints(issueCollection)
 	}
 }
