@@ -17,6 +17,7 @@
  */
 package org.osate.xtext.aadl2.errormodel.util;
 
+import java.util.Set
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelLibrary
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorType
 import org.osate.xtext.aadl2.errormodel.errorModel.TypeSet
@@ -27,11 +28,20 @@ import org.osate.xtext.aadl2.errormodel.errorModel.TypeSet
 class ErrorModelUtil{
 	
 	def public static Iterable<ErrorType> getAllErrorTypes(ErrorModelLibrary library) {
-		library.extends.map[allErrorTypes].flatten.toSet + library.types
+		library.allErrorLibraries.map[types].flatten
 	}
 	
 	def public static Iterable<TypeSet> getAllTypesets(ErrorModelLibrary library) {
-		library.extends.map[allTypesets].flatten.toSet + library.typesets
+		library.allErrorLibraries.map[typesets].flatten
 	}
-
+	
+	def static getAllErrorLibraries(ErrorModelLibrary library) {
+		getAllErrorLibraries(library, newHashSet)
+	}
+	
+	def private static Iterable<ErrorModelLibrary> getAllErrorLibraries(ErrorModelLibrary library,
+		Set<ErrorModelLibrary> visited) {
+		visited += library
+		library.extends.filter[!visited.contains(it)].map[getAllErrorLibraries(it, visited)].flatten + #[library]
+	}
 }
