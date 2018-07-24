@@ -29,6 +29,7 @@ ARISING FROM, OUT OF OR IN CONNECTION WITH THE DATA OR THE USE OR OTHER DEALINGS
  *******************************************************************************/
 package org.osate.ge.internal.ui.editor;
 
+import java.util.Arrays;
 import java.util.Objects;
 
 import org.eclipse.emf.common.util.URI;
@@ -40,9 +41,12 @@ import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.views.contentoutline.IContentOutlinePage;
 import org.osate.ge.GraphicalEditor;
 import org.osate.ge.internal.diagram.runtime.AgeDiagram;
+import org.osate.ge.internal.diagram.runtime.DiagramElement;
 import org.osate.ge.internal.graphiti.diagram.GraphitiAgeDiagram;
 import org.osate.ge.internal.services.ActionExecutor;
 import org.osate.ge.internal.services.ActionService;
+
+import com.google.common.base.Predicates;
 
 public class AgeDiagramEditor extends DiagramEditor implements GraphicalEditor {
 	public static final String DIAGRAM_EDITOR_ID = "org.osate.ge.editor.AgeDiagramEditor";
@@ -88,6 +92,16 @@ public class AgeDiagramEditor extends DiagramEditor implements GraphicalEditor {
 
 	public void forceDiagramUpdateOnNextModelChange() {
 		((AgeDiagramBehavior)getDiagramBehavior()).forceDiagramUpdateOnNextModelChange();
+	}
+
+	public void selectDiagramElements(final DiagramElement[] diagramElements) {
+		// Get pictogram elements for the specified diagram elements
+		final GraphitiAgeDiagram graphitiDiagram = getGraphitiAgeDiagram();
+		final PictogramElement[] pes = Arrays.stream(diagramElements).map(graphitiDiagram::getPictogramElement)
+				.filter(Predicates.notNull()).toArray(s -> new PictogramElement[s]);
+
+		// Select the pictogram elements
+		selectPictogramElements(pes);
 	}
 
 	@Override

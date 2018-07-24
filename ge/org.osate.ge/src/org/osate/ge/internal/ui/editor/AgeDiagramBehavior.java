@@ -113,6 +113,8 @@ import org.osate.ge.internal.services.ExtensionRegistryService;
 import org.osate.ge.internal.services.ExtensionService;
 import org.osate.ge.internal.services.ModelChangeNotifier;
 import org.osate.ge.internal.services.ModelChangeNotifier.ChangeListener;
+import org.osate.ge.internal.ui.editor.actions.CopyAction;
+import org.osate.ge.internal.ui.editor.actions.PasteAction;
 import org.osate.ge.internal.ui.editor.actions.RedoAction;
 import org.osate.ge.internal.ui.editor.actions.UndoAction;
 import org.osate.ge.internal.ui.util.SelectionUtil;
@@ -237,8 +239,16 @@ public class AgeDiagramBehavior extends DiagramBehavior implements GraphitiAgeDi
 	protected void initActionRegistry(final ZoomManager zoomManager) {
 		super.initActionRegistry(zoomManager);
 
-		registerAction(new UndoAction(getParentPart()));
-		registerAction(new RedoAction(getParentPart()));
+		final IWorkbenchPart parentPart = getParentPart();
+		if (!(parentPart instanceof AgeDiagramEditor)) {
+			throw new RuntimeException("parent part must be an AgeDiagramEditor");
+		}
+
+		final AgeDiagramEditor editor = (AgeDiagramEditor) parentPart;
+		registerAction(new CopyAction(editor));
+		registerAction(new PasteAction(editor));
+		registerAction(new UndoAction(editor));
+		registerAction(new RedoAction(editor));
 
 		// Disable Graphiti's default delete action.
 		final IDiagramContainerUI diagramContainer = getDiagramContainer();
