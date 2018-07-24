@@ -33,16 +33,26 @@
  */
 package org.osate.ui.navigator;
 
+import org.eclipse.core.commands.Command;
+import org.eclipse.core.commands.ExecutionEvent;
+import org.eclipse.core.commands.common.CommandException;
 import org.eclipse.core.resources.IFile;
+import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.IResourceChangeEvent;
 import org.eclipse.core.resources.IResourceChangeListener;
 import org.eclipse.core.resources.IResourceDelta;
 import org.eclipse.core.resources.ResourcesPlugin;
+import org.eclipse.core.runtime.IStatus;
+import org.eclipse.jface.viewers.DoubleClickEvent;
+import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
+import org.eclipse.ui.IWorkbenchCommandConstants;
+import org.eclipse.ui.commands.ICommandService;
 import org.eclipse.ui.navigator.CommonNavigator;
 import org.osate.aadl2.modelsupport.resources.OsateResourceUtil;
+import org.osate.ui.OsateUiPlugin;
 import org.osate.ui.navigator.AadlElementImageDescriptor.ModificationFlag;
 
 public class AadlNavigator extends CommonNavigator implements IResourceChangeListener {
@@ -125,15 +135,33 @@ public class AadlNavigator extends CommonNavigator implements IResourceChangeLis
 				lastDecorator = mod;
 			}
 
-			ctrl.getDisplay().asyncExec(new Runnable() {
-				@Override
-				public void run() {
-					if (!ctrl.isDisposed()) {
-						OsateResourceUtil.setResourceSet(null);
-						getCommonViewer().refresh();
-					}
+			ctrl.getDisplay().asyncExec(() -> {
+				if (!ctrl.isDisposed()) {
+					OsateResourceUtil.setResourceSet(null);
+					getCommonViewer().refresh();
 				}
 			});
 		}
 	}
+
+	@Override
+	protected void handleDoubleClick(DoubleClickEvent anEvent) {
+		ICommandService commandService = getViewSite().getService(ICommandService.class);
+		Command openProjectCommand = commandService.getCommand(IWorkbenchCommandConstants.PROJECT_OPEN_PROJECT);
+		if (openProjectCommand != null && openProjectCommand.isHandled() && openProjectCommand.isEnabled()) {
+			IStructuredSelection selection = (IStructuredSelection) anEvent.getSelection();
+			Object element = selection.getFirstElement();
+			if (element instanceof IProject && !((IProject) element).isOpen()) {
+				try {
+					openProjectCommand.executeWithChecks(new ExecutionEvent());
+				} catch (CommandException ex) {
+					IStatus status = OsateUiPlugin.createStatus(IStatus.ERROR, 0, "'Open Project' failed", ex); //$NON-NLS-1$
+					OsateUiPlugin.getDefault().getLog().log(status);
+				}
+				return;
+			}
+		}
+		super.handleDoubleClick(anEvent);
+	}
+
 }
