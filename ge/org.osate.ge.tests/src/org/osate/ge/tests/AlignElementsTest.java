@@ -74,6 +74,7 @@ public class AlignElementsTest {
 				.findEditPart(editor, abstractImplName,
 				ElementNames.abstractFeatureNewName2).part();
 
+		// Check if elements are aligned
 		int primaryLocation = findDiagramRelativeLocation(yLocation, featureOut);
 		assertAligned(primaryLocation, findDiagramRelativeLocation(yLocation, featureIn));
 
@@ -90,6 +91,7 @@ public class AlignElementsTest {
 
 		bot.clickToolbarButtonWithTooltip("Align Left");
 
+		// Check if elements are aligned
 		// sensor
 		final GraphitiShapeEditPart primaryGcep = (GraphitiShapeEditPart) bot.getEditPart(editor, "sensor").part();
 		primaryLocation = findDiagramRelativeLocation(xLocation, primaryGcep);
@@ -120,7 +122,6 @@ public class AlignElementsTest {
 		bot.clickElement(editor, abstractImplName);
 		bot.createToolItemAndRename(editor, AbstractSubcomponent.class, new Point(200, 100),
 				ElementNames.abstractSubcomponentName, abstractImplName);
-
 	}
 
 	private Function<GraphitiShapeEditPart, Integer> xLocation = (gcep) -> gcep.getPictogramElement()
