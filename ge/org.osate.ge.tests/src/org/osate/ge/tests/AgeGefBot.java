@@ -291,18 +291,17 @@ public class AgeGefBot {
 			final String... editPartPath) {
 		final SWTBotGefEditPart parent = findEditPart(editor, editPartPath);
 		editor.setFocus();
-		// mouseSelectElement(editor, parent);
+		mouseSelectElement(editor, parent);
 		editor.activateTool(toolItem);
 		final Rectangle rect = ((GraphitiShapeEditPart) parent.part()).getFigure().getBounds();
 		// Value to hold scrollbar selections: Point(Vertical, Horizontal)
 		java.awt.Point scrollbarValues = new java.awt.Point();
-		getScrollBarValues(editor, scrollbarValues, rect, p);
-
+		getScrollBarValues(editor, scrollbarValues, p);
 		editor.click(rect.x + p.x - scrollbarValues.x, rect.y + p.y - scrollbarValues.y);
 		editor.activateDefaultTool();
 	}
 
-	private void getScrollBarValues(SWTBotGefEditor editor, java.awt.Point scrollbarValues, Rectangle rect,
+	private void getScrollBarValues(SWTBotGefEditor editor, java.awt.Point scrollbarValues,
 			final Point p) {
 		editor.setFocus();
 		final Display display = editor.getWidget().getDisplay();
@@ -318,7 +317,7 @@ public class AgeGefBot {
 			Point point = PlatformUI.getWorkbench().getDisplay().map(canvas, null, horizontalBar.x,
 					horizontalBar.y);
 
-			// Click connection
+			// Click scroll bars for refresh of viewport
 			bot.setAutoDelay(700);
 			bot.mouseLeftClick(point.x, point.y);
 
@@ -337,8 +336,8 @@ public class AgeGefBot {
 		editor.select(editPart);
 		editor.click(editPart);
 		createToolItem(editor, ToolTypes.getToolItem(clazz), p, editPathPath);
-
 		final SWTBotGefEditPart newEditPart = getNewElement(editor, clazz);
+
 		renameElement(editor, newEditPart, newName);
 	}
 
@@ -697,6 +696,7 @@ public class AgeGefBot {
 						}
 					}
 				}
+
 			}
 
 			return false;
@@ -1049,5 +1049,9 @@ public class AgeGefBot {
 
 	public void keyRelease(final int key) {
 		bot.keyRelease(key);
+	}
+
+	public void closeTextEditor(final String title) {
+		bot.editorByTitle(title + ".aadl").saveAndClose();
 	}
 }

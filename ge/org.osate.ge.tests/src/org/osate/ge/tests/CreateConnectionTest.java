@@ -23,6 +23,7 @@ public class CreateConnectionTest {
 		bot.maximize();
 		bot.createNewProjectAndPackage(ElementNames.projectName, ElementNames.packageName);
 		bot.openDiagram(new String[] { ElementNames.projectName }, ElementNames.packageName);
+		bot.createAbstractTypeAndImplementation(ElementNames.packageName, new Point(30, 30));
 	}
 
 	@After
@@ -33,12 +34,29 @@ public class CreateConnectionTest {
 	@Test
 	public void createConnection() {
 		final AgeSWTBotGefEditor editor = bot.getEditor(ElementNames.packageName);
-		createConnection(bot, editor, ElementNames.packageName);
-	}
+		bot.resizeEditPart(editor, new Point(150, 150), ElementNames.abstractTypeName);
+		bot.openPropertiesView();
 
-	public static void createConnection(final AgeGefBot bot, final AgeSWTBotGefEditor editor,
-			final String packageName) {
-		createNestedElementsWithPorts(bot, editor, packageName);
+		bot.createToolItemAndRename(editor, AbstractFeature.class, new Point(15, 15),
+				ElementNames.abstractFeatureNewName, ElementNames.abstractTypeName);
+		bot.createToolItemAndRename(editor, AbstractFeature.class, new Point(100, 100),
+				ElementNames.abstractFeatureNewName2, ElementNames.abstractTypeName);
+
+		bot.setElementOptionRadioInPropertiesView(editor, "AADL", "Output", ElementNames.abstractFeatureNewName2);
+
+		final String abstractImplName = ElementNames.abstractTypeName + ".impl";
+		bot.resizeEditPart(editor, new Point(400, 400), abstractImplName);
+		bot.executeContextMenuCommand(editor, abstractImplName, AgeGefBot.allFilters);
+
+		createSubcomponents(editor, AbstractSubcomponent.class, abstractImplName);
+		editor.setFocus();
+
+		// Show children of subcomponents
+		bot.selectElements(editor, new String[] { abstractImplName, ElementNames.abstractSubcomponentName },
+				new String[] { abstractImplName, ElementNames.abstractSubcomponentName2 });
+		editor.clickContextMenu(AgeGefBot.allFilters);
+
+		bot.sleep(3);
 
 		final SWTBotGefEditPart featureIn = bot.findEditPart(editor, ElementNames.abstractSubcomponentName,
 				ElementNames.abstractFeatureNewName);
@@ -69,49 +87,17 @@ public class CreateConnectionTest {
 		bot.renameConnection(editor, connectionEditPart, ConnectionPoint.MIDDLE, ElementNames.featureConnection);
 	}
 
-	public static void createNestedElementsWithPorts(final AgeGefBot bot, final AgeSWTBotGefEditor editor,
-			final String packageName) {
-		bot.createAbstractTypeAndImplementation(packageName, new Point(30, 30));
-
-		bot.resizeEditPart(editor, new Point(150, 150), ElementNames.abstractTypeName);
-		bot.openPropertiesView();
-
-		bot.createToolItemAndRename(editor, AbstractFeature.class, new Point(15, 15),
-				ElementNames.abstractFeatureNewName, ElementNames.abstractTypeName);
-		bot.createToolItemAndRename(editor, AbstractFeature.class, new Point(100, 100),
-				ElementNames.abstractFeatureNewName2, ElementNames.abstractTypeName);
-
-		bot.setElementOptionRadioInPropertiesView(editor, "AADL", "Output", ElementNames.abstractFeatureNewName2);
-
-		final String abstractImplName = ElementNames.abstractTypeName + ".impl";
-		bot.resizeEditPart(editor, new Point(400, 400), abstractImplName);
-		bot.executeContextMenuCommand(editor, abstractImplName, AgeGefBot.allFilters);
-
-		createSubcomponents(bot, packageName, editor, AbstractSubcomponent.class, abstractImplName);
+	private void createSubcomponents(final AgeSWTBotGefEditor editor, final Class<?> clazz, final String parent) {
 		editor.setFocus();
-
-		// Show children of subcomponents
-		bot.selectElements(editor, new String[] { abstractImplName, ElementNames.abstractSubcomponentName },
-				new String[] { abstractImplName, ElementNames.abstractSubcomponentName2 });
-		editor.clickContextMenu(AgeGefBot.allFilters);
-
-		bot.sleep(3);
-	}
-
-	private static void createSubcomponents(final AgeGefBot bot, final String packageName,
-			final AgeSWTBotGefEditor editor,
-			final Class<?> clazz,
-			final String parent) {
-		editor.setFocus();
-		editor.select(packageName);
-		editor.click(packageName);
+		editor.select(ElementNames.packageName);
+		editor.click(ElementNames.packageName);
 		bot.createToolItemAndRename(editor, clazz, new Point(200, 100), ElementNames.abstractSubcomponentName, parent);
 		bot.createToolItemAndRename(editor, clazz, new Point(150, 250), ElementNames.abstractSubcomponentName2, parent);
 		bot.setElementOptionButtonInPropertiesView(editor, "AADL", "Choose...",
 				new String[] { ElementNames.abstractSubcomponentName },
 				new String[] { ElementNames.abstractSubcomponentName2 });
 
-		bot.clickTableOption(AgeGefBot.qualifiedName(packageName, ElementNames.abstractTypeName));
+		bot.clickTableOption(AgeGefBot.qualifiedName(ElementNames.packageName, ElementNames.abstractTypeName));
 		bot.clickButton("OK");
 	}
 }

@@ -101,11 +101,11 @@ public class CreateFlowImplTest {
 		bot.clickElement(implEditor, "ss1", "dp_in");
 		implEditor.activateDefaultTool();
 
-		bot.selectWidget("Appearance");
 		final SWTBotGefConnectionEditPart connectionEditPart = bot.getNewConnectionEditPart(implEditor,
 				FeatureConnectionImpl.class).get(0);
 
 		implEditor.select(connectionEditPart);
+		bot.selectWidget("Appearance");
 		final Connection featureCon = ((GraphitiConnectionEditPart) connectionEditPart.part()).getConnectionFigure();
 		bot.clickConnection(implEditor, featureCon);
 		bot.clickCombo(AppearancePropertySection.primaryLabelVisibilityCombo, "Show");

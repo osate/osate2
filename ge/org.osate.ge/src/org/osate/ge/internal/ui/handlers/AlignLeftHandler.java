@@ -30,7 +30,7 @@ public class AlignLeftHandler extends AbstractHandler {
 				.map(de -> new AlignmentElement(de, alignmentUtil.getAxisLocation()))
 				.collect(Collectors.toList());
 
-		diagram.modify("Align Top", m -> {
+		diagram.modify("Align Left", m -> {
 			final AlignmentElement primaryAlignmentElement = Objects.requireNonNull(
 					AlignmentUtil.getPrimaryAlignmentElement(alignmentElements), "primary element must not be null");
 			for (int i = alignmentElements.size() - 2; i >= 0; i--) {
