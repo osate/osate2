@@ -341,29 +341,14 @@
     <handler
           class="org.osate.ge.internal.ui.handlers.AlignLeftHandler"
           commandId="org.osate.ge.commands.alignLeft">
-       <enabledWhen>
-          <reference
-                definitionId="org.osate.ge.expressions.undockedMoveableShapesWithSameParent">
-          </reference>
-       </enabledWhen>
     </handler>
     <handler
           class="org.osate.ge.internal.ui.handlers.AlignCenterHandler"
           commandId="org.osate.ge.commands.alignCenter">
-       <enabledWhen>
-          <reference
-                definitionId="org.osate.ge.expressions.undockedMoveableShapesWithSameParent">
-          </reference>
-       </enabledWhen>
     </handler>
     <handler
           class="org.osate.ge.internal.ui.handlers.AlignRightHandler"
           commandId="org.osate.ge.commands.alignRight">
-       <enabledWhen>
-          <reference
-                definitionId="org.osate.ge.expressions.undockedMoveableShapesWithSameParent">
-          </reference>
-       </enabledWhen>
     </handler>
     <handler
           class="org.osate.ge.internal.ui.handlers.AlignTopHandler"

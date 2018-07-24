@@ -291,21 +291,40 @@ public class AgeGefBot {
 			final String... editPartPath) {
 		final SWTBotGefEditPart parent = findEditPart(editor, editPartPath);
 		editor.setFocus();
-		mouseSelectElement(editor, parent);
+		// mouseSelectElement(editor, parent);
 		editor.activateTool(toolItem);
 		final Rectangle rect = ((GraphitiShapeEditPart) parent.part()).getFigure().getBounds();
 		// Value to hold scrollbar selections: Point(Vertical, Horizontal)
 		java.awt.Point scrollbarValues = new java.awt.Point();
-		getScrollBarValues(editor, scrollbarValues);
+		getScrollBarValues(editor, scrollbarValues, rect, p);
+
 		editor.click(rect.x + p.x - scrollbarValues.x, rect.y + p.y - scrollbarValues.y);
 		editor.activateDefaultTool();
 	}
 
-	private void getScrollBarValues(SWTBotGefEditor editor, java.awt.Point scrollbarValues) {
+	private void getScrollBarValues(SWTBotGefEditor editor, java.awt.Point scrollbarValues, Rectangle rect,
+			final Point p) {
 		editor.setFocus();
 		final Display display = editor.getWidget().getDisplay();
 		display.syncExec(() -> {
 			final FigureCanvas canvas = (FigureCanvas) display.getFocusControl();
+
+			canvas.getHorizontalBar().setSelection(p.x);
+			canvas.getVerticalBar().setSelection(p.y);
+
+			final org.eclipse.swt.graphics.Rectangle horizontalBar = canvas.getHorizontalBar().getThumbBounds();
+			final org.eclipse.swt.graphics.Rectangle verticalBar = canvas.getVerticalBar().getThumbBounds();
+
+			Point point = PlatformUI.getWorkbench().getDisplay().map(canvas, null, horizontalBar.x,
+					horizontalBar.y);
+
+			// Click connection
+			bot.setAutoDelay(700);
+			bot.mouseLeftClick(point.x, point.y);
+
+			point = PlatformUI.getWorkbench().getDisplay().map(canvas, null, verticalBar.x, verticalBar.y);
+			bot.mouseLeftClick(point.x, point.y);
+
 			scrollbarValues.x = canvas.getHorizontalBar().getSelection();
 			scrollbarValues.y = canvas.getVerticalBar().getSelection();
 		});
@@ -318,8 +337,8 @@ public class AgeGefBot {
 		editor.select(editPart);
 		editor.click(editPart);
 		createToolItem(editor, ToolTypes.getToolItem(clazz), p, editPathPath);
-		final SWTBotGefEditPart newEditPart = getNewElement(editor, clazz);
 
+		final SWTBotGefEditPart newEditPart = getNewElement(editor, clazz);
 		renameElement(editor, newEditPart, newName);
 	}
 
@@ -678,7 +697,6 @@ public class AgeGefBot {
 						}
 					}
 				}
-
 			}
 
 			return false;
@@ -904,7 +922,7 @@ public class AgeGefBot {
 		editor.setFocus();
 		editor.click(packageName);
 		resizeEditPart(editor, new Point(600, 600), packageName);
-		createToolItem(editor, ToolTypes.getToolItem(AbstractType.class), location, ElementNames.packageName);
+		createToolItem(editor, ToolTypes.getToolItem(AbstractType.class), location, packageName);
 		final SWTBotGefEditPart newEditPart = getNewElement(editor, AbstractTypeImpl.class);
 		renameElement(editor, newEditPart, ElementNames.abstractTypeName);
 		waitUntilElementExists(editor, ElementNames.abstractTypeName);

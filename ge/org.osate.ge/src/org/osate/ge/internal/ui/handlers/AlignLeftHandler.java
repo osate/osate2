@@ -1,19 +1,22 @@
 package org.osate.ge.internal.ui.handlers;
 
 import java.util.List;
+import java.util.Objects;
+import java.util.stream.Collectors;
 
 import org.eclipse.core.commands.AbstractHandler;
 import org.eclipse.core.commands.ExecutionEvent;
 import org.eclipse.core.commands.ExecutionException;
-import org.osate.ge.graphics.Point;
 import org.osate.ge.internal.diagram.runtime.AgeDiagram;
 import org.osate.ge.internal.diagram.runtime.DiagramElement;
+import org.osate.ge.internal.ui.handlers.AlignmentUtil.AlignmentElement;
+import org.osate.ge.internal.ui.handlers.AlignmentUtil.HorizontalAlignmentUtil;
 import org.osate.ge.internal.ui.util.UiUtil;
 
 public class AlignLeftHandler extends AbstractHandler {
 
-	// This handler assumes that the selection contains diagram elements which are moveable, not docked, and all have the same container.
-	// TODO: Loosen restrictions during future enhancements so that nesting and docked shapes are handled.
+	// This handler allows for alignment of selected diagram elements that are not docked left or right.
+	// Any selected element must not an ancestor of another selected element.
 	@Override
 	public Object execute(final ExecutionEvent event) throws ExecutionException {
 		final List<DiagramElement> selectedDiagramElements = AgeHandlerUtil.getSelectedDiagramElements();
@@ -22,14 +25,26 @@ public class AlignLeftHandler extends AbstractHandler {
 			throw new RuntimeException("Unable to get diagram");
 		}
 
-		diagram.modify("Align Left", m -> {
-			double left = AgeHandlerUtil.getPrimaryDiagramElement(selectedDiagramElements).getX();
-			for (final DiagramElement de : selectedDiagramElements) {
-				m.setPosition(de, new Point(left, de.getY()));
+		final HorizontalAlignmentUtil alignmentUtil = new HorizontalAlignmentUtil();
+		final List<AlignmentElement> alignmentElements = selectedDiagramElements.stream()
+				.map(de -> new AlignmentElement(de, alignmentUtil.getAxisLocation()))
+				.collect(Collectors.toList());
+
+		diagram.modify("Align Top", m -> {
+			final AlignmentElement primaryAlignmentElement = Objects.requireNonNull(
+					AlignmentUtil.getPrimaryAlignmentElement(alignmentElements), "primary element must not be null");
+			for (int i = alignmentElements.size() - 2; i >= 0; i--) {
+				final AlignmentElement alignmentElement = alignmentElements.get(i);
+				alignmentUtil.alignElement(m, alignmentElement, primaryAlignmentElement.getDiagramRelativeLocation(),
+						0);
 			}
 		});
 
 		return null;
 	}
 
+	@Override
+	public void setEnabled(final Object evaluationContext) {
+		setBaseEnabled(AlignmentUtil.getEnabled(HorizontalAlignmentUtil.isValidDockArea));
+	}
 }
