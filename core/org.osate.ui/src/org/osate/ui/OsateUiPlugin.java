@@ -53,7 +53,6 @@ import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
-import org.osate.aadl2.modelsupport.resources.OsateResourceUtil;
 import org.osgi.framework.BundleContext;
 
 /**
@@ -136,35 +135,22 @@ public class OsateUiPlugin extends AbstractUIPlugin {
 
 	public static Shell getActiveWorkbenchShell() {
 		final Reference result = new Reference();
-		Display.getDefault().syncExec(new Runnable() {
-			@Override
-			public void run() {
-				final IWorkbenchWindow window = getDefault().getWorkbench().getActiveWorkbenchWindow();
-				result.value = (window != null ? window.getShell() : null);
-			}
+		Display.getDefault().syncExec(() -> {
+			final IWorkbenchWindow window = getDefault().getWorkbench().getActiveWorkbenchWindow();
+			result.value = (window != null ? window.getShell() : null);
 		});
 		return (Shell) result.value;
 	}
 
 	public static IWorkbenchWindow getActiveWorkbenchWindow() {
 		final Reference result = new Reference();
-		Display.getDefault().syncExec(new Runnable() {
-			@Override
-			public void run() {
-				result.value = getDefault().getWorkbench().getActiveWorkbenchWindow();
-			}
-		});
+		Display.getDefault().syncExec(() -> result.value = getDefault().getWorkbench().getActiveWorkbenchWindow());
 		return (IWorkbenchWindow) result.value;
 	}
 
 	public static IWorkbenchPage getActiveWorkbenchPage() {
 		final Reference result = new Reference();
-		Display.getDefault().syncExec(new Runnable() {
-			@Override
-			public void run() {
-				result.value = getDefault().getWorkbench().getActiveWorkbenchWindow().getActivePage();
-			}
-		});
+		Display.getDefault().syncExec(() -> result.value = getDefault().getWorkbench().getActiveWorkbenchWindow().getActivePage());
 		return (IWorkbenchPage) result.value;
 	}
 
@@ -204,6 +190,20 @@ public class OsateUiPlugin extends AbstractUIPlugin {
 			multi.add(aStatus);
 			log(multi);
 		}
+	}
+
+	/**
+	 * Create a status associated with this plugin.
+	 *
+	 * @param severity
+	 * @param aCode
+	 * @param aMessage
+	 * @param exception
+	 * @return A status configured with this plugin's id and the given
+	 *         parameters.
+	 */
+	public static IStatus createStatus(int severity, int aCode, String aMessage, Throwable exception) {
+		return new Status(severity, PLUGIN_ID, aCode, aMessage != null ? aMessage : "No message.", exception); //$NON-NLS-1$
 	}
 
 	public static boolean isDebug() {
