@@ -39,6 +39,7 @@ import java.net.URL;
 import java.text.MessageFormat;
 import java.util.MissingResourceException;
 import java.util.ResourceBundle;
+import java.util.concurrent.atomic.AtomicReference;
 
 import org.eclipse.core.resources.IWorkspace;
 import org.eclipse.core.resources.ResourcesPlugin;
@@ -129,29 +130,25 @@ public class OsateUiPlugin extends AbstractUIPlugin {
 		return ResourcesPlugin.getWorkspace();
 	}
 
-	private static class Reference {
-		public Object value = null;
-	}
-
 	public static Shell getActiveWorkbenchShell() {
-		final Reference result = new Reference();
+		final AtomicReference<Shell> result = new AtomicReference<>();
 		Display.getDefault().syncExec(() -> {
 			final IWorkbenchWindow window = getDefault().getWorkbench().getActiveWorkbenchWindow();
-			result.value = (window != null ? window.getShell() : null);
+			result.set(window != null ? window.getShell() : null);
 		});
-		return (Shell) result.value;
+		return result.get();
 	}
 
 	public static IWorkbenchWindow getActiveWorkbenchWindow() {
-		final Reference result = new Reference();
-		Display.getDefault().syncExec(() -> result.value = getDefault().getWorkbench().getActiveWorkbenchWindow());
-		return (IWorkbenchWindow) result.value;
+		final AtomicReference<IWorkbenchWindow> result = new AtomicReference<>();
+		Display.getDefault().syncExec(() -> result.set(getDefault().getWorkbench().getActiveWorkbenchWindow()));
+		return result.get();
 	}
 
 	public static IWorkbenchPage getActiveWorkbenchPage() {
-		final Reference result = new Reference();
-		Display.getDefault().syncExec(() -> result.value = getDefault().getWorkbench().getActiveWorkbenchWindow().getActivePage());
-		return (IWorkbenchPage) result.value;
+		final AtomicReference<IWorkbenchPage> result = new AtomicReference<>();
+		Display.getDefault().syncExec(() -> result.set(getDefault().getWorkbench().getActiveWorkbenchWindow().getActivePage()));
+		return result.get();
 	}
 
 	public static String getPluginId() {
