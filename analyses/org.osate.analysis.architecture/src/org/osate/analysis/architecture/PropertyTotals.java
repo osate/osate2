@@ -105,10 +105,28 @@ public/* final */class PropertyTotals extends AadlProcessingSwitchWithProgress {
 	 * {@link Result}:
 	 * <ul>
 	 *   <li>{@link Result#getSourceReference()}: Set to the {@code ComponentInstance} for this {@code Result}.
-	 *   <li>{@link Result#getValues()}: One {@code RealValue} is created.
+	 *   <li>{@link Result#getValues()}: Four {@code RealValue} are created.
 	 *   <ul>
-	 *     <li>{@link RealValue#getValue()}: The calculated weight of the component.
-	 *     <li>{@link RealValue#getUnit()}: Weight units are in {@code kg}.
+	 *     <li>Index {@code 0} is a {@code RealValue} for the calculated weight.
+	 *     <ul>
+	 *       <li>{@link RealValue#getValue()}: The calculated weight of the component.
+	 *       <li>{@link RealValue#getUnit()}: Weight units are in {@code kg}.
+	 *     </ul>
+	 *     <li>Index {@code 1} is a {@code RealValue} for the gross weight.
+	 *     <ul>
+	 *       <li>{@link RealValue#getValue()}: The value of the component's {@code SEI::GrossWeight} property.
+	 *       <li>{@link RealValue#getUnit()}: Weight units are in {@code kg}.
+	 *     </ul>
+	 *     <li>Index {@code 2} is a {@code RealValue} for the net weight.
+	 *     <ul>
+	 *       <li>{@link RealValue#getValue()}: The value of the component's {@code SEI::NetWeight} property.
+	 *       <li>{@link RealValue#getUnit()}: Weight units are in {@code kg}.
+	 *     </ul>
+	 *     <li>Index {@code 3} is a {@code RealValue} for the weight limit.
+	 *     <ul>
+	 *       <li>{@link RealValue#getValue()}: The value of the component's {@code SEI::WeightLimit} property.
+	 *       <li>{@link RealValue#getUnit()}: Weight units are in {@code kg}.
+	 *     </ul>
 	 *   </ul>
 	 *   <li>{@link Result#getDiagnostics()}: Zero or more {@code Diagnostic}s are created. Each one is a single issue
 	 *       discovered by the analysis to be reported to the user.
@@ -144,9 +162,9 @@ public/* final */class PropertyTotals extends AadlProcessingSwitchWithProgress {
 		Result result = ResultFactory.eINSTANCE.createResult();
 		result.setSourceReference(ci);
 
-		double net = GetProperties.getNetWeight(ci, 0.0);
+		final double net = GetProperties.getNetWeight(ci, 0.0);
 		double weight = 0.0;
-		double gross = GetProperties.getGrossWeight(ci, 0.0);
+		final double gross = GetProperties.getGrossWeight(ci, 0.0);
 		double sublimit = 0.0;
 		EList<ComponentInstance> cil = ci.getComponentInstances();
 		for (ComponentInstance subi : cil) {
@@ -208,7 +226,7 @@ public/* final */class PropertyTotals extends AadlProcessingSwitchWithProgress {
 				weight = gross;
 			}
 		}
-		double limit = GetProperties.getWeightLimit(ci, 0.0);
+		final double limit = GetProperties.getWeightLimit(ci, 0.0);
 		if (limit > 0.0) {
 			if (weight > limit) {
 				// problem
@@ -242,6 +260,9 @@ public/* final */class PropertyTotals extends AadlProcessingSwitchWithProgress {
 		}
 
 		ResultUtil.addRealValue(result, weight, "kg");
+		ResultUtil.addRealValue(result, gross, "kg");
+		ResultUtil.addRealValue(result, net, "kg");
+		ResultUtil.addRealValue(result, limit, "kg");
 		return result;
 	}
 
