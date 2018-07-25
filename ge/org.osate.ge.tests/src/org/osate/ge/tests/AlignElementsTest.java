@@ -16,10 +16,10 @@ import org.osate.aadl2.FeatureGroupType;
 import org.osate.ge.tests.AgeGefBot.AgeSWTBotGefEditor;
 
 public class AlignElementsTest {
-	private final String hw = "hardware";
-	private final String projectName = "demo_test";
 	private final AgeGefBot bot = new AgeGefBot();
-	private final String abstractImplName = ElementNames.abstractTypeName + ".impl";
+	private static final String hw = "hardware";
+	private static final String projectName = "demo_test";
+	private static final String abstractImplName = ElementNames.abstractTypeName + ".impl";
 
 	@Before
 	public void setUp() {
@@ -66,7 +66,7 @@ public class AlignElementsTest {
 		bot.clickToolbarButtonWithTooltip("Align Top");
 
 		// Close text editor
-		bot.closeTextEditor(hw);
+		bot.saveAndCloseEditor(hw + ".aadl");
 
 		final GraphitiShapeEditPart featureIn = (GraphitiShapeEditPart)bot.findEditPart(editor, ElementNames.abstractSubcomponentName,
 				ElementNames.abstractFeatureNewName).part();
@@ -124,13 +124,13 @@ public class AlignElementsTest {
 				ElementNames.abstractSubcomponentName, abstractImplName);
 	}
 
-	private Function<GraphitiShapeEditPart, Integer> xLocation = (gcep) -> gcep.getPictogramElement()
+	private static final Function<GraphitiShapeEditPart, Integer> xLocation = (gcep) -> gcep.getPictogramElement()
 			.getGraphicsAlgorithm().getX();
 
-	private Function<GraphitiShapeEditPart, Integer> yLocation = (gcep) -> gcep.getPictogramElement()
+	private static final Function<GraphitiShapeEditPart, Integer> yLocation = (gcep) -> gcep.getPictogramElement()
 			.getGraphicsAlgorithm().getY();
 
-	private int findDiagramRelativeLocation(final Function<GraphitiShapeEditPart, Integer> getLocation,
+	private static int findDiagramRelativeLocation(final Function<GraphitiShapeEditPart, Integer> getLocation,
 			GraphitiShapeEditPart gcep) {
 		int loc = getLocation.apply(gcep);
 		while (gcep.getParent() instanceof GraphitiShapeEditPart) {

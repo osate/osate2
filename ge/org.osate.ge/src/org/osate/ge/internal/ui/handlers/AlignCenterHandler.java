@@ -8,11 +8,12 @@ import org.eclipse.core.commands.ExecutionEvent;
 import org.eclipse.core.commands.ExecutionException;
 import org.osate.ge.internal.diagram.runtime.AgeDiagram;
 import org.osate.ge.internal.diagram.runtime.DiagramElement;
-import org.osate.ge.internal.ui.handlers.AlignmentUtil.AlignmentElement;
-import org.osate.ge.internal.ui.handlers.AlignmentUtil.HorizontalAlignmentUtil;
+import org.osate.ge.internal.ui.handlers.AlignmentHelper.AlignmentElement;
+import org.osate.ge.internal.ui.handlers.AlignmentHelper.HorizontalAxis;
 import org.osate.ge.internal.ui.util.UiUtil;
 
 public class AlignCenterHandler extends AbstractHandler {
+	private final static AlignmentHelper alignmentHelper = AlignmentHelper.create(new HorizontalAxis());
 
 	// This handler allows for alignment of selected diagram elements that are not docked top or bottom.
 	// Any selected element must not an ancestor of another selected element.
@@ -23,23 +24,21 @@ public class AlignCenterHandler extends AbstractHandler {
 		if (diagram == null) {
 			throw new RuntimeException("Unable to get diagram");
 		}
-		final HorizontalAlignmentUtil alignmentUtil = new HorizontalAlignmentUtil();
 
 		final List<AlignmentElement> alignmentElements = selectedDiagramElements.stream()
-				.map(de -> new AlignmentElement(de, alignmentUtil.getAxisLocation()))
+				.map(de -> new AlignmentElement(de, alignmentHelper.getAxisLocation()))
 				.collect(Collectors.toList());
 
 		diagram.modify("Align Center", m -> {
-			final AlignmentElement primaryAlignmentElement = AlignmentUtil
+			final AlignmentElement primaryAlignmentElement = AlignmentHelper
 					.getPrimaryAlignmentElement(alignmentElements);
 
 			// Location that elements will be aligned at
-			final double alignLocation = primaryAlignmentElement.getDiagramRelativeLocation()
+			final double alignLocation = primaryAlignmentElement.getAbsoluteLocation()
 					+ primaryAlignmentElement.getDiagramElement().getWidth() / 2;
 
-			for (int i = alignmentElements.size() - 2; i >= 0; i--) {
-				final AlignmentElement alignmentElement = alignmentElements.get(i);
-				alignmentUtil.alignElement(m, alignmentElement, alignLocation,
+			for (final AlignmentElement alignmentElement : alignmentElements) {
+				alignmentHelper.alignElement(m, alignmentElement, alignLocation,
 						alignmentElement.getDiagramElement().getWidth() / 2);
 			}
 		});
@@ -49,6 +48,6 @@ public class AlignCenterHandler extends AbstractHandler {
 
 	@Override
 	public void setEnabled(final Object evaluationContext) {
-		setBaseEnabled(AlignmentUtil.getEnabled(HorizontalAlignmentUtil.isValidDockArea));
+		setBaseEnabled(alignmentHelper.getEnabled());
 	}
 }

@@ -9,11 +9,12 @@ import org.eclipse.core.commands.ExecutionEvent;
 import org.eclipse.core.commands.ExecutionException;
 import org.osate.ge.internal.diagram.runtime.AgeDiagram;
 import org.osate.ge.internal.diagram.runtime.DiagramElement;
-import org.osate.ge.internal.ui.handlers.AlignmentUtil.AlignmentElement;
-import org.osate.ge.internal.ui.handlers.AlignmentUtil.HorizontalAlignmentUtil;
+import org.osate.ge.internal.ui.handlers.AlignmentHelper.AlignmentElement;
+import org.osate.ge.internal.ui.handlers.AlignmentHelper.HorizontalAxis;
 import org.osate.ge.internal.ui.util.UiUtil;
 
 public class AlignLeftHandler extends AbstractHandler {
+	private static final AlignmentHelper alignmentHelper = AlignmentHelper.create(new HorizontalAxis());
 
 	// This handler allows for alignment of selected diagram elements that are not docked left or right.
 	// Any selected element must not an ancestor of another selected element.
@@ -25,17 +26,15 @@ public class AlignLeftHandler extends AbstractHandler {
 			throw new RuntimeException("Unable to get diagram");
 		}
 
-		final HorizontalAlignmentUtil alignmentUtil = new HorizontalAlignmentUtil();
 		final List<AlignmentElement> alignmentElements = selectedDiagramElements.stream()
-				.map(de -> new AlignmentElement(de, alignmentUtil.getAxisLocation()))
+				.map(de -> new AlignmentElement(de, alignmentHelper.getAxisLocation()))
 				.collect(Collectors.toList());
 
 		diagram.modify("Align Left", m -> {
 			final AlignmentElement primaryAlignmentElement = Objects.requireNonNull(
-					AlignmentUtil.getPrimaryAlignmentElement(alignmentElements), "primary element must not be null");
-			for (int i = alignmentElements.size() - 2; i >= 0; i--) {
-				final AlignmentElement alignmentElement = alignmentElements.get(i);
-				alignmentUtil.alignElement(m, alignmentElement, primaryAlignmentElement.getDiagramRelativeLocation(),
+					AlignmentHelper.getPrimaryAlignmentElement(alignmentElements), "primary element must not be null");
+			for (final AlignmentElement alignmentElement : alignmentElements) {
+				alignmentHelper.alignElement(m, alignmentElement, primaryAlignmentElement.getAbsoluteLocation(),
 						0);
 			}
 		});
@@ -45,6 +44,6 @@ public class AlignLeftHandler extends AbstractHandler {
 
 	@Override
 	public void setEnabled(final Object evaluationContext) {
-		setBaseEnabled(AlignmentUtil.getEnabled(HorizontalAlignmentUtil.isValidDockArea));
+		setBaseEnabled(alignmentHelper.getEnabled());
 	}
 }

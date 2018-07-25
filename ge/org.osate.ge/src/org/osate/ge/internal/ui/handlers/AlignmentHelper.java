@@ -1,7 +1,6 @@
 package org.osate.ge.internal.ui.handlers;
 
 import java.util.List;
-import java.util.Objects;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
@@ -13,16 +12,19 @@ import org.osate.ge.internal.diagram.runtime.DockArea;
 import org.osate.ge.internal.query.Queryable;
 
 
-class AlignmentUtil {
-	private AxisAlignmentUtil axisAlignmentUtil;
+class AlignmentHelper {
+	private final Axis axis;
 
-	private void setAxisAlignmentUtil(final AxisAlignmentUtil axisAlignmentUtil) {
-		this.axisAlignmentUtil = axisAlignmentUtil;
+	private AlignmentHelper(final Axis axis) {
+		this.axis = axis;
+	}
+
+	public static AlignmentHelper create(final Axis axis) {
+		return new AlignmentHelper(axis);
 	}
 
 	public void alignElement(final DiagramModification m, AlignmentElement alignmentElement, final double alignLocation,
 			final double elementOffset) {
-		Objects.requireNonNull(axisAlignmentUtil, "axis alignment util must not be null");
 
 		// Alignment location for element relative to diagram
 		double newLocation = alignLocation - elementOffset;
@@ -30,25 +32,25 @@ class AlignmentUtil {
 		// Check if new shape location fits within parent(s)
 		while (alignmentElement.getDiagramElement().getParent() instanceof DiagramElement) {
 			final DiagramElement parentDe = (DiagramElement) alignmentElement.getDiagramElement().getParent();
-			final double parentDiagramRelativeLocation = axisAlignmentUtil.getParentDiagramRelativeLocation(alignmentElement);
+			final double parentAbsoluteLocation = axis.getParentAbsoluteLocation(alignmentElement);
 
 			// If new location is to the left of parent for horizontal alignment or above parent for vertical alignment,
 			// parent will have to shift and resize
-			if (parentDiagramRelativeLocation > newLocation) {
+			if (parentAbsoluteLocation > newLocation) {
 
 				// Amount that the children need to shift to stay in same place after parent resize
-				final double childOffset = parentDiagramRelativeLocation - newLocation;
+				final double childOffset = parentAbsoluteLocation - newLocation;
 				shiftChildren(m, parentDe, childOffset);
 
 				// Move shape to top or left edge of parent depending on axis alignment
 				final DiagramElement de = alignmentElement.getDiagramElement();
-				setPositionAndDockArea(m, de, axisAlignmentUtil.getEdgeLocation(de));
+				setPositionAndDockArea(m, de, axis.getEdgeLocation(de));
 
 				// Set parent size to accommodate for the new alignment element location
-				m.setSize(parentDe, axisAlignmentUtil.getParentSize(parentDe, childOffset));
+				m.setSize(parentDe, axis.getParentSize(parentDe, childOffset));
 
 				// The element ancestor that will be moving to the alignment location
-				alignmentElement = new AlignmentElement(parentDe, parentDiagramRelativeLocation);
+				alignmentElement = new AlignmentElement(parentDe, parentAbsoluteLocation);
 			} else {
 				break;
 			}
@@ -58,8 +60,8 @@ class AlignmentUtil {
 		if (de.getParent() instanceof DiagramElement) {
 
 			// Set location relative to parent
-			newLocation = axisAlignmentUtil.getLocationRelativeToParent(de,
-					alignmentElement.getDiagramRelativeLocation() - alignLocation) - elementOffset;
+			newLocation = axis.getLocationRelativeToParent(de,
+					alignmentElement.getAbsoluteLocation() - alignLocation) - elementOffset;
 
 			// Ports cannot overlap, check if any collide and shift if necessary
 			if (de.getDockArea() != null) {
@@ -68,7 +70,7 @@ class AlignmentUtil {
 		}
 
 		// Set the element new location
-		setPositionAndDockArea(m, de, axisAlignmentUtil.getAlignmentPosition(de, newLocation));
+		setPositionAndDockArea(m, de, axis.getAlignmentPosition(de, newLocation));
 	}
 
 	private void shiftCollidingPorts(final DiagramModification m, final DiagramElement de, final double newLocation) {
@@ -77,11 +79,11 @@ class AlignmentUtil {
 			if (q instanceof DiagramElement && ((DiagramElement) q).getDockArea() == de.getDockArea()) {
 				final DiagramElement dockedChild = (DiagramElement) q;
 
-				if (axisAlignmentUtil.isPortCollision(dockedChild, newLocation)) {
+				if (axis.isPortCollision(dockedChild, newLocation)) {
 
 					// Adjust colliding port
 					setPositionAndDockArea(m, dockedChild,
-							axisAlignmentUtil.getNewPortLocation(dockedChild, newLocation + 1));
+							axis.getNewPortLocation(dockedChild, newLocation + 1));
 					break;
 				}
 			}
@@ -99,16 +101,16 @@ class AlignmentUtil {
 	// Shift eligible children
 	private void shiftChildren(final DiagramModification m, final DiagramElement parentDe, final double childOffset) {
 		for (final Queryable q : parentDe.getChildren()) {
-			if (q instanceof DiagramElement && axisAlignmentUtil.isShiftable((DiagramElement) q)) {
+			if (q instanceof DiagramElement && axis.isValidDockArea().apply(((DiagramElement) q).getDockArea())) {
 				final DiagramElement childDe = (DiagramElement) q;
-				setPositionAndDockArea(m, childDe, axisAlignmentUtil.getShiftPostion(childDe, childOffset));
+				setPositionAndDockArea(m, childDe, axis.getShiftPostion(childDe, childOffset));
 			}
 		}
 	}
 
 	// Any selected element must not be a descendant of any other selected element.
 	// Must be docked to appropriate area
-	static boolean getEnabled(final Function<DockArea, Boolean> isValidDockArea) {
+	boolean getEnabled() {
 		final List<DiagramElement> selectedElements = AgeHandlerUtil.getSelectedDiagramElements();
 
 		// More than one diagram elements must be selected
@@ -117,7 +119,7 @@ class AlignmentUtil {
 		}
 
 		for (final DiagramElement de : selectedElements) {
-			if (!isValidDockArea.apply(de.getDockArea()) || isAncestorSelected(de, selectedElements)) {
+			if (!axis.isValidDockArea().apply(de.getDockArea()) || isAncestorSelected(de, selectedElements)) {
 				return false;
 			}
 		}
@@ -179,27 +181,26 @@ class AlignmentUtil {
 
 	static class AlignmentElement {
 		private final DiagramElement de;
-		private double relativeLocation; // Element's location relative to the diagram
+		private double absoluteLocation; // Element's location relative to the diagram
+
+		public AlignmentElement(final DiagramElement de, final double absoluteLocation) {
+			this.de = de;
+			this.absoluteLocation = absoluteLocation;
+		}
 
 		public AlignmentElement(final DiagramElement de, final Function<DiagramElement, Double> getAxisValue) {
-			this.de = de;
-			setDiagramRelativeLocation(de, getAxisValue);
+			this(de, getDiagramAbsoluteLocation(de, getAxisValue));
 		}
 
-		public AlignmentElement(final DiagramElement de, final double relativeLocation) {
-			this.de = de;
-			this.relativeLocation = relativeLocation;
-		}
-
-		public double getDiagramRelativeLocation() {
-			return relativeLocation;
+		public double getAbsoluteLocation() {
+			return absoluteLocation;
 		}
 
 		public DiagramElement getDiagramElement() {
 			return de;
 		}
 
-		private void setDiagramRelativeLocation(DiagramElement de,
+		private static double getDiagramAbsoluteLocation(DiagramElement de,
 				final Function<DiagramElement, Double> getLocation) {
 			double loc = getLocation.apply(de);
 			while (de.getParent() instanceof DiagramElement) {
@@ -207,18 +208,21 @@ class AlignmentUtil {
 				loc += getLocation.apply(de);
 			}
 
-			this.relativeLocation = loc;
+			return loc;
 		}
 	}
 
-	private interface AxisAlignmentUtil {
+	/**
+	 * Helper methods for aligning elements on an axis
+	 */
+	private interface Axis {
 		Dimension getParentSize(final DiagramElement de, final double offset);
 
 		Point getShiftPostion(final DiagramElement de, final double offset);
 
 		double getLocationRelativeToParent(final DiagramElement de, final double alignLocation);
 
-		double getParentDiagramRelativeLocation(final AlignmentElement alignmentElement);
+		double getParentAbsoluteLocation(final AlignmentElement alignmentElement);
 
 		Point getEdgeLocation(final DiagramElement de);
 
@@ -226,18 +230,17 @@ class AlignmentUtil {
 
 		Function<DiagramElement, Double> getAxisLocation();
 
-		boolean isPortCollision(final DiagramElement dockedChild, final double relativeLocation);
+		boolean isPortCollision(final DiagramElement dockedChild, final double location);
 
-		Point getNewPortLocation(final DiagramElement dockedChild, final double relativeLocation);
+		Point getNewPortLocation(final DiagramElement dockedChild, final double location);
 
-		boolean isShiftable(final DiagramElement de);
+		Function<DockArea, Boolean> isValidDockArea();
 	}
 
-	static class HorizontalAlignmentUtil extends AlignmentUtil implements AxisAlignmentUtil {
-		public HorizontalAlignmentUtil() {
-			super.setAxisAlignmentUtil(this);
-		}
-
+	/**
+	 * Horizontal axis alignment methods
+	 */
+	static class HorizontalAxis implements Axis {
 		@Override
 		public Dimension getParentSize(final DiagramElement de, final double offset) {
 			return new Dimension(de.getWidth() + offset, de.getHeight());
@@ -254,8 +257,8 @@ class AlignmentUtil {
 		}
 
 		@Override
-		public double getParentDiagramRelativeLocation(final AlignmentElement alignmentElement) {
-			return alignmentElement.getDiagramRelativeLocation() - alignmentElement.getDiagramElement().getX();
+		public double getParentAbsoluteLocation(final AlignmentElement alignmentElement) {
+			return alignmentElement.getAbsoluteLocation() - alignmentElement.getDiagramElement().getX();
 		}
 
 		@Override
@@ -274,31 +277,26 @@ class AlignmentUtil {
 		}
 
 		@Override
-		public Point getNewPortLocation(final DiagramElement dockedChild, final double relativeLocation) {
-			return new Point(relativeLocation + 1, dockedChild.getY());
+		public Point getNewPortLocation(final DiagramElement dockedChild, final double location) {
+			return new Point(location + 1, dockedChild.getY());
 		}
 
 		@Override
-		public boolean isShiftable(final DiagramElement de) {
-			return isValidDockArea.apply(de.getDockArea());
+		public boolean isPortCollision(final DiagramElement dockedChild, final double location) {
+			return location >= dockedChild.getX()
+					&& location <= dockedChild.getX() + dockedChild.getWidth();
 		}
 
 		@Override
-		public boolean isPortCollision(final DiagramElement dockedChild, final double relativeLocation) {
-			return relativeLocation >= dockedChild.getX()
-					&& relativeLocation <= dockedChild.getX() + dockedChild.getWidth();
+		public Function<DockArea, Boolean> isValidDockArea() {
+			return (dockArea) -> dockArea == null || dockArea == DockArea.TOP || dockArea == DockArea.BOTTOM;
 		}
-
-		public static Function<DockArea, Boolean> isValidDockArea = (dockArea) -> {
-			return dockArea == null || dockArea == DockArea.TOP || dockArea == DockArea.BOTTOM;
-		};
 	}
 
-	static class VerticalAlignmentUtil extends AlignmentUtil implements AxisAlignmentUtil {
-		public VerticalAlignmentUtil() {
-			super.setAxisAlignmentUtil(this);
-		}
-
+	/**
+	 * Vertical axis alignment methods
+	 */
+	static class VerticalAxis implements Axis {
 		@Override
 		public Dimension getParentSize(final DiagramElement de, final double offset) {
 			return new Dimension(de.getWidth(), de.getHeight() + offset);
@@ -315,8 +313,8 @@ class AlignmentUtil {
 		}
 
 		@Override
-		public double getParentDiagramRelativeLocation(final AlignmentElement alignmentElement) {
-			return alignmentElement.getDiagramRelativeLocation() - alignmentElement.getDiagramElement().getY();
+		public double getParentAbsoluteLocation(final AlignmentElement alignmentElement) {
+			return alignmentElement.getAbsoluteLocation() - alignmentElement.getDiagramElement().getY();
 		}
 
 		@Override
@@ -335,23 +333,23 @@ class AlignmentUtil {
 		}
 
 		@Override
-		public Point getNewPortLocation(final DiagramElement dockedChild, final double relativeLocation) {
-			return new Point(dockedChild.getX(), relativeLocation);
+		public Point getNewPortLocation(final DiagramElement dockedChild, final double location) {
+			return new Point(dockedChild.getX(), location);
 		}
 
 		@Override
-		public boolean isShiftable(final DiagramElement de) {
-			return isValidDockArea.apply(de.getDockArea());
+		public boolean isPortCollision(final DiagramElement dockedChild, final double location) {
+			return location >= dockedChild.getY()
+					&& location <= dockedChild.getY() + dockedChild.getHeight();
 		}
 
 		@Override
-		public boolean isPortCollision(final DiagramElement dockedChild, final double relativeLocation) {
-			return relativeLocation >= dockedChild.getY()
-					&& relativeLocation <= dockedChild.getY() + dockedChild.getHeight();
+		public Function<DockArea, Boolean> isValidDockArea() {
+			return (dockArea) -> dockArea == null || dockArea == DockArea.LEFT || dockArea == DockArea.RIGHT;
 		}
+	}
 
-		public static Function<DockArea, Boolean> isValidDockArea = (dockArea) -> {
-			return dockArea == null || dockArea == DockArea.LEFT || dockArea == DockArea.RIGHT;
-		};
+	public Function<DiagramElement, Double> getAxisLocation() {
+		return axis.getAxisLocation();
 	}
 }
