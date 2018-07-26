@@ -1931,6 +1931,12 @@
              class="org.osate.ge.internal.businessObjectHandlers.ComponentInstanceHandler">
        </handler>
        <handler
+       		 class="org.osate.ge.internal.businessObjectHandlers.FlowSourceSinkSpecificationInstanceHandler">
+       </handler>
+       <handler
+       		 class="org.osate.ge.internal.businessObjectHandlers.FlowPathSpecificationInstanceHandler">
+       </handler>
+       <handler
              class="org.osate.ge.internal.businessObjectHandlers.FeatureInstanceHandler">
        </handler>
        <handler

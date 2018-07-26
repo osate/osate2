@@ -411,8 +411,9 @@ public class AadlBusinessObjectProvider {
 			}
 		}
 
-		return Stream.concat(Stream.concat(ci.getComponentInstances().stream(),
+		return Stream.concat(ci.getFlowSpecifications().stream(),
+				Stream.concat(Stream.concat(ci.getComponentInstances().stream(),
 				ci.getFeatureInstances().stream()),
-				connectionReferenceStreamBuilder.build());
+						connectionReferenceStreamBuilder.build()));
 	}
 }
