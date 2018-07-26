@@ -29,9 +29,9 @@ import org.osate.ge.services.QueryService;
 public class FlowSourceSinkSpecificationInstanceHandler extends FlowSpecificationHandler {
 	private static final StandaloneQuery srcQuery = StandaloneQuery
 			.create((rootQuery) -> rootQuery.parent()
-			.descendantsByBusinessObjectsRelativeReference(
-					(FlowSpecificationInstance fsi) -> getBusinessObjectsPathToFlowEnd(fsi))
-			.first());
+					.descendantsByBusinessObjectsRelativeReference(
+							(FlowSpecificationInstance fsi) -> getBusinessObjectsPathToFlowEnd(fsi))
+					.first());
 
 	private static final StandaloneQuery partialSrcQuery = StandaloneQuery
 			.create((rootQuery) -> rootQuery.parent()
@@ -48,10 +48,10 @@ public class FlowSourceSinkSpecificationInstanceHandler extends FlowSpecificatio
 
 		if (fs.getKind() == FlowKind.SOURCE) {
 			flowEnd = fs.getAllOutEnd();
-			addFeatureInstance = (f) -> (f.getDestination());
+			addFeatureInstance = (fsInstance) -> (fsInstance.getDestination());
 		} else {
 			flowEnd = fs.getAllInEnd();
-			addFeatureInstance = (f) -> (f.getSource());
+			addFeatureInstance = (fsInstance) -> (fsInstance.getSource());
 		}
 
 		return getBusinessObjectsPathToFlowEnd(fsi, flowEnd, addFeatureInstance);

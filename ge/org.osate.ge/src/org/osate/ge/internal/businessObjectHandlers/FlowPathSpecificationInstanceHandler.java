@@ -22,24 +22,24 @@ public class FlowPathSpecificationInstanceHandler extends FlowSpecificationHandl
 	private static final StandaloneQuery srcQuery = StandaloneQuery
 			.create((rootQuery) -> rootQuery.parent().descendantsByBusinessObjectsRelativeReference(
 					(FlowSpecificationInstance fsi) -> getBusinessObjectsPathToFlowEnd(fsi,
-							fsi.getFlowSpecification().getAllInEnd(), (f) -> (f.getDestination())))
+							fsi.getFlowSpecification().getAllInEnd(), (fsInstance) -> (fsInstance.getDestination())))
 					.first());
 
 	private static final StandaloneQuery partialSrcQuery = StandaloneQuery
 			.create((rootQuery) -> rootQuery.parent().descendantsByBusinessObjectsRelativeReference(
 					(FlowSpecificationInstance fsi) -> getBusinessObjectsPathToFlowEnd(fsi,
-							fsi.getFlowSpecification().getAllInEnd(), (f) -> (f.getDestination())),
+							fsi.getFlowSpecification().getAllInEnd(), (fsInstance) -> (fsInstance.getDestination())),
 					1).first());
 
 	private static final StandaloneQuery dstQuery = StandaloneQuery
 			.create((rootQuery) -> rootQuery.parent().descendantsByBusinessObjectsRelativeReference(
 					(FlowSpecificationInstance fsi) -> getBusinessObjectsPathToFlowEnd(fsi,
-							fsi.getFlowSpecification().getAllOutEnd(), (f) -> (f.getSource())))
+							fsi.getFlowSpecification().getAllOutEnd(), (fsInstance) -> (fsInstance.getSource())))
 					.first());
 	private static final StandaloneQuery partialDstQuery = StandaloneQuery
 			.create((rootQuery) -> rootQuery.parent().descendantsByBusinessObjectsRelativeReference(
 					(FlowSpecificationInstance fsi) -> getBusinessObjectsPathToFlowEnd(fsi,
-							fsi.getFlowSpecification().getAllOutEnd(), (f) -> (f.getSource())),
+							fsi.getFlowSpecification().getAllOutEnd(), (fsInstance) -> (fsInstance.getSource())),
 					1).first());
 
 	@IsApplicable
