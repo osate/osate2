@@ -51,7 +51,6 @@ public class FlowPathSpecificationInstanceHandler extends FlowSpecificationHandl
 	public GraphicalConfiguration getGraphicalConfiguration(
 			final @Named(Names.BUSINESS_OBJECT) FlowSpecificationInstance fsi,
 			final @Named(Names.BUSINESS_OBJECT_CONTEXT) BusinessObjectContext boc, final QueryService queryService) {
-		System.err.println(fsi + " fsiPath");
 		BusinessObjectContext src = queryService.getFirstResult(srcQuery, boc);
 		BusinessObjectContext dst = queryService.getFirstResult(dstQuery, boc);
 		boolean partial = false;
