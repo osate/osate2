@@ -223,10 +223,21 @@ public class FlowLatencyAnalysisSwitch extends AadlProcessingSwitchWithProgress 
 						double partitionLatency = FlowLatencyUtil.getPartitionPeriod(firstPartition);
 						List<ARINC653ScheduleWindow> schedule = FlowLatencyUtil.getModuleSchedule(firstPartition);
 						double partitionDuration = FlowLatencyUtil.getPartitionDuration(firstPartition, schedule);
+						LatencyContributorComponent partitionLatencyContributor = new LatencyContributorComponent(
+								firstPartition, report.isMajorFrameDelay());
+						if (!FlowLatencyUtil.isInSchedule(firstPartition, schedule)) {
+							partitionLatencyContributor
+									.reportWarning("Partition not found in ARINC653 schedule of processor "
+											+ FlowLatencyUtil.getModule(firstPartition).getName());
+						}
 						if (partitionDuration > 0) {
-							LatencyContributorComponent partitionLatencyContributor = new LatencyContributorComponent(
-									firstPartition, report.isMajorFrameDelay());
-							partitionLatencyContributor.setSamplingPeriod(partitionLatency);
+							if (partitionLatency == 0) {
+								partitionLatencyContributor.setSamplingPeriod(partitionDuration);
+								partitionLatencyContributor
+										.reportInfo("No partition period/rate. Using partition duration");
+							} else {
+								partitionLatencyContributor.setSamplingPeriod(partitionLatency);
+							}
 							double frameOffset = FlowLatencyUtil.getPartitionFrameOffset(firstPartition, schedule);
 							partitionLatencyContributor.setPartitionOffset(frameOffset);
 							partitionLatencyContributor.setPartitionDuration(partitionDuration);
@@ -234,8 +245,9 @@ public class FlowLatencyAnalysisSwitch extends AadlProcessingSwitchWithProgress 
 							partitionLatencyContributor.setBestCaseMethod(LatencyContributorMethod.PARTITION_SCHEDULE);
 							entry.addContributor(partitionLatencyContributor);
 						} else {
-							LatencyContributorComponent partitionLatencyContributor = new LatencyContributorComponent(
-									firstPartition, report.isMajorFrameDelay());
+							if (partitionLatency == 0) {
+								partitionLatencyContributor.reportInfo("No partition period/rate. Using zero");
+							}
 							partitionLatencyContributor.setSamplingPeriod(partitionLatency);
 							partitionLatencyContributor.setWorstCaseMethod(LatencyContributorMethod.PARTITION_FRAME);
 							partitionLatencyContributor.setBestCaseMethod(LatencyContributorMethod.PARTITION_FRAME);
@@ -256,9 +268,13 @@ public class FlowLatencyAnalysisSwitch extends AadlProcessingSwitchWithProgress 
 				double partitionLatency = FlowLatencyUtil.getPartitionPeriod(firstPartition);
 				List<ARINC653ScheduleWindow> schedule = FlowLatencyUtil.getModuleSchedule(firstPartition);
 				double partitionDuration = FlowLatencyUtil.getPartitionDuration(firstPartition, schedule);
+				LatencyContributorComponent platencyContributor = new LatencyContributorComponent(firstPartition,
+						report.isMajorFrameDelay());
+				if (!FlowLatencyUtil.isInSchedule(firstPartition, schedule)) {
+					platencyContributor.reportWarning("Partition not found in ARINC653 schedule of processor "
+							+ FlowLatencyUtil.getModule(firstPartition).getName());
+				}
 				if (partitionDuration > 0) {
-					LatencyContributorComponent platencyContributor = new LatencyContributorComponent(firstPartition,
-							report.isMajorFrameDelay());
 					platencyContributor.setSamplingPeriod(partitionLatency);
 					double frameOffset = FlowLatencyUtil.getPartitionFrameOffset(firstPartition, schedule);
 					platencyContributor.setPartitionOffset(frameOffset);
@@ -267,8 +283,6 @@ public class FlowLatencyAnalysisSwitch extends AadlProcessingSwitchWithProgress 
 					platencyContributor.setBestCaseMethod(LatencyContributorMethod.PARTITION_SCHEDULE);
 					entry.addContributor(platencyContributor);
 				} else {
-					LatencyContributorComponent platencyContributor = new LatencyContributorComponent(firstPartition,
-							report.isMajorFrameDelay());
 					platencyContributor.setSamplingPeriod(partitionLatency);
 					platencyContributor.setWorstCaseMethod(LatencyContributorMethod.PARTITION_FRAME);
 					platencyContributor.setBestCaseMethod(LatencyContributorMethod.PARTITION_FRAME);
@@ -416,9 +430,18 @@ public class FlowLatencyAnalysisSwitch extends AadlProcessingSwitchWithProgress 
 			if (partitionDuration > 0) {
 				LatencyContributor ioLatencyContributor = new LatencyContributorComponent(srcPartition,
 						report.isMajorFrameDelay());
+				if (!FlowLatencyUtil.isInSchedule(srcPartition, schedule)) {
+					ioLatencyContributor.reportWarning("Partition not found in ARINC653 schedule of processor "
+							+ FlowLatencyUtil.getModule(srcPartition).getName());
+				}
 				ioLatencyContributor.setWorstCaseMethod(LatencyContributorMethod.PARTITION_OUTPUT);
 				ioLatencyContributor.setBestCaseMethod(LatencyContributorMethod.PARTITION_OUTPUT);
-				ioLatencyContributor.setSamplingPeriod(partitionLatency);
+				if (partitionLatency == 0) {
+					ioLatencyContributor.setSamplingPeriod(partitionDuration);
+					ioLatencyContributor.reportInfo("No partition period/rate. Using partition duration");
+				} else {
+					ioLatencyContributor.setSamplingPeriod(partitionLatency);
+				}
 				double frameOffset = FlowLatencyUtil.getPartitionFrameOffset(srcPartition, schedule);
 				ioLatencyContributor.setPartitionOffset(frameOffset);
 				ioLatencyContributor.setPartitionDuration(partitionDuration);
@@ -496,19 +519,26 @@ public class FlowLatencyAnalysisSwitch extends AadlProcessingSwitchWithProgress 
 			double partitionLatency = FlowLatencyUtil.getPartitionPeriod(dstPartition);
 			List<ARINC653ScheduleWindow> schedule = FlowLatencyUtil.getModuleSchedule(dstPartition);
 			double partitionDuration = FlowLatencyUtil.getPartitionDuration(dstPartition, schedule);
+			LatencyContributorComponent platencyContributor = new LatencyContributorComponent(dstPartition,
+					report.isMajorFrameDelay());
+			if (!FlowLatencyUtil.isInSchedule(dstPartition, schedule)) {
+				platencyContributor.reportWarning("Partition not found in ARINC653 schedule of processor "
+						+ FlowLatencyUtil.getModule(dstPartition).getName());
+			}
 			if (partitionDuration > 0) {
-				LatencyContributorComponent platencyContributor = new LatencyContributorComponent(dstPartition,
-						report.isMajorFrameDelay());
-				platencyContributor.setSamplingPeriod(partitionLatency);
 				double frameOffset = FlowLatencyUtil.getPartitionFrameOffset(dstPartition, schedule);
 				platencyContributor.setPartitionOffset(frameOffset);
+				if (partitionLatency == 0) {
+					platencyContributor.setSamplingPeriod(partitionDuration);
+					platencyContributor.reportInfo("No partition period. Using partition duration");
+				} else {
+					platencyContributor.setSamplingPeriod(partitionLatency);
+				}
 				platencyContributor.setPartitionDuration(partitionDuration);
 				platencyContributor.setWorstCaseMethod(LatencyContributorMethod.PARTITION_SCHEDULE);
 				platencyContributor.setBestCaseMethod(LatencyContributorMethod.PARTITION_SCHEDULE);
 				entry.addContributor(platencyContributor);
 			} else {
-				LatencyContributorComponent platencyContributor = new LatencyContributorComponent(dstPartition,
-						report.isMajorFrameDelay());
 				platencyContributor.setSamplingPeriod(partitionLatency);
 				platencyContributor.setWorstCaseMethod(LatencyContributorMethod.PARTITION_FRAME);
 				platencyContributor.setBestCaseMethod(LatencyContributorMethod.PARTITION_FRAME);
