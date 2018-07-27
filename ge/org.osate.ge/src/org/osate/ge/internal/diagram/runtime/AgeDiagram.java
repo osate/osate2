@@ -329,12 +329,8 @@ public class AgeDiagram implements DiagramNode, ModifiableDiagramElementContaine
 		}
 
 		@Override
-		public void setPosition(final DiagramElement e, final Point value) {
-			if (value == null && e.getPosition() == null) {
-				return;
-			}
-
-			if (value == null || !value.equals(e.getPosition())) {
+		public void setPosition(final DiagramElement e, final Point value, final boolean updateDockArea) {
+			if (!Objects.equals(e.getPosition(), value)) {
 				// Determine the different between X and Y
 				final Point delta = value == null ? null : new Point(value.x - e.getX(), value.y - e.getY());
 
@@ -345,11 +341,13 @@ public class AgeDiagram implements DiagramNode, ModifiableDiagramElementContaine
 				// Don't perform settings triggered by setting the position during undo or redo. Such changes occur in an order that will result in erroneous
 				// values. If a value was changed during the original action, it will have its own entry in the change list.
 				if (!inUndoOrRedo && delta != null) {
-					// Update the dock area based on the position
-					final DockArea currentDockArea = e.getDockArea();
-					if (currentDockArea != null) {
-						if (currentDockArea != DockArea.GROUP) {
-							setDockArea(e, calculateDockArea(e));
+					if (updateDockArea) {
+						// Update the dock area based on the position
+						final DockArea currentDockArea = e.getDockArea();
+						if (currentDockArea != null) {
+							if (currentDockArea != DockArea.GROUP) {
+								setDockArea(e, calculateDockArea(e));
+							}
 						}
 					}
 

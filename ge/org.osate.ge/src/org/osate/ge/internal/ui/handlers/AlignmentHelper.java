@@ -44,7 +44,7 @@ class AlignmentHelper {
 
 				// Move shape to top or left edge of parent depending on axis alignment
 				final DiagramElement de = alignmentElement.getDiagramElement();
-				setPositionAndDockArea(m, de, axis.getEdgeLocation(de));
+				m.setPosition(de, axis.getEdgeLocation(de), false);
 
 				// Set parent size to accommodate for the new alignment element location
 				m.setSize(parentDe, axis.getParentSize(parentDe, childOffset));
@@ -70,7 +70,7 @@ class AlignmentHelper {
 		}
 
 		// Set the element new location
-		setPositionAndDockArea(m, de, axis.getAlignmentPosition(de, newLocation));
+		m.setPosition(de, axis.getAlignmentPosition(de, newLocation), false);
 	}
 
 	private void shiftCollidingPorts(final DiagramModification m, final DiagramElement de, final double newLocation) {
@@ -80,22 +80,12 @@ class AlignmentHelper {
 				final DiagramElement dockedChild = (DiagramElement) q;
 
 				if (axis.isPortCollision(dockedChild, newLocation)) {
-
 					// Adjust colliding port
-					setPositionAndDockArea(m, dockedChild,
-							axis.getNewPortLocation(dockedChild, newLocation + 1));
+					m.setPosition(dockedChild, axis.getNewPortLocation(dockedChild, newLocation + 1), false);
 					break;
 				}
 			}
 		}
-	}
-
-	// TODO Philip: Change set position to not change docked area. Example: When port is docked top and moves to left edge,
-	// it auto switches to dock left
-	private static void setPositionAndDockArea(final DiagramModification m, final DiagramElement de, final Point position) {
-		final DockArea dockArea = de.getDockArea();
-		m.setPosition(de, position);
-		m.setDockArea(de, dockArea);
 	}
 
 	// Shift eligible children
@@ -103,7 +93,7 @@ class AlignmentHelper {
 		for (final Queryable q : parentDe.getChildren()) {
 			if (q instanceof DiagramElement && axis.isValidDockArea().apply(((DiagramElement) q).getDockArea())) {
 				final DiagramElement childDe = (DiagramElement) q;
-				setPositionAndDockArea(m, childDe, axis.getShiftPostion(childDe, childOffset));
+				m.setPosition(childDe, axis.getShiftPostion(childDe, childOffset), false);
 			}
 		}
 	}
