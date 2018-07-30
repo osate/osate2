@@ -212,7 +212,7 @@ public class OsateResourceUtil {
 		IWorkspaceRoot myWorkspaceRoot = ResourcesPlugin.getWorkspace().getRoot();
 		if (resourceURI.isPlatform()) {
 			// FIXME JD
-			// Fixes bug 162, see https://github.com/osate/osate2-core/issues/162
+			// Fixes bug 162, see https://github.com/osate/osate2/issues/162
 			return myWorkspaceRoot.getFile(new Path(null, resourceURI.toPlatformString(true)));
 		} else if (resourceURI.isFile()) {
 			try {
