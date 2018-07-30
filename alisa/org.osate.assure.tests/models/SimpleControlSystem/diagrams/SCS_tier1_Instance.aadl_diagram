@@ -1,0 +1,287 @@
+<?xml version="1.0" encoding="ASCII"?>
+<diagram:Diagram xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:diagram="http://osate.org/diagram" formatVersion="5">
+  <element id="0" manual="true">
+    <element id="29">
+      <element id="32" dockArea="left">
+        <bo>
+          <seg>org.osate.ge.diagrams.instance</seg>
+          <seg>feature_instance</seg>
+          <seg>actuatorcmd</seg>
+        </bo>
+        <position y="60.0"/>
+        <contentFilters/>
+      </element>
+      <element id="30" dockArea="left">
+        <bo>
+          <seg>org.osate.ge.diagrams.instance</seg>
+          <seg>feature_instance</seg>
+          <seg>canbusaccess</seg>
+        </bo>
+        <position y="10.0"/>
+        <contentFilters/>
+      </element>
+      <element id="31" dockArea="left">
+        <bo>
+          <seg>org.osate.ge.diagrams.instance</seg>
+          <seg>feature_instance</seg>
+          <seg>power</seg>
+        </bo>
+        <position y="110.0"/>
+        <contentFilters/>
+      </element>
+      <bo>
+        <seg>org.osate.ge.diagrams.instance</seg>
+        <seg>component_instance</seg>
+        <seg>actuator</seg>
+      </bo>
+      <position x="767.0" y="218.0"/>
+      <size width="331.0" height="160.0"/>
+      <contentFilters>
+        <filter>features</filter>
+        <filter>connections</filter>
+      </contentFilters>
+    </element>
+    <element id="12">
+      <element id="16" dockArea="right">
+        <bo>
+          <seg>org.osate.ge.diagrams.instance</seg>
+          <seg>feature_instance</seg>
+          <seg>actuatorout</seg>
+        </bo>
+        <position x="210.0" y="110.0"/>
+        <contentFilters/>
+      </element>
+      <element id="14" dockArea="right">
+        <bo>
+          <seg>org.osate.ge.diagrams.instance</seg>
+          <seg>feature_instance</seg>
+          <seg>canbusaccess</seg>
+        </bo>
+        <position x="195.0" y="10.0"/>
+        <contentFilters/>
+      </element>
+      <element id="17" dockArea="left">
+        <bo>
+          <seg>org.osate.ge.diagrams.instance</seg>
+          <seg>feature_instance</seg>
+          <seg>power</seg>
+        </bo>
+        <position y="93.0"/>
+        <contentFilters/>
+      </element>
+      <element id="13" dockArea="right">
+        <bo>
+          <seg>org.osate.ge.diagrams.instance</seg>
+          <seg>feature_instance</seg>
+          <seg>sensor1in</seg>
+        </bo>
+        <position x="223.0" y="60.0"/>
+        <contentFilters/>
+      </element>
+      <element id="15" dockArea="left">
+        <bo>
+          <seg>org.osate.ge.diagrams.instance</seg>
+          <seg>feature_instance</seg>
+          <seg>sensor2in</seg>
+        </bo>
+        <position y="27.0"/>
+        <contentFilters/>
+      </element>
+      <bo>
+        <seg>org.osate.ge.diagrams.instance</seg>
+        <seg>component_instance</seg>
+        <seg>dcs</seg>
+      </bo>
+      <position x="421.0" y="218.0"/>
+      <size width="306.0" height="160.0"/>
+      <contentFilters>
+        <filter>features</filter>
+        <filter>connections</filter>
+      </contentFilters>
+    </element>
+    <element id="6">
+      <element id="7" dockArea="left">
+        <bo>
+          <seg>org.osate.ge.diagrams.instance</seg>
+          <seg>feature_instance</seg>
+          <seg>canbusaccess</seg>
+        </bo>
+        <position y="10.0"/>
+        <contentFilters/>
+      </element>
+      <element id="9" dockArea="left">
+        <bo>
+          <seg>org.osate.ge.diagrams.instance</seg>
+          <seg>feature_instance</seg>
+          <seg>power</seg>
+        </bo>
+        <position y="110.0"/>
+        <contentFilters/>
+      </element>
+      <element id="8" dockArea="left">
+        <bo>
+          <seg>org.osate.ge.diagrams.instance</seg>
+          <seg>feature_instance</seg>
+          <seg>sensorsignal</seg>
+        </bo>
+        <position y="60.0"/>
+        <contentFilters/>
+      </element>
+      <bo>
+        <seg>org.osate.ge.diagrams.instance</seg>
+        <seg>component_instance</seg>
+        <seg>sensor1</seg>
+      </bo>
+      <position x="767.0" y="38.0"/>
+      <size width="330.0" height="160.0"/>
+      <contentFilters>
+        <filter>features</filter>
+        <filter>connections</filter>
+      </contentFilters>
+    </element>
+    <element id="1">
+      <element id="2" dockArea="right">
+        <bo>
+          <seg>org.osate.ge.diagrams.instance</seg>
+          <seg>feature_instance</seg>
+          <seg>canbusaccess</seg>
+        </bo>
+        <position x="219.0" y="10.0"/>
+        <contentFilters/>
+      </element>
+      <element id="4" dockArea="left">
+        <bo>
+          <seg>org.osate.ge.diagrams.instance</seg>
+          <seg>feature_instance</seg>
+          <seg>power</seg>
+        </bo>
+        <position y="35.0"/>
+        <contentFilters/>
+      </element>
+      <element id="3" dockArea="right">
+        <bo>
+          <seg>org.osate.ge.diagrams.instance</seg>
+          <seg>feature_instance</seg>
+          <seg>sensorsignal</seg>
+        </bo>
+        <position x="225.0" y="60.0"/>
+        <contentFilters/>
+      </element>
+      <bo>
+        <seg>org.osate.ge.diagrams.instance</seg>
+        <seg>component_instance</seg>
+        <seg>sensor2</seg>
+      </bo>
+      <position x="71.0" y="185.0"/>
+      <size width="330.0" height="110.0"/>
+      <contentFilters>
+        <filter>features</filter>
+        <filter>connections</filter>
+      </contentFilters>
+    </element>
+    <element id="25">
+      <bo>
+        <seg>org.osate.ge.diagrams.instance</seg>
+        <seg>connection_reference</seg>
+        <seg>actuatoraccess : scs_tier1_instance.dcs.canbusaccess -> scs_tier1_instance.actuator.canbusaccess</seg>
+      </bo>
+      <contentFilters/>
+    </element>
+    <element id="34">
+      <bo>
+        <seg>org.osate.ge.diagrams.instance</seg>
+        <seg>connection_reference</seg>
+        <seg>actuatorcmdxfer : scs_tier1_instance.dcs.actuatorout -> scs_tier1_instance.actuator.actuatorcmd</seg>
+      </bo>
+      <bendpoints>
+        <point x="769.0" y="372.0"/>
+        <point x="769.0" y="322.0"/>
+      </bendpoints>
+      <contentFilters/>
+    </element>
+    <element id="19">
+      <bo>
+        <seg>org.osate.ge.diagrams.instance</seg>
+        <seg>connection_reference</seg>
+        <seg>sensor1access : scs_tier1_instance.dcs.canbusaccess -> scs_tier1_instance.sensor1.canbusaccess</seg>
+      </bo>
+      <bendpoints>
+        <point x="749.0" y="272.0"/>
+        <point x="749.0" y="92.0"/>
+      </bendpoints>
+      <contentFilters/>
+    </element>
+    <element id="27">
+      <bo>
+        <seg>org.osate.ge.diagrams.instance</seg>
+        <seg>connection_reference</seg>
+        <seg>sensor1xfer : scs_tier1_instance.sensor1.sensorsignal -> scs_tier1_instance.dcs.sensor1in</seg>
+      </bo>
+      <bendpoints>
+        <point x="759.0" y="142.0"/>
+        <point x="759.0" y="322.0"/>
+      </bendpoints>
+      <contentFilters/>
+    </element>
+    <element id="26">
+      <bo>
+        <seg>org.osate.ge.diagrams.instance</seg>
+        <seg>connection_reference</seg>
+        <seg>sensor2access : scs_tier1_instance.dcs.canbusaccess -> scs_tier1_instance.sensor2.canbusaccess</seg>
+      </bo>
+      <bendpoints>
+        <point x="749.0" y="272.0"/>
+        <point x="749.0" y="220.0"/>
+        <point x="423.0" y="220.0"/>
+        <point x="423.0" y="238.66666666666669"/>
+      </bendpoints>
+      <contentFilters/>
+    </element>
+    <element id="33">
+      <bo>
+        <seg>org.osate.ge.diagrams.instance</seg>
+        <seg>connection_reference</seg>
+        <seg>signal1xfer : scs_tier1_instance.sensor2.sensorsignal -> scs_tier1_instance.dcs.sensor2in</seg>
+      </bo>
+      <contentFilters/>
+    </element>
+    <element id="24" dockArea="left">
+      <bo>
+        <seg>org.osate.ge.diagrams.instance</seg>
+        <seg>feature_instance</seg>
+        <seg>force</seg>
+      </bo>
+      <position y="103.0"/>
+      <contentFilters/>
+    </element>
+    <element id="11" dockArea="left">
+      <bo>
+        <seg>org.osate.ge.diagrams.instance</seg>
+        <seg>feature_instance</seg>
+        <seg>power</seg>
+      </bo>
+      <position y="247.0"/>
+      <contentFilters/>
+    </element>
+    <bo>
+      <seg>org.osate.ge.diagrams.instance</seg>
+      <seg>system_instance</seg>
+      <seg>/simplecontrolsystem/aadl/instances/simplecontrolsystem_scs_tier1_instance.aaxl2</seg>
+    </bo>
+    <position x="12.0" y="12.0"/>
+    <size width="1162.0" height="390.0"/>
+    <contentFilters>
+      <filter>features</filter>
+      <filter>connections</filter>
+      <filter>subcomponents</filter>
+    </contentFilters>
+  </element>
+  <config type="structure" connectionPrimaryLabelsVisible="false">
+    <enabledAadlProperties/>
+    <context>
+      <seg>org.osate.ge.diagrams.instance</seg>
+      <seg>system_instance</seg>
+      <seg>/simplecontrolsystem/aadl/instances/simplecontrolsystem_scs_tier1_instance.aaxl2</seg>
+    </context>
+  </config>
+</diagram:Diagram>

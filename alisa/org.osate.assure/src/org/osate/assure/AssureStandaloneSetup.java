@@ -20,12 +20,18 @@
 package org.osate.assure;
 
 /**
- * Initialization support for running Xtext languages 
+ * Initialization support for running Xtext languages
  * without equinox extension registry
  */
 public class AssureStandaloneSetup extends AssureStandaloneSetupGenerated {
 
 	public static void doSetup() {
+		org.osate.xtext.aadl2.Aadl2StandaloneSetup.doSetup();
+		org.osate.organization.OrganizationStandaloneSetup.doSetup();
+		org.osate.categories.CategoriesStandaloneSetup.doSetup();
+		org.osate.reqspec.ReqSpecStandaloneSetup.doSetup();
+		org.osate.verify.VerifyStandaloneSetup.doSetup();
+		org.osate.alisa.workbench.AlisaStandaloneSetup.doSetup();
 		new AssureStandaloneSetup().createInjectorAndDoEMFRegistration();
 	}
 }
