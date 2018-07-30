@@ -226,7 +226,13 @@ public class FlowLatencyAnalysisSwitch extends AadlProcessingSwitchWithProgress 
 						if (partitionDuration > 0) {
 							LatencyContributorComponent partitionLatencyContributor = new LatencyContributorComponent(
 									firstPartition, report.isMajorFrameDelay());
-							partitionLatencyContributor.setSamplingPeriod(partitionLatency);
+							if (partitionLatency == 0) {
+								partitionLatencyContributor.setSamplingPeriod(partitionDuration);
+								partitionLatencyContributor
+										.reportInfo("No partition period/rate. Using partition duration");
+							} else {
+								partitionLatencyContributor.setSamplingPeriod(partitionLatency);
+							}
 							double frameOffset = FlowLatencyUtil.getPartitionFrameOffset(firstPartition, schedule);
 							partitionLatencyContributor.setPartitionOffset(frameOffset);
 							partitionLatencyContributor.setPartitionDuration(partitionDuration);
@@ -236,6 +242,9 @@ public class FlowLatencyAnalysisSwitch extends AadlProcessingSwitchWithProgress 
 						} else {
 							LatencyContributorComponent partitionLatencyContributor = new LatencyContributorComponent(
 									firstPartition, report.isMajorFrameDelay());
+							if (partitionLatency == 0) {
+								partitionLatencyContributor.reportInfo("No partition period/rate. Using zero");
+							}
 							partitionLatencyContributor.setSamplingPeriod(partitionLatency);
 							partitionLatencyContributor.setWorstCaseMethod(LatencyContributorMethod.PARTITION_FRAME);
 							partitionLatencyContributor.setBestCaseMethod(LatencyContributorMethod.PARTITION_FRAME);
@@ -418,7 +427,12 @@ public class FlowLatencyAnalysisSwitch extends AadlProcessingSwitchWithProgress 
 						report.isMajorFrameDelay());
 				ioLatencyContributor.setWorstCaseMethod(LatencyContributorMethod.PARTITION_OUTPUT);
 				ioLatencyContributor.setBestCaseMethod(LatencyContributorMethod.PARTITION_OUTPUT);
-				ioLatencyContributor.setSamplingPeriod(partitionLatency);
+				if (partitionLatency == 0) {
+					ioLatencyContributor.setSamplingPeriod(partitionDuration);
+					ioLatencyContributor.reportInfo("No partition period/rate. Using partition duration");
+				} else {
+					ioLatencyContributor.setSamplingPeriod(partitionLatency);
+				}
 				double frameOffset = FlowLatencyUtil.getPartitionFrameOffset(srcPartition, schedule);
 				ioLatencyContributor.setPartitionOffset(frameOffset);
 				ioLatencyContributor.setPartitionDuration(partitionDuration);
@@ -499,9 +513,14 @@ public class FlowLatencyAnalysisSwitch extends AadlProcessingSwitchWithProgress 
 			if (partitionDuration > 0) {
 				LatencyContributorComponent platencyContributor = new LatencyContributorComponent(dstPartition,
 						report.isMajorFrameDelay());
-				platencyContributor.setSamplingPeriod(partitionLatency);
 				double frameOffset = FlowLatencyUtil.getPartitionFrameOffset(dstPartition, schedule);
 				platencyContributor.setPartitionOffset(frameOffset);
+				if (partitionLatency == 0) {
+					platencyContributor.setSamplingPeriod(partitionDuration);
+					platencyContributor.reportInfo("No partition period. Using partition duration");
+				} else {
+					platencyContributor.setSamplingPeriod(partitionLatency);
+				}
 				platencyContributor.setPartitionDuration(partitionDuration);
 				platencyContributor.setWorstCaseMethod(LatencyContributorMethod.PARTITION_SCHEDULE);
 				platencyContributor.setBestCaseMethod(LatencyContributorMethod.PARTITION_SCHEDULE);
