@@ -35,6 +35,7 @@ class AssureTests extends XtextTest {
 	@Inject
 	TestHelper<AadlPackage> aadl2TestHelper
 	
+	@Inject
 	TestHelper <Organization> organizationTestHelper
 
 	val projectprefix = "org.osate.assure.tests/models/SimpleControlSystem/"
