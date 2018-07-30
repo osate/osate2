@@ -15,7 +15,11 @@ Require-Bundle: org.osate.assure,
  org.eclipse.xtend.lib.macro,
  com.google.guava,
  org.eclipse.xtext.xbase.lib,
- org.eclipse.xtext.testing
+ org.eclipse.xtext.testing,
+ com.itemis.xtext.testing;bundle-version="0.2.0",
+ org.osate.testsupport;bundle-version="1.0.0",
+ org.osate.aadl2;bundle-version="1.0.0",
+ org.osate.reqspec;bundle-version="1.0.0"
 Import-Package: org.apache.log4j,
  org.junit;version="4.5.0",
  org.junit.runner;version="4.5.0",

@@ -16,6 +16,40 @@
 
 package org.osate.assure.tests
 
-class AssureTests {
+import org.junit.runner.RunWith
+import org.eclipse.xtext.testing.XtextRunner
+import org.eclipse.xtext.testing.InjectWith
+import org.osate.assure.AssureInjectorProvider
+import com.itemis.xtext.testing.XtextTest
+import com.google.inject.Inject
+import org.osate.testsupport.TestHelper
+import org.osate.aadl2.AadlPackage
+import org.osate.reqspec.reqSpec.ReqSpec
+import org.junit.Test
+import com.itemis.xtext.testing.FluentIssueCollection
+import static extension org.junit.Assert.assertEquals
+
+@RunWith(XtextRunner)
+@InjectWith(AssureInjectorProvider)
+class AssureTests extends XtextTest {
+	@Inject
+	TestHelper<AadlPackage> aadl2testHelper
+	TestHelper<ReqSpec> reqspectestHelper
+
+	val projectprefix = "org.osate.assure.tests/models/SimpleControlSystem/"
+	val projectaadlprefix = projectprefix+"aadl/"
+
+	@Test
+	def void reqspectest() {
+		val aadltestFileResult = issues = aadl2testHelper.testFile(projectaadlprefix+"SimpleControlSystem.aadl", projectaadlprefix+"DataDictionary.aadl",
+			projectaadlprefix+"Platform.aadl",projectaadlprefix+"Software.aadl", projectaadlprefix+"DigitalControlSystem.aadl"
+			,projectprefix+"Properties/ACVIP.aadl"
+		)
+		val issueCollection = new FluentIssueCollection(aadltestFileResult.resource, newArrayList, newArrayList)
+		aadltestFileResult.resource.contents.head as AadlPackage => [
+			"SimpleControlSystem".assertEquals(name)	
+			
+			]	
+		}
 	
 }

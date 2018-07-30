@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<projectDescription>
+	<name>SimpleControlSystem</name>
+	<comment></comment>
+	<projects>
+		<project>Alisa-Consistency</project>
+		<project>AlisaPredefined</project>
+		<project>CyberPhysical</project>
+		<project>JUnitTest</project>
+	</projects>
+	<buildSpec>
+		<buildCommand>
+			<name>org.eclipse.xtext.ui.shared.xtextBuilder</name>
+			<arguments>
+			</arguments>
+		</buildCommand>
+	</buildSpec>
+	<natures>
+		<nature>org.eclipse.sirius.nature.modelingproject</nature>
+		<nature>org.eclipse.xtext.ui.shared.xtextNature</nature>
+		<nature>org.osate.core.aadlnature</nature>
+	</natures>
+</projectDescription>
