@@ -33,11 +33,15 @@ import org.eclipse.xtext.util.SimpleAttributeResolver
 import org.osate.aadl2.Aadl2Package
 import org.osate.aadl2.UnitLiteral
 import org.osate.aadl2.UnitsType
-import org.osate.xtext.aadl2.properties.util.EMFIndexRetrieval
 
 import static extension org.osate.aadl2.modelsupport.util.AadlUtil.isPredeclaredPropertySet
+import com.google.inject.Inject
+import org.osate.aadl2.modelsupport.scoping.IEClassGlobalScopeProvider
 
 class CommonScopeProvider extends AbstractDeclarativeScopeProvider {
+
+	@Inject
+	static IEClassGlobalScopeProvider globalScope;
 
 	def protected static scopeFor(Iterable<? extends EObject> elements) {
 		new SimpleScope(IScope::NULLSCOPE,
@@ -60,7 +64,8 @@ class CommonScopeProvider extends AbstractDeclarativeScopeProvider {
 		// TODO: Scope literals by type, but how to do we know the type of an
 		// expression?
 		val Collection<UnitLiteral> result = new ArrayList<UnitLiteral>()
-		for (IEObjectDescription desc : EMFIndexRetrieval.getAllEObjectsOfTypeInWorkspace(context, UNITS_TYPE)) {
+		val scope = globalScope.getScope(context.eResource(), UNITS_TYPE)
+		for (IEObjectDescription desc : scope.allElements) {
 			val unitsType = EcoreUtil.resolve(desc.getEObjectOrProxy(), context) as UnitsType;
 			unitsType.ownedLiterals.forall[lit|result += lit as UnitLiteral];
 		}
