@@ -283,45 +283,48 @@ public class AgeDiagramBehavior extends DiagramBehavior implements GraphitiAgeDi
 					if(hoverElement != null) {
 						if(hoverElement != tooltipElement || exceedsCursorMoveThreshold(e.x, e.y)) {
 							disposeCurrentToolTip();
-							tooltipElement = hoverElement;
 
-							// Create new tooltip shell
-							final Display display = Display.getCurrent();
-							tooltipShell = new Shell(display.getActiveShell(), SWT.ON_TOP | SWT.TOOL | SWT.CENTER);
-							tooltipShell.setVisible(false);
-							tooltipShell.setBackground(display.getSystemColor(SWT.COLOR_INFO_BACKGROUND));
-							tooltipShell.setBackgroundMode(SWT.INHERIT_FORCE);
+							if (hoverElement.getBusinessObject() != null) {
+								tooltipElement = hoverElement;
 
-							// Configure layout
-							final RowLayout rowLayout = new RowLayout();
-							rowLayout.fill = true;
-							rowLayout.wrap = false;
-							rowLayout.pack = true;
-							rowLayout.type = SWT.VERTICAL;
-							rowLayout.spacing = 0;
-							tooltipShell.setLayout(rowLayout);
+								// Create new tooltip shell
+								final Display display = Display.getCurrent();
+								tooltipShell = new Shell(display.getActiveShell(), SWT.ON_TOP | SWT.TOOL | SWT.CENTER);
+								tooltipShell.setVisible(false);
+								tooltipShell.setBackground(display.getSystemColor(SWT.COLOR_INFO_BACKGROUND));
+								tooltipShell.setBackgroundMode(SWT.INHERIT_FORCE);
 
-							// Call tooltip contributors
-							final IEclipseContext context = extService.createChildContext();
-							try {
-								context.set(Composite.class, tooltipShell);
-								context.set(Names.BUSINESS_OBJECT, tooltipElement.getBusinessObject());
-								context.set(Names.BUSINESS_OBJECT_CONTEXT, tooltipElement);
-								for (final Object tooltipContributor : extService.getTooltipContributors()) {
-									ContextInjectionFactory.invoke(tooltipContributor, org.osate.ge.di.Activate.class, context, null);
+								// Configure layout
+								final RowLayout rowLayout = new RowLayout();
+								rowLayout.fill = true;
+								rowLayout.wrap = false;
+								rowLayout.pack = true;
+								rowLayout.type = SWT.VERTICAL;
+								rowLayout.spacing = 0;
+								tooltipShell.setLayout(rowLayout);
+
+								// Call tooltip contributors
+								final IEclipseContext context = extService.createChildContext();
+								try {
+									context.set(Composite.class, tooltipShell);
+									context.set(Names.BUSINESS_OBJECT, tooltipElement.getBusinessObject());
+									context.set(Names.BUSINESS_OBJECT_CONTEXT, tooltipElement);
+									for (final Object tooltipContributor : extService.getTooltipContributors()) {
+										ContextInjectionFactory.invoke(tooltipContributor, org.osate.ge.di.Activate.class, context, null);
+									}
+								} finally {
+									context.dispose();
 								}
-							} finally {
-								context.dispose();
-							}
 
-							// Show tooltip shell if something was contributed
-							if (tooltipShell.getChildren().length > 0) {
-								final Point point = display.getCursorLocation();
-								tooltipShell.setLocation(point.x, point.y+20);
-								tooltipCursorX = e.x;
-								tooltipCursorY = e.y;
-								tooltipShell.pack(true);
-								tooltipShell.setVisible(true);
+								// Show tooltip shell if something was contributed
+								if (tooltipShell.getChildren().length > 0) {
+									final Point point = display.getCursorLocation();
+									tooltipShell.setLocation(point.x, point.y+20);
+									tooltipCursorX = e.x;
+									tooltipCursorY = e.y;
+									tooltipShell.pack(true);
+									tooltipShell.setVisible(true);
+								}
 							}
 						}
 					}
