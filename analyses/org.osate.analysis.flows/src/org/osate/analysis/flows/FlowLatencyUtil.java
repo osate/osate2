@@ -253,25 +253,14 @@ public class FlowLatencyUtil {
 
 
 	/**
-	 * find virtual processor with a period or ARINC653 partition (bound to processor with ARINC653 major frame)
+	 * Return first virtual processor. Usually processes are only assigned to one VP.
 	 * @param componentInstance system, process, thread or other entity bound to a processor and running inside a partition.
 	 * @return partition
 	 */
 	public static ComponentInstance getPartition(ComponentInstance componentInstance) {
 		Collection<ComponentInstance> vprocessors = InstanceModelUtil.getBoundVirtualProcessors(componentInstance);
 		for (ComponentInstance vproc : vprocessors) {
-			Collection<ComponentInstance> procs = InstanceModelUtil.getBoundPhysicalProcessors(vproc);
-			for (ComponentInstance proc : procs) {
-				if (GetProperties.hasAssignedPropertyValue(proc, "ARINC653::Module_Major_Frame")) {
-					return vproc;
-				}
-			}
-			if (GetProperties.hasAssignedPropertyValue(vproc, "Period")) {
-				return vproc;
-			}
-			if (GetProperties.hasAssignedPropertyValue(vproc, "ARINC653::Module_Major_Frame")) {
-				return vproc;
-			}
+			return vproc;
 		}
 		return null;
 	}
@@ -363,7 +352,7 @@ public class FlowLatencyUtil {
 		 * https://github.com/osate/osate2-core/issues/1127
 		 */
 		if ((schedule == null) || (schedule.size() == 0)) {
-			return -1;
+			return res;
 		}
 		for (ARINC653ScheduleWindow window : schedule) {
 			if (window.getPartition() == partition) {
@@ -376,7 +365,7 @@ public class FlowLatencyUtil {
 		 * XXX: [Code Coverage] partition is always in schedule. Could be covered after fixing
 		 * https://github.com/osate/osate2-core/issues/1127
 		 */
-		return 0;
+		return 0.0;
 	}
 
 	/**

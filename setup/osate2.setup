@@ -528,6 +528,14 @@
         url="http://download.eclipse.org/releases/oxygen"/>
   </setupTask>
   <setupTask
+      xsi:type="setup.p2:P2Task"
+      label="Mylyn Github Connector">
+    <requirement
+        name="org.eclipse.mylyn.github.feature.feature.group"/>
+    <repository
+        url="http://download.eclipse.org/egit/github/updates"/>
+  </setupTask>
+  <setupTask
       xsi:type="setup:CompoundTask"
       id="osate2"
       name="OSATE2">

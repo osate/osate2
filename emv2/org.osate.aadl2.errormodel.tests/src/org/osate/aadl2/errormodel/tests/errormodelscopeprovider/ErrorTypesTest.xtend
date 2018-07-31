@@ -1,5 +1,9 @@
 package org.osate.aadl2.errormodel.tests.errormodelscopeprovider
 
+import com.google.inject.Inject
+import com.itemis.xtext.testing.XtextTest
+import org.eclipse.emf.common.util.URI
+import org.eclipse.xtext.resource.IResourceServiceProvider
 import org.eclipse.xtext.testing.InjectWith
 import org.eclipse.xtext.testing.XtextRunner
 import org.junit.Test
@@ -7,8 +11,9 @@ import org.junit.runner.RunWith
 import org.osate.aadl2.AadlPackage
 import org.osate.aadl2.DefaultAnnexLibrary
 import org.osate.aadl2.DefaultAnnexSubclause
-import org.osate.aadl2.errormodel.tests.ErrorModelUiInjectorProvider
-import org.osate.testsupport.OsateTest
+import org.osate.aadl2.errormodel.tests.ErrorModelInjectorProvider
+import org.osate.testsupport.AssertHelper
+import org.osate.testsupport.TestHelper
 import org.osate.xtext.aadl2.errormodel.errorModel.ConditionElement
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorEvent
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelLibrary
@@ -20,8 +25,15 @@ import org.osate.xtext.aadl2.errormodel.errorModel.ErrorSource
 import static extension org.junit.Assert.assertEquals
 
 @RunWith(XtextRunner)
-@InjectWith(ErrorModelUiInjectorProvider)
-class ErrorTypesTest extends OsateTest {
+@InjectWith(ErrorModelInjectorProvider)
+class ErrorTypesTest extends XtextTest {
+	
+	@Inject
+	TestHelper<AadlPackage> testHelper
+	
+	extension AssertHelper assertHelper = IResourceServiceProvider.Registry.INSTANCE.getResourceServiceProvider(
+		URI.createFileURI("dummy.emv2")).get(AssertHelper)
+	
 	/*
 	 * Tests scope_ErrorType, scope_TypeSet_aliasedType, scope_TypeToken_type(ErrorModelLibrary, EReference),
 	 * scope_TypeToken_type(ErrorBehaviorStateMachine, EReference), scope_TypeToken_type(TypeMappingSet, EReference),
@@ -29,14 +41,7 @@ class ErrorTypesTest extends OsateTest {
 	 */
 	@Test
 	def void testErrorTypesReference() {
-		val lib1FileName = "lib1.aadl"
-		val lib2FileName = "lib2.aadl"
-		val lib3FileName = "lib3.aadl"
-		val lib4FileName = "lib4.aadl"
-		val lib5FileName = "lib5.aadl"
-		val lib6FileName = "lib6.aadl"
-		val subclause1FileName = "subclause1.aadl"
-		createFiles(lib1FileName -> '''
+		val lib1 = '''
 			package lib1
 			public
 				annex EMV2 {**
@@ -51,7 +56,8 @@ class ErrorTypesTest extends OsateTest {
 					end types;
 				**};
 			end lib1;
-		''', lib2FileName -> '''
+		'''
+		val lib2 = '''
 			package lib2
 			public
 				annex EMV2 {**
@@ -62,7 +68,8 @@ class ErrorTypesTest extends OsateTest {
 					end types;
 				**};
 			end lib2;
-		''', lib3FileName -> '''
+		'''
+		val lib3 = '''
 			package lib3
 			public
 				annex EMV2 {**
@@ -75,7 +82,8 @@ class ErrorTypesTest extends OsateTest {
 					end types;
 				**};
 			end lib3;
-		''', lib4FileName -> '''
+		'''
+		val lib4 = '''
 			package lib4
 			public
 				annex EMV2 {**
@@ -86,7 +94,8 @@ class ErrorTypesTest extends OsateTest {
 					end types;
 				**};
 			end lib4;
-		''', lib5FileName -> '''
+		'''
+		val lib5 = '''
 			package lib5
 			public
 				annex EMV2 {**
@@ -94,7 +103,8 @@ class ErrorTypesTest extends OsateTest {
 					end types;
 				**};
 			end lib5;
-		''', lib6FileName -> '''
+		'''
+		val lib6 = '''
 			package lib6
 			public
 				annex EMV2 {**
@@ -129,7 +139,8 @@ class ErrorTypesTest extends OsateTest {
 					end transformations;
 				**};
 			end lib6;
-		''', subclause1FileName -> '''
+		'''
+		val subclause1 = '''
 			package subclause1
 			public
 				abstract a1
@@ -186,15 +197,10 @@ class ErrorTypesTest extends OsateTest {
 				**};
 				end a2.i;
 			end subclause1;
-		''')
-		ignoreSerializationDifferences
-		val lib1TestResult = testFile(lib1FileName)
-		val lib2TestResult = testFile(lib2FileName)
-		val lib3TestResult = testFile(lib3FileName)
-		val lib4TestResult = testFile(lib4FileName)
-		val lib6TestResult = testFile(lib6FileName)
-		val subclause1TestResult = testFile(subclause1FileName)
-		lib1TestResult.resource.contents.head as AadlPackage => [
+		'''
+
+		val pkg1 = testHelper.parseString(lib1, lib2, lib3, lib4, lib5, lib6)
+		pkg1 => [
 			"lib1".assertEquals(name)
 			(publicSection.ownedAnnexLibraries.head as DefaultAnnexLibrary).parsedAnnexLibrary as ErrorModelLibrary => [
 				val expectedTypeScope = #["conflict1", "conflict2", "t1", "lib1::conflict1", "lib1::conflict2",
@@ -253,7 +259,8 @@ class ErrorTypesTest extends OsateTest {
 				]
 			]
 		]
-		lib2TestResult.resource.contents.head as AadlPackage => [
+		val pkg2 = testHelper.parseString(lib2, lib1, lib3, lib4, lib5, lib6)
+		pkg2 => [
 			"lib2".assertEquals(name)
 			(publicSection.ownedAnnexLibraries.head as DefaultAnnexLibrary).parsedAnnexLibrary as ErrorModelLibrary => [
 				types.head => [
@@ -292,7 +299,8 @@ class ErrorTypesTest extends OsateTest {
 				]
 			]
 		]
-		lib3TestResult.resource.contents.head as AadlPackage => [
+		val pkg3 = testHelper.parseString(lib3, lib1, lib2, lib4, lib5, lib6)
+		pkg3 => [
 			"lib3".assertEquals(name)
 			(publicSection.ownedAnnexLibraries.head as DefaultAnnexLibrary).parsedAnnexLibrary as ErrorModelLibrary => [
 				val expectedTypeScope = #["conflict1", "t3", "lib1::conflict1", "lib1::conflict2", "lib1::t1",
@@ -337,7 +345,8 @@ class ErrorTypesTest extends OsateTest {
 				]
 			]
 		]
-		lib4TestResult.resource.contents.head as AadlPackage => [
+		val pkg4 = testHelper.parseString(lib4, lib1, lib2, lib3, lib5, lib6)
+		pkg4 => [
 			"lib4".assertEquals(name)
 			(publicSection.ownedAnnexLibraries.head as DefaultAnnexLibrary).parsedAnnexLibrary as ErrorModelLibrary => [
 				types.head => [
@@ -375,7 +384,8 @@ class ErrorTypesTest extends OsateTest {
 				]
 			]
 		]
-		lib6TestResult.resource.contents.head as AadlPackage => [
+		val pkg5 = testHelper.parseString(lib6, lib5, lib4, lib3, lib2, lib1)
+		pkg5 => [
 			"lib6".assertEquals(name)
 			(publicSection.ownedAnnexLibraries.head as DefaultAnnexLibrary).parsedAnnexLibrary as ErrorModelLibrary => [
 				val expectedTypeScope = #["conflict1", "conflict2", "t1", "t2", "t3", "t4", "t6", "lib1::conflict1",
@@ -486,7 +496,8 @@ class ErrorTypesTest extends OsateTest {
 				]
 			]
 		]
-		subclause1TestResult.resource.contents.head as AadlPackage => [
+		val pkg6 = testHelper.parseString(subclause1, lib6, lib5, lib4, lib3, lib2, lib1)
+		pkg6 => [
 			"subclause1".assertEquals(name)
 			publicSection.ownedClassifiers.get(2) => [
 				"a2.i".assertEquals(name)
