@@ -27,10 +27,13 @@ import org.eclipse.core.commands.ExecutionException;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.emf.common.util.EList;
+import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.swt.widgets.Display;
@@ -50,6 +53,7 @@ import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.InstanceObject;
 import org.osate.aadl2.instance.SystemInstance;
 import org.osate.aadl2.modelsupport.resources.OsateResourceUtil;
+import org.osate.aadl2.modelsupport.util.AadlUtil;
 import org.osate.ui.dialogs.Dialog;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorState;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorPropagation;
@@ -63,7 +67,6 @@ public final class FTAHandler extends AbstractHandler {
 	private static FaultTreeType FAULT_TREE_TYPE = FaultTreeType.FAULT_TREE;
 	private static boolean GRAPHIC_VIEW = false;
 	private static List<String> stateNames = null;
-
 
 	@Override
 	public Object execute(ExecutionEvent event) throws ExecutionException {
@@ -100,7 +103,7 @@ public final class FTAHandler extends AbstractHandler {
 					}
 				}
 				String epName = CreateFTAModel.prefixOutgoingPropagation + EMV2Util.getPrintName(outprop)
-				+ EMV2Util.getPrintName(tt);
+						+ EMV2Util.getPrintName(tt);
 				if (!stateNames.contains(epName)) {
 					stateNames.add(epName);
 				}
@@ -136,9 +139,8 @@ public final class FTAHandler extends AbstractHandler {
 
 			FTADialog diag = new FTADialog(sh);
 			diag.setValues(stateNames);
-			diag.setTarget(
-					"'" + (target instanceof SystemInstance ? target.getName() : target.getComponentInstancePath())
-					+ "'");
+			diag.setTarget("'"
+					+ (target instanceof SystemInstance ? target.getName() : target.getComponentInstancePath()) + "'");
 			diag.open();
 			ERROR_STATE_NAME = diag.getValue();
 			FAULT_TREE_TYPE = diag.getFaultTreeType();
@@ -148,12 +150,10 @@ public final class FTAHandler extends AbstractHandler {
 		if (ERROR_STATE_NAME != null) {
 			if (FAULT_TREE_TYPE.equals(FaultTreeType.COMPOSITE_PARTS)
 					&& ERROR_STATE_NAME.startsWith(CreateFTAModel.prefixOutgoingPropagation)) {
-				Dialog.showInfo("Fault Tree Analysis",
-						"Select error state for composite parts fault tree");
+				Dialog.showInfo("Fault Tree Analysis", "Select error state for composite parts fault tree");
 				return IStatus.ERROR;
 			}
-			if (FAULT_TREE_TYPE.equals(FaultTreeType.COMPOSITE_PARTS)
-					&& !EMV2Util.hasCompositeErrorBehavior(target)) {
+			if (FAULT_TREE_TYPE.equals(FaultTreeType.COMPOSITE_PARTS) && !EMV2Util.hasCompositeErrorBehavior(target)) {
 				Dialog.showInfo("Fault Tree Analysis",
 						"Selected system must have composite error states for composite parts fault tree analysis");
 				return IStatus.ERROR;
@@ -164,25 +164,25 @@ public final class FTAHandler extends AbstractHandler {
 						"No fault tree generated. Selected error propagation has no out propagation condition or path from an inner component");
 				return IStatus.ERROR;
 			}
-				if (GRAPHIC_VIEW) {
-				SiriusUtil.INSTANCE.autoOpenModel(ftmodel,
-							ResourceUtil.getFile(si.eResource()).getProject(),
-							"viewpoint:/org.osate.aadl2.errormodel.faulttree.design/FaultTree", "IconicFaultTree",
-							"Fault Tree");
+
+			saveFaultTree(ftmodel);
+
+			if (GRAPHIC_VIEW) {
+				SiriusUtil.INSTANCE.autoOpenModel(ftmodel, ResourceUtil.getFile(si.eResource()).getProject(),
+						"viewpoint:/org.osate.aadl2.errormodel.faulttree.design/FaultTree", "IconicFaultTree",
+						"Fault Tree");
+			} else {
+				if (FAULT_TREE_TYPE.equals(FaultTreeType.MINIMAL_CUT_SET)) {
+					SiriusUtil.INSTANCE.autoOpenModel(ftmodel, ResourceUtil.getFile(si.eResource()).getProject(),
+							"viewpoint:/org.osate.aadl2.errormodel.faulttree.design/FaultTree", "MinimalCutSetTable",
+							"Minimal Cutset");
 				} else {
-					if (FAULT_TREE_TYPE.equals(FaultTreeType.MINIMAL_CUT_SET)) {
-					SiriusUtil.INSTANCE.autoOpenModel(ftmodel,
-								ResourceUtil.getFile(si.eResource()).getProject(),
-								"viewpoint:/org.osate.aadl2.errormodel.faulttree.design/FaultTree",
-								"MinimalCutSetTable", "Minimal Cutset");
-					} else {
-					SiriusUtil.INSTANCE.autoOpenModel(ftmodel,
-								ResourceUtil.getFile(si.eResource()).getProject(),
-								"viewpoint:/org.osate.aadl2.errormodel.faulttree.design/FaultTree", "FaultTreeTable",
-								"Fault Tree");
-					}
+					SiriusUtil.INSTANCE.autoOpenModel(ftmodel, ResourceUtil.getFile(si.eResource()).getProject(),
+							"viewpoint:/org.osate.aadl2.errormodel.faulttree.design/FaultTree", "FaultTreeTable",
+							"Fault Tree");
 				}
-				return Status.OK_STATUS;
+			}
+			return Status.OK_STATUS;
 		}
 
 		return IStatus.ERROR;
@@ -206,6 +206,13 @@ public final class FTAHandler extends AbstractHandler {
 			}
 		}
 		return null;
+	}
+
+	public URI saveFaultTree(FaultTree ftamodel) {
+		URI ftaURI = EcoreUtil.getURI(ftamodel.getInstanceRoot()).trimFragment().trimSegments(1)
+				.appendSegment("reports").appendSegment("fta").appendSegment(ftamodel.getName() + ".faulttree");
+		AadlUtil.makeSureFoldersExist(new Path(ftaURI.toPlatformString(true)));
+		return OsateResourceUtil.saveEMFModel(ftamodel, ftaURI, ftamodel.getInstanceRoot());
 	}
 
 }

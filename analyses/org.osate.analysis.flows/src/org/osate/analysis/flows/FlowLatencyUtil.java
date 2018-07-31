@@ -245,25 +245,14 @@ public class FlowLatencyUtil {
 
 
 	/**
-	 * find virtual processor with a period or ARINC653 partition (bound to processor with ARINC653 major frame)
+	 * Return first virtual processor. Usually processes are only assigned to one VP.
 	 * @param componentInstance system, process, thread or other entity bound to a processor and running inside a partition.
 	 * @return partition
 	 */
 	public static ComponentInstance getPartition(ComponentInstance componentInstance) {
 		Collection<ComponentInstance> vprocessors = InstanceModelUtil.getBoundVirtualProcessors(componentInstance);
 		for (ComponentInstance vproc : vprocessors) {
-			Collection<ComponentInstance> procs = InstanceModelUtil.getBoundPhysicalProcessors(vproc);
-			for (ComponentInstance proc : procs) {
-				if (GetProperties.hasAssignedPropertyValue(proc, "ARINC653::Module_Major_Frame")) {
-					return vproc;
-				}
-			}
-			if (GetProperties.hasAssignedPropertyValue(vproc, "Period")) {
-				return vproc;
-			}
-			if (GetProperties.hasAssignedPropertyValue(vproc, "ARINC653::Module_Major_Frame")) {
-				return vproc;
-			}
+			return vproc;
 		}
 		return null;
 	}
@@ -348,7 +337,7 @@ public class FlowLatencyUtil {
 	public static double getPartitionFrameOffset(ComponentInstance partition, List<ARINC653ScheduleWindow> schedule) {
 		double res = 0.0;
 		if ((schedule == null) || (schedule.size() == 0)) {
-			return -1;
+			return res;
 		}
 		for (ARINC653ScheduleWindow window : schedule) {
 			if (window.getPartition() == partition) {
@@ -357,7 +346,7 @@ public class FlowLatencyUtil {
 
 			res = res + window.getTime();
 		}
-		return 0;
+		return 0.0;
 	}
 
 	/**
