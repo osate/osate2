@@ -1,13 +1,13 @@
 package org.osate.testsupport;
 
-import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
+import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
@@ -98,35 +98,33 @@ public class TestHelper<T extends EObject> {
 	public T parseFile(String filePath, String... referencedPaths) throws Exception {
 		ResourceSet rs = rsHelper.getResourceSet();
 		for (String name : referencedPaths) {
-			parseHelper.parse(readFile(name), rs);
+			InputStream stream = getFileStream(name);
+			if (stream != null) {
+				parseHelper.parse(stream, URI.createURI(name), Collections.EMPTY_MAP, rs);
+			}
 		}
-		return parseHelper.parse(readFile(filePath), rs);
+		InputStream stream = getFileStream(filePath);
+		if (stream != null) {
+			return parseHelper.parse(stream, URI.createURI(filePath), Collections.EMPTY_MAP, rs);
+		}
+		return null;
 	}
 
+
 	/**
-	 * Read a file into a string.
+	 * get InputStream for a file.
 	 *
 	 * @param path the file path starting with the test plugin name
-	 * @return the file content with unix line endings
+	 * @return the InputStream for a file or null if an IO Exception occurs
 	 */
-	public String readFile(String path) {
-		String result = "";
+	public InputStream getFileStream(String path) {
 		try {
 			// This way of constructing the URL works in JUnit plug-in and standalone tests
 			URL url = new URL("file:" + System.getProperty("user.dir") + "/../" + path);
-			InputStream inputStream = url.openConnection().getInputStream();
-			BufferedReader in = new BufferedReader(new InputStreamReader(inputStream));
-			String inputLine;
-
-			while ((inputLine = in.readLine()) != null) {
-				result += inputLine + '\n';
-			}
-
-			in.close();
+			return url.openConnection().getInputStream();
 		} catch (IOException e) {
-			result = "";
+			return null;
 		}
-		return result;
 	}
 
 }
