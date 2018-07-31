@@ -6,7 +6,7 @@ import org.osate.ge.internal.diagram.runtime.AgeDiagram;
 import org.osate.ge.internal.diagram.runtime.DiagramElement;
 import org.osate.ge.internal.diagram.runtime.DiagramNode;
 
-public class DiagamElementUtil {
+public class DiagramElementUtil {
 	public static boolean allHaveSameParent(final Collection<DiagramElement> diagramElements) {
 		if (diagramElements.size() == 0) {
 			return true;

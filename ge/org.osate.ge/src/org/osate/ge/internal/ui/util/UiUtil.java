@@ -18,7 +18,7 @@ import org.osate.ge.internal.model.BusinessObjectProxy;
 import org.osate.ge.internal.model.Tag;
 import org.osate.ge.internal.services.ExtensionService;
 import org.osate.ge.internal.util.BusinessObjectContextHelper;
-import org.osate.ge.internal.util.DiagamElementUtil;
+import org.osate.ge.internal.util.DiagramElementUtil;
 import org.osate.ge.internal.util.StringUtil;
 
 public class UiUtil {
@@ -56,8 +56,8 @@ public class UiUtil {
 			return null;
 		}
 
-		final AgeDiagram firstDiagram = DiagamElementUtil.getDiagram(elements.get(0));
-		if (!elements.stream().allMatch(e -> DiagamElementUtil.getDiagram(e) == firstDiagram)) {
+		final AgeDiagram firstDiagram = DiagramElementUtil.getDiagram(elements.get(0));
+		if (!elements.stream().allMatch(e -> DiagramElementUtil.getDiagram(e) == firstDiagram)) {
 			return null;
 		}
 
