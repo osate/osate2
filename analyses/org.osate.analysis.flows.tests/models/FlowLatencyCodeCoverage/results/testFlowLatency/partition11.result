@@ -56,6 +56,15 @@
       <values xsi:type="result:StringValue" value="no latency"/>
     </subResults>
     <subResults>
+      <sourceReference href="instances/partition11_s1_i1_Instance.aaxl2#//@componentInstance.3"/>
+      <values xsi:type="result:RealValue"/>
+      <values xsi:type="result:RealValue"/>
+      <values xsi:type="result:RealValue"/>
+      <values xsi:type="result:RealValue"/>
+      <values xsi:type="result:StringValue" value="partition major frame"/>
+      <values xsi:type="result:StringValue" value="partition major frame"/>
+    </subResults>
+    <subResults>
       <sourceReference href="instances/partition11_s1_i1_Instance.aaxl2#//@componentInstance.0"/>
       <values xsi:type="result:RealValue" value="3.0"/>
       <values xsi:type="result:RealValue" value="4.0"/>
