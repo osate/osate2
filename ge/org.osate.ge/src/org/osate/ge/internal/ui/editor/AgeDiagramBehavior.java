@@ -968,127 +968,137 @@ public class AgeDiagramBehavior extends DiagramBehavior implements GraphitiAgeDi
 	protected IDiagramTypeProvider initDiagramTypeProvider(final Diagram diagram) {
 		final AgeDiagramTypeProvider dtp = (AgeDiagramTypeProvider) super.initDiagramTypeProvider(diagram);
 
-		// Ensure the project is built. This prevents being unable to find the context due to the Xtext index not having completed.
 		try {
-			project.build(IncrementalProjectBuilder.INCREMENTAL_BUILD, new NullProgressMonitor());
-		} catch (CoreException e) {
-			throw new RuntimeException(e);
-		}
+			// Ensure the project is built. This prevents being unable to find the context due to the Xtext index not having completed.
+			try {
+				project.build(IncrementalProjectBuilder.INCREMENTAL_BUILD, new NullProgressMonitor());
+			} catch (CoreException e) {
+				throw new RuntimeException(e);
+			}
 
-		// Treat the current state of the diagram as clean.
-		cleanDiagramChangeNumber = ageDiagram.getCurrentChangeNumber();
+			// Treat the current state of the diagram as clean.
+			cleanDiagramChangeNumber = ageDiagram.getCurrentChangeNumber();
 
-		final AgeFeatureProvider fp = (AgeFeatureProvider) dtp.getFeatureProvider();
+			final AgeFeatureProvider fp = (AgeFeatureProvider) dtp.getFeatureProvider();
 
-		// Update the diagram to finish initializing the diagram's fields before creating the GraphitiAgeDiagram object
-		final ActionService actionService = getActionService();
-		actionService.execute("Update on Load", ExecutionMode.HIDE, () -> {
-			ageDiagram.modify("Update Diagram", m -> {
-				// Check the diagram's context
-				final DiagramContextChecker contextChecker = new DiagramContextChecker(project,
-						dtp.getProjectReferenceService(), dtp.getSystemInstanceLoader());
-				final boolean workbenchIsVisible = isWorkbenchVisible();
-				final DiagramContextChecker.Result result = contextChecker.checkContextFullBuild(ageDiagram, workbenchIsVisible);
+			// Update the diagram to finish initializing the diagram's fields before creating the GraphitiAgeDiagram object
+			final ActionService actionService = getActionService();
+			actionService.execute("Update on Load", ExecutionMode.HIDE, () -> {
+				ageDiagram.modify("Update Diagram", m -> {
+					// Check the diagram's context
+					final DiagramContextChecker contextChecker = new DiagramContextChecker(project,
+							dtp.getProjectReferenceService(), dtp.getSystemInstanceLoader());
+					final boolean workbenchIsVisible = isWorkbenchVisible();
+					final DiagramContextChecker.Result result = contextChecker.checkContextFullBuild(ageDiagram,
+							workbenchIsVisible);
 
-				if (!result.isContextValid()) {
-					// If the workbench is not visible, then close the diagram to avoid an error which could have been avoided by relinking since
-					// we only prompts to relink if the workbench is visible.
-					if (!workbenchIsVisible) {
-						closeDiagramContainer();
+					if (!result.isContextValid()) {
+						// If the workbench is not visible, then close the diagram to avoid an error which could have been avoided by relinking since
+						// we only prompts to relink if the workbench is visible.
+						if (!workbenchIsVisible) {
+							closeDiagramContainer();
+						}
+
+						final String refContextLabel = dtp.getProjectReferenceService()
+								.getLabel(ageDiagram.getConfiguration().getContextBoReference(), project);
+
+						throw new InitializationException("Unable to resolve context: " + (refContextLabel == null
+								? ageDiagram.getConfiguration().getContextBoReference().toString()
+										: refContextLabel));
 					}
 
-					final String refContextLabel = dtp.getProjectReferenceService()
-							.getLabel(ageDiagram.getConfiguration().getContextBoReference(), project);
+					fp.getDiagramUpdater().updateDiagram(ageDiagram);
+				});
+				return null;
+			});
 
-					throw new InitializationException("Unable to resolve context: "
-							+ (refContextLabel == null ? ageDiagram.getConfiguration().getContextBoReference().toString()
-									: refContextLabel));
+			// Set the coloring service field. It is needed
+			final ColoringProvider coloringProvider = new ColoringProvider() {
+				private ColoringService cs = dtp.getColoringService();
+
+				@Override
+				public Map<DiagramElement, Color> buildForegroundColorMap() {
+					return cs.buildForegroundColorMap();
+				}
+			};
+
+			actionService.addChangeListener(actionStackChangeListener);
+
+			actionExecutor = (label, mode, action) -> {
+				final boolean inTransaction = ((InternalTransactionalEditingDomain) getEditingDomain())
+						.getActiveTransaction() != null;
+
+				// Don't create a transaction if already in one or if the modification listener is disabled. In the latter case, the graphiti diagram will
+				// not be updated.
+				final boolean reverseActionWasSpecified;
+				if (inTransaction) {
+					reverseActionWasSpecified = actionService.execute(label, mode, action);
+				} else {
+					final AgeActionCustomFeature actionFeature = new AgeActionCustomFeature(actionService, label,
+							action, fp);
+					executeFeature(actionFeature, new CustomContext());
+					reverseActionWasSpecified = actionFeature.getExecuteResult();
 				}
 
-				fp.getDiagramUpdater().updateDiagram(ageDiagram);
+				// If an action isn't running and the action is executing as normal, then activate the editor if the action is undoable.
+				// This will ensure that when the action is undone, the editor will be switched to the one in which the action was performed.
+				if (isEditorActive() && reverseActionWasSpecified && !actionService.isActionExecuting()
+						&& mode == ExecutionMode.NORMAL) {
+					actionService.execute("Activate Editor", ExecutionMode.APPEND_ELSE_HIDE,
+							new ActivateAgeEditorAction(getDiagramEditor()));
+				}
+
+				// Flush the command stack to avoid keeping references to commands. The graphical editor's ActionService keeps its own command stack.
+				getEditingDomain().getCommandStack().flush();
+
+				return reverseActionWasSpecified;
+			};
+
+			// Create a URI to use for the resource. This resource uses a scheme which does not have a registered handler.
+			// A handler is not needed the resource's save() should not be called. The URI just serves as a unique identifier in the resource set.
+			final URI ignoredUri = URI.createHierarchicalURI("osate_ge_ignore", null, null,
+					new String[] { "internal.aadl_diagram" }, null, null);
+
+			// Create the diagram resource and add the diagram to it.
+			final TransactionalEditingDomain editingDomain = getEditingDomain();
+			final Resource diagramResource = editingDomain.getResourceSet().createResource(ignoredUri);
+			editingDomain.getCommandStack().execute(new AbstractCommand() {
+				@Override
+				protected boolean prepare() {
+					return true;
+				}
+
+				@Override
+				public void execute() {
+					diagramResource.getContents().add(diagram);
+				}
+
+				@Override
+				public boolean canUndo() {
+					return false;
+				}
+
+				@Override
+				public void redo() {
+				}
 			});
-			return null;
-		});
 
-		// Set the coloring service field. It is needed
-		final ColoringProvider coloringProvider = new ColoringProvider() {
-			private ColoringService cs = dtp.getColoringService();
-			@Override
-			public Map<DiagramElement, Color> buildForegroundColorMap() {
-				return cs.buildForegroundColorMap();
+			// Create the Graphiti AGE diagram which will own a Graphiti diagram and keep it updated with any changes to the AGE diagram
+			graphitiAgeDiagram = new GraphitiAgeDiagram(ageDiagram, dtp.getDiagram(), actionExecutor, coloringProvider,
+					() -> {
+						// Refresh the selection. This prevents the editor from losing the selection in some cases such as aligning shapes.
+						final PictogramElement[] pes = getSelectedPictogramElements();
+						setPictogramElementsForSelection(pes);
+					});
+
+			return dtp;
+		} catch (final InitializationException ex) {
+			// Dispose the diagram type provider because it isn't being returned
+			if (dtp != null) {
+				dtp.dispose();
 			}
-		};
-
-		actionService.addChangeListener(actionStackChangeListener);
-
-		actionExecutor = (label, mode, action) -> {
-			final boolean inTransaction = ((InternalTransactionalEditingDomain) getEditingDomain())
-					.getActiveTransaction() != null;
-
-			// Don't create a transaction if already in one or if the modification listener is disabled. In the latter case, the graphiti diagram will
-			// not be updated.
-			final boolean reverseActionWasSpecified;
-			if (inTransaction) {
-				reverseActionWasSpecified = actionService.execute(label, mode, action);
-			} else {
-				final AgeActionCustomFeature actionFeature = new AgeActionCustomFeature(actionService, label, action,
-						fp);
-				executeFeature(actionFeature, new CustomContext());
-				reverseActionWasSpecified = actionFeature.getExecuteResult();
-			}
-
-			// If an action isn't running and the action is executing as normal, then activate the editor if the action is undoable.
-			// This will ensure that when the action is undone, the editor will be switched to the one in which the action was performed.
-			if (isEditorActive() && reverseActionWasSpecified && !actionService.isActionExecuting()
-					&& mode == ExecutionMode.NORMAL) {
-				actionService.execute("Activate Editor", ExecutionMode.APPEND_ELSE_HIDE,
-						new ActivateAgeEditorAction(getDiagramEditor()));
-			}
-
-			// Flush the command stack to avoid keeping references to commands. The graphical editor's ActionService keeps its own command stack.
-			getEditingDomain().getCommandStack().flush();
-
-			return reverseActionWasSpecified;
-		};
-
-		// Create a URI to use for the resource. This resource uses a scheme which does not have a registered handler.
-		// A handler is not needed the resource's save() should not be called. The URI just serves as a unique identifier in the resource set.
-		final URI ignoredUri = URI.createHierarchicalURI("osate_ge_ignore", null, null,
-				new String[] { "internal.aadl_diagram" }, null, null);
-
-		// Create the diagram resource and add the diagram to it.
-		final TransactionalEditingDomain editingDomain = getEditingDomain();
-		final Resource diagramResource = editingDomain.getResourceSet().createResource(ignoredUri);
-		editingDomain.getCommandStack().execute(new AbstractCommand() {
-			@Override
-			protected boolean prepare() {
-				return true;
-			}
-
-			@Override
-			public void execute() {
-				diagramResource.getContents().add(diagram);
-			}
-
-			@Override
-			public boolean canUndo() {
-				return false;
-			}
-
-			@Override
-			public void redo() {
-			}
-		});
-
-		// Create the Graphiti AGE diagram which will own a Graphiti diagram and keep it updated with any changes to the AGE diagram
-		graphitiAgeDiagram = new GraphitiAgeDiagram(ageDiagram, dtp.getDiagram(), actionExecutor, coloringProvider,
-				() -> {
-					// Refresh the selection. This prevents the editor from losing the selection in some cases such as aligning shapes.
-					final PictogramElement[] pes = getSelectedPictogramElements();
-					setPictogramElementsForSelection(pes);
-				});
-
-		return dtp;
+			throw ex;
+		}
 	}
 
 	private boolean isEditorActive() {
