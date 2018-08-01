@@ -290,7 +290,7 @@ public class AgeGefBot {
 		bot.tree().contextMenu("Open").click();
 	}
 
-	// Closest the welcome page if it is open and configures SWTBot
+	// Closes the welcome page if it is open and configures SWTBot
 	private void ensureReadyToTest() {
 		SWTBotPreferences.TIMEOUT = 5000;
 		closeWelcomePage();

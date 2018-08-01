@@ -27,7 +27,7 @@ import org.osate.ge.internal.ui.util.UiUtil;
 import com.google.common.collect.ImmutableCollection;
 
 /**
- * Composite for prompting the user for a name and type for a diagram. Results in a filename and diagrma type.
+ * Composite for prompting the user for a name and type for a diagram. Results in a filename and diagram type.
  */
 public class CreateDiagramComposite<DiagramType> extends Composite {
 	public static final String WIDGET_ID_NAME = "org.osate.ge.createDiagram.name";

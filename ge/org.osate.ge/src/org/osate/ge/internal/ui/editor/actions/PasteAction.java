@@ -130,6 +130,8 @@ public class PasteAction extends ActionStackAction {
 			final ReferenceBuilderService refBuilder, final ProjectProvider projectProvider,
 			final ExtensionService extService, final NamingService namingService) {
 		// Determine the minimum coordinates from the elements whose positions will be copied
+		// The minimum coordinates is null if none of the copied diagram elements have an absolute position. This is reasonable because the minimum coordinates
+		// are only needed if a copied diagram element has an absolute position.
 		final Point minCoordinates = getCopiedDiagramElements().stream()
 				.map(CopiedDiagramElement::getAbsolutePosition).filter(Predicates.notNull())
 				.reduce((a, b) -> new Point(Math.min(a.x, b.x), Math.min(a.y, b.y))).orElse(null);
