@@ -1,5 +1,9 @@
 package org.osate.aadl2.errormodel.tests.errormodelscopeprovider
 
+import com.google.inject.Inject
+import com.itemis.xtext.testing.XtextTest
+import org.eclipse.emf.common.util.URI
+import org.eclipse.xtext.resource.IResourceServiceProvider
 import org.eclipse.xtext.testing.InjectWith
 import org.eclipse.xtext.testing.XtextRunner
 import org.junit.Test
@@ -7,8 +11,9 @@ import org.junit.runner.RunWith
 import org.osate.aadl2.AadlPackage
 import org.osate.aadl2.DefaultAnnexLibrary
 import org.osate.aadl2.DefaultAnnexSubclause
-import org.osate.aadl2.errormodel.tests.ErrorModelUiInjectorProvider
-import org.osate.testsupport.OsateTest
+import org.osate.aadl2.errormodel.tests.ErrorModelInjectorProvider
+import org.osate.testsupport.AssertHelper
+import org.osate.testsupport.TestHelper
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelLibrary
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelPackage
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelSubclause
@@ -16,8 +21,15 @@ import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelSubclause
 import static extension org.junit.Assert.assertEquals
 
 @RunWith(XtextRunner)
-@InjectWith(ErrorModelUiInjectorProvider)
-class EventInitiatorTest extends OsateTest {
+@InjectWith(ErrorModelInjectorProvider)
+class EventInitiatorTest extends XtextTest {
+
+	@Inject
+	TestHelper<AadlPackage> testHelper
+
+	extension AssertHelper assertHelper = IResourceServiceProvider.Registry.INSTANCE.getResourceServiceProvider(
+		URI.createFileURI("dummy.emv2")).get(AssertHelper)
+
 	/*
 	 * Tests scope_RepairEvent_eventInitiator(Classifier, EReference),
 	 * scope_RepairEvent_eventInitiator(ErrorBehaviorStateMachine, EReference),
@@ -26,9 +38,7 @@ class EventInitiatorTest extends OsateTest {
 	 */
 	@Test
 	def void testEventInitiatorReference() {
-		val lib1FileName = "lib1.aadl"
-		val subclause1FileName = "subclause1.aadl"
-		createFiles(lib1FileName -> '''
+		val lib1 = '''
 			package lib1
 			public
 				annex EMV2 {**
@@ -39,7 +49,8 @@ class EventInitiatorTest extends OsateTest {
 					end behavior;
 				**};
 			end lib1;
-		''', subclause1FileName -> '''
+		'''
+		val subclause1 = '''
 			package subclause1
 			public
 				abstract a1
@@ -142,11 +153,8 @@ class EventInitiatorTest extends OsateTest {
 				**};
 				end subp1;
 			end subclause1;
-		''')
-		ignoreSerializationDifferences
-		val lib1TestResult = testFile(lib1FileName)
-		val subclause1TestResult = testFile(subclause1FileName)
-		lib1TestResult.resource.contents.head as AadlPackage => [
+		'''
+		testHelper.parseString(lib1) => [
 			"lib1".assertEquals(name)
 			((publicSection.ownedAnnexLibraries.head as DefaultAnnexLibrary).parsedAnnexLibrary as ErrorModelLibrary).behaviors.head => [
 				"bvr1".assertEquals(name)
@@ -162,7 +170,7 @@ class EventInitiatorTest extends OsateTest {
 				]
 			]
 		]
-		subclause1TestResult.resource.contents.head as AadlPackage => [
+		testHelper.parseString(subclause1, lib1) => [
 			"subclause1".assertEquals(name)
 			publicSection.ownedClassifiers.get(3) => [
 				"a2.i".assertEquals(name)

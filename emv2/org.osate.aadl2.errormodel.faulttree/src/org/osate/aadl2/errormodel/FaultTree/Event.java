@@ -27,6 +27,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link org.osate.aadl2.errormodel.FaultTree.Event#getSubEventLogic <em>Sub Event Logic</em>}</li>
  *   <li>{@link org.osate.aadl2.errormodel.FaultTree.Event#getRelatedEMV2Object <em>Related EMV2 Object</em>}</li>
  *   <li>{@link org.osate.aadl2.errormodel.FaultTree.Event#isSharedEvent <em>Shared Event</em>}</li>
+ *   <li>{@link org.osate.aadl2.errormodel.FaultTree.Event#getScale <em>Scale</em>}</li>
  * </ul>
  *
  * @see org.osate.aadl2.errormodel.FaultTree.FaultTreePackage#getEvent()
@@ -356,6 +357,33 @@ public interface Event extends EObject {
 	 * @generated
 	 */
 	void setSharedEvent(boolean value);
+
+	/**
+	 * Returns the value of the '<em><b>Scale</b></em>' attribute.
+	 * The default value is <code>"1.0"</code>.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Scale</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Scale</em>' attribute.
+	 * @see #setScale(double)
+	 * @see org.osate.aadl2.errormodel.FaultTree.FaultTreePackage#getEvent_Scale()
+	 * @model default="1.0"
+	 * @generated
+	 */
+	double getScale();
+
+	/**
+	 * Sets the value of the '{@link org.osate.aadl2.errormodel.FaultTree.Event#getScale <em>Scale</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Scale</em>' attribute.
+	 * @see #getScale()
+	 * @generated
+	 */
+	void setScale(double value);
 
 	/**
 	 * Returns the value of the '<em><b>Related Error Type</b></em>' reference.
