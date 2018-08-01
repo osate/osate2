@@ -37,6 +37,7 @@ import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.transaction.RecordingCommand;
 import org.eclipse.emf.transaction.TransactionalEditingDomain;
 import org.eclipse.swt.widgets.Display;
+import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.IEditorReference;
 import org.eclipse.ui.PlatformUI;
@@ -281,6 +282,21 @@ public class DefaultAadlModificationService implements AadlModificationService {
 			// Modify the EMF resource directly
 			final XtextResource res = (XtextResource) bo.eResource();
 			originalTextContents = getText(res);
+
+			// Check if the AADL file is editable.
+			final IResource aadlResource = ResourcesPlugin.getWorkspace().getRoot()
+					.getFile(new Path(res.getURI().toPlatformString(true)));
+			if (aadlResource instanceof IFile) {
+				final Shell shell = PlatformUI.getWorkbench().getActiveWorkbenchWindow() == null ? null
+						: PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell();
+				final IFile aadlFile = (IFile) aadlResource;
+				final IStatus status = ResourcesPlugin.getWorkspace().validateEdit(new IFile[] { aadlFile },
+						shell);
+				if (!status.isOK() || aadlFile.isReadOnly()) {
+					final String extMessage = status.isOK() ? "" : status.getMessage();
+					throw new RuntimeException("One or more AADL files are not editable. " + extMessage);
+				}
+			}
 
 			modifySafelyResult = modifySafely(res, tag, bo, modification.getModifier(), true);
 
