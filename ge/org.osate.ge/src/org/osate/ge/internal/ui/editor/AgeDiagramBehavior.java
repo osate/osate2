@@ -83,6 +83,7 @@ import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.contexts.IContextService;
 import org.eclipse.ui.internal.EditorSite;
 import org.eclipse.ui.part.EditorPart;
+import org.eclipse.ui.statushandlers.StatusManager;
 import org.eclipse.ui.views.contentoutline.ContentOutline;
 import org.eclipse.ui.views.properties.IPropertySheetPage;
 import org.eclipse.ui.views.properties.tabbed.ITabbedPropertySheetPageContributor;
@@ -927,6 +928,13 @@ public class AgeDiagramBehavior extends DiagramBehavior implements GraphitiAgeDi
 					final IResource resource = ResourcesPlugin.getWorkspace().getRoot().findMember(new Path(getInput().getUri().toPlatformString(true)));
 					if(!(resource instanceof IFile)) {
 						throw new RuntimeException("Unable to retrieve file for resource.");
+					}
+
+					final IStatus status = ResourcesPlugin.getWorkspace().validateEdit(new IFile[] { (IFile) resource },
+							getParentPart().getSite().getShell());
+					if (!status.isOK()) {
+						StatusManager.getManager().handle(status, StatusManager.SHOW);
+						return Collections.emptySet();
 					}
 
 					// Save the file

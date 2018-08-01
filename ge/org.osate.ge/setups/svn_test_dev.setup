@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<setup:Project
+    xmi:version="2.0"
+    xmlns:xmi="http://www.omg.org/XMI"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:setup="http://www.eclipse.org/oomph/setup/1.0"
+    xmlns:setup.targlets="http://www.eclipse.org/oomph/setup/targlets/1.0"
+    xsi:schemaLocation="http://www.eclipse.org/oomph/setup/targlets/1.0 http://git.eclipse.org/c/oomph/org.eclipse.oomph.git/plain/setups/models/SetupTarglets.ecore"
+    name="svn_test_dev"
+    label="Subversive for GE Testing">
+  <stream name="develop"
+      label="develop">
+    <setupTask
+        xsi:type="setup.targlets:TargletTask">
+      <targlet
+          name="Subversive">
+        <requirement
+            name="org.tigris.subversion.clientadapter.javahl.feature.feature.group"/>
+        <requirement
+            name="org.tigris.subversion.subclipse.feature.group"/>
+        <repositoryList>
+          <repository
+              url="https://dl.bintray.com/subclipse/releases/subclipse/latest/"/>
+        </repositoryList>
+      </targlet>
+    </setupTask>
+  </stream>
+  <description>Adds Subversive</description>
+</setup:Project>
