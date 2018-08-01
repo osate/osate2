@@ -1,0 +1,8 @@
+// Copyright 2016 Carnegie Mellon University. See Notice.txt
+// Distribution Statement A: Approved for Public Release; Distribution is Unlimited.
+system requirements csunittest for ControlSystem::DCS [
+	requirement R1 : "DCS weight limit" [
+		val MaximumWeight = 0.6 kg
+		description this " shall be within weight of " MaximumWeight 
+	]
+]
