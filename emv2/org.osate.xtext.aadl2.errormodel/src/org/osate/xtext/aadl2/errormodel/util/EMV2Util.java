@@ -2090,7 +2090,7 @@ public class EMV2Util {
 	 * @return
 	 */
 	public static String getPrintName(ErrorPropagation ep) {
-		return getPropagationName(ep);
+		return ep.getDirection().getLiteral() + "-" + getPropagationName(ep);
 	}
 
 	public static String getPrintNameWithoutType(EMV2Path ep) {
