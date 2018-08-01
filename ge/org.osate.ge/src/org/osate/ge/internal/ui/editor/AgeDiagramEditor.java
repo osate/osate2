@@ -29,7 +29,6 @@ ARISING FROM, OUT OF OR IN CONNECTION WITH THE DATA OR THE USE OR OTHER DEALINGS
  *******************************************************************************/
 package org.osate.ge.internal.ui.editor;
 
-import java.util.Arrays;
 import java.util.Objects;
 
 import org.eclipse.emf.common.util.URI;
@@ -46,7 +45,7 @@ import org.osate.ge.internal.graphiti.diagram.GraphitiAgeDiagram;
 import org.osate.ge.internal.services.ActionExecutor;
 import org.osate.ge.internal.services.ActionService;
 
-import com.google.common.base.Predicates;
+import com.google.common.collect.ImmutableList;
 
 public class AgeDiagramEditor extends DiagramEditor implements GraphicalEditor {
 	public static final String DIAGRAM_EDITOR_ID = "org.osate.ge.editor.AgeDiagramEditor";
@@ -94,14 +93,13 @@ public class AgeDiagramEditor extends DiagramEditor implements GraphicalEditor {
 		((AgeDiagramBehavior)getDiagramBehavior()).forceDiagramUpdateOnNextModelChange();
 	}
 
+	/**
+	 * Selects the diagram elements after the next refresh.
+	 * @param diagramElements
+	 */
 	public void selectDiagramElements(final DiagramElement[] diagramElements) {
-		// Get pictogram elements for the specified diagram elements
-		final GraphitiAgeDiagram graphitiDiagram = getGraphitiAgeDiagram();
-		final PictogramElement[] pes = Arrays.stream(diagramElements).map(graphitiDiagram::getPictogramElement)
-				.filter(Predicates.notNull()).toArray(s -> new PictogramElement[s]);
-
-		// Select the pictogram elements
-		selectPictogramElements(pes);
+		((AgeDiagramBehavior) getDiagramBehavior())
+		.setDiagramElementsForSelection(ImmutableList.copyOf(diagramElements));
 	}
 
 	@Override
