@@ -930,11 +930,23 @@ public class AgeDiagramBehavior extends DiagramBehavior implements GraphitiAgeDi
 						throw new RuntimeException("Unable to retrieve file for resource.");
 					}
 
-					final IStatus status = ResourcesPlugin.getWorkspace().validateEdit(new IFile[] { (IFile) resource },
-							getParentPart().getSite().getShell());
-					if (!status.isOK()) {
-						StatusManager.getManager().handle(status, StatusManager.SHOW);
-						return Collections.emptySet();
+					final IFile diagramFile = (IFile) resource;
+
+					// Handle the diagram being read-only
+					if (diagramFile.isReadOnly()) {
+						final IStatus status = ResourcesPlugin.getWorkspace().validateEdit(new IFile[] { diagramFile },
+								getParentPart().getSite().getShell());
+						if (status.matches(IStatus.CANCEL)) {
+							return Collections.emptySet();
+						} else if (!status.isOK()) {
+							StatusManager.getManager().handle(status, StatusManager.SHOW);
+							return Collections.emptySet();
+						} else if (diagramFile.isReadOnly()) {
+							StatusManager.getManager().handle(
+									new Status(IStatus.ERROR, Activator.PLUGIN_ID, "Diagram is read-only"),
+									StatusManager.SHOW);
+							return Collections.emptySet();
+						}
 					}
 
 					// Save the file

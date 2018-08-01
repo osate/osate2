@@ -37,7 +37,6 @@ import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.transaction.RecordingCommand;
 import org.eclipse.emf.transaction.TransactionalEditingDomain;
 import org.eclipse.swt.widgets.Display;
-import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.IEditorReference;
 import org.eclipse.ui.PlatformUI;
@@ -287,14 +286,13 @@ public class DefaultAadlModificationService implements AadlModificationService {
 			final IResource aadlResource = ResourcesPlugin.getWorkspace().getRoot()
 					.getFile(new Path(res.getURI().toPlatformString(true)));
 			if (aadlResource instanceof IFile) {
-				final Shell shell = PlatformUI.getWorkbench().getActiveWorkbenchWindow() == null ? null
-						: PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell();
 				final IFile aadlFile = (IFile) aadlResource;
-				final IStatus status = ResourcesPlugin.getWorkspace().validateEdit(new IFile[] { aadlFile },
-						shell);
-				if (!status.isOK() || aadlFile.isReadOnly()) {
-					final String extMessage = status.isOK() ? "" : status.getMessage();
-					throw new RuntimeException("One or more AADL files are not editable. " + extMessage);
+				if (aadlFile.isReadOnly()) {
+					final IStatus status = ResourcesPlugin.getWorkspace().validateEdit(new IFile[] { aadlFile }, null);
+					if (!status.isOK() || aadlFile.isReadOnly()) {
+						final String extMessage = status.isOK() ? "" : status.getMessage();
+						throw new RuntimeException("One or more AADL files are not read-only. " + extMessage);
+					}
 				}
 			}
 

@@ -5,10 +5,12 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Objects;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
@@ -33,8 +35,6 @@ import org.eclipse.ltk.core.refactoring.Change;
 import org.eclipse.ltk.core.refactoring.RefactoringStatus;
 import org.eclipse.ltk.core.refactoring.participants.CheckConditionsContext;
 import org.eclipse.ltk.core.refactoring.participants.RenameParticipant;
-import org.eclipse.swt.widgets.Shell;
-import org.eclipse.ui.PlatformUI;
 import org.eclipse.xtext.resource.IFragmentProvider;
 import org.eclipse.xtext.resource.IReferenceDescription;
 import org.eclipse.xtext.resource.IResourceDescription;
@@ -173,30 +173,18 @@ public class AgeRenameParticipant extends RenameParticipant {
 	public RefactoringStatus checkConditions(IProgressMonitor pm, CheckConditionsContext context)
 			throws OperationCanceledException {
 
-		final Set<IFile> relatedDiagramFiles = originalReferences.getRelatedDiagramFiles();
-		final IFile[] relatedDiagramFilesArray = relatedDiagramFiles.toArray(new IFile[relatedDiagramFiles.size()]);
-		if (relatedDiagramFilesArray.length > 0) {
-			final Shell shell = PlatformUI.getWorkbench().getActiveWorkbenchWindow() == null ? null
-					: PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell();
-
-			final IStatus status = ResourcesPlugin.getWorkspace().validateEdit(relatedDiagramFilesArray, shell);
-			final String errorReason;
-			if (!status.isOK()) {
-				errorReason = (status.getMessage() == null || status.getMessage().length() == 0)
-						? "One or more related diagrams are not editable"
-								: status.getMessage();
-			} else if (relatedDiagramFiles.stream().anyMatch(file -> file.isReadOnly())) {
-				errorReason = "One ore more related diagrams are read-only.";
-			} else {
-				errorReason = null;
-			}
-
-			if (errorReason != null) {
+		final List<IFile> relatedReadOnlyDiagramFiles = originalReferences.getRelatedDiagramFiles().stream()
+				.filter(f -> f.isReadOnly()).collect(Collectors.toList());
+		final IFile[] relatedReadOnlyDiagramFilesArray = relatedReadOnlyDiagramFiles
+				.toArray(new IFile[relatedReadOnlyDiagramFiles.size()]);
+		if (relatedReadOnlyDiagramFilesArray.length > 0) {
+			final IStatus status = ResourcesPlugin.getWorkspace().validateEdit(relatedReadOnlyDiagramFilesArray, null);
+			if (!status.isOK() || relatedReadOnlyDiagramFiles.stream().anyMatch(file -> file.isReadOnly())) {
+				final String extMessage = status.isOK() ? "" : status.getMessage();
 				final RefactoringStatus refactoringStatus = new RefactoringStatus();
-				refactoringStatus
-				.addError(
-						errorReason
-						+ " Read-only diagrams will not be updated and broken linkages may result.");
+				refactoringStatus.addError(
+						"One or more related diagrams are read-only. Read-only diagrams will not be updated and broken linkages may result. "
+								+ extMessage);
 				return refactoringStatus;
 			}
 		}
