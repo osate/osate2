@@ -15,6 +15,7 @@ import java.util.stream.Collectors;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
+import org.eclipse.core.resources.IWorkspace;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
@@ -178,7 +179,8 @@ public class AgeRenameParticipant extends RenameParticipant {
 		final IFile[] relatedReadOnlyDiagramFilesArray = relatedReadOnlyDiagramFiles
 				.toArray(new IFile[relatedReadOnlyDiagramFiles.size()]);
 		if (relatedReadOnlyDiagramFilesArray.length > 0) {
-			final IStatus status = ResourcesPlugin.getWorkspace().validateEdit(relatedReadOnlyDiagramFilesArray, null);
+			final IStatus status = ResourcesPlugin.getWorkspace().validateEdit(relatedReadOnlyDiagramFilesArray,
+					IWorkspace.VALIDATE_PROMPT);
 			if (!status.isOK() || relatedReadOnlyDiagramFiles.stream().anyMatch(file -> file.isReadOnly())) {
 				final String extMessage = status.isOK() ? "" : status.getMessage();
 				final RefactoringStatus refactoringStatus = new RefactoringStatus();

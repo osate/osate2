@@ -17,6 +17,7 @@ import java.util.Set;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
+import org.eclipse.core.resources.IWorkspace;
 import org.eclipse.core.resources.IncrementalProjectBuilder;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
@@ -288,7 +289,8 @@ public class DefaultAadlModificationService implements AadlModificationService {
 			if (aadlResource instanceof IFile) {
 				final IFile aadlFile = (IFile) aadlResource;
 				if (aadlFile.isReadOnly()) {
-					final IStatus status = ResourcesPlugin.getWorkspace().validateEdit(new IFile[] { aadlFile }, null);
+					final IStatus status = ResourcesPlugin.getWorkspace().validateEdit(new IFile[] { aadlFile },
+							IWorkspace.VALIDATE_PROMPT);
 					if (!status.isOK() || aadlFile.isReadOnly()) {
 						final String extMessage = status.isOK() ? "" : status.getMessage();
 						throw new RuntimeException("One or more AADL files are not read-only. " + extMessage);
