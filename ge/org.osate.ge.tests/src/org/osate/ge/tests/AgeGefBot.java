@@ -287,28 +287,53 @@ public class AgeGefBot {
 		bot.waitUntil(org.eclipse.swtbot.swt.finder.waits.Conditions.shellCloses(shell));
 	}
 
-	public void createToolItem(final SWTBotGefEditor editor, final String toolItem, final Point p,
+	public void createToolItem(final SWTBotGefEditor editor, final String toolItem, final Point creationCoor,
 			final String... editPartPath) {
 		final SWTBotGefEditPart parent = findEditPart(editor, editPartPath);
 		editor.setFocus();
 		mouseSelectElement(editor, parent);
 		editor.activateTool(toolItem);
 		final Rectangle rect = ((GraphitiShapeEditPart) parent.part()).getFigure().getBounds();
-		// Value to hold scrollbar selections: Point(Vertical, Horizontal)
-		java.awt.Point scrollbarValues = new java.awt.Point();
-		getScrollBarValues(editor, scrollbarValues);
-		editor.click(rect.x + p.x - scrollbarValues.x, rect.y + p.y - scrollbarValues.y);
+		// Scrollbar selections: Point(Vertical, Horizontal)
+		final java.awt.Point scrollbarValues = getScrollBarValues(editor, creationCoor);
+		editor.click(rect.x + creationCoor.x - scrollbarValues.x, rect.y + creationCoor.y - scrollbarValues.y);
 		editor.activateDefaultTool();
 	}
 
-	private void getScrollBarValues(SWTBotGefEditor editor, java.awt.Point scrollbarValues) {
+	/**
+	 * Adjust scroll bars to show new element creation location in editor view port
+	 * @param editor gef editor
+	 * @param creationCoor new element location
+	 * @return current vertical and horizontal scroll bar values
+	 */
+	private java.awt.Point getScrollBarValues(final SWTBotGefEditor editor, final Point creationCoor) {
+		final java.awt.Point scrollbarValues = new java.awt.Point();
 		editor.setFocus();
 		final Display display = editor.getWidget().getDisplay();
 		display.syncExec(() -> {
 			final FigureCanvas canvas = (FigureCanvas) display.getFocusControl();
+
+			canvas.getHorizontalBar().setSelection(creationCoor.x);
+			canvas.getVerticalBar().setSelection(creationCoor.y);
+
+			final org.eclipse.swt.graphics.Rectangle horizontalBar = canvas.getHorizontalBar().getThumbBounds();
+			final org.eclipse.swt.graphics.Rectangle verticalBar = canvas.getVerticalBar().getThumbBounds();
+
+			Point point = display.map(canvas, null, horizontalBar.x,
+					horizontalBar.y);
+
+			// Click scroll bars for refresh of viewport
+			bot.setAutoDelay(700);
+			bot.mouseLeftClick(point.x, point.y);
+
+			point = display.map(canvas, null, verticalBar.x, verticalBar.y);
+			bot.mouseLeftClick(point.x, point.y);
+
 			scrollbarValues.x = canvas.getHorizontalBar().getSelection();
 			scrollbarValues.y = canvas.getVerticalBar().getSelection();
 		});
+
+		return scrollbarValues;
 	}
 
 	public void createToolItemAndRename(final AgeSWTBotGefEditor editor, final Class<?> clazz, final Point p,
@@ -904,7 +929,7 @@ public class AgeGefBot {
 		editor.setFocus();
 		editor.click(packageName);
 		resizeEditPart(editor, new Point(600, 600), packageName);
-		createToolItem(editor, ToolTypes.getToolItem(AbstractType.class), location, ElementNames.packageName);
+		createToolItem(editor, ToolTypes.getToolItem(AbstractType.class), location, packageName);
 		final SWTBotGefEditPart newEditPart = getNewElement(editor, AbstractTypeImpl.class);
 		renameElement(editor, newEditPart, ElementNames.abstractTypeName);
 		waitUntilElementExists(editor, ElementNames.abstractTypeName);
@@ -1031,5 +1056,18 @@ public class AgeGefBot {
 
 	public void keyRelease(final int key) {
 		bot.keyRelease(key);
+	}
+
+	/**
+	 * Find editor and save and close.
+	 * @param title of editor
+	 */
+	public void saveAndCloseEditor(final String title) {
+		for (final SWTBotEditor editor : bot.editors()) {
+			if (editor.getTitle().equalsIgnoreCase(title)) {
+				editor.saveAndClose();
+				return;
+			}
+		}
 	}
 }
