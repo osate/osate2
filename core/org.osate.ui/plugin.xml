@@ -236,8 +236,7 @@
             contentProvider="org.osate.ui.navigator.AadlContributionContentProvider"
             id="org.osate.ui.navigator.contributedAadl"
             labelProvider="org.osate.ui.navigator.AadlContributionLabelProvider"
-            name="Contributed AADL Packages and Property Sets"
-            priority="normal">
+            name="Contributed AADL Packages and Property Sets">
          <enablement>
             <instanceof
                   value="org.eclipse.core.resources.IProject">
