@@ -60,8 +60,12 @@ public class AadlContributionContentProvider extends WorkbenchContentProvider {
 	@Override
 	public Object[] getChildren(Object element) {
 		if (element instanceof IProject) {
-			Object[] result = { VirtualPluginResources.INSTANCE };
-			return result;
+			IProject project = (IProject) element;
+			if (project.isAccessible()) {
+				Object[] result = { VirtualPluginResources.INSTANCE };
+				return result;
+			}
+			return new Object[0];
 		} else if (element instanceof VirtualPluginResources) {
 			return PluginSupportUtil.getContributedAadl().stream().map(uri -> {
 				OptionalInt firstSignificantIndex = PluginSupportUtil.getFirstSignificantIndex(uri);
